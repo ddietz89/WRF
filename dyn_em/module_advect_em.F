@@ -6189,6 +6189,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 !      flux_upwind(q_im1, q_i, cr ) = 0.
 
     REAL     :: dx,dy,dz
+    REAL, DIMENSION(its-1:ite+2) :: dy_row
 
     LOGICAL, PARAMETER :: pd_limit = .true.
 
@@ -6276,10 +6277,23 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN ! use full stencil
 
+        ! Cache the unchanged REAL map distance once per horizontal point.
+
+        IF (kts <= ktf) THEN
+
+          DO i = i_start, i_end
+
+            dy_row(i) = 2./(msftx(i,j)+msftx(i,j-1))/rdy
+
+          END DO
+
+        END IF
+
         DO k=kts,ktf
+
         DO i = i_start, i_end
 
-          dy = 2./(msftx(i,j)+msftx(i,j-1))/rdy  ! ADT eqn 48 d/dy
+          dy = dy_row(i)
           mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i,j-1)+c2(k)))
           vel = rv(i,k,j)
           cr = vel*dt/dy/mu
@@ -6296,10 +6310,23 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       ELSE IF ( j == jds+1 ) THEN   ! 2nd order flux next to south boundary
 
+            ! Cache the unchanged REAL map distance once per horizontal point.
+
+            IF (kts <= ktf) THEN
+
+              DO i = i_start, i_end
+
+                dy_row(i) = 2./(msftx(i,j)+msftx(i,j-1))/rdy
+
+              END DO
+
+            END IF
+
             DO k=kts,ktf
+
             DO i = i_start, i_end
 
-              dy = 2./(msftx(i,j)+msftx(i,j-1))/rdy  ! ADT eqn 48 d/dy
+              dy = dy_row(i)
               mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i,j-1)+c2(k)))
               vel = rv(i,k,j)
               cr = vel*dt/dy/mu
@@ -6315,10 +6342,23 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       ELSE IF  ( j == jds+2 ) THEN  ! third of 4th order flux 2 in from south boundary
 
+            ! Cache the unchanged REAL map distance once per horizontal point.
+
+            IF (kts <= ktf) THEN
+
+              DO i = i_start, i_end
+
+                dy_row(i) = 2./(msftx(i,j)+msftx(i,j-1))/rdy
+
+              END DO
+
+            END IF
+
             DO k=kts,ktf
+
             DO i = i_start, i_end
 
-              dy = 2./(msftx(i,j)+msftx(i,j-1))/rdy  ! ADT eqn 48 d/dy
+              dy = dy_row(i)
               mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i,j-1)+c2(k)))
               vel = rv(i,k,j)
               cr = vel*dt/dy/mu
@@ -6333,10 +6373,23 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       ELSE IF ( j == jde-1 ) THEN  ! 2nd order flux next to north boundary
 
+            ! Cache the unchanged REAL map distance once per horizontal point.
+
+            IF (kts <= ktf) THEN
+
+              DO i = i_start, i_end
+
+                dy_row(i) = 2./(msftx(i,j)+msftx(i,j-1))/rdy
+
+              END DO
+
+            END IF
+
             DO k=kts,ktf
+
             DO i = i_start, i_end
 
-              dy = 2./(msftx(i,j)+msftx(i,j-1))/rdy  ! ADT eqn 48 d/dy
+              dy = dy_row(i)
               mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i,j-1)+c2(k)))
               vel = rv(i,k,j)
               cr = vel*dt/dy/mu
@@ -6351,10 +6404,23 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       ELSE IF ( j == jde-2 ) THEN  ! 3rd or 4th order flux 2 in from north boundary
 
+            ! Cache the unchanged REAL map distance once per horizontal point.
+
+            IF (kts <= ktf) THEN
+
+              DO i = i_start, i_end
+
+                dy_row(i) = 2./(msftx(i,j)+msftx(i,j-1))/rdy
+
+              END DO
+
+            END IF
+
             DO k=kts,ktf
+
             DO i = i_start, i_end
 
-              dy = 2./(msftx(i,j)+msftx(i,j-1))/rdy  ! ADT eqn 48 d/dy
+              dy = dy_row(i)
               mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i,j-1)+c2(k)))
               vel = rv(i,k,j)
               cr = vel*dt/dy/mu
@@ -6552,10 +6618,23 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN ! use full stencil
 
+        ! Cache the unchanged REAL map distance once per horizontal point.
+
+        IF (kts <= ktf) THEN
+
+          DO i = i_start, i_end
+
+            dy_row(i) = 2./(msftx(i,j)+msftx(i,j-1))/rdy
+
+          END DO
+
+        END IF
+
         DO k=kts,ktf
+
         DO i = i_start, i_end
 
-          dy = 2./(msftx(i,j)+msftx(i,j-1))/rdy  ! ADT eqn 48 d/dy
+          dy = dy_row(i)
           mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i,j-1)+c2(k)))
           vel = rv(i,k,j)
           cr = vel*dt/dy/mu
@@ -6572,10 +6651,23 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       ELSE IF ( j == jds+1 ) THEN   ! 2nd order flux next to south boundary
 
+            ! Cache the unchanged REAL map distance once per horizontal point.
+
+            IF (kts <= ktf) THEN
+
+              DO i = i_start, i_end
+
+                dy_row(i) = 2./(msftx(i,j)+msftx(i,j-1))/rdy
+
+              END DO
+
+            END IF
+
             DO k=kts,ktf
+
             DO i = i_start, i_end
 
-              dy = 2./(msftx(i,j)+msftx(i,j-1))/rdy  ! ADT eqn 48 d/dy
+              dy = dy_row(i)
               mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i,j-1)+c2(k)))
               vel = rv(i,k,j)
               cr = vel*dt/dy/mu
@@ -6591,10 +6683,23 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       ELSE IF  ( j == jds+2 ) THEN  ! third of 4th order flux 2 in from south boundary
 
+            ! Cache the unchanged REAL map distance once per horizontal point.
+
+            IF (kts <= ktf) THEN
+
+              DO i = i_start, i_end
+
+                dy_row(i) = 2./(msftx(i,j)+msftx(i,j-1))/rdy
+
+              END DO
+
+            END IF
+
             DO k=kts,ktf
+
             DO i = i_start, i_end
 
-              dy = 2./(msftx(i,j)+msftx(i,j-1))/rdy  ! ADT eqn 48 d/dy
+              dy = dy_row(i)
               mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i,j-1)+c2(k)))
               vel = rv(i,k,j)
               cr = vel*dt/dy/mu
@@ -6609,10 +6714,23 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       ELSE IF ( j == jde-1 ) THEN  ! 2nd order flux next to north boundary
 
+            ! Cache the unchanged REAL map distance once per horizontal point.
+
+            IF (kts <= ktf) THEN
+
+              DO i = i_start, i_end
+
+                dy_row(i) = 2./(msftx(i,j)+msftx(i,j-1))/rdy
+
+              END DO
+
+            END IF
+
             DO k=kts,ktf
+
             DO i = i_start, i_end
 
-              dy = 2./(msftx(i,j)+msftx(i,j-1))/rdy  ! ADT eqn 48 d/dy
+              dy = dy_row(i)
               mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i,j-1)+c2(k)))
               vel = rv(i,k,j)
               cr = vel*dt/dy/mu
@@ -6627,10 +6745,23 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       ELSE IF ( j == jde-2 ) THEN  ! 3rd or 4th order flux 2 in from north boundary
 
+            ! Cache the unchanged REAL map distance once per horizontal point.
+
+            IF (kts <= ktf) THEN
+
+              DO i = i_start, i_end
+
+                dy_row(i) = 2./(msftx(i,j)+msftx(i,j-1))/rdy
+
+              END DO
+
+            END IF
+
             DO k=kts,ktf
+
             DO i = i_start, i_end
 
-              dy = 2./(msftx(i,j)+msftx(i,j-1))/rdy  ! ADT eqn 48 d/dy
+              dy = dy_row(i)
               mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i,j-1)+c2(k)))
               vel = rv(i,k,j)
               cr = vel*dt/dy/mu
@@ -6826,10 +6957,23 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN ! use full stencil
 
+        ! Cache the unchanged REAL map distance once per horizontal point.
+
+        IF (kts <= ktf) THEN
+
+          DO i = i_start, i_end
+
+            dy_row(i) = 2./(msftx(i,j)+msftx(i,j-1))/rdy
+
+          END DO
+
+        END IF
+
         DO k=kts,ktf
+
         DO i = i_start, i_end
 
-          dy = 2./(msftx(i,j)+msftx(i,j-1))/rdy  ! ADT eqn 48 d/dy
+          dy = dy_row(i)
           mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i,j-1)+c2(k)))
           vel = rv(i,k,j)
           cr = vel*dt/dy/mu
@@ -6845,10 +6989,23 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       ELSE IF ( j == jds+1 ) THEN   ! 2nd order flux next to south boundary
 
+            ! Cache the unchanged REAL map distance once per horizontal point.
+
+            IF (kts <= ktf) THEN
+
+              DO i = i_start, i_end
+
+                dy_row(i) = 2./(msftx(i,j)+msftx(i,j-1))/rdy
+
+              END DO
+
+            END IF
+
             DO k=kts,ktf
+
             DO i = i_start, i_end
 
-              dy = 2./(msftx(i,j)+msftx(i,j-1))/rdy  ! ADT eqn 48 d/dy
+              dy = dy_row(i)
               mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i,j-1)+c2(k)))
               vel = rv(i,k,j)
               cr = vel*dt/dy/mu
@@ -6864,10 +7021,23 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       ELSE IF ( j == jde-1 ) THEN  ! 2nd order flux next to north boundary
 
+            ! Cache the unchanged REAL map distance once per horizontal point.
+
+            IF (kts <= ktf) THEN
+
+              DO i = i_start, i_end
+
+                dy_row(i) = 2./(msftx(i,j)+msftx(i,j-1))/rdy
+
+              END DO
+
+            END IF
+
             DO k=kts,ktf
+
             DO i = i_start, i_end
 
-              dy = 2./(msftx(i,j)+msftx(i,j-1))/rdy  ! ADT eqn 48 d/dy
+              dy = dy_row(i)
               mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i,j-1)+c2(k)))
               vel = rv(i,k,j)
               cr = vel*dt/dy/mu
@@ -7024,10 +7194,23 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN ! use full stencil
 
+        ! Cache the unchanged REAL map distance once per horizontal point.
+
+        IF (kts <= ktf) THEN
+
+          DO i = i_start, i_end
+
+            dy_row(i) = 2./(msftx(i,j)+msftx(i,j-1))/rdy
+
+          END DO
+
+        END IF
+
         DO k=kts,ktf
+
         DO i = i_start, i_end
 
-          dy = 2./(msftx(i,j)+msftx(i,j-1))/rdy  ! ADT eqn 48 d/dy
+          dy = dy_row(i)
           mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i,j-1)+c2(k)))
           vel = rv(i,k,j)
           cr = vel*dt/dy/mu
@@ -7043,10 +7226,23 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       ELSE IF ( j == jds+1 ) THEN   ! 2nd order flux next to south boundary
 
+            ! Cache the unchanged REAL map distance once per horizontal point.
+
+            IF (kts <= ktf) THEN
+
+              DO i = i_start, i_end
+
+                dy_row(i) = 2./(msftx(i,j)+msftx(i,j-1))/rdy
+
+              END DO
+
+            END IF
+
             DO k=kts,ktf
+
             DO i = i_start, i_end
 
-              dy = 2./(msftx(i,j)+msftx(i,j-1))/rdy  ! ADT eqn 48 d/dy
+              dy = dy_row(i)
               mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i,j-1)+c2(k)))
               vel = rv(i,k,j)
               cr = vel*dt/dy/mu
@@ -7062,10 +7258,23 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       ELSE IF ( j == jde-1 ) THEN  ! 2nd order flux next to north boundary
 
+            ! Cache the unchanged REAL map distance once per horizontal point.
+
+            IF (kts <= ktf) THEN
+
+              DO i = i_start, i_end
+
+                dy_row(i) = 2./(msftx(i,j)+msftx(i,j-1))/rdy
+
+              END DO
+
+            END IF
+
             DO k=kts,ktf
+
             DO i = i_start, i_end
 
-              dy = 2./(msftx(i,j)+msftx(i,j-1))/rdy  ! ADT eqn 48 d/dy
+              dy = dy_row(i)
               mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i,j-1)+c2(k)))
               vel = rv(i,k,j)
               cr = vel*dt/dy/mu
@@ -7209,9 +7418,15 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 !  compute fluxes, 2nd order, y flux
 
       DO j = j_start, j_end+1
+        ! Cache the unchanged REAL map distance once per horizontal point.
+        IF (kts <= ktf) THEN
+          DO i = i_start, i_end
+            dy_row(i) = 2./(msftx(i,j)+msftx(i,j-1))/rdy
+          END DO
+        END IF
         DO k=kts,ktf
         DO i = i_start, i_end
-           dy = 2./(msftx(i,j)+msftx(i,j-1))/rdy  ! ADT eqn 48 d/dy
+          dy = dy_row(i)
            mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i,j-1)+c2(k)))
            vel = rv(i,k,j)
            cr = vel*dt/dy/mu

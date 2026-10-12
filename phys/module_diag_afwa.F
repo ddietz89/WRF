@@ -289,6 +289,7 @@ CONTAINS
       CALL wrf_debug ( DEBUG_LEVEL, 'Option rh requires: QV' )
     END IF
     IF ( F_QV .AND. F_QC .AND. F_QI ) THEN
+      IF ( is_output_timestep ) THEN
       DO i=ims,ime
         DO k=kms,kme    
           DO j=jms,jme
@@ -296,6 +297,7 @@ CONTAINS
           ENDDO
         ENDDO
       ENDDO
+      END IF
     ELSE
       CALL wrf_debug ( DEBUG_LEVEL, 'Option rh_cld requires: QV, QC, QI' )
     END IF
