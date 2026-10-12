@@ -170,3 +170,23 @@ The tested source is eligible for an explicit opt-in working-fork tool, preservi
 ### Working-fork promotion: opt-in root-thread output compression
 
 The byte-exact qualified implementation is now retained in `tools/cpu-output/`, with a pinned reproducible build and explicit rank-only opt-in. The packaged build reproduced the full-grid tested shim SHA256 `1476aeed371784a03b37e9d4bb5b1aeb5007d9989ca9ad90771c5a9f7e3e3f79`. Both full-grid histories and all 50 ordered steps passed the original strict checker; all 64 rank/IB closures and balanced root ownership/affinity records passed. The GNU pure-MPI qualification scope and development timing limitations are documented in the tool README. Roll back by omitting the rank-only shim preload or setting `WRF_ROOT_SHIM_OPTOUT=1` before a run. Existing production files and defaults are unchanged.
+
+### Restart localization: complete original V-advection caller
+
+The protected full hour-one checkpoint passed. Both complete unchanged original `advect_v` replays reproduced all 32 output words exactly. Of 678 consumed inputs, only 31 `wwE` values at i=65, j=341, k=2:32 differed; the other 647 inputs were exact. This accounts for differing V tendencies without demonstrating an advection defect. The legacy diagnostic uses the earlier terrain-only epoch; a fresh terrain-plus-Thompson-ordinal parent continuity gate is being run before further causal model captures. No numerical exception or advection repair is adopted.
+
+### Current corrected-parent restart gate and post-threaded write profile
+
+The terrain-plus-ordinal parent also fails continuous-versus-restart equality: 96 history and 175 restart numerical fields differ, despite 180 equal post-checkpoint logged steps. Strict START_DATE differences remain retained; restart alarm55 also differs, with no exception. This is a current baseline continuity issue, not a performance-candidate acceptance waiver. Upstream WW investigation is moving to this source epoch.
+
+The current combined/NG/root-thread one-hour diagnostic passed both complete outputs and 185 ordered logged steps against the corrected control. All 16 runtime/trace logs and root432callback/release/restore counters passed. Inclusive NetCDF float writes took4.68449s, of which the nested provider took4.09779s; direct chunk writes took0.50665s. These nested measurements must not be added. Root output timers3.67723/4.21303s and model254.539s are concurrent development observations. Packing/gather/transpose remain unmeasured. A raw reporting name collision incorrectly printed3 prefix steps after the actual185-step equality assertion; a separate log-pinned metadata correction is retained without repeating scientific scans.
+
+### Twenty-four-hour holdout: complete hourly outputs exact
+
+The corrected source-plus-zlib-ng configuration passed all scientific fields, metadata and layout in all 25 hourly October outputs, and all 4,325 ordered logged adaptive-step records. This is hourly saved-state coverage, not every-step state, internal unprinted timestep bits or restart proof. The root-thread output adapter was excluded from this pair and retains its separately stated qualification. Concurrent parent/candidate times5416.75/5468.37s are development observations and establish no performance gain. Original-checker invocation `b4e3e42204c148a696690d9465e75f4a` closed successfully in481.97s.
+
+### Lossless compression strategy: promising standalone candidate
+
+Nine actual full-grid W chunks and smaller field samples passed independent stock decoding, raw-value equality, input immutability, default-stream oracles and error guards. RLE at the existing DEFLATE level 2 improved compression-only elapsed time by 2.47–2.57x on the four full-grid W chunks, with 0.44–0.73% smaller encoded streams. Five smaller field samples improved 1.88–2.31x but grew 1.28–7.78%. Packing and shuffle are excluded from these timings. FILTERED produced identical default streams without meaningful improvement and is rejected.
+
+The isolated RLE provider preserves the qualified packing, shuffle, release and shim bytes. Actual independent DeepSeek review found no supported defect in the concrete candidate. It remains unpromoted pending public-caller and model checks; no stage or forecast gain is inferred from the standalone result. The completed bounded kernel invocation is `44563ed8c6124d4dafc7214ef17f9cb2`; evidence is in `investigation/wrf-cpu/source-discovery/output-compression/strategy-kernel/` and `rle-provider/`.
