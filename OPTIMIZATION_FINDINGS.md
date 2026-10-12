@@ -1,0 +1,48 @@
+# WRF CPU optimization findings
+
+## Status
+
+Experimental campaign from private WRF 4.8.0 commit `06d4240ae989cc3e50af412bb472df3d9048783c`. Working branch: `perf/cpu-20261012`. Production remains unchanged. No performance source candidate is promoted or production-qualified yet.
+
+The current acceptance blocker is a pre-existing AFWA diagnostic defect. Exact evolved-output checks fail on `AFWA_LLTURB`, `AFWA_LLTURBLGT`, `AFWA_LLTURBMDT`, and `AFWA_LLTURBSVR`. This occurs both for a lossless codec candidate and for a source-identical debug build. All these failures remain failures; fields are not excluded and tolerances are not relaxed.
+
+## Measured opportunities
+
+| Experiment | Evidence | Qualification |
+|---|---|---|
+| Job-local zlib-ng | Five field kernels 1.45–1.82× faster. Actual NetCDF/HDF5 full-file utility copy: stock 105.34 s, candidate 63.09 s, one development pair. | Complete utility copies pass exact raw fields, masks, metadata and storage layout. Actual model evolved histories fail the four AFWA fields; restart snapshot checking continues. No forecast gain claimed. |
+| Advection y-row cache | 150 synthetic combinations exact; one captured first-rank QV caller exact under bounds checks and O2. Five actual captured caller pairs: median 3.37% less time, 3.12–3.77% range. | One actual state and synthetic edge coverage; Six-hour strict model comparison fails only the four LLT fields at hours 1, 2, 4, 5 and 6; all other fields/metadata/layout and all 1,085 observed steps pass. No exceptions or stage gain established. |
+| AFWA cloud-RH output guard | Original cloud-RH expressions retained, scratch calculated only when its sole consumer can execute. Synthetic non-output caller 11.256→5.436 ms; output cost unchanged. | Six-hour parent/candidate complete observed adaptive sequences match. Exact history failure only in four LLT fields at hours 2, 3, 5, 6. Source-identical original/debug comparison also fails LLT at hours 2 and 6. Unpromoted. |
+| Vertical-velocity coefficient reuse | Full original `advance_w` caller: 384 bounds/O2 cases exact for all three modified arrays and immutable inputs. Seven short synthetic timing pairs: median 7.017→6.740 ms. | Kernel screening only. Initial unsafe provider patch retained and rejected; one formal repair produced the tested per-row/per-column cache. No model gain claimed. |
+| Pure-MPI placement | Full-grid short 32-rank run 360.63 s, 78.73 GiB peak. A 64-rank pilot took 250.37 s but touched its 96 GiB cap. A 128-rank one-node pilot failed its memory cgroup. | Different resources and shared development load: no matched speedup claim. Strict NTASKS metadata mismatch preserved for different decompositions. |
+| Distributed execution | Actual two-node 16-rank common six-hour run completed, 1,085 observed timesteps and seven hourly outputs. Native `rc_mlx5/ibp1s0f0:1` confirmed for all rank logs; per-node cgroups and affinity verified. | Exact comparison FAIL only in the same four LLT diagnostics at hours 1, 2 and 4; all 1,085 observed steps match. Same total ranks/decomposition as one-node common control. Four-node model behavior still pending. |
+
+Kernel, utility, stage and pipeline percentages are separate and are never added.
+
+## Profiles and references
+
+The full-grid 1500×1140 development profile attributes substantial startup time to initial output (96.42 s). Selected-rank steady samples identify positive-definite scalar advection (10.55%), ordinary scalar advection (5.66%), scalar update (3.92%), AFWA driver (3.26%) and RH calculation (1.88%). These are sampled self costs, not additive inclusive call-tree fractions or a complete critical-path attribution.
+
+A subsequent 60-second, two-rank debug profile on the independently initialized 450×342 common case collected about 5,000 samples with zero loss. Its self costs include positive-definite advection 7.05%, vertical-velocity advancement 5.31%, ordinary advection 5.13%, Thompson microphysics 4.56%, AFWA driver 3.48% and RH calculation 1.38%. Domain and forecast phase differ; these percentages do not establish whole-stage gains.
+
+The common case preserves 2.5 km spacing, 33 vertical levels, CONUS physics, adaptive timesteps and hourly output. It has its own physically generated initial/boundary inputs, not slices of a larger domain. The original six-hour run completed in 1,412.40 s; distributed execution took 1,634.31 s under shared development load. These are not authoritative scaling measurements.
+
+The original protected scientific checker remains unchanged. An additive validator verifies layout, timestamps, inventory, restart files and first divergence; 18 mutation tests pass. Job-local per-variable read-cache management changes resource use, not the comparison predicate. Observed timestep equality uses the precision printed by WRF (two decimals); internal timestep-bit equality is unobserved.
+
+## Correctness findings
+
+`phys/module_diag_afwa.F` passes `terrain_dx` and `terrain_dy` to `LLT_MountainWave` without declarations, assignments or supplied arguments. A scan of 743 source files finds no other binding. The helper directly uses those values, and its result feeds precisely the four failed diagnostics. Controlled unchanged-helper tests demonstrate large changes in this four-field family when only explicit synthetic terrain coefficients change. This supports the defect diagnosis; it is not a capture proving the exact live values that caused every observed mismatch.
+
+A separate cloud-ceiling typo uses undefined `ceil_min` instead of the declared 125 m `min_ceil`. A separate correction passes five boundary tests under bounds checks and O2. It is not included in any performance build.
+
+A terrain-gradient correctness prototype has been built and is undergoing a separate two-hour stock/codec model comparison with source-backed physical grid metrics, explicit inputs, boundary conventions, synthetic tests and independent scientific review. Existing baselines will remain immutable. Any corrected scientific baseline must explicitly document changed diagnostics and its acceptance authority; a performance patch will not silently repair or normalize them.
+
+## Next gates
+
+Finish all current exact comparisons and the original-source repeatability check. Complete the separate correctness proposal before any decision about a corrected reference. Preserve useful exact kernels and retire insignificant candidates when measured caller/stage evidence warrants it.
+
+The independent reduced-domain October 49-time fixture is prepared and frozen with 48 boundary intervals covering all 144 hours; self-readback is preparation evidence, not independent trajectory qualification. Full-grid initialization readback is finishing. Then advance viable candidates through strict source comparisons, meaningful continuous/restart tests, longer holdout trajectories, feasible four-node execution and the full 144-hour output contract. Runtime admission uses measured memory, not an assumption that all cores fit.
+
+Authoritative timing needs matched layouts/budgets and an uncontested campaign I/O/fabric window. All current concurrent model timings are screening observations. No full-duration or production qualification is claimed.
+
+Evidence and rejected experiments are retained under `/pool/wrf-experiment/wrf-cpu` and the local `investigation/wrf-cpu/` directory. Actual DeepSeek author/reviewer/repair calls, payload identities, responses and usage are retained separately; review text does not substitute for tests. Restoring the original source executable and removing job-local codec preload is the rollback for these unpromoted experiments.
