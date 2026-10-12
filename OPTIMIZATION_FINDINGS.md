@@ -141,3 +141,32 @@ The existing precompressed NetCDF owner plus four compression workers now passes
 Actual C and Fortran probes load the pinned owner, HDF5, stock zlib, NetCDF Fortran and qualified MPI artifacts, with supplied FUNNELED thread support. All computation stays within four allocated physical cores; only the owner thread calls NetCDF/HDF5. The closed fixture uses 2,299,412,480 bytes peak (about 2.14 GiB) within its 4 GiB cap. An initial loader-precedence failure stopped before scientific writes and is retained.
 
 This qualifies the public owner/provider caller, not WRF integration or forecast performance. The approximately 3.52x kernel gain remains a separate result. Next is a bounded root-writer adapter and actual model check with three additional dedicated worker cores; no compression performance source or runtime default is promoted yet. Evidence: `investigation/wrf-cpu/source-discovery/output-compression/owner-fixture/results-r2/`.
+
+## Actual one-hour WRF root-thread compression qualification
+
+The corrected stock WRF executable with the root-thread public writer adapter passes both hourly products against the retained stock prefix: every scientific field, metadata item and layout is exact, and all 185 ordered logged timestep records match. Root completes 432 supplied batches, releases and checked affinity restores across 522 scopes. Pending storage, errors and foreign-thread calls are zero; the other fifteen ranks have zero activation. Model and checker services close successfully.
+
+The sixteen MPI ranks retain their original singleton physical bindings, with three additional dedicated compression cores in a nineteen-core, 36 GiB cgroup. Only the pure-byte callback widens root affinity; restoration completes before HDF/MPI. Actual loader maps prove the pinned owner, NetCDF Fortran, HDF5, MPI and stock zlib. The explicit MPI FUNNELED override is verified at runtime.
+
+Model wall is 258.300 s and process CPU 4,124.343 s. Initial/final output timers are 4.67905/5.26109 s. Retained instrumented stock timers were 6.856/7.497 s, but instrumentation, background load and allocation differ: this indicates output headroom without establishing a matched forecast gain. Kernel, output and forecast percentages are not combined. Next is one same-layout 64-rank full-grid comparison of combined source, zlib-ng and the adapter against retained combined outputs. No compression default or production deployment is promoted.
+
+The tiny interposition gate also preserves original errno, return status and floating-point state. Failed transport setup, an errno bookkeeping defect and a checker-wrapper API failure remain recorded; narrow repairs and a separate protected reader qualified the completed files. Evidence: `investigation/wrf-cpu/source-discovery/output-compression/model-shim/`.
+
+The restart producer trace separately passes full checkpoint integrity and identifies its earliest difference after explicit V advection (28 tendency levels), followed by 28 after pressure and27 after Coriolis/curvature. Recorded dt, metrics, config, bounds and clocks are exact. This is localization in the old terrain-only diagnostic epoch, not an established advection defect or restart repair. A complete consumed-input capture/original-callee replay is next.
+
+## Combined full-grid root-thread output qualification
+
+Combined row caching/RH guarding, job-local zlib-ng and the root-thread adapter pass the complete full-grid64-rank comparison: both 1500×1140 histories at06:00/06:15 are exact in every field, metadata item and output-layout check, and all50 ordered logged timestep records match the retained combined/zlib-ng run. All64 actual rank/library/InfiniBand identities and closed logs pass. Root supplies/releases/restores432 batches with zero pending/errors/foreign/declines; all63 nonroots have zero activation. All model services and the protected checker close successfully without memory events.
+
+| Output write | Retained combined/zlib-ng seconds | Combined/zlib-ng plus root threads seconds |
+|---|---:|---:|
+| Initial history |74.161|61.779|
+| Final history |86.421|68.022|
+
+These shared-load observations indicate output headroom; they are not matched speedup estimates. Candidate whole-model MPI wall is423.588s versus retained442.914s under different background load. The adapter adds three dedicated root compression cores (67 total physical cores versus64); process and stage timings must state that allocation. Root peak is28.62GiB, remotes about24.47GiB, within48GiB/node. The checker takes274.96s/3.85GiB peak.
+
+The tested source is eligible for an explicit opt-in working-fork tool, preserving the ordinary writer when disabled or ineligible. This does not enable a production default or qualify arbitrary worlds, compilers, decomposition or restart continuity. Evidence: `investigation/wrf-cpu/science-discovery/fullgrid64-rootshim/actual-result.json`. The ongoing24-hour source/codec comparison has a separate scope and does not include this adapter.
+
+### Working-fork promotion: opt-in root-thread output compression
+
+The byte-exact qualified implementation is now retained in `tools/cpu-output/`, with a pinned reproducible build and explicit rank-only opt-in. The packaged build reproduced the full-grid tested shim SHA256 `1476aeed371784a03b37e9d4bb5b1aeb5007d9989ca9ad90771c5a9f7e3e3f79`. Both full-grid histories and all 50 ordered steps passed the original strict checker; all 64 rank/IB closures and balanced root ownership/affinity records passed. The GNU pure-MPI qualification scope and development timing limitations are documented in the tool README. Roll back by omitting the rank-only shim preload or setting `WRF_ROOT_SHIM_OPTOUT=1` before a run. Existing production files and defaults are unchanged.
