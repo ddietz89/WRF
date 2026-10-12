@@ -2,7 +2,7 @@
 
 ## Status
 
-Experimental campaign from private WRF 4.8.0 commit `06d4240ae989cc3e50af412bb472df3d9048783c`. Working branch: `perf/cpu-20261012`. Production remains unchanged. No performance source candidate is promoted or production-qualified yet.
+Experimental campaign from private WRF 4.8.0 commit `06d4240ae989cc3e50af412bb472df3d9048783c`. Working branch: `perf/cpu-20261012`. Production remains unchanged. No performance source candidate is promoted or production-qualified yet. The owner approved a separate AFWA terrain-gradient correctness baseline on 12 October; its short qualification scope is recorded below.
 
 The current acceptance blocker is a pre-existing AFWA diagnostic defect. Exact evolved-output checks fail on `AFWA_LLTURB`, `AFWA_LLTURBLGT`, `AFWA_LLTURBMDT`, and `AFWA_LLTURBSVR`. This occurs both for a lossless codec candidate and for a source-identical debug build. All these failures remain failures; fields are not excluded and tolerances are not relaxed.
 
@@ -35,7 +35,11 @@ The original protected scientific checker remains unchanged. An additive validat
 
 A separate cloud-ceiling typo uses undefined `ceil_min` instead of the declared 125 m `min_ceil`. A separate correction passes five boundary tests under bounds checks and O2. It is not included in any performance build.
 
-A terrain-gradient correctness prototype has been built and is undergoing a separate two-hour stock/codec model comparison with source-backed physical grid metrics, explicit inputs, boundary conventions, synthetic tests and independent scientific review. Existing baselines will remain immutable. Any corrected scientific baseline must explicitly document changed diagnostics and its acceptance authority; a performance patch will not silently repair or normalize them.
+The owner-approved separate terrain correction defines physical grid-aligned slopes using `MAPFAC_MX/MY` and `rdx/rdy`, centered interior differences, and one-sided physical mass-grid boundaries. The original has no defined stencil to preserve. Flat/linear, variable-metric, quadratic boundary and decomposition-window tests pass O0 bounds checks and strict O2. The complete AFWA module builds under the retained strict flags. Three actual independent DeepSeek reviews and their limitations are retained.
+
+The corrected executable (`5729ec328e3df27909a0660534ddd780cba24bd58f3d1be900067e0af9cfab06`) passes stock-versus-zlib-ng all-field/metadata/layout exact comparisons at hours 0, 1 and 2; all 365 observed adaptive steps match. Legacy-versus-corrected hour 0 passes, hours 1 and 2 fail only the four LLT diagnostics; those strict failures remain preserved. This establishes a separate reference for further experiments, not full forecast qualification or a performance gain. Scope is nonperiodic CONUS Lambert with at least two physical cells per axis. Allocation-edge derivatives, polar/periodic cases and the one-layer LLT hazard remain unqualified. The separate ceiling typo is excluded.
+
+The source correction is committed separately from performance candidates. Legacy source commit `06d4240ae989cc3e50af412bb472df3d9048783c` and all original binaries/receipts stay immutable. Roll back the correction by reverting its isolated commit. Longer, restart, holdout and full-duration qualification remain pending.
 
 ## Next gates
 

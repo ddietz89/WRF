@@ -45,6 +45,7 @@ CONTAINS
     INTEGER, INTENT(IN) :: ids, ide, jds, jde, kds, kde,        &
                            ims, ime, jms, jme, kms, kme,        &
                            ips, ipe, jps, jpe, kps, kpe
+    REAL, DIMENSION(ims:ime,jms:jme) :: afwa_terrain_dx, afwa_terrain_dy
     INTEGER             :: k_start , k_end, its, ite, jts, jte
 
     REAL, DIMENSION( ims:ime, kms:kme, jms:jme , num_moist),    &
@@ -693,7 +694,11 @@ CONTAINS
                                   10700. /)
         grid % afwa_tlyrtop = (/ 3000., 4600., 6100., 7600., 9100., 10700.,  &
                                   12700. /)
+        CALL afwa_terrain_gradients(grid%ht, grid%msftx, grid%msfty, grid%rdx, grid%rdy, &
+                                   afwa_terrain_dx, afwa_terrain_dy, &
+                                   ids, ide, jds, jde, ims, ime, jms, jme)
         call turbulence_diagnostics ( u_phy                     &
+                             , afwa_terrain_dx, afwa_terrain_dy  &
                              , v_phy                            &
                              , grid % t_phy                     &
                              , ptot                             &
@@ -2367,7 +2372,41 @@ CONTAINS
 
 
 
+  SUBROUTINE afwa_terrain_gradients(ht, msftx, msfty, rdx, rdy, terrain_dx, terrain_dy, &
+                                    ids, ide, jds, jde, ims, ime, jms, jme)
+    IMPLICIT NONE
+    INTEGER, INTENT(IN) :: ids, ide, jds, jde, ims, ime, jms, jme
+    REAL, INTENT(IN) :: rdx, rdy
+    REAL, INTENT(IN) :: ht(ims:ime,jms:jme), msftx(ims:ime,jms:jme), msfty(ims:ime,jms:jme)
+    REAL, INTENT(OUT) :: terrain_dx(ims:ime,jms:jme), terrain_dy(ims:ime,jms:jme)
+    INTEGER :: i, j, il, ir, jl, jr
+    ! Grid-aligned physical derivatives; u_phy/v_phy use this same grid basis.
+    ! Static terrain halos already exist. Physical mass-grid edges are one-sided.
+    ! Allocation-edge halos use the nearest available neighbor and are not qualified science output.
+    DO j=jms,jme
+      jl=MAX(jms,j-1); jr=MIN(jme,j+1)
+      IF (j==jds) jl=j
+      IF (j==jde-1) jr=j
+      DO i=ims,ime
+        il=MAX(ims,i-1); ir=MIN(ime,i+1)
+        IF (i==ids) il=i
+        IF (i==ide-1) ir=i
+        IF (ir>il) THEN
+          terrain_dx(i,j)=(ht(ir,j)-ht(il,j))*rdx*msftx(i,j)/REAL(ir-il)
+        ELSE
+          terrain_dx(i,j)=0.
+        END IF
+        IF (jr>jl) THEN
+          terrain_dy(i,j)=(ht(i,jr)-ht(i,jl))*rdy*msfty(i,j)/REAL(jr-jl)
+        ELSE
+          terrain_dy(i,j)=0.
+        END IF
+      END DO
+    END DO
+  END SUBROUTINE afwa_terrain_gradients
+
   SUBROUTINE turbulence_diagnostics ( u_phy                     &
+                             , terrain_dx, terrain_dy            &
                              , v_phy                            &
                              , t_phy                            &
                              , p                                &
@@ -2390,6 +2429,8 @@ CONTAINS
     INTEGER, INTENT(IN) :: ids, ide, jds, jde, kds, kde,        &
                            ims, ime, jms, jme, kms, kme,        &
                            ips, ipe, jps, jpe, kps, kpe
+
+    REAL, INTENT(IN) :: terrain_dx(ims:ime,jms:jme), terrain_dy(ims:ime,jms:jme)
 
     INTEGER, INTENT(IN) :: nlyrs
 
@@ -2570,7 +2611,7 @@ CONTAINS
         !  --------------------------------------------------------------  !
         !~ Step 3: Compute the mountain wave term                         ~!
         !  --------------------------------------------------------------  !
-        mtn_wave = LLT_MountainWave ( nlayer, terrain_dx, terrain_dy &
+        mtn_wave = LLT_MountainWave ( nlayer, terrain_dx(i,j), terrain_dy(i,j) &
                                 , this_u(bot:top), this_v(bot:top)   &
                                 , this_tK(bot:top), this_zagl(bot:top) )
 
