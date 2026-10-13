@@ -6634,6 +6634,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
         DO k=kts,ktf
 
+!$omp simd private(dy,mu,vel,cr)
         DO i = i_start, i_end
 
           dy = dy_row(i)
@@ -6817,6 +6818,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 !  5th order flux
 
         DO k=kts,ktf
+!$omp simd private(dx,mu,vel,cr)
         DO i = i_start_f, i_end_f
 
           dx = 2./(msfty(i,j)+msfty(i-1,j))/rdx  ! ADT eqn 48 d/dx
@@ -7822,6 +7824,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
          DO k=kts+2,ktf-1
 !DEC$ vector always
+!$omp simd private(dz,mu,vel,cr)
          DO i = i_start, i_end
 
            dz = 2./(rdzw(k)+rdzw(k-1))
