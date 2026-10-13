@@ -815,6 +815,7 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
      ENDDO
    ENDIF
    DO k = k_start, k_end
+!$omp simd
    DO i = i_start_up, i_end_up
 !     Comments on map scale factors:   
 !     x pressure gradient: ADT eqn 44, penultimate term on RHS
@@ -893,6 +894,7 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
          ENDDO
        ENDIF
          DO k = k_start, k_end
+!$omp simd
   DO i = i_start, i_end
 !      Comments on map scale factors:
 !      y pressure gradient: ADT eqn 45, penultimate term on RHS
