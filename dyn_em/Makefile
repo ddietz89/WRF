@@ -68,6 +68,16 @@ module_advect_em.o: private override FCFLAGS += -fopenmp-simd
 endif
 endif
 
+# Experimental architecture opt-in for advection ONLY; default stays generic.
+# GNU13.3/native CPU+OS and exact caller/application qualification required.
+# WRF_ADVECTION_ZEN2=0 keeps the qualified generic ISA; no link/thread flags.
+WRF_ADVECTION_ZEN2 ?= 0
+ifeq ($(WRF_ADVECTION_ZEN2),1)
+ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+module_advect_em.o: private override FCFLAGS += -march=znver2 -mno-fma
+endif
+endif
+
 # Enable GNU diffusion SIMD without creating an OpenMP thread team.
 # Use make WRF_DIFFUSION_SIMD=0 to preserve the ordinary compiler path.
 WRF_DIFFUSION_SIMD ?= 1
