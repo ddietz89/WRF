@@ -7945,6 +7945,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 #else
 !DIR$ vector always
 #endif
+!$omp simd
    DO i=i_start, i_end
 
      ph_low(i,k,j) = ((c1(k)*mub(i,j)+c2(k))+(c1(k)*mu_old(i,j)))*field_old(i,k,j) &
