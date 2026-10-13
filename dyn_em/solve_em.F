@@ -4884,6 +4884,18 @@ BENCH_END(bc_2d_tim)
    END DO tile_bc_loop_3
    !$OMP END PARALLEL DO
 
+! Specified mass values have changed since set_phys_bc_dry_2.
+! Refresh derived mass ghosts after every tile's final boundary writer.
+! Reuse the existing physical-boundary copy rule used at restart startup.
+   DO ij = 1 , grid%num_tiles
+      CALL set_physical_bc2d( grid%mu_2, 't', config_flags, &
+                             ids, ide, jds, jde,          &
+                             ims, ime, jms, jme,          &
+                             ips, ipe, jps, jpe,          &
+                             grid%i_start(ij), grid%i_end(ij), &
+                             grid%j_start(ij), grid%j_end(ij) )
+   END DO
+
    ENDIF
 
 ! reset surface w for consistency

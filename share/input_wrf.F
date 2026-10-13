@@ -34,6 +34,7 @@
     INTEGER       icurrent_date(24)
     INTEGER       i,j,k
     INTEGER       icnt
+    INTEGER       alarm_restore_rc
     INTEGER       ndim
     INTEGER       ilen
     INTEGER , DIMENSION(3) :: domain_start , domain_end
@@ -269,7 +270,37 @@
                 CALL WRFU_TimeIntervalSet(interval,S=seconds)
                 ringTime = curtime + interval
                 CALL WRFU_AlarmSet( grid%alarms(i), RingInterval=interval2, RingTime=ringTime )
-
+#if !defined(MOVE_NESTS) && !defined(ESMFIO)
+              ELSE IF ( ierr .EQ. 0 .AND. seconds .LT. 0 .AND. &
+                        i .EQ. COMPUTE_VORTEX_CENTER_ALARM .AND. iring .EQ. 0 ) THEN
+                ! Qualified native ESMF: preserve the disabled zero-interval
+                ! alarm's original origin rather than resetting it on restart.
+                IF ( ASSOCIATED( grid%alarms(i)%alarmint ) ) THEN
+                  IF ( .NOT. grid%alarms(i)%alarmint%Enabled .AND. &
+                       .NOT. grid%alarms(i)%alarmint%Ringing ) THEN
+                    CALL WRFU_AlarmGet( grid%alarms(i), RingInterval=interval2, rc=alarm_restore_rc )
+                    IF ( alarm_restore_rc .NE. WRFU_SUCCESS ) &
+                      CALL wrf_error_fatal( 'input_wrf: disabled alarm interval get failed' )
+                    CALL WRFU_TimeIntervalSet( interval, S=0, rc=alarm_restore_rc )
+                    IF ( alarm_restore_rc .NE. WRFU_SUCCESS ) &
+                      CALL wrf_error_fatal( 'input_wrf: zero alarm interval construction failed' )
+                    IF ( interval2 .EQ. interval ) THEN
+                      CALL WRFU_TimeIntervalSet( interval, S=seconds, rc=alarm_restore_rc )
+                      IF ( alarm_restore_rc .NE. WRFU_SUCCESS ) &
+                        CALL wrf_error_fatal( 'input_wrf: saved alarm interval construction failed' )
+                      ringTime = curtime + interval - interval2
+                      CALL WRFU_AlarmSet( grid%alarms(i), RingInterval=interval2, &
+                                          PrevRingTime=ringTime, rc=alarm_restore_rc )
+                      IF ( alarm_restore_rc .NE. WRFU_SUCCESS ) &
+                        CALL wrf_error_fatal( 'input_wrf: disabled alarm origin restore failed' )
+                      ! Native AlarmSet unconditionally enables the alarm.
+                      CALL WRFU_AlarmDisable( grid%alarms(i), rc=alarm_restore_rc )
+                      IF ( alarm_restore_rc .NE. WRFU_SUCCESS ) &
+                        CALL wrf_error_fatal( 'input_wrf: restored alarm disable failed' )
+                    ENDIF
+                  ENDIF
+                ENDIF
+#endif
               ENDIF
 
               IF ( iring .EQ. 1 ) THEN
