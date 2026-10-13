@@ -1252,6 +1252,8 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
 !  Stack based 3d data, tile size.
       REAL, DIMENSION( its:ite ) :: mut_inv, msft_inv
       REAL, DIMENSION( its:ite, kts:kte ) :: rhs, wdwn
+      REAL, DIMENSION( its:ite ) :: coefficient_prev
+      REAL :: coefficient_cur
       INTEGER :: i,j,k, i_start, i_end, j_start, j_end, k_start, k_end
       REAL, DIMENSION (kts:kte) :: dampwt
       real :: htop,hbot,hdepth,hk
@@ -1399,22 +1401,29 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
 ! (left a blank line where the other two k/i-loops were)
 !
 !   above surface, begin by adding delta t * previous (coupled) w tendency
+    IF ( k_end .GE. 2 ) THEN
+      DO i=i_start, i_end
+        coefficient_prev(i)=c2a(i,1,j)*rdnw(1)/(c1h(1)*MUT(i,j)+c2h(1))
+      ENDDO
+    ENDIF
     DO k=2,k_end
       DO i=i_start, i_end
+        coefficient_cur=c2a(i,k  ,j)*rdnw(k  )/(c1h(k)*MUT(i,j)+c2h(k))
         
         w(i,k,j)=w(i,k,j)+dts*rw_tend(i,k,j)                       &
                  + msft_inv(i)*cqw(i,k,j)*(                        &
             +.5*dts*g*rdn(k)*                                      &
-             (c2a(i,k  ,j)*rdnw(k  )/(c1h(k)*MUT(i,j)+c2h(k))                         &
+             (coefficient_cur                         &
         *((1.+epssm)*(rhs(i,k+1  )-rhs(i,k    ))                   &
          +(1.-epssm)*(ph(i,k+1,j)-ph(i,k  ,j)))                    &
-             -c2a(i,k-1,j)*rdnw(k-1)/(c1h(k-1)*MUT(i,j)+c2h(k-1))                       &
+             -coefficient_prev(i)                       &
         *((1.+epssm)*(rhs(i,k    )-rhs(i,k-1  ))                   &
          +(1.-epssm)*(ph(i,k  ,j)-ph(i,k-1,j)))))                  &
                 +dts*g*msft_inv(i)*(rdn(k)*                        &
              (c2a(i,k  ,j)*alt(i,k  ,j)*t_2ave(i,k  ,j)            &
              -c2a(i,k-1,j)*alt(i,k-1,j)*t_2ave(i,k-1,j))           &
               - (c1f(k)*muave(i,j)))
+        coefficient_prev(i)=coefficient_cur
       ENDDO
     ENDDO
     K=k_end+1
