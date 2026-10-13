@@ -437,7 +437,7 @@ include ../configure.wrf
 non_nmm : $(MODULES) $(FIRE_MODULES) $(OBJS) $(DIAGNOSTIC_MODULES_EM) $(NOAHMP_MODULES)
 
 submodules :
-	@if [ \( ! -f run/NoahmpTable.TBL \) -o \
+	@if [ \( ! -f ../run/NoahmpTable.TBL \) -o \
 	      \( ! -f noahmp/drivers/wrf/NoahmpWRFmainMod.F90 \) -o \( ! -f noahmp/drivers/wrf/NoahmpWRFinitMod.F90 \) -o \
               \( ! -f noahmp/drivers/wrf/NoahmpIOVarInitMod.F90 \) -o \( ! -f noahmp/drivers/wrf/NoahmpIOVarType.F90 \) -o \
 	      \( ! -f noahmp/drivers/wrf/GroundWaterMmfMod.F90 \) -o \( ! -f noahmp/drivers/wrf/NoahmpUrbanDriverMainMod.F90 \) -o \
@@ -451,7 +451,7 @@ submodules :
 	else \
 		echo No action required for NoahMP submodule ; \
 	fi
-	@if [ \( ! -f phys/physics_mmm/README.md \) ] ; then \
+	@if [ \( ! -f physics_mmm/README.md \) ] ; then \
 		echo Pulling in MMM-physics submodule ; \
 		( cd .. ; git submodule update --init --recursive ) ; \
 	else \
