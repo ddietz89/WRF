@@ -4310,6 +4310,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
       DO j = j_start, j_end
 
          DO k=kts+2,ktf-1
+!$omp simd private(vel)
          DO i = i_start, i_end
            vel=rom(i,k,j)
            vflux(i,k) = vel*flux3(                      &
