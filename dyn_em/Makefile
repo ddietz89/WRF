@@ -59,6 +59,15 @@ $(LIBTARGET) :  $(MODULES) $(OBJS)
 
 include ../configure.wrf
 
+# Enable only GNU SIMD directives in this translation unit; no OpenMP threads.
+# Use make WRF_ADVECTION_SIMD=0 to preserve the ordinary compiler path.
+WRF_ADVECTION_SIMD ?= 1
+ifeq ($(WRF_ADVECTION_SIMD),1)
+ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+module_advect_em.o: private override FCFLAGS += -fopenmp-simd
+endif
+endif
+
 cio.o :
 	$(CC) -c $(CFLAGS) cio.c
 

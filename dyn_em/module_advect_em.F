@@ -3454,6 +3454,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN ! use full stencil
 
         DO k=kts,ktf
+        !$omp simd private(vel)
         DO i = i_start, i_end
           vel = rv(i,k,j)
           fqy( i, k, jp1 ) = vel*flux5(                                &
@@ -3578,6 +3579,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 !  5th or 6th order flux
 
         DO k=kts,ktf
+        !$omp simd private(vel)
         DO i = i_start_f, i_end_f
           vel = ru(i,k,j)
           fqx( i,k ) = vel*flux5( field(i-3,k,j), field(i-2,k,j),  &
