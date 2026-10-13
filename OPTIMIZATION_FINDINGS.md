@@ -678,3 +678,14 @@ A further guard skipping initial fill only for fully covered chunks passed the i
 The preliminary hpc00 system-compiler C byte oracle passed twice, but its first wrapper failed on an unavailable memory counter and the reporting-only repair timed out after the C check. Both failed service records and passing C logs remain retained; no wrapper/postguard success is inherited. The subsequent native gate independently passed every input SHA/stat and byte/codec predicate.
 
 The updated package recipe reproduced both retained binaries byte for byte: omitted `--provider` gives original `4cb1c2`, and explicit `--provider simd-pack` gives `375aa7e3`. One two-core/4 GiB build-only scope closed successfully (result `83e1a623`, closure `611a1065`); no model or production installation ran.
+
+
+## Quilt readiness wait: closed without promotion
+
+The active compiled quilt module waits in a blocking two-integer readiness reduction; the inactive polling implementation is not the current path. The paired server/client collective must change together. Historical stock rank-CPU observations suggested substantial waiting CPU, but they do not establish current-build critical-path headroom.
+
+Actual parallel DeepSeek implementation and review calls used the approved public synthetic contract; an additional focused author call returned no implementation. Those responses are retained, and the compact local completion was tested with exact byte/protocol oracles. No private WRF source was exported for this task.
+
+Five alternating 122-rank synthetic pairs with 65/57-member communicators passed all transfers, closes, shutdown and runtime checks. Nonblocking reduction with 50-microsecond server backoff reduced server wait CPU by a median **92.94%**, but increased full-kernel elapsed by **12.23%** and worst client readiness latency by **56.84 ms**. Result `cef7ffe4`, closure `5d17e3f5`. A focused two-pair no-sleep diagnostic also passed, but increased elapsed **3.46% / 2.07%**, server wait CPU **12.86% / 2.47%**, and worst client latency **8.72 / 6.15 ms**. Result `b54d1ffc`, closure `96cec077`. Both services closed successfully.
+
+These are synthetic C MPI_INT4 results, including deliberate arrival delays and independent byte checks, not Fortran ABI, full WRF group, multi-node or forecast qualification. Separate trials and carried arrival skew prevent additive attribution between collective progress and backoff. Both variants are **unpromoted**; no WRF integration or further backoff sweep is justified by these results. Evidence: `investigation/wrf-cpu/source-discovery/quilt-readiness-{wait-kernel-next-r1,nosleep-kernel-r2}/RESULT.md`. Existing defaults remain unchanged.
