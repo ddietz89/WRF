@@ -716,6 +716,7 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
 !  Local 3d array from the stack (note tile size)
       REAL, DIMENSION (its:ite, kts:kte) :: dpn, dpxy
       REAL, DIMENSION (its:ite) :: mudf_xy
+      REAL, DIMENSION (its:ite) :: qrow
       REAL                      :: dx, dy
       INTEGER :: i,j,k, i_start, i_end, j_start, j_end, k_start, k_end
       INTEGER :: i_endu, j_endv, k_endw
@@ -808,6 +809,11 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
    DO i = i_start_up, i_end_up
      MUDF_XY(i)= -emdiv*dx*(MUDF(i,j)-MUDF(i-1,j))/msfuy(i,j)
    ENDDO
+   IF ( k_start .LE. k_end ) THEN
+     DO i = i_start_up, i_end_up
+       qrow(i) = msfux(i,j)/msfuy(i,j)
+     ENDDO
+   ENDIF
    DO k = k_start, k_end
    DO i = i_start_up, i_end_up
 !     Comments on map scale factors:   
@@ -825,7 +831,7 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
 !     since we want tendency to fit ADT eqn 44 (coupled) we need to
 !     multiply by (mx/my):
 !
-     dpxy(i,k)= (msfux(i,j)/msfuy(i,j))*.5*rdx*(c1h(k)*muu(i,j)+c2h(k))*(         &
+     dpxy(i,k)= (qrow(i))*.5*rdx*(c1h(k)*muu(i,j)+c2h(k))*(         &
        ((ph (i,k+1,j)-ph (i-1,k+1,j))+(ph (i,k,j)-ph (i-1,k,j)))  &
       +(alt(i,k  ,j)+alt(i-1,k  ,j))*(p  (i,k,j)-p  (i-1,k,j))  &
       +(al (i,k  ,j)+al (i-1,k  ,j))*(pb (i,k,j)-pb (i-1,k,j)) )
@@ -858,7 +864,7 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
 !    multiply by (mx/my):
      DO k = k_start, k_end
        DO i = i_start_up, i_end_up
-         dpxy(i,k)=dpxy(i,k) + (msfux(i,j)/msfuy(i,j))*rdx*(php(i,k,j)-php(i-1,k,j))*        &
+         dpxy(i,k)=dpxy(i,k) + (qrow(i))*rdx*(php(i,k,j)-php(i-1,k,j))*        &
            (rdnw(k)*(dpn(i,k+1)-dpn(i,k))-.5*((c1h(k)*mu(i-1,j))+(c1h(k)*mu(i,j))))
        ENDDO
      ENDDO
@@ -881,6 +887,11 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
    ENDDO
      IF (     ( j >= j_start_vp)  &
        .and.( j <= j_end_vp  ) )  THEN
+       IF ( k_start .LE. k_end ) THEN
+         DO i = i_start, i_end
+           qrow(i) = msfvy(i,j)/msfvx(i,j)
+         ENDDO
+       ENDIF
          DO k = k_start, k_end
   DO i = i_start, i_end
 !      Comments on map scale factors:
@@ -899,7 +910,7 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
 !      multiply by (my/mx):
 !      mudf_xy is NOT a map scale factor coupling
 !      it is some sort of divergence damping
-       dpxy(i,k)= (msfvy(i,j)/msfvx(i,j))*.5*rdy*(c1h(k)*muv(i,j)+c2h(k))*(       &
+       dpxy(i,k)= (qrow(i))*.5*rdy*(c1h(k)*muv(i,j)+c2h(k))*(       &
         ((ph(i,k+1,j)-ph(i,k+1,j-1))+(ph (i,k,j)-ph (i,k,j-1)))   &
         +(alt(i,k  ,j)+alt(i,k  ,j-1))*(p  (i,k,j)-p  (i,k,j-1))  &
         +(al (i,k  ,j)+al (i,k  ,j-1))*(pb (i,k,j)-pb (i,k,j-1)) )
@@ -932,7 +943,7 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
 !      multiply by (my/mx):
        DO k = k_start, k_end
          DO i = i_start, i_end
-           dpxy(i,k)=dpxy(i,k) + (msfvy(i,j)/msfvx(i,j))*rdy*(php(i,k,j)-php(i,k,j-1))*    &
+           dpxy(i,k)=dpxy(i,k) + (qrow(i))*rdy*(php(i,k,j)-php(i,k,j-1))*    &
              (rdnw(k)*(dpn(i,k+1)-dpn(i,k))-.5*((c1h(k)*mu(i,j-1))+(c1h(k)*mu(i,j))))
          ENDDO
        ENDDO
