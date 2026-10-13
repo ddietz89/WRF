@@ -68,6 +68,15 @@ module_advect_em.o: private override FCFLAGS += -fopenmp-simd
 endif
 endif
 
+# Enable GNU diffusion SIMD without creating an OpenMP thread team.
+# Use make WRF_DIFFUSION_SIMD=0 to preserve the ordinary compiler path.
+WRF_DIFFUSION_SIMD ?= 1
+ifeq ($(WRF_DIFFUSION_SIMD),1)
+ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+module_big_step_utilities_em.o: private override FCFLAGS += -fopenmp-simd
+endif
+endif
+
 cio.o :
 	$(CC) -c $(CFLAGS) cio.c
 

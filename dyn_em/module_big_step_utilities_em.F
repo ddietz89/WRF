@@ -2793,6 +2793,7 @@ SUBROUTINE horizontal_diffusion ( name, field, tendency, MUT, c1, c2,  &
 
       DO j = j_start, j_end
       DO k=kts,ktf
+!$OMP SIMD private(mrdx,mkrdxm,mkrdxp,mrdy,mkrdym,mkrdyp)
       DO i = i_start, i_end
 
          ! The interior is grad: (m_x*d/dx), the exterior is div: (m_x*m_y*d/dx(/m_y))
@@ -2842,6 +2843,7 @@ SUBROUTINE horizontal_diffusion ( name, field, tendency, MUT, c1, c2,  &
 
       DO j = j_start, j_end
       DO k=kts,ktf
+!$OMP SIMD private(mrdx,mkrdxm,mkrdxp,mrdy,mkrdym,mkrdyp)
       DO i = i_start, i_end
 
          mkrdxm=( (msfvx(i,j)+msfvx(i-1,j))/(msfvy(i,j)+msfvy(i-1,j)) )*    &
@@ -2880,6 +2882,7 @@ SUBROUTINE horizontal_diffusion ( name, field, tendency, MUT, c1, c2,  &
 
       DO j = j_start, j_end
       DO k=kts+1,ktf
+!$OMP SIMD private(mrdx,mkrdxm,mkrdxp,mrdy,mkrdym,mkrdyp)
       DO i = i_start, i_end
 
          mkrdxm=(msfux(i,j)/msfuy(i,j))*   &
@@ -2925,6 +2928,7 @@ SUBROUTINE horizontal_diffusion ( name, field, tendency, MUT, c1, c2,  &
 
       DO j = j_start, j_end
       DO k=kts,ktf
+!$OMP SIMD private(mrdx,mkrdxm,mkrdxp,mrdy,mkrdym,mkrdyp)
       DO i = i_start, i_end
 
          mkrdxm=(msfux(i,j)/msfuy(i,j))*0.5*(xkmhd(i,k,j)+xkmhd(i-1,k,j))*0.5*((c1(k)*MUT(i,j)+c2(k))+(c1(k)*MUT(i-1,j)+c2(k)))*rdx
