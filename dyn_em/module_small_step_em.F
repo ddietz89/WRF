@@ -1357,6 +1357,7 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
       !  First destagger omega and multiply with partial d/dnu(phi), then stagger the product
 
       DO k=1, k_end
+!$omp simd
       DO i=i_start, i_end
          wdwn(i,k+1)=.5*(ww(i,k+1,j)+ww(i,k,j))*rdnw(k)    &
               *(ph_1(i,k+1,j)-ph_1(i,k,j)+phb(i,k+1,j)-phb(i,k,j))
