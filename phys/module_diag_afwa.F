@@ -183,72 +183,72 @@ CONTAINS
     ! ---------------------------------
 
     IF ( F_QV ) THEN
-      DO i=ims, ime
+      DO j=jms, jme
         DO k=kms, kme
-          DO j=jms, jme
+          DO i=ims, ime
             qvapr(i,k,j) = moist(i,k,j,P_QV)
           ENDDO
         ENDDO
       ENDDO
     END IF
     IF ( F_QR ) THEN
-      DO i=ims, ime
+      DO j=jms, jme
         DO k=kms, kme
-          DO j=jms, jme
+          DO i=ims, ime
             qrain(i,k,j) = moist(i,k,j,P_QR)
           ENDDO
         ENDDO
       ENDDO
     END IF
     IF ( F_QS ) THEN
-      DO i=ims, ime
+      DO j=jms, jme
         DO k=kms, kme
-          DO j=jms, jme
+          DO i=ims, ime
             qsnow(i,k,j) = moist(i,k,j,P_QS)
           ENDDO
         ENDDO
       ENDDO
     END IF
     IF ( F_QG ) THEN
-      DO i=ims, ime
+      DO j=jms, jme
         DO k=kms, kme
-          DO j=jms, jme
+          DO i=ims, ime
             qgrpl(i,k,j) = moist(i,k,j,P_QG)
           ENDDO
         ENDDO
       ENDDO
     END IF
     IF ( F_QC ) THEN
-      DO i=ims, ime
+      DO j=jms, jme
         DO k=kms, kme
-          DO j=jms, jme
+          DO i=ims, ime
             qcloud(i,k,j) = moist(i,k,j,P_QC)
           ENDDO
         ENDDO
       ENDDO
     END IF
     IF ( F_QI ) THEN
-      DO i=ims, ime
+      DO j=jms, jme
         DO k=kms, kme
-          DO j=jms, jme
+          DO i=ims, ime
             qice(i,k,j) = moist(i,k,j,P_QI)
           ENDDO
         ENDDO
       ENDDO
     END IF
     IF ( F_QNC ) THEN
-      DO i=ims, ime
+      DO j=jms, jme
         DO k=kms, kme
-          DO j=jms, jme
+          DO i=ims, ime
             ncloud(i,k,j) = scalar(i,k,j,P_QNC)
           ENDDO
         ENDDO
       ENDDO
     END IF
     IF ( F_QNG ) THEN
-      DO i=ims, ime
+      DO j=jms, jme
         DO k=kms, kme
-          DO j=jms, jme
+          DO i=ims, ime
             ngraup(i,k,j) = scalar(i,k,j,P_QNG)
           ENDDO
         ENDDO
@@ -257,9 +257,9 @@ CONTAINS
     
     ! Total pressure
     ! -------------- 
-    DO i=ims, ime
+    DO j=jms, jme
       DO k=kms, kme
-        DO j=jms, jme
+        DO i=ims, ime
           ptot(i,k,j)=grid%pb(i,k,j)+grid%p(i,k,j)
         ENDDO
       ENDDO
@@ -267,9 +267,9 @@ CONTAINS
 
     ! ZAGL (height above ground)
     ! --------------------------
-    DO i=ims, ime
+    DO j=jms, jme
       DO k=kms, kme
-        DO j=jms, jme
+        DO i=ims, ime
           zagl(i,k,j)=grid%z(i,k,j)-grid%ht(i,j)
         ENDDO
       ENDDO
