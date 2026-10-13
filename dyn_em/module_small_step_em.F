@@ -1483,6 +1483,7 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
     ENDIF
 
     DO k=k_end+1,2,-1
+!$omp simd
     DO i=i_start, i_end
        ph(i,k,j) = rhs(i,k)+msfty(i,j)*.5*dts*g*(1.+epssm) &
                       *w(i,k,j)/(c1f(k)*muts(i,j)+c2f(k))
