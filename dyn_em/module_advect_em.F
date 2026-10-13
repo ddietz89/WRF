@@ -7951,14 +7951,6 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
                        rdy*(fqyl(i,k,j+1)-fqyl(i,k,j))  )    &
                       +msfty(i,j)*rdzw(k)*(fqzl(i,k+1,j)-fqzl(i,k,j)) )
 
-   ENDDO
-   ENDDO
-   ENDDO
-
-   DO j=j_start, j_end
-   DO k=kts, ktf
-!DIR$ vector always
-   DO i=i_start, i_end
 
      flux_out(i,k,j) = dt*( (msftx(i,j)*msfty(i,j))*( &
                                 rdx*(  max(0.,fqx (i+1,k,j))      &
