@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Proposed build-only recipe; never installs, launches, or qualifies a model."""
+"""512-only vendored provider build; never installs or qualifies a model."""
 from pathlib import Path
 import argparse,hashlib,json,os,subprocess
 HERE=Path(__file__).resolve().parent
@@ -17,9 +17,13 @@ def sha(p):
   for b in iter(lambda:f.read(1024**2),b''):h.update(b)
  return h.hexdigest()
 def main():
- ap=argparse.ArgumentParser();ap.add_argument('--shared-dir',type=Path,default=HERE.parent);ap.add_argument('--output-dir',required=True,type=Path);a=ap.parse_args()
+ ap=argparse.ArgumentParser();ap.add_argument('--provider',choices=['original','simd-pack'],default='original');ap.add_argument('--shared-dir',type=Path,default=HERE.parent);ap.add_argument('--output-dir',required=True,type=Path);a=ap.parse_args()
  shared=a.shared_dir.resolve();pins=json.loads((HERE/'shared-source-pins.json').read_text());qualification=json.loads((HERE/'qualification.json').read_text())
  assert sha(HERE/'wrf_quilt_thread_shim.c')==qualification['variant_source_sha256']
+ variant=qualification if a.provider=='original' else qualification['optional_build_variants']['simd-pack']
+ provider=shared/'root_chunk_provider.c' if a.provider=='original' else HERE/'root_chunk_provider.c'
+ provider_sha=pins['root_chunk_provider.c'] if a.provider=='original' else variant['provider_source_sha256']
+ assert sha(provider)==provider_sha
  for n,h in pins.items():assert sha(shared/n)==h,(n,'shared source changed')
  for n,h in DEPENDENCIES.items():assert sha(n)==h,(n,'dependency changed')
  out=a.output_dir.absolute();assert not out.exists() and not out.is_symlink()
@@ -27,11 +31,12 @@ def main():
  env=os.environ.copy();env.pop('LD_PRELOAD',None);env.update(PATH=str(GNU/'bin')+':'+str(MPI/'bin')+':'+env.get('PATH',''),OPAL_PREFIX=str(MPI),OMPI_CC=str(GNU/'bin/gcc'),LD_LIBRARY_PATH=str(MPI/'lib')+':'+str(GNU/'deps/lib')+':'+str(GNU/'lib64'))
  # Exact qualified C policy: O2/default IEEE, no fast-math enabled. Byte work only.
  flags=['-O2','-I'+str(GNU/'deps/include'),'-I'+str(shared),'-L'+str(MPI/'lib'),'-L'+str(GNU/'deps/lib'),'-Wl,-rpath,'+str(GNU/'deps/lib'),'-std=c11','-Wall','-Wextra','-Werror=implicit-function-declaration','-pthread','-fPIC','-shared']
- binary=out/'wrf_quilt_thread_shim.so';cmd=[str(MPI/'bin/mpicc'),*flags,str(HERE/'wrf_quilt_thread_shim.c'),str(shared/'root_chunk_provider.c'),'-lz','-ldl','-lm','-o',str(binary)]
+ if a.provider=='simd-pack':flags[1:1]=['-fno-fast-math','-ffp-contract=off']
+ binary=out/'wrf_quilt_thread_shim.so';cmd=[str(MPI/'bin/mpicc'),*flags,str(HERE/'wrf_quilt_thread_shim.c'),str(provider),'-lz','-ldl','-lm','-o',str(binary)]
  r=subprocess.run(cmd,env=env,capture_output=True,text=True)
- receipt={'status':'BUILD_ONLY_PENDING_RUNTIME_QUALIFICATION'if r.returncode==0 else'BUILD_FAILED','command':cmd,'returncode':r.returncode,'stdout':r.stdout,'stderr':r.stderr,'source_sha256':qualification['variant_source_sha256'],'shared_sha256':pins,'dependencies':DEPENDENCIES,'reproduces_native_binary_hash':False,'runtime_qualified':False}
+ receipt={'status':'BUILD_ONLY_PENDING_RUNTIME_QUALIFICATION'if r.returncode==0 else'BUILD_FAILED','command':cmd,'returncode':r.returncode,'stdout':r.stdout,'stderr':r.stderr,'source_sha256':qualification['variant_source_sha256'],'provider':a.provider,'provider_source_sha256':provider_sha,'shared_sha256':pins,'dependencies':DEPENDENCIES,'reproduces_native_binary_hash':False,'runtime_qualified':False}
  if r.returncode==0:
-  receipt['binary_sha256']=sha(binary);receipt['matches_retained_native_binary']=receipt['binary_sha256']==qualification['native_artifact']['sha256']
+  receipt['binary_sha256']=sha(binary);receipt['matches_retained_native_binary']=receipt['binary_sha256']==variant['native_artifact']['sha256']
   for name,args in [('dynamic',['readelf','-d',str(binary)]),('symbols',['nm','-D',str(binary)]),('closure',['ldd',str(binary)]),('compiler',[str(GNU/'bin/gcc'),'--version'])]:
    q=subprocess.run(args,env=env,capture_output=True,text=True);receipt[name]={'returncode':q.returncode,'stdout':q.stdout,'stderr':q.stderr}
  (out/'build-receipt.json').write_text(json.dumps(receipt,indent=2)+'\n');return r.returncode

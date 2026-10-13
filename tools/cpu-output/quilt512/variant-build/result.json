@@ -1,0 +1,43 @@
+{
+  "status": "PASS_DEFAULT_AND_OPTIONAL_PACKAGE_BINARY_BYTEIDENTICAL",
+  "invocation_id": "755c4667fd324a5bbbf5bbfc0405e966",
+  "scope": "Two package build branches only; no model/install/native matrix",
+  "builds": {
+    "original": {
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "command": [
+        "/usr/bin/python3",
+        "/pool/wrf-experiment/wrf-cpu/source-discovery/quilt512-optional-package-reproduction-r1/cpu-output/quilt512/build.py",
+        "--shared-dir",
+        "/pool/wrf-experiment/wrf-cpu/source-discovery/quilt512-optional-package-reproduction-r1/cpu-output",
+        "--output-dir",
+        "/pool/wrf-experiment/wrf-cpu/source-discovery/quilt512-optional-package-reproduction-r1/artifact-original"
+      ],
+      "binary_sha256": "4cb1c2abc61e60be2c79fc40ab9b9fd45fb19aefb59798afd2bbdad09d20cc71",
+      "expected_sha256": "4cb1c2abc61e60be2c79fc40ab9b9fd45fb19aefb59798afd2bbdad09d20cc71",
+      "receipt_sha256": "071b7462cba70989955a53f09addf1effa8af67c54a9b8388f54f4f26c1391d1"
+    },
+    "simd-pack": {
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "command": [
+        "/usr/bin/python3",
+        "/pool/wrf-experiment/wrf-cpu/source-discovery/quilt512-optional-package-reproduction-r1/cpu-output/quilt512/build.py",
+        "--shared-dir",
+        "/pool/wrf-experiment/wrf-cpu/source-discovery/quilt512-optional-package-reproduction-r1/cpu-output",
+        "--output-dir",
+        "/pool/wrf-experiment/wrf-cpu/source-discovery/quilt512-optional-package-reproduction-r1/artifact-simd-pack",
+        "--provider",
+        "simd-pack"
+      ],
+      "binary_sha256": "375aa7e3198d42d84e3c95612f5475216354e2c4cb33c053eea42ac29f4bdb2a",
+      "expected_sha256": "375aa7e3198d42d84e3c95612f5475216354e2c4cb33c053eea42ac29f4bdb2a",
+      "receipt_sha256": "e4f45895b00dc8abee614051a19133ff1a521c2a9735dfeb77c173b519eec418"
+    }
+  },
+  "wall_seconds": 3.618912308011204,
+  "memory_peak_bytes": 100478976
+}

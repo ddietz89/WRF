@@ -233,7 +233,6 @@
   "api_provenance_path": "/home/ddietz/wrf/investigation/wrf-cpu/source-discovery/quilt-multiwriter-compression-next-r1/api-provenance.json",
   "implementation_disposition_path": "/home/ddietz/wrf/investigation/wrf-cpu/source-discovery/quilt-multiwriter-compression-next-r1/IMPLEMENTATION_DISPOSITION.md",
   "no_binaries_vendored": true,
-  "no_canonical_writes": false,
   "package_reproduction": {
     "status": "PASS_PACKAGE_BINARY_BYTEIDENTICAL",
     "invocation_id": "0f35d254744246cd947a50a04050d0ab",
@@ -247,5 +246,65 @@
     "build_receipt_relative": "activation/actual-artifact-build-receipt.json",
     "build_receipt_sha256": "564314c557d65d81901474f513a9bf1c9c4867fd0e45f92f73aa16ca082beee3",
     "scope": "same source and qualified C recipe reproduced the native SO exactly; no additional model/native matrix or performance qualification"
+  },
+  "optional_build_variants": {
+    "simd-pack": {
+      "status": "QUALIFIED_OPTIONAL_NOT_DEFAULT_APPLICATION_REGRESSED",
+      "provider_source_sha256": "e29a6a59ee8c239ea2a67c80f261d8102ff550d21510761899ef62c3f4445589",
+      "native_artifact": {
+        "path": "/pool/wrf-experiment/wrf-cpu/source-discovery/parallel-pack-quilt-shim-native-r1/wrf_quilt_thread_shim.so",
+        "sha256": "375aa7e3198d42d84e3c95612f5475216354e2c4cb33c053eea42ac29f4bdb2a",
+        "receipt_sha256": "d708b72899fed0a0fc88e59de721a277dadec416df9982ec805b9bcf234352d8",
+        "closure_sha256": "601aed84df04c7e680ea4c69703754b85616988c9d1c64a33d4a531b738ca41e",
+        "scope": "Actual native four-worker provider/observer, public owner ABI/errors and world1 ineligible decline; no512 activation."
+      },
+      "native_full_provider_screen": {
+        "receipt_sha256": "08fa03fdd408f1cc08a1f44c60754bd3a33fb9085296b528aa537c0a502402f4",
+        "closure_sha256": "d9d5c53fea52ce2b3918c6017f7486e2b2bfaeee167c23fa7ebb684b9130d9a6",
+        "wall_reduction_percent": 7.986869,
+        "cpu_increase_percent": 2.077416,
+        "scope": "Five alternating full actual-W provider pairs versus SIMD-only37c9, same four workers/NG; no forecast claim."
+      },
+      "model_one_hour": {
+        "status": "PASS_ORIGINAL_TWO_HISTORY_AND_ALL185_STEPS_ALL512_LIFECYCLES",
+        "science_receipt_sha256": "bf5b4823cd5265750e631a8c86d98dd437b13304198e4d5658130b8292d7fbcc",
+        "reader_closure_sha256": "1bd7ebe1e37fcc81dfdc6e5f28d1bb0cfc6a488dd7161396ae80f880893ed4bf",
+        "wall_increase_percent": 12.4210186,
+        "cpu_increase_percent": 15.0997233,
+        "scope": "One current-map run versus retained same-resource control, with intervening model/reader/native-test/cache gap. Original two complete products, 185 steps and all512 lifecycles PASS; observed application regression, no tightly paired or isolated performance claim."
+      },
+      "scalar_fallback_scope": "Source-reviewed generic branch and tails tested on AVX2 host; non-AVX2-host execution unqualified.",
+      "package_reproduction": {
+        "status": "PASS_DEFAULT_AND_OPTIONAL_PACKAGE_BINARY_BYTEIDENTICAL",
+        "result_file": "variant-build/result.json",
+        "result_sha256": "83e1a623cb30edca92f39729cc5b580432a232815c59862894d71a269f0c0b35",
+        "closure_file": "variant-build/closure.json",
+        "closure_sha256": "611a10655b3e6533c5b6bf8774a74eb87a607b386ae118e5d8ea2e6dbf5fd552",
+        "invocation_id": "755c4667fd324a5bbbf5bbfc0405e966",
+        "default_original_receipt_sha256": "071b7462cba70989955a53f09addf1effa8af67c54a9b8388f54f4f26c1391d1",
+        "optional_receipt_sha256": "e4f45895b00dc8abee614051a19133ff1a521c2a9735dfeb77c173b519eec418",
+        "scope": "One closed build-only unit. Defaultoriginal4cb and explicitoptional375aa exact; no new model or deployment qualification."
+      }
+    }
+  },
+  "default_provider": "original",
+  "placement": {
+    "variant": "current",
+    "table_sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac",
+    "rankfile_sha256": "2f030d0e5a360414e65ddc7c87d92e013ab4de33ebaffb15226184fe4428015a",
+    "shipped_manifest_sha256": "e36c18ccea261f0f5f8a5164266c72d040fc9df19e4e263301555e087145b3b8",
+    "scope": "Unchanged qualified current map only; proposed map unpromoted."
+  },
+  "source_scope": "Optional nested provider only; parent world16/64 sources and original build default unchanged.",
+  "variant_recipe_reproduction": {
+    "status": "PASS_DEFAULT_AND_OPTIONAL_PACKAGE_BINARY_BYTEIDENTICAL",
+    "result_file": "variant-build/result.json",
+    "result_sha256": "83e1a623cb30edca92f39729cc5b580432a232815c59862894d71a269f0c0b35",
+    "closure_file": "variant-build/closure.json",
+    "closure_sha256": "611a10655b3e6533c5b6bf8774a74eb87a607b386ae118e5d8ea2e6dbf5fd552",
+    "invocation_id": "755c4667fd324a5bbbf5bbfc0405e966",
+    "default_original_receipt_sha256": "071b7462cba70989955a53f09addf1effa8af67c54a9b8388f54f4f26c1391d1",
+    "optional_receipt_sha256": "e4f45895b00dc8abee614051a19133ff1a521c2a9735dfeb77c173b519eec418",
+    "scope": "One closed build-only unit. Defaultoriginal4cb and explicitoptional375aa exact; no new model or deployment qualification."
   }
 }
