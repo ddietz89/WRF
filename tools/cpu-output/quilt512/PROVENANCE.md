@@ -1,0 +1,13 @@
+# Package provenance and qualification
+
+Source: [fresh caller contract and actual API provenance](/home/ddietz/wrf/investigation/wrf-cpu/source-discovery/quilt-multiwriter-compression-next-r1/api-provenance.json). Two actual DeepSeek streams returned after exact user approval. The schematic author was rejected; the compact local completion and independent source audits are retained. Earlier automatic rejection, native fixture failures and repairs remain visible; late approval does not retroactively change provenance.
+
+Shared provider/headers and qualified old shim are pinned in `shared-source-pins.json`. Parent `owner-provenance.json` is referenced in place; NetCDF/HDF/zlib/MPI installations are read-only dependencies, not package build products. No binaries or large archives are vendored here.
+
+The native source `313e` shared artifact `4cb1c2` is built and native R6 is closed PASS. Its observer is source-included same-code native world 1 testing, separate from positive world 512 model evidence. The package build recipe subsequently ran once and reproduced `4cb1c2` byte for byte; that build and its unit closed successfully. The separate one-hour world 512 model passes the original two complete histories and 185 observed steps with all 512 runtime identities, and writers 487/495 each have 216 balanced callbacks/releases/restores with zero errors or pending batches. The original coordinator-wrapper failure remains retained; additive revalidation and the successful original reader receipts are pinned in [qualification.json](qualification.json). The subsequent original three-hour gate passed all four complete products and 545 ordered steps with all four writer lifecycles qualified. The closed equal-resource stock-first pair is recorded in qualification.json and activation/matched-timing-result.json; it establishes no isolated component or statistical attribution.
+
+Current b9 ordinary 512 three-hour qualification is a separate reference epoch/run: four histories and 545 observed steps passed. It does not substitute for this package’s separate combined-model qualification. Its single fixed-order functional timing comparison is not an isolated or statistical compression speedup.
+
+The optional earlier native profile failed before sampling on private NFS context access under euid0. That failure and diagnosis are retained; no usable compression/MPI/kernel sample distribution was obtained. CPU plateau and writable-FD ownership observations remain limited evidence, not compression fractions or critical-path seconds.
+
+Root promoted this package into tools/cpu-output/quilt512. It changes no service, running lease, installed dependency or production deployment.

@@ -1,0 +1,56 @@
+{
+  "status": "PREPARED_NOT_SUBMITTED",
+  "root_authorized": false,
+  "host": "hpc02",
+  "unit": "wrf-cpu-quilt512-package-build-hpc02-r1",
+  "cpus": [
+    24,
+    25
+  ],
+  "cpu_quota_percent": 200,
+  "memory_bytes": 2147483648,
+  "swap_bytes": 0,
+  "wall_cap_seconds": 300,
+  "directory": "/pool/wrf-experiment/wrf-cpu/source-discovery/quilt512-package-build-r1",
+  "requires_all_prior_model_closures": true,
+  "allowed_during_reader": "hpc03 original reader only, disjoint",
+  "files": {
+    "cpu-output/quilt512/build.py": {
+      "local": "/home/ddietz/wrf/investigation/wrf-cpu/proposals/cpu-output-quilt512-r1/build.py",
+      "sha256": "7b963b6f3293887b92c1ffba24db8682d0a75d8874edca9f51b0fbcda609082d"
+    },
+    "cpu-output/quilt512/qualification.json": {
+      "local": "/home/ddietz/wrf/investigation/wrf-cpu/proposals/cpu-output-quilt512-r1/qualification.json",
+      "sha256": "a5af48b12551d6a5870be2343254cb497a25ed5b50ae5722aa3ee23bfc3170c8"
+    },
+    "cpu-output/quilt512/shared-source-pins.json": {
+      "local": "/home/ddietz/wrf/investigation/wrf-cpu/proposals/cpu-output-quilt512-r1/shared-source-pins.json",
+      "sha256": "94de0ff5841bd22c40b56a48771dd356e9b3dac5e16c92b2a02067a49dc7debf"
+    },
+    "cpu-output/quilt512/wrf_quilt_thread_shim.c": {
+      "local": "/home/ddietz/wrf/investigation/wrf-cpu/proposals/cpu-output-quilt512-r1/wrf_quilt_thread_shim.c",
+      "sha256": "313e18ed4309eec9b038371dfce227f8f5fc401813b094aa2cddb01e9de47421"
+    },
+    "cpu-output/wrf_root_thread_shim.c": {
+      "local": "/home/ddietz/wrf/WRF/tools/cpu-output/wrf_root_thread_shim.c",
+      "sha256": "c20b85e3ec50253f171d686b8f7fbc5caf87975c493d5afb451430c44d9814e8"
+    },
+    "cpu-output/root_chunk_provider.c": {
+      "local": "/home/ddietz/wrf/WRF/tools/cpu-output/root_chunk_provider.c",
+      "sha256": "ee9ebe7948f0173f84c0f6efd08618ccad1dd8cdf9b3a93c790e1e2d70d5142b"
+    },
+    "cpu-output/root_chunk_provider.h": {
+      "local": "/home/ddietz/wrf/WRF/tools/cpu-output/root_chunk_provider.h",
+      "sha256": "969fc7475b5b6da0f135557746e008e3599e303e19c6cec8e9c5294c5a75cf0c"
+    },
+    "cpu-output/netcdf_precompressed.h": {
+      "local": "/home/ddietz/wrf/WRF/tools/cpu-output/netcdf_precompressed.h",
+      "sha256": "f050797799f235dea8be9400198d0b8d44fbfca2acb45ed4a914b75b717311b4"
+    },
+    "run_build.py": {
+      "local": "/home/ddietz/wrf/investigation/wrf-cpu/proposals/cpu-output-quilt512-r1/activation/run_build.py",
+      "sha256": "2402f7aa3ef67c6da2472421ab6595b45e45b4ee206e1d017858eddbe35bef8a"
+    }
+  },
+  "no_compiler_started": true
+}
