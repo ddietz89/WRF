@@ -1325,6 +1325,7 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
        msft_inv(i) = 1./msfty(i,j)
     ENDDO
     DO k=1, k_end
+!$omp simd
     DO i=i_start, i_end
       t_2ave(i,k,j)=.5*((1.+epssm)*t_2(i,k,j)       &
                     +(1.-epssm)*t_2ave(i,k,j))
