@@ -96,6 +96,15 @@ module_small_step_em.o: private override FCFLAGS += -fopenmp-simd
 endif
 endif
 
+# Enable GNU RK tendency SIMD without creating an OpenMP thread team.
+# Use make WRF_RK_TENDENCY_SIMD=0 to preserve the ordinary ModuleEM path.
+WRF_RK_TENDENCY_SIMD ?= 1
+ifeq ($(WRF_RK_TENDENCY_SIMD),1)
+ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+module_em.o: private override FCFLAGS += -fopenmp-simd
+endif
+endif
+
 # Experimental SmallStep-only ISA opt-in; the default remains generic.
 # Requires qualified GNU13.3, strict math and native CPU/OS admission.
 # Rebuild the object/archive/executable when changing this option.

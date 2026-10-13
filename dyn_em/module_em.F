@@ -1754,6 +1754,7 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
    
        DO  j = j_start_spc,j_end_spc
        DO  k = k_start_spc,k_end_spc
+       !$omp simd
        DO  i = i_start_spc,i_end_spc
            tendency(i,k,j) = tendency(i,k,j) + sc_tend(i,k,j,im)
        ENDDO

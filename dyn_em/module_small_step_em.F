@@ -515,6 +515,7 @@ SUBROUTINE calc_p_rho( al, p, ph,                    &
    IF (non_hydrostatic) THEN
      DO j=j_start, j_end
      DO k=k_start, k_end
+!$omp simd
      DO i=i_start, i_end
 
 !  al computation is all dry, so ok with moisture
