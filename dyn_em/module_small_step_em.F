@@ -1454,12 +1454,14 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
     ENDDO
 
     DO k=2,k_end+1
+!$omp simd
     DO i=i_start, i_end
        w(i,k,j)=(w(i,k,j)-a(i,k,j)*w(i,k-1,j))*alpha(i,k,j)
     ENDDO
     ENDDO
 
     DO k=k_end,2,-1
+!$omp simd
     DO i=i_start, i_end
        w (i,k,j)=w (i,k,j)-gamma(i,k,j)*w(i,k+1,j)
     ENDDO
