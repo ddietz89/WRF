@@ -1418,6 +1418,7 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
       ENDDO
     ENDIF
     DO k=2,k_end
+!$omp simd private(coefficient_cur)
       DO i=i_start, i_end
         coefficient_cur=c2a(i,k  ,j)*rdnw(k  )/(c1h(k)*MUT(i,j)+c2h(k))
         

@@ -77,6 +77,15 @@ module_big_step_utilities_em.o: private override FCFLAGS += -fopenmp-simd
 endif
 endif
 
+# Enable GNU small-step SIMD without creating an OpenMP thread team.
+# Use make WRF_SMALL_STEP_SIMD=0 to preserve the ordinary compiler path.
+WRF_SMALL_STEP_SIMD ?= 1
+ifeq ($(WRF_SMALL_STEP_SIMD),1)
+ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+module_small_step_em.o: private override FCFLAGS += -fopenmp-simd
+endif
+endif
+
 cio.o :
 	$(CC) -c $(CFLAGS) cio.c
 
