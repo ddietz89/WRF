@@ -96,6 +96,16 @@ module_small_step_em.o: private override FCFLAGS += -fopenmp-simd
 endif
 endif
 
+# Experimental SmallStep-only ISA opt-in; the default remains generic.
+# Requires qualified GNU13.3, strict math and native CPU/OS admission.
+# Rebuild the object/archive/executable when changing this option.
+WRF_SMALL_STEP_ZEN2 ?= 0
+ifeq ($(WRF_SMALL_STEP_ZEN2),1)
+ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+module_small_step_em.o: private override FCFLAGS += -march=znver2 -mno-fma
+endif
+endif
+
 cio.o :
 	$(CC) -c $(CFLAGS) cio.c
 
