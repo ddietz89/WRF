@@ -1119,6 +1119,7 @@ END MODULE module_quilt_outbuf_ops
 !</PRE>
 !</DESCRIPTION>
     USE module_quilt_outbuf_ops
+    USE ISO_C_BINDING, ONLY: c_float,c_int64_t,c_loc,c_f_pointer
     IMPLICIT NONE
 #include "wrf_io_flags.h"
     INTEGER ,                INTENT(IN) :: FieldType
@@ -1129,6 +1130,10 @@ END MODULE module_quilt_outbuf_ops
 ! Local
     CHARACTER*256         ::  mess
     INTEGER               :: l,m,n,ii,jj
+    REAL(c_float), POINTER, CONTIGUOUS :: copy_row(:)
+    INTEGER :: copy_width
+    INTEGER(c_int64_t) :: copy_wide,copy_ny,copy_nz,copy_rem
+    LOGICAL :: use_bulk
     LOGICAL               :: found
 
     ! Find the VarName if it's in the buffer already
@@ -1176,6 +1181,41 @@ END MODULE module_quilt_outbuf_ops
     ENDIF
     jj = 1
     IF (  FieldType .EQ. WRF_FLOAT ) THEN
+      use_bulk = .FALSE.
+      IF (PatchStart(1) .LE. PatchEnd(1)) THEN
+        IF (PatchStart(2) .LE. PatchEnd(2)) THEN
+          IF (PatchStart(3) .LE. PatchEnd(3)) THEN
+            IF (KIND(0.) .EQ. c_float .AND. STORAGE_SIZE(0.) .EQ. 32) THEN
+              copy_wide = INT(PatchEnd(1),c_int64_t)-INT(PatchStart(1),c_int64_t)+1_c_int64_t
+              IF (copy_wide .LE. INT(HUGE(copy_width),c_int64_t)) THEN
+                IF (IS_CONTIGUOUS(outbuf_table(ii)%rptr)) THEN
+                  copy_ny = INT(PatchEnd(2),c_int64_t)-INT(PatchStart(2),c_int64_t)+1_c_int64_t
+                  copy_nz = INT(PatchEnd(3),c_int64_t)-INT(PatchStart(3),c_int64_t)+1_c_int64_t
+                  copy_rem = INT(HUGE(jj),c_int64_t)-INT(jj,c_int64_t)
+                  IF (copy_rem/copy_nz .GE. copy_ny) THEN
+                    IF ((copy_rem/copy_nz)/copy_ny .GE. copy_wide) THEN
+                      copy_width = INT(copy_wide)
+                      use_bulk = .TRUE.
+                    ENDIF
+                  ENDIF
+                ENDIF
+              ENDIF
+            ENDIF
+          ENDIF
+        ENDIF
+      ENDIF
+      IF (use_bulk) THEN
+        DO n = PatchStart(3),PatchEnd(3)
+          DO m = PatchStart(2),PatchEnd(2)
+            CALL c_f_pointer(c_loc(outbuf_table(ii)%rptr(PatchStart(1),m,n)),copy_row,[copy_width])
+            !$omp simd linear(jj:1)
+            DO l = 1,copy_width
+              copy_row(l) = inbuf_r(jj)
+              jj = jj + 1
+            ENDDO
+          ENDDO
+        ENDDO
+      ELSE
       DO n = PatchStart(3),PatchEnd(3)
         DO m = PatchStart(2),PatchEnd(2)
           !$omp simd linear(jj:1)
@@ -1185,6 +1225,7 @@ END MODULE module_quilt_outbuf_ops
           ENDDO
         ENDDO
       ENDDO
+      ENDIF
     ENDIF
     IF (  FieldType .EQ. WRF_INTEGER ) THEN
       DO n = PatchStart(3),PatchEnd(3)
