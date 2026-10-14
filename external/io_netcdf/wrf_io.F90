@@ -761,31 +761,59 @@ subroutine Transpose(IO,MemoryOrder,di, Field,l1,l2,m1,m2,n1,n2 &
     case ('xzy')
 #undef  DFIELD
 #define DFIELD XField(1:di,XDEX(i,k,j))
-#include "transpose.code"
+#undef DFIELD1
+#undef DFIELD2
+#define DFIELD1 XField(1,XDEX(i,k,j))
+#define DFIELD2 XField(2,XDEX(i,k,j))
+#include "transpose_integer.code"
     case ('xyz','xsz','xez','ysz','yez','xy','xs','xe','ys','ye','z','c','0')
 #undef  DFIELD
 #define DFIELD XField(1:di,XDEX(i,j,k))
-#include "transpose.code"
+#undef DFIELD1
+#undef DFIELD2
+#define DFIELD1 XField(1,XDEX(i,j,k))
+#define DFIELD2 XField(2,XDEX(i,j,k))
+#include "transpose_integer.code"
     case ('yxz')
 #undef  DFIELD
 #define DFIELD XField(1:di,XDEX(j,i,k))
-#include "transpose.code"
+#undef DFIELD1
+#undef DFIELD2
+#define DFIELD1 XField(1,XDEX(j,i,k))
+#define DFIELD2 XField(2,XDEX(j,i,k))
+#include "transpose_integer.code"
     case ('zxy')
 #undef  DFIELD
 #define DFIELD XField(1:di,XDEX(k,i,j))
-#include "transpose.code"
+#undef DFIELD1
+#undef DFIELD2
+#define DFIELD1 XField(1,XDEX(k,i,j))
+#define DFIELD2 XField(2,XDEX(k,i,j))
+#include "transpose_integer.code"
     case ('yzx')
 #undef  DFIELD
 #define DFIELD XField(1:di,XDEX(j,k,i))
-#include "transpose.code"
+#undef DFIELD1
+#undef DFIELD2
+#define DFIELD1 XField(1,XDEX(j,k,i))
+#define DFIELD2 XField(2,XDEX(j,k,i))
+#include "transpose_integer.code"
     case ('zyx')
 #undef  DFIELD
 #define DFIELD XField(1:di,XDEX(k,j,i))
-#include "transpose.code"
+#undef DFIELD1
+#undef DFIELD2
+#define DFIELD1 XField(1,XDEX(k,j,i))
+#define DFIELD2 XField(2,XDEX(k,j,i))
+#include "transpose_integer.code"
     case ('yx')
 #undef  DFIELD
 #define DFIELD XField(1:di,XDEX(j,i,k))
-#include "transpose.code"
+#undef DFIELD1
+#undef DFIELD2
+#define DFIELD1 XField(1,XDEX(j,i,k))
+#define DFIELD2 XField(2,XDEX(j,i,k))
+#include "transpose_integer.code"
   end select
   return
 end subroutine Transpose
