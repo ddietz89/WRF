@@ -1273,6 +1273,7 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
       real :: htop,hbot,hdepth,hk
       real    :: pi,dampmag
       REAL :: muthk, muthkm1
+    REAL, DIMENSION(its:ite) :: htop_i, hbot_i
 !<DESCRIPTION>
 !
 !  advance_w advances the implicit w and geopotential equations.
@@ -1472,16 +1473,24 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
 
     IF (config_flags%damp_opt .eq. 3) THEN
       DO k=k_end+1,2,-1
-      DO i=i_start, i_end
-          htop=(ph_1(i,k_end+1,j)+phb(i,k_end+1,j))/g
+        IF (k .eq. k_end+1) THEN
+          IF (i_start .le. i_end) THEN
+            DO i=i_start, i_end
+              htop_i(i)=(ph_1(i,k_end+1,j)+phb(i,k_end+1,j))/g
+              hbot_i(i)=htop_i(i)-hdepth
+            ENDDO
+          ENDIF
+        ENDIF
+        DO i=i_start, i_end
+          htop=htop_i(i)
           hk=(ph_1(i,k,j)+phb(i,k,j))/g
-          hbot=htop-hdepth
+          hbot=hbot_i(i)
           dampwt(k) = 0.
           if(hk .ge. hbot)then
             dampwt(k) = dampmag*sin(0.5*pi*(hk-hbot)/hdepth)*sin(0.5*pi*(hk-hbot)/hdepth)
           endif
           w(i,k,j) = (w(i,k,j) - dampwt(k)*(c1f(k)*mut(i,j)+c2f(k))*w_save(i,k,j))/(1.+dampwt(k))
-      ENDDO
+        ENDDO
       ENDDO
     ENDIF
 
