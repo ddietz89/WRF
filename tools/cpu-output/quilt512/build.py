@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """512-only vendored provider build; never installs or qualifies a model."""
 from pathlib import Path
-import argparse,hashlib,json,os,subprocess
+import argparse,hashlib,json,os,subprocess,shlex
 HERE=Path(__file__).resolve().parent
 GNU=Path('/pool/wrf-experiment/toolchains/gnu/13.3.0');MPI=GNU/'mpi-ucx-xpmem'
 DEPENDENCIES={
@@ -17,7 +17,8 @@ def sha(p):
   for b in iter(lambda:f.read(1024**2),b''):h.update(b)
  return h.hexdigest()
 def main():
- ap=argparse.ArgumentParser();ap.add_argument('--provider',choices=['original','simd-pack'],default='simd-pack');ap.add_argument('--shared-dir',type=Path,default=HERE.parent);ap.add_argument('--output-dir',required=True,type=Path);a=ap.parse_args()
+ ap=argparse.ArgumentParser();ap.add_argument('--provider',choices=['original','simd-pack'],default='simd-pack');ap.add_argument('--codec',choices=['inline','original'],default='inline');ap.add_argument('--codec-library',type=Path);ap.add_argument('--shared-dir',type=Path,default=HERE.parent);ap.add_argument('--output-dir',required=True,type=Path);a=ap.parse_args()
+ codec_spec=json.loads((HERE/'codec/selection.json').read_text())['variants'][a.codec];codec_path=a.codec_library.absolute()if a.codec_library else Path(codec_spec['path']);assert sha(codec_path)==codec_spec['sha256'],'selected codec bytes differ'
  shared=a.shared_dir.resolve();pins=json.loads((HERE/'shared-source-pins.json').read_text());qualification=json.loads((HERE/'qualification.json').read_text())
  assert sha(HERE/'wrf_quilt_thread_shim.c')==qualification['variant_source_sha256']
  variant=qualification if a.provider=='original' else qualification['optional_build_variants']['simd-pack']
@@ -34,10 +35,11 @@ def main():
  if a.provider=='simd-pack':flags[1:1]=['-fno-fast-math','-ffp-contract=off']
  binary=out/'wrf_quilt_thread_shim.so';cmd=[str(MPI/'bin/mpicc'),*flags,str(HERE/'wrf_quilt_thread_shim.c'),str(provider),'-lz','-ldl','-lm','-o',str(binary)]
  r=subprocess.run(cmd,env=env,capture_output=True,text=True)
- receipt={'status':'BUILD_ONLY_PENDING_RUNTIME_QUALIFICATION'if r.returncode==0 else'BUILD_FAILED','command':cmd,'returncode':r.returncode,'stdout':r.stdout,'stderr':r.stderr,'source_sha256':qualification['variant_source_sha256'],'provider':a.provider,'provider_source_sha256':provider_sha,'shared_sha256':pins,'dependencies':DEPENDENCIES,'reproduces_native_binary_hash':False,'runtime_qualified':False}
+ receipt={'status':'BUILD_ONLY_PENDING_RUNTIME_QUALIFICATION'if r.returncode==0 else'BUILD_FAILED','command':cmd,'returncode':r.returncode,'stdout':r.stdout,'stderr':r.stderr,'source_sha256':qualification['variant_source_sha256'],'provider':a.provider,'provider_source_sha256':provider_sha,'shared_sha256':pins,'dependencies':DEPENDENCIES,'selected_codec':{'variant':a.codec,'path':str(codec_path),'sha256':codec_spec['sha256'],'scope':'rank-only preload; build does not activate or qualify a model'},'reproduces_native_binary_hash':False,'runtime_qualified':False}
  if r.returncode==0:
   receipt['binary_sha256']=sha(binary);receipt['matches_retained_native_binary']=receipt['binary_sha256']==variant['native_artifact']['sha256']
   for name,args in [('dynamic',['readelf','-d',str(binary)]),('symbols',['nm','-D',str(binary)]),('closure',['ldd',str(binary)]),('compiler',[str(GNU/'bin/gcc'),'--version'])]:
    q=subprocess.run(args,env=env,capture_output=True,text=True);receipt[name]={'returncode':q.returncode,'stdout':q.stdout,'stderr':q.stderr}
+ if r.returncode==0:(out/'rank-preload.env').write_text('WRF_QUILT_RANK_PRELOAD='+shlex.quote(str(binary)+':'+str(codec_path))+'\n')
  (out/'build-receipt.json').write_text(json.dumps(receipt,indent=2)+'\n');return r.returncode
 if __name__=='__main__':raise SystemExit(main())

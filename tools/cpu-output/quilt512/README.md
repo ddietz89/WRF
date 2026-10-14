@@ -1,6 +1,6 @@
 # World-512 quilt compression working default
 
-The selected working default is `simd-pack`: runtime-selected SIMD byte shuffle and parallel packing in the existing four workers. `--provider original` selects the retained `4cb1c2` provider. The selector changes no provider, shim, header, owner or codec bytes; package builds previously reproduced selected `375aa7e3` and original `4cb1c2` byte for byte.
+The selected working default is `simd-pack`: runtime-selected SIMD byte shuffle and parallel packing in the existing four workers. `--provider original` selects the retained `4cb1c2` provider. The provider selector changes no provider, shim, header or owner bytes; package builds previously reproduced selected `375aa7e3` and original `4cb1c2` byte for byte.
 
 This default is limited to the qualified GNU 13.3 / Zen2 world-512 campaign, its current rank map and exact dependency closure. It does not claim qualification for other compilers, processors, maps, restart or the full production chain.
 
@@ -12,7 +12,8 @@ Build from the WRF repository root into a fresh directory:
 
 ```sh
 python3 tools/cpu-output/quilt512/build.py --output-dir <fresh-simd-pack-directory>
-python3 tools/cpu-output/quilt512/build.py --provider original --output-dir <fresh-original-directory>
+python3 tools/cpu-output/quilt512/build.py --provider original --codec original --output-dir <fresh-original-directory>
+python3 tools/cpu-output/quilt512/build.py --codec original --output-dir <fresh-simd-pack-original-codec-directory>
 ```
 
 The selected provider remains nested `e29a6a59`, with the qualified strict C recipe; the original is shared `ee9ebe79`. SIMD dispatch is function-scoped and runtime-guarded; the non-AVX2 execution path remains unqualified. Parent world-16 and world-64 sources are unchanged.
@@ -23,10 +24,12 @@ Use the frozen [current rankfile](placement/current.rankfile) and [rank table](p
 
 Writer roots 487, 495, 503 and 511 retain CPUs 31, 63, 95 and 127, respectively, and worker slots `[31, 28, 29, 30]`, `[63, 60, 61, 62]`, `[95, 92, 93, 94]` and `[127, 124, 125, 126]`. These share compute slots; they are not dedicated free cores. The rejected alternate placement is excluded. Keep the [worker event contract](WORKER_EVENT_SCHEMA.md).
 
-Preload only rank executables with `SELECTED_SHIM:NG`; launchers and helpers have no preload. NG is `/pool/wrf/WPS_new/runtime/zlib-ng/lib/libz.so.1.3.1.zlib-ng`. Use its absolute path because the directory lacks the required SONAME alias.
+Preload only rank executables with `SELECTED_SHIM:NG`; launchers and helpers have no preload. The working codec selector is `--codec inline`; `--codec original` selects retained `5d69c443`. The selected path and SHA are recorded in the build receipt, and `rank-preload.env` defines `WRF_QUILT_RANK_PRELOAD` for the rank-only launch argument. The inline path is the isolated `bac29f50` artifact; installed `/pool/wrf/WPS_new` stays unchanged. See [private codec reproduction and rollback](codec/README.md). The one-hour combined comparison passed the original exact checks; qualification and timing limits are recorded in the codec selection metadata. Use the selected absolute path.
 
 Preserve owner-first dependency search, `WRF_ROOT_SHIM_WORLD=512`, `WRF_ROOT_SHIM_OPTIN=1`, `WRF_ROOT_SHIM_CPUS=0-127`, `WRF_ROOT_SHIM_OWNER=/pool/wrf/WPS_new/runtime/netcdf-owner/lib/libnetcdf.so.19`, `WRF_ROOT_SHIM_LOGDIR=<fresh-log-directory>`, `OMPI_MPI_THREAD_LEVEL=1`, `OMPI_MCA_pml=ucx`, `UCX_TLS=rc,sm,self` and `UCX_NET_DEVICES=ibp1s0f0:1`. MPI, NetCDF and HDF5 remain main-thread only; workers join and affinity restores before continuation.
 
 Roll back a new run to the retained qualified `12d3` executable and original `4cb`, using the same fixture, current map, dependencies and resources. Select `--provider original` or its retained binary. To remove the shim, set its opt-out or omit it; for ordinary I/O, remove NG and restore stock dependency search. Revert the promotion commit and rebuild the object, archive, executable and provider as required.
 
 For generic Fortran ISA, use `make WRF_SMALL_STEP_ZEN2=0 WRF_ADVECTION_ZEN2=0`. Changing a knob does not alter an already built executable. Production deployment is separate.
+
+The new integer transpose plus inline-codec configuration passed the fresh full-grid one-hour comparison: both complete 06/07 products, 185 ordered steps and original scientific/metadata/layout/runtime checks. Model wall was 477.813882 → 427.452763 seconds (10.539903% lower), and aggregate CPU was 10.606524% lower. This single control-first combined observation establishes no isolated component attribution, additive or repeatable forecast gain, or three-hour qualification. SCI `b669bd67` and reader closure `bb51636e` remain exact; see [codec selection evidence](codec/selection.json).

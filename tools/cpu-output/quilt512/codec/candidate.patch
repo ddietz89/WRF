@@ -1,0 +1,49 @@
+--- parent_deflate_fast.c
++++ candidate_deflate_fast.c
+@@ -8,6 +8,28 @@
+ #include "deflate.h"
+ #include "deflate_p.h"
+ #include "functable.h"
++
++static inline Pos deflate_fast_quick_insert_string(deflate_state *const s, uint32_t str) {
++    uint8_t *strstart = s->window + str;
++    uint32_t val;
++    uint32_t hm;
++    Pos head;
++
++#if BYTE_ORDER == LITTLE_ENDIAN
++    val = zng_memread_4(strstart);
++#else
++    val = ZSWAP32(zng_memread_4(strstart));
++#endif
++    hm = ((val * 2654435761U) >> 16);
++    hm &= HASH_MASK;
++
++    head = s->head[hm];
++    if (LIKELY(head != str)) {
++        s->prev[str & s->w_mask] = head;
++        s->head[hm] = (Pos)str;
++    }
++    return head;
++}
+ 
+ /* ===========================================================================
+  * Compress as much as possible from the input stream, return the current
+@@ -41,7 +63,7 @@
+          * dictionary, and set hash_head to the head of the hash chain:
+          */
+         if (s->lookahead >= WANT_MIN_MATCH) {
+-            hash_head = quick_insert_string(s, s->strstart);
++            hash_head = deflate_fast_quick_insert_string(s, s->strstart);
+             dist = (int64_t)s->strstart - hash_head;
+ 
+             /* Find the longest match, discarding those <= prev_length.
+@@ -77,7 +99,7 @@
+                 s->strstart += match_len;
+             } else {
+                 s->strstart += match_len;
+-                quick_insert_string(s, s->strstart + 2 - STD_MIN_MATCH);
++                deflate_fast_quick_insert_string(s, s->strstart + 2 - STD_MIN_MATCH);
+ 
+                 /* If lookahead < STD_MIN_MATCH, ins_h is garbage, but it does not
+                  * matter since it will be recomputed at next deflate call.

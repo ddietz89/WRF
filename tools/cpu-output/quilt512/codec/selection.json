@@ -1,0 +1,35 @@
+{
+  "default": "inline",
+  "scope": "Qualified GNU13.3 private codec and current-map world512 one-hour working configuration; production and other compilers/CPUs/consumers remain separate.",
+  "variants": {
+    "inline": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/codec-quick-insert-inline-r1/build/libz.so.1.3.1.zlib-ng",
+      "sha256": "bac29f50ba4dc42cce3def8d2fd16ecc21f63666839e678475d24e0bbb352121"
+    },
+    "original": {
+      "path": "/pool/wrf/WPS_new/runtime/zlib-ng/lib/libz.so.1.3.1.zlib-ng",
+      "sha256": "5d69c44314f30e4a6f6c76ee26a454538f7e1b019afe5782e67a6b94ba794b64"
+    }
+  },
+  "application_evidence": {
+    "status": "PASS_ORIGINAL_TWO_HISTORY_AND_512_CODEC_TRANSPOSE_ONE_HOUR_SEQUENCE",
+    "science_receipt_sha256": "b669bd674aed9bc5597943a8eafbf771a7e4501974dc11a42e5cdbffb3839355",
+    "reader_closure_sha256": "bb51636ef6f9b3fe701a681afa34db1ea1f2166b62992c0c984a7dd11caaedf0",
+    "control_executable_sha256": "9b853a5294e22f5f7a686e746469f6c52e8f9aabede5291c839efb07792b6a57",
+    "candidate_executable_sha256": "7022b4545030a190f478f8e503aa8a14e0872a0d497a2929354ccf37529b5e08",
+    "complete_products": 2,
+    "ordered_steps": 185,
+    "world_size": 512,
+    "decomposition": [
+      8,
+      60
+    ],
+    "control_wall_seconds": 477.813882,
+    "candidate_wall_seconds": 427.452763,
+    "wall_reduction_percent": 10.539903,
+    "control_aggregate_cpu_seconds": 221168.80198,
+    "candidate_aggregate_cpu_seconds": 197710.480472,
+    "cpu_reduction_percent": 10.606524,
+    "scope": "One fresh control-first one-hour combined comparison; exact original science/meta/layout/runtime. No isolated, additive, causal, repeatable or three-hour gain claim."
+  }
+}
