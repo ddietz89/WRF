@@ -17,7 +17,7 @@ def sha(p):
   for b in iter(lambda:f.read(1024**2),b''):h.update(b)
  return h.hexdigest()
 def main():
- ap=argparse.ArgumentParser();ap.add_argument('--provider',choices=['original','simd-pack'],default='original');ap.add_argument('--shared-dir',type=Path,default=HERE.parent);ap.add_argument('--output-dir',required=True,type=Path);a=ap.parse_args()
+ ap=argparse.ArgumentParser();ap.add_argument('--provider',choices=['original','simd-pack'],default='simd-pack');ap.add_argument('--shared-dir',type=Path,default=HERE.parent);ap.add_argument('--output-dir',required=True,type=Path);a=ap.parse_args()
  shared=a.shared_dir.resolve();pins=json.loads((HERE/'shared-source-pins.json').read_text());qualification=json.loads((HERE/'qualification.json').read_text())
  assert sha(HERE/'wrf_quilt_thread_shim.c')==qualification['variant_source_sha256']
  variant=qualification if a.provider=='original' else qualification['optional_build_variants']['simd-pack']

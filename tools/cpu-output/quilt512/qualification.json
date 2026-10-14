@@ -287,7 +287,7 @@
       }
     }
   },
-  "default_provider": "original",
+  "default_provider": "simd-pack",
   "placement": {
     "variant": "current",
     "table_sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac",
@@ -295,7 +295,7 @@
     "shipped_manifest_sha256": "e36c18ccea261f0f5f8a5164266c72d040fc9df19e4e263301555e087145b3b8",
     "scope": "Unchanged qualified current map only; proposed map unpromoted."
   },
-  "source_scope": "Optional nested provider only; parent world16/64 sources and original build default unchanged.",
+  "source_scope": "Nested world512 simd-pack working default for the qualified GNU13.3/Zen2/currentmap campaign; original provider remains explicit opt-out; world16/64 source unchanged. Historical native_artifact and activation records remain original4cb provenance.",
   "variant_recipe_reproduction": {
     "status": "PASS_DEFAULT_AND_OPTIONAL_PACKAGE_BINARY_BYTEIDENTICAL",
     "result_file": "variant-build/result.json",
@@ -306,5 +306,38 @@
     "default_original_receipt_sha256": "071b7462cba70989955a53f09addf1effa8af67c54a9b8388f54f4f26c1391d1",
     "optional_receipt_sha256": "e4f45895b00dc8abee614051a19133ff1a521c2a9735dfeb77c173b519eec418",
     "scope": "One closed build-only unit. Defaultoriginal4cb and explicitoptional375aa exact; no new model or deployment qualification."
+  },
+  "latest_combined_application_qualification": {
+    "scope": "GNU 13.3 / qualified Zen 2 hosts hpc01-04 / current map / world512 / full grid / three simulated hours; combined changes only",
+    "default_provider": "simd-pack",
+    "provider_sha256": "375aa7e3198d42d84e3c95612f5475216354e2c4cb33c053eea42ac29f4bdb2a",
+    "candidate_executable_sha256": "1799376a1e3a439bcd7c22f5d9b554a1b8372ee619856eb693f96a993b718b22",
+    "control_executable_sha256": "12d3cf5e102fca2bb440ee47cef9d93af901b45300981caced7bbbb99fbe37e6",
+    "control_provider_sha256": "4cb1c2abc61e60be2c79fc40ab9b9fd45fb19aefb59798afd2bbdad09d20cc71",
+    "manifest_sha256": "fab6eb31cbee993595799a9d98c115e66ad9ca7d9340ea118dd307f0a2eeff80",
+    "science_receipt_sha256": "d75707763a03d355bd92cca29a2684827f99c22e341547e79f4dcd55f852cf11",
+    "reader_closure_sha256": "5808a21af56949082d42d2ef317e12b33ef0c26212b0a905ff81848f0e892842",
+    "science_status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_NEXT_DEFAULT_THREE_HOUR_SEQUENCE",
+    "complete_products": 4,
+    "ordered_timesteps": 545,
+    "writer_roots": [
+      487,
+      495,
+      503,
+      511
+    ],
+    "callbacks_per_root": 216,
+    "all_jobs_closed": true,
+    "wall_seconds": {
+      "control": 900.083646676,
+      "candidate": 894.374112873
+    },
+    "aggregate_cgroup_cpu_seconds": {
+      "control": 437025.191032,
+      "candidate": 433118.033194
+    },
+    "observed_wall_reduction_percent": 0.634333689,
+    "observed_cpu_reduction_percent": 0.894034925,
+    "limitations": "One current-default-first pair with staging gap, shared-load/cache/order limits; small differences near variation, no repeatable whole-model or isolated-component speedup established. Earlier kernel percentages are not additive. No restart/144-hour/other compiler or hardware qualification. Failed x-cache and new Advection ISA variant excluded; exact native Advection restored."
   }
 }

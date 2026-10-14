@@ -1056,19 +1056,35 @@ SUBROUTINE rk_addtend_dry ( ru_tend, rv_tend, rw_tend, ph_tend, t_tend,      &
    ENDDO
    ENDDO
 
+   IF(rk_step == 1) THEN
    DO j = jts,MIN(jte,jde-1)
    DO k = kts,kte
+   !$omp simd
    DO i = its,MIN(ite,ide-1)
      ! multiply by my to uncouple w
-     IF(rk_step == 1)rw_tendf(i,k,j) = rw_tendf(i,k,j) +  w_save(i,k,j)*msfty(i,j)
+     rw_tendf(i,k,j) = rw_tendf(i,k,j) +  w_save(i,k,j)*msfty(i,j)
      ! divide by my to couple w
      rw_tend(i,k,j) = rw_tend(i,k,j) + rw_tendf(i,k,j)/msfty(i,j)
-     IF(rk_step == 1)ph_tendf(i,k,j) = ph_tendf(i,k,j) +  ph_save(i,k,j)
+     ph_tendf(i,k,j) = ph_tendf(i,k,j) +  ph_save(i,k,j)
      ! divide by my to couple scalar
      ph_tend(i,k,j) = ph_tend(i,k,j) + ph_tendf(i,k,j)/msfty(i,j)
    ENDDO
    ENDDO
    ENDDO
+   ELSE
+   DO j = jts,MIN(jte,jde-1)
+   DO k = kts,kte
+   !$omp simd
+   DO i = its,MIN(ite,ide-1)
+     ! multiply by my to uncouple w
+     ! divide by my to couple w
+     rw_tend(i,k,j) = rw_tend(i,k,j) + rw_tendf(i,k,j)/msfty(i,j)
+     ! divide by my to couple scalar
+     ph_tend(i,k,j) = ph_tend(i,k,j) + ph_tendf(i,k,j)/msfty(i,j)
+   ENDDO
+   ENDDO
+   ENDDO
+   ENDIF
 
    DO j = jts,MIN(jte,jde-1)
    DO k = kts,kte-1
@@ -1717,6 +1733,7 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
       ENDDO
 
       DO  k = kts, min(kte,kde-1)
+      !$omp simd
       DO  i = its, min(ite,ide-1)
 
         scalar_1(i,k,j,im) = scalar_2(i,k,j,im)

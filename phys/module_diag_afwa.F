@@ -278,9 +278,9 @@ CONTAINS
     ! Calculate relative humidity
     ! ---------------------------
     IF ( F_QV ) THEN
-      DO i=ims,ime
+      DO j=jms,jme
         DO k=kms,kme    
-          DO j=jms,jme
+          DO i=ims,ime
             rh(i,k,j)=calc_rh(ptot(i,k,j),grid%t_phy(i,k,j), qvapr(i,k,j))
           ENDDO
         ENDDO
