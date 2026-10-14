@@ -765,7 +765,7 @@ subroutine Transpose(IO,MemoryOrder,di, Field,l1,l2,m1,m2,n1,n2 &
 #undef DFIELD2
 #define DFIELD1 XField(1,XDEX(i,k,j))
 #define DFIELD2 XField(2,XDEX(i,k,j))
-#include "transpose_integer.code"
+#include "transpose_integer_forward.code"
     case ('xyz','xsz','xez','ysz','yez','xy','xs','xe','ys','ye','z','c','0')
 #undef  DFIELD
 #define DFIELD XField(1:di,XDEX(i,j,k))
@@ -773,7 +773,7 @@ subroutine Transpose(IO,MemoryOrder,di, Field,l1,l2,m1,m2,n1,n2 &
 #undef DFIELD2
 #define DFIELD1 XField(1,XDEX(i,j,k))
 #define DFIELD2 XField(2,XDEX(i,j,k))
-#include "transpose_integer.code"
+#include "transpose_integer_forward.code"
     case ('yxz')
 #undef  DFIELD
 #define DFIELD XField(1:di,XDEX(j,i,k))
