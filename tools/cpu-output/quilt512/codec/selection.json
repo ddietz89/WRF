@@ -1,6 +1,6 @@
 {
-  "default": "inline",
-  "scope": "Qualified GNU13.3 private codec and current-map world512 one-hour working configuration; production and other compilers/CPUs/consumers remain separate.",
+  "default": "guarded",
+  "scope": "Qualified private GNU 13.3 codec for current Zen2 WORLD512 one-hour working configuration, current rank map/provider375/RSL6eb77. No runtime ISA policy change or broader compiler/hardware/consumer qualification; no repeatable whole-forecast speedup claim.",
   "variants": {
     "inline": {
       "path": "/pool/wrf-experiment/wrf-cpu/builds/codec-quick-insert-inline-r1/build/libz.so.1.3.1.zlib-ng",
@@ -9,6 +9,10 @@
     "original": {
       "path": "/pool/wrf/WPS_new/runtime/zlib-ng/lib/libz.so.1.3.1.zlib-ng",
       "sha256": "5d69c44314f30e4a6f6c76ee26a454538f7e1b019afe5782e67a6b94ba794b64"
+    },
+    "guarded": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/codec-avx2-caller-specialization-r1/build/libz.so.1.3.1.zlib-ng",
+      "sha256": "f85f24ba39b67ddb799b3bfcd7e01f9e1c0371fdac24ba7f0e6f400105bc738d"
     }
   },
   "application_evidence": {
@@ -31,5 +35,39 @@
     "candidate_aggregate_cpu_seconds": 197710.480472,
     "cpu_reduction_percent": 10.606524,
     "scope": "One fresh control-first one-hour combined comparison; exact original science/meta/layout/runtime. No isolated, additive, causal, repeatable or three-hour gain claim."
+  },
+  "guarded_application_evidence": {
+    "status": "PASS_ORIGINAL_TWO_HISTORY_AND_512_AVX2_CODEC_ONE_HOUR_SEQUENCE",
+    "scope": "One fresh control-first codec-only comparison; original metadata, layout, raw science, ordered steps and runtime passed. Prior same 6eb77/bac29 candidate wall 418.984297 was close to f85 and much below fresh bac29 control. No established isolated or repeatable whole-model codec benefit; no additive/kernel-to-wall claim.",
+    "control_executable_sha256": "6eb77d1eb6ba274b832cfec8ca31c2721c5c2cf797314cec842129bfd4169334",
+    "candidate_executable_sha256": "6eb77d1eb6ba274b832cfec8ca31c2721c5c2cf797314cec842129bfd4169334",
+    "control_wall_seconds": 504.603209235,
+    "candidate_wall_seconds": 422.216255894,
+    "wall_reduction_percent": 16.327076767,
+    "control_aggregate_cpu_seconds": 237990.250823,
+    "candidate_aggregate_cpu_seconds": 194010.209086,
+    "cpu_reduction_percent": 18.479766119,
+    "prior_same_control_configuration_wall_seconds": 418.984296886,
+    "science_receipt_sha256": "189e0d84e689beffe848d0a5fb0da4a81bfbe98dbf0a789233df428c5e166df3",
+    "reader_closure_sha256": "f611580b9cbeded06ecf8f0eb573013270ef2688c47ca949682f30e78f26338c",
+    "runtime_manifest_sha256": "65fa25522bfc81948aa11f8d42b351b848c4cd08e16c06c04b63593c345f8b23",
+    "complete_products": 2,
+    "ordered_steps": 185,
+    "world_size": 512,
+    "decomposition": [
+      8,
+      60
+    ]
+  },
+  "guarded_package_reproduction": {
+    "receipt_sha256": "e3d7bd5d3741d4cec1f65f738d65057ceba66d0dc75435152beaed5c03496bd0",
+    "closure_sha256": "62ac5fcd4ba816f789c0ca1562165f1e9f7ce3184fda3c70b7ec7bb60fba60f3",
+    "status": "PASS_PRIVATE_CODEC_F85_AND_PROVIDER375_GUARDED_INLINE_ORIGINAL_SELECTION_PACKAGE_REPRODUCTION",
+    "invocation_id": "f0ac64d269224194a3f3f6cca7fa556a"
+  },
+  "application_evidence_applies_to": {
+    "codec_variant": "inline",
+    "codec_sha256": "bac29f50ba4dc42cce3def8d2fd16ecc21f63666839e678475d24e0bbb352121",
+    "combined_change": "Prior inline-insertion codec plus integer Transpose; historical record does not qualify guarded AVX2 codec."
   }
 }

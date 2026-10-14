@@ -17,7 +17,7 @@ def sha(p):
   for b in iter(lambda:f.read(1024**2),b''):h.update(b)
  return h.hexdigest()
 def main():
- ap=argparse.ArgumentParser();ap.add_argument('--provider',choices=['original','simd-pack'],default='simd-pack');ap.add_argument('--codec',choices=['inline','original'],default='inline');ap.add_argument('--codec-library',type=Path);ap.add_argument('--shared-dir',type=Path,default=HERE.parent);ap.add_argument('--output-dir',required=True,type=Path);a=ap.parse_args()
+ ap=argparse.ArgumentParser();ap.add_argument('--provider',choices=['original','simd-pack'],default='simd-pack');ap.add_argument('--codec',choices=['guarded','inline','original'],default='guarded');ap.add_argument('--codec-library',type=Path);ap.add_argument('--shared-dir',type=Path,default=HERE.parent);ap.add_argument('--output-dir',required=True,type=Path);a=ap.parse_args()
  codec_spec=json.loads((HERE/'codec/selection.json').read_text())['variants'][a.codec];codec_path=a.codec_library.absolute()if a.codec_library else Path(codec_spec['path']);assert sha(codec_path)==codec_spec['sha256'],'selected codec bytes differ'
  shared=a.shared_dir.resolve();pins=json.loads((HERE/'shared-source-pins.json').read_text());qualification=json.loads((HERE/'qualification.json').read_text())
  assert sha(HERE/'wrf_quilt_thread_shim.c')==qualification['variant_source_sha256']
