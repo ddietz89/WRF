@@ -1178,6 +1178,7 @@ END MODULE module_quilt_outbuf_ops
     IF (  FieldType .EQ. WRF_FLOAT ) THEN
       DO n = PatchStart(3),PatchEnd(3)
         DO m = PatchStart(2),PatchEnd(2)
+          !$omp simd linear(jj:1)
           DO l = PatchStart(1),PatchEnd(1)
             outbuf_table(ii)%rptr(l,m,n) = inbuf_r(jj)
             jj = jj + 1

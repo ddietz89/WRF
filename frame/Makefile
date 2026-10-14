@@ -131,6 +131,16 @@ $(LIBTARGET) :  $(MODULES) $(OBJS) $(SPECIAL) $(NLOBJS) $(ALOBJS) $(DEALOBJS) $(
 		$(AR) $(ARFLAGS) ../main/$(LIBWRFLIB) $(MODULES) $(OBJS) $(NLOBJS) $(ALOBJS) $(DEALOBJS) $(RSL_OBJS)
 		$(RANLIB) ../main/$(LIBWRFLIB)
 
+# Enable GNU SIMD directives only for the quilt output-buffer copy module.
+# This creates no OpenMP thread team and changes no ISA or math flags.
+# Use make WRF_QUILT_COPY_SIMD=0 to preserve the ordinary compiler path.
+WRF_QUILT_COPY_SIMD ?= 1
+ifeq ($(WRF_QUILT_COPY_SIMD),1)
+ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+module_quilt_outbuf_ops.o: private override FCFLAGS += -fopenmp-simd
+endif
+endif
+
 nl_set_0_routines.o : nl_access_routines.F module_configure.o
 	$(CPP) -DNNN=0 -I../inc -DNL_set_ROUTINES nl_access_routines.F > xx0.f90
 	$(FC) -o $@ -c $(PROMOTION) $(FCNOOPT) $(FCBASEOPTS_NO_G) $(MODULE_DIRS) $(FCSUFFIX) xx0.f90
