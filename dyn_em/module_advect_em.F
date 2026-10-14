@@ -7447,6 +7447,13 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
 !  next, x flux
 
+      IF (.NOT.config_flags%polar) THEN
+      j_start = jts-1
+      j_end   = MIN(jte,jde-1)+1
+      IF(degrade_ys) j_start = jts
+      IF(degrade_ye) j_end   = MIN(jte,jde-1)
+      END IF
+
       DO j = j_start, j_end
         DO k=kts,ktf
         DO i = i_start, i_end+1
