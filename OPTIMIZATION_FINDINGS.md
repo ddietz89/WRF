@@ -968,3 +968,21 @@ Current whole wall/aggregate CPU were 988.215392 / 484418.264430 seconds; the on
 The user-requested next sequence is three fresh controls and three unchanged full-complement runs, C1/F1/C2/F2/C3/F3 on the fixed three-hour 512-rank benchmark. C1 has closed at 1214.345784 seconds and F1 is running; these fresh pairs' scientific gates and aggregate summaries follow their actual closures. The prior direct pair remains context, not one of the three fresh repeats. After that series, one reversed Transpose comparison is requested (rollback first/current second), keeping RSL/f85/provider 375 and every other retained feature fixed. New optimization probes and additional individual-audit expansions remain frozen; no storage/I/O/MPI cause is inferred from whole or main timings.
 
 Evidence: `investigation/wrf-cpu/science-discovery/production512-integer-transpose-rollback3h-runtime-r1/RESULT.json` SHA256 646369f19ca62abfac8d5e8c80b48ea3516520f2b1b969a9f490fe0d7a06b8c6; originalSCI 27fd486a984d866e80a967db8c280d811a146a42c9946f2913d4105ee8a8df86; reader closure 37924f33bea1fa205961aa11627f67f9f5a0b0151cdd073b08e8d9a19f83bfed. The finite original-I/O relink compiled no source and retained current RSL/archive/link-input identities (receipt 91f80f63, closure f13a15db).
+
+
+## Two fresh full-complement comparisons; client-cache follow-up
+
+The user canceled C3/F3 after two fresh controls and two full-complement forecasts. Both pairs passed the original exact four-history/545-step scientific, nonfinite, metadata/layout and runtime gates; all model and reader scopes closed. The unchanged full complement is 6eb77/provider375/guarded f85; controls use corrected stock546b with ordinary output. Benchmark remains three hours, 512 ranks, the same map/input/namelist70cd, InfiniBand, affinity and resource caps. Cache handling was unchanged within this four-run series.
+
+| Fresh run | Whole model/MPI wall seconds | Aggregate model CPU seconds | Main-step elapsed sum seconds (separate scope) |
+|---|---:|---:|---:|
+| Control 1 | 1214.345784 | 566384.748158 | 985.079780 |
+| Full complement 1 | 1131.863292 | 558756.275911 | 982.396800 |
+| Control 2 | 1238.442211 | 580424.555615 | 1012.239480 |
+| Full complement 2 | 1065.277414 | 525359.033702 | 917.144050 |
+
+Individual wall reductions were 6.7923% and 13.9825%; CPU reductions were 1.3469% and 9.4871%. Descriptive control/full wall medians were 1226.393998/1098.570353 seconds (10.4227% lower ratio); CPU medians 573404.651887/542057.654807 seconds (5.4668% lower ratio). Wall ranges were 1214.345784–1238.442211 for controls and 1065.277414–1131.863292 for full complement. These are only two observations per configuration, with fixed control-first ordering; no confidence interval, causal attribution or repeatable component gain is asserted. Earlier direct 1033.064578/906.067103-second pair is context only, not a fresh repeat. Whole includes initialization/output/drain; main sums may include synchronization/backpressure and whole-minus-main is not pure I/O.
+
+Evidence: pair1 SCI471462f9/reader closure8948a8ca/RESULT2205dbde; pair2 SCI69b13525/reader closureb020f8a4/RESULT2f69f58e; descriptive summary `campaign/two-fresh-direct3h-variation-summary-r1/RESULT.json` SHA256 b98cde5a019f5daf9f43e172c3fc993405892cb977d6a634f019d1318e46a4ad.
+
+Next, at the user's request, one separate stock/full-complement comparison clears compute-client filesystem caches before EACH arm. The stock control is running after successful bounded sync/drop_caches3 on all four compute nodes with prior campaign scopes closed and helper groups empty; all other benchmark/model settings remain fixed. Preparation/full static hashes occur before clearing; original post-model hashes, model clocks and exact checker are retained. Code/library/metadata reads still warm pages afterward; shared file-server caches are not cleared or claimed cold. This policy-specific pair stays separate from the four-run summaries. After its exact gate, return to the possible transpose regression with one reversed-order comparison, rollback21ca first/current6eb second and all other features retained. No default change or new optimization investigation has occurred.
