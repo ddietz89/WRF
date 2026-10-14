@@ -339,5 +339,53 @@
     "observed_wall_reduction_percent": 0.634333689,
     "observed_cpu_reduction_percent": 0.894034925,
     "limitations": "One current-default-first pair with staging gap, shared-load/cache/order limits; small differences near variation, no repeatable whole-model or isolated-component speedup established. Earlier kernel percentages are not additive. No restart/144-hour/other compiler or hardware qualification. Failed x-cache and new Advection ISA variant excluded; exact native Advection restored."
+  },
+  "latest_direct_corrected_stock_three_hour_qualification": {
+    "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+    "control_executable_sha256": "546b99156cbd809e1cae5e0ea8cebeea44dafd6331abf89e4daea00e0dd0a5e7",
+    "candidate_executable_sha256": "6eb77d1eb6ba274b832cfec8ca31c2721c5c2cf797314cec842129bfd4169334",
+    "provider_sha256": "375aa7e3198d42d84e3c95612f5475216354e2c4cb33c053eea42ac29f4bdb2a",
+    "codec_sha256": "f85f24ba39b67ddb799b3bfcd7e01f9e1c0371fdac24ba7f0e6f400105bc738d",
+    "runtime_manifest_sha256": "5a5874121198ee8c7f31fa6daa0dd28140fe2c9372017e53c57858d00b5b77d5",
+    "science_receipt_sha256": "0a13cd718515f5ccfeb3841718e18900424227660c6effbee8e2dea791bb0c3f",
+    "reader_closure_sha256": "be636a60a4458d6e94151d7a628598a90c27568276a77531681d0dbeb59d94af",
+    "reader_invocation_id": "52b3b016662f41d880943ad8a1e2e072",
+    "complete_products": 4,
+    "ordered_steps": 545,
+    "world_size": 512,
+    "decomposition": [
+      8,
+      60
+    ],
+    "forecast_hours": 3,
+    "control_wall_seconds": 1033.064578,
+    "candidate_wall_seconds": 906.067103,
+    "wall_reduction_percent": 12.2933,
+    "control_aggregate_cpu_seconds": 476650.905977,
+    "candidate_aggregate_cpu_seconds": 440787.653496,
+    "cpu_reduction_percent": 7.524,
+    "control_main_step_sum_seconds": 810.08496,
+    "candidate_main_step_sum_seconds": 750.22359,
+    "scope": "One fresh corrected-stock-first direct combined comparison, equal physical CPU and100/104GiB budgets, current map and literal inputs/namelist. No isolated/additive/causal/repeatability, restart, longer horizon, other compiler/hardware or production claim.",
+    "benchmark": {
+      "grid": [
+        1500,
+        1140,
+        33
+      ],
+      "start": "2026-10-12_06:00:00",
+      "end": "2026-10-12_09:00:00",
+      "namelist_sha256": "70cd1d753c0d51891d11ed7a8f35fc9057606f9d6c2c0cbb97b88e02d47df6cb",
+      "physical_cpus_per_node": 128,
+      "memory_gib_by_node": {
+        "hpc01": 100,
+        "hpc02": 100,
+        "hpc03": 100,
+        "hpc04": 104
+      },
+      "working_fork_commit": "cb858aff",
+      "categories": "Corrected stock versus accepted complete configuration; unpromoted trials remain separate."
+    },
+    "next_phase": "Controlled reverse-order, one-change regression audit on the fixed three-hour benchmark; no new optimization/probe."
   }
 }
