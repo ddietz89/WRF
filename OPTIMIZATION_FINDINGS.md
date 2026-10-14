@@ -1085,3 +1085,19 @@ The working fork now includes guarded C-pointer row copying. It passed all22 cas
 The isolated full executable `65aaf786` retains damping and583 other archive members, RSL/integer I/O and provider375/f85. Native artifact receipt5a66a754 and closure36d89aec are closed. Its unprofiled one-hour full-grid512 qualifier passed the unchanged original two complete06/07 histories,185 ordered steps and runtime gate (SCIf5f5d804, reader closure8f6972d5, RESULT5fa05ba3 in `science-discovery/production512-real-bulk-copy1h-runtime-r1`). All scopes closed. Wall338.351893 seconds is unpaired, so no application gain is established. Qualification is scoped to GNU13/current one-hour geometry; no three-hour,restart or othercompiler scope is inferred. The separate direct corrected-original/full-complement three-hour comparison is only prepared by offload, not launched here.
 
 Applied source patchd645 changes only the frame routine's guarded C-pointer path. Rollback is reverse/revert that source patch or select retained executable901727 with provider375/f85; `WRF_QUILT_COPY_SIMD=0` alone does not disable the new C_F_POINTER path. No phase, clock, helper or sampler is included in this default candidate.
+
+### Direct corrected-stock versus latest full-complement three-hour closeout
+
+The fresh, unprofiled full-grid pair compared corrected stock546 first with the accepted combined65aaf executable/provider375/f85 second. Both used the same 1500 × 1140 × 33 full25 fixture, current512-rank map, physics, InfiniBand transport and budgets. All four compute-client caches were cleared before each arm; file-server caches were untouched. The baseline is corrected stock, not pristine upstream. The configured higher-order production path does not exercise the latest-only nonpolar order-2 correction.
+
+The unchanged original gate passed all four complete06/07/08/09 products, all545 ordered steps, exact metadata/layout/raw/nonfinite and runtime/writer-lifetime predicates. All model and reader scopes closed. SCI9824012b and invocation-bound reader closuref4097476 are retained with the final RESULT in `science-discovery/production512-original-bulk-combined3h-client-cache-runtime-r3`.
+
+| Observation | Corrected stock546 | Latest combined65aaf | Lower in this pair |
+|---|---:|---:|---:|
+| Whole-model MPI wall, seconds | 820.759611 | 731.019894 | 10.933739% |
+| Summed model-cgroup CPU, seconds | 367703.985442 | 354285.497423 | 3.649264% |
+| Scoped main-step elapsed sum, seconds | 598.148150 | 582.367830 | 2.638196% |
+
+This is one fixed-order observation on shared compute/storage, not an isolated or additive gain for any optimization. The main-step sum can include backpressure; subtracting it from whole wall does not measure pure I/O. Earlier client-cleared6eb wall730.901425 seconds and the new731.019894 seconds are separate observations with intervening build/load/cache conditions, not proof of regression or gain. The bulk-copy synthetic caller median23.3384% remains a separate scope. No restart, longer-horizon, othercompiler or repeatability claim follows.
+
+The source remains exact29e297bf on both perf and master, with promoted65aaf and no default instrumentation. Earlier preparation/reconciler failures remain archived; the corrected current-stage reconciliation and original science predicate supplied this closeout without another model run. The campaign is ready for bounded source investigations; root retains all activation decisions.
