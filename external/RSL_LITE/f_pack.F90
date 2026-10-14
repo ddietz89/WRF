@@ -151,12 +151,47 @@
 #ifdef _OPENMP
         p = (j-js)*(ie-is+1)*(ke-ks+1)+1
 #endif
+          SELECT CASE (ie-is+1)
+          CASE (1)
+            DO k = ks, ke
+              outbuf(p) = inbuf(is,k,j)
+              p = p + 1
+            ENDDO
+          CASE (2)
+            DO k = ks, ke
+              outbuf(p) = inbuf(is,k,j)
+              p = p + 1
+              outbuf(p) = inbuf(is+1,k,j)
+              p = p + 1
+            ENDDO
+          CASE (3)
+            DO k = ks, ke
+              outbuf(p) = inbuf(is,k,j)
+              p = p + 1
+              outbuf(p) = inbuf(is+1,k,j)
+              p = p + 1
+              outbuf(p) = inbuf(is+2,k,j)
+              p = p + 1
+            ENDDO
+          CASE (4)
+            DO k = ks, ke
+              outbuf(p) = inbuf(is,k,j)
+              p = p + 1
+              outbuf(p) = inbuf(is+1,k,j)
+              p = p + 1
+              outbuf(p) = inbuf(is+2,k,j)
+              p = p + 1
+              outbuf(p) = inbuf(is+3,k,j)
+              p = p + 1
+            ENDDO
+          CASE DEFAULT
           DO k = ks, ke
             DO i = is, ie
               outbuf(p) = inbuf(i,k,j)
               p = p + 1
             ENDDO
           ENDDO
+          END SELECT
         ENDDO
 !$OMP END DO
 !$OMP END PARALLEL
@@ -212,12 +247,47 @@
 #ifdef _OPENMP
         p = (j-js)*(ie-is+1)*(ke-ks+1)+1
 #endif
+          SELECT CASE (ie-is+1)
+          CASE (1)
+            DO k = ks, ke
+              outbuf(is,k,j) = inbuf(p)
+              p = p + 1
+            ENDDO
+          CASE (2)
+            DO k = ks, ke
+              outbuf(is,k,j) = inbuf(p)
+              p = p + 1
+              outbuf(is+1,k,j) = inbuf(p)
+              p = p + 1
+            ENDDO
+          CASE (3)
+            DO k = ks, ke
+              outbuf(is,k,j) = inbuf(p)
+              p = p + 1
+              outbuf(is+1,k,j) = inbuf(p)
+              p = p + 1
+              outbuf(is+2,k,j) = inbuf(p)
+              p = p + 1
+            ENDDO
+          CASE (4)
+            DO k = ks, ke
+              outbuf(is,k,j) = inbuf(p)
+              p = p + 1
+              outbuf(is+1,k,j) = inbuf(p)
+              p = p + 1
+              outbuf(is+2,k,j) = inbuf(p)
+              p = p + 1
+              outbuf(is+3,k,j) = inbuf(p)
+              p = p + 1
+            ENDDO
+          CASE DEFAULT
           DO k = ks, ke
             DO i = is, ie
               outbuf(i,k,j) = inbuf(p)
               p = p + 1
             ENDDO
           ENDDO
+          END SELECT
         ENDDO
 !$OMP END DO
 !$OMP END PARALLEL
