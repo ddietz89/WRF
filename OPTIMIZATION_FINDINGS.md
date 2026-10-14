@@ -1,5 +1,7 @@
 # WRF CPU optimization findings
 
+Timing procedure: [TIMING_SOP.md](TIMING_SOP.md). From 2026-10-14, clear compute-node filesystem caches before every timing run; preserve historical runs under their original policy.
+
 ## Status
 
 The accepted working configuration is consolidated on master cb858aff: compute/source improvements, correction-only generic Advection, integer Transpose, narrow RSL copies, provider375 and guarded codec f85. The fresh direct corrected-stock versus latest three-hour models completed with 12.2933% lower observed wall and 7.5240% lower aggregate CPU; all four complete histories, 545 steps and original scientific/runtime gates passed; all scopes closed. One fixed-order combined comparison does not establish isolated or repeatable component gains. See the final closeout entry for exact scope, dispositions and rollback.
