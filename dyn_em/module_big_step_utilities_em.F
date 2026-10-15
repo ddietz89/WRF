@@ -2234,6 +2234,7 @@ SUBROUTINE horizontal_pressure_gradient( ru_tend,rv_tend,                &
    INTEGER :: i,j,k, itf, jtf, ktf, i_start, j_start
    REAL, DIMENSION( ims:ime, kms:kme ) :: dpn
    REAL :: dpx, dpy
+   REAL, DIMENSION( ims:ime ) :: map_y_cache
    REAL, DIMENSION( kms:kme ) :: c1
 
    LOGICAL :: specified
@@ -2304,15 +2305,20 @@ SUBROUTINE horizontal_pressure_gradient( ru_tend,rv_tend,                &
 
 !       ADT eqn 45: -mu*(my/mx)*(1/rho)*partial dp/dy
 !       [alt, al are 1/rho terms; muv, mu are NOT coupled]
+        IF ( ktf >= 1 ) THEN
+          DO i = i_start, itf
+            map_y_cache(i) = msfvy(i,j)/msfvx(i,j)
+          END DO
+        END IF
         DO K=1,ktf
           DO i = i_start, itf
             ! Here are mu dp/dy terms 1-3
-            dpy = (msfvy(i,j)/msfvx(i,j))*.5*rdy*(c1h(k)*muv(i,j)+c2h(k))*(                 &
+            dpy = map_y_cache(i)*.5*rdy*(c1h(k)*muv(i,j)+c2h(k))*(                          &
                      (ph (i,k+1,j)-ph (i,k+1,j-1) + ph(i,k,j)-ph(i,k,j-1))  &
                     +(alt(i,k  ,j)+alt(i,k  ,j-1))*(p (i,k,j)-p (i,k,j-1))  &
                     +(al (i,k  ,j)+al (i,k  ,j-1))*(pb(i,k,j)-pb(i,k,j-1)) )
             ! Here is mu dp/dy term 4
-            dpy = dpy + (msfvy(i,j)/msfvx(i,j))*rdy*(php(i,k,j)-php(i,k,j-1))* &
+            dpy = dpy + map_y_cache(i)*rdy*(php(i,k,j)-php(i,k,j-1))* &
                 (rdnw(k)*(dpn(i,k+1)-dpn(i,k))-.5*((c1(k)*mu(i,j-1))+(c1(k)*mu(i,j))))
             rv_tend(i,k,j) = rv_tend(i,k,j)-cqv(i,k,j)*dpy
           END DO
