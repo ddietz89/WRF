@@ -1469,3 +1469,23 @@ The minimal repair includes all 512 exact rank-log filenames and binds each pars
 A subsequent preparation caught two stale relative stage paths before any granted lease, run directory or model submission. Original frozen input hashes remained unchanged; an unpinned repair-review document was created in the old experimental stage before the mismatch stopped preparation. That side effect is retained and documented. Fresh r3 normal-pair preparation uses audited absolute and relative targets and checks an existing stage manifest before copying files. All original scientific, affinity, timing and cache-clear rules remain intact. No accepted source/runtime default, master or production file changed.
 
 Evidence: source-discovery/xpmem-endpoint-log-redirect-diagnosis-r1/actual-closed-failure.json; source-discovery/private-transport-endpoint-recovery-r1/{actual-diagnostic.json,actual-smoke-closure.json,OWNER_SUMMARY.md}; science-discovery/production512-ucx-private-transport3h-runtime-r3/TARGET_AUDIT.json.
+
+
+### Same private UCX build: XPMEM 2.46% slower in a candidate-first pair
+
+The fresh r3 pair completed both full-grid 512-rank three-hour forecasts with identical private UCX r3 libraries, LD paths and pinned application artifacts. The only transport selection was `rc,xpmem,self` first versus `rc,sysv,cma,self` second. Actual per-host endpoint configuration and all 512 mapped-rank/runtime/strict affinity checks passed, followed by all four complete histories and 545 ordered timesteps passing the original exact scientific/IEEE/metadata/layout checker. Reader `d1fa1cd6e2de4771bad26b9d111567ca` closed successfully; science SHA `08328a0d34b160a5a285e1dac23aa4831b3fbcb4c4b628d5fadc7e05b9d061b5`.
+
+| Same private UCX build | SysV/CMA, second | XPMEM, first |
+|---|---:|---:|
+| Model/MPI adapter wall, seconds |731.774681|749.787987|
+| Main-step sum, seconds |580.702610|599.070920|
+| Summed model-cgroup CPU, seconds |355024.832776|364443.950596|
+| Wall minus main-step sum, seconds |151.072071|150.717067|
+
+XPMEM took 2.461592% longer wall, 2.653087% more CPU and 3.163118% longer main-step time. The 18.013306-second wall difference is close to the 18.368310-second main-step difference; residual elapsed was nearly equal. Main-step time includes communication, scheduling and output backpressure, and residual elapsed is not pure I/O. This pattern does not identify mapping/pinning, NUMA access, progress cost or shared load as the cause.
+
+All four clients actually synced/dropped caches before each arm; file-server cache and shared load remain uncontrolled. The initial system/private control-first pair favored its second XPMEM arm by 2.13%; both later candidate-first pairs favored their second controls. That is evidence to investigate order/state effects, not proof that all differences are noise. The original faster pair's affinity failure stays failed, its separately exact science remains documented, and traced timings remain instrumentation diagnostics. Fault counts are not measured fault latency. The independent DeepSeek attribution review returned in 12.473 seconds; its packet's debug-information wording is corrected locally: private debug DATA is disabled, while `-g` enables debug symbols.
+
+XPMEM remains runtime/science qualified and experimentally eligible; it is not promoted as a performance default. One counterbalanced same-package pair, SysV/CMA first and XPMEM second, is the next bounded transport check. No threshold sweep, kernel change, math change or additive speedup claim is justified. Selecting the retained system-UCX environment remains rollback. Accepted source, master and production are unchanged.
+
+Evidence: science-discovery/production512-ucx-private-transport3h-runtime-r3/{RESULT.json,science-receipt.json,reader-closure.json,control-metadata/,candidate-metadata/}; source-discovery/xpmem-performance-attribution-review-r1/{deepseek-response.txt,deepseek-receipt.json,OWNER_DISPOSITION.md}.
