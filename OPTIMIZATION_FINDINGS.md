@@ -1517,3 +1517,45 @@ Selected self-sample shares are largest in MPI progress: `opal_progress` about 7
 Two bounded investigations proceed: an MPI metadata observer to separate actual send bytes, receive capacity and actual received bytes alongside wait intervals; and upward longwave-loop specialization on an invariant column-cloud flag. Current D4 assembly retains the per-level tests in the latter. Neither is qualified or promoted. Actual parallel DeepSeek implementation/review calls were dispatched for each; native ABI/state and exact arithmetic gates precede any model admission. Production, master, accepted executable and defaults remain unchanged.
 
 Evidence: science-discovery/production512-steady-compute-profile1h-runtime-r4/{science-receipt.json,reader-closure.json,current-d4-source-pc-map.json,current-d4-compiled-contexts.json,profile-reports/}; source-discovery/steady-profile-r4-independent-review-r1/RESULT.json; source-discovery/{ordinary-advection-current-d4-audit-r1,rk-zero-once-current-d4-audit-r1,rsl-current-d4-audit-r1,lw-current-d4-audit-r1}/. No source change requires rollback.
+
+
+### Scope of the earlier XPMEM placement exception
+
+The earlier 2.126034% faster system/private pair remains a scientifically valid timing observation with a placement caveat. Its original strict runtime check found two exceptions among 10,752 snapshots, both at approximately 494.8865 seconds on hpc02: ranks 333 and 321 had main-thread allowed CPU 95 instead of their mapped CPUs 58 and 10. Supporting threads retained their mapped cores. The snapshots do not establish how long the main-thread changes lasted or why they occurred. Preserve the failed placement predicate and exact scientific PASS separately; do not describe this as a bad-output failure or discard its timing observation. Later placement-clean same-package counterbalanced pairs still fail to establish a repeatable XPMEM forecast gain.
+
+Evidence: science-discovery/production512-ucx-xpmem3h-client-cache-v3-runtime-r1/{candidate-thread-diagnosis-summary.json,candidate-thread-diagnosis.json}.
+
+### Upward longwave specialization: native correctness and code generation pass
+
+Actual DeepSeek author and independent review calls supplied source proposals and review feedback. The returned literals retained a dead layer predicate; a small local integration correction replaces the clear-column body with the four original statements in their original order. Subsequent independent integrated-source review accepted that literal pending native gates. The complete original rtrnmc module and original dependencies match all 282 compiled parent statements. Full-procedure finite checks passed 36 cases at both O0 with bounds checks and original strict O2, including rebuilt-parent control, complete raw output, read-only data, padding and errno/FP state. Both raw streams are 43,056 bytes with SHA `ee46ee8095301e7bc9f030b145504b8d63a7f94786da3539fca71eb866aa951c`. The separate upward-loop exceptional gate passed 35,868 cases under the actual GNU 13.3 compiler and original O2 arithmetic flags.
+
+The parent upward native instruction interval is byte-identical to accepted D4. Candidate clear columns eliminate both per-level predicates, and cloudy columns eliminate the column predicate while retaining the layer predicate and scalar arithmetic order. This proves a useful control-flow change, not a measured gain. A bounded complete-caller timing comparison remains pending; no WRF source/default is promoted. hpc00 could not execute the pinned compiler because of its older glibc, so native checks ran in bounded hpc01 jobs instead. All completed native-check scopes drained.
+
+Evidence: source-discovery/lw-current-d4-audit-r1/{actual/integrated-review/,full-rtrnmc-fixture/NATIVE_RESULT-r3.json,full-rtrnmc-fixture/NATIVE_CLOSURE-r3.json,codegen-proof/}; source-discovery/lw-upward-kernel-gate-r1/{integration.json,NATIVE_RESULT.json,NATIVE_CLOSURE.json}. Original failed staging/compiler attempts remain retained.
+
+
+### Upward longwave specialization closed without promotion
+
+A single bounded complete-caller comparison ran 20,000 repeated 33-layer calls per arm with original strict GNU 13.3 flags. hpc03 ran parent then candidate; hpc04 ran candidate then parent, for clear and mixed columns. Both clients actually synced/dropped caches before each synchronized arm boundary; workers used CPU 24, 2 GiB limits, and drained after each arm. All four parent/candidate 2,304-byte raw streams matched exactly.
+
+| Synthetic complete caller | Parent seconds | Candidate seconds | Candidate reduction |
+|---|---:|---:|---:|
+| hpc03 clear |1.118154285|1.071644560|4.1595%|
+| hpc04 clear |1.084928585|1.117742367|-3.0245%|
+| hpc03 mixed |1.861554909|1.861537798|0.0009%|
+| hpc04 mixed |1.862386111|1.868167540|-0.3104%|
+
+Clear-column timing reverses with host/order, and mixed-column time is effectively unchanged. This does not establish a consistent complete-caller gain. Combined with sparse selected-profile headroom, it does not justify further variants or a forecast timing test. Close unpromoted; preserve exactness/codegen evidence and all timing observations without a stage/global benefit claim. Canonical source and accepted D4 defaults remain unchanged.
+
+Evidence: source-discovery/lw-current-d4-audit-r1/{caller-timing-actual/,OWNER_CLOSURE.json,BENCHMARK_DISPATCH.log}.
+
+
+### Native message-metadata observer passes; forecast acquisition pending
+
+The measurement-only observer extends the existing selected-site wait records with peer/tag, posted send bytes or receive capacity, and actual received bytes queried after successful receive completion. Actual parallel DeepSeek author/design-review and subsequent integrated-review responses are retained; local corrections address layout, request tracking, exact sites and state preservation. Original WRF code, protocol, production selector 0/241/243 and scientific predicates remain unchanged.
+
+The final bounded two-peer native MPI check passed: control/observed buffers and receive statuses match exactly (1,573,920 bytes per rank), original PMPI operations execute once, and returned errno/FP state is preserved. It recorded 48 selected waits, 24 posts and 12 valid receive counts; eight completed messages were explicitly ambiguous after native shared-request handle collisions. Unknown counts are not guessed. The negative-site fixture initially folded into a selected function under compiler ICF; fixture-only noipa and distinct-return admission corrected that test without changing observer code or its predicates. Earlier startup failures were caused by the transient launcher's omitted locked-memory setting, leading to UCX registration errors before MPI_Init completed; bounded direct logs exposed the cause. The corrected job uses unlimited memlock within its unchanged 4 GiB cgroup cap. All scopes closed.
+
+Source SHA `ff521bf7a83f40510a622a44fc1cabf365473713175af87e984e529a07e045af` and independently re-pinned D4 post/wait sites are preserved. A separate production-table library compiled successfully: `3e9597842640ab3038e72a0f62099276377be3b878e852cfee8bb4da9d9de0b5`. The fixture library is ineligible for WRF; the production-table build exports only the three intended wrappers. One accepted-D4 one-hour forecast diagnostic with the original exact checker is being prepared. No timing gain, network-only cost, critical-path fraction or new default is claimed.
+
+Evidence: source-discovery/rsl-message-observer-native-gate-r1/; source-discovery/rsl-message-observer-real-mpi-r5/{NATIVE_RESULT.json,NATIVE_CLOSURE.json}; source-discovery/rsl-message-observer-production-build-r1/{RESULT.json,CLOSURE.json}; failed real-mpi-r1/r2/r3 evidence remains retained.
