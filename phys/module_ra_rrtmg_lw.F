@@ -2476,8 +2476,7 @@ contains
          if (irng.eq.0) then 
             do isubcol = 1,nsubcol
                do ilev = 1,nlay
-                  call kissvec(seed1, seed2, seed3, seed4, rand_num) 
-                  CDF(isubcol,:,ilev) = rand_num
+                  call kissvec(seed1, seed2, seed3, seed4, CDF(isubcol,:,ilev))
                enddo
             enddo
          elseif (irng.eq.1) then
