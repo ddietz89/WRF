@@ -1227,3 +1227,20 @@ Latest executable efea909d/provider375/codecf85 includes the accepted earlier pa
 The unchanged original checker passed all four complete06/07/08/09 histories,545 ordered timesteps, exact raw/nonfinite/metadata/layout and runtime predicates (SCIae9b90cf, invocation-bound reader closuree76fd02a, reader0965249f). All eight model scopes and the reader closed successfully. The8GiB reader encountered memory-cap reclaim events but no OOM/kill and completed without retry or predicate changes. Evidence: science-discovery/production512-original-w-combined3h-client-cache-runtime-r1; paired metricsc8e10794.
 
 These are descriptive results from one fixed-order pair on shared compute/storage, not repeatability or attribution to any individual addition. Main-step elapsed includes communication/backpressure; subtracting it from total is not a pure I/O measurement. The earlier separate corrected-stock/bulk-copy pair showed10.93% shorter wall; this11.30% observation does not establish an incremental0.37-point causal gain. Caller gains and historical17–20% results from other conditions are not additive. Existing source rollback instructions remain applicable; production files are unchanged.
+
+
+### Contiguous host-block placement: exact, no measured gain, unpromoted
+
+A separate same8x60 placement hypothesis kept executableefea/provider375/codecf85, all32 quilt assignments, 120 compute+eight quilt ranks per host, 15compute+one service slot per NUMA domain, input/namelist/decomposition and metadata unchanged. The proposed f6af34a8 map assigns compute ranks to four contiguous4x30 host blocks instead of cyclic hosts. Independent full512-row/rankfile validation passed. In the neighbor graph, cross-host edges fall420→68 (60X/eightY), while all892 edges remain; this is a topology count, not measured network traffic or predicted runtime headroom. Actual bounded DeepSeek author/review calls supplied the adopted generator and an independent risk review.
+
+One current-map-first/blocked-map-second, unprofiled full-grid512 one-hour pair used real sync/drop_caches3 on all four clients before each timed arm, identical resources and qualified UCX shared-memory/InfiniBand transport. No reader or other project job ran between arms. The original checker passed both complete06/07 products,185 ordered steps and all exact raw/nonfinite/metadata/layout/runtime predicates, including the strict proposed map and registered workers (SCI507e55c7, invocation-bound reader closure4a905d2c). All eight model scopes and reader closed successfully.
+
+| Observation | Current cyclic map | Proposed blocked map | Increase in this pair |
+|---|---:|---:|---:|
+| Whole-model MPI wall, seconds |335.663603|335.926653|0.078367%|
+| Summed model-cgroup CPU, seconds |151930.527204|152487.166398|0.366377%|
+| Main-step elapsed sum, seconds |188.753470|191.955850|1.696594%|
+
+The result establishes no gain; it does not establish a repeatable slowdown or explain its cause. Cross-host edge reduction alone did not translate into lower application time. This candidate is closed unpromoted, with no longer run or placement matrix. The accepted faba map, source and package defaults remain unchanged. Three-hour/all-four-writer qualification was deliberately not pursued without a positive screen. File-server cache state remains unknown; main-step time includes communication/backpressure. Evidence: science-discovery/production512-blocked-host-placement1h-runtime-r1; paired metrics77fa8b51.
+
+The control preparation and launch each exceeded their local50-second SSH acknowledgement timeout. Actual remote preparation and then exactly one active512-process job were recovered before any continuation; neither was replayed. Candidate-only wrappers extended the final local acknowledgement wait to180 seconds, preserving all frozen host model/resource/1200-second limits, with exactly one override per action. These transport incidents do not replace the actual invocation-bound closures or successful original acceptance.
