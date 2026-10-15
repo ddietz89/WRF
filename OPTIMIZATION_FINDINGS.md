@@ -1581,7 +1581,9 @@ Late model-cgroup memory measurements were approximately 363 GiB total, 90–93 
 
 Evidence: science-discovery/production512-rsl-message-observation1h-runtime-r1/; science-discovery/production512-rsl-message-observation1h-reader-stat-r2/{SCI_COMPACT.json,ACTUAL_READER_CLOSURE.json,COMPLETION.json}; source-discovery/rsl-message-actual-metadata-analysis-r1/RESULT.json; source-discovery/rsl-message-aggregate-independent-review-r1/{actual/,DISPOSITION.json}; source-discovery/mpi-progress-clock-current-d4-audit-r1/AUDIT.json.
 
-### Thompson redundant radius fills closed without promotion
+### Thompson redundant radius fills: initial screen and requested follow-up
+
+The initial closeout below was subsequently reopened at the user’s request and followed by the stronger screen documented below. All initial observations remain retained; no source is promoted.
 
 The candidate deletes three scratch-array default stores and their enclosing loop immediately before the callee unconditionally writes those same defaults. Actual parallel DeepSeek implementation and independent full-source review, native O0 bounds/O2 full-module checks, and four complete driver cases passed. Original/candidate raw outputs, read-only data, padding and errno/IEEE state matched. Native code generation removes the stores while preserving the callee and module interface.
 
@@ -1595,3 +1597,24 @@ One bounded complete-caller screen ran 2,000 enabled mixed-column calls per arm,
 Both observations favor the candidate, but one gain is negligible and magnitudes differ substantially. Together with sparse selected-profile headroom, this does not establish a repeatable material application benefit. Close unpromoted, with no further timing matrix or full-grid qualification. No accepted source/default changes; rollback remains the existing D4 configuration. The initial build failed before compiler execution because systemd could not open its shared-storage log; the fresh build used user-owned redirection and passed, with the failed attempt retained.
 
 Evidence: source-discovery/thompson-current-d4-audit-r1/{actual/full-source-review/,full-driver-gate-r2/,CODEGEN_RESULT.json,caller-screen-r1/,OWNER_CLOSURE.json}.
+
+
+### Thompson requested follow-up: longer alternating screen remains unpromoted
+
+The requested stronger screen completed three alternating pairs on each node, 20,000 complete calls per arm, with opposite starting orders. Qualified O2 module objects and all raw/read-only/padding/errno/IEEE checks were unchanged; only the repetition count increased. All 12 arms explicitly synced/dropped caches after the preceding arm closed and before their own launch, with node/time/return-code and cache-memory observations retained. File-server caches remain unknown. Every 46,188-byte raw output matches the original screen SHA; all 12 invocations closed successfully with empty cgroups.
+
+| Node | Pair 1 reduction | Pair 2 reduction | Pair 3 reduction | Median reduction |
+|---|---:|---:|---:|---:|
+|hpc03|0.142110%|0.344689%|-0.663219%|0.142110%|
+|hpc04|2.187743%|-0.140802%|0.141418%|0.141418%|
+
+The earlier 7.94% observation did not repeat. These near-zero medians and mixed pair directions do not establish a material caller gain, much less an application gain. Close the requested follow-up unpromoted. The five-line proposal and unexecuted one-member build/full-grid qualification plan remain available, but no full-grid run, source promotion or further Thompson timing follows this result. The initial closure, reopening record and all six pairs remain intact. Evidence: source-discovery/thompson-current-d4-audit-r1/{REOPENING.json,caller-screen-r2/timing-r2/,OWNER_FOLLOWUP_CLOSURE.json}; source-discovery/thompson-radius-dead-fill-d4-qualification-plan-r1/NO_EXECUTION_DISPOSITION.json.
+
+
+### Cloud RNG destination: exact native gates and useful code generation
+
+Fresh D4 samples identify the maximum-random cloud generator's copy from temporary rand_num into CDF. The bounded proposal passes that same CDF section directly to the unchanged KISS routine, in the same loop/call/seed order; warmup, other overlap/RNG branches and all floating-point expressions remain untouched. Actual parallel DeepSeek implementation/review returned in 18.836/18.872 seconds and accepted the source pending native gates.
+
+Original GNU 13.3 O0 bounds and strict O2 checks passed 900 standalone seed/stride cases and 120 complete generator/adapter cases, including production-style one-column/33-layer/maximum-random controls and unchanged alternate branches. Every seed word, output, padding/read-only guard and observed errno/FP state matched. Seed raw is 670,740 bytes SHA `2f265e26200dbded6ead95a0db9ae856baa9d306c950e4fc5bcb37699d3624a8`; complete caller raw is 22,821,760 bytes SHA `c905f65194fb742a89b14cffc0cf0ed9ad559de9896c86de239246c602f840ac`, identical at both optimization levels. Invocation `8f7799f8a3284f1c8f7353783aa7531b` closed successfully with no children.
+
+All 102 KISS native instructions match parent, candidate and accepted D4 after relocation normalization. The candidate removes the postcall scalar copy and writes CDF directly, without a new packing temporary or allocation/call-count increase. Whole-generator byte identity with D4 is not claimed. A bounded complete-adapter timing screen is being prepared; these gates do not establish caller or forecast speedup, and no canonical source/default is promoted. Evidence: source-discovery/mcica-current-d4-audit-r1/{actual/,NATIVE_RESULT.json,NATIVE_CLOSURE.json,CODEGEN_RESULT.json}.
