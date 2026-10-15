@@ -1441,3 +1441,20 @@ The recorded adapter difference is0.944943%longer for the candidate, but it is *
 XPMEM remains an eligible qualified experimental runtime. The next ordinary comparison removes kernel tracing from both arms, retains original strict snapshot/scientific acceptance, clears all four compute-client caches before each invocation and reverses the earlier order: XPMEM first, system UCX second. Any new snapshot failure remains explicit and cannot be silently waived. No performance default is changed from these instrumented timings. Keep automatic rendezvous thresholds after the mixed bounded16KiB screen. Rollback remains selecting the retained system-UCX environment; no persistent module/device rules or existing MPI prefix changed.
 
 Evidence: science-discovery/production512-ucx-xpmem3h-affinity-scoped-rb1024-runtime-r1/{RESULT.json,actual-timing-observations.json,actual-qualified/}; source-discovery/xpmem-model-trace-loss-diagnosis-r1/reacquisition-invariant-review.json. Accepted sourcec2967a1b/executableD4/provider375/codecf85/placementfaba, master and production remain unchanged.
+
+
+### Ordinary XPMEM reversed-order pair: exact pass, slower configuration
+
+The fresh untraced candidate-first pair completed both full-grid512-rank three-hour forecasts and passed the original strict runtime/snapshot affinity checks without kernel-scope exceptions. All four06/07/08/09 histories and545 ordered timesteps passed the original exact scientific/IEEE/metadata/layout checker. All eight model scopes and the reader closed successfully. Reader invocation8d51e44f78214cc68dc8b20efaa09f38; science SHA653b2edd72fe5b3c5d2331cd65512f951bf9010c42148a005b8b6e05bd51827d.
+
+| Ordinary untraced observation | System UCX, second | Private UCX/XPMEM, first |
+|---|---:|---:|
+| Model/MPI adapter wall, seconds |722.741492|780.118103|
+| Main-step sum, seconds |578.246600|628.514540|
+| Summed model-cgroup CPU, seconds |350803.460518|379752.338127|
+
+This candidate configuration took7.938746%longer wall,8.252164%more CPU and8.693167%longer main-step time in this pair. Actual sync/drop_caches3 ran on all four clients before each arm; file-server cache and shared-load variation remain uncontrolled. Main-step sums include communication/backpressure and the residual is not pure I/O. This is one reversed-order observation, not a repeatable XPMEM-only effect. Unlike the traced acquisition, it has no kernel-tracer overhead; unlike the earlier2.126034%faster untraced observation, it passes original runtime acceptance. Both observations and the earlier failure remain retained; no percentages are added to the accepted code-vs-stock gain.
+
+The system/private comparison changes UCX packaging/build provenance as well as local transport. The next bounded comparison will use the identical private UCXr3 prefix and library pins in both arms, with explicit rc,sysv,cma,self versus rc,xpmem,self and the same InfiniBand device, executable/provider/codec/placement/inputs. The sm alias is excluded because it can admit XPMEM. Actual selected endpoint configuration and original exact/runtime gates remain required; no transport default is promoted. Keep XPMEM eligible and automatic thresholds unchanged. Rollback remains the existing system-UCX environment; production/master are untouched.
+
+Evidence: science-discovery/production512-ucx-xpmem3h-untraced-reverse-runtime-r1/{RESULT.json,science-receipt.json,reader-closure.json,control-metadata/,candidate-metadata/}; source-discovery/ucx-package-provenance-r1/{RESULT.md,RESULT.json}. Accepted sourcec2967a1b/executableD4/provider375/codecf85/mapfaba remain unchanged.
