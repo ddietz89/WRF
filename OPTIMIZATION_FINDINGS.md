@@ -1676,3 +1676,34 @@ A fresh corrected-original versus promoted C2A/MCICA three-hour pair was attempt
 The setup incorrectly reduced hpc04's memory limit from the qualified 104 GiB to 100 GiB. The exact qualified provider's cg_ok requires 104 GiB on that writer node, so it safely declined activation. This was a benchmark resource-envelope error, not evidence of bogus model output or a source regression. Prior qualified MCICA and C2A one-hour leases actually retained 100 GiB on hpc01–03 and 104 GiB on hpc04; earlier root prose saying 100 GiB on all four was inaccurate. Their passing activation/scientific proofs remain intact.
 
 Retain the failed wrapper, zero-activation logs and actual MPI timing as diagnostic evidence only. Restore the qualified resource envelope for both fresh arms and rerun a matched pair; do not weaken the provider guard, rewrite the failed proof, or label the inactive-provider run as the full accepted configuration. Evidence: science-discovery/production512-original-c2a-mcica-combined3h-client-cache-runtime-r1/{CANDIDATE_WRAPPER_FAILURE.json,CANDIDATE_FAILURE_DIAGNOSIS.json,control-closures.json}.
+
+
+### Qualified three-hour combined comparison: 12.03% lower full model/MPI time
+
+The replacement matched pair used the qualified 100 GiB on hpc01–03 and 104 GiB on hpc04 for both arms, 512 ranks (480 compute plus 32 quilt), the same faba placement and literal three-hour inputs/configuration. The corrected original 546b ran ordinary I/O; promoted b6b1 included all accepted source changes through MCICA direct-CDF and C2A SIMD, provider 375 and codec f85. All four clients actually synced/dropped caches before EACH arm. All eight model scopes and the reader closed successfully.
+
+| Full-grid three-hour measure | Corrected original | Promoted configuration | Reduction |
+|---|---:|---:|---:|
+|Model/MPI wall seconds|825.111621|725.814415|12.0344%|
+|Total CPU seconds|370,495.157361|352,282.956946|4.9156%|
+|Summed main-step seconds|594.792130|579.744890|2.5298%|
+
+The original protected checker passed all four complete 06/07/08/09 histories, exact scientific/IEEE/metadata/layout checks and all 545 ordered adaptive timesteps. Science SHA `d496ddd7af4049a333c34df793f18e4bf7069820876401dfb4824cae405889c9`; reader invocation `b6c8abf0760e4ce7a6be6087a6167d41`, closure SHA `9221d727c941408ff91631acb2debd0879034fac907d0795bc2d670b6eeab220`. The unchanged full worker proof passed: each of four writer roots recorded 261 scopes and 216 actual callbacks with no pending/error/foreign/terminal violations. An early bounded log read also confirmed real activation under the restored 104 GiB writer-node limit. The inactive-provider r1 attempt remains excluded.
+
+This is one fixed-order pair on shared storage; file-server cache/load remains unknown. Main-step time includes communication/backpressure, and the remaining wall time is not pure I/O. The overall 12.03% result is consistent with the prior 12.13% pair, but these observations do not isolate MCICA/C2A effects, establish repeatability or justify adding kernel percentages. The pressure-gradient row-cache candidate is excluded and still awaiting its caller timing/qualification. Rollback remains the dedicated MCICA/C2A commits or retained pre-addition executable; production files remain unchanged.
+
+Evidence: science-discovery/production512-original-c2a-mcica-combined3h-qualified-cache-runtime-r2/{RESULT.json,SCI_COMPACT.json,ACTUAL_READER_CLOSURE.json,CANDIDATE_CLOSED_RUNTIME_COMPACT.json,EARLY_PROVIDER_ACTIVATION.json}.
+
+
+### Pressure-gradient NH-Y row cache: positive complete-caller screen
+
+The approved native caller screen completed one opposite-order parent/candidate pair on each of hpc03 and hpc04, 500 full horizontal_pressure_gradient calls per arm. Active I188/K32/J19 used physical 200×33×31 arrays with legal top level 33. Each timed interval includes the complete original X/Y work and automatic scratch/cache allocation. Identical tendency restores, state seeding, full output/read-only/guard checks stay outside each interval; final raw output is serialized once. Actual sync/drop_caches3 preceded every arm after its predecessor closed.
+
+| Synthetic complete caller | Parent seconds | Candidate seconds | Reduction |
+|---|---:|---:|---:|
+|hpc03 parent/candidate|0.740179573|0.692153806|6.4884%|
+|hpc04 candidate/parent|0.722406232|0.698592198|3.2965%|
+
+All four 8,407,988-byte raw states match SHA `36def966e25151950c372ebc7fd0cadc78144c73d9e3f1f8a2c38fd75184c70c`; per-call outputs, inputs, physical guards, errno/rounding/IEEE state and actual CPU24 affinity passed. All four timing scopes closed successfully. These roughly 0.7-second intervals are short and represent one pair per node, not repeatability or a forecast projection. The earlier screen-r1 build failed before any timing because the new driver omitted TARGET on an array passed to C_LOC. A fresh r2 changed only that declaration and namespace; the original failure and frozen inputs remain retained. Module objects, math, flags, counts and checks were unchanged.
+
+The directional caller result and native/codegen gates justify a bounded one-hour full-grid qualification atop the promoted MCICA/C2A configuration. A compile-free BigStep-member integration is being prepared; no pressure-gradient source is promoted yet. Evidence: source-discovery/pressure-gradient-current-d4-audit-r1/{full-caller-screen-r1/,full-caller-screen-r2/}.
