@@ -1339,3 +1339,22 @@ Receive waits dominate these selected observations. These totals include initial
 Read-only follow-up found no loaded XPMEM module or /dev/xpmem on any compute node. Current private MPI was configured with system UCX (/usr) and separately with XPMEM for its other components; actual UCX local transport logs select SysV/CMA, with rc_mlx5 over InfiniBand between nodes. The system UCX plugin directory has no XPMEM plugin. A vader XPMEM warning alone does not identify the UCX path or explain wait time. Existing project module2.7.4 matches kernel6.8.0-90 on hpc01/04; hpc02/03 run6.8.0-88. No kernel module, device permissions, runtime default or production file was changed during this investigation. Runtime capability and actual protocol selection must be established before an XPMEM performance claim.
 
 Evidence: science-discovery/production512-halo-wait-observation1h-runtime-r1/RESULT.json; source-discovery/halo-wait-observer-next-r1/TOOL_QUALIFICATION.json; halo-wait-trace-analysis-r1/actual-summary.json; xpmem-current-readiness-r1/readiness.json. The accepted code is stillc2967a1b. Its default horizontal-diffusion cache has one-hour exact qualification and synthetic caller timing, but no three-hour paired performance result yet.
+
+
+### All accepted improvements including diffusion cache: three-hour exact comparison
+
+One fresh full-grid512 corrected-stock-first546b versus accepted d4d45/provider375/codecf85/faba pair used the unchanged full25 1500x1140x33 case,06:00–09:00 horizon,480compute8x60 plus32quilts, the same literal namelist, IB transport, affinity and100/104GiB node limits. Both arms had actual four-node sync/drop_caches3 before launch. No diagnostic observer, competing project experiment, reader or kernel/device/runtime change ran between the timed arms. This is the first three-hour paired comparison including the promoted default horizontal-diffusion row cache; all earlier accepted improvements remain included.
+
+| Observation | Corrected stock | All accepted improvements | Reduction in this pair |
+|---|---:|---:|---:|
+| Whole-model MPI wall, seconds |837.196161|735.639612|12.130556%|
+| Summed model-cgroup CPU, seconds |376513.232264|356573.919815|5.295780%|
+| Main-step elapsed sum, seconds |615.168180|587.940240|4.426097%|
+
+The unchanged original checker passed all four complete06/07/08/09 histories,545 ordered timesteps, exact raw/nonfinite/metadata/layout and all512-rank/writer runtime predicates. All eight model scopes and the reader closed successfully. SCI2626af23, invocation-bound reader closure4f295ff8 and reader invocation51ab1f0eda894ecc81f3571464bc6526 are retained. The8GiB reader encountered reclaim events without OOM/kill and completed without retry or predicate changes.
+
+The prior separate corrected-stock/efea pair measured11.296111% shorter whole wall. This new12.130556% observation qualifies the combined package in one fresh fixed-order pair, not an isolated0.83-point diffusion-cache gain or repeatability claim. Both current wall735.64 and stock wall837.20 were higher than their earlier counterparts727.14/819.73; shared compute/storage and order variation remain relevant, and file-server caches were untouched. Main-step elapsed includes communication/backpressure; residual is not pure I/O. Synthetic14.60% diffusion-caller gains are not added to forecast percentages.
+
+The launch-controller SSH acknowledgement timed out after50seconds in both arms while the remote submissions continued successfully. Actual systemd/MPI identities were recovered without any duplicate launch. Candidate continuation was resumed only for monitoring, reconciliation and the original reader. This transport/acknowledgement issue did not produce failed or repeated model runs and is retained in the controller event log.
+
+No accepted code candidate remains awaiting its first three-hour combined test. Rejected/withheld candidates retain their prior dispositions; this does not qualify them. The halo observer remains diagnostic-only. Next investigation is native UCX/XPMEM capability and actual transport selection, with no default change or performance claim yet. Source commitc2967a1b and executabled4d45 remain the accepted package; revert that isolated cache commit or select retainedefea to roll back the cache while preserving earlier work. Production files and master are unchanged. Evidence: science-discovery/production512-original-diffusion-combined3h-client-cache-runtime-r1/RESULT.json and continuation-events.jsonl.
