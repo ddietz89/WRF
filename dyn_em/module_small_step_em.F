@@ -229,6 +229,7 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
 
     DO j=j_start, j_end
     DO k=k_start, k_end
+    !$omp simd
     DO i=i_start, i_end
       c2a(i,k,j) = cpovcv*(pb(i,k,j)+p(i,k,j))/alt(i,k,j)
     ENDDO
