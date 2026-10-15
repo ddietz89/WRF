@@ -3702,6 +3702,7 @@ SUBROUTINE coriolis ( ru, rv, rw, ru_tend, rv_tend, rw_tend, &
    ! Local indices.
    
    INTEGER :: i, j , k, ktf
+   REAL :: map_v_cache(ims:ime)
    INTEGER :: i_start, i_end, j_start, j_end
    
    LOGICAL :: specified
@@ -3815,12 +3816,17 @@ SUBROUTINE coriolis ( ru, rv, rw, ru_tend, rv_tend, rw_tend, &
 !  ENDIF
 
    DO j=j_start, j_end
+   IF (kts <= ktf) THEN
+      DO i=its,MIN(ide-1,ite)
+         map_v_cache(i)=msfvy(i,j)/msfvx(i,j)
+      ENDDO
+   ENDIF
    DO k=kts,ktf
    DO i=its,MIN(ide-1,ite)
    
-      rv_tend(i,k,j)=rv_tend(i,k,j) - (msfvy(i,j)/msfvx(i,j))*0.5*(f(i,j)+f(i,j-1))    &
+      rv_tend(i,k,j)=rv_tend(i,k,j) - map_v_cache(i)*0.5*(f(i,j)+f(i,j-1))    &
        *0.25*(ru(i,k,j)+ru(i+1,k,j)+ru(i,k,j-1)+ru(i+1,k,j-1)) &
-           + (msfvy(i,j)/msfvx(i,j))*0.5*(e(i,j)+e(i,j-1))*0.5*(sina(i,j)+sina(i,j-1)) &
+           + map_v_cache(i)*0.5*(e(i,j)+e(i,j-1))*0.5*(sina(i,j)+sina(i,j-1)) &
            *0.25*(rw(i,k+1,j-1)+rw(i,k,j-1)+rw(i,k+1,j)+rw(i,k,j))
 
    ENDDO
