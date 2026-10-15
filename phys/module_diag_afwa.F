@@ -73,6 +73,8 @@ CONTAINS
     CHARACTER*512 :: message
     CHARACTER*256 :: timestr 
     INTEGER :: i,j,k,nz,ostat
+    INTEGER :: k_pwat
+    REAL :: pwat_column
     INTEGER :: icing_opt
     REAL :: bdump
     INTEGER :: i_start, i_end, j_start, j_end
@@ -317,11 +319,11 @@ CONTAINS
       nz=kme-kms+1
       DO i=ims,ime
         DO j=jms,jme
-          grid % afwa_pwat ( i, j ) = Pwat( nz,                  &
-                                            qvapr(i,kms:kme,j),  &
-                                            qcloud(i,kms:kme,j), &
-                                            dz8w(i,kms:kme,j),   &
-                                            rho(i,kms:kme,j) )
+          pwat_column = 0.0
+          DO k_pwat = kms, kme
+            pwat_column = pwat_column + qvapr(i,k_pwat,j)*dz8w(i,k_pwat,j)*rho(i,k_pwat,j)
+          ENDDO
+          grid % afwa_pwat ( i, j ) = pwat_column
         ENDDO
       ENDDO
     ELSE
