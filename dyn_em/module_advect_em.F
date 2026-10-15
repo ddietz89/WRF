@@ -8011,6 +8011,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
   DO j = j_start, j_end
   DO k = kts, ktf
 !DEC$ vector always
+!$omp simd
   DO i = i_start, i_end
 
      tendency (i,k,j) = tendency(i,k,j)                           &
