@@ -1489,3 +1489,20 @@ All four clients actually synced/dropped caches before each arm; file-server cac
 XPMEM remains runtime/science qualified and experimentally eligible; it is not promoted as a performance default. One counterbalanced same-package pair, SysV/CMA first and XPMEM second, is the next bounded transport check. No threshold sweep, kernel change, math change or additive speedup claim is justified. Selecting the retained system-UCX environment remains rollback. Accepted source, master and production are unchanged.
 
 Evidence: science-discovery/production512-ucx-private-transport3h-runtime-r3/{RESULT.json,science-receipt.json,reader-closure.json,control-metadata/,candidate-metadata/}; source-discovery/xpmem-performance-attribution-review-r1/{deepseek-response.txt,deepseek-receipt.json,OWNER_DISPOSITION.md}.
+
+
+### Counterbalanced same-build pair: XPMEM second is 0.77% faster
+
+The reversed pair ran SysV/CMA first and XPMEM second with the same private UCX build and otherwise identical pinned artifacts and resources. Both three-hour forecasts passed original strict runtime/affinity and selected endpoint checks; all four history products and 545 ordered timesteps passed the unchanged exact scientific checker. All eight model scopes and reader `14898795aab44cdd9ffab35cb914da4a` closed successfully. Science SHA: `e75eb4cd154b808b4e2efcf7abd7701f970f069ccbdd937844c5da90b2b1f16d`.
+
+| Same private UCX build, reversed pair | SysV/CMA, first | XPMEM, second |
+|---|---:|---:|
+| Model/MPI adapter wall, seconds |742.590536|736.885937|
+| Main-step sum, seconds |593.293490|582.773270|
+| Summed model-cgroup CPU, seconds |360411.910828|357859.321233|
+
+XPMEM was 0.768202% faster wall, used 0.708242% less CPU and had 1.773190% shorter main-step time in this pair. The preceding same-build XPMEM-first pair made XPMEM 2.461592% slower. The second arm therefore won in both same-package pairs, as it did in the initial system/private control-first pair that showed a 2.13% XPMEM gain. This supports investigating order/state variation rather than claiming a stable transport regression or gain. It does not prove which state variable caused the difference. Actual client sync/drop_caches3 preceded every invocation; file-server cache and shared load remain uncontrolled. Main-step sums include communication and backpressure, and residual wall is not pure I/O.
+
+Both ordinary same-build pairs are exact/runtime qualified; the earlier faster system/private pair retains its original affinity failure and separate scientific PASS. Traced observations remain instrumentation diagnostics. Native transfer-bandwidth gains and kernel fault counts are separate evidence, not forecast-speedup or latency estimates. No percentages are added to the accepted source-vs-stock result. No repeatable full-forecast XPMEM benefit or new performance default is established; XPMEM stays eligible and qualified. Rollback remains the existing system-UCX environment. Stop the transport timing sequence here and return to the queued fresh accepted-D4 compute profile using the existing bounded collectors. Production and master remain untouched.
+
+Evidence: science-discovery/production512-ucx-private-transport3h-runtime-r4/{RESULT.json,science-receipt.json,reader-closure.json,control-metadata/,candidate-metadata/}; source-discovery/private-transport-order-reverse-r1/{author-integration.json,integrated-controller.diff,local-order-role-check.json}. Actual parallel DeepSeek author/review returned in 7.004/9.576 seconds; original scientific/runtime/endpoint/adapter code remained byte-identical to r3.
