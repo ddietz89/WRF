@@ -1737,3 +1737,22 @@ Rollback reverts this dedicated source commit or selects retained pressure execu
 ### Further measured audits: no forced candidate
 
 The next Tiedtke cuadjtq audit found native reciprocal reuse already present, with temperature/moisture updates making cross-pass helper reuse unsafe. A remaining dead scratch store lacks direct sample evidence or allocation savings; close that reuse hypothesis unpromoted. Deformation/divergence samples scatter across many producer passes, with narrow scalar loops having sparse coverage and existing neighboring-load reuse; no implementation was selected. These conclusions retain the selected-stream/sample limitations and make no application headroom projection. Evidence: source-discovery/{cuadjtq-current-d4-audit-r1,deformation-current-d4-audit-r1}/{AUDIT.json,ACTUAL_PC_SOURCE_ASM.json}.
+
+
+### Latest combined three-hour comparison: 10.25% lower wall, all four products exact
+
+A fresh single fixed-order pair compares corrected original 546b ordinary I/O against latest executable `2f2e8b3243c9312b90795091b31576ac9d2025064b047b5558adf2a0bb493a78`, including all prior improvements plus both pressure and Coriolis row caches. Both arms used the same literal three-hour 06–09 inputs/configuration, 512 ranks/faba placement, strict GNU 13.3 configuration, 128 physical cores/node, 100 GiB on hpc01–03 and 104 GiB on hpc04. The latest runtime retains provider 375 and codec f85; control uses ordinary I/O without a preload. Actual sync/drop_caches3 ran on all four clients before EACH arm, with no model, reader or profile job between the timed arms.
+
+| Full-grid three-hour measure | Corrected original | Latest combined | Reduction |
+|---|---:|---:|---:|
+|Model/MPI wall seconds|819.215257|735.239930|10.2507%|
+|Total CPU seconds|367,364.939003|356,734.451822|2.8937%|
+|Summed main-step seconds|596.297320|579.870360|2.7548%|
+
+All eight model units closed successfully. All four active writer roots passed the unchanged worker proof, each with 261 scopes and 216 callbacks and no pending/error/foreign/terminal violations; early actual activation was also observed. All node memory-event counters remained zero. The original protected checker passed all four complete histories and all 545 ordered adaptive timesteps with zero errors, exact scientific/IEEE/metadata/layout checks. Science SHA `4f406b684460a24d62ddb2e96b3c416eff9f71ebbacd3bd3a68640f679245688`; reader invocation `57a9a4e24b2144a495ea69517e4ade3b`, closure SHA `8d2c3ca8ffa07b21ce939cf1ee5f116f27095b867abc28fa7d6aa42017765beb`.
+
+The prior pre-pressure/pre-Coriolis pair measured 12.0344% lower wall time, versus 10.2507% here. Across these pairs, control wall decreased 5.896364 seconds and candidate wall increased 9.425515 seconds. Candidate summed main-step time changed only 0.125470 seconds (579.744890→579.870360); control main-step time increased 1.505190 seconds. The wall-minus-main residual changed by -7.401554 seconds for control and +9.300045 seconds for candidate. This arithmetic locates most of the observed wall change outside the summed main steps; it does not identify pure I/O, network or any other individual cause. Main-step time itself includes communication/backpressure. Shared storage/server cache and load remain unknown, despite client cache clearing.
+
+This one fixed-order pair qualifies the latest combined package over three hours and measures its observed total benefit versus corrected original. It does not establish repeatability, an isolated feature regression or an incremental forecast speedup from either row cache. Their positive synthetic caller gains remain separate and must not be added to the full-model percentage. Both dedicated rollback commits and retained pressure/C2A-MCICA executables remain available. Production remains unchanged.
+
+Evidence: science-discovery/production512-original-coriolis-pressure-combined3h-qualified-cache-runtime-r1/{RESULT.json,science-receipt.json,reader-closure.json,CONTROL_CLOSED_COMPACT.json,CANDIDATE_CLOSED_COMPACT.json,FRESH_VS_PRIOR_NUMERICAL_REVIEW.json}; retained per-arm metadata includes actual cache/start and all-four model closures.
