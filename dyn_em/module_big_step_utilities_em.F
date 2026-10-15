@@ -2762,6 +2762,8 @@ SUBROUTINE horizontal_diffusion ( name, field, tendency, MUT, c1, c2,  &
    REAL :: mrdx, mkrdxm, mkrdxp, &
            mrdy, mkrdym, mkrdyp
 
+      REAL :: cache_m(its:ite), cache_p(its:ite)
+
    LOGICAL :: specified
 
 !<DESCRIPTION>
@@ -2927,12 +2929,21 @@ SUBROUTINE horizontal_diffusion ( name, field, tendency, MUT, c1, c2,  &
       IF ( config_flags%periodic_x ) i_end = MIN(ite,ide-1)
 
       DO j = j_start, j_end
+      IF (kts .LE. ktf) THEN
+      IF (i_start .LE. i_end) THEN
+!$OMP SIMD
+      DO i = i_start, i_end
+         cache_m(i)=msfux(i,j)/msfuy(i,j)
+         cache_p(i)=msfux(i+1,j)/msfuy(i+1,j)
+      ENDDO
+      ENDIF
+      ENDIF
       DO k=kts,ktf
 !$OMP SIMD private(mrdx,mkrdxm,mkrdxp,mrdy,mkrdym,mkrdyp)
       DO i = i_start, i_end
 
-         mkrdxm=(msfux(i,j)/msfuy(i,j))*0.5*(xkmhd(i,k,j)+xkmhd(i-1,k,j))*0.5*((c1(k)*MUT(i,j)+c2(k))+(c1(k)*MUT(i-1,j)+c2(k)))*rdx
-         mkrdxp=(msfux(i+1,j)/msfuy(i+1,j))*0.5*(xkmhd(i+1,k,j)+xkmhd(i,k,j))*0.5*((c1(k)*MUT(i+1,j)+c2(k))+(c1(k)*MUT(i,j)+c2(k)))*rdx
+         mkrdxm=(cache_m(i))*0.5*(xkmhd(i,k,j)+xkmhd(i-1,k,j))*0.5*((c1(k)*MUT(i,j)+c2(k))+(c1(k)*MUT(i-1,j)+c2(k)))*rdx
+         mkrdxp=(cache_p(i))*0.5*(xkmhd(i+1,k,j)+xkmhd(i,k,j))*0.5*((c1(k)*MUT(i+1,j)+c2(k))+(c1(k)*MUT(i,j)+c2(k)))*rdx
          mrdx=msftx(i,j)*msfty(i,j)*rdx
 !         mkrdym=(msfvy(i,j)/msfvx(i,j))*0.5*(xkmhd(i,k,j)+xkmhd(i,k,j-1))*0.5*((c1(k)*MUT(i,j)+c2(k))+(c1(k)*MUT(i,j-1)+c2(k)))*rdy
          mkrdym=(msfvy(i,j)*msfvx_inv(i,j))*0.5*(xkmhd(i,k,j)+xkmhd(i,k,j-1))*0.5*((c1(k)*MUT(i,j)+c2(k))+(c1(k)*MUT(i,j-1)+c2(k)))*rdy
