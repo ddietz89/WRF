@@ -1210,3 +1210,20 @@ Three alternating fresh-process captured full-W caller pairs were all faster:10.
 Compile-free executableefea909d replaces one SmallStep member of the accepted vertical6ee892 archive, preserving583 other members and all14 link inputs/provider375/codecf85/current faba map (artifact494789c8, closure4d8e00e8). Its unprofiled, client-cache-cleared one-hour full-grid512 qualification passed the unchanged original two complete06/07 histories,185 ordered steps and exact scientific/metadata/layout/runtime predicates (SCI0e8183a6, invocation-bound reader closure2954dcc8). All model and reader scopes closed. RESULTe52453e8 is retained in science-discovery/production512-w-damping-row-fission1h-runtime-r1. Wall335.842409 seconds, CPU152061.778958 seconds and main-step sum188.616690 seconds are unpaired observations, not a forecast improvement. Qualification is limited to GNU13/current geometry and the actual tested modes; no longer horizon, restart, othercompiler or universal FP-environment claim follows. File-server cache state remains unknown.
 
 The source is promoted in the working fork. Rollback is to revert this fission and rebuild SmallStep/relink, or select retained vertical6ee892f6 with provider375/f85/current faba, preserving earlier improvements. No production file is changed.
+
+
+### Latest combined three-hour comparison: exact and 11.30% shorter wall
+
+One fresh full-grid512 corrected-stock-first/latest-combined-second pair used the same full25 1500x1140x33 case, 06:00–09:00 horizon, 480 compute ranks in8x60 plus32 quilt ranks, current faba placement, qualified UCX shared-memory/InfiniBand transport and resource limits. All four clients were actually synchronized and cache-cleared before each arm; file-server cache state remains unknown. No profiling helpers or reader ran between the timed arms.
+
+Latest executable efea909d/provider375/codecf85 includes the accepted earlier package, DI1 transpose, AFWA Pwat copy removal, PD vertical-divergence SIMD and W damping row fission. Rejected PD X/CQU SIMD, X-distance caching, withheld advection ISA changes and unqualified placement changes are absent. Corrected-stock executable546b9915 shares the approved scientific baseline corrections; it is not pristine upstream. The latest-only HO2 boundary correction is not entered by this configured HO5/V3 case.
+
+| Observation | Corrected stock | Latest combined | Reduction in this pair |
+|---|---:|---:|---:|
+| Whole-model MPI wall, seconds |819.734920|727.136754|11.296111%|
+| Summed model-cgroup CPU, seconds |367563.337871|352685.088503|4.047806%|
+| Main-step elapsed sum, seconds |598.045280|580.767750|2.889000%|
+
+The unchanged original checker passed all four complete06/07/08/09 histories,545 ordered timesteps, exact raw/nonfinite/metadata/layout and runtime predicates (SCIae9b90cf, invocation-bound reader closuree76fd02a, reader0965249f). All eight model scopes and the reader closed successfully. The8GiB reader encountered memory-cap reclaim events but no OOM/kill and completed without retry or predicate changes. Evidence: science-discovery/production512-original-w-combined3h-client-cache-runtime-r1; paired metricsc8e10794.
+
+These are descriptive results from one fixed-order pair on shared compute/storage, not repeatability or attribution to any individual addition. Main-step elapsed includes communication/backpressure; subtracting it from total is not a pure I/O measurement. The earlier separate corrected-stock/bulk-copy pair showed10.93% shorter wall; this11.30% observation does not establish an incremental0.37-point causal gain. Caller gains and historical17–20% results from other conditions are not additive. Existing source rollback instructions remain applicable; production files are unchanged.
