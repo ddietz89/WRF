@@ -1559,3 +1559,39 @@ The final bounded two-peer native MPI check passed: control/observed buffers and
 Source SHA `ff521bf7a83f40510a622a44fc1cabf365473713175af87e984e529a07e045af` and independently re-pinned D4 post/wait sites are preserved. A separate production-table library compiled successfully: `3e9597842640ab3038e72a0f62099276377be3b878e852cfee8bb4da9d9de0b5`. The fixture library is ineligible for WRF; the production-table build exports only the three intended wrappers. One accepted-D4 one-hour forecast diagnostic with the original exact checker is being prepared. No timing gain, network-only cost, critical-path fraction or new default is claimed.
 
 Evidence: source-discovery/rsl-message-observer-native-gate-r1/; source-discovery/rsl-message-observer-real-mpi-r5/{NATIVE_RESULT.json,NATIVE_CLOSURE.json}; source-discovery/rsl-message-observer-production-build-r1/{RESULT.json,CLOSURE.json}; failed real-mpi-r1/r2/r3 evidence remains retained.
+
+
+### Full-grid message accounting: exact diagnostic, no communication patch
+
+The unchanged accepted D4 configuration completed one full-grid 512-rank simulated hour. Both complete 06/07 histories and all 185 ordered timesteps passed the original exact scientific, IEEE, metadata and layout comparison. Reader `7e0f48993ce04ab59dfe2c7a7ee4affd` closed successfully; science SHA `bd19a23d0a8d7061bac3752f7c22add4db4c9d86d736e3fdb4fb39840f45b666`. The first reader stopped before field comparison because reference metadata captured on hpc00 recorded mount-device 47 while hpc03 reports 52. Both files retained identical size, timestamps, inode, path and read-only status. A separate reader explicitly binds device 52 on hpc03; all other identity checks, full before/after stats and protected comparison functions remain unchanged. The failed receipt and frozen model package remain retained.
+
+The strict observer parser passed all three traces without drops, bad clocks, request-table overflow, failed byte queries or state-preservation errors. All 114,080 recorded receives have actual valid byte counts. Ranks 241 and 243 each retain 3,700 ambiguous send completions as UNKNOWN; those records and their durations remain in the full denominators. Receive capacities are never substituted for transferred bytes.
+
+| Selected rank | Cross-host X receive bytes / local wait seconds | Same-host Y receive bytes / local wait seconds |
+|---|---:|---:|
+|0|295,646,184 / 36.685615|2,614,704,744 / 33.439183|
+|241|661,139,616 / 29.940243|5,299,256,736 / 31.472758|
+|243|661,139,616 / 48.148193|5,271,812,256 / 25.125451|
+
+Locality is an explicit source-derived conditional join for this admitted single-domain 8×60/faba configuration, checked against actual 512-rank identities and peer/tag consistency. These are per-rank local wait spans, including arrival, progress, scheduling and observer overhead; they are not network latency, all-rank traffic, cross-host clock totals or removable critical-path time. Send-completion waits are small. Neither these measurements nor the previously closed placement/transport tests justify a protocol rewrite or new transport default. The exact approved DeepSeek aggregate review actually returned in 31.695 seconds and supports closing without a patch; owner corrections preserve ambiguity denominators and avoid attributing component dominance.
+
+The separate source-only MPI polling audit found that the sampled timer executes lfence/RDTSC, not an operating-system clock syscall. Changing the event-poll interval leaves its preceding timer read. A busy-poll sample share does not establish forecast speedup from faster polling. No library or runtime setting changed.
+
+Late model-cgroup memory measurements were approximately 363 GiB total, 90–93 GiB per node, mostly anonymous model memory. The assigned budget was 100 GiB per node. This memory observation applies to the current 512-rank layout, not arbitrary decompositions.
+
+Evidence: science-discovery/production512-rsl-message-observation1h-runtime-r1/; science-discovery/production512-rsl-message-observation1h-reader-stat-r2/{SCI_COMPACT.json,ACTUAL_READER_CLOSURE.json,COMPLETION.json}; source-discovery/rsl-message-actual-metadata-analysis-r1/RESULT.json; source-discovery/rsl-message-aggregate-independent-review-r1/{actual/,DISPOSITION.json}; source-discovery/mpi-progress-clock-current-d4-audit-r1/AUDIT.json.
+
+### Thompson redundant radius fills closed without promotion
+
+The candidate deletes three scratch-array default stores and their enclosing loop immediately before the callee unconditionally writes those same defaults. Actual parallel DeepSeek implementation and independent full-source review, native O0 bounds/O2 full-module checks, and four complete driver cases passed. Original/candidate raw outputs, read-only data, padding and errno/IEEE state matched. Native code generation removes the stores while preserving the callee and module interface.
+
+One bounded complete-caller screen ran 2,000 enabled mixed-column calls per arm, 32 active levels, FE_TONEAREST, original strict flags and qualified module objects. Restores and state checks stayed outside each caller interval. hpc03 ran parent/candidate and hpc04 candidate/parent, CPU 24 and 4 GiB per arm, with actual client sync/drop_caches3 before every arm. All four 46,188-byte raw streams match SHA `1f01732f5419c18e6ffae8d588ddc149d32546a3dbef3160e015726fc3256c0a`; all scopes closed.
+
+| Synthetic complete caller | Parent seconds | Candidate seconds | Candidate reduction |
+|---|---:|---:|---:|
+|hpc03|0.230547024|0.230262347|0.123479%|
+|hpc04|0.226447963|0.208473865|7.937408%|
+
+Both observations favor the candidate, but one gain is negligible and magnitudes differ substantially. Together with sparse selected-profile headroom, this does not establish a repeatable material application benefit. Close unpromoted, with no further timing matrix or full-grid qualification. No accepted source/default changes; rollback remains the existing D4 configuration. The initial build failed before compiler execution because systemd could not open its shared-storage log; the fresh build used user-owned redirection and passed, with the failed attempt retained.
+
+Evidence: source-discovery/thompson-current-d4-audit-r1/{actual/full-source-review/,full-driver-gate-r2/,CODEGEN_RESULT.json,caller-screen-r1/,OWNER_CLOSURE.json}.
