@@ -1831,3 +1831,23 @@ A distinct per-invocation scratch bank grouped 79 same-kind/same-bounds DOUBLE P
 Eleven complete-column/driver cases passed accepted-native/fresh-parent/candidate O2, same-opt O0/bounds, read-only/padding and IEEE/errno checks. Physical/table-index inputs remain in the original defined domain; exceptional precipitation accumulator outputs were tested without introducing invalid table indices. Native allocation/free sites fell from 164 pairs to 86, existing memset sites from 115 to 40, and routine code grew 5,584 bytes. Static call counts do not establish runtime benefit.
 
 One opposite-order 20,000-call full-driver pair per host measured 2.086259945→2.078910930 seconds on hpc03 (0.3523%) and 2.101125130→2.069969141 seconds on hpc04 (1.4828%). All four 46,188-byte states matched each other and the accepted native fixture, with exact IEEE state, actual cache clearing before every arm and closed invocations. These small, short-pair gains are insufficient to justify the broad source rewrite. The candidate is closed unpromoted; no application run, default change, further sweep or forecast gain is claimed. Canonical Thompson remains unchanged. Evidence: source-discovery/current-pbl-physics-readonly-r1/{actual/,full-caller-native-r1/,INDEPENDENT_FORWARD_INVERSE_REVIEW.json,CODEGEN_REVIEW.json,timing-r1/,DISPOSITION.json}.
+
+
+### Latest combined three-hour comparison, including curvature row caching
+
+The corrected original `546b9915` (ordinary I/O) and promoted combined executable `3ad3c26a` (all earlier accepted improvements, curvature row cache, provider `375aa7e3` and codec `f85f24ba`) completed the literal 06–09 full-grid case. Both used 512 ranks, faba placement, shared-memory/InfiniBand transport, 128 physical cores per node and 100/100/100/104 GiB limits. Actual sync/drop_caches3 preceded each arm on all four clients. No model, reader or profiler ran between the timed arms.
+
+| Metric | Corrected original | Latest combined | Reduction |
+|---|---:|---:|---:|
+| Model/MPI wall, seconds | 821.239689 | 738.288984 | 10.1007% |
+| Model/MPI wall, minutes | 13.687328 | 12.304816 | 10.1007% |
+| Total model CPU, seconds | 368154.920874 | 355876.736385 | 3.3351% |
+| Sum of main-step wall times, seconds | 596.310570 | 582.462870 | 2.3222% |
+
+All eight model scopes closed successfully. The unchanged original checker passed all four complete histories with exact scientific/IEEE, metadata and output-layout acceptance and all 545 ordered adaptive timesteps. Reader invocation `9e18702506cb4ef39b5f03a0b87ab0c5` closed with PID zero, absent cgroup and actual invocation-bound manager success. SCI SHA `d7a93cab4b309efb666cf09b029e319fd932539907b8fa6a46c1cac28e8c8a76`; reader closure SHA `db27020dc188207fe897992cba08b67a62a1099db5febb4d6ef3e3a5ee931f36`.
+
+This is one fixed-order original-first pair, not an isolated curvature increment or repeatability result. The preceding pre-curvature pair measured 10.8542% lower wall time. Candidate wall changed by +5.085904 seconds and summed main-step time by +1.135150 seconds; control wall changed by -1.236779 seconds and main-step time by -3.196560 seconds. These separate pairs do not establish a source regression. File-server cache/load remains unknown despite client cache clearing. Main-step time includes communication/backpressure; wall minus main is not pure I/O. Do not add caller/kernel reductions to combined reductions.
+
+Curvature remains promoted in `91d51ac3`; rollback reverts that dedicated commit or selects retained `ced71c76`. Production is unchanged. Next: parallel measured dynamics/physics source audits and attribution of startup/output/final-flush time, with actual bounded DeepSeek implementation/review for selected opportunities.
+
+Evidence: science-discovery/production512-original-curvature-current-pbl-combined3h-qualified-cache-runtime-r1/{RESULT.json,science-receipt.json,reader-closure.json,control-metadata/,candidate-metadata/}.
