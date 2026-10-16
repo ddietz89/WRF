@@ -11375,11 +11375,24 @@ contains
 
       wkl(:,:) = 0.0_rb
       wx(:,:) = 0.0_rb
+      if (icld .ge. 1 .and. nlayers .gt. 0) then
+         if (size(cldfmc,1) .gt. ngptlw) cldfmc(ngptlw+1:,:) = 0.0_rb
+         if (size(cldfmc,2) .gt. nlayers) cldfmc(1:ngptlw,nlayers+1:) = 0.0_rb
+         if (size(taucmc,1) .gt. ngptlw) taucmc(ngptlw+1:,:) = 0.0_rb
+         if (size(taucmc,2) .gt. nlayers) taucmc(1:ngptlw,nlayers+1:) = 0.0_rb
+         if (size(ciwpmc,1) .gt. ngptlw) ciwpmc(ngptlw+1:,:) = 0.0_rb
+         if (size(ciwpmc,2) .gt. nlayers) ciwpmc(1:ngptlw,nlayers+1:) = 0.0_rb
+         if (size(clwpmc,1) .gt. ngptlw) clwpmc(ngptlw+1:,:) = 0.0_rb
+         if (size(clwpmc,2) .gt. nlayers) clwpmc(1:ngptlw,nlayers+1:) = 0.0_rb
+         if (size(cswpmc,1) .gt. ngptlw) cswpmc(ngptlw+1:,:) = 0.0_rb
+         if (size(cswpmc,2) .gt. nlayers) cswpmc(1:ngptlw,nlayers+1:) = 0.0_rb
+      else
       cldfmc(:,:) = 0.0_rb
       taucmc(:,:) = 0.0_rb
       ciwpmc(:,:) = 0.0_rb
       clwpmc(:,:) = 0.0_rb
       cswpmc(:,:) = 0.0_rb
+      endif
       reicmc(:) = 0.0_rb
       relqmc(:) = 0.0_rb
       resnmc(:) = 0.0_rb
