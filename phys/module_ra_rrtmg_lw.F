@@ -2431,7 +2431,7 @@ contains
             seed4(i) = (pmid(i,4) - int(pmid(i,4)))  * 1000000000_im
           enddo
          do i=1,changeSeed
-            call kissvec(seed1, seed2, seed3, seed4, rand_num)
+            call kissvec_host_seeds(rand_num)
          enddo
       elseif (irng.eq.1) then
          randomNumbers = new_RandomNumberSequence(seed = changeSeed)
@@ -2451,7 +2451,7 @@ contains
          if (irng.eq.0) then 
             do isubcol = 1,nsubcol
                do ilev = 1,nlay
-                  call kissvec(seed1, seed2, seed3, seed4, rand_num)  ! we get different random number for each level
+                  call kissvec_host_seeds(rand_num)  ! we get different random number for each level
                   CDF(isubcol,:,ilev) = rand_num
                enddo
             enddo
@@ -2476,7 +2476,7 @@ contains
          if (irng.eq.0) then 
             do isubcol = 1,nsubcol
                do ilev = 1,nlay
-                  call kissvec(seed1, seed2, seed3, seed4, CDF(isubcol,:,ilev))
+                  call kissvec_host_seeds(CDF(isubcol,:,ilev))
                enddo
             enddo
          elseif (irng.eq.1) then
@@ -2508,7 +2508,7 @@ contains
 
          if (irng.eq.0) then 
             do isubcol = 1,nsubcol
-               call kissvec(seed1, seed2, seed3, seed4, rand_num)
+               call kissvec_host_seeds(rand_num)
                do ilev = 1,nlay
                   CDF(isubcol,:,ilev) = rand_num
                enddo
@@ -2548,9 +2548,9 @@ contains
             if (irng.eq.0) then
                do isubcol = 1,nsubcol
                   do ilev = 1,nlay
-                     call kissvec(seed1, seed2, seed3, seed4, rand_num)
+                     call kissvec_host_seeds(rand_num)
                      CDF(isubcol, :, ilev) = rand_num
-                     call kissvec(seed1, seed2, seed3, seed4, rand_num)
+                     call kissvec_host_seeds(rand_num)
                      CDF2(isubcol, :, ilev) = rand_num
                   enddo
                enddo
@@ -2600,9 +2600,9 @@ contains
        if (irng.eq.0) then 
           do isubcol = 1,nsubcol
              do ilev = 1,nlay
-                call kissvec(seed1, seed2, seed3, seed4, rand_num)
+                call kissvec_host_seeds(rand_num)
                 CDF(isubcol, :, ilev) = rand_num
-                call kissvec(seed1, seed2, seed3, seed4, rand_num)
+                call kissvec_host_seeds(rand_num)
                 CDF2(isubcol, :, ilev) = rand_num
              end do
           end do
@@ -2684,6 +2684,29 @@ contains
 !      mean_tauc_stoch(:,:) = mean_tauc_stoch(:,:) / nsubcol
 !      mean_ssac_stoch(:,:) = mean_ssac_stoch(:,:) / nsubcol
 !      mean_asmc_stoch(:,:) = mean_asmc_stoch(:,:) / nsubcol
+
+      CONTAINS
+
+      subroutine kissvec_host_seeds(ran_arr)
+
+      real(kind=rb), dimension(:), intent(inout)  :: ran_arr
+      integer(kind=im) :: i,sz,kiss
+      integer(kind=im) :: m, k, n
+
+
+      m(k, n) = ieor (k, ishft (k, n) )
+
+      sz = size(ran_arr)
+      do i = 1, sz
+         seed1(i) = 69069_im * seed1(i) + 1327217885_im
+         seed2(i) = m (m (m (seed2(i), 13_im), - 17_im), 5_im)
+         seed3(i) = 18000_im * iand (seed3(i), 65535_im) + ishft (seed3(i), - 16_im)
+         seed4(i) = 30903_im * iand (seed4(i), 65535_im) + ishft (seed4(i), - 16_im)
+         kiss = seed1(i) + seed2(i) + ishft (seed3(i), 16_im) + seed4(i)
+         ran_arr(i) = kiss*2.328306e-10_rb + 0.5_rb
+      end do
+
+      end subroutine kissvec_host_seeds
 
       end subroutine generate_stochastic_clouds
 
