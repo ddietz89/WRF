@@ -1586,6 +1586,23 @@ SUBROUTINE sumflux ( ru, rv, ww,                             &
   mink = min(kde-1,kte)
 
 
+  IF (iteration == number_of_small_timesteps) THEN
+    DO  j = jts, minj
+    DO  k = kts, mink
+    DO  i = its, mini
+      ru_m(i,k,j)  = ru_m(i,k,j) + ru(i,k,j)
+      rv_m(i,k,j)  = rv_m(i,k,j) + rv(i,k,j)
+      ww_m(i,k,j)  = ww_m(i,k,j) + ww(i,k,j)
+      ru_m(i,k,j)  = ru_m(i,k,j) / number_of_small_timesteps   &
+                     + (c1h(k)*muu(i,j)+c2h(k))*u_lin(i,k,j)/msfuy(i,j)
+      rv_m(i,k,j)  = rv_m(i,k,j) / number_of_small_timesteps   &
+                     + (c1h(k)*muv(i,j)+c2h(k))*v_lin(i,k,j)*msfvx_inv(i,j)
+      ww_m(i,k,j)  = ww_m(i,k,j) / number_of_small_timesteps   &
+                     + ww_lin(i,k,j)
+    ENDDO
+    ENDDO
+    ENDDO
+  ELSE
     DO  j = jts, minj
     DO  k = kts, mink
     DO  i = its, mini
@@ -1595,6 +1612,7 @@ SUBROUTINE sumflux ( ru, rv, ww,                             &
     ENDDO
     ENDDO
     ENDDO
+  ENDIF
 
     IF (ite .GT. mini) THEN
       DO  j = jts, minj
@@ -1626,18 +1644,7 @@ SUBROUTINE sumflux ( ru, rv, ww,                             &
 
   IF (iteration == number_of_small_timesteps) THEN
 
-    DO  j = jts, minj
-    DO  k = kts, mink
-    DO  i = its, mini
-      ru_m(i,k,j)  = ru_m(i,k,j) / number_of_small_timesteps   &
-                     + (c1h(k)*muu(i,j)+c2h(k))*u_lin(i,k,j)/msfuy(i,j)
-      rv_m(i,k,j)  = rv_m(i,k,j) / number_of_small_timesteps   &
-                     + (c1h(k)*muv(i,j)+c2h(k))*v_lin(i,k,j)*msfvx_inv(i,j)
-      ww_m(i,k,j)  = ww_m(i,k,j) / number_of_small_timesteps   &
-                     + ww_lin(i,k,j)
-    ENDDO
-    ENDDO
-    ENDDO
+
 
 
     IF (ite .GT. mini) THEN

@@ -1902,3 +1902,16 @@ Seven corpora, five streaming cases, the generic fallback route and five pairs o
 The five short same-host pair wall reductions were +0.7481%, +1.8143%, +0.1065%, -0.1405%, and -2.7043%; medians were +0.1065% wall and +0.1359% CPU. These mixed, effectively neutral caller results establish no material benefit. Closed unpromoted; provider and application gates were skipped. Production source, codec and defaults remain unchanged. This does not revise the selected output-window profile attribution or imply codec work is globally removable wall time.
 
 Evidence: `investigation/wrf-cpu/source-discovery/current-f85-deflate-fast-prefilter-audit-r1/RESULT.json` (`90ff74a6236238149de2c791850fccab9878a42a171a6e69d8a9a8f6520f7bd5`). Rollback is unnecessary: the candidate was never promoted. Qualified runtime codec remains f85.
+
+
+## SUMFLUX final interior pass fusion promoted (2026-10-16)
+
+On the final small timestep, SUMFLUX now accumulates and normalizes each interior element in one loop. The three additions and original three normalization expressions retain their exact operand order. Initialization, earlier timesteps, all six staggered boundary loops, interfaces, compiler flags and all source outside SUMFLUX remain unchanged. The native code eliminates the interior intermediate writes/reloads without reciprocal approximations or FMA.
+
+GNU 13.3 qualification passed 21 complete native caller cases with raw outputs, input/physical guards and IEEE state; same-optimization O0/O2 tests passed. A synthetic complete sequence of N=1/2/4 small timesteps, 500 triples/3,500 calls per arm, took 1.361221 to 1.133898 seconds on hpc01 (16.70% less) and 1.312919 to 1.138658 on hpc02 (13.27% less). These are complete synthetic caller sequences, not captured adaptive production counts or full-model gains. One opposite-order pair per node; actual cache clear before every arm; all raw results and IEEE state exact.
+
+The combined SUMFLUX-plus-RNG application executable `a6305d9abae88e13fde0ff0c6618fedcc9fc182974d0430e638ec208b6d5b9dc` retains all earlier accepted improvements. The one-hour 512-rank run completed 185 steps; both complete histories passed the unchanged original science/metadata/layout checker. Science receipt `93a1d8d47d8712edd5996b35898f113959a7c916fa3b35d7b85c3cf6c5383d5b`; closed reader `a55d5c36979bdb5f1bbf2f7653c2e981d9ec8e7ad43a8fc6198e7d64d4a48ec4`. All four model jobs and the reader closed. A fresh three-hour original-versus-combination comparison is next; no new whole-model speedup is claimed yet.
+
+Implementation provenance is local: automatic export review blocked the exact SUMFLUX packets; the five-minute response window expired before local fallback. No SUMFLUX payload was exported and no DeepSeek authorship/review is claimed. Evidence: `investigation/wrf-cpu/source-discovery/sumflux-final-fusion-current-r1/` and `science-discovery/production512-sumflux-final-fusion-rng-current-pbl1h-runtime-r1/`.
+
+Rollback: revert the dedicated SUMFLUX promotion commit; qualified RNG executable `42acac2a4b618d16e04e7ddbab2698b3a47835b5a91d6108678282e32d1e0c8b` is retained. Qualification scope remains the tested GNU configuration. Production files remain unchanged.
