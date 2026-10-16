@@ -193,6 +193,7 @@ CONTAINS
         ENDDO
       ENDDO
     END IF
+    IF ( is_output_timestep .OR. ( config_flags%afwa_severe_opt == 1 .AND. F_QNG ) ) THEN
     IF ( F_QR ) THEN
       DO j=jms, jme
         DO k=kms, kme
@@ -237,6 +238,7 @@ CONTAINS
           ENDDO
         ENDDO
       ENDDO
+    END IF
     END IF
     IF ( F_QNC ) THEN
       DO j=jms, jme
