@@ -1891,3 +1891,14 @@ In one opposite-order caller pair per node, 20,000 complete longwave calls took 
 The qualified application executable is `42acac2a4b618d16e04e7ddbab2698b3a47835b5a91d6108678282e32d1e0c8b`, with one LW object replacement on the prior accepted build. The combined three-hour benchmark is still pending. Evidence: `investigation/wrf-cpu/source-discovery/mcica-seed-descriptor-current-pbl-audit-r1/` and `science-discovery/production512-mcica-seed-descriptor-current-pbl1h-runtime-r1/`. Actual parallel DeepSeek author/review calls were used; a mechanical call-site integration correction and local/native review are recorded. Compiler/configuration qualification does not extend to AOCC or Intel.
 
 Rollback: revert the dedicated RNG promotion commit; the preceding accepted executable `3ad3c26a1a6589eabae6470470e1873087f59ee3979529db292897e6a9c997d1` is retained. Production files are unchanged.
+
+
+## Private fast-codec three-byte prefix screen closed unpromoted (2026-10-16)
+
+The measured f85 private `deflate_fast_avx2` short rejection loop was screened with a guarded three-byte prefix predicate. The actual external author first returned no diff, then supplied a literal with public/private include and endian defects; the retained candidate uses the root-authorized mechanical scope/endian repairs. Fresh parent compilation reproduced the accepted AVX2 object exactly. Public normal/SLOW code and relocations, generic code, 69 of 71 PIC paths, 51 of 52 shared link inputs, exports and dependencies remained unchanged. The guarded masked native path was present.
+
+Seven corpora, five streaming cases, the generic fallback route and five pairs of one retained actual W chunk passed exact encoded bytes, stock decoding, call status/cursors and guards. Ten actual cache clears preceded the repeated pair arms. R1 retained a caller adapter failure before its first codec call (missing original stat helper); a fresh R2 reused the built candidate and restored that helper, then passed and closed under actual invocation-bound manager success with PID 0 and no cgroup processes.
+
+The five short same-host pair wall reductions were +0.7481%, +1.8143%, +0.1065%, -0.1405%, and -2.7043%; medians were +0.1065% wall and +0.1359% CPU. These mixed, effectively neutral caller results establish no material benefit. Closed unpromoted; provider and application gates were skipped. Production source, codec and defaults remain unchanged. This does not revise the selected output-window profile attribution or imply codec work is globally removable wall time.
+
+Evidence: `investigation/wrf-cpu/source-discovery/current-f85-deflate-fast-prefilter-audit-r1/RESULT.json` (`90ff74a6236238149de2c791850fccab9878a42a171a6e69d8a9a8f6520f7bd5`). Rollback is unnecessary: the candidate was never promoted. Qualified runtime codec remains f85.
