@@ -1041,41 +1041,61 @@ CONTAINS
 
    DO ij = 1 , num_tiles
       DO j=j_start(ij),j_end(ij)
-      DO i=i_start(ij),i_end(ij)
-         TSKOLD(i,j)=TSK(i,j)
-         USTOLD(i,j)=UST(i,j)
-         ZNTOLD(i,j)=ZNT(i,j)
-         HPBL_HOLD(i,j)=PBLH(i,j)
-
-         DO k=kts,kte
-            v_phytmp(i,k,j)=v_phy(i,k,j)+v_frame
-            u_phytmp(i,k,j)=u_phy(i,k,j)+u_frame
+         IF (i_start(ij) .LE. i_end(ij)) THEN
+         DO i=i_start(ij),i_end(ij)
+            TSKOLD(i,j)=TSK(i,j)
+            USTOLD(i,j)=UST(i,j)
+            ZNTOLD(i,j)=ZNT(i,j)
+            HPBL_HOLD(i,j)=PBLH(i,j)
          ENDDO
 
+         IF ( kts .LE. kte ) THEN
+            DO k=kts,kte
+               DO i=i_start(ij),i_end(ij)
+                  v_phytmp(i,k,j)=v_phy(i,k,j)+v_frame
+                  u_phytmp(i,k,j)=u_phy(i,k,j)+u_frame
+               ENDDO
+            ENDDO
+         ENDIF
+
+         DO i=i_start(ij),i_end(ij)
 ! PSFC : in Pa
-
-         PSFC(I,J)=p8w(I,kms,J)
-
-         DO k=kts,min(kte+1,kde)
-            RTHBLTEN(I,K,J)=0.
-            RUBLTEN(I,K,J)=0.
-            RVBLTEN(I,K,J)=0.
-            IF ( PRESENT( RQCBLTEN )) RQCBLTEN(I,K,J)=0.
-            IF ( PRESENT( RQVBLTEN )) RQVBLTEN(I,K,J)=0.
+            PSFC(I,J)=p8w(I,kms,J)
          ENDDO
+
+         IF ( kts .LE. min(kte+1,kde) ) THEN
+            DO k=kts,min(kte+1,kde)
+               DO i=i_start(ij),i_end(ij)
+                  RTHBLTEN(I,K,J)=0.
+                  RUBLTEN(I,K,J)=0.
+                  RVBLTEN(I,K,J)=0.
+                  IF ( PRESENT( RQCBLTEN )) RQCBLTEN(I,K,J)=0.
+                  IF ( PRESENT( RQVBLTEN )) RQVBLTEN(I,K,J)=0.
+               ENDDO
+            ENDDO
+         ENDIF
 
          IF (flag_QI .AND. PRESENT(RQIBLTEN) ) THEN
-            DO k=kts,min(kte+1,kde)
-               RQIBLTEN(I,K,J)=0.
-            ENDDO
+            IF ( kts .LE. min(kte+1,kde) ) THEN
+               DO k=kts,min(kte+1,kde)
+                  DO i=i_start(ij),i_end(ij)
+                     RQIBLTEN(I,K,J)=0.
+                  ENDDO
+               ENDDO
+            ENDIF
          ENDIF
+
          !Following if condition is added for CAMUWPBL scheme
          IF (flag_QNI .AND. PRESENT(RQNIBLTEN) ) THEN
-            DO k=kts,min(kte+1,kde)
-               RQNIBLTEN(I,K,J)=0.
-            ENDDO
+            IF ( kts .LE. min(kte+1,kde) ) THEN
+               DO k=kts,min(kte+1,kde)
+                  DO i=i_start(ij),i_end(ij)
+                     RQNIBLTEN(I,K,J)=0.
+                  ENDDO
+               ENDDO
+            ENDIF
          ENDIF
-      ENDDO
+         ENDIF
       ENDDO
 
       IF (bl_pbl_physics .EQ. QNSEPBLSCHEME ) THEN
