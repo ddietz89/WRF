@@ -1,0 +1,83 @@
+--- a/trees_emit.h
++++ b/trees_emit.h
+@@ -100,6 +100,24 @@
+     s->bi_valid = 0;
+ }
+ 
++#ifndef ZLIB_DEBUG
++#  include <limits.h>
++#  include <stddef.h>
++#  include <string.h>
++#  if BYTE_ORDER == LITTLE_ENDIAN && CHAR_BIT == 8
++/* Snapshot exactly the two initialized uint16_t fields on this layout. */
++static inline uint32_t zng_emit_code_len_snapshot(const ct_data *entry) {
++    if (sizeof(ct_data) == 4 && offsetof(ct_data, Code) == 0 &&
++        offsetof(ct_data, Len) == 2) {
++        uint32_t pair;
++        memcpy(&pair, entry, sizeof(pair));
++        return pair;
++    }
++    return (uint32_t)entry->Code | ((uint32_t)entry->Len << 16);
++}
++#  endif
++#endif
++
+ /* ===========================================================================
+  * Emit literal code
+  */
+@@ -107,7 +125,12 @@
+     uint32_t bi_valid = s->bi_valid;
+     uint64_t bi_buf = s->bi_buf;
+ 
++#if !defined(ZLIB_DEBUG) && BYTE_ORDER == LITTLE_ENDIAN && CHAR_BIT == 8
++    const uint32_t code_len = zng_emit_code_len_snapshot(&ltree[c]);
++    send_bits(s, (uint16_t)code_len, code_len >> 16, bi_buf, bi_valid);
++#else
+     send_code(s, c, ltree, bi_buf, bi_valid);
++#endif
+ 
+     s->bi_valid = bi_valid;
+     s->bi_buf = bi_buf;
+@@ -135,8 +158,14 @@
+     Assert(c < L_CODES, "bad l_code");
+     send_code_trace(s, c);
+ 
++#if !defined(ZLIB_DEBUG) && BYTE_ORDER == LITTLE_ENDIAN && CHAR_BIT == 8
++    const uint32_t length_code_len = zng_emit_code_len_snapshot(&ltree[c]);
++    match_bits = (uint16_t)length_code_len;
++    match_bits_len = length_code_len >> 16;
++#else
+     match_bits = ltree[c].Code;
+     match_bits_len = ltree[c].Len;
++#endif
+     extra = extra_lbits[code];
+     if (extra != 0) {
+         lc -= base_length[code];
+@@ -150,8 +179,14 @@
+     send_code_trace(s, code);
+ 
+     /* Send the distance code */
++#if !defined(ZLIB_DEBUG) && BYTE_ORDER == LITTLE_ENDIAN && CHAR_BIT == 8
++    const uint32_t distance_code_len = zng_emit_code_len_snapshot(&dtree[code]);
++    match_bits |= ((uint64_t)(uint16_t)distance_code_len << match_bits_len);
++    match_bits_len += distance_code_len >> 16;
++#else
+     match_bits |= ((uint64_t)dtree[code].Code << match_bits_len);
+     match_bits_len += dtree[code].Len;
++#endif
+     extra = extra_dbits[code];
+     if (extra != 0) {
+         dist -= base_dist[code];
+@@ -173,7 +208,12 @@
+ static inline void zng_emit_end_block(deflate_state *s, const ct_data *ltree, const int last) {
+     uint32_t bi_valid = s->bi_valid;
+     uint64_t bi_buf = s->bi_buf;
++#if !defined(ZLIB_DEBUG) && BYTE_ORDER == LITTLE_ENDIAN && CHAR_BIT == 8
++    const uint32_t code_len = zng_emit_code_len_snapshot(&ltree[END_BLOCK]);
++    send_bits(s, (uint16_t)code_len, code_len >> 16, bi_buf, bi_valid);
++#else
+     send_code(s, END_BLOCK, ltree, bi_buf, bi_valid);
++#endif
+     s->bi_valid = bi_valid;
+     s->bi_buf = bi_buf;
+     Tracev((stderr, "\n+++ Emit End Block: Last: %u Pending: %u Total Out: %" PRIu64 "\n",

@@ -1,10 +1,20 @@
+# Private codec variants
+
+The Huffman paired Code/Len load codec is the working default. It preserves the f85 codec and changes only trees.lo: three emitters load the same initialized four-byte table entry through alias-safe memcpy under non-DEBUG little-endian layout guards; original field loads remain the fallback. No tree, bitstream, ISA, provider or scientific source change.
+
+Native 24-emitter checks, strict seven-corpus/five-streaming/fallback caller checks and retained four-chunk provider checks passed exact bytes, cursors, state, guards and stock decoding. The one-hour full512 run with current a630/provider375 passed the original two-history185-step scientific, metadata and layout comparison against current f85 control; reader closure was invocation-bound. One-host provider results are encouraging but retain a negative first pair and independently unknown sync exit. No established repeatable isolated forecast speedup or three-hour881d qualification is claimed.
+
+codec/build.py defaults to --variant huffman ; build_huffman.py reuses the original native one-object recipe and requires exact881d output. --variant guarded reproduces retained f85. Provider build.py defaults to --codec huffman; --codec guarded selects the exact prior f85 path for rollback, and inline/original remain available. Installed WPS_new and production are untouched. Promotion is limited to this qualified working configuration.
+
+Prior guarded/inline reproduction and historical evidence follow; their qualifications apply to those retained variants.
+
 # Private working-configuration codecs
 
-The guarded codec is the default in the qualified working configuration. The guarded codec reproduces exact f85 library bytes using the original GNU 13.3 recipes: generic caller flags unchanged, existing AVX2 translation unit retains -mavx2 -mbmi2 -fno-lto. Only two logical objects change; all 50 other ordered link inputs remain original. Three filesystem object paths change because the AVX2 object has an existing root copy.
+The retained guarded codec was the previous default. The guarded codec reproduces exact f85 library bytes using the original GNU 13.3 recipes: generic caller flags unchanged, existing AVX2 translation unit retains -mavx2 -mbmi2 -fno-lto. Only two logical objects change; all 50 other ordered link inputs remain original. Three filesystem object paths change because the AVX2 object has an existing root copy.
 
 The qualified dictionary-insertion helper and common caller body remain exact. The authoritative function-table pointer gates the private inlined AVX2 caller. Other selected implementations, stubs, DEBUG and disabled-runtime paths retain the generic source. No CPU-feature policy, level, strategy, bitstream format, public ABI or global flags change. Current native/caller/provider checks passed; one-hour application qualification passed. No unsupported compiler, hardware, consumer or whole-forecast gain claim.
 
-codec/build.py defaults to guarded. Use --variant inline to reproduce retained bac29. Provider build.py defaults to --codec guarded; --codec inline selects bac29 and --codec original selects retained5d. Rank-only preload remains explicit. Installed /pool/wrf/WPS_new and production are untouched.
+codec/build.py --variant guarded reproduces f85. Use --variant inline to reproduce retained bac29. Provider build.py --codec guarded selects retained f85; --codec inline selects bac29 and --codec original selects retained5d. Rank-only preload remains explicit. Installed /pool/wrf/WPS_new and production are untouched.
 
 Rollback independently selects --codec inline without rebuilding physics or RSL. Select --codec original for the older codec. A dedicated package commit can be reverted and the private provider/codec rebuilt; retain the prior 6eb77/bac29 executable/environment for immediate application rollback.
 

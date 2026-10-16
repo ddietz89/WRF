@@ -2,10 +2,10 @@ from pathlib import Path
 import os,json,hashlib,shutil,subprocess,shlex,re,time,argparse
 S=Path(__file__).resolve().parent
 Z=Path('/pool/wrf-experiment/builds/cpu-investigation/zlib-ng')
-ap=argparse.ArgumentParser();ap.add_argument('--output-dir',type=Path,required=True);ap.add_argument('--variant',choices=['guarded','inline'],default='guarded');a=ap.parse_args();
-if a.variant=='guarded':
+ap=argparse.ArgumentParser();ap.add_argument('--output-dir',type=Path,required=True);ap.add_argument('--variant',choices=['huffman','guarded','inline'],default='huffman');a=ap.parse_args();
+if a.variant in ['huffman','guarded']:
  import sys
- sys.exit(subprocess.call([sys.executable,str(S/'build_guarded.py'),'--output-dir',str(a.output_dir)]))
+ sys.exit(subprocess.call([sys.executable,str(S/('build_huffman.py'if a.variant=='huffman'else'build_guarded.py')),'--output-dir',str(a.output_dir)]))
 D=a.output_dir.absolute();assert not D.is_symlink()and all(not p.is_symlink()for p in D.parents)
 LIB='libz.so.1.3.1.zlib-ng'
 sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
