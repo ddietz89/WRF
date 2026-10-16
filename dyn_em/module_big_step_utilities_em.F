@@ -4253,6 +4253,7 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
 !   INTEGER :: irmin, irmax, jrmin, jrmax
 
    REAL , DIMENSION( its-1:ite , kts:kte, jts-1:jte ) :: vxgm
+   REAL , DIMENSION( ims:ime ) :: msftx_over_msfty_row
 
    LOGICAL :: specified
 
@@ -4480,13 +4481,18 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
 !  terms are: u ru / a + (mx/my)v rv / a
 
    DO j=jts,MIN(jte,jde-1)
+   IF (MAX(2,kts)<=ktf) THEN
+   DO i=its,MIN(ite,ide-1)
+      msftx_over_msfty_row(i) = msftx(i,j)/msfty(i,j)
+   ENDDO
+   ENDIF
    DO k=MAX(2,kts),ktf
    DO i=its,MIN(ite,ide-1)
 
       rw_tend(i,k,j)=rw_tend(i,k,j) + reradius*                              &
     (0.5*(fzm(k)*(ru(i,k,j)+ru(i+1,k,j))+fzp(k)*(ru(i,k-1,j)+ru(i+1,k-1,j))) &
     *0.5*(fzm(k)*( u(i,k,j) +u(i+1,k,j))+fzp(k)*( u(i,k-1,j) +u(i+1,k-1,j)))     &
-    +(msftx(i,j)/msfty(i,j))*0.5*(fzm(k)*(rv(i,k,j)+rv(i,k,j+1))+fzp(k)*(rv(i,k-1,j)+rv(i,k-1,j+1))) &
+    +(msftx_over_msfty_row(i))*0.5*(fzm(k)*(rv(i,k,j)+rv(i,k,j+1))+fzp(k)*(rv(i,k-1,j)+rv(i,k-1,j+1))) &
     *0.5*(fzm(k)*( v(i,k,j) +v(i,k,j+1))+fzp(k)*( v(i,k-1,j) +v(i,k-1,j+1))))
 
    ENDDO
