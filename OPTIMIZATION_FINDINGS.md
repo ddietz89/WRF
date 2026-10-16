@@ -1915,3 +1915,22 @@ The combined SUMFLUX-plus-RNG application executable `a6305d9abae88e13fde0ff0c66
 Implementation provenance is local: automatic export review blocked the exact SUMFLUX packets; the five-minute response window expired before local fallback. No SUMFLUX payload was exported and no DeepSeek authorship/review is claimed. Evidence: `investigation/wrf-cpu/source-discovery/sumflux-final-fusion-current-r1/` and `science-discovery/production512-sumflux-final-fusion-rng-current-pbl1h-runtime-r1/`.
 
 Rollback: revert the dedicated SUMFLUX promotion commit; qualified RNG executable `42acac2a4b618d16e04e7ddbab2698b3a47835b5a91d6108678282e32d1e0c8b` is retained. Qualification scope remains the tested GNU configuration. Production files remain unchanged.
+
+
+## All-promoted fresh three-hour full-grid comparison (2026-10-16)
+
+The corrected-original 4.8.0 control (`546b`, ordinary I/O) was compared with every accepted source improvement through `5e4ece8e`, including the new MCICA host-seed helper and SUMFLUX fusion (`a630` executable), plus qualified parallel packing/compression provider375 and codecf85. The neutral three-byte codec-prefix candidate is excluded. Both arms used the same literal three-hour namelist, 512 ranks (480 compute plus 32 quilt), faba mapping, shared-memory/InfiniBand transport, 128 physical cores per node, 100/100/100/104 GiB limits and zero swap. All four clients actually ran sync/drop_caches3 before each timed arm.
+
+| Metric | Corrected original control | All promoted improvements | Reduction |
+|---|---:|---:|---:|
+| Model/MPI wall seconds | 820.663612 | 724.135093 | **11.7623%** |
+| CPU seconds | 367489.404993 | 350923.019289 | **4.5080%** |
+| Printed main-timestep sum seconds | 596.391030 | 576.282680 | **3.3717%** |
+
+All four complete 06/07/08/09 products, scientific fields, literal metadata/layout and ordered 545-step sequence passed exact comparison. Science receipt `7908a87bd91233b02f168c33360f7bd02ed9cbe0abce282ea1d8e768327e3982`; reader closure `db60fa7f612957e64585e1868ed50e6cb3f177ee55b3eeacbdb65f3e06074a1e`. Both arms' four model jobs and the reader closed; a separate actual hpc03 filesystem check confirms the reader cgroup is absent. Evidence: `investigation/wrf-cpu/science-discovery/production512-sfrng-3h-runtime-r2/RESULT.json`.
+
+The first candidate launch was rejected before MPI or WRF by the adapter's 91-character run-ID limit. This preparation error and actual failed invocation are retained under the R1 package. The recovery used a shorter fresh candidate name and retained the already valid control unchanged, without rerunning it or overwriting the failure. The comparison wrapper now selects each arm's own explicitly pinned frozen source package and validates its actual lease against that package. The protected checker, compare_one function, scientific/runtime/input/layout/timestep predicates and MPI adapter length guard remain unchanged. This is a provenance-binding repair, not a numerical exception. The between-arm gap includes this repair; client caches were cleared again immediately before the valid candidate.
+
+This is one fixed-order control/candidate pair. The preceding curvature/PBL pair showed 10.1007% less elapsed time; its control was 821.239689 seconds versus 820.663612 seconds here. The fresh combination is supported, but differences between pairs do not isolate individual changes or prove repeatability. Main-timestep time includes communication/backpressure; elapsed minus main is not pure I/O. File-server cache/load is uncontrolled. Kernel, caller and full-model percentages must not be added. Qualification remains the tested GNU configuration and three-hour forecast, not a 144-hour/restart or other-compiler claim.
+
+The current candidate queue is closed: RNG and SUMFLUX are promoted with individual one-hour and combined three-hour exact qualification; the codec-prefix screen remains unpromoted. Resume bounded measured dynamics, physics/radiation and output/communication investigations, using actual parallel DeepSeek implementation/review and standalone callers before application qualification. Rollback remains the dedicated source commits and retained preceding accepted binaries; production is unchanged.
