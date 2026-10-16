@@ -4,7 +4,7 @@ Effective 2026-10-14: **clear compute-node filesystem caches before every timing
 
 ## Required order
 
-1. Prepare the case, stage files, finish source/binary/library provenance checks and full scientific/static input checks. Fix executable, configuration, inputs, MPI transport, rank map, affinity, cgroup limits and output policy for the comparison.
+1. Prepare the case, stage files, finish source/binary/library provenance checks and full scientific/static input checks. Fix executable, configuration, inputs, MPI transport, rank map, affinity, cgroup limits and output policy for the comparison. Validate both arms' run IDs and derived unit names against the unchanged launcher constraints before launching either arm; the current multi-node adapter requires run IDs matching `[a-z0-9][a-z0-9-]{2,90}` (3–91 characters).
 2. Confirm all prior benchmark/model/checker jobs and their residual process groups have closed on every participating node. Serialize cache maintenance with timed work. For concurrent experiments on one node, prepare the whole wave, clear once at a shared pre-launch barrier, then start all members; perform no further clearing until the wave finishes.
 3. On every participating compute node, run a bounded `sync`, then write `3` to `/proc/sys/vm/drop_caches`. Use the reviewed helper with explicit host selection and timeouts. A failed/partial clear, failed sync or surviving helper process blocks the timing run; retain the failure rather than labeling the run cache-cleared.
 4. Retain each node's actual result, boot identity, timestamps, helper closure and `/proc/meminfo` cache values before/after. Require all participating nodes to pass. Record the clear-to-launch delay using the same host clock where available.
