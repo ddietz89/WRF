@@ -12,6 +12,16 @@ Effective 2026-10-17: use the shortest experiment that can answer the current qu
 
 Effective 2026-10-14: **clear compute-node filesystem caches before every timing run.** This applies to controls, candidates, standalone kernel benchmarks, individual stages and full forecasts. Every separately timed arm/invocation must be covered by a recorded cache clear before it starts. Model timesteps and inner benchmark iterations remain inside their normal timed invocation.
 
+## Retaining significant kernel improvements
+
+Standing owner rule, effective 2026-10-17: **do not dismiss a significant kernel improvement without an evidence-backed explanation of why it should not be included.**
+
+- Generally promote a significant, exact-qualified kernel gain into the qualified working configuration unless a concrete exclusion reason is documented. Small gains need not individually exceed whole-run variation. Retain candidates while remaining caller/integration science checks are completed. Record its mechanism, absolute saving, tested numerical/input scope, caller coverage and outstanding qualification. Kernel, phase and whole-forecast gains remain separate claims.
+- Mixed or slower whole-run totals alone do not establish that the change caused a regression. Preserve all timings and run order, consider unrelated work and shared-storage/load variation, and isolate the changed path when that uncertainty matters. A missing measurable whole-forecast gain is not, by itself, a reason to discard a local improvement.
+- An exclusion or deferral must name a concrete reason and its evidence: for example an exact-science failure, unsupported caller/alias/thread behavior, a demonstrated attributable cost that outweighs the saving, or specific integration/maintenance costs disproportionate to the measured opportunity. Distinguish a verified failure from uncertainty or unfinished qualification; generic caution is insufficient.
+- Prefer the shortest useful caller or same-binary comparison to resolve a disputed benefit. Do not require a full forecast speedup for every kernel or repeat broad timing matrices solely to recover a small signal. Preserve the original exact scientific acceptance before source/default promotion.
+- State whether the result supports default inclusion, an explicit optional path, retained investigation or exclusion, and explain that choice. Retaining a local gain does not authorize a whole-forecast speedup claim, relaxed science or premature promotion.
+
 ## Required order
 
 1. Prepare the case, stage files, finish source/binary/library provenance checks and full scientific/static input checks. Fix executable, configuration, inputs, MPI transport, rank map, affinity, cgroup limits and output policy for the comparison. Validate both arms' run IDs and derived unit names against the unchanged launcher constraints before launching either arm; the current multi-node adapter requires run IDs matching `[a-z0-9][a-z0-9-]{2,90}` (3–91 characters).

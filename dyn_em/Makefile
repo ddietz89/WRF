@@ -68,10 +68,12 @@ module_advect_em.o: private override FCFLAGS += -fopenmp-simd
 endif
 endif
 
-# Experimental architecture opt-in for advection ONLY; default stays generic.
-# GNU13.3/native CPU+OS and exact caller/application qualification required.
-# WRF_ADVECTION_ZEN2=0 keeps the qualified generic ISA; no link/thread flags.
-WRF_ADVECTION_ZEN2 ?= 0
+# Advection ISA working default for the qualified GNU13.3/Zen2 campaign.
+# CPU/OS admission is required on every runtime node; compiler identity alone
+# does not qualify hardware. Use WRF_ADVECTION_ZEN2=0 for generic ISA.
+# Other compiler versions remain generic; rebuild the object/archive/executable
+# when changing this option. No link or thread-team flags are added.
+WRF_ADVECTION_ZEN2 ?= $(if $(and $(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)),$(findstring 13.3.0,$(shell $(SFC) --version 2>/dev/null))),1,0)
 ifeq ($(WRF_ADVECTION_ZEN2),1)
 ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
 module_advect_em.o: private override FCFLAGS += -march=znver2 -mno-fma
