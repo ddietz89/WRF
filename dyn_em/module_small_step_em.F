@@ -1105,6 +1105,7 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
 !  [don't divide the below by msfty until find ww, since dmdt is used in
 !   the meantime]
      DO k=k_start, k_end
+!$OMP SIMD
      DO i=i_start, i_end
          dvdxi(i,k) = msftx(i,j)*msfty(i,j)*(                                      &
                      rdy*( (v(i,k,j+1)+(c1h(k)*muv(i,j+1)+c2h(k))*v_1(i,k,j+1)*msfvx_inv(i,j+1))   &

@@ -1,0 +1,54 @@
+{
+  "status": "QUALIFIED_COMBINED_CONFIGURATION_WITH_ADVANCE_MU_SIMD",
+  "source_sha256": "da76dfbde3c85d0411fa1183b0015615244138b87725289bd905062c8e737748",
+  "candidate_executable": "/pool/wrf-experiment/wrf-cpu/builds/advance-mu-divergence-simd-current-r1/wrf.exe",
+  "candidate_executable_sha256": "0fb5f827cc3c016545b6fb59cb35438077e180456ab6933809a361d105ef06ae",
+  "parent_executable_sha256": "940eb7066e2df2b58015141af0bbe459b6a3163df0fd47e5dd28846711bc5bb0",
+  "canonical_build_receipt_sha256": "49246b31eadc96c64ad8f2eec8f2a9ccce65b19bb7b901d32f9214af1cf7921f",
+  "canonical_build_closure_sha256": "727731241be8722a70e1dd900f424619d3f60aa639313dd2f127bff5b5cf9d91",
+  "full_caller_receipt_sha256": "15db876ce3b4e231bc74fea2f993aeb2dabd879d8115581e944bb2b900b66fc1",
+  "full_caller_closure_sha256": "c0c79c6210a8aa907aebfc87df96e1c8db3140ea5493321d25928d0c06f6462d",
+  "caller_timing_receipt_sha256": "b3ad4a4c66bc1e4cc381924f1529bf14db6747c253efb55ac9b20c931289c2fc",
+  "full_grid_result": {
+    "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+    "order": [
+      "corrected_stock546b_control",
+      "all_previous_current_tmpbuf940e_privateHDF825e_provider375_huffman881d_candidate"
+    ],
+    "metrics": {
+      "control": {
+        "wall_seconds": 833.4611862439197,
+        "cpu_seconds": 375155.594402,
+        "main_step_sum_seconds": 613.11431
+      },
+      "candidate": {
+        "wall_seconds": 702.7394590720069,
+        "cpu_seconds": 337639.61499200005,
+        "main_step_sum_seconds": 582.15826
+      }
+    },
+    "reductions_percent": {
+      "wall_seconds": 15.68420093574171,
+      "cpu_seconds": 10.000111945498414,
+      "main_step_sum_seconds": 5.048985074251489
+    },
+    "science_sha256": "4e409fd616e022098f61daf25e84722f070db5f90a6ebb1735171e69f31a40b0",
+    "reader_closure_sha256": "47a3978ff9f4335ed4c27b21521f93fb75f244794f8751b0258e1f793b1317e0",
+    "limits": "One fixed-order pair, four clients actually sync/drop3 before each arm. File-server cache unknown. Main includes communication/backpressure; residual is not pure I/O. No isolated/additive cache or repeatability claim."
+  },
+  "actual_candidate_description": "All previously qualified 940e improvements plus exactly one advance_mu_t SIMD directive; HDF825/provider375/codec881d unchanged. Raw collector order text names historical parent940e; actual lease/build/runtime bind candidate0fb5.",
+  "scientific_products": 4,
+  "ordered_timesteps": 545,
+  "endpoint": "2026-10-12_09:00:00",
+  "input_processing_seconds": {
+    "control": 97.46693,
+    "candidate": 57.81805
+  },
+  "qualification_scope": "GNU13.3 strict O2, existing SmallStep znver2/no-FMA/-fopenmp-simd flags, 512 ranks/480 compute/32 quilt, faba affinity, two tiles, UCX rc,sm,self on IB. Other compilers and nine-hour candidate not qualified.",
+  "limits": [
+    "Caller32percent and combinedforecast15.684percent are different scopes; no isolated forecast benefit or additive percentage claim.",
+    "One original-first pair, per-node cache clear before each; file-server state unknown; mainstep includes communication/backpressure, input processing is not pure I/O."
+  ],
+  "rollback": "Remove the single !$OMP SIMD immediately before dvdxi/DMDT inner I loop in advance_mu_t and rebuild with the existing flags; or select prior940e executable with the same qualified runtime libraries.",
+  "raw_evidence_directory": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-mut3h-runtime-r1"
+}
