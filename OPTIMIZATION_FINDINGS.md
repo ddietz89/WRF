@@ -2421,3 +2421,20 @@ A source/actual-affinity audit binds the current Cartesian grid to dimensions Y=
 A proposed contiguous-available-core placement preserved all quilt/root/provider-worker assignments. Constructing it produced byte-identical map `f456febbf0dfd928d60955ede9196ac63f4224576ef5b04f89ae23071791b234`, already tested with exact science. That historical single pair was **3.966% slower in model wall and 6.676% slower in main-step sums**; it remained unpromoted. The new locality audit supplies no distinct mechanism or changed-critical-path evidence to justify repeating it. Decision: close as an exact duplicate; no new kernel, native run or offload. The separate blocked-host map also had no established gain. No default placement/transport changes follow.
 
 Evidence: campaign `hotspot-lane/mpi-wait-callsite-analysis-r1/CURRENT_SOURCE_NEIGHBOR_TOPOLOGY.json` (`c6477539`) and `hotspot-lane/numa-placement-existing-mechanism-audit-r1/EXACT_DUPLICATE_DISPOSITION.json` (`547edba1`).
+
+## Advection ISA three-hour closeout: exact science, no default promotion (2026-10-17)
+
+The isolated current `940e` versus ISA-only `ef494` full-grid three-hour pair passed the original exact checker for **all four complete products and 545 ordered steps**, including all-512 runtime/affinity/library/InfiniBand checks, 480 actual tile unions and all four writer/worker lifecycles. All eight model scopes and the reader closed with invocation-bound success and actual cgroup absence. Each model arm had actual client cache clears; no competing native workload or profiler overlapped either model timing.
+
+| Three-hour incremental metric | Current generic advection | ISA-only derivative | Change |
+|---|---:|---:|---:|
+| Model/MPI wall | 678.235545 s | 689.725782 s | 1.6941% higher |
+| Aggregate cgroup CPU | 327,572.225 s | 333,668.104 s | 1.8609% higher |
+| Sum of 545 main-step times | 572.364990 s | 572.281820 s | 0.0145% lower |
+| Rank-zero input processing | 48.00073 s | 59.89148 s | 11.89075 s higher |
+
+Matched hourly main-step sums were 185.22955/185.31111, 188.10051/188.09897 and 199.03493/198.87174 seconds. There is **no demonstrated sustained main-step benefit** in this pair. The input-time difference is substantial despite unchanged input code, so the whole-wall/CPU increase does not isolate a causal ISA regression. The earlier 12.0–12.4% captured-QV gain remains valid at that caller; the encouraging short-forecast difference did not transfer to this longer application measurement. These percentages are neither added to earlier improvements nor presented against an original-code denominator.
+
+**Decision: do not promote to default and do not repeat a timing matrix without new mechanism evidence.** Current `940e` and generic advection remain the qualified default. Existing `WRF_ADVECTION_ZEN2=1` remains an experimental opt-in with the exact caller/three-hour scope recorded; full-module IEEE/daytime/restart qualification and application speedup remain unclaimed. The conditional ISA nine-hour profiling package remains inactive and unlaunched because its benefit prerequisite was not met. No production/master/source-default changes follow. Roll back an experimental ISA build with `WRF_ADVECTION_ZEN2=0` and rebuild, or select the retained `940e` executable.
+
+Evidence: `science-discovery/production512-advectionisa3h-runtime-r1/OWNER_FINAL_DISPOSITION.json` (`0dc863aa`); science `edaabf2bd35214325b9c75f28fc2e52ad06992ea520a397b09bb0808ad11f1e3`; reader closure `2623d4820fe2b944e86c18289e6cdf0573b2ea3d6eb8671700fff14031bf358b`; model closures `70075260`/`ff8d6f28`. Independent source/assembly feasibility retained for BigStep diffusion (`bigstep-isa-existing-feasibility-r1/OWNER_DISPOSITION.json`, `03eb7c56`) is deferred pending meaningful current-profile evidence; no native compile or extra experiment was launched for it.
