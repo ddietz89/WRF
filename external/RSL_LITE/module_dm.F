@@ -3619,7 +3619,8 @@ END
 
        INTEGER i,j,k,ord,ord2d,ndim
        INTEGER  Patch(3,2), Gpatch(3,2,ntasks)
-       REAL, ALLOCATABLE :: tmpbuf( : )
+       REAL, ALLOCATABLE, SAVE :: tmpbuf( : )
+       INTEGER :: tmpbuf_need
        REAL locbuf( (PE1a-PS1a+1)*(PE2a-PS2a+1)*(PE3a-PS3a+1)/RWORDSIZE*typesize+32 )
 
        DS1 = DS1a ; DE1 = DE1a ; DS2=DS2a ; DE2 = DE2a ; DS3 = DS3a ; DE3 = DE3a
@@ -3657,9 +3658,15 @@ END
        END SELECT
 
      ! moved to here to be after the potential recalculations of D dims
+       ierr = 0
        IF ( wrf_dm_on_monitor() ) THEN
-         ALLOCATE ( tmpbuf ( (DE1-DS1+1)*(DE2-DS2+1)*(DE3-DS3+1)/RWORDSIZE*typesize+32 ), STAT=ierr )
+         tmpbuf_need = (DE1-DS1+1)*(DE2-DS2+1)*(DE3-DS3+1)/RWORDSIZE*typesize+32
+         IF ( ALLOCATED ( tmpbuf ) ) THEN
+           IF ( SIZE ( tmpbuf ) .LT. tmpbuf_need ) DEALLOCATE ( tmpbuf )
+         END IF
+         IF ( .NOT. ALLOCATED ( tmpbuf ) ) ALLOCATE ( tmpbuf ( tmpbuf_need ), STAT=ierr )
        ELSE
+         IF ( ALLOCATED ( tmpbuf ) ) DEALLOCATE ( tmpbuf )
          ALLOCATE ( tmpbuf ( 1 ), STAT=ierr )
        END IF
        IF ( ierr .ne. 0 ) CALL wrf_error_fatal ('allocating tmpbuf in wrf_global_to_patch_generic')
@@ -3719,7 +3726,7 @@ END
        END IF
 
 
-       DEALLOCATE ( tmpbuf )
+       IF ( .NOT. wrf_dm_on_monitor() ) DEALLOCATE ( tmpbuf )
 #endif
        RETURN
     END SUBROUTINE wrf_global_to_patch_generic

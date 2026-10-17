@@ -1,0 +1,41 @@
+{
+  "status": "PASS_ISOLATED_BYTE_KERNEL_ONLY_PENDING_TIMING_CALLER_INTEGRATION",
+  "commands": [
+    [
+      "/pool/wrf-experiment/toolchains/gnu/13.3.0/wrappers/gcc",
+      "-std=c11",
+      "-O2",
+      "-fno-fast-math",
+      "-fno-unsafe-math-optimizations",
+      "-fno-reciprocal-math",
+      "-ffp-contract=off",
+      "-Wall",
+      "-Wextra",
+      "/pool/wrf-experiment/wrf-cpu/source-discovery/hdf5-unshuffle4-native-r1/baseline.c",
+      "/pool/wrf-experiment/wrf-cpu/source-discovery/hdf5-unshuffle4-native-r1/candidate.c",
+      "/pool/wrf-experiment/wrf-cpu/source-discovery/hdf5-unshuffle4-native-r1/harness.c",
+      "-lm",
+      "-o",
+      "/pool/wrf-experiment/wrf-cpu/source-discovery/hdf5-unshuffle4-native-r1/output/kernel"
+    ]
+  ],
+  "compiler_version": "13.3.0",
+  "sources": {
+    "baseline.c": "0af5d7f40d301e5ca3161b66e20a25097b88b861ee22c86166dd0b0e7945b0df",
+    "candidate.c": "df3651b3f8b3591b5fb9ce38f03708d521280e036f928809971939fd96c9ab95",
+    "harness.c": "33dd7701816700fe3fbfafe49f7c423c2f3167f6972c7129f9a425abdfd0c3e7"
+  },
+  "binary_path": "/pool/wrf-experiment/wrf-cpu/source-discovery/hdf5-unshuffle4-native-r1/output/kernel",
+  "binary_sha256": "f842f518c90f0448b0a3ada4dd874dbfd947ccf81ae045ffe5764cada0133a8f",
+  "oracle": {
+    "status": "PASS_BYTE_ORACLE_GUARDS_READONLY_IEEE_STATE",
+    "kernel_calls": 794574,
+    "bytes_compared": 1089834750,
+    "avx2_executed": 1,
+    "small_lengths": 258,
+    "source_alignments": 32,
+    "destination_alignments": 32
+  },
+  "correctness_elapsed_ns": 4493394009,
+  "scope": "Original reverse4 Duff extraction and actualDSrepaired SSE2/AVX2 vs independent forward encoding; no HDF5 replacement/publiccaller/WRF qualification, no performance claim."
+}

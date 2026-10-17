@@ -1,0 +1,15 @@
+{
+  "external_verdict": "insufficient_context",
+  "actual_review_receipt_sha256": "4acd03c6bccc284a503b1079268366a6b0c2fe1b8debd5c753631a09820e3aef",
+  "source_findings": "No concrete source defect; review confirms guarded4-bytearithmetic/genericelse/statichelpers; actualcompile,exports/ABI/callerchecks remain mandatory.",
+  "per_claim": {
+    "F1": "Guardbytesoftype4makesN=nbytes/4andtailcorrect, asreviewitselfconcludes. Textnbytes==4*N*4misstatesarithmetic; no sourcechange.",
+    "F2": "Fullcandidatebracebalance andoriginalgenericbodyinverseproofverifiedlocally; actualcompilependingthenrequired.",
+    "F3": "Exactflagcompilewillretainwarnings; warningfreeclaimnotmade, originalnoWerror.",
+    "F4": "Staticreferencedhelpers supportedsource; actualpublicexportscomparisonmandatory.",
+    "F5": "ActualDSOexports/SONAME/NEEDEDexactgatebeforecaller required.",
+    "F6": "Originalcanonicalsource/linesresetvia#linedirectivesandliteralinverseproof; originaldiagnosticcodeuntouched.",
+    "test_prose": "Componentalreadytested allsmallBYTElengths0..257\u00d732\u00b2offsets; actualNC/H5callerusesimmutablefullfile, notnewallalignmentsHDFmatrix."
+  },
+  "no_extra_source_algorithm_repair_or_api_loop": true
+}

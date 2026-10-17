@@ -1,0 +1,43 @@
+{
+  "decision": "RETAIN_ISOLATED_SSE2_UNSHUFFLE4_CANDIDATE_PENDING_ACTUAL_HDF5_CALLER",
+  "correctness_closure_sha256": "ea11145bfd6d02ed24fab0d1963e83eed518ad1be75fe610f83ab499bea0b367",
+  "timing_result_sha256": "7780eb418325113e36588b268494128431d6ff2d72c8c5b3150a78612958d107",
+  "all_seven_actual_native_units_closed": true,
+  "summary": [
+    {
+      "host": "hpc03",
+      "wall_ns": {
+        "baseline": 948952288,
+        "sse2": 218906057,
+        "avx2": 219571386
+      },
+      "sse2_speedup": 4.334975016246353,
+      "avx2_speedup": 4.321839495060618,
+      "sse2_wall_reduction_percent": 76.93181630223332
+    },
+    {
+      "host": "hpc04",
+      "wall_ns": {
+        "avx2": 217478284,
+        "sse2": 217147466,
+        "baseline": 945718523
+      },
+      "sse2_speedup": 4.355190232797836,
+      "avx2_speedup": 4.348565316985856,
+      "sse2_wall_reduction_percent": 77.03889046064502
+    }
+  ],
+  "codegen": {
+    "unshuffle4_sse2.asm": {
+      "sha256": "1b85d8583625d24c08cd61a3cf86cdd57f24c3a9da406f8c6f2b12509f61f2c5",
+      "packed_markers": 8
+    },
+    "unshuffle4_avx2.asm": {
+      "sha256": "f9197ada3eb46e89a87396a29e55de05181ceff0f65d7f2e2f62edc3b3516567",
+      "packed_markers": 12
+    }
+  },
+  "candidate_selection": "SSE2 and AVX2 essentially tied in this finite kernel screen; SSE2 baseline ISA simpler prospective integration. No additional ISA/algorithm variants.",
+  "limits": "Purebyte standalone kernel, 32warmreps of54.72MB; explicitsync/drop3 beforeeachprocess. Does not qualify a replacedHDF5DSO/API/actualreader/WRF gain. CurrentinstalledHDF5 unchanged. RawallIEEEstorage/guards/state exact in794574calls.",
+  "next": "Root review actual isolated HDF5 filter integration route+protected fullreader caller. Cloud only distinct sanitizer/crossISA evidence after review, no paidresourceadmission."
+}

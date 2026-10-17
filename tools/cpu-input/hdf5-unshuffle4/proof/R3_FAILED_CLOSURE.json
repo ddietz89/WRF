@@ -1,0 +1,40 @@
+{
+  "closure": {
+    "unit": "wrf-cpu-hdf5-sse2-private-correctness-hpc02-r3.service",
+    "invocation_id": "d79e8f1fd574419cbed32c44e845e60e",
+    "actual_manager": {
+      "MainPID": "0",
+      "Result": "exit-code",
+      "ExecMainStatus": "1",
+      "ControlGroup": "",
+      "ActiveState": "failed",
+      "InvocationID": "d79e8f1fd574419cbed32c44e845e60e"
+    },
+    "actual_cgroup_absent": true,
+    "terminal_rows": [
+      {
+        "INVOCATION_ID": "d79e8f1fd574419cbed32c44e845e60e",
+        "MESSAGE": "Started wrf-cpu-hdf5-sse2-private-correctness-hpc02-r3.service - /usr/bin/taskset -c 24-25 /usr/bin/python3 -I -c \"from pathlib import Path\\nimport os,json,hashlib,resource\\nS=Path('/pool/wrf-experiment/wrf-cpu/builds/hdf5-sse2-unshuffle4-private-r3');assert hashlib.sha256((S/'manifest.json').read_bytes()).hexdigest()=='1e7f7bec900675af6b645845cfe540e623bde8941b5ce8de1006392b86d6e1ef'\\npid=os.getpid();tick=Path('/proc/self/stat').read_text().rsplit(')',1)[1].split()[19];cgtext=Path('/proc/self/cgroup').read_text();cgpath=cgtext.strip().split('::',1)[1];assert cgpath=='/system.slice/wrf-cpu-hdf5-sse2-private-correctness-hpc02-r3.service';cg=Path('/sys/fs/cgroup'+cgpath);values={n:(cg/n).read_text().strip()for n in ['cpu.max','memory.max','memory.swap.max']};q,p=map(int,values['cpu.max'].split());assert q==2*p and values['memory.max']==str(4*1024**3)and values['memory.swap.max']=='0';assert os.sched_getaffinity(0)=={24,25};assert resource.getrlimit(resource.RLIMIT_MEMLOCK)==(resource.RLIM_INFINITY,resource.RLIM_INFINITY)and resource.getrlimit(resource.RLIMIT_STACK)==(resource.RLIM_INFINITY,resource.RLIM_INFINITY)\\nr=dict(pid=pid,startticks=tick,invocation_id=os.environ['INVOCATION_ID'],actual_affinity=sorted(os.sched_getaffinity(0)),actual_cgroup=cgtext,actual_cgroup_values=values,actual_memlock=resource.getrlimit(resource.RLIMIT_MEMLOCK),actual_stack=resource.getrlimit(resource.RLIMIT_STACK));(S/'entry.json').write_text(json.dumps(r,indent=2)+'\\\\n');os.execv('/pool/wrf-experiment/tooling/m1/venv/bin/python',['/pool/wrf-experiment/tooling/m1/venv/bin/python','-I',str(S/'run_correctness.py'),str(S/'output')])\\n\".",
+        "__REALTIME_TIMESTAMP": "1792236308577540"
+      },
+      {
+        "INVOCATION_ID": "d79e8f1fd574419cbed32c44e845e60e",
+        "MESSAGE": "wrf-cpu-hdf5-sse2-private-correctness-hpc02-r3.service: Main process exited, code=exited, status=1/FAILURE",
+        "__REALTIME_TIMESTAMP": "1792236324209618"
+      },
+      {
+        "INVOCATION_ID": "d79e8f1fd574419cbed32c44e845e60e",
+        "MESSAGE": "wrf-cpu-hdf5-sse2-private-correctness-hpc02-r3.service: Failed with result 'exit-code'.",
+        "__REALTIME_TIMESTAMP": "1792236324210185"
+      },
+      {
+        "INVOCATION_ID": "d79e8f1fd574419cbed32c44e845e60e",
+        "MESSAGE": "wrf-cpu-hdf5-sse2-private-correctness-hpc02-r3.service: Consumed 2.369s CPU time, 2.6M memory peak, 0B memory swap peak.",
+        "__REALTIME_TIMESTAMP": "1792236324210776"
+      }
+    ],
+    "original_failure_preserved": true
+  },
+  "actual_abi_diff": {},
+  "public_exports_exact": true
+}

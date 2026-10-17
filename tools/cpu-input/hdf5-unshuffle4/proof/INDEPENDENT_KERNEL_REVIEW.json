@@ -1,0 +1,25 @@
+{
+  "status": "RETAIN_REPAIRED_UNSHUFFLE_SOURCE_ORACLE_NATIVE_PENDING",
+  "pins": {
+    "candidate.c": "df3651b3f8b3591b5fb9ce38f03708d521280e036f928809971939fd96c9ab95",
+    "baseline.c": "0af5d7f40d301e5ca3161b66e20a25097b88b861ee22c86166dd0b0e7945b0df",
+    "harness.c": "33dd7701816700fe3fbfafe49f7c423c2f3167f6972c7129f9a425abdfd0c3e7"
+  },
+  "material_blockers": [],
+  "findings": [
+    "SSE2 byte\u2192word unpack sequence yields sixteenordered4-byte elements; fourstores staywithin4*N output.",
+    "AVX2 lane-localunpacks require low128stores e0/e1/e2/e3 followed high128e0/e1/e2/e3; actualsource hascorrectorder for32elements.",
+    "Residualelement loopusesabsolute4*i; trailingnbytes%4 copiedfrom4*N only. nbytes<8 passthroughmatchesbaseline.",
+    "PlaneoffsetsN/2N/3N andwholevectorloopbounds fitnbytes; no negativeoffsets/overlapclaimed.",
+    "Forwardencoder derivesbyteplanes fromindependentdesiredrawwords; allrawbits+untoucheddestinationbytes checked; sourceRO throughoutcalls.",
+    "All258smalllengths\u00d732source\u00d732destalignments, extendedtails, endguardpages andlarge54.72MB\u00b11 cases; actualAVXexecutionCPUguarded.",
+    "errno, exceptionflags,4roundingmodesandMXCSR checkedexact; no floatingdataarithmetic."
+  ],
+  "limits": [
+    "Source-only; nativecorrectness/sanitizers/targettimingpending.",
+    "Disjointbuffersx86-64 only; no in-place/overlap/otherarchitecturequalification.",
+    "Guardpages explicitlyatmappingends; sourceoffsetarithmeticalsoindependentlysourcechecked.",
+    "No HDF5applicationintegration/science/current180reads/timinggainclaim."
+  ],
+  "no_native_or_api_calls": true
+}

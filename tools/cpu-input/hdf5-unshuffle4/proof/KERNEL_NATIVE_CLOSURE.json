@@ -1,0 +1,109 @@
+{
+  "unit": "wrf-cpu-hdf5-unshuffle4-correctness-hpc03-r1.service",
+  "invocation_id": "24e6b20e50a849c09947f7f988a85692",
+  "actual_manager": {
+    "MainPID": "0",
+    "Result": "success",
+    "ExecMainStatus": "0",
+    "ControlGroup": "",
+    "MemoryPeak": "[not set]",
+    "CPUUsageNSec": "[not set]",
+    "ActiveState": "inactive",
+    "InvocationID": ""
+  },
+  "actual_own_cgroup_absent": true,
+  "manager_success_invocation_bound": true,
+  "terminal_rows": [
+    {
+      "INVOCATION_ID": "24e6b20e50a849c09947f7f988a85692",
+      "MESSAGE": "wrf-cpu-hdf5-unshuffle4-correctness-hpc03-r1.service: Deactivated successfully.",
+      "__REALTIME_TIMESTAMP": "1792234768138219"
+    },
+    {
+      "INVOCATION_ID": "24e6b20e50a849c09947f7f988a85692",
+      "MESSAGE": "wrf-cpu-hdf5-unshuffle4-correctness-hpc03-r1.service: Consumed 5.864s CPU time, 256.0K memory peak, 0B memory swap peak.",
+      "CPU_USAGE_NSEC": "5864650000",
+      "MEMORY_PEAK": "262144",
+      "__REALTIME_TIMESTAMP": "1792234768138952"
+    }
+  ],
+  "entry": {
+    "pid": 1303021,
+    "startticks": "181375113",
+    "invocation_id": "24e6b20e50a849c09947f7f988a85692",
+    "actual_affinity": [
+      24,
+      25
+    ],
+    "actual_cgroup": "0::/system.slice/wrf-cpu-hdf5-unshuffle4-correctness-hpc03-r1.service\n",
+    "actual_cgroup_values": {
+      "cpu.max": "200000 100000",
+      "memory.max": "4294967296",
+      "memory.swap.max": "0"
+    },
+    "actual_memlock": [
+      -1,
+      -1
+    ],
+    "actual_stack": [
+      -1,
+      -1
+    ]
+  },
+  "entry_metadata_serialization": "Original entry valid JSON with newline; native result unchanged.",
+  "observed_realtime": 1792234789.8075762,
+  "inventory": {
+    "entry.json": {
+      "bytes": 448,
+      "sha256": "69194c456231cd1732040a70738d72e2e30da146df08ac98e5f877d2641892c4"
+    },
+    "launch.json": {
+      "bytes": 282,
+      "sha256": "afd8c1b3651420e83eb7417e8f1915cfc6bebc7d74e039d9fc694604845c3d6e"
+    },
+    "manifest.json": {
+      "bytes": 782,
+      "sha256": "6a7cfeabaaf350e8fed35ab5e9891853e7979dfbdf566fa67f1a89b998d88137"
+    },
+    "output/verify.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "output/result.json": {
+      "bytes": 1741,
+      "sha256": "b290278848c6000295aae6625d41cffc3f57b7c7006f79680c666d887c714e2f"
+    },
+    "output/unshuffle4_sse2.asm": {
+      "bytes": 4587,
+      "sha256": "1b85d8583625d24c08cd61a3cf86cdd57f24c3a9da406f8c6f2b12509f61f2c5"
+    },
+    "output/compile.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "output/unshuffle4_avx2.asm": {
+      "bytes": 5425,
+      "sha256": "f9197ada3eb46e89a87396a29e55de05181ceff0f65d7f2e2f62edc3b3516567"
+    },
+    "output/ldd.txt": {
+      "bytes": 222,
+      "sha256": "ded247c1be3dccba20bd6559b3c451391629d3f807906a850b55694e7c4c6ca6"
+    },
+    "output/unshuffle4_baseline.asm": {
+      "bytes": 5452,
+      "sha256": "0666f83f6758eccdddb9675be8c7598263d9d740a469a8c953485227ccda5ca2"
+    },
+    "output/verify.stdout": {
+      "bytes": 196,
+      "sha256": "38caa3c93064487e4bdb707b640b17ffba57545922e7945f78528713c47e05e4"
+    },
+    "output/kernel": {
+      "bytes": 90808,
+      "sha256": "f842f518c90f0448b0a3ada4dd874dbfd947ccf81ae045ffe5764cada0133a8f"
+    },
+    "output/compile.stderr": {
+      "bytes": 797,
+      "sha256": "a165e655ed65f7560b0671e1a2749dad4746e63befa99148164f0ab69bdd0a7d"
+    }
+  }
+}

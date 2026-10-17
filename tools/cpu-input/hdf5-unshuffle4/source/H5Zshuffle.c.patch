@@ -1,0 +1,109 @@
+--- parent/H5Zshuffle.c
++++ candidate/H5Zshuffle.c
+@@ -1,3 +1,4 @@
++#line 1 "/pool/wrf-experiment/sources/m2/hdf5-1.14.3/src/H5Zshuffle.c"
+ /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+  * Copyright by The HDF Group.                                               *
+  * All rights reserved.                                                      *
+@@ -20,6 +21,78 @@
+ #include "H5Tprivate.h"  /* Datatypes         			*/
+ #include "H5Zpkg.h"      /* Data filters				*/
+ 
++#if defined(__x86_64__)
++#include <emmintrin.h>
++static __inline__ void
++H5Z__unshuffle4_copy_tail(const unsigned char *src_tail, unsigned char *dst_tail,
++                     size_t left)
++{
++    if (left)
++        memcpy(dst_tail, src_tail, left);
++}
++
++static void
++H5Z__unshuffle4_sse2(const unsigned char *src, unsigned char *dst, size_t nbytes)
++{
++    size_t N;
++    size_t i;
++    const unsigned char *p0;
++    const unsigned char *p1;
++    const unsigned char *p2;
++    const unsigned char *p3;
++    unsigned char *d;
++
++    if (nbytes < 8) {
++        if (nbytes)
++            memcpy(dst, src, nbytes);
++        return;
++    }
++
++    N = nbytes / 4;
++    p0 = src;
++    p1 = src + N;
++    p2 = src + 2 * N;
++    p3 = src + 3 * N;
++    d  = dst;
++
++    i = 0;
++    for (; i + 16 <= N; i += 16) {
++        __m128i a0 = _mm_loadu_si128((const __m128i *)(const void *)(p0 + i));
++        __m128i a1 = _mm_loadu_si128((const __m128i *)(const void *)(p1 + i));
++        __m128i a2 = _mm_loadu_si128((const __m128i *)(const void *)(p2 + i));
++        __m128i a3 = _mm_loadu_si128((const __m128i *)(const void *)(p3 + i));
++
++        __m128i l01 = _mm_unpacklo_epi8(a0, a1);
++        __m128i h01 = _mm_unpackhi_epi8(a0, a1);
++        __m128i l23 = _mm_unpacklo_epi8(a2, a3);
++        __m128i h23 = _mm_unpackhi_epi8(a2, a3);
++
++        __m128i e0 = _mm_unpacklo_epi16(l01, l23);
++        __m128i e1 = _mm_unpackhi_epi16(l01, l23);
++        __m128i e2 = _mm_unpacklo_epi16(h01, h23);
++        __m128i e3 = _mm_unpackhi_epi16(h01, h23);
++
++        _mm_storeu_si128((__m128i *)(void *)(d + 0),  e0);
++        _mm_storeu_si128((__m128i *)(void *)(d + 16), e1);
++        _mm_storeu_si128((__m128i *)(void *)(d + 32), e2);
++        _mm_storeu_si128((__m128i *)(void *)(d + 48), e3);
++        d += 64;
++    }
++
++    for (; i < N; i++) {
++        size_t o = 4 * i;
++        dst[o + 0] = p0[i];
++        dst[o + 1] = p1[i];
++        dst[o + 2] = p2[i];
++        dst[o + 3] = p3[i];
++    }
++
++    H5Z__unshuffle4_copy_tail(src + 4 * N, dst + 4 * N, nbytes - 4 * N);
++}
++
++
++#endif
++#line 23 "/pool/wrf-experiment/sources/m2/hdf5-1.14.3/src/H5Zshuffle.c"
+ /* Local function prototypes */
+ static herr_t H5Z__set_local_shuffle(hid_t dcpl_id, hid_t type_id, hid_t space_id);
+ static size_t H5Z__filter_shuffle(unsigned flags, size_t cd_nelmts, const unsigned cd_values[], size_t nbytes,
+@@ -142,6 +215,13 @@
+             HGOTO_ERROR(H5E_RESOURCE, H5E_NOSPACE, 0, "memory allocation failed for shuffle buffer");
+ 
+         if (flags & H5Z_FLAG_REVERSE) {
++#if defined(__x86_64__)
++            if (bytesoftype == 4)
++                H5Z__unshuffle4_sse2((const unsigned char *)(*buf), (unsigned char *)dest, nbytes);
++            else
++#endif
++            {
++#line 145 "/pool/wrf-experiment/sources/m2/hdf5-1.14.3/src/H5Zshuffle.c"
+             /* Get the pointer to the source buffer */
+             _src = (unsigned char *)(*buf);
+ 
+@@ -211,6 +291,8 @@
+                 _dest -= (bytesoftype - 1); /*lint !e794 _dest is initialized */
+                 H5MM_memcpy((void *)_dest, (void *)_src, leftover);
+             }
++            }
++#line 214 "/pool/wrf-experiment/sources/m2/hdf5-1.14.3/src/H5Zshuffle.c"
+         } /* end if */
+         else {
+             /* Get the pointer to the destination buffer */

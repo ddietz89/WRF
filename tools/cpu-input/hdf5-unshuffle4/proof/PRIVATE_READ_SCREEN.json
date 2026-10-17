@@ -1,0 +1,470 @@
+{
+  "status": "PASS_PRIVATE_HDF5_FOUR_RAW_OPPOSITE_ORDER_SYNTHETIC_ARMS_ONLY",
+  "dataset_sha256": "aba238bccac146512acd294afee23b16acca200647dba48d63be36dc733050bd",
+  "reader_sha256": "a3c8e838e71a5fe91e3c546e998e7ac76272aaa5c703eb0d667c6c63b9f33365",
+  "dataset_compressed_bytes": 25204300,
+  "logical_bytes": 218542208,
+  "results": [
+    {
+      "host": "hpc03",
+      "method": "original",
+      "result": {
+        "status": "PASS_ONE_COLD_CLIENT_CACHE_SYNTHETIC_READ_ARM",
+        "host": "hpc03",
+        "method": "original",
+        "entry": {
+          "unit": "wrf-cpu-hdf5-sse2-read-screen-hpc03-original-r1.service",
+          "invocation_id": "be6512ce2890460a919491334cf63c3f",
+          "pid": 1307613,
+          "startticks": "181562498",
+          "affinity": [
+            24
+          ],
+          "cgroup": "0::/system.slice/wrf-cpu-hdf5-sse2-read-screen-hpc03-original-r1.service\n"
+        },
+        "metadata": {
+          "method": "nc",
+          "dims": [
+            1,
+            32,
+            1139,
+            1499
+          ],
+          "chunks": [
+            1,
+            32,
+            570,
+            750
+          ],
+          "cache_bytes": 67108864,
+          "cache_nelems": 4133,
+          "cache_preemption": 0.75,
+          "read_wall_ns": 569251111,
+          "read_threadcpu_ns": 563034173,
+          "read_rc": 0,
+          "returned_errno": 0,
+          "fenv_flags": 33,
+          "round": 0,
+          "mxcsr": 8096,
+          "guards_ok": true
+        },
+        "actual_hdf5_mapping": {
+          "pid": 1307615,
+          "startticks": "181562888",
+          "hdf5": "/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib/libhdf5.so.310.3.0",
+          "executable": "/pool/wrf-experiment/wrf-cpu/source-discovery/read-cpu-synthetic-native-r1/output/reader"
+        },
+        "raw_proof": {
+          "status": "PASS_EVERY_PUBLIC_SYNTHETIC_UINT32_WORD",
+          "words": 54635552,
+          "bytes": 218542208,
+          "sha256": "22290594ec9fd9181622c3598f636ebfa0b3f9a0b4fed944a9b873207c763b19",
+          "numeric_edges_preserved_raw": true,
+          "no_float_arithmetic_or_tolerance": true
+        },
+        "dataset_sha256_bound_before_cache": "aba238bccac146512acd294afee23b16acca200647dba48d63be36dc733050bd",
+        "dataset_stat_before_after": {
+          "st_ino": 5613125069,
+          "st_size": 25204300,
+          "st_mtime_ns": 1792232716926507857,
+          "st_ctime_ns": 1792232716958508441,
+          "st_mode": 33024
+        },
+        "file_server_cache": "UNKNOWN_NOT_CLEARED"
+      },
+      "closure": {
+        "unit": "wrf-cpu-hdf5-sse2-read-screen-hpc03-original-r1.service",
+        "invocation_id": "be6512ce2890460a919491334cf63c3f",
+        "manager": {
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0",
+          "ControlGroup": "",
+          "ActiveState": "inactive",
+          "InvocationID": ""
+        },
+        "actual_cgroup_absent": true,
+        "manager_success_invocation_bound": true
+      },
+      "cache": {
+        "status": "PASS_SYNC_DROP_CACHES3",
+        "host": "hpc03",
+        "uid": 0,
+        "run_id": "hdf5-sse2-read-screen-hpc03-original-r1",
+        "pid": 1307556,
+        "pgid": 1307555,
+        "boot_id": "ad105fdb-2b6c-40b2-a1ba-6b9997e08d4c",
+        "operation": "sync_then_drop_caches3",
+        "utc_begin": "2026-10-17T11:30:30.803015+00:00",
+        "begin_monotonic_ns": 1815623781663110,
+        "campaign_active": [],
+        "meminfo_before": {
+          "MemAvailable": "122875680 kB",
+          "Buffers": "11952 kB",
+          "Cached": "1495196 kB",
+          "SReclaimable": "222952 kB"
+        },
+        "sync_begin_monotonic_ns": 1815624109129063,
+        "sync_returncode": 0,
+        "sync_end_monotonic_ns": 1815624126463582,
+        "drop_begin_monotonic_ns": 1815624443979633,
+        "drop_bytes": 2,
+        "drop_end_monotonic_ns": 1815624862072406,
+        "meminfo_after": {
+          "MemAvailable": "123490696 kB",
+          "Buffers": "328 kB",
+          "Cached": "227164 kB",
+          "SReclaimable": "210632 kB"
+        },
+        "end_monotonic_ns": 1815624862427967,
+        "utc_end": "2026-10-17T11:30:31.883800+00:00"
+      }
+    },
+    {
+      "host": "hpc03",
+      "method": "candidate",
+      "result": {
+        "status": "PASS_ONE_COLD_CLIENT_CACHE_SYNTHETIC_READ_ARM",
+        "host": "hpc03",
+        "method": "candidate",
+        "entry": {
+          "unit": "wrf-cpu-hdf5-sse2-read-screen-hpc03-candidate-r1.service",
+          "invocation_id": "232eb86fcf0f485c8cdfe16c2f09f7e5",
+          "pid": 1307738,
+          "startticks": "181563289",
+          "affinity": [
+            24
+          ],
+          "cgroup": "0::/system.slice/wrf-cpu-hdf5-sse2-read-screen-hpc03-candidate-r1.service\n"
+        },
+        "metadata": {
+          "method": "nc",
+          "dims": [
+            1,
+            32,
+            1139,
+            1499
+          ],
+          "chunks": [
+            1,
+            32,
+            570,
+            750
+          ],
+          "cache_bytes": 67108864,
+          "cache_nelems": 4133,
+          "cache_preemption": 0.75,
+          "read_wall_ns": 470301115,
+          "read_threadcpu_ns": 466800727,
+          "read_rc": 0,
+          "returned_errno": 0,
+          "fenv_flags": 33,
+          "round": 0,
+          "mxcsr": 8096,
+          "guards_ok": true
+        },
+        "actual_hdf5_mapping": {
+          "pid": 1307740,
+          "startticks": "181563333",
+          "hdf5": "/pool/wrf-experiment/wrf-cpu/builds/hdf5-sse2-unshuffle4-private-r3/output/candidate/lib/libhdf5.so.310.3.0",
+          "executable": "/pool/wrf-experiment/wrf-cpu/source-discovery/read-cpu-synthetic-native-r1/output/reader"
+        },
+        "raw_proof": {
+          "status": "PASS_EVERY_PUBLIC_SYNTHETIC_UINT32_WORD",
+          "words": 54635552,
+          "bytes": 218542208,
+          "sha256": "22290594ec9fd9181622c3598f636ebfa0b3f9a0b4fed944a9b873207c763b19",
+          "numeric_edges_preserved_raw": true,
+          "no_float_arithmetic_or_tolerance": true
+        },
+        "dataset_sha256_bound_before_cache": "aba238bccac146512acd294afee23b16acca200647dba48d63be36dc733050bd",
+        "dataset_stat_before_after": {
+          "st_ino": 5613125069,
+          "st_size": 25204300,
+          "st_mtime_ns": 1792232716926507857,
+          "st_ctime_ns": 1792232716958508441,
+          "st_mode": 33024
+        },
+        "file_server_cache": "UNKNOWN_NOT_CLEARED"
+      },
+      "closure": {
+        "unit": "wrf-cpu-hdf5-sse2-read-screen-hpc03-candidate-r1.service",
+        "invocation_id": "232eb86fcf0f485c8cdfe16c2f09f7e5",
+        "manager": {
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0",
+          "ControlGroup": "",
+          "ActiveState": "inactive",
+          "InvocationID": ""
+        },
+        "actual_cgroup_absent": true,
+        "manager_success_invocation_bound": true
+      },
+      "cache": {
+        "status": "PASS_SYNC_DROP_CACHES3",
+        "host": "hpc03",
+        "uid": 0,
+        "run_id": "hdf5-sse2-read-screen-hpc03-candidate-r1",
+        "pid": 1307683,
+        "pgid": 1307682,
+        "boot_id": "ad105fdb-2b6c-40b2-a1ba-6b9997e08d4c",
+        "operation": "sync_then_drop_caches3",
+        "utc_begin": "2026-10-17T11:30:39.030904+00:00",
+        "begin_monotonic_ns": 1815632009552869,
+        "campaign_active": [],
+        "meminfo_before": {
+          "MemAvailable": "123327972 kB",
+          "Buffers": "6996 kB",
+          "Cached": "358780 kB",
+          "SReclaimable": "210120 kB"
+        },
+        "sync_begin_monotonic_ns": 1815632334914731,
+        "sync_returncode": 0,
+        "sync_end_monotonic_ns": 1815632352189208,
+        "drop_begin_monotonic_ns": 1815632670442080,
+        "drop_bytes": 2,
+        "drop_end_monotonic_ns": 1815632796368197,
+        "meminfo_after": {
+          "MemAvailable": "123394960 kB",
+          "Buffers": "340 kB",
+          "Cached": "224316 kB",
+          "SReclaimable": "209588 kB"
+        },
+        "end_monotonic_ns": 1815632796714517,
+        "utc_end": "2026-10-17T11:30:39.818084+00:00"
+      }
+    },
+    {
+      "host": "hpc04",
+      "method": "candidate",
+      "result": {
+        "status": "PASS_ONE_COLD_CLIENT_CACHE_SYNTHETIC_READ_ARM",
+        "host": "hpc04",
+        "method": "candidate",
+        "entry": {
+          "unit": "wrf-cpu-hdf5-sse2-read-screen-hpc04-candidate-r1.service",
+          "invocation_id": "2b0eeac9a9154904acfd3bdfbab55b79",
+          "pid": 1252010,
+          "startticks": "181566057",
+          "affinity": [
+            24
+          ],
+          "cgroup": "0::/system.slice/wrf-cpu-hdf5-sse2-read-screen-hpc04-candidate-r1.service\n"
+        },
+        "metadata": {
+          "method": "nc",
+          "dims": [
+            1,
+            32,
+            1139,
+            1499
+          ],
+          "chunks": [
+            1,
+            32,
+            570,
+            750
+          ],
+          "cache_bytes": 67108864,
+          "cache_nelems": 4133,
+          "cache_preemption": 0.75,
+          "read_wall_ns": 469241868,
+          "read_threadcpu_ns": 465678650,
+          "read_rc": 0,
+          "returned_errno": 0,
+          "fenv_flags": 33,
+          "round": 0,
+          "mxcsr": 8096,
+          "guards_ok": true
+        },
+        "actual_hdf5_mapping": {
+          "pid": 1252014,
+          "startticks": "181566098",
+          "hdf5": "/pool/wrf-experiment/wrf-cpu/builds/hdf5-sse2-unshuffle4-private-r3/output/candidate/lib/libhdf5.so.310.3.0",
+          "executable": "/pool/wrf-experiment/wrf-cpu/source-discovery/read-cpu-synthetic-native-r1/output/reader"
+        },
+        "raw_proof": {
+          "status": "PASS_EVERY_PUBLIC_SYNTHETIC_UINT32_WORD",
+          "words": 54635552,
+          "bytes": 218542208,
+          "sha256": "22290594ec9fd9181622c3598f636ebfa0b3f9a0b4fed944a9b873207c763b19",
+          "numeric_edges_preserved_raw": true,
+          "no_float_arithmetic_or_tolerance": true
+        },
+        "dataset_sha256_bound_before_cache": "aba238bccac146512acd294afee23b16acca200647dba48d63be36dc733050bd",
+        "dataset_stat_before_after": {
+          "st_ino": 5613125069,
+          "st_size": 25204300,
+          "st_mtime_ns": 1792232716926507857,
+          "st_ctime_ns": 1792232716958508441,
+          "st_mode": 33024
+        },
+        "file_server_cache": "UNKNOWN_NOT_CLEARED"
+      },
+      "closure": {
+        "unit": "wrf-cpu-hdf5-sse2-read-screen-hpc04-candidate-r1.service",
+        "invocation_id": "2b0eeac9a9154904acfd3bdfbab55b79",
+        "manager": {
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0",
+          "ControlGroup": "",
+          "ActiveState": "inactive",
+          "InvocationID": ""
+        },
+        "actual_cgroup_absent": true,
+        "manager_success_invocation_bound": true
+      },
+      "cache": {
+        "status": "PASS_SYNC_DROP_CACHES3",
+        "host": "hpc04",
+        "uid": 0,
+        "run_id": "hdf5-sse2-read-screen-hpc04-candidate-r1",
+        "pid": 1251942,
+        "pgid": 1251941,
+        "boot_id": "dc4678a7-56c3-4071-bd55-0b96d1eaafda",
+        "operation": "sync_then_drop_caches3",
+        "utc_begin": "2026-10-17T11:30:43.642725+00:00",
+        "begin_monotonic_ns": 1815658853109747,
+        "campaign_active": [],
+        "meminfo_before": {
+          "MemAvailable": "124934656 kB",
+          "Buffers": "13824 kB",
+          "Cached": "3418108 kB",
+          "SReclaimable": "220412 kB"
+        },
+        "sync_begin_monotonic_ns": 1815659259613927,
+        "sync_returncode": 0,
+        "sync_end_monotonic_ns": 1815659292917413,
+        "drop_begin_monotonic_ns": 1815659687065388,
+        "drop_bytes": 2,
+        "drop_end_monotonic_ns": 1815660466277547,
+        "meminfo_after": {
+          "MemAvailable": "125317140 kB",
+          "Buffers": "304 kB",
+          "Cached": "216684 kB",
+          "SReclaimable": "212888 kB"
+        },
+        "end_monotonic_ns": 1815660466636457,
+        "utc_end": "2026-10-17T11:30:45.256270+00:00"
+      }
+    },
+    {
+      "host": "hpc04",
+      "method": "original",
+      "result": {
+        "status": "PASS_ONE_COLD_CLIENT_CACHE_SYNTHETIC_READ_ARM",
+        "host": "hpc04",
+        "method": "original",
+        "entry": {
+          "unit": "wrf-cpu-hdf5-sse2-read-screen-hpc04-original-r1.service",
+          "invocation_id": "0d6b91baa6a044628359c00a4d325028",
+          "pid": 1252151,
+          "startticks": "181566465",
+          "affinity": [
+            24
+          ],
+          "cgroup": "0::/system.slice/wrf-cpu-hdf5-sse2-read-screen-hpc04-original-r1.service\n"
+        },
+        "metadata": {
+          "method": "nc",
+          "dims": [
+            1,
+            32,
+            1139,
+            1499
+          ],
+          "chunks": [
+            1,
+            32,
+            570,
+            750
+          ],
+          "cache_bytes": 67108864,
+          "cache_nelems": 4133,
+          "cache_preemption": 0.75,
+          "read_wall_ns": 567794777,
+          "read_threadcpu_ns": 563954890,
+          "read_rc": 0,
+          "returned_errno": 0,
+          "fenv_flags": 33,
+          "round": 0,
+          "mxcsr": 8096,
+          "guards_ok": true
+        },
+        "actual_hdf5_mapping": {
+          "pid": 1252152,
+          "startticks": "181566509",
+          "hdf5": "/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib/libhdf5.so.310.3.0",
+          "executable": "/pool/wrf-experiment/wrf-cpu/source-discovery/read-cpu-synthetic-native-r1/output/reader"
+        },
+        "raw_proof": {
+          "status": "PASS_EVERY_PUBLIC_SYNTHETIC_UINT32_WORD",
+          "words": 54635552,
+          "bytes": 218542208,
+          "sha256": "22290594ec9fd9181622c3598f636ebfa0b3f9a0b4fed944a9b873207c763b19",
+          "numeric_edges_preserved_raw": true,
+          "no_float_arithmetic_or_tolerance": true
+        },
+        "dataset_sha256_bound_before_cache": "aba238bccac146512acd294afee23b16acca200647dba48d63be36dc733050bd",
+        "dataset_stat_before_after": {
+          "st_ino": 5613125069,
+          "st_size": 25204300,
+          "st_mtime_ns": 1792232716926507857,
+          "st_ctime_ns": 1792232716958508441,
+          "st_mode": 33024
+        },
+        "file_server_cache": "UNKNOWN_NOT_CLEARED"
+      },
+      "closure": {
+        "unit": "wrf-cpu-hdf5-sse2-read-screen-hpc04-original-r1.service",
+        "invocation_id": "0d6b91baa6a044628359c00a4d325028",
+        "manager": {
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0",
+          "ControlGroup": "",
+          "ActiveState": "inactive",
+          "InvocationID": ""
+        },
+        "actual_cgroup_absent": true,
+        "manager_success_invocation_bound": true
+      },
+      "cache": {
+        "status": "PASS_SYNC_DROP_CACHES3",
+        "host": "hpc04",
+        "uid": 0,
+        "run_id": "hdf5-sse2-read-screen-hpc04-original-r1",
+        "pid": 1252083,
+        "pgid": 1252082,
+        "boot_id": "dc4678a7-56c3-4071-bd55-0b96d1eaafda",
+        "operation": "sync_then_drop_caches3",
+        "utc_begin": "2026-10-17T11:30:48.406159+00:00",
+        "begin_monotonic_ns": 1815663616544793,
+        "campaign_active": [],
+        "meminfo_before": {
+          "MemAvailable": "125179852 kB",
+          "Buffers": "7172 kB",
+          "Cached": "326156 kB",
+          "SReclaimable": "207920 kB"
+        },
+        "sync_begin_monotonic_ns": 1815664014780598,
+        "sync_returncode": 0,
+        "sync_end_monotonic_ns": 1815664032059050,
+        "drop_begin_monotonic_ns": 1815664427433470,
+        "drop_bytes": 2,
+        "drop_end_monotonic_ns": 1815664536139770,
+        "meminfo_after": {
+          "MemAvailable": "125240224 kB",
+          "Buffers": "300 kB",
+          "Cached": "216148 kB",
+          "SReclaimable": "207920 kB"
+        },
+        "end_monotonic_ns": 1815664536477250,
+        "utc_end": "2026-10-17T11:30:49.326111+00:00"
+      }
+    }
+  ],
+  "scope": "Synthetic samefile/currentNC/H5/codec only; no WRF27s/decompression/optimization/globalheadroom claim."
+}
