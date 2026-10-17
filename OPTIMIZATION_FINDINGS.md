@@ -2449,3 +2449,19 @@ The bounded nine-rank, uneven 3×3 native gate passed the unchanged staged oracl
 Decision: retain for one bounded representative component screen. Preparation uses tight local arrays on 480 compute ranks (8×60, 1500×1140×33, halo 3), the same actual current packing/unpacking primitives in both arms, exact full-array/guard checks, two opposite-order timing pairs and checked cache clears before each arm. Extra diagonal traffic remains part of the candidate's measured cost. No scalable timing has run yet. Exact DeepSeek source packets remained blocked without a response by the five-minute deadline; this prototype is honestly recorded as local fallback work, with no additional provider receipt counted.
 
 Evidence: campaign `eight-neighbor-halo-feasibility-r1/native-gate-r1/actual-native-r1/ACTUAL_NATIVE_CLOSURE.json` (`209e2adc`), native result `f7fd1a50`, source `2d97791f`, independent review `8a9f9988`; scalable preparation contract `7b8d681d`. Production and master remain unchanged.
+
+
+## Direct eight-neighbor scalable screen: exact, inconsistent timing; not promoted (2026-10-17)
+
+The representative standalone screen completed **all four arms** on 480 compute ranks in the qualified 8×60 placement, with tight local 1500×1140×33 geometry, halo 3 and raw 8/4-byte fields. Both paths called the same current packing primitives; one shared binary selected staged exchange or direct eight-neighbor exchange. Every arm passed all 480 full-array/guard comparisons before and after its timed loop, plus all rank-binding checks. All **16 node jobs closed with cgroups absent**. Actual cache clears preceded each arm; 16 GiB/node, zero swap and 90-second caps were retained. Peak memory was about 12 GiB/node with zero high/max/OOM events.
+
+| Pair | Baseline: maximum rank-local elapsed, 32 exchanges | Direct eight-neighbor | Direct-path result |
+|---|---:|---:|---|
+| Baseline first | 0.116736769 s | 0.110644335 s | 5.219% shorter |
+| Direct first | 0.114199002 s | 0.117705486 s | 3.071% longer |
+
+These approximately 0.11-second windows do **not establish a consistent component benefit**. Same-protocol direct-path variation exceeded the first pair's apparent gain. Whole-job CPU throttling was recorded but cannot be localized to the timed bodies; no causal adjustment is made. Full original faces plus direct corners increased aggregate message data from 241,325,568 to 247,213,296 bytes per exchange, and that legitimate cost remained in the measurement. Neither these component timings nor pooled rank CPU durations establish forecast speedup, network latency or a global critical path.
+
+**Decision: retain the narrow correctness evidence; do not promote or integrate this protocol into WRF.** No broader timing matrix or full forecast is justified from this screen alone. The qualified current exchange/defaults remain unchanged. The subsequent daytime profile uses the qualified current build, independently of this candidate. A collector-only string-escaping error was repaired without rerunning the first native arm or relaxing its exact cgroup equality; transient gateway failures before later launches remain recorded, with fresh cache clears before actual launches.
+
+Evidence: campaign `eight-neighbor-halo-feasibility-r1/scalable-screen-preparation-r1/actual-screen-r1/` closed arm receipts `ea3d94bd`, `821384fe`, `502f2a5e`, `738a85d8`; common binary `69b1058b`, source `ab766779`, runtime manifest `65e1b420`. Production and master are unchanged.
