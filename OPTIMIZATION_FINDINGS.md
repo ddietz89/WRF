@@ -2453,7 +2453,7 @@ Evidence: campaign `eight-neighbor-halo-feasibility-r1/native-gate-r1/actual-nat
 
 ## Direct eight-neighbor scalable screen: exact, inconsistent timing; not promoted (2026-10-17)
 
-The representative standalone screen completed **all four arms** on 480 compute ranks in the qualified 8×60 placement, with tight local 1500×1140×33 geometry, halo 3 and raw 8/4-byte fields. Both paths called the same current packing primitives; one shared binary selected staged exchange or direct eight-neighbor exchange. Every arm passed all 480 full-array/guard comparisons before and after its timed loop, plus all rank-binding checks. All **16 node jobs closed with cgroups absent**. Actual cache clears preceded each arm; 16 GiB/node, zero swap and 90-second caps were retained. Peak memory was about 12 GiB/node with zero high/max/OOM events.
+The representative standalone screen completed **all four arms** on 480 compute ranks in the qualified 8×60 placement, representing a 1500×1140×33 global grid with tight local arrays, halo 3 and raw 8/4-byte fields. Both paths called the same current packing primitives; one shared binary selected staged exchange or direct eight-neighbor exchange. Every arm passed all 480 full-array/guard comparisons before and after its timed loop, plus all rank-binding checks. All **16 node jobs closed with cgroups absent**. Actual cache clears preceded each arm; 16 GiB/node, zero swap and 90-second caps were retained. Peak memory was about 12 GiB/node with zero high/max/OOM events.
 
 | Pair | Baseline: maximum rank-local elapsed, 32 exchanges | Direct eight-neighbor | Direct-path result |
 |---|---:|---:|---|
