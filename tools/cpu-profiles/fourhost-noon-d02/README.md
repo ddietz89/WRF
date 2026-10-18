@@ -1,0 +1,13 @@
+# Current d02 daytime profile
+
+The selected d02 build passed the unchanged original scientific checker for both complete noon histories and all 230 ordered steps through 13:15. Final all-512 image/library/affinity/tile/InfiniBand and writer-lifetime checks passed. Every model, recorder and reader job closed under the recorded proof scopes. [Qualification](QUALIFICATION.json) preserves the joined evidence, resource observations and limits.
+
+Four selected main threads (ranks 0, 245, 386 and 255 on hpc01–04) produced 690, 687, 685 and 700 parsed user-cycle samples. Actual sample spans were 14.986, 15.002, 14.983 and 14.985 seconds. These are selected-process observations around 12:30, not a global critical-path estimate. Period weights and sample counts stay separate; numeric sample loss remains unknown. There is no matched timing or speedup claim from this diagnostic.
+
+The inherited parent collector initializes its coarse state to UNAVAILABLE and does not update that field on its successful path. That original label is preserved. Actual children completed normally with rc0 and partial=false; native reports retained data, and the existing validator passed identity, time, acquisition-window, initial-output-close and closure predicates. START admission expiring during acquisition explains the later gate WAIT labels; the acquisition window remained valid. No producer result, scientific rule or validator was changed to obtain acceptance.
+
+MPI/UCX progress occupies substantial sampled cycles on three targets; this does not establish removable communication cost. Exact current-object/source mapping also found an independent scalar temperature save/coupling loop in SmallStep preparation. Its six samples across three targets justify a bounded standalone investigation, not a global gain claim. Output-server group co-location is a separate proposed placement experiment; neither candidate is included in this profile.
+
+All four model memory-limit/OOM counters were zero, with nonzero quota throttling. The reader reached its 8 GiB cap (last active max-events73, OOM0); final reader CPU/peak counters became unavailable after cgroup removal. The earlier failed R1 capture remains preserved separately: its publisher asserted an old image, while its scientific comparison passed. R2 corrected that binding in a fresh run and confirmed actual recorder growth early.
+
+This extends d02 daytime scientific/profile evidence only. The existing d02 three-hour benchmark and historical 1cc nine-hour qualification retain their own configurations and limits; no result is transferred between them. Production, master and selected runtime remain unchanged.
