@@ -53,3 +53,7 @@ Standing owner rule, effective 2026-10-17: **do not dismiss a significant kernel
 The reviewed implementation is retained in the experimental workspace at `/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-latest3h-client-cache-runtime-r1/`: `prepare_arm.py`, `clear_arm.py`, `cache_clear_host.py`, `cache_boundary.py` and `launch_arm.py`. Future timing adapters must preserve this ordering and original acceptance checks. Timing-insensitive checks may run without clearing, but their timings are not optimization evidence.
 
 For native MPI/InfiniBand jobs, retain the established transient service setting `LimitMEMLOCK=infinity` alongside the explicit cgroup CPU/memory limits. Verify the actual job setting before launch; the default 8 MiB locked-memory limit prevented UCX from registering a roughly 40 MiB receive allocation in a diagnostic fixture. Keep subprocess logs bounded and written directly to files so repeated startup errors cannot exhaust the collector. These are job settings, not persistent host changes.
+
+## Historical lease horizon routing
+
+Historical qualification leases must use their exact retained validator bodies and their own scope, including __file__-relative rank-map tables. The historical three-hour checks retain 1,200-second caps; current nine-hour runtime checks retain 3,600 seconds. Do not route historical leases through cached current-horizon modules or widen resource guards to pass ancestry. Preserve preflight failures and repair routing before any cache clear or model launch.
