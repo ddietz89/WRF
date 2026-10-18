@@ -1708,6 +1708,19 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
        ENDDO
        ENDDO
    
+       IF (i_start == i_start_spc .AND. i_end == i_end_spc .AND. &
+           j_start == j_start_spc .AND. j_end == j_end_spc .AND. &
+           k_start == k_start_spc .AND. k_end == k_end_spc) THEN
+       DO  j = j_start,j_end
+       DO  k = k_start,k_end
+       DO  i = i_start,i_end
+          ! scalar was coupled with my
+           tendency(i,k,j) = advect_tend(i,k,j) * msfty(i,j)
+           tendency(i,k,j) = tendency(i,k,j) + sc_tend(i,k,j,im)
+       ENDDO
+       ENDDO
+       ENDDO
+       ELSE
        DO  j = j_start,j_end
        DO  k = k_start,k_end
        DO  i = i_start,i_end
@@ -1725,6 +1738,8 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
        ENDDO
        ENDDO
    
+       ENDIF
+
       DO  j = jts, min(jte,jde-1)
 
       DO  i = its, min(ite,ide-1)
