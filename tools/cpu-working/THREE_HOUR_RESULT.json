@@ -2,26 +2,40 @@
   "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
   "order": [
     "corrected_stock546b_control",
-    "current0fb5_plus_SWpaired_AdvectZen2Xcache_RKfusion_privateHDF825e_provider375_huffman881d_candidate"
+    "current_UV_plus_Thompson_only_if_retained_candidate"
   ],
   "metrics": {
     "control": {
-      "wall_seconds": 848.674050837988,
-      "cpu_seconds": 382331.146057,
-      "main_step_sum_seconds": 625.83491
+      "wall_seconds": 846.1623698568437,
+      "cpu_seconds": 380143.218749,
+      "main_step_sum_seconds": 610.10063
     },
     "candidate": {
-      "wall_seconds": 694.2637243110221,
-      "cpu_seconds": 334569.80171499995,
-      "main_step_sum_seconds": 583.70308
+      "wall_seconds": 691.7876664630603,
+      "cpu_seconds": 334766.432219,
+      "main_step_sum_seconds": 585.19813
     }
   },
   "reductions_percent": {
-    "wall_seconds": 18.194302792043647,
-    "cpu_seconds": 12.492140604961211,
-    "main_step_sum_seconds": 6.732099684244208
+    "wall_seconds": 18.24409934702024,
+    "cpu_seconds": 11.936760750153287,
+    "main_step_sum_seconds": 4.081703701895867
   },
-  "science_sha256": "f2b4c52ab62b9be12971add459dcba4dc0a939580d970aa3bf0d5547e34f6bc9",
-  "reader_closure_sha256": "a24873054952366d68266869d80c88492e3f108e56840a8ca4833db781eeccbf",
-  "limits": "One fixed-order pair, four clients actually sync/drop3 before each arm. File-server cache unknown. Main includes communication/backpressure; residual is not pure I/O. No isolated/additive cache or repeatability claim."
+  "science_sha256": "3f37916f490deee6f30d0be5133003a79e0260a8495a1a071db9de9def16603e",
+  "reader_closure_sha256": "04c49eedcb893cf044c4f90c14faa7398cd4b987a82df4af2d6345229503613d",
+  "limits": "One original-first pair; checked four-client sync/drop_caches3 before each arm, file-server cache/load uncontrolled. Both model arms recorded nonzero whole-unit CPU throttling; final memory peaks unknown, retained memory events zero. Main includes communication/backpressure; residual is not pure I/O. No isolated/additive U/V/Thompson, repeatability, nine-hour or restart claim.",
+  "executables": {
+    "control": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/mass-ghost-alarm55-prototype-r2/wrf.exe",
+      "sha256": "546b99156cbd809e1cae5e0ea8cebeea44dafd6331abf89e4daea00e0dd0a5e7"
+    },
+    "candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/thompson-literal-ice-index-current-r2/wrf.exe",
+      "sha256": "7cab913b3f54e3b2cdbacca7f6547cfc5e25332e39a667cb4bc54bd6b0c773b2"
+    }
+  },
+  "scope": "Full grid1500x1140x33;512ranks480compute+32quilt;pinned affinity/two tiles;GNU13.3 strict/Zen2. Corrected original546b baseline, not pristine upstream. All4products/545orderedsteps exact; all9allocations closed.",
+  "independent_final_review_sha256": "34f1557fc6bd5bcdd129029b58a1f8cea80e67161e3df9dd510a2436754c1538",
+  "raw_result_sha256": "cf7a111898cd1db43dade470f76d33627d7e0096f7ec6729d72bd80dd2227f21",
+  "raw_evidence_directory": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-current3h-runtime-r1"
 }
