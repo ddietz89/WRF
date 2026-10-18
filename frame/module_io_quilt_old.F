@@ -545,6 +545,7 @@ MODULE module_wrf_quilt
       CHARACTER (LEN=512) :: CDATA
       CHARACTER (LEN=80) :: fname
       INTEGER icurs, hdrbufsize, itypesize, ftypesize, rtypesize, Status, fstat, io_form_arg
+      INTEGER :: quilt_field_scratch_bytes, quilt_field_scratch_words
       INTEGER :: DataHandle, FieldType, Comm, IOComm, DomainDesc, code, Count
       INTEGER, DIMENSION(3) :: DomainStart , DomainEnd , MemoryStart , MemoryEnd , PatchStart , PatchEnd
       INTEGER :: dummybuf(1)
@@ -925,6 +926,19 @@ okay_to_w = .false.
 
 ! Now, for each field, retrieve headers and patches (data) from the internal 
 ! buffers and collect them all on the I/O quilt server "root" task.
+! All STOREs above own deep copies; original obuf is now retrieval scratch only.
+      CALL get_max_stored_field_bytes_c( obufsize, quilt_field_scratch_bytes )
+      IF ( quilt_field_scratch_bytes .GT. 0 .AND. itypesize .GT. 0 ) THEN
+        quilt_field_scratch_words = quilt_field_scratch_bytes / itypesize
+        IF ( MOD(quilt_field_scratch_bytes,itypesize) .NE. 0 ) &
+          quilt_field_scratch_words = quilt_field_scratch_words + 1
+        quilt_field_scratch_words = MAX(1,quilt_field_scratch_words)
+        IF ( quilt_field_scratch_words .LT. SIZE(obuf) ) THEN
+          DEALLOCATE( obuf )
+          ALLOCATE( obuf(quilt_field_scratch_words) )
+        ENDIF
+      ENDIF
+! Keep original obufsize (bytes) for unchanged RETRIEVE truncation semantics.
         CALL init_retrieve_pieces_of_field
 ! Retrieve header and all patches for the first field from the internal 
 ! buffers.  
@@ -1579,6 +1593,7 @@ okay_to_w = .false.
       CHARACTER (LEN=512) :: CDATA
       CHARACTER (LEN=80) :: fname
       INTEGER icurs, hdrbufsize, itypesize, ftypesize, rtypesize, Status, fstat, io_form_arg
+      INTEGER :: quilt_field_scratch_bytes, quilt_field_scratch_words
       INTEGER :: DataHandle, FieldType, Comm, IOComm, DomainDesc, code, Count
       INTEGER, DIMENSION(3) :: DomainStart , DomainEnd , MemoryStart , MemoryEnd , PatchStart , PatchEnd
       INTEGER :: dummybuf(1)
@@ -1915,6 +1930,19 @@ okay_to_w = .false.
 
 ! Now, for each field, retrieve headers and patches (data) from the internal 
 ! buffers
+! All STOREs above own deep copies; original obuf is now retrieval scratch only.
+      CALL get_max_stored_field_bytes_c( obufsize, quilt_field_scratch_bytes )
+      IF ( quilt_field_scratch_bytes .GT. 0 .AND. itypesize .GT. 0 ) THEN
+        quilt_field_scratch_words = quilt_field_scratch_bytes / itypesize
+        IF ( MOD(quilt_field_scratch_bytes,itypesize) .NE. 0 ) &
+          quilt_field_scratch_words = quilt_field_scratch_words + 1
+        quilt_field_scratch_words = MAX(1,quilt_field_scratch_words)
+        IF ( quilt_field_scratch_words .LT. SIZE(obuf) ) THEN
+          DEALLOCATE( obuf )
+          ALLOCATE( obuf(quilt_field_scratch_words) )
+        ENDIF
+      ENDIF
+! Keep original obufsize (bytes) for unchanged RETRIEVE truncation semantics.
        CALL init_retrieve_pieces_of_field
 ! Retrieve header and all patches for the first field from the internal 
 ! buffers.  

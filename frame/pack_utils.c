@@ -15,6 +15,7 @@
 #      define RETRIEVE_PIECES_OF_FIELD_C  retrieve_pieces_of_field_c
 #      define INIT_STORE_PIECE_OF_FIELD init_store_piece_of_field
 #      define INIT_RETRIEVE_PIECES_OF_FIELD init_retrieve_pieces_of_field
+#      define GET_MAX_STORED_FIELD_BYTES_C get_max_stored_field_bytes_c
 #      define PERTURB_REAL perturb_real
 #      define INSPECT_HEADER inspect_header
 #      define RESET_MASK reset_mask
@@ -30,6 +31,7 @@
 #      define RETRIEVE_PIECES_OF_FIELD_C  retrieve_pieces_of_field_c__
 #      define INIT_STORE_PIECE_OF_FIELD init_store_piece_of_field__
 #      define INIT_RETRIEVE_PIECES_OF_FIELD init_retrieve_pieces_of_field__
+#      define GET_MAX_STORED_FIELD_BYTES_C get_max_stored_field_bytes_c__
 #      define PERTURB_REAL perturb_real__
 #      define INSPECT_HEADER inspect_header__
 #      define RESET_MASK reset_mask__
@@ -44,6 +46,7 @@
 #      define RETRIEVE_PIECES_OF_FIELD_C  retrieve_pieces_of_field_c_
 #      define INIT_STORE_PIECE_OF_FIELD init_store_piece_of_field_
 #      define INIT_RETRIEVE_PIECES_OF_FIELD init_retrieve_pieces_of_field_
+#      define GET_MAX_STORED_FIELD_BYTES_C get_max_stored_field_bytes_c_
 #      define PERTURB_REAL perturb_real_
 #      define INSPECT_HEADER inspect_header_
 #      define RESET_MASK reset_mask_
@@ -242,6 +245,23 @@ RETRIEVE_PIECES_OF_FIELD_C ( char * buf , int varname[], int * insize, int * out
     numflds = 0 ;
     *retval = -1 ;
   }
+  return(0) ;
+}
+
+/* Read-only post-STORE scratch bound. Existing cache APIs retain owned copies. */
+int
+GET_MAX_STORED_FIELD_BYTES_C ( int * insize, int * maxbytes )
+{
+  int i, n, largest = 0 ;
+  if ( *insize > 0 ) {
+    for ( i = 0 ; i < numflds ; i++ ) {
+      if ( fld_cache[i] != NULL ) {
+        n = fld_curs[i] < *insize ? fld_curs[i] : *insize ;
+        if ( n > largest ) largest = n ;
+      }
+    }
+  }
+  *maxbytes = largest ;
   return(0) ;
 }
 
