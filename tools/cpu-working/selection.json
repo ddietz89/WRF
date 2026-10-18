@@ -105,7 +105,7 @@
       },
       "science_sha256": "3f37916f490deee6f30d0be5133003a79e0260a8495a1a071db9de9def16603e",
       "reader_closure_sha256": "04c49eedcb893cf044c4f90c14faa7398cd4b987a82df4af2d6345229503613d",
-      "limits": "One original-first pair; checked four-client sync/drop_caches3 before each arm, file-server cache/load uncontrolled. Both model arms recorded nonzero whole-unit CPU throttling; final memory peaks unknown, retained memory events zero. Main includes communication/backpressure; residual is not pure I/O. No isolated/additive U/V/Thompson, repeatability, nine-hour or restart claim.",
+      "limits": "One original-first pair; checked four-client sync/drop_caches3 before each arm, file-server cache/load uncontrolled. Both model arms recorded nonzero whole-unit CPU throttling; final cgroup memory peaks recorded, retained memory events zero. Main includes communication/backpressure; residual is not pure I/O. No isolated/additive U/V/Thompson, repeatability, nine-hour or restart claim.",
       "executables": {
         "control": {
           "path": "/pool/wrf-experiment/wrf-cpu/builds/mass-ghost-alarm55-prototype-r2/wrf.exe",
@@ -164,5 +164,19 @@
       "limits": "One fixed-order pair, four clients actually sync/drop3 before each arm. File-server cache unknown. Main includes communication/backpressure; residual is not pure I/O. No isolated/additive cache or repeatability claim."
     },
     "evidence_file": "PREVIOUS_THREE_HOUR_RESULT_F1D7.json"
+  },
+  "final_cgroup_memory_peak_bytes_by_node_01_to_04": {
+    "control": [
+      98499960832,
+      101093126144,
+      101047070720,
+      107160842240
+    ],
+    "candidate": [
+      98902368256,
+      101219745792,
+      101156356096,
+      107677200384
+    ]
   }
 }

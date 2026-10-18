@@ -23,7 +23,7 @@
   },
   "science_sha256": "3f37916f490deee6f30d0be5133003a79e0260a8495a1a071db9de9def16603e",
   "reader_closure_sha256": "04c49eedcb893cf044c4f90c14faa7398cd4b987a82df4af2d6345229503613d",
-  "limits": "One original-first pair; checked four-client sync/drop_caches3 before each arm, file-server cache/load uncontrolled. Both model arms recorded nonzero whole-unit CPU throttling; final memory peaks unknown, retained memory events zero. Main includes communication/backpressure; residual is not pure I/O. No isolated/additive U/V/Thompson, repeatability, nine-hour or restart claim.",
+  "limits": "One original-first pair; checked four-client sync/drop_caches3 before each arm, file-server cache/load uncontrolled. Both model arms recorded nonzero whole-unit CPU throttling; final cgroup memory peaks recorded, retained memory events zero. Main includes communication/backpressure; residual is not pure I/O. No isolated/additive U/V/Thompson, repeatability, nine-hour or restart claim.",
   "executables": {
     "control": {
       "path": "/pool/wrf-experiment/wrf-cpu/builds/mass-ghost-alarm55-prototype-r2/wrf.exe",
@@ -37,5 +37,19 @@
   "scope": "Full grid1500x1140x33;512ranks480compute+32quilt;pinned affinity/two tiles;GNU13.3 strict/Zen2. Corrected original546b baseline, not pristine upstream. All4products/545orderedsteps exact; all9allocations closed.",
   "independent_final_review_sha256": "34f1557fc6bd5bcdd129029b58a1f8cea80e67161e3df9dd510a2436754c1538",
   "raw_result_sha256": "cf7a111898cd1db43dade470f76d33627d7e0096f7ec6729d72bd80dd2227f21",
-  "raw_evidence_directory": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-current3h-runtime-r1"
+  "raw_evidence_directory": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-current3h-runtime-r1",
+  "final_cgroup_memory_peak_bytes_by_node_01_to_04": {
+    "control": [
+      98499960832,
+      101093126144,
+      101047070720,
+      107160842240
+    ],
+    "candidate": [
+      98902368256,
+      101219745792,
+      101156356096,
+      107677200384
+    ]
+  }
 }
