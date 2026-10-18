@@ -1,7 +1,7 @@
 {
-  "status": "PROMOTED_WORKING_DEFAULT_EXACT_MATCHED_THREE_HOUR_QUALIFIED",
-  "source_commit": "ce66091080cceca2ea16fb8f50d36fe0bfc8ee12",
-  "scope": "1500x1140x33;512ranks480compute+32quilt;8x60;two tiles;GNU13.3 strict/Zen2;qualified default375/faba/881d/825e and UCXrc,sm,self/InfiniBand. Three-hour06to09 qualification; no6365 nine-hour/restart/144h/other-compiler claim.",
+  "status": "PROMOTED_WORKING_DEFAULT_EXACT_THREE_HOUR_QUALIFIED_RETAINED_ORIGINAL_CONTROL",
+  "source_commit": "748701baf0016e8e8e65e839cc53070577caa209",
+  "scope": "1500x1140x33;512 ranks,480 compute+32 quilt,8x60,two tiles;GNU13.3 strict/Zen2;375/faba/881d/825e and UCX rc,sm,self/InfiniBand. Four-product/545-step three-hour exact qualification versus retained corrected original. Not a fresh two-arm benchmark, nine-hour, restart,144h or other-compiler qualification.",
   "artifacts": {
     "shim": {
       "path": "/pool/wrf-experiment/wrf-cpu/source-discovery/parallel-pack-quilt-shim-native-r1/wrf_quilt_thread_shim.so",
@@ -17,8 +17,8 @@
     }
   },
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/rtrnmc-downward-clear-prefix-current-r1/wrf.exe",
-    "sha256": "6365c964b25c0bd6cf62eb5646e2e07fe008b7cf1c401f23d112b80a43e20673"
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/quilt-field-cache-lifetime-current-gate-r1/wrf.exe",
+    "sha256": "ba422b71e67d07adcc28ad317e14a8c59b5fa5b5887ef8e365f2e72f0705aba2"
   },
   "private_hdf5": {
     "path": "/pool/wrf-experiment/wrf-cpu/builds/hdf5-sse2-unshuffle4-private-r3/output/candidate/lib/libhdf5.so.310.3.0",
@@ -42,11 +42,11 @@
     "WRF_ROOT_SHIM_OPTOUT": 0,
     "WRF_ROOT_SHIM_CPUS": "0-127"
   },
-  "includes": "All accepted source changes through source_commit, including paired shortwave, RK first-stage fusion, corrected X-distance cache, advection ISA, initial-U/V tendencies, Thompson literal-1000 index and per-call scratch bank with contiguous75-column zero initialization, MYJPBL writeback SIMD with invariant ice guard split; SIMD shuffle/parallel output packing, Huffman/zlib-ng codec, root scratch reuse and private HDF5 inverse shuffle. Both MYJPBL writeback paths now emit packed arithmetic. The earlier79-array bank caller observations remain mixed; its75-column zero follow-up had0.4513/1.4223% shorter complete-caller intervals. Latest full combined forecast is exact and timed. New MYJPBL banks/register-carry/lifetime,paired reftra and ordinaryY schedule are excluded after slower caller screens. Ordered PHY_PREP qtot pragma excluded. Also includes exact-qualified SmallStep prep U-coupling SIMD. Thompson scalar-rho remains excluded after mixed helper and slower complete-caller results. Also includes exact-qualified SmallStep prep W/geopotential coupling SIMD, preserving its four statements and kde upper bound. Also includes exact-qualified SmallStep temperature save/coupling SIMD and longwave downward clear-prefix, preserving their mixed caller/regime observations. Quilt field-scratch source748701ba/imageba422 is a separate application candidate and is absent from selected6365.",
+  "includes": "All accepted source changes through source_commit, including paired shortwave, RK first-stage fusion, corrected X-distance cache, advection ISA, initial-U/V tendencies, Thompson literal-1000 index and per-call scratch bank with contiguous75-column zero initialization, MYJPBL writeback SIMD with invariant ice guard split; SIMD shuffle/parallel output packing, Huffman/zlib-ng codec, root scratch reuse and private HDF5 inverse shuffle. Both MYJPBL writeback paths now emit packed arithmetic. The earlier79-array bank caller observations remain mixed; its75-column zero follow-up had0.4513/1.4223% shorter complete-caller intervals. Latest full combined forecast is exact and timed. New MYJPBL banks/register-carry/lifetime,paired reftra and ordinaryY schedule are excluded after slower caller screens. Ordered PHY_PREP qtot pragma excluded. Also includes exact-qualified SmallStep prep U-coupling SIMD. Thompson scalar-rho remains excluded after mixed helper and slower complete-caller results. Also includes exact-qualified SmallStep prep W/geopotential coupling SIMD, preserving its four statements and kde upper bound. Also includes exact-qualified SmallStep temperature save/coupling SIMD and longwave downward clear-prefix, preserving their mixed caller/regime observations. Also includes exact-qualified quilt field retrieval scratch lifetime reduction, source748701ba/imageba422; initial STORE duplication peak and copy volume remain unchanged.",
   "science": {
     "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
-    "receipt_sha256": "b91c1c88abcebfd34812d7640e7fd20ed4e85c093fe24e9d07056b77371fedb4",
-    "reader_closure_sha256": "626623c1b58a5775247b0d59779310605b3496f085df56eb17e422297c8eb678",
+    "receipt_sha256": "2f8ab5d438515f5c850db4737f87c2f0ea9325ca0dadf9921feb5d08f23db1c0",
+    "reader_closure_sha256": "a7a71738b35f96aa3d3e15144583278238d09e6389d10c02874706d4341a6ded",
     "complete_products": 4,
     "ordered_steps": 545,
     "last_observed_step": "2026-10-12_09:00:00",
@@ -68,11 +68,368 @@
       "verified": true
     }
   },
-  "lease_reference": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-t-lw3h-runtime-r1/lease-candidate-proposed.json",
-  "rollback_executable_sha256": "d02b714fa7612754bb384dfe18c4cb98d5a708d71677d3d3a37a95c763bb73c4",
+  "lease_reference": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-fieldcache3h-runtime-r1/lease-candidate-proposed.json",
+  "rollback_executable_sha256": "6365c964b25c0bd6cf62eb5646e2e07fe008b7cf1c401f23d112b80a43e20673",
   "activation": "Selection record, not a launcher. Use existing bounded launcher with a fresh run directory/log directory/lease and actual affinity/library/resource checks. Never preload MPI launcher or helper processes.",
   "schema_version": 2,
   "last_three_hour_benchmark": {
+    "executable": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/quilt-field-cache-lifetime-current-gate-r1/wrf.exe",
+      "sha256": "ba422b71e67d07adcc28ad317e14a8c59b5fa5b5887ef8e365f2e72f0705aba2"
+    },
+    "science": {
+      "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+      "receipt_sha256": "2f8ab5d438515f5c850db4737f87c2f0ea9325ca0dadf9921feb5d08f23db1c0",
+      "reader_closure_sha256": "a7a71738b35f96aa3d3e15144583278238d09e6389d10c02874706d4341a6ded",
+      "complete_products": 4,
+      "ordered_steps": 545,
+      "last_observed_step": "2026-10-12_09:00:00",
+      "history_times": [
+        "2026-10-12_06:00:00",
+        "2026-10-12_07:00:00",
+        "2026-10-12_08:00:00",
+        "2026-10-12_09:00:00"
+      ],
+      "all_model_and_reader_scopes_closed": true,
+      "ordered_time_dt_domain_sequences_equal": true,
+      "all512_runtime_proofs_pass_both_arms": true,
+      "compute_ranks": 480,
+      "quilt_ranks": 32,
+      "two_tile_unions_equal": true,
+      "protected_checker": {
+        "path": "/pool/wrf-experiment/wrf-cpu/validation/protected_netcdf_exact_reference.py",
+        "sha256": "0382bcbabfbc16b76114ef552206c6c558ea15cd3c3552dfaed98b977deea2b4",
+        "verified": true
+      }
+    },
+    "measurement": {
+      "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+      "order": [
+        "retained_corrected_stock546b_control",
+        "current6365_plus_fieldcache_scratch_lifetime_candidate"
+      ],
+      "metrics": {
+        "control": {
+          "wall_seconds": 819.7334523110185,
+          "cpu_seconds": 367241.169317,
+          "main_step_sum_seconds": 597.57855
+        },
+        "candidate": {
+          "wall_seconds": 669.4709474619012,
+          "cpu_seconds": 323316.632919,
+          "main_step_sum_seconds": 563.88706
+        }
+      },
+      "reductions_percent": {
+        "wall_seconds": 18.33065424199689,
+        "cpu_seconds": 11.960678722293439,
+        "main_step_sum_seconds": 5.638001899499223
+      },
+      "science_sha256": "2f8ab5d438515f5c850db4737f87c2f0ea9325ca0dadf9921feb5d08f23db1c0",
+      "reader_closure_sha256": "a7a71738b35f96aa3d3e15144583278238d09e6389d10c02874706d4341a6ded",
+      "limits": "Retainedcontrol/freshcandidateoccurredatdifferenttimes;checkedclientcacheeachbutfileservercacheUNKNOWN. Parent6365wall/CPU/mainandmemorycontextaredescriptiveacrossseparateruns;noisolated/additive/repeatabilityclaim. Main-stepelapsedincludesMPI/backpressure;wall-minus-mainisnotpureI/O. Allocationfailuretimingcanmove;unchangedSTORElifetime/peakremainlimitations.Noarbitrarymemoryfailureequivalenceclaim. Finalreadercounters/CPU/peakUNKNOWN;allmodelrawmemoryeventsandnonzeroCPUthrottlepreserved. Latest application uses retained control, not a fresh paired benchmark. All eight model cgroups have nonzero CPU throttling and zero memory-limit/OOM events.",
+      "descriptive_vs_retained_parent6365": {
+        "parent_metrics": {
+          "wall_seconds": 702.3030050960369,
+          "cpu_seconds": 337029.657642,
+          "main_step_sum_seconds": 574.93655
+        },
+        "new_candidate_metrics": {
+          "wall_seconds": 669.4709474619012,
+          "cpu_seconds": 323316.632919,
+          "main_step_sum_seconds": 563.88706
+        },
+        "reductions_percent": {
+          "wall_seconds": 4.674913448454642,
+          "cpu_seconds": 4.068788728844231,
+          "main_step_sum_seconds": 1.9218625081324214
+        },
+        "scope": "Separate later candidate versus retained6365: order/timegap/cache/one-sample limitations; not a fresh matched pair or pure I/O attribution."
+      },
+      "source_commit": "748701baf0016e8e8e65e839cc53070577caa209",
+      "executable": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/quilt-field-cache-lifetime-current-gate-r1/wrf.exe",
+        "sha256": "ba422b71e67d07adcc28ad317e14a8c59b5fa5b5887ef8e365f2e72f0705aba2"
+      },
+      "executables": {
+        "control": {
+          "path": "/pool/wrf-experiment/wrf-cpu/builds/mass-ghost-alarm55-prototype-r2/wrf.exe",
+          "sha256": "546b99156cbd809e1cae5e0ea8cebeea44dafd6331abf89e4daea00e0dd0a5e7"
+        },
+        "candidate": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/quilt-field-cache-lifetime-current-gate-r1/wrf.exe",
+          "sha256": "ba422b71e67d07adcc28ad317e14a8c59b5fa5b5887ef8e365f2e72f0705aba2"
+        }
+      },
+      "science": {
+        "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+        "receipt_sha256": "2f8ab5d438515f5c850db4737f87c2f0ea9325ca0dadf9921feb5d08f23db1c0",
+        "reader_closure_sha256": "a7a71738b35f96aa3d3e15144583278238d09e6389d10c02874706d4341a6ded",
+        "complete_products": 4,
+        "ordered_steps": 545,
+        "last_observed_step": "2026-10-12_09:00:00",
+        "history_times": [
+          "2026-10-12_06:00:00",
+          "2026-10-12_07:00:00",
+          "2026-10-12_08:00:00",
+          "2026-10-12_09:00:00"
+        ],
+        "all_model_and_reader_scopes_closed": true,
+        "ordered_time_dt_domain_sequences_equal": true,
+        "all512_runtime_proofs_pass_both_arms": true,
+        "compute_ranks": 480,
+        "quilt_ranks": 32,
+        "two_tile_unions_equal": true,
+        "protected_checker": {
+          "path": "/pool/wrf-experiment/wrf-cpu/validation/protected_netcdf_exact_reference.py",
+          "sha256": "0382bcbabfbc16b76114ef552206c6c558ea15cd3c3552dfaed98b977deea2b4",
+          "verified": true
+        }
+      },
+      "scope": "1500x1140x33;512 ranks,480 compute+32 quilt,8x60,two tiles;GNU13.3 strict/Zen2;375/faba/881d/825e and UCX rc,sm,self/InfiniBand. Four-product/545-step three-hour exact qualification versus retained corrected original. Not a fresh two-arm benchmark, nine-hour, restart,144h or other-compiler qualification.",
+      "fresh_both_arms": false,
+      "observed_speedup": 1.2244496276033972,
+      "model_resource_summary": {
+        "control": {
+          "hpc01": {
+            "invocation_id": "a9fe58873124491aae377fcc88670212",
+            "cpu_seconds": 91791.979023,
+            "throttled_usec": 4164886,
+            "nr_throttled": 5714,
+            "memory_peak_bytes": 98555248640,
+            "memory_events": {
+              "low": 0,
+              "high": 0,
+              "max": 0,
+              "oom": 0,
+              "oom_kill": 0,
+              "oom_group_kill": 0
+            }
+          },
+          "hpc02": {
+            "invocation_id": "3d2ac8d8714d4843b8d82f6dd59e2557",
+            "cpu_seconds": 91789.584673,
+            "throttled_usec": 33657976,
+            "nr_throttled": 5027,
+            "memory_peak_bytes": 101026541568,
+            "memory_events": {
+              "low": 0,
+              "high": 0,
+              "max": 0,
+              "oom": 0,
+              "oom_kill": 0,
+              "oom_group_kill": 0
+            }
+          },
+          "hpc03": {
+            "invocation_id": "199a8c2143094078bc14aa2559fcf632",
+            "cpu_seconds": 91847.566197,
+            "throttled_usec": 24913222,
+            "nr_throttled": 5229,
+            "memory_peak_bytes": 101043609600,
+            "memory_events": {
+              "low": 0,
+              "high": 0,
+              "max": 0,
+              "oom": 0,
+              "oom_kill": 0,
+              "oom_group_kill": 0
+            }
+          },
+          "hpc04": {
+            "invocation_id": "3874e83bdf7140999ae005dd4f757dee",
+            "cpu_seconds": 91812.039424,
+            "throttled_usec": 21707027,
+            "nr_throttled": 5414,
+            "memory_peak_bytes": 107107307520,
+            "memory_events": {
+              "low": 0,
+              "high": 0,
+              "max": 0,
+              "oom": 0,
+              "oom_kill": 0,
+              "oom_group_kill": 0
+            }
+          }
+        },
+        "candidate": {
+          "hpc01": {
+            "invocation_id": "a42260f6c2d6445b835dedb0f60c01a9",
+            "cpu_seconds": 80786.457341,
+            "throttled_usec": 32152347,
+            "nr_throttled": 4177,
+            "memory_peak_bytes": 97687740416,
+            "memory_events": {
+              "low": 0,
+              "high": 0,
+              "max": 0,
+              "oom": 0,
+              "oom_kill": 0,
+              "oom_group_kill": 0
+            }
+          },
+          "hpc02": {
+            "invocation_id": "d6a34f6ae726485d963df265f20e8bca",
+            "cpu_seconds": 80844.762488,
+            "throttled_usec": 1533135,
+            "nr_throttled": 953,
+            "memory_peak_bytes": 96040771584,
+            "memory_events": {
+              "low": 0,
+              "high": 0,
+              "max": 0,
+              "oom": 0,
+              "oom_kill": 0,
+              "oom_group_kill": 0
+            }
+          },
+          "hpc03": {
+            "invocation_id": "2c9fc2765b5a473495c157f9ed9c0418",
+            "cpu_seconds": 80861.625198,
+            "throttled_usec": 31531545,
+            "nr_throttled": 4509,
+            "memory_peak_bytes": 95997358080,
+            "memory_events": {
+              "low": 0,
+              "high": 0,
+              "max": 0,
+              "oom": 0,
+              "oom_kill": 0,
+              "oom_group_kill": 0
+            }
+          },
+          "hpc04": {
+            "invocation_id": "3ca790ea82a24b069de63472d87f5836",
+            "cpu_seconds": 80823.787892,
+            "throttled_usec": 24475365,
+            "nr_throttled": 3895,
+            "memory_peak_bytes": 101475516416,
+            "memory_events": {
+              "low": 0,
+              "high": 0,
+              "max": 0,
+              "oom": 0,
+              "oom_kill": 0,
+              "oom_group_kill": 0
+            }
+          }
+        }
+      },
+      "memory_context": {
+        "qualification": "ExactSCIpassed;separate-run30ssampledparentcontextonly,notcontrolledcausalcomparison.",
+        "raw_reduction_sha256": "b629c2ae724d175dbb1bb68e607527b0f2a48045c431e2ff7807727f50783e09",
+        "summary_sha256": "49a8c9659bfe10dc5e63b1a24b627af101d9fbf75a78e591683202001e2878ef",
+        "hosts": {
+          "hpc01": {
+            "parent_max_observed_anon_bytes": 94300585984,
+            "candidate_max_observed_anon_bytes": 92621713408,
+            "difference_bytes": -1678872576,
+            "difference_GiB": -1.5635719299316406,
+            "parent_cgroup_peak_bytes": 98981761024,
+            "candidate_cgroup_peak_bytes": 97687740416
+          },
+          "hpc02": {
+            "parent_max_observed_anon_bytes": 93716484096,
+            "candidate_max_observed_anon_bytes": 92213268480,
+            "difference_bytes": -1503215616,
+            "difference_GiB": -1.3999786376953125,
+            "parent_cgroup_peak_bytes": 101216509952,
+            "candidate_cgroup_peak_bytes": 96040771584
+          },
+          "hpc03": {
+            "parent_max_observed_anon_bytes": 93813145600,
+            "candidate_max_observed_anon_bytes": 92173778944,
+            "difference_bytes": -1639366656,
+            "difference_GiB": -1.5267791748046875,
+            "parent_cgroup_peak_bytes": 101207588864,
+            "candidate_cgroup_peak_bytes": 95997358080
+          },
+          "hpc04": {
+            "parent_max_observed_anon_bytes": 95035211776,
+            "candidate_max_observed_anon_bytes": 93357432832,
+            "difference_bytes": -1677778944,
+            "difference_GiB": -1.5625534057617188,
+            "parent_cgroup_peak_bytes": 107614044160,
+            "candidate_cgroup_peak_bytes": 101475516416
+          }
+        },
+        "binding": "ReductionmetadataSHAagreeswithactualcollectedparent/candidatefinalnodereports;SCIvalidatestelemetrySHA.30ssamplingcanmisspeaks;no source-causalclaimfromCGpeak/filecache."
+      },
+      "cache_context": {
+        "control": {
+          "clear_receipt_sha256": "d713d4c473667617c51c2f5d0c3056965e408eeb94d430083cf9b53f2f29bab6",
+          "pre_mpi_boundary_monotonic_ns": 1935970653397693,
+          "hpc01_clear_end_to_boundary_seconds": 32.706848829,
+          "scope": "Host01 same-boot observation before MPI adapter; subsequent pinned binary/library hashes and loaders inevitably warm code, not scientific-data prefetch."
+        },
+        "candidate": {
+          "clear_receipt_sha256": "c9236741972ee9ad8667f6af8271c24626ec062fa9aef5a2e158d5b75c6ba5b5",
+          "pre_mpi_boundary_monotonic_ns": 1938648699059801,
+          "hpc01_clear_end_to_boundary_seconds": 86.105886414,
+          "scope": "Host01 same-boot observation before MPI adapter; subsequent pinned binary/library hashes and loaders inevitably warm code, not scientific-data prefetch."
+        }
+      },
+      "closure_basis": {
+        "models": "RetainedcontrolpriorclosedandfreshcandidateactualINV-agreedexit0reports+normalreconciliationPID0/success/emptyprocessrows;noextraINVjournal/actualoriginalCGpathabsenceclaim.",
+        "reader": "Actualb08376a83fdb42a39e6e6630adbb0a5e successfulINV-boundmanagerjournalandobservedoriginalCGabsence;rawexit_code nullaftertransientunitremoved."
+      },
+      "reader_resources": {
+        "last_active_sample": {
+          "utc": "2026-10-18T21:56:35.531983+00:00",
+          "properties": {
+            "MainPID": "1468543",
+            "Result": "success",
+            "ExecMainStatus": "0",
+            "ControlGroup": "/system.slice/wrf-cpu-production512-fieldcache3h-exact-check-hpc03-r1.service",
+            "ActiveState": "active",
+            "InvocationID": "b08376a83fdb42a39e6e6630adbb0a5e"
+          },
+          "science_status": "RUNNING_ORIGINAL_INITIAL_HISTORY_COMPARISON",
+          "mismatch_status_reported": false,
+          "error": null,
+          "cpu.stat": "usage_usec 382102236\nuser_usec 303855478\nsystem_usec 78246757\ncore_sched.force_idle_usec 0\nnr_periods 4349\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+          "memory.current": "3364458496\n",
+          "memory.peak": "11331203072\n",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n"
+        },
+        "final_cpu_seconds": null,
+        "final_memory_peak_bytes": null,
+        "final_counters": "UNKNOWN aftercgroupremoval;sampledvaluesnotfinal."
+      },
+      "owner_final_qualification": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/quilt-field-cache-lifetime-r1/candidate-only-three-hour-application-r1/lifecycle-r1/FINAL_QUALIFICATION.json",
+        "sha256": "80e09ef4514666f591a568ab5f99e3be10cb9748938875fcbb0ef7a65827403e"
+      },
+      "raw_evidence": {
+        "directory": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-fieldcache3h-runtime-r1",
+        "sha256": {
+          "RESULT.json": "2c3d9dd2cf3dffab4eb4299e2077f712a07a1f8b9f522b63dbd1b643b0e55940",
+          "science-receipt.json": "2f8ab5d438515f5c850db4737f87c2f0ea9325ca0dadf9921feb5d08f23db1c0",
+          "reader-closure.json": "a7a71738b35f96aa3d3e15144583278238d09e6389d10c02874706d4341a6ded",
+          "source-pins.json": "bf3de7bb126fb63249b55ce24d5de701def207ba77e4e91c90d468ebfabd8991",
+          "control/mpi-launch.json": "e2055c0f4c79638e64d7f6cb49f337f847b3a109cdc14e8873a7c8501fe6523b",
+          "control/hpc02-node.json": "4db84b2d5f2e2762bcc63e12f94385241a37b714edd88e8e3c5993a8ce42f1d6",
+          "control/hpc03-node.json": "73184dccd38fedb8d786f971431fed353cec93550789332abaeb03c9b38a9a49",
+          "control/hpc04-node.json": "a6149e46f2ac8e488884becb9342bdbfc3ca037a47de3e3110a36444f2b0c237",
+          "control/lease.json": "341939a50515b4cc47f8470b885ddd2b77187aabea8606d46c96dd6e71f320db",
+          "control/model-closures.json": "6b2435189e4459a1e452e8d9e6149e05dfa141940cc7fa19796e5fd92603bd4d",
+          "control/adaptive-steps.json": "1bb5e8121b19a82eaf15cabc3c46b93299b1b97a3d7af17ac207addeeaea155a",
+          "candidate/mpi-launch.json": "bc0dd0c789eb0f24f6a634bde7ed80871206f5c17751c3ab4b8003fd6ef7d9ad",
+          "candidate/hpc02-node.json": "79fd8c5e6088ac799f5ac5e3cfed816735f8548c193652d0d28e9e78c4b3520c",
+          "candidate/hpc03-node.json": "39ae22eaa62c6efb533d8c223c39cff07b0224caa59defa21b2a2ea0f529a028",
+          "candidate/hpc04-node.json": "49009d09a43ab785a9e7361cb61e6dd717f07cd6c90436177ebc4c5e801083f9",
+          "candidate/lease.json": "c7e1393456b73fa6e98d6c83ec6e38667644bd1f4fd3d68e0ffd3170046ec0ff",
+          "candidate/model-closures.json": "e4f0d9283e269f516371463b16e6ae63f2158d68470a97bc5c23e160af769fca",
+          "candidate/adaptive-steps.json": "ea9d3c68be2fd458fdb50635839fa3c78422f99e2cf6e407003ef06edadba81d"
+        }
+      },
+      "last_fresh_paired_result_file": "PREVIOUS_THREE_HOUR_RESULT_6365.json"
+    },
+    "fresh_both_arms": false,
+    "evidence_file": "THREE_HOUR_RESULT.json"
+  },
+  "qualification_file": "tools/cpu-output/quilt-field-cache-lifetime/QUALIFICATION.json",
+  "previous_three_hour_benchmark": {
     "executable": {
       "path": "/pool/wrf-experiment/wrf-cpu/builds/rtrnmc-downward-clear-prefix-current-r1/wrf.exe",
       "sha256": "6365c964b25c0bd6cf62eb5646e2e07fe008b7cf1c401f23d112b80a43e20673"
@@ -368,372 +725,19 @@
         "interpretation": "Both control and candidate observations changed across separate fixed-order pairs. This does not isolate a T/LW effect or establish a causal I/O/MPI mechanism."
       }
     },
-    "evidence_file": "THREE_HOUR_RESULT.json"
-  },
-  "qualification_file": "tools/cpu-compute/rtrnmc-downward-clear-prefix/QUALIFICATION.json",
-  "previous_three_hour_benchmark": {
-    "executable": {
-      "path": "/pool/wrf-experiment/wrf-cpu/builds/smallstep-prep-w-ph-coupling-simd-current-r1/wrf.exe",
-      "sha256": "d02b714fa7612754bb384dfe18c4cb98d5a708d71677d3d3a37a95c763bb73c4"
-    },
-    "science": {
-      "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
-      "receipt_sha256": "d1f4f5fdeab94759b7c531887330c16ab0051275f1505a839b046e336e95bfd4",
-      "reader_closure_sha256": "ed3822175598bc85b57f662c64fc232e96f9893ff154467e150c6047d038214b",
-      "complete_products": 4,
-      "ordered_steps": 545,
-      "last_observed_step": "2026-10-12_09:00:00",
-      "history_times": [
-        "2026-10-12_06:00:00",
-        "2026-10-12_07:00:00",
-        "2026-10-12_08:00:00",
-        "2026-10-12_09:00:00"
-      ],
-      "all_model_and_reader_scopes_closed": true,
-      "ordered_time_dt_domain_sequences_equal": true,
-      "all512_runtime_proofs_pass_both_arms": true,
-      "compute_ranks": 480,
-      "quilt_ranks": 32,
-      "two_tile_unions_equal": true,
-      "protected_checker": {
-        "path": "/pool/wrf-experiment/wrf-cpu/validation/protected_netcdf_exact_reference.py",
-        "sha256": "0382bcbabfbc16b76114ef552206c6c558ea15cd3c3552dfaed98b977deea2b4",
-        "verified": true
-      }
-    },
-    "measurement": {
-      "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
-      "order": [
-        "corrected_stock546b_control",
-        "current1cc_plus_SmallStep_W_PH_coupling_SIMD"
-      ],
-      "metrics": {
-        "control": {
-          "wall_seconds": 857.666727347998,
-          "cpu_seconds": 385057.307637,
-          "main_step_sum_seconds": 626.90077
-        },
-        "candidate": {
-          "wall_seconds": 678.5691904940177,
-          "cpu_seconds": 327831.035767,
-          "main_step_sum_seconds": 563.90995
-        }
-      },
-      "reductions_percent": {
-        "wall_seconds": 20.881949962985036,
-        "cpu_seconds": 14.861754532379411,
-        "main_step_sum_seconds": 10.047972983028874
-      },
-      "science_sha256": "d1f4f5fdeab94759b7c531887330c16ab0051275f1505a839b046e336e95bfd4",
-      "reader_closure_sha256": "ed3822175598bc85b57f662c64fc232e96f9893ff154467e150c6047d038214b",
-      "limits": "One fixed-order pair, four clients actually sync/drop3 before each arm. File-server cache unknown. Main includes communication/backpressure; residual is not pure I/O. No isolated/additive cache or repeatability claim. All eight model cgroups recorded nonzero CPU throttling; all final memory-limit/OOM counters zero. Management transport failures were recovered without restarting either model; final original reconciliation and runtime checks passed. Main-step elapsed includes MPI/backpressure and aggregate CPU includes output work. This pair does not isolate W/PH SIMD or establish repeatability, nine-hour, restart or144h qualification. Historical lifetimes of some timed-out metadata-only SSH commands are UNKNOWN; no uncertain model was resubmitted. Transport and closure details remain in the owner final qualification.",
-      "source_commit": "4ba961e25cda8d7f6ca390f79cb8f94106b886fc",
-      "executable": {
-        "path": "/pool/wrf-experiment/wrf-cpu/builds/smallstep-prep-w-ph-coupling-simd-current-r1/wrf.exe",
-        "sha256": "d02b714fa7612754bb384dfe18c4cb98d5a708d71677d3d3a37a95c763bb73c4"
-      },
-      "executables": {
-        "control": {
-          "path": "/pool/wrf-experiment/wrf-cpu/builds/mass-ghost-alarm55-prototype-r2/wrf.exe",
-          "sha256": "546b99156cbd809e1cae5e0ea8cebeea44dafd6331abf89e4daea00e0dd0a5e7"
-        },
-        "candidate": {
-          "path": "/pool/wrf-experiment/wrf-cpu/builds/smallstep-prep-w-ph-coupling-simd-current-r1/wrf.exe",
-          "sha256": "d02b714fa7612754bb384dfe18c4cb98d5a708d71677d3d3a37a95c763bb73c4"
-        }
-      },
-      "science": {
-        "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
-        "receipt_sha256": "d1f4f5fdeab94759b7c531887330c16ab0051275f1505a839b046e336e95bfd4",
-        "reader_closure_sha256": "ed3822175598bc85b57f662c64fc232e96f9893ff154467e150c6047d038214b",
-        "complete_products": 4,
-        "ordered_steps": 545,
-        "last_observed_step": "2026-10-12_09:00:00",
-        "history_times": [
-          "2026-10-12_06:00:00",
-          "2026-10-12_07:00:00",
-          "2026-10-12_08:00:00",
-          "2026-10-12_09:00:00"
-        ],
-        "all_model_and_reader_scopes_closed": true,
-        "ordered_time_dt_domain_sequences_equal": true,
-        "all512_runtime_proofs_pass_both_arms": true,
-        "compute_ranks": 480,
-        "quilt_ranks": 32,
-        "two_tile_unions_equal": true,
-        "protected_checker": {
-          "path": "/pool/wrf-experiment/wrf-cpu/validation/protected_netcdf_exact_reference.py",
-          "sha256": "0382bcbabfbc16b76114ef552206c6c558ea15cd3c3552dfaed98b977deea2b4",
-          "verified": true
-        }
-      },
-      "scope": "1500x1140x33;512ranks480compute+32quilt;two tiles;GNU13.3 strict/Zen2;qualified affinity and UCXrc,sm,self/InfiniBand. Three-hour06to09 qualification; no d02 nine-hour/restart/144h claim.",
-      "observed_speedup": 1.2639340827183625,
-      "model_resource_summary": {
-        "control": {
-          "hpc01": {
-            "invocation_id": "e9599732a457476eaf4eb98fe4d624b0",
-            "memory_peak_bytes": 98536321024,
-            "memory_events": {
-              "low": 0,
-              "high": 0,
-              "max": 0,
-              "oom": 0,
-              "oom_kill": 0,
-              "oom_group_kill": 0
-            },
-            "cpu_stat": {
-              "usage_usec": 96286344500,
-              "user_usec": 94485897705,
-              "system_usec": 1800446794,
-              "core_sched.force_idle_usec": 0,
-              "nr_periods": 8588,
-              "nr_throttled": 5159,
-              "throttled_usec": 24920133,
-              "nr_bursts": 0,
-              "burst_usec": 0
-            }
-          },
-          "hpc02": {
-            "invocation_id": "13da071febfc435fb2fbd8fdb69a4be3",
-            "memory_peak_bytes": 101050916864,
-            "memory_events": {
-              "low": 0,
-              "high": 0,
-              "max": 0,
-              "oom": 0,
-              "oom_kill": 0,
-              "oom_group_kill": 0
-            },
-            "cpu_stat": {
-              "usage_usec": 96235393223,
-              "user_usec": 94526149762,
-              "system_usec": 1709243461,
-              "core_sched.force_idle_usec": 0,
-              "nr_periods": 8525,
-              "nr_throttled": 5724,
-              "throttled_usec": 24344140,
-              "nr_bursts": 0,
-              "burst_usec": 0
-            }
-          },
-          "hpc03": {
-            "invocation_id": "0b9b6d5fa7d84c08bc7374e5241bc709",
-            "memory_peak_bytes": 101016219648,
-            "memory_events": {
-              "low": 0,
-              "high": 0,
-              "max": 0,
-              "oom": 0,
-              "oom_kill": 0,
-              "oom_group_kill": 0
-            },
-            "cpu_stat": {
-              "usage_usec": 96271350467,
-              "user_usec": 94510430215,
-              "system_usec": 1760920252,
-              "core_sched.force_idle_usec": 0,
-              "nr_periods": 8527,
-              "nr_throttled": 5415,
-              "throttled_usec": 33477775,
-              "nr_bursts": 0,
-              "burst_usec": 0
-            }
-          },
-          "hpc04": {
-            "invocation_id": "d4adfcf8244349fd91dc27309afb9aa9",
-            "memory_peak_bytes": 107212132352,
-            "memory_events": {
-              "low": 0,
-              "high": 0,
-              "max": 0,
-              "oom": 0,
-              "oom_kill": 0,
-              "oom_group_kill": 0
-            },
-            "cpu_stat": {
-              "usage_usec": 96264219447,
-              "user_usec": 94412033930,
-              "system_usec": 1852185516,
-              "core_sched.force_idle_usec": 0,
-              "nr_periods": 8526,
-              "nr_throttled": 6019,
-              "throttled_usec": 15092667,
-              "nr_bursts": 0,
-              "burst_usec": 0
-            }
-          }
-        },
-        "candidate": {
-          "hpc01": {
-            "invocation_id": "54f41cedc6f44191b10ab0a9faf2fdab",
-            "memory_peak_bytes": 98880831488,
-            "memory_events": {
-              "low": 0,
-              "high": 0,
-              "max": 0,
-              "oom": 0,
-              "oom_kill": 0,
-              "oom_group_kill": 0
-            },
-            "cpu_stat": {
-              "usage_usec": 81942355579,
-              "user_usec": 80248672999,
-              "system_usec": 1693682580,
-              "core_sched.force_idle_usec": 0,
-              "nr_periods": 6799,
-              "nr_throttled": 4903,
-              "throttled_usec": 12085151,
-              "nr_bursts": 0,
-              "burst_usec": 0
-            }
-          },
-          "hpc02": {
-            "invocation_id": "6bb1b85078004f629ef9fb335fe9fd3b",
-            "memory_peak_bytes": 101187256320,
-            "memory_events": {
-              "low": 0,
-              "high": 0,
-              "max": 0,
-              "oom": 0,
-              "oom_kill": 0,
-              "oom_group_kill": 0
-            },
-            "cpu_stat": {
-              "usage_usec": 81952250791,
-              "user_usec": 80101182687,
-              "system_usec": 1851068103,
-              "core_sched.force_idle_usec": 0,
-              "nr_periods": 6753,
-              "nr_throttled": 625,
-              "throttled_usec": 2733589,
-              "nr_bursts": 0,
-              "burst_usec": 0
-            }
-          },
-          "hpc03": {
-            "invocation_id": "ba471cbef0ef405f9e9d04096da3f95c",
-            "memory_peak_bytes": 101191655424,
-            "memory_events": {
-              "low": 0,
-              "high": 0,
-              "max": 0,
-              "oom": 0,
-              "oom_kill": 0,
-              "oom_group_kill": 0
-            },
-            "cpu_stat": {
-              "usage_usec": 81993440567,
-              "user_usec": 80143050232,
-              "system_usec": 1850390334,
-              "core_sched.force_idle_usec": 0,
-              "nr_periods": 6753,
-              "nr_throttled": 4958,
-              "throttled_usec": 17569714,
-              "nr_bursts": 0,
-              "burst_usec": 0
-            }
-          },
-          "hpc04": {
-            "invocation_id": "98e9b497646e47378b36ce281f70415d",
-            "memory_peak_bytes": 107551461376,
-            "memory_events": {
-              "low": 0,
-              "high": 0,
-              "max": 0,
-              "oom": 0,
-              "oom_kill": 0,
-              "oom_group_kill": 0
-            },
-            "cpu_stat": {
-              "usage_usec": 81942988830,
-              "user_usec": 80030638213,
-              "system_usec": 1912350616,
-              "core_sched.force_idle_usec": 0,
-              "nr_periods": 6754,
-              "nr_throttled": 4528,
-              "throttled_usec": 9287923,
-              "nr_bursts": 0,
-              "burst_usec": 0
-            }
-          }
-        }
-      },
-      "closure_basis": {
-        "models": "All eight original invocation-bound ordinary reconciliations: PID0/inactive/success/exit0/empty reported cgroup_processes. No extra model manager-journal or actual cgroup-path-absence sidecar claimed.",
-        "reader": "Original collector: matching18ab invocation, successful invocation-bound manager journal,PID0/inactive/success and actual cgroup-path absence. Raw exit_code null is preserved.",
-        "reader_invocation_id": "18abf10362c24f078cc3b4bac72b855d"
-      },
-      "reader_final_resources": {
-        "cpu_seconds": null,
-        "memory_peak_bytes": null,
-        "scope": "UNKNOWN after cgroup removal; active samples are not final totals."
-      },
-      "reader_latest_active_sample": {
-        "observed_utc": "2026-10-18T18:37:40.886126+00:00",
-        "cpu_stat": "usage_usec 380188890\nuser_usec 306847478\nsystem_usec 73341412\ncore_sched.force_idle_usec 0\nnr_periods 4957\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
-        "memory_peak_bytes": 10078978048,
-        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n"
-      },
-      "raw_evidence": {
-        "RESULT.json": {
-          "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-wph3h-runtime-r1/RESULT.json",
-          "sha256": "e8762a3577333617c8e103c791aa25d72d110ac0e85f4c2f40a1621a8c787dc8"
-        },
-        "science-receipt.json": {
-          "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-wph3h-runtime-r1/science-receipt.json",
-          "sha256": "d1f4f5fdeab94759b7c531887330c16ab0051275f1505a839b046e336e95bfd4"
-        },
-        "reader-closure.json": {
-          "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-wph3h-runtime-r1/reader-closure.json",
-          "sha256": "ed3822175598bc85b57f662c64fc232e96f9893ff154467e150c6047d038214b"
-        },
-        "source-pins.json": {
-          "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-wph3h-runtime-r1/source-pins.json",
-          "sha256": "f4bdb81510a7d5e5547fd13a7917b851c5f809ed221e6d839ed1b6ccf5a52b76"
-        },
-        "cache-clear-control.json": {
-          "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-wph3h-runtime-r1/cache-clear-control.json",
-          "sha256": "429737fb13b2f7dfc1867e7e9f1883ecdc86e2be13016c1d248f0af4332465d0"
-        },
-        "cache-clear-candidate.json": {
-          "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-wph3h-runtime-r1/cache-clear-candidate.json",
-          "sha256": "47e59f3e678213e94c17bff8fb92b4f17c698ffa22d1f89bf30820b553859f4f"
-        }
-      },
-      "owner_final_qualification": {
-        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-prep-w-ph-coupling-simd-r1/three-hour-lifecycle-r1/FINAL_QUALIFICATION.json",
-        "sha256": "8e20b71caa9f390196cc04d4fc1612a42891b02c63d072e81dbebf81cdf96ab0"
-      },
-      "pair_context": {
-        "previous_8604_three_hour": {
-          "control": {
-            "wall_seconds": 818.5839022558648,
-            "cpu_seconds": 366559.97236200003,
-            "main_step_sum_seconds": 595.26295
-          },
-          "candidate": {
-            "wall_seconds": 669.9507212850731,
-            "cpu_seconds": 323376.86546600005,
-            "main_step_sum_seconds": 563.62597
-          }
-        },
-        "scope": "Descriptive different-epoch comparison only. Current control wall is4.7744% longer and candidate wall1.2864% longer than the prior8604 pair; current/previous candidate main sums563.90995/563.62597s. Do not assign the changed percentage to W/PH or infer a repeatable regression."
-      }
-    },
-    "evidence_file": "PREVIOUS_THREE_HOUR_RESULT_D02.json"
+    "evidence_file": "PREVIOUS_THREE_HOUR_RESULT_6365.json"
   },
   "rollback_executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/smallstep-prep-w-ph-coupling-simd-current-r1/wrf.exe",
-    "sha256": "d02b714fa7612754bb384dfe18c4cb98d5a708d71677d3d3a37a95c763bb73c4"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/rtrnmc-downward-clear-prefix-current-r1/wrf.exe",
+    "sha256": "6365c964b25c0bd6cf62eb5646e2e07fe008b7cf1c401f23d112b80a43e20673"
   },
   "latest_application": {
     "evidence_file": "LATEST_APPLICATION_RESULT.json",
     "measurement": {
       "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
       "order": [
-        "corrected_stock546b_control",
-        "currentd02_plus_T_coupling_SIMD_and_LW_downward_clear_prefix"
+        "retained_corrected_stock546b_control",
+        "current6365_plus_fieldcache_scratch_lifetime_candidate"
       ],
       "metrics": {
         "control": {
@@ -742,23 +746,41 @@
           "main_step_sum_seconds": 597.57855
         },
         "candidate": {
-          "wall_seconds": 702.3030050960369,
-          "cpu_seconds": 337029.657642,
-          "main_step_sum_seconds": 574.93655
+          "wall_seconds": 669.4709474619012,
+          "cpu_seconds": 323316.632919,
+          "main_step_sum_seconds": 563.88706
         }
       },
       "reductions_percent": {
-        "wall_seconds": 14.325442847783986,
-        "cpu_seconds": 8.226613516994242,
-        "main_step_sum_seconds": 3.7889579537284113
+        "wall_seconds": 18.33065424199689,
+        "cpu_seconds": 11.960678722293439,
+        "main_step_sum_seconds": 5.638001899499223
       },
-      "science_sha256": "b91c1c88abcebfd34812d7640e7fd20ed4e85c093fe24e9d07056b77371fedb4",
-      "reader_closure_sha256": "626623c1b58a5775247b0d59779310605b3496f085df56eb17e422297c8eb678",
-      "limits": "One fixed-order pair; all4clients checked actualsync/drop3beforeeacharm; file-server cacheUNKNOWN. Main-step elapsed includesMPI/backpressure; wall-minus-main isnotpureI/O. Wholecurrentforkvsoriginal result, not isolated/additiveT/LWgain or repeatability claim; historicald02pair is a different measurement. One control lightmetadata SSHreadfailure retained; normalread-onlyrecovery succeeded, no model/cache/guard edits or resubmission. Readerlatest resource sample only; finalCPU/peak/events UNKNOWN. All eight model cgroups report nonzero CPU throttling and zero memory-limit/OOM events. No isolated T/LW attribution, additive gain, repeatability, nine-hour, restart or144h qualification.",
-      "source_commit": "ce66091080cceca2ea16fb8f50d36fe0bfc8ee12",
+      "science_sha256": "2f8ab5d438515f5c850db4737f87c2f0ea9325ca0dadf9921feb5d08f23db1c0",
+      "reader_closure_sha256": "a7a71738b35f96aa3d3e15144583278238d09e6389d10c02874706d4341a6ded",
+      "limits": "Retainedcontrol/freshcandidateoccurredatdifferenttimes;checkedclientcacheeachbutfileservercacheUNKNOWN. Parent6365wall/CPU/mainandmemorycontextaredescriptiveacrossseparateruns;noisolated/additive/repeatabilityclaim. Main-stepelapsedincludesMPI/backpressure;wall-minus-mainisnotpureI/O. Allocationfailuretimingcanmove;unchangedSTORElifetime/peakremainlimitations.Noarbitrarymemoryfailureequivalenceclaim. Finalreadercounters/CPU/peakUNKNOWN;allmodelrawmemoryeventsandnonzeroCPUthrottlepreserved. Latest application uses retained control, not a fresh paired benchmark. All eight model cgroups have nonzero CPU throttling and zero memory-limit/OOM events.",
+      "descriptive_vs_retained_parent6365": {
+        "parent_metrics": {
+          "wall_seconds": 702.3030050960369,
+          "cpu_seconds": 337029.657642,
+          "main_step_sum_seconds": 574.93655
+        },
+        "new_candidate_metrics": {
+          "wall_seconds": 669.4709474619012,
+          "cpu_seconds": 323316.632919,
+          "main_step_sum_seconds": 563.88706
+        },
+        "reductions_percent": {
+          "wall_seconds": 4.674913448454642,
+          "cpu_seconds": 4.068788728844231,
+          "main_step_sum_seconds": 1.9218625081324214
+        },
+        "scope": "Separate later candidate versus retained6365: order/timegap/cache/one-sample limitations; not a fresh matched pair or pure I/O attribution."
+      },
+      "source_commit": "748701baf0016e8e8e65e839cc53070577caa209",
       "executable": {
-        "path": "/pool/wrf-experiment/wrf-cpu/builds/rtrnmc-downward-clear-prefix-current-r1/wrf.exe",
-        "sha256": "6365c964b25c0bd6cf62eb5646e2e07fe008b7cf1c401f23d112b80a43e20673"
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/quilt-field-cache-lifetime-current-gate-r1/wrf.exe",
+        "sha256": "ba422b71e67d07adcc28ad317e14a8c59b5fa5b5887ef8e365f2e72f0705aba2"
       },
       "executables": {
         "control": {
@@ -766,14 +788,14 @@
           "sha256": "546b99156cbd809e1cae5e0ea8cebeea44dafd6331abf89e4daea00e0dd0a5e7"
         },
         "candidate": {
-          "path": "/pool/wrf-experiment/wrf-cpu/builds/rtrnmc-downward-clear-prefix-current-r1/wrf.exe",
-          "sha256": "6365c964b25c0bd6cf62eb5646e2e07fe008b7cf1c401f23d112b80a43e20673"
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/quilt-field-cache-lifetime-current-gate-r1/wrf.exe",
+          "sha256": "ba422b71e67d07adcc28ad317e14a8c59b5fa5b5887ef8e365f2e72f0705aba2"
         }
       },
       "science": {
         "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
-        "receipt_sha256": "b91c1c88abcebfd34812d7640e7fd20ed4e85c093fe24e9d07056b77371fedb4",
-        "reader_closure_sha256": "626623c1b58a5775247b0d59779310605b3496f085df56eb17e422297c8eb678",
+        "receipt_sha256": "2f8ab5d438515f5c850db4737f87c2f0ea9325ca0dadf9921feb5d08f23db1c0",
+        "reader_closure_sha256": "a7a71738b35f96aa3d3e15144583278238d09e6389d10c02874706d4341a6ded",
         "complete_products": 4,
         "ordered_steps": 545,
         "last_observed_step": "2026-10-12_09:00:00",
@@ -795,8 +817,9 @@
           "verified": true
         }
       },
-      "scope": "1500x1140x33;512ranks480compute+32quilt;8x60;two tiles;GNU13.3 strict/Zen2;qualified default375/faba/881d/825e and UCXrc,sm,self/InfiniBand. Three-hour06to09 qualification; no6365 nine-hour/restart/144h/other-compiler claim.",
-      "observed_speedup": 1.1672076672930132,
+      "scope": "1500x1140x33;512 ranks,480 compute+32 quilt,8x60,two tiles;GNU13.3 strict/Zen2;375/faba/881d/825e and UCX rc,sm,self/InfiniBand. Four-product/545-step three-hour exact qualification versus retained corrected original. Not a fresh two-arm benchmark, nine-hour, restart,144h or other-compiler qualification.",
+      "fresh_both_arms": false,
+      "observed_speedup": 1.2244496276033972,
       "model_resource_summary": {
         "control": {
           "hpc01": {
@@ -862,11 +885,11 @@
         },
         "candidate": {
           "hpc01": {
-            "invocation_id": "088081e6655846bbb9046f73f05a0fcc",
-            "cpu_seconds": 84271.880302,
-            "throttled_usec": 23411616,
-            "nr_throttled": 4441,
-            "memory_peak_bytes": 98981761024,
+            "invocation_id": "a42260f6c2d6445b835dedb0f60c01a9",
+            "cpu_seconds": 80786.457341,
+            "throttled_usec": 32152347,
+            "nr_throttled": 4177,
+            "memory_peak_bytes": 97687740416,
             "memory_events": {
               "low": 0,
               "high": 0,
@@ -877,11 +900,11 @@
             }
           },
           "hpc02": {
-            "invocation_id": "2bfebdefeab14c32ac51c14d2ae8e6f7",
-            "cpu_seconds": 84239.656039,
-            "throttled_usec": 9538454,
-            "nr_throttled": 5465,
-            "memory_peak_bytes": 101216509952,
+            "invocation_id": "d6a34f6ae726485d963df265f20e8bca",
+            "cpu_seconds": 80844.762488,
+            "throttled_usec": 1533135,
+            "nr_throttled": 953,
+            "memory_peak_bytes": 96040771584,
             "memory_events": {
               "low": 0,
               "high": 0,
@@ -892,11 +915,11 @@
             }
           },
           "hpc03": {
-            "invocation_id": "9225c7a41e2c422dae60c09653037938",
-            "cpu_seconds": 84268.573951,
-            "throttled_usec": 28819864,
-            "nr_throttled": 4688,
-            "memory_peak_bytes": 101207588864,
+            "invocation_id": "2c9fc2765b5a473495c157f9ed9c0418",
+            "cpu_seconds": 80861.625198,
+            "throttled_usec": 31531545,
+            "nr_throttled": 4509,
+            "memory_peak_bytes": 95997358080,
             "memory_events": {
               "low": 0,
               "high": 0,
@@ -907,11 +930,11 @@
             }
           },
           "hpc04": {
-            "invocation_id": "509549f98ffe437882518af611e1c2a3",
-            "cpu_seconds": 84249.54735,
-            "throttled_usec": 7190394,
-            "nr_throttled": 4816,
-            "memory_peak_bytes": 107614044160,
+            "invocation_id": "3ca790ea82a24b069de63472d87f5836",
+            "cpu_seconds": 80823.787892,
+            "throttled_usec": 24475365,
+            "nr_throttled": 3895,
+            "memory_peak_bytes": 101475516416,
             "memory_events": {
               "low": 0,
               "high": 0,
@@ -923,44 +946,98 @@
           }
         }
       },
-      "closure_basis": {
-        "models": "Eight actualINV-agreed exit0 node reports + normal reconciliation PID0/success/emptyprocess rows. No extraINVjournal/actualoriginalCGpathabsence claim.",
-        "reader": "OriginalINV4d570d08383545c79ad8014e454456d7 bound successful managerjournal and actual originalCGabsence; transientunit exit_code null retained."
-      },
-      "reader_final_resources": {
-        "cpu_seconds": null,
-        "memory_peak_bytes": null,
-        "counters": "UNKNOWN after cgroup removal; latest active sample is not final."
-      },
-      "reader_latest_active_sample": {
-        "utc": "2026-10-18T21:29:12.659218+00:00",
-        "properties": {
-          "MainPID": "1465243",
-          "Result": "success",
-          "ExecMainStatus": "0",
-          "ControlGroup": "/system.slice/wrf-cpu-production512-original-t-lw3h-exact-check-hpc03-r1.service",
-          "ActiveState": "active",
-          "InvocationID": "4d570d08383545c79ad8014e454456d7"
+      "memory_context": {
+        "qualification": "ExactSCIpassed;separate-run30ssampledparentcontextonly,notcontrolledcausalcomparison.",
+        "raw_reduction_sha256": "b629c2ae724d175dbb1bb68e607527b0f2a48045c431e2ff7807727f50783e09",
+        "summary_sha256": "49a8c9659bfe10dc5e63b1a24b627af101d9fbf75a78e591683202001e2878ef",
+        "hosts": {
+          "hpc01": {
+            "parent_max_observed_anon_bytes": 94300585984,
+            "candidate_max_observed_anon_bytes": 92621713408,
+            "difference_bytes": -1678872576,
+            "difference_GiB": -1.5635719299316406,
+            "parent_cgroup_peak_bytes": 98981761024,
+            "candidate_cgroup_peak_bytes": 97687740416
+          },
+          "hpc02": {
+            "parent_max_observed_anon_bytes": 93716484096,
+            "candidate_max_observed_anon_bytes": 92213268480,
+            "difference_bytes": -1503215616,
+            "difference_GiB": -1.3999786376953125,
+            "parent_cgroup_peak_bytes": 101216509952,
+            "candidate_cgroup_peak_bytes": 96040771584
+          },
+          "hpc03": {
+            "parent_max_observed_anon_bytes": 93813145600,
+            "candidate_max_observed_anon_bytes": 92173778944,
+            "difference_bytes": -1639366656,
+            "difference_GiB": -1.5267791748046875,
+            "parent_cgroup_peak_bytes": 101207588864,
+            "candidate_cgroup_peak_bytes": 95997358080
+          },
+          "hpc04": {
+            "parent_max_observed_anon_bytes": 95035211776,
+            "candidate_max_observed_anon_bytes": 93357432832,
+            "difference_bytes": -1677778944,
+            "difference_GiB": -1.5625534057617188,
+            "parent_cgroup_peak_bytes": 107614044160,
+            "candidate_cgroup_peak_bytes": 101475516416
+          }
         },
-        "science_status": "RUNNING_ORIGINAL_INITIAL_HISTORY_COMPARISON",
-        "mismatch_status_reported": false,
-        "error": null,
-        "cpu.stat": "usage_usec 318471480\nuser_usec 256592936\nsystem_usec 61878544\ncore_sched.force_idle_usec 0\nnr_periods 2858\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
-        "memory.current": "8076992512\n",
-        "memory.peak": "9636229120\n",
-        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n"
+        "binding": "ReductionmetadataSHAagreeswithactualcollectedparent/candidatefinalnodereports;SCIvalidatestelemetrySHA.30ssamplingcanmisspeaks;no source-causalclaimfromCGpeak/filecache."
+      },
+      "cache_context": {
+        "control": {
+          "clear_receipt_sha256": "d713d4c473667617c51c2f5d0c3056965e408eeb94d430083cf9b53f2f29bab6",
+          "pre_mpi_boundary_monotonic_ns": 1935970653397693,
+          "hpc01_clear_end_to_boundary_seconds": 32.706848829,
+          "scope": "Host01 same-boot observation before MPI adapter; subsequent pinned binary/library hashes and loaders inevitably warm code, not scientific-data prefetch."
+        },
+        "candidate": {
+          "clear_receipt_sha256": "c9236741972ee9ad8667f6af8271c24626ec062fa9aef5a2e158d5b75c6ba5b5",
+          "pre_mpi_boundary_monotonic_ns": 1938648699059801,
+          "hpc01_clear_end_to_boundary_seconds": 86.105886414,
+          "scope": "Host01 same-boot observation before MPI adapter; subsequent pinned binary/library hashes and loaders inevitably warm code, not scientific-data prefetch."
+        }
+      },
+      "closure_basis": {
+        "models": "RetainedcontrolpriorclosedandfreshcandidateactualINV-agreedexit0reports+normalreconciliationPID0/success/emptyprocessrows;noextraINVjournal/actualoriginalCGpathabsenceclaim.",
+        "reader": "Actualb08376a83fdb42a39e6e6630adbb0a5e successfulINV-boundmanagerjournalandobservedoriginalCGabsence;rawexit_code nullaftertransientunitremoved."
+      },
+      "reader_resources": {
+        "last_active_sample": {
+          "utc": "2026-10-18T21:56:35.531983+00:00",
+          "properties": {
+            "MainPID": "1468543",
+            "Result": "success",
+            "ExecMainStatus": "0",
+            "ControlGroup": "/system.slice/wrf-cpu-production512-fieldcache3h-exact-check-hpc03-r1.service",
+            "ActiveState": "active",
+            "InvocationID": "b08376a83fdb42a39e6e6630adbb0a5e"
+          },
+          "science_status": "RUNNING_ORIGINAL_INITIAL_HISTORY_COMPARISON",
+          "mismatch_status_reported": false,
+          "error": null,
+          "cpu.stat": "usage_usec 382102236\nuser_usec 303855478\nsystem_usec 78246757\ncore_sched.force_idle_usec 0\nnr_periods 4349\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+          "memory.current": "3364458496\n",
+          "memory.peak": "11331203072\n",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n"
+        },
+        "final_cpu_seconds": null,
+        "final_memory_peak_bytes": null,
+        "final_counters": "UNKNOWN aftercgroupremoval;sampledvaluesnotfinal."
       },
       "owner_final_qualification": {
-        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/t-lw-combined-application-r1/three-hour-lifecycle-r1/FINAL_QUALIFICATION.json",
-        "sha256": "8b604f772aeb128575e1cfed9b4ca5319a8ba61a27d5e226e519b0c2d3c6c89b"
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/quilt-field-cache-lifetime-r1/candidate-only-three-hour-application-r1/lifecycle-r1/FINAL_QUALIFICATION.json",
+        "sha256": "80e09ef4514666f591a568ab5f99e3be10cb9748938875fcbb0ef7a65827403e"
       },
       "raw_evidence": {
-        "directory": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-t-lw3h-runtime-r1",
+        "directory": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-fieldcache3h-runtime-r1",
         "sha256": {
-          "RESULT.json": "e6c56617ebc3afb5c355ddd760dbf676179253fce3b67bf4f9e0e987c7b12c4f",
-          "science-receipt.json": "b91c1c88abcebfd34812d7640e7fd20ed4e85c093fe24e9d07056b77371fedb4",
-          "reader-closure.json": "626623c1b58a5775247b0d59779310605b3496f085df56eb17e422297c8eb678",
-          "source-pins.json": "ed296730f27240dc290ed544cb84dda9a8a1e690b2ae95c392b8e5754ae85bce",
+          "RESULT.json": "2c3d9dd2cf3dffab4eb4299e2077f712a07a1f8b9f522b63dbd1b643b0e55940",
+          "science-receipt.json": "2f8ab5d438515f5c850db4737f87c2f0ea9325ca0dadf9921feb5d08f23db1c0",
+          "reader-closure.json": "a7a71738b35f96aa3d3e15144583278238d09e6389d10c02874706d4341a6ded",
+          "source-pins.json": "bf3de7bb126fb63249b55ce24d5de701def207ba77e4e91c90d468ebfabd8991",
           "control/mpi-launch.json": "e2055c0f4c79638e64d7f6cb49f337f847b3a109cdc14e8873a7c8501fe6523b",
           "control/hpc02-node.json": "4db84b2d5f2e2762bcc63e12f94385241a37b714edd88e8e3c5993a8ce42f1d6",
           "control/hpc03-node.json": "73184dccd38fedb8d786f971431fed353cec93550789332abaeb03c9b38a9a49",
@@ -968,35 +1045,19 @@
           "control/lease.json": "341939a50515b4cc47f8470b885ddd2b77187aabea8606d46c96dd6e71f320db",
           "control/model-closures.json": "6b2435189e4459a1e452e8d9e6149e05dfa141940cc7fa19796e5fd92603bd4d",
           "control/adaptive-steps.json": "1bb5e8121b19a82eaf15cabc3c46b93299b1b97a3d7af17ac207addeeaea155a",
-          "candidate/mpi-launch.json": "415e441ca66664f23f13c0db7a8351121f8e336efdb9b0995284b6b3b82aa731",
-          "candidate/hpc02-node.json": "07397e0e2164942e12927b4e2aa148282eeab12d15f71852c93fd0b5acfdc75c",
-          "candidate/hpc03-node.json": "18633aa39ae28e7cd3404612fb7288d9bf5dfa816949e94505f43d90c4a34cb8",
-          "candidate/hpc04-node.json": "00eb9148cf174696100f56327503d02853338f28d623cdccdfdad5b0a6560c00",
-          "candidate/lease.json": "72f7a0d2c54b49de62b2b923533593217e8551cf5263439d6a6c8798f220748e",
-          "candidate/model-closures.json": "ee7095b48d2f1c059c41d3fab61845c573e5bcbf9d278cb4c9bd55f1e470e3fb",
-          "candidate/adaptive-steps.json": "d5e928eb1048882ffc3c412ae17a6731cf2ac93635ad0322c4c8667da0b1c5d6"
+          "candidate/mpi-launch.json": "bc0dd0c789eb0f24f6a634bde7ed80871206f5c17751c3ab4b8003fd6ef7d9ad",
+          "candidate/hpc02-node.json": "79fd8c5e6088ac799f5ac5e3cfed816735f8548c193652d0d28e9e78c4b3520c",
+          "candidate/hpc03-node.json": "39ae22eaa62c6efb533d8c223c39cff07b0224caa59defa21b2a2ea0f529a028",
+          "candidate/hpc04-node.json": "49009d09a43ab785a9e7361cb61e6dd717f07cd6c90436177ebc4c5e801083f9",
+          "candidate/lease.json": "c7e1393456b73fa6e98d6c83ec6e38667644bd1f4fd3d68e0ffd3170046ec0ff",
+          "candidate/model-closures.json": "e4f0d9283e269f516371463b16e6ae63f2158d68470a97bc5c23e160af769fca",
+          "candidate/adaptive-steps.json": "ea9d3c68be2fd458fdb50635839fa3c78422f99e2cf6e407003ef06edadba81d"
         }
       },
-      "pair_context": {
-        "previous_d02_evidence_file": "PREVIOUS_THREE_HOUR_RESULT_D02.json",
-        "previous_d02_sha256": "7c3ef4ff9c66c8050f5ebb93d24b4588aae63f4185c25bd216aa32138c331c23",
-        "changes_vs_previous_pair_percent": {
-          "control": {
-            "wall_seconds": -4.422845591115965,
-            "cpu_seconds": -4.626879679114038,
-            "main_step_sum_seconds": -4.677330353255115
-          },
-          "candidate": {
-            "wall_seconds": 3.4976263193942536,
-            "cpu_seconds": 2.80590330731767,
-            "main_step_sum_seconds": 1.955383124557386
-          }
-        },
-        "interpretation": "Both control and candidate observations changed across separate fixed-order pairs. This does not isolate a T/LW effect or establish a causal I/O/MPI mechanism."
-      }
+      "last_fresh_paired_result_file": "PREVIOUS_THREE_HOUR_RESULT_6365.json"
     }
   },
-  "timing_scope": "One original-first combined6365 three-hour pair; checked client-cache clear EACHarm. No isolated/additive T/LW or repeatability claim; historical1cc nine-hour evidence unchanged.",
+  "timing_scope": "Latest ba422 three-hour application versus immutable retained original546b control. Separate-run parent6365 comparisons descriptive. Last fresh original/latest paired benchmark is6365 in PREVIOUS_THREE_HOUR_RESULT_6365.json.",
   "earlier_three_hour_benchmark_f1d7": {
     "executable": {
       "path": "/pool/wrf-experiment/wrf-cpu/builds/four-worthy-ports-current-r1/wrf.exe",
@@ -1546,7 +1607,6 @@
       }
     }
   },
-  "rollback_source_and_qualification_commit": "23f673022caf540925a6dc53354b4a2867719f4d",
   "earlier_three_hour_benchmark_5326": {
     "executable": {
       "path": "/pool/wrf-experiment/wrf-cpu/builds/myj-guard-split-current-r1/wrf.exe",
@@ -1943,5 +2003,305 @@
     },
     "evidence_file": "PREVIOUS_THREE_HOUR_RESULT_8604.json"
   },
-  "current_source_head_note": "Working source748701ba includes a separate native-qualified quilt scratch candidate under application testing. Selected executable/source identity remains6365/ce660910."
+  "current_source_head_note": "Selected imageba422 contains accepted source748701ba. Later commits record qualification only. No current-image nine-hour result yet; historical1cc nine-hour remains distinct.",
+  "rollback_source_commit": "ce66091080cceca2ea16fb8f50d36fe0bfc8ee12",
+  "rollback_qualification_snapshot_commit": "49523d68e96590e574b620b793a8defe384ae6e1",
+  "last_fresh_paired_three_hour_benchmark": {
+    "executable": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/rtrnmc-downward-clear-prefix-current-r1/wrf.exe",
+      "sha256": "6365c964b25c0bd6cf62eb5646e2e07fe008b7cf1c401f23d112b80a43e20673"
+    },
+    "science": {
+      "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+      "receipt_sha256": "b91c1c88abcebfd34812d7640e7fd20ed4e85c093fe24e9d07056b77371fedb4",
+      "reader_closure_sha256": "626623c1b58a5775247b0d59779310605b3496f085df56eb17e422297c8eb678",
+      "complete_products": 4,
+      "ordered_steps": 545,
+      "last_observed_step": "2026-10-12_09:00:00",
+      "history_times": [
+        "2026-10-12_06:00:00",
+        "2026-10-12_07:00:00",
+        "2026-10-12_08:00:00",
+        "2026-10-12_09:00:00"
+      ],
+      "all_model_and_reader_scopes_closed": true,
+      "ordered_time_dt_domain_sequences_equal": true,
+      "all512_runtime_proofs_pass_both_arms": true,
+      "compute_ranks": 480,
+      "quilt_ranks": 32,
+      "two_tile_unions_equal": true,
+      "protected_checker": {
+        "path": "/pool/wrf-experiment/wrf-cpu/validation/protected_netcdf_exact_reference.py",
+        "sha256": "0382bcbabfbc16b76114ef552206c6c558ea15cd3c3552dfaed98b977deea2b4",
+        "verified": true
+      }
+    },
+    "measurement": {
+      "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+      "order": [
+        "corrected_stock546b_control",
+        "currentd02_plus_T_coupling_SIMD_and_LW_downward_clear_prefix"
+      ],
+      "metrics": {
+        "control": {
+          "wall_seconds": 819.7334523110185,
+          "cpu_seconds": 367241.169317,
+          "main_step_sum_seconds": 597.57855
+        },
+        "candidate": {
+          "wall_seconds": 702.3030050960369,
+          "cpu_seconds": 337029.657642,
+          "main_step_sum_seconds": 574.93655
+        }
+      },
+      "reductions_percent": {
+        "wall_seconds": 14.325442847783986,
+        "cpu_seconds": 8.226613516994242,
+        "main_step_sum_seconds": 3.7889579537284113
+      },
+      "science_sha256": "b91c1c88abcebfd34812d7640e7fd20ed4e85c093fe24e9d07056b77371fedb4",
+      "reader_closure_sha256": "626623c1b58a5775247b0d59779310605b3496f085df56eb17e422297c8eb678",
+      "limits": "One fixed-order pair; all4clients checked actualsync/drop3beforeeacharm; file-server cacheUNKNOWN. Main-step elapsed includesMPI/backpressure; wall-minus-main isnotpureI/O. Wholecurrentforkvsoriginal result, not isolated/additiveT/LWgain or repeatability claim; historicald02pair is a different measurement. One control lightmetadata SSHreadfailure retained; normalread-onlyrecovery succeeded, no model/cache/guard edits or resubmission. Readerlatest resource sample only; finalCPU/peak/events UNKNOWN. All eight model cgroups report nonzero CPU throttling and zero memory-limit/OOM events. No isolated T/LW attribution, additive gain, repeatability, nine-hour, restart or144h qualification.",
+      "source_commit": "ce66091080cceca2ea16fb8f50d36fe0bfc8ee12",
+      "executable": {
+        "path": "/pool/wrf-experiment/wrf-cpu/builds/rtrnmc-downward-clear-prefix-current-r1/wrf.exe",
+        "sha256": "6365c964b25c0bd6cf62eb5646e2e07fe008b7cf1c401f23d112b80a43e20673"
+      },
+      "executables": {
+        "control": {
+          "path": "/pool/wrf-experiment/wrf-cpu/builds/mass-ghost-alarm55-prototype-r2/wrf.exe",
+          "sha256": "546b99156cbd809e1cae5e0ea8cebeea44dafd6331abf89e4daea00e0dd0a5e7"
+        },
+        "candidate": {
+          "path": "/pool/wrf-experiment/wrf-cpu/builds/rtrnmc-downward-clear-prefix-current-r1/wrf.exe",
+          "sha256": "6365c964b25c0bd6cf62eb5646e2e07fe008b7cf1c401f23d112b80a43e20673"
+        }
+      },
+      "science": {
+        "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+        "receipt_sha256": "b91c1c88abcebfd34812d7640e7fd20ed4e85c093fe24e9d07056b77371fedb4",
+        "reader_closure_sha256": "626623c1b58a5775247b0d59779310605b3496f085df56eb17e422297c8eb678",
+        "complete_products": 4,
+        "ordered_steps": 545,
+        "last_observed_step": "2026-10-12_09:00:00",
+        "history_times": [
+          "2026-10-12_06:00:00",
+          "2026-10-12_07:00:00",
+          "2026-10-12_08:00:00",
+          "2026-10-12_09:00:00"
+        ],
+        "all_model_and_reader_scopes_closed": true,
+        "ordered_time_dt_domain_sequences_equal": true,
+        "all512_runtime_proofs_pass_both_arms": true,
+        "compute_ranks": 480,
+        "quilt_ranks": 32,
+        "two_tile_unions_equal": true,
+        "protected_checker": {
+          "path": "/pool/wrf-experiment/wrf-cpu/validation/protected_netcdf_exact_reference.py",
+          "sha256": "0382bcbabfbc16b76114ef552206c6c558ea15cd3c3552dfaed98b977deea2b4",
+          "verified": true
+        }
+      },
+      "scope": "1500x1140x33;512ranks480compute+32quilt;8x60;two tiles;GNU13.3 strict/Zen2;qualified default375/faba/881d/825e and UCXrc,sm,self/InfiniBand. Three-hour06to09 qualification; no6365 nine-hour/restart/144h/other-compiler claim.",
+      "observed_speedup": 1.1672076672930132,
+      "model_resource_summary": {
+        "control": {
+          "hpc01": {
+            "invocation_id": "a9fe58873124491aae377fcc88670212",
+            "cpu_seconds": 91791.979023,
+            "throttled_usec": 4164886,
+            "nr_throttled": 5714,
+            "memory_peak_bytes": 98555248640,
+            "memory_events": {
+              "low": 0,
+              "high": 0,
+              "max": 0,
+              "oom": 0,
+              "oom_kill": 0,
+              "oom_group_kill": 0
+            }
+          },
+          "hpc02": {
+            "invocation_id": "3d2ac8d8714d4843b8d82f6dd59e2557",
+            "cpu_seconds": 91789.584673,
+            "throttled_usec": 33657976,
+            "nr_throttled": 5027,
+            "memory_peak_bytes": 101026541568,
+            "memory_events": {
+              "low": 0,
+              "high": 0,
+              "max": 0,
+              "oom": 0,
+              "oom_kill": 0,
+              "oom_group_kill": 0
+            }
+          },
+          "hpc03": {
+            "invocation_id": "199a8c2143094078bc14aa2559fcf632",
+            "cpu_seconds": 91847.566197,
+            "throttled_usec": 24913222,
+            "nr_throttled": 5229,
+            "memory_peak_bytes": 101043609600,
+            "memory_events": {
+              "low": 0,
+              "high": 0,
+              "max": 0,
+              "oom": 0,
+              "oom_kill": 0,
+              "oom_group_kill": 0
+            }
+          },
+          "hpc04": {
+            "invocation_id": "3874e83bdf7140999ae005dd4f757dee",
+            "cpu_seconds": 91812.039424,
+            "throttled_usec": 21707027,
+            "nr_throttled": 5414,
+            "memory_peak_bytes": 107107307520,
+            "memory_events": {
+              "low": 0,
+              "high": 0,
+              "max": 0,
+              "oom": 0,
+              "oom_kill": 0,
+              "oom_group_kill": 0
+            }
+          }
+        },
+        "candidate": {
+          "hpc01": {
+            "invocation_id": "088081e6655846bbb9046f73f05a0fcc",
+            "cpu_seconds": 84271.880302,
+            "throttled_usec": 23411616,
+            "nr_throttled": 4441,
+            "memory_peak_bytes": 98981761024,
+            "memory_events": {
+              "low": 0,
+              "high": 0,
+              "max": 0,
+              "oom": 0,
+              "oom_kill": 0,
+              "oom_group_kill": 0
+            }
+          },
+          "hpc02": {
+            "invocation_id": "2bfebdefeab14c32ac51c14d2ae8e6f7",
+            "cpu_seconds": 84239.656039,
+            "throttled_usec": 9538454,
+            "nr_throttled": 5465,
+            "memory_peak_bytes": 101216509952,
+            "memory_events": {
+              "low": 0,
+              "high": 0,
+              "max": 0,
+              "oom": 0,
+              "oom_kill": 0,
+              "oom_group_kill": 0
+            }
+          },
+          "hpc03": {
+            "invocation_id": "9225c7a41e2c422dae60c09653037938",
+            "cpu_seconds": 84268.573951,
+            "throttled_usec": 28819864,
+            "nr_throttled": 4688,
+            "memory_peak_bytes": 101207588864,
+            "memory_events": {
+              "low": 0,
+              "high": 0,
+              "max": 0,
+              "oom": 0,
+              "oom_kill": 0,
+              "oom_group_kill": 0
+            }
+          },
+          "hpc04": {
+            "invocation_id": "509549f98ffe437882518af611e1c2a3",
+            "cpu_seconds": 84249.54735,
+            "throttled_usec": 7190394,
+            "nr_throttled": 4816,
+            "memory_peak_bytes": 107614044160,
+            "memory_events": {
+              "low": 0,
+              "high": 0,
+              "max": 0,
+              "oom": 0,
+              "oom_kill": 0,
+              "oom_group_kill": 0
+            }
+          }
+        }
+      },
+      "closure_basis": {
+        "models": "Eight actualINV-agreed exit0 node reports + normal reconciliation PID0/success/emptyprocess rows. No extraINVjournal/actualoriginalCGpathabsence claim.",
+        "reader": "OriginalINV4d570d08383545c79ad8014e454456d7 bound successful managerjournal and actual originalCGabsence; transientunit exit_code null retained."
+      },
+      "reader_final_resources": {
+        "cpu_seconds": null,
+        "memory_peak_bytes": null,
+        "counters": "UNKNOWN after cgroup removal; latest active sample is not final."
+      },
+      "reader_latest_active_sample": {
+        "utc": "2026-10-18T21:29:12.659218+00:00",
+        "properties": {
+          "MainPID": "1465243",
+          "Result": "success",
+          "ExecMainStatus": "0",
+          "ControlGroup": "/system.slice/wrf-cpu-production512-original-t-lw3h-exact-check-hpc03-r1.service",
+          "ActiveState": "active",
+          "InvocationID": "4d570d08383545c79ad8014e454456d7"
+        },
+        "science_status": "RUNNING_ORIGINAL_INITIAL_HISTORY_COMPARISON",
+        "mismatch_status_reported": false,
+        "error": null,
+        "cpu.stat": "usage_usec 318471480\nuser_usec 256592936\nsystem_usec 61878544\ncore_sched.force_idle_usec 0\nnr_periods 2858\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+        "memory.current": "8076992512\n",
+        "memory.peak": "9636229120\n",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n"
+      },
+      "owner_final_qualification": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/t-lw-combined-application-r1/three-hour-lifecycle-r1/FINAL_QUALIFICATION.json",
+        "sha256": "8b604f772aeb128575e1cfed9b4ca5319a8ba61a27d5e226e519b0c2d3c6c89b"
+      },
+      "raw_evidence": {
+        "directory": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-t-lw3h-runtime-r1",
+        "sha256": {
+          "RESULT.json": "e6c56617ebc3afb5c355ddd760dbf676179253fce3b67bf4f9e0e987c7b12c4f",
+          "science-receipt.json": "b91c1c88abcebfd34812d7640e7fd20ed4e85c093fe24e9d07056b77371fedb4",
+          "reader-closure.json": "626623c1b58a5775247b0d59779310605b3496f085df56eb17e422297c8eb678",
+          "source-pins.json": "ed296730f27240dc290ed544cb84dda9a8a1e690b2ae95c392b8e5754ae85bce",
+          "control/mpi-launch.json": "e2055c0f4c79638e64d7f6cb49f337f847b3a109cdc14e8873a7c8501fe6523b",
+          "control/hpc02-node.json": "4db84b2d5f2e2762bcc63e12f94385241a37b714edd88e8e3c5993a8ce42f1d6",
+          "control/hpc03-node.json": "73184dccd38fedb8d786f971431fed353cec93550789332abaeb03c9b38a9a49",
+          "control/hpc04-node.json": "a6149e46f2ac8e488884becb9342bdbfc3ca037a47de3e3110a36444f2b0c237",
+          "control/lease.json": "341939a50515b4cc47f8470b885ddd2b77187aabea8606d46c96dd6e71f320db",
+          "control/model-closures.json": "6b2435189e4459a1e452e8d9e6149e05dfa141940cc7fa19796e5fd92603bd4d",
+          "control/adaptive-steps.json": "1bb5e8121b19a82eaf15cabc3c46b93299b1b97a3d7af17ac207addeeaea155a",
+          "candidate/mpi-launch.json": "415e441ca66664f23f13c0db7a8351121f8e336efdb9b0995284b6b3b82aa731",
+          "candidate/hpc02-node.json": "07397e0e2164942e12927b4e2aa148282eeab12d15f71852c93fd0b5acfdc75c",
+          "candidate/hpc03-node.json": "18633aa39ae28e7cd3404612fb7288d9bf5dfa816949e94505f43d90c4a34cb8",
+          "candidate/hpc04-node.json": "00eb9148cf174696100f56327503d02853338f28d623cdccdfdad5b0a6560c00",
+          "candidate/lease.json": "72f7a0d2c54b49de62b2b923533593217e8551cf5263439d6a6c8798f220748e",
+          "candidate/model-closures.json": "ee7095b48d2f1c059c41d3fab61845c573e5bcbf9d278cb4c9bd55f1e470e3fb",
+          "candidate/adaptive-steps.json": "d5e928eb1048882ffc3c412ae17a6731cf2ac93635ad0322c4c8667da0b1c5d6"
+        }
+      },
+      "pair_context": {
+        "previous_d02_evidence_file": "PREVIOUS_THREE_HOUR_RESULT_D02.json",
+        "previous_d02_sha256": "7c3ef4ff9c66c8050f5ebb93d24b4588aae63f4185c25bd216aa32138c331c23",
+        "changes_vs_previous_pair_percent": {
+          "control": {
+            "wall_seconds": -4.422845591115965,
+            "cpu_seconds": -4.626879679114038,
+            "main_step_sum_seconds": -4.677330353255115
+          },
+          "candidate": {
+            "wall_seconds": 3.4976263193942536,
+            "cpu_seconds": 2.80590330731767,
+            "main_step_sum_seconds": 1.955383124557386
+          }
+        },
+        "interpretation": "Both control and candidate observations changed across separate fixed-order pairs. This does not isolate a T/LW effect or establish a causal I/O/MPI mechanism."
+      }
+    },
+    "evidence_file": "PREVIOUS_THREE_HOUR_RESULT_6365.json"
+  }
 }

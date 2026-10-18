@@ -1,0 +1,132 @@
+{
+  "status": "PROMOTED_WORKING_DEFAULT_NATIVE_AND_EXACT_THREE_HOUR_QUALIFIED",
+  "source_commit": "748701baf0016e8e8e65e839cc53070577caa209",
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/quilt-field-cache-lifetime-current-gate-r1/wrf.exe",
+    "sha256": "ba422b71e67d07adcc28ad317e14a8c59b5fa5b5887ef8e365f2e72f0705aba2"
+  },
+  "native_qualification": {
+    "file": "NATIVE_QUALIFICATION.json",
+    "sha256": "a737643416127ec6238b3df0de3c34bfc48d6208548dd1304ef5d003bde47c4b"
+  },
+  "source_binding": {
+    "file": "SOURCE_COMMIT_BINDING.json",
+    "sha256": "71240ebcdaa5501a48e74408d4fd093c47642771068288a87436f646c43a8c1f"
+  },
+  "application": {
+    "file": "APPLICATION_QUALIFICATION.json",
+    "sha256": "80e09ef4514666f591a568ab5f99e3be10cb9748938875fcbb0ef7a65827403e",
+    "science": {
+      "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+      "receipt_sha256": "2f8ab5d438515f5c850db4737f87c2f0ea9325ca0dadf9921feb5d08f23db1c0",
+      "reader_closure_sha256": "a7a71738b35f96aa3d3e15144583278238d09e6389d10c02874706d4341a6ded",
+      "complete_products": 4,
+      "ordered_steps": 545,
+      "last_observed_step": "2026-10-12_09:00:00",
+      "history_times": [
+        "2026-10-12_06:00:00",
+        "2026-10-12_07:00:00",
+        "2026-10-12_08:00:00",
+        "2026-10-12_09:00:00"
+      ],
+      "all_model_and_reader_scopes_closed": true,
+      "ordered_time_dt_domain_sequences_equal": true,
+      "all512_runtime_proofs_pass_both_arms": true,
+      "compute_ranks": 480,
+      "quilt_ranks": 32,
+      "two_tile_unions_equal": true,
+      "protected_checker": {
+        "path": "/pool/wrf-experiment/wrf-cpu/validation/protected_netcdf_exact_reference.py",
+        "sha256": "0382bcbabfbc16b76114ef552206c6c558ea15cd3c3552dfaed98b977deea2b4",
+        "verified": true
+      }
+    },
+    "fresh_both_arms": false
+  },
+  "scope": "1500x1140x33;512 ranks,480 compute+32 quilt,8x60,two tiles;GNU13.3 strict/Zen2;375/faba/881d/825e and UCX rc,sm,self/InfiniBand. Four-product/545-step three-hour exact qualification versus retained corrected original. Not a fresh two-arm benchmark, nine-hour, restart,144h or other-compiler qualification.",
+  "memory_evidence": {
+    "qualification": "ExactSCIpassed;separate-run30ssampledparentcontextonly,notcontrolledcausalcomparison.",
+    "raw_reduction_sha256": "b629c2ae724d175dbb1bb68e607527b0f2a48045c431e2ff7807727f50783e09",
+    "summary_sha256": "49a8c9659bfe10dc5e63b1a24b627af101d9fbf75a78e591683202001e2878ef",
+    "hosts": {
+      "hpc01": {
+        "parent_max_observed_anon_bytes": 94300585984,
+        "candidate_max_observed_anon_bytes": 92621713408,
+        "difference_bytes": -1678872576,
+        "difference_GiB": -1.5635719299316406,
+        "parent_cgroup_peak_bytes": 98981761024,
+        "candidate_cgroup_peak_bytes": 97687740416
+      },
+      "hpc02": {
+        "parent_max_observed_anon_bytes": 93716484096,
+        "candidate_max_observed_anon_bytes": 92213268480,
+        "difference_bytes": -1503215616,
+        "difference_GiB": -1.3999786376953125,
+        "parent_cgroup_peak_bytes": 101216509952,
+        "candidate_cgroup_peak_bytes": 96040771584
+      },
+      "hpc03": {
+        "parent_max_observed_anon_bytes": 93813145600,
+        "candidate_max_observed_anon_bytes": 92173778944,
+        "difference_bytes": -1639366656,
+        "difference_GiB": -1.5267791748046875,
+        "parent_cgroup_peak_bytes": 101207588864,
+        "candidate_cgroup_peak_bytes": 95997358080
+      },
+      "hpc04": {
+        "parent_max_observed_anon_bytes": 95035211776,
+        "candidate_max_observed_anon_bytes": 93357432832,
+        "difference_bytes": -1677778944,
+        "difference_GiB": -1.5625534057617188,
+        "parent_cgroup_peak_bytes": 107614044160,
+        "candidate_cgroup_peak_bytes": 101475516416
+      }
+    },
+    "binding": "ReductionmetadataSHAagreeswithactualcollectedparent/candidatefinalnodereports;SCIvalidatestelemetrySHA.30ssamplingcanmisspeaks;no source-causalclaimfromCGpeak/filecache."
+  },
+  "timing": {
+    "candidate_metrics": {
+      "wall_seconds": 669.4709474619012,
+      "cpu_seconds": 323316.632919,
+      "main_step_sum_seconds": 563.88706
+    },
+    "descriptive_vs_retained_original_percent": {
+      "wall_seconds": 18.33065424199689,
+      "cpu_seconds": 11.960678722293439,
+      "main_step_sum_seconds": 5.638001899499223
+    },
+    "descriptive_vs_parent6365": {
+      "parent_metrics": {
+        "wall_seconds": 702.3030050960369,
+        "cpu_seconds": 337029.657642,
+        "main_step_sum_seconds": 574.93655
+      },
+      "new_candidate_metrics": {
+        "wall_seconds": 669.4709474619012,
+        "cpu_seconds": 323316.632919,
+        "main_step_sum_seconds": 563.88706
+      },
+      "reductions_percent": {
+        "wall_seconds": 4.674913448454642,
+        "cpu_seconds": 4.068788728844231,
+        "main_step_sum_seconds": 1.9218625081324214
+      },
+      "scope": "Separate later candidate versus retained6365: order/timegap/cache/one-sample limitations; not a fresh matched pair or pure I/O attribution."
+    },
+    "limits": "Retainedcontrol/freshcandidateoccurredatdifferenttimes;checkedclientcacheeachbutfileservercacheUNKNOWN. Parent6365wall/CPU/mainandmemorycontextaredescriptiveacrossseparateruns;noisolated/additive/repeatabilityclaim. Main-stepelapsedincludesMPI/backpressure;wall-minus-mainisnotpureI/O. Allocationfailuretimingcanmove;unchangedSTORElifetime/peakremainlimitations.Noarbitrarymemoryfailureequivalenceclaim. Finalreadercounters/CPU/peakUNKNOWN;allmodelrawmemoryeventsandnonzeroCPUthrottlepreserved. Latest application uses retained control, not a fresh paired benchmark. All eight model cgroups have nonzero CPU throttling and zero memory-limit/OOM events."
+  },
+  "inclusion": "Owned field-snapshot semantics and exact acceptance preserved; smaller later scratch and lower observed anonymous memory/peaks support inclusion. No isolated runtime gain inferred from separate runs.",
+  "remaining_costs": [
+    "Initial STORE duplication peak and payload-copy volume unchanged.",
+    "One additional normal allocation may change fatal OOM timing."
+  ],
+  "rollback": {
+    "executable": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/rtrnmc-downward-clear-prefix-current-r1/wrf.exe",
+      "sha256": "6365c964b25c0bd6cf62eb5646e2e07fe008b7cf1c401f23d112b80a43e20673"
+    },
+    "source_commit": "ce66091080cceca2ea16fb8f50d36fe0bfc8ee12",
+    "same_runtime": "375/faba/881d/825e",
+    "source_action": "Revert748701ba and rebuild the C/quilt objects, archive and executable."
+  }
+}
