@@ -6,6 +6,10 @@ Standing owner rule, reaffirmed 2026-10-18: **DO NOT STOP after answering a ques
 
 Keep independent work moving while jobs or approvals are pending, provide brief progress updates at least every 60 seconds during active work, and preserve a durable recovery checkpoint. Stop only at an explicit owner request, a genuinely required authorization that blocks all meaningful work, an external blocker that blocks all meaningful work, or the execution limits of the active session. Do not promise unattended progress beyond those limits. Existing scientific, resource, AWS-suspension, production and master exclusions remain in force.
 
+## Campaign storage
+
+Keep large build, profile and model artifacts on the experimental cluster storage. Return compact summaries and selected receipt fields to the conversation; retain complete records in evidence files instead of repeatedly printing them. Check local free space before large copies. Reuse immutable fixtures and source archives where their contracts permit it, preserving required independent scientific-file copies. Reclaim only campaign-generated reproducible duplicates after verifying the retained counterpart and recording recovery instructions. Preserve unique evidence, scientific oracles and active application databases.
+
 ## Investigation cadence
 
 Effective 2026-10-17: use the shortest experiment that can answer the current question. Reuse retained current-build profiles and captured callers before launching another forecast.
