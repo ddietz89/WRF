@@ -1,0 +1,124 @@
+{
+  "status": "PROMOTED_WORKING_SOURCE_EXACT_NATIVE_CALLER_AND_MATCHED_THREE_HOUR_QUALIFIED",
+  "change": "Move invariant flQI outside post-VDIFH writeback; retain true/false independent loops, each with the same six private scalar temporaries and original expression order. False path never references absent ice arrays.",
+  "source_sha256": "1377167a562d279f851c1847f180c65c0337d011ffd99e1cba98d154b6e01035",
+  "parent_source_sha256": "9c956080806809339ea0d6ed87aac2b94f1406da9d883b63f7fb825d6493bb24",
+  "parent_executable_sha256": "285d83c1486881b215b77707b90140d21dcfddf3cc057f5171f8cf8c6016fc2a",
+  "candidate_executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/myj-guard-split-current-r1/wrf.exe",
+    "sha256": "53264515c8d5e9899e269b45231f729300053951740ad45828ec68393668cc80"
+  },
+  "native": {
+    "native_receipt_sha256": "097fd5db4fa2bb1588fcf4e15b4e3dada6b63637f4a2ef43e71ddd60dc7e9a1e",
+    "native_closure_sha256": "43db060a2a1276c6b2a204dd55d1e2a10f2cb6813dc993c69d4975499112b610",
+    "native_invocation_id": "e1bea5dbfa1442929e75d71776db2760",
+    "native_scope": "O0bounds/O2currentparentreproduction andcomplete471200INOUT/428640definedOUTcapturedcaller withraw/state/guards;56sourcecore7patterns2actualoptionalpresence4rounds unchanged. Maskedtraps only. Noapplicationclaim.",
+    "qualified_object": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/myj-writeback-guard-split-full-caller-gate-r1/O2/candidate/module_bl_myjpbl.o",
+      "sha256": "a9f0ba29ddd82f4c941cf866cfdce5db9fe5e53af0944d82cc75a3b92eddc973"
+    },
+    "module_interfaces_equal": true
+  },
+  "code_generation": {
+    "status": "ACTUAL_CODEGEN_MECHANISM_CONFIRMED_NOT_PERFORMANCE",
+    "parent_object_sha256": "ba9bd1886d157190ffe7408c0375bd0d53766b4a6464bcdd06c65fe42e6a3861",
+    "candidate_object_sha256": "a9f0ba29ddd82f4c941cf866cfdce5db9fe5e53af0944d82cc75a3b92eddc973",
+    "native_receipt_sha256": "097fd5db4fa2bb1588fcf4e15b4e3dada6b63637f4a2ef43e71ddd60dc7e9a1e",
+    "native_closure_sha256": "43db060a2a1276c6b2a204dd55d1e2a10f2cb6813dc993c69d4975499112b610",
+    "vector_report_sha256": "9749cf46fdb4ba3e049b37b6592c827f56e081720f19aa25456600e7d373f9c6",
+    "target_vector_report": [
+      "module_bl_myjpbl.f90:680:25: optimized: loop vectorized using 16 byte vectors",
+      "module_bl_myjpbl.f90:680:25: optimized: loop vectorized using 8 byte vectors",
+      "module_bl_myjpbl.f90:661:25: optimized: loop vectorized using 16 byte vectors",
+      "module_bl_myjpbl.f90:661:25: optimized: loop vectorized using 8 byte vectors"
+    ],
+    "candidate_whole_MYJPBL_packed_arithmetic_counts": {
+      "addps": 8,
+      "subps": 18,
+      "mulps": 26,
+      "divps": 8
+    },
+    "parent_closed_scalar_proof": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-tendency-writeback-simd-r1/CODEGEN_DIFFERENCE.json",
+    "timing_driver_byteexact_qualified": true,
+    "clock_scope": "512completecapturedcalls withidenticalallmutable/OUTrestore+reset/read5state insidebatchclock; warmup/finaloracle outside",
+    "native_jobs_closed": true
+  },
+  "caller": {
+    "pairs": [
+      {
+        "host": "hpc01",
+        "order": "parent_then_candidate",
+        "parent_wall_seconds": 3.804073238,
+        "candidate_wall_seconds": 3.726364381,
+        "wall_reduction_percent": 2.042780255220733,
+        "parent_cpu_seconds": 3.8029189999999997,
+        "candidate_cpu_seconds": 3.724616,
+        "cpu_reduction_percent": 2.059023607918009
+      },
+      {
+        "host": "hpc04",
+        "order": "candidate_then_parent",
+        "parent_wall_seconds": 3.821988315,
+        "candidate_wall_seconds": 3.771523766,
+        "wall_reduction_percent": 1.3203742356287074,
+        "parent_cpu_seconds": 3.820181,
+        "candidate_cpu_seconds": 3.770138,
+        "cpu_reduction_percent": 1.309964109030426
+      }
+    ],
+    "clock_scope": "One existing complete finiteMYJcapture repeated512times; sameallmutable/OUTrawrestores andreset/read5state INCLUDED insidebatchclock; onecommonwarmcall beforeclock; finaloriginalraw/readonly/scalar/module checks outsideclock. Notisolatedcallee/forecastgain.",
+    "timing_result_sha256": "91017774e9750bcb9d3f1347ae801f721171a4771db2bdb9ba2373d831775599",
+    "limits": "Two short opposite-order captured-caller pairs; not isolated-loop or whole-model speedup. Tiny compile/link-inclusive candidate job throttling retained; all memory events zero."
+  },
+  "canonical_build": {
+    "receipt_sha256": "c3ead56c344c9d7e4e48c6e2daf0aaecaa9c001b06ec69ecead161b7ec587bcc",
+    "closure_sha256": "37d858e1e1104229c8c34af60c1375bf7ec692db37ef2dd8147031d346dbea6c",
+    "scope": "One exact qualified MYJPBL object replaces current member;583of584 archive occurrences and14other link inputs unchanged;zero source compiles,one link."
+  },
+  "application": {
+    "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+    "order": [
+      "corrected_stock546b_control",
+      "current285d_plus_accepted_MYJ_guard_PHY_parked"
+    ],
+    "metrics": {
+      "control": {
+        "wall_seconds": 818.1368868281133,
+        "cpu_seconds": 366799.228544,
+        "main_step_sum_seconds": 596.24254
+      },
+      "candidate": {
+        "wall_seconds": 669.3658009958453,
+        "cpu_seconds": 324363.07018100005,
+        "main_step_sum_seconds": 565.49487
+      }
+    },
+    "reductions_percent": {
+      "wall_seconds": 18.18413131438774,
+      "cpu_seconds": 11.569315053210227,
+      "main_step_sum_seconds": 5.156906449512977
+    },
+    "science_sha256": "bb4e7dfc83969c65f3b12fc567a901dc7c857d414578a5d2ad1b7abf7b4a7f90",
+    "reader_closure_sha256": "0937cf12d6ce8b5440725375c3e6a33525d8c00a01e1d43311576cd6e656b69e",
+    "limits": "One fixed-order pair, four clients actually sync/drop3 before each arm. File-server cache unknown. Main includes communication/backpressure; residual is not pure I/O. No isolated/additive cache or repeatability claim."
+  },
+  "model_closures_sha256": {
+    "control": "14ebc98652ec07f795a876f44fdfc0a4f48ad844d106d182d7637beaf83f0350",
+    "candidate": "f1ce9acd7452ba37db3007e1710e0ac738718fcd3a36bc0eda2952bde91bbec8"
+  },
+  "science": {
+    "receipt_sha256": "bb4e7dfc83969c65f3b12fc567a901dc7c857d414578a5d2ad1b7abf7b4a7f90",
+    "reader_closure_sha256": "0937cf12d6ce8b5440725375c3e6a33525d8c00a01e1d43311576cd6e656b69e",
+    "complete_products": 4,
+    "ordered_steps": 545,
+    "last_step": "2026-10-12_09:00:00",
+    "all_nine_model_and_reader_invocations_closed": true
+  },
+  "scope": "1500x1140x33;512ranks480compute+32quilt;two tiles;qualified GNU13.3/Zen2/faba affinity and UCXrc,sm,self/InfiniBand. Full combined working configuration; no isolated MYJ,9h,restart or144h qualification.",
+  "excluded": "PHY_PREP ordered qtot directive remains scalar with mixed caller observations; not linked.",
+  "evidence_directory": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-writeback-guard-split-r1",
+  "application_evidence_directory": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-myjguard3h-runtime-r1",
+  "rollback": "Select retained285d83c1 executable at /pool/wrf-experiment/wrf-cpu/builds/myj-thompson-bank-current-r2/wrf.exe with identical runtime, or revert this isolated guard-split source commit and rebuild. Production and master unchanged.",
+  "independent_final_review_sha256": "f0887e4aa2a79fe19fceee1cd12b59d072ab8d596cf22f38a42b1670a3cdc9c2",
+  "owner_final_pair_qualification_sha256": "3b6a6363c8526fffe11dd62916f7bb241b9f73718c8eb06f2af7a5879a27327d"
+}

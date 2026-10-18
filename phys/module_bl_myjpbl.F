@@ -633,6 +633,7 @@
           ENDDO
 !BSF End:
 !
+          IF (flQI) THEN
 !$OMP SIMD PRIVATE(KFLIP,THOLD,THNEW,DTDT,QOLD,DQDT)
           DO K=KTS,KTE
             KFLIP=KTE+1-K
@@ -645,12 +646,31 @@
             RQVBLTEN(I,K,J)=DQDT/(1.-QK(KFLIP))**2
 !BSF Begin:
             RQCBLTEN(I,K,J)=(QCWK(KFLIP)-QCW(I,K,J))*RDTTURBL
-            IF (flQI) RQIBLTEN(I,K,J)=(QCIK(KFLIP)-QCI(I,K,J))*RDTTURBL
+            RQIBLTEN(I,K,J)=(QCIK(KFLIP)-QCI(I,K,J))*RDTTURBL
 !BSF            IF (flQS) RQSBLTEN(I,K,J)=(QCSK(KFLIP)-QCS(I,K,J))*RDTTURBL
 !BSF            IF (flQR) RQRBLTEN(I,K,J)=(QCRK(KFLIP)-QCR(I,K,J))*RDTTURBL
 !BSF            IF (flQG) RQGBLTEN(I,K,J)=(QCGK(KFLIP)-QCG(I,K,J))*RDTTURBL
 !BSF End:
           ENDDO
+          ELSE
+!$OMP SIMD PRIVATE(KFLIP,THOLD,THNEW,DTDT,QOLD,DQDT)
+          DO K=KTS,KTE
+            KFLIP=KTE+1-K
+            THOLD=TH(I,K,J)
+            THNEW=THEK(KFLIP)+CWMK(KFLIP)*ELOCP*APE(I,K,J)
+            DTDT=(THNEW-THOLD)*RDTTURBL
+            QOLD=QV(I,K,J)/(1.+QV(I,K,J))
+            DQDT=(QK(KFLIP)-QOLD)*RDTTURBL
+            RTHBLTEN(I,K,J)=DTDT
+            RQVBLTEN(I,K,J)=DQDT/(1.-QK(KFLIP))**2
+!BSF Begin:
+            RQCBLTEN(I,K,J)=(QCWK(KFLIP)-QCW(I,K,J))*RDTTURBL
+!BSF            IF (flQS) RQSBLTEN(I,K,J)=(QCSK(KFLIP)-QCS(I,K,J))*RDTTURBL
+!BSF            IF (flQR) RQRBLTEN(I,K,J)=(QCRK(KFLIP)-QCR(I,K,J))*RDTTURBL
+!BSF            IF (flQG) RQGBLTEN(I,K,J)=(QCGK(KFLIP)-QCG(I,K,J))*RDTTURBL
+!BSF End:
+          ENDDO
+          ENDIF
 !
 !*** Begin debugging
 !         IF(I==IMD.AND.J==JMD)THEN
