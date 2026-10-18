@@ -8,6 +8,17 @@ As of October 18, the newly qualified combined build `53264515` adds MYJPBL's in
 
 This is one original-first pair with checked sync/drop_caches3 on all four compute clients before each arm; file-server state remains uncontrolled. Main-step time includes communication/backpressure, and wall minus main is not pure I/O. The combined result does not isolate the guard split or scratch bank, add kernel gains, demonstrate repeatability, or establish nine-hour/restart/144-hour speedups. Three-hour throughput remains below the 1.5 times and 2 times goals. Qualification is GNU13.3/Zen2/world512/two tiles; AOCC and Intel remain experimental.
 
+Recent matched three-hour pairs (seconds; each row has its own original control):
+
+| Combined build | Whole wall, original → candidate | Wall reduction | Main-step elapsed, original → candidate | Main reduction | Aggregate CPU reduction |
+|---|---:|---:|---:|---:|---:|
+| `0fb5` | 833.461 → 702.739 | 15.6842% | 613.114 → 582.158 | 5.0490% | 10.0001% |
+| `f1d7` | 848.674 → 694.264 | 18.1943% | 625.835 → 583.703 | 6.7321% | 12.4921% |
+| `7cab` | 846.162 → 691.788 | 18.2441% | 610.101 → 585.198 | 4.0817% | 11.9368% |
+| **`5326`** | **818.137 → 669.366** | **18.1841%** | **596.243 → 565.495** | **5.1569%** | **11.5693%** |
+
+Main-step timers measure elapsed integration time including MPI waits/backpressure. Aggregate CPU includes model and output work; no integration-only CPU measurement is available. These are separate pairs, not isolated incremental contributions.
+
 The preceding `285d83c1` candidate-only three-hour qualification took **681.775023 seconds (11m21.8s)**, with **329987.405044 CPU seconds** and **573.875620 seconds** summed main steps. Its four products and 545 steps matched retained original outputs; no fresh control timing arm was included. The preceding `7cab913b` matched pair measured **846.162370 to 691.787666 seconds (18.2441% lower wall; 1.2232 times throughput)**, **11.9368% lower CPU** and **4.0817% lower main-step sum**. These historical epochs remain preserved; their percentages are not transferred or added to the latest result.
 
 The preceding MYJPBL one-directive addition passed the complete captured caller and 56 source-specific exceptional-state/presence/rounding cases at O0/bounds and strict O2. Two opposite-order whole-caller intervals, including identical restores and state helpers, were **0.4985% and 0.2904% shorter**. The compiled routine text is 56 bytes smaller, but the compiler still emits scalar arithmetic: an actual compiler report identifies the conditional store as a vectorization blocker. Inclusion retains these small local observations; no SIMD, isolated-loop or whole-model gain is claimed.
@@ -26,7 +37,7 @@ The preceding `f1d7ad6f` three-hour benchmark, before U/V and the literal-index 
 
 The preceding qualified `0fb5f827` three-hour comparison measured **833.461186 to 702.739459 seconds: 15.6842% less model/MPI wall, 10.0001% less aggregate CPU and approximately 1.186 times throughput**. All four products and 545 ordered steps passed the unchanged exact checker. Each arm had actual client cache clears; this is one control-first pair with uncontrolled server load/cache state. Earlier `940eb706` three-hour **17.2665%** and nine-hour **8.8747%** observations retain their own configurations and scopes below; they are not additive or evidence of a repeatable regression.
 
-Standing owner policy is generally to include significant exact-qualified kernel gains even when their individual contribution is smaller than whole-run variation. A concrete evidence-backed exclusion reason is required; kernel, phase and whole-run claims remain separate. See `TIMING_SOP.md` and the latest promotion sections. Production and master are unchanged. AWS remains suspended, with **$4.6495 conservative campaign commitment**, not a settled invoice, and no demonstrated net cloud testing-throughput benefit. DeepSeek has 147 actual returned receipts/1,558,305 reported tokens; provider charges remain unknown and separate from AWS.
+Standing owner policy is generally to include significant exact-qualified kernel gains even when their individual contribution is smaller than whole-run variation. A concrete evidence-backed exclusion reason is required; kernel, phase and whole-run claims remain separate. See `TIMING_SOP.md` and the latest promotion sections. Production and master are unchanged. AWS remains suspended, with **$4.6495 conservative campaign commitment**, not a settled invoice, and no demonstrated net cloud testing-throughput benefit. DeepSeek has 149 actual returned receipts/1,567,994 reported tokens; provider charges remain unknown and separate from AWS.
 
 Earlier benchmark/settings paragraphs below are retained historical epochs; the final accepted defaults and direct closeout take precedence.
 
