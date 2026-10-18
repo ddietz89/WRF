@@ -1,0 +1,61 @@
+{
+  "status": "EXACT_NATIVE_AND_PACKED_CODE_PASS_CALLER_MIXED_NOT_PROMOTED",
+  "parent_executable_sha256": "d02b714fa7612754bb384dfe18c4cb98d5a708d71677d3d3a37a95c763bb73c4",
+  "parent_object_sha256": "a2404fd7ed10ab78a8a6355449a598890cf72bf8b4e6e97cc06cbe42593fe71b",
+  "candidate_object_sha256": "93b802a6f52a0bc9e705a15816614132b62b48d82e1096af533d0f8df9dec337",
+  "source_scope": "One SIMD directive before SmallStep preparation temperature save/coupling Iloop; priorU/WPH directives and operation/bound order retained. Isolated investigation source only.",
+  "native": {
+    "cases": 60,
+    "case_groups": "42finite +6U +6WPH +6T",
+    "optimization_levels": [
+      "O0/bounds",
+      "strictO2"
+    ],
+    "checks": "raw defined outputs, readonly fields, physical guards and five immediate state words exact; freshparenta240 semantic equivalence",
+    "receipt_sha256": "dbabbd7c4b8a4bd7e7cec9ad8f13aff40e26954cff32dff5b10af52a9a84d096",
+    "closure_sha256": "7946edf0d3f9bdb6167bf45a894bf1461ae446029a050ef2e9c38729c619887e"
+  },
+  "actual_codegen": "Packed8lane arithmetic/32byte stride with4lane/scalar tails; not an isolated speed measurement.",
+  "complete_caller": {
+    "calls_each": 131072,
+    "case": 15,
+    "clock_scope": "Same completeprep caller, restores/state helper overhead included; terminal raw/state checks outside.",
+    "pairs": [
+      {
+        "host": "hpc01",
+        "order": [
+          "parent",
+          "candidate"
+        ],
+        "parent_wall_s": 5.294820563,
+        "candidate_wall_s": 5.269916704,
+        "less_wall_percent": 0.470344,
+        "less_cpu_percent": 0.470429
+      },
+      {
+        "host": "hpc02",
+        "order": [
+          "candidate",
+          "parent"
+        ],
+        "parent_wall_s": 5.225604585,
+        "candidate_wall_s": 5.631135497,
+        "less_wall_percent": -7.760459,
+        "less_cpu_percent": -7.756084
+      }
+    ],
+    "result_sha256": "c2176579f569a3f3065ac35e2e68c799ffeb230b01e1afa58b526a2fb422e396",
+    "cache_before_each_arm": "Actualchecked sync/drop_caches3",
+    "all_jobs_closed": true,
+    "memory_events": "Allzero",
+    "quota_caveat": "Only02candidate wholeunit1throttle/228us; body attribution unknown, cannot explain405ms difference."
+  },
+  "decision": "No consistent completecaller gain established. Keep outside selected configuration and preserve evidence. A distinct targetedTkernel question and outside-loop codegen audit are pending; no repeat caller matrix or presumed gain from SIMD width.",
+  "owner_policy": "Significant exact kernel gains remain eligible even below forecast variation; here isolatedTkernel performance has not yet been measured.",
+  "application_qualification": false,
+  "canonical_build": false,
+  "working_source_or_selection_changed": false,
+  "rollback": "Nothing to roll back; retained selectedd02 source/runtime unchanged.",
+  "scope_limits": "StrictGNU13.3/Zen2 native/caller screen, no stage/pipeline/restart/othercompiler claim. hpc00 preflight failed retainedMPIwrapper libc compatibility before any job; final native/timings ran onEPYC01/02.",
+  "evidence": "investigation/wrf-cpu/campaign/spot100-20261016/smallstep-prep-t-coupling-simd-r1/"
+}
