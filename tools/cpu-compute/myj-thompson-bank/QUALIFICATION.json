@@ -1,0 +1,112 @@
+{
+  "status": "PROMOTED_WORKING_EXACT_CALLER_AND_JOINT_FULL_GRID_QUALIFIED",
+  "parent_executable_sha256": "7cab913b3f54e3b2cdbacca7f6547cfc5e25332e39a667cb4bc54bd6b0c773b2",
+  "candidate_executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/myj-thompson-bank-current-r2/wrf.exe",
+    "sha256": "285d83c1486881b215b77707b90140d21dcfddf3cc057f5171f8cf8c6016fc2a"
+  },
+  "myjpbl": {
+    "source_sha256": "9c956080806809339ea0d6ed87aac2b94f1406da9d883b63f7fb825d6493bb24",
+    "parent_source_sha256": "ee6acc5e65b57a74a5f620d872000f46c321ddc9331d6773d88053f9144bc1cb",
+    "change": "One OpenMP SIMD directive with six private scalars on post-VDIFH tendency writeback; compiler still emits scalar arithmetic. Current compiled routine text56B smaller.",
+    "native_scope": "Complete captured caller:471200INOUT and428640 definedOUT raw words; readonly/module/five observable state checks. O0/bounds and strictO2. Additional56 source-extracted exceptional/presence/rounding loop cases per optimization.",
+    "native_receipt_sha256": "9fd8f48a52ed257bf4410161b18668725bb27d2bdacbb1701af0a3ebe5891c3e",
+    "native_closure_sha256": "2dc1c04e89208ca6967e2089975c083d520af3fcc4e1760460ef1ef6b40a24d6",
+    "object_sha256": "ba9bd1886d157190ffe7408c0375bd0d53766b4a6464bcdd06c65fe42e6a3861",
+    "caller_observations": [
+      {
+        "host": "hpc01",
+        "parent_wall_seconds": 3.821852138,
+        "candidate_wall_seconds": 3.802800066,
+        "wall_reduction_percent": 0.4985036393891029,
+        "parent_cpu_seconds": 3.8204829999999994,
+        "candidate_cpu_seconds": 3.80106,
+        "cpu_reduction_percent": 0.5083912165032345
+      },
+      {
+        "host": "hpc04",
+        "parent_wall_seconds": 3.82649487,
+        "candidate_wall_seconds": 3.815382712,
+        "wall_reduction_percent": 0.290400441592642,
+        "parent_cpu_seconds": 3.825348,
+        "candidate_cpu_seconds": 3.8140620000000003,
+        "cpu_reduction_percent": 0.29503198140403697
+      }
+    ],
+    "clock_scope": "Full originalMYJPBL caller+identical22mutable/OUTrawrestores+reset/readstate insidebatchclock; onecommonwarmcall beforeclock; finaloriginalgolden471200INOUT+428640definedOUT/readonly/scalar/module/5state checks outsideclock. Oneopposite-orderpairperhost; eacharm owncheckedcacheclear.",
+    "timing_receipt_sha256": "97981647e4deb491df411d4e211a52781b137db6d2521349b016196c4a1c7ad9",
+    "limits": "Small positive full-caller observations on both hosts; no actual vectorization, repeatability, isolated-loop or whole-model gain claim."
+  },
+  "thompson": {
+    "source_sha256": "5e30833e6717e907cb4553fb0978f7e2077bebda7010638b41715e4335d16731",
+    "parent_source_sha256": "6a92f2f73303f04ee739af3c24645d5efc782380a2fc7d75ecd15d6c3e0431a8",
+    "change": "Combine79 identical-bounds DOUBLE PRECISION automatic arrays into one per-call scratch_bank(kts:kte,79). Preserve expression order, vertical contiguous dimension and per-call lifetime; no SAVE/cross-call sharing.",
+    "slot_mapping_file": "../thompson-scratch-bank/SLOTS.json",
+    "source_inverse": "Exact position-aware inverse restores original full source bytes; bank/literal transformations commute. Original names/slots retained for maintenance.",
+    "native_scope": "Eleven complete actual-source Thompson cases at O0/bounds and strictO2, full raw/readonly/state/guard checks against current literal-index parent.",
+    "native_receipt_sha256": "97ae0a06899e3b1de3ff520bc578b91ea9bf29b618f027a3f858d5a1ed32da9d",
+    "native_closure_sha256": "ce5ac0ef32e25ff3888a3939c6fb674950015301a29b83cf9ca853c8ae73330f",
+    "object_sha256": "6c748647c0c516f32fc449a2865f211d4add5bbaa742f486ea510042317639f1",
+    "current_caller_reductions_percent": [
+      1.1197548235827304,
+      -1.8676176025808733
+    ],
+    "historical_parent_caller_reductions_percent": [
+      0.3522578774333929,
+      1.482824061982435
+    ],
+    "clock_scope": "Onepair perhost currentcomposition,20kcompleteenabledmixed32levelsyntheticcaller; per-call invoke clock with same reset/restore/oracle outside. Mixed scopedcaller evidence, not globalnoise and not established causalregression.",
+    "timing_receipt_sha256": "26966b51353d019fb30122ec29f6ed7cfaf3b2e9ab61b0dc127bc38ee08a291f",
+    "mechanism": "Native allocation/free sites164to86 and memset sites115to40; routine text+5584B. Same20224B scratch payload at32levels.",
+    "limits": "Current caller timings mixed; historical positives do not establish current gain. Inclusion retains previously demonstrated local mechanism with exact application acceptance; no isolated or whole-model speedup claim."
+  },
+  "canonical_build": {
+    "receipt_sha256": "012926e2033ad6c0bd9cd8855d1b49505094e3b40239b6a38c6ff6e28f03f86a",
+    "closure_sha256": "3147db239a14c1cb9367388680e8a3fd2b2c92e9fb8be03a4e2e775030c8c488",
+    "scope": "Reuse the exact two qualified canonical objects;582of584 archive occurrences and14otherlinkinputs unchanged;one link;zero source compiles."
+  },
+  "application": {
+    "status": "PASS_EXACT_JOINT_THREE_HOUR_APPLICATION_NO_FRESH_TIMING_CONTROL",
+    "executable": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/myj-thompson-bank-current-r2/wrf.exe",
+      "sha256": "285d83c1486881b215b77707b90140d21dcfddf3cc057f5171f8cf8c6016fc2a"
+    },
+    "science": {
+      "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+      "receipt_sha256": "7ecf5652ad8a8ecc6cb5a5b8024d4607363c69a69993cafe1fe21e026968f3c0",
+      "reader_closure_sha256": "bb14c6062fbfd50627a9cdfdd88cdc7274c52b682612727e5fc1a5bdcbf0aebb",
+      "model_closure_sha256": "30cb587b068f2a4cda71f5b93f5c268ce00681eb6c203459d787851a70c6eea4",
+      "complete_products": 4,
+      "ordered_steps": 545,
+      "last_observed_step": "2026-10-12_09:00:00",
+      "all_model_and_reader_scopes_closed": true
+    },
+    "candidate_metrics": {
+      "wall_seconds": 681.7750228811055,
+      "cpu_seconds": 329987.405044,
+      "main_step_sum_seconds": 573.87562
+    },
+    "performance_qualification": false,
+    "comparison_scope": "Candidate-only scientific qualification against the retained original546b products from production512-original-current3h-runtime-r1. No fresh original timing arm and no attributable MYJPBL/bank or combined speedup established.",
+    "cache_policy": "Checked sync/drop_caches3 on all four compute clients before this candidate; no claim to control file-server cache or load.",
+    "final_model_memory_peak_bytes_by_node_01_to_04": [
+      98913079296,
+      101155115008,
+      101200928768,
+      107690954752
+    ],
+    "model_memory_events_zero": true,
+    "model_whole_unit_cpu_throttling_nonzero": true,
+    "reader_resources": "Original exact reader8GiB;42 memory.max reclaim/limit events observed during progress, no OOM/kill; final invocation strongly closed successfully. Reader is outside model timing.",
+    "source_manifest_sha256": "46c2aaa28043813ad38bbec8f6181672b7e820e0b9a558b665a833c55d963baf",
+    "raw_result_sha256": "1c7472c8c8e4263adb5410863a021bfc89afe29b7ea57dc0dbd9c3d19f57d330",
+    "owner_final_qualification_sha256": "cd004bff3eafe31e046c7f41c2756f6a7d72aa5742f6429cc1a1ec7d0afccbe9",
+    "raw_evidence_directory": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-myj-bank3h-runtime-r1",
+    "scope": "1500x1140x33;512ranks480compute+32quilt;two tiles;qualified affinity and UCXrc,sm,self/InfiniBand;GNU13.3 strict/Zen2. No9h/restart/144h qualification."
+  },
+  "rollback": "Select retained7cab913b executable at /pool/wrf-experiment/wrf-cpu/builds/thompson-literal-ice-index-current-r2/wrf.exe with identical pinned runtime. Revert isolated joint source commit to rebuild. Production and master unchanged.",
+  "last_matched_timing": "THREE_HOUR_RESULT.json still belongs7cab:18.2441% lower wall in one original-first pair. Do not transfer it to this285d image or add caller percentages.",
+  "evidence_directory": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-myj-bank3h-runtime-r1",
+  "independent_final_inclusion_review_sha256": "bcfe08513ed448e30e9c53178e3657d2e100b2011bc17d3f11dd03d59f159f0b",
+  "decision": "Include both in working configuration under standing exact-kernel retention policy. MYJPBL two-host small caller benefit and scalar code change; Thompson reduces allocations with historical positive caller evidence, but current caller performance remains unresolved. No new matched forecast speedup established."
+}

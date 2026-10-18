@@ -633,6 +633,7 @@
           ENDDO
 !BSF End:
 !
+!$OMP SIMD PRIVATE(KFLIP,THOLD,THNEW,DTDT,QOLD,DQDT)
           DO K=KTS,KTE
             KFLIP=KTE+1-K
             THOLD=TH(I,K,J)
