@@ -1,7 +1,7 @@
 {
-  "status": "PROMOTED_WORKING_DEFAULT_EXACT_NOON_QUALIFIED",
-  "source_commit": "5e4ae45e8f97cc37a1531453c29e0db15e43a75f",
-  "scope": "GNU13.3 strict/Zen2; full grid1500x1140x33; 512ranks480compute+32quilt; pinned affinity and two tiles. Initial-U SIMD native/caller and original noon two-product/230-step acceptance passed. Last three-hour benchmark is the preceding f1d7 executable; no transferred three-/nine-hour or restart qualification.",
+  "status": "PROMOTED_WORKING_DEFAULT_EXACT_UV_NOON_QUALIFIED",
+  "source_commit": "e6b90dd6617ae4cbe5f954081a6243baaefaaae8",
+  "scope": "GNU13.3 strict/Zen2; full grid1500x1140x33; 512ranks480compute+32quilt; pinned affinity and two tiles. Initial-U/V SIMD native/caller and original noon two-product/230-step acceptance passed. Last three-hour benchmark is precedingf1d7 before both additions; no transferred three-/nine-hour or restart qualification.",
   "artifacts": {
     "shim": {
       "path": "/pool/wrf-experiment/wrf-cpu/source-discovery/parallel-pack-quilt-shim-native-r1/wrf_quilt_thread_shim.so",
@@ -17,8 +17,8 @@
     }
   },
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/uv-initial-tendency-simd-current-r1/wrf.exe",
-    "sha256": "08f831e86d7d74eba61438fcafd64331e3f77dbd140dfda77b31a5fed8a32a81"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/uv-initial-v-tendency-simd-current-r1/wrf.exe",
+    "sha256": "bb3259b1bb8254842301553ddb18e792ef4ebdae070f6c4549ebc4fe99180ada"
   },
   "private_hdf5": {
     "path": "/pool/wrf-experiment/wrf-cpu/builds/hdf5-sse2-unshuffle4-private-r3/output/candidate/lib/libhdf5.so.310.3.0",
@@ -42,11 +42,11 @@
     "WRF_ROOT_SHIM_OPTOUT": 0,
     "WRF_ROOT_SHIM_CPUS": "0-127"
   },
-  "includes": "All accepted source changes through source_commit, paired shortwave, RK first-stage fusion, corrected X-distance cache, advection ISA, SIMD shuffle/parallel output packing, Huffman/zlib-ng codec, root scratch reuse and private HDF5 inverse shuffle. See consolidated findings for individual scope. Plus exactly one initial-U tendency SIMD directive; qualified against original noon science.",
+  "includes": "All accepted source changes through source_commit, paired shortwave, RK first-stage fusion, corrected X-distance cache, advection ISA, SIMD shuffle/parallel output packing, Huffman/zlib-ng codec, root scratch reuse and private HDF5 inverse shuffle. See consolidated findings for individual scope. Plus initial-U and initial-V tendency SIMD directives; both qualified against original noon science.",
   "science": {
     "status": "PASS_ORIGINAL_TWO_HISTORY_AND_512_NOON75M_ORDERED_SEQUENCE",
-    "receipt_sha256": "eb5d8025e91596c3bf0c67e64938c91f3ae74cf7057fce244374de0d596cb02f",
-    "reader_closure_sha256": "13e1b5329c0d44f87bf7c665fdff3502c86e13dcead914ea574f5b7faa6aaf60",
+    "receipt_sha256": "9af0b4a14fad90f609c7364d733055493350a6e381b7cbed836ebf530890062a",
+    "reader_closure_sha256": "9e30951af708fdb7fcc759a03f0b19b6c56a4b41a2da4ef3ab262a3c336b99c4",
     "complete_products": 2,
     "ordered_steps": 230,
     "last_observed_step": "2026-10-12_13:15:00",
@@ -54,10 +54,10 @@
       "2026-10-12_12:00:00",
       "2026-10-12_13:00:00"
     ],
-    "scope": "Full-grid noon scientific/metadata/layout/runtime acceptance against retained corrected original; no fresh control or global timing pair."
+    "scope": "Original corrected546b noon scientific/metadata/layout/runtime acceptance; no fresh matched timing control."
   },
-  "lease_reference": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-noon-uv75m-runtime-r1/lease-candidate-proposed.json",
-  "rollback_executable_sha256": "f1d7ad6f63dacef342c846c68bab75333bb87463b1016c8bc2971fb7dfd5ce05",
+  "lease_reference": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-noon-vt75m-runtime-r2/lease-candidate-proposed.json",
+  "rollback_executable_sha256": "08f831e86d7d74eba61438fcafd64331e3f77dbd140dfda77b31a5fed8a32a81",
   "activation": "Selection record, not a launcher. Use existing bounded launcher with a fresh run directory/log directory/lease and actual affinity/library/resource checks. Never preload MPI launcher or helper processes.",
   "schema_version": 2,
   "last_three_hour_benchmark": {
@@ -101,5 +101,5 @@
     },
     "evidence_file": "THREE_HOUR_RESULT.json"
   },
-  "qualification_file": "../cpu-compute/uv-initial-tendency-simd/QUALIFICATION.json"
+  "qualification_file": "../cpu-compute/uv-initial-v-tendency-simd/QUALIFICATION.json"
 }
