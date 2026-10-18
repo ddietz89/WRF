@@ -1,0 +1,156 @@
+{
+  "status": "QUALIFIED_WORKING_COMBINATION_UV_INITIAL_U_SIMD_NOON",
+  "canonical_source_sha256": "5eae903aab907159ed21359065b2c6de23201624b81aecb65f2a0d3909885496",
+  "parent_executable_sha256": "f1d7ad6f63dacef342c846c68bab75333bb87463b1016c8bc2971fb7dfd5ce05",
+  "candidate_executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/uv-initial-tendency-simd-current-r1/wrf.exe",
+    "sha256": "08f831e86d7d74eba61438fcafd64331e3f77dbd140dfda77b31a5fed8a32a81"
+  },
+  "change": "One !$OMP SIMD on initial U tendency-add inner I loop; serial outer J/K, expressions, bounds, precision and flags unchanged. Actual initial-U code changed scalar to packed YMM, 4B to32B loop stride.",
+  "native_gate_receipt_sha256": "3dd87362250b155b9c5b855cd10e62589cd1b85f8f50a77ee4675b00a9776bf8",
+  "native_gate_closure_sha256": "444c9193fe8c8ca29b7054669148555eb18497d0b88b50d7f3693569a445e853",
+  "native_scope": "808500 raw captured output words,17 finite/boundary cases and6 IEEE-state cases; O0/bounds andO2; all32field guards/readonlyinputs/five state words exact. Freshparent equals actual2fdcc object.",
+  "canonical_build_receipt_sha256": "f695d9f7e6c45c18e9cc83780799267a4c33dd3f1dc846bbcd0ae757b89cf71b",
+  "canonical_build_closure_sha256": "f1cc2d37a961ef8fd3c094b139fc8b40c0f90c679e46e9f5fd674f8380f7ce8",
+  "canonical_build_scope": "Canonical object matches passed candidate after names-only symbol normalization; .mod unchanged;583of584archive members and14linkinputs unchanged.",
+  "timing_result_sha256": "088dbc683604d87b0fab5f79a044af1d41f0b9e0ce1b01993dd5b99ee4ef8862",
+  "caller_timing": {
+    "status": "PASS_EXACT_FULL_UV_CALLER_MODEST_TWO_ORDER_TIMING",
+    "arms": [
+      {
+        "status": "PASS_EXACT_CAPTURED_FULL_UV_TIMING_ARM",
+        "invocation_id": "4efd19c01fc344ffb9e8ca6fc27fc8a3",
+        "host": "hpc01",
+        "which": 1,
+        "repeats": 1024,
+        "wall_seconds": 1.668655432,
+        "cpu_seconds": 1.668554,
+        "scope": "Full captured advance_uv plus identical U/V restores and reset/read-five-state helpers INSIDE clock; initial parent/candidate correctness warmcalls and terminal full raw/readonly/guards checks OUTSIDE. Single finite captured caller; not initial-U-only or forecast gain.",
+        "cpu_stat": "usage_usec 5023703\nuser_usec 4120936\nsystem_usec 902767\ncore_sched.force_idle_usec 0\nnr_periods 100\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "memory_peak": "500391936\n",
+        "elapsed_context_seconds": 9.933260182850063,
+        "arm": 0,
+        "pins": {
+          "receipt.json": "956a6e472c71a738c7d69f3f6636df21a8ae9c8e2d69c52d34c8212fd876fdd2",
+          "closure.json": "598acd8472268b7cbe4f3eb7fbeb380fcfdba8f24304462c6345b823ca262640",
+          "cache-clear.json": "0b32b4aba7304f77fbd297713ae99879bee16f96e22df4ff5c193cffa5ab096f"
+        }
+      },
+      {
+        "status": "PASS_EXACT_CAPTURED_FULL_UV_TIMING_ARM",
+        "invocation_id": "46e0ab3380c7488c8b24f315e95b1139",
+        "host": "hpc01",
+        "which": 2,
+        "repeats": 1024,
+        "wall_seconds": 1.664343723,
+        "cpu_seconds": 1.664233,
+        "scope": "Full captured advance_uv plus identical U/V restores and reset/read-five-state helpers INSIDE clock; initial parent/candidate correctness warmcalls and terminal full raw/readonly/guards checks OUTSIDE. Single finite captured caller; not initial-U-only or forecast gain.",
+        "cpu_stat": "usage_usec 4791937\nuser_usec 4012923\nsystem_usec 779014\ncore_sched.force_idle_usec 0\nnr_periods 66\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "memory_peak": "500572160\n",
+        "elapsed_context_seconds": 6.587466910015792,
+        "arm": 1,
+        "pins": {
+          "receipt.json": "2602f6833ca908babf1b09e40599e4f9cf64e635ea6ca57b363b010622fe352c",
+          "closure.json": "068acf4b43423362dcec43b8ef0a53e2b0c1d66823842d6db95ab4fd044c8fc3",
+          "cache-clear.json": "2c1dcc41638ba01a325ea955ad9cacb6f8a7456d0427b9bc5f04316a5bb9c676"
+        }
+      },
+      {
+        "status": "PASS_EXACT_CAPTURED_FULL_UV_TIMING_ARM",
+        "invocation_id": "991feda9b0e54619a5d4de127f82658d",
+        "host": "hpc04",
+        "which": 2,
+        "repeats": 1024,
+        "wall_seconds": 1.64340006,
+        "cpu_seconds": 1.643118,
+        "scope": "Full captured advance_uv plus identical U/V restores and reset/read-five-state helpers INSIDE clock; initial parent/candidate correctness warmcalls and terminal full raw/readonly/guards checks OUTSIDE. Single finite captured caller; not initial-U-only or forecast gain.",
+        "cpu_stat": "usage_usec 4988804\nuser_usec 4081204\nsystem_usec 907600\ncore_sched.force_idle_usec 0\nnr_periods 118\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "memory_peak": "499630080\n",
+        "elapsed_context_seconds": 13.254703460959718,
+        "arm": 2,
+        "pins": {
+          "receipt.json": "2ec6d95c88132b24a8ec52a37b59af405b3c360b66e2b44417e0bca9e66d9a8e",
+          "closure.json": "610080555d0e7a728d290cfc13b450b355b946a65fd4388cd6df36729bb6a5f4",
+          "cache-clear.json": "4cec2e08a906c19859164eda4d704c82eacfa14b8016816741991c9277861331"
+        }
+      },
+      {
+        "status": "PASS_EXACT_CAPTURED_FULL_UV_TIMING_ARM",
+        "invocation_id": "e7c02be9e0334f7f9afb2bbc58c087da",
+        "host": "hpc04",
+        "which": 1,
+        "repeats": 1024,
+        "wall_seconds": 1.671526377,
+        "cpu_seconds": 1.670935,
+        "scope": "Full captured advance_uv plus identical U/V restores and reset/read-five-state helpers INSIDE clock; initial parent/candidate correctness warmcalls and terminal full raw/readonly/guards checks OUTSIDE. Single finite captured caller; not initial-U-only or forecast gain.",
+        "cpu_stat": "usage_usec 4801854\nuser_usec 4010582\nsystem_usec 791271\ncore_sched.force_idle_usec 0\nnr_periods 59\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "memory_peak": "499548160\n",
+        "elapsed_context_seconds": 5.775631030090153,
+        "arm": 3,
+        "pins": {
+          "receipt.json": "042a80adacb72cd0b4fb4a963c3a62f3dd48c9d5e7351b6fe9aa4be66a231d78",
+          "closure.json": "d7f289d52e930814ce17fe5ccfd22cca7d0053ed11b2dde2591c35121ec59395",
+          "cache-clear.json": "cde1f1a42b406f87c772f0f38242be46d45db4fffc900dfe48bcdac2e85c7c0f"
+        }
+      }
+    ],
+    "pairs": [
+      {
+        "host": "hpc01",
+        "execution_order": "parent-first",
+        "baseline_wall_seconds": 1.668655432,
+        "candidate_wall_seconds": 1.664343723,
+        "candidate_wall_change_percent": -0.2583942087332036,
+        "baseline_cpu_seconds": 1.668554,
+        "candidate_cpu_seconds": 1.664233,
+        "candidate_cpu_change_percent": -0.25896674605676573,
+        "wall_saved_seconds_per_call": 4.210653320312497e-06
+      },
+      {
+        "host": "hpc04",
+        "execution_order": "candidate-first",
+        "baseline_wall_seconds": 1.671526377,
+        "candidate_wall_seconds": 1.64340006,
+        "candidate_wall_change_percent": -1.6826726390330782,
+        "baseline_cpu_seconds": 1.670935,
+        "candidate_cpu_seconds": 1.643118,
+        "candidate_cpu_change_percent": -1.6647565584537949,
+        "wall_saved_seconds_per_call": 2.7467106445312403e-05
+      }
+    ],
+    "strict_gate_receipt_sha256": "3dd87362250b155b9c5b855cd10e62589cd1b85f8f50a77ee4675b00a9776bf8",
+    "strict_gate_closure_sha256": "444c9193fe8c8ca29b7054669148555eb18497d0b88b50d7f3693569a445e853",
+    "codegen_review_sha256": "52ef7a03c34ace204333b6e13d08246d83889f877f075f5e595bfacd51ea90b8",
+    "interpretation": "Both fixed opposite-order pairs lower candidate duration, magnitude0.26\u20131.68percent differs; modest singlecapture fullcaller evidence, no precision/confidence/globalheadroom or forecast speedup claim. InitialU actual packedYMMmul/add/store versus scalar parent. No further timing matrix. One directive remains preparedonly; root decides bounded same-science integration under kernelpromotion SOP.",
+    "timing_scope": "Full captured advance_uv plus identical U/V restores and reset/read-five-state helpers INSIDE clock; initial parent/candidate correctness warmcalls and terminal full raw/readonly/guards checks OUTSIDE. Single finite captured caller; not initial-U-only or forecast gain.",
+    "resource_scope": "Each actualcacheclear AFTERidlecheck,CPU24/100percent/4GiB/swap0/30s; all4positiveINVsuccess+CGabsence, CPUthrottle0 and high/max/OOMevents0; wholeunit counters do not isolate timedbody."
+  },
+  "science": {
+    "status": "PASS_ORIGINAL_TWO_HISTORY_AND_512_NOON75M_ORDERED_SEQUENCE",
+    "receipt_sha256": "eb5d8025e91596c3bf0c67e64938c91f3ae74cf7057fce244374de0d596cb02f",
+    "reader_closure_sha256": "13e1b5329c0d44f87bf7c665fdff3502c86e13dcead914ea574f5b7faa6aaf60",
+    "complete_products": 2,
+    "ordered_steps": 230,
+    "last_observed_step": "2026-10-12_13:15:00",
+    "history_times": [
+      "2026-10-12_12:00:00",
+      "2026-10-12_13:00:00"
+    ],
+    "scope": "Full-grid noon scientific/metadata/layout/runtime acceptance against retained corrected original; no fresh control or global timing pair."
+  },
+  "limits": [
+    "Two descriptive opposite-order caller pairs, not formal significance/repeatability or whole-forecast gain.",
+    "Clock includes identical U/V restores and reset/read-five-state helpers; not isolated initial-U-only timing.",
+    "Last original-vs-combined three-hour18.1943% result is parentf1d7 before this directive. No additive claim or new nine-hour/restart scope."
+  ],
+  "rollback": "Use retainedf1d7 with unchanged pinned runtime, or remove only this initial-U directive and rebuild SmallStep/archive/executable.",
+  "raw_evidence_directory": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-initial-tendency-simd-r1",
+  "application_model_closure_sha256": "94b33be5a634cf1d50b51e0237f443d3ae6a2cbf5f417bb0018702ad5ee4505b",
+  "application_result_sha256": "55f8a23b964634bdd4df4c9de7c6ce641bccbfd606aee890a84827d27847c1cd",
+  "application_evidence_directory": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-noon-uv75m-runtime-r1",
+  "owner_final_qualification_sha256": "59dcb46aed1c0dfc73438a3a2bc67943afa310c733a1d2da0074e4349240a3da"
+}

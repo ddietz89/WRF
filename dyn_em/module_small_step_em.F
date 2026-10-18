@@ -804,6 +804,7 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
 !  first, u
   u_outer_j_loop: DO j = j_start, j_end
    DO k = k_start, k_end
+!$OMP SIMD
    DO i = i_start_u_tend, i_end_u_tend
      u(i,k,j) = u(i,k,j) + dts*ru_tend(i,k,j)
    ENDDO
