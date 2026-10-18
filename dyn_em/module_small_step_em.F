@@ -238,6 +238,7 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
 
     DO j=j_start, j_end
     DO k=k_start, k_end
+    !$omp simd
     DO i=i_start, i_endu
       u_save(i,k,j) = u_2(i,k,j)
       ! u coupled with my
