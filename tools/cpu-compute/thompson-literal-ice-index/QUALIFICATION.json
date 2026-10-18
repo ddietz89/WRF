@@ -1,0 +1,87 @@
+{
+  "status": "QUALIFIED_WORKING_COMBINATION_THOMPSON_LITERAL_ICE_INDEX_ORIGINAL_THREE_HOUR",
+  "canonical_source_sha256": "6a92f2f73303f04ee739af3c24645d5efc782380a2fc7d75ecd15d6c3e0431a8",
+  "parent_source_sha256": "87ccc155f4673d67730aaa66a41377a977fbc625d82d2dd94c371c5aaf25103e",
+  "parent_executable_sha256": "bb3259b1bb8254842301553ddb18e792ef4ebdae070f6c4549ebc4fe99180ada",
+  "candidate_executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/thompson-literal-ice-index-current-r2/wrf.exe",
+    "sha256": "7cab913b3f54e3b2cdbacca7f6547cfc5e25332e39a667cb4bc54bd6b0c773b2"
+  },
+  "change": "Specialize ice-nuclei lookup for the existing non-aerosol literal-1000 branch. Preserve integer n/nn/niin state, index-expression order, threshold and clamp. General aerosol-aware path unchanged; strict floating-point flags retained.",
+  "native_gate_receipt_sha256": "943a3c971159fc219c9a36e2a0fe9f76a56cc6eb24e562ec6fa73e78dc2effa1",
+  "native_gate_closure_sha256": "09a68953ccc1d14a8dca6aa0c9d7a170332f91a3616376fa0e2578e5a884be35",
+  "native_scope": "Eleven complete actual-source Thompson column/driver cases, O0 bounds and strict O2; full raw results, readonly inputs, guards and five observable state words exact. Actual current-parent semantics reproduced. Separate diagnostic proves changed branch reached; diagnostic stop is not a correctness result. Timed mixed caller branch hit established.",
+  "qualified_object_sha256": "1ca3611416cd4b8e7ee8945be0e97c6dc5a0c1b556fe47d90ac710299a287834",
+  "canonical_build_receipt_sha256": "2439e01c2d7fa3d63b6018d020d74dbaa5aedd0b6708ae84119ba73da62140a3",
+  "canonical_build_closure_sha256": "b18391e342310092e1d33cfc9535ba926ca20266fa1b3d250a346bbbb195e050",
+  "canonical_build_scope": "Reuse exact already-canonical native-qualified Thompson object; replace one archive occurrence and link once. Other583of584 archive occurrences and14link inputs unchanged. Thompson generic compile recipe retained; not SmallStep ISA flags.",
+  "timing_result_sha256": "7324c64043dab12de01b93bdd0292f0d74a3c3fa70855310367a8301f0e316c5",
+  "caller_reductions_percent": [
+    0.34902902199227537,
+    0.6827718264018068
+  ],
+  "timing_scope": "One enabledmixed32level syntheticcompletecaller,20000same-restoredcalls;per-callinvokeclock,reset/restore/state/rawchecks outside;01P/C04C/P onepair each. Proven timed-branch hit; no forecast/headroom claim.",
+  "science": {
+    "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+    "receipt_sha256": "3f37916f490deee6f30d0be5133003a79e0260a8495a1a071db9de9def16603e",
+    "reader_closure_sha256": "04c49eedcb893cf044c4f90c14faa7398cd4b987a82df4af2d6345229503613d",
+    "complete_products": 4,
+    "ordered_steps": 545,
+    "last_observed_step": "2026-10-12_09:00:00",
+    "history_times": [
+      "2026-10-12_06:00:00",
+      "2026-10-12_07:00:00",
+      "2026-10-12_08:00:00",
+      "2026-10-12_09:00:00"
+    ]
+  },
+  "combined_measurement": {
+    "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+    "order": [
+      "corrected_stock546b_control",
+      "current_UV_plus_Thompson_only_if_retained_candidate"
+    ],
+    "metrics": {
+      "control": {
+        "wall_seconds": 846.1623698568437,
+        "cpu_seconds": 380143.218749,
+        "main_step_sum_seconds": 610.10063
+      },
+      "candidate": {
+        "wall_seconds": 691.7876664630603,
+        "cpu_seconds": 334766.432219,
+        "main_step_sum_seconds": 585.19813
+      }
+    },
+    "reductions_percent": {
+      "wall_seconds": 18.24409934702024,
+      "cpu_seconds": 11.936760750153287,
+      "main_step_sum_seconds": 4.081703701895867
+    },
+    "science_sha256": "3f37916f490deee6f30d0be5133003a79e0260a8495a1a071db9de9def16603e",
+    "reader_closure_sha256": "04c49eedcb893cf044c4f90c14faa7398cd4b987a82df4af2d6345229503613d",
+    "limits": "One fixed-order pair, four clients actually sync/drop3 before each arm. File-server cache unknown. Main includes communication/backpressure; residual is not pure I/O. No isolated/additive cache or repeatability claim."
+  },
+  "independent_final_review_sha256": "34f1557fc6bd5bcdd129029b58a1f8cea80e67161e3df9dd510a2436754c1538",
+  "application_result_sha256": "cf7a111898cd1db43dade470f76d33627d7e0096f7ec6729d72bd80dd2227f21",
+  "application_manifest_sha256": "c5182221bc5c3300a1bbc9c046d8cf6e1e2a8a15fcde66e4eff491f4199e0a44",
+  "limits": [
+    "One fixed-order original546b\u2192combined7cab pair; file-server cache and external server state uncontrolled",
+    "No isolated U/V/Thompson benefit, no additive kernel percentages, no repeatability guarantee",
+    "Whole-unit CPU throttling nonzero on both arms; cannot assign to a timed phase",
+    "Final memory peaks unknown; retained memory event counters zero",
+    "Three-hour application scope only; no restart or144h qualification",
+    "Combined includes retained prior ports plus U/V and literal-index specialization; no79-array scratchbank",
+    "GNU13.3 strict/Zen2; world512 with pinned affinity/two tiles. AOCC/Intel remain experimental; no9h/restart/144h qualification."
+  ],
+  "rollback": "Select retained bb3259b1 with the same pinned runtime, or revert only this source specialization and rebuild Thompson/archive/executable.",
+  "raw_evidence_directory": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-literal-ice-index-r1",
+  "application_evidence_directory": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-current3h-runtime-r1",
+  "preserved_failures": [
+    "HPC00_HELPER_PREFLIGHT_FAILURE.json",
+    "canonical-build-r1/actual-native-r1/receipt.json",
+    "canonical-build-r1/actual-native-r1/closure.json",
+    "canonical-build-r2/actual-native-r1/controller.json"
+  ],
+  "collection_note": "R2buildPASSindependentlyretained: originalcontroller100Kcap failedon2.7MBcompleteELFreceipt; exactclosedreceipt4MiBboundedfetchpluspositiveINVCGclosure, no rebuild or acceptance change."
+}

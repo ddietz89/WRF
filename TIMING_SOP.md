@@ -1,5 +1,11 @@
 # Timing SOP
 
+## Autonomous continuation
+
+Standing owner rule, reaffirmed 2026-10-18: **DO NOT STOP after answering a question, giving a status update, completing a test or reaching a milestone.** Treat questions as steering within the active campaign. Answer briefly, then continue the next authorized implementation, test, review or promotion in the same active session. A report is not a stopping point.
+
+Keep independent work moving while jobs or approvals are pending, provide brief progress updates at least every 60 seconds during active work, and preserve a durable recovery checkpoint. Stop only at an explicit owner request, a genuinely required authorization that blocks all meaningful work, an external blocker that blocks all meaningful work, or the execution limits of the active session. Do not promise unattended progress beyond those limits. Existing scientific, resource, AWS-suspension, production and master exclusions remain in force.
+
 ## Investigation cadence
 
 Effective 2026-10-17: use the shortest experiment that can answer the current question. Reuse retained current-build profiles and captured callers before launching another forecast.

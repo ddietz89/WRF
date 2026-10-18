@@ -2582,14 +2582,22 @@
 
 !..Ice nuclei lookup table index.
           if (xni.gt. Nt_IN(1)) then
-           niin = NINT(ALOG10(xni))
-           do nn = niin-1, niin+1
-              n = nn
-              if ( (xni/10.**nn).ge.1.0 .and. &
-                   (xni/10.**nn).lt.10.0) goto 149
-           enddo
- 149       continue
-           idx_IN = INT(xni/10.**n) + 10*(n-niin2) - (n-niin2)
+           if (.NOT. (dustyIce .AND. is_aerosol_aware)) then
+! Literal 1000 branch: preserve the selected integer state and index order.
+            niin = 3
+            nn = 3
+            n = 3
+            idx_IN = 1 + 10*(n-niin2) - (n-niin2)
+           else
+            niin = NINT(ALOG10(xni))
+            do nn = niin-1, niin+1
+               n = nn
+               if ( (xni/10.**nn).ge.1.0 .and. &
+                    (xni/10.**nn).lt.10.0) goto 149
+            enddo
+ 149        continue
+            idx_IN = INT(xni/10.**n) + 10*(n-niin2) - (n-niin2)
+           endif
            idx_IN = MAX(1, MIN(idx_IN, ntb_IN))
           else
            idx_IN = 1
