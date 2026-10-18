@@ -1,0 +1,152 @@
+{
+  "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+  "order": [
+    "corrected_stock546b_control",
+    "current285d_plus_accepted_MYJ_guard_PHY_parked"
+  ],
+  "metrics": {
+    "control": {
+      "wall_seconds": 818.1368868281133,
+      "cpu_seconds": 366799.228544,
+      "main_step_sum_seconds": 596.24254
+    },
+    "candidate": {
+      "wall_seconds": 669.3658009958453,
+      "cpu_seconds": 324363.07018100005,
+      "main_step_sum_seconds": 565.49487
+    }
+  },
+  "reductions_percent": {
+    "wall_seconds": 18.18413131438774,
+    "cpu_seconds": 11.569315053210227,
+    "main_step_sum_seconds": 5.156906449512977
+  },
+  "science_sha256": "bb4e7dfc83969c65f3b12fc567a901dc7c857d414578a5d2ad1b7abf7b4a7f90",
+  "reader_closure_sha256": "0937cf12d6ce8b5440725375c3e6a33525d8c00a01e1d43311576cd6e656b69e",
+  "limits": "One original-first pair; checked sync/drop_caches3 on all four clients before EACH arm. File-server cache/load uncontrolled. All eight model cgroups recorded nonzero quota throttling; final memory-limit/OOM events zero, peaks retained. Main includes communication/backpressure; residual is not pure I/O. No isolated/additive kernel,repeatability,nine-hour,restart or144h claim.",
+  "executables": {
+    "control": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/mass-ghost-alarm55-prototype-r2/wrf.exe",
+      "sha256": "546b99156cbd809e1cae5e0ea8cebeea44dafd6331abf89e4daea00e0dd0a5e7"
+    },
+    "candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/myj-guard-split-current-r1/wrf.exe",
+      "sha256": "53264515c8d5e9899e269b45231f729300053951740ad45828ec68393668cc80"
+    }
+  },
+  "scope": "1500x1140x33;512ranks480compute+32quilt;two tiles;qualified affinity and UCXrc,sm,self/InfiniBand;GNU13.3 strict/Zen2. No9h/restart/144h qualification.",
+  "science": {
+    "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+    "receipt_sha256": "bb4e7dfc83969c65f3b12fc567a901dc7c857d414578a5d2ad1b7abf7b4a7f90",
+    "reader_closure_sha256": "0937cf12d6ce8b5440725375c3e6a33525d8c00a01e1d43311576cd6e656b69e",
+    "complete_products": 4,
+    "ordered_steps": 545,
+    "last_observed_step": "2026-10-12_09:00:00",
+    "history_times": [
+      "2026-10-12_06:00:00",
+      "2026-10-12_07:00:00",
+      "2026-10-12_08:00:00",
+      "2026-10-12_09:00:00"
+    ],
+    "all_model_and_reader_scopes_closed": true
+  },
+  "observed_speedup": 1.2222567774017354,
+  "model_resource_summary": {
+    "control": {
+      "mpi-launch.json": {
+        "memory_peak_bytes": 98630426624,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "nr_throttled": 5795,
+        "throttled_usec": 6198571
+      },
+      "hpc02-node.json": {
+        "memory_peak_bytes": 101085749248,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "nr_throttled": 5962,
+        "throttled_usec": 8823912
+      },
+      "hpc03-node.json": {
+        "memory_peak_bytes": 101053292544,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "nr_throttled": 5091,
+        "throttled_usec": 28188105
+      },
+      "hpc04-node.json": {
+        "memory_peak_bytes": 107159076864,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "nr_throttled": 5089,
+        "throttled_usec": 31523752
+      }
+    },
+    "candidate": {
+      "mpi-launch.json": {
+        "memory_peak_bytes": 98905980928,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "nr_throttled": 4279,
+        "throttled_usec": 25726901
+      },
+      "hpc02-node.json": {
+        "memory_peak_bytes": 101235392512,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "nr_throttled": 4623,
+        "throttled_usec": 24444949
+      },
+      "hpc03-node.json": {
+        "memory_peak_bytes": 101160583168,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "nr_throttled": 4437,
+        "throttled_usec": 32108911
+      },
+      "hpc04-node.json": {
+        "memory_peak_bytes": 107713781760,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "nr_throttled": 4667,
+        "throttled_usec": 4425688
+      }
+    }
+  },
+  "checker": {
+    "invocation_id": "fc3073a544eb4f089bb9f782d1d7ef90",
+    "declared_cpu_set": "8-15",
+    "declared_memory_max_bytes": 17179869184,
+    "declared_swap_max_bytes": 0,
+    "declared_runtime_cap_seconds": 900,
+    "last_active_observed_utc": "2026-10-18T11:54:36.048272+00:00",
+    "last_active_cpu_usage_usec": 360584622,
+    "last_active_memory_current_bytes": 9263452160,
+    "last_active_memory_peak_bytes": 9295740928,
+    "last_active_memory_events_all_zero": true,
+    "last_active_nr_throttled": 0,
+    "final_peak_and_cpu": "UNKNOWN fromretainedfinalclosure; lastactivevaluesaresamplednotclaimedfinal",
+    "final_positive_invocation_closed": true
+  },
+  "independent_final_review_sha256": "f0887e4aa2a79fe19fceee1cd12b59d072ab8d596cf22f38a42b1670a3cdc9c2",
+  "owner_final_qualification_sha256": "3b6a6363c8526fffe11dd62916f7bb241b9f73718c8eb06f2af7a5879a27327d",
+  "raw_result_sha256": "d5a4885704d0eecd38f1d3ecc46cf1637404208496d8f72e3acf1b4e044c507b",
+  "raw_evidence_directory": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-myjguard3h-runtime-r1",
+  "source_manifest_sha256": "2d0d7dafc0c1011a423bf71ad2e369ba387c91dd5811616f431ff715a715a427"
+}
