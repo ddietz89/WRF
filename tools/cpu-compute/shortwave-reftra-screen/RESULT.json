@@ -1,0 +1,48 @@
+{
+  "status": "PARK_THIS_PAIRED_REFTRA_IMPLEMENTATION_MEASURED_COMPLETEPAIR_SLOWDOWN",
+  "selected_parent_executable_sha256": "53264515c8d5e9899e269b45231f729300053951740ad45828ec68393668cc80",
+  "evidence_directory": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/shortwave-paired-reftra-r1",
+  "prototype_source_sha256": "5b43dbc153ccc2d183f024a411829395e15d595d4fe4ec1afc0b88c020f12f79",
+  "source_scope": "Standalone projection of current adjacent clear/total reftra_sw caller; not integrated into canonical SW module or a forecast.",
+  "qualification": "128 synthetic reftra-specific raw-output, read-only table/physical-guard and five-word-state cases passed both O0/bounds and strict O2.",
+  "native_receipt_sha256": "b2a1c252495ce7c86aa0fb51d3e6e72a1c129928fa362bbace83d50614751012",
+  "native_positive_closure_sha256": "a27321f90093be6fb7132d4664cfd6150b132d7b6a9ba3c8cd4d1fd7c72311d3",
+  "timing_result_sha256": "c47fab51e8c97c25907fb5c4514afe4a29fce1fd7007c688cc828531bd06d2ea",
+  "disposition_sha256": "e37de5097782714037ec144a0a82d832a28b9675ce473ea0d8b4f46e5622e955",
+  "clock_scope": "Synthetic32layerfinite eight-pattern mixture coveringmatching/mixedscattering andboth/one/noactiveskies; actualtwooriginalcalls vsonepairedhelper, no sourcekernelcompile. Identicalallarray/mask/scalarrestoreINSIDEbatchwall+threadCPUclock; single5statecaptureinsidebothstopboundaries, warmups/finalrawstate/table/guardschecksoutsideclock. Native128caseoracleaftereveryarm. Notbestcase/isolatedDIV/fullSW/forecastgain.",
+  "repetitions_per_arm": 524288,
+  "pairs": [
+    {
+      "host": "hpc01",
+      "order": "parent_then_candidate",
+      "parent_wall_seconds": 0.75182604,
+      "candidate_wall_seconds": 0.914169115,
+      "candidate_wall_change_percent": 21.593170010445494,
+      "parent_thread_cpu_seconds": 0.751205354,
+      "candidate_thread_cpu_seconds": 0.913932916,
+      "candidate_thread_cpu_change_percent": 21.66219411689656
+    },
+    {
+      "host": "hpc02",
+      "order": "candidate_then_parent",
+      "parent_wall_seconds": 0.709876001,
+      "candidate_wall_seconds": 0.983201581,
+      "candidate_wall_change_percent": 38.50328502653522,
+      "parent_thread_cpu_seconds": 0.709710341,
+      "candidate_thread_cpu_seconds": 0.983068283,
+      "candidate_thread_cpu_change_percent": 38.51683231990557
+    }
+  ],
+  "all_four_cache_boundaries_and_positive_closures": true,
+  "all_four_memory_events_and_cpu_throttle_counts_zero": true,
+  "limitations": "Opposite-order pairs on two nodes; each body0.71..0.98 seconds, shorter than planned2..4s. Same-sign large wall and threadCPU slowdown is sufficient to park this implementation without another calibration or application matrix. No global radiation/forecast gain inference.",
+  "decision": "Retain existing accepted radiation path; preserve this measured slower implementation. No promotion, application run or repeat planned.",
+  "static_codegen_tradeoff": "Both scalar; paired branch/text/stack growth observed. This is not exclusive causal attribution of the slowdown.",
+  "actual_deepseek_calls": 2,
+  "actual_reported_tokens": 19545,
+  "actual_provider_charge_usd": null,
+  "all_jobs_closed": true,
+  "working_source_edited": false,
+  "default_executable_changed": false,
+  "rollback": "No default/source change was made."
+}
