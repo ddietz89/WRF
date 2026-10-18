@@ -1658,92 +1658,19 @@
          nifaten(k) = 0.
          nbcaten(k) = 0.
 
-         scratch_bank(k,1) = 0.
 
-         scratch_bank(k,2) = 0.
-         scratch_bank(k,3) = 0.
-         scratch_bank(k,4) = 0.
-         scratch_bank(k,5) = 0.
-         scratch_bank(k,6) = 0.
 
-         scratch_bank(k,23) = 0.
-         scratch_bank(k,16) = 0.
-         scratch_bank(k,17) = 0.
-         scratch_bank(k,18) = 0.
-         scratch_bank(k,19) = 0.
-         scratch_bank(k,20) = 0.
-         scratch_bank(k,21) = 0.
-         scratch_bank(k,22) = 0.
-         scratch_bank(k,24) = 0.
-         scratch_bank(k,25) = 0.
-         scratch_bank(k,26) = 0.
-         scratch_bank(k,27) = 0.
-         scratch_bank(k,28) = 0.
-         scratch_bank(k,29) = 0.
-         scratch_bank(k,30) = 0.
-         scratch_bank(k,31) = 0.
-         scratch_bank(k,32) = 0.
 
-         scratch_bank(k,33) = 0.
-         scratch_bank(k,34) = 0.
-         scratch_bank(k,35) = 0.
-         scratch_bank(k,36) = 0.
-         scratch_bank(k,37) = 0.
-         scratch_bank(k,38) = 0.
-         scratch_bank(k,39) = 0.
-         scratch_bank(k,40) = 0.
-         scratch_bank(k,41) = 0.
-         scratch_bank(k,42) = 0.
-         scratch_bank(k,43) = 0.
-         scratch_bank(k,44) = 0.
-         scratch_bank(k,45) = 0.
-         scratch_bank(k,46) = 0.
-         scratch_bank(k,47) = 0.
-         scratch_bank(k,48) = 0.
 
-         scratch_bank(k,49) = 0.
-         scratch_bank(k,50) = 0.
-         scratch_bank(k,51) = 0.
-         scratch_bank(k,52) = 0.
-         scratch_bank(k,53) = 0.
-         scratch_bank(k,54) = 0.
-         scratch_bank(k,55) = 0.
 
-         scratch_bank(k,56) = 0.
-         scratch_bank(k,57) = 0.
-         scratch_bank(k,58) = 0.
-         scratch_bank(k,59) = 0.
-         scratch_bank(k,60) = 0.
-         scratch_bank(k,61) = 0.
-         scratch_bank(k,62) = 0.
-         scratch_bank(k,63) = 0.
          !   new source/sink terms for 3-moment graupel
-         scratch_bank(k,66) = 0.
-         scratch_bank(k,64) = 0.
-         scratch_bank(k,65) = 0.
-         scratch_bank(k,67) = 0.
 
-         scratch_bank(k,68) = 0.
-         scratch_bank(k,69) = 0.
-         scratch_bank(k,70) = 0.
-         scratch_bank(k,71) = 0.
-         scratch_bank(k,72) = 0.
-         scratch_bank(k,73) = 0.
-         scratch_bank(k,74) = 0.
-         scratch_bank(k,75) = 0.
 
-         scratch_bank(k,7) = 0.
-         scratch_bank(k,8) = 0.
-         scratch_bank(k,9) = 0.
 
-         scratch_bank(k,10) = 0.
-         scratch_bank(k,11) = 0.
-         scratch_bank(k,12) = 0.
 
-         scratch_bank(k,13) = 0.
-         scratch_bank(k,14) = 0.
-         scratch_bank(k,15) = 0.
       enddo
+
+      scratch_bank(kts:kte,1:75) = 0.
 #if ( WRF_CHEM == 1 )
     if ( wetscav_on ) then
       do k = kts, kte

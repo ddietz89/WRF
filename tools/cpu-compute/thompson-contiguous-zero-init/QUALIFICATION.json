@@ -1,0 +1,117 @@
+{
+  "status": "NATIVE_CALLER_QUALIFIED_WORKING_BRANCH_SOURCE_APPLICATION_PENDING",
+  "candidate_canonical_sha256": "00ad6233a77bfc39b4f6b5cc6413c54dcf28bfc021d65693364a9b56f6797356",
+  "candidate_PP_sha256": "2aeb5b26148630fcac539f08c68382430f1ae549c80ea4aaa689cf45a8b79a39",
+  "candidate_object_sha256": "c9e8a3889b209de53b881c73afc7ce22b3f025d6b3c6d34b74a79d90bdc585ee",
+  "timing_result_sha256": "a9daf03608d2314ad2d1fcd53556983ef5018e22b42f18d5c7c61cc3c97290ec",
+  "native_receipt_sha256": "bbc314ae49661373662db623dd987b23a64cb8ccdcce59256263ed981fd43b1c",
+  "native_closure_sha256": "3ad466acbe7a0a54d1c265c30029c8cad6920a446f237c00c8ec64d6ac17d71d",
+  "codegen_review_sha256": "692e6e1038d9bb4688cbdfde6930358bd3bfddc28e5a7437e4a4200dff2195ac",
+  "comparisons": [
+    {
+      "host": "hpc03",
+      "scope": "One complete synthetic enabled-mixed32level caller, samehost paired arms only; not forecast gain",
+      "calls": 20000,
+      "raw_exact": true,
+      "raw_sha256": "1f01732f5419c18e6ffae8d588ddc149d32546a3dbef3160e015726fc3256c0a",
+      "parent_caller_interval_seconds": 2.11362626,
+      "candidate_caller_interval_seconds": 2.083564706,
+      "candidate_caller_elapsed_reduction_percent": 1.4222738697427073
+    },
+    {
+      "host": "hpc01",
+      "scope": "One complete synthetic enabled-mixed32level caller, samehost paired arms only; not forecast gain",
+      "calls": 20000,
+      "raw_exact": true,
+      "raw_sha256": "1f01732f5419c18e6ffae8d588ddc149d32546a3dbef3160e015726fc3256c0a",
+      "parent_caller_interval_seconds": 2.086654928,
+      "candidate_caller_interval_seconds": 2.077237231,
+      "candidate_caller_elapsed_reduction_percent": 0.45132987125126034
+    }
+  ],
+  "resources": [
+    {
+      "host": "hpc03",
+      "arm": "parent",
+      "invocation_id": "81e207a1367b4857bb0cb2bd23221451",
+      "CPU_seconds_wholeprocess": 3.621973,
+      "memory_peak_bytes": 879853568,
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "nr_throttled": 0,
+      "throttled_usec": 0,
+      "positive_closed": true
+    },
+    {
+      "host": "hpc01",
+      "arm": "candidate",
+      "invocation_id": "a9b0ab09d59346638ff49e1fe880badb",
+      "CPU_seconds_wholeprocess": 3.702181,
+      "memory_peak_bytes": 880123904,
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "nr_throttled": 0,
+      "throttled_usec": 0,
+      "positive_closed": true
+    },
+    {
+      "host": "hpc03",
+      "arm": "candidate",
+      "invocation_id": "fed4c567bf3f4bc897f9bc6e673c590a",
+      "CPU_seconds_wholeprocess": 3.507668,
+      "memory_peak_bytes": 880123904,
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "nr_throttled": 0,
+      "throttled_usec": 0,
+      "positive_closed": true
+    },
+    {
+      "host": "hpc01",
+      "arm": "parent",
+      "invocation_id": "b023909e95e94d078da484f42776aeac",
+      "CPU_seconds_wholeprocess": 3.364329,
+      "memory_peak_bytes": 879853568,
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "nr_throttled": 0,
+      "throttled_usec": 0,
+      "positive_closed": true
+    }
+  ],
+  "controller_postprocess_failure_preserved": true,
+  "no_native_rerun": true,
+  "scope": "11 complete32level synthetic Thompson cases native/freshparent/O0bounds/O2 exact raw/state. Timing one enabledmixed32level wholecaller20000calls perarm; restores/state reset/checks outside intervals, callerpacking/allocations inside. WholeprocessCPU includes outside checks/startup and cannot be called timedcalleeCPU. Sparse sampled initPCs establish executedmechanism, not globalheadroom. No applicationqualification/default/source edit yet.",
+  "selected_qualified_executable_unchanged": "53264515c8d5e9899e269b45231f729300053951740ad45828ec68393668cc80",
+  "source_mechanism": "Replace only75 individual scratch_bank(k,N)=0 stores in firstKloop with scratch_bank(kts:kte,1:75)=0.; preserve15tendencyinitializations/allmath and76..79untouched.",
+  "actual_codegen": "Current strictO2 emits75 per-column memset operations over8*NKbytes each; not one bulk memset. ActualMP routine71501to67799bytes; allocation/free counts86eachunchanged.",
+  "application_qualification": "Pending one fresh corrected-original versus combined three-hour full-grid comparison after remaining Ycandidate decision. Existing selected5326 stays available; no application/default gain claimed.",
+  "evidence_directory": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-contiguous-zero-init-r1",
+  "rollback": "Before selecting anynewruntime retainselected5326. Revert this isolated source commit and rebuild to remove only the75-column zero traversal; all preceding accepted bank/literal changes remain.",
+  "provider_usage": "Two actual bounded author/review calls12611reportedtokens; authorliteralimplemented with minimal local mechanical edit preservingcomments, reviewerincorrectcontiguityclaim assessedlocally. Providerchargesunknown.",
+  "source_acceptance": "Constantstores only, exactfull-sourceinverse and currentparentnative reproduction;11complete32levelsyntheticcases O0bounds/O2 raw/guards/state; one20kwholecallerpair pernode withoppositeorder. No universalbounds/science/speedclaim."
+}
