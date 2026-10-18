@@ -6193,6 +6193,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
     REAL     :: dx,dy,dz
     REAL, DIMENSION(its-1:ite+2) :: dy_row
+    REAL, DIMENSION(its-1:ite+2) :: dx_row
 
     LOGICAL, PARAMETER :: pd_limit = .true.
 
@@ -6476,10 +6477,15 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
 !  5th order flux
 
+        IF (kts <= ktf) THEN
+          DO i = i_start_f, i_end_f
+            dx_row(i) = 2./(msfty(i,j)+msfty(i-1,j))/rdx
+          END DO
+        END IF
         DO k=kts,ktf
         DO i = i_start_f, i_end_f
 
-          dx = 2./(msfty(i,j)+msfty(i-1,j))/rdx  ! ADT eqn 48 d/dx
+          dx = dx_row(i)
           mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i-1,j)+c2(k)))
           vel = ru(i,k,j)
           cr = vel*dt/dx/mu
@@ -6818,11 +6824,16 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
 !  5th order flux
 
+        IF (kts <= ktf) THEN
+          DO i = i_start_f, i_end_f
+            dx_row(i) = 2./(msfty(i,j)+msfty(i-1,j))/rdx
+          END DO
+        END IF
         DO k=kts,ktf
 !$omp simd private(dx,mu,vel,cr)
         DO i = i_start_f, i_end_f
 
-          dx = 2./(msfty(i,j)+msfty(i-1,j))/rdx  ! ADT eqn 48 d/dx
+          dx = dx_row(i)
           mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i-1,j)+c2(k)))
           vel = ru(i,k,j)
           cr = vel*dt/dx/mu
@@ -7092,10 +7103,15 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
 !  4th order flux
 
+        IF (kts <= ktf) THEN
+          DO i = i_start_f, i_end_f
+            dx_row(i) = 2./(msfty(i,j)+msfty(i-1,j))/rdx
+          END DO
+        END IF
         DO k=kts,ktf
         DO i = i_start_f, i_end_f
 
-          dx = 2./(msfty(i,j)+msfty(i-1,j))/rdx  ! ADT eqn 48 d/dx
+          dx = dx_row(i)
           mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i-1,j)+c2(k)))
           vel = ru(i,k,j)
           cr = vel*dt/dx/mu
@@ -7329,10 +7345,15 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
 !  4th order flux
 
+        IF (kts <= ktf) THEN
+          DO i = i_start_f, i_end_f
+            dx_row(i) = 2./(msfty(i,j)+msfty(i-1,j))/rdx
+          END DO
+        END IF
         DO k=kts,ktf
         DO i = i_start_f, i_end_f
 
-          dx = 2./(msfty(i,j)+msfty(i-1,j))/rdx  ! ADT eqn 48 d/dx
+          dx = dx_row(i)
           mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i-1,j)+c2(k)))
           vel = ru(i,k,j)
           cr = vel*dt/dx/mu
@@ -7455,9 +7476,14 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
       END IF
 
       DO j = j_start, j_end
+        IF (kts <= ktf) THEN
+          DO i = i_start, i_end+1
+            dx_row(i) = 2./(msfty(i,j)+msfty(i-1,j))/rdx
+          END DO
+        END IF
         DO k=kts,ktf
         DO i = i_start, i_end+1
-            dx = 2./(msfty(i,j)+msfty(i-1,j))/rdx ! ADT eqn 48 d/dx
+            dx = dx_row(i)
             mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i-1,j)+c2(k)))
             vel = ru(i,k,j)
             cr = vel*dt/dx/mu
