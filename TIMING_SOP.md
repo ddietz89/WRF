@@ -4,6 +4,8 @@
 
 Standing owner rule, reaffirmed 2026-10-18: **DO NOT STOP after answering a question, giving a status update, completing a test or reaching a milestone.** Treat questions as steering within the active campaign. Answer briefly, then continue the next authorized implementation, test, review or promotion in the same active session. A report is not a stopping point.
 
+Recoverable SSH, gateway or tool failures are recovery work, not campaign closeout. Keep bounded retries at a reasonable cadence, investigate existing authorized access paths, and continue independent local work. An unsuccessful retry is not sufficient reason to end the turn. Preserve existing job identities and recover their actual state before any retry of a model, cache clear or dependent launch; never duplicate an uncertain remote job. Report a persistent access problem while continuing recovery within the active session, unless the execution limit or a truly exhausted external dependency prevents further work.
+
 Keep independent work moving while jobs or approvals are pending, provide brief progress updates at least every 60 seconds during active work, and preserve a durable recovery checkpoint. Stop only at an explicit owner request, a genuinely required authorization that blocks all meaningful work, an external blocker that blocks all meaningful work, or the execution limits of the active session. Do not promise unattended progress beyond those limits. Existing scientific, resource, AWS-suspension, production and master exclusions remain in force.
 
 ## Campaign storage
