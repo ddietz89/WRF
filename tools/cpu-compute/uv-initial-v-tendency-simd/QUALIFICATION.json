@@ -1,0 +1,156 @@
+{
+  "status": "QUALIFIED_WORKING_COMBINATION_INITIAL_V_SIMD_NOON",
+  "canonical_source_sha256": "53ba85b96f31cb8116ab0c7011fe71e4b81ac0782897a0eb2990624969ad95c2",
+  "parent_executable_sha256": "08f831e86d7d74eba61438fcafd64331e3f77dbd140dfda77b31a5fed8a32a81",
+  "candidate_executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/uv-initial-v-tendency-simd-current-r1/wrf.exe",
+    "sha256": "bb3259b1bb8254842301553ddb18e792ef4ebdae070f6c4549ebc4fe99180ada"
+  },
+  "change": "One initial-V inner-I !$OMP SIMD directive; preserves initial-U directive, bounds, expression, serial J/K, precision and strict compiler flags. Actual V code changes scalar 4-byte stride to packed YMM 32-byte stride.",
+  "native_gate_receipt_sha256": "24e07a8ac911cb4e75e42c63eea748beb3a2815a13a29fc82d58ce3b97712349",
+  "native_gate_closure_sha256": "157e4a020245371e5e11d488b66a0d9745c9359f15e2decd9a894a501a8afdfb",
+  "native_scope": "Captured full UV output, 17 finite/boundary cases and six V/RV_TEND exceptional cases at O0/bounds and O2; full U/V raw outputs, readonly inputs, 32 guards and five observed state words exact. Fresh parent matches current23eda object.",
+  "canonical_build_receipt_sha256": "5c545bf066f7bc5a7462a6e329a913fadd2dd5036e2e64bd470f445be0780b11",
+  "canonical_build_closure_sha256": "b5df184000e1db5d0bdb257ce6cc4072d526821207a5bf6a69ea83dd3d8b3e08",
+  "canonical_build_scope": "Only SmallStep replaced,583of584 archive members and14linkinputs unchanged; canonical object equals tested namedcandidate after names-only normalization; module interface unchanged.",
+  "timing_result_sha256": "1e4fd4555332fb707deaf592d0c65670f88921f0b7d96022389951d6e4bf8f7c",
+  "caller_timing": {
+    "status": "PASS_EXACT_FULL_UV_CALLER_ONE_V_DIRECTIVE_TWO_ORDER_GAIN",
+    "arms": [
+      {
+        "status": "PASS_EXACT_CAPTURED_FULL_UV_TIMING_ARM",
+        "invocation_id": "6551b76162cf48429c24cdc14de412c8",
+        "host": "hpc01",
+        "which": 1,
+        "repeats": 1024,
+        "wall_seconds": 1.644089183,
+        "cpu_seconds": 1.643734,
+        "scope": "Full captured advance_uv plus identical U/V restores and reset/read-five-state helpers INSIDE clock; initial parent/candidate correctness warmcalls and terminal full raw/readonly/guards checks OUTSIDE. Single finite captured caller; not initial-U-only or forecast gain.",
+        "cpu_stat": "usage_usec 5519418\nuser_usec 4338259\nsystem_usec 1181159\ncore_sched.force_idle_usec 0\nnr_periods 193\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "memory_peak": "500461568\n",
+        "elapsed_context_seconds": 20.328047937946394,
+        "arm": 0,
+        "evidence": {
+          "receipt.json": "903308413305b8213d91d7549ce93648aa51e183a37e4da4148718b53a467c61",
+          "closure.json": "d3993dff7b721f4ce93054fcc44a4b5e3c594ffff50de8a550ec05aa590e7ab1",
+          "cache-clear.json": "2e87c2810e0265110618428b3ae5280bfbf4f235301011a30e79031f9b504e1b"
+        }
+      },
+      {
+        "status": "PASS_EXACT_CAPTURED_FULL_UV_TIMING_ARM",
+        "invocation_id": "8c81cf563a3444fbab304ccac38b8bb5",
+        "host": "hpc01",
+        "which": 2,
+        "repeats": 1024,
+        "wall_seconds": 1.602040922,
+        "cpu_seconds": 1.601631,
+        "scope": "Full captured advance_uv plus identical U/V restores and reset/read-five-state helpers INSIDE clock; initial parent/candidate correctness warmcalls and terminal full raw/readonly/guards checks OUTSIDE. Single finite captured caller; not initial-U-only or forecast gain.",
+        "cpu_stat": "usage_usec 5375317\nuser_usec 4228556\nsystem_usec 1146761\ncore_sched.force_idle_usec 0\nnr_periods 182\nnr_throttled 1\nthrottled_usec 336\nnr_bursts 0\nburst_usec 0\n",
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "memory_peak": "500555776\n",
+        "elapsed_context_seconds": 18.112705590901896,
+        "arm": 1,
+        "evidence": {
+          "receipt.json": "a6b5a59fd23bfd5007216cde3d12d462bfd860708b94871a260178279b78559d",
+          "closure.json": "91be1bec3e803d67c9772cc1454b6c1c6c99f5b57050c56628d294306b7d6875",
+          "cache-clear.json": "c6510a5eff0bb501a13651b24804f1ca4e5ba1776a9ceca2016936fc618f3879"
+        }
+      },
+      {
+        "status": "PASS_EXACT_CAPTURED_FULL_UV_TIMING_ARM",
+        "invocation_id": "a915cef62c134ffeb6038cfdb1989d7c",
+        "host": "hpc04",
+        "which": 2,
+        "repeats": 1024,
+        "wall_seconds": 1.609793035,
+        "cpu_seconds": 1.609748,
+        "scope": "Full captured advance_uv plus identical U/V restores and reset/read-five-state helpers INSIDE clock; initial parent/candidate correctness warmcalls and terminal full raw/readonly/guards checks OUTSIDE. Single finite captured caller; not initial-U-only or forecast gain.",
+        "cpu_stat": "usage_usec 4824723\nuser_usec 3965662\nsystem_usec 859060\ncore_sched.force_idle_usec 0\nnr_periods 79\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "memory_peak": "499716096\n",
+        "elapsed_context_seconds": 7.832587830955163,
+        "arm": 2,
+        "evidence": {
+          "receipt.json": "813a6bdea7fd9656f0dc2f0f7c7c996af9ffd286ec2e87cb93b325b1c650a5b3",
+          "closure.json": "245142e5d5a482e1af8d922fdb5fcc7b2cd39150a69fbcfa6d620831a0d152a4",
+          "cache-clear.json": "532f94f2f49b1ab18c7f0fb88b434cf491d49c71474aeb55cafac9283cd4506b"
+        }
+      },
+      {
+        "status": "PASS_EXACT_CAPTURED_FULL_UV_TIMING_ARM",
+        "invocation_id": "62d0fb2422ba4b2b834ee51d78a59f19",
+        "host": "hpc04",
+        "which": 1,
+        "repeats": 1024,
+        "wall_seconds": 1.650823845,
+        "cpu_seconds": 1.650617,
+        "scope": "Full captured advance_uv plus identical U/V restores and reset/read-five-state helpers INSIDE clock; initial parent/candidate correctness warmcalls and terminal full raw/readonly/guards checks OUTSIDE. Single finite captured caller; not initial-U-only or forecast gain.",
+        "cpu_stat": "usage_usec 4839386\nuser_usec 3993416\nsystem_usec 845969\ncore_sched.force_idle_usec 0\nnr_periods 68\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "memory_peak": "499499008\n",
+        "elapsed_context_seconds": 6.681719179963693,
+        "arm": 3,
+        "evidence": {
+          "receipt.json": "c48eec5a983eec31f4e30b459bf957e098c9bac41b5cb61a26dc2f955e9d0c3b",
+          "closure.json": "a59103a590c1fafa88437e1ccf7b31429d19ed2e9faef9850c9ff4dabbc071b6",
+          "cache-clear.json": "2459635e50fee8a38fa057b2033fb1d800fded6e8c6ce8b2ad97965c9adefb54"
+        }
+      }
+    ],
+    "pairs": [
+      {
+        "host": "hpc01",
+        "execution_order": "parent-first",
+        "baseline_wall_seconds": 1.644089183,
+        "candidate_wall_seconds": 1.602040922,
+        "candidate_wall_change_percent": -2.5575413690924975,
+        "baseline_cpu_seconds": 1.643734,
+        "candidate_cpu_seconds": 1.601631,
+        "candidate_cpu_change_percent": -2.561424172037563,
+        "wall_saved_seconds_per_call": 4.106275488281242e-05
+      },
+      {
+        "host": "hpc04",
+        "execution_order": "candidate-first",
+        "baseline_wall_seconds": 1.650823845,
+        "candidate_wall_seconds": 1.609793035,
+        "candidate_wall_change_percent": -2.4854747600280724,
+        "baseline_cpu_seconds": 1.650617,
+        "candidate_cpu_seconds": 1.609748,
+        "candidate_cpu_change_percent": -2.4759832232431944,
+        "wall_saved_seconds_per_call": 4.0069150390624865e-05
+      }
+    ],
+    "interpretation": "Bothfixedoppositeorderpairs consistent~2.5percentlowercallerinterval, actualchangedVpackedYMMcodegen andstrictVnativegatePASS; eligibleforcanonical+originalscienceintegration underkernelgainrule. No wholeforecastgain/globalheadroom/additivetoU/confidencereplicatesclaim. No furthertimingmatrix.",
+    "clock_scope": "Identicalfullcapturedadvance_uv PLUS U/Vinputrestoration/reset/read-five-statehelpers INSIDEclock; initialtwoactualparent/candidatecorrectnesswarmcalls andterminalfullraw/readonly/config/bounds/guardschecks OUTSIDE. Not initialV-only orpurecalleeisolatedgain.",
+    "resource_limits": "CPU24/100percent/4GiB/swap0/30s eacharm; ownnodeidlechecked andsync/drop3actualbeforeeach; all4positiveINVsuccess+PID0+CGabsent. Allhigh/max/OOMevents0. Arm1wholeunit1throttle336us; others0; cannotlocalizeto1.60stimedbody, no pressurecausalclaim.",
+    "strict_gate_receipt_sha256": "24e07a8ac911cb4e75e42c63eea748beb3a2815a13a29fc82d58ce3b97712349",
+    "strict_gate_closure_sha256": "157e4a020245371e5e11d488b66a0d9745c9359f15e2decd9a894a501a8afdfb",
+    "codegen_review_sha256": "4264e09c1a0bed7c79933a473c92b93b77cf889656b37e641de45600168f326a"
+  },
+  "science": {
+    "status": "PASS_ORIGINAL_TWO_HISTORY_AND_512_NOON75M_ORDERED_SEQUENCE",
+    "receipt_sha256": "9af0b4a14fad90f609c7364d733055493350a6e381b7cbed836ebf530890062a",
+    "reader_closure_sha256": "9e30951af708fdb7fcc759a03f0b19b6c56a4b41a2da4ef3ab262a3c336b99c4",
+    "complete_products": 2,
+    "ordered_steps": 230,
+    "last_observed_step": "2026-10-12_13:15:00",
+    "history_times": [
+      "2026-10-12_12:00:00",
+      "2026-10-12_13:00:00"
+    ],
+    "scope": "Original corrected546b noon scientific/metadata/layout/runtime acceptance; no fresh matched timing control."
+  },
+  "limits": [
+    "Two descriptive opposite-order full-caller comparisons, including identical restore/state helpers; no isolated initial-loop or forecast speedup claim.",
+    "One timing-arm whole-unit throttle event336us; placement relative to timed body unknown.",
+    "Last three-hour18.1943% result belongs precedingf1d7 before both initial-U and initial-V additions; no additive or transferred benchmark claim."
+  ],
+  "rollback": "Select retained08f831e8 and the same pinned runtime, or remove only the initial-V directive and rebuild SmallStep/archive/executable.",
+  "raw_evidence_directory": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-initial-v-tendency-simd-r1",
+  "application_model_closure_sha256": "77545784903ea09f7b061b465a2925ada21eb1361b933f357986baa0e0b4b050",
+  "application_result_sha256": "e1fbada8c53407d622bd67f0102e5eea6f3799007f494a08fe36395fd36907e4",
+  "application_evidence_directory": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-noon-vt75m-runtime-r2",
+  "owner_final_qualification_sha256": "caf774acce96b61adbfee1b0dc985486c635c95a8240fca39a9f7dd69972cf3c"
+}
