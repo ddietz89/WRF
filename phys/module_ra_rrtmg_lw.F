@@ -3208,6 +3208,7 @@ contains
       integer(kind=im) :: ibnd, ib, iband, lay, lev, l, ig  ! loop indices
       integer(kind=im) :: igc                               ! g-point interval counter
       integer(kind=im) :: iclddn                            ! flag for cloud in down path
+      integer(kind=im) :: top_cloud
       integer(kind=im) :: ittot, itgas, itr                 ! lookup table indices
 
 ! ------- Definitions -------
@@ -3321,6 +3322,11 @@ contains
 
       enddo
 
+      top_cloud = 0
+      do lay = 1, nlayers
+         if (icldlyr(lay).eq.1) top_cloud = lay
+      enddo
+
       igc = 1
 ! Loop over frequency bands.
       do iband = istart, iend
@@ -3338,14 +3344,42 @@ contains
 
 ! Downward radiative transfer loop.  
 
-         do lev = nlayers, 1, -1
+         do lev = nlayers, top_cloud+1, -1
                plfrac = fracs(lev,igc)
                blay = planklay(lev,iband)
                dplankup = planklev(lev,iband) - blay
                dplankdn = planklev(lev-1,iband) - blay
                odepth = secdiff(iband) * taut(lev,igc)
                if (odepth .lt. 0.0_rb) odepth = 0.0_rb
-!  Cloudy layer
+!  Clear prefix above the highest union-mask cloudy layer.
+                  if (odepth .le. 0.06_rb) then
+                     atrans(lev) = odepth-0.5_rb*odepth*odepth
+                     odepth = rec_6*odepth
+                     bbd = plfrac*(blay+dplankdn*odepth)
+                     bbugas(lev) = plfrac*(blay+dplankup*odepth)
+                  else
+                     tblind = odepth/(bpade+odepth)
+                     itr = tblint*tblind+0.5_rb
+                     transc = exp_tbl(itr)
+                     atrans(lev) = 1._rb-transc
+                     tausfac = tfn_tbl(itr)
+                     bbd = plfrac*(blay+tausfac*dplankdn)
+                     bbugas(lev) = plfrac * (blay + tausfac * dplankup)
+                  endif
+                  radld = radld + (bbd-radld)*atrans(lev)
+                  drad(lev-1) = drad(lev-1) + radld
+                     radclrd = radld
+                     clrdrad(lev-1) = drad(lev-1)
+         enddo
+
+         do lev = top_cloud, 1, -1
+               plfrac = fracs(lev,igc)
+               blay = planklay(lev,iband)
+               dplankup = planklev(lev,iband) - blay
+               dplankdn = planklev(lev-1,iband) - blay
+               odepth = secdiff(iband) * taut(lev,igc)
+               if (odepth .lt. 0.0_rb) odepth = 0.0_rb
+!  Cloudy/clear suffix: the first level sets iclddn before the clear stream update.
                if (icldlyr(lev).eq.1) then
                   iclddn = 1
                   odtot = odepth + odcld(lev,igc)
@@ -3433,17 +3467,9 @@ contains
                   radld = radld + (bbd-radld)*atrans(lev)
                   drad(lev-1) = drad(lev-1) + radld
                endif
-!  Set clear sky stream to total sky stream as long as layers
-!  remain clear.  Streams diverge when a cloud is reached (iclddn=1),
-!  and clear sky stream must be computed separately from that point.
-                  if (iclddn.eq.1) then
-                     radclrd = radclrd + (bbd-radclrd) * atrans(lev) 
+                     radclrd = radclrd + (bbd-radclrd) * atrans(lev)
                      clrdrad(lev-1) = clrdrad(lev-1) + radclrd
-                  else
-                     radclrd = radld
-                     clrdrad(lev-1) = drad(lev-1)
-                  endif
-            enddo
+         enddo
 
 ! Spectral emissivity & reflectance
 !  Include the contribution of spectrally varying longwave emissivity
