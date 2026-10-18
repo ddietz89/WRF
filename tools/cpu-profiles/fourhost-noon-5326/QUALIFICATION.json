@@ -1,0 +1,113 @@
+{
+  "status": "PASS_CURRENT5326_FOURHOST_NOON75M_SCIENCE_AND_FOUR_SELECTED_NATIVE_STREAMS",
+  "source_manifest_sha256": "69810ca2b1a34794decf4397ad1956b5da821cb0dd0b6019623e5d99334c5c4f",
+  "science_sha256": "d2547679970e4eacf675d8a1619edfde343ca8bce39971615d6650e95f4d3a85",
+  "reader_closure_sha256": "f535954c206425ff35b6ffed51aba34ed8a107f94a925205c12761159aa4938f",
+  "result_sha256": "5407e9b220efa5b08aa8f7ed94a56a60df4c67f67281509e10e2424097c387fd",
+  "model_closure_sha256": "835353174bda84e51e259b3f27df62b6902f67f2e9ac9edfeedb29309a67c5be",
+  "recorder_closure_sha256": "267022f5e999dd69ae76e2e6d9730bf4c5f5b5ff5356203d0d8f59a122e3511f",
+  "selected_stream_qualification_sha256": "1a3fcb5e57d2a77008965ea1f0a953bcc3f3ac972922302e8518e38dbf4ec133",
+  "closed_report_copy_sha256": "7af09a0f8847ed903a1d0d99d41af317ab29ac28c30c2357045e5580c949bfb5",
+  "streams": [
+    {
+      "rank": 0,
+      "host": "hpc01",
+      "sample_records": 1374,
+      "sample_span_seconds": 29.979004263,
+      "raw_bytes": 11844476,
+      "phase_model_seconds": [
+        1795.0,
+        2335.0
+      ],
+      "live_growth_transitions": 2
+    },
+    {
+      "rank": 245,
+      "host": "hpc02",
+      "sample_records": 1373,
+      "sample_span_seconds": 29.980817749,
+      "raw_bytes": 11747452,
+      "phase_model_seconds": [
+        1795.0,
+        2335.0
+      ],
+      "live_growth_transitions": 2
+    },
+    {
+      "rank": 386,
+      "host": "hpc03",
+      "sample_records": 1367,
+      "sample_span_seconds": 29.977136586,
+      "raw_bytes": 11696964,
+      "phase_model_seconds": [
+        1795.0,
+        2335.0
+      ],
+      "live_growth_transitions": 2
+    },
+    {
+      "rank": 255,
+      "host": "hpc04",
+      "sample_records": 1387,
+      "sample_span_seconds": 30.00390389,
+      "raw_bytes": 11865156,
+      "phase_model_seconds": [
+        1775.0,
+        2335.0
+      ],
+      "live_growth_transitions": 2
+    }
+  ],
+  "actual_models": {
+    "hpc01": {
+      "memory_peak_bytes": 97735372800,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "cpu_stat": "usage_usec 39241042710\nuser_usec 38284131395\nsystem_usec 956911314\ncore_sched.force_idle_usec 0\nnr_periods 3250\nnr_throttled 2398\nthrottled_usec 3279117\nnr_bursts 0\nburst_usec 0\n",
+      "exit_code": 0
+    },
+    "hpc02": {
+      "memory_peak_bytes": 97231712256,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "cpu_stat": "usage_usec 39265104585\nuser_usec 38266169468\nsystem_usec 998935117\ncore_sched.force_idle_usec 0\nnr_periods 3201\nnr_throttled 2570\nthrottled_usec 3357720\nnr_bursts 0\nburst_usec 0\n",
+      "exit_code": 0
+    },
+    "hpc03": {
+      "memory_peak_bytes": 97094377472,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "cpu_stat": "usage_usec 39319854111\nuser_usec 38291640053\nsystem_usec 1028214057\ncore_sched.force_idle_usec 0\nnr_periods 3200\nnr_throttled 2094\nthrottled_usec 2895973\nnr_bursts 0\nburst_usec 0\n",
+      "exit_code": 0
+    },
+    "hpc04": {
+      "memory_peak_bytes": 100125466624,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "cpu_stat": "usage_usec 39249104860\nuser_usec 38199355564\nsystem_usec 1049749295\ncore_sched.force_idle_usec 0\nnr_periods 3200\nnr_throttled 1911\nthrottled_usec 12599234\nnr_bursts 0\nburst_usec 0\n",
+      "exit_code": 0
+    }
+  },
+  "candidate_descriptive_metrics": {
+    "wall_seconds": 323.6858684741892,
+    "cpu_seconds": 157075.106266,
+    "main_step_sum_seconds": 241.05182
+  },
+  "performance_qualification": false,
+  "no_fresh_control": true,
+  "transport_recovery": "Original50slaunchwrapper timedout butoriginalsubmittedlate; approvedretrydrainrejectedactiveoriginalbefore anyduplicate. No reclear. Separate recoveryreceipt retained.",
+  "limits": [
+    "Four selected main-thread 30-second user-cycle windows only; not global critical path or benchmark.",
+    "Numeric lost events UNKNOWN despite printed zero LOST lines.",
+    "Per-host clocks and phase audits are not cross-host synchronization.",
+    "Original546b retained control is science reference only, not a matched benchmark.",
+    "Final checker memory peak/CPU unknown after cgroup removal; last observed active peak6415482880B/CPU144556428us, no events/throttle at that observation.",
+    "Model quota throttling counters are nonzero on all four hosts; cumulative throttled_usec is not a causal wall-time bound."
+  ],
+  "all_owned_diagnostic_jobs_closed": true,
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/myj-guard-split-current-r1/wrf.exe",
+    "sha256": "53264515c8d5e9899e269b45231f729300053951740ad45828ec68393668cc80"
+  },
+  "source_commit": "baec5ea8cae436937147e83c9f4547992da5214e",
+  "raw_evidence_directory": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-fourhost75m-runtime-r2",
+  "raw_final_qualification_sha256": "47de9e582f30ac583581dff92c8ff9756967b12470b793e736daa24951332404",
+  "interpretation_file": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current5326-fourhost-source-interpretation-r1/INTERPRETATION.json",
+  "interpretation_sha256": "8a2b11339cb3048d0ca4410f48422254e6ad81fcdf9812e93773d363647e9672"
+}
