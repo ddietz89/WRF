@@ -8,3 +8,5 @@ Information regarding WRF Model citations (including a DOI) can be found here: [
 
 The WRF Model is open-source code in the public domain, and its use is unrestricted. The name "WRF", however, is a registered trademark of the University Corporation for Atmospheric Research. The WRF public domain notice and related information may be found here: [https://www2.mmm.ucar.edu/wrf/users/public.html](https://www2.mmm.ucar.edu/wrf/users/public.html).
 
+
+CPU optimization working configuration: [promoted combined selection](tools/cpu-working/README.md), with exact three-hour qualification and rollback instructions.

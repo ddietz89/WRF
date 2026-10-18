@@ -1,5 +1,7 @@
 # World-512 quilt compression working default
 
+Current complete working selection: [promoted combined CPU configuration](../../cpu-working/README.md). Its exact-qualified executable/provider/codec/private-HDF5 combination supersedes the older whole-build selections below; historical measurements remain preserved.
+
 The selected working default is `simd-pack`: runtime-selected SIMD byte shuffle and parallel packing in the existing four workers. `--provider original` selects the retained `4cb1c2` provider. The provider selector changes no provider, shim, header or owner bytes; package builds previously reproduced selected `375aa7e3` and original `4cb1c2` byte for byte.
 
 This default is limited to the qualified GNU 13.3 / Zen2 world-512 campaign, its current rank map and exact dependency closure. It does not claim qualification for other compilers, processors, maps, restart or the full production chain.

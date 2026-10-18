@@ -1,0 +1,83 @@
+{
+  "status": "PROMOTED_WORKING_DEFAULT_EXACT_THREE_HOUR_QUALIFIED",
+  "source_commit": "f2d454b1654e51b4414dcafa3c58db93a9247769",
+  "scope": "GNU Fortran13.3/Zen2; full grid1500x1140x33; 512ranks480compute+32quilt; two tiles; original three-hour exact acceptance. No transferred compiler/restart/nine-hour qualification.",
+  "artifacts": {
+    "shim": {
+      "path": "/pool/wrf-experiment/wrf-cpu/source-discovery/parallel-pack-quilt-shim-native-r1/wrf_quilt_thread_shim.so",
+      "sha256": "375aa7e3198d42d84e3c95612f5475216354e2c4cb33c053eea42ac29f4bdb2a"
+    },
+    "owner": {
+      "path": "/pool/wrf/WPS_new/runtime/netcdf-owner/lib/libnetcdf.so.19",
+      "sha256": "8adc33059a98399cd8adea41de071598aaa2b09ff53eb3ae860cad0c6696b538"
+    },
+    "ng": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/libz.so.1.3.1.zlib-ng",
+      "sha256": "881d0a1aa84f1ac3f3fc60b0c59f7f9b03125fe68065cf44a04170de5655de3c"
+    }
+  },
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/four-worthy-ports-current-r1/wrf.exe",
+    "sha256": "f1d7ad6f63dacef342c846c68bab75333bb87463b1016c8bc2971fb7dfd5ce05"
+  },
+  "private_hdf5": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/hdf5-sse2-unshuffle4-private-r3/output/candidate/lib/libhdf5.so.310.3.0",
+    "sha256": "825e2f1f24bee6feaf537cb7a4b1207044fb90ec1afc2dd96571b33b1056ba19"
+  },
+  "rank_library_path": "/pool/wrf-experiment/wrf-cpu/builds/hdf5-sse2-unshuffle4-private-r3/output/candidate/lib:/pool/wrf/WPS_new/runtime/netcdf-owner/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib",
+  "rank_map_sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac",
+  "build_defaults": {
+    "WRF_SMALL_STEP_ZEN2": 1,
+    "WRF_ADVECTION_ZEN2": 1,
+    "compiler_scope": "qualified GNU Fortran13.3.0; runtime CPU/OS feature admission required"
+  },
+  "runtime": {
+    "OMP_NUM_THREADS": 1,
+    "OMPI_MPI_THREAD_LEVEL": 1,
+    "OMPI_MCA_pml": "ucx",
+    "UCX_TLS": "rc,sm,self",
+    "UCX_NET_DEVICES": "ibp1s0f0:1",
+    "WRF_ROOT_SHIM_WORLD": 512,
+    "WRF_ROOT_SHIM_OPTIN": 1,
+    "WRF_ROOT_SHIM_OPTOUT": 0,
+    "WRF_ROOT_SHIM_CPUS": "0-127"
+  },
+  "includes": "All accepted source changes through source_commit, paired shortwave, RK first-stage fusion, corrected X-distance cache, advection ISA, SIMD shuffle/parallel output packing, Huffman/zlib-ng codec, root scratch reuse and private HDF5 inverse shuffle. See consolidated findings for individual scope.",
+  "science": {
+    "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+    "receipt_sha256": "f2b4c52ab62b9be12971add459dcba4dc0a939580d970aa3bf0d5547e34f6bc9",
+    "reader_closure_sha256": "a24873054952366d68266869d80c88492e3f108e56840a8ca4833db781eeccbf",
+    "complete_products": 4,
+    "ordered_steps": 545
+  },
+  "measurement": {
+    "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+    "order": [
+      "corrected_stock546b_control",
+      "current0fb5_plus_SWpaired_AdvectZen2Xcache_RKfusion_privateHDF825e_provider375_huffman881d_candidate"
+    ],
+    "metrics": {
+      "control": {
+        "wall_seconds": 848.674050837988,
+        "cpu_seconds": 382331.146057,
+        "main_step_sum_seconds": 625.83491
+      },
+      "candidate": {
+        "wall_seconds": 694.2637243110221,
+        "cpu_seconds": 334569.80171499995,
+        "main_step_sum_seconds": 583.70308
+      }
+    },
+    "reductions_percent": {
+      "wall_seconds": 18.194302792043647,
+      "cpu_seconds": 12.492140604961211,
+      "main_step_sum_seconds": 6.732099684244208
+    },
+    "science_sha256": "f2b4c52ab62b9be12971add459dcba4dc0a939580d970aa3bf0d5547e34f6bc9",
+    "reader_closure_sha256": "a24873054952366d68266869d80c88492e3f108e56840a8ca4833db781eeccbf",
+    "limits": "One fixed-order pair, four clients actually sync/drop3 before each arm. File-server cache unknown. Main includes communication/backpressure; residual is not pure I/O. No isolated/additive cache or repeatability claim."
+  },
+  "lease_reference": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-fourports3h-runtime-r1/lease-candidate-proposed.json",
+  "rollback_executable_sha256": "0fb5f827cc3c016545b6fb59cb35438077e180456ab6933809a361d105ef06ae",
+  "activation": "Selection record, not a launcher. Use existing bounded launcher with a fresh run directory/log directory/lease and actual affinity/library/resource checks. Never preload MPI launcher or helper processes."
+}
