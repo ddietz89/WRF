@@ -1542,36 +1542,13 @@
            qsten, qgten, qbten, niten, nrten, ncten, ngten, nwfaten, nifaten, &
                                                               nbcaten
 
-      DOUBLE PRECISION, DIMENSION(kts:kte):: prw_vcd
+      DOUBLE PRECISION, DIMENSION(kts:kte,79):: scratch_bank
 
-      DOUBLE PRECISION, DIMENSION(kts:kte):: pnc_wcd, pnc_wau, pnc_rcw, &
-           pnc_scw, pnc_gcw
 
-      DOUBLE PRECISION, DIMENSION(kts:kte):: pna_rca, pna_sca, pna_gca, &
-           pnd_rcd, pnd_scd, pnd_gcd, pnb_rcb, pnb_scb, pnb_gcb
 
-      DOUBLE PRECISION, DIMENSION(kts:kte):: prr_wau, prr_rcw, prr_rcs, &
-           prr_rcg, prr_sml, prr_gml, &
-           prr_rci, prv_rev,          &
-           pnr_wau, pnr_rcs, pnr_rcg, &
-           pnr_rci, pnr_sml, pnr_gml, &
-           pnr_rev, pnr_rcr, pnr_rfz
 
-      DOUBLE PRECISION, DIMENSION(kts:kte):: pri_inu, pni_inu, pri_ihm, &
-           pni_ihm, pri_wfz, pni_wfz, &
-           pri_rfz, pni_rfz, pri_ide, &
-           pni_ide, pri_rci, pni_rci, &
-           pni_sci, pni_iau, pri_iha, pni_iha
 
-      DOUBLE PRECISION, DIMENSION(kts:kte):: prs_iau, prs_sci, prs_rcs, &
-           prs_scw, prs_sde, prs_ihm, &
-           prs_ide
 
-      DOUBLE PRECISION, DIMENSION(kts:kte):: prg_scw, prg_rfz, prg_gde, &
-           prg_gcw, prg_rci, prg_rcs, prg_rcg, prg_ihm,                 &
-           png_rcs, png_rcg, png_scw, png_gde,                          &
-           pbg_scw, pbg_rfz, pbg_gcw, pbg_rci, pbg_rcs, pbg_rcg,        &
-           pbg_sml, pbg_gml
 
       DOUBLE PRECISION, PARAMETER:: zeroD0 = 0.0d0
 
@@ -1584,7 +1561,6 @@
       REAL, DIMENSION(kts:kte):: diffu, visco, vsc2, &
            tcond, lvap, ocp, lvt2
 
-      DOUBLE PRECISION, DIMENSION(kts:kte):: ilamr, ilamg, N0_r, N0_g
       DOUBLE PRECISION:: N0_melt
       REAL, DIMENSION(kts:kte):: mvd_r, mvd_c, mvd_g
       REAL, DIMENSION(kts:kte):: smob, smo2, smo1, smo0, &
@@ -1682,91 +1658,91 @@
          nifaten(k) = 0.
          nbcaten(k) = 0.
 
-         prw_vcd(k) = 0.
+         scratch_bank(k,1) = 0.
 
-         pnc_wcd(k) = 0.
-         pnc_wau(k) = 0.
-         pnc_rcw(k) = 0.
-         pnc_scw(k) = 0.
-         pnc_gcw(k) = 0.
+         scratch_bank(k,2) = 0.
+         scratch_bank(k,3) = 0.
+         scratch_bank(k,4) = 0.
+         scratch_bank(k,5) = 0.
+         scratch_bank(k,6) = 0.
 
-         prv_rev(k) = 0.
-         prr_wau(k) = 0.
-         prr_rcw(k) = 0.
-         prr_rcs(k) = 0.
-         prr_rcg(k) = 0.
-         prr_sml(k) = 0.
-         prr_gml(k) = 0.
-         prr_rci(k) = 0.
-         pnr_wau(k) = 0.
-         pnr_rcs(k) = 0.
-         pnr_rcg(k) = 0.
-         pnr_rci(k) = 0.
-         pnr_sml(k) = 0.
-         pnr_gml(k) = 0.
-         pnr_rev(k) = 0.
-         pnr_rcr(k) = 0.
-         pnr_rfz(k) = 0.
+         scratch_bank(k,23) = 0.
+         scratch_bank(k,16) = 0.
+         scratch_bank(k,17) = 0.
+         scratch_bank(k,18) = 0.
+         scratch_bank(k,19) = 0.
+         scratch_bank(k,20) = 0.
+         scratch_bank(k,21) = 0.
+         scratch_bank(k,22) = 0.
+         scratch_bank(k,24) = 0.
+         scratch_bank(k,25) = 0.
+         scratch_bank(k,26) = 0.
+         scratch_bank(k,27) = 0.
+         scratch_bank(k,28) = 0.
+         scratch_bank(k,29) = 0.
+         scratch_bank(k,30) = 0.
+         scratch_bank(k,31) = 0.
+         scratch_bank(k,32) = 0.
 
-         pri_inu(k) = 0.
-         pni_inu(k) = 0.
-         pri_ihm(k) = 0.
-         pni_ihm(k) = 0.
-         pri_wfz(k) = 0.
-         pni_wfz(k) = 0.
-         pri_rfz(k) = 0.
-         pni_rfz(k) = 0.
-         pri_ide(k) = 0.
-         pni_ide(k) = 0.
-         pri_rci(k) = 0.
-         pni_rci(k) = 0.
-         pni_sci(k) = 0.
-         pni_iau(k) = 0.
-         pri_iha(k) = 0.
-         pni_iha(k) = 0.
+         scratch_bank(k,33) = 0.
+         scratch_bank(k,34) = 0.
+         scratch_bank(k,35) = 0.
+         scratch_bank(k,36) = 0.
+         scratch_bank(k,37) = 0.
+         scratch_bank(k,38) = 0.
+         scratch_bank(k,39) = 0.
+         scratch_bank(k,40) = 0.
+         scratch_bank(k,41) = 0.
+         scratch_bank(k,42) = 0.
+         scratch_bank(k,43) = 0.
+         scratch_bank(k,44) = 0.
+         scratch_bank(k,45) = 0.
+         scratch_bank(k,46) = 0.
+         scratch_bank(k,47) = 0.
+         scratch_bank(k,48) = 0.
 
-         prs_iau(k) = 0.
-         prs_sci(k) = 0.
-         prs_rcs(k) = 0.
-         prs_scw(k) = 0.
-         prs_sde(k) = 0.
-         prs_ihm(k) = 0.
-         prs_ide(k) = 0.
+         scratch_bank(k,49) = 0.
+         scratch_bank(k,50) = 0.
+         scratch_bank(k,51) = 0.
+         scratch_bank(k,52) = 0.
+         scratch_bank(k,53) = 0.
+         scratch_bank(k,54) = 0.
+         scratch_bank(k,55) = 0.
 
-         prg_scw(k) = 0.
-         prg_rfz(k) = 0.
-         prg_gde(k) = 0.
-         prg_gcw(k) = 0.
-         prg_rci(k) = 0.
-         prg_rcs(k) = 0.
-         prg_rcg(k) = 0.
-         prg_ihm(k) = 0.
+         scratch_bank(k,56) = 0.
+         scratch_bank(k,57) = 0.
+         scratch_bank(k,58) = 0.
+         scratch_bank(k,59) = 0.
+         scratch_bank(k,60) = 0.
+         scratch_bank(k,61) = 0.
+         scratch_bank(k,62) = 0.
+         scratch_bank(k,63) = 0.
          !   new source/sink terms for 3-moment graupel
-         png_scw(k) = 0.
-         png_rcs(k) = 0.
-         png_rcg(k) = 0.
-         png_gde(k) = 0.
+         scratch_bank(k,66) = 0.
+         scratch_bank(k,64) = 0.
+         scratch_bank(k,65) = 0.
+         scratch_bank(k,67) = 0.
 
-         pbg_scw(k) = 0.
-         pbg_rfz(k) = 0.
-         pbg_gcw(k) = 0.
-         pbg_rci(k) = 0.
-         pbg_rcs(k) = 0.
-         pbg_rcg(k) = 0.
-         pbg_sml(k) = 0.
-         pbg_gml(k) = 0.
+         scratch_bank(k,68) = 0.
+         scratch_bank(k,69) = 0.
+         scratch_bank(k,70) = 0.
+         scratch_bank(k,71) = 0.
+         scratch_bank(k,72) = 0.
+         scratch_bank(k,73) = 0.
+         scratch_bank(k,74) = 0.
+         scratch_bank(k,75) = 0.
 
-         pna_rca(k) = 0.
-         pna_sca(k) = 0.
-         pna_gca(k) = 0.
+         scratch_bank(k,7) = 0.
+         scratch_bank(k,8) = 0.
+         scratch_bank(k,9) = 0.
 
-         pnd_rcd(k) = 0.
-         pnd_scd(k) = 0.
-         pnd_gcd(k) = 0.
+         scratch_bank(k,10) = 0.
+         scratch_bank(k,11) = 0.
+         scratch_bank(k,12) = 0.
 
-         pnb_rcb(k) = 0.
-         pnb_scb(k) = 0.
-         pnb_gcb(k) = 0.
+         scratch_bank(k,13) = 0.
+         scratch_bank(k,14) = 0.
+         scratch_bank(k,15) = 0.
       enddo
 #if ( WRF_CHEM == 1 )
     if ( wetscav_on ) then
@@ -2135,8 +2111,8 @@
 
       do k = kte, kts, -1
          lamg = (am_g(idx_bg(k))*cgg(3,1)*ogg2*ng(k)/rg(k))**obmg
-         ilamg(k) = 1./lamg
-         N0_g(k) = ng(k)*ogg2*lamg**cge(2,1)
+         scratch_bank(k,77) = 1./lamg
+         scratch_bank(k,79) = ng(k)*ogg2*lamg**cge(2,1)
       enddo
 
       endif
@@ -2146,9 +2122,9 @@
 !+---+-----------------------------------------------------------------+
       do k = kte, kts, -1
          lamr = (am_r*crg(3)*org2*nr(k)/rr(k))**obmr
-         ilamr(k) = 1./lamr
+         scratch_bank(k,76) = 1./lamr
          mvd_r(k) = (3.0 + mu_r + 0.672) / lamr
-         N0_r(k) = nr(k)*org2*lamr**cre(2)
+         scratch_bank(k,78) = nr(k)*org2*lamr**cre(2)
       enddo
 
 !+---+-----------------------------------------------------------------+
@@ -2164,7 +2140,7 @@
 !-GT      if (mvd_r(k) .gt. 1500.0E-6) then
              Ef_rr = 1.0 - EXP(2300.0*(mvd_r(k)-1950.0E-6))
 !-GT      endif
-          pnr_rcr(k) = Ef_rr * 2.0*nr(k)*rr(k)
+          scratch_bank(k,31) = Ef_rr * 2.0*nr(k)*rr(k)
          endif
 
          mvd_c(k) = D0c
@@ -2187,47 +2163,47 @@
           zeta = 0.027*rc(k)*zeta1
           taud = 0.5*((0.5*Dc_b - 7.5) + abs(0.5*Dc_b - 7.5)) + R1
           tau  = 3.72/(rc(k)*taud)
-          prr_wau(k) = zeta/tau
-          prr_wau(k) = MIN(DBLE(rc(k)*odts), prr_wau(k))
-          pnr_wau(k) = prr_wau(k) / (am_r*nu_c*10.*D0r*D0r*D0r)             ! RAIN2M
-          pnc_wau(k) = MIN(DBLE(nc(k)*odts), prr_wau(k)                 &
+          scratch_bank(k,16) = zeta/tau
+          scratch_bank(k,16) = MIN(DBLE(rc(k)*odts), scratch_bank(k,16))
+          scratch_bank(k,24) = scratch_bank(k,16) / (am_r*nu_c*10.*D0r*D0r*D0r)             ! RAIN2M
+          scratch_bank(k,3) = MIN(DBLE(nc(k)*odts), scratch_bank(k,16)                 &
                      / (am_r*mvd_c(k)*mvd_c(k)*mvd_c(k)))                   ! Qc2M
          endif
 
 !..Rain collecting cloud water.  In CE, assume Dc<<Dr and vtc=~0.
          if (L_qr(k) .and. mvd_r(k).gt. D0r .and. mvd_c(k).gt. D0c) then
-          lamr = 1./ilamr(k)
+          lamr = 1./scratch_bank(k,76)
           idx = 1 + INT(nbr*DLOG(mvd_r(k)/Dr(1))/DLOG(Dr(nbr)/Dr(1)))
           idx = MIN(idx, nbr)
           Ef_rw = t_Efrw(idx, INT(mvd_c(k)*1.E6))
-          prr_rcw(k) = rhof(k)*t1_qr_qc*Ef_rw*rc(k)*N0_r(k) &
+          scratch_bank(k,17) = rhof(k)*t1_qr_qc*Ef_rw*rc(k)*scratch_bank(k,78) &
                          *((lamr+fv_r)**(-cre(9)))
-          prr_rcw(k) = MIN(DBLE(rc(k)*odts), prr_rcw(k))
-          pnc_rcw(k) = rhof(k)*t1_qr_qc*Ef_rw*nc(k)*N0_r(k)             &
+          scratch_bank(k,17) = MIN(DBLE(rc(k)*odts), scratch_bank(k,17))
+          scratch_bank(k,4) = rhof(k)*t1_qr_qc*Ef_rw*nc(k)*scratch_bank(k,78)             &
                          *((lamr+fv_r)**(-cre(9)))                          ! Qc2M
-          pnc_rcw(k) = MIN(DBLE(nc(k)*odts), pnc_rcw(k))
+          scratch_bank(k,4) = MIN(DBLE(nc(k)*odts), scratch_bank(k,4))
          endif
 
 !..Rain collecting aerosols, wet scavenging.
          if (L_qr(k) .and. mvd_r(k).gt. D0r) then
           Ef_ra = Eff_aero(mvd_r(k),0.04E-6,visco(k),rho(k),temp(k),'r')
-          lamr = 1./ilamr(k)
-          pna_rca(k) = rhof(k)*t1_qr_qc*Ef_ra*nwfa(k)*N0_r(k)           &
+          lamr = 1./scratch_bank(k,76)
+          scratch_bank(k,7) = rhof(k)*t1_qr_qc*Ef_ra*nwfa(k)*scratch_bank(k,78)           &
                          *((lamr+fv_r)**(-cre(9)))
-          pna_rca(k) = MIN(DBLE(nwfa(k)*odts), pna_rca(k))
+          scratch_bank(k,7) = MIN(DBLE(nwfa(k)*odts), scratch_bank(k,7))
 
           Ef_ra = Eff_aero(mvd_r(k),0.8E-6,visco(k),rho(k),temp(k),'r')
-          pnd_rcd(k) = rhof(k)*t1_qr_qc*Ef_ra*nifa(k)*N0_r(k)           &
+          scratch_bank(k,10) = rhof(k)*t1_qr_qc*Ef_ra*nifa(k)*scratch_bank(k,78)           &
                          *((lamr+fv_r)**(-cre(9)))
-          pnd_rcd(k) = MIN(DBLE(nifa(k)*odts), pnd_rcd(k))
+          scratch_bank(k,10) = MIN(DBLE(nifa(k)*odts), scratch_bank(k,10))
 
           if (present(wif_input_opt)) then
             if (wif_input_opt .eq. 2) then
               Ef_ra = Eff_aero(mvd_r(k),0.0236E-6, &
                                  visco(k),rho(k),temp(k),'r')
-              pnb_rcb(k) = rhof(k)*t1_qr_qc*Ef_ra*nbca(k)*N0_r(k)       &
+              scratch_bank(k,13) = rhof(k)*t1_qr_qc*Ef_ra*nbca(k)*scratch_bank(k,78)       &
                              *((lamr+fv_r)**(-cre(9)))
-              pnb_rcb(k) = MIN(DBLE(nbca(k)*odts), pnb_rcb(k))
+              scratch_bank(k,13) = MIN(DBLE(nbca(k)*odts), scratch_bank(k,13))
             endif
           endif
          endif
@@ -2320,7 +2296,7 @@
           idx_r = INT(rr(k)/10.**n) + 10*(n-nir2) - (n-nir2)
           idx_r = MAX(1, MIN(idx_r, ntb_r))
 
-          lamr = 1./ilamr(k)
+          lamr = 1./scratch_bank(k,76)
           lam_exp = lamr * (crg(3)*org2*org1)**bm_r
           N0_exp = org1*rr(k)/am_r * lam_exp**cre(1)
           nir = NINT(DLOG10(N0_exp))
@@ -2364,7 +2340,7 @@
           idx_g = INT(rg(k)/10.**n) + 10*(n-nig2) - (n-nig2)
           idx_g = MAX(1, MIN(idx_g, ntb_g))
 
-          lamg = 1./ilamg(k)
+          lamg = 1./scratch_bank(k,77)
           lam_exp = lamg * (cgg(3,1)*ogg2*ogg1)**bm_g
           N0_exp = ogg1*rg(k)/am_g(idx_bg(k)) * lam_exp**cge(1,1)
           nig = NINT(DLOG10(N0_exp))
@@ -2406,16 +2382,16 @@
            idx = 1 + INT(nbs*DLOG(xDs/Ds(1))/DLOG(Ds(nbs)/Ds(1)))
            idx = MIN(idx, nbs)
            Ef_sw = t_Efsw(idx, INT(mvd_c(k)*1.E6))
-           prs_scw(k) = rhof(k)*t1_qs_qc*Ef_sw*rc(k)*smoe(k)
-           prs_scw(k) = MIN(DBLE(rc(k)*odts), prs_scw(k))
-           pnc_scw(k) = rhof(k)*t1_qs_qc*Ef_sw*nc(k)*smoe(k)                ! Qc2M
-           pnc_scw(k) = MIN(DBLE(nc(k)*odts), pnc_scw(k))
+           scratch_bank(k,52) = rhof(k)*t1_qs_qc*Ef_sw*rc(k)*smoe(k)
+           scratch_bank(k,52) = MIN(DBLE(rc(k)*odts), scratch_bank(k,52))
+           scratch_bank(k,5) = rhof(k)*t1_qs_qc*Ef_sw*nc(k)*smoe(k)                ! Qc2M
+           scratch_bank(k,5) = MIN(DBLE(nc(k)*odts), scratch_bank(k,5))
           endif
 
 !..Graupel collecting cloud water.  In CE, assume Dc<<Dg and vtc=~0.
           if (rg(k).ge. r_g(1) .and. mvd_c(k).gt. D0c) then
-           xDg = (bm_g + mu_g + 1.) * ilamg(k)
-           vtg = rhof(k)*av_g(idx_bg(k))*cgg(6,idx_bg(k))*ogg3 * ilamg(k)**bv_g(idx_bg(k))
+           xDg = (bm_g + mu_g + 1.) * scratch_bank(k,77)
+           vtg = rhof(k)*av_g(idx_bg(k))*cgg(6,idx_bg(k))*ogg3 * scratch_bank(k,77)**bv_g(idx_bg(k))
            stoke_g = mvd_c(k)*mvd_c(k)*vtg*rho_w/(9.*visco(k)*xDg)
 !..Rime density formula of Cober and List (1993) also used by Milbrandt and Morrison (2014).
            const_Ri = -1.*(mvd_c(k)*0.5E6)*vtg/MIN(-0.1,tempc)
@@ -2431,52 +2407,52 @@
 !!! Not sure what to do here - hail increases size rapidly here below melting level.
             if (twet(k).gt.T_0) Ef_gw = Ef_gw*0.1
             t1_qg_qc = PI*.25*av_g(idx_bg(k)) * cgg(9,idx_bg(k))
-            prg_gcw(k) = rhof(k)*t1_qg_qc*Ef_gw*rc(k)*N0_g(k) &
-                          *ilamg(k)**cge(9,idx_bg(k))
-            pnc_gcw(k) = rhof(k)*t1_qg_qc*Ef_gw*nc(k)*N0_g(k)           &
-                          *ilamg(k)**cge(9,idx_bg(k))                    ! Qc2M
-            pnc_gcw(k) = MIN(DBLE(nc(k)*odts), pnc_gcw(k))
-            if (twet(k).lt.T_0) pbg_gcw(k) = prg_gcw(k)/rime_dens
+            scratch_bank(k,59) = rhof(k)*t1_qg_qc*Ef_gw*rc(k)*scratch_bank(k,79) &
+                          *scratch_bank(k,77)**cge(9,idx_bg(k))
+            scratch_bank(k,6) = rhof(k)*t1_qg_qc*Ef_gw*nc(k)*scratch_bank(k,79)           &
+                          *scratch_bank(k,77)**cge(9,idx_bg(k))                    ! Qc2M
+            scratch_bank(k,6) = MIN(DBLE(nc(k)*odts), scratch_bank(k,6))
+            if (twet(k).lt.T_0) scratch_bank(k,70) = scratch_bank(k,59)/rime_dens
           endif
          endif
 
 !..Snow and graupel collecting aerosols, wet scavenging.
          if (rs(k) .gt. r_s(1)) then
           Ef_sa = Eff_aero(xDs,0.04E-6,visco(k),rho(k),temp(k),'s')
-          pna_sca(k) = rhof(k)*t1_qs_qc*Ef_sa*nwfa(k)*smoe(k)
-          pna_sca(k) = MIN(DBLE(nwfa(k)*odts), pna_sca(k))
+          scratch_bank(k,8) = rhof(k)*t1_qs_qc*Ef_sa*nwfa(k)*smoe(k)
+          scratch_bank(k,8) = MIN(DBLE(nwfa(k)*odts), scratch_bank(k,8))
 
           Ef_sa = Eff_aero(xDs,0.8E-6,visco(k),rho(k),temp(k),'s')
-          pnd_scd(k) = rhof(k)*t1_qs_qc*Ef_sa*nifa(k)*smoe(k)
-          pnd_scd(k) = MIN(DBLE(nifa(k)*odts), pnd_scd(k))
+          scratch_bank(k,11) = rhof(k)*t1_qs_qc*Ef_sa*nifa(k)*smoe(k)
+          scratch_bank(k,11) = MIN(DBLE(nifa(k)*odts), scratch_bank(k,11))
 
           if (present(wif_input_opt)) then
             if (wif_input_opt .eq. 2) then
               Ef_sa = Eff_aero(xDs,0.0236E-6,visco(k),rho(k),temp(k),'s')
-              pnb_scb(k) = rhof(k)*t1_qs_qc*Ef_sa*nbca(k)*smoe(k)
-              pnb_scb(k) = MIN(DBLE(nbca(k)*odts), pnb_scb(k))
+              scratch_bank(k,14) = rhof(k)*t1_qs_qc*Ef_sa*nbca(k)*smoe(k)
+              scratch_bank(k,14) = MIN(DBLE(nbca(k)*odts), scratch_bank(k,14))
             endif
           endif
          endif
          if (rg(k) .gt. r_g(1)) then
-          xDg = (bm_g + mu_g + 1.) * ilamg(k)
+          xDg = (bm_g + mu_g + 1.) * scratch_bank(k,77)
           Ef_ga = Eff_aero(xDg,0.04E-6,visco(k),rho(k),temp(k),'g')
           t1_qg_qc = PI*.25*av_g(idx_bg(k)) * cgg(9,idx_bg(k))
-          pna_gca(k) = rhof(k)*t1_qg_qc*Ef_ga*nwfa(k)*N0_g(k)           &
-                        *ilamg(k)**cge(9,idx_bg(k))
-          pna_gca(k) = MIN(DBLE(nwfa(k)*odts), pna_gca(k))
+          scratch_bank(k,9) = rhof(k)*t1_qg_qc*Ef_ga*nwfa(k)*scratch_bank(k,79)           &
+                        *scratch_bank(k,77)**cge(9,idx_bg(k))
+          scratch_bank(k,9) = MIN(DBLE(nwfa(k)*odts), scratch_bank(k,9))
 
           Ef_ga = Eff_aero(xDg,0.8E-6,visco(k),rho(k),temp(k),'g')
-          pnd_gcd(k) = rhof(k)*t1_qg_qc*Ef_ga*nifa(k)*N0_g(k)           &
-                        *ilamg(k)**cge(9,idx_bg(k))
-          pnd_gcd(k) = MIN(DBLE(nifa(k)*odts), pnd_gcd(k))
+          scratch_bank(k,12) = rhof(k)*t1_qg_qc*Ef_ga*nifa(k)*scratch_bank(k,79)           &
+                        *scratch_bank(k,77)**cge(9,idx_bg(k))
+          scratch_bank(k,12) = MIN(DBLE(nifa(k)*odts), scratch_bank(k,12))
 
           if (present(wif_input_opt)) then
             if (wif_input_opt .eq. 2) then
               Ef_ga = Eff_aero(xDg,0.0236E-6,visco(k),rho(k),temp(k),'g')
-              pnb_gcb(k) = rhof(k)*t1_qg_qc*Ef_ga*nbca(k)*N0_g(k)       &
-                            *ilamg(k)**cge(9,idx_bg(k))
-              pnb_gcb(k) = MIN(DBLE(nbca(k)*odts), pnb_gcb(k))
+              scratch_bank(k,15) = rhof(k)*t1_qg_qc*Ef_ga*nbca(k)*scratch_bank(k,79)       &
+                            *scratch_bank(k,77)**cge(9,idx_bg(k))
+              scratch_bank(k,15) = MIN(DBLE(nbca(k)*odts), scratch_bank(k,15))
             endif
           endif
          endif
@@ -2487,36 +2463,36 @@
          if (rr(k).ge. r_r(1)) then
           if (rs(k).ge. r_s(1)) then
            if (twet(k).lt.T_0) then
-            prr_rcs(k) = -(tmr_racs2(idx_s,idx_t,idx_r1,idx_r) &
+            scratch_bank(k,18) = -(tmr_racs2(idx_s,idx_t,idx_r1,idx_r) &
                            + tcr_sacr2(idx_s,idx_t,idx_r1,idx_r) &
                            + tmr_racs1(idx_s,idx_t,idx_r1,idx_r) &
                            + tcr_sacr1(idx_s,idx_t,idx_r1,idx_r))
-            prs_rcs(k) = tmr_racs2(idx_s,idx_t,idx_r1,idx_r) &
+            scratch_bank(k,51) = tmr_racs2(idx_s,idx_t,idx_r1,idx_r) &
                          + tcr_sacr2(idx_s,idx_t,idx_r1,idx_r) &
                          - tcs_racs1(idx_s,idx_t,idx_r1,idx_r) &
                          - tms_sacr1(idx_s,idx_t,idx_r1,idx_r)
-            prg_rcs(k) = tmr_racs1(idx_s,idx_t,idx_r1,idx_r) &
+            scratch_bank(k,61) = tmr_racs1(idx_s,idx_t,idx_r1,idx_r) &
                          + tcr_sacr1(idx_s,idx_t,idx_r1,idx_r) &
                          + tcs_racs1(idx_s,idx_t,idx_r1,idx_r) &
                          + tms_sacr1(idx_s,idx_t,idx_r1,idx_r)
-            prr_rcs(k) = MAX(DBLE(-rr(k)*odts), prr_rcs(k))
-            prs_rcs(k) = MAX(DBLE(-rs(k)*odts), prs_rcs(k))
-            prg_rcs(k) = MIN(DBLE((rr(k)+rs(k))*odts), prg_rcs(k))
-            pnr_rcs(k) = tnr_racs1(idx_s,idx_t,idx_r1,idx_r)            &   ! RAIN2M
+            scratch_bank(k,18) = MAX(DBLE(-rr(k)*odts), scratch_bank(k,18))
+            scratch_bank(k,51) = MAX(DBLE(-rs(k)*odts), scratch_bank(k,51))
+            scratch_bank(k,61) = MIN(DBLE((rr(k)+rs(k))*odts), scratch_bank(k,61))
+            scratch_bank(k,25) = tnr_racs1(idx_s,idx_t,idx_r1,idx_r)            &   ! RAIN2M
                          + tnr_racs2(idx_s,idx_t,idx_r1,idx_r)          &
                          + tnr_sacr1(idx_s,idx_t,idx_r1,idx_r)          &
                          + tnr_sacr2(idx_s,idx_t,idx_r1,idx_r)
-            pnr_rcs(k) = MIN(DBLE(nr(k)*odts), pnr_rcs(k))
-            png_rcs(k) = pnr_rcs(k)
+            scratch_bank(k,25) = MIN(DBLE(nr(k)*odts), scratch_bank(k,25))
+            scratch_bank(k,64) = scratch_bank(k,25)
 !-GT        pbg_rcs(k) = prg_rcs(k)/(0.5*(rho_i+rho_s))
-            pbg_rcs(k) = prg_rcs(k)/rho_i
+            scratch_bank(k,72) = scratch_bank(k,61)/rho_i
            else
-            prs_rcs(k) = -tcs_racs1(idx_s,idx_t,idx_r1,idx_r)           &
+            scratch_bank(k,51) = -tcs_racs1(idx_s,idx_t,idx_r1,idx_r)           &
                          - tms_sacr1(idx_s,idx_t,idx_r1,idx_r)          &
                          + tmr_racs2(idx_s,idx_t,idx_r1,idx_r)          &
                          + tcr_sacr2(idx_s,idx_t,idx_r1,idx_r)
-            prs_rcs(k) = MAX(DBLE(-rs(k)*odts), prs_rcs(k))
-            prr_rcs(k) = -prs_rcs(k)
+            scratch_bank(k,51) = MAX(DBLE(-rs(k)*odts), scratch_bank(k,51))
+            scratch_bank(k,18) = -scratch_bank(k,51)
            endif
           endif
 
@@ -2528,25 +2504,25 @@
            idx_bg_table = idx_bg(k)
            if (.not. is_hail_aware) idx_bg_table = 1
            if (twet(k).lt.T_0) then
-            prg_rcg(k) = tmr_racg(idx_g1,idx_g,idx_bg_table,idx_r1,idx_r)  &
+            scratch_bank(k,62) = tmr_racg(idx_g1,idx_g,idx_bg_table,idx_r1,idx_r)  &
                          + tcr_gacr(idx_g1,idx_g,idx_bg_table,idx_r1,idx_r)
-            prg_rcg(k) = MIN(DBLE(rr(k)*odts), prg_rcg(k))
-            prr_rcg(k) = -prg_rcg(k)
-            pnr_rcg(k) = tnr_racg(idx_g1,idx_g,idx_bg_table,idx_r1,idx_r)  &   ! RAIN2M
+            scratch_bank(k,62) = MIN(DBLE(rr(k)*odts), scratch_bank(k,62))
+            scratch_bank(k,19) = -scratch_bank(k,62)
+            scratch_bank(k,26) = tnr_racg(idx_g1,idx_g,idx_bg_table,idx_r1,idx_r)  &   ! RAIN2M
                          + tnr_gacr(idx_g1,idx_g,idx_bg_table,idx_r1,idx_r)
-            pnr_rcg(k) = MIN(DBLE(nr(k)*odts), pnr_rcg(k))
+            scratch_bank(k,26) = MIN(DBLE(nr(k)*odts), scratch_bank(k,26))
 !-GT        pbg_rcg(k) = prg_rcg(k)/(0.5*(rho_i+rho_g(idx_bg(k))))
-            pbg_rcg(k) = prg_rcg(k)/rho_i
+            scratch_bank(k,73) = scratch_bank(k,62)/rho_i
            else
-            prr_rcg(k) = tcg_racg(idx_g1,idx_g,idx_bg_table,idx_r1,idx_r)
-            prr_rcg(k) = MIN(DBLE(rg(k)*odts), prr_rcg(k))
-            prg_rcg(k) = -prr_rcg(k)
-            png_rcg(k) = tnr_racg(idx_g1,idx_g,idx_bg_table,idx_r1,idx_r)
+            scratch_bank(k,19) = tcg_racg(idx_g1,idx_g,idx_bg_table,idx_r1,idx_r)
+            scratch_bank(k,19) = MIN(DBLE(rg(k)*odts), scratch_bank(k,19))
+            scratch_bank(k,62) = -scratch_bank(k,19)
+            scratch_bank(k,65) = tnr_racg(idx_g1,idx_g,idx_bg_table,idx_r1,idx_r)
 !!!                    + tnr_gacr(idx_g1,idx_g,idx_bg(k),idx_r1,idx_r)
-            png_rcg(k) = MIN(DBLE(ng(k)*odts), png_rcg(k))
-            pbg_rcg(k) = prg_rcg(k)/rho_g(idx_bg(k))
+            scratch_bank(k,65) = MIN(DBLE(ng(k)*odts), scratch_bank(k,65))
+            scratch_bank(k,73) = scratch_bank(k,62)/rho_g(idx_bg(k))
 !..Put in explicit drop break-up due to collisions.
-            pnr_rcg(k) = -1.5*tnr_gacr(idx_g1,idx_g,idx_bg_table,idx_r1,idx_r)  ! RAIN2M
+            scratch_bank(k,26) = -1.5*tnr_gacr(idx_g1,idx_g,idx_bg_table,idx_r1,idx_r)  ! RAIN2M
            endif
           endif
          endif
@@ -2605,26 +2581,26 @@
 
 !..Freezing of water drops into graupel/cloud ice (Bigg 1953).
           if (rr(k).gt. r_r(1)) then
-           prg_rfz(k) = tpg_qrfz(idx_r,idx_r1,idx_tc,idx_IN)*odts
-           pri_rfz(k) = tpi_qrfz(idx_r,idx_r1,idx_tc,idx_IN)*odts
-           pni_rfz(k) = tni_qrfz(idx_r,idx_r1,idx_tc,idx_IN)*odts
-           pnr_rfz(k) = tnr_qrfz(idx_r,idx_r1,idx_tc,idx_IN)*odts          ! RAIN2M
-           pnr_rfz(k) = MIN(DBLE(nr(k)*odts), pnr_rfz(k))
+           scratch_bank(k,57) = tpg_qrfz(idx_r,idx_r1,idx_tc,idx_IN)*odts
+           scratch_bank(k,39) = tpi_qrfz(idx_r,idx_r1,idx_tc,idx_IN)*odts
+           scratch_bank(k,40) = tni_qrfz(idx_r,idx_r1,idx_tc,idx_IN)*odts
+           scratch_bank(k,32) = tnr_qrfz(idx_r,idx_r1,idx_tc,idx_IN)*odts          ! RAIN2M
+           scratch_bank(k,32) = MIN(DBLE(nr(k)*odts), scratch_bank(k,32))
           elseif (rr(k).gt. R1 .and. temp(k).lt.HGFR) then
-           pri_rfz(k) = rr(k)*odts
-           pni_rfz(k) = nr(k)*odts                                         ! RAIN2M
+           scratch_bank(k,39) = rr(k)*odts
+           scratch_bank(k,40) = nr(k)*odts                                         ! RAIN2M
           endif
-          pbg_rfz(k) = prg_rfz(k)/rho_i
+          scratch_bank(k,69) = scratch_bank(k,57)/rho_i
 
           if (rc(k).gt. r_c(1)) then
-           pri_wfz(k) = tpi_qcfz(idx_c,idx_n,idx_tc,idx_IN)*odts
-           pri_wfz(k) = MIN(DBLE(rc(k)*odts), pri_wfz(k))
-           pni_wfz(k) = tni_qcfz(idx_c,idx_n,idx_tc,idx_IN)*odts
-           pni_wfz(k) = MIN(DBLE(nc(k)*odts), pri_wfz(k)/(2.*xm0i),     &
-                                pni_wfz(k))
+           scratch_bank(k,37) = tpi_qcfz(idx_c,idx_n,idx_tc,idx_IN)*odts
+           scratch_bank(k,37) = MIN(DBLE(rc(k)*odts), scratch_bank(k,37))
+           scratch_bank(k,38) = tni_qcfz(idx_c,idx_n,idx_tc,idx_IN)*odts
+           scratch_bank(k,38) = MIN(DBLE(nc(k)*odts), scratch_bank(k,37)/(2.*xm0i),     &
+                                scratch_bank(k,38))
           elseif (rc(k).gt. R1 .and. temp(k).lt.HGFR) then
-           pri_wfz(k) = rc(k)*odts
-           pni_wfz(k) = nc(k)*odts
+           scratch_bank(k,37) = rc(k)*odts
+           scratch_bank(k,38) = nc(k)*odts
           endif
 
 !..Deposition nucleation of dust/mineral from DeMott et al (2010)
@@ -2636,20 +2612,20 @@
            else
             xnc = MIN(250.E3, TNO*EXP(ATO*(T_0-temp(k))))
            endif
-           xni = ni(k) + (pni_rfz(k)+pni_wfz(k))*dtsave
-           pni_inu(k) = 0.5*(xnc-xni + abs(xnc-xni))*odts
-           pri_inu(k) = MIN(DBLE(rate_max), xm0i*pni_inu(k))
-           pni_inu(k) = pri_inu(k)/xm0i
+           xni = ni(k) + (scratch_bank(k,40)+scratch_bank(k,38))*dtsave
+           scratch_bank(k,34) = 0.5*(xnc-xni + abs(xnc-xni))*odts
+           scratch_bank(k,33) = MIN(DBLE(rate_max), xm0i*scratch_bank(k,34))
+           scratch_bank(k,34) = scratch_bank(k,33)/xm0i
           endif
 
 !..Freezing of aqueous aerosols based on Koop et al (2001, Nature)
-          xni = ns(k)+ni(k) + (pni_rfz(k)+pni_wfz(k)+pni_inu(k))*dtsave
+          xni = ns(k)+ni(k) + (scratch_bank(k,40)+scratch_bank(k,38)+scratch_bank(k,34))*dtsave
           if (is_aerosol_aware .AND. homogIce .AND. (xni.le.999.E3)     &
      &                .AND.(temp(k).lt.238).AND.(ssati(k).ge.0.4) ) then
             xnc = iceKoop(temp(k),qv(k),qvs(k),nwfa(k), dtsave)
-            pni_iha(k) = xnc*odts
-            pri_iha(k) = MIN(DBLE(rate_max), xm0i*0.1*pni_iha(k))
-            pni_iha(k) = pri_iha(k)/(xm0i*0.1)
+            scratch_bank(k,48) = xnc*odts
+            scratch_bank(k,47) = MIN(DBLE(rate_max), xm0i*0.1*scratch_bank(k,48))
+            scratch_bank(k,48) = scratch_bank(k,47)/(xm0i*0.1)
           endif
 !+---+------------------ END NEW ICE NUCLEATION -----------------------+
 
@@ -2661,32 +2637,32 @@
            xDi = MAX(DBLE(D0i), (bm_i + mu_i + 1.) * ilami)
            xmi = am_i*xDi**bm_i
            oxmi = 1./xmi
-           pri_ide(k) = C_cube*t1_subl*diffu(k)*ssati(k)*rvs &
+           scratch_bank(k,41) = C_cube*t1_subl*diffu(k)*ssati(k)*rvs &
                   *oig1*cig(5)*ni(k)*ilami
 
-           if (pri_ide(k) .lt. 0.0) then
-            pri_ide(k) = MAX(DBLE(-ri(k)*odts), pri_ide(k), DBLE(rate_max))
-            pni_ide(k) = pri_ide(k)*oxmi
-            pni_ide(k) = MAX(DBLE(-ni(k)*odts), pni_ide(k))
+           if (scratch_bank(k,41) .lt. 0.0) then
+            scratch_bank(k,41) = MAX(DBLE(-ri(k)*odts), scratch_bank(k,41), DBLE(rate_max))
+            scratch_bank(k,42) = scratch_bank(k,41)*oxmi
+            scratch_bank(k,42) = MAX(DBLE(-ni(k)*odts), scratch_bank(k,42))
            else
-            pri_ide(k) = MIN(pri_ide(k), DBLE(rate_max))
-            prs_ide(k) = (1.0D0-tpi_ide(idx_i,idx_i1))*pri_ide(k)
-            pri_ide(k) = tpi_ide(idx_i,idx_i1)*pri_ide(k)
+            scratch_bank(k,41) = MIN(scratch_bank(k,41), DBLE(rate_max))
+            scratch_bank(k,55) = (1.0D0-tpi_ide(idx_i,idx_i1))*scratch_bank(k,41)
+            scratch_bank(k,41) = tpi_ide(idx_i,idx_i1)*scratch_bank(k,41)
            endif
 
 !..Some cloud ice needs to move into the snow category.  Use lookup
 !.. table that resulted from explicit bin representation of distrib.
            if ( (idx_i.eq. ntb_i) .or. (xDi.gt. 5.0*D0s) ) then
-            prs_iau(k) = ri(k)*.99*odts
-            pni_iau(k) = ni(k)*.95*odts
+            scratch_bank(k,49) = ri(k)*.99*odts
+            scratch_bank(k,46) = ni(k)*.95*odts
            elseif (xDi.lt. 0.1*D0s) then
-            prs_iau(k) = 0.
-            pni_iau(k) = 0.
+            scratch_bank(k,49) = 0.
+            scratch_bank(k,46) = 0.
            else
-            prs_iau(k) = tps_iaus(idx_i,idx_i1)*odts
-            prs_iau(k) = MIN(DBLE(ri(k)*.99*odts), prs_iau(k))
-            pni_iau(k) = tni_iaus(idx_i,idx_i1)*odts
-            pni_iau(k) = MIN(DBLE(ni(k)*.95*odts), pni_iau(k))
+            scratch_bank(k,49) = tps_iaus(idx_i,idx_i1)*odts
+            scratch_bank(k,49) = MIN(DBLE(ri(k)*.99*odts), scratch_bank(k,49))
+            scratch_bank(k,46) = tni_iaus(idx_i,idx_i1)*odts
+            scratch_bank(k,46) = MIN(DBLE(ni(k)*.95*odts), scratch_bank(k,46))
            endif
           endif
 
@@ -2695,26 +2671,26 @@
           if (L_qs(k)) then
            C_snow = C_sqrd + (tempc+1.5)*(C_cube-C_sqrd)/(-30.+1.5)
            C_snow = MAX(C_sqrd, MIN(C_snow, C_cube))
-           prs_sde(k) = C_snow*t1_subl*diffu(k)*ssati(k)*rvs &
+           scratch_bank(k,53) = C_snow*t1_subl*diffu(k)*ssati(k)*rvs &
                         * (t1_qs_sd*smo1(k) &
                          + t2_qs_sd*rhof2(k)*vsc2(k)*smof(k))
-           if (prs_sde(k).lt. 0.) then
-            prs_sde(k) = MAX(DBLE(-rs(k)*odts), prs_sde(k), DBLE(rate_max))
+           if (scratch_bank(k,53).lt. 0.) then
+            scratch_bank(k,53) = MAX(DBLE(-rs(k)*odts), scratch_bank(k,53), DBLE(rate_max))
            else
-            prs_sde(k) = MIN(prs_sde(k), DBLE(rate_max))
+            scratch_bank(k,53) = MIN(scratch_bank(k,53), DBLE(rate_max))
            endif
           endif
 
           if (L_qg(k) .and. ssati(k).lt. -eps) then
            t2_qg_sd = 0.28*Sc3*SQRT(av_g(idx_bg(k))) * cgg(11,idx_bg(k))
-           prg_gde(k) = C_cube*t1_subl*diffu(k)*ssati(k)*rvs &
-               * N0_g(k) * (t1_qg_sd*ilamg(k)**cge(10,1) &
-               + t2_qg_sd*vsc2(k)*rhof2(k)*ilamg(k)**cge(11,idx_bg(k)))
-           if (prg_gde(k).lt. 0.) then
-            prg_gde(k) = MAX(DBLE(-rg(k)*odts), prg_gde(k), DBLE(rate_max))
-            png_gde(k) = prg_gde(k) * ng(k)/rg(k)
+           scratch_bank(k,58) = C_cube*t1_subl*diffu(k)*ssati(k)*rvs &
+               * scratch_bank(k,79) * (t1_qg_sd*scratch_bank(k,77)**cge(10,1) &
+               + t2_qg_sd*vsc2(k)*rhof2(k)*scratch_bank(k,77)**cge(11,idx_bg(k)))
+           if (scratch_bank(k,58).lt. 0.) then
+            scratch_bank(k,58) = MAX(DBLE(-rg(k)*odts), scratch_bank(k,58), DBLE(rate_max))
+            scratch_bank(k,67) = scratch_bank(k,58) * ng(k)/rg(k)
            else
-            prg_gde(k) = MIN(prg_gde(k), DBLE(rate_max))
+            scratch_bank(k,58) = MIN(scratch_bank(k,58), DBLE(rate_max))
            endif
           endif
 
@@ -2726,54 +2702,54 @@
            xmi = am_i*xDi**bm_i
            oxmi = 1./xmi
            if (rs(k).ge. r_s(1)) then
-            prs_sci(k) = t1_qs_qi*rhof(k)*Ef_si*ri(k)*smoe(k)
-            pni_sci(k) = prs_sci(k) * oxmi
+            scratch_bank(k,50) = t1_qs_qi*rhof(k)*Ef_si*ri(k)*smoe(k)
+            scratch_bank(k,45) = scratch_bank(k,50) * oxmi
            endif
 
 !..Rain collecting cloud ice.  In CE, assume Di<<Dr and vti=~0.
            if (rr(k).ge. r_r(1) .and. mvd_r(k).gt. 4.*xDi) then
-            lamr = 1./ilamr(k)
-            pri_rci(k) = rhof(k)*t1_qr_qi*Ef_ri*ri(k)*N0_r(k) &
+            lamr = 1./scratch_bank(k,76)
+            scratch_bank(k,43) = rhof(k)*t1_qr_qi*Ef_ri*ri(k)*scratch_bank(k,78) &
                            *((lamr+fv_r)**(-cre(9)))
-            pnr_rci(k) = rhof(k)*t1_qr_qi*Ef_ri*ni(k)*N0_r(k)           &   ! RAIN2M
+            scratch_bank(k,27) = rhof(k)*t1_qr_qi*Ef_ri*ni(k)*scratch_bank(k,78)           &   ! RAIN2M
                            *((lamr+fv_r)**(-cre(9)))
-            pnr_rci(k) = MIN(DBLE(nr(k)*odts), pnr_rci(k))
-            pni_rci(k) = pri_rci(k) * oxmi
-            prr_rci(k) = rhof(k)*t2_qr_qi*Ef_ri*ni(k)*N0_r(k) &
+            scratch_bank(k,27) = MIN(DBLE(nr(k)*odts), scratch_bank(k,27))
+            scratch_bank(k,44) = scratch_bank(k,43) * oxmi
+            scratch_bank(k,22) = rhof(k)*t2_qr_qi*Ef_ri*ni(k)*scratch_bank(k,78) &
                            *((lamr+fv_r)**(-cre(8)))
-            prr_rci(k) = MIN(DBLE(rr(k)*odts), prr_rci(k))
-            prg_rci(k) = pri_rci(k) + prr_rci(k)
-            pbg_rci(k) = prg_rci(k)/rho_i
+            scratch_bank(k,22) = MIN(DBLE(rr(k)*odts), scratch_bank(k,22))
+            scratch_bank(k,60) = scratch_bank(k,43) + scratch_bank(k,22)
+            scratch_bank(k,71) = scratch_bank(k,60)/rho_i
            endif
           endif
 
 !..Ice multiplication from rime-splinters (Hallet & Mossop 1974).
-          if (prg_gcw(k).gt. eps .and. tempc.gt.-8.0) then
+          if (scratch_bank(k,59).gt. eps .and. tempc.gt.-8.0) then
            tf = 0.
            if (tempc.ge.-5.0 .and. tempc.lt.-3.0) then
             tf = 0.5*(-3.0 - tempc)
            elseif (tempc.gt.-8.0 .and. tempc.lt.-5.0) then
             tf = 0.33333333*(8.0 + tempc)
            endif
-           pni_ihm(k) = 3.5E8*tf*prg_gcw(k)
-           pri_ihm(k) = xm0i*pni_ihm(k)
-           prs_ihm(k) = prs_scw(k)/(prs_scw(k)+prg_gcw(k)) &
-                          * pri_ihm(k)
-           prg_ihm(k) = prg_gcw(k)/(prs_scw(k)+prg_gcw(k)) &
-                          * pri_ihm(k)
+           scratch_bank(k,36) = 3.5E8*tf*scratch_bank(k,59)
+           scratch_bank(k,35) = xm0i*scratch_bank(k,36)
+           scratch_bank(k,54) = scratch_bank(k,52)/(scratch_bank(k,52)+scratch_bank(k,59)) &
+                          * scratch_bank(k,35)
+           scratch_bank(k,63) = scratch_bank(k,59)/(scratch_bank(k,52)+scratch_bank(k,59)) &
+                          * scratch_bank(k,35)
           endif
 
 !..A portion of rimed snow converts to graupel but some remains snow.
 !.. Interp from 15 to 95% as riming factor increases from 2.0 to 30.0
 !.. 0.028 came from (.95-.15)/(30.-2.).  This remains ad-hoc and should
 !.. be revisited.
-          if (prs_scw(k).gt.2.0*prs_sde(k) .and. &
-                         prs_sde(k).gt.eps) then
-           r_frac = MIN(30.0D0, prs_scw(k)/prs_sde(k))
+          if (scratch_bank(k,52).gt.2.0*scratch_bank(k,53) .and. &
+                         scratch_bank(k,53).gt.eps) then
+           r_frac = MIN(30.0D0, scratch_bank(k,52)/scratch_bank(k,53))
            g_frac = MIN(0.95, 0.15 + (r_frac-2.)*.028)
            vts_boost(k) = MIN(1.5, 1.1 + (r_frac-2.)*.014)
-           prg_scw(k) = g_frac*prs_scw(k)
-           png_scw(k) = prg_scw(k)*smo0(k)/rs(k)
+           scratch_bank(k,56) = g_frac*scratch_bank(k,52)
+           scratch_bank(k,66) = scratch_bank(k,56)*smo0(k)/rs(k)
 !..GT      png_scw(k) = prg_scw(k)*ns(k)/rs(k)
            vts = av_s*xDs**bv_s * EXP(-fv_s*xDs)
            const_Ri = -1.*(mvd_c(k)*0.5E6)*vts/MIN(-0.1,tempc)
@@ -2781,11 +2757,11 @@
            rime_dens = (0.051 + 0.114*const_Ri - 0.0055*const_Ri*const_Ri)*1000.
            if(rime_dens .lt. 150.) then                                  ! Idea of A. Jensen
               g_frac = 0.
-              prg_scw(k)=0.
-              png_scw(k)=0.
+              scratch_bank(k,56)=0.
+              scratch_bank(k,66)=0.
            endif
-           pbg_scw(k) = prg_scw(k)/(0.5*(rime_dens+rho_s))
-           prs_scw(k) = (1. - g_frac)*prs_scw(k)
+           scratch_bank(k,68) = scratch_bank(k,56)/(0.5*(rime_dens+rho_s))
+           scratch_bank(k,52) = (1. - g_frac)*scratch_bank(k,52)
           endif
 
          else
@@ -2793,55 +2769,55 @@
 !..Melt snow and graupel and enhance from collisions with liquid.
 !.. We also need to sublimate snow and graupel if subsaturated.
           if (L_qs(k)) then
-           prr_sml(k) = (tempc*tcond(k)-lvap0*diffu(k)*delQvs(k))       &
+           scratch_bank(k,20) = (tempc*tcond(k)-lvap0*diffu(k)*delQvs(k))       &
                       * (t1_qs_me*smo1(k) + t2_qs_me*rhof2(k)*vsc2(k)*smof(k))
-           if (prr_sml(k) .gt. 0.) then
-              prr_sml(k) = prr_sml(k) + 4218.*olfus*(twet(k)-T_0)       &
-                                      * (prr_rcs(k)+prs_scw(k))
+           if (scratch_bank(k,20) .gt. 0.) then
+              scratch_bank(k,20) = scratch_bank(k,20) + 4218.*olfus*(twet(k)-T_0)       &
+                                      * (scratch_bank(k,18)+scratch_bank(k,52))
            endif
-           prr_sml(k) = MIN(DBLE(rs(k)*odts), MAX(0.D0, prr_sml(k)))
+           scratch_bank(k,20) = MIN(DBLE(rs(k)*odts), MAX(0.D0, scratch_bank(k,20)))
 
-           if (prr_sml(k).gt.0.0) then
-              pnr_sml(k) = smo0(k)/rs(k)*prr_sml(k) * 10.0**(-0.25*(twet(k)-T_0))
+           if (scratch_bank(k,20).gt.0.0) then
+              scratch_bank(k,28) = smo0(k)/rs(k)*scratch_bank(k,20) * 10.0**(-0.25*(twet(k)-T_0))
            elseif (ssati(k).lt. 0.) then
-              prs_sde(k) = C_sqrd*t1_subl*diffu(k)*ssati(k)*rvs &
+              scratch_bank(k,53) = C_sqrd*t1_subl*diffu(k)*ssati(k)*rvs &
                          * (t1_qs_sd*smo1(k) &
                           + t2_qs_sd*rhof2(k)*vsc2(k)*smof(k))
-            prs_sde(k) = MAX(DBLE(-rs(k)*odts), prs_sde(k))
+            scratch_bank(k,53) = MAX(DBLE(-rs(k)*odts), scratch_bank(k,53))
            endif
           endif
 
           if (L_qg(k)) then
-           N0_melt = N0_g(k)
+           N0_melt = scratch_bank(k,79)
            if ((rg(k)*ng(k)) .lt. 1.E-4) then
-              lamg = 1./ilamg(k)
+              lamg = 1./scratch_bank(k,77)
               N0_melt = (1.E-4/rg(k))*ogg2*lamg**cge(2,1)
            endif
            t2_qg_me = PI*4.*C_cube*olfus * 0.28*Sc3*SQRT(av_g(idx_bg(k))) * cgg(11,idx_bg(k))
-           prr_gml(k) = (tempc*tcond(k)-lvap0*diffu(k)*delQvs(k))       &
-                      * N0_melt*(t1_qg_me*ilamg(k)**cge(10,1)           &
-                      + t2_qg_me*rhof2(k)*vsc2(k)*ilamg(k)**cge(11,idx_bg(k)))
+           scratch_bank(k,21) = (tempc*tcond(k)-lvap0*diffu(k)*delQvs(k))       &
+                      * N0_melt*(t1_qg_me*scratch_bank(k,77)**cge(10,1)           &
+                      + t2_qg_me*rhof2(k)*vsc2(k)*scratch_bank(k,77)**cge(11,idx_bg(k)))
 !          if (prr_gml(k) .gt. 0.) then
 !             prr_gml(k) = prr_gml(k) + 4218.*olfus*(twet(k)-T_0)       &
 !                                     * (prr_rcg(k)+prg_gcw(k))
 !          endif
-           prr_gml(k) = MIN(DBLE(rg(k)*odts), MAX(0.D0, prr_gml(k)))
+           scratch_bank(k,21) = MIN(DBLE(rg(k)*odts), MAX(0.D0, scratch_bank(k,21)))
 !           pnr_gml(k) = N0_g(k)*cgg(2)*ilamg(k)**cge(2) / rg(k)         &   ! RAIN2M
 !                      * prr_gml(k) * 10.0**(-0.5*tempc)
 
-           if (prr_gml(k) .gt. 0.0) then
-            melt_f = MAX(0.05, MIN(prr_gml(k)*dt/rg(k),1.0))
+           if (scratch_bank(k,21) .gt. 0.0) then
+            melt_f = MAX(0.05, MIN(scratch_bank(k,21)*dt/rg(k),1.0))
             !..1000 is density water, 50 is lower limit (max ice density is 800)
-            pbg_gml(k) = prr_gml(k) / MAX(MIN(melt_f*rho_g(idx_bg(k)),1000.),50.)
+            scratch_bank(k,75) = scratch_bank(k,21) / MAX(MIN(melt_f*rho_g(idx_bg(k)),1000.),50.)
 !-GT        pnr_gml(k) = prr_gml(k)*ng(k)/rg(k)
-            pnr_gml(k) = prr_gml(k)*ng(k)/rg(k) * 10.0**(-0.33*(twet(k)-T_0))
+            scratch_bank(k,29) = scratch_bank(k,21)*ng(k)/rg(k) * 10.0**(-0.33*(twet(k)-T_0))
            elseif (ssati(k).lt. 0.) then
             t2_qg_sd = 0.28*Sc3*SQRT(av_g(idx_bg(k))) * cgg(11,idx_bg(k))
-            prg_gde(k) = C_cube*t1_subl*diffu(k)*ssati(k)*rvs &
-                * N0_g(k) * (t1_qg_sd*ilamg(k)**cge(10,1) &
-                + t2_qg_sd*vsc2(k)*rhof2(k)*ilamg(k)**cge(11,idx_bg(k)))
-            prg_gde(k) = MAX(DBLE(-rg(k)*odts), prg_gde(k))
-            png_gde(k) = prg_gde(k) * ng(k)/rg(k)
+            scratch_bank(k,58) = C_cube*t1_subl*diffu(k)*ssati(k)*rvs &
+                * scratch_bank(k,79) * (t1_qg_sd*scratch_bank(k,77)**cge(10,1) &
+                + t2_qg_sd*vsc2(k)*rhof2(k)*scratch_bank(k,77)**cge(11,idx_bg(k)))
+            scratch_bank(k,58) = MAX(DBLE(-rg(k)*odts), scratch_bank(k,58))
+            scratch_bank(k,67) = scratch_bank(k,58) * ng(k)/rg(k)
            endif
           endif
 
@@ -2850,9 +2826,9 @@
 !.. collection by snow/graupel above melting temperature.
 !.. Credit to Bjorn-Egil Nygaard for discovering.
           if (dt .gt. 120.) then
-             prr_rcw(k)=prr_rcw(k)+prs_scw(k)+prg_gcw(k)
-             prs_scw(k)=0.
-             prg_gcw(k)=0.
+             scratch_bank(k,17)=scratch_bank(k,17)+scratch_bank(k,52)+scratch_bank(k,59)
+             scratch_bank(k,52)=0.
+             scratch_bank(k,59)=0.
           endif
 
          endif
@@ -2871,94 +2847,94 @@
 !.. deplete more vapor than possibly exists.  If subsaturated, limit
 !.. sum of sublimation terms such that vapor does not reproduce ice
 !.. supersat again.
-         sump = pri_inu(k) + pri_ide(k) + prs_ide(k) &
-              + prs_sde(k) + prg_gde(k) + pri_iha(k)
+         sump = scratch_bank(k,33) + scratch_bank(k,41) + scratch_bank(k,55) &
+              + scratch_bank(k,53) + scratch_bank(k,58) + scratch_bank(k,47)
          rate_max = (qv(k)-qvsi(k))*rho(k)*odts*0.999
          if ( (sump.gt. eps .and. sump.gt. rate_max) .or. &
               (sump.lt. -eps .and. sump.lt. rate_max) ) then
           ratio = rate_max/sump
-          pri_inu(k) = pri_inu(k) * ratio
-          pri_ide(k) = pri_ide(k) * ratio
-          pni_ide(k) = pni_ide(k) * ratio
-          prs_ide(k) = prs_ide(k) * ratio
-          prs_sde(k) = prs_sde(k) * ratio
-          prg_gde(k) = prg_gde(k) * ratio
-          pri_iha(k) = pri_iha(k) * ratio
+          scratch_bank(k,33) = scratch_bank(k,33) * ratio
+          scratch_bank(k,41) = scratch_bank(k,41) * ratio
+          scratch_bank(k,42) = scratch_bank(k,42) * ratio
+          scratch_bank(k,55) = scratch_bank(k,55) * ratio
+          scratch_bank(k,53) = scratch_bank(k,53) * ratio
+          scratch_bank(k,58) = scratch_bank(k,58) * ratio
+          scratch_bank(k,47) = scratch_bank(k,47) * ratio
          endif
 
 !..Cloud water conservation.
-         sump = -prr_wau(k) - pri_wfz(k) - prr_rcw(k) &
-                - prs_scw(k) - prg_scw(k) - prg_gcw(k)
+         sump = -scratch_bank(k,16) - scratch_bank(k,37) - scratch_bank(k,17) &
+                - scratch_bank(k,52) - scratch_bank(k,56) - scratch_bank(k,59)
          rate_max = -rc(k)*odts
          if (sump.lt. rate_max .and. L_qc(k)) then
           ratio = rate_max/sump
-          prr_wau(k) = prr_wau(k) * ratio
-          pri_wfz(k) = pri_wfz(k) * ratio
-          prr_rcw(k) = prr_rcw(k) * ratio
-          prs_scw(k) = prs_scw(k) * ratio
-          prg_scw(k) = prg_scw(k) * ratio
-          prg_gcw(k) = prg_gcw(k) * ratio
+          scratch_bank(k,16) = scratch_bank(k,16) * ratio
+          scratch_bank(k,37) = scratch_bank(k,37) * ratio
+          scratch_bank(k,17) = scratch_bank(k,17) * ratio
+          scratch_bank(k,52) = scratch_bank(k,52) * ratio
+          scratch_bank(k,56) = scratch_bank(k,56) * ratio
+          scratch_bank(k,59) = scratch_bank(k,59) * ratio
          endif
 
 !..Cloud ice conservation.
-         sump = pri_ide(k) - prs_iau(k) - prs_sci(k) &
-                - pri_rci(k)
+         sump = scratch_bank(k,41) - scratch_bank(k,49) - scratch_bank(k,50) &
+                - scratch_bank(k,43)
          rate_max = -ri(k)*odts
          if (sump.lt. rate_max .and. L_qi(k)) then
           ratio = rate_max/sump
-          pri_ide(k) = pri_ide(k) * ratio
-          prs_iau(k) = prs_iau(k) * ratio
-          prs_sci(k) = prs_sci(k) * ratio
-          pri_rci(k) = pri_rci(k) * ratio
+          scratch_bank(k,41) = scratch_bank(k,41) * ratio
+          scratch_bank(k,49) = scratch_bank(k,49) * ratio
+          scratch_bank(k,50) = scratch_bank(k,50) * ratio
+          scratch_bank(k,43) = scratch_bank(k,43) * ratio
          endif
 
 !..Rain conservation.
-         sump = -prg_rfz(k) - pri_rfz(k) - prr_rci(k) &
-                + prr_rcs(k) + prr_rcg(k)
+         sump = -scratch_bank(k,57) - scratch_bank(k,39) - scratch_bank(k,22) &
+                + scratch_bank(k,18) + scratch_bank(k,19)
          rate_max = -rr(k)*odts
          if (sump.lt. rate_max .and. L_qr(k)) then
           ratio = rate_max/sump
-          prg_rfz(k) = prg_rfz(k) * ratio
-          pri_rfz(k) = pri_rfz(k) * ratio
-          prr_rci(k) = prr_rci(k) * ratio
-          prr_rcs(k) = prr_rcs(k) * ratio
-          prr_rcg(k) = prr_rcg(k) * ratio
+          scratch_bank(k,57) = scratch_bank(k,57) * ratio
+          scratch_bank(k,39) = scratch_bank(k,39) * ratio
+          scratch_bank(k,22) = scratch_bank(k,22) * ratio
+          scratch_bank(k,18) = scratch_bank(k,18) * ratio
+          scratch_bank(k,19) = scratch_bank(k,19) * ratio
          endif
 
 !..Snow conservation.
-         sump = prs_sde(k) - prs_ihm(k) - prr_sml(k) &
-                + prs_rcs(k)
+         sump = scratch_bank(k,53) - scratch_bank(k,54) - scratch_bank(k,20) &
+                + scratch_bank(k,51)
          rate_max = -rs(k)*odts
          if (sump.lt. rate_max .and. L_qs(k)) then
           ratio = rate_max/sump
-          prs_sde(k) = prs_sde(k) * ratio
-          prs_ihm(k) = prs_ihm(k) * ratio
-          prr_sml(k) = prr_sml(k) * ratio
-          prs_rcs(k) = prs_rcs(k) * ratio
+          scratch_bank(k,53) = scratch_bank(k,53) * ratio
+          scratch_bank(k,54) = scratch_bank(k,54) * ratio
+          scratch_bank(k,20) = scratch_bank(k,20) * ratio
+          scratch_bank(k,51) = scratch_bank(k,51) * ratio
          endif
 
 !..Graupel conservation.
-         sump = prg_gde(k) - prg_ihm(k) - prr_gml(k) &
-              + prg_rcg(k)
+         sump = scratch_bank(k,58) - scratch_bank(k,63) - scratch_bank(k,21) &
+              + scratch_bank(k,62)
          rate_max = -rg(k)*odts
          if (sump.lt. rate_max .and. L_qg(k)) then
           ratio = rate_max/sump
-          prg_gde(k) = prg_gde(k) * ratio
-          prg_ihm(k) = prg_ihm(k) * ratio
-          prr_gml(k) = prr_gml(k) * ratio
-          prg_rcg(k) = prg_rcg(k) * ratio
+          scratch_bank(k,58) = scratch_bank(k,58) * ratio
+          scratch_bank(k,63) = scratch_bank(k,63) * ratio
+          scratch_bank(k,21) = scratch_bank(k,21) * ratio
+          scratch_bank(k,62) = scratch_bank(k,62) * ratio
          endif
 
 !..Re-enforce proper mass conservation for subsequent elements in case
 !.. any of the above terms were altered.  Thanks P. Blossey. 2009Sep28
-         pri_ihm(k) = prs_ihm(k) + prg_ihm(k)
-         ratio = MIN( ABS(prr_rcg(k)), ABS(prg_rcg(k)) )
-         prr_rcg(k) = ratio * SIGN(1.0, SNGL(prr_rcg(k)))
-         prg_rcg(k) = -prr_rcg(k)
+         scratch_bank(k,35) = scratch_bank(k,54) + scratch_bank(k,63)
+         ratio = MIN( ABS(scratch_bank(k,19)), ABS(scratch_bank(k,62)) )
+         scratch_bank(k,19) = ratio * SIGN(1.0, SNGL(scratch_bank(k,19)))
+         scratch_bank(k,62) = -scratch_bank(k,19)
          if (twet(k).gt.T_0) then
-            ratio = MIN( ABS(prr_rcs(k)), ABS(prs_rcs(k)) )
-            prr_rcs(k) = ratio * SIGN(1.0, SNGL(prr_rcs(k)))
-            prs_rcs(k) = -prr_rcs(k)
+            ratio = MIN( ABS(scratch_bank(k,18)), ABS(scratch_bank(k,51)) )
+            scratch_bank(k,18) = ratio * SIGN(1.0, SNGL(scratch_bank(k,18)))
+            scratch_bank(k,51) = -scratch_bank(k,18)
          endif
 
       enddo
@@ -2973,37 +2949,37 @@
 
 !..Aerosol number tendency
          if (is_aerosol_aware) then
-            nwfaten(k) = nwfaten(k) - (pna_rca(k) + pna_sca(k)          &
-                       + pna_gca(k) + pni_iha(k)) * orho
-            nifaten(k) = nifaten(k) - (pnd_rcd(k) + pnd_scd(k)          &
-                       + pnd_gcd(k)) * orho
+            nwfaten(k) = nwfaten(k) - (scratch_bank(k,7) + scratch_bank(k,8)          &
+                       + scratch_bank(k,9) + scratch_bank(k,48)) * orho
+            nifaten(k) = nifaten(k) - (scratch_bank(k,10) + scratch_bank(k,11)          &
+                       + scratch_bank(k,12)) * orho
             if (wif_input_opt .eq. 2) then
-               nbcaten(k) = nbcaten(k) - (pnb_rcb(k) + pnb_scb(k)       &
-                          + pnb_gcb(k)) * orho
+               nbcaten(k) = nbcaten(k) - (scratch_bank(k,13) + scratch_bank(k,14)       &
+                          + scratch_bank(k,15)) * orho
             else
                nbcaten(k) = 0.0
             endif
             if (dustyIce) then
-               nifaten(k) = nifaten(k) - pni_inu(k)*orho
+               nifaten(k) = nifaten(k) - scratch_bank(k,34)*orho
             else
                nifaten(k) = 0.
             endif
          endif
 
 !..Water vapor tendency
-         qvten(k) = qvten(k) + (-pri_inu(k) - pri_iha(k) - pri_ide(k)   &
-                      - prs_ide(k) - prs_sde(k) - prg_gde(k)) &
+         qvten(k) = qvten(k) + (-scratch_bank(k,33) - scratch_bank(k,47) - scratch_bank(k,41)   &
+                      - scratch_bank(k,55) - scratch_bank(k,53) - scratch_bank(k,58)) &
                       * orho
 
 !..Cloud water tendency
-         qcten(k) = qcten(k) + (-prr_wau(k) - pri_wfz(k) &
-                      - prr_rcw(k) - prs_scw(k) - prg_scw(k) &
-                      - prg_gcw(k)) &
+         qcten(k) = qcten(k) + (-scratch_bank(k,16) - scratch_bank(k,37) &
+                      - scratch_bank(k,17) - scratch_bank(k,52) - scratch_bank(k,56) &
+                      - scratch_bank(k,59)) &
                       * orho
 
 !..Cloud water number tendency
-         ncten(k) = ncten(k) + (-pnc_wau(k) - pnc_rcw(k) &
-                      - pni_wfz(k) - pnc_scw(k) - pnc_gcw(k)) &
+         ncten(k) = ncten(k) + (-scratch_bank(k,3) - scratch_bank(k,4) &
+                      - scratch_bank(k,38) - scratch_bank(k,5) - scratch_bank(k,6)) &
                       * orho
 
 !..Cloud water mass/number balance; keep mass-wt mean size between
@@ -3031,15 +3007,15 @@
                 ncten(k) = (Nt_c_max-nc1d(k)*rho(k))*odts*orho
 
 !..Cloud ice mixing ratio tendency
-         qiten(k) = qiten(k) + (pri_inu(k) + pri_iha(k) + pri_ihm(k)    &
-                      + pri_wfz(k) + pri_rfz(k) + pri_ide(k) &
-                      - prs_iau(k) - prs_sci(k) - pri_rci(k)) &
+         qiten(k) = qiten(k) + (scratch_bank(k,33) + scratch_bank(k,47) + scratch_bank(k,35)    &
+                      + scratch_bank(k,37) + scratch_bank(k,39) + scratch_bank(k,41) &
+                      - scratch_bank(k,49) - scratch_bank(k,50) - scratch_bank(k,43)) &
                       * orho
 
 !..Cloud ice number tendency.
-         niten(k) = niten(k) + (pni_inu(k) + pni_iha(k) + pni_ihm(k)    &
-                      + pni_wfz(k) + pni_rfz(k) + pni_ide(k) &
-                      - pni_iau(k) - pni_sci(k) - pni_rci(k)) &
+         niten(k) = niten(k) + (scratch_bank(k,34) + scratch_bank(k,48) + scratch_bank(k,36)    &
+                      + scratch_bank(k,38) + scratch_bank(k,40) + scratch_bank(k,42) &
+                      - scratch_bank(k,46) - scratch_bank(k,45) - scratch_bank(k,44)) &
                       * orho
 
 !..Cloud ice mass/number balance; keep mass-wt mean size between
@@ -3067,16 +3043,16 @@
                 niten(k) = (999.E3-ni1d(k)*rho(k))*odts*orho
 
 !..Rain tendency
-         qrten(k) = qrten(k) + (prr_wau(k) + prr_rcw(k) &
-                      + prr_sml(k) + prr_gml(k) + prr_rcs(k) &
-                      + prr_rcg(k) - prg_rfz(k) &
-                      - pri_rfz(k) - prr_rci(k)) &
+         qrten(k) = qrten(k) + (scratch_bank(k,16) + scratch_bank(k,17) &
+                      + scratch_bank(k,20) + scratch_bank(k,21) + scratch_bank(k,18) &
+                      + scratch_bank(k,19) - scratch_bank(k,57) &
+                      - scratch_bank(k,39) - scratch_bank(k,22)) &
                       * orho
 
 !..Rain number tendency
-         nrten(k) = nrten(k) + (pnr_wau(k) + pnr_sml(k) + pnr_gml(k)    &
-                      - (pnr_rfz(k) + pnr_rcr(k) + pnr_rcg(k)           &
-                      + pnr_rcs(k) + pnr_rci(k) + pni_rfz(k)) )         &
+         nrten(k) = nrten(k) + (scratch_bank(k,24) + scratch_bank(k,28) + scratch_bank(k,29)    &
+                      - (scratch_bank(k,32) + scratch_bank(k,31) + scratch_bank(k,26)           &
+                      + scratch_bank(k,25) + scratch_bank(k,27) + scratch_bank(k,40)) )         &
                       * orho
 
 !..Rain mass/number balance; keep median volume diameter between
@@ -3103,28 +3079,28 @@
          endif
 
 !..Snow tendency
-         qsten(k) = qsten(k) + (prs_iau(k) + prs_sde(k) + prs_sci(k)    &
-                      + prs_scw(k) + prs_rcs(k) + prs_ide(k)            &
-                      - prs_ihm(k) - prr_sml(k))                        &
+         qsten(k) = qsten(k) + (scratch_bank(k,49) + scratch_bank(k,53) + scratch_bank(k,50)    &
+                      + scratch_bank(k,52) + scratch_bank(k,51) + scratch_bank(k,55)            &
+                      - scratch_bank(k,54) - scratch_bank(k,20))                        &
                       * orho
 
 !..Graupel tendency
-         qgten(k) = qgten(k) + (prg_scw(k) + prg_rfz(k) &
-                      + prg_gde(k) + prg_rcg(k) + prg_gcw(k) &
-                      + prg_rci(k) + prg_rcs(k) - prg_ihm(k) &
-                      - prr_gml(k))                          &
+         qgten(k) = qgten(k) + (scratch_bank(k,56) + scratch_bank(k,57) &
+                      + scratch_bank(k,58) + scratch_bank(k,62) + scratch_bank(k,59) &
+                      + scratch_bank(k,60) + scratch_bank(k,61) - scratch_bank(k,63) &
+                      - scratch_bank(k,21))                          &
                       * orho
 
 !..Graupel number tendency
-         ngten(k) = ngten(k) + (png_scw(k) + pnr_rfz(k) - png_rcg(k)    &
-                      + pnr_rci(k) + png_rcs(k) + png_gde(k)            &
-                      - pnr_gml(k)) * orho
+         ngten(k) = ngten(k) + (scratch_bank(k,66) + scratch_bank(k,32) - scratch_bank(k,65)    &
+                      + scratch_bank(k,27) + scratch_bank(k,64) + scratch_bank(k,67)            &
+                      - scratch_bank(k,29)) * orho
 
 !..Graupel volume mixing ratio tendency
-         qbten(k) = qbten(k) + (pbg_scw(k) + pbg_rfz(k)                 &
-                      + pbg_gcw(k) + pbg_rci(k) + pbg_rcs(k)            &
-                      + pbg_rcg(k) + pbg_sml(k) - pbg_gml(k)            &
-                      + (prg_gde(k) - prg_ihm(k)) /rho_g(idx_bg(k)) )   &
+         qbten(k) = qbten(k) + (scratch_bank(k,68) + scratch_bank(k,69)                 &
+                      + scratch_bank(k,70) + scratch_bank(k,71) + scratch_bank(k,72)            &
+                      + scratch_bank(k,73) + scratch_bank(k,74) - scratch_bank(k,75)            &
+                      + (scratch_bank(k,58) - scratch_bank(k,63)) /rho_g(idx_bg(k)) )   &
                       * orho
 
 !..Graupel mass/number balance; keep its median volume diameter between
@@ -3146,11 +3122,11 @@
            vtg2 = rhof(k)*afall*cgg(7,idx_bg(k))/cgg(12,idx_bg(k)) / lamg**bfall
          write(mp_debug, *) 'DEBUG: xrg, xng, xrb, ns, idx_bg, rho_g, mvd, vtg: ', k, xrg, xng, xrb, ns(k), idx_bg(k), xrg/rho(k)/xrb, mvd_g(k)*1000., vtg1, vtg2
          CALL wrf_debug(0, mp_debug)
-         write(mp_debug, *) 'DEBUG: qgten: ', qgten(k), prg_scw(k), prg_rfz(k), prg_gde(k), prg_rcg(k), prg_gcw(k), prg_rci(k), prg_rcs(k), prg_ihm(k), prr_gml(k)
+         write(mp_debug, *) 'DEBUG: qgten: ', qgten(k), scratch_bank(k,56), scratch_bank(k,57), scratch_bank(k,58), scratch_bank(k,62), scratch_bank(k,59), scratch_bank(k,60), scratch_bank(k,61), scratch_bank(k,63), scratch_bank(k,21)
          CALL wrf_debug(0, mp_debug)
-         write(mp_debug, *) 'DEBUG: ngten: ', ngten(k), png_scw(k), pnr_rfz(k), png_rcg(k), pnr_rci(k), png_rcs(k), pnr_gml(k)
+         write(mp_debug, *) 'DEBUG: ngten: ', ngten(k), scratch_bank(k,66), scratch_bank(k,32), scratch_bank(k,65), scratch_bank(k,27), scratch_bank(k,64), scratch_bank(k,29)
          CALL wrf_debug(0, mp_debug)
-         write(mp_debug, *) 'DEBUG: qbten: ', qbten(k), pbg_scw(k), pbg_rfz(k), pbg_gcw(k), pbg_rci(k), pbg_rcs(k), pbg_rcg(k), pbg_sml(k), pbg_gml(k)
+         write(mp_debug, *) 'DEBUG: qbten: ', qbten(k), scratch_bank(k,68), scratch_bank(k,69), scratch_bank(k,70), scratch_bank(k,71), scratch_bank(k,72), scratch_bank(k,73), scratch_bank(k,74), scratch_bank(k,75)
          CALL wrf_debug(0, mp_debug)
       endif
 
@@ -3175,20 +3151,20 @@
 !..Temperature tendency
          if (temp(k).lt.T_0) then
           tten(k) = tten(k) &
-                    + ( lsub*ocp(k)*(pri_inu(k) + pri_ide(k) &
-                                     + prs_ide(k) + prs_sde(k) &
-                                     + prg_gde(k) + pri_iha(k)) &
-                     + lfus2*ocp(k)*(pri_wfz(k) + pri_rfz(k) &
-                                     + prg_rfz(k) + prs_scw(k) &
-                                     + prg_scw(k) + prg_gcw(k) &
-                                     + prg_rcs(k) + prs_rcs(k) &
-                                     + prr_rci(k) + prg_rcg(k)) &
+                    + ( lsub*ocp(k)*(scratch_bank(k,33) + scratch_bank(k,41) &
+                                     + scratch_bank(k,55) + scratch_bank(k,53) &
+                                     + scratch_bank(k,58) + scratch_bank(k,47)) &
+                     + lfus2*ocp(k)*(scratch_bank(k,37) + scratch_bank(k,39) &
+                                     + scratch_bank(k,57) + scratch_bank(k,52) &
+                                     + scratch_bank(k,56) + scratch_bank(k,59) &
+                                     + scratch_bank(k,61) + scratch_bank(k,51) &
+                                     + scratch_bank(k,22) + scratch_bank(k,62)) &
                        )*orho * (1-IFDRY)
          else
           tten(k) = tten(k) &
-                    + ( lfus*ocp(k)*(-prr_sml(k) - prr_gml(k) &
-                                     - prr_rcg(k) - prr_rcs(k)) &
-                      + lsub*ocp(k)*(prs_sde(k) + prg_gde(k)) &
+                    + ( lfus*ocp(k)*(-scratch_bank(k,20) - scratch_bank(k,21) &
+                                     - scratch_bank(k,19) - scratch_bank(k,18)) &
+                      + lsub*ocp(k)*(scratch_bank(k,53) + scratch_bank(k,58)) &
                        )*orho * (1-IFDRY)
          endif
 
@@ -3384,8 +3360,8 @@
 
       do k = kte, kts, -1
          lamg = (am_g(idx_bg(k))*cgg(3,1)*ogg2*ng(k)/rg(k))**obmg
-         ilamg(k) = 1./lamg
-         N0_g(k) = ng(k)*ogg2*lamg**cge(2,1)
+         scratch_bank(k,77) = 1./lamg
+         scratch_bank(k,79) = ng(k)*ogg2*lamg**cge(2,1)
       enddo
 
       endif
@@ -3395,9 +3371,9 @@
 !+---+-----------------------------------------------------------------+
       do k = kte, kts, -1
          lamr = (am_r*crg(3)*org2*nr(k)/rr(k))**obmr
-         ilamr(k) = 1./lamr
+         scratch_bank(k,76) = 1./lamr
          mvd_r(k) = (3.0 + mu_r + 0.672) / lamr
-         N0_r(k) = nr(k)*org2*lamr**cre(2)
+         scratch_bank(k,78) = nr(k)*org2*lamr**cre(2)
       enddo
 
 !+---+-----------------------------------------------------------------+
@@ -3421,7 +3397,7 @@
           xrc = rc(k) + clap*rho(k)
           xnc = 0.
           if (xrc.gt. R1) then
-           prw_vcd(k) = clap*odt
+           scratch_bank(k,1) = clap*odt
 !+---+-----------------------------------------------------------------+ !  DROPLET NUCLEATION
            if (clap .gt. eps) then
             if (is_aerosol_aware) then
@@ -3429,7 +3405,7 @@
             else
                xnc = Nt_c
             endif
-            pnc_wcd(k) = 0.5*(xnc-nc(k) + abs(xnc-nc(k)))*odts*orho
+            scratch_bank(k,2) = 0.5*(xnc-nc(k) + abs(xnc-nc(k)))*odts*orho
 
 !+---+-----------------------------------------------------------------+ !  EVAPORATION
            elseif (clap .lt. -eps .AND. ssatw(k).lt.-1.E-6 .AND. is_aerosol_aware) then
@@ -3476,23 +3452,23 @@
 
            !prw_vcd(k) = MAX(DBLE(-rc(k)*orho*odt),                     &
            !           -tpc_wev(idx_d, idx_c, idx_n)*orho*odt)
-            prw_vcd(k) = MAX(DBLE(-rc(k)*0.99*orho*odt), prw_vcd(k))
-            pnc_wcd(k) = MAX(DBLE(-nc(k)*0.99*orho*odt),                &
+            scratch_bank(k,1) = MAX(DBLE(-rc(k)*0.99*orho*odt), scratch_bank(k,1))
+            scratch_bank(k,2) = MAX(DBLE(-nc(k)*0.99*orho*odt),                &
                          DBLE(-tnc_wev(idx_d, idx_c, idx_n)*orho*odt))
 
            endif
           else
-           prw_vcd(k) = -rc(k)*orho*odt
-           pnc_wcd(k) = -nc(k)*orho*odt
+           scratch_bank(k,1) = -rc(k)*orho*odt
+           scratch_bank(k,2) = -nc(k)*orho*odt
           endif
 
 !+---+-----------------------------------------------------------------+
 
-          qvten(k) = qvten(k) - prw_vcd(k)
-          qcten(k) = qcten(k) + prw_vcd(k)
-          ncten(k) = ncten(k) + pnc_wcd(k)
-          nwfaten(k) = nwfaten(k) - pnc_wcd(k)
-          tten(k) = tten(k) + lvap(k)*ocp(k)*prw_vcd(k)*(1-IFDRY)
+          qvten(k) = qvten(k) - scratch_bank(k,1)
+          qcten(k) = qcten(k) + scratch_bank(k,1)
+          ncten(k) = ncten(k) + scratch_bank(k,2)
+          nwfaten(k) = nwfaten(k) - scratch_bank(k,2)
+          tten(k) = tten(k) + lvap(k)*ocp(k)*scratch_bank(k,1)*(1-IFDRY)
           rc(k) = MAX(R1, (qc1d(k) + DT*qcten(k))*rho(k))
           if (rc(k).eq.R1) L_qc(k) = .false.
           nc(k) = MAX(2., MIN((nc1d(k)+ncten(k)*DT)*rho(k), Nt_c_max))
@@ -3511,7 +3487,7 @@
 !+---+-----------------------------------------------------------------+
       do k = kts, kte
          if ( (ssatw(k).lt. -eps) .and. L_qr(k) &
-                     .and. (.not.(prw_vcd(k).gt. 0.)) ) then
+                     .and. (.not.(scratch_bank(k,1).gt. 0.)) ) then
           tempc = temp(k) - 273.15
           otemp = 1./temp(k)
           orho = 1./rho(k)
@@ -3544,16 +3520,16 @@
                  - 5.*alphsc*alphsc*alphsc*xsat*xsat*xsat ) &
                  / (1.+gamsc)
 
-          lamr = 1./ilamr(k)
+          lamr = 1./scratch_bank(k,76)
 !..Rapidly eliminate near zero values when low humidity (<95%)
           if (qv(k)/qvs(k) .lt. 0.95 .AND. rr(k)*orho.le.1.E-8) then
-          prv_rev(k) = rr(k)*orho*odts
+          scratch_bank(k,23) = rr(k)*orho*odts
           else
-          prv_rev(k) = t1_evap*diffu(k)*(-ssatw(k))*N0_r(k)*rvs &
-              * (t1_qr_ev*ilamr(k)**cre(10) &
+          scratch_bank(k,23) = t1_evap*diffu(k)*(-ssatw(k))*scratch_bank(k,78)*rvs &
+              * (t1_qr_ev*scratch_bank(k,76)**cre(10) &
               + t2_qr_ev*vsc2(k)*rhof2(k)*((lamr+0.5*fv_r)**(-cre(11))))
           rate_max = MIN((rr(k)*orho*odts), (qvs(k)-qv(k))*odts)
-          prv_rev(k) = MIN(DBLE(rate_max), prv_rev(k)*orho)
+          scratch_bank(k,23) = MIN(DBLE(rate_max), scratch_bank(k,23)*orho)
 
 !..TEST: G. Thompson  10 May 2013
 !..Reduce the rain evaporation in same places as melting graupel occurs.
@@ -3562,20 +3538,20 @@
 !..at 0C.  Also not much shedding of the water from the graupel so
 !..likely that the water-coated graupel evaporating much slower than
 !..if the water was immediately shed off.
-          IF (prr_gml(k).gt.0.0) THEN
+          IF (scratch_bank(k,21).gt.0.0) THEN
              eva_factor = MIN(1.0, 0.01+(0.99-0.01)*(tempc/20.0))
-             prv_rev(k) = prv_rev(k)*eva_factor
+             scratch_bank(k,23) = scratch_bank(k,23)*eva_factor
           ENDIF
           endif
 
-          pnr_rev(k) = MIN(DBLE(nr(k)*0.99*orho*odts),                  &   ! RAIN2M
-                       prv_rev(k) * nr(k)/rr(k))
+          scratch_bank(k,30) = MIN(DBLE(nr(k)*0.99*orho*odts),                  &   ! RAIN2M
+                       scratch_bank(k,23) * nr(k)/rr(k))
 
-          qrten(k) = qrten(k) - prv_rev(k)
-          qvten(k) = qvten(k) + prv_rev(k)
-          nrten(k) = nrten(k) - pnr_rev(k)
-          nwfaten(k) = nwfaten(k) + pnr_rev(k)
-          tten(k) = tten(k) - lvap(k)*ocp(k)*prv_rev(k)*(1-IFDRY)
+          qrten(k) = qrten(k) - scratch_bank(k,23)
+          qvten(k) = qvten(k) + scratch_bank(k,23)
+          nrten(k) = nrten(k) - scratch_bank(k,30)
+          nwfaten(k) = nwfaten(k) + scratch_bank(k,30)
+          tten(k) = tten(k) - lvap(k)*ocp(k)*scratch_bank(k,23)*(1-IFDRY)
 
           rr(k) = MAX(R1, (qr1d(k) + DT*qrten(k))*rho(k))
           qv(k) = MAX(1.E-10, qv1d(k) + DT*qvten(k))
@@ -3587,12 +3563,12 @@
 #if ( WRF_CHEM == 1 )
       if( wetscav_on ) then
         do k = kts, kte
-          evapprod(k) = prv_rev(k) - (min(zeroD0,prs_sde(k)) + &
-                                      min(zeroD0,prg_gde(k)))
-          rainprod(k) = prr_wau(k) + prr_rcw(k) + prs_scw(k) + &
-                                     prg_scw(k) + prs_iau(k) + &
-                                     prg_gcw(k) + prs_sci(k) + &
-                                     pri_rci(k)
+          evapprod(k) = scratch_bank(k,23) - (min(zeroD0,scratch_bank(k,53)) + &
+                                      min(zeroD0,scratch_bank(k,58)))
+          rainprod(k) = scratch_bank(k,16) + scratch_bank(k,17) + scratch_bank(k,52) + &
+                                     scratch_bank(k,56) + scratch_bank(k,49) + &
+                                     scratch_bank(k,59) + scratch_bank(k,50) + &
+                                     scratch_bank(k,43)
         enddo
       endif
 #endif
@@ -3731,7 +3707,7 @@
            t3_vts = Kap0*csg(1)*ils1**cse(1)
            t4_vts = Kap1*Mrat**mu_s*csg(7)*ils2**cse(7)
            vts = rhof(k)*av_s * (t1_vts+t2_vts)/(t3_vts+t4_vts)
-           if (prr_sml(k) .gt. 0.0) then 
+           if (scratch_bank(k,20) .gt. 0.0) then 
             SR = rs(k)/(rs(k)+rr(k))
             vtsk(k) = vts*SR + (1.-SR)*vtrk(k)
            else
@@ -3767,14 +3743,14 @@
               afall = av_g_old
               bfall = bv_g_old
            endif
-           vtg = rhof(k)*afall*cgg(6,idx_bg(k))*ogg3 * ilamg(k)**bfall
+           vtg = rhof(k)*afall*cgg(6,idx_bg(k))*ogg3 * scratch_bank(k,77)**bfall
             vtgk(k) = vtg
 ! Goal: less prominent size sorting
 !    the ELSE section below is technically (mathematically) correct:
            if (mu_g .eq. 0) then
-              vtg = rhof(k)*afall*cgg(7,idx_bg(k))/cgg(12,idx_bg(k)) * ilamg(k)**bfall
+              vtg = rhof(k)*afall*cgg(7,idx_bg(k))/cgg(12,idx_bg(k)) * scratch_bank(k,77)**bfall
            else
-              vtg = rhof(k)*afall*cgg(8,idx_bg(k))*ogg2 * ilamg(k)**bfall
+              vtg = rhof(k)*afall*cgg(8,idx_bg(k))*ogg2 * scratch_bank(k,77)**bfall
            endif
            vtngk(k) = vtg
           else
