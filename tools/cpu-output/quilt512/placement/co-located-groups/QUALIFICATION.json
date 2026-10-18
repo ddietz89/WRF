@@ -1,0 +1,228 @@
+{
+  "status": "PASS_CLOSED_PLACEMENT_PAIR_SCIENCE_AND_LOCAL_METRIC_REVIEW",
+  "scope": "Same d02 executable and same repaired801d provider in both arms; faba R2 control first, b663 R3 candidate second. R3 repairs pre-MPI adapter formula and honestly retains immutable R2 control provenance. Failed R2 candidate remains failed/unmeasured.",
+  "exact_science": {
+    "products": 4,
+    "ordered_steps": 545,
+    "last_step": "2026-10-12_09:00:00",
+    "exact_time_dt_domain_equal": true,
+    "all512_runtime_and_writer_proof": "PASS_UNCHANGED_CHECKER"
+  },
+  "metrics": {
+    "control": {
+      "wall_seconds": 687.9496229460929,
+      "cpu_seconds": 333894.559617,
+      "main_step_sum_seconds": 567.46989
+    },
+    "candidate": {
+      "wall_seconds": 676.8914217669517,
+      "cpu_seconds": 328934.858206,
+      "main_step_sum_seconds": 575.3841
+    }
+  },
+  "candidate_change_percent": {
+    "wall_seconds": -1.6074143818533226,
+    "cpu_seconds": -1.4854094707889565,
+    "main_step_sum_seconds": 1.3946484455765518
+  },
+  "resources": {
+    "control": {
+      "hpc01": {
+        "invocation_id": "1a8ece26c6484c4cb6aab45ed21cffab",
+        "cpu_seconds": 83416.507458,
+        "throttled_usec": 9151947,
+        "nr_throttled": 5051,
+        "memory_peak_bytes": 99031355392,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        }
+      },
+      "hpc02": {
+        "invocation_id": "85021108f48745dc88ddbef9933f4a03",
+        "cpu_seconds": 83509.078977,
+        "throttled_usec": 7589542,
+        "nr_throttled": 5549,
+        "memory_peak_bytes": 101266087936,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        }
+      },
+      "hpc03": {
+        "invocation_id": "9d5d29bf3f7b4538becc4139d26227dd",
+        "cpu_seconds": 83517.951678,
+        "throttled_usec": 21687955,
+        "nr_throttled": 4893,
+        "memory_peak_bytes": 101180760064,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        }
+      },
+      "hpc04": {
+        "invocation_id": "f7e35c31390c435db6c430bf50772332",
+        "cpu_seconds": 83451.021504,
+        "throttled_usec": 8850516,
+        "nr_throttled": 4761,
+        "memory_peak_bytes": 107646750720,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        }
+      }
+    },
+    "candidate": {
+      "hpc01": {
+        "invocation_id": "cb4cd72bbeec4fc4b69996989067fd79",
+        "cpu_seconds": 82140.835416,
+        "throttled_usec": 1017387,
+        "nr_throttled": 497,
+        "memory_peak_bytes": 107374182400,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 2482,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        }
+      },
+      "hpc02": {
+        "invocation_id": "c63e31e6710049e48fcd131b8a699298",
+        "cpu_seconds": 82128.913441,
+        "throttled_usec": 31309775,
+        "nr_throttled": 4243,
+        "memory_peak_bytes": 107106664448,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        }
+      },
+      "hpc03": {
+        "invocation_id": "34fa3caa5fc04f01b51377cd058d581b",
+        "cpu_seconds": 82219.545724,
+        "throttled_usec": 9829320,
+        "nr_throttled": 4976,
+        "memory_peak_bytes": 107104141312,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        }
+      },
+      "hpc04": {
+        "invocation_id": "2d54ea3f5e084a66b0be824aabedba63",
+        "cpu_seconds": 82445.563625,
+        "throttled_usec": 25799608,
+        "nr_throttled": 4708,
+        "memory_peak_bytes": 106927558656,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        }
+      }
+    }
+  },
+  "closure_basis": {
+    "models": "Eight invocation-agreed raw exit0 reports plus normal reconciliation PID0/success/empty process rows; no extra bound-journal or actual old-path absence claim.",
+    "reader": "Actual ff0c invocation-bound successful manager journal and observed original cgroup path absence; raw exit_code null after transient unit removal retained."
+  },
+  "reader_resources": {
+    "last_active_sample": {
+      "utc": "2026-10-18T20:33:58.539887+00:00",
+      "properties": {
+        "MainPID": "1458320",
+        "Result": "success",
+        "ExecMainStatus": "0",
+        "ControlGroup": "/system.slice/wrf-cpu-production512-quiltgroup3h-exact-check-hpc03-r3.service",
+        "ActiveState": "active",
+        "InvocationID": "ff0c552cb48148f5b32a3d3314732444"
+      },
+      "science_status": "RUNNING_ORIGINAL_INITIAL_HISTORY_COMPARISON",
+      "mismatch_status_reported": false,
+      "error": null,
+      "cpu.stat": "usage_usec 389920366\nuser_usec 317491120\nsystem_usec 72429245\ncore_sched.force_idle_usec 0\nnr_periods 3919\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+      "memory.current": "5038874624\n",
+      "memory.peak": "8846143488\n",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n"
+    },
+    "final_cpu_seconds": null,
+    "final_memory_peak_bytes": null,
+    "final_counters": "UNKNOWN after cgroup removal; last sample is not final."
+  },
+  "limits": [
+    "One fixed-order placement pair; no repeatability, causal attribution or generalized speedup claim.",
+    "Actual checked sync/drop3 on all four clients before each successful arm; file-server cache state UNKNOWN.",
+    "Main-step elapsed includes MPI/backpressure; wall-minus-main is not pure I/O.",
+    "Candidate host1 final max events2482/100GiBpeak and OOM0 retained; all eight models have nonzero CPU throttle. No cap adjustment.",
+    "Corrected pre-MPI adapter is identity on retained control map. R1 control and failed R2candidate are excluded from matched metrics."
+  ],
+  "raw_sha256": {
+    "RESULT.json": "add7a9cb65ea5dc11dba530f856c171f0165b864adab88411155bd838ddae5aa",
+    "science-receipt.json": "70bbb2ae52cf3f2b558d84d8953b7d2ee642d41662cd4b3221cc95a5af86bf49",
+    "reader-closure.json": "a1a27010a88c3e223cfc7b159a173a5efcd8578f205e3a352ea1f25a4cfc8ce7",
+    "source-pins.json": "b914851b6201f318a671fb7b919f74f23d2563c7e4ebacd0f398bbd4687daeef",
+    "control/mpi-launch.json": "ddcbcb200c2616a32853c08d23e868a7cc5ada21a51b2f7980418166238c6884",
+    "control/hpc02-node.json": "3865a69afbf35bcafef961ed15e69de5544052d0fafc16dce54a0df4f4b49d9e",
+    "control/hpc03-node.json": "75dd95b0291a2dd81723f257595126c5edae149c140f6692b8367b2ab9ce19fe",
+    "control/hpc04-node.json": "cd2b3946d9c15919ba8b49ac6bbc194b91ecfb2853ae6f57130059f1421cd1ba",
+    "control/model-closures.json": "1965459b89c5f3a03ca03791a5d65670ebb69205615e9b9f9f53a2fa490dbd6a",
+    "control/lease.json": "78acf8fc28e23b862b36829bc750c68cab8afad53c3fc32419b40548e129f933",
+    "control/cache-start-context.json": "56f591fa779e77d877366ccfefe48b9ab6c89dfd1465cd75c54730e0204b8a8c",
+    "candidate/mpi-launch.json": "1b7cc17baf8a21ebee65906add464c726dd854cbafe19c4499169b926fcc76e3",
+    "candidate/hpc02-node.json": "4adc950c0c7469a11304777d838f17b133e02ad5323f95a9adeb98aae6d42d1d",
+    "candidate/hpc03-node.json": "20027518c0814bc89d867581368136b20dfa53221eb05fffb80a7d4248ac955f",
+    "candidate/hpc04-node.json": "f10006ba62cdfd5c3a475798cd85474fd555021d40972b4f1ab41c9b43b5b254",
+    "candidate/model-closures.json": "25ce958db259fa52aac9d074c9be47fadd03c4f09197fd7712b0c7546273fff5",
+    "candidate/lease.json": "adf50c8c19468b0a82ccffe8677b9d97554546de3f777fcbfb7ffac5adc5dc90",
+    "candidate/cache-start-context.json": "6ff18fbbd68d43fcb4eab79f633312893b06dd48713c4f43ac558393b7cbee4b"
+  },
+  "disposition": {
+    "decision": "RETAIN_EXACT_QUALIFIED_ALTERNATIVE_KEEP_LEGACY_WORKING_DEFAULT",
+    "reason": "One placement pair shows small lower whole wall/CPU with higher main-step elapsed; concentration of active-group buffers materially reduces node memory headroom and hits host01 cap. Preserve a usable bounded alternative and its positive observations, without making it the default or claiming a repeatable regression/speedup.",
+    "scientific_scope": "Exact R3 versus immutable R2 d02/801d control: four products/545 steps, all512/runtime/writer evidence. This pair is not a new corrected-original546b comparison, nine-hour, restart or other-compiler qualification.",
+    "selected_default_unchanged": true,
+    "default_shim_sha256": "375aa7e3198d42d84e3c95612f5475216354e2c4cb33c053eea42ac29f4bdb2a",
+    "default_rank_map_sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac",
+    "alternative_provider_sha256": "801d070d538b117898f6c9a5fe8e6d742cab16b3a87905e02d5132ea9b913c57",
+    "alternative_source_sha256": "fd6718dc58307d9aa92d36b7ca1b8f42f79f87b9bc503c6afc6110eb2ca85b3f",
+    "alternative_map_sha256": "b66358c5aae41333bd91c3b2a920256527ce4bef2d6c527c0879e90f0a204be8",
+    "alternative_runtime": "/pool/wrf-experiment/wrf-cpu/science-prep/production512-quiltgroup3h-r3",
+    "alternative_provider_path": "/pool/wrf-experiment/wrf-cpu/source-discovery/quilt-host-group-native-r2/wrf_quilt_thread_shim.so",
+    "rollback": "Select unchanged working selection.json (375aa7 provider/faba map) in a fresh bounded run; leave compute480 rows, d02 image,881d codec,825e HDF5 and all strict flags/transport settings unchanged.",
+    "next_revisit_trigger": "Measured buffer-memory mitigation or a deliberately chosen sustained-horizon placement test; no repeated short timing matrix required."
+  },
+  "memory_attribution": {
+    "path": "MEMORY_CHARGE_ATTRIBUTION.json",
+    "sha256": "d23d7832be0daf2fc3d8326a921ac3d1b3892b0af9847087340cac45eee80b02",
+    "finding": "Candidate host01 sampled high98.704GiB was mostly anon95.701GiB, file2.640GiB. Anonymous is not a specific allocation attribution; no sampled memory.events timing or causal wall claim."
+  }
+}

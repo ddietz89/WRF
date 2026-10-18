@@ -4,6 +4,8 @@ Current complete working selection: [promoted combined CPU configuration](../../
 
 The selected working default is `simd-pack`: runtime-selected SIMD byte shuffle and parallel packing in the existing four workers. `--provider original` selects the retained `4cb1c2` provider. The provider selector changes no provider, shim, header or owner bytes; package builds previously reproduced selected `375aa7e3` and original `4cb1c2` byte for byte.
 
+A new [co-located output-group alternative](placement/co-located-groups/README.md) is retained with exact paired qualification, measured timing and memory tradeoffs. It has its own host-specific guard source and explicit bounded lease; the working default remains unchanged.
+
 This default is limited to the qualified GNU 13.3 / Zen2 world-512 campaign, its current rank map and exact dependency closure. It does not claim qualification for other compilers, processors, maps, restart or the full production chain.
 
 The fresh combined executable `1799376a` with provider `375aa7e3` passed all four complete products, 545 ordered timesteps and all four balanced writer lifetimes against current default `12d3cf5e` / `4cb1c2ab`. Science receipt `d7570776` and reader closure `5808a21a` are recorded in [qualification.json](qualification.json). Whole model/MPI wall was 900.083647 → 894.374113 seconds (0.6343% lower), with 0.8940% lower aggregate CPU. One fixed-order pair with a staging gap and shared-load/cache limits establishes no repeatable whole-model or meaningful trajectory speedup. The working selection adopts exact-qualified kernel improvements with successful combined compatibility; component percentages are not summed or attributed from this pair.
