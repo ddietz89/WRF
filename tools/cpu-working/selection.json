@@ -1,7 +1,7 @@
 {
-  "status": "PROMOTED_WORKING_DEFAULT_EXACT_COMBINED_THREE_HOUR_QUALIFIED",
-  "source_commit": "946f49adf7b64f9b4fd4dc8ad1dc45069c508e34",
-  "scope": "Full grid1500x1140x33;512ranks480compute+32quilt;pinned affinity/two tiles;GNU13.3 strict/Zen2. Corrected original546b baseline, not pristine upstream. All4products/545orderedsteps exact; all9allocations closed.",
+  "status": "PROMOTED_WORKING_DEFAULT_EXACT_JOINT_THREE_HOUR_QUALIFIED",
+  "source_commit": "fcb7f02e5e07e0fa32ff4f371ec7d270825a251b",
+  "scope": "1500x1140x33;512ranks480compute+32quilt;two tiles;qualified affinity and UCXrc,sm,self/InfiniBand;GNU13.3 strict/Zen2. No9h/restart/144h qualification.",
   "artifacts": {
     "shim": {
       "path": "/pool/wrf-experiment/wrf-cpu/source-discovery/parallel-pack-quilt-shim-native-r1/wrf_quilt_thread_shim.so",
@@ -17,8 +17,8 @@
     }
   },
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/thompson-literal-ice-index-current-r2/wrf.exe",
-    "sha256": "7cab913b3f54e3b2cdbacca7f6547cfc5e25332e39a667cb4bc54bd6b0c773b2"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/myj-thompson-bank-current-r2/wrf.exe",
+    "sha256": "285d83c1486881b215b77707b90140d21dcfddf3cc057f5171f8cf8c6016fc2a"
   },
   "private_hdf5": {
     "path": "/pool/wrf-experiment/wrf-cpu/builds/hdf5-sse2-unshuffle4-private-r3/output/candidate/lib/libhdf5.so.310.3.0",
@@ -42,14 +42,16 @@
     "WRF_ROOT_SHIM_OPTOUT": 0,
     "WRF_ROOT_SHIM_CPUS": "0-127"
   },
-  "includes": "All accepted source changes through source_commit, paired shortwave, RK first-stage fusion, corrected X-distance cache, advection ISA, SIMD shuffle/parallel output packing, Huffman/zlib-ng codec, root scratch reuse and private HDF5 inverse shuffle. See consolidated findings for individual scope. Plus initial-U and initial-V tendency SIMD directives; both retain separate original-noon qualifications. Plus Thompson literal-1000 ice-index specialization. Complete combination passed fresh corrected-original three-hour exact qualification; scratch-bank consolidation is excluded.",
+  "includes": "All accepted source changes through source_commit, including paired shortwave, RK first-stage fusion, corrected X-distance cache, advection ISA, initial-U/V tendencies, Thompson literal-1000 index and per-call scratch bank, MYJPBL writeback directive; SIMD shuffle/parallel output packing, Huffman/zlib-ng codec, root scratch reuse and private HDF5 inverse shuffle. See consolidated findings and qualification for individual scopes. MYJPBL remains scalar; current scratch-bank caller timings mixed. Latest complete combination passed exact three-hour qualification against retained original products, with no fresh original timing arm.",
   "science": {
     "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
-    "receipt_sha256": "3f37916f490deee6f30d0be5133003a79e0260a8495a1a071db9de9def16603e",
-    "reader_closure_sha256": "04c49eedcb893cf044c4f90c14faa7398cd4b987a82df4af2d6345229503613d",
+    "receipt_sha256": "7ecf5652ad8a8ecc6cb5a5b8024d4607363c69a69993cafe1fe21e026968f3c0",
+    "reader_closure_sha256": "bb14c6062fbfd50627a9cdfdd88cdc7274c52b682612727e5fc1a5bdcbf0aebb",
+    "model_closure_sha256": "30cb587b068f2a4cda71f5b93f5c268ce00681eb6c203459d787851a70c6eea4",
     "complete_products": 4,
     "ordered_steps": 545,
     "last_observed_step": "2026-10-12_09:00:00",
+    "all_model_and_reader_scopes_closed": true,
     "history_times": [
       "2026-10-12_06:00:00",
       "2026-10-12_07:00:00",
@@ -57,8 +59,8 @@
       "2026-10-12_09:00:00"
     ]
   },
-  "lease_reference": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-current3h-runtime-r1/lease-candidate-proposed.json",
-  "rollback_executable_sha256": "bb3259b1bb8254842301553ddb18e792ef4ebdae070f6c4549ebc4fe99180ada",
+  "lease_reference": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-myj-bank3h-runtime-r1/lease-candidate-proposed.json",
+  "rollback_executable_sha256": "7cab913b3f54e3b2cdbacca7f6547cfc5e25332e39a667cb4bc54bd6b0c773b2",
   "activation": "Selection record, not a launcher. Use existing bounded launcher with a fresh run directory/log directory/lease and actual affinity/library/resource checks. Never preload MPI launcher or helper processes.",
   "schema_version": 2,
   "last_three_hour_benchmark": {
@@ -119,11 +121,25 @@
       "scope": "Full grid1500x1140x33;512ranks480compute+32quilt;pinned affinity/two tiles;GNU13.3 strict/Zen2. Corrected original546b baseline, not pristine upstream. All4products/545orderedsteps exact; all9allocations closed.",
       "independent_final_review_sha256": "34f1557fc6bd5bcdd129029b58a1f8cea80e67161e3df9dd510a2436754c1538",
       "raw_result_sha256": "cf7a111898cd1db43dade470f76d33627d7e0096f7ec6729d72bd80dd2227f21",
-      "raw_evidence_directory": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-current3h-runtime-r1"
+      "raw_evidence_directory": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-current3h-runtime-r1",
+      "final_cgroup_memory_peak_bytes_by_node_01_to_04": {
+        "control": [
+          98499960832,
+          101093126144,
+          101047070720,
+          107160842240
+        ],
+        "candidate": [
+          98902368256,
+          101219745792,
+          101156356096,
+          107677200384
+        ]
+      }
     },
     "evidence_file": "THREE_HOUR_RESULT.json"
   },
-  "qualification_file": "../cpu-compute/thompson-literal-ice-index/QUALIFICATION.json",
+  "qualification_file": "../cpu-compute/myj-thompson-bank/QUALIFICATION.json",
   "previous_three_hour_benchmark": {
     "executable": {
       "path": "/pool/wrf-experiment/wrf-cpu/builds/four-worthy-ports-current-r1/wrf.exe",
@@ -165,18 +181,57 @@
     },
     "evidence_file": "PREVIOUS_THREE_HOUR_RESULT_F1D7.json"
   },
-  "final_cgroup_memory_peak_bytes_by_node_01_to_04": {
-    "control": [
-      98499960832,
-      101093126144,
-      101047070720,
-      107160842240
-    ],
-    "candidate": [
-      98902368256,
-      101219745792,
-      101156356096,
-      107677200384
-    ]
-  }
+  "rollback_executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/thompson-literal-ice-index-current-r2/wrf.exe",
+    "sha256": "7cab913b3f54e3b2cdbacca7f6547cfc5e25332e39a667cb4bc54bd6b0c773b2"
+  },
+  "latest_application": {
+    "evidence_file": "LATEST_APPLICATION_RESULT.json",
+    "measurement": {
+      "status": "PASS_EXACT_JOINT_THREE_HOUR_APPLICATION_NO_FRESH_TIMING_CONTROL",
+      "executable": {
+        "path": "/pool/wrf-experiment/wrf-cpu/builds/myj-thompson-bank-current-r2/wrf.exe",
+        "sha256": "285d83c1486881b215b77707b90140d21dcfddf3cc057f5171f8cf8c6016fc2a"
+      },
+      "science": {
+        "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+        "receipt_sha256": "7ecf5652ad8a8ecc6cb5a5b8024d4607363c69a69993cafe1fe21e026968f3c0",
+        "reader_closure_sha256": "bb14c6062fbfd50627a9cdfdd88cdc7274c52b682612727e5fc1a5bdcbf0aebb",
+        "model_closure_sha256": "30cb587b068f2a4cda71f5b93f5c268ce00681eb6c203459d787851a70c6eea4",
+        "complete_products": 4,
+        "ordered_steps": 545,
+        "last_observed_step": "2026-10-12_09:00:00",
+        "all_model_and_reader_scopes_closed": true,
+        "history_times": [
+          "2026-10-12_06:00:00",
+          "2026-10-12_07:00:00",
+          "2026-10-12_08:00:00",
+          "2026-10-12_09:00:00"
+        ]
+      },
+      "candidate_metrics": {
+        "wall_seconds": 681.7750228811055,
+        "cpu_seconds": 329987.405044,
+        "main_step_sum_seconds": 573.87562
+      },
+      "performance_qualification": false,
+      "comparison_scope": "Candidate-only scientific qualification against the retained original546b products from production512-original-current3h-runtime-r1. No fresh original timing arm and no attributable MYJPBL/bank or combined speedup established.",
+      "cache_policy": "Checked sync/drop_caches3 on all four compute clients before this candidate; no claim to control file-server cache or load.",
+      "final_model_memory_peak_bytes_by_node_01_to_04": [
+        98913079296,
+        101155115008,
+        101200928768,
+        107690954752
+      ],
+      "model_memory_events_zero": true,
+      "model_whole_unit_cpu_throttling_nonzero": true,
+      "reader_resources": "Original exact reader8GiB;42 memory.max reclaim/limit events observed during progress, no OOM/kill; final invocation strongly closed successfully. Reader is outside model timing.",
+      "source_manifest_sha256": "46c2aaa28043813ad38bbec8f6181672b7e820e0b9a558b665a833c55d963baf",
+      "raw_result_sha256": "1c7472c8c8e4263adb5410863a021bfc89afe29b7ea57dc0dbd9c3d19f57d330",
+      "owner_final_qualification_sha256": "cd004bff3eafe31e046c7f41c2756f6a7d72aa5742f6429cc1a1ec7d0afccbe9",
+      "raw_evidence_directory": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-myj-bank3h-runtime-r1",
+      "scope": "1500x1140x33;512ranks480compute+32quilt;two tiles;qualified affinity and UCXrc,sm,self/InfiniBand;GNU13.3 strict/Zen2. No9h/restart/144h qualification."
+    }
+  },
+  "timing_scope": "Last matched original/candidate benchmark remains7cab in THREE_HOUR_RESULT.json. Latest285d candidate-only metrics in LATEST_APPLICATION_RESULT.json; no transfer/addition of speedups."
 }
