@@ -1,0 +1,72 @@
+{
+  "status": "PROMOTED_WORKING_DEFAULT_EXACT_NATIVE_CANONICAL_AND_COMBINED_FULL3H_PASS",
+  "source_commit": "be96b3ec53232e8807e557dbf3afbd4d16d82bc6",
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/thompson-six-owner-cqu-canonical-current-r1/wrf.exe",
+    "sha256": "ed0951105f3dba9808b665fc6fd57ebbd258ded72233ed8d91f32e99150bbfc6"
+  },
+  "full_application": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-b-memory-criticalpath-r1/fresh-original-cqu-threehour-preparation-r1/lifecycle-r1/FINAL_QUALIFICATION.json",
+    "sha256": "eabf9ba6c674bb2e8c59291b7b96d293fb41e746fe471351283e9aa5cde2f32e"
+  },
+  "science": {
+    "status": "PASS_FRESH_CORRECTED_ORIGINAL_VS_COMBINED_CQU_SIX_OWNER_THREE_HOUR_FOUR_PRODUCTS_545_STEPS",
+    "complete_products": 4,
+    "ordered_steps": 545,
+    "all512": true,
+    "compute_ranks": 480,
+    "serial_tiles": 2,
+    "required_positive_roots": [
+      487,
+      495,
+      503,
+      511
+    ],
+    "receipt_sha256": "dae5f6625a3ee7f0afe6c018d875971654dc33870463ffdb5a3df660376d4b51",
+    "reader_closure_sha256": "36d264989f94e84100d82e68c51addb44ca50337463e463ab8a96492e144987a",
+    "full_qualification_sha256": "eabf9ba6c674bb2e8c59291b7b96d293fb41e746fe471351283e9aa5cde2f32e",
+    "all_model_reader_scopes_closed": true,
+    "protected_checker": {
+      "path": "/pool/wrf-experiment/wrf-cpu/validation/protected_netcdf_exact_reference.py",
+      "sha256": "0382bcbabfbc16b76114ef552206c6c558ea15cd3c3552dfaed98b977deea2b4",
+      "verified": true
+    }
+  },
+  "comparison_design": "Fresh fixed-order corrected-original versus combined current candidate; no isolated CQU/BC/PD/TNI attribution",
+  "all_owned_jobs_closed": true,
+  "rollback": {
+    "executable": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/portfolio-a-bc-copy-e319-current-r1/wrf.exe",
+      "sha256": "6c1ac8f3d00c362b8b677e2561997a57c27d1f4c80da0591ee410f92ae5e3743"
+    },
+    "source_commit": "eb616f2b71767da0db5124d0bdf81339315139f2",
+    "selection_file": "tools/cpu-working/PREVIOUS_SELECTION_6C.json",
+    "action": "Select retained6c with same375/881/825/faba/FIELDVIEW1/shared1, or revert sourcebe96 and rebuild. Mode0 is not source/artifact rollback."
+  },
+  "limits": [
+    "Qualified GNU13.3 strict REAL32/INTEGER32, Zen2, cold single-domain THOMPSON/OMP1,512ranks/two tiles.",
+    "No current nine-hour/restart/nesting/othercompiler/private-fullforecast transfer.",
+    "Kernel/caller/forecast percentages are separate and not additive."
+  ],
+  "mechanism": "CQU first-species peel preserves explicit0 plus original two-add order, removes one redundant row clear; CQV/CQW unchanged.",
+  "source_sha256": "c41522cd74f10267b705331e18092ce2cda0e8375a7e09c1ecff3e69741df6b6",
+  "native": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-cqu-first-species-peel-r1/NATIVE_QUALIFICATION.json",
+    "sha256": "166095e94fd936a87d8ca54db8554c1b7b2c867e4fee80bbb0eb45f7841c5c37"
+  },
+  "caller_timing": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-cqu-first-species-peel-r1/caller-timing-preparation-r1/timing-r1/TIMING_RESULT.json",
+    "sha256": "2fec40abb7b9e89ea7b395f4a0813caafd37b06d2f8848722147bacffef30e55"
+  },
+  "caller_percent_shorter": [
+    4.16942,
+    2.723513
+  ],
+  "caller_scope": "Two opposite-order synthetic complete calc_cq pairs,1024calls/identicalrestore-stateoverhead; not captured production inputs or isolated forecast gain.",
+  "canonical": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-cqu-first-species-peel-r1/canonical-6c-build-preparation-r4/BUILD_QUALIFICATION.json",
+    "sha256": "1ea9165c40d56cb87555f25028529445808af35bef654d0c5875df7938932497"
+  },
+  "qualified_member_sha256": "a24111c2fa0112eff6572c1aad24db8e55ed5f7d0c266e108f86194ae538f169",
+  "canonical_equivalence": "Canonical object bcbe differs in nonallocateddebug/file identity only; allocated bytes/relocations/nonfile symbols and MOD exact to linked/tested a241. Diagnostic line layout retained."
+}

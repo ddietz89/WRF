@@ -1,0 +1,229 @@
+{
+  "status": "PASS_XY6_CANDIDATE_VS_RETAINED_ORIGINAL546B_THREE_HOUR_EXACT_UNPAIRED",
+  "source_commit": "e187058370f5d37863f943f3a42c9cc5b38453f7",
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/rhs-ph-xy6-interior-simd-current-r1/wrf.exe",
+    "sha256": "885c7b6db45ea2bae676cd42ed76c2e0ac5450dbfe85940021a4ab441ccd159f"
+  },
+  "science": {
+    "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+    "comparison_count": 4,
+    "comparison_statuses": [
+      "PASS",
+      "PASS",
+      "PASS",
+      "PASS"
+    ],
+    "step_count": 545,
+    "last_step": "2026-10-12_09:00:00",
+    "tile_status": "PASS_ACTUAL_480_DISJOINT_TILE_UNIONS_AND_ALL512_OBSERVED_ENVS",
+    "tile_compute_ranks": 480,
+    "proofs": {
+      "control": {
+        "rank_count": 512,
+        "compute_ranks": 480,
+        "quilt_ranks": 32,
+        "writer_roots": [
+          {
+            "rank": 487,
+            "host": "hpc04",
+            "cpu": 31
+          },
+          {
+            "rank": 495,
+            "host": "hpc04",
+            "cpu": 63
+          },
+          {
+            "rank": 503,
+            "host": "hpc04",
+            "cpu": 95
+          },
+          {
+            "rank": 511,
+            "host": "hpc04",
+            "cpu": 127
+          }
+        ],
+        "step_count": 545,
+        "last_step": "2026-10-12_09:00:00",
+        "products": [
+          "wrfout_d01_2026-10-12_06:00:00",
+          "wrfout_d01_2026-10-12_07:00:00",
+          "wrfout_d01_2026-10-12_08:00:00",
+          "wrfout_d01_2026-10-12_09:00:00"
+        ],
+        "input_stats_unchanged": true,
+        "model_closure_basis": "Normal INV-bound reconciliation: PID0/inactive/success/exit0/empty cgroup processes for all four units",
+        "invocations": {
+          "hpc01": {
+            "invocation_id": "fb0435e196e04e9da52efd41b5347054",
+            "unit": "wrf-cpu-production512-original-pd-nextcombined3h-control-r5-hpc01.service",
+            "memory_peak_bytes": 98594664448,
+            "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n"
+          },
+          "hpc02": {
+            "invocation_id": "6ae4a0440a444a5c87ee2bedca79b0c5",
+            "unit": "wrf-cpu-production512-original-pd-nextcombined3h-control-r5-hpc02.service",
+            "memory_peak_bytes": 101048614912,
+            "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n"
+          },
+          "hpc03": {
+            "invocation_id": "b406ab9de77b462299377db2bcd714c2",
+            "unit": "wrf-cpu-production512-original-pd-nextcombined3h-control-r5-hpc03.service",
+            "memory_peak_bytes": 101047033856,
+            "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n"
+          },
+          "hpc04": {
+            "invocation_id": "fe28337e73f64d1498a2c7c31ecfcf99",
+            "unit": "wrf-cpu-production512-original-pd-nextcombined3h-control-r5-hpc04.service",
+            "memory_peak_bytes": 107204128768,
+            "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n"
+          }
+        }
+      },
+      "candidate": {
+        "rank_count": 512,
+        "compute_ranks": 480,
+        "quilt_ranks": 32,
+        "writer_roots": [
+          {
+            "rank": 487,
+            "host": "hpc04",
+            "cpu": 31
+          },
+          {
+            "rank": 495,
+            "host": "hpc04",
+            "cpu": 63
+          },
+          {
+            "rank": 503,
+            "host": "hpc04",
+            "cpu": 95
+          },
+          {
+            "rank": 511,
+            "host": "hpc04",
+            "cpu": 127
+          }
+        ],
+        "step_count": 545,
+        "last_step": "2026-10-12_09:00:00",
+        "products": [
+          "wrfout_d01_2026-10-12_06:00:00",
+          "wrfout_d01_2026-10-12_07:00:00",
+          "wrfout_d01_2026-10-12_08:00:00",
+          "wrfout_d01_2026-10-12_09:00:00"
+        ],
+        "input_stats_unchanged": true,
+        "model_closure_basis": "Normal INV-bound reconciliation: PID0/inactive/success/exit0/empty cgroup processes for all four units",
+        "invocations": {
+          "hpc01": {
+            "invocation_id": "9f99b3927a63439b872898247921fb67",
+            "unit": "wrf-cpu-production512-rhs-xy6-threehour-candidate-r1-hpc01.service",
+            "memory_peak_bytes": 98484187136,
+            "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n"
+          },
+          "hpc02": {
+            "invocation_id": "34b6fba233b34654ac9e8a2d357250b9",
+            "unit": "wrf-cpu-production512-rhs-xy6-threehour-candidate-r1-hpc02.service",
+            "memory_peak_bytes": 96833867776,
+            "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n"
+          },
+          "hpc03": {
+            "invocation_id": "bd24b4bfe353453fb52a3c19850e9ca6",
+            "unit": "wrf-cpu-production512-rhs-xy6-threehour-candidate-r1-hpc03.service",
+            "memory_peak_bytes": 96891437056,
+            "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n"
+          },
+          "hpc04": {
+            "invocation_id": "8d9b84c1ab5f4adf8b2d4d85b8ac1586",
+            "unit": "wrf-cpu-production512-rhs-xy6-threehour-candidate-r1-hpc04.service",
+            "memory_peak_bytes": 101644455936,
+            "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n"
+          }
+        },
+        "field_view_admission": {
+          "status": "PASS_REQUIRED_ACTIVE_ROOTS_ACTUAL_FIELD_VIEW_ADMISSION",
+          "required_positive_roots": [
+            487,
+            495,
+            503,
+            511
+          ],
+          "environment": {
+            "candidate_only": true,
+            "expected_literal": "1",
+            "observed_ranks": 512
+          }
+        }
+      }
+    },
+    "receipt_sha256": "da06e45ef654406f71a8537ceb85771bcb98c85702bc7a8902a79648f0ef7ba4",
+    "reader_closure_sha256": "8ebb481de895f13569d392b2113377230703f392406de780cbd3f0752cc84976",
+    "complete_products": 4,
+    "ordered_steps": 545,
+    "all_model_and_reader_scopes_closed": true,
+    "protected_checker": {
+      "path": "/pool/wrf-experiment/wrf-cpu/validation/protected_netcdf_exact_reference.py",
+      "sha256": "0382bcbabfbc16b76114ef552206c6c558ea15cd3c3552dfaed98b977deea2b4",
+      "verified": true
+    }
+  },
+  "performance_qualification": "UNPAIRED later885c candidate versus retainedactualoriginalPD-R5control. No freshcontrolmodel or isolatedY gain claim.",
+  "measurement_scope": "Exact currentXY885c candidate-only06-09 full-grid against retained corrected-original546b PD-R5 control. UNPAIRED timing; no freshcontrol/current-image9h/restart144h/othercompiler qualification. Strict GNU13.3/Zen2/world512/480compute+32quilt/8x60/two tiles/128physicalcores/node/100,100,100,104GiB/swap0/1200s,375/881/825/faba/FIELDVIEW1/UCX rc,sm,self/InfiniBand unchanged.",
+  "metrics": {
+    "control": {
+      "wall_seconds": 819.2134004358668,
+      "cpu_seconds": 367776.94750099996,
+      "main_step_sum_seconds": 597.58187
+    },
+    "candidate": {
+      "wall_seconds": 668.7757097010035,
+      "cpu_seconds": 323041.348568,
+      "main_step_sum_seconds": 563.11953
+    }
+  },
+  "reductions_percent": {
+    "wall_seconds": 18.36367552762469,
+    "cpu_seconds": 12.163785478391986,
+    "main_step_sum_seconds": 5.766965453620598
+  },
+  "observed_speedup": {
+    "ratio": 1.2249449083641526,
+    "elapsed_time_reduction_percent": 18.36367552762469,
+    "scope": "Descriptive unpaired retained-control comparison; not causal, isolated Y or additive contribution."
+  },
+  "application_qualification_sha256": "840a21ca81ad9622a21fcb3dc1ba323813c5892a9b6bea002ab0a87aa544bbf8",
+  "raw_evidence": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rhs-xy6-threehour-runtime-r1/RESULT.json": "7eb09b77833b8af3ad1eef15e90446e6cf8d1bb27d25946d1822fa7392dcaa26",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rhs-xy6-threehour-runtime-r1/science-receipt.json": "da06e45ef654406f71a8537ceb85771bcb98c85702bc7a8902a79648f0ef7ba4",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rhs-xy6-threehour-runtime-r1/reader-closure.json": "8ebb481de895f13569d392b2113377230703f392406de780cbd3f0752cc84976",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rhs-xy6-threehour-runtime-r1/source-pins.json": "c261caacddb65f6ec02a421bbbf0ea6423f6f30b16341cb075ef965e0629b278",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rhs-xy6-threehour-runtime-r1/application-binding.json": "4f7f03813b97d741c969a171648dc514610f64e009cb386258e74d195d9799f8",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rhs-xy6-threehour-runtime-r1/reader-launch.txt": "0f2445dfad30cc7ecbf69ba9be428698ca541002b2a4eddf3b7cdc122d0c5012",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rhs-xy6-threehour-runtime-r1/candidate-closures.json": "af8d7d11dcdede63f2202eddc41c36ee5ab4ed1d905ffc47f4e4ebd59ade91d0",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rhs-xy6-threehour-runtime-r1/control-metadata/mpi-launch.json": "4a29897c6a236080ab6e7672728c65dd3ff7b58e4ae1bbacc7f9979a676426da",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rhs-xy6-threehour-runtime-r1/control-metadata/hpc02-node.json": "4cdd7aa4d25aec1655b4fbd4633b772bed27c81f9af29c917140836a1d1c8eaa",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rhs-xy6-threehour-runtime-r1/control-metadata/hpc03-node.json": "69e483d1cb64a1023bdf90970f3c5f4adc301dbcfbc449db199a0b18f0a6ea6c",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rhs-xy6-threehour-runtime-r1/control-metadata/hpc04-node.json": "e2ab999f3e75ebbc665083b43cc5c08170dc2b4916908c63276313a51b38669f",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rhs-xy6-threehour-runtime-r1/control-metadata/completion.json": "c63712c467a1ee9934cbb57cad3e57120dc3af0f2dfebc222697cab82734310c",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rhs-xy6-threehour-runtime-r1/control-metadata/model-closures.json": "bab3f23b7347b029d21578921f62a61ddf9910e459442038d6a10d7dc332c4cd",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rhs-xy6-threehour-runtime-r1/control-metadata/adaptive-steps.json": "fabb5b118359c2b092a222648670d86bba82c5be5dd6ae4dd6a72f6115339110",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rhs-xy6-threehour-runtime-r1/control-metadata/cache-start-context.json": "1487c81bd76c5201ff8a429036f2a05a3710917aff4f117bcd683dc76ef4ff2c",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rhs-xy6-threehour-runtime-r1/control-metadata/lease.json": "c5bd005d256d990997ca8f8065e5dc13e233f36b90dde5e82904118294f2662b",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rhs-xy6-threehour-runtime-r1/candidate-metadata/mpi-launch.json": "54550e11cc6c6e8f8a48b4ff3682f0328267b038a5f88506dc468c4666b1ff4c",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rhs-xy6-threehour-runtime-r1/candidate-metadata/hpc02-node.json": "124254ce33cb825681b626cc6c2114b38c92b98c682d7177ade4192649a5db26",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rhs-xy6-threehour-runtime-r1/candidate-metadata/hpc03-node.json": "1c18f14c8ef6c4ce84c099b4b8acb9f6ba1a5c4ae54cdd302ce1ef05868c0ab9",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rhs-xy6-threehour-runtime-r1/candidate-metadata/hpc04-node.json": "1ca06afa5209064da1fea240c7450fefb0c21b1b81d3df9773efd07e6c37147d",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rhs-xy6-threehour-runtime-r1/candidate-metadata/completion.json": "c51953baeb4ba351d27353e7d9d60041165c8df6ea3cafa7212ea85dc23cb24c",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rhs-xy6-threehour-runtime-r1/candidate-metadata/model-closures.json": "393b24be31b37e90b9f0348d9c73f8cc3331fc66649460fc49d5d6ab82c129a1",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rhs-xy6-threehour-runtime-r1/candidate-metadata/adaptive-steps.json": "c8d5030972bb0ecad4fd29a5e9f351b7c1862cdb2c682c1e873ccf0005959a93",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rhs-xy6-threehour-runtime-r1/candidate-metadata/cache-start-context.json": "607b1a8df38b77221086100c1cab1d6ba5e843036fbc8b8c09a6891a637bd267",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rhs-xy6-threehour-runtime-r1/candidate-metadata/lease.json": "4f839277e150b88c4de7871cfe3395b30ef5c146ce0826ddf00f19644a8d6aed"
+  },
+  "result_file": "THREE_HOUR_RESULT.json",
+  "last_fresh_paired_three_hour_result_file": "PREVIOUS_THREE_HOUR_RESULT_PD.json",
+  "last_fresh_paired_nine_hour_result_file": "NINE_HOUR_RESULT.json"
+}

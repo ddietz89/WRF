@@ -1,84 +1,65 @@
 {
-  "status": "POST_SCIENCE_BC_SOURCE_AND_COMBINED_EXECUTABLE_PROMOTION_WITH_EXPLICIT_REAL32_PD_EQUIVALENCE",
-  "source_commit": "eb616f2b71767da0db5124d0bdf81339315139f2",
+  "status": "POST_SCIENCE_CQU_SIX_OWNER_SOURCE_AND_COMBINED_EXECUTABLE_PROMOTION",
+  "source_commit": "be96b3ec53232e8807e557dbf3afbd4d16d82bc6",
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/portfolio-a-bc-copy-e319-current-r1/wrf.exe",
-    "sha256": "6c1ac8f3d00c362b8b677e2561997a57c27d1f4c80da0591ee410f92ae5e3743"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/thompson-six-owner-cqu-canonical-current-r1/wrf.exe",
+    "sha256": "ed0951105f3dba9808b665fc6fd57ebbd258ded72233ed8d91f32e99150bbfc6"
   },
-  "archive_sha256": "019a2ff1f20a1b5c6d05ab0572ecc7af06e018c84138a8a1bdd1107858a3310a",
+  "archive_sha256": "9c410eee3507faf6bc19ae65f8f7c186753884e2ddd395b669fda3d08729db9a",
   "sources": {
     "dyn_em/start_em.F": "ba19b902eb43c9baa2f59d3ffef0dec7c6a0ccbf0a9ceb062b72e55cff5366fc",
-    "phys/module_mp_thompson.F": "a48450a87acf90c8d719f06f6bdb0977939da2e5b99a9395524541b734c69681",
+    "phys/module_mp_thompson.F": "6b983e03d61bf21f6ab6b10e0e1d6956c33252854d8ff3f2a9d484e5c7f8d424",
     "main/module_wrf_top.F": "7d977ce5832b241889b212d785222ff6e4dafd3cd13c3212ff1a7d406774b97f",
     "tools/cpu-memory/thompson-table-sharing/shared_table_iso.f90": "b9f3ad35a58e08366286aa72c1c09a939358fe1152a612fac052a68ed79bf673",
     "tools/cpu-memory/thompson-table-sharing/shared_table.h": "dc01b80d7ea5cdc76ecf37248d17376ca8681d558abe0004a23bcb0ef09b0b69",
     "tools/cpu-memory/thompson-table-sharing/thompson_tpi_bridge.c": "eed11ee2c18caf9581146d1edfc42dec0c9b256a09d5147872d03cd860b0506e",
     "tools/cpu-memory/thompson-table-sharing/shared_table.c": "6be5e91ac1f63a8dc589af8188363223c44a2b361e1ade85afc1576be2b5c116",
     "dyn_em/module_advect_em.F": "47c7b2b0025dca1971696eacd51d7c589ec2bc20a211cd80f7329404e230fae8",
-    "share/module_bc.F": "9eb38066228f430b0ceda85523803d252e5e70dbb7e81a34df07879d112dfb8f"
+    "share/module_bc.F": "9eb38066228f430b0ceda85523803d252e5e70dbb7e81a34df07879d112dfb8f",
+    "dyn_em/module_big_step_utilities_em.F": "c41522cd74f10267b705331e18092ce2cda0e8375a7e09c1ecff3e69741df6b6"
   },
   "build": {
-    "receipt_sha256": "5c0188df86438da2c0148220cac21bbf045c341eef274637968cd15ef8dabc82",
-    "closure_sha256": "67cda83a4a930e87ecc314d236c374465664869a2e496514c576baab179c8616",
-    "receipt_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-boundary-copy-reuse-r1/canonical-e319-link-preparation-r1/actual-native-r1/receipt.json",
-    "closure_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-boundary-copy-reuse-r1/canonical-e319-link-preparation-r1/actual-native-r1/closure.json",
-    "qualification_file": "../cpu-compute/boundary-copy-reuse/QUALIFICATION.json",
-    "recipe_file": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-boundary-copy-reuse-r1/canonical-e319-link-preparation-r1/REBUILD_RECIPE.json",
-    "actual_artifact": {
-      "directory": "/pool/wrf-experiment/wrf-cpu/builds/portfolio-a-bc-copy-e319-current-r1",
-      "executable_sha256": "6c1ac8f3d00c362b8b677e2561997a57c27d1f4c80da0591ee410f92ae5e3743",
-      "archive_sha256": "019a2ff1f20a1b5c6d05ab0572ecc7af06e018c84138a8a1bdd1107858a3310a",
-      "build_receipt": {
-        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-boundary-copy-reuse-r1/canonical-e319-link-preparation-r1/actual-native-r1/receipt.json",
-        "sha256": "5c0188df86438da2c0148220cac21bbf045c341eef274637968cd15ef8dabc82"
-      },
-      "build_closure": {
-        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-boundary-copy-reuse-r1/canonical-e319-link-preparation-r1/actual-native-r1/closure.json",
-        "sha256": "67cda83a4a930e87ecc314d236c374465664869a2e496514c576baab179c8616"
-      }
+    "CQU_canonical": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-cqu-first-species-peel-r1/canonical-6c-build-preparation-r4/BUILD_QUALIFICATION.json",
+      "sha256": "1ea9165c40d56cb87555f25028529445808af35bef654d0c5875df7938932497"
     },
-    "canonical_provenance": "Actual one-member boundary object reuse and one WRF link;583/584 ordered members and16otherlink inputs unchanged from e319, including TNI4f7/PD8ec and canonical e319 mains. Frozen source_commitNULL remains historical.",
-    "ordered_archive_proof": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-boundary-copy-reuse-r1/canonical-e319-link-preparation-r1/actual-native-r1/ordered-libwrflib-proof.json",
-      "sha256": "aa70405ffe2b7dcc77c9806a308af57c9f96f97034300a85f2ae5ba2a0b611f8"
+    "six_owner_canonical": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-rain-freezing-owner-feasibility-r1/canonical-integration-preparation-r1/BUILD_QUALIFICATION.json",
+      "sha256": "559728ff68009cda951d42fe8e0db2b990d085eaeb1e58462615a9f1eaaf5202"
     },
-    "boundary_module_interface_sha256": "3bab4d814d238e5c79b7623dddee943341ccee88bb7e548afe12500128964336"
+    "frozen_producer_source_commit": null
   },
-  "qualification_file": "../cpu-compute/boundary-copy-reuse/QUALIFICATION.json",
+  "qualification_file": "../cpu-memory/thompson-table-sharing/RAIN_EXTENSION_QUALIFICATION.json",
   "PD_real32_equivalence_file": "../cpu-compute/pd-row-workspace/QUALIFICATION.json",
   "PD_production_member_sha256": "8ec77f864716667aa79d40878fa11276f7dede4017c620201e54f9f83bb32b25",
   "PD_repaired_compile_object_sha256": "e5245eed1f84a67ea9d428bed8d8b2529f568ca49394f9cf8b85d97bdc50f560",
   "PD_equivalence_proof_sha256": "92abf53cb516e4394f2ce232ad81fb4985ea7b1f849310927e54aa4a2b1017cc",
-  "build_scope": "Qualified native boundary object de98 from exact9eb source. No source compilation in final canonical build; one ordinary WRF link. Reused TNI4f7/PD8ec preserved. PD47c7 tracked source has actual project REAL32 allocated/RELA/nonfile-symbol/MOD identity to8ec, not whole-file identity. No generic build/restart/othercompiler scope transferred.",
+  "build_scope": "Post-science tracking be96 of exactc415/6b983 source. Frozen fa8b/ed095 producer source_commitNULL unchanged, eb616 ancestry only. CQUa241 allocated-equivalent to canonicalbcbe; six-ownerproduction1a80 exact source/PP/native and actual MOD consumer frontier bound. PreservedPD8ec maps to tracked47c7 via prior REAL32 proof. No generic clean-build/othercompiler/restart/nesting/9h transfer.",
   "runtime": {
     "WRF_EXPERIMENTAL_TPI_NUMA": 1,
     "other_settings": "Unchanged375/881/825/faba/FIELDVIEW1/IB"
   },
   "previous_binding": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_SOURCE_BUILD_BINDING_TNI_PD.json",
-    "sha256": "9e4a686ca6f5d9969ba5e79854d56c2476f2f23e46f4f73e203aeb80af778015"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_SOURCE_BUILD_BINDING_6C.json",
+    "sha256": "8fa40415e643c5fe7dba1dff5b6443acff151f2a5948f76c274e634533606117"
   },
   "native": {
-    "qualification": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-tni-owner-implementation-r1/NATIVE_QUALIFICATION.json",
-      "sha256": "26ead2169baeccd24063f0f9ad0a29817d9330e65338f9a296f6fdbffcc85878"
+    "CQU": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-cqu-first-species-peel-r1/NATIVE_QUALIFICATION.json",
+      "sha256": "166095e94fd936a87d8ca54db8554c1b7b2c867e4fee80bbb0eb45f7841c5c37"
     },
-    "receipt": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-tni-owner-implementation-r1/actual-native-r1/receipt.json",
-      "sha256": "0264db3c88889daed0bc18d4b31031c3c67d9c54f7b256cb71c273eca2554052"
-    },
-    "closure": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-tni-owner-implementation-r1/actual-native-r1/closure.json",
-      "sha256": "f9cc3259d0713ce948b4307b479285dc08ee5c4922d3d973fed4f5ad39685b06"
-    },
-    "scope": "Four ranks, unchanged11 caller cases/raw+state, O0 bounds/O2 shared and O2 private; full record5(TPI) and record6(TNI) table bytes before/after publication/after callers. Production object distinct from accessor-test variant.",
-    "private_mode_limit": "Both-table mode0 native caller only; no both-table private full-WRF forecast qualification and no transfer of first-TPI-only mode0 full3h."
+    "six_owner": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-rain-freezing-owner-feasibility-r1/NATIVE_QUALIFICATION.json",
+      "sha256": "46e364a4d26ab8dcee7be9fb240627d36db7b4a64ad5af3a45534615aa34780e"
+    }
   },
-  "nine_hour_qualification": {
-    "file": "NINE_HOUR_FINAL_QUALIFICATION.json",
-    "sha256": "176a0ed0038cb3dd3884140e987a77709a1af1d94d6b8d9e38e24d73457d916a",
-    "science_sha256": "5be54737d23bdde4ea04c2ccb09f40cf18c060a533d39fbf2ff90d958b80a35f",
-    "reader_closure_sha256": "0ef426af52d5773a48c7b7a6b891ee1eef6f9c8d7d800a9bc6ec0327038ac945",
-    "scope": "Actual current6c unprofiled full9h,10products1625steps/all512/two tiles/four positive writers; retained-original unpaired comparison."
+  "current_nine_hour_qualified": false,
+  "previous_nine_hour_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_NINE_HOUR_FINAL_QUALIFICATION_6C.json",
+    "sha256": "176a0ed0038cb3dd3884140e987a77709a1af1d94d6b8d9e38e24d73457d916a"
+  },
+  "full_application": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-b-memory-criticalpath-r1/fresh-original-cqu-threehour-preparation-r1/lifecycle-r1/FINAL_QUALIFICATION.json",
+    "sha256": "eabf9ba6c674bb2e8c59291b7b96d293fb41e746fe471351283e9aa5cde2f32e"
   }
 }

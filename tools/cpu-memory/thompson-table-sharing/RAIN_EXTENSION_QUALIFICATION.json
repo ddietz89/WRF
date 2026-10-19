@@ -1,0 +1,282 @@
+{
+  "status": "PROMOTED_WORKING_DEFAULT_EXACT_NATIVE_CANONICAL_AND_COMBINED_FULL3H_PASS",
+  "source_commit": "be96b3ec53232e8807e557dbf3afbd4d16d82bc6",
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/thompson-six-owner-cqu-canonical-current-r1/wrf.exe",
+    "sha256": "ed0951105f3dba9808b665fc6fd57ebbd258ded72233ed8d91f32e99150bbfc6"
+  },
+  "full_application": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-b-memory-criticalpath-r1/fresh-original-cqu-threehour-preparation-r1/lifecycle-r1/FINAL_QUALIFICATION.json",
+    "sha256": "eabf9ba6c674bb2e8c59291b7b96d293fb41e746fe471351283e9aa5cde2f32e"
+  },
+  "science": {
+    "status": "PASS_FRESH_CORRECTED_ORIGINAL_VS_COMBINED_CQU_SIX_OWNER_THREE_HOUR_FOUR_PRODUCTS_545_STEPS",
+    "complete_products": 4,
+    "ordered_steps": 545,
+    "all512": true,
+    "compute_ranks": 480,
+    "serial_tiles": 2,
+    "required_positive_roots": [
+      487,
+      495,
+      503,
+      511
+    ],
+    "receipt_sha256": "dae5f6625a3ee7f0afe6c018d875971654dc33870463ffdb5a3df660376d4b51",
+    "reader_closure_sha256": "36d264989f94e84100d82e68c51addb44ca50337463e463ab8a96492e144987a",
+    "full_qualification_sha256": "eabf9ba6c674bb2e8c59291b7b96d293fb41e746fe471351283e9aa5cde2f32e",
+    "all_model_reader_scopes_closed": true,
+    "protected_checker": {
+      "path": "/pool/wrf-experiment/wrf-cpu/validation/protected_netcdf_exact_reference.py",
+      "sha256": "0382bcbabfbc16b76114ef552206c6c558ea15cd3c3552dfaed98b977deea2b4",
+      "verified": true
+    }
+  },
+  "comparison_design": "Fresh fixed-order corrected-original versus combined current candidate; no isolated CQU/BC/PD/TNI attribution",
+  "all_owned_jobs_closed": true,
+  "rollback": {
+    "executable": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/portfolio-a-bc-copy-e319-current-r1/wrf.exe",
+      "sha256": "6c1ac8f3d00c362b8b677e2561997a57c27d1f4c80da0591ee410f92ae5e3743"
+    },
+    "source_commit": "eb616f2b71767da0db5124d0bdf81339315139f2",
+    "selection_file": "tools/cpu-working/PREVIOUS_SELECTION_6C.json",
+    "action": "Select retained6c with same375/881/825/faba/FIELDVIEW1/shared1, or revert sourcebe96 and rebuild. Mode0 is not source/artifact rollback."
+  },
+  "limits": [
+    "Qualified GNU13.3 strict REAL32/INTEGER32, Zen2, cold single-domain THOMPSON/OMP1,512ranks/two tiles.",
+    "No current nine-hour/restart/nesting/othercompiler/private-fullforecast transfer.",
+    "Kernel/caller/forecast percentages are separate and not additive."
+  ],
+  "mechanism": "Four additional rain-freezing tables share NUMA-cohort immutable C buffers, retaining existing two cloud owners, fixed-six atomic publication/cleanup and original table IO/math.",
+  "source_sha256": "6b983e03d61bf21f6ab6b10e0e1d6956c33252854d8ff3f2a9d484e5c7f8d424",
+  "native": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-rain-freezing-owner-feasibility-r1/NATIVE_QUALIFICATION.json",
+    "sha256": "46e364a4d26ab8dcee7be9fb240627d36db7b4a64ad5af3a45534615aa34780e"
+  },
+  "canonical": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-rain-freezing-owner-feasibility-r1/canonical-integration-preparation-r1/BUILD_QUALIFICATION.json",
+    "sha256": "559728ff68009cda951d42fe8e0db2b990d085eaeb1e58462615a9f1eaaf5202"
+  },
+  "promotion_inputs": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-rain-freezing-owner-feasibility-r1/PROMOTION_INPUTS.json",
+    "sha256": "e67ddd72d77dab34c8f02c4143d3fa7a74108a40b1d9b3fd26a192cf510f9b04"
+  },
+  "direct_code_review": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-rain-freezing-owner-feasibility-r1/direct-production-review-r1/ACTUAL_REVIEW_ADJUDICATION.json",
+    "sha256": "95a204c82a1a6a54933f38ca2608c2c6067fb22dfd5ae7f981c321a379ae9479"
+  },
+  "production_member_sha256": "1a80a5a26d705c3240d289f207225bcf3c0bfbcaaa0b93110b96a3fcbf8f2f72",
+  "module_sha256": "43356ff69a171e254fc933896b5b87fbaa954535c6acd9b488cbc95b47f7917d",
+  "numerical_scope": "Original11 O0bounds/O2 fourrank cases, both private/shared, all6whole records before/after publication/after physics, same numerical/state oracle. Production object excludes accessors.",
+  "consumer_scope": "Seven direct USE consumers plus wrf rebuilt; five nonterminal public MOD hashes unchanged, terminal wrf_top changed/wrf rebuilt. Seven584members changed/577unchanged.",
+  "memory": {
+    "full_configuration_peaks": {
+      "control": [
+        {
+          "host": "hpc01",
+          "peak_bytes": 98732437504,
+          "peak_GiB": 91.95174789428711,
+          "memory_events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "cpu_stat": {
+            "usage_usec": 91941354466,
+            "user_usec": 90158210283,
+            "system_usec": 1783144182,
+            "core_sched.force_idle_usec": 0,
+            "nr_periods": 8218,
+            "nr_throttled": 5152,
+            "throttled_usec": 23708208,
+            "nr_bursts": 0,
+            "burst_usec": 0
+          }
+        },
+        {
+          "host": "hpc02",
+          "peak_bytes": 101101588480,
+          "peak_GiB": 94.1581916809082,
+          "memory_events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "cpu_stat": {
+            "usage_usec": 91942279812,
+            "user_usec": 90047989411,
+            "system_usec": 1894290400,
+            "core_sched.force_idle_usec": 0,
+            "nr_periods": 8163,
+            "nr_throttled": 6060,
+            "throttled_usec": 8449876,
+            "nr_bursts": 0,
+            "burst_usec": 0
+          }
+        },
+        {
+          "host": "hpc03",
+          "peak_bytes": 101013078016,
+          "peak_GiB": 94.07575988769531,
+          "memory_events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "cpu_stat": {
+            "usage_usec": 91984346974,
+            "user_usec": 90103106179,
+            "system_usec": 1881240794,
+            "core_sched.force_idle_usec": 0,
+            "nr_periods": 8162,
+            "nr_throttled": 5639,
+            "throttled_usec": 14945774,
+            "nr_bursts": 0,
+            "burst_usec": 0
+          }
+        },
+        {
+          "host": "hpc04",
+          "peak_bytes": 107177967616,
+          "peak_GiB": 99.8172607421875,
+          "memory_events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "cpu_stat": {
+            "usage_usec": 91932504345,
+            "user_usec": 89961304153,
+            "system_usec": 1971200191,
+            "core_sched.force_idle_usec": 0,
+            "nr_periods": 8162,
+            "nr_throttled": 4892,
+            "throttled_usec": 36985882,
+            "nr_bursts": 0,
+            "burst_usec": 0
+          }
+        }
+      ],
+      "candidate": [
+        {
+          "host": "hpc01",
+          "peak_bytes": 87693574144,
+          "peak_GiB": 81.67100524902344,
+          "memory_events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "cpu_stat": {
+            "usage_usec": 81285498932,
+            "user_usec": 79479286915,
+            "system_usec": 1806212016,
+            "core_sched.force_idle_usec": 0,
+            "nr_periods": 6741,
+            "nr_throttled": 4453,
+            "throttled_usec": 21076194,
+            "nr_bursts": 0,
+            "burst_usec": 0
+          }
+        },
+        {
+          "host": "hpc02",
+          "peak_bytes": 85351600128,
+          "peak_GiB": 79.48987197875977,
+          "memory_events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "cpu_stat": {
+            "usage_usec": 81275852828,
+            "user_usec": 79389116067,
+            "system_usec": 1886736761,
+            "core_sched.force_idle_usec": 0,
+            "nr_periods": 6698,
+            "nr_throttled": 4316,
+            "throttled_usec": 32714497,
+            "nr_bursts": 0,
+            "burst_usec": 0
+          }
+        },
+        {
+          "host": "hpc03",
+          "peak_bytes": 85325983744,
+          "peak_GiB": 79.46601486206055,
+          "memory_events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "cpu_stat": {
+            "usage_usec": 81324846678,
+            "user_usec": 79413053820,
+            "system_usec": 1911792857,
+            "core_sched.force_idle_usec": 0,
+            "nr_periods": 6697,
+            "nr_throttled": 4539,
+            "throttled_usec": 27695302,
+            "nr_bursts": 0,
+            "burst_usec": 0
+          }
+        },
+        {
+          "host": "hpc04",
+          "peak_bytes": 85287227392,
+          "peak_GiB": 79.4299201965332,
+          "memory_events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "cpu_stat": {
+            "usage_usec": 81295319273,
+            "user_usec": 79325893866,
+            "system_usec": 1969425406,
+            "core_sched.force_idle_usec": 0,
+            "nr_periods": 6696,
+            "nr_throttled": 4226,
+            "throttled_usec": 15266505,
+            "nr_bursts": 0,
+            "burst_usec": 0
+          }
+        }
+      ]
+    },
+    "matched_progress": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-b-memory-criticalpath-r1/fresh-original-cqu-threehour-preparation-r1/lifecycle-r1/MEMORY_CONTEXT.json",
+      "sha256": "846c49f54b0ccd0e697aa8d62e196e6d725b0b85f9fc4e8f1ae91dc1a638f832"
+    },
+    "interpretation": "Recorded original-versus-full-combined per-invocation cgroup memory; no isolated rain-table, synchronized-peak or PSS claim.",
+    "additional_rain_declared_bytes_per_rank": 108424800
+  },
+  "supported_lifetime": "Prepare before tile loop, retain all six private stages through both originalinit calls; commit only after all6expected creates; failure destroys all6 slots then fatal preserving stages/diagnostics; release before MPI shutdown.",
+  "private_mode": "Mode0 remains native-only. Generic no-macro ordinary ALLOCATABLE path preserved; qualified helper build required, not automatic Makefile linkage.",
+  "failures_preserved": "Original author cleanup leak, finite local extractor failure, R1 old oracle size allowlist failure and CQU canonical failures retained; no scientific gate waived."
+}

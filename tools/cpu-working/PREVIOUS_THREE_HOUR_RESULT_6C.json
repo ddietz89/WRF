@@ -1,0 +1,141 @@
+{
+  "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+  "order": [
+    "retained_freshPD_original546b_control",
+    "new_TNI_PD_BC_candidate"
+  ],
+  "comparison_design": "UNPAIRED retained original control; no isolatedBC/PD/TNI gain attribution",
+  "metrics": {
+    "control": {
+      "wall_seconds": 819.2134004358668,
+      "cpu_seconds": 367776.94750099996,
+      "main_step_sum_seconds": 597.58187
+    },
+    "candidate": {
+      "wall_seconds": 673.5236018940341,
+      "cpu_seconds": 324888.406371,
+      "main_step_sum_seconds": 565.94339
+    }
+  },
+  "reductions_percent": {
+    "wall_seconds": 17.78410832443875,
+    "cpu_seconds": 11.661563189705726,
+    "main_step_sum_seconds": 5.294417650254346
+  },
+  "science_sha256": "10aa5a539528fa22a36e737b804e3a10d88a3ca2e9ab9daecd2912979f725dfe",
+  "reader_closure_sha256": "5b814038febfdf569430eef1f19cc06f8373183045355057877b0f6c8851f92c",
+  "limits": "One later candidate versus retained actual546b control. Different order/time/cache/serverload; no freshpair/repeatability/perkernelcausalclaim. Main includes communication/backpressure; residual is not pureIO.",
+  "source_commit": "eb616f2b71767da0db5124d0bdf81339315139f2",
+  "source_commit_note": "Qualified native boundary object de98 from exact9eb source. No source compilation in final canonical build; one ordinary WRF link. Reused TNI4f7/PD8ec preserved. PD47c7 tracked source has actual project REAL32 allocated/RELA/nonfile-symbol/MOD identity to8ec, not whole-file identity. No generic build/restart/othercompiler or nine-hour scope transferred.",
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/portfolio-a-bc-copy-e319-current-r1/wrf.exe",
+    "sha256": "6c1ac8f3d00c362b8b677e2561997a57c27d1f4c80da0591ee410f92ae5e3743"
+  },
+  "application_qualification": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-b-memory-criticalpath-r1/periodic-e319-bc-three-hour-preparation-r1/lifecycle-r1/FINAL_QUALIFICATION.json",
+    "sha256": "cafcfabe63153bb8a771518a9093826ddf8e4179573138e61adc0c4c7dc3879c"
+  },
+  "science": {
+    "status": "PASS_CURRENT375_UNPROFILED_FULL_THREE_HOUR_ORIGINAL_FOUR_PRODUCTS_545_STEPS",
+    "complete_products": 4,
+    "ordered_steps": 545,
+    "all512": true,
+    "serial_tiles": 2,
+    "required_positive_roots": [
+      487,
+      495,
+      503,
+      511
+    ],
+    "receipt_sha256": "10aa5a539528fa22a36e737b804e3a10d88a3ca2e9ab9daecd2912979f725dfe",
+    "reader_closure_sha256": "5b814038febfdf569430eef1f19cc06f8373183045355057877b0f6c8851f92c",
+    "full_qualification_sha256": "cafcfabe63153bb8a771518a9093826ddf8e4179573138e61adc0c4c7dc3879c",
+    "all_model_reader_scopes_closed": true,
+    "protected_checker": {
+      "path": "/pool/wrf-experiment/wrf-cpu/validation/protected_netcdf_exact_reference.py",
+      "sha256": "0382bcbabfbc16b76114ef552206c6c558ea15cd3c3552dfaed98b977deea2b4",
+      "verified": true
+    },
+    "evidence_file": "../cpu-compute/boundary-copy-reuse/QUALIFICATION.json"
+  },
+  "resources": {
+    "provider": "375",
+    "rankmap": "faba",
+    "codec": "881",
+    "private_hdf": "825",
+    "field_view": "1",
+    "both_table_shared_mode": "1",
+    "observer": false,
+    "perf": false,
+    "cores_each_host": 128,
+    "memory_caps_GiB": [
+      100,
+      100,
+      100,
+      104
+    ],
+    "swap": 0
+  },
+  "model_memory": [
+    {
+      "host": "hpc01",
+      "memory_peak_bytes": 86804615168,
+      "memory_peak_GiB": 80.84309768676758,
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      }
+    },
+    {
+      "host": "hpc02",
+      "memory_peak_bytes": 84441567232,
+      "memory_peak_GiB": 78.64233779907227,
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      }
+    },
+    {
+      "host": "hpc03",
+      "memory_peak_bytes": 84405555200,
+      "memory_peak_GiB": 78.60879898071289,
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      }
+    },
+    {
+      "host": "hpc04",
+      "memory_peak_bytes": 84386844672,
+      "memory_peak_GiB": 78.59137344360352,
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      }
+    }
+  ],
+  "observed_speedup": {
+    "ratio": 1.216309863725836,
+    "scope": "UNPAIRED retained corrected-original control; not isolated or repeatability."
+  },
+  "raw_evidence": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-tni-pd-bc3h-runtime-r1/RESULT.json",
+    "sha256": "f4a3036493f9fa128ef51d735a23cf99ca6a52377f49d4698768813ef345da1d"
+  }
+}
