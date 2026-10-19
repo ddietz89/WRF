@@ -525,6 +525,7 @@ MODULE module_wrf_quilt
 ! We wish to be able to link to different packages depending on whether
 ! the I/O is restart, initial, history, or boundary.
 !</DESCRIPTION>
+      USE ISO_C_BINDING, ONLY: C_INT, C_INT64_T, C_PTR, C_NULL_PTR, C_F_POINTER, C_SIZEOF
       USE module_state_description
       USE module_quilt_outbuf_ops
       USE module_configure, only : grid_config_rec_type, model_config_rec, model_to_grid_config_rec
@@ -556,6 +557,39 @@ MODULE module_wrf_quilt
       INTEGER iii, jjj, vid, CC, DD, dom_id
       LOGICAL           :: call_server_ready
 
+      ! Experimental ordinary-only view. Gather remains its original ALLOCATABLE.
+      INTEGER(C_INT), POINTER, CONTIGUOUS :: quilt_field_view(:) => NULL()
+      TYPE(C_PTR) :: quilt_field_cptr = C_NULL_PTR
+      INTEGER(C_INT) :: quilt_view_bytes, quilt_view_name(256), quilt_view_status
+      INTEGER(C_INT64_T) :: quilt_view_token
+      INTEGER :: quilt_view_env_status, quilt_view_env_length
+      CHARACTER(LEN=1) :: quilt_view_env
+      LOGICAL :: quilt_view_requested, quilt_view_mode
+      LOGICAL, SAVE :: quilt_view_reported = .FALSE.
+      INTERFACE
+        FUNCTION qview_begin(cap,integer_bytes) BIND(C,NAME='quilt_owned_view_begin') RESULT(rc)
+          IMPORT C_INT
+          INTEGER(C_INT), VALUE :: cap,integer_bytes
+          INTEGER(C_INT) :: rc
+        END FUNCTION
+        FUNCTION qview_acquire(ptr,nbytes,name,token) BIND(C,NAME='quilt_owned_view_acquire') RESULT(rc)
+          IMPORT C_PTR,C_INT,C_INT64_T
+          TYPE(C_PTR) :: ptr
+          INTEGER(C_INT) :: nbytes,name(*)
+          INTEGER(C_INT64_T) :: token
+          INTEGER(C_INT) :: rc
+        END FUNCTION
+        FUNCTION qview_release(token) BIND(C,NAME='quilt_owned_view_release') RESULT(rc)
+          IMPORT C_INT,C_INT64_T
+          INTEGER(C_INT64_T), VALUE :: token
+          INTEGER(C_INT) :: rc
+        END FUNCTION
+        FUNCTION qview_end() BIND(C,NAME='quilt_owned_view_end') RESULT(rc)
+          IMPORT C_INT
+          INTEGER(C_INT) :: rc
+        END FUNCTION
+      END INTERFACE
+
 logical okay_to_w
 character*120 sysline
 
@@ -573,6 +607,12 @@ character*120 sysline
       RETURN
 #endif
 
+! Optional ordinary transport view; default off. Qualification remains NetCDF2 only.
+      quilt_view_requested = .FALSE.
+      CALL GET_ENVIRONMENT_VARIABLE('WRF_QUILT_OWNED_FIELD_VIEW',quilt_view_env, &
+        LENGTH=quilt_view_env_length,STATUS=quilt_view_env_status)
+      IF (quilt_view_env_status.EQ.0 .AND. quilt_view_env_length.EQ.1) &
+        quilt_view_requested = quilt_view_env.EQ.'1'
 ! Call ext_pkg_ioinit() routines to initialize I/O packages.  
       SysDepInfo = " "
 #ifdef NETCDF
@@ -926,6 +966,18 @@ okay_to_w = .false.
 
 ! Now, for each field, retrieve headers and patches (data) from the internal 
 ! buffers and collect them all on the I/O quilt server "root" task.
+! All STOREs have completed. Admit whole batch before gather release/cursor change.
+      quilt_view_mode = .FALSE.
+      IF (quilt_view_requested .AND. &
+          KIND(0).EQ.C_INT .AND. STORAGE_SIZE(0).EQ.32 .AND. &
+          C_SIZEOF(0_C_INT).EQ.4 .AND. itypesize.EQ.4) THEN
+        quilt_view_status = qview_begin(INT(obufsize,C_INT),INT(itypesize,C_INT))
+        quilt_view_mode = quilt_view_status.EQ.0
+      ENDIF
+      IF (quilt_view_mode) THEN
+        DEALLOCATE(obuf)
+        CALL quilt_acquire_current_view()
+      ELSE
 ! All STOREs above own deep copies; original obuf is now retrieval scratch only.
       CALL get_max_stored_field_bytes_c( obufsize, quilt_field_scratch_bytes )
       IF ( quilt_field_scratch_bytes .GT. 0 .AND. itypesize .GT. 0 ) THEN
@@ -943,6 +995,7 @@ okay_to_w = .false.
 ! Retrieve header and all patches for the first field from the internal 
 ! buffers.  
         CALL retrieve_pieces_of_field ( obuf , VarName, obufsize, sz, retval )
+      ENDIF
 ! Sum sizes of all headers and patches (data) for this field from all I/O 
 ! servers in this I/O server group onto the I/O server "root".
         CALL mpi_x_reduce( sz, bigbufsize, 1, MPI_INTEGER, MPI_SUM, ntasks_local_group-1, mpi_comm_local, ierr )
@@ -963,12 +1016,26 @@ okay_to_w = .false.
 
 ! Collect buffers and fields from all I/O servers in this I/O server group
 ! onto the I/O server "root"
+          IF (quilt_view_mode) THEN
+          CALL collect_on_comm_debug2(__FILE__,__LINE__,Trim(VarName),        &
+                                get_hdr_tag(quilt_field_view),sz,get_hdr_rec_size(quilt_field_view), &
+                                mpi_comm_local,                               &
+                                onebyte,                                      &
+                                quilt_field_view, sz,                         &
+                                bigbuf, bigbufsize )
+! Blocking MPI_Gatherv has consumed the send field. Backend reads separate bigbuf.
+          NULLIFY(quilt_field_view)
+          quilt_field_cptr = C_NULL_PTR
+          quilt_view_status = qview_release(quilt_view_token)
+          IF (quilt_view_status.NE.0) CALL wrf_error_fatal('owned field view release failed')
+          ELSE
           CALL collect_on_comm_debug2(__FILE__,__LINE__,Trim(VarName),        &
                                 get_hdr_tag(obuf),sz,get_hdr_rec_size(obuf),  &
                                 mpi_comm_local,                               &
                                 onebyte,                                      &
                                 obuf, sz,                                     &
                                 bigbuf, bigbufsize )
+          ENDIF
 ! The I/O server "root" now handles collected requests from all compute 
 ! tasks served by this I/O server group (i.e. all compute tasks).  
           IF ( mytask_local .EQ. ntasks_local_group-1 ) THEN
@@ -1516,7 +1583,11 @@ okay_to_w = .false.
         if(allocated(bigbuf)) deallocate(bigbuf)
 ! Retrieve header and all patches for the next field from the internal 
 ! buffers.  
+        IF (quilt_view_mode) THEN
+          CALL quilt_acquire_current_view()
+        ELSE
         CALL retrieve_pieces_of_field ( obuf , VarName, obufsize, sz, retval )
+        ENDIF
 ! Sum sizes of all headers and patches (data) for this field from all I/O 
 ! servers in this I/O server group onto the I/O server "root".
         CALL mpi_x_reduce( sz, bigbufsize, 1, MPI_INTEGER,MPI_SUM, ntasks_local_group-1,mpi_comm_local, ierr )
@@ -1525,7 +1596,7 @@ okay_to_w = .false.
 ! the next batch of commands.  
       END DO !}
 
-      DEALLOCATE( obuf )
+      IF (ALLOCATED(obuf)) DEALLOCATE( obuf )
 
       ! flush output files if needed
       IF (stored_write_record) THEN
@@ -1567,6 +1638,36 @@ okay_to_w = .false.
 
       END DO ! }
 
+    CONTAINS
+      SUBROUTINE quilt_acquire_current_view()
+        INTEGER :: qi
+        quilt_view_status = qview_acquire(quilt_field_cptr,quilt_view_bytes, &
+                                          quilt_view_name,quilt_view_token)
+        IF (quilt_view_status.EQ.0) THEN
+          IF (quilt_view_bytes.LE.0 .OR. MOD(quilt_view_bytes,4).NE.0) &
+            CALL wrf_error_fatal('owned field view admitted extent changed')
+          CALL C_F_POINTER(quilt_field_cptr,quilt_field_view,[quilt_view_bytes/4])
+          sz = quilt_view_bytes
+          VarName = ' '
+          DO qi=2,quilt_view_name(1)+1
+            VarName(qi-1:qi-1) = CHAR(quilt_view_name(qi))
+          ENDDO
+          retval = .TRUE.
+          IF (.NOT.quilt_view_reported) THEN
+            WRITE(mess,'(A,I0,A,I0)') 'QUILT_OWNED_FIELD_VIEW_ADMITTED bytes=',quilt_view_bytes, &
+                                    ' token=',quilt_view_token
+            WRITE(0,'(A)') TRIM(mess)
+            quilt_view_reported = .TRUE.
+          ENDIF
+        ELSE IF (quilt_view_status.EQ.-1) THEN
+! EOF preserves sz/name and collective order, as the original wrapper does.
+          retval = .FALSE.
+          quilt_view_status = qview_end()
+          IF (quilt_view_status.NE.0) CALL wrf_error_fatal('owned field view end failed')
+        ELSE
+          CALL wrf_error_fatal('owned field view acquire failed')
+        ENDIF
+      END SUBROUTINE quilt_acquire_current_view
     END SUBROUTINE quilt
 
     SUBROUTINE quilt_pnc

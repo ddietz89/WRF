@@ -265,6 +265,60 @@ GET_MAX_STORED_FIELD_BYTES_C ( int * insize, int * maxbytes )
   return(0) ;
 }
 
+/* Optional private view protocol: single thread; no legacy call/init/reset while
+ * enabled. Call begin only after all STOREs. Admission fails before advancing.
+ * No Fortran ALLOCATABLE may be associated with these C-owned pointers. */
+#include <stdint.h>
+#include <limits.h>
+#include <errno.h>
+static int qview_enabled, qview_live, qview_cap;
+static int64_t qview_serial, qview_token;
+int quilt_owned_view_begin(int cap, int integer_bytes)
+{
+  int i,n;
+  if (qview_enabled || qview_live || sizeof(int)!=4 || integer_bytes!=4 ||
+      cap<=0 || cap%4 || qview_serial==INT64_MAX) return 1;
+  for(i=0;i<numflds;i++) {
+    n=fld_curs[i]<cap ? fld_curs[i]:cap;
+    if(!fld_cache[i] || n<=0 || n%4 ||
+       (uintptr_t)fld_cache[i]%_Alignof(int)) return 1;
+  }
+  qview_cap=cap; fld=0; qview_enabled=1;
+  return 0;
+}
+int quilt_owned_view_acquire(void **ptr, int *bytes, int name[], int64_t *token)
+{
+  int i,n;
+  if(!qview_enabled || qview_live || !ptr || !bytes || !name || !token ||
+     qview_serial==INT64_MAX) return 1;
+  if(fld>=numflds) { numflds=0; qview_enabled=0; return -1; }
+  n=fld_curs[fld]<qview_cap ? fld_curs[fld]:qview_cap;
+  /* begin admitted the whole batch. No legacy mutation is permitted between. */
+  if(!fld_cache[fld] || n<=0 || n%4) return 1;
+  qview_token=++qview_serial; qview_live=1;
+  name[0]=(int)strlen(fld_name[fld]);
+  for(i=1;i<=name[0];i++) name[i]=fld_name[fld][i-1];
+  *ptr=fld_cache[fld]; *bytes=n; *token=qview_token;
+  return 0;
+}
+int quilt_owned_view_release(int64_t token)
+{
+  int saved_errno;
+  if(!qview_enabled || !qview_live || token!=qview_token) return 1;
+  saved_errno=errno;
+  free(fld_cache[fld]); fld_cache[fld]=NULL; fld_bufsize[fld]=0;
+  fld++; qview_live=0; qview_token=0;
+  errno=saved_errno;
+  return 0;
+}
+/* End an admitted batch early only after releasing its live field. Remaining
+ * cache ownership stays with unchanged INIT_STORE, which caller may now use. */
+int quilt_owned_view_end(void)
+{
+  if(qview_live) return 1;
+  qview_enabled=0; return 0;
+}
+
 #define INDEX_2(A,B,NB)       ( (B) + (A)*(NB) )
 #define INDEX_3(A,B,C)  INDEX_2( (A), INDEX_2( (B), (C), (me[1]-ms[1]+1) ), (me[1]-ms[1]+1)*(me[0]-ms[0]+1) )
 /* flip low order bit of fp number */
