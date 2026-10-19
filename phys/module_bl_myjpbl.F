@@ -834,9 +834,9 @@
       REAL :: A,ADEN,B,BDEN,AUBR,BUBR,BLMX,EL0,ELOQ2X,GHL,GML           &
      &       ,QOL2ST,QOL2UN,QDZL,RDZ,SQ,SREL,SZQ,TEM,THM,VKRMZ
 !
-      REAL,DIMENSION(KTS:KTE) :: Q1
+      REAL,DIMENSION(KTS:KTE) :: DTH
 !
-      REAL,DIMENSION(KTS:KTE-1) :: DTH,ELM,REL
+      REAL,DIMENSION(KTS:KTE-1) :: ELM,REL
 !
 !----------------------------------------------------------------------
 !**********************************************************************
@@ -857,9 +857,6 @@
  110  PBLH=Z(LPBL+1)-Z(LMH+1)
 !
 !-----------------------------------------------------------------------
-      DO K=KTS,LMH
-        Q1(K)=0.
-      ENDDO
 !
       DO K=1,LMH-1
         DTH(K)=THE(K)-THE(K+1)
@@ -934,15 +931,18 @@
       MIXHT=BLMX              !PLee (3/07)
 !
 !----------------------------------------------------------------------
+      DO K=KTS,LMH
+        DTH(K)=0.
+      ENDDO
       DO K=LPBL,LMH
-        Q1(K)=SQRT(Q2(K))
+        DTH(K)=SQRT(Q2(K))
       ENDDO
 !----------------------------------------------------------------------
       SZQ=0.
       SQ =0.
 !
       DO K=KTS,LMH-1
-        QDZL=(Q1(K)+Q1(K+1))*(Z(K+1)-Z(K+2))
+        QDZL=(DTH(K)+DTH(K+1))*(Z(K+1)-Z(K+2))
         SZQ=(Z(K+1)+Z(K+2)-Z(LMH+1)-Z(LMH+1))*QDZL+SZQ
         SQ=QDZL+SQ
       ENDDO
