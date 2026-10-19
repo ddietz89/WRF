@@ -1,0 +1,41 @@
+{
+  "status": "POST_SCIENCE_PROMOTION_BINDS_PREVIOUSLY_TESTED_FIRST_TABLE_ARTIFACT",
+  "source_commit": "85209e878c7284bf10146fc6ca5ef18b65a2f757",
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/wrf.exe",
+    "sha256": "aada4abba40e4608efa76ebbf315da4714ddc6c506a7d8578bb04763efdc7742"
+  },
+  "archive_sha256": "c2da4434735c4b6824adf567dcb75a12d0544ad63104bf01d6ea00345d939cfb",
+  "sources": {
+    "dyn_em/start_em.F": "ba19b902eb43c9baa2f59d3ffef0dec7c6a0ccbf0a9ceb062b72e55cff5366fc",
+    "phys/module_mp_thompson.F": "d634120d334f3698449d827d718e5b929ff00b3b7b8de6196055f7c6c2e7210d",
+    "main/module_wrf_top.F": "7d977ce5832b241889b212d785222ff6e4dafd3cd13c3212ff1a7d406774b97f",
+    "tools/cpu-memory/thompson-table-sharing/shared_table_iso.f90": "b9f3ad35a58e08366286aa72c1c09a939358fe1152a612fac052a68ed79bf673",
+    "tools/cpu-memory/thompson-table-sharing/shared_table.h": "dc01b80d7ea5cdc76ecf37248d17376ca8681d558abe0004a23bcb0ef09b0b69",
+    "tools/cpu-memory/thompson-table-sharing/thompson_tpi_bridge.c": "eed11ee2c18caf9581146d1edfc42dec0c9b256a09d5147872d03cd860b0506e",
+    "tools/cpu-memory/thompson-table-sharing/shared_table.c": "6be5e91ac1f63a8dc589af8188363223c44a2b361e1ade85afc1576be2b5c116"
+  },
+  "build": {
+    "receipt_sha256": "bc646ea4c667c671aa5103c2abb0c9aed31fc3cdc59563d7f34f745503628db0",
+    "closure_sha256": "c3efed0375313db8d5336c17de642d5912c6ec1e5f7d76fb2724c1b2adf164c4",
+    "canonical_provenance": "Explicit16fatal diagnostic three-integer constant differences plus onecomment; not C9 ELF identity; accepted scientific statements unchanged",
+    "full_source_pin_manifest": "804efdbd670070855e0ec6a31d80142c1fdbf76568c6d6dddec4fcedac67e06e"
+  },
+  "native": {
+    "receipt_sha256": "7442a76d28e323b91952bfec8b28c108cbb36f317bb93d942b2d90d1b0dcbb78",
+    "closure_sha256": "c97c658ce76fd844e6885013ddd302bc83408e7d3f587bdc15776036146d8cf8",
+    "status": "PASS_TRUE_CANONICAL_THOMPSON_FOUR_RANK_O0_BOUNDS_O2_SHARED_PRIVATE_11_RAW_STATE_TABLE_BYTES",
+    "scope": "11 fullcaller cases, O0bounds/O2, tablebytes/state exact; accessor test variant distinct from production object; not transferred fullWRF qualification"
+  },
+  "application_qualification_sha256": "54e5f3a948c3a4ca7dfb521f0958e30f2b6ebaacd4eb2e129b6b67c9dfbb8127",
+  "previous_binding": {
+    "file": "PREVIOUS_SOURCE_BUILD_BINDING_XY.json",
+    "sha256": "c0d1e427b2f675b1aa4a2931ecefbef1fd4902b42ef7c08fc785f9415c959d69"
+  },
+  "build_scope": "Exact first-table canonical source/helper bytes committed in85209e87 after tests; no new build. Changed Thompson public module consumers were rebuilt by the qualified existing recipe. Frozen raw producer records remain unchanged.",
+  "qualification_file": "../cpu-memory/thompson-table-sharing/QUALIFICATION.json",
+  "runtime": {
+    "WRF_EXPERIMENTAL_TPI_NUMA": 1,
+    "other_settings": "Unchanged375/881/825/faba/FIELDVIEW1/IB"
+  }
+}

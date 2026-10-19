@@ -1,0 +1,87 @@
+{
+  "status": "POST_TEST_SOURCE_BINDING_NO_NEW_BUILD",
+  "recipe": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-tni-owner-implementation-r1/canonical-integration-preparation-r1/REBUILD_RECIPE.json",
+    "sha256": "5bc82491430b8b7dced3b97649ec0c968e8868e053fa3d52116d1c5bc11fda68"
+  },
+  "worker": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-tni-owner-implementation-r1/canonical-integration-preparation-r1/run_build.py",
+    "sha256": "0eda8abb2ecb02a6ecdb95d3aaa7e89fc85b438758dd2f27b80b3f0363d79356"
+  },
+  "canonical_compile": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-tni-owner-implementation-r1/canonical-integration-preparation-r1/canonical_compile.py",
+    "sha256": "3cfe98203c56d86b891634029fae555b75434e2dd8e0eccafeb883d4e6cbbc54"
+  },
+  "manifest": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-tni-owner-implementation-r1/canonical-integration-preparation-r1/manifest.json",
+    "sha256": "d37b3918736ced58e7e104e89ea1969b44dd6b1f7c90236747249c9da813d31c"
+  },
+  "build_qualification": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-tni-owner-implementation-r1/canonical-integration-preparation-r1/BUILD_QUALIFICATION.json",
+    "sha256": "43ae80d55fd3c065b35561124aa8dc640f68d12f9e8052cdbca98bd76ef594e6"
+  },
+  "candidate_source_commit": "cea9ce3d2013d2d2cf3ec7f2e1691ed08e68acf5",
+  "source_rule": "Tracking commit contains exact testedTNIa484 and kind-safePD47c7. Existinge319 production8ec maps to47c7 through actualREAL32 allocated/RELA/symbol/MOD identity. No new image/link; all producerNULL source commits remain preserved. Reproduction follows pinned canonical recipe with genuine module consumer rebuilds and isolated macro/nonmacro roots.",
+  "define_and_flags": "Existing canonical WRF_EXPERIMENTAL_TPI_NUMA CPP route only. Genuine Make sed/CPP\u2192standard.exe(file)\u2192CPP(STDIN), qualified GNU13.3 generic strict flags; module_physics_init special O0 retained. Relative compiler basenames preserve runtime diagnostic provenance. Ordinary generic Make/config stays unchanged.",
+  "two_owner_lifecycle": "Existing prepare/publish/release API now owns TPI+TNI. Associate both private staging pointers before original writes/read/bcast. Both original tile init calls precede shared-mode1 ordered two-owner creation/publication. Do not switch either computation pointer until both creates succeed. Release both after med_shutdown_io before MPI_Finalize; runtime0 and failed-create stages follow qualified private contract. No silent unsupported-mode fallback or MPI-error-recovery claim.",
+  "unchanged_helper_source_sha256": {
+    "shared_table.c": "6be5e91ac1f63a8dc589af8188363223c44a2b361e1ade85afc1576be2b5c116",
+    "shared_table.h": "dc01b80d7ea5cdc76ecf37248d17376ca8681d558abe0004a23bcb0ef09b0b69",
+    "shared_table_iso.f90": "b9f3ad35a58e08366286aa72c1c09a939358fe1152a612fac052a68ed79bf673",
+    "thompson_tpi_bridge.c": "eed11ee2c18caf9581146d1edfc42dec0c9b256a09d5147872d03cd860b0506e"
+  },
+  "consumer_frontier": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-tni-owner-implementation-r1/MODULE_CONSUMER_FRONTIER.json",
+    "sha256": "ee6e2b0557c19da77778b9520370319813450f317b5b4fe63a64f4426a22c936"
+  },
+  "required_rebuild_order": [
+    "shared_table_iso.mod before Thompson; new owned .mods before retained support includes",
+    "Reuse actual production Thompson4f7e; rebuild module_madwrf,module_diag_nwp,module_microphysics_driver,module_radiation_driver,module_physics_init,start_em,module_wrf_top against a0cd",
+    "Rebuild wrf against new module_wrf_top.mod; stop and propagate any additional changed consumer interface before link"
+  ],
+  "actual_propagation": {
+    "Thompson_mod": "dfef5f25\u2192a0cdd805 changed",
+    "five_consumer_mods": "Actual byte-exact to parent; detailed hashes in build qualification",
+    "top_mod": "35749dd3\u219268365036 changed; actual wrf rebuild performed",
+    "Fortran_consumer_main_compiles": 8,
+    "C_compiles": 0,
+    "links": 1
+  },
+  "archive_and_tail": {
+    "occurrences": 584,
+    "replaced_archive_members": [
+      "module_madwrf.o",
+      "module_mp_thompson.o",
+      "module_physics_init.o",
+      "module_microphysics_driver.o",
+      "module_radiation_driver.o",
+      "module_diag_nwp.o",
+      "start_em.o"
+    ],
+    "unchanged_occurrences": 577,
+    "preserved_PDrow_member": "module_advect_em.o",
+    "preserved_PDrow_sha256": "8ec77f864716667aa79d40878fa11276f7dede4017c620201e54f9f83bb32b25",
+    "nonmain_inputs": 11,
+    "direct_pack_sha256": "8ab87436bdb22d9d0ef3c1257e25f415727ede16be8535b8e037832a12fe9752",
+    "unchanged_helper_link_objects": 3,
+    "exact_paths_and_hashes": "REBUILD_RECIPE.unchanged_nonmain_link_inputs and unchanged_owner_helper_inputs; preserve ordered archive proof and actual link command. No generic Make helper auto-link."
+  },
+  "ABI_support": "Macro build changes TNI public allocatable descriptor to private contiguous pointer/owned staging: genuine consumer propagation required. No-macro original allocatable path remains; external table allocation/free/address-taking outside supported contract is unqualified.",
+  "rollback": "Primary rollback: already-qualified aada/source852 at48da3947 using375/faba/881/825/FIELDVIEW1/TPI_NUMA1. Generic preserved885/sourcee187 no-macro. Source rollback restores pre-promotion module_mp_thompson d634 and module_advect_em7a314; keep isolated macro/nonmacro objects/mods.",
+  "PD_mapping": {
+    "qualification": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-pd-kind-safe-sentinel-r1/KIND_REPAIR_QUALIFICATION.json",
+      "sha256": "d3a9d0b3fc7c21fcc3d976ea340d10bc184bf98b5c8b2290de41a70f87ca5c69"
+    },
+    "combined_procedure_only_diff": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-pd-kind-safe-sentinel-r1/PROMOTION_COMBINED_PD_ONLY.diff",
+      "sha256": "ae14ab955989fde3ec4f588336248bda1b0646c2c6c16453edc00dfb42e712c7"
+    },
+    "source_sha256": "47c7b2b0025dca1971696eacd51d7c589ec2bc20a211cd80f7329404e230fae8",
+    "source_commit": null,
+    "preserved_e319_member_sha256": "8ec77f864716667aa79d40878fa11276f7dede4017c620201e54f9f83bb32b25",
+    "compiled_semantic_equivalence_object_sha256": "e5245eed1f84a67ea9d428bed8d8b2529f568ca49394f9cf8b85d97bdc50f560",
+    "MOD_sha256": "88e9fcbf27d28de7f12c22df0aac07aef26d4463f303e5a51b135a6a7e454750",
+    "limits": "Existing8ec remains in e319; separate ef908 compile proof maps47c7 source to identical defaultREAL32 runtime payload/MOD. No relink or changed consumer frontier from PD kind repair. This is not wholeELF hash identity or fullREAL64 qualification."
+  }
+}

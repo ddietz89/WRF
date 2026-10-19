@@ -1,0 +1,149 @@
+{
+  "status": "PROMOTED_COMBINED_SOURCE_AND_SUPPORTED_WORKING_SELECTION",
+  "primary_unchanged": "Existing e319 selected with375/faba/881/825/FIELDVIEW1/shared1; first-table aada/source852 preserved as immediate rollback. No801/b663 promotion.",
+  "candidate_source_commit": "cea9ce3d2013d2d2cf3ec7f2e1691ed08e68acf5",
+  "source": {
+    "canonical_sha256": "a48450a87acf90c8d719f06f6bdb0977939da2e5b99a9395524541b734c69681",
+    "production_PP_sha256": "c74dad156c35a686634587ade6dd2800816d7239da3988c88fefd506e5ac30e1",
+    "production_object_sha256": "4f7e0c4f72d1fa6cb8b0c62167d32cdc701ab02615acb78880196d83805e7d80",
+    "production_mod_sha256": "a0cdd8054a6f88d3d56762c34039143d5962c2dda18ba823979ba902022f9654",
+    "inverse": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-tni-owner-implementation-r1/SOURCE_INVERSE_REVIEW.json",
+      "sha256": "1eccd5276432d9a33f55bdcea83bb2b3ff8ca402f5de24512fbb4662608b0b03"
+    }
+  },
+  "artifact": {
+    "directory": "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-tni-owner-canonical-current-r1",
+    "executable_sha256": "e319d234f92e1b363407d2099fd780f38d0121a23a502e144daa95a0ae849fa7",
+    "archive_sha256": "759a21eac43de92ff7fbbf6ceed153ba5a4afc003c04f70d5a6be06faccd2668",
+    "build_receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-tni-owner-implementation-r1/canonical-integration-preparation-r1/actual-native-r1/receipt.json",
+      "sha256": "f0507bc73163e308bed1fc769af2fd41cba58951bff676192d6ce68b19b812d6"
+    },
+    "build_closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-tni-owner-implementation-r1/canonical-integration-preparation-r1/actual-native-r1/closure.json",
+      "sha256": "c223cb931f3d80958c787105a221877c9f23e0f8287653b85858b0157462df1b"
+    }
+  },
+  "native": {
+    "qualification": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-tni-owner-implementation-r1/NATIVE_QUALIFICATION.json",
+      "sha256": "26ead2169baeccd24063f0f9ad0a29817d9330e65338f9a296f6fdbffcc85878"
+    },
+    "receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-tni-owner-implementation-r1/actual-native-r1/receipt.json",
+      "sha256": "0264db3c88889daed0bc18d4b31031c3c67d9c54f7b256cb71c273eca2554052"
+    },
+    "closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-tni-owner-implementation-r1/actual-native-r1/closure.json",
+      "sha256": "f9cc3259d0713ce948b4307b479285dc08ee5c4922d3d973fed4f5ad39685b06"
+    },
+    "scope": "Four ranks, unchanged11 caller cases/raw+state, O0 bounds/O2 shared and O2 private; full record5(TPI) and record6(TNI) table bytes before/after publication/after callers. Production object distinct from accessor-test variant.",
+    "private_mode_limit": "Both-table mode0 native caller only; no both-table private full-WRF forecast qualification and no transfer of first-TPI-only mode0 full3h."
+  },
+  "application": {
+    "provider375_shared1_10min": {
+      "qualification": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-tni-owner-implementation-r1/ten-minute-application-preparation-r1/lifecycle-r1/FINAL_QUALIFICATION.json",
+        "sha256": "34a49a0eddcc291f3ad10e1008757b5424767168fd39e16dd5387fb69baf9353"
+      },
+      "science_sha256": "95f946ef245974c04a8eaf20f1af60b7d0726bbb279636a7f79d9f6261bdccf5",
+      "reader_closure_sha256": "e64f8bab0cf0848223573f5ce8ee5949767f0e88580b66d838a49d41e5d5be9e",
+      "products": 2,
+      "steps": 35,
+      "writer_scope": "487/495 positive,503/511 inactive; not all4writer3h."
+    },
+    "provider801_shared1_3h": {
+      "qualification": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-b-memory-criticalpath-r1/co-location-successor-preparation-r1/lifecycle-r1/FINAL_QUALIFICATION.json",
+        "sha256": "4aeeba9384a355e97fd7cd57ead136626dea9b5bdf6c2ebb4b24e7a50aa5a726"
+      },
+      "science_sha256": "29b24b5a1b142615fd9f0246c4c94e494d53c11a5cbafe790b9df99bc6d0eb0c",
+      "reader_closure_sha256": "6a3af08627cbc946e74f56e77327e537e6486228509a8b019e66136e7a735fb5",
+      "products_per_arm": 4,
+      "steps": 545,
+      "comparisons": 12,
+      "writer_roots": [
+        487,
+        495,
+        503,
+        511
+      ],
+      "placements": "Same801 both fresh arms: faba and b663; each versus retained original plus direct. b663 parked, faba first."
+    },
+    "provider375_shared1_75min": {
+      "science": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-e319-criticalpath75m-runtime-r3/science-receipt.json",
+        "sha256": "265993064910a8ad38ac10420b87ea7413bf7c59f67bcd2af5ba415d9dbb8bd5"
+      },
+      "reader_closure": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-e319-criticalpath75m-runtime-r3/reader-closure.json",
+        "sha256": "c9bf1cd77dafb12cf2d5ef3a929f873b7c3d7666dc83e992da20fdaf1c1a2b7f"
+      },
+      "status": "PASS_ORIGINAL_TWO_HISTORY_AND_512_NOON75M_ORDERED_SEQUENCE",
+      "products": 2,
+      "steps": 230,
+      "same_INV": "3d3f326ae4d54a58bc9241e8d0773967",
+      "limits": "Actual full original gate passed with profiling; no unprofiled performance claim,375 full3h or9h coverage.",
+      "qualification": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-e319-criticalpath-profile-repair-r1/runtime-preparation-r3/lifecycle-r2/FINAL_QUALIFICATION.json",
+        "sha256": "a661f55219f1eec236572345cedbe77885b90adb11bd3470e4cffc4866955325"
+      }
+    }
+  },
+  "resource_limits": {
+    "375_10min_combined_peaks_bytes": {
+      "hpc01": 86793256960,
+      "hpc02": 84446408704,
+      "hpc03": 84419203072,
+      "hpc04": 84385570816
+    },
+    "801_3h_interleaved_peaks_bytes": {
+      "hpc01": 86796558336,
+      "hpc02": 84436099072,
+      "hpc03": 84396732416,
+      "hpc04": 84383580160
+    },
+    "801_3h_colocated_peaks_bytes": {
+      "hpc01": 86788931584,
+      "hpc02": 87864762368,
+      "hpc03": 87293640704,
+      "hpc04": 86070366208
+    },
+    "interpretation": "Different providers/runs/horizons. No isolated/doubled/additive TNI peak saving, synchronized cluster peak, causal timing or pressure-cost claim. All observed model memory.events zero. No nine-hour transfer."
+  },
+  "support": "Cold full-compute single-domain THOMPSON, maxdom1/OMP1/two serial tiles, qualified GNU13.3/OpenMPI/UCX/Linux NUMA shared-window stack. No restart/nesting/moved/DFI/coupler/cycling/reentry; runtime0 is not generic fallback.",
+  "rollback": "Primary rollback: already-qualified aada/source852 at48da3947 using375/faba/881/825/FIELDVIEW1/TPI_NUMA1. Generic preserved885/sourcee187 no-macro. Source rollback restores pre-promotion module_mp_thompson d634 and module_advect_em7a314; keep isolated macro/nonmacro objects/mods.",
+  "post_test_source_mapping": {
+    "status": "POST_TEST_SOURCE_MAPPING_NOT_A_REBUILD",
+    "tracked_candidate_source_commit": null,
+    "frozen_producer_source_commit": null,
+    "TNI": "Exact tested canonical a484/PPc74d/production4f7e/.moda0cd; root may track those exact source bytes after science.",
+    "PD": {
+      "source": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-pd-kind-safe-sentinel-r1/candidate_module_advect_em.F",
+        "sha256": "47c7b2b0025dca1971696eacd51d7c589ec2bc20a211cd80f7329404e230fae8"
+      },
+      "PP_sha256": "67d04896edd6cce4afb7e39d2b3520105e6c9b637b1784447c2bafc2f835e93a",
+      "compile_receipt": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-pd-kind-safe-sentinel-r1/actual-compile-hpc02-r1/receipt.json",
+        "sha256": "ef908fdee700eac995560453eabb4c5c5511eacec552c066d5db013da2b920c0"
+      },
+      "compile_closure": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-pd-kind-safe-sentinel-r1/actual-compile-hpc02-r1/closure.json",
+        "sha256": "25f7dd2510baf9d59130d519dd62f045ff0fd03040e153ddcd47a78edfdac195"
+      },
+      "proof": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-pd-kind-safe-sentinel-r1/actual-compile-hpc02-r1/strict-allocated-symbol-relocation-equivalence.json",
+        "sha256": "92abf53cb516e4394f2ce232ad81fb4985ea7b1f849310927e54aa4a2b1017cc"
+      },
+      "tested_production_archive_member_sha256": "8ec77f864716667aa79d40878fa11276f7dede4017c620201e54f9f83bb32b25",
+      "new_compile_only_object_sha256": "e5245eed1f84a67ea9d428bed8d8b2529f568ca49394f9cf8b85d97bdc50f560",
+      "public_MOD_sha256": "88e9fcbf27d28de7f12c22df0aac07aef26d4463f303e5a51b135a6a7e454750",
+      "assertion": "Qualified defaultREAL32 all allocated sections/relocations/nonfile symbols and MOD exact8ec; e319 continues to contain8ec. e524 was compile-only, not executed/linked. Wholefile/debug/source-path differences retained; no claim every wholefile difference individually classified.",
+      "limits": "DefaultREAL64 scalar predicate correction only; no full PD REAL64 science/algorithm qualification. Unsupported storage/precision/padded formats compile-rejected. No universal unmasked-trap-order claim."
+    },
+    "immutable_records": "Do not rewrite old native/build/science receipts, NULL commits, source-pins or e319 image. Record later root commit separately with these source/object mappings."
+  },
+  "promotion_scope": "Working fork only, no production/master. Full37575m/header and8013h science are explicit distinct scopes; no3753h/9h or both-table-private fullforecast transfer."
+}
