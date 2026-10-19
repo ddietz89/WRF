@@ -1394,6 +1394,7 @@
 !----------------------------------------------------------------------
       ESQHF=0.5*ESQ
 !
+!$OMP SIMD
       DO K=KTS,LMH-2
         DTOZ(K)=(DTDIF+DTDIF)/(Z(K)-Z(K+2))
         AKQ(K)=SQRT((Q2(K)+Q2(K+1))*0.5)*(EL(K)+EL(K+1))*ESQHF         &
