@@ -1,7 +1,7 @@
 {
   "status": "PROMOTED_QUALIFIED_TPI_TNI_PDROW_BOUNDARY_COMBINED_WORKING_CONFIGURATION",
   "source_commit": "eb616f2b71767da0db5124d0bdf81339315139f2",
-  "scope": "Cold single-domain full-compute THOMPSON/OMP1 GNU13.3/Zen2/world512/480compute+32quilt/8x60/two serial tiles;100,100,100,104GiB/swap0. Unchanged375/881/825/faba/FIELDVIEW1/UCX rc,sm,self/InfiniBand/shared1. Current combined unprofiled full3h four products545steps exact. No current9h/restart/nesting/othercompiler/both-tableprivate fullforecast transfer.",
+  "scope": "Cold single-domain full-compute THOMPSON/OMP1 GNU13.3/Zen2/world512/480compute+32quilt/8x60/two serial tiles;100,100,100,104GiB/swap0. Unchanged375/881/825/faba/FIELDVIEW1/UCX rc,sm,self/InfiniBand/shared1. Current combined unprofiled full3h four products545steps and full9h ten products1625steps exact. No restart/nesting/othercompiler/both-tableprivate fullforecast transfer.",
   "artifacts": {
     "shim": {
       "path": "/pool/wrf-experiment/wrf-cpu/source-discovery/parallel-pack-quilt-shim-native-r1/wrf_quilt_thread_shim.so",
@@ -461,32 +461,31 @@
     "sha256": "e319d234f92e1b363407d2099fd780f38d0121a23a502e144daa95a0ae849fa7"
   },
   "latest_application": {
-    "evidence_file": "THREE_HOUR_RESULT.json",
-    "executable_sha256": "6c1ac8f3d00c362b8b677e2561997a57c27d1f4c80da0591ee410f92ae5e3743",
+    "evidence_file": "NINE_HOUR_RESULT.json",
     "source_commit": "eb616f2b71767da0db5124d0bdf81339315139f2",
-    "provider_scope": "375/faba/881/825/FIELDVIEW1/shared1",
+    "executable_sha256": "6c1ac8f3d00c362b8b677e2561997a57c27d1f4c80da0591ee410f92ae5e3743",
     "comparison_design": "UNPAIRED retained original control; no isolatedBC/PD/TNI gain attribution",
     "metrics": {
       "control": {
-        "wall_seconds": 819.2134004358668,
-        "cpu_seconds": 367776.94750099996,
-        "main_step_sum_seconds": 597.58187
+        "wall_seconds": 2069.3122304237913,
+        "cpu_seconds": 1009264.484921,
+        "main_step_sum_seconds": 1851.54464
       },
       "candidate": {
-        "wall_seconds": 673.5236018940341,
-        "cpu_seconds": 324888.406371,
-        "main_step_sum_seconds": 565.94339
+        "wall_seconds": 1868.6044276398607,
+        "cpu_seconds": 938002.957052,
+        "main_step_sum_seconds": 1762.90873
       }
     },
     "reductions_percent": {
-      "wall_seconds": 17.78410832443875,
-      "cpu_seconds": 11.661563189705726,
-      "main_step_sum_seconds": 5.294417650254346
+      "wall_seconds": 9.699251752976213,
+      "cpu_seconds": 7.060738679869227,
+      "main_step_sum_seconds": 4.787133298606294
     },
-    "claim": "One later candidate versus retained actual546b control. Different order/time/cache/serverload; no freshpair/repeatability/perkernelcausalclaim. Main includes communication/backpressure; residual is not pureIO.",
-    "full_qualification_sha256": "cafcfabe63153bb8a771518a9093826ddf8e4179573138e61adc0c4c7dc3879c",
-    "actual_product_comparisons": 4,
-    "ordered_steps": 545,
+    "full_qualification_sha256": "176a0ed0038cb3dd3884140e987a77709a1af1d94d6b8d9e38e24d73457d916a",
+    "provider_scope": "375/faba/881/825/FIELDVIEW1/shared1",
+    "actual_product_comparisons": 10,
+    "ordered_steps": 1625,
     "all_own_jobs_closed": true,
     "fresh_matched_timing": false
   },
@@ -495,7 +494,7 @@
     "Current6c375 unprofiled full3h exact4products/545steps/all512;673.523602s versus retained original819.213400s =17.7841% lower wall and11.6616% lower aggregateCPU. UNPAIRED/no isolated/additive/repeatability claim.",
     "Current source includes exactBCloadreuse; synthetic complete-routine timings2.6472%/0.0268% shorter, second neutral, no isolated forecast attribution.",
     "Prior e319R4 current-daytime captures remain diagnostic selected-thread/phase evidence; no global removable fraction.",
-    "HistoricalX3a9h10.6168% and XY885unpaired3h18.3637% remain separate artifacts. Current nine-hour preparation is not a result."
+    "Current6c unprofiled full9h exact10products/1625steps/all512:1868.604428s versus retained original2069.312230s =9.6993% lower wall/7.0607% lower aggregateCPU/4.7871% lower main-step elapsed. UNPAIRED; no isolated/additive/repeatability/causal claim. HistoricalX3a is separate."
   ],
   "earlier_three_hour_benchmark_f1d7": {
     "executable": {
@@ -852,8 +851,9 @@
   },
   "last_nine_hour_benchmark": {
     "evidence_file": "NINE_HOUR_RESULT.json",
-    "source_commit": "3e290fdb7f354d95e9c9d87b7d325ba59dd24b40",
-    "executable_sha256": "3a203299668de5177481d48bc10b4352f7c02af38e0cd0d555489dea7e3daaa7",
+    "source_commit": "eb616f2b71767da0db5124d0bdf81339315139f2",
+    "executable_sha256": "6c1ac8f3d00c362b8b677e2561997a57c27d1f4c80da0591ee410f92ae5e3743",
+    "comparison_design": "UNPAIRED retained original control; no isolatedBC/PD/TNI gain attribution",
     "metrics": {
       "control": {
         "wall_seconds": 2069.3122304237913,
@@ -861,16 +861,17 @@
         "main_step_sum_seconds": 1851.54464
       },
       "candidate": {
-        "wall_seconds": 1849.6183675799984,
-        "cpu_seconds": 928172.4717189999,
-        "main_step_sum_seconds": 1745.41163
+        "wall_seconds": 1868.6044276398607,
+        "cpu_seconds": 938002.957052,
+        "main_step_sum_seconds": 1762.90873
       }
     },
     "reductions_percent": {
-      "wall_seconds": 10.61675756871161,
-      "cpu_seconds": 8.034763376058706,
-      "main_step_sum_seconds": 5.732133468842537
-    }
+      "wall_seconds": 9.699251752976213,
+      "cpu_seconds": 7.060738679869227,
+      "main_step_sum_seconds": 4.787133298606294
+    },
+    "full_qualification_sha256": "176a0ed0038cb3dd3884140e987a77709a1af1d94d6b8d9e38e24d73457d916a"
   },
   "earlier_three_hour_benchmark_5326": {
     "executable": {
@@ -2149,5 +2150,83 @@
     "all_own_jobs_closed": true,
     "timing_claim": false
   },
-  "previous_tni_pd_selection_file": "PREVIOUS_SELECTION_TNI_PD.json"
+  "previous_tni_pd_selection_file": "PREVIOUS_SELECTION_TNI_PD.json",
+  "previous_nine_hour_benchmark_X3A": {
+    "evidence_file": "NINE_HOUR_RESULT.json",
+    "source_commit": "3e290fdb7f354d95e9c9d87b7d325ba59dd24b40",
+    "executable_sha256": "3a203299668de5177481d48bc10b4352f7c02af38e0cd0d555489dea7e3daaa7",
+    "metrics": {
+      "control": {
+        "wall_seconds": 2069.3122304237913,
+        "cpu_seconds": 1009264.484921,
+        "main_step_sum_seconds": 1851.54464
+      },
+      "candidate": {
+        "wall_seconds": 1849.6183675799984,
+        "cpu_seconds": 928172.4717189999,
+        "main_step_sum_seconds": 1745.41163
+      }
+    },
+    "reductions_percent": {
+      "wall_seconds": 10.61675756871161,
+      "cpu_seconds": 8.034763376058706,
+      "main_step_sum_seconds": 5.732133468842537
+    }
+  },
+  "previous_latest_application_three_hour_6c": {
+    "evidence_file": "THREE_HOUR_RESULT.json",
+    "executable_sha256": "6c1ac8f3d00c362b8b677e2561997a57c27d1f4c80da0591ee410f92ae5e3743",
+    "source_commit": "eb616f2b71767da0db5124d0bdf81339315139f2",
+    "provider_scope": "375/faba/881/825/FIELDVIEW1/shared1",
+    "comparison_design": "UNPAIRED retained original control; no isolatedBC/PD/TNI gain attribution",
+    "metrics": {
+      "control": {
+        "wall_seconds": 819.2134004358668,
+        "cpu_seconds": 367776.94750099996,
+        "main_step_sum_seconds": 597.58187
+      },
+      "candidate": {
+        "wall_seconds": 673.5236018940341,
+        "cpu_seconds": 324888.406371,
+        "main_step_sum_seconds": 565.94339
+      }
+    },
+    "reductions_percent": {
+      "wall_seconds": 17.78410832443875,
+      "cpu_seconds": 11.661563189705726,
+      "main_step_sum_seconds": 5.294417650254346
+    },
+    "claim": "One later candidate versus retained actual546b control. Different order/time/cache/serverload; no freshpair/repeatability/perkernelcausalclaim. Main includes communication/backpressure; residual is not pureIO.",
+    "full_qualification_sha256": "cafcfabe63153bb8a771518a9093826ddf8e4179573138e61adc0c4c7dc3879c",
+    "actual_product_comparisons": 4,
+    "ordered_steps": 545,
+    "all_own_jobs_closed": true,
+    "fresh_matched_timing": false
+  },
+  "nine_hour_science": {
+    "status": "PASS_SUSTAINED_CURRENT_TPI_TNI_PD_BC_NINE_HOUR_ORIGINAL_TEN_PRODUCTS_1625_STEPS",
+    "comparison_count": 10,
+    "complete_products": 10,
+    "ordered_steps": 1625,
+    "step_count": 1625,
+    "last_step": "2026-10-12_15:00:00",
+    "all512": true,
+    "compute_ranks": 480,
+    "serial_tiles": 2,
+    "positive_writer_roots": [
+      487,
+      495,
+      503,
+      511
+    ],
+    "receipt_sha256": "5be54737d23bdde4ea04c2ccb09f40cf18c060a533d39fbf2ff90d958b80a35f",
+    "reader_closure_sha256": "0ef426af52d5773a48c7b7a6b891ee1eef6f9c8d7d800a9bc6ec0327038ac945",
+    "full_qualification_sha256": "176a0ed0038cb3dd3884140e987a77709a1af1d94d6b8d9e38e24d73457d916a",
+    "all_model_reader_scopes_closed": true,
+    "protected_checker": {
+      "path": "/pool/wrf-experiment/wrf-cpu/validation/protected_netcdf_exact_reference.py",
+      "sha256": "0382bcbabfbc16b76114ef552206c6c558ea15cd3c3552dfaed98b977deea2b4",
+      "verified": true
+    }
+  }
 }
