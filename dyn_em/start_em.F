@@ -26,6 +26,10 @@
 #endif
    USE module_comm_dm
    USE module_llxy, ONLY : proj_cassini, PROJ_LC
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+   USE module_mp_thompson, ONLY: thompson_tpi_prepare,thompson_tpi_publish
+   USE module_cpl, ONLY: coupler_on
+#endif
    USE module_physics_init
    USE NoahmpGroundwaterInitMod, ONLY: NoahmpGroundwaterInitMain
    USE module_lightning_driver, ONLY : lightning_init
@@ -1024,6 +1028,12 @@ if(config_flags%sf_surface_physics.eq.NOAHMPSCHEME.and.config_flags%opt_runsub.e
 endif
 #endif
 
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+   CALL thompson_tpi_prepare(model_config_rec%max_dom==1.AND.grid%id==1.AND. &
+        config_flags%mp_physics==THOMPSON.AND.start_of_simulation.AND. &
+        .NOT.grid%restart.AND..NOT.config_flags%cycling.AND..NOT.grid%moved.AND. &
+        grid%dfi_opt==DFI_NODFI.AND..NOT.coupler_on)
+#endif
     IF ( ( grid%dfi_opt .EQ. DFI_NODFI ) .or. &
           ( ( grid%dfi_stage .NE. DFI_BCK ) .and. &
           ( grid%dfi_stage .NE. DFI_STARTBCK ) ) ) THEN
@@ -1312,6 +1322,9 @@ endif
                       ,NoahmpIOdom(grid%id)                                                          &
                       )
        ENDDO ! loop of tiles for phy_init
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+       CALL thompson_tpi_publish()
+#endif
 
        if(.not.grid%restart) then
 

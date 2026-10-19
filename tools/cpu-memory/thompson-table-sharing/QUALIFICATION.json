@@ -1,0 +1,85 @@
+{
+  "status": "RETAINED_QUALIFIED_OPT_IN_MEMORY_IMPROVEMENT",
+  "created_utc": "2026-10-19T10:32:35.615881+00:00",
+  "default_enabled": false,
+  "primary_selected_image_changed": false,
+  "source_identity": {
+    "dyn_em/start_em.F": "ba19b902eb43c9baa2f59d3ffef0dec7c6a0ccbf0a9ceb062b72e55cff5366fc",
+    "phys/module_mp_thompson.F": "d634120d334f3698449d827d718e5b929ff00b3b7b8de6196055f7c6c2e7210d",
+    "main/module_wrf_top.F": "7d977ce5832b241889b212d785222ff6e4dafd3cd13c3212ff1a7d406774b97f",
+    "tools/cpu-memory/thompson-table-sharing/shared_table_iso.f90": "b9f3ad35a58e08366286aa72c1c09a939358fe1152a612fac052a68ed79bf673",
+    "tools/cpu-memory/thompson-table-sharing/shared_table.h": "dc01b80d7ea5cdc76ecf37248d17376ca8681d558abe0004a23bcb0ef09b0b69",
+    "tools/cpu-memory/thompson-table-sharing/thompson_tpi_bridge.c": "eed11ee2c18caf9581146d1edfc42dec0c9b256a09d5147872d03cd860b0506e",
+    "tools/cpu-memory/thompson-table-sharing/shared_table.c": "6be5e91ac1f63a8dc589af8188363223c44a2b361e1ade85afc1576be2b5c116"
+  },
+  "source_tracking": "The working-fork commit introducing this file tracks exactly the previously tested source/helper bytes. Frozen producer source_commit:null records remain unchanged; no rebuild or new artifact is claimed.",
+  "artifact": {
+    "executable_path": "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/wrf.exe",
+    "executable_sha256": "aada4abba40e4608efa76ebbf315da4714ddc6c506a7d8578bb04763efdc7742",
+    "archive_sha256": "c2da4434735c4b6824adf567dcb75a12d0544ad63104bf01d6ea00345d939cfb",
+    "based_on_selected_XY_executable": "885c7b6db45ea2bae676cd42ed76c2e0ac5450dbfe85940021a4ab441ccd159f"
+  },
+  "build": {
+    "receipt_sha256": "bc646ea4c667c671aa5103c2abb0c9aed31fc3cdc59563d7f34f745503628db0",
+    "closure_sha256": "c3efed0375313db8d5336c17de642d5912c6ec1e5f7d76fb2724c1b2adf164c4",
+    "canonical_provenance": "Explicit16fatal diagnostic three-integer constant differences plus onecomment; not C9 ELF identity; accepted scientific statements unchanged",
+    "full_source_pin_manifest": "804efdbd670070855e0ec6a31d80142c1fdbf76568c6d6dddec4fcedac67e06e"
+  },
+  "native": {
+    "receipt_sha256": "7442a76d28e323b91952bfec8b28c108cbb36f317bb93d942b2d90d1b0dcbb78",
+    "closure_sha256": "c97c658ce76fd844e6885013ddd302bc83408e7d3f587bdc15776036146d8cf8",
+    "status": "PASS_TRUE_CANONICAL_THOMPSON_FOUR_RANK_O0_BOUNDS_O2_SHARED_PRIVATE_11_RAW_STATE_TABLE_BYTES",
+    "scope": "11 fullcaller cases, O0bounds/O2, tablebytes/state exact; accessor test variant distinct from production object; not transferred fullWRF qualification"
+  },
+  "three_hour": {
+    "full_qualification_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-single-table-public-owner-r1/actual-thompson-prototype-r1/three-hour-preparation-r1/lifecycle-r1/FINAL_QUALIFICATION.json",
+    "full_qualification_sha256": "54e5f3a948c3a4ca7dfb521f0958e30f2b6ebaacd4eb2e129b6b67c9dfbb8127",
+    "science_sha256": "1c07fbc69c33c02cd2500172fc49f4a5c742eef8ea836f7ad9b83b12e3452cd1",
+    "reader_closure_sha256": "56b478d97d42e6d6d670d900f71eae0f621439f8cbd450f0def6d1ed93113ef5",
+    "products_per_mode": 4,
+    "actual_product_comparisons": 12,
+    "ordered_steps_per_mode": 545,
+    "ranks": 512,
+    "serial_tiles": 2,
+    "all_four_positive_output_roots": [
+      487,
+      495,
+      503,
+      511
+    ],
+    "all_own_jobs_closed": true
+  },
+  "resource_evidence": {
+    "private_wall_seconds": 672.3741730321199,
+    "shared_wall_seconds": 675.4376463871449,
+    "shared_relative_wall_change_percent": 0.4556203194435726,
+    "private_aggregate_CPU_seconds": 324478.854727,
+    "shared_aggregate_CPU_seconds": 326348.082847,
+    "private_main_step_seconds": 564.49678,
+    "shared_main_step_seconds": 568.73302,
+    "private_model_cgroup_peak_bytes": {
+      "hpc01": 97964584960,
+      "hpc02": 96013893632,
+      "hpc03": 96039927808,
+      "hpc04": 100108914688
+    },
+    "shared_model_cgroup_peak_bytes": {
+      "hpc01": 89954152448,
+      "hpc02": 88079409152,
+      "hpc03": 88021942272,
+      "hpc04": 92867977216
+    },
+    "all_eight_model_memory_events_zero": true,
+    "CPU_throttling": "Nonzero; not critical-path time or summed lost wall."
+  },
+  "decision": "Retain for meaningful recorded capacity savings in restricted opt-in scope. One fixed private-first pair shows no speedup and does not establish an unacceptable runtime penalty. No extra full timing pair solely to resolve a tiny difference.",
+  "support": "Cold single-domain full-compute THOMPSON OMP1, two serial tiles; qualified GNU13.3/OpenMPI/UCX/Linux NUMA affinity/shared-window stack. Both macro runtime modes restricted. No-macro generic path unchanged.",
+  "limits": [
+    "Recorded per-node model-cgroup peaks, not isolated-table physical PSS or synchronized cluster peak.",
+    "Sampled reclaim deltas zero only within retained brackets; PSI and total initialization/publication/cleanup/MPI costs unknown.",
+    "Physical cohort/table lookup execution not directly instrumented in full WRF; no measured isolated table saving.",
+    "Nine-hour X-only results do not qualify XY plus sharing.",
+    "No production/master/default change or automatic helper linkage."
+  ],
+  "rollback": "Use preserved XY885 executable/sourcee187 and unchanged375/881/825/faba/FIELDVIEW1 runtime. Do not treat experimental mode0 as generic fallback. Revert this source commit for source rollback; keep separate macro/nonmacro build directories."
+}

@@ -16,6 +16,9 @@ MODULE module_wrf_top
    USE module_configure
    USE module_check_a_mundo
 
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+   USE module_mp_thompson, ONLY: thompson_tpi_release
+#endif
    USE module_timing
    USE module_wrf_error
 #if ( WRFPLUS == 1 )
@@ -2112,6 +2115,9 @@ ENDIF
    ! shut down I/O
    CALL med_shutdown_io ( head_grid , config_flags )
    CALL       wrf_debug ( 100 , 'wrf: back from med_shutdown_io' )
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+   CALL thompson_tpi_release()
+#endif
 
    CALL       wrf_debug (   0 , 'wrf: SUCCESS COMPLETE WRF' )
 

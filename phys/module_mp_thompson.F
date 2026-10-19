@@ -47,6 +47,11 @@
 
       MODULE module_mp_thompson
 
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY: C_PTR, C_NULL_PTR, C_INT, C_SIZE_T, &
+                       C_DOUBLE, C_ASSOCIATED, C_LOC, C_F_POINTER, C_SIZEOF
+      USE shared_table_iso, ONLY: st_create, st_destroy
+#endif
       USE module_wrf_error
       USE module_mp_radar
 #if ( defined( DM_PARALLEL ) && ( ! defined( STUBMPI ) ) )
@@ -379,8 +384,28 @@
                 tcs_racs1, tmr_racs1, tcs_racs2, tmr_racs2,             &
                 tcr_sacr1, tms_sacr1, tcr_sacr2, tms_sacr2,             &
                 tnr_racs1, tnr_racs2, tnr_sacr1, tnr_sacr2
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+! Experimental source/API restriction: tpi view is PRIVATE, not ALLOCATABLE.
+      REAL(KIND=R8SIZE), POINTER, CONTIGUOUS, PRIVATE :: tpi_qcfz(:,:,:,:) => NULL()
+      REAL(KIND=R8SIZE), ALLOCATABLE, TARGET, PRIVATE :: tpi_qcfz_stage(:,:,:,:)
+      REAL(KIND=R8SIZE), ALLOCATABLE :: tni_qcfz(:,:,:,:)
+      TYPE(C_PTR), PRIVATE :: tpi_owner=C_NULL_PTR, tpi_cview=C_NULL_PTR
+      INTEGER, PARAMETER, PRIVATE :: TPI_EMPTY=0,TPI_INIT=1,TPI_PRIVATE=2,TPI_SHARED=3,TPI_CLOSED=4
+      INTEGER, PRIVATE :: tpi_phase=TPI_EMPTY,tpi_comm=0,tpi_mode=0
+      PRIVATE :: st_create,st_destroy,thompson_tpi_preflight_c
+      PUBLIC :: thompson_tpi_prepare,thompson_tpi_publish,thompson_tpi_release
+      INTERFACE
+        FUNCTION thompson_tpi_preflight_c(comm,allowed,enabled) BIND(C) RESULT(rc)
+          IMPORT C_INT
+          INTEGER(C_INT),VALUE :: comm,allowed
+          INTEGER(C_INT) :: enabled
+          INTEGER(C_INT) :: rc
+        END FUNCTION
+      END INTERFACE
+#else
       REAL (KIND=R8SIZE), ALLOCATABLE, DIMENSION(:,:,:,:)::             &
                 tpi_qcfz, tni_qcfz
+#endif
       REAL (KIND=R8SIZE), ALLOCATABLE, DIMENSION(:,:,:,:)::             &
                 tpi_qrfz, tpg_qrfz, tni_qrfz, tnr_qrfz
       REAL (KIND=R8SIZE), ALLOCATABLE, DIMENSION(:,:)::                 &
@@ -420,6 +445,84 @@
 !ctrlL
 
       CONTAINS
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+! Only the experimental caller may establish this owner phase. The accessor is
+! EXTERNAL (defined after END MODULE module_dm), not a module USE symbol.
+      SUBROUTINE thompson_tpi_prepare(allowed)
+        LOGICAL,INTENT(IN) :: allowed
+        INTEGER(C_INT) :: enabled,rc,admit
+        INTERFACE
+          SUBROUTINE wrf_get_dm_communicator_for_id(id,comm)
+            INTEGER,INTENT(IN) :: id
+            INTEGER,INTENT(OUT) :: comm
+          END SUBROUTINE
+        END INTERFACE
+        CALL wrf_get_dm_communicator_for_id(0,tpi_comm)
+        IF (KIND(tpi_comm)/=C_INT) CALL wrf_error_fatal('Experimental tpi MPI handle kind')
+        admit=0_C_INT
+        IF (allowed.AND.(tpi_phase==TPI_EMPTY.OR.tpi_phase==TPI_INIT)) admit=1_C_INT
+        rc=thompson_tpi_preflight_c(INT(tpi_comm,C_INT),admit,enabled)
+        IF (rc/=0_C_INT.AND.rc/=1_C_INT) CALL wrf_error_fatal('Experimental tpi admission rejected')
+        tpi_mode=enabled
+        IF (tpi_phase==TPI_SHARED.OR.tpi_phase==TPI_CLOSED) &
+          CALL wrf_error_fatal('Experimental tpi late reinitialization')
+        tpi_phase=TPI_INIT
+      END SUBROUTINE
+
+      SUBROUTINE thompson_tpi_publish()
+        INTEGER(C_INT) :: rc
+        INTEGER(C_SIZE_T) :: bytes
+        TYPE(C_PTR) :: staging
+        REAL(KIND=R8SIZE),POINTER,CONTIGUOUS :: shared(:,:,:,:)
+        IF (tpi_phase/=TPI_INIT) CALL wrf_error_fatal('Experimental tpi publication phase')
+        staging=C_NULL_PTR;bytes=0_C_SIZE_T
+        IF (ALLOCATED(tpi_qcfz_stage)) THEN
+          IF (R8SIZE/=C_DOUBLE.OR.STORAGE_SIZE(tpi_qcfz_stage)/=64) &
+             CALL wrf_error_fatal('Experimental tpi REAL8 kind')
+          IF (ANY(SHAPE(tpi_qcfz_stage)/=[37,100,45,55])) &
+             CALL wrf_error_fatal('Experimental tpi shape')
+          bytes=INT(SIZE(tpi_qcfz_stage),C_SIZE_T)*C_SIZEOF(tpi_qcfz_stage(1,1,1,1))
+          IF (bytes/=73260000_C_SIZE_T) CALL wrf_error_fatal('Experimental tpi byte count')
+          staging=C_LOC(tpi_qcfz_stage(1,1,1,1))
+        ENDIF
+        ! Collective helper agrees options and full byte equality BEFORE returning.
+        rc=st_create(INT(tpi_comm,C_INT),staging,bytes,INT(tpi_mode,C_INT),tpi_owner,tpi_cview)
+        IF (rc==0_C_INT) THEN
+          CALL C_F_POINTER(tpi_cview,shared,[37,100,45,55])
+          tpi_qcfz => shared
+          DEALLOCATE(tpi_qcfz_stage)
+          tpi_phase=TPI_SHARED
+        ELSEIF (rc==1_C_INT) THEN
+          tpi_phase=TPI_PRIVATE
+        ELSE
+          CALL wrf_error_fatal('Experimental tpi shared publication rejected; private data retained')
+        ENDIF
+      END SUBROUTINE
+
+      SUBROUTINE thompson_tpi_release()
+        INTEGER(C_INT) :: rc
+        ! Called once all physics readers have stopped, while compute MPI is live.
+        IF (tpi_phase==TPI_EMPTY) RETURN
+        NULLIFY(tpi_qcfz)
+        rc=st_destroy(INT(tpi_comm,C_INT),tpi_owner,tpi_cview)
+        IF (rc/=0_C_INT.AND.rc/=1_C_INT) CALL wrf_error_fatal('Experimental tpi teardown state')
+        IF (C_ASSOCIATED(tpi_owner).OR.C_ASSOCIATED(tpi_cview)) &
+             CALL wrf_error_fatal('Experimental tpi teardown left owner')
+        IF (ALLOCATED(tpi_qcfz_stage)) DEALLOCATE(tpi_qcfz_stage)
+        tpi_phase=TPI_CLOSED
+      END SUBROUTINE
+#ifdef WRF_EXPERIMENTAL_TPI_NATIVE_GATE
+      SUBROUTINE thompson_tpi_test_view(ptr,bytes,phase)
+        TYPE(C_PTR),INTENT(OUT) :: ptr
+        INTEGER(C_SIZE_T),INTENT(OUT) :: bytes
+        INTEGER,INTENT(OUT) :: phase
+        ptr=C_NULL_PTR;bytes=0_C_SIZE_T;phase=tpi_phase
+        IF (ASSOCIATED(tpi_qcfz)) THEN
+          ptr=C_LOC(tpi_qcfz(1,1,1,1));bytes=73260000_C_SIZE_T
+        ENDIF
+      END SUBROUTINE
+#endif
+#endif
 
       SUBROUTINE thompson_init(hgt, orho, nwfa2d, nbca2d, ng,           &
                           nwfa, nifa, nbca, wif_input_opt, frc_urb2d,   &
@@ -456,6 +559,9 @@
 
 !+---+
 
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (tpi_phase /= TPI_INIT) CALL wrf_error_fatal('Experimental tpi init outside private tile-init phase')
+#endif
       if (PRESENT(ng)) then
          is_hail_aware = .TRUE.
          dimNRHG = NRHG
@@ -627,7 +733,14 @@
       if (.NOT. ALLOCATED(tnr_sacr1)) ALLOCATE(tnr_sacr1(ntb_s,ntb_t,ntb_r1,ntb_r))
       if (.NOT. ALLOCATED(tnr_sacr2)) ALLOCATE(tnr_sacr2(ntb_s,ntb_t,ntb_r1,ntb_r))
 
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (.NOT. ALLOCATED(tpi_qcfz_stage)) THEN
+         ALLOCATE(tpi_qcfz_stage(ntb_c,nbc,45,ntb_IN))
+      ENDIF
+      tpi_qcfz => tpi_qcfz_stage
+#else
       if (.NOT. ALLOCATED(tpi_qcfz)) ALLOCATE(tpi_qcfz(ntb_c,nbc,45,ntb_IN))
+#endif
       if (.NOT. ALLOCATED(tni_qcfz)) ALLOCATE(tni_qcfz(ntb_c,nbc,45,ntb_IN))
 
       if (.NOT. ALLOCATED(tpi_qrfz)) ALLOCATE(tpi_qrfz(ntb_r,ntb_r1,45,ntb_IN))
@@ -4533,6 +4646,9 @@
       LOGICAL, EXTERNAL :: wrf_dm_on_monitor
 
 !+---+
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (tpi_phase /= TPI_INIT) CALL wrf_error_fatal('Experimental tpi creator after private tile-init phase')
+#endif
       CALL nl_get_force_read_thompson(1,force_read_thompson)
       CALL nl_get_write_thompson_tables(1,write_thompson_tables)
 
