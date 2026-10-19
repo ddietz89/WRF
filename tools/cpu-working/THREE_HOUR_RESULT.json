@@ -1,16 +1,16 @@
 {
-  "status": "PASS_CURRENT_TCG_RK_COMBINED_THREE_HOUR_ORIGINAL_FULL_GATE_AND_ALL_OWN_SCOPES_CLOSED",
+  "status": "PASS_CURRENT_W_ONLY_THREE_HOUR_ORIGINAL_FULL_GATE_AND_ALL_OWN_SCOPES_CLOSED",
   "order": [
     "retained_corrected_original546b",
-    "current_TCG_owner12_plus_later_RK_fusion_combined"
+    "current3bb2_plus_one_W_RHS_inner_I_SIMD"
   ],
-  "comparison_design": "UNPAIRED retained original control; no isolated TCG/RK gain attribution",
-  "source_commit": "26bcd59c507dc76cba49e3e06196bac2fb278dec",
+  "comparison_design": "UNPAIRED retained original control; no isolated W gain attribution",
+  "source_commit": "ef7fed9057cfbfd19e929c965ad31fe924b2f26c",
   "producer_source_commit": null,
-  "source_commit_note": "Post-science tracking of exact c53 TCG and ca2c RK canonical source; frozen producers remain NULL.",
+  "source_commit_note": "Post-science tracking of literal one-pragma f998 source; existing producer records remain NULL. All prior3bb2 sources unchanged.",
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/thompson-tcg-rk-later-pass-combined-current-r1/wrf.exe",
-    "sha256": "3bb2b8f17ed5c5c8cb2afe9b1e68faf162a66c37546a366a00179411b651c4df"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current3bb2-w-rhs-simd-current-r1/wrf.exe",
+    "sha256": "e55c97e6129529f366fd0dd496d3cff1192714223c7755a7484622ddb82a108f"
   },
   "metrics": {
     "control": {
@@ -19,18 +19,18 @@
       "main_step_sum_seconds": 597.99405
     },
     "candidate": {
-      "wall_seconds": 673.5171840980183,
-      "cpu_seconds": 325722.091547,
-      "main_step_sum_seconds": 565.12427
+      "wall_seconds": 669.6277512290981,
+      "cpu_seconds": 324013.991898,
+      "main_step_sum_seconds": 561.83101
     }
   },
   "reductions_percent": {
-    "wall_seconds": 17.914446819016327,
-    "cpu_seconds": 11.440548802348626,
-    "main_step_sum_seconds": 5.496673420078347
+    "wall_seconds": 18.388475182573504,
+    "cpu_seconds": 11.904958099206253,
+    "main_step_sum_seconds": 6.047391274210845
   },
   "science": {
-    "status": "PASS_CURRENT_TCG_RK_COMBINED_THREE_HOUR_ORIGINAL_FULL_GATE_AND_ALL_OWN_SCOPES_CLOSED",
+    "status": "PASS_CURRENT_W_ONLY_THREE_HOUR_ORIGINAL_FULL_GATE_AND_ALL_OWN_SCOPES_CLOSED",
     "complete_products": 4,
     "ordered_steps": 545,
     "last_observed_step": "2026-10-12_09:00:00",
@@ -43,9 +43,9 @@
       503,
       511
     ],
-    "receipt_sha256": "ddc294c795f685b0bac63c17d416ac54e7f9b9f1f5a3c6daeb11f3ce64d56b69",
-    "reader_closure_sha256": "8a82ccb775b459e6040e908735924e39cae0398f38a6dd660cb9711c2140aba8",
-    "full_qualification_sha256": "28018b1925f455292438fdedc660186f8751bfe102c4027fa50578511f06ca36",
+    "receipt_sha256": "008c44ec95f607416f2068a1fa9c9a5db8a565d8e5e7933bcc6ec39c0dde9353",
+    "reader_closure_sha256": "a9c2e01117e68a5b7f54e9e71cead6518ffb8e18658967b2092c674ef5c41193",
+    "full_qualification_sha256": "4d45d6011e0e70474033b45a3123e8047f47648350ae6ca9fee60300a6393903",
     "all_model_reader_scopes_closed": true,
     "protected_checker": {
       "path": "/pool/wrf-experiment/wrf-cpu/validation/protected_netcdf_exact_reference.py",
@@ -53,11 +53,11 @@
       "verified": true
     }
   },
-  "science_sha256": "ddc294c795f685b0bac63c17d416ac54e7f9b9f1f5a3c6daeb11f3ce64d56b69",
-  "reader_closure_sha256": "8a82ccb775b459e6040e908735924e39cae0398f38a6dd660cb9711c2140aba8",
+  "science_sha256": "008c44ec95f607416f2068a1fa9c9a5db8a565d8e5e7933bcc6ec39c0dde9353",
+  "reader_closure_sha256": "a9c2e01117e68a5b7f54e9e71cead6518ffb8e18658967b2092c674ef5c41193",
   "application_qualification": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-b-memory-criticalpath-r1/tcg-rk-combined-threehour-preparation-r1/lifecycle-r1/FINAL_QUALIFICATION.json",
-    "sha256": "28018b1925f455292438fdedc660186f8751bfe102c4027fa50578511f06ca36"
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current3bb2-radiationwindow-triage-r1/application-preparation-r1/lifecycle-r1/FINAL_QUALIFICATION.json",
+    "sha256": "4d45d6011e0e70474033b45a3123e8047f47648350ae6ca9fee60300a6393903"
   },
   "model_resources": {
     "control": {
@@ -164,10 +164,10 @@
     },
     "candidate": {
       "hpc01": {
-        "invocation_id": "56056ab55abe4c458569e134ded49111",
-        "wall_seconds": 673.5171840980183,
-        "memory_peak_bytes": 88682180608,
-        "memory_peak_GiB": 82.59171676635742,
+        "invocation_id": "b23aa2754a9e4cc7bee1423af247875f",
+        "wall_seconds": 669.6277512290981,
+        "memory_peak_bytes": 88782196736,
+        "memory_peak_GiB": 82.68486404418945,
         "memory_events": {
           "low": 0,
           "high": 0,
@@ -177,22 +177,22 @@
           "oom_group_kill": 0
         },
         "cpu_stat": {
-          "usage_usec": 81405442477,
-          "user_usec": 79675087562,
-          "system_usec": 1730354915,
+          "usage_usec": 80972648809,
+          "user_usec": 79228311436,
+          "system_usec": 1744337372,
           "core_sched.force_idle_usec": 0,
-          "nr_periods": 6743,
-          "nr_throttled": 5191,
-          "throttled_usec": 7901551,
+          "nr_periods": 6703,
+          "nr_throttled": 4576,
+          "throttled_usec": 20173779,
           "nr_bursts": 0,
           "burst_usec": 0
         }
       },
       "hpc02": {
-        "invocation_id": "236e60cd2e744e4b888f3f2e474f78bc",
-        "wall_seconds": 670.3060049759224,
-        "memory_peak_bytes": 86362624000,
-        "memory_peak_GiB": 80.43146133422852,
+        "invocation_id": "0beeb180788542a98dedafc6662b5c99",
+        "wall_seconds": 667.1538102810737,
+        "memory_peak_bytes": 86373367808,
+        "memory_peak_GiB": 80.44146728515625,
         "memory_events": {
           "low": 0,
           "high": 0,
@@ -202,22 +202,22 @@
           "oom_group_kill": 0
         },
         "cpu_stat": {
-          "usage_usec": 81422265211,
-          "user_usec": 79548082787,
-          "system_usec": 1874182423,
+          "usage_usec": 80996136375,
+          "user_usec": 79134783025,
+          "system_usec": 1861353349,
           "core_sched.force_idle_usec": 0,
-          "nr_periods": 6700,
-          "nr_throttled": 5228,
-          "throttled_usec": 10479795,
+          "nr_periods": 6669,
+          "nr_throttled": 4736,
+          "throttled_usec": 20353009,
           "nr_bursts": 0,
           "burst_usec": 0
         }
       },
       "hpc03": {
-        "invocation_id": "d8e739e0135e4ed1b0056f51ab16afae",
-        "wall_seconds": 670.3218771978281,
-        "memory_peak_bytes": 86321815552,
-        "memory_peak_GiB": 80.3934555053711,
+        "invocation_id": "44d4c75a243147bf8c61c37489328c92",
+        "wall_seconds": 667.158363325987,
+        "memory_peak_bytes": 86305488896,
+        "memory_peak_GiB": 80.37825012207031,
         "memory_events": {
           "low": 0,
           "high": 0,
@@ -227,22 +227,22 @@
           "oom_group_kill": 0
         },
         "cpu_stat": {
-          "usage_usec": 81469960785,
-          "user_usec": 79606807605,
-          "system_usec": 1863153179,
+          "usage_usec": 81053712923,
+          "user_usec": 79181850986,
+          "system_usec": 1871861936,
           "core_sched.force_idle_usec": 0,
-          "nr_periods": 6700,
-          "nr_throttled": 5318,
-          "throttled_usec": 8944071,
+          "nr_periods": 6669,
+          "nr_throttled": 5366,
+          "throttled_usec": 5883361,
           "nr_bursts": 0,
           "burst_usec": 0
         }
       },
       "hpc04": {
-        "invocation_id": "1a71ff28aef84b4fa815f9348349d96d",
-        "wall_seconds": 670.2345074021723,
-        "memory_peak_bytes": 86289596416,
-        "memory_peak_GiB": 80.36344909667969,
+        "invocation_id": "074431fe31df4c76a82ad09201376d94",
+        "wall_seconds": 667.0920249959454,
+        "memory_peak_bytes": 86291337216,
+        "memory_peak_GiB": 80.36507034301758,
         "memory_events": {
           "low": 0,
           "high": 0,
@@ -252,13 +252,13 @@
           "oom_group_kill": 0
         },
         "cpu_stat": {
-          "usage_usec": 81424423074,
-          "user_usec": 79480744028,
-          "system_usec": 1943679046,
+          "usage_usec": 80991493791,
+          "user_usec": 79097824178,
+          "system_usec": 1893669613,
           "core_sched.force_idle_usec": 0,
-          "nr_periods": 6699,
-          "nr_throttled": 4444,
-          "throttled_usec": 9950132,
+          "nr_periods": 6668,
+          "nr_throttled": 4408,
+          "throttled_usec": 11569005,
           "nr_bursts": 0,
           "burst_usec": 0
         }
@@ -266,12 +266,12 @@
     }
   },
   "observed_speedup": {
-    "ratio": 1.2182411657690635,
+    "ratio": 1.2253171377904095,
     "scope": "UNPAIRED retained corrected-original reference; no isolated/additive/repeatability claim."
   },
   "memory_context": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-b-memory-criticalpath-r1/tcg-rk-combined-threehour-preparation-r1/lifecycle-r1/MEMORY_CONTEXT.json",
-    "sha256": "12fe3bcc5bac9d648927990253e8ff8f2972babedd97590fd120d46866bc7388"
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current3bb2-radiationwindow-triage-r1/application-preparation-r1/lifecycle-r1/MEMORY_CONTEXT.json",
+    "sha256": "8ee16d4d89a14b5c8f62fd0c99dc6fd0107468be646ada23f04c2e1f8ee305ed"
   },
-  "limits": "UNPAIRED retainedfreshcorrected-original546b820.506s/1200context. No isolatedTCG/RK memory/speedgain or repeatability/globalcausal claim; distinctMPIwall/aggregatehostCPU/mainstep scopes. Fullapplicationdoesnotinheritcall-onlysyntheticRKgain/wholeharnessCPUclaim. Currentcold/maxdom1/OMP1/twoTile/ordinary/DIMNRHG1/shared1 only; no9h/restart/allbackend/mode0applicationtransfer."
+  "limits": "Main-step sum includes communication/backpressure; residualwall is not pureIO. One later unprofiled candidate vs retainedcontrol, no freshpair/repeatability/causalsinglekernel claim. ActualcapturedW kernel+restore timings4.640/6.237% separate. No oldphysicsnegative reopened. Allraw scientificreceipts/grants/producerNULL unchanged."
 }

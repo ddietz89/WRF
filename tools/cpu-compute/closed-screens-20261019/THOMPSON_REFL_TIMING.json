@@ -1,0 +1,453 @@
+{
+  "status": "PASS_BOUNDED_TWO_OPPOSITE_ORDER_RADAR_CALLER_AND_DIRECT_HELPER_PAIRS_NO_GAIN",
+  "scope": "Qualified current3bb2/c53 Thompson; readonlycopies only. Actual primary native201 radar complete mp_gt_driver1024calls; direct native301 calc_REFL8192calls separately timed. All setup/tableIO/twoINIT/publication/restores/state/rawchecks outside; no WRFperformance claim.",
+  "candidate_canonical_sha256": "808ee493eb458fdc9afd40d8a9d9a5add896358874f545a8070c00ba50991661",
+  "native_qualification": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-calc-refl-readonly-copy-r1/NATIVE_QUALIFICATION.json",
+    "sha256": "824fa774abae54964d584763fee0ff182a12f6646cf17df1473a418caeb80048",
+    "bytes": 9703
+  },
+  "actual_result": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-calc-refl-readonly-copy-r1/timing-r2/closed-evidence/timing-r1/RESULT.json",
+    "sha256": "31cf53cefd9eca877ce74dce08847f7f337829167d7560c76592936f94119e67",
+    "bytes": 15355
+  },
+  "build_receipt": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-calc-refl-readonly-copy-r1/timing-r2/actual-build-r1/receipt.json",
+    "sha256": "cb2b5778c744aaafb82bd2d4e306130a4eea8a75261e92ee000c319087bd3c2e",
+    "bytes": 13044
+  },
+  "build_closure": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-calc-refl-readonly-copy-r1/timing-r2/actual-build-r1/closure.json",
+    "sha256": "d78cf8c725f9904a2399aa85d5a7edf6f0a1ecb07c9d735f62ee418079870fdf",
+    "bytes": 1104
+  },
+  "active_source_pins": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-calc-refl-readonly-copy-r1/timing-r2/source-pins.json",
+    "sha256": "895fe9fc978e49e9369281b5803edfacf1270f0821ea2deb9ac7cecb93a5faf6",
+    "bytes": 1326
+  },
+  "comparisons": [
+    {
+      "host": "hpc04",
+      "scope": "One complete synthetic enabled-mixed32level caller, samehost paired arms only; not forecast gain",
+      "calls": 1024,
+      "helper_calls": 8192,
+      "helper_parent": {
+        "wall": 5.055265242,
+        "cpu": 5.061363999999978
+      },
+      "helper_candidate": {
+        "wall": 5.104281413,
+        "cpu": 5.109900999999958
+      },
+      "helper_wall_reduction_percent": -0.9696063144771339,
+      "helper_cpu_reduction_percent": -0.9589707438544259,
+      "caller_cpu_parent": 0.6821219999999988,
+      "caller_cpu_candidate": 0.6865410000000098,
+      "caller_cpu_reduction_percent": -0.6478313263625912,
+      "raw_exact": true,
+      "raw_sha256": "21d59ace33b8ff733d920bda6a6ece67aee025fbaa03ba1c49993c76b396d7ba",
+      "parent_caller_interval_seconds": 0.681468531,
+      "candidate_caller_interval_seconds": 0.685532276,
+      "candidate_caller_elapsed_reduction_percent": -0.5963217397634946
+    },
+    {
+      "host": "hpc03",
+      "scope": "One complete synthetic enabled-mixed32level caller, samehost paired arms only; not forecast gain",
+      "calls": 1024,
+      "helper_calls": 8192,
+      "helper_parent": {
+        "wall": 5.067727242,
+        "cpu": 5.073014000000054
+      },
+      "helper_candidate": {
+        "wall": 5.107782583,
+        "cpu": 5.113696999999965
+      },
+      "helper_wall_reduction_percent": -0.7904004909347062,
+      "helper_cpu_reduction_percent": -0.8019492948355911,
+      "caller_cpu_parent": 0.683115999999989,
+      "caller_cpu_candidate": 0.6859439999999877,
+      "caller_cpu_reduction_percent": -0.4139853260644921,
+      "raw_exact": true,
+      "raw_sha256": "21d59ace33b8ff733d920bda6a6ece67aee025fbaa03ba1c49993c76b396d7ba",
+      "parent_caller_interval_seconds": 0.68249692,
+      "candidate_caller_interval_seconds": 0.685168636,
+      "candidate_caller_elapsed_reduction_percent": -0.39146198637791674
+    }
+  ],
+  "all4cache_boundaries": [
+    {
+      "hpc04": {
+        "status": "PASS_SYNC_DROP_CACHES3",
+        "host": "hpc04",
+        "run_id": "thompson-refl-readonly-copy-caller-r2-0",
+        "uid": 0,
+        "active_campaigns": [],
+        "operation": "sync_then_drop_caches3",
+        "sync_begin_monotonic_ns": 2018652990526769,
+        "sync_end_monotonic_ns": 2018653007802527,
+        "drop_begin_monotonic_ns": 2018653516228443,
+        "drop_end_monotonic_ns": 2018653825144059
+      },
+      "hpc03": {
+        "status": "PASS_SYNC_DROP_CACHES3",
+        "host": "hpc03",
+        "run_id": "thompson-refl-readonly-copy-caller-r2-0",
+        "uid": 0,
+        "active_campaigns": [],
+        "operation": "sync_then_drop_caches3",
+        "sync_begin_monotonic_ns": 2018630683785721,
+        "sync_end_monotonic_ns": 2018630701027347,
+        "drop_begin_monotonic_ns": 2018631055895654,
+        "drop_end_monotonic_ns": 2018631266236539
+      }
+    },
+    {
+      "hpc04": {
+        "status": "PASS_SYNC_DROP_CACHES3",
+        "host": "hpc04",
+        "run_id": "thompson-refl-readonly-copy-caller-r2-1",
+        "uid": 0,
+        "active_campaigns": [],
+        "operation": "sync_then_drop_caches3",
+        "sync_begin_monotonic_ns": 2018668235761883,
+        "sync_end_monotonic_ns": 2018668253158294,
+        "drop_begin_monotonic_ns": 2018668774156530,
+        "drop_end_monotonic_ns": 2018668961842284
+      },
+      "hpc03": {
+        "status": "PASS_SYNC_DROP_CACHES3",
+        "host": "hpc03",
+        "run_id": "thompson-refl-readonly-copy-caller-r2-1",
+        "uid": 0,
+        "active_campaigns": [],
+        "operation": "sync_then_drop_caches3",
+        "sync_begin_monotonic_ns": 2018645924890592,
+        "sync_end_monotonic_ns": 2018645942130838,
+        "drop_begin_monotonic_ns": 2018646293792782,
+        "drop_end_monotonic_ns": 2018646489764855
+      }
+    }
+  ],
+  "all4strong_closures": [
+    {
+      "host": "hpc04",
+      "phase": 0,
+      "arm": "parent",
+      "unit": "wrf-cpu-thompson-refl-readonly-copy-caller-r2-hpc04-phase0.service",
+      "invocation_id": "cbca3f0b52e6460789aa9f747f49ecab",
+      "properties": {
+        "MainPID": "0",
+        "Result": "success",
+        "ExecMainStatus": "0",
+        "ControlGroup": "",
+        "ActiveState": "inactive",
+        "InvocationID": ""
+      },
+      "manager_events": [
+        {
+          "invocation_id": "cbca3f0b52e6460789aa9f747f49ecab",
+          "message": "Started wrf-cpu-thompson-refl-readonly-copy-caller-r2-hpc04-phase0.service - /usr/bin/python3 /pool/wrf-experiment/wrf-cpu/kernels/thompson-refl-readonly-copy-caller-screen-r2/run_arm.py --arm parent --prefix /pool/wrf-experiment/wrf-cpu/kernels/thompson-refl-readonly-copy-caller-screen-r2/timing-r1/hpc04-parent."
+        },
+        {
+          "invocation_id": "cbca3f0b52e6460789aa9f747f49ecab",
+          "message": "wrf-cpu-thompson-refl-readonly-copy-caller-r2-hpc04-phase0.service: Deactivated successfully."
+        }
+      ],
+      "drain": {
+        "own_cgroup_path": "/sys/fs/cgroup/system.slice/wrf-cpu-thompson-refl-readonly-copy-caller-r2-hpc04-phase0.service",
+        "absent": true,
+        "processes": []
+      },
+      "systemd_wait_returncode": 0,
+      "receipt": {
+        "status": "PASS_ARM_RAW_CHECKS_1024_CALLS",
+        "invocation": "cbca3f0b52e6460789aa9f747f49ecab",
+        "host": "hpc04",
+        "affinity": [
+          24
+        ],
+        "arm": "parent",
+        "rounding": "FE_TONEAREST",
+        "seed": "clear IEEEflags,errnoERANGE,source arrays reset outside each timer",
+        "child_pid": 1753130,
+        "child_initial_cpu_allowed": "24",
+        "returncode": 0,
+        "raw_sha256": "21d59ace33b8ff733d920bda6a6ece67aee025fbaa03ba1c49993c76b396d7ba",
+        "raw_bytes": 48796,
+        "native_baseline_exact": true,
+        "initial_cgroup_counters": {
+          "cpu.stat": "usage_usec 69709\nuser_usec 49206\nsystem_usec 20502\ncore_sched.force_idle_usec 0\nnr_periods 1\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+          "memory.current": "8445952\n",
+          "memory.peak": "8712192\n"
+        },
+        "final_cgroup_counters": {
+          "cpu.stat": "usage_usec 8294247\nuser_usec 7153525\nsystem_usec 1140721\ncore_sched.force_idle_usec 0\nnr_periods 87\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+          "memory.current": "410001408\n",
+          "memory.peak": "1254744064\n"
+        }
+      }
+    },
+    {
+      "host": "hpc03",
+      "phase": 0,
+      "arm": "candidate",
+      "unit": "wrf-cpu-thompson-refl-readonly-copy-caller-r2-hpc03-phase0.service",
+      "invocation_id": "c07c0100ad0d4d14a5df1844cbae3192",
+      "properties": {
+        "MainPID": "0",
+        "Result": "success",
+        "ExecMainStatus": "0",
+        "ControlGroup": "",
+        "ActiveState": "inactive",
+        "InvocationID": ""
+      },
+      "manager_events": [
+        {
+          "invocation_id": "c07c0100ad0d4d14a5df1844cbae3192",
+          "message": "Started wrf-cpu-thompson-refl-readonly-copy-caller-r2-hpc03-phase0.service - /usr/bin/python3 /pool/wrf-experiment/wrf-cpu/kernels/thompson-refl-readonly-copy-caller-screen-r2/run_arm.py --arm candidate --prefix /pool/wrf-experiment/wrf-cpu/kernels/thompson-refl-readonly-copy-caller-screen-r2/timing-r1/hpc03-candidate."
+        },
+        {
+          "invocation_id": "c07c0100ad0d4d14a5df1844cbae3192",
+          "message": "wrf-cpu-thompson-refl-readonly-copy-caller-r2-hpc03-phase0.service: Deactivated successfully."
+        }
+      ],
+      "drain": {
+        "own_cgroup_path": "/sys/fs/cgroup/system.slice/wrf-cpu-thompson-refl-readonly-copy-caller-r2-hpc03-phase0.service",
+        "absent": true,
+        "processes": []
+      },
+      "systemd_wait_returncode": 0,
+      "receipt": {
+        "status": "PASS_ARM_RAW_CHECKS_1024_CALLS",
+        "invocation": "c07c0100ad0d4d14a5df1844cbae3192",
+        "host": "hpc03",
+        "affinity": [
+          24
+        ],
+        "arm": "candidate",
+        "rounding": "FE_TONEAREST",
+        "seed": "clear IEEEflags,errnoERANGE,source arrays reset outside each timer",
+        "child_pid": 1580593,
+        "child_initial_cpu_allowed": "24",
+        "returncode": 0,
+        "raw_sha256": "21d59ace33b8ff733d920bda6a6ece67aee025fbaa03ba1c49993c76b396d7ba",
+        "raw_bytes": 48796,
+        "native_baseline_exact": true,
+        "initial_cgroup_counters": {
+          "cpu.stat": "usage_usec 70477\nuser_usec 44299\nsystem_usec 26177\ncore_sched.force_idle_usec 0\nnr_periods 1\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+          "memory.current": "8470528\n",
+          "memory.peak": "8728576\n"
+        },
+        "final_cgroup_counters": {
+          "cpu.stat": "usage_usec 8534618\nuser_usec 7268081\nsystem_usec 1266536\ncore_sched.force_idle_usec 0\nnr_periods 91\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+          "memory.current": "409931776\n",
+          "memory.peak": "1254752256\n"
+        }
+      }
+    },
+    {
+      "host": "hpc04",
+      "phase": 1,
+      "arm": "candidate",
+      "unit": "wrf-cpu-thompson-refl-readonly-copy-caller-r2-hpc04-phase1.service",
+      "invocation_id": "4de5d95ce17d41779407bf4efb9ebd1b",
+      "properties": {
+        "MainPID": "0",
+        "Result": "success",
+        "ExecMainStatus": "0",
+        "ControlGroup": "",
+        "ActiveState": "inactive",
+        "InvocationID": ""
+      },
+      "manager_events": [
+        {
+          "invocation_id": "4de5d95ce17d41779407bf4efb9ebd1b",
+          "message": "Started wrf-cpu-thompson-refl-readonly-copy-caller-r2-hpc04-phase1.service - /usr/bin/python3 /pool/wrf-experiment/wrf-cpu/kernels/thompson-refl-readonly-copy-caller-screen-r2/run_arm.py --arm candidate --prefix /pool/wrf-experiment/wrf-cpu/kernels/thompson-refl-readonly-copy-caller-screen-r2/timing-r1/hpc04-candidate."
+        },
+        {
+          "invocation_id": "4de5d95ce17d41779407bf4efb9ebd1b",
+          "message": "wrf-cpu-thompson-refl-readonly-copy-caller-r2-hpc04-phase1.service: Deactivated successfully."
+        }
+      ],
+      "drain": {
+        "own_cgroup_path": "/sys/fs/cgroup/system.slice/wrf-cpu-thompson-refl-readonly-copy-caller-r2-hpc04-phase1.service",
+        "absent": true,
+        "processes": []
+      },
+      "systemd_wait_returncode": 0,
+      "receipt": {
+        "status": "PASS_ARM_RAW_CHECKS_1024_CALLS",
+        "invocation": "4de5d95ce17d41779407bf4efb9ebd1b",
+        "host": "hpc04",
+        "affinity": [
+          24
+        ],
+        "arm": "candidate",
+        "rounding": "FE_TONEAREST",
+        "seed": "clear IEEEflags,errnoERANGE,source arrays reset outside each timer",
+        "child_pid": 1753767,
+        "child_initial_cpu_allowed": "24",
+        "returncode": 0,
+        "raw_sha256": "21d59ace33b8ff733d920bda6a6ece67aee025fbaa03ba1c49993c76b396d7ba",
+        "raw_bytes": 48796,
+        "native_baseline_exact": true,
+        "initial_cgroup_counters": {
+          "cpu.stat": "usage_usec 73395\nuser_usec 53823\nsystem_usec 19572\ncore_sched.force_idle_usec 0\nnr_periods 1\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+          "memory.current": "8441856\n",
+          "memory.peak": "8712192\n"
+        },
+        "final_cgroup_counters": {
+          "cpu.stat": "usage_usec 8466654\nuser_usec 7274139\nsystem_usec 1192514\ncore_sched.force_idle_usec 0\nnr_periods 88\nnr_throttled 2\nthrottled_usec 254\nnr_bursts 0\nburst_usec 0\n",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+          "memory.current": "410238976\n",
+          "memory.peak": "1254727680\n"
+        }
+      }
+    },
+    {
+      "host": "hpc03",
+      "phase": 1,
+      "arm": "parent",
+      "unit": "wrf-cpu-thompson-refl-readonly-copy-caller-r2-hpc03-phase1.service",
+      "invocation_id": "cdbe67d695d34aa1823c554f3fdeb026",
+      "properties": {
+        "MainPID": "0",
+        "Result": "success",
+        "ExecMainStatus": "0",
+        "ControlGroup": "",
+        "ActiveState": "inactive",
+        "InvocationID": ""
+      },
+      "manager_events": [
+        {
+          "invocation_id": "cdbe67d695d34aa1823c554f3fdeb026",
+          "message": "Started wrf-cpu-thompson-refl-readonly-copy-caller-r2-hpc03-phase1.service - /usr/bin/python3 /pool/wrf-experiment/wrf-cpu/kernels/thompson-refl-readonly-copy-caller-screen-r2/run_arm.py --arm parent --prefix /pool/wrf-experiment/wrf-cpu/kernels/thompson-refl-readonly-copy-caller-screen-r2/timing-r1/hpc03-parent."
+        },
+        {
+          "invocation_id": "cdbe67d695d34aa1823c554f3fdeb026",
+          "message": "wrf-cpu-thompson-refl-readonly-copy-caller-r2-hpc03-phase1.service: Deactivated successfully."
+        }
+      ],
+      "drain": {
+        "own_cgroup_path": "/sys/fs/cgroup/system.slice/wrf-cpu-thompson-refl-readonly-copy-caller-r2-hpc03-phase1.service",
+        "absent": true,
+        "processes": []
+      },
+      "systemd_wait_returncode": 0,
+      "receipt": {
+        "status": "PASS_ARM_RAW_CHECKS_1024_CALLS",
+        "invocation": "cdbe67d695d34aa1823c554f3fdeb026",
+        "host": "hpc03",
+        "affinity": [
+          24
+        ],
+        "arm": "parent",
+        "rounding": "FE_TONEAREST",
+        "seed": "clear IEEEflags,errnoERANGE,source arrays reset outside each timer",
+        "child_pid": 1581157,
+        "child_initial_cpu_allowed": "24",
+        "returncode": 0,
+        "raw_sha256": "21d59ace33b8ff733d920bda6a6ece67aee025fbaa03ba1c49993c76b396d7ba",
+        "raw_bytes": 48796,
+        "native_baseline_exact": true,
+        "initial_cgroup_counters": {
+          "cpu.stat": "usage_usec 68876\nuser_usec 45261\nsystem_usec 23614\ncore_sched.force_idle_usec 0\nnr_periods 1\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+          "memory.current": "8450048\n",
+          "memory.peak": "8716288\n"
+        },
+        "final_cgroup_counters": {
+          "cpu.stat": "usage_usec 8384571\nuser_usec 7175623\nsystem_usec 1208947\ncore_sched.force_idle_usec 0\nnr_periods 89\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+          "memory.current": "409952256\n",
+          "memory.peak": "1254735872\n"
+        }
+      }
+    }
+  ],
+  "raw_exact_native201_and301_bytes": 48796,
+  "clock_limits": [
+    "Primary caller body0.681..0.686s is below1s; fixedonecountrepair only/no calibration. Directhelper body5.055..5.108s.",
+    "CPUinterval includes symmetric bracketing SYSTEM_CLOCK overhead; harnessrestores/checks are excluded fromcall clocks but included in wholecgroupCPU.",
+    "One pair/host/oppositeorders demonstrates no gain in this finite screen, not global compiler optimality."
+  ],
+  "R1_failed_count_setup_preserved": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-calc-refl-readonly-copy-r1/timing-r1/failed-first-wave-r1/ACTUAL_FAILURE_AND_CLOSURES.json",
+    "sha256": "794827bf7a0614ebbd0ef02423fbcfaefdb4f2205cdbbf8783e9d1fcb32e42e4",
+    "bytes": 11582
+  },
+  "resources_context_only": [
+    {
+      "host": "hpc04",
+      "arm": "parent",
+      "initial": {
+        "cpu.stat": "usage_usec 69709\nuser_usec 49206\nsystem_usec 20502\ncore_sched.force_idle_usec 0\nnr_periods 1\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "memory.current": "8445952\n",
+        "memory.peak": "8712192\n"
+      },
+      "final": {
+        "cpu.stat": "usage_usec 8294247\nuser_usec 7153525\nsystem_usec 1140721\ncore_sched.force_idle_usec 0\nnr_periods 87\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "memory.current": "410001408\n",
+        "memory.peak": "1254744064\n"
+      }
+    },
+    {
+      "host": "hpc03",
+      "arm": "candidate",
+      "initial": {
+        "cpu.stat": "usage_usec 70477\nuser_usec 44299\nsystem_usec 26177\ncore_sched.force_idle_usec 0\nnr_periods 1\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "memory.current": "8470528\n",
+        "memory.peak": "8728576\n"
+      },
+      "final": {
+        "cpu.stat": "usage_usec 8534618\nuser_usec 7268081\nsystem_usec 1266536\ncore_sched.force_idle_usec 0\nnr_periods 91\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "memory.current": "409931776\n",
+        "memory.peak": "1254752256\n"
+      }
+    },
+    {
+      "host": "hpc04",
+      "arm": "candidate",
+      "initial": {
+        "cpu.stat": "usage_usec 73395\nuser_usec 53823\nsystem_usec 19572\ncore_sched.force_idle_usec 0\nnr_periods 1\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "memory.current": "8441856\n",
+        "memory.peak": "8712192\n"
+      },
+      "final": {
+        "cpu.stat": "usage_usec 8466654\nuser_usec 7274139\nsystem_usec 1192514\ncore_sched.force_idle_usec 0\nnr_periods 88\nnr_throttled 2\nthrottled_usec 254\nnr_bursts 0\nburst_usec 0\n",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "memory.current": "410238976\n",
+        "memory.peak": "1254727680\n"
+      }
+    },
+    {
+      "host": "hpc03",
+      "arm": "parent",
+      "initial": {
+        "cpu.stat": "usage_usec 68876\nuser_usec 45261\nsystem_usec 23614\ncore_sched.force_idle_usec 0\nnr_periods 1\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "memory.current": "8450048\n",
+        "memory.peak": "8716288\n"
+      },
+      "final": {
+        "cpu.stat": "usage_usec 8384571\nuser_usec 7175623\nsystem_usec 1208947\ncore_sched.force_idle_usec 0\nnr_periods 89\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "memory.current": "409952256\n",
+        "memory.peak": "1254735872\n"
+      }
+    }
+  ]
+}

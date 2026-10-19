@@ -1,0 +1,462 @@
+{
+  "status": "PASS_CURRENT_W_ONLY_THREE_HOUR_ORIGINAL_FULL_GATE_AND_ALL_OWN_SCOPES_CLOSED",
+  "created_utc": "2026-10-19T20:22:25.540816+00:00",
+  "runtime": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-w-rhs-thompson3h-runtime-r1",
+  "candidate_executable_sha256": "e55c97e6129529f366fd0dd496d3cff1192714223c7755a7484622ddb82a108f",
+  "candidate_archive_sha256": "4ae5eb1e398048f98c65079f00ddd4aae3a8e667102e1ee2294cab40e3dc443b",
+  "candidate_canonical_source_sha256": "f998112d879b964e18f7637eb64b3135ea733b23a16a89b53362bdfc75728b98",
+  "candidate_preprocessed_source_sha256": "982f6eaa6a1940652ae2c6d34caa381ef0e1cc6c16f2111e1f9615729f498f41",
+  "candidate_object_sha256": "7b89121b221556e6b6b14ef4c1f3aedaa93f672cd9dde5f56b8e9778417c02f2",
+  "candidate_source_commit": null,
+  "source_scope": "Actual e55c one-memberWproducer source_commitNULL preserved. 26bc/current3bb2 selectedparent ancestry only; rootfuturepostSCItracking separately. RejectedThompson808/6acc NOTincluded; existing9639 unchanged. Native/caller and full3h only; no9h/providertransfer.",
+  "acceptance": {
+    "original_products_passed": 4,
+    "ordered_steps": 545,
+    "last_step": "2026-10-12_09:00:00",
+    "rank_counts": {
+      "control": 512,
+      "candidate": 512
+    },
+    "compute_tile_union_ranks": 480,
+    "tiles": 2,
+    "writer_roots_each_arm": [
+      487,
+      495,
+      503,
+      511
+    ],
+    "science_sha256": "008c44ec95f607416f2068a1fa9c9a5db8a565d8e5e7933bcc6ec39c0dde9353",
+    "reader_closure_sha256": "a9c2e01117e68a5b7f54e9e71cead6518ffb8e18658967b2092c674ef5c41193",
+    "reader_invocation_id": "658e49a1a5d5471ab23045dae6ac16bb",
+    "all_own_model_and_reader_scopes_closed": true
+  },
+  "comparison_design": "UNPAIRED candidate vs retained fresh corrected-original546b820.506s; no isolatedW/Thompson gain attribution",
+  "metrics": {
+    "control": {
+      "wall_seconds": 820.5063595210668,
+      "cpu_seconds": 367800.485597,
+      "main_step_sum_seconds": 597.99405
+    },
+    "candidate": {
+      "wall_seconds": 669.6277512290981,
+      "cpu_seconds": 324013.991898,
+      "main_step_sum_seconds": 561.83101
+    }
+  },
+  "reductions_percent": {
+    "wall_seconds": 18.388475182573504,
+    "cpu_seconds": 11.904958099206253,
+    "main_step_sum_seconds": 6.047391274210845
+  },
+  "per_host_final": {
+    "control": {
+      "hpc01": {
+        "invocation_id": "740aec3ca7f349bca71f9b3ab045c936",
+        "wall_seconds": 820.5063595210668,
+        "memory_peak_bytes": 98732437504,
+        "memory_peak_GiB": 91.95174789428711,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_stat": {
+          "usage_usec": 91941354466,
+          "user_usec": 90158210283,
+          "system_usec": 1783144182,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 8218,
+          "nr_throttled": 5152,
+          "throttled_usec": 23708208,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      },
+      "hpc02": {
+        "invocation_id": "a88ae582cb6d49638699db117bc64f82",
+        "wall_seconds": 816.2065535990987,
+        "memory_peak_bytes": 101101588480,
+        "memory_peak_GiB": 94.1581916809082,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_stat": {
+          "usage_usec": 91942279812,
+          "user_usec": 90047989411,
+          "system_usec": 1894290400,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 8163,
+          "nr_throttled": 6060,
+          "throttled_usec": 8449876,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      },
+      "hpc03": {
+        "invocation_id": "b660f136b24147da982e51e8f319a329",
+        "wall_seconds": 816.1627576050814,
+        "memory_peak_bytes": 101013078016,
+        "memory_peak_GiB": 94.07575988769531,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_stat": {
+          "usage_usec": 91984346974,
+          "user_usec": 90103106179,
+          "system_usec": 1881240794,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 8162,
+          "nr_throttled": 5639,
+          "throttled_usec": 14945774,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      },
+      "hpc04": {
+        "invocation_id": "c604f1d17d984f41bfbae9cb41dbc0f3",
+        "wall_seconds": 816.2098608058877,
+        "memory_peak_bytes": 107177967616,
+        "memory_peak_GiB": 99.8172607421875,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_stat": {
+          "usage_usec": 91932504345,
+          "user_usec": 89961304153,
+          "system_usec": 1971200191,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 8162,
+          "nr_throttled": 4892,
+          "throttled_usec": 36985882,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      }
+    },
+    "candidate": {
+      "hpc01": {
+        "invocation_id": "b23aa2754a9e4cc7bee1423af247875f",
+        "wall_seconds": 669.6277512290981,
+        "memory_peak_bytes": 88782196736,
+        "memory_peak_GiB": 82.68486404418945,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_stat": {
+          "usage_usec": 80972648809,
+          "user_usec": 79228311436,
+          "system_usec": 1744337372,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 6703,
+          "nr_throttled": 4576,
+          "throttled_usec": 20173779,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      },
+      "hpc02": {
+        "invocation_id": "0beeb180788542a98dedafc6662b5c99",
+        "wall_seconds": 667.1538102810737,
+        "memory_peak_bytes": 86373367808,
+        "memory_peak_GiB": 80.44146728515625,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_stat": {
+          "usage_usec": 80996136375,
+          "user_usec": 79134783025,
+          "system_usec": 1861353349,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 6669,
+          "nr_throttled": 4736,
+          "throttled_usec": 20353009,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      },
+      "hpc03": {
+        "invocation_id": "44d4c75a243147bf8c61c37489328c92",
+        "wall_seconds": 667.158363325987,
+        "memory_peak_bytes": 86305488896,
+        "memory_peak_GiB": 80.37825012207031,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_stat": {
+          "usage_usec": 81053712923,
+          "user_usec": 79181850986,
+          "system_usec": 1871861936,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 6669,
+          "nr_throttled": 5366,
+          "throttled_usec": 5883361,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      },
+      "hpc04": {
+        "invocation_id": "074431fe31df4c76a82ad09201376d94",
+        "wall_seconds": 667.0920249959454,
+        "memory_peak_bytes": 86291337216,
+        "memory_peak_GiB": 80.36507034301758,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_stat": {
+          "usage_usec": 80991493791,
+          "user_usec": 79097824178,
+          "system_usec": 1893669613,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 6668,
+          "nr_throttled": 4408,
+          "throttled_usec": 11569005,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      }
+    }
+  },
+  "memory_context_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current3bb2-radiationwindow-triage-r1/application-preparation-r1/lifecycle-r1/MEMORY_CONTEXT.json",
+  "memory_context_sha256": "8ee16d4d89a14b5c8f62fd0c99dc6fd0107468be646ada23f04c2e1f8ee305ed",
+  "limits": "Main-step sum includes communication/backpressure; residualwall is not pureIO. One later unprofiled candidate vs retainedcontrol, no freshpair/repeatability/causalsinglekernel claim. ActualcapturedW kernel+restore timings4.640/6.237% separate. No oldphysicsnegative reopened. Allraw scientificreceipts/grants/producerNULL unchanged.",
+  "raw_references": [
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-w-rhs-thompson3h-runtime-r1/source-pins.json",
+      "sha256": "ee588180397c6776343f45b25cf47ac1407713c23ecc6fc2e5d9588c7060f105",
+      "bytes": 35613
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-w-rhs-thompson3h-runtime-r1/application-binding.json",
+      "sha256": "8d3920b39b86501c7b588b29a2e717ec18d026620315ada5afb46ab78bec5314",
+      "bytes": 13369
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-w-rhs-thompson3h-runtime-r1/lease-candidate-proposed.json",
+      "sha256": "319ebcc65b74a1e75ad5df54d0c7c92b1a8f525e5b309a27e9e46256b0870022",
+      "bytes": 113228
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-w-rhs-thompson3h-runtime-r1/candidate-closures.json",
+      "sha256": "9e78ad9d87442ddb8d74be92774cdb1fdbb8691b3c20d1265fdeb2b7c6518ffe",
+      "bytes": 1440
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-w-rhs-thompson3h-runtime-r1/cache-clear-candidate.json",
+      "sha256": "289053a1b12582ef9b19725f5c4145939b3502b79a710801671aae120a7c4654",
+      "bytes": 5719
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-w-rhs-thompson3h-runtime-r1/science-receipt.json",
+      "sha256": "008c44ec95f607416f2068a1fa9c9a5db8a565d8e5e7933bcc6ec39c0dde9353",
+      "bytes": 4441044
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-w-rhs-thompson3h-runtime-r1/reader-closure.json",
+      "sha256": "a9c2e01117e68a5b7f54e9e71cead6518ffb8e18658967b2092c674ef5c41193",
+      "bytes": 3918
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-w-rhs-thompson3h-runtime-r1/RESULT.json",
+      "sha256": "b8fe197f4f7720941d0078c960af82e72c7a27cf1c181203f2b78427bbf9a802",
+      "bytes": 1174
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-w-rhs-thompson3h-runtime-r1/control-metadata/completion.json",
+      "sha256": "4218295a3646fbdc81bb7c8c1f265ca1d406c02f05eba908427444bb5c55f533",
+      "bytes": 916
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-w-rhs-thompson3h-runtime-r1/control-metadata/mpi-launch.json",
+      "sha256": "ad8cad8923574daf26bba507780425967ff3630eafde4e4afad1ce4ed7aaa44a",
+      "bytes": 4991
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-w-rhs-thompson3h-runtime-r1/control-metadata/hpc02-node.json",
+      "sha256": "429a27f583bfc755dbddd8f5b431bacd27d550fb33ee73af2ae8b28a23bb79a5",
+      "bytes": 3357
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-w-rhs-thompson3h-runtime-r1/control-metadata/hpc03-node.json",
+      "sha256": "ce3c3df5661cdcc47e3e30e6420e6e97fbf004d5c5aa30743451528d4e092e8a",
+      "bytes": 3358
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-w-rhs-thompson3h-runtime-r1/control-metadata/hpc04-node.json",
+      "sha256": "5d9af01da7024415ef8285552e0083142d75e2d775866da2021bf7b71a1c76ef",
+      "bytes": 3358
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-w-rhs-thompson3h-runtime-r1/control-metadata/adaptive-steps.json",
+      "sha256": "bd75fefdfa94bc6895f68c39867232bbc5bf1f06bc975f020b076bfad3d58318",
+      "bytes": 61525
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-w-rhs-thompson3h-runtime-r1/control-metadata/lease.json",
+      "sha256": "7c1965921ccd22838873d0bd2a9d0648c3d1ed58ce9093cb748425846ac4b01b",
+      "bytes": 110312
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-w-rhs-thompson3h-runtime-r1/control-metadata/cache-start-context.json",
+      "sha256": "4b510cdb71a380854a2ea8aa44f92998e6d37305caf7fd6e48eb7a26a416365e",
+      "bytes": 362
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-w-rhs-thompson3h-runtime-r1/control-metadata/model-closures.json",
+      "sha256": "790d947e948f853368b79af35e619c2120db536403218dd7b7accaaa9b6e0303",
+      "bytes": 1519
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-w-rhs-thompson3h-runtime-r1/candidate-metadata/completion.json",
+      "sha256": "001a4e94fc8dcb0622b2d24de2616897ec322419c4e6b39994117edb4e6dfc83",
+      "bytes": 1002
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-w-rhs-thompson3h-runtime-r1/candidate-metadata/mpi-launch.json",
+      "sha256": "48482a0bbc415d943c7d8da9f23a2bceb7166cbfc828b2b5c0e52d58dcffbf66",
+      "bytes": 7239
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-w-rhs-thompson3h-runtime-r1/candidate-metadata/hpc02-node.json",
+      "sha256": "20ca4b6f573bd902a70a3f6422ba210ac88cf575cfb66b2e99f177650255c0ba",
+      "bytes": 3727
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-w-rhs-thompson3h-runtime-r1/candidate-metadata/hpc03-node.json",
+      "sha256": "3262cfaa9bbcf2cbae3c8282612674efa21a9a755a63a50c1775fbfb5ae0b831",
+      "bytes": 3725
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-w-rhs-thompson3h-runtime-r1/candidate-metadata/hpc04-node.json",
+      "sha256": "fd2647b7ba2f5b01a08e28b73a9efbeb92f48ed42f41f18111843131a35e8a1a",
+      "bytes": 3727
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-w-rhs-thompson3h-runtime-r1/candidate-metadata/adaptive-steps.json",
+      "sha256": "5a4eb6a20a13106ab4604acc2b549f550e18a82c033a79c57ecbdbc4c0625a68",
+      "bytes": 61531
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-w-rhs-thompson3h-runtime-r1/candidate-metadata/lease.json",
+      "sha256": "326ad0517fb31953295b7a8d7ae2c15d88489c31ce2b868a22e67b1529ccac01",
+      "bytes": 113324
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-w-rhs-thompson3h-runtime-r1/candidate-metadata/cache-start-context.json",
+      "sha256": "bfcdcdad6237e9890ebd851644dfcffb0c82f4399ca4e0355f2d7bfd94795fd8",
+      "bytes": 362
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-w-rhs-thompson3h-runtime-r1/candidate-metadata/model-closures.json",
+      "sha256": "fa9251b81addf7a46861fe3010137ee60e91488fc3642cc810223c3b17c0eb2a",
+      "bytes": 1503
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current3bb2-radiationwindow-triage-r1/overlay-build-preparation-r1/REBUILD_RECIPE.json",
+      "sha256": "17af820aab1f9629d2bcf21a2e512b740b7d4e7a6570753a8a4efa1d7a86b3e1",
+      "bytes": 9279
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current3bb2-radiationwindow-triage-r1/overlay-build-preparation-r1/manifest.json",
+      "sha256": "8198954e385024bd866067eba739932c1ca199fd3be68ade4558137ca272648a",
+      "bytes": 2724
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current3bb2-radiationwindow-triage-r1/overlay-build-preparation-r1/BUILD_QUALIFICATION.json",
+      "sha256": "655149f531679c30a3492d11c60893eb360243bc6864904cfc8ac1c85736eaad",
+      "bytes": 1675
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current3bb2-radiationwindow-triage-r1/overlay-build-preparation-r1/actual-native-r1/receipt.json",
+      "sha256": "81dffad2ed7a0dcc38f25255eeb63c6952669079848e1d6f2dd94d7d4650e299",
+      "bytes": 16636
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current3bb2-radiationwindow-triage-r1/overlay-build-preparation-r1/actual-native-r1/closure.json",
+      "sha256": "0d6cc5d87056a7351dd37dd8d425726e18d7ec45b66588b8e8d98c6c78182df2",
+      "bytes": 1103
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current3bb2-radiationwindow-triage-r1/overlay-build-preparation-r1/actual-native-r1/ordered-libwrflib-proof.json",
+      "sha256": "71aedb1a49cc0419f5fff9d4a9111e99e811866cfca66d09e42afa16d68ea58e",
+      "bytes": 209925
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current3bb2-radiationwindow-triage-r1/NATIVE_QUALIFICATION.json",
+      "sha256": "6e520d26b2c3cd46dffe6e3b9bdcd05ee7d273d012288d1e9e22df15611622c8",
+      "bytes": 5805
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current3bb2-radiationwindow-triage-r1/CALLER_QUALIFICATION.json",
+      "sha256": "f742f61790d9e8fa9b5dc47f9f61fe73e1bc11be02411eafc464cb067d66b330",
+      "bytes": 6379
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current3bb2-radiationwindow-triage-r1/native-gate-r1/candidate_module_small_step_em.F",
+      "sha256": "f998112d879b964e18f7637eb64b3135ea733b23a16a89b53362bdfc75728b98",
+      "bytes": 74361
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current3bb2-radiationwindow-triage-r1/native-gate-r1/candidate_module_small_step_em.f90",
+      "sha256": "982f6eaa6a1940652ae2c6d34caa381ef0e1cc6c16f2111e1f9615729f498f41",
+      "bytes": 53381
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current3bb2-radiationwindow-triage-r1/application-preparation-r1/lifecycle-r1/candidate-STARTUP_METADATA_CENSUS.json",
+      "sha256": "7acf228ac2a0dad19c37ff4e1ec5a2db9b0e8ea545e9bf45ae6c3213f564c12e",
+      "bytes": 11758
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current3bb2-radiationwindow-triage-r1/application-preparation-r1/lifecycle-r1/candidate-health-observations.jsonl",
+      "sha256": "aa6394d887a1a3523ae76b187397d7e4c7f6354e48f56c30cd79f98096f98d89",
+      "bytes": 72045
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current3bb2-radiationwindow-triage-r1/application-preparation-r1/lifecycle-r1/MEMORY_CONTEXT.json",
+      "sha256": "8ee16d4d89a14b5c8f62fd0c99dc6fd0107468be646ada23f04c2e1f8ee305ed",
+      "bytes": 6691
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current3bb2-radiationwindow-triage-r1/application-preparation-r1/ROOT_APPLICATION_REVIEW_AND_RELEASE.json",
+      "sha256": "b253ecf725d5c0fb630066bf86ea3b0637bc54bd3bcb74e566c636384f03e21a",
+      "bytes": 2819
+    }
+  ]
+}

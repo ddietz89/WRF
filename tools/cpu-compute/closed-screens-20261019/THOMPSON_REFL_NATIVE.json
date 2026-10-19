@@ -1,0 +1,188 @@
+{
+  "status": "PASS_NATIVE_CURRENT_THOMPSON_REFL_READONLY_COPY_ELISION_RADAR_IEEE_NOT_PERFORMANCE_OR_FULL_WRF",
+  "candidate_canonical": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-calc-refl-readonly-copy-r1/candidate_module_mp_thompson.F",
+    "sha256": "808ee493eb458fdc9afd40d8a9d9a5add896358874f545a8070c00ba50991661",
+    "bytes": 277901
+  },
+  "candidate_source_commit": null,
+  "parent_canonical_sha256": "c53e05b4eade5beab10adfe56b2e7b43be14775fce7abddef0733071d730f29f",
+  "parent_production_object_sha256": "96399d1bcc520c7fd1f13481abd8f747dcebec9d6fb1ee12158d0d4ffe6e38e0",
+  "current_archive_sha256": "76b137ef8204cf85a470074dae282b21074605f010fb25692ab04e01a80a3daa",
+  "actual_native_receipt": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-calc-refl-readonly-copy-r1/actual-native-r1/receipt.json",
+    "sha256": "6deec8b9553f981339df2205fcc926a09996e3c1842591be164d583b8d0a21d1",
+    "bytes": 2210373
+  },
+  "actual_closure": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-calc-refl-readonly-copy-r1/actual-native-r1/closure.json",
+    "sha256": "0a78a7770547d6134faacd4a0433ea2907e5464782dd84e1ce9837e1ea27840d",
+    "bytes": 1123
+  },
+  "actual_controller": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-calc-refl-readonly-copy-r1/actual-native-r1/controller.json",
+    "sha256": "2d11085ab7ce6d1285594ce3cc87093bf54472f2ecf537e2e2cc725ead83451b",
+    "bytes": 1079
+  },
+  "invocation_id": "cd960cbd79694d24871a53af6f167bf6",
+  "strong_closure": "PID0/inactive/success/exit0/actualCGabsent+empty/sameINVpositivejournal",
+  "fresh_parent_equivalence": {
+    "status": "PASS_ALLOCATED_BYTES_RELOCATIONS_NONFILE_SYMBOLS_EXACT",
+    "reference_sha256": "96399d1bcc520c7fd1f13481abd8f747dcebec9d6fb1ee12158d0d4ffe6e38e0",
+    "rebuilt_sha256": "5c10d1e59a7ee755733a3df84c1517597520514b311e5b84efc565d905fcaaf7"
+  },
+  "production_candidate": {
+    "object": "/pool/wrf-experiment/wrf-cpu/kernels/thompson-refl-readonly-copy-current-oracle-hpc04-r1/work/candidate-production-O2/module_mp_thompson.o",
+    "object_sha256": "6acc001b89623fb1bfab5c76e01c3f0eeb39c9af8833da8a53be86b3d3ae2e87",
+    "pp_sha256": "3cd342b3afe4babe8bb385771863f60babe3f88de776c5c008cddb8d563c35b2"
+  },
+  "production_interfaces": {
+    "module_mp_thompson": {
+      "parent_sha256": "2b20e2811653339ea7df9463b3c991491ba7b573eee9aa615ec15e8865511816",
+      "candidate_sha256": "2b20e2811653339ea7df9463b3c991491ba7b573eee9aa615ec15e8865511816"
+    }
+  },
+  "codegen": {
+    "parent": {
+      "malloc": 28,
+      "free": 28
+    },
+    "candidate": {
+      "malloc": 25,
+      "free": 25
+    }
+  },
+  "source_inverse": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-calc-refl-readonly-copy-r1/SOURCE_INVERSE.json",
+    "sha256": "815d8413182be9525940834f4875064f24c2f7b86fc5b441bde49d630e468fe1",
+    "bytes": 1194
+  },
+  "provider_adjudication": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-calc-refl-readonly-copy-r1/ACTUAL_PROVIDER_ADJUDICATION.json",
+    "sha256": "3186bd579b3fc0ef148857047fb0910a50f0e97e6f72bb693b2422fccd3f69ff",
+    "bytes": 898
+  },
+  "offline_check": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-calc-refl-readonly-copy-r1/OFFLINE_FINAL_CHECK.json",
+    "sha256": "0046819db9acee5353161dc5ea8b3d37dd2cd1fd0bf6cb68286b96c7bf6ce9fe",
+    "bytes": 512
+  },
+  "oracles": {
+    "original11_caller_body_byteexact": true,
+    "added_radar_full_mp_gt_driver": {
+      "caseid": 201,
+      "do_radar_ref": 1,
+      "ke_diag": 34,
+      "interior_not_unchanged_sentinel": true
+    },
+    "added_calc_refl_typed_cases": {
+      "301": "Wet finite profile4/fullheight",
+      "302": "Dry hydrometeors; qv signedzero/subnormal/qNaN/sNaN/huge/floor/fullheight",
+      "303": "Same dry inputs; legal readonly T/P alias/singlelevel; tail initialization exact"
+    },
+    "all5state_words_each_caller": true,
+    "new_helper_rounding_scope": "FE_TONEAREST only; retained exceptional legacy case FE_DOWNWARD; no universal IEEE assertion",
+    "raw_bytes_per_rank": 256208,
+    "original_two_init_calls": true,
+    "full23_record_bytes_3phases_4ranks_each_route": true,
+    "routes": {
+      "O2-parent": {
+        "mode": 1,
+        "raw_sha256": [
+          "05894ca52c646341a9d0376df893a51e73b41170f11587b55bd3abd5f65571a5",
+          "05894ca52c646341a9d0376df893a51e73b41170f11587b55bd3abd5f65571a5",
+          "05894ca52c646341a9d0376df893a51e73b41170f11587b55bd3abd5f65571a5",
+          "05894ca52c646341a9d0376df893a51e73b41170f11587b55bd3abd5f65571a5"
+        ],
+        "init_state_sha256": [
+          "dfdeee618311fd30a54397962ea3a21186eb9132f81cbeb4a710782c40640e32",
+          "dfdeee618311fd30a54397962ea3a21186eb9132f81cbeb4a710782c40640e32",
+          "dfdeee618311fd30a54397962ea3a21186eb9132f81cbeb4a710782c40640e32",
+          "dfdeee618311fd30a54397962ea3a21186eb9132f81cbeb4a710782c40640e32"
+        ],
+        "full_freeze6_graupel5_and_rainsnow12_record_byte_phases_per_rank": 3
+      },
+      "O0-parent": {
+        "mode": 1,
+        "raw_sha256": [
+          "0b9688ecb922ecf995909a4dfde3fcae1d3f9ff43f3f703e08476a2e46d1f2cd",
+          "0b9688ecb922ecf995909a4dfde3fcae1d3f9ff43f3f703e08476a2e46d1f2cd",
+          "0b9688ecb922ecf995909a4dfde3fcae1d3f9ff43f3f703e08476a2e46d1f2cd",
+          "0b9688ecb922ecf995909a4dfde3fcae1d3f9ff43f3f703e08476a2e46d1f2cd"
+        ],
+        "init_state_sha256": [
+          "dfdeee618311fd30a54397962ea3a21186eb9132f81cbeb4a710782c40640e32",
+          "dfdeee618311fd30a54397962ea3a21186eb9132f81cbeb4a710782c40640e32",
+          "dfdeee618311fd30a54397962ea3a21186eb9132f81cbeb4a710782c40640e32",
+          "dfdeee618311fd30a54397962ea3a21186eb9132f81cbeb4a710782c40640e32"
+        ],
+        "full_freeze6_graupel5_and_rainsnow12_record_byte_phases_per_rank": 3
+      },
+      "O0-candidate": {
+        "mode": 1,
+        "raw_sha256": [
+          "0b9688ecb922ecf995909a4dfde3fcae1d3f9ff43f3f703e08476a2e46d1f2cd",
+          "0b9688ecb922ecf995909a4dfde3fcae1d3f9ff43f3f703e08476a2e46d1f2cd",
+          "0b9688ecb922ecf995909a4dfde3fcae1d3f9ff43f3f703e08476a2e46d1f2cd",
+          "0b9688ecb922ecf995909a4dfde3fcae1d3f9ff43f3f703e08476a2e46d1f2cd"
+        ],
+        "init_state_sha256": [
+          "dfdeee618311fd30a54397962ea3a21186eb9132f81cbeb4a710782c40640e32",
+          "dfdeee618311fd30a54397962ea3a21186eb9132f81cbeb4a710782c40640e32",
+          "dfdeee618311fd30a54397962ea3a21186eb9132f81cbeb4a710782c40640e32",
+          "dfdeee618311fd30a54397962ea3a21186eb9132f81cbeb4a710782c40640e32"
+        ],
+        "full_freeze6_graupel5_and_rainsnow12_record_byte_phases_per_rank": 3
+      },
+      "O2-candidate": {
+        "mode": 1,
+        "raw_sha256": [
+          "05894ca52c646341a9d0376df893a51e73b41170f11587b55bd3abd5f65571a5",
+          "05894ca52c646341a9d0376df893a51e73b41170f11587b55bd3abd5f65571a5",
+          "05894ca52c646341a9d0376df893a51e73b41170f11587b55bd3abd5f65571a5",
+          "05894ca52c646341a9d0376df893a51e73b41170f11587b55bd3abd5f65571a5"
+        ],
+        "init_state_sha256": [
+          "dfdeee618311fd30a54397962ea3a21186eb9132f81cbeb4a710782c40640e32",
+          "dfdeee618311fd30a54397962ea3a21186eb9132f81cbeb4a710782c40640e32",
+          "dfdeee618311fd30a54397962ea3a21186eb9132f81cbeb4a710782c40640e32",
+          "dfdeee618311fd30a54397962ea3a21186eb9132f81cbeb4a710782c40640e32"
+        ],
+        "full_freeze6_graupel5_and_rainsnow12_record_byte_phases_per_rank": 3
+      },
+      "O2-candidate-private": {
+        "mode": 0,
+        "raw_sha256": [
+          "05894ca52c646341a9d0376df893a51e73b41170f11587b55bd3abd5f65571a5",
+          "05894ca52c646341a9d0376df893a51e73b41170f11587b55bd3abd5f65571a5",
+          "05894ca52c646341a9d0376df893a51e73b41170f11587b55bd3abd5f65571a5",
+          "05894ca52c646341a9d0376df893a51e73b41170f11587b55bd3abd5f65571a5"
+        ],
+        "init_state_sha256": [
+          "dfdeee618311fd30a54397962ea3a21186eb9132f81cbeb4a710782c40640e32",
+          "dfdeee618311fd30a54397962ea3a21186eb9132f81cbeb4a710782c40640e32",
+          "dfdeee618311fd30a54397962ea3a21186eb9132f81cbeb4a710782c40640e32",
+          "dfdeee618311fd30a54397962ea3a21186eb9132f81cbeb4a710782c40640e32"
+        ],
+        "full_freeze6_graupel5_and_rainsnow12_record_byte_phases_per_rank": 3
+      }
+    },
+    "same_opt_O0_bounds_O2": true,
+    "O2_private_same_candidate_binary": true,
+    "init_state_scope": "Inherited first2init rows compare4FPfields excluding errno; publication5state exact; no fullinit60B byteidentity claim.",
+    "input_output_alias": "Excluded original Fortran INTENT contract; readonly input-input alias only."
+  },
+  "resource_end_context_only": {
+    "memory.current": "718016512\n",
+    "memory.peak": "3365695488\n",
+    "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+    "cpu.stat": "usage_usec 146509133\nuser_usec 115245192\nsystem_usec 31263940\ncore_sched.force_idle_usec 0\nnr_periods 1169\nnr_throttled 85\nthrottled_usec 35052\nnr_bursts 0\nburst_usec 0\n"
+  },
+  "elapsed_seconds_context_only": 116.78700361796655,
+  "limits": [
+    "No timing or forecast gain established.",
+    "Current full-module genuine parent reproduction and actual production vs separate test-accessor variants; no test-object identity invented.",
+    "No source/main/default/app promotion; actual full-WRF radar/performance still future root decision.",
+    "Raw source_commit remains NULL; posttest binding separate."
+  ]
+}

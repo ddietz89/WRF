@@ -1,11 +1,11 @@
 {
-  "status": "POST_SCIENCE_TCG_OWNER12_LATER_RK_SOURCE_AND_COMBINED_EXECUTABLE_PROMOTION",
-  "source_commit": "26bcd59c507dc76cba49e3e06196bac2fb278dec",
+  "status": "POST_SCIENCE_W_RHS_INNER_I_SIMD_SOURCE_AND_COMBINED_EXECUTABLE_PROMOTION",
+  "source_commit": "ef7fed9057cfbfd19e929c965ad31fe924b2f26c",
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/thompson-tcg-rk-later-pass-combined-current-r1/wrf.exe",
-    "sha256": "3bb2b8f17ed5c5c8cb2afe9b1e68faf162a66c37546a366a00179411b651c4df"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current3bb2-w-rhs-simd-current-r1/wrf.exe",
+    "sha256": "e55c97e6129529f366fd0dd496d3cff1192714223c7755a7484622ddb82a108f"
   },
-  "archive_sha256": "76b137ef8204cf85a470074dae282b21074605f010fb25692ab04e01a80a3daa",
+  "archive_sha256": "4ae5eb1e398048f98c65079f00ddd4aae3a8e667102e1ee2294cab40e3dc443b",
   "sources": {
     "dyn_em/start_em.F": "ba19b902eb43c9baa2f59d3ffef0dec7c6a0ccbf0a9ceb062b72e55cff5366fc",
     "phys/module_mp_thompson.F": "c53e05b4eade5beab10adfe56b2e7b43be14775fce7abddef0733071d730f29f",
@@ -17,7 +17,8 @@
     "dyn_em/module_advect_em.F": "47c7b2b0025dca1971696eacd51d7c589ec2bc20a211cd80f7329404e230fae8",
     "share/module_bc.F": "9eb38066228f430b0ceda85523803d252e5e70dbb7e81a34df07879d112dfb8f",
     "dyn_em/module_big_step_utilities_em.F": "c41522cd74f10267b705331e18092ce2cda0e8375a7e09c1ecff3e69741df6b6",
-    "dyn_em/module_em.F": "ca2c2f614bd6e7b6b9c4545d0974890de1ee8254032a55fa205066eb80434dad"
+    "dyn_em/module_em.F": "ca2c2f614bd6e7b6b9c4545d0974890de1ee8254032a55fa205066eb80434dad",
+    "dyn_em/module_small_step_em.F": "f998112d879b964e18f7637eb64b3135ea733b23a16a89b53362bdfc75728b98"
   },
   "build": {
     "CQU_canonical": {
@@ -44,21 +45,25 @@
     "TCG_RK_overlay": {
       "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-tcg-stage-owner-r1/rk-overlay-build-preparation-r1/BUILD_QUALIFICATION.json",
       "sha256": "0a3057db2dbde5e8dc657623c869292e7e3f84a1dfbc643985591a538f16e7ca"
+    },
+    "W_RHS_overlay": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current3bb2-radiationwindow-triage-r1/overlay-build-preparation-r1/BUILD_QUALIFICATION.json",
+      "sha256": "655149f531679c30a3492d11c60893eb360243bc6864904cfc8ac1c85736eaad"
     }
   },
-  "qualification_file": "../cpu-memory/thompson-table-sharing/TCG_EXTENSION_QUALIFICATION.json",
+  "qualification_file": "../cpu-compute/w-rhs-inner-simd/QUALIFICATION.json",
   "PD_real32_equivalence_file": "../cpu-compute/pd-row-workspace/QUALIFICATION.json",
   "PD_production_member_sha256": "8ec77f864716667aa79d40878fa11276f7dede4017c620201e54f9f83bb32b25",
   "PD_repaired_compile_object_sha256": "e5245eed1f84a67ea9d428bed8d8b2529f568ca49394f9cf8b85d97bdc50f560",
   "PD_equivalence_proof_sha256": "92abf53cb516e4394f2ce232ad81fb4985ea7b1f849310927e54aa4a2b1017cc",
-  "build_scope": "Post-science source tracks exactc53+ca2c. FrozenproducerNULL unchanged. TCGactualnative9639 reused with8consumer/maincompiles/oneordinarylink; then exact7663module_em only overlay preserving583/584 and onelink. Parentcanonical090d notbinaryequal0f53 due3diagnosticline literals; actual0f53 remains hardraw/stateoracle. Generic no-macro projection unchanged; no cleanbuild/othercompiler/restart/nesting/mode0 application transfer. Own3h only; TEN3229h is history.",
+  "build_scope": "Literal f998 one-pragma source over selected26bc/3bb2; exact qualified7b89 replaces93b8 smallstep member,583/584 other archive occurrences unchanged,MODd50c unchanged,zeroWRFcompiles/oneordinarylink. Native fullW/raw/state and own4product545step application passed. Frozen source_commitNULL preserved. No cleanbuild/othercompiler/restart/nesting/private-mode0/nine-hour transfer.",
   "runtime": {
     "WRF_EXPERIMENTAL_TPI_NUMA": 1,
     "other_settings": "Unchanged375/881/825/faba/FIELDVIEW1/IB"
   },
   "previous_binding": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_SOURCE_BUILD_BINDING_E485.json",
-    "sha256": "4e9cc4410fbc9d8838c7a590f36920b1330067d162cf1407ce16e6085f440dbf"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_SOURCE_BUILD_BINDING_3BB2.json",
+    "sha256": "f4bc0b4a6becd1c03e8a7cdc06a9369689a96ce727dd744bb9b7c98d7ee52a98"
   },
   "native": {
     "CQU": {
@@ -84,6 +89,10 @@
     "RK_later_pass": {
       "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-rk-later-pass-current-triage-r1/NATIVE_QUALIFICATION.json",
       "sha256": "06e3fc1ee68ab8dedb6ba06fe599ddde7066f727a501e9d2a5ff7e0c84f29b95"
+    },
+    "W_RHS": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current3bb2-radiationwindow-triage-r1/NATIVE_QUALIFICATION.json",
+      "sha256": "6e520d26b2c3cd46dffe6e3b9bdcd05ee7d273d012288d1e9e22df15611622c8"
     }
   },
   "current_nine_hour_qualified": false,
@@ -92,7 +101,7 @@
     "sha256": "bb0c0f6a9884e7541c811158f4a83cf87cff0e36b268d42f7e6f596ad19fded6"
   },
   "full_application": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-b-memory-criticalpath-r1/tcg-rk-combined-threehour-preparation-r1/lifecycle-r1/FINAL_QUALIFICATION.json",
-    "sha256": "28018b1925f455292438fdedc660186f8751bfe102c4027fa50578511f06ca36"
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current3bb2-radiationwindow-triage-r1/application-preparation-r1/lifecycle-r1/FINAL_QUALIFICATION.json",
+    "sha256": "4d45d6011e0e70474033b45a3123e8047f47648350ae6ca9fee60300a6393903"
   }
 }
