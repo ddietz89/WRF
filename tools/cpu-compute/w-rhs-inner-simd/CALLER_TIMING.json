@@ -1,0 +1,217 @@
+{
+  "status": "PASS_FOUR_EXACT_CAPTURED_COMPLETE_W_CALLER_ARMS_CACHE_EACH_POSITIVE_CLOSED",
+  "native_qualification_sha256": "6e520d26b2c3cd46dffe6e3b9bdcd05ee7d273d012288d1e9e22df15611622c8",
+  "driver_plan_sha256": "320dccefecb010b9f6b629a86ba641aa864e830df9241a41ade89f2e899eb8fa",
+  "pairs": [
+    {
+      "host": "hpc01",
+      "order": "parent-candidate",
+      "parent_wall_seconds": 2.079385075,
+      "candidate_wall_seconds": 1.982893215,
+      "wall_shorter_percent": 4.640403605859284,
+      "parent_cpu_seconds": 2.079164534,
+      "candidate_cpu_seconds": 1.98260746,
+      "cpu_shorter_percent": 4.644032370744532
+    },
+    {
+      "host": "hpc02",
+      "order": "candidate-parent",
+      "parent_wall_seconds": 2.06224688,
+      "candidate_wall_seconds": 1.933616292,
+      "wall_shorter_percent": 6.237400053673499,
+      "parent_cpu_seconds": 2.061831722,
+      "candidate_cpu_seconds": 1.933254067,
+      "cpu_shorter_percent": 6.236088698610097
+    }
+  ],
+  "arms": [
+    {
+      "arm": 0,
+      "host": "hpc01",
+      "which": "parent",
+      "invocation_id": "21bf4847738c4dfc866f6864714d6d41",
+      "wall_seconds": 2.079385075,
+      "cpu_seconds": 2.079164534,
+      "repeats": 1024,
+      "cpu_stat": {
+        "usage_usec": 3019489,
+        "user_usec": 2594279,
+        "system_usec": 425209,
+        "core_sched.force_idle_usec": 0,
+        "nr_periods": 46,
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      },
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_peak_bytes": 242388992
+    },
+    {
+      "arm": 1,
+      "host": "hpc01",
+      "which": "candidate",
+      "invocation_id": "799f52d2b8044cbda3dc9dd8468a8706",
+      "wall_seconds": 1.982893215,
+      "cpu_seconds": 1.98260746,
+      "repeats": 1024,
+      "cpu_stat": {
+        "usage_usec": 2782297,
+        "user_usec": 2390678,
+        "system_usec": 391619,
+        "core_sched.force_idle_usec": 0,
+        "nr_periods": 31,
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      },
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_peak_bytes": 242286592
+    },
+    {
+      "arm": 2,
+      "host": "hpc02",
+      "which": "candidate",
+      "invocation_id": "00f0585dab2843a49c19aff8359830c1",
+      "wall_seconds": 1.933616292,
+      "cpu_seconds": 1.933254067,
+      "repeats": 1024,
+      "cpu_stat": {
+        "usage_usec": 2814303,
+        "user_usec": 2388317,
+        "system_usec": 425986,
+        "core_sched.force_idle_usec": 0,
+        "nr_periods": 41,
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      },
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_peak_bytes": 241016832
+    },
+    {
+      "arm": 3,
+      "host": "hpc02",
+      "which": "parent",
+      "invocation_id": "a559e7e5659e49fe81f2a0803a3d1634",
+      "wall_seconds": 2.06224688,
+      "cpu_seconds": 2.061831722,
+      "repeats": 1024,
+      "cpu_stat": {
+        "usage_usec": 2923129,
+        "user_usec": 2507395,
+        "system_usec": 415733,
+        "core_sched.force_idle_usec": 0,
+        "nr_periods": 32,
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      },
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_peak_bytes": 241033216
+    }
+  ],
+  "raw_gold_sha256": "c2bfa51616aeee61ec4d48fc603ad835b8db757e2f1751235d7fc37d4b4da885",
+  "raw_gold_bytes": 4851020,
+  "raw_refs": [
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current3bb2-radiationwindow-triage-r1/timing-r1/arm0/actual-native-r1/receipt.json",
+      "sha256": "d1c4925ea5fb178807013abcbebb61c43d837224867fc45c2e2d4de9a508f27b"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current3bb2-radiationwindow-triage-r1/timing-r1/arm0/actual-native-r1/closure.json",
+      "sha256": "452f17522bfdb253d8a30206c10a17382daf9eeca3c2c0c7a103490a0c6c4843"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current3bb2-radiationwindow-triage-r1/timing-r1/arm0/actual-native-r1/cache-clear.json",
+      "sha256": "45731572616bfab7357cb26a8321b4291a5f1fa45e62caf759d587287c03e498"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current3bb2-radiationwindow-triage-r1/timing-r1/arm0/actual-native-r1/controller.json",
+      "sha256": "5fc00acecf43af33033d7af4b3140990568989e3ccd4d880dea5e4b75116719d"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current3bb2-radiationwindow-triage-r1/timing-r1/arm1/actual-native-r1/receipt.json",
+      "sha256": "2065b54eefe4fbc4e5dcb13053c74be6a8a4fb72461d05149d1595deb4449c78"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current3bb2-radiationwindow-triage-r1/timing-r1/arm1/actual-native-r1/closure.json",
+      "sha256": "9a599cf9fec69e6d6dda98d279ff47ff0bed5c9bd942d791473d2da464936a7f"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current3bb2-radiationwindow-triage-r1/timing-r1/arm1/actual-native-r1/cache-clear.json",
+      "sha256": "7d552351ba1d8e984d1ebde89179d6a1d962c81a3f687bd848b297f41c46cbf3"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current3bb2-radiationwindow-triage-r1/timing-r1/arm1/actual-native-r1/controller.json",
+      "sha256": "bcbd3e0f5d4565bd9bc6b8e6925985b34bbc939dd9f6e1353aa726179f92993c"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current3bb2-radiationwindow-triage-r1/timing-r1/arm2/actual-native-r1/receipt.json",
+      "sha256": "63e4713705961efeb4f772fbb467c1f9abbbb46bc513546f4e427245e0afef0c"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current3bb2-radiationwindow-triage-r1/timing-r1/arm2/actual-native-r1/closure.json",
+      "sha256": "a7824791d629697503ad83bd7a616ffa23de447165aab542b46767885b279d55"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current3bb2-radiationwindow-triage-r1/timing-r1/arm2/actual-native-r1/cache-clear.json",
+      "sha256": "5ff1bb5bc28f2280f6571730c2edff0513c90430c081e85e3dc517c4823517da"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current3bb2-radiationwindow-triage-r1/timing-r1/arm2/actual-native-r1/controller.json",
+      "sha256": "f9e2f5826e6b4441c46f9d5fb882e16cc6a6c2775426b35f47ae793c872468de"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current3bb2-radiationwindow-triage-r1/timing-r1/arm3/actual-native-r1/receipt.json",
+      "sha256": "ee1927d0d172a83223448420e80749e48378ed7ef7e06fa1758dd8b9cbf34fc3"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current3bb2-radiationwindow-triage-r1/timing-r1/arm3/actual-native-r1/closure.json",
+      "sha256": "95a4f803148b715e34a42791bf3cecb128ed3fff9c27c5688434f92eea915a3f"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current3bb2-radiationwindow-triage-r1/timing-r1/arm3/actual-native-r1/cache-clear.json",
+      "sha256": "f613d63d1f7ad86f55472045889f5f36bcbde65535856831b22dcab12647d29f"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current3bb2-radiationwindow-triage-r1/timing-r1/arm3/actual-native-r1/controller.json",
+      "sha256": "230a6fe45e8c8256afc2d6e953c54f48903eda88516d3c9fd887aa5ef38cace3"
+    }
+  ],
+  "clock_scope": "1024 complete external advance_w calls plus identical3INOUT/config/scalar/bounds restore/reset/read5state INSIDE clocks; parse/warm/terminal fullraw+readonly+state outside. No LTO. Each fresh process preceded actual sync/drop3; warm parsing does not imply cold loop.",
+  "scope": "Historical captured complete-W caller, one pair perhost/opposite order; finite evidence, no statistical/repeatability/global/application/isolated-target claim. No model/source/default changed.",
+  "all_owned_scopes_closed": true,
+  "proposed_disposition": "RETAIN_FOR_ONE_COMBINED_APPLICATION_QUALIFICATION"
+}

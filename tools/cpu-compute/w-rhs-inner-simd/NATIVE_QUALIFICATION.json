@@ -1,0 +1,97 @@
+{
+  "status": "PASS_CURRENT_93B_COMPLETE_W_ONE_RHS_INNER_I_SIMD_NATIVE_PENDING_CALLER_TIMING_AND_APPLICATION",
+  "invocation_id": "8287a087ab514a9d9b7dea021dbbd054",
+  "receipt": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current3bb2-radiationwindow-triage-r1/actual-native-r1/receipt.json",
+    "sha256": "3c49c35025a0d195bf518fa2219b98b3e81ed7a5ec69ed0ff844cb5dc492978f"
+  },
+  "closure": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current3bb2-radiationwindow-triage-r1/actual-native-r1/closure.json",
+    "sha256": "c065a4491dd9d649c6c2e7874b5a699b0ec661df20207480ccd9a9c023b2e77f"
+  },
+  "source_commit": null,
+  "source_inverse": {
+    "F": {
+      "parent_sha256": "01eedf6152f7d87fff354fed9bb21873a68452d7a668d12e69543dfab665ca86",
+      "candidate_sha256": "f998112d879b964e18f7637eb64b3135ea733b23a16a89b53362bdfc75728b98",
+      "literal_inverse_exact": true,
+      "parent_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-prep-t-coupling-simd-r1/native-gate-r1/candidate_module_small_step_em.F"
+    },
+    "f90": {
+      "parent_sha256": "248c5f6f95b32710ffd72ec07774e8c093791c5ff6817095409a492672251aed",
+      "candidate_sha256": "982f6eaa6a1940652ae2c6d34caa381ef0e1cc6c16f2111e1f9615729f498f41",
+      "literal_inverse_exact": true,
+      "parent_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-prep-t-coupling-simd-r1/native-gate-r1/candidate_module_small_step_em.f90"
+    },
+    "old_anchor": "    DO k=2,k_end+1\n    DO i=i_start, i_end\n      rhs(i,k) = ph(i,k,j) + msfty(i,j)*rhs(i,k)/(c1f(k)*mut(i,j)+c2f(k))\n",
+    "new_anchor": "    DO k=2,k_end+1\n!$omp simd\n    DO i=i_start, i_end\n      rhs(i,k) = ph(i,k,j) + msfty(i,j)*rhs(i,k)/(c1f(k)*mut(i,j)+c2f(k))\n",
+    "scope": "ONE inner-I SIMD directive only; unconditional arithmetic followed by existing top_lid zero store unchanged"
+  },
+  "objects": {
+    "parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current3bb2-w-rhs-simd-full-caller-gate-r1/work/O2-parent/module_small_step_em.o",
+      "sha256": "bf28cb913b284c5f0d8b9616b867f5af91ad86f6ed580ecaeccc3cf24dd77693",
+      "module_interface_sha256": "d50c501497b927ad56b9bb3b7cb9431c827b8092cedf23e83d8f573ccb884b94"
+    },
+    "candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current3bb2-w-rhs-simd-full-caller-gate-r1/work/O2-candidate/module_small_step_em.o",
+      "sha256": "7b89121b221556e6b6b14ef4c1f3aedaa93f672cd9dde5f56b8e9778417c02f2",
+      "module_interface_sha256": "d50c501497b927ad56b9bb3b7cb9431c827b8092cedf23e83d8f573ccb884b94"
+    }
+  },
+  "interface_sha256": "d50c501497b927ad56b9bb3b7cb9431c827b8092cedf23e83d8f573ccb884b94",
+  "parent_equivalence": {
+    "status": "PASS_ALLOCATED_BYTES_RELOCATIONS_NONFILE_SYMBOLS_EXACT",
+    "reference_sha256": "93b802a6f52a0bc9e705a15816614132b62b48d82e1096af533d0f8df9dec337",
+    "rebuilt_sha256": "bf28cb913b284c5f0d8b9616b867f5af91ad86f6ed580ecaeccc3cf24dd77693",
+    "excluded": "Only nonallocated sections (including debug paths), STT_FILE symbol. All allocated text/rodata/data/bss/unwind sections and their relocations exact.",
+    "detail_sha256": "527a6ee90d8f8704d599d0c377978b4bb4bf12cbd40af9040506d764010acfce"
+  },
+  "actual_codegen": {
+    "source_line": 1418,
+    "packed_mul_add_div_YMM_and_XMM": true,
+    "top_lid_math_before_zero_blend": true,
+    "no_FMA_in_target": true,
+    "scalar_remainder": true
+  },
+  "exactness_scope": {
+    "captured_complete_W_O2": [
+      "native-captured",
+      "O2-parent-captured",
+      "O2-candidate-captured"
+    ],
+    "synthetic_complete_W_32_cases_O0_bounds_O2_same_opt": {
+      "native-synthetic": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current3bb2-w-rhs-simd-full-caller-gate-r1/work/native-synthetic.bin",
+        "bytes": 484608,
+        "sha256": "81c5625db0bbaa07d6ee53f0870b89a110aa6391ae94c5ed11f27e0d944ebdac"
+      },
+      "O0-parent": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current3bb2-w-rhs-simd-full-caller-gate-r1/work/O0-parent/O0-parent.bin",
+        "bytes": 484608,
+        "sha256": "b4efba30db0d3500a63c15cf83fe9cb47da4190579a5a73c6afbad68ec3af1ce"
+      },
+      "O0-candidate": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current3bb2-w-rhs-simd-full-caller-gate-r1/work/O0-candidate/O0-candidate.bin",
+        "bytes": 484608,
+        "sha256": "b4efba30db0d3500a63c15cf83fe9cb47da4190579a5a73c6afbad68ec3af1ce"
+      },
+      "O2-parent": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current3bb2-w-rhs-simd-full-caller-gate-r1/work/O2-parent/O2-parent.bin",
+        "bytes": 484608,
+        "sha256": "81c5625db0bbaa07d6ee53f0870b89a110aa6391ae94c5ed11f27e0d944ebdac"
+      },
+      "O2-candidate": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current3bb2-w-rhs-simd-full-caller-gate-r1/work/O2-candidate/O2-candidate.bin",
+        "bytes": 484608,
+        "sha256": "81c5625db0bbaa07d6ee53f0870b89a110aa6391ae94c5ed11f27e0d944ebdac"
+      }
+    },
+    "state": "Immediate errno/round/exceptionflags/MXCSR/x87CW; four rounding modes with clear/pre-set flags across cases",
+    "guards": "All readonly arrays/scalars/config/bounds unchanged, full threeINOUT raw, inactive allocated halos preserved",
+    "limits": "Finite tests and historical captured caller; no universal inputs/unmasked trap claim, no fresh production capture, no timing or full application qualification"
+  },
+  "elapsed_seconds_context_only": 35.13805228006095,
+  "default_or_main_changed": false,
+  "next_action": "Prepare one bounded opposite-order complete captured-W caller timing pair per two hosts using qualified objects only; no source/module recompile. Root release required."
+}

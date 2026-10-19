@@ -1,0 +1,70 @@
+{
+  "status": "PASS_RETAINED_CURRENT_DWARF_CALLER_PC_REUSE_NOT_NEW_MODEL_OR_ARRIVAL_PROOF",
+  "executable_sha256": "3bb2b8f17ed5c5c8cb2afe9b1e68faf162a66c37546a366a00179411b651c4df",
+  "actual_existing_capture_rank_counts": {
+    "0": {
+      "actual_total_samples": 701,
+      "gold_identity_exact": true,
+      "communication_samples": 293,
+      "category_samples": {
+        "X_plus_recv": 233,
+        "Y_plus_recv": 46,
+        "ADAPTIVE_ALLGATHER_CALLCHAIN": 11,
+        "UNRESOLVED_COMM_CONTEXT": 3
+      },
+      "raw_unchanged": true,
+      "unparsed_lines": 0
+    },
+    "384": {
+      "actual_total_samples": 707,
+      "gold_identity_exact": true,
+      "communication_samples": 308,
+      "category_samples": {
+        "X_plus_recv": 180,
+        "Y_minus_recv": 84,
+        "Y_minus_send": 1,
+        "Y_plus_recv": 15,
+        "ADAPTIVE_ALLGATHER_CALLCHAIN": 21,
+        "UNRESOLVED_COMM_CONTEXT": 6,
+        "Y_plus_send": 1
+      },
+      "raw_unchanged": true,
+      "unparsed_lines": 0
+    },
+    "416": {
+      "actual_total_samples": 707,
+      "gold_identity_exact": true,
+      "communication_samples": 315,
+      "category_samples": {
+        "X_plus_recv": 195,
+        "Y_minus_recv": 74,
+        "ADAPTIVE_ALLGATHER_CALLCHAIN": 31,
+        "Y_plus_recv": 13,
+        "UNRESOLVED_COMM_CONTEXT": 1,
+        "Y_plus_send": 1
+      },
+      "raw_unchanged": true,
+      "unparsed_lines": 0
+    }
+  },
+  "source_site_map": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-next-profile-source-plan-r1/communication-readonly-analysis-r1/capture-callsite-parse-r1/current-sites.json",
+    "sha256": "f09a2891d48e38d92f68adc46680689859ec1b52f12a3d599ffb1ce4f61174ef"
+  },
+  "receipt": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-next-profile-source-plan-r1/communication-readonly-analysis-r1/capture-callsite-parse-r1/actual-native-r1/receipt.json",
+    "sha256": "47a2bfd4e31cbeeeb89d09bd3f37e3520bf4a61b8c2029e1c14e511b6560d1f6"
+  },
+  "closure": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-next-profile-source-plan-r1/communication-readonly-analysis-r1/capture-callsite-parse-r1/actual-native-r1/closure.json",
+    "sha256": "3fd99168c1cf064c8673053b8aa27f4ebbddd3c93086771b58dc7866cfa531ac"
+  },
+  "actual_invocation_id": "976fac71afc24cfc92b393b66da861e2",
+  "actual_scope_closed": true,
+  "limits": [
+    "SelectedonCPU samples only, no globalremovablewaiting/arrival/transportcause.",
+    "ActualcallerreturnPC or explicitlyprovenreturnPCminus1 mapping, sourcewaitorder distinguished fromaddressorder.",
+    "No model/observer/cache/newcapture, originalraw unchanged.",
+    "Historical99.0139percent receive waitbrackets answerseparateoldaggregatequestion; notsummedwithselectedsamples."
+  ]
+}
