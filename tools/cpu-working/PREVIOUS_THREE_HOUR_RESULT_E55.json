@@ -1,0 +1,277 @@
+{
+  "status": "PASS_CURRENT_W_ONLY_THREE_HOUR_ORIGINAL_FULL_GATE_AND_ALL_OWN_SCOPES_CLOSED",
+  "order": [
+    "retained_corrected_original546b",
+    "current3bb2_plus_one_W_RHS_inner_I_SIMD"
+  ],
+  "comparison_design": "UNPAIRED retained original control; no isolated W gain attribution",
+  "source_commit": "ef7fed9057cfbfd19e929c965ad31fe924b2f26c",
+  "producer_source_commit": null,
+  "source_commit_note": "Post-science tracking of literal one-pragma f998 source; existing producer records remain NULL. All prior3bb2 sources unchanged.",
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current3bb2-w-rhs-simd-current-r1/wrf.exe",
+    "sha256": "e55c97e6129529f366fd0dd496d3cff1192714223c7755a7484622ddb82a108f"
+  },
+  "metrics": {
+    "control": {
+      "wall_seconds": 820.5063595210668,
+      "cpu_seconds": 367800.485597,
+      "main_step_sum_seconds": 597.99405
+    },
+    "candidate": {
+      "wall_seconds": 669.6277512290981,
+      "cpu_seconds": 324013.991898,
+      "main_step_sum_seconds": 561.83101
+    }
+  },
+  "reductions_percent": {
+    "wall_seconds": 18.388475182573504,
+    "cpu_seconds": 11.904958099206253,
+    "main_step_sum_seconds": 6.047391274210845
+  },
+  "science": {
+    "status": "PASS_CURRENT_W_ONLY_THREE_HOUR_ORIGINAL_FULL_GATE_AND_ALL_OWN_SCOPES_CLOSED",
+    "complete_products": 4,
+    "ordered_steps": 545,
+    "last_observed_step": "2026-10-12_09:00:00",
+    "all512": true,
+    "compute_ranks": 480,
+    "serial_tiles": 2,
+    "required_positive_roots": [
+      487,
+      495,
+      503,
+      511
+    ],
+    "receipt_sha256": "008c44ec95f607416f2068a1fa9c9a5db8a565d8e5e7933bcc6ec39c0dde9353",
+    "reader_closure_sha256": "a9c2e01117e68a5b7f54e9e71cead6518ffb8e18658967b2092c674ef5c41193",
+    "full_qualification_sha256": "4d45d6011e0e70474033b45a3123e8047f47648350ae6ca9fee60300a6393903",
+    "all_model_reader_scopes_closed": true,
+    "protected_checker": {
+      "path": "/pool/wrf-experiment/wrf-cpu/validation/protected_netcdf_exact_reference.py",
+      "sha256": "0382bcbabfbc16b76114ef552206c6c558ea15cd3c3552dfaed98b977deea2b4",
+      "verified": true
+    }
+  },
+  "science_sha256": "008c44ec95f607416f2068a1fa9c9a5db8a565d8e5e7933bcc6ec39c0dde9353",
+  "reader_closure_sha256": "a9c2e01117e68a5b7f54e9e71cead6518ffb8e18658967b2092c674ef5c41193",
+  "application_qualification": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current3bb2-radiationwindow-triage-r1/application-preparation-r1/lifecycle-r1/FINAL_QUALIFICATION.json",
+    "sha256": "4d45d6011e0e70474033b45a3123e8047f47648350ae6ca9fee60300a6393903"
+  },
+  "model_resources": {
+    "control": {
+      "hpc01": {
+        "invocation_id": "740aec3ca7f349bca71f9b3ab045c936",
+        "wall_seconds": 820.5063595210668,
+        "memory_peak_bytes": 98732437504,
+        "memory_peak_GiB": 91.95174789428711,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_stat": {
+          "usage_usec": 91941354466,
+          "user_usec": 90158210283,
+          "system_usec": 1783144182,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 8218,
+          "nr_throttled": 5152,
+          "throttled_usec": 23708208,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      },
+      "hpc02": {
+        "invocation_id": "a88ae582cb6d49638699db117bc64f82",
+        "wall_seconds": 816.2065535990987,
+        "memory_peak_bytes": 101101588480,
+        "memory_peak_GiB": 94.1581916809082,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_stat": {
+          "usage_usec": 91942279812,
+          "user_usec": 90047989411,
+          "system_usec": 1894290400,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 8163,
+          "nr_throttled": 6060,
+          "throttled_usec": 8449876,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      },
+      "hpc03": {
+        "invocation_id": "b660f136b24147da982e51e8f319a329",
+        "wall_seconds": 816.1627576050814,
+        "memory_peak_bytes": 101013078016,
+        "memory_peak_GiB": 94.07575988769531,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_stat": {
+          "usage_usec": 91984346974,
+          "user_usec": 90103106179,
+          "system_usec": 1881240794,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 8162,
+          "nr_throttled": 5639,
+          "throttled_usec": 14945774,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      },
+      "hpc04": {
+        "invocation_id": "c604f1d17d984f41bfbae9cb41dbc0f3",
+        "wall_seconds": 816.2098608058877,
+        "memory_peak_bytes": 107177967616,
+        "memory_peak_GiB": 99.8172607421875,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_stat": {
+          "usage_usec": 91932504345,
+          "user_usec": 89961304153,
+          "system_usec": 1971200191,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 8162,
+          "nr_throttled": 4892,
+          "throttled_usec": 36985882,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      }
+    },
+    "candidate": {
+      "hpc01": {
+        "invocation_id": "b23aa2754a9e4cc7bee1423af247875f",
+        "wall_seconds": 669.6277512290981,
+        "memory_peak_bytes": 88782196736,
+        "memory_peak_GiB": 82.68486404418945,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_stat": {
+          "usage_usec": 80972648809,
+          "user_usec": 79228311436,
+          "system_usec": 1744337372,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 6703,
+          "nr_throttled": 4576,
+          "throttled_usec": 20173779,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      },
+      "hpc02": {
+        "invocation_id": "0beeb180788542a98dedafc6662b5c99",
+        "wall_seconds": 667.1538102810737,
+        "memory_peak_bytes": 86373367808,
+        "memory_peak_GiB": 80.44146728515625,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_stat": {
+          "usage_usec": 80996136375,
+          "user_usec": 79134783025,
+          "system_usec": 1861353349,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 6669,
+          "nr_throttled": 4736,
+          "throttled_usec": 20353009,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      },
+      "hpc03": {
+        "invocation_id": "44d4c75a243147bf8c61c37489328c92",
+        "wall_seconds": 667.158363325987,
+        "memory_peak_bytes": 86305488896,
+        "memory_peak_GiB": 80.37825012207031,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_stat": {
+          "usage_usec": 81053712923,
+          "user_usec": 79181850986,
+          "system_usec": 1871861936,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 6669,
+          "nr_throttled": 5366,
+          "throttled_usec": 5883361,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      },
+      "hpc04": {
+        "invocation_id": "074431fe31df4c76a82ad09201376d94",
+        "wall_seconds": 667.0920249959454,
+        "memory_peak_bytes": 86291337216,
+        "memory_peak_GiB": 80.36507034301758,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_stat": {
+          "usage_usec": 80991493791,
+          "user_usec": 79097824178,
+          "system_usec": 1893669613,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 6668,
+          "nr_throttled": 4408,
+          "throttled_usec": 11569005,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      }
+    }
+  },
+  "observed_speedup": {
+    "ratio": 1.2253171377904095,
+    "scope": "UNPAIRED retained corrected-original reference; no isolated/additive/repeatability claim."
+  },
+  "memory_context": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current3bb2-radiationwindow-triage-r1/application-preparation-r1/lifecycle-r1/MEMORY_CONTEXT.json",
+    "sha256": "8ee16d4d89a14b5c8f62fd0c99dc6fd0107468be646ada23f04c2e1f8ee305ed"
+  },
+  "limits": "Main-step sum includes communication/backpressure; residualwall is not pureIO. One later unprofiled candidate vs retainedcontrol, no freshpair/repeatability/causalsinglekernel claim. ActualcapturedW kernel+restore timings4.640/6.237% separate. No oldphysicsnegative reopened. Allraw scientificreceipts/grants/producerNULL unchanged."
+}

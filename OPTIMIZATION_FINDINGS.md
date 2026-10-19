@@ -6,22 +6,34 @@ Current continuation handoff: [WRF_CPU_OPTIMIZATION_HANDOFF_2026-10-19.md](WRF_C
 
 The October 19 continuation instruction establishes concurrent incremental-kernel and architectural portfolios, with actual parallel DeepSeek work. The [SOP](TIMING_SOP.md#two-coordinated-optimization-portfolios) records this policy. The current selection and qualification scope are stated below; historical results retain their original artifact bindings.
 
-## Current selection: lower Thompson initialization peak (2026-10-19 22:50 UTC)
+## Current selection: lazy-group Thompson initialization, full three-hour PASS (2026-10-19 23:22 UTC)
 
-Selected **81d35cfa/source3de4d602** retains all b1fb improvements and changes Thompson staging lifetime. Existing sharing reduces duplicated completed tables; this addition allocates each fixed group before its unchanged creator, publishes the group, then frees its private stages before allocating the next group. TCG retains the private INIT sentinel through both tile initializations and publishes last. The23 views/12 owners, table contents, arithmetic and helper ABI remain. Public MOD2b20 is unchanged; GNU adds one explicitly PRIVATE linker-visible B variable, with every prior export name/type retained.
+Selected **81d35cfa/source3de4d602** retains all prior b1fb compute, shared-table, output and library improvements. Existing Thompson sharing reduces steady-state duplication. The new lazy fixed-group staging reduces private initialization overlap: allocate a group before its unchanged creator, publish it, and free its private stages before allocating the next. TCG retains its private INIT sentinel through both tile initializations and publishes last. All23 views/12 owners, table contents, arithmetic and helper ABI remain unchanged.
 
-The four-rank read and64-rank fresh-computed native routes passed original11 callers/two INIT/full23 records/raw/state/read-only checks. The one-member qualified-object build reused c3fb with zero WRF compiles and one link, preserving583/584 archive occurrences. The original short full-grid checker passed **two complete products,35 steps,all512 ranks,two tiles,487/495 positive and503/511 zero writers**; all model and reader scopes closed. Science7383cf18, readerclosure6190ff81, applicationd7e43a4a; the prior baseline passed the same original oracle. [Qualification and rollback](tools/cpu-memory/thompson-table-sharing/lazy-group-init/README.md) bind the exact source, artifacts and evidence.
+The original unprofiled three-hour checker passed **four complete products,545 ordered timesteps,all512 ranks,two tiles and all four positive writer groups**. All model and reader scopes closed. FQ`4e984626`, science`6d1559af`, reader closure`9f1cd1ae`; root rehashed all39 actual references. The unloaded reader exit-code property is unavailable; invocation-bound manager success and an absent/empty cgroup establish closure. Frozen producer source_commitNULL remains unchanged, with post-test source tracking separate. [Result](tools/cpu-working/THREE_HOUR_RESULT.json) and [qualification](tools/cpu-working/THREE_HOUR_FINAL_QUALIFICATION.json) bind the exact artifacts.
 
-| Node | Baseline charged peak | New charged peak | Lower |
+| Measure | Retained corrected original | Current combined | Lower |
+|---|---:|---:|---:|
+| Whole model/MPI wall |820.506360s|672.231017s|18.0712%|
+| Aggregate cgroup CPU, including output |367800.485597s|324829.440612s|11.6832%|
+| Main-step elapsed, including communication/backpressure |597.994050s|563.381100s|5.7882%|
+
+This is **UNPAIRED** against retained corrected original546b, with checked compute-client cache clears and uncontrolled server caches/load. Earlier e55's669.627751s is a separate observation, not an isolated lazy-group or MYJPBL comparison. Main is not integration-only CPU; wall-minus-main is not pure I/O. The observed wall ratio is1.22057×; reaching1.5×/2× would require another18.6285%/38.9714% reduction of this run's wall time. These are arithmetic gaps, not demonstrated headroom or sustained throughput. The previous b1fb nine-hour result below remains historical and does not qualify81d35 at nine hours.
+
+Final three-hour charged peaks were **70.968/68.695/68.655/68.614GiB** on hpc01–04, with zero memory-limit events. The earlier ten-minute baseline/candidate comparison measured the following reduction; these values remain separate from the retained-original three-hour timing comparison:
+
+| Node | Previous b1fb charged peak | Lazy-group charged peak | Lower |
 |---|---:|---:|---:|
 |hpc01|82.6045GiB|70.9572GiB|11.6473GiB /14.10%|
 |hpc02|80.4302GiB|68.7054GiB|11.7248GiB /14.58%|
 |hpc03|80.3811GiB|68.6466GiB|11.7345GiB /14.60%|
 |hpc04|80.3681GiB|68.6255GiB|11.7426GiB /14.61%|
 
-These are measured whole-model cgroup invocation peaks from one short comparison, distinct from the11.5936GiB/node logical-capacity estimate, RSS/PSS or dual-forecast admission. All memory-limit events and sampled reclaim deltas were zero; PSI was not recorded. Baseline→candidate MPI wall147.919739→145.491265s, aggregate CPU57189.876788→55770.994253s and main-step sum39.387960→38.788060s are observational: the baseline's optional collector failed before recording, while the candidate was unprofiled; throttling was mixed. No isolated or sustained speedup is claimed. Retain the large measured memory reduction with exact science and no observed unacceptable cost under the owner's memory-inclusion policy.
+These are whole-model cgroup peaks, not RSS/PSS, isolated steady-state savings or dual-forecast admission. The11.5936GiB/node source capacity estimate is a different quantity. All sampled reclaim deltas were zero and PSI was unavailable. Short timing147.919739→145.491265s remains observational because the baseline optional collector failed while the candidate was unprofiled. Retain the significant memory reduction with exact science and no demonstrated unacceptable cost; no isolated speedup is claimed.
 
-Own qualification is cold GNU13.3/OMP1/DIMNRHG1/shared1/375/881/825/faba/FIELDVIEW1/IB512/twoTiles, ten minutes. The periodic original four-product/545-step three-hour test is prepared next. The completed b1fb nine-hour10.3323% wall observation below and e55 three-hour18.3885% remain historical; neither is transferred to81d35. Rollback selects **b1fb/source4e70** using PREVIOUS_SELECTION_B1FB.json and PREVIOUS_SOURCE_BUILD_BINDING_B1FB.json with unchanged runtime. Production/master are untouched; AWS remains suspended. Continue the active Goal.
+The four-rank read and64-rank fresh-computed native routes passed original11 callers,two INIT calls,full23 records,raw/state/read-only checks. The qualified-object overlay used zero WRF compiles and one link, preserving583/584 ordered archive occurrences and public MOD2b20. Support is cold single-domain GNU13.3 strict/OMP1/DIMNRHG1/shared1/375/881/825/faba/FIELDVIEW1/IB512/twoTiles through09:00. Actual inter-node endpoint is `rc_mlx5/ibp1s0f0:1`: one physical IB port. Eager/rendezvous rail caps are2, but the device whitelist contains only that port; these are not dual-rail measurements. Restart,nesting,othercompiler,mode0 and own9h qualification do not transfer. [Memory qualification and rollback](tools/cpu-memory/thompson-table-sharing/lazy-group-init/README.md) retain exact evidence; rollback selects **b1fb/source4e70** with unchanged runtime.
+
+Continue the active Goal. A short startup-input profile on the selected image hit an existing protected-directory guard before recorder launch; its model/science evidence and acquisition failure are retained. A fresh create-only directory-mode correction is being prepared without relaxing guards. Production/master remain untouched and AWS stays suspended. Older sections below are historical snapshots.
 
 ## Previous b1fb build: nine-hour exact qualification (2026-10-19 22:25 UTC)
 
@@ -37,7 +49,7 @@ This is **UNPAIRED** against retained corrected original546b, with checked compu
 
 Actual per-node invocation peaks were82.598/80.446/80.388/80.362GiB, with all memory-event counters zero. Sparse early maxima were77.45–79.44GiB and predominantly anonymous memory; the phase/components of the true peaks remain unknown. These are not isolated table savings or dual-run admission evidence.
 
-A distinct lazy-allocation/fixed-group Thompson publication candidate has passed read-table and fresh-computed-table native gates, including64-rank computed population, all23 records, two INIT calls, original11 callers, raw/state/readonly checks and unchanged module interface. Its source remains unselected pending one qualified-object link and actual application/memory checks. Conditional private-capacity reduction11.59GiB/node is not a measured physical saving. A released ten-minute startup input capture is running on the selected build with immediate recorder checks; the table build follows after model/recorder closure. AWS stays suspended; production/master unchanged. Continue the active Goal.
+At that earlier checkpoint the lazy-group candidate was still unselected. Its subsequent native, application, memory and own three-hour acceptance now appear above; the historical b1fb nine-hour measurements remain bound to b1fb. No old producer, failure or timing has been relabelled. AWS stays suspended and production/master remain unchanged.
 
 ## Current-build radiation-window profile and closed page probe (2026-10-19 19:28 UTC)
 

@@ -1,7 +1,7 @@
 {
   "status": "PROMOTED_LAZY_FIXED_GROUP_THOMPSON_INITIALIZATION_ON_ALL_B1FB_IMPROVEMENTS",
   "source_commit": "3de4d602013db3f1cb4d8fed92fb5a7cc30866ed",
-  "scope": "Cold single-domain06:00-06:10 GNU13.3 strict/OMP1/DIMNRHG1/shared1/375/881/825/faba/FIELDVIEW1/IB512/twoTiles; original2products/35steps. Own3h/9h/restart/nesting/othercompiler/mode0 qualification not transferred.",
+  "scope": "Cold single-domain06:00-09:00 GNU13.3 strict/OMP1/DIMNRHG1/shared1/375/881/825/faba/FIELDVIEW1/IB512/twoTiles; original4products/545steps/all4positivewriters. Own9h/restart/nesting/othercompiler/mode0 qualification not transferred.",
   "artifacts": {
     "shim": {
       "path": "/pool/wrf-experiment/wrf-cpu/source-discovery/parallel-pack-quilt-shim-native-r1/wrf_quilt_thread_shim.so",
@@ -48,36 +48,34 @@
   },
   "includes": "All retained b1fb/source4e70 compute/shared-table/output/library improvements plus lazy allocation and early fixed-group Thompson publication. Existing23fields/12owners, creators and arithmetic unchanged.",
   "science": {
-    "status": "PASS_RETAINED_ORIGINAL_TWO_HISTORY_35_STEPS_512_OWNED_FIELD_VIEW",
-    "complete_products": 2,
-    "ordered_steps": 35,
-    "last_observed_step": "2026-10-12_06:10:00",
+    "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+    "complete_products": 4,
+    "ordered_steps": 545,
+    "last_observed_step": "2026-10-12_09:00:00",
     "all512": true,
     "compute_ranks": 480,
     "serial_tiles": 2,
     "required_positive_roots": [
       487,
-      495
-    ],
-    "inactive_writer_roots": [
+      495,
       503,
       511
     ],
-    "receipt_sha256": "7383cf18d194dc445dba70901148b3dd58339f85928d14baf083f47d962e8991",
-    "reader_closure_sha256": "6190ff81a9422e84acbc4a5c159bcd2e153636177529a0e121c75e0e7d7b5bc5",
-    "full_qualification_sha256": "d7e43a4a529593a3715d2e57e73d40d8a3a2bd7edf624b8042269af3a18f984e",
+    "receipt_sha256": "6d1559af4594fc71b40c47c9b797eb2e144aaf8d2f8807cae83f4e5abdb1c3fc",
+    "reader_closure_sha256": "9f1cd1aec784dedaefb5114e936531d2f5f000a33a7596923eca3a04a506680f",
+    "full_qualification_sha256": "4e984626ca8513e4e03ec03d135afd6d8d01824c4d2c54e3b5b56d87bfcb8e8b",
     "all_model_reader_scopes_closed": true,
     "protected_checker": "0382bcbabfbc16b76114ef552206c6c558ea15cd3c3552dfaed98b977deea2b4"
   },
-  "lease_reference": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-thompson-lazy-groups10m-runtime-r1/lease-candidate-proposed.json",
+  "lease_reference": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-thompson-lazy-groups3h-runtime-r1/lease-candidate-proposed.json",
   "rollback_executable_sha256": "b1fb398a9c7186823584252b53f4ee360c260143064720256f660ba1459c8670",
   "activation": "Selection record, not a launcher. Use existing bounded launcher with a fresh run directory/log directory/lease and actual affinity/library/resource checks. Never preload MPI launcher or helper processes.",
   "schema_version": 2,
   "last_three_hour_benchmark": {
     "evidence_file": "THREE_HOUR_RESULT.json",
-    "executable_sha256": "e55c97e6129529f366fd0dd496d3cff1192714223c7755a7484622ddb82a108f",
-    "source_commit": "ef7fed9057cfbfd19e929c965ad31fe924b2f26c",
-    "comparison_design": "UNPAIRED retained original control; no isolated W gain attribution",
+    "executable_sha256": "81d35cfa92ff1e84505f94cf3a2fb4cf9761f8215f6e4dc49da0c3bed5db32e8",
+    "source_commit": "3de4d602013db3f1cb4d8fed92fb5a7cc30866ed",
+    "comparison_design": "UNPAIRED retained corrected-original control",
     "metrics": {
       "control": {
         "wall_seconds": 820.5063595210668,
@@ -85,21 +83,21 @@
         "main_step_sum_seconds": 597.99405
       },
       "candidate": {
-        "wall_seconds": 669.6277512290981,
-        "cpu_seconds": 324013.991898,
-        "main_step_sum_seconds": 561.83101
+        "wall_seconds": 672.2310170449782,
+        "cpu_seconds": 324829.440612,
+        "main_step_sum_seconds": 563.3811
       }
     },
     "reductions_percent": {
-      "wall_seconds": 18.388475182573504,
-      "cpu_seconds": 11.904958099206253,
-      "main_step_sum_seconds": 6.047391274210845
+      "wall_seconds": 18.071199662929796,
+      "cpu_seconds": 11.683248573000386,
+      "main_step_sum_seconds": 5.788176320483467
     },
-    "full_qualification_sha256": "4d45d6011e0e70474033b45a3123e8047f47648350ae6ca9fee60300a6393903",
+    "full_qualification_sha256": "4e984626ca8513e4e03ec03d135afd6d8d01824c4d2c54e3b5b56d87bfcb8e8b",
     "fresh_matched_timing": false,
-    "applies_to_current_selection": false
+    "applies_to_current_selection": true
   },
-  "qualification_file": "tools/cpu-compute/myj-mixlen-scratch-reuse/QUALIFICATION.json",
+  "qualification_file": "tools/cpu-working/THREE_HOUR_FINAL_QUALIFICATION.json",
   "previous_three_hour_benchmark": {
     "evidence_file": "PREVIOUS_THREE_HOUR_RESULT_3BB2.json",
     "executable_sha256": "3bb2b8f17ed5c5c8cb2afe9b1e68faf162a66c37546a366a00179411b651c4df",
@@ -131,20 +129,19 @@
     "sha256": "b1fb398a9c7186823584252b53f4ee360c260143064720256f660ba1459c8670"
   },
   "latest_application": {
-    "evidence_file": "tools/cpu-memory/thompson-table-sharing/lazy-group-init/QUALIFICATION.json",
+    "evidence_file": "THREE_HOUR_RESULT.json",
     "executable_sha256": "81d35cfa92ff1e84505f94cf3a2fb4cf9761f8215f6e4dc49da0c3bed5db32e8",
     "source_commit": "3de4d602013db3f1cb4d8fed92fb5a7cc30866ed",
-    "actual_product_comparisons": 2,
-    "ordered_steps": 35,
+    "actual_product_comparisons": 4,
+    "ordered_steps": 545,
     "all_own_jobs_closed": true,
-    "full_qualification_sha256": "d7e43a4a529593a3715d2e57e73d40d8a3a2bd7edf624b8042269af3a18f984e",
+    "full_qualification_sha256": "4e984626ca8513e4e03ec03d135afd6d8d01824c4d2c54e3b5b56d87bfcb8e8b",
     "fresh_matched_timing": false,
     "applies_to_current_selection": true,
-    "timing_claim": false,
-    "memory_evidence": "One shortcomparison:wholemodelcgrouppeaks11.65-11.74GiB/node lower;14.1-14.6%; noRSS/PSS/dualadmission/repeatabilityclaim.",
-    "scope": "Cold single-domain06:00-06:10 GNU13.3 strict/OMP1/DIMNRHG1/shared1/375/881/825/faba/FIELDVIEW1/IB512/twoTiles; original2products/35steps. Own3h/9h/restart/nesting/othercompiler/mode0 qualification not transferred."
+    "memory_evidence": "Final three-hour peaks70.968/68.695/68.655/68.614GiB; all memory-limit events0. Earlier10m baseline/candidate memory comparison remains isolated from this retained-original timing comparison.",
+    "scope": "Cold single-domain06:00-09:00 GNU13.3 strict/OMP1/DIMNRHG1/shared1/375/881/825/faba/FIELDVIEW1/IB512/twoTiles; original4products/545steps/all4positivewriters. Own9h/restart/nesting/othercompiler/mode0 qualification not transferred."
   },
-  "timing_scope": "Own10m exactscience and measured14.1-14.6% lower chargedmemorypeaks. Timingobservations147.9197->145.4913s are notisolated/sustainedperformance; baselinefailedoptionalcollector asymmetry. Latestdistinct3h/e55 and9h/b1fb remainhistorical, not transferred.",
+  "timing_scope": "One unprofiled later81d35 combined build versus retained corrected-original546b: UNPAIRED, checked client caches, server caches/load uncontrolled. No isolated lazy/MYJ gain, fresh matched timing, repeatability, 9h transfer or dual-forecast admission. Main includes communication/backpressure; wall-minus-main is not pure I/O. Raw producer NULL retained; source3de4 post-test tracking separate.",
   "earlier_three_hour_benchmark_f1d7": {
     "executable": {
       "path": "/pool/wrf-experiment/wrf-cpu/builds/four-worthy-ports-current-r1/wrf.exe",
@@ -923,7 +920,7 @@
     },
     "evidence_file": "PREVIOUS_THREE_HOUR_RESULT_8604.json"
   },
-  "current_source_head_note": "Selected4e70 literal71bd MYJsource binds actual2dbb member/b1fb/ebbf. Later evidence-only commits do not imply rebuild; frozen producerNULL preserved.",
+  "current_source_head_note": "Selected source3de4; following commits record own3h qualification, not rebuilt artifacts. Earlier9hb1fb remains historical.",
   "rollback_source_commit": "4e70d8fd315cb1220793226b69a2c55372cfb9bd",
   "last_fresh_paired_three_hour_benchmark": {
     "evidence_file": "PREVIOUS_THREE_HOUR_RESULT_ED095.json",
@@ -1937,7 +1934,7 @@
     "ordered_steps": 545,
     "all_own_jobs_closed": true
   },
-  "current_three_hour_qualified": false,
+  "current_three_hour_qualified": true,
   "previous_repaired_noon_application": {
     "evidence_file": "../cpu-compute/myj-mixlen-scratch-reuse/APPLICATION_QUALIFICATION.json",
     "executable_sha256": "b1fb398a9c7186823584252b53f4ee360c260143064720256f660ba1459c8670",
@@ -2051,5 +2048,67 @@
     "fresh_matched_timing": false,
     "applies_to_current_selection": true
   },
-  "next_qualification": "Preparedperiodic81d35 three-hour4products/545 against retainedoriginal820.506s UNPAIRED; pendingactualexecution/SCI."
+  "next_qualification": "Continue short root0 startup observational capture; no automatic nine-hour rerun merely to transfer prior timing.",
+  "previous_three_hour_benchmark_e55": {
+    "evidence_file": "PREVIOUS_THREE_HOUR_RESULT_E55.json",
+    "executable_sha256": "e55c97e6129529f366fd0dd496d3cff1192714223c7755a7484622ddb82a108f",
+    "source_commit": "ef7fed9057cfbfd19e929c965ad31fe924b2f26c",
+    "comparison_design": "UNPAIRED retained original control; no isolated W gain attribution",
+    "metrics": {
+      "control": {
+        "wall_seconds": 820.5063595210668,
+        "cpu_seconds": 367800.485597,
+        "main_step_sum_seconds": 597.99405
+      },
+      "candidate": {
+        "wall_seconds": 669.6277512290981,
+        "cpu_seconds": 324013.991898,
+        "main_step_sum_seconds": 561.83101
+      }
+    },
+    "reductions_percent": {
+      "wall_seconds": 18.388475182573504,
+      "cpu_seconds": 11.904958099206253,
+      "main_step_sum_seconds": 6.047391274210845
+    },
+    "full_qualification_sha256": "4d45d6011e0e70474033b45a3123e8047f47648350ae6ca9fee60300a6393903",
+    "fresh_matched_timing": false,
+    "applies_to_current_selection": false
+  },
+  "previous_short_application_81d35": {
+    "evidence_file": "tools/cpu-memory/thompson-table-sharing/lazy-group-init/QUALIFICATION.json",
+    "executable_sha256": "81d35cfa92ff1e84505f94cf3a2fb4cf9761f8215f6e4dc49da0c3bed5db32e8",
+    "source_commit": "3de4d602013db3f1cb4d8fed92fb5a7cc30866ed",
+    "actual_product_comparisons": 2,
+    "ordered_steps": 35,
+    "all_own_jobs_closed": true,
+    "full_qualification_sha256": "d7e43a4a529593a3715d2e57e73d40d8a3a2bd7edf624b8042269af3a18f984e",
+    "fresh_matched_timing": false,
+    "applies_to_current_selection": true,
+    "timing_claim": false,
+    "memory_evidence": "One shortcomparison:wholemodelcgrouppeaks11.65-11.74GiB/node lower;14.1-14.6%; noRSS/PSS/dualadmission/repeatabilityclaim.",
+    "scope": "Cold single-domain06:00-06:10 GNU13.3 strict/OMP1/DIMNRHG1/shared1/375/881/825/faba/FIELDVIEW1/IB512/twoTiles; original2products/35steps. Own3h/9h/restart/nesting/othercompiler/mode0 qualification not transferred."
+  },
+  "short_science_81d35": {
+    "status": "PASS_RETAINED_ORIGINAL_TWO_HISTORY_35_STEPS_512_OWNED_FIELD_VIEW",
+    "complete_products": 2,
+    "ordered_steps": 35,
+    "last_observed_step": "2026-10-12_06:10:00",
+    "all512": true,
+    "compute_ranks": 480,
+    "serial_tiles": 2,
+    "required_positive_roots": [
+      487,
+      495
+    ],
+    "inactive_writer_roots": [
+      503,
+      511
+    ],
+    "receipt_sha256": "7383cf18d194dc445dba70901148b3dd58339f85928d14baf083f47d962e8991",
+    "reader_closure_sha256": "6190ff81a9422e84acbc4a5c159bcd2e153636177529a0e121c75e0e7d7b5bc5",
+    "full_qualification_sha256": "d7e43a4a529593a3715d2e57e73d40d8a3a2bd7edf624b8042269af3a18f984e",
+    "all_model_reader_scopes_closed": true,
+    "protected_checker": "0382bcbabfbc16b76114ef552206c6c558ea15cd3c3552dfaed98b977deea2b4"
+  }
 }
