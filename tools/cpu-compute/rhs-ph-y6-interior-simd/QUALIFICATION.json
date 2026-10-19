@@ -1,0 +1,247 @@
+{
+  "status": "PROMOTED_WORKING_DEFAULT_NATIVE_CALLER_AND_RETAINED_ORIGINAL_THREE_HOUR_EXACT_APPLICATION",
+  "change": "One OMP SIMD directive in sixth-order Y interior I loop; all arithmetic/bounds/other loops including selected X6 unchanged.",
+  "source_commit": "e187058370f5d37863f943f3a42c9cc5b38453f7",
+  "canonical_source_sha256": "7d22366c27d8e41203701d6bc58ddf8e8700412dfb7a978abf4b22a9541f3e9f",
+  "preprocessed_source_sha256": "074d65e97ab03afef736e3bbaa4b95ab800a24a0a660148a6cfb05ec6b3948dd",
+  "native": {
+    "native_receipt_sha256": "402b2ecdebc8b88a2f5fe7a53eed8777b114eff9e61f1745f48c3b7c34c74c0e",
+    "native_closure_sha256": "0777fe290d211f4e9b916acea6d744358d77df2b2c092dbc832e3bd41c483999",
+    "native_invocation_id": "fb2298e16b984e9c9ad62dcbd5c10295",
+    "qualified_O2_candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/rhs-ph-y6-interior-simd-native-r1/work/O2-candidate/module_big_step_utilities_em.o",
+      "sha256": "3ffd9d84d472ab36a357d515c6aba7b567349b9ab19519b4fe7d3a941cd755b3"
+    },
+    "qualified_O2_parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/rhs-ph-y6-interior-simd-native-r1/work/O2-parent/module_big_step_utilities_em.o",
+      "sha256": "2b4ece9e32946e53bf456545c73bfddd2e241e698fc7526a3c4fe7bc87668838"
+    },
+    "actual_source_mapped_Y6_counts": {
+      "parent": {
+        "mulps": 0,
+        "divps": 0,
+        "addps": 0,
+        "subps": 0,
+        "mulss": 14,
+        "divss": 1,
+        "addss": 8,
+        "subss": 9
+      },
+      "candidate": {
+        "mulps": 26,
+        "divps": 2,
+        "addps": 16,
+        "subps": 18,
+        "mulss": 14,
+        "divss": 1,
+        "addss": 8,
+        "subss": 9
+      }
+    },
+    "scope": "One Y6 interior I-loop SIMD directive only; full33case native O0bounds/O2 raw/readonly/config/physicalguards/immediate5state exact. Complete synthetic case11 fixed524288caller timing, sourcechange isolated in fullrhs_ph; unknown production weights, one pair/host, no application or repeatability claim.",
+    "resources_closed": "native04,driverbuild02,and all4caller02/04units positively closed; SCI03 untouched"
+  },
+  "caller": {
+    "status": "PASS_ONE_OPPOSITE_ORDER_PAIR_PER_HOST_ALL_FOUR_CLOSED",
+    "scope": "Complete synthetic rhs_ph case11; width9, KTS1/KTE6/KDE7, J1:4; Y6 interior144 updates/call. Full7200word PH_TEND restore/reset/complete routine/immediatefive-state INSIDE wall+threadCPU clocks; warm/terminal259516B raw+readonly/config/physicalguards/state OUTSIDE. Fixed524288 calls. Not captured production tile; unknown atmospheric weights; one pair perhost, no repeatability/global/application claim.",
+    "pairs": [
+      {
+        "host": "hpc02",
+        "order": "parent-candidate",
+        "parent": {
+          "wall_seconds": 2.809451564,
+          "cpu_seconds": 2.809011447,
+          "repeats": 524288
+        },
+        "candidate": {
+          "wall_seconds": 2.638117451,
+          "cpu_seconds": 2.637421414,
+          "repeats": 524288
+        },
+        "wall_reduction_percent": 6.098489655257156,
+        "cpu_reduction_percent": 6.108555847405206
+      },
+      {
+        "host": "hpc04",
+        "order": "candidate-parent",
+        "parent": {
+          "wall_seconds": 2.770934634,
+          "cpu_seconds": 2.7704534,
+          "repeats": 524288
+        },
+        "candidate": {
+          "wall_seconds": 2.636239958,
+          "cpu_seconds": 2.63584695,
+          "repeats": 524288
+        },
+        "wall_reduction_percent": 4.860983523294471,
+        "cpu_reduction_percent": 4.858643354188885
+      }
+    ],
+    "arms": [
+      {
+        "arm": 0,
+        "receipt_sha256": "6072feef062c9f65271fd7ad1e8c5651c5bfa191ee7cf2e2547473ed4ca74acf",
+        "closure_sha256": "7ac56bbe22a9e28dba1f5b3d028456fc583833b91255a09b98da08496d996634",
+        "status": "PASS_COMPLETE_RHS_SYNTHETIC_CALLER_TIMING_ARM",
+        "host": "hpc02",
+        "which": 1,
+        "invocation_id": "bfecf89aa091447b8c35f3c57abc5513",
+        "measurements": {
+          "RHS": {
+            "wall_seconds": 2.809451564,
+            "cpu_seconds": 2.809011447,
+            "repeats": 524288
+          }
+        },
+        "raw259516_sha256": "a2668c4d6bb171a564188f9f39e0c20bd30a01b078acc799998c98cb7f649694",
+        "cpu_stat": "usage_usec 3177651\nuser_usec 2954113\nsystem_usec 223538\ncore_sched.force_idle_usec 0\nnr_periods 63\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "memory_peak": "168951808\n"
+      },
+      {
+        "arm": 1,
+        "receipt_sha256": "ee406c74c7a6d4b6efa5ce2d49584e839dcdb60bcf38548e60cb212dc412666a",
+        "closure_sha256": "d73a2f922f3c0c2a295edc41dd3b2fb52796399405bedc8cca8f3e3ba3f19e17",
+        "status": "PASS_COMPLETE_RHS_SYNTHETIC_CALLER_TIMING_ARM",
+        "host": "hpc02",
+        "which": 2,
+        "invocation_id": "5fa8efc18ee24e6e9ced153d95ae3f14",
+        "measurements": {
+          "RHS": {
+            "wall_seconds": 2.638117451,
+            "cpu_seconds": 2.637421414,
+            "repeats": 524288
+          }
+        },
+        "raw259516_sha256": "a2668c4d6bb171a564188f9f39e0c20bd30a01b078acc799998c98cb7f649694",
+        "cpu_stat": "usage_usec 2922867\nuser_usec 2726809\nsystem_usec 196058\ncore_sched.force_idle_usec 0\nnr_periods 31\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "memory_peak": "168939520\n"
+      },
+      {
+        "arm": 2,
+        "receipt_sha256": "cddcd2cc7977638193872be7faef239a6fd44ac104479e43dcb99aa0699272cc",
+        "closure_sha256": "8888704524fcecbdee0ac2c0eecd8fb7d6d8ab6eded6d93e832a02fa29f5bcb1",
+        "status": "PASS_COMPLETE_RHS_SYNTHETIC_CALLER_TIMING_ARM",
+        "host": "hpc04",
+        "which": 2,
+        "invocation_id": "436d4f0846204dff813d1cb212f36757",
+        "measurements": {
+          "RHS": {
+            "wall_seconds": 2.636239958,
+            "cpu_seconds": 2.63584695,
+            "repeats": 524288
+          }
+        },
+        "raw259516_sha256": "a2668c4d6bb171a564188f9f39e0c20bd30a01b078acc799998c98cb7f649694",
+        "cpu_stat": "usage_usec 2966684\nuser_usec 2760498\nsystem_usec 206186\ncore_sched.force_idle_usec 0\nnr_periods 44\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "memory_peak": "169267200\n"
+      },
+      {
+        "arm": 3,
+        "receipt_sha256": "80b0814e9f86137b7604360aa9fa2d0fdf072510ae29adff631aa370e094fd9a",
+        "closure_sha256": "79671de5bd54c007153eb71751b81b37fa67c4b89adc0598f192c635ffd15ed7",
+        "status": "PASS_COMPLETE_RHS_SYNTHETIC_CALLER_TIMING_ARM",
+        "host": "hpc04",
+        "which": 1,
+        "invocation_id": "8578bac5e70249cda0b80aaec3720428",
+        "measurements": {
+          "RHS": {
+            "wall_seconds": 2.770934634,
+            "cpu_seconds": 2.7704534,
+            "repeats": 524288
+          }
+        },
+        "raw259516_sha256": "a2668c4d6bb171a564188f9f39e0c20bd30a01b078acc799998c98cb7f649694",
+        "cpu_stat": "usage_usec 2995216\nuser_usec 2847551\nsystem_usec 147665\ncore_sched.force_idle_usec 0\nnr_periods 32\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "memory_peak": "169156608\n"
+      }
+    ],
+    "native_receipt_sha256": "402b2ecdebc8b88a2f5fe7a53eed8777b114eff9e61f1745f48c3b7c34c74c0e",
+    "native_closure_sha256": "0777fe290d211f4e9b916acea6d744358d77df2b2c092dbc832e3bd41c483999",
+    "driver_build_receipt_sha256": "2061aa2aea29fc97bd073d33567d8682f827c1955c7b7c60632c55630bce0a70",
+    "driver_build_closure_sha256": "064953df682a1c8a4590497e34ef7ce8efc7448af2a03419759d49b2de7a3d53",
+    "source_projection_sha256": "9e7af8944fda1c64d6b206f59b1e4f458f47757219cf22b704c8846e14c06090",
+    "decision": "WORTH_APPLICATION_QUALIFICATION_OWNER_DECISION_PENDING"
+  },
+  "build": {
+    "status": "BUILT_CURRENT_X6_ONE_BIGSTEP_RHS_Y6_SIMD_PENDING_APPLICATION",
+    "source_commit": null,
+    "default_promoted": false,
+    "build_recipe_sha256": "4fcab3f4329ec2e87d56ea537c9d93573b0b9a29ea11ded1245b5499fcbefbe8",
+    "build_manifest_sha256": "66d712f70649e6eb9f8e7300441737e7acd1cdf4663847a4fa6521aac305d447",
+    "build_receipt_sha256": "df8684c233f844eac45a2883dc4d9c5e6932fbda66180d0ceaaa1a9ea5230aa7",
+    "build_closure_sha256": "722cab67a0c0be1759213d02eca90a774b88b2b90eb0da81445a489d403866c0",
+    "invocation_id": "e5b458cbc23a4a1ca9bfa23dad08ff06",
+    "artifacts": {
+      "/pool/wrf-experiment/wrf-cpu/builds/rhs-ph-xy6-interior-simd-current-r1/wrf.exe": "885c7b6db45ea2bae676cd42ed76c2e0ac5450dbfe85940021a4ab441ccd159f",
+      "/pool/wrf-experiment/wrf-cpu/builds/rhs-ph-xy6-interior-simd-current-r1/libwrflib.a": "f3868e1046e7f629f21bdd99e77d855aaf7c7c1e4d5f9a7ef03ce7d0618c08af",
+      "/pool/wrf-experiment/wrf-cpu/builds/rhs-ph-xy6-interior-simd-current-r1/candidate/module_big_step_utilities_em.o": "3ffd9d84d472ab36a357d515c6aba7b567349b9ab19519b4fe7d3a941cd755b3",
+      "/pool/wrf-experiment/wrf-cpu/builds/rhs-ph-xy6-interior-simd-current-r1/ordered-libwrflib-proof.json": "048ebcc50d1999a786663c76face9fe48c60dc4b30bdbf5f1d0a148a90d0d31e"
+    },
+    "canonical_source_sha256": "7d22366c27d8e41203701d6bc58ddf8e8700412dfb7a978abf4b22a9541f3e9f",
+    "preprocessed_source_sha256": "074d65e97ab03afef736e3bbaa4b95ab800a24a0a660148a6cfb05ec6b3948dd",
+    "module_interface_sha256": "01702a275cfaa6e411f3b53342033027a3beca789ccd80a7b2e1becf3f43e7ee",
+    "qualified_O2_object": "3ffd9d84d472ab36a357d515c6aba7b567349b9ab19519b4fe7d3a941cd755b3",
+    "parent_executable_sha256": "3a203299668de5177481d48bc10b4352f7c02af38e0cd0d555489dea7e3daaa7",
+    "parent_archive_sha256": "367d5a9310c90c1806e110e8a757058dec09f0a335f5dd1dc9f6b0b1af18dcef",
+    "source_compiles": 0,
+    "unchanged_archive_occurrences": 583,
+    "unchanged_actual_external_inputs": {
+      "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main/wrf.o": "3829cfd0e9cf2846cb68b1e98813191dbc8cc8d6b9c18a540a94694490eab4aa",
+      "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main/module_wrf_top.o": "169eea0f9f5bc4c18efdbe8bb9478edb341aca539c91710223a5b529bc8e8b46",
+      "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a": "43440c838a792ee55cdb93165c7996173df197d3e6afbd9c69e196b64b869a34",
+      "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a": "fa5423d57121eae7505cd464e0a9826c36eadf91a6a884aee96f6a7aa4279a29",
+      "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a": "93675f19d4c2d39ff9de6909f76e4ccddf0844440abe38fa37aea97bb42fb4f0",
+      "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a": "a06e4111dbb308bbe94c1cb2c0e21c608fde3e906dec74a10910b5842cac5ca0",
+      "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90/libesmf_time.a": "4c1ebf810767e36db24471cac830970afb2c440eb241f4664b1d3398ecf0f84a",
+      "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o": "175cbd87243a7ff3412f1850e76dac102eb4edc5db684bfdc97d419694d44a78",
+      "/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib/libnetcdff.so": "e271f9b96203b03c2e21f9e044b4cbe13534f309b100ae369dd0799fa7a2a6d6",
+      "/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib/libnetcdf.so": "7036a91b172b3f1171c1ebd86813a208a302cf9145013d58611570cfa12e2780",
+      "/pool/wrf-experiment/wrf-cpu/builds/rsl-narrow-integer-copy-r1/librsl_lite.a": "982d0c81abed9d9209ea955e63c0851ae7eaa51b6ade4748303176b51eaaa130",
+      "/pool/wrf-experiment/wrf-cpu/builds/transpose-di1-affine-native-r1/io_netcdf/libwrfio_nf.a": "9d0d43fbf5f77cfe1ac5ffe871e888f2e0187bc5e5ba2fc8f8699027a93836de",
+      "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o": "8ab87436bdb22d9d0ef3c1257e25f415727ede16be8535b8e037832a12fe9752"
+    },
+    "preserved_PD_member_sha256": "0f53a68f9aede919e15f3ca7679021e98db7253ec4bac22ee7153546b6301b9f",
+    "preserved_quilt_member_sha256": "3aacdd25454c8a38403bee266abd911c4536ff1105887d9540c81f97afabfb44",
+    "native_receipt_sha256": "402b2ecdebc8b88a2f5fe7a53eed8777b114eff9e61f1745f48c3b7c34c74c0e",
+    "native_closure_sha256": "0777fe290d211f4e9b916acea6d744358d77df2b2c092dbc832e3bd41c483999",
+    "caller_timing_result_sha256": "683ef60e1b2cb70a7cfa78bcbcc7b5ec48074addb8c1dd91333fc221df5f5c36",
+    "scope": "One source-qualified/native-qualified BigStep object reuse and one link. Complete33case native exact plus complete SYNTHETIC case11 caller6.09849/4.86098%wall improvement. No forecast or universal gain claim; fresh application science pending.",
+    "application_result": null
+  },
+  "application": {
+    "result_file": "../../cpu-working/THREE_HOUR_RESULT.json",
+    "final_qualification_file": "../../cpu-working/THREE_HOUR_FINAL_QUALIFICATION.json",
+    "final_qualification_sha256": "840a21ca81ad9622a21fcb3dc1ba323813c5892a9b6bea002ab0a87aa544bbf8",
+    "comparison_design": "UNPAIRED later885c candidate versus retainedactualoriginalPD-R5control. No freshcontrolmodel or isolatedY gain claim.",
+    "science_receipt_sha256": "da06e45ef654406f71a8537ceb85771bcb98c85702bc7a8902a79648f0ef7ba4",
+    "reader_closure_sha256": "8ebb481de895f13569d392b2113377230703f392406de780cbd3f0752cc84976",
+    "complete_products": 4,
+    "ordered_steps": 545
+  },
+  "source_build_binding": {
+    "file": "../../cpu-working/CURRENT_SOURCE_BUILD_BINDING.json",
+    "sha256": "c0d1e427b2f675b1aa4a2931ecefbef1fd4902b42ef7c08fc785f9415c959d69"
+  },
+  "rollback": {
+    "executable_sha256": "3a203299668de5177481d48bc10b4352f7c02af38e0cd0d555489dea7e3daaa7",
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/rhs-ph-x6-interior-simd-current-r1/wrf.exe",
+    "source_commit": "3e290fdb7f354d95e9c9d87b7d325ba59dd24b40",
+    "runtime": "Unchanged375/881/825/faba/FIELD_VIEW1"
+  },
+  "limits": [
+    "One latercandidate versus retainedoriginal546bcontrol fromPDfreshR5, whosewall819.2134004358668s is reusedhonestly. UNPAIRED/order/timegap/clientcache/fileserverload limitations; no isolatedY/freshpair/repeatability/additivegain claim.",
+    "Aggregate CPU is summed cgroup CPU consumption, not elapsed time; main-step sum includes communication/backpressure and is not pure compute. Residual is not pure I/O.",
+    "ActualCPUthrottle/memory.events/peaks reportedraw inresources; no causalwallcorrection or isolatedmemory-savings claim.",
+    "Different arm times and shared file-server load/cache can affect elapsed time. No causal server-load or cap-benefit attribution.",
+    "All-four field-view positive-root admission is proven, not every-batch adoption.",
+    "Retainedoriginalc4dmanifest/c5bdgrant/context unchanged; no re-seal/leasecopy/neworiginalmodel/cache. Protectedoriginal4products545steps/all512/tile/worker/science predicates unchanged.",
+    "ThisXY6stage/prepare/cache/launch/normalreconcile usedactual namespace/localB correctly; no model orchecker rerun. RootreviewedThompson01correctnessbuild overlapsSCI03onlyAFTERactualmodelclosure, not model timing.",
+    "No 144-hour/restart qualification or new profiling; original numerical/layout/runtime predicates unchanged.",
+    "Native33/caller syntheticcase11 are not captured production tile/global headroom;6.0985/4.8610%caller gains are not added to forecast gains."
+  ]
+}
