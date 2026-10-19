@@ -1940,6 +1940,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
    DO j = j_start, jtf
 
      DO k = 2, kte-1
+     !$OMP SIMD
      DO i = i_start, itf
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.25*rdx/msfty(i,j))*(                   &
                  ( (c1f(k)*muuf(i+1,j)+c2f(k))*(u(i+1,k,j)+u(i+1,k-1,j))*msfux(i+1,j)              &
