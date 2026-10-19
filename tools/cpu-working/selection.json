@@ -1,6 +1,6 @@
 {
-  "status": "PROMOTED_QUALIFIED_TEN_OWNER_COMBINED_WORKING_CONFIGURATION",
-  "source_commit": "4480c0cc8aa64776b55b31df7626e1e3acd94e76",
+  "status": "PROMOTED_QUALIFIED_22_FIELDS_ELEVEN_OWNERS_COMBINED_WORKING_CONFIGURATION",
+  "source_commit": "0828f5a0270c193f50cb11ec7c5155b31f3e2b1e",
   "scope": "Cold single-domain OMP1 DIMNRHG1 sharedmode1, unchanged375/881/825/faba/FIELDVIEW1/IB512+twoTiles. No restart/nesting/hail/aerosol/ng/mode0 application transfer.",
   "artifacts": {
     "shim": {
@@ -17,8 +17,8 @@
     }
   },
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/thompson-ten-owner-canonical-current-r1/wrf.exe",
-    "sha256": "3220319ccf387520dc90934198430e3366745e195381e235e5b14157679538f1"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/thompson-eleven-family-owner-canonical-current-r1/wrf.exe",
+    "sha256": "e4856893a47538dccc928175a4796fe11e12e2a6bc42cafc78074863df681f57"
   },
   "private_hdf5": {
     "path": "/pool/wrf-experiment/wrf-cpu/builds/hdf5-sse2-unshuffle4-private-r3/output/candidate/lib/libhdf5.so.310.3.0",
@@ -31,7 +31,7 @@
     "WRF_ADVECTION_ZEN2": 1,
     "compiler_scope": "qualified GNU Fortran13.3.0; runtime CPU/OS feature admission required",
     "WRF_EXPERIMENTAL_TPI_NUMA": 1,
-    "thompson_build_scope": "GNU13.3 strict cold one-domain DIMNRHG1: ten fixed owners, ordinaryTCG preserved; generic Makefiles unchanged."
+    "thompson_build_scope": "GNU13.3 strict cold one-domain DIMNRHG1:22 fields/11 fixedowners, ordinaryTCG retained; generic Makefiles unchanged."
   },
   "runtime": {
     "OMP_NUM_THREADS": 1,
@@ -46,12 +46,12 @@
     "WRF_QUILT_OWNED_FIELD_VIEW": 1,
     "WRF_EXPERIMENTAL_TPI_NUMA": 1
   },
-  "includes": "All previously retained source/runtime changes recorded in PREVIOUS_SELECTION_ED095.json, plus four nonsentinel Thompson graupel-table shared owners (ten total). Original ordinarytcg sentinel unchanged. Current exact nine-hour qualification covers the combined configuration; preceding three-hour timings retain their original artifact scope.",
+  "includes": "All previously retained source/runtime changes in PREVIOUS_SELECTION_322.json, plus twelve rain/snow rank4 fields on one contiguous rank5 family owner. OrdinaryPUBLICALLOCATABLE TCG sentinel unchanged. Current ownexactthreehour; previousTENninehour does not transfer.",
   "science": {
-    "status": "PASS_CURRENT_FIXED_TEN_NINE_HOUR_ORIGINAL_FULL_GATE_AND_ALL_OWN_SCOPES_CLOSED",
-    "complete_products": 10,
-    "ordered_steps": 1625,
-    "last_observed_step": "2026-10-12_15:00:00",
+    "status": "PASS_CURRENT_RAIN_SNOW_FAMILY_THREE_HOUR_ORIGINAL_FULL_GATE_AND_ALL_OWN_SCOPES_CLOSED",
+    "complete_products": 4,
+    "ordered_steps": 545,
+    "last_observed_step": "2026-10-12_09:00:00",
     "all512": true,
     "compute_ranks": 480,
     "serial_tiles": 2,
@@ -61,9 +61,9 @@
       503,
       511
     ],
-    "receipt_sha256": "16dff3b2b1f1e8c663c5fbf5fd2b221ce87938941131a532bc1d97fdb2712a25",
-    "reader_closure_sha256": "f87ec9309938b80fe4ea215c5837be93bedc87ea012e7f18745dfbd457c66d28",
-    "full_qualification_sha256": "bb0c0f6a9884e7541c811158f4a83cf87cff0e36b268d42f7e6f596ad19fded6",
+    "receipt_sha256": "851addb717357da242a1d7f961c9023440d373fb1f27673d9a901b75be05d80c",
+    "reader_closure_sha256": "4e175e5fd315ec2ea386a12d46c9c2b4e0efa3408d94923d0ae21b5cab9878c5",
+    "full_qualification_sha256": "e488f1900210bffab10d44a277bca143b9ded614fd5e31627ccef08f8dc4b8dc",
     "all_model_reader_scopes_closed": true,
     "protected_checker": {
       "path": "/pool/wrf-experiment/wrf-cpu/validation/protected_netcdf_exact_reference.py",
@@ -71,16 +71,15 @@
       "verified": true
     }
   },
-  "lease_reference": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-nextcombined9h-runtime-r1/lease-candidate-proposed.json",
-  "rollback_executable_sha256": "ed0951105f3dba9808b665fc6fd57ebbd258ded72233ed8d91f32e99150bbfc6",
+  "lease_reference": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rain-snow-family3h-runtime-r1/lease-candidate-proposed.json",
+  "rollback_executable_sha256": "3220319ccf387520dc90934198430e3366745e195381e235e5b14157679538f1",
   "activation": "Selection record, not a launcher. Use existing bounded launcher with a fresh run directory/log directory/lease and actual affinity/library/resource checks. Never preload MPI launcher or helper processes.",
   "schema_version": 2,
   "last_three_hour_benchmark": {
     "evidence_file": "THREE_HOUR_RESULT.json",
-    "executable_sha256": "ed0951105f3dba9808b665fc6fd57ebbd258ded72233ed8d91f32e99150bbfc6",
-    "source_commit": "be96b3ec53232e8807e557dbf3afbd4d16d82bc6",
-    "provider_scope": "375/faba/881/825/FIELDVIEW1/shared1",
-    "comparison_design": "Fresh fixed-order corrected-original versus combined current candidate; no isolated CQU/BC/PD/TNI attribution",
+    "executable_sha256": "e4856893a47538dccc928175a4796fe11e12e2a6bc42cafc78074863df681f57",
+    "source_commit": "0828f5a0270c193f50cb11ec7c5155b31f3e2b1e",
+    "comparison_design": "UNPAIRED retained original control; no isolated rain-snow-family gain attribution",
     "metrics": {
       "control": {
         "wall_seconds": 820.5063595210668,
@@ -88,21 +87,21 @@
         "main_step_sum_seconds": 597.99405
       },
       "candidate": {
-        "wall_seconds": 673.3457495709881,
-        "cpu_seconds": 325181.517711,
-        "main_step_sum_seconds": 564.25638
+        "wall_seconds": 676.1045558119658,
+        "cpu_seconds": 326624.01663399994,
+        "main_step_sum_seconds": 566.47358
       }
     },
     "reductions_percent": {
-      "wall_seconds": 17.935340566522473,
-      "cpu_seconds": 11.587523550117796,
-      "main_step_sum_seconds": 5.641806971156315
+      "wall_seconds": 17.599108408299102,
+      "cpu_seconds": 11.195327514634446,
+      "main_step_sum_seconds": 5.27103405125855
     },
-    "full_qualification_sha256": "eabf9ba6c674bb2e8c59291b7b96d293fb41e746fe471351283e9aa5cde2f32e",
-    "fresh_matched_timing": true,
-    "applies_to_current_selection": false
+    "full_qualification_sha256": "e488f1900210bffab10d44a277bca143b9ded614fd5e31627ccef08f8dc4b8dc",
+    "fresh_matched_timing": false,
+    "applies_to_current_selection": true
   },
-  "qualification_file": "tools/cpu-memory/thompson-table-sharing/GRAUPEL_EXTENSION_QUALIFICATION.json",
+  "qualification_file": "tools/cpu-memory/thompson-table-sharing/RAIN_SNOW_FAMILY_QUALIFICATION.json",
   "previous_three_hour_benchmark": {
     "executable": {
       "path": "/pool/wrf-experiment/wrf-cpu/builds/ownedview-myjpack-combined-current-r1/wrf.exe",
@@ -847,10 +846,9 @@
     "scope": "Historical5326 diagnostic only; not8604 daytime qualification."
   },
   "last_nine_hour_benchmark": {
-    "evidence_file": "NINE_HOUR_RESULT.json",
-    "source_commit": "4480c0cc8aa64776b55b31df7626e1e3acd94e76",
+    "evidence_file": "PREVIOUS_NINE_HOUR_RESULT_322.json",
     "executable_sha256": "3220319ccf387520dc90934198430e3366745e195381e235e5b14157679538f1",
-    "comparison_design": "UNPAIRED retained original control; no isolated component gain attribution",
+    "source_commit": "4480c0cc8aa64776b55b31df7626e1e3acd94e76",
     "metrics": {
       "control": {
         "wall_seconds": 2069.3122304237913,
@@ -868,8 +866,7 @@
       "cpu_seconds": 7.5402434295462895,
       "main_step_sum_seconds": 5.2944664623371
     },
-    "full_qualification_sha256": "bb0c0f6a9884e7541c811158f4a83cf87cff0e36b268d42f7e6f596ad19fded6",
-    "applies_to_current_selection": true
+    "applies_to_current_selection": false
   },
   "earlier_three_hour_benchmark_5326": {
     "executable": {

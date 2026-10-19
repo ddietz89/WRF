@@ -6,7 +6,25 @@ Current continuation handoff: [WRF_CPU_OPTIMIZATION_HANDOFF_2026-10-19.md](WRF_C
 
 The October 19 continuation instruction establishes concurrent incremental-kernel and architectural portfolios, with actual parallel DeepSeek work. The [SOP](TIMING_SOP.md#two-coordinated-optimization-portfolios) records this policy. The current selection and qualification scope are stated below; historical results retain their original artifact bindings.
 
-## Latest promotion: ten shared Thompson tables and sustained nine-hour qualification
+## Latest promotion: 22 shared Thompson fields on eleven owners
+
+Current working selection is **e4856893/source0828f5a0**, retaining all previous compute and375/881/825/faba/FIELDVIEW1/shared1/InfiniBand improvements. Twelve rain/snow rank4 fields now occupy twelve contiguous planes of one rank5 shared owner; ordinary PUBLIC ALLOCATABLE TCG remains the original initialization sentinel. No numerical expressions, table records, helper ABI or checker changed. **Four complete original outputs,545 ordered steps,all512 ranks,two tiles and all four writer groups passed exactly**; all model/reader scopes closed. FQ`e488f190`, science`851addb7`, readerclosure`4e175e5f`. Source0828 is post-test tracking of exacte972; frozen producerNULL remains unchanged.
+
+| Measure | Retained corrected original | Latest combined | Lower |
+|---|---:|---:|---:|
+| Whole model/MPI wall | 820.506360 s | 676.104556 s | 17.5991% |
+| Aggregate CPU, including output | 367,800.485597 s | 326,624.016634 s | 11.1953% |
+| Main-step elapsed, including communication/backpressure | 597.994050 s | 566.473580 s | 5.2710% |
+
+This is **UNPAIRED** against the retained fresh corrected-original546b reference, with checked client cache clears and uncontrolled file-server conditions. Throughput is1.21358×; the1.5× and2× goals remain unmet. The previous improved six-owner673.345750s result is descriptively neutral versus676.104556s; this is not an isolated family timing estimate or a causal regression. Main is not integration CPU, and wall-minus-main is not pure I/O. No component percentages are added.
+
+At nearby early progress points, previous ten-owner current usage was55.163/53.130/52.474/54.027GiB at06:22:15 versus50.940/48.849/48.253/49.661GiB for the family at06:31:55: about4.2–4.4GiB/node lower. These are **different-run, non-atomic observations**, not isolated table PSS or matched-phase measurements. Invocation peaks82.484/80.292/80.274/80.251GiB did not fall against ten owners; startup retains private stages through the atomic publication. Both arms of this three-hour comparison had zero memory-event counters and nonzero CPU throttling. Significant lower replicated/current memory with exact acceptance and no demonstrated unacceptable cost supports promotion.
+
+Native O0/bounds/O2 and same-image private checks retain the original eleven numerical callers, both initialization calls, all23 original table records through three phases, raw/state guards, and the complete43,764,192-byte family/contiguous planes. Actual canonical integration recompiles eight consumers/main and links once, preserving577/584 archive occurrences and earlier compute/helper/external identities. Support remains cold single-domain THOMPSON,DIMNRHG1,OMP1,shared mode1. Private0 remains native-only; generic/othercompiler/restart/nesting/extras qualification is not inferred.
+
+[Family qualification](tools/cpu-memory/thompson-table-sharing/RAIN_SNOW_FAMILY_QUALIFICATION.json),[current three-hour result](tools/cpu-working/THREE_HOUR_RESULT.json) and[source/build binding](tools/cpu-working/CURRENT_SOURCE_BUILD_BINDING.json) bind the tested artifact. Rollback selects retained **3220319c/source4480c0cc** via`PREVIOUS_SELECTION_322.json` with unchanged runtime, or reverts0828 and rebuilds. The ten-owner nine-hour result below stays bound to322 and **does not qualify e485 at nine hours**. Production/master remain unchanged; AWS stays suspended. The separate TCG stage-sentinel candidate has passed native checks only and is not selected. The later-RK fusion is still under exact native qualification; no gain is claimed.
+
+## Previous ten-table promotion and nine-hour qualification
 
 The working default is **3220319c/source4480c0cc**, adding four non-sentinel graupel owners to the preceding six-table configuration. All earlier improvements and375/881/825/faba/FIELDVIEW1/shared1/InfiniBand settings remain selected. **Ten complete original outputs,1,625 ordered steps,all512 ranks,two tiles and all four positive writer groups passed** the unchanged scientific checker; all model and reader scopes closed. Qualification`bb0c0f6a`, science`16dff3b2`, reader closure`f87ec930`. Source4480 is post-test tracking of exact587797; frozen producer source_commitNULL remains unchanged.
 

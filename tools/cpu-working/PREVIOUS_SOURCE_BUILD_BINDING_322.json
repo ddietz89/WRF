@@ -1,0 +1,73 @@
+{
+  "status": "POST_SCIENCE_TEN_OWNER_SOURCE_AND_COMBINED_EXECUTABLE_PROMOTION",
+  "source_commit": "4480c0cc8aa64776b55b31df7626e1e3acd94e76",
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/thompson-ten-owner-canonical-current-r1/wrf.exe",
+    "sha256": "3220319ccf387520dc90934198430e3366745e195381e235e5b14157679538f1"
+  },
+  "archive_sha256": "25e6fc3c10ec3deff0f9f774c549d023aec357d91ea43756dbdef0f67901fb2e",
+  "sources": {
+    "dyn_em/start_em.F": "ba19b902eb43c9baa2f59d3ffef0dec7c6a0ccbf0a9ceb062b72e55cff5366fc",
+    "phys/module_mp_thompson.F": "587797d01904af752f64828ff07aaa4c63dd668a410fbe6a481894d8619276ae",
+    "main/module_wrf_top.F": "7d977ce5832b241889b212d785222ff6e4dafd3cd13c3212ff1a7d406774b97f",
+    "tools/cpu-memory/thompson-table-sharing/shared_table_iso.f90": "b9f3ad35a58e08366286aa72c1c09a939358fe1152a612fac052a68ed79bf673",
+    "tools/cpu-memory/thompson-table-sharing/shared_table.h": "dc01b80d7ea5cdc76ecf37248d17376ca8681d558abe0004a23bcb0ef09b0b69",
+    "tools/cpu-memory/thompson-table-sharing/thompson_tpi_bridge.c": "eed11ee2c18caf9581146d1edfc42dec0c9b256a09d5147872d03cd860b0506e",
+    "tools/cpu-memory/thompson-table-sharing/shared_table.c": "6be5e91ac1f63a8dc589af8188363223c44a2b361e1ade85afc1576be2b5c116",
+    "dyn_em/module_advect_em.F": "47c7b2b0025dca1971696eacd51d7c589ec2bc20a211cd80f7329404e230fae8",
+    "share/module_bc.F": "9eb38066228f430b0ceda85523803d252e5e70dbb7e81a34df07879d112dfb8f",
+    "dyn_em/module_big_step_utilities_em.F": "c41522cd74f10267b705331e18092ce2cda0e8375a7e09c1ecff3e69741df6b6"
+  },
+  "build": {
+    "CQU_canonical": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-cqu-first-species-peel-r1/canonical-6c-build-preparation-r4/BUILD_QUALIFICATION.json",
+      "sha256": "1ea9165c40d56cb87555f25028529445808af35bef654d0c5875df7938932497"
+    },
+    "six_owner_canonical": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-rain-freezing-owner-feasibility-r1/canonical-integration-preparation-r1/BUILD_QUALIFICATION.json",
+      "sha256": "559728ff68009cda951d42fe8e0db2b990d085eaeb1e58462615a9f1eaaf5202"
+    },
+    "frozen_producer_source_commit": null,
+    "ten_owner_canonical": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-rain-graupel-owner-feasibility-r1/canonical-integration-preparation-r1/BUILD_QUALIFICATION.json",
+      "sha256": "34d385e2eb3ff7ba400303a0067fe8de833f6fba7cc694e34eeb0792fc66dcdb"
+    }
+  },
+  "qualification_file": "../cpu-memory/thompson-table-sharing/GRAUPEL_EXTENSION_QUALIFICATION.json",
+  "PD_real32_equivalence_file": "../cpu-compute/pd-row-workspace/QUALIFICATION.json",
+  "PD_production_member_sha256": "8ec77f864716667aa79d40878fa11276f7dede4017c620201e54f9f83bb32b25",
+  "PD_repaired_compile_object_sha256": "e5245eed1f84a67ea9d428bed8d8b2529f568ca49394f9cf8b85d97bdc50f560",
+  "PD_equivalence_proof_sha256": "92abf53cb516e4394f2ce232ad81fb4985ea7b1f849310927e54aa4a2b1017cc",
+  "build_scope": "Post-science4480 tracks exact587797 ten-owner source. Frozen producercommitNULL unchanged. Native14e8/PP7cf3 reused; actual8consumer/main compiles/oneordinarylink preserve577/584 archive members and previousCQUa241/PD8ec/BCde98 plus unchangedhelpers/externals. No genericcleanbuild/othercompiler/restart/nesting/mode0 application transfer.",
+  "runtime": {
+    "WRF_EXPERIMENTAL_TPI_NUMA": 1,
+    "other_settings": "Unchanged375/881/825/faba/FIELDVIEW1/IB"
+  },
+  "previous_binding": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_SOURCE_BUILD_BINDING_ED095.json",
+    "sha256": "a5fe3a6f9a52d9520ac46b835357a72c01fa0213cba5e48387adce337d22a77e"
+  },
+  "native": {
+    "CQU": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-cqu-first-species-peel-r1/NATIVE_QUALIFICATION.json",
+      "sha256": "166095e94fd936a87d8ca54db8554c1b7b2c867e4fee80bbb0eb45f7841c5c37"
+    },
+    "six_owner": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-rain-freezing-owner-feasibility-r1/NATIVE_QUALIFICATION.json",
+      "sha256": "46e364a4d26ab8dcee7be9fb240627d36db7b4a64ad5af3a45534615aa34780e"
+    },
+    "ten_owner": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-rain-graupel-owner-feasibility-r1/NATIVE_QUALIFICATION.json",
+      "sha256": "4f25eb1e531f49800ddaaf4415aa48140a42bbd966bdfcc6567cc740374fb92d"
+    }
+  },
+  "current_nine_hour_qualified": true,
+  "previous_nine_hour_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_NINE_HOUR_FINAL_QUALIFICATION_6C.json",
+    "sha256": "176a0ed0038cb3dd3884140e987a77709a1af1d94d6b8d9e38e24d73457d916a"
+  },
+  "full_application": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-b-memory-criticalpath-r1/next-combined-ninehour-preparation-r1/lifecycle-r1/FINAL_QUALIFICATION.json",
+    "sha256": "bb0c0f6a9884e7541c811158f4a83cf87cff0e36b268d42f7e6f596ad19fded6"
+  }
+}
