@@ -1,0 +1,418 @@
+{
+  "status": "PASS_CORRECTNESS_AND_CLOSED_TIMING_SCREEN_NO_APPLICATION_QUALIFICATION",
+  "candidate": "MYJ MIXLEN dead DTH scratch reused for former Q1 lifetime",
+  "native_qualification": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-mixlen-dead-scratch-reuse-r1/NATIVE_QUALIFICATION.json",
+  "native_qualification_sha256": "1cd383339e62361ad8d4dd178e1717fc334b6f7c4bbf6a53fa5787b6ade1060a",
+  "active_manifest_sha256": "ee086ca448765fa53a718eb3c3456e02221ba9af7e9283ec9516aeac0932b438",
+  "build": {
+    "status": "PASS_DRIVER_ONLY_BUILD_POSITIVELY_CLOSED",
+    "wrf_source_compiles": 0,
+    "invocation_id": "b0993e9782a3480a8e3c0b9219966d7e"
+  },
+  "actual_execution_order": [
+    {
+      "hpc04": "parent",
+      "hpc01": "candidate"
+    },
+    {
+      "hpc04": "candidate",
+      "hpc01": "parent"
+    }
+  ],
+  "comparisons": [
+    {
+      "host": "hpc04",
+      "measurements": {
+        "myj": {
+          "parent": {
+            "wall_seconds": 3.607951887,
+            "cpu_seconds": 3.602156,
+            "repeats": 512
+          },
+          "candidate": {
+            "wall_seconds": 3.58249579,
+            "cpu_seconds": 3.5758490000000003,
+            "repeats": 512
+          },
+          "wall_reduction_percent": 0.7055553343635834,
+          "cpu_reduction_percent": 0.7303126238841329
+        },
+        "mixlen": {
+          "parent": {
+            "wall_seconds": 1.074528731,
+            "cpu_seconds": 1.073973,
+            "repeats": 1048576
+          },
+          "candidate": {
+            "wall_seconds": 1.07303791,
+            "cpu_seconds": 1.0726390000000001,
+            "repeats": 1048576
+          },
+          "wall_reduction_percent": 0.1387418462615253,
+          "cpu_reduction_percent": 0.12421168874822142
+        }
+      },
+      "raw_sha256": "11da588abce3f05638eb865c891b73e296e314b4b1ef0d08af63a248d63918af"
+    },
+    {
+      "host": "hpc01",
+      "measurements": {
+        "myj": {
+          "parent": {
+            "wall_seconds": 3.591599722,
+            "cpu_seconds": 3.5856619999999997,
+            "repeats": 512
+          },
+          "candidate": {
+            "wall_seconds": 3.582581532,
+            "cpu_seconds": 3.57754,
+            "repeats": 512
+          },
+          "wall_reduction_percent": 0.2510911765796209,
+          "cpu_reduction_percent": 0.22651326310175746
+        },
+        "mixlen": {
+          "parent": {
+            "wall_seconds": 1.07462749,
+            "cpu_seconds": 1.073948,
+            "repeats": 1048576
+          },
+          "candidate": {
+            "wall_seconds": 1.078720871,
+            "cpu_seconds": 1.0783429999999998,
+            "repeats": 1048576
+          },
+          "wall_reduction_percent": -0.38091162175648563,
+          "cpu_reduction_percent": -0.40923769121037346
+        }
+      },
+      "raw_sha256": "11da588abce3f05638eb865c891b73e296e314b4b1ef0d08af63a248d63918af"
+    }
+  ],
+  "clock_scope": {
+    "myj": "512 complete captured MYJPBL calls; restore/reset/read five-state included in whole-loop clocks; table/init and warm/terminal raw checks outside.",
+    "mixlen": "1048576 exact finite n33 LPBL1 complete MIXLEN calls; output restore, CT reset and five-state operations included; setup/warm/terminal raw checks outside."
+  },
+  "correctness": {
+    "all_four_arms_native_gold_and_state_exact": true,
+    "all_four_direct_raw_sha256": "11da588abce3f05638eb865c891b73e296e314b4b1ef0d08af63a248d63918af",
+    "direct_raw_bytes": 1632,
+    "capture_state": [
+      34,
+      0,
+      48,
+      8114,
+      895
+    ],
+    "full_captured_inout_bytes": 471200,
+    "full_captured_defined_out_bytes": 428640
+  },
+  "resources": [
+    {
+      "host": "hpc04",
+      "arm": "parent",
+      "invocation_id": "a80195b691df45f7a06a550f72e205f7",
+      "memory_peak_bytes": 289685504,
+      "memory_events_delta": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "cgroup_cpu_seconds_delta": 5.265357,
+      "nr_throttled_delta": 0,
+      "throttled_usec_delta": 0
+    },
+    {
+      "host": "hpc01",
+      "arm": "candidate",
+      "invocation_id": "88734ae9b22b43228722a72a5e10aa97",
+      "memory_peak_bytes": 289181696,
+      "memory_events_delta": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "cgroup_cpu_seconds_delta": 5.322432,
+      "nr_throttled_delta": 0,
+      "throttled_usec_delta": 0
+    },
+    {
+      "host": "hpc04",
+      "arm": "candidate",
+      "invocation_id": "3807e7b84bd4475b9a64840ce92ae9f5",
+      "memory_peak_bytes": 289689600,
+      "memory_events_delta": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "cgroup_cpu_seconds_delta": 5.162945,
+      "nr_throttled_delta": 0,
+      "throttled_usec_delta": 0
+    },
+    {
+      "host": "hpc01",
+      "arm": "parent",
+      "invocation_id": "f3474e6f307e40a3a2d1f97394e40cce",
+      "memory_peak_bytes": 288952320,
+      "memory_events_delta": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "cgroup_cpu_seconds_delta": 5.182458,
+      "nr_throttled_delta": 0,
+      "throttled_usec_delta": 0
+    }
+  ],
+  "cache_boundaries": [
+    {
+      "phase": 0,
+      "host": "hpc04",
+      "run_id": "myj-mixlen-scratch-caller-r1-0",
+      "boot_id": "dc4678a7-56c3-4071-bd55-0b96d1eaafda",
+      "utc_begin": "2026-10-19T20:36:32.411958+00:00",
+      "utc_end": "2026-10-19T20:36:35.147889+00:00",
+      "full_sync_drop3_meminfo_and_owned_pg_drain": true
+    },
+    {
+      "phase": 0,
+      "host": "hpc01",
+      "run_id": "myj-mixlen-scratch-caller-r1-0",
+      "boot_id": "034999ae-50d3-4c47-a288-c1cc0a7308c9",
+      "utc_begin": "2026-10-19T20:36:31.886734+00:00",
+      "utc_end": "2026-10-19T20:36:33.995376+00:00",
+      "full_sync_drop3_meminfo_and_owned_pg_drain": true
+    },
+    {
+      "phase": 1,
+      "host": "hpc04",
+      "run_id": "myj-mixlen-scratch-caller-r1-1",
+      "boot_id": "dc4678a7-56c3-4071-bd55-0b96d1eaafda",
+      "utc_begin": "2026-10-19T20:36:48.330642+00:00",
+      "utc_end": "2026-10-19T20:36:49.540561+00:00",
+      "full_sync_drop3_meminfo_and_owned_pg_drain": true
+    },
+    {
+      "phase": 1,
+      "host": "hpc01",
+      "run_id": "myj-mixlen-scratch-caller-r1-1",
+      "boot_id": "034999ae-50d3-4c47-a288-c1cc0a7308c9",
+      "utc_begin": "2026-10-19T20:36:47.825322+00:00",
+      "utc_end": "2026-10-19T20:36:49.474875+00:00",
+      "full_sync_drop3_meminfo_and_owned_pg_drain": true
+    }
+  ],
+  "all_four_units_positive_invocation_bound_closed": true,
+  "no_pending_own_job_cache_or_watcher": true,
+  "mechanism": {
+    "native_malloc_free_counts_parent": [
+      4,
+      4
+    ],
+    "native_malloc_free_counts_candidate": [
+      3,
+      3
+    ],
+    "memset_count_unchanged": 1,
+    "public_mod_unchanged": true,
+    "logical_storage_reduction_only": "124 B at 32 levels; 128 B at 33 levels; no physical-memory claim."
+  },
+  "assessment": {
+    "recommendation": "PARK",
+    "reason": "One allocation/free pair is demonstrably removed, but direct MIXLEN wall/CPU results are small and opposite signed across hosts. Complete captured caller improved modestly on both hosts; this single opposite-order screen does not establish a significant kernel gain or forecast benefit.",
+    "no_whole_model_noise_explanation": true,
+    "no_full_forecast_or_source_promotion": true,
+    "no_further_variants_or_timing_sweep": true
+  },
+  "limitations": [
+    "One opposite-order pair per host, no statistical significance or global cost claim.",
+    "Direct timing covers native finite case1; broader input/IEEE evidence is native correctness only.",
+    "Current selected W image inherits MYJ c05 but was not rebuilt or application-tested with this experimental candidate.",
+    "Cgroup CPU includes startup, init, guards and both timed binaries; it is separate from each reported body clock."
+  ],
+  "raw_references": [
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-mixlen-dead-scratch-reuse-r1/timing-r1/actual-build-r1/closure.json",
+      "sha256": "846e2902c6cc2a9632533a97a972959788811584f2c4c6270e7aa04fa4510ffa",
+      "bytes": 1077
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-mixlen-dead-scratch-reuse-r1/timing-r1/actual-build-r1/controller.json",
+      "sha256": "fcfb54222aed93e7684afd66780f3299e02e9a9fa5ab07e5f257a42d6de75630",
+      "bytes": 949
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-mixlen-dead-scratch-reuse-r1/timing-r1/actual-build-r1/receipt.json",
+      "sha256": "ebe54ebac47d2702439a1550fe5a917ef0a23ec7aa3e7ed3b72268101ae7a051",
+      "bytes": 26215
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-mixlen-dead-scratch-reuse-r1/timing-r1/actual-timing-r1/COLLECTION.json",
+      "sha256": "565e9af9635497691d85281f01c328bde877c286c3aa322594c3cab651b1203b",
+      "bytes": 4101
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-mixlen-dead-scratch-reuse-r1/timing-r1/actual-timing-r1/RESULT.json",
+      "sha256": "cc68b55402967647ba9827fa2708f92313eae73358efcafa6e92080c0888783a",
+      "bytes": 23867
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-mixlen-dead-scratch-reuse-r1/timing-r1/actual-timing-r1/hpc01-candidate.arm.json",
+      "sha256": "5900e1358a362752e3f2ef8d2fe5c0ec650efbaff54eb1ab70d2651b89d756de",
+      "bytes": 2397
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-mixlen-dead-scratch-reuse-r1/timing-r1/actual-timing-r1/hpc01-candidate.mixlen.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-mixlen-dead-scratch-reuse-r1/timing-r1/actual-timing-r1/hpc01-candidate.mixlen.stdout",
+      "sha256": "2ae6fffaf62757c1d3cc99d9f14cdc2787eac67664adc9d5402d582b549815c4",
+      "bytes": 126
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-mixlen-dead-scratch-reuse-r1/timing-r1/actual-timing-r1/hpc01-candidate.myj.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-mixlen-dead-scratch-reuse-r1/timing-r1/actual-timing-r1/hpc01-candidate.myj.stdout",
+      "sha256": "87b5d08476ebdb1821adcd290c9cb2d88f276125b687ff3a23ed94a8fdda20aa",
+      "bytes": 246
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-mixlen-dead-scratch-reuse-r1/timing-r1/actual-timing-r1/hpc01-candidate.raw",
+      "sha256": "11da588abce3f05638eb865c891b73e296e314b4b1ef0d08af63a248d63918af",
+      "bytes": 1632
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-mixlen-dead-scratch-reuse-r1/timing-r1/actual-timing-r1/hpc01-parent.arm.json",
+      "sha256": "37108a906fbb8d2d929436cff72768047766a642f1c7d718bfc0c748973103aa",
+      "bytes": 2382
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-mixlen-dead-scratch-reuse-r1/timing-r1/actual-timing-r1/hpc01-parent.mixlen.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-mixlen-dead-scratch-reuse-r1/timing-r1/actual-timing-r1/hpc01-parent.mixlen.stdout",
+      "sha256": "d307a386e011d974ad706c7c87651299ff966665a7b345bd921834401dcf7197",
+      "bytes": 126
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-mixlen-dead-scratch-reuse-r1/timing-r1/actual-timing-r1/hpc01-parent.myj.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-mixlen-dead-scratch-reuse-r1/timing-r1/actual-timing-r1/hpc01-parent.myj.stdout",
+      "sha256": "1810bd4fd9e4708e6b6ce3316a8fe6f560862ecb49371e488b9ccbcb53b51c64",
+      "bytes": 246
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-mixlen-dead-scratch-reuse-r1/timing-r1/actual-timing-r1/hpc01-parent.raw",
+      "sha256": "11da588abce3f05638eb865c891b73e296e314b4b1ef0d08af63a248d63918af",
+      "bytes": 1632
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-mixlen-dead-scratch-reuse-r1/timing-r1/actual-timing-r1/hpc04-candidate.arm.json",
+      "sha256": "0d0ec567d6b17eadec4c31b1eb9d9b0cf6bbd2132e43e1d71372ded1f7344b48",
+      "bytes": 2407
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-mixlen-dead-scratch-reuse-r1/timing-r1/actual-timing-r1/hpc04-candidate.mixlen.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-mixlen-dead-scratch-reuse-r1/timing-r1/actual-timing-r1/hpc04-candidate.mixlen.stdout",
+      "sha256": "b0448d1c1336d19c0762e8d8b1f9d095a01f5426e228ac9f3cca9589e140fc4e",
+      "bytes": 126
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-mixlen-dead-scratch-reuse-r1/timing-r1/actual-timing-r1/hpc04-candidate.myj.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-mixlen-dead-scratch-reuse-r1/timing-r1/actual-timing-r1/hpc04-candidate.myj.stdout",
+      "sha256": "54671c1715064216002e340a8e85f10d208b3f38bbe86bf1469dbfbfb404e97e",
+      "bytes": 246
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-mixlen-dead-scratch-reuse-r1/timing-r1/actual-timing-r1/hpc04-candidate.raw",
+      "sha256": "11da588abce3f05638eb865c891b73e296e314b4b1ef0d08af63a248d63918af",
+      "bytes": 1632
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-mixlen-dead-scratch-reuse-r1/timing-r1/actual-timing-r1/hpc04-parent.arm.json",
+      "sha256": "3dc281c6e168b94fc58710765f1aea6617d7f7eb037d175808c4215c9fbd5bb1",
+      "bytes": 2374
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-mixlen-dead-scratch-reuse-r1/timing-r1/actual-timing-r1/hpc04-parent.mixlen.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-mixlen-dead-scratch-reuse-r1/timing-r1/actual-timing-r1/hpc04-parent.mixlen.stdout",
+      "sha256": "85b21ad1d5888f0a01deed6cd5481048210477595319b778a3620944b77a8c9d",
+      "bytes": 126
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-mixlen-dead-scratch-reuse-r1/timing-r1/actual-timing-r1/hpc04-parent.myj.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-mixlen-dead-scratch-reuse-r1/timing-r1/actual-timing-r1/hpc04-parent.myj.stdout",
+      "sha256": "6deb0a223796c69caa7ec3fdd1b6e2ee6574182af868d1a8954aa6fa0cfd377d",
+      "bytes": 246
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-mixlen-dead-scratch-reuse-r1/timing-r1/actual-timing-r1/hpc04-parent.raw",
+      "sha256": "11da588abce3f05638eb865c891b73e296e314b4b1ef0d08af63a248d63918af",
+      "bytes": 1632
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-mixlen-dead-scratch-reuse-r1/NATIVE_QUALIFICATION.json",
+      "sha256": "1cd383339e62361ad8d4dd178e1717fc334b6f7c4bbf6a53fa5787b6ade1060a",
+      "bytes": 7574
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-mixlen-dead-scratch-reuse-r1/timing-r1/MANIFEST.json",
+      "sha256": "ee086ca448765fa53a718eb3c3456e02221ba9af7e9283ec9516aeac0932b438",
+      "bytes": 2775
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-mixlen-dead-scratch-reuse-r1/timing-r1/ROOT_COMPLETE_RELEASE.json",
+      "sha256": "df294b0f6cd8ae995330fba25da3dfa01aed3170e6519360317243e2a756396d",
+      "bytes": 1146
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-mixlen-dead-scratch-reuse-r1/timing-r1/CLOCK_SCOPE.json",
+      "sha256": "dfc0c3e621cf5750ae85282ec37075b866b307183dcf867646468e5014c43e87",
+      "bytes": 1172
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-mixlen-dead-scratch-reuse-r1/timing-r1/TIMING_DISPATCH.json",
+      "sha256": "14729a08a9161de449e94306ec281a4fc375a394e1df9e9239634aa5e6430818",
+      "bytes": 20097
+    }
+  ]
+}

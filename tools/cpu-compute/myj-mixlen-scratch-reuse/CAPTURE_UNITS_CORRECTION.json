@@ -1,0 +1,146 @@
+{
+  "status": "ROOT_MAIN_EVIDENCE_HANDOFF_DESCRIPTIVE_UNITS_CORRECTION_ONLY",
+  "no_original_file_mutation": true,
+  "actual_source": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-mixlen-dead-scratch-reuse-r1/native-gate-r1/state_native_replay.f90",
+  "actual_source_sha256": "5715a3ee467f29727f52ba84734e8191ae396d3bc111edee0c596040a39a2bf2",
+  "proof": [
+    {
+      "line": 20,
+      "text": "INTEGER(C_INT32_T),POINTER::raw(:)"
+    },
+    {
+      "line": 453,
+      "text": "checked_mutable=checked_mutable+COUNT(mask_qsfc==1,KIND=8)"
+    },
+    {
+      "line": 458,
+      "text": "checked_mutable=checked_mutable+COUNT(mask_thz0==1,KIND=8)"
+    },
+    {
+      "line": 461,
+      "text": "checked_mutable=checked_mutable+COUNT(mask_qz0==1,KIND=8)"
+    },
+    {
+      "line": 464,
+      "text": "checked_mutable=checked_mutable+COUNT(mask_uz0==1,KIND=8)"
+    },
+    {
+      "line": 467,
+      "text": "checked_mutable=checked_mutable+COUNT(mask_vz0==1,KIND=8)"
+    },
+    {
+      "line": 478,
+      "text": "checked_mutable=checked_mutable+COUNT(mask_tke_myj==1,KIND=8)"
+    },
+    {
+      "line": 481,
+      "text": "checked_mutable=checked_mutable+COUNT(mask_exch_h==1,KIND=8)"
+    },
+    {
+      "line": 484,
+      "text": "checked_mutable=checked_mutable+COUNT(mask_ustar==1,KIND=8)"
+    },
+    {
+      "line": 487,
+      "text": "checked_mutable=checked_mutable+COUNT(mask_znt==1,KIND=8)"
+    },
+    {
+      "line": 490,
+      "text": "checked_out=checked_out+COUNT(mask_el_myj==1,KIND=8)"
+    },
+    {
+      "line": 493,
+      "text": "checked_out=checked_out+COUNT(mask_pblh==1,KIND=8)"
+    },
+    {
+      "line": 496,
+      "text": "checked_out=checked_out+COUNT(mask_kpbl==1,KIND=8)"
+    },
+    {
+      "line": 499,
+      "text": "checked_mutable=checked_mutable+COUNT(mask_ct==1,KIND=8)"
+    },
+    {
+      "line": 502,
+      "text": "checked_mutable=checked_mutable+COUNT(mask_akhs==1,KIND=8)"
+    },
+    {
+      "line": 505,
+      "text": "checked_mutable=checked_mutable+COUNT(mask_akms==1,KIND=8)"
+    },
+    {
+      "line": 510,
+      "text": "checked_out=checked_out+COUNT(mask_mixht==1,KIND=8)"
+    },
+    {
+      "line": 513,
+      "text": "checked_out=checked_out+COUNT(mask_rublten==1,KIND=8)"
+    },
+    {
+      "line": 516,
+      "text": "checked_out=checked_out+COUNT(mask_rvblten==1,KIND=8)"
+    },
+    {
+      "line": 519,
+      "text": "checked_out=checked_out+COUNT(mask_rthblten==1,KIND=8)"
+    },
+    {
+      "line": 522,
+      "text": "checked_out=checked_out+COUNT(mask_rqvblten==1,KIND=8)"
+    },
+    {
+      "line": 525,
+      "text": "checked_out=checked_out+COUNT(mask_rqcblten==1,KIND=8)"
+    },
+    {
+      "line": 528,
+      "text": "checked_out=checked_out+COUNT(mask_rqiblten==1,KIND=8)"
+    },
+    {
+      "line": 530,
+      "text": "WRITE(*,*)'PASS_NATIVE_MYJ_FULL_INOUT_DEFINED_OUT_AND_INPUT_STATE',checked_mutable,checked_out"
+    }
+  ],
+  "actual_counts": {
+    "selected_INOUT_words32": 471200,
+    "selected_defined_OUT_words32": 428640,
+    "INOUT_bytes_at4B_word": 1884800,
+    "defined_OUT_bytes_at4B_word": 1714560
+  },
+  "affected_immutable_descriptions": [
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-mixlen-dead-scratch-reuse-r1/NATIVE_QUALIFICATION.json",
+      "sha256": "1cd383339e62361ad8d4dd178e1717fc334b6f7c4bbf6a53fa5787b6ade1060a",
+      "fields": [
+        "capture.INOUT_bytes_checked",
+        "capture.defined_OUT_bytes_checked"
+      ],
+      "correction": "Stored numeric values are selected32-bit word counts despite byte-named descriptive keys. Preserve old file; cite this sidecar."
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-mixlen-dead-scratch-reuse-r1/timing-r1/TIMING_QUALIFICATION.json",
+      "sha256": "9d0741b0b185770ab17fe76a43f392af8e4ff2f2c229c0c07cf88e9e4049f478",
+      "fields": [
+        "correctness.full_captured_inout_bytes",
+        "correctness.full_captured_defined_out_bytes"
+      ],
+      "correction": "Stored numeric values are selected32-bit word counts. Direct raw1632B and MIXLEN native raw13056B are actual file lengths and remain correct."
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-isa-targeting-source-feasibility-r1/provider-preparation-r1/AUTHOR_PACKET.txt",
+      "sha256": "10f1e2cc71085bb7e5e0650075ece29e8a40d4197d6100b0439463a0c2d755d3",
+      "correction": "Declared fullcaptureB prose wrong; no exported science arrays, no packet rewrite/APIretry."
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-isa-targeting-source-feasibility-r1/provider-preparation-r1/REVIEW_PACKET.txt",
+      "sha256": "1a7309a6e5e284bb3ccccebe7929a76242f94e0186fbc78ab4de228ea662fc0c",
+      "correction": "Same word/byte prose correction; reviewer/author outputs do not change original hardcounts/oracles."
+    }
+  ],
+  "unchanged": [
+    "All native/timing PASS markers actualcounts471200/428640 unchanged.",
+    "Original capture/raw oracles, mask checks, saved states and five-word IEEE observations unchanged.",
+    "All original receipts/source-pins/payloads/provider outputs preserved.",
+    "No application or performance qualification transfer and no new main/default write."
+  ]
+}

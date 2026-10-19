@@ -1,0 +1,78 @@
+{
+  "status": "RECOMMEND_PARK_PENDING_ROOT_DISPOSITION",
+  "reason": "One allocation/free pair is demonstrably removed, but direct MIXLEN wall/CPU results are small and opposite signed across hosts. Complete captured caller improved modestly on both hosts; this single opposite-order screen does not establish a significant kernel gain or forecast benefit.",
+  "qualification": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-mixlen-dead-scratch-reuse-r1/timing-r1/TIMING_QUALIFICATION.json",
+  "qualification_sha256": "9d0741b0b185770ab17fe76a43f392af8e4ff2f2c229c0c07cf88e9e4049f478",
+  "comparisons": [
+    {
+      "host": "hpc04",
+      "measurements": {
+        "myj": {
+          "parent": {
+            "wall_seconds": 3.607951887,
+            "cpu_seconds": 3.602156,
+            "repeats": 512
+          },
+          "candidate": {
+            "wall_seconds": 3.58249579,
+            "cpu_seconds": 3.5758490000000003,
+            "repeats": 512
+          },
+          "wall_reduction_percent": 0.7055553343635834,
+          "cpu_reduction_percent": 0.7303126238841329
+        },
+        "mixlen": {
+          "parent": {
+            "wall_seconds": 1.074528731,
+            "cpu_seconds": 1.073973,
+            "repeats": 1048576
+          },
+          "candidate": {
+            "wall_seconds": 1.07303791,
+            "cpu_seconds": 1.0726390000000001,
+            "repeats": 1048576
+          },
+          "wall_reduction_percent": 0.1387418462615253,
+          "cpu_reduction_percent": 0.12421168874822142
+        }
+      },
+      "raw_sha256": "11da588abce3f05638eb865c891b73e296e314b4b1ef0d08af63a248d63918af"
+    },
+    {
+      "host": "hpc01",
+      "measurements": {
+        "myj": {
+          "parent": {
+            "wall_seconds": 3.591599722,
+            "cpu_seconds": 3.5856619999999997,
+            "repeats": 512
+          },
+          "candidate": {
+            "wall_seconds": 3.582581532,
+            "cpu_seconds": 3.57754,
+            "repeats": 512
+          },
+          "wall_reduction_percent": 0.2510911765796209,
+          "cpu_reduction_percent": 0.22651326310175746
+        },
+        "mixlen": {
+          "parent": {
+            "wall_seconds": 1.07462749,
+            "cpu_seconds": 1.073948,
+            "repeats": 1048576
+          },
+          "candidate": {
+            "wall_seconds": 1.078720871,
+            "cpu_seconds": 1.0783429999999998,
+            "repeats": 1048576
+          },
+          "wall_reduction_percent": -0.38091162175648563,
+          "cpu_reduction_percent": -0.40923769121037346
+        }
+      },
+      "raw_sha256": "11da588abce3f05638eb865c891b73e296e314b4b1ef0d08af63a248d63918af"
+    }
+  ],
+  "source_and_native_evidence_preserved": true,
+  "main_and_default_unmodified": true
+}
