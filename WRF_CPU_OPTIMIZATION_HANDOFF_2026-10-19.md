@@ -2,7 +2,27 @@
 
 Initial snapshot: **2026-10-19 09:35 UTC**; latest recovery update: **2026-10-19 16:54 UTC**. This is a recovery and evidence handoff, **not a campaign closeout**. The persistent Goal is active. Continue authorized work after writing or reading this file; a status response, negative experiment, successful test or promotion is not a stopping point.
 
-## Latest update: rain/snow family promoted (2026-10-19 18:18 UTC)
+## Latest update: TCG sharing and later RK pass fusion (2026-10-19 18:57 UTC)
+
+Current working selection is **3bb2b8f1/source26bcd59c**, with all prior compute and375/881/825/faba/FIELDVIEW1/shared1/InfiniBand improvements. TCG is now the23rd shared Thompson field on the12th fixed owner. Later RK stages fuse the existing ordered multiply and addition when extents match; the unequal-extent fallback and RK1 remain unchanged. **Four complete original outputs,545 ordered steps,all512 ranks,two tiles and all four writer groups passed exactly**; all model/reader scopes closed. FQ`28018b19`, science`ddc294c7`, readerclosure`8a82ccb7`. Post-test source26bcd59c tracks exactc53 Thompson andca2c module_em; frozen producerNULL records remain unchanged.
+
+| Measure | Retained corrected original | Latest combined | Lower |
+|---|---:|---:|---:|
+| Whole model/MPI wall | 820.506360 s | 673.517184 s | 17.9144% |
+| Aggregate CPU, including output | 367,800.485597 s | 325,722.091547 s | 11.4405% |
+| Main-step elapsed, including communication/backpressure | 597.994050 s | 565.124270 s | 5.4967% |
+
+This is **UNPAIRED** against the retained fresh corrected-original546b reference, with checked client cache clears and uncontrolled file-server conditions. Throughput is1.21824×;1.5×/2× goals remain unmet. Previous qualified familye485 wall676.104556s is a separate improved-build observation, not a causal TCG/RK estimate. Main is not integration CPU; wall-minus-main is not pure I/O. Do not add caller or forecast percentages.
+
+The full synthetic public RK caller was **22.9332% and21.5093% shorter** in two opposite-order same-host pairs, with exact bytes/state and actualcurrent0f53 untimedgold. **Whole-harness CPU was higher**:17.264988→18.610768s and17.094994→18.596748s; cause unknown. The call-only gain is not a whole-harness CPU gain. Native52cases×4rounding modes/O0bounds/O2 passed. Reconstructed canonicalparent090d differs from current0f53 only three proven Fortran WRITE source-line literals; it is explicitly a distinct binary, with actual0f53 retained as an additional hard numerical/state oracle. No source/PP/object normalization or scientific relaxation.
+
+TCG's experimental macro deliberately replaces its PUBLIC ALLOCATABLE sentinel with a PRIVATE CONTIGUOUS pointer and private INIT stage. All12 owner statuses and23 views commit before stage frees;TCG staging frees last. The generic no-macro projection, original arithmetic/table records and helper ABI are preserved. Actual four-rank O0bounds/O2/private native routes retain original11callers,two init calls,all23records/raw/state; a consumer rebuild and one-member RK overlay bind the selected image. See[TCG qualification](tools/cpu-memory/thompson-table-sharing/TCG_EXTENSION_QUALIFICATION.json) and[RK qualification](tools/cpu-compute/rk-later-pass-fusion/QUALIFICATION.json).
+
+Candidate peaks were82.592/80.431/80.393/80.363GiB, with zero memory-limit events. At nearby early progress points, current memory was1.47–1.61GiB/node lower than the previous family build; these are different-run, non-atomic observations, not isolatedTCG PSS or matched-phase measurements. Startup stages overlap shared publication and peaks did not fall, so no new startup-peak saving is claimed. Retain the qualified immutable-sharing mechanism and significant exact caller gain under the owner inclusion rule; no demonstrated unacceptable cost has been established.
+
+Rollback is **e485/source0828** via`tools/cpu-working/PREVIOUS_SELECTION_E485.json`, with identical375/881/825/faba/FIELDVIEW1/shared1/IB. Private mode0 is native-only. Current3bb2 owns this three-hour qualification; earlierTEN322 nine-hour results remain historical and do not transfer. Production/master remain untouched; AWS is suspended. Continue with the prepared short current-build mixed-daylight profile and measured follow-up, not a campaign closeout.
+
+## Previous update: rain/snow family promoted (2026-10-19 18:18 UTC)
 
 Current source **0828f5a0270c193f50cb11ec7c5155b31f3e2b1e**, selected executable **e4856893** (`thompson-eleven-family-owner-canonical-current-r1/wrf.exe`), archive629f81ce. Twelve additional original rain/snow fields share ONE family owner, giving22 shared fields/11 owners. OrdinaryTCG sentinel, numerical expressions, table records, helpers and375/881/825/faba/FIELDVIEW1/shared1/IB remain unchanged. Full original4products/545steps/all512/twoTiles/fourwriters passed; every model/reader scope closed. FQ`e488f190`, science`851addb7`, readerclosure`4e175e5f`. Frozen producers remainNULL; post-test0828 tracks exacte972.
 

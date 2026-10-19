@@ -1,12 +1,15 @@
 {
-  "status": "PASS_CURRENT_RAIN_SNOW_FAMILY_THREE_HOUR_ORIGINAL_FULL_GATE_AND_ALL_OWN_SCOPES_CLOSED",
-  "created_utc": "2026-10-19T18:12:23.835768+00:00",
-  "runtime": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rain-snow-family3h-runtime-r1",
-  "candidate_executable_sha256": "e4856893a47538dccc928175a4796fe11e12e2a6bc42cafc78074863df681f57",
-  "candidate_archive_sha256": "629f81cece38065633d139510063b2134468d5bfc667e0135df10c948e518891",
-  "candidate_canonical_source_sha256": "e9722180035adf75188a8d355c7fc7a25f868a8bcf5f0972e9410ab764f2bb20",
+  "status": "PASS_CURRENT_TCG_RK_COMBINED_THREE_HOUR_ORIGINAL_FULL_GATE_AND_ALL_OWN_SCOPES_CLOSED",
+  "created_utc": "2026-10-19T18:56:48.731920+00:00",
+  "runtime": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-tcg-rk-combined3h-runtime-r1",
+  "candidate_executable_sha256": "3bb2b8f17ed5c5c8cb2afe9b1e68faf162a66c37546a366a00179411b651c4df",
+  "candidate_archive_sha256": "76b137ef8204cf85a470074dae282b21074605f010fb25692ab04e01a80a3daa",
+  "candidate_canonical_source_sha256": {
+    "TCG": "c53e05b4eade5beab10adfe56b2e7b43be14775fce7abddef0733071d730f29f",
+    "RK": "ca2c2f614bd6e7b6b9c4545d0974890de1ee8254032a55fa205066eb80434dad"
+  },
   "candidate_source_commit": null,
-  "source_scope": "Frozen producer source_commit NULL remains unchanged. 4480 is testedTEN parent ancestry only; any root post-test commit is separate tracking. Qualified CQU a241, PD8ec and BCde98 preserved.",
+  "source_scope": "Both actualTCGconsumerproducer and qualifiedRKoverlay producer source_commitNULL unchanged. Family0828/TEN4480 are ancestry/posttesttracking only. RootfuturepostSCIcommit separate. ActualRKcanonicalparent distinct090d/d5da threeWRITEdiagnosticliterals, NOTELFidentical0f53; actualcurrent0f53 raw/stateoracle heldhard.",
   "acceptance": {
     "original_products_passed": 4,
     "ordered_steps": 545,
@@ -23,12 +26,12 @@
       503,
       511
     ],
-    "science_sha256": "851addb717357da242a1d7f961c9023440d373fb1f27673d9a901b75be05d80c",
-    "reader_closure_sha256": "4e175e5fd315ec2ea386a12d46c9c2b4e0efa3408d94923d0ae21b5cab9878c5",
-    "reader_invocation_id": "4723952effa04988aa6ec178a6c8053f",
+    "science_sha256": "ddc294c795f685b0bac63c17d416ac54e7f9b9f1f5a3c6daeb11f3ce64d56b69",
+    "reader_closure_sha256": "8a82ccb775b459e6040e908735924e39cae0398f38a6dd660cb9711c2140aba8",
+    "reader_invocation_id": "2b17584572484e81b35dfb29b93ddd24",
     "all_own_model_and_reader_scopes_closed": true
   },
-  "comparison_design": "UNPAIRED retained original control; no isolated rain-snow-family gain attribution",
+  "comparison_design": "UNPAIRED retained original control; no isolated TCG/RK gain attribution",
   "metrics": {
     "control": {
       "wall_seconds": 820.5063595210668,
@@ -36,15 +39,15 @@
       "main_step_sum_seconds": 597.99405
     },
     "candidate": {
-      "wall_seconds": 676.1045558119658,
-      "cpu_seconds": 326624.01663399994,
-      "main_step_sum_seconds": 566.47358
+      "wall_seconds": 673.5171840980183,
+      "cpu_seconds": 325722.091547,
+      "main_step_sum_seconds": 565.12427
     }
   },
   "reductions_percent": {
-    "wall_seconds": 17.599108408299102,
-    "cpu_seconds": 11.195327514634446,
-    "main_step_sum_seconds": 5.27103405125855
+    "wall_seconds": 17.914446819016327,
+    "cpu_seconds": 11.440548802348626,
+    "main_step_sum_seconds": 5.496673420078347
   },
   "per_host_final": {
     "control": {
@@ -151,10 +154,10 @@
     },
     "candidate": {
       "hpc01": {
-        "invocation_id": "c700d6571b0e4317a9bd072cf8633b4b",
-        "wall_seconds": 676.1045558119658,
-        "memory_peak_bytes": 88566370304,
-        "memory_peak_GiB": 82.48386001586914,
+        "invocation_id": "56056ab55abe4c458569e134ded49111",
+        "wall_seconds": 673.5171840980183,
+        "memory_peak_bytes": 88682180608,
+        "memory_peak_GiB": 82.59171676635742,
         "memory_events": {
           "low": 0,
           "high": 0,
@@ -164,22 +167,22 @@
           "oom_group_kill": 0
         },
         "cpu_stat": {
-          "usage_usec": 81655334622,
-          "user_usec": 79907497476,
-          "system_usec": 1747837146,
+          "usage_usec": 81405442477,
+          "user_usec": 79675087562,
+          "system_usec": 1730354915,
           "core_sched.force_idle_usec": 0,
-          "nr_periods": 6768,
-          "nr_throttled": 4695,
-          "throttled_usec": 21398698,
+          "nr_periods": 6743,
+          "nr_throttled": 5191,
+          "throttled_usec": 7901551,
           "nr_bursts": 0,
           "burst_usec": 0
         }
       },
       "hpc02": {
-        "invocation_id": "85f144b7fcef41289e3f7adc5d19ef88",
-        "wall_seconds": 672.6495090159588,
-        "memory_peak_bytes": 86213275648,
-        "memory_peak_GiB": 80.2923698425293,
+        "invocation_id": "236e60cd2e744e4b888f3f2e474f78bc",
+        "wall_seconds": 670.3060049759224,
+        "memory_peak_bytes": 86362624000,
+        "memory_peak_GiB": 80.43146133422852,
         "memory_events": {
           "low": 0,
           "high": 0,
@@ -189,22 +192,22 @@
           "oom_group_kill": 0
         },
         "cpu_stat": {
-          "usage_usec": 81637747796,
-          "user_usec": 79753210490,
-          "system_usec": 1884537305,
+          "usage_usec": 81422265211,
+          "user_usec": 79548082787,
+          "system_usec": 1874182423,
           "core_sched.force_idle_usec": 0,
-          "nr_periods": 6722,
-          "nr_throttled": 4531,
-          "throttled_usec": 26673113,
+          "nr_periods": 6700,
+          "nr_throttled": 5228,
+          "throttled_usec": 10479795,
           "nr_bursts": 0,
           "burst_usec": 0
         }
       },
       "hpc03": {
-        "invocation_id": "5c414f87451d44629c320e266bed758f",
-        "wall_seconds": 672.6773862449918,
-        "memory_peak_bytes": 86193680384,
-        "memory_peak_GiB": 80.27412033081055,
+        "invocation_id": "d8e739e0135e4ed1b0056f51ab16afae",
+        "wall_seconds": 670.3218771978281,
+        "memory_peak_bytes": 86321815552,
+        "memory_peak_GiB": 80.3934555053711,
         "memory_events": {
           "low": 0,
           "high": 0,
@@ -214,22 +217,22 @@
           "oom_group_kill": 0
         },
         "cpu_stat": {
-          "usage_usec": 81705934195,
-          "user_usec": 79799567815,
-          "system_usec": 1906366379,
+          "usage_usec": 81469960785,
+          "user_usec": 79606807605,
+          "system_usec": 1863153179,
           "core_sched.force_idle_usec": 0,
-          "nr_periods": 6725,
-          "nr_throttled": 5141,
-          "throttled_usec": 10120384,
+          "nr_periods": 6700,
+          "nr_throttled": 5318,
+          "throttled_usec": 8944071,
           "nr_bursts": 0,
           "burst_usec": 0
         }
       },
       "hpc04": {
-        "invocation_id": "cf7fc399e8144152908c374a5a5fbfa0",
-        "wall_seconds": 672.6841162729543,
-        "memory_peak_bytes": 86169092096,
-        "memory_peak_GiB": 80.251220703125,
+        "invocation_id": "1a71ff28aef84b4fa815f9348349d96d",
+        "wall_seconds": 670.2345074021723,
+        "memory_peak_bytes": 86289596416,
+        "memory_peak_GiB": 80.36344909667969,
         "memory_events": {
           "low": 0,
           "high": 0,
@@ -239,186 +242,216 @@
           "oom_group_kill": 0
         },
         "cpu_stat": {
-          "usage_usec": 81625000021,
-          "user_usec": 79697375283,
-          "system_usec": 1927624737,
+          "usage_usec": 81424423074,
+          "user_usec": 79480744028,
+          "system_usec": 1943679046,
           "core_sched.force_idle_usec": 0,
-          "nr_periods": 6725,
-          "nr_throttled": 3869,
-          "throttled_usec": 30129763,
+          "nr_periods": 6699,
+          "nr_throttled": 4444,
+          "throttled_usec": 9950132,
           "nr_bursts": 0,
           "burst_usec": 0
         }
       }
     }
   },
-  "memory_context_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-b-memory-criticalpath-r1/rain-snow-family-threehour-preparation-r1/lifecycle-r1/MEMORY_CONTEXT.json",
-  "limits": "UNPAIRED retained fresh corrected-original546b three-hour820.5063595210668 reference. No isolated table/kernel memory or speed claim, no repeatability/global causal claim. MPI wall, aggregate host cgroup CPU and main-step sums have distinct scopes; wall-minus-main is not pure IO. Fixed current cold/maxdom1/OMP1/two-tile ordinary case, DIMNRHG1, shared mode1 only; no restart/allbackend/mode0 application transfer.",
+  "memory_context_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-b-memory-criticalpath-r1/tcg-rk-combined-threehour-preparation-r1/lifecycle-r1/MEMORY_CONTEXT.json",
+  "limits": "UNPAIRED retainedfreshcorrected-original546b820.506s/1200context. No isolatedTCG/RK memory/speedgain or repeatability/globalcausal claim; distinctMPIwall/aggregatehostCPU/mainstep scopes. Fullapplicationdoesnotinheritcall-onlysyntheticRKgain/wholeharnessCPUclaim. Currentcold/maxdom1/OMP1/twoTile/ordinary/DIMNRHG1/shared1 only; no9h/restart/allbackend/mode0applicationtransfer.",
   "raw_references": [
     {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rain-snow-family3h-runtime-r1/science-receipt.json",
-      "sha256": "851addb717357da242a1d7f961c9023440d373fb1f27673d9a901b75be05d80c",
-      "bytes": 4433931
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-tcg-rk-combined3h-runtime-r1/science-receipt.json",
+      "sha256": "ddc294c795f685b0bac63c17d416ac54e7f9b9f1f5a3c6daeb11f3ce64d56b69",
+      "bytes": 4438219
     },
     {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rain-snow-family3h-runtime-r1/reader-closure.json",
-      "sha256": "4e175e5fd315ec2ea386a12d46c9c2b4e0efa3408d94923d0ae21b5cab9878c5",
-      "bytes": 3934
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-tcg-rk-combined3h-runtime-r1/reader-closure.json",
+      "sha256": "8a82ccb775b459e6040e908735924e39cae0398f38a6dd660cb9711c2140aba8",
+      "bytes": 3925
     },
     {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rain-snow-family3h-runtime-r1/RESULT.json",
-      "sha256": "975626e331997896ef4e0a3c16828aef17b94217a1450d3198b5a19a63e1909a",
-      "bytes": 1178
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-tcg-rk-combined3h-runtime-r1/RESULT.json",
+      "sha256": "1b9063ab295ba45b2e5c70a6a9adb9efe9de4a155705d7bb022aea357767b2b9",
+      "bytes": 1166
     },
     {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rain-snow-family3h-runtime-r1/candidate-closures.json",
-      "sha256": "676fc5503179d6ec3cec5a839571f79673896297f9021951073d93e7415ec5ef",
-      "bytes": 1448
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-tcg-rk-combined3h-runtime-r1/candidate-closures.json",
+      "sha256": "b6ca653fd43970d38089bd468d96f886a741b76c99b20782d6953b44eaa6e9a5",
+      "bytes": 1444
     },
     {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rain-snow-family3h-runtime-r1/source-pins.json",
-      "sha256": "7bcb0f5ec2d2f20e405a9d6120248cde4c279351f506799d164e3457f4a91a65",
-      "bytes": 30134
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-tcg-rk-combined3h-runtime-r1/source-pins.json",
+      "sha256": "c2bced0995dbd9cf0e7c0fbd615b2a55a00183aeb30a61b45a6e2999733490d2",
+      "bytes": 34187
     },
     {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rain-snow-family3h-runtime-r1/application-binding.json",
-      "sha256": "5f3e2607553562087c2876517ef7abcecafb6e0649db3d93d57d18aebfdc03b7",
-      "bytes": 6364
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-tcg-rk-combined3h-runtime-r1/application-binding.json",
+      "sha256": "6920f6ba058c8e00d32a3243106e1a51bee8e1bf63ac0b8130e302ccf7cb5c5b",
+      "bytes": 10833
     },
     {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rain-snow-family3h-runtime-r1/family-build-receipt.json",
-      "sha256": "ceac9605b890a185490d2c16009a460a5901716d92c6daea742dbf948ac8701c",
-      "bytes": 72068
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-tcg-rk-combined3h-runtime-r1/overlay-build-receipt.json",
+      "sha256": "873f9ef5b67f443ebbfaa510ffa8dc49f6d02d47993edfa5249214e1d6603ebb",
+      "bytes": 17010
     },
     {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rain-snow-family3h-runtime-r1/family-build-closure.json",
-      "sha256": "9574b6faa7ef58212d04797a0dc0bb5920a7233024e2909014d2e05c436a6164",
-      "bytes": 1130
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-tcg-rk-combined3h-runtime-r1/overlay-build-closure.json",
+      "sha256": "4e6e87e00841ebf9e51365485a4ada27778ffa989b9b747f6b2ef27d7a02aa18",
+      "bytes": 1097
     },
     {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rain-snow-family3h-runtime-r1/family-native-receipt.json",
-      "sha256": "9dd4cb554ffade797f0a6e497ff7a398fab2a169d5c194f9b7f2c99879692472",
-      "bytes": 1954162
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-tcg-rk-combined3h-runtime-r1/overlay-ordered-proof.json",
+      "sha256": "f34b37063ae557c82e831e48a11d8113d965df6ab53a5b8927af3411de7a600c",
+      "bytes": 209925
     },
     {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rain-snow-family3h-runtime-r1/family-native-closure.json",
-      "sha256": "322bccd1d9f54f0342d7edea50b296fba4dc9f4189c656960141eb4b1ce85685",
-      "bytes": 1126
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-tcg-rk-combined3h-runtime-r1/overlay-build-qualification.json",
+      "sha256": "0a3057db2dbde5e8dc657623c869292e7e3f84a1dfbc643985591a538f16e7ca",
+      "bytes": 13098
     },
     {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-b-memory-criticalpath-r1/rain-snow-family-threehour-preparation-r1/lifecycle-r1/candidate-STARTUP_METADATA_CENSUS.json",
-      "sha256": "cc1ed26e276155e4f38609509e684390f70a52e0ad3eb385cea12e1b988f40c6",
-      "bytes": 11774
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-tcg-rk-combined3h-runtime-r1/tcg-build-receipt.json",
+      "sha256": "b7e3d4571f97e26b53d323f89c3f8b4e2b85482613ff8741f60039bf7f100b06",
+      "bytes": 71715
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-tcg-rk-combined3h-runtime-r1/tcg-build-closure.json",
+      "sha256": "7521785d200ee77ec20638ec5741221db00353d515d345de0ad4699cc5a13794",
+      "bytes": 1121
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-tcg-rk-combined3h-runtime-r1/tcg-build-qualification.json",
+      "sha256": "196e097f5ed7ad6e72913ffd82f5636b305bcdafeb87da61cfe50461566615af",
+      "bytes": 9795
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-tcg-rk-combined3h-runtime-r1/rk-native-receipt.json",
+      "sha256": "b26ae9b59c095be1df9a926e4ce64ad2d9a41a1f10b5a9cb441426d580be33be",
+      "bytes": 52533
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-tcg-rk-combined3h-runtime-r1/rk-native-closure.json",
+      "sha256": "c6714a02406fdffb59d65dbfaefcbd991d72859df9157dfd79c50b90d233a184",
+      "bytes": 1108
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-tcg-rk-combined3h-runtime-r1/rk-caller-timing.json",
+      "sha256": "6945db0c00d010ae9534618258c0e876016607abcb17f46977719bb87f778718",
+      "bytes": 29604
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-tcg-rk-combined3h-runtime-r1/control-metadata/adaptive-steps.json",
+      "sha256": "bd75fefdfa94bc6895f68c39867232bbc5bf1f06bc975f020b076bfad3d58318",
+      "bytes": 61525
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-tcg-rk-combined3h-runtime-r1/control-metadata/cache-start-context.json",
+      "sha256": "4b510cdb71a380854a2ea8aa44f92998e6d37305caf7fd6e48eb7a26a416365e",
+      "bytes": 362
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-tcg-rk-combined3h-runtime-r1/control-metadata/completion.json",
+      "sha256": "4218295a3646fbdc81bb7c8c1f265ca1d406c02f05eba908427444bb5c55f533",
+      "bytes": 916
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-tcg-rk-combined3h-runtime-r1/control-metadata/hpc02-node.json",
+      "sha256": "429a27f583bfc755dbddd8f5b431bacd27d550fb33ee73af2ae8b28a23bb79a5",
+      "bytes": 3357
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-tcg-rk-combined3h-runtime-r1/control-metadata/hpc03-node.json",
+      "sha256": "ce3c3df5661cdcc47e3e30e6420e6e97fbf004d5c5aa30743451528d4e092e8a",
+      "bytes": 3358
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-tcg-rk-combined3h-runtime-r1/control-metadata/hpc04-node.json",
+      "sha256": "5d9af01da7024415ef8285552e0083142d75e2d775866da2021bf7b71a1c76ef",
+      "bytes": 3358
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-tcg-rk-combined3h-runtime-r1/control-metadata/lease.json",
+      "sha256": "7c1965921ccd22838873d0bd2a9d0648c3d1ed58ce9093cb748425846ac4b01b",
+      "bytes": 110312
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-tcg-rk-combined3h-runtime-r1/control-metadata/model-closures.json",
+      "sha256": "790d947e948f853368b79af35e619c2120db536403218dd7b7accaaa9b6e0303",
+      "bytes": 1519
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-tcg-rk-combined3h-runtime-r1/control-metadata/mpi-launch.json",
+      "sha256": "ad8cad8923574daf26bba507780425967ff3630eafde4e4afad1ce4ed7aaa44a",
+      "bytes": 4991
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-tcg-rk-combined3h-runtime-r1/candidate-metadata/adaptive-steps.json",
+      "sha256": "5f5d7a43979331f23751261f5ebc80c5191348850a9b11f6fd3fe83220c99642",
+      "bytes": 61529
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-tcg-rk-combined3h-runtime-r1/candidate-metadata/cache-start-context.json",
+      "sha256": "ac40393b7f42cd80eb6b2b4b7b7634cd4e0f1a7e3bb513759619671e04fd5c1f",
+      "bytes": 362
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-tcg-rk-combined3h-runtime-r1/candidate-metadata/completion.json",
+      "sha256": "37eb999660b2264846431376086a3bb6509702cc59e9912221b982d35a314ad2",
+      "bytes": 933
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-tcg-rk-combined3h-runtime-r1/candidate-metadata/hpc02-node.json",
+      "sha256": "ff12af20ccb8df9f9c4e051f2145d3cc887a2c19e90958256b92773be07c8edd",
+      "bytes": 3730
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-tcg-rk-combined3h-runtime-r1/candidate-metadata/hpc03-node.json",
+      "sha256": "cd04d591c20c1e47b0c9108688d0b85ab30bbb29684b471998d2acc2293d9851",
+      "bytes": 3729
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-tcg-rk-combined3h-runtime-r1/candidate-metadata/hpc04-node.json",
+      "sha256": "d8ae0cc3a63ec71daf5802618b9b39aa0c649b685019ec0378192da576f4c062",
+      "bytes": 3729
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-tcg-rk-combined3h-runtime-r1/candidate-metadata/lease.json",
+      "sha256": "8e3494782ce614a6ff7b465ad48d229f6bc0856eaf7d04659860a08b9e634eed",
+      "bytes": 113288
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-tcg-rk-combined3h-runtime-r1/candidate-metadata/model-closures.json",
+      "sha256": "ae307c4ee6b71b92becad9ad2655ec0bf724e8aee5b986348ab5e7ad1afdff09",
+      "bytes": 1507
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-tcg-rk-combined3h-runtime-r1/candidate-metadata/mpi-launch.json",
+      "sha256": "fd033bea83f4a5427d6887f20d8d275cd6abac7b4fc45e47cfe170309a65aae3",
+      "bytes": 7259
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-b-memory-criticalpath-r1/tcg-rk-combined-threehour-preparation-r1/lifecycle-r1/candidate-STARTUP_METADATA_CENSUS.json",
+      "sha256": "0931f982b93c6028e9dfd9a7f3e59fa85870d7c19318263e21b5670ea8d1e9cc",
+      "bytes": 11771
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-b-memory-criticalpath-r1/tcg-rk-combined-threehour-preparation-r1/lifecycle-r1/candidate-health-observations.jsonl",
+      "sha256": "62b4568f85992885dfc352505ebe0b84199b8880be307539a55675379c846a3d",
+      "bytes": 72170
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-b-memory-criticalpath-r1/tcg-rk-combined-threehour-preparation-r1/lifecycle-r1/reader-light-observations.jsonl",
+      "sha256": "55acd2c45604b89e98b8f45945196d9c9870bc252233a93abe6a06588eea671d",
+      "bytes": 4098
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-b-memory-criticalpath-r1/tcg-rk-combined-threehour-preparation-r1/lifecycle-r1/MEMORY_CONTEXT.json",
+      "sha256": "12fe3bcc5bac9d648927990253e8ff8f2972babedd97590fd120d46866bc7388",
+      "bytes": 5392
     },
     {
       "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-b-memory-criticalpath-r1/rain-snow-family-threehour-preparation-r1/lifecycle-r1/candidate-health-observations.jsonl",
       "sha256": "98c2e02fc688d17c672f5a1e1a0b29d9d6eba25b53438b8bd98f22a66bfc9c56",
       "bytes": 72242
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-b-memory-criticalpath-r1/rain-snow-family-threehour-preparation-r1/lifecycle-r1/reader-light-observations.jsonl",
-      "sha256": "d17aedded79b9fd67a1ff7e2a83a18768b92dc0884cd45297d3379f559526a89",
-      "bytes": 3348
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-b-memory-criticalpath-r1/rain-snow-family-threehour-preparation-r1/lifecycle-r1/MEMORY_CONTEXT.json",
-      "sha256": "a73d2612c6af18461f21089f06fc7f8ba48719875d02350ff8b32e86b0035ff7",
-      "bytes": 4354
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rain-snow-family3h-runtime-r1/control-metadata/adaptive-steps.json",
-      "sha256": "bd75fefdfa94bc6895f68c39867232bbc5bf1f06bc975f020b076bfad3d58318",
-      "bytes": 61525
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rain-snow-family3h-runtime-r1/control-metadata/cache-start-context.json",
-      "sha256": "4b510cdb71a380854a2ea8aa44f92998e6d37305caf7fd6e48eb7a26a416365e",
-      "bytes": 362
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rain-snow-family3h-runtime-r1/control-metadata/completion.json",
-      "sha256": "4218295a3646fbdc81bb7c8c1f265ca1d406c02f05eba908427444bb5c55f533",
-      "bytes": 916
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rain-snow-family3h-runtime-r1/control-metadata/hpc02-node.json",
-      "sha256": "429a27f583bfc755dbddd8f5b431bacd27d550fb33ee73af2ae8b28a23bb79a5",
-      "bytes": 3357
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rain-snow-family3h-runtime-r1/control-metadata/hpc03-node.json",
-      "sha256": "ce3c3df5661cdcc47e3e30e6420e6e97fbf004d5c5aa30743451528d4e092e8a",
-      "bytes": 3358
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rain-snow-family3h-runtime-r1/control-metadata/hpc04-node.json",
-      "sha256": "5d9af01da7024415ef8285552e0083142d75e2d775866da2021bf7b71a1c76ef",
-      "bytes": 3358
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rain-snow-family3h-runtime-r1/control-metadata/lease.json",
-      "sha256": "7c1965921ccd22838873d0bd2a9d0648c3d1ed58ce9093cb748425846ac4b01b",
-      "bytes": 110312
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rain-snow-family3h-runtime-r1/control-metadata/model-closures.json",
-      "sha256": "790d947e948f853368b79af35e619c2120db536403218dd7b7accaaa9b6e0303",
-      "bytes": 1519
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rain-snow-family3h-runtime-r1/control-metadata/mpi-launch.json",
-      "sha256": "ad8cad8923574daf26bba507780425967ff3630eafde4e4afad1ce4ed7aaa44a",
-      "bytes": 4991
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rain-snow-family3h-runtime-r1/candidate-metadata/adaptive-steps.json",
-      "sha256": "c3dba91a45a4037948d024f6f763ffabb985a5a0905d06a834a31d9c1a1f733b",
-      "bytes": 61527
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rain-snow-family3h-runtime-r1/candidate-metadata/cache-start-context.json",
-      "sha256": "a618386a3af6095066f61304173ada54296f96f6e9d0158510c66ddde184fdf4",
-      "bytes": 362
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rain-snow-family3h-runtime-r1/candidate-metadata/completion.json",
-      "sha256": "8148210f4f89afdd10b640bc924993f91eaebbde028ff86b398e6dfcbf6ca672",
-      "bytes": 933
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rain-snow-family3h-runtime-r1/candidate-metadata/hpc02-node.json",
-      "sha256": "9e94ffd1a3d5bc33b2de5ce14daaa3740425132b5e8e86f8503daddf0b12092c",
-      "bytes": 3733
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rain-snow-family3h-runtime-r1/candidate-metadata/hpc03-node.json",
-      "sha256": "f6851a635637d8df90c814e8cd2c8e55c24ba08682cd21f9f4dec0b8d30f3fb4",
-      "bytes": 3733
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rain-snow-family3h-runtime-r1/candidate-metadata/hpc04-node.json",
-      "sha256": "45933dcaf1ea6d2567da92855aa2d61a67c0f5e6d5d3255c2d4fccc413ba5b15",
-      "bytes": 3733
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rain-snow-family3h-runtime-r1/candidate-metadata/lease.json",
-      "sha256": "7b8080ac4154bd4f24480126804993e62aa7c087747c930c57f8cb6c99ad8795",
-      "bytes": 113301
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rain-snow-family3h-runtime-r1/candidate-metadata/model-closures.json",
-      "sha256": "e0a2c8be87a667c0fbfe4bc2030a229fb12711c5a4698ec042eb8c7b8872b138",
-      "bytes": 1511
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rain-snow-family3h-runtime-r1/candidate-metadata/mpi-launch.json",
-      "sha256": "1d5237e3c65556798e2b41196f6270ad61f27439155921108dff35c6fead9d01",
-      "bytes": 7271
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-b-memory-criticalpath-r1/next-combined-ninehour-preparation-r1/lifecycle-r1/candidate-health-observations.jsonl",
-      "sha256": "dc4924898fe4283bc2ce88fda6d7b56a051e7a4af3e556bfa1614d125796c35f",
-      "bytes": 186844
     }
   ]
 }

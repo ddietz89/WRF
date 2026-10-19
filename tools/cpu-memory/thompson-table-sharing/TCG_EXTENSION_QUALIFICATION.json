@@ -1,0 +1,100 @@
+{
+  "status": "PROMOTED_WORKING_CONFIGURATION_NATIVE_CANONICAL_AND_COMBINED_FULL3H_PASS",
+  "source_commit": "26bcd59c507dc76cba49e3e06196bac2fb278dec",
+  "historical_producer_source_commit": null,
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/thompson-tcg-rk-later-pass-combined-current-r1/wrf.exe",
+    "sha256": "3bb2b8f17ed5c5c8cb2afe9b1e68faf162a66c37546a366a00179411b651c4df"
+  },
+  "full_application": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-b-memory-criticalpath-r1/tcg-rk-combined-threehour-preparation-r1/lifecycle-r1/FINAL_QUALIFICATION.json",
+    "sha256": "28018b1925f455292438fdedc660186f8751bfe102c4027fa50578511f06ca36"
+  },
+  "science": {
+    "status": "PASS_CURRENT_TCG_RK_COMBINED_THREE_HOUR_ORIGINAL_FULL_GATE_AND_ALL_OWN_SCOPES_CLOSED",
+    "complete_products": 4,
+    "ordered_steps": 545,
+    "last_observed_step": "2026-10-12_09:00:00",
+    "all512": true,
+    "compute_ranks": 480,
+    "serial_tiles": 2,
+    "required_positive_roots": [
+      487,
+      495,
+      503,
+      511
+    ],
+    "receipt_sha256": "ddc294c795f685b0bac63c17d416ac54e7f9b9f1f5a3c6daeb11f3ce64d56b69",
+    "reader_closure_sha256": "8a82ccb775b459e6040e908735924e39cae0398f38a6dd660cb9711c2140aba8",
+    "full_qualification_sha256": "28018b1925f455292438fdedc660186f8751bfe102c4027fa50578511f06ca36",
+    "all_model_reader_scopes_closed": true,
+    "protected_checker": {
+      "path": "/pool/wrf-experiment/wrf-cpu/validation/protected_netcdf_exact_reference.py",
+      "sha256": "0382bcbabfbc16b76114ef552206c6c558ea15cd3c3552dfaed98b977deea2b4",
+      "verified": true
+    }
+  },
+  "canonical": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-tcg-stage-owner-r1/rk-overlay-build-preparation-r1/BUILD_QUALIFICATION.json",
+    "sha256": "0a3057db2dbde5e8dc657623c869292e7e3f84a1dfbc643985591a538f16e7ca"
+  },
+  "support": "Cold single-domain OMP1 DIMNRHG1 sharedmode1, unchanged375/881/825/faba/FIELDVIEW1/IB512+twoTiles. No restart/nesting/hail/aerosol/ng/mode0 application transfer.",
+  "all_owned_jobs_closed": true,
+  "current_nine_hour_qualified": false,
+  "comparison_design": "UNPAIRED retained original control; no isolated TCG/RK gain attribution",
+  "metrics": {
+    "control": {
+      "wall_seconds": 820.5063595210668,
+      "cpu_seconds": 367800.485597,
+      "main_step_sum_seconds": 597.99405
+    },
+    "candidate": {
+      "wall_seconds": 673.5171840980183,
+      "cpu_seconds": 325722.091547,
+      "main_step_sum_seconds": 565.12427
+    }
+  },
+  "reductions_percent": {
+    "wall_seconds": 17.914446819016327,
+    "cpu_seconds": 11.440548802348626,
+    "main_step_sum_seconds": 5.496673420078347
+  },
+  "rollback": {
+    "selection_file": "tools/cpu-working/PREVIOUS_SELECTION_E485.json",
+    "executable": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/thompson-eleven-family-owner-canonical-current-r1/wrf.exe",
+      "sha256": "e4856893a47538dccc928175a4796fe11e12e2a6bc42cafc78074863df681f57"
+    },
+    "source_commit": "0828f5a0270c193f50cb11ec7c5155b31f3e2b1e",
+    "action": "Select retained e485/source0828 with identical375/881/825/faba/FIELDVIEW1/shared1/IB. Or revert the source commit and rebuild. Shared mode0 is native-only and not executable rollback."
+  },
+  "limits": [
+    "GNU13.3 strict REAL32/INTEGER32 Zen2, cold one-domain THOMPSON/DIMNRHG1,OMP1,512ranks/two tiles.",
+    "No current nine-hour/restart/nesting/othercompiler/private-fullforecast transfer.",
+    "Caller and combined forecast gains are different scopes, never additive."
+  ],
+  "source_sha256": "c53e05b4eade5beab10adfe56b2e7b43be14775fce7abddef0733071d730f29f",
+  "native": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-tcg-stage-owner-r1/NATIVE_QUALIFICATION.json",
+    "sha256": "29e5ac254f02fef5e48a04f0e0b089e19ef83ff2c8c5cbfae268fa5dd4935549"
+  },
+  "TCG_consumer_build": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-tcg-stage-owner-r1/canonical-integration-preparation-r1/BUILD_QUALIFICATION.json",
+    "sha256": "196e097f5ed7ad6e72913ffd82f5636b305bcdafeb87da61cfe50461566615af"
+  },
+  "code_review": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-tcg-stage-owner-r1/ACTUAL_CODE_REVIEW_ADJUDICATION.json",
+    "sha256": "103894ac008e46c513c450be669a5bf1c4867d7cdb17c93fd2481d9bed4cccfb"
+  },
+  "mechanism": "TCG uses a private INIT-stage allocation sentinel under experimental macro, then owner12 shared publication;23 fields/12 fixedowners. All12 statuses and23 views commit before any stagefree;tcg_stage freed last. Generic no-macro source projection and original arithmetic/records preserved.",
+  "new_declared_bytes_per_rank": 14993288,
+  "production_member_sha256": "96399d1bcc520c7fd1f13481abd8f747dcebec9d6fb1ee12158d0d4ffe6e38e0",
+  "module_sha256": "2b20e2811653339ea7df9463b3c991491ba7b573eee9aa615ec15e8865511816",
+  "deliberate_macro_API_change": "TCG changes PUBLIC ALLOCATABLE to PRIVATE CONTIGUOUS POINTER and private stage sentinel only under macro. No generic ABI/restart compatibility claim.",
+  "native_scope": "Five actual four-rank original11caller/twoinit/23records-through-three-phases/raw-state routes. SameoptO0bounds/O2/shared+private; synthetic lifecycle failure checks, not real MPI error injection.",
+  "memory_context": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-b-memory-criticalpath-r1/tcg-rk-combined-threehour-preparation-r1/lifecycle-r1/MEMORY_CONTEXT.json",
+    "sha256": "12fe3bcc5bac9d648927990253e8ff8f2972babedd97590fd120d46866bc7388"
+  },
+  "retention_reason": "Qualified shared immutable storage extends the retained memory-saving mechanism; exact integration passed and no demonstrated unacceptable cost. No isolated physicalTCG saving or peak-reduction claim."
+}
