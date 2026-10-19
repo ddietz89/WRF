@@ -441,6 +441,8 @@
       TYPE(C_PTR), PRIVATE :: rnr_owner=C_NULL_PTR, rnr_cview=C_NULL_PTR
       INTEGER, PARAMETER, PRIVATE :: TPI_EMPTY=0,TPI_INIT=1,TPI_PRIVATE=2,TPI_SHARED=3,TPI_CLOSED=4
       INTEGER, PRIVATE :: tpi_phase=TPI_EMPTY,tpi_comm=0,tpi_mode=0
+      INTEGER, PRIVATE :: tpi_init_group=0
+      PRIVATE :: thompson_tpi_commit_group,thompson_tpi_publish_original
       PRIVATE :: st_create,st_destroy,thompson_tpi_preflight_c
       PUBLIC :: thompson_tpi_prepare,thompson_tpi_publish,thompson_tpi_release
       INTERFACE
@@ -521,6 +523,483 @@
       END SUBROUTINE
 
       SUBROUTINE thompson_tpi_publish()
+        REAL(KIND=R8SIZE),POINTER,CONTIGUOUS :: vfamily(:,:,:,:,:)
+        IF (tpi_mode/=1) THEN
+          CALL thompson_tpi_publish_original()
+          RETURN
+        ENDIF
+        IF (tpi_phase/=TPI_INIT.OR.tpi_init_group/=3) &
+          CALL wrf_error_fatal('Experimental lazy final publication phase')
+        IF (ALLOCATED(tpi_qcfz_stage)) &
+          CALL wrf_error_fatal('Experimental lazy final stage 1')
+        IF (.NOT.C_ASSOCIATED(tpi_owner).OR..NOT.C_ASSOCIATED(tpi_cview)) &
+          CALL wrf_error_fatal('Experimental lazy final owner 1')
+        IF (.NOT.ASSOCIATED(tpi_qcfz)) &
+          CALL wrf_error_fatal('Experimental lazy final view 1 1')
+        IF (ANY(SHAPE(tpi_qcfz)/=[37,100,45,55]).OR.ANY(LBOUND(tpi_qcfz)/=1).OR. &
+            .NOT.IS_CONTIGUOUS(tpi_qcfz)) &
+          CALL wrf_error_fatal('Experimental lazy final layout 1 1')
+        IF (.NOT.C_ASSOCIATED(C_LOC(tpi_qcfz(1,1,1,1)),tpi_cview)) &
+          CALL wrf_error_fatal('Experimental lazy final base 1')
+        IF (ALLOCATED(tni_qcfz_stage)) &
+          CALL wrf_error_fatal('Experimental lazy final stage 2')
+        IF (.NOT.C_ASSOCIATED(tni_owner).OR..NOT.C_ASSOCIATED(tni_cview)) &
+          CALL wrf_error_fatal('Experimental lazy final owner 2')
+        IF (.NOT.ASSOCIATED(tni_qcfz)) &
+          CALL wrf_error_fatal('Experimental lazy final view 2 1')
+        IF (ANY(SHAPE(tni_qcfz)/=[37,100,45,55]).OR.ANY(LBOUND(tni_qcfz)/=1).OR. &
+            .NOT.IS_CONTIGUOUS(tni_qcfz)) &
+          CALL wrf_error_fatal('Experimental lazy final layout 2 1')
+        IF (.NOT.C_ASSOCIATED(C_LOC(tni_qcfz(1,1,1,1)),tni_cview)) &
+          CALL wrf_error_fatal('Experimental lazy final base 2')
+        IF (ALLOCATED(tpi_qrfz_stage)) &
+          CALL wrf_error_fatal('Experimental lazy final stage 3')
+        IF (.NOT.C_ASSOCIATED(rpi_owner).OR..NOT.C_ASSOCIATED(rpi_cview)) &
+          CALL wrf_error_fatal('Experimental lazy final owner 3')
+        IF (.NOT.ASSOCIATED(tpi_qrfz)) &
+          CALL wrf_error_fatal('Experimental lazy final view 3 1')
+        IF (ANY(SHAPE(tpi_qrfz)/=[37,37,45,55]).OR.ANY(LBOUND(tpi_qrfz)/=1).OR. &
+            .NOT.IS_CONTIGUOUS(tpi_qrfz)) &
+          CALL wrf_error_fatal('Experimental lazy final layout 3 1')
+        IF (.NOT.C_ASSOCIATED(C_LOC(tpi_qrfz(1,1,1,1)),rpi_cview)) &
+          CALL wrf_error_fatal('Experimental lazy final base 3')
+        IF (ALLOCATED(tni_qrfz_stage)) &
+          CALL wrf_error_fatal('Experimental lazy final stage 4')
+        IF (.NOT.C_ASSOCIATED(rni_owner).OR..NOT.C_ASSOCIATED(rni_cview)) &
+          CALL wrf_error_fatal('Experimental lazy final owner 4')
+        IF (.NOT.ASSOCIATED(tni_qrfz)) &
+          CALL wrf_error_fatal('Experimental lazy final view 4 1')
+        IF (ANY(SHAPE(tni_qrfz)/=[37,37,45,55]).OR.ANY(LBOUND(tni_qrfz)/=1).OR. &
+            .NOT.IS_CONTIGUOUS(tni_qrfz)) &
+          CALL wrf_error_fatal('Experimental lazy final layout 4 1')
+        IF (.NOT.C_ASSOCIATED(C_LOC(tni_qrfz(1,1,1,1)),rni_cview)) &
+          CALL wrf_error_fatal('Experimental lazy final base 4')
+        IF (ALLOCATED(tpg_qrfz_stage)) &
+          CALL wrf_error_fatal('Experimental lazy final stage 5')
+        IF (.NOT.C_ASSOCIATED(rpg_owner).OR..NOT.C_ASSOCIATED(rpg_cview)) &
+          CALL wrf_error_fatal('Experimental lazy final owner 5')
+        IF (.NOT.ASSOCIATED(tpg_qrfz)) &
+          CALL wrf_error_fatal('Experimental lazy final view 5 1')
+        IF (ANY(SHAPE(tpg_qrfz)/=[37,37,45,55]).OR.ANY(LBOUND(tpg_qrfz)/=1).OR. &
+            .NOT.IS_CONTIGUOUS(tpg_qrfz)) &
+          CALL wrf_error_fatal('Experimental lazy final layout 5 1')
+        IF (.NOT.C_ASSOCIATED(C_LOC(tpg_qrfz(1,1,1,1)),rpg_cview)) &
+          CALL wrf_error_fatal('Experimental lazy final base 5')
+        IF (ALLOCATED(tnr_qrfz_stage)) &
+          CALL wrf_error_fatal('Experimental lazy final stage 6')
+        IF (.NOT.C_ASSOCIATED(rnr_owner).OR..NOT.C_ASSOCIATED(rnr_cview)) &
+          CALL wrf_error_fatal('Experimental lazy final owner 6')
+        IF (.NOT.ASSOCIATED(tnr_qrfz)) &
+          CALL wrf_error_fatal('Experimental lazy final view 6 1')
+        IF (ANY(SHAPE(tnr_qrfz)/=[37,37,45,55]).OR.ANY(LBOUND(tnr_qrfz)/=1).OR. &
+            .NOT.IS_CONTIGUOUS(tnr_qrfz)) &
+          CALL wrf_error_fatal('Experimental lazy final layout 6 1')
+        IF (.NOT.C_ASSOCIATED(C_LOC(tnr_qrfz(1,1,1,1)),rnr_cview)) &
+          CALL wrf_error_fatal('Experimental lazy final base 6')
+        IF (ALLOCATED(tmr_racg_stage)) &
+          CALL wrf_error_fatal('Experimental lazy final stage 7')
+        IF (.NOT.C_ASSOCIATED(rcg_owner).OR..NOT.C_ASSOCIATED(rcg_cview)) &
+          CALL wrf_error_fatal('Experimental lazy final owner 7')
+        IF (.NOT.ASSOCIATED(tmr_racg)) &
+          CALL wrf_error_fatal('Experimental lazy final view 7 1')
+        IF (ANY(SHAPE(tmr_racg)/=[37,37,1,37,37]).OR.ANY(LBOUND(tmr_racg)/=1).OR. &
+            .NOT.IS_CONTIGUOUS(tmr_racg)) &
+          CALL wrf_error_fatal('Experimental lazy final layout 7 1')
+        IF (.NOT.C_ASSOCIATED(C_LOC(tmr_racg(1,1,1,1,1)),rcg_cview)) &
+          CALL wrf_error_fatal('Experimental lazy final base 7')
+        IF (ALLOCATED(tcr_gacr_stage)) &
+          CALL wrf_error_fatal('Experimental lazy final stage 8')
+        IF (.NOT.C_ASSOCIATED(gcr_owner).OR..NOT.C_ASSOCIATED(gcr_cview)) &
+          CALL wrf_error_fatal('Experimental lazy final owner 8')
+        IF (.NOT.ASSOCIATED(tcr_gacr)) &
+          CALL wrf_error_fatal('Experimental lazy final view 8 1')
+        IF (ANY(SHAPE(tcr_gacr)/=[37,37,1,37,37]).OR.ANY(LBOUND(tcr_gacr)/=1).OR. &
+            .NOT.IS_CONTIGUOUS(tcr_gacr)) &
+          CALL wrf_error_fatal('Experimental lazy final layout 8 1')
+        IF (.NOT.C_ASSOCIATED(C_LOC(tcr_gacr(1,1,1,1,1)),gcr_cview)) &
+          CALL wrf_error_fatal('Experimental lazy final base 8')
+        IF (ALLOCATED(tnr_racg_stage)) &
+          CALL wrf_error_fatal('Experimental lazy final stage 9')
+        IF (.NOT.C_ASSOCIATED(nrc_owner).OR..NOT.C_ASSOCIATED(nrc_cview)) &
+          CALL wrf_error_fatal('Experimental lazy final owner 9')
+        IF (.NOT.ASSOCIATED(tnr_racg)) &
+          CALL wrf_error_fatal('Experimental lazy final view 9 1')
+        IF (ANY(SHAPE(tnr_racg)/=[37,37,1,37,37]).OR.ANY(LBOUND(tnr_racg)/=1).OR. &
+            .NOT.IS_CONTIGUOUS(tnr_racg)) &
+          CALL wrf_error_fatal('Experimental lazy final layout 9 1')
+        IF (.NOT.C_ASSOCIATED(C_LOC(tnr_racg(1,1,1,1,1)),nrc_cview)) &
+          CALL wrf_error_fatal('Experimental lazy final base 9')
+        IF (ALLOCATED(tnr_gacr_stage)) &
+          CALL wrf_error_fatal('Experimental lazy final stage 10')
+        IF (.NOT.C_ASSOCIATED(ngc_owner).OR..NOT.C_ASSOCIATED(ngc_cview)) &
+          CALL wrf_error_fatal('Experimental lazy final owner 10')
+        IF (.NOT.ASSOCIATED(tnr_gacr)) &
+          CALL wrf_error_fatal('Experimental lazy final view 10 1')
+        IF (ANY(SHAPE(tnr_gacr)/=[37,37,1,37,37]).OR.ANY(LBOUND(tnr_gacr)/=1).OR. &
+            .NOT.IS_CONTIGUOUS(tnr_gacr)) &
+          CALL wrf_error_fatal('Experimental lazy final layout 10 1')
+        IF (.NOT.C_ASSOCIATED(C_LOC(tnr_gacr(1,1,1,1,1)),ngc_cview)) &
+          CALL wrf_error_fatal('Experimental lazy final base 10')
+        IF (ALLOCATED(rain_snow_stage)) &
+          CALL wrf_error_fatal('Experimental lazy final stage 11')
+        IF (.NOT.C_ASSOCIATED(rain_snow_owner).OR..NOT.C_ASSOCIATED(rain_snow_cview)) &
+          CALL wrf_error_fatal('Experimental lazy final owner 11')
+        IF (.NOT.ASSOCIATED(tcs_racs1)) &
+          CALL wrf_error_fatal('Experimental lazy final view 11 1')
+        IF (ANY(SHAPE(tcs_racs1)/=[37,9,37,37]).OR.ANY(LBOUND(tcs_racs1)/=1).OR. &
+            .NOT.IS_CONTIGUOUS(tcs_racs1)) &
+          CALL wrf_error_fatal('Experimental lazy final layout 11 1')
+        IF (.NOT.ASSOCIATED(tmr_racs1)) &
+          CALL wrf_error_fatal('Experimental lazy final view 11 2')
+        IF (ANY(SHAPE(tmr_racs1)/=[37,9,37,37]).OR.ANY(LBOUND(tmr_racs1)/=1).OR. &
+            .NOT.IS_CONTIGUOUS(tmr_racs1)) &
+          CALL wrf_error_fatal('Experimental lazy final layout 11 2')
+        IF (.NOT.ASSOCIATED(tcs_racs2)) &
+          CALL wrf_error_fatal('Experimental lazy final view 11 3')
+        IF (ANY(SHAPE(tcs_racs2)/=[37,9,37,37]).OR.ANY(LBOUND(tcs_racs2)/=1).OR. &
+            .NOT.IS_CONTIGUOUS(tcs_racs2)) &
+          CALL wrf_error_fatal('Experimental lazy final layout 11 3')
+        IF (.NOT.ASSOCIATED(tmr_racs2)) &
+          CALL wrf_error_fatal('Experimental lazy final view 11 4')
+        IF (ANY(SHAPE(tmr_racs2)/=[37,9,37,37]).OR.ANY(LBOUND(tmr_racs2)/=1).OR. &
+            .NOT.IS_CONTIGUOUS(tmr_racs2)) &
+          CALL wrf_error_fatal('Experimental lazy final layout 11 4')
+        IF (.NOT.ASSOCIATED(tcr_sacr1)) &
+          CALL wrf_error_fatal('Experimental lazy final view 11 5')
+        IF (ANY(SHAPE(tcr_sacr1)/=[37,9,37,37]).OR.ANY(LBOUND(tcr_sacr1)/=1).OR. &
+            .NOT.IS_CONTIGUOUS(tcr_sacr1)) &
+          CALL wrf_error_fatal('Experimental lazy final layout 11 5')
+        IF (.NOT.ASSOCIATED(tms_sacr1)) &
+          CALL wrf_error_fatal('Experimental lazy final view 11 6')
+        IF (ANY(SHAPE(tms_sacr1)/=[37,9,37,37]).OR.ANY(LBOUND(tms_sacr1)/=1).OR. &
+            .NOT.IS_CONTIGUOUS(tms_sacr1)) &
+          CALL wrf_error_fatal('Experimental lazy final layout 11 6')
+        IF (.NOT.ASSOCIATED(tcr_sacr2)) &
+          CALL wrf_error_fatal('Experimental lazy final view 11 7')
+        IF (ANY(SHAPE(tcr_sacr2)/=[37,9,37,37]).OR.ANY(LBOUND(tcr_sacr2)/=1).OR. &
+            .NOT.IS_CONTIGUOUS(tcr_sacr2)) &
+          CALL wrf_error_fatal('Experimental lazy final layout 11 7')
+        IF (.NOT.ASSOCIATED(tms_sacr2)) &
+          CALL wrf_error_fatal('Experimental lazy final view 11 8')
+        IF (ANY(SHAPE(tms_sacr2)/=[37,9,37,37]).OR.ANY(LBOUND(tms_sacr2)/=1).OR. &
+            .NOT.IS_CONTIGUOUS(tms_sacr2)) &
+          CALL wrf_error_fatal('Experimental lazy final layout 11 8')
+        IF (.NOT.ASSOCIATED(tnr_racs1)) &
+          CALL wrf_error_fatal('Experimental lazy final view 11 9')
+        IF (ANY(SHAPE(tnr_racs1)/=[37,9,37,37]).OR.ANY(LBOUND(tnr_racs1)/=1).OR. &
+            .NOT.IS_CONTIGUOUS(tnr_racs1)) &
+          CALL wrf_error_fatal('Experimental lazy final layout 11 9')
+        IF (.NOT.ASSOCIATED(tnr_racs2)) &
+          CALL wrf_error_fatal('Experimental lazy final view 11 10')
+        IF (ANY(SHAPE(tnr_racs2)/=[37,9,37,37]).OR.ANY(LBOUND(tnr_racs2)/=1).OR. &
+            .NOT.IS_CONTIGUOUS(tnr_racs2)) &
+          CALL wrf_error_fatal('Experimental lazy final layout 11 10')
+        IF (.NOT.ASSOCIATED(tnr_sacr1)) &
+          CALL wrf_error_fatal('Experimental lazy final view 11 11')
+        IF (ANY(SHAPE(tnr_sacr1)/=[37,9,37,37]).OR.ANY(LBOUND(tnr_sacr1)/=1).OR. &
+            .NOT.IS_CONTIGUOUS(tnr_sacr1)) &
+          CALL wrf_error_fatal('Experimental lazy final layout 11 11')
+        IF (.NOT.ASSOCIATED(tnr_sacr2)) &
+          CALL wrf_error_fatal('Experimental lazy final view 11 12')
+        IF (ANY(SHAPE(tnr_sacr2)/=[37,9,37,37]).OR.ANY(LBOUND(tnr_sacr2)/=1).OR. &
+            .NOT.IS_CONTIGUOUS(tnr_sacr2)) &
+          CALL wrf_error_fatal('Experimental lazy final layout 11 12')
+        CALL C_F_POINTER(rain_snow_cview,vfamily,[37,9,37,37,12])
+        IF (.NOT.ASSOCIATED(tcs_racs1,vfamily(:,:,:,:,1))) &
+          CALL wrf_error_fatal('Experimental lazy final plane 1')
+        IF (.NOT.ASSOCIATED(tmr_racs1,vfamily(:,:,:,:,2))) &
+          CALL wrf_error_fatal('Experimental lazy final plane 2')
+        IF (.NOT.ASSOCIATED(tcs_racs2,vfamily(:,:,:,:,3))) &
+          CALL wrf_error_fatal('Experimental lazy final plane 3')
+        IF (.NOT.ASSOCIATED(tmr_racs2,vfamily(:,:,:,:,4))) &
+          CALL wrf_error_fatal('Experimental lazy final plane 4')
+        IF (.NOT.ASSOCIATED(tcr_sacr1,vfamily(:,:,:,:,5))) &
+          CALL wrf_error_fatal('Experimental lazy final plane 5')
+        IF (.NOT.ASSOCIATED(tms_sacr1,vfamily(:,:,:,:,6))) &
+          CALL wrf_error_fatal('Experimental lazy final plane 6')
+        IF (.NOT.ASSOCIATED(tcr_sacr2,vfamily(:,:,:,:,7))) &
+          CALL wrf_error_fatal('Experimental lazy final plane 7')
+        IF (.NOT.ASSOCIATED(tms_sacr2,vfamily(:,:,:,:,8))) &
+          CALL wrf_error_fatal('Experimental lazy final plane 8')
+        IF (.NOT.ASSOCIATED(tnr_racs1,vfamily(:,:,:,:,9))) &
+          CALL wrf_error_fatal('Experimental lazy final plane 9')
+        IF (.NOT.ASSOCIATED(tnr_racs2,vfamily(:,:,:,:,10))) &
+          CALL wrf_error_fatal('Experimental lazy final plane 10')
+        IF (.NOT.ASSOCIATED(tnr_sacr1,vfamily(:,:,:,:,11))) &
+          CALL wrf_error_fatal('Experimental lazy final plane 11')
+        IF (.NOT.ASSOCIATED(tnr_sacr2,vfamily(:,:,:,:,12))) &
+          CALL wrf_error_fatal('Experimental lazy final plane 12')
+        NULLIFY(vfamily)
+        CALL thompson_tpi_commit_group(4)
+      END SUBROUTINE
+
+      SUBROUTINE thompson_tpi_commit_group(group)
+        INTEGER,INTENT(IN) :: group
+        INTEGER(C_INT) :: rc
+        INTEGER :: failed_at
+        CHARACTER(LEN=128) :: failure_message
+        REAL(KIND=R8SIZE),POINTER,CONTIGUOUS :: v1(:,:,:,:)
+        REAL(KIND=R8SIZE),POINTER,CONTIGUOUS :: v2(:,:,:,:)
+        REAL(KIND=R8SIZE),POINTER,CONTIGUOUS :: v3(:,:,:,:)
+        REAL(KIND=R8SIZE),POINTER,CONTIGUOUS :: v4(:,:,:,:)
+        REAL(KIND=R8SIZE),POINTER,CONTIGUOUS :: v5(:,:,:,:)
+        REAL(KIND=R8SIZE),POINTER,CONTIGUOUS :: v6(:,:,:,:)
+        REAL(KIND=R8SIZE),POINTER,CONTIGUOUS :: v7(:,:,:,:,:)
+        REAL(KIND=R8SIZE),POINTER,CONTIGUOUS :: v8(:,:,:,:,:)
+        REAL(KIND=R8SIZE),POINTER,CONTIGUOUS :: v9(:,:,:,:,:)
+        REAL(KIND=R8SIZE),POINTER,CONTIGUOUS :: v10(:,:,:,:,:)
+        REAL(KIND=R8SIZE),POINTER,CONTIGUOUS :: v11(:,:,:,:,:)
+        REAL(KIND=R8SIZE),POINTER,CONTIGUOUS :: v12(:,:,:,:,:)
+        IF (tpi_mode/=1.OR.tpi_phase/=TPI_INIT.OR.tpi_init_group/=group-1) &
+          CALL wrf_error_fatal('Experimental lazy group order')
+        IF (dimNRHG/=1.OR.is_hail_aware.OR.is_aerosol_aware.OR.R8SIZE/=C_DOUBLE) &
+          CALL wrf_error_fatal('Experimental lazy group support')
+        SELECT CASE(group)
+        CASE(1)
+          IF (.NOT.ALLOCATED(tmr_racg_stage)) &
+            CALL wrf_error_fatal('Experimental lazy missing stage 7')
+          IF (ANY(SHAPE(tmr_racg_stage)/=[37,37,1,37,37]).OR.STORAGE_SIZE(tmr_racg_stage)/=64) &
+            CALL wrf_error_fatal('Experimental lazy stage shape 7')
+          IF (INT(SIZE(tmr_racg_stage),C_SIZE_T)*C_SIZEOF(tmr_racg_stage(1,1,1,1,1))/=14993288_C_SIZE_T) &
+            CALL wrf_error_fatal('Experimental lazy stage bytes 7')
+          IF (.NOT.ASSOCIATED(tmr_racg,tmr_racg_stage)) &
+            CALL wrf_error_fatal('Experimental lazy stage association 7 1')
+          IF (.NOT.ALLOCATED(tcr_gacr_stage)) &
+            CALL wrf_error_fatal('Experimental lazy missing stage 8')
+          IF (ANY(SHAPE(tcr_gacr_stage)/=[37,37,1,37,37]).OR.STORAGE_SIZE(tcr_gacr_stage)/=64) &
+            CALL wrf_error_fatal('Experimental lazy stage shape 8')
+          IF (INT(SIZE(tcr_gacr_stage),C_SIZE_T)*C_SIZEOF(tcr_gacr_stage(1,1,1,1,1))/=14993288_C_SIZE_T) &
+            CALL wrf_error_fatal('Experimental lazy stage bytes 8')
+          IF (.NOT.ASSOCIATED(tcr_gacr,tcr_gacr_stage)) &
+            CALL wrf_error_fatal('Experimental lazy stage association 8 1')
+          IF (.NOT.ALLOCATED(tnr_racg_stage)) &
+            CALL wrf_error_fatal('Experimental lazy missing stage 9')
+          IF (ANY(SHAPE(tnr_racg_stage)/=[37,37,1,37,37]).OR.STORAGE_SIZE(tnr_racg_stage)/=64) &
+            CALL wrf_error_fatal('Experimental lazy stage shape 9')
+          IF (INT(SIZE(tnr_racg_stage),C_SIZE_T)*C_SIZEOF(tnr_racg_stage(1,1,1,1,1))/=14993288_C_SIZE_T) &
+            CALL wrf_error_fatal('Experimental lazy stage bytes 9')
+          IF (.NOT.ASSOCIATED(tnr_racg,tnr_racg_stage)) &
+            CALL wrf_error_fatal('Experimental lazy stage association 9 1')
+          IF (.NOT.ALLOCATED(tnr_gacr_stage)) &
+            CALL wrf_error_fatal('Experimental lazy missing stage 10')
+          IF (ANY(SHAPE(tnr_gacr_stage)/=[37,37,1,37,37]).OR.STORAGE_SIZE(tnr_gacr_stage)/=64) &
+            CALL wrf_error_fatal('Experimental lazy stage shape 10')
+          IF (INT(SIZE(tnr_gacr_stage),C_SIZE_T)*C_SIZEOF(tnr_gacr_stage(1,1,1,1,1))/=14993288_C_SIZE_T) &
+            CALL wrf_error_fatal('Experimental lazy stage bytes 10')
+          IF (.NOT.ASSOCIATED(tnr_gacr,tnr_gacr_stage)) &
+            CALL wrf_error_fatal('Experimental lazy stage association 10 1')
+          failed_at=7
+          rc=st_create(INT(tpi_comm,C_INT),C_LOC(tmr_racg_stage(1,1,1,1,1)), &
+               14993288_C_SIZE_T,1_C_INT,rcg_owner,rcg_cview)
+          IF (rc/=0_C_INT) GOTO 900
+          failed_at=8
+          rc=st_create(INT(tpi_comm,C_INT),C_LOC(tcr_gacr_stage(1,1,1,1,1)), &
+               14993288_C_SIZE_T,1_C_INT,gcr_owner,gcr_cview)
+          IF (rc/=0_C_INT) GOTO 900
+          failed_at=9
+          rc=st_create(INT(tpi_comm,C_INT),C_LOC(tnr_racg_stage(1,1,1,1,1)), &
+               14993288_C_SIZE_T,1_C_INT,nrc_owner,nrc_cview)
+          IF (rc/=0_C_INT) GOTO 900
+          failed_at=10
+          rc=st_create(INT(tpi_comm,C_INT),C_LOC(tnr_gacr_stage(1,1,1,1,1)), &
+               14993288_C_SIZE_T,1_C_INT,ngc_owner,ngc_cview)
+          IF (rc/=0_C_INT) GOTO 900
+          CALL C_F_POINTER(rcg_cview,v7,[37,37,1,37,37])
+          tmr_racg => v7
+          NULLIFY(v7)
+          CALL C_F_POINTER(gcr_cview,v8,[37,37,1,37,37])
+          tcr_gacr => v8
+          NULLIFY(v8)
+          CALL C_F_POINTER(nrc_cview,v9,[37,37,1,37,37])
+          tnr_racg => v9
+          NULLIFY(v9)
+          CALL C_F_POINTER(ngc_cview,v10,[37,37,1,37,37])
+          tnr_gacr => v10
+          NULLIFY(v10)
+          DEALLOCATE(tmr_racg_stage)
+          DEALLOCATE(tcr_gacr_stage)
+          DEALLOCATE(tnr_racg_stage)
+          DEALLOCATE(tnr_gacr_stage)
+        CASE(2)
+          IF (.NOT.ALLOCATED(rain_snow_stage)) &
+            CALL wrf_error_fatal('Experimental lazy missing stage 11')
+          IF (ANY(SHAPE(rain_snow_stage)/=[37,9,37,37,12]).OR.STORAGE_SIZE(rain_snow_stage)/=64) &
+            CALL wrf_error_fatal('Experimental lazy stage shape 11')
+          IF (INT(SIZE(rain_snow_stage),C_SIZE_T)*C_SIZEOF(rain_snow_stage(1,1,1,1,1))/=43764192_C_SIZE_T) &
+            CALL wrf_error_fatal('Experimental lazy stage bytes 11')
+          IF (.NOT.ASSOCIATED(tcs_racs1,rain_snow_stage(:,:,:,:,1))) &
+            CALL wrf_error_fatal('Experimental lazy stage association 11 1')
+          IF (.NOT.ASSOCIATED(tmr_racs1,rain_snow_stage(:,:,:,:,2))) &
+            CALL wrf_error_fatal('Experimental lazy stage association 11 2')
+          IF (.NOT.ASSOCIATED(tcs_racs2,rain_snow_stage(:,:,:,:,3))) &
+            CALL wrf_error_fatal('Experimental lazy stage association 11 3')
+          IF (.NOT.ASSOCIATED(tmr_racs2,rain_snow_stage(:,:,:,:,4))) &
+            CALL wrf_error_fatal('Experimental lazy stage association 11 4')
+          IF (.NOT.ASSOCIATED(tcr_sacr1,rain_snow_stage(:,:,:,:,5))) &
+            CALL wrf_error_fatal('Experimental lazy stage association 11 5')
+          IF (.NOT.ASSOCIATED(tms_sacr1,rain_snow_stage(:,:,:,:,6))) &
+            CALL wrf_error_fatal('Experimental lazy stage association 11 6')
+          IF (.NOT.ASSOCIATED(tcr_sacr2,rain_snow_stage(:,:,:,:,7))) &
+            CALL wrf_error_fatal('Experimental lazy stage association 11 7')
+          IF (.NOT.ASSOCIATED(tms_sacr2,rain_snow_stage(:,:,:,:,8))) &
+            CALL wrf_error_fatal('Experimental lazy stage association 11 8')
+          IF (.NOT.ASSOCIATED(tnr_racs1,rain_snow_stage(:,:,:,:,9))) &
+            CALL wrf_error_fatal('Experimental lazy stage association 11 9')
+          IF (.NOT.ASSOCIATED(tnr_racs2,rain_snow_stage(:,:,:,:,10))) &
+            CALL wrf_error_fatal('Experimental lazy stage association 11 10')
+          IF (.NOT.ASSOCIATED(tnr_sacr1,rain_snow_stage(:,:,:,:,11))) &
+            CALL wrf_error_fatal('Experimental lazy stage association 11 11')
+          IF (.NOT.ASSOCIATED(tnr_sacr2,rain_snow_stage(:,:,:,:,12))) &
+            CALL wrf_error_fatal('Experimental lazy stage association 11 12')
+          failed_at=11
+          rc=st_create(INT(tpi_comm,C_INT),C_LOC(rain_snow_stage(1,1,1,1,1)), &
+               43764192_C_SIZE_T,1_C_INT,rain_snow_owner,rain_snow_cview)
+          IF (rc/=0_C_INT) GOTO 900
+          CALL C_F_POINTER(rain_snow_cview,v11,[37,9,37,37,12])
+          tcs_racs1 => v11(:,:,:,:,1)
+          tmr_racs1 => v11(:,:,:,:,2)
+          tcs_racs2 => v11(:,:,:,:,3)
+          tmr_racs2 => v11(:,:,:,:,4)
+          tcr_sacr1 => v11(:,:,:,:,5)
+          tms_sacr1 => v11(:,:,:,:,6)
+          tcr_sacr2 => v11(:,:,:,:,7)
+          tms_sacr2 => v11(:,:,:,:,8)
+          tnr_racs1 => v11(:,:,:,:,9)
+          tnr_racs2 => v11(:,:,:,:,10)
+          tnr_sacr1 => v11(:,:,:,:,11)
+          tnr_sacr2 => v11(:,:,:,:,12)
+          NULLIFY(v11)
+          DEALLOCATE(rain_snow_stage)
+        CASE(3)
+          IF (.NOT.ALLOCATED(tpi_qcfz_stage)) &
+            CALL wrf_error_fatal('Experimental lazy missing stage 1')
+          IF (ANY(SHAPE(tpi_qcfz_stage)/=[37,100,45,55]).OR.STORAGE_SIZE(tpi_qcfz_stage)/=64) &
+            CALL wrf_error_fatal('Experimental lazy stage shape 1')
+          IF (INT(SIZE(tpi_qcfz_stage),C_SIZE_T)*C_SIZEOF(tpi_qcfz_stage(1,1,1,1))/=73260000_C_SIZE_T) &
+            CALL wrf_error_fatal('Experimental lazy stage bytes 1')
+          IF (.NOT.ASSOCIATED(tpi_qcfz,tpi_qcfz_stage)) &
+            CALL wrf_error_fatal('Experimental lazy stage association 1 1')
+          IF (.NOT.ALLOCATED(tni_qcfz_stage)) &
+            CALL wrf_error_fatal('Experimental lazy missing stage 2')
+          IF (ANY(SHAPE(tni_qcfz_stage)/=[37,100,45,55]).OR.STORAGE_SIZE(tni_qcfz_stage)/=64) &
+            CALL wrf_error_fatal('Experimental lazy stage shape 2')
+          IF (INT(SIZE(tni_qcfz_stage),C_SIZE_T)*C_SIZEOF(tni_qcfz_stage(1,1,1,1))/=73260000_C_SIZE_T) &
+            CALL wrf_error_fatal('Experimental lazy stage bytes 2')
+          IF (.NOT.ASSOCIATED(tni_qcfz,tni_qcfz_stage)) &
+            CALL wrf_error_fatal('Experimental lazy stage association 2 1')
+          IF (.NOT.ALLOCATED(tpi_qrfz_stage)) &
+            CALL wrf_error_fatal('Experimental lazy missing stage 3')
+          IF (ANY(SHAPE(tpi_qrfz_stage)/=[37,37,45,55]).OR.STORAGE_SIZE(tpi_qrfz_stage)/=64) &
+            CALL wrf_error_fatal('Experimental lazy stage shape 3')
+          IF (INT(SIZE(tpi_qrfz_stage),C_SIZE_T)*C_SIZEOF(tpi_qrfz_stage(1,1,1,1))/=27106200_C_SIZE_T) &
+            CALL wrf_error_fatal('Experimental lazy stage bytes 3')
+          IF (.NOT.ASSOCIATED(tpi_qrfz,tpi_qrfz_stage)) &
+            CALL wrf_error_fatal('Experimental lazy stage association 3 1')
+          IF (.NOT.ALLOCATED(tni_qrfz_stage)) &
+            CALL wrf_error_fatal('Experimental lazy missing stage 4')
+          IF (ANY(SHAPE(tni_qrfz_stage)/=[37,37,45,55]).OR.STORAGE_SIZE(tni_qrfz_stage)/=64) &
+            CALL wrf_error_fatal('Experimental lazy stage shape 4')
+          IF (INT(SIZE(tni_qrfz_stage),C_SIZE_T)*C_SIZEOF(tni_qrfz_stage(1,1,1,1))/=27106200_C_SIZE_T) &
+            CALL wrf_error_fatal('Experimental lazy stage bytes 4')
+          IF (.NOT.ASSOCIATED(tni_qrfz,tni_qrfz_stage)) &
+            CALL wrf_error_fatal('Experimental lazy stage association 4 1')
+          IF (.NOT.ALLOCATED(tpg_qrfz_stage)) &
+            CALL wrf_error_fatal('Experimental lazy missing stage 5')
+          IF (ANY(SHAPE(tpg_qrfz_stage)/=[37,37,45,55]).OR.STORAGE_SIZE(tpg_qrfz_stage)/=64) &
+            CALL wrf_error_fatal('Experimental lazy stage shape 5')
+          IF (INT(SIZE(tpg_qrfz_stage),C_SIZE_T)*C_SIZEOF(tpg_qrfz_stage(1,1,1,1))/=27106200_C_SIZE_T) &
+            CALL wrf_error_fatal('Experimental lazy stage bytes 5')
+          IF (.NOT.ASSOCIATED(tpg_qrfz,tpg_qrfz_stage)) &
+            CALL wrf_error_fatal('Experimental lazy stage association 5 1')
+          IF (.NOT.ALLOCATED(tnr_qrfz_stage)) &
+            CALL wrf_error_fatal('Experimental lazy missing stage 6')
+          IF (ANY(SHAPE(tnr_qrfz_stage)/=[37,37,45,55]).OR.STORAGE_SIZE(tnr_qrfz_stage)/=64) &
+            CALL wrf_error_fatal('Experimental lazy stage shape 6')
+          IF (INT(SIZE(tnr_qrfz_stage),C_SIZE_T)*C_SIZEOF(tnr_qrfz_stage(1,1,1,1))/=27106200_C_SIZE_T) &
+            CALL wrf_error_fatal('Experimental lazy stage bytes 6')
+          IF (.NOT.ASSOCIATED(tnr_qrfz,tnr_qrfz_stage)) &
+            CALL wrf_error_fatal('Experimental lazy stage association 6 1')
+          failed_at=1
+          rc=st_create(INT(tpi_comm,C_INT),C_LOC(tpi_qcfz_stage(1,1,1,1)), &
+               73260000_C_SIZE_T,1_C_INT,tpi_owner,tpi_cview)
+          IF (rc/=0_C_INT) GOTO 900
+          failed_at=2
+          rc=st_create(INT(tpi_comm,C_INT),C_LOC(tni_qcfz_stage(1,1,1,1)), &
+               73260000_C_SIZE_T,1_C_INT,tni_owner,tni_cview)
+          IF (rc/=0_C_INT) GOTO 900
+          failed_at=3
+          rc=st_create(INT(tpi_comm,C_INT),C_LOC(tpi_qrfz_stage(1,1,1,1)), &
+               27106200_C_SIZE_T,1_C_INT,rpi_owner,rpi_cview)
+          IF (rc/=0_C_INT) GOTO 900
+          failed_at=4
+          rc=st_create(INT(tpi_comm,C_INT),C_LOC(tni_qrfz_stage(1,1,1,1)), &
+               27106200_C_SIZE_T,1_C_INT,rni_owner,rni_cview)
+          IF (rc/=0_C_INT) GOTO 900
+          failed_at=5
+          rc=st_create(INT(tpi_comm,C_INT),C_LOC(tpg_qrfz_stage(1,1,1,1)), &
+               27106200_C_SIZE_T,1_C_INT,rpg_owner,rpg_cview)
+          IF (rc/=0_C_INT) GOTO 900
+          failed_at=6
+          rc=st_create(INT(tpi_comm,C_INT),C_LOC(tnr_qrfz_stage(1,1,1,1)), &
+               27106200_C_SIZE_T,1_C_INT,rnr_owner,rnr_cview)
+          IF (rc/=0_C_INT) GOTO 900
+          CALL C_F_POINTER(tpi_cview,v1,[37,100,45,55])
+          tpi_qcfz => v1
+          NULLIFY(v1)
+          CALL C_F_POINTER(tni_cview,v2,[37,100,45,55])
+          tni_qcfz => v2
+          NULLIFY(v2)
+          CALL C_F_POINTER(rpi_cview,v3,[37,37,45,55])
+          tpi_qrfz => v3
+          NULLIFY(v3)
+          CALL C_F_POINTER(rni_cview,v4,[37,37,45,55])
+          tni_qrfz => v4
+          NULLIFY(v4)
+          CALL C_F_POINTER(rpg_cview,v5,[37,37,45,55])
+          tpg_qrfz => v5
+          NULLIFY(v5)
+          CALL C_F_POINTER(rnr_cview,v6,[37,37,45,55])
+          tnr_qrfz => v6
+          NULLIFY(v6)
+          DEALLOCATE(tpi_qcfz_stage)
+          DEALLOCATE(tni_qcfz_stage)
+          DEALLOCATE(tpi_qrfz_stage)
+          DEALLOCATE(tni_qrfz_stage)
+          DEALLOCATE(tpg_qrfz_stage)
+          DEALLOCATE(tnr_qrfz_stage)
+        CASE(4)
+          IF (.NOT.ALLOCATED(tcg_stage)) &
+            CALL wrf_error_fatal('Experimental lazy missing stage 12')
+          IF (ANY(SHAPE(tcg_stage)/=[37,37,1,37,37]).OR.STORAGE_SIZE(tcg_stage)/=64) &
+            CALL wrf_error_fatal('Experimental lazy stage shape 12')
+          IF (INT(SIZE(tcg_stage),C_SIZE_T)*C_SIZEOF(tcg_stage(1,1,1,1,1))/=14993288_C_SIZE_T) &
+            CALL wrf_error_fatal('Experimental lazy stage bytes 12')
+          IF (.NOT.ASSOCIATED(tcg_racg,tcg_stage)) &
+            CALL wrf_error_fatal('Experimental lazy stage association 12 1')
+          failed_at=12
+          rc=st_create(INT(tpi_comm,C_INT),C_LOC(tcg_stage(1,1,1,1,1)), &
+               14993288_C_SIZE_T,1_C_INT,tcg_owner,tcg_cview)
+          IF (rc/=0_C_INT) GOTO 900
+          CALL C_F_POINTER(tcg_cview,v12,[37,37,1,37,37])
+          tcg_racg => v12
+          NULLIFY(v12)
+          DEALLOCATE(tcg_stage)
+        CASE DEFAULT
+          CALL wrf_error_fatal('Experimental lazy invalid group')
+        END SELECT
+        tpi_init_group=group
+        IF (group==4) tpi_phase=TPI_SHARED
+        RETURN
+ 900    CONTINUE
+        WRITE(failure_message,'(A,I0,A,I0)') 'Experimental lazy owner ',failed_at, &
+             ' rejected status ',rc
+        ! NULLIFY all views before destroying fixed mixed NULL/live owners.
+        ! Cleanup failure remains fatal before any residual stages are freed.
+        CALL thompson_tpi_release()
+        CALL wrf_error_fatal(TRIM(failure_message))
+      END SUBROUTINE
+
+      SUBROUTINE thompson_tpi_publish_original()
         INTEGER(C_INT) :: rc,cleanup,expected
         INTEGER :: failed_at
         CHARACTER(LEN=128) :: failure_message
@@ -899,6 +1378,7 @@
         IF (ALLOCATED(tnr_gacr_stage)) DEALLOCATE(tnr_gacr_stage)
         IF (ALLOCATED(rain_snow_stage)) DEALLOCATE(rain_snow_stage)
         IF (ALLOCATED(tcg_stage)) DEALLOCATE(tcg_stage)
+        tpi_init_group=0
         tpi_phase=TPI_CLOSED
       END SUBROUTINE
 #ifdef WRF_EXPERIMENTAL_TPI_NATIVE_GATE
@@ -1115,6 +1595,10 @@
          micro_init = .TRUE.
       endif
 #else
+      IF (tpi_mode==1.AND.ALLOCATED(tcg_stage)) THEN
+         IF (tpi_init_group/=3) &
+           CALL wrf_error_fatal('Experimental lazy second INIT before groups complete')
+      ENDIF
       IF (.NOT.ALLOCATED(tcg_stage)) THEN
          ALLOCATE(tcg_stage(ntb_g1,ntb_g,dimNRHG,ntb_r1,ntb_r))
          micro_init = .TRUE.
@@ -1122,6 +1606,9 @@
       tcg_racg => tcg_stage
 #endif
 
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (tpi_mode/=1) THEN
+#endif
 #ifdef WRF_EXPERIMENTAL_TPI_NUMA
       IF (.NOT. ALLOCATED(tmr_racg_stage)) THEN
          ALLOCATE(tmr_racg_stage(ntb_g1,ntb_g,dimNRHG,ntb_r1,ntb_r))
@@ -1156,6 +1643,12 @@
       if (.NOT. ALLOCATED(tnr_gacr)) ALLOCATE(tnr_gacr(ntb_g1,ntb_g,dimNRHG,ntb_r1,ntb_r))
 #endif
 
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      ENDIF
+#endif
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (tpi_mode/=1) THEN
+#endif
 #ifdef WRF_EXPERIMENTAL_TPI_NUMA
       IF (.NOT.ALLOCATED(rain_snow_stage)) &
         ALLOCATE(rain_snow_stage(ntb_s,ntb_t,ntb_r1,ntb_r,12))
@@ -1242,6 +1735,12 @@
 #endif
 
 #ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      ENDIF
+#endif
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (tpi_mode/=1) THEN
+#endif
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
       IF (.NOT. ALLOCATED(tpi_qcfz_stage)) THEN
          ALLOCATE(tpi_qcfz_stage(ntb_c,nbc,45,ntb_IN))
       ENDIF
@@ -1291,6 +1790,9 @@
       if (.NOT. ALLOCATED(tnr_qrfz)) ALLOCATE(tnr_qrfz(ntb_r,ntb_r1,45,ntb_IN))
 #endif
 
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      ENDIF
+#endif
       if (.NOT. ALLOCATED(tps_iaus)) ALLOCATE(tps_iaus(ntb_i,ntb_i1))
       if (.NOT. ALLOCATED(tni_iaus)) ALLOCATE(tni_iaus(ntb_i,ntb_i1))
       if (.NOT. ALLOCATED(tpi_ide)) ALLOCATE(tpi_ide(ntb_i,ntb_i1))
@@ -1555,6 +2057,9 @@
 !..Create lookup tables for most costly calculations.
 !+---+-----------------------------------------------------------------+
 
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (tpi_mode/=1) THEN
+#endif
       do m = 1, ntb_r
          do k = 1, ntb_r1
             do n = 1, dimNRHG
@@ -1572,6 +2077,25 @@
          enddo
       enddo
 
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      ELSE
+      do m = 1, ntb_r
+         do k = 1, ntb_r1
+            do n = 1, dimNRHG
+            do j = 1, ntb_g
+               do i = 1, ntb_g1
+                     tcg_racg(i,j,n,k,m) = 0.0d0
+                  enddo
+               enddo
+            enddo
+         enddo
+      enddo
+
+      ENDIF
+#endif
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (tpi_mode/=1) THEN
+#endif
       do m = 1, ntb_r
          do k = 1, ntb_r1
             do j = 1, ntb_t
@@ -1593,6 +2117,12 @@
          enddo
       enddo
 
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      ENDIF
+#endif
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (tpi_mode/=1) THEN
+#endif
       do m = 1, ntb_IN
          do k = 1, 45
             do j = 1, ntb_r1
@@ -1612,6 +2142,9 @@
          enddo
       enddo
 
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      ENDIF
+#endif
       do j = 1, ntb_i1
          do i = 1, ntb_i
             tps_iaus(i,j) = 0.0d0
@@ -1697,15 +2230,261 @@
 !..Rain collecting graupel & graupel collecting rain.
       CALL wrf_debug(200, '  creating rain collecting graupel table')
 
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (tpi_mode==1) THEN
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (.NOT. ALLOCATED(tmr_racg_stage)) THEN
+         ALLOCATE(tmr_racg_stage(ntb_g1,ntb_g,dimNRHG,ntb_r1,ntb_r))
+      ENDIF
+      tmr_racg => tmr_racg_stage
+#else
+      if (.NOT. ALLOCATED(tmr_racg)) ALLOCATE(tmr_racg(ntb_g1,ntb_g,dimNRHG,ntb_r1,ntb_r))
+#endif
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (.NOT. ALLOCATED(tcr_gacr_stage)) THEN
+         ALLOCATE(tcr_gacr_stage(ntb_g1,ntb_g,dimNRHG,ntb_r1,ntb_r))
+      ENDIF
+      tcr_gacr => tcr_gacr_stage
+#else
+      if (.NOT. ALLOCATED(tcr_gacr)) ALLOCATE(tcr_gacr(ntb_g1,ntb_g,dimNRHG,ntb_r1,ntb_r))
+#endif
+      ! if (.NOT. ALLOCATED(tmg_gacr)) ALLOCATE(tmg_gacr(ntb_g1,ntb_g,dimNRHG,ntb_r1,ntb_r))
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (.NOT. ALLOCATED(tnr_racg_stage)) THEN
+         ALLOCATE(tnr_racg_stage(ntb_g1,ntb_g,dimNRHG,ntb_r1,ntb_r))
+      ENDIF
+      tnr_racg => tnr_racg_stage
+#else
+      if (.NOT. ALLOCATED(tnr_racg)) ALLOCATE(tnr_racg(ntb_g1,ntb_g,dimNRHG,ntb_r1,ntb_r))
+#endif
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (.NOT. ALLOCATED(tnr_gacr_stage)) THEN
+         ALLOCATE(tnr_gacr_stage(ntb_g1,ntb_g,dimNRHG,ntb_r1,ntb_r))
+      ENDIF
+      tnr_gacr => tnr_gacr_stage
+#else
+      if (.NOT. ALLOCATED(tnr_gacr)) ALLOCATE(tnr_gacr(ntb_g1,ntb_g,dimNRHG,ntb_r1,ntb_r))
+#endif
+
+      do m = 1, ntb_r
+         do k = 1, ntb_r1
+            do n = 1, dimNRHG
+            do j = 1, ntb_g
+               do i = 1, ntb_g1
+                     tmr_racg(i,j,n,k,m) = 0.0d0
+                     tcr_gacr(i,j,n,k,m) = 0.0d0
+                     !tmg_gacr(i,j,n,k,m) = 0.0d0
+                     tnr_racg(i,j,n,k,m) = 0.0d0
+                     tnr_gacr(i,j,n,k,m) = 0.0d0
+                  enddo
+               enddo
+            enddo
+         enddo
+      enddo
+
+      ENDIF
+#endif
          call qr_acr_qg(dimNRHG)
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (tpi_mode==1) CALL thompson_tpi_commit_group(1)
+#endif
 
 !..Rain collecting snow & snow collecting rain.
       CALL wrf_debug(200, '  creating rain collecting snow table')
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (tpi_mode==1) THEN
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (.NOT.ALLOCATED(rain_snow_stage)) &
+        ALLOCATE(rain_snow_stage(ntb_s,ntb_t,ntb_r1,ntb_r,12))
+      tcs_racs1 => rain_snow_stage(:,:,:,:,1)
+#else
+      if (.NOT. ALLOCATED(tcs_racs1)) ALLOCATE(tcs_racs1(ntb_s,ntb_t,ntb_r1,ntb_r))
+#endif
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (.NOT.ALLOCATED(rain_snow_stage)) &
+        CALL wrf_error_fatal('Experimental rain-snow stage missing at allocation')
+      tmr_racs1 => rain_snow_stage(:,:,:,:,2)
+#else
+      if (.NOT. ALLOCATED(tmr_racs1)) ALLOCATE(tmr_racs1(ntb_s,ntb_t,ntb_r1,ntb_r))
+#endif
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (.NOT.ALLOCATED(rain_snow_stage)) &
+        CALL wrf_error_fatal('Experimental rain-snow stage missing at allocation')
+      tcs_racs2 => rain_snow_stage(:,:,:,:,3)
+#else
+      if (.NOT. ALLOCATED(tcs_racs2)) ALLOCATE(tcs_racs2(ntb_s,ntb_t,ntb_r1,ntb_r))
+#endif
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (.NOT.ALLOCATED(rain_snow_stage)) &
+        CALL wrf_error_fatal('Experimental rain-snow stage missing at allocation')
+      tmr_racs2 => rain_snow_stage(:,:,:,:,4)
+#else
+      if (.NOT. ALLOCATED(tmr_racs2)) ALLOCATE(tmr_racs2(ntb_s,ntb_t,ntb_r1,ntb_r))
+#endif
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (.NOT.ALLOCATED(rain_snow_stage)) &
+        CALL wrf_error_fatal('Experimental rain-snow stage missing at allocation')
+      tcr_sacr1 => rain_snow_stage(:,:,:,:,5)
+#else
+      if (.NOT. ALLOCATED(tcr_sacr1)) ALLOCATE(tcr_sacr1(ntb_s,ntb_t,ntb_r1,ntb_r))
+#endif
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (.NOT.ALLOCATED(rain_snow_stage)) &
+        CALL wrf_error_fatal('Experimental rain-snow stage missing at allocation')
+      tms_sacr1 => rain_snow_stage(:,:,:,:,6)
+#else
+      if (.NOT. ALLOCATED(tms_sacr1)) ALLOCATE(tms_sacr1(ntb_s,ntb_t,ntb_r1,ntb_r))
+#endif
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (.NOT.ALLOCATED(rain_snow_stage)) &
+        CALL wrf_error_fatal('Experimental rain-snow stage missing at allocation')
+      tcr_sacr2 => rain_snow_stage(:,:,:,:,7)
+#else
+      if (.NOT. ALLOCATED(tcr_sacr2)) ALLOCATE(tcr_sacr2(ntb_s,ntb_t,ntb_r1,ntb_r))
+#endif
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (.NOT.ALLOCATED(rain_snow_stage)) &
+        CALL wrf_error_fatal('Experimental rain-snow stage missing at allocation')
+      tms_sacr2 => rain_snow_stage(:,:,:,:,8)
+#else
+      if (.NOT. ALLOCATED(tms_sacr2)) ALLOCATE(tms_sacr2(ntb_s,ntb_t,ntb_r1,ntb_r))
+#endif
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (.NOT.ALLOCATED(rain_snow_stage)) &
+        CALL wrf_error_fatal('Experimental rain-snow stage missing at allocation')
+      tnr_racs1 => rain_snow_stage(:,:,:,:,9)
+#else
+      if (.NOT. ALLOCATED(tnr_racs1)) ALLOCATE(tnr_racs1(ntb_s,ntb_t,ntb_r1,ntb_r))
+#endif
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (.NOT.ALLOCATED(rain_snow_stage)) &
+        CALL wrf_error_fatal('Experimental rain-snow stage missing at allocation')
+      tnr_racs2 => rain_snow_stage(:,:,:,:,10)
+#else
+      if (.NOT. ALLOCATED(tnr_racs2)) ALLOCATE(tnr_racs2(ntb_s,ntb_t,ntb_r1,ntb_r))
+#endif
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (.NOT.ALLOCATED(rain_snow_stage)) &
+        CALL wrf_error_fatal('Experimental rain-snow stage missing at allocation')
+      tnr_sacr1 => rain_snow_stage(:,:,:,:,11)
+#else
+      if (.NOT. ALLOCATED(tnr_sacr1)) ALLOCATE(tnr_sacr1(ntb_s,ntb_t,ntb_r1,ntb_r))
+#endif
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (.NOT.ALLOCATED(rain_snow_stage)) &
+        CALL wrf_error_fatal('Experimental rain-snow stage missing at allocation')
+      tnr_sacr2 => rain_snow_stage(:,:,:,:,12)
+#else
+      if (.NOT. ALLOCATED(tnr_sacr2)) ALLOCATE(tnr_sacr2(ntb_s,ntb_t,ntb_r1,ntb_r))
+#endif
+
+      do m = 1, ntb_r
+         do k = 1, ntb_r1
+            do j = 1, ntb_t
+               do i = 1, ntb_s
+                  tcs_racs1(i,j,k,m) = 0.0d0
+                  tmr_racs1(i,j,k,m) = 0.0d0
+                  tcs_racs2(i,j,k,m) = 0.0d0
+                  tmr_racs2(i,j,k,m) = 0.0d0
+                  tcr_sacr1(i,j,k,m) = 0.0d0
+                  tms_sacr1(i,j,k,m) = 0.0d0
+                  tcr_sacr2(i,j,k,m) = 0.0d0
+                  tms_sacr2(i,j,k,m) = 0.0d0
+                  tnr_racs1(i,j,k,m) = 0.0d0
+                  tnr_racs2(i,j,k,m) = 0.0d0
+                  tnr_sacr1(i,j,k,m) = 0.0d0
+                  tnr_sacr2(i,j,k,m) = 0.0d0
+               enddo
+            enddo
+         enddo
+      enddo
+
+      ENDIF
+#endif
       call qr_acr_qs
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (tpi_mode==1) CALL thompson_tpi_commit_group(2)
+#endif
 
 !..Cloud water and rain freezing (Bigg, 1953).
       CALL wrf_debug(200, '  creating freezing of water drops table')
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (tpi_mode==1) THEN
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (.NOT. ALLOCATED(tpi_qcfz_stage)) THEN
+         ALLOCATE(tpi_qcfz_stage(ntb_c,nbc,45,ntb_IN))
+      ENDIF
+      tpi_qcfz => tpi_qcfz_stage
+#else
+      if (.NOT. ALLOCATED(tpi_qcfz)) ALLOCATE(tpi_qcfz(ntb_c,nbc,45,ntb_IN))
+#endif
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (.NOT. ALLOCATED(tni_qcfz_stage)) THEN
+         ALLOCATE(tni_qcfz_stage(ntb_c,nbc,45,ntb_IN))
+      ENDIF
+      tni_qcfz => tni_qcfz_stage
+#else
+      if (.NOT. ALLOCATED(tni_qcfz)) ALLOCATE(tni_qcfz(ntb_c,nbc,45,ntb_IN))
+#endif
+
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (.NOT. ALLOCATED(tpi_qrfz_stage)) THEN
+         ALLOCATE(tpi_qrfz_stage(ntb_r,ntb_r1,45,ntb_IN))
+      ENDIF
+      tpi_qrfz => tpi_qrfz_stage
+#else
+      if (.NOT. ALLOCATED(tpi_qrfz)) ALLOCATE(tpi_qrfz(ntb_r,ntb_r1,45,ntb_IN))
+#endif
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (.NOT. ALLOCATED(tpg_qrfz_stage)) THEN
+         ALLOCATE(tpg_qrfz_stage(ntb_r,ntb_r1,45,ntb_IN))
+      ENDIF
+      tpg_qrfz => tpg_qrfz_stage
+#else
+      if (.NOT. ALLOCATED(tpg_qrfz)) ALLOCATE(tpg_qrfz(ntb_r,ntb_r1,45,ntb_IN))
+#endif
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (.NOT. ALLOCATED(tni_qrfz_stage)) THEN
+         ALLOCATE(tni_qrfz_stage(ntb_r,ntb_r1,45,ntb_IN))
+      ENDIF
+      tni_qrfz => tni_qrfz_stage
+#else
+      if (.NOT. ALLOCATED(tni_qrfz)) ALLOCATE(tni_qrfz(ntb_r,ntb_r1,45,ntb_IN))
+#endif
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (.NOT. ALLOCATED(tnr_qrfz_stage)) THEN
+         ALLOCATE(tnr_qrfz_stage(ntb_r,ntb_r1,45,ntb_IN))
+      ENDIF
+      tnr_qrfz => tnr_qrfz_stage
+#else
+      if (.NOT. ALLOCATED(tnr_qrfz)) ALLOCATE(tnr_qrfz(ntb_r,ntb_r1,45,ntb_IN))
+#endif
+
+      do m = 1, ntb_IN
+         do k = 1, 45
+            do j = 1, ntb_r1
+               do i = 1, ntb_r
+                  tpi_qrfz(i,j,k,m) = 0.0d0
+                  tni_qrfz(i,j,k,m) = 0.0d0
+                  tpg_qrfz(i,j,k,m) = 0.0d0
+                  tnr_qrfz(i,j,k,m) = 0.0d0
+               enddo
+            enddo
+            do j = 1, nbc
+               do i = 1, ntb_c
+                  tpi_qcfz(i,j,k,m) = 0.0d0
+                  tni_qcfz(i,j,k,m) = 0.0d0
+               enddo
+            enddo
+         enddo
+      enddo
+
+      ENDIF
+#endif
       call freezeH2O
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (tpi_mode==1) CALL thompson_tpi_commit_group(3)
+#endif
 
 !..Conversion of some ice mass into snow category.
       CALL wrf_debug(200, '  creating ice converting to snow table')
