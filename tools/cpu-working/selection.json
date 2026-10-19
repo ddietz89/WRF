@@ -1,7 +1,7 @@
 {
   "status": "PROMOTED_GENERIC_MYJ_MIXLEN_SCRATCH_REUSE_ON_ALL_E55_IMPROVEMENTS",
   "source_commit": "4e70d8fd315cb1220793226b69a2c55372cfb9bd",
-  "scope": "Cold single-domain noon12:00-13:15 OMP1/DIMNRHG1/shared1/375/881/825/faba/FIELDVIEW1/IB512/twoTiles exact normalR2 application plus prior transparent repairedR1. Own unprofiled9h is live, not yet qualified; no restart/nesting/othercompiler/mode0 transfer.",
+  "scope": "Cold single-domain06:00-15:00 GNU13.3 strict/OMP1/DIMNRHG1/shared1/375/881/825/faba/FIELDVIEW1/IB512/twoTiles; ten original products/1625 steps. Prior normal noon R2 and repaired R1 retained. No restart/nesting/other-compiler/hail/aerosol/mode0 application transfer.",
   "artifacts": {
     "shim": {
       "path": "/pool/wrf-experiment/wrf-cpu/source-discovery/parallel-pack-quilt-shim-native-r1/wrf_quilt_thread_shim.so",
@@ -48,30 +48,28 @@
   },
   "includes": "All retained e55/sourceef7 compute/memory/output/library improvements plus generic MIXLEN dead-scratch reuse; whole-MYJPBL Znver2 flags rejected and excluded.",
   "science": {
-    "status": "PASS_ORIGINAL_TWO_HISTORY_AND_512_NOON75M_ORDERED_SEQUENCE",
-    "complete_products": 2,
-    "ordered_steps": 230,
-    "last_observed_step": "2026-10-12_13:15:00",
+    "status": "PASS_ORIGINAL_TEN_HISTORY_AND_512_DIRECT_STOCK_LATEST_NINE_HOUR_SEQUENCE",
+    "complete_products": 10,
+    "ordered_steps": 1625,
+    "last_observed_step": "2026-10-12_15:00:00",
     "all512": true,
     "compute_ranks": 480,
     "serial_tiles": 2,
     "required_positive_roots": [
       487,
-      495
-    ],
-    "inactive_writer_roots": [
+      495,
       503,
       511
     ],
-    "reader_positive_closure": true,
-    "receipt_sha256": "19007b280638354f92f9c7548b732ae187357052b3968a66662fa54df211dce5",
-    "reader_closure_sha256": "a086ccac8c019aee539fd6f2246194330d31dca413b6544bff62d59675b9c715",
-    "full_qualification_sha256": "405bb4c6a256bdd93bd582497fc0652e9a5fea4b46900da99ffa5f6d396f784e",
-    "all_model_recorder_reader_scopes_closed": true,
-    "coarse_parent_UNAVAILABLE_preserved": true,
+    "receipt_sha256": "387e7c8c766509cd1293fee49fa53cd1ffebed67464b023549e660e738c68e1a",
+    "reader_closure_sha256": "fdc499e31766a57e96bbbb5def3d6741852add0542960e98c0757bbec3598a70",
+    "full_qualification_sha256": "f38a865905d030be42ac0a965b4aa6afbc0eae280902a3839f20df176457f445",
+    "all_model_reader_scopes_closed": true,
+    "reader_exit_code_property": null,
+    "reader_manager_success_invocation_bound": true,
     "protected_checker": "0382bcbabfbc16b76114ef552206c6c558ea15cd3c3552dfaed98b977deea2b4"
   },
-  "lease_reference": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-pairedproducer75m-runtime-r2/lease-candidate-proposed.json",
+  "lease_reference": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-selected-myj9h-runtime-r1/lease-candidate-proposed.json",
   "rollback_executable_sha256": "e55c97e6129529f366fd0dd496d3cff1192714223c7755a7484622ddb82a108f",
   "activation": "Selection record, not a launcher. Use existing bounded launcher with a fresh run directory/log directory/lease and actual affinity/library/resource checks. Never preload MPI launcher or helper processes.",
   "schema_version": 2,
@@ -133,20 +131,37 @@
     "sha256": "e55c97e6129529f366fd0dd496d3cff1192714223c7755a7484622ddb82a108f"
   },
   "latest_application": {
-    "evidence_file": "../cpu-compute/myj-mixlen-scratch-reuse/NORMAL_NOON_R2_QUALIFICATION.json",
+    "evidence_file": "NINE_HOUR_RESULT.json",
     "executable_sha256": "b1fb398a9c7186823584252b53f4ee360c260143064720256f660ba1459c8670",
     "source_commit": "4e70d8fd315cb1220793226b69a2c55372cfb9bd",
-    "comparison_design": "Exact corrected-original2products/230steps normalR2 original checker; diagnostic profiles, NOTperformancecomparison",
-    "actual_product_comparisons": 2,
-    "ordered_steps": 230,
+    "comparison_design": "UNPAIRED candidate-only versus retained corrected original546b 2069.3122304237913s; no fresh control, no isolated MYJ attribution",
+    "metrics": {
+      "control": {
+        "wall_seconds": 2069.3122304237913,
+        "cpu_seconds": 1009264.484921,
+        "main_step_sum_seconds": 1851.54464
+      },
+      "candidate": {
+        "wall_seconds": 1855.5050872198772,
+        "cpu_seconds": 932992.8057599999,
+        "main_step_sum_seconds": 1752.80765
+      }
+    },
+    "reductions_percent": {
+      "wall_seconds": 10.332280458233544,
+      "cpu_seconds": 7.557154769690544,
+      "main_step_sum_seconds": 5.3326821221010405
+    },
+    "full_qualification_sha256": "f38a865905d030be42ac0a965b4aa6afbc0eae280902a3839f20df176457f445",
+    "actual_product_comparisons": 10,
+    "ordered_steps": 1625,
     "all_own_jobs_closed": true,
-    "full_qualification_sha256": "405bb4c6a256bdd93bd582497fc0652e9a5fea4b46900da99ffa5f6d396f784e",
     "fresh_matched_timing": false,
     "applies_to_current_selection": true,
-    "timing_claim": false,
-    "scope": "Cold single-domain noon12:00-13:15 OMP1/DIMNRHG1/shared1/375/881/825/faba/FIELDVIEW1/IB512/twoTiles exact normalR2 application plus prior transparent repairedR1. Own unprofiled9h is live, not yet qualified; no restart/nesting/othercompiler/mode0 transfer."
+    "scope": "Cold single-domain06:00-15:00 GNU13.3 strict/OMP1/DIMNRHG1/shared1/375/881/825/faba/FIELDVIEW1/IB512/twoTiles; ten original products/1625 steps. Prior normal noon R2 and repaired R1 retained. No restart/nesting/other-compiler/hail/aerosol/mode0 application transfer.",
+    "timing_claim": true
   },
-  "timing_scope": "Current b1fb owns two exact75m noon application checks (R1 transparently repaired, R2 normal) and three actual15s profiles; no current forecast timing claim. Its unprofiled9h is active. E55 owns last3h unpaired observation; TEN322 historical9h. Callerbenefit0.25/0.71% only.",
+  "timing_scope": "Own unprofiled b1fb nine-hour UNPAIRED observation:10.3323% lower wall,7.5572% lower aggregate cgroupCPU,5.3327% lower main-step elapsed. No isolated MYJ or repeatability claim. Last distinct3h benchmark remains e55, not transferred to b1fb.",
   "earlier_three_hour_benchmark_f1d7": {
     "executable": {
       "path": "/pool/wrf-experiment/wrf-cpu/builds/four-worthy-ports-current-r1/wrf.exe",
@@ -501,9 +516,10 @@
     "scope": "Historical5326 diagnostic only; not8604 daytime qualification."
   },
   "last_nine_hour_benchmark": {
-    "evidence_file": "PREVIOUS_NINE_HOUR_RESULT_322.json",
-    "executable_sha256": "3220319ccf387520dc90934198430e3366745e195381e235e5b14157679538f1",
-    "source_commit": "4480c0cc8aa64776b55b31df7626e1e3acd94e76",
+    "evidence_file": "NINE_HOUR_RESULT.json",
+    "executable_sha256": "b1fb398a9c7186823584252b53f4ee360c260143064720256f660ba1459c8670",
+    "source_commit": "4e70d8fd315cb1220793226b69a2c55372cfb9bd",
+    "comparison_design": "UNPAIRED candidate-only versus retained corrected original546b 2069.3122304237913s; no fresh control, no isolated MYJ attribution",
     "metrics": {
       "control": {
         "wall_seconds": 2069.3122304237913,
@@ -511,17 +527,22 @@
         "main_step_sum_seconds": 1851.54464
       },
       "candidate": {
-        "wall_seconds": 1858.3668603610713,
-        "cpu_seconds": 933163.48591,
-        "main_step_sum_seconds": 1753.51523
+        "wall_seconds": 1855.5050872198772,
+        "cpu_seconds": 932992.8057599999,
+        "main_step_sum_seconds": 1752.80765
       }
     },
     "reductions_percent": {
-      "wall_seconds": 10.19398459842471,
-      "cpu_seconds": 7.5402434295462895,
-      "main_step_sum_seconds": 5.2944664623371
+      "wall_seconds": 10.332280458233544,
+      "cpu_seconds": 7.557154769690544,
+      "main_step_sum_seconds": 5.3326821221010405
     },
-    "applies_to_current_selection": false
+    "full_qualification_sha256": "f38a865905d030be42ac0a965b4aa6afbc0eae280902a3839f20df176457f445",
+    "actual_product_comparisons": 10,
+    "ordered_steps": 1625,
+    "all_own_jobs_closed": true,
+    "fresh_matched_timing": false,
+    "applies_to_current_selection": true
   },
   "earlier_three_hour_benchmark_5326": {
     "executable": {
@@ -1874,17 +1895,18 @@
     "fresh_matched_timing": false
   },
   "nine_hour_science": {
-    "status": "PASS_CURRENT_FIXED_TEN_NINE_HOUR_ORIGINAL_FULL_GATE_AND_ALL_OWN_SCOPES_CLOSED",
-    "last_qualified_executable_sha256": "3220319ccf387520dc90934198430e3366745e195381e235e5b14157679538f1",
-    "evidence_file": "PREVIOUS_NINE_HOUR_FINAL_QUALIFICATION_322.json",
-    "applies_to_current_selection": false,
-    "scope": "Cold single-domain OMP1 DIMNRHG1 sharedmode1, unchanged375/881/825/faba/FIELDVIEW1/IB512+twoTiles. No restart/nesting/hail/aerosol/ng/mode0 application transfer."
+    "status": "PASS_UNPROFILED_SELECTED_B1FB_NINE_HOUR_ORIGINAL_TEN_OUTPUT1625_AND_ALL_SCOPES_STRONGLY_CLOSED",
+    "last_qualified_executable_sha256": "b1fb398a9c7186823584252b53f4ee360c260143064720256f660ba1459c8670",
+    "evidence_file": "NINE_HOUR_FINAL_QUALIFICATION.json",
+    "sha256": "f38a865905d030be42ac0a965b4aa6afbc0eae280902a3839f20df176457f445",
+    "applies_to_current_selection": true,
+    "scope": "Cold single-domain06:00-15:00 GNU13.3 strict/OMP1/DIMNRHG1/shared1/375/881/825/faba/FIELDVIEW1/IB512/twoTiles; ten original products/1625 steps. Prior normal noon R2 and repaired R1 retained. No restart/nesting/other-compiler/hail/aerosol/mode0 application transfer."
   },
   "previous_selection_file": "PREVIOUS_SELECTION_E55.json",
   "combined_six_owner_default_record": "../cpu-memory/thompson-table-sharing/RAIN_EXTENSION_QUALIFICATION.json",
   "combined_ten_owner_default_record": "tools/cpu-memory/thompson-table-sharing/GRAUPEL_EXTENSION_QUALIFICATION.json",
   "compute_qualification_file": "tools/cpu-compute/myj-mixlen-scratch-reuse/QUALIFICATION.json",
-  "current_nine_hour_qualified": false,
+  "current_nine_hour_qualified": true,
   "latest_profile_evidence": {
     "file": "../cpu-profile/radiationwindow-3bb2/QUALIFICATION.json",
     "sha256": "087130d9cb6725cba5c650bca5c442d91aeac8b0bd0eaaaf8b98c4d188d3848a",
@@ -1946,5 +1968,42 @@
     "applies_to_current_selection": true,
     "timing_claim": false,
     "scope": "Cold single-domain currentGNU13.3/OMP1/DIMNRHG1/shared1/375/881/825/faba/FIELDVIEW1/IB/world512,two tiles,12:00-13:15. No full3h/9h/othercompiler/restart/nesting transfer. Same original numericalchecker; original failed metadata gate is not reclassified success."
+  },
+  "previous_noon_r2_application": {
+    "evidence_file": "../cpu-compute/myj-mixlen-scratch-reuse/NORMAL_NOON_R2_QUALIFICATION.json",
+    "executable_sha256": "b1fb398a9c7186823584252b53f4ee360c260143064720256f660ba1459c8670",
+    "source_commit": "4e70d8fd315cb1220793226b69a2c55372cfb9bd",
+    "comparison_design": "Exact corrected-original2products/230steps normalR2 original checker; diagnostic profiles, NOTperformancecomparison",
+    "actual_product_comparisons": 2,
+    "ordered_steps": 230,
+    "all_own_jobs_closed": true,
+    "full_qualification_sha256": "405bb4c6a256bdd93bd582497fc0652e9a5fea4b46900da99ffa5f6d396f784e",
+    "fresh_matched_timing": false,
+    "applies_to_current_selection": true,
+    "timing_claim": false,
+    "scope": "Cold single-domain noon12:00-13:15 OMP1/DIMNRHG1/shared1/375/881/825/faba/FIELDVIEW1/IB512/twoTiles exact normalR2 application plus prior transparent repairedR1. Own unprofiled9h is live, not yet qualified; no restart/nesting/othercompiler/mode0 transfer."
+  },
+  "previous_nine_hour_benchmark_322": {
+    "evidence_file": "PREVIOUS_NINE_HOUR_RESULT_322.json",
+    "executable_sha256": "3220319ccf387520dc90934198430e3366745e195381e235e5b14157679538f1",
+    "source_commit": "4480c0cc8aa64776b55b31df7626e1e3acd94e76",
+    "metrics": {
+      "control": {
+        "wall_seconds": 2069.3122304237913,
+        "cpu_seconds": 1009264.484921,
+        "main_step_sum_seconds": 1851.54464
+      },
+      "candidate": {
+        "wall_seconds": 1858.3668603610713,
+        "cpu_seconds": 933163.48591,
+        "main_step_sum_seconds": 1753.51523
+      }
+    },
+    "reductions_percent": {
+      "wall_seconds": 10.19398459842471,
+      "cpu_seconds": 7.5402434295462895,
+      "main_step_sum_seconds": 5.2944664623371
+    },
+    "applies_to_current_selection": false
   }
 }

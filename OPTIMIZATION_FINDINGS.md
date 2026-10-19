@@ -6,6 +6,22 @@ Current continuation handoff: [WRF_CPU_OPTIMIZATION_HANDOFF_2026-10-19.md](WRF_C
 
 The October 19 continuation instruction establishes concurrent incremental-kernel and architectural portfolios, with actual parallel DeepSeek work. The [SOP](TIMING_SOP.md#two-coordinated-optimization-portfolios) records this policy. The current selection and qualification scope are stated below; historical results retain their original artifact bindings.
 
+## Current selected build: nine-hour exact qualification (2026-10-19 22:25 UTC)
+
+Selected **b1fb398a/source4e70d8fd** retains all prior compute, shared-table, output and library improvements plus generic MYJPBL MIXLEN scratch reuse. Its unprofiled 06:00–15:00 run passed the unchanged original checker: **ten complete products, 1,625 ordered steps, all512 ranks, two tiles and all four writer groups**. All model and reader scopes closed. Science`387e7c8c`, readerclosure`fdc499e3`, FQ`f38a8659`; root rehashed all20 actual references. The unloaded reader's exit-code property is unavailable; invocation-bound manager success and the absent/empty cgroup establish closure without inventing that property. Frozen producer source_commitNULL remains unchanged; selected-source tracking is separate.
+
+| Measure | Retained corrected original | Selected combined | Lower |
+|---|---:|---:|---:|
+| Whole model/MPI wall |2,069.312230s|1,855.505087s|10.3323%|
+| Aggregate cgroup CPU, including output |1,009,264.484921s|932,992.805760s|7.5572%|
+| Main-step elapsed, including communication/backpressure |1,851.544640s|1,752.807650s|5.3327%|
+
+This is **UNPAIRED** against retained corrected original546b, with checked compute-client cache clears and uncontrolled file-server/cache/load conditions. It establishes neither isolated MYJPBL contribution nor repeatability. Historical322's1,858.366860s is a separate observation, not an attribution baseline. Main is not integration-only CPU; wall-minus-main is not pure I/O. Observed throughput is **1.11523×**; 1.5× requires a further25.6514% current-wall reduction and2×44.2386%, arithmetic gaps rather than demonstrated headroom. The latest distinct three-hour result remains e55's18.3885% unpaired observation and is not relabelled as b1fb timing. [Current result](tools/cpu-working/NINE_HOUR_RESULT.json) and [qualification](tools/cpu-working/NINE_HOUR_FINAL_QUALIFICATION.json) bind the exact artifacts. Earlier sections below are historical snapshots.
+
+Actual per-node invocation peaks were82.598/80.446/80.388/80.362GiB, with all memory-event counters zero. Sparse early maxima were77.45–79.44GiB and predominantly anonymous memory; the phase/components of the true peaks remain unknown. These are not isolated table savings or dual-run admission evidence.
+
+A distinct lazy-allocation/fixed-group Thompson publication candidate has passed read-table and fresh-computed-table native gates, including64-rank computed population, all23 records, two INIT calls, original11 callers, raw/state/readonly checks and unchanged module interface. Its source remains unselected pending one qualified-object link and actual application/memory checks. Conditional private-capacity reduction11.59GiB/node is not a measured physical saving. A released ten-minute startup input capture is running on the selected build with immediate recorder checks; the table build follows after model/recorder closure. AWS stays suspended; production/master unchanged. Continue the active Goal.
+
 ## Current-build radiation-window profile and closed page probe (2026-10-19 19:28 UTC)
 
 The selected **3bb2/source26bc** build passed the original cold 12:00–13:15 case: two complete outputs, 230 ordered steps, all512 ranks, two tiles and the unchanged two-active/two-inactive writer contract. Three same-host main-thread captures retained **701/707/707 samples**, about15seconds each and14.947seconds common overlap, with actual longwave-radiation frames. All model, native recorder, gate-owner, watcher and reader scopes closed. [Profile qualification](tools/cpu-profile/radiationwindow-3bb2/QUALIFICATION.json) binds39 raw references; FQ`087130d9`, science`d83257e4`, readerclosure`9fe4ab97`.

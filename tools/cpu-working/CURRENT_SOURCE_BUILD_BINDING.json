@@ -104,18 +104,51 @@
       "sha256": "1cd383339e62361ad8d4dd178e1717fc334b6f7c4bbf6a53fa5787b6ade1060a"
     }
   },
-  "current_nine_hour_qualified": false,
+  "current_nine_hour_qualified": true,
   "previous_nine_hour_qualification": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_NINE_HOUR_FINAL_QUALIFICATION_322.json",
     "sha256": "bb0c0f6a9884e7541c811158f4a83cf87cff0e36b268d42f7e6f596ad19fded6"
   },
   "full_application": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/myj-mixlen-scratch-reuse/NORMAL_NOON_R2_QUALIFICATION.json",
-    "sha256": "405bb4c6a256bdd93bd582497fc0652e9a5fea4b46900da99ffa5f6d396f784e"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-working/NINE_HOUR_FINAL_QUALIFICATION.json",
+    "sha256": "f38a865905d030be42ac0a965b4aa6afbc0eae280902a3839f20df176457f445"
   },
   "current_three_hour_qualified": false,
   "prior_repaired_full_application": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/myj-mixlen-scratch-reuse/APPLICATION_QUALIFICATION.json",
     "sha256": "55e2170cfc4f695e2eb7124cb4dec541954a9db290979ed2423252a4b117eb2f"
+  },
+  "prior_normal_noon_r2_full_application": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/myj-mixlen-scratch-reuse/NORMAL_NOON_R2_QUALIFICATION.json",
+    "sha256": "405bb4c6a256bdd93bd582497fc0652e9a5fea4b46900da99ffa5f6d396f784e"
+  },
+  "nine_hour_benchmark": {
+    "evidence_file": "NINE_HOUR_RESULT.json",
+    "executable_sha256": "b1fb398a9c7186823584252b53f4ee360c260143064720256f660ba1459c8670",
+    "source_commit": "4e70d8fd315cb1220793226b69a2c55372cfb9bd",
+    "comparison_design": "UNPAIRED candidate-only versus retained corrected original546b 2069.3122304237913s; no fresh control, no isolated MYJ attribution",
+    "metrics": {
+      "control": {
+        "wall_seconds": 2069.3122304237913,
+        "cpu_seconds": 1009264.484921,
+        "main_step_sum_seconds": 1851.54464
+      },
+      "candidate": {
+        "wall_seconds": 1855.5050872198772,
+        "cpu_seconds": 932992.8057599999,
+        "main_step_sum_seconds": 1752.80765
+      }
+    },
+    "reductions_percent": {
+      "wall_seconds": 10.332280458233544,
+      "cpu_seconds": 7.557154769690544,
+      "main_step_sum_seconds": 5.3326821221010405
+    },
+    "full_qualification_sha256": "f38a865905d030be42ac0a965b4aa6afbc0eae280902a3839f20df176457f445",
+    "actual_product_comparisons": 10,
+    "ordered_steps": 1625,
+    "all_own_jobs_closed": true,
+    "fresh_matched_timing": false,
+    "applies_to_current_selection": true
   }
 }
