@@ -377,9 +377,25 @@
 !.. allocatable (2009Jun12, J. Michalakes).
       INTEGER, PARAMETER, PRIVATE:: R8SIZE = 8
       INTEGER, PARAMETER, PRIVATE:: R4SIZE = 4
+#ifndef WRF_EXPERIMENTAL_TPI_NUMA
       REAL (KIND=R8SIZE), ALLOCATABLE, DIMENSION(:,:,:,:,:)::           &
                 tcg_racg, tmr_racg, tcr_gacr,                           & ! tmg_gacr
                 tnr_racg, tnr_gacr
+#else
+      REAL (KIND=R8SIZE), ALLOCATABLE, DIMENSION(:,:,:,:,:):: tcg_racg
+      REAL(KIND=R8SIZE), POINTER, CONTIGUOUS, PRIVATE :: tmr_racg(:,:,:,:,:) => NULL()
+      REAL(KIND=R8SIZE), ALLOCATABLE, TARGET, PRIVATE :: tmr_racg_stage(:,:,:,:,:)
+      TYPE(C_PTR), PRIVATE :: rcg_owner=C_NULL_PTR, rcg_cview=C_NULL_PTR
+      REAL(KIND=R8SIZE), POINTER, CONTIGUOUS, PRIVATE :: tcr_gacr(:,:,:,:,:) => NULL()
+      REAL(KIND=R8SIZE), ALLOCATABLE, TARGET, PRIVATE :: tcr_gacr_stage(:,:,:,:,:)
+      TYPE(C_PTR), PRIVATE :: gcr_owner=C_NULL_PTR, gcr_cview=C_NULL_PTR
+      REAL(KIND=R8SIZE), POINTER, CONTIGUOUS, PRIVATE :: tnr_racg(:,:,:,:,:) => NULL()
+      REAL(KIND=R8SIZE), ALLOCATABLE, TARGET, PRIVATE :: tnr_racg_stage(:,:,:,:,:)
+      TYPE(C_PTR), PRIVATE :: nrc_owner=C_NULL_PTR, nrc_cview=C_NULL_PTR
+      REAL(KIND=R8SIZE), POINTER, CONTIGUOUS, PRIVATE :: tnr_gacr(:,:,:,:,:) => NULL()
+      REAL(KIND=R8SIZE), ALLOCATABLE, TARGET, PRIVATE :: tnr_gacr_stage(:,:,:,:,:)
+      TYPE(C_PTR), PRIVATE :: ngc_owner=C_NULL_PTR, ngc_cview=C_NULL_PTR
+#endif
       REAL (KIND=R8SIZE), ALLOCATABLE, DIMENSION(:,:,:,:)::             &
                 tcs_racs1, tmr_racs1, tcs_racs2, tmr_racs2,             &
                 tcr_sacr1, tms_sacr1, tcr_sacr2, tms_sacr2,             &
@@ -489,48 +505,77 @@
         INTEGER(C_INT) :: rc,cleanup,expected
         INTEGER :: failed_at
         CHARACTER(LEN=128) :: failure_message
-        INTEGER(C_SIZE_T) :: b1,b2,b3,b4,b5,b6
-        TYPE(C_PTR) :: s1,s2,s3,s4,s5,s6
+        INTEGER(C_SIZE_T) :: b1,b2,b3,b4,b5,b6,b7,b8,b9,b10
+        TYPE(C_PTR) :: s1,s2,s3,s4,s5,s6,s7,s8,s9,s10
         REAL(KIND=R8SIZE),POINTER,CONTIGUOUS :: v1(:,:,:,:),v2(:,:,:,:)
         REAL(KIND=R8SIZE),POINTER,CONTIGUOUS :: v3(:,:,:,:),v4(:,:,:,:)
         REAL(KIND=R8SIZE),POINTER,CONTIGUOUS :: v5(:,:,:,:),v6(:,:,:,:)
+        REAL(KIND=R8SIZE),POINTER,CONTIGUOUS :: v7(:,:,:,:,:),v8(:,:,:,:,:)
+        REAL(KIND=R8SIZE),POINTER,CONTIGUOUS :: v9(:,:,:,:,:),v10(:,:,:,:,:)
         IF (tpi_phase/=TPI_INIT) CALL wrf_error_fatal('Experimental tpi publication phase')
-        ! ALL SIX private stages must be allocated before any owner is created.
+        ! ALL TEN private stages must be allocated before any owner is created.
         IF (.NOT.(ALLOCATED(tpi_qcfz_stage).AND.ALLOCATED(tni_qcfz_stage).AND. &
                   ALLOCATED(tpi_qrfz_stage).AND.ALLOCATED(tni_qrfz_stage).AND. &
-                  ALLOCATED(tpg_qrfz_stage).AND.ALLOCATED(tnr_qrfz_stage))) &
+                  ALLOCATED(tpg_qrfz_stage).AND.ALLOCATED(tnr_qrfz_stage).AND. &
+                  ALLOCATED(tmr_racg_stage).AND.ALLOCATED(tcr_gacr_stage).AND. &
+                  ALLOCATED(tnr_racg_stage).AND.ALLOCATED(tnr_gacr_stage))) &
           CALL wrf_error_fatal('Experimental tpi missing private stage')
         IF (.NOT.(ASSOCIATED(tpi_qcfz,tpi_qcfz_stage).AND.ASSOCIATED(tni_qcfz,tni_qcfz_stage).AND. &
                   ASSOCIATED(tpi_qrfz,tpi_qrfz_stage).AND.ASSOCIATED(tni_qrfz,tni_qrfz_stage).AND. &
-                  ASSOCIATED(tpg_qrfz,tpg_qrfz_stage).AND.ASSOCIATED(tnr_qrfz,tnr_qrfz_stage))) &
+                  ASSOCIATED(tpg_qrfz,tpg_qrfz_stage).AND.ASSOCIATED(tnr_qrfz,tnr_qrfz_stage).AND. &
+                  ASSOCIATED(tmr_racg,tmr_racg_stage).AND.ASSOCIATED(tcr_gacr,tcr_gacr_stage).AND. &
+                  ASSOCIATED(tnr_racg,tnr_racg_stage).AND.ASSOCIATED(tnr_gacr,tnr_gacr_stage))) &
           CALL wrf_error_fatal('Experimental tpi stage association')
+        IF (dimNRHG/=1.OR.is_hail_aware.OR.is_aerosol_aware) &
+          CALL wrf_error_fatal('Experimental rank5 owners require non-hail non-aerosol dimNRHG1')
         IF (R8SIZE/=C_DOUBLE) CALL wrf_error_fatal('Experimental tpi REAL8 kind')
         IF (STORAGE_SIZE(tpi_qcfz_stage)/=64.OR.STORAGE_SIZE(tni_qcfz_stage)/=64 .OR. &
             STORAGE_SIZE(tpi_qrfz_stage)/=64.OR.STORAGE_SIZE(tni_qrfz_stage)/=64 .OR. &
-            STORAGE_SIZE(tpg_qrfz_stage)/=64.OR.STORAGE_SIZE(tnr_qrfz_stage)/=64) &
+            STORAGE_SIZE(tpg_qrfz_stage)/=64.OR.STORAGE_SIZE(tnr_qrfz_stage)/=64.OR. &
+            STORAGE_SIZE(tmr_racg_stage)/=64.OR.STORAGE_SIZE(tcr_gacr_stage)/=64.OR. &
+            STORAGE_SIZE(tnr_racg_stage)/=64.OR.STORAGE_SIZE(tnr_gacr_stage)/=64) &
           CALL wrf_error_fatal('Experimental tpi stage REAL8 kind')
         IF (ANY(SHAPE(tpi_qcfz_stage)/=[37,100,45,55]).OR.ANY(SHAPE(tni_qcfz_stage)/=[37,100,45,55])) &
           CALL wrf_error_fatal('Experimental tpi cloud shape')
         IF (ANY(SHAPE(tpi_qrfz_stage)/=[37,37,45,55]).OR.ANY(SHAPE(tni_qrfz_stage)/=[37,37,45,55]).OR. &
             ANY(SHAPE(tpg_qrfz_stage)/=[37,37,45,55]).OR.ANY(SHAPE(tnr_qrfz_stage)/=[37,37,45,55])) &
           CALL wrf_error_fatal('Experimental tpi rain shape')
+        IF (.NOT.ALLOCATED(tcg_racg)) CALL wrf_error_fatal('Experimental ordinary tcg missing')
+        IF (ANY(SHAPE(tcg_racg)/=[37,37,1,37,37])) &
+          CALL wrf_error_fatal('Experimental ordinary tcg shape')
+        IF (ANY(SHAPE(tmr_racg_stage)/=[37,37,1,37,37]).OR. &
+            ANY(SHAPE(tcr_gacr_stage)/=[37,37,1,37,37]).OR. &
+            ANY(SHAPE(tnr_racg_stage)/=[37,37,1,37,37]).OR. &
+            ANY(SHAPE(tnr_gacr_stage)/=[37,37,1,37,37])) &
+          CALL wrf_error_fatal('Experimental rank5 owner shape')
         b1=INT(SIZE(tpi_qcfz_stage),C_SIZE_T)*C_SIZEOF(tpi_qcfz_stage(1,1,1,1))
         b2=INT(SIZE(tni_qcfz_stage),C_SIZE_T)*C_SIZEOF(tni_qcfz_stage(1,1,1,1))
         b3=INT(SIZE(tpi_qrfz_stage),C_SIZE_T)*C_SIZEOF(tpi_qrfz_stage(1,1,1,1))
         b4=INT(SIZE(tni_qrfz_stage),C_SIZE_T)*C_SIZEOF(tni_qrfz_stage(1,1,1,1))
         b5=INT(SIZE(tpg_qrfz_stage),C_SIZE_T)*C_SIZEOF(tpg_qrfz_stage(1,1,1,1))
         b6=INT(SIZE(tnr_qrfz_stage),C_SIZE_T)*C_SIZEOF(tnr_qrfz_stage(1,1,1,1))
+        b7=INT(SIZE(tmr_racg_stage),C_SIZE_T)*C_SIZEOF(tmr_racg_stage(1,1,1,1,1))
+        b8=INT(SIZE(tcr_gacr_stage),C_SIZE_T)*C_SIZEOF(tcr_gacr_stage(1,1,1,1,1))
+        b9=INT(SIZE(tnr_racg_stage),C_SIZE_T)*C_SIZEOF(tnr_racg_stage(1,1,1,1,1))
+        b10=INT(SIZE(tnr_gacr_stage),C_SIZE_T)*C_SIZEOF(tnr_gacr_stage(1,1,1,1,1))
         IF (b1/=73260000_C_SIZE_T.OR.b2/=73260000_C_SIZE_T) &
           CALL wrf_error_fatal('Experimental tpi cloud byte count')
         IF (b3/=27106200_C_SIZE_T.OR.b4/=27106200_C_SIZE_T.OR. &
             b5/=27106200_C_SIZE_T.OR.b6/=27106200_C_SIZE_T) &
           CALL wrf_error_fatal('Experimental tpi rain byte count')
+        IF (b7/=14993288_C_SIZE_T.OR.b8/=14993288_C_SIZE_T.OR. &
+            b9/=14993288_C_SIZE_T.OR.b10/=14993288_C_SIZE_T) &
+          CALL wrf_error_fatal('Experimental rank5 owner byte count')
         s1=C_LOC(tpi_qcfz_stage(1,1,1,1)); s2=C_LOC(tni_qcfz_stage(1,1,1,1))
         s3=C_LOC(tpi_qrfz_stage(1,1,1,1)); s4=C_LOC(tni_qrfz_stage(1,1,1,1))
         s5=C_LOC(tpg_qrfz_stage(1,1,1,1)); s6=C_LOC(tnr_qrfz_stage(1,1,1,1))
+        s7=C_LOC(tmr_racg_stage(1,1,1,1,1))
+        s8=C_LOC(tcr_gacr_stage(1,1,1,1,1))
+        s9=C_LOC(tnr_racg_stage(1,1,1,1,1))
+        s10=C_LOC(tnr_gacr_stage(1,1,1,1,1))
         expected=1_C_INT
         IF (tpi_mode==1) expected=0_C_INT
-        ! Fixed6 order is independent of original freezeH2O file record order.
+        ! Fixed10 order is independent of original freezeH2O file record order.
         failed_at=1
         rc=st_create(INT(tpi_comm,C_INT),s1,b1,INT(tpi_mode,C_INT),tpi_owner,tpi_cview)
         IF (rc/=expected) GOTO 900
@@ -549,6 +594,18 @@
         failed_at=6
         rc=st_create(INT(tpi_comm,C_INT),s6,b6,INT(tpi_mode,C_INT),rnr_owner,rnr_cview)
         IF (rc/=expected) GOTO 900
+        failed_at=7
+        rc=st_create(INT(tpi_comm,C_INT),s7,b7,INT(tpi_mode,C_INT),rcg_owner,rcg_cview)
+        IF (rc/=expected) GOTO 900
+        failed_at=8
+        rc=st_create(INT(tpi_comm,C_INT),s8,b8,INT(tpi_mode,C_INT),gcr_owner,gcr_cview)
+        IF (rc/=expected) GOTO 900
+        failed_at=9
+        rc=st_create(INT(tpi_comm,C_INT),s9,b9,INT(tpi_mode,C_INT),nrc_owner,nrc_cview)
+        IF (rc/=expected) GOTO 900
+        failed_at=10
+        rc=st_create(INT(tpi_comm,C_INT),s10,b10,INT(tpi_mode,C_INT),ngc_owner,ngc_cview)
+        IF (rc/=expected) GOTO 900
         IF (expected==0_C_INT) THEN
           CALL C_F_POINTER(tpi_cview,v1,[37,100,45,55])
           CALL C_F_POINTER(tni_cview,v2,[37,100,45,55])
@@ -556,12 +613,24 @@
           CALL C_F_POINTER(rni_cview,v4,[37,37,45,55])
           CALL C_F_POINTER(rpg_cview,v5,[37,37,45,55])
           CALL C_F_POINTER(rnr_cview,v6,[37,37,45,55])
+          CALL C_F_POINTER(rcg_cview,v7,[37,37,1,37,37])
+          CALL C_F_POINTER(gcr_cview,v8,[37,37,1,37,37])
+          CALL C_F_POINTER(nrc_cview,v9,[37,37,1,37,37])
+          CALL C_F_POINTER(ngc_cview,v10,[37,37,1,37,37])
           tpi_qcfz => v1; tni_qcfz => v2
           tpi_qrfz => v3; tni_qrfz => v4
           tpg_qrfz => v5; tnr_qrfz => v6
+          tmr_racg => v7
+          tcr_gacr => v8
+          tnr_racg => v9
+          tnr_gacr => v10
           DEALLOCATE(tpi_qcfz_stage); DEALLOCATE(tni_qcfz_stage)
           DEALLOCATE(tpi_qrfz_stage); DEALLOCATE(tni_qrfz_stage)
           DEALLOCATE(tpg_qrfz_stage); DEALLOCATE(tnr_qrfz_stage)
+          DEALLOCATE(tmr_racg_stage)
+          DEALLOCATE(tcr_gacr_stage)
+          DEALLOCATE(tnr_racg_stage)
+          DEALLOCATE(tnr_gacr_stage)
           tpi_phase=TPI_SHARED
         ELSE
           tpi_phase=TPI_PRIVATE
@@ -594,7 +663,23 @@
         IF ((cleanup/=0_C_INT.AND.cleanup/=1_C_INT).OR. &
             C_ASSOCIATED(rnr_owner).OR.C_ASSOCIATED(rnr_cview)) &
           CALL wrf_error_fatal('Experimental six-owner rollback cleanup 6')
-        WRITE(failure_message,'(A,I0,A,I0)') 'Experimental six-owner create ',failed_at, &
+        cleanup=st_destroy(INT(tpi_comm,C_INT),rcg_owner,rcg_cview)
+        IF ((cleanup/=0_C_INT.AND.cleanup/=1_C_INT).OR. &
+            C_ASSOCIATED(rcg_owner).OR.C_ASSOCIATED(rcg_cview)) &
+          CALL wrf_error_fatal('Experimental ten-owner rollback cleanup 7')
+        cleanup=st_destroy(INT(tpi_comm,C_INT),gcr_owner,gcr_cview)
+        IF ((cleanup/=0_C_INT.AND.cleanup/=1_C_INT).OR. &
+            C_ASSOCIATED(gcr_owner).OR.C_ASSOCIATED(gcr_cview)) &
+          CALL wrf_error_fatal('Experimental ten-owner rollback cleanup 8')
+        cleanup=st_destroy(INT(tpi_comm,C_INT),nrc_owner,nrc_cview)
+        IF ((cleanup/=0_C_INT.AND.cleanup/=1_C_INT).OR. &
+            C_ASSOCIATED(nrc_owner).OR.C_ASSOCIATED(nrc_cview)) &
+          CALL wrf_error_fatal('Experimental ten-owner rollback cleanup 9')
+        cleanup=st_destroy(INT(tpi_comm,C_INT),ngc_owner,ngc_cview)
+        IF ((cleanup/=0_C_INT.AND.cleanup/=1_C_INT).OR. &
+            C_ASSOCIATED(ngc_owner).OR.C_ASSOCIATED(ngc_cview)) &
+          CALL wrf_error_fatal('Experimental ten-owner rollback cleanup 10')
+        WRITE(failure_message,'(A,I0,A,I0)') 'Experimental ten-owner create ',failed_at, &
              ' rejected status ',rc
         CALL wrf_error_fatal(TRIM(failure_message))
       END SUBROUTINE
@@ -605,6 +690,10 @@
         NULLIFY(tpi_qcfz); NULLIFY(tni_qcfz)
         NULLIFY(tpi_qrfz); NULLIFY(tni_qrfz)
         NULLIFY(tpg_qrfz); NULLIFY(tnr_qrfz)
+        NULLIFY(tmr_racg)
+        NULLIFY(tcr_gacr)
+        NULLIFY(tnr_racg)
+        NULLIFY(tnr_gacr)
         rc=st_destroy(INT(tpi_comm,C_INT),tpi_owner,tpi_cview)
         IF (rc/=0_C_INT.AND.rc/=1_C_INT) CALL wrf_error_fatal('Experimental tpi teardown state 1')
         IF (C_ASSOCIATED(tpi_owner).OR.C_ASSOCIATED(tpi_cview)) &
@@ -629,12 +718,32 @@
         IF (rc/=0_C_INT.AND.rc/=1_C_INT) CALL wrf_error_fatal('Experimental rnr teardown state 6')
         IF (C_ASSOCIATED(rnr_owner).OR.C_ASSOCIATED(rnr_cview)) &
              CALL wrf_error_fatal('Experimental rnr teardown left owner 6')
+        rc=st_destroy(INT(tpi_comm,C_INT),rcg_owner,rcg_cview)
+        IF (rc/=0_C_INT.AND.rc/=1_C_INT) CALL wrf_error_fatal('Experimental rank5 teardown state 7')
+        IF (C_ASSOCIATED(rcg_owner).OR.C_ASSOCIATED(rcg_cview)) &
+          CALL wrf_error_fatal('Experimental rank5 teardown left owner 7')
+        rc=st_destroy(INT(tpi_comm,C_INT),gcr_owner,gcr_cview)
+        IF (rc/=0_C_INT.AND.rc/=1_C_INT) CALL wrf_error_fatal('Experimental rank5 teardown state 8')
+        IF (C_ASSOCIATED(gcr_owner).OR.C_ASSOCIATED(gcr_cview)) &
+          CALL wrf_error_fatal('Experimental rank5 teardown left owner 8')
+        rc=st_destroy(INT(tpi_comm,C_INT),nrc_owner,nrc_cview)
+        IF (rc/=0_C_INT.AND.rc/=1_C_INT) CALL wrf_error_fatal('Experimental rank5 teardown state 9')
+        IF (C_ASSOCIATED(nrc_owner).OR.C_ASSOCIATED(nrc_cview)) &
+          CALL wrf_error_fatal('Experimental rank5 teardown left owner 9')
+        rc=st_destroy(INT(tpi_comm,C_INT),ngc_owner,ngc_cview)
+        IF (rc/=0_C_INT.AND.rc/=1_C_INT) CALL wrf_error_fatal('Experimental rank5 teardown state 10')
+        IF (C_ASSOCIATED(ngc_owner).OR.C_ASSOCIATED(ngc_cview)) &
+          CALL wrf_error_fatal('Experimental rank5 teardown left owner 10')
         IF (ALLOCATED(tpi_qcfz_stage)) DEALLOCATE(tpi_qcfz_stage)
         IF (ALLOCATED(tni_qcfz_stage)) DEALLOCATE(tni_qcfz_stage)
         IF (ALLOCATED(tpi_qrfz_stage)) DEALLOCATE(tpi_qrfz_stage)
         IF (ALLOCATED(tni_qrfz_stage)) DEALLOCATE(tni_qrfz_stage)
         IF (ALLOCATED(tpg_qrfz_stage)) DEALLOCATE(tpg_qrfz_stage)
         IF (ALLOCATED(tnr_qrfz_stage)) DEALLOCATE(tnr_qrfz_stage)
+        IF (ALLOCATED(tmr_racg_stage)) DEALLOCATE(tmr_racg_stage)
+        IF (ALLOCATED(tcr_gacr_stage)) DEALLOCATE(tcr_gacr_stage)
+        IF (ALLOCATED(tnr_racg_stage)) DEALLOCATE(tnr_racg_stage)
+        IF (ALLOCATED(tnr_gacr_stage)) DEALLOCATE(tnr_gacr_stage)
         tpi_phase=TPI_CLOSED
       END SUBROUTINE
 #ifdef WRF_EXPERIMENTAL_TPI_NATIVE_GATE
@@ -696,6 +805,7 @@
 
 #ifdef WRF_EXPERIMENTAL_TPI_NUMA
       IF (tpi_phase /= TPI_INIT) CALL wrf_error_fatal('Experimental tpi init outside private tile-init phase')
+      IF (PRESENT(ng)) CALL wrf_error_fatal('Experimental rank5 owners do not support ng')
 #endif
       if (PRESENT(ng)) then
          is_hail_aware = .TRUE.
@@ -849,11 +959,39 @@
          micro_init = .TRUE.
       endif
 
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (.NOT. ALLOCATED(tmr_racg_stage)) THEN
+         ALLOCATE(tmr_racg_stage(ntb_g1,ntb_g,dimNRHG,ntb_r1,ntb_r))
+      ENDIF
+      tmr_racg => tmr_racg_stage
+#else
       if (.NOT. ALLOCATED(tmr_racg)) ALLOCATE(tmr_racg(ntb_g1,ntb_g,dimNRHG,ntb_r1,ntb_r))
+#endif
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (.NOT. ALLOCATED(tcr_gacr_stage)) THEN
+         ALLOCATE(tcr_gacr_stage(ntb_g1,ntb_g,dimNRHG,ntb_r1,ntb_r))
+      ENDIF
+      tcr_gacr => tcr_gacr_stage
+#else
       if (.NOT. ALLOCATED(tcr_gacr)) ALLOCATE(tcr_gacr(ntb_g1,ntb_g,dimNRHG,ntb_r1,ntb_r))
+#endif
       ! if (.NOT. ALLOCATED(tmg_gacr)) ALLOCATE(tmg_gacr(ntb_g1,ntb_g,dimNRHG,ntb_r1,ntb_r))
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (.NOT. ALLOCATED(tnr_racg_stage)) THEN
+         ALLOCATE(tnr_racg_stage(ntb_g1,ntb_g,dimNRHG,ntb_r1,ntb_r))
+      ENDIF
+      tnr_racg => tnr_racg_stage
+#else
       if (.NOT. ALLOCATED(tnr_racg)) ALLOCATE(tnr_racg(ntb_g1,ntb_g,dimNRHG,ntb_r1,ntb_r))
+#endif
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (.NOT. ALLOCATED(tnr_gacr_stage)) THEN
+         ALLOCATE(tnr_gacr_stage(ntb_g1,ntb_g,dimNRHG,ntb_r1,ntb_r))
+      ENDIF
+      tnr_gacr => tnr_gacr_stage
+#else
       if (.NOT. ALLOCATED(tnr_gacr)) ALLOCATE(tnr_gacr(ntb_g1,ntb_g,dimNRHG,ntb_r1,ntb_r))
+#endif
 
       if (.NOT. ALLOCATED(tcs_racs1)) ALLOCATE(tcs_racs1(ntb_s,ntb_t,ntb_r1,ntb_r))
       if (.NOT. ALLOCATED(tmr_racs1)) ALLOCATE(tmr_racs1(ntb_s,ntb_t,ntb_r1,ntb_r))
