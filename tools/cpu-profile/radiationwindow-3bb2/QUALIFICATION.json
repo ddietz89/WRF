@@ -1,0 +1,123 @@
+{
+  "status": "PASS_ORIGINAL_TWO_HISTORY_230_ORDERED_STEPS_AND_THREE_ACTUAL_NATIVE_CAPTURE_REPORTS_CLOSED",
+  "runtime_directory": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-radiationwindow75m-runtime-r1",
+  "target": {
+    "executable": "/pool/wrf-experiment/wrf-cpu/builds/thompson-tcg-rk-later-pass-combined-current-r1/wrf.exe",
+    "executable_sha256": "3bb2b8f17ed5c5c8cb2afe9b1e68faf162a66c37546a366a00179411b651c4df",
+    "archive_sha256": "76b137ef8204cf85a470074dae282b21074605f010fb25692ab04e01a80a3daa",
+    "post_science_source_commit": "26bcd59c507dc76cba49e3e06196bac2fb278dec",
+    "producer_source_commit": null
+  },
+  "science": {
+    "receipt_sha256": "d83257e4b79c466ef85b9a97b7cec353205809aca41708b66d92a8f6b4900622",
+    "closure_sha256": "9fe4ab97a6bb7e0aca4483c9fefeabf3c7cc468d4a42945de740a71e6a67c993",
+    "invocation_id": "c2812fa8ccf24dbe9fccfab4ae81094f",
+    "comparisons": 2,
+    "steps": 230,
+    "end": "2026-10-12_13:15:00",
+    "all512_observed": true,
+    "compute480_two_tiles_exact": true,
+    "short_writer_contract": "Original two positive roots487/495 and two zero roots503/511 unchanged; no all-four-positive claim",
+    "fieldview_positive_roots": [
+      487,
+      495
+    ]
+  },
+  "capture_summary_sha256": "3d70ce3f4fb20d3f2fe81196b5ca8ec64fbbeb7ed09483f1104ef2f92dfeab65",
+  "captures": {
+    "0": {
+      "samples": 701,
+      "observed_sample_span_seconds": 14.983254121,
+      "radiation_selected_ip_samples": 25,
+      "recorder_invocation_id": "a23e50199f7c455a82d5e917a97d0fce",
+      "coarse_parent_status": "UNAVAILABLE",
+      "normal_capture": true,
+      "strong_closed": true
+    },
+    "384": {
+      "samples": 707,
+      "observed_sample_span_seconds": 14.986058761,
+      "radiation_selected_ip_samples": 38,
+      "recorder_invocation_id": "6ca6d5cdea0a4ed8b3f09baf51739030",
+      "coarse_parent_status": "UNAVAILABLE",
+      "normal_capture": true,
+      "strong_closed": true
+    },
+    "416": {
+      "samples": 707,
+      "observed_sample_span_seconds": 14.98571855,
+      "radiation_selected_ip_samples": 32,
+      "recorder_invocation_id": "e0da63e32cca40609bacaa1b2b13da07",
+      "coarse_parent_status": "UNAVAILABLE",
+      "normal_capture": true,
+      "strong_closed": true
+    }
+  },
+  "all_three_same_host_overlap_seconds": 14.9470972,
+  "actual_radiation_frames_observed": true,
+  "all_model_recorder_gateowner_watcher_reader_scopes_closed": true,
+  "performance_qualification": false,
+  "current_default_or_source_changed_by_operator": false,
+  "limitations": [
+    "Same-host selected mainTIDs/user cycles only; no arrival or whole-model critical-path/removable-cost proof.",
+    "Counts and period weights are distinct; zero LOST records does not establish zero loss.",
+    "Unresolved library symbols retained literally; no guessed internal libc/UCX symbol names.",
+    "Coarse parents UNAVAILABLE final start-admission check preserved; native normal captures and report proof are separate.",
+    "Profiled model wall/CPU descriptive; no matched unprofiled performance comparison.",
+    "Solarphase13UTC mixeddaylight aggregate is not exact12:30 all-domain solar attribution.",
+    "No V2 MPI observer/arrival proof in this perf-only run; ordinary provider/world1 predicates retained."
+  ],
+  "metrics_descriptive_only": {
+    "control": {
+      "wall_seconds": 444.66616299399175,
+      "cpu_seconds": 194209.614414,
+      "main_step_sum_seconds": 262.59716
+    },
+    "candidate": {
+      "wall_seconds": 320.81641166005284,
+      "cpu_seconds": 156028.538491,
+      "main_step_sum_seconds": 237.6789
+    }
+  },
+  "raw_references": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-radiationwindow75m-runtime-r1/source-pins.json": "3b26b7ed7cc40b47ab183f0d6f414843ad7a00804b048ff0112aeeff4d5d682d",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-radiationwindow75m-runtime-r1/lease-candidate-granted.json": "acb1089b3fed9450d721a5518a78a5210c22e21804f4744f7fc95476abcf7231",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-radiationwindow75m-runtime-r1/cache-clear-candidate.json": "af752b93cb4739202a571a2a2330dced5fed33a74747a2e095464a4b352ff88f",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-radiationwindow75m-runtime-r1/candidate-closures.json": "9596bcb2505a970eb8c227fa5d34eff24c505a4264dfc154843191a7e40f39c5",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-radiationwindow75m-runtime-r1/science-receipt.json": "d83257e4b79c466ef85b9a97b7cec353205809aca41708b66d92a8f6b4900622",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-radiationwindow75m-runtime-r1/reader-closure.json": "9fe4ab97a6bb7e0aca4483c9fefeabf3c7cc468d4a42945de740a71e6a67c993",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-radiationwindow75m-runtime-r1/RESULT.json": "89ff82516bbb9e5ebd198ea3888b4a7676f4be0e54deaf10f961e60241045c36",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-radiationwindow75m-runtime-r1/ACTUAL_LIVE_CAPTURE.jsonl": "18b12133c75d5a8ede46c9a1328803f9ac89d7e95069e0077939923a97828679",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-radiationwindow75m-runtime-r1/profile-reports/CLOSED_REPORT_COPY.json": "f960bbc1310b211583ebea3b80e2b8d83687f289b7c99da97d93e7bc5c938146",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-next-profile-source-plan-r1/lifecycle-r1/ACTUAL_CAPTURE_SUMMARY.json": "3d70ce3f4fb20d3f2fe81196b5ca8ec64fbbeb7ed09483f1104ef2f92dfeab65",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-next-profile-source-plan-r1/lifecycle-r1/ACTUAL_MODEL_STRONG_CLOSURES.json": "100fd4b37c756acb0dcece802b1f36f300f7e4aeb11514246d6a9f23a6ff13d4",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-next-profile-source-plan-r1/lifecycle-r1/ACTUAL_RECORDER_STRONG_CLOSURES.json": "0217bcd8df8386f67d8646d98a37856f3ed28a4ec1efb36f58d2578cd8afd739",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-next-profile-source-plan-r1/ROOT_COMPLETE_PROFILE_RELEASE.json": "caacb23ee82be1c6f44d99f93ba9df0f2220236bed7e95fbf9cd1845bd8ec5ef",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-next-profile-source-plan-r1/ACTUAL_HOST_TOOL_PREFLIGHT.json": "6ab8911912cf4e5a8e6c7137c2b130e45287ca23d443fcf52a06e4f7ae3b9cd9",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-next-profile-source-plan-r1/ACTUAL_LOCAL_PREREQUISITE_PREFLIGHT.json": "3bae6bc67d7d83539a9db9784805536f3a658d33a13e8e9504f37a0fafa7e9c1",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-radiationwindow75m-runtime-r1/profile-reports/compute-profile-steady-rank0-r1/rank0.inclusive.txt": "b454233054c6d777b977ce26b90cefc6e4560ad92a865b4c433235611bcb690d",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-radiationwindow75m-runtime-r1/profile-reports/compute-profile-steady-rank0-r1/rank0.evlist.txt": "8852f87db9dc32a792df17cacc75e1c988f6d372d52765944498795703a1c1ba",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-radiationwindow75m-runtime-r1/profile-reports/compute-profile-steady-rank0-r1/rank0.sampled-ip-records.json": "b7fd48d9a4db97fb567bfb9b7cdbbc7e090bbaab8c028efe5207876db54ffd67",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-radiationwindow75m-runtime-r1/profile-reports/compute-profile-steady-rank0-r1/rank0.self.txt": "9f1e6537a3f4144ca56f0f6de03b0376bf6580678a38c931e965510f140d7288",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-radiationwindow75m-runtime-r1/profile-reports/compute-profile-steady-rank0-r1/collector-final.json": "c1c69d80ddc676a05e8fd1871530ac26093f0de74709eafab990166f1e56e177",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-radiationwindow75m-runtime-r1/profile-reports/compute-profile-steady-rank0-r1/rank0.root-final.json": "81a3bbfab501d796e3686c517060afaa7b3d90c953b702b272faaa5107c6e8a4",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-radiationwindow75m-runtime-r1/profile-reports/compute-profile-steady-rank0-r1/rank0.collector.json": "fc3b7c69a7398f0d38ae3dfe7f185f5c3e5d7946a6a39d8d5c00ae437a464b60",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-radiationwindow75m-runtime-r1/profile-reports/compute-profile-steady-rank0-r1/report-final.json": "9dbe95f53fea87281d3032de0ac69d53565dc46fa38921b7580d8c8253f40ed6",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-radiationwindow75m-runtime-r1/profile-reports/compute-profile-steady-rank1-r1/rank384.collector.json": "c62380fae9a74d0a12c7eb75f7b3dc42d7520b0fcf56cedce5804524e7c0ecc3",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-radiationwindow75m-runtime-r1/profile-reports/compute-profile-steady-rank1-r1/rank384.root-final.json": "eece4f696b2df5b3a394dc0337f1162c53da69de96094c1a1fbfa25ae3c3b16b",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-radiationwindow75m-runtime-r1/profile-reports/compute-profile-steady-rank1-r1/rank384.evlist.txt": "8852f87db9dc32a792df17cacc75e1c988f6d372d52765944498795703a1c1ba",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-radiationwindow75m-runtime-r1/profile-reports/compute-profile-steady-rank1-r1/rank384.sampled-ip-records.json": "740658e6bb2dfc8a7828054d0db0614dcd6f543e18d0fb8c0787570c6c000af4",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-radiationwindow75m-runtime-r1/profile-reports/compute-profile-steady-rank1-r1/collector-final.json": "f415ab512bdb414fbc6b2d3afebd41991c1b522afbdcc26a9c17dd8481a132ad",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-radiationwindow75m-runtime-r1/profile-reports/compute-profile-steady-rank1-r1/rank384.self.txt": "c1218183861578241017e56ba01e6d20c749b53fc9039e63477ee1760fd96e38",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-radiationwindow75m-runtime-r1/profile-reports/compute-profile-steady-rank1-r1/report-final.json": "104d7f536172649241435ea815ff16b9fc70250461f5306e509416c0e90196d2",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-radiationwindow75m-runtime-r1/profile-reports/compute-profile-steady-rank1-r1/rank384.inclusive.txt": "6631f9a4bac19eea22b2093bef54c9ba1f7d201c6eb77770f0f579c01353d0e5",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-radiationwindow75m-runtime-r1/profile-reports/compute-profile-steady-rank2-r1/rank416.collector.json": "eb0a82676e2c471f0504ca90d6a7acd7a8b8e247d19d25f26fd7afe77398ab33",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-radiationwindow75m-runtime-r1/profile-reports/compute-profile-steady-rank2-r1/rank416.root-final.json": "bfd4ee880560089ba66cff6fd36076de7adef64dc6856a4853b646fca9c8f8f6",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-radiationwindow75m-runtime-r1/profile-reports/compute-profile-steady-rank2-r1/rank416.inclusive.txt": "eb63ab64e93a7a676791caf19e161f12f438c28d123e3d6c42e99b7b62b124f8",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-radiationwindow75m-runtime-r1/profile-reports/compute-profile-steady-rank2-r1/collector-final.json": "8d6d7543a0cabc36019ec49ad845f920c32c93a7fb5de3a5f5764dd36eb79967",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-radiationwindow75m-runtime-r1/profile-reports/compute-profile-steady-rank2-r1/rank416.sampled-ip-records.json": "62a7f0113ed5f6313c3d41db1b498da62d6e90124a4da8e777f2f090f26d82e0",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-radiationwindow75m-runtime-r1/profile-reports/compute-profile-steady-rank2-r1/rank416.self.txt": "4169756d0d9a1f1da93a692a66463472a56f9b908899fbc23bbccb1fd0773a37",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-radiationwindow75m-runtime-r1/profile-reports/compute-profile-steady-rank2-r1/report-final.json": "157cc0ed75580912d5ea71472d4ff9a4c554b129670237f4b3724920e392432b",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-radiationwindow75m-runtime-r1/profile-reports/compute-profile-steady-rank2-r1/rank416.evlist.txt": "8852f87db9dc32a792df17cacc75e1c988f6d372d52765944498795703a1c1ba"
+  }
+}

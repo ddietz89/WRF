@@ -1,0 +1,508 @@
+{
+  "status": "THREE_ACTUAL_NATIVE_CAPTURE_REPORTS_RETAINED_SCIENCE_PENDING",
+  "target_sha256": "3bb2b8f17ed5c5c8cb2afe9b1e68faf162a66c37546a366a00179411b651c4df",
+  "post_science_source_commit": "26bcd59c507dc76cba49e3e06196bac2fb278dec",
+  "ranks": {
+    "0": {
+      "samples": 701,
+      "period_sum": 37039818683,
+      "sample_window_monotonic_ns": [
+        2016368756661955,
+        2016383739916076
+      ],
+      "observed_sample_span_seconds": 14.983254121,
+      "start_phase_bracket": {
+        "previous_observed_model_time": "2026-10-12_12:28:15",
+        "next_observed_model_time": "2026-10-12_12:28:35",
+        "scope": "Samehost recorded phase audit brackets, no crosshost subtraction/interpolation"
+      },
+      "end_phase_bracket": {
+        "previous_observed_model_time": "2026-10-12_12:32:55",
+        "next_observed_model_time": "2026-10-12_12:33:15",
+        "scope": "Samehost recorded phase audit brackets, no crosshost subtraction/interpolation"
+      },
+      "radiation_selected_ip_samples": 25,
+      "radiation_symbols": {
+        "__rrtmg_lw_taumol_MOD_taumol": 4,
+        "__rrtmg_lw_rtrnmc_MOD_rtrnmc": 15,
+        "__rrtmg_lw_rad_MOD_inatm": 2,
+        "__module_ra_rrtmg_lw_MOD_rrtmg_lwrad": 1,
+        "__module_ra_rrtmg_lw_MOD_o3data": 1,
+        "__rrtmg_lw_setcoef_MOD_setcoef": 1,
+        "__module_radiation_driver_MOD_radiation_driver": 1
+      },
+      "top_functions_period_weight_percent": [
+        {
+          "symbol": "[unknown]",
+          "percent": 26.944735462705182
+        },
+        {
+          "symbol": "opal_progress",
+          "percent": 10.686436847534285
+        },
+        {
+          "symbol": "ucp_worker_progress",
+          "percent": 7.3582178015652575
+        },
+        {
+          "symbol": "opal_timer_linux_get_cycles_sys_timer",
+          "percent": 4.259329486739864
+        },
+        {
+          "symbol": "ompi_coll_libnbc_progress",
+          "percent": 2.632135193057689
+        },
+        {
+          "symbol": "__module_small_step_em_MOD_advance_w",
+          "percent": 2.5502825866519374
+        },
+        {
+          "symbol": "__module_small_step_em_MOD_advance_mu_t",
+          "percent": 2.3116605249284934
+        },
+        {
+          "symbol": "__module_em_MOD_rk_update_scalar",
+          "percent": 2.2282204323500037
+        },
+        {
+          "symbol": "__rrtmg_lw_rtrnmc_MOD_rtrnmc",
+          "percent": 2.1591976484676034
+        },
+        {
+          "symbol": "__module_advect_em_MOD_advect_scalar_pd",
+          "percent": 2.0206439086687795
+        },
+        {
+          "symbol": "ompi_sync_wait_mt",
+          "percent": 1.9665542702408374
+        },
+        {
+          "symbol": "__module_advect_em_MOD_advect_scalar",
+          "percent": 1.8605649663082613
+        },
+        {
+          "symbol": "kissvec_host_seeds.0.constprop.0.isra.0",
+          "percent": 1.5834032315854143
+        },
+        {
+          "symbol": "__module_big_step_utilities_em_MOD_phy_prep",
+          "percent": 1.4187568667586072
+        },
+        {
+          "symbol": "__module_mp_thompson_MOD_compt_fr_the",
+          "percent": 1.310316900181679
+        },
+        {
+          "symbol": "__mcica_subcol_gen_lw_MOD_generate_stochastic_clouds",
+          "percent": 1.1441155682398079
+        },
+        {
+          "symbol": "__module_big_step_utilities_em_MOD_horizontal_diffusion",
+          "percent": 1.0909328699966303
+        },
+        {
+          "symbol": "__module_small_step_em_MOD_small_step_prep",
+          "percent": 1.0606705485313674
+        }
+      ],
+      "top_dsos_period_weight_percent": [
+        {
+          "dso": "/pool/wrf-experiment/wrf-cpu/builds/thompson-tcg-rk-later-pass-combined-current-r1/wrf.exe",
+          "unresolved_symbol": false,
+          "percent": 44.45017162450779
+        },
+        {
+          "dso": "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib/libopen-pal.so.40.30.3",
+          "unresolved_symbol": false,
+          "percent": 17.92167423067512
+        },
+        {
+          "dso": "/usr/lib/x86_64-linux-gnu/ucx/libuct_ib.so.0.0.0",
+          "unresolved_symbol": true,
+          "percent": 9.439364406512853
+        },
+        {
+          "dso": "/usr/lib/x86_64-linux-gnu/libucp.so.0.0.0",
+          "unresolved_symbol": false,
+          "percent": 7.3582178015652575
+        },
+        {
+          "dso": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+          "unresolved_symbol": true,
+          "percent": 7.240183549361788
+        },
+        {
+          "dso": "/usr/lib/x86_64-linux-gnu/libuct.so.0.0.0",
+          "unresolved_symbol": true,
+          "percent": 6.9172271169241135
+        },
+        {
+          "dso": "/usr/lib/x86_64-linux-gnu/libm.so.6",
+          "unresolved_symbol": true,
+          "percent": 2.9065453592355537
+        },
+        {
+          "dso": "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib/openmpi/mca_coll_libnbc.so",
+          "unresolved_symbol": false,
+          "percent": 2.632135193057689
+        },
+        {
+          "dso": "[unknown]",
+          "unresolved_symbol": true,
+          "percent": 0.44141503067087245
+        },
+        {
+          "dso": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+          "unresolved_symbol": false,
+          "percent": 0.42317717951448863
+        }
+      ],
+      "recorder_invocation_id": "a23e50199f7c455a82d5e917a97d0fce",
+      "coarse_parent_status": "UNAVAILABLE",
+      "native_status": "FINALIZED_DATA_PENDING_NATIVE_PARSE",
+      "normal_capture": true,
+      "strong_closed": true,
+      "report_sha256": "9dbe95f53fea87281d3032de0ac69d53565dc46fa38921b7580d8c8253f40ed6",
+      "native_collector_sha256": "fc3b7c69a7398f0d38ae3dfe7f185f5c3e5d7946a6a39d8d5c00ae437a464b60",
+      "samples_sha256": "b7fd48d9a4db97fb567bfb9b7cdbbc7e090bbaab8c028efe5207876db54ffd67"
+    },
+    "384": {
+      "samples": 707,
+      "period_sum": 37199172889,
+      "sample_window_monotonic_ns": [
+        2016368718415787,
+        2016383704474548
+      ],
+      "observed_sample_span_seconds": 14.986058761,
+      "start_phase_bracket": {
+        "previous_observed_model_time": "2026-10-12_12:28:15",
+        "next_observed_model_time": "2026-10-12_12:28:35",
+        "scope": "Samehost recorded phase audit brackets, no crosshost subtraction/interpolation"
+      },
+      "end_phase_bracket": {
+        "previous_observed_model_time": "2026-10-12_12:32:55",
+        "next_observed_model_time": "2026-10-12_12:32:55",
+        "scope": "Samehost recorded phase audit brackets, no crosshost subtraction/interpolation"
+      },
+      "radiation_selected_ip_samples": 38,
+      "radiation_symbols": {
+        "__rrtmg_lw_setcoef_MOD_setcoef": 3,
+        "__rrtmg_lw_rtrnmc_MOD_rtrnmc": 16,
+        "__rrtmg_lw_cldprmc_MOD_cldprmc": 2,
+        "__rrtmg_lw_rad_MOD_rrtmg_lw": 5,
+        "__rrtmg_lw_taumol_MOD_taumol": 4,
+        "__rrtmg_lw_rad_MOD_inatm": 4,
+        "__module_ra_rrtmg_lw_MOD_o3data": 1,
+        "__module_ra_rrtmg_lw_MOD_rrtmg_lwrad": 1,
+        "__module_radiation_driver_MOD_radiation_driver": 2
+      },
+      "top_functions_period_weight_percent": [
+        {
+          "symbol": "[unknown]",
+          "percent": 31.97981488055553
+        },
+        {
+          "symbol": "opal_progress",
+          "percent": 11.038295795588004
+        },
+        {
+          "symbol": "ucp_worker_progress",
+          "percent": 6.595495524378997
+        },
+        {
+          "symbol": "opal_timer_linux_get_cycles_sys_timer",
+          "percent": 4.3724545377754085
+        },
+        {
+          "symbol": "__module_small_step_em_MOD_advance_w",
+          "percent": 2.7472432170721643
+        },
+        {
+          "symbol": "__rrtmg_lw_rtrnmc_MOD_rtrnmc",
+          "percent": 2.2772056290813194
+        },
+        {
+          "symbol": "__module_mp_thompson_MOD_mp_thompson",
+          "percent": 2.0734166356372827
+        },
+        {
+          "symbol": "__module_advect_em_MOD_advect_scalar_pd",
+          "percent": 1.9682713247006356
+        },
+        {
+          "symbol": "__module_small_step_em_MOD_advance_uv",
+          "percent": 1.8581894093790479
+        },
+        {
+          "symbol": "__module_big_step_utilities_em_MOD_phy_prep",
+          "percent": 1.2813582506855936
+        },
+        {
+          "symbol": "ompi_coll_libnbc_progress",
+          "percent": 1.2577026548306596
+        },
+        {
+          "symbol": "ompi_sync_wait_mt",
+          "percent": 1.2457123694194512
+        },
+        {
+          "symbol": "__module_small_step_em_MOD_advance_mu_t",
+          "percent": 1.1496785245095185
+        },
+        {
+          "symbol": "__module_advect_em_MOD_advect_scalar",
+          "percent": 1.1249395201572971
+        },
+        {
+          "symbol": "__module_mp_thompson_MOD_mp_gt_driver",
+          "percent": 1.021222574312491
+        },
+        {
+          "symbol": "__module_advect_em_MOD_advect_v",
+          "percent": 1.0012095352532235
+        },
+        {
+          "symbol": "__module_em_MOD_rk_update_scalar",
+          "percent": 0.9956272632865958
+        },
+        {
+          "symbol": "__module_big_step_utilities_em_MOD_horizontal_pressure_gradient",
+          "percent": 0.9399145837013774
+        }
+      ],
+      "top_dsos_period_weight_percent": [
+        {
+          "dso": "/pool/wrf-experiment/wrf-cpu/builds/thompson-tcg-rk-later-pass-combined-current-r1/wrf.exe",
+          "unresolved_symbol": false,
+          "percent": 40.78994708370759
+        },
+        {
+          "dso": "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib/libopen-pal.so.40.30.3",
+          "unresolved_symbol": false,
+          "percent": 17.353241557983285
+        },
+        {
+          "dso": "/usr/lib/x86_64-linux-gnu/ucx/libuct_ib.so.0.0.0",
+          "unresolved_symbol": true,
+          "percent": 11.6138935532019
+        },
+        {
+          "dso": "/usr/lib/x86_64-linux-gnu/libuct.so.0.0.0",
+          "unresolved_symbol": true,
+          "percent": 7.534601141168937
+        },
+        {
+          "dso": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+          "unresolved_symbol": true,
+          "percent": 7.431491507214302
+        },
+        {
+          "dso": "/usr/lib/x86_64-linux-gnu/libucp.so.0.0.0",
+          "unresolved_symbol": false,
+          "percent": 6.878433874417213
+        },
+        {
+          "dso": "/usr/lib/x86_64-linux-gnu/libm.so.6",
+          "unresolved_symbol": true,
+          "percent": 5.10997843331645
+        },
+        {
+          "dso": "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib/openmpi/mca_coll_libnbc.so",
+          "unresolved_symbol": false,
+          "percent": 1.2577026548306596
+        },
+        {
+          "dso": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+          "unresolved_symbol": false,
+          "percent": 0.7366467604472764
+        },
+        {
+          "dso": "/usr/lib/x86_64-linux-gnu/libm.so.6",
+          "unresolved_symbol": false,
+          "percent": 0.4339020506763182
+        }
+      ],
+      "recorder_invocation_id": "6ca6d5cdea0a4ed8b3f09baf51739030",
+      "coarse_parent_status": "UNAVAILABLE",
+      "native_status": "FINALIZED_DATA_PENDING_NATIVE_PARSE",
+      "normal_capture": true,
+      "strong_closed": true,
+      "report_sha256": "104d7f536172649241435ea815ff16b9fc70250461f5306e509416c0e90196d2",
+      "native_collector_sha256": "c62380fae9a74d0a12c7eb75f7b3dc42d7520b0fcf56cedce5804524e7c0ecc3",
+      "samples_sha256": "740658e6bb2dfc8a7828054d0db0614dcd6f543e18d0fb8c0787570c6c000af4"
+    },
+    "416": {
+      "samples": 707,
+      "period_sum": 37232337740,
+      "sample_window_monotonic_ns": [
+        2016368718040605,
+        2016383703759155
+      ],
+      "observed_sample_span_seconds": 14.98571855,
+      "start_phase_bracket": {
+        "previous_observed_model_time": "2026-10-12_12:28:15",
+        "next_observed_model_time": "2026-10-12_12:28:35",
+        "scope": "Samehost recorded phase audit brackets, no crosshost subtraction/interpolation"
+      },
+      "end_phase_bracket": {
+        "previous_observed_model_time": "2026-10-12_12:32:55",
+        "next_observed_model_time": "2026-10-12_12:32:55",
+        "scope": "Samehost recorded phase audit brackets, no crosshost subtraction/interpolation"
+      },
+      "radiation_selected_ip_samples": 32,
+      "radiation_symbols": {
+        "__rrtmg_lw_cldprmc_MOD_cldprmc": 5,
+        "__rrtmg_lw_rtrnmc_MOD_rtrnmc": 14,
+        "__module_ra_rrtmg_lw_MOD_o3data": 1,
+        "__rrtmg_lw_rad_MOD_inatm": 6,
+        "__module_ra_rrtmg_lw_MOD_reicalc": 1,
+        "__rrtmg_lw_taumol_MOD_taumol": 3,
+        "__rrtmg_lw_setcoef_MOD_setcoef": 1,
+        "__module_radiation_driver_MOD_radiation_driver": 1
+      },
+      "top_functions_period_weight_percent": [
+        {
+          "symbol": "[unknown]",
+          "percent": 33.91434051811972
+        },
+        {
+          "symbol": "opal_progress",
+          "percent": 8.45696935279251
+        },
+        {
+          "symbol": "ucp_worker_progress",
+          "percent": 5.839108310044031
+        },
+        {
+          "symbol": "opal_timer_linux_get_cycles_sys_timer",
+          "percent": 4.988050779859519
+        },
+        {
+          "symbol": "__module_mp_thompson_MOD_mp_thompson",
+          "percent": 4.19106010720239
+        },
+        {
+          "symbol": "ompi_coll_libnbc_progress",
+          "percent": 2.5688580815930253
+        },
+        {
+          "symbol": "__module_advect_em_MOD_advect_scalar_pd",
+          "percent": 2.360439274958081
+        },
+        {
+          "symbol": "ompi_sync_wait_mt",
+          "percent": 2.138061997500563
+        },
+        {
+          "symbol": "__module_advect_em_MOD_advect_scalar",
+          "percent": 2.017728736900956
+        },
+        {
+          "symbol": "__rrtmg_lw_rtrnmc_MOD_rtrnmc",
+          "percent": 2.0043751972045794
+        },
+        {
+          "symbol": "__module_small_step_em_MOD_advance_uv",
+          "percent": 1.8950506705411079
+        },
+        {
+          "symbol": "__module_small_step_em_MOD_advance_w",
+          "percent": 1.5901306389470886
+        },
+        {
+          "symbol": "opal_progress_events.isra.0",
+          "percent": 1.4293976696183677
+        },
+        {
+          "symbol": "kissvec_host_seeds.0.constprop.0.isra.0",
+          "percent": 1.1373072004153988
+        },
+        {
+          "symbol": "__module_big_step_utilities_em_MOD_phy_prep",
+          "percent": 1.104727664086773
+        },
+        {
+          "symbol": "__module_small_step_em_MOD_advance_mu_t",
+          "percent": 0.9825940330546648
+        },
+        {
+          "symbol": "__module_bl_myjpbl_MOD_myjpbl",
+          "percent": 0.9050387927642386
+        },
+        {
+          "symbol": "malloc",
+          "percent": 0.8823984953462661
+        }
+      ],
+      "top_dsos_period_weight_percent": [
+        {
+          "dso": "/pool/wrf-experiment/wrf-cpu/builds/thompson-tcg-rk-later-pass-combined-current-r1/wrf.exe",
+          "unresolved_symbol": false,
+          "percent": 39.21434568507973
+        },
+        {
+          "dso": "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib/libopen-pal.so.40.30.3",
+          "unresolved_symbol": false,
+          "percent": 17.01247979977096
+        },
+        {
+          "dso": "/usr/lib/x86_64-linux-gnu/ucx/libuct_ib.so.0.0.0",
+          "unresolved_symbol": true,
+          "percent": 13.41961172272069
+        },
+        {
+          "dso": "/usr/lib/x86_64-linux-gnu/libuct.so.0.0.0",
+          "unresolved_symbol": true,
+          "percent": 8.17817594012833
+        },
+        {
+          "dso": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+          "unresolved_symbol": true,
+          "percent": 7.96786552785498
+        },
+        {
+          "dso": "/usr/lib/x86_64-linux-gnu/libucp.so.0.0.0",
+          "unresolved_symbol": false,
+          "percent": 5.839108310044031
+        },
+        {
+          "dso": "/usr/lib/x86_64-linux-gnu/libm.so.6",
+          "unresolved_symbol": true,
+          "percent": 4.060112385518987
+        },
+        {
+          "dso": "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib/openmpi/mca_coll_libnbc.so",
+          "unresolved_symbol": false,
+          "percent": 2.5688580815930253
+        },
+        {
+          "dso": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+          "unresolved_symbol": false,
+          "percent": 1.031453874000016
+        },
+        {
+          "dso": "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib/libmpi.so.40.30.6",
+          "unresolved_symbol": false,
+          "percent": 0.2762229401714704
+        }
+      ],
+      "recorder_invocation_id": "e0da63e32cca40609bacaa1b2b13da07",
+      "coarse_parent_status": "UNAVAILABLE",
+      "native_status": "FINALIZED_DATA_PENDING_NATIVE_PARSE",
+      "normal_capture": true,
+      "strong_closed": true,
+      "report_sha256": "157cc0ed75580912d5ea71472d4ff9a4c554b129670237f4b3724920e392432b",
+      "native_collector_sha256": "eb0a82676e2c471f0504ca90d6a7acd7a8b8e247d19d25f26fd7afe77398ab33",
+      "samples_sha256": "62a7f0113ed5f6313c3d41db1b498da62d6e90124a4da8e777f2f090f26d82e0"
+    }
+  },
+  "copy_proof_sha256": "f960bbc1310b211583ebea3b80e2b8d83687f289b7c99da97d93e7bc5c938146",
+  "limits": [
+    "Same-host selected mainTIDs/user cycles only; no arrival or whole-model critical-path/removable-cost proof.",
+    "Counts and period weights are distinct; zero LOST records does not establish zero loss.",
+    "Unresolved library symbols retained literally; no guessed internal libc/UCX symbol names.",
+    "Coarse parents UNAVAILABLE final start-admission check preserved; native normal captures and report proof are separate.",
+    "Profiled model wall/CPU descriptive; no matched unprofiled performance comparison."
+  ],
+  "all_three_sample_overlap_seconds": 14.9470972
+}
