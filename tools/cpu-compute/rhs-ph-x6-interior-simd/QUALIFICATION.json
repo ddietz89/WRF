@@ -1,0 +1,180 @@
+{
+  "status": "PROMOTED_WORKING_DEFAULT_NATIVE_CALLER_AND_NINE_HOUR_EXACT_APPLICATION",
+  "change": "Exactly one OMP SIMD directive before sixth-order X interior I loop in rhs_ph; floating-point expressions, bounds, all other loops and source retained.",
+  "source_commit": "3e290fdb7f354d95e9c9d87b7d325ba59dd24b40",
+  "canonical_source_sha256": "87f1d3a16f58720ca0f7c0da565a98bbf95d47e10956e935f0f67e58af630a21",
+  "preprocessed_source_sha256": "4c35bd0399520e46bbac1372816cb89b0901ab131454f3df2852435b064469da",
+  "native": {
+    "receipt_sha256": "237a65aa4a75be5d33da345ef993c26d76313d3d1a46e881313118e486996cb7",
+    "closure_sha256": "1522ee6de9e112ac07c20d943c27eb9dcf6232c81dd59380a8e28ba43ac7d55a",
+    "invocation_id": "64358d6b0ffa4b189f2a59a980b3ed35",
+    "status": "PASS_CURRENT_X6_RHS_33_COMPLETE_NATIVE_O0_BOUNDS_O2_EXACT_RAW_STATE",
+    "cases": 33,
+    "scope": "33 synthetic complete actual rhs_ph callers; fully defined INOUT tendencies, readonly inputs and physical storage guards, IEEE state+errno. No timing/model claim.",
+    "objects": {
+      "O0-parent": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/rhs-ph-x6-interior-simd-native-r1/work/O0-parent/module_big_step_utilities_em.o",
+        "sha256": "faba6e77a54a597f94e4ca1388f3f1965e534634767e83028f261e81218002a5"
+      },
+      "O0-candidate": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/rhs-ph-x6-interior-simd-native-r1/work/O0-candidate/module_big_step_utilities_em.o",
+        "sha256": "39527c93e312b1d63ec27de9571c44126580b311a3d15f99ea69a8be99f3d44b"
+      },
+      "O2-parent": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/rhs-ph-x6-interior-simd-native-r1/work/O2-parent/module_big_step_utilities_em.o",
+        "sha256": "72b50bff48e29431921d5d49ca83bfca31d6220c8dd270bb2b199fbc63059b5d"
+      },
+      "O2-candidate": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/rhs-ph-x6-interior-simd-native-r1/work/O2-candidate/module_big_step_utilities_em.o",
+        "sha256": "f4290e47e92e5ce321acd8ec3ba836bd2179c8380b1f0b0f49033c6aac8c7254"
+      }
+    },
+    "fresh_parent_allocated_relocation_exact": true,
+    "source_inverse_exact": true,
+    "target_counts": {
+      "parent": {
+        "mulps": 0,
+        "divps": 0,
+        "addps": 0,
+        "subps": 0,
+        "mulss": 14,
+        "divss": 1,
+        "addss": 8,
+        "subss": 9
+      },
+      "candidate": {
+        "mulps": 26,
+        "divps": 2,
+        "addps": 16,
+        "subps": 18,
+        "mulss": 14,
+        "divss": 1,
+        "addss": 8,
+        "subss": 9
+      }
+    },
+    "closure_scope": "PID0/success/exit0, invocation-bound positive manager journal, actual own cgroup paths absent and processes empty."
+  },
+  "caller": {
+    "result_sha256": "b38c8d9b0fae2dde557c74ecc0b685535904a19e8f28b0a1edff5535f9a19002",
+    "pairs": [
+      {
+        "host": "hpc02",
+        "order": "P-C",
+        "parent_wall_seconds": 0.730599989,
+        "candidate_wall_seconds": 0.693561862,
+        "parent_cpu_seconds": 0.730565589,
+        "candidate_cpu_seconds": 0.693520457,
+        "wall_reduction_percent": 5.069549350896574,
+        "cpu_reduction_percent": 5.07074690592908
+      },
+      {
+        "host": "hpc04",
+        "order": "C-P",
+        "parent_wall_seconds": 0.731790413,
+        "candidate_wall_seconds": 0.695366675,
+        "parent_cpu_seconds": 0.73175055,
+        "candidate_cpu_seconds": 0.69524174,
+        "wall_reduction_percent": 4.97734561056623,
+        "cpu_reduction_percent": 4.989242577268982
+      }
+    ],
+    "scope": "Complete actual rhs_ph synthetic existing finite case11:width9,KTE6/KDE7,J1:4,phiAdv1,horder6,nonhydrotrue,readonlyPH_OLD=PHalias. Not captured production tile.",
+    "limitations": [
+      "Single opposite-order pair per host; fixed prior-PD repeat count, no calibration/repeats.",
+      "Actual measured body0.694\u20130.732seconds; subsecond precision limitation retained.",
+      "Synthetic complete-procedure result, no atmospheric weight/global gain/forecast or repeatability claim."
+    ],
+    "clock_inside": "Physical7200wordPH_TENDrestore/reset/wholeexternalRHSincludingworkspace/read5state identicalbotharms",
+    "all4_positive_closed": true
+  },
+  "build": {
+    "receipt_sha256": "1688189861d616c34af41e730ce0e09e4d8cd919b434248fd00e2d11d8feaab4",
+    "closure_sha256": "44d3fe1ea45cb8a3dfc07edfa2f537ead0f53ec88936fa37a639727e13690fad",
+    "ordered_proof_sha256": "61bb7da82198109ac7e144d77ed8e10fc67bbcb43cc957f3a6e631a2966dcfce",
+    "status": "BUILT_CURRENT_PD_ONE_BIGSTEP_RHS_X6_SIMD_PENDING_APPLICATION",
+    "invocation_id": "2c8b40838643426e864edff1c6212aa9",
+    "elapsed_seconds": 12.615502618951723,
+    "artifacts": {
+      "/pool/wrf-experiment/wrf-cpu/builds/rhs-ph-x6-interior-simd-current-r1/wrf.exe": "3a203299668de5177481d48bc10b4352f7c02af38e0cd0d555489dea7e3daaa7",
+      "/pool/wrf-experiment/wrf-cpu/builds/rhs-ph-x6-interior-simd-current-r1/libwrflib.a": "367d5a9310c90c1806e110e8a757058dec09f0a335f5dd1dc9f6b0b1af18dcef",
+      "/pool/wrf-experiment/wrf-cpu/builds/rhs-ph-x6-interior-simd-current-r1/candidate/module_big_step_utilities_em.o": "f4290e47e92e5ce321acd8ec3ba836bd2179c8380b1f0b0f49033c6aac8c7254",
+      "/pool/wrf-experiment/wrf-cpu/builds/rhs-ph-x6-interior-simd-current-r1/ordered-libwrflib-proof.json": "61bb7da82198109ac7e144d77ed8e10fc67bbcb43cc957f3a6e631a2966dcfce"
+    },
+    "parent_executable_sha256": "f3ea8bf82411f35650b20f272dbedc869db931d0a41de40f852415cafe1c00c4",
+    "parent_archive_sha256": "34540b9ca95aa15ae32ffd90cae9814dce086a80ce176c8e2275498e35bd3efa",
+    "only_module_big_step_utilities_em_object_changed": true,
+    "unchanged_archive_occurrences": 583,
+    "unchanged_link_inputs": {
+      "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main/wrf.o": "3829cfd0e9cf2846cb68b1e98813191dbc8cc8d6b9c18a540a94694490eab4aa",
+      "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main/module_wrf_top.o": "169eea0f9f5bc4c18efdbe8bb9478edb341aca539c91710223a5b529bc8e8b46",
+      "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a": "43440c838a792ee55cdb93165c7996173df197d3e6afbd9c69e196b64b869a34",
+      "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a": "fa5423d57121eae7505cd464e0a9826c36eadf91a6a884aee96f6a7aa4279a29",
+      "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a": "93675f19d4c2d39ff9de6909f76e4ccddf0844440abe38fa37aea97bb42fb4f0",
+      "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a": "a06e4111dbb308bbe94c1cb2c0e21c608fde3e906dec74a10910b5842cac5ca0",
+      "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90/libesmf_time.a": "4c1ebf810767e36db24471cac830970afb2c440eb241f4664b1d3398ecf0f84a",
+      "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o": "175cbd87243a7ff3412f1850e76dac102eb4edc5db684bfdc97d419694d44a78",
+      "/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib/libnetcdff.so": "e271f9b96203b03c2e21f9e044b4cbe13534f309b100ae369dd0799fa7a2a6d6",
+      "/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib/libnetcdf.so": "7036a91b172b3f1171c1ebd86813a208a302cf9145013d58611570cfa12e2780",
+      "/pool/wrf-experiment/wrf-cpu/builds/rsl-narrow-integer-copy-r1/librsl_lite.a": "982d0c81abed9d9209ea955e63c0851ae7eaa51b6ade4748303176b51eaaa130",
+      "/pool/wrf-experiment/wrf-cpu/builds/transpose-di1-affine-native-r1/io_netcdf/libwrfio_nf.a": "9d0d43fbf5f77cfe1ac5ffe871e888f2e0187bc5e5ba2fc8f8699027a93836de",
+      "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o": "8ab87436bdb22d9d0ef3c1257e25f415727ede16be8535b8e037832a12fe9752"
+    },
+    "source_compiles": 0,
+    "qualified_object_reuse": true,
+    "module_interface_sha256": "01702a275cfaa6e411f3b53342033027a3beca789ccd80a7b2e1becf3f43e7ee",
+    "preserved_pd_member_sha256": "0f53a68f9aede919e15f3ca7679021e98db7253ec4bac22ee7153546b6301b9f",
+    "preserved_quilt_member_sha256": "3aacdd25454c8a38403bee266abd911c4536ff1105887d9540c81f97afabfb44",
+    "closure_basis": "Actual invocation-bound manager journal/PID0/success/exit0/owncgroupabsent+empty."
+  },
+  "application": {
+    "result_file": "../../cpu-working/NINE_HOUR_RESULT.json",
+    "final_qualification_file": "../../cpu-working/NINE_HOUR_FINAL_QUALIFICATION.json",
+    "final_qualification_sha256": "5f726314e5bed2999a2c3a798a9ca5615e63039d90fea5f81b809614beb91764",
+    "science_receipt_sha256": "2ae7b036d182932d964542a97ca4781c9e66bfe284a9bc727435be45d9098985",
+    "reader_closure_sha256": "bdf9b19de747eb10f82443e68d1bee5113edf68d6de7166aa6f16b05c134835f",
+    "complete_products": 10,
+    "ordered_steps": 1625,
+    "metrics": {
+      "control": {
+        "wall_seconds": 2069.3122304237913,
+        "cpu_seconds": 1009264.484921,
+        "main_step_sum_seconds": 1851.54464
+      },
+      "candidate": {
+        "wall_seconds": 1849.6183675799984,
+        "cpu_seconds": 928172.4717189999,
+        "main_step_sum_seconds": 1745.41163
+      }
+    },
+    "reductions_percent": {
+      "wall_seconds": 10.61675756871161,
+      "cpu_seconds": 8.034763376058706,
+      "main_step_sum_seconds": 5.732133468842537
+    }
+  },
+  "source_build_binding": {
+    "file": "../../cpu-working/CURRENT_SOURCE_BUILD_BINDING.json",
+    "sha256": "b07b97ee490c580ee724c6ae9fe10e84a1537087ac221a3b724899532153900d"
+  },
+  "rollback": {
+    "executable": "/pool/wrf-experiment/wrf-cpu/builds/pd-rk-final-consume-simd-current-r1/wrf.exe",
+    "executable_sha256": "f3ea8bf82411f35650b20f272dbedc869db931d0a41de40f852415cafe1c00c4",
+    "archive_sha256": "34540b9ca95aa15ae32ffd90cae9814dce086a80ce176c8e2275498e35bd3efa",
+    "source_commit": "e4754d23c61eb6783ba5826e2363209611438878",
+    "runtime": "unchanged qualified512/provider375/faba/codec881d/privateHDF5, no provider/map change"
+  },
+  "limits": [
+    "Single opposite-order pair per host; fixed prior-PD repeat count, no calibration/repeats.",
+    "Actual measured body0.694\u20130.732seconds; subsecond precision limitation retained.",
+    "Synthetic complete-procedure result, no atmospheric weight/global gain/forecast or repeatability claim.",
+    "One fresh ordered control/candidate pair; no repeatability or per-change additive attribution.",
+    "Aggregate CPU is summed cgroup CPU consumption, not elapsed time; main-step sum includes communication/backpressure and is not pure compute. Residual is not pure I/O.",
+    "CPU throttling is present in both arms; preserve raw counters without causal wall-time correction. Host04 reaches104GiB in BOTHarms: memory.events max2584control/464candidate, OOM0both; otherhosts max0. These are pressure counters, not a causal performance correction or evidence of isolated savings.",
+    "Different arm times and shared file-server load/cache can affect elapsed time. No causal server-load or cap-benefit attribution.",
+    "All-four field-view positive-root admission is proven, not every-batch adoption.",
+    "One fresh546b versus actual3a nine-hour pair. Original numerical checker/NML and current field-view/runtime proofs retained. No per-change attribution.",
+    "Frozen9h runtime unchanged. Normal reconciler had an inherited LOCAL output-folder literal; currentcontrol stdout saved at old historicalfolder and copiedbyteexact to correctlifecycle. Candidate used root-reviewed externalLOCAL-path-only wrapper with remote reconciliation payload byteexact. Historical nonpinned oldsidecar regenerated from retained original rawclosure/completion, original helperbytes/hash UNKNOWN. No model or check rerun.",
+    "No 144-hour/restart qualification or new profiling; original numerical/layout/runtime predicates unchanged."
+  ]
+}

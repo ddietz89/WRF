@@ -1,0 +1,331 @@
+{
+  "status": "PASS_ORIGINAL_TEN_HISTORY_AND_512_DIRECT_STOCK_LATEST_NINE_HOUR_SEQUENCE",
+  "order": [
+    "corrected_stock546b_control",
+    "current6365_plus_qualified_quilt_fieldcache_scratch_lifetime"
+  ],
+  "metrics": {
+    "control": {
+      "wall_seconds": 2100.5657459588256,
+      "cpu_seconds": 1025446.809361,
+      "main_step_sum_seconds": 1880.51707
+    },
+    "candidate": {
+      "wall_seconds": 1850.148426047992,
+      "cpu_seconds": 928676.194567,
+      "main_step_sum_seconds": 1746.74625
+    }
+  },
+  "reductions_percent": {
+    "wall_seconds": 11.921422616387945,
+    "cpu_seconds": 9.436921926189601,
+    "main_step_sum_seconds": 7.113512668087618
+  },
+  "science_sha256": "bc0dc6c6fbe7231e336db3414d0f316ff335e62c011b59247f8551db954298c7",
+  "reader_closure_sha256": "96346f5cf33ef1d943f0c4ac0263f2a2bd60800edfde225545209c863e059364",
+  "limits": "One fixed-order pair, four clients actually sync/drop3 before each arm. File-server cache unknown. Main includes communication/backpressure; residual is not pure I/O. No isolated/additive cache or repeatability claim. Both hpc04 models hit unchanged104GiB cap (2523/488 max events), zero OOM across all eight models; CPU throttling nonzero. Main-step elapsed includes MPI/backpressure; aggregate CPU includes output. Reader final CPU/peak/counters unknown after cgroup removal. No isolated scratch/MYJ gain, repeatability, restart or144-hour inference.",
+  "source_commit": "748701baf0016e8e8e65e839cc53070577caa209",
+  "executables": {
+    "control": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/mass-ghost-alarm55-prototype-r2/wrf.exe",
+      "sha256": "546b99156cbd809e1cae5e0ea8cebeea44dafd6331abf89e4daea00e0dd0a5e7"
+    },
+    "candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/quilt-field-cache-lifetime-current-gate-r1/wrf.exe",
+      "sha256": "ba422b71e67d07adcc28ad317e14a8c59b5fa5b5887ef8e365f2e72f0705aba2"
+    }
+  },
+  "science": {
+    "status": "PASS_ORIGINAL_TEN_HISTORY_AND_512_DIRECT_STOCK_LATEST_NINE_HOUR_SEQUENCE",
+    "receipt_sha256": "bc0dc6c6fbe7231e336db3414d0f316ff335e62c011b59247f8551db954298c7",
+    "reader_closure_sha256": "96346f5cf33ef1d943f0c4ac0263f2a2bd60800edfde225545209c863e059364",
+    "complete_products": 10,
+    "ordered_steps": 1625,
+    "last_observed_step": "2026-10-12_15:00:00",
+    "history_times": [
+      "2026-10-12_06:00:00",
+      "2026-10-12_07:00:00",
+      "2026-10-12_08:00:00",
+      "2026-10-12_09:00:00",
+      "2026-10-12_10:00:00",
+      "2026-10-12_11:00:00",
+      "2026-10-12_12:00:00",
+      "2026-10-12_13:00:00",
+      "2026-10-12_14:00:00",
+      "2026-10-12_15:00:00"
+    ],
+    "all_model_and_reader_scopes_closed": true,
+    "ordered_time_dt_domain_sequences_equal": true,
+    "all512_runtime_proofs_pass_both_arms": true,
+    "compute_ranks": 480,
+    "quilt_ranks": 32,
+    "two_tile_unions_equal": true,
+    "protected_checker": {
+      "path": "/pool/wrf-experiment/wrf-cpu/validation/protected_netcdf_exact_reference.py",
+      "sha256": "0382bcbabfbc16b76114ef552206c6c558ea15cd3c3552dfaed98b977deea2b4",
+      "verified": true
+    }
+  },
+  "scope": "One fresh fixed-order original546b versus promoted ba422 nine-hour full-grid pair,06:00\u201315:00;512ranks,128physicalCPUs/node,100/100/100/104GiB,swap0,3600s per arm;375/faba/881/825,two tiles,IB unchanged. Reader03CPU8\u201315/16GiB1800s. Source748701ba includes the accepted T/LW and quilt scratch changes; experimental MYJ7af45dd is excluded. No restart,144-hour or other-compiler qualification.",
+  "observed_speedup": {
+    "ratio": 1.1353498543064122,
+    "elapsed_time_reduction_percent": 11.921422616387945,
+    "scope": "One fresh original-first pair; not a repeated estimate or isolated/additive contribution."
+  },
+  "resources": {
+    "model_contract": {
+      "physical_cores_each_host": 128,
+      "memory_GiB_by_host": {
+        "hpc01": 100,
+        "hpc02": 100,
+        "hpc03": 100,
+        "hpc04": 104
+      },
+      "swap_bytes": 0,
+      "runtime_cap_seconds": 3600
+    },
+    "model_final_cgroup_counters": {
+      "control": {
+        "hpc01": {
+          "invocation_id": "a137e5d190c7458ba3aa49dc4d06642f",
+          "cpu_seconds": 256322.309515,
+          "throttled_usec": 39588220,
+          "nr_throttled": 15629,
+          "memory_peak_bytes": 98790363136,
+          "memory_events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          }
+        },
+        "hpc02": {
+          "invocation_id": "491017b717a9447aace39e493afe3dc5",
+          "cpu_seconds": 256343.269756,
+          "throttled_usec": 53188416,
+          "nr_throttled": 15542,
+          "memory_peak_bytes": 101151055872,
+          "memory_events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          }
+        },
+        "hpc03": {
+          "invocation_id": "28a8d9f6892843bfa798efd14f750846",
+          "cpu_seconds": 256405.664859,
+          "throttled_usec": 41493624,
+          "nr_throttled": 16141,
+          "memory_peak_bytes": 101107990528,
+          "memory_events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          }
+        },
+        "hpc04": {
+          "invocation_id": "4f36f3de6a34419ebbb82aa45f550231",
+          "cpu_seconds": 256375.565231,
+          "throttled_usec": 34754319,
+          "nr_throttled": 16286,
+          "memory_peak_bytes": 111669149696,
+          "memory_events": {
+            "low": 0,
+            "high": 0,
+            "max": 2523,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          }
+        }
+      },
+      "candidate": {
+        "hpc01": {
+          "invocation_id": "06d685b78a954c4a85f0d29ea03ff37a",
+          "cpu_seconds": 232177.358282,
+          "throttled_usec": 39933086,
+          "nr_throttled": 14294,
+          "memory_peak_bytes": 97771978752,
+          "memory_events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          }
+        },
+        "hpc02": {
+          "invocation_id": "f47e385e7fba4dd1adc47081f62f94e1",
+          "cpu_seconds": 232178.949466,
+          "throttled_usec": 65886483,
+          "nr_throttled": 13566,
+          "memory_peak_bytes": 96160116736,
+          "memory_events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          }
+        },
+        "hpc03": {
+          "invocation_id": "2ff4165ae45a43ccb1a85b506ab0ba62",
+          "cpu_seconds": 232209.688277,
+          "throttled_usec": 82286059,
+          "nr_throttled": 12919,
+          "memory_peak_bytes": 96303726592,
+          "memory_events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          }
+        },
+        "hpc04": {
+          "invocation_id": "97d6f9914a5347969ce05c4c9758fae3",
+          "cpu_seconds": 232110.198542,
+          "throttled_usec": 20726946,
+          "nr_throttled": 12997,
+          "memory_peak_bytes": 111669149696,
+          "memory_events": {
+            "low": 0,
+            "high": 0,
+            "max": 488,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          }
+        }
+      }
+    },
+    "reader_contract": {
+      "host": "hpc03",
+      "cpus": "8-15",
+      "memory_GiB": 16,
+      "swap_bytes": 0,
+      "runtime_cap_seconds": 1800
+    },
+    "reader_resources": {
+      "last_active_sample": {
+        "utc": "2026-10-18T23:34:19.114219+00:00",
+        "properties": {
+          "MainPID": "1477860",
+          "Result": "success",
+          "ExecMainStatus": "0",
+          "ControlGroup": "/system.slice/wrf-cpu-production512-original-current9h-exact-check-hpc03-r2.service",
+          "ActiveState": "active",
+          "InvocationID": "0e210de0359d4641823a6c9d6b5b1f35"
+        },
+        "science_status": "RUNNING_ORIGINAL_INITIAL_HISTORY_COMPARISON",
+        "mismatch_status_reported": false,
+        "error": null,
+        "cpu.stat": "usage_usec 882559375\nuser_usec 717596802\nsystem_usec 164962572\ncore_sched.force_idle_usec 0\nnr_periods 8338\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+        "memory.current": "7924588544\n",
+        "memory.peak": "10549223424\n",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n"
+      },
+      "final_cpu_seconds": null,
+      "final_memory_peak_bytes": null,
+      "final_counters": "UNKNOWN after cgroup removal; sampled values are not final.",
+      "raw_exit_code": null
+    }
+  },
+  "closure_basis": {
+    "models": "Both arms actualINV-agreed node exit0 reports and unchanged normal reconciliation:PID0/inactive/success/exit0/emptyprocesses. No extra all-model manager-journal or original-cgroup-path-absence claim.",
+    "reader": "Actual0e210de0359d4641823a6c9d6b5b1f35 successful invocation-bound manager journal and observed original cgroup absence; raw exit_code null after transient unit removal."
+  },
+  "cache": {
+    "control": {
+      "clear_receipt_sha256": "bbc35e74c54b3bb59a293e0938ab0903d9571419fe97d5b4169edd7d145dbd01",
+      "pre_mpi_boundary_monotonic_ns": 1940492210823136,
+      "hpc01_clear_end_to_boundary_seconds": 49.753849143,
+      "scope": "Host01 same-boot observation before MPI adapter; subsequent pinned binary/library hashes and loaders inevitably warm code, not scientific-data prefetch."
+    },
+    "candidate": {
+      "clear_receipt_sha256": "05468ae162636e411aab09b7541e85e7767bf91ad18edf5854e4e0c96e8e1d8d",
+      "pre_mpi_boundary_monotonic_ns": 1942866446012702,
+      "hpc01_clear_end_to_boundary_seconds": 101.179974751,
+      "scope": "Host01 same-boot observation before MPI adapter; subsequent pinned binary/library hashes and loaders inevitably warm code, not scientific-data prefetch."
+    }
+  },
+  "memory_context": {
+    "raw_telemetry_sha256": "1d43deccc16a31763cb2ebe37be3476c2e2786ba626526941f0fe7bb7d37f1be",
+    "derived_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/next-sustained-ninehour-preparation-r1/lifecycle-r2/MEMORY_CONTEXT_DERIVED.json",
+    "derived_sha256": "d7209b34c8cd39968cb6b3c3807100fa94cf11c45c82bfd911e362bf90142a65",
+    "hpc04_memory_max_events_control_candidate": [
+      2523,
+      488
+    ],
+    "oom_all_eight_models": 0,
+    "scope": "Existing30s samples only; sampled maximumanon lower\u22481.262/1.404/1.401/0.930GiB across01\u201304. At sampled04currentpeak,file-minus-shmem\u22489.14GiBcontrol/14.20GiBcandidate. Non-atomic current/stat reads need not sum; samples not phase-aligned. Filecache/reclaim relevant, no causal wall/source attribution."
+  },
+  "raw_evidence": {
+    "final_qualification_file": "NINE_HOUR_FINAL_QUALIFICATION.json",
+    "final_qualification_sha256": "292c167d5aa04384e2156a4ce270a721efc052d82819f729f4bc07102473f153",
+    "runtime": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-current9h-runtime-r2",
+    "lifecycle": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/next-sustained-ninehour-preparation-r1/lifecycle-r2",
+    "raw_sha256": {
+      "RESULT.json": "e542f06ebff9c41a6697a34e8f3de91727e994c66157627478145fa4a87402f6",
+      "science-receipt.json": "bc0dc6c6fbe7231e336db3414d0f316ff335e62c011b59247f8551db954298c7",
+      "reader-closure.json": "96346f5cf33ef1d943f0c4ac0263f2a2bd60800edfde225545209c863e059364",
+      "source-pins.json": "6364728b6b142bcb719344e860c23642deafed66ee4dd4cde6ba8bb50f7af566",
+      "control/mpi-launch.json": "f3fea46889bda504ff9b907030b08fab9e88747592417583e192ea2fd5ae6e14",
+      "control/hpc02-node.json": "a460954db65103559fa8d1a2a6682a315b3a4adf80afec01afd57a45b7de0a32",
+      "control/hpc03-node.json": "3c14fe03a37a2d58b3764e5a4ad3cf2a4077c84a902dce58f0fea2cc6793cc49",
+      "control/hpc04-node.json": "d8e942124ee241121f3cd2651b0a85f777ec67a72fa3d5789d8c844993ea083f",
+      "control/lease.json": "c4e9c399afdabfe3d6a300ab7ab1cc6366e0d201df60b07ba1299f0e2e0380be",
+      "control/model-closures.json": "22cc7cf14fe2441d9d596aad389446c50e938a31f81b731f3e6e88851c6cfb92",
+      "control/adaptive-steps.json": "e34c42ea500f020044e887fb49b1d8aa94fa0d19db5bd635b730648c3999dbb8",
+      "control/completion.json": "723cf976bc77b93b1504b20d71752c76585d3ede3daf111711e939de7f9b9c87",
+      "control/cache-start-context.json": "a845f5b54223ebe26add1f6eb7d1b2afb26d06a04a53252630370855910078bc",
+      "candidate/mpi-launch.json": "359aa544c3a5834983ae67e8990c699da67cefec269471332071066f6082f9a5",
+      "candidate/hpc02-node.json": "3b93d12e9bd2e74acf9dfa8eb83c40d7effebb8c343fd4beee13d3d6a01a9af0",
+      "candidate/hpc03-node.json": "c2c3eb1add0f8517a8210d20a66e60ac765e13eb554a14525749ca0812f9660e",
+      "candidate/hpc04-node.json": "6170d0050ed28eb41c36364c6c5ac6df2fcc8fe6eb543121c4a25af69817350c",
+      "candidate/lease.json": "cde9dfa9b64e02afd2ab914d4062123c1b2fced72d75caee14e104d51b226d42",
+      "candidate/model-closures.json": "411b9ceba8b94662cf74c50f7f7b4c26549a118dd100f0af659c1d45482d1733",
+      "candidate/adaptive-steps.json": "8754d1fe02277f5b5e4cc57fbf415736c3d7674675af3d95bbb3293a0b0e6f87",
+      "candidate/completion.json": "4e0871ffa73d087239ff18aa95f350b04a478b5dda037bf9ec5530d89d762b8b",
+      "candidate/cache-start-context.json": "50063586e7d5c616f84ed921e0eadfad212c46342d321152a06e732a9058e441",
+      "lifecycle/CLOSED_RESOURCE_TELEMETRY.json": "1d43deccc16a31763cb2ebe37be3476c2e2786ba626526941f0fe7bb7d37f1be",
+      "lifecycle/MEMORY_CONTEXT_DERIVED.json": "d7209b34c8cd39968cb6b3c3807100fa94cf11c45c82bfd911e362bf90142a65",
+      "lifecycle/MONITOR_CONTEXT_ONLY_REPAIR.json": "6bc46dd4abe7083373aa080e1d23e57ce14dfc1ed164d67818646e0858189a91",
+      "lifecycle/RECONCILE_CONTEXT_ONLY_REPAIR.json": "af21398fd81a0d5e5efb5f073d60bfc0f86644ad0d07d6ad00f61afa871da06e",
+      "lifecycle/ANCILLARY_SHARED_FS_CONTEXT.json": "e404803bc1c4daf97d5595fba3b1a96aa1868297b1d4e15d02073a273db8580e",
+      "lifecycle/ANCILLARY_PROVIDER_CONTEXT.json": "d7b5369c36d376246d744c467ac4781163be40f3753d18ba9c2fb4e80312a5ea"
+    },
+    "local_raw_directory_mapping": {
+      "control/": "runtime/control-metadata/",
+      "candidate/": "runtime/candidate-metadata/",
+      "lifecycle/": "lifecycle/"
+    },
+    "independent_audit": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/next-sustained-ninehour-preparation-r1/lifecycle-r2/INDEPENDENT_FINAL_AUDIT.json",
+      "sha256": "46da7f87bcffaf9ad855b77dfe70d4155c7b261b0212690d9bdd05f6cdcb971f",
+      "status": "PASS_NO_MISMATCHES_ALL28_REFERENCES_VERIFIED"
+    }
+  },
+  "operator_repairs_and_ancillary_context": [
+    "Frozen local monitor/reconcile donor B paths corrected ONLY in external operator copies; first wrong-context monitor read retained as failed evidence, never accepted as current closure. Remote/runtime/science predicates unchanged.",
+    "One control and one candidate lightweight read failed then recovered on next scheduled observation; no model resubmission or duplicatecache.",
+    "During control,hpc00-only corrected bounded144897B MYJobject/module fetch closed0.47s; initial optionalnative.mod failure retained.",
+    "During candidate,parent actually dispatched four approved KSM/MYJprovider calls and fetched bounded text/receipts on hpc00 only. No01\u201304 jobs/probes/settings; shared-filesystem/controller impact unmeasured."
+  ],
+  "monitoring": {
+    "all_model_and_reader_scopes_closed": true,
+    "no_profilers": true,
+    "notes": "Ordinary model reconciliation; additional invocation-bound successful reader journal and actual cgroup absence. No claim of all-model manager journals or final reader resource totals."
+  }
+}
