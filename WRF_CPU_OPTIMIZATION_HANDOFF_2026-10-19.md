@@ -84,7 +84,7 @@ The inventory is cumulative. Individual percentages below describe their stated 
 | Output pipeline | Threaded root compression, SIMD byte shuffle, parallel output-chunk packing, guarded zlib-ng/Huffman improvements, reusable startup/output buffers, smaller later quilt retrieval scratch and C-owned per-field views. Owned views measured 5.04/5.92% shorter synthetic buffer handling; initial STORE deep copies remain. Later scratch reduction does not eliminate initial duplication peak or prove all copy traffic disappeared. |
 | Input/HDF5 | Private SSE2 four-byte inverse shuffle, exact public/real-caller/application checks, selected through pinned HDF5 rather than an executable-only change. |
 
-See the matching `tools/cpu-compute/`, `tools/cpu-output/`, `tools/cpu-input/`, `tools/cpu-simd/` and `tools/cpu-working/` qualification files and detailed findings. Older “optional/unpromoted” paragraphs are history where a later explicit promotion supersedes them. Significant exact-qualified kernel gains generally belong in the working configuration unless a concrete correctness, caller-cost or engineering exclusion is demonstrated; noisy whole-run totals alone are not such a reason.
+See the matching `tools/cpu-compute/`, `tools/cpu-output/`, `tools/cpu-input/` and `tools/cpu-working/` qualification files and detailed findings. Older “optional/unpromoted” paragraphs are history where a later explicit promotion supersedes them. Significant exact-qualified kernel gains generally belong in the working configuration unless a concrete correctness, caller-cost or engineering exclusion is demonstrated; noisy whole-run totals alone are not such a reason.
 
 ## Experimental Thompson sharing: current in-flight work
 
