@@ -2,7 +2,17 @@
 
 Initial snapshot: **2026-10-19 09:35 UTC**; latest recovery update: **2026-10-19 16:54 UTC**. This is a recovery and evidence handoff, **not a campaign closeout**. The persistent Goal is active. Continue authorized work after writing or reading this file; a status response, negative experiment, successful test or promotion is not a stopping point.
 
-## Latest update: fresh combined three-hour promotion (2026-10-19 16:00 UTC)
+## Latest update: ten-owner nine-hour promotion (2026-10-19 17:44 UTC)
+
+Current source **4480c0cc8aa64776b55b31df7626e1e3acd94e76**, selected image **3220319c** (`thompson-ten-owner-canonical-current-r1/wrf.exe`), archive25e6fc3c. Four additional non-sentinel graupel owners join the six previously shared tables; all earlier compute/runtime improvements remain. Exact ten original products/1,625 steps/all512/two tiles/four writer groups passed unchanged science; every model/reader closed. FQ`bb0c0f6a`, science`16dff3b2`, readerclosure`f87ec930`. Post-test source4480 tracks exact587797; frozen producerNULL remains unchanged.
+
+Nine-hour wall **2,069.312230→1,858.366860s (10.1940% lower)**, aggregateCPU **7.5402% lower**, main elapsed **5.2945% lower**, **UNPAIRED** against retained corrected original546b. Observed throughput1.11351×; goals unmet, no isolated/additive/repeatability claim. Peaks82.143/79.988/79.916/79.902GiB, candidate memory events all0; original04 reached104GiB with2,584 max events/noOOM. Early nearby progress samples suggest roughly6.2GiB/node lower current use than the preceding six-owner run; not isolated PSS or synchronized peaks, and startup peaks did not fall. Main includes comm/backpressure. Current selection has its own nine-hour scope; the prior fresh17.9353% three-hour result still belongs only toed095.
+
+Rollback: **ed095/sourcebe96** via`tools/cpu-working/PREVIOUS_SELECTION_ED095.json`, same375/881/825/faba/FIELDVIEW1/shared1/IB runtime. Private0 is native-only, not binary rollback. Current support is cold one-domain THOMPSON,DIMNRHG1,OMP1; production/master untouched and AWS suspended.
+
+Continue, do not stop: the next ONE-owner/twelve-rain-snow-table extension e972 passed its actual four-rank native full23record/original11caller/raw-state gate (`4dd0b264`, INV25830be2), with production89c6/PP5ac0/MOD468c. Its consumer rebuild is running on02; the inactive candidate-only three-hour adapter reuses the exact retained820.506s freshcontrol1200 context. It is not selected/application-qualified. FinalthetaSIMD failed strictO2 NaN bits and was not timed; calc_coef_w reuse was already done by the compiler. A distinct later-RK-pass source join is pending. Provider ledger now275 actual returns/2,512,207 reported tokens; actual cost unknown, separate from frozen AWS$4.6495. Read liveCURRENT_STATE for actual jobs and releases before any launch. The following sections preserve earlier epochs.
+
+## Previous fresh combined three-hour promotion (2026-10-19 16:00 UTC)
 
 This supersedes the previous6c selection below. Current source **be96b3ec53232e8807e557dbf3afbd4d16d82bc6**, selected image **ed095110** (`thompson-six-owner-cqu-canonical-current-r1/wrf.exe`). CQU first-species peel and all six shared Thompson tables are selected with all previous375/881/825/faba/FIELDVIEW1/shared1/InfiniBand settings. Fresh original-first wall **820.506360→673.345750s (17.9353% lower)**; aggregateCPU **11.5875% lower**, main elapsed **5.6418% lower**. Four complete products/545steps/all512/two tiles/four writers passed unchanged science; every scope closed. FQ`eabf9ba6`, science`dae5f662`, readerclosure`36d26498`. One fixed-order pair, no isolated/additive/repeatability claim.
 

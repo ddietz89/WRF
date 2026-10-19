@@ -1,7 +1,7 @@
 {
-  "status": "PROMOTED_QUALIFIED_CQU_SIX_OWNER_COMBINED_WORKING_CONFIGURATION",
-  "source_commit": "be96b3ec53232e8807e557dbf3afbd4d16d82bc6",
-  "scope": "Cold single-domain full-compute THOMPSON/OMP1 GNU13.3/Zen2/world512/480compute+32quilt/8x60/two serial tiles;100,100,100,104GiB/swap0. Unchanged375/881/825/faba/FIELDVIEW1/UCX rc,sm,self/InfiniBand/shared1. Currented095 freshfull3h fourproducts545steps exact; prior6c ninehour nottransferred. No restart/nesting/othercompiler/six-ownerprivate fullforecast scope.",
+  "status": "PROMOTED_QUALIFIED_TEN_OWNER_COMBINED_WORKING_CONFIGURATION",
+  "source_commit": "4480c0cc8aa64776b55b31df7626e1e3acd94e76",
+  "scope": "Cold single-domain OMP1 DIMNRHG1 sharedmode1, unchanged375/881/825/faba/FIELDVIEW1/IB512+twoTiles. No restart/nesting/hail/aerosol/ng/mode0 application transfer.",
   "artifacts": {
     "shim": {
       "path": "/pool/wrf-experiment/wrf-cpu/source-discovery/parallel-pack-quilt-shim-native-r1/wrf_quilt_thread_shim.so",
@@ -17,8 +17,8 @@
     }
   },
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/thompson-six-owner-cqu-canonical-current-r1/wrf.exe",
-    "sha256": "ed0951105f3dba9808b665fc6fd57ebbd258ded72233ed8d91f32e99150bbfc6"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/thompson-ten-owner-canonical-current-r1/wrf.exe",
+    "sha256": "3220319ccf387520dc90934198430e3366745e195381e235e5b14157679538f1"
   },
   "private_hdf5": {
     "path": "/pool/wrf-experiment/wrf-cpu/builds/hdf5-sse2-unshuffle4-private-r3/output/candidate/lib/libhdf5.so.310.3.0",
@@ -31,7 +31,7 @@
     "WRF_ADVECTION_ZEN2": 1,
     "compiler_scope": "qualified GNU Fortran13.3.0; runtime CPU/OS feature admission required",
     "WRF_EXPERIMENTAL_TPI_NUMA": 1,
-    "thompson_build_scope": "Use separate qualified canonical build recipe and rebuild all changed-module consumers; ordinary Makefiles do not automatically link helpers."
+    "thompson_build_scope": "GNU13.3 strict cold one-domain DIMNRHG1: ten fixed owners, ordinaryTCG preserved; generic Makefiles unchanged."
   },
   "runtime": {
     "OMP_NUM_THREADS": 1,
@@ -46,11 +46,12 @@
     "WRF_QUILT_OWNED_FIELD_VIEW": 1,
     "WRF_EXPERIMENTAL_TPI_NUMA": 1
   },
-  "includes": "All accepted source changes through source_commit, including paired shortwave, RK first-stage fusion, corrected X-distance cache, advection ISA, initial-U/V tendencies, Thompson literal-1000 index and per-call scratch bank with contiguous75-column zero initialization, MYJPBL writeback SIMD with invariant ice guard split; SIMD shuffle/parallel output packing, Huffman/zlib-ng codec, root scratch reuse and private HDF5 inverse shuffle. Both MYJPBL writeback paths now emit packed arithmetic. The earlier79-array bank caller observations remain mixed; its75-column zero follow-up had0.4513/1.4223% shorter complete-caller intervals. Latest full combined forecast is exact and timed. New MYJPBL banks/register-carry/lifetime,paired reftra and ordinaryY schedule are excluded after slower caller screens. Ordered PHY_PREP qtot pragma excluded. Also includes exact-qualified SmallStep prep U-coupling SIMD. Thompson scalar-rho remains excluded after mixed helper and slower complete-caller results. Also includes exact-qualified SmallStep prep W/geopotential coupling SIMD, preserving its four statements and kde upper bound. Also includes exact-qualified SmallStep temperature save/coupling SIMD and longwave downward clear-prefix, preserving their mixed caller/regime observations. Also includes exact-qualified quilt field retrieval scratch lifetime reduction, source748701ba/imageba422; initial STORE duplication peak and copy volume remain unchanged. Also includes exact-qualified MYJPBL VDIFV independent DTOZ/CR producer SIMD, source7af45dd6/image8b101; later recurrences and five allocation/free pairs unchanged. Also includes the exact-qualified VDIFQ independent turbulence coefficient SIMD directive. Also includes exact-qualified first MYJPBL input-pack SIMD and per-field C-owned quilt views, enabled in this working configuration with WRF_QUILT_OWNED_FIELD_VIEW=1 and explicit0/unset legacy optout. Initial STORE deep copies remain; no physical-memory-peak claim. Codec carrier-width experiment excluded after mixed completecaller timing. Also includes one exact-qualified MYJPBL UK/VK/ZHK velocity-copy SIMD directive. Focused2.7335/0.6335% gains; completecaller mixed; no isolated forecast gain. Historical4c noon2product230step diagnostic remains separate. All selected4c source/runtime changes are retained in f3ea. Also includes one exact-qualified final PD scalar-consume SIMD directive. Fresh original546b vs combinedf3ea3h passed4products/545steps/all512; observed18.6266% less wall/12.2066% less CPU/5.7700% less main in one pair. RNG/codec-inline remain excluded. Also includes one exact-qualified sixth-order X rhs_ph SIMD directive; all ten products/1625steps pass a fresh original546b/current3a nine-hour pair. Historicalba422 nine-hour stays separate; no isolated/additive X gain is claimed. Also includes exact-qualified sixth-order Y rhs_ph SIMD, all4products545steps/all512/two tiles/four writers exact against retained originalcontrol. Complete synthetic caller6.0985/4.8610% shorter; no isolated forecast gain. Preceding XY image885c had no new nine-hour scope; that historical qualification remains separate. Also includes the exact-qualified first Thompson tpi_qcfz NUMA-cohort shared table, enabled by default within the supported working configuration. Also includes qualified second Thompson tni_qcfz owner and PD row workspace with kind-sized bit sentinel. Existing REAL32 production8ec maps to tracked47c7 via actual compile equivalence; no isolated TNI/PD or whole-forecast gain claim. Also includes exact-qualified open south boundary source-load reuse with unchanged three-store order, bounds and interface; current combined full3h passes. No isolated BC performance claim. Also includes exact-qualified CQU first-species peel and four additional shared rain-freezing tables (six owners total), with unchanged file/arithmetic order and original full3h acceptance. No isolated forecast gain or isolated additional-table RSS claim.",
+  "includes": "All previously retained source/runtime changes recorded in PREVIOUS_SELECTION_ED095.json, plus four nonsentinel Thompson graupel-table shared owners (ten total). Original ordinarytcg sentinel unchanged. Current exact nine-hour qualification covers the combined configuration; preceding three-hour timings retain their original artifact scope.",
   "science": {
-    "status": "PASS_FRESH_CORRECTED_ORIGINAL_VS_COMBINED_CQU_SIX_OWNER_THREE_HOUR_FOUR_PRODUCTS_545_STEPS",
-    "complete_products": 4,
-    "ordered_steps": 545,
+    "status": "PASS_CURRENT_FIXED_TEN_NINE_HOUR_ORIGINAL_FULL_GATE_AND_ALL_OWN_SCOPES_CLOSED",
+    "complete_products": 10,
+    "ordered_steps": 1625,
+    "last_observed_step": "2026-10-12_15:00:00",
     "all512": true,
     "compute_ranks": 480,
     "serial_tiles": 2,
@@ -60,9 +61,9 @@
       503,
       511
     ],
-    "receipt_sha256": "dae5f6625a3ee7f0afe6c018d875971654dc33870463ffdb5a3df660376d4b51",
-    "reader_closure_sha256": "36d264989f94e84100d82e68c51addb44ca50337463e463ab8a96492e144987a",
-    "full_qualification_sha256": "eabf9ba6c674bb2e8c59291b7b96d293fb41e746fe471351283e9aa5cde2f32e",
+    "receipt_sha256": "16dff3b2b1f1e8c663c5fbf5fd2b221ce87938941131a532bc1d97fdb2712a25",
+    "reader_closure_sha256": "f87ec9309938b80fe4ea215c5837be93bedc87ea012e7f18745dfbd457c66d28",
+    "full_qualification_sha256": "bb0c0f6a9884e7541c811158f4a83cf87cff0e36b268d42f7e6f596ad19fded6",
     "all_model_reader_scopes_closed": true,
     "protected_checker": {
       "path": "/pool/wrf-experiment/wrf-cpu/validation/protected_netcdf_exact_reference.py",
@@ -70,8 +71,8 @@
       "verified": true
     }
   },
-  "lease_reference": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-current-cqu3h-runtime-r1/lease-candidate-proposed.json",
-  "rollback_executable_sha256": "6c1ac8f3d00c362b8b677e2561997a57c27d1f4c80da0591ee410f92ae5e3743",
+  "lease_reference": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-nextcombined9h-runtime-r1/lease-candidate-proposed.json",
+  "rollback_executable_sha256": "ed0951105f3dba9808b665fc6fd57ebbd258ded72233ed8d91f32e99150bbfc6",
   "activation": "Selection record, not a launcher. Use existing bounded launcher with a fresh run directory/log directory/lease and actual affinity/library/resource checks. Never preload MPI launcher or helper processes.",
   "schema_version": 2,
   "last_three_hour_benchmark": {
@@ -98,9 +99,10 @@
       "main_step_sum_seconds": 5.641806971156315
     },
     "full_qualification_sha256": "eabf9ba6c674bb2e8c59291b7b96d293fb41e746fe471351283e9aa5cde2f32e",
-    "fresh_matched_timing": true
+    "fresh_matched_timing": true,
+    "applies_to_current_selection": false
   },
-  "qualification_file": "tools/cpu-memory/thompson-table-sharing/RAIN_EXTENSION_QUALIFICATION.json",
+  "qualification_file": "tools/cpu-memory/thompson-table-sharing/GRAUPEL_EXTENSION_QUALIFICATION.json",
   "previous_three_hour_benchmark": {
     "executable": {
       "path": "/pool/wrf-experiment/wrf-cpu/builds/ownedview-myjpack-combined-current-r1/wrf.exe",
@@ -457,47 +459,40 @@
     "evidence_file": "THREE_HOUR_RESULT.json"
   },
   "rollback_executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/portfolio-a-bc-copy-e319-current-r1/wrf.exe",
-    "sha256": "6c1ac8f3d00c362b8b677e2561997a57c27d1f4c80da0591ee410f92ae5e3743"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/thompson-six-owner-cqu-canonical-current-r1/wrf.exe",
+    "sha256": "ed0951105f3dba9808b665fc6fd57ebbd258ded72233ed8d91f32e99150bbfc6"
   },
   "latest_application": {
-    "evidence_file": "THREE_HOUR_RESULT.json",
-    "executable_sha256": "ed0951105f3dba9808b665fc6fd57ebbd258ded72233ed8d91f32e99150bbfc6",
-    "source_commit": "be96b3ec53232e8807e557dbf3afbd4d16d82bc6",
-    "provider_scope": "375/faba/881/825/FIELDVIEW1/shared1",
-    "comparison_design": "Fresh fixed-order corrected-original versus combined current candidate; no isolated CQU/BC/PD/TNI attribution",
+    "evidence_file": "NINE_HOUR_RESULT.json",
+    "source_commit": "4480c0cc8aa64776b55b31df7626e1e3acd94e76",
+    "executable_sha256": "3220319ccf387520dc90934198430e3366745e195381e235e5b14157679538f1",
+    "comparison_design": "UNPAIRED retained original control; no isolated component gain attribution",
     "metrics": {
       "control": {
-        "wall_seconds": 820.5063595210668,
-        "cpu_seconds": 367800.485597,
-        "main_step_sum_seconds": 597.99405
+        "wall_seconds": 2069.3122304237913,
+        "cpu_seconds": 1009264.484921,
+        "main_step_sum_seconds": 1851.54464
       },
       "candidate": {
-        "wall_seconds": 673.3457495709881,
-        "cpu_seconds": 325181.517711,
-        "main_step_sum_seconds": 564.25638
+        "wall_seconds": 1858.3668603610713,
+        "cpu_seconds": 933163.48591,
+        "main_step_sum_seconds": 1753.51523
       }
     },
     "reductions_percent": {
-      "wall_seconds": 17.935340566522473,
-      "cpu_seconds": 11.587523550117796,
-      "main_step_sum_seconds": 5.641806971156315
+      "wall_seconds": 10.19398459842471,
+      "cpu_seconds": 7.5402434295462895,
+      "main_step_sum_seconds": 5.2944664623371
     },
-    "full_qualification_sha256": "eabf9ba6c674bb2e8c59291b7b96d293fb41e746fe471351283e9aa5cde2f32e",
-    "fresh_matched_timing": true,
-    "actual_product_comparisons": 4,
-    "ordered_steps": 545,
-    "all_own_jobs_closed": true
+    "full_qualification_sha256": "bb0c0f6a9884e7541c811158f4a83cf87cff0e36b268d42f7e6f596ad19fded6",
+    "applies_to_current_selection": true,
+    "provider_scope": "375/faba/881/825/FIELDVIEW1/shared1/IB",
+    "actual_product_comparisons": 10,
+    "ordered_steps": 1625,
+    "all_own_jobs_closed": true,
+    "fresh_matched_timing": false
   },
-  "timing_scope": [
-    "FirstTPI-only aada has measured6.74\u20137.47GiB/node cgroup peak saving with neutral timing; additional TNI/PD savings not isolated.",
-    "Current6c375 unprofiled full3h exact4products/545steps/all512;673.523602s versus retained original819.213400s =17.7841% lower wall and11.6616% lower aggregateCPU. UNPAIRED/no isolated/additive/repeatability claim.",
-    "Current source includes exactBCloadreuse; synthetic complete-routine timings2.6472%/0.0268% shorter, second neutral, no isolated forecast attribution.",
-    "Prior e319R4 current-daytime captures remain diagnostic selected-thread/phase evidence; no global removable fraction.",
-    "Current6c unprofiled full9h exact10products/1625steps/all512:1868.604428s versus retained original2069.312230s =9.6993% lower wall/7.0607% lower aggregateCPU/4.7871% lower main-step elapsed. UNPAIRED; no isolated/additive/repeatability/causal claim. HistoricalX3a is separate.",
-    "Freshcurrented095 versus corrected-original546b3h:820.506360\u2192673.345750s,17.9353%lowerwall/11.5875%lessaggregateCPU/5.6418%lessmain. Onefixedorderpair, uncontrolledserverload, nonzerothrottling; no isolated/additive/repeatability claim.",
-    "Currented0959h unqualified; last6c9h result remains separately bound."
-  ],
+  "timing_scope": "Current322 nine-hour qualification is UNPAIRED. Last fresh three-hour pair belongs to precedinged095. No isolated/additive/repeatability claim.",
   "earlier_three_hour_benchmark_f1d7": {
     "executable": {
       "path": "/pool/wrf-experiment/wrf-cpu/builds/four-worthy-ports-current-r1/wrf.exe",
@@ -853,9 +848,9 @@
   },
   "last_nine_hour_benchmark": {
     "evidence_file": "NINE_HOUR_RESULT.json",
-    "source_commit": "eb616f2b71767da0db5124d0bdf81339315139f2",
-    "executable_sha256": "6c1ac8f3d00c362b8b677e2561997a57c27d1f4c80da0591ee410f92ae5e3743",
-    "comparison_design": "UNPAIRED retained original control; no isolatedBC/PD/TNI gain attribution",
+    "source_commit": "4480c0cc8aa64776b55b31df7626e1e3acd94e76",
+    "executable_sha256": "3220319ccf387520dc90934198430e3366745e195381e235e5b14157679538f1",
+    "comparison_design": "UNPAIRED retained original control; no isolated component gain attribution",
     "metrics": {
       "control": {
         "wall_seconds": 2069.3122304237913,
@@ -863,18 +858,18 @@
         "main_step_sum_seconds": 1851.54464
       },
       "candidate": {
-        "wall_seconds": 1868.6044276398607,
-        "cpu_seconds": 938002.957052,
-        "main_step_sum_seconds": 1762.90873
+        "wall_seconds": 1858.3668603610713,
+        "cpu_seconds": 933163.48591,
+        "main_step_sum_seconds": 1753.51523
       }
     },
     "reductions_percent": {
-      "wall_seconds": 9.699251752976213,
-      "cpu_seconds": 7.060738679869227,
-      "main_step_sum_seconds": 4.787133298606294
+      "wall_seconds": 10.19398459842471,
+      "cpu_seconds": 7.5402434295462895,
+      "main_step_sum_seconds": 5.2944664623371
     },
-    "full_qualification_sha256": "176a0ed0038cb3dd3884140e987a77709a1af1d94d6b8d9e38e24d73457d916a",
-    "applies_to_current_selection": false
+    "full_qualification_sha256": "bb0c0f6a9884e7541c811158f4a83cf87cff0e36b268d42f7e6f596ad19fded6",
+    "applies_to_current_selection": true
   },
   "earlier_three_hour_benchmark_5326": {
     "executable": {
@@ -1272,8 +1267,8 @@
     },
     "evidence_file": "PREVIOUS_THREE_HOUR_RESULT_8604.json"
   },
-  "current_source_head_note": "Post-science tracking of exact c415 CQU and6b983 Thompson source; frozen fa8b/ed095 producer source_commitNULL retained. Baseeb616 is ancestry only.",
-  "rollback_source_commit": "eb616f2b71767da0db5124d0bdf81339315139f2",
+  "current_source_head_note": "4480 is post-test tracking of exact587797 source; frozen canonical producer source_commitNULL remains unchanged. be96 is six-owner ancestry only.",
+  "rollback_source_commit": "be96b3ec53232e8807e557dbf3afbd4d16d82bc6",
   "last_fresh_paired_three_hour_benchmark": {
     "evidence_file": "THREE_HOUR_RESULT.json",
     "executable_sha256": "ed0951105f3dba9808b665fc6fd57ebbd258ded72233ed8d91f32e99150bbfc6",
@@ -1298,7 +1293,8 @@
       "main_step_sum_seconds": 5.641806971156315
     },
     "full_qualification_sha256": "eabf9ba6c674bb2e8c59291b7b96d293fb41e746fe471351283e9aa5cde2f32e",
-    "fresh_matched_timing": true
+    "fresh_matched_timing": true,
+    "applies_to_current_selection": false
   },
   "previous_nine_hour_benchmark_1cc": {
     "executable": {
@@ -2226,11 +2222,13 @@
     "fresh_matched_timing": false
   },
   "nine_hour_science": {
-    "status": "NOT_YET_QUALIFIED_CURRENT_ED095_SELECTION",
-    "last_qualified_executable_sha256": "6c1ac8f3d00c362b8b677e2561997a57c27d1f4c80da0591ee410f92ae5e3743",
-    "evidence_file": "PREVIOUS_NINE_HOUR_RESULT_6C.json",
-    "scope": "Previous6c/currenteb6169h exact10products1625steps; no transfer to newed095."
+    "status": "PASS_CURRENT_FIXED_TEN_NINE_HOUR_ORIGINAL_FULL_GATE_AND_ALL_OWN_SCOPES_CLOSED",
+    "last_qualified_executable_sha256": "3220319ccf387520dc90934198430e3366745e195381e235e5b14157679538f1",
+    "evidence_file": "NINE_HOUR_FINAL_QUALIFICATION.json",
+    "applies_to_current_selection": true,
+    "scope": "Cold single-domain OMP1 DIMNRHG1 sharedmode1, unchanged375/881/825/faba/FIELDVIEW1/IB512+twoTiles. No restart/nesting/hail/aerosol/ng/mode0 application transfer."
   },
-  "previous_selection_file": "PREVIOUS_SELECTION_6C.json",
-  "combined_six_owner_default_record": "../cpu-memory/thompson-table-sharing/RAIN_EXTENSION_QUALIFICATION.json"
+  "previous_selection_file": "PREVIOUS_SELECTION_ED095.json",
+  "combined_six_owner_default_record": "../cpu-memory/thompson-table-sharing/RAIN_EXTENSION_QUALIFICATION.json",
+  "combined_ten_owner_default_record": "tools/cpu-memory/thompson-table-sharing/GRAUPEL_EXTENSION_QUALIFICATION.json"
 }

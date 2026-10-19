@@ -1,0 +1,303 @@
+{
+  "status": "PASS_FRESH_CORRECTED_ORIGINAL_VS_COMBINED_CQU_SIX_OWNER_THREE_HOUR_FOUR_PRODUCTS_545_STEPS",
+  "order": [
+    "fresh_corrected_original546b_control",
+    "combined_CQU_six_owner_ed095_candidate"
+  ],
+  "comparison_design": "Fresh fixed-order corrected-original versus combined current candidate; no isolated CQU/BC/PD/TNI attribution",
+  "source_commit": "be96b3ec53232e8807e557dbf3afbd4d16d82bc6",
+  "producer_source_commit": null,
+  "source_commit_note": "Post-science tracking of exact c415 CQU and6b983 Thompson source; frozen fa8b/ed095 producer source_commitNULL retained. Baseeb616 is ancestry only.",
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/thompson-six-owner-cqu-canonical-current-r1/wrf.exe",
+    "sha256": "ed0951105f3dba9808b665fc6fd57ebbd258ded72233ed8d91f32e99150bbfc6"
+  },
+  "metrics": {
+    "control": {
+      "wall_seconds": 820.5063595210668,
+      "cpu_seconds": 367800.485597,
+      "main_step_sum_seconds": 597.99405
+    },
+    "candidate": {
+      "wall_seconds": 673.3457495709881,
+      "cpu_seconds": 325181.517711,
+      "main_step_sum_seconds": 564.25638
+    }
+  },
+  "reductions_percent": {
+    "wall_seconds": 17.935340566522473,
+    "cpu_seconds": 11.587523550117796,
+    "main_step_sum_seconds": 5.641806971156315
+  },
+  "science": {
+    "status": "PASS_FRESH_CORRECTED_ORIGINAL_VS_COMBINED_CQU_SIX_OWNER_THREE_HOUR_FOUR_PRODUCTS_545_STEPS",
+    "complete_products": 4,
+    "ordered_steps": 545,
+    "all512": true,
+    "compute_ranks": 480,
+    "serial_tiles": 2,
+    "required_positive_roots": [
+      487,
+      495,
+      503,
+      511
+    ],
+    "receipt_sha256": "dae5f6625a3ee7f0afe6c018d875971654dc33870463ffdb5a3df660376d4b51",
+    "reader_closure_sha256": "36d264989f94e84100d82e68c51addb44ca50337463e463ab8a96492e144987a",
+    "full_qualification_sha256": "eabf9ba6c674bb2e8c59291b7b96d293fb41e746fe471351283e9aa5cde2f32e",
+    "all_model_reader_scopes_closed": true,
+    "protected_checker": {
+      "path": "/pool/wrf-experiment/wrf-cpu/validation/protected_netcdf_exact_reference.py",
+      "sha256": "0382bcbabfbc16b76114ef552206c6c558ea15cd3c3552dfaed98b977deea2b4",
+      "verified": true
+    }
+  },
+  "science_sha256": "dae5f6625a3ee7f0afe6c018d875971654dc33870463ffdb5a3df660376d4b51",
+  "reader_closure_sha256": "36d264989f94e84100d82e68c51addb44ca50337463e463ab8a96492e144987a",
+  "application_qualification": {
+    "file": "THREE_HOUR_FINAL_QUALIFICATION.json",
+    "sha256": "eabf9ba6c674bb2e8c59291b7b96d293fb41e746fe471351283e9aa5cde2f32e"
+  },
+  "resources": {
+    "candidate_provider": "375",
+    "codec": "881",
+    "private_hdf": "825",
+    "rankmap": "faba",
+    "field_view": "1",
+    "six_owner_shared_mode": "1",
+    "control": "fresh546b ordinary-no-preload",
+    "observer": false,
+    "perf": false,
+    "cores_each_host": 128,
+    "memory_caps_GiB": [
+      100,
+      100,
+      100,
+      104
+    ],
+    "swap": 0,
+    "model_cap_seconds": 1200,
+    "reader": "03CPU8-15/16GiB900s",
+    "checked_cache_each_arm": true
+  },
+  "model_resources": {
+    "control": [
+      {
+        "host": "hpc01",
+        "peak_bytes": 98732437504,
+        "peak_GiB": 91.95174789428711,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_stat": {
+          "usage_usec": 91941354466,
+          "user_usec": 90158210283,
+          "system_usec": 1783144182,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 8218,
+          "nr_throttled": 5152,
+          "throttled_usec": 23708208,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      },
+      {
+        "host": "hpc02",
+        "peak_bytes": 101101588480,
+        "peak_GiB": 94.1581916809082,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_stat": {
+          "usage_usec": 91942279812,
+          "user_usec": 90047989411,
+          "system_usec": 1894290400,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 8163,
+          "nr_throttled": 6060,
+          "throttled_usec": 8449876,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      },
+      {
+        "host": "hpc03",
+        "peak_bytes": 101013078016,
+        "peak_GiB": 94.07575988769531,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_stat": {
+          "usage_usec": 91984346974,
+          "user_usec": 90103106179,
+          "system_usec": 1881240794,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 8162,
+          "nr_throttled": 5639,
+          "throttled_usec": 14945774,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      },
+      {
+        "host": "hpc04",
+        "peak_bytes": 107177967616,
+        "peak_GiB": 99.8172607421875,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_stat": {
+          "usage_usec": 91932504345,
+          "user_usec": 89961304153,
+          "system_usec": 1971200191,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 8162,
+          "nr_throttled": 4892,
+          "throttled_usec": 36985882,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      }
+    ],
+    "candidate": [
+      {
+        "host": "hpc01",
+        "peak_bytes": 87693574144,
+        "peak_GiB": 81.67100524902344,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_stat": {
+          "usage_usec": 81285498932,
+          "user_usec": 79479286915,
+          "system_usec": 1806212016,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 6741,
+          "nr_throttled": 4453,
+          "throttled_usec": 21076194,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      },
+      {
+        "host": "hpc02",
+        "peak_bytes": 85351600128,
+        "peak_GiB": 79.48987197875977,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_stat": {
+          "usage_usec": 81275852828,
+          "user_usec": 79389116067,
+          "system_usec": 1886736761,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 6698,
+          "nr_throttled": 4316,
+          "throttled_usec": 32714497,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      },
+      {
+        "host": "hpc03",
+        "peak_bytes": 85325983744,
+        "peak_GiB": 79.46601486206055,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_stat": {
+          "usage_usec": 81324846678,
+          "user_usec": 79413053820,
+          "system_usec": 1911792857,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 6697,
+          "nr_throttled": 4539,
+          "throttled_usec": 27695302,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      },
+      {
+        "host": "hpc04",
+        "peak_bytes": 85287227392,
+        "peak_GiB": 79.4299201965332,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_stat": {
+          "usage_usec": 81295319273,
+          "user_usec": 79325893866,
+          "system_usec": 1969425406,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 6696,
+          "nr_throttled": 4226,
+          "throttled_usec": 15266505,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      }
+    ]
+  },
+  "memory_context": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-b-memory-criticalpath-r1/fresh-original-cqu-threehour-preparation-r1/lifecycle-r1/MEMORY_CONTEXT.json",
+    "sha256": "846c49f54b0ccd0e697aa8d62e196e6d725b0b85f9fc4e8f1ae91dc1a638f832"
+  },
+  "observed_speedup": {
+    "ratio": 1.2185513312348668,
+    "scope": "One fresh original-first fixed-order pair; no isolated/additive/repeatability claim."
+  },
+  "limits": [
+    "Onefreshfixedordercombinedbatch; no repeatability/statistical/global1.5x or isolatedCQU/BC/PD/table gain claim.",
+    "Ordinarycold/maxdom1/OMP1NetCDF2/twoTiles qualified only; no144h/restart/unsupportedbackend transfer.",
+    "Fixedsixmode0 nativecaller qualified only; currentapplicationmode1 only.",
+    "Hostpeaks/current notisolated/additivetablegain orpublish-phase proof.",
+    "Mainincludescommunication/backpressure; wallminusmain isnotpureIO.",
+    "Native/canonicalCQUparent andfinalrainconsumer proofs distinct: finalsevenchangedarchive577unchanged, notonlyCQUchanged.",
+    "Aggregate CPU includes output; main-step elapsed includes communication/backpressure.",
+    "No current ed095 nine-hour qualification; prior6c nine-hour remains separate."
+  ],
+  "raw_evidence": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-b-memory-criticalpath-r1/fresh-original-cqu-threehour-preparation-r1/lifecycle-r1/FINAL_QUALIFICATION.json",
+    "sha256": "eabf9ba6c674bb2e8c59291b7b96d293fb41e746fe471351283e9aa5cde2f32e"
+  }
+}

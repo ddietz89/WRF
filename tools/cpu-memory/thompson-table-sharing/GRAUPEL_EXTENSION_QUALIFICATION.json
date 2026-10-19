@@ -1,0 +1,104 @@
+{
+  "status": "PROMOTED_EXACT_TEN_OWNER_NATIVE_CANONICAL_AND_NINE_HOUR_QUALIFIED",
+  "source_commit": "4480c0cc8aa64776b55b31df7626e1e3acd94e76",
+  "historical_producer_source_commit": null,
+  "source_sha256": "587797d01904af752f64828ff07aaa4c63dd668a410fbe6a481894d8619276ae",
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/thompson-ten-owner-canonical-current-r1/wrf.exe",
+    "sha256": "3220319ccf387520dc90934198430e3366745e195381e235e5b14157679538f1"
+  },
+  "full_application": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-b-memory-criticalpath-r1/next-combined-ninehour-preparation-r1/lifecycle-r1/FINAL_QUALIFICATION.json",
+    "sha256": "bb0c0f6a9884e7541c811158f4a83cf87cff0e36b268d42f7e6f596ad19fded6"
+  },
+  "science": {
+    "status": "PASS_CURRENT_FIXED_TEN_NINE_HOUR_ORIGINAL_FULL_GATE_AND_ALL_OWN_SCOPES_CLOSED",
+    "complete_products": 10,
+    "ordered_steps": 1625,
+    "last_observed_step": "2026-10-12_15:00:00",
+    "all512": true,
+    "compute_ranks": 480,
+    "serial_tiles": 2,
+    "required_positive_roots": [
+      487,
+      495,
+      503,
+      511
+    ],
+    "receipt_sha256": "16dff3b2b1f1e8c663c5fbf5fd2b221ce87938941131a532bc1d97fdb2712a25",
+    "reader_closure_sha256": "f87ec9309938b80fe4ea215c5837be93bedc87ea012e7f18745dfbd457c66d28",
+    "full_qualification_sha256": "bb0c0f6a9884e7541c811158f4a83cf87cff0e36b268d42f7e6f596ad19fded6",
+    "all_model_reader_scopes_closed": true,
+    "protected_checker": {
+      "path": "/pool/wrf-experiment/wrf-cpu/validation/protected_netcdf_exact_reference.py",
+      "sha256": "0382bcbabfbc16b76114ef552206c6c558ea15cd3c3552dfaed98b977deea2b4",
+      "verified": true
+    }
+  },
+  "comparison_design": "UNPAIRED retained original control; no isolated component gain attribution",
+  "native": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-rain-graupel-owner-feasibility-r1/NATIVE_QUALIFICATION.json",
+    "sha256": "4f25eb1e531f49800ddaaf4415aa48140a42bbd966bdfcc6567cc740374fb92d"
+  },
+  "canonical": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-rain-graupel-owner-feasibility-r1/canonical-integration-preparation-r1/BUILD_QUALIFICATION.json",
+    "sha256": "34d385e2eb3ff7ba400303a0067fe8de833f6fba7cc694e34eeb0792fc66dcdb"
+  },
+  "mechanism": "Four nonsentinel rank5 graupel tables join existing6 owners. Original ordinaryPUBLICALLOCATABLEtcg/micro_init sentinel unchanged; fixed10 atomic create/rollback/release; no math/IO/helper change.",
+  "memory": {
+    "new_declared_bytes_per_rank": 59973152,
+    "current_near062215_GiB": [
+      55.163482666015625,
+      53.129886627197266,
+      52.473751068115234,
+      54.02656936645508
+    ],
+    "previous_six_owner_near062155_GiB": [
+      61.383,
+      59.353,
+      58.743,
+      60.279
+    ],
+    "context": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-b-memory-criticalpath-r1/next-combined-ninehour-preparation-r1/lifecycle-r1/MEMORY_CONTEXT.json",
+      "sha256": "72d7fe6a09c328659b67feb438183a0fdbb7532c7d9aee450b6b45c8541d0295"
+    },
+    "scope": "Different-run near-progress non-atomic cgroup observations, roughly6.2GiB lower/node; not isolated four-table PSS or synchronized peak. Current peaks79.90\u201382.14GiB do not establish lower startup peak versus preceding6owner build. Current memory events all0; control04max2584/noOOM."
+  },
+  "numerical_scope": {
+    "unchanged11_complete_callers": true,
+    "original_two_init_calls": true,
+    "raw_bytes_per_rank": 202196,
+    "init_state_bytes_per_rank": 60,
+    "same_opt_O0_bounds_O2": true,
+    "O2_private_same_actual_candidate_binary": true,
+    "raw_sha256_by_opt": {
+      "O0": "161007fecf287212f0495bbd4d6547e248a5e784ef96da7427126dc2967ee0f8",
+      "O2": "6c5004bfb539d5f765946d89289ce352dcb5fa9c67656f05126640eccbcad494"
+    },
+    "initial_two_init_rows": "Four FP fields compared; inherited errno diagnostic-only. Full init-state file SHA may differ, not claimed byteequal.",
+    "publication_row": "All five state words exact against immediately captured reset baseline.",
+    "fullbyte_records": "freezeH2O6 + qr_acr_qg5, eachrank/all5routes/3phases private-beforepub/afterpub/after11callers; one golden table at a time. OrdinaryTCG record1 tested in both modes.",
+    "field_shapes": "Existing6rank4 shapes preserved; all5graupelrank5[37,37,1,37,37],14993288B including ordinaryTCG. Hail/aerosol/ng extras excluded.",
+    "byte_observer_unit": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-rain-graupel-owner-feasibility-r1/oracle-three-extents-local-r1/RESULT.json",
+      "sha256": "8ebebe9468111127b6642464ac303db2577ed33f980f2962de93f3b066132eac"
+    }
+  },
+  "production_member_sha256": "14e8a849b7b0850c3ca7ab2d41899684c44805d751edf01688656f6a2db35b67",
+  "module_sha256": "c1f964e972c9dfe9c7b54eef97ecc1f7c3774d072856e1a554d4710d5eae0db3",
+  "support": "Cold single-domain OMP1 DIMNRHG1 sharedmode1, unchanged375/881/825/faba/FIELDVIEW1/IB512+twoTiles. No restart/nesting/hail/aerosol/ng/mode0 application transfer.",
+  "private_mode": "Native-only within same restricted lifetime; not a generic fallback.",
+  "all_owned_jobs_closed": true,
+  "rollback": {
+    "source_commit": "be96b3ec53232e8807e557dbf3afbd4d16d82bc6",
+    "executable": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/thompson-six-owner-cqu-canonical-current-r1/wrf.exe",
+      "sha256": "ed0951105f3dba9808b665fc6fd57ebbd258ded72233ed8d91f32e99150bbfc6"
+    },
+    "selection_file": "../../cpu-working/PREVIOUS_SELECTION_ED095.json",
+    "source_action": "Revert4480 and rebuild using original qualified recipe; runtime0 is not binary rollback."
+  },
+  "limits": "UNPAIRED retained corrected-original546b nine-hour reference. No isolated table/kernel memory or speed claim, no repeatability/global causal claim. MPI wall, aggregate host cgroup CPU and main-step sums have distinct scopes; wall-minus-main is not pure IO. Fixed current cold/maxdom1/OMP1/two-tile ordinary case, DIMNRHG1, shared mode1 only; no restart/allbackend/mode0 application transfer.",
+  "retention_reason": "Exact scientific/lifecycle qualification and meaningful reduced replicated memory, without demonstrated unacceptable timing penalty. No isolated timing gain claimed."
+}

@@ -6,7 +6,27 @@ Current continuation handoff: [WRF_CPU_OPTIMIZATION_HANDOFF_2026-10-19.md](WRF_C
 
 The October 19 continuation instruction establishes concurrent incremental-kernel and architectural portfolios, with actual parallel DeepSeek work. The [SOP](TIMING_SOP.md#two-coordinated-optimization-portfolios) records this policy. The current selection and qualification scope are stated below; historical results retain their original artifact bindings.
 
-## Latest promotion: CQU and six shared Thompson tables (2026-10-19 16:00 UTC)
+## Latest promotion: ten shared Thompson tables and sustained nine-hour qualification
+
+The working default is **3220319c/source4480c0cc**, adding four non-sentinel graupel owners to the preceding six-table configuration. All earlier improvements and375/881/825/faba/FIELDVIEW1/shared1/InfiniBand settings remain selected. **Ten complete original outputs,1,625 ordered steps,all512 ranks,two tiles and all four positive writer groups passed** the unchanged scientific checker; all model and reader scopes closed. Qualification`bb0c0f6a`, science`16dff3b2`, reader closure`f87ec930`. Source4480 is post-test tracking of exact587797; frozen producer source_commitNULL remains unchanged.
+
+| Measure | Retained corrected original | Current combined | Lower |
+|---|---:|---:|---:|
+| Whole model/MPI wall | 2,069.312230 s | 1,858.366860 s | 10.1940% |
+| Aggregate CPU, including output | 1,009,264.484921 s | 933,163.485910 s | 7.5402% |
+| Main-step elapsed, including communication/backpressure | 1,851.544640 s | 1,753.515230 s | 5.2945% |
+
+This is **UNPAIRED**, unprofiled, with checked candidate compute-client cache clears and uncontrolled file-server state. Observed throughput is **1.11351×**. The preceding6c nine-hour run was1,868.604428s at a different time; neither that comparison nor the original comparison isolates the four new tables. Main is not pure compute and wall-minus-main is not pure I/O. The1.5× and2× targets remain unmet. The last fresh three-hour pair—820.506360→673.345750s,17.9353% lower—belongs to precedinged095 and is preserved under that artifact; it is not a three-hour timing measurement of322.
+
+Current per-node invocation peaks were **82.143/79.988/79.916/79.902 GiB**, with every memory-event counter zero. The retained original had92.018/94.164/94.071/104.000GiB peaks; hpc04 recorded2,584 memory.max events and no OOM/kill. Both configurations had CPU throttling. At nearby early progress points, preceding six-owner samples at06:21:55 were61.383/59.353/58.743/60.279GiB, versus55.163/53.130/52.474/54.027GiB for ten owners at06:22:15. These **different-run, non-atomic cgroup snapshots** suggest roughly6.2GiB/node lower current use; they are not isolated-table PSS or a synchronized peak. Startup peaks did not fall against the preceding six-owner build. No reclaim-time or causal-speedup attribution is made. The exact memory behavior and lack of an unacceptable observed timing cost support retention under the owner’s memory-inclusion rule.
+
+The native gate retains the original eleven callers, both initialization calls, raw/state checks and all eleven existing table records through three phases. The canonical consumer rebuild preserves577/584 archive members and all previous PD/BC/CQU/helper/external identities. Ordinary PUBLIC ALLOCATABLE`tcg_racg` remains the initialization sentinel; only the four non-sentinel tables change ownership. Supported scope remains cold one-domain THOMPSON,DIMNRHG1,OMP1,shared mode1; private mode0 is native-only. No restart/nesting/hail/aerosol/ng/other-compiler transfer is claimed. [Qualification](tools/cpu-memory/thompson-table-sharing/GRAUPEL_EXTENSION_QUALIFICATION.json),[nine-hour result](tools/cpu-working/NINE_HOUR_RESULT.json) and[current binding](tools/cpu-working/CURRENT_SOURCE_BUILD_BINDING.json) contain exact artifacts. Rollback selects **ed095/sourcebe96** using`PREVIOUS_SELECTION_ED095.json` and the same runtime, or reverts4480 and rebuilds. Production/master remain unchanged; AWS remains suspended.
+
+The distinct final-temperature SIMD trial is parked after a strict O2 NaN-payload/sign failure; it was not timed or integrated. The actual parent reproduced its current allocated code/interface first. A coefficient-reuse lead closed because the compiler already reuses the shared factor. The next twelve rain/snow tables have now passed a four-rank native gate with all23 records,whole-family/plane checks and original numerical/state coverage. Actual independent code review found no supported blocker. Their combined consumer build and three-hour application are next; **that eleven-owner/twenty-two-table extension is not selected yet**, and its physical gain remains unmeasured. [Closed screens](tools/cpu-compute/closed-screens-20261019/README.md) preserve concrete exclusions. Continue the active Goal after this promotion.
+
+Earlier sections retain their original artifact and measurement epochs; they do not override the selection above.
+
+## Previous CQU and six-table promotion (2026-10-19 16:00 UTC)
 
 The qualified working default is now **ed095110/sourcebe96b3ec**, including the CQU first-species peel and four additional shared rain-freezing tables alongside all previously selected improvements. Production/master remain unchanged. The fresh corrected-original-first three-hour pair passed **four complete outputs,545 ordered steps,all512 ranks,two tiles and all four positive writer groups**, using the unchanged protected checker. All model, reader and controller scopes closed; qualification `eabf9ba6`, science `dae5f662`, reader closure `36d26498`.
 

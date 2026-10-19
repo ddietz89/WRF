@@ -1,0 +1,44 @@
+{
+  "status": "NO_OPPORTUNITY_SAME_I_H_FACTOR_ALREADY_CSE_REUSED",
+  "scope": "One proposed duplicate scalar h=(c1h(k)*MUT+c2h(k)) evaluation in B/C coefficient expressions only. No globaloptimality or otherloop claim.",
+  "actual_object_sha256": "93b802a6f52a0bc9e705a15816614132b62b48d82e1096af533d0f8df9dec337",
+  "symbol": "__module_small_step_em_MOD_calc_coef_w",
+  "symbol_start": "0x9fa0",
+  "actual_window_offsets": [
+    "0x620",
+    "0x880"
+  ],
+  "actual_assembly_bytes": 4158,
+  "instruction_proof": {
+    "MUT_once_in_BC_iteration": "0xa7a0 vmovss (%rbx,%rax,4),%xmm2",
+    "H_k_once": [
+      "0xa7c2 vmulss %xmm2,%xmm13,%xmm3",
+      "0xa7d6 vaddss %xmm12,%xmm3,%xmm3"
+    ],
+    "H_k_reused_in_B_denominator": "0xa7ea vmulss %xmm7,%xmm3,%xmm7 (H_k*F_k)",
+    "H_k_reused_in_C_denominator": "0xa7f8 vmulss %xmm3,%xmm2,%xmm2 (H_k*F_kplus1)",
+    "additional_CSE": "F_k in xmm7 feeds both B denominators at0xa7e6/0xa7ea before being overwritten. Four affine coefficient factors H_k,H_kminus1,F_k,F_kplus1 each formed once at0xa7b8/0xa7bd/0xa7c2/0xa7c6 + four adds, then three products. No duplicated H_k multiply/add remains.",
+    "bounds": "Entire requested reuse visible in existing fixed window; no additional range required."
+  },
+  "source_map_correction": {
+    "retained_PP_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-prep-t-coupling-simd-r1/native-gate-r1/candidate_module_small_step_em.f90",
+    "PP659": "a(i,kk,j) interior A-row assignment (not B)",
+    "PP664_665": "B expression",
+    "PP666": "C expression",
+    "five_unique_offsets": "First3 uniquePCs +675/+6af/+744 map659A-row/setup; final2 +822/+84a map665B/Cshared denominator preparation. Labels based on actual literal PP lines, not parent prose."
+  },
+  "sample_scope": "Seven retained R4rank236 activitysamples only; not globalpriority/removableheadroom.",
+  "decision": "Close this scalar repeated-H work-removal lead. Introducing a temporary would restate existingcompiler CSE, not prove a gain. No implementation/review export/native/timing or extra code range.",
+  "raw_references": [
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-coef-w-current-triage-r1/ACTUAL_CURRENT_CODEGEN_RAW.json",
+      "sha256": "10e5d8233fd282374aef1ee2d21ac7f9392bf4a6b55a1ff3d0d4dd5cc294af9f"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-coef-w-current-triage-r1/READ_FORMAT_REPAIR.json",
+      "sha256": "ef8794d2aef4ff8b59dde20cd9f77a62308135cd00d39838353891406e61e6a9"
+    }
+  ],
+  "prior_audit": "Prior Arow SIMD deferral remains separate; no SIMD retry or coefficientcache/reciprocal/grouping/storage variant proposed.",
+  "execution": "One root-owned hpc00 read only; initial8KiB formatting assertion preserved separately. This analysis local; no modelnode/cache/compiler/provider/main/default/ledger action."
+}
