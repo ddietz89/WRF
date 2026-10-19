@@ -1936,6 +1936,7 @@ SUBROUTINE rk_update_scalar_pd( scs, sce,                      &
       ENDDO
 
       DO  k = kts, min(kte,kde-1)
+      !$OMP SIMD
       DO  i = its, min(ite,ide-1)
 
         scalar(i,k,j,im) = ((c1(k)*muold(i)+c2(k))*scalar(i,k,j,im)   &
