@@ -1,0 +1,167 @@
+{
+  "status": "PASS_UNPROFILED_SELECTED_B1FB_NINE_HOUR_ORIGINAL_TEN_OUTPUT1625_AND_ALL_SCOPES_STRONGLY_CLOSED",
+  "source_commit": "4e70d8fd315cb1220793226b69a2c55372cfb9bd",
+  "historical_producer_source_commit": null,
+  "source_commit_note": "Post-science exact selected-source tracking; immutable producer source_commit remains null.",
+  "comparison_design": "UNPAIRED candidate-only versus retained corrected original546b 2069.3122304237913s; no fresh control, no isolated MYJ attribution",
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current-e55-myj-mixlen-scratch-current-r1/wrf.exe",
+    "sha256": "b1fb398a9c7186823584252b53f4ee360c260143064720256f660ba1459c8670"
+  },
+  "metrics": {
+    "control": {
+      "wall_seconds": 2069.3122304237913,
+      "cpu_seconds": 1009264.484921,
+      "main_step_sum_seconds": 1851.54464
+    },
+    "candidate": {
+      "wall_seconds": 1855.5050872198772,
+      "cpu_seconds": 932992.8057599999,
+      "main_step_sum_seconds": 1752.80765
+    }
+  },
+  "reductions_percent": {
+    "wall_seconds": 10.332280458233544,
+    "cpu_seconds": 7.557154769690544,
+    "main_step_sum_seconds": 5.3326821221010405
+  },
+  "observed_speedup": 1.1152285405610305,
+  "arithmetic_gap_not_demonstrated_headroom": {
+    "further_current_wall_reduction_percent_for_1_5x": 25.651430629264638,
+    "further_current_wall_reduction_percent_for_2x": 44.23857297194848
+  },
+  "science": {
+    "status": "PASS_ORIGINAL_TEN_HISTORY_AND_512_DIRECT_STOCK_LATEST_NINE_HOUR_SEQUENCE",
+    "complete_products": 10,
+    "ordered_steps": 1625,
+    "last_observed_step": "2026-10-12_15:00:00",
+    "all512": true,
+    "compute_ranks": 480,
+    "serial_tiles": 2,
+    "required_positive_roots": [
+      487,
+      495,
+      503,
+      511
+    ],
+    "receipt_sha256": "387e7c8c766509cd1293fee49fa53cd1ffebed67464b023549e660e738c68e1a",
+    "reader_closure_sha256": "fdc499e31766a57e96bbbb5def3d6741852add0542960e98c0757bbec3598a70",
+    "full_qualification_sha256": "f38a865905d030be42ac0a965b4aa6afbc0eae280902a3839f20df176457f445",
+    "all_model_reader_scopes_closed": true,
+    "reader_exit_code_property": null,
+    "reader_manager_success_invocation_bound": true,
+    "protected_checker": "0382bcbabfbc16b76114ef552206c6c558ea15cd3c3552dfaed98b977deea2b4"
+  },
+  "scope": "Cold single-domain06:00-15:00 GNU13.3 strict/OMP1/DIMNRHG1/shared1/375/881/825/faba/FIELDVIEW1/IB512/twoTiles; ten original products/1625 steps. Prior normal noon R2 and repaired R1 retained. No restart/nesting/other-compiler/hail/aerosol/mode0 application transfer.",
+  "resources": {
+    "nodes": [
+      "hpc01",
+      "hpc02",
+      "hpc03",
+      "hpc04"
+    ],
+    "world": 512,
+    "physical_cores_per_node": 128,
+    "memory_GiB": [
+      100,
+      100,
+      100,
+      104
+    ],
+    "swap": 0
+  },
+  "cache": {
+    "candidate": "PASS_CLIENT_CACHE_CLEAR_ALL_FOUR_NO_MODEL",
+    "receipt_sha256": "be2574948d72642de31bd7eca9f040e9b87a3981e5537cb3c1574b7754bf9b4d",
+    "file_server_cache_and_load": "UNCONTROLLED"
+  },
+  "limits": "This is a separate nine-hour 10-product/1625-step application result, not a relabelled historical three-hour result. One later candidate versus retained original differs in order/time/cache/serverload; no repeatability or per-kernel causal gain claim. Main includes communication/backpressure; residual is not pure I/O. No restart, long-horizon, or default-selection mutation by this artifact. Reader exit-code property is unavailable after unload; actual invocation-bound manager success and empty/absent cgroup prove closure.",
+  "application_qualification": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/selected-myj-ninehour-preparation-r1/lifecycle-r1/FINAL_QUALIFICATION.json",
+    "sha256": "f38a865905d030be42ac0a965b4aa6afbc0eae280902a3839f20df176457f445"
+  },
+  "raw_evidence": [
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-selected-myj9h-runtime-r1/source-pins.json",
+      "sha256": "5011449d4f37e3756bbd71825a9aedce5fbad8ea712f1df796684ed44ac8a65e"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-selected-myj9h-runtime-r1/science-receipt.json",
+      "sha256": "387e7c8c766509cd1293fee49fa53cd1ffebed67464b023549e660e738c68e1a"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-selected-myj9h-runtime-r1/reader-closure.json",
+      "sha256": "fdc499e31766a57e96bbbb5def3d6741852add0542960e98c0757bbec3598a70"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-selected-myj9h-runtime-r1/RESULT.json",
+      "sha256": "5c92de13398a2753029f3c0fa8c310af04b4c6ca76a03a307d0b054ce86d2e8f"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-selected-myj9h-runtime-r1/candidate-closures.json",
+      "sha256": "c72243f15439fd6f30880f274df443692bb4a7a991ce6e0d26963aa23a53e402"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-selected-myj9h-runtime-r1/cache-clear-candidate.json",
+      "sha256": "be2574948d72642de31bd7eca9f040e9b87a3981e5537cb3c1574b7754bf9b4d"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-selected-myj9h-runtime-r1/launch-candidate.txt",
+      "sha256": "c97046cfefe4144de940a02668eb6841ae02f6d1d4e0d3dfbd70e1cd8aa04f2a"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-selected-myj9h-runtime-r1/reader-launch.txt",
+      "sha256": "8d4bdc0404133c44c2bb8111ac390d504adc310fdd40b89a225ef705034de056"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/selected-myj-ninehour-preparation-r1/lifecycle-r1/ACTUAL_ALL_MODEL_INV_CLOSURES.json",
+      "sha256": "1c798fb1a5f4faadfe5742ae16f0d478e9739084900a050274b3bfab5ada5a8b"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/selected-myj-ninehour-preparation-r1/lifecycle-r1/ACTUAL_MEMORY_COMPONENT_SUMMARY.json",
+      "sha256": "10b14bbbdd65f18738c8a7edf1dc064f3a759345e12762e31ff99ac82e1873ca"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/selected-myj-ninehour-preparation-r1/lifecycle-r1/candidate-early-213409.json",
+      "sha256": "99040e50b97172b9cd0330f8276ab5140cf365527feac908d61eeaba15e0a612"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-selected-myj9h-runtime-r1/candidate-metadata/adaptive-steps.json",
+      "sha256": "482cdfbd96dbea51fdd5fbb7be3425ad166adb90901c8ce04051213e4576d86a"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-selected-myj9h-runtime-r1/candidate-metadata/cache-start-context.json",
+      "sha256": "8e400139c799e580356a4db5a25985dc59aa6a20602bd5406af5d795ec1ddf2c"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-selected-myj9h-runtime-r1/candidate-metadata/completion.json",
+      "sha256": "ab8f9ae2644571e7054669a1eb803a12ea156107bafa309df37f9f3fe88ecd48"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-selected-myj9h-runtime-r1/candidate-metadata/hpc02-node.json",
+      "sha256": "ccd252f1094bb71e0cbdb4824010d6786e905748c4b032895b99a6f0d25ef121"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-selected-myj9h-runtime-r1/candidate-metadata/hpc03-node.json",
+      "sha256": "8045c7c84082c799adbfad69cd1b9f376c3787ff2e1b452be3caf95e22f89173"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-selected-myj9h-runtime-r1/candidate-metadata/hpc04-node.json",
+      "sha256": "3e474e6f51491e8055a53a969a31e9ca12f802181993c1a4e9650226ce0e9c25"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-selected-myj9h-runtime-r1/candidate-metadata/lease.json",
+      "sha256": "f5efa8d8834b606bffdc9be746029df00b345758021a2a6e8d86cfb5e4ca70a3"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-selected-myj9h-runtime-r1/candidate-metadata/model-closures.json",
+      "sha256": "7df10ef3d932c24053fa7a0c6a37cfe462e8b8eb57c5abb8e88e7e35f4e6feeb"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-selected-myj9h-runtime-r1/candidate-metadata/mpi-launch.json",
+      "sha256": "a6681ecd01aa1e1b3827a4bcf753d19b6a9fe6dd59f633ceccd2cbf66ddd159a"
+    }
+  ],
+  "previous_result": "PREVIOUS_NINE_HOUR_RESULT_322.json",
+  "applies_to_current_selection": true
+}

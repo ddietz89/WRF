@@ -6,7 +6,24 @@ Current continuation handoff: [WRF_CPU_OPTIMIZATION_HANDOFF_2026-10-19.md](WRF_C
 
 The October 19 continuation instruction establishes concurrent incremental-kernel and architectural portfolios, with actual parallel DeepSeek work. The [SOP](TIMING_SOP.md#two-coordinated-optimization-portfolios) records this policy. The current selection and qualification scope are stated below; historical results retain their original artifact bindings.
 
-## Current selected build: nine-hour exact qualification (2026-10-19 22:25 UTC)
+## Current selection: lower Thompson initialization peak (2026-10-19 22:50 UTC)
+
+Selected **81d35cfa/source3de4d602** retains all b1fb improvements and changes Thompson staging lifetime. Existing sharing reduces duplicated completed tables; this addition allocates each fixed group before its unchanged creator, publishes the group, then frees its private stages before allocating the next group. TCG retains the private INIT sentinel through both tile initializations and publishes last. The23 views/12 owners, table contents, arithmetic and helper ABI remain. Public MOD2b20 is unchanged; GNU adds one explicitly PRIVATE linker-visible B variable, with every prior export name/type retained.
+
+The four-rank read and64-rank fresh-computed native routes passed original11 callers/two INIT/full23 records/raw/state/read-only checks. The one-member qualified-object build reused c3fb with zero WRF compiles and one link, preserving583/584 archive occurrences. The original short full-grid checker passed **two complete products,35 steps,all512 ranks,two tiles,487/495 positive and503/511 zero writers**; all model and reader scopes closed. Science7383cf18, readerclosure6190ff81, applicationd7e43a4a; the prior baseline passed the same original oracle. [Qualification and rollback](tools/cpu-memory/thompson-table-sharing/lazy-group-init/README.md) bind the exact source, artifacts and evidence.
+
+| Node | Baseline charged peak | New charged peak | Lower |
+|---|---:|---:|---:|
+|hpc01|82.6045GiB|70.9572GiB|11.6473GiB /14.10%|
+|hpc02|80.4302GiB|68.7054GiB|11.7248GiB /14.58%|
+|hpc03|80.3811GiB|68.6466GiB|11.7345GiB /14.60%|
+|hpc04|80.3681GiB|68.6255GiB|11.7426GiB /14.61%|
+
+These are measured whole-model cgroup invocation peaks from one short comparison, distinct from the11.5936GiB/node logical-capacity estimate, RSS/PSS or dual-forecast admission. All memory-limit events and sampled reclaim deltas were zero; PSI was not recorded. Baseline→candidate MPI wall147.919739→145.491265s, aggregate CPU57189.876788→55770.994253s and main-step sum39.387960→38.788060s are observational: the baseline's optional collector failed before recording, while the candidate was unprofiled; throttling was mixed. No isolated or sustained speedup is claimed. Retain the large measured memory reduction with exact science and no observed unacceptable cost under the owner's memory-inclusion policy.
+
+Own qualification is cold GNU13.3/OMP1/DIMNRHG1/shared1/375/881/825/faba/FIELDVIEW1/IB512/twoTiles, ten minutes. The periodic original four-product/545-step three-hour test is prepared next. The completed b1fb nine-hour10.3323% wall observation below and e55 three-hour18.3885% remain historical; neither is transferred to81d35. Rollback selects **b1fb/source4e70** using PREVIOUS_SELECTION_B1FB.json and PREVIOUS_SOURCE_BUILD_BINDING_B1FB.json with unchanged runtime. Production/master are untouched; AWS remains suspended. Continue the active Goal.
+
+## Previous b1fb build: nine-hour exact qualification (2026-10-19 22:25 UTC)
 
 Selected **b1fb398a/source4e70d8fd** retains all prior compute, shared-table, output and library improvements plus generic MYJPBL MIXLEN scratch reuse. Its unprofiled 06:00–15:00 run passed the unchanged original checker: **ten complete products, 1,625 ordered steps, all512 ranks, two tiles and all four writer groups**. All model and reader scopes closed. Science`387e7c8c`, readerclosure`fdc499e3`, FQ`f38a8659`; root rehashed all20 actual references. The unloaded reader's exit-code property is unavailable; invocation-bound manager success and the absent/empty cgroup establish closure without inventing that property. Frozen producer source_commitNULL remains unchanged; selected-source tracking is separate.
 

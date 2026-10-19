@@ -1,14 +1,14 @@
 {
-  "status": "POST_SCIENCE_GENERIC_MYJ_MIXLEN_SCRATCH_SOURCE_AND_COMBINED_EXECUTABLE_PROMOTION",
-  "source_commit": "4e70d8fd315cb1220793226b69a2c55372cfb9bd",
+  "status": "POST_SCIENCE_LAZY_FIXED_GROUP_THOMPSON_SOURCE_AND_COMBINED_EXECUTABLE_PROMOTION",
+  "source_commit": "3de4d602013db3f1cb4d8fed92fb5a7cc30866ed",
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/current-e55-myj-mixlen-scratch-current-r1/wrf.exe",
-    "sha256": "b1fb398a9c7186823584252b53f4ee360c260143064720256f660ba1459c8670"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current-b1fb-thompson-lazy-groups-current-r2/wrf.exe",
+    "sha256": "81d35cfa92ff1e84505f94cf3a2fb4cf9761f8215f6e4dc49da0c3bed5db32e8"
   },
-  "archive_sha256": "ebbf97cf3ffd5d0a9d4de3f09232cf3a67f9655225756153c3e6b344f85ee321",
+  "archive_sha256": "beefab2eb05be13d6da3155885d1195137675893b850b0c2f1f63c38702ec6be",
   "sources": {
     "dyn_em/start_em.F": "ba19b902eb43c9baa2f59d3ffef0dec7c6a0ccbf0a9ceb062b72e55cff5366fc",
-    "phys/module_mp_thompson.F": "c53e05b4eade5beab10adfe56b2e7b43be14775fce7abddef0733071d730f29f",
+    "phys/module_mp_thompson.F": "4a2bd094c9131e150ab1d7cbcacf66e59d06db65652905d15b2d231180946066",
     "main/module_wrf_top.F": "7d977ce5832b241889b212d785222ff6e4dafd3cd13c3212ff1a7d406774b97f",
     "tools/cpu-memory/thompson-table-sharing/shared_table_iso.f90": "b9f3ad35a58e08366286aa72c1c09a939358fe1152a612fac052a68ed79bf673",
     "tools/cpu-memory/thompson-table-sharing/shared_table.h": "dc01b80d7ea5cdc76ecf37248d17376ca8681d558abe0004a23bcb0ef09b0b69",
@@ -54,6 +54,10 @@
     "MYJ_MIXLEN_overlay": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/myj-mixlen-scratch-reuse/BUILD_QUALIFICATION.json",
       "sha256": "8802bfeeb403205c6fd9cf99ea0d51142e611d0565c741b72edb52f1d7e47f87"
+    },
+    "lazy_fixed_group_canonical": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-qg-group-early-publication-feasibility-r1/overlay-build-preparation-r2/BUILD_QUALIFICATION.json",
+      "sha256": "50fef7bcc3122456c421389416dbec192a627aec1b5eb9501400a56c4001667a"
     }
   },
   "qualification_file": "../cpu-compute/myj-mixlen-scratch-reuse/QUALIFICATION.json",
@@ -66,10 +70,7 @@
     "WRF_EXPERIMENTAL_TPI_NUMA": 1,
     "other_settings": "Unchanged375/881/825/faba/FIELDVIEW1/IB"
   },
-  "previous_binding": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_SOURCE_BUILD_BINDING_E55.json",
-    "sha256": "a083905037b427aceb73822deacc9ed26f35dd815dee8addcdb007d5e9f09dd3"
-  },
+  "previous_binding": "PREVIOUS_SOURCE_BUILD_BINDING_B1FB.json",
   "native": {
     "CQU": {
       "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-cqu-first-species-peel-r1/NATIVE_QUALIFICATION.json",
@@ -102,16 +103,20 @@
     "MYJ_MIXLEN": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/myj-mixlen-scratch-reuse/NATIVE_QUALIFICATION.json",
       "sha256": "1cd383339e62361ad8d4dd178e1717fc334b6f7c4bbf6a53fa5787b6ade1060a"
+    },
+    "lazy_fixed_group_initialization": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-qg-group-early-publication-feasibility-r1/NATIVE_QUALIFICATION.json",
+      "sha256": "033a868f928535bdd6e769be0cafbec338a556090dd11db1185dce5bc4525afe"
     }
   },
-  "current_nine_hour_qualified": true,
+  "current_nine_hour_qualified": false,
   "previous_nine_hour_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_NINE_HOUR_FINAL_QUALIFICATION_322.json",
-    "sha256": "bb0c0f6a9884e7541c811158f4a83cf87cff0e36b268d42f7e6f596ad19fded6"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_NINE_HOUR_FINAL_QUALIFICATION_B1FB.json",
+    "sha256": "f38a865905d030be42ac0a965b4aa6afbc0eae280902a3839f20df176457f445"
   },
   "full_application": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-working/NINE_HOUR_FINAL_QUALIFICATION.json",
-    "sha256": "f38a865905d030be42ac0a965b4aa6afbc0eae280902a3839f20df176457f445"
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-qg-group-early-publication-feasibility-r1/candidate-tenminute-preparation-r1/lifecycle-r1/FINAL_QUALIFICATION.json",
+    "sha256": "d7e43a4a529593a3715d2e57e73d40d8a3a2bd7edf624b8042269af3a18f984e"
   },
   "current_three_hour_qualified": false,
   "prior_repaired_full_application": {
@@ -122,7 +127,12 @@
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/myj-mixlen-scratch-reuse/NORMAL_NOON_R2_QUALIFICATION.json",
     "sha256": "405bb4c6a256bdd93bd582497fc0652e9a5fea4b46900da99ffa5f6d396f784e"
   },
-  "nine_hour_benchmark": {
+  "memory_qualification_file": "tools/cpu-memory/thompson-table-sharing/lazy-group-init/QUALIFICATION.json",
+  "prior_b1fb_full_application": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-working/NINE_HOUR_FINAL_QUALIFICATION.json",
+    "sha256": "f38a865905d030be42ac0a965b4aa6afbc0eae280902a3839f20df176457f445"
+  },
+  "prior_b1fb_nine_hour_benchmark": {
     "evidence_file": "NINE_HOUR_RESULT.json",
     "executable_sha256": "b1fb398a9c7186823584252b53f4ee360c260143064720256f660ba1459c8670",
     "source_commit": "4e70d8fd315cb1220793226b69a2c55372cfb9bd",
@@ -149,6 +159,6 @@
     "ordered_steps": 1625,
     "all_own_jobs_closed": true,
     "fresh_matched_timing": false,
-    "applies_to_current_selection": true
+    "applies_to_current_selection": false
   }
 }
