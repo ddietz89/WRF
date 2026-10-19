@@ -396,10 +396,27 @@
       REAL(KIND=R8SIZE), ALLOCATABLE, TARGET, PRIVATE :: tnr_gacr_stage(:,:,:,:,:)
       TYPE(C_PTR), PRIVATE :: ngc_owner=C_NULL_PTR, ngc_cview=C_NULL_PTR
 #endif
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      REAL(KIND=R8SIZE), POINTER, CONTIGUOUS, PRIVATE :: tcs_racs1(:,:,:,:) => NULL()
+      REAL(KIND=R8SIZE), POINTER, CONTIGUOUS, PRIVATE :: tmr_racs1(:,:,:,:) => NULL()
+      REAL(KIND=R8SIZE), POINTER, CONTIGUOUS, PRIVATE :: tcs_racs2(:,:,:,:) => NULL()
+      REAL(KIND=R8SIZE), POINTER, CONTIGUOUS, PRIVATE :: tmr_racs2(:,:,:,:) => NULL()
+      REAL(KIND=R8SIZE), POINTER, CONTIGUOUS, PRIVATE :: tcr_sacr1(:,:,:,:) => NULL()
+      REAL(KIND=R8SIZE), POINTER, CONTIGUOUS, PRIVATE :: tms_sacr1(:,:,:,:) => NULL()
+      REAL(KIND=R8SIZE), POINTER, CONTIGUOUS, PRIVATE :: tcr_sacr2(:,:,:,:) => NULL()
+      REAL(KIND=R8SIZE), POINTER, CONTIGUOUS, PRIVATE :: tms_sacr2(:,:,:,:) => NULL()
+      REAL(KIND=R8SIZE), POINTER, CONTIGUOUS, PRIVATE :: tnr_racs1(:,:,:,:) => NULL()
+      REAL(KIND=R8SIZE), POINTER, CONTIGUOUS, PRIVATE :: tnr_racs2(:,:,:,:) => NULL()
+      REAL(KIND=R8SIZE), POINTER, CONTIGUOUS, PRIVATE :: tnr_sacr1(:,:,:,:) => NULL()
+      REAL(KIND=R8SIZE), POINTER, CONTIGUOUS, PRIVATE :: tnr_sacr2(:,:,:,:) => NULL()
+      REAL(KIND=R8SIZE), ALLOCATABLE, TARGET, PRIVATE :: rain_snow_stage(:,:,:,:,:)
+      TYPE(C_PTR), PRIVATE :: rain_snow_owner=C_NULL_PTR, rain_snow_cview=C_NULL_PTR
+#else
       REAL (KIND=R8SIZE), ALLOCATABLE, DIMENSION(:,:,:,:)::             &
                 tcs_racs1, tmr_racs1, tcs_racs2, tmr_racs2,             &
                 tcr_sacr1, tms_sacr1, tcr_sacr2, tms_sacr2,             &
                 tnr_racs1, tnr_racs2, tnr_sacr1, tnr_sacr2
+#endif
 #ifdef WRF_EXPERIMENTAL_TPI_NUMA
 ! Experimental source/API restriction: views are PRIVATE, not ALLOCATABLE.
       REAL(KIND=R8SIZE), POINTER, CONTIGUOUS, PRIVATE :: tpi_qcfz(:,:,:,:) => NULL()
@@ -512,6 +529,9 @@
         REAL(KIND=R8SIZE),POINTER,CONTIGUOUS :: v5(:,:,:,:),v6(:,:,:,:)
         REAL(KIND=R8SIZE),POINTER,CONTIGUOUS :: v7(:,:,:,:,:),v8(:,:,:,:,:)
         REAL(KIND=R8SIZE),POINTER,CONTIGUOUS :: v9(:,:,:,:,:),v10(:,:,:,:,:)
+        INTEGER(C_SIZE_T) :: b11
+        TYPE(C_PTR) :: s11
+        REAL(KIND=R8SIZE),POINTER,CONTIGUOUS :: v11(:,:,:,:,:)
         IF (tpi_phase/=TPI_INIT) CALL wrf_error_fatal('Experimental tpi publication phase')
         ! ALL TEN private stages must be allocated before any owner is created.
         IF (.NOT.(ALLOCATED(tpi_qcfz_stage).AND.ALLOCATED(tni_qcfz_stage).AND. &
@@ -566,6 +586,74 @@
         IF (b7/=14993288_C_SIZE_T.OR.b8/=14993288_C_SIZE_T.OR. &
             b9/=14993288_C_SIZE_T.OR.b10/=14993288_C_SIZE_T) &
           CALL wrf_error_fatal('Experimental rank5 owner byte count')
+        IF (.NOT.ALLOCATED(rain_snow_stage)) &
+          CALL wrf_error_fatal('Experimental rain-snow stage missing at publication')
+        IF (STORAGE_SIZE(rain_snow_stage)/=64.OR. &
+            ANY(SHAPE(rain_snow_stage)/=[37,9,37,37,12])) &
+          CALL wrf_error_fatal('Experimental rain-snow family type/shape')
+        IF (.NOT.ASSOCIATED(tcs_racs1,rain_snow_stage(:,:,:,:,1))) &
+          CALL wrf_error_fatal('Experimental rain-snow plane mapping 1')
+        IF (ANY(SHAPE(tcs_racs1)/=[37,9,37,37]).OR.ANY(LBOUND(tcs_racs1)/=1).OR. &
+            .NOT.IS_CONTIGUOUS(tcs_racs1)) &
+          CALL wrf_error_fatal('Experimental rain-snow plane layout 1')
+        IF (.NOT.ASSOCIATED(tmr_racs1,rain_snow_stage(:,:,:,:,2))) &
+          CALL wrf_error_fatal('Experimental rain-snow plane mapping 2')
+        IF (ANY(SHAPE(tmr_racs1)/=[37,9,37,37]).OR.ANY(LBOUND(tmr_racs1)/=1).OR. &
+            .NOT.IS_CONTIGUOUS(tmr_racs1)) &
+          CALL wrf_error_fatal('Experimental rain-snow plane layout 2')
+        IF (.NOT.ASSOCIATED(tcs_racs2,rain_snow_stage(:,:,:,:,3))) &
+          CALL wrf_error_fatal('Experimental rain-snow plane mapping 3')
+        IF (ANY(SHAPE(tcs_racs2)/=[37,9,37,37]).OR.ANY(LBOUND(tcs_racs2)/=1).OR. &
+            .NOT.IS_CONTIGUOUS(tcs_racs2)) &
+          CALL wrf_error_fatal('Experimental rain-snow plane layout 3')
+        IF (.NOT.ASSOCIATED(tmr_racs2,rain_snow_stage(:,:,:,:,4))) &
+          CALL wrf_error_fatal('Experimental rain-snow plane mapping 4')
+        IF (ANY(SHAPE(tmr_racs2)/=[37,9,37,37]).OR.ANY(LBOUND(tmr_racs2)/=1).OR. &
+            .NOT.IS_CONTIGUOUS(tmr_racs2)) &
+          CALL wrf_error_fatal('Experimental rain-snow plane layout 4')
+        IF (.NOT.ASSOCIATED(tcr_sacr1,rain_snow_stage(:,:,:,:,5))) &
+          CALL wrf_error_fatal('Experimental rain-snow plane mapping 5')
+        IF (ANY(SHAPE(tcr_sacr1)/=[37,9,37,37]).OR.ANY(LBOUND(tcr_sacr1)/=1).OR. &
+            .NOT.IS_CONTIGUOUS(tcr_sacr1)) &
+          CALL wrf_error_fatal('Experimental rain-snow plane layout 5')
+        IF (.NOT.ASSOCIATED(tms_sacr1,rain_snow_stage(:,:,:,:,6))) &
+          CALL wrf_error_fatal('Experimental rain-snow plane mapping 6')
+        IF (ANY(SHAPE(tms_sacr1)/=[37,9,37,37]).OR.ANY(LBOUND(tms_sacr1)/=1).OR. &
+            .NOT.IS_CONTIGUOUS(tms_sacr1)) &
+          CALL wrf_error_fatal('Experimental rain-snow plane layout 6')
+        IF (.NOT.ASSOCIATED(tcr_sacr2,rain_snow_stage(:,:,:,:,7))) &
+          CALL wrf_error_fatal('Experimental rain-snow plane mapping 7')
+        IF (ANY(SHAPE(tcr_sacr2)/=[37,9,37,37]).OR.ANY(LBOUND(tcr_sacr2)/=1).OR. &
+            .NOT.IS_CONTIGUOUS(tcr_sacr2)) &
+          CALL wrf_error_fatal('Experimental rain-snow plane layout 7')
+        IF (.NOT.ASSOCIATED(tms_sacr2,rain_snow_stage(:,:,:,:,8))) &
+          CALL wrf_error_fatal('Experimental rain-snow plane mapping 8')
+        IF (ANY(SHAPE(tms_sacr2)/=[37,9,37,37]).OR.ANY(LBOUND(tms_sacr2)/=1).OR. &
+            .NOT.IS_CONTIGUOUS(tms_sacr2)) &
+          CALL wrf_error_fatal('Experimental rain-snow plane layout 8')
+        IF (.NOT.ASSOCIATED(tnr_racs1,rain_snow_stage(:,:,:,:,9))) &
+          CALL wrf_error_fatal('Experimental rain-snow plane mapping 9')
+        IF (ANY(SHAPE(tnr_racs1)/=[37,9,37,37]).OR.ANY(LBOUND(tnr_racs1)/=1).OR. &
+            .NOT.IS_CONTIGUOUS(tnr_racs1)) &
+          CALL wrf_error_fatal('Experimental rain-snow plane layout 9')
+        IF (.NOT.ASSOCIATED(tnr_racs2,rain_snow_stage(:,:,:,:,10))) &
+          CALL wrf_error_fatal('Experimental rain-snow plane mapping 10')
+        IF (ANY(SHAPE(tnr_racs2)/=[37,9,37,37]).OR.ANY(LBOUND(tnr_racs2)/=1).OR. &
+            .NOT.IS_CONTIGUOUS(tnr_racs2)) &
+          CALL wrf_error_fatal('Experimental rain-snow plane layout 10')
+        IF (.NOT.ASSOCIATED(tnr_sacr1,rain_snow_stage(:,:,:,:,11))) &
+          CALL wrf_error_fatal('Experimental rain-snow plane mapping 11')
+        IF (ANY(SHAPE(tnr_sacr1)/=[37,9,37,37]).OR.ANY(LBOUND(tnr_sacr1)/=1).OR. &
+            .NOT.IS_CONTIGUOUS(tnr_sacr1)) &
+          CALL wrf_error_fatal('Experimental rain-snow plane layout 11')
+        IF (.NOT.ASSOCIATED(tnr_sacr2,rain_snow_stage(:,:,:,:,12))) &
+          CALL wrf_error_fatal('Experimental rain-snow plane mapping 12')
+        IF (ANY(SHAPE(tnr_sacr2)/=[37,9,37,37]).OR.ANY(LBOUND(tnr_sacr2)/=1).OR. &
+            .NOT.IS_CONTIGUOUS(tnr_sacr2)) &
+          CALL wrf_error_fatal('Experimental rain-snow plane layout 12')
+        b11=INT(SIZE(rain_snow_stage),C_SIZE_T)*C_SIZEOF(rain_snow_stage(1,1,1,1,1))
+        IF (b11/=43764192_C_SIZE_T) CALL wrf_error_fatal('Experimental rain-snow family bytes')
+        s11=C_LOC(rain_snow_stage(1,1,1,1,1))
         s1=C_LOC(tpi_qcfz_stage(1,1,1,1)); s2=C_LOC(tni_qcfz_stage(1,1,1,1))
         s3=C_LOC(tpi_qrfz_stage(1,1,1,1)); s4=C_LOC(tni_qrfz_stage(1,1,1,1))
         s5=C_LOC(tpg_qrfz_stage(1,1,1,1)); s6=C_LOC(tnr_qrfz_stage(1,1,1,1))
@@ -606,6 +694,9 @@
         failed_at=10
         rc=st_create(INT(tpi_comm,C_INT),s10,b10,INT(tpi_mode,C_INT),ngc_owner,ngc_cview)
         IF (rc/=expected) GOTO 900
+        failed_at=11
+        rc=st_create(INT(tpi_comm,C_INT),s11,b11,INT(tpi_mode,C_INT),rain_snow_owner,rain_snow_cview)
+        IF (rc/=expected) GOTO 900
         IF (expected==0_C_INT) THEN
           CALL C_F_POINTER(tpi_cview,v1,[37,100,45,55])
           CALL C_F_POINTER(tni_cview,v2,[37,100,45,55])
@@ -624,6 +715,20 @@
           tcr_gacr => v8
           tnr_racg => v9
           tnr_gacr => v10
+          CALL C_F_POINTER(rain_snow_cview,v11,[37,9,37,37,12])
+          tcs_racs1 => v11(:,:,:,:,1)
+          tmr_racs1 => v11(:,:,:,:,2)
+          tcs_racs2 => v11(:,:,:,:,3)
+          tmr_racs2 => v11(:,:,:,:,4)
+          tcr_sacr1 => v11(:,:,:,:,5)
+          tms_sacr1 => v11(:,:,:,:,6)
+          tcr_sacr2 => v11(:,:,:,:,7)
+          tms_sacr2 => v11(:,:,:,:,8)
+          tnr_racs1 => v11(:,:,:,:,9)
+          tnr_racs2 => v11(:,:,:,:,10)
+          tnr_sacr1 => v11(:,:,:,:,11)
+          tnr_sacr2 => v11(:,:,:,:,12)
+          NULLIFY(v11)
           DEALLOCATE(tpi_qcfz_stage); DEALLOCATE(tni_qcfz_stage)
           DEALLOCATE(tpi_qrfz_stage); DEALLOCATE(tni_qrfz_stage)
           DEALLOCATE(tpg_qrfz_stage); DEALLOCATE(tnr_qrfz_stage)
@@ -631,6 +736,7 @@
           DEALLOCATE(tcr_gacr_stage)
           DEALLOCATE(tnr_racg_stage)
           DEALLOCATE(tnr_gacr_stage)
+          DEALLOCATE(rain_snow_stage)
           tpi_phase=TPI_SHARED
         ELSE
           tpi_phase=TPI_PRIVATE
@@ -679,7 +785,11 @@
         IF ((cleanup/=0_C_INT.AND.cleanup/=1_C_INT).OR. &
             C_ASSOCIATED(ngc_owner).OR.C_ASSOCIATED(ngc_cview)) &
           CALL wrf_error_fatal('Experimental ten-owner rollback cleanup 10')
-        WRITE(failure_message,'(A,I0,A,I0)') 'Experimental ten-owner create ',failed_at, &
+        cleanup=st_destroy(INT(tpi_comm,C_INT),rain_snow_owner,rain_snow_cview)
+        IF ((cleanup/=0_C_INT.AND.cleanup/=1_C_INT).OR. &
+            C_ASSOCIATED(rain_snow_owner).OR.C_ASSOCIATED(rain_snow_cview)) &
+          CALL wrf_error_fatal('Experimental eleven-owner rollback cleanup 11')
+        WRITE(failure_message,'(A,I0,A,I0)') 'Experimental eleven-owner create ',failed_at, &
              ' rejected status ',rc
         CALL wrf_error_fatal(TRIM(failure_message))
       END SUBROUTINE
@@ -694,6 +804,18 @@
         NULLIFY(tcr_gacr)
         NULLIFY(tnr_racg)
         NULLIFY(tnr_gacr)
+        NULLIFY(tcs_racs1)
+        NULLIFY(tmr_racs1)
+        NULLIFY(tcs_racs2)
+        NULLIFY(tmr_racs2)
+        NULLIFY(tcr_sacr1)
+        NULLIFY(tms_sacr1)
+        NULLIFY(tcr_sacr2)
+        NULLIFY(tms_sacr2)
+        NULLIFY(tnr_racs1)
+        NULLIFY(tnr_racs2)
+        NULLIFY(tnr_sacr1)
+        NULLIFY(tnr_sacr2)
         rc=st_destroy(INT(tpi_comm,C_INT),tpi_owner,tpi_cview)
         IF (rc/=0_C_INT.AND.rc/=1_C_INT) CALL wrf_error_fatal('Experimental tpi teardown state 1')
         IF (C_ASSOCIATED(tpi_owner).OR.C_ASSOCIATED(tpi_cview)) &
@@ -734,6 +856,11 @@
         IF (rc/=0_C_INT.AND.rc/=1_C_INT) CALL wrf_error_fatal('Experimental rank5 teardown state 10')
         IF (C_ASSOCIATED(ngc_owner).OR.C_ASSOCIATED(ngc_cview)) &
           CALL wrf_error_fatal('Experimental rank5 teardown left owner 10')
+        rc=st_destroy(INT(tpi_comm,C_INT),rain_snow_owner,rain_snow_cview)
+        IF (rc/=0_C_INT.AND.rc/=1_C_INT) &
+          CALL wrf_error_fatal('Experimental rain-snow teardown state')
+        IF (C_ASSOCIATED(rain_snow_owner).OR.C_ASSOCIATED(rain_snow_cview)) &
+          CALL wrf_error_fatal('Experimental rain-snow teardown left owner')
         IF (ALLOCATED(tpi_qcfz_stage)) DEALLOCATE(tpi_qcfz_stage)
         IF (ALLOCATED(tni_qcfz_stage)) DEALLOCATE(tni_qcfz_stage)
         IF (ALLOCATED(tpi_qrfz_stage)) DEALLOCATE(tpi_qrfz_stage)
@@ -744,6 +871,7 @@
         IF (ALLOCATED(tcr_gacr_stage)) DEALLOCATE(tcr_gacr_stage)
         IF (ALLOCATED(tnr_racg_stage)) DEALLOCATE(tnr_racg_stage)
         IF (ALLOCATED(tnr_gacr_stage)) DEALLOCATE(tnr_gacr_stage)
+        IF (ALLOCATED(rain_snow_stage)) DEALLOCATE(rain_snow_stage)
         tpi_phase=TPI_CLOSED
       END SUBROUTINE
 #ifdef WRF_EXPERIMENTAL_TPI_NATIVE_GATE
@@ -993,18 +1121,90 @@
       if (.NOT. ALLOCATED(tnr_gacr)) ALLOCATE(tnr_gacr(ntb_g1,ntb_g,dimNRHG,ntb_r1,ntb_r))
 #endif
 
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (.NOT.ALLOCATED(rain_snow_stage)) &
+        ALLOCATE(rain_snow_stage(ntb_s,ntb_t,ntb_r1,ntb_r,12))
+      tcs_racs1 => rain_snow_stage(:,:,:,:,1)
+#else
       if (.NOT. ALLOCATED(tcs_racs1)) ALLOCATE(tcs_racs1(ntb_s,ntb_t,ntb_r1,ntb_r))
+#endif
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (.NOT.ALLOCATED(rain_snow_stage)) &
+        CALL wrf_error_fatal('Experimental rain-snow stage missing at allocation')
+      tmr_racs1 => rain_snow_stage(:,:,:,:,2)
+#else
       if (.NOT. ALLOCATED(tmr_racs1)) ALLOCATE(tmr_racs1(ntb_s,ntb_t,ntb_r1,ntb_r))
+#endif
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (.NOT.ALLOCATED(rain_snow_stage)) &
+        CALL wrf_error_fatal('Experimental rain-snow stage missing at allocation')
+      tcs_racs2 => rain_snow_stage(:,:,:,:,3)
+#else
       if (.NOT. ALLOCATED(tcs_racs2)) ALLOCATE(tcs_racs2(ntb_s,ntb_t,ntb_r1,ntb_r))
+#endif
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (.NOT.ALLOCATED(rain_snow_stage)) &
+        CALL wrf_error_fatal('Experimental rain-snow stage missing at allocation')
+      tmr_racs2 => rain_snow_stage(:,:,:,:,4)
+#else
       if (.NOT. ALLOCATED(tmr_racs2)) ALLOCATE(tmr_racs2(ntb_s,ntb_t,ntb_r1,ntb_r))
+#endif
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (.NOT.ALLOCATED(rain_snow_stage)) &
+        CALL wrf_error_fatal('Experimental rain-snow stage missing at allocation')
+      tcr_sacr1 => rain_snow_stage(:,:,:,:,5)
+#else
       if (.NOT. ALLOCATED(tcr_sacr1)) ALLOCATE(tcr_sacr1(ntb_s,ntb_t,ntb_r1,ntb_r))
+#endif
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (.NOT.ALLOCATED(rain_snow_stage)) &
+        CALL wrf_error_fatal('Experimental rain-snow stage missing at allocation')
+      tms_sacr1 => rain_snow_stage(:,:,:,:,6)
+#else
       if (.NOT. ALLOCATED(tms_sacr1)) ALLOCATE(tms_sacr1(ntb_s,ntb_t,ntb_r1,ntb_r))
+#endif
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (.NOT.ALLOCATED(rain_snow_stage)) &
+        CALL wrf_error_fatal('Experimental rain-snow stage missing at allocation')
+      tcr_sacr2 => rain_snow_stage(:,:,:,:,7)
+#else
       if (.NOT. ALLOCATED(tcr_sacr2)) ALLOCATE(tcr_sacr2(ntb_s,ntb_t,ntb_r1,ntb_r))
+#endif
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (.NOT.ALLOCATED(rain_snow_stage)) &
+        CALL wrf_error_fatal('Experimental rain-snow stage missing at allocation')
+      tms_sacr2 => rain_snow_stage(:,:,:,:,8)
+#else
       if (.NOT. ALLOCATED(tms_sacr2)) ALLOCATE(tms_sacr2(ntb_s,ntb_t,ntb_r1,ntb_r))
+#endif
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (.NOT.ALLOCATED(rain_snow_stage)) &
+        CALL wrf_error_fatal('Experimental rain-snow stage missing at allocation')
+      tnr_racs1 => rain_snow_stage(:,:,:,:,9)
+#else
       if (.NOT. ALLOCATED(tnr_racs1)) ALLOCATE(tnr_racs1(ntb_s,ntb_t,ntb_r1,ntb_r))
+#endif
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (.NOT.ALLOCATED(rain_snow_stage)) &
+        CALL wrf_error_fatal('Experimental rain-snow stage missing at allocation')
+      tnr_racs2 => rain_snow_stage(:,:,:,:,10)
+#else
       if (.NOT. ALLOCATED(tnr_racs2)) ALLOCATE(tnr_racs2(ntb_s,ntb_t,ntb_r1,ntb_r))
+#endif
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (.NOT.ALLOCATED(rain_snow_stage)) &
+        CALL wrf_error_fatal('Experimental rain-snow stage missing at allocation')
+      tnr_sacr1 => rain_snow_stage(:,:,:,:,11)
+#else
       if (.NOT. ALLOCATED(tnr_sacr1)) ALLOCATE(tnr_sacr1(ntb_s,ntb_t,ntb_r1,ntb_r))
+#endif
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      IF (.NOT.ALLOCATED(rain_snow_stage)) &
+        CALL wrf_error_fatal('Experimental rain-snow stage missing at allocation')
+      tnr_sacr2 => rain_snow_stage(:,:,:,:,12)
+#else
       if (.NOT. ALLOCATED(tnr_sacr2)) ALLOCATE(tnr_sacr2(ntb_s,ntb_t,ntb_r1,ntb_r))
+#endif
 
 #ifdef WRF_EXPERIMENTAL_TPI_NUMA
       IF (.NOT. ALLOCATED(tpi_qcfz_stage)) THEN
