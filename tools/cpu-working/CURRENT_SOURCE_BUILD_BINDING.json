@@ -1,11 +1,11 @@
 {
   "status": "POST_SCIENCE_SOURCE_COMMIT_BINDS_EXACT_TESTED_ARTIFACTS",
-  "source_commit": "8583a312a855699459cfe8033ddb0de7e64c798a",
+  "source_commit": "e4754d23c61eb6783ba5826e2363209611438878",
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/myj-velocity-pack-simd-current-r1/wrf.exe",
-    "sha256": "4c14719a0fbeb98e21089b03e56e2f40d5ba995a89ec22c05c54f8f5e071c8df"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/pd-rk-final-consume-simd-current-r1/wrf.exe",
+    "sha256": "f3ea8bf82411f35650b20f272dbedc869db931d0a41de40f852415cafe1c00c4"
   },
-  "archive_sha256": "4952f30be1a6f06ea9ebd37767b318f45f54b98374ff76eeb9fdda02177f5025",
+  "archive_sha256": "34540b9ca95aa15ae32ffd90cae9814dce086a80ce176c8e2275498e35bd3efa",
   "sources": [
     {
       "destination": "WRF/frame/pack_utils.c",
@@ -24,25 +24,32 @@
       "source": "investigation/wrf-cpu/campaign/spot100-20261016/myj-velocity-pack-simd-r1/candidate_module_bl_myjpbl.F",
       "parent_sha256": "44ee464858cc46158643e4ef4995e328747984382f9f0383a9fb9731360d5e35",
       "qualified_candidate_sha256": "d289857429bd589c8d4fc42d272c51b83645582901bc2928492babac9f3786ce"
+    },
+    {
+      "destination": "WRF/dyn_em/module_em.F",
+      "source": "investigation/wrf-cpu/campaign/spot100-20261016/pd-rk-final-consume-simd-preparation-r1/candidate_module_em.F",
+      "parent_sha256": "ddec4675f5ccc2670e6084f525f37722666f294d5e0678c0205ba510faeaa11a",
+      "qualified_candidate_sha256": "e5034bfcf58efda3dc7d3f7d8cf2581bcdbf403d72e3429d1e1fa42a5148629f"
     }
   ],
   "build": {
-    "receipt_sha256": "fcf77a021d9df8c2124326b3edba7128ce7d35f52ba629b08fa1a55f8c40f2c0",
-    "closure_sha256": "84d0485776d08d3f3d139f5f612742f60c002fda4e645e2f340d5471e3699a75",
-    "ordered_proof_sha256": "07456d119432c3e180b9c2931c10907994cdd4189d190a0fa090a7d4af47ef64",
-    "canonical_candidate_sha256": "d289857429bd589c8d4fc42d272c51b83645582901bc2928492babac9f3786ce",
-    "preprocessed_candidate_sha256": "b33cf20dce0be94890b9f149a7579333782522bcfef440ac304dc207ca02fe55",
-    "native_receipt_sha256": "19aae2ef5b545dc84725148a0166207ce5d81199c7b265121cfadc0a856ea720",
-    "native_closure_sha256": "526dc4f157453274b18bcf1c3264c9a67850233d4c539bff47bb38155a807b38",
-    "caller_timing_sha256": "a9653369d27af5096570588f740914a27215f64ff69f8807210c441b98164c84",
-    "focused_timing_sha256": "0b65e2ddcc836c28c4fd4972d343d5435d44b87e091b694458e39df31fa07696"
+    "receipt_sha256": "88d9b778f18a2bd9cf0a1936f76e5bf96a28d8b91286c33dbf06fe788c9d5b18",
+    "closure_sha256": "397e0d509e5cd62ca6a22f58edd6deebf41765fbaaf751b0ea5ff57e48893518",
+    "ordered_proof_sha256": "0f221e8e23e230d3b17561e5309fbf8ab195c7124f42620dc8edf2c5f146ce37",
+    "canonical_candidate_sha256": "e5034bfcf58efda3dc7d3f7d8cf2581bcdbf403d72e3429d1e1fa42a5148629f",
+    "preprocessed_candidate_sha256": "62f46f114c9eb62eab1b4e3fef66617132d5d06f884a3b0bd745b9bdc6d05737",
+    "candidate_member_sha256": "0f53a68f9aede919e15f3ca7679021e98db7253ec4bac22ee7153546b6301b9f",
+    "module_interface_sha256": "4840016e1c851c096330b66ea56eded9b11e5c371ac90260736a7b68cd3c66a7",
+    "native_receipt_sha256": "564a0cb37f7dce3f8b891e6b6340a758ae4de1e0a4c808d2e9e5782a1cdc3784",
+    "native_closure_sha256": "b25d2cf431ff2c992c5f5f79076387d216eaf870cd87c92b74fa1ecb013b9254",
+    "caller_timing_sha256": "19a73a4fd60f64102fe325d32a28944a73c9f07c70f71f13522497dfdb06fb52"
   },
   "direct_C_object_sha256": "8ab87436bdb22d9d0ef3c1257e25f415727ede16be8535b8e037832a12fe9752",
   "quilt_object_sha256": "3aacdd25454c8a38403bee266abd911c4536ff1105887d9540c81f97afabfb44",
-  "build_scope": "Actual one-MYJ-member replacement/one link/zero source compiles;583 other archive members and13 external inputs from41a unchanged. Native candidate c05da reused; C8ab/quilt3aac preserved. Post-science source commit binds exact tested bytes; it was not a prebuild input.",
-  "application_qualification_sha256": "3d36f57fd08c25c64c87b320c94131a1da01abf3c80e5cbda6ea63b92e32503a",
+  "build_scope": "Actual one-module_em-member replacement/one link/zero source compiles against4c4952;583 other archive members and13 external inputs unchanged. PDnative0f53 reused,C8ab/quilt3aac retained. Source commit is post-SCI identity, not a prebuild input.",
+  "application_qualification_sha256": "bba2d6f5b49643cc21737f15a4b96acd2a8af5d5036ed0ef7adb7c35e68d8c5a",
   "previous_binding": {
-    "file": "PREVIOUS_SOURCE_BUILD_BINDING_41A.json",
-    "sha256": "67e506011a5b5bcc5ac0a935fc120e6703693e5a86a36df1ffe704171a19838a"
+    "file": "PREVIOUS_SOURCE_BUILD_BINDING_4C.json",
+    "sha256": "0c912572f5df260a68d8e07235b8bdefb12b282cee0efd55bb0e354f7dd8397d"
   }
 }
