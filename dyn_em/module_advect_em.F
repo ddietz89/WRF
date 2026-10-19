@@ -6157,12 +6157,13 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
    INTEGER :: jp1, jp0, jtmp
 
-   REAL,DIMENSION( its-1:ite+2, kts:kte, jts-1:jte+2  ) :: flux_out, ph_low
+   REAL,DIMENSION( its-1:ite+2, kts:kte, jts-1:jte+2  ) :: pd_scale
+   REAL,DIMENSION( its-1:ite+2 ) :: ph_low_row, flux_out_row
    REAL :: scale
    !REAL :: flux_out, ph_low, scale
    REAL, PARAMETER :: eps=1.e-20
-
-
+   INTEGER, PARAMETER :: pd_scale_word_kind = SELECTED_INT_KIND(MERGE(18,9,STORAGE_SIZE(0.)==64))
+   INTEGER, PARAMETER :: pd_scale_kind_guard = 1 / MERGE(1,0, ((STORAGE_SIZE(0.)==32 .AND. PRECISION(0.)==6) .OR. (STORAGE_SIZE(0.)==64 .AND. PRECISION(0.)==15)) .AND. STORAGE_SIZE(0.)==STORAGE_SIZE(0_pd_scale_word_kind))
 ! definition of flux operators, 3rd, 4th, 5th or 6th order
 
    REAL    :: flux3, flux4, flux5, flux6, flux_upwind
@@ -7985,14 +7986,14 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 !$omp simd
    DO i=i_start, i_end
 
-     ph_low(i,k,j) = ((c1(k)*mub(i,j)+c2(k))+(c1(k)*mu_old(i,j)))*field_old(i,k,j) &
+     ph_low_row(i) = ((c1(k)*mub(i,j)+c2(k))+(c1(k)*mu_old(i,j)))*field_old(i,k,j) &
                 - dt*( msftx(i,j)*msfty(i,j)*(               &
                        rdx*(fqxl(i+1,k,j)-fqxl(i,k,j)) +     &
                        rdy*(fqyl(i,k,j+1)-fqyl(i,k,j))  )    &
                       +msfty(i,j)*rdzw(k)*(fqzl(i,k+1,j)-fqzl(i,k,j)) )
 
 
-     flux_out(i,k,j) = dt*( (msftx(i,j)*msfty(i,j))*( &
+     flux_out_row(i) = dt*( (msftx(i,j)*msfty(i,j))*( &
                                 rdx*(  max(0.,fqx (i+1,k,j))      &
                                       -min(0.,fqx (i  ,k,j)) )    &
                                +rdy*(  max(0.,fqy (i,k,j+1))      &
@@ -8001,6 +8002,14 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
                                       -max(0.,fqz (i,k  ,j)) )   )
 
    ENDDO
+
+   DO i=i_start, i_end
+     pd_scale(i,k,j) = -1.
+     IF( flux_out_row(i) .gt. ph_low_row(i) ) THEN
+       scale = max(0.,ph_low_row(i)/(flux_out_row(i)+eps))
+       pd_scale(i,k,j) = scale
+     END IF
+   ENDDO
    ENDDO
    ENDDO
 
@@ -8008,8 +8017,8 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
    DO k=kts, ktf
 !DIR$ vector always
    DO i=i_start, i_end
-     IF( flux_out(i,k,j) .gt. ph_low(i,k,j) ) THEN
-       scale = max(0.,ph_low(i,k,j)/(flux_out(i,k,j)+eps))
+     IF( TRANSFER(pd_scale(i,k,j),0_pd_scale_word_kind) /= TRANSFER(-1.,0_pd_scale_word_kind) ) THEN
+       scale = pd_scale(i,k,j)
        IF( fqx (i+1,k,j) .gt. 0.) fqx(i+1,k,j) = scale*fqx(i+1,k,j)
        IF( fqx (i  ,k,j) .lt. 0.) fqx(i  ,k,j) = scale*fqx(i  ,k,j)
        IF( fqy (i,k,j+1) .gt. 0.) fqy(i,k,j+1) = scale*fqy(i,k,j+1)
