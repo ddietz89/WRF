@@ -1,6 +1,6 @@
 # WRF CPU optimization — continuing campaign handoff
 
-Initial snapshot: **2026-10-19 09:35 UTC**; latest recovery update: **2026-10-19 16:54 UTC**. This is a recovery and evidence handoff, **not a campaign closeout**. The persistent Goal is active. Continue authorized work after writing or reading this file; a status response, negative experiment, successful test or promotion is not a stopping point.
+Initial snapshot: **2026-10-19 09:35 UTC**; latest recovery update: **2026-10-19 19:01 UTC**. This is a recovery and evidence handoff, **not a campaign closeout**. The persistent Goal is active. Continue authorized work after writing or reading this file; a status response, negative experiment, successful test or promotion is not a stopping point.
 
 ## Latest update: TCG sharing and later RK pass fusion (2026-10-19 18:57 UTC)
 
@@ -77,7 +77,7 @@ At that historical checkpoint the fresh original/combined pair was in flight. It
 ## Read first
 
 1. Read the live [CURRENT_STATE.json](../investigation/wrf-cpu/campaign/spot100-20261016/CURRENT_STATE.json), then [TIMING_SOP.md](TIMING_SOP.md) and [OPTIMIZATION_FINDINGS.md](OPTIMIZATION_FINDINGS.md). Current receipts supersede historical queues and intermediate status paragraphs.
-2. Working fork: <https://github.com/ddietz89/WRF>, branch **`perf/cpu-20261012`**, WRF **4.8.0**. At this snapshot source commit is `e187058370f5d37863f943f3a42c9cc5b38453f7`; the pushed evidence/default head is `b44ce9d393e028bc11a90b0de7da029fcf94c44f`. This document adds a later documentation commit.
+2. Working fork: <https://github.com/ddietz89/WRF>, branch **`perf/cpu-20261012`**, WRF **4.8.0**. Current source is `26bcd59c507dc76cba49e3e06196bac2fb278dec`; working evidence/default head `460485d5` is pushed. Use the latest update and current selection JSON for artifact bindings; older below-sections retain their stated epochs.
 3. Governing campaign request: `/home/ddietz/.codex/attachments/c4fbaccb-5de9-4cc2-920d-23747d3a1d2d/wrf_cpu_next_campaign_100usd_spot_handoff_v1.md`, as amended by subsequent user instructions, especially AWS suspension and the kernel-inclusion rule.
 4. The [October 16 handoff](WRF_CPU_OPTIMIZATION_HANDOFF_2026-10-16.md) is preserved history. Its old “round closed / no work queued” instruction was superseded by the user's campaign resumption and persistent Goal. Do not use its executable as the current selection.
 
@@ -91,9 +91,9 @@ Local investigation root: `/home/ddietz/wrf/investigation/wrf-cpu`. Current camp
 |---|---|
 | Corrected original | `/pool/wrf-experiment/wrf-cpu/builds/mass-ghost-alarm55-prototype-r2/wrf.exe` |
 | Original SHA256 | `546b99156cbd809e1cae5e0ea8cebeea44dafd6331abf89e4daea00e0dd0a5e7` |
-| Current combined executable | `/pool/wrf-experiment/wrf-cpu/builds/rhs-ph-xy6-interior-simd-current-r1/wrf.exe` |
-| Current SHA256 | `885c7b6db45ea2bae676cd42ed76c2e0ac5450dbfe85940021a4ab441ccd159f` |
-| Compute archive | `f3868e1046e7f629f21bdd99e77d855aaf7c7c1e4d5f9a7ef03ce7d0618c08af` |
+| Current combined executable | `/pool/wrf-experiment/wrf-cpu/builds/thompson-tcg-rk-later-pass-combined-current-r1/wrf.exe` |
+| Current SHA256 | `3bb2b8f17ed5c5c8cb2afe9b1e68faf162a66c37546a366a00179411b651c4df` |
+| Compute archive | `76b137ef8204cf85a470074dae282b21074605f010fb25692ab04e01a80a3daa` |
 | Threaded output packing/compression provider | `375aa7e3198d42d84e3c95612f5475216354e2c4cb33c053eea42ac29f4bdb2a` |
 | zlib-ng/Huffman codec | `881d0a1aa84f1ac3f3fc60b0c59f7f9b03125fe68065cf44a04170de5655de3c` |
 | Private HDF5 inverse-shuffle library | `825e2f1f24bee6feaf537cb7a4b1207044fb90ec1afc2dd96571b33b1056ba19` |
