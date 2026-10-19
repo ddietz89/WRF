@@ -1,61 +1,41 @@
 {
-  "status": "POST_SCIENCE_SOURCE_COMMIT_BINDS_EXACT_TESTED_ARTIFACTS",
-  "source_commit": "e187058370f5d37863f943f3a42c9cc5b38453f7",
+  "status": "POST_SCIENCE_PROMOTION_BINDS_PREVIOUSLY_TESTED_FIRST_TABLE_ARTIFACT",
+  "source_commit": "85209e878c7284bf10146fc6ca5ef18b65a2f757",
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/rhs-ph-xy6-interior-simd-current-r1/wrf.exe",
-    "sha256": "885c7b6db45ea2bae676cd42ed76c2e0ac5450dbfe85940021a4ab441ccd159f"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/wrf.exe",
+    "sha256": "aada4abba40e4608efa76ebbf315da4714ddc6c506a7d8578bb04763efdc7742"
   },
-  "archive_sha256": "f3868e1046e7f629f21bdd99e77d855aaf7c7c1e4d5f9a7ef03ce7d0618c08af",
-  "sources": [
-    {
-      "destination": "WRF/frame/pack_utils.c",
-      "source": "investigation/wrf-cpu/campaign/spot100-20261016/quilt-owned-field-view-feasibility-r1/local-prototype-r1/frame/pack_utils.c",
-      "parent_sha256": "d68e0102e340d32c6a7c106c82f57e8df249f52bd5cd2cb6e1129b640aeab12b",
-      "qualified_candidate_sha256": "a31489b3226b6ab5bf4b957ddb6fb86419e9498dc1c6f25fd84ad2805475a40a"
-    },
-    {
-      "destination": "WRF/frame/module_io_quilt_old.F",
-      "source": "investigation/wrf-cpu/campaign/spot100-20261016/quilt-owned-field-view-feasibility-r1/full-quilt-admission-repair-link-preparation-r1/candidate_module_io_quilt_old.F",
-      "parent_sha256": "18ed4acd722b5abd712a1c5bf18926a03e2f9adf60bef982a7ab96b8efa5045d",
-      "qualified_candidate_sha256": "0dcca805f5e1684320b0975684ec716562f821a3cfd8f8c6bf7bcece99bed1b8"
-    },
-    {
-      "destination": "WRF/phys/module_bl_myjpbl.F",
-      "source": "investigation/wrf-cpu/campaign/spot100-20261016/myj-velocity-pack-simd-r1/candidate_module_bl_myjpbl.F",
-      "parent_sha256": "44ee464858cc46158643e4ef4995e328747984382f9f0383a9fb9731360d5e35",
-      "qualified_candidate_sha256": "d289857429bd589c8d4fc42d272c51b83645582901bc2928492babac9f3786ce"
-    },
-    {
-      "destination": "WRF/dyn_em/module_em.F",
-      "source": "investigation/wrf-cpu/campaign/spot100-20261016/pd-rk-final-consume-simd-preparation-r1/candidate_module_em.F",
-      "parent_sha256": "ddec4675f5ccc2670e6084f525f37722666f294d5e0678c0205ba510faeaa11a",
-      "qualified_candidate_sha256": "e5034bfcf58efda3dc7d3f7d8cf2581bcdbf403d72e3429d1e1fa42a5148629f"
-    },
-    {
-      "destination": "WRF/dyn_em/module_big_step_utilities_em.F",
-      "source": "investigation/wrf-cpu/campaign/spot100-20261016/rhs-ph-y6-interior-simd-r1/candidate_module_big_step_utilities_em.F",
-      "parent_sha256": "87f1d3a16f58720ca0f7c0da565a98bbf95d47e10956e935f0f67e58af630a21",
-      "qualified_candidate_sha256": "7d22366c27d8e41203701d6bc58ddf8e8700412dfb7a978abf4b22a9541f3e9f"
-    }
-  ],
+  "archive_sha256": "c2da4434735c4b6824adf567dcb75a12d0544ad63104bf01d6ea00345d939cfb",
+  "sources": {
+    "dyn_em/start_em.F": "ba19b902eb43c9baa2f59d3ffef0dec7c6a0ccbf0a9ceb062b72e55cff5366fc",
+    "phys/module_mp_thompson.F": "d634120d334f3698449d827d718e5b929ff00b3b7b8de6196055f7c6c2e7210d",
+    "main/module_wrf_top.F": "7d977ce5832b241889b212d785222ff6e4dafd3cd13c3212ff1a7d406774b97f",
+    "tools/cpu-memory/thompson-table-sharing/shared_table_iso.f90": "b9f3ad35a58e08366286aa72c1c09a939358fe1152a612fac052a68ed79bf673",
+    "tools/cpu-memory/thompson-table-sharing/shared_table.h": "dc01b80d7ea5cdc76ecf37248d17376ca8681d558abe0004a23bcb0ef09b0b69",
+    "tools/cpu-memory/thompson-table-sharing/thompson_tpi_bridge.c": "eed11ee2c18caf9581146d1edfc42dec0c9b256a09d5147872d03cd860b0506e",
+    "tools/cpu-memory/thompson-table-sharing/shared_table.c": "6be5e91ac1f63a8dc589af8188363223c44a2b361e1ade85afc1576be2b5c116"
+  },
   "build": {
-    "receipt_sha256": "df8684c233f844eac45a2883dc4d9c5e6932fbda66180d0ceaaa1a9ea5230aa7",
-    "closure_sha256": "722cab67a0c0be1759213d02eca90a774b88b2b90eb0da81445a489d403866c0",
-    "ordered_proof_sha256": "048ebcc50d1999a786663c76face9fe48c60dc4b30bdbf5f1d0a148a90d0d31e",
-    "canonical_candidate_sha256": "7d22366c27d8e41203701d6bc58ddf8e8700412dfb7a978abf4b22a9541f3e9f",
-    "preprocessed_candidate_sha256": "074d65e97ab03afef736e3bbaa4b95ab800a24a0a660148a6cfb05ec6b3948dd",
-    "candidate_member_sha256": "3ffd9d84d472ab36a357d515c6aba7b567349b9ab19519b4fe7d3a941cd755b3",
-    "module_interface_sha256": "01702a275cfaa6e411f3b53342033027a3beca789ccd80a7b2e1becf3f43e7ee",
-    "native_receipt_sha256": "402b2ecdebc8b88a2f5fe7a53eed8777b114eff9e61f1745f48c3b7c34c74c0e",
-    "native_closure_sha256": "0777fe290d211f4e9b916acea6d744358d77df2b2c092dbc832e3bd41c483999",
-    "caller_timing_sha256": "683ef60e1b2cb70a7cfa78bcbcc7b5ec48074addb8c1dd91333fc221df5f5c36"
+    "receipt_sha256": "bc646ea4c667c671aa5103c2abb0c9aed31fc3cdc59563d7f34f745503628db0",
+    "closure_sha256": "c3efed0375313db8d5336c17de642d5912c6ec1e5f7d76fb2724c1b2adf164c4",
+    "canonical_provenance": "Explicit16fatal diagnostic three-integer constant differences plus onecomment; not C9 ELF identity; accepted scientific statements unchanged",
+    "full_source_pin_manifest": "804efdbd670070855e0ec6a31d80142c1fdbf76568c6d6dddec4fcedac67e06e"
   },
-  "direct_C_object_sha256": "8ab87436bdb22d9d0ef3c1257e25f415727ede16be8535b8e037832a12fe9752",
-  "quilt_object_sha256": "3aacdd25454c8a38403bee266abd911c4536ff1105887d9540c81f97afabfb44",
-  "build_scope": "One native-qualified BigStep object reuse/one link/zero compiles against X3a;583 other archive members/13 actual external inputs unchanged. PD0f53/C8ab/quilt3aac retained. Source commit is post-SCI identity, not prebuild input.",
-  "application_qualification_sha256": "840a21ca81ad9622a21fcb3dc1ba323813c5892a9b6bea002ab0a87aa544bbf8",
+  "native": {
+    "receipt_sha256": "7442a76d28e323b91952bfec8b28c108cbb36f317bb93d942b2d90d1b0dcbb78",
+    "closure_sha256": "c97c658ce76fd844e6885013ddd302bc83408e7d3f587bdc15776036146d8cf8",
+    "status": "PASS_TRUE_CANONICAL_THOMPSON_FOUR_RANK_O0_BOUNDS_O2_SHARED_PRIVATE_11_RAW_STATE_TABLE_BYTES",
+    "scope": "11 fullcaller cases, O0bounds/O2, tablebytes/state exact; accessor test variant distinct from production object; not transferred fullWRF qualification"
+  },
+  "application_qualification_sha256": "54e5f3a948c3a4ca7dfb521f0958e30f2b6ebaacd4eb2e129b6b67c9dfbb8127",
   "previous_binding": {
-    "file": "PREVIOUS_SOURCE_BUILD_BINDING_X6.json",
-    "sha256": "b07b97ee490c580ee724c6ae9fe10e84a1537087ac221a3b724899532153900d"
+    "file": "PREVIOUS_SOURCE_BUILD_BINDING_XY.json",
+    "sha256": "c0d1e427b2f675b1aa4a2931ecefbef1fd4902b42ef7c08fc785f9415c959d69"
+  },
+  "build_scope": "Exact first-table canonical source/helper bytes committed in85209e87 after tests; no new build. Changed Thompson public module consumers were rebuilt by the qualified existing recipe. Frozen raw producer records remain unchanged.",
+  "qualification_file": "../cpu-memory/thompson-table-sharing/QUALIFICATION.json",
+  "runtime": {
+    "WRF_EXPERIMENTAL_TPI_NUMA": 1,
+    "other_settings": "Unchanged375/881/825/faba/FIELDVIEW1/IB"
   }
 }

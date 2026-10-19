@@ -1,8 +1,8 @@
 {
-  "status": "RETAINED_QUALIFIED_OPT_IN_MEMORY_IMPROVEMENT",
+  "status": "PROMOTED_QUALIFIED_WORKING_DEFAULT_MEMORY_IMPROVEMENT",
   "created_utc": "2026-10-19T10:32:35.615881+00:00",
-  "default_enabled": false,
-  "primary_selected_image_changed": false,
+  "default_enabled": true,
+  "primary_selected_image_changed": true,
   "source_identity": {
     "dyn_em/start_em.F": "ba19b902eb43c9baa2f59d3ffef0dec7c6a0ccbf0a9ceb062b72e55cff5366fc",
     "phys/module_mp_thompson.F": "d634120d334f3698449d827d718e5b929ff00b3b7b8de6196055f7c6c2e7210d",
@@ -72,14 +72,23 @@
     "all_eight_model_memory_events_zero": true,
     "CPU_throttling": "Nonzero; not critical-path time or summed lost wall."
   },
-  "decision": "Retain for meaningful recorded capacity savings in restricted opt-in scope. One fixed private-first pair shows no speedup and does not establish an unacceptable runtime penalty. No extra full timing pair solely to resolve a tiny difference.",
+  "decision": "Promote the existing exact-qualified shared-table image for meaningful memory savings with neutral timing. One private-first pair: wall +0.4556%, CPU +0.5761%; no runtime speedup or causal regression claim.",
   "support": "Cold single-domain full-compute THOMPSON OMP1, two serial tiles; qualified GNU13.3/OpenMPI/UCX/Linux NUMA affinity/shared-window stack. Both macro runtime modes restricted. No-macro generic path unchanged.",
   "limits": [
     "Recorded per-node model-cgroup peaks, not isolated-table physical PSS or synchronized cluster peak.",
     "Sampled reclaim deltas zero only within retained brackets; PSI and total initialization/publication/cleanup/MPI costs unknown.",
     "Physical cohort/table lookup execution not directly instrumented in full WRF; no measured isolated table saving.",
     "Nine-hour X-only results do not qualify XY plus sharing.",
-    "No production/master/default change or automatic helper linkage."
+    "Production/master unchanged. No automatic generic helper linkage; qualified isolated build recipe is required. Second-table extension and PD row workspace are not in this artifact."
   ],
-  "rollback": "Use preserved XY885 executable/sourcee187 and unchanged375/881/825/faba/FIELDVIEW1 runtime. Do not treat experimental mode0 as generic fallback. Revert this source commit for source rollback; keep separate macro/nonmacro build directories."
+  "rollback": "Use preserved XY885 executable/sourcee187 and unchanged375/881/825/faba/FIELDVIEW1 runtime. Do not treat experimental mode0 as generic fallback. Revert this source commit for source rollback; keep separate macro/nonmacro build directories.",
+  "promotion": {
+    "utc": "2026-10-19T11:59:22.050382+00:00",
+    "owner_instruction": "Significant memory saving with neutral timing is worth promoting.",
+    "source_commit": "85209e878c7284bf10146fc6ca5ef18b65a2f757",
+    "runtime_environment": {
+      "WRF_EXPERIMENTAL_TPI_NUMA": 1
+    },
+    "scope": "Default in the qualified cold single-domain full-compute THOMPSON OMP1/two-serial-tile working configuration. Ordinary no-macro builds remain generic. No new source/artifact bytes, model run, production or master change."
+  }
 }

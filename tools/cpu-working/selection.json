@@ -1,7 +1,7 @@
 {
-  "status": "PROMOTED_WORKING_DEFAULT_EXACT_RETAINED_ORIGINAL_THREE_HOUR_APPLICATION",
-  "source_commit": "e187058370f5d37863f943f3a42c9cc5b38453f7",
-  "scope": "Exact currentXY885c candidate-only06-09 full-grid against retained corrected-original546b PD-R5 control. UNPAIRED timing; no freshcontrol/current-image9h/restart144h/othercompiler qualification. Strict GNU13.3/Zen2/world512/480compute+32quilt/8x60/two tiles/128physicalcores/node/100,100,100,104GiB/swap0/1200s,375/881/825/faba/FIELDVIEW1/UCX rc,sm,self/InfiniBand unchanged.",
+  "status": "PROMOTED_QUALIFIED_WORKING_DEFAULT_MEMORY_IMPROVEMENT",
+  "source_commit": "85209e878c7284bf10146fc6ca5ef18b65a2f757",
+  "scope": "Qualified cold single-domain full-compute THOMPSON/OMP1 GNU13.3/Zen2/world512/480compute+32quilt/8x60/two serial tiles;100,100,100,104GiB/swap0/1200s. Existing375/881/825/faba/FIELDVIEW1/UCX rc,sm,self/InfiniBand with WRF_EXPERIMENTAL_TPI_NUMA=1. Same-image private/shared3h plus retained-original exact; no new9h/restart/nested/othercompiler scope.",
   "artifacts": {
     "shim": {
       "path": "/pool/wrf-experiment/wrf-cpu/source-discovery/parallel-pack-quilt-shim-native-r1/wrf_quilt_thread_shim.so",
@@ -17,8 +17,8 @@
     }
   },
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/rhs-ph-xy6-interior-simd-current-r1/wrf.exe",
-    "sha256": "885c7b6db45ea2bae676cd42ed76c2e0ac5450dbfe85940021a4ab441ccd159f"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/wrf.exe",
+    "sha256": "aada4abba40e4608efa76ebbf315da4714ddc6c506a7d8578bb04763efdc7742"
   },
   "private_hdf5": {
     "path": "/pool/wrf-experiment/wrf-cpu/builds/hdf5-sse2-unshuffle4-private-r3/output/candidate/lib/libhdf5.so.310.3.0",
@@ -29,7 +29,9 @@
   "build_defaults": {
     "WRF_SMALL_STEP_ZEN2": 1,
     "WRF_ADVECTION_ZEN2": 1,
-    "compiler_scope": "qualified GNU Fortran13.3.0; runtime CPU/OS feature admission required"
+    "compiler_scope": "qualified GNU Fortran13.3.0; runtime CPU/OS feature admission required",
+    "WRF_EXPERIMENTAL_TPI_NUMA": 1,
+    "thompson_build_scope": "Use separate qualified canonical build recipe and rebuild all changed-module consumers; ordinary Makefiles do not automatically link helpers."
   },
   "runtime": {
     "OMP_NUM_THREADS": 1,
@@ -41,203 +43,64 @@
     "WRF_ROOT_SHIM_OPTIN": 1,
     "WRF_ROOT_SHIM_OPTOUT": 0,
     "WRF_ROOT_SHIM_CPUS": "0-127",
-    "WRF_QUILT_OWNED_FIELD_VIEW": 1
+    "WRF_QUILT_OWNED_FIELD_VIEW": 1,
+    "WRF_EXPERIMENTAL_TPI_NUMA": 1
   },
-  "includes": "All accepted source changes through source_commit, including paired shortwave, RK first-stage fusion, corrected X-distance cache, advection ISA, initial-U/V tendencies, Thompson literal-1000 index and per-call scratch bank with contiguous75-column zero initialization, MYJPBL writeback SIMD with invariant ice guard split; SIMD shuffle/parallel output packing, Huffman/zlib-ng codec, root scratch reuse and private HDF5 inverse shuffle. Both MYJPBL writeback paths now emit packed arithmetic. The earlier79-array bank caller observations remain mixed; its75-column zero follow-up had0.4513/1.4223% shorter complete-caller intervals. Latest full combined forecast is exact and timed. New MYJPBL banks/register-carry/lifetime,paired reftra and ordinaryY schedule are excluded after slower caller screens. Ordered PHY_PREP qtot pragma excluded. Also includes exact-qualified SmallStep prep U-coupling SIMD. Thompson scalar-rho remains excluded after mixed helper and slower complete-caller results. Also includes exact-qualified SmallStep prep W/geopotential coupling SIMD, preserving its four statements and kde upper bound. Also includes exact-qualified SmallStep temperature save/coupling SIMD and longwave downward clear-prefix, preserving their mixed caller/regime observations. Also includes exact-qualified quilt field retrieval scratch lifetime reduction, source748701ba/imageba422; initial STORE duplication peak and copy volume remain unchanged. Also includes exact-qualified MYJPBL VDIFV independent DTOZ/CR producer SIMD, source7af45dd6/image8b101; later recurrences and five allocation/free pairs unchanged. Also includes the exact-qualified VDIFQ independent turbulence coefficient SIMD directive. Also includes exact-qualified first MYJPBL input-pack SIMD and per-field C-owned quilt views, enabled in this working configuration with WRF_QUILT_OWNED_FIELD_VIEW=1 and explicit0/unset legacy optout. Initial STORE deep copies remain; no physical-memory-peak claim. Codec carrier-width experiment excluded after mixed completecaller timing. Also includes one exact-qualified MYJPBL UK/VK/ZHK velocity-copy SIMD directive. Focused2.7335/0.6335% gains; completecaller mixed; no isolated forecast gain. Historical4c noon2product230step diagnostic remains separate. All selected4c source/runtime changes are retained in f3ea. Also includes one exact-qualified final PD scalar-consume SIMD directive. Fresh original546b vs combinedf3ea3h passed4products/545steps/all512; observed18.6266% less wall/12.2066% less CPU/5.7700% less main in one pair. RNG/codec-inline remain excluded. Also includes one exact-qualified sixth-order X rhs_ph SIMD directive; all ten products/1625steps pass a fresh original546b/current3a nine-hour pair. Historicalba422 nine-hour stays separate; no isolated/additive X gain is claimed. Also includes exact-qualified sixth-order Y rhs_ph SIMD, all4products545steps/all512/two tiles/four writers exact against retained originalcontrol. Complete synthetic caller6.0985/4.8610% shorter; no isolated forecast gain. Current image885c, no new current-image nine-hour scope.",
+  "includes": "All accepted source changes through source_commit, including paired shortwave, RK first-stage fusion, corrected X-distance cache, advection ISA, initial-U/V tendencies, Thompson literal-1000 index and per-call scratch bank with contiguous75-column zero initialization, MYJPBL writeback SIMD with invariant ice guard split; SIMD shuffle/parallel output packing, Huffman/zlib-ng codec, root scratch reuse and private HDF5 inverse shuffle. Both MYJPBL writeback paths now emit packed arithmetic. The earlier79-array bank caller observations remain mixed; its75-column zero follow-up had0.4513/1.4223% shorter complete-caller intervals. Latest full combined forecast is exact and timed. New MYJPBL banks/register-carry/lifetime,paired reftra and ordinaryY schedule are excluded after slower caller screens. Ordered PHY_PREP qtot pragma excluded. Also includes exact-qualified SmallStep prep U-coupling SIMD. Thompson scalar-rho remains excluded after mixed helper and slower complete-caller results. Also includes exact-qualified SmallStep prep W/geopotential coupling SIMD, preserving its four statements and kde upper bound. Also includes exact-qualified SmallStep temperature save/coupling SIMD and longwave downward clear-prefix, preserving their mixed caller/regime observations. Also includes exact-qualified quilt field retrieval scratch lifetime reduction, source748701ba/imageba422; initial STORE duplication peak and copy volume remain unchanged. Also includes exact-qualified MYJPBL VDIFV independent DTOZ/CR producer SIMD, source7af45dd6/image8b101; later recurrences and five allocation/free pairs unchanged. Also includes the exact-qualified VDIFQ independent turbulence coefficient SIMD directive. Also includes exact-qualified first MYJPBL input-pack SIMD and per-field C-owned quilt views, enabled in this working configuration with WRF_QUILT_OWNED_FIELD_VIEW=1 and explicit0/unset legacy optout. Initial STORE deep copies remain; no physical-memory-peak claim. Codec carrier-width experiment excluded after mixed completecaller timing. Also includes one exact-qualified MYJPBL UK/VK/ZHK velocity-copy SIMD directive. Focused2.7335/0.6335% gains; completecaller mixed; no isolated forecast gain. Historical4c noon2product230step diagnostic remains separate. All selected4c source/runtime changes are retained in f3ea. Also includes one exact-qualified final PD scalar-consume SIMD directive. Fresh original546b vs combinedf3ea3h passed4products/545steps/all512; observed18.6266% less wall/12.2066% less CPU/5.7700% less main in one pair. RNG/codec-inline remain excluded. Also includes one exact-qualified sixth-order X rhs_ph SIMD directive; all ten products/1625steps pass a fresh original546b/current3a nine-hour pair. Historicalba422 nine-hour stays separate; no isolated/additive X gain is claimed. Also includes exact-qualified sixth-order Y rhs_ph SIMD, all4products545steps/all512/two tiles/four writers exact against retained originalcontrol. Complete synthetic caller6.0985/4.8610% shorter; no isolated forecast gain. Preceding XY image885c had no new nine-hour scope; that historical qualification remains separate. Also includes the exact-qualified first Thompson tpi_qcfz NUMA-cohort shared table, enabled by default within the supported working configuration. Second-table TNI and PD row workspace remain separate in-flight candidates.",
   "science": {
-    "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
-    "comparison_count": 4,
-    "comparison_statuses": [
-      "PASS",
-      "PASS",
-      "PASS",
-      "PASS"
-    ],
+    "status": "PASS_PRIVATE_SHARED_AND_RETAINED_ORIGINAL_ALL_TWELVE_PRODUCT_COMPARISONS",
+    "complete_products_per_mode": 4,
+    "actual_product_comparisons": 12,
     "step_count": 545,
     "last_step": "2026-10-12_09:00:00",
-    "tile_status": "PASS_ACTUAL_480_DISJOINT_TILE_UNIONS_AND_ALL512_OBSERVED_ENVS",
-    "tile_compute_ranks": 480,
-    "proofs": {
-      "control": {
-        "rank_count": 512,
-        "compute_ranks": 480,
-        "quilt_ranks": 32,
-        "writer_roots": [
-          {
-            "rank": 487,
-            "host": "hpc04",
-            "cpu": 31
-          },
-          {
-            "rank": 495,
-            "host": "hpc04",
-            "cpu": 63
-          },
-          {
-            "rank": 503,
-            "host": "hpc04",
-            "cpu": 95
-          },
-          {
-            "rank": 511,
-            "host": "hpc04",
-            "cpu": 127
-          }
-        ],
-        "step_count": 545,
-        "last_step": "2026-10-12_09:00:00",
-        "products": [
-          "wrfout_d01_2026-10-12_06:00:00",
-          "wrfout_d01_2026-10-12_07:00:00",
-          "wrfout_d01_2026-10-12_08:00:00",
-          "wrfout_d01_2026-10-12_09:00:00"
-        ],
-        "input_stats_unchanged": true,
-        "model_closure_basis": "Normal INV-bound reconciliation: PID0/inactive/success/exit0/empty cgroup processes for all four units",
-        "invocations": {
-          "hpc01": {
-            "invocation_id": "fb0435e196e04e9da52efd41b5347054",
-            "unit": "wrf-cpu-production512-original-pd-nextcombined3h-control-r5-hpc01.service",
-            "memory_peak_bytes": 98594664448,
-            "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n"
-          },
-          "hpc02": {
-            "invocation_id": "6ae4a0440a444a5c87ee2bedca79b0c5",
-            "unit": "wrf-cpu-production512-original-pd-nextcombined3h-control-r5-hpc02.service",
-            "memory_peak_bytes": 101048614912,
-            "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n"
-          },
-          "hpc03": {
-            "invocation_id": "b406ab9de77b462299377db2bcd714c2",
-            "unit": "wrf-cpu-production512-original-pd-nextcombined3h-control-r5-hpc03.service",
-            "memory_peak_bytes": 101047033856,
-            "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n"
-          },
-          "hpc04": {
-            "invocation_id": "fe28337e73f64d1498a2c7c31ecfcf99",
-            "unit": "wrf-cpu-production512-original-pd-nextcombined3h-control-r5-hpc04.service",
-            "memory_peak_bytes": 107204128768,
-            "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n"
-          }
-        }
-      },
-      "candidate": {
-        "rank_count": 512,
-        "compute_ranks": 480,
-        "quilt_ranks": 32,
-        "writer_roots": [
-          {
-            "rank": 487,
-            "host": "hpc04",
-            "cpu": 31
-          },
-          {
-            "rank": 495,
-            "host": "hpc04",
-            "cpu": 63
-          },
-          {
-            "rank": 503,
-            "host": "hpc04",
-            "cpu": 95
-          },
-          {
-            "rank": 511,
-            "host": "hpc04",
-            "cpu": 127
-          }
-        ],
-        "step_count": 545,
-        "last_step": "2026-10-12_09:00:00",
-        "products": [
-          "wrfout_d01_2026-10-12_06:00:00",
-          "wrfout_d01_2026-10-12_07:00:00",
-          "wrfout_d01_2026-10-12_08:00:00",
-          "wrfout_d01_2026-10-12_09:00:00"
-        ],
-        "input_stats_unchanged": true,
-        "model_closure_basis": "Normal INV-bound reconciliation: PID0/inactive/success/exit0/empty cgroup processes for all four units",
-        "invocations": {
-          "hpc01": {
-            "invocation_id": "9f99b3927a63439b872898247921fb67",
-            "unit": "wrf-cpu-production512-rhs-xy6-threehour-candidate-r1-hpc01.service",
-            "memory_peak_bytes": 98484187136,
-            "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n"
-          },
-          "hpc02": {
-            "invocation_id": "34b6fba233b34654ac9e8a2d357250b9",
-            "unit": "wrf-cpu-production512-rhs-xy6-threehour-candidate-r1-hpc02.service",
-            "memory_peak_bytes": 96833867776,
-            "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n"
-          },
-          "hpc03": {
-            "invocation_id": "bd24b4bfe353453fb52a3c19850e9ca6",
-            "unit": "wrf-cpu-production512-rhs-xy6-threehour-candidate-r1-hpc03.service",
-            "memory_peak_bytes": 96891437056,
-            "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n"
-          },
-          "hpc04": {
-            "invocation_id": "8d9b84c1ab5f4adf8b2d4d85b8ac1586",
-            "unit": "wrf-cpu-production512-rhs-xy6-threehour-candidate-r1-hpc04.service",
-            "memory_peak_bytes": 101644455936,
-            "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n"
-          }
-        },
-        "field_view_admission": {
-          "status": "PASS_REQUIRED_ACTIVE_ROOTS_ACTUAL_FIELD_VIEW_ADMISSION",
-          "required_positive_roots": [
-            487,
-            495,
-            503,
-            511
-          ],
-          "environment": {
-            "candidate_only": true,
-            "expected_literal": "1",
-            "observed_ranks": 512
-          }
-        }
-      }
-    },
-    "receipt_sha256": "da06e45ef654406f71a8537ceb85771bcb98c85702bc7a8902a79648f0ef7ba4",
-    "reader_closure_sha256": "8ebb481de895f13569d392b2113377230703f392406de780cbd3f0752cc84976",
-    "complete_products": 4,
-    "ordered_steps": 545,
+    "all512_both_modes": true,
+    "serial_tiles": 2,
+    "required_positive_roots": [
+      487,
+      495,
+      503,
+      511
+    ],
+    "receipt_sha256": "1c07fbc69c33c02cd2500172fc49f4a5c742eef8ea836f7ad9b83b12e3452cd1",
+    "reader_closure_sha256": "56b478d97d42e6d6d670d900f71eae0f621439f8cbd450f0def6d1ed93113ef5",
     "all_model_and_reader_scopes_closed": true,
+    "full_qualification_sha256": "54e5f3a948c3a4ca7dfb521f0958e30f2b6ebaacd4eb2e129b6b67c9dfbb8127",
     "protected_checker": {
       "path": "/pool/wrf-experiment/wrf-cpu/validation/protected_netcdf_exact_reference.py",
       "sha256": "0382bcbabfbc16b76114ef552206c6c558ea15cd3c3552dfaed98b977deea2b4",
       "verified": true
-    }
+    },
+    "evidence_file": "THOMPSON_TPI_DEFAULT.json"
   },
-  "lease_reference": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-rhs-xy6-threehour-runtime-r1/lease-candidate-proposed.json",
-  "rollback_executable_sha256": "3a203299668de5177481d48bc10b4352f7c02af38e0cd0d555489dea7e3daaa7",
+  "lease_reference": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-thompson-tpi-shared3h-runtime-r1/lease-candidate-proposed.json",
+  "rollback_executable_sha256": "885c7b6db45ea2bae676cd42ed76c2e0ac5450dbfe85940021a4ab441ccd159f",
   "activation": "Selection record, not a launcher. Use existing bounded launcher with a fresh run directory/log directory/lease and actual affinity/library/resource checks. Never preload MPI launcher or helper processes.",
   "schema_version": 2,
   "last_three_hour_benchmark": {
-    "evidence_file": "THREE_HOUR_RESULT.json",
-    "source_commit": "e187058370f5d37863f943f3a42c9cc5b38453f7",
-    "executable_sha256": "885c7b6db45ea2bae676cd42ed76c2e0ac5450dbfe85940021a4ab441ccd159f",
-    "comparison_design": "UNPAIRED later885c candidate versus retainedactualoriginalPD-R5control. No freshcontrolmodel or isolatedY gain claim.",
+    "evidence_file": "THOMPSON_TPI_DEFAULT.json",
+    "executable_sha256": "aada4abba40e4608efa76ebbf315da4714ddc6c506a7d8578bb04763efdc7742",
+    "source_commit": "85209e878c7284bf10146fc6ca5ef18b65a2f757",
+    "comparison_design": "Same-image private then shared, one pair. Each mode exact versus retained original. Not a fresh original timing pair.",
     "metrics": {
-      "control": {
-        "wall_seconds": 819.2134004358668,
-        "cpu_seconds": 367776.94750099996,
-        "main_step_sum_seconds": 597.58187
+      "private": {
+        "wall_seconds": 672.3741730321199,
+        "cpu_seconds": 324478.854727,
+        "main_step_sum_seconds": 564.49678
       },
-      "candidate": {
-        "wall_seconds": 668.7757097010035,
-        "cpu_seconds": 323041.348568,
-        "main_step_sum_seconds": 563.11953
+      "shared": {
+        "wall_seconds": 675.4376463871449,
+        "cpu_seconds": 326348.082847,
+        "main_step_sum_seconds": 568.73302
       }
     },
-    "reductions_percent": {
-      "wall_seconds": 18.36367552762469,
-      "cpu_seconds": 12.163785478391986,
-      "main_step_sum_seconds": 5.766965453620598
-    }
+    "shared_relative_change_percent": {
+      "wall": 0.4556203194435726,
+      "aggregate_CPU": 0.5760708572435824,
+      "main_sum": 0.7504453789798582
+    },
+    "claim": "Meaningful capacity saving; neutral timing, no runtime speedup or causal regression claim."
   },
-  "qualification_file": "tools/cpu-compute/rhs-ph-y6-interior-simd/QUALIFICATION.json",
+  "qualification_file": "tools/cpu-memory/thompson-table-sharing/QUALIFICATION.json",
   "previous_three_hour_benchmark": {
     "executable": {
       "path": "/pool/wrf-experiment/wrf-cpu/builds/ownedview-myjpack-combined-current-r1/wrf.exe",
@@ -594,27 +457,24 @@
     "evidence_file": "THREE_HOUR_RESULT.json"
   },
   "rollback_executable": {
-    "executable_sha256": "3a203299668de5177481d48bc10b4352f7c02af38e0cd0d555489dea7e3daaa7",
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/rhs-ph-x6-interior-simd-current-r1/wrf.exe",
-    "source_commit": "3e290fdb7f354d95e9c9d87b7d325ba59dd24b40",
-    "runtime": "Unchanged375/881/825/faba/FIELD_VIEW1"
-  },
-  "latest_application": {
-    "evidence_file": "LATEST_APPLICATION_RESULT.json",
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/rhs-ph-xy6-interior-simd-current-r1/wrf.exe",
     "executable_sha256": "885c7b6db45ea2bae676cd42ed76c2e0ac5450dbfe85940021a4ab441ccd159f",
     "source_commit": "e187058370f5d37863f943f3a42c9cc5b38453f7",
-    "comparison_design": "UNPAIRED later885c candidate versus retainedactualoriginalPD-R5control. No freshcontrolmodel or isolatedY gain claim.",
-    "descriptive_wall_reduction_percent": 18.36367552762469
+    "runtime": "Unchanged375/881/825/faba/FIELDVIEW1 with Thompson experimental environment removed; generic no-macro image."
+  },
+  "latest_application": {
+    "evidence_file": "THOMPSON_TPI_DEFAULT.json",
+    "executable_sha256": "aada4abba40e4608efa76ebbf315da4714ddc6c506a7d8578bb04763efdc7742",
+    "source_commit": "85209e878c7284bf10146fc6ca5ef18b65a2f757",
+    "full_qualification_sha256": "54e5f3a948c3a4ca7dfb521f0958e30f2b6ebaacd4eb2e129b6b67c9dfbb8127",
+    "actual_product_comparisons": 12,
+    "ordered_steps_per_mode": 545,
+    "all_own_jobs_closed": true
   },
   "timing_scope": [
-    "One latercandidate versus retainedoriginal546bcontrol fromPDfreshR5, whosewall819.2134004358668s is reusedhonestly. UNPAIRED/order/timegap/clientcache/fileserverload limitations; no isolatedY/freshpair/repeatability/additivegain claim.",
-    "Aggregate CPU is summed cgroup CPU consumption, not elapsed time; main-step sum includes communication/backpressure and is not pure compute. Residual is not pure I/O.",
-    "ActualCPUthrottle/memory.events/peaks reportedraw inresources; no causalwallcorrection or isolatedmemory-savings claim.",
-    "Different arm times and shared file-server load/cache can affect elapsed time. No causal server-load or cap-benefit attribution.",
-    "All-four field-view positive-root admission is proven, not every-batch adoption.",
-    "Retainedoriginalc4dmanifest/c5bdgrant/context unchanged; no re-seal/leasecopy/neworiginalmodel/cache. Protectedoriginal4products545steps/all512/tile/worker/science predicates unchanged.",
-    "ThisXY6stage/prepare/cache/launch/normalreconcile usedactual namespace/localB correctly; no model orchecker rerun. RootreviewedThompson01correctnessbuild overlapsSCI03onlyAFTERactualmodelclosure, not model timing.",
-    "No 144-hour/restart qualification or new profiling; original numerical/layout/runtime predicates unchanged."
+    "Current first-table private/shared pair establishes recorded per-node capacity saving, not speedup. One fixed order with nonzero CPU throttling; file-server load/cache uncontrolled.",
+    "Three-hour twelve-comparison exact scope includes shared/private versus retained original and direct pair; no9h/restart/nesting/othercompiler transfer.",
+    "Older XY885 and X-only9h benchmark fields refer only to their explicitly bound historical artifacts. Kernel and forecast percentages are not added."
   ],
   "earlier_three_hour_benchmark_f1d7": {
     "executable": {
@@ -1387,9 +1247,8 @@
     },
     "evidence_file": "PREVIOUS_THREE_HOUR_RESULT_8604.json"
   },
-  "current_source_head_note": "Post-SCI Y source commit; immutable raw recipe/runtime null commits preserved. Current885c has exact3h scope; last fresh9h3a and freshPD3h remain separate, no transferred qualification.",
-  "rollback_source_commit": "3e290fdb7f354d95e9c9d87b7d325ba59dd24b40",
-  "rollback_qualification_snapshot_commit": "229e98bc70f79c05e67dd0344b02edb9495e75bb",
+  "current_source_head_note": "Source85209e87 tracks exact previously tested first-table source/helpers. This promotion changes selection/environment/docs only; frozen producer source_commit:null and raw qualification default_selection_changed:false remain historical unchanged. X-only9h/XY885 timing remains separate.",
+  "rollback_source_commit": "e187058370f5d37863f943f3a42c9cc5b38453f7",
   "last_fresh_paired_three_hour_benchmark": {
     "evidence_file": "PREVIOUS_THREE_HOUR_RESULT_PD.json",
     "source_commit": "e4754d23c61eb6783ba5826e2363209611438878",
@@ -2188,5 +2047,29 @@
   "previous_nine_hour_benchmark_BA422": {
     "evidence_file": "PREVIOUS_NINE_HOUR_RESULT_BA422.json",
     "sha256": "4b52919c1976710091c286f04988a597af2d1368ca0e614662946a3ddde2f770"
-  }
+  },
+  "previous_xy_three_hour_benchmark": {
+    "evidence_file": "THREE_HOUR_RESULT.json",
+    "source_commit": "e187058370f5d37863f943f3a42c9cc5b38453f7",
+    "executable_sha256": "885c7b6db45ea2bae676cd42ed76c2e0ac5450dbfe85940021a4ab441ccd159f",
+    "comparison_design": "UNPAIRED later885c candidate versus retainedactualoriginalPD-R5control. No freshcontrolmodel or isolatedY gain claim.",
+    "metrics": {
+      "control": {
+        "wall_seconds": 819.2134004358668,
+        "cpu_seconds": 367776.94750099996,
+        "main_step_sum_seconds": 597.58187
+      },
+      "candidate": {
+        "wall_seconds": 668.7757097010035,
+        "cpu_seconds": 323041.348568,
+        "main_step_sum_seconds": 563.11953
+      }
+    },
+    "reductions_percent": {
+      "wall_seconds": 18.36367552762469,
+      "cpu_seconds": 12.163785478391986,
+      "main_step_sum_seconds": 5.766965453620598
+    }
+  },
+  "thompson_default_record": "THOMPSON_TPI_DEFAULT.json"
 }

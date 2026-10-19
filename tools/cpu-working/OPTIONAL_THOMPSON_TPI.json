@@ -1,7 +1,7 @@
 {
-  "status": "RETAINED_QUALIFIED_OPT_IN_MEMORY_IMPROVEMENT",
-  "primary_selection_unchanged": true,
-  "default_enabled": false,
+  "status": "PROMOTED_TO_PRIMARY_WORKING_SELECTION_SEE_THOMPSON_TPI_DEFAULT",
+  "primary_selection_unchanged": false,
+  "default_enabled": true,
   "qualification": "../cpu-memory/thompson-table-sharing/QUALIFICATION.json",
   "artifact": {
     "executable_path": "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/wrf.exe",
@@ -10,5 +10,6 @@
     "based_on_selected_XY_executable": "885c7b6db45ea2bae676cd42ed76c2e0ac5450dbfe85940021a4ab441ccd159f"
   },
   "support": "Cold single-domain full-compute THOMPSON OMP1, two serial tiles; qualified GNU13.3/OpenMPI/UCX/Linux NUMA affinity/shared-window stack. Both macro runtime modes restricted. No-macro generic path unchanged.",
-  "rollback": "Use preserved XY885 executable/sourcee187 and unchanged375/881/825/faba/FIELDVIEW1 runtime. Do not treat experimental mode0 as generic fallback. Revert this source commit for source rollback; keep separate macro/nonmacro build directories."
+  "rollback": "Use preserved XY885 executable/sourcee187 and unchanged375/881/825/faba/FIELDVIEW1 runtime. Do not treat experimental mode0 as generic fallback. Revert this source commit for source rollback; keep separate macro/nonmacro build directories.",
+  "default_record": "THOMPSON_TPI_DEFAULT.json"
 }

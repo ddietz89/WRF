@@ -1,6 +1,6 @@
-# Qualified opt-in Thompson table sharing
+# Qualified Thompson table sharing
 
-The working fork retains this path as an explicit memory-saving option. Without `WRF_EXPERIMENTAL_TPI_NUMA`, the three guarded Fortran files preserve the original public ALLOCATABLE path; ordinary Makefiles and flags stay unchanged. The primary selected image remains XY885c.
+The qualified working configuration enables this memory-saving path by default, selecting the already tested aada4abb image with `WRF_EXPERIMENTAL_TPI_NUMA=1`. This promotion follows the owner’s decision to retain the substantial memory saving with neutral timing. Without the compile-time macro, the three guarded Fortran files preserve the original public ALLOCATABLE path; ordinary Makefiles and flags stay unchanged. The generic XY885c image remains the rollback.
 
 The supported experimental build entry is the existing hash-bound canonical recipe named in BUILD_WIRING.json. It builds real canonical Fortran through the qualified GNU13.3 CPP/standard.exe/CPP pipeline, recompiles the actual five consumers and two hooks, preserves physics_init O0, and links these unchanged helpers with same-prefix MPI C compiler. The recipe has already built a complete experimental image. It is not a full clean-build system or a drop-in native-object patch. Reproduction requires its explicitly pinned source/configuration/parent/evidence bundle and a fresh isolated output namespace; no implicit compiler or parent-artifact fallback is allowed.
 
@@ -10,4 +10,4 @@ The actual same-image private/shared three-hour comparison passed all twelve com
 
 Wall time was 672.374173 seconds private and 675.437646 seconds shared: 0.4556% longer in one private-first pair. Aggregate CPU was 0.5761% higher. This establishes a useful capacity improvement, with no demonstrated runtime speedup or causal regression. Total initialization, publication, cleanup and MPI overhead were not separately measured. See [qualification](QUALIFICATION.json) for exact artifacts, scientific receipts and limitations. The earlier X-only nine-hour result does not qualify this combination.
 
-Keep the generic XY885c image and its runtime manifest for rollback. Experimental runtime mode 0 has the same restricted collective lifecycle; use the no-macro image for configurations outside that scope. Source rollback reverts the commit introducing these guarded files and helpers. No KSM, host settings, production files, master or automatic default activation is changed.
+Keep the generic XY885c image and its runtime manifest for rollback. Experimental runtime mode 0 has the same restricted collective lifecycle; use the no-macro image for configurations outside that scope. Source rollback reverts85209e87 and rebuilds. This is a working-selection default, not automatic generic helper linkage. No KSM, host settings, production files or master are changed. The second-table extension is not part of this artifact.

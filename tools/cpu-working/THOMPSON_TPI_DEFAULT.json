@@ -1,0 +1,65 @@
+{
+  "status": "PROMOTED_QUALIFIED_WORKING_DEFAULT_MEMORY_IMPROVEMENT",
+  "source_commit": "85209e878c7284bf10146fc6ca5ef18b65a2f757",
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/wrf.exe",
+    "sha256": "aada4abba40e4608efa76ebbf315da4714ddc6c506a7d8578bb04763efdc7742"
+  },
+  "archive_sha256": "c2da4434735c4b6824adf567dcb75a12d0544ad63104bf01d6ea00345d939cfb",
+  "default_environment": {
+    "WRF_EXPERIMENTAL_TPI_NUMA": 1
+  },
+  "qualification_file": "../cpu-memory/thompson-table-sharing/QUALIFICATION.json",
+  "qualification_sha256": "6eaa96d7dd989aa0b66b1112dd4791068dac8f42cc83b9062063c6fcf940e794",
+  "science": {
+    "full_qualification_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-single-table-public-owner-r1/actual-thompson-prototype-r1/three-hour-preparation-r1/lifecycle-r1/FINAL_QUALIFICATION.json",
+    "full_qualification_sha256": "54e5f3a948c3a4ca7dfb521f0958e30f2b6ebaacd4eb2e129b6b67c9dfbb8127",
+    "science_sha256": "1c07fbc69c33c02cd2500172fc49f4a5c742eef8ea836f7ad9b83b12e3452cd1",
+    "reader_closure_sha256": "56b478d97d42e6d6d670d900f71eae0f621439f8cbd450f0def6d1ed93113ef5",
+    "products_per_mode": 4,
+    "actual_product_comparisons": 12,
+    "ordered_steps_per_mode": 545,
+    "ranks": 512,
+    "serial_tiles": 2,
+    "all_four_positive_output_roots": [
+      487,
+      495,
+      503,
+      511
+    ],
+    "all_own_jobs_closed": true
+  },
+  "performance_and_memory": {
+    "private_wall_seconds": 672.3741730321199,
+    "shared_wall_seconds": 675.4376463871449,
+    "shared_relative_wall_change_percent": 0.4556203194435726,
+    "private_aggregate_CPU_seconds": 324478.854727,
+    "shared_aggregate_CPU_seconds": 326348.082847,
+    "private_main_step_seconds": 564.49678,
+    "shared_main_step_seconds": 568.73302,
+    "private_model_cgroup_peak_bytes": {
+      "hpc01": 97964584960,
+      "hpc02": 96013893632,
+      "hpc03": 96039927808,
+      "hpc04": 100108914688
+    },
+    "shared_model_cgroup_peak_bytes": {
+      "hpc01": 89954152448,
+      "hpc02": 88079409152,
+      "hpc03": 88021942272,
+      "hpc04": 92867977216
+    },
+    "all_eight_model_memory_events_zero": true,
+    "CPU_throttling": "Nonzero; not critical-path time or summed lost wall."
+  },
+  "scope": "Cold single-domain full-compute THOMPSON OMP1, two serial tiles; qualified GNU13.3/OpenMPI/UCX/Linux NUMA affinity/shared-window stack. Both macro runtime modes restricted. No-macro generic path unchanged.",
+  "limits": [
+    "Recorded per-node model-cgroup peaks, not isolated-table physical PSS or synchronized cluster peak.",
+    "Sampled reclaim deltas zero only within retained brackets; PSI and total initialization/publication/cleanup/MPI costs unknown.",
+    "Physical cohort/table lookup execution not directly instrumented in full WRF; no measured isolated table saving.",
+    "Nine-hour X-only results do not qualify XY plus sharing.",
+    "Production/master unchanged. No automatic generic helper linkage; qualified isolated build recipe is required. Second-table extension and PD row workspace are not in this artifact."
+  ],
+  "rollback": "Use preserved XY885 executable/sourcee187 and unchanged375/881/825/faba/FIELDVIEW1 runtime. Do not treat experimental mode0 as generic fallback. Revert this source commit for source rollback; keep separate macro/nonmacro build directories.",
+  "frozen_raw_qualification_unchanged": true
+}
