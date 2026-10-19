@@ -1,0 +1,246 @@
+{
+  "status": "PROMOTED_CURRENT_WORKING_CONFIGURATION_NATIVE_AND_COMBINED_THREE_HOUR_EXACT_PASS",
+  "source_tracking_commit": "eb616f2b71767da0db5124d0bdf81339315139f2",
+  "source_sha256": "9eb38066228f430b0ceda85523803d252e5e70dbb7e81a34df07879d112dfb8f",
+  "source_file": "share/module_bc.F",
+  "change": "One local REAL reuses an open south-boundary source across the same three stores. Actual code generation removes one duplicate source load; store order/addresses, bounds and public interface unchanged.",
+  "native_component": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-boundary-copy-reuse-r1/QUALIFICATION_FOR_APPLICATION.json",
+    "sha256": "e5c39768dd13eb15e6d6ea717d95409284b2ec85cc0c23cb8fe6cb2f2abbd695"
+  },
+  "native_receipt_sha256": "d707a27d9f58d4ba801f3f75fcb4160680d7ec32fce0c39fe33994e6ded03d62",
+  "native_closure_sha256": "1a30d95358270e614cd9b21373864315646e961b3f75df7ab69dfc063d3acb36",
+  "native_scope": "672 actual-module O0/bounds and O2 raw-output/five-state cases, finite/nonfinite/NaN/sNaN/signed-zero, guards, thin/empty/branch cases; actual parent reproduced.",
+  "caller_timing": {
+    "result": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-boundary-copy-reuse-r1/caller-timing-preparation-r1/timing-r1/TIMING_RESULT.json",
+      "sha256": "88647b895ec504b3b76f78910397b7dd270c813a55a24dd43066ee414a3954e5"
+    },
+    "same_host_results": [
+      {
+        "host": "hpc01",
+        "order": "parent_then_candidate",
+        "parent_wall": 1.463971386,
+        "candidate_wall": 1.425217742,
+        "wall_percent_shorter": 2.647158569532315,
+        "parent_cpu": 1.463709921,
+        "candidate_cpu": 1.425150204,
+        "cpu_percent_shorter": 2.634382431025417
+      },
+      {
+        "host": "hpc04",
+        "order": "candidate_then_parent",
+        "parent_wall": 1.427587048,
+        "candidate_wall": 1.427204718,
+        "wall_percent_shorter": 0.026781554269172947,
+        "parent_cpu": 1.42752714,
+        "candidate_cpu": 1.42715221,
+        "cpu_percent_shorter": 0.026264299255285284
+      }
+    ],
+    "scope": "Fixed262144completeactualset_physical_bc3d calls/open_ys/t atsynthetic188I\u00d732K, samebody/inputs/twowarmups/clockboundaries andoutsideclockrawguards+five-state. NOTcapturedactualWRFcaller, rankpriority/globalheadroom orfullforecastgain.",
+    "limits": "Synthetic complete actual routine, not captured WRF caller. One parent interval was higher than other three; no replicated significance or isolated forecast gain."
+  },
+  "canonical_build": {
+    "status": "ACTUAL_ONE_MEMBER_CANONICAL_BUILD_PASS_CLOSED_PENDING_APPLICATION",
+    "producer_status": "BUILT_CURRENT_E319_ONE_BOUNDARY_COPY_LOAD_REUSE_PENDING_APPLICATION",
+    "build_directory": "/pool/wrf-experiment/wrf-cpu/builds/portfolio-a-bc-copy-e319-current-r1",
+    "receipt_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-boundary-copy-reuse-r1/canonical-e319-link-preparation-r1/actual-native-r1/receipt.json",
+    "receipt_sha256": "5c0188df86438da2c0148220cac21bbf045c341eef274637968cd15ef8dabc82",
+    "closure_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-boundary-copy-reuse-r1/canonical-e319-link-preparation-r1/actual-native-r1/closure.json",
+    "closure_sha256": "67cda83a4a930e87ecc314d236c374465664869a2e496514c576baab179c8616",
+    "invocation_id": "ced57dc09b824be39a6330bbb90f42bf",
+    "ordered_proof_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-boundary-copy-reuse-r1/canonical-e319-link-preparation-r1/actual-native-r1/ordered-libwrflib-proof.json",
+    "ordered_proof_sha256": "aa70405ffe2b7dcc77c9806a308af57c9f96f97034300a85f2ae5ba2a0b611f8",
+    "source_commit": null,
+    "parent_working_source_commit": "cea9ce3d2013d2d2cf3ec7f2e1691ed08e68acf5",
+    "recipe_sha256": "d427d96b50be29f894779c7d752fd488b10788c3d94ddd4c28f024b15a9aca12",
+    "active_manifest_sha256": "1d35800ad9b8f2b608e68cb7fd3dec5d402fe1b3ecb5799167b1572cc4b21363",
+    "artifact_sha256": {
+      "/pool/wrf-experiment/wrf-cpu/builds/portfolio-a-bc-copy-e319-current-r1/wrf.exe": "6c1ac8f3d00c362b8b677e2561997a57c27d1f4c80da0591ee410f92ae5e3743",
+      "/pool/wrf-experiment/wrf-cpu/builds/portfolio-a-bc-copy-e319-current-r1/libwrflib.a": "019a2ff1f20a1b5c6d05ab0572ecc7af06e018c84138a8a1bdd1107858a3310a",
+      "/pool/wrf-experiment/wrf-cpu/builds/portfolio-a-bc-copy-e319-current-r1/candidate/module_bc.o": "de98b92c6f73e12fcea08387e50469b4621efcb5613151bb6c4d427dd457fa1e",
+      "/pool/wrf-experiment/wrf-cpu/builds/portfolio-a-bc-copy-e319-current-r1/candidate/module_bc.mod": "3bab4d814d238e5c79b7623dddee943341ccee88bb7e548afe12500128964336",
+      "/pool/wrf-experiment/wrf-cpu/builds/portfolio-a-bc-copy-e319-current-r1/ordered-libwrflib-proof.json": "aa70405ffe2b7dcc77c9806a308af57c9f96f97034300a85f2ae5ba2a0b611f8"
+    },
+    "changed_member": "module_bc.o",
+    "archive_occurrences": 584,
+    "unchanged_archive_occurrences": 583,
+    "unchanged_base_objects": {
+      "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-tni-owner-canonical-current-r1/candidate/module_wrf_top.o": "6423d4c9c6d64fd1768d67ea80bb7f9d418f08cc622029f9b2da9e3fbad7c7fa",
+      "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-tni-owner-canonical-current-r1/candidate/wrf.o": "5749fbb23780a6da7a201626125044bf197c47179434e88b3185f2d02d1bcfb8",
+      "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o": "3a94b6864d7b3d2df4efc4f1afabe6dd519b6f73c9785738f219e6206727e4ec",
+      "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o": "54be5b6686914b8496b3d451205582b7bf854f23e52176c13ab34f66255946d4",
+      "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o": "4f037f15d1dc99ac826fccdfbf500221ae63132896e90a627446bc3fff8b8263"
+    },
+    "unchanged_nonmain_link_inputs": {
+      "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a": "43440c838a792ee55cdb93165c7996173df197d3e6afbd9c69e196b64b869a34",
+      "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a": "fa5423d57121eae7505cd464e0a9826c36eadf91a6a884aee96f6a7aa4279a29",
+      "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a": "93675f19d4c2d39ff9de6909f76e4ccddf0844440abe38fa37aea97bb42fb4f0",
+      "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a": "a06e4111dbb308bbe94c1cb2c0e21c608fde3e906dec74a10910b5842cac5ca0",
+      "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90/libesmf_time.a": "4c1ebf810767e36db24471cac830970afb2c440eb241f4664b1d3398ecf0f84a",
+      "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o": "175cbd87243a7ff3412f1850e76dac102eb4edc5db684bfdc97d419694d44a78",
+      "/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib/libnetcdff.so": "e271f9b96203b03c2e21f9e044b4cbe13534f309b100ae369dd0799fa7a2a6d6",
+      "/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib/libnetcdf.so": "7036a91b172b3f1171c1ebd86813a208a302cf9145013d58611570cfa12e2780",
+      "/pool/wrf-experiment/wrf-cpu/builds/rsl-narrow-integer-copy-r1/librsl_lite.a": "982d0c81abed9d9209ea955e63c0851ae7eaa51b6ade4748303176b51eaaa130",
+      "/pool/wrf-experiment/wrf-cpu/builds/transpose-di1-affine-native-r1/io_netcdf/libwrfio_nf.a": "9d0d43fbf5f77cfe1ac5ffe871e888f2e0187bc5e5ba2fc8f8699027a93836de",
+      "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o": "8ab87436bdb22d9d0ef3c1257e25f415727ede16be8535b8e037832a12fe9752"
+    },
+    "public_module_interface_sha256": "3bab4d814d238e5c79b7623dddee943341ccee88bb7e548afe12500128964336",
+    "preserved_PD_member_sha256": "8ec77f864716667aa79d40878fa11276f7dede4017c620201e54f9f83bb32b25",
+    "preserved_Thompson_member_sha256": "4f7e0c4f72d1fa6cb8b0c62167d32cdc701ab02615acb78880196d83805e7d80",
+    "source_compiles": 0,
+    "full_WRF_links": 1,
+    "resource_closure": "SameINV/PID0/inactive/success/exit0/actualCGabsent+empty/positivejournal.02released.",
+    "application_science_qualified": false,
+    "forecast_performance_qualified": false,
+    "native_and_timing_component_scope": "Native672exact+one2.65%/othernearzero syntheticwholeBCroutine timing, notforecastgain.",
+    "frozen_recipe_actual_nulls_retained": true
+  },
+  "application": {
+    "final_qualification": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-b-memory-criticalpath-r1/periodic-e319-bc-three-hour-preparation-r1/lifecycle-r1/FINAL_QUALIFICATION.json",
+      "sha256": "cafcfabe63153bb8a771518a9093826ddf8e4179573138e61adc0c4c7dc3879c"
+    },
+    "science": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-tni-pd-bc3h-runtime-r1/science-receipt.json",
+      "sha256": "10aa5a539528fa22a36e737b804e3a10d88a3ca2e9ab9daecd2912979f725dfe"
+    },
+    "reader_closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-tni-pd-bc3h-runtime-r1/reader-closure.json",
+      "sha256": "5b814038febfdf569430eef1f19cc06f8373183045355057877b0f6c8851f92c"
+    },
+    "scope": {
+      "comparisons": 4,
+      "ordered_steps": 545,
+      "last_step": "2026-10-12_09:00:00",
+      "ranks": 512,
+      "compute_ranks": 480,
+      "tiles": 2,
+      "positive_writer_roots": [
+        487,
+        495,
+        503,
+        511
+      ],
+      "unchanged_original_checker": true
+    },
+    "configuration": {
+      "provider": "375",
+      "rankmap": "faba",
+      "codec": "881",
+      "private_hdf": "825",
+      "field_view": "1",
+      "both_table_shared_mode": "1",
+      "observer": false,
+      "perf": false,
+      "cores_each_host": 128,
+      "memory_caps_GiB": [
+        100,
+        100,
+        100,
+        104
+      ],
+      "swap": 0
+    },
+    "all_owned_jobs_closed": true
+  },
+  "measurement": {
+    "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+    "order": [
+      "retained_freshPD_original546b_control",
+      "new_TNI_PD_BC_candidate"
+    ],
+    "comparison_design": "UNPAIRED retained original control; no isolatedBC/PD/TNI gain attribution",
+    "metrics": {
+      "control": {
+        "wall_seconds": 819.2134004358668,
+        "cpu_seconds": 367776.94750099996,
+        "main_step_sum_seconds": 597.58187
+      },
+      "candidate": {
+        "wall_seconds": 673.5236018940341,
+        "cpu_seconds": 324888.406371,
+        "main_step_sum_seconds": 565.94339
+      }
+    },
+    "reductions_percent": {
+      "wall_seconds": 17.78410832443875,
+      "cpu_seconds": 11.661563189705726,
+      "main_step_sum_seconds": 5.294417650254346
+    },
+    "science_sha256": "10aa5a539528fa22a36e737b804e3a10d88a3ca2e9ab9daecd2912979f725dfe",
+    "reader_closure_sha256": "5b814038febfdf569430eef1f19cc06f8373183045355057877b0f6c8851f92c",
+    "limits": "One later candidate versus retained actual546b control. Different order/time/cache/serverload; no freshpair/repeatability/perkernelcausalclaim. Main includes communication/backpressure; residual is not pureIO."
+  },
+  "candidate_memory": [
+    {
+      "host": "hpc01",
+      "memory_peak_bytes": 86804615168,
+      "memory_peak_GiB": 80.84309768676758,
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      }
+    },
+    {
+      "host": "hpc02",
+      "memory_peak_bytes": 84441567232,
+      "memory_peak_GiB": 78.64233779907227,
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      }
+    },
+    {
+      "host": "hpc03",
+      "memory_peak_bytes": 84405555200,
+      "memory_peak_GiB": 78.60879898071289,
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      }
+    },
+    {
+      "host": "hpc04",
+      "memory_peak_bytes": 84386844672,
+      "memory_peak_GiB": 78.59137344360352,
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      }
+    }
+  ],
+  "source_binding_note": "Frozen build source_commit remains null. This is a post-test source mapping; exact9eb boundary source and reused8ec PD member with tracked47c7 REAL32 equivalence. No relink from tracked47c7 or whole-file object identity claim.",
+  "rollback": {
+    "executable": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-tni-owner-canonical-current-r1/wrf.exe",
+      "sha256": "e319d234f92e1b363407d2099fd780f38d0121a23a502e144daa95a0ae849fa7"
+    },
+    "source_commit": "cea9ce3d2013d2d2cf3ec7f2e1691ed08e68acf5",
+    "source_only": "Revert source commit eb616f2b71767da0db5124d0bdf81339315139f2 and rebuild module_bc/archive/executable with qualified canonical recipe; keep runtime libraries/map/shared1 unchanged."
+  },
+  "limits": [
+    "First unprofiled375/faba full3h of this combination; no9h/unsupported-backend transfer.",
+    "No isolated BC performance, repeatability or causal global speedup claim from retained-reference timing.",
+    "Main includes communication/backpressure; residual is not pureIO.",
+    "Observed cgroup peaks do not isolate/add TNI savings or identify publication phase.",
+    "Both-table mode0 remains native-caller qualified only."
+  ]
+}

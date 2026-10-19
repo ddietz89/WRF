@@ -1,0 +1,71 @@
+{
+  "status": "POST_SCIENCE_SOURCE_PROMOTION_WITH_EXPLICIT_REAL32_CODE_EQUIVALENCE",
+  "source_commit": "cea9ce3d2013d2d2cf3ec7f2e1691ed08e68acf5",
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-tni-owner-canonical-current-r1/wrf.exe",
+    "sha256": "e319d234f92e1b363407d2099fd780f38d0121a23a502e144daa95a0ae849fa7"
+  },
+  "archive_sha256": "759a21eac43de92ff7fbbf6ceed153ba5a4afc003c04f70d5a6be06faccd2668",
+  "sources": {
+    "dyn_em/start_em.F": "ba19b902eb43c9baa2f59d3ffef0dec7c6a0ccbf0a9ceb062b72e55cff5366fc",
+    "phys/module_mp_thompson.F": "a48450a87acf90c8d719f06f6bdb0977939da2e5b99a9395524541b734c69681",
+    "main/module_wrf_top.F": "7d977ce5832b241889b212d785222ff6e4dafd3cd13c3212ff1a7d406774b97f",
+    "tools/cpu-memory/thompson-table-sharing/shared_table_iso.f90": "b9f3ad35a58e08366286aa72c1c09a939358fe1152a612fac052a68ed79bf673",
+    "tools/cpu-memory/thompson-table-sharing/shared_table.h": "dc01b80d7ea5cdc76ecf37248d17376ca8681d558abe0004a23bcb0ef09b0b69",
+    "tools/cpu-memory/thompson-table-sharing/thompson_tpi_bridge.c": "eed11ee2c18caf9581146d1edfc42dec0c9b256a09d5147872d03cd860b0506e",
+    "tools/cpu-memory/thompson-table-sharing/shared_table.c": "6be5e91ac1f63a8dc589af8188363223c44a2b361e1ade85afc1576be2b5c116",
+    "dyn_em/module_advect_em.F": "47c7b2b0025dca1971696eacd51d7c589ec2bc20a211cd80f7329404e230fae8"
+  },
+  "build": {
+    "receipt_sha256": "f0507bc73163e308bed1fc769af2fd41cba58951bff676192d6ce68b19b812d6",
+    "closure_sha256": "c223cb931f3d80958c787105a221877c9f23e0f8287653b85858b0157462df1b",
+    "receipt_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-tni-owner-implementation-r1/canonical-integration-preparation-r1/actual-native-r1/receipt.json",
+    "closure_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-tni-owner-implementation-r1/canonical-integration-preparation-r1/actual-native-r1/closure.json",
+    "qualification_file": "../cpu-memory/thompson-table-sharing/TNI_EXTENSION_QUALIFICATION.json",
+    "recipe_file": "../cpu-memory/thompson-table-sharing/TNI_BUILD_WIRING.json",
+    "actual_artifact": {
+      "directory": "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-tni-owner-canonical-current-r1",
+      "executable_sha256": "e319d234f92e1b363407d2099fd780f38d0121a23a502e144daa95a0ae849fa7",
+      "archive_sha256": "759a21eac43de92ff7fbbf6ceed153ba5a4afc003c04f70d5a6be06faccd2668",
+      "build_receipt": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-tni-owner-implementation-r1/canonical-integration-preparation-r1/actual-native-r1/receipt.json",
+        "sha256": "f0507bc73163e308bed1fc769af2fd41cba58951bff676192d6ce68b19b812d6"
+      },
+      "build_closure": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-tni-owner-implementation-r1/canonical-integration-preparation-r1/actual-native-r1/closure.json",
+        "sha256": "c223cb931f3d80958c787105a221877c9f23e0f8287653b85858b0157462df1b"
+      }
+    },
+    "canonical_provenance": "ExactTNIa484 and actual rebuilt seven-direct-consumer frontier; existing PD8ec maps to tracked47c7 by actual project REAL32 allocated/RELA/nonfile-symbol/MOD equivalence. No new link."
+  },
+  "qualification_file": "../cpu-memory/thompson-table-sharing/TNI_EXTENSION_QUALIFICATION.json",
+  "PD_real32_equivalence_file": "../cpu-compute/pd-row-workspace/QUALIFICATION.json",
+  "PD_production_member_sha256": "8ec77f864716667aa79d40878fa11276f7dede4017c620201e54f9f83bb32b25",
+  "PD_repaired_compile_object_sha256": "e5245eed1f84a67ea9d428bed8d8b2529f568ca49394f9cf8b85d97bdc50f560",
+  "PD_equivalence_proof_sha256": "92abf53cb516e4394f2ce232ad81fb4985ea7b1f849310927e54aa4a2b1017cc",
+  "build_scope": "Existing frozen e319 built with TNIa484/PD7a498. Tracking PD47c7 has actual project-compiler allocated-byte/RELA/nonfile-symbol/MOD identity to its8ec member, not whole-file identity. No rebuild, relink or rewritten producer records. Thompson public-interface consumers were actually rebuilt in the qualified canonical build.",
+  "runtime": {
+    "WRF_EXPERIMENTAL_TPI_NUMA": 1,
+    "other_settings": "Unchanged375/881/825/faba/FIELDVIEW1/IB"
+  },
+  "previous_binding": {
+    "file": "PREVIOUS_SOURCE_BUILD_BINDING_TPI.json",
+    "sha256": "e5f0aacdd6a67b5744d99cbf6e10d244ee63cfb3d2b3407bc0a6d82103140528"
+  },
+  "native": {
+    "qualification": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-tni-owner-implementation-r1/NATIVE_QUALIFICATION.json",
+      "sha256": "26ead2169baeccd24063f0f9ad0a29817d9330e65338f9a296f6fdbffcc85878"
+    },
+    "receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-tni-owner-implementation-r1/actual-native-r1/receipt.json",
+      "sha256": "0264db3c88889daed0bc18d4b31031c3c67d9c54f7b256cb71c273eca2554052"
+    },
+    "closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-tni-owner-implementation-r1/actual-native-r1/closure.json",
+      "sha256": "f9cc3259d0713ce948b4307b479285dc08ee5c4922d3d973fed4f5ad39685b06"
+    },
+    "scope": "Four ranks, unchanged11 caller cases/raw+state, O0 bounds/O2 shared and O2 private; full record5(TPI) and record6(TNI) table bytes before/after publication/after callers. Production object distinct from accessor-test variant.",
+    "private_mode_limit": "Both-table mode0 native caller only; no both-table private full-WRF forecast qualification and no transfer of first-TPI-only mode0 full3h."
+  }
+}
