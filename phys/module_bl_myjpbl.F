@@ -747,6 +747,7 @@
           LLOW=LOWLYR(I,J)
           AKMS_DENS=AKMS(I,J)*RHOK(KTE+1-LLOW,I)
 !
+!$OMP SIMD PRIVATE(KFLIP)
           DO K=KTE,KTS,-1
             KFLIP=KTE+1-K
             UK(K)=U(I,KFLIP,J)
