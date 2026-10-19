@@ -1391,6 +1391,7 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
 !            = ph_previous + (msft*delta t/mu)*[ph_tend + ~g*w/2 - ~ww *
 !                                                         partial d phi/dz]
     DO k=2,k_end+1
+!$omp simd
     DO i=i_start, i_end
       rhs(i,k) = ph(i,k,j) + msfty(i,j)*rhs(i,k)/(c1f(k)*mut(i,j)+c2f(k))
       if(top_lid .and. k.eq.k_end+1)rhs(i,k)=0.
