@@ -1,0 +1,49 @@
+{
+  "status": "PROMOTED_WORKING_DEFAULT_EXACT_NATIVE_CALLER_AND_THREE_HOUR_APPLICATION",
+  "source_commit": "ebb471ba36a811c58d6b9bdc8f981705739cd8f0",
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/myj-vdifq-producer-simd-current-r1/wrf.exe",
+    "sha256": "f0641466ada307c221b8a0247120bd612367336bee25191dab3ec0c07a0a3211"
+  },
+  "archive_sha256": "6d5a70009ea0aa460a0bc6dbc4b2bd3151d845524e7b1188a1c7c5c6fbc08574",
+  "mechanism": "One SIMD directive on independent VDIFQ DTOZ/AKQ/CR producer; existing VDIFV pragma/all prior changes retained. Strict arithmetic/recurrence/flags unchanged.",
+  "native_receipt_sha256": "b4a7c565e5a2a2f212b7a02e3b26372a7cd0415d3735ce71699aff8c71134e3a",
+  "native_closure_sha256": "7b2606fcd804b342473741253b771c6836cd882f607b3cd88ef868c2bae72f9e",
+  "caller_qualification_sha256": "51c5f01d1ae8079995212b272bb94fa9ee5c8134e7d5bf8be3b7c0c8a49cd4ae",
+  "canonical_build": {
+    "receipt_sha256": "9191d8d176ad71d5d30316beaae4ff6a00eba10c5d123d3c59e9957bf1bbe83b",
+    "closure_sha256": "df316436bfff13c6ed9dae5f8f606f846a5d2740c92c58aa2b4623805bb598b8",
+    "invocation_id": "6f3fc349a93a4de7a70aa3b95943f401",
+    "zero_compiles": true,
+    "archive_total_unchanged": [
+      584,
+      583
+    ],
+    "unchanged_external_inputs": 13
+  },
+  "application_qualification_sha256": "73526f8502c6fce6bb3c9543cd4f17106eaa0c8930619ea8677d1921057995f8",
+  "scientific_receipt_sha256": "a74e1f5ff2dd3720f2dc02c4a7966256ed123c4933a968f946998087f2120395",
+  "reader_closure_sha256": "814bebfb5327064173854638f3cf8732ddf074472ce55be9030d642f8dc4896c",
+  "decision_reason": "Significant opposite-order completecaller gains plus exactnative/4product545step application support ownerkernel-inclusionrule. Separate laterglobaltiming does not establish isolatedQ regression/gain.",
+  "caller_wall_reductions_percent": {
+    "complete_VDIFQ": [
+      9.757435,
+      9.782255
+    ],
+    "captured_complete_MYJPBL": [
+      1.613082,
+      2.045284
+    ]
+  },
+  "qualification_scope": "GNU13.3/EPYC current configuration;4historyproducts545stepsall512/all4writers/tile/runtime checks and normal model+positive readerclosure. No current-image9h/restart144h/othercompiler/unmaskedtrap-order qualification.",
+  "forecast_result_file": "../../cpu-working/THREE_HOUR_RESULT.json",
+  "rollback": {
+    "executable": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/myj-vdifv-producer-simd-current-r1/wrf.exe",
+      "sha256": "8b101daff3e7b3ee873b2d0fee4c4d77dda7dc1c453da4df10c7f3fdac114174"
+    },
+    "source_commit": "7af45dd6994aff4795bd6d8d634e0344d60f351f",
+    "qualification_snapshot_commit": "ebb471ba36a811c58d6b9bdc8f981705739cd8f0",
+    "action": "Select retained8b101 with unchanged375/faba/881/825 runtime, or revert sourceebb471ba and rebuild. Production/master unchanged."
+  }
+}
