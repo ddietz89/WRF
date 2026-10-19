@@ -1,0 +1,230 @@
+{
+  "status": "REJECT_FIXED_STRICT_ZNVER2_RAW_VALUE_FAILURE_CLOSED_NO_VARIANTS",
+  "invocation_id": "d0276c08f0404c928d6684dbd8dd4418",
+  "receipt_sha256": "00d8457ab9415d148c8ec78f14fa87ce3d09efa5e5b96da29af3b3c44ad0fa89",
+  "closure_sha256": "97819ff3bf203220bf3ce0bc255ed3bd28d091e3964478c937c80df3f1bbc18e",
+  "actual_resource_closed": true,
+  "classification": "Value bits differ, not five-state or readonly/guard difference.",
+  "raw_protocol": {
+    "endian": "little_endian explicit driverOPEN",
+    "bytes_each": 13056,
+    "records": 8,
+    "words32_each_record": 408,
+    "layout": "caseid,n,lmxl,lpbl,ct,pblh,mixht (7 words); out(0:35,3) (108words Fortran column-major); x(0:35,8) (288words);state(5)."
+  },
+  "different_words32": 11,
+  "cases_affected": [
+    6
+  ],
+  "different_fields": "EL(22..32) only; out rows22..32,column3.",
+  "all_remaining_words_equal": true,
+  "all8_state_records_equal": true,
+  "state_records": [
+    [
+      34,
+      0,
+      32,
+      8096,
+      895
+    ],
+    [
+      34,
+      0,
+      32,
+      8096,
+      895
+    ],
+    [
+      34,
+      0,
+      32,
+      8096,
+      895
+    ],
+    [
+      34,
+      0,
+      32,
+      8096,
+      895
+    ],
+    [
+      34,
+      0,
+      32,
+      8096,
+      895
+    ],
+    [
+      34,
+      0,
+      33,
+      8097,
+      895
+    ],
+    [
+      34,
+      0,
+      32,
+      8096,
+      895
+    ],
+    [
+      34,
+      1024,
+      36,
+      16292,
+      1919
+    ]
+  ],
+  "all_readonly_x_words_equal": true,
+  "all_GM_GH_words_equal": true,
+  "all_meta_and_physical_guard_words_equal": true,
+  "case6_inputs": "Existing fixture sets Q2(19)=-1,Q2(20)=sNaN0x7f800001,Q2(21)=qNaN0x7fc54321. No input/oracle repair authorized.",
+  "exact_generating_instruction_or_cause": "UNKNOWN; no inference that FMA or one specific NaN instruction caused it. Codegen noFMA/wider gate NOTREACHED.",
+  "generic_reproduction": "PASS allallocatedELF/RELA/nonfile symbols against2dbb",
+  "generic_and_target_MOD": "byteexactb16;exportssame",
+  "full_captured_MYJPBL": "botharms passed originalgoldwordcounts and5state before directfailure; notwholecandidatequalification",
+  "not_reached": [
+    "VDIFQ32",
+    "VDIFV8/48",
+    "extractedice56",
+    "wholemodule noFMA/noapprox/scopedYMM gate"
+  ],
+  "differences": [
+    {
+      "word_offset_0": 2141,
+      "byte_offset_0": 8564,
+      "case": 6,
+      "case_word_offset_0": 101,
+      "field": "out(22,3)",
+      "role": "EL",
+      "parent_hex": "3f7fdac9",
+      "candidate_hex": "4222633a",
+      "parent_float32": 0.9994321465492249,
+      "candidate_float32": 40.596900939941406
+    },
+    {
+      "word_offset_0": 2142,
+      "byte_offset_0": 8568,
+      "case": 6,
+      "case_word_offset_0": 102,
+      "field": "out(23,3)",
+      "role": "EL",
+      "parent_hex": "3f7fd711",
+      "candidate_hex": "42226421",
+      "parent_float32": 0.9993754029273987,
+      "candidate_float32": 40.597782135009766
+    },
+    {
+      "word_offset_0": 2143,
+      "byte_offset_0": 8572,
+      "case": 6,
+      "case_word_offset_0": 103,
+      "field": "out(24,3)",
+      "role": "EL",
+      "parent_hex": "3f7fd1e1",
+      "candidate_hex": "4222633a",
+      "parent_float32": 0.999296247959137,
+      "candidate_float32": 40.596900939941406
+    },
+    {
+      "word_offset_0": 2144,
+      "byte_offset_0": 8576,
+      "case": 6,
+      "case_word_offset_0": 104,
+      "field": "out(25,3)",
+      "role": "EL",
+      "parent_hex": "3f7fcc14",
+      "candidate_hex": "4222633a",
+      "parent_float32": 0.9992077350616455,
+      "candidate_float32": 40.596900939941406
+    },
+    {
+      "word_offset_0": 2145,
+      "byte_offset_0": 8580,
+      "case": 6,
+      "case_word_offset_0": 105,
+      "field": "out(26,3)",
+      "role": "EL",
+      "parent_hex": "3f7fc58a",
+      "candidate_hex": "42226421",
+      "parent_float32": 0.9991079568862915,
+      "candidate_float32": 40.597782135009766
+    },
+    {
+      "word_offset_0": 2146,
+      "byte_offset_0": 8584,
+      "case": 6,
+      "case_word_offset_0": 106,
+      "field": "out(27,3)",
+      "role": "EL",
+      "parent_hex": "3f7fba1f",
+      "candidate_hex": "4222633a",
+      "parent_float32": 0.998933732509613,
+      "candidate_float32": 40.596900939941406
+    },
+    {
+      "word_offset_0": 2147,
+      "byte_offset_0": 8588,
+      "case": 6,
+      "case_word_offset_0": 107,
+      "field": "out(28,3)",
+      "role": "EL",
+      "parent_hex": "3f7fad32",
+      "candidate_hex": "42226421",
+      "parent_float32": 0.9987365007400513,
+      "candidate_float32": 40.597782135009766
+    },
+    {
+      "word_offset_0": 2148,
+      "byte_offset_0": 8592,
+      "case": 6,
+      "case_word_offset_0": 108,
+      "field": "out(29,3)",
+      "role": "EL",
+      "parent_hex": "3f7f9602",
+      "candidate_hex": "4222633a",
+      "parent_float32": 0.9983826875686646,
+      "candidate_float32": 40.596900939941406
+    },
+    {
+      "word_offset_0": 2149,
+      "byte_offset_0": 8596,
+      "case": 6,
+      "case_word_offset_0": 109,
+      "field": "out(30,3)",
+      "role": "EL",
+      "parent_hex": "3f7f6eec",
+      "candidate_hex": "4222633a",
+      "parent_float32": 0.997786283493042,
+      "candidate_float32": 40.596900939941406
+    },
+    {
+      "word_offset_0": 2150,
+      "byte_offset_0": 8600,
+      "case": 6,
+      "case_word_offset_0": 110,
+      "field": "out(31,3)",
+      "role": "EL",
+      "parent_hex": "3f7f12cd",
+      "candidate_hex": "42226421",
+      "parent_float32": 0.996380627155304,
+      "candidate_float32": 40.597782135009766
+    },
+    {
+      "word_offset_0": 2151,
+      "byte_offset_0": 8604,
+      "case": 6,
+      "case_word_offset_0": 111,
+      "field": "out(32,3)",
+      "role": "EL",
+      "parent_hex": "3f7e68f2",
+      "candidate_hex": "4222633a",
+      "parent_float32": 0.9937888383865356,
+      "candidate_float32": 40.596900939941406
+    }
+  ],
+  "no_timing_application_default_or_variant": true,
+  "postmortem_collection": "ONE hpc00 bounded2x13056B synthetic outputread alreadycomplete; no newnode/capture/rerun."
+}
