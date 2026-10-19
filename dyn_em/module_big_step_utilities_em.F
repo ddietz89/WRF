@@ -825,8 +825,10 @@ SUBROUTINE calc_cq ( moist, cqu, cqv, cqw, n_moist, &
         jtf=MIN(jte,jde-1)
         DO j=jts,jtf
           DO k=kts,ktf
-            qtot = 0.
-            DO ispe=PARAM_FIRST_SCALAR,n_moist
+            DO i=its,itf
+              qtot(i) = 0. + moist(i,k,j,PARAM_FIRST_SCALAR) + moist(i-1,k,j,PARAM_FIRST_SCALAR)
+            ENDDO
+            DO ispe=PARAM_FIRST_SCALAR+1,n_moist
               DO i=its,itf
                 qtot(i) = qtot(i) + moist(i,k,j,ispe) + moist(i-1,k,j,ispe)
               ENDDO
@@ -902,9 +904,7 @@ SUBROUTINE calc_cq ( moist, cqu, cqv, cqw, n_moist, &
         ENDDO
 
       END IF
-
 END SUBROUTINE calc_cq
-
 !----------------------------------------------------------------------
 
 SUBROUTINE calc_alt ( alt, al, alb,                  &
@@ -1052,6 +1052,8 @@ SUBROUTINE calc_p_rho_phi ( moist, n_moist, hypsometric_opt,      &
       ELSE hypso_nonhydro
         CALL wrf_error_fatal ( 'calc_p_rho_phi: hypsometric_opt should be 1 or 2' )
       END IF hypso_nonhydro
+
+
 
       moist_nonhydro : IF (n_moist >= PARAM_FIRST_SCALAR ) THEN  
 
