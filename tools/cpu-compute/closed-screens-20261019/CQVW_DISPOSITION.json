@@ -1,0 +1,41 @@
+{
+  "status": "PARK_CQV_CQW",
+  "reason": "No measured complete-caller gain: candidate wall and CPU increased on both same-host opposite-order pairs.",
+  "timing_result": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-cqvw-first-species-peel-r1/caller-timing-preparation-r1/timing-r1/TIMING_RESULT.json",
+    "sha256": "d320c61dc0997c753c7fbdc3b6eee869752f8970a0f37926f12d6cc1f8b5868b"
+  },
+  "same_host_pairs": [
+    {
+      "host": "hpc01",
+      "order": "parent_then_candidate",
+      "parent_arm": 0,
+      "candidate_arm": 2,
+      "candidate_wall_percent_change": 3.227070083533956,
+      "candidate_cpu_percent_change": 3.224277357682759,
+      "interpretation": "candidate_slower_in_this_pair"
+    },
+    {
+      "host": "hpc04",
+      "order": "candidate_then_parent",
+      "parent_arm": 3,
+      "candidate_arm": 1,
+      "candidate_wall_percent_change": 0.734390687648312,
+      "candidate_cpu_percent_change": 0.7348218949879692,
+      "interpretation": "candidate_slower_in_this_pair"
+    }
+  ],
+  "native_correctness": "passed current-parent reproduction, O0 bounds/O2 nineteen whole callers, raw/five-state/readonly/guards; scoped two clears removed",
+  "rollback": {
+    "selected_CQU_only_canonical_source_sha256": "c41522cd74f10267b705331e18092ce2cda0e8375a7e09c1ecff3e69741df6b6",
+    "selected_module_sha256": "a24111c2fa0112eff6572c1aad24db8e55ed5f7d0c266e108f86194ae538f169",
+    "next_application": "B-only ten-owner image 3220319ccf387520dc90934198430e3366745e195381e235e5b14157679538f1; A CQV/CQW excluded"
+  },
+  "canonical_preparation": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-cqvw-first-species-peel-r1/canonical-ten-owner-link-preparation-r1",
+    "status": "INACTIVE_NOT_EXECUTED_EXCLUDED",
+    "source_pins_sha256": "8234af48aa83b77a936432c7d208b05871ddcdbe300e68ce41cf793f74b2db37"
+  },
+  "follow_up": "No extra variants, repetitions, timing, or link. Retain all literal evidence.",
+  "promotion": false
+}

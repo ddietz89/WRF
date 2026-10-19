@@ -1,0 +1,232 @@
+{
+  "status": "PASS_EXACT_TIMING_CLOSED_NO_MEASURED_GAIN",
+  "decision": "PARK_CQV_CQW",
+  "recorded_utc": "2026-10-19T16:46:25.212794+00:00",
+  "workload": {
+    "routine": "whole calc_cq",
+    "calls": 1024,
+    "geometry": [
+      188,
+      19,
+      32
+    ],
+    "n_moist": 7,
+    "provenance": "source-derived nominal Thompson six-moist-species synthetic workload; actual runtime num_moist and tile call not captured",
+    "inside_both_clocks": [
+      "identical input restore",
+      "output poison",
+      "five-state reset and read",
+      "complete caller"
+    ],
+    "outside_both_clocks": [
+      "terminal raw equality",
+      "readonly guards",
+      "boundary guards"
+    ]
+  },
+  "arms": [
+    {
+      "invocation_id": "7671c09e1ee94deebfecd150b41249a3",
+      "host": "hpc01",
+      "which": 1,
+      "wall_seconds": 1.70747711,
+      "cpu_seconds": 1.707283459,
+      "calls": 1024,
+      "output_sha256": "036f64959ad2460f37b03c0f00e33b23bcad0f33fc3bc35a23bce9dcf108bda0",
+      "gold_bytes": 1627940,
+      "memory_peak_bytes": 179163136,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "cpu_stat": "usage_usec 2122484\nuser_usec 1863791\nsystem_usec 258693\ncore_sched.force_idle_usec 0\nnr_periods 34\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+      "arm": 0,
+      "role": "parent",
+      "strong_closure": true,
+      "cache_clear_before_arm": true
+    },
+    {
+      "invocation_id": "4958f86dbab445a487fa4bb21383ebb4",
+      "host": "hpc04",
+      "which": 2,
+      "wall_seconds": 1.729909184,
+      "cpu_seconds": 1.729827741,
+      "calls": 1024,
+      "output_sha256": "036f64959ad2460f37b03c0f00e33b23bcad0f33fc3bc35a23bce9dcf108bda0",
+      "gold_bytes": 1627940,
+      "memory_peak_bytes": 177979392,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "cpu_stat": "usage_usec 2082026\nuser_usec 1877039\nsystem_usec 204987\ncore_sched.force_idle_usec 0\nnr_periods 23\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+      "arm": 1,
+      "role": "candidate",
+      "strong_closure": true,
+      "cache_clear_before_arm": true
+    },
+    {
+      "invocation_id": "d16dba686fc5448abff5a5a5b2e094bc",
+      "host": "hpc01",
+      "which": 2,
+      "wall_seconds": 1.762578593,
+      "cpu_seconds": 1.762331013,
+      "calls": 1024,
+      "output_sha256": "036f64959ad2460f37b03c0f00e33b23bcad0f33fc3bc35a23bce9dcf108bda0",
+      "gold_bytes": 1627940,
+      "memory_peak_bytes": 179163136,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "cpu_stat": "usage_usec 2109156\nuser_usec 1906237\nsystem_usec 202918\ncore_sched.force_idle_usec 0\nnr_periods 23\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+      "arm": 2,
+      "role": "candidate",
+      "strong_closure": true,
+      "cache_clear_before_arm": true
+    },
+    {
+      "invocation_id": "e89d9d914515422da78617ec79131021",
+      "host": "hpc04",
+      "which": 1,
+      "wall_seconds": 1.717297511,
+      "cpu_seconds": 1.717209311,
+      "calls": 1024,
+      "output_sha256": "036f64959ad2460f37b03c0f00e33b23bcad0f33fc3bc35a23bce9dcf108bda0",
+      "gold_bytes": 1627940,
+      "memory_peak_bytes": 178085888,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "cpu_stat": "usage_usec 2064482\nuser_usec 1867673\nsystem_usec 196808\ncore_sched.force_idle_usec 0\nnr_periods 22\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+      "arm": 3,
+      "role": "parent",
+      "strong_closure": true,
+      "cache_clear_before_arm": true
+    }
+  ],
+  "same_host_pairs": [
+    {
+      "host": "hpc01",
+      "order": "parent_then_candidate",
+      "parent_arm": 0,
+      "candidate_arm": 2,
+      "candidate_wall_percent_change": 3.227070083533956,
+      "candidate_cpu_percent_change": 3.224277357682759,
+      "interpretation": "candidate_slower_in_this_pair"
+    },
+    {
+      "host": "hpc04",
+      "order": "candidate_then_parent",
+      "parent_arm": 3,
+      "candidate_arm": 1,
+      "candidate_wall_percent_change": 0.734390687648312,
+      "candidate_cpu_percent_change": 0.7348218949879692,
+      "interpretation": "candidate_slower_in_this_pair"
+    }
+  ],
+  "wave_order": {
+    "wave1": [
+      0,
+      1
+    ],
+    "wave2": [
+      2,
+      3
+    ],
+    "barrier_ref": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-cqvw-first-species-peel-r1/caller-timing-preparation-r1/timing-r1/WAVE1_CLOSED_BARRIER.json",
+      "sha256": "14543d1a8928e2100a225918d34ad705ddcbd9dbaec098c72592358cd86f7ced"
+    },
+    "status": "actual root-operated wave1 strong closures recorded before any wave2 cache"
+  },
+  "limits": [
+    "One pair per host with opposite orders; no statistical significance or repeatability claim.",
+    "Both candidates slower in these measured pairs despite scoped clear removal; no exact instruction-cause attribution.",
+    "No forecast performance claim or application qualification.",
+    "No cross-host clock comparison."
+  ],
+  "raw_references": [
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-cqvw-first-species-peel-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/receipt.json",
+      "sha256": "8c75d9c457a660729874332843af7c04bee50edd0ea723778dc71527f8d31297"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-cqvw-first-species-peel-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/closure.json",
+      "sha256": "1c6a8a4885f644266830d9cab8e8a3bbd496c170eee89a3965d7fac6533a8f0d"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-cqvw-first-species-peel-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/cache-clear.json",
+      "sha256": "b794e479fbd7e6ce038d5702518df7931bc760d74534620b63749ec06748a3a9"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-cqvw-first-species-peel-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/controller.json",
+      "sha256": "2590ac4250293899338547b9fefeceafc7c6b1eb745d2f9a588dbbda138c1560"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-cqvw-first-species-peel-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/receipt.json",
+      "sha256": "30854309ec61a928712d211c6d145c64e3e66eb08feabc886e816c5ab9d67ba2"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-cqvw-first-species-peel-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/closure.json",
+      "sha256": "b4f9e8523adca5f4275981c7929ed8719058a2b57cd0c62216e2542fb9f5e983"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-cqvw-first-species-peel-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/cache-clear.json",
+      "sha256": "264c5aaa23ff981a389a9ff59fbd9db2f75f7a62b09babd4a6d687848309775b"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-cqvw-first-species-peel-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/controller.json",
+      "sha256": "02e2b5828ee8d5f3b5e9353d3e3394314b40027a12a6c26953db263c8f24656f"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-cqvw-first-species-peel-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/receipt.json",
+      "sha256": "341b287c1d441414a1df2283c6939c45878ac8c603a1a71dcfeee2d3ee10e3a2"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-cqvw-first-species-peel-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/closure.json",
+      "sha256": "6e945d41ef955a43a6ddbd72d73c84d4c99c453281914aaa0f79ea6f53bebf37"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-cqvw-first-species-peel-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/cache-clear.json",
+      "sha256": "22205c2a92671d54829ee88b470b88ffc68053840782baad715d5cea017ad6bc"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-cqvw-first-species-peel-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/controller.json",
+      "sha256": "350a52f3eb3a62178751b386349d0c8fdf787e1bd2f56d5a050da148e78bef0b"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-cqvw-first-species-peel-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/receipt.json",
+      "sha256": "19c7fd6f7f11ced2dcd78fa2f987c90e55345a14941b3aed7b0de1a69a7c3e2e"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-cqvw-first-species-peel-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/closure.json",
+      "sha256": "a59626415a7cec817e974bd13beeb20758910f828ebcdcef2309e1b4dabd362a"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-cqvw-first-species-peel-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/cache-clear.json",
+      "sha256": "b6d75e8b8ac86a16edb958ccfdba8c776a5445d987b481247075cd3a5f251952"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-cqvw-first-species-peel-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/controller.json",
+      "sha256": "2e1b0f609e706320daa1e7cb921d71a9e1bbac1ba9334f6ffcf373de9cdf592c"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-cqvw-first-species-peel-r1/caller-timing-preparation-r1/timing-r1/WAVE1_CLOSED_BARRIER.json",
+      "sha256": "14543d1a8928e2100a225918d34ad705ddcbd9dbaec098c72592358cd86f7ced"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-cqvw-first-species-peel-r1/caller-timing-preparation-r1/ROOT_TIMING_RELEASE.json",
+      "sha256": "b698ab3bea44f0f3237f19234f8c80c94d83eca1ff17886d5494d3632f4fd9fa"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-cqvw-first-species-peel-r1/NATIVE_QUALIFICATION.json",
+      "sha256": "4dda6d1935cfa51e11dfafc27ae01c328bbe02243f1ebb6e6152df6b3ed7b6b7"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-cqvw-first-species-peel-r1/actual-native-r1/receipt.json",
+      "sha256": "56b5c1282eabfb2c494eb6180364d4afe0e411156d9a3dc332f34865aed08e09"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-cqvw-first-species-peel-r1/actual-native-r1/closure.json",
+      "sha256": "d9a0691ac790d45d67394faa1a32239c6e09f7776519e5ca180c5e6365d0a0d7"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-cqvw-first-species-peel-r1/caller-timing-preparation-r1/driver-build-r1/actual-native-r1/receipt.json",
+      "sha256": "0a6bcf120d20876b48ac095d4135e06b962902e4c21e41d9e2f6ce1a7de0fee8"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-cqvw-first-species-peel-r1/caller-timing-preparation-r1/driver-build-r1/actual-native-r1/closure.json",
+      "sha256": "35651491e6250cee90dc70759d99507857a58122d4c55804da45fa700f5b9108"
+    }
+  ]
+}

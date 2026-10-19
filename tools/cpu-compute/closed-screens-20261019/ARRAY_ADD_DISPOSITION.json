@@ -1,0 +1,49 @@
+{
+  "status": "PARK_ACTUAL_PROJECT_O2_NAN_PAYLOAD_FAILURE_NO_TIMING_OR_VARIANTS",
+  "invocation_id": "bb6f08b7fffa4dcbb740c685168da421",
+  "parent_original_equivalence": {
+    "status": "PASS_ALLOCATED_BYTES_RELOCATIONS_NONFILE_SYMBOLS_EXACT",
+    "reference_sha256": "94757c4065da6168f2945bb730f3758b897afd00680ba6acaefb384f8fbd95af",
+    "rebuilt_sha256": "d81cd7ea3f9568b52d47debf83dd48bc0390f680c08c10bcb0cd14ec4a04abaf",
+    "excluded": "Only nonallocated sections (including debug paths), STT_FILE symbol. All allocated text/rodata/data/bss/unwind sections and their relocations exact."
+  },
+  "parent_simd_flag_only_equivalence": {
+    "status": "PASS_ALLOCATED_BYTES_RELOCATIONS_NONFILE_SYMBOLS_EXACT",
+    "reference_sha256": "94757c4065da6168f2945bb730f3758b897afd00680ba6acaefb384f8fbd95af",
+    "rebuilt_sha256": "1ffdac43dcf6e092e419764ab757cac93c4ffa30237cfb2a154f2681fa42caee",
+    "excluded": "Only nonallocated sections (including debug paths), STT_FILE symbol. All allocated text/rodata/data/bss/unwind sections and their relocations exact."
+  },
+  "O0_same_opt_raw_state_equal": true,
+  "O2_array_words_different": 124,
+  "O2_state_words_different": 0,
+  "finite_pattern_words_different": 0,
+  "first_difference": {
+    "record": 24,
+    "rounding": 0,
+    "pattern": 1,
+    "case": 1,
+    "ijk": [
+      24,
+      0,
+      3
+    ],
+    "scalar_hex": "FFC22222",
+    "candidate_hex": "7FC11111"
+  },
+  "mechanism": "Actual candidate has2ADDPS bodies. Main4-lane uses lvar destination;2-lane epilogue loads rvar into xmm0, lvar into xmm1, ADDPS xmm1\u2192xmm0, reversing the scalar ADDSS lvar-destination operand roles. First mismatches I24/I25 in27-wide case coincide with this2-lane epilogue. Static instruction/aggregate evidence is consistent with NaN payload priority reversal; no dynamic first-divergence trace claimed.",
+  "raw_case_scope": "288 whole public add_a2a calls across24 boundary/config/tail cases\u00d73patterns\u00d74roundings; all five executables exited0 and in-executable readonly/halo/config guards passed. Strict cross-arm comparison rejectedO2candidate.",
+  "qualification_limits": [
+    "Matching five-state does not waive124 NaN payload/sign output differences.",
+    "OnlyO0 exactness and parent/flag-only identity passed; no native candidate qualification, timing, application or default claim.",
+    "R1 precompile anchor failure and R2 real numerical failure preserved separately.",
+    "Module build enablement -fopenmp-simd was explicitly new, with exact original-flag/flag-only parent proof; no unchanged-flags claim."
+  ],
+  "next": "Close candidate. No timing, guard/tail/ISA/source variant ladder, oracle change, further API export or retry. Main/default unchanged.",
+  "raw_references": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-add-a2a-current-triage-r1/actual-native-r2/receipt.json": "57ae6a60077bfbd9deab9c3cbde4746ae00a5257f3e63890591f36984d4ea283",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-add-a2a-current-triage-r1/actual-native-r2/closure.json": "d8204679ec276fcae3a0d24e7468b8d0b6132ecbb928d06a31d8969e9c65641f",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-add-a2a-current-triage-r1/ACTUAL_O2_FAILURE_DIAGNOSTIC.json": "1b73ac80e263f88e87d893c315e16ab78200e70cac92f66fbb373717aa3ee527",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-add-a2a-current-triage-r1/PROVIDER_ADJUDICATION.json": "74f21b150546d4ede1220350ccef2f436db1ea3d8583ab872072b52f5b586e49",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-add-a2a-current-triage-r1/native-gate-r2/source-pins.json": "06f6865b87030913dd000186f2c6c4ad62cfd786290833d4a7b47bfd0453ca0b"
+  }
+}

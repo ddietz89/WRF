@@ -1,6 +1,6 @@
 # WRF CPU optimization — continuing campaign handoff
 
-Initial snapshot: **2026-10-19 09:35 UTC**; latest qualification update: **2026-10-19 14:34 UTC**. This is a recovery and evidence handoff, **not a campaign closeout**. The persistent Goal is active. Continue authorized work after writing or reading this file; a status response, negative experiment, successful test or promotion is not a stopping point.
+Initial snapshot: **2026-10-19 09:35 UTC**; latest recovery update: **2026-10-19 16:54 UTC**. This is a recovery and evidence handoff, **not a campaign closeout**. The persistent Goal is active. Continue authorized work after writing or reading this file; a status response, negative experiment, successful test or promotion is not a stopping point.
 
 ## Latest update: fresh combined three-hour promotion (2026-10-19 16:00 UTC)
 
@@ -10,9 +10,11 @@ Original peaks91.95/94.16/94.08/99.82GiB versus current81.67/79.49/79.47/79.43Gi
 
 Sourcebe96 is post-test tracking of exactc415/6b983; both frozen producers remain commitNULL. Actual seven-member consumer rebuild preserves577/584 other archive occurrences. Roll back to qualified **6c/sourceeb616** using `tools/cpu-working/PREVIOUS_SELECTION_6C.json`, same runtime. Its nine-hour result remains bound to6c; **ed095 has no nine-hour qualification yet**. See consolidated findings and current JSON binding for exact artifacts/support.
 
-Continue, do not stop: A array-add sampled scalar loop has actual DeepSeek implementation/patch review returned; its original module lacks-fopenmp-simd, so a flag-only parent equality gate precedes the one-directive native test on02. B four non-sentinel rain/graupel tables are the next source candidate, preserving ordinarytcg sentinel and fixed10 transaction; no native/default qualification. The first implementation response truncated and is retained for local repair plus actual-code review. Root owns main/default/ledger; actual live identities are in CURRENT_STATE.json. All forecasts/SCI from the completed pair are closed; A nativeR1 failed before compilation on a repeated source anchor and closed; exact canonical-comment projection repair is in preparation, with no numerical acceptance changed. AWS suspended; production/master excluded. Persistent Goal remains active.
+Continue, do not stop: the array-add SIMD trial closed with a real strict O2 NaN-payload failure (124 output words; state equal), so it is parked without timing or source variants. Its parent/flag-only proofs and O0 success do not waive the O2 result (`portfolio-a-add-a2a-current-triage-r1/DISPOSITION.json`, `3a094afb`). The separate CQV/CQW peel passed19 native raw/state cases and removed both clears, but complete synthetic callers were3.2271% and0.7344% slower in the opposite-order same-host pairs. All four timed arms were exact/cache-cleared/strongly closed with zero memory events/throttling. It is parked without source variants or integration; selected CQU remains unchanged.
 
-## October 19 update: combined memory and boundary-copy promotion
+B's four additional non-sentinel graupel owners passed native11-case/all11-table-record checks and the actual canonical consumer build **3220319c/archive25e6fc3c** (`BUILD_QUALIFICATION.json`, `34d385e2`). All owned node jobs closed. This future ten-owner image is **not selected or application-qualified**. Additional declared capacity is not measured memory saving. The B ten-owner3220319c nine-hour candidate is actually running exclusively on hpc01–04 after all four checked cache clears. Sole lifecycle operator is radiation_resume, coordinator INV6b2520b6a4894bc589c28c3da8352b64, active manifestb7a10e7d. Early512 image/library/affinity/InfiniBand checks passed; final science is pending. A CQV/CQW is excluded. Comparison is unpaired against retained original outputs, unprofiled. Do not duplicate model launch or clear caches while it runs. Next source-only work examines a distinct final-theta SIMD loop and a twelve-table contiguous family-owner design; neither has native/application qualification. Root owns main/default/ledger and resource release. Recover actual identities from CURRENT_STATE.json. Provider accounting is272 actual returned receipts/2,452,120 reported tokens; charge unknown and separate from frozen AWS commitment$4.6495. AWS suspended; production/master excluded; Goal active.
+
+## Historical 14:34 update: combined memory and boundary-copy promotion
 
 This update supersedes the original09:35 selection and pending queues below. The Goal remains active; recover actual live jobs from CURRENT_STATE.json.
 
@@ -30,7 +32,7 @@ This update supersedes the original09:35 selection and pending queues below. The
 
 Immediate rollback: e319d234/sourcecea9ce3d with the same selected runtime, or revert the boundary source commit and rebuild its one member/executable. Earlier aada/source852 and generic no-macro885/sourcee187 remain available. Use[selection](tools/cpu-working/selection.json),[source/build binding](tools/cpu-working/CURRENT_SOURCE_BUILD_BINDING.json) and[findings](OPTIMIZATION_FINDINGS.md). Historical below-sections describe their stated epochs, not the current default. Current provider accounting is259 returned receipts/2,313,083 reported tokens; charge unknown, separate from frozen AWS commitment$4.6495.
 
-The selected nine-hour lifecycle is closed successfully. The combined CQU/six-owner canonical build also passed and closed (`ed095110`,577/584 archive occurrences unchanged). The fresh corrected-original control is actually running, followed by the combined candidate and unchanged four-product/545-step checker. No new source/default promotion has occurred; recover live job identities and later state from CURRENT_STATE.json. Do not stop after this promotion or report; recover later actual state from CURRENT_STATE.json.
+At that historical checkpoint the fresh original/combined pair was in flight. It has since completed, passed and been promoted as recorded in the latest section above. Its intermediate pending queues do not describe the current selection.
 
 ## Read first
 
