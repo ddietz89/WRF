@@ -1,7 +1,7 @@
 {
   "status": "PROMOTED_GENERIC_MYJ_MIXLEN_SCRATCH_REUSE_ON_ALL_E55_IMPROVEMENTS",
   "source_commit": "4e70d8fd315cb1220793226b69a2c55372cfb9bd",
-  "scope": "Cold single-domain noon12:00-13:15 OMP1/DIMNRHG1/shared1/375/881/825/faba/FIELDVIEW1/IB512/twoTiles exactapplication, repairedmetadata-onlypostprocessing. No current3h/9h/restart/nesting/othercompiler/mode0 transfer.",
+  "scope": "Cold single-domain noon12:00-13:15 OMP1/DIMNRHG1/shared1/375/881/825/faba/FIELDVIEW1/IB512/twoTiles exact normalR2 application plus prior transparent repairedR1. Own unprofiled9h is live, not yet qualified; no restart/nesting/othercompiler/mode0 transfer.",
   "artifacts": {
     "shim": {
       "path": "/pool/wrf-experiment/wrf-cpu/source-discovery/parallel-pack-quilt-shim-native-r1/wrf_quilt_thread_shim.so",
@@ -48,7 +48,7 @@
   },
   "includes": "All retained e55/sourceef7 compute/memory/output/library improvements plus generic MIXLEN dead-scratch reuse; whole-MYJPBL Znver2 flags rejected and excluded.",
   "science": {
-    "status": "PASS_B1FB_COMBINED_NOON75M_EXACT_APPLICATION_REPAIRED_POSTPROCESSING_PROFILER_UNAVAILABLE",
+    "status": "PASS_ORIGINAL_TWO_HISTORY_AND_512_NOON75M_ORDERED_SEQUENCE",
     "complete_products": 2,
     "ordered_steps": 230,
     "last_observed_step": "2026-10-12_13:15:00",
@@ -63,17 +63,15 @@
       503,
       511
     ],
-    "parent_model_service_pass": false,
-    "frozen_original_gate_pass": false,
-    "explicit_repaired_postprocessing": true,
     "reader_positive_closure": true,
-    "receipt_sha256": "90d49fde5c7ea26d7fcd33517bce9e1836b4979c623f93c63c7e7dc257420828",
-    "reader_closure_sha256": "a8bb9994d486d2e63c5a346a06c961a438114ce9c018a481fb312cbec35e4721",
-    "full_qualification_sha256": "55e2170cfc4f695e2eb7124cb4dec541954a9db290979ed2423252a4b117eb2f",
-    "all_model_MPI_jobs_closed": true,
+    "receipt_sha256": "19007b280638354f92f9c7548b732ae187357052b3968a66662fa54df211dce5",
+    "reader_closure_sha256": "a086ccac8c019aee539fd6f2246194330d31dca413b6544bff62d59675b9c715",
+    "full_qualification_sha256": "405bb4c6a256bdd93bd582497fc0652e9a5fea4b46900da99ffa5f6d396f784e",
+    "all_model_recorder_reader_scopes_closed": true,
+    "coarse_parent_UNAVAILABLE_preserved": true,
     "protected_checker": "0382bcbabfbc16b76114ef552206c6c558ea15cd3c3552dfaed98b977deea2b4"
   },
-  "lease_reference": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-pairedproducer75m-runtime-r1/lease-candidate-proposed.json",
+  "lease_reference": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-pairedproducer75m-runtime-r2/lease-candidate-proposed.json",
   "rollback_executable_sha256": "e55c97e6129529f366fd0dd496d3cff1192714223c7755a7484622ddb82a108f",
   "activation": "Selection record, not a launcher. Use existing bounded launcher with a fresh run directory/log directory/lease and actual affinity/library/resource checks. Never preload MPI launcher or helper processes.",
   "schema_version": 2,
@@ -135,20 +133,20 @@
     "sha256": "e55c97e6129529f366fd0dd496d3cff1192714223c7755a7484622ddb82a108f"
   },
   "latest_application": {
-    "evidence_file": "../cpu-compute/myj-mixlen-scratch-reuse/APPLICATION_QUALIFICATION.json",
+    "evidence_file": "../cpu-compute/myj-mixlen-scratch-reuse/NORMAL_NOON_R2_QUALIFICATION.json",
     "executable_sha256": "b1fb398a9c7186823584252b53f4ee360c260143064720256f660ba1459c8670",
     "source_commit": "4e70d8fd315cb1220793226b69a2c55372cfb9bd",
-    "comparison_design": "Exactcorrectedoriginal2products/230steps afterexplicitpostprocessingrepair; NOTperformancecomparison",
+    "comparison_design": "Exact corrected-original2products/230steps normalR2 original checker; diagnostic profiles, NOTperformancecomparison",
     "actual_product_comparisons": 2,
     "ordered_steps": 230,
     "all_own_jobs_closed": true,
-    "full_qualification_sha256": "55e2170cfc4f695e2eb7124cb4dec541954a9db290979ed2423252a4b117eb2f",
+    "full_qualification_sha256": "405bb4c6a256bdd93bd582497fc0652e9a5fea4b46900da99ffa5f6d396f784e",
     "fresh_matched_timing": false,
     "applies_to_current_selection": true,
     "timing_claim": false,
-    "scope": "Cold single-domain currentGNU13.3/OMP1/DIMNRHG1/shared1/375/881/825/faba/FIELDVIEW1/IB/world512,two tiles,12:00-13:15. No full3h/9h/othercompiler/restart/nesting transfer. Same original numericalchecker; original failed metadata gate is not reclassified success."
+    "scope": "Cold single-domain noon12:00-13:15 OMP1/DIMNRHG1/shared1/375/881/825/faba/FIELDVIEW1/IB512/twoTiles exact normalR2 application plus prior transparent repairedR1. Own unprofiled9h is live, not yet qualified; no restart/nesting/othercompiler/mode0 transfer."
   },
-  "timing_scope": "Current b1fb owns exact75m noon application, explicitly repairedpostprocessing; no forecasttiming claim/current3h/9h qualification. E55 owns last3h unpaired observation; TEN322owns historical9h. Callerbenefit0.25/0.71% only.",
+  "timing_scope": "Current b1fb owns two exact75m noon application checks (R1 transparently repaired, R2 normal) and three actual15s profiles; no current forecast timing claim. Its unprofiled9h is active. E55 owns last3h unpaired observation; TEN322 historical9h. Callerbenefit0.25/0.71% only.",
   "earlier_three_hour_benchmark_f1d7": {
     "executable": {
       "path": "/pool/wrf-experiment/wrf-cpu/builds/four-worthy-ports-current-r1/wrf.exe",
@@ -1934,5 +1932,19 @@
     "ordered_steps": 545,
     "all_own_jobs_closed": true
   },
-  "current_three_hour_qualified": false
+  "current_three_hour_qualified": false,
+  "previous_repaired_noon_application": {
+    "evidence_file": "../cpu-compute/myj-mixlen-scratch-reuse/APPLICATION_QUALIFICATION.json",
+    "executable_sha256": "b1fb398a9c7186823584252b53f4ee360c260143064720256f660ba1459c8670",
+    "source_commit": "4e70d8fd315cb1220793226b69a2c55372cfb9bd",
+    "comparison_design": "Exactcorrectedoriginal2products/230steps afterexplicitpostprocessingrepair; NOTperformancecomparison",
+    "actual_product_comparisons": 2,
+    "ordered_steps": 230,
+    "all_own_jobs_closed": true,
+    "full_qualification_sha256": "55e2170cfc4f695e2eb7124cb4dec541954a9db290979ed2423252a4b117eb2f",
+    "fresh_matched_timing": false,
+    "applies_to_current_selection": true,
+    "timing_claim": false,
+    "scope": "Cold single-domain currentGNU13.3/OMP1/DIMNRHG1/shared1/375/881/825/faba/FIELDVIEW1/IB/world512,two tiles,12:00-13:15. No full3h/9h/othercompiler/restart/nesting transfer. Same original numericalchecker; original failed metadata gate is not reclassified success."
+  }
 }
