@@ -683,6 +683,8 @@ CONTAINS
       INTEGER  :: i, j, k, istag, jstag, itime, k_end, &
                   i_start, i_end
 
+      REAL     :: bc_source
+
       LOGICAL  :: debug, open_bc_copy
 
 !------------
@@ -1066,9 +1068,10 @@ CONTAINS
 
             DO k = kts, k_end
             DO i = i_start, i_end
-              dat(i,k,jds-1) = dat(i,k,jds)
-              dat(i,k,jds-2) = dat(i,k,jds)
-              dat(i,k,jds-3) = dat(i,k,jds)
+              bc_source = dat(i,k,jds)
+              dat(i,k,jds-1) = bc_source
+              dat(i,k,jds-2) = bc_source
+              dat(i,k,jds-3) = bc_source
             ENDDO
             ENDDO
 
