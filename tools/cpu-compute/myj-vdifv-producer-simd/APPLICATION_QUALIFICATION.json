@@ -1,0 +1,303 @@
+{
+  "status": "PASS_FINAL_THREE_HOUR_QUALIFICATION",
+  "utc": "2026-10-19T00:14:15.886884+00:00",
+  "source_commit": "7af45dd6994aff4795bd6d8d634e0344d60f351f",
+  "candidate_executable_sha256": "8b101daff3e7b3ee873b2d0fee4c4d77dda7dc1c453da4df10c7f3fdac114174",
+  "candidate_archive_sha256": "0766653613752ceafff2af70fd7369cbd1697d84077037f880d82e8526f1122e",
+  "all_model_and_reader_scopes_closed": true,
+  "fresh_both_arms": false,
+  "scope": "ONE fresh MYJ producer-pragma8b101 candidate-only06to09 application versus same immutable corrected-original546b control819.733452s in its own ed296/grant341939 context. All previous ba422/c4d1/pack84e80 changes retained. No newcontrol,grantcopy/reseal or fresh matched timing claim.",
+  "retained_control": {
+    "stage": "/pool/wrf-experiment/wrf-cpu/science-prep/production512-original-t-lw3h-r1",
+    "source_manifest_sha256": "ed296730f27240dc290ed544cb84dda9a8a1e690b2ae95c392b8e5754ae85bce",
+    "grant_sha256": "341939a50515b4cc47f8470b885ddd2b77187aabea8606d46c96dd6e71f320db",
+    "run_directory": "/pool/wrf-experiment/wrf-cpu/runs/production512-original-t-lw3h-control-r1",
+    "executable_sha256": "546b99156cbd809e1cae5e0ea8cebeea44dafd6331abf89e4daea00e0dd0a5e7"
+  },
+  "candidate_lease_sha256": "4a86426b748f2072d7be720ab7f759d8e677feefb729f3fdfb5bf2571375d44f",
+  "actual_canonical_build": {
+    "source_commit": "7af45dd6994aff4795bd6d8d634e0344d60f351f",
+    "receipt_sha256": "aa316bf84161f28a46f3778fba79c88e752eae813e1d725fbc9f968ed531f58e",
+    "closure_sha256": "a0bf0827027d08d8bcf0cd80a4eb8091d0558ad595150ae6004fd3c359928a4c",
+    "recipe_sha256": "2acd344bf641927910edc93be49b92a498a18297dad9f2570c0671124c694b01",
+    "candidate_member_sha256": "214b918168d4691005f2a20c90462fe7a28370df6e1801d357c0d76a653bcadc",
+    "parent_executable_sha256": "ba422b71e67d07adcc28ad317e14a8c59b5fa5b5887ef8e365f2e72f0705aba2",
+    "parent_archive_sha256": "c4d1a738c13e529143a696346bf28d5972e2ac7ebbcc54a0e4af578f5e5c3fd9",
+    "preserved_pack_object_sha256": "84e80b9a73654017f4d67655d9a1ba6cf236cf15b78f40955dd5d3f1a6f44f4a"
+  },
+  "science": {
+    "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+    "products": 4,
+    "observed_step_count": 545,
+    "observed_last_step": "2026-10-12_09:00:00",
+    "exact_ordered_time_dt_domain": true,
+    "all512_runtime_and_writer_proof": "PASS_UNCHANGED_CHECKER",
+    "science_sha256": "6a71a49999b74e8d516b4c9fe295e20782c037daa80d28380648d2df293ae174",
+    "reader_closure_sha256": "ae56cb38c9247b108d5196dcd269d36cebdfcdf06d76bca11ab98504e058b313"
+  },
+  "metrics": {
+    "control": {
+      "wall_seconds": 819.7334523110185,
+      "cpu_seconds": 367241.169317,
+      "main_step_sum_seconds": 597.57855
+    },
+    "candidate": {
+      "wall_seconds": 668.4569876820315,
+      "cpu_seconds": 322604.180058,
+      "main_step_sum_seconds": 562.13893
+    }
+  },
+  "descriptive_reductions_vs_retained_original_percent": {
+    "wall_seconds": 18.454348081379823,
+    "cpu_seconds": 12.154680081761104,
+    "main_step_sum_seconds": 5.9305375000491605
+  },
+  "descriptive_vs_parent_ba422": {
+    "parent_metrics": {
+      "wall_seconds": 669.4709474619012,
+      "cpu_seconds": 323316.632919,
+      "main_step_sum_seconds": 563.88706
+    },
+    "candidate_metrics": {
+      "wall_seconds": 668.4569876820315,
+      "cpu_seconds": 322604.180058,
+      "main_step_sum_seconds": 562.13893
+    },
+    "reductions_percent": {
+      "wall_seconds": 0.1514568755692669,
+      "cpu_seconds": 0.22035762731033026,
+      "main_step_sum_seconds": 0.3100142074549561
+    },
+    "scope": "Separate later candidate versus previousba422threehour;unpaired/descriptive only,not isolatedMYJgain or repeatability claim."
+  },
+  "resources": {
+    "control": {
+      "hpc01": {
+        "invocation_id": "a9fe58873124491aae377fcc88670212",
+        "cpu_seconds": 91791.979023,
+        "throttled_usec": 4164886,
+        "nr_throttled": 5714,
+        "memory_peak_bytes": 98555248640,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        }
+      },
+      "hpc02": {
+        "invocation_id": "3d2ac8d8714d4843b8d82f6dd59e2557",
+        "cpu_seconds": 91789.584673,
+        "throttled_usec": 33657976,
+        "nr_throttled": 5027,
+        "memory_peak_bytes": 101026541568,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        }
+      },
+      "hpc03": {
+        "invocation_id": "199a8c2143094078bc14aa2559fcf632",
+        "cpu_seconds": 91847.566197,
+        "throttled_usec": 24913222,
+        "nr_throttled": 5229,
+        "memory_peak_bytes": 101043609600,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        }
+      },
+      "hpc04": {
+        "invocation_id": "3874e83bdf7140999ae005dd4f757dee",
+        "cpu_seconds": 91812.039424,
+        "throttled_usec": 21707027,
+        "nr_throttled": 5414,
+        "memory_peak_bytes": 107107307520,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        }
+      }
+    },
+    "candidate": {
+      "hpc01": {
+        "invocation_id": "c06c0882db5c48b9b7087e6f04bbd781",
+        "cpu_seconds": 80621.855222,
+        "throttled_usec": 25020036,
+        "nr_throttled": 4297,
+        "memory_peak_bytes": 97703018496,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        }
+      },
+      "hpc02": {
+        "invocation_id": "f3445b73607442f0b2ab52d53a4353d0",
+        "cpu_seconds": 80633.871358,
+        "throttled_usec": 25704052,
+        "nr_throttled": 3535,
+        "memory_peak_bytes": 95853780992,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        }
+      },
+      "hpc03": {
+        "invocation_id": "89541fd1c5484e33a22de5137e5d490d",
+        "cpu_seconds": 80683.934676,
+        "throttled_usec": 32452663,
+        "nr_throttled": 4348,
+        "memory_peak_bytes": 96039100416,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        }
+      },
+      "hpc04": {
+        "invocation_id": "7366af09479f44febf57602559f2d780",
+        "cpu_seconds": 80664.518802,
+        "throttled_usec": 7474933,
+        "nr_throttled": 4603,
+        "memory_peak_bytes": 101441589248,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        }
+      }
+    }
+  },
+  "cache_context": {
+    "control": {
+      "clear_receipt_sha256": "d713d4c473667617c51c2f5d0c3056965e408eeb94d430083cf9b53f2f29bab6",
+      "pre_mpi_boundary_monotonic_ns": 1935970653397693,
+      "hpc01_clear_end_to_boundary_seconds": 32.706848829,
+      "scope": "Host01 same-boot observation before MPI adapter; subsequent pinned binary/library hashes and loaders inevitably warm code, not scientific-data prefetch."
+    },
+    "candidate": {
+      "clear_receipt_sha256": "d33bc39b746d9f0c07c7ee51767ab914410c4caea97b4a6eaecf0683e083df6b",
+      "pre_mpi_boundary_monotonic_ns": 1946764743566017,
+      "hpc01_clear_end_to_boundary_seconds": 154.600422097,
+      "scope": "Host01 same-boot observation before MPI adapter; subsequent pinned binary/library hashes and loaders inevitably warm code, not scientific-data prefetch."
+    }
+  },
+  "descriptive_parent_memory_context": {
+    "hpc01": {
+      "parent_ba422_memory_peak_bytes": 97687740416,
+      "new_MYJ_memory_peak_bytes": 97703018496
+    },
+    "hpc02": {
+      "parent_ba422_memory_peak_bytes": 96040771584,
+      "new_MYJ_memory_peak_bytes": 95853780992
+    },
+    "hpc03": {
+      "parent_ba422_memory_peak_bytes": 95997358080,
+      "new_MYJ_memory_peak_bytes": 96039100416
+    },
+    "hpc04": {
+      "parent_ba422_memory_peak_bytes": 101475516416,
+      "new_MYJ_memory_peak_bytes": 101441589248
+    }
+  },
+  "reader_resources": {
+    "last_active_sample": {
+      "utc": "2026-10-19T00:11:55.247353+00:00",
+      "properties": {
+        "MainPID": "1482202",
+        "Result": "success",
+        "ExecMainStatus": "0",
+        "ControlGroup": "/system.slice/wrf-cpu-production512-myj-producer3h-exact-check-hpc03-r1.service",
+        "ActiveState": "active",
+        "InvocationID": "44eb8d2731ba4dd58f32e32882e71de7"
+      },
+      "science_status": "RUNNING_ORIGINAL_INITIAL_HISTORY_COMPARISON",
+      "mismatch_status_reported": false,
+      "error": null,
+      "cpu.stat": "usage_usec 382248713\nuser_usec 304806550\nsystem_usec 77442163\ncore_sched.force_idle_usec 0\nnr_periods 4274\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+      "memory.current": "4427661312\n",
+      "memory.peak": "11637121024\n",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n"
+    },
+    "final_cpu_seconds": null,
+    "final_memory_peak_bytes": null,
+    "final_counters": "UNKNOWN after actualcgroupremoval;sampledvaluesnotfinal",
+    "raw_exit_code": null
+  },
+  "closure_basis": {
+    "models": "Immutablecontrolalreadyclosed;freshcandidateactualINV-agreedexit0nodereports+unchangednormalreconciliationPID0/inactive/success/exit0/emptyprocesses.Noextraallmodelpositivejournal/originalCGpathabsenceclaim.",
+    "reader": "Actual44eb8d2731ba4dd58f32e32882e71de7successfulINV-boundmanagerjournal+observedownCGabsence;rawexit_codenullaftertransientunitremoval."
+  },
+  "transport_and_ancillary_context": [
+    "Initialstage255dueexpiredtasklocalsocket;failurepreserved,newknownhpc00channelestablished,stageabsenceprovedthencreate-onlyretryPASS.",
+    "Singlelaunchouterreturn255preserved;readonlyhealthrecoveredactualall4activeINVs.No duplicateprepare/cache/model.",
+    "Approvedborrowedpiecesauthor/reviewdispatchandboundedreceiptcollectionhpc00onlyduringmodel;no01\u201304activityreported.SharedFS/controllerimpactUNKNOWN.",
+    "KSMr3pilot02occurredafterallmodelscopesclosed,alongsideSCI03;peerreportednormalclosure/run0restored.NoKSMmodeloverlap."
+  ],
+  "limits": [
+    "Retainedcontrolandfreshcandidateoccurredatdifferenttimes;checkedactualclientcacheeach,butfileservercacheUNKNOWN.No freshmatchedpair/isolated/additivegainclaim.",
+    "Main-stepelapsedincludesMPI/backpressure;wall-minus-mainisnotpureI/O.",
+    "Rawcollector retains an inherited descriptive candidate label;actualnewlease8b101/source7af45/buildaa316 binding above is authoritative.Metric/scientificrecordsunchanged.",
+    "RawmodelmemoryeventsandnonzeroCPUthrottlepreserved;finalreadercounters/CPU/peakUNKNOWN.Historicalfresh9hqualificationremainsseparate."
+  ],
+  "raw_sha256": {
+    "RESULT.json": "e125b028d13e43f21181b342ab0ce6fa105f6639c95cca0a2f02a4ce54358ca3",
+    "science-receipt.json": "6a71a49999b74e8d516b4c9fe295e20782c037daa80d28380648d2df293ae174",
+    "reader-closure.json": "ae56cb38c9247b108d5196dcd269d36cebdfcdf06d76bca11ab98504e058b313",
+    "source-pins.json": "1ca2fb6870cf1329054ed1f77c13badab1fc4379a7313e5695ee094d8861dac3",
+    "myj-build-receipt.json": "aa316bf84161f28a46f3778fba79c88e752eae813e1d725fbc9f968ed531f58e",
+    "myj-build-closure.json": "a0bf0827027d08d8bcf0cd80a4eb8091d0558ad595150ae6004fd3c359928a4c",
+    "myj-build-recipe.json": "2acd344bf641927910edc93be49b92a498a18297dad9f2570c0671124c694b01",
+    "myj-native-receipt.json": "6a893cb7e79293b8eb2d88ab42571fe289fabbdf66a5631bbb01ed688a8a3b47",
+    "myj-native-closure.json": "2d39977aef19b63a61ca3a310c170f073968d2633f27a6f2958b3f09052ec152",
+    "myj-caller-timing.json": "aa5085c466a4501c4102a49656fe85b8b9a3a890c7958f7e4557704d485a447b",
+    "control/mpi-launch.json": "e2055c0f4c79638e64d7f6cb49f337f847b3a109cdc14e8873a7c8501fe6523b",
+    "control/hpc02-node.json": "4db84b2d5f2e2762bcc63e12f94385241a37b714edd88e8e3c5993a8ce42f1d6",
+    "control/hpc03-node.json": "73184dccd38fedb8d786f971431fed353cec93550789332abaeb03c9b38a9a49",
+    "control/hpc04-node.json": "a6149e46f2ac8e488884becb9342bdbfc3ca037a47de3e3110a36444f2b0c237",
+    "control/lease.json": "341939a50515b4cc47f8470b885ddd2b77187aabea8606d46c96dd6e71f320db",
+    "control/model-closures.json": "6b2435189e4459a1e452e8d9e6149e05dfa141940cc7fa19796e5fd92603bd4d",
+    "control/adaptive-steps.json": "1bb5e8121b19a82eaf15cabc3c46b93299b1b97a3d7af17ac207addeeaea155a",
+    "control/completion.json": "cfff70fc3c375a84dceb786d8346c2d8fee462839d69bb4a67a19ae77c01ccbf",
+    "control/cache-start-context.json": "35ea7a26979046f8971fa2e02e624a06ab40eb2951b16febedafd473af21dfb9",
+    "candidate/mpi-launch.json": "3ad594ec6d1a6f71601792229e4ad6879465fa45678326271373063c249e9261",
+    "candidate/hpc02-node.json": "7c2f9a65050dbf3ee84b62dc18a38aac97749989a95dcf72302cc51cb31e5525",
+    "candidate/hpc03-node.json": "00c9b646aa34e4b2d2336366db7eacb570ab03fce7af9dcf0f2407436b26b978",
+    "candidate/hpc04-node.json": "49e8b92c60384132e47eace4bcc83ef2e285e523a39f26b54f21baedb9f92a78",
+    "candidate/lease.json": "4a86426b748f2072d7be720ab7f759d8e677feefb729f3fdfb5bf2571375d44f",
+    "candidate/model-closures.json": "e805ea2f6af8f575e85233e4c51262609a3d5b20575289f4f167295db4f28e84",
+    "candidate/adaptive-steps.json": "7b0951639e8f8ccebfad747825a8ba0fe89e98c725de6caf404cb055f6ff3318",
+    "candidate/completion.json": "1f4ce519bd60845924f9ea54549113592621d129ff2f3482937b829cd3af8f6b",
+    "candidate/cache-start-context.json": "83f8012fe9089175f0d57bd745d7d3130eec0c55e10977458aafe33ffac8e34a",
+    "lifecycle/ANCILLARY_CONTEXT.json": "91b77cb1197521b59e6ec0d80f3203c0f4ce6fe4f9f2d854740abea625c3e06c"
+  },
+  "source_or_selection_edited_by_operator": false
+}

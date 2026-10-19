@@ -1,0 +1,75 @@
+{
+  "status": "PASS_ACTUAL_FOUR_EXEC_ANONYMOUS_MAPPING_KSM_PSS_EXACT_PAGE_COW_AND_POSITIVE_CLOSURE",
+  "invocation_id": "68a184ee110e4a6f802a57196fe06c04",
+  "initial_pid": 1466422,
+  "worker_sha256": "8b2aa1fa2f8c06781c958ebe663691690669487f01a1470d8e7cfc59bdac5901",
+  "scope": "Synthetic four independently exec-owned4MiB anonymous-private nonzero mappings on hpc02 under approved stock KSM settings. Not WRF tables/Fortran allocator/MPI/XPMEM/IB registration/NUMA or forecast-memory/performance qualification.",
+  "physical_sharing_proven": true,
+  "cow_proven": true,
+  "workers": 4,
+  "bytes_per_mapping": 4194304,
+  "advised_interior_bytes_each": 4186112,
+  "interior_PSS_merged_bytes_each": 1046528,
+  "aggregate_interior_private_bytes": 16744448,
+  "aggregate_interior_merged_PSS_bytes": 4186112,
+  "aggregate_interior_PSS_reduction_bytes": 12558336,
+  "page_evidence": "All selected interior pages present/nonexclusive after private-exclusive baseline; first/last unadvised controls remained exclusive. run0 before mutation. Victim selected page becomes exclusive; other three retain shared selected page and exact unmutated bytes; full byte oracles and restoration PASS. No PFNs or physical addresses collected.",
+  "victim_pid": 1466435,
+  "victim_COW_KSM_delta_bytes": -4096,
+  "victim_COW_private_dirty_delta_bytes": 4096,
+  "victim_COW_PSS_delta_bytes": 3072,
+  "run1_elapsed_seconds": 1.7959626,
+  "scan_polls": 8,
+  "run0_before_cow": {
+    "before": "1",
+    "after": "0"
+  },
+  "run0_final_readback": "0",
+  "backstop": {
+    "before": "0",
+    "after": "0",
+    "owned_scan_window": true,
+    "only_possible_write": "run=0"
+  },
+  "all_owned_normal_unregister_unmap_exit": true,
+  "unit_properties": {
+    "MainPID": "0",
+    "Result": "success",
+    "ExecMainStatus": "0",
+    "ControlGroup": "",
+    "ActiveState": "inactive",
+    "InvocationID": ""
+  },
+  "own_cgroup_absent": true,
+  "own_cgroup_processes": [],
+  "settings_before_after_equal": true,
+  "daemon_before_after_equal": true,
+  "global_counters_before": {
+    "pages_shared": 0,
+    "pages_sharing": 0,
+    "pages_unshared": 0,
+    "pages_volatile": 0,
+    "full_scans": 0,
+    "general_profit": 0,
+    "ksm_zero_pages": 0
+  },
+  "global_counters_after": {
+    "pages_shared": 1022,
+    "pages_sharing": 3066,
+    "pages_unshared": 0,
+    "pages_volatile": 0,
+    "full_scans": 2,
+    "general_profit": 12296704,
+    "ksm_zero_pages": 0
+  },
+  "global_scope_caveat": "run0 does not globally unmerge. After owned normal unregister/unmap/exits, retained global counters still report1022shared/3066sharing/full_scans2; do not equate those counters to live-owned mappings or claim complete host rollback/global isolation. No counter-drain retry or run2 was performed. Dormant foreign registrations were not excluded.",
+  "collection_scope": "Original collector failed locally on MESSAGE=null emitted for long journal records; original controller/closure are immutable failure evidence. One bounded read-only journal --all retrieval recovered exact same INV result and positive manager/backstop records; no worker/unit rerun or source change. This qualification reconciles raw actual evidence, not a repaired original controller PASS.",
+  "artifacts": {
+    "entry.json": "15fe763b93aef62fcce11c9be960b111ac04e6a24691cbb2a4048d150481ef83",
+    "controller.json": "e0aceff73b0d6a17049832e12cd8545fb7e7cf5c9d1746b21414e7cb1e7c7bb2",
+    "closure.json": "59297d79f387505524d5cfc0f062bf7ae94e33184fca1e5d4acb6a8da8440ca7",
+    "SAME_INV_JOURNAL_ALL_RECOVERY.json": "ab822cd2ae13db1eb6944c5b3d74594cf9826826f4a0fc4bea5062d541dac8a5",
+    "pilot-result.json": "fd1028d7669c8d88783b74e7b7f9cc6e2b58c6084b83391d24953706df196703"
+  },
+  "next": "Report synthetic feasibility only. Actual owned current table sharing after initialization/collectives remains a separate evidence requirement; no WRF integration or further host action authorized by this result."
+}

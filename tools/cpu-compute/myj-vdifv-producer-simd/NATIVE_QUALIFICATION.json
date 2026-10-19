@@ -1,0 +1,99 @@
+{
+  "status": "PASS_CURRENT_NATIVE_CORRECTNESS_PENDING_CALLER_TIMING",
+  "receipt_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-vdifv-producer-simd-r1/full-caller-native-r1/receipt.json",
+  "receipt_sha256": "6a893cb7e79293b8eb2d88ab42571fe289fabbdf66a5631bbb01ed688a8a3b47",
+  "closure_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-vdifv-producer-simd-r1/full-caller-native-r1/closure.json",
+  "closure_sha256": "2d39977aef19b63a61ca3a310c170f073968d2633f27a6f2958b3f09052ec152",
+  "invocation_id": "59d57eec691445b0b1e885c9d0464403",
+  "native_parent_equivalence": {
+    "status": "PASS_ALLOCATED_BYTES_RELOCATIONS_NONFILE_SYMBOLS_EXACT",
+    "reference_sha256": "a9f0ba29ddd82f4c941cf866cfdce5db9fe5e53af0944d82cc75a3b92eddc973",
+    "rebuilt_sha256": "4cf9ab8b95390610b35eec2452ad371c9321520037b72dd3862eed259c1d8cc7"
+  },
+  "objects": {
+    "O0-parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/myj-vdifv-producer-simd-full-caller-gate-r1/O0/parent/module_bl_myjpbl.o",
+      "sha256": "1f581a679a009d27e5521d942c79e91d95fa2dde3c3b14c4a243331174e066fc"
+    },
+    "O0-candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/myj-vdifv-producer-simd-full-caller-gate-r1/O0/candidate/module_bl_myjpbl.o",
+      "sha256": "c38c1fe8046d5d2586a34a3edfd2ae6d5d0fff39737f12eee852b0be9359688c"
+    },
+    "O2-parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/myj-vdifv-producer-simd-full-caller-gate-r1/O2/parent/module_bl_myjpbl.o",
+      "sha256": "4cf9ab8b95390610b35eec2452ad371c9321520037b72dd3862eed259c1d8cc7"
+    },
+    "O2-candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/myj-vdifv-producer-simd-full-caller-gate-r1/O2/candidate/module_bl_myjpbl.o",
+      "sha256": "214b918168d4691005f2a20c90462fe7a28370df6e1801d357c0d76a653bcadc"
+    }
+  },
+  "codegen": {
+    "parent": {
+      "divss": 6,
+      "divps": 0,
+      "mulss": 30,
+      "mulps": 0,
+      "subss": 10,
+      "subps": 0
+    },
+    "candidate": {
+      "divss": 6,
+      "divps": 2,
+      "mulss": 33,
+      "mulps": 2,
+      "subss": 10,
+      "subps": 2
+    }
+  },
+  "full_MYJ_capture_states": {
+    "O0": {
+      "parent": [
+        34,
+        0,
+        48,
+        8114,
+        895
+      ],
+      "candidate": [
+        34,
+        0,
+        48,
+        8114,
+        895
+      ]
+    },
+    "O2": {
+      "parent": [
+        34,
+        0,
+        48,
+        8114,
+        895
+      ],
+      "candidate": [
+        34,
+        0,
+        48,
+        8114,
+        895
+      ]
+    }
+  },
+  "VDIFV_fixtures": {
+    "O0-direct_vdifv_state": true,
+    "O0-producer_state": true,
+    "O2-direct_vdifv_state": true,
+    "O2-producer_state": true
+  },
+  "actual_positive_closure": {
+    "MainPID": "0",
+    "Result": "success",
+    "ExecMainStatus": "0",
+    "ActiveState": "inactive",
+    "cgroup_paths_absent": true,
+    "positive_journal": true
+  },
+  "exact_source_scope": "Onefirstproducerpragma canonical50ab/PPd087; fiveallocations unchanged; no recurrence/source/API/mathchanges",
+  "limits": "Local reproduction failure preserved separately. This actualEPYC nativefullparent proof supersedes availability only, doesnot erase workstation mismatch. Correctness not performance or modelqualification; maskedFENV/fourround/specificfinite-tail-IEEEscope only."
+}
