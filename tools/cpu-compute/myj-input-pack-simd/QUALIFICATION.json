@@ -1,0 +1,43 @@
+{
+  "status": "PROMOTED_WORKING_DEFAULT_EXACT_NATIVE_CALLER_AND_THREE_HOUR_APPLICATION",
+  "source_commit": "86d4d25ea221ac7de476b960f43827322bc6e6b3",
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/ownedview-myjpack-combined-current-r1/wrf.exe",
+    "sha256": "41a045af54b44568de0b94293e83aff5e0abfc479c7cef5a46f892daffcf9b40"
+  },
+  "archive_sha256": "7e2544125b384ce4bd6cd4df62316007eefac8548ad6437199f58af0aa747ac9",
+  "application_qualification_sha256": "2e57e4355fd0ff61beda5280079cbded5060c554772df40f543e7a6b1fda2e35",
+  "scientific_receipt_sha256": "945c9002277eb8ed782a1e735703a3dd5c7b17989048cf0d326f870fa0d042bf",
+  "reader_closure_sha256": "e5476364bd9a07bd54425ad84e24b24438e63cccfc392cbb48061f3f6d879d78",
+  "scope": "GNU13.3 strict/Zen2;1500x1140x33;512ranks/480compute+32quilt/8x60/two tiles;375/faba/881/825;UCXrc,sm,self/IB. Original4products545steps; allmodels+reader closed. No current-image9h/restart144h/othercompiler/unmaskedtrap-order qualification.",
+  "source_build_binding": {
+    "file": "../../cpu-working/CURRENT_SOURCE_BUILD_BINDING.json",
+    "sha256": "67e506011a5b5bcc5ac0a935fc120e6703693e5a86a36df1ffe704171a19838a"
+  },
+  "forecast_result_file": "../../cpu-working/THREE_HOUR_RESULT.json",
+  "decision_reason": "Measured significant exact-qualified kernel/caller gains plus original application acceptance support inclusion. No isolated forecast gain attributed to either candidate.",
+  "rollback": {
+    "executable": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/myj-vdifq-producer-simd-current-r1/wrf.exe",
+      "sha256": "f0641466ada307c221b8a0247120bd612367336bee25191dab3ec0c07a0a3211"
+    },
+    "source_commit": "ebb471ba36a811c58d6b9bdc8f981705739cd8f0",
+    "action": "Select retainedf064 and unset WRF_QUILT_OWNED_FIELD_VIEW with375/faba/881/825 unchanged. Fieldview-only optout0/unset selects literallegacy. Revert dedicated combined source commit and rebuild for source rollback."
+  },
+  "mechanism": "One SIMD PRIVATE(KFLIP,RATIOMX) directive before first percolumn descendingK inputpacking in MYJPBL; alloriginalstatements/bounds/arithmetic retained, acceptedQ/V/writeback unchanged.",
+  "native_receipt_sha256": "cfb319602a984b8030705080325b5f34d2e6a848692e37eeee3e37d49ca6c015",
+  "native_closure_sha256": "1b2fd8a06e7412ecf13ff7b210109cd352c7d1215733ba6237a1cf03ab9a2021",
+  "candidate_object": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/myj-input-pack-simd-full-caller-gate-r1/O2/candidate/module_bl_myjpbl.o",
+    "sha256": "94869fb8a7f33fdb331c1001a71a68437b388a91010b0abe1ac032ee14b9ac04"
+  },
+  "module_interface_sha256": "b16bb1b06b2b18abd8b61cf81bd61ae349e2728ddd32f52d3d58dafec14309e2",
+  "actual_codegen": "Source-line-boundfirstpack divps0\u21922/addps0\u21924;malloc/free26/26unchanged/nointernalpack. No newISA/FMA/fastmath.",
+  "caller_qualification_sha256": "903e8035655b3fca2542df5a4689c89c08f1590c14e999af153c9af03625c919",
+  "caller_timing_sha256": "2ce24e9281e221d460f3ec3e0f4a5723b2371ef353b39cc1997d88861aeeafad",
+  "caller_wall_reductions_percent": [
+    1.6643493899540673,
+    1.721360043128084
+  ],
+  "caller_scope": "Oneoppositeorderpairperhost01/04,512completecapturedMYJcalls withoriginalrestores/fivestateinsideclock, warm/terminalraw/stateoracle; cacheEACH andall4positiveclosures. Nofocusedtimer/calibration/repeatability/globalforecastgainclaim."
+}
