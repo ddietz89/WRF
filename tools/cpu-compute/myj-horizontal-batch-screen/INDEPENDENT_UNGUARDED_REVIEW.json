@@ -1,0 +1,35 @@
+{
+  "status": "RETAIN_LITERAL_SOURCE_AND_AGGREGATE_ORACLE_SCOPE_STRICT_O2_RAW_FAILURE_NOT_QUALIFIED",
+  "source": {
+    "helper_sha256": "45035e0c7ef9e73da31e5998672d9615f366a059468d7726188df446f7da7ae4",
+    "candidate_module_sha256": "c3931c1a204a79404d054011593012c864b3f7ca3d09075445ba9c8b934901c3",
+    "projection_sha256": "706e405e91e9bb032f3e419abba9bc53d167d4016cdec8548130a85e4a7e2ac8"
+  },
+  "literal_findings": [
+    "All23 lifted assignments independently invert to exact original per-column expression/operand ordering; current publicbody retained byteexact. ArraysCM/CR/DTOZ/RSU/RSV/U/V/RKM/Z/RHO consistentlyL-first; UZ0/VZ0/RKMS lanevectors indexedL; DTDIF/LMH shared contract explicit.",
+    "Producer K1..LMH\u22121, init1, generic forwardK2..LMH\u22121, bottomLMH, backwardLMH\u22121..1 remain sequential. LMH2 correctly zero-trips forward and uses initializedCM1, not spuriousK2. OriginalKTS1 valid-domain assumption retained, not repaired.",
+    "All five lane SIMD loops explicitly PRIVATE the eight scalar temporaries; loopL is induction variable. No shared scalar recurrence or cross-lane reduction found."
+  ],
+  "harness_findings": [
+    "Reference executes four unchanged publiccalls with contiguous1D copy buffers; batch slices whole lane dimension are contiguous. Allfour U/V raw checks, every readonly input/vector/sharedscalar snapshot, boundaryguards and unused levels are checked.",
+    "One selected-state reset before FOURserialcalls; no reset/read withinlane loop. One read immediately after serialgroup restores originalentry, then reset fromsame selectedcase before onebatch and immediate read. This measures aggregate maskedsticky/errno/MXCSR/x87state, not perlane trap order.",
+    "Cases reuse eightdirect and48exceptional/round/preflag roles, four U/V permutation/signbit variants. Coefficient RKM/RHO/Z andRKMS remain identical across lanes in these constructed fixtures; literal source inspection verifies their L indexing, but this is not diverse-real-column/fullMYJPBL coverage."
+  ],
+  "actual_O2_disposition": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-horizontal-batch-feasibility-r1/fixed4-prototype-r1/O2_ACTUAL_RESULT.json",
+    "sha256": "f26985d198bd6925ac1cb1e5ad6a6ea3708ebe2c153873080d3ed4b17f9f924e",
+    "status": "FAIL_RETAINED_NO_RELAXATION",
+    "failed_direct_case": 6,
+    "returncode": 102,
+    "mechanism_observed": "Actual retainedstdout shows V K3/4 rawNaNpayload scalarFFC12345/7FC12345 versusbatch7FC54321 inallfourlanes; Urawmatches. Existingcase6 seedsRKM1qNaN12345 andRHO2qNaN54321. This is notcase2 and cannot be excused by the reviewed state oracle. Profile owns exact ASM diagnosis; no source/flag/oracle repair or new gate proposed by reviewer."
+  },
+  "fixture_artifacts": {
+    "direct8_unchanged_batch.f90": "333d6c73b68dbf18bd14f01fd8c81d59745dcea9005a4f06c41d44fe6c834342",
+    "producer_state_batch.f90": "909bcd35c217c6a969a15aa4edd1ed0aba58f44992ec80539ba2015f5552913e",
+    "direct8_unchanged.f90": "e2de9b52d78325c15760330d30b4bdcc5a8b61d6f4cd920d9594630650a35ee3",
+    "producer_state.f90": "2200069f5fff2dd9c6df2fe7ece22fd1046fb0ee68938e90ce016f0bdca98668",
+    "region_observer.c": "274dbde95e634f10310b01a95b56cb545bb4cc8cf2290a6169c1e24dfa65fc5b"
+  },
+  "limitations": "Source/harness review is not numerical acceptance. No universal unmasked trapping, arbitraryKTS/aliasing/integration/caller speed claim. Retain actual failure and no further matrix from this review.",
+  "actions": "Read-only local source/projection/retained-output inspection and this own review artifact only. No tests, compilation, native/node/cache/DS/main-source/helper mutations."
+}

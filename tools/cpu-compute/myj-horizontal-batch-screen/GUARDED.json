@@ -1,0 +1,69 @@
+{
+  "status": "PARK_GUARDED_FIXED4_STRICT_O2_FINITE_INPUT_NAN_SIGN_FAILURE_NO_MORE_VARIANTS",
+  "source_sha256": "94436b7ca63f57c660c588d2b4405ed57e729183d5e1be692554ad589dd9ab72",
+  "guard_projection_sha256": "0c8cdb5bce66e3f8e818322007e537f05df26dd0fe39529ef96f58fcd7d15b28",
+  "actual_result_sha256": "0fc7d520a4d56bfa30a2c0fa958687fc49e6aa6ae834a2377121b8bfb3279580",
+  "failed_fixture_sha256": "909bcd35c217c6a969a15aa4edd1ed0aba58f44992ec80539ba2015f5552913e",
+  "failed_stdout_sha256": "1e81c240584feaeee8abdd8b1d984eee26a8e3ead226356aeb58125148ade396",
+  "failed_stderr_sha256": "5b6e13d777696dc7db720f515a51cf2d38f1f96db639eb1324b6cc08e3a592c0",
+  "scope": "One root-authorized guardedfollowup only, originalunguardedcase6payloadfailureretainedseparately; no changedflags/arithmetic/oracles ornewcases.",
+  "O0": "Both8direct+48producerfixturesPASS with4distinctlanes each; LMH2andallreadonly/guards/state pass.",
+  "O2": "Direct8PASS, producerfixturecase7STOP102. Existingcases0..6atfirstroundingstatepass beforefailure; laterrounding/casesnotexecuted. Whole4serialaggregate5stateequalbeforefailedrawassert.",
+  "finite_counterexample": {
+    "case": 7,
+    "LMH": 33,
+    "mutations": [
+      "Z(2)=Z(1)",
+      "Z(33)=Z(32)"
+    ],
+    "all_input_words_finite": true,
+    "mechanism": "Finitezero-denominator inputs generateInf/NaNintermediates; integerinputexponentadmissiondoesnotpreventwronggeneratedNaNsign/priority.",
+    "per_lane_differences": [
+      {
+        "lane": 1,
+        "different_words": 15,
+        "first_difference": {
+          "array": "V",
+          "K": 4,
+          "serial": "FFC00000",
+          "batch": "7FC00000"
+        }
+      },
+      {
+        "lane": 2,
+        "different_words": 15,
+        "first_difference": {
+          "array": "V",
+          "K": 4,
+          "serial": "FFC00000",
+          "batch": "7FC00000"
+        }
+      },
+      {
+        "lane": 3,
+        "different_words": 15,
+        "first_difference": {
+          "array": "V",
+          "K": 4,
+          "serial": "FFC00000",
+          "batch": "7FC00000"
+        }
+      },
+      {
+        "lane": 4,
+        "different_words": 15,
+        "first_difference": {
+          "array": "V",
+          "K": 4,
+          "serial": "FFC00000",
+          "batch": "7FC00000"
+        }
+      }
+    ]
+  },
+  "observed": "All4lanesV differ atalternatinglevels, firstV4serialFFC00000 versusbatch7FC00000. Urawmatches. NoFENVmask/flagwaiver.",
+  "guard_mechanics": "AllactualreadDTDIF/UZ0/VZ0/RKMS/U/V/RKM/Z/RHO inputsclassifiedbyTRANSFER/IAND7f800000, nonfinitebranchoriginalpublic4serialcalls, finitebranchexactoldpackedmath. NoFENVreset/classificationFPoperation. Classificationcannotproveintermediatefinitebehavior; thisactualcounterexampleissufficientrejectionunderstrictcontract.",
+  "codegen": "Prioractualpackedforward/backwardmechanismremains; no performanceoreligibilityclaimfollows. GuardedO2functiondisassemblysavedwithoutnewcompilerflags. No nativewholeMYJ/caller/timer/application.",
+  "decision": "Closefixed4unguardedANDfinite-inputguardedvariantsUNQUALIFIED. No further sourceguards/ISA/math/FPpriorities/exceptionrelaxation/repeatedmatrices requested. Anyfutureworkrequiresnewroot-reviewedcontract, notautomaticcontinuation.",
+  "no_main_node_ledger_changes": true
+}

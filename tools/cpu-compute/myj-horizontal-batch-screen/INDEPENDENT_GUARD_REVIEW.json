@@ -1,0 +1,18 @@
+{
+  "status": "GUARD_SOURCE_MECHANICS_RETAIN_BUT_FINITE_INPUT_RAW_FAILURE_BLOCKS_QUALIFICATION",
+  "candidate_sha256": "94436b7ca63f57c660c588d2b4405ed57e729183d5e1be692554ad589dd9ab72",
+  "projection_sha256": "0c8cdb5bce66e3f8e818322007e537f05df26dd0fe39529ef96f58fcd7d15b28",
+  "findings": [
+    "NONFINITE_WORD uses defaultREAL32 bitTRANSFER to INT32 and integerIAND exponentmask7f800000, not FPcompare/classification. Source guard arithmetic cannot itself require sNaN arithmetic or clearing flags; exact compiler/FENV behavior remains actual tested obligation.",
+    "All original-read input roles covered: sharedDTDIF; fourUZ0/VZ0/RKMS; U/V/RHO1..LMH;RKM1..LMH\u22121;Z1..LMH+1. No inactive-lane or out-of-range classification under admittedKTS1/LMH2..KTE/fixed4scope. Logical OR can evaluate all operands safely because each is the same integer-only valid-input inspection.",
+    "Nonfinite\u2192serialbridge with lane order1..4 and contiguousCU/CV/CRKM/CZ/CRHO copies; existing public routine byteexact and its I/J unused. Packedbody unchanged exceptname. No candidate reset/read-state call, hidden state clear or perlane reset. Existing group-oracle fixture bytes unchanged.",
+    "Fallback adds normal automatic-copy-buffer allocation/lifetime; source separation is not measured fast-path allocation proof. No identicalOOM/unmaskedfirsttrap/otherkind/alias claim."
+  ],
+  "concrete_remaining_gap": {
+    "actual_result_sha256": "0fc7d520a4d56bfa30a2c0fa958687fc49e6aa6ae834a2377121b8bfb3279580",
+    "O0": "Both8direct+48producer pass in retained result.",
+    "O2": "8direct pass, producerSTOP102 on existingcase7: finiteZ2=Z1 andZ33=Z32 generate nonfinite intermediates inside packedpath; rawV NaNsign differs scalarFFC00000 versusbatch7FC00000, although state comparison passed. Finite-only input classification is insufficient for the strict raw contract.",
+    "decision": "Keep guarded and unguarded failures. No source/oracle/flag waiver or further guard/variant/test proposed by this review."
+  },
+  "actions": "One local read-only source/retained-result review and this own artifact. No tests, compiles, nodes, main/helper changes or DS calls."
+}

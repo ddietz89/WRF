@@ -1,0 +1,144 @@
+{
+  "status": "PARK_STRICT_O2_RAW_NAN_PAYLOAD_FAILURE_NO_INTEGRATION_NATIVE_OR_TIMING",
+  "reason": "Fixed4crosscolumnrecurrencevectorization isreal, butsame-opt strictfullroutine raworaclefails existingcase6. Noexceptionwaiver/relaxedNaNpredicate, flagrepair orcandidatevariant.",
+  "actual_provider_returns": 2,
+  "actual_total_tokens": 11874,
+  "actual_charge_usd": "UNKNOWN",
+  "provider_scope": "Independentreview sawfrozencontract/publicsource only, notreturnedauthorcodeorlocalrepair. Rawauthorinvalidretained/rejected; rootauthorizedmechanicalrepairafteractualreturns.",
+  "source_projection_sha256": "706e405e91e9bb032f3e419abba9bc53d167d4016cdec8548130a85e4a7e2ac8",
+  "helper_sha256": "45035e0c7ef9e73da31e5998672d9615f366a059468d7726188df446f7da7ae4",
+  "candidate_module_sha256": "c3931c1a204a79404d054011593012c864b3f7ca3d09075445ba9c8b934901c3",
+  "public_body_byteexact": true,
+  "actual_O0": "Both8direct+48supplementalfixturesPASS,4distinctlanes each, grouped4serialpubliccalls vsonebatch exactraw/readonly/guards/5state. ExplicitLMH2case0passes; originalforwardgenericK2..LMH-1emptyasrequired.",
+  "actual_O2": "Directcases0..5pass, firstfailurecase6, STOP102 rawcomparison. Whole4callgroupfinalfive-state comparisonpassedbeforethefailedrawassert. Remainingdirectcase7 and48supplementnotexecutedafterfailure; no claimO2wholecorpuspassed.",
+  "failure_case": {
+    "id": 6,
+    "LMH": 4,
+    "original_mutations": [
+      "RKM(1)=0x7FC12345",
+      "RHO(2)=0x7FC54321"
+    ],
+    "different_words": [
+      {
+        "lane": 1,
+        "different_words": [
+          {
+            "array": "V",
+            "K": 3,
+            "serial": "FFC12345",
+            "batch": "7FC54321"
+          },
+          {
+            "array": "V",
+            "K": 4,
+            "serial": "7FC12345",
+            "batch": "7FC54321"
+          }
+        ]
+      },
+      {
+        "lane": 2,
+        "different_words": [
+          {
+            "array": "V",
+            "K": 3,
+            "serial": "FFC12345",
+            "batch": "7FC54321"
+          },
+          {
+            "array": "V",
+            "K": 4,
+            "serial": "7FC12345",
+            "batch": "7FC54321"
+          }
+        ]
+      },
+      {
+        "lane": 3,
+        "different_words": [
+          {
+            "array": "V",
+            "K": 3,
+            "serial": "FFC12345",
+            "batch": "7FC54321"
+          },
+          {
+            "array": "V",
+            "K": 4,
+            "serial": "7FC12345",
+            "batch": "7FC54321"
+          }
+        ]
+      },
+      {
+        "lane": 4,
+        "different_words": [
+          {
+            "array": "V",
+            "K": 3,
+            "serial": "FFC12345",
+            "batch": "7FC54321"
+          },
+          {
+            "array": "V",
+            "K": 4,
+            "serial": "7FC12345",
+            "batch": "7FC54321"
+          }
+        ]
+      }
+    ],
+    "scope": "All4lanes Urawmatch; V3/V4 payload/sign differ. Entirefailurestdoutretained; case2earlierprogressmessagewasincorrectpreviewdiagnosisandcorrected."
+  },
+  "codegen": {
+    "strict_O2_flags": [
+      "-O2",
+      "-fno-fast-math",
+      "-ffp-contract=off",
+      "-w",
+      "-fno-fast-math",
+      "-ffp-contract=off",
+      "-ffree-form",
+      "-ffree-line-length-none",
+      "-fconvert=big-endian",
+      "-frecord-marker=4",
+      "-fallow-argument-mismatch",
+      "-fallow-invalid-boz",
+      "-g",
+      "-fopenmp-simd"
+    ],
+    "packed_counts": {
+      "divps": 6,
+      "mulps": 27,
+      "addps": 7,
+      "subps": 10,
+      "divss": 0,
+      "fmadd": 0
+    },
+    "all5stages_vectorized_16B": true,
+    "forward_evidence": "0x1d8..0x261:packedCFdivision1fbdivps/CM/RSU/RSVmulps+subps+addps, Kouterbackedge.",
+    "backward_evidence": "0x370..0x3b1:387divps,38amulps/38dsubps/398mulps U;395mulps/3a5subps/3a8mulps V, Kdescendingbackedge.",
+    "vector_report_sha256": "6bef51a97eb0797e99828439217a53703f5efe0e15f3c6789a801de32ea4869a",
+    "helper_asm_sha256": "15fcb16de7be7247414e216428a941e9d34fa36afd7e218043663b1ab1156a78",
+    "scalar_asm_sha256": "835f3e47f03af9c039bc311e6c51d0bbf23d742169de2dedcf41ef336c606808"
+  },
+  "bounded_codegen_diagnosis": {
+    "classification": "ObservedstrictNaNpayloadpriorityfailureconsistentwithdifferentcommutativeoperand/registerselection despiteexactsourceexpressiontrees. NoFMA/reciprocalreassociationflagused; IEEEpayloadcannotbeassumedfromsourcealgebra.",
+    "actual_bottom_V_examples": "ScalarVbottom864mulss RSVmemory intoCFregisterxmm4,877mulss Vmemory intoRHOKregisterxmm5. PackedVbottom327loadsRSVinto xmm1 then32dmulps CFxmm4 intoRSVxmm1;333loadsVinto xmm1 then336mulps RHOKxmm2 intoVxmm1. Thus actualoperanddestinations differ forcorrespondingproducts whenbothNaNs possible. Ubottomproductoperandchoicesaremorealike, matching observedUraw.",
+    "causality_limit": "This is source-boundstaticinstructionevidence +actualendresult mismatch, not a dynamicfirst-divergence trace orproofwhichsingleinstructionfirstselectedthewrongpayload. Noextraobserverframework/test performed."
+  },
+  "preserved_artifacts": [
+    "actual/author/response.txt",
+    "actual/review/response.txt",
+    "SOURCE_PROJECTION.json",
+    "O0_ACTUAL_RESULT.json",
+    "O2_ACTUAL_RESULT.json",
+    "O2/direct8_unchanged.stdout",
+    "O2/direct8_unchanged.stderr",
+    "O2/public_scalar.asm",
+    "O2/batch4.asm"
+  ],
+  "resource_claims": "LocalGNU13.3standaloneonly, noactualcurrentwholeMYJnativeobjectorfullcapturedcallerqualification. Helperhas5automaticarrayswhichGNUmaterializeswithmalloc; noallocationreductionclaim. No performancegain/globalheadroom.",
+  "next": "Closefixed4prototypeunqualifiedunderstrictpayloadcontract. No fullMYJintegration/nativegate/timers orrepeatedvariants unlessrootauthorizesadistinctconcreteIEEEprioritypreservingsourcecontract. PreviousacceptedproducerSIMD/defaultunchanged.",
+  "main_node_ledger": "Unchanged; rootsolewriter. No01\u201304queries/jobs/cache/model/profiling."
+}

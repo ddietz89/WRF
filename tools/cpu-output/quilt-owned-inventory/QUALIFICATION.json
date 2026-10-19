@@ -1,0 +1,207 @@
+{
+  "status": "PASS_FRESH_ORIGINAL_TEN_MINUTE_OWNED_INVENTORY_DIAGNOSTIC",
+  "scope": {
+    "fresh_original": "546b99156cbd809e1cae5e0ea8cebeea44dafd6331abf89e4daea00e0dd0a5e7",
+    "candidate": "d528afd2ead61b300be70f57ed26e7fb4682d9e460ae802119df8cbcfe26cad5",
+    "parent_current": "8b101daff3e7b3ee873b2d0fee4c4d77dda7dc1c453da4df10c7f3fdac114174",
+    "candidate_difference": "C-only source19e5 owned scalar inventory plus explicit candidate-only WRF_QUILT_OWNED_INVENTORY=1; no borrowed storage",
+    "selected_default_unchanged": true,
+    "products": 2,
+    "ordered_steps": 35,
+    "last_step": "2026-10-12_06:10:00",
+    "all512_runtime_tile_environment_checks": "PASS",
+    "positive_writer_roots": [
+      487,
+      495
+    ],
+    "zero_writer_roots": [
+      503,
+      511
+    ],
+    "no_hourly_or_all_four_group_service_claim": true
+  },
+  "models": {
+    "control": {
+      "hpc01": {
+        "unit": "wrf-cpu-production512-quilt-owned-inventory10m-control-r1-hpc01.service",
+        "invocation_id": "14fdb67e34a04dd686b33a7dd36c7157",
+        "main_pid": 0,
+        "result": "success",
+        "exit_code": 0,
+        "cgroup_path_absent": true,
+        "manager_success_invocation_bound": true
+      },
+      "hpc02": {
+        "unit": "wrf-cpu-production512-quilt-owned-inventory10m-control-r1-hpc02.service",
+        "invocation_id": "c617933eb61945f892b97e9728a4d160",
+        "main_pid": 0,
+        "result": "success",
+        "exit_code": 0,
+        "cgroup_path_absent": true,
+        "manager_success_invocation_bound": true
+      },
+      "hpc03": {
+        "unit": "wrf-cpu-production512-quilt-owned-inventory10m-control-r1-hpc03.service",
+        "invocation_id": "de129e7b02594507b71cba92cbab1018",
+        "main_pid": 0,
+        "result": "success",
+        "exit_code": 0,
+        "cgroup_path_absent": true,
+        "manager_success_invocation_bound": true
+      },
+      "hpc04": {
+        "unit": "wrf-cpu-production512-quilt-owned-inventory10m-control-r1-hpc04.service",
+        "invocation_id": "e2c53d11538e47e3a68f5471dc616366",
+        "main_pid": 0,
+        "result": "success",
+        "exit_code": 0,
+        "cgroup_path_absent": true,
+        "manager_success_invocation_bound": true
+      }
+    },
+    "candidate": {
+      "hpc01": {
+        "unit": "wrf-cpu-production512-quilt-owned-inventory10m-candidate-r1-hpc01.service",
+        "invocation_id": "1e8b093ec2674150a8cae06b09e717f9",
+        "main_pid": 0,
+        "result": "success",
+        "exit_code": 0,
+        "cgroup_path_absent": true,
+        "manager_success_invocation_bound": true
+      },
+      "hpc02": {
+        "unit": "wrf-cpu-production512-quilt-owned-inventory10m-candidate-r1-hpc02.service",
+        "invocation_id": "b095bbf416f14fcdac2bb3ed0a7d7a02",
+        "main_pid": 0,
+        "result": "success",
+        "exit_code": 0,
+        "cgroup_path_absent": true,
+        "manager_success_invocation_bound": true
+      },
+      "hpc03": {
+        "unit": "wrf-cpu-production512-quilt-owned-inventory10m-candidate-r1-hpc03.service",
+        "invocation_id": "e2618a2468d5444ea3ae536137e22213",
+        "main_pid": 0,
+        "result": "success",
+        "exit_code": 0,
+        "cgroup_path_absent": true,
+        "manager_success_invocation_bound": true
+      },
+      "hpc04": {
+        "unit": "wrf-cpu-production512-quilt-owned-inventory10m-candidate-r1-hpc04.service",
+        "invocation_id": "4901d94be0fc4023bf0547da3584af59",
+        "main_pid": 0,
+        "result": "success",
+        "exit_code": 0,
+        "cgroup_path_absent": true,
+        "manager_success_invocation_bound": true
+      }
+    }
+  },
+  "resources": {
+    "control": {
+      "hpc01": {
+        "memory_peak_bytes": 100002447360,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "cpu_stat": "usage_usec 21817052017\nuser_usec 21254019686\nsystem_usec 563032330\ncore_sched.force_idle_usec 0\nnr_periods 2681\nnr_throttled 1117\nthrottled_usec 2472035\nnr_bursts 0\nburst_usec 0\n"
+      },
+      "hpc02": {
+        "memory_peak_bytes": 97895911424,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "cpu_stat": "usage_usec 21657297923\nuser_usec 21121803518\nsystem_usec 535494404\ncore_sched.force_idle_usec 0\nnr_periods 2639\nnr_throttled 1279\nthrottled_usec 4537901\nnr_bursts 0\nburst_usec 0\n"
+      },
+      "hpc03": {
+        "memory_peak_bytes": 97915789312,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "cpu_stat": "usage_usec 21701790236\nuser_usec 21114298477\nsystem_usec 587491758\ncore_sched.force_idle_usec 0\nnr_periods 2639\nnr_throttled 1215\nthrottled_usec 9758625\nnr_bursts 0\nburst_usec 0\n"
+      },
+      "hpc04": {
+        "memory_peak_bytes": 100507922432,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "cpu_stat": "usage_usec 21667348765\nuser_usec 21077956077\nsystem_usec 589392687\ncore_sched.force_idle_usec 0\nnr_periods 2639\nnr_throttled 1234\nthrottled_usec 8189985\nnr_bursts 0\nburst_usec 0\n"
+      }
+    },
+    "candidate": {
+      "hpc01": {
+        "memory_peak_bytes": 97615650816,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "cpu_stat": "usage_usec 13925793724\nuser_usec 13401950083\nsystem_usec 523843640\ncore_sched.force_idle_usec 0\nnr_periods 1479\nnr_throttled 627\nthrottled_usec 4087731\nnr_bursts 0\nburst_usec 0\n"
+      },
+      "hpc02": {
+        "memory_peak_bytes": 95509721088,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "cpu_stat": "usage_usec 13885888804\nuser_usec 13368843980\nsystem_usec 517044823\ncore_sched.force_idle_usec 0\nnr_periods 1435\nnr_throttled 705\nthrottled_usec 7312244\nnr_bursts 0\nburst_usec 0\n"
+      },
+      "hpc03": {
+        "memory_peak_bytes": 95718203392,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "cpu_stat": "usage_usec 13964175764\nuser_usec 13376053564\nsystem_usec 588122200\ncore_sched.force_idle_usec 0\nnr_periods 1429\nnr_throttled 793\nthrottled_usec 4330982\nnr_bursts 0\nburst_usec 0\n"
+      },
+      "hpc04": {
+        "memory_peak_bytes": 97943916544,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "cpu_stat": "usage_usec 13944401734\nuser_usec 13357018313\nsystem_usec 587383421\ncore_sched.force_idle_usec 0\nnr_periods 1432\nnr_throttled 648\nthrottled_usec 5288175\nnr_bursts 0\nburst_usec 0\n"
+      }
+    }
+  },
+  "reader": {
+    "invocation_id": "fc640f7fe4b64d5b8313e9947f78eec8",
+    "main_pid": 0,
+    "result": "success",
+    "exit_code": null,
+    "positive_journal_and_actual_cgroup_absence": true,
+    "last_resource_sample": {
+      "utc": "2026-10-19T00:51:49.107944+00:00",
+      "properties": {
+        "MainPID": "1487032",
+        "Result": "success",
+        "ExecMainStatus": "0",
+        "ControlGroup": "/system.slice/wrf-cpu-production512-quilt-owned-inventory10m-exact-check-hpc03-r1.service",
+        "ActiveState": "active",
+        "InvocationID": "fc640f7fe4b64d5b8313e9947f78eec8"
+      },
+      "science_status": "RUNNING_ORIGINAL_INITIAL_HISTORY_COMPARISON",
+      "mismatch_status_reported": false,
+      "error": null,
+      "cpu.stat": "usage_usec 171868873\nuser_usec 138389092\nsystem_usec 33479781\ncore_sched.force_idle_usec 0\nnr_periods 1955\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+      "memory.current": "7646318592\n",
+      "memory.peak": "7908438016\n",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n"
+    },
+    "final_cpu_peak_events": "UNKNOWN; last live sample is not final"
+  },
+  "inventory": {
+    "records": 162144,
+    "batches": 25584,
+    "known_query_bound_B_batches": 25568,
+    "initial_noquery_unknown_batches": 16,
+    "validation_errors": 0,
+    "observed_ranks": "480..495 only",
+    "summary_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/quilt-borrowed-pieces-feasibility-r1/analysis-r1/ACTUAL_SHORT_INVENTORY_SUMMARY.json",
+    "physical_allocation_descriptor_backend": "UNKNOWN"
+  },
+  "limits": [
+    "Diagnostic/reference qualification only; no timing, speedup, RSS or memory-benefit claim.",
+    "Logical gatherB and queryM do not establish actual scratch capacity. Existing Fortran retains original API obufsize after physical shrink.",
+    "Initial stage receipt-path failure and scalar32MiB collector failure preserved; finite metadata-only repairs recorded.",
+    "Initial operator process-metadata reads and approved hpc00 provider traffic retained in OPERATOR_CONTEXT.json; no zero-impact claim.",
+    "Concurrent timing-insensitive Q native02 ran only after all model closures, alongside SCI03; peer reports positive closure.",
+    "Nonzero model CPU throttling retained in raw per-host resources; final reader resource counters unavailable."
+  ],
+  "raw_references_sha256": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-quilt-owned-inventory10m-runtime-r1/control-metadata/mpi-launch.json": "c39b3c7293b5b2d47ea091e5545b658b15efe572ac2f31107c432fa5077eacda",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-quilt-owned-inventory10m-runtime-r1/control-metadata/hpc02-node.json": "7447b05602589d60a05706f5917edb0c6b9c150253c8ecaa370ffbc5ef53f295",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-quilt-owned-inventory10m-runtime-r1/control-metadata/hpc03-node.json": "0282d61c8d2e775573f0cd5b35d98b950e5779b2d2251d5c14aeead21681f1ef",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-quilt-owned-inventory10m-runtime-r1/control-metadata/hpc04-node.json": "17d195cebaeee341632cf460799ccd76402125a70cb0eeeba6218040cacd3432",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-quilt-owned-inventory10m-runtime-r1/candidate-metadata/mpi-launch.json": "776cdf311a7abc99f1444fbe65105643a5063e9d9e052b6e12a615e7eee1d03f",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-quilt-owned-inventory10m-runtime-r1/candidate-metadata/hpc02-node.json": "89731179e380e0e792f907e8ea928cb16487fa6d4bbe3b0d7e16ecb3edd32d01",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-quilt-owned-inventory10m-runtime-r1/candidate-metadata/hpc03-node.json": "f7be3847b61d06f0caf8cda1949c1d3eb8fe68c5c91b00de9d44ceedb738f025",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-quilt-owned-inventory10m-runtime-r1/candidate-metadata/hpc04-node.json": "3fafc2f6f9d12235ba3399000af86f8fe993afbca73eabb0621e8045d16285c3",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-quilt-owned-inventory10m-runtime-r1/RESULT.json": "3ed62feb197dee1748fdfc1a5779a166a63678107916247f7ab499a323e6edb0",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-quilt-owned-inventory10m-runtime-r1/science-receipt.json": "7365ef4b1937fbcd505e5ef55ab0776b68e5dd524dc69710197c8ceeb5390f71",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-quilt-owned-inventory10m-runtime-r1/reader-closure.json": "2dd3f946eb840d337ba7bced0f4a7b7bf5ae354b48f18ad6b6d40d96a7543681",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/quilt-borrowed-pieces-feasibility-r1/short-original-reference-proposal-r1/lifecycle-r1/INVENTORY_SCALAR_COPY_PROOF.json": "8cdddb0b563f0e3e932c79e51494392bdb3b6c45dce3b4eeebe2930f0e64264c",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/quilt-borrowed-pieces-feasibility-r1/short-original-reference-proposal-r1/lifecycle-r1/OPERATOR_CONTEXT.json": "ea4837b56237a459538213db057b12a688b9096fa2f9074e7dd2daa5f646c3ce",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/quilt-borrowed-pieces-feasibility-r1/analysis-r1/ACTUAL_SHORT_INVENTORY_SUMMARY.json": "fb9889907f4c5c1981379b554c5a42e1ee9a1dd84119d6a39e55f6a87e6bcc7a"
+  }
+}

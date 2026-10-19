@@ -1,0 +1,11 @@
+# Qualified output-buffer inventory diagnostic
+
+This diagnostic leaves the selected `8b101` configuration unchanged. It adds opt-in scalar counters to a separate C-only image (`d528`) with every archive member and twelve other external link inputs unchanged. The native C protocol and state checks passed before application testing.
+
+A fresh corrected original `546b` and the diagnostic each ran the same ten-minute, full-grid, 512-rank forecast. Both complete products, metadata/layout, all 35 ordered steps through 06:10 and the existing runtime/tile checks passed the original scientific checker. All eight model scopes and the reader positively closed. This short window activates roots 487 and 495; roots 503 and 511 correctly stay inactive. It is not hourly or all-four-service-group qualification.
+
+The [inventory](INVENTORY.json) contains 162,144 validated scalar records across 25,584 batches; sixteen initial empty batches lack a query and remain UNKNOWN. The largest observed batch had 902,897,664 bytes of logical gather input, stored content and requested field cache, across 274 fields and 35,072 pieces. Its initial maximum field bound was 30,098,976 bytes. Requested cache falls to zero as fields are consumed; the C API size argument keeps its original logical value after the accepted Fortran scratch shrink.
+
+These are source-level counters, not physical allocation, RSS, a simultaneous global peak or a measured speedup. Retaining the whole immutable gather buffer until output ends would keep a large object alive after existing field caches are freed. That countercost keeps the proposed whole-batch borrowing implementation parked. The next bounded investigation considers lending one existing C-owned field to its caller through an explicit lifetime API, avoiding the retrieval copy while keeping the gather allocation's current release point. No such implementation is qualified or enabled here.
+
+[Qualification](QUALIFICATION.json) binds raw evidence and limits. The receipt-path staging error and scalar collector size-cap failure were repaired without another forecast; their original failures remain preserved. Model CPU throttling was nonzero. Final reader resource totals are unavailable. No timing or physical memory-benefit claim is made from this diagnostic.
