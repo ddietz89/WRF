@@ -1,0 +1,105 @@
+{
+  "status": "PROMOTED_WORKING_DEFAULT_EXACT_NATIVE_AND_NOON_APPLICATION",
+  "canonical_source_sha256": "d289857429bd589c8d4fc42d272c51b83645582901bc2928492babac9f3786ce",
+  "preprocessed_source_sha256": "b33cf20dce0be94890b9f149a7579333782522bcfef440ac304dc207ca02fe55",
+  "candidate_object_sha256": "c05da043bcbd1a0d77b83affe602b235751dbe992e6ee849c5537a2a2f514a44",
+  "candidate_object_path": "/pool/wrf-experiment/wrf-cpu/kernels/myj-velocity-pack-simd-full-caller-gate-r1/O2/candidate/module_bl_myjpbl.o",
+  "module_interface_sha256": "b16bb1b06b2b18abd8b61cf81bd61ae349e2728ddd32f52d3d58dafec14309e2",
+  "native_receipt": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-velocity-pack-simd-r1/full-caller-native-r1/receipt.json",
+    "sha256": "19aae2ef5b545dc84725148a0166207ce5d81199c7b265121cfadc0a856ea720"
+  },
+  "native_closure": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-velocity-pack-simd-r1/full-caller-native-r1/closure.json",
+    "sha256": "526dc4f157453274b18bcf1c3264c9a67850233d4c539bff47bb38155a807b38"
+  },
+  "timing_result": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-velocity-pack-simd-r1/timing-r1/TIMING_RESULT.json",
+    "sha256": "a9653369d27af5096570588f740914a27215f64ff69f8807210c441b98164c84"
+  },
+  "codegen": "actual target packed payload stores 0 to 6; whole-MYJPBL malloc/free26 unchanged; no internal pack/unpack",
+  "application_qualified": true,
+  "default_promoted": true,
+  "source_commit": "8583a312a855699459cfe8033ddb0de7e64c798a",
+  "application_result": "../../cpu-working/LATEST_APPLICATION_RESULT.json",
+  "focused_timing_result": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-velocity-pack-simd-r1/focused-timing-r1/TIMING_RESULT.json",
+    "sha256": "0b65e2ddcc836c28c4fd4972d343d5435d44b87e091b694458e39df31fa07696"
+  },
+  "focused_scope": "One native-qualified32layer helper case,35stride/I17,4194304 calls, outputsentinelrestore+reset/helper/read5state inside both clocks; warm/terminal440B raw/state+readonly/guards outside. Separatecompiledhelper objects; noLTO/nohoisting, originalGNU13strictflags; no calibration, measuredbody~1.6s. This includes state/restore overhead and is not standalone copy-only latency or completeMYJ/forecast gain.",
+  "focused_pairs": [
+    {
+      "host": "hpc04",
+      "order": "P-C",
+      "parent": {
+        "wall_seconds": 1.6507063100000001,
+        "cpu_seconds": 1.65063914,
+        "repeats": 4194304
+      },
+      "candidate": {
+        "wall_seconds": 1.605584364,
+        "cpu_seconds": 1.6054977400000001,
+        "repeats": 4194304
+      },
+      "wall_reduction_percent": 2.7334932765841353,
+      "cpu_reduction_percent": 2.7347830852962742
+    },
+    {
+      "host": "hpc01",
+      "order": "C-P",
+      "parent": {
+        "wall_seconds": 1.650636462,
+        "cpu_seconds": 1.650564503,
+        "repeats": 4194304
+      },
+      "candidate": {
+        "wall_seconds": 1.6401790790000002,
+        "cpu_seconds": 1.6401036290000002,
+        "repeats": 4194304
+      },
+      "wall_reduction_percent": 0.6335364109992546,
+      "cpu_reduction_percent": 0.633775534429983
+    }
+  ],
+  "all_own_01_04_scopes_closed": true,
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/myj-velocity-pack-simd-current-r1/wrf.exe",
+    "sha256": "4c14719a0fbeb98e21089b03e56e2f40d5ba995a89ec22c05c54f8f5e071c8df"
+  },
+  "archive_sha256": "4952f30be1a6f06ea9ebd37767b318f45f54b98374ff76eeb9fdda02177f5025",
+  "application_qualification_sha256": "3d36f57fd08c25c64c87b320c94131a1da01abf3c80e5cbda6ea63b92e32503a",
+  "science": {
+    "status": "PASS_ORIGINAL_TWO_HISTORY_AND_512_NOON75M_ORDERED_SEQUENCE",
+    "receipt_sha256": "10a7f014b8daea96190b97a10467fca1134cb7752060fdf7c08197f7cae4aa56",
+    "reader_closure_sha256": "a9fe7f847706362271e1f583be6f69d2cd047f06409cdd9eadf1d473ea98c056",
+    "complete_products": 2,
+    "ordered_steps": 230,
+    "last_observed_step": "2026-10-12_13:15:00",
+    "all_model_and_reader_scopes_closed": true,
+    "all512_runtime_and_original_tile_proofs": "PASS",
+    "required_positive_writer_roots": [
+      487,
+      495
+    ],
+    "required_zero_output_writer_roots": [
+      503,
+      511
+    ],
+    "scope": "Original noon two-product values/metadata/output-layout and ordered sequence; GNU13.3 strict/Zen2,512ranks,480compute+32quilt,8x60/two tiles,375/881/825/faba,UCX rc,sm,self/IB. No current-image three/nine-hour or restart144h/othercompiler qualification."
+  },
+  "build_receipt_sha256": "fcf77a021d9df8c2124326b3edba7128ce7d35f52ba629b08fa1a55f8c40f2c0",
+  "build_closure_sha256": "84d0485776d08d3f3d139f5f612742f60c002fda4e645e2f340d5471e3699a75",
+  "source_build_binding": {
+    "file": "../../cpu-working/CURRENT_SOURCE_BUILD_BINDING.json",
+    "sha256": "0c912572f5df260a68d8e07235b8bdefb12b282cee0efd55bb0e354f7dd8397d"
+  },
+  "decision_reason": "Measured modest focused gains in both orders and exact application support inclusion under owner policy. Complete-MYJPBL timing remained mixed; no significant caller or isolated forecast benefit claimed.",
+  "rollback": {
+    "source_commit": "86d4d25ea221ac7de476b960f43827322bc6e6b3",
+    "executable": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/ownedview-myjpack-combined-current-r1/wrf.exe",
+      "sha256": "41a045af54b44568de0b94293e83aff5e0abfc479c7cef5a46f892daffcf9b40"
+    },
+    "action": "Select retained41a with same375/881/825/faba andFIELD_VIEW1, or revert8583a312 and rebuild."
+  }
+}

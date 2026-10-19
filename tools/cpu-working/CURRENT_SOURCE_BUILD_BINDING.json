@@ -1,11 +1,11 @@
 {
   "status": "POST_SCIENCE_SOURCE_COMMIT_BINDS_EXACT_TESTED_ARTIFACTS",
-  "source_commit": "86d4d25ea221ac7de476b960f43827322bc6e6b3",
+  "source_commit": "8583a312a855699459cfe8033ddb0de7e64c798a",
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/ownedview-myjpack-combined-current-r1/wrf.exe",
-    "sha256": "41a045af54b44568de0b94293e83aff5e0abfc479c7cef5a46f892daffcf9b40"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/myj-velocity-pack-simd-current-r1/wrf.exe",
+    "sha256": "4c14719a0fbeb98e21089b03e56e2f40d5ba995a89ec22c05c54f8f5e071c8df"
   },
-  "archive_sha256": "7e2544125b384ce4bd6cd4df62316007eefac8548ad6437199f58af0aa747ac9",
+  "archive_sha256": "4952f30be1a6f06ea9ebd37767b318f45f54b98374ff76eeb9fdda02177f5025",
   "sources": [
     {
       "destination": "WRF/frame/pack_utils.c",
@@ -21,24 +21,28 @@
     },
     {
       "destination": "WRF/phys/module_bl_myjpbl.F",
-      "source": "investigation/wrf-cpu/campaign/spot100-20261016/myj-input-pack-simd-r1/candidate_module_bl_myjpbl.F",
-      "parent_sha256": "1e82472bd07c7fb807ac84a7a8ce0c7bf7b12d4ead0f395ca5de7ab62abcc4a8",
-      "qualified_candidate_sha256": "44ee464858cc46158643e4ef4995e328747984382f9f0383a9fb9731360d5e35"
+      "source": "investigation/wrf-cpu/campaign/spot100-20261016/myj-velocity-pack-simd-r1/candidate_module_bl_myjpbl.F",
+      "parent_sha256": "44ee464858cc46158643e4ef4995e328747984382f9f0383a9fb9731360d5e35",
+      "qualified_candidate_sha256": "d289857429bd589c8d4fc42d272c51b83645582901bc2928492babac9f3786ce"
     }
   ],
   "build": {
-    "receipt_sha256": "06b3a6bebf92ef8decae054f7097c255c8bb58107f10e2207ab5ca3538af9f49",
-    "closure_sha256": "46953de0d98cea203a6690c014120bba3cb76246ddc85e82a48034d27a89ce1d",
-    "recipe_sha256": "aaef989158fa2dd8e8c5fd8509948bd66c73ccbd9fc3acd2454282c5c691efd6",
-    "proof_sha256": "88191e5c8d279c70104397836a30db5b546c00b8ffdf99d623645afb39c52650",
-    "canonical_candidate_sha256": "44ee464858cc46158643e4ef4995e328747984382f9f0383a9fb9731360d5e35",
-    "preprocessed_candidate_sha256": "43fab57ba1b2605fea950197ba5a9c5ecbe20170aa5d0b8d1468dc08fe752870",
-    "native_receipt_sha256": "cfb319602a984b8030705080325b5f34d2e6a848692e37eeee3e37d49ca6c015",
-    "native_closure_sha256": "1b2fd8a06e7412ecf13ff7b210109cd352c7d1215733ba6237a1cf03ab9a2021",
-    "caller_timing_sha256": "2ce24e9281e221d460f3ec3e0f4a5723b2371ef353b39cc1997d88861aeeafad"
+    "receipt_sha256": "fcf77a021d9df8c2124326b3edba7128ce7d35f52ba629b08fa1a55f8c40f2c0",
+    "closure_sha256": "84d0485776d08d3f3d139f5f612742f60c002fda4e645e2f340d5471e3699a75",
+    "ordered_proof_sha256": "07456d119432c3e180b9c2931c10907994cdd4189d190a0fa090a7d4af47ef64",
+    "canonical_candidate_sha256": "d289857429bd589c8d4fc42d272c51b83645582901bc2928492babac9f3786ce",
+    "preprocessed_candidate_sha256": "b33cf20dce0be94890b9f149a7579333782522bcfef440ac304dc207ca02fe55",
+    "native_receipt_sha256": "19aae2ef5b545dc84725148a0166207ce5d81199c7b265121cfadc0a856ea720",
+    "native_closure_sha256": "526dc4f157453274b18bcf1c3264c9a67850233d4c539bff47bb38155a807b38",
+    "caller_timing_sha256": "a9653369d27af5096570588f740914a27215f64ff69f8807210c441b98164c84",
+    "focused_timing_sha256": "0b65e2ddcc836c28c4fd4972d343d5435d44b87e091b694458e39df31fa07696"
   },
   "direct_C_object_sha256": "8ab87436bdb22d9d0ef3c1257e25f415727ede16be8535b8e037832a12fe9752",
   "quilt_object_sha256": "3aacdd25454c8a38403bee266abd911c4536ff1105887d9540c81f97afabfb44",
-  "build_scope": "Actual combined one-MYJ-member replacement/one link/zero Fortran source compiles; 583 other archive members and all13 external inputs from repaired fieldview parent unchanged. Native source/object qualification supplies the two new source paths. Source commit records exact tested bytes after science; it was not a prebuild input.",
-  "application_qualification_sha256": "2e57e4355fd0ff61beda5280079cbded5060c554772df40f543e7a6b1fda2e35"
+  "build_scope": "Actual one-MYJ-member replacement/one link/zero source compiles;583 other archive members and13 external inputs from41a unchanged. Native candidate c05da reused; C8ab/quilt3aac preserved. Post-science source commit binds exact tested bytes; it was not a prebuild input.",
+  "application_qualification_sha256": "3d36f57fd08c25c64c87b320c94131a1da01abf3c80e5cbda6ea63b92e32503a",
+  "previous_binding": {
+    "file": "PREVIOUS_SOURCE_BUILD_BINDING_41A.json",
+    "sha256": "67e506011a5b5bcc5ac0a935fc120e6703693e5a86a36df1ffe704171a19838a"
+  }
 }
