@@ -382,7 +382,9 @@
                 tcg_racg, tmr_racg, tcr_gacr,                           & ! tmg_gacr
                 tnr_racg, tnr_gacr
 #else
-      REAL (KIND=R8SIZE), ALLOCATABLE, DIMENSION(:,:,:,:,:):: tcg_racg
+      REAL(KIND=R8SIZE), POINTER, CONTIGUOUS, PRIVATE :: tcg_racg(:,:,:,:,:) => NULL()
+      REAL(KIND=R8SIZE), ALLOCATABLE, TARGET, PRIVATE :: tcg_stage(:,:,:,:,:)
+      TYPE(C_PTR), PRIVATE :: tcg_owner=C_NULL_PTR, tcg_cview=C_NULL_PTR
       REAL(KIND=R8SIZE), POINTER, CONTIGUOUS, PRIVATE :: tmr_racg(:,:,:,:,:) => NULL()
       REAL(KIND=R8SIZE), ALLOCATABLE, TARGET, PRIVATE :: tmr_racg_stage(:,:,:,:,:)
       TYPE(C_PTR), PRIVATE :: rcg_owner=C_NULL_PTR, rcg_cview=C_NULL_PTR
@@ -529,9 +531,9 @@
         REAL(KIND=R8SIZE),POINTER,CONTIGUOUS :: v5(:,:,:,:),v6(:,:,:,:)
         REAL(KIND=R8SIZE),POINTER,CONTIGUOUS :: v7(:,:,:,:,:),v8(:,:,:,:,:)
         REAL(KIND=R8SIZE),POINTER,CONTIGUOUS :: v9(:,:,:,:,:),v10(:,:,:,:,:)
-        INTEGER(C_SIZE_T) :: b11
-        TYPE(C_PTR) :: s11
-        REAL(KIND=R8SIZE),POINTER,CONTIGUOUS :: v11(:,:,:,:,:)
+        INTEGER(C_SIZE_T) :: b11,b12
+        TYPE(C_PTR) :: s11,s12
+        REAL(KIND=R8SIZE),POINTER,CONTIGUOUS :: v11(:,:,:,:,:),v12(:,:,:,:,:)
         IF (tpi_phase/=TPI_INIT) CALL wrf_error_fatal('Experimental tpi publication phase')
         ! ALL TEN private stages must be allocated before any owner is created.
         IF (.NOT.(ALLOCATED(tpi_qcfz_stage).AND.ALLOCATED(tni_qcfz_stage).AND. &
@@ -560,9 +562,13 @@
         IF (ANY(SHAPE(tpi_qrfz_stage)/=[37,37,45,55]).OR.ANY(SHAPE(tni_qrfz_stage)/=[37,37,45,55]).OR. &
             ANY(SHAPE(tpg_qrfz_stage)/=[37,37,45,55]).OR.ANY(SHAPE(tnr_qrfz_stage)/=[37,37,45,55])) &
           CALL wrf_error_fatal('Experimental tpi rain shape')
-        IF (.NOT.ALLOCATED(tcg_racg)) CALL wrf_error_fatal('Experimental ordinary tcg missing')
-        IF (ANY(SHAPE(tcg_racg)/=[37,37,1,37,37])) &
-          CALL wrf_error_fatal('Experimental ordinary tcg shape')
+        IF (.NOT.ALLOCATED(tcg_stage)) CALL wrf_error_fatal('Experimental tcg stage missing')
+        IF (.NOT.ASSOCIATED(tcg_racg,tcg_stage)) &
+          CALL wrf_error_fatal('Experimental tcg stage association')
+        IF (ANY(SHAPE(tcg_stage)/=[37,37,1,37,37]).OR.STORAGE_SIZE(tcg_stage)/=64) &
+          CALL wrf_error_fatal('Experimental tcg stage shape/kind')
+        IF (ANY(LBOUND(tcg_racg)/=1).OR..NOT.IS_CONTIGUOUS(tcg_racg)) &
+          CALL wrf_error_fatal('Experimental tcg view layout')
         IF (ANY(SHAPE(tmr_racg_stage)/=[37,37,1,37,37]).OR. &
             ANY(SHAPE(tcr_gacr_stage)/=[37,37,1,37,37]).OR. &
             ANY(SHAPE(tnr_racg_stage)/=[37,37,1,37,37]).OR. &
@@ -654,6 +660,9 @@
         b11=INT(SIZE(rain_snow_stage),C_SIZE_T)*C_SIZEOF(rain_snow_stage(1,1,1,1,1))
         IF (b11/=43764192_C_SIZE_T) CALL wrf_error_fatal('Experimental rain-snow family bytes')
         s11=C_LOC(rain_snow_stage(1,1,1,1,1))
+        b12=INT(SIZE(tcg_stage),C_SIZE_T)*C_SIZEOF(tcg_stage(1,1,1,1,1))
+        IF (b12/=14993288_C_SIZE_T) CALL wrf_error_fatal('Experimental tcg owner bytes')
+        s12=C_LOC(tcg_stage(1,1,1,1,1))
         s1=C_LOC(tpi_qcfz_stage(1,1,1,1)); s2=C_LOC(tni_qcfz_stage(1,1,1,1))
         s3=C_LOC(tpi_qrfz_stage(1,1,1,1)); s4=C_LOC(tni_qrfz_stage(1,1,1,1))
         s5=C_LOC(tpg_qrfz_stage(1,1,1,1)); s6=C_LOC(tnr_qrfz_stage(1,1,1,1))
@@ -697,6 +706,9 @@
         failed_at=11
         rc=st_create(INT(tpi_comm,C_INT),s11,b11,INT(tpi_mode,C_INT),rain_snow_owner,rain_snow_cview)
         IF (rc/=expected) GOTO 900
+        failed_at=12
+        rc=st_create(INT(tpi_comm,C_INT),s12,b12,INT(tpi_mode,C_INT),tcg_owner,tcg_cview)
+        IF (rc/=expected) GOTO 900
         IF (expected==0_C_INT) THEN
           CALL C_F_POINTER(tpi_cview,v1,[37,100,45,55])
           CALL C_F_POINTER(tni_cview,v2,[37,100,45,55])
@@ -729,6 +741,9 @@
           tnr_sacr1 => v11(:,:,:,:,11)
           tnr_sacr2 => v11(:,:,:,:,12)
           NULLIFY(v11)
+          CALL C_F_POINTER(tcg_cview,v12,[37,37,1,37,37])
+          tcg_racg => v12
+          NULLIFY(v12)
           DEALLOCATE(tpi_qcfz_stage); DEALLOCATE(tni_qcfz_stage)
           DEALLOCATE(tpi_qrfz_stage); DEALLOCATE(tni_qrfz_stage)
           DEALLOCATE(tpg_qrfz_stage); DEALLOCATE(tnr_qrfz_stage)
@@ -737,6 +752,7 @@
           DEALLOCATE(tnr_racg_stage)
           DEALLOCATE(tnr_gacr_stage)
           DEALLOCATE(rain_snow_stage)
+          DEALLOCATE(tcg_stage)
           tpi_phase=TPI_SHARED
         ELSE
           tpi_phase=TPI_PRIVATE
@@ -789,7 +805,11 @@
         IF ((cleanup/=0_C_INT.AND.cleanup/=1_C_INT).OR. &
             C_ASSOCIATED(rain_snow_owner).OR.C_ASSOCIATED(rain_snow_cview)) &
           CALL wrf_error_fatal('Experimental eleven-owner rollback cleanup 11')
-        WRITE(failure_message,'(A,I0,A,I0)') 'Experimental eleven-owner create ',failed_at, &
+        cleanup=st_destroy(INT(tpi_comm,C_INT),tcg_owner,tcg_cview)
+        IF ((cleanup/=0_C_INT.AND.cleanup/=1_C_INT).OR. &
+            C_ASSOCIATED(tcg_owner).OR.C_ASSOCIATED(tcg_cview)) &
+          CALL wrf_error_fatal('Experimental twelve-owner rollback cleanup 12')
+        WRITE(failure_message,'(A,I0,A,I0)') 'Experimental twelve-owner create ',failed_at, &
              ' rejected status ',rc
         CALL wrf_error_fatal(TRIM(failure_message))
       END SUBROUTINE
@@ -816,6 +836,7 @@
         NULLIFY(tnr_racs2)
         NULLIFY(tnr_sacr1)
         NULLIFY(tnr_sacr2)
+        NULLIFY(tcg_racg)
         rc=st_destroy(INT(tpi_comm,C_INT),tpi_owner,tpi_cview)
         IF (rc/=0_C_INT.AND.rc/=1_C_INT) CALL wrf_error_fatal('Experimental tpi teardown state 1')
         IF (C_ASSOCIATED(tpi_owner).OR.C_ASSOCIATED(tpi_cview)) &
@@ -861,6 +882,11 @@
           CALL wrf_error_fatal('Experimental rain-snow teardown state')
         IF (C_ASSOCIATED(rain_snow_owner).OR.C_ASSOCIATED(rain_snow_cview)) &
           CALL wrf_error_fatal('Experimental rain-snow teardown left owner')
+        rc=st_destroy(INT(tpi_comm,C_INT),tcg_owner,tcg_cview)
+        IF (rc/=0_C_INT.AND.rc/=1_C_INT) &
+          CALL wrf_error_fatal('Experimental tcg teardown state 12')
+        IF (C_ASSOCIATED(tcg_owner).OR.C_ASSOCIATED(tcg_cview)) &
+          CALL wrf_error_fatal('Experimental tcg teardown left owner 12')
         IF (ALLOCATED(tpi_qcfz_stage)) DEALLOCATE(tpi_qcfz_stage)
         IF (ALLOCATED(tni_qcfz_stage)) DEALLOCATE(tni_qcfz_stage)
         IF (ALLOCATED(tpi_qrfz_stage)) DEALLOCATE(tpi_qrfz_stage)
@@ -872,6 +898,7 @@
         IF (ALLOCATED(tnr_racg_stage)) DEALLOCATE(tnr_racg_stage)
         IF (ALLOCATED(tnr_gacr_stage)) DEALLOCATE(tnr_gacr_stage)
         IF (ALLOCATED(rain_snow_stage)) DEALLOCATE(rain_snow_stage)
+        IF (ALLOCATED(tcg_stage)) DEALLOCATE(tcg_stage)
         tpi_phase=TPI_CLOSED
       END SUBROUTINE
 #ifdef WRF_EXPERIMENTAL_TPI_NATIVE_GATE
@@ -1082,10 +1109,18 @@
 
 !..Allocate space for lookup tables (J. Michalakes 2009Jun08).
 
+#ifndef WRF_EXPERIMENTAL_TPI_NUMA
       if (.NOT. ALLOCATED(tcg_racg) ) then
          ALLOCATE(tcg_racg(ntb_g1,ntb_g,dimNRHG,ntb_r1,ntb_r))
          micro_init = .TRUE.
       endif
+#else
+      IF (.NOT.ALLOCATED(tcg_stage)) THEN
+         ALLOCATE(tcg_stage(ntb_g1,ntb_g,dimNRHG,ntb_r1,ntb_r))
+         micro_init = .TRUE.
+      ENDIF
+      tcg_racg => tcg_stage
+#endif
 
 #ifdef WRF_EXPERIMENTAL_TPI_NUMA
       IF (.NOT. ALLOCATED(tmr_racg_stage)) THEN
