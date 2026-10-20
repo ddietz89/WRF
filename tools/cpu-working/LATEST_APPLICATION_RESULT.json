@@ -1,8 +1,8 @@
 {
-  "status": "PASS_CEC_SLIDE_HASH_UNROLL4_FRESH_ORIGINAL_512_FOUR_PRODUCTS545",
+  "status": "PASS_CURRENT_CEC_CHILD_DIFCOF_SIMD_FULL512_SHORT_ORIGINAL_TWO_PRODUCTS35_WITH_WRITE_BOUNDARY_DIAGNOSTIC",
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/current1d6e-mcica-mask-fusion-current-r1/wrf.exe",
-    "sha256": "cec189a3dbbb6ab95c7f31e29a44ee4eea37d06d8d161fc7349bc52daa468e30"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentCEC-myj-difcof-simd-current-r3/wrf.exe",
+    "sha256": "41bfb335979cefd8f12a8d0c7a682d85d81cae88928fe12ee0badfec58dd7789"
   },
   "codec": {
     "path": "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/libz.so.1.3.1.zlib-ng",
@@ -12,14 +12,15 @@
     "path": "/pool/wrf-experiment/wrf-cpu/kernels/current329f-padding-block32-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
     "sha256": "de5b3c27224091cc0369062c9f1bbb867b362436a0331892a6ec9cf4fc4fccb4"
   },
+  "source_commit": "b37e02ce68336284e8478072ab0178a011b7587c",
   "science": {
-    "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
-    "receipt_sha256": "67e086393e410e09a0faec6db35d32030da314c77e15de68fe06872f5a41c835",
-    "reader_closure_sha256": "cf07a3bfec26e1cd13aa7cc0f1268f9d270a01bf003b03b6622ecc0fdcbf6293",
-    "invocation_id": "3e8de1d40ed240b39c805afea13f9794",
-    "products": 4,
-    "ordered_steps": 545,
-    "end_time": "2026-10-12_09:00:00",
+    "status": "PASS_RETAINED_ORIGINAL_TWO_HISTORY_35_STEPS_512_OWNED_FIELD_VIEW",
+    "receipt_sha256": "27d3c90b9787f8bfd08f14654580c2bd0e42df77a0f9150bfdabc319e0aaa472",
+    "reader_closure_sha256": "2cfe6752b84ded629c8053ead2ad470c0bbe8d5f8a9cec0cfce58eb75686105a",
+    "invocation_id": "3ee8dcc378fc4efd9e7601c111299e9f",
+    "products": 2,
+    "ordered_steps": 35,
+    "end_time": "2026-10-12_06:10:00",
     "world": 512,
     "compute": 480,
     "quilt_groups": 4,
@@ -27,103 +28,24 @@
     "tiles": 2,
     "positive_writer_roots": [
       487,
-      495,
+      495
+    ],
+    "zero_writer_roots": [
       503,
       511
     ],
-    "zero_writer_roots": [],
     "protected_original_checker_unchanged": true,
     "all_model_reader_scopes_closed": true,
     "reader_exit_code_raw": null,
     "protected_original_compare_one_AST_exact": true
   },
-  "runtime_proof": {
-    "all512_complete_maps_bind_actual_codec": true,
-    "tile_status": "PASS_ACTUAL_480_DISJOINT_TILE_UNIONS_AND_ALL512_OBSERVED_ENVS",
-    "input_lifecycle": {
-      "event": "final",
-      "rank": 0,
-      "scopes": 308,
-      "callbacks": 31,
-      "supplied": 17,
-      "declines": 14,
-      "widens": 31,
-      "restores": 31
-    },
-    "writer_lifecycles": {
-      "487": {
-        "event": "final",
-        "rank": 487,
-        "scopes": 261,
-        "callbacks": 216,
-        "supplied": 216,
-        "declines": 0,
-        "guard_declines": 0,
-        "terminal_guards": 0,
-        "releases": 216,
-        "pending": 0,
-        "errors": 0,
-        "widens": 216,
-        "restores": 216,
-        "calls": 261,
-        "foreign_calls": 0
-      },
-      "495": {
-        "event": "final",
-        "rank": 495,
-        "scopes": 261,
-        "callbacks": 216,
-        "supplied": 216,
-        "declines": 0,
-        "guard_declines": 0,
-        "terminal_guards": 0,
-        "releases": 216,
-        "pending": 0,
-        "errors": 0,
-        "widens": 216,
-        "restores": 216,
-        "calls": 261,
-        "foreign_calls": 0
-      },
-      "503": {
-        "event": "final",
-        "rank": 503,
-        "scopes": 261,
-        "callbacks": 216,
-        "supplied": 216,
-        "declines": 0,
-        "guard_declines": 0,
-        "terminal_guards": 0,
-        "releases": 216,
-        "pending": 0,
-        "errors": 0,
-        "widens": 216,
-        "restores": 216,
-        "calls": 261,
-        "foreign_calls": 0
-      },
-      "511": {
-        "event": "final",
-        "rank": 511,
-        "scopes": 261,
-        "callbacks": 216,
-        "supplied": 216,
-        "declines": 0,
-        "guard_declines": 0,
-        "terminal_guards": 0,
-        "releases": 216,
-        "pending": 0,
-        "errors": 0,
-        "widens": 216,
-        "restores": 216,
-        "calls": 261,
-        "foreign_calls": 0
-      }
-    }
+  "current_application_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/myj-difcof-simd/APPLICATION_QUALIFICATION.json",
+    "sha256": "dfeb8996cf164ac61e1c8e85df370bb897b522934790ccf200d80ac8e9805d7b"
   },
-  "qualification_file": "tools/cpu-working/THREE_HOUR_FINAL_QUALIFICATION.json",
-  "qualification_sha256": "43da2c4a0b15a93f6080e7eacda94a7e9825e9bc567c7d2f1e8843e14005255d",
-  "benchmark": {
+  "current_three_hour_qualified": false,
+  "current_nine_hour_qualified": false,
+  "prior_three_hour_benchmark": {
     "evidence_file": "THREE_HOUR_RESULT.json",
     "qualification_file": "THREE_HOUR_FINAL_QUALIFICATION.json",
     "executable": {
@@ -154,10 +76,10 @@
     "wall_speedup_ratio": 1.2391587663289294,
     "full_qualification_sha256": "43da2c4a0b15a93f6080e7eacda94a7e9825e9bc567c7d2f1e8843e14005255d",
     "fresh_matched_timing": true,
-    "applies_to_current_selection": true,
+    "applies_to_current_selection": false,
     "repeatability_established": false,
     "scope": "GNU13.3 strict/OMP1/cold06:00\u201309:00/full512=480compute8x60+4x8quilt/faba/twoTiles/CEC/root06dNCa32/outputde5b/codec3edf/HDF825/shared1/FIELDVIEW1/singleIB;4completeproducts545steps/all4positivewriters. One fresh fixed-order inclusiveIO pair; no isolated/additive gain or current9h claim."
   },
-  "scope": "GNU13.3 strict/OMP1/cold06:00\u201309:00/full512=480compute8x60+4x8quilt/faba/twoTiles/CEC/root06dNCa32/outputde5b/codec3edf/HDF825/shared1/FIELDVIEW1/singleIB;4completeproducts545steps/all4positivewriters. Original scientific/runtime acceptance plus one fresh fixed-order wholeinclusiveIO comparison; no isolated/additive/repeatability/9h claim.",
-  "post_test_codec_source_commit": "624bc11610aff44c5dbdf458768d660ddbf5b806"
+  "scope": "GNU13.3 strict/OMP1/cold06:00-06:10/full512=480compute8x60+4x8quilt/faba/twoTiles/DF41b/root06dNCa32/outputde5b/codec3edf/HDF825/shared1/FIELDVIEW1/singleIB; original2products35 and complete writer lifecycle/diagnostic boundaries.",
+  "claim_limits": "CurrentDF41b has exact short2products35 qualification and capturedcaller gains only. PriorCEC3edf fresh3h19.30009%wall/12.78753%aggregateCPU remains prior configuration. No isolated/additive/forecast-wide gain or current3h/9h transfer."
 }

@@ -1,0 +1,80 @@
+{
+  "status": "NO_CONCRETE_LITERAL_PATCH_OR_INTEGRATION_BLOCKER_SOURCE_ONLY",
+  "review_scope": "Independent literal review of exactcanonical2-lineDIFCOF patch/currentselectedsource/integrationrollback, not numericalproofbeyond retainedactualgates.",
+  "parent_source_sha256": "71bdfe22196a36f46b55e9ee6bc7891aedb78f1906b1619df297d7c7b6e5e198",
+  "candidate_source_sha256": "795e00134d47f98f512d61ffc45f93b3599202499ee8d8429009611d21c4b11f",
+  "wholemodule_inverse_byteexact": true,
+  "patch_lines_added": 2,
+  "private_scalars": [
+    "ELL",
+    "ELOQ2",
+    "ELOQ4",
+    "GML",
+    "GHL",
+    "ADEN",
+    "BDEN",
+    "CDEN",
+    "BESM",
+    "BESH",
+    "RDEN",
+    "ESM",
+    "ESH",
+    "RDZ",
+    "Q1L",
+    "ELQDZ"
+  ],
+  "legality": "K canonicalloopindex is predeterminedprivate; every private scalar assignedbeforeuse ineachK; inputsINTENTIN andAKM/AKH INTENTOUT. No newalias allowance, no inputupdates, no scalarread-after-loopactivecode. All expressions/bounds unchanged.",
+  "actual_native_and_caller_proof": "Native32direct+actualwholecapturedMYJPBL O0bounds/O2raw/state/readonly and packed lowering passed. Completecapturedcaller512calls shorter inoneoppositeorderpairperhost. No universalIEEE/trap/input proof.",
+  "build_wiring": {
+    "actual_flags": [
+      "-O2",
+      "-fno-fast-math",
+      "-ffp-contract=off",
+      "-w",
+      "-fno-fast-math",
+      "-ffp-contract=off",
+      "-ffree-form",
+      "-ffree-line-length-none",
+      "-fconvert=big-endian",
+      "-frecord-marker=4",
+      "-fallow-argument-mismatch",
+      "-fallow-invalid-boz",
+      "-g",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+      "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+      "-fopenmp-simd"
+    ],
+    "same_existing_MYJ_simd_flag": true,
+    "new_compiler_flags": false,
+    "generic_Make_caveat": "phys/Makefile has no MYJ-specific SIMD rule, actual qualifiedprojectrecipe explicitly appends-fopenmp-simd as existingacceptedMYJpack/writeback policy. Bindthisactualrecipe/objectreuseroute; do not claimgenericMakewithoutthatflagreproducespacked lowering. No globalflags change inthisproposal."
+  },
+  "protected_science_helpers_vs_frozen_baseline": {
+    "check_pair.py": {
+      "actual_sha256": "d407b8456dbff5b721b41c0b39a5aac6a4f4605f4fa506436029a380d27b4f86",
+      "baseline_sha256": "d407b8456dbff5b721b41c0b39a5aac6a4f4605f4fa506436029a380d27b4f86",
+      "byteexact": true
+    },
+    "worker_proof.py": {
+      "actual_sha256": "4b5117cdb2f9a944fdbd2846c798ed4c10c6b98cae1334dfcde91ad64ee4a86b",
+      "baseline_sha256": "4b5117cdb2f9a944fdbd2846c798ed4c10c6b98cae1334dfcde91ad64ee4a86b",
+      "byteexact": true
+    },
+    "tile_proof.py": {
+      "actual_sha256": "f1c783e0f554fa703568e3b9c431d0906099933ea48e8cf93516cae2381b832b",
+      "baseline_sha256": "f1c783e0f554fa703568e3b9c431d0906099933ea48e8cf93516cae2381b832b",
+      "byteexact": true
+    }
+  },
+  "runtime_application_acceptance": "PENDING actualnewrunoriginal2/35SCI+strongreaderclosure; no gatechange proposed.",
+  "rawrecords": "R1/R2failureandcontrollerinheritedE55labelremainimmutable; trueR3worker/artifact/closure authority."
+}

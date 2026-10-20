@@ -1,0 +1,134 @@
+{
+  "status": "RETAIN_ONE_COMPLETE_CAPTURED_MYJ_CALLONLY_GAIN_PENDING_APPLICATION",
+  "scope": "One fixed oppositeorder pair each01/02; complete actual captured MYJPBL512calls; fullrestoration/reset/readstate/fullgold outside percall clocks. NotisolatedDIFCOF/forecast/statisticalrepeatability gain.",
+  "native_qualification_sha256": "c2a1f417b570fed03899ef66e8ca31bc292910933efa8958bd1f41d1532020be",
+  "comparisons": [
+    {
+      "host": "hpc01",
+      "measurements": {
+        "myj": {
+          "parent": {
+            "wall_seconds": 3.3411809960000003,
+            "cpu_seconds": 3.3348085710000004,
+            "repeats": 512
+          },
+          "candidate": {
+            "wall_seconds": 3.261797274,
+            "cpu_seconds": 3.25340759,
+            "repeats": 512
+          },
+          "wall_reduction_percent": 2.3759180390118595,
+          "cpu_reduction_percent": 2.440949135967674
+        }
+      }
+    },
+    {
+      "host": "hpc02",
+      "measurements": {
+        "myj": {
+          "parent": {
+            "wall_seconds": 3.319588167,
+            "cpu_seconds": 3.3130920340000003,
+            "repeats": 512
+          },
+          "candidate": {
+            "wall_seconds": 3.280582873,
+            "cpu_seconds": 3.2733309800000003,
+            "repeats": 512
+          },
+          "wall_reduction_percent": 1.1750040076582757,
+          "cpu_reduction_percent": 1.200119211659667
+        }
+      }
+    }
+  ],
+  "all4_arms_cache_and_strongclosure_PASS": true,
+  "counter_records": [
+    {
+      "host": "hpc01",
+      "phase": 0,
+      "arm": "parent",
+      "invocation_id": "c04659b177b84e589fc3953ec41a7fc1",
+      "initial": {
+        "cpu.stat": "usage_usec 82989\nuser_usec 49591\nsystem_usec 33398\ncore_sched.force_idle_usec 0\nnr_periods 3\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "memory.current": "9211904\n",
+        "memory.peak": "9748480\n"
+      },
+      "final": {
+        "cpu.stat": "usage_usec 6512175\nuser_usec 6030384\nsystem_usec 481791\ncore_sched.force_idle_usec 0\nnr_periods 83\nnr_throttled 2\nthrottled_usec 348\nnr_bursts 0\nburst_usec 0\n",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "memory.current": "132628480\n",
+        "memory.peak": "193085440\n"
+      }
+    },
+    {
+      "host": "hpc02",
+      "phase": 0,
+      "arm": "candidate",
+      "invocation_id": "a891497542fa4c6f9b272452368322e0",
+      "initial": {
+        "cpu.stat": "usage_usec 80106\nuser_usec 48672\nsystem_usec 31434\ncore_sched.force_idle_usec 0\nnr_periods 1\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "memory.current": "9478144\n",
+        "memory.peak": "9752576\n"
+      },
+      "final": {
+        "cpu.stat": "usage_usec 6300474\nuser_usec 5846656\nsystem_usec 453818\ncore_sched.force_idle_usec 0\nnr_periods 77\nnr_throttled 2\nthrottled_usec 465\nnr_bursts 0\nburst_usec 0\n",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "memory.current": "132636672\n",
+        "memory.peak": "193093632\n"
+      }
+    },
+    {
+      "host": "hpc01",
+      "phase": 1,
+      "arm": "candidate",
+      "invocation_id": "23496af3d3214c7abac8c36b173cf7d8",
+      "initial": {
+        "cpu.stat": "usage_usec 74938\nuser_usec 52259\nsystem_usec 22678\ncore_sched.force_idle_usec 0\nnr_periods 2\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "memory.current": "9207808\n",
+        "memory.peak": "9744384\n"
+      },
+      "final": {
+        "cpu.stat": "usage_usec 6277649\nuser_usec 5861136\nsystem_usec 416512\ncore_sched.force_idle_usec 0\nnr_periods 64\nnr_throttled 4\nthrottled_usec 1282\nnr_bursts 0\nburst_usec 0\n",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "memory.current": "132628480\n",
+        "memory.peak": "193085440\n"
+      }
+    },
+    {
+      "host": "hpc02",
+      "phase": 1,
+      "arm": "parent",
+      "invocation_id": "4d083bfde9624b2596f9a99099dc3c5a",
+      "initial": {
+        "cpu.stat": "usage_usec 80142\nuser_usec 54834\nsystem_usec 25308\ncore_sched.force_idle_usec 0\nnr_periods 1\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "memory.current": "9478144\n",
+        "memory.peak": "9752576\n"
+      },
+      "final": {
+        "cpu.stat": "usage_usec 6311250\nuser_usec 5864162\nsystem_usec 447088\ncore_sched.force_idle_usec 0\nnr_periods 64\nnr_throttled 3\nthrottled_usec 240\nnr_bursts 0\nburst_usec 0\n",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "memory.current": "132628480\n",
+        "memory.peak": "193089536\n"
+      }
+    }
+  ],
+  "limits": [
+    "Selected sparse historical profile provides activity only, not currentglobal cost/headroom.",
+    "One pair perhost; no confidence interval/repeatability/causalforecastclaim.",
+    "Wholeprocess runtime includes restoration/validation outsidecallclocks; call-only savings are not wholeprocess/WRF CPU savings.",
+    "Small actual cgroup throttle events are retained in raw counterrecords; not silently declaredzero.",
+    "No newphysics sourcecommit or applicationqualification until rootactualfull512SCI."
+  ],
+  "refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-difcof-ordered-simd-feasibility-r1/caller-timing-preparation-r1/actual-timing-r1/RESULT.json": "c0da2e71d02cd4250eeaaca2c6693e82a0607453467a5bf343b1ca7d5a6e1ed6",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-difcof-ordered-simd-feasibility-r1/caller-timing-preparation-r1/actual-timing-r1/COLLECTION.json": "236b4895b5f9f84fa8051e203ac1c2b2a3134de8c4a5ce64c594f8a7ea13bf7d",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-difcof-ordered-simd-feasibility-r1/caller-timing-preparation-r1/BUILD_RESULT.json": "9cd4f11670499554f2e8862345de9ed87cac9d6f3089a68bfdab70884889c317",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-difcof-ordered-simd-feasibility-r1/caller-timing-preparation-r1/build-closure.json": "59a6443e9513e055db34349444e9b83e55f58c07be04ee7f6b354f96a2b19fb3",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-difcof-ordered-simd-feasibility-r1/NATIVE_QUALIFICATION.json": "c2a1f417b570fed03899ef66e8ca31bc292910933efa8958bd1f41d1532020be"
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "status": "PROMOTE_EXACT_CURRENT_MYJ_DIFCOF_ORDERED_SIMD_CAPTURE_CALLER_AND_SHORT_FULL512",
+  "source_tracking": {
+    "status": "POST_TEST_SOURCE_IDENTITY",
+    "source_commit": "b37e02ce68336284e8478072ab0178a011b7587c",
+    "raw_build_producer_source_commit": null,
+    "canonical_source": "phys/module_bl_myjpbl.F",
+    "canonical_source_sha256": "795e00134d47f98f512d61ffc45f93b3599202499ee8d8429009611d21c4b11f",
+    "preprocessed_candidate_sha256": "2b91deecfe5e853e1352fe5321c5406b14d3a5a50b5d11fd4e7e2be289c340dc",
+    "object_sha256": "13c85052f3eae63ff61f3d0658c2217e7db36a06d2d9ebf6139251f968adb49e",
+    "executable_sha256": "41bfb335979cefd8f12a8d0c7a682d85d81cae88928fe12ee0badfec58dd7789",
+    "archive_sha256": "cf22bba736a25b2e9f0edc483daa6b8717032624612803bbc5fe51dc42ddaee2",
+    "scope": "Committed after actual native/caller/full512 short science; no modification of frozen producer NULL records. Existing qualified MYJ -fopenmp-simd recipe is required for packed lowering; no new flags/global flags or generic-Make reproduction claim."
+  },
+  "evidence_sha256": {
+    "NATIVE_QUALIFICATION.json": "c2a1f417b570fed03899ef66e8ca31bc292910933efa8958bd1f41d1532020be",
+    "TIMING_QUALIFICATION.json": "88fb3f2b7624a1c17f5c9999084555874dbacb7124d926b8b537739eac2f0c38",
+    "BUILD_QUALIFICATION.json": "904bc693bb04b8ed681155cbefdaef7aa34d42f4396ab38a89786ac3b7710838",
+    "APPLICATION_QUALIFICATION.json": "dfeb8996cf164ac61e1c8e85df370bb897b522934790ccf200d80ac8e9805d7b",
+    "REBUILD_RECIPE.json": "7e5b55fd4219f4ffa33911c3fb10f52af0b4190eb5882559cc17f8aca8d02486",
+    "LITERAL_SOURCE_REVIEW.json": "8d384a4f3d074f91322d642d5a2da0fa9274db2a2d66fdc6a13cd87c27d467ac",
+    "DIFCOF_DIRECTIVE_ONLY.diff": "32aaf7ba437d79b3eb76820469840c96dec78df8d17c0eb36b9330da1430006a",
+    "POST_TEST_SOURCE_IDENTITY.json": "1aa669687a8f55ac75ffad3f279368fcc8a365550a251e77d5795e55948a6201"
+  },
+  "caller_wall_reductions_percent": [
+    2.3759180390118595,
+    1.1750040076582757
+  ],
+  "caller_process_CPU_reductions_percent": [
+    2.440949135967674,
+    1.200119211659667
+  ],
+  "science": {
+    "status": "PASS_RETAINED_ORIGINAL_TWO_HISTORY_35_STEPS_512_OWNED_FIELD_VIEW",
+    "invocation_id": "3ee8dcc378fc4efd9e7601c111299e9f",
+    "products": 2,
+    "ordered_steps": 35,
+    "last_step": "2026-10-12_06:10:00",
+    "exact_comparisons": [
+      {
+        "status": "PASS",
+        "errors": [],
+        "checker_identity": {
+          "path": "/pool/wrf-experiment/wrf-cpu/validation/protected_netcdf_exact_reference.py",
+          "sha256": "0382bcbabfbc16b76114ef552206c6c558ea15cd3c3552dfaed98b977deea2b4",
+          "verified": true
+        },
+        "additional_coverage_unavailable": {
+          "trajectory": "PENDING_UNAVAILABLE",
+          "physics": "PENDING_UNAVAILABLE",
+          "adaptive_dt": "PENDING_UNAVAILABLE",
+          "budgets": "PENDING_UNAVAILABLE",
+          "restart_resume": "PENDING_UNAVAILABLE",
+          "holdout": "PENDING_UNAVAILABLE"
+        }
+      },
+      {
+        "status": "PASS",
+        "errors": [],
+        "checker_identity": {
+          "path": "/pool/wrf-experiment/wrf-cpu/validation/protected_netcdf_exact_reference.py",
+          "sha256": "0382bcbabfbc16b76114ef552206c6c558ea15cd3c3552dfaed98b977deea2b4",
+          "verified": true
+        },
+        "additional_coverage_unavailable": {
+          "trajectory": "PENDING_UNAVAILABLE",
+          "physics": "PENDING_UNAVAILABLE",
+          "adaptive_dt": "PENDING_UNAVAILABLE",
+          "budgets": "PENDING_UNAVAILABLE",
+          "restart_resume": "PENDING_UNAVAILABLE",
+          "holdout": "PENDING_UNAVAILABLE"
+        }
+      }
+    ]
+  },
+  "scope": "GNU13.3 strict/OMP1/512/twoTiles/cold single-domain short2products35. Existing067e instrumentation qualified in actual run; observer is diagnostic, not a new default requirement. No own3h/9h/restart/nesting/othercompiler qualification. PriorCEC3edf19.30009% is separate; no isolated/additive/forecast gain claim.",
+  "rollback": "Remove only the two DIFCOF directive lines to71bd; restore paired BEFORE_MYJ_DIFCOF working snapshots to CEC/archive6034, keeping3edf/de5b/input06d and all prior changes."
+}

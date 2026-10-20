@@ -1,0 +1,319 @@
+{
+  "status": "PASS_CURRENT_CEC_CHILD_DIFCOF_SIMD_FULL512_SHORT_ORIGINAL_TWO_PRODUCTS35_WITH_WRITE_BOUNDARY_DIAGNOSTIC",
+  "source_commit": null,
+  "candidate_canonical_source_sha256": "795e00134d47f98f512d61ffc45f93b3599202499ee8d8429009611d21c4b11f",
+  "executable": "/pool/wrf-experiment/wrf-cpu/builds/currentCEC-myj-difcof-simd-current-r3/wrf.exe",
+  "executable_sha256": "41bfb335979cefd8f12a8d0c7a682d85d81cae88928fe12ee0badfec58dd7789",
+  "archive_sha256": "cf22bba736a25b2e9f0edc483daa6b8717032624612803bbc5fe51dc42ddaee2",
+  "runtime": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-difcof-write10m-runtime-r1",
+  "science": {
+    "status": "PASS_RETAINED_ORIGINAL_TWO_HISTORY_35_STEPS_512_OWNED_FIELD_VIEW",
+    "invocation_id": "3ee8dcc378fc4efd9e7601c111299e9f",
+    "products": 2,
+    "ordered_steps": 35,
+    "last_step": "2026-10-12_06:10:00",
+    "exact_comparisons": [
+      {
+        "status": "PASS",
+        "errors": [],
+        "checker_identity": {
+          "path": "/pool/wrf-experiment/wrf-cpu/validation/protected_netcdf_exact_reference.py",
+          "sha256": "0382bcbabfbc16b76114ef552206c6c558ea15cd3c3552dfaed98b977deea2b4",
+          "verified": true
+        },
+        "additional_coverage_unavailable": {
+          "trajectory": "PENDING_UNAVAILABLE",
+          "physics": "PENDING_UNAVAILABLE",
+          "adaptive_dt": "PENDING_UNAVAILABLE",
+          "budgets": "PENDING_UNAVAILABLE",
+          "restart_resume": "PENDING_UNAVAILABLE",
+          "holdout": "PENDING_UNAVAILABLE"
+        }
+      },
+      {
+        "status": "PASS",
+        "errors": [],
+        "checker_identity": {
+          "path": "/pool/wrf-experiment/wrf-cpu/validation/protected_netcdf_exact_reference.py",
+          "sha256": "0382bcbabfbc16b76114ef552206c6c558ea15cd3c3552dfaed98b977deea2b4",
+          "verified": true
+        },
+        "additional_coverage_unavailable": {
+          "trajectory": "PENDING_UNAVAILABLE",
+          "physics": "PENDING_UNAVAILABLE",
+          "adaptive_dt": "PENDING_UNAVAILABLE",
+          "budgets": "PENDING_UNAVAILABLE",
+          "restart_resume": "PENDING_UNAVAILABLE",
+          "holdout": "PENDING_UNAVAILABLE"
+        }
+      }
+    ]
+  },
+  "runtime_proof": {
+    "ranks": 512,
+    "compute_ranks": 480,
+    "quilt_ranks": 32,
+    "two_tiles": true,
+    "map_env_library_guards": "Actual full512 strict runtime proof retained in science receipt; extra067e all512 actualmapSHA, root0input06d/NCa32 and other511owner unchanged.",
+    "writer_roots": {
+      "487": {
+        "event": "final",
+        "rank": 487,
+        "scopes": 261,
+        "callbacks": 216,
+        "supplied": 216,
+        "declines": 0,
+        "guard_declines": 0,
+        "terminal_guards": 0,
+        "releases": 216,
+        "pending": 0,
+        "errors": 0,
+        "widens": 216,
+        "restores": 216,
+        "calls": 261,
+        "foreign_calls": 0,
+        "identity": [
+          1902100,
+          "206880826"
+        ]
+      },
+      "495": {
+        "event": "final",
+        "rank": 495,
+        "scopes": 261,
+        "callbacks": 216,
+        "supplied": 216,
+        "declines": 0,
+        "guard_declines": 0,
+        "terminal_guards": 0,
+        "releases": 216,
+        "pending": 0,
+        "errors": 0,
+        "widens": 216,
+        "restores": 216,
+        "calls": 261,
+        "foreign_calls": 0,
+        "identity": [
+          1902096,
+          "206880825"
+        ]
+      },
+      "503": {
+        "event": "final",
+        "rank": 503,
+        "scopes": 0,
+        "callbacks": 0,
+        "supplied": 0,
+        "declines": 0,
+        "guard_declines": 0,
+        "terminal_guards": 0,
+        "releases": 0,
+        "pending": 0,
+        "errors": 0,
+        "widens": 0,
+        "restores": 0,
+        "calls": 0,
+        "foreign_calls": 0,
+        "identity": [
+          1902103,
+          "206880827"
+        ]
+      },
+      "511": {
+        "event": "final",
+        "rank": 511,
+        "scopes": 0,
+        "callbacks": 0,
+        "supplied": 0,
+        "declines": 0,
+        "guard_declines": 0,
+        "terminal_guards": 0,
+        "releases": 0,
+        "pending": 0,
+        "errors": 0,
+        "widens": 0,
+        "restores": 0,
+        "calls": 0,
+        "foreign_calls": 0,
+        "identity": [
+          1902099,
+          "206880826"
+        ]
+      }
+    },
+    "owned_field_view_marker_count": 16,
+    "required_positive_roots": [
+      487,
+      495
+    ],
+    "required_zero_roots": [
+      503,
+      511
+    ],
+    "root_input_lifecycle": {
+      "event": "final",
+      "rank": 0,
+      "scopes": 308,
+      "callbacks": 31,
+      "supplied": 17,
+      "declines": 14,
+      "widens": 31,
+      "restores": 31
+    }
+  },
+  "strong_closures": {
+    "all4_models": true,
+    "reader": true,
+    "reader_exit_code_raw": null,
+    "reader_manager_success_same_INV": true,
+    "resources": {
+      "hpc01": {
+        "invocation_id": "035044fb59f54a78a4c71b1d080e0166",
+        "unit": "wrf-cpu-production512-current-difcof-write10m-r1-hpc01.service",
+        "memory_cap_bytes": 107374182400,
+        "memory_peak_bytes": 76195147776,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_quota_cores": 128,
+        "actual_exit_code": 0
+      },
+      "hpc02": {
+        "invocation_id": "131e73178fb043509065324a9a371517",
+        "unit": "wrf-cpu-production512-current-difcof-write10m-r1-hpc02.service",
+        "memory_cap_bytes": 107374182400,
+        "memory_peak_bytes": 73751687168,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_quota_cores": 128,
+        "actual_exit_code": 0
+      },
+      "hpc03": {
+        "invocation_id": "c594d3f8faba4d8283dda5aa6f1a6b6c",
+        "unit": "wrf-cpu-production512-current-difcof-write10m-r1-hpc03.service",
+        "memory_cap_bytes": 107374182400,
+        "memory_peak_bytes": 73721794560,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_quota_cores": 128,
+        "actual_exit_code": 0
+      },
+      "hpc04": {
+        "invocation_id": "9830162dff214578affa497f5a943566",
+        "unit": "wrf-cpu-production512-current-difcof-write10m-r1-hpc04.service",
+        "memory_cap_bytes": 111669149696,
+        "memory_peak_bytes": 73690587136,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_quota_cores": 128,
+        "actual_exit_code": 0
+      }
+    }
+  },
+  "write_observer": {
+    "status": "PASS_ACTUAL_OWN_WRITER_FIVE_BOUNDARY_LOGS_COMPLETE_PUBLIC_SYMBOL_CAPTURE",
+    "proof_sha256": "286083999438a2a36b996e3df62b11b0e7892b1587404e732ebf5a1926c62e81",
+    "allfour_exact_PID_startticks_footer": true,
+    "rows_by_root": {
+      "487": 1269,
+      "495": 1269,
+      "503": 0,
+      "511": 0
+    },
+    "zero_dropped_overflow_invalidclock_foreigncalls": true,
+    "scope": "SamePIDCLOCK_MONOTONIC interposed public API envelopes, not MPI/gather/puredisk/completefinaldrain or forecasttiming."
+  },
+  "protected_reuse": {
+    "byteexact_frozen_observer_base": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-write-attribution10m-runtime-r1",
+    "files_sha256": {
+      "check_pair.py": "d407b8456dbff5b721b41c0b39a5aac6a4f4605f4fa506436029a380d27b4f86",
+      "worker_proof.py": "4b5117cdb2f9a944fdbd2846c798ed4c10c6b98cae1334dfcde91ad64ee4a86b",
+      "tile_proof.py": "f1c783e0f554fa703568e3b9c431d0906099933ea48e8cf93516cae2381b832b",
+      "run_model.py": "f8fbc3892cffa15aad429a0ca8075155efa40efbe1cbd51d36220a0e003cfd38",
+      "input_scope_proof.py": "ebb1e10228971a6863d953a635674e22eca9e7e0a4974c25e024b81ca0a48571",
+      "runtime_stock.py": "bad3ba33943fa92d42cc8424bfb022e9309b4c1629669babeac1e9fe66296d22",
+      "runtime_checks.py": "d6cb036bc10da1ce9ca195e7808987edea91d694f7d07f3641c8f9b90c98f4e7",
+      "runtime_combined.py": "1b360143f3bbc29f48f576562b473208b0e60c2b74ff84ab61a083123f51a490",
+      "candidate-two-tiles.nml": "7931d599453051553debdf30761a38af90f56d1ba3855e5763c56a11440ae532",
+      "check_namelist_pair.py": "4156950769bf3a4124dad17013b057f474833fa89dc574eecfc10dde03152269",
+      "adapter/input_rank_exec.py": "b8d5e52589145bc822e962efd288974194d6c53d39c1f5500501ef9dc7940333",
+      "adapter/multinode_mpi.py": "25b55661e46b673fb506bf887451924aab3574b10796b9e97ce2fafac91e7a3b",
+      "adapter/node_scope_entry.py": "1a1ffe285eab714aff61fc8c51b2250ff228fa7f2bf1839cf6a5c78efe3cae32",
+      "mcica_build_proof.py": "517f3fa5faca090b31f726d005319416068b113697ed355381b5008cef45d2a9",
+      "write_boundary_proof.py": "245c6b96d5a91500b786ad3ffc3796bc7f431d733f482faae96589408a4561ff"
+    },
+    "compare_one_AST_sha256": "3b27ad3b87a8040a8ed25c734555bda2200ec1f72b6557e71edc2b8469468465"
+  },
+  "provenance": {
+    "native_qualification_sha256": "c2a1f417b570fed03899ef66e8ca31bc292910933efa8958bd1f41d1532020be",
+    "caller_qualification_sha256": "88fb3f2b7624a1c17f5c9999084555874dbacb7124d926b8b537739eac2f0c38",
+    "actual_R3_build_receipt_sha256": "29a114155c65871a576ec882cad3865083afeb8b5d62733c412fce01de5d975e",
+    "actual_R3_build_closure_sha256": "2090dc13ec1f359e42dc3e2a65b339c76f9a37b20534cd9674dfab720847f53e",
+    "build_scope": "Zero sourcecompiles/archiveops, oneordinarylink; failedR1 verifiedarchive reused. R1/R2failure receipts/closures retained. Rawcontroller inheritedE55/MIXLEN label, not producer semantic authority.",
+    "parent_CEC_MCICA": "Original helper literal unchanged; explicit actualparentCEC context + additiveDFchildproof.",
+    "input_output_codec": "rootinput06d/NCa32 +de5b+qualified3edf; no privateFAST728b."
+  },
+  "qualification_limits": {
+    "instrumented_candidate_only": true,
+    "forecast_timing_gain_claim": false,
+    "own_three_hour_qualified": false,
+    "own_nine_hour_qualified": false,
+    "no_new_retained_original_replay": true,
+    "raw_source_commit_preserved_NULL": true
+  },
+  "raw_refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-difcof-write10m-runtime-r1/science-receipt.json": "27d3c90b9787f8bfd08f14654580c2bd0e42df77a0f9150bfdabc319e0aaa472",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-difcof-write10m-runtime-r1/reader-closure.json": "2cfe6752b84ded629c8053ead2ad470c0bbe8d5f8a9cec0cfce58eb75686105a",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-difcof-write10m-runtime-r1/candidate-closures.json": "1c04439c7a9fa704a63969f2454ebab949330ab4007f73b18b7da72a0d2d8e3a",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-difcof-write10m-runtime-r1/candidate-metadata/lease.json": "bf4a54f0065c8cbfaa31f756e5edba46464e8183358f95faf51b4e2200533731",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-difcof-write10m-runtime-r1/application-binding.json": "5c4a610fd91ec7f0d16bcb1bb7c09c2b95d9bf65b017c9c4500fe10468a3b493",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-difcof-write10m-runtime-r1/candidate-metadata/completion.json": "70b527d1ec12efa2ad37392d4f4d68454e050c6faded05c9b4998e92299d3362",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-difcof-write10m-runtime-r1/write-boundary-proof.json": "286083999438a2a36b996e3df62b11b0e7892b1587404e732ebf5a1926c62e81",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-difcof-write10m-runtime-r1/candidate-metadata/model-closures.json": "6ee30c8338dfe7a3e788f8966d3caf2eece0a62f5c042212ebef1f0c6c8847fa",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-difcof-write10m-runtime-r1/candidate-metadata/mpi-launch.json": "3853672a8f77c3f14fe367e5dbf5507ccd3e177de8f11a9826e09c0703fc607c",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-difcof-write10m-runtime-r1/candidate-metadata/hpc02-node.json": "ce323113afd8cd2df9eb76ad48faa4cebcb956e52782e5d1681b6e597d61ae5e",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-difcof-write10m-runtime-r1/candidate-metadata/hpc03-node.json": "460de857ebeda076a73486d586fba522063e93724b3a5cf84bcabb1ab10096a0",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-difcof-write10m-runtime-r1/candidate-metadata/hpc04-node.json": "b585f37c470d8ac636461eafeae95720f2305c71046a69e2a62ba70b9a5d23e9",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-difcof-write10m-runtime-r1/source-pins.json": "f5dcf9a5a63722a1dd016833f0d71a2cc19f75874c7c896d1344ed3031e32819",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-difcof-write10m-runtime-r1/lease-candidate-proposed.json": "6c9ec843c617e845d43ae3c6329738ab58221498b9f3bdbaa3458c39fadee97f",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-difcof-write10m-runtime-r1/df-build-receipt.json": "29a114155c65871a576ec882cad3865083afeb8b5d62733c412fce01de5d975e",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-difcof-write10m-runtime-r1/df-build-closure.json": "2090dc13ec1f359e42dc3e2a65b339c76f9a37b20534cd9674dfab720847f53e",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-difcof-write10m-runtime-r1/df-ordered-proof.json": "64a16c1a9bd346b1aa72bb3566b792b890449651e19b04273510eb41ff317ac9",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-difcof-write10m-runtime-r1/df-myj-native-receipt.json": "1543dde085952029394dcd6bf1165c3f44aca67447cf09a5acdeba9f709f5cc6",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-difcof-write10m-runtime-r1/df-myj-native-closure.json": "ded208030fd18d49081c8b06451b47da2fd17df31e9456d8ab0f86751c49f3b9",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-difcof-write10m-runtime-r1/df-myj-native-qualification.json": "c2a1f417b570fed03899ef66e8ca31bc292910933efa8958bd1f41d1532020be",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-difcof-write10m-runtime-r1/df-TIMING_QUALIFICATION.json": "88fb3f2b7624a1c17f5c9999084555874dbacb7124d926b8b537739eac2f0c38",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-difcof-write10m-runtime-r1/df-TIMING_RESULT.json": "c0da2e71d02cd4250eeaaca2c6693e82a0607453467a5bf343b1ca7d5a6e1ed6",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-difcof-write10m-runtime-r1/df-failed-r1-receipt.json": "e5ceb63f0893f17edb9f1a8a22eda4235fbfd0a441ac19529af8d271c1b6490e",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-difcof-write10m-runtime-r1/df-failed-r1-closure.json": "11e0cb9739b1eb5b3e396bb94e93ec0f013265a34449cb378ac1ed33c4bcfc62",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-difcof-write10m-runtime-r1/df-failed-r2-receipt.json": "01ff4561745af65a123609c5fccefd22061f86a58e1168ba4b9d1beb51f335ec",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-difcof-write10m-runtime-r1/df-failed-r2-closure.json": "bec7ef3d1975bab1241c49cdf894723b1213d0bc7995ed2c8d0a38c03892817d",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-difcof-write10m-runtime-r1/mcica-build-receipt.json": "8996a855f60bc690a51570800cfe32ff716fcfcb3fb79bdb75d22983d80feb2f",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-difcof-write10m-runtime-r1/mcica-build-closure.json": "33be7467d5166f0e99e22f35430be9ae940f8e5563b76b469a45d4c8cf58f903",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-difcof-write10m-runtime-r1/write-boundary-native-receipt.json": "efe0904ca912ae56e681e945c8b1dba938ff126e29f51006a45f8661dc9289db",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-difcof-write10m-runtime-r1/write-boundary-native-closure.json": "ea2f37714fa3bab1021ea9a3a15dbfcc9a1cbcec8494b80c1f2fae2f2ed93fb2"
+  }
+}

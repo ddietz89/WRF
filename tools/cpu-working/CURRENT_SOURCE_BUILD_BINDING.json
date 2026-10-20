@@ -1,11 +1,11 @@
 {
-  "status": "WORKING_SELECTED_CEC_SLIDE_HASH_UNROLL4_AFTER_FRESH_ORIGINAL_THREE_HOUR_SCIENCE",
-  "source_commit": "80a9cd6f65239c29fddbf70b271571070219fdf7",
+  "status": "WORKING_SELECTED_MYJ_DIFCOF_AFTER_SHORT_ORIGINAL_FULL512_SCIENCE",
+  "source_commit": "b37e02ce68336284e8478072ab0178a011b7587c",
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/current1d6e-mcica-mask-fusion-current-r1/wrf.exe",
-    "sha256": "cec189a3dbbb6ab95c7f31e29a44ee4eea37d06d8d161fc7349bc52daa468e30"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentCEC-myj-difcof-simd-current-r3/wrf.exe",
+    "sha256": "41bfb335979cefd8f12a8d0c7a682d85d81cae88928fe12ee0badfec58dd7789"
   },
-  "archive_sha256": "603496d71959138dc4921d20f9e08b847384a26a1dc0774c1d6b660fb9ac4ee4",
+  "archive_sha256": "cf22bba736a25b2e9f0edc483daa6b8717032624612803bbc5fe51dc42ddaee2",
   "sources": {
     "dyn_em/start_em.F": "ba19b902eb43c9baa2f59d3ffef0dec7c6a0ccbf0a9ceb062b72e55cff5366fc",
     "phys/module_mp_thompson.F": "4a2bd094c9131e150ab1d7cbcacf66e59d06db65652905d15b2d231180946066",
@@ -19,7 +19,7 @@
     "dyn_em/module_big_step_utilities_em.F": "c41522cd74f10267b705331e18092ce2cda0e8375a7e09c1ecff3e69741df6b6",
     "dyn_em/module_em.F": "ca2c2f614bd6e7b6b9c4545d0974890de1ee8254032a55fa205066eb80434dad",
     "dyn_em/module_small_step_em.F": "f998112d879b964e18f7637eb64b3135ea733b23a16a89b53362bdfc75728b98",
-    "phys/module_bl_myjpbl.F": "71bdfe22196a36f46b55e9ee6bc7891aedb78f1906b1619df297d7c7b6e5e198",
+    "phys/module_bl_myjpbl.F": "795e00134d47f98f512d61ffc45f93b3599202499ee8d8429009611d21c4b11f",
     "external/io_netcdf/transpose_integer_forward.code": "ca8d136ebf9c54f913337802f60fe7d3d0accbb7ef3bb32318a026d6c4f056d9",
     "phys/module_ra_rrtmg_lw.F": "c6094fe909ea0ee374bdc60f02cfa61f0c178aa0a8c3a799d4f06b08c6324eb1"
   },
@@ -68,19 +68,23 @@
     "MCICA_mask_fusion_overlay": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/mcica-mask-fusion/BUILD_QUALIFICATION.json",
       "sha256": "94f1bb151332eb980965cf0dfefe5adfc9f20677d3bd0fe0b3e8dcc57a7f257e"
+    },
+    "MYJ_DIFCOF_overlay": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/myj-difcof-simd/BUILD_QUALIFICATION.json",
+      "sha256": "904bc693bb04b8ed681155cbefdaef7aa34d42f4396ab38a89786ac3b7710838"
     }
   },
-  "qualification_file": "../cpu-compute/mcica-mask-fusion/QUALIFICATION.json",
+  "qualification_file": "../cpu-compute/myj-difcof-simd/QUALIFICATION.json",
   "PD_real32_equivalence_file": "../cpu-compute/pd-row-workspace/QUALIFICATION.json",
   "PD_production_member_sha256": "8ec77f864716667aa79d40878fa11276f7dede4017c620201e54f9f83bb32b25",
   "PD_repaired_compile_object_sha256": "e5245eed1f84a67ea9d428bed8d8b2529f568ca49394f9cf8b85d97bdc50f560",
   "PD_equivalence_proof_sha256": "92abf53cb516e4394f2ce232ad81fb4985ea7b1f849310927e54aa4a2b1017cc",
-  "build_scope": "GNU13.3 strict/OMP1/cold06:00\u201309:00/full512=480compute8x60+4x8quilt/faba/twoTiles/CEC/root06dNCa32/outputde5b/codec3edf/HDF825/shared1/FIELDVIEW1/singleIB;4completeproducts545steps/all4positivewriters. Buildidentity remains CEC/6034/source80a9 and codec3edf/source624bc116; rawproducerNULL retained. No physics or library rebuild for this test.",
+  "build_scope": "GNU13.3 strict/OMP1/cold06:00\u201309:00/full512=480compute8x60+4x8quilt/faba/twoTiles/CEC/root06dNCa32/outputde5b/codec3edf/HDF825/shared1/FIELDVIEW1/singleIB;4completeproducts545steps/all4positivewriters. Buildidentity remains CEC/6034/source80a9 and codec3edf/source624bc116; rawproducerNULL retained. No physics or library rebuild for this test. CurrentMYJ795e/13c850 added via actualR3 one-link CF22 overlay; canonical recipe requires existing-fopenmp-simd, rawproducerNULL preserved.",
   "runtime": {
     "WRF_EXPERIMENTAL_TPI_NUMA": 1,
     "other_settings": "Currentde5b/3edf/825/faba/FIELDVIEW1/singleIB; rootinput06dNCa32only"
   },
-  "previous_binding": "PREVIOUS_SOURCE_BUILD_BINDING_BEFORE_SLIDE_HASH_UNROLL4.json",
+  "previous_binding": "PREVIOUS_SOURCE_BUILD_BINDING_BEFORE_MYJ_DIFCOF.json",
   "native": {
     "CQU": {
       "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-cqu-first-species-peel-r1/NATIVE_QUALIFICATION.json",
@@ -121,6 +125,10 @@
     "MCICA_mask_fusion": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/mcica-mask-fusion/NATIVE_QUALIFICATION.json",
       "sha256": "2588a5e0374a2964237f5ea1f15c38bd080af42ecc0cf814f4f42251c5e0cc15"
+    },
+    "MYJ_DIFCOF": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/myj-difcof-simd/NATIVE_QUALIFICATION.json",
+      "sha256": "c2a1f417b570fed03899ef66e8ca31bc292910933efa8958bd1f41d1532020be"
     }
   },
   "current_nine_hour_qualified": false,
@@ -129,10 +137,10 @@
     "sha256": "f38a865905d030be42ac0a965b4aa6afbc0eae280902a3839f20df176457f445"
   },
   "full_application": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-working/THREE_HOUR_FINAL_QUALIFICATION.json",
-    "sha256": "43da2c4a0b15a93f6080e7eacda94a7e9825e9bc567c7d2f1e8843e14005255d"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/myj-difcof-simd/APPLICATION_QUALIFICATION.json",
+    "sha256": "dfeb8996cf164ac61e1c8e85df370bb897b522934790ccf200d80ac8e9805d7b"
   },
-  "current_three_hour_qualified": true,
+  "current_three_hour_qualified": false,
   "prior_repaired_full_application": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/myj-mixlen-scratch-reuse/APPLICATION_QUALIFICATION.json",
     "sha256": "55e2170cfc4f695e2eb7124cb4dec541954a9db290979ed2423252a4b117eb2f"
@@ -266,7 +274,7 @@
     "wall_speedup_ratio": 1.2391587663289294,
     "full_qualification_sha256": "43da2c4a0b15a93f6080e7eacda94a7e9825e9bc567c7d2f1e8843e14005255d",
     "fresh_matched_timing": true,
-    "applies_to_current_selection": true,
+    "applies_to_current_selection": false,
     "repeatability_established": false,
     "scope": "GNU13.3 strict/OMP1/cold06:00\u201309:00/full512=480compute8x60+4x8quilt/faba/twoTiles/CEC/root06dNCa32/outputde5b/codec3edf/HDF825/shared1/FIELDVIEW1/singleIB;4completeproducts545steps/all4positivewriters. One fresh fixed-order inclusiveIO pair; no isolated/additive gain or current9h claim."
   },
@@ -277,22 +285,15 @@
   },
   "POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
-    "source_commit": "80a9cd6f65239c29fddbf70b271571070219fdf7",
-    "source_commit_semantics": "Committed only after all scientific and native tests; not raw build producer identity.",
-    "canonical_source": "phys/module_ra_rrtmg_lw.F",
-    "canonical_source_sha256": "c6094fe909ea0ee374bdc60f02cfa61f0c178aa0a8c3a799d4f06b08c6324eb1",
-    "preprocessed_candidate_sha256": "54a8fad427da11ae0d7b9c672ebb3be5f2c90c3f30e4dd91ed32051e3cb28498",
+    "source_commit": "b37e02ce68336284e8478072ab0178a011b7587c",
     "raw_build_producer_source_commit": null,
-    "executable_sha256": "cec189a3dbbb6ab95c7f31e29a44ee4eea37d06d8d161fc7349bc52daa468e30",
-    "archive_sha256": "603496d71959138dc4921d20f9e08b847384a26a1dc0774c1d6b660fb9ac4ee4",
-    "object_sha256": "6d006d67c42b26b375ea1dc9ea0e7f1c9d04b5f07bd33cbdd63d494af5cf96fb",
-    "full_application_qualification": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/noon75m-observer-repair-proposal-r1/combined-application-preparation-r1/profile-analysis-r1/mcica-mask-fusion-implementation-r1/application-preparation-r1/APPLICATION_QUALIFICATION.json",
-      "sha256": "5a2051b1c94085e4dd833af3a0b236e64076503d2844fef66706612bf25570fb"
-    },
-    "source_delta": "Three seams only: remove temporary logical cloud mask and its separate fill loop; evaluate identical ordered comparison directly in property consumer. No RNG/physics/flags/API changes.",
-    "default_selection": "tools/cpu-working/selection.json",
-    "rollback_selection": "tools/cpu-working/PREVIOUS_SELECTION_BEFORE_MCICA_MASK_FUSION.json"
+    "canonical_source": "phys/module_bl_myjpbl.F",
+    "canonical_source_sha256": "795e00134d47f98f512d61ffc45f93b3599202499ee8d8429009611d21c4b11f",
+    "preprocessed_candidate_sha256": "2b91deecfe5e853e1352fe5321c5406b14d3a5a50b5d11fd4e7e2be289c340dc",
+    "object_sha256": "13c85052f3eae63ff61f3d0658c2217e7db36a06d2d9ebf6139251f968adb49e",
+    "executable_sha256": "41bfb335979cefd8f12a8d0c7a682d85d81cae88928fe12ee0badfec58dd7789",
+    "archive_sha256": "cf22bba736a25b2e9f0edc483daa6b8717032624612803bbc5fe51dc42ddaee2",
+    "scope": "Committed after actual native/caller/full512 short science; no modification of frozen producer NULL records. Existing qualified MYJ -fopenmp-simd recipe is required for packed lowering; no new flags/global flags or generic-Make reproduction claim."
   },
   "previous_mcica_full_application": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/mcica-mask-fusion/APPLICATION_QUALIFICATION.json",
@@ -311,5 +312,29 @@
   "previous_slide_hash_short_full_application": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-output/quilt512/codec/slide-hash-unroll4/APPLICATION_QUALIFICATION.json",
     "sha256": "9a6b1eb5a44ae577704a87dea2fa4b43f3a74d0b86fedc5bc7dda530100d620d"
+  },
+  "previous_mcica_POST_TEST_SOURCE_IDENTITY": {
+    "status": "POST_TEST_SOURCE_IDENTITY",
+    "source_commit": "80a9cd6f65239c29fddbf70b271571070219fdf7",
+    "source_commit_semantics": "Committed only after all scientific and native tests; not raw build producer identity.",
+    "canonical_source": "phys/module_ra_rrtmg_lw.F",
+    "canonical_source_sha256": "c6094fe909ea0ee374bdc60f02cfa61f0c178aa0a8c3a799d4f06b08c6324eb1",
+    "preprocessed_candidate_sha256": "54a8fad427da11ae0d7b9c672ebb3be5f2c90c3f30e4dd91ed32051e3cb28498",
+    "raw_build_producer_source_commit": null,
+    "executable_sha256": "cec189a3dbbb6ab95c7f31e29a44ee4eea37d06d8d161fc7349bc52daa468e30",
+    "archive_sha256": "603496d71959138dc4921d20f9e08b847384a26a1dc0774c1d6b660fb9ac4ee4",
+    "object_sha256": "6d006d67c42b26b375ea1dc9ea0e7f1c9d04b5f07bd33cbdd63d494af5cf96fb",
+    "full_application_qualification": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/noon75m-observer-repair-proposal-r1/combined-application-preparation-r1/profile-analysis-r1/mcica-mask-fusion-implementation-r1/application-preparation-r1/APPLICATION_QUALIFICATION.json",
+      "sha256": "5a2051b1c94085e4dd833af3a0b236e64076503d2844fef66706612bf25570fb"
+    },
+    "source_delta": "Three seams only: remove temporary logical cloud mask and its separate fill loop; evaluate identical ordered comparison directly in property consumer. No RNG/physics/flags/API changes.",
+    "default_selection": "tools/cpu-working/selection.json",
+    "rollback_selection": "tools/cpu-working/PREVIOUS_SELECTION_BEFORE_MCICA_MASK_FUSION.json"
+  },
+  "previous_CEC_slide_three_hour_full_application": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-working/THREE_HOUR_FINAL_QUALIFICATION.json",
+    "sha256": "43da2c4a0b15a93f6080e7eacda94a7e9825e9bc567c7d2f1e8843e14005255d",
+    "applies_to_current_selection": false
   }
 }

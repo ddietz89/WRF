@@ -1,0 +1,146 @@
+{
+  "status": "PASS_NATIVE_CURRENT_MYJ_DIFCOF_ONLY_CANONICAL_SIMD_NOT_PERFORMANCE_OR_APPLICATION",
+  "invocation_id": "436b2a768e1e4133addb2bb70e0e61e6",
+  "source_commit": null,
+  "canonical_source_routing": {
+    "parent": {
+      "F_sha256": "71bdfe22196a36f46b55e9ee6bc7891aedb78f1906b1619df297d7c7b6e5e198",
+      "generated_PP_path": "/pool/wrf-experiment/wrf-cpu/kernels/myj-difcof-simd-current-oracle-hpc01-r1/work/canonical-parent/module_bl_myjpbl.f90",
+      "generated_PP_sha256": "e3533da9b175b5c3020cf02268cbc10499fba2d0a04e196d42f49f427e6a6334",
+      "retained_parent_PP_sha256": "645880060fd191062c9caeea1b2c47871407d2778199b70216f4e6329245d09a",
+      "retained_PP_equal": false
+    },
+    "candidate": {
+      "F_sha256": "795e00134d47f98f512d61ffc45f93b3599202499ee8d8429009611d21c4b11f",
+      "generated_PP_path": "/pool/wrf-experiment/wrf-cpu/kernels/myj-difcof-simd-current-oracle-hpc01-r1/work/canonical-candidate/module_bl_myjpbl.f90",
+      "generated_PP_sha256": "2b91deecfe5e853e1352fe5321c5406b14d3a5a50b5d11fd4e7e2be289c340dc",
+      "retained_parent_PP_sha256": "645880060fd191062c9caeea1b2c47871407d2778199b70216f4e6329245d09a",
+      "retained_PP_equal": false
+    }
+  },
+  "parent_equivalence": {
+    "status": "PASS_ALLOCATED_BYTES_RELOCATIONS_NONFILE_SYMBOLS_EXACT",
+    "reference_sha256": "2dbb457eaac624bf65110cc9369ccb5a3022adcef497b891d311c093e18f6480",
+    "rebuilt_sha256": "917aba7e5d1e01eef131f26011f074d58d5d0326d8777e462210ed4cfa64a95b",
+    "excluded": "Only nonallocated sections (including debug paths), STT_FILE symbol. All allocated text/rodata/data/bss/unwind sections and their relocations exact."
+  },
+  "scope_note": "Genuine canonical parent PP e353 differs from retained6458; fresh object917a is semantically exact allocated/RELA/nonfile symbols to current2dbb, NOT whole-file byteequal. Both actual hashes retained without PP/object normalization.",
+  "production_parent": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/myj-difcof-simd-current-oracle-hpc01-r1/work/O2-parent/module_bl_myjpbl.o",
+    "sha256": "917aba7e5d1e01eef131f26011f074d58d5d0326d8777e462210ed4cfa64a95b",
+    "pp_sha256": "e3533da9b175b5c3020cf02268cbc10499fba2d0a04e196d42f49f427e6a6334",
+    "mod_sha256": "b16bb1b06b2b18abd8b61cf81bd61ae349e2728ddd32f52d3d58dafec14309e2"
+  },
+  "production_candidate": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/myj-difcof-simd-current-oracle-hpc01-r1/work/O2-candidate/module_bl_myjpbl.o",
+    "sha256": "13c85052f3eae63ff61f3d0658c2217e7db36a06d2d9ebf6139251f968adb49e",
+    "pp_sha256": "2b91deecfe5e853e1352fe5321c5406b14d3a5a50b5d11fd4e7e2be289c340dc",
+    "mod_sha256": "b16bb1b06b2b18abd8b61cf81bd61ae349e2728ddd32f52d3d58dafec14309e2"
+  },
+  "public_MOD_unchanged": true,
+  "capture_bounds": [
+    1,
+    1500,
+    1,
+    1140,
+    1,
+    33,
+    -4,
+    195,
+    -4,
+    26,
+    1,
+    33,
+    1,
+    188,
+    1,
+    10,
+    1,
+    32
+  ],
+  "captured_word_counts": {
+    "mutable": 471200,
+    "defined_OUT": 428640
+  },
+  "capture_states": {
+    "O2-parent": [
+      34,
+      0,
+      48,
+      8114,
+      895
+    ],
+    "O0-parent": [
+      34,
+      0,
+      48,
+      8114,
+      895
+    ],
+    "O0-candidate": [
+      34,
+      0,
+      48,
+      8114,
+      895
+    ],
+    "O2-candidate": [
+      34,
+      0,
+      48,
+      8114,
+      895
+    ]
+  },
+  "direct32_raw": {
+    "O2-parent": {
+      "raw_bytes": 38912,
+      "sha256": "27f2cf2504e20f1efb0213eed47c408a2a66dad76dffe9d7c19af2ae5e602586"
+    },
+    "O0-parent": {
+      "raw_bytes": 38912,
+      "sha256": "40e56ca56396b4f882755e1093ed6ec5ee2b563d89be663eaf2e728fe93e6716"
+    },
+    "O0-candidate": {
+      "raw_bytes": 38912,
+      "sha256": "40e56ca56396b4f882755e1093ed6ec5ee2b563d89be663eaf2e728fe93e6716"
+    },
+    "O2-candidate": {
+      "raw_bytes": 38912,
+      "sha256": "27f2cf2504e20f1efb0213eed47c408a2a66dad76dffe9d7c19af2ae5e602586"
+    }
+  },
+  "codegen": {
+    "parent_packed_rows": 0,
+    "candidate_packed_rows": 64,
+    "ops": [
+      "addps",
+      "divps",
+      "mulps",
+      "sqrtps",
+      "subps"
+    ],
+    "asm_refs": {
+      "parent": "a4c6be5774958a84ff34e1dc1a41c71ab05776b216c9b1f92192530f09f2edd1",
+      "candidate": "3e1e2bfe94e318d276936a7d5c97ae1c032a8759fca520898cd9cd7550b23b79"
+    }
+  },
+  "strict_limits": [
+    "Direct8rolesx4rounds plus one actual fullcaptured MYJPBL caller; no allinput/trap-enabled/overlap/restart/fullWRF claim.",
+    "All prior different-routine failures remain closed; no qualification transfer.",
+    "No kernel/caller/forecast speed claim before actual timing."
+  ],
+  "closure": {
+    "PID0": true,
+    "success_exit0": true,
+    "cgroup_absent_empty": true,
+    "sameINV_positive_journal": true
+  },
+  "refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-difcof-ordered-simd-feasibility-r1/actual-native-r1/receipt.json": "1543dde085952029394dcd6bf1165c3f44aca67447cf09a5acdeba9f709f5cc6",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-difcof-ordered-simd-feasibility-r1/actual-native-r1/closure.json": "ded208030fd18d49081c8b06451b47da2fd17df31e9456d8ab0f86751c49f3b9",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-difcof-ordered-simd-feasibility-r1/ADJUDICATION.json": "96fddce0286b15fa7d0c142198b1e93643aae5d670c93a45196936750b38071f",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-difcof-ordered-simd-feasibility-r1/native-gate-r1/SOURCE_INVERSE.json": "78bd63aabac2cf84ee45a14a614f63df4409e614f41a56f7deb44fbea0db6085",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-difcof-ordered-simd-feasibility-r1/native-gate-r1/source-pins.json": "d490e58ecadc3cccbfb3ae3fd9a789a7a2f9b96e9d095a82a27a0dd887cdee6f"
+  }
+}

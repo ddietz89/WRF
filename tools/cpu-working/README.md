@@ -1,3 +1,11 @@
+# Current working build: MYJPBL DIFCOF SIMD (2026-10-20)
+
+Selected41b/sourceb37e adds the exact ordered DIFCOF SIMD directives to all prior improvements. Complete captured-caller wall fell2.38%/1.18% and processCPU2.44%/1.20% in opposite-order pairs. Original two products/35orderedsteps/all512/twoTiles/writer/input/runtime checks passed; all model/reader jobs closed. The application carried the ABI-qualified diagnostic write observer. No own three-/nine-hour or isolated forecast gain claim follows. [Evidence](../cpu-compute/myj-difcof-simd/QUALIFICATION.json).
+
+The previous CEC+3edf three-hour result below remains19.30% lower whole-wall/12.79%lessaggregateCPU, and is explicitly not transferred to41b. Rollback uses the paired `BEFORE_MYJ_DIFCOF` records and removes only the two new directives if rebuilding. Production/master remain unchanged.
+
+## Prior CEC+3edf qualification
+
 # Qualified WRF CPU working configuration
 
 ## Current combined three-hour result (2026-10-20)
@@ -8,7 +16,7 @@ Whole model/MPI wall includes input, initialization, computation, communication,
 
 [Qualification](THREE_HOUR_FINAL_QUALIFICATION.json) binds actual CEC/3edf artifacts and preserves the raw collector record, whose inherited candidate-name string incorrectly said1d6e. Only the separate reporting label is corrected from the actual leases; frozen runtime/checker/raw records are unchanged. Previous1d6e/de5b19.05% remains a separate result. Source identities remain80a9/624bc116; raw producer commits remain null. Production/master are unchanged; rollback of slide-hash alone remains the paired `BEFORE_SLIDE_HASH_UNROLL4` records or codec `huffman`.
 
-The private FAST level-invariant prototype passed native/complete-provider exact checks, but complete-provider wall changed0.13% slower/0.03% faster and process CPU0.11% slower/0.51% faster on hpc02/04. No significant saving was established; it is parked and excluded. MYJPBL DIFCOF SIMD passed the genuine-parent full-module captured-caller and32 IEEE/state cases; complete-caller performance/application qualification remain pending. Output-boundary attribution and bounded private shuffle-scratch reuse are continuing investigations, with no new benefit claim.
+The private FAST level-invariant prototype passed native/complete-provider exact checks, but complete-provider wall changed0.13% slower/0.03% faster and process CPU0.11% slower/0.51% faster on hpc02/04. No significant saving was established; it is parked and excluded. MYJPBL DIFCOF SIMD now passed complete-caller performance and the original short application; see the current selection above. Output-boundary attribution and bounded private shuffle-scratch reuse are continuing investigations, with no new benefit claim.
 
 ## Current working codec: slide-hash unrolling (2026-10-20)
 
