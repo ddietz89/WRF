@@ -1,0 +1,10 @@
+--- parent.F
++++ candidate.F
+@@ -639,6 +639,7 @@
+         ENDDO
+         ENDDO
+         DO k=2,kde-1
++!$OMP SIMD PRIVATE(b,c)
+         DO i=i_start, i_end
+           b = 1.+cqw(i,k,j)*cof(i)*rdn(k)*(rdnw(k  )*c2a(i,k,  j)/((c1h(k)*MUT(i,j)+c2h(k))*(c1f(k)*MUT(i,j)+c2f(k)))  &
+                                           +rdnw(k-1)*c2a(i,k-1,j)/((c1h(k-1)*MUT(i,j)+c2h(k-1))*(c1f(k)*MUT(i,j)+c2f(k))) )

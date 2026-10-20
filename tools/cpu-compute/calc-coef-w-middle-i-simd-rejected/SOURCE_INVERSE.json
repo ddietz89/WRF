@@ -1,0 +1,18 @@
+{
+  "F": {
+    "parent_sha256": "425167eda5868d28d358a16cf41f0642df9dcedacae563ec73c127d49ea0778e",
+    "candidate_sha256": "a617d261addc29c831ac26a5ec6b571bc7c731146606d20b28c24b54654d2728",
+    "inverse_byteexact": true
+  },
+  "f90": {
+    "parent_sha256": "f836b696c6a6aa7c7fd5f8f06b3a19884139dbaa66018afc0ba7a5414b555bb6",
+    "candidate_sha256": "3ab236c046c653da3591b473d31ad2c4c5cd0ec77188e938350e2878d750d863",
+    "inverse_byteexact": true
+  },
+  "old_anchor": "        DO k=2,kde-1\n        DO i=i_start, i_end\n",
+  "new_anchor": "        DO k=2,kde-1\n!$OMP SIMD PRIVATE(b,c)\n        DO i=i_start, i_end\n",
+  "only_inserted_line": "!$OMP SIMD PRIVATE(b,c)\n",
+  "parent_native_object_sha256": "98950138203abd25f355e6a94611ee22c7fb9c598eaff7464edddd46a8a00391",
+  "source_commit": null,
+  "status": "ISOLATED_ONE_AUTHOR_LITERAL_PRAGMA_ONLY_NOT_NATIVE_QUALIFIED"
+}

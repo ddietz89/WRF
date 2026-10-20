@@ -1,0 +1,51 @@
+{
+  "status": "FAIL_RETAINED_NO_RETRY",
+  "invocation_id": "01aefc32382e4c3bb70eee0ca4465244",
+  "scope": "80 complete actual CALC_COEF_W calls (20cases/fourroundings) + original72PREP regression; full raw outputs/readonly/halo/fivestate. No timing/application claim.",
+  "actual_resources": {
+    "hostname": "hpc02",
+    "affinity": [
+      24,
+      25
+    ],
+    "cgroup": "/sys/fs/cgroup/system.slice/wrf-cpu-calc-coef-w-middle-i-simd-full-caller-gate-hpc02-r1.service",
+    "cpu_max": "200000 100000",
+    "memory_max": "4294967296",
+    "memory_swap_max": "0"
+  },
+  "commands": [
+    {
+      "name": "compile-state.o",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/calc-coef-w-middle-i-simd-full-caller-gate-r1/region_observer.c",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/calc-coef-w-middle-i-simd-full-caller-gate-r1/work/state.o"
+      ],
+      "returncode": 0
+    },
+    {
+      "name": "compile-physical.o",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/calc-coef-w-middle-i-simd-full-caller-gate-r1/physical_observer.c",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/calc-coef-w-middle-i-simd-full-caller-gate-r1/work/physical.o"
+      ],
+      "returncode": 0
+    }
+  ],
+  "error": "AssertionError(('malloc', ''))",
+  "traceback": "Traceback (most recent call last):\n  File \"/pool/wrf-experiment/wrf-cpu/kernels/calc-coef-w-middle-i-simd-full-caller-gate-r1/run_gate.py\", line 49, in <module>\n    fp=function_projection(profile);np=function_projection(native);assert fp==np,'CALC7B89_TO9895_FUNCTION_BYTES_RUNTIME_RELOC_MISMATCH';r['sampled_to_prospective_callee_identity']=fp\n       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/pool/wrf-experiment/wrf-cpu/kernels/calc-coef-w-middle-i-simd-full-caller-gate-r1/function_projection.py\", line 16, in function_projection\n    match=re.fullmatch(r'\\.rodata\\.cst(4|8|16|32)',sn);assert match,(nm,sn)\n                                                              ^^^^^\nAssertionError: ('malloc', '')\n",
+  "actual_memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+  "actual_memory_peak_bytes": 397447168,
+  "elapsed_seconds_context_only": 9.882203296758235
+}
