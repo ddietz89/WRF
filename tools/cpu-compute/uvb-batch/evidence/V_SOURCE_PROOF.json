@@ -1,0 +1,17 @@
+{
+  "status": "EXPERIMENTAL_ONE_V_COUPLING_DIRECTIVE_OVER_QUALIFIED_FINAL_U_PENDING_NATIVE",
+  "sources": {
+    "F": {
+      "parent_sha256": "fbd403dedbe28b208366c9c039b25971293583c10c8f19cab229bf746127735f",
+      "candidate_sha256": "425167eda5868d28d358a16cf41f0642df9dcedacae563ec73c127d49ea0778e",
+      "inverse_exact": true
+    },
+    "f90": {
+      "parent_sha256": "e8918c0da0fb3029800dbad9df25c39c9431214eb88962a67b7bdd11473f1ba1",
+      "candidate_sha256": "f836b696c6a6aa7c7fd5f8f06b3a19884139dbaa66018afc0ba7a5414b555bb6",
+      "inverse_exact": true
+    }
+  },
+  "old_anchor": "    DO j=j_start, j_endv\n    DO k=k_start, k_end\n    DO i=i_start, i_end\n      v_save(i,k,j) = v_2(i,k,j)\n",
+  "new_anchor": "    DO j=j_start, j_endv\n    DO k=k_start, k_end\n!$OMP SIMD\n    DO i=i_start, i_end\n      v_save(i,k,j) = v_2(i,k,j)\n"
+}

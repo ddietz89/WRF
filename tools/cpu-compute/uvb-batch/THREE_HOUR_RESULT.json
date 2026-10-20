@@ -1,0 +1,28 @@
+{
+  "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+  "order": [
+    "retained_fresh_corrected_original546b_control_reference",
+    "current_UV_B_batch_all_prior_pool51a_input06d_NCa32_blockcarry_e1d8_candidate_only"
+  ],
+  "comparison_design": "UNPAIRED candidate-only combined U+V+B versus retained fresh corrected-original2aef reference; no isolated or additive candidate attribution",
+  "metrics": {
+    "control": {
+      "wall_seconds": 819.2783056409098,
+      "cpu_seconds": 367612.40525099996,
+      "main_step_sum_seconds": 597.23996
+    },
+    "candidate": {
+      "wall_seconds": 661.7936829896644,
+      "cpu_seconds": 321402.587962,
+      "main_step_sum_seconds": 560.59632
+    }
+  },
+  "reductions_percent": {
+    "wall_seconds": 19.22235967520798,
+    "cpu_seconds": 12.5702551461637,
+    "main_step_sum_seconds": 6.135497028698477
+  },
+  "science_sha256": "9ddebd90ecf9ff7a8f0b7eda4abba8d1d5fd96eb8a50e558f7347005e969d49e",
+  "reader_closure_sha256": "783032392ebc11071c1c7565f2a4461af03047cb127fd351efb0ac2eae58fc98",
+  "limits": "UNPAIRED current candidate against earlier retained control. Checked client-cache clear precedes each arm at its own historical execution; server cache/load uncontrolled. No repeatability or per-kernel causal claim. Main includes communication/backpressure; residual is not pureIO."
+}

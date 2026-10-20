@@ -1,0 +1,98 @@
+{
+  "schema": 1,
+  "status": "PASS_CURRENT_7B89_COMPLETE_UV_FINAL_U_SIMD_NATIVE_WITH_METADATA_COLLECTION_RECOVERY",
+  "source_commit": null,
+  "candidate_F_sha256": "fbd403dedbe28b208366c9c039b25971293583c10c8f19cab229bf746127735f",
+  "candidate_PP_sha256": "e8918c0da0fb3029800dbad9df25c39c9431214eb88962a67b7bdd11473f1ba1",
+  "native_parent_object_sha256": "7b89121b221556e6b6b14ef4c1f3aedaa93f672cd9dde5f56b8e9778417c02f2",
+  "candidate_object": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/candidate.o",
+    "sha256": "d34d2c75f25ae27639e716680a883558fed195963335505fa092e2f8c7d70b1a",
+    "raw_object_unchanged_by_harness_renaming": true
+  },
+  "module_interface_sha256": "d50c501497b927ad56b9bb3b7cb9431c827b8092cedf23e83d8f573ccb884b94",
+  "fresh_parent_native_equivalence": {
+    "status": "PASS_ALLOCATED_BYTES_RELOCATIONS_NONFILE_SYMBOLS_EXACT",
+    "reference_sha256": "7b89121b221556e6b6b14ef4c1f3aedaa93f672cd9dde5f56b8e9778417c02f2",
+    "rebuilt_sha256": "abb6044fe15f1a1991d662e4c5ce9de232a83445da1c8e2500af985ed2426482"
+  },
+  "comparisons": [
+    {
+      "optimization": "O0",
+      "finite_cases": 23,
+      "actual_capture": true,
+      "original_V_ieee_cases": 6,
+      "target_DPn_ieee_cases": 12,
+      "target_final_U_ieee_cases": 12,
+      "candidate_object_sha256": "839a5fd37ee5a21a708c7ffad53f4e20f5383a3bebb6339d7288fd683b99c79f"
+    },
+    {
+      "optimization": "O2",
+      "finite_cases": 23,
+      "actual_capture": true,
+      "original_V_ieee_cases": 6,
+      "target_DPn_ieee_cases": 12,
+      "target_final_U_ieee_cases": 12,
+      "candidate_object_sha256": "d34d2c75f25ae27639e716680a883558fed195963335505fa092e2f8c7d70b1a"
+    }
+  ],
+  "hard_guards": "CompleteallocatedU+Vraw, allreadonly32roles/scalars/config/bounds/halos/32canaries and nativeerrno/round/IEEEflags/MXCSR/x87; originalDPncase7failureinputs unchangedregressionchecks; sameoptO0bounds/O2, no tolerance orNaNnormalization",
+  "target_codegen": {
+    "PP_line": 904,
+    "mechanism": "YMM+XMM trueMULPS/SUBPS/ADDPS/store and32bytebackedge, scalarremainder, noFMA/approx/newISA",
+    "examples": [
+      "    8a30:\tc4 c1 3c 59 0c 01    \tvmulps (%r9,%rax,1),%ymm8,%ymm1",
+      "    8a3b:\tc5 f4 59 0c 06       \tvmulps (%rsi,%rax,1),%ymm1,%ymm1",
+      "    8a40:\tc5 ec 5c c9          \tvsubps %ymm1,%ymm2,%ymm1",
+      "    8a44:\tc4 c1 44 59 14 04    \tvmulps (%r12,%rax,1),%ymm7,%ymm2",
+      "    8a4a:\tc5 f4 58 ca          \tvaddps %ymm2,%ymm1,%ymm1",
+      "    8a4e:\tc5 fc 11 0c 01       \tvmovups %ymm1,(%rcx,%rax,1)",
+      "    8a5a:\t75 d4                \tjne    8a30 <__module_small_step_em_MOD_advance_uv+0x21f0>"
+    ]
+  },
+  "invocation_id": "f5690e69943748f9a8229eaa3a1b32fd",
+  "actual_worker_elapsed_seconds_context_only": 18.680303985252976,
+  "actual_resources": "hpc04CPU24\u201325/8GiB/swap0/300s accuracyonly/no cache/timing",
+  "strong_closure": {
+    "MainPID": 0,
+    "inactive": true,
+    "cgroup_absent_empty": true,
+    "same_invocation_positive_journal": true,
+    "manager_current_properties_after_unload": {
+      "MainPID": "0",
+      "Result": "success",
+      "ExecMainStatus": "0",
+      "ControlGroup": "",
+      "LoadState": "not-found",
+      "ActiveState": "inactive",
+      "InvocationID": ""
+    }
+  },
+  "metadata_collection_failure_retained": {
+    "original_controller_status": "FAIL_RETAINED_NO_RETRY",
+    "cause": "Collectorassert receiptbytes<100000; actual106379B; nativeworkeractuallyPASS",
+    "recovery": "Oneboundedreadonly04read\u22644MiB; exactreceiptbytes/hash+independentterminalsameINVjournal/CGproof. No compile/test/job rerun, no originalrewrites."
+  },
+  "limits": [
+    "Genuinefullcallee nativevalidation on listedfixture/build/roundingcases, not universalIEEE/trapmode proof.",
+    "Historical808500wordcapturedcaller reproduced bycurrentnative; no newcurrentcapture claimed.",
+    "No caller timing/application/default qualification; candidate remainsunpromoted."
+  ],
+  "own_caller_qualified": false,
+  "own_application_qualified": false,
+  "refs_sha256": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/recovered-actual-r1/receipt.json": "150ce513ec02414856388600f67df0d9b102e4e51ae6d7a853620421be9f35e8",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/recovered-actual-r1/closure.json": "05a98a4e2ccd676481dfd3f70c7f1d3328280c7b1710773bf0cd853039fd4d4a",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/recovered-actual-r1/RECOVERY.json": "77342a47ff9d0857133523d5a06a663a5082fc6e68bd7edc3876c847e176c267",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/full-caller-native-r1/controller.json": "7b2e12201a7de9db9bed8e3f99c3cf62b3856ed70c3789550972835ef20ff512",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/native-gate-r1/source-pins.json": "c0b288f0aedc2bff66e7f6cba148f8b0a2df72d72c25566768bedeefbb5d57a1",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/native-gate-r1/binding.json": "dc531833f65a590e169e653878115ca776aba2c716d4e1d3daec0edbe0e895ef",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/native-gate-r1/SOURCE_INVERSE.json": "a3b876f4bacea33a2c424fa5dbebf5e360731b427a817096e210d43389fa03a8",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/native-gate-r1/paired_kernel.f90": "c1cad4da3cca04b3a25d623a4477044d0a095e13c157f1bebf2d5bc5156dd963",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/native-gate-r1/region_observer.c": "274dbde95e634f10310b01a95b56cb545bb4cc8cf2290a6169c1e24dfa65fc5b",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/native-gate-r1/selected-link-dependencies.json": "0169cd47a7811dad90f4d6bb6043718542ce729b1326d8b73409605a1395005b",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/local-source-r1/SOURCE_PROOF.json": "ab3445a4251bd31f68922efdd66fe6a917954767d2ed47d1ebe472a941a28878",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/provider-review-r1/actual-provider-r1/author/receipt.json": "9857d7215c67c3528dca1931c0c6b94c412cb14606213b683bfbe2340aee843f",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/provider-review-r1/actual-provider-r1/review/receipt.json": "bc7901161ac4de8f582768b0c1649d04c3545a75ea6cb26aa5a2ff3345d0ee2d"
+  }
+}

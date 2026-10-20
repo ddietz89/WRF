@@ -1,26 +1,34 @@
-# WRF CPU optimization — continuing campaign handoff
+# WRF CPU optimization campaign handoff
 
-## Fresh combined three-hour comparison (2026-10-20)
+## Current combined selection (2026-10-20)
 
-Current **db5a/archive0c91/sourcec883c564** now has its own fresh original-versus-optimized qualification. All four complete products and545 ordered steps matched exactly, with512 ranks,two tiles,all32 field markers,four positive writers and all model/reader jobs normally closed. The original protected scientific checker is unchanged.
+The working fork now selects **e3da6907 / archive4f2a0cf0 / post-test source1ae0c6ee**. It retains all prior improvements and adds final-U velocity SIMD, Prep V coupling SIMD and split rain/cloud staging during Thompson initialization. The unchanged original checker passed all four complete products,545 ordered timesteps,512 ranks,two tiles,all four positive writer groups and all32 field markers. All model and reader jobs closed normally.
 
-| Measure | Fresh corrected original | Current combined | Reduction |
+| Measure | Retained corrected original | Current combined | Reduction |
 |---|---:|---:|---:|
-| Whole model/MPI wall, including I/O and final drain |819.278306s|659.076161s|19.55%|
-| Integration-step elapsed, including communication/backpressure |597.239960s|558.363350s|6.51%|
-| Aggregate four-node cgroup CPU |367612.405251CPU-s|319636.456690CPU-s|13.05%|
+| Whole model/MPI wall, including I/O and final drain |819.278306s|661.793683s|19.22%|
+| Integration-step elapsed, including communication/backpressure |597.239960s|560.596320s|6.14%|
+| Aggregate four-node cgroup CPU |367612.405251CPU-s|321402.587962CPU-s|12.57%|
 
-This is **one fresh fixed-order pair**, with checked compute-client cache clearing before each arm and no profiler/observer. Server cache/load remain uncontrolled. The observed wall ratio is1.243x; repeatability,1.5x throughput,2x speedup and concurrent-forecast throughput are not established. Main-step elapsed is not integration CPU, and whole-minus-main is not pure I/O. No individual candidate contribution is inferred or added. Current own3h is true; own9h remains false. Historical40d2 three-hour andefbfe nine-hour files remain byte-identical and do not qualify this child.
+This is **UNPAIRED**, using the actual retained fresh original2aef control; no new control was run. Both arms had checked client-cache clearing at their own execution. The candidate's actual clear-to-launch delay is retained after a pre-model launcher-reference repair. File-server cache/load remain uncontrolled. Main-step elapsed is not integration CPU; whole-minus-main is not pure I/O. These values establish no isolated candidate contribution, additive percentage, repeatability or nine-hour result. The observed single-forecast wall ratio is1.2380x; the1.5x throughput and2x speedup goals remain unmet, and concurrent-forecast throughput is unmeasured.
 
-Evidence: [fresh qualification](tools/cpu-compute/phy-prep-part2-rthraten-simd/FRESH_THREE_HOUR_QUALIFICATION.json),36 verified raw references; [all fresh timing values](tools/cpu-compute/phy-prep-part2-rthraten-simd/FRESH_THREE_HOUR_RESULT.json). Source/runtime selection and paired rollback are unchanged. The separate experimental U-DPn pragma was rejected on its first targeted O2 raw NaN-output mismatch, without timing or promotion. Thompson staging remains unqualified; a transparent READ-test definition review preserves old failures and all mathematical/FP checks. Investigations continue; production/master and AWS suspension are unchanged.
+The previous db5a fresh pair remains separately qualified at819.278306→659.076161s wall,597.239960→558.363350s main elapsed and367612.405251→319636.456690CPU-s. The new candidate is about0.4% higher in wall/main than that earlier candidate observation; these separate runs do not isolate an attributable regression. Inclusion rests on exact application science, measured complete-caller gains and the staging mechanism's resource benefit.
 
-## Current working selection and recovery (2026-10-20)
+- Final-U SIMD passed genuine full-module raw/IEEE/five-state, captured-caller, readonly and physical-boundary checks. Complete captured UV callers, including identical restores and state observation, were5.28–5.54% shorter with5.29–5.53% less process CPU.
+- Prep V SIMD passed the original60 procedure cases plus12 targeted V cases at bounds-checked O0 and strict O2. Complete synthetic Prep callers, including restoration and observation, were0.49–2.02% shorter with0.49–2.03% less process CPU. These positive, uneven observations support the one-directive inclusion; they are not isolated-loop or forecast gains.
+- Thompson staging publishes/releases rain buffers before allocating cloud buffers in the supported shared-table path. Named READ, full-computation and partial-record fallback tests preserved all23 table byte streams,11 caller records, FP state and ownership/release requirements. The generic path and public module interface remain exact. Whole successful-INIT/creator-libm errno preservation is not qualified; original ALL15 failures remain preserved. Current observed charged peaks are58.698/56.582/56.520/56.491GiB per node, with every memory-event counter zero. Those include file cache and are separate from caps and RSS/PSS; no isolated causal saving or two-forecast admission is claimed.
 
-Current selecteddb5a/archive0c91/post-test sourcec883c564 includes all prior improvements plus radiation tendency SIMD. Native68 exact checks, complete callers and original2-product/35-step/full512 short science passed; all jobs closed. Complete caller wall fell2.18–2.97% under production selectors and1.22–1.58% in the GD case. This is a caller gain, not a forecast claim. OwnshortSCI is true; current own3h/9h remain false. Raw producers stayNULL. [Current findings](OPTIMIZATION_FINDINGS.md) and tools/cpu-working/selection.json supersede historical selections below.
+The combined build reused two qualified objects, preserved582 other ordered archive members, compiled no WRF source and linked once. Raw producer source commits remainNULL;1ae0c6ee records the tested source afterward. Own three-hour science is qualified; no separate child short test or own nine-hour qualification is claimed. Output51a, codece1d8, input06d/NCa32, faba placement and qualified single-IB transport are unchanged. Production/master remain untouched and AWS remains suspended.
 
-Current short peak charged memory is71.042/68.681/68.647/68.629GiB per node, with zero limit events. The configured100/100/100/104GiB values are caps, not usage. ParentQV2bd1 independently passed a profiled nine-hour10-product/1625-step comparison with71.006/68.697/68.656/68.724GiB peaks. Its1835.757684s wall/1737.611200s main/923271.766756CPU-s versus retained original2069.312230s/1851.544640s/1009264.484921CPU-s are PROFILED_UNPAIRED descriptive observations, not current-child timing. Main includes communication/backpressure and is not integration-only CPU. Historical fresh unprofiled9h efbfe and RQ3h40d2 stay unchanged.
+Rollback restores the paired BEFORE_UV_B_BATCH selection/build-binding/latest snapshots and reverts source-only1ae0c6ee, returning to db5a/0c91/sourcec883c564 with unchanged libraries. Actual qualification2ed4c147 binds58 verified raw references. The initial pre-model missing-control-reference failure and the first build's private-symbol guard failure are preserved; neither is relabeled as a successful original attempt.
 
-Rollback restores paired BEFORE_RTHRATEN_PART2_SIMD selection/binding and reverts source-onlyc883c564, returning to QV2bd1/688a/a014 with its profiled9h proof. The isolated Thompson rain/cloud staging prototype is unqualified: exact generic/MOD and numerical/table checks passed, but private-mode first-INIT errno differed; investigate same-build control state without a waiver. No additional memory/capacity claim follows. Current daytime captures contain701/705/706 selected-thread samples with14.670s overlap; no global critical-path or removable-MPI-cost inference. Recover exact live state from CURRENT_STATE before actions. Continue the active Goal; production/master and suspended AWS remain excluded.
+The next coefficient-loop SIMD candidate produced packed divisions but failed the hard O2 complete-routine raw/state comparison, so it is excluded without performance testing. The earlier U-DPn pragma is also rejected on exact IEEE output. A selected unprofiled nine-hour comparison is prepared for the current combined image; it must retain its own ten-product/1625-step acceptance and actual original nine-hour context. Continue measured investigations after closing these decisions; a status or promotion is not a stopping point.
+
+Recover exact live jobs and ownership from `/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/CURRENT_STATE.json` before any action. Use [TIMING_SOP.md](TIMING_SOP.md), [findings](OPTIMIZATION_FINDINGS.md) and [working selection](tools/cpu-working/selection.json). All future project DeepSeek packets remain authorized with denied tools/240seconds and no credentials/scientific arrays. AWS remains suspended; its frozen$4.6495 commitment is not an invoice and remains separate from provider usage. Production/master and additional spending remain excluded.
+
+## Historical campaign records
+
+The sections below retain their own source/image/time epoch.
 
 ## Historical combined LW + block-carry three-hour qualification (2026-10-20)
 

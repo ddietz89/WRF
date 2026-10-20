@@ -1,18 +1,34 @@
 # WRF CPU optimization findings
 
-## Fresh combined three-hour comparison (2026-10-20)
+## Current combined selection (2026-10-20)
 
-Current **db5a/archive0c91/sourcec883c564** now has its own fresh original-versus-optimized qualification. All four complete products and545 ordered steps matched exactly, with512 ranks,two tiles,all32 field markers,four positive writers and all model/reader jobs normally closed. The original protected scientific checker is unchanged.
+The working fork now selects **e3da6907 / archive4f2a0cf0 / post-test source1ae0c6ee**. It retains all prior improvements and adds final-U velocity SIMD, Prep V coupling SIMD and split rain/cloud staging during Thompson initialization. The unchanged original checker passed all four complete products,545 ordered timesteps,512 ranks,two tiles,all four positive writer groups and all32 field markers. All model and reader jobs closed normally.
 
-| Measure | Fresh corrected original | Current combined | Reduction |
+| Measure | Retained corrected original | Current combined | Reduction |
 |---|---:|---:|---:|
-| Whole model/MPI wall, including I/O and final drain |819.278306s|659.076161s|19.55%|
-| Integration-step elapsed, including communication/backpressure |597.239960s|558.363350s|6.51%|
-| Aggregate four-node cgroup CPU |367612.405251CPU-s|319636.456690CPU-s|13.05%|
+| Whole model/MPI wall, including I/O and final drain |819.278306s|661.793683s|19.22%|
+| Integration-step elapsed, including communication/backpressure |597.239960s|560.596320s|6.14%|
+| Aggregate four-node cgroup CPU |367612.405251CPU-s|321402.587962CPU-s|12.57%|
 
-This is **one fresh fixed-order pair**, with checked compute-client cache clearing before each arm and no profiler/observer. Server cache/load remain uncontrolled. The observed wall ratio is1.243x; repeatability,1.5x throughput,2x speedup and concurrent-forecast throughput are not established. Main-step elapsed is not integration CPU, and whole-minus-main is not pure I/O. No individual candidate contribution is inferred or added. Current own3h is true; own9h remains false. Historical40d2 three-hour andefbfe nine-hour files remain byte-identical and do not qualify this child.
+This is **UNPAIRED**, using the actual retained fresh original2aef control; no new control was run. Both arms had checked client-cache clearing at their own execution. The candidate's actual clear-to-launch delay is retained after a pre-model launcher-reference repair. File-server cache/load remain uncontrolled. Main-step elapsed is not integration CPU; whole-minus-main is not pure I/O. These values establish no isolated candidate contribution, additive percentage, repeatability or nine-hour result. The observed single-forecast wall ratio is1.2380x; the1.5x throughput and2x speedup goals remain unmet, and concurrent-forecast throughput is unmeasured.
 
-Evidence: [fresh qualification](tools/cpu-compute/phy-prep-part2-rthraten-simd/FRESH_THREE_HOUR_QUALIFICATION.json),36 verified raw references; [all fresh timing values](tools/cpu-compute/phy-prep-part2-rthraten-simd/FRESH_THREE_HOUR_RESULT.json). Source/runtime selection and paired rollback are unchanged. The separate experimental U-DPn pragma was rejected on its first targeted O2 raw NaN-output mismatch, without timing or promotion. Thompson staging remains unqualified; a transparent READ-test definition review preserves old failures and all mathematical/FP checks. Investigations continue; production/master and AWS suspension are unchanged.
+The previous db5a fresh pair remains separately qualified at819.278306→659.076161s wall,597.239960→558.363350s main elapsed and367612.405251→319636.456690CPU-s. The new candidate is about0.4% higher in wall/main than that earlier candidate observation; these separate runs do not isolate an attributable regression. Inclusion rests on exact application science, measured complete-caller gains and the staging mechanism's resource benefit.
+
+- Final-U SIMD passed genuine full-module raw/IEEE/five-state, captured-caller, readonly and physical-boundary checks. Complete captured UV callers, including identical restores and state observation, were5.28–5.54% shorter with5.29–5.53% less process CPU.
+- Prep V SIMD passed the original60 procedure cases plus12 targeted V cases at bounds-checked O0 and strict O2. Complete synthetic Prep callers, including restoration and observation, were0.49–2.02% shorter with0.49–2.03% less process CPU. These positive, uneven observations support the one-directive inclusion; they are not isolated-loop or forecast gains.
+- Thompson staging publishes/releases rain buffers before allocating cloud buffers in the supported shared-table path. Named READ, full-computation and partial-record fallback tests preserved all23 table byte streams,11 caller records, FP state and ownership/release requirements. The generic path and public module interface remain exact. Whole successful-INIT/creator-libm errno preservation is not qualified; original ALL15 failures remain preserved. Current observed charged peaks are58.698/56.582/56.520/56.491GiB per node, with every memory-event counter zero. Those include file cache and are separate from caps and RSS/PSS; no isolated causal saving or two-forecast admission is claimed.
+
+The combined build reused two qualified objects, preserved582 other ordered archive members, compiled no WRF source and linked once. Raw producer source commits remainNULL;1ae0c6ee records the tested source afterward. Own three-hour science is qualified; no separate child short test or own nine-hour qualification is claimed. Output51a, codece1d8, input06d/NCa32, faba placement and qualified single-IB transport are unchanged. Production/master remain untouched and AWS remains suspended.
+
+Rollback restores the paired BEFORE_UV_B_BATCH selection/build-binding/latest snapshots and reverts source-only1ae0c6ee, returning to db5a/0c91/sourcec883c564 with unchanged libraries. Actual qualification2ed4c147 binds58 verified raw references. The initial pre-model missing-control-reference failure and the first build's private-symbol guard failure are preserved; neither is relabeled as a successful original attempt.
+
+The next coefficient-loop SIMD candidate produced packed divisions but failed the hard O2 complete-routine raw/state comparison, so it is excluded without performance testing. The earlier U-DPn pragma is also rejected on exact IEEE output. A selected unprofiled nine-hour comparison is prepared for the current combined image; it must retain its own ten-product/1625-step acceptance and actual original nine-hour context. Continue measured investigations after closing these decisions; a status or promotion is not a stopping point.
+
+Evidence: [actual combined qualification](tools/cpu-compute/uvb-batch/APPLICATION_QUALIFICATION.json), [all three-hour observations](tools/cpu-compute/uvb-batch/THREE_HOUR_RESULT.json), [component evidence and rollback](tools/cpu-compute/uvb-batch/README.md).
+
+## Historical qualifications and investigations
+
+The records below retain their actual build epoch. Their uses of “current” refer to that historical milestone; the selection and qualification above are authoritative.
 
 ## Radiation tendency SIMD promoted (2026-10-20)
 
@@ -20,7 +36,7 @@ The working configuration now selects **db5a/archive0c91/post-test sourcec883c56
 
 The complete synthetic caller, including identical restoration work, was **2.18–2.97% shorter under production physics selectors** and1.22–1.58% shorter in the GD case, with corresponding CPU reductions. These measured caller gains and the one-line change support inclusion. No isolated forecast gain or statistical repeatability claim is made. The build reused the qualified object, preserved583 other archive members and the public module interface, compiled no WRF source and performed one ordinary link. Raw producer commits remainNULL; c883c564 records the tested source afterward.
 
-Current short-case peaks are **71.042/68.681/68.647/68.629GiB per node**, with zero limit/OOM events. The100/100/100/104GiB caps are not usage; the established memory reduction remains intact. Current ownshortSCI is true; own3h/9h are false. ParentQV2bd1 has its own exact profiled ten-product/1625-step nine-hour qualification below, and its timing is not transferred to this child. Rollback restores the paired `BEFORE_RTHRATEN_PART2_SIMD` selection/build binding and reverts source-onlyc883c564, returning to QV2bd1/archive688a/sourcea014. Production/master remain unchanged and AWS remains suspended.
+Current short-case peaks are **71.042/68.681/68.647/68.629GiB per node**, with zero limit/OOM events. The100/100/100/104GiB caps are not usage; the established memory reduction remains intact. At that short-case milestone ownshortSCI was true and own3h/9h were false; the fresh three-hour qualification above now applies to db5a. ParentQV2bd1 has its own exact profiled ten-product/1625-step nine-hour qualification below, and its timing is not transferred to this child. Rollback restores the paired `BEFORE_RTHRATEN_PART2_SIMD` selection/build binding and reverts source-onlyc883c564, returning to QV2bd1/archive688a/sourcea014. Production/master remain unchanged and AWS remains suspended.
 
 The next architectural prototype splits Thompson rain/cloud temporary staging. Its first generic-path mismatch was repaired by deleting one extra blank; generic canonical output and the public module now match exactly. A later valid-READ screen matched all numerical/table bytes but failed the hard first-INIT errno comparison in unchanged private mode. The failure remains preserved; same-build control diagnosis is pending, with no waiver, application promotion or additional memory-saving claim.
 

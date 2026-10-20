@@ -1,0 +1,266 @@
+{
+  "status": "FAIL_RETAINED_NO_RETRY",
+  "invocation_id": "870694f6b0024b42a23c42888e04ebe0",
+  "build_directory": "/pool/wrf-experiment/wrf-cpu/builds/current267c-uvb-two-member-batch-hpc01-r1",
+  "commands": [
+    {
+      "label": "qualified-env",
+      "argv": [
+        "/bin/bash",
+        "-c",
+        "source \"$1\"; python3 -c \"$2\"",
+        "env",
+        "/pool/wrf-experiment/tooling/m6-parallel/mpi-ib-env.sh",
+        "import os,json;print(json.dumps({k:os.environ[k]for k in [\"PATH\",\"LD_LIBRARY_PATH\",\"OPAL_PREFIX\"]if k in os.environ}))"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_path": "/pool/wrf-experiment/wrf-cpu/builds/current267c-uvb-two-member-batch-hpc01-r1/safe-env.json"
+    },
+    {
+      "label": "extract-module_small_step_em",
+      "argv": [
+        "/usr/bin/ar",
+        "p",
+        "/pool/wrf-experiment/wrf-cpu/builds/currentdb5a-one-smallstep-final-u-simd-hpc01-r1/libwrflib.a",
+        "module_small_step_em.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_path": "/pool/wrf-experiment/wrf-cpu/builds/current267c-uvb-two-member-batch-hpc01-r1/current-module_small_step_em.o"
+    },
+    {
+      "label": "module_small_step_em-parent-exports",
+      "argv": [
+        "/usr/bin/nm",
+        "-g",
+        "--defined-only",
+        "--format=posix",
+        "/pool/wrf-experiment/wrf-cpu/builds/current267c-uvb-two-member-batch-hpc01-r1/current-module_small_step_em.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_path": "/pool/wrf-experiment/wrf-cpu/builds/current267c-uvb-two-member-batch-hpc01-r1/module_small_step_em-parent-exports.txt"
+    },
+    {
+      "label": "module_small_step_em-candidate-exports",
+      "argv": [
+        "/usr/bin/nm",
+        "-g",
+        "--defined-only",
+        "--format=posix",
+        "/pool/wrf-experiment/wrf-cpu/kernels/smallstep-prep-v-coupling-simd-full-caller-gate-r1/work/O2-candidate/module_small_step_em.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_path": "/pool/wrf-experiment/wrf-cpu/builds/current267c-uvb-two-member-batch-hpc01-r1/module_small_step_em-candidate-exports.txt"
+    },
+    {
+      "label": "canonical-module_small_step_em-sed",
+      "argv": [
+        "/bin/sed",
+        "-e",
+        "s/^\\!.*'.*//",
+        "-e",
+        "s/^ *\\!.*'.*//",
+        "/pool/wrf-experiment/wrf-cpu/builds/current267c-uvb-two-member-batch-hpc01-r1/canonical-module_small_step_em/module_small_step_em.F"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_path": "/pool/wrf-experiment/wrf-cpu/builds/current267c-uvb-two-member-batch-hpc01-r1/canonical-module_small_step_em/module_small_step_em.G"
+    },
+    {
+      "label": "canonical-module_small_step_em-cpp",
+      "argv": [
+        "/usr/bin/cpp",
+        "-P",
+        "-traditional-cpp",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-DEM_CORE=1",
+        "-DNMM_CORE=0",
+        "-DNMM_MAX_DIM=2600",
+        "-DDA_CORE=0",
+        "-DWRFPLUS=0",
+        "-DIWORDSIZE=4",
+        "-DDWORDSIZE=8",
+        "-DRWORDSIZE=4",
+        "-DLWORDSIZE=4",
+        "-DNONSTANDARD_SYSTEM_SUBR",
+        "-DWRF_USE_CLM",
+        "-DUSE_NETCDF4_FEATURES",
+        "-DWRFIO_NCD_LARGE_FILE_SUPPORT",
+        "-DDM_PARALLEL",
+        "-DNETCDF",
+        "-DLANDREAD_STUB=1",
+        "-DUSE_ALLOCATABLES",
+        "-Dwrfmodel",
+        "-DGRIB1",
+        "-DINTIO",
+        "-DKEEP_INT_AROUND",
+        "-DLIMIT_ARGS",
+        "-DBUILD_RRTMG_FAST=0",
+        "-DBUILD_RRTMK=0",
+        "-DBUILD_SBM_FAST=1",
+        "-DSHOW_ALL_VARS_USED=0",
+        "-DCONFIG_BUF_LEN=65536",
+        "-DMAX_DOMAINS_F=21",
+        "-DMAX_HISTORY=25",
+        "-DNMM_NEST=0",
+        "-I.",
+        "-traditional-cpp",
+        "-DUSE_NETCDF4_FEATURES",
+        "-DWRFIO_NCD_LARGE_FILE_SUPPORT",
+        "/pool/wrf-experiment/wrf-cpu/builds/current267c-uvb-two-member-batch-hpc01-r1/canonical-module_small_step_em/module_small_step_em.G"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_path": "/pool/wrf-experiment/wrf-cpu/builds/current267c-uvb-two-member-batch-hpc01-r1/canonical-module_small_step_em/module_small_step_em.bb"
+    },
+    {
+      "label": "canonical-module_small_step_em-standard",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/tools/standard.exe",
+        "/pool/wrf-experiment/wrf-cpu/builds/current267c-uvb-two-member-batch-hpc01-r1/canonical-module_small_step_em/module_small_step_em.bb"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_path": "/pool/wrf-experiment/wrf-cpu/builds/current267c-uvb-two-member-batch-hpc01-r1/canonical-module_small_step_em/module_small_step_em.std"
+    },
+    {
+      "label": "canonical-module_small_step_em-final-cpp",
+      "argv": [
+        "/usr/bin/cpp",
+        "-P",
+        "-traditional-cpp",
+        "-traditional-cpp",
+        "-DUSE_NETCDF4_FEATURES",
+        "-DWRFIO_NCD_LARGE_FILE_SUPPORT"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_path": "/pool/wrf-experiment/wrf-cpu/builds/current267c-uvb-two-member-batch-hpc01-r1/canonical-module_small_step_em/module_small_step_em.f90"
+    },
+    {
+      "label": "replace-module_small_step_em",
+      "argv": [
+        "/usr/bin/ar",
+        "r",
+        "/pool/wrf-experiment/wrf-cpu/builds/current267c-uvb-two-member-batch-hpc01-r1/intermediate-libwrflib.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/current267c-uvb-two-member-batch-hpc01-r1/candidate/module_small_step_em.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_path": null
+    },
+    {
+      "label": "ranlib-module_small_step_em",
+      "argv": [
+        "/usr/bin/ranlib",
+        "/pool/wrf-experiment/wrf-cpu/builds/current267c-uvb-two-member-batch-hpc01-r1/intermediate-libwrflib.a"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_path": null
+    },
+    {
+      "label": "extract-module_mp_thompson",
+      "argv": [
+        "/usr/bin/ar",
+        "p",
+        "/pool/wrf-experiment/wrf-cpu/builds/currentdb5a-one-smallstep-final-u-simd-hpc01-r1/libwrflib.a",
+        "module_mp_thompson.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_path": "/pool/wrf-experiment/wrf-cpu/builds/current267c-uvb-two-member-batch-hpc01-r1/current-module_mp_thompson.o"
+    },
+    {
+      "label": "module_mp_thompson-parent-exports",
+      "argv": [
+        "/usr/bin/nm",
+        "-g",
+        "--defined-only",
+        "--format=posix",
+        "/pool/wrf-experiment/wrf-cpu/builds/current267c-uvb-two-member-batch-hpc01-r1/current-module_mp_thompson.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_path": "/pool/wrf-experiment/wrf-cpu/builds/current267c-uvb-two-member-batch-hpc01-r1/module_mp_thompson-parent-exports.txt"
+    },
+    {
+      "label": "module_mp_thompson-candidate-exports",
+      "argv": [
+        "/usr/bin/nm",
+        "-g",
+        "--defined-only",
+        "--format=posix",
+        "/pool/wrf-experiment/wrf-cpu/kernels/thompson-freeze-rain-cloud-read-screen-hpc02-r2/work/candidate-production-O2/module_mp_thompson.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_path": "/pool/wrf-experiment/wrf-cpu/builds/current267c-uvb-two-member-batch-hpc01-r1/module_mp_thompson-candidate-exports.txt"
+    }
+  ],
+  "error": "AssertionError()",
+  "traceback": "Traceback (most recent call last):\n  File \"/pool/wrf-experiment/wrf-cpu/source-discovery/current267c-uvb-two-member-batch-build-hpc01-r1/run_build.py\", line 74, in main\n    current=D/('current-'+m['name']);run(['/usr/bin/ar','p',A,m['name']],'extract-'+m['stem'],current);assert sha(current)==m['parent_sha256']and exports(current,m['stem']+'-parent-exports')==exports(G,m['stem']+'-candidate-exports')\n                                                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+  "elapsed_seconds_context_only": 8.728980396874249,
+  "source_pins_after": {
+    "REBUILD_RECIPE.json": "da0538b9435add9db03e0d3cdcf7dda3a3af2028f971f573a3d16674ca3c5471",
+    "archive_occurrences.py": "69808c8278fb35ec061810c4082a6422b71948218b93b5644ff4525b40dfb7c8",
+    "b-canonical-producer-receipt.json": "b7e3d4571f97e26b53d323f89c3f8b4e2b85482613ff8741f60039bf7f100b06",
+    "b-computed-closure.json": "f6dcac4b16964ca9615fb85f1f16ee52121865c0b5cddd768f2107968003afe9",
+    "b-computed-qualification.json": "68e82361d97b4677d6083a62db973fb5b66a198f31bf3b47444a8275903e796f",
+    "b-computed-receipt.json": "19092f9b1995c75389318ccbad9619f70215ba9a7ef2063e89a1b607de917602",
+    "b-failed-production-closure.json": "989f1212dd6187b8cfe26402124c89f0006d35d80ad61bb78b178dc95b60e7de",
+    "b-failed-production-receipt.json": "b80f7a91fb3f5b5a4e90a584d7d025452419669210444fbd83b7085b38e914ed",
+    "b-method_adjudication.json": "c082af52f7d51bd13f7ea284dd1227c7887211ecde05fd061a5489a17ea6f49f",
+    "b-method_review.json": "9b867c69767b5653b0e05ddaf7e2a8ea3d377dc612bb346e358318a05b6dff1e",
+    "b-partial_read-closure.json": "d7b17dd878867756a62ec324fdbe3622ebeb13ce62b0ec7b4aba3f5be53baeaf",
+    "b-partial_read-qualification.json": "c790a2b9de9e9d552f0bc3b5418035e865c23e8e3759e21f91c1ca9244f0ed47",
+    "b-partial_read-receipt.json": "4f4415321f5e26bb40c31739fc226329fec79e5ce3171e263ade1ecd3eb80364",
+    "b-production-contract.json": "110462a7daff6f0d4c12f4e5eae1669c2cd1c44209f5acbf2b25d0fc2fb1ee7d",
+    "b-read-closure.json": "f09f9d117ed4f455e1f4eefa5d0b06a074c154297fd7f6a4d4b00d1fcede09bb",
+    "b-read-qualification.json": "f0253041c961c55127f3a891138f3699214b1f79a02e66db409e5f7ccd98773a",
+    "b-read-receipt.json": "0c3ca337e1cc9e85f89950c851d8cec6e50842ab161708437c4fdc0261863b1d",
+    "b-source-projection.json": "f822183e7af167f0d6a96442a57277118a2dc94744797e7bbe2e878df2657417",
+    "candidate_module_mp_thompson.F": "88650f32214e09ce65df53a7c2c08c0a30d22faa9142633aa63005dfbe45b24c",
+    "candidate_module_small_step_em.F": "425167eda5868d28d358a16cf41f0642df9dcedacae563ec73c127d49ea0778e",
+    "candidate_module_small_step_em.f90": "f836b696c6a6aa7c7fd5f8f06b3a19884139dbaa66018afc0ba7a5414b555bb6",
+    "canonical-producer-receipt.json": "10a180190d1b2d030e7e213c40c6c0d37149aff83f06c630ef8893e4698be33b",
+    "canonical_compile.py": "c5b2384e2ef4a2d1192abeb11f789d44a4800a382138ace21d68d33564e98b5a",
+    "configure.wrf.qualified": "6d2d788bd02677e6b3603cf9f011b5d51ad19cc418accc773da5a713c1fb7c5c",
+    "controller.py": "490f6bf883144d7da18fcbdad741e55dc220a9aebb44afaa387eef1d57beb932",
+    "elf_semantics.py": "e36f2c3cdef1398b2c099db555ea4fe54034dfa8c714a3a50bc4380920630e82",
+    "parent-build-closure.json": "a6e36bbf3942be089763534a55ffad7f87b39c8a6c2a2dd30fbe4314bbbfe946",
+    "parent-build-receipt.json": "6a6980ee6f6c342a2693c1ef816ed8851af36c1d931f5d4a6209678050c63cc2",
+    "parent-ordered-libwrflib-proof.json": "d29492eb9d79c9a0e26f7d4223fc3f795b6890869f1fa51a8ed54a6e544a6eae",
+    "parent_module_small_step_em.F": "fbd403dedbe28b208366c9c039b25971293583c10c8f19cab229bf746127735f",
+    "parent_module_small_step_em.f90": "e8918c0da0fb3029800dbad9df25c39c9431214eb88962a67b7bdd11473f1ba1",
+    "run_build.py": "86a9eb71332ab6dc5160900c65056475bd90f14162ab5870ae74785d07559cb2",
+    "u-build-qualification.json": "8a4c77198759741357d51aa6923e5c9f43a2ad5b90d1811cdf4d2fdaeb2380eb",
+    "u-caller-qualification.json": "b11e85ec67fb88f07f0dc5fb550e631088cec249f24e9c08d86c305dfd8eadc8",
+    "u-native-qualification.json": "1cf2940d40ff4db82466ae6929b315284347e166b4bbccff7b128c3a803a84cc",
+    "v-caller-qualification.json": "ebfeb6d207b599821ca02d5dcc5e23e89e73c95a2e3e13674e17047c0d17376c",
+    "v-caller-raw-0.json": "445e4528b8aca252362ed2d7276a924289ec1f061f6e994fefa9ff74f31fb021",
+    "v-caller-raw-1.json": "b5048052fbe641be44d9403e9d0b401cfa6271073513a89019c21baabd1efb75",
+    "v-caller-raw-10.json": "c74eeca98f3ac89ce09e49a20cf7c44e8d3c601d05e04a8aa095025415afdf0a",
+    "v-caller-raw-11.json": "3f390d540dac9ecfba2f1561d46bbbf7f707a32e3533ea141da089aecc3801fa",
+    "v-caller-raw-12.json": "4a970479fe145bc4a39b93de3ab8710226745b28d367b3e1b6478c942d73790a",
+    "v-caller-raw-13.json": "ed85599d25d8e77250c8c4368d9e70bd288507664d9a42e4961c4f39fd0bb594",
+    "v-caller-raw-14.json": "64c592c438c8fdfbc1be61112b64dbf514999e29402d671093402bb857a32cef",
+    "v-caller-raw-15.json": "6a54424147e63363732bce5ad75cd5950642bfc2c36b699a04bdb0130b98a677",
+    "v-caller-raw-2.json": "1e052623717103452c4f37d9c9315c27a35638ae011bd43be4dcd480089aef2b",
+    "v-caller-raw-3.json": "16949e6f8561600893b2c3d3fbd09c0815790bad92fb848e26fd01ed6e351f7b",
+    "v-caller-raw-4.json": "a703cbf740608deb609b2167e39b45723339dc5f999f35e44b9389473c8e8248",
+    "v-caller-raw-5.json": "6870fc47a7f09b10fff25f897a4efdd5802d745f7f1198649211511baeddf3dc",
+    "v-caller-raw-6.json": "f4e30a7bfb720c1c776db6af7b86eaf757035222ef0120ff124c0c4715adb7a4",
+    "v-caller-raw-7.json": "7e95df16e9fc199cfaa4c4be97847c8584d3f19e62c85e0e84c4d63e6506d58e",
+    "v-caller-raw-8.json": "fe5af2bc76f749a946c5a271b57e41ad7be503197d5314033edcc7897f2b09e5",
+    "v-caller-raw-9.json": "6b32168eb53c08115b79938d35055b5125ae977f948312c9096a340fc92433ed",
+    "v-native-closure.json": "b4a3dc09c4af38dc916078d373295ae02acea17746a419c32bfb4e17869efa9b",
+    "v-native-qualification.json": "db645c9dc70c43a8114c385479fcc69c8d574646e123560de08d482c14525692",
+    "v-native-receipt.json": "948fa224c8a0f46e12c1f9eb874503129fd0216d7fe1a7791ad27c16577df409",
+    "v-source-proof.json": "1a83da185219812a23381de4d8b3e7af53b2f1d90f69f688471be35c14710114"
+  }
+}

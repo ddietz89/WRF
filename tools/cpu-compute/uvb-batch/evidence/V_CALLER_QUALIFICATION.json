@@ -1,0 +1,144 @@
+{
+  "status": "PASS_GENUINE_COMPLETE_PREP_CASE15_RESTORES_STATE_FIXED131072_OPPOSITE_ORDER_EXACT",
+  "utc": "2026-10-20T22:29:53.111559+00:00",
+  "source_parent_canonical_sha256": "fbd403dedbe28b208366c9c039b25971293583c10c8f19cab229bf746127735f",
+  "source_candidate_canonical_sha256": "425167eda5868d28d358a16cf41f0642df9dcedacae563ec73c127d49ea0778e",
+  "native_qualification_sha256": "db645c9dc70c43a8114c385479fcc69c8d574646e123560de08d482c14525692",
+  "candidate_object": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/smallstep-prep-v-coupling-simd-full-caller-gate-r1/work/O2-candidate/module_small_step_em.o",
+    "sha256": "98950138203abd25f355e6a94611ee22c7fb9c598eaff7464edddd46a8a00391"
+  },
+  "arms": [
+    {
+      "host": "hpc01",
+      "which": "parent",
+      "calls": 131072,
+      "wall_seconds": 9.06487812162773,
+      "process_cpu_seconds": 9.063000842680824,
+      "invocation_id": "3ab067ca320447be9ecf48eab0abf48b",
+      "arm": 0,
+      "cache_each_pass": true,
+      "cache_helper_drained": true,
+      "normal_same_INV_strong_closure": true,
+      "memory_events": {
+        "low": "0",
+        "high": "0",
+        "max": "0",
+        "oom": "0",
+        "oom_kill": "0",
+        "oom_group_kill": "0"
+      },
+      "cpu_throttled_periods": 0
+    },
+    {
+      "host": "hpc04",
+      "which": "candidate",
+      "calls": 131072,
+      "wall_seconds": 9.09778859469696,
+      "process_cpu_seconds": 9.096210284741597,
+      "invocation_id": "8e0dde2c261c4e4f812e074d449e1405",
+      "arm": 1,
+      "cache_each_pass": true,
+      "cache_helper_drained": true,
+      "normal_same_INV_strong_closure": true,
+      "memory_events": {
+        "low": "0",
+        "high": "0",
+        "max": "0",
+        "oom": "0",
+        "oom_kill": "0",
+        "oom_group_kill": "0"
+      },
+      "cpu_throttled_periods": 0
+    },
+    {
+      "host": "hpc01",
+      "which": "candidate",
+      "calls": 131072,
+      "wall_seconds": 8.881914658802291,
+      "process_cpu_seconds": 8.879434734872428,
+      "invocation_id": "c8a834c4deb44bfe9e5462621a81538d",
+      "arm": 2,
+      "cache_each_pass": true,
+      "cache_helper_drained": true,
+      "normal_same_INV_strong_closure": true,
+      "memory_events": {
+        "low": "0",
+        "high": "0",
+        "max": "0",
+        "oom": "0",
+        "oom_kill": "0",
+        "oom_group_kill": "0"
+      },
+      "cpu_throttled_periods": 0
+    },
+    {
+      "host": "hpc04",
+      "which": "parent",
+      "calls": 131072,
+      "wall_seconds": 9.142605453429452,
+      "process_cpu_seconds": 9.141075301472728,
+      "invocation_id": "2ef1184ce2b243b4a07a5ff9e42630fd",
+      "arm": 3,
+      "cache_each_pass": true,
+      "cache_helper_drained": true,
+      "normal_same_INV_strong_closure": true,
+      "memory_events": {
+        "low": "0",
+        "high": "0",
+        "max": "0",
+        "oom": "0",
+        "oom_kill": "0",
+        "oom_group_kill": "0"
+      },
+      "cpu_throttled_periods": 0
+    }
+  ],
+  "pairs": {
+    "hpc01": {
+      "parent_wall_seconds": 9.06487812162773,
+      "candidate_wall_seconds": 8.881914658802291,
+      "wall_reduction_percent": 2.0183775266532256,
+      "parent_process_cpu_seconds": 9.063000842680824,
+      "candidate_process_cpu_seconds": 8.879434734872428,
+      "process_cpu_reduction_percent": 2.0254451146459074
+    },
+    "hpc04": {
+      "parent_wall_seconds": 9.142605453429452,
+      "candidate_wall_seconds": 9.09778859469696,
+      "wall_reduction_percent": 0.4901978868144363,
+      "parent_process_cpu_seconds": 9.141075301472728,
+      "candidate_process_cpu_seconds": 9.096210284741597,
+      "process_cpu_reduction_percent": 0.4908067732896093
+    }
+  },
+  "clock_scope": "Exact existing complete synthetic SmallStepPrep case15/RK3/width33 + identical full39-array restores and observation selection/reset/readfive-state INSIDE both wall/processCPU clocks. Initial warm, terminal raw/state/definedOUT/readonly/physicalguards OUTSIDE. Not capturedUV, pureVkernel, realforcing or forecast timing.",
+  "raw_gold_sha256": "8f67882e1871e4fe0d33d4c63b14a4e1e9a7416686bb0fec504df68eee230fb4",
+  "raw_gold_bytes": 296192,
+  "design": "One fixed opposite-order pair perhost01/04; checkedcache before EACH arm, no per-batchcache/repeat/calibration. Both samehost arms exact fixedwork.",
+  "application_qualified": false,
+  "raw_producer_source_commit": null,
+  "limits": [
+    "Four first fixed measurements only; no repeatability/significance/global criticalrank/headroom claim.",
+    "State equality limited by independently qualified original60+12V native coverage; caller finitecase alone does not extend IEEE breadth.",
+    "Static SIMD alone is not measured saving."
+  ],
+  "raw_refs_sha256": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-prep-v-coupling-simd-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/receipt.json": "445e4528b8aca252362ed2d7276a924289ec1f061f6e994fefa9ff74f31fb021",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-prep-v-coupling-simd-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/closure.json": "b5048052fbe641be44d9403e9d0b401cfa6271073513a89019c21baabd1efb75",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-prep-v-coupling-simd-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/cache-clear.json": "1e052623717103452c4f37d9c9315c27a35638ae011bd43be4dcd480089aef2b",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-prep-v-coupling-simd-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/controller.json": "16949e6f8561600893b2c3d3fbd09c0815790bad92fb848e26fd01ed6e351f7b",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-prep-v-coupling-simd-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/receipt.json": "a703cbf740608deb609b2167e39b45723339dc5f999f35e44b9389473c8e8248",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-prep-v-coupling-simd-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/closure.json": "6870fc47a7f09b10fff25f897a4efdd5802d745f7f1198649211511baeddf3dc",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-prep-v-coupling-simd-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/cache-clear.json": "f4e30a7bfb720c1c776db6af7b86eaf757035222ef0120ff124c0c4715adb7a4",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-prep-v-coupling-simd-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/controller.json": "7e95df16e9fc199cfaa4c4be97847c8584d3f19e62c85e0e84c4d63e6506d58e",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-prep-v-coupling-simd-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/receipt.json": "fe5af2bc76f749a946c5a271b57e41ad7be503197d5314033edcc7897f2b09e5",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-prep-v-coupling-simd-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/closure.json": "6b32168eb53c08115b79938d35055b5125ae977f948312c9096a340fc92433ed",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-prep-v-coupling-simd-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/cache-clear.json": "c74eeca98f3ac89ce09e49a20cf7c44e8d3c601d05e04a8aa095025415afdf0a",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-prep-v-coupling-simd-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/controller.json": "3f390d540dac9ecfba2f1561d46bbbf7f707a32e3533ea141da089aecc3801fa",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-prep-v-coupling-simd-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/receipt.json": "4a970479fe145bc4a39b93de3ab8710226745b28d367b3e1b6478c942d73790a",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-prep-v-coupling-simd-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/closure.json": "ed85599d25d8e77250c8c4368d9e70bd288507664d9a42e4961c4f39fd0bb594",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-prep-v-coupling-simd-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/cache-clear.json": "64c592c438c8fdfbc1be61112b64dbf514999e29402d671093402bb857a32cef",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-prep-v-coupling-simd-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/controller.json": "6a54424147e63363732bce5ad75cd5950642bfc2c36b699a04bdb0130b98a677"
+  }
+}

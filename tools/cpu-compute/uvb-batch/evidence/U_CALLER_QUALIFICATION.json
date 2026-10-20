@@ -1,0 +1,98 @@
+{
+  "status": "RETAIN_EXACT_COMPLETE_CAPTURED_UV_FINAL_U_SIMD_CALLER_GAIN_PENDING_APPLICATION",
+  "native_qualification_sha256": "1cf2940d40ff4db82466ae6929b315284347e166b4bbccff7b128c3a803a84cc",
+  "pairs": {
+    "hpc01": {
+      "parent_wall_seconds": 1.610615838,
+      "candidate_wall_seconds": 1.525499983,
+      "wall_reduction_percent": 5.284677636455726,
+      "parent_cpu_seconds": 1.610511,
+      "candidate_cpu_seconds": 1.525291,
+      "cpu_reduction_percent": 5.291488229512254
+    },
+    "hpc04": {
+      "parent_wall_seconds": 1.612917467,
+      "candidate_wall_seconds": 1.523540766,
+      "wall_reduction_percent": 5.541306534812296,
+      "parent_cpu_seconds": 1.612727,
+      "candidate_cpu_seconds": 1.523476,
+      "cpu_reduction_percent": 5.5341666630496
+    }
+  },
+  "order": [
+    "01P",
+    "04C",
+    "01C",
+    "04P"
+  ],
+  "calls_per_arm": 1024,
+  "scope": "CompletehistoricalrealcapturedUV plus identicalallocatedU/Vrestores and reset/readfive-statehelpers INSIDEwall/processCPU; currentnative/freshparent/replaygold validated; warm/raw/read-only/halo/physicalchecks OUTSIDE",
+  "raw_gold_capture_sha256": "7bd4b6ddcc43964e7aae2d8c306e2219a8f926077ae8a630e8ea626da870c243",
+  "resources": [
+    {
+      "arm": 0,
+      "host": "hpc01",
+      "which": "parent",
+      "memory.peak": "206749696\n",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "cpu.stat": "usage_usec 2278965\nuser_usec 1955538\nsystem_usec 323427\ncore_sched.force_idle_usec 0\nnr_periods 45\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n"
+    },
+    {
+      "arm": 1,
+      "host": "hpc04",
+      "which": "candidate",
+      "memory.peak": "206655488\n",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "cpu.stat": "usage_usec 2097652\nuser_usec 1815430\nsystem_usec 282222\ncore_sched.force_idle_usec 0\nnr_periods 22\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n"
+    },
+    {
+      "arm": 2,
+      "host": "hpc01",
+      "which": "candidate",
+      "memory.peak": "206733312\n",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "cpu.stat": "usage_usec 2067164\nuser_usec 1813143\nsystem_usec 254020\ncore_sched.force_idle_usec 0\nnr_periods 21\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n"
+    },
+    {
+      "arm": 3,
+      "host": "hpc04",
+      "which": "parent",
+      "memory.peak": "206602240\n",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "cpu.stat": "usage_usec 2159856\nuser_usec 1898994\nsystem_usec 260861\ncore_sched.force_idle_usec 0\nnr_periods 23\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n"
+    }
+  ],
+  "all_owned_scopes_strongclosed": true,
+  "cache_checked_before_every_arm": true,
+  "source_commit": null,
+  "own_application_qualified": false,
+  "limits": [
+    "One opposite-order fixedpairperhost, notstatisticalsignificance/repeatability/forecastclaim.",
+    "No isolatedfinalU speedup oradditivecomposition percentage.",
+    "Native metadata-collector100000capfailure+readonlyreceipt recovery retained in nativeQ."
+  ],
+  "refs_sha256": {
+    "investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/caller-timing-preparation-r1/ACTUAL_WAVE.json": "d1a7b4958e736500f39590f4b32c715e839bec9b9d581190d96b95bd782f6b7b",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/receipt.json": "3eca0192570c523936f752c9e9f4fee91c4b9065b746132c14072f8d506e6003",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/closure.json": "02c2c231a52a24a48415be05aa83004ba65f330d5292b15dc30a9b8c245a2d5d",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/cache-clear.json": "5ba2a494b6555bd620ba39228bec8828ca5bc428b2b0e5bdcb4ab03a27623971",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/controller.json": "babc24cc3d1411a7257a6008a55133902169829758daa6bf47044edfec16d91f",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/receipt.json": "9e2d24eff5da6d227e7667542a82f454a6c367728d8eca5f613a80f31baca1de",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/closure.json": "9e2cee5dc97b2576f525762995430e5db5ce2f1d239c2ffc17279beb63eeddcf",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/cache-clear.json": "f3c074bf06faba88ec2a9a9cc29e3459cef02417e3a97292d37f2262d7faaf07",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/controller.json": "db39e907f66e732aac4d79576653a37bdccb15b67f55b376bae97a2580dcc6d8",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/receipt.json": "c48b055ae0ee67eaadca5fa25c09a4d39413ee83bac6700cebb1a2f873ac8d4e",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/closure.json": "713e4f870129b7ba425662852ade923bba0e511b50f163bdeebf4f5e99676584",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/cache-clear.json": "6f6091055c04e4165078dafd5c6355b6f13319a8252f20a59fbf69cdb07445cb",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/controller.json": "5b4c154837379d70c0356cde3b0ea3d4b6acda08ae8d485ecaac6e4a28ba9a3b",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/receipt.json": "0a010ae426a7b738dfa3b0e676ce1f4d5b77b5794d94638449aaab1182d00760",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/closure.json": "eb8a81ca94ad7a43e824be29ff3547c28a5abed60ff8327a1690003e681a8e4a",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/cache-clear.json": "4a21b76b0bb2c9157c786282718c33f57b3b9a9c4bbdac9a38bc530e731cea07",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/controller.json": "cc5927e84765b78ac78545c0a17902d140afe5a54d25086136240955fdb7eaa4",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/caller-timing-preparation-r1/driver-build-r1/actual-native-r1/receipt.json": "db93f6a5d7e2009fa14d8d2d9c14d26d0bffa55f00d978bceaa50fd0612e9a68",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/caller-timing-preparation-r1/driver-build-r1/actual-native-r1/closure.json": "e7aa16b94d941675c2454956c39eab92ac29c00e5d57c1e823574bab54ac8857",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/NATIVE_QUALIFICATION.json": "1cf2940d40ff4db82466ae6929b315284347e166b4bbccff7b128c3a803a84cc",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/local-source-r1/SOURCE_PROOF.json": "ab3445a4251bd31f68922efdd66fe6a917954767d2ed47d1ebe472a941a28878",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/caller-timing-preparation-r1/timing_driver.f90": "f3dc57a71e9201cf5da48af06d9ccae747e2bfca23875a24a74f73eb088b9c87"
+  }
+}

@@ -1,0 +1,131 @@
+{
+  "status": "PASS_LIMITED_READ_SCIENCE_FP_OWNERSHIP_V1_NOT_COMPUTED_OR_APPLICATION",
+  "invocation_id": "d43561492c72414a9f7cebb5484e33e9",
+  "candidate_source_sha256": "88650f32214e09ce65df53a7c2c08c0a30d22faa9142633aa63005dfbe45b24c",
+  "gates": {
+    "parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/thompson-freeze-rain-cloud-read-screen-hpc02-r2/work/O2-parent/gate",
+      "sha256": "1ea8b11e86da15ef21ad5a9d06f43ea156486a0f86b52d697742810d70fa8cdd",
+      "bytes": 78157472,
+      "inode": 5637309731,
+      "mtime_ns": 1792530031797148023
+    },
+    "candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/thompson-freeze-rain-cloud-read-screen-hpc02-r2/work/O2-candidate/gate",
+      "sha256": "61b1de5e8b2d44c000f4c2004ebf187213bec4d2ffbe6aebd5bd3943258b1871",
+      "bytes": 78207584,
+      "inode": 5637272169,
+      "mtime_ns": 1792530043144350353
+    }
+  },
+  "actual_shared_mode1": {
+    "parent_MPI_exit": 0,
+    "candidate_MPI_exit": 0,
+    "ranks": 4,
+    "all23_whole_table_records_each_of_3_phases": true,
+    "all11_callers_original_raw_bytes_per_rank": 202196,
+    "raw_sha256": "6c5004bfb539d5f765946d89289ce352dcb5fa9c67656f05126640eccbcad494",
+    "both_INIT_all8_FP_words_exact": true,
+    "publication_all5_exact_to_known_seed": true,
+    "release_all5_exact_to_known_seed": true,
+    "known_seed": [
+      34,
+      0,
+      0,
+      8064,
+      895
+    ],
+    "first_INIT_errno_observed_parent": [
+      12,
+      12,
+      12,
+      12
+    ],
+    "first_INIT_errno_observed_candidate": [
+      12,
+      12,
+      12,
+      12
+    ]
+  },
+  "retained_private_mode0": {
+    "scope": "Historical successful numerical executions reanalyzed under NEW named scope; no rerun or old-status rewrite",
+    "receipt_sha256": "b80f7a91fb3f5b5a4e90a584d7d025452419669210444fbd83b7085b38e914ed",
+    "closure_sha256": "989f1212dd6187b8cfe26402124c89f0006d35d80ad61bb78b178dc95b60e7de",
+    "only_raw_INIT_errno_difference": {
+      "rank": 2,
+      "INIT": 1,
+      "parent": 34,
+      "candidate": 11
+    }
+  },
+  "strong_closure": true,
+  "Fortran_compiles": 0,
+  "links": 0,
+  "memory_peak_bytes_context_only": 2400477184,
+  "resource_end": {
+    "memory.current": "100589568\n",
+    "memory.peak": "2400477184\n",
+    "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+    "cpu.stat": "usage_usec 33942078\nuser_usec 21335392\nsystem_usec 12606685\ncore_sched.force_idle_usec 0\nnr_periods 122\nnr_throttled 12\nthrottled_usec 13692\nnr_bursts 0\nburst_usec 0\n"
+  },
+  "qualification_limits": {
+    "old_ALL15_gate_status": "FAIL_RETAINED",
+    "whole_INIT_errno_preservation": false,
+    "computed_creator_math": false,
+    "partial_READ_fatal_allocation_faults": false,
+    "physical_memory_saving": false,
+    "performance": false,
+    "application": false,
+    "hardware_readonly_protection": false,
+    "readonly_scope": "Whole table bytes rechecked after all callers; no mprotect claim",
+    "creator_count": "Two INIT calls observed; one creator invocation is source-path proof, not a new instrumented counter"
+  },
+  "raw_refs": [
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-freeze-rain-cloud-staging-split-design-r1/read-science-fp-ownership-r1/actual-native-r1/receipt.json",
+      "sha256": "0c3ca337e1cc9e85f89950c851d8cec6e50842ab161708437c4fdc0261863b1d"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-freeze-rain-cloud-staging-split-design-r1/read-science-fp-ownership-r1/actual-native-r1/closure.json",
+      "sha256": "f09f9d117ed4f455e1f4eefa5d0b06a074c154297fd7f6a4d4b00d1fcede09bb"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-freeze-rain-cloud-staging-split-design-r1/read-science-fp-ownership-r1/actual-native-r1/controller.json",
+      "sha256": "894310a9cdfb25fab866f8e594864b9e5d8e1eed1bfbf68270cf485c3f7d3097"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-freeze-rain-cloud-staging-split-design-r1/read-science-fp-ownership-r1/inputs/source-pins.json",
+      "sha256": "a91b8529f5344440454a98261979e617d1dfc254c4846bce48aba0f79ffe27c6"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-freeze-rain-cloud-staging-split-design-r1/read-science-fp-ownership-r1/inputs/comparison.py",
+      "sha256": "969b7a5c34d34963562189333c7602ee6fa95510dbe0b4535df0b18126f7d319"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-freeze-rain-cloud-staging-split-design-r1/read-science-fp-ownership-r1/inputs/run_gate.py",
+      "sha256": "6b9bc35ed4f2bcc0fb422ddf87aaa20b46ea0e70c2bbbe1b80fe59d1b7dcd7c4"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-freeze-rain-cloud-staging-split-design-r1/read-science-fp-ownership-r1/inputs/r2-failed-receipt.json",
+      "sha256": "b80f7a91fb3f5b5a4e90a584d7d025452419669210444fbd83b7085b38e914ed"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-freeze-rain-cloud-staging-split-design-r1/read-science-fp-ownership-r1/inputs/r2-failed-closure.json",
+      "sha256": "989f1212dd6187b8cfe26402124c89f0006d35d80ad61bb78b178dc95b60e7de"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-freeze-rain-cloud-staging-split-design-r1/init-errno-method-review-r1/ADJUDICATION.json",
+      "sha256": "c082af52f7d51bd13f7ea284dd1227c7887211ecde05fd061a5489a17ea6f49f"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-freeze-rain-cloud-staging-split-design-r1/init-errno-method-review-r1/CHECKER_SCOPE_AUDIT.json",
+      "sha256": "88fa26370aab6ece0f1f2ffba7a7b17e611127e94b465bff63d4840db0b01e0b"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-freeze-rain-cloud-staging-split-design-r1/local-prototype-r2/SOURCE_PROJECTION.json",
+      "sha256": "f822183e7af167f0d6a96442a57277118a2dc94744797e7bbe2e878df2657417"
+    }
+  ],
+  "verification": "All listed local refs rehashed; frozen input pins verified; comparison recomputed from actual raw state rows; native closure independently checked. Remote raw log hashes retained in receipt, no second remote fetch."
+}

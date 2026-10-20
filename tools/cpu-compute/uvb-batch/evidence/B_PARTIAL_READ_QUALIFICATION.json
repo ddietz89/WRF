@@ -1,0 +1,104 @@
+{
+  "status": "PASS_LIMITED_PARTIAL_FIFTH_RECORD_READ_FALLBACK_SCIENCE_FP_OWNERSHIP_NOT_APPLICATION_OR_MEMORY",
+  "invocation_id": "9302deaa0362445e9d0f314de3c6e458",
+  "candidate_source_sha256": "88650f32214e09ce65df53a7c2c08c0a30d22faa9142633aa63005dfbe45b24c",
+  "reused_computed_gates": {
+    "parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/thompson-freeze-rain-cloud-computed-science-fp-owner-hpc02-r2/work/parent-gate",
+      "sha256": "a473f86098b48073204db6d3118ca26aff94eb1175d0db372e6a349240576b82",
+      "bytes": 78157816,
+      "driver_sha256": "9e3780b9f618589f33bdae7a6f3e583d29eca6eff8e0805ee105b5da5b889954"
+    },
+    "candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/thompson-freeze-rain-cloud-computed-science-fp-owner-hpc02-r2/work/candidate-gate",
+      "sha256": "caa7d55bdaeee8185894c4df5c439a256911a744a2c2f0204e7278c5f387fdf0",
+      "bytes": 78207936,
+      "driver_sha256": "9e3780b9f618589f33bdae7a6f3e583d29eca6eff8e0805ee105b5da5b889954"
+    }
+  },
+  "compiles": 0,
+  "links": 0,
+  "partial_input": {
+    "bytes": 108424840,
+    "sha256": "5abe21e3557f90611aa82a6989dd4313764a19e48fa6a84d95bf3301297d0586",
+    "format": "Four original complete rain records + zero-length fifth sequential unformatted record"
+  },
+  "actual_path": "Parent and child each emitted read-freeze + computing-freeze + writing-freeze messages and MPI exit0. Zero-length record5 exercised ERR fallback, not unhandled EOF.",
+  "generated_freeze": {
+    "parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/thompson-freeze-rain-cloud-partial-read-fallback-hpc02-r1/work/mode1-parent/freezeH2O.dat",
+      "bytes": 254944848,
+      "sha256": "f80f5d6faa85ee5a524902dbd9fd7cc371e9ec7c6d1413ee1daa006c9f2acddf"
+    },
+    "candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/thompson-freeze-rain-cloud-partial-read-fallback-hpc02-r1/work/mode1-candidate/freezeH2O.dat",
+      "bytes": 254944848,
+      "sha256": "f80f5d6faa85ee5a524902dbd9fd7cc371e9ec7c6d1413ee1daa006c9f2acddf"
+    }
+  },
+  "hard_results": {
+    "ranks": 4,
+    "all23whole_table_records_all3phases": true,
+    "all11caller_fullraw_sha256": "6c5004bfb539d5f765946d89289ce352dcb5fa9c67656f05126640eccbcad494",
+    "all11caller_raw_bytes_per_rank": 202196,
+    "all8_INIT_FP_exact": true,
+    "publication_and_release_all5_exact_seed": [
+      34,
+      0,
+      0,
+      8064,
+      895
+    ],
+    "both_INIT_calls": true
+  },
+  "whole_INIT_errno": "All15 words happened equal in this run (firstINIT34 both arms); only observation, no general errno-preservation claim or old failed-gate rewrite.",
+  "normal_strong_closure": true,
+  "resource_end_context_only": {
+    "memory.current": "537534464\n",
+    "memory.peak": "2549993472\n",
+    "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+    "cpu.stat": "usage_usec 98524111\nuser_usec 82626350\nsystem_usec 15897761\ncore_sched.force_idle_usec 0\nnr_periods 309\nnr_throttled 85\nthrottled_usec 85685\nnr_bursts 0\nburst_usec 0\n"
+  },
+  "scope_limits": [
+    "Only one recoverable fifth-record-short fallback, not all I/O or allocation failures",
+    "No universal create-error/cleanup/fatal equivalence",
+    "No creator-libm errno-preservation claim",
+    "No application/science forecast/physical memory/performance/admission claim",
+    "Old ALL15 failures and computed R1 fixture compile failure unchanged"
+  ],
+  "raw_refs": [
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-freeze-rain-cloud-staging-split-design-r1/partial-read-fallback-preparation-r1/actual-native-r1/receipt.json",
+      "sha256": "4f4415321f5e26bb40c31739fc226329fec79e5ce3171e263ade1ecd3eb80364"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-freeze-rain-cloud-staging-split-design-r1/partial-read-fallback-preparation-r1/actual-native-r1/closure.json",
+      "sha256": "d7b17dd878867756a62ec324fdbe3622ebeb13ce62b0ec7b4aba3f5be53baeaf"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-freeze-rain-cloud-staging-split-design-r1/partial-read-fallback-preparation-r1/actual-native-r1/controller.json",
+      "sha256": "4bfb30927c1defefe057442003413fc0818f4dd719da55987e577415bbb5e476"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-freeze-rain-cloud-staging-split-design-r1/partial-read-fallback-preparation-r1/inputs/source-pins.json",
+      "sha256": "1ae15a39beca646264dc6ea75cb830baa01b54002f3d3dd22b352bb441a71471"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-freeze-rain-cloud-staging-split-design-r1/partial-read-fallback-preparation-r1/inputs/run_gate.py",
+      "sha256": "b209477df6718c74be814bf926bd53305c30effbc47e99e3b7899b128e8419b2"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-freeze-rain-cloud-staging-split-design-r1/partial-read-fallback-preparation-r1/inputs/comparison.py",
+      "sha256": "70219d6cda3d87a71413268406234d77e5a8c9244e2d64ed7e80aa0efa0a5723"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-freeze-rain-cloud-staging-split-design-r1/NATIVE_COMPUTED_QUALIFICATION.json",
+      "sha256": "68e82361d97b4677d6083a62db973fb5b66a198f31bf3b47444a8275903e796f"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-freeze-rain-cloud-staging-split-design-r1/PARTIAL_READ_AND_SUPPORT_SOURCE_PROOF.json",
+      "sha256": "f961bc495f5eb9c615f40674990170f3347eeddbfcb115dcf49934de8468c05b"
+    }
+  ],
+  "verification": "All listed local refs/input pins rehashed; comparison recomputed; sameINV normal journal/CG absent verified; worker-bound output hashes retained without extra remote fetch."
+}

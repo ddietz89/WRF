@@ -1,0 +1,156 @@
+{
+  "status": "LIMITED_NATIVE_READ_COMPUTED_PARTIAL_GATES_PASS_PRODUCTION_OBJECT_AVAILABLE_PENDING_APPLICATION_AND_MEMORY",
+  "source_commit": null,
+  "source": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-freeze-rain-cloud-staging-split-design-r1/local-prototype-r2/module_mp_thompson.F",
+    "sha256": "88650f32214e09ce65df53a7c2c08c0a30d22faa9142633aa63005dfbe45b24c",
+    "parent_sha256": "4a2bd094c9131e150ab1d7cbcacf66e59d06db65652905d15b2d231180946066",
+    "generic_inverse_and_projection": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-freeze-rain-cloud-staging-split-design-r1/local-prototype-r2/SOURCE_PROJECTION.json"
+  },
+  "production_object": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/thompson-freeze-rain-cloud-read-screen-hpc02-r2/work/candidate-production-O2/module_mp_thompson.o",
+    "sha256": "242c4659e10a6bcf9773f77628a37bd498f96778154ded17d265ecb14558cf8f"
+  },
+  "production_PP": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/thompson-freeze-rain-cloud-read-screen-hpc02-r2/work/candidate-production-O2/module_mp_thompson.f90",
+    "sha256": "f55213b4cde5d8f8311989aefa6413f56faabb45a9937ef3755fa7b27c19e687"
+  },
+  "public_MOD": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/thompson-freeze-rain-cloud-read-screen-hpc02-r2/work/candidate-production-O2/module_mp_thompson.mod",
+    "sha256": "2b20e2811653339ea7df9463b3c991491ba7b573eee9aa615ec15e8865511816",
+    "byte_exact_parent": true
+  },
+  "parent_reference": {
+    "object_sha256": "c3fbe0335c13bde77611b246d71d37c48f71044b2d029d39cdcfea96f41e9571",
+    "fresh_rebuilt_sha256": "de8aba4178c81b23636bb529e1dcd862df492742104099a8dde0e3efe993575a",
+    "status": "PASS_ALLOCATED_BYTES_RELOCATIONS_NONFILE_SYMBOLS_EXACT"
+  },
+  "generic_PP": {
+    "parent_sha256": "3b500d16ca1a32953e5aff319027c44d6b28a0b6ec6cd6ce304d6fe65b29fb2b",
+    "candidate_sha256": "3b500d16ca1a32953e5aff319027c44d6b28a0b6ec6cd6ce304d6fe65b29fb2b"
+  },
+  "compiler": {
+    "path": "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+    "sha256": "2a8b1d4634621b0952d5b1e68701398ed66009cb15e67475f316196edf69b3ca",
+    "version": "GNU Fortran (GCC) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n"
+  },
+  "compile_recipe": {
+    "actual_command_label": "compile-candidate-production-O2",
+    "actual_argv": [
+      "time",
+      "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+      "-o",
+      "module_mp_thompson.o",
+      "-c",
+      "-O2",
+      "-fno-fast-math",
+      "-ffp-contract=off",
+      "-w",
+      "-fno-fast-math",
+      "-ffp-contract=off",
+      "-ffree-form",
+      "-ffree-line-length-none",
+      "-fconvert=big-endian",
+      "-frecord-marker=4",
+      "-fallow-argument-mismatch",
+      "-fallow-invalid-boz",
+      "-g",
+      "-I/pool/wrf-experiment/wrf-cpu/kernels/thompson-freeze-rain-cloud-read-screen-hpc02-r2/work/candidate-production-O2",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+      "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+      "module_mp_thompson.f90"
+    ],
+    "canonical_pipeline": "sed -> cpp(-P) -> standard.exe -> final cpp, actual_PP canonical_pipeline true. No native-accessor macro in production build.",
+    "producer_receipt": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-freeze-rain-cloud-staging-split-design-r1/native-read-screen-r2/actual-native-r1/receipt.json"
+  },
+  "native_gate_objects_are_not_production": "O2-parent/O2-candidate contain test-accessors and native instrumentation macro; only candidate-production-O2 object above is valid overlay input.",
+  "qualifications": {
+    "READ": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-freeze-rain-cloud-staging-split-design-r1/NATIVE_READ_QUALIFICATION.json",
+      "sha256": "f0253041c961c55127f3a891138f3699214b1f79a02e66db409e5f7ccd98773a"
+    },
+    "COMPUTED": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-freeze-rain-cloud-staging-split-design-r1/NATIVE_COMPUTED_QUALIFICATION.json",
+      "sha256": "68e82361d97b4677d6083a62db973fb5b66a198f31bf3b47444a8275903e796f"
+    },
+    "PARTIAL_READ": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-freeze-rain-cloud-staging-split-design-r1/NATIVE_PARTIAL_READ_QUALIFICATION.json",
+      "sha256": "c790a2b9de9e9d552f0bc3b5418035e865c23e8e3759e21f91c1ca9244f0ed47"
+    }
+  },
+  "qualification_limits": {
+    "whole_INIT_errno_preservation": false,
+    "creator_libm_errno_preservation": false,
+    "whole_forecast_science": false,
+    "physical_memory_reduction": false,
+    "performance_gain": false,
+    "dual_job_admission": false,
+    "all_fault_equivalence": false
+  },
+  "retained_failures": "Original ALL15 failed gates remain failed/raw unchanged; computedR1 missing MPI_SUCCESS compile failure preserved. New named native scopes explicitly distinguish wholeINIT success errno observation from hard all8FP/11caller mathstate/publication/release5.",
+  "logical_potential_only": {
+    "original_freeze_stage_bytes": 254944800,
+    "split_largest_family_stage_bytes": 146520000,
+    "delta_per_rank_bytes": 108424800,
+    "delta_times120_compute_ranks_bytes": 13010976000,
+    "caveats": "Not measured physical peak. Read monitor can retain old max, partial fallback all ranks retain old max;20KB cache/other live allocations excluded."
+  },
+  "raw_refs": [
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-freeze-rain-cloud-staging-split-design-r1/native-read-screen-r2/actual-native-r1/receipt.json",
+      "sha256": "b80f7a91fb3f5b5a4e90a584d7d025452419669210444fbd83b7085b38e914ed"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-freeze-rain-cloud-staging-split-design-r1/native-read-screen-r2/actual-native-r1/closure.json",
+      "sha256": "989f1212dd6187b8cfe26402124c89f0006d35d80ad61bb78b178dc95b60e7de"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-freeze-rain-cloud-staging-split-design-r1/local-prototype-r2/SOURCE_PROJECTION.json",
+      "sha256": "f822183e7af167f0d6a96442a57277118a2dc94744797e7bbe2e878df2657417"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-freeze-rain-cloud-staging-split-design-r1/PARTIAL_READ_AND_SUPPORT_SOURCE_PROOF.json",
+      "sha256": "f961bc495f5eb9c615f40674990170f3347eeddbfcb115dcf49934de8468c05b"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-freeze-rain-cloud-staging-split-design-r1/NATIVE_PARTIAL_READ_QUALIFICATION.json",
+      "sha256": "c790a2b9de9e9d552f0bc3b5418035e865c23e8e3759e21f91c1ca9244f0ed47"
+    }
+  ],
+  "production_stage_status": "FAIL_RETAINED",
+  "production_stage_failure": "Original ALL15 firstINIT errno comparison fails after production build/genuine semantic/MOD/genericPP checks and successful mode0 numerical runs. No production receipt status rewrite.",
+  "positive_READ_repair": {
+    "receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-freeze-rain-cloud-staging-split-design-r1/read-science-fp-ownership-r1/actual-native-r1/receipt.json",
+      "sha256": "0c3ca337e1cc9e85f89950c851d8cec6e50842ab161708437c4fdc0261863b1d"
+    },
+    "closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-freeze-rain-cloud-staging-split-design-r1/read-science-fp-ownership-r1/actual-native-r1/closure.json",
+      "sha256": "f09f9d117ed4f455e1f4eefa5d0b06a074c154297fd7f6a4d4b00d1fcede09bb"
+    },
+    "qualification": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-freeze-rain-cloud-staging-split-design-r1/NATIVE_READ_QUALIFICATION.json",
+      "sha256": "f0253041c961c55127f3a891138f3699214b1f79a02e66db409e5f7ccd98773a"
+    },
+    "method_review": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-freeze-rain-cloud-staging-split-design-r1/init-errno-method-review-r1/actual-provider-r1/review/receipt.json",
+      "sha256": "9b867c69767b5653b0e05ddaf7e2a8ea3d377dc612bb346e358318a05b6dff1e"
+    },
+    "method_adjudication": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-freeze-rain-cloud-staging-split-design-r1/init-errno-method-review-r1/ADJUDICATION.json",
+      "sha256": "c082af52f7d51bd13f7ea284dd1227c7887211ecde05fd061a5489a17ea6f49f"
+    }
+  },
+  "qualification_composition": "Original producer FAIL remains FAIL; actual production object/PP/MOD retained from completed pre-failure commands. Independently approved NEW named READ scope reanalyzes retained mode0 science/FP/ownership without rewriting failure and executes mode1 parent/child successfully. New COMPUTED and PARTIAL scopes execute the full-module accessor gates with strict science/FP/ownership, while wholeINIT success errno stays raw-observed. Not an old ALL15 postprocessing PASS."
+}

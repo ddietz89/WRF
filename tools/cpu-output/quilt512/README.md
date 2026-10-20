@@ -1,3 +1,9 @@
+## Current combined qualification (2026-10-20)
+
+The selected e3da/51a/e1d8 configuration passed original four-product/545-step/full512/two-tile/all-four-writer science. Whole runtime819.278306→661.793683s (19.22% lower), main-step elapsed597.239960→560.596320s (6.14% lower), aggregate CPU367612.405251→321402.587962CPU-s (12.57% lower), UNPAIRED versus retained original2aef. Output51a is unchanged; no isolated output contribution is claimed. Current own9h is false. [Working selection and rollback](../../cpu-working/README.md) supersede the historical build scopes below.
+
+## Historical output qualifications
+
 # Current combined three-hour qualification
 
 A fresh control-first corrected-original546b versus current DF41b/pool51a/3edf comparison passed **four complete products,545 ordered steps,all512 ranks,two tiles,all four positive writers and32 field-view markers**. Whole MPI/model wall was **822.587693 → 662.433817s (19.46952% lower,1.241766×)**; aggregate node cgroup CPU was **368895.741336 → 321352.545937s (12.88798% lower)**. Main-step elapsed was597.12504 →560.35180s (6.15838% lower); it includes communication/backpressure and is not integration CPU.

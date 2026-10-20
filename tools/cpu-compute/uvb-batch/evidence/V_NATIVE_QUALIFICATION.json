@@ -1,0 +1,95 @@
+{
+  "status": "PASS_QUALIFIED_FINAL_U_D34_COMPLETE_PREP_V_SIMD_72_BOUNDED_CASES_O0_BOUNDS_O2_EXACT",
+  "utc": "2026-10-20T22:23:01.699613+00:00",
+  "invocation_id": "2d75cb5b6f054802a72ccfab4520df26",
+  "parent_source_sha256": "fbd403dedbe28b208366c9c039b25971293583c10c8f19cab229bf746127735f",
+  "canonical_candidate_sha256": "425167eda5868d28d358a16cf41f0642df9dcedacae563ec73c127d49ea0778e",
+  "PP_candidate_sha256": "f836b696c6a6aa7c7fd5f8f06b3a19884139dbaa66018afc0ba7a5414b555bb6",
+  "source_inverse_exact": true,
+  "actual_parent_qualified_object_sha256": "d34d2c75f25ae27639e716680a883558fed195963335505fa092e2f8c7d70b1a",
+  "fresh_parent_native_equivalence": {
+    "status": "PASS_ALLOCATED_BYTES_RELOCATIONS_NONFILE_SYMBOLS_EXACT",
+    "reference_sha256": "d34d2c75f25ae27639e716680a883558fed195963335505fa092e2f8c7d70b1a",
+    "rebuilt_sha256": "f2a419120674b11fb056e7a6bdeabb937bca7c36fda90be0b9ea4720be1f6864"
+  },
+  "candidate_object": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/smallstep-prep-v-coupling-simd-full-caller-gate-r1/work/O2-candidate/module_small_step_em.o",
+    "sha256": "98950138203abd25f355e6a94611ee22c7fb9c598eaff7464edddd46a8a00391"
+  },
+  "parent_object": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/smallstep-prep-v-coupling-simd-full-caller-gate-r1/work/O2-parent/module_small_step_em.o",
+    "sha256": "f2a419120674b11fb056e7a6bdeabb937bca7c36fda90be0b9ea4720be1f6864"
+  },
+  "public_MOD_sha256": "d50c501497b927ad56b9bb3b7cb9431c827b8092cedf23e83d8f573ccb884b94",
+  "fixtures": {
+    "original60_byteexact": true,
+    "finite_bounds_empty": 42,
+    "U_exceptional": 6,
+    "W_PH_exceptional": 6,
+    "T_exceptional": 6,
+    "V_exceptional": 12,
+    "V_scope": "Six seeded patterns in real RK1/RK2, widths1/3/4/7/8/17 and origins1/3; targetV + consumed coefficient/producer inputs; bounded combined-input cases, not exhaustive independent-operand or all-round/trap proof."
+  },
+  "raw_finite": {
+    "sha256": "b9ef6fc13984ba5aa4ff5eb894a1d48f35ceecea5f098ad5f12e6279c045fd0b",
+    "bytes": 11850168
+  },
+  "raw_V_exceptional": {
+    "sha256": "1510c8e5c4d447f9c94b4ecaae743160fac0863a44a991641c484602815c5ee0",
+    "bytes": 3360128
+  },
+  "exact_scope": "Whole genuine procedure, all defined OUT masks/INOUT/inputreadonly/halos/physicalguards and five native state words; same-mode exceptional comparisons; no normalization/fallback. Original60 unchanged.",
+  "mechanism": "PASS_ACTUAL_SOURCE_JOINED_PACKED_V_SAVE_AND_V2",
+  "worker_native_flags": [
+    "-O2",
+    "-fno-fast-math",
+    "-ffp-contract=off",
+    "-w",
+    "-fno-fast-math",
+    "-ffp-contract=off",
+    "-ffree-form",
+    "-ffree-line-length-none",
+    "-fconvert=big-endian",
+    "-frecord-marker=4",
+    "-fallow-argument-mismatch",
+    "-fallow-invalid-boz",
+    "-g",
+    "-fopenmp-simd",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+    "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+    "-march=znver2",
+    "-mno-fma"
+  ],
+  "caller_qualified": false,
+  "application_qualified": false,
+  "raw_producer_source_commit": null,
+  "limits": [
+    "Synthetic complete Prep fixture only, not captured science or full WRF.",
+    "Source-joined packed code is not measured gain.",
+    "Current selection unchanged; final-U prospective parent is independently qualified native/caller, application pending."
+  ],
+  "refs_sha256": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-prep-v-coupling-simd-r1/actual-native-r1/receipt.json": "948fa224c8a0f46e12c1f9eb874503129fd0216d7fe1a7791ad27c16577df409",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-prep-v-coupling-simd-r1/actual-native-r1/closure.json": "b4a3dc09c4af38dc916078d373295ae02acea17746a419c32bfb4e17869efa9b",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-prep-v-coupling-simd-r1/actual-native-r1/controller.json": "2681bebcae13c9d6cf7a2c868a9f7ef69f52701bbff075ec5e1e0daaa7466640",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-prep-v-coupling-simd-r1/local-source-r1/SOURCE_PROOF.json": "1a83da185219812a23381de4d8b3e7af53b2f1d90f69f688471be35c14710114",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-prep-v-coupling-simd-r1/native-gate-r1/full_prep_driver.f90": "0fbf6ecd7d70625885de1b8f9ca5f705ce661577732d6cdbb04ceac14db895e5",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-prep-v-coupling-simd-r1/native-gate-r1/exceptional_prep_driver.f90": "1f7e360cf2781e9c0ae14b853814124aa7cdd8a032a6c2b16bb4de2dbdd9db98",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-prep-v-coupling-simd-r1/native-gate-r1/w_ph_exceptional_prep_driver.f90": "c87f278433e7bac459c7f69df96e3fae3a73e069c8b23977ce74cee88d51961e",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-prep-v-coupling-simd-r1/native-gate-r1/t_exceptional_prep_driver.f90": "e1c5a83111519f562f2f726fff781b99c4d81ba861764099ed3777e4ebf3103d",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-prep-v-coupling-simd-r1/native-gate-r1/v_exceptional_prep_driver.f90": "f0755d90fd448bd979efd14f450cfc9806ee76c3c5543d669f1574d1be6c7f54",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-prep-v-coupling-simd-r1/actual-codegen-r1/MECHANISM_REVIEW.json": "0a4acacb0424561ae3da06fb5e705974f570b2b17a8adc5aa45c0bee2840a022",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-prep-v-coupling-simd-r1/actual-codegen-r1/MANIFEST.json": "fb55379734533179664c5dfa063a0678e1a6b9c9b15fd25921f38fb32eefcd2f",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-prep-v-coupling-simd-r1/provider-review-r1/ADJUDICATION.json": "1aa5fb3846d34d70b1e001f894c198b27222f43c4e41f52550cc2f9533ce4dfe"
+  }
+}

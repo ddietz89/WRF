@@ -1,0 +1,85 @@
+{
+  "status": "PASS_CURRENT_267C_UV_B_TWO_MEMBER_BATCH_R2_QUALIFIED_OBJECT_REUSE_ONE_LINK_PENDING_APPLICATION",
+  "source_commit": null,
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current267c-uvb-two-member-batch-hpc01-r2/wrf.exe",
+    "sha256": "e3da6907c199175cfb114c856e48f0d67809ae0bb2e1a717e86708e857f03f8f"
+  },
+  "archive": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current267c-uvb-two-member-batch-hpc01-r2/libwrflib.a",
+    "sha256": "4f2a0cf0a59d003783efb092b342ae88f6836cf87cb94755458274fed089f5ec"
+  },
+  "members": [
+    {
+      "name": "module_small_step_em.o",
+      "stem": "module_small_step_em",
+      "index": 558,
+      "parent_sha256": "d34d2c75f25ae27639e716680a883558fed195963335505fa092e2f8c7d70b1a",
+      "object": "/pool/wrf-experiment/wrf-cpu/kernels/smallstep-prep-v-coupling-simd-full-caller-gate-r1/work/O2-candidate/module_small_step_em.o",
+      "object_sha256": "98950138203abd25f355e6a94611ee22c7fb9c598eaff7464edddd46a8a00391",
+      "F_sha256": "425167eda5868d28d358a16cf41f0642df9dcedacae563ec73c127d49ea0778e",
+      "PP_sha256": "f836b696c6a6aa7c7fd5f8f06b3a19884139dbaa66018afc0ba7a5414b555bb6",
+      "PP": "/pool/wrf-experiment/wrf-cpu/kernels/smallstep-prep-v-coupling-simd-full-caller-gate-r1/work/O2-candidate/module_small_step_em.f90",
+      "MOD": "/pool/wrf-experiment/wrf-cpu/kernels/smallstep-prep-v-coupling-simd-full-caller-gate-r1/work/O2-candidate/module_small_step_em.mod",
+      "MOD_sha256": "d50c501497b927ad56b9bb3b7cb9431c827b8092cedf23e83d8f573ccb884b94",
+      "tpi_enabled": false
+    },
+    {
+      "name": "module_mp_thompson.o",
+      "stem": "module_mp_thompson",
+      "index": 239,
+      "parent_sha256": "c3fbe0335c13bde77611b246d71d37c48f71044b2d029d39cdcfea96f41e9571",
+      "object": "/pool/wrf-experiment/wrf-cpu/kernels/thompson-freeze-rain-cloud-read-screen-hpc02-r2/work/candidate-production-O2/module_mp_thompson.o",
+      "object_sha256": "242c4659e10a6bcf9773f77628a37bd498f96778154ded17d265ecb14558cf8f",
+      "F_sha256": "88650f32214e09ce65df53a7c2c08c0a30d22faa9142633aa63005dfbe45b24c",
+      "PP_sha256": "f55213b4cde5d8f8311989aefa6413f56faabb45a9937ef3755fa7b27c19e687",
+      "PP": "/pool/wrf-experiment/wrf-cpu/kernels/thompson-freeze-rain-cloud-read-screen-hpc02-r2/work/candidate-production-O2/module_mp_thompson.f90",
+      "MOD": "/pool/wrf-experiment/wrf-cpu/kernels/thompson-freeze-rain-cloud-read-screen-hpc02-r2/work/candidate-production-O2/module_mp_thompson.mod",
+      "MOD_sha256": "2b20e2811653339ea7df9463b3c991491ba7b573eee9aa615ec15e8865511816",
+      "tpi_enabled": true
+    }
+  ],
+  "source_compiles": 0,
+  "full_WRF_links": 1,
+  "archive_occurrences": 584,
+  "unchanged_archive_occurrences": 582,
+  "replaced_indices": [
+    239,
+    558
+  ],
+  "parent_executable_sha256": "267c8e72549ae01dc23253ef056b584a85d82da1d5caa4b33e66d5d0272b48f2",
+  "parent_archive_sha256": "6902bfbfcb445b13b691e11a9d587b658afc11d3efdcc561c3c22063fe7bd672",
+  "invocation_id": "ae9f81278302432fa8fa8620f2d79054",
+  "receipt_sha256": "a69b9eb952d904d81ae3c23d6a61b1de04277b798146de9abc68db550edcce35",
+  "closure_sha256": "baf5f3d5ece851d7568bd2f9aa0514f9f2dcaa2acdc4c2cfcd84b45a985639cb",
+  "ordered_proof_sha256": "ae7cbea6206333129cb8a4a3b68702e25564a139a905f11c9971683960123a18",
+  "source_manifest_sha256": "02190838016abbbad3f17ad84bb18185b113aeb2a5d4767e69661c15c57074df",
+  "V_caller_qualification_sha256": "ebfeb6d207b599821ca02d5dcc5e23e89e73c95a2e3e13674e17047c0d17376c",
+  "B_contract_sha256": "110462a7daff6f0d4c12f4e5eae1669c2cd1c44209f5acbf2b25d0fc2fb1ee7d",
+  "B_original_production_stage_status": "FAIL_RETAINED",
+  "B_qualification_scope": "New named READ/COMPUTED/PARTIAL science-FP-ownership; wholeINIT errno not qualified. Production242c not accessor objects.",
+  "R1_guard_failure_retained": true,
+  "R2_guard_repair": "Only source-private tpi_freeze_phase/B addition, all old ELF names/types preserved, other additions/removals forbidden, MOD2b20 exact. SmallStep all ELF names/types equal.",
+  "all_owned_scopes_strongclosed": true,
+  "own_application_qualified": false,
+  "own_three_hour_qualified": false,
+  "own_nine_hour_qualified": false,
+  "refs_sha256": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/batch-integration-preparation-r1/overlay-build-r2/actual-native-r1/receipt.json": "a69b9eb952d904d81ae3c23d6a61b1de04277b798146de9abc68db550edcce35",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/batch-integration-preparation-r1/overlay-build-r2/actual-native-r1/closure.json": "baf5f3d5ece851d7568bd2f9aa0514f9f2dcaa2acdc4c2cfcd84b45a985639cb",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/batch-integration-preparation-r1/overlay-build-r2/actual-native-r1/ordered-libwrflib-proof.json": "ae7cbea6206333129cb8a4a3b68702e25564a139a905f11c9971683960123a18",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/batch-integration-preparation-r1/overlay-build-r2/manifest.json": "02190838016abbbad3f17ad84bb18185b113aeb2a5d4767e69661c15c57074df",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/batch-integration-preparation-r1/overlay-build-r2/REBUILD_RECIPE.json": "21e239f911589c7211aed1f7a53b1f8c33f112e123ffaaabfbcd032e9a7ae39a",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/batch-integration-preparation-r1/overlay-build-r2/parent-build-receipt.json": "6a6980ee6f6c342a2693c1ef816ed8851af36c1d931f5d4a6209678050c63cc2",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/batch-integration-preparation-r1/overlay-build-r2/parent-build-closure.json": "a6e36bbf3942be089763534a55ffad7f87b39c8a6c2a2dd30fbe4314bbbfe946",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/batch-integration-preparation-r1/overlay-build-r2/u-build-qualification.json": "8a4c77198759741357d51aa6923e5c9f43a2ad5b90d1811cdf4d2fdaeb2380eb",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/batch-integration-preparation-r1/overlay-build-r2/u-native-qualification.json": "1cf2940d40ff4db82466ae6929b315284347e166b4bbccff7b128c3a803a84cc",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/batch-integration-preparation-r1/overlay-build-r2/u-caller-qualification.json": "b11e85ec67fb88f07f0dc5fb550e631088cec249f24e9c08d86c305dfd8eadc8",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/batch-integration-preparation-r1/overlay-build-r2/v-native-qualification.json": "db645c9dc70c43a8114c385479fcc69c8d574646e123560de08d482c14525692",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/batch-integration-preparation-r1/overlay-build-r2/v-caller-qualification.json": "ebfeb6d207b599821ca02d5dcc5e23e89e73c95a2e3e13674e17047c0d17376c",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/batch-integration-preparation-r1/overlay-build-r2/b-production-contract.json": "110462a7daff6f0d4c12f4e5eae1669c2cd1c44209f5acbf2b25d0fc2fb1ee7d",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/batch-integration-preparation-r1/overlay-build-r2/r1-failed-receipt.json": "a71b94dd6c58bb2f49f6160318d95518140908c1f565ced5679858405a18e189",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/batch-integration-preparation-r1/overlay-build-r2/r1-failed-closure.json": "5862b34d4405b1e3df8912f97e5ad5b708ab4ea0db7f9d19170e3a3d94eda66d",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-final-u-update-simd-r1/batch-integration-preparation-r1/overlay-build-r2/r1-B-export-diagnosis.json": "7b5f50c71c9fcbb095f20bc63be6d426d5d28e81159a53a5ad42bf0dc0f7b468"
+  }
+}

@@ -1,0 +1,3709 @@
+{
+  "status": "PASS_CURRENT_7B89_FULL_UV_ONE_FINAL_U_SIMD_17_FINITE_6_V_IEEE_6_WIDTHS_12_DPN_12_U_IEEE",
+  "invocation_id": "f5690e69943748f9a8229eaa3a1b32fd",
+  "commands": [
+    {
+      "label": "compile-state",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/region_observer.c",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/state.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "generate-original17-finite",
+      "argv": [
+        "/pool/wrf-experiment/tooling/m1/venv/bin/python",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/make_synthetic_packets.py",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "O0-parent",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-O0",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-fopenmp-simd",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-march=znver2",
+        "-mno-fma",
+        "-fcheck=bounds",
+        "-I.",
+        "-c",
+        "module_small_step_em.f90",
+        "-o",
+        "parent.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "O0-candidate",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-O0",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-fopenmp-simd",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-march=znver2",
+        "-mno-fma",
+        "-fcheck=bounds",
+        "-I.",
+        "-c",
+        "module_small_step_em.f90",
+        "-o",
+        "candidate.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "O0-candidate-symbols",
+      "argv": [
+        "/usr/bin/nm",
+        "--defined-only",
+        "candidate.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "c8b739a06f28c88af104b8590fdb4c2696b93e293de27a34af0a2d24d82d0fa3"
+    },
+    {
+      "label": "O0-harness-symbol-copy",
+      "argv": [
+        "/usr/bin/objcopy",
+        "--redefine-syms=harness-symbol-renames.txt",
+        "candidate.o",
+        "candidate-harness.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "O0-driver",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-O0",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-fopenmp-simd",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-march=znver2",
+        "-mno-fma",
+        "-fcheck=bounds",
+        "-I.",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/paired_kernel.f90",
+        "-o",
+        "driver.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "O0-link",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-O0",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-fopenmp-simd",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-march=znver2",
+        "-mno-fma",
+        "-fcheck=bounds",
+        "driver.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/parent.o",
+        "candidate-harness.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/state.o",
+        "-Wl,--start-group",
+        "/pool/wrf-experiment/wrf-cpu/builds/current2bd16-one-bigstep-rthraten-simd-hpc01-r1/libwrflib.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-lesmf_time",
+        "/pool/wrf-experiment/wrf-cpu/builds/rsl-narrow-integer-copy-r1/librsl_lite.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2",
+        "-lwrfio_nf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-lnetcdf",
+        "-Wl,--end-group",
+        "-lm",
+        "-o",
+        "caller"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "O0-dpn_width1",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width1.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-dpn_width3",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width3.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-dpn_width4",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width4.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-dpn_width7",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width7.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-dpn_width8",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width8.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-dpn_width17",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-nonhydro",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/nonhydro.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-nonhydro_lid",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/nonhydro_lid.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-hydro",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/hydro.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-specified",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/specified.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-nested",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/nested.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-periodic_x",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/periodic_x.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-open_x",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/open_x.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-symmetric_x",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/symmetric_x.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-open_y",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/open_y.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-symmetric_y",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/symmetric_y.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-polar",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/polar.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-empty_i",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/empty_i.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-empty_j",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/empty_j.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-empty_k_hydro",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/empty_k_hydro.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-empty_k_specified",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/empty_k_specified.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-benchmark_nonhydro",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/benchmark_nonhydro.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-benchmark_hydro",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/benchmark_hydro.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-actual-IEEE0",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/runs/advance-uv-capture1min-16-hpc02-r1/native-uv-replay.bin",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-actual-IEEE1",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/runs/advance-uv-capture1min-16-hpc02-r1/native-uv-replay.bin",
+        "0",
+        "1"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-actual-IEEE2",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/runs/advance-uv-capture1min-16-hpc02-r1/native-uv-replay.bin",
+        "0",
+        "2"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-actual-IEEE3",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/runs/advance-uv-capture1min-16-hpc02-r1/native-uv-replay.bin",
+        "0",
+        "3"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-actual-IEEE4",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/runs/advance-uv-capture1min-16-hpc02-r1/native-uv-replay.bin",
+        "0",
+        "4"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-actual-IEEE5",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/runs/advance-uv-capture1min-16-hpc02-r1/native-uv-replay.bin",
+        "0",
+        "5"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-actual-IEEE6",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/runs/advance-uv-capture1min-16-hpc02-r1/native-uv-replay.bin",
+        "0",
+        "6"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-candidate-asm",
+      "argv": [
+        "/usr/bin/objdump",
+        "-dl",
+        "--disassemble=__module_small_step_em_MOD_advance_uv",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/candidate.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "6a6c3a42b923e9403adf09aefffdd85702650586848824e4525effddc800b0e8"
+    },
+    {
+      "label": "O0-DPn-IEEE7",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "7"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-DPn-IEEE8",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "8"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-DPn-IEEE9",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "9"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-DPn-IEEE10",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "10"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-DPn-IEEE11",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "11"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-DPn-IEEE12",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "12"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-DPn-IEEE13",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "13"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-DPn-IEEE14",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "14"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-DPn-IEEE15",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "15"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-DPn-IEEE16",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "16"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-DPn-IEEE17",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "17"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-DPn-IEEE18",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "18"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-finalU-IEEE19",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "19"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-finalU-IEEE20",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "20"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-finalU-IEEE21",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "21"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-finalU-IEEE22",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "22"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-finalU-IEEE23",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "23"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-finalU-IEEE24",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "24"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-finalU-IEEE25",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "25"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-finalU-IEEE26",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "26"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-finalU-IEEE27",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "27"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-finalU-IEEE28",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "28"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-finalU-IEEE29",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "29"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-finalU-IEEE30",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "30"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-parent",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-fopenmp-simd",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-march=znver2",
+        "-mno-fma",
+        "-I.",
+        "-c",
+        "module_small_step_em.f90",
+        "-o",
+        "parent.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "O2-candidate",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-fopenmp-simd",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-march=znver2",
+        "-mno-fma",
+        "-I.",
+        "-c",
+        "module_small_step_em.f90",
+        "-o",
+        "candidate.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "O2-candidate-symbols",
+      "argv": [
+        "/usr/bin/nm",
+        "--defined-only",
+        "candidate.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "064274331d0acee4a157a58e8223cda070c4cc247a54f913a6cf3649fe8b76c3"
+    },
+    {
+      "label": "O2-harness-symbol-copy",
+      "argv": [
+        "/usr/bin/objcopy",
+        "--redefine-syms=harness-symbol-renames.txt",
+        "candidate.o",
+        "candidate-harness.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "O2-driver",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-fopenmp-simd",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-march=znver2",
+        "-mno-fma",
+        "-I.",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/paired_kernel.f90",
+        "-o",
+        "driver.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "O2-link",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-fopenmp-simd",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-march=znver2",
+        "-mno-fma",
+        "driver.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current3bb2-w-rhs-simd-full-caller-gate-r1/work/O2-candidate/module_small_step_em.o",
+        "candidate-harness.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/state.o",
+        "-Wl,--start-group",
+        "/pool/wrf-experiment/wrf-cpu/builds/current2bd16-one-bigstep-rthraten-simd-hpc01-r1/libwrflib.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-lesmf_time",
+        "/pool/wrf-experiment/wrf-cpu/builds/rsl-narrow-integer-copy-r1/librsl_lite.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2",
+        "-lwrfio_nf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-lnetcdf",
+        "-Wl,--end-group",
+        "-lm",
+        "-o",
+        "caller"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "O2-dpn_width1",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width1.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-dpn_width3",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width3.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-dpn_width4",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width4.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-dpn_width7",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width7.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-dpn_width8",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width8.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-dpn_width17",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-nonhydro",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/nonhydro.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-nonhydro_lid",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/nonhydro_lid.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-hydro",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/hydro.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-specified",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/specified.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-nested",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/nested.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-periodic_x",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/periodic_x.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-open_x",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/open_x.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-symmetric_x",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/symmetric_x.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-open_y",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/open_y.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-symmetric_y",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/symmetric_y.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-polar",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/polar.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-empty_i",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/empty_i.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-empty_j",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/empty_j.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-empty_k_hydro",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/empty_k_hydro.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-empty_k_specified",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/empty_k_specified.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-benchmark_nonhydro",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/benchmark_nonhydro.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-benchmark_hydro",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/benchmark_hydro.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-actual-IEEE0",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/runs/advance-uv-capture1min-16-hpc02-r1/native-uv-replay.bin",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-actual-IEEE1",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/runs/advance-uv-capture1min-16-hpc02-r1/native-uv-replay.bin",
+        "0",
+        "1"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-actual-IEEE2",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/runs/advance-uv-capture1min-16-hpc02-r1/native-uv-replay.bin",
+        "0",
+        "2"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-actual-IEEE3",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/runs/advance-uv-capture1min-16-hpc02-r1/native-uv-replay.bin",
+        "0",
+        "3"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-actual-IEEE4",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/runs/advance-uv-capture1min-16-hpc02-r1/native-uv-replay.bin",
+        "0",
+        "4"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-actual-IEEE5",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/runs/advance-uv-capture1min-16-hpc02-r1/native-uv-replay.bin",
+        "0",
+        "5"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-actual-IEEE6",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/runs/advance-uv-capture1min-16-hpc02-r1/native-uv-replay.bin",
+        "0",
+        "6"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-candidate-asm",
+      "argv": [
+        "/usr/bin/objdump",
+        "-dl",
+        "--disassemble=__module_small_step_em_MOD_advance_uv",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/candidate.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "73c8b6585bd3a5cbc265ed8283572497961afeb90b8848180084d368d42ef8c1"
+    },
+    {
+      "label": "O2-DPn-IEEE7",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "7"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-DPn-IEEE8",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "8"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-DPn-IEEE9",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "9"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-DPn-IEEE10",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "10"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-DPn-IEEE11",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "11"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-DPn-IEEE12",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "12"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-DPn-IEEE13",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "13"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-DPn-IEEE14",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "14"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-DPn-IEEE15",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "15"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-DPn-IEEE16",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "16"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-DPn-IEEE17",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "17"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-DPn-IEEE18",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "18"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-finalU-IEEE19",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "19"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-finalU-IEEE20",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "20"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-finalU-IEEE21",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "21"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-finalU-IEEE22",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "22"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-finalU-IEEE23",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "23"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-finalU-IEEE24",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "24"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-finalU-IEEE25",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "25"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-finalU-IEEE26",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "26"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-finalU-IEEE27",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "27"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-finalU-IEEE28",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "28"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-finalU-IEEE29",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "29"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-finalU-IEEE30",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "30"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    }
+  ],
+  "scope": "Current7b89 completeadvance_uv onefinalUSIMD: historical808500wordcaller,original17finite6VIEEE,sixDPnwidths12DPnpressure/coefficientIEEEpatterns+12finalUinputIEEEpatterns; hardfullraw/readonly/32guards/5state. No timing/scienceclaim.",
+  "comparisons": [
+    {
+      "optimization": "O0",
+      "finite_cases": 23,
+      "actual_capture": true,
+      "original_V_ieee_cases": 6,
+      "target_DPn_ieee_cases": 12,
+      "target_final_U_ieee_cases": 12,
+      "candidate_object_sha256": "839a5fd37ee5a21a708c7ffad53f4e20f5383a3bebb6339d7288fd683b99c79f"
+    },
+    {
+      "optimization": "O2",
+      "finite_cases": 23,
+      "actual_capture": true,
+      "original_V_ieee_cases": 6,
+      "target_DPn_ieee_cases": 12,
+      "target_final_U_ieee_cases": 12,
+      "candidate_object_sha256": "d34d2c75f25ae27639e716680a883558fed195963335505fa092e2f8c7d70b1a"
+    }
+  ],
+  "fresh_parent_native_equivalence": {
+    "status": "PASS_ALLOCATED_BYTES_RELOCATIONS_NONFILE_SYMBOLS_EXACT",
+    "reference_sha256": "7b89121b221556e6b6b14ef4c1f3aedaa93f672cd9dde5f56b8e9778417c02f2",
+    "rebuilt_sha256": "abb6044fe15f1a1991d662e4c5ce9de232a83445da1c8e2500af985ed2426482",
+    "comparison": {
+      "allocated_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "size": 61035,
+          "align": 16,
+          "sha256": "385673cc457bb4ade563a346364889b050427b46e0cfa0d4618a4c6fcd85fdd1"
+        },
+        ".data": {
+          "type": 1,
+          "flags": 3,
+          "size": 0,
+          "align": 1,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        ".bss": {
+          "type": 8,
+          "flags": 3,
+          "size": 0,
+          "align": 1,
+          "sha256": null
+        },
+        ".rodata.cst4": {
+          "type": 1,
+          "flags": 18,
+          "size": 16,
+          "align": 4,
+          "sha256": "a9f4886990bb8836aa41127f1496422cb57151f5e19f423610daa4a515e19d1a"
+        },
+        ".rodata.cst32": {
+          "type": 1,
+          "flags": 18,
+          "size": 64,
+          "align": 32,
+          "sha256": "a0b569e41fa925801a2a3caa4f462cfe861cc95cb354fd84289c13b85668b797"
+        },
+        ".rodata.cst16": {
+          "type": 1,
+          "flags": 18,
+          "size": 32,
+          "align": 16,
+          "sha256": "4cd9cbb1548bca014acce4b913886695660ace0736eea1cc077b7cc7fa5e70de"
+        },
+        ".eh_frame": {
+          "type": 1,
+          "flags": 2,
+          "size": 568,
+          "align": 8,
+          "sha256": "93991189f8919a99996a2ec16a162d8c5387caa091c37566e925129468180ab9"
+        }
+      },
+      "allocated_relocations": {
+        ".text": [
+          [
+            2946,
+            4,
+            [
+              "memset",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            2959,
+            4,
+            [
+              "memset",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            2972,
+            4,
+            [
+              "memset",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            5349,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            5425,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            5440,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            5455,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            5470,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            5485,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            5533,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            5573,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            5867,
+            4,
+            [
+              "memset",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            7984,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32",
+              32,
+              0
+            ],
+            -4
+          ],
+          [
+            8091,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            8099,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32",
+              32,
+              0
+            ],
+            -4
+          ],
+          [
+            8325,
+            2,
+            [
+              ".LC2",
+              0,
+              0,
+              ".rodata.cst4",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            8752,
+            2,
+            [
+              ".LC5",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            9170,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            10920,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            11440,
+            2,
+            [
+              ".LC6",
+              0,
+              0,
+              ".rodata.cst4",
+              4,
+              0
+            ],
+            -4
+          ],
+          [
+            11448,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            11564,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32",
+              32,
+              0
+            ],
+            -4
+          ],
+          [
+            11929,
+            2,
+            [
+              ".LC7",
+              0,
+              0,
+              ".rodata.cst16",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            13106,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            13114,
+            2,
+            [
+              ".LC6",
+              0,
+              0,
+              ".rodata.cst4",
+              4,
+              0
+            ],
+            -4
+          ],
+          [
+            13140,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32",
+              32,
+              0
+            ],
+            -4
+          ],
+          [
+            13351,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            13370,
+            2,
+            [
+              ".LC6",
+              0,
+              0,
+              ".rodata.cst4",
+              4,
+              0
+            ],
+            -4
+          ],
+          [
+            14112,
+            4,
+            [
+              "free",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            14121,
+            4,
+            [
+              "free",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            14133,
+            4,
+            [
+              "free",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            14145,
+            4,
+            [
+              "free",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            14157,
+            4,
+            [
+              "free",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            14169,
+            4,
+            [
+              "free",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            14181,
+            4,
+            [
+              "free",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            14935,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            14982,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32",
+              32,
+              0
+            ],
+            -4
+          ],
+          [
+            14990,
+            2,
+            [
+              ".LC6",
+              0,
+              0,
+              ".rodata.cst4",
+              4,
+              0
+            ],
+            -4
+          ],
+          [
+            15035,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32",
+              32,
+              0
+            ],
+            -4
+          ],
+          [
+            15051,
+            2,
+            [
+              ".LC6",
+              0,
+              0,
+              ".rodata.cst4",
+              4,
+              0
+            ],
+            -4
+          ],
+          [
+            17701,
+            2,
+            [
+              ".LC6",
+              0,
+              0,
+              ".rodata.cst4",
+              4,
+              0
+            ],
+            -4
+          ],
+          [
+            17784,
+            2,
+            [
+              ".LC8",
+              0,
+              0,
+              ".rodata.cst4",
+              8,
+              0
+            ],
+            -4
+          ],
+          [
+            17800,
+            4,
+            [
+              "sinf",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            18070,
+            2,
+            [
+              ".LC9",
+              0,
+              0,
+              ".rodata.cst32",
+              32,
+              0
+            ],
+            -4
+          ],
+          [
+            18272,
+            2,
+            [
+              ".LC10",
+              0,
+              0,
+              ".rodata.cst32",
+              32,
+              0
+            ],
+            -4
+          ],
+          [
+            18354,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32",
+              32,
+              0
+            ],
+            -4
+          ],
+          [
+            18586,
+            2,
+            [
+              ".LC6",
+              0,
+              0,
+              ".rodata.cst4",
+              4,
+              0
+            ],
+            -4
+          ],
+          [
+            19650,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            19756,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            19835,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            21170,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            21314,
+            4,
+            [
+              "memset",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            21336,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            23729,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32",
+              32,
+              0
+            ],
+            -4
+          ],
+          [
+            23817,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32",
+              32,
+              0
+            ],
+            -4
+          ],
+          [
+            25183,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            26409,
+            4,
+            [
+              "free",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            26422,
+            4,
+            [
+              "free",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            27593,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            27661,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            27718,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            27739,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            28495,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32",
+              32,
+              0
+            ],
+            -4
+          ],
+          [
+            30215,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            30826,
+            2,
+            [
+              ".LC7",
+              0,
+              0,
+              ".rodata.cst16",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            31946,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            32004,
+            2,
+            [
+              ".LC7",
+              0,
+              0,
+              ".rodata.cst16",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            32804,
+            4,
+            [
+              "free",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            32817,
+            4,
+            [
+              "free",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            32830,
+            4,
+            [
+              "free",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            33921,
+            2,
+            [
+              ".LC3",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            34291,
+            2,
+            [
+              ".LC5",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            35692,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            35985,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            36456,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            38720,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            40685,
+            4,
+            [
+              "memset",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            40859,
+            4,
+            [
+              "memset",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            41741,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            42438,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            42450,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32",
+              32,
+              0
+            ],
+            -4
+          ],
+          [
+            42681,
+            2,
+            [
+              ".LC7",
+              0,
+              0,
+              ".rodata.cst16",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            42731,
+            4,
+            [
+              "memset",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            42987,
+            2,
+            [
+              ".LC7",
+              0,
+              0,
+              ".rodata.cst16",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            43099,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32",
+              32,
+              0
+            ],
+            -4
+          ],
+          [
+            43469,
+            2,
+            [
+              ".LC7",
+              0,
+              0,
+              ".rodata.cst16",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            43614,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32",
+              32,
+              0
+            ],
+            -4
+          ],
+          [
+            44815,
+            2,
+            [
+              ".LC7",
+              0,
+              0,
+              ".rodata.cst16",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            44823,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32",
+              32,
+              0
+            ],
+            -4
+          ],
+          [
+            45104,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32",
+              32,
+              0
+            ],
+            -4
+          ],
+          [
+            45131,
+            2,
+            [
+              ".LC14",
+              0,
+              0,
+              ".rodata.cst16",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            45711,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32",
+              32,
+              0
+            ],
+            -4
+          ],
+          [
+            45827,
+            2,
+            [
+              ".LC15",
+              0,
+              0,
+              ".rodata.cst16",
+              16,
+              0
+            ],
+            -4
+          ],
+          [
+            46529,
+            4,
+            [
+              "memcpy",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            51480,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            51835,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            52521,
+            2,
+            [
+              ".LC17",
+              0,
+              0,
+              ".rodata.cst4",
+              12,
+              0
+            ],
+            -4
+          ],
+          [
+            57974,
+            4,
+            [
+              "memcpy",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            58433,
+            4,
+            [
+              "memcpy",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            58504,
+            4,
+            [
+              "memset",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            58823,
+            4,
+            [
+              "memcpy",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            59207,
+            4,
+            [
+              "memcpy",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            59606,
+            4,
+            [
+              "memcpy",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            59943,
+            4,
+            [
+              "memcpy",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            59962,
+            4,
+            [
+              "memcpy",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            60335,
+            4,
+            [
+              "memcpy",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            60547,
+            4,
+            [
+              "memcpy",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            14216,
+            4,
+            [
+              "free",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            26449,
+            4,
+            [
+              "free",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            32857,
+            4,
+            [
+              "free",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            43921,
+            4,
+            [
+              "free",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ]
+        ],
+        ".eh_frame": [
+          [
+            32,
+            2,
+            [
+              "",
+              3,
+              0,
+              ".text",
+              0,
+              0
+            ],
+            0
+          ],
+          [
+            52,
+            2,
+            [
+              "",
+              3,
+              0,
+              ".text",
+              0,
+              0
+            ],
+            16
+          ],
+          [
+            132,
+            2,
+            [
+              "",
+              3,
+              0,
+              ".text",
+              0,
+              0
+            ],
+            4400
+          ],
+          [
+            208,
+            2,
+            [
+              "",
+              3,
+              0,
+              ".text",
+              0,
+              0
+            ],
+            18800
+          ],
+          [
+            256,
+            2,
+            [
+              "",
+              3,
+              0,
+              ".text",
+              0,
+              0
+            ],
+            26688
+          ],
+          [
+            304,
+            2,
+            [
+              "",
+              3,
+              0,
+              ".text",
+              0,
+              0
+            ],
+            41280
+          ],
+          [
+            384,
+            2,
+            [
+              "",
+              3,
+              0,
+              ".text",
+              0,
+              0
+            ],
+            44000
+          ],
+          [
+            440,
+            2,
+            [
+              "",
+              3,
+              0,
+              ".text",
+              0,
+              0
+            ],
+            47776
+          ],
+          [
+            516,
+            2,
+            [
+              "",
+              3,
+              0,
+              ".text",
+              0,
+              0
+            ],
+            50944
+          ]
+        ]
+      },
+      "symbols_except_STT_FILE": [
+        [
+          "",
+          0,
+          0,
+          "",
+          0,
+          0
+        ],
+        [
+          "",
+          3,
+          0,
+          ".debug_abbrev",
+          0,
+          0
+        ],
+        [
+          "",
+          3,
+          0,
+          ".debug_info",
+          0,
+          0
+        ],
+        [
+          "",
+          3,
+          0,
+          ".debug_line",
+          0,
+          0
+        ],
+        [
+          "",
+          3,
+          0,
+          ".debug_line_str",
+          0,
+          0
+        ],
+        [
+          "",
+          3,
+          0,
+          ".debug_loclists",
+          0,
+          0
+        ],
+        [
+          "",
+          3,
+          0,
+          ".debug_rnglists",
+          0,
+          0
+        ],
+        [
+          "",
+          3,
+          0,
+          ".debug_str",
+          0,
+          0
+        ],
+        [
+          "",
+          3,
+          0,
+          ".text",
+          0,
+          0
+        ],
+        [
+          ".LC1",
+          0,
+          0,
+          ".rodata.cst32",
+          32,
+          0
+        ],
+        [
+          ".LC10",
+          0,
+          0,
+          ".rodata.cst32",
+          32,
+          0
+        ],
+        [
+          ".LC14",
+          0,
+          0,
+          ".rodata.cst16",
+          0,
+          0
+        ],
+        [
+          ".LC15",
+          0,
+          0,
+          ".rodata.cst16",
+          16,
+          0
+        ],
+        [
+          ".LC17",
+          0,
+          0,
+          ".rodata.cst4",
+          12,
+          0
+        ],
+        [
+          ".LC2",
+          0,
+          0,
+          ".rodata.cst4",
+          0,
+          0
+        ],
+        [
+          ".LC3",
+          0,
+          0,
+          ".rodata.cst32",
+          0,
+          0
+        ],
+        [
+          ".LC4",
+          0,
+          0,
+          ".rodata.cst32",
+          0,
+          0
+        ],
+        [
+          ".LC5",
+          0,
+          0,
+          ".rodata.cst32",
+          0,
+          0
+        ],
+        [
+          ".LC6",
+          0,
+          0,
+          ".rodata.cst4",
+          4,
+          0
+        ],
+        [
+          ".LC7",
+          0,
+          0,
+          ".rodata.cst16",
+          0,
+          0
+        ],
+        [
+          ".LC8",
+          0,
+          0,
+          ".rodata.cst4",
+          8,
+          0
+        ],
+        [
+          ".LC9",
+          0,
+          0,
+          ".rodata.cst32",
+          32,
+          0
+        ],
+        [
+          "__module_small_step_em_MOD_advance_mu_t",
+          18,
+          0,
+          ".text",
+          18800,
+          7883
+        ],
+        [
+          "__module_small_step_em_MOD_advance_uv",
+          18,
+          0,
+          ".text",
+          26688,
+          14582
+        ],
+        [
+          "__module_small_step_em_MOD_advance_w",
+          18,
+          0,
+          ".text",
+          4400,
+          14392
+        ],
+        [
+          "__module_small_step_em_MOD_calc_coef_w",
+          18,
+          0,
+          ".text",
+          41280,
+          2717
+        ],
+        [
+          "__module_small_step_em_MOD_calc_p_rho",
+          18,
+          0,
+          ".text",
+          44000,
+          3764
+        ],
+        [
+          "__module_small_step_em_MOD_init_module_small_step",
+          18,
+          0,
+          ".text",
+          0,
+          1
+        ],
+        [
+          "__module_small_step_em_MOD_small_step_finish",
+          18,
+          0,
+          ".text",
+          47776,
+          3164
+        ],
+        [
+          "__module_small_step_em_MOD_small_step_prep",
+          18,
+          0,
+          ".text",
+          50944,
+          10091
+        ],
+        [
+          "__module_small_step_em_MOD_sumflux",
+          18,
+          0,
+          ".text",
+          16,
+          4377
+        ],
+        [
+          "free",
+          16,
+          0,
+          "",
+          0,
+          0
+        ],
+        [
+          "malloc",
+          16,
+          0,
+          "",
+          0,
+          0
+        ],
+        [
+          "memcpy",
+          16,
+          0,
+          "",
+          0,
+          0
+        ],
+        [
+          "memset",
+          16,
+          0,
+          "",
+          0,
+          0
+        ],
+        [
+          "sinf",
+          16,
+          0,
+          "",
+          0,
+          0
+        ]
+      ]
+    },
+    "excluded": "Only nonallocated sections (including debug paths), STT_FILE symbol. All allocated text/rodata/data/bss/unwind sections and their relocations exact."
+  },
+  "target_codegen": {
+    "PP_line": 904,
+    "sourcejoined_instructions": [
+      "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/module_small_step_em.f90:904",
+      "    89e8:\t48 8b 84 24 20 04 00 \tmov    0x420(%rsp),%rax",
+      "    89ef:\t00 ",
+      "    89f0:\tc4 c1 7a 10 2e       \tvmovss (%r14),%xmm5",
+      "    89f5:\tc5 fa 10 18          \tvmovss (%rax),%xmm3",
+      "    89f9:\t0f 86 c1 01 00 00    \tjbe    8bc0 <__module_small_step_em_MOD_advance_uv+0x2380>",
+      "    89ff:\t48 8b 84 24 68 04 00 \tmov    0x468(%rsp),%rax",
+      "    8a06:\t00 ",
+      "    8a07:\tc4 62 7d 18 c3       \tvbroadcastss %xmm3,%ymm8",
+      "    8a0c:\tc4 e2 7d 18 fd       \tvbroadcastss %xmm5,%ymm7",
+      "    8a11:\t48 8d 0c 02          \tlea    (%rdx,%rax,1),%rcx",
+      "    8a15:\t4c 8d 0c 07          \tlea    (%rdi,%rax,1),%r9",
+      "    8a19:\t48 8b 84 24 70 04 00 \tmov    0x470(%rsp),%rax",
+      "    8a20:\t00 ",
+      "    8a21:\t4a 8d 34 90          \tlea    (%rax,%r10,4),%rsi",
+      "    8a25:\t31 c0                \txor    %eax,%eax",
+      "    8a27:\t66 0f 1f 84 00 00 00 \tnopw   0x0(%rax,%rax,1)",
+      "    8a2e:\t00 00 ",
+      "    8a30:\tc4 c1 3c 59 0c 01    \tvmulps (%r9,%rax,1),%ymm8,%ymm1",
+      "    8a36:\tc5 fc 10 14 01       \tvmovups (%rcx,%rax,1),%ymm2",
+      "    8a3b:\tc5 f4 59 0c 06       \tvmulps (%rsi,%rax,1),%ymm1,%ymm1",
+      "    8a40:\tc5 ec 5c c9          \tvsubps %ymm1,%ymm2,%ymm1",
+      "    8a44:\tc4 c1 44 59 14 04    \tvmulps (%r12,%rax,1),%ymm7,%ymm2",
+      "    8a4a:\tc5 f4 58 ca          \tvaddps %ymm2,%ymm1,%ymm1",
+      "    8a4e:\tc5 fc 11 0c 01       \tvmovups %ymm1,(%rcx,%rax,1)",
+      "    8a53:\t48 83 c0 20          \tadd    $0x20,%rax",
+      "    8a57:\t4c 39 d8             \tcmp    %r11,%rax",
+      "    8a5a:\t75 d4                \tjne    8a30 <__module_small_step_em_MOD_advance_uv+0x21f0>",
+      "    8a5c:\t44 8b ac 24 50 04 00 \tmov    0x450(%rsp),%r13d",
+      "    8a63:\t00 ",
+      "    8a64:\t45 85 ed             \ttest   %r13d,%r13d",
+      "    8a67:\t0f 84 ed 00 00 00    \tje     8b5a <__module_small_step_em_MOD_advance_uv+0x231a>",
+      "    8a6d:\t8b 84 24 48 03 00 00 \tmov    0x348(%rsp),%eax",
+      "    8a74:\t8b 8c 24 50 03 00 00 \tmov    0x350(%rsp),%ecx",
+      "    8a7b:\t89 84 24 a8 04 00 00 \tmov    %eax,0x4a8(%rsp)",
+      "    8a82:\t8b b4 24 58 04 00 00 \tmov    0x458(%rsp),%esi",
+      "    8a89:\t29 ce                \tsub    %ecx,%esi",
+      "    8a8b:\t44 8d 4e 01          \tlea    0x1(%rsi),%r9d",
+      "    8a8f:\t83 fe 02             \tcmp    $0x2,%esi",
+      "    8a92:\t0f 86 8b 00 00 00    \tjbe    8b23 <__module_small_step_em_MOD_advance_uv+0x22e3>",
+      "    8a98:\t48 8b b4 24 b0 04 00 \tmov    0x4b0(%rsp),%rsi",
+      "    8a9f:\t00 ",
+      "    8aa0:\t4c 8b ac 24 a0 04 00 \tmov    0x4a0(%rsp),%r13",
+      "    8aa7:\t00 ",
+      "    8aa8:\tc5 e0 c6 cb 00       \tvshufps $0x0,%xmm3,%xmm3,%xmm1",
+      "    8aad:\t48 8b 84 24 60 03 00 \tmov    0x360(%rsp),%rax",
+      "    8ab4:\t00 ",
+      "    8ab5:\t48 01 ce             \tadd    %rcx,%rsi",
+      "    8ab8:\t4c 01 ee             \tadd    %r13,%rsi",
+      "    8abb:\t4c 8b ac 24 b0 03 00 \tmov    0x3b0(%rsp),%r13",
+      "    8ac2:\t00 ",
+      "    8ac3:\t48 c1 e6 02          \tshl    $0x2,%rsi",
+      "    8ac7:\tc5 f0 59 0c 30       \tvmulps (%rax,%rsi,1),%xmm1,%xmm1",
+      "    8acc:\t4a 8d 04 11          \tlea    (%rcx,%r10,1),%rax",
+      "    8ad0:\t49 01 f5             \tadd    %rsi,%r13",
+      "    8ad3:\t48 8b b4 24 70 04 00 \tmov    0x470(%rsp),%rsi",
+      "    8ada:\t00 ",
+      "    8adb:\tc4 c1 78 10 55 00    \tvmovups 0x0(%r13),%xmm2",
+      "    8ae1:\tc5 f0 59 0c 86       \tvmulps (%rsi,%rax,4),%xmm1,%xmm1",
+      "    8ae6:\t48 8b 84 24 30 04 00 \tmov    0x430(%rsp),%rax",
+      "    8aed:\t00 ",
+      "    8aee:\t48 01 c1             \tadd    %rax,%rcx",
+      "    8af1:\t48 8b 84 24 58 03 00 \tmov    0x358(%rsp),%rax",
+      "    8af8:\t00 ",
+      "    8af9:\tc5 e8 5c c9          \tvsubps %xmm1,%xmm2,%xmm1",
+      "    8afd:\tc5 d0 c6 d5 00       \tvshufps $0x0,%xmm5,%xmm5,%xmm2",
+      "    8b02:\tc5 e8 59 14 88       \tvmulps (%rax,%rcx,4),%xmm2,%xmm2",
+      "    8b07:\tc5 f0 58 ca          \tvaddps %xmm2,%xmm1,%xmm1",
+      "    8b0b:\tc4 c1 78 11 4d 00    \tvmovups %xmm1,0x0(%r13)",
+      "    8b11:\t41 f6 c1 03          \ttest   $0x3,%r9b",
+      "    8b15:\t74 43                \tje     8b5a <__module_small_step_em_MOD_advance_uv+0x231a>",
+      "    8b17:\t41 83 e1 fc          \tand    $0xfffffffc,%r9d",
+      "    8b1b:\t44 01 8c 24 a8 04 00 \tadd    %r9d,0x4a8(%rsp)",
+      "    8b22:\t00 ",
+      "    8b23:\t48 63 84 24 a8 04 00 \tmovslq 0x4a8(%rsp),%rax",
+      "    8b2a:\t00 ",
+      "    8b2b:\t0f 1f 44 00 00       \tnopl   0x0(%rax,%rax,1)",
+      "    8b30:\tc5 e2 59 04 87       \tvmulss (%rdi,%rax,4),%xmm3,%xmm0",
+      "    8b35:\tc5 fa 10 0c 82       \tvmovss (%rdx,%rax,4),%xmm1",
+      "    8b3a:\tc4 c1 7a 59 04 80    \tvmulss (%r8,%rax,4),%xmm0,%xmm0",
+      "    8b40:\tc5 f2 5c c8          \tvsubss %xmm0,%xmm1,%xmm1",
+      "    8b44:\tc5 d2 59 04 83       \tvmulss (%rbx,%rax,4),%xmm5,%xmm0",
+      "    8b49:\tc5 f2 58 c8          \tvaddss %xmm0,%xmm1,%xmm1",
+      "    8b4d:\tc5 fa 11 0c 82       \tvmovss %xmm1,(%rdx,%rax,4)",
+      "    8b52:\t48 ff c0             \tinc    %rax",
+      "    8b55:\t41 39 c7             \tcmp    %eax,%r15d",
+      "    8b58:\t7d d6                \tjge    8b30 <__module_small_step_em_MOD_advance_uv+0x22f0>",
+      "/pool/wrf-experiment/wrf-cpu/kernels/uv-final-u-update-simd-full-caller-gate-r1/O2/module_small_step_em.f90:904",
+      "    8bc0:\t8b 84 24 38 04 00 00 \tmov    0x438(%rsp),%eax",
+      "    8bc7:\t31 c9                \txor    %ecx,%ecx",
+      "    8bc9:\t89 84 24 a8 04 00 00 \tmov    %eax,0x4a8(%rsp)",
+      "    8bd0:\te9 ad fe ff ff       \tjmp    8a82 <__module_small_step_em_MOD_advance_uv+0x2242>",
+      "    8bd5:\t66 66 2e 0f 1f 84 00 \tdata16 cs nopw 0x0(%rax,%rax,1)",
+      "    8bdc:\t00 00 00 00 "
+    ],
+    "raw_candidate_object_sha256": "d34d2c75f25ae27639e716680a883558fed195963335505fa092e2f8c7d70b1a",
+    "harness_copy_sha256": "b586156a482ccedd8f3f4108993ae4920bc87dbca748454345a4f818e59fae8d"
+  },
+  "elapsed_seconds_context_only": 18.680303985252976
+}
