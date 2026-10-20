@@ -67,6 +67,7 @@ When reusing telemetry postprocessing, bind checks to the fields actually emitte
 - Label this **compute-client filesystem cache clearing**. File-server caches and traffic remain uncontrolled unless separately measured and explicitly managed. A successful drop does not guarantee every cache stays empty until every rank starts.
 - Keep earlier runs under their actual historical cache policy. Do not pool them with the new policy without labeling the difference.
 - Whole wall, main-step sums and kernel/provider timings retain their separate scopes. Whole-minus-main is not pure I/O; do not add component percentages or infer an I/O/MPI/cache cause from timing alone.
+- Every full-run result update must report integration-step elapsed time, whole model/MPI wall time and aggregate node CPU time together, with the original/latest values and reduction for each available metric. Label the main-step sum as elapsed time, not integration CPU: it includes communication and output backpressure. State explicitly when a metric is unavailable; do not silently omit it while reporting another.
 
 The reviewed implementation is retained in the experimental workspace at `/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-latest3h-client-cache-runtime-r1/`: `prepare_arm.py`, `clear_arm.py`, `cache_clear_host.py`, `cache_boundary.py` and `launch_arm.py`. Future timing adapters must preserve this ordering and original acceptance checks. Timing-insensitive checks may run without clearing, but their timings are not optimization evidence.
 
