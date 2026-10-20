@@ -442,7 +442,10 @@
       INTEGER, PARAMETER, PRIVATE :: TPI_EMPTY=0,TPI_INIT=1,TPI_PRIVATE=2,TPI_SHARED=3,TPI_CLOSED=4
       INTEGER, PRIVATE :: tpi_phase=TPI_EMPTY,tpi_comm=0,tpi_mode=0
       INTEGER, PRIVATE :: tpi_init_group=0
+      ! Internal freeze progress: 0 private, 1 rain published, 2 both complete.
+      INTEGER, PRIVATE :: tpi_freeze_phase=0
       PRIVATE :: thompson_tpi_commit_group,thompson_tpi_publish_original
+      PRIVATE :: thompson_tpi_freeze_cloud_stage,thompson_tpi_commit_freeze,thompson_tpi_freeze_split
       PRIVATE :: st_create,st_destroy,thompson_tpi_preflight_c
       PUBLIC :: thompson_tpi_prepare,thompson_tpi_publish,thompson_tpi_release
       INTERFACE
@@ -528,7 +531,7 @@
           CALL thompson_tpi_publish_original()
           RETURN
         ENDIF
-        IF (tpi_phase/=TPI_INIT.OR.tpi_init_group/=3) &
+        IF (tpi_phase/=TPI_INIT.OR.tpi_init_group/=3.OR.tpi_freeze_phase/=2) &
           CALL wrf_error_fatal('Experimental lazy final publication phase')
         IF (ALLOCATED(tpi_qcfz_stage)) &
           CALL wrf_error_fatal('Experimental lazy final stage 1')
@@ -1379,6 +1382,7 @@
         IF (ALLOCATED(rain_snow_stage)) DEALLOCATE(rain_snow_stage)
         IF (ALLOCATED(tcg_stage)) DEALLOCATE(tcg_stage)
         tpi_init_group=0
+        tpi_freeze_phase=0
         tpi_phase=TPI_CLOSED
       END SUBROUTINE
 #ifdef WRF_EXPERIMENTAL_TPI_NATIVE_GATE
@@ -1596,7 +1600,7 @@
       endif
 #else
       IF (tpi_mode==1.AND.ALLOCATED(tcg_stage)) THEN
-         IF (tpi_init_group/=3) &
+         IF (tpi_init_group/=3.OR.tpi_freeze_phase/=2) &
            CALL wrf_error_fatal('Experimental lazy second INIT before groups complete')
       ENDIF
       IF (.NOT.ALLOCATED(tcg_stage)) THEN
@@ -2411,23 +2415,6 @@
 #ifdef WRF_EXPERIMENTAL_TPI_NUMA
       IF (tpi_mode==1) THEN
 #ifdef WRF_EXPERIMENTAL_TPI_NUMA
-      IF (.NOT. ALLOCATED(tpi_qcfz_stage)) THEN
-         ALLOCATE(tpi_qcfz_stage(ntb_c,nbc,45,ntb_IN))
-      ENDIF
-      tpi_qcfz => tpi_qcfz_stage
-#else
-      if (.NOT. ALLOCATED(tpi_qcfz)) ALLOCATE(tpi_qcfz(ntb_c,nbc,45,ntb_IN))
-#endif
-#ifdef WRF_EXPERIMENTAL_TPI_NUMA
-      IF (.NOT. ALLOCATED(tni_qcfz_stage)) THEN
-         ALLOCATE(tni_qcfz_stage(ntb_c,nbc,45,ntb_IN))
-      ENDIF
-      tni_qcfz => tni_qcfz_stage
-#else
-      if (.NOT. ALLOCATED(tni_qcfz)) ALLOCATE(tni_qcfz(ntb_c,nbc,45,ntb_IN))
-#endif
-
-#ifdef WRF_EXPERIMENTAL_TPI_NUMA
       IF (.NOT. ALLOCATED(tpi_qrfz_stage)) THEN
          ALLOCATE(tpi_qrfz_stage(ntb_r,ntb_r1,45,ntb_IN))
       ENDIF
@@ -2470,12 +2457,6 @@
                   tnr_qrfz(i,j,k,m) = 0.0d0
                enddo
             enddo
-            do j = 1, nbc
-               do i = 1, ntb_c
-                  tpi_qcfz(i,j,k,m) = 0.0d0
-                  tni_qcfz(i,j,k,m) = 0.0d0
-               enddo
-            enddo
          enddo
       enddo
 
@@ -2483,7 +2464,14 @@
 #endif
       call freezeH2O
 #ifdef WRF_EXPERIMENTAL_TPI_NUMA
-      IF (tpi_mode==1) CALL thompson_tpi_commit_group(3)
+      IF (tpi_mode==1) THEN
+         IF (tpi_init_group==2.AND.tpi_freeze_phase==0) THEN
+            CALL thompson_tpi_commit_group(3)
+            tpi_freeze_phase=2
+         ELSEIF (tpi_init_group/=3.OR.tpi_freeze_phase/=2) THEN
+            CALL wrf_error_fatal('Experimental freeze incomplete at INIT return')
+         ENDIF
+      ENDIF
 #endif
 
 !..Conversion of some ice mass into snow category.
@@ -5947,6 +5935,471 @@
 !..the proportion of drops summing their masses.
 !+---+-----------------------------------------------------------------+
 
+#ifdef WRF_EXPERIMENTAL_TPI_NUMA
+      SUBROUTINE thompson_tpi_freeze_cloud_stage()
+        INTEGER :: astat
+        INTEGER :: i,j,k,m
+        IF (tpi_mode/=1.OR.tpi_phase/=TPI_INIT.OR.tpi_init_group/=2) &
+          CALL wrf_error_fatal('Experimental freeze cloud allocation phase')
+        IF (tpi_freeze_phase/=0.AND.tpi_freeze_phase/=1) &
+          CALL wrf_error_fatal('Experimental freeze cloud allocation after completion')
+        IF (ALLOCATED(tpi_qcfz_stage).NEQV.ALLOCATED(tni_qcfz_stage)) &
+          CALL wrf_error_fatal('Experimental freeze partial cloud allocation')
+        IF (ALLOCATED(tpi_qcfz_stage)) RETURN
+        ALLOCATE(tpi_qcfz_stage(ntb_c,nbc,45,ntb_IN),STAT=astat)
+        IF (astat/=0) CALL wrf_error_fatal('Experimental freeze cloud allocation 1')
+        ALLOCATE(tni_qcfz_stage(ntb_c,nbc,45,ntb_IN),STAT=astat)
+        IF (astat/=0) CALL wrf_error_fatal('Experimental freeze cloud allocation 2')
+        tpi_qcfz => tpi_qcfz_stage
+        tni_qcfz => tni_qcfz_stage
+        do m = 1, ntb_IN
+         do k = 1, 45
+          do j = 1, nbc
+           do i = 1, ntb_c
+            tpi_qcfz(i,j,k,m) = 0.0d0
+            tni_qcfz(i,j,k,m) = 0.0d0
+           enddo
+          enddo
+         enddo
+        enddo
+      END SUBROUTINE thompson_tpi_freeze_cloud_stage
+
+      SUBROUTINE thompson_tpi_commit_freeze(family)
+        INTEGER,INTENT(IN) :: family
+        INTEGER(C_INT) :: rc
+        INTEGER :: failed_at
+        CHARACTER(LEN=128) :: failure_message
+        REAL(KIND=R8SIZE),POINTER,CONTIGUOUS :: v1(:,:,:,:),v2(:,:,:,:)
+        REAL(KIND=R8SIZE),POINTER,CONTIGUOUS :: v3(:,:,:,:),v4(:,:,:,:)
+        REAL(KIND=R8SIZE),POINTER,CONTIGUOUS :: v5(:,:,:,:),v6(:,:,:,:)
+        IF (tpi_mode/=1.OR.tpi_phase/=TPI_INIT.OR.tpi_init_group/=2) &
+          CALL wrf_error_fatal('Experimental freeze family group order')
+        IF (dimNRHG/=1.OR.is_hail_aware.OR.is_aerosol_aware.OR.R8SIZE/=C_DOUBLE) &
+          CALL wrf_error_fatal('Experimental freeze family support')
+        SELECT CASE(family)
+        CASE(1)
+          IF (tpi_freeze_phase/=0) &
+            CALL wrf_error_fatal('Experimental freeze rain phase')
+          IF (.NOT.ALLOCATED(tpi_qrfz_stage)) &
+            CALL wrf_error_fatal('Experimental lazy missing stage 3')
+          IF (ANY(SHAPE(tpi_qrfz_stage)/=[37,37,45,55]).OR.STORAGE_SIZE(tpi_qrfz_stage)/=64) &
+            CALL wrf_error_fatal('Experimental lazy stage shape 3')
+          IF (INT(SIZE(tpi_qrfz_stage),C_SIZE_T)*C_SIZEOF(tpi_qrfz_stage(1,1,1,1))/=27106200_C_SIZE_T) &
+            CALL wrf_error_fatal('Experimental lazy stage bytes 3')
+          IF (.NOT.ASSOCIATED(tpi_qrfz,tpi_qrfz_stage)) &
+            CALL wrf_error_fatal('Experimental lazy stage association 3 1')
+          IF (.NOT.ALLOCATED(tni_qrfz_stage)) &
+            CALL wrf_error_fatal('Experimental lazy missing stage 4')
+          IF (ANY(SHAPE(tni_qrfz_stage)/=[37,37,45,55]).OR.STORAGE_SIZE(tni_qrfz_stage)/=64) &
+            CALL wrf_error_fatal('Experimental lazy stage shape 4')
+          IF (INT(SIZE(tni_qrfz_stage),C_SIZE_T)*C_SIZEOF(tni_qrfz_stage(1,1,1,1))/=27106200_C_SIZE_T) &
+            CALL wrf_error_fatal('Experimental lazy stage bytes 4')
+          IF (.NOT.ASSOCIATED(tni_qrfz,tni_qrfz_stage)) &
+            CALL wrf_error_fatal('Experimental lazy stage association 4 1')
+          IF (.NOT.ALLOCATED(tpg_qrfz_stage)) &
+            CALL wrf_error_fatal('Experimental lazy missing stage 5')
+          IF (ANY(SHAPE(tpg_qrfz_stage)/=[37,37,45,55]).OR.STORAGE_SIZE(tpg_qrfz_stage)/=64) &
+            CALL wrf_error_fatal('Experimental lazy stage shape 5')
+          IF (INT(SIZE(tpg_qrfz_stage),C_SIZE_T)*C_SIZEOF(tpg_qrfz_stage(1,1,1,1))/=27106200_C_SIZE_T) &
+            CALL wrf_error_fatal('Experimental lazy stage bytes 5')
+          IF (.NOT.ASSOCIATED(tpg_qrfz,tpg_qrfz_stage)) &
+            CALL wrf_error_fatal('Experimental lazy stage association 5 1')
+          IF (.NOT.ALLOCATED(tnr_qrfz_stage)) &
+            CALL wrf_error_fatal('Experimental lazy missing stage 6')
+          IF (ANY(SHAPE(tnr_qrfz_stage)/=[37,37,45,55]).OR.STORAGE_SIZE(tnr_qrfz_stage)/=64) &
+            CALL wrf_error_fatal('Experimental lazy stage shape 6')
+          IF (INT(SIZE(tnr_qrfz_stage),C_SIZE_T)*C_SIZEOF(tnr_qrfz_stage(1,1,1,1))/=27106200_C_SIZE_T) &
+            CALL wrf_error_fatal('Experimental lazy stage bytes 6')
+          IF (.NOT.ASSOCIATED(tnr_qrfz,tnr_qrfz_stage)) &
+            CALL wrf_error_fatal('Experimental lazy stage association 6 1')
+          failed_at=3
+          rc=st_create(INT(tpi_comm,C_INT),C_LOC(tpi_qrfz_stage(1,1,1,1)), &
+               27106200_C_SIZE_T,1_C_INT,rpi_owner,rpi_cview)
+          IF (rc/=0_C_INT) GOTO 900
+          failed_at=4
+          rc=st_create(INT(tpi_comm,C_INT),C_LOC(tni_qrfz_stage(1,1,1,1)), &
+               27106200_C_SIZE_T,1_C_INT,rni_owner,rni_cview)
+          IF (rc/=0_C_INT) GOTO 900
+          failed_at=5
+          rc=st_create(INT(tpi_comm,C_INT),C_LOC(tpg_qrfz_stage(1,1,1,1)), &
+               27106200_C_SIZE_T,1_C_INT,rpg_owner,rpg_cview)
+          IF (rc/=0_C_INT) GOTO 900
+          failed_at=6
+          rc=st_create(INT(tpi_comm,C_INT),C_LOC(tnr_qrfz_stage(1,1,1,1)), &
+               27106200_C_SIZE_T,1_C_INT,rnr_owner,rnr_cview)
+          IF (rc/=0_C_INT) GOTO 900
+          CALL C_F_POINTER(rpi_cview,v3,[37,37,45,55])
+          tpi_qrfz => v3
+          NULLIFY(v3)
+          CALL C_F_POINTER(rni_cview,v4,[37,37,45,55])
+          tni_qrfz => v4
+          NULLIFY(v4)
+          CALL C_F_POINTER(rpg_cview,v5,[37,37,45,55])
+          tpg_qrfz => v5
+          NULLIFY(v5)
+          CALL C_F_POINTER(rnr_cview,v6,[37,37,45,55])
+          tnr_qrfz => v6
+          NULLIFY(v6)
+          DEALLOCATE(tpi_qrfz_stage)
+          DEALLOCATE(tni_qrfz_stage)
+          DEALLOCATE(tpg_qrfz_stage)
+          DEALLOCATE(tnr_qrfz_stage)
+          tpi_freeze_phase=1
+        CASE(2)
+          IF (tpi_freeze_phase/=1) &
+            CALL wrf_error_fatal('Experimental freeze cloud phase')
+          IF (.NOT.ALLOCATED(tpi_qcfz_stage)) &
+            CALL wrf_error_fatal('Experimental lazy missing stage 1')
+          IF (ANY(SHAPE(tpi_qcfz_stage)/=[37,100,45,55]).OR.STORAGE_SIZE(tpi_qcfz_stage)/=64) &
+            CALL wrf_error_fatal('Experimental lazy stage shape 1')
+          IF (INT(SIZE(tpi_qcfz_stage),C_SIZE_T)*C_SIZEOF(tpi_qcfz_stage(1,1,1,1))/=73260000_C_SIZE_T) &
+            CALL wrf_error_fatal('Experimental lazy stage bytes 1')
+          IF (.NOT.ASSOCIATED(tpi_qcfz,tpi_qcfz_stage)) &
+            CALL wrf_error_fatal('Experimental lazy stage association 1 1')
+          IF (.NOT.ALLOCATED(tni_qcfz_stage)) &
+            CALL wrf_error_fatal('Experimental lazy missing stage 2')
+          IF (ANY(SHAPE(tni_qcfz_stage)/=[37,100,45,55]).OR.STORAGE_SIZE(tni_qcfz_stage)/=64) &
+            CALL wrf_error_fatal('Experimental lazy stage shape 2')
+          IF (INT(SIZE(tni_qcfz_stage),C_SIZE_T)*C_SIZEOF(tni_qcfz_stage(1,1,1,1))/=73260000_C_SIZE_T) &
+            CALL wrf_error_fatal('Experimental lazy stage bytes 2')
+          IF (.NOT.ASSOCIATED(tni_qcfz,tni_qcfz_stage)) &
+            CALL wrf_error_fatal('Experimental lazy stage association 2 1')
+          failed_at=1
+          rc=st_create(INT(tpi_comm,C_INT),C_LOC(tpi_qcfz_stage(1,1,1,1)), &
+               73260000_C_SIZE_T,1_C_INT,tpi_owner,tpi_cview)
+          IF (rc/=0_C_INT) GOTO 900
+          failed_at=2
+          rc=st_create(INT(tpi_comm,C_INT),C_LOC(tni_qcfz_stage(1,1,1,1)), &
+               73260000_C_SIZE_T,1_C_INT,tni_owner,tni_cview)
+          IF (rc/=0_C_INT) GOTO 900
+          CALL C_F_POINTER(tpi_cview,v1,[37,100,45,55])
+          tpi_qcfz => v1
+          NULLIFY(v1)
+          CALL C_F_POINTER(tni_cview,v2,[37,100,45,55])
+          tni_qcfz => v2
+          NULLIFY(v2)
+          DEALLOCATE(tpi_qcfz_stage)
+          DEALLOCATE(tni_qcfz_stage)
+          tpi_freeze_phase=2
+          tpi_init_group=3
+        CASE DEFAULT
+          CALL wrf_error_fatal('Experimental freeze invalid family')
+        END SELECT
+        RETURN
+ 900    CONTINUE
+        WRITE(failure_message,'(A,I0,A,I0)') 'Experimental lazy owner ',failed_at, &
+             ' rejected status ',rc
+        CALL thompson_tpi_release()
+        CALL wrf_error_fatal(TRIM(failure_message))
+      END SUBROUTINE thompson_tpi_commit_freeze
+
+      SUBROUTINE thompson_tpi_freeze_split()
+      implicit none
+
+!..Local variables
+      INTEGER:: i, j, k, m, n, n2
+      INTEGER:: km, km_s, km_e
+      DOUBLE PRECISION:: N_r, N_c
+      DOUBLE PRECISION, DIMENSION(nbr):: massr
+      DOUBLE PRECISION, DIMENSION(nbc):: massc
+      DOUBLE PRECISION:: sum1, sum2, sumn1, sumn2, &
+                         prob, vol, Texp, orho_w, &
+                         lam_exp, lamr, N0_r, lamc, N0_c, y
+      INTEGER:: nu_c
+      REAL:: T_adjust
+      DOUBLE PRECISION :: texp_cache(0:ntb_IN*45-1)
+      LOGICAL force_read_thompson, write_thompson_tables
+      LOGICAL lexist,lopen
+      INTEGER good
+      LOGICAL, EXTERNAL :: wrf_dm_on_monitor
+
+      IF (tpi_mode/=1.OR.tpi_phase/=TPI_INIT.OR.tpi_init_group/=2.OR.tpi_freeze_phase/=0) &
+        CALL wrf_error_fatal('Experimental freeze split entry phase')
+      CALL nl_get_force_read_thompson(1,force_read_thompson)
+      CALL nl_get_write_thompson_tables(1,write_thompson_tables)
+
+      good = 0
+      IF ( wrf_dm_on_monitor() ) THEN
+        INQUIRE(FILE="freezeH2O.dat",EXIST=lexist)
+        IF ( lexist ) THEN
+          CALL wrf_message("ThompMP: read freezeH2O.dat instead of computing")
+          OPEN(63,file="freezeH2O.dat",form="unformatted",err=1234)
+          READ(63,err=1234)tpi_qrfz
+          READ(63,err=1234)tni_qrfz
+          READ(63,err=1234)tpg_qrfz
+          READ(63,err=1234)tnr_qrfz
+          CALL thompson_tpi_freeze_cloud_stage()
+          READ(63,err=1234)tpi_qcfz
+          READ(63,err=1234)tni_qcfz
+          good = 1
+ 1234     CONTINUE
+          IF ( good .NE. 1 ) THEN
+            INQUIRE(63,opened=lopen)
+            IF (lopen) THEN
+              IF( force_read_thompson ) THEN
+                CALL wrf_error_fatal("Error reading freezeH2O.dat. Aborting because force_read_thompson is .true.")
+              ENDIF
+              CLOSE(63)
+            ELSE
+              IF( force_read_thompson ) THEN
+                CALL wrf_error_fatal("Error opening freezeH2O.dat. Aborting because force_read_thompson is .true.")
+              ENDIF
+            ENDIF
+          ELSE
+            INQUIRE(63,opened=lopen)
+            IF (lopen) THEN
+              CLOSE(63)
+            ENDIF
+          ENDIF
+          ! Original OPEN/READ/CLOSE handling above completed before publication.
+          IF (good/=1) good=-1
+        ELSE
+          IF( force_read_thompson ) THEN
+            CALL wrf_error_fatal("Non-existent freezeH2O.dat. Aborting because force_read_thompson is .true.")
+          ENDIF
+        ENDIF
+      ENDIF
+
+#if defined(DM_PARALLEL) && !defined(STUBMPI)
+      CALL wrf_dm_bcast_integer(good,1)
+#endif
+
+      IF ( good .EQ. 1 ) THEN
+#if defined(DM_PARALLEL) && !defined(STUBMPI)
+        CALL wrf_dm_bcast_double(tpi_qrfz,SIZE(tpi_qrfz))
+        CALL wrf_dm_bcast_double(tni_qrfz,SIZE(tni_qrfz))
+        CALL wrf_dm_bcast_double(tpg_qrfz,SIZE(tpg_qrfz))
+        CALL wrf_dm_bcast_double(tnr_qrfz,SIZE(tnr_qrfz))
+#endif
+        CALL thompson_tpi_commit_freeze(1)
+        CALL thompson_tpi_freeze_cloud_stage()
+#if defined(DM_PARALLEL) && !defined(STUBMPI)
+        CALL wrf_dm_bcast_double(tpi_qcfz,SIZE(tpi_qcfz))
+        CALL wrf_dm_bcast_double(tni_qcfz,SIZE(tni_qcfz))
+#endif
+        CALL thompson_tpi_commit_freeze(2)
+      ELSE
+        CALL wrf_message("ThompMP: computing freezeH2O")
+        IF (good==-1) THEN
+          CALL thompson_tpi_freeze_cloud_stage()
+        do m = 1, ntb_IN
+         do k = 1, 45
+          do j = 1, ntb_r1
+           do i = 1, ntb_r
+            tpi_qrfz(i,j,k,m) = 0.0d0
+            tni_qrfz(i,j,k,m) = 0.0d0
+            tpg_qrfz(i,j,k,m) = 0.0d0
+            tnr_qrfz(i,j,k,m) = 0.0d0
+           enddo
+          enddo
+         enddo
+        enddo
+        ENDIF
+        orho_w = 1./rho_w
+
+        do n2 = 1, nbr
+         massr(n2) = am_r*Dr(n2)**bm_r
+        enddo
+        do n = 1, nbc
+         massc(n) = am_r*Dc(n)**bm_r
+        enddo
+
+! Need to split loops between MPI processes to speedup
+! (2017Jul26, Jason Do)
+#if ( defined( DM_PARALLEL ) && ( ! defined( STUBMPI ) ) )
+        CALL wrf_dm_decomp1d ( ntb_IN*45, km_s, km_e )
+#else
+        km_s = 0
+        km_e = ntb_IN*45 - 1
+#endif
+
+!..Freeze water (smallest drops become cloud ice, otherwise graupel).
+        IF (good==-1) THEN
+        do km = km_s, km_e
+         m = km / 45 + 1
+         k = mod( km , 45 ) + 1
+         T_adjust = MAX(-3.0, MIN(3.0 - ALOG10(Nt_IN(m)), 3.0))
+!         print*, ' Freezing water for temp = ', -k
+         Texp = DEXP( DFLOAT(k) - T_adjust*1.0D0 ) - 1.0D0
+#ifdef THOMPSON_OMP
+!$OMP PARALLEL DO SCHEDULE(dynamic) &
+!$OMP PRIVATE(j,i,lam_exp,lamr,N0_r,sum1,sum2,sumn1,sumn2,n2,N_r,vol,prob)
+#endif
+         do j = 1, ntb_r1
+            do i = 1, ntb_r
+               lam_exp = (N0r_exp(j)*am_r*crg(1)/r_r(i))**ore1
+               lamr = lam_exp * (crg(3)*org2*org1)**obmr
+               N0_r = N0r_exp(j)/(crg(2)*lam_exp) * lamr**cre(2)
+               sum1 = 0.0d0
+               sum2 = 0.0d0
+               sumn1 = 0.0d0
+               sumn2 = 0.0d0
+               do n2 = nbr, 1, -1
+                  N_r = N0_r*Dr(n2)**mu_r*DEXP(-lamr*Dr(n2))*dtr(n2)
+                  vol = massr(n2)*orho_w
+                  prob = MAX(0.0D0, 1.0D0 - DEXP(-120.0D0*vol*5.2D-4 * Texp))
+                  if (massr(n2) .lt. xm0g) then
+                     sumn1 = sumn1 + prob*N_r
+                     sum1 = sum1 + prob*N_r*massr(n2)
+                  else
+                     sumn2 = sumn2 + prob*N_r
+                     sum2 = sum2 + prob*N_r*massr(n2)
+                  endif
+                  if ((sum1+sum2).ge.r_r(i)) EXIT
+               enddo
+               tpi_qrfz(i,j,k,m) = sum1
+               tni_qrfz(i,j,k,m) = sumn1
+               tpg_qrfz(i,j,k,m) = sum2
+               tnr_qrfz(i,j,k,m) = sumn2
+            enddo
+         enddo
+#ifdef THOMPSON_OMP
+!$OMP END PARALLEL DO
+
+!$OMP PARALLEL DO SCHEDULE(dynamic) &
+!$OMP PRIVATE(j,i,nu_c,lamc,N0_c,sum1,sumn2,vol,prob,N_c)
+#endif
+         do j = 1, nbc
+            nu_c = MIN(15, NINT(1000.E6/t_Nc(j)) + 2)
+            do i = 1, ntb_c
+               lamc = (t_Nc(j)*am_r* ccg(2,nu_c) * ocg1(nu_c) / r_c(i))**obmr
+               N0_c = t_Nc(j)*ocg1(nu_c) * lamc**cce(1,nu_c)
+               sum1 = 0.0d0
+               sumn2 = 0.0d0
+               do n = nbc, 1, -1
+                  vol = massc(n)*orho_w
+                  prob = MAX(0.0D0, 1.0D0 - DEXP(-120.0D0*vol*5.2D-4 * Texp))
+                  N_c = N0_c*Dc(n)**nu_c*EXP(-lamc*Dc(n))*dtc(n)
+                  sumn2 = MIN(t_Nc(j), sumn2 + prob*N_c)
+                  sum1 = sum1 + prob*N_c*massc(n)
+                  if (sum1 .ge. r_c(i)) EXIT
+               enddo
+               tpi_qcfz(i,j,k,m) = sum1
+               tni_qcfz(i,j,k,m) = sumn2
+            enddo
+         enddo
+#ifdef THOMPSON_OMP
+!$OMP END PARALLEL DO
+#endif
+        enddo
+
+#if ( defined( DM_PARALLEL ) && ( ! defined( STUBMPI ) ) )
+        CALL wrf_dm_gatherv(tpi_qrfz, ntb_r*ntb_r1, km_s, km_e, R8SIZE)
+        CALL wrf_dm_gatherv(tni_qrfz, ntb_r*ntb_r1, km_s, km_e, R8SIZE)
+        CALL wrf_dm_gatherv(tpg_qrfz, ntb_r*ntb_r1, km_s, km_e, R8SIZE)
+        CALL wrf_dm_gatherv(tnr_qrfz, ntb_r*ntb_r1, km_s, km_e, R8SIZE)
+        CALL wrf_dm_gatherv(tpi_qcfz, ntb_c*nbc, km_s, km_e, R8SIZE)
+        CALL wrf_dm_gatherv(tni_qcfz, ntb_c*nbc, km_s, km_e, R8SIZE)
+#endif
+
+          CALL thompson_tpi_commit_group(3)
+          tpi_freeze_phase=2
+        ELSE
+        do km = km_s, km_e
+         m = km / 45 + 1
+         k = mod( km , 45 ) + 1
+         T_adjust = MAX(-3.0, MIN(3.0 - ALOG10(Nt_IN(m)), 3.0))
+!         print*, ' Freezing water for temp = ', -k
+         Texp = DEXP( DFLOAT(k) - T_adjust*1.0D0 ) - 1.0D0
+         texp_cache(km) = Texp
+#ifdef THOMPSON_OMP
+!$OMP PARALLEL DO SCHEDULE(dynamic) &
+!$OMP PRIVATE(j,i,lam_exp,lamr,N0_r,sum1,sum2,sumn1,sumn2,n2,N_r,vol,prob)
+#endif
+         do j = 1, ntb_r1
+            do i = 1, ntb_r
+               lam_exp = (N0r_exp(j)*am_r*crg(1)/r_r(i))**ore1
+               lamr = lam_exp * (crg(3)*org2*org1)**obmr
+               N0_r = N0r_exp(j)/(crg(2)*lam_exp) * lamr**cre(2)
+               sum1 = 0.0d0
+               sum2 = 0.0d0
+               sumn1 = 0.0d0
+               sumn2 = 0.0d0
+               do n2 = nbr, 1, -1
+                  N_r = N0_r*Dr(n2)**mu_r*DEXP(-lamr*Dr(n2))*dtr(n2)
+                  vol = massr(n2)*orho_w
+                  prob = MAX(0.0D0, 1.0D0 - DEXP(-120.0D0*vol*5.2D-4 * Texp))
+                  if (massr(n2) .lt. xm0g) then
+                     sumn1 = sumn1 + prob*N_r
+                     sum1 = sum1 + prob*N_r*massr(n2)
+                  else
+                     sumn2 = sumn2 + prob*N_r
+                     sum2 = sum2 + prob*N_r*massr(n2)
+                  endif
+                  if ((sum1+sum2).ge.r_r(i)) EXIT
+               enddo
+               tpi_qrfz(i,j,k,m) = sum1
+               tni_qrfz(i,j,k,m) = sumn1
+               tpg_qrfz(i,j,k,m) = sum2
+               tnr_qrfz(i,j,k,m) = sumn2
+            enddo
+         enddo
+#ifdef THOMPSON_OMP
+!$OMP END PARALLEL DO
+#endif
+        enddo
+#if ( defined( DM_PARALLEL ) && ( ! defined( STUBMPI ) ) )
+        CALL wrf_dm_gatherv(tpi_qrfz, ntb_r*ntb_r1, km_s, km_e, R8SIZE)
+        CALL wrf_dm_gatherv(tni_qrfz, ntb_r*ntb_r1, km_s, km_e, R8SIZE)
+        CALL wrf_dm_gatherv(tpg_qrfz, ntb_r*ntb_r1, km_s, km_e, R8SIZE)
+        CALL wrf_dm_gatherv(tnr_qrfz, ntb_r*ntb_r1, km_s, km_e, R8SIZE)
+#endif
+          CALL thompson_tpi_commit_freeze(1)
+          CALL thompson_tpi_freeze_cloud_stage()
+        do km = km_s, km_e
+         m = km / 45 + 1
+         k = mod( km , 45 ) + 1
+         Texp = texp_cache(km)
+#ifdef THOMPSON_OMP
+!$OMP PARALLEL DO SCHEDULE(dynamic) &
+!$OMP PRIVATE(j,i,nu_c,lamc,N0_c,sum1,sumn2,vol,prob,N_c)
+#endif
+         do j = 1, nbc
+            nu_c = MIN(15, NINT(1000.E6/t_Nc(j)) + 2)
+            do i = 1, ntb_c
+               lamc = (t_Nc(j)*am_r* ccg(2,nu_c) * ocg1(nu_c) / r_c(i))**obmr
+               N0_c = t_Nc(j)*ocg1(nu_c) * lamc**cce(1,nu_c)
+               sum1 = 0.0d0
+               sumn2 = 0.0d0
+               do n = nbc, 1, -1
+                  vol = massc(n)*orho_w
+                  prob = MAX(0.0D0, 1.0D0 - DEXP(-120.0D0*vol*5.2D-4 * Texp))
+                  N_c = N0_c*Dc(n)**nu_c*EXP(-lamc*Dc(n))*dtc(n)
+                  sumn2 = MIN(t_Nc(j), sumn2 + prob*N_c)
+                  sum1 = sum1 + prob*N_c*massc(n)
+                  if (sum1 .ge. r_c(i)) EXIT
+               enddo
+               tpi_qcfz(i,j,k,m) = sum1
+               tni_qcfz(i,j,k,m) = sumn2
+            enddo
+         enddo
+#ifdef THOMPSON_OMP
+!$OMP END PARALLEL DO
+#endif
+        enddo
+#if ( defined( DM_PARALLEL ) && ( ! defined( STUBMPI ) ) )
+        CALL wrf_dm_gatherv(tpi_qcfz, ntb_c*nbc, km_s, km_e, R8SIZE)
+        CALL wrf_dm_gatherv(tni_qcfz, ntb_c*nbc, km_s, km_e, R8SIZE)
+#endif
+          CALL thompson_tpi_commit_freeze(2)
+        ENDIF
+        IF ( write_thompson_tables .AND. wrf_dm_on_monitor() ) THEN
+          CALL wrf_message("Writing freezeH2O.dat in Thompson MP init")
+          OPEN(63,file="freezeH2O.dat",form="unformatted",err=9234)
+          WRITE(63,err=9234)tpi_qrfz
+          WRITE(63,err=9234)tni_qrfz
+          WRITE(63,err=9234)tpg_qrfz
+          WRITE(63,err=9234)tnr_qrfz
+          WRITE(63,err=9234)tpi_qcfz
+          WRITE(63,err=9234)tni_qcfz
+          CLOSE(63)
+          RETURN    ! ----- RETURN
+ 9234     CONTINUE
+          CALL wrf_error_fatal("Error writing freezeH2O.dat")
+        ENDIF
+      ENDIF
+      END SUBROUTINE thompson_tpi_freeze_split
+#endif
       subroutine freezeH2O
 
       implicit none
@@ -5970,6 +6423,10 @@
 !+---+
 #ifdef WRF_EXPERIMENTAL_TPI_NUMA
       IF (tpi_phase /= TPI_INIT) CALL wrf_error_fatal('Experimental tpi creator after private tile-init phase')
+      IF (tpi_mode==1) THEN
+         CALL thompson_tpi_freeze_split()
+         RETURN
+      ENDIF
 #endif
       CALL nl_get_force_read_thompson(1,force_read_thompson)
       CALL nl_get_write_thompson_tables(1,write_thompson_tables)

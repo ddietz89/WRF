@@ -249,6 +249,7 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
 
     DO j=j_start, j_endv
     DO k=k_start, k_end
+!$OMP SIMD
     DO i=i_start, i_end
       v_save(i,k,j) = v_2(i,k,j)
       ! v coupled with mx
@@ -877,6 +878,7 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
      ENDDO
    END IF
    DO k = k_start, k_end
+!$OMP SIMD
      DO i = i_start_up, i_end_up
        u(i,k,j)=u(i,k,j)-dts*cqu(i,k,j)*dpxy(i,k)+(c1h(k)*mudf_xy(i))
      ENDDO
