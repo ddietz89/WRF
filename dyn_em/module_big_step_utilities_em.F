@@ -5143,6 +5143,7 @@ END SUBROUTINE phy_prep
 
       DO J=j_start,j_end
       DO K=k_start,k_end
+!$OMP SIMD
       DO I=i_start,i_end
          RUCUTEN(I,K,J) =RUCUTEN(I,K,J)/(c1(k)*MUT(I,J)+c2(k))
          RVCUTEN(I,K,J) =RVCUTEN(I,K,J)/(c1(k)*MUT(I,J)+c2(k))
