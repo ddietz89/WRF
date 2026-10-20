@@ -1,8 +1,28 @@
 # WRF CPU optimization findings
 
+## Combined PBL and moisture-forcing SIMD: exact three-hour qualification (2026-10-20)
+
+The working configuration now selects **ee66/archive068d/source31ca2fd4**, including all prior improvements, PBL tendency SIMD and one additional directive for independent moisture-forcing conversion. Per-cell arithmetic and true division remain unchanged. The unchanged scientific checker passed **all four complete products and 545 ordered timesteps**, all512 ranks, two tiles, all32 field-view markers and all four positive writer groups. All model and reader jobs closed normally. [Application evidence](tools/cpu-compute/phy-prep-part2-rqvften-simd/APPLICATION_QUALIFICATION.json)40d2a791 binds26 actual references.
+
+| Three-hour measure | Retained corrected original | Combined configuration | Descriptive difference |
+|---|---:|---:|---:|
+| Whole model/MPI wall |848.677401s|660.392136s|22.19% lower|
+| Main-step elapsed, including communication/backpressure |626.316100s|560.659910s|10.48% lower|
+| Aggregate node CPU |382698.863204CPU-s|320886.634243CPU-s|16.15% lower|
+
+These are **UNPAIRED** observations against retained original outputs and timings. They establish exact application qualification; they do not isolate either new directive's forecast contribution or establish repeatability. Main-step elapsed is not integration CPU. Client caches were cleared before this run; file-server load/cache remained uncontrolled. The previous CU configuration's641.247449s wall/557.650580s main/312007.443284CPU-s remain separate observations. Their variation does not by itself identify a source regression.
+
+Measured peak memory remains **70.968/68.700/68.643/68.620GiB per node**, including charged file cache, with zero limit/OOM events. The earlier fresh nine-hour pair measured92–104GiB for the corrected original and69–71GiB for the optimized parent:23–34% lower observed peaks. Configured100/100/100/104GiB limits are separate from usage. This new configuration has its own three-hour qualification; the earlier nine-hour result excludes INATM, CU, PBL and this moisture-forcing directive.
+
+The new directive passed44 full-module raw/IEEE/state/halo cases and preserved the previous32-case prefix. Complete synthetic caller timings, including reset, were **0.42–2.50% shorter under CONUS physics selectors** and **0.98–1.61% shorter in the GD case**. These modest, uneven signals and the one-line maintenance cost support inclusion under the standing policy; statistical significance and a forecast speedup from this directive are unestablished. The one-member build preserved583 other archive members and the public module interface. Frozen producer commits remainNULL; source31ca2fd4 records post-test identity.
+
+Rollback uses the paired `PREVIOUS_SELECTION_BEFORE_RQVFTEN_PART2_SIMD.json` and `PREVIOUS_CURRENT_SOURCE_BUILD_BINDING_BEFORE_RQVFTEN_PART2_SIMD.json` in `tools/cpu-working/`, restoring PBL9d75/F478/source61c2; reverting source-only31ca2fd4 removes exactly the added directive. Production and master remain unchanged.
+
+The next vapor-tendency candidate has passed56 native cases and is undergoing complete-caller timing. Cross-forecast table sharing is a separate design investigation:2.784GiB/node of nominal duplicated table payload is identified, with no implemented savings, admission or throughput claim. Existing daytime capture7996 came from41b/51a/3edf; later source mapping used a byte-identical object and does not make that capture current-build profiling. Current object/caller proofs stand independently.
+
 ## PBL tendency SIMD promoted after exact short full-grid qualification (2026-10-20)
 
-The working configuration now selects **9d75/archivef478/source61c2b67e**. It includes every prior improvement and one additional SIMD directive for independent PBL U/V/theta tendency conversion. Per-lane denominators and true divisions are unchanged. Opposite-order genuine complete-PART2 callers, including reset, were **6.84–6.98% shorter with PBL-only forcing** and **4.65–4.76% shorter with combined forcing**. These significant synthetic-caller gains are included under the standing inclusion policy; no isolated forecast gain is claimed.
+The preceding short qualification selected **9d75/archivef478/source61c2b67e**. It includes every prior improvement and one additional SIMD directive for independent PBL U/V/theta tendency conversion. Per-lane denominators and true divisions are unchanged. Opposite-order genuine complete-PART2 callers, including reset, were **6.84–6.98% shorter with PBL-only forcing** and **4.65–4.76% shorter with combined forcing**. These significant synthetic-caller gains are included under the standing inclusion policy; no isolated forecast gain is claimed.
 
 Native32-case O2 raw/IEEE/state/bounds checks, canonical preprocessing and the one-member build passed. The unchanged original short scientific comparison passed **two complete products,35 ordered timesteps,all512 ranks,two tiles,487/495 positive writers and503/511 inactive writers**. All32 quilt ranks retained FIELDVIEW1;16 active-group markers were observed. All model and reader scopes closed normally. [Application qualification](tools/cpu-compute/phy-prep-part2-pbl-simd/APPLICATION_QUALIFICATION.json)4c2480ed binds26 actual references.
 
