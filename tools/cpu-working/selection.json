@@ -48,7 +48,7 @@
   "read_affine_IO_object_sha256": "c9c4e5b7a0225523e7d85cfc188022d797204d3f4dd4494b54c416e3bec99320",
   "schema_version": 3,
   "status": "PROMOTED_FUSED_OUTPUT_ON_QUALIFIED_ROOT_PARALLEL_INPUT_AND_ALL_PREVIOUS_IMPROVEMENTS",
-  "scope": "GNU13.3/Zen2/OMP1, cold06\u201306:10/all512/faba/twoTiles/currentinput06dNCa32+output172/codec881/HDF825/shared1/FIELDVIEW1/singleIB.",
+  "scope": "GNU13.3/Zen2/OMP1/cold06-15/512=480compute8x60+4x8quilt/faba/twoTiles/1d6e/root06dNCa32/output172/codec881/HDF825/shared1/FIELDVIEW1/singleIB;10completeproducts1625steps.",
   "includes": "All retained compute, Thompson shared-table/lazy-init, output, codec and HDF5 improvements from the previous selection, READ_DI1 affine rows, plus qualified root-only parallel input chunk decoding. Fused output packing/shuffling removes intermediate padded packed storage; compressedbytes and originalscience exact.",
   "source_commit_scope": "source_commit binds the unchanged WRF executable; input_implementation_commit binds the separately compiled literal private input provider/adapter package. Frozen producer source_commit null fields remain unchanged.",
   "input_implementation_commit": "614267f340a23ffc342962b3c64e323719fe4d06",
@@ -78,7 +78,7 @@
       "WRF_INPUT_PREDECODE_OWNER": "/pool/wrf-experiment/wrf-cpu/kernels/ordinary-nc-predecoded-fp-admission-build-hpc02-r3/output/libnetcdf.so.19",
       "WRF_INPUT_SCOPE_LOGDIR": "<fresh_run>/input-logs"
     },
-    "other_511_ranks": "Retain original NC8adc/output375/codec881; do not add the root input preload/library directory globally."
+    "other_511_ranks": "Retain original NC8adc/selected output172/codec881; do not add the root input preload/library directory globally."
   },
   "science": {
     "receipt_sha256": "7a108c76b39f53ee65c9a4021c4fb14041a1cd934500785edc45063c439106c6",
@@ -109,7 +109,7 @@
   "current_application_qualification_file": "tools/cpu-output/quilt512/fusion/APPLICATION_QUALIFICATION.json",
   "source_build_binding_file": "CURRENT_SOURCE_BUILD_BINDING.json",
   "current_three_hour_qualified": false,
-  "current_nine_hour_qualified": false,
+  "current_nine_hour_qualified": true,
   "last_three_hour_benchmark": {
     "evidence_file": "THREE_HOUR_RESULT.json",
     "executable": {
@@ -142,8 +142,8 @@
     "scope": "Fresh fed6 threehour qualifies previous output375, before newfused172; retained measuredcombined18.0018%wall,11.6971%CPU, not currentfused qualification."
   },
   "prior_nine_hour": {
-    "evidence_file": "NINE_HOUR_RESULT.json",
-    "qualification_file": "NINE_HOUR_FINAL_QUALIFICATION.json",
+    "evidence_file": "PREVIOUS_NINE_HOUR_RESULT_B1FB.json",
+    "qualification_file": "PREVIOUS_NINE_HOUR_FINAL_QUALIFICATION_B1FB.json",
     "qualified_executable_sha256": "b1fb398a9c7186823584252b53f4ee360c260143064720256f660ba1459c8670",
     "applies_to_current_selection": false
   },
@@ -154,7 +154,32 @@
     "source_build_binding": "PREVIOUS_SOURCE_BUILD_BINDING_BEFORE_FUSED_OUTPUT.json",
     "action": "Restore output375 only; keep executable1d6e, input06d/NCa32, codec881 and all prior selections. Build with --provider simd-pack to select retained parallel-pack source."
   },
-  "claim_limits": "Ownshort2product35/full512 gate; 47.30/48.92% complete syntheticprovider wall gains and37/38%CPU remain separate. No isolated WRForforecastgain; previousfresh3h18% belongs output375; sustainedlatestcombined9h acceptance pending.",
-  "next_qualification": "One sustained currentcombined06\u201315 ninehour versus retained corrected original, all10products1625, UNPAIREDtiming. No extra3hcontrol or kernelcountmatrix.",
-  "output_fusion_qualification_file": "tools/cpu-output/quilt512/fusion/NATIVE_QUALIFICATION.json"
+  "claim_limits": "Whole-launch wall and aggregate cgroup CPU are distinct; main-step sum is wall including communication/backpressure, not integration CPU. Per-host invocation peaks are not PSS or isolated component memory gain. UNPAIRED order/time/server-cache/load differ; no repeatability, per-kernel, additive, restart or other configuration transfer. Collector science/runtime assertions remain authoritative; no scientific arrays read by assembly. Retained original hpc04 reached104GiB and recorded2584 memory.max events without OOM; current70.96/68.70/68.65/68.63GiB peaks recorded zero events. Memory pressure differs and can affect the combined comparison. Literal checker field-view required list remains two roots; separate unchanged-receipt observation binds all32 markers and four positive root lifecycles. No own current3h/restart/nesting/alternatecompiler/144h qualification.",
+  "next_qualification": "Shortcurrentdaytimeprofiling and worthwhileproviderchanges native/caller/application. Periodic freshoriginal3hafterintegration; no automaticrepeat9h.",
+  "output_fusion_qualification_file": "tools/cpu-output/quilt512/fusion/NATIVE_QUALIFICATION.json",
+  "latest_nine_hour": {
+    "evidence_file": "NINE_HOUR_RESULT.json",
+    "qualification_file": "NINE_HOUR_FINAL_QUALIFICATION.json",
+    "qualification_sha256": "f0d6d92da066bfc7e3c23ab597d34df9227d42fe23c6f7891ecacc056fc085f1",
+    "applies_to_current_selection": true,
+    "comparison_design": "UNPAIRED later current1d6e+input06d/NCa32+output172 candidate vs retained corrected-original546b; no new control or isolated component attribution",
+    "metrics": {
+      "control": {
+        "wall_seconds": 2069.3122304237913,
+        "cpu_seconds": 1009264.484921,
+        "main_step_sum_seconds": 1851.54464
+      },
+      "candidate": {
+        "wall_seconds": 1842.3946576470044,
+        "cpu_seconds": 926321.6706290001,
+        "main_step_sum_seconds": 1744.6938
+      }
+    },
+    "reductions_percent": {
+      "wall_seconds": 10.965845049411161,
+      "cpu_seconds": 8.218144552910944,
+      "main_step_sum_seconds": 5.770902720444271
+    },
+    "repeatability_established": false
+  }
 }

@@ -70,10 +70,10 @@
   "PD_production_member_sha256": "8ec77f864716667aa79d40878fa11276f7dede4017c620201e54f9f83bb32b25",
   "PD_repaired_compile_object_sha256": "e5245eed1f84a67ea9d428bed8d8b2529f568ca49394f9cf8b85d97bdc50f560",
   "PD_equivalence_proof_sha256": "92abf53cb516e4394f2ce232ad81fb4985ea7b1f849310927e54aa4a2b1017cc",
-  "build_scope": "GNU13.3/Zen2/OMP1, cold06\u201306:10/all512/faba/twoTiles/currentinput06dNCa32+output172/codec881/HDF825/shared1/FIELDVIEW1/singleIB. WRF1d6e unchanged, outputprovider separate; rawproducerNULL preserved.",
+  "build_scope": "GNU13.3/Zen2/OMP1/cold06-15/512=480compute8x60+4x8quilt/faba/twoTiles/1d6e/root06dNCa32/output172/codec881/HDF825/shared1/FIELDVIEW1/singleIB;10completeproducts1625steps. WRF1d6e unchanged, outputprovider separate; rawproducerNULL preserved.",
   "runtime": {
     "WRF_EXPERIMENTAL_TPI_NUMA": 1,
-    "other_settings": "Unchanged375/881/825/faba/FIELDVIEW1/IB"
+    "other_settings": "Current output172/codec881/HDF825/faba/FIELDVIEW1/singleIB; root input06d/NCa32 only"
   },
   "previous_binding": "PREVIOUS_SOURCE_BUILD_BINDING_BEFORE_FUSED_OUTPUT.json",
   "native": {
@@ -114,7 +114,7 @@
       "sha256": "033a868f928535bdd6e769be0cafbec338a556090dd11db1185dce5bc4525afe"
     }
   },
-  "current_nine_hour_qualified": false,
+  "current_nine_hour_qualified": true,
   "previous_nine_hour_qualification": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_NINE_HOUR_FINAL_QUALIFICATION_B1FB.json",
     "sha256": "f38a865905d030be42ac0a965b4aa6afbc0eae280902a3839f20df176457f445"
@@ -134,11 +134,11 @@
   },
   "memory_qualification_file": "tools/cpu-memory/thompson-table-sharing/lazy-group-init/QUALIFICATION.json",
   "prior_b1fb_full_application": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-working/NINE_HOUR_FINAL_QUALIFICATION.json",
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_NINE_HOUR_FINAL_QUALIFICATION_B1FB.json",
     "sha256": "f38a865905d030be42ac0a965b4aa6afbc0eae280902a3839f20df176457f445"
   },
   "prior_b1fb_nine_hour_benchmark": {
-    "evidence_file": "NINE_HOUR_RESULT.json",
+    "evidence_file": "PREVIOUS_NINE_HOUR_RESULT_B1FB.json",
     "executable_sha256": "b1fb398a9c7186823584252b53f4ee360c260143064720256f660ba1459c8670",
     "source_commit": "4e70d8fd315cb1220793226b69a2c55372cfb9bd",
     "comparison_design": "UNPAIRED candidate-only versus retained corrected original546b 2069.3122304237913s; no fresh control, no isolated MYJ attribution",
@@ -213,5 +213,9 @@
     },
     "producer_source_commit": null,
     "qualification_file": "tools/cpu-output/quilt512/fusion/APPLICATION_QUALIFICATION.json"
+  },
+  "nine_hour_full_application": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-working/NINE_HOUR_FINAL_QUALIFICATION.json",
+    "sha256": "f0d6d92da066bfc7e3c23ab597d34df9227d42fe23c6f7891ecacc056fc085f1"
   }
 }
