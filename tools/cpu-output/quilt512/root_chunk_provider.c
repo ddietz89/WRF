@@ -12,6 +12,8 @@
 #include <sched.h>
 #include <errno.h>
 #include <stdio.h>
+#include <stdatomic.h>
+#include <fenv.h>
 #include "netcdf_precompressed.h"
 #include "root_chunk_provider.h"
 
@@ -39,7 +41,28 @@ static int layout_valid(const nc_precompressed_float_layout *l,size_t bytes,size
  *chunk_bytes=n;return 1;
 }
 
-typedef struct { size_t nbytes; unsigned char*comp; size_t cap; size_t out; int err; int cpu; const nc_precompressed_float_layout*layout; const unsigned char*raw; size_t chunk; } wps_job;
+typedef struct { size_t nbytes; unsigned char*comp; size_t cap; size_t out; int err; int cpu; const nc_precompressed_float_layout*layout; const unsigned char*raw; size_t chunk;
+ int leased_ok; size_t lease_slot; } wps_job;
+
+/* Fixed four-slot idle shuffle-scratch bank shared by all provider calls. */
+#define WPS_SCRATCH_SLOTS 4
+#define WPS_SCRATCH_CAP ((size_t)56430000)
+typedef struct { unsigned char*ptr; size_t cap; } wps_scratch_slot;
+static wps_scratch_slot wps_slots[WPS_SCRATCH_SLOTS];
+static atomic_flag wps_bank_lock = ATOMIC_FLAG_INIT;
+
+/* Idle-cache teardown on unload. Nonblocking: if the bank is busy, leave
+   reclamation to process exit rather than wait. */
+__attribute__((destructor)) static void wps_slot_teardown(void){
+    int save_errno=errno; fenv_t save_fenv;
+    if(fegetenv(&save_fenv)){abort();}
+    if(!atomic_flag_test_and_set(&wps_bank_lock)){
+        for(int i=0;i<WPS_SCRATCH_SLOTS;i++){free(wps_slots[i].ptr);wps_slots[i].ptr=NULL;wps_slots[i].cap=0;}
+        atomic_flag_clear(&wps_bank_lock);
+    }
+    if(fesetenv(&save_fenv)){abort();}
+    errno=save_errno;
+}
 
 /* shuffle4_candidate.c
  * Standalone four-byte-plane transpose kernel, C11.
@@ -209,16 +232,32 @@ static void* wps_worker(void*a){
     wps_job*j=(wps_job*)a;
     cpu_set_t wanted,actual;CPU_ZERO(&wanted);CPU_SET(j->cpu,&wanted);
     if(pthread_setaffinity_np(pthread_self(),sizeof wanted,&wanted)||pthread_getaffinity_np(pthread_self(),sizeof actual,&actual)||!CPU_EQUAL(&wanted,&actual)){j->err=1;return NULL;}
-    unsigned char*shuf=(unsigned char*)malloc(j->nbytes?j->nbytes:1);
-    if(!shuf){j->err=1;return NULL;}
+    unsigned char*shuf;
+    int owns_local=1;
+    if(j->leased_ok){
+        size_t idx=j->lease_slot;
+        if(wps_slots[idx].cap>=j->nbytes){
+            shuf=wps_slots[idx].ptr; owns_local=0;
+        } else {
+            unsigned char*fresh=(unsigned char*)malloc(j->nbytes?j->nbytes:1);
+            if(!fresh){j->err=1;return NULL;}
+            unsigned char*old=wps_slots[idx].ptr;
+            wps_slots[idx].ptr=fresh; wps_slots[idx].cap=j->nbytes;
+            free(old);
+            shuf=fresh; owns_local=0;
+        }
+    } else {
+        shuf=(unsigned char*)malloc(j->nbytes?j->nbytes:1);
+        if(!shuf){j->err=1;return NULL;}
+    }
     wps_pack_shuffle4(j->layout,j->chunk,j->raw,shuf,j->nbytes);
     z_stream zs; memset(&zs,0,sizeof zs);
-    if(deflateInit2(&zs,2,Z_DEFLATED,15,8,Z_DEFAULT_STRATEGY)!=Z_OK){free(shuf);j->err=1;return NULL;}
+    if(deflateInit2(&zs,2,Z_DEFLATED,15,8,Z_DEFAULT_STRATEGY)!=Z_OK){if(owns_local)free(shuf);j->err=1;return NULL;}
     zs.next_in=shuf; zs.avail_in=(uInt)j->nbytes; zs.next_out=j->comp; zs.avail_out=(uInt)j->cap;
     int rc=deflate(&zs,Z_FINISH);
-    if(rc!=Z_STREAM_END){deflateEnd(&zs);free(shuf);j->err=1;return NULL;}
+    if(rc!=Z_STREAM_END){deflateEnd(&zs);if(owns_local)free(shuf);j->err=1;return NULL;}
     j->out=zs.total_out;
-    deflateEnd(&zs); free(shuf);
+    deflateEnd(&zs); if(owns_local)free(shuf);
     return NULL;
 }
 
@@ -239,6 +278,9 @@ int wps_root_provider(const nc_precompressed_float_layout*layout,const void*raw,
     cpu_set_t allowed;if(sched_getaffinity(0,sizeof allowed,&allowed))return NC_EINVAL;
     for(int i=0;i<4;i++){if(opt->cpus[i]<0||opt->cpus[i]>=CPU_SETSIZE||!CPU_ISSET(opt->cpus[i],&allowed))return NC_EINVAL;for(int k=0;k<i;k++)if(opt->cpus[i]==opt->cpus[k])return NC_EINVAL;}
 
+    int cache_eligible=(opt->threads==4&&chunk_bytes<=WPS_SCRATCH_CAP);
+    int lease_held=0;
+
 
     wps_job jobs[NC_PRECOMPRESSED_BATCH_MAX];
     pthread_t tid[NC_PRECOMPRESSED_BATCH_MAX];
@@ -246,7 +288,14 @@ int wps_root_provider(const nc_precompressed_float_layout*layout,const void*raw,
         jobs[c].nbytes=chunk_bytes; jobs[c].cap=compressBound((uLong)chunk_bytes);
         jobs[c].comp=(unsigned char*)malloc(jobs[c].cap?jobs[c].cap:1); jobs[c].err=0; jobs[c].out=0; jobs[c].cpu=opt->cpus[c];
         jobs[c].layout=layout; jobs[c].raw=(const unsigned char*)raw; jobs[c].chunk=c;
+        jobs[c].leased_ok=0; jobs[c].lease_slot=0;
         if(!jobs[c].comp){for(size_t k=0;k<c;k++)free(jobs[k].comp);return NC_ENOMEM;}
+    }
+    if(cache_eligible&&layout->batch_count<=WPS_SCRATCH_SLOTS&&!atomic_flag_test_and_set(&wps_bank_lock)){
+        lease_held=1;
+        for(size_t c=0;c<layout->batch_count;c++){
+            jobs[c].leased_ok=1; jobs[c].lease_slot=c;
+        }
     }
     size_t started=0;int bad=0;
     if(opt->threads==1){for(size_t c=0;c<layout->batch_count;c++){jobs[c].cpu=opt->cpus[0];wps_worker(&jobs[c]);if(jobs[c].err)bad=1;}if(pthread_setaffinity_np(pthread_self(),sizeof allowed,&allowed))abort();}
@@ -255,6 +304,7 @@ int wps_root_provider(const nc_precompressed_float_layout*layout,const void*raw,
       bad=(started!=layout->batch_count);
       for(size_t c=0;c<started;c++){if(pthread_join(tid[c],NULL)){/* unsafe to return/free while an unjoined worker may live */ abort();}if(jobs[c].err)bad=1;}
     }
+    if(lease_held){atomic_flag_clear(&wps_bank_lock);lease_held=0;}
     if(bad){for(size_t c=0;c<layout->batch_count;c++)free(jobs[c].comp);return NC_EIO;}
     wps_storage*st=(wps_storage*)calloc(1,sizeof *st);
     if(!st){for(size_t c=0;c<layout->batch_count;c++)free(jobs[c].comp);return NC_ENOMEM;}
