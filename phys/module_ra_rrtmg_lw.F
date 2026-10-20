@@ -11555,6 +11555,8 @@ contains
             do ig = 1, ngptlw
                cldfmc(ig,l) = cldfmcl(ig,iplon,l)
                taucmc(ig,l) = taucmcl(ig,iplon,l)
+            enddo
+            do ig = 1, ngptlw
                ciwpmc(ig,l) = ciwpmcl(ig,iplon,l)
                clwpmc(ig,l) = clwpmcl(ig,iplon,l)
                cswpmc(ig,l) = cswpmcl(ig,iplon,l)
