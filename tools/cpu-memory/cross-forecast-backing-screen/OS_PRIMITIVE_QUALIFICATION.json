@@ -1,0 +1,516 @@
+{
+  "status": "PASS_4MIB_PUBLIC_SYNTHETIC_SEALED_MEMFD_OS_PRIMITIVES_NOT_WRF_BACKEND_OR_ADMISSION",
+  "supervisor_invocation_id": "3f203a96def248aaa26658889de1b8e3",
+  "payload_bytes": 4194304,
+  "cases": [
+    {
+      "case": "stale",
+      "status": "PASS_EXPLICIT_IDENTITY_REJECTION",
+      "accepted": false
+    },
+    {
+      "case": "orderly",
+      "status": "PASS_PREATTACHED_SURVIVED",
+      "creator_expected_signal_failure": false,
+      "consumer": {
+        "bytes_compared_after_terminal": 4194304,
+        "pid": 2002488,
+        "sha256": "2b07811057df887086f06a67edc6ebf911de8b6741156e7a2eb1416a4b8b1b2e",
+        "status": "PASS_PREATTACHED_SURVIVED",
+        "terminal_cause": "orderly_exit",
+        "ticks": 210417649
+      }
+    },
+    {
+      "case": "killed",
+      "status": "PASS_PREATTACHED_SURVIVED",
+      "creator_expected_signal_failure": true,
+      "consumer": {
+        "bytes_compared_after_terminal": 4194304,
+        "pid": 2002510,
+        "sha256": "2b07811057df887086f06a67edc6ebf911de8b6741156e7a2eb1416a4b8b1b2e",
+        "status": "PASS_PREATTACHED_SURVIVED",
+        "terminal_cause": "sigkill_9",
+        "ticks": 210417880
+      }
+    },
+    {
+      "case": "unsealed",
+      "status": "PASS_EXPLICIT_UNSEALED_REJECTION",
+      "accepted": false
+    }
+  ],
+  "mechanism_checked": "Separate sameUID service execs; independent proc FD open with no payload FD inheritance; four required seals; O_RDWR pwrite and writable shared mmap rejected EPERM; fullbyte comparisons before/after denied mutation and after creator terminal. Values are hard assertions in actual pinned executed probe; individual attached JSON not separately fetched.",
+  "supervisor_actual_startup": {
+    "pid": 2002364,
+    "uid": 1000,
+    "hostname": "hpc04",
+    "affinity": [
+      24,
+      25
+    ],
+    "cgroup_path": "/system.slice/wrf-cpu-thompson-sealed-memfd-os-probe-hpc04-r1.service",
+    "resource_files": {
+      "cpu.max": "10000 100000",
+      "memory.max": "1073741824",
+      "memory.swap.max": "0"
+    },
+    "invocation_id": "3f203a96def248aaa26658889de1b8e3",
+    "monotonic_ns": 2104174696399629
+  },
+  "leaves": [
+    {
+      "unit": "wrf-cpu-memfd-os-orderly-stale-attacher-hpc04-r1.service",
+      "invocation_id": "e1046bc1b9b44e2ba4c0922a72eb6798",
+      "pid": 2002447,
+      "startticks": 210417521,
+      "terminal_cause": "orderly_exit",
+      "raw_result": "success",
+      "raw_exit_status": 0,
+      "raw_exit_code_kind": 1,
+      "terminal_active_state": "inactive",
+      "cgroup_absent_empty": true,
+      "startup_resource_and_manager_binding_verified": true
+    },
+    {
+      "unit": "wrf-cpu-memfd-os-orderly-creator-hpc04-r1.service",
+      "invocation_id": "dafcd987448944d3bf71ab2275013047",
+      "pid": 2002421,
+      "startticks": 210417490,
+      "terminal_cause": "orderly_exit",
+      "raw_result": "success",
+      "raw_exit_status": 0,
+      "raw_exit_code_kind": 1,
+      "terminal_active_state": "inactive",
+      "cgroup_absent_empty": true,
+      "startup_resource_and_manager_binding_verified": true
+    },
+    {
+      "unit": "wrf-cpu-memfd-os-orderly-attacher-hpc04-r1.service",
+      "invocation_id": "2d5a74a3525e47d2bb43f7458da057ce",
+      "pid": 2002488,
+      "startticks": 210417649,
+      "terminal_cause": "orderly_exit",
+      "raw_result": "success",
+      "raw_exit_status": 0,
+      "raw_exit_code_kind": 1,
+      "terminal_active_state": "inactive",
+      "cgroup_absent_empty": true,
+      "startup_resource_and_manager_binding_verified": true
+    },
+    {
+      "unit": "wrf-cpu-memfd-os-killed-creator-hpc04-r1.service",
+      "invocation_id": "eaeeadfc121c44b0ae9b0a5becec8ee0",
+      "pid": 2002505,
+      "startticks": 210417850,
+      "terminal_cause": "sigkill_9",
+      "raw_result": "signal",
+      "raw_exit_status": 9,
+      "raw_exit_code_kind": 2,
+      "terminal_active_state": "failed",
+      "cgroup_absent_empty": true,
+      "startup_resource_and_manager_binding_verified": true
+    },
+    {
+      "unit": "wrf-cpu-memfd-os-killed-attacher-hpc04-r1.service",
+      "invocation_id": "d1c4f64d33b24a7bac934d15ea38c451",
+      "pid": 2002510,
+      "startticks": 210417880,
+      "terminal_cause": "orderly_exit",
+      "raw_result": "success",
+      "raw_exit_status": 0,
+      "raw_exit_code_kind": 1,
+      "terminal_active_state": "inactive",
+      "cgroup_absent_empty": true,
+      "startup_resource_and_manager_binding_verified": true
+    },
+    {
+      "unit": "wrf-cpu-memfd-os-unsealed-attacher-hpc04-r1.service",
+      "invocation_id": "ca6fa7e4e75141bc9b1e143fac9f1242",
+      "pid": 2002579,
+      "startticks": 210418130,
+      "terminal_cause": "orderly_exit",
+      "raw_result": "success",
+      "raw_exit_status": 0,
+      "raw_exit_code_kind": 1,
+      "terminal_active_state": "inactive",
+      "cgroup_absent_empty": true,
+      "startup_resource_and_manager_binding_verified": true
+    },
+    {
+      "unit": "wrf-cpu-memfd-os-unsealed-creator-hpc04-r1.service",
+      "invocation_id": "36a9270771124e608b91c46bc34c2146",
+      "pid": 2002573,
+      "startticks": 210418090,
+      "terminal_cause": "orderly_exit",
+      "raw_result": "success",
+      "raw_exit_status": 0,
+      "raw_exit_code_kind": 1,
+      "terminal_active_state": "inactive",
+      "cgroup_absent_empty": true,
+      "startup_resource_and_manager_binding_verified": true
+    }
+  ],
+  "all7_leaf_drains_verified": true,
+  "supervisor_normal_strongclosure_verified": true,
+  "expected_signal_failure_preserved": true,
+  "snapshot_summary": [
+    {
+      "phase": "orderly_creator_ready_before_attachment",
+      "monotonic_ns": 2104175004280256,
+      "leaves": {
+        "wrf-cpu-memfd-os-orderly-creator-hpc04-r1.service": {
+          "memory_current_bytes": 16527360,
+          "memory_peak_bytes": 16531456,
+          "shmem_bytes_observed": 0,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "unavailable_files": []
+        }
+      }
+    },
+    {
+      "phase": "orderly_both_live_attached",
+      "monotonic_ns": 2104176616659683,
+      "leaves": {
+        "wrf-cpu-memfd-os-orderly-creator-hpc04-r1.service": {
+          "memory_current_bytes": 16371712,
+          "memory_peak_bytes": 16531456,
+          "shmem_bytes_observed": 0,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "unavailable_files": []
+        },
+        "wrf-cpu-memfd-os-orderly-attacher-hpc04-r1.service": {
+          "memory_current_bytes": 16572416,
+          "memory_peak_bytes": 16588800,
+          "shmem_bytes_observed": 0,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "unavailable_files": []
+        }
+      }
+    },
+    {
+      "phase": "orderly_creator_terminal_consumer_holds",
+      "monotonic_ns": 2104177490202148,
+      "leaves": {
+        "wrf-cpu-memfd-os-orderly-creator-hpc04-r1.service": {
+          "memory_current_bytes": null,
+          "memory_peak_bytes": null,
+          "shmem_bytes_observed": null,
+          "events": null,
+          "unavailable_files": [
+            "memory.current",
+            "memory.peak",
+            "memory.stat",
+            "memory.events"
+          ]
+        },
+        "wrf-cpu-memfd-os-orderly-attacher-hpc04-r1.service": {
+          "memory_current_bytes": 16338944,
+          "memory_peak_bytes": 16588800,
+          "shmem_bytes_observed": 0,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "unavailable_files": []
+        }
+      }
+    },
+    {
+      "phase": "orderly_both_closed",
+      "monotonic_ns": 2104178305909692,
+      "leaves": {
+        "wrf-cpu-memfd-os-orderly-creator-hpc04-r1.service": {
+          "memory_current_bytes": null,
+          "memory_peak_bytes": null,
+          "shmem_bytes_observed": null,
+          "events": null,
+          "unavailable_files": [
+            "memory.current",
+            "memory.peak",
+            "memory.stat",
+            "memory.events"
+          ]
+        },
+        "wrf-cpu-memfd-os-orderly-attacher-hpc04-r1.service": {
+          "memory_current_bytes": null,
+          "memory_peak_bytes": null,
+          "shmem_bytes_observed": null,
+          "events": null,
+          "unavailable_files": [
+            "memory.current",
+            "memory.peak",
+            "memory.stat",
+            "memory.events"
+          ]
+        }
+      }
+    },
+    {
+      "phase": "killed_creator_ready_before_attachment",
+      "monotonic_ns": 2104178601937400,
+      "leaves": {
+        "wrf-cpu-memfd-os-killed-creator-hpc04-r1.service": {
+          "memory_current_bytes": 16625664,
+          "memory_peak_bytes": 16629760,
+          "shmem_bytes_observed": 0,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "unavailable_files": []
+        }
+      }
+    },
+    {
+      "phase": "killed_both_live_attached",
+      "monotonic_ns": 2104178920551812,
+      "leaves": {
+        "wrf-cpu-memfd-os-killed-creator-hpc04-r1.service": {
+          "memory_current_bytes": 16359424,
+          "memory_peak_bytes": 16629760,
+          "shmem_bytes_observed": 4194304,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "unavailable_files": []
+        },
+        "wrf-cpu-memfd-os-killed-attacher-hpc04-r1.service": {
+          "memory_current_bytes": 16551936,
+          "memory_peak_bytes": 16580608,
+          "shmem_bytes_observed": 0,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "unavailable_files": []
+        }
+      }
+    },
+    {
+      "phase": "killed_creator_terminal_consumer_holds",
+      "monotonic_ns": 2104179925503312,
+      "leaves": {
+        "wrf-cpu-memfd-os-killed-creator-hpc04-r1.service": {
+          "memory_current_bytes": null,
+          "memory_peak_bytes": null,
+          "shmem_bytes_observed": null,
+          "events": null,
+          "unavailable_files": [
+            "memory.current",
+            "memory.peak",
+            "memory.stat",
+            "memory.events"
+          ]
+        },
+        "wrf-cpu-memfd-os-killed-attacher-hpc04-r1.service": {
+          "memory_current_bytes": 16343040,
+          "memory_peak_bytes": 16580608,
+          "shmem_bytes_observed": 0,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "unavailable_files": []
+        }
+      }
+    },
+    {
+      "phase": "killed_both_closed",
+      "monotonic_ns": 2104180718593401,
+      "leaves": {
+        "wrf-cpu-memfd-os-killed-creator-hpc04-r1.service": {
+          "memory_current_bytes": null,
+          "memory_peak_bytes": null,
+          "shmem_bytes_observed": null,
+          "events": null,
+          "unavailable_files": [
+            "memory.current",
+            "memory.peak",
+            "memory.stat",
+            "memory.events"
+          ]
+        },
+        "wrf-cpu-memfd-os-killed-attacher-hpc04-r1.service": {
+          "memory_current_bytes": null,
+          "memory_peak_bytes": null,
+          "shmem_bytes_observed": null,
+          "events": null,
+          "unavailable_files": [
+            "memory.current",
+            "memory.peak",
+            "memory.stat",
+            "memory.events"
+          ]
+        }
+      }
+    },
+    {
+      "phase": "unsealed_creator_ready_before_attachment",
+      "monotonic_ns": 2104181092528940,
+      "leaves": {
+        "wrf-cpu-memfd-os-unsealed-creator-hpc04-r1.service": {
+          "memory_current_bytes": 16355328,
+          "memory_peak_bytes": 16470016,
+          "shmem_bytes_observed": 0,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "unavailable_files": []
+        }
+      }
+    },
+    {
+      "phase": "unsealed_creator_terminal_consumer_holds",
+      "monotonic_ns": 2104182826328656,
+      "leaves": {
+        "wrf-cpu-memfd-os-unsealed-creator-hpc04-r1.service": {
+          "memory_current_bytes": null,
+          "memory_peak_bytes": null,
+          "shmem_bytes_observed": null,
+          "events": null,
+          "unavailable_files": [
+            "memory.current",
+            "memory.peak",
+            "memory.stat",
+            "memory.events"
+          ]
+        },
+        "wrf-cpu-memfd-os-unsealed-attacher-hpc04-r1.service": {
+          "memory_current_bytes": null,
+          "memory_peak_bytes": null,
+          "shmem_bytes_observed": null,
+          "events": null,
+          "unavailable_files": [
+            "memory.current",
+            "memory.peak",
+            "memory.stat",
+            "memory.events"
+          ]
+        }
+      }
+    },
+    {
+      "phase": "unsealed_both_closed",
+      "monotonic_ns": 2104182826718488,
+      "leaves": {
+        "wrf-cpu-memfd-os-unsealed-creator-hpc04-r1.service": {
+          "memory_current_bytes": null,
+          "memory_peak_bytes": null,
+          "shmem_bytes_observed": null,
+          "events": null,
+          "unavailable_files": [
+            "memory.current",
+            "memory.peak",
+            "memory.stat",
+            "memory.events"
+          ]
+        },
+        "wrf-cpu-memfd-os-unsealed-attacher-hpc04-r1.service": {
+          "memory_current_bytes": null,
+          "memory_peak_bytes": null,
+          "shmem_bytes_observed": null,
+          "events": null,
+          "unavailable_files": [
+            "memory.current",
+            "memory.peak",
+            "memory.stat",
+            "memory.events"
+          ]
+        }
+      }
+    }
+  ],
+  "observed_maximum_single_leaf_memory_peak_bytes": 16629760,
+  "unavailable_file_observations_count": 40,
+  "charge_limitations": "Creator leaf cgroup files disappear after closure while preattached consumer retains correct bytes; charge destination not measured. Observed shmem zeros/sequential counters do not establish absence or location of payload charge. No reparent destination, physical residency, total job/host savings, NUMA, quota or admission inferred.",
+  "scope_limits": [
+    "One4MiB deterministic public payload onhpc04",
+    "No WRF helper/source integration or full5state/science test",
+    "No cross-world quota/concurrency implementation",
+    "No forecast savings or two-job fit",
+    "No persistent daemon/cachebackend"
+  ],
+  "raw_refs": [
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-cross-forecast-immutable-backing-feasibility-r1/synthetic-os-probe-preparation-r1/native-gate-r1/actual-native-r1/receipt.json",
+      "sha256": "1ac28693dd4f95addb80cf171aeedc20336954864121247fa917087158c02e4f"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-cross-forecast-immutable-backing-feasibility-r1/synthetic-os-probe-preparation-r1/native-gate-r1/actual-native-r1/closure.json",
+      "sha256": "6c2af37aae2e8b8c1cf432c6ad8f7c32fc90455ac947b1acb105bfc70e756bb9"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-cross-forecast-immutable-backing-feasibility-r1/synthetic-os-probe-preparation-r1/native-gate-r1/actual-native-r1/controller.json",
+      "sha256": "c6b8e281322b3cca3ec1a9f528fcc4d9322ca5801660a751d902d36550de79ee"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-cross-forecast-immutable-backing-feasibility-r1/synthetic-os-probe-preparation-r1/native-gate-r1/inputs/source-pins.json",
+      "sha256": "961fc8140eaf318ab8dd938a73a3529a86aa50d7a84e1cabe740a9299353672f"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-cross-forecast-immutable-backing-feasibility-r1/synthetic-os-probe-preparation-r1/native-gate-r1/inputs/probe.py",
+      "sha256": "b6d3d5ff1d397763ef5256e1bc6b47b7935ac2218f2061787e2166903739774a"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-cross-forecast-immutable-backing-feasibility-r1/synthetic-os-probe-preparation-r1/native-gate-r1/inputs/run_gate.py",
+      "sha256": "f2d8aedcb935e314cdeeaf53b34355d3054cbfe462defd2475e8167f79320811"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-cross-forecast-immutable-backing-feasibility-r1/synthetic-os-probe-preparation-r1/native-gate-r1/controller.py",
+      "sha256": "143dbdb8fa3d55d037fb568df2e8400248b9b70cbb1de2a45203ef26de120d67"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-cross-forecast-immutable-backing-feasibility-r1/synthetic-os-probe-preparation-r1/ADJUDICATION.json",
+      "sha256": "0146b8b1a897f6e20e093fccd630eb83a00a2bed26add312dd6170bac9590256"
+    }
+  ],
+  "no_further_jobs_or_retries": true
+}

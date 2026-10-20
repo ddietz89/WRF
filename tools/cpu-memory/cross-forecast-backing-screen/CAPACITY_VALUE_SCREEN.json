@@ -1,0 +1,58 @@
+{
+  "status": "NO_SUPPORTED_DUAL_FORECAST_ADMISSION_OR_BACKEND_ENGINEERING_BENEFIT_YET",
+  "maximum_nominal_logical_payload_avoidance_GiB": 2.7840989232063293,
+  "nodes": {
+    "hpc01": {
+      "idle_MemAvailable_after_existing_clear_GiB": 119.03068161010742,
+      "idle_cache_snapshot_utc": "2026-10-20T19:41:56.185711+00:00",
+      "old_optimistic_startup_plus_late_GiB": 126.11166000366211,
+      "illustrative_minus_full_nominal_backing_GiB": 123.32756108045578,
+      "illustrative_idle_MemAvailable_margin_GiB": -4.296879470348358
+    },
+    "hpc02": {
+      "idle_MemAvailable_after_existing_clear_GiB": 119.64078140258789,
+      "idle_cache_snapshot_utc": "2026-10-20T19:41:57.670809+00:00",
+      "old_optimistic_startup_plus_late_GiB": 123.649169921875,
+      "illustrative_minus_full_nominal_backing_GiB": 120.86507099866867,
+      "illustrative_idle_MemAvailable_margin_GiB": -1.22428959608078
+    },
+    "hpc03": {
+      "idle_MemAvailable_after_existing_clear_GiB": 117.08749008178711,
+      "idle_cache_snapshot_utc": "2026-10-20T19:41:55.981423+00:00",
+      "old_optimistic_startup_plus_late_GiB": 122.82731246948242,
+      "illustrative_minus_full_nominal_backing_GiB": 120.04321354627609,
+      "illustrative_idle_MemAvailable_margin_GiB": -2.955723464488983
+    },
+    "hpc04": {
+      "idle_MemAvailable_after_existing_clear_GiB": 119.4239501953125,
+      "idle_cache_snapshot_utc": "2026-10-20T19:41:55.582224+00:00",
+      "old_optimistic_startup_plus_late_GiB": 121.00775909423828,
+      "illustrative_minus_full_nominal_backing_GiB": 118.22366017103195,
+      "illustrative_idle_MemAvailable_margin_GiB": 1.200290024280548
+    }
+  },
+  "meaning": "Cross-epoch illustrative screen only: comparing latest collected no-job MemAvailable estimate with older41b singlejob sparse charge envelope after subtracting ALLnominal table payload. It is neither physical marginal accounting nor an admission bound. Even this generous screen leaves01/02/03negative margins; node01 about4.30GiBdeficit, notpositiveOSheadroom.",
+  "limitations": [
+    "Latest already-collected complete no-model QV boundary19:41:55..58Z nowlocal; no new host sample or capacity run was taken.",
+    "MemAvailable is a kernel estimate including reclaimable cache, not an allocation promise or fixedOSreserve.",
+    "Old envelope from41b/51a/3edf notcurrentRQ; elapsed>=300s not proveninitend; sequential charge counters/unassigned residualup6.316GiB and sparse samples.",
+    "Subtracting entire2.784GiB assumes avoided backing overlaps envelope; private stage and transient copies remain, exact startup savingsUNKNOWN.",
+    "Shared page charge may be reparented outside leaf and future aggregate containment unproven.",
+    "Cleanfile exclusion already optimistic; no doubleclaim filecache/shmem savings."
+  ],
+  "next_decision": "Defer production backend implementation unless a current measured capacity/throughput path justifies it. Preserve OSprimitive proof; prioritize accurately identity-bound current daytime profile afterQVshortclosure. No capacity run, collocation, quota/NUMA/cache backend prepared.",
+  "references": [
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-ninehour-rank-progress-telemetry-audit-r1/POST_INITIALIZATION_ENVELOPE_FOLLOWUP.json",
+      "sha256": "9c5349dc016c0cb60adb0d0ad68a70120c91d772cac888e87889f96d7f022314"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-rqvblten-part2-10m-runtime-r1/cache-clear-candidate.json",
+      "sha256": "06cbd796e4cc70d84336d2b3c63c4472346bdf61eb377f54a012daed4a4f1e9c"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-cross-forecast-immutable-backing-feasibility-r1/synthetic-os-probe-preparation-r1/OS_PRIMITIVE_QUALIFICATION.json",
+      "sha256": "7de6f45ba8ba30e5b590ac3c82275a544fbfd50902300b632301daf8dfcdfec2"
+    }
+  ]
+}

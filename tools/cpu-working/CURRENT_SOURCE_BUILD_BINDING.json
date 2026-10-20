@@ -1,11 +1,11 @@
 {
-  "status": "WORKING_SELECTED_RQVFTEN_PART2_SIMD_AFTER_ORIGINAL_THREE_HOUR",
-  "source_commit": "31ca2fd4142b077d5800c30292915a33e38f1d59",
+  "status": "WORKING_SELECTED_RQVBLTEN_PART2_SIMD_AFTER_ORIGINAL_SHORT",
+  "source_commit": "a01463f8481ce27456b0f2104faa1f0dd3980609",
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/current9d75-one-bigstep-rqvften-simd-hpc01-r1/wrf.exe",
-    "sha256": "ee665e11d60aa84b6f3f468b85f11762473f670344da4e3e42cdf6f382019835"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentee66-one-bigstep-rqvblten-simd-hpc01-r1/wrf.exe",
+    "sha256": "2bd16bd6e92c6bc795725694a10cd5c8a7f8329299baf2efe99ea38d3aac6bc3"
   },
-  "archive_sha256": "068da5b1d14a274c0fe64834fb834615f8765f46cc8f57a616b3b7acaf94a371",
+  "archive_sha256": "688a8f6b6873c514ad42c17ec6dd738e114c83edeccc820fdb1756ce54399276",
   "sources": {
     "dyn_em/start_em.F": "ba19b902eb43c9baa2f59d3ffef0dec7c6a0ccbf0a9ceb062b72e55cff5366fc",
     "phys/module_mp_thompson.F": "4a2bd094c9131e150ab1d7cbcacf66e59d06db65652905d15b2d231180946066",
@@ -16,7 +16,7 @@
     "tools/cpu-memory/thompson-table-sharing/shared_table.c": "6be5e91ac1f63a8dc589af8188363223c44a2b361e1ade85afc1576be2b5c116",
     "dyn_em/module_advect_em.F": "47c7b2b0025dca1971696eacd51d7c589ec2bc20a211cd80f7329404e230fae8",
     "share/module_bc.F": "9eb38066228f430b0ceda85523803d252e5e70dbb7e81a34df07879d112dfb8f",
-    "dyn_em/module_big_step_utilities_em.F": "fc0a548c1fdf4610015929987890c32bfd7ca9f49f304e17da88e41f0cad54ad",
+    "dyn_em/module_big_step_utilities_em.F": "21eb5c3d78bceee09a17cbcc86a82a58bccff483c61ceca7a0a2250d999cd364",
     "dyn_em/module_em.F": "ca2c2f614bd6e7b6b9c4545d0974890de1ee8254032a55fa205066eb80434dad",
     "dyn_em/module_small_step_em.F": "f998112d879b964e18f7637eb64b3135ea733b23a16a89b53362bdfc75728b98",
     "phys/module_bl_myjpbl.F": "795e00134d47f98f512d61ffc45f93b3599202499ee8d8429009611d21c4b11f",
@@ -92,14 +92,18 @@
     "RQVFTEN_PART2_overlay": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/phy-prep-part2-rqvften-simd/BUILD_QUALIFICATION.json",
       "sha256": "9be6f68695516a2a21cf2ebb062a6e71b9dcef479958772ab67d6eaedc1c9937"
+    },
+    "RQVBLTEN_PART2_overlay": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/phy-prep-part2-rqvblten-simd/BUILD_QUALIFICATION.json",
+      "sha256": "de9e7e40c940b7855006dac01abef3af86d8a713d06c75158052c67c8c103333"
     }
   },
-  "qualification_file": "../cpu-compute/phy-prep-part2-rqvften-simd/APPLICATION_QUALIFICATION.json",
+  "qualification_file": "../cpu-compute/phy-prep-part2-rqvblten-simd/APPLICATION_QUALIFICATION.json",
   "PD_real32_equivalence_file": "../cpu-compute/pd-row-workspace/QUALIFICATION.json",
   "PD_production_member_sha256": "8ec77f864716667aa79d40878fa11276f7dede4017c620201e54f9f83bb32b25",
   "PD_repaired_compile_object_sha256": "e5245eed1f84a67ea9d428bed8d8b2529f568ca49394f9cf8b85d97bdc50f560",
   "PD_equivalence_proof_sha256": "92abf53cb516e4394f2ce232ad81fb4985ea7b1f849310927e54aa4a2b1017cc",
-  "build_scope": "Current INATM+CU+PBL+RQVFTENee66/fc0a/archive068d plus output51a/codece1d8/rootinput06dNCa32: candidate-only original4products545/full512/faba/twoTiles/all4positivewriters/all32markers. Own3hTRUE/own9hFALSE; retainedoriginal timing UNPAIRED.",
+  "build_scope": "Current INATM+CU+PBL+RQVFTEN+RQVBLTEN2bd1/21eb/archive688a with all prior LW/MYJ/table/input06dNCa32/output51a/codece1d8: original2products35steps/full512/twoTiles/487495positive503511inactive,16activegroupmarkers/all32quiltFIELDVIEW1. OwnshortTRUE/own3hFALSE/own9hFALSE.",
   "runtime": {
     "WRF_EXPERIMENTAL_TPI_NUMA": 1,
     "other_settings": "Currentpool51a/codece1d8/HDF825/faba/FIELDVIEW1/shared1/singleIB; rootinput06dNCa32only."
@@ -169,6 +173,10 @@
     "RQVFTEN_PART2": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/phy-prep-part2-rqvften-simd/NATIVE_QUALIFICATION.json",
       "sha256": "46669bf117e5c0b506570cb7444b0b901a6843a672ff7166680ce6bba49cff5d"
+    },
+    "RQVBLTEN_PART2": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/phy-prep-part2-rqvblten-simd/NATIVE_QUALIFICATION.json",
+      "sha256": "1298d18aea8d00fc6e2d85292e13a7c5800d6d0be37523e51a3750c9bbb75242"
     }
   },
   "current_nine_hour_qualified": false,
@@ -177,10 +185,10 @@
     "sha256": "f38a865905d030be42ac0a965b4aa6afbc0eae280902a3839f20df176457f445"
   },
   "full_application": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/phy-prep-part2-rqvften-simd/APPLICATION_QUALIFICATION.json",
-    "sha256": "40d2a791210ecd7c0fca07de90e533e941db56afb7e12ca08f483a96355c73e0"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/phy-prep-part2-rqvblten-simd/APPLICATION_QUALIFICATION.json",
+    "sha256": "2ec4e60b9d9d6e8f60c3a3546a888f6ab387512f6a877d5261879ef5d2009655"
   },
-  "current_three_hour_qualified": true,
+  "current_three_hour_qualified": false,
   "prior_repaired_full_application": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/myj-mixlen-scratch-reuse/APPLICATION_QUALIFICATION.json",
     "sha256": "55e2170cfc4f695e2eb7124cb4dec541954a9db290979ed2423252a4b117eb2f"
@@ -278,7 +286,7 @@
     "path": "/home/ddietz/wrf/WRF/tools/cpu-working/NINE_HOUR_FINAL_QUALIFICATION.json",
     "sha256": "efbfe35f8a528e778f41770c6093a71ebd4c8bb8f7a1ce8096db54f5b12adaa9",
     "applies_to_current_selection": false,
-    "scope": "Historical0de ninehour; excludes INATM+CU+PBL+RQV."
+    "scope": "Historical0de ninehour excludesINATM+CU+PBL+RQVFTEN+RQVBLTEN."
   },
   "previous_noon75m_full_application": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-output/quilt512/padding-block32/APPLICATION_QUALIFICATION.json",
@@ -313,9 +321,9 @@
     },
     "fresh_matched_timing": false,
     "comparison_design": "Candidate-only science qualification versus frozen original three-hour outputs; UNPAIRED descriptive metrics, no matched timing or causal RQVFTEN claim",
-    "applies_to_current_selection": true,
+    "applies_to_current_selection": false,
     "repeatability_established": false,
-    "scope": "Current INATM+CU+PBL+RQVFTENee66/fc0a/archive068d plus output51a/codece1d8/rootinput06dNCa32: candidate-only original4products545/full512/faba/twoTiles/all4positivewriters/all32markers. Own3hTRUE/own9hFALSE; retainedoriginal timing UNPAIRED."
+    "scope": "Historical RQVFTENee66/source31ca before RQVBLTEN. Actual4products545/full512 exact,660.3921359390952s MPIwall; candidate-only UNPAIRED descriptive metrics. Does not qualify child2bd1. Existing THREE_HOUR_RESULT/Q bytes and hashes unchanged."
   },
   "previous_parent_three_hour_full_application": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_THREE_HOUR_FINAL_QUALIFICATION_BEFORE_CEC_SLIDE.json",
@@ -324,16 +332,16 @@
   },
   "POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
-    "source_commit": "31ca2fd4142b077d5800c30292915a33e38f1d59",
+    "source_commit": "a01463f8481ce27456b0f2104faa1f0dd3980609",
     "raw_build_producer_source_commit": null,
     "canonical_source": "dyn_em/module_big_step_utilities_em.F",
-    "canonical_source_sha256": "fc0a548c1fdf4610015929987890c32bfd7ca9f49f304e17da88e41f0cad54ad",
-    "preprocessed_candidate_sha256": "8c674bd4ebc554df2a0faf6352cf494e33132dd31b1af25ec3e6d07f27b01edc",
-    "object_sha256": "4b6df57dc93f6d3db24756acfc1865f3db6c62b22776a3265c34d9607a9ca198",
+    "canonical_source_sha256": "21eb5c3d78bceee09a17cbcc86a82a58bccff483c61ceca7a0a2250d999cd364",
+    "preprocessed_candidate_sha256": "cf150bdf14617da5ef7c027deeb86e681eb8e4d2eafa54bbc8e512843cf08140",
+    "object_sha256": "e387cc1d3d0f382d76b1cee40df3270b8389792c8b61876772019e408b07e066",
     "module_interface_sha256": "01702a275cfaa6e411f3b53342033027a3beca789ccd80a7b2e1becf3f43e7ee",
-    "executable_sha256": "ee665e11d60aa84b6f3f468b85f11762473f670344da4e3e42cdf6f382019835",
-    "archive_sha256": "068da5b1d14a274c0fe64834fb834615f8765f46cc8f57a616b3b7acaf94a371",
-    "scope": "One RQVFTEN-loop directive only, committed after native/caller/canonical-preprocess/link/original3hSCI. Frozen rawproducerNULL unchanged; no isolated forecast or own9h claim."
+    "executable_sha256": "2bd16bd6e92c6bc795725694a10cd5c8a7f8329299baf2efe99ea38d3aac6bc3",
+    "archive_sha256": "688a8f6b6873c514ad42c17ec6dd738e114c83edeccc820fdb1756ce54399276",
+    "scope": "One additional RQVBLTEN innerI directive, committed after native56/caller/canonicalCPP/one-memberlink/originalshortSCI. FrozenrawproducerNULL; no own3h/9h or forecastgain transfer."
   },
   "previous_mcica_full_application": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/mcica-mask-fusion/APPLICATION_QUALIFICATION.json",
@@ -666,12 +674,16 @@
     "RQVFTEN_PART2": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/phy-prep-part2-rqvften-simd/CALLER_QUALIFICATION.json",
       "sha256": "195dee6c15ee611597d2c1079868c10c55910c3693351659c967c578639ab48f"
+    },
+    "RQVBLTEN_PART2": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/phy-prep-part2-rqvblten-simd/CALLER_QUALIFICATION.json",
+      "sha256": "636e696a014fcb7900791f41b1964ba1f2e474e7797bb84f67573aed15c2fd15"
     }
   },
   "candidate_memory_actual": {
     "hpc01": {
       "limit_bytes": 107374182400,
-      "peak_bytes": 76201582592,
+      "peak_bytes": 76185473024,
       "events": {
         "low": 0,
         "high": 0,
@@ -683,7 +695,7 @@
     },
     "hpc02": {
       "limit_bytes": 107374182400,
-      "peak_bytes": 73766166528,
+      "peak_bytes": 73773436928,
       "events": {
         "low": 0,
         "high": 0,
@@ -695,7 +707,7 @@
     },
     "hpc03": {
       "limit_bytes": 107374182400,
-      "peak_bytes": 73704988672,
+      "peak_bytes": 73708838912,
       "events": {
         "low": 0,
         "high": 0,
@@ -707,7 +719,7 @@
     },
     "hpc04": {
       "limit_bytes": 111669149696,
-      "peak_bytes": 73680478208,
+      "peak_bytes": 73676279808,
       "events": {
         "low": 0,
         "high": 0,
@@ -736,7 +748,7 @@
     "archive_sha256": "dd329f8d0aa126c8475dbb690d0d8571af34b63d20fac48da7c207a1001c934f",
     "scope": "One CU-loop directive only, committed after native/caller/canonical-preprocess/link/original3hSCI. Frozen rawproducerNULL unchanged; no isolated forecast or own9h claim."
   },
-  "current_short_qualified": false,
+  "current_short_qualified": true,
   "previous_PBL_PART2_POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
     "source_commit": "61c2b67e086360442b07a83090df5712b7905d8f",
@@ -750,5 +762,18 @@
     "archive_sha256": "f4783549240df4cf8a584a1a023cf5902e0e41a64ca6ecf7afac22abf1e0241d",
     "scope": "One additional PBL innerI directive, committed after native/caller/canonicalCPP/one-memberlink/originalshortSCI. FrozenrawproducerNULL; no own3h/9h or forecastgain transfer."
   },
-  "previous_PBL_application_retry_scope": "Fresh R2 normal model+reader PASS; originalR1FAILED preserved. No reconstructed completion or manager waiver."
+  "previous_PBL_application_retry_scope": "Fresh R2 normal model+reader PASS; originalR1FAILED preserved. No reconstructed completion or manager waiver.",
+  "previous_RQVFTEN_PART2_POST_TEST_SOURCE_IDENTITY": {
+    "status": "POST_TEST_SOURCE_IDENTITY",
+    "source_commit": "31ca2fd4142b077d5800c30292915a33e38f1d59",
+    "raw_build_producer_source_commit": null,
+    "canonical_source": "dyn_em/module_big_step_utilities_em.F",
+    "canonical_source_sha256": "fc0a548c1fdf4610015929987890c32bfd7ca9f49f304e17da88e41f0cad54ad",
+    "preprocessed_candidate_sha256": "8c674bd4ebc554df2a0faf6352cf494e33132dd31b1af25ec3e6d07f27b01edc",
+    "object_sha256": "4b6df57dc93f6d3db24756acfc1865f3db6c62b22776a3265c34d9607a9ca198",
+    "module_interface_sha256": "01702a275cfaa6e411f3b53342033027a3beca789ccd80a7b2e1becf3f43e7ee",
+    "executable_sha256": "ee665e11d60aa84b6f3f468b85f11762473f670344da4e3e42cdf6f382019835",
+    "archive_sha256": "068da5b1d14a274c0fe64834fb834615f8765f46cc8f57a616b3b7acaf94a371",
+    "scope": "One RQVFTEN-loop directive only, committed after native/caller/canonical-preprocess/link/original3hSCI. Frozen rawproducerNULL unchanged; no isolated forecast or own9h claim."
+  }
 }

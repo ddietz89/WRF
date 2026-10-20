@@ -1,6 +1,14 @@
 # WRF CPU optimization — continuing campaign handoff
 
-## Current combined LW + block-carry three-hour qualification (2026-10-20)
+## Current working selection and recovery (2026-10-20)
+
+Current selected2bd1/archive688a/post-test sourcea01463f8 includes all prior improvements plus vapor PBL tendency SIMD. Exact native56-case, complete synthetic caller and original short2-product/35-step/full512 checks passed; all jobs closed. Current ownshortTRUE, own3hFALSE, own9hFALSE. [Current findings](OPTIMIZATION_FINDINGS.md) and `tools/cpu-working/selection.json` supersede the historical selections below. Raw build producer commits remainNULL.
+
+Peak charged memory is70.953/68.707/68.647/68.616GiB per node, with no limit events. The configured100/100/100/104GiB values are caps, not usage. The fresh historical nine-hour pair measured92–104GiB original versus69–71GiB optimized. The latest completed three-hour parent test was848.677401→660.392136s wall,626.316100→560.659910s main elapsed and382698.863204→320886.634243CPU-s:UNPAIRED descriptive reductions22.19%/10.48%/16.15%, not current-child timing qualification. Main elapsed includes communication/backpressure.
+
+Rollback uses the paired BEFORE_RQVBLTEN_PART2_SIMD selection/binding and source-onlya01463f8. Cross-forecast table backing passed a small OS-primitive probe but is deferred without a demonstrated capacity benefit. Next is a current-build daytime capture using the proven three-role protocol and original nine-hour scientific reference. Continue the active Goal; production/master and suspended AWS remain excluded.
+
+## Historical combined LW + block-carry three-hour qualification (2026-10-20)
 
 The selected build is now **LW0de7/archiveBA63**, with post-test source commit `d27df44f`, codec **e1d8**, outputpool51a and rootinput06d/NCa32. The unchanged original comparison passed **four complete hourly products,545 ordered steps,all512 ranks,two tiles,all four positive writers and all32 field-view markers**. All eight model scopes and the reader strongly closed; no observer/perf was active.
 

@@ -1,0 +1,171 @@
+{
+  "status": "PASS_GENUINE_FULL_PART2_RESET_PLUS_CALL_TWO_REGIME_OPPOSITE_ORDER_EXACT",
+  "utc": "2026-10-20T19:30:22.885794+00:00",
+  "native_qualification_sha256": "1298d18aea8d00fc6e2d85292e13a7c5800d6d0be37523e51a3750c9bbb75242",
+  "native_qualification_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rqvblten-simd-r1/NATIVE_QUALIFICATION.json",
+  "raw_producer_source_commit": null,
+  "parent_object": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/phy-prep-part2-rqvften-simd-native-r1/work/candidate/module_big_step_utilities_em.o",
+    "sha256": "4b6df57dc93f6d3db24756acfc1865f3db6c62b22776a3265c34d9607a9ca198"
+  },
+  "candidate_object": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/phy-prep-part2-rqvblten-simd-native-r1/work/candidate/module_big_step_utilities_em.o",
+    "sha256": "e387cc1d3d0f382d76b1cee40df3270b8389792c8b61876772019e408b07e066",
+    "module_interface_sha256": "01702a275cfaa6e411f3b53342033027a3beca789ccd80a7b2e1becf3f43e7ee",
+    "preprocessed_sha256": "cf150bdf14617da5ef7c027deeb86e681eb8e4d2eafa54bbc8e512843cf08140"
+  },
+  "canonical_candidate_source_sha256": "21eb5c3d78bceee09a17cbcc86a82a58bccff483c61ceca7a0a2250d999cd364",
+  "fixed_repeats": 1024,
+  "geometry": [
+    188,
+    19,
+    32
+  ],
+  "pairs": {
+    "hpc01": {
+      "CONUS_TIEDTKE": {
+        "parent_wall_seconds": 3.829340195,
+        "candidate_wall_seconds": 3.760824793,
+        "wall_reduction_percent": 1.789222124726897,
+        "parent_cpu_seconds": 3.828532462,
+        "candidate_cpu_seconds": 3.760691071,
+        "cpu_reduction_percent": 1.7719946656677976
+      },
+      "GD_theta_m1": {
+        "parent_wall_seconds": 4.106244238,
+        "candidate_wall_seconds": 4.071205502,
+        "wall_reduction_percent": 0.8533037483680395,
+        "parent_cpu_seconds": 4.105479395,
+        "candidate_cpu_seconds": 4.070398648,
+        "cpu_reduction_percent": 0.8544860082046357
+      }
+    },
+    "hpc04": {
+      "CONUS_TIEDTKE": {
+        "parent_wall_seconds": 3.855215891,
+        "candidate_wall_seconds": 3.741671417,
+        "wall_reduction_percent": 2.945217004969014,
+        "parent_cpu_seconds": 3.85408574,
+        "candidate_cpu_seconds": 3.74144225,
+        "cpu_reduction_percent": 2.922703271256233
+      },
+      "GD_theta_m1": {
+        "parent_wall_seconds": 4.164118862,
+        "candidate_wall_seconds": 4.049067859,
+        "wall_reduction_percent": 2.762913519349963,
+        "parent_cpu_seconds": 4.16301077,
+        "candidate_cpu_seconds": 4.046923151,
+        "cpu_reduction_percent": 2.78854957178023
+      }
+    }
+  },
+  "arm_invocations": [
+    {
+      "arm": 0,
+      "host": "hpc01",
+      "which": "parent",
+      "invocation_id": "55235d16fb594f85b350bd8ea9d9c62a"
+    },
+    {
+      "arm": 1,
+      "host": "hpc04",
+      "which": "candidate",
+      "invocation_id": "bfb4f9e0422f4c859cdfa52704a3106f"
+    },
+    {
+      "arm": 2,
+      "host": "hpc01",
+      "which": "candidate",
+      "invocation_id": "4d92780d805845a080d9e0d0c0d68a7e"
+    },
+    {
+      "arm": 3,
+      "host": "hpc04",
+      "which": "parent",
+      "invocation_id": "aec7ba9e488c451c976cbea995614151"
+    }
+  ],
+  "regime_scope": {
+    "CONUS_TIEDTKE": "SYNTHETIC data with actualCONUS physicsflags TIEDTKESCHEME/MYJPBLSCHEME/rad4/SHCU0/use_theta_m1/fdda0, all6speciespresent and a5RQVBLTENlive (and unchangeda26forcinglive)",
+    "GD_theta_m1": "SYNTHETIC context, sameflags exceptcu=GDSCHEME; a5RQVBLTENlive (and unchangeda26forcing/thermalforcing live)",
+    "actual_forecast_separate": "CONUS flagmatch does not make syntheticarrays a capturedWRFtile or establish forecastgain; originalscientific application remainsrequired"
+  },
+  "clock_scope": "Raw reset31tendencies+th_phy+RMUNDGDTEN plus COMPLETEPART2 inside bothclocks; allocation/fill/warm/rawchecks/statecontrols outside; no repeateddecay",
+  "cpu_clock": "CLOCK_PROCESS_CPUTIME_ID single caller, not aggregate node CPU",
+  "raw_gold_sha256": "d8d0d12f23c95713cbc0672c4e920e1467f174d6c7a4b6361508337c03fc362a",
+  "cache_each_and_strong_closure_each": true,
+  "application_qualified": false,
+  "actual_arm_resource_counters": {
+    "0": {
+      "host": "hpc01",
+      "which": "parent",
+      "raw_cgroup_counters": {
+        "memory.peak": "230572032\n",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "cpu.stat": "usage_usec 9000539\nuser_usec 8466744\nsystem_usec 533794\ncore_sched.force_idle_usec 0\nnr_periods 125\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n"
+      },
+      "scope": "Whole timingunit counters, not isolatedtimedwindow"
+    },
+    "1": {
+      "host": "hpc04",
+      "which": "candidate",
+      "raw_cgroup_counters": {
+        "memory.peak": "230735872\n",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "cpu.stat": "usage_usec 8710955\nuser_usec 8236611\nsystem_usec 474344\ncore_sched.force_idle_usec 0\nnr_periods 91\nnr_throttled 1\nthrottled_usec 718\nnr_bursts 0\nburst_usec 0\n"
+      },
+      "scope": "Whole timingunit counters, not isolatedtimedwindow"
+    },
+    "2": {
+      "host": "hpc01",
+      "which": "candidate",
+      "raw_cgroup_counters": {
+        "memory.peak": "230666240\n",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "cpu.stat": "usage_usec 8706140\nuser_usec 8282842\nsystem_usec 423298\ncore_sched.force_idle_usec 0\nnr_periods 89\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n"
+      },
+      "scope": "Whole timingunit counters, not isolatedtimedwindow"
+    },
+    "3": {
+      "host": "hpc04",
+      "which": "parent",
+      "raw_cgroup_counters": {
+        "memory.peak": "230551552\n",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "cpu.stat": "usage_usec 8874565\nuser_usec 8457539\nsystem_usec 417026\ncore_sched.force_idle_usec 0\nnr_periods 91\nnr_throttled 1\nthrottled_usec 124\nnr_bursts 0\nburst_usec 0\n"
+      },
+      "scope": "Whole timingunit counters, not isolatedtimedwindow"
+    }
+  },
+  "limits": [
+    "Two fixed synthetic genuine public completePART2 callers; each timediteration includes rawreset of31tendencies/th_phy/RMUNDGDTEN plus actualfullcall. Resetcost maydominate and is notsubtracted.",
+    "Validation/allocation/fill/warm/rawoutput+guard+readonly+statecontrols outsideclock; finaloutputs/state matchonecallrawgold. No repeateddecay or deadwork.",
+    "No isolatedRQVBLTEN/fragment transfer, capturedproductiondata, forecastspeedup or repeatabilityclaim. ActualapplicationSCI stillrequired.",
+    "Literalqualifiedcomponentruntime51a/3edf/8adc; no contributionclaim for currentforecastcodece1d8 or rootinput.",
+    "Actual qualified RQVFTEN4b parent reused, no parent modulecompile; native56 includes original44exactprefix plus12 livea5 actualCONUSflags cases. Directsourcejoined RQVBLTEN codegen/MOD/nativefive-state proof retained. No source/default/production promotion."
+  ],
+  "raw_refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rqvblten-simd-r1/NATIVE_QUALIFICATION.json": "1298d18aea8d00fc6e2d85292e13a7c5800d6d0be37523e51a3750c9bbb75242",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rqvblten-simd-r1/caller-timing-preparation-r1/ACTUAL_WAVE.json": "cc8487867ca30bec799304036953585f45a59fc596298978dd5085fc02dac669",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rqvblten-simd-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/receipt.json": "7abda4c847104eb089e4ad2a0dc53f98cee693625862f1e3f05e79d423e63a9e",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rqvblten-simd-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/closure.json": "a2b8a1e46c3b17e4dae504a2ea89082b62bba79c9ac54d175652ac8357f15151",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rqvblten-simd-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/cache-clear.json": "3aac6a817dff760139b90f5876c54eec1c007aad0f85b3bf44af663e5500de9e",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rqvblten-simd-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/controller.json": "e1eaedb116ed0ea2773d6f6bd02b30b94e5d7cd03106b201aba8e854bf9c5d6d",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rqvblten-simd-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/receipt.json": "23a7b58408c340a986ca699ebc155b2742410bb299e7202dca74f566d34659f3",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rqvblten-simd-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/closure.json": "9d9404c3d7f0c346166427aec96180ba6e9dfdd4651444a4517e5a6c44a3b70d",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rqvblten-simd-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/cache-clear.json": "308bdf94a7419c710311b0bfcd657f1e936da8645aae59f60e16ea1fc017ad22",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rqvblten-simd-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/controller.json": "bde087dbcfdd09c05a10f74bf271aa16a2d9ecea73718c926ec0373bd070f622",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rqvblten-simd-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/receipt.json": "f2b7aac0612b7e9174cbbfd7eac7ddb606fde5e86d88115992435e950ba139db",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rqvblten-simd-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/closure.json": "d6aa6c62d56e0bc4cd447b2a15ad61919be94f77a47047bd77ede7f20f14d2f8",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rqvblten-simd-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/cache-clear.json": "ecdfb6261da264108246e422b72e7c60076a2e5a1addf4dd6e8960d2adc92aff",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rqvblten-simd-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/controller.json": "09dfa7e7d96992e38977d8cc0c110f77b353156c4b1abf910702bea37a1bf009",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rqvblten-simd-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/receipt.json": "f54ffc6446db2213909feae7562a5bd3d441fed639c72d09e12b51c28af8a993",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rqvblten-simd-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/closure.json": "f9b25f7737ea78317399e5d46c89d6fc82137ea99e24a9ce03a91f26f4e45afd",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rqvblten-simd-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/cache-clear.json": "cb9dec47c8a0be055deeee2a27d13953c3e9bf6a23292934319b1072285f21ec",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rqvblten-simd-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/controller.json": "0e063b4335d5ce1188b22575b895bc3d98af4ec6432ed2e98f15608a6623617b",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rqvblten-simd-r1/caller-timing-preparation-r1/driver-build-r1/actual-native-r1/receipt.json": "6f8c2f6db984c332c271fa5bc524e60a32c5e3f49eb8d5e88d11e203d4b09032",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rqvblten-simd-r1/caller-timing-preparation-r1/driver-build-r1/actual-native-r1/closure.json": "6e398fe6c64474b8cc49854b888774c4314e7067ef511d6e4e7283dfb03a3d60",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rqvblten-simd-r1/caller-timing-preparation-r1/timing_driver.f90": "8376583da85498f12916dbf773397f50a378479ec46a262a28c811abb6a3df1a",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rqvblten-simd-r1/caller-timing-preparation-r1/benchmark_clock.c": "2d7934b72e52865beb33aec2072982576705e43dbd4ccf66823c62db053b50c3"
+  }
+}

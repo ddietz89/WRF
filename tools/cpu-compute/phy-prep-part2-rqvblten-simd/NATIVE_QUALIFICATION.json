@@ -1,0 +1,85 @@
+{
+  "status": "PASS_CURRENT_RQVFTEN_PARENT_COMPLETE_PART2_RQVBLTEN_SIMD_56_CASES_O2_NATIVE",
+  "source_commit": null,
+  "canonical_parent_sha256": "fc0a548c1fdf4610015929987890c32bfd7ca9f49f304e17da88e41f0cad54ad",
+  "canonical_candidate_sha256": "21eb5c3d78bceee09a17cbcc86a82a58bccff483c61ceca7a0a2250d999cd364",
+  "parent_object": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/phy-prep-part2-rqvften-simd-native-r1/work/candidate/module_big_step_utilities_em.o",
+    "sha256": "4b6df57dc93f6d3db24756acfc1865f3db6c62b22776a3265c34d9607a9ca198"
+  },
+  "objects": {
+    "candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/phy-prep-part2-rqvblten-simd-native-r1/work/candidate/module_big_step_utilities_em.o",
+      "sha256": "e387cc1d3d0f382d76b1cee40df3270b8389792c8b61876772019e408b07e066",
+      "module_interface_sha256": "01702a275cfaa6e411f3b53342033027a3beca789ccd80a7b2e1becf3f43e7ee",
+      "preprocessed_sha256": "cf150bdf14617da5ef7c027deeb86e681eb8e4d2eafa54bbc8e512843cf08140"
+    }
+  },
+  "raw_proofs": {
+    "parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/phy-prep-part2-rqvblten-simd-native-r1/work/parent.bin",
+      "sha256": "1bd3a1e9c594d795ec6c6d64c66b98b196f9a8385548f2c1049d5aec0ebd39bd",
+      "bytes": 12165888
+    },
+    "candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/phy-prep-part2-rqvblten-simd-native-r1/work/candidate.bin",
+      "sha256": "1bd3a1e9c594d795ec6c6d64c66b98b196f9a8385548f2c1049d5aec0ebd39bd",
+      "bytes": 12165888
+    }
+  },
+  "cases": 56,
+  "state_record_scope": {
+    "complete_calls": 56,
+    "native_state_words_per_call": 5,
+    "total_native_state_words": 280,
+    "evidence": "Qualified literaldriver emits21header+5statewords percase thenall34arrays/4massfields/coeffs; bothentire12165888B streams exact. Countsderivefromactualsuccessful56caseworker+literalemissionlayout, notseparatearraydownload."
+  },
+  "original44_raw_prefix_exact": true,
+  "original44_raw_prefix": {
+    "sha256": "79e69b180db4e4052e8a1f0c8542dd386b2d87e0f6d811645870e6b578dbd74b",
+    "bytes": 9558912
+  },
+  "public_module_interface_exact": true,
+  "packed_division_counts_context": {
+    "parent": 14,
+    "candidate": 16
+  },
+  "target_specific_codegen": {
+    "proof_sha256": "2d1bda7f43da4d3e4b5f5e8a6f0546abca6474b53714444e12e57a73050fd199",
+    "PP_line": 5190,
+    "field": "RQVBLTEN/a5",
+    "main_body": "0x66a0..0x66bd (fourlanes)",
+    "main_DIVPS": "0x66af",
+    "two_lane_tail_DIVPS": "0x670c",
+    "scalar_remainder_DIVSS": "0x673b",
+    "parent_body": "Actual4b0x6550..6575 scalarDIVSS6565 perretainedexactparentjoin",
+    "global_count_only_not_used": true,
+    "no_approx_FMA_newISA": "Existingnativeworker fullsymbolmnemonicguard PASS; targetsourcejoin showsMULPS/ADDPS/DIVPS/load/store."
+  },
+  "invocation_id": "4048d8b675444f4889e3fa0f610f7f54",
+  "actual_receipt_sha256": "64b64885dedfc1f335c246b6f146328ff93d75d6d859263cd7d4202e2a2a710c",
+  "actual_closure_sha256": "dc88b394ddead467c8de23140129dc869862c28c3f201f974883595e49048aff",
+  "caller_qualified": false,
+  "application_qualified": false,
+  "limits": [
+    "56 fixed fullPART2 cases/assigned rounding states; not universal IEEE or enabled-trap firstfault proof.",
+    "Retained componentruntime51a/3edf/8adc; no full512/forecast/timing claim.",
+    "No parent wholemodule recompile, no stubs or source/default promotion.",
+    "OldsamplePCs belong41b/51a/3edf, notcurrentELF; no sampledshare/globalheadroomtransfer."
+  ],
+  "raw_refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rqvblten-simd-r1/native-gate-r1/actual-native-r1/receipt.json": "64b64885dedfc1f335c246b6f146328ff93d75d6d859263cd7d4202e2a2a710c",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rqvblten-simd-r1/native-gate-r1/actual-native-r1/closure.json": "dc88b394ddead467c8de23140129dc869862c28c3f201f974883595e49048aff",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rqvblten-simd-r1/native-gate-r1/actual-native-r1/controller.json": "8844465f80d940c32f8bed1a233a66dc4cc96802085481fe1c9cb5b4c9f29c65",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rqvblten-simd-r1/native-gate-r1/inputs/source-pins.json": "df79b87b452fb5a80f417f4dd6b4aa0d43966bf29901bdc5cca378674be7a2fc",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rqvblten-simd-r1/native-gate-r1/inputs/binding.json": "2f99b1f7f144d29f3e820e9444dcd487d24e5688c6b78410b8b23fa2f709ba51",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rqvblten-simd-r1/native-gate-r1/inputs/full_part2_driver.f90": "6fcbd0f0a193c68a058382369354e2bf4b046fd817708537381acbcabab57562",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rqvblten-simd-r1/native-gate-r1/inputs/parent_module_big_step_utilities_em.F": "fc0a548c1fdf4610015929987890c32bfd7ca9f49f304e17da88e41f0cad54ad",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rqvblten-simd-r1/native-gate-r1/inputs/candidate_module_big_step_utilities_em.F": "21eb5c3d78bceee09a17cbcc86a82a58bccff483c61ceca7a0a2250d999cd364",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rqvblten-simd-r1/native-gate-r1/codegen-verification-r1/ACTUAL_TARGET_CODEGEN.json": "2d1bda7f43da4d3e4b5f5e8a6f0546abca6474b53714444e12e57a73050fd199",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rqvblten-simd-r1/native-gate-r1/codegen-verification-r1/transport.json": "55322ee017e5129032b36d2fe6c5d35a2e28beb247621283d1c38292ff89ca99",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rqvblten-simd-r1/native-gate-r1/codegen-verification-r1/read_target_codegen_hpc00.py": "ab4b30bf2ed03cfafc7696978de4d73c7cb83ffdfb7fbf2ba34d649f3f9d369b",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rqvblten-simd-r1/read-only-triage-r1/ACTUAL_RESULT.json": "0eb36dea1bfeed7f96c7f538733308e7600929a1b78efaf203950f9e83556b08",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rqvblten-simd-r1/capture-ancestry-audit-r1/CAPTURE_ANCESTRY_CORRECTION.json": "830c5fb695c9465f949fefe9312a5a0efe429e4776b78442f1ba3f8e05a9b236"
+  }
+}

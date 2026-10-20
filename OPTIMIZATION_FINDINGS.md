@@ -1,8 +1,28 @@
 # WRF CPU optimization findings
 
-## Combined PBL and moisture-forcing SIMD: exact three-hour qualification (2026-10-20)
+## Vapor PBL tendency SIMD promoted; memory reduction retained (2026-10-20)
 
-The working configuration now selects **ee66/archive068d/source31ca2fd4**, including all prior improvements, PBL tendency SIMD and one additional directive for independent moisture-forcing conversion. Per-cell arithmetic and true division remain unchanged. The unchanged scientific checker passed **all four complete products and 545 ordered timesteps**, all512 ranks, two tiles, all32 field-view markers and all four positive writer groups. All model and reader jobs closed normally. [Application evidence](tools/cpu-compute/phy-prep-part2-rqvften-simd/APPLICATION_QUALIFICATION.json)40d2a791 binds26 actual references.
+The working configuration selects **2bd1/archive688a/sourcea01463f8**, adding one independent-I SIMD directive to vapor PBL tendency conversion. Per-cell arithmetic and true division are unchanged. Native56-case raw/IEEE/state checks, opposite-order complete synthetic callers and the unchanged original short full-grid check passed. Both complete products and all35 ordered timesteps matched, with512 ranks, two tiles, all32 quilt ranks using FIELDVIEW1,16 active-group markers and the correct two positive/two inactive writers. All model and reader scopes closed normally. [Application evidence](tools/cpu-compute/phy-prep-part2-rqvblten-simd/APPLICATION_QUALIFICATION.json)2ec4e60b binds26 verified references.
+
+The complete caller, including reset, was **1.79–2.95% shorter under production physics selectors** and0.85–2.76% shorter in the GD case. These synthetic-caller gains support inclusion; no isolated forecast gain or statistical significance is claimed. The one-member link preserved583 other archive members and the module interface. Frozen producer commits remainNULL; a01463f8 records post-test source identity.
+
+Actual peak charged memory remains **70.953/68.707/68.647/68.616 GiB per node**, with every limit/OOM counter zero. Configured100/100/100/104 GiB caps are separate from usage. The earlier fresh nine-hour pair measured original92–104 GiB versus optimized69–71 GiB, about23–34% lower observed peaks. These counters include file cache and are not RSS/PSS or proof that two forecasts fit.
+
+| Short qualification measure | Retained corrected original | Current configuration | Descriptive difference |
+|---|---:|---:|---:|
+| Whole model/MPI wall |267.534171s|137.265733s|48.69% lower|
+| Main-step elapsed, including communication/backpressure |42.031970s|38.328710s|8.81% lower|
+| Aggregate node CPU |86843.488941CPU-s|53642.676237CPU-s|38.23% lower|
+
+These are startup-sensitive **UNPAIRED short-case observations**, not a sustained speedup measurement. Current own short science is qualified; current own three- and nine-hour science remain pending. The latest completed three-hour test belongs to parent RQVFTENee66:660.392136s wall,560.659910s main elapsed and320886.634243CPU-s, versus retained original848.677401s/626.316100s/382698.863204CPU-s. That separate unpaired result is22.19%/10.48%/16.15% lower, and is preserved unchanged without qualification transfer.
+
+Rollback restores the paired `BEFORE_RQVBLTEN_PART2_SIMD` selection and source/build binding, and reverts source-onlya01463f8. This restores parent RQVFTENee66/068d/source31ca and unchanged libraries. Production/master remain unchanged; AWS remains suspended.
+
+The separate [cross-forecast backing screen](tools/cpu-memory/cross-forecast-backing-screen/README.md) passed OS lifetime/seal tests but established no additional WRF savings or two-forecast capacity. Backend engineering is deferred on that evidence. Next: one accurately bound current-build daytime profile using the existing three recording roles; earlier capture7996 actually used41b/51a/3edf. No qualified daylight restart exists, so the established cold-start nine-hour science contract is retained while limiting acquisition to15 seconds per rank.
+
+## Previous combined PBL and moisture-forcing SIMD: exact three-hour qualification (2026-10-20)
+
+That previous configuration selected **ee66/archive068d/source31ca2fd4**, including all prior improvements, PBL tendency SIMD and one additional directive for independent moisture-forcing conversion. Per-cell arithmetic and true division remain unchanged. The unchanged scientific checker passed **all four complete products and 545 ordered timesteps**, all512 ranks, two tiles, all32 field-view markers and all four positive writer groups. All model and reader jobs closed normally. [Application evidence](tools/cpu-compute/phy-prep-part2-rqvften-simd/APPLICATION_QUALIFICATION.json)40d2a791 binds26 actual references.
 
 | Three-hour measure | Retained corrected original | Combined configuration | Descriptive difference |
 |---|---:|---:|---:|
@@ -18,7 +38,7 @@ The new directive passed44 full-module raw/IEEE/state/halo cases and preserved t
 
 Rollback uses the paired `PREVIOUS_SELECTION_BEFORE_RQVFTEN_PART2_SIMD.json` and `PREVIOUS_CURRENT_SOURCE_BUILD_BINDING_BEFORE_RQVFTEN_PART2_SIMD.json` in `tools/cpu-working/`, restoring PBL9d75/F478/source61c2; reverting source-only31ca2fd4 removes exactly the added directive. Production and master remain unchanged.
 
-The next vapor-tendency candidate has passed56 native cases and is undergoing complete-caller timing. Cross-forecast table sharing is a separate design investigation:2.784GiB/node of nominal duplicated table payload is identified, with no implemented savings, admission or throughput claim. Existing daytime capture7996 came from41b/51a/3edf; later source mapping used a byte-identical object and does not make that capture current-build profiling. Current object/caller proofs stand independently.
+At this earlier milestone the next vapor-tendency candidate was pending. Its subsequent promotion and the cross-forecast screen disposition are recorded above. Existing daytime capture7996 came from41b/51a/3edf; later source mapping used a byte-identical object and does not make that capture current-build profiling. Current object/caller proofs stand independently.
 
 ## PBL tendency SIMD promoted after exact short full-grid qualification (2026-10-20)
 
