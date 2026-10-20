@@ -1,5 +1,15 @@
 # WRF CPU optimization findings
 
+## Current combined three-hour result (2026-10-20)
+
+A fresh corrected-original546b/control-first comparison of the selected CEC compute build, root06d/NCa32 input, de5b quilting provider and 3edf codec passed **all four products and 545 ordered steps**, all512 ranks, two tiles and all four positive I/O writers. Wall time was **821.054461 → 662.590205 seconds (19.30% lower, 1.239159×)**; aggregate node cgroup CPU was **368084.978303 → 321016.008953 CPU-seconds (12.79% lower)**. Main-step elapsed fell597.98535 → 559.81599s (6.38%); it includes communication/backpressure and is not integration CPU.
+
+Whole model/MPI wall includes input, initialization, computation, communication, quilting, HDF5 writes and final writer drain. Production-style settings are480 compute ranks in8×60 plus4×8 dedicated I/O ranks, NetCDF format2, hourly history and one frame/file. Checked client-cache clears preceded both arms; all model and reader jobs closed. File-server cache/load remained uncontrolled. This is one fixed-order matched pair, without isolated component, additive or repeatability claims; current nine-hour qualification remains false. Neither1.5× nor2× target is met.
+
+[Qualification](tools/cpu-working/THREE_HOUR_FINAL_QUALIFICATION.json) binds actual CEC/3edf artifacts and preserves the raw collector record, whose inherited candidate-name string incorrectly said1d6e. Only the separate reporting label is corrected from the actual leases; frozen runtime/checker/raw records are unchanged. Previous1d6e/de5b19.05% remains a separate result. Source identities remain80a9/624bc116; raw producer commits remain null. Production/master are unchanged; rollback of slide-hash alone remains the paired `BEFORE_SLIDE_HASH_UNROLL4` records or codec `huffman`.
+
+The private FAST level-invariant prototype passed native/complete-provider exact checks, but complete-provider wall changed0.13% slower/0.03% faster and process CPU0.11% slower/0.51% faster on hpc02/04. No significant saving was established; it is parked and excluded. MYJPBL DIFCOF SIMD passed the genuine-parent full-module captured-caller and32 IEEE/state cases; complete-caller performance/application qualification remain pending. Output-boundary attribution and bounded private shuffle-scratch reuse are continuing investigations, with no new benefit claim.
+
 ## Current working codec: slide-hash unrolling (2026-10-20)
 
 The working configuration now uses codec `3edf15a2` with the retained CEC compute build and de5b quilting provider. One loop-unroll directive preserves the original AVX2 saturating arithmetic and array traversal. Complete-function tests on hpc02/04 measured **12.29–16.49% less wall time** and **15.03–17.72% less process CPU**, with exact arrays and IEEE state. These are standalone function gains, including per-call clock overhead, not output-stage or forecast gains.
@@ -8,11 +18,11 @@ The composed codec passed seven corpora, five streaming cases, generic fallback 
 
 [Application evidence](tools/cpu-output/quilt512/codec/slide-hash-unroll4/APPLICATION_QUALIFICATION.json) records exact artifacts and raw receipts. Code commit `624bc116` records the tested codec source after qualification; the WRF source identity remains `80a9cd6f`, executableCEC/archive6034, with frozen raw producer commits unchanged. Restore the paired `PREVIOUS_*_BEFORE_SLIDE_HASH_UNROLL4.json` working records, or choose codec `huffman`, to roll back only this addition while retaining the previous compute/output improvements. Production/master remain unchanged.
 
-A fresh original-versus-combined three-hour comparison is prepared; its result is pending. The earlier **19.05%** whole-wall reduction belongs to the previous1d6e/de5b configuration. Current CEC+3edf has no own three-/nine-hour timing qualification yet. The unmeasured private FAST matcher prototype is excluded.
+The selected CEC+3edf configuration now has the fresh three-hour qualification above. The preceding short gate remains component evidence; current nine-hour qualification is still absent. Private FAST728b remains excluded after neutral complete-provider measurements.
 
 ## Retained MCICA compute improvement (2026-10-20)
 
-The working build now includes MCICA cloud-mask fusion. It passed the original checker on two complete outputs, 35 ordered steps, all 512 ranks and two tiles; all model and reader jobs exited successfully. Complete-caller wall time fell **12.32% and 13.90%**, with **11.41% and 13.76% less process CPU** in opposite-order pairs. Its forecast-wide benefit remains unmeasured, and longer three- and nine-hour comparisons remain pending for this build. [Evidence](tools/cpu-compute/mcica-mask-fusion/QUALIFICATION.json) and [selection](tools/cpu-working/selection.json) identify the exact artifacts and rollback. Source commit `80a9cd6f` records the tested source after qualification; raw producer commits remain `null`.
+The working build now includes MCICA cloud-mask fusion. It passed the original checker on two complete outputs, 35 ordered steps, all 512 ranks and two tiles; all model and reader jobs exited successfully. Complete-caller wall time fell **12.32% and 13.90%**, with **11.41% and 13.76% less process CPU** in opposite-order pairs. Its isolated forecast-wide benefit remains unmeasured; the current combined three-hour result is above, and current nine-hour qualification remains pending. [Evidence](tools/cpu-compute/mcica-mask-fusion/QUALIFICATION.json) and [selection](tools/cpu-working/selection.json) identify the exact artifacts and rollback. Source commit `80a9cd6f` records the tested source after qualification; raw producer commits remain `null`.
 
 The full-grid tests use production's quilting layout: 480 compute ranks plus four groups of eight I/O ranks. Whole model/MPI timings include initialization, communication, output and final writer completion.
 
