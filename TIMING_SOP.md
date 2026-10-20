@@ -59,6 +59,8 @@ Standing owner rule, effective 2026-10-17: **do not dismiss a significant kernel
 6. Start the established model/kernel timing clock at its existing boundary. Setup, sync and cache maintenance remain outside that clock. Whole forecast time still includes initialization, computation, communication, output and final writer drain/shutdown.
 7. After model scopes close, run the bounded original exact checker. Preserve numerical/nonfinite, metadata, layout and runtime acceptance. Close that checker before any next cache-clear operation on its nodes.
 
+When reusing telemetry postprocessing, bind checks to the fields actually emitted by both arms. Current samplers emit `owned_field_view_environment`; the former control-only `owned_inventory_environment` lookup was invalid. Keep frozen failed runs unchanged. A post-MPI metadata repair must retain the actual manager failure, separately prove original runtime/closure requirements, and run the unchanged numerical comparison; never manufacture a successful original completion.
+
 ## Reporting
 
 - Apply the same cache policy to both arms. Retain all individual wall/CPU values, run order, resource settings, clear receipts and exact results; report medians/ranges when repeated.

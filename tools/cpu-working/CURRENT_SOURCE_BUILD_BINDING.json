@@ -1,5 +1,5 @@
 {
-  "status": "POST_SCIENCE_READ_DI1_AFFINE_SOURCE_AND_CANONICAL_IO_EXECUTABLE_PROMOTION",
+  "status": "POST_SCIENCE_ROOT_ONLY_PARALLEL_INPUT_WORKING_PROMOTION",
   "source_commit": "495f10002d87fb5fdcc256c20a9e592c037d9183",
   "executable": {
     "path": "/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2/wrf.exe",
@@ -70,12 +70,12 @@
   "PD_production_member_sha256": "8ec77f864716667aa79d40878fa11276f7dede4017c620201e54f9f83bb32b25",
   "PD_repaired_compile_object_sha256": "e5245eed1f84a67ea9d428bed8d8b2529f568ca49394f9cf8b85d97bdc50f560",
   "PD_equivalence_proof_sha256": "92abf53cb516e4394f2ce232ad81fb4985ea7b1f849310927e54aa4a2b1017cc",
-  "build_scope": "WorkingGNU13.3 strict/OMP1,onecoldsingle-domain06-06:10;375/881/825/shared1/FIELDVIEW1/faba/singleIB/512/twoTiles. Currentown3h/9h,restart,nesting,othercompiler NOTtransferred. Periodiccombined3h follows nextqualifiedinputbatch. 155literaldiagnosticlineblocksoutsideTranspose genuinea6e2/b713 preserved; no PP/binary normalization or wholeobjectidentityclaim. OneIOcompile/link,other2IOmembers+physicsarchive/mains/helpers unchanged.",
+  "build_scope": "Cold single-domain06\u201309, GNU13.3/Zen2/OMP1, 480compute8x60+4groupsx8quilt, hourlyNetCDF2/twoTiles/faba/singleIB. Unchanged canonical WRF image/IO archive. Root-only input provider/adapter separate; original producer null fields preserved.",
   "runtime": {
     "WRF_EXPERIMENTAL_TPI_NUMA": 1,
     "other_settings": "Unchanged375/881/825/faba/FIELDVIEW1/IB"
   },
-  "previous_binding": "PREVIOUS_SOURCE_BUILD_BINDING_81D35.json",
+  "previous_binding": "PREVIOUS_SOURCE_BUILD_BINDING_1D6E_BEFORE_PARALLEL_INPUT.json",
   "native": {
     "CQU": {
       "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-cqu-first-species-peel-r1/NATIVE_QUALIFICATION.json",
@@ -120,10 +120,10 @@
     "sha256": "f38a865905d030be42ac0a965b4aa6afbc0eae280902a3839f20df176457f445"
   },
   "full_application": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current81d35-input-transpose-triage-r1/tenminute-application-preparation-r1/lifecycle-r1/FINAL_QUALIFICATION.json",
-    "sha256": "44bbcdeaa54b15ab52a51bcc884afefe3fcd536216200c151387491e5917ff3f"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-input/parallel-chunk-read/APPLICATION_QUALIFICATION.json",
+    "sha256": "fed6f9ab2260eeb9e9ac4f56e68062e588bfb424ed344466a02ba0e7390d8780"
   },
-  "current_three_hour_qualified": false,
+  "current_three_hour_qualified": true,
   "prior_repaired_full_application": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/myj-mixlen-scratch-reuse/APPLICATION_QUALIFICATION.json",
     "sha256": "55e2170cfc4f695e2eb7124cb4dec541954a9db290979ed2423252a4b117eb2f"
@@ -177,5 +177,30 @@
     "sha256": "4e984626ca8513e4e03ec03d135afd6d8d01824c4d2c54e3b5b56d87bfcb8e8b"
   },
   "read_affine_qualification_file": "tools/cpu-input/read-affine-transpose/QUALIFICATION.json",
-  "previous_compute_qualification_file": "../cpu-compute/myj-mixlen-scratch-reuse/QUALIFICATION.json"
+  "previous_compute_qualification_file": "../cpu-compute/myj-mixlen-scratch-reuse/QUALIFICATION.json",
+  "parallel_input": {
+    "implementation_source_commit": "614267f340a23ffc342962b3c64e323719fe4d06",
+    "package": "tools/cpu-input/parallel-chunk-read",
+    "runtime": {
+      "pending_component": false,
+      "adapter_path": "/pool/wrf-experiment/wrf-cpu/kernels/root-input-predecoded-production-adapter-abi-hpc02-r1/output/libinput_root.so",
+      "adapter_sha256": "06d0232dbeb53e3e0cc4a8ac5c431a307e0bd3506183f70b5a558f2c70b19553",
+      "owner_path": "/pool/wrf-experiment/wrf-cpu/kernels/ordinary-nc-predecoded-fp-admission-build-hpc02-r3/output/libnetcdf.so.19",
+      "owner_sha256": "a32aa6cdf5e7154b974afb699f6be8f0b0632cfb4bc00226b7b6a34e0b04f41d",
+      "rank": 0,
+      "host": "hpc01",
+      "root_cpu": 0,
+      "borrowed_occupied_cpus": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "input_source_sha256": "4febd6cabc22d8fd5caf0efe89087b97a5871cd269e9777be7c8b8166c5d3ddf",
+      "component_receipt_sha256": "90070f7ce757ca6e571554779ce6624f5e179a4ed76653a30d4d8be9eb89a6e5",
+      "component_closure_sha256": "d77bf34ae3d4a30068ab5998908a3560bfb68eaa0b5ab8baa47dc8814758d590"
+    },
+    "source_provenance_sha256": "c5f5aeaaab4faab9f4b051705c51433f66e6c6095c2bb7ef2521510c433048ba",
+    "qualification_sha256": "d162a0075055f1149583348438cca070492dee2db5ef4e004b3dcb3a60e64d03"
+  }
 }

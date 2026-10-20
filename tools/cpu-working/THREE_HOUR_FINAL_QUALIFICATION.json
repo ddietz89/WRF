@@ -1,743 +1,549 @@
 {
-  "status": "PASS_CURRENT_LAZY_GROUPS_MYJ_FULL_THREE_HOUR_ORIGINAL_FOUR_PRODUCTS_545_STEPS",
-  "created_utc": "2026-10-19T23:17:23.951763+00:00",
-  "scope": "ONE unprofiled81d35 candidate versus immutable retained corrected-original546b820.5063595210668; UNPAIRED, no fresh control, per-kernel attribution, repeatability, throughput or9h qualification.",
-  "candidate_executable_sha256": "81d35cfa92ff1e84505f94cf3a2fb4cf9761f8215f6e4dc49da0c3bed5db32e8",
-  "candidate_archive_sha256": "beefab2eb05be13d6da3155885d1195137675893b850b0c2f1f63c38702ec6be",
-  "producer_source_commit": null,
-  "candidate_canonical_Thompson_sha256": "4a2bd094c9131e150ab1d7cbcacf66e59d06db65652905d15b2d231180946066",
-  "MYJ_canonical_sha256": "71bdfe22196a36f46b55e9ee6bc7891aedb78f1906b1619df297d7c7b6e5e198",
-  "post_short_science_source_tracking_commit": "3de4d602013db3f1cb4d8fed92fb5a7cc30866ed",
-  "source_tracking_limit": "Post-test tracking only; historical raw producer NULL preserved, no rebuild claimed.",
-  "acceptance": {
-    "original_products_passed": 4,
+  "status": "PASS_FRESH_ORIGINAL_LATEST_INPUT_THREE_HOUR_ORIGINAL_SCI_TRANSPARENT_CONTROL_POSTPROCESSING",
+  "utc": "2026-10-20T03:32:53.471159+00:00",
+  "scope": "One freshfixedorder546b original then latest1d6e/rootinput, fourproducts545/full512/faba/twoTiles/all4positivewriters.",
+  "raw_producer_source_commit": null,
+  "selected_source_context": "495f10002d87fb5fdcc256c20a9e592c037d9183",
+  "source_and_promotion": "No source/default/selection change by this builder. Root decides promotion.",
+  "reader_invocation_id": "d6f791a30c32493c911fe4ec7c54e6eb",
+  "model_invocations": {
+    "control": {
+      "hpc01": {
+        "invocation_id": "5b226b95bce24b46b9c8645ebf8a2077",
+        "unit": "wrf-cpu-production512-original-parallel-input3h-control-r1-hpc01.service",
+        "MPI_exit_code": 0,
+        "manager_result": "exit-code"
+      },
+      "hpc02": {
+        "invocation_id": "f7eef6324b074611b4ca07fe56b5e155",
+        "unit": "wrf-cpu-production512-original-parallel-input3h-control-r1-hpc02.service",
+        "MPI_exit_code": 0,
+        "manager_result": "success"
+      },
+      "hpc03": {
+        "invocation_id": "c360c94a7b174c74bd55e5ac47137df8",
+        "unit": "wrf-cpu-production512-original-parallel-input3h-control-r1-hpc03.service",
+        "MPI_exit_code": 0,
+        "manager_result": "success"
+      },
+      "hpc04": {
+        "invocation_id": "567ca39a1f024b71a58773bd918925ec",
+        "unit": "wrf-cpu-production512-original-parallel-input3h-control-r1-hpc04.service",
+        "MPI_exit_code": 0,
+        "manager_result": "success"
+      }
+    },
+    "candidate": {
+      "hpc01": {
+        "invocation_id": "5b44f1a80a334af8951a576aa344b8f1",
+        "unit": "wrf-cpu-production512-original-parallel-input3h-candidate-r1-hpc01.service",
+        "MPI_exit_code": 0,
+        "manager_result": "success"
+      },
+      "hpc02": {
+        "invocation_id": "b4a291ed7a1748998b41e7e62f111b2c",
+        "unit": "wrf-cpu-production512-original-parallel-input3h-candidate-r1-hpc02.service",
+        "MPI_exit_code": 0,
+        "manager_result": "success"
+      },
+      "hpc03": {
+        "invocation_id": "036d1318376243308959da23ba79727a",
+        "unit": "wrf-cpu-production512-original-parallel-input3h-candidate-r1-hpc03.service",
+        "MPI_exit_code": 0,
+        "manager_result": "success"
+      },
+      "hpc04": {
+        "invocation_id": "abbf546b57e5437e9512b014dd398131",
+        "unit": "wrf-cpu-production512-original-parallel-input3h-candidate-r1-hpc04.service",
+        "MPI_exit_code": 0,
+        "manager_result": "success"
+      }
+    }
+  },
+  "actual_control_original_manager_failed": {
+    "MainPID": "0",
+    "Result": "exit-code",
+    "ExecMainStatus": "1",
+    "ControlGroup": "",
+    "ActiveState": "failed",
+    "InvocationID": "5b226b95bce24b46b9c8645ebf8a2077"
+  },
+  "control_postprocessing_qualified_separately": true,
+  "science": {
+    "products": 4,
     "ordered_steps": 545,
-    "end_time": "2026-10-12_09:00:00",
-    "rank_count": 512,
-    "compute_ranks": 480,
-    "quilt_ranks": 32,
-    "decomposition": "8x60",
+    "world": 512,
+    "compute": 480,
     "tiles": 2,
-    "all_four_positive_writer_roots": [
+    "all4_positive_writer_roots": [
       487,
       495,
       503,
       511
     ],
-    "tile_proof_status": "PASS_ACTUAL_480_DISJOINT_TILE_UNIONS_AND_ALL512_OBSERVED_ENVS",
-    "original_checker_status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
-    "all_own_model_and_reader_scopes_closed": true,
-    "science_sha256": "6d1559af4594fc71b40c47c9b797eb2e144aaf8d2f8807cae83f4e5abdb1c3fc",
-    "reader_closure_sha256": "9f1cd1aec784dedaefb5114e936531d2f5f000a33a7596923eca3a04a506680f",
-    "model_closure_sha256": "40f5bb0505ba5496d73bf69ae5ee8377cab8221aa538efb792173db55df85df1"
+    "compare_one_AST_unchanged": true,
+    "protected_reference_checker": "Original protected numericalcomparison passed unchanged; complete sourceproof and readerreceipt referenced."
   },
-  "metrics": {
+  "input_lifecycle_actual": {
+    "event": "final",
+    "rank": 0,
+    "scopes": 308,
+    "callbacks": 31,
+    "supplied": 17,
+    "declines": 14,
+    "widens": 31,
+    "restores": 31
+  },
+  "input_log_sha256": {
+    "input-rank0-3567363.jsonl": "603e439b9e0ca0a9eb343d66c590ff5809633baf3b2cc0c59024fdbeeb92ba17"
+  },
+  "model_observations": {
     "control": {
-      "wall_seconds": 820.5063595210668,
-      "aggregate_cgroup_cpu_seconds": 367800.485597,
-      "main_step_sum_seconds": 597.99405
+      "MPI_wall_seconds": 818.0402264029253,
+      "aggregate_node_cgroup_CPU_seconds": 366874.26066900004,
+      "main_step_wall_sum_seconds": 595.75757,
+      "memory_peaks_bytes": {
+        "hpc01": 98726105088,
+        "hpc02": 101050097664,
+        "hpc03": 100993732608,
+        "hpc04": 107228016640
+      },
+      "memory_events": {
+        "hpc01": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "hpc02": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "hpc03": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "hpc04": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n"
+      }
     },
     "candidate": {
-      "wall_seconds": 672.2310170449782,
-      "aggregate_cgroup_cpu_seconds": 324829.440612,
-      "main_step_sum_seconds": 563.3811
+      "MPI_wall_seconds": 670.7779205960687,
+      "aggregate_node_cgroup_CPU_seconds": 323960.582918,
+      "main_step_wall_sum_seconds": 566.69136,
+      "memory_peaks_bytes": {
+        "hpc01": 76196855808,
+        "hpc02": 73751851008,
+        "hpc03": 73718833152,
+        "hpc04": 73683906560
+      },
+      "memory_events": {
+        "hpc01": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "hpc02": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "hpc03": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "hpc04": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n"
+      }
     }
   },
-  "unpaired_reductions_percent": {
-    "wall_seconds": 18.071199662929793,
-    "aggregate_cgroup_cpu_seconds": 11.683248573000382,
-    "main_step_sum_seconds": 5.788176320483462
+  "reductions_percent": {
+    "MPI_wall_seconds": 18.001841603119725,
+    "aggregate_node_cgroup_CPU_seconds": 11.697107797299921
   },
-  "memory_context": {
-    "final_per_host_invocation": {
-      "control": {
-        "hpc01": {
-          "invocation_id": "740aec3ca7f349bca71f9b3ab045c936",
-          "memory_peak_bytes": 98732437504,
-          "memory_peak_GiB": 91.95174789428711,
-          "memory_events": {
-            "low": 0,
-            "high": 0,
-            "max": 0,
-            "oom": 0,
-            "oom_kill": 0,
-            "oom_group_kill": 0
-          },
-          "cpu_stat": {
-            "usage_usec": 91941354466,
-            "user_usec": 90158210283,
-            "system_usec": 1783144182,
-            "core_sched.force_idle_usec": 0,
-            "nr_periods": 8218,
-            "nr_throttled": 5152,
-            "throttled_usec": 23708208,
-            "nr_bursts": 0,
-            "burst_usec": 0
-          }
-        },
-        "hpc02": {
-          "invocation_id": "a88ae582cb6d49638699db117bc64f82",
-          "memory_peak_bytes": 101101588480,
-          "memory_peak_GiB": 94.1581916809082,
-          "memory_events": {
-            "low": 0,
-            "high": 0,
-            "max": 0,
-            "oom": 0,
-            "oom_kill": 0,
-            "oom_group_kill": 0
-          },
-          "cpu_stat": {
-            "usage_usec": 91942279812,
-            "user_usec": 90047989411,
-            "system_usec": 1894290400,
-            "core_sched.force_idle_usec": 0,
-            "nr_periods": 8163,
-            "nr_throttled": 6060,
-            "throttled_usec": 8449876,
-            "nr_bursts": 0,
-            "burst_usec": 0
-          }
-        },
+  "cache": {
+    "control": {
+      "clear_receipt_sha256": "260ca3f9a96daa19a6e3dbdbe4a1db85cd0bf3d704cd105fb513f00edb3ac03e",
+      "actual_four_host_context": {
         "hpc03": {
-          "invocation_id": "b660f136b24147da982e51e8f319a329",
-          "memory_peak_bytes": 101013078016,
-          "memory_peak_GiB": 94.07575988769531,
-          "memory_events": {
-            "low": 0,
-            "high": 0,
-            "max": 0,
-            "oom": 0,
-            "oom_kill": 0,
-            "oom_group_kill": 0
+          "status": "PASS_SYNC_DROP_CACHES3",
+          "host": "hpc03",
+          "uid": 0,
+          "run_id": "production512-original-parallel-input3h-control-r1",
+          "pid": 1622219,
+          "pgid": 1622218,
+          "boot_id": "ad105fdb-2b6c-40b2-a1ba-6b9997e08d4c",
+          "operation": "sync_then_drop_caches3",
+          "utc_begin": "2026-10-20T02:46:35.197542+00:00",
+          "begin_monotonic_ns": 2043388176190056,
+          "campaign_active": [],
+          "meminfo_before": {
+            "MemAvailable": "122229776 kB",
+            "Buffers": "11844 kB",
+            "Cached": "1835284 kB",
+            "SReclaimable": "221944 kB"
           },
-          "cpu_stat": {
-            "usage_usec": 91984346974,
-            "user_usec": 90103106179,
-            "system_usec": 1881240794,
-            "core_sched.force_idle_usec": 0,
-            "nr_periods": 8162,
-            "nr_throttled": 5639,
-            "throttled_usec": 14945774,
-            "nr_bursts": 0,
-            "burst_usec": 0
-          }
+          "sync_begin_monotonic_ns": 2043388547466875,
+          "sync_returncode": 0,
+          "sync_end_monotonic_ns": 2043388580734222,
+          "drop_begin_monotonic_ns": 2043388953341140,
+          "drop_bytes": 2,
+          "drop_end_monotonic_ns": 2043389430743755,
+          "meminfo_after": {
+            "MemAvailable": "123015756 kB",
+            "Buffers": "316 kB",
+            "Cached": "254224 kB",
+            "SReclaimable": "210280 kB"
+          },
+          "end_monotonic_ns": 2043389431053194,
+          "utc_end": "2026-10-20T02:46:36.452420+00:00",
+          "transport_returncode": 0,
+          "owned_processes_after_return": []
         },
         "hpc04": {
-          "invocation_id": "c604f1d17d984f41bfbae9cb41dbc0f3",
-          "memory_peak_bytes": 107177967616,
-          "memory_peak_GiB": 99.8172607421875,
-          "memory_events": {
-            "low": 0,
-            "high": 0,
-            "max": 0,
-            "oom": 0,
-            "oom_kill": 0,
-            "oom_group_kill": 0
+          "status": "PASS_SYNC_DROP_CACHES3",
+          "host": "hpc04",
+          "uid": 0,
+          "run_id": "production512-original-parallel-input3h-control-r1",
+          "pid": 1830592,
+          "pgid": 1830591,
+          "boot_id": "dc4678a7-56c3-4071-bd55-0b96d1eaafda",
+          "operation": "sync_then_drop_caches3",
+          "utc_begin": "2026-10-20T02:46:35.093235+00:00",
+          "begin_monotonic_ns": 2043410303623800,
+          "campaign_active": [],
+          "meminfo_before": {
+            "MemAvailable": "124460472 kB",
+            "Buffers": "11616 kB",
+            "Cached": "3371092 kB",
+            "SReclaimable": "219740 kB"
           },
-          "cpu_stat": {
-            "usage_usec": 91932504345,
-            "user_usec": 89961304153,
-            "system_usec": 1971200191,
-            "core_sched.force_idle_usec": 0,
-            "nr_periods": 8162,
-            "nr_throttled": 4892,
-            "throttled_usec": 36985882,
-            "nr_bursts": 0,
-            "burst_usec": 0
-          }
-        }
-      },
-      "candidate": {
+          "sync_begin_monotonic_ns": 2043410843363657,
+          "sync_returncode": 0,
+          "sync_end_monotonic_ns": 2043410860513256,
+          "drop_begin_monotonic_ns": 2043411412571012,
+          "drop_bytes": 2,
+          "drop_end_monotonic_ns": 2043412173505440,
+          "meminfo_after": {
+            "MemAvailable": "125225152 kB",
+            "Buffers": "284 kB",
+            "Cached": "233296 kB",
+            "SReclaimable": "209600 kB"
+          },
+          "end_monotonic_ns": 2043412173758646,
+          "utc_end": "2026-10-20T02:46:36.963388+00:00",
+          "transport_returncode": 0,
+          "owned_processes_after_return": []
+        },
         "hpc01": {
-          "invocation_id": "e47f1d50ec00466099c2722a1b157376",
-          "memory_peak_bytes": 76201496576,
-          "memory_peak_GiB": 70.96817398071289,
-          "memory_events": {
-            "low": 0,
-            "high": 0,
-            "max": 0,
-            "oom": 0,
-            "oom_kill": 0,
-            "oom_group_kill": 0
+          "status": "PASS_SYNC_DROP_CACHES3",
+          "host": "hpc01",
+          "uid": 0,
+          "run_id": "production512-original-parallel-input3h-control-r1",
+          "pid": 3563432,
+          "pgid": 3563431,
+          "boot_id": "034999ae-50d3-4c47-a288-c1cc0a7308c9",
+          "operation": "sync_then_drop_caches3",
+          "utc_begin": "2026-10-20T02:46:34.573393+00:00",
+          "begin_monotonic_ns": 2043601790859984,
+          "campaign_active": [],
+          "meminfo_before": {
+            "MemAvailable": "124151524 kB",
+            "Buffers": "11548 kB",
+            "Cached": "3762628 kB",
+            "SReclaimable": "228248 kB"
           },
-          "cpu_stat": {
-            "usage_usec": 81208287365,
-            "user_usec": 79476706798,
-            "system_usec": 1731580566,
-            "core_sched.force_idle_usec": 0,
-            "nr_periods": 6729,
-            "nr_throttled": 5080,
-            "throttled_usec": 9147257,
-            "nr_bursts": 0,
-            "burst_usec": 0
-          }
+          "sync_begin_monotonic_ns": 2043602558477054,
+          "sync_returncode": 0,
+          "sync_end_monotonic_ns": 2043602575734088,
+          "drop_begin_monotonic_ns": 2043603360229858,
+          "drop_bytes": 2,
+          "drop_end_monotonic_ns": 2043604189194056,
+          "meminfo_after": {
+            "MemAvailable": "124887564 kB",
+            "Buffers": "308 kB",
+            "Cached": "297728 kB",
+            "SReclaimable": "217008 kB"
+          },
+          "end_monotonic_ns": 2043604189469556,
+          "utc_end": "2026-10-20T02:46:36.972018+00:00",
+          "transport_returncode": 0,
+          "owned_processes_after_return": []
         },
         "hpc02": {
-          "invocation_id": "359525f2887c4dfba23a6492deb9ec01",
-          "memory_peak_bytes": 73760948224,
-          "memory_peak_GiB": 68.69523620605469,
-          "memory_events": {
-            "low": 0,
-            "high": 0,
-            "max": 0,
-            "oom": 0,
-            "oom_kill": 0,
-            "oom_group_kill": 0
+          "status": "PASS_SYNC_DROP_CACHES3",
+          "host": "hpc02",
+          "uid": 0,
+          "run_id": "production512-original-parallel-input3h-control-r1",
+          "pid": 1639912,
+          "pgid": 1639911,
+          "boot_id": "18b76778-11f2-4b21-ac43-564778b71e3b",
+          "operation": "sync_then_drop_caches3",
+          "utc_begin": "2026-10-20T02:46:35.337966+00:00",
+          "begin_monotonic_ns": 2043635463076263,
+          "campaign_active": [],
+          "meminfo_before": {
+            "MemAvailable": "125523916 kB",
+            "Buffers": "9964 kB",
+            "Cached": "336492 kB",
+            "SReclaimable": "214620 kB"
           },
-          "cpu_stat": {
-            "usage_usec": 81176792778,
-            "user_usec": 79315844009,
-            "system_usec": 1860948769,
-            "core_sched.force_idle_usec": 0,
-            "nr_periods": 6686,
-            "nr_throttled": 4547,
-            "throttled_usec": 25998682,
-            "nr_bursts": 0,
-            "burst_usec": 0
-          }
-        },
+          "sync_begin_monotonic_ns": 2043636786795714,
+          "sync_returncode": 0,
+          "sync_end_monotonic_ns": 2043636803908631,
+          "drop_begin_monotonic_ns": 2043638125341160,
+          "drop_bytes": 2,
+          "drop_end_monotonic_ns": 2043638294458084,
+          "meminfo_after": {
+            "MemAvailable": "125579472 kB",
+            "Buffers": "272 kB",
+            "Cached": "231828 kB",
+            "SReclaimable": "206384 kB"
+          },
+          "end_monotonic_ns": 2043638294707289,
+          "utc_end": "2026-10-20T02:46:38.169611+00:00",
+          "transport_returncode": 0,
+          "owned_processes_after_return": []
+        }
+      },
+      "model_cache_start_context": {
+        "clear_receipt_sha256": "260ca3f9a96daa19a6e3dbdbe4a1db85cd0bf3d704cd105fb513f00edb3ac03e",
+        "pre_mpi_boundary_monotonic_ns": 2044814052622356,
+        "hpc01_clear_end_to_boundary_seconds": 1209.8631528,
+        "scope": "Host01 same-boot observation before MPI adapter; subsequent pinned binary/library hashes and loaders inevitably warm code, not scientific-data prefetch."
+      }
+    },
+    "candidate": {
+      "clear_receipt_sha256": "8ef0f393686a9af1027d457836aaacd1e7836187290a5591f6309bcfab431e7f",
+      "actual_four_host_context": {
         "hpc03": {
-          "invocation_id": "3f5d0263b3a44db5b2b3deb339d91941",
-          "memory_peak_bytes": 73717776384,
-          "memory_peak_GiB": 68.655029296875,
-          "memory_events": {
-            "low": 0,
-            "high": 0,
-            "max": 0,
-            "oom": 0,
-            "oom_kill": 0,
-            "oom_group_kill": 0
+          "status": "PASS_SYNC_DROP_CACHES3",
+          "host": "hpc03",
+          "uid": 0,
+          "run_id": "production512-original-parallel-input3h-candidate-r1",
+          "pid": 1624231,
+          "pgid": 1624230,
+          "boot_id": "ad105fdb-2b6c-40b2-a1ba-6b9997e08d4c",
+          "operation": "sync_then_drop_caches3",
+          "utc_begin": "2026-10-20T03:09:40.298950+00:00",
+          "begin_monotonic_ns": 2044773277601957,
+          "campaign_active": [],
+          "meminfo_before": {
+            "MemAvailable": "122847176 kB",
+            "Buffers": "11936 kB",
+            "Cached": "408084 kB",
+            "SReclaimable": "218500 kB"
           },
-          "cpu_stat": {
-            "usage_usec": 81252748139,
-            "user_usec": 79390224983,
-            "system_usec": 1862523155,
-            "core_sched.force_idle_usec": 0,
-            "nr_periods": 6686,
-            "nr_throttled": 994,
-            "throttled_usec": 1595117,
-            "nr_bursts": 0,
-            "burst_usec": 0
-          }
+          "sync_begin_monotonic_ns": 2044773640240533,
+          "sync_returncode": 0,
+          "sync_end_monotonic_ns": 2044773657508280,
+          "drop_begin_monotonic_ns": 2044774027981466,
+          "drop_bytes": 2,
+          "drop_end_monotonic_ns": 2044774209271728,
+          "meminfo_after": {
+            "MemAvailable": "122943532 kB",
+            "Buffers": "332 kB",
+            "Cached": "256428 kB",
+            "SReclaimable": "210404 kB"
+          },
+          "end_monotonic_ns": 2044774209564376,
+          "utc_end": "2026-10-20T03:09:41.230931+00:00",
+          "transport_returncode": 0,
+          "owned_processes_after_return": []
         },
         "hpc04": {
-          "invocation_id": "94439c1a53454b2785499161c4637c1d",
-          "memory_peak_bytes": 73673912320,
-          "memory_peak_GiB": 68.61417770385742,
-          "memory_events": {
-            "low": 0,
-            "high": 0,
-            "max": 0,
-            "oom": 0,
-            "oom_kill": 0,
-            "oom_group_kill": 0
+          "status": "PASS_SYNC_DROP_CACHES3",
+          "host": "hpc04",
+          "uid": 0,
+          "run_id": "production512-original-parallel-input3h-candidate-r1",
+          "pid": 1834947,
+          "pgid": 1834946,
+          "boot_id": "dc4678a7-56c3-4071-bd55-0b96d1eaafda",
+          "operation": "sync_then_drop_caches3",
+          "utc_begin": "2026-10-20T03:09:40.184239+00:00",
+          "begin_monotonic_ns": 2044795394627519,
+          "campaign_active": [],
+          "meminfo_before": {
+            "MemAvailable": "125077556 kB",
+            "Buffers": "10948 kB",
+            "Cached": "312800 kB",
+            "SReclaimable": "212400 kB"
           },
-          "cpu_stat": {
-            "usage_usec": 81191612330,
-            "user_usec": 79269317191,
-            "system_usec": 1922295139,
-            "core_sched.force_idle_usec": 0,
-            "nr_periods": 6685,
-            "nr_throttled": 4563,
-            "throttled_usec": 9790243,
-            "nr_bursts": 0,
-            "burst_usec": 0
-          }
+          "sync_begin_monotonic_ns": 2044795960435922,
+          "sync_returncode": 0,
+          "sync_end_monotonic_ns": 2044795993761324,
+          "drop_begin_monotonic_ns": 2044796549233124,
+          "drop_bytes": 2,
+          "drop_end_monotonic_ns": 2044796683975293,
+          "meminfo_after": {
+            "MemAvailable": "125104344 kB",
+            "Buffers": "296 kB",
+            "Cached": "233900 kB",
+            "SReclaimable": "211888 kB"
+          },
+          "end_monotonic_ns": 2044796684306512,
+          "utc_end": "2026-10-20T03:09:41.473938+00:00",
+          "transport_returncode": 0,
+          "owned_processes_after_return": []
+        },
+        "hpc01": {
+          "status": "PASS_SYNC_DROP_CACHES3",
+          "host": "hpc01",
+          "uid": 0,
+          "run_id": "production512-original-parallel-input3h-candidate-r1",
+          "pid": 3566800,
+          "pgid": 3566799,
+          "boot_id": "034999ae-50d3-4c47-a288-c1cc0a7308c9",
+          "operation": "sync_then_drop_caches3",
+          "utc_begin": "2026-10-20T03:09:39.651231+00:00",
+          "begin_monotonic_ns": 2044986868697254,
+          "campaign_active": [],
+          "meminfo_before": {
+            "MemAvailable": "124102856 kB",
+            "Buffers": "11780 kB",
+            "Cached": "3756940 kB",
+            "SReclaimable": "225744 kB"
+          },
+          "sync_begin_monotonic_ns": 2044987631876890,
+          "sync_returncode": 0,
+          "sync_end_monotonic_ns": 2044987648986980,
+          "drop_begin_monotonic_ns": 2044988450480116,
+          "drop_bytes": 2,
+          "drop_end_monotonic_ns": 2044989305360737,
+          "meminfo_after": {
+            "MemAvailable": "124888756 kB",
+            "Buffers": "308 kB",
+            "Cached": "296372 kB",
+            "SReclaimable": "215036 kB"
+          },
+          "end_monotonic_ns": 2044989305627515,
+          "utc_end": "2026-10-20T03:09:42.088178+00:00",
+          "transport_returncode": 0,
+          "owned_processes_after_return": []
+        },
+        "hpc02": {
+          "status": "PASS_SYNC_DROP_CACHES3",
+          "host": "hpc02",
+          "uid": 0,
+          "run_id": "production512-original-parallel-input3h-candidate-r1",
+          "pid": 1642299,
+          "pgid": 1642298,
+          "boot_id": "18b76778-11f2-4b21-ac43-564778b71e3b",
+          "operation": "sync_then_drop_caches3",
+          "utc_begin": "2026-10-20T03:09:40.422097+00:00",
+          "begin_monotonic_ns": 2045020547212972,
+          "campaign_active": [],
+          "meminfo_before": {
+            "MemAvailable": "125468288 kB",
+            "Buffers": "9964 kB",
+            "Cached": "339164 kB",
+            "SReclaimable": "214024 kB"
+          },
+          "sync_begin_monotonic_ns": 2045021873369348,
+          "sync_returncode": 0,
+          "sync_end_monotonic_ns": 2045021890517086,
+          "drop_begin_monotonic_ns": 2045023212457656,
+          "drop_bytes": 2,
+          "drop_end_monotonic_ns": 2045023374397128,
+          "meminfo_after": {
+            "MemAvailable": "125538264 kB",
+            "Buffers": "300 kB",
+            "Cached": "231944 kB",
+            "SReclaimable": "204224 kB"
+          },
+          "end_monotonic_ns": 2045023374652584,
+          "utc_end": "2026-10-20T03:09:43.249558+00:00",
+          "transport_returncode": 0,
+          "owned_processes_after_return": []
         }
+      },
+      "model_cache_start_context": {
+        "clear_receipt_sha256": "8ef0f393686a9af1027d457836aaacd1e7836187290a5591f6309bcfab431e7f",
+        "pre_mpi_boundary_monotonic_ns": 2045053786316791,
+        "hpc01_clear_end_to_boundary_seconds": 64.480689276,
+        "scope": "Host01 same-boot observation before MPI adapter; subsequent pinned binary/library hashes and loaders inevitably warm code, not scientific-data prefetch."
       }
-    },
-    "existing_candidate_progress_snapshots": [
-      {
-        "observed_utc": "2026-10-19T22:59:53.517123+00:00",
-        "rank0_last_step": "2026-10-12_06:17:55",
-        "hosts": {
-          "hpc01": {
-            "observed_monotonic_ns": 2029999620103544,
-            "memory_current_bytes": 52777132032,
-            "memory_peak_bytes": 76201496576
-          },
-          "hpc02": {
-            "observed_monotonic_ns": 2030032776441083,
-            "memory_current_bytes": 50684420096,
-            "memory_peak_bytes": 73760948224
-          },
-          "hpc03": {
-            "observed_monotonic_ns": 2029785515218915,
-            "memory_current_bytes": 49837948928,
-            "memory_peak_bytes": 73717776384
-          },
-          "hpc04": {
-            "observed_monotonic_ns": 2029807402479860,
-            "memory_current_bytes": 52769198080,
-            "memory_peak_bytes": 73673912320
-          }
-        }
-      },
-      {
-        "observed_utc": "2026-10-19T23:00:55.308854+00:00",
-        "rank0_last_step": "2026-10-12_06:39:35",
-        "hosts": {
-          "hpc01": {
-            "observed_monotonic_ns": 2030061413740795,
-            "memory_current_bytes": 53023358976,
-            "memory_peak_bytes": 76201496576
-          },
-          "hpc02": {
-            "observed_monotonic_ns": 2030094589090254,
-            "memory_current_bytes": 50851958784,
-            "memory_peak_bytes": 73760948224
-          },
-          "hpc03": {
-            "observed_monotonic_ns": 2029847120070253,
-            "memory_current_bytes": 50034286592,
-            "memory_peak_bytes": 73717776384
-          },
-          "hpc04": {
-            "observed_monotonic_ns": 2029869236619190,
-            "memory_current_bytes": 51704987648,
-            "memory_peak_bytes": 73673912320
-          }
-        }
-      },
-      {
-        "observed_utc": "2026-10-19T23:01:56.668873+00:00",
-        "rank0_last_step": "2026-10-12_07:00:20",
-        "hosts": {
-          "hpc01": {
-            "observed_monotonic_ns": 2030122929399126,
-            "memory_current_bytes": 55615365120,
-            "memory_peak_bytes": 76201496576
-          },
-          "hpc02": {
-            "observed_monotonic_ns": 2030156347852988,
-            "memory_current_bytes": 53560492032,
-            "memory_peak_bytes": 73760948224
-          },
-          "hpc03": {
-            "observed_monotonic_ns": 2029909024441051,
-            "memory_current_bytes": 52566409216,
-            "memory_peak_bytes": 73717776384
-          },
-          "hpc04": {
-            "observed_monotonic_ns": 2029931071639186,
-            "memory_current_bytes": 54261735424,
-            "memory_peak_bytes": 73673912320
-          }
-        }
-      },
-      {
-        "observed_utc": "2026-10-19T23:02:56.228092+00:00",
-        "rank0_last_step": "2026-10-12_07:18:40",
-        "hosts": {
-          "hpc01": {
-            "observed_monotonic_ns": 2030182403313462,
-            "memory_current_bytes": 54322155520,
-            "memory_peak_bytes": 76201496576
-          },
-          "hpc02": {
-            "observed_monotonic_ns": 2030215518717856,
-            "memory_current_bytes": 52320440320,
-            "memory_peak_bytes": 73760948224
-          },
-          "hpc03": {
-            "observed_monotonic_ns": 2029968303889683,
-            "memory_current_bytes": 51326111744,
-            "memory_peak_bytes": 73717776384
-          },
-          "hpc04": {
-            "observed_monotonic_ns": 2029990439188265,
-            "memory_current_bytes": 54690877440,
-            "memory_peak_bytes": 73673912320
-          }
-        }
-      },
-      {
-        "observed_utc": "2026-10-19T23:04:00.130178+00:00",
-        "rank0_last_step": "2026-10-12_07:40:00",
-        "hosts": {
-          "hpc01": {
-            "observed_monotonic_ns": 2030246193394454,
-            "memory_current_bytes": 54255915008,
-            "memory_peak_bytes": 76201496576
-          },
-          "hpc02": {
-            "observed_monotonic_ns": 2030279292076152,
-            "memory_current_bytes": 52198023168,
-            "memory_peak_bytes": 73760948224
-          },
-          "hpc03": {
-            "observed_monotonic_ns": 2030032252285577,
-            "memory_current_bytes": 51204538368,
-            "memory_peak_bytes": 73717776384
-          },
-          "hpc04": {
-            "observed_monotonic_ns": 2030054201507961,
-            "memory_current_bytes": 54569893888,
-            "memory_peak_bytes": 73673912320
-          }
-        }
-      },
-      {
-        "observed_utc": "2026-10-19T23:05:09.523384+00:00",
-        "rank0_last_step": "2026-10-12_08:02:20",
-        "hosts": {
-          "hpc01": {
-            "observed_monotonic_ns": 2030315544499630,
-            "memory_current_bytes": 56178831360,
-            "memory_peak_bytes": 76201496576
-          },
-          "hpc02": {
-            "observed_monotonic_ns": 2030348775423277,
-            "memory_current_bytes": 54133276672,
-            "memory_peak_bytes": 73760948224
-          },
-          "hpc03": {
-            "observed_monotonic_ns": 2030101141132704,
-            "memory_current_bytes": 53128069120,
-            "memory_peak_bytes": 73717776384
-          },
-          "hpc04": {
-            "observed_monotonic_ns": 2030123266802085,
-            "memory_current_bytes": 56986218496,
-            "memory_peak_bytes": 73673912320
-          }
-        }
-      },
-      {
-        "observed_utc": "2026-10-19T23:06:10.534866+00:00",
-        "rank0_last_step": "2026-10-12_08:20:40",
-        "hosts": {
-          "hpc01": {
-            "observed_monotonic_ns": 2030375497661850,
-            "memory_current_bytes": 54979207168,
-            "memory_peak_bytes": 76201496576
-          },
-          "hpc02": {
-            "observed_monotonic_ns": 2030409587527215,
-            "memory_current_bytes": 52933558272,
-            "memory_peak_bytes": 73760948224
-          },
-          "hpc03": {
-            "observed_monotonic_ns": 2030162239406709,
-            "memory_current_bytes": 51929587712,
-            "memory_peak_bytes": 73717776384
-          },
-          "hpc04": {
-            "observed_monotonic_ns": 2030184418467487,
-            "memory_current_bytes": 56934322176,
-            "memory_peak_bytes": 73673912320
-          }
-        }
-      },
-      {
-        "observed_utc": "2026-10-19T23:07:09.661277+00:00",
-        "rank0_last_step": "2026-10-12_08:39:20",
-        "hosts": {
-          "hpc01": {
-            "observed_monotonic_ns": 2030435829020080,
-            "memory_current_bytes": 54979887104,
-            "memory_peak_bytes": 76201496576
-          },
-          "hpc02": {
-            "observed_monotonic_ns": 2030468817704804,
-            "memory_current_bytes": 52935471104,
-            "memory_peak_bytes": 73760948224
-          },
-          "hpc03": {
-            "observed_monotonic_ns": 2030221569773286,
-            "memory_current_bytes": 51931095040,
-            "memory_peak_bytes": 73717776384
-          },
-          "hpc04": {
-            "observed_monotonic_ns": 2030243645104816,
-            "memory_current_bytes": 56935038976,
-            "memory_peak_bytes": 73673912320
-          }
-        }
-      },
-      {
-        "observed_utc": "2026-10-19T23:08:12.060195+00:00",
-        "rank0_last_step": "2026-10-12_08:59:20",
-        "hosts": {
-          "hpc01": {
-            "observed_monotonic_ns": 2030498190280264,
-            "memory_current_bytes": 54980489216,
-            "memory_peak_bytes": 76201496576
-          },
-          "hpc02": {
-            "observed_monotonic_ns": 2030531359645687,
-            "memory_current_bytes": 52936626176,
-            "memory_peak_bytes": 73760948224
-          },
-          "hpc03": {
-            "observed_monotonic_ns": 2030284080518905,
-            "memory_current_bytes": 51931914240,
-            "memory_peak_bytes": 73717776384
-          },
-          "hpc04": {
-            "observed_monotonic_ns": 2030306209208062,
-            "memory_current_bytes": 56936370176,
-            "memory_peak_bytes": 73673912320
-          }
-        }
-      }
-    ],
-    "existing_initialization_timer_lines": [
-      "Timing for processing wrfinput file (stream 0) for domain        1:   48.49496 elapsed seconds",
-      "Timing for table computation qr_acr_qg_V4.dat:    3.32437 elapsed seconds"
-    ],
-    "limits": "Cgroup charge counters, not PSS/physical shared-page totals. Snapshots non-atomic with separate host monotonic clocks. No isolated stage/table saving, synchronized phase comparison, aggregate dual-job headroom or read/decode/MPI split. Control is retained, not a fresh pair."
-  },
-  "resources": {
-    "ranks": 512,
-    "physical_cores_per_node": 128,
-    "memory_GiB": [
-      100,
-      100,
-      100,
-      104
-    ],
-    "swap_bytes": 0,
-    "model_cap_seconds": 1200,
-    "reader_host": "hpc03",
-    "reader_cpus": "8-15",
-    "reader_memory_GiB": 16,
-    "reader_cap_seconds": 900,
-    "provider": "375",
-    "codec": "881",
-    "HDF": "825",
-    "rank_map": "faba",
-    "fieldview": "1",
-    "Thompson_mode": "1",
-    "OMP_threads": 1,
-    "UCX_TLS": "rc,sm,self",
-    "observer": false,
-    "perf": false
-  },
-  "lease_sha256": "cf9c7450dc7249b7e1c9d8a65367a0eea6ede0f70511cc02c4d15d04ea8f978d",
-  "active_manifest_sha256": "ec3c9fcebdbedf940d7417f24b0c9e9afd15bc426c8add0d8e49c7e4ad438220",
-  "retained_control": {
-    "stage": "/pool/wrf-experiment/wrf-cpu/science-prep/production512-original-current-cqu3h-r1",
-    "source_manifest_sha256": "d4f17b74c4fa789b67682151bad425b7a1c8360c015a7587859cdada5190399f",
-    "grant_sha256": "7c1965921ccd22838873d0bd2a9d0648c3d1ed58ce9093cb748425846ac4b01b",
-    "run_directory": "/pool/wrf-experiment/wrf-cpu/runs/production512-original-current-cqu3h-control-r1",
-    "executable_sha256": "546b99156cbd809e1cae5e0ea8cebeea44dafd6331abf89e4daea00e0dd0a5e7",
-    "scope": "Actual fresh corrected-original546b3h820.5063595210668/FQeabf9ba6; immutable1200second context/grant, no newcontrol/reseal",
-    "qualification_sha256": "eabf9ba6c674bb2e8c59291b7b96d293fb41e746fe471351283e9aa5cde2f32e"
-  },
-  "lifecycle": {
-    "model_invocations": {
-      "hpc01": "e47f1d50ec00466099c2722a1b157376",
-      "hpc02": "359525f2887c4dfba23a6492deb9ec01",
-      "hpc03": "3f5d0263b3a44db5b2b3deb339d91941",
-      "hpc04": "94439c1a53454b2785499161c4637c1d"
-    },
-    "reader_invocation_id": "6e72651ee377481e9e9be80070116684",
-    "reader_main_pid": 0,
-    "reader_exit_code_after_manager_unload": null,
-    "reader_manager_success_invocation_bound": true,
-    "reader_cgroup_path_absent": true,
-    "ordinary_collector_session": 59506,
-    "ordinary_collector_exit_code": 0,
-    "explicit_all_node_handover_to_Profile_sent": true,
-    "own_pending_jobs_reads_or_cache": false
-  },
-  "raw_refs": [
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-thompson-lazy-groups3h-runtime-r1/control-metadata/completion.json",
-      "sha256": "4218295a3646fbdc81bb7c8c1f265ca1d406c02f05eba908427444bb5c55f533",
-      "bytes": 916
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-thompson-lazy-groups3h-runtime-r1/control-metadata/model-closures.json",
-      "sha256": "790d947e948f853368b79af35e619c2120db536403218dd7b7accaaa9b6e0303",
-      "bytes": 1519
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-thompson-lazy-groups3h-runtime-r1/control-metadata/mpi-launch.json",
-      "sha256": "ad8cad8923574daf26bba507780425967ff3630eafde4e4afad1ce4ed7aaa44a",
-      "bytes": 4991
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-thompson-lazy-groups3h-runtime-r1/control-metadata/hpc02-node.json",
-      "sha256": "429a27f583bfc755dbddd8f5b431bacd27d550fb33ee73af2ae8b28a23bb79a5",
-      "bytes": 3357
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-thompson-lazy-groups3h-runtime-r1/control-metadata/hpc03-node.json",
-      "sha256": "ce3c3df5661cdcc47e3e30e6420e6e97fbf004d5c5aa30743451528d4e092e8a",
-      "bytes": 3358
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-thompson-lazy-groups3h-runtime-r1/control-metadata/hpc04-node.json",
-      "sha256": "5d9af01da7024415ef8285552e0083142d75e2d775866da2021bf7b71a1c76ef",
-      "bytes": 3358
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-thompson-lazy-groups3h-runtime-r1/control-metadata/adaptive-steps.json",
-      "sha256": "bd75fefdfa94bc6895f68c39867232bbc5bf1f06bc975f020b076bfad3d58318",
-      "bytes": 61525
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-thompson-lazy-groups3h-runtime-r1/control-metadata/cache-start-context.json",
-      "sha256": "4b510cdb71a380854a2ea8aa44f92998e6d37305caf7fd6e48eb7a26a416365e",
-      "bytes": 362
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-thompson-lazy-groups3h-runtime-r1/control-metadata/lease.json",
-      "sha256": "7c1965921ccd22838873d0bd2a9d0648c3d1ed58ce9093cb748425846ac4b01b",
-      "bytes": 110312
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-thompson-lazy-groups3h-runtime-r1/candidate-metadata/completion.json",
-      "sha256": "c2c0a4afbe772888cce0fe9ac96461b3e4a5155dcbd9111dfa6278e6fe9623e5",
-      "bytes": 981
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-thompson-lazy-groups3h-runtime-r1/candidate-metadata/model-closures.json",
-      "sha256": "231514dd6eab26764fd50ef453dcb12b712b62032ce4faa0d5fb626d8b66d892",
-      "bytes": 25896
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-thompson-lazy-groups3h-runtime-r1/candidate-metadata/mpi-launch.json",
-      "sha256": "f37af1da8acd61ef437f378c7b40243befffd42adea8140076be7627432030bc",
-      "bytes": 7227
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-thompson-lazy-groups3h-runtime-r1/candidate-metadata/hpc02-node.json",
-      "sha256": "359b27609eb9ac068cec9e7d3ee6e7319e76413444dd46ebc10058b1c19efeb4",
-      "bytes": 3715
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-thompson-lazy-groups3h-runtime-r1/candidate-metadata/hpc03-node.json",
-      "sha256": "b185fc4536d978750e6f58f987ff60d154b1c25c29cf8b0f3abde69ceeeab6fe",
-      "bytes": 3713
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-thompson-lazy-groups3h-runtime-r1/candidate-metadata/hpc04-node.json",
-      "sha256": "8dfbe1405e80ab3a3da582d8ea8709a9888702bdc7edbf468bfeea1d897beb9e",
-      "bytes": 3714
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-thompson-lazy-groups3h-runtime-r1/candidate-metadata/adaptive-steps.json",
-      "sha256": "6bdd8f8d92affe0f458c1eac4e746566836119e8acc2648af61867da0ac4677a",
-      "bytes": 61539
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-thompson-lazy-groups3h-runtime-r1/candidate-metadata/cache-start-context.json",
-      "sha256": "3342c0c37e369ba88e77304d9125c0f4167f07e599e1f76c17cb48f9fb1d9ecd",
-      "bytes": 362
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-thompson-lazy-groups3h-runtime-r1/candidate-metadata/lease.json",
-      "sha256": "cf9c7450dc7249b7e1c9d8a65367a0eea6ede0f70511cc02c4d15d04ea8f978d",
-      "bytes": 113307
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-thompson-lazy-groups3h-runtime-r1/science-receipt.json",
-      "sha256": "6d1559af4594fc71b40c47c9b797eb2e144aaf8d2f8807cae83f4e5abdb1c3fc",
-      "bytes": 4444994
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-thompson-lazy-groups3h-runtime-r1/reader-closure.json",
-      "sha256": "9f1cd1aec784dedaefb5114e936531d2f5f000a33a7596923eca3a04a506680f",
-      "bytes": 4176
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-thompson-lazy-groups3h-runtime-r1/candidate-closures.json",
-      "sha256": "40f5bb0505ba5496d73bf69ae5ee8377cab8221aa538efb792173db55df85df1",
-      "bytes": 23169
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-thompson-lazy-groups3h-runtime-r1/RESULT.json",
-      "sha256": "090cbbc6a2fd5484ebefe34c67e8c94c964727690f58451636783c9af0d70fde",
-      "bytes": 433
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-thompson-lazy-groups3h-runtime-r1/cache-clear-candidate.json",
-      "sha256": "ec3c3733b769487ee00b2cc781813c248b05d1c1ca698270dfcc433da4851b9e",
-      "bytes": 5700
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-thompson-lazy-groups3h-runtime-r1/application-binding.json",
-      "sha256": "1c6a75d02a38081a879431eb1eb6475fd679e2b94d13f9315b133436c83aac96",
-      "bytes": 17613
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-thompson-lazy-groups3h-runtime-r1/lazy-short-science.json",
-      "sha256": "7383cf18d194dc445dba70901148b3dd58339f85928d14baf083f47d962e8991",
-      "bytes": 3609016
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-thompson-lazy-groups3h-runtime-r1/lazy-short-reader-closure.json",
-      "sha256": "6190ff81a9422e84acbc4a5c159bcd2e153636177529a0e121c75e0e7d7b5bc5",
-      "bytes": 4184
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-thompson-lazy-groups3h-runtime-r1/lazy-short-final-qualification.json",
-      "sha256": "d7e43a4a529593a3715d2e57e73d40d8a3a2bd7edf624b8042269af3a18f984e",
-      "bytes": 3626
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-thompson-lazy-groups3h-runtime-r1/lazy-build-receipt.json",
-      "sha256": "73fac40cb06eadb6000712c49f0f9d51a2678ded9ec84ada4948dd2dedcadb90",
-      "bytes": 1859019
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-thompson-lazy-groups3h-runtime-r1/lazy-build-closure.json",
-      "sha256": "3a2a2ec3c2d714f701dfe61d637ae402a7a2a0e1a6df399ab875b716a5b9d870",
-      "bytes": 1151
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-thompson-lazy-groups3h-runtime-r1/lazy-build-qualification.json",
-      "sha256": "50fef7bcc3122456c421389416dbec192a627aec1b5eb9501400a56c4001667a",
-      "bytes": 2628
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-thompson-lazy-groups3h-runtime-r1/lazy-ordered-proof.json",
-      "sha256": "49f2f794954f6e91f4a23ab8cbfddcb039ec8df8736d7269345d5a673acf35a8",
-      "bytes": 209926
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-thompson-lazy-groups3h-runtime-r1/myj-build-receipt.json",
-      "sha256": "38d0e8fe835d941d939f00372e3cc39ea26cea3e02aa6f74f3b41d30f0a8a2ac",
-      "bytes": 15667
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-thompson-lazy-groups3h-runtime-r1/myj-build-closure.json",
-      "sha256": "112908a33aef6d1addaf815ab96bc13761e9da7303fee6375271bba9d2d42c5a",
-      "bytes": 1118
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-thompson-lazy-groups3h-runtime-r1/myj-build-qualification.json",
-      "sha256": "8802bfeeb403205c6fd9cf99ea0d51142e611d0565c741b72edb52f1d7e47f87",
-      "bytes": 12042
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-thompson-lazy-groups3h-runtime-r1/myj-ordered-proof.json",
-      "sha256": "959c2f33df0c70a3d606defd2508951a95cc2872e4723b956e78599506f57fc4",
-      "bytes": 209925
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-qg-group-early-publication-feasibility-r1/periodic-threehour-preparation-r1/lifecycle-r1/candidate-health-observations.jsonl",
-      "sha256": "8f764dcb89cae3c52f4f304549eea9b3d3100103e8f88a5879e5b887edba94eb",
-      "bytes": 77836
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-qg-group-early-publication-feasibility-r1/periodic-threehour-preparation-r1/lifecycle-r1/candidate-STARTUP_METADATA_CENSUS.json",
-      "sha256": "cc409afdbfe2600fdab4776d2fac7a5294226d178d858c5f53c0ea9edf8f9d53",
-      "bytes": 11769
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-qg-group-early-publication-feasibility-r1/periodic-threehour-preparation-r1/ROOT_COMPLETE_OPERATION_RELEASE.json",
-      "sha256": "bca210694d3080b45ac48950c5fb734bb574b34eec53ef26b51ab653b8af074e",
-      "bytes": 841
-    },
-    {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-qg-group-early-publication-feasibility-r1/periodic-threehour-preparation-r1/ACTIVATION_ONLY.diff",
-      "sha256": "544300118d115391df26157f43d9efcf42110d2a3fe0733a127c8081cd58291b",
-      "bytes": 783
     }
-  ]
+  },
+  "limits": [
+    "Fixedorder freshoriginal\u2192latest onepair; no repeatability or isolated rootinputgain claim.",
+    "All prior accepted improvements included; synthetic43% completeinputroute observation doesnottransfer as forecastgain.",
+    "ControlactualmanagerFAILED1/MPI0 preserved; exactall512runtime/RSL postprocessing recovery separate, not fake normalcompletion.",
+    "Per-read in-model FENVnot sampled; nativefullAPI/five-statequalification separate.",
+    "Memoryevents fromactualrecords; reclaim/PSI or phasecausality not inferred withoutretained evidence."
+  ],
+  "raw_refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/parallel-input-chunk-decode-feasibility-r1/threehour-control-postprocessing-repair-r1/science-receipt.json": {
+      "sha256": "bf17d0287456739bf1db07ce45556ef69a768e255019af6b113e2c186255b824",
+      "bytes": 4449186
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/parallel-input-chunk-decode-feasibility-r1/threehour-control-postprocessing-repair-r1/reader-closure.json": {
+      "sha256": "106fe5e3e75509b5028d82a2e35303fe4913eb45a107df7328503694e2dbb327",
+      "bytes": 4185
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/parallel-input-chunk-decode-feasibility-r1/threehour-control-postprocessing-repair-r1/control-postprocessing-proof.json": {
+      "sha256": "c7d1bb63aa4fe23187a16284a62e836f9676d8aa365d3663d5449da508bdb097",
+      "bytes": 2532
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/parallel-input-chunk-decode-feasibility-r1/threehour-control-postprocessing-repair-r1/failed-model-closures.json": {
+      "sha256": "4b84d7436177745eb7cfb5e0e3ae9266fa445500f934495e9d3a05a6f87e4444",
+      "bytes": 19496
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/parallel-input-chunk-decode-feasibility-r1/threehour-control-postprocessing-repair-r1/control-qualifier-closure.json": {
+      "sha256": "a762429bc6205d35b6e937b78d2e462fb3705202763d1330896099dba3075798",
+      "bytes": 4020
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/parallel-input-chunk-decode-feasibility-r1/threehour-control-postprocessing-repair-r1/control-adaptive-steps.json": {
+      "sha256": "896bf308ca510720e7c51dd5e27a6b09b3d43f33db896f31c8eb68cc99cbb71e",
+      "bytes": 61526
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/parallel-input-chunk-decode-feasibility-r1/threehour-control-postprocessing-repair-r1/actual-pair-model-metadata-r1/candidate/adaptive-steps.json": {
+      "sha256": "5e073ed79b3a0a3f8fd00566c2851628ee5cb80394a16b623725e66c0fad3d19",
+      "bytes": 61518
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/parallel-input-chunk-decode-feasibility-r1/threehour-control-postprocessing-repair-r1/actual-pair-model-metadata-r1/control/completion.json": {
+      "sha256": "a57d668963f0c1bfa66425745713e654226ac173b0618915fe6588faca0555b0",
+      "bytes": 244
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/parallel-input-chunk-decode-feasibility-r1/threehour-control-postprocessing-repair-r1/actual-pair-model-metadata-r1/control/mpi-launch.json": {
+      "sha256": "688c1a3ec984ab6e9fea938c461cfa9d5f28463f16a60f4ce9b46cba8afd20e0",
+      "bytes": 5327
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/parallel-input-chunk-decode-feasibility-r1/threehour-control-postprocessing-repair-r1/actual-pair-model-metadata-r1/control/hpc02-node.json": {
+      "sha256": "7155701b5b2b5fcfc6ca1330df79ef433f066d573d8ccc6300e05f835145a03b",
+      "bytes": 3367
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/parallel-input-chunk-decode-feasibility-r1/threehour-control-postprocessing-repair-r1/actual-pair-model-metadata-r1/control/hpc03-node.json": {
+      "sha256": "5c8524bb8c3cb99ee3997ad7dfd2a9467e74bc2a64e26f0cc40684c7bebb4ce7",
+      "bytes": 3367
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/parallel-input-chunk-decode-feasibility-r1/threehour-control-postprocessing-repair-r1/actual-pair-model-metadata-r1/control/hpc04-node.json": {
+      "sha256": "e332627cdfbd53083f7e751f73faeac5ee5928feae2f2f84ec5a217bdbd5b600",
+      "bytes": 3367
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/parallel-input-chunk-decode-feasibility-r1/threehour-control-postprocessing-repair-r1/actual-pair-model-metadata-r1/control/cache-start-context.json": {
+      "sha256": "29a57b24313f9371ff46e2665b665b976d2c2c26c3e78849fe5130b0baa30ae4",
+      "bytes": 362
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-parallel-input3h-runtime-r1/cache-clear-control.json": {
+      "sha256": "260ca3f9a96daa19a6e3dbdbe4a1db85cd0bf3d704cd105fb513f00edb3ac03e",
+      "bytes": 5752
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/parallel-input-chunk-decode-feasibility-r1/threehour-control-postprocessing-repair-r1/actual-pair-model-metadata-r1/candidate/completion.json": {
+      "sha256": "bc9e100f3397cb7c1c3055fb25da38867e5e290c78e493c25fe929d2a3bc3582",
+      "bytes": 1046
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/parallel-input-chunk-decode-feasibility-r1/threehour-control-postprocessing-repair-r1/actual-pair-model-metadata-r1/candidate/model-closures.json": {
+      "sha256": "02fd7f36f580936a87f4acf3ea6ea8a195fc7b1c3fb00aea534923c5841bd796",
+      "bytes": 26430
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/parallel-input-chunk-decode-feasibility-r1/threehour-control-postprocessing-repair-r1/actual-pair-model-metadata-r1/candidate/mpi-launch.json": {
+      "sha256": "9d63700cbcabc945a940890e2d5b38f4dcc9e2fbc0f28df2e831197128c92eea",
+      "bytes": 7790
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/parallel-input-chunk-decode-feasibility-r1/threehour-control-postprocessing-repair-r1/actual-pair-model-metadata-r1/candidate/hpc02-node.json": {
+      "sha256": "d336862a5f87f0232da753e15e7e0b282bedbe5303be5f6e6fb0a1d5aae581b4",
+      "bytes": 3752
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/parallel-input-chunk-decode-feasibility-r1/threehour-control-postprocessing-repair-r1/actual-pair-model-metadata-r1/candidate/hpc03-node.json": {
+      "sha256": "fea05cb974f3db5a918f0dec912fd36d173e4b89c7a12c4a0c8be46b9d9e3536",
+      "bytes": 3754
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/parallel-input-chunk-decode-feasibility-r1/threehour-control-postprocessing-repair-r1/actual-pair-model-metadata-r1/candidate/hpc04-node.json": {
+      "sha256": "5fd565f1a6f0259c5d4aa1a38bf80451a0b9b7b03ccaa5ddb5932e81f8b2c6b5",
+      "bytes": 3754
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/parallel-input-chunk-decode-feasibility-r1/threehour-control-postprocessing-repair-r1/actual-pair-model-metadata-r1/candidate/cache-start-context.json": {
+      "sha256": "36afba61f75c570bbfb22740d2e8d23ca7ff39d4d194d648566bb0ab1e13e3b1",
+      "bytes": 362
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-parallel-input3h-runtime-r1/cache-clear-candidate.json": {
+      "sha256": "8ef0f393686a9af1027d457836aaacd1e7836187290a5591f6309bcfab431e7f",
+      "bytes": 5762
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-parallel-input3h-runtime-r1/check_pair.py": {
+      "sha256": "2f2f3e5ac988ab166af1d9fc5322dd13915a5c85c1a6ced2438c5a9d128514b7",
+      "bytes": 5450
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/parallel-input-chunk-decode-feasibility-r1/threehour-control-postprocessing-repair-r1/check_pair_repaired.py": {
+      "sha256": "5cf6b94232744a735be423f57cce717132138138cf46af3e499765b4b1d4121b",
+      "bytes": 6412
+    }
+  }
 }

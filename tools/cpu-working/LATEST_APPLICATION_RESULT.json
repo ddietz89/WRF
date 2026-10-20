@@ -1,280 +1,76 @@
 {
-  "status": "PASS_CURRENT_TCG_RK_COMBINED_THREE_HOUR_ORIGINAL_FULL_GATE_AND_ALL_OWN_SCOPES_CLOSED",
-  "order": [
-    "retained_corrected_original546b",
-    "current_TCG_owner12_plus_later_RK_fusion_combined"
-  ],
-  "comparison_design": "UNPAIRED retained original control; no isolated TCG/RK gain attribution",
-  "source_commit": "26bcd59c507dc76cba49e3e06196bac2fb278dec",
-  "producer_source_commit": null,
-  "source_commit_note": "Post-science tracking of exact c53 TCG and ca2c RK canonical source; frozen producers remain NULL.",
+  "status": "PASS_FRESH_ORIGINAL_LATEST_INPUT_THREE_HOUR_ORIGINAL_SCI_TRANSPARENT_CONTROL_POSTPROCESSING",
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/thompson-tcg-rk-later-pass-combined-current-r1/wrf.exe",
-    "sha256": "3bb2b8f17ed5c5c8cb2afe9b1e68faf162a66c37546a366a00179411b651c4df"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2/wrf.exe",
+    "sha256": "1d6e5213108a5a1501ab319825bfa1a024df367af5037bee5f80d210f72d4f14"
   },
+  "source_commit": "495f10002d87fb5fdcc256c20a9e592c037d9183",
+  "input_implementation_commit": "614267f340a23ffc342962b3c64e323719fe4d06",
+  "comparison_design": "Fresh fixed-order corrected-original546b followed by combined1d6e plus root-only input06d/NCa32; no observers/profilers.",
   "metrics": {
     "control": {
-      "wall_seconds": 820.5063595210668,
-      "cpu_seconds": 367800.485597,
-      "main_step_sum_seconds": 597.99405
+      "wall_seconds": 818.0402264029253,
+      "cpu_seconds": 366874.26066900004,
+      "main_step_sum_seconds": 595.75757
     },
     "candidate": {
-      "wall_seconds": 673.5171840980183,
-      "cpu_seconds": 325722.091547,
-      "main_step_sum_seconds": 565.12427
+      "wall_seconds": 670.7779205960687,
+      "cpu_seconds": 323960.582918,
+      "main_step_sum_seconds": 566.69136
     }
   },
   "reductions_percent": {
-    "wall_seconds": 17.914446819016327,
-    "cpu_seconds": 11.440548802348626,
-    "main_step_sum_seconds": 5.496673420078347
+    "wall_seconds": 18.00184160311973,
+    "cpu_seconds": 11.697107797299921,
+    "main_step_sum_seconds": 4.878865408290145
   },
-  "science": {
-    "status": "PASS_CURRENT_TCG_RK_COMBINED_THREE_HOUR_ORIGINAL_FULL_GATE_AND_ALL_OWN_SCOPES_CLOSED",
-    "complete_products": 4,
-    "ordered_steps": 545,
-    "last_observed_step": "2026-10-12_09:00:00",
-    "all512": true,
-    "compute_ranks": 480,
-    "serial_tiles": 2,
-    "required_positive_roots": [
+  "actual_product_comparisons": 4,
+  "ordered_steps": 545,
+  "all_own_jobs_closed": true,
+  "fresh_matched_timing": true,
+  "repeatability_established": false,
+  "applies_to_current_selection": true,
+  "full_qualification_sha256": "fed6f9ab2260eeb9e9ac4f56e68062e588bfb424ed344466a02ba0e7390d8780",
+  "science_sha256": "bf17d0287456739bf1db07ce45556ef69a768e255019af6b113e2c186255b824",
+  "reader_closure_sha256": "106fe5e3e75509b5028d82a2e35303fe4913eb45a107df7328503694e2dbb327",
+  "control_postprocessing": "Actual MPI0 in all four scopes; root coordinator FAILED KeyError after timing. Raw failure retained. Separate exact all512 runtime/RSL recovery and original numerical comparison passed; no invented manager success.",
+  "scope": "Cold single-domain06\u201309, GNU13.3/Zen2/OMP1, 480compute8x60+4groupsx8quilt, hourlyNetCDF2/twoTiles/faba/singleIB.",
+  "cache_policy": "Checked sync/drop_caches3 on each of four compute clients before EACH arm. File-server caches/load uncontrolled.",
+  "limits": "Combined one-pair result, not isolated input/read-affine/Thompson gain or repeatability. Main-step elapsed includes communication/backpressure; not integration CPU. Whole-minus-main is not pure I/O. No nine-hour/restart/nesting/other-compiler transfer.",
+  "memory_peaks_bytes": {
+    "control": {
+      "hpc01": 98726105088,
+      "hpc02": 101050097664,
+      "hpc03": 100993732608,
+      "hpc04": 107228016640
+    },
+    "candidate": {
+      "hpc01": 76196855808,
+      "hpc02": 73751851008,
+      "hpc03": 73718833152,
+      "hpc04": 73683906560
+    }
+  },
+  "memory_scope": "Actual whole-job cgroup peaks; combined comparison only, not isolated memory/PSS attribution.",
+  "input_lifecycle": {
+    "event": "final",
+    "rank": 0,
+    "scopes": 308,
+    "callbacks": 31,
+    "supplied": 17,
+    "declines": 14,
+    "widens": 31,
+    "restores": 31
+  },
+  "production_quilting": {
+    "compute": 480,
+    "groups": 4,
+    "ranks_per_group": 8,
+    "positive_roots": [
       487,
       495,
       503,
       511
-    ],
-    "receipt_sha256": "ddc294c795f685b0bac63c17d416ac54e7f9b9f1f5a3c6daeb11f3ce64d56b69",
-    "reader_closure_sha256": "8a82ccb775b459e6040e908735924e39cae0398f38a6dd660cb9711c2140aba8",
-    "full_qualification_sha256": "28018b1925f455292438fdedc660186f8751bfe102c4027fa50578511f06ca36",
-    "all_model_reader_scopes_closed": true,
-    "protected_checker": {
-      "path": "/pool/wrf-experiment/wrf-cpu/validation/protected_netcdf_exact_reference.py",
-      "sha256": "0382bcbabfbc16b76114ef552206c6c558ea15cd3c3552dfaed98b977deea2b4",
-      "verified": true
-    }
-  },
-  "science_sha256": "ddc294c795f685b0bac63c17d416ac54e7f9b9f1f5a3c6daeb11f3ce64d56b69",
-  "reader_closure_sha256": "8a82ccb775b459e6040e908735924e39cae0398f38a6dd660cb9711c2140aba8",
-  "application_qualification": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-b-memory-criticalpath-r1/tcg-rk-combined-threehour-preparation-r1/lifecycle-r1/FINAL_QUALIFICATION.json",
-    "sha256": "28018b1925f455292438fdedc660186f8751bfe102c4027fa50578511f06ca36"
-  },
-  "model_resources": {
-    "control": {
-      "hpc01": {
-        "invocation_id": "740aec3ca7f349bca71f9b3ab045c936",
-        "wall_seconds": 820.5063595210668,
-        "memory_peak_bytes": 98732437504,
-        "memory_peak_GiB": 91.95174789428711,
-        "memory_events": {
-          "low": 0,
-          "high": 0,
-          "max": 0,
-          "oom": 0,
-          "oom_kill": 0,
-          "oom_group_kill": 0
-        },
-        "cpu_stat": {
-          "usage_usec": 91941354466,
-          "user_usec": 90158210283,
-          "system_usec": 1783144182,
-          "core_sched.force_idle_usec": 0,
-          "nr_periods": 8218,
-          "nr_throttled": 5152,
-          "throttled_usec": 23708208,
-          "nr_bursts": 0,
-          "burst_usec": 0
-        }
-      },
-      "hpc02": {
-        "invocation_id": "a88ae582cb6d49638699db117bc64f82",
-        "wall_seconds": 816.2065535990987,
-        "memory_peak_bytes": 101101588480,
-        "memory_peak_GiB": 94.1581916809082,
-        "memory_events": {
-          "low": 0,
-          "high": 0,
-          "max": 0,
-          "oom": 0,
-          "oom_kill": 0,
-          "oom_group_kill": 0
-        },
-        "cpu_stat": {
-          "usage_usec": 91942279812,
-          "user_usec": 90047989411,
-          "system_usec": 1894290400,
-          "core_sched.force_idle_usec": 0,
-          "nr_periods": 8163,
-          "nr_throttled": 6060,
-          "throttled_usec": 8449876,
-          "nr_bursts": 0,
-          "burst_usec": 0
-        }
-      },
-      "hpc03": {
-        "invocation_id": "b660f136b24147da982e51e8f319a329",
-        "wall_seconds": 816.1627576050814,
-        "memory_peak_bytes": 101013078016,
-        "memory_peak_GiB": 94.07575988769531,
-        "memory_events": {
-          "low": 0,
-          "high": 0,
-          "max": 0,
-          "oom": 0,
-          "oom_kill": 0,
-          "oom_group_kill": 0
-        },
-        "cpu_stat": {
-          "usage_usec": 91984346974,
-          "user_usec": 90103106179,
-          "system_usec": 1881240794,
-          "core_sched.force_idle_usec": 0,
-          "nr_periods": 8162,
-          "nr_throttled": 5639,
-          "throttled_usec": 14945774,
-          "nr_bursts": 0,
-          "burst_usec": 0
-        }
-      },
-      "hpc04": {
-        "invocation_id": "c604f1d17d984f41bfbae9cb41dbc0f3",
-        "wall_seconds": 816.2098608058877,
-        "memory_peak_bytes": 107177967616,
-        "memory_peak_GiB": 99.8172607421875,
-        "memory_events": {
-          "low": 0,
-          "high": 0,
-          "max": 0,
-          "oom": 0,
-          "oom_kill": 0,
-          "oom_group_kill": 0
-        },
-        "cpu_stat": {
-          "usage_usec": 91932504345,
-          "user_usec": 89961304153,
-          "system_usec": 1971200191,
-          "core_sched.force_idle_usec": 0,
-          "nr_periods": 8162,
-          "nr_throttled": 4892,
-          "throttled_usec": 36985882,
-          "nr_bursts": 0,
-          "burst_usec": 0
-        }
-      }
-    },
-    "candidate": {
-      "hpc01": {
-        "invocation_id": "56056ab55abe4c458569e134ded49111",
-        "wall_seconds": 673.5171840980183,
-        "memory_peak_bytes": 88682180608,
-        "memory_peak_GiB": 82.59171676635742,
-        "memory_events": {
-          "low": 0,
-          "high": 0,
-          "max": 0,
-          "oom": 0,
-          "oom_kill": 0,
-          "oom_group_kill": 0
-        },
-        "cpu_stat": {
-          "usage_usec": 81405442477,
-          "user_usec": 79675087562,
-          "system_usec": 1730354915,
-          "core_sched.force_idle_usec": 0,
-          "nr_periods": 6743,
-          "nr_throttled": 5191,
-          "throttled_usec": 7901551,
-          "nr_bursts": 0,
-          "burst_usec": 0
-        }
-      },
-      "hpc02": {
-        "invocation_id": "236e60cd2e744e4b888f3f2e474f78bc",
-        "wall_seconds": 670.3060049759224,
-        "memory_peak_bytes": 86362624000,
-        "memory_peak_GiB": 80.43146133422852,
-        "memory_events": {
-          "low": 0,
-          "high": 0,
-          "max": 0,
-          "oom": 0,
-          "oom_kill": 0,
-          "oom_group_kill": 0
-        },
-        "cpu_stat": {
-          "usage_usec": 81422265211,
-          "user_usec": 79548082787,
-          "system_usec": 1874182423,
-          "core_sched.force_idle_usec": 0,
-          "nr_periods": 6700,
-          "nr_throttled": 5228,
-          "throttled_usec": 10479795,
-          "nr_bursts": 0,
-          "burst_usec": 0
-        }
-      },
-      "hpc03": {
-        "invocation_id": "d8e739e0135e4ed1b0056f51ab16afae",
-        "wall_seconds": 670.3218771978281,
-        "memory_peak_bytes": 86321815552,
-        "memory_peak_GiB": 80.3934555053711,
-        "memory_events": {
-          "low": 0,
-          "high": 0,
-          "max": 0,
-          "oom": 0,
-          "oom_kill": 0,
-          "oom_group_kill": 0
-        },
-        "cpu_stat": {
-          "usage_usec": 81469960785,
-          "user_usec": 79606807605,
-          "system_usec": 1863153179,
-          "core_sched.force_idle_usec": 0,
-          "nr_periods": 6700,
-          "nr_throttled": 5318,
-          "throttled_usec": 8944071,
-          "nr_bursts": 0,
-          "burst_usec": 0
-        }
-      },
-      "hpc04": {
-        "invocation_id": "1a71ff28aef84b4fa815f9348349d96d",
-        "wall_seconds": 670.2345074021723,
-        "memory_peak_bytes": 86289596416,
-        "memory_peak_GiB": 80.36344909667969,
-        "memory_events": {
-          "low": 0,
-          "high": 0,
-          "max": 0,
-          "oom": 0,
-          "oom_kill": 0,
-          "oom_group_kill": 0
-        },
-        "cpu_stat": {
-          "usage_usec": 81424423074,
-          "user_usec": 79480744028,
-          "system_usec": 1943679046,
-          "core_sched.force_idle_usec": 0,
-          "nr_periods": 6699,
-          "nr_throttled": 4444,
-          "throttled_usec": 9950132,
-          "nr_bursts": 0,
-          "burst_usec": 0
-        }
-      }
-    }
-  },
-  "observed_speedup": {
-    "ratio": 1.2182411657690635,
-    "scope": "UNPAIRED retained corrected-original reference; no isolated/additive/repeatability claim."
-  },
-  "memory_context": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-b-memory-criticalpath-r1/tcg-rk-combined-threehour-preparation-r1/lifecycle-r1/MEMORY_CONTEXT.json",
-    "sha256": "12fe3bcc5bac9d648927990253e8ff8f2972babedd97590fd120d46866bc7388"
-  },
-  "limits": "UNPAIRED retainedfreshcorrected-original546b820.506s/1200context. No isolatedTCG/RK memory/speedgain or repeatability/globalcausal claim; distinctMPIwall/aggregatehostCPU/mainstep scopes. Fullapplicationdoesnotinheritcall-onlysyntheticRKgain/wholeharnessCPUclaim. Currentcold/maxdom1/OMP1/twoTile/ordinary/DIMNRHG1/shared1 only; no9h/restart/allbackend/mode0applicationtransfer.",
-  "result_file": "THREE_HOUR_RESULT.json",
-  "performance_qualification": "UNPAIRED_RETAINED_ORIGINAL_CURRENT_COMBINED",
-  "current_nine_hour_qualified": false
+    ]
+  }
 }
