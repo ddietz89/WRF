@@ -8,6 +8,12 @@ The fresh control-first pair measured **848.677401 → 657.745680s whole model/M
 
 Cross-pair variation matters: the prior optimized main560.3518s is only0.66% above this candidate, while the original control rose597.12504→626.3161s (4.89%). Do not attribute the new percentage to LW or codec alone, add component gains, or claim repeatability. **Current own3h is qualified; own9h remains false.** The prior41b/51a/3edf profiled nine-hour science stays historical. Raw producer source commits remain NULL; `d27df44f` is POST_TEST_SOURCE_IDENTITY only. Rollback uses the paired `BEFORE_ABSCLD_SCALAR` selection/binding and reverses only the four ABSCLD source changes, retaining e1d8 and other accepted components.
 
+## INATM copy grouping retained for application qualification (2026-10-20)
+
+Grouping the five cloud-copy families into two loops, containing two and three families, reduced complete synthetic INATM caller time by **20.03% on hpc01** and **17.72% on hpc04** in opposite run orders. The original 16-case O0/O2 descriptor, tail, raw, read-only and IEEE checks passed. Actual assembly removed the six repeated stride loads while retaining two copy-loop backedges. Each timed arm used five separate 20,000-call processes; the reported clock covers the descriptor wrapper and INATM, with validation outside it. Caches were cleared before every arm, and all jobs closed.
+
+This significant caller gain is retained pending the original application science check. It is absent from the selected executable and the ongoing original-versus-current nine-hour comparison; no forecast benefit is claimed. The preceding five-loop split passed correctness but slowed the same caller by 6.89% and 9.67%, so that variant remains rejected. [Evidence, scope and both decisions](tools/cpu-compute/inatm-copy-grouping/README.md).
+
 ## Historical block-carry short acceptance, before combined LW three-hour (2026-10-20)
 
 At this historical short-only milestone, codec **e1d8 block-carry** used unchanged WRF41b/sourceb37/archiveCF22, outputpool51a/source909, rootinput06d/NCa32, HDF825, faba map and two tiles. The original short check passed **two complete products,35 ordered steps,all512 ranks**, with exact input/worker/runtime checks; all model and reader scopes strongly closed. The existing067e diagnostic observer was retained. Codec source was recorded after testing in commit `862bae1e`; frozen raw producerNULL records are unchanged.

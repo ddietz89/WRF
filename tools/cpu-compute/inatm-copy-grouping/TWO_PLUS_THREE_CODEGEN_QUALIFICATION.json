@@ -1,0 +1,92 @@
+{
+  "status": "PASS_ACTUAL_TWO_COPY_BACKEDGES_AND_PER_IG_STACK_RELOAD_REMOVAL_PENDING_CALLER",
+  "native_invocation_id": "e96b9eb671214e688cdea6683ce27b31",
+  "native_status": "PASS_CURRENT_513_INATM_TWO_PLUS_THREE_GROUPING_16_COMPLETE_NATIVE_O0_O2_RAW_STATE_PENDING_CODEGEN_CALLER",
+  "native_receipt_sha256": "e9326c064f8ab40e600569223629701a5dc524f6e33266dcb115fb3534705bf5",
+  "native_closure_sha256": "1e08d1bc7fb190e6b04144078c1c881f62761be0f5059a4bdbdfea7b8fb0cf82",
+  "objects": {
+    "O2-parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/inatm-two-plus-three-native-hpc04-r1/work/full-O2-parent/module_ra_rrtmg_lw.o",
+      "sha256": "32d2d795e01016ddca587550d92b921ce5c474e50bc530aa76f2ef6243cfa7a3"
+    },
+    "O0-parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/inatm-two-plus-three-native-hpc04-r1/work/full-O0-parent/module_ra_rrtmg_lw.o",
+      "sha256": "891b701b5b3ae987c158852d2362b21e221bedd50bb00e0486d3678a864eb222"
+    },
+    "O0-candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/inatm-two-plus-three-native-hpc04-r1/work/full-O0-candidate/module_ra_rrtmg_lw.o",
+      "sha256": "6a5af17473e92e239469b6bd44d423abe4b93080b5e61d7013d8690030083bfc"
+    },
+    "O2-candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/inatm-two-plus-three-native-hpc04-r1/work/full-O2-candidate/module_ra_rrtmg_lw.o",
+      "sha256": "48129208438c56a462098f4b58764b4aecab6bdc06a67878cacd52e2b0720d9d"
+    }
+  },
+  "ASM": [
+    {
+      "name": "parent-inatm.asm",
+      "bytes": 193455,
+      "sha256": "273ee45eeb1edb57b4a12db250bf31b0d7c8f74b304655849096d0701128d427"
+    },
+    {
+      "name": "candidate-inatm.asm",
+      "bytes": 193726,
+      "sha256": "15b72c3fa56f827ffd58f9f617cd9fe6d387f52dd7f5a707b44223d3e2f6da01"
+    }
+  ],
+  "original_parent_loop": "0x28960..289ce;6perIGstackstride loads andstackcounter,onebackedge",
+  "actual_candidate_loops": [
+    {
+      "start": "0x288e0",
+      "backedge": "0x288ff",
+      "families": 2,
+      "instructions": [
+        "   288e0:\tf3 0f 10 07          \tmovss  (%rdi),%xmm0",
+        "   288e4:\t4c 01 cf             \tadd    %r9,%rdi",
+        "   288e7:\tf3 0f 11 06          \tmovss  %xmm0,(%rsi)",
+        "   288eb:\tf3 0f 10 01          \tmovss  (%rcx),%xmm0",
+        "   288ef:\t4c 01 fe             \tadd    %r15,%rsi",
+        "   288f2:\t4c 01 c1             \tadd    %r8,%rcx",
+        "   288f5:\tf3 0f 11 02          \tmovss  %xmm0,(%rdx)",
+        "   288f9:\t4c 01 f2             \tadd    %r14,%rdx",
+        "   288fc:\t83 e8 01             \tsub    $0x1,%eax",
+        "   288ff:\t75 df                \tjne    288e0 <__rrtmg_lw_rad_MOD_inatm+0x20e0>"
+      ],
+      "stack_accesses_inside_copy_backedge": 0,
+      "scalar_loads": 2,
+      "scalar_stores": 2,
+      "counter": "EAX",
+      "trips": 140
+    },
+    {
+      "start": "0x28970",
+      "backedge": "0x2899f",
+      "families": 3,
+      "instructions": [
+        "   28970:\tf3 41 0f 10 01       \tmovss  (%r9),%xmm0",
+        "   28975:\t4d 01 e9             \tadd    %r13,%r9",
+        "   28978:\tf3 41 0f 11 00       \tmovss  %xmm0,(%r8)",
+        "   2897d:\tf3 0f 10 07          \tmovss  (%rdi),%xmm0",
+        "   28981:\t4d 01 e0             \tadd    %r12,%r8",
+        "   28984:\t48 01 ef             \tadd    %rbp,%rdi",
+        "   28987:\tf3 0f 11 06          \tmovss  %xmm0,(%rsi)",
+        "   2898b:\tf3 0f 10 01          \tmovss  (%rcx),%xmm0",
+        "   2898f:\t48 01 de             \tadd    %rbx,%rsi",
+        "   28992:\t4c 01 d9             \tadd    %r11,%rcx",
+        "   28995:\tf3 0f 11 02          \tmovss  %xmm0,(%rdx)",
+        "   28999:\t4c 01 d2             \tadd    %r10,%rdx",
+        "   2899c:\t83 e8 01             \tsub    $0x1,%eax",
+        "   2899f:\t75 cf                \tjne    28970 <__rrtmg_lw_rad_MOD_inatm+0x2170>"
+      ],
+      "stack_accesses_inside_copy_backedge": 0,
+      "scalar_loads": 3,
+      "scalar_stores": 3,
+      "counter": "EAX",
+      "trips": 140
+    }
+  ],
+  "stack_frame": "Both0x538;layer/setup/radius/outercounter stillstackbased",
+  "footprint": "Same functionstart0x26800;finalinstructionaddress parent0x2952b/candidate0x294eb (64B lower);notwholemoduleperformanceevidence.",
+  "mechanism": "Bothgroups retainregisterstrides andregistercounter,zero perIGstackaccess;two backedges vs5rejected and1parent. Same5scalarloads/stores andcopiedbytes,novectorization/allocationreduction.",
+  "limits": "Actualnative16O0/O2/34module/raw/statePASS. No measuredkernel/callergain,forecastclaim,source/defaultpromotion."
+}

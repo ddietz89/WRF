@@ -1,0 +1,73 @@
+{
+  "status": "ACTUAL_STRIDE_RELOAD_REMOVAL_MECHANISM_RETAIN_PENDING_COMPLETE_CALLER",
+  "native_invocation_id": "68ea80a1b89441be948e65a840b47d99",
+  "native_receipt_sha256": "efe6a8493ef63e191f808ddc252b6db917b1dcfdba7ce612a9334ed152d8f197",
+  "native_closure_sha256": "edf28316300ef99a5bfc1f63dae01091a3f2fb5fc3cee476a7cb83d2a9453b4f",
+  "ASM": [
+    {
+      "name": "parent-inatm.asm",
+      "bytes": 192087,
+      "sha256": "29304763fccdc0e12c07bee83c8fd373b1e90b3846d0cd0e71a47d805a7ca584"
+    },
+    {
+      "name": "candidate-inatm.asm",
+      "bytes": 191979,
+      "sha256": "571cb689ce3c61462299b926a48b5a16d13f7aa14b20253b34485324d04990cf"
+    }
+  ],
+  "parent_loop": {
+    "range": "0x28960..0x289ce",
+    "source": "parent PP11554..11559",
+    "stride_stack_loads_per_ig": [
+      "28960:-0x48",
+      "2896d:-0x50",
+      "2897e:-0x58",
+      "28990:-0x60",
+      "289a4:-0x68",
+      "289ba:-0x70"
+    ],
+    "counter": "0x289c9 subl $1,-0x78(%rsp)",
+    "work": "5 scalar MOVSS loads +5 stores;10 pointer updates; one fused backedge; ten data pointers live"
+  },
+  "candidate_loops": [
+    {
+      "body": "0x28890",
+      "backedge": "0x288a1",
+      "source_line": 11555,
+      "body_instructions": "MOVSS load; register pointer increment; MOVSS store; register pointer increment; EAX decrement; JNE; no stack access in backedge"
+    },
+    {
+      "body": "0x288c8",
+      "backedge": "0x288d9",
+      "source_line": 11558,
+      "body_instructions": "MOVSS load; register pointer increment; MOVSS store; register pointer increment; EAX decrement; JNE; no stack access in backedge"
+    },
+    {
+      "body": "0x28908",
+      "backedge": "0x28919",
+      "source_line": 11561,
+      "body_instructions": "MOVSS load; register pointer increment; MOVSS store; register pointer increment; EAX decrement; JNE; no stack access in backedge"
+    },
+    {
+      "body": "0x28948",
+      "backedge": "0x28959",
+      "source_line": 11564,
+      "body_instructions": "MOVSS load; register pointer increment; MOVSS store; register pointer increment; EAX decrement; JNE; no stack access in backedge"
+    },
+    {
+      "body": "0x28988",
+      "backedge": "0x28999",
+      "source_line": 11567,
+      "body_instructions": "MOVSS load; register pointer increment; MOVSS store; register pointer increment; EAX decrement; JNE; no stack access in backedge"
+    }
+  ],
+  "tradeoffs": [
+    "Same scalar data loads/stores, no vectorization or reduced copied byte count.",
+    "Five backedges and five setup sequences instead of one; no instruction-count-only speed claim.",
+    "Both INATM prologues allocate0x538 stack bytes; source only loop fission, no allocation removal.",
+    "Layer setup still accesses stack; claim is narrowly per-ig inner stride/counter traffic."
+  ],
+  "scope": "GNU13.3 actualO2/native flags and actual descriptor code; complete16case O0/O2 raw/state PASS separately. No timing/science/global gain claim.",
+  "parent_PP_sha256": "0caa78171153df91b5f5ba770cace8806f19e06126c63c2803cd15530f6419f5",
+  "candidate_PP_sha256": "01909f880c040206343e3d527a86ba2b3783f1ae2add2e1563d7349cb3976d9d"
+}
