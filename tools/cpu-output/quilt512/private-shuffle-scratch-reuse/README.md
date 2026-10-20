@@ -1,3 +1,7 @@
+## Combined fresh three-hour application qualification
+
+Current DF41b/pool51a/3edf passed original4products545/all512/twoTiles/all4positivewriters/all32fieldmarkers, checkedcacheEACH and normal model/readerclosures. Wholewall822.587693→662.433817s(19.46952%lower); aggregateCPU368895.741336→321352.545937s(12.88798%lower). These arecombinedwholeforecast observations, not isolated scratchgain; onefixedorder/no repeatability, own9hfalse. [Qualification](../../../cpu-working/THREE_HOUR_FINAL_QUALIFICATION.json). The exact short instrumented records below remain unchanged in their JSON evidence.
+
 # Private shuffle-scratch reuse
 
 The fused provider now retains four private shuffle buffers across callbacks. A nonblocking whole-bank lease spans all worker joins; busy, one-thread and oversized requests retain the original allocation path. Worker-affine growth allocates before replacing old storage, failure preserves existing slots, and idle unload releases the bank. Public ABI, output ownership/release, packing, compression, worker protocol and numerical behavior are unchanged.

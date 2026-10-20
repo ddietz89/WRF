@@ -2,46 +2,48 @@
   "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
   "order": [
     "fresh_corrected_original546b_control",
-    "fresh_CEC_input06d_NCa32_outputde5b_codec3edf_candidate"
+    "fresh_current_DF41b_pool51a_input06d_NCa32_3edf_candidate"
   ],
-  "comparison_design": "Fresh fixed-order corrected-original546b versus combinedCEC/root06dNCa32/de5b/codec3edf, whole model/MPI wall including output and drain.",
+  "comparison_design": "Fresh fixed-order corrected-original versus combined current candidate; no isolated outputpadding/SIMD/input or earlierkernel attribution",
   "metrics": {
     "control": {
-      "wall_seconds": 821.0544605769683,
-      "cpu_seconds": 368084.978303,
-      "main_step_sum_seconds": 597.98535
+      "wall_seconds": 822.5876927680802,
+      "cpu_seconds": 368895.741336,
+      "main_step_sum_seconds": 597.12504
     },
     "candidate": {
-      "wall_seconds": 662.5902046510018,
-      "cpu_seconds": 321016.00895299995,
-      "main_step_sum_seconds": 559.81599
+      "wall_seconds": 662.4338167828973,
+      "cpu_seconds": 321352.54593699996,
+      "main_step_sum_seconds": 560.3518
     }
   },
   "reductions_percent": {
-    "wall_seconds": 19.300090741192854,
-    "cpu_seconds": 12.787527914614817,
-    "main_step_sum_seconds": 6.382992493043515
+    "wall_seconds": 19.469520075877977,
+    "cpu_seconds": 12.887976214313746,
+    "main_step_sum_seconds": 6.158381835737448
   },
-  "science_sha256": "67e086393e410e09a0faec6db35d32030da314c77e15de68fe06872f5a41c835",
-  "reader_closure_sha256": "cf07a3bfec26e1cd13aa7cc0f1268f9d270a01bf003b03b6622ecc0fdcbf6293",
+  "science_sha256": "82b69d0d6454fa95cc5c9984c498f9dbde0d958315894e06a9eb6eb54bac76c1",
+  "reader_closure_sha256": "2bf74027e74539eb8ccd1750bc0db76fd017746526b09a19f43c20b74bcfd7a4",
   "limits": "One fresh fixed-order pair, actual checkedcache before each arm; no repeatability or per-kernel causal claim. Main includes communication/backpressure; residual is not pureIO.",
-  "qualification_sha256": "43da2c4a0b15a93f6080e7eacda94a7e9825e9bc567c7d2f1e8843e14005255d",
+  "qualification_sha256": "9a00e131349d9e6785c3f08cef0949c5f4ab6e7bb2b17c10da7d656c85816e40",
   "raw_result_label_disclosure": {
-    "raw_result_path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-cec-slide-hash3h-runtime-r1/RESULT.json",
-    "raw_result_sha256": "4fb17557b6990a4569cd5e895dc91cedbe984d88e8cc2949988e6082639e7203",
+    "raw_result_path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-pool-difcof3h-runtime-r1/RESULT.json",
+    "raw_result_sha256": "d7e3b37b3d44e2d024a7d9a1b25c74cb42262c446ec481bb233208ea69e365c7",
     "raw_order_literal_preserved": [
       "fresh_corrected_original546b_control",
-      "fresh_current1d6e_input06d_NCa32_de5b_candidate"
+      "fresh_current_DF41b_pool51a_input06d_NCa32_3edf_candidate"
     ],
-    "error": "Inherited collector order label names1d6e/881-era candidate although actualcandidatelease/executable isCEC andcodec3edf. This is stale reportinglabel only; frozenruntime/pins/rawRESULT unchanged.",
+    "label_status": "Current rawcollector label correctly names actualDF41b/pool51a/3edf; preserve raw literal and all raw scopes unchanged.",
     "qualified_order": [
       "fresh_corrected_original546b_control",
-      "fresh_CEC_input06d_NCa32_outputde5b_codec3edf_candidate"
+      "fresh_current_DF41b_pool51a_input06d_NCa32_3edf_candidate"
     ],
     "authority": "Actual collected per-arm lease.json hashes, originalscience runtime all512 mappedlibrary proofs, and sameINV strongclosures above."
   },
-  "candidate_executable_sha256": "cec189a3dbbb6ab95c7f31e29a44ee4eea37d06d8d161fc7349bc52daa468e30",
+  "candidate_executable_sha256": "41bfb335979cefd8f12a8d0c7a682d85d81cae88928fe12ee0badfec58dd7789",
   "candidate_codec_sha256": "3edf15a2d69040bb29ff52446bfcf103fbfdb8b7385fd68735e8a536a06f332c",
+  "candidate_output_shim_sha256": "51a31b3c137a2161700c9930a1e250021b34c598c887a7551e87d304b2ce4d31",
   "fresh_matched_timing": true,
-  "repeatability_established": false
+  "repeatability_established": false,
+  "wall_speedup_ratio": 1.2417658518144021
 }
