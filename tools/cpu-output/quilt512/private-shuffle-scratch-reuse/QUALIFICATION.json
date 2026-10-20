@@ -1,0 +1,61 @@
+{
+  "status": "PROMOTE_SIGNIFICANT_EXACT_PRIVATE_SHUFFLE_SCRATCH_REUSE_FULL512_SHORT",
+  "post_test_source": {
+    "status": "POST_TEST_OUTPUT_SOURCE_IDENTITY",
+    "source_commit": "909ab6ef55ac5351f9fd03e4019be470e89a3929",
+    "raw_producer_source_commit": null,
+    "provider_source_file": "tools/cpu-output/quilt512/root_chunk_provider.c",
+    "provider_source_sha256": "7ea74cd6c5172a17cc19bebf93e14e322695ce415feb0a517ea9984941f184eb",
+    "full_shim_path": "/pool/wrf-experiment/wrf-cpu/kernels/current-de5b-private-shuffle-scratch-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
+    "full_shim_sha256": "51a31b3c137a2161700c9930a1e250021b34c598c887a7551e87d304b2ce4d31",
+    "shim_source_sha256": "313e18ed4309eec9b038371dfce227f8f5fc401813b094aa2cddb01e9de47421",
+    "scope": "Literal provider source committed after original short science. WRF source remainsb37e02ce/exe41b,codec source624bc116/3edf. Raw producerNULL records unchanged; existing build.py already strict/C11/-lm and uses fused-pack source hash."
+  },
+  "evidence_sha256": {
+    "NATIVE_QUALIFICATION.json": "4f6ba085a713ca1e44fc6645f07a5c82fc08cf68e533885f9fd3038372ab34f7",
+    "TIMING_QUALIFICATION.json": "3ee8f54bee92b38e8ef069da6d8d37e0b9b315996e14734721a2d41d3c281e70",
+    "INTEGRATION_QUALIFICATION.json": "589c74106d5604c3ea41026b1310dd13bc38ad9fce9df3e32d5ee8ab06624615",
+    "APPLICATION_QUALIFICATION.json": "892afe2c9d9bd36e3084d749d42f5050ba091162b3586a1f75efb15a0b7958a3",
+    "SOURCE_PROOF.json": "c580974c9e0619c4f63cf74ed2aaa68283162dc8fc5a25677c85a1c1492c5940",
+    "PROMOTION_REVIEW.json": "ff86d6760ad3ceddd022c350dddeff3e99ac978a545598a8599d9f94d1954745",
+    "PROVIDER_ONLY.diff": "2ecbb21a5439302dc9608d8a61b6fad46aec97867ddb8cbcdc971614e717e3c3",
+    "WRITE_ATTRIBUTION.json": "44cd483a18903493e2a000732b474fcc74dd4d5016889e846dd3207ab689901e",
+    "WRITE_ATTRIBUTION.md": "ae9b7c6fafc35c2bbd563d0537680b60015228a34783e9f77563449d12e0c307",
+    "UNPAIRED_CALLBACK_COMPARISON.json": "b88b3009795885acbc989818b0d10606f2c4a3efc4410b6ca09d9ae2e1499be6",
+    "POST_TEST_SOURCE_IDENTITY.json": "7b076586543200d9d60b4883af6f6ee67498afe8d19a62b8b79a283d208c9bee"
+  },
+  "performance": {
+    "scope": "Complete W-shaped SYNTHETIC provider,32steadycallbacks afterexcludedwarmproof; initialcoldallocation outside clocks. Fullraw/gold/independentstockdecode/fivestate/136realpairedjoins hard every arm. Oneoppositeorderpair pernode; cacheEACH/strongclosures. Not forecast gain.",
+    "wall_reductions_percent": [
+      37.25902730971802,
+      37.280871123257896
+    ],
+    "process_CPU_reductions_percent": [
+      35.60249952509141,
+      36.81129061440874
+    ]
+  },
+  "memory_contract": {
+    "max_logical_retained_bytes_per_writer": 225720000,
+    "max_four_writer_logical_retention_bytes": 902880000,
+    "scope": "Extra resident lifetime between calls; not memory savings or measured PSS/RSS. Four private slots, nonblocking lease, worker-affine growth/failed-growth retention, old fallback forthreads1/oversize/contention; idle-only cleanup. Hard model memory caps unchanged."
+  },
+  "application": {
+    "qualification_sha256": "892afe2c9d9bd36e3084d749d42f5050ba091162b3586a1f75efb15a0b7958a3",
+    "products": 2,
+    "steps": 35,
+    "world": 512,
+    "tiles": 2,
+    "positive_writer_roots": [
+      487,
+      495
+    ],
+    "zero_writer_roots": [
+      503,
+      511
+    ],
+    "all_scopes_closed": true
+  },
+  "limits": "InitialR1instantthreadcensusFAIL remainsunresolved; diagnosticloggingandoriginalR2fixture passed, no inventedcause. No active-unload/unsupportedcaller/own3h9h/restart/othercompiler claims. Instrumented application samePIDcallbacks descriptively4.27%/3.11% shorter thanpreviousDFde5b, UNPAIRED, notattributableforecastgain.",
+  "rollback": "RestorepairedBEFORE_PRIVATE_SHUFFLE_SCRATCH workingrecords/artifactde5b; replaceonlyprovider withprevious_root_chunk_provider.c(8db). RetainDF41b/3edf/input06d/allpreviouschanges."
+}

@@ -1,8 +1,14 @@
+# Current fused provider: private shuffle-scratch reuse
+
+Source7ea/fullshim51a retains bounded private worker scratch across callbacks. Complete W-shaped **synthetic**32steady-call wall fell37.26%/37.28%, CPU35.60%/36.81%; cold allocation is excluded. Exact native/fullshim/publicAPI and actual512 original2products35 passed, alljobsclosed. Retention at most225.72MB/writer or902.88MBfour; no physical-memory saving or forecast gain claim. [Evidence and rollback](private-shuffle-scratch-reuse/README.md). WRF41b/sourceb37, codec3edf/rootinput06dNCa32 and all prior improvements remain. New own3h/9h acceptance is pending; production/master unchanged.
+
+## Earlier provider evidence
+
 # Provider qualification provenance
 
 Current de5b also passed the fresh corrected-original546b three-hour pair: original4products/545steps/full512/twoTiles/all4positivewriters; actual result and qualification are in tools/cpu-working/THREE_HOUR_RESULT.json and THREE_HOUR_FINAL_QUALIFICATION.json. This whole-configuration measurement does not transfer the previous172 nine-hour scope or establish isolated component gains.
 
-The current working `fused-pack` default is provider source `8db4037d`, full shim `de5b3c27`. [Combinedpadding/SIMD32evidence](padding-block32/README.md) binds native7dc, incrementalcaller1f16 and actualnoon2products230SCI c648/reader5e7e, all512/twoTiles with487495positive503511inactive. Rawproducercommits remainNULL. Earlierpadding1e0/329f andfusionb938/172 records are historical. The packagebuildselector sourcehashisupdated, not rebuiltmerelyforthispromotion; selectedartifactcomesfromitsactualqualifiednative/fullAPIbuild.
+The previous working `fused-pack` default was provider source `8db4037d`, full shim `de5b3c27`. [Combinedpadding/SIMD32evidence](padding-block32/README.md) binds native7dc, incrementalcaller1f16 and actualnoon2products230SCI c648/reader5e7e, all512/twoTiles with487495positive503511inactive. Rawproducercommits remainNULL. Earlierpadding1e0/329f andfusionb938/172 records are historical. The packagebuildselector sourcehashisupdated, not rebuiltmerelyforthispromotion; selectedartifactcomesfromitsactualqualifiednative/fullAPIbuild.
 
 The original provider/shim and its one-hour, three-hour and prior build epochs remain in [historical-qualification-4cb.json](historical-qualification-4cb.json). `--provider original` selects that source. The parent world-16/64 sources and installed dependencies remain unchanged.
 

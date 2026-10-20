@@ -288,20 +288,17 @@
       "provider_source_file": "parallel-pack/root_chunk_provider.c"
     },
     "fused-pack": {
-      "status": "PROMOTED_PADDING_BLOCK32_EXACT_512_NOON75M_INCREMENTAL_CALLER_GAIN",
+      "status": "PROMOTED_EXACT_PRIVATE_SHUFFLE_SCRATCH_SHORT_FULL512",
       "provider_source_file": "root_chunk_provider.c",
-      "provider_source_sha256": "8db4037d6c64b3ad60c012678b3810a9d313d0ffd7ba4d379af0f60de3a5a885",
+      "provider_source_sha256": "7ea74cd6c5172a17cc19bebf93e14e322695ce415feb0a517ea9984941f184eb",
       "native_artifact": {
-        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current329f-padding-block32-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
-        "sha256": "de5b3c27224091cc0369062c9f1bbb867b362436a0331892a6ec9cf4fc4fccb4"
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-de5b-private-shuffle-scratch-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
+        "sha256": "51a31b3c137a2161700c9930a1e250021b34c598c887a7551e87d304b2ce4d31"
       },
-      "native_qualification_file": "padding-block32/NATIVE_QUALIFICATION.json",
-      "application_qualification_file": "padding-block32/APPLICATION_QUALIFICATION.json",
-      "caller_timing_file": "padding-block32/CALLER_TIMING_RESULT.json",
-      "scope": "Currentde5b/8db ownsnoon2products230/all512/twoTiles/487495positive503511zero;375threehour/172ninehour remainhistorical, no transfer.",
-      "nine_hour_qualification_file": "../../cpu-working/NINE_HOUR_FINAL_QUALIFICATION.json",
-      "nine_hour_result_file": "../../cpu-working/NINE_HOUR_RESULT.json",
-      "previous172_nine_hour_scope": "Prior172/providerb938; does not qualifycurrentde5b or329f."
+      "native_qualification_file": "private-shuffle-scratch-reuse/INTEGRATION_QUALIFICATION.json",
+      "application_qualification_file": "private-shuffle-scratch-reuse/APPLICATION_QUALIFICATION.json",
+      "caller_timing_file": "private-shuffle-scratch-reuse/TIMING_QUALIFICATION.json",
+      "scope": "InitialR1instantthreadcensusFAIL remainsunresolved; diagnosticloggingandoriginalR2fixture passed, no inventedcause. No active-unload/unsupportedcaller/own3h9h/restart/othercompiler claims. Instrumented application samePIDcallbacks descriptively4.27%/3.11% shorter thanpreviousDFde5b, UNPAIRED, notattributableforecastgain."
     }
   },
   "default_provider": "fused-pack",
@@ -312,7 +309,7 @@
     "shipped_manifest_sha256": "e36c18ccea261f0f5f8a5164266c72d040fc9df19e4e263301555e087145b3b8",
     "scope": "Unchanged qualified current map only; proposed map unpromoted."
   },
-  "source_scope": "World512 fused-pack workingdefault source8db/de5b, qualified GNU13.3/Zen2/currentmap; originalprovideroptout/world16/world64 unchanged. Older native_artifact/activation/timing entries retain historicaloriginal4cb/375 epochs.",
+  "source_scope": "Currentfused-pack provider7ea/fullshim51a afterexactshort512 science;313e/headers/API unchanged. Previous8db/de5b retained forrollback. RawproducerNULL, separateposttest909ab6ef. No own3h9h transfer.",
   "variant_recipe_reproduction": {
     "status": "PASS_DEFAULT_AND_OPTIONAL_PACKAGE_BINARY_BYTEIDENTICAL",
     "result_file": "variant-build/result.json",
@@ -406,15 +403,16 @@
     "next_phase": "Controlled reverse-order, one-change regression audit on the fixed three-hour benchmark; no new optimization/probe."
   },
   "current_selected_artifact": {
-    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current329f-padding-block32-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
-    "sha256": "de5b3c27224091cc0369062c9f1bbb867b362436a0331892a6ec9cf4fc4fccb4",
-    "provider_source_sha256": "8db4037d6c64b3ad60c012678b3810a9d313d0ffd7ba4d379af0f60de3a5a885",
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-de5b-private-shuffle-scratch-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
+    "sha256": "51a31b3c137a2161700c9930a1e250021b34c598c887a7551e87d304b2ce4d31",
+    "provider_source_sha256": "7ea74cd6c5172a17cc19bebf93e14e322695ce415feb0a517ea9984941f184eb",
     "shim_source_sha256": "313e18ed4309eec9b038371dfce227f8f5fc401813b094aa2cddb01e9de47421",
     "source_commit": null,
-    "native_qualification_sha256": "7dc1e20fb57643edff2c19c9eaf094a9728a13e5f923cd5ca9288d606a63fba5"
+    "post_test_source_commit": "909ab6ef55ac5351f9fd03e4019be470e89a3929",
+    "native_qualification_sha256": "589c74106d5604c3ea41026b1310dd13bc38ad9fce9df3e32d5ee8ab06624615"
   },
-  "current_application_qualification_file": "padding-block32/APPLICATION_QUALIFICATION.json",
-  "variant_recipe_reproduction_note": "Historicaloriginal/simd-pack byte-reproduction remainsunchanged. Currentde5b comesfromseparatelypinned native/fullAPIbuild; updatedselector sourcehash8db not rebuiltmerelyforpromotion.",
+  "current_application_qualification_file": "private-shuffle-scratch-reuse/APPLICATION_QUALIFICATION.json",
+  "variant_recipe_reproduction_note": "ExistingstrictC11/-lm builder reads7ea; actual51a comes from its completednative/API build, no rebuildmerelyselectorpromotion.",
   "previous_current_selected_artifact_172": {
     "path": "/pool/wrf-experiment/wrf-cpu/kernels/current375-fused-pack-shuffle-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
     "sha256": "172306f3a8c482f8aa2f2683c7f847dab62bf695532a06b0e6ddd8ba441a2a07",
@@ -432,9 +430,38 @@
     }
   },
   "current_three_hour_application": {
-    "path": "tools/cpu-working/THREE_HOUR_FINAL_QUALIFICATION.json",
+    "qualified": false,
+    "applies_to_current_selected_artifact": false,
+    "scope": "New51a owns shortqualification only; previousde5bthreehour records remain separate."
+  },
+  "previous_fused_pack_before_private_scratch": {
+    "status": "PROMOTED_PADDING_BLOCK32_EXACT_512_NOON75M_INCREMENTAL_CALLER_GAIN",
+    "provider_source_file": "root_chunk_provider.c",
+    "provider_source_sha256": "8db4037d6c64b3ad60c012678b3810a9d313d0ffd7ba4d379af0f60de3a5a885",
+    "native_artifact": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current329f-padding-block32-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
+      "sha256": "de5b3c27224091cc0369062c9f1bbb867b362436a0331892a6ec9cf4fc4fccb4"
+    },
+    "native_qualification_file": "padding-block32/NATIVE_QUALIFICATION.json",
+    "application_qualification_file": "padding-block32/APPLICATION_QUALIFICATION.json",
+    "caller_timing_file": "padding-block32/CALLER_TIMING_RESULT.json",
+    "scope": "Currentde5b/8db ownsnoon2products230/all512/twoTiles/487495positive503511zero;375threehour/172ninehour remainhistorical, no transfer.",
+    "nine_hour_qualification_file": "../../cpu-working/NINE_HOUR_FINAL_QUALIFICATION.json",
+    "nine_hour_result_file": "../../cpu-working/NINE_HOUR_RESULT.json",
+    "previous172_nine_hour_scope": "Prior172/providerb938; does not qualifycurrentde5b or329f."
+  },
+  "previous_current_selected_artifact_before_pool": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current329f-padding-block32-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
+    "sha256": "de5b3c27224091cc0369062c9f1bbb867b362436a0331892a6ec9cf4fc4fccb4",
+    "provider_source_sha256": "8db4037d6c64b3ad60c012678b3810a9d313d0ffd7ba4d379af0f60de3a5a885",
+    "shim_source_sha256": "313e18ed4309eec9b038371dfce227f8f5fc401813b094aa2cddb01e9de47421",
+    "source_commit": null,
+    "native_qualification_sha256": "7dc1e20fb57643edff2c19c9eaf094a9728a13e5f923cd5ca9288d606a63fba5"
+  },
+  "previous_current_three_hour_application_before_pool": {
+    "path": "tools/cpu-working/PREVIOUS_THREE_HOUR_FINAL_QUALIFICATION_BEFORE_CEC_SLIDE.json",
     "sha256": "f66f4c76c67848ff3a22e406625b91eb797b86008904b6d3096c863cf867da5a",
-    "result_path": "tools/cpu-working/THREE_HOUR_RESULT.json",
+    "result_path": "tools/cpu-working/PREVIOUS_THREE_HOUR_RESULT_BEFORE_CEC_SLIDE.json",
     "result_sha256": "9c325d58f4a4f1e5b168fe2b6f05602dd265f9f131b35ae87f2f7089b8f0e9e5",
     "shim_sha256": "de5b3c27224091cc0369062c9f1bbb867b362436a0331892a6ec9cf4fc4fccb4",
     "products": 4,
@@ -447,6 +474,7 @@
       503,
       511
     ],
-    "current_nine_hour_qualified": false
+    "current_nine_hour_qualified": false,
+    "applies_to_current_selection": false
   }
 }

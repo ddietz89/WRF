@@ -1,0 +1,452 @@
+{
+  "status": "QUALIFIED_OPT_IN_WORLD512_WORKING_FORK",
+  "proposed_fork_path": "WRF/tools/cpu-output/quilt512",
+  "variant_source_sha256": "313e18ed4309eec9b038371dfce227f8f5fc401813b094aa2cddb01e9de47421",
+  "existing_shared_directory_relative": "..",
+  "shared_files_sha256": {
+    "wrf_root_thread_shim.c": "c20b85e3ec50253f171d686b8f7fbc5caf87975c493d5afb451430c44d9814e8",
+    "root_chunk_provider.c": "ee9ebe7948f0173f84c0f6efd08618ccad1dd8cdf9b3a93c790e1e2d70d5142b",
+    "root_chunk_provider.h": "969fc7475b5b6da0f135557746e008e3599e303e19c6cec8e9c5294c5a75cf0c",
+    "netcdf_precompressed.h": "f050797799f235dea8be9400198d0b8d44fbfca2acb45ed4a914b75b717311b4"
+  },
+  "native_artifact": {
+    "path": "/pool/wrf-experiment/wrf-cpu/source-discovery/quilt-multiwriter-native-fixture-r6/wrf_quilt_thread_shim.so",
+    "sha256": "4cb1c2abc61e60be2c79fc40ab9b9fd45fb19aefb59798afd2bbdad09d20cc71",
+    "native_result_path": "/home/ddietz/wrf/investigation/wrf-cpu/source-discovery/quilt-multiwriter-compression-next-r1/native-result-r6.json",
+    "native_result_sha256": "182bb24e5686b5c1e7ec2ffef7ac6e739370e5c3c57c9d0f8cbba0abbd4770ac",
+    "native_closure_path": "/home/ddietz/wrf/investigation/wrf-cpu/source-discovery/quilt-multiwriter-compression-next-r1/native-closure-r6.json",
+    "native_closure_sha256": "92428518f4c74bc76954593f3caf784c086ec08cc1f7f9b89cee01773c94926d",
+    "scope": "native world1 owner/provider/resource/observer + shared-object ineligible-world decline only; no512-positive activation"
+  },
+  "model_one_hour": {
+    "status": "PASS_ORIGINAL_TWO_HISTORY_AND_FULL_PREFIX_COMBINED_IO",
+    "receipt_path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-quilt-combined1h-science-check-r2/science-receipt.json",
+    "receipt_sha256": "7c00239ef9ff46ddd4fc6d04eb8bf3c69053fcb2fc87ace63ba37d79a09f4574",
+    "closure_path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-quilt-combined1h-science-check-r2/reader-closure.json",
+    "closure_sha256": "70123d940056d97365c94f815e2744047d6ad581b91f4af931d76a9519d86753",
+    "reader_invocation_id": "74378996eecc45b19c8627cf75c73568",
+    "complete_history_products": 2,
+    "ordered_observed_steps": 185,
+    "qualified_rank_count": 512,
+    "exercised_writers": {
+      "487": {
+        "callbacks": 216,
+        "releases": 216,
+        "restores": 216,
+        "errors": 0,
+        "pending": 0
+      },
+      "495": {
+        "callbacks": 216,
+        "releases": 216,
+        "restores": 216,
+        "errors": 0,
+        "pending": 0
+      }
+    },
+    "unexercised_writer_roots": [
+      503,
+      511
+    ],
+    "scope": "positive world512 native runtime and original two complete history/185-step scientific/meta/layout gate; no timing or all-four-writer qualification",
+    "original_failed_coordinator_retained": {
+      "unit": "wrf-cpu-production512-quilt-combined1h-b9-4node-r1-hpc01.service",
+      "invocation_id": "8416859b5bf54fbbab8ad7c284465bf4",
+      "main_pid": 0,
+      "active_state": "failed",
+      "result": "exit-code",
+      "exit_code": 1,
+      "cgroup_processes": [],
+      "original_wrapper_failure": true
+    },
+    "additive_revalidation_receipt_sha256": "5d773da5427ce8c0f20b30d11dc216a3e514a918187bf761aa5d6ab100fbbc83",
+    "additive_revalidation_closure_sha256": "1215868e335deb909f3bd2ba49cf262474e1fbe5e9b46fbc11e250e2445b378d"
+  },
+  "model_three_hour_all_four_writers": {
+    "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_THREE_HOUR_SEQUENCE",
+    "receipt_sha256": "435286502eb888f0451dca8155068da1e57709771298e8f8bdbb22cbbff5d77d",
+    "closure_sha256": "2eb2f475005035dae1673a14891c30b38bb566d8ee0cf955f76d12757bb50c32",
+    "complete_history_products": 4,
+    "ordered_observed_steps": 545,
+    "qualified_rank_count": 512,
+    "writer_finals": {
+      "487": {
+        "event": "final",
+        "rank": 487,
+        "scopes": 261,
+        "callbacks": 216,
+        "supplied": 216,
+        "declines": 0,
+        "guard_declines": 0,
+        "terminal_guards": 0,
+        "releases": 216,
+        "pending": 0,
+        "errors": 0,
+        "widens": 216,
+        "restores": 216,
+        "calls": 261,
+        "foreign_calls": 0
+      },
+      "495": {
+        "event": "final",
+        "rank": 495,
+        "scopes": 261,
+        "callbacks": 216,
+        "supplied": 216,
+        "declines": 0,
+        "guard_declines": 0,
+        "terminal_guards": 0,
+        "releases": 216,
+        "pending": 0,
+        "errors": 0,
+        "widens": 216,
+        "restores": 216,
+        "calls": 261,
+        "foreign_calls": 0
+      },
+      "503": {
+        "event": "final",
+        "rank": 503,
+        "scopes": 261,
+        "callbacks": 216,
+        "supplied": 216,
+        "declines": 0,
+        "guard_declines": 0,
+        "terminal_guards": 0,
+        "releases": 216,
+        "pending": 0,
+        "errors": 0,
+        "widens": 216,
+        "restores": 216,
+        "calls": 261,
+        "foreign_calls": 0
+      },
+      "511": {
+        "event": "final",
+        "rank": 511,
+        "scopes": 261,
+        "callbacks": 216,
+        "supplied": 216,
+        "declines": 0,
+        "guard_declines": 0,
+        "terminal_guards": 0,
+        "releases": 216,
+        "pending": 0,
+        "errors": 0,
+        "widens": 216,
+        "restores": 216,
+        "calls": 261,
+        "foreign_calls": 0
+      }
+    },
+    "evidence_path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-matched-combined3h-runtime-r1"
+  },
+  "timing": {
+    "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_THREE_HOUR_SEQUENCE",
+    "stock_model_mpi_wall_seconds": 1099.8378293958958,
+    "candidate_model_mpi_wall_seconds": 946.0055552769918,
+    "wall_reduction_percent": 13.986814238186273,
+    "aggregate_cgroup_cpu_seconds": {
+      "stock": 506761.987394,
+      "candidate": 458479.778874
+    },
+    "cpu_reduction_percent": 9.527590806147279,
+    "scope": "Single stock-first three-hour full1500x1140x33 512-rank pair; 128 physical cores/node,100GiB01-03,104GiB04,swap0; includes startup/init/forecast/fouroutputs/MPIexit, excludes download/WPS/REAL; order/cache/shared-load effects uncontrolled; no isolated component attribution, no statistical gain,144h or restart qualification",
+    "source_manifest_sha256": "536c8d77d4bbbef6f77bd54b61f32e5dc50610073a5b7d0976cc20a937eb0938",
+    "science_receipt_sha256": "435286502eb888f0451dca8155068da1e57709771298e8f8bdbb22cbbff5d77d",
+    "reader_closure_sha256": "2eb2f475005035dae1673a14891c30b38bb566d8ee0cf955f76d12757bb50c32",
+    "closed_telemetry_sha256": "bb605cfa4ceecd1158de7050522565a996fcd98b08c3109c39c35018d6f26a6d",
+    "stock_model_closure_sha256": "1d03e14dcb06473273ab5487489fce787281a044d5e672f5d8f38a71335eba61",
+    "candidate_model_closure_sha256": "ec5d936daa0e8fdbc8cd6027d6ab7f3f9886914eb99beff53aea2019eb4582d2",
+    "writer_finals": {
+      "487": {
+        "event": "final",
+        "rank": 487,
+        "scopes": 261,
+        "callbacks": 216,
+        "supplied": 216,
+        "declines": 0,
+        "guard_declines": 0,
+        "terminal_guards": 0,
+        "releases": 216,
+        "pending": 0,
+        "errors": 0,
+        "widens": 216,
+        "restores": 216,
+        "calls": 261,
+        "foreign_calls": 0
+      },
+      "495": {
+        "event": "final",
+        "rank": 495,
+        "scopes": 261,
+        "callbacks": 216,
+        "supplied": 216,
+        "declines": 0,
+        "guard_declines": 0,
+        "terminal_guards": 0,
+        "releases": 216,
+        "pending": 0,
+        "errors": 0,
+        "widens": 216,
+        "restores": 216,
+        "calls": 261,
+        "foreign_calls": 0
+      },
+      "503": {
+        "event": "final",
+        "rank": 503,
+        "scopes": 261,
+        "callbacks": 216,
+        "supplied": 216,
+        "declines": 0,
+        "guard_declines": 0,
+        "terminal_guards": 0,
+        "releases": 216,
+        "pending": 0,
+        "errors": 0,
+        "widens": 216,
+        "restores": 216,
+        "calls": 261,
+        "foreign_calls": 0
+      },
+      "511": {
+        "event": "final",
+        "rank": 511,
+        "scopes": 261,
+        "callbacks": 216,
+        "supplied": 216,
+        "declines": 0,
+        "guard_declines": 0,
+        "terminal_guards": 0,
+        "releases": 216,
+        "pending": 0,
+        "errors": 0,
+        "widens": 216,
+        "restores": 216,
+        "calls": 261,
+        "foreign_calls": 0
+      }
+    },
+    "equal_resource_pair_receipt_sha256": "99eb82c486ff0e89c15ec621f734576703db6a14b1a273f9df289198332a9902"
+  },
+  "api_provenance_path": "/home/ddietz/wrf/investigation/wrf-cpu/source-discovery/quilt-multiwriter-compression-next-r1/api-provenance.json",
+  "implementation_disposition_path": "/home/ddietz/wrf/investigation/wrf-cpu/source-discovery/quilt-multiwriter-compression-next-r1/IMPLEMENTATION_DISPOSITION.md",
+  "no_binaries_vendored": true,
+  "package_reproduction": {
+    "status": "PASS_PACKAGE_BINARY_BYTEIDENTICAL",
+    "invocation_id": "0f35d254744246cd947a50a04050d0ab",
+    "binary_path": "/pool/wrf-experiment/wrf-cpu/source-discovery/quilt512-package-build-r1/artifact/wrf_quilt_thread_shim.so",
+    "binary_sha256": "4cb1c2abc61e60be2c79fc40ab9b9fd45fb19aefb59798afd2bbdad09d20cc71",
+    "byteidentical_to_native_artifact": true,
+    "result_relative": "activation/actual-result.json",
+    "result_sha256": "e45b3da3479438e06dcbb1a07881f2e9f501c5884e3d8c6694480e4f7440427d",
+    "closure_relative": "activation/actual-closure.json",
+    "closure_sha256": "9903f46653066a869fc716c8b95cd96c34c227377c91a3e67e491c742ade59c7",
+    "build_receipt_relative": "activation/actual-artifact-build-receipt.json",
+    "build_receipt_sha256": "564314c557d65d81901474f513a9bf1c9c4867fd0e45f92f73aa16ca082beee3",
+    "scope": "same source and qualified C recipe reproduced the native SO exactly; no additional model/native matrix or performance qualification"
+  },
+  "optional_build_variants": {
+    "simd-pack": {
+      "status": "QUALIFIED_OPTIONAL_NOT_DEFAULT_APPLICATION_REGRESSED",
+      "provider_source_sha256": "e29a6a59ee8c239ea2a67c80f261d8102ff550d21510761899ef62c3f4445589",
+      "native_artifact": {
+        "path": "/pool/wrf-experiment/wrf-cpu/source-discovery/parallel-pack-quilt-shim-native-r1/wrf_quilt_thread_shim.so",
+        "sha256": "375aa7e3198d42d84e3c95612f5475216354e2c4cb33c053eea42ac29f4bdb2a",
+        "receipt_sha256": "d708b72899fed0a0fc88e59de721a277dadec416df9982ec805b9bcf234352d8",
+        "closure_sha256": "601aed84df04c7e680ea4c69703754b85616988c9d1c64a33d4a531b738ca41e",
+        "scope": "Actual native four-worker provider/observer, public owner ABI/errors and world1 ineligible decline; no512 activation."
+      },
+      "native_full_provider_screen": {
+        "receipt_sha256": "08fa03fdd408f1cc08a1f44c60754bd3a33fb9085296b528aa537c0a502402f4",
+        "closure_sha256": "d9d5c53fea52ce2b3918c6017f7486e2b2bfaeee167c23fa7ebb684b9130d9a6",
+        "wall_reduction_percent": 7.986869,
+        "cpu_increase_percent": 2.077416,
+        "scope": "Five alternating full actual-W provider pairs versus SIMD-only37c9, same four workers/NG; no forecast claim."
+      },
+      "model_one_hour": {
+        "status": "PASS_ORIGINAL_TWO_HISTORY_AND_ALL185_STEPS_ALL512_LIFECYCLES",
+        "science_receipt_sha256": "bf5b4823cd5265750e631a8c86d98dd437b13304198e4d5658130b8292d7fbcc",
+        "reader_closure_sha256": "1bd7ebe1e37fcc81dfdc6e5f28d1bb0cfc6a488dd7161396ae80f880893ed4bf",
+        "wall_increase_percent": 12.4210186,
+        "cpu_increase_percent": 15.0997233,
+        "scope": "One current-map run versus retained same-resource control, with intervening model/reader/native-test/cache gap. Original two complete products, 185 steps and all512 lifecycles PASS; observed application regression, no tightly paired or isolated performance claim."
+      },
+      "scalar_fallback_scope": "Source-reviewed generic branch and tails tested on AVX2 host; non-AVX2-host execution unqualified.",
+      "package_reproduction": {
+        "status": "PASS_DEFAULT_AND_OPTIONAL_PACKAGE_BINARY_BYTEIDENTICAL",
+        "result_file": "variant-build/result.json",
+        "result_sha256": "83e1a623cb30edca92f39729cc5b580432a232815c59862894d71a269f0c0b35",
+        "closure_file": "variant-build/closure.json",
+        "closure_sha256": "611a10655b3e6533c5b6bf8774a74eb87a607b386ae118e5d8ea2e6dbf5fd552",
+        "invocation_id": "755c4667fd324a5bbbf5bbfc0405e966",
+        "default_original_receipt_sha256": "071b7462cba70989955a53f09addf1effa8af67c54a9b8388f54f4f26c1391d1",
+        "optional_receipt_sha256": "e4f45895b00dc8abee614051a19133ff1a521c2a9735dfeb77c173b519eec418",
+        "scope": "One closed build-only unit. Defaultoriginal4cb and explicitoptional375aa exact; no new model or deployment qualification."
+      },
+      "provider_source_file": "parallel-pack/root_chunk_provider.c"
+    },
+    "fused-pack": {
+      "status": "PROMOTED_PADDING_BLOCK32_EXACT_512_NOON75M_INCREMENTAL_CALLER_GAIN",
+      "provider_source_file": "root_chunk_provider.c",
+      "provider_source_sha256": "8db4037d6c64b3ad60c012678b3810a9d313d0ffd7ba4d379af0f60de3a5a885",
+      "native_artifact": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current329f-padding-block32-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
+        "sha256": "de5b3c27224091cc0369062c9f1bbb867b362436a0331892a6ec9cf4fc4fccb4"
+      },
+      "native_qualification_file": "padding-block32/NATIVE_QUALIFICATION.json",
+      "application_qualification_file": "padding-block32/APPLICATION_QUALIFICATION.json",
+      "caller_timing_file": "padding-block32/CALLER_TIMING_RESULT.json",
+      "scope": "Currentde5b/8db ownsnoon2products230/all512/twoTiles/487495positive503511zero;375threehour/172ninehour remainhistorical, no transfer.",
+      "nine_hour_qualification_file": "../../cpu-working/NINE_HOUR_FINAL_QUALIFICATION.json",
+      "nine_hour_result_file": "../../cpu-working/NINE_HOUR_RESULT.json",
+      "previous172_nine_hour_scope": "Prior172/providerb938; does not qualifycurrentde5b or329f."
+    }
+  },
+  "default_provider": "fused-pack",
+  "placement": {
+    "variant": "current",
+    "table_sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac",
+    "rankfile_sha256": "2f030d0e5a360414e65ddc7c87d92e013ab4de33ebaffb15226184fe4428015a",
+    "shipped_manifest_sha256": "e36c18ccea261f0f5f8a5164266c72d040fc9df19e4e263301555e087145b3b8",
+    "scope": "Unchanged qualified current map only; proposed map unpromoted."
+  },
+  "source_scope": "World512 fused-pack workingdefault source8db/de5b, qualified GNU13.3/Zen2/currentmap; originalprovideroptout/world16/world64 unchanged. Older native_artifact/activation/timing entries retain historicaloriginal4cb/375 epochs.",
+  "variant_recipe_reproduction": {
+    "status": "PASS_DEFAULT_AND_OPTIONAL_PACKAGE_BINARY_BYTEIDENTICAL",
+    "result_file": "variant-build/result.json",
+    "result_sha256": "83e1a623cb30edca92f39729cc5b580432a232815c59862894d71a269f0c0b35",
+    "closure_file": "variant-build/closure.json",
+    "closure_sha256": "611a10655b3e6533c5b6bf8774a74eb87a607b386ae118e5d8ea2e6dbf5fd552",
+    "invocation_id": "755c4667fd324a5bbbf5bbfc0405e966",
+    "default_original_receipt_sha256": "071b7462cba70989955a53f09addf1effa8af67c54a9b8388f54f4f26c1391d1",
+    "optional_receipt_sha256": "e4f45895b00dc8abee614051a19133ff1a521c2a9735dfeb77c173b519eec418",
+    "scope": "One closed build-only unit. Defaultoriginal4cb and explicitoptional375aa exact; no new model or deployment qualification."
+  },
+  "latest_combined_application_qualification": {
+    "scope": "GNU 13.3 / qualified Zen 2 hosts hpc01-04 / current map / world512 / full grid / three simulated hours; combined changes only",
+    "default_provider": "simd-pack",
+    "provider_sha256": "375aa7e3198d42d84e3c95612f5475216354e2c4cb33c053eea42ac29f4bdb2a",
+    "candidate_executable_sha256": "1799376a1e3a439bcd7c22f5d9b554a1b8372ee619856eb693f96a993b718b22",
+    "control_executable_sha256": "12d3cf5e102fca2bb440ee47cef9d93af901b45300981caced7bbbb99fbe37e6",
+    "control_provider_sha256": "4cb1c2abc61e60be2c79fc40ab9b9fd45fb19aefb59798afd2bbdad09d20cc71",
+    "manifest_sha256": "fab6eb31cbee993595799a9d98c115e66ad9ca7d9340ea118dd307f0a2eeff80",
+    "science_receipt_sha256": "d75707763a03d355bd92cca29a2684827f99c22e341547e79f4dcd55f852cf11",
+    "reader_closure_sha256": "5808a21af56949082d42d2ef317e12b33ef0c26212b0a905ff81848f0e892842",
+    "science_status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_NEXT_DEFAULT_THREE_HOUR_SEQUENCE",
+    "complete_products": 4,
+    "ordered_timesteps": 545,
+    "writer_roots": [
+      487,
+      495,
+      503,
+      511
+    ],
+    "callbacks_per_root": 216,
+    "all_jobs_closed": true,
+    "wall_seconds": {
+      "control": 900.083646676,
+      "candidate": 894.374112873
+    },
+    "aggregate_cgroup_cpu_seconds": {
+      "control": 437025.191032,
+      "candidate": 433118.033194
+    },
+    "observed_wall_reduction_percent": 0.634333689,
+    "observed_cpu_reduction_percent": 0.894034925,
+    "limitations": "One current-default-first pair with staging gap, shared-load/cache/order limits; small differences near variation, no repeatable whole-model or isolated-component speedup established. Earlier kernel percentages are not additive. No restart/144-hour/other compiler or hardware qualification. Failed x-cache and new Advection ISA variant excluded; exact native Advection restored."
+  },
+  "latest_direct_corrected_stock_three_hour_qualification": {
+    "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+    "control_executable_sha256": "546b99156cbd809e1cae5e0ea8cebeea44dafd6331abf89e4daea00e0dd0a5e7",
+    "candidate_executable_sha256": "6eb77d1eb6ba274b832cfec8ca31c2721c5c2cf797314cec842129bfd4169334",
+    "provider_sha256": "375aa7e3198d42d84e3c95612f5475216354e2c4cb33c053eea42ac29f4bdb2a",
+    "codec_sha256": "f85f24ba39b67ddb799b3bfcd7e01f9e1c0371fdac24ba7f0e6f400105bc738d",
+    "runtime_manifest_sha256": "5a5874121198ee8c7f31fa6daa0dd28140fe2c9372017e53c57858d00b5b77d5",
+    "science_receipt_sha256": "0a13cd718515f5ccfeb3841718e18900424227660c6effbee8e2dea791bb0c3f",
+    "reader_closure_sha256": "be636a60a4458d6e94151d7a628598a90c27568276a77531681d0dbeb59d94af",
+    "reader_invocation_id": "52b3b016662f41d880943ad8a1e2e072",
+    "complete_products": 4,
+    "ordered_steps": 545,
+    "world_size": 512,
+    "decomposition": [
+      8,
+      60
+    ],
+    "forecast_hours": 3,
+    "control_wall_seconds": 1033.064578,
+    "candidate_wall_seconds": 906.067103,
+    "wall_reduction_percent": 12.2933,
+    "control_aggregate_cpu_seconds": 476650.905977,
+    "candidate_aggregate_cpu_seconds": 440787.653496,
+    "cpu_reduction_percent": 7.524,
+    "control_main_step_sum_seconds": 810.08496,
+    "candidate_main_step_sum_seconds": 750.22359,
+    "scope": "One fresh corrected-stock-first direct combined comparison, equal physical CPU and100/104GiB budgets, current map and literal inputs/namelist. No isolated/additive/causal/repeatability, restart, longer horizon, other compiler/hardware or production claim.",
+    "benchmark": {
+      "grid": [
+        1500,
+        1140,
+        33
+      ],
+      "start": "2026-10-12_06:00:00",
+      "end": "2026-10-12_09:00:00",
+      "namelist_sha256": "70cd1d753c0d51891d11ed7a8f35fc9057606f9d6c2c0cbb97b88e02d47df6cb",
+      "physical_cpus_per_node": 128,
+      "memory_gib_by_node": {
+        "hpc01": 100,
+        "hpc02": 100,
+        "hpc03": 100,
+        "hpc04": 104
+      },
+      "working_fork_commit": "cb858aff",
+      "categories": "Corrected stock versus accepted complete configuration; unpromoted trials remain separate."
+    },
+    "next_phase": "Controlled reverse-order, one-change regression audit on the fixed three-hour benchmark; no new optimization/probe."
+  },
+  "current_selected_artifact": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current329f-padding-block32-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
+    "sha256": "de5b3c27224091cc0369062c9f1bbb867b362436a0331892a6ec9cf4fc4fccb4",
+    "provider_source_sha256": "8db4037d6c64b3ad60c012678b3810a9d313d0ffd7ba4d379af0f60de3a5a885",
+    "shim_source_sha256": "313e18ed4309eec9b038371dfce227f8f5fc401813b094aa2cddb01e9de47421",
+    "source_commit": null,
+    "native_qualification_sha256": "7dc1e20fb57643edff2c19c9eaf094a9728a13e5f923cd5ca9288d606a63fba5"
+  },
+  "current_application_qualification_file": "padding-block32/APPLICATION_QUALIFICATION.json",
+  "variant_recipe_reproduction_note": "Historicaloriginal/simd-pack byte-reproduction remainsunchanged. Currentde5b comesfromseparatelypinned native/fullAPIbuild; updatedselector sourcehash8db not rebuiltmerelyforpromotion.",
+  "previous_current_selected_artifact_172": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current375-fused-pack-shuffle-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
+    "sha256": "172306f3a8c482f8aa2f2683c7f847dab62bf695532a06b0e6ddd8ba441a2a07",
+    "provider_source_sha256": "b938317c3430fd11ec02dce7bb0f3201a426369bf4a073a10fc3c152a912960f",
+    "shim_source_sha256": "313e18ed4309eec9b038371dfce227f8f5fc401813b094aa2cddb01e9de47421",
+    "source_commit": null,
+    "native_two_stage_proof": {
+      "receipt_sha256": "75aebf1ae206c0c678051cfc0ec5cff7e79c19b0e742bfcfec110703ae364e1a",
+      "closure_sha256": "ea9f1c25ea06d0e0151d9e8bb90608aae37d9e146802ba85964c757d88e3e2a7",
+      "original_failed_invocation_id": "f97670205f3e4ae899c972089aa08192",
+      "postprocessing_success_invocation_id": "71384091515045558e5c5fa435b17b01",
+      "original_manager_failed_retained": true,
+      "shim_sha256": "172306f3a8c482f8aa2f2683c7f847dab62bf695532a06b0e6ddd8ba441a2a07",
+      "scope": "Actual375parent-exact/current881 fullDSO API/raw/state/world1-negative component only; actual512 activation/runtime/science remains hard."
+    }
+  },
+  "current_three_hour_application": {
+    "path": "tools/cpu-working/THREE_HOUR_FINAL_QUALIFICATION.json",
+    "sha256": "f66f4c76c67848ff3a22e406625b91eb797b86008904b6d3096c863cf867da5a",
+    "result_path": "tools/cpu-working/THREE_HOUR_RESULT.json",
+    "result_sha256": "9c325d58f4a4f1e5b168fe2b6f05602dd265f9f131b35ae87f2f7089b8f0e9e5",
+    "shim_sha256": "de5b3c27224091cc0369062c9f1bbb867b362436a0331892a6ec9cf4fc4fccb4",
+    "products": 4,
+    "ordered_steps": 545,
+    "world": 512,
+    "tiles": 2,
+    "all4_positive_writer_roots": [
+      487,
+      495,
+      503,
+      511
+    ],
+    "current_nine_hour_qualified": false
+  }
+}

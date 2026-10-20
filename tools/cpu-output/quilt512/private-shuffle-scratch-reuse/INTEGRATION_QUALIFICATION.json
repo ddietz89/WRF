@@ -1,0 +1,183 @@
+{
+  "status": "PASS_FULLSHIM_PUBLIC_API_COMPONENT_PENDING_ACTUAL512_APPLICATION",
+  "actual_producer_status": "PASS_CURRENT_DE5B_PRIVATE_SHUFFLE_SCRATCH_FULL_DSO_PUBLIC_NC_PUT_STATE_CHUNKS_WORLD1_NEGATIVE_NOT_512",
+  "invocation_id": "56a7911ce8a540f59e3b8f7bf8e07512",
+  "candidate_fullshim": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-de5b-private-shuffle-scratch-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
+    "sha256": "51a31b3c137a2161700c9930a1e250021b34c598c887a7551e87d304b2ce4d31"
+  },
+  "parent_fullshim": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-de5b-private-shuffle-scratch-integration-hpc02-r1/parent/wrf_quilt_thread_shim.so",
+    "sha256": "de5b3c27224091cc0369062c9f1bbb867b362436a0331892a6ec9cf4fc4fccb4",
+    "whole_DSO_reproduced_exact_before_candidate": true
+  },
+  "source_delta_only": {
+    "provider": [
+      "8db4037d6c64b3ad60c012678b3810a9d313d0ffd7ba4d379af0f60de3a5a885",
+      "7ea74cd6c5172a17cc19bebf93e14e322695ce415feb0a517ea9984941f184eb"
+    ],
+    "shim_sha256": "313e18ed4309eec9b038371dfce227f8f5fc401813b094aa2cddb01e9de47421",
+    "headers_API_workerlog_lifecycle_protocol_unchanged": true,
+    "defined_exports_equal": true,
+    "libm_explicit": true
+  },
+  "actual_gates": {
+    "public_api_rawcompressed_chunk_masks_layout": {
+      "threaded": {
+        "status": "PASS_PAIRED_PUBLIC_API_STATE_AND_RAW_CHUNK_LAYOUT",
+        "files": 1
+      },
+      "errors": {
+        "status": "PASS_PAIRED_PUBLIC_API_STATE_AND_RAW_CHUNK_LAYOUT",
+        "files": 4
+      },
+      "world1": {
+        "status": "PASS_PAIRED_PUBLIC_API_STATE_AND_RAW_CHUNK_LAYOUT",
+        "files": 1
+      }
+    },
+    "public_before_after_five_state_exact": {
+      "threaded_records_per_side": 2,
+      "error_records_per_side": 5,
+      "parent_candidate_records_equal": true,
+      "poststate_not_normalized": true
+    },
+    "source_included_observer": {
+      "parent": {
+        "status": "PASS_NATIVE_PTHREAD_INTERPOSITION_AND_RAW_BYTES",
+        "codec_path": "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/libz.so.1.3.1.zlib-ng",
+        "decoder_path": "/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib/libz.so.1.3.1",
+        "actual_mpi_world": 1,
+        "actual_mpi_rank": 0,
+        "mpi_provided": 1,
+        "no_512_activation": true
+      },
+      "candidate": {
+        "status": "PASS_NATIVE_PTHREAD_INTERPOSITION_AND_RAW_BYTES",
+        "codec_path": "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/libz.so.1.3.1.zlib-ng",
+        "decoder_path": "/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib/libz.so.1.3.1",
+        "actual_mpi_world": 1,
+        "actual_mpi_rank": 0,
+        "mpi_provided": 1,
+        "no_512_activation": true
+      }
+    },
+    "world1_negative_authority": {
+      "parent": {
+        "actualworld": 1,
+        "ordinary_calls": 2,
+        "callbacks_supplied_release_pending_errors_widens_restores": 0
+      },
+      "candidate": {
+        "actualworld": 1,
+        "ordinary_calls": 2,
+        "callbacks_supplied_release_pending_errors_widens_restores": 0
+      }
+    },
+    "protected_numerical_comparisons": [
+      {
+        "remote_output": "/pool/wrf-experiment/wrf-cpu/kernels/current-de5b-private-shuffle-scratch-integration-hpc02-r1/protected-threaded.stdout",
+        "sha256": "bd1adaa055a060784599740d6a8afbc9585b00121fa4da7c1216b9801d4b408e",
+        "exact_status": "PASS",
+        "checker": {
+          "path": "/pool/wrf-experiment/wrf-cpu/validation/protected_netcdf_exact_reference.py",
+          "sha256": "0382bcbabfbc16b76114ef552206c6c558ea15cd3c3552dfaed98b977deea2b4",
+          "verified": true
+        }
+      },
+      {
+        "remote_output": "/pool/wrf-experiment/wrf-cpu/kernels/current-de5b-private-shuffle-scratch-integration-hpc02-r1/protected-world1.stdout",
+        "sha256": "bd1adaa055a060784599740d6a8afbc9585b00121fa4da7c1216b9801d4b408e",
+        "exact_status": "PASS",
+        "checker": {
+          "path": "/pool/wrf-experiment/wrf-cpu/validation/protected_netcdf_exact_reference.py",
+          "sha256": "0382bcbabfbc16b76114ef552206c6c558ea15cd3c3552dfaed98b977deea2b4",
+          "verified": true
+        }
+      }
+    ],
+    "sameINV_normal_success_PID0_inactive_empty_absent_cgroup_boundjournal": true
+  },
+  "dependencies": {
+    "owner": "8adc33059a98399cd8adea41de071598aaa2b09ff53eb3ae860cad0c6696b538",
+    "codec": "3edf15a2d69040bb29ff52446bfcf103fbfdb8b7385fd68735e8a536a06f332c",
+    "hdf5": "825e2f1f24bee6feaf537cb7a4b1207044fb90ec1afc2dd96571b33b1056ba19",
+    "MPI": "239014e332e2a784c9b2e48ec7f440245a03e9d7bebe1de163a23929c9cdd9a7"
+  },
+  "stock_decoder_sha256": "b65f7f34c3180cbee93aeec785bba6b95beca585190e4a899c3b7648b7842830",
+  "comparison_environment": {
+    "executable": "/pool/wrf-experiment/tooling/m1/venv/bin/python",
+    "h5py_path": "/pool/wrf-experiment/wrf-cpu/tooling/hdf5-chunk-reader-py310-r1/h5py/__init__.py",
+    "h5py_version": "3.11.0",
+    "HDF5_version": "1.14.2",
+    "numpy_path": "/pool/wrf-experiment/tooling/m1/venv/lib/python3.10/site-packages/numpy/__init__.py",
+    "numpy_version": "2.2.6",
+    "HDF5_libraries": {
+      "/pool/wrf-experiment/wrf-cpu/tooling/hdf5-chunk-reader-py310-r1/h5py.libs/libhdf5-7f639dcd.so.310.2.0": "661a0daa381376e31b63ecfce2d689aa8ecec0f827dcd2b99202a34d98eb57d3",
+      "/pool/wrf-experiment/wrf-cpu/tooling/hdf5-chunk-reader-py310-r1/h5py.libs/libhdf5_hl-123198ff.so.310.0.2": "33e6c04dc560491cc15800201869ee7b11fd1721b85feac041ef203551ad3914"
+    }
+  },
+  "native_component": {
+    "qualification_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-private-shuffle-scratch-reuse-r1/NATIVE_QUALIFICATION.json",
+    "sha256": "4f6ba085a713ca1e44fc6645f07a5c82fc08cf68e533885f9fd3038372ab34f7",
+    "r1_unresolved_predicate_failure_preserved": true,
+    "r2_original11_14ownership_idle_unload32call_gates_pass": true
+  },
+  "timing": {
+    "qualification_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-private-shuffle-scratch-reuse-r1/TIMING_QUALIFICATION.json",
+    "sha256": "3ee8f54bee92b38e8ef069da6d8d37e0b9b315996e14734721a2d41d3c281e70",
+    "scope": "Separate measured complete-provider32 reusable callbacks, firstproof coldallocation excluded; not wholeAPI/WRF timing",
+    "wall_reductions_percent": [
+      37.25902730971802,
+      37.280871123257896
+    ],
+    "process_cpu_reductions_percent": [
+      35.60249952509141,
+      36.81129061440874
+    ]
+  },
+  "memory": {
+    "retained_bound_per_writer_bytes": 225720000,
+    "four_writer_bound_bytes": 902880000,
+    "physical_effect_unknown": true,
+    "no_existing_caps_waived": true
+  },
+  "production512_positive_qualified": false,
+  "application_science_qualified": false,
+  "default_promoted": false,
+  "source_commit": null,
+  "raw_references": [
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-private-shuffle-scratch-reuse-r1/integration-preparation-r1/actual-native-r1/receipt.json",
+      "sha256": "38c0c5fd04fc1b3376dad35707d32d40b53f8d029fd114bef01f2f5febd1efde"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-private-shuffle-scratch-reuse-r1/integration-preparation-r1/actual-native-r1/closure.json",
+      "sha256": "3c3e37f9d3c1883a5386838582eaeb6f594ff11da5b88f823fa382d640941e35"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-private-shuffle-scratch-reuse-r1/integration-preparation-r1/actual-native-r1/controller.json",
+      "sha256": "0270f1ed21ac4e273a4f9344dac39ab97c1aac9ee282b455c460ccee7756c29e"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-private-shuffle-scratch-reuse-r1/integration-preparation-r1/inputs/RECIPE.json",
+      "sha256": "f43ee6a0f15b778b84ebac047339dffbba1078d682662ed2746ac98d8bdd3632"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-private-shuffle-scratch-reuse-r1/integration-preparation-r1/inputs/source-pins.json",
+      "sha256": "f097edbf9fdaff70e2e236973c1a6defb4cae95b2a17bf8e60287615a5337a01"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-private-shuffle-scratch-reuse-r1/integration-preparation-r1/PROVIDER_ONLY.diff",
+      "sha256": "3472d7d595c1210d671f7d2cc3bbc544fdc5c24d579395e2b6608943dceb4629"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-private-shuffle-scratch-reuse-r1/NATIVE_QUALIFICATION.json",
+      "sha256": "4f6ba085a713ca1e44fc6645f07a5c82fc08cf68e533885f9fd3038372ab34f7"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-private-shuffle-scratch-reuse-r1/TIMING_QUALIFICATION.json",
+      "sha256": "3ee8f54bee92b38e8ef069da6d8d37e0b9b315996e14734721a2d41d3c281e70"
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "status": "DESCRIPTIVE_UNPAIRED_INSTRUMENTED_WRITER_ENVELOPE_COMPARISON_ONLY",
+  "de5b_report": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-difcof-ordered-simd-feasibility-r1/write-observer-application-preparation-r1/ACTUAL_WRITE_ATTRIBUTION.json",
+  "de5b_sha256": "0f0b12f5cf7d5429a1597a5049985bd764da1cc0642160eba81cb0f5051e3038",
+  "pool_report": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/quilt-provider-scratch-pool-feasibility-r1/short-application-preparation-r1/POOL_WRITE_ATTRIBUTION.json",
+  "pool_sha256": "44cd483a18903493e2a000732b474fcc74dd4d5016889e846dd3207ab689901e",
+  "writers": [
+    {
+      "rank": 487,
+      "de5b_PID_startticks": [
+        1902100,
+        "206880826"
+      ],
+      "pool_PID_startticks": [
+        1906973,
+        "207036891"
+      ],
+      "metrics": {
+        "outer_nc_put_union": {
+          "de5b_seconds": 23.425116964,
+          "pool_seconds": 22.480823335,
+          "observed_delta_seconds": -0.9442936290000006,
+          "descriptive_reduction_percent": 4.031115961773861
+        },
+        "callback_envelope_union": {
+          "de5b_seconds": 21.069410928,
+          "pool_seconds": 20.170185492,
+          "observed_delta_seconds": -0.8992254359999983,
+          "descriptive_reduction_percent": 4.267919207959349
+        },
+        "chunk_api_inside_put_union": {
+          "de5b_seconds": 2.110894629,
+          "pool_seconds": 2.043186591,
+          "observed_delta_seconds": -0.06770803800000014,
+          "descriptive_reduction_percent": 3.207551768326572
+        },
+        "callback_chunk_overlap": {
+          "de5b_seconds": 0.0,
+          "pool_seconds": 0.0,
+          "observed_delta_seconds": 0.0,
+          "descriptive_reduction_percent": null
+        },
+        "put_remainder_outside_callback_and_chunk_union": {
+          "de5b_seconds": 0.244811407,
+          "pool_seconds": 0.267451252,
+          "observed_delta_seconds": 0.022639844999999964,
+          "descriptive_reduction_percent": -9.247871770942423
+        }
+      },
+      "pool_own_put_fractions_percent": {
+        "outer_nc_put_union": 100.0,
+        "callback_envelope_union": 89.72173835198194,
+        "chunk_api_inside_put_union": 9.088575451856332,
+        "callback_chunk_overlap": 0.0,
+        "put_remainder_outside_callback_and_chunk_union": 1.1896861961617298
+      }
+    },
+    {
+      "rank": 495,
+      "de5b_PID_startticks": [
+        1902096,
+        "206880825"
+      ],
+      "pool_PID_startticks": [
+        1906953,
+        "207036888"
+      ],
+      "metrics": {
+        "outer_nc_put_union": {
+          "de5b_seconds": 12.88383099,
+          "pool_seconds": 12.581868939,
+          "observed_delta_seconds": -0.3019620510000003,
+          "descriptive_reduction_percent": 2.3437287498910315
+        },
+        "callback_envelope_union": {
+          "de5b_seconds": 11.136823324,
+          "pool_seconds": 10.789939699,
+          "observed_delta_seconds": -0.34688362500000025,
+          "descriptive_reduction_percent": 3.1147447966823854
+        },
+        "chunk_api_inside_put_union": {
+          "de5b_seconds": 1.527835153,
+          "pool_seconds": 1.570738516,
+          "observed_delta_seconds": 0.04290336299999997,
+          "descriptive_reduction_percent": -2.808114665758052
+        },
+        "callback_chunk_overlap": {
+          "de5b_seconds": 0.0,
+          "pool_seconds": 0.0,
+          "observed_delta_seconds": 0.0,
+          "descriptive_reduction_percent": null
+        },
+        "put_remainder_outside_callback_and_chunk_union": {
+          "de5b_seconds": 0.219172513,
+          "pool_seconds": 0.221190724,
+          "observed_delta_seconds": 0.002018210999999992,
+          "descriptive_reduction_percent": -0.9208321665773809
+        }
+      },
+      "pool_own_put_fractions_percent": {
+        "outer_nc_put_union": 100.0,
+        "callback_envelope_union": 85.75784528763005,
+        "chunk_api_inside_put_union": 12.48414304437065,
+        "callback_chunk_overlap": 0.0,
+        "put_remainder_outside_callback_and_chunk_union": 1.758011667999302
+      }
+    }
+  ],
+  "scope": "Separateinstrumentedexecutions; no matchedforecastspeedup/repeatability/causalpoolbenefit claim. Sameconfiguredlayout/equalpubliccallcounts doesnotcontrol scheduling/MPI/cache/filesystem variation. No crossroot totals. Observed callback dominates eachwriter but decompositionwithin remainsUNKNOWN."
+}

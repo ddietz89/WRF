@@ -1,0 +1,144 @@
+{
+  "status": "PASS_NATIVE_COMPONENT_WITH_PRESERVED_UNRESOLVED_R1_FAILURE",
+  "component": "private fixed-four shuffle scratch reuse",
+  "source_parent_sha256": "8db4037d6c64b3ad60c012678b3810a9d313d0ffd7ba4d379af0f60de3a5a885",
+  "candidate_source_sha256": "7ea74cd6c5172a17cc19bebf93e14e322695ce415feb0a517ea9984941f184eb",
+  "source_diff": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-private-shuffle-scratch-reuse-r1/implementation-preparation-r1/source-candidate-r1/PROVIDER_ONLY.diff",
+    "sha256": "2ecbb21a5439302dc9608d8a61b6fad46aec97867ddb8cbcdc971614e717e3c3"
+  },
+  "source_inverse_exact": true,
+  "pack_shuffle_codec_math_and_result_release_unchanged": true,
+  "production_api_exports_unchanged": true,
+  "candidate_provider": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/provider-private-shuffle-scratch-reuse-native-r1/candidate-provider.so",
+    "sha256": "d45eafa7a7f03be7bd3770eb1e0cd21b280eca7ff143fbcfb5f68a4a16530509"
+  },
+  "current_parent_provider_sha256": "27d94f82c36f19852b8191b5a4d8a171c2ae974d8e78db72182d8a8d5ecf15ce",
+  "codec_sha256": "3edf15a2d69040bb29ff52446bfcf103fbfdb8b7385fd68735e8a536a06f332c",
+  "libm_explicit": true,
+  "history": {
+    "r1": {
+      "status": "FAIL_RETAINED_NO_AUTOMATIC_RETRY",
+      "invocation_id": "f1093c369048495eb670d304181bf31b",
+      "failure": "Original11 fixture stderr: FAIL started==joined&&threads()==1",
+      "which_conjunct_case_side": "UNKNOWN",
+      "positive_failed_closure_preserved": true,
+      "parent_whole27d_reproduction_and_exports_passed": true,
+      "ownership_and32calls_not_reached": true
+    },
+    "logging_diagnostic": {
+      "status": "PASS_ONE_LOGGING_ONLY_THREAD_CENSUS_DIAGNOSTIC_COMPLETED_NOT_NATIVE_QUALIFICATION",
+      "invocation_id": "9bdfe1575d4e4961b2272503fc84964b",
+      "original_predicate_retained_hard": true,
+      "fixture_returncode": 0,
+      "logging_only_derivative": true,
+      "does_not_establish_r1_root_cause_or_absence_of_thread_leak": true
+    },
+    "r2": {
+      "status": "PASS_CURRENT27D_COMPILED_REUSE_PRIVATE_SHUFFLE_SCRATCH_ORIGINAL11_14_OWNERSHIP_32CALL_GOLD_STOCK_FIVE_STATE_136_REAL_JOINS_IDLE_UNLOAD_NOT_TIMING",
+      "invocation_id": "c97d63c6df5047a9974a87bd03b7fdb4",
+      "candidate_and_original11_binary_reused_unchanged": true,
+      "production_compiles": 0,
+      "remaining_fixture_compiles": 3,
+      "normal_success_strong_closure": true
+    }
+  },
+  "actual_gates": {
+    "original_unmodified11_layout_fixture": "PASS_FUSED_PROVIDER_ELEVEN_CASES_COMPRESSED_STOCKDECODE_READONLY_FIVESTATE_PARTIAL_JOIN_NO_MPI512",
+    "ownership14_calls": "PASS_SCRATCH_14_OWNERSHIP_CALLS_COLD_HIT_GROW_GROWFAIL_BATCH1_BUSY_PARTIALCREATE_INIT_DEFLATE_CALLOC_ERRORS_RECOVERY_THREADS1_OVERSIZE_IDLE_CLEANUP_REUSE_FIVE_STATE_STOCK_BYTES",
+    "actual_idle_unload_reload": "PASS_ACTUAL_IDLE_DLCLOSE_UNMAPPED_RELOAD_COMPRESSED_BYTES_REPEAT_NO_ACTIVE_UNLOAD",
+    "current_complete_provider": {
+      "calls_per_side": 32,
+      "outside_clock_proof_calls_per_side": 2,
+      "real_creates_per_side": 136,
+      "real_successful_joins_per_side": 136,
+      "create_join_errors": 0,
+      "raw_bytes": 225371652,
+      "chunk_bytes": 56430000,
+      "chunks": 4,
+      "gold_sha256": "3fd49e0a2abd0590d3fc7c2c73142f8b196c1a9390344468518446cd4ebcef1b",
+      "stock_decode_before_and_after": true,
+      "raw_readonly_fullgold": true,
+      "parent_candidate_five_state_exact": true,
+      "state": {
+        "errno": 33,
+        "flags": 36,
+        "round": 2048,
+        "mxcsr": 24452,
+        "x87cw": 2943
+      },
+      "printed_native_clocks_not_timing_qualification": true
+    }
+  },
+  "ownership_scope": [
+    "cold/hit/grow/grow-allocation failure keeps old",
+    "batch1 and busy nonblocking original allocation fallback",
+    "partial create joins prefix before return",
+    "deflateInit/deflate/resultcalloc failures and next-call recovery",
+    "threads1 and oversized original allocation",
+    "idle bank cleanup ownerrno/fenv and reallocation",
+    "actualDSO idle dlclose unmaps/reloads, no active-unload guarantee"
+  ],
+  "logical_capacity": {
+    "max_retained_per_writer_bytes": 225720000,
+    "four_writer_total_bytes": 902880000,
+    "physical_RSS_PSS_or_startup_peak_saving": "UNKNOWN",
+    "memory_caps_waived": false
+  },
+  "limits": [
+    "R1 exact failure remains unexplained despite subsequent passes; no source/rank/timing waiver",
+    "No public wholeNCput/fullshim/WRF512 qualification yet",
+    "No timing benefit or application/scientific/default claim",
+    "Worker scratch persists between callbacks; first-touch/NUMA implications unmeasured",
+    "Current timing uses one outside-clock proof then32 reused calls; cold allocation not timed"
+  ],
+  "source_commit": null,
+  "raw_references": [
+    {
+      "role": "native-gate-r1/receipt.json",
+      "local_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-private-shuffle-scratch-reuse-r1/native-gate-r1/actual-native-r1/receipt.json",
+      "sha256": "f16fa8e04fd825a323e0bf2d04ef8c9179f2bb254a5a9806e7c47fc7668c4832"
+    },
+    {
+      "role": "native-gate-r1/closure.json",
+      "local_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-private-shuffle-scratch-reuse-r1/native-gate-r1/actual-native-r1/closure.json",
+      "sha256": "f47d5c8ffea015779e1300b65e488cd52b412d501f6296df5f7d8d3ef12521b1"
+    },
+    {
+      "role": "native-gate-r1/controller.json",
+      "local_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-private-shuffle-scratch-reuse-r1/native-gate-r1/actual-native-r1/controller.json",
+      "sha256": "da08bf914d1d48442f3d9f6380678a4b229d5377b1327b26893c5571d5eb129b"
+    },
+    {
+      "role": "thread-census-diagnostic-r1/receipt.json",
+      "local_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-private-shuffle-scratch-reuse-r1/thread-census-diagnostic-r1/actual-native-r1/receipt.json",
+      "sha256": "6df2c45a6d6c1f7b1ceead50ec60e4f6c140c1012ff138fb618e6bd890984657"
+    },
+    {
+      "role": "thread-census-diagnostic-r1/closure.json",
+      "local_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-private-shuffle-scratch-reuse-r1/thread-census-diagnostic-r1/actual-native-r1/closure.json",
+      "sha256": "128f2e0e383fffc62e52940a0efc8663e841ba4796f25cf6952dfa94f4e14b67"
+    },
+    {
+      "role": "thread-census-diagnostic-r1/controller.json",
+      "local_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-private-shuffle-scratch-reuse-r1/thread-census-diagnostic-r1/actual-native-r1/controller.json",
+      "sha256": "e9d43a10bf0ce89450562e8272d85b6724e1500c1cb48892fcb5273f178b440c"
+    },
+    {
+      "role": "native-gate-r2/receipt.json",
+      "local_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-private-shuffle-scratch-reuse-r1/native-gate-r2/actual-native-r1/receipt.json",
+      "sha256": "869421ea77a7d89f8800ee9c7315a598aa693f87fad928da62a12c4ad9429d5a"
+    },
+    {
+      "role": "native-gate-r2/closure.json",
+      "local_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-private-shuffle-scratch-reuse-r1/native-gate-r2/actual-native-r1/closure.json",
+      "sha256": "3cbe8f1d1b0694536ba097d77d3d5a9ecd91777453d7b2acd96dc568389ab445"
+    },
+    {
+      "role": "native-gate-r2/controller.json",
+      "local_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-private-shuffle-scratch-reuse-r1/native-gate-r2/actual-native-r1/controller.json",
+      "sha256": "a545f9f4762fb0777e412351542cbc94e79ad4a835e9957d7263b1d848974fa5"
+    }
+  ]
+}

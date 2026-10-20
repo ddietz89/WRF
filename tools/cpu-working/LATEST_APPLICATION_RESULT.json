@@ -1,5 +1,5 @@
 {
-  "status": "PASS_CURRENT_CEC_CHILD_DIFCOF_SIMD_FULL512_SHORT_ORIGINAL_TWO_PRODUCTS35_WITH_WRITE_BOUNDARY_DIAGNOSTIC",
+  "status": "PASS_CURRENT_DIFCOF_PRIVATE_SHUFFLE_SCRATCH_FULL512_SHORT_ORIGINAL_TWO_PRODUCTS35_WITH_WRITE_BOUNDARY_DIAGNOSTIC",
   "executable": {
     "path": "/pool/wrf-experiment/wrf-cpu/builds/currentCEC-myj-difcof-simd-current-r3/wrf.exe",
     "sha256": "41bfb335979cefd8f12a8d0c7a682d85d81cae88928fe12ee0badfec58dd7789"
@@ -9,15 +9,15 @@
     "sha256": "3edf15a2d69040bb29ff52446bfcf103fbfdb8b7385fd68735e8a536a06f332c"
   },
   "output_shim": {
-    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current329f-padding-block32-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
-    "sha256": "de5b3c27224091cc0369062c9f1bbb867b362436a0331892a6ec9cf4fc4fccb4"
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-de5b-private-shuffle-scratch-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
+    "sha256": "51a31b3c137a2161700c9930a1e250021b34c598c887a7551e87d304b2ce4d31"
   },
   "source_commit": "b37e02ce68336284e8478072ab0178a011b7587c",
   "science": {
     "status": "PASS_RETAINED_ORIGINAL_TWO_HISTORY_35_STEPS_512_OWNED_FIELD_VIEW",
-    "receipt_sha256": "27d3c90b9787f8bfd08f14654580c2bd0e42df77a0f9150bfdabc319e0aaa472",
-    "reader_closure_sha256": "2cfe6752b84ded629c8053ead2ad470c0bbe8d5f8a9cec0cfce58eb75686105a",
-    "invocation_id": "3ee8dcc378fc4efd9e7601c111299e9f",
+    "receipt_sha256": "002e45431164ad4721c3af7165d500abae386742256d8304f9c9708257f68b6b",
+    "reader_closure_sha256": "e2fd60125544529f62d83e22e7a5a34e4ff7ecd3eaea0ad6a1d63e426c2a85ef",
+    "invocation_id": "09e77690476f4cac97cfd8e6dc22f693",
     "products": 2,
     "ordered_steps": 35,
     "end_time": "2026-10-12_06:10:00",
@@ -40,8 +40,8 @@
     "protected_original_compare_one_AST_exact": true
   },
   "current_application_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/myj-difcof-simd/APPLICATION_QUALIFICATION.json",
-    "sha256": "dfeb8996cf164ac61e1c8e85df370bb897b522934790ccf200d80ac8e9805d7b"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-output/quilt512/private-shuffle-scratch-reuse/APPLICATION_QUALIFICATION.json",
+    "sha256": "892afe2c9d9bd36e3084d749d42f5050ba091162b3586a1f75efb15a0b7958a3"
   },
   "current_three_hour_qualified": false,
   "current_nine_hour_qualified": false,
@@ -80,6 +80,7 @@
     "repeatability_established": false,
     "scope": "GNU13.3 strict/OMP1/cold06:00\u201309:00/full512=480compute8x60+4x8quilt/faba/twoTiles/CEC/root06dNCa32/outputde5b/codec3edf/HDF825/shared1/FIELDVIEW1/singleIB;4completeproducts545steps/all4positivewriters. One fresh fixed-order inclusiveIO pair; no isolated/additive gain or current9h claim."
   },
-  "scope": "GNU13.3 strict/OMP1/cold06:00-06:10/full512=480compute8x60+4x8quilt/faba/twoTiles/DF41b/root06dNCa32/outputde5b/codec3edf/HDF825/shared1/FIELDVIEW1/singleIB; original2products35 and complete writer lifecycle/diagnostic boundaries.",
-  "claim_limits": "CurrentDF41b has exact short2products35 qualification and capturedcaller gains only. PriorCEC3edf fresh3h19.30009%wall/12.78753%aggregateCPU remains prior configuration. No isolated/additive/forecast-wide gain or current3h/9h transfer."
+  "scope": "GNU13.3 strict/OMP1/cold06:00-06:10/full512=480compute8x60+4x8quilt/faba/twoTiles/DF41b/root06dNCa32/output51a/codec3edf/HDF825/shared1/FIELDVIEW1/singleIB; original2products35 and complete writer lifecycle/diagnostic boundaries.",
+  "claim_limits": "CurrentDF41b+pool51a owns exact2products35 shortqualification only. Provider37.26/37.28% gains are32steady SYNTHETIC W-shaped calls, coldallocationexcluded. PriorCEC3edf/de5b19.30009%wholewall remains separate; no forecast/perkernel additive/current3h9h claim.",
+  "output_postscience_tracking_commit": "909ab6ef55ac5351f9fd03e4019be470e89a3929"
 }

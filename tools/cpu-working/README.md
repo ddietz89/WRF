@@ -1,3 +1,7 @@
+# Current output addition: private shuffle-scratch reuse (2026-10-20)
+
+Selected output51a/source909ab6ef is combined with WRF41b/sourceb37 and all earlier improvements. Native/fullshim/publicAPI and original2products35/all512/twoTiles/input/worker/closure checks passed. Provider37.26%/37.28% gains describe32steady **synthetic** W-shaped calls after excluded warm proof, with bounded225.72MB/writer retention; no isolated or overall forecast gain is claimed. [Evidence](../cpu-output/quilt512/private-shuffle-scratch-reuse/QUALIFICATION.json). The fresh original-versus-combined three-hour pair is next; no current3h/9h transfer. Rollback restores pairedBEFORE_PRIVATE_SHUFFLE_SCRATCH records tode5b, retaining41b/3edf/input.
+
 # Current working build: MYJPBL DIFCOF SIMD (2026-10-20)
 
 Selected41b/sourceb37e adds the exact ordered DIFCOF SIMD directives to all prior improvements. Complete captured-caller wall fell2.38%/1.18% and processCPU2.44%/1.20% in opposite-order pairs. Original two products/35orderedsteps/all512/twoTiles/writer/input/runtime checks passed; all model/reader jobs closed. The application carried the ABI-qualified diagnostic write observer. No own three-/nine-hour or isolated forecast gain claim follows. [Evidence](../cpu-compute/myj-difcof-simd/QUALIFICATION.json).

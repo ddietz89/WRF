@@ -1,3 +1,9 @@
+# Current fused provider: private shuffle-scratch reuse
+
+Source7ea/fullshim51a retains bounded private worker scratch across callbacks. Complete W-shaped **synthetic**32steady-call wall fell37.26%/37.28%, CPU35.60%/36.81%; cold allocation is excluded. Exact native/fullshim/publicAPI and actual512 original2products35 passed, alljobsclosed. Retention at most225.72MB/writer or902.88MBfour; no physical-memory saving or forecast gain claim. [Evidence and rollback](private-shuffle-scratch-reuse/README.md). WRF41b/sourceb37, codec3edf/rootinput06dNCa32 and all prior improvements remain. New own3h/9h acceptance is pending; production/master unchanged.
+
+## Earlier provider evidence
+
 # World-512 quilt compression working default
 
 ## Latest fresh three-hour qualification
@@ -8,7 +14,7 @@ Earlier noon-only and previous-output measurements below retain their historical
 
 Current complete working selection: [promoted combined CPU configuration](../../cpu-working/README.md). Its exact-qualified executable/provider/codec/private-HDF5 combination supersedes the older whole-build selections below; historical measurements remain preserved.
 
-The selected `fused-pack` default is provider source `8db4037d`, full shim `de5b3c27`: direct fused packing/shuffle, padding-only initialization and the32-word AVX2 byte transpose with scalar tail. Shim313e, codec881, owner8adc, HDF825, workerplacement/API/layout/state are unchanged. Current [native/caller/application evidence](padding-block32/README.md) binds exact artifacts; the selector uses source8db but has not been rebuilt merely for promotion. `--provider simd-pack` retains375/e29; `--provider original` retains4cb.
+The previous `fused-pack` default was provider source `8db4037d`, full shim `de5b3c27`: direct fused packing/shuffle, padding-only initialization and the32-word AVX2 byte transpose with scalar tail. Shim313e, codec881, owner8adc, HDF825, workerplacement/API/layout/state are unchanged. Current [native/caller/application evidence](padding-block32/README.md) binds exact artifacts; the selector uses source8db but has not been rebuilt merely for promotion. `--provider simd-pack` retains375/e29; `--provider original` retains4cb.
 
 The incremental complete-provider caller was2.19%/1.78% shorter with 3.60%/3.04% less process CPU than padding1e0. Actual full512 noon two-products/230-steps/two-tiles/487495-positive/503511-inactive passed original science and closures; those caller/noon records did not establish a forecast gain or3h9h claim; current three-hour acceptance is documented above. [Previousfusion](fusion/README.md) and[padding-onlyfill](padding-only-fill/README.md) retain their own historical scopes, including47.30%/48.92%fusioncaller and5.13%/5.20%paddingcaller gains. Those percentages are not added or transferred to WRF. Earlier whole-build/application paragraphs below remain historical.
 
@@ -29,7 +35,7 @@ python3 tools/cpu-output/quilt512/build.py --provider original --codec original 
 python3 tools/cpu-output/quilt512/build.py --codec original --output-dir <fresh-simd-pack-original-codec-directory>
 ```
 
-Selected fused provider `8db4037d` retains the strict C recipe; previous fusedsource is `b938317c`, padding-onlysource `1e0dee40`; previous parallel packing is `e29a6a59`, and the original is shared `ee9ebe79`. SIMD dispatch is function-scoped and runtime-guarded; non-AVX2-host execution remains unqualified. Parent world-16 and world-64 sources are unchanged. The actual full-shim artifact was built by the pinned native recipe; this updated package selector has not been rebuilt merely for this source/default promotion.
+Previous fused provider `8db4037d` retains the strict C recipe; previous fusedsource is `b938317c`, padding-onlysource `1e0dee40`; previous parallel packing is `e29a6a59`, and the original is shared `ee9ebe79`. SIMD dispatch is function-scoped and runtime-guarded; non-AVX2-host execution remains unqualified. Parent world-16 and world-64 sources are unchanged. The actual full-shim artifact was built by the pinned native recipe; this updated package selector has not been rebuilt merely for this source/default promotion.
 
 Existing `native_artifact`, activation and historical qualification records describe original `4cb` and remain preserved. Current de5b records are under `optional_build_variants.fused-pack` in [qualification.json](qualification.json); prior `simd-pack` records keep their historical scope.
 

@@ -1,0 +1,163 @@
+{
+  "status": "RETAIN_SIGNIFICANT_EXACT_COMPLETE_PROVIDER_REUSE_GAIN_PENDING_FULLSHIM_APPLICATION",
+  "native_qualification": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-private-shuffle-scratch-reuse-r1/NATIVE_QUALIFICATION.json",
+    "sha256": "4f6ba085a713ca1e44fc6645f07a5c82fc08cf68e533885f9fd3038372ab34f7"
+  },
+  "actual_wave": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-private-shuffle-scratch-reuse-r1/caller-timing-preparation-r1/ACTUAL_WAVE.json",
+    "sha256": "404eee2401de2e8557ce0ac87740310af09b0aaa7ce1168b54a5af4d8c71966f"
+  },
+  "pairs": [
+    {
+      "host": "hpc02",
+      "order": [
+        "parent",
+        "candidate"
+      ],
+      "parent_wall_seconds": 3.413098333,
+      "candidate_wall_seconds": 2.141411093,
+      "wall_reduction_percent": 37.25902730971802,
+      "parent_process_cpu_seconds": 10.503763491,
+      "candidate_process_cpu_seconds": 6.764161144,
+      "process_cpu_reduction_percent": 35.60249952509141
+    },
+    {
+      "host": "hpc04",
+      "order": [
+        "candidate",
+        "parent"
+      ],
+      "parent_wall_seconds": 3.490960771,
+      "candidate_wall_seconds": 2.189500185,
+      "wall_reduction_percent": 37.280871123257896,
+      "parent_process_cpu_seconds": 10.688578073,
+      "candidate_process_cpu_seconds": 6.753974536,
+      "process_cpu_reduction_percent": 36.81129061440874
+    }
+  ],
+  "fixed_calls_per_arm": 32,
+  "outside_clock_proofs_per_arm": 2,
+  "clock_scope": "Complete provider includes pack/shuffle/codec/temporary allocation and allworker creation/join; processCPUincludesworkers. Init,firstproof,readonly/gold/state/stockdecodechecks,resultrelease excluded. Firstproofcold scratch allocation isUNTIMED;32calls observe reuse. Cache EACH doesnot make these cold first-call timings.",
+  "allfour_normal_closures_and_real_cache_helpers_verified": true,
+  "fullgold_stockdecode_readonly_fivestate_and_136pairedjoins_each": true,
+  "state": {
+    "errno": 33,
+    "flags": 36,
+    "round": 2048,
+    "mxcsr": 24452,
+    "x87cw": 2943
+  },
+  "r1_native_failure_unresolved_preserved": true,
+  "memory": {
+    "retained_bound_per_writer_bytes": 225720000,
+    "four_writer_bound_bytes": 902880000,
+    "physical_peak_RSS_PSS_impact": "UNKNOWN",
+    "caps_waived": false
+  },
+  "limits": [
+    "One opposite-orderpair perhost, not repeatability/globalWRF headroom",
+    "No cold-first-call allocation saving measurement",
+    "No wholeNCput/fullshim/512science qualification yet",
+    "R1 predicatefailure remains unexplained; no leakabsence/rootcause claim"
+  ],
+  "source_commit": null,
+  "raw_references": [
+    {
+      "arm": 0,
+      "role": "receipt.json",
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-private-shuffle-scratch-reuse-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/receipt.json",
+      "sha256": "a72628e3af9527dfa527c184301eaa8c08cddebcf07a7061031c59ab8fa0e2d5"
+    },
+    {
+      "arm": 0,
+      "role": "closure.json",
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-private-shuffle-scratch-reuse-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/closure.json",
+      "sha256": "7604b98f5b03a44c5fce9f7b353fb2365a363aa06b532fa32837889b1fb828df"
+    },
+    {
+      "arm": 0,
+      "role": "cache-clear.json",
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-private-shuffle-scratch-reuse-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/cache-clear.json",
+      "sha256": "f89698268a647a475c05c7b658eb5d9607b35a1fffc893853cce19fa5ca4a5f8"
+    },
+    {
+      "arm": 0,
+      "role": "controller.json",
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-private-shuffle-scratch-reuse-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/controller.json",
+      "sha256": "f052577cdbe1a8647c2996286c1ed971e5b12cfc56a3b59fdc1887fb2f89a8b2"
+    },
+    {
+      "arm": 1,
+      "role": "receipt.json",
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-private-shuffle-scratch-reuse-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/receipt.json",
+      "sha256": "012277fdd3851cd180f2c1e80a3565c60960d0bec7aef11e86f048d78d160913"
+    },
+    {
+      "arm": 1,
+      "role": "closure.json",
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-private-shuffle-scratch-reuse-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/closure.json",
+      "sha256": "8f70d8e933fc6c622bb2cb8398b5f0afa236d4ff7d8e44a12d2cfd92eac7726a"
+    },
+    {
+      "arm": 1,
+      "role": "cache-clear.json",
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-private-shuffle-scratch-reuse-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/cache-clear.json",
+      "sha256": "1d6ce529e4417773f1b98bd2855c388e82385b38b763c2b6b3b919ab46dc34b6"
+    },
+    {
+      "arm": 1,
+      "role": "controller.json",
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-private-shuffle-scratch-reuse-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/controller.json",
+      "sha256": "86dd09fffb431adde262c6f1840173c503868b25dbc328de247c99dadc61ac92"
+    },
+    {
+      "arm": 2,
+      "role": "receipt.json",
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-private-shuffle-scratch-reuse-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/receipt.json",
+      "sha256": "a4cc68cc4afdc13e6e4efedab15f3a0919a4e06b666cebf94061b3017b58948e"
+    },
+    {
+      "arm": 2,
+      "role": "closure.json",
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-private-shuffle-scratch-reuse-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/closure.json",
+      "sha256": "8029fbe48c4a32dbf484406b99af471fc2b766041eafaee965f833b0b750e4d6"
+    },
+    {
+      "arm": 2,
+      "role": "cache-clear.json",
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-private-shuffle-scratch-reuse-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/cache-clear.json",
+      "sha256": "407dbb18173679f849cf99358808d06e9bf2658e376b26a71e66303b7c58c4f3"
+    },
+    {
+      "arm": 2,
+      "role": "controller.json",
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-private-shuffle-scratch-reuse-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/controller.json",
+      "sha256": "f3486a47149b4e1e6dff051e4b3d94903456930eb2d4e1d3856c45875d6e7acf"
+    },
+    {
+      "arm": 3,
+      "role": "receipt.json",
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-private-shuffle-scratch-reuse-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/receipt.json",
+      "sha256": "206018c6f5d063f887756edf7b8a7d31286e76df2f8e4e722617c83080957ad7"
+    },
+    {
+      "arm": 3,
+      "role": "closure.json",
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-private-shuffle-scratch-reuse-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/closure.json",
+      "sha256": "0c051dd3f82df66995fdd7bba8e06138078c2bfb5afa88a1a4efa476f5760c2a"
+    },
+    {
+      "arm": 3,
+      "role": "cache-clear.json",
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-private-shuffle-scratch-reuse-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/cache-clear.json",
+      "sha256": "15a3c2674ac31f179d89516634a0036e0a8aa68a09935b42a242ebd433eee45d"
+    },
+    {
+      "arm": 3,
+      "role": "controller.json",
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-private-shuffle-scratch-reuse-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/controller.json",
+      "sha256": "aa2d4622dd273e32f4d15bb480a6f517b04c007d0aaa67eb8f223d9cdd196544"
+    }
+  ]
+}

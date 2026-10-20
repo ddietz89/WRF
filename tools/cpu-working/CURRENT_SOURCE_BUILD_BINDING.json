@@ -1,5 +1,5 @@
 {
-  "status": "WORKING_SELECTED_MYJ_DIFCOF_AFTER_SHORT_ORIGINAL_FULL512_SCIENCE",
+  "status": "WORKING_SELECTED_DIFCOF_PRIVATE_SHUFFLE_SCRATCH_AFTER_SHORT_ORIGINAL_FULL512",
   "source_commit": "b37e02ce68336284e8478072ab0178a011b7587c",
   "executable": {
     "path": "/pool/wrf-experiment/wrf-cpu/builds/currentCEC-myj-difcof-simd-current-r3/wrf.exe",
@@ -84,7 +84,7 @@
     "WRF_EXPERIMENTAL_TPI_NUMA": 1,
     "other_settings": "Currentde5b/3edf/825/faba/FIELDVIEW1/singleIB; rootinput06dNCa32only"
   },
-  "previous_binding": "PREVIOUS_SOURCE_BUILD_BINDING_BEFORE_MYJ_DIFCOF.json",
+  "previous_binding": "PREVIOUS_SOURCE_BUILD_BINDING_BEFORE_PRIVATE_SHUFFLE_SCRATCH.json",
   "native": {
     "CQU": {
       "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-cqu-first-species-peel-r1/NATIVE_QUALIFICATION.json",
@@ -137,8 +137,8 @@
     "sha256": "f38a865905d030be42ac0a965b4aa6afbc0eae280902a3839f20df176457f445"
   },
   "full_application": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/myj-difcof-simd/APPLICATION_QUALIFICATION.json",
-    "sha256": "dfeb8996cf164ac61e1c8e85df370bb897b522934790ccf200d80ac8e9805d7b"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-output/quilt512/private-shuffle-scratch-reuse/APPLICATION_QUALIFICATION.json",
+    "sha256": "892afe2c9d9bd36e3084d749d42f5050ba091162b3586a1f75efb15a0b7958a3"
   },
   "current_three_hour_qualified": false,
   "prior_repaired_full_application": {
@@ -222,16 +222,17 @@
   },
   "output_fusion": {
     "provider_source_file": "tools/cpu-output/quilt512/root_chunk_provider.c",
-    "provider_source_sha256": "8db4037d6c64b3ad60c012678b3810a9d313d0ffd7ba4d379af0f60de3a5a885",
+    "provider_source_sha256": "7ea74cd6c5172a17cc19bebf93e14e322695ce415feb0a517ea9984941f184eb",
     "shim_source_sha256": "313e18ed4309eec9b038371dfce227f8f5fc401813b094aa2cddb01e9de47421",
     "artifact": {
-      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current329f-padding-block32-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
-      "sha256": "de5b3c27224091cc0369062c9f1bbb867b362436a0331892a6ec9cf4fc4fccb4"
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-de5b-private-shuffle-scratch-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
+      "sha256": "51a31b3c137a2161700c9930a1e250021b34c598c887a7551e87d304b2ce4d31"
     },
     "producer_source_commit": null,
-    "qualification_file": "tools/cpu-output/quilt512/padding-block32/APPLICATION_QUALIFICATION.json",
-    "native_qualification_file": "tools/cpu-output/quilt512/padding-block32/NATIVE_QUALIFICATION.json",
-    "caller_timing_file": "tools/cpu-output/quilt512/padding-block32/CALLER_TIMING_RESULT.json"
+    "qualification_file": "tools/cpu-output/quilt512/private-shuffle-scratch-reuse/APPLICATION_QUALIFICATION.json",
+    "native_qualification_file": "tools/cpu-output/quilt512/private-shuffle-scratch-reuse/INTEGRATION_QUALIFICATION.json",
+    "caller_timing_file": "tools/cpu-output/quilt512/private-shuffle-scratch-reuse/TIMING_QUALIFICATION.json",
+    "output_postscience_source_commit": "909ab6ef55ac5351f9fd03e4019be470e89a3929"
   },
   "nine_hour_full_application": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-working/NINE_HOUR_FINAL_QUALIFICATION.json",
@@ -336,5 +337,29 @@
     "path": "/home/ddietz/wrf/WRF/tools/cpu-working/THREE_HOUR_FINAL_QUALIFICATION.json",
     "sha256": "43da2c4a0b15a93f6080e7eacda94a7e9825e9bc567c7d2f1e8843e14005255d",
     "applies_to_current_selection": false
+  },
+  "previous_output_fusion_before_scratch": {
+    "provider_source_file": "tools/cpu-output/quilt512/root_chunk_provider.c",
+    "provider_source_sha256": "8db4037d6c64b3ad60c012678b3810a9d313d0ffd7ba4d379af0f60de3a5a885",
+    "shim_source_sha256": "313e18ed4309eec9b038371dfce227f8f5fc401813b094aa2cddb01e9de47421",
+    "artifact": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current329f-padding-block32-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
+      "sha256": "de5b3c27224091cc0369062c9f1bbb867b362436a0331892a6ec9cf4fc4fccb4"
+    },
+    "producer_source_commit": null,
+    "qualification_file": "tools/cpu-output/quilt512/padding-block32/APPLICATION_QUALIFICATION.json",
+    "native_qualification_file": "tools/cpu-output/quilt512/padding-block32/NATIVE_QUALIFICATION.json",
+    "caller_timing_file": "tools/cpu-output/quilt512/padding-block32/CALLER_TIMING_RESULT.json"
+  },
+  "output_post_test_source_identity": {
+    "status": "POST_TEST_OUTPUT_SOURCE_IDENTITY",
+    "source_commit": "909ab6ef55ac5351f9fd03e4019be470e89a3929",
+    "raw_producer_source_commit": null,
+    "provider_source_file": "tools/cpu-output/quilt512/root_chunk_provider.c",
+    "provider_source_sha256": "7ea74cd6c5172a17cc19bebf93e14e322695ce415feb0a517ea9984941f184eb",
+    "full_shim_path": "/pool/wrf-experiment/wrf-cpu/kernels/current-de5b-private-shuffle-scratch-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
+    "full_shim_sha256": "51a31b3c137a2161700c9930a1e250021b34c598c887a7551e87d304b2ce4d31",
+    "shim_source_sha256": "313e18ed4309eec9b038371dfce227f8f5fc401813b094aa2cddb01e9de47421",
+    "scope": "Literal provider source committed after original short science. WRF source remainsb37e02ce/exe41b,codec source624bc116/3edf. Raw producerNULL records unchanged; existing build.py already strict/C11/-lm and uses fused-pack source hash."
   }
 }
