@@ -1,0 +1,246 @@
+{
+  "status": "PASS_ACTUAL_FUSED_OUTPUT_PROVIDER_512_TWO_PRODUCTS_35_STEPS_ORIGINAL_SCI_ALL_SCOPES_CLOSED",
+  "utc": "2026-10-20T04:02:35.015831+00:00",
+  "candidate_executable_sha256": "1d6e5213108a5a1501ab319825bfa1a024df367af5037bee5f80d210f72d4f14",
+  "output_shim": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current375-fused-pack-shuffle-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
+    "sha256": "172306f3a8c482f8aa2f2683c7f847dab62bf695532a06b0e6ddd8ba441a2a07",
+    "provider_source_sha256": "b938317c3430fd11ec02dce7bb0f3201a426369bf4a073a10fc3c152a912960f",
+    "shim_source_sha256": "313e18ed4309eec9b038371dfce227f8f5fc401813b094aa2cddb01e9de47421",
+    "source_commit": null,
+    "native_two_stage_proof": {
+      "receipt_sha256": "75aebf1ae206c0c678051cfc0ec5cff7e79c19b0e742bfcfec110703ae364e1a",
+      "closure_sha256": "ea9f1c25ea06d0e0151d9e8bb90608aae37d9e146802ba85964c757d88e3e2a7",
+      "original_failed_invocation_id": "f97670205f3e4ae899c972089aa08192",
+      "postprocessing_success_invocation_id": "71384091515045558e5c5fa435b17b01",
+      "original_manager_failed_retained": true,
+      "shim_sha256": "172306f3a8c482f8aa2f2683c7f847dab62bf695532a06b0e6ddd8ba441a2a07",
+      "scope": "Actual375parent-exact/current881 fullDSO API/raw/state/world1-negative component only; actual512 activation/runtime/science remains hard."
+    }
+  },
+  "science": {
+    "receipt_sha256": "7a108c76b39f53ee65c9a4021c4fb14041a1cd934500785edc45063c439106c6",
+    "reader_closure_sha256": "cd933963e9ea9ebb8cb8d3c2a88dc044ebae0fd2e35c9a662912058dfbc0efb9",
+    "reader_exit_code_raw": null,
+    "invocation_id": "caceb5e95f1645c0b14bb509bdbbd568",
+    "products": 2,
+    "ordered_steps": 35,
+    "end_time": "2026-10-12_06:10:00",
+    "world": 512,
+    "compute": 480,
+    "quilt_groups": 4,
+    "quilt_ranks_per_group": 8,
+    "tiles": 2,
+    "positive_writer_roots": [
+      487,
+      495
+    ],
+    "zero_writer_roots": [
+      503,
+      511
+    ],
+    "protected_original_checker_unchanged": true,
+    "tile_status": "PASS_ACTUAL_480_DISJOINT_TILE_UNIONS_AND_ALL512_OBSERVED_ENVS"
+  },
+  "actual_input_lifecycle": {
+    "event": "final",
+    "rank": 0,
+    "scopes": 308,
+    "callbacks": 31,
+    "supplied": 17,
+    "declines": 14,
+    "widens": 31,
+    "restores": 31
+  },
+  "all_model_reader_scopes_closed": true,
+  "model_invocations": {
+    "hpc01": "565c109e6ea143039ba98fc24b2bbdf1",
+    "hpc02": "d135e936ffe34a8492155cb98ac98e27",
+    "hpc03": "b82b515a8a854783ae67b93d910ac44d",
+    "hpc04": "081dd7e8e2ba49c5be66042e73040ce5"
+  },
+  "observed_candidate_only_metrics": {
+    "MPI_wall_seconds": 139.16318616108038,
+    "aggregate_node_cgroup_CPU_seconds": 53765.947942,
+    "coordinator_RSL_main_step_seconds_sum": 38.4004,
+    "nodes": {
+      "hpc01": {
+        "invocation_id": "565c109e6ea143039ba98fc24b2bbdf1",
+        "memory_peak_bytes": 76199337984,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_stat": {
+          "usage_usec": 13400103798,
+          "user_usec": 12859989730,
+          "system_usec": 540114067,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 1402,
+          "nr_throttled": 561,
+          "throttled_usec": 5703145,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      },
+      "hpc02": {
+        "invocation_id": "d135e936ffe34a8492155cb98ac98e27",
+        "memory_peak_bytes": 73763430400,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_stat": {
+          "usage_usec": 13439645036,
+          "user_usec": 12895629849,
+          "system_usec": 544015187,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 1357,
+          "nr_throttled": 861,
+          "throttled_usec": 1367373,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      },
+      "hpc03": {
+        "invocation_id": "b82b515a8a854783ae67b93d910ac44d",
+        "memory_peak_bytes": 73712336896,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_stat": {
+          "usage_usec": 13465650483,
+          "user_usec": 12889912202,
+          "system_usec": 575738280,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 1354,
+          "nr_throttled": 687,
+          "throttled_usec": 7908399,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      },
+      "hpc04": {
+        "invocation_id": "081dd7e8e2ba49c5be66042e73040ce5",
+        "memory_peak_bytes": 73677799424,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_stat": {
+          "usage_usec": 13460548625,
+          "user_usec": 12879947901,
+          "system_usec": 580600723,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 1356,
+          "nr_throttled": 668,
+          "throttled_usec": 5630747,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      }
+    }
+  },
+  "limits": [
+    "Short2product35 scientific qualification only; no freshcontrol/isolatedgain/longhorizon/all4positivewriter claim.",
+    "Fullshim native originalmanagerFAILretained plus independentimmutablepostprocessPASS; no fabricatedoriginalsuccess.",
+    "NativeFPstate and standalonecaller timing remain separate, no per-callmodelFPsampling or forecastgain transfer.",
+    "Cgrouppeaks/CPU are observedwholeinvocation counters, no stage/PSS/headroom or pureIO attribution.",
+    "No source/default promotion by this assembler; compiledproducer source_commitNULL preserved."
+  ],
+  "raw_refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-fused-pack-shuffle10m-runtime-r1/application-binding.json": {
+      "sha256": "4a83f47337498d2c63d5c88b7fa9491f2b9ebbc977f690404317de6d1d1c4fc0",
+      "bytes": 21385
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-fused-pack-shuffle10m-runtime-r1/candidate-metadata/lease.json": {
+      "sha256": "5b49b98d689ba98e89166a0f9ed3a55b00b2f1f992374d8eea5fd40345690f56",
+      "bytes": 115410
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-fused-pack-shuffle10m-runtime-r1/source-pins.json": {
+      "sha256": "2f0ee5ddcb9e91ee75125b406c28ccd553eb159b0fc59e299dfcbc4706af0c0d",
+      "bytes": 15273
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-fused-pack-shuffle10m-runtime-r1/output-fusion-receipt.json": {
+      "sha256": "75aebf1ae206c0c678051cfc0ec5cff7e79c19b0e742bfcfec110703ae364e1a",
+      "bytes": 71907
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-fused-pack-shuffle10m-runtime-r1/output-fusion-closure.json": {
+      "sha256": "ea9f1c25ea06d0e0151d9e8bb90608aae37d9e146802ba85964c757d88e3e2a7",
+      "bytes": 1365
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-fused-pack-shuffle10m-runtime-r1/output-fusion-post-receipt.json": {
+      "sha256": "473d4958482cdb6de30982c0012a316f50d0e25aeb2935da48f8a42dc1ca5ad2",
+      "bytes": 23824
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-fused-pack-shuffle10m-runtime-r1/output-fusion-post-closure.json": {
+      "sha256": "c1516e6a7661f76be302b29944b21f5423def04ac177fccc3904554c1d8ba98b",
+      "bytes": 1156
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-fused-pack-shuffle10m-runtime-r1/output-fusion-qualification.json": {
+      "sha256": "8ea8e6065194118889d75ce4f43de43c899631ff4032621059ed64a65aaae5ea",
+      "bytes": 7777
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-fused-pack-shuffle10m-runtime-r1/science-receipt.json": {
+      "sha256": "7a108c76b39f53ee65c9a4021c4fb14041a1cd934500785edc45063c439106c6",
+      "bytes": 3631787
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-fused-pack-shuffle10m-runtime-r1/reader-closure.json": {
+      "sha256": "cd933963e9ea9ebb8cb8d3c2a88dc044ebae0fd2e35c9a662912058dfbc0efb9",
+      "bytes": 4232
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-fused-pack-shuffle10m-runtime-r1/candidate-closures.json": {
+      "sha256": "bc2e98b5b236295a4c7a6f3c59b3452d961545cd79310c152a0f46e9bbfbb776",
+      "bytes": 23500
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-fused-pack-shuffle10m-runtime-r1/candidate-metadata/mpi-launch.json": {
+      "sha256": "8f1935ca06ce45a9b27eff6bea7f8e62c2b21043b06ae2a8b75d4994b0f1c2db",
+      "bytes": 7782
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-fused-pack-shuffle10m-runtime-r1/candidate-metadata/hpc02-node.json": {
+      "sha256": "513b6cf8ab27a28d9a7713a5cb8200bccf148f9c7f6dfe202fd1706257f1a120",
+      "bytes": 3751
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-fused-pack-shuffle10m-runtime-r1/candidate-metadata/hpc03-node.json": {
+      "sha256": "13a55e171686eb0fe295505fb93e142035264827a025c895b966f544e5dc79f3",
+      "bytes": 3751
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-fused-pack-shuffle10m-runtime-r1/candidate-metadata/hpc04-node.json": {
+      "sha256": "52fa4c09864b7162f1e114949bfdca4ca1adb714aaa64a1d0398bd5c860cf098",
+      "bytes": 3751
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-fused-pack-shuffle10m-runtime-r1/candidate-metadata/adaptive-steps.json": {
+      "sha256": "866274d765e9928c570ba81f304ae5e1dd7ee8b389987d80472bafa3f40f2423",
+      "bytes": 3953
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-fused-pack-shuffle10m-runtime-r1/candidate-metadata/completion.json": {
+      "sha256": "cc911657bd93919edcc09a5d2215de61bf0492316f99a62fd602fc1196d184e2",
+      "bytes": 945
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-fused-pack-shuffle10m-runtime-r1/candidate-metadata/model-closures.json": {
+      "sha256": "f743b947211007bca20f4f05a4be5a89f669ac79a7d0099fe7ec6ce678ba32ce",
+      "bytes": 26228
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-fused-pack-shuffle10m-runtime-r1/candidate-metadata/cache-start-context.json": {
+      "sha256": "703d2a3df4024c9230d32979d115b0257e59130763301b8b4e07764cabc1f659",
+      "bytes": 361
+    }
+  }
+}

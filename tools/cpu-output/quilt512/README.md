@@ -2,7 +2,9 @@
 
 Current complete working selection: [promoted combined CPU configuration](../../cpu-working/README.md). Its exact-qualified executable/provider/codec/private-HDF5 combination supersedes the older whole-build selections below; historical measurements remain preserved.
 
-The selected working default is `simd-pack`: runtime-selected SIMD byte shuffle and parallel packing in the existing four workers. `--provider original` selects the retained `4cb1c2` provider. The provider selector changes no provider, shim, header or owner bytes; package builds previously reproduced selected `375aa7e3` and original `4cb1c2` byte for byte.
+The selected working default is `fused-pack`: active rows are packed directly into shuffled byte planes in the existing four workers, removing the intermediate packed buffer. The full shim is `172306f3`, provider source `b938317c`; shim source, headers, codec, owner and worker placement are unchanged. `--provider simd-pack` retains previous `375aa7e3` and its exact source under `parallel-pack/`; `--provider original` retains `4cb1c2`.
+
+The [complete-provider caller](fusion/CALLER_TIMING_RESULT.json) was 47.30%/48.92% shorter in opposite orders, with 36.79%/38.33% less process CPU. All compressed bytes, independent decoded bytes, readonly inputs and five-state checks passed. Full standalone-harness maximum RSS fell about214MiB; this is not WRF PSS or job-admission evidence. [Native/API qualification](fusion/NATIVE_QUALIFICATION.json) and the [512-rank short application](fusion/APPLICATION_QUALIFICATION.json) passed exact checks. Two complete outputs and35steps cover active roots487/495 and inactive503/511. Own full-three-/nine-hour acceptance remains pending; no forecast gain is inferred or added to earlier combined results. The original native job's missing-reader-package failure is preserved alongside its separate successful comparison-only recovery.
 
 A new [co-located output-group alternative](placement/co-located-groups/README.md) is retained with exact paired qualification, measured timing and memory tradeoffs. It has its own host-specific guard source and explicit bounded lease; the working default remains unchanged.
 
@@ -15,14 +17,15 @@ The retained earlier provider-only one-hour comparison was 12.42% slower in wall
 Build from the WRF repository root into a fresh directory:
 
 ```sh
-python3 tools/cpu-output/quilt512/build.py --output-dir <fresh-simd-pack-directory>
+python3 tools/cpu-output/quilt512/build.py --output-dir <fresh-fused-pack-directory>
+python3 tools/cpu-output/quilt512/build.py --provider simd-pack --output-dir <fresh-parallel-pack-directory>
 python3 tools/cpu-output/quilt512/build.py --provider original --codec original --output-dir <fresh-original-directory>
 python3 tools/cpu-output/quilt512/build.py --codec original --output-dir <fresh-simd-pack-original-codec-directory>
 ```
 
-The selected provider remains nested `e29a6a59`, with the qualified strict C recipe; the original is shared `ee9ebe79`. SIMD dispatch is function-scoped and runtime-guarded; the non-AVX2 execution path remains unqualified. Parent world-16 and world-64 sources are unchanged.
+Selected fused provider `b938317c` retains the strict C recipe; previous parallel packing is `e29a6a59`, and the original is shared `ee9ebe79`. SIMD dispatch is function-scoped and runtime-guarded; non-AVX2-host execution remains unqualified. Parent world-16 and world-64 sources are unchanged. The actual full-shim artifact was built by the pinned native recipe; this updated package selector has not been rebuilt merely for this source/default promotion.
 
-Existing `native_artifact`, activation and historical qualification records describe original `4cb` and remain preserved. The selected variant's receipts are under `optional_build_variants.simd-pack` in [qualification.json](qualification.json). Optional terminology in those historical records is not rewritten into a new qualification claim.
+Existing `native_artifact`, activation and historical qualification records describe original `4cb` and remain preserved. Current records are under `optional_build_variants.fused-pack` in [qualification.json](qualification.json); prior `simd-pack` records keep their historical scope.
 
 Use the frozen [current rankfile](placement/current.rankfile) and [rank table](placement/current-rank-map.json): 480 compute ranks in an 8 × 60 decomposition, plus four groups of eight quilt ranks across hpc01–04. Each node has 128 physical CPUs. Memory caps are 100 GiB on hpc01–03 and 104 GiB on hpc04, with swap disabled.
 
@@ -32,7 +35,7 @@ Preload only rank executables with `SELECTED_SHIM:NG`; launchers and helpers hav
 
 Preserve owner-first dependency search, `WRF_ROOT_SHIM_WORLD=512`, `WRF_ROOT_SHIM_OPTIN=1`, `WRF_ROOT_SHIM_CPUS=0-127`, `WRF_ROOT_SHIM_OWNER=/pool/wrf/WPS_new/runtime/netcdf-owner/lib/libnetcdf.so.19`, `WRF_ROOT_SHIM_LOGDIR=<fresh-log-directory>`, `OMPI_MPI_THREAD_LEVEL=1`, `OMPI_MCA_pml=ucx`, `UCX_TLS=rc,sm,self` and `UCX_NET_DEVICES=ibp1s0f0:1`. MPI, NetCDF and HDF5 remain main-thread only; workers join and affinity restores before continuation.
 
-Roll back a new run to the retained qualified `12d3` executable and original `4cb`, using the same fixture, current map, dependencies and resources. Select `--provider original` or its retained binary. To remove the shim, set its opt-out or omit it; for ordinary I/O, remove NG and restore stock dependency search. Revert the promotion commit and rebuild the object, archive, executable and provider as required.
+Immediate rollback restores `tools/cpu-working/PREVIOUS_SELECTION_BEFORE_FUSED_OUTPUT.json` and its matching binding: select output375 while retaining executable1d6e, root-input06d/NCa32, codec881 and all prior improvements. `--provider simd-pack` selects the retained provider source. To remove the shim entirely, use its existing opt-out or omit the rank preload; ordinary I/O retains its own scope. Production deployment remains separate.
 
 For generic Fortran ISA, use `make WRF_SMALL_STEP_ZEN2=0 WRF_ADVECTION_ZEN2=0`. Changing a knob does not alter an already built executable. Production deployment is separate.
 

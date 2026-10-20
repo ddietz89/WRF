@@ -1,0 +1,156 @@
+{
+  "source_commit": "495f10002d87fb5fdcc256c20a9e592c037d9183",
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2/wrf.exe",
+    "sha256": "1d6e5213108a5a1501ab319825bfa1a024df367af5037bee5f80d210f72d4f14"
+  },
+  "artifacts": {
+    "shim": {
+      "path": "/pool/wrf-experiment/wrf-cpu/source-discovery/parallel-pack-quilt-shim-native-r1/wrf_quilt_thread_shim.so",
+      "sha256": "375aa7e3198d42d84e3c95612f5475216354e2c4cb33c053eea42ac29f4bdb2a"
+    },
+    "owner": {
+      "path": "/pool/wrf/WPS_new/runtime/netcdf-owner/lib/libnetcdf.so.19",
+      "sha256": "8adc33059a98399cd8adea41de071598aaa2b09ff53eb3ae860cad0c6696b538"
+    },
+    "ng": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/libz.so.1.3.1.zlib-ng",
+      "sha256": "881d0a1aa84f1ac3f3fc60b0c59f7f9b03125fe68065cf44a04170de5655de3c"
+    }
+  },
+  "private_hdf5": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/hdf5-sse2-unshuffle4-private-r3/output/candidate/lib/libhdf5.so.310.3.0",
+    "sha256": "825e2f1f24bee6feaf537cb7a4b1207044fb90ec1afc2dd96571b33b1056ba19"
+  },
+  "rank_library_path": "/pool/wrf-experiment/wrf-cpu/builds/hdf5-sse2-unshuffle4-private-r3/output/candidate/lib:/pool/wrf/WPS_new/runtime/netcdf-owner/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib",
+  "rank_map_sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac",
+  "build_defaults": {
+    "WRF_SMALL_STEP_ZEN2": 1,
+    "WRF_ADVECTION_ZEN2": 1,
+    "compiler_scope": "qualified GNU Fortran13.3.0; runtime CPU/OS feature admission required",
+    "WRF_EXPERIMENTAL_TPI_NUMA": 1,
+    "thompson_build_scope": "GNU13.3 strict cold one-domain DIMNRHG1/OMP1:23fields/12fixedowners, lazyfixedgrouppublication and privateTCGINITsentinel; no-macro localCPPprojection literal, no genericwhole-object qualification."
+  },
+  "runtime": {
+    "OMP_NUM_THREADS": 1,
+    "OMPI_MPI_THREAD_LEVEL": 1,
+    "OMPI_MCA_pml": "ucx",
+    "UCX_TLS": "rc,sm,self",
+    "UCX_NET_DEVICES": "ibp1s0f0:1",
+    "WRF_ROOT_SHIM_WORLD": 512,
+    "WRF_ROOT_SHIM_OPTIN": 1,
+    "WRF_ROOT_SHIM_OPTOUT": 0,
+    "WRF_ROOT_SHIM_CPUS": "0-127",
+    "WRF_QUILT_OWNED_FIELD_VIEW": 1,
+    "WRF_EXPERIMENTAL_TPI_NUMA": 1
+  },
+  "read_affine_IO_archive_sha256": "651835f31089e16759177734198ece5b121d704355c73abddde483f4cae2c14c",
+  "read_affine_IO_object_sha256": "c9c4e5b7a0225523e7d85cfc188022d797204d3f4dd4494b54c416e3bec99320",
+  "schema_version": 3,
+  "status": "PROMOTED_COMBINED_READ_AFFINE_AND_ROOT_PARALLEL_INPUT_EXACT_FRESH_THREE_HOUR",
+  "scope": "Cold single-domain06\u201309, GNU13.3/Zen2/OMP1, 480compute8x60+4groupsx8quilt, hourlyNetCDF2/twoTiles/faba/singleIB.",
+  "includes": "All retained compute, Thompson shared-table/lazy-init, output, codec and HDF5 improvements from the previous selection, READ_DI1 affine rows, plus qualified root-only parallel input chunk decoding.",
+  "source_commit_scope": "source_commit binds the unchanged WRF executable; input_implementation_commit binds the separately compiled literal private input provider/adapter package. Frozen producer source_commit null fields remain unchanged.",
+  "input_implementation_commit": "614267f340a23ffc342962b3c64e323719fe4d06",
+  "root_input": {
+    "enabled_in_working_configuration": true,
+    "pending_component": false,
+    "adapter_path": "/pool/wrf-experiment/wrf-cpu/kernels/root-input-predecoded-production-adapter-abi-hpc02-r1/output/libinput_root.so",
+    "adapter_sha256": "06d0232dbeb53e3e0cc4a8ac5c431a307e0bd3506183f70b5a558f2c70b19553",
+    "owner_path": "/pool/wrf-experiment/wrf-cpu/kernels/ordinary-nc-predecoded-fp-admission-build-hpc02-r3/output/libnetcdf.so.19",
+    "owner_sha256": "a32aa6cdf5e7154b974afb699f6be8f0b0632cfb4bc00226b7b6a34e0b04f41d",
+    "rank": 0,
+    "host": "hpc01",
+    "root_cpu": 0,
+    "borrowed_occupied_cpus": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "input_source_sha256": "4febd6cabc22d8fd5caf0efe89087b97a5871cd269e9777be7c8b8166c5d3ddf",
+    "component_receipt_sha256": "90070f7ce757ca6e571554779ce6624f5e179a4ed76653a30d4d8be9eb89a6e5",
+    "component_closure_sha256": "d77bf34ae3d4a30068ab5998908a3560bfb68eaa0b5ab8baa47dc8814758d590",
+    "rank_exec": "tools/cpu-input/parallel-chunk-read/input_rank_exec.py",
+    "rank_exec_sha256": "0de958aa7bccc73acdc5c948a40ae1a903bc9fceb1b470becf1c15348aa26693",
+    "runtime_environment_only_rank0": {
+      "WRF_INPUT_PREDECODE_OPTIN": "1",
+      "WRF_INPUT_PREDECODE_OWNER": "/pool/wrf-experiment/wrf-cpu/kernels/ordinary-nc-predecoded-fp-admission-build-hpc02-r3/output/libnetcdf.so.19",
+      "WRF_INPUT_SCOPE_LOGDIR": "<fresh_run>/input-logs"
+    },
+    "other_511_ranks": "Retain original NC8adc/output375/codec881; do not add the root input preload/library directory globally."
+  },
+  "science": {
+    "products": 4,
+    "ordered_steps": 545,
+    "world": 512,
+    "compute": 480,
+    "tiles": 2,
+    "all4_positive_writer_roots": [
+      487,
+      495,
+      503,
+      511
+    ],
+    "compare_one_AST_unchanged": true,
+    "protected_reference_checker": "Original protected numericalcomparison passed unchanged; complete sourceproof and readerreceipt referenced.",
+    "receipt_sha256": "bf17d0287456739bf1db07ce45556ef69a768e255019af6b113e2c186255b824",
+    "reader_closure_sha256": "106fe5e3e75509b5028d82a2e35303fe4913eb45a107df7328503694e2dbb327",
+    "all_model_reader_scopes_closed": true,
+    "observed_last_step": "2026-10-12_09:00:00"
+  },
+  "qualification_file": "tools/cpu-input/parallel-chunk-read/QUALIFICATION.json",
+  "current_application_qualification_file": "tools/cpu-input/parallel-chunk-read/APPLICATION_QUALIFICATION.json",
+  "source_build_binding_file": "CURRENT_SOURCE_BUILD_BINDING.json",
+  "current_three_hour_qualified": true,
+  "current_nine_hour_qualified": false,
+  "last_three_hour_benchmark": {
+    "evidence_file": "THREE_HOUR_RESULT.json",
+    "executable": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2/wrf.exe",
+      "sha256": "1d6e5213108a5a1501ab319825bfa1a024df367af5037bee5f80d210f72d4f14"
+    },
+    "source_commit": "495f10002d87fb5fdcc256c20a9e592c037d9183",
+    "comparison_design": "Fresh fixed-order corrected-original546b followed by combined1d6e plus root-only input06d/NCa32; no observers/profilers.",
+    "metrics": {
+      "control": {
+        "wall_seconds": 818.0402264029253,
+        "cpu_seconds": 366874.26066900004,
+        "main_step_sum_seconds": 595.75757
+      },
+      "candidate": {
+        "wall_seconds": 670.7779205960687,
+        "cpu_seconds": 323960.582918,
+        "main_step_sum_seconds": 566.69136
+      }
+    },
+    "reductions_percent": {
+      "wall_seconds": 18.00184160311973,
+      "cpu_seconds": 11.697107797299921,
+      "main_step_sum_seconds": 4.878865408290145
+    },
+    "full_qualification_sha256": "fed6f9ab2260eeb9e9ac4f56e68062e588bfb424ed344466a02ba0e7390d8780",
+    "fresh_matched_timing": true,
+    "applies_to_current_selection": true,
+    "repeatability_established": false
+  },
+  "prior_nine_hour": {
+    "evidence_file": "NINE_HOUR_RESULT.json",
+    "qualification_file": "NINE_HOUR_FINAL_QUALIFICATION.json",
+    "qualified_executable_sha256": "b1fb398a9c7186823584252b53f4ee360c260143064720256f660ba1459c8670",
+    "applies_to_current_selection": false
+  },
+  "memory_qualification_file": "tools/cpu-memory/thompson-table-sharing/lazy-group-init/QUALIFICATION.json",
+  "activation": "Selection record, not a launcher. Use a fresh bounded lease/run/log directory and the exact root-only input rank-exec binding, with all original runtime checks and cache-before-each-arm SOP. Never preload launchers/helpers.",
+  "rollback": {
+    "selection": "PREVIOUS_SELECTION_1D6E_BEFORE_PARALLEL_INPUT.json",
+    "source_build_binding": "PREVIOUS_SOURCE_BUILD_BINDING_1D6E_BEFORE_PARALLEL_INPUT.json",
+    "executable": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2/wrf.exe",
+      "sha256": "1d6e5213108a5a1501ab319825bfa1a024df367af5037bee5f80d210f72d4f14"
+    },
+    "action": "Omit the input opt-in/adapter/root-only NC directory and restore the previous binding. WRF executable1d6e/output375/codec881 stay unchanged."
+  },
+  "claim_limits": "Combined one-pair result, not isolated input/read-affine/Thompson gain or repeatability. Main-step elapsed includes communication/backpressure; not integration CPU. Whole-minus-main is not pure I/O. No nine-hour/restart/nesting/other-compiler transfer.",
+  "next_qualification": "Finish fused pack/shuffle provider timing and owner/application gates if worthwhile; select a sustained nine-hour combined comparison when justified. No production or master changes."
+}

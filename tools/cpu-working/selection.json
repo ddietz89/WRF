@@ -6,8 +6,8 @@
   },
   "artifacts": {
     "shim": {
-      "path": "/pool/wrf-experiment/wrf-cpu/source-discovery/parallel-pack-quilt-shim-native-r1/wrf_quilt_thread_shim.so",
-      "sha256": "375aa7e3198d42d84e3c95612f5475216354e2c4cb33c053eea42ac29f4bdb2a"
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current375-fused-pack-shuffle-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
+      "sha256": "172306f3a8c482f8aa2f2683c7f847dab62bf695532a06b0e6ddd8ba441a2a07"
     },
     "owner": {
       "path": "/pool/wrf/WPS_new/runtime/netcdf-owner/lib/libnetcdf.so.19",
@@ -47,9 +47,9 @@
   "read_affine_IO_archive_sha256": "651835f31089e16759177734198ece5b121d704355c73abddde483f4cae2c14c",
   "read_affine_IO_object_sha256": "c9c4e5b7a0225523e7d85cfc188022d797204d3f4dd4494b54c416e3bec99320",
   "schema_version": 3,
-  "status": "PROMOTED_COMBINED_READ_AFFINE_AND_ROOT_PARALLEL_INPUT_EXACT_FRESH_THREE_HOUR",
-  "scope": "Cold single-domain06\u201309, GNU13.3/Zen2/OMP1, 480compute8x60+4groupsx8quilt, hourlyNetCDF2/twoTiles/faba/singleIB.",
-  "includes": "All retained compute, Thompson shared-table/lazy-init, output, codec and HDF5 improvements from the previous selection, READ_DI1 affine rows, plus qualified root-only parallel input chunk decoding.",
+  "status": "PROMOTED_FUSED_OUTPUT_ON_QUALIFIED_ROOT_PARALLEL_INPUT_AND_ALL_PREVIOUS_IMPROVEMENTS",
+  "scope": "GNU13.3/Zen2/OMP1, cold06\u201306:10/all512/faba/twoTiles/currentinput06dNCa32+output172/codec881/HDF825/shared1/FIELDVIEW1/singleIB.",
+  "includes": "All retained compute, Thompson shared-table/lazy-init, output, codec and HDF5 improvements from the previous selection, READ_DI1 affine rows, plus qualified root-only parallel input chunk decoding. Fused output packing/shuffling removes intermediate padded packed storage; compressedbytes and originalscience exact.",
   "source_commit_scope": "source_commit binds the unchanged WRF executable; input_implementation_commit binds the separately compiled literal private input provider/adapter package. Frozen producer source_commit null fields remain unchanged.",
   "input_implementation_commit": "614267f340a23ffc342962b3c64e323719fe4d06",
   "root_input": {
@@ -81,28 +81,34 @@
     "other_511_ranks": "Retain original NC8adc/output375/codec881; do not add the root input preload/library directory globally."
   },
   "science": {
-    "products": 4,
-    "ordered_steps": 545,
+    "receipt_sha256": "7a108c76b39f53ee65c9a4021c4fb14041a1cd934500785edc45063c439106c6",
+    "reader_closure_sha256": "cd933963e9ea9ebb8cb8d3c2a88dc044ebae0fd2e35c9a662912058dfbc0efb9",
+    "reader_exit_code_raw": null,
+    "invocation_id": "caceb5e95f1645c0b14bb509bdbbd568",
+    "products": 2,
+    "ordered_steps": 35,
+    "end_time": "2026-10-12_06:10:00",
     "world": 512,
     "compute": 480,
+    "quilt_groups": 4,
+    "quilt_ranks_per_group": 8,
     "tiles": 2,
-    "all4_positive_writer_roots": [
+    "positive_writer_roots": [
       487,
-      495,
+      495
+    ],
+    "zero_writer_roots": [
       503,
       511
     ],
-    "compare_one_AST_unchanged": true,
-    "protected_reference_checker": "Original protected numericalcomparison passed unchanged; complete sourceproof and readerreceipt referenced.",
-    "receipt_sha256": "bf17d0287456739bf1db07ce45556ef69a768e255019af6b113e2c186255b824",
-    "reader_closure_sha256": "106fe5e3e75509b5028d82a2e35303fe4913eb45a107df7328503694e2dbb327",
-    "all_model_reader_scopes_closed": true,
-    "observed_last_step": "2026-10-12_09:00:00"
+    "protected_original_checker_unchanged": true,
+    "tile_status": "PASS_ACTUAL_480_DISJOINT_TILE_UNIONS_AND_ALL512_OBSERVED_ENVS",
+    "all_model_reader_scopes_closed": true
   },
-  "qualification_file": "tools/cpu-input/parallel-chunk-read/QUALIFICATION.json",
-  "current_application_qualification_file": "tools/cpu-input/parallel-chunk-read/APPLICATION_QUALIFICATION.json",
+  "qualification_file": "tools/cpu-output/quilt512/qualification.json",
+  "current_application_qualification_file": "tools/cpu-output/quilt512/fusion/APPLICATION_QUALIFICATION.json",
   "source_build_binding_file": "CURRENT_SOURCE_BUILD_BINDING.json",
-  "current_three_hour_qualified": true,
+  "current_three_hour_qualified": false,
   "current_nine_hour_qualified": false,
   "last_three_hour_benchmark": {
     "evidence_file": "THREE_HOUR_RESULT.json",
@@ -131,8 +137,9 @@
     },
     "full_qualification_sha256": "fed6f9ab2260eeb9e9ac4f56e68062e588bfb424ed344466a02ba0e7390d8780",
     "fresh_matched_timing": true,
-    "applies_to_current_selection": true,
-    "repeatability_established": false
+    "applies_to_current_selection": false,
+    "repeatability_established": false,
+    "scope": "Fresh fed6 threehour qualifies previous output375, before newfused172; retained measuredcombined18.0018%wall,11.6971%CPU, not currentfused qualification."
   },
   "prior_nine_hour": {
     "evidence_file": "NINE_HOUR_RESULT.json",
@@ -143,14 +150,11 @@
   "memory_qualification_file": "tools/cpu-memory/thompson-table-sharing/lazy-group-init/QUALIFICATION.json",
   "activation": "Selection record, not a launcher. Use a fresh bounded lease/run/log directory and the exact root-only input rank-exec binding, with all original runtime checks and cache-before-each-arm SOP. Never preload launchers/helpers.",
   "rollback": {
-    "selection": "PREVIOUS_SELECTION_1D6E_BEFORE_PARALLEL_INPUT.json",
-    "source_build_binding": "PREVIOUS_SOURCE_BUILD_BINDING_1D6E_BEFORE_PARALLEL_INPUT.json",
-    "executable": {
-      "path": "/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2/wrf.exe",
-      "sha256": "1d6e5213108a5a1501ab319825bfa1a024df367af5037bee5f80d210f72d4f14"
-    },
-    "action": "Omit the input opt-in/adapter/root-only NC directory and restore the previous binding. WRF executable1d6e/output375/codec881 stay unchanged."
+    "selection": "PREVIOUS_SELECTION_BEFORE_FUSED_OUTPUT.json",
+    "source_build_binding": "PREVIOUS_SOURCE_BUILD_BINDING_BEFORE_FUSED_OUTPUT.json",
+    "action": "Restore output375 only; keep executable1d6e, input06d/NCa32, codec881 and all prior selections. Build with --provider simd-pack to select retained parallel-pack source."
   },
-  "claim_limits": "Combined one-pair result, not isolated input/read-affine/Thompson gain or repeatability. Main-step elapsed includes communication/backpressure; not integration CPU. Whole-minus-main is not pure I/O. No nine-hour/restart/nesting/other-compiler transfer.",
-  "next_qualification": "Finish fused pack/shuffle provider timing and owner/application gates if worthwhile; select a sustained nine-hour combined comparison when justified. No production or master changes."
+  "claim_limits": "Ownshort2product35/full512 gate; 47.30/48.92% complete syntheticprovider wall gains and37/38%CPU remain separate. No isolated WRForforecastgain; previousfresh3h18% belongs output375; sustainedlatestcombined9h acceptance pending.",
+  "next_qualification": "One sustained currentcombined06\u201315 ninehour versus retained corrected original, all10products1625, UNPAIREDtiming. No extra3hcontrol or kernelcountmatrix.",
+  "output_fusion_qualification_file": "tools/cpu-output/quilt512/fusion/NATIVE_QUALIFICATION.json"
 }

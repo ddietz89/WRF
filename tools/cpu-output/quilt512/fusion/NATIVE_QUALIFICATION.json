@@ -1,0 +1,132 @@
+{
+  "status": "QUALIFIED_CURRENT375_FUSED_PROVIDER_FULL_SHIM_PUBLIC_NC_PUT_RECOVERED_POSTPROCESSING_NOT_MPI512",
+  "artifacts": {
+    "parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current375-fused-pack-shuffle-integration-hpc02-r1/parent/wrf_quilt_thread_shim.so",
+      "sha256": "375aa7e3198d42d84e3c95612f5475216354e2c4cb33c053eea42ac29f4bdb2a"
+    },
+    "candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current375-fused-pack-shuffle-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
+      "sha256": "172306f3a8c482f8aa2f2683c7f847dab62bf695532a06b0e6ddd8ba441a2a07"
+    }
+  },
+  "production_source_sha256": {
+    "shim": "313e18ed4309eec9b038371dfce227f8f5fc401813b094aa2cddb01e9de47421",
+    "provider": "b938317c3430fd11ec02dce7bb0f3201a426369bf4a073a10fc3c152a912960f",
+    "parent_provider": "e29a6a59ee8c239ea2a67c80f261d8102ff550d21510761899ef62c3f4445589",
+    "provider_header": "969fc7475b5b6da0f135557746e008e3599e303e19c6cec8e9c5294c5a75cf0c",
+    "NC_provider_header": "f050797799f235dea8be9400198d0b8d44fbfca2acb45ed4a914b75b717311b4"
+  },
+  "existing_defined_exports_unchanged": true,
+  "dependency_sha256": {
+    "owner": "8adc33059a98399cd8adea41de071598aaa2b09ff53eb3ae860cad0c6696b538",
+    "codec": "881d0a1aa84f1ac3f3fc60b0c59f7f9b03125fe68065cf44a04170de5655de3c",
+    "hdf5": "825e2f1f24bee6feaf537cb7a4b1207044fb90ec1afc2dd96571b33b1056ba19",
+    "MPI": "239014e332e2a784c9b2e48ec7f440245a03e9d7bebe1de163a23929c9cdd9a7"
+  },
+  "stock_decoder_sha256": "b65f7f34c3180cbee93aeec785bba6b95beca585190e4a899c3b7648b7842830",
+  "source_commit": null,
+  "original_job": {
+    "status": "FAIL_RETAINED_NO_RETRY",
+    "invocation_id": "f97670205f3e4ae899c972089aa08192",
+    "manager_result": "exit-code",
+    "manager_exit_status": 1,
+    "strongly_closed": true,
+    "failure": "First postprocessing compare: m1venv missing h5py; all compile/nativepositive/error/world1 commands had returned0. Originalrawrecordsunchanged."
+  },
+  "recovery": {
+    "status": "PASS_UNCHANGED_FULL_SHIM_PUBLIC_NC_RAW_STATE_COMPARISONS_POSTPROCESSING_ORIGINAL_JOB_FAILED_RETAINED",
+    "invocation_id": "71384091515045558e5c5fa435b17b01",
+    "strongly_closed": true,
+    "scope": "Only unchanged comparison scripts on existing immutable files; no compile/nativefixture/model replay.",
+    "actual_hdf_reader_environment": {
+      "executable": "/pool/wrf-experiment/tooling/m1/venv/bin/python",
+      "h5py_path": "/pool/wrf-experiment/wrf-cpu/tooling/hdf5-chunk-reader-py310-r1/h5py/__init__.py",
+      "h5py_version": "3.11.0",
+      "HDF5_version": "1.14.2",
+      "numpy_path": "/pool/wrf-experiment/tooling/m1/venv/lib/python3.10/site-packages/numpy/__init__.py",
+      "numpy_version": "2.2.6",
+      "HDF5_libraries": {
+        "/pool/wrf-experiment/wrf-cpu/tooling/hdf5-chunk-reader-py310-r1/h5py.libs/libhdf5-7f639dcd.so.310.2.0": "661a0daa381376e31b63ecfce2d689aa8ecec0f827dcd2b99202a34d98eb57d3",
+        "/pool/wrf-experiment/wrf-cpu/tooling/hdf5-chunk-reader-py310-r1/h5py.libs/libhdf5_hl-123198ff.so.310.0.2": "33e6c04dc560491cc15800201869ee7b11fd1721b85feac041ef203551ad3914"
+      }
+    },
+    "comparisons": {
+      "threaded": {
+        "status": "PASS_PAIRED_PUBLIC_API_STATE_AND_RAW_CHUNK_LAYOUT",
+        "files": 1
+      },
+      "errors": {
+        "status": "PASS_PAIRED_PUBLIC_API_STATE_AND_RAW_CHUNK_LAYOUT",
+        "files": 4
+      },
+      "world1": {
+        "status": "PASS_PAIRED_PUBLIC_API_STATE_AND_RAW_CHUNK_LAYOUT",
+        "files": 1
+      }
+    },
+    "protected_numeric_modes": [
+      "threaded",
+      "world1"
+    ]
+  },
+  "native_coverage": [
+    "Actual375parentfullDSObytereproduction and exactparent/candidateexports.",
+    "CurrentNC8adc/HDF825/codec881/MPI dynamicbindings; actualstockb65 dladdrdecode.",
+    "PublicNCput through actualfullDSO: twohistoriesthreaded/errorrelease/realworld1negative, fullreadback/layout/rawchunkmasks/compressedbytes.",
+    "IdenticalfiniteTEST-only clean/downwardseeded5state beforebegin/afterend exact; nativePOSTauthoritative.",
+    "Sourceincludedobserver registered/bound/exit/join identities/singletonrestore/rawencodedbytes/stockdecode; explicitlyworld1diagnostic only."
+  ],
+  "production512_positive_qualified": false,
+  "WRF_application_qualified": false,
+  "timing_qualification": false,
+  "limits": [
+    "Nativefullshimqualification is composed from originalnativeoutcomes and distinctpostprocessPASS; originalmanagerFAIL is not rewritten.",
+    "No MPI512 productionauthority or selected/default claim; actual full512 application pending.",
+    "No universalFP/compiler/ISA or scientificinput/rawexport claim.",
+    "Postprocessorh5pyHDF1.14.2 privatewheel is reader-only; nativewriter remains HDF825 exact.",
+    "Provider11case and completeprovidercaller timing remain separate evidence; no forecastgain inferred."
+  ],
+  "raw_refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/integration-preparation-r1/actual-native-r1/receipt.json": {
+      "sha256": "75aebf1ae206c0c678051cfc0ec5cff7e79c19b0e742bfcfec110703ae364e1a",
+      "bytes": 71907
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/integration-preparation-r1/actual-native-r1/closure.json": {
+      "sha256": "ea9f1c25ea06d0e0151d9e8bb90608aae37d9e146802ba85964c757d88e3e2a7",
+      "bytes": 1365
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/integration-preparation-r1/actual-native-r1/controller.json": {
+      "sha256": "85a52f9e17053e2638d009bee078577216baceed825f447e6a2fcb0643cb2b09",
+      "bytes": 886
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/integration-preparation-r1/inputs/source-pins.json": {
+      "sha256": "ff6972654b3edde3bdb32f55a92de8975f81870550d1abf1d675d50b257baf49",
+      "bytes": 2284
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/integration-preparation-r1/postprocessing-repair-r1/actual-native-r1/receipt.json": {
+      "sha256": "473d4958482cdb6de30982c0012a316f50d0e25aeb2935da48f8a42dc1ca5ad2",
+      "bytes": 23824
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/integration-preparation-r1/postprocessing-repair-r1/actual-native-r1/closure.json": {
+      "sha256": "c1516e6a7661f76be302b29944b21f5423def04ac177fccc3904554c1d8ba98b",
+      "bytes": 1156
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/integration-preparation-r1/postprocessing-repair-r1/actual-native-r1/controller.json": {
+      "sha256": "67722f64f3338c6ca6e154243da0fbbd259e9123a3685d317f38b06234f1e0d2",
+      "bytes": 1102
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/integration-preparation-r1/postprocessing-repair-r1/inputs/source-pins.json": {
+      "sha256": "a489cc014606fbe69ea86a4422c5a53facb9f86493124149f9dd06f0dee2f212",
+      "bytes": 598
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/integration-preparation-r1/postprocessing-repair-r1/inputs/environment-proof.json": {
+      "sha256": "93c80bb62e6a49f00d1638bd05a4a007f36a31c25a658abd9ddd4093d5417063",
+      "bytes": 739
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/integration-preparation-r1/postprocessing-repair-r1/inputs/binding.json": {
+      "sha256": "1eecfac588304878c26e35cdfb5402a7270fecb2f6892c371eb55311aeaba238",
+      "bytes": 1354
+    }
+  }
+}

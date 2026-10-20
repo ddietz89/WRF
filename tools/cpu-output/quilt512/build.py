@@ -17,12 +17,12 @@ def sha(p):
   for b in iter(lambda:f.read(1024**2),b''):h.update(b)
  return h.hexdigest()
 def main():
- ap=argparse.ArgumentParser();ap.add_argument('--provider',choices=['original','simd-pack'],default='simd-pack');ap.add_argument('--codec',choices=['huffman','guarded','inline','original'],default='huffman');ap.add_argument('--codec-library',type=Path);ap.add_argument('--shared-dir',type=Path,default=HERE.parent);ap.add_argument('--output-dir',required=True,type=Path);a=ap.parse_args()
+ ap=argparse.ArgumentParser();ap.add_argument('--provider',choices=['original','simd-pack','fused-pack'],default='fused-pack');ap.add_argument('--codec',choices=['huffman','guarded','inline','original'],default='huffman');ap.add_argument('--codec-library',type=Path);ap.add_argument('--shared-dir',type=Path,default=HERE.parent);ap.add_argument('--output-dir',required=True,type=Path);a=ap.parse_args()
  codec_spec=json.loads((HERE/'codec/selection.json').read_text())['variants'][a.codec];codec_path=a.codec_library.absolute()if a.codec_library else Path(codec_spec['path']);assert sha(codec_path)==codec_spec['sha256'],'selected codec bytes differ'
  shared=a.shared_dir.resolve();pins=json.loads((HERE/'shared-source-pins.json').read_text());qualification=json.loads((HERE/'qualification.json').read_text())
  assert sha(HERE/'wrf_quilt_thread_shim.c')==qualification['variant_source_sha256']
- variant=qualification if a.provider=='original' else qualification['optional_build_variants']['simd-pack']
- provider=shared/'root_chunk_provider.c' if a.provider=='original' else HERE/'root_chunk_provider.c'
+ variant=qualification if a.provider=='original' else qualification['optional_build_variants'][a.provider]
+ provider=shared/'root_chunk_provider.c' if a.provider=='original' else HERE/variant.get('provider_source_file','root_chunk_provider.c')
  provider_sha=pins['root_chunk_provider.c'] if a.provider=='original' else variant['provider_source_sha256']
  assert sha(provider)==provider_sha
  for n,h in pins.items():assert sha(shared/n)==h,(n,'shared source changed')
@@ -32,7 +32,7 @@ def main():
  env=os.environ.copy();env.pop('LD_PRELOAD',None);env.update(PATH=str(GNU/'bin')+':'+str(MPI/'bin')+':'+env.get('PATH',''),OPAL_PREFIX=str(MPI),OMPI_CC=str(GNU/'bin/gcc'),LD_LIBRARY_PATH=str(MPI/'lib')+':'+str(GNU/'deps/lib')+':'+str(GNU/'lib64'))
  # Exact qualified C policy: O2/default IEEE, no fast-math enabled. Byte work only.
  flags=['-O2','-I'+str(GNU/'deps/include'),'-I'+str(shared),'-L'+str(MPI/'lib'),'-L'+str(GNU/'deps/lib'),'-Wl,-rpath,'+str(GNU/'deps/lib'),'-std=c11','-Wall','-Wextra','-Werror=implicit-function-declaration','-pthread','-fPIC','-shared']
- if a.provider=='simd-pack':flags[1:1]=['-fno-fast-math','-ffp-contract=off']
+ if a.provider in ['simd-pack','fused-pack']:flags[1:1]=['-fno-fast-math','-ffp-contract=off']
  binary=out/'wrf_quilt_thread_shim.so';cmd=[str(MPI/'bin/mpicc'),*flags,str(HERE/'wrf_quilt_thread_shim.c'),str(provider),'-lz','-ldl','-lm','-o',str(binary)]
  r=subprocess.run(cmd,env=env,capture_output=True,text=True)
  receipt={'status':'BUILD_ONLY_PENDING_RUNTIME_QUALIFICATION'if r.returncode==0 else'BUILD_FAILED','command':cmd,'returncode':r.returncode,'stdout':r.stdout,'stderr':r.stderr,'source_sha256':qualification['variant_source_sha256'],'provider':a.provider,'provider_source_sha256':provider_sha,'shared_sha256':pins,'dependencies':DEPENDENCIES,'selected_codec':{'variant':a.codec,'path':str(codec_path),'sha256':codec_spec['sha256'],'scope':'rank-only preload; build does not activate or qualify a model'},'reproduces_native_binary_hash':False,'runtime_qualified':False}

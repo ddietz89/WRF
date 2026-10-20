@@ -1,76 +1,151 @@
 {
-  "status": "PASS_FRESH_ORIGINAL_LATEST_INPUT_THREE_HOUR_ORIGINAL_SCI_TRANSPARENT_CONTROL_POSTPROCESSING",
+  "status": "PASS_ACTUAL_FUSED_OUTPUT_PROVIDER_512_TWO_PRODUCTS_35_STEPS_ORIGINAL_SCI_ALL_SCOPES_CLOSED",
   "executable": {
     "path": "/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2/wrf.exe",
     "sha256": "1d6e5213108a5a1501ab319825bfa1a024df367af5037bee5f80d210f72d4f14"
   },
-  "source_commit": "495f10002d87fb5fdcc256c20a9e592c037d9183",
-  "input_implementation_commit": "614267f340a23ffc342962b3c64e323719fe4d06",
-  "comparison_design": "Fresh fixed-order corrected-original546b followed by combined1d6e plus root-only input06d/NCa32; no observers/profilers.",
-  "metrics": {
-    "control": {
-      "wall_seconds": 818.0402264029253,
-      "cpu_seconds": 366874.26066900004,
-      "main_step_sum_seconds": 595.75757
-    },
-    "candidate": {
-      "wall_seconds": 670.7779205960687,
-      "cpu_seconds": 323960.582918,
-      "main_step_sum_seconds": 566.69136
+  "output_shim": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current375-fused-pack-shuffle-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
+    "sha256": "172306f3a8c482f8aa2f2683c7f847dab62bf695532a06b0e6ddd8ba441a2a07",
+    "provider_source_sha256": "b938317c3430fd11ec02dce7bb0f3201a426369bf4a073a10fc3c152a912960f",
+    "shim_source_sha256": "313e18ed4309eec9b038371dfce227f8f5fc401813b094aa2cddb01e9de47421",
+    "source_commit": null,
+    "native_two_stage_proof": {
+      "receipt_sha256": "75aebf1ae206c0c678051cfc0ec5cff7e79c19b0e742bfcfec110703ae364e1a",
+      "closure_sha256": "ea9f1c25ea06d0e0151d9e8bb90608aae37d9e146802ba85964c757d88e3e2a7",
+      "original_failed_invocation_id": "f97670205f3e4ae899c972089aa08192",
+      "postprocessing_success_invocation_id": "71384091515045558e5c5fa435b17b01",
+      "original_manager_failed_retained": true,
+      "shim_sha256": "172306f3a8c482f8aa2f2683c7f847dab62bf695532a06b0e6ddd8ba441a2a07",
+      "scope": "Actual375parent-exact/current881 fullDSO API/raw/state/world1-negative component only; actual512 activation/runtime/science remains hard."
     }
   },
-  "reductions_percent": {
-    "wall_seconds": 18.00184160311973,
-    "cpu_seconds": 11.697107797299921,
-    "main_step_sum_seconds": 4.878865408290145
-  },
-  "actual_product_comparisons": 4,
-  "ordered_steps": 545,
-  "all_own_jobs_closed": true,
-  "fresh_matched_timing": true,
-  "repeatability_established": false,
-  "applies_to_current_selection": true,
-  "full_qualification_sha256": "fed6f9ab2260eeb9e9ac4f56e68062e588bfb424ed344466a02ba0e7390d8780",
-  "science_sha256": "bf17d0287456739bf1db07ce45556ef69a768e255019af6b113e2c186255b824",
-  "reader_closure_sha256": "106fe5e3e75509b5028d82a2e35303fe4913eb45a107df7328503694e2dbb327",
-  "control_postprocessing": "Actual MPI0 in all four scopes; root coordinator FAILED KeyError after timing. Raw failure retained. Separate exact all512 runtime/RSL recovery and original numerical comparison passed; no invented manager success.",
-  "scope": "Cold single-domain06\u201309, GNU13.3/Zen2/OMP1, 480compute8x60+4groupsx8quilt, hourlyNetCDF2/twoTiles/faba/singleIB.",
-  "cache_policy": "Checked sync/drop_caches3 on each of four compute clients before EACH arm. File-server caches/load uncontrolled.",
-  "limits": "Combined one-pair result, not isolated input/read-affine/Thompson gain or repeatability. Main-step elapsed includes communication/backpressure; not integration CPU. Whole-minus-main is not pure I/O. No nine-hour/restart/nesting/other-compiler transfer.",
-  "memory_peaks_bytes": {
-    "control": {
-      "hpc01": 98726105088,
-      "hpc02": 101050097664,
-      "hpc03": 100993732608,
-      "hpc04": 107228016640
-    },
-    "candidate": {
-      "hpc01": 76196855808,
-      "hpc02": 73751851008,
-      "hpc03": 73718833152,
-      "hpc04": 73683906560
-    }
-  },
-  "memory_scope": "Actual whole-job cgroup peaks; combined comparison only, not isolated memory/PSS attribution.",
-  "input_lifecycle": {
-    "event": "final",
-    "rank": 0,
-    "scopes": 308,
-    "callbacks": 31,
-    "supplied": 17,
-    "declines": 14,
-    "widens": 31,
-    "restores": 31
-  },
-  "production_quilting": {
+  "science": {
+    "receipt_sha256": "7a108c76b39f53ee65c9a4021c4fb14041a1cd934500785edc45063c439106c6",
+    "reader_closure_sha256": "cd933963e9ea9ebb8cb8d3c2a88dc044ebae0fd2e35c9a662912058dfbc0efb9",
+    "reader_exit_code_raw": null,
+    "invocation_id": "caceb5e95f1645c0b14bb509bdbbd568",
+    "products": 2,
+    "ordered_steps": 35,
+    "end_time": "2026-10-12_06:10:00",
+    "world": 512,
     "compute": 480,
-    "groups": 4,
-    "ranks_per_group": 8,
-    "positive_roots": [
+    "quilt_groups": 4,
+    "quilt_ranks_per_group": 8,
+    "tiles": 2,
+    "positive_writer_roots": [
       487,
-      495,
+      495
+    ],
+    "zero_writer_roots": [
       503,
       511
-    ]
-  }
+    ],
+    "protected_original_checker_unchanged": true,
+    "tile_status": "PASS_ACTUAL_480_DISJOINT_TILE_UNIONS_AND_ALL512_OBSERVED_ENVS"
+  },
+  "full_qualification_sha256": "afe8c6081fef3a5cd6a54160a07a9571546e4b85586cdc9a848dd6954c7e3f69",
+  "all_own_jobs_closed": true,
+  "observed_candidate_only_metrics": {
+    "MPI_wall_seconds": 139.16318616108038,
+    "aggregate_node_cgroup_CPU_seconds": 53765.947942,
+    "coordinator_RSL_main_step_seconds_sum": 38.4004,
+    "nodes": {
+      "hpc01": {
+        "invocation_id": "565c109e6ea143039ba98fc24b2bbdf1",
+        "memory_peak_bytes": 76199337984,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_stat": {
+          "usage_usec": 13400103798,
+          "user_usec": 12859989730,
+          "system_usec": 540114067,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 1402,
+          "nr_throttled": 561,
+          "throttled_usec": 5703145,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      },
+      "hpc02": {
+        "invocation_id": "d135e936ffe34a8492155cb98ac98e27",
+        "memory_peak_bytes": 73763430400,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_stat": {
+          "usage_usec": 13439645036,
+          "user_usec": 12895629849,
+          "system_usec": 544015187,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 1357,
+          "nr_throttled": 861,
+          "throttled_usec": 1367373,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      },
+      "hpc03": {
+        "invocation_id": "b82b515a8a854783ae67b93d910ac44d",
+        "memory_peak_bytes": 73712336896,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_stat": {
+          "usage_usec": 13465650483,
+          "user_usec": 12889912202,
+          "system_usec": 575738280,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 1354,
+          "nr_throttled": 687,
+          "throttled_usec": 7908399,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      },
+      "hpc04": {
+        "invocation_id": "081dd7e8e2ba49c5be66042e73040ce5",
+        "memory_peak_bytes": 73677799424,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_stat": {
+          "usage_usec": 13460548625,
+          "user_usec": 12879947901,
+          "system_usec": 580600723,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 1356,
+          "nr_throttled": 668,
+          "throttled_usec": 5630747,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      }
+    }
+  },
+  "fresh_matched_timing": false,
+  "timing_claim": null,
+  "scope": "Ownshort2product35/full512 gate; 47.30/48.92% complete syntheticprovider wall gains and37/38%CPU remain separate. No isolated WRForforecastgain; previousfresh3h18% belongs output375; sustainedlatestcombined9h acceptance pending."
 }

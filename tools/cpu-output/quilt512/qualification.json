@@ -284,10 +284,25 @@
         "default_original_receipt_sha256": "071b7462cba70989955a53f09addf1effa8af67c54a9b8388f54f4f26c1391d1",
         "optional_receipt_sha256": "e4f45895b00dc8abee614051a19133ff1a521c2a9735dfeb77c173b519eec418",
         "scope": "One closed build-only unit. Defaultoriginal4cb and explicitoptional375aa exact; no new model or deployment qualification."
-      }
+      },
+      "provider_source_file": "parallel-pack/root_chunk_provider.c"
+    },
+    "fused-pack": {
+      "status": "PROMOTED_EXACT_512_SHORT_APPLICATION_AND_SIGNIFICANT_COMPLETE_PROVIDER_GAIN",
+      "provider_source_file": "root_chunk_provider.c",
+      "provider_source_sha256": "b938317c3430fd11ec02dce7bb0f3201a426369bf4a073a10fc3c152a912960f",
+      "native_artifact": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current375-fused-pack-shuffle-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
+        "sha256": "172306f3a8c482f8aa2f2683c7f847dab62bf695532a06b0e6ddd8ba441a2a07",
+        "scope": "Actual375whole-parent reproduction, native/API gates plus explicit recovered postprocessing; original failed manager preserved."
+      },
+      "native_qualification_file": "fusion/NATIVE_QUALIFICATION.json",
+      "application_qualification_file": "fusion/APPLICATION_QUALIFICATION.json",
+      "caller_timing_file": "fusion/CALLER_TIMING_RESULT.json",
+      "scope": "GNU13.3/Zen2/OMP1/faba/512/twoTiles/currentlibraries; own2products35/2positive+2zero writers. No own3h9h or isolatedforecastgain."
     }
   },
-  "default_provider": "simd-pack",
+  "default_provider": "fused-pack",
   "placement": {
     "variant": "current",
     "table_sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac",
@@ -387,5 +402,23 @@
       "categories": "Corrected stock versus accepted complete configuration; unpromoted trials remain separate."
     },
     "next_phase": "Controlled reverse-order, one-change regression audit on the fixed three-hour benchmark; no new optimization/probe."
-  }
+  },
+  "current_selected_artifact": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current375-fused-pack-shuffle-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
+    "sha256": "172306f3a8c482f8aa2f2683c7f847dab62bf695532a06b0e6ddd8ba441a2a07",
+    "provider_source_sha256": "b938317c3430fd11ec02dce7bb0f3201a426369bf4a073a10fc3c152a912960f",
+    "shim_source_sha256": "313e18ed4309eec9b038371dfce227f8f5fc401813b094aa2cddb01e9de47421",
+    "source_commit": null,
+    "native_two_stage_proof": {
+      "receipt_sha256": "75aebf1ae206c0c678051cfc0ec5cff7e79c19b0e742bfcfec110703ae364e1a",
+      "closure_sha256": "ea9f1c25ea06d0e0151d9e8bb90608aae37d9e146802ba85964c757d88e3e2a7",
+      "original_failed_invocation_id": "f97670205f3e4ae899c972089aa08192",
+      "postprocessing_success_invocation_id": "71384091515045558e5c5fa435b17b01",
+      "original_manager_failed_retained": true,
+      "shim_sha256": "172306f3a8c482f8aa2f2683c7f847dab62bf695532a06b0e6ddd8ba441a2a07",
+      "scope": "Actual375parent-exact/current881 fullDSO API/raw/state/world1-negative component only; actual512 activation/runtime/science remains hard."
+    }
+  },
+  "current_application_qualification_file": "fusion/APPLICATION_QUALIFICATION.json",
+  "variant_recipe_reproduction_note": "Priororiginal/simd-pack byte-reproduction evidence remains historical. Newfused runtime artifact built and qualified by explicit native recipe; updated package build selector not executed in this source promotion."
 }
