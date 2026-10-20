@@ -6,6 +6,15 @@ A fresh control-first corrected-original546b versus current DF41b/pool51a/3edf c
 
 Whole wall includes input, initialization, compute, communication, output and final writer drain. Caches were cleared on every node before each arm; all model and reader scopes closed. One fixed-order pair establishes no isolated, additive or repeatability claim; server cache/load remained uncontrolled. Own9h remains false. Raw WRF/output producer commits stayNULL; post-test tracking b37e02ce/909ab6ef remains separate. [Qualification](tools/cpu-working/THREE_HOUR_FINAL_QUALIFICATION.json). Current artifact/sourceidentities remain41b/b37 and51a/7ea/post909, withcodec3edf and input06d/NCa32 unchanged.
 
+## Two closed follow-up candidates (2026-10-20)
+
+Both candidates passed exact correctness tests; the selected build stays unchanged:
+
+- Removing PHY_PREP's two coefficient allocation/copy pairs passed 36 native cases. A synthetic complete caller shaped like a production tile (188 × 19 × 32 mass levels, 512 calls) was 2.28% and 2.39% slower in opposite-order node pairs, with more process CPU. It is parked on that measured caller cost. The initial harness link failure and repair remain preserved.
+- Unrolling the byte-shuffle loop by two reduced 54 instructions to 52 per 64 items, while growing the function from 477 to 877 bytes. Direct-kernel timings were 0.49% and 0.75% slower; complete-provider timings were 0.41% and 1.72% slower. No significant kernel saving was established. These short comparisons do not establish a whole-forecast regression or prove the existing network optimal.
+
+Each timing arm had a checked cache clear and exact state/byte checks; all jobs and helpers closed. [Evidence and dispositions](tools/cpu-working/PARKED_CANDIDATES_20261020.json). No code from either candidate was promoted.
+
 ## Previous CEC+de5b+3edf combined three-hour result (2026-10-20)
 
 A fresh corrected-original546b/control-first comparison of the then-selected CEC compute build, root06d/NCa32 input, de5b quilting provider and 3edf codec passed **all four products and 545 ordered steps**, all512 ranks, two tiles and all four positive I/O writers. Wall time was **821.054461 → 662.590205 seconds (19.30% lower, 1.239159×)**; aggregate node cgroup CPU was **368084.978303 → 321016.008953 CPU-seconds (12.79% lower)**. Main-step elapsed fell597.98535 → 559.81599s (6.38%); it includes communication/backpressure and is not integration CPU.

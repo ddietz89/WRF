@@ -1,0 +1,39 @@
+{
+  "status": "ROOT_ACCEPTED_PARK_TWO_FOLLOWUPS_DEFAULTS_UNCHANGED",
+  "utc": "2026-10-20T11:25:09.680641+00:00",
+  "dispositions": {
+    "phy_prep": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/phy-prep-coefficient-direct-read-r1/OWNER_FINAL_DISPOSITION.json",
+      "sha256": "66738a397e273f3e451c2b5ccd5d63d05d6d0fab7cd046933e03ee2cb937f907",
+      "actual_record": {
+        "status": "PARK_EXACT_COEFFICIENT_COPY_REMOVAL_REPRESENTATIVE_COMPLETE_CALLER_REGRESSION_BOTH_ORDERS",
+        "decision": "PARK",
+        "reason": "PARK. Both opposite-order pairs regressed wall and processCPU. No tinycase rescue benchmark, additional counts/flags/source variants or application attempt. Working source/default unchanged.",
+        "timing_result": {
+          "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/phy-prep-coefficient-direct-read-r1/caller-timing-preparation-r1/TIMING_RESULT.json",
+          "sha256": "4cf14f8adfdac2221ec23a473fe008cb7f45cc3585064b736e169f76a9fafdff"
+        },
+        "own01_02_all_jobs_helpers_closed": true,
+        "working_source_or_default_changed": false,
+        "scientific_oracle_relaxed": false
+      }
+    },
+    "shuffle_unroll2": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-shuffle32-next-network-feasibility-r1/fixed2-unroll-preparation-r1/DISPOSITION.json",
+      "sha256": "b24cd56ad2d1ab236bd025aadfdff20a8306fe58cffc992166cef82c1c9e0c1a",
+      "actual_record": {
+        "status": "PARK_ONE_UNROLL2_PRAGMA_NO_ESTABLISHED_SIGNIFICANT_KERNEL_GAIN",
+        "decision": "Do notintegrate/promote. Nativeexact/currenthelperinstructioncount reduced, but directkernelscreen measuredno saving and completeproviderpairsalso showedno benefit; retain currentD45 source7ea/defaultunchanged. Not ascientificfailure, not universalno-opportunity/causalregression proof.",
+        "direct_timing_result": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-shuffle32-next-network-feasibility-r1/fixed2-unroll-preparation-r1/direct-kernel-timing-preparation-r1/TIMING_RESULT.json",
+        "direct_timing_sha256": "5516149799104de85ef33cf748169215151b15d7fa4e34b3517be3c929bef9e2",
+        "caller_qualification": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-shuffle32-next-network-feasibility-r1/fixed2-unroll-preparation-r1/caller-timing-preparation-r1/CALLER_QUALIFICATION.json",
+        "caller_qualification_sha256": "ea9c5f1fc5895e20aece0d1969d41befbb98862655f0bae4118ce0aa4776f83d",
+        "native_qualification": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-shuffle32-next-network-feasibility-r1/fixed2-unroll-preparation-r1/NATIVE_QUALIFICATION.json",
+        "native_qualification_sha256": "eee58aacb43dfeb9511824c4ddbcc695dbfec0292758063b525ef4f44870e418",
+        "repeat_policy": "No extrafactor/ISA/profile/timingmatrix orforecastrun for thispragma; all04scopesstrongclosed/no pendingjobs.",
+        "selected_files_changed": false
+      }
+    }
+  },
+  "limits": "Exact correctness passed. No significant kernel benefit established; no whole-forecast causal regression or universal optimality claim. No candidate code promoted."
+}
