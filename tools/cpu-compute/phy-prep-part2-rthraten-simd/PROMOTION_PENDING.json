@@ -1,0 +1,81 @@
+{
+  "status": "PROMOTED_AFTER_ACTUAL_ORIGINAL_SHORT_PASS",
+  "raw_producer_source_commit": null,
+  "application_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/phy-prep-part2-rthraten-simd/APPLICATION_QUALIFICATION.json",
+    "sha256": "d5c058a57745ea1aa65df469cbbae0e2931a1f7b13c61ef130e47f051b53d117"
+  },
+  "own_short_qualified": true,
+  "own_three_hour_qualified": false,
+  "own_nine_hour_qualified": false,
+  "promotion_precondition": "Actual unchanged original2products35SCI and model/reader normalstrongclosures plus rootreview; Spot reader current0b14a2fd pending at preparation. Rootowns source/default/selection/Git.",
+  "canonical_repository_path": "dyn_em/module_big_step_utilities_em.F",
+  "expected_selected_source_sha256": "21eb5c3d78bceee09a17cbcc86a82a58bccff483c61ceca7a0a2250d999cd364",
+  "candidate_source_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rthraten-simd-r1/local-source-r1/candidate_module_big_step_utilities_em.F",
+  "candidate_source_sha256": "85d02a991228da807d88e29d1dae60dcf60b12d0a24fcae1893f0cde4783bfab",
+  "operation_after_actualSCI": "Root replaces exactselected21eb with candidate85d0 one directive only; keeprawproducerNULL and recordposttestsourcecommit separately. No source/default modified by this evidence package.",
+  "object": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/phy-prep-part2-rthraten-simd-native-r2/work/candidate/module_big_step_utilities_em.o",
+    "sha256": "8251fb52a913e2471acecf1257aac270e7628b913b40b2d66825153e22db14ce",
+    "module_interface_sha256": "01702a275cfaa6e411f3b53342033027a3beca789ccd80a7b2e1becf3f43e7ee",
+    "preprocessed_sha256": "b6fd5666cd7cef59c55a261d43d52f400b813cbdc4cce8b6588b2dd0f3efd1a3"
+  },
+  "archive": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current2bd16-one-bigstep-rthraten-simd-hpc01-r1/libwrflib.a",
+    "sha256": "0c91cccbb5cfab6dcd5304882944d6b0e773f91c8abb0af77759636871aff929"
+  },
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current2bd16-one-bigstep-rthraten-simd-hpc01-r1/wrf.exe",
+    "sha256": "db5a21fb44c2ab4a48f11494bbb3bb0881c26a1607afb18bb80f6d5313e64ba4"
+  },
+  "module_interface_sha256": "01702a275cfaa6e411f3b53342033027a3beca789ccd80a7b2e1becf3f43e7ee",
+  "native_cases": 68,
+  "original56_prefix_exact": true,
+  "caller_regimes": [
+    "CONUS_TIEDTKE",
+    "GD_theta_m1"
+  ],
+  "caller_pairs": {
+    "hpc01": {
+      "CONUS_TIEDTKE": {
+        "parent_wall_seconds": 3.769008697,
+        "candidate_wall_seconds": 3.657132234,
+        "wall_reduction_percent": 2.968325944406802,
+        "parent_cpu_seconds": 3.767995895,
+        "candidate_cpu_seconds": 3.656177345,
+        "cpu_reduction_percent": 2.967586831726088
+      },
+      "GD_theta_m1": {
+        "parent_wall_seconds": 4.042333558,
+        "candidate_wall_seconds": 3.992909264,
+        "wall_reduction_percent": 1.222667384837317,
+        "parent_cpu_seconds": 4.040578625,
+        "candidate_cpu_seconds": 3.991636003,
+        "cpu_reduction_percent": 1.2112775555753519
+      }
+    },
+    "hpc04": {
+      "CONUS_TIEDTKE": {
+        "parent_wall_seconds": 3.744089656,
+        "candidate_wall_seconds": 3.662511341,
+        "wall_reduction_percent": 2.1788558099635313,
+        "parent_cpu_seconds": 3.743072879,
+        "candidate_cpu_seconds": 3.661616663,
+        "cpu_reduction_percent": 2.1761856804071056
+      },
+      "GD_theta_m1": {
+        "parent_wall_seconds": 4.061371858,
+        "candidate_wall_seconds": 3.997296822,
+        "wall_reduction_percent": 1.5776697687454155,
+        "parent_cpu_seconds": 4.05997641,
+        "candidate_cpu_seconds": 3.99522367,
+        "cpu_reduction_percent": 1.5949043408358121
+      }
+    }
+  },
+  "source_compiles": 0,
+  "full_WRF_links": 1,
+  "unchanged_archive_occurrences": 583,
+  "failed_hpc00_attempt": "Retained precompile canonical-sed LD_PRELOAD/MPI GLIBC2.38 incompatibility on oldergateway; no numericalfailure, no compatibilityworkaround.",
+  "post_test_source_commit": "c883c564a037422631b7c3dd8c69cf532fe391a6"
+}

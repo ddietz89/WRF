@@ -1,8 +1,8 @@
 {
-  "status": "PASS_CURRENT_RQVBLTEN_FULL_PART2_SIMD_ORIGINAL_TWO_PRODUCT_35_STEP_APPLICATION",
+  "status": "PASS_CURRENT_RTHRATEN_FULL_PART2_SIMD_ORIGINAL_TWO_PRODUCT_35_STEP_APPLICATION",
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentee66-one-bigstep-rqvblten-simd-hpc01-r1/wrf.exe",
-    "sha256": "2bd16bd6e92c6bc795725694a10cd5c8a7f8329299baf2efe99ea38d3aac6bc3"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current2bd16-one-bigstep-rthraten-simd-hpc01-r1/wrf.exe",
+    "sha256": "db5a21fb44c2ab4a48f11494bbb3bb0881c26a1607afb18bb80f6d5313e64ba4"
   },
   "codec": {
     "path": "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng",
@@ -12,12 +12,12 @@
     "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-de5b-private-shuffle-scratch-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
     "sha256": "51a31b3c137a2161700c9930a1e250021b34c598c887a7551e87d304b2ce4d31"
   },
-  "source_commit": "a01463f8481ce27456b0f2104faa1f0dd3980609",
+  "source_commit": "c883c564a037422631b7c3dd8c69cf532fe391a6",
   "science": {
     "status": "PASS_RETAINED_ORIGINAL_TWO_HISTORY_35_STEPS_512_OWNED_FIELD_VIEW",
-    "receipt_sha256": "74956d0fe668f4d1b997892cd1fe5dbc23c10291b243ed552aec99a372dfb335",
-    "reader_closure_sha256": "b751b7e9598be5db11790c8181f1a5e39d74424b5d632177eec723bf27a5fa77",
-    "invocation_id": "64032e1c0010400b89d10bb16ad46682",
+    "receipt_sha256": "880c3b0246935ae04f5d6766b4848d066ddf1fec5f3711e110741e40cdf4f653",
+    "reader_closure_sha256": "0ac7d93753e6e7731275f44497831c87f534fe7955ed6de44552abe4c96eca99",
+    "invocation_id": "0b14a2fd78ac4b9db2a562a652855e9b",
     "products": 2,
     "ordered_steps": 35,
     "end_time": "2026-10-12_06:10:00",
@@ -42,11 +42,11 @@
     "reader_manager_success_invocation_bound": true
   },
   "current_application_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/phy-prep-part2-rqvblten-simd/APPLICATION_QUALIFICATION.json",
-    "sha256": "2ec4e60b9d9d6e8f60c3a3546a888f6ab387512f6a877d5261879ef5d2009655"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/phy-prep-part2-rthraten-simd/APPLICATION_QUALIFICATION.json",
+    "sha256": "d5c058a57745ea1aa65df469cbbae0e2931a1f7b13c61ef130e47f051b53d117"
   },
   "current_three_hour_qualified": false,
-  "current_nine_hour_qualified": true,
+  "current_nine_hour_qualified": false,
   "prior_three_hour_benchmark": {
     "evidence_file": "PREVIOUS_THREE_HOUR_RESULT_BEFORE_DIFCOF_POOL.json",
     "qualification_file": "PREVIOUS_THREE_HOUR_FINAL_QUALIFICATION_BEFORE_DIFCOF_POOL.json",
@@ -82,8 +82,8 @@
     "repeatability_established": false,
     "scope": "GNU13.3 strict/OMP1/cold06:00\u201309:00/full512=480compute8x60+4x8quilt/faba/twoTiles/CEC/root06dNCa32/outputde5b/codec3edf/HDF825/shared1/FIELDVIEW1/singleIB;4completeproducts545steps/all4positivewriters. One fresh fixed-order inclusiveIO pair; no isolated/additive gain or current9h claim."
   },
-  "scope": "Current INATM+CU+PBL+RQVFTEN+RQVBLTEN2bd1/21eb/archive688a with all prior LW/MYJ/table/input06dNCa32/output51a/codece1d8: original2products35steps/full512/twoTiles/487495positive503511inactive,16activegroupmarkers/all32quiltFIELDVIEW1. OwnshortTRUE/own3hFALSE/ownPROFILED9hSCItrue/unprofiled9hfalse.",
-  "claim_limits": "Exact native56cases and two synthetic completecaller+reset regimes qualify RQVBLTEN mechanics separately. One actual short2product35step forecast qualifies currentconfiguration science only; retained original metricsUNPAIRED, no inherited RQVFTEN3h timing or any isolatedforecastgain claim. Historical RQVFTENee66/source31ca threehour records unchanged and do not apply toRQVBLTEN; historical0de9h excludesINATM+CU+PBL+RQVFTEN+RQVBLTEN. CurrentQV own10product1625step ninehour science passed under15s/rank profiling; PROFILED_UNPAIRED metrics are descriptive, not a matched sustained speedup.",
+  "scope": "Current INATM+CU+PBL+RQVFTEN+RQVBLTEN+RTHRATENdb5a/85d0/archive0c91 with all prior LW/MYJ/table/input06dNCa32/output51a/codece1d8: original2products35steps/full512/twoTiles/487495positive503511inactive,16activegroupmarkers/all32quiltFIELDVIEW1. OwnshortTRUE/own3hFALSE/own9hFALSE.",
+  "claim_limits": "Exact native68cases and two synthetic completecaller+reset regimes qualify RTHRATEN mechanics separately. One actual short2product35step forecast qualifies currentconfiguration science only; retained original metricsUNPAIRED, no inherited RQVFTEN3h timing or any isolatedforecastgain claim. Historical RQVFTENee66/source31ca threehour records unchanged and do not apply toRTHRATEN; historical0de9h excludesINATM+CU+PBL+RQVFTEN+RQVBLTEN+RTHRATEN.",
   "output_postscience_tracking_commit": "909ab6ef55ac5351f9fd03e4019be470e89a3929",
   "previous_DF_pool_short_science": {
     "status": "PASS_RETAINED_ORIGINAL_TWO_HISTORY_35_STEPS_512_OWNED_FIELD_VIEW",
@@ -144,7 +144,7 @@
     "repeatability_established": false,
     "scope": "Historical RQVFTENee66/source31ca before RQVBLTEN. Actual4products545/full512 exact,660.3921359390952s MPIwall; candidate-only UNPAIRED descriptive metrics. Does not qualify child2bd1. Existing THREE_HOUR_RESULT/Q bytes and hashes unchanged."
   },
-  "previous_short_application_result_file": "PREVIOUS_LATEST_APPLICATION_RESULT_BEFORE_RQVBLTEN_PART2_SIMD.json",
+  "previous_short_application_result_file": "PREVIOUS_LATEST_APPLICATION_RESULT_BEFORE_RTHRATEN_PART2_SIMD.json",
   "codec_postscience_tracking_commit": "862bae1e103fa0085fa4b2eeda845ca3951034ae",
   "codec_post_test_source_identity": {
     "status": "POST_TEST_CODEC_SOURCE_IDENTITY_RECORDED",
@@ -236,21 +236,21 @@
   },
   "POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
-    "source_commit": "a01463f8481ce27456b0f2104faa1f0dd3980609",
+    "source_commit": "c883c564a037422631b7c3dd8c69cf532fe391a6",
     "raw_build_producer_source_commit": null,
     "canonical_source": "dyn_em/module_big_step_utilities_em.F",
-    "canonical_source_sha256": "21eb5c3d78bceee09a17cbcc86a82a58bccff483c61ceca7a0a2250d999cd364",
-    "preprocessed_candidate_sha256": "cf150bdf14617da5ef7c027deeb86e681eb8e4d2eafa54bbc8e512843cf08140",
-    "object_sha256": "e387cc1d3d0f382d76b1cee40df3270b8389792c8b61876772019e408b07e066",
+    "canonical_source_sha256": "85d02a991228da807d88e29d1dae60dcf60b12d0a24fcae1893f0cde4783bfab",
+    "preprocessed_candidate_sha256": "b6fd5666cd7cef59c55a261d43d52f400b813cbdc4cce8b6588b2dd0f3efd1a3",
+    "object_sha256": "8251fb52a913e2471acecf1257aac270e7628b913b40b2d66825153e22db14ce",
     "module_interface_sha256": "01702a275cfaa6e411f3b53342033027a3beca789ccd80a7b2e1becf3f43e7ee",
-    "executable_sha256": "2bd16bd6e92c6bc795725694a10cd5c8a7f8329299baf2efe99ea38d3aac6bc3",
-    "archive_sha256": "688a8f6b6873c514ad42c17ec6dd738e114c83edeccc820fdb1756ce54399276",
-    "scope": "One additional RQVBLTEN innerI directive, committed after native56/caller/canonicalCPP/one-memberlink/originalshortSCI. FrozenrawproducerNULL; no own3h/9h or forecastgain transfer."
+    "executable_sha256": "db5a21fb44c2ab4a48f11494bbb3bb0881c26a1607afb18bb80f6d5313e64ba4",
+    "archive_sha256": "0c91cccbb5cfab6dcd5304882944d6b0e773f91c8abb0af77759636871aff929",
+    "scope": "One additional RTHRATEN innerI directive, committed after native68/caller/canonicalCPP/one-memberlink/originalshortSCI. FrozenrawproducerNULL; no own3h/9h or forecastgain transfer."
   },
   "actual_current_memory": {
     "hpc01": {
       "limit_bytes": 107374182400,
-      "peak_bytes": 76185473024,
+      "peak_bytes": 76280406016,
       "events": {
         "low": 0,
         "high": 0,
@@ -262,7 +262,7 @@
     },
     "hpc02": {
       "limit_bytes": 107374182400,
-      "peak_bytes": 73773436928,
+      "peak_bytes": 73745870848,
       "events": {
         "low": 0,
         "high": 0,
@@ -274,7 +274,7 @@
     },
     "hpc03": {
       "limit_bytes": 107374182400,
-      "peak_bytes": 73708838912,
+      "peak_bytes": 73708781568,
       "events": {
         "low": 0,
         "high": 0,
@@ -286,7 +286,7 @@
     },
     "hpc04": {
       "limit_bytes": 111669149696,
-      "peak_bytes": 73676279808,
+      "peak_bytes": 73689649152,
       "events": {
         "low": 0,
         "high": 0,
@@ -300,7 +300,7 @@
   "candidate_memory_actual": {
     "hpc01": {
       "limit_bytes": 107374182400,
-      "peak_bytes": 76185473024,
+      "peak_bytes": 76280406016,
       "events": {
         "low": 0,
         "high": 0,
@@ -312,7 +312,7 @@
     },
     "hpc02": {
       "limit_bytes": 107374182400,
-      "peak_bytes": 73773436928,
+      "peak_bytes": 73745870848,
       "events": {
         "low": 0,
         "high": 0,
@@ -324,7 +324,7 @@
     },
     "hpc03": {
       "limit_bytes": 107374182400,
-      "peak_bytes": 73708838912,
+      "peak_bytes": 73708781568,
       "events": {
         "low": 0,
         "high": 0,
@@ -336,7 +336,7 @@
     },
     "hpc04": {
       "limit_bytes": 111669149696,
-      "peak_bytes": 73676279808,
+      "peak_bytes": 73689649152,
       "events": {
         "low": 0,
         "high": 0,
@@ -404,21 +404,63 @@
     "archive_sha256": "068da5b1d14a274c0fe64834fb834615f8765f46cc8f57a616b3b7acaf94a371",
     "scope": "One RQVFTEN-loop directive only, committed after native/caller/canonical-preprocess/link/original3hSCI. Frozen rawproducerNULL unchanged; no isolated forecast or own9h claim."
   },
-  "archive_sha256": "688a8f6b6873c514ad42c17ec6dd738e114c83edeccc820fdb1756ce54399276",
+  "archive_sha256": "0c91cccbb5cfab6dcd5304882944d6b0e773f91c8abb0af77759636871aff929",
   "short_application_metrics": {
-    "wall_seconds": 137.26573281921446,
-    "cpu_seconds": 53642.676237,
-    "main_step_sum_seconds": 38.32871
+    "wall_seconds": 137.82627208530903,
+    "cpu_seconds": 53343.472101,
+    "main_step_sum_seconds": 38.52703
   },
   "retained_original_short_metrics": {
     "wall_seconds": 267.5341711281799,
     "cpu_seconds": 86843.488941,
     "main_step_sum_seconds": 42.03197
   },
-  "current_application_retry_scope": "Normal first QVshort model+reader path; retained-control routing upfront, no reader retry or manager waiver.",
-  "current_profiled_nine_hour_science_qualified": true,
+  "current_application_retry_scope": "Normal first RTHshort model+reader path; retained-control routing upfront, no reader retry or manager waiver.",
+  "current_profiled_nine_hour_science_qualified": false,
   "current_unprofiled_nine_hour_science_qualified": false,
-  "current_profiled_nine_hour_qualification": {
+  "current_profiled_nine_hour_qualification": null,
+  "previous_RQVBLTEN_PART2_POST_TEST_SOURCE_IDENTITY": {
+    "status": "POST_TEST_SOURCE_IDENTITY",
+    "source_commit": "a01463f8481ce27456b0f2104faa1f0dd3980609",
+    "raw_build_producer_source_commit": null,
+    "canonical_source": "dyn_em/module_big_step_utilities_em.F",
+    "canonical_source_sha256": "21eb5c3d78bceee09a17cbcc86a82a58bccff483c61ceca7a0a2250d999cd364",
+    "preprocessed_candidate_sha256": "cf150bdf14617da5ef7c027deeb86e681eb8e4d2eafa54bbc8e512843cf08140",
+    "object_sha256": "e387cc1d3d0f382d76b1cee40df3270b8389792c8b61876772019e408b07e066",
+    "module_interface_sha256": "01702a275cfaa6e411f3b53342033027a3beca789ccd80a7b2e1becf3f43e7ee",
+    "executable_sha256": "2bd16bd6e92c6bc795725694a10cd5c8a7f8329299baf2efe99ea38d3aac6bc3",
+    "archive_sha256": "688a8f6b6873c514ad42c17ec6dd738e114c83edeccc820fdb1756ce54399276",
+    "scope": "One additional RQVBLTEN innerI directive, committed after native56/caller/canonicalCPP/one-memberlink/originalshortSCI. FrozenrawproducerNULL; no own3h/9h or forecastgain transfer."
+  },
+  "previous_RQVBLTEN_short_science": {
+    "status": "PASS_RETAINED_ORIGINAL_TWO_HISTORY_35_STEPS_512_OWNED_FIELD_VIEW",
+    "receipt_sha256": "74956d0fe668f4d1b997892cd1fe5dbc23c10291b243ed552aec99a372dfb335",
+    "reader_closure_sha256": "b751b7e9598be5db11790c8181f1a5e39d74424b5d632177eec723bf27a5fa77",
+    "invocation_id": "64032e1c0010400b89d10bb16ad46682",
+    "products": 2,
+    "ordered_steps": 35,
+    "end_time": "2026-10-12_06:10:00",
+    "world": 512,
+    "compute": 480,
+    "quilt_groups": 4,
+    "quilt_ranks_per_group": 8,
+    "tiles": 2,
+    "positive_writer_roots": [
+      487,
+      495
+    ],
+    "zero_writer_roots": [
+      503,
+      511
+    ],
+    "field_view_markers": 16,
+    "all32_quilt_FIELDVIEW1_observed": true,
+    "protected_original_checker_unchanged": true,
+    "all_model_reader_scopes_closed": true,
+    "reader_exit_code_raw": null,
+    "reader_manager_success_invocation_bound": true
+  },
+  "previous_RQVBLTEN_profiled_nine_hour_qualification": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/phy-prep-part2-rqvblten-simd/PROFILED_NINE_HOUR_QUALIFICATION.json",
     "sha256": "4d5f3a1d0cfbe00833d7637b9e62ccefbd32966c30cb02d64ca4db4b9d786320",
     "executable_sha256": "2bd16bd6e92c6bc795725694a10cd5c8a7f8329299baf2efe99ea38d3aac6bc3",
@@ -427,7 +469,7 @@
     "comparison_design": "PROFILED_UNPAIRED",
     "own_profiled_ninehour_science_qualified": true,
     "own_unprofiled_ninehour_science_qualified": false,
-    "applies_to_current_selection": true,
-    "scope": "CurrentQV2bd1 own9h science; three15sselectedthreadcaptures. Does not establish matched/unprofiled9h timing or transfer prior0de/RQ results."
+    "applies_to_current_selection": false,
+    "scope": "Historical QV2bd1/sourcea014 profiled9h science10products1625, three15s captures; exact proof retained, does not qualify RTHdb5a child. Parent ownprofiled9hSCI remains historicallytrue; no unprofiled/matched timing transfer."
   }
 }

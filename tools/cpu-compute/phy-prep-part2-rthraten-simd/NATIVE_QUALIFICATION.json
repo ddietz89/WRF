@@ -1,0 +1,81 @@
+{
+  "status": "PASS_CURRENT_QV_PARENT_COMPLETE_PART2_RTHRATEN_SIMD_68_CASES_O2_NATIVE",
+  "source_commit": null,
+  "canonical_parent_sha256": "21eb5c3d78bceee09a17cbcc86a82a58bccff483c61ceca7a0a2250d999cd364",
+  "canonical_candidate_sha256": "85d02a991228da807d88e29d1dae60dcf60b12d0a24fcae1893f0cde4783bfab",
+  "parent_object": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/phy-prep-part2-rqvblten-simd-native-r1/work/candidate/module_big_step_utilities_em.o",
+    "sha256": "e387cc1d3d0f382d76b1cee40df3270b8389792c8b61876772019e408b07e066"
+  },
+  "objects": {
+    "candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/phy-prep-part2-rthraten-simd-native-r2/work/candidate/module_big_step_utilities_em.o",
+      "sha256": "8251fb52a913e2471acecf1257aac270e7628b913b40b2d66825153e22db14ce",
+      "module_interface_sha256": "01702a275cfaa6e411f3b53342033027a3beca789ccd80a7b2e1becf3f43e7ee",
+      "preprocessed_sha256": "b6fd5666cd7cef59c55a261d43d52f400b813cbdc4cce8b6588b2dd0f3efd1a3"
+    }
+  },
+  "raw_proofs": {
+    "parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/phy-prep-part2-rthraten-simd-native-r2/work/parent.bin",
+      "sha256": "f3729f0fd4ba6f37f6648802ae627b879c0e73b2b8ed727ebccd4c08cc7034fd",
+      "bytes": 14772864
+    },
+    "candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/phy-prep-part2-rthraten-simd-native-r2/work/candidate.bin",
+      "sha256": "f3729f0fd4ba6f37f6648802ae627b879c0e73b2b8ed727ebccd4c08cc7034fd",
+      "bytes": 14772864
+    }
+  },
+  "cases": 68,
+  "state_record_scope": {
+    "complete_calls": 68,
+    "native_state_words_per_call": 5,
+    "total_native_state_words": 340,
+    "evidence": "Literal genuine driver emits21header+5state percase, all34arrays/4massfields/coefficients; fullraw streams exact."
+  },
+  "original56_raw_prefix_exact": true,
+  "original56_raw_prefix": {
+    "sha256": "1bd3a1e9c594d795ec6c6d64c66b98b196f9a8385548f2c1049d5aec0ebd39bd",
+    "bytes": 12165888
+  },
+  "public_module_interface_exact": true,
+  "packed_division_counts_context": {
+    "parent": 16,
+    "candidate": 18
+  },
+  "target_specific_codegen": {
+    "assignment_PP_line": 5027,
+    "packed_division_instructions": [
+      "    565f:\t0f 5e c8             \tdivps  %xmm0,%xmm1",
+      "    56bb:\t0f 5e d1             \tdivps  %xmm1,%xmm2"
+    ],
+    "source_joined_instructions": "/pool/wrf-experiment/wrf-cpu/kernels/phy-prep-part2-rthraten-simd-native-r2/work/candidate/module_big_step_utilities_em.f90:5027\n    555d:\t48 8b 84 24 30 01 00 \tmov    0x130(%rsp),%rax\n    5564:\t00 \n    5565:\t89 7c 24 48          \tmov    %edi,0x48(%rsp)\n    5569:\t48 89 9c 24 f0 00 00 \tmov    %rbx,0xf0(%rsp)\n    5570:\t00 \n    5571:\tf3 0f 7e 1d 00 00 00 \tmovq   0x0(%rip),%xmm3        # 5579 <__module_big_step_utilities_em_MOD_phy_prep_part2+0x689>\n    5578:\t00 \n    5579:\t48 01 c8             \tadd    %rcx,%rax\n    557c:\t48 8b 8c 24 08 01 00 \tmov    0x108(%rsp),%rcx\n    5583:\t00 \n    5584:\t4c 89 b4 24 10 01 00 \tmov    %r14,0x110(%rsp)\n    558b:\t00 \n    558c:\t41 89 f6             \tmov    %esi,%r14d\n    558f:\t48 01 c8             \tadd    %rcx,%rax\n    5592:\t4c 89 d1             \tmov    %r10,%rcx\n    5595:\t48 89 84 24 f8 00 00 \tmov    %rax,0xf8(%rsp)\n    559c:\t00 \n    559d:\t4c 89 d8             \tmov    %r11,%rax\n/pool/wrf-experiment/wrf-cpu/kernels/phy-prep-part2-rthraten-simd-native-r2/work/candidate/module_big_step_utilities_em.f90:5027\n    55ae:\t48 8b b4 24 98 00 00 \tmov    0x98(%rsp),%rsi\n    55b5:\t00 \n    55b6:\t48 89 4c 24 70       \tmov    %rcx,0x70(%rsp)\n    55bb:\t4d 8d 0c 97          \tlea    (%r15,%rdx,4),%r9\n    55bf:\t4c 8b 94 24 f8 00 00 \tmov    0xf8(%rsp),%r10\n    55c6:\t00 \n    55c7:\t48 8b bc 24 f0 00 00 \tmov    0xf0(%rsp),%rdi\n    55ce:\t00 \n    55cf:\t44 89 64 24 78       \tmov    %r12d,0x78(%rsp)\n    55d4:\t48 89 84 24 80 00 00 \tmov    %rax,0x80(%rsp)\n    55db:\t00 \n    55dc:\t4c 8b ac 24 d8 00 00 \tmov    0xd8(%rsp),%r13\n    55e3:\t00 \n    55e4:\t4c 01 d6             \tadd    %r10,%rsi\n    55e7:\t48 8d 1c 17          \tlea    (%rdi,%rdx,1),%rbx\n    55eb:\t48 8b bc 24 e0 00 00 \tmov    0xe0(%rsp),%rdi\n    55f2:\t00 \n    55f3:\t4c 8b 9c 24 90 00 00 \tmov    0x90(%rsp),%r11\n    55fa:\t00 \n    55fb:\t48 89 74 24 30       \tmov    %rsi,0x30(%rsp)\n    5600:\t48 01 c7             \tadd    %rax,%rdi\n    5603:\t0f 1f 44 00 00       \tnopl   0x0(%rax,%rax,1)\n    5608:\t8b 74 24 10          \tmov    0x10(%rsp),%esi\n    560c:\t39 74 24 08          \tcmp    %esi,0x8(%rsp)\n    5610:\t0f 8f df 00 00 00    \tjg     56f5 <__module_big_step_utilities_em_MOD_phy_prep_part2+0x805>\n    5616:\t48 8b 44 24 30       \tmov    0x30(%rsp),%rax\n    561b:\tf3 41 0f 10 33       \tmovss  (%r11),%xmm6\n    5620:\tf3 41 0f 10 65 00    \tmovss  0x0(%r13),%xmm4\n    5626:\t48 8d 0c 38          \tlea    (%rax,%rdi,1),%rcx\n    562a:\t41 83 fe 02          \tcmp    $0x2,%r14d\n    562e:\t0f 86 dc 21 00 00    \tjbe    7810 <__module_big_step_utilities_em_MOD_phy_prep_part2+0x2920>\n    5634:\t0f 28 ee             \tmovaps %xmm6,%xmm5\n    5637:\t0f 28 d4             \tmovaps %xmm4,%xmm2\n    563a:\t48 8d 74 bd 00       \tlea    0x0(%rbp,%rdi,4),%rsi\n    563f:\t31 c0                \txor    %eax,%eax\n    5641:\t0f c6 ed 00          \tshufps $0x0,%xmm5,%xmm5\n    5645:\t0f c6 d2 00          \tshufps $0x0,%xmm2,%xmm2\n    5649:\t0f 1f 80 00 00 00 00 \tnopl   0x0(%rax)\n    5650:\t41 0f 10 04 01       \tmovups (%r9,%rax,1),%xmm0\n    5655:\t0f 10 0c 06          \tmovups (%rsi,%rax,1),%xmm1\n    5659:\t0f 59 c5             \tmulps  %xmm5,%xmm0\n    565c:\t0f 58 c2             \taddps  %xmm2,%xmm0\n    565f:\t0f 5e c8             \tdivps  %xmm0,%xmm1\n    5662:\t0f 11 0c 06          \tmovups %xmm1,(%rsi,%rax,1)\n    5666:\t48 83 c0 10          \tadd    $0x10,%rax\n    566a:\t4c 39 c0             \tcmp    %r8,%rax\n    566d:\t75 e1                \tjne    5650 <__module_big_step_utilities_em_MOD_phy_prep_part2+0x760>\n    566f:\t8b 44 24 48          \tmov    0x48(%rsp),%eax\n    5673:\t85 c0                \ttest   %eax,%eax\n    5675:\t74 7e                \tje     56f5 <__module_big_step_utilities_em_MOD_phy_prep_part2+0x805>\n    5677:\t8b 74 24 58          \tmov    0x58(%rsp),%esi\n    567b:\t8b 44 24 68          \tmov    0x68(%rsp),%eax\n    567f:\t44 8b 54 24 50       \tmov    0x50(%rsp),%r10d\n    5684:\t41 29 f2             \tsub    %esi,%r10d\n    5687:\t41 39 f6             \tcmp    %esi,%r14d\n    568a:\t74 44                \tje     56d0 <__module_big_step_utilities_em_MOD_phy_prep_part2+0x7e0>\n    568c:\t4c 8d 24 3e          \tlea    (%rsi,%rdi,1),%r12\n    5690:\t48 01 d6             \tadd    %rdx,%rsi\n    5693:\t0f 28 c6             \tmovaps %xmm6,%xmm0\n    5696:\tf3 41 0f 7e 0c b7    \tmovq   (%r15,%rsi,4),%xmm1\n    569c:\t0f c6 c0 e0          \tshufps $0xe0,%xmm0,%xmm0\n    56a0:\t4e 8d 64 a5 00       \tlea    0x0(%rbp,%r12,4),%r12\n    56a5:\tf3 41 0f 7e 14 24    \tmovq   (%r12),%xmm2\n    56ab:\t0f 59 c8             \tmulps  %xmm0,%xmm1\n    56ae:\t0f 28 c4             \tmovaps %xmm4,%xmm0\n    56b1:\t0f c6 c0 e0          \tshufps $0xe0,%xmm0,%xmm0\n    56b5:\t0f 58 c8             \taddps  %xmm0,%xmm1\n    56b8:\t0f 16 cb             \tmovlhps %xmm3,%xmm1\n    56bb:\t0f 5e d1             \tdivps  %xmm1,%xmm2\n    56be:\t41 0f 13 14 24       \tmovlps %xmm2,(%r12)\n    56c3:\t41 f6 c2 01          \ttest   $0x1,%r10b\n    56c7:\t74 2c                \tje     56f5 <__module_big_step_utilities_em_MOD_phy_prep_part2+0x805>\n    56c9:\t41 83 e2 fe          \tand    $0xfffffffe,%r10d\n    56cd:\t44 01 d0             \tadd    %r10d,%eax\n    56d0:\t48 98                \tcltq\n    56d2:\t48 01 c1             \tadd    %rax,%rcx\n    56d5:\t48 01 d8             \tadd    %rbx,%rax\n    56d8:\tf3 41 0f 59 34 87    \tmulss  (%r15,%rax,4),%xmm6\n    56de:\tf3 0f 10 4c 8d 00    \tmovss  0x0(%rbp,%rcx,4),%xmm1\n    56e4:\t0f 28 c6             \tmovaps %xmm6,%xmm0\n    56e7:\tf3 0f 58 c4          \taddss  %xmm4,%xmm0\n    56eb:\tf3 0f 5e c8          \tdivss  %xmm0,%xmm1\n    56ef:\tf3 0f 11 4c 8d 00    \tmovss  %xmm1,0x0(%rbp,%rcx,4)\n/pool/wrf-experiment/wrf-cpu/kernels/phy-prep-part2-rthraten-simd-native-r2/work/candidate/module_big_step_utilities_em.f90:5025\n    5712:\t48 8b 4c 24 70       \tmov    0x70(%rsp),%rcx\n    5717:\t44 8b 64 24 78       \tmov    0x78(%rsp),%r12d\n    571c:\t48 8b 84 24 80 00 00 \tmov    0x80(%rsp),%rax\n    5723:\t00 \n/pool/wrf-experiment/wrf-cpu/kernels/phy-prep-part2-rthraten-simd-native-r2/work/candidate/module_big_step_utilities_em.f90:5027\n    7810:\t8b 44 24 08          \tmov    0x8(%rsp),%eax\n    7814:\t31 f6                \txor    %esi,%esi\n    7816:\te9 64 de ff ff       \tjmp    567f <__module_big_step_utilities_em_MOD_phy_prep_part2+0x78f>"
+  },
+  "invocation_id": "bcfcb1ff82824758ab76fd46eca738d6",
+  "actual_receipt_sha256": "bae2bce1f7bf0b0d385ccfaf40de312f812e5e291bb86572c197d87caf85802b",
+  "actual_closure_sha256": "67ae2f7da75c8427a0dcb83f2a294eb8e450fc5d2d4d293de54c3d9846528f29",
+  "retained_gateway_R1_failure": "GLIBC2.38 precompile canonical-sed environment mismatch; failedclosed untouched, no math failure",
+  "caller_qualified": false,
+  "application_qualified": false,
+  "limits": [
+    "68 fixed fullPART2 cases/assigned rounding states; not universal IEEE or enabled-trap firstfault proof.",
+    "Retained componentruntime51a/3edf/8adc; no full512/forecast/timing claim.",
+    "No parent wholemodule recompile, no stubs or source/default promotion.",
+    "Prospective production-live radiation branch; no currentglobalweight/headroom or forecastclaim."
+  ],
+  "raw_refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rthraten-simd-r1/native-gate-r2/actual-native-r1/receipt.json": "bae2bce1f7bf0b0d385ccfaf40de312f812e5e291bb86572c197d87caf85802b",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rthraten-simd-r1/native-gate-r2/actual-native-r1/closure.json": "67ae2f7da75c8427a0dcb83f2a294eb8e450fc5d2d4d293de54c3d9846528f29",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rthraten-simd-r1/native-gate-r2/actual-native-r1/controller.json": "07b0ab10ba12269e20d52ed8cdf6e84c30f9a630235b7d942522fe7aa4e3f878",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rthraten-simd-r1/native-gate-r2/inputs/source-pins.json": "1e5555faffc0bce667a708eb556e57b1366f7517e3aec3ce189a15cff31272f3",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rthraten-simd-r1/native-gate-r2/inputs/binding.json": "3a72c2669ee68cfd57d3a33a2d6f15effaa95e9c9fb82e46a7bb583babf6af39",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rthraten-simd-r1/native-gate-r2/inputs/full_part2_driver.f90": "e2054c41c0b6152c1dbb9848e5fbc7201ca198cc0bfa91545e32d9b77b19ba0f",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rthraten-simd-r1/native-gate-r2/inputs/parent_module_big_step_utilities_em.F": "21eb5c3d78bceee09a17cbcc86a82a58bccff483c61ceca7a0a2250d999cd364",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rthraten-simd-r1/native-gate-r2/inputs/candidate_module_big_step_utilities_em.F": "85d02a991228da807d88e29d1dae60dcf60b12d0a24fcae1893f0cde4783bfab",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rthraten-simd-r1/native-gate-r2/inputs/selected-link-dependencies.json": "0169cd47a7811dad90f4d6bb6043718542ce729b1326d8b73409605a1395005b",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rthraten-simd-r1/provider-review-r1/ACTUAL_CURRENT_RADIATION_CODEGEN.json": "700ed2460b131044e7d5139a9a285f49b2aa030125ee969e8be4007a4931e275",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rthraten-simd-r1/native-gate-r1/actual-native-r1/receipt.json": "e510c3d5c74caf6f4e06a42e8933ed76b2030cfae4b0cc1fa9db757f79016aca",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-rthraten-simd-r1/native-gate-r1/actual-native-r1/closure.json": "bd0004b6af3824af779963d8d49bcd7646c5a46c045fcb95bc75235bb8d6045b"
+  }
+}

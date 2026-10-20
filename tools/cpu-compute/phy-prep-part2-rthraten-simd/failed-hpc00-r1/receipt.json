@@ -1,0 +1,22 @@
+{
+  "status": "FAIL_RETAINED_NO_RETRY",
+  "invocation_id": "d1e151e41aa7414ab29a66703e59eb8e",
+  "scope": "68 complete PART2 fixed cases; original56 plus12 liveRTHRATEN radiation cases. Native correctness only, no timing or model.",
+  "commands": [
+    {
+      "name": "canonical-RTHRATEN-sed",
+      "argv": [
+        "/bin/sed",
+        "-e",
+        "s/^\\!.*'.*//",
+        "-e",
+        "s/^ *\\!.*'.*//",
+        "/pool/wrf-experiment/wrf-cpu/kernels/phy-prep-part2-rthraten-simd-native-r1/work/candidate/module_big_step_utilities_em.F"
+      ],
+      "returncode": 1
+    }
+  ],
+  "error": "AssertionError(('canonical-RTHRATEN-sed', b'', b\"/bin/sed: /lib/x86_64-linux-gnu/libc.so.6: version `GLIBC_2.38' not found (required by /pool/wrf-experiment/wrf-cpu/kernels/current-de5b-private-shuffle-scratch-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so)\\n/bin/sed: /lib/x86_64-linux-gnu/libc.so.6: version `GLIBC_2.38' not found (required by /pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib/libmpi.so.40)\\n/bin/sed: /lib/x86_64-linux-gnu/libc.so.6: version `GLIBC_2.38' not found (required by /pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib/libopen-rte.so.40)\\n/bin/sed: /lib/x86_64-linux-gnu/libc.so.6: version `GLIBC_2.38' not found (required by /pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib/libopen-pal.so.40)\\n/bin/sed: /lib/x86_64-linux-gnu/libc.so.6: version `GLIBC_2.36' not found (required by /pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib/libopen-pal.so.40)\\n\"))",
+  "traceback": "Traceback (most recent call last):\n  File \"/pool/wrf-experiment/wrf-cpu/kernels/phy-prep-part2-rthraten-simd-native-r1/run_gate.py\", line 38, in <module>\n    f90=cc.preprocess(P/'candidate_module_big_step_utilities_em.F','module_big_step_utilities_em',L,support,v,False,canonical_run,'canonical-RTHRATEN');assert f90.read_text()==candidate,'Canonical PP differs from exact one-directive parent inverse; no normalization'\n  File \"/pool/wrf-experiment/wrf-cpu/kernels/phy-prep-part2-rthraten-simd-native-r1/canonical_compile.py\", line 29, in preprocess\n    cppin=cwd/(stem+'.G');run(['/bin/sed','-e',\"s/^\\\\!.*'.*//\",'-e',\"s/^ *\\\\!.*'.*//\",src],label+'-sed',cwd,cppin)\n  File \"/pool/wrf-experiment/wrf-cpu/kernels/phy-prep-part2-rthraten-simd-native-r1/run_gate.py\", line 35, in canonical_run\n    z=run(argv,label,cwd=cwd,stdin=stdin,env=env)\n  File \"/pool/wrf-experiment/wrf-cpu/kernels/phy-prep-part2-rthraten-simd-native-r1/run_gate.py\", line 9, in run\n    (P/(name+'.log')).write_bytes(z.stdout+z.stderr);r.setdefault('commands',[]).append({'name':name,'argv':list(map(str,argv)),'returncode':z.returncode});assert z.returncode==0,(name,z.stdout[-8000:],z.stderr[-8000:]);return z\nAssertionError: ('canonical-RTHRATEN-sed', b'', b\"/bin/sed: /lib/x86_64-linux-gnu/libc.so.6: version `GLIBC_2.38' not found (required by /pool/wrf-experiment/wrf-cpu/kernels/current-de5b-private-shuffle-scratch-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so)\\n/bin/sed: /lib/x86_64-linux-gnu/libc.so.6: version `GLIBC_2.38' not found (required by /pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib/libmpi.so.40)\\n/bin/sed: /lib/x86_64-linux-gnu/libc.so.6: version `GLIBC_2.38' not found (required by /pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib/libopen-rte.so.40)\\n/bin/sed: /lib/x86_64-linux-gnu/libc.so.6: version `GLIBC_2.38' not found (required by /pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib/libopen-pal.so.40)\\n/bin/sed: /lib/x86_64-linux-gnu/libc.so.6: version `GLIBC_2.36' not found (required by /pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib/libopen-pal.so.40)\\n\")\n",
+  "elapsed_seconds": 2.2229671981185675
+}

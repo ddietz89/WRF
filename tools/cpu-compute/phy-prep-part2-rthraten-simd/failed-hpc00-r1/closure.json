@@ -1,0 +1,29 @@
+{
+  "properties": {
+    "MainPID": "0",
+    "Result": "exit-code",
+    "ExecMainStatus": "1",
+    "ControlGroup": "",
+    "LoadState": "loaded",
+    "ActiveState": "failed",
+    "InvocationID": "d1e151e41aa7414ab29a66703e59eb8e"
+  },
+  "cgroup_processes": [],
+  "receipt_sha256": "e510c3d5c74caf6f4e06a42e8933ed76b2030cfae4b0cc1fa9db757f79016aca",
+  "cgroup_paths_absent": true,
+  "invocation_id": "d1e151e41aa7414ab29a66703e59eb8e",
+  "manager_events": [
+    {
+      "invocation_id": "d1e151e41aa7414ab29a66703e59eb8e",
+      "message": "Started /usr/bin/python3 -u -c import os,runpy; p='/pool/wrf-experiment/wrf-cpu/kernels/phy-prep-part2-rthraten-simd-native-r1'; fd=os.open(p+\"/service.log\",os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600); os.dup2(fd,1); os.dup2(fd,2); os.close(fd); os.chdir(p); runpy.run_path(p+\"/run_gate.py\",run_name=\"__main__\")."
+    },
+    {
+      "invocation_id": "d1e151e41aa7414ab29a66703e59eb8e",
+      "message": "wrf-cpu-phy-prep-part2-rthraten-simd-native-hpc00-r1.service: Main process exited, code=exited, status=1/FAILURE"
+    },
+    {
+      "invocation_id": "d1e151e41aa7414ab29a66703e59eb8e",
+      "message": "wrf-cpu-phy-prep-part2-rthraten-simd-native-hpc00-r1.service: Failed with result 'exit-code'."
+    }
+  ]
+}
