@@ -1,0 +1,10 @@
+--- parent/module_big_step_utilities_em.F
++++ candidate/module_big_step_utilities_em.F
+@@ -5282,6 +5282,7 @@
+ 
+       DO J=j_start,j_end
+       DO K=k_start,k_end
++!$OMP SIMD
+       DO I=i_start,i_end
+          RUBLTEN(I,K,J) =RUBLTEN(I,K,J)/(c1(k)*MUT(I,J)+c2(k))
+          RVBLTEN(I,K,J) =RVBLTEN(I,K,J)/(c1(k)*MUT(I,J)+c2(k))

@@ -73,6 +73,10 @@ The reviewed implementation is retained in the experimental workspace at `/home/
 
 For native MPI/InfiniBand jobs, retain the established transient service setting `LimitMEMLOCK=infinity` alongside the explicit cgroup CPU/memory limits. Verify the actual job setting before launch; the default 8 MiB locked-memory limit prevented UCX from registering a roughly 40 MiB receive allocation in a diagnostic fixture. Keep subprocess logs bounded and written directly to files so repeated startup errors cannot exhaust the collector. These are job settings, not persistent host changes.
 
+## Matching output checks to the forecast horizon
+
+When adapting a retained forecast to another horizon, carry its worker-activity and field-view admission helpers together. The qualified two-output/35-step case uses positive writer roots487/495 and inactive roots503/511: all32 quilt ranks retain FIELDVIEW1, while the16 active-group processes emit acquisition markers. The four-/ten-output cases require all four positive roots and32 markers. Verify this agreement before activation. Preserve any failed frozen run; a corrected wrapper retry must have its own run identity and normal model/reader closures, without reconstructing a successful original completion.
+
 ## Historical lease horizon routing
 
 Historical qualification leases must use their exact retained validator bodies and their own scope, including __file__-relative rank-map tables. The historical three-hour checks retain 1,200-second caps; current nine-hour runtime checks retain 3,600 seconds. Do not route historical leases through cached current-horizon modules or widen resource guards to pass ancestry. Preserve preflight failures and repair routing before any cache clear or model launch.

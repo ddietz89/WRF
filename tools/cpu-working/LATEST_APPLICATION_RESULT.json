@@ -1,8 +1,8 @@
 {
-  "status": "PASS_CU_PART2_SIMD_ORIGINAL_FOUR_PRODUCT_545_STEP_FULL512",
+  "status": "PASS_CURRENT_PBL_FULL_PART2_SIMD_ORIGINAL_TWO_PRODUCT_35_STEP_APPLICATION",
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/current7f2-one-bigstep-cu-simd-hpc01-r1/wrf.exe",
-    "sha256": "2e4f85bda80233130be6d95ae7f81450872dc0efc5bb8f5f47c1f99ff55e95ee"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current2e4f-one-bigstep-pbl-simd-hpc01-r1/wrf.exe",
+    "sha256": "9d75b05117b9ade553938b96e7488b421931fdea828856a01d86285404f1e05d"
   },
   "codec": {
     "path": "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng",
@@ -12,15 +12,15 @@
     "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-de5b-private-shuffle-scratch-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
     "sha256": "51a31b3c137a2161700c9930a1e250021b34c598c887a7551e87d304b2ce4d31"
   },
-  "source_commit": "f72e6ebbb621ff758ca2009bf48a8dd36d429d88",
+  "source_commit": "61c2b67e086360442b07a83090df5712b7905d8f",
   "science": {
-    "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
-    "receipt_sha256": "48e4a30c55a0c383403613cfd79a8e960526b87d3ca8b4d00a6891650a2a8e5e",
-    "reader_closure_sha256": "ab0193950f9513c5e3d1976993aebd8f5a862ffcb0386f74db84cf416bee64ac",
-    "invocation_id": "b392a858b57f4cc7baa782a0023bd445",
-    "products": 4,
-    "ordered_steps": 545,
-    "end_time": "2026-10-12_09:00:00",
+    "status": "PASS_RETAINED_ORIGINAL_TWO_HISTORY_35_STEPS_512_OWNED_FIELD_VIEW",
+    "receipt_sha256": "41b55dfb98965a53c0403a91ab075b06ff27efec95a6967cdac6845e3c71a54e",
+    "reader_closure_sha256": "f3b26fa7835e294ff1d8712d5423a69e78a0b934120b6e657c4b4099374f09a1",
+    "invocation_id": "1bad224348d94db49615967b82f14392",
+    "products": 2,
+    "ordered_steps": 35,
+    "end_time": "2026-10-12_06:10:00",
     "world": 512,
     "compute": 480,
     "quilt_groups": 4,
@@ -28,22 +28,24 @@
     "tiles": 2,
     "positive_writer_roots": [
       487,
-      495,
+      495
+    ],
+    "zero_writer_roots": [
       503,
       511
     ],
-    "zero_writer_roots": [],
-    "field_view_markers": 32,
+    "field_view_markers": 16,
+    "all32_quilt_FIELDVIEW1_observed": true,
     "protected_original_checker_unchanged": true,
     "all_model_reader_scopes_closed": true,
     "reader_exit_code_raw": null,
     "reader_manager_success_invocation_bound": true
   },
   "current_application_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/phy-prep-part2-cu-simd/APPLICATION_QUALIFICATION.json",
-    "sha256": "8e19eea47507e50ef140168dec24835d850399d07aa7dc1c6242c160fa0c3da8"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/phy-prep-part2-pbl-simd/APPLICATION_QUALIFICATION.json",
+    "sha256": "4c2480edc8ea7f74ac70048ef8dbc5b777f06eaaa0b0fdb73c9f0fa9bfa792f8"
   },
-  "current_three_hour_qualified": true,
+  "current_three_hour_qualified": false,
   "current_nine_hour_qualified": false,
   "prior_three_hour_benchmark": {
     "evidence_file": "PREVIOUS_THREE_HOUR_RESULT_BEFORE_DIFCOF_POOL.json",
@@ -80,8 +82,8 @@
     "repeatability_established": false,
     "scope": "GNU13.3 strict/OMP1/cold06:00\u201309:00/full512=480compute8x60+4x8quilt/faba/twoTiles/CEC/root06dNCa32/outputde5b/codec3edf/HDF825/shared1/FIELDVIEW1/singleIB;4completeproducts545steps/all4positivewriters. One fresh fixed-order inclusiveIO pair; no isolated/additive gain or current9h claim."
   },
-  "scope": "Current INATM+CU2e4f/e296/archiveDD32 plus output51a/codece1d8/rootinput06dNCa32: candidate-only original4products545/full512/faba/twoTiles/all4positivewriters/all32markers. Own3hTRUE/own9hFALSE; retainedoriginal timing UNPAIRED.",
-  "claim_limits": "One candidate-only three-hour science qualification, no fresh control. Wall/aggregateCPU/main differences versus retained original are descriptive UNPAIRED; no isolated CU gain, repeatability or multi-job throughput claim. Synthetic caller+reset and body-only fragment gains remain separate. Historical0de ninehour excludes INATM+CU.",
+  "scope": "Current CU+PBL9d75/c65/archivef478 with all priorINATM/LW/MYJ/table/input06dNCa32/output51a/codece1d8: original2products35steps/full512/twoTiles/487495positive503511inactive,16activegroupmarkers/all32quiltFIELDVIEW1. OwnshortTRUE/own3hFALSE/own9hFALSE.",
+  "claim_limits": "Exact native32cases and two synthetic completecaller+reset regimes qualify PBL mechanics separately. One actual short2product35step forecast qualifies currentconfiguration science only; retained original metricsUNPAIRED, no currentPBL3h24.44%or any forecastgain claim. Historical CU2e4f/f72 threehour records unchanged and do not apply toPBL; historical0de9h excludesINATM+CU+PBL.",
   "output_postscience_tracking_commit": "909ab6ef55ac5351f9fd03e4019be470e89a3929",
   "previous_DF_pool_short_science": {
     "status": "PASS_RETAINED_ORIGINAL_TWO_HISTORY_35_STEPS_512_OWNED_FIELD_VIEW",
@@ -138,11 +140,11 @@
     },
     "fresh_matched_timing": false,
     "comparison_design": "Candidate-only science qualification versus frozen original three-hour outputs; UNPAIRED descriptive metrics, no matched timing or causal CU claim",
-    "applies_to_current_selection": true,
+    "applies_to_current_selection": false,
     "repeatability_established": false,
-    "scope": "Current INATM+CU2e4f/e296/archiveDD32 plus output51a/codece1d8/rootinput06dNCa32: candidate-only original4products545/full512/faba/twoTiles/all4positivewriters/all32markers. Own3hTRUE/own9hFALSE; retainedoriginal timing UNPAIRED."
+    "scope": "Historical CU2e4f/f72 before PBL. Original4products545/full512 exact; candidate-only UNPAIRED descriptive metrics. This same qualification does not qualify PBL9d75. Existing THREE_HOUR_RESULT/Q bytes and hashes unchanged."
   },
-  "previous_short_application_result_file": "PREVIOUS_LATEST_APPLICATION_RESULT_BEFORE_CU_PART2_SIMD.json",
+  "previous_short_application_result_file": "PREVIOUS_LATEST_APPLICATION_RESULT_BEFORE_PBL_PART2_SIMD.json",
   "codec_postscience_tracking_commit": "862bae1e103fa0085fa4b2eeda845ca3951034ae",
   "codec_post_test_source_identity": {
     "status": "POST_TEST_CODEC_SOURCE_IDENTITY_RECORDED",
@@ -234,21 +236,21 @@
   },
   "POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
-    "source_commit": "f72e6ebbb621ff758ca2009bf48a8dd36d429d88",
+    "source_commit": "61c2b67e086360442b07a83090df5712b7905d8f",
     "raw_build_producer_source_commit": null,
     "canonical_source": "dyn_em/module_big_step_utilities_em.F",
-    "canonical_source_sha256": "e29677ca7acaa22110ba55778af901f473ceb75d8edb11b3684fe15c47f33108",
-    "preprocessed_candidate_sha256": "b8af548a510a6e81799cbbf474caa2fad7063b688a122dd7c70586902e1db7dd",
-    "object_sha256": "9c4540e5e4bc7f5c49995e8982feb98ede1cbe479ed08ba8f8d54362f7fbbce8",
+    "canonical_source_sha256": "c65a61213adb881e749b6ac6af901762c1d68beba3e0d72317ead68e6ed0182e",
+    "preprocessed_candidate_sha256": "65b139573ebf07a22d061f847350005d4c2ca80a8e1a2cee682050c5edb7d82f",
+    "object_sha256": "35a0f3960b7e949f6a5f2db05a5256d1c0af0e19b8bba35764486931be35b809",
     "module_interface_sha256": "01702a275cfaa6e411f3b53342033027a3beca789ccd80a7b2e1becf3f43e7ee",
-    "executable_sha256": "2e4f85bda80233130be6d95ae7f81450872dc0efc5bb8f5f47c1f99ff55e95ee",
-    "archive_sha256": "dd329f8d0aa126c8475dbb690d0d8571af34b63d20fac48da7c207a1001c934f",
-    "scope": "One CU-loop directive only, committed after native/caller/canonical-preprocess/link/original3hSCI. Frozen rawproducerNULL unchanged; no isolated forecast or own9h claim."
+    "executable_sha256": "9d75b05117b9ade553938b96e7488b421931fdea828856a01d86285404f1e05d",
+    "archive_sha256": "f4783549240df4cf8a584a1a023cf5902e0e41a64ca6ecf7afac22abf1e0241d",
+    "scope": "One additional PBL innerI directive, committed after native/caller/canonicalCPP/one-memberlink/originalshortSCI. FrozenrawproducerNULL; no own3h/9h or forecastgain transfer."
   },
   "actual_current_memory": {
     "hpc01": {
       "limit_bytes": 107374182400,
-      "peak_bytes": 76192583680,
+      "peak_bytes": 76193828864,
       "events": {
         "low": 0,
         "high": 0,
@@ -260,7 +262,7 @@
     },
     "hpc02": {
       "limit_bytes": 107374182400,
-      "peak_bytes": 73774968832,
+      "peak_bytes": 73731571712,
       "events": {
         "low": 0,
         "high": 0,
@@ -272,7 +274,7 @@
     },
     "hpc03": {
       "limit_bytes": 107374182400,
-      "peak_bytes": 73706328064,
+      "peak_bytes": 73701683200,
       "events": {
         "low": 0,
         "high": 0,
@@ -284,7 +286,7 @@
     },
     "hpc04": {
       "limit_bytes": 111669149696,
-      "peak_bytes": 73686663168,
+      "peak_bytes": 73696776192,
       "events": {
         "low": 0,
         "high": 0,
@@ -298,7 +300,7 @@
   "candidate_memory_actual": {
     "hpc01": {
       "limit_bytes": 107374182400,
-      "peak_bytes": 76192583680,
+      "peak_bytes": 76193828864,
       "events": {
         "low": 0,
         "high": 0,
@@ -310,7 +312,7 @@
     },
     "hpc02": {
       "limit_bytes": 107374182400,
-      "peak_bytes": 73774968832,
+      "peak_bytes": 73731571712,
       "events": {
         "low": 0,
         "high": 0,
@@ -322,7 +324,7 @@
     },
     "hpc03": {
       "limit_bytes": 107374182400,
-      "peak_bytes": 73706328064,
+      "peak_bytes": 73701683200,
       "events": {
         "low": 0,
         "high": 0,
@@ -334,7 +336,7 @@
     },
     "hpc04": {
       "limit_bytes": 111669149696,
-      "peak_bytes": 73686663168,
+      "peak_bytes": 73696776192,
       "events": {
         "low": 0,
         "high": 0,
@@ -344,5 +346,36 @@
         "oom_group_kill": 0
       }
     }
-  }
+  },
+  "previous_failed_PBL_R1_postgate": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-pbl-simd-r1/application-preparation-r1/lifecycle-r1/ACTUAL_FAILED_POSTGATE_AND_STRONG_DRAIN.json",
+    "sha256": "c568e32844a1c393e88b03890eca5da83eb6a6ce9fb40176362140ea5c63f0a7",
+    "scope": "Preserved originalR1MPI0/35step/twooutput followed by FAILED coordinatorpostgate requiring inactive503marker; no originalR1science/manager-success claim. Exact16shorthelper freshR2retry qualifies separately."
+  },
+  "current_application_retry_scope": "Fresh R2 normal model+reader PASS; originalR1FAILED preserved. No reconstructed completion or manager waiver.",
+  "previous_CU_PART2_POST_TEST_SOURCE_IDENTITY": {
+    "status": "POST_TEST_SOURCE_IDENTITY",
+    "source_commit": "f72e6ebbb621ff758ca2009bf48a8dd36d429d88",
+    "raw_build_producer_source_commit": null,
+    "canonical_source": "dyn_em/module_big_step_utilities_em.F",
+    "canonical_source_sha256": "e29677ca7acaa22110ba55778af901f473ceb75d8edb11b3684fe15c47f33108",
+    "preprocessed_candidate_sha256": "b8af548a510a6e81799cbbf474caa2fad7063b688a122dd7c70586902e1db7dd",
+    "object_sha256": "9c4540e5e4bc7f5c49995e8982feb98ede1cbe479ed08ba8f8d54362f7fbbce8",
+    "module_interface_sha256": "01702a275cfaa6e411f3b53342033027a3beca789ccd80a7b2e1becf3f43e7ee",
+    "executable_sha256": "2e4f85bda80233130be6d95ae7f81450872dc0efc5bb8f5f47c1f99ff55e95ee",
+    "archive_sha256": "dd329f8d0aa126c8475dbb690d0d8571af34b63d20fac48da7c207a1001c934f",
+    "scope": "One CU-loop directive only, committed after native/caller/canonical-preprocess/link/original3hSCI. Frozen rawproducerNULL unchanged; no isolated forecast or own9h claim."
+  },
+  "current_short_qualified": true,
+  "short_application_metrics": {
+    "wall_seconds": 120.16431149793789,
+    "cpu_seconds": 45783.760036,
+    "main_step_sum_seconds": 37.03331
+  },
+  "retained_original_short_metrics": {
+    "wall_seconds": 267.5341711281799,
+    "cpu_seconds": 86843.488941,
+    "main_step_sum_seconds": 42.03197
+  },
+  "comparison_design": "Candidate-only shortUNPAIRED descriptive context; no forecastspeedupclaim"
 }

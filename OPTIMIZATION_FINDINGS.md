@@ -1,6 +1,24 @@
 # WRF CPU optimization findings
 
-## Physics-preparation CU SIMD promoted after exact three-hour qualification (2026-10-20)
+## PBL tendency SIMD promoted after exact short full-grid qualification (2026-10-20)
+
+The working configuration now selects **9d75/archivef478/source61c2b67e**. It includes every prior improvement and one additional SIMD directive for independent PBL U/V/theta tendency conversion. Per-lane denominators and true divisions are unchanged. Opposite-order genuine complete-PART2 callers, including reset, were **6.84–6.98% shorter with PBL-only forcing** and **4.65–4.76% shorter with combined forcing**. These significant synthetic-caller gains are included under the standing inclusion policy; no isolated forecast gain is claimed.
+
+Native32-case O2 raw/IEEE/state/bounds checks, canonical preprocessing and the one-member build passed. The unchanged original short scientific comparison passed **two complete products,35 ordered timesteps,all512 ranks,two tiles,487/495 positive writers and503/511 inactive writers**. All32 quilt ranks retained FIELDVIEW1;16 active-group markers were observed. All model and reader scopes closed normally. [Application qualification](tools/cpu-compute/phy-prep-part2-pbl-simd/APPLICATION_QUALIFICATION.json)4c2480ed binds26 actual references.
+
+| Short-case measure | Retained corrected original | PBL combined configuration | Descriptive difference |
+|---|---:|---:|---:|
+| Whole model/MPI wall |267.534171s|120.164311s|55.08% lower|
+| Main-step elapsed, including communication/backpressure |42.031970s|37.033310s|11.89% lower|
+| Aggregate node CPU |86843.488941CPU-s|45783.760036CPU-s|47.28% lower|
+
+These UNPAIRED ten-minute observations include startup and a different output cadence from the longer cases. They do not establish sustained50% improvement,1.5x throughput,2x forecast speedup or a causal PBL contribution. Main-step elapsed is not integration CPU. Actual peak memory was **70.961/68.668/68.640/68.635GiB per node**, including charged file cache, with all memory-event counters zero. Configured100/100/100/104GiB limits are not usage; the measured memory reduction remains intact.
+
+The first short run completed MPI but failed a postgate inherited from the longer horizon, which incorrectly required inactive writer503. The frozen failure is preserved. One fresh retry used the established short helper and passed normally; no completion or manager result was reconstructed. [Evidence and rollback](tools/cpu-compute/phy-prep-part2-pbl-simd/README.md) record this repair. Source61c2b67e is post-test identity; raw producer commits remainNULL.
+
+**Current own three-/nine-hour qualification is false.** The CU2e4f three-hour table below and parent0de nine-hour table are historical, separately bound results. The next measured opportunity is the live CONUS RQVFTEN scalar-divide loop: its44-case native check passed; caller benefit is still pending. Production/master are unchanged and AWS remains suspended.
+
+## Previous CU configuration: exact three-hour qualification (2026-10-20)
 
 Selected2e4f/archiveDD32/sourcef72e6ebb retains every prior selected improvement and adds one SIMD directive to the CU tendency-conversion loop. Original per-lane denominators and true divisions are preserved. Two opposite-order complete synthetic caller pairs were6.76–7.87% shorter for CU-only forcing and4.58–4.91% shorter with combined forcing, including identical restoration work. The approximately66% fragment gain is a separate, narrower result. Exact20-case full-module native and original four-product/545-step full512/two-tile/all-four-writer application checks passed; all model and reader scopes closed. [Qualification](tools/cpu-compute/phy-prep-part2-cu-simd/APPLICATION_QUALIFICATION.json)8e19eea4 binds26 actual references.
 
@@ -14,7 +32,7 @@ This was candidate-only science qualification against retained original outputs.
 
 Own three-hour science is true; own nine-hour science remains false. Parent0de nine-hour evidence excludes both INATM grouping and CU SIMD. [Evidence and rollback](tools/cpu-compute/phy-prep-part2-cu-simd/README.md) retain exact source identity, one-member build, harness failures and repairs. The stale LATEST view previously pointing to0de has been refreshed to actual2e4f; its real former bytes are preserved. Raw producer commits remainNULL;f72e6ebb is post-test source tracking. Next is the measured scalar PBL conversion loop, using additive live-PBL exceptional-value coverage before any inclusion. No automatic long forecast is required for each directive.
 
-## Current INATM copy grouping promoted after three-hour science (2026-10-20)
+## Previous INATM grouping: three-hour science (2026-10-20)
 
 Selected7f2c/archive42b0/source080cd60b includes all prior improvements plus INATM2+3 copy grouping. The source adds only one loop boundary, grouping the first two and last three cloud-copy families. Opposite-order complete synthetic caller times were20.03% and17.72% shorter, with original O0/O2 raw/IEEE/bounds and module checks exact. This significant caller gain is included under the standing kernel-inclusion policy; no isolated forecast gain is claimed.
 
