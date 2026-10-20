@@ -1,6 +1,6 @@
 {
-  "default": "slide-hash",
-  "scope": "Current GNU13.3 WORLD512 working codec: slide-hash fixed4 loop unroll over qualified881. Exact short original2/35 application; no isolated forecast gain or own3h/9h claim. Historical variant evidence remains scoped below.",
+  "default": "block-carry",
+  "scope": "CurrentGNU13 codec block-localbitcarrye1d8: exactnative/fullcodec/D45provider andshortoriginal2/35 SCI; syntheticdirectkernelgain only, providerpairs mixed. No own3h/9h orforecastgain transfer.",
   "variants": {
     "inline": {
       "path": "/pool/wrf-experiment/wrf-cpu/builds/codec-quick-insert-inline-r1/build/libz.so.1.3.1.zlib-ng",
@@ -21,6 +21,14 @@
     "slide-hash": {
       "path": "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/libz.so.1.3.1.zlib-ng",
       "sha256": "3edf15a2d69040bb29ff52446bfcf103fbfdb8b7385fd68735e8a536a06f332c"
+    },
+    "block-carry": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng",
+      "sha256": "e1d8bc0774b7c54b4b63e7d6892c6485bec9b3c7032985a229961ba0569cc450",
+      "status": "SELECTED_AFTER_ORIGINAL_SHORT_FULL512_SCI",
+      "source_commit": null,
+      "evidence": "compress-block-local-carry/EVIDENCE.json",
+      "science_pending": false
     }
   },
   "application_evidence": {
@@ -221,5 +229,39 @@
       "Private FAST level-invariant prototype is excluded."
     ]
   },
-  "slide_hash_postscience_tracking_commit": "624bc11610aff44c5dbdf458768d660ddbf5b806"
+  "slide_hash_postscience_tracking_commit": "624bc11610aff44c5dbdf458768d660ddbf5b806",
+  "block_carry_application_evidence": {
+    "qualification_file": "tools/cpu-output/quilt512/codec/compress-block-local-carry/APPLICATION_QUALIFICATION.json",
+    "qualification_sha256": "3b8ad7a20971b0cd36d6bf3f019dc50ac638df7c9517505fd8244f4e9db01618",
+    "science": {
+      "status": "PASS_RETAINED_ORIGINAL_TWO_HISTORY_35_STEPS_512_OWNED_FIELD_VIEW",
+      "receipt_sha256": "075e45506947752b3af936dba300740e854e8026b4e1c71beaaa1acfbe006ea2",
+      "reader_closure_sha256": "12a5bd80257029dd17d97fd98b90430fa112abb42e06f899ba95c964c227ec13",
+      "invocation_id": "02a06c4ea28945f99bca5eaccc1ee789",
+      "products": 2,
+      "ordered_steps": 35,
+      "end_time": "2026-10-12_06:10:00",
+      "world": 512,
+      "compute": 480,
+      "quilt_groups": 4,
+      "quilt_ranks_per_group": 8,
+      "tiles": 2,
+      "positive_writer_roots": [
+        487,
+        495
+      ],
+      "zero_writer_roots": [
+        503,
+        511
+      ],
+      "field_view_markers": 16,
+      "protected_original_checker_unchanged": true,
+      "all_model_reader_scopes_closed": true,
+      "reader_exit_code_raw": null,
+      "reader_manager_success_invocation_bound": true
+    },
+    "current_three_hour_qualified": false,
+    "current_nine_hour_qualified": false,
+    "post_test_source_commit": null
+  }
 }

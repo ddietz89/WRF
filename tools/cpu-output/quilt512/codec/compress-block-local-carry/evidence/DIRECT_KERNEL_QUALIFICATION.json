@@ -1,0 +1,108 @@
+{
+  "status": "PASS_DIRECT_ACTUAL_COMPRESS_BLOCK_KERNEL_EXACT_FIXED_GEOMETRY",
+  "pairs": [
+    {
+      "host": "hpc01",
+      "parent_wall_seconds": 0.251142763,
+      "candidate_wall_seconds": 0.233180203,
+      "wall_shorter_percent": 7.152330326157951,
+      "parent_cpu_seconds": 0.254526283,
+      "candidate_cpu_seconds": 0.23664482,
+      "cpu_less_percent": 7.025389594048336
+    },
+    {
+      "host": "hpc04",
+      "parent_wall_seconds": 0.24494315,
+      "candidate_wall_seconds": 0.227225949,
+      "wall_shorter_percent": 7.233189007326802,
+      "parent_cpu_seconds": 0.24842665,
+      "candidate_cpu_seconds": 0.2306995,
+      "cpu_less_percent": 7.1357682438659475
+    }
+  ],
+  "arms": [
+    {
+      "arm": 0,
+      "host": "hpc01",
+      "which": "parent",
+      "wall_seconds": 0.251142763,
+      "process_cpu_seconds": 0.254526283,
+      "consumed": 152948736,
+      "state": {
+        "full_fenv_errno_each_call_matches_actual_parent": true,
+        "whole_deflate_state_and_output_each_call": true
+      },
+      "refs": {
+        "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-compress-block-local-carry-r1/direct-kernel-timing-preparation-r1/timing-r1/arm0/actual-native-r1/receipt.json": "e3bf51a5565ac98b9b73f36e749fce993afb7b563fbf4e3b9159ed9f7c92fa70",
+        "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-compress-block-local-carry-r1/direct-kernel-timing-preparation-r1/timing-r1/arm0/actual-native-r1/closure.json": "eef0a69067e4bb386069c8f94953bad784682fdb9a84e7c539b5e05bd760c201",
+        "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-compress-block-local-carry-r1/direct-kernel-timing-preparation-r1/timing-r1/arm0/actual-native-r1/cache-clear.json": "1021ac7c6d5ba3cde1060db866c3a36ceac8e5ba446d1e6383411f0dfdf61cba",
+        "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-compress-block-local-carry-r1/direct-kernel-timing-preparation-r1/timing-r1/arm0/actual-native-r1/controller.json": "aa96eff2ecfa2e097d4327944b1b06113f1a8dae2490884b78a9d8ec4a36b36c"
+      }
+    },
+    {
+      "arm": 1,
+      "host": "hpc01",
+      "which": "candidate",
+      "wall_seconds": 0.233180203,
+      "process_cpu_seconds": 0.23664482,
+      "consumed": 152948736,
+      "state": {
+        "full_fenv_errno_each_call_matches_actual_parent": true,
+        "whole_deflate_state_and_output_each_call": true
+      },
+      "refs": {
+        "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-compress-block-local-carry-r1/direct-kernel-timing-preparation-r1/timing-r1/arm1/actual-native-r1/receipt.json": "96ebf84888aca18507c50b2fdd390567ad461012e7bbb68fa02a7a976d442bd3",
+        "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-compress-block-local-carry-r1/direct-kernel-timing-preparation-r1/timing-r1/arm1/actual-native-r1/closure.json": "9b21698ab0af1325c383f97c0f3a2120559b6e6f833eda7b95bf468809d5f95d",
+        "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-compress-block-local-carry-r1/direct-kernel-timing-preparation-r1/timing-r1/arm1/actual-native-r1/cache-clear.json": "4c07ebfb7b44eb4baaeca2a68e2cafe0919a1d34715e3c200a2d06d06cf30eb1",
+        "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-compress-block-local-carry-r1/direct-kernel-timing-preparation-r1/timing-r1/arm1/actual-native-r1/controller.json": "ffef0e7ecbee65dce90391d340d8f6db271f28088baa31f4d455c503d03e01fe"
+      }
+    },
+    {
+      "arm": 2,
+      "host": "hpc04",
+      "which": "candidate",
+      "wall_seconds": 0.227225949,
+      "process_cpu_seconds": 0.2306995,
+      "consumed": 152948736,
+      "state": {
+        "full_fenv_errno_each_call_matches_actual_parent": true,
+        "whole_deflate_state_and_output_each_call": true
+      },
+      "refs": {
+        "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-compress-block-local-carry-r1/direct-kernel-timing-preparation-r1/timing-r1/arm2/actual-native-r1/receipt.json": "298b4e7c57c122afe3eb980959e64b22b76749ccd86dc574212f63a0e9946564",
+        "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-compress-block-local-carry-r1/direct-kernel-timing-preparation-r1/timing-r1/arm2/actual-native-r1/closure.json": "7af4255b5173c69d7944f20ac9046d826e153e9e9d39c0ca1951b7b458255aa9",
+        "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-compress-block-local-carry-r1/direct-kernel-timing-preparation-r1/timing-r1/arm2/actual-native-r1/cache-clear.json": "a271213bbb83b58ae7b0153e2e2dfdc3b4e9bc7de904e463e102c3220e0b413a",
+        "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-compress-block-local-carry-r1/direct-kernel-timing-preparation-r1/timing-r1/arm2/actual-native-r1/controller.json": "e53fddd514e19502df50eaace20ccc996ced11d2ec30cc73a64b587ba9c341ff"
+      }
+    },
+    {
+      "arm": 3,
+      "host": "hpc04",
+      "which": "parent",
+      "wall_seconds": 0.24494315,
+      "process_cpu_seconds": 0.24842665,
+      "consumed": 152948736,
+      "state": {
+        "full_fenv_errno_each_call_matches_actual_parent": true,
+        "whole_deflate_state_and_output_each_call": true
+      },
+      "refs": {
+        "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-compress-block-local-carry-r1/direct-kernel-timing-preparation-r1/timing-r1/arm3/actual-native-r1/receipt.json": "926a7cf1d62720793636528826b877c8a6f59561de0c0239da2d54ad4380cf88",
+        "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-compress-block-local-carry-r1/direct-kernel-timing-preparation-r1/timing-r1/arm3/actual-native-r1/closure.json": "e2ffb0508bcc2cd9f5e5ebe73d2c83ab40e9c90b8549f19cfb03e8f31ac7a257",
+        "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-compress-block-local-carry-r1/direct-kernel-timing-preparation-r1/timing-r1/arm3/actual-native-r1/cache-clear.json": "d1231ed796f8d1260a4701e6ac0feb1ceeaf9b1817e1dc5fde98f9fb8d224220",
+        "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-compress-block-local-carry-r1/direct-kernel-timing-preparation-r1/timing-r1/arm3/actual-native-r1/controller.json": "bb7e32fe363231c70ef5b1809af98e7d51236ad3a640fe15110d8d28d680404b"
+      }
+    }
+  ],
+  "geometry": {
+    "tokens_per_block": 16383,
+    "lit_bufsize": 16384,
+    "pending_capacity": 65536,
+    "fixed_calls": 4096,
+    "initial_bi_valid": 56,
+    "pattern_period": 8
+  },
+  "all_cache_and_positive_closures": true,
+  "actual_DSO_functions": "3edf/e1d8 compress_block0xf220 sizes678/736; exactmachinecode, nofunctionrecompile",
+  "scope": "Synthetic initialized fullblock; wholedeflatestate/pending/readonly/canaries/fullfenv/errno checked eachcall outsideclocks; clocks includefunction/indirectcall andclockboundary overhead. Fixed.23-.25s cumulativebody, no calibration. Notrepresentativeproduction distribution/provider/WRFgain."
+}

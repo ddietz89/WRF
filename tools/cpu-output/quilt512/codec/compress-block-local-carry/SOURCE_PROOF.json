@@ -1,0 +1,24 @@
+{
+  "status": "EXPERIMENTAL_SOURCE_ONLY_NOT_COMPILED",
+  "parent_trees": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-output/quilt512/codec/parent_trees.c",
+    "sha256": "6872fb34e2f5361e23884263d0cbd1a6b77f43989cc30dff37baa422dcb1c302"
+  },
+  "candidate_trees_sha256": "4da0730290a0d161899d23eb282c1ff4eb0377ad049c9a015fc0a521de5350a3",
+  "candidate_block_sha256": "f2b3768ee2a44f0094df99361f8230423a0115ec40f372c0314997fa0ed41adb",
+  "header_sha256": "05ffe7fadf460b5051fdd4ba22b05a01bbcee25fa445952dc7e23c775e4709b7",
+  "header_byte_exact": true,
+  "inverse_exact_parent": true,
+  "local_corrections": [
+    "Remove rewritten alternate carry helpers; guard all new helpers and optimized whole function, retaining exact original whole function under #else.",
+    "Publish final bi_valid then bi_buf with original assignment types/order."
+  ],
+  "author_receipt_sha256": "f1bd83c36921c86b9ef4078994b0e052b9644e8b01622d07b577d1930e857796",
+  "author_response_sha256": "4c7113cfb7b1f53709336fbc15ab3b5e0a2ddb3f8b2e48aa3a5f8537ca5e646c",
+  "independent_review_receipt_sha256": "730280c498ed7e9cd0678df373cef8094a0cc9e36408434b2f56cac0b7de0cb1",
+  "limits": [
+    "No compile/codegen/native/caller qualification.",
+    "Actual codegen must show removed per-symbol state stores without counterproductive spills/calls.",
+    "Original emitter24 cases do not exercise compress_block; genuine direct-block fixture required."
+  ]
+}

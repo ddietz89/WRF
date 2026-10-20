@@ -1,0 +1,76 @@
+{
+  "status": "CREDIBLE_MECHANISM_PENDING_CODEC_PROVIDER_AND_TIMING",
+  "actual": {
+    "parent": {
+      "symbol": [
+        "000000000000f220 00000000000002a6 t compress_block"
+      ],
+      "instructions": 186,
+      "calls": [],
+      "stack_references": [
+        "f24e:\tmov    %rdx,-0x8(%rsp)",
+        "f31d:\tmov    -0x8(%rsp),%r15"
+      ],
+      "push_pop": [
+        "f220:\tpush   %r15",
+        "f225:\tpush   %r14",
+        "f22e:\tpush   %r13",
+        "f230:\tpush   %r12",
+        "f232:\tpush   %rbp",
+        "f233:\tpush   %rbx",
+        "f40b:\tpop    %rbx",
+        "f40c:\tpop    %rbp",
+        "f413:\tpop    %r12",
+        "f415:\tpop    %r13",
+        "f41e:\tpop    %r14",
+        "f420:\tpop    %r15"
+      ],
+      "bit_state_accesses": [
+        "f227:\tmov    0x1778(%rax),%r8",
+        "f23d:\tmov    0x1780(%rdi),%edi",
+        "f290:\tmov    %r11d,0x1780(%rax)",
+        "f29a:\tmov    %r8,0x1778(%rax)",
+        "f40d:\tmov    %edi,0x1780(%rax)",
+        "f417:\tmov    %rsi,0x1778(%rax)"
+      ]
+    },
+    "candidate": {
+      "symbol": [
+        "000000000000f220 00000000000002e0 t compress_block"
+      ],
+      "instructions": 191,
+      "calls": [],
+      "stack_references": [
+        "f24b:\tmov    %rdx,-0x8(%rsp)",
+        "f324:\tmov    -0x8(%rsp),%r15"
+      ],
+      "push_pop": [
+        "f220:\tpush   %r15",
+        "f225:\tpush   %r14",
+        "f227:\tpush   %r13",
+        "f229:\tpush   %r12",
+        "f22b:\tpush   %rbp",
+        "f22c:\tpush   %rbx",
+        "f3ca:\tpop    %rbx",
+        "f3cb:\tpop    %rbp",
+        "f3d2:\tpop    %r12",
+        "f3d4:\tpop    %r13",
+        "f3dd:\tpop    %r14",
+        "f3df:\tpop    %r15"
+      ],
+      "bit_state_accesses": [
+        "f236:\tmov    0x1778(%rdi),%r10",
+        "f23d:\tmov    0x1780(%rdi),%edi",
+        "f3cc:\tmov    %edx,0x1780(%rax)",
+        "f3d6:\tmov    %rsi,0x1778(%rax)"
+      ]
+    }
+  },
+  "interpretation": [
+    "Parent per-symbol writes atf290/f29a precede continued nextsymbol f2aa; candidate has no bitstate writes inside symbol loop. Candidate onlyfinal publicationf3cc/f3d6 afterEND_BLOCK path.",
+    "Both have6callee-savedpushes/6pops, one8byte dtree-pointer redzone store plus corresponding load; no added explicit stack slot or CALL observed. RBP is symbol-count GPR, not stackframe.",
+    "Parent selected LIT_MEM loads d_buf atstate+1730 then16bit distances and l_buf+1738 bytecodes; candidate same source-layout accesses. Exact compile/header configuration shared by genuine fixture.",
+    "Candidate separates valid/totalbits condition checks, unlike parent OR-combined check; footprint/instruction changes are not a speed proof."
+  ],
+  "scope": "One actual compiled function; no universal optimum/no memorylatency or headroom claim."
+}
