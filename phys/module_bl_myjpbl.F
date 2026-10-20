@@ -1236,6 +1236,8 @@
 !**********************************************************************
 !----------------------------------------------------------------------
 !
+      !$OMP SIMD PRIVATE(ELL,ELOQ2,ELOQ4,GML,GHL,ADEN,BDEN,CDEN, &
+      !$OMP& BESM,BESH,RDEN,ESM,ESH,RDZ,Q1L,ELQDZ)
       DO K=1,LMH-1
         ELL=EL(K)
 !
