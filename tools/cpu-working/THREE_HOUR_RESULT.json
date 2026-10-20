@@ -1,78 +1,28 @@
 {
-  "status": "PASS_FRESH_ORIGINAL_LATEST_INPUT_THREE_HOUR_ORIGINAL_SCI_TRANSPARENT_CONTROL_POSTPROCESSING",
-  "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2/wrf.exe",
-    "sha256": "1d6e5213108a5a1501ab319825bfa1a024df367af5037bee5f80d210f72d4f14"
-  },
-  "source_commit": "495f10002d87fb5fdcc256c20a9e592c037d9183",
-  "input_implementation_commit": "614267f340a23ffc342962b3c64e323719fe4d06",
-  "comparison_design": "Fresh fixed-order corrected-original546b followed by combined1d6e plus root-only input06d/NCa32; no observers/profilers.",
+  "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+  "order": [
+    "fresh_corrected_original546b_control",
+    "fresh_current1d6e_input06d_NCa32_de5b_candidate"
+  ],
+  "comparison_design": "Fresh fixed-order corrected-original versus combined current candidate; no isolated outputpadding/SIMD/input or earlierkernel attribution",
   "metrics": {
     "control": {
-      "wall_seconds": 818.0402264029253,
-      "cpu_seconds": 366874.26066900004,
-      "main_step_sum_seconds": 595.75757
+      "wall_seconds": 818.8186891679652,
+      "cpu_seconds": 367148.357295,
+      "main_step_sum_seconds": 595.98539
     },
     "candidate": {
-      "wall_seconds": 670.7779205960687,
-      "cpu_seconds": 323960.582918,
-      "main_step_sum_seconds": 566.69136
+      "wall_seconds": 662.8453124300577,
+      "cpu_seconds": 321081.188328,
+      "main_step_sum_seconds": 560.99084
     }
   },
   "reductions_percent": {
-    "wall_seconds": 18.00184160311973,
-    "cpu_seconds": 11.697107797299921,
-    "main_step_sum_seconds": 4.878865408290145
+    "wall_seconds": 19.048585334123036,
+    "cpu_seconds": 12.547289958316622,
+    "main_step_sum_seconds": 5.871712727723077
   },
-  "actual_product_comparisons": 4,
-  "ordered_steps": 545,
-  "all_own_jobs_closed": true,
-  "fresh_matched_timing": true,
-  "repeatability_established": false,
-  "applies_to_current_selection": false,
-  "full_qualification_sha256": "fed6f9ab2260eeb9e9ac4f56e68062e588bfb424ed344466a02ba0e7390d8780",
-  "science_sha256": "bf17d0287456739bf1db07ce45556ef69a768e255019af6b113e2c186255b824",
-  "reader_closure_sha256": "106fe5e3e75509b5028d82a2e35303fe4913eb45a107df7328503694e2dbb327",
-  "control_postprocessing": "Actual MPI0 in all four scopes; root coordinator FAILED KeyError after timing. Raw failure retained. Separate exact all512 runtime/RSL recovery and original numerical comparison passed; no invented manager success.",
-  "scope": "Cold single-domain06\u201309, GNU13.3/Zen2/OMP1, 480compute8x60+4groupsx8quilt, hourlyNetCDF2/twoTiles/faba/singleIB.",
-  "cache_policy": "Checked sync/drop_caches3 on each of four compute clients before EACH arm. File-server caches/load uncontrolled.",
-  "limits": "Combined one-pair result, not isolated input/read-affine/Thompson gain or repeatability. Main-step elapsed includes communication/backpressure; not integration CPU. Whole-minus-main is not pure I/O. No nine-hour/restart/nesting/other-compiler transfer.",
-  "memory_peaks_bytes": {
-    "control": {
-      "hpc01": 98726105088,
-      "hpc02": 101050097664,
-      "hpc03": 100993732608,
-      "hpc04": 107228016640
-    },
-    "candidate": {
-      "hpc01": 76196855808,
-      "hpc02": 73751851008,
-      "hpc03": 73718833152,
-      "hpc04": 73683906560
-    }
-  },
-  "memory_scope": "Actual whole-job cgroup peaks; combined comparison only, not isolated memory/PSS attribution.",
-  "input_lifecycle": {
-    "event": "final",
-    "rank": 0,
-    "scopes": 308,
-    "callbacks": 31,
-    "supplied": 17,
-    "declines": 14,
-    "widens": 31,
-    "restores": 31
-  },
-  "production_quilting": {
-    "compute": 480,
-    "groups": 4,
-    "ranks_per_group": 8,
-    "positive_roots": [
-      487,
-      495,
-      503,
-      511
-    ]
-  },
-  "output_provider_sha256": "375aa7e3198d42d84e3c95612f5475216354e2c4cb33c053eea42ac29f4bdb2a",
-  "later_fusion_scope": "Subsequentoutput172selectedaftershortSCI; thisfresh3hqualifiespreviousoutput375."
+  "science_sha256": "129414910e8b7aeabbec8aeb6e44a8b5af8dfd94cc18f76f6f80834caaeb7961",
+  "reader_closure_sha256": "ce3784975bc48b0f660caa808759c2b2728726c2d6f97dc212d4f78819e0a914",
+  "limits": "One fresh fixed-order pair, actual checkedcache before each arm; no repeatability or per-kernel causal claim. Main includes communication/backpressure; residual is not pureIO."
 }

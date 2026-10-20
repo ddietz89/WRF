@@ -1,5 +1,7 @@
 # Provider qualification provenance
 
+Current de5b also passed the fresh corrected-original546b three-hour pair: original4products/545steps/full512/twoTiles/all4positivewriters; actual result and qualification are in tools/cpu-working/THREE_HOUR_RESULT.json and THREE_HOUR_FINAL_QUALIFICATION.json. This whole-configuration measurement does not transfer the previous172 nine-hour scope or establish isolated component gains.
+
 The current working `fused-pack` default is provider source `8db4037d`, full shim `de5b3c27`. [Combinedpadding/SIMD32evidence](padding-block32/README.md) binds native7dc, incrementalcaller1f16 and actualnoon2products230SCI c648/reader5e7e, all512/twoTiles with487495positive503511inactive. Rawproducercommits remainNULL. Earlierpadding1e0/329f andfusionb938/172 records are historical. The packagebuildselector sourcehashisupdated, not rebuiltmerelyforthispromotion; selectedartifactcomesfromitsactualqualifiednative/fullAPIbuild.
 
 The original provider/shim and its one-hour, three-hour and prior build epochs remain in [historical-qualification-4cb.json](historical-qualification-4cb.json). `--provider original` selects that source. The parent world-16/64 sources and installed dependencies remain unchanged.

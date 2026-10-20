@@ -1,6 +1,12 @@
 # WRF CPU optimization — continuing campaign handoff
 
-Updated **2026-10-20 00:09 UTC**. The persistent Goal is **active**. This file describes the current state, accepted work, closed candidates and remaining investigations. Continue authorized work after a report, failed candidate, successful test or promotion. Recover actual live jobs from `investigation/wrf-cpu/campaign/spot100-20261016/CURRENT_STATE.json` before launching anything; never duplicate an uncertain job.
+## Latest fresh three-hour qualification
+
+Current de5b fresh three-hour qualification: corrected-original546b wall 818.818689s → 662.845312s (**19.05% shorter**, **1.235309×** speedup); aggregate cgroup CPU 367148.357295 → 321081.188328s (**12.55% lower**). Original four products/545 ordered steps/all512/two tiles and all four positive writers passed; caches cleared on every node before each arm, all model and reader scopes strongly closed. Main-step elapsed 595.98539 → 560.99084s (5.87% lower) includes communication/backpressure and is not integration CPU. One fixed-order whole-inclusive-IO comparison, without isolated component, additive or repeatability claims. Producer source_commit stays NULL; current nine-hour remains false, with the previous output172 nine-hour result retained separately.
+
+Earlier noon-only and previous-output measurements below retain their historical scope.
+
+Updated **2026-10-20 07:05 UTC**. The persistent Goal is **active**. This file describes the current state, accepted work, closed candidates and remaining investigations. Continue authorized work after a report, failed candidate, successful test or promotion. Recover actual live jobs from `investigation/wrf-cpu/campaign/spot100-20261016/CURRENT_STATE.json` before launching anything; never duplicate an uncertain job.
 
 This consolidated revision supersedes the older live-status paragraphs. Detailed historical snapshots remain in Git commit `8b7c38fe18028a31cb07ceda053d8c19df590957`; raw experimental evidence and failed records remain unchanged. `OPTIMIZATION_FINDINGS.md` retains detailed chronological findings. No production or master changes are authorized. AWS remains suspended.
 

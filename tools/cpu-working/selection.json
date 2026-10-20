@@ -47,8 +47,8 @@
   "read_affine_IO_archive_sha256": "651835f31089e16759177734198ece5b121d704355c73abddde483f4cae2c14c",
   "read_affine_IO_object_sha256": "c9c4e5b7a0225523e7d85cfc188022d797204d3f4dd4494b54c416e3bec99320",
   "schema_version": 3,
-  "status": "PROMOTED_PADDING_BLOCK32_EXACT_512_NOON75M_AND_INCREMENTAL_CALLER_GAIN",
-  "scope": "GNU13.3/Zen2/OMP1/cold12:00-13:15/512=480compute8x60+4x8quilt/faba/twoTiles/1d6e/root06dNCa32/outputde5b/codec881/HDF825/shared1/FIELDVIEW1/singleIB;2completeproducts230steps.",
+  "status": "QUALIFIED_PADDING_BLOCK32_FRESH_THREE_HOUR_512_FOUR_PRODUCTS545",
+  "scope": "GNU13.3/Zen2/OMP1/cold06:00-09:00/512=480compute8x60+4x8quilt/faba/twoTiles/1d6e/root06dNCa32/outputde5b/codec881/HDF825/shared1/FIELDVIEW1/singleIB;4completeproducts545steps.",
   "includes": "All retained compute, Thompson shared-table/lazy-init, output, codec and HDF5 improvements from the previous selection, READ_DI1 affine rows, plus qualified root-only parallel input chunk decoding. Fused output packing/shuffling removes intermediate padded packed storage; compressedbytes and originalscience exact.",
   "source_commit_scope": "source_commit binds the unchanged WRF executable; input_implementation_commit binds the separately compiled literal private input provider/adapter package. Frozen producer source_commit null fields remain unchanged.",
   "input_implementation_commit": "614267f340a23ffc342962b3c64e323719fe4d06",
@@ -81,13 +81,13 @@
     "other_511_ranks": "Retain original NC8adc/selected outputde5b/codec881; root input adapter/private NC only on rank0."
   },
   "science": {
-    "receipt_sha256": "c648100283f7946ac319d77343a072e5a065984e0d2b6fea6c2d1a7034006845",
-    "reader_closure_sha256": "5e7e4b188b16d226758706034109519bc95174966352f09dcba8873ab350f45e",
+    "receipt_sha256": "129414910e8b7aeabbec8aeb6e44a8b5af8dfd94cc18f76f6f80834caaeb7961",
+    "reader_closure_sha256": "ce3784975bc48b0f660caa808759c2b2728726c2d6f97dc212d4f78819e0a914",
     "reader_exit_code_raw": null,
-    "invocation_id": "ac2b06f25a7149ff8164ce632d2abbb9",
-    "products": 2,
-    "ordered_steps": 230,
-    "end_time": "2026-10-12_13:15:00",
+    "invocation_id": "fb3cd62016c04869994a50f7a7f0e4c7",
+    "products": 4,
+    "ordered_steps": 545,
+    "end_time": "2026-10-12_09:00:00",
     "world": 512,
     "compute": 480,
     "quilt_groups": 4,
@@ -95,51 +95,52 @@
     "tiles": 2,
     "positive_writer_roots": [
       487,
-      495
-    ],
-    "zero_writer_roots": [
+      495,
       503,
       511
     ],
+    "zero_writer_roots": [],
     "protected_original_checker_unchanged": true,
     "tile_status": "PASS_ACTUAL_480_DISJOINT_TILE_UNIONS_AND_ALL512_OBSERVED_ENVS",
     "all_model_reader_scopes_closed": true
   },
   "qualification_file": "tools/cpu-output/quilt512/qualification.json",
-  "current_application_qualification_file": "tools/cpu-output/quilt512/padding-block32/APPLICATION_QUALIFICATION.json",
+  "current_application_qualification_file": "tools/cpu-working/THREE_HOUR_FINAL_QUALIFICATION.json",
   "source_build_binding_file": "CURRENT_SOURCE_BUILD_BINDING.json",
-  "current_three_hour_qualified": false,
+  "current_three_hour_qualified": true,
   "current_nine_hour_qualified": false,
   "last_three_hour_benchmark": {
     "evidence_file": "THREE_HOUR_RESULT.json",
+    "qualification_file": "THREE_HOUR_FINAL_QUALIFICATION.json",
     "executable": {
       "path": "/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2/wrf.exe",
       "sha256": "1d6e5213108a5a1501ab319825bfa1a024df367af5037bee5f80d210f72d4f14"
     },
     "source_commit": "495f10002d87fb5fdcc256c20a9e592c037d9183",
-    "comparison_design": "Fresh fixed-order corrected-original546b followed by combined1d6e plus root-only input06d/NCa32; no observers/profilers.",
+    "comparison_design": "Fresh fixed-order corrected-original versus combined current candidate; no isolated outputpadding/SIMD/input or earlierkernel attribution",
     "metrics": {
       "control": {
-        "wall_seconds": 818.0402264029253,
-        "cpu_seconds": 366874.26066900004,
-        "main_step_sum_seconds": 595.75757
+        "wall_seconds": 818.8186891679652,
+        "cpu_seconds": 367148.357295,
+        "main_step_sum_seconds": 595.98539
       },
       "candidate": {
-        "wall_seconds": 670.7779205960687,
-        "cpu_seconds": 323960.582918,
-        "main_step_sum_seconds": 566.69136
+        "wall_seconds": 662.8453124300577,
+        "cpu_seconds": 321081.188328,
+        "main_step_sum_seconds": 560.99084
       }
     },
     "reductions_percent": {
-      "wall_seconds": 18.00184160311973,
-      "cpu_seconds": 11.697107797299921,
-      "main_step_sum_seconds": 4.878865408290145
+      "wall_seconds": 19.048585334123036,
+      "cpu_seconds": 12.547289958316622,
+      "main_step_sum_seconds": 5.871712727723077
     },
-    "full_qualification_sha256": "fed6f9ab2260eeb9e9ac4f56e68062e588bfb424ed344466a02ba0e7390d8780",
+    "wall_speedup_ratio": 1.2353088628870188,
+    "full_qualification_sha256": "f66f4c76c67848ff3a22e406625b91eb797b86008904b6d3096c863cf867da5a",
     "fresh_matched_timing": true,
-    "applies_to_current_selection": false,
+    "applies_to_current_selection": true,
     "repeatability_established": false,
-    "scope": "Fresh fed6 threehour qualifies previous output375, before newfused172; retained measuredcombined18.0018%wall,11.6971%CPU, not currentfused qualification."
+    "scope": "Actual combined de5b/current input/compute fresh3h; 4products545/all512/twoTiles/all4positivewriters. No isolated kernel attribution."
   },
   "prior_nine_hour": {
     "evidence_file": "PREVIOUS_NINE_HOUR_RESULT_B1FB.json",
@@ -154,8 +155,8 @@
     "source_build_binding": "PREVIOUS_SOURCE_BUILD_BINDING_BEFORE_PADDING_BLOCK32.json",
     "action": "Restore output329f/provider1e0 only, retaining1d6e/root06dNCa32/881/825/allcompute; revert provider8db to1e0 if rebuilding. No rebuild solely to select the retained tested329fartifact."
   },
-  "claim_limits": "Own exactnoon2products230/full512/twoTiles/487495positive503511inactive. Incremental syntheticcompleteprovider wall2.19/1.78% andprocessCPU3.60/3.04% lower thanpaddingparent are separate fromforecastgain and not additive. Previous375threehour/172ninehour remainhistorical; no own3h/fourpositive/9h/restart/othercompiler/144h transfer.",
-  "next_qualification": "One periodicfreshoriginal546b vscombinedde5b threehour pair afterreview/resourceclosure; no automatic9hreplay. Freshcomputeprofileanalysis andboundedprovidercontext refresh select next measured operation.",
+  "claim_limits": "Own fresh fixed-order original546b versus currentde5b 4products545/full512/twoTiles/all4positivewriters:19.0486% shorter whole-inclusive-IO MPI wall and12.5473% lower aggregate cgroup CPU. Main-step elapsed5.8717% lower is not integrationCPU. No isolated/additive/repeatability or current9h claim; previous172ninehour retained historical.",
+  "next_qualification": "No automatic replay; next measured source operation requires separate evidence. Current9h remains unqualified.",
   "output_fusion_qualification_file": "tools/cpu-output/quilt512/padding-block32/NATIVE_QUALIFICATION.json",
   "latest_nine_hour": {
     "evidence_file": "NINE_HOUR_RESULT.json",
@@ -184,5 +185,62 @@
     "scope": "Previous output172; no nine-hour transfer to currentde5b or earlier329f."
   },
   "padding_only_fill_qualification_file": "tools/cpu-output/quilt512/padding-only-fill/NATIVE_QUALIFICATION.json",
-  "padding_block32_qualification_file": "tools/cpu-output/quilt512/padding-block32/NATIVE_QUALIFICATION.json"
+  "padding_block32_qualification_file": "tools/cpu-output/quilt512/padding-block32/NATIVE_QUALIFICATION.json",
+  "previous_output375_three_hour_benchmark": {
+    "evidence_file": "PREVIOUS_THREE_HOUR_RESULT_OUTPUT375.json",
+    "executable": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2/wrf.exe",
+      "sha256": "1d6e5213108a5a1501ab319825bfa1a024df367af5037bee5f80d210f72d4f14"
+    },
+    "source_commit": "495f10002d87fb5fdcc256c20a9e592c037d9183",
+    "comparison_design": "Fresh fixed-order corrected-original546b followed by combined1d6e plus root-only input06d/NCa32; no observers/profilers.",
+    "metrics": {
+      "control": {
+        "wall_seconds": 818.0402264029253,
+        "cpu_seconds": 366874.26066900004,
+        "main_step_sum_seconds": 595.75757
+      },
+      "candidate": {
+        "wall_seconds": 670.7779205960687,
+        "cpu_seconds": 323960.582918,
+        "main_step_sum_seconds": 566.69136
+      }
+    },
+    "reductions_percent": {
+      "wall_seconds": 18.00184160311973,
+      "cpu_seconds": 11.697107797299921,
+      "main_step_sum_seconds": 4.878865408290145
+    },
+    "full_qualification_sha256": "fed6f9ab2260eeb9e9ac4f56e68062e588bfb424ed344466a02ba0e7390d8780",
+    "fresh_matched_timing": true,
+    "applies_to_current_selection": false,
+    "repeatability_established": false,
+    "scope": "Fresh fed6 threehour qualifies previous output375, before newfused172; retained measuredcombined18.0018%wall,11.6971%CPU, not currentfused qualification.",
+    "qualification_file": "PREVIOUS_THREE_HOUR_FINAL_QUALIFICATION_OUTPUT375.json"
+  },
+  "previous_noon75m_science": {
+    "receipt_sha256": "c648100283f7946ac319d77343a072e5a065984e0d2b6fea6c2d1a7034006845",
+    "reader_closure_sha256": "5e7e4b188b16d226758706034109519bc95174966352f09dcba8873ab350f45e",
+    "reader_exit_code_raw": null,
+    "invocation_id": "ac2b06f25a7149ff8164ce632d2abbb9",
+    "products": 2,
+    "ordered_steps": 230,
+    "end_time": "2026-10-12_13:15:00",
+    "world": 512,
+    "compute": 480,
+    "quilt_groups": 4,
+    "quilt_ranks_per_group": 8,
+    "tiles": 2,
+    "positive_writer_roots": [
+      487,
+      495
+    ],
+    "zero_writer_roots": [
+      503,
+      511
+    ],
+    "protected_original_checker_unchanged": true,
+    "tile_status": "PASS_ACTUAL_480_DISJOINT_TILE_UNIONS_AND_ALL512_OBSERVED_ENVS",
+    "all_model_reader_scopes_closed": true
+  }
 }

@@ -1,0 +1,549 @@
+{
+  "status": "PASS_FRESH_ORIGINAL_LATEST_INPUT_THREE_HOUR_ORIGINAL_SCI_TRANSPARENT_CONTROL_POSTPROCESSING",
+  "utc": "2026-10-20T03:32:53.471159+00:00",
+  "scope": "One freshfixedorder546b original then latest1d6e/rootinput, fourproducts545/full512/faba/twoTiles/all4positivewriters.",
+  "raw_producer_source_commit": null,
+  "selected_source_context": "495f10002d87fb5fdcc256c20a9e592c037d9183",
+  "source_and_promotion": "No source/default/selection change by this builder. Root decides promotion.",
+  "reader_invocation_id": "d6f791a30c32493c911fe4ec7c54e6eb",
+  "model_invocations": {
+    "control": {
+      "hpc01": {
+        "invocation_id": "5b226b95bce24b46b9c8645ebf8a2077",
+        "unit": "wrf-cpu-production512-original-parallel-input3h-control-r1-hpc01.service",
+        "MPI_exit_code": 0,
+        "manager_result": "exit-code"
+      },
+      "hpc02": {
+        "invocation_id": "f7eef6324b074611b4ca07fe56b5e155",
+        "unit": "wrf-cpu-production512-original-parallel-input3h-control-r1-hpc02.service",
+        "MPI_exit_code": 0,
+        "manager_result": "success"
+      },
+      "hpc03": {
+        "invocation_id": "c360c94a7b174c74bd55e5ac47137df8",
+        "unit": "wrf-cpu-production512-original-parallel-input3h-control-r1-hpc03.service",
+        "MPI_exit_code": 0,
+        "manager_result": "success"
+      },
+      "hpc04": {
+        "invocation_id": "567ca39a1f024b71a58773bd918925ec",
+        "unit": "wrf-cpu-production512-original-parallel-input3h-control-r1-hpc04.service",
+        "MPI_exit_code": 0,
+        "manager_result": "success"
+      }
+    },
+    "candidate": {
+      "hpc01": {
+        "invocation_id": "5b44f1a80a334af8951a576aa344b8f1",
+        "unit": "wrf-cpu-production512-original-parallel-input3h-candidate-r1-hpc01.service",
+        "MPI_exit_code": 0,
+        "manager_result": "success"
+      },
+      "hpc02": {
+        "invocation_id": "b4a291ed7a1748998b41e7e62f111b2c",
+        "unit": "wrf-cpu-production512-original-parallel-input3h-candidate-r1-hpc02.service",
+        "MPI_exit_code": 0,
+        "manager_result": "success"
+      },
+      "hpc03": {
+        "invocation_id": "036d1318376243308959da23ba79727a",
+        "unit": "wrf-cpu-production512-original-parallel-input3h-candidate-r1-hpc03.service",
+        "MPI_exit_code": 0,
+        "manager_result": "success"
+      },
+      "hpc04": {
+        "invocation_id": "abbf546b57e5437e9512b014dd398131",
+        "unit": "wrf-cpu-production512-original-parallel-input3h-candidate-r1-hpc04.service",
+        "MPI_exit_code": 0,
+        "manager_result": "success"
+      }
+    }
+  },
+  "actual_control_original_manager_failed": {
+    "MainPID": "0",
+    "Result": "exit-code",
+    "ExecMainStatus": "1",
+    "ControlGroup": "",
+    "ActiveState": "failed",
+    "InvocationID": "5b226b95bce24b46b9c8645ebf8a2077"
+  },
+  "control_postprocessing_qualified_separately": true,
+  "science": {
+    "products": 4,
+    "ordered_steps": 545,
+    "world": 512,
+    "compute": 480,
+    "tiles": 2,
+    "all4_positive_writer_roots": [
+      487,
+      495,
+      503,
+      511
+    ],
+    "compare_one_AST_unchanged": true,
+    "protected_reference_checker": "Original protected numericalcomparison passed unchanged; complete sourceproof and readerreceipt referenced."
+  },
+  "input_lifecycle_actual": {
+    "event": "final",
+    "rank": 0,
+    "scopes": 308,
+    "callbacks": 31,
+    "supplied": 17,
+    "declines": 14,
+    "widens": 31,
+    "restores": 31
+  },
+  "input_log_sha256": {
+    "input-rank0-3567363.jsonl": "603e439b9e0ca0a9eb343d66c590ff5809633baf3b2cc0c59024fdbeeb92ba17"
+  },
+  "model_observations": {
+    "control": {
+      "MPI_wall_seconds": 818.0402264029253,
+      "aggregate_node_cgroup_CPU_seconds": 366874.26066900004,
+      "main_step_wall_sum_seconds": 595.75757,
+      "memory_peaks_bytes": {
+        "hpc01": 98726105088,
+        "hpc02": 101050097664,
+        "hpc03": 100993732608,
+        "hpc04": 107228016640
+      },
+      "memory_events": {
+        "hpc01": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "hpc02": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "hpc03": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "hpc04": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n"
+      }
+    },
+    "candidate": {
+      "MPI_wall_seconds": 670.7779205960687,
+      "aggregate_node_cgroup_CPU_seconds": 323960.582918,
+      "main_step_wall_sum_seconds": 566.69136,
+      "memory_peaks_bytes": {
+        "hpc01": 76196855808,
+        "hpc02": 73751851008,
+        "hpc03": 73718833152,
+        "hpc04": 73683906560
+      },
+      "memory_events": {
+        "hpc01": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "hpc02": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "hpc03": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "hpc04": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n"
+      }
+    }
+  },
+  "reductions_percent": {
+    "MPI_wall_seconds": 18.001841603119725,
+    "aggregate_node_cgroup_CPU_seconds": 11.697107797299921
+  },
+  "cache": {
+    "control": {
+      "clear_receipt_sha256": "260ca3f9a96daa19a6e3dbdbe4a1db85cd0bf3d704cd105fb513f00edb3ac03e",
+      "actual_four_host_context": {
+        "hpc03": {
+          "status": "PASS_SYNC_DROP_CACHES3",
+          "host": "hpc03",
+          "uid": 0,
+          "run_id": "production512-original-parallel-input3h-control-r1",
+          "pid": 1622219,
+          "pgid": 1622218,
+          "boot_id": "ad105fdb-2b6c-40b2-a1ba-6b9997e08d4c",
+          "operation": "sync_then_drop_caches3",
+          "utc_begin": "2026-10-20T02:46:35.197542+00:00",
+          "begin_monotonic_ns": 2043388176190056,
+          "campaign_active": [],
+          "meminfo_before": {
+            "MemAvailable": "122229776 kB",
+            "Buffers": "11844 kB",
+            "Cached": "1835284 kB",
+            "SReclaimable": "221944 kB"
+          },
+          "sync_begin_monotonic_ns": 2043388547466875,
+          "sync_returncode": 0,
+          "sync_end_monotonic_ns": 2043388580734222,
+          "drop_begin_monotonic_ns": 2043388953341140,
+          "drop_bytes": 2,
+          "drop_end_monotonic_ns": 2043389430743755,
+          "meminfo_after": {
+            "MemAvailable": "123015756 kB",
+            "Buffers": "316 kB",
+            "Cached": "254224 kB",
+            "SReclaimable": "210280 kB"
+          },
+          "end_monotonic_ns": 2043389431053194,
+          "utc_end": "2026-10-20T02:46:36.452420+00:00",
+          "transport_returncode": 0,
+          "owned_processes_after_return": []
+        },
+        "hpc04": {
+          "status": "PASS_SYNC_DROP_CACHES3",
+          "host": "hpc04",
+          "uid": 0,
+          "run_id": "production512-original-parallel-input3h-control-r1",
+          "pid": 1830592,
+          "pgid": 1830591,
+          "boot_id": "dc4678a7-56c3-4071-bd55-0b96d1eaafda",
+          "operation": "sync_then_drop_caches3",
+          "utc_begin": "2026-10-20T02:46:35.093235+00:00",
+          "begin_monotonic_ns": 2043410303623800,
+          "campaign_active": [],
+          "meminfo_before": {
+            "MemAvailable": "124460472 kB",
+            "Buffers": "11616 kB",
+            "Cached": "3371092 kB",
+            "SReclaimable": "219740 kB"
+          },
+          "sync_begin_monotonic_ns": 2043410843363657,
+          "sync_returncode": 0,
+          "sync_end_monotonic_ns": 2043410860513256,
+          "drop_begin_monotonic_ns": 2043411412571012,
+          "drop_bytes": 2,
+          "drop_end_monotonic_ns": 2043412173505440,
+          "meminfo_after": {
+            "MemAvailable": "125225152 kB",
+            "Buffers": "284 kB",
+            "Cached": "233296 kB",
+            "SReclaimable": "209600 kB"
+          },
+          "end_monotonic_ns": 2043412173758646,
+          "utc_end": "2026-10-20T02:46:36.963388+00:00",
+          "transport_returncode": 0,
+          "owned_processes_after_return": []
+        },
+        "hpc01": {
+          "status": "PASS_SYNC_DROP_CACHES3",
+          "host": "hpc01",
+          "uid": 0,
+          "run_id": "production512-original-parallel-input3h-control-r1",
+          "pid": 3563432,
+          "pgid": 3563431,
+          "boot_id": "034999ae-50d3-4c47-a288-c1cc0a7308c9",
+          "operation": "sync_then_drop_caches3",
+          "utc_begin": "2026-10-20T02:46:34.573393+00:00",
+          "begin_monotonic_ns": 2043601790859984,
+          "campaign_active": [],
+          "meminfo_before": {
+            "MemAvailable": "124151524 kB",
+            "Buffers": "11548 kB",
+            "Cached": "3762628 kB",
+            "SReclaimable": "228248 kB"
+          },
+          "sync_begin_monotonic_ns": 2043602558477054,
+          "sync_returncode": 0,
+          "sync_end_monotonic_ns": 2043602575734088,
+          "drop_begin_monotonic_ns": 2043603360229858,
+          "drop_bytes": 2,
+          "drop_end_monotonic_ns": 2043604189194056,
+          "meminfo_after": {
+            "MemAvailable": "124887564 kB",
+            "Buffers": "308 kB",
+            "Cached": "297728 kB",
+            "SReclaimable": "217008 kB"
+          },
+          "end_monotonic_ns": 2043604189469556,
+          "utc_end": "2026-10-20T02:46:36.972018+00:00",
+          "transport_returncode": 0,
+          "owned_processes_after_return": []
+        },
+        "hpc02": {
+          "status": "PASS_SYNC_DROP_CACHES3",
+          "host": "hpc02",
+          "uid": 0,
+          "run_id": "production512-original-parallel-input3h-control-r1",
+          "pid": 1639912,
+          "pgid": 1639911,
+          "boot_id": "18b76778-11f2-4b21-ac43-564778b71e3b",
+          "operation": "sync_then_drop_caches3",
+          "utc_begin": "2026-10-20T02:46:35.337966+00:00",
+          "begin_monotonic_ns": 2043635463076263,
+          "campaign_active": [],
+          "meminfo_before": {
+            "MemAvailable": "125523916 kB",
+            "Buffers": "9964 kB",
+            "Cached": "336492 kB",
+            "SReclaimable": "214620 kB"
+          },
+          "sync_begin_monotonic_ns": 2043636786795714,
+          "sync_returncode": 0,
+          "sync_end_monotonic_ns": 2043636803908631,
+          "drop_begin_monotonic_ns": 2043638125341160,
+          "drop_bytes": 2,
+          "drop_end_monotonic_ns": 2043638294458084,
+          "meminfo_after": {
+            "MemAvailable": "125579472 kB",
+            "Buffers": "272 kB",
+            "Cached": "231828 kB",
+            "SReclaimable": "206384 kB"
+          },
+          "end_monotonic_ns": 2043638294707289,
+          "utc_end": "2026-10-20T02:46:38.169611+00:00",
+          "transport_returncode": 0,
+          "owned_processes_after_return": []
+        }
+      },
+      "model_cache_start_context": {
+        "clear_receipt_sha256": "260ca3f9a96daa19a6e3dbdbe4a1db85cd0bf3d704cd105fb513f00edb3ac03e",
+        "pre_mpi_boundary_monotonic_ns": 2044814052622356,
+        "hpc01_clear_end_to_boundary_seconds": 1209.8631528,
+        "scope": "Host01 same-boot observation before MPI adapter; subsequent pinned binary/library hashes and loaders inevitably warm code, not scientific-data prefetch."
+      }
+    },
+    "candidate": {
+      "clear_receipt_sha256": "8ef0f393686a9af1027d457836aaacd1e7836187290a5591f6309bcfab431e7f",
+      "actual_four_host_context": {
+        "hpc03": {
+          "status": "PASS_SYNC_DROP_CACHES3",
+          "host": "hpc03",
+          "uid": 0,
+          "run_id": "production512-original-parallel-input3h-candidate-r1",
+          "pid": 1624231,
+          "pgid": 1624230,
+          "boot_id": "ad105fdb-2b6c-40b2-a1ba-6b9997e08d4c",
+          "operation": "sync_then_drop_caches3",
+          "utc_begin": "2026-10-20T03:09:40.298950+00:00",
+          "begin_monotonic_ns": 2044773277601957,
+          "campaign_active": [],
+          "meminfo_before": {
+            "MemAvailable": "122847176 kB",
+            "Buffers": "11936 kB",
+            "Cached": "408084 kB",
+            "SReclaimable": "218500 kB"
+          },
+          "sync_begin_monotonic_ns": 2044773640240533,
+          "sync_returncode": 0,
+          "sync_end_monotonic_ns": 2044773657508280,
+          "drop_begin_monotonic_ns": 2044774027981466,
+          "drop_bytes": 2,
+          "drop_end_monotonic_ns": 2044774209271728,
+          "meminfo_after": {
+            "MemAvailable": "122943532 kB",
+            "Buffers": "332 kB",
+            "Cached": "256428 kB",
+            "SReclaimable": "210404 kB"
+          },
+          "end_monotonic_ns": 2044774209564376,
+          "utc_end": "2026-10-20T03:09:41.230931+00:00",
+          "transport_returncode": 0,
+          "owned_processes_after_return": []
+        },
+        "hpc04": {
+          "status": "PASS_SYNC_DROP_CACHES3",
+          "host": "hpc04",
+          "uid": 0,
+          "run_id": "production512-original-parallel-input3h-candidate-r1",
+          "pid": 1834947,
+          "pgid": 1834946,
+          "boot_id": "dc4678a7-56c3-4071-bd55-0b96d1eaafda",
+          "operation": "sync_then_drop_caches3",
+          "utc_begin": "2026-10-20T03:09:40.184239+00:00",
+          "begin_monotonic_ns": 2044795394627519,
+          "campaign_active": [],
+          "meminfo_before": {
+            "MemAvailable": "125077556 kB",
+            "Buffers": "10948 kB",
+            "Cached": "312800 kB",
+            "SReclaimable": "212400 kB"
+          },
+          "sync_begin_monotonic_ns": 2044795960435922,
+          "sync_returncode": 0,
+          "sync_end_monotonic_ns": 2044795993761324,
+          "drop_begin_monotonic_ns": 2044796549233124,
+          "drop_bytes": 2,
+          "drop_end_monotonic_ns": 2044796683975293,
+          "meminfo_after": {
+            "MemAvailable": "125104344 kB",
+            "Buffers": "296 kB",
+            "Cached": "233900 kB",
+            "SReclaimable": "211888 kB"
+          },
+          "end_monotonic_ns": 2044796684306512,
+          "utc_end": "2026-10-20T03:09:41.473938+00:00",
+          "transport_returncode": 0,
+          "owned_processes_after_return": []
+        },
+        "hpc01": {
+          "status": "PASS_SYNC_DROP_CACHES3",
+          "host": "hpc01",
+          "uid": 0,
+          "run_id": "production512-original-parallel-input3h-candidate-r1",
+          "pid": 3566800,
+          "pgid": 3566799,
+          "boot_id": "034999ae-50d3-4c47-a288-c1cc0a7308c9",
+          "operation": "sync_then_drop_caches3",
+          "utc_begin": "2026-10-20T03:09:39.651231+00:00",
+          "begin_monotonic_ns": 2044986868697254,
+          "campaign_active": [],
+          "meminfo_before": {
+            "MemAvailable": "124102856 kB",
+            "Buffers": "11780 kB",
+            "Cached": "3756940 kB",
+            "SReclaimable": "225744 kB"
+          },
+          "sync_begin_monotonic_ns": 2044987631876890,
+          "sync_returncode": 0,
+          "sync_end_monotonic_ns": 2044987648986980,
+          "drop_begin_monotonic_ns": 2044988450480116,
+          "drop_bytes": 2,
+          "drop_end_monotonic_ns": 2044989305360737,
+          "meminfo_after": {
+            "MemAvailable": "124888756 kB",
+            "Buffers": "308 kB",
+            "Cached": "296372 kB",
+            "SReclaimable": "215036 kB"
+          },
+          "end_monotonic_ns": 2044989305627515,
+          "utc_end": "2026-10-20T03:09:42.088178+00:00",
+          "transport_returncode": 0,
+          "owned_processes_after_return": []
+        },
+        "hpc02": {
+          "status": "PASS_SYNC_DROP_CACHES3",
+          "host": "hpc02",
+          "uid": 0,
+          "run_id": "production512-original-parallel-input3h-candidate-r1",
+          "pid": 1642299,
+          "pgid": 1642298,
+          "boot_id": "18b76778-11f2-4b21-ac43-564778b71e3b",
+          "operation": "sync_then_drop_caches3",
+          "utc_begin": "2026-10-20T03:09:40.422097+00:00",
+          "begin_monotonic_ns": 2045020547212972,
+          "campaign_active": [],
+          "meminfo_before": {
+            "MemAvailable": "125468288 kB",
+            "Buffers": "9964 kB",
+            "Cached": "339164 kB",
+            "SReclaimable": "214024 kB"
+          },
+          "sync_begin_monotonic_ns": 2045021873369348,
+          "sync_returncode": 0,
+          "sync_end_monotonic_ns": 2045021890517086,
+          "drop_begin_monotonic_ns": 2045023212457656,
+          "drop_bytes": 2,
+          "drop_end_monotonic_ns": 2045023374397128,
+          "meminfo_after": {
+            "MemAvailable": "125538264 kB",
+            "Buffers": "300 kB",
+            "Cached": "231944 kB",
+            "SReclaimable": "204224 kB"
+          },
+          "end_monotonic_ns": 2045023374652584,
+          "utc_end": "2026-10-20T03:09:43.249558+00:00",
+          "transport_returncode": 0,
+          "owned_processes_after_return": []
+        }
+      },
+      "model_cache_start_context": {
+        "clear_receipt_sha256": "8ef0f393686a9af1027d457836aaacd1e7836187290a5591f6309bcfab431e7f",
+        "pre_mpi_boundary_monotonic_ns": 2045053786316791,
+        "hpc01_clear_end_to_boundary_seconds": 64.480689276,
+        "scope": "Host01 same-boot observation before MPI adapter; subsequent pinned binary/library hashes and loaders inevitably warm code, not scientific-data prefetch."
+      }
+    }
+  },
+  "limits": [
+    "Fixedorder freshoriginal\u2192latest onepair; no repeatability or isolated rootinputgain claim.",
+    "All prior accepted improvements included; synthetic43% completeinputroute observation doesnottransfer as forecastgain.",
+    "ControlactualmanagerFAILED1/MPI0 preserved; exactall512runtime/RSL postprocessing recovery separate, not fake normalcompletion.",
+    "Per-read in-model FENVnot sampled; nativefullAPI/five-statequalification separate.",
+    "Memoryevents fromactualrecords; reclaim/PSI or phasecausality not inferred withoutretained evidence."
+  ],
+  "raw_refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/parallel-input-chunk-decode-feasibility-r1/threehour-control-postprocessing-repair-r1/science-receipt.json": {
+      "sha256": "bf17d0287456739bf1db07ce45556ef69a768e255019af6b113e2c186255b824",
+      "bytes": 4449186
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/parallel-input-chunk-decode-feasibility-r1/threehour-control-postprocessing-repair-r1/reader-closure.json": {
+      "sha256": "106fe5e3e75509b5028d82a2e35303fe4913eb45a107df7328503694e2dbb327",
+      "bytes": 4185
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/parallel-input-chunk-decode-feasibility-r1/threehour-control-postprocessing-repair-r1/control-postprocessing-proof.json": {
+      "sha256": "c7d1bb63aa4fe23187a16284a62e836f9676d8aa365d3663d5449da508bdb097",
+      "bytes": 2532
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/parallel-input-chunk-decode-feasibility-r1/threehour-control-postprocessing-repair-r1/failed-model-closures.json": {
+      "sha256": "4b84d7436177745eb7cfb5e0e3ae9266fa445500f934495e9d3a05a6f87e4444",
+      "bytes": 19496
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/parallel-input-chunk-decode-feasibility-r1/threehour-control-postprocessing-repair-r1/control-qualifier-closure.json": {
+      "sha256": "a762429bc6205d35b6e937b78d2e462fb3705202763d1330896099dba3075798",
+      "bytes": 4020
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/parallel-input-chunk-decode-feasibility-r1/threehour-control-postprocessing-repair-r1/control-adaptive-steps.json": {
+      "sha256": "896bf308ca510720e7c51dd5e27a6b09b3d43f33db896f31c8eb68cc99cbb71e",
+      "bytes": 61526
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/parallel-input-chunk-decode-feasibility-r1/threehour-control-postprocessing-repair-r1/actual-pair-model-metadata-r1/candidate/adaptive-steps.json": {
+      "sha256": "5e073ed79b3a0a3f8fd00566c2851628ee5cb80394a16b623725e66c0fad3d19",
+      "bytes": 61518
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/parallel-input-chunk-decode-feasibility-r1/threehour-control-postprocessing-repair-r1/actual-pair-model-metadata-r1/control/completion.json": {
+      "sha256": "a57d668963f0c1bfa66425745713e654226ac173b0618915fe6588faca0555b0",
+      "bytes": 244
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/parallel-input-chunk-decode-feasibility-r1/threehour-control-postprocessing-repair-r1/actual-pair-model-metadata-r1/control/mpi-launch.json": {
+      "sha256": "688c1a3ec984ab6e9fea938c461cfa9d5f28463f16a60f4ce9b46cba8afd20e0",
+      "bytes": 5327
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/parallel-input-chunk-decode-feasibility-r1/threehour-control-postprocessing-repair-r1/actual-pair-model-metadata-r1/control/hpc02-node.json": {
+      "sha256": "7155701b5b2b5fcfc6ca1330df79ef433f066d573d8ccc6300e05f835145a03b",
+      "bytes": 3367
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/parallel-input-chunk-decode-feasibility-r1/threehour-control-postprocessing-repair-r1/actual-pair-model-metadata-r1/control/hpc03-node.json": {
+      "sha256": "5c8524bb8c3cb99ee3997ad7dfd2a9467e74bc2a64e26f0cc40684c7bebb4ce7",
+      "bytes": 3367
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/parallel-input-chunk-decode-feasibility-r1/threehour-control-postprocessing-repair-r1/actual-pair-model-metadata-r1/control/hpc04-node.json": {
+      "sha256": "e332627cdfbd53083f7e751f73faeac5ee5928feae2f2f84ec5a217bdbd5b600",
+      "bytes": 3367
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/parallel-input-chunk-decode-feasibility-r1/threehour-control-postprocessing-repair-r1/actual-pair-model-metadata-r1/control/cache-start-context.json": {
+      "sha256": "29a57b24313f9371ff46e2665b665b976d2c2c26c3e78849fe5130b0baa30ae4",
+      "bytes": 362
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-parallel-input3h-runtime-r1/cache-clear-control.json": {
+      "sha256": "260ca3f9a96daa19a6e3dbdbe4a1db85cd0bf3d704cd105fb513f00edb3ac03e",
+      "bytes": 5752
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/parallel-input-chunk-decode-feasibility-r1/threehour-control-postprocessing-repair-r1/actual-pair-model-metadata-r1/candidate/completion.json": {
+      "sha256": "bc9e100f3397cb7c1c3055fb25da38867e5e290c78e493c25fe929d2a3bc3582",
+      "bytes": 1046
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/parallel-input-chunk-decode-feasibility-r1/threehour-control-postprocessing-repair-r1/actual-pair-model-metadata-r1/candidate/model-closures.json": {
+      "sha256": "02fd7f36f580936a87f4acf3ea6ea8a195fc7b1c3fb00aea534923c5841bd796",
+      "bytes": 26430
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/parallel-input-chunk-decode-feasibility-r1/threehour-control-postprocessing-repair-r1/actual-pair-model-metadata-r1/candidate/mpi-launch.json": {
+      "sha256": "9d63700cbcabc945a940890e2d5b38f4dcc9e2fbc0f28df2e831197128c92eea",
+      "bytes": 7790
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/parallel-input-chunk-decode-feasibility-r1/threehour-control-postprocessing-repair-r1/actual-pair-model-metadata-r1/candidate/hpc02-node.json": {
+      "sha256": "d336862a5f87f0232da753e15e7e0b282bedbe5303be5f6e6fb0a1d5aae581b4",
+      "bytes": 3752
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/parallel-input-chunk-decode-feasibility-r1/threehour-control-postprocessing-repair-r1/actual-pair-model-metadata-r1/candidate/hpc03-node.json": {
+      "sha256": "fea05cb974f3db5a918f0dec912fd36d173e4b89c7a12c4a0c8be46b9d9e3536",
+      "bytes": 3754
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/parallel-input-chunk-decode-feasibility-r1/threehour-control-postprocessing-repair-r1/actual-pair-model-metadata-r1/candidate/hpc04-node.json": {
+      "sha256": "5fd565f1a6f0259c5d4aa1a38bf80451a0b9b7b03ccaa5ddb5932e81f8b2c6b5",
+      "bytes": 3754
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/parallel-input-chunk-decode-feasibility-r1/threehour-control-postprocessing-repair-r1/actual-pair-model-metadata-r1/candidate/cache-start-context.json": {
+      "sha256": "36afba61f75c570bbfb22740d2e8d23ca7ff39d4d194d648566bb0ab1e13e3b1",
+      "bytes": 362
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-parallel-input3h-runtime-r1/cache-clear-candidate.json": {
+      "sha256": "8ef0f393686a9af1027d457836aaacd1e7836187290a5591f6309bcfab431e7f",
+      "bytes": 5762
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-parallel-input3h-runtime-r1/check_pair.py": {
+      "sha256": "2f2f3e5ac988ab166af1d9fc5322dd13915a5c85c1a6ced2438c5a9d128514b7",
+      "bytes": 5450
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/parallel-input-chunk-decode-feasibility-r1/threehour-control-postprocessing-repair-r1/check_pair_repaired.py": {
+      "sha256": "5cf6b94232744a735be423f57cce717132138138cf46af3e499765b4b1d4121b",
+      "bytes": 6412
+    }
+  }
+}

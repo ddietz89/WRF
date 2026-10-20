@@ -1,10 +1,16 @@
 # World-512 quilt compression working default
 
+## Latest fresh three-hour qualification
+
+Current de5b fresh three-hour qualification: corrected-original546b wall 818.818689s → 662.845312s (**19.05% shorter**, **1.235309×** speedup); aggregate cgroup CPU 367148.357295 → 321081.188328s (**12.55% lower**). Original four products/545 ordered steps/all512/two tiles and all four positive writers passed; caches cleared on every node before each arm, all model and reader scopes strongly closed. Main-step elapsed 595.98539 → 560.99084s (5.87% lower) includes communication/backpressure and is not integration CPU. One fixed-order whole-inclusive-IO comparison, without isolated component, additive or repeatability claims. Producer source_commit stays NULL; current nine-hour remains false, with the previous output172 nine-hour result retained separately.
+
+Earlier noon-only and previous-output measurements below retain their historical scope.
+
 Current complete working selection: [promoted combined CPU configuration](../../cpu-working/README.md). Its exact-qualified executable/provider/codec/private-HDF5 combination supersedes the older whole-build selections below; historical measurements remain preserved.
 
 The selected `fused-pack` default is provider source `8db4037d`, full shim `de5b3c27`: direct fused packing/shuffle, padding-only initialization and the32-word AVX2 byte transpose with scalar tail. Shim313e, codec881, owner8adc, HDF825, workerplacement/API/layout/state are unchanged. Current [native/caller/application evidence](padding-block32/README.md) binds exact artifacts; the selector uses source8db but has not been rebuilt merely for promotion. `--provider simd-pack` retains375/e29; `--provider original` retains4cb.
 
-The incremental complete-provider caller was2.19%/1.78% shorter with 3.60%/3.04% less process CPU than padding1e0. Actual full512 noon two-products/230-steps/two-tiles/487495-positive/503511-inactive passed original science and closures; no forecast gain or current3h9h claim. [Previousfusion](fusion/README.md) and[padding-onlyfill](padding-only-fill/README.md) retain their own historical scopes, including47.30%/48.92%fusioncaller and5.13%/5.20%paddingcaller gains. Those percentages are not added or transferred to WRF. Earlier whole-build/application paragraphs below remain historical.
+The incremental complete-provider caller was2.19%/1.78% shorter with 3.60%/3.04% less process CPU than padding1e0. Actual full512 noon two-products/230-steps/two-tiles/487495-positive/503511-inactive passed original science and closures; those caller/noon records did not establish a forecast gain or3h9h claim; current three-hour acceptance is documented above. [Previousfusion](fusion/README.md) and[padding-onlyfill](padding-only-fill/README.md) retain their own historical scopes, including47.30%/48.92%fusioncaller and5.13%/5.20%paddingcaller gains. Those percentages are not added or transferred to WRF. Earlier whole-build/application paragraphs below remain historical.
 
 A new [co-located output-group alternative](placement/co-located-groups/README.md) is retained with exact paired qualification, measured timing and memory tradeoffs. It has its own host-specific guard source and explicit bounded lease; the working default remains unchanged.
 
@@ -43,7 +49,7 @@ The new integer transpose plus inline-codec configuration passed the fresh full-
 
 Final direct three-hour closeout passed original SCI 0a13cd71 and reader closure be636a60: corrected stock 1033.064578→latest 906.067103 seconds (12.2933% lower), aggregate CPU 476650.905977→440787.653496 seconds (7.5240% lower), with all four complete histories and all 545 steps exact. This is one stock-first combined observation, not isolated codec/provider attribution or repeatability. Earlier one-hour records remain unchanged. Current source and rank-only defaults are merged on master cb858aff; opt-outs above remain available. No restart/long-horizon/other hardware or production scope is inferred.
 
-That historical freeze is superseded by the activecampaign: next is periodicfreshoriginal/currentthree-hourqualification, withsourceopportunities andboundedprofiles scheduled separately. Earlieroriginal/combined/candidate categories remain distinct.
+That historical freeze is superseded by the activecampaign: the latest periodic freshoriginal/currentthree-hour qualification is recorded above; source opportunities and bounded profiles are scheduled separately. Earlieroriginal/combined/candidate categories remain distinct.
 
 
 The qualified GNU Fortran 13.3.0 working configuration now enables both scoped SmallStep and advection Zen 2 targeting by default. CPU/OS admission remains required; other compiler versions retain generic defaults. `WRF_ADVECTION_ZEN2=0` opts out of the advection setting, and the object/archive/executable must be rebuilt. The exact-qualified paired shortwave helper is also included in working source. These kernel inclusion decisions do not establish a new combined forecast-speedup result; see the latest consolidated findings and timing SOP.

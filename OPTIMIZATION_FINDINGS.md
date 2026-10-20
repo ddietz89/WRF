@@ -1,5 +1,11 @@
 # WRF CPU optimization findings
 
+## Latest fresh three-hour qualification
+
+Current de5b fresh three-hour qualification: corrected-original546b wall 818.818689s → 662.845312s (**19.05% shorter**, **1.235309×** speedup); aggregate cgroup CPU 367148.357295 → 321081.188328s (**12.55% lower**). Original four products/545 ordered steps/all512/two tiles and all four positive writers passed; caches cleared on every node before each arm, all model and reader scopes strongly closed. Main-step elapsed 595.98539 → 560.99084s (5.87% lower) includes communication/backpressure and is not integration CPU. One fixed-order whole-inclusive-IO comparison, without isolated component, additive or repeatability claims. Producer source_commit stays NULL; current nine-hour remains false, with the previous output172 nine-hour result retained separately.
+
+Earlier noon-only and previous-output measurements below retain their historical scope.
+
 Timing procedure: [TIMING_SOP.md](TIMING_SOP.md). From 2026-10-14, clear compute-node filesystem caches before every timing run; preserve historical runs under their original policy.
 
 Current continuation handoff: [WRF_CPU_OPTIMIZATION_HANDOFF_2026-10-19.md](WRF_CPU_OPTIMIZATION_HANDOFF_2026-10-19.md), covering retained improvements, rejected/parked candidates, recent three-/nine-hour results and remaining investigations. The persistent campaign Goal is active; this handoff is not a closeout. Production/master remain excluded and AWS remains suspended.
