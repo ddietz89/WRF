@@ -46,7 +46,7 @@
     "sha256": "2ec4e60b9d9d6e8f60c3a3546a888f6ab387512f6a877d5261879ef5d2009655"
   },
   "current_three_hour_qualified": false,
-  "current_nine_hour_qualified": false,
+  "current_nine_hour_qualified": true,
   "prior_three_hour_benchmark": {
     "evidence_file": "PREVIOUS_THREE_HOUR_RESULT_BEFORE_DIFCOF_POOL.json",
     "qualification_file": "PREVIOUS_THREE_HOUR_FINAL_QUALIFICATION_BEFORE_DIFCOF_POOL.json",
@@ -82,8 +82,8 @@
     "repeatability_established": false,
     "scope": "GNU13.3 strict/OMP1/cold06:00\u201309:00/full512=480compute8x60+4x8quilt/faba/twoTiles/CEC/root06dNCa32/outputde5b/codec3edf/HDF825/shared1/FIELDVIEW1/singleIB;4completeproducts545steps/all4positivewriters. One fresh fixed-order inclusiveIO pair; no isolated/additive gain or current9h claim."
   },
-  "scope": "Current INATM+CU+PBL+RQVFTEN+RQVBLTEN2bd1/21eb/archive688a with all prior LW/MYJ/table/input06dNCa32/output51a/codece1d8: original2products35steps/full512/twoTiles/487495positive503511inactive,16activegroupmarkers/all32quiltFIELDVIEW1. OwnshortTRUE/own3hFALSE/own9hFALSE.",
-  "claim_limits": "Exact native56cases and two synthetic completecaller+reset regimes qualify RQVBLTEN mechanics separately. One actual short2product35step forecast qualifies currentconfiguration science only; retained original metricsUNPAIRED, no inherited RQVFTEN3h timing or any isolatedforecastgain claim. Historical RQVFTENee66/source31ca threehour records unchanged and do not apply toRQVBLTEN; historical0de9h excludesINATM+CU+PBL+RQVFTEN+RQVBLTEN.",
+  "scope": "Current INATM+CU+PBL+RQVFTEN+RQVBLTEN2bd1/21eb/archive688a with all prior LW/MYJ/table/input06dNCa32/output51a/codece1d8: original2products35steps/full512/twoTiles/487495positive503511inactive,16activegroupmarkers/all32quiltFIELDVIEW1. OwnshortTRUE/own3hFALSE/ownPROFILED9hSCItrue/unprofiled9hfalse.",
+  "claim_limits": "Exact native56cases and two synthetic completecaller+reset regimes qualify RQVBLTEN mechanics separately. One actual short2product35step forecast qualifies currentconfiguration science only; retained original metricsUNPAIRED, no inherited RQVFTEN3h timing or any isolatedforecastgain claim. Historical RQVFTENee66/source31ca threehour records unchanged and do not apply toRQVBLTEN; historical0de9h excludesINATM+CU+PBL+RQVFTEN+RQVBLTEN. CurrentQV own10product1625step ninehour science passed under15s/rank profiling; PROFILED_UNPAIRED metrics are descriptive, not a matched sustained speedup.",
   "output_postscience_tracking_commit": "909ab6ef55ac5351f9fd03e4019be470e89a3929",
   "previous_DF_pool_short_science": {
     "status": "PASS_RETAINED_ORIGINAL_TWO_HISTORY_35_STEPS_512_OWNED_FIELD_VIEW",
@@ -415,5 +415,19 @@
     "cpu_seconds": 86843.488941,
     "main_step_sum_seconds": 42.03197
   },
-  "current_application_retry_scope": "Normal first QVshort model+reader path; retained-control routing upfront, no reader retry or manager waiver."
+  "current_application_retry_scope": "Normal first QVshort model+reader path; retained-control routing upfront, no reader retry or manager waiver.",
+  "current_profiled_nine_hour_science_qualified": true,
+  "current_unprofiled_nine_hour_science_qualified": false,
+  "current_profiled_nine_hour_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/phy-prep-part2-rqvblten-simd/PROFILED_NINE_HOUR_QUALIFICATION.json",
+    "sha256": "4d5f3a1d0cfbe00833d7637b9e62ccefbd32966c30cb02d64ca4db4b9d786320",
+    "executable_sha256": "2bd16bd6e92c6bc795725694a10cd5c8a7f8329299baf2efe99ea38d3aac6bc3",
+    "science_products": 10,
+    "ordered_steps": 1625,
+    "comparison_design": "PROFILED_UNPAIRED",
+    "own_profiled_ninehour_science_qualified": true,
+    "own_unprofiled_ninehour_science_qualified": false,
+    "applies_to_current_selection": true,
+    "scope": "CurrentQV2bd1 own9h science; three15sselectedthreadcaptures. Does not establish matched/unprofiled9h timing or transfer prior0de/RQ results."
+  }
 }

@@ -48,7 +48,7 @@
   "read_affine_IO_object_sha256": "c9c4e5b7a0225523e7d85cfc188022d797204d3f4dd4494b54c416e3bec99320",
   "schema_version": 3,
   "status": "QUALIFIED_RQVBLTEN_PART2_SIMD_SHORT_FULL512",
-  "scope": "Current INATM+CU+PBL+RQVFTEN+RQVBLTEN2bd1/21eb/archive688a with all prior LW/MYJ/table/input06dNCa32/output51a/codece1d8: original2products35steps/full512/twoTiles/487495positive503511inactive,16activegroupmarkers/all32quiltFIELDVIEW1. OwnshortTRUE/own3hFALSE/own9hFALSE.",
+  "scope": "Current INATM+CU+PBL+RQVFTEN+RQVBLTEN2bd1/21eb/archive688a with all prior LW/MYJ/table/input06dNCa32/output51a/codece1d8: original2products35steps/full512/twoTiles/487495positive503511inactive,16activegroupmarkers/all32quiltFIELDVIEW1. OwnshortTRUE/own3hFALSE/ownPROFILED9hSCItrue/unprofiled9hfalse.",
   "includes": "All retained compute, Thompson shared-table/lazy-init, output, codec and HDF5 improvements from the previous selection, READ_DI1 affine rows, plus qualified root-only parallel input chunk decoding. Fused output packing/shuffling removes intermediate padded packed storage; compressedbytes and originalscience exact. MCICA mask/property consumer fusion removes temporary logical-mask allocation/population/readback; all RNG/arithmetic/other code unchanged. AVX2 slide-hash loop unrolling removes repeated loop control while preserving the original saturating arithmetic and traversal; Adler remains unchanged. MYJPBL DIFCOF ordered SIMD adds only two directives; complete captured-caller gains and exact short application qualified. Private four-slot shuffle scratch reuse across callbacks removes repeated scratch allocation, with bounded retention; fullshim/API and originalshortscience exact. Block-local integer bit-buffer carry removes per-symbol state publication in compress_block; exact wholefunction/codeccaller/state and shortscience passed. LW ABSCLD scratch removal keeps identical scalar arithmetic and loop order while removing one allocated scratch stream; native/caller and fresh combined3h exact. INATM cloud-copy2+3 grouping retains all five fields/radius copies while reducing repeated descriptor/stride loads; complete-caller20.03%/17.72% gains and originalfull3hscience qualified. CU PART2 SIMD adds one directive to the independent innerI loop, keeping per-lane MUT denominator and three true divisions; genuine fullcaller and original3h science qualified. PBL PART2 SIMD adds one independentI directive retaining per-lane denominator arithmetic; native/caller/originalshortscience exact. RQVFTEN SIMD adds one directive to the independent moisture-forcingI loop, keeping per-lane MUT denominator and true division; native44/genuinecompletecaller/original3hscience qualified. RQVBLTEN PART2 SIMD adds one independentI directive retaining per-lane MUT denominator and true division; native56/caller/originalshortscience exact.",
   "source_commit_scope": "POST_TEST source-only identity; frozen rawproducerNULL preserved.",
   "input_implementation_commit": "614267f340a23ffc342962b3c64e323719fe4d06",
@@ -112,7 +112,7 @@
   "current_application_qualification_file": "tools/cpu-compute/phy-prep-part2-rqvblten-simd/APPLICATION_QUALIFICATION.json",
   "source_build_binding_file": "CURRENT_SOURCE_BUILD_BINDING.json",
   "current_three_hour_qualified": false,
-  "current_nine_hour_qualified": false,
+  "current_nine_hour_qualified": true,
   "last_three_hour_benchmark": {
     "evidence_file": "THREE_HOUR_RESULT.json",
     "qualification_file": "THREE_HOUR_FINAL_QUALIFICATION.json",
@@ -159,7 +159,7 @@
     "source_build_binding": "tools/cpu-working/PREVIOUS_CURRENT_SOURCE_BUILD_BINDING_BEFORE_RQVBLTEN_PART2_SIMD.json",
     "source": "Revert only actual RQVBLTEN source-only commit a01463f8481ce27456b0f2104faa1f0dd3980609 or remove one RQVBLTENdirective restoringfc0a; pairedRQVFTENee66/068d/31ca, unchanged51a/e1d8/input06dNCa32."
   },
-  "claim_limits": "Exact native56cases and two synthetic completecaller+reset regimes qualify RQVBLTEN mechanics separately. One actual short2product35step forecast qualifies currentconfiguration science only; retained original metricsUNPAIRED, no inherited RQVFTEN3h timing or any isolatedforecastgain claim. Historical RQVFTENee66/source31ca threehour records unchanged and do not apply toRQVBLTEN; historical0de9h excludesINATM+CU+PBL+RQVFTEN+RQVBLTEN.",
+  "claim_limits": "Exact native56cases and two synthetic completecaller+reset regimes qualify RQVBLTEN mechanics separately. One actual short2product35step forecast qualifies currentconfiguration science only; retained original metricsUNPAIRED, no inherited RQVFTEN3h timing or any isolatedforecastgain claim. Historical RQVFTENee66/source31ca threehour records unchanged and do not apply toRQVBLTEN; historical0de9h excludesINATM+CU+PBL+RQVFTEN+RQVBLTEN. CurrentQV own10product1625step ninehour science passed under15s/rank profiling; PROFILED_UNPAIRED metrics are descriptive, not a matched sustained speedup.",
   "next_qualification": "Owncurrent3h/9hFALSE; no automatic longforecast or matrix perpragma. Root selects future batch based actual need.",
   "output_fusion_qualification_file": "tools/cpu-output/quilt512/padding-block32/NATIVE_QUALIFICATION.json",
   "latest_nine_hour": {
@@ -828,5 +828,19 @@
     "executable_sha256": "ee665e11d60aa84b6f3f468b85f11762473f670344da4e3e42cdf6f382019835",
     "archive_sha256": "068da5b1d14a274c0fe64834fb834615f8765f46cc8f57a616b3b7acaf94a371",
     "scope": "One RQVFTEN-loop directive only, committed after native/caller/canonical-preprocess/link/original3hSCI. Frozen rawproducerNULL unchanged; no isolated forecast or own9h claim."
+  },
+  "current_profiled_nine_hour_science_qualified": true,
+  "current_unprofiled_nine_hour_science_qualified": false,
+  "current_profiled_nine_hour_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/phy-prep-part2-rqvblten-simd/PROFILED_NINE_HOUR_QUALIFICATION.json",
+    "sha256": "4d5f3a1d0cfbe00833d7637b9e62ccefbd32966c30cb02d64ca4db4b9d786320",
+    "executable_sha256": "2bd16bd6e92c6bc795725694a10cd5c8a7f8329299baf2efe99ea38d3aac6bc3",
+    "science_products": 10,
+    "ordered_steps": 1625,
+    "comparison_design": "PROFILED_UNPAIRED",
+    "own_profiled_ninehour_science_qualified": true,
+    "own_unprofiled_ninehour_science_qualified": false,
+    "applies_to_current_selection": true,
+    "scope": "CurrentQV2bd1 own9h science; three15sselectedthreadcaptures. Does not establish matched/unprofiled9h timing or transfer prior0de/RQ results."
   }
 }
