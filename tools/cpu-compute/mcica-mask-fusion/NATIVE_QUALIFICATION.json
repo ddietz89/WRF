@@ -1,0 +1,77 @@
+{
+  "status": "PASS_NATIVE_CURRENT_MCICA_MASK_FUSION_NOT_TIMING_OR_WRF_APPLICATION",
+  "invocation_id": "d84a93dcc9ea4ec69a872be15b6040aa",
+  "candidate_source_commit": null,
+  "source_F_sha256": "c6094fe909ea0ee374bdc60f02cfa61f0c178aa0a8c3a799d4f06b08c6324eb1",
+  "source_PP_sha256": "54a8fad427da11ae0d7b9c672ebb3be5f2c90c3f30e4dd91ed32051e3cb28498",
+  "parent_genuine_reference_object_sha256": "5e92bee7a88e12774e48d6494d1056bee21ee769aed9978a6054ab39d04027ab",
+  "parent_compiled_reuse_object": {
+    "object_path": "/pool/wrf-experiment/wrf-cpu/kernels/mcica-mask-fusion-gate-r1/work/production-parent/module_ra_rrtmg_lw.o",
+    "object_sha256": "7ca763fa189369bb4be4d0dd083d3f6142aba1d087ed5870b9d934b78ad8cf58",
+    "PP_sha256": "a2de1375e25a6aaf08af00a9341c315ae4ae6416f7686e4ce77d4b17c6a445ba"
+  },
+  "candidate_compiled_reuse_object": {
+    "object_path": "/pool/wrf-experiment/wrf-cpu/kernels/mcica-mask-fusion-gate-r1/work/production-candidate/module_ra_rrtmg_lw.o",
+    "object_sha256": "6d006d67c42b26b375ea1dc9ea0e7f1c9d04b5f07bd33cbdd63d494af5cf96fb",
+    "PP_sha256": "54a8fad427da11ae0d7b9c672ebb3be5f2c90c3f30e4dd91ed32051e3cb28498"
+  },
+  "production_compiles_R2": 0,
+  "native_cases": "120base+12masked perarm/peroptimization O0bounds/O2, BOTHseed150present; all5outputs/inputreadonly/padding/irng/fivestate bitrawexact",
+  "comparisons": [
+    {
+      "kind": "full",
+      "optimization": "O0",
+      "raw_equal": true,
+      "bytes": 22821760,
+      "sha256": "c905f65194fb742a89b14cffc0cf0ed9ad559de9896c86de239246c602f840ac"
+    },
+    {
+      "kind": "full",
+      "optimization": "O2",
+      "raw_equal": true,
+      "bytes": 22821760,
+      "sha256": "c905f65194fb742a89b14cffc0cf0ed9ad559de9896c86de239246c602f840ac"
+    },
+    {
+      "kind": "masked",
+      "optimization": "O0",
+      "raw_equal": true,
+      "bytes": 616608,
+      "sha256": "ca7ca0fa1c99f02c5b26ab55364098fe510a0d12743cc13a78e227dae89dafd8"
+    },
+    {
+      "kind": "masked",
+      "optimization": "O2",
+      "raw_equal": true,
+      "bytes": 616608,
+      "sha256": "ca7ca0fa1c99f02c5b26ab55364098fe510a0d12743cc13a78e227dae89dafd8"
+    }
+  ],
+  "interface_contract": {
+    "MCICA_and_unaffected_rawMOD_bytes_exact": true,
+    "fixed_six_typed_module_semantics_exact": true,
+    "all_rawMOD_bytes_equal": false,
+    "proof_sha256": "8e3d17aab2387036f445d22562328d403f9661f31595ab39939efebcf728683b",
+    "no_changedID_body_or_namespace_references": true,
+    "other_forms_recursiveempty/version15/fixedhashpairs": true
+  },
+  "mechanism": "ActualextractedO2nativegenerator staticmallocsites14\u219212/free13\u219211/SPREAD3\u21922/SETAE1\u21920; sourceinverseonlymaskseam. Staticcounts notdynamiccost/speedclaim. Genuinefullproductionobjects reused unchanged fromR1.",
+  "failure_preserved": "R1FAIL publicrawMODbytecomparison beforeanynativecalls, genuineparentreproductionpassed. R2correctsfinitecompilerID/orderpreflightonly; fullnumericaloraclesunchanged.",
+  "closure": "SameINVsuccess0/PID0/inactive/CGabsentempty+positivejournal; LoadState not-found/InvocationIDemptyafterGC recordednotrewritten.",
+  "scope": [
+    "CurrentGNU13strictO2andO0bounds completeMCICAfixture; selectedncol1/3,layers4/7/33,icld1..5,irng0/1,2entrymodesseed150present.",
+    "12maskedcases quietNaN/minsubnormal/0,1,cldmin-neighbor. No forcedCDFthresholdcollision, absentoptional, validinputoutputalias or unmaskedtraporderclaim.",
+    "No completecaller timing/forecast/physicalgain or applicationqualification yet."
+  ],
+  "raw_refs": {
+    "native-preparation-r2/actual-native-r1/receipt.json": "18f7fa03f28334bf95739f67784b524c12eba27c568ebfbceadb17e1f5af8180",
+    "native-preparation-r2/actual-native-r1/closure.json": "8a3b88420e39838767b969a1d786cd0ae9e53a9102ed39d33fb77221722655c4",
+    "native-preparation-r2/actual-native-r1/controller.json": "9e174273aac44b41fdc808a66be39d5a2a9a7e7ba1b646f69c37484688a99f04",
+    "native-preparation-r1/actual-native-r1/receipt.json": "0243ac05851ccaa3d2babc69571dd17ece94406ecccfb02d1fc876733f201882",
+    "native-preparation-r1/actual-native-r1/closure.json": "4e3f47664f254409c2036823607a7ca0c43fa72431e2ff611acb1abaacb89644",
+    "native-preparation-r2/SOURCE_PROJECTION.json": "303edb5358142811dd0342ecbb35e0bd55b67235266c5b17bb5fb581db1ff615",
+    "ACTUAL_NATIVE_CODEGEN_R2.json": "1ffa84893c5f68c3b9cda02a574be3062e0723ce1e768b20d2ab2c668bc29aae",
+    "fixed-six-mod-reference-review-r1/ADJUDICATION.json": "caa1d427b1c51aae5c12dfe34746b00daaeda69d3b3f5a863c8147fa94d48448",
+    "fixed-six-mod-reference-review-r1/AGGREGATE_PROVENANCE.json": "0fda96dfd6132fd5c3290fbf12dfdfb4ce76a6e0911c4d8b9578dbf69b9c857c"
+  }
+}

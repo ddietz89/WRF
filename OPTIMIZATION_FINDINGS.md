@@ -1,8 +1,16 @@
 # WRF CPU optimization findings
 
-## Latest fresh three-hour qualification
+## Current working selection: MCICA mask fusion (2026-10-20)
 
-Current de5b fresh three-hour qualification: corrected-original546b wall 818.818689s → 662.845312s (**19.05% shorter**, **1.235309×** speedup); aggregate cgroup CPU 367148.357295 → 321081.188328s (**12.55% lower**). Original four products/545 ordered steps/all512/two tiles and all four positive writers passed; caches cleared on every node before each arm, all model and reader scopes strongly closed. Main-step elapsed 595.98539 → 560.99084s (5.87% lower) includes communication/backpressure and is not integration CPU. One fixed-order whole-inclusive-IO comparison, without isolated component, additive or repeatability claims. Producer source_commit stays NULL; current nine-hour remains false, with the previous output172 nine-hour result retained separately.
+The working build now includes MCICA cloud-mask fusion. It passed the original checker on two complete outputs, 35 ordered steps, all 512 ranks and two tiles; all model and reader jobs exited successfully. Complete-caller wall time fell **12.32% and 13.90%**, with **11.41% and 13.76% less process CPU** in opposite-order pairs. Its forecast-wide benefit remains unmeasured, and longer three- and nine-hour comparisons remain pending for this build. [Evidence](tools/cpu-compute/mcica-mask-fusion/QUALIFICATION.json) and [selection](tools/cpu-working/selection.json) identify the exact artifacts and rollback. Source commit `80a9cd6f` records the tested source after qualification; raw producer commits remain `null`.
+
+The full-grid tests use production's quilting layout: 480 compute ranks plus four groups of eight I/O ranks. Whole model/MPI timings include initialization, communication, output and final writer completion.
+
+The Adler copy-mode specialization passed exact native checks and removed the repeated mode branch, but complete-function no-copy gains were only 0.11%/0.83%; copy timings were 0.56% slower/2.07% faster. It is parked without a significant demonstrated gain. The existing codec remains selected; evidence is retained in the campaign's `adler-fold-copy-specialization-r1` lane.
+
+## Previous selected build: fresh three-hour qualification
+
+Previous1d6e/de5b fresh three-hour qualification (not newCEC): corrected-original546b wall 818.818689s → 662.845312s (**19.05% shorter**, **1.235309×** speedup); aggregate cgroup CPU 367148.357295 → 321081.188328s (**12.55% lower**). Original four products/545 ordered steps/all512/two tiles and all four positive writers passed; caches cleared on every node before each arm, all model and reader scopes strongly closed. Main-step elapsed 595.98539 → 560.99084s (5.87% lower) includes communication/backpressure and is not integration CPU. One fixed-order whole-inclusive-IO comparison, without isolated component, additive or repeatability claims. Producer source_commit stays NULL; current nine-hour remains false, with the previous output172 nine-hour result retained separately.
 
 Earlier noon-only and previous-output measurements below retain their historical scope.
 

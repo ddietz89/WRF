@@ -1,0 +1,310 @@
+{
+  "status": "PASS_ACTUAL_MCICA_MASK_FUSION_512_TWO_PRODUCTS_35_STEPS_ORIGINAL_SCI_ALL_SCOPES_CLOSED",
+  "utc": "2026-10-20T07:47:33.438381+00:00",
+  "source_commit": null,
+  "candidate_executable_sha256": "cec189a3dbbb6ab95c7f31e29a44ee4eea37d06d8d161fc7349bc52daa468e30",
+  "candidate_archive_sha256": "603496d71959138dc4921d20f9e08b847384a26a1dc0774c1d6b660fb9ac4ee4",
+  "source_F_sha256": "c6094fe909ea0ee374bdc60f02cfa61f0c178aa0a8c3a799d4f06b08c6324eb1",
+  "source_PP_sha256": "54a8fad427da11ae0d7b9c672ebb3be5f2c90c3f30e4dd91ed32051e3cb28498",
+  "output_shim_sha256": "de5b3c27224091cc0369062c9f1bbb867b362436a0331892a6ec9cf4fc4fccb4",
+  "input_adapter_sha256": "06d0232dbeb53e3e0cc4a8ac5c431a307e0bd3506183f70b5a558f2c70b19553",
+  "input_NC_sha256": "a32aa6cdf5e7154b974afb699f6be8f0b0632cfb4bc00226b7b6a34e0b04f41d",
+  "science": {
+    "receipt_sha256": "b56f895322a1e0dd8ea64e9cbfd93e3531f7fb70dd793291b6adf3c251b92cd2",
+    "reader_closure_sha256": "ad14da1d576d6ed9f9d7ac70474e8acadeadfb70a0f78b29d61bb4e1f0d0ce67",
+    "invocation_id": "8c03d397d90f4985a746a0f491554961",
+    "products": 2,
+    "ordered_steps": 35,
+    "end_time": "2026-10-12_06:10:00",
+    "world": 512,
+    "compute": 480,
+    "quilt_groups": 4,
+    "quilt_ranks_per_group": 8,
+    "tiles": 2,
+    "positive_writer_roots": [
+      487,
+      495
+    ],
+    "zero_writer_roots": [
+      503,
+      511
+    ],
+    "protected_original_compare_one_AST_exact": true
+  },
+  "all_model_reader_scopes_closed": true,
+  "observed_candidate_only_metrics": {
+    "MPI_wall_seconds": 139.0289402678609,
+    "aggregate_node_cgroup_CPU_seconds": 53367.8762,
+    "RSL_main_step_seconds_sum": 39.110279999999996,
+    "nodes": {
+      "hpc01": {
+        "invocation_id": "33901c91d9504969bcf76ea121ee8ade",
+        "memory_peak_bytes": 76184145920,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_stat": {
+          "usage_usec": 13349443780,
+          "user_usec": 12823550539,
+          "system_usec": 525893240,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 1401,
+          "nr_throttled": 632,
+          "throttled_usec": 4680459,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      },
+      "hpc02": {
+        "invocation_id": "21820b341cf249bb9634ff0a00d7db5f",
+        "memory_peak_bytes": 73771352064,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_stat": {
+          "usage_usec": 13310906604,
+          "user_usec": 12777614237,
+          "system_usec": 533292366,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 1353,
+          "nr_throttled": 718,
+          "throttled_usec": 4599751,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      },
+      "hpc03": {
+        "invocation_id": "cc0ae0a6fedd4dabb24b0c675a34ba35",
+        "memory_peak_bytes": 73704472576,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_stat": {
+          "usage_usec": 13358876651,
+          "user_usec": 12780139111,
+          "system_usec": 578737540,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 1356,
+          "nr_throttled": 779,
+          "throttled_usec": 2652089,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      },
+      "hpc04": {
+        "invocation_id": "d3c8c6d46d14488f8092fb1690967c83",
+        "memory_peak_bytes": 73687166976,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_stat": {
+          "usage_usec": 13348649165,
+          "user_usec": 12768985206,
+          "system_usec": 579663959,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 1354,
+          "nr_throttled": 624,
+          "throttled_usec": 6104469,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      }
+    }
+  },
+  "standalone_complete_MCICA_caller_timing": {
+    "scope": "Complete current production ncol1 nlay33 icld2 rng0 seed150-present caller. One pair per host; no forecast gain or repeatability claim. Raw/read-only/padding/five-state checks outside clocks. Cache each arm; all units strongly closed.",
+    "pairs": [
+      {
+        "host": "hpc02",
+        "order": "parent-candidate",
+        "parent_wall_seconds": 0.9254119510000005,
+        "candidate_wall_seconds": 0.8113827329999934,
+        "wall_reduction_percent": 12.321995396405573,
+        "parent_process_cpu_seconds": 0.8959544240000102,
+        "candidate_process_cpu_seconds": 0.7937642339999986,
+        "process_cpu_reduction_percent": 11.405735298876142
+      },
+      {
+        "host": "hpc04",
+        "order": "candidate-parent",
+        "parent_wall_seconds": 0.9160410779999821,
+        "candidate_wall_seconds": 0.788730217000002,
+        "wall_reduction_percent": 13.897942358430193,
+        "parent_process_cpu_seconds": 0.8936155999999896,
+        "candidate_process_cpu_seconds": 0.7706410950000032,
+        "process_cpu_reduction_percent": 13.76145458964546
+      }
+    ],
+    "source": "Separate fixed20000 caller, no forecast transfer"
+  },
+  "module_interface_contract": {
+    "MCICA_and_unaffected_rawMOD_bytes_exact": true,
+    "fixed_six_typed_module_semantics_exact": true,
+    "all_rawMOD_bytes_equal": false,
+    "proof_sha256": "8e3d17aab2387036f445d22562328d403f9661f31595ab39939efebcf728683b",
+    "no_changedID_body_or_namespace_references": true,
+    "other_forms_recursiveempty/version15/fixedhashpairs": true
+  },
+  "current_candidate_own_threehour_qualified": false,
+  "current_candidate_own_ninehour_qualified": false,
+  "previous_parent_long_horizon_scope": "Prior 1d6e qualified three-hour pair remains historical parent evidence; its approximately19.05% observed pair result is not a measurement of newCEC. No new long-horizon run claimed.",
+  "limits": [
+    "CurrentCEC qualified short2/35 only; no fresh matched control/global forecast speed claim.",
+    "Native132 cases, fixed-six typed MODULE semantics, MCICA/unaffected rawMOD equality, and compiled6d00 identity are separate bound component evidence; allrawMOD equality is false.",
+    "Raw producer source_commitNULL preserved; promotion/source commit is root-owned.",
+    "Short-window roots503/511 zero; all4positive coverage remains prior qualification.",
+    "No stage/PSS/physicalheadroom or phasecost inference from invocation counters."
+  ],
+  "projection_scope": "Compact tracked projection; complete immutable qualification retained outside git. Excludes512 zero/inactive per-rank lifecycle rows; original full512 and positive-scope checks remain mandatory and passed.",
+  "original_full_qualification": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/noon75m-observer-repair-proposal-r1/combined-application-preparation-r1/profile-analysis-r1/mcica-mask-fusion-implementation-r1/application-preparation-r1/APPLICATION_QUALIFICATION.json",
+    "sha256": "5a2051b1c94085e4dd833af3a0b236e64076503d2844fef66706612bf25570fb",
+    "raw_refs_verified": 17
+  },
+  "raw_refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-mcica-mask-fusion10m-runtime-r1/application-binding.json": {
+      "sha256": "3b5b771bbb3eca2db1e3b8aa4ab19c060e19d325719124e31deefa389cfdf31b",
+      "bytes": 21807
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-mcica-mask-fusion10m-runtime-r1/candidate-metadata/lease.json": {
+      "sha256": "ed228536457c6d6a597e2da5a04c82e8625335f308ac88038aaad5f25f1ed94a",
+      "bytes": 115417
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-mcica-mask-fusion10m-runtime-r1/source-pins.json": {
+      "sha256": "5136c8472a9b40b2dbc51adc6f07aefb263936cbe896cf97be57eb3f64cd8388",
+      "bytes": 16456
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/noon75m-observer-repair-proposal-r1/combined-application-preparation-r1/profile-analysis-r1/mcica-mask-fusion-implementation-r1/overlay-build-preparation-r1/BUILD_QUALIFICATION.json": {
+      "sha256": "94f1bb151332eb980965cf0dfefe5adfc9f20677d3bd0fe0b3e8dcc57a7f257e",
+      "bytes": 8677
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/noon75m-observer-repair-proposal-r1/combined-application-preparation-r1/profile-analysis-r1/mcica-mask-fusion-implementation-r1/NATIVE_QUALIFICATION.json": {
+      "sha256": "2588a5e0374a2964237f5ea1f15c38bd080af42ecc0cf814f4f42251c5e0cc15",
+      "bytes": 4658
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/noon75m-observer-repair-proposal-r1/combined-application-preparation-r1/profile-analysis-r1/mcica-mask-fusion-implementation-r1/caller-timing-preparation-r1/TIMING_RESULT.json": {
+      "sha256": "752036e99349ddd633b9c70350847efa086032fe39f0319befc598d782b9608c",
+      "bytes": 7845
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-mcica-mask-fusion10m-runtime-r1/science-receipt.json": {
+      "sha256": "b56f895322a1e0dd8ea64e9cbfd93e3531f7fb70dd793291b6adf3c251b92cd2",
+      "bytes": 3630029
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-mcica-mask-fusion10m-runtime-r1/reader-closure.json": {
+      "sha256": "ad14da1d576d6ed9f9d7ac70474e8acadeadfb70a0f78b29d61bb4e1f0d0ce67",
+      "bytes": 4224
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-mcica-mask-fusion10m-runtime-r1/candidate-closures.json": {
+      "sha256": "c5abee9e89c9180c5cccb6d609d4f928e99bd2ff1b6f14f7e0b4d573ea7878a4",
+      "bytes": 23456
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-mcica-mask-fusion10m-runtime-r1/candidate-metadata/mpi-launch.json": {
+      "sha256": "06a3288246ecc23137362d831da4441b2b73052231eb905b7470308b3bb01287",
+      "bytes": 7759
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-mcica-mask-fusion10m-runtime-r1/candidate-metadata/hpc02-node.json": {
+      "sha256": "dbf7d0516644dcc105aba16db1e2e8c036ba82d97be16e51fab5ae0aea9513e3",
+      "bytes": 3746
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-mcica-mask-fusion10m-runtime-r1/candidate-metadata/hpc03-node.json": {
+      "sha256": "12f770e1d2c63b461df057ba4836e7ac17a8c90a698d3afacab53691cb554dae",
+      "bytes": 3745
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-mcica-mask-fusion10m-runtime-r1/candidate-metadata/hpc04-node.json": {
+      "sha256": "284fa256749224999bdab0c766652955ea275424e6a97f0385b59fc551ec6f83",
+      "bytes": 3746
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-mcica-mask-fusion10m-runtime-r1/candidate-metadata/adaptive-steps.json": {
+      "sha256": "d2233b61f3b9dab590461f8b5a8fa820272f88d0d3dd0ea189794a7fbcfa42af",
+      "bytes": 3954
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-mcica-mask-fusion10m-runtime-r1/candidate-metadata/completion.json": {
+      "sha256": "fe7ec6893af6dd692e620e5179f508b4006612714f54f2389afeab591f1ae7a0",
+      "bytes": 934
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-mcica-mask-fusion10m-runtime-r1/candidate-metadata/model-closures.json": {
+      "sha256": "5273f7d0ecd9d0b8805bedf6d94a8835688c6a1d9aa29bc362f5b317e98ee235",
+      "bytes": 26184
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-mcica-mask-fusion10m-runtime-r1/candidate-metadata/cache-start-context.json": {
+      "sha256": "22e806038d11a6e681903c061751fa64d02ada7e135ee380a57b64c0a15b7414",
+      "bytes": 362
+    }
+  },
+  "output_lifecycle_summary": {
+    "full_observed_rank_count": 512,
+    "positive_writer_roots": {
+      "487": {
+        "event": "final",
+        "rank": 487,
+        "scopes": 261,
+        "callbacks": 216,
+        "supplied": 216,
+        "declines": 0,
+        "guard_declines": 0,
+        "terminal_guards": 0,
+        "releases": 216,
+        "pending": 0,
+        "errors": 0,
+        "widens": 216,
+        "restores": 216,
+        "calls": 261,
+        "foreign_calls": 0
+      },
+      "495": {
+        "event": "final",
+        "rank": 495,
+        "scopes": 261,
+        "callbacks": 216,
+        "supplied": 216,
+        "declines": 0,
+        "guard_declines": 0,
+        "terminal_guards": 0,
+        "releases": 216,
+        "pending": 0,
+        "errors": 0,
+        "widens": 216,
+        "restores": 216,
+        "calls": 261,
+        "foreign_calls": 0
+      }
+    },
+    "inactive_writer_roots": {
+      "503": "all scopes/callbacks/supplied/releases/widens/restores zero",
+      "511": "all scopes/callbacks/supplied/releases/widens/restores zero"
+    },
+    "all512_lifetimes_checked": true,
+    "errors": 0
+  },
+  "input_lifecycle_summary": {
+    "event": "final",
+    "rank": 0,
+    "scopes": 308,
+    "callbacks": 31,
+    "supplied": 17,
+    "declines": 14,
+    "widens": 31,
+    "restores": 31,
+    "full_scope_records_retained_in_original_Q": true
+  }
+}
