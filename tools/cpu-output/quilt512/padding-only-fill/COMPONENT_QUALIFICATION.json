@@ -1,0 +1,166 @@
+{
+  "status": "QUALIFIED_PADDING_ONLY_FILL_STANDALONE_ELEVEN_NATIVE_CASES_AND_FIXED32_COMPLETE_PROVIDER_NOT_MPI512",
+  "source_commit": null,
+  "source": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/candidate_root_chunk_provider.c",
+    "sha256": "1e0dee401c98a56a3e5b5ec218e70eb79b4de987e4cde48545d5d4bc80502dfc"
+  },
+  "candidate_provider": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/provider-padding-only-fill-native-r1/candidate-provider.so",
+    "sha256": "fa21bc647ac9ef180d691feb7f0f57ca35c908f8d4d0343828c1cde266a1b26d"
+  },
+  "parent_provider_sha256": "2ab1a2be21d6c16e595d34f2bb2cdc76757eeee05feda0f0aab4d6516e24ba18",
+  "native_invocation_id": "c83f0b031baa42d098eb6afd5e118f68",
+  "native_case_count": 11,
+  "native_scope": "Width7/8/9, arbitrary fill, nonzero starts, partial rows, full3D, partialXY four-dimensional inclTime,threads1/4,partialcreatejoin and actualW; independent fullchunk plane oracle, compressed stockdecode+exact bytes,readonly/options/layout and five-state checks.",
+  "compiler_version": "gcc (GCC) 13.3.0",
+  "compiler_sha256": "360898b5e41799b7a5fcaf7acb2dfb4cab0017c5b3debc91e330636f1d0d37b9",
+  "compiler_flags": [
+    "-O2",
+    "-fno-fast-math",
+    "-ffp-contract=off",
+    "-std=c11",
+    "-Wall",
+    "-Wextra",
+    "-Werror=implicit-function-declaration",
+    "-I/pool/wrf-experiment/wrf-cpu/kernels/provider-padding-only-fill-native-r1",
+    "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+    "-I/pool/wrf/WPS_new/runtime/netcdf-owner/include"
+  ],
+  "driver_invocation_id": "e491d5f2951e4fa3beae6098b5a14c02",
+  "all_six_units_strong_closed": true,
+  "timing_result": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/caller-timing-preparation-r1/TIMING_RESULT.json",
+    "sha256": "593a5031a34ac43503eee8d4831fd8f85c2670d6ad6beb8857e6ebe6d31a79f1"
+  },
+  "retain_reason": "Both opposite orders show approximately five percent lower complete-provider wall and lower process CPU with all exact byte/state checks passing.",
+  "full_shim_public_API_pending": true,
+  "actual512_application_pending": true,
+  "forecast_gain_claim": false,
+  "raw_references": [
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/native-gate-r1/actual-native-r1/receipt.json",
+      "sha256": "666cbb93fda861b0abf564b00dfcd7a7ba7d3f4587d21b6aedbf08f7ce174896"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/native-gate-r1/actual-native-r1/closure.json",
+      "sha256": "b666020296ddd0dc10d98f4f8298000877b6d763310ce638ab03168282958c3a"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/native-gate-r1/actual-native-r1/controller.json",
+      "sha256": "6890b269e5939ecf27d697c3673fb193b9cb9feb98757395376b1421c6b9f2cb"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/caller-timing-preparation-r1/driver-build-r1/actual-native-r1/receipt.json",
+      "sha256": "4305f865bd52ede4fc23edf6799445a06b560db61a3f6b16891337087805e0df"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/caller-timing-preparation-r1/driver-build-r1/actual-native-r1/closure.json",
+      "sha256": "d30b4d3f4df3978087277198de308d0afd579dbfe48d2d52a1f550fd25e83bc4"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/caller-timing-preparation-r1/driver-build-r1/actual-native-r1/controller.json",
+      "sha256": "ab14a9d391df5ca3437598f79a070601312852bea0c59676b5551e4e2616a4fa"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/receipt.json",
+      "sha256": "e11939b7b0285072452b52695ef1215783f5df274adde426bab4f19bf64a4cc5"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/closure.json",
+      "sha256": "29d3e484d7cdf3ee08774090d87efba7f815254602a4823f3e42fba06a9f005e"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/controller.json",
+      "sha256": "eedda5f6f8ad8037dee75f24cdf461ba1ec6a4ef4236369e10ffa232e2046e46"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/cache-clear.json",
+      "sha256": "ed421be12015e22d7fccb7377e7eac7ceb4197963c81fe48b7676284c95e0ecf"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/caller-timing-preparation-r1/timing-r1/arm0/inputs/source-pins.json",
+      "sha256": "14447a0378375fb607f9daaab70269e8059ca328628a0dfb67c3d67c9f21c454"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/caller-timing-preparation-r1/timing-r1/arm0/inputs/binding.json",
+      "sha256": "f3cc7f7745d0883b741be5618312279bc0f496f781e46716ec02ec53c60edc4e"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/receipt.json",
+      "sha256": "e10648d29af3d31c9580ecd19585cd61913186e1c5cf941f7a4a44803abfa5ff"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/closure.json",
+      "sha256": "1b15d132fb4c2189c6da287f15f9e787f9b111c101c5ef7c87e5d817cb8b319b"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/controller.json",
+      "sha256": "436a4f9b267d2a217bb63a09b074354382c1abea1dd392eb205ee2f9cace9168"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/cache-clear.json",
+      "sha256": "b5a1ab93eae614382ec2a16886b7b93069cbe2c5fefcc7dbf0811934523a1d60"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/caller-timing-preparation-r1/timing-r1/arm1/inputs/source-pins.json",
+      "sha256": "e175658f3ee6b8ac579bc0b1be14e8b3e9789283c5bdddfc3228aeed276cd48d"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/caller-timing-preparation-r1/timing-r1/arm1/inputs/binding.json",
+      "sha256": "08743447ad0f0afb9ee12aaa1a1d2160828276be966c3ea0077fbe845e32b28a"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/receipt.json",
+      "sha256": "6fa620f2c863be3f7ecb1e4881eeee9c1e3f2ae88312323604e3ed5bbea8dc42"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/closure.json",
+      "sha256": "d04b66bda4cc52ed82a72d2426b995dfeec02eb39fb2bb7b11ec4ce4b1be7b9d"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/controller.json",
+      "sha256": "edace160ca47a581148375ebe1317753f130acddfdc8d7b0b7a1d8c7625673ea"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/cache-clear.json",
+      "sha256": "2b52d3a87e005d7f95b2f23cfeeb203fc7516fa902d2b2f03256ffed5d2e2830"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/caller-timing-preparation-r1/timing-r1/arm2/inputs/source-pins.json",
+      "sha256": "8d5f2bd6152c3c912062980e0a5a196014cc5d2907683213a677465d84df02ae"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/caller-timing-preparation-r1/timing-r1/arm2/inputs/binding.json",
+      "sha256": "0a14e5454e0ed2b8b5ef5c39969781363a8fcfafb93e34ac4ca32ec2b43332b7"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/receipt.json",
+      "sha256": "8f421824b07a9f260a3626ba7578bee92e6ce6a494ca8d70f5b3b21d7e6766f7"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/closure.json",
+      "sha256": "c93b3bf81d0071ad150698e5e7f848769e8ed35b924f2dbe09980075d63027e0"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/controller.json",
+      "sha256": "0ea003a21e134fc732a4e5e0be7f15bd5703c854f39de3c8a23199c1a8d0d062"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/cache-clear.json",
+      "sha256": "e926adf5baafc1193f237a1d7a67ed41638ea7cfa0cf407e9f74527a9b9dfdd1"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/caller-timing-preparation-r1/timing-r1/arm3/inputs/source-pins.json",
+      "sha256": "831477e3c5ec8caba32b7565347944c84bc3a0c1ec78f8e09e5bc85e36ef3098"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/caller-timing-preparation-r1/timing-r1/arm3/inputs/binding.json",
+      "sha256": "cb6edddf634e620467b9596c87bcf1e174c89fd619f7dcd51725c6093eccabb2"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/candidate_root_chunk_provider.c",
+      "sha256": "1e0dee401c98a56a3e5b5ec218e70eb79b4de987e4cde48545d5d4bc80502dfc"
+    }
+  ]
+}

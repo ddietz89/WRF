@@ -6,8 +6,8 @@
   },
   "artifacts": {
     "shim": {
-      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current375-fused-pack-shuffle-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
-      "sha256": "172306f3a8c482f8aa2f2683c7f847dab62bf695532a06b0e6ddd8ba441a2a07"
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current172-padding-only-fill-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
+      "sha256": "329f70f24fd68bbd94c3ab575d9e0bfbc6ad7e5dba147865d033f83891130a62"
     },
     "owner": {
       "path": "/pool/wrf/WPS_new/runtime/netcdf-owner/lib/libnetcdf.so.19",
@@ -47,8 +47,8 @@
   "read_affine_IO_archive_sha256": "651835f31089e16759177734198ece5b121d704355c73abddde483f4cae2c14c",
   "read_affine_IO_object_sha256": "c9c4e5b7a0225523e7d85cfc188022d797204d3f4dd4494b54c416e3bec99320",
   "schema_version": 3,
-  "status": "PROMOTED_FUSED_OUTPUT_ON_QUALIFIED_ROOT_PARALLEL_INPUT_AND_ALL_PREVIOUS_IMPROVEMENTS",
-  "scope": "GNU13.3/Zen2/OMP1/cold06-15/512=480compute8x60+4x8quilt/faba/twoTiles/1d6e/root06dNCa32/output172/codec881/HDF825/shared1/FIELDVIEW1/singleIB;10completeproducts1625steps.",
+  "status": "PROMOTED_PADDING_ONLY_FILL_WITH_EXACT_512_SHORT_AND_SIGNIFICANT_CALLER_GAIN",
+  "scope": "GNU13.3/Zen2/OMP1/cold06-06:10/512=480compute8x60+4x8quilt/faba/twoTiles/1d6e/root06dNCa32/output329f/codec881/HDF825/shared1/FIELDVIEW1/singleIB;2completeproducts35steps.",
   "includes": "All retained compute, Thompson shared-table/lazy-init, output, codec and HDF5 improvements from the previous selection, READ_DI1 affine rows, plus qualified root-only parallel input chunk decoding. Fused output packing/shuffling removes intermediate padded packed storage; compressedbytes and originalscience exact.",
   "source_commit_scope": "source_commit binds the unchanged WRF executable; input_implementation_commit binds the separately compiled literal private input provider/adapter package. Frozen producer source_commit null fields remain unchanged.",
   "input_implementation_commit": "614267f340a23ffc342962b3c64e323719fe4d06",
@@ -78,13 +78,13 @@
       "WRF_INPUT_PREDECODE_OWNER": "/pool/wrf-experiment/wrf-cpu/kernels/ordinary-nc-predecoded-fp-admission-build-hpc02-r3/output/libnetcdf.so.19",
       "WRF_INPUT_SCOPE_LOGDIR": "<fresh_run>/input-logs"
     },
-    "other_511_ranks": "Retain original NC8adc/selected output172/codec881; do not add the root input preload/library directory globally."
+    "other_511_ranks": "Retain original NC8adc/selected output329f/codec881; root input adapter/private NC only on rank0."
   },
   "science": {
-    "receipt_sha256": "7a108c76b39f53ee65c9a4021c4fb14041a1cd934500785edc45063c439106c6",
-    "reader_closure_sha256": "cd933963e9ea9ebb8cb8d3c2a88dc044ebae0fd2e35c9a662912058dfbc0efb9",
+    "receipt_sha256": "36aadc3a19d8a277f40e25964a1ace06713a53992faad614d7e8d8271de59f92",
+    "reader_closure_sha256": "0d6bdc7047f7fb0fc5377187c85311684213f906f2c8a1e9598f2c4717def9ef",
     "reader_exit_code_raw": null,
-    "invocation_id": "caceb5e95f1645c0b14bb509bdbbd568",
+    "invocation_id": "c9fe8d90190343929653c6523919ab4e",
     "products": 2,
     "ordered_steps": 35,
     "end_time": "2026-10-12_06:10:00",
@@ -106,10 +106,10 @@
     "all_model_reader_scopes_closed": true
   },
   "qualification_file": "tools/cpu-output/quilt512/qualification.json",
-  "current_application_qualification_file": "tools/cpu-output/quilt512/fusion/APPLICATION_QUALIFICATION.json",
+  "current_application_qualification_file": "tools/cpu-output/quilt512/padding-only-fill/APPLICATION_QUALIFICATION.json",
   "source_build_binding_file": "CURRENT_SOURCE_BUILD_BINDING.json",
   "current_three_hour_qualified": false,
-  "current_nine_hour_qualified": true,
+  "current_nine_hour_qualified": false,
   "last_three_hour_benchmark": {
     "evidence_file": "THREE_HOUR_RESULT.json",
     "executable": {
@@ -150,18 +150,18 @@
   "memory_qualification_file": "tools/cpu-memory/thompson-table-sharing/lazy-group-init/QUALIFICATION.json",
   "activation": "Selection record, not a launcher. Use a fresh bounded lease/run/log directory and the exact root-only input rank-exec binding, with all original runtime checks and cache-before-each-arm SOP. Never preload launchers/helpers.",
   "rollback": {
-    "selection": "PREVIOUS_SELECTION_BEFORE_FUSED_OUTPUT.json",
-    "source_build_binding": "PREVIOUS_SOURCE_BUILD_BINDING_BEFORE_FUSED_OUTPUT.json",
-    "action": "Restore output375 only; keep executable1d6e, input06d/NCa32, codec881 and all prior selections. Build with --provider simd-pack to select retained parallel-pack source."
+    "selection": "PREVIOUS_SELECTION_BEFORE_PADDING_ONLY_FILL.json",
+    "source_build_binding": "PREVIOUS_SOURCE_BUILD_BINDING_BEFORE_PADDING_ONLY_FILL.json",
+    "action": "Restore output172 only, retaining1d6e/root06dNCa32/881 and all previous selections; revert provider-only source commit to b938 if rebuilding."
   },
-  "claim_limits": "Whole-launch wall and aggregate cgroup CPU are distinct; main-step sum is wall including communication/backpressure, not integration CPU. Per-host invocation peaks are not PSS or isolated component memory gain. UNPAIRED order/time/server-cache/load differ; no repeatability, per-kernel, additive, restart or other configuration transfer. Collector science/runtime assertions remain authoritative; no scientific arrays read by assembly. Retained original hpc04 reached104GiB and recorded2584 memory.max events without OOM; current70.96/68.70/68.65/68.63GiB peaks recorded zero events. Memory pressure differs and can affect the combined comparison. Literal checker field-view required list remains two roots; separate unchanged-receipt observation binds all32 markers and four positive root lifecycles. No own current3h/restart/nesting/alternatecompiler/144h qualification.",
-  "next_qualification": "Shortcurrentdaytimeprofiling and worthwhileproviderchanges native/caller/application. Periodic freshoriginal3hafterintegration; no automaticrepeat9h.",
+  "claim_limits": "Own exact2products35/all512/twoTiles; significant5.13/5.20% complete syntheticprovider wall gains and9.24/10.11%CPU remain separate. Previouscurrent172 nine-hour10.97%combinedwall is retained, not isolated or inherited329f evidence. No3h/9h/restart/othercompiler/144h transfer.",
+  "next_qualification": "Currentdaytime75m shortprofile then measuredopportunities; finish SIMD32 diagnostic separately and compose only if worthwhile. Periodic fresh original3h after integration, no automatic9h repeat.",
   "output_fusion_qualification_file": "tools/cpu-output/quilt512/fusion/NATIVE_QUALIFICATION.json",
   "latest_nine_hour": {
     "evidence_file": "NINE_HOUR_RESULT.json",
     "qualification_file": "NINE_HOUR_FINAL_QUALIFICATION.json",
     "qualification_sha256": "f0d6d92da066bfc7e3c23ab597d34df9227d42fe23c6f7891ecacc056fc085f1",
-    "applies_to_current_selection": true,
+    "applies_to_current_selection": false,
     "comparison_design": "UNPAIRED later current1d6e+input06d/NCa32+output172 candidate vs retained corrected-original546b; no new control or isolated component attribution",
     "metrics": {
       "control": {
@@ -180,6 +180,8 @@
       "cpu_seconds": 8.218144552910944,
       "main_step_sum_seconds": 5.770902720444271
     },
-    "repeatability_established": false
-  }
+    "repeatability_established": false,
+    "scope": "Previous output172; no nine-hour transfer to329f."
+  },
+  "padding_only_fill_qualification_file": "tools/cpu-output/quilt512/padding-only-fill/NATIVE_QUALIFICATION.json"
 }

@@ -1,5 +1,5 @@
 {
-  "status": "POST_SCIENCE_FUSED_OUTPUT_WORKING_PROMOTION",
+  "status": "POST_SCIENCE_PADDING_ONLY_OUTPUT_WORKING_PROMOTION",
   "source_commit": "495f10002d87fb5fdcc256c20a9e592c037d9183",
   "executable": {
     "path": "/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2/wrf.exe",
@@ -70,12 +70,12 @@
   "PD_production_member_sha256": "8ec77f864716667aa79d40878fa11276f7dede4017c620201e54f9f83bb32b25",
   "PD_repaired_compile_object_sha256": "e5245eed1f84a67ea9d428bed8d8b2529f568ca49394f9cf8b85d97bdc50f560",
   "PD_equivalence_proof_sha256": "92abf53cb516e4394f2ce232ad81fb4985ea7b1f849310927e54aa4a2b1017cc",
-  "build_scope": "GNU13.3/Zen2/OMP1/cold06-15/512=480compute8x60+4x8quilt/faba/twoTiles/1d6e/root06dNCa32/output172/codec881/HDF825/shared1/FIELDVIEW1/singleIB;10completeproducts1625steps. WRF1d6e unchanged, outputprovider separate; rawproducerNULL preserved.",
+  "build_scope": "GNU13.3/Zen2/OMP1/cold06-06:10/512=480compute8x60+4x8quilt/faba/twoTiles/1d6e/root06dNCa32/output329f/codec881/HDF825/shared1/FIELDVIEW1/singleIB;2completeproducts35steps. WRF1d6e unchanged; separateoutputsource1e0/native329f, producerNULL retained.",
   "runtime": {
     "WRF_EXPERIMENTAL_TPI_NUMA": 1,
-    "other_settings": "Current output172/codec881/HDF825/faba/FIELDVIEW1/singleIB; root input06d/NCa32 only"
+    "other_settings": "Current329f/881/825/faba/FIELDVIEW1/singleIB; rootinput06dNCa32only"
   },
-  "previous_binding": "PREVIOUS_SOURCE_BUILD_BINDING_BEFORE_FUSED_OUTPUT.json",
+  "previous_binding": "PREVIOUS_SOURCE_BUILD_BINDING_BEFORE_PADDING_ONLY_FILL.json",
   "native": {
     "CQU": {
       "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-cqu-first-species-peel-r1/NATIVE_QUALIFICATION.json",
@@ -114,14 +114,14 @@
       "sha256": "033a868f928535bdd6e769be0cafbec338a556090dd11db1185dce5bc4525afe"
     }
   },
-  "current_nine_hour_qualified": true,
+  "current_nine_hour_qualified": false,
   "previous_nine_hour_qualification": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_NINE_HOUR_FINAL_QUALIFICATION_B1FB.json",
     "sha256": "f38a865905d030be42ac0a965b4aa6afbc0eae280902a3839f20df176457f445"
   },
   "full_application": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-output/quilt512/fusion/APPLICATION_QUALIFICATION.json",
-    "sha256": "afe8c6081fef3a5cd6a54160a07a9571546e4b85586cdc9a848dd6954c7e3f69"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-output/quilt512/padding-only-fill/APPLICATION_QUALIFICATION.json",
+    "sha256": "06fe205bd226f1d75096563b8de3560927d23e3f26e2770f16f60e3dafe3f3d5"
   },
   "current_three_hour_qualified": false,
   "prior_repaired_full_application": {
@@ -205,17 +205,19 @@
   },
   "output_fusion": {
     "provider_source_file": "tools/cpu-output/quilt512/root_chunk_provider.c",
-    "provider_source_sha256": "b938317c3430fd11ec02dce7bb0f3201a426369bf4a073a10fc3c152a912960f",
+    "provider_source_sha256": "1e0dee401c98a56a3e5b5ec218e70eb79b4de987e4cde48545d5d4bc80502dfc",
     "shim_source_sha256": "313e18ed4309eec9b038371dfce227f8f5fc401813b094aa2cddb01e9de47421",
     "artifact": {
-      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current375-fused-pack-shuffle-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
-      "sha256": "172306f3a8c482f8aa2f2683c7f847dab62bf695532a06b0e6ddd8ba441a2a07"
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current172-padding-only-fill-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
+      "sha256": "329f70f24fd68bbd94c3ab575d9e0bfbc6ad7e5dba147865d033f83891130a62"
     },
     "producer_source_commit": null,
-    "qualification_file": "tools/cpu-output/quilt512/fusion/APPLICATION_QUALIFICATION.json"
+    "qualification_file": "tools/cpu-output/quilt512/padding-only-fill/APPLICATION_QUALIFICATION.json"
   },
   "nine_hour_full_application": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-working/NINE_HOUR_FINAL_QUALIFICATION.json",
-    "sha256": "f0d6d92da066bfc7e3c23ab597d34df9227d42fe23c6f7891ecacc056fc085f1"
+    "sha256": "f0d6d92da066bfc7e3c23ab597d34df9227d42fe23c6f7891ecacc056fc085f1",
+    "applies_to_current_selection": false,
+    "scope": "Previous172 own9h, not current329f."
   }
 }

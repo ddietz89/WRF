@@ -1,0 +1,185 @@
+{
+  "source_commit": "495f10002d87fb5fdcc256c20a9e592c037d9183",
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2/wrf.exe",
+    "sha256": "1d6e5213108a5a1501ab319825bfa1a024df367af5037bee5f80d210f72d4f14"
+  },
+  "artifacts": {
+    "shim": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current375-fused-pack-shuffle-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
+      "sha256": "172306f3a8c482f8aa2f2683c7f847dab62bf695532a06b0e6ddd8ba441a2a07"
+    },
+    "owner": {
+      "path": "/pool/wrf/WPS_new/runtime/netcdf-owner/lib/libnetcdf.so.19",
+      "sha256": "8adc33059a98399cd8adea41de071598aaa2b09ff53eb3ae860cad0c6696b538"
+    },
+    "ng": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/libz.so.1.3.1.zlib-ng",
+      "sha256": "881d0a1aa84f1ac3f3fc60b0c59f7f9b03125fe68065cf44a04170de5655de3c"
+    }
+  },
+  "private_hdf5": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/hdf5-sse2-unshuffle4-private-r3/output/candidate/lib/libhdf5.so.310.3.0",
+    "sha256": "825e2f1f24bee6feaf537cb7a4b1207044fb90ec1afc2dd96571b33b1056ba19"
+  },
+  "rank_library_path": "/pool/wrf-experiment/wrf-cpu/builds/hdf5-sse2-unshuffle4-private-r3/output/candidate/lib:/pool/wrf/WPS_new/runtime/netcdf-owner/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib",
+  "rank_map_sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac",
+  "build_defaults": {
+    "WRF_SMALL_STEP_ZEN2": 1,
+    "WRF_ADVECTION_ZEN2": 1,
+    "compiler_scope": "qualified GNU Fortran13.3.0; runtime CPU/OS feature admission required",
+    "WRF_EXPERIMENTAL_TPI_NUMA": 1,
+    "thompson_build_scope": "GNU13.3 strict cold one-domain DIMNRHG1/OMP1:23fields/12fixedowners, lazyfixedgrouppublication and privateTCGINITsentinel; no-macro localCPPprojection literal, no genericwhole-object qualification."
+  },
+  "runtime": {
+    "OMP_NUM_THREADS": 1,
+    "OMPI_MPI_THREAD_LEVEL": 1,
+    "OMPI_MCA_pml": "ucx",
+    "UCX_TLS": "rc,sm,self",
+    "UCX_NET_DEVICES": "ibp1s0f0:1",
+    "WRF_ROOT_SHIM_WORLD": 512,
+    "WRF_ROOT_SHIM_OPTIN": 1,
+    "WRF_ROOT_SHIM_OPTOUT": 0,
+    "WRF_ROOT_SHIM_CPUS": "0-127",
+    "WRF_QUILT_OWNED_FIELD_VIEW": 1,
+    "WRF_EXPERIMENTAL_TPI_NUMA": 1
+  },
+  "read_affine_IO_archive_sha256": "651835f31089e16759177734198ece5b121d704355c73abddde483f4cae2c14c",
+  "read_affine_IO_object_sha256": "c9c4e5b7a0225523e7d85cfc188022d797204d3f4dd4494b54c416e3bec99320",
+  "schema_version": 3,
+  "status": "PROMOTED_FUSED_OUTPUT_ON_QUALIFIED_ROOT_PARALLEL_INPUT_AND_ALL_PREVIOUS_IMPROVEMENTS",
+  "scope": "GNU13.3/Zen2/OMP1/cold06-15/512=480compute8x60+4x8quilt/faba/twoTiles/1d6e/root06dNCa32/output172/codec881/HDF825/shared1/FIELDVIEW1/singleIB;10completeproducts1625steps.",
+  "includes": "All retained compute, Thompson shared-table/lazy-init, output, codec and HDF5 improvements from the previous selection, READ_DI1 affine rows, plus qualified root-only parallel input chunk decoding. Fused output packing/shuffling removes intermediate padded packed storage; compressedbytes and originalscience exact.",
+  "source_commit_scope": "source_commit binds the unchanged WRF executable; input_implementation_commit binds the separately compiled literal private input provider/adapter package. Frozen producer source_commit null fields remain unchanged.",
+  "input_implementation_commit": "614267f340a23ffc342962b3c64e323719fe4d06",
+  "root_input": {
+    "enabled_in_working_configuration": true,
+    "pending_component": false,
+    "adapter_path": "/pool/wrf-experiment/wrf-cpu/kernels/root-input-predecoded-production-adapter-abi-hpc02-r1/output/libinput_root.so",
+    "adapter_sha256": "06d0232dbeb53e3e0cc4a8ac5c431a307e0bd3506183f70b5a558f2c70b19553",
+    "owner_path": "/pool/wrf-experiment/wrf-cpu/kernels/ordinary-nc-predecoded-fp-admission-build-hpc02-r3/output/libnetcdf.so.19",
+    "owner_sha256": "a32aa6cdf5e7154b974afb699f6be8f0b0632cfb4bc00226b7b6a34e0b04f41d",
+    "rank": 0,
+    "host": "hpc01",
+    "root_cpu": 0,
+    "borrowed_occupied_cpus": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "input_source_sha256": "4febd6cabc22d8fd5caf0efe89087b97a5871cd269e9777be7c8b8166c5d3ddf",
+    "component_receipt_sha256": "90070f7ce757ca6e571554779ce6624f5e179a4ed76653a30d4d8be9eb89a6e5",
+    "component_closure_sha256": "d77bf34ae3d4a30068ab5998908a3560bfb68eaa0b5ab8baa47dc8814758d590",
+    "rank_exec": "tools/cpu-input/parallel-chunk-read/input_rank_exec.py",
+    "rank_exec_sha256": "0de958aa7bccc73acdc5c948a40ae1a903bc9fceb1b470becf1c15348aa26693",
+    "runtime_environment_only_rank0": {
+      "WRF_INPUT_PREDECODE_OPTIN": "1",
+      "WRF_INPUT_PREDECODE_OWNER": "/pool/wrf-experiment/wrf-cpu/kernels/ordinary-nc-predecoded-fp-admission-build-hpc02-r3/output/libnetcdf.so.19",
+      "WRF_INPUT_SCOPE_LOGDIR": "<fresh_run>/input-logs"
+    },
+    "other_511_ranks": "Retain original NC8adc/selected output172/codec881; do not add the root input preload/library directory globally."
+  },
+  "science": {
+    "receipt_sha256": "7a108c76b39f53ee65c9a4021c4fb14041a1cd934500785edc45063c439106c6",
+    "reader_closure_sha256": "cd933963e9ea9ebb8cb8d3c2a88dc044ebae0fd2e35c9a662912058dfbc0efb9",
+    "reader_exit_code_raw": null,
+    "invocation_id": "caceb5e95f1645c0b14bb509bdbbd568",
+    "products": 2,
+    "ordered_steps": 35,
+    "end_time": "2026-10-12_06:10:00",
+    "world": 512,
+    "compute": 480,
+    "quilt_groups": 4,
+    "quilt_ranks_per_group": 8,
+    "tiles": 2,
+    "positive_writer_roots": [
+      487,
+      495
+    ],
+    "zero_writer_roots": [
+      503,
+      511
+    ],
+    "protected_original_checker_unchanged": true,
+    "tile_status": "PASS_ACTUAL_480_DISJOINT_TILE_UNIONS_AND_ALL512_OBSERVED_ENVS",
+    "all_model_reader_scopes_closed": true
+  },
+  "qualification_file": "tools/cpu-output/quilt512/qualification.json",
+  "current_application_qualification_file": "tools/cpu-output/quilt512/fusion/APPLICATION_QUALIFICATION.json",
+  "source_build_binding_file": "CURRENT_SOURCE_BUILD_BINDING.json",
+  "current_three_hour_qualified": false,
+  "current_nine_hour_qualified": true,
+  "last_three_hour_benchmark": {
+    "evidence_file": "THREE_HOUR_RESULT.json",
+    "executable": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2/wrf.exe",
+      "sha256": "1d6e5213108a5a1501ab319825bfa1a024df367af5037bee5f80d210f72d4f14"
+    },
+    "source_commit": "495f10002d87fb5fdcc256c20a9e592c037d9183",
+    "comparison_design": "Fresh fixed-order corrected-original546b followed by combined1d6e plus root-only input06d/NCa32; no observers/profilers.",
+    "metrics": {
+      "control": {
+        "wall_seconds": 818.0402264029253,
+        "cpu_seconds": 366874.26066900004,
+        "main_step_sum_seconds": 595.75757
+      },
+      "candidate": {
+        "wall_seconds": 670.7779205960687,
+        "cpu_seconds": 323960.582918,
+        "main_step_sum_seconds": 566.69136
+      }
+    },
+    "reductions_percent": {
+      "wall_seconds": 18.00184160311973,
+      "cpu_seconds": 11.697107797299921,
+      "main_step_sum_seconds": 4.878865408290145
+    },
+    "full_qualification_sha256": "fed6f9ab2260eeb9e9ac4f56e68062e588bfb424ed344466a02ba0e7390d8780",
+    "fresh_matched_timing": true,
+    "applies_to_current_selection": false,
+    "repeatability_established": false,
+    "scope": "Fresh fed6 threehour qualifies previous output375, before newfused172; retained measuredcombined18.0018%wall,11.6971%CPU, not currentfused qualification."
+  },
+  "prior_nine_hour": {
+    "evidence_file": "PREVIOUS_NINE_HOUR_RESULT_B1FB.json",
+    "qualification_file": "PREVIOUS_NINE_HOUR_FINAL_QUALIFICATION_B1FB.json",
+    "qualified_executable_sha256": "b1fb398a9c7186823584252b53f4ee360c260143064720256f660ba1459c8670",
+    "applies_to_current_selection": false
+  },
+  "memory_qualification_file": "tools/cpu-memory/thompson-table-sharing/lazy-group-init/QUALIFICATION.json",
+  "activation": "Selection record, not a launcher. Use a fresh bounded lease/run/log directory and the exact root-only input rank-exec binding, with all original runtime checks and cache-before-each-arm SOP. Never preload launchers/helpers.",
+  "rollback": {
+    "selection": "PREVIOUS_SELECTION_BEFORE_FUSED_OUTPUT.json",
+    "source_build_binding": "PREVIOUS_SOURCE_BUILD_BINDING_BEFORE_FUSED_OUTPUT.json",
+    "action": "Restore output375 only; keep executable1d6e, input06d/NCa32, codec881 and all prior selections. Build with --provider simd-pack to select retained parallel-pack source."
+  },
+  "claim_limits": "Whole-launch wall and aggregate cgroup CPU are distinct; main-step sum is wall including communication/backpressure, not integration CPU. Per-host invocation peaks are not PSS or isolated component memory gain. UNPAIRED order/time/server-cache/load differ; no repeatability, per-kernel, additive, restart or other configuration transfer. Collector science/runtime assertions remain authoritative; no scientific arrays read by assembly. Retained original hpc04 reached104GiB and recorded2584 memory.max events without OOM; current70.96/68.70/68.65/68.63GiB peaks recorded zero events. Memory pressure differs and can affect the combined comparison. Literal checker field-view required list remains two roots; separate unchanged-receipt observation binds all32 markers and four positive root lifecycles. No own current3h/restart/nesting/alternatecompiler/144h qualification.",
+  "next_qualification": "Shortcurrentdaytimeprofiling and worthwhileproviderchanges native/caller/application. Periodic freshoriginal3hafterintegration; no automaticrepeat9h.",
+  "output_fusion_qualification_file": "tools/cpu-output/quilt512/fusion/NATIVE_QUALIFICATION.json",
+  "latest_nine_hour": {
+    "evidence_file": "NINE_HOUR_RESULT.json",
+    "qualification_file": "NINE_HOUR_FINAL_QUALIFICATION.json",
+    "qualification_sha256": "f0d6d92da066bfc7e3c23ab597d34df9227d42fe23c6f7891ecacc056fc085f1",
+    "applies_to_current_selection": true,
+    "comparison_design": "UNPAIRED later current1d6e+input06d/NCa32+output172 candidate vs retained corrected-original546b; no new control or isolated component attribution",
+    "metrics": {
+      "control": {
+        "wall_seconds": 2069.3122304237913,
+        "cpu_seconds": 1009264.484921,
+        "main_step_sum_seconds": 1851.54464
+      },
+      "candidate": {
+        "wall_seconds": 1842.3946576470044,
+        "cpu_seconds": 926321.6706290001,
+        "main_step_sum_seconds": 1744.6938
+      }
+    },
+    "reductions_percent": {
+      "wall_seconds": 10.965845049411161,
+      "cpu_seconds": 8.218144552910944,
+      "main_step_sum_seconds": 5.770902720444271
+    },
+    "repeatability_established": false
+  }
+}

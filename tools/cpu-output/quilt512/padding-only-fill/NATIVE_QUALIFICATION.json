@@ -1,0 +1,90 @@
+{
+  "status": "QUALIFIED_CURRENT172_PADDING_PROVIDER_FULL_SHIM_PUBLIC_NC_PUT_NOT_MPI512",
+  "source_commit": null,
+  "production512_positive_qualified": false,
+  "WRF_application_qualified": false,
+  "timing_qualification": false,
+  "invocation_id": "62bde73f085447f4a954de497852e80b",
+  "strongly_closed": true,
+  "artifacts": {
+    "parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current172-padding-only-fill-integration-hpc02-r1/parent/wrf_quilt_thread_shim.so",
+      "sha256": "172306f3a8c482f8aa2f2683c7f847dab62bf695532a06b0e6ddd8ba441a2a07"
+    },
+    "candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current172-padding-only-fill-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
+      "sha256": "329f70f24fd68bbd94c3ab575d9e0bfbc6ad7e5dba147865d033f83891130a62"
+    }
+  },
+  "source_pins": {
+    "RECIPE.json": "751ef45cf336dca2a8a20ebe5c354219995c2e3625dff9e9d6332cb166b04d93",
+    "binding.json": "caaf093a05cbb4c82b11bc8c2ae823a942f6cbd9a891b8b7f4a1ecb5352a65e5",
+    "candidate/compare_fixture.py": "6667193a0f3513626edc05777a9adce5530911ce959c91c05adbb021495079a6",
+    "candidate/netcdf_precompressed.h": "f050797799f235dea8be9400198d0b8d44fbfca2acb45ed4a914b75b717311b4",
+    "candidate/observer_driver.c": "45746d63ef724a228028c44ceee58b87f99ad6bfccfaadfff9c67c302e1083be",
+    "candidate/public_nc_fixture.c": "1955110885e209044ae50fdfd751817737e19a56679fa41f001e9cb33680fd8b",
+    "candidate/root_chunk_provider.c": "1e0dee401c98a56a3e5b5ec218e70eb79b4de987e4cde48545d5d4bc80502dfc",
+    "candidate/root_chunk_provider.h": "969fc7475b5b6da0f135557746e008e3599e303e19c6cec8e9c5294c5a75cf0c",
+    "candidate/root_provider_adapter.c": "4961df26ae086e89c3380c7df7ac564aae8afd788f46ecfb7d88ed876f723556",
+    "candidate/root_provider_adapter.h": "eeb72b83e69048887ae883b4cd373924f0d5c6ffdc04923a607e5f55851ea7fe",
+    "candidate/wrf_quilt_thread_shim.c": "313e18ed4309eec9b038371dfce227f8f5fc401813b094aa2cddb01e9de47421",
+    "compare_public_routes.py": "1106fda92c4cd7da27a05e3f41ce857ec4e5b503302e571c97e900cb134ed397",
+    "environment-proof.json": "16a3096d8c7d73567a45f329d271f689258c0609ee07e18d01e4f43fb975f0cd",
+    "parent/compare_fixture.py": "6667193a0f3513626edc05777a9adce5530911ce959c91c05adbb021495079a6",
+    "parent/netcdf_precompressed.h": "f050797799f235dea8be9400198d0b8d44fbfca2acb45ed4a914b75b717311b4",
+    "parent/observer_driver.c": "45746d63ef724a228028c44ceee58b87f99ad6bfccfaadfff9c67c302e1083be",
+    "parent/public_nc_fixture.c": "1955110885e209044ae50fdfd751817737e19a56679fa41f001e9cb33680fd8b",
+    "parent/root_chunk_provider.c": "b938317c3430fd11ec02dce7bb0f3201a426369bf4a073a10fc3c152a912960f",
+    "parent/root_chunk_provider.h": "969fc7475b5b6da0f135557746e008e3599e303e19c6cec8e9c5294c5a75cf0c",
+    "parent/root_provider_adapter.c": "4961df26ae086e89c3380c7df7ac564aae8afd788f46ecfb7d88ed876f723556",
+    "parent/root_provider_adapter.h": "eeb72b83e69048887ae883b4cd373924f0d5c6ffdc04923a607e5f55851ea7fe",
+    "parent/wrf_quilt_thread_shim.c": "313e18ed4309eec9b038371dfce227f8f5fc401813b094aa2cddb01e9de47421",
+    "run_gate.py": "8bc0187d7e87cc5cee3456e39f98cac3d6d286dfecc3b46cec1cc5f9683257db"
+  },
+  "existing_defined_exports_unchanged": true,
+  "all_commands_returned_zero": true,
+  "command_count": 20,
+  "comparisons": {
+    "threaded": {
+      "status": "PASS_PAIRED_PUBLIC_API_STATE_AND_RAW_CHUNK_LAYOUT",
+      "files": 1
+    },
+    "errors": {
+      "status": "PASS_PAIRED_PUBLIC_API_STATE_AND_RAW_CHUNK_LAYOUT",
+      "files": 4
+    },
+    "world1": {
+      "status": "PASS_PAIRED_PUBLIC_API_STATE_AND_RAW_CHUNK_LAYOUT",
+      "files": 1
+    }
+  },
+  "native_scope": "Actual current172 wholeDSO byte reproduction first; actual candidate329f fullshim publicNCput, threaded/errors five-state equality, full compressed raw chunks/filter masks/layout, two protected exactnumeric checks, source-included realworker lifecycle+stockdecode; actualworld1 forwarding/negativeauthority only, no fake512.",
+  "isolated_raw_reader_environment": {
+    "executable": "/pool/wrf-experiment/tooling/m1/venv/bin/python",
+    "h5py_path": "/pool/wrf-experiment/wrf-cpu/tooling/hdf5-chunk-reader-py310-r1/h5py/__init__.py",
+    "h5py_version": "3.11.0",
+    "HDF5_version": "1.14.2",
+    "numpy_path": "/pool/wrf-experiment/tooling/m1/venv/lib/python3.10/site-packages/numpy/__init__.py",
+    "numpy_version": "2.2.6",
+    "HDF5_libraries": {
+      "/pool/wrf-experiment/wrf-cpu/tooling/hdf5-chunk-reader-py310-r1/h5py.libs/libhdf5-7f639dcd.so.310.2.0": "661a0daa381376e31b63ecfce2d689aa8ecec0f827dcd2b99202a34d98eb57d3",
+      "/pool/wrf-experiment/wrf-cpu/tooling/hdf5-chunk-reader-py310-r1/h5py.libs/libhdf5_hl-123198ff.so.310.0.2": "33e6c04dc560491cc15800201869ee7b11fd1721b85feac041ef203551ad3914"
+    }
+  },
+  "actual512_application_pending": true,
+  "no_forecast_gain_claim": true,
+  "raw_refs": {
+    "receipt.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/integration-preparation-r1/actual-native-r1/receipt.json",
+      "sha256": "6d4734e49fed2daab9624c562ccaea169b9fadb52a36418523b6e8293b9aa6af"
+    },
+    "closure.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/integration-preparation-r1/actual-native-r1/closure.json",
+      "sha256": "52566d6afcaaef28fa8a7bf09854014d580460215834981be4d6f1b103fed80c"
+    },
+    "controller.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/integration-preparation-r1/actual-native-r1/controller.json",
+      "sha256": "714444aebb613343540b92d176577f091bdfeb5cb4fb790237fca42880811a66"
+    }
+  }
+}

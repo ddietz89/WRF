@@ -1,0 +1,24 @@
+{
+  "status": "POST_SCIENCE_WORKING_SOURCE_PROMOTION",
+  "parent_provider_sha256": "b938317c3430fd11ec02dce7bb0f3201a426369bf4a073a10fc3c152a912960f",
+  "provider_sha256": "1e0dee401c98a56a3e5b5ec218e70eb79b4de987e4cde48545d5d4bc80502dfc",
+  "shim_source_sha256": "313e18ed4309eec9b038371dfce227f8f5fc401813b094aa2cddb01e9de47421",
+  "tested_full_shim": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current172-padding-only-fill-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
+    "sha256": "329f70f24fd68bbd94c3ab575d9e0bfbc6ad7e5dba147865d033f83891130a62",
+    "provider_source_sha256": "1e0dee401c98a56a3e5b5ec218e70eb79b4de987e4cde48545d5d4bc80502dfc",
+    "shim_source_sha256": "313e18ed4309eec9b038371dfce227f8f5fc401813b094aa2cddb01e9de47421",
+    "source_commit": null,
+    "native_direct_pass_proof": {
+      "receipt_sha256": "6d4734e49fed2daab9624c562ccaea169b9fadb52a36418523b6e8293b9aa6af",
+      "closure_sha256": "52566d6afcaaef28fa8a7bf09854014d580460215834981be4d6f1b103fed80c",
+      "native_invocation_id": "62bde73f085447f4a954de497852e80b",
+      "shim_sha256": "329f70f24fd68bbd94c3ab575d9e0bfbc6ad7e5dba147865d033f83891130a62",
+      "scope": "Actual172parentexact/padding329f wholeDSO publicAPI/raw/state/world1negative component; production512 activation/runtime/science still hard."
+    }
+  },
+  "literal_source": "../root_chunk_provider.c",
+  "raw_producer_source_commit": null,
+  "scope": "Only wps_pack_shuffle4 changes: initialize inactive rows and active prefix/suffix only; exact original row shuffle, codec, threads, ABI, layout and publish remain. SIMD32 excluded. Selected native artifact tested; build selector not rerun merely for promotion.",
+  "rollback": "Restore tools/cpu-working/PREVIOUS_SELECTION_BEFORE_PADDING_ONLY_FILL.json and matching binding for172; revert this source commit to b938 and rebuild fused-pack if rebuilding is required."
+}

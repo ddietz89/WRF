@@ -1,0 +1,413 @@
+{
+  "status": "PASS_ACTUAL_PADDING_ONLY_OUTPUT_PROVIDER_512_TWO_PRODUCTS_35_STEPS_ORIGINAL_SCI_ALL_SCOPES_CLOSED",
+  "utc": "2026-10-20T05:21:20.566953+00:00",
+  "candidate_executable_sha256": "1d6e5213108a5a1501ab319825bfa1a024df367af5037bee5f80d210f72d4f14",
+  "output_shim": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current172-padding-only-fill-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
+    "sha256": "329f70f24fd68bbd94c3ab575d9e0bfbc6ad7e5dba147865d033f83891130a62",
+    "provider_source_sha256": "1e0dee401c98a56a3e5b5ec218e70eb79b4de987e4cde48545d5d4bc80502dfc",
+    "shim_source_sha256": "313e18ed4309eec9b038371dfce227f8f5fc401813b094aa2cddb01e9de47421",
+    "source_commit": null,
+    "native_direct_pass_proof": {
+      "receipt_sha256": "6d4734e49fed2daab9624c562ccaea169b9fadb52a36418523b6e8293b9aa6af",
+      "closure_sha256": "52566d6afcaaef28fa8a7bf09854014d580460215834981be4d6f1b103fed80c",
+      "native_invocation_id": "62bde73f085447f4a954de497852e80b",
+      "shim_sha256": "329f70f24fd68bbd94c3ab575d9e0bfbc6ad7e5dba147865d033f83891130a62",
+      "scope": "Actual172parentexact/padding329f wholeDSO publicAPI/raw/state/world1negative component; production512 activation/runtime/science still hard."
+    }
+  },
+  "science": {
+    "receipt_sha256": "36aadc3a19d8a277f40e25964a1ace06713a53992faad614d7e8d8271de59f92",
+    "reader_closure_sha256": "0d6bdc7047f7fb0fc5377187c85311684213f906f2c8a1e9598f2c4717def9ef",
+    "reader_exit_code_raw": null,
+    "invocation_id": "c9fe8d90190343929653c6523919ab4e",
+    "products": 2,
+    "ordered_steps": 35,
+    "end_time": "2026-10-12_06:10:00",
+    "world": 512,
+    "compute": 480,
+    "quilt_groups": 4,
+    "quilt_ranks_per_group": 8,
+    "tiles": 2,
+    "positive_writer_roots": [
+      487,
+      495
+    ],
+    "zero_writer_roots": [
+      503,
+      511
+    ],
+    "protected_original_checker_unchanged": true,
+    "tile_status": "PASS_ACTUAL_480_DISJOINT_TILE_UNIONS_AND_ALL512_OBSERVED_ENVS"
+  },
+  "actual_input_lifecycle": {
+    "event": "final",
+    "rank": 0,
+    "scopes": 308,
+    "callbacks": 31,
+    "supplied": 17,
+    "declines": 14,
+    "widens": 31,
+    "restores": 31
+  },
+  "all_model_reader_scopes_closed": true,
+  "model_invocations": {
+    "hpc01": "5946eca8ead644bfbee5411e81fd613a",
+    "hpc02": "3fda44cba45f4a7ab53e48e4bf2914da",
+    "hpc03": "b7751b8deb834700b8549c226dffbb3a",
+    "hpc04": "5c88d6cfff3c4891a5187020c27274a7"
+  },
+  "observed_candidate_only_metrics": {
+    "MPI_wall_seconds": 138.32635833905078,
+    "aggregate_node_cgroup_CPU_seconds": 53493.131343,
+    "coordinator_RSL_main_step_seconds_sum": 38.67579,
+    "nodes": {
+      "hpc01": {
+        "invocation_id": "5946eca8ead644bfbee5411e81fd613a",
+        "memory_peak_bytes": 76191457280,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_stat": {
+          "usage_usec": 13335250979,
+          "user_usec": 12831109574,
+          "system_usec": 504141404,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 1392,
+          "nr_throttled": 619,
+          "throttled_usec": 3229472,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      },
+      "hpc02": {
+        "invocation_id": "3fda44cba45f4a7ab53e48e4bf2914da",
+        "memory_peak_bytes": 73756467200,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_stat": {
+          "usage_usec": 13354062659,
+          "user_usec": 12859249770,
+          "system_usec": 494812888,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 1347,
+          "nr_throttled": 770,
+          "throttled_usec": 3940340,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      },
+      "hpc03": {
+        "invocation_id": "b7751b8deb834700b8549c226dffbb3a",
+        "memory_peak_bytes": 73704136704,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_stat": {
+          "usage_usec": 13414543526,
+          "user_usec": 12856285510,
+          "system_usec": 558258016,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 1348,
+          "nr_throttled": 731,
+          "throttled_usec": 4665499,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      },
+      "hpc04": {
+        "invocation_id": "5c88d6cfff3c4891a5187020c27274a7",
+        "memory_peak_bytes": 73695698944,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "cpu_stat": {
+          "usage_usec": 13389274179,
+          "user_usec": 12843864904,
+          "system_usec": 545409275,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 1350,
+          "nr_throttled": 683,
+          "throttled_usec": 3319968,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      }
+    }
+  },
+  "limits": [
+    "Short2product35 scientific qualification only; no freshcontrol/isolatedgain/longhorizon/all4positivewriter claim.",
+    "Padding fullshim native directPASS62bde; original172historical failure/recovery remain prior component history, never rewritten.",
+    "NativeFPstate and standalonecaller timing remain separate, no per-callmodelFPsampling or forecastgain transfer.",
+    "Cgrouppeaks/CPU are observedwholeinvocation counters, no stage/PSS/headroom or pureIO attribution.",
+    "No source/default promotion by this assembler; compiledproducer source_commitNULL preserved."
+  ],
+  "raw_refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-padding-only-fill10m-runtime-r1/application-binding.json": {
+      "sha256": "94ca5cc8441f346165403c03e8735da575db302ca1be0dec8ce62308d00f89e2",
+      "bytes": 21164
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-padding-only-fill10m-runtime-r1/candidate-metadata/lease.json": {
+      "sha256": "98fed555d1b98692899cdb59b03171c938b80107b6bdbe8ab38b3a45a6e53de2",
+      "bytes": 115405
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-padding-only-fill10m-runtime-r1/source-pins.json": {
+      "sha256": "8cda010d6d1e607b51e4aace271b51eb6af67e0d05bc23f8b27b701b80ae810b",
+      "bytes": 15273
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-padding-only-fill10m-runtime-r1/output-fusion-receipt.json": {
+      "sha256": "6d4734e49fed2daab9624c562ccaea169b9fadb52a36418523b6e8293b9aa6af",
+      "bytes": 84742
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-padding-only-fill10m-runtime-r1/output-fusion-closure.json": {
+      "sha256": "52566d6afcaaef28fa8a7bf09854014d580460215834981be4d6f1b103fed80c",
+      "bytes": 1117
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-padding-only-fill10m-runtime-r1/output-fusion-qualification.json": {
+      "sha256": "b07e44913b87f7ac7b41cedec18196ef14c6a4a90acc266f5d36f94da9ca9677",
+      "bytes": 5826
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-padding-only-fill10m-runtime-r1/science-receipt.json": {
+      "sha256": "36aadc3a19d8a277f40e25964a1ace06713a53992faad614d7e8d8271de59f92",
+      "bytes": 3630390
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-padding-only-fill10m-runtime-r1/reader-closure.json": {
+      "sha256": "0d6bdc7047f7fb0fc5377187c85311684213f906f2c8a1e9598f2c4717def9ef",
+      "bytes": 4224
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-padding-only-fill10m-runtime-r1/candidate-closures.json": {
+      "sha256": "9bc8a40549f86786dac9e349f98cb9bc91cb8ddace7854353c6bcf34d12b880e",
+      "bytes": 23456
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-padding-only-fill10m-runtime-r1/candidate-metadata/mpi-launch.json": {
+      "sha256": "e646b27198a557165602b576d997d4577bbc9d0fa7813082d369b329ec8bdd9b",
+      "bytes": 7770
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-padding-only-fill10m-runtime-r1/candidate-metadata/hpc02-node.json": {
+      "sha256": "0ab664abe27ffc4316396897ea4095a564a5b4d7c28d071f9123f1a39ed39b2a",
+      "bytes": 3747
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-padding-only-fill10m-runtime-r1/candidate-metadata/hpc03-node.json": {
+      "sha256": "11ffc22c8d427fec830345cbd4111068bb072d71ad5a934ccd66a3ff027876ca",
+      "bytes": 3747
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-padding-only-fill10m-runtime-r1/candidate-metadata/hpc04-node.json": {
+      "sha256": "3081e42862588a02d0b016f6ad7a0c3cf3d278b59085354e72b6d45300d02f0a",
+      "bytes": 3747
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-padding-only-fill10m-runtime-r1/candidate-metadata/adaptive-steps.json": {
+      "sha256": "e9792a2353feb5fd9b1b4a916a78fbf380cdbc4fff291c36869c3f2c2173683f",
+      "bytes": 3956
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-padding-only-fill10m-runtime-r1/candidate-metadata/completion.json": {
+      "sha256": "44b2fcbd1e56a520819e9fcc1193f3906e361d95e6ba86300c886185b858fa6f",
+      "bytes": 945
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-padding-only-fill10m-runtime-r1/candidate-metadata/model-closures.json": {
+      "sha256": "84addc979a3f0f042072127330564afdcea2e6d082a929b412bf5003e15fa69f",
+      "bytes": 26184
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-padding-only-fill10m-runtime-r1/candidate-metadata/cache-start-context.json": {
+      "sha256": "02491dd6abec052617421e83498e8a70dfa9303f2b6734ca739d84447f6af5bf",
+      "bytes": 362
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-input-output-ninehour-closeout-r1/FINAL_QUALIFICATION.json": {
+      "sha256": "f0d6d92da066bfc7e3c23ab597d34df9227d42fe23c6f7891ecacc056fc085f1",
+      "bytes": 21329
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/caller-timing-preparation-r1/TIMING_RESULT.json": {
+      "sha256": "593a5031a34ac43503eee8d4831fd8f85c2670d6ad6beb8857e6ebe6d31a79f1",
+      "bytes": 13894
+    }
+  },
+  "actual_output_lifecycle": {
+    "487": {
+      "event": "final",
+      "rank": 487,
+      "scopes": 261,
+      "callbacks": 216,
+      "supplied": 216,
+      "declines": 0,
+      "guard_declines": 0,
+      "terminal_guards": 0,
+      "releases": 216,
+      "pending": 0,
+      "errors": 0,
+      "widens": 216,
+      "restores": 216,
+      "calls": 261,
+      "foreign_calls": 0
+    },
+    "495": {
+      "event": "final",
+      "rank": 495,
+      "scopes": 261,
+      "callbacks": 216,
+      "supplied": 216,
+      "declines": 0,
+      "guard_declines": 0,
+      "terminal_guards": 0,
+      "releases": 216,
+      "pending": 0,
+      "errors": 0,
+      "widens": 216,
+      "restores": 216,
+      "calls": 261,
+      "foreign_calls": 0
+    },
+    "503": {
+      "event": "final",
+      "rank": 503,
+      "scopes": 0,
+      "callbacks": 0,
+      "supplied": 0,
+      "declines": 0,
+      "guard_declines": 0,
+      "terminal_guards": 0,
+      "releases": 0,
+      "pending": 0,
+      "errors": 0,
+      "widens": 0,
+      "restores": 0,
+      "calls": 0,
+      "foreign_calls": 0
+    },
+    "511": {
+      "event": "final",
+      "rank": 511,
+      "scopes": 0,
+      "callbacks": 0,
+      "supplied": 0,
+      "declines": 0,
+      "guard_declines": 0,
+      "terminal_guards": 0,
+      "releases": 0,
+      "pending": 0,
+      "errors": 0,
+      "widens": 0,
+      "restores": 0,
+      "calls": 0,
+      "foreign_calls": 0
+    }
+  },
+  "previous_qualified_current172_ninehour": {
+    "scope": "PREVIOUS output172 ONLY; not new329f own long-horizon evidence",
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-input-output-ninehour-closeout-r1/FINAL_QUALIFICATION.json",
+    "sha256": "f0d6d92da066bfc7e3c23ab597d34df9227d42fe23c6f7891ecacc056fc085f1",
+    "all42_references_verified": true,
+    "science": {
+      "status": "PASS_ORIGINAL_TEN_HISTORY_AND_512_DIRECT_STOCK_LATEST_NINE_HOUR_SEQUENCE",
+      "complete_products": 10,
+      "ordered_steps": 1625,
+      "last_observed_step": "2026-10-12_15:00:00",
+      "all512": true,
+      "compute_ranks": 480,
+      "serial_tiles": 2,
+      "required_positive_roots": [
+        487,
+        495,
+        503,
+        511
+      ],
+      "receipt_sha256": "e2de22922c5c4f16158201b0b1f66c76c69654b29ef003f898dfce79ae097a37",
+      "reader_closure_sha256": "d8cbf939ad09a1258a75b99251d0f3461682aec31d7e31a28e4da28536b0ca24",
+      "reader_invocation_id": "502f027b95d7423691eca478966eb25a",
+      "reader_exit_code_property": null,
+      "reader_manager_success_invocation_bound": true,
+      "protected_checker": "dba20a451ac26be755568d2a693da92365eb8f0a76fc1f85f2672f05ce0fa691"
+    },
+    "comparison_design": "UNPAIRED later current1d6e+input06d/NCa32+output172 candidate vs retained corrected-original546b; no new control or isolated component attribution"
+  },
+  "new329f_own_application_scope": "Actual original2products/35steps/full512/twoTiles; no own nine-hour or extra wholeforecast demand inferred.",
+  "standalone_complete_provider_timing": {
+    "scope": "Separate syntheticWgeometry/fixed32 completecallback, four CPUs, oppositeorder02/04; no forecast transfer",
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/caller-timing-preparation-r1/TIMING_RESULT.json",
+    "sha256": "593a5031a34ac43503eee8d4831fd8f85c2670d6ad6beb8857e6ebe6d31a79f1",
+    "pairs": [
+      {
+        "host": "hpc02",
+        "order": [
+          "parent",
+          "candidate"
+        ],
+        "parent_arm": 0,
+        "candidate_arm": 1,
+        "parent_wall_seconds": 3.329354792,
+        "candidate_wall_seconds": 3.158651414,
+        "wall_shorter_percent": 5.1272209981999435,
+        "parent_process_cpu_seconds": 11.480653676,
+        "candidate_process_cpu_seconds": 10.420397946,
+        "process_cpu_lower_percent": 9.235151237219497,
+        "same_five_state_exact": true
+      },
+      {
+        "host": "hpc04",
+        "order": [
+          "candidate",
+          "parent"
+        ],
+        "parent_arm": 3,
+        "candidate_arm": 2,
+        "parent_wall_seconds": 3.395844582,
+        "candidate_wall_seconds": 3.219148892,
+        "wall_shorter_percent": 5.203291426721712,
+        "parent_process_cpu_seconds": 11.820236639,
+        "candidate_process_cpu_seconds": 10.625788866,
+        "process_cpu_lower_percent": 10.105108801790042,
+        "same_five_state_exact": true
+      }
+    ]
+  },
+  "production_source_delta": {
+    "provider_parent_sha256": "b938317c3430fd11ec02dce7bb0f3201a426369bf4a073a10fc3c152a912960f",
+    "provider_candidate_sha256": "1e0dee401c98a56a3e5b5ec218e70eb79b4de987e4cde48545d5d4bc80502dfc",
+    "all_other_production_code_unchanged": true,
+    "shim313e_and_executable1d6e_unchanged": true,
+    "SIMD32_not_included": true
+  },
+  "nonroot_lifecycle_summary": {
+    "rank_count": 508,
+    "all_observed_counters_zero": true,
+    "counter_names": [
+      "scopes",
+      "callbacks",
+      "supplied",
+      "declines",
+      "guard_declines",
+      "terminal_guards",
+      "releases",
+      "pending",
+      "errors",
+      "widens",
+      "restores",
+      "calls",
+      "foreign_calls"
+    ]
+  },
+  "complete_original_qualification": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/padding-only-fill-r1/integration-preparation-r1/application-preparation-r1/APPLICATION_QUALIFICATION.json",
+    "sha256": "a610ac792e58d16d7ca3b8fc4f5d93991aa75299f7988f368bc3ff6a3e2e72d7",
+    "presentation_note": "Compact post-science presentation: zero counters of508nonroots summarized; original full evidence unchanged."
+  }
+}

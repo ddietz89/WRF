@@ -138,7 +138,6 @@ static void wps_shuffle4(unsigned char *dst, size_t stride, const unsigned char 
 static void wps_pack_shuffle4(const nc_precompressed_float_layout*l,size_t c,
                      const unsigned char*raw,unsigned char*out,size_t nbytes){
     size_t items=nbytes/4;
-    for(size_t byte=0;byte<4;byte++)memset(out+byte*items,l->fill_le[byte],items);
     int last=l->ndims-1;
     size_t width=l->chunk_dims[last];
     size_t rows=nbytes/4/width;
@@ -146,8 +145,12 @@ static void wps_pack_shuffle4(const nc_precompressed_float_layout*l,size_t c,
     size_t hi=l->offsets[c][last]+width;
     size_t limit=l->request_start[last]+l->request_count[last];
     if(hi>limit)hi=limit;
-    if(hi<=lo)return;
+    if(hi<=lo){
+        for(size_t byte=0;byte<4;byte++)memset(out+byte*items,l->fill_le[byte],items);
+        return;
+    }
     size_t row_off=lo-l->offsets[c][last];
+    size_t act=hi-lo;
     for(size_t row=0;row<rows;row++){
         size_t rem=row,index=0,pos[4]={0};int inside=1;
         for(int d=last-1;d>=0;d--){
@@ -155,10 +158,23 @@ static void wps_pack_shuffle4(const nc_precompressed_float_layout*l,size_t c,
             rem/=l->chunk_dims[d];
             if(pos[d]<l->request_start[d]||pos[d]>=l->request_start[d]+l->request_count[d])inside=0;
         }
-        if(!inside)continue;
+        unsigned char*dst=out+row*width;
+        if(!inside){
+            for(size_t byte=0;byte<4;byte++){
+                unsigned char bv=l->fill_le[byte];
+                memset(dst+byte*items,bv,width);
+            }
+            continue;
+        }
         for(int d=0;d<last;d++)index=index*l->request_count[d]+pos[d]-l->request_start[d];
         index=index*l->request_count[last]+lo-l->request_start[last];
-        wps_shuffle4(out+row*width+row_off,items,raw+4*index,4*(hi-lo));
+        for(size_t byte=0;byte<4;byte++){
+            unsigned char bv=l->fill_le[byte];
+            if(row_off>0)memset(dst+byte*items,bv,row_off);
+            size_t tail=row_off+act;
+            if(tail<width)memset(dst+byte*items+tail,bv,width-tail);
+        }
+        wps_shuffle4(dst+row_off,items,raw+4*index,4*act);
     }
 }
 
