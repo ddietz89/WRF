@@ -1,0 +1,92 @@
+{
+  "status": "PASS_ONE_FIXED_SYNTHETIC_COMPLETE_TRANSPOSE_READ_OPPOSITE_ORDER_WAVE",
+  "scope": "Complete external Transpose procedure only; representative SYNTHETIC XZY read1500x33x1140/DI1 fixed16; production shape not captured. Both clocks include identical fullField/XField restores and completecalls. Warm/terminal fullraw readonly physicalhalo metadata five-state outside clocks.",
+  "parent_object_sha256": "1fd157cd3e5578a77e20462e13297db33b9b3ee9ecf7575030c066ba06e0af4e",
+  "candidate_object_sha256": "c2a38fe3caf589d1843552a4ca8df21abb0e522278fa32d733ca4103c30bbcec",
+  "pairs": [
+    {
+      "host": "hpc01",
+      "order": "parent_then_candidate",
+      "parent_wall_seconds": 1.6092141919999998,
+      "candidate_wall_seconds": 1.2095265929999999,
+      "wall_percent_shorter": 24.837439353132428,
+      "parent_cpu_seconds": 1.6090132149999998,
+      "candidate_cpu_seconds": 1.209442966,
+      "cpu_percent_shorter": 24.833248432953358
+    },
+    {
+      "host": "hpc04",
+      "order": "candidate_then_parent",
+      "parent_wall_seconds": 1.6183933209999999,
+      "candidate_wall_seconds": 1.205614233,
+      "wall_percent_shorter": 25.505486376139086,
+      "parent_cpu_seconds": 1.618102467,
+      "candidate_cpu_seconds": 1.2055329799999999,
+      "cpu_percent_shorter": 25.497117482609966
+    }
+  ],
+  "arms": [
+    {
+      "host": "hpc01",
+      "mode": "parent",
+      "invocation_id": "3c5c9c0392b84c43a3a2ba7a4470035e",
+      "wall_seconds": 1.6092141919999998,
+      "cpu_seconds": 1.6090132149999998,
+      "fixed_repetitions": 16
+    },
+    {
+      "host": "hpc01",
+      "mode": "candidate",
+      "invocation_id": "e72831b0da594960a4457d96419d646e",
+      "wall_seconds": 1.2095265929999999,
+      "cpu_seconds": 1.209442966,
+      "fixed_repetitions": 16
+    },
+    {
+      "host": "hpc04",
+      "mode": "candidate",
+      "invocation_id": "0f2ac7b74f284d19bf461f69d1f551de",
+      "wall_seconds": 1.205614233,
+      "cpu_seconds": 1.2055329799999999,
+      "fixed_repetitions": 16
+    },
+    {
+      "host": "hpc04",
+      "mode": "parent",
+      "invocation_id": "03685db35a44462dbbc6a3fe63bab001",
+      "wall_seconds": 1.6183933209999999,
+      "cpu_seconds": 1.618102467,
+      "fixed_repetitions": 16
+    }
+  ],
+  "all4_exact_raw_readonly_guards_five_state": "PASS",
+  "all4_cache_fullSOP_and_strong_INV_closure": "PASS",
+  "raw_refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current81d35-input-transpose-triage-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/receipt.json": "fc9a1368704d04618048368fee0a9d6e750e0bbec0b8eb4cfbba3cf7728f23d2",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current81d35-input-transpose-triage-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/closure.json": "d8ccd1cd9542a5f14cfa33139be8f9f0a194307237eda33d56f9ae65f325401d",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current81d35-input-transpose-triage-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/cache-clear.json": "e94e545db976d089ee4af30921782ca79c9abdf01c92e43053dd15222583333c",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current81d35-input-transpose-triage-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/controller.json": "b28aa79bfeddff45a111f202a700ec930182fdf3d5e6a61ffb40e60df6aa4229",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current81d35-input-transpose-triage-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/receipt.json": "c4b3f6abc57cf0da6e61308e2020fa5874f8b29b2d357b835882a76def475b88",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current81d35-input-transpose-triage-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/closure.json": "7b3de67fb7cffc1c201f4ad67046b9df0896b1610fea04409b621cb3876c6e68",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current81d35-input-transpose-triage-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/cache-clear.json": "71c764c3a0d2b2642682a99354d9896f30c60b52e3ea578b7a47368958e5f004",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current81d35-input-transpose-triage-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/controller.json": "f9e27e6e86b0d3dec00d446f5ede20545266dbadb19a2f7b75ee8dd40e2abca8",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current81d35-input-transpose-triage-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/receipt.json": "07cf945c4067f32dd2e65c39d118e13aa78005375998ef36b7c9e8399fac52bb",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current81d35-input-transpose-triage-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/closure.json": "1e2b093b68fa668fec284e18d1aa0d83d5f0cb7d656f60a7d49b79279535798c",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current81d35-input-transpose-triage-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/cache-clear.json": "84b0b585d93eaf54a884e3a06e6fb86288eeefbadc6aee45dbd3774a70bca009",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current81d35-input-transpose-triage-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/controller.json": "286fcd1622b977f46f6d43eda1952fa49c309a1b45871a08ce771c85282b6d3d",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current81d35-input-transpose-triage-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/receipt.json": "06d9b53e49a678ed0d4e91a5dbba161c2d171a6d6ba0b0c1ece591c92397c071",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current81d35-input-transpose-triage-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/closure.json": "bb9d1beecff759f1d078a43bc8c6c5db794ab14c9e1af69a2545b48f14a70fb9",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current81d35-input-transpose-triage-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/cache-clear.json": "ef7b7ce902353d82a2411826bf8da3e616042dd952eac51f872c3d0df636cdfc",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current81d35-input-transpose-triage-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/controller.json": "3c5f95549a612ea11c86ec4a39bf36d0b196e0fecd35db26345cd00576c60739"
+  },
+  "overlap_context": {
+    "root_release": "ROOT_NODE_LOCAL_INPUT_WAVE_RELEASE_20261020.json/5e709f7a",
+    "all8_model_scopes": "Strongclosed before wave",
+    "reader03": "Timing-insensitive originalSCI reader reported active by Spot whenwavebegan; no03actions",
+    "decoder02": "Rootreported independently running controller10924 around driver/wavelaunch; exact same-instant activity interval not reconstructed",
+    "same_node_CPU_overlap": "None in01/04 scope admission; strictSOP campaignidle beforeEVERYarm",
+    "limits": "Memory-only standalone caller timing; overlapping disjoint03reader/02correctness may share infrastructure, no whole-gridgain claim."
+  },
+  "application_qualification": "PENDING; native uses retained253a PP with separate155canonical diagnostic provenance; sourcecommitNULL unchanged",
+  "decision_recommendation": "RETAIN_FOR_SEPARATE_TRUE_CANONICAL_AND_APPLICATION_QUALIFICATION; no repeatwave or isolatedforecast claim."
+}

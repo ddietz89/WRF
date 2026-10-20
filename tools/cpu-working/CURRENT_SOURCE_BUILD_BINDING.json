@@ -1,9 +1,9 @@
 {
-  "status": "POST_SCIENCE_LAZY_FIXED_GROUP_THOMPSON_SOURCE_AND_COMBINED_EXECUTABLE_PROMOTION",
-  "source_commit": "3de4d602013db3f1cb4d8fed92fb5a7cc30866ed",
+  "status": "POST_SCIENCE_READ_DI1_AFFINE_SOURCE_AND_CANONICAL_IO_EXECUTABLE_PROMOTION",
+  "source_commit": "495f10002d87fb5fdcc256c20a9e592c037d9183",
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/current-b1fb-thompson-lazy-groups-current-r2/wrf.exe",
-    "sha256": "81d35cfa92ff1e84505f94cf3a2fb4cf9761f8215f6e4dc49da0c3bed5db32e8"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2/wrf.exe",
+    "sha256": "1d6e5213108a5a1501ab319825bfa1a024df367af5037bee5f80d210f72d4f14"
   },
   "archive_sha256": "beefab2eb05be13d6da3155885d1195137675893b850b0c2f1f63c38702ec6be",
   "sources": {
@@ -19,7 +19,8 @@
     "dyn_em/module_big_step_utilities_em.F": "c41522cd74f10267b705331e18092ce2cda0e8375a7e09c1ecff3e69741df6b6",
     "dyn_em/module_em.F": "ca2c2f614bd6e7b6b9c4545d0974890de1ee8254032a55fa205066eb80434dad",
     "dyn_em/module_small_step_em.F": "f998112d879b964e18f7637eb64b3135ea733b23a16a89b53362bdfc75728b98",
-    "phys/module_bl_myjpbl.F": "71bdfe22196a36f46b55e9ee6bc7891aedb78f1906b1619df297d7c7b6e5e198"
+    "phys/module_bl_myjpbl.F": "71bdfe22196a36f46b55e9ee6bc7891aedb78f1906b1619df297d7c7b6e5e198",
+    "external/io_netcdf/transpose_integer_forward.code": "ca8d136ebf9c54f913337802f60fe7d3d0accbb7ef3bb32318a026d6c4f056d9"
   },
   "build": {
     "CQU_canonical": {
@@ -58,19 +59,23 @@
     "lazy_fixed_group_canonical": {
       "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-qg-group-early-publication-feasibility-r1/overlay-build-preparation-r2/BUILD_QUALIFICATION.json",
       "sha256": "50fef7bcc3122456c421389416dbec192a627aec1b5eb9501400a56c4001667a"
+    },
+    "read_affine_canonical": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current81d35-input-transpose-triage-r1/canonical-integration-preparation-r2/BUILD_QUALIFICATION.json",
+      "sha256": "e6ad1c98e29d508166b9dde4fa70ce7ecce9ee5f49521b3d93b79ea0ee0a2e54"
     }
   },
-  "qualification_file": "../cpu-compute/myj-mixlen-scratch-reuse/QUALIFICATION.json",
+  "qualification_file": "../cpu-input/read-affine-transpose/QUALIFICATION.json",
   "PD_real32_equivalence_file": "../cpu-compute/pd-row-workspace/QUALIFICATION.json",
   "PD_production_member_sha256": "8ec77f864716667aa79d40878fa11276f7dede4017c620201e54f9f83bb32b25",
   "PD_repaired_compile_object_sha256": "e5245eed1f84a67ea9d428bed8d8b2529f568ca49394f9cf8b85d97bdc50f560",
   "PD_equivalence_proof_sha256": "92abf53cb516e4394f2ce232ad81fb4985ea7b1f849310927e54aa4a2b1017cc",
-  "build_scope": "All prior qualified compute/shared-table/output/library changes plus literal4a2b lazy fixed-group Thompson source; c3fb native-qualified object overlay,583/584 ordered members preserved,zero WRF compiles/one link,MOD2b20 unchanged. Read4rank and computed64 native gates; actual unprofiled06-09 original4products/545steps/512/twoTiles/fourwriters PASS. No own9h/cleanbuild/othercompiler or isolated forecast gain transfer.",
+  "build_scope": "WorkingGNU13.3 strict/OMP1,onecoldsingle-domain06-06:10;375/881/825/shared1/FIELDVIEW1/faba/singleIB/512/twoTiles. Currentown3h/9h,restart,nesting,othercompiler NOTtransferred. Periodiccombined3h follows nextqualifiedinputbatch. 155literaldiagnosticlineblocksoutsideTranspose genuinea6e2/b713 preserved; no PP/binary normalization or wholeobjectidentityclaim. OneIOcompile/link,other2IOmembers+physicsarchive/mains/helpers unchanged.",
   "runtime": {
     "WRF_EXPERIMENTAL_TPI_NUMA": 1,
     "other_settings": "Unchanged375/881/825/faba/FIELDVIEW1/IB"
   },
-  "previous_binding": "PREVIOUS_SOURCE_BUILD_BINDING_B1FB.json",
+  "previous_binding": "PREVIOUS_SOURCE_BUILD_BINDING_81D35.json",
   "native": {
     "CQU": {
       "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-cqu-first-species-peel-r1/NATIVE_QUALIFICATION.json",
@@ -115,10 +120,10 @@
     "sha256": "f38a865905d030be42ac0a965b4aa6afbc0eae280902a3839f20df176457f445"
   },
   "full_application": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-qg-group-early-publication-feasibility-r1/periodic-threehour-preparation-r1/lifecycle-r1/FINAL_QUALIFICATION.json",
-    "sha256": "4e984626ca8513e4e03ec03d135afd6d8d01824c4d2c54e3b5b56d87bfcb8e8b"
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current81d35-input-transpose-triage-r1/tenminute-application-preparation-r1/lifecycle-r1/FINAL_QUALIFICATION.json",
+    "sha256": "44bbcdeaa54b15ab52a51bcc884afefe3fcd536216200c151387491e5917ff3f"
   },
-  "current_three_hour_qualified": true,
+  "current_three_hour_qualified": false,
   "prior_repaired_full_application": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/myj-mixlen-scratch-reuse/APPLICATION_QUALIFICATION.json",
     "sha256": "55e2170cfc4f695e2eb7124cb4dec541954a9db290979ed2423252a4b117eb2f"
@@ -164,5 +169,13 @@
   "prior_short_full_application_81d35": {
     "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-qg-group-early-publication-feasibility-r1/candidate-tenminute-preparation-r1/lifecycle-r1/FINAL_QUALIFICATION.json",
     "sha256": "d7e43a4a529593a3715d2e57e73d40d8a3a2bd7edf624b8042269af3a18f984e"
-  }
+  },
+  "read_affine_IO_archive_sha256": "651835f31089e16759177734198ece5b121d704355c73abddde483f4cae2c14c",
+  "read_affine_IO_object_sha256": "c9c4e5b7a0225523e7d85cfc188022d797204d3f4dd4494b54c416e3bec99320",
+  "previous_81d35_full_application": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-qg-group-early-publication-feasibility-r1/periodic-threehour-preparation-r1/lifecycle-r1/FINAL_QUALIFICATION.json",
+    "sha256": "4e984626ca8513e4e03ec03d135afd6d8d01824c4d2c54e3b5b56d87bfcb8e8b"
+  },
+  "read_affine_qualification_file": "tools/cpu-input/read-affine-transpose/QUALIFICATION.json",
+  "previous_compute_qualification_file": "../cpu-compute/myj-mixlen-scratch-reuse/QUALIFICATION.json"
 }

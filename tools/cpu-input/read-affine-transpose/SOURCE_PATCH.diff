@@ -1,0 +1,29 @@
+diff --git a/external/io_netcdf/transpose_integer_forward.code b/external/io_netcdf/transpose_integer_forward.code
+index c0dd9f03..31050d06 100644
+--- a/external/io_netcdf/transpose_integer_forward.code
++++ b/external/io_netcdf/transpose_integer_forward.code
+@@ -73,9 +73,21 @@ else
+ !dir$ prefervector
+ !dir$ concurrent
+ !cdir select(vector)
+-      do i=i1,i2
+-          Field(1,abs(ix-i),abs(jx-j),abs(kx-k)) = DFIELD1
+-      enddo
++      if(i1<=i2)then
++        if(i1>=ix)then
++          do i=i1,i2
++              Field(1,i-ix,abs(jx-j),abs(kx-k)) = DFIELD1
++          enddo
++        else
++          do i=i1,i2
++              Field(1,abs(ix-i),abs(jx-j),abs(kx-k)) = DFIELD1
++          enddo
++        endif
++      else
++        do i=i1,i2
++            Field(1,abs(ix-i),abs(jx-j),abs(kx-k)) = DFIELD1
++        enddo
++      endif
+     enddo
+   enddo
+ !$OMP END PARALLEL DO

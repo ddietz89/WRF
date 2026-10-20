@@ -1,7 +1,7 @@
 {
-  "status": "PROMOTED_LAZY_FIXED_GROUP_THOMPSON_INITIALIZATION_ON_ALL_B1FB_IMPROVEMENTS",
-  "source_commit": "3de4d602013db3f1cb4d8fed92fb5a7cc30866ed",
-  "scope": "Cold single-domain06:00-09:00 GNU13.3 strict/OMP1/DIMNRHG1/shared1/375/881/825/faba/FIELDVIEW1/IB512/twoTiles; original4products/545steps/all4positivewriters. Own9h/restart/nesting/othercompiler/mode0 qualification not transferred.",
+  "status": "PROMOTED_EXACT_CANONICAL_READ_DI1_AFFINE_ON_ALL_81D35_IMPROVEMENTS",
+  "source_commit": "495f10002d87fb5fdcc256c20a9e592c037d9183",
+  "scope": "WorkingGNU13.3 strict/OMP1,onecoldsingle-domain06-06:10;375/881/825/shared1/FIELDVIEW1/faba/singleIB/512/twoTiles. Currentown3h/9h,restart,nesting,othercompiler NOTtransferred. Periodiccombined3h follows nextqualifiedinputbatch.",
   "artifacts": {
     "shim": {
       "path": "/pool/wrf-experiment/wrf-cpu/source-discovery/parallel-pack-quilt-shim-native-r1/wrf_quilt_thread_shim.so",
@@ -17,8 +17,8 @@
     }
   },
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/current-b1fb-thompson-lazy-groups-current-r2/wrf.exe",
-    "sha256": "81d35cfa92ff1e84505f94cf3a2fb4cf9761f8215f6e4dc49da0c3bed5db32e8"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2/wrf.exe",
+    "sha256": "1d6e5213108a5a1501ab319825bfa1a024df367af5037bee5f80d210f72d4f14"
   },
   "private_hdf5": {
     "path": "/pool/wrf-experiment/wrf-cpu/builds/hdf5-sse2-unshuffle4-private-r3/output/candidate/lib/libhdf5.so.310.3.0",
@@ -46,33 +46,35 @@
     "WRF_QUILT_OWNED_FIELD_VIEW": 1,
     "WRF_EXPERIMENTAL_TPI_NUMA": 1
   },
-  "includes": "All retained b1fb/source4e70 compute/shared-table/output/library improvements plus lazy allocation and early fixed-group Thompson publication. Existing23fields/12owners, creators and arithmetic unchanged.",
+  "includes": "All retained81d35/source3de4 compute/shared-table/lazy-initialization/output/library improvements plus guarded non-reversedREADDI1 affine rows. OnlyoneI/Osourceinclude changed; originalABSfallback retained.",
   "science": {
-    "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
-    "complete_products": 4,
-    "ordered_steps": 545,
-    "last_observed_step": "2026-10-12_09:00:00",
+    "status": "PASS_TRUE_CANONICAL_READ_DI1_AFFINE_FULL_512_TEN_MINUTE_TWO_PRODUCTS_35_STEPS_ALL_SCOPES_CLOSED",
+    "complete_products": 2,
+    "ordered_steps": 35,
+    "last_observed_step": "2026-10-12_06:10:00",
     "all512": true,
     "compute_ranks": 480,
     "serial_tiles": 2,
     "required_positive_roots": [
       487,
-      495,
+      495
+    ],
+    "required_inactive_roots": [
       503,
       511
     ],
-    "receipt_sha256": "6d1559af4594fc71b40c47c9b797eb2e144aaf8d2f8807cae83f4e5abdb1c3fc",
-    "reader_closure_sha256": "9f1cd1aec784dedaefb5114e936531d2f5f000a33a7596923eca3a04a506680f",
-    "full_qualification_sha256": "4e984626ca8513e4e03ec03d135afd6d8d01824c4d2c54e3b5b56d87bfcb8e8b",
+    "receipt_sha256": "28780d6bb58bb4bb1a4263f4d30c80d93d88cdcb36489ea009b7aa972d9b4f40",
+    "reader_closure_sha256": "b95b11822413ea7533c817e26e490920b3a13e3c506e72557971d7999b32725b",
+    "full_qualification_sha256": "44bbcdeaa54b15ab52a51bcc884afefe3fcd536216200c151387491e5917ff3f",
     "all_model_reader_scopes_closed": true,
     "protected_checker": "0382bcbabfbc16b76114ef552206c6c558ea15cd3c3552dfaed98b977deea2b4"
   },
-  "lease_reference": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-thompson-lazy-groups3h-runtime-r1/lease-candidate-proposed.json",
-  "rollback_executable_sha256": "b1fb398a9c7186823584252b53f4ee360c260143064720256f660ba1459c8670",
+  "lease_reference": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-input-read-affine10m-runtime-r1/lease-candidate-proposed.json",
+  "rollback_executable_sha256": "81d35cfa92ff1e84505f94cf3a2fb4cf9761f8215f6e4dc49da0c3bed5db32e8",
   "activation": "Selection record, not a launcher. Use existing bounded launcher with a fresh run directory/log directory/lease and actual affinity/library/resource checks. Never preload MPI launcher or helper processes.",
   "schema_version": 2,
   "last_three_hour_benchmark": {
-    "evidence_file": "THREE_HOUR_RESULT.json",
+    "evidence_file": "PREVIOUS_THREE_HOUR_RESULT_81D35.json",
     "executable_sha256": "81d35cfa92ff1e84505f94cf3a2fb4cf9761f8215f6e4dc49da0c3bed5db32e8",
     "source_commit": "3de4d602013db3f1cb4d8fed92fb5a7cc30866ed",
     "comparison_design": "UNPAIRED retained corrected-original control",
@@ -95,9 +97,9 @@
     },
     "full_qualification_sha256": "4e984626ca8513e4e03ec03d135afd6d8d01824c4d2c54e3b5b56d87bfcb8e8b",
     "fresh_matched_timing": false,
-    "applies_to_current_selection": true
+    "applies_to_current_selection": false
   },
-  "qualification_file": "tools/cpu-working/THREE_HOUR_FINAL_QUALIFICATION.json",
+  "qualification_file": "tools/cpu-input/read-affine-transpose/QUALIFICATION.json",
   "previous_three_hour_benchmark": {
     "evidence_file": "PREVIOUS_THREE_HOUR_RESULT_3BB2.json",
     "executable_sha256": "3bb2b8f17ed5c5c8cb2afe9b1e68faf162a66c37546a366a00179411b651c4df",
@@ -125,8 +127,8 @@
     "applies_to_current_selection": false
   },
   "rollback_executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/current-e55-myj-mixlen-scratch-current-r1/wrf.exe",
-    "sha256": "b1fb398a9c7186823584252b53f4ee360c260143064720256f660ba1459c8670"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current-b1fb-thompson-lazy-groups-current-r2/wrf.exe",
+    "sha256": "81d35cfa92ff1e84505f94cf3a2fb4cf9761f8215f6e4dc49da0c3bed5db32e8"
   },
   "latest_application": {
     "evidence_file": "THREE_HOUR_RESULT.json",
@@ -920,8 +922,8 @@
     },
     "evidence_file": "PREVIOUS_THREE_HOUR_RESULT_8604.json"
   },
-  "current_source_head_note": "Selected source3de4; following commits record own3h qualification, not rebuilt artifacts. Earlier9hb1fb remains historical.",
-  "rollback_source_commit": "4e70d8fd315cb1220793226b69a2c55372cfb9bd",
+  "current_source_head_note": "Selectedsource495f1000/readinclude ca8d; genuinecanonical1d6e ownsoriginalcold2/35 only. Earlier81d35 own3h/b1fb9h remainhistorical; no source/producerNULLrewrite.",
+  "rollback_source_commit": "3de4d602013db3f1cb4d8fed92fb5a7cc30866ed",
   "last_fresh_paired_three_hour_benchmark": {
     "evidence_file": "PREVIOUS_THREE_HOUR_RESULT_ED095.json",
     "executable_sha256": "ed0951105f3dba9808b665fc6fd57ebbd258ded72233ed8d91f32e99150bbfc6",
@@ -1934,7 +1936,7 @@
     "ordered_steps": 545,
     "all_own_jobs_closed": true
   },
-  "current_three_hour_qualified": true,
+  "current_three_hour_qualified": false,
   "previous_repaired_noon_application": {
     "evidence_file": "../cpu-compute/myj-mixlen-scratch-reuse/APPLICATION_QUALIFICATION.json",
     "executable_sha256": "b1fb398a9c7186823584252b53f4ee360c260143064720256f660ba1459c8670",
@@ -2048,7 +2050,7 @@
     "fresh_matched_timing": false,
     "applies_to_current_selection": false
   },
-  "next_qualification": "Canonical READ transpose1d6e cold10m application now; significant ~25% completecaller gain already measured. Parallelrawchunk complete-readroute ~43% shorter/+30% processCPU retained for ordinaryNCcaller integration/CPUadmission. DualIB3h closed exact/no establishedgain. Selected81d35 owns3h, not9h.",
+  "next_qualification": "CompleteordinaryNCparallelinputdecoder gate+explicitrootCPU/lifecycleadmission andshortapplication, thenperiodiccombined3h. Continuecurrentwrite-sideattribution withretainedprofiles first. No repeatunchangedacceptancematrix.",
   "previous_three_hour_benchmark_e55": {
     "evidence_file": "PREVIOUS_THREE_HOUR_RESULT_E55.json",
     "executable_sha256": "e55c97e6129529f366fd0dd496d3cff1192714223c7755a7484622ddb82a108f",
@@ -2118,6 +2120,58 @@
     "default_devices": "ibp1s0f0:1",
     "optional_devices": "ibp1s0f0:1,ibp33s0f0:1",
     "scope": "Exact current81d35 cold3h configuration only; no9h/restart transfer; timingnearlevel/memoryassociation preserved.",
-    "runtime_changed": false
-  }
+    "runtime_changed": false,
+    "applies_to_current_selection": false,
+    "qualified_executable_sha256": "81d35cfa92ff1e84505f94cf3a2fb4cf9761f8215f6e4dc49da0c3bed5db32e8"
+  },
+  "previous_81d35_three_hour_science": {
+    "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+    "complete_products": 4,
+    "ordered_steps": 545,
+    "last_observed_step": "2026-10-12_09:00:00",
+    "all512": true,
+    "compute_ranks": 480,
+    "serial_tiles": 2,
+    "required_positive_roots": [
+      487,
+      495,
+      503,
+      511
+    ],
+    "receipt_sha256": "6d1559af4594fc71b40c47c9b797eb2e144aaf8d2f8807cae83f4e5abdb1c3fc",
+    "reader_closure_sha256": "9f1cd1aec784dedaefb5114e936531d2f5f000a33a7596923eca3a04a506680f",
+    "full_qualification_sha256": "4e984626ca8513e4e03ec03d135afd6d8d01824c4d2c54e3b5b56d87bfcb8e8b",
+    "all_model_reader_scopes_closed": true,
+    "protected_checker": "0382bcbabfbc16b76114ef552206c6c558ea15cd3c3552dfaed98b977deea2b4"
+  },
+  "previous_selection": "PREVIOUS_SELECTION_81D35.json",
+  "previous_81d35_three_hour_benchmark": {
+    "evidence_file": "PREVIOUS_THREE_HOUR_RESULT_81D35.json",
+    "executable_sha256": "81d35cfa92ff1e84505f94cf3a2fb4cf9761f8215f6e4dc49da0c3bed5db32e8",
+    "source_commit": "3de4d602013db3f1cb4d8fed92fb5a7cc30866ed",
+    "comparison_design": "UNPAIRED retained corrected-original control",
+    "metrics": {
+      "control": {
+        "wall_seconds": 820.5063595210668,
+        "cpu_seconds": 367800.485597,
+        "main_step_sum_seconds": 597.99405
+      },
+      "candidate": {
+        "wall_seconds": 672.2310170449782,
+        "cpu_seconds": 324829.440612,
+        "main_step_sum_seconds": 563.3811
+      }
+    },
+    "reductions_percent": {
+      "wall_seconds": 18.071199662929796,
+      "cpu_seconds": 11.683248573000386,
+      "main_step_sum_seconds": 5.788176320483467
+    },
+    "full_qualification_sha256": "4e984626ca8513e4e03ec03d135afd6d8d01824c4d2c54e3b5b56d87bfcb8e8b",
+    "fresh_matched_timing": false,
+    "applies_to_current_selection": false
+  },
+  "current_application_qualification_file": "tools/cpu-input/read-affine-transpose/APPLICATION_QUALIFICATION.json",
+  "read_affine_IO_archive_sha256": "651835f31089e16759177734198ece5b121d704355c73abddde483f4cae2c14c",
+  "read_affine_IO_object_sha256": "c9c4e5b7a0225523e7d85cfc188022d797204d3f4dd4494b54c416e3bec99320"
 }

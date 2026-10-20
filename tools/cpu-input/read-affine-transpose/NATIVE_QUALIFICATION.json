@@ -1,0 +1,52 @@
+{
+  "status": "NATIVE_RETAINED_PP_READ_DI1_AFFINE_QUALIFIED_NOT_APPLICATION",
+  "source_commit": null,
+  "current_oracle_object_sha256": "1fd157cd3e5578a77e20462e13297db33b9b3ee9ecf7575030c066ba06e0af4e",
+  "production_candidate": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current81d35-input-read-affine-full-caller-gate-r1/actual/candidate-O2/wrf_io.o",
+    "sha256": "c2a38fe3caf589d1843552a4ca8df21abb0e522278fa32d733ca4103c30bbcec",
+    "PP_sha256": "9974820a9ee481fa74cefc88f4c4e351276fe38091ea844d36303a0763da962a",
+    "module_interfaces": {
+      "ext_ncd_support_routines.mod": "d6bb15a71ccffc951592f5f218514e85a1bb0d6ffc2a5b63e42d8892cffad3d4",
+      "wrf_data.mod": "00c951ec9ce4f137094a7f0c6d350224ec51683d83ff54b03de36660cbeba056"
+    }
+  },
+  "receipt_sha256": "cc1c2aa48595e07e784b4b8f23e36debcb2064458ec3bc6484a59fc38a79952d",
+  "closure_sha256": "b75e907b9f101994a552c321eaf385e14af16d0934e3a2696bb0bbaac7aca9b3",
+  "invocation_id": "bc9838c091e94b6682d624bee34ef5aa",
+  "cases": 162,
+  "raw_gold": {
+    "current-native-O2": {
+      "sha256": "93e58ebebf06fdebc8bd5eaa4bc6fe2c7e62ad4f719248828941ec3a0328bc0c",
+      "bytes": 524170
+    },
+    "candidate-O2": {
+      "sha256": "93e58ebebf06fdebc8bd5eaa4bc6fe2c7e62ad4f719248828941ec3a0328bc0c",
+      "bytes": 524170
+    },
+    "parent-O0-bounds": {
+      "sha256": "93e58ebebf06fdebc8bd5eaa4bc6fe2c7e62ad4f719248828941ec3a0328bc0c",
+      "bytes": 524170
+    },
+    "candidate-O0-bounds": {
+      "sha256": "93e58ebebf06fdebc8bd5eaa4bc6fe2c7e62ad4f719248828941ec3a0328bc0c",
+      "bytes": 524170
+    }
+  },
+  "five_state_readonly_physical_guards": "PASS",
+  "new_READ_bulk_row_statement_lines": [
+    859,
+    986
+  ],
+  "public_interface_bodies_exact_source_labels_only": true,
+  "raw_MOD_files_unmodified": true,
+  "prior_failure_retained": {
+    "receipt_sha256": "4dc5f7e469c82ae642cc25a6b86e594f54718bbe7599d3b4204158cdba13d9be",
+    "closure_sha256": "775f8ef56883e34d4b59547baedf3a98a840fe402fedbb1a6e9f48afbea37516"
+  },
+  "limits": [
+    "Synthetic standalone complete Transpose, no actual captured production array shape.",
+    "Retained PP/current-native exactness; current canonical wholefile differs in 155 diagnostic-line blocks and requires separate later qualification.",
+    "No timing, whole-input, application, or source integration qualification."
+  ]
+}
