@@ -1,0 +1,194 @@
+{
+  "status": "PASS_FOUR_EXACT_COMPLETE_SLIDE_HASH_CALLER_ARMS_FIXED_OPPOSITE_ORDER",
+  "arms": [
+    {
+      "arm": 0,
+      "host": "hpc02",
+      "which": "parent",
+      "invocation_id": "def70c384ab14be99bc48f31230f02fb",
+      "result": {
+        "status": "PASS_COMPLETE_SLIDE_HASH_FIXED_CALLER_RAW_GUARDS_READONLY_STATE_FENV",
+        "arm": "parent",
+        "head_entries": 65536,
+        "window_entries": 32768,
+        "repeats": 262144,
+        "proof_calls": 2,
+        "call_wall_ns": 1170650783,
+        "call_process_cpu_ns": 958326835,
+        "restore_and_call_process_cpu_ns": 2212442805,
+        "timing_scope": "sum of individual complete function calls including clock overhead; full-array restoration outside each call clock",
+        "production_or_provider_timing": false
+      }
+    },
+    {
+      "arm": 1,
+      "host": "hpc04",
+      "which": "candidate",
+      "invocation_id": "10e8e2437d6145cba323453aaed60d0b",
+      "result": {
+        "status": "PASS_COMPLETE_SLIDE_HASH_FIXED_CALLER_RAW_GUARDS_READONLY_STATE_FENV",
+        "arm": "candidate",
+        "head_entries": 65536,
+        "window_entries": 32768,
+        "repeats": 262144,
+        "proof_calls": 2,
+        "call_wall_ns": 1010942168,
+        "call_process_cpu_ns": 808142843,
+        "restore_and_call_process_cpu_ns": 2012346641,
+        "timing_scope": "sum of individual complete function calls including clock overhead; full-array restoration outside each call clock",
+        "production_or_provider_timing": false
+      }
+    },
+    {
+      "arm": 2,
+      "host": "hpc02",
+      "which": "candidate",
+      "invocation_id": "57768f87311e4e0d9eb4dad551c41243",
+      "result": {
+        "status": "PASS_COMPLETE_SLIDE_HASH_FIXED_CALLER_RAW_GUARDS_READONLY_STATE_FENV",
+        "arm": "candidate",
+        "head_entries": 65536,
+        "window_entries": 32768,
+        "repeats": 262144,
+        "proof_calls": 2,
+        "call_wall_ns": 977600334,
+        "call_process_cpu_ns": 788483946,
+        "restore_and_call_process_cpu_ns": 1958290171,
+        "timing_scope": "sum of individual complete function calls including clock overhead; full-array restoration outside each call clock",
+        "production_or_provider_timing": false
+      }
+    },
+    {
+      "arm": 3,
+      "host": "hpc04",
+      "which": "parent",
+      "invocation_id": "e17e6e7729e34e89abf72d37a7517d42",
+      "result": {
+        "status": "PASS_COMPLETE_SLIDE_HASH_FIXED_CALLER_RAW_GUARDS_READONLY_STATE_FENV",
+        "arm": "parent",
+        "head_entries": 65536,
+        "window_entries": 32768,
+        "repeats": 262144,
+        "proof_calls": 2,
+        "call_wall_ns": 1152537041,
+        "call_process_cpu_ns": 951064830,
+        "restore_and_call_process_cpu_ns": 2200063270,
+        "timing_scope": "sum of individual complete function calls including clock overhead; full-array restoration outside each call clock",
+        "production_or_provider_timing": false
+      }
+    }
+  ],
+  "pairs": [
+    {
+      "host": "hpc02",
+      "parent_arm": 0,
+      "candidate_arm": 2,
+      "metrics": {
+        "call_wall_ns": {
+          "parent": 1170650783,
+          "candidate": 977600334,
+          "reduction_percent": 16.4908657477915
+        },
+        "call_process_cpu_ns": {
+          "parent": 958326835,
+          "candidate": 788483946,
+          "reduction_percent": 17.722856419855965
+        },
+        "restore_and_call_process_cpu_ns": {
+          "parent": 2212442805,
+          "candidate": 1958290171,
+          "reduction_percent": 11.48742166014999
+        }
+      }
+    },
+    {
+      "host": "hpc04",
+      "parent_arm": 3,
+      "candidate_arm": 1,
+      "metrics": {
+        "call_wall_ns": {
+          "parent": 1152537041,
+          "candidate": 1010942168,
+          "reduction_percent": 12.285494345339657
+        },
+        "call_process_cpu_ns": {
+          "parent": 951064830,
+          "candidate": 808142843,
+          "reduction_percent": 15.027575670104424
+        },
+        "restore_and_call_process_cpu_ns": {
+          "parent": 2200063270,
+          "candidate": 2012346641,
+          "reduction_percent": 8.532328663438847
+        }
+      }
+    }
+  ],
+  "references": [
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/slide-hash-loop-unroll-feasibility-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/receipt.json",
+      "sha256": "25457a6bb518dcc8652505bdd2ab2cf6d0d4c6eb209eb3838b44c1ba4a2a2c64"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/slide-hash-loop-unroll-feasibility-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/closure.json",
+      "sha256": "cf7cb4075e1cc3abc924f9d5f5688eb39e33414125edcc5f8430782e5e4d75b9"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/slide-hash-loop-unroll-feasibility-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/controller.json",
+      "sha256": "a3a4f7fbf55ebfdbc2c890b0e6a010d01ada3a31311968f54b1bc9920f764a03"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/slide-hash-loop-unroll-feasibility-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/cache-clear.json",
+      "sha256": "bdc19692ef9baa3cdd4f72420393c30bcbf91ba6c6ae87342c2c6b47104f3f71"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/slide-hash-loop-unroll-feasibility-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/receipt.json",
+      "sha256": "a92f3b69c75ac542c98dcc42e3740e8bde34b2b3abe3ce189e281d7a7b219755"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/slide-hash-loop-unroll-feasibility-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/closure.json",
+      "sha256": "6345f779a15da1f5099d14fc54ef366889a02fe2eb9a64bc42ce6fb37f620f67"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/slide-hash-loop-unroll-feasibility-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/controller.json",
+      "sha256": "032839c88bbb0e2770d939f410049d18085ab94eac5f2ec8b76c06243c1fd550"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/slide-hash-loop-unroll-feasibility-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/cache-clear.json",
+      "sha256": "242580faa4ee009b878eabfc66ba7c51bfc72107a59e5aaa07c4d17c829e7fe5"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/slide-hash-loop-unroll-feasibility-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/receipt.json",
+      "sha256": "cf96d20e1b0877d578b592f9696eeddf7ebf07c2cd590746d2f43cbebdc2ad87"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/slide-hash-loop-unroll-feasibility-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/closure.json",
+      "sha256": "1e04cf3a44c9edf0b1178c5ae1fc5537127cf37f115b621aff1fd8adfb812a20"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/slide-hash-loop-unroll-feasibility-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/controller.json",
+      "sha256": "077840f9d7342e2d9c944ba0ce77da0970a6993f77e2ad227847ff4ccf2bac2e"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/slide-hash-loop-unroll-feasibility-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/cache-clear.json",
+      "sha256": "335f36e1c3e4d39096167ead14054bbbf965fedac381e5b14cc39be91c6f4493"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/slide-hash-loop-unroll-feasibility-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/receipt.json",
+      "sha256": "33ccd83182df7192d5a9ac27ca055dc87cea5a4eab5bf74344ad3852190063c6"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/slide-hash-loop-unroll-feasibility-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/closure.json",
+      "sha256": "23c7d23252b463b3e5a0b499f41f22e120a2618dab8b111536fa930a381a4e02"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/slide-hash-loop-unroll-feasibility-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/controller.json",
+      "sha256": "30b1b41c28f9a7a0b6c33fd9e423bb4ff31d816f14ef012764e672d62cece9c9"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/slide-hash-loop-unroll-feasibility-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/cache-clear.json",
+      "sha256": "772facebc90b86120144dc0591d829cdfd9c8ed43bce132f29570a5aee12f2b0"
+    }
+  ],
+  "scope": "Resident deterministic synthetic realtypedstate/head65536/prev32768,262144 complete calls. BOTH fullarrays restored before every measuredcall. Individualcall sums INCLUDE clockoverhead; separate loopCPU includes restoration+allclocks+calls, not fullprocess startup/proof overhead. One fixed opposite-order pair perhost, no significance/repeatability/production frequency/codec/provider/WRF gain or global headroom claim."
+}

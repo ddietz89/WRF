@@ -1,0 +1,1142 @@
+{
+  "status": "PASS_CURRENT_881_ONE_SLIDE_HASH_UNROLL4_CODEC_SEVEN_CORPORA_STREAMS_FALLBACK_CURRENT27D_PROVIDER",
+  "invocation_id": "1b4c3d36946f4e98a9ca209e449e48c4",
+  "commands": [
+    {
+      "label": "compiler-version",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "--version"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "one-codec-link",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-std=c11",
+        "-Wall",
+        "-DNDEBUG",
+        "-DHAVE_SYMVER",
+        "-D_LARGEFILE64_SOURCE=1",
+        "-DHAVE_CPUID_GNU",
+        "-DHAVE_SYS_AUXV_H",
+        "-DHAVE_LINUX_AUXVEC_H",
+        "-DZLIB_COMPAT",
+        "-DWITH_GZFILEOP",
+        "-DHAVE_VISIBILITY_HIDDEN",
+        "-DHAVE_VISIBILITY_INTERNAL",
+        "-DHAVE_ATTRIBUTE_ALIGNED",
+        "-DHAVE_BUILTIN_ASSUME_ALIGNED",
+        "-DHAVE_BUILTIN_CTZ",
+        "-DHAVE_BUILTIN_CTZLL",
+        "-DWITH_ALL_FALLBACKS",
+        "-DWITH_OPTIM",
+        "-DX86_FEATURES",
+        "-DX86_HAVE_XSAVE_INTRIN",
+        "-DX86_SSE2",
+        "-DX86_SSSE3",
+        "-DX86_SSE41",
+        "-DX86_SSE42",
+        "-DX86_PCLMULQDQ_CRC",
+        "-DX86_AVX2",
+        "-DX86_AVX512",
+        "-DX86_AVX512VNNI",
+        "-DX86_VPCLMULQDQ_CRC",
+        "-shared",
+        "-Wl,-soname,libz.so.1",
+        "-Wl,--version-script,/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/build/zlib.map",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/libz.so.1.3.1.zlib-ng",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/arch/generic/adler32_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/arch/generic/adler32_fold_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/arch/generic/chunkset_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/arch/generic/compare256_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/arch/generic/crc32_braid_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/arch/generic/crc32_fold_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/arch/generic/slide_hash_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/adler32.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/compress.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/crc32.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/crc32_braid_comb.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/deflate.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/deflate_fast.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/deflate_huff.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/deflate_medium.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/deflate_quick.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/deflate_rle.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/deflate_slow.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/deflate_stored.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/functable.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/infback.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/inflate.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/inftrees.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/insert_string.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/insert_string_roll.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/trees.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/uncompr.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/zutil.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/arch/generic/crc32_chorba_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/cpu_features.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/x86_features.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/chunkset_sse2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/chorba_sse2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/compare256_sse2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/slide_hash_sse2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/adler32_ssse3.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/chunkset_ssse3.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/chorba_sse41.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/adler32_sse42.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/crc32_pclmulqdq.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/slide_hash_avx2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/chunkset_avx2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/compare256_avx2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/adler32_avx2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/adler32_avx512.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/chunkset_avx512.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/compare256_avx512.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/adler32_avx512_vnni.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/crc32_vpclmulqdq.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/gzlib.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/gzread.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/gzwrite.lo"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "compile-existing-codec_caller",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-std=c11",
+        "-Wall",
+        "-Wextra",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/codec_caller.c",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-Wl,-rpath,/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lz",
+        "-ldl",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/codec_caller"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "compile-existing-stream_caller",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-std=c11",
+        "-Wall",
+        "-Wextra",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/stream_caller.c",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-Wl,-rpath,/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lz",
+        "-ldl",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/stream_caller"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "actual-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/actual-shuffled.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/actual-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "actual-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/actual-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/actual-shuffled.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "actual-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/actual-shuffled.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/actual-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "actual-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/actual-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/actual-shuffled.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "zero-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/zero.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/zero-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "zero-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/zero-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/zero.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "zero-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/zero.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/zero-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "zero-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/zero-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/zero.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "structured-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/structured.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/structured-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "structured-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/structured-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/structured.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "structured-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/structured.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/structured-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "structured-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/structured-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/structured.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "ieee-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/ieee.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/ieee-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "ieee-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/ieee-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/ieee.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "ieee-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/ieee.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/ieee-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "ieee-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/ieee-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/ieee.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "random-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/random.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/random-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "random-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/random-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/random.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "random-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/random.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/random-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "random-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/random-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/random.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "empty-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/empty.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/empty-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "empty-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/empty-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/empty.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "empty-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/empty.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/empty-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "empty-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/empty-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/empty.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "tail257-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/tail257.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/tail257-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "tail257-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/tail257-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/tail257.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "tail257-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/tail257.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/tail257-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "tail257-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/tail257-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/tail257.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "empty-stream-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/stream_caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/empty-stream-input.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/empty-stream-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "empty-stream-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/empty-stream-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/empty-stream-input.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "empty-stream-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/stream_caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/empty-stream-input.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/empty-stream-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "empty-stream-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/empty-stream-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/empty-stream-input.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "tail257-stream-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/stream_caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/tail257-stream-input.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/tail257-stream-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "tail257-stream-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/tail257-stream-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/tail257-stream-input.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "tail257-stream-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/stream_caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/tail257-stream-input.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/tail257-stream-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "tail257-stream-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/tail257-stream-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/tail257-stream-input.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "structured-stream-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/stream_caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/structured-stream-input.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/structured-stream-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "structured-stream-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/structured-stream-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/structured-stream-input.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "structured-stream-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/stream_caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/structured-stream-input.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/structured-stream-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "structured-stream-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/structured-stream-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/structured-stream-input.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "ieee-stream-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/stream_caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/ieee-stream-input.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/ieee-stream-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "ieee-stream-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/ieee-stream-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/ieee-stream-input.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "ieee-stream-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/stream_caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/ieee-stream-input.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/ieee-stream-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "ieee-stream-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/ieee-stream-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/ieee-stream-input.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "random-stream-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/stream_caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/random-stream-input.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/random-stream-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "random-stream-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/random-stream-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/random-stream-input.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "random-stream-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/stream_caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/random-stream-input.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/random-stream-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "random-stream-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/random-stream-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/random-stream-input.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "compile-fallback-stream_caller.c",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-std=c11",
+        "-Wall",
+        "-fPIC",
+        "-DNDEBUG",
+        "-DHAVE_SYMVER",
+        "-D_LARGEFILE64_SOURCE=1",
+        "-DHAVE_CPUID_GNU",
+        "-DHAVE_SYS_AUXV_H",
+        "-DHAVE_LINUX_AUXVEC_H",
+        "-DZLIB_COMPAT",
+        "-DWITH_GZFILEOP",
+        "-fno-semantic-interposition",
+        "-DHAVE_VISIBILITY_HIDDEN",
+        "-DHAVE_VISIBILITY_INTERNAL",
+        "-DHAVE_ATTRIBUTE_ALIGNED",
+        "-DHAVE_BUILTIN_ASSUME_ALIGNED",
+        "-DHAVE_BUILTIN_CTZ",
+        "-DHAVE_BUILTIN_CTZLL",
+        "-DWITH_ALL_FALLBACKS",
+        "-DWITH_OPTIM",
+        "-DX86_FEATURES",
+        "-DX86_HAVE_XSAVE_INTRIN",
+        "-DX86_SSE2",
+        "-DX86_SSSE3",
+        "-DX86_SSE41",
+        "-DX86_SSE42",
+        "-DX86_PCLMULQDQ_CRC",
+        "-DX86_AVX2",
+        "-DX86_AVX512",
+        "-DX86_AVX512VNNI",
+        "-DX86_VPCLMULQDQ_CRC",
+        "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/build",
+        "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/source",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1",
+        "-Dmain=stream_caller_main",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/stream_caller.c",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/stream_caller.c.o"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "compile-fallback-fallback_route.c",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-std=c11",
+        "-Wall",
+        "-fPIC",
+        "-DNDEBUG",
+        "-DHAVE_SYMVER",
+        "-D_LARGEFILE64_SOURCE=1",
+        "-DHAVE_CPUID_GNU",
+        "-DHAVE_SYS_AUXV_H",
+        "-DHAVE_LINUX_AUXVEC_H",
+        "-DZLIB_COMPAT",
+        "-DWITH_GZFILEOP",
+        "-fno-semantic-interposition",
+        "-DHAVE_VISIBILITY_HIDDEN",
+        "-DHAVE_VISIBILITY_INTERNAL",
+        "-DHAVE_ATTRIBUTE_ALIGNED",
+        "-DHAVE_BUILTIN_ASSUME_ALIGNED",
+        "-DHAVE_BUILTIN_CTZ",
+        "-DHAVE_BUILTIN_CTZLL",
+        "-DWITH_ALL_FALLBACKS",
+        "-DWITH_OPTIM",
+        "-DX86_FEATURES",
+        "-DX86_HAVE_XSAVE_INTRIN",
+        "-DX86_SSE2",
+        "-DX86_SSSE3",
+        "-DX86_SSE41",
+        "-DX86_SSE42",
+        "-DX86_PCLMULQDQ_CRC",
+        "-DX86_AVX2",
+        "-DX86_AVX512",
+        "-DX86_AVX512VNNI",
+        "-DX86_VPCLMULQDQ_CRC",
+        "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/build",
+        "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/source",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/fallback_route.c",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/fallback_route.c.o"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "link-fallback-current",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-rdynamic",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/fallback_route.c.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/stream_caller.c.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/arch/generic/adler32_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/arch/generic/adler32_fold_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/arch/generic/chunkset_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/arch/generic/compare256_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/arch/generic/crc32_braid_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/arch/generic/crc32_fold_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/arch/generic/slide_hash_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/adler32.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/compress.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/crc32.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/crc32_braid_comb.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/deflate.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/deflate_fast.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/deflate_huff.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/deflate_medium.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/deflate_quick.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/deflate_rle.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/deflate_slow.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/deflate_stored.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/functable.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/infback.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/inflate.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/inftrees.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/insert_string.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/insert_string_roll.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/trees.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/uncompr.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/zutil.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/arch/generic/crc32_chorba_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/cpu_features.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/x86_features.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/chunkset_sse2.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/chorba_sse2.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/compare256_sse2.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/slide_hash_sse2.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/adler32_ssse3.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/chunkset_ssse3.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/chorba_sse41.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/adler32_sse42.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/crc32_pclmulqdq.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/slide_hash_avx2.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/chunkset_avx2.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/compare256_avx2.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/adler32_avx2.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/adler32_avx512.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/chunkset_avx512.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/compare256_avx512.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/adler32_avx512_vnni.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/crc32_vpclmulqdq.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/gzlib.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/gzread.lo",
+        "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/gzwrite.lo",
+        "-ldl",
+        "-lm",
+        "-pthread",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/fallback-current"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "run-fallback-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/fallback-current",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/structured-stream-input.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/fallback-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "fallback-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/fallback-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/structured-stream-input.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "link-fallback-candidate",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-rdynamic",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/fallback_route.c.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/stream_caller.c.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/arch/generic/adler32_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/arch/generic/adler32_fold_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/arch/generic/chunkset_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/arch/generic/compare256_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/arch/generic/crc32_braid_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/arch/generic/crc32_fold_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/arch/generic/slide_hash_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/adler32.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/compress.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/crc32.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/crc32_braid_comb.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/deflate.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/deflate_fast.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/deflate_huff.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/deflate_medium.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/deflate_quick.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/deflate_rle.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/deflate_slow.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/deflate_stored.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/functable.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/infback.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/inflate.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/inftrees.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/insert_string.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/insert_string_roll.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/trees.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/uncompr.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/zutil.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/arch/generic/crc32_chorba_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/cpu_features.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/x86_features.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/chunkset_sse2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/chorba_sse2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/compare256_sse2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/slide_hash_sse2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/adler32_ssse3.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/chunkset_ssse3.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/chorba_sse41.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/adler32_sse42.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/crc32_pclmulqdq.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/slide_hash_avx2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/chunkset_avx2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/compare256_avx2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/adler32_avx2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/adler32_avx512.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/chunkset_avx512.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/compare256_avx512.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/adler32_avx512_vnni.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/crc32_vpclmulqdq.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/gzlib.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/gzread.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/gzwrite.lo",
+        "-ldl",
+        "-lm",
+        "-pthread",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/fallback-candidate"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "run-fallback-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/fallback-candidate",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/structured-stream-input.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/fallback-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "fallback-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/fallback-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/structured-stream-input.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "compile-provider-codecpath-only-fixture",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-std=c11",
+        "-Wall",
+        "-Wextra",
+        "-Werror=implicit-function-declaration",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-rdynamic",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/provider-candidate.c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/libz.so.1.3.1.zlib-ng",
+        "-ldl",
+        "-lm",
+        "-pthread",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/provider-candidate"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "current27d-provider-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/provider-owned-join-diagnostic-driver-hpc04-r1/provider-caller-diagnostic",
+        "candidate",
+        "/pool/wrf-experiment/wrf-cpu/kernels/provider-padding-block32-w-caller-driver-r1/gold.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "current27d-provider-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/provider-candidate",
+        "candidate",
+        "/pool/wrf-experiment/wrf-cpu/kernels/provider-padding-block32-w-caller-driver-r1/gold.bin"
+      ],
+      "returncode": 0
+    }
+  ],
+  "current27d_complete_provider_results": {
+    "current": {
+      "provider": "candidate",
+      "calls": 32,
+      "raw_bytes": 225371652,
+      "chunk_bytes": 56430000,
+      "chunks": 4,
+      "complete_provider_call_wall_ns": 3160577642,
+      "process_cpu_ns": 10255565038,
+      "errno": 33,
+      "flags": 36,
+      "round": 2048,
+      "mxcsr": 24452,
+      "x87cw": 2943,
+      "exact_raw_readonly_gold": true,
+      "release_outside_clock": true,
+      "stock_decode_before_after": true,
+      "maxrss_kib": 664748,
+      "no_MPI512_activation": true
+    },
+    "candidate": {
+      "provider": "candidate",
+      "calls": 32,
+      "raw_bytes": 225371652,
+      "chunk_bytes": 56430000,
+      "chunks": 4,
+      "complete_provider_call_wall_ns": 3128033216,
+      "process_cpu_ns": 10204723171,
+      "errno": 33,
+      "flags": 36,
+      "round": 2048,
+      "mxcsr": 24452,
+      "x87cw": 2943,
+      "exact_raw_readonly_gold": true,
+      "release_outside_clock": true,
+      "stock_decode_before_after": true,
+      "maxrss_kib": 664748,
+      "no_MPI512_activation": true
+    }
+  },
+  "current27d_real_paired_ownership": {
+    "current": {
+      "real_creates": 136,
+      "real_successful_joins": 136,
+      "create_errors": 0,
+      "join_errors": 0
+    },
+    "candidate": {
+      "real_creates": 136,
+      "real_successful_joins": 136,
+      "create_errors": 0,
+      "join_errors": 0
+    }
+  },
+  "provider_scope": "CURRENT27d standalonecompleteprovider syntheticW fourchunks, exact oldgold/stock/raw/readonly/FENV+136realjoins. Reuses separate prior diagnostic route; never retags original failed thread-census scope. Timing printed as context only; no authoritativegain comparison or512/publicNC/WRF qualification.",
+  "parent_library_sha256": "881d0a1aa84f1ac3f3fc60b0c59f7f9b03125fe68065cf44a04170de5655de3c",
+  "candidate_library_sha256": "3edf15a2d69040bb29ff52446bfcf103fbfdb8b7385fd68735e8a536a06f332c",
+  "candidate_object_sha256": "deabc431f02946800d2d7d16376fe0b7799a923639efa8a7923d5efb02a7ffba",
+  "unchanged_pic_objects": 69,
+  "total_pic_objects": 71,
+  "changed_pic_paths": [
+    "arch/x86/slide_hash_avx2.lo",
+    "slide_hash_avx2.lo"
+  ],
+  "ordered_shared_link_inputs": [
+    "arch/generic/adler32_c.lo",
+    "arch/generic/adler32_fold_c.lo",
+    "arch/generic/chunkset_c.lo",
+    "arch/generic/compare256_c.lo",
+    "arch/generic/crc32_braid_c.lo",
+    "arch/generic/crc32_fold_c.lo",
+    "arch/generic/slide_hash_c.lo",
+    "adler32.lo",
+    "compress.lo",
+    "crc32.lo",
+    "crc32_braid_comb.lo",
+    "deflate.lo",
+    "deflate_fast.lo",
+    "deflate_huff.lo",
+    "deflate_medium.lo",
+    "deflate_quick.lo",
+    "deflate_rle.lo",
+    "deflate_slow.lo",
+    "deflate_stored.lo",
+    "functable.lo",
+    "infback.lo",
+    "inflate.lo",
+    "inftrees.lo",
+    "insert_string.lo",
+    "insert_string_roll.lo",
+    "trees.lo",
+    "uncompr.lo",
+    "zutil.lo",
+    "arch/generic/crc32_chorba_c.lo",
+    "cpu_features.lo",
+    "x86_features.lo",
+    "chunkset_sse2.lo",
+    "chorba_sse2.lo",
+    "compare256_sse2.lo",
+    "slide_hash_sse2.lo",
+    "adler32_ssse3.lo",
+    "chunkset_ssse3.lo",
+    "chorba_sse41.lo",
+    "adler32_sse42.lo",
+    "crc32_pclmulqdq.lo",
+    "slide_hash_avx2.lo",
+    "chunkset_avx2.lo",
+    "compare256_avx2.lo",
+    "adler32_avx2.lo",
+    "adler32_avx512.lo",
+    "chunkset_avx512.lo",
+    "compare256_avx512.lo",
+    "adler32_avx512_vnni.lo",
+    "crc32_vpclmulqdq.lo",
+    "gzlib.lo",
+    "gzread.lo",
+    "gzwrite.lo"
+  ],
+  "unchanged_shared_link_inputs": 51,
+  "shared_link_input_count": 52,
+  "production_source_compiles": 0,
+  "full_codec_links": 1,
+  "actual_shuffled_input_path": "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/actual-shuffled.bin",
+  "actual_shuffled_input_sha256": "1dce742a2055f99a1bdd9d59428f8a257f7d292e6fe948072f64911e0496e011",
+  "codec_caller_path": "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/codec_caller",
+  "codec_caller_sha256": "f5b3ade69e2515fd7c182bf57e92cdf5fa317e905098b4b2481bad26ae3c4128",
+  "stock_library_path": "/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib/libz.so.1",
+  "stock_library_sha256": "b65f7f34c3180cbee93aeec785bba6b95beca585190e4a899c3b7648b7842830",
+  "correctness": [
+    {
+      "case": "actual",
+      "input_bytes": 56430000,
+      "encoded_bytes": 46123669,
+      "encoded_sha256": "de7a7f8b6a667cf4c5d2156b1c88881456a0eaf243c67a76777c29aebf41ee69",
+      "stock_decode": "PASS"
+    },
+    {
+      "case": "zero",
+      "input_bytes": 56430000,
+      "encoded_bytes": 54865,
+      "encoded_sha256": "31804c4937df26d308529e555c6e124b5b8e7a1defe8da7eb9143b4737dcf17b",
+      "stock_decode": "PASS"
+    },
+    {
+      "case": "structured",
+      "input_bytes": 56430000,
+      "encoded_bytes": 396165,
+      "encoded_sha256": "d0afcb7e2a0f7d3d0fe1dfd703bcb99ee3b20383e7b3fe447c0aca2092be3184",
+      "stock_decode": "PASS"
+    },
+    {
+      "case": "ieee",
+      "input_bytes": 1048576,
+      "encoded_bytes": 7770,
+      "encoded_sha256": "429a8bc6fb3332ca40507ba2cb15054d583e2b58e7d51ee35b39002e1d3bd901",
+      "stock_decode": "PASS"
+    },
+    {
+      "case": "random",
+      "input_bytes": 1048576,
+      "encoded_bytes": 1048907,
+      "encoded_sha256": "a306a313146a26795e14a81df2055e82b8d0c495c4a3d136700f7a36d409573f",
+      "stock_decode": "PASS"
+    },
+    {
+      "case": "empty",
+      "input_bytes": 0,
+      "encoded_bytes": 8,
+      "encoded_sha256": "4124a9b34347a1f878716df4f671e438e6eb308f70838b5e6c48c3eae46d1c23",
+      "stock_decode": "PASS"
+    },
+    {
+      "case": "tail257",
+      "input_bytes": 257,
+      "encoded_bytes": 268,
+      "encoded_sha256": "62b27837b5309c404805a51fabbf1b5e8f12119072cca7ab15a2bbd4a689ada4",
+      "stock_decode": "PASS"
+    }
+  ],
+  "streaming": [
+    {
+      "case": "empty",
+      "trace_sha256": "07aa21d3cc2e28222fcfaa282cd5902009ecf0b82a95b764613076c4beebecfc",
+      "encoded_sha256": "af289448511a7b361de46b8902d2c15068b13ea2967f47b503f51b8c09a96dcf"
+    },
+    {
+      "case": "tail257",
+      "trace_sha256": "0165350c0240d946ee3404082c2e2d12b7250eadf1ba63beabab4490ba3dd3b9",
+      "encoded_sha256": "434d24ba532b0a60f684a50abddf6758f8e557f36e0de371d04e2abdd9f64295"
+    },
+    {
+      "case": "structured",
+      "trace_sha256": "6fd0c9daaa551d85afe8f2b40c418f04fbceb71a8ae5b9092ce1f1a56c7225d8",
+      "encoded_sha256": "bf80dbf45101fcf5a0f7b945dc58d3cb4996b1e2667b9e2c341b9b94f5eda1af"
+    },
+    {
+      "case": "ieee",
+      "trace_sha256": "5b4b4f624fd0888d010d7e664c11bad57669314147b954329f4dbe6601cb2457",
+      "encoded_sha256": "809fc9e91bdb530b1f82aa6d8d2e5742ad5d9b0b384d11578df1aaf69acb1c83"
+    },
+    {
+      "case": "random",
+      "trace_sha256": "a8d3d4f7e8c345e65fc343fc4f74a413299f67bb1e72f281d90801f868104500",
+      "encoded_sha256": "8fea9c5ffe635bd1600d6e41acb6da64bc9b4ea0105205d1982c7e8180019974"
+    }
+  ],
+  "generic_fallback_forwarding_calls": {
+    "current": 255,
+    "candidate": 255
+  },
+  "exports_unchanged": true,
+  "dependencies_unchanged": true,
+  "artifacts": {
+    "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/libz.so.1.3.1.zlib-ng": "3edf15a2d69040bb29ff52446bfcf103fbfdb8b7385fd68735e8a536a06f332c",
+    "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/arch/x86/slide_hash_avx2.lo": "deabc431f02946800d2d7d16376fe0b7799a923639efa8a7923d5efb02a7ffba",
+    "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/slide_hash_avx2.lo": "deabc431f02946800d2d7d16376fe0b7799a923639efa8a7923d5efb02a7ffba"
+  },
+  "elapsed_seconds_context_only": 30.581112121930346,
+  "scope": "Zero productioncompiles; one52member current881 link, only actualnative slidehashdeabc object replaces01cc, other51members andAdler2be5 unchanged. Existing7corpora/5stream/genericfallback/stockdecode and CURRENT27d completeprovider diagnostic qualification. No cache/authoritativetimedpairs/public512/fullWRF/defaultchange."
+}

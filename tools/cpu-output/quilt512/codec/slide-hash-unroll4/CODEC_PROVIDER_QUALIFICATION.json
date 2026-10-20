@@ -1,0 +1,145 @@
+{
+  "status": "PASS_ACTUAL_CODEC_AND_CURRENT_PROVIDER_CLOSED_APPLICATION_PENDING",
+  "observed_utc": "2026-10-20T08:07:53.633666+00:00",
+  "invocation_id": "1b4c3d36946f4e98a9ca209e449e48c4",
+  "candidate_library_path": "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/libz.so.1.3.1.zlib-ng",
+  "candidate_library_sha256": "3edf15a2d69040bb29ff52446bfcf103fbfdb8b7385fd68735e8a536a06f332c",
+  "parent_library_sha256": "881d0a1aa84f1ac3f3fc60b0c59f7f9b03125fe68065cf44a04170de5655de3c",
+  "changed_link_member": "slide_hash_avx2.lo",
+  "unchanged_link_members": 51,
+  "total_link_members": 52,
+  "parked_Adler_change_included": false,
+  "seven_corpora": [
+    {
+      "case": "actual",
+      "input_bytes": 56430000,
+      "encoded_bytes": 46123669,
+      "encoded_sha256": "de7a7f8b6a667cf4c5d2156b1c88881456a0eaf243c67a76777c29aebf41ee69",
+      "stock_decode": "PASS"
+    },
+    {
+      "case": "zero",
+      "input_bytes": 56430000,
+      "encoded_bytes": 54865,
+      "encoded_sha256": "31804c4937df26d308529e555c6e124b5b8e7a1defe8da7eb9143b4737dcf17b",
+      "stock_decode": "PASS"
+    },
+    {
+      "case": "structured",
+      "input_bytes": 56430000,
+      "encoded_bytes": 396165,
+      "encoded_sha256": "d0afcb7e2a0f7d3d0fe1dfd703bcb99ee3b20383e7b3fe447c0aca2092be3184",
+      "stock_decode": "PASS"
+    },
+    {
+      "case": "ieee",
+      "input_bytes": 1048576,
+      "encoded_bytes": 7770,
+      "encoded_sha256": "429a8bc6fb3332ca40507ba2cb15054d583e2b58e7d51ee35b39002e1d3bd901",
+      "stock_decode": "PASS"
+    },
+    {
+      "case": "random",
+      "input_bytes": 1048576,
+      "encoded_bytes": 1048907,
+      "encoded_sha256": "a306a313146a26795e14a81df2055e82b8d0c495c4a3d136700f7a36d409573f",
+      "stock_decode": "PASS"
+    },
+    {
+      "case": "empty",
+      "input_bytes": 0,
+      "encoded_bytes": 8,
+      "encoded_sha256": "4124a9b34347a1f878716df4f671e438e6eb308f70838b5e6c48c3eae46d1c23",
+      "stock_decode": "PASS"
+    },
+    {
+      "case": "tail257",
+      "input_bytes": 257,
+      "encoded_bytes": 268,
+      "encoded_sha256": "62b27837b5309c404805a51fabbf1b5e8f12119072cca7ab15a2bbd4a689ada4",
+      "stock_decode": "PASS"
+    }
+  ],
+  "five_streams": [
+    {
+      "case": "empty",
+      "trace_sha256": "07aa21d3cc2e28222fcfaa282cd5902009ecf0b82a95b764613076c4beebecfc",
+      "encoded_sha256": "af289448511a7b361de46b8902d2c15068b13ea2967f47b503f51b8c09a96dcf"
+    },
+    {
+      "case": "tail257",
+      "trace_sha256": "0165350c0240d946ee3404082c2e2d12b7250eadf1ba63beabab4490ba3dd3b9",
+      "encoded_sha256": "434d24ba532b0a60f684a50abddf6758f8e557f36e0de371d04e2abdd9f64295"
+    },
+    {
+      "case": "structured",
+      "trace_sha256": "6fd0c9daaa551d85afe8f2b40c418f04fbceb71a8ae5b9092ce1f1a56c7225d8",
+      "encoded_sha256": "bf80dbf45101fcf5a0f7b945dc58d3cb4996b1e2667b9e2c341b9b94f5eda1af"
+    },
+    {
+      "case": "ieee",
+      "trace_sha256": "5b4b4f624fd0888d010d7e664c11bad57669314147b954329f4dbe6601cb2457",
+      "encoded_sha256": "809fc9e91bdb530b1f82aa6d8d2e5742ad5d9b0b384d11578df1aaf69acb1c83"
+    },
+    {
+      "case": "random",
+      "trace_sha256": "a8d3d4f7e8c345e65fc343fc4f74a413299f67bb1e72f281d90801f868104500",
+      "encoded_sha256": "8fea9c5ffe635bd1600d6e41acb6da64bc9b4ea0105205d1982c7e8180019974"
+    }
+  ],
+  "generic_fallback_forwarding_calls": {
+    "current": 255,
+    "candidate": 255
+  },
+  "current_provider": "27d94f82c36f19852b8191b5a4d8a171c2ae974d8e78db72182d8a8d5ecf15ce",
+  "same_provider_old_new_codec": true,
+  "actual_codec_functionpointer_owner_assertions_passed": true,
+  "thread_ownership": {
+    "current": {
+      "real_creates": 136,
+      "real_successful_joins": 136,
+      "create_errors": 0,
+      "join_errors": 0
+    },
+    "candidate": {
+      "real_creates": 136,
+      "real_successful_joins": 136,
+      "create_errors": 0,
+      "join_errors": 0
+    }
+  },
+  "all_native_jobs_closed": true,
+  "claims": "Correctness and standalone completeprovider only. Context timers are not authoritative gains. No public NC/full512/WRF/application/default qualification transfer. Original failed thread-census scope remains failed; separate real join diagnostic used.",
+  "raw_evidence": [
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/slide-hash-loop-unroll-feasibility-r1/codec-provider-qualification-r1/actual-native-r1/receipt.json",
+      "sha256": "c71f671973aafee49356fbee629a7dc0cea67c710a0623a1daa8b5aeaeda90f8",
+      "bytes": 61569
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/slide-hash-loop-unroll-feasibility-r1/codec-provider-qualification-r1/actual-native-r1/closure.json",
+      "sha256": "e42607a5818cb349b57e78eae1d6c2df73fe5c3ae7ed1621497452373da60357",
+      "bytes": 1098
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/slide-hash-loop-unroll-feasibility-r1/codec-provider-qualification-r1/actual-native-r1/controller.json",
+      "sha256": "8bc009068f40aa898cb878eb209bb97edc969ef37dd8b5185e9a2135626ee4cd",
+      "bytes": 1020
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/slide-hash-loop-unroll-feasibility-r1/codec-provider-qualification-r1/run_gate.py",
+      "sha256": "270c25fde3aeda7f4695dac292545355b6bd33993b0c8272c4fbd0829517564c",
+      "bytes": 14059
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/slide-hash-loop-unroll-feasibility-r1/codec-provider-qualification-r1/binding.json",
+      "sha256": "5d8d75b2058e45300d01be8bd41f274cc58bd91a23fa2c0b30f81afe8af639a7",
+      "bytes": 3033
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/slide-hash-loop-unroll-feasibility-r1/codec-provider-qualification-r1/source-pins.json",
+      "sha256": "4b7541ea059529f03cc25d9f9f9c4d154d8d51bed413a793f9d76beabd61988e",
+      "bytes": 1605
+    }
+  ]
+}

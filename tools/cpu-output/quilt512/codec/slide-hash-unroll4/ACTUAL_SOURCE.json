@@ -1,0 +1,7 @@
+{
+  "source_path": "/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/source/arch/x86/slide_hash_avx2.c",
+  "source_sha256": "40028f24a3b7b7bf6958d357c6a79b5811a385e473abc7b8ea912618ce312bd9",
+  "source_bytes": 1164,
+  "source": "/*\n * AVX2 optimized hash slide, based on Intel's slide_sse implementation\n *\n * Copyright (C) 2017 Intel Corporation\n * Authors:\n *   Arjan van de Ven   <arjan@linux.intel.com>\n *   Jim Kukunas        <james.t.kukunas@linux.intel.com>\n *   Mika T. Lindqvist  <postmaster@raasu.org>\n *\n * For conditions of distribution and use, see copyright notice in zlib.h\n */\n#include \"zbuild.h\"\n#include \"deflate.h\"\n\n#include <immintrin.h>\n\nstatic inline void slide_hash_chain(Pos *table, uint32_t entries, const __m256i wsize) {\n    table += entries;\n    table -= 16;\n\n    do {\n        __m256i value, result;\n\n        value = _mm256_load_si256((__m256i *)table);\n        result = _mm256_subs_epu16(value, wsize);\n        _mm256_store_si256((__m256i *)table, result);\n\n        table -= 16;\n        entries -= 16;\n    } while (entries > 0);\n}\n\nZ_INTERNAL void slide_hash_avx2(deflate_state *s) {\n    Assert(s->w_size <= UINT16_MAX, \"w_size should fit in uint16_t\");\n    uint16_t wsize = (uint16_t)s->w_size;\n    const __m256i ymm_wsize = _mm256_set1_epi16((short)wsize);\n\n    slide_hash_chain(s->head, HASH_SIZE, ymm_wsize);\n    slide_hash_chain(s->prev, wsize, ymm_wsize);\n}\n",
+  "same_after": true
+}

@@ -1,0 +1,421 @@
+{
+  "status": "PASS_CURRENT_881_SLIDE_HASH_UNROLL4_FULL_FUNCTION_NATIVE",
+  "invocation_id": "df27d41fca904d35afb280d417b8bedf",
+  "commands": [
+    {
+      "label": "compiler-version",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "--version"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "compile-parent",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-std=c11",
+        "-Wall",
+        "-fPIC",
+        "-DNDEBUG",
+        "-DHAVE_SYMVER",
+        "-D_LARGEFILE64_SOURCE=1",
+        "-DHAVE_CPUID_GNU",
+        "-DHAVE_SYS_AUXV_H",
+        "-DHAVE_LINUX_AUXVEC_H",
+        "-DZLIB_COMPAT",
+        "-DWITH_GZFILEOP",
+        "-fno-semantic-interposition",
+        "-DHAVE_VISIBILITY_HIDDEN",
+        "-DHAVE_VISIBILITY_INTERNAL",
+        "-DHAVE_ATTRIBUTE_ALIGNED",
+        "-DHAVE_BUILTIN_ASSUME_ALIGNED",
+        "-DHAVE_BUILTIN_CTZ",
+        "-DHAVE_BUILTIN_CTZLL",
+        "-DWITH_ALL_FALLBACKS",
+        "-DWITH_OPTIM",
+        "-DX86_FEATURES",
+        "-DX86_HAVE_XSAVE_INTRIN",
+        "-DX86_SSE2",
+        "-DX86_SSSE3",
+        "-DX86_SSE41",
+        "-DX86_SSE42",
+        "-DX86_PCLMULQDQ_CRC",
+        "-DX86_AVX2",
+        "-DX86_AVX512",
+        "-DX86_AVX512VNNI",
+        "-DX86_VPCLMULQDQ_CRC",
+        "-mavx2",
+        "-mbmi2",
+        "-fno-lto",
+        "-DPIC",
+        "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/build",
+        "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/source",
+        "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/source/arch/x86",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-unroll4-gate-hpc02-r1/output/parent/slide_hash_avx2.c",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-unroll4-gate-hpc02-r1/output/parent/slide_hash_avx2.lo"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "disassembly-parent",
+      "argv": [
+        "objdump",
+        "-drwC",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-unroll4-gate-hpc02-r1/output/parent/slide_hash_avx2.lo"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "symbols-parent",
+      "argv": [
+        "nm",
+        "-a",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-unroll4-gate-hpc02-r1/output/parent/slide_hash_avx2.lo"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "compile-candidate",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-std=c11",
+        "-Wall",
+        "-fPIC",
+        "-DNDEBUG",
+        "-DHAVE_SYMVER",
+        "-D_LARGEFILE64_SOURCE=1",
+        "-DHAVE_CPUID_GNU",
+        "-DHAVE_SYS_AUXV_H",
+        "-DHAVE_LINUX_AUXVEC_H",
+        "-DZLIB_COMPAT",
+        "-DWITH_GZFILEOP",
+        "-fno-semantic-interposition",
+        "-DHAVE_VISIBILITY_HIDDEN",
+        "-DHAVE_VISIBILITY_INTERNAL",
+        "-DHAVE_ATTRIBUTE_ALIGNED",
+        "-DHAVE_BUILTIN_ASSUME_ALIGNED",
+        "-DHAVE_BUILTIN_CTZ",
+        "-DHAVE_BUILTIN_CTZLL",
+        "-DWITH_ALL_FALLBACKS",
+        "-DWITH_OPTIM",
+        "-DX86_FEATURES",
+        "-DX86_HAVE_XSAVE_INTRIN",
+        "-DX86_SSE2",
+        "-DX86_SSSE3",
+        "-DX86_SSE41",
+        "-DX86_SSE42",
+        "-DX86_PCLMULQDQ_CRC",
+        "-DX86_AVX2",
+        "-DX86_AVX512",
+        "-DX86_AVX512VNNI",
+        "-DX86_VPCLMULQDQ_CRC",
+        "-mavx2",
+        "-mbmi2",
+        "-fno-lto",
+        "-DPIC",
+        "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/build",
+        "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/source",
+        "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/source/arch/x86",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-unroll4-gate-hpc02-r1/output/candidate/slide_hash_avx2.c",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-unroll4-gate-hpc02-r1/output/candidate/slide_hash_avx2.lo"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "disassembly-candidate",
+      "argv": [
+        "objdump",
+        "-drwC",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-unroll4-gate-hpc02-r1/output/candidate/slide_hash_avx2.lo"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "symbols-candidate",
+      "argv": [
+        "nm",
+        "-a",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-unroll4-gate-hpc02-r1/output/candidate/slide_hash_avx2.lo"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "fixture-symbols-parent",
+      "argv": [
+        "objcopy",
+        "--redefine-sym",
+        "slide_hash_avx2=parent_slide_hash_avx2",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-unroll4-gate-hpc02-r1/output/parent/slide_hash_avx2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-unroll4-gate-hpc02-r1/output/parent-fixture.lo"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "fixture-symbols-candidate",
+      "argv": [
+        "objcopy",
+        "--redefine-sym",
+        "slide_hash_avx2=candidate_slide_hash_avx2",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-unroll4-gate-hpc02-r1/output/candidate/slide_hash_avx2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-unroll4-gate-hpc02-r1/output/candidate-fixture.lo"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "link-frozen-fixture",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-std=c11",
+        "-Wall",
+        "-fPIC",
+        "-DNDEBUG",
+        "-DHAVE_SYMVER",
+        "-D_LARGEFILE64_SOURCE=1",
+        "-DHAVE_CPUID_GNU",
+        "-DHAVE_SYS_AUXV_H",
+        "-DHAVE_LINUX_AUXVEC_H",
+        "-DZLIB_COMPAT",
+        "-DWITH_GZFILEOP",
+        "-fno-semantic-interposition",
+        "-DHAVE_VISIBILITY_HIDDEN",
+        "-DHAVE_VISIBILITY_INTERNAL",
+        "-DHAVE_ATTRIBUTE_ALIGNED",
+        "-DHAVE_BUILTIN_ASSUME_ALIGNED",
+        "-DHAVE_BUILTIN_CTZ",
+        "-DHAVE_BUILTIN_CTZLL",
+        "-DWITH_ALL_FALLBACKS",
+        "-DWITH_OPTIM",
+        "-DX86_FEATURES",
+        "-DX86_HAVE_XSAVE_INTRIN",
+        "-DX86_SSE2",
+        "-DX86_SSSE3",
+        "-DX86_SSE41",
+        "-DX86_SSE42",
+        "-DX86_PCLMULQDQ_CRC",
+        "-DX86_AVX2",
+        "-DX86_AVX512",
+        "-DX86_AVX512VNNI",
+        "-DX86_VPCLMULQDQ_CRC",
+        "-mavx2",
+        "-mbmi2",
+        "-fno-lto",
+        "-DPIC",
+        "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/build",
+        "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/source",
+        "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/source/arch/x86",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-unroll4-gate-hpc02-r1/slide_hash_fixture.c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-unroll4-gate-hpc02-r1/output/parent-fixture.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-unroll4-gate-hpc02-r1/output/candidate-fixture.lo",
+        "-lm",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-unroll4-gate-hpc02-r1/output/slide-hash-fixture"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "run-frozen-fixture",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-unroll4-gate-hpc02-r1/output/slide-hash-fixture"
+      ],
+      "returncode": 0
+    }
+  ],
+  "compiler_sha256": "360898b5e41799b7a5fcaf7acb2dfb4cab0017c5b3debc91e330636f1d0d37b9",
+  "exact_make_flags": [
+    "-O2",
+    "-std=c11",
+    "-Wall",
+    "-fPIC",
+    "-DNDEBUG",
+    "-DHAVE_SYMVER",
+    "-D_LARGEFILE64_SOURCE=1",
+    "-DHAVE_CPUID_GNU",
+    "-DHAVE_SYS_AUXV_H",
+    "-DHAVE_LINUX_AUXVEC_H",
+    "-DZLIB_COMPAT",
+    "-DWITH_GZFILEOP",
+    "-fno-semantic-interposition",
+    "-DHAVE_VISIBILITY_HIDDEN",
+    "-DHAVE_VISIBILITY_INTERNAL",
+    "-DHAVE_ATTRIBUTE_ALIGNED",
+    "-DHAVE_BUILTIN_ASSUME_ALIGNED",
+    "-DHAVE_BUILTIN_CTZ",
+    "-DHAVE_BUILTIN_CTZLL",
+    "-DWITH_ALL_FALLBACKS",
+    "-DWITH_OPTIM",
+    "-DX86_FEATURES",
+    "-DX86_HAVE_XSAVE_INTRIN",
+    "-DX86_SSE2",
+    "-DX86_SSSE3",
+    "-DX86_SSE41",
+    "-DX86_SSE42",
+    "-DX86_PCLMULQDQ_CRC",
+    "-DX86_AVX2",
+    "-DX86_AVX512",
+    "-DX86_AVX512VNNI",
+    "-DX86_VPCLMULQDQ_CRC",
+    "-mavx2",
+    "-mbmi2",
+    "-fno-lto",
+    "-DPIC",
+    "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/build",
+    "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/source",
+    "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/source/arch/x86"
+  ],
+  "actual_header_hashes": {
+    "deflate.h": "e03aed2cbba6f0dee25df0a482ba0ab86525a022e45bab7a0fcd3476cbbddf6d",
+    "zbuild.h": "e26c9eb94670aeeef9835edc4048eb2e53ca0e432d7715820d77f84e63eb1fef"
+  },
+  "parent_reproduction": {
+    "status": "PASS_ALLOCATED_BYTES_RELOCATIONS_NONFILE_SYMBOLS_EXACT",
+    "reference_sha256": "01cc64478dc55c0f8b7e1578bcca6e484b4db608428e8fb10caf9d5e19a5ebcb",
+    "rebuilt_sha256": "01cc64478dc55c0f8b7e1578bcca6e484b4db608428e8fb10caf9d5e19a5ebcb",
+    "comparison": {
+      "allocated_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "size": 98,
+          "align": 16,
+          "sha256": "1d80f2869536fe752ad868f33aae0f055669b5bbd1977daa69042d985114f35c"
+        },
+        ".data": {
+          "type": 1,
+          "flags": 3,
+          "size": 0,
+          "align": 1,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        ".bss": {
+          "type": 8,
+          "flags": 3,
+          "size": 0,
+          "align": 1,
+          "sha256": null
+        },
+        ".eh_frame": {
+          "type": 1,
+          "flags": 2,
+          "size": 48,
+          "align": 8,
+          "sha256": "f4a10a857443537d1eb3f98e2a4938a58a9e100e51c6405d45ffcbc876189cc7"
+        }
+      },
+      "allocated_relocations": {
+        ".eh_frame": [
+          [
+            32,
+            2,
+            [
+              "",
+              3,
+              0,
+              ".text",
+              0,
+              0
+            ],
+            0
+          ]
+        ]
+      },
+      "symbols_except_STT_FILE": [
+        [
+          "",
+          0,
+          0,
+          "",
+          0,
+          0
+        ],
+        [
+          "",
+          3,
+          0,
+          ".text",
+          0,
+          0
+        ],
+        [
+          "slide_hash_avx2",
+          18,
+          1,
+          ".text",
+          0,
+          98
+        ]
+      ]
+    },
+    "excluded": "Only nonallocated sections (including debug paths), STT_FILE symbol. All allocated text/rodata/data/bss/unwind sections and their relocations exact."
+  },
+  "parent_production_object_sha256": "01cc64478dc55c0f8b7e1578bcca6e484b4db608428e8fb10caf9d5e19a5ebcb",
+  "candidate_backward_loops": [
+    {
+      "start": 27,
+      "backedge": 92,
+      "saturating_vectors": 4,
+      "body": [
+        "vmovdqa (%rax),%ymm0",
+        "lea    -0x20(%rax),%rcx",
+        "vpsubusw %ymm1,%ymm0,%ymm0",
+        "vmovdqa %ymm0,(%rax)",
+        "vmovdqa -0x20(%rax),%ymm0",
+        "vpsubusw %ymm1,%ymm0,%ymm0",
+        "vmovdqa %ymm0,-0x20(%rax)",
+        "vmovdqa -0x40(%rax),%ymm0",
+        "vpsubusw %ymm1,%ymm0,%ymm0",
+        "vmovdqa %ymm0,-0x40(%rax)",
+        "vmovdqa -0x40(%rcx),%ymm0",
+        "lea    -0x60(%rcx),%rax",
+        "vpsubusw %ymm1,%ymm0,%ymm0",
+        "vmovdqa %ymm0,-0x40(%rcx)",
+        "cmp    %rsi,%rax",
+        "jne    1b <slide_hash_avx2+0x1b>"
+      ]
+    },
+    {
+      "start": 177,
+      "backedge": 242,
+      "saturating_vectors": 4,
+      "body": [
+        "vmovdqa (%rax),%ymm0",
+        "lea    -0x20(%rax),%rcx",
+        "vpsubusw %ymm1,%ymm0,%ymm0",
+        "vmovdqa %ymm0,(%rax)",
+        "vmovdqa -0x20(%rax),%ymm0",
+        "vpsubusw %ymm1,%ymm0,%ymm0",
+        "vmovdqa %ymm0,-0x20(%rax)",
+        "vmovdqa -0x40(%rax),%ymm0",
+        "vpsubusw %ymm1,%ymm0,%ymm0",
+        "vmovdqa %ymm0,-0x40(%rax)",
+        "vmovdqa -0x40(%rcx),%ymm0",
+        "lea    -0x60(%rcx),%rax",
+        "vpsubusw %ymm1,%ymm0,%ymm0",
+        "vmovdqa %ymm0,-0x40(%rcx)",
+        "sub    $0x40,%edx",
+        "jne    b1 <slide_hash_avx2+0xb1>"
+      ]
+    }
+  ],
+  "candidate_production_object_sha256": "deabc431f02946800d2d7d16376fe0b7799a923639efa8a7923d5efb02a7ffba",
+  "fixture_stdout": "{\"status\":\"PASS_COMPLETE_SLIDE_HASH_REAL_STATE_FULL_ARRAY_SATURATION_CANARY_READONLY_STATE_NATIVE_FENV\",\"cases\":8,\"calls\":16,\"head_entries\":65536,\"timing\":false,\"production_qualification\":false}\n",
+  "codegen_scope": "At least4 packed saturation operations per backward hotloop for both arrays. Current source pragma-only inverse; no timing/gain claim.",
+  "artifacts": {
+    "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-unroll4-gate-hpc02-r1/output/parent/slide_hash_avx2.lo": "01cc64478dc55c0f8b7e1578bcca6e484b4db608428e8fb10caf9d5e19a5ebcb",
+    "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-unroll4-gate-hpc02-r1/output/candidate/slide_hash_avx2.lo": "deabc431f02946800d2d7d16376fe0b7799a923639efa8a7923d5efb02a7ffba",
+    "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-unroll4-gate-hpc02-r1/output/parent-fixture.lo": "92591f94fb8f526b4446bff30310f1036b898cd1949a0fdefa680a046aec4a8c",
+    "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-unroll4-gate-hpc02-r1/output/candidate-fixture.lo": "1ad22d8d86f3b0ad399267c0f6ba277bd45a47611debb9fcfc90b5550dbfdd15",
+    "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-unroll4-gate-hpc02-r1/output/slide-hash-fixture": "70f20c5bfd75ff2709665bf2c093b0e264768cf9f1b4a1ffc4b3d2ab84a4c399"
+  },
+  "scope": "Frozen legal-state fullfunction saturation/raw/head/prev/readonly/guards/native-state oracle; exact current object parent reproduction first; one pragma4 candidate only. No codec/provider/WRF qualification or timing.",
+  "elapsed_seconds_context_only": 7.3458373681642115
+}
