@@ -1,0 +1,26 @@
+--- frozen-ff84
++++ approved-constructor-hygiene
+@@ -162,7 +162,7 @@
+  fprintf(logfile,"{\"event\":\"read\",\"rank\":0,\"ncid\":%d,\"varid\":%d,\"status\":%d}\n",id,var,rc);fflush(logfile);
+  if(fesetenv(&post))fatal("api_post_env_restore");errno=post_errno;return rc;
+ }
+-__attribute__((constructor))static void init(void){
++static void init_impl(void){
+  main_thread=pthread_self();get_real=dlsym(RTLD_NEXT,"nc_get_vara_float");begin_real=dlsym(RTLD_NEXT,"nc_predecoded_provider_begin");end_real=dlsym(RTLD_NEXT,"nc_predecoded_provider_end");
+  const char*on=getenv("WRF_INPUT_PREDECODE_OPTIN"),*owner=getenv("WRF_INPUT_PREDECODE_OWNER"),*dir=getenv("WRF_INPUT_SCOPE_LOGDIR"),*hint=getenv("OMPI_COMM_WORLD_RANK");char host[128];
+  /* Environment rank is only a constructor hint. Permission is actual MPI
+@@ -177,6 +177,14 @@
+  logfile=fdopen(logfd,"w");if(!logfile){close(logfd);return;}
+  fprintf(logfile,"{\"event\":\"constructor\",\"environment_rank_hint\":0,\"pid\":%ld,\"mpi_calls\":0,\"authority\":\"UNVALIDATED_UNTIL_ACTUAL_MPI_SCOPE\"}\n",(long)getpid());fflush(logfile);enabled=1;
+ }
++/* Private constructor bookkeeping must not manufacture PREEXISTING flags. */
++__attribute__((constructor))static void init(void){
++ int entry_errno=errno;fenv_t entry_env;
++ if(fegetenv(&entry_env))abort();
++ init_impl();
++ if(fesetenv(&entry_env))abort();
++ errno=entry_errno;
++}
+ __attribute__((destructor))static void finish(void){
+  if(logfile){fprintf(logfile,"{\"event\":\"final\",\"rank\":%d,\"scopes\":%lu,\"callbacks\":%lu,\"supplied\":%lu,\"declines\":%lu,\"widens\":%lu,\"restores\":%lu}\n",actual_rank,scopes,callbacks,supplied,declines,widens,restores);fclose(logfile);}
+ }

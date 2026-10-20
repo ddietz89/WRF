@@ -1,0 +1,212 @@
+--- a/libhdf5/hdf5var.c
++++ b/libhdf5/hdf5var.c
+@@ -22,6 +22,14 @@
+ 
+ /* Codex local implementation; external dispatch rejected before API access. */
+ #include "netcdf_precompressed.h"
++#include "netcdf_predecoded.h"
++#include <errno.h>
++#include <fenv.h>
++#include <stdatomic.h>
++#if defined(__x86_64__) || defined(__i386__)
++#include <xmmintrin.h>
++#endif
++#include <stdlib.h>
+ #include <stdint.h>
+ #include <float.h>
+ #include <unistd.h>
+@@ -36,6 +44,17 @@
+ } NC_PC_SCOPE;
+ static NC_PC_SCOPE nc_pc_scope;
+ 
++/* Separate experimental read scope. Only main accesses provider/user; foreign
++ * dispatch readers use the atomic active/busy flags, never those pointers. */
++typedef struct {
++    nc_predecoded_float_provider provider;
++    void *user;
++    atomic_int active;
++    atomic_int busy;
++} NC_PD_SCOPE;
++static NC_PD_SCOPE nc_pd_scope;
++_Static_assert(sizeof(hid_t) == sizeof(int64_t), "pinned HDF5 hid_t ABI");
++
+ static int
+ nc_pc_is_main_thread(void)
+ {
+@@ -52,13 +71,16 @@
+ int
+ NC_pc_reentry_forbidden(void)
+ {
+-    return nc_pc_scope.provider && (!nc_pc_is_main_thread() || nc_pc_scope.busy);
++    return (nc_pc_scope.provider && (!nc_pc_is_main_thread() || nc_pc_scope.busy)) ||
++           (atomic_load(&nc_pd_scope.active) &&
++            (!nc_pc_is_main_thread() || atomic_load(&nc_pd_scope.busy)));
+ }
+ 
+ int
+ nc_precompressed_provider_begin(nc_precompressed_float_provider provider, void *user)
+ {
+-    if (!nc_pc_is_main_thread() || !provider || nc_pc_scope.provider || nc_pc_scope.busy)
++    if (!nc_pc_is_main_thread() || !provider || nc_pc_scope.provider || nc_pc_scope.busy ||
++        atomic_load(&nc_pd_scope.active))
+         return NC_EINVAL;
+     nc_pc_scope.provider = provider;
+     nc_pc_scope.user = user;
+@@ -68,11 +90,117 @@
+ int
+ nc_precompressed_provider_end(void)
+ {
+-    if (!nc_pc_is_main_thread() || nc_pc_scope.busy)
++    if (!nc_pc_is_main_thread() || nc_pc_scope.busy || atomic_load(&nc_pd_scope.active))
+         return NC_EINVAL;
+     nc_pc_scope.provider = NULL;
+     nc_pc_scope.user = NULL;
+     return NC_NOERR;
++}
++
++/* These scope calls are private experimental ABI, not ordinary NC API. */
++int
++nc_predecoded_provider_begin(nc_predecoded_float_provider provider, void *user)
++{
++    if (!nc_pc_is_main_thread() || !provider || nc_pc_scope.provider ||
++        nc_pc_scope.busy || atomic_load(&nc_pd_scope.active))
++        return NC_EINVAL;
++    nc_pd_scope.provider = provider;
++    nc_pd_scope.user = user;
++    atomic_store(&nc_pd_scope.busy, 0);
++    atomic_store(&nc_pd_scope.active, 1);
++    return NC_NOERR;
++}
++
++int
++nc_predecoded_provider_end(void)
++{
++    if (!nc_pc_is_main_thread() || atomic_load(&nc_pd_scope.busy) || nc_pc_scope.provider || nc_pc_scope.busy)
++        return NC_EINVAL;
++    atomic_store(&nc_pd_scope.active, 0);
++    nc_pd_scope.provider = NULL;
++    nc_pd_scope.user = NULL;
++    return NC_NOERR;
++}
++
++/* Called only after all ordinary NC validation/selection/xfer setup. The
++ * callback owns no dataset ID, must join before return, and must leave out
++ * untouched on any non-1 result. No worker may call NC/HDF5/MPI.
++ *
++ * Exact pinned HDF5 1.14.3 H5E.c evidence: get_current_stack copies entries AND
++ * handler then empties default entries; set_current_stack consumes its ID and
++ * copies entries but DOES NOT restore the handler. get/set_auto2 DEFAULT do
++ * not clear entries. close_stack DOES clear default entries. Consequently
++ * stack installation is the LAST HDF5 bookkeeping call on each return path.
++ * Main-thread fenv/errno are restored after HDF bookkeeping, never after the
++ * subsequent original H5Dread. Failure to restore is fatal, not NC success. */
++/* Experimental admission only; NEVER raise, clear, or normalize exceptions.
++ * PENDING exact native HDF825 cause proof: the bypassed native owner operation
++ * must be shown to contribute SSE inexact only for this fixed metadata route.
++ * An x87-only sticky inexact does not satisfy the SSE MXCSR predicate.
++ * All SSE and x87 exceptions must already be masked, so no trapping state is
++ * bypassed. Unsupported architecture/state retains ordinary H5Dread. */
++static int
++nc_pd_fp_admissible(void)
++{
++#if defined(__x86_64__) || defined(__i386__)
++    unsigned int csr = _mm_getcsr();
++    unsigned short cw;
++    __asm__ volatile("fnstcw %0" : "=m" (cw));
++    return (csr & (1u << 5)) != 0 &&
++           (csr & (0x3fu << 7)) == (0x3fu << 7) &&
++           (cw & 0x3fu) == 0x3fu;
++#else
++    return 0;
++#endif
++}
++
++static int
++nc_pd_try(hid_t dataset, void *out, size_t nbytes)
++{
++    int entry_errno = errno, post_errno, supplied;
++    fenv_t entry_env, post_env;
++    hid_t entry_stack, post_stack;
++    H5E_auto2_t handler;
++    void *handler_data;
++
++    if (fegetenv(&entry_env) != 0)
++        abort();
++    entry_stack = H5Eget_current_stack();
++    if (entry_stack < 0 ||
++        H5Eget_auto2(H5E_DEFAULT, &handler, &handler_data) < 0 ||
++        H5Eset_auto2(H5E_DEFAULT, NULL, NULL) < 0)
++        abort();
++    atomic_store(&nc_pd_scope.busy, 1);
++    if (fesetenv(&entry_env) != 0)
++        abort();
++    errno = entry_errno;
++    supplied = nc_pd_scope.provider((int64_t)dataset, out, nbytes, nc_pd_scope.user);
++    post_errno = errno;
++    if (fegetenv(&post_env) != 0)
++        abort();
++    if (supplied == 1) {
++        /* Preserve callback POST state while disposing the unused entry copy.
++         * No entry-state restoration on the accepted path. */
++        post_stack = H5Eget_current_stack();
++        if (post_stack < 0 || H5Eclose_stack(entry_stack) < 0 ||
++            H5Eset_auto2(H5E_DEFAULT, handler, handler_data) < 0 ||
++            H5Eset_current_stack(post_stack) < 0)
++            abort();
++        if (fesetenv(&post_env) != 0)
++            abort();
++        errno = post_errno;
++    } else {
++        /* Consume entry copy exactly once, restore PRIVATE attempt only;
++         * ordinary H5Dread and the original NC cleanup remain authoritative. */
++        if (H5Eset_auto2(H5E_DEFAULT, handler, handler_data) < 0 ||
++            H5Eset_current_stack(entry_stack) < 0)
++            abort();
++        if (fesetenv(&entry_env) != 0)
++            abort();
++        errno = entry_errno;
++    }
++    atomic_store(&nc_pd_scope.busy, 0);
++    return supplied == 1;
+ }
+ 
+ static void
+@@ -2359,10 +2487,38 @@
+ 
+         /* Read this hyperslab into memory. */
+         LOG((5, "About to H5Dread some data..."));
++        {
++            int pd_handled = 0;
++            if (atomic_load(&nc_pd_scope.active) && nc_pc_is_main_thread() &&
++                !atomic_load(&nc_pd_scope.busy) && h5->no_write &&
++#ifdef USE_PARALLEL4
++                !h5->parallel &&
++#endif
++                mem_nc_type == NC_FLOAT && var->type_info->hdr.id == NC_FLOAT &&
++                var->ndims == 4 && !need_to_convert && !provide_fill &&
++                !scalar && !fixedlengthstring && sizeof(float) == 4) {
++                size_t pd_bytes = 4;
++                int pd_full = 1, pd_i;
++                for (pd_i = 0; pd_i < 4; pd_i++) {
++                    if (start[pd_i] != 0 || stride[pd_i] != 1 ||
++                        count[pd_i] != fdims[pd_i] || count[pd_i] == 0 ||
++                        count[pd_i] > SIZE_MAX ||
++                        pd_bytes > SIZE_MAX / (size_t)count[pd_i]) {
++                        pd_full = 0;
++                        break;
++                    }
++                    pd_bytes *= (size_t)count[pd_i];
++                }
++                if (pd_full && nc_pd_fp_admissible())
++                    pd_handled = nc_pd_try(hdf5_var->hdf_datasetid, bufr, pd_bytes);
++            }
++            if (!pd_handled) {
+         if (H5Dread(hdf5_var->hdf_datasetid,
+                     ((NC_HDF5_TYPE_INFO_T *)var->type_info->format_type_info)->native_hdf_typeid,
+                     mem_spaceid, file_spaceid, xfer_plistid, bufr) < 0)
+             BAIL(NC_EHDFERR);
++            }
++        }
+     } /* endif ! no_read */
+     else
+     {
