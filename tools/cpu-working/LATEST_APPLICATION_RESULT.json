@@ -44,7 +44,7 @@
     "sha256": "9a00e131349d9e6785c3f08cef0949c5f4ab6e7bb2b17c10da7d656c85816e40"
   },
   "current_three_hour_qualified": true,
-  "current_nine_hour_qualified": false,
+  "current_nine_hour_qualified": true,
   "prior_three_hour_benchmark": {
     "evidence_file": "PREVIOUS_THREE_HOUR_RESULT_BEFORE_DIFCOF_POOL.json",
     "qualification_file": "PREVIOUS_THREE_HOUR_FINAL_QUALIFICATION_BEFORE_DIFCOF_POOL.json",
@@ -80,8 +80,8 @@
     "repeatability_established": false,
     "scope": "GNU13.3 strict/OMP1/cold06:00\u201309:00/full512=480compute8x60+4x8quilt/faba/twoTiles/CEC/root06dNCa32/outputde5b/codec3edf/HDF825/shared1/FIELDVIEW1/singleIB;4completeproducts545steps/all4positivewriters. One fresh fixed-order inclusiveIO pair; no isolated/additive gain or current9h claim."
   },
-  "scope": "GNU13.3 strict/OMP1/cold06:00\u201309:00/full512=480compute8x60+4x8quilt/faba/twoTiles/DF41b/root06dNCa32/outputpool51a/codec3edf/HDF825/shared1/FIELDVIEW1/singleIB;4completeproducts545steps/all4positivewriters/all32markers. One fresh fixed-order wholeinclusiveIO pair; no isolated/additive/repeatability or current9h claim.",
-  "claim_limits": "CurrentDF41b/pool51a owns exact4products545/full512/twoTiles/all4positivewriters/all32markers and freshfixed-order wholeinclusiveIO19.46952%wall/12.88798%aggregateCPU observation. Mainelapsed6.15838% is notintegrationCPU. No isolated/additive/repeatability or own9h claim; syntheticcaller gains remain separate.",
+  "scope": "GNU13.3 strict/OMP1/cold06:00\u201309:00/full512=480compute8x60+4x8quilt/faba/twoTiles/DF41b/root06dNCa32/outputpool51a/codec3edf/HDF825/shared1/FIELDVIEW1/singleIB;4completeproducts545steps/all4positivewriters/all32markers. One fresh fixed-order wholeinclusiveIO pair; no isolated/additive/repeatability claim; current9h SCI separately qualified by profiled UNPAIRED diagnostic.",
+  "claim_limits": "CurrentDF41b/pool51a owns exact4products545/full512/twoTiles/all4positivewriters/all32markers and freshfixed-order wholeinclusiveIO19.46952%wall/12.88798%aggregateCPU observation. Mainelapsed6.15838% is notintegrationCPU. No isolated/additive/repeatability claim; own9h SCI now qualified by profiled UNPAIRED diagnostic; syntheticcaller gains remain separate.",
   "output_postscience_tracking_commit": "909ab6ef55ac5351f9fd03e4019be470e89a3929",
   "previous_DF_pool_short_science": {
     "status": "PASS_RETAINED_ORIGINAL_TWO_HISTORY_35_STEPS_512_OWNED_FIELD_VIEW",
@@ -145,5 +145,32 @@
     "repeatability_established": false,
     "scope": "GNU13.3 strict/OMP1/cold06:00\u201309:00/full512=480compute8x60+4x8quilt/faba/twoTiles/DF41b/root06dNCa32/outputpool51a/codec3edf/HDF825/shared1/FIELDVIEW1/singleIB;4completeproducts545steps/all4positivewriters/all32markers. One fresh fixed-order wholeinclusiveIO pair; no isolated/additive/repeatability or current9h claim."
   },
-  "previous_short_application_result_file": "PREVIOUS_LATEST_APPLICATION_RESULT_BEFORE_DIFCOF_POOL_THREE_HOUR.json"
+  "previous_short_application_result_file": "PREVIOUS_LATEST_APPLICATION_RESULT_BEFORE_DIFCOF_POOL_THREE_HOUR.json",
+  "current_nine_hour_science": {
+    "evidence_file": "NINE_HOUR_RESULT.json",
+    "qualification_file": "NINE_HOUR_FINAL_QUALIFICATION.json",
+    "qualification_sha256": "d6e3cbbfa051e211e93f8303d332289a650439a9341d3e43e60cfd2887b302d2",
+    "applies_to_current_selection": true,
+    "scientific_scope_only": true,
+    "comparison_design": "PROFILED_UNPAIRED diagnosticcandidate versus retainedoriginal546b scientificreference; no sustained/matchedforecastspeedupclaim",
+    "metrics": {
+      "control": {
+        "wall_seconds": 2069.3122304237913,
+        "cpu_seconds": 1009264.484921,
+        "main_step_sum_seconds": 1851.54464
+      },
+      "candidate": {
+        "wall_seconds": 1833.8502885708585,
+        "cpu_seconds": 922292.209006,
+        "main_step_sum_seconds": 1736.84978
+      }
+    },
+    "reductions_percent": {
+      "wall_seconds": 11.378753693670996,
+      "cpu_seconds": 8.617391894237493,
+      "main_step_sum_seconds": 6.194550081168993
+    },
+    "repeatability_established": false,
+    "scope": "Current41b/51a/3edf exact10products1625/full512/twoTiles/all4positivewriters/all32markers. Profiled UNPAIRED diagnostic, not matched performance benchmark."
+  }
 }
