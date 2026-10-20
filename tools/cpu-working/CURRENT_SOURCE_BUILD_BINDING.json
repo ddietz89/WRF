@@ -1,5 +1,5 @@
 {
-  "status": "WORKING_SELECTED_RTHRATEN_PART2_SIMD_AFTER_ORIGINAL_SHORT",
+  "status": "WORKING_SELECTED_RTH_AFTER_FRESH_ORIGINAL_THREE_HOUR",
   "source_commit": "c883c564a037422631b7c3dd8c69cf532fe391a6",
   "executable": {
     "path": "/pool/wrf-experiment/wrf-cpu/builds/current2bd16-one-bigstep-rthraten-simd-hpc01-r1/wrf.exe",
@@ -193,10 +193,10 @@
     "sha256": "f38a865905d030be42ac0a965b4aa6afbc0eae280902a3839f20df176457f445"
   },
   "full_application": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/phy-prep-part2-rthraten-simd/APPLICATION_QUALIFICATION.json",
-    "sha256": "d5c058a57745ea1aa65df469cbbae0e2931a1f7b13c61ef130e47f051b53d117"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/phy-prep-part2-rthraten-simd/FRESH_THREE_HOUR_QUALIFICATION.json",
+    "sha256": "3efabe855bb66d4a3bd16e80dae73f53e1b4c59fdf39b65c805ed340b7605f8c"
   },
-  "current_three_hour_qualified": false,
+  "current_three_hour_qualified": true,
   "prior_repaired_full_application": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/myj-mixlen-scratch-reuse/APPLICATION_QUALIFICATION.json",
     "sha256": "55e2170cfc4f695e2eb7124cb4dec541954a9db290979ed2423252a4b117eb2f"
@@ -301,37 +301,38 @@
     "sha256": "fb3853a2dd3561319ec92a5ebf8bb66062b89e2ddbbec57bb591dc84eb023b8d"
   },
   "three_hour_benchmark": {
-    "evidence_file": "THREE_HOUR_RESULT.json",
-    "qualification_file": "THREE_HOUR_FINAL_QUALIFICATION.json",
-    "full_qualification_sha256": "40d2a791210ecd7c0fca07de90e533e941db56afb7e12ca08f483a96355c73e0",
+    "evidence_file": "tools/cpu-compute/phy-prep-part2-rthraten-simd/FRESH_THREE_HOUR_RESULT.json",
+    "qualification_file": "tools/cpu-compute/phy-prep-part2-rthraten-simd/FRESH_THREE_HOUR_QUALIFICATION.json",
+    "full_qualification_sha256": "3efabe855bb66d4a3bd16e80dae73f53e1b4c59fdf39b65c805ed340b7605f8c",
     "executable": {
-      "path": "/pool/wrf-experiment/wrf-cpu/builds/current9d75-one-bigstep-rqvften-simd-hpc01-r1/wrf.exe",
-      "sha256": "ee665e11d60aa84b6f3f468b85f11762473f670344da4e3e42cdf6f382019835"
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current2bd16-one-bigstep-rthraten-simd-hpc01-r1/wrf.exe",
+      "sha256": "db5a21fb44c2ab4a48f11494bbb3bb0881c26a1607afb18bb80f6d5313e64ba4"
     },
-    "source_commit": "31ca2fd4142b077d5800c30292915a33e38f1d59",
-    "source_commit_semantics": "POST_TEST_SOURCE_IDENTITY; rawproducerNULL",
+    "source_commit": "c883c564a037422631b7c3dd8c69cf532fe391a6",
+    "source_commit_semantics": "POST_TEST_SOURCE_IDENTITY; rawproducerNULL remainsNULL",
     "metrics": {
       "control": {
-        "wall_seconds": 848.6774008770008,
-        "cpu_seconds": 382698.863204,
-        "main_step_sum_seconds": 626.3161
+        "wall_seconds": 819.2783056409098,
+        "cpu_seconds": 367612.40525099996,
+        "main_step_sum_seconds": 597.23996
       },
       "candidate": {
-        "wall_seconds": 660.3921359390952,
-        "cpu_seconds": 320886.634243,
-        "main_step_sum_seconds": 560.65991
+        "wall_seconds": 659.0761610162444,
+        "cpu_seconds": 319636.45668999996,
+        "main_step_sum_seconds": 558.36335
       }
     },
     "reductions_percent": {
-      "wall_seconds": 22.18572861058119,
-      "cpu_seconds": 16.15166254832866,
-      "main_step_sum_seconds": 10.482915895024902
+      "wall_seconds": 19.554056725491044,
+      "cpu_seconds": 13.0506881366647,
+      "main_step_sum_seconds": 6.509378575405444
     },
-    "fresh_matched_timing": false,
-    "comparison_design": "Candidate-only science qualification versus frozen original three-hour outputs; UNPAIRED descriptive metrics, no matched timing or causal RQVFTEN claim",
-    "applies_to_current_selection": false,
+    "wall_speedup_ratio": 1.2430707619247616,
+    "fresh_matched_timing": true,
+    "comparison_design": "One fresh fixed-order corrected-original546b then currentRTHdb5a/51a/input06dNCa32/e1d8; checked client-cache clear EACH; no observers/profilers.",
+    "applies_to_current_selection": true,
     "repeatability_established": false,
-    "scope": "Historical RQVFTENee66/source31ca before RQVBLTEN. Actual4products545/full512 exact,660.3921359390952s MPIwall; candidate-only UNPAIRED descriptive metrics. Does not qualify child2bd1. Existing THREE_HOUR_RESULT/Q bytes and hashes unchanged."
+    "scope": "Exact4products545/full512/twoTiles/all32markers/fourpositivewriters; all8models+reader normally closed. Includes all current promotions; no isolated directive or concurrent-throughput claim."
   },
   "previous_parent_three_hour_full_application": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_THREE_HOUR_FINAL_QUALIFICATION_BEFORE_CEC_SLIDE.json",
@@ -349,7 +350,8 @@
     "module_interface_sha256": "01702a275cfaa6e411f3b53342033027a3beca789ccd80a7b2e1becf3f43e7ee",
     "executable_sha256": "db5a21fb44c2ab4a48f11494bbb3bb0881c26a1607afb18bb80f6d5313e64ba4",
     "archive_sha256": "0c91cccbb5cfab6dcd5304882944d6b0e773f91c8abb0af77759636871aff929",
-    "scope": "One additional RTHRATEN innerI directive, committed after native68/caller/canonicalCPP/one-memberlink/originalshortSCI. FrozenrawproducerNULL; no own3h/9h or forecastgain transfer."
+    "scope": "One additional RTHRATEN innerI directive, committed after native68/caller/canonicalCPP/one-memberlink/originalshortSCI. FrozenrawproducerNULL; no own3h/9h or forecastgain transfer.",
+    "qualification_update": "Freshoriginal/current3h Q3efabe independently added after sourcec883; rawproducersNULL; own9hFALSE."
   },
   "previous_mcica_full_application": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/mcica-mask-fusion/APPLICATION_QUALIFICATION.json",
@@ -815,5 +817,46 @@
     "own_unprofiled_ninehour_science_qualified": false,
     "applies_to_current_selection": false,
     "scope": "Historical QV2bd1/sourcea014 profiled9h science10products1625, three15s captures; exact proof retained, does not qualify RTHdb5a child. Parent ownprofiled9hSCI remains historicallytrue; no unprofiled/matched timing transfer."
+  },
+  "previous_RQVFTEN_three_hour_benchmark": {
+    "evidence_file": "THREE_HOUR_RESULT.json",
+    "qualification_file": "THREE_HOUR_FINAL_QUALIFICATION.json",
+    "full_qualification_sha256": "40d2a791210ecd7c0fca07de90e533e941db56afb7e12ca08f483a96355c73e0",
+    "executable": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current9d75-one-bigstep-rqvften-simd-hpc01-r1/wrf.exe",
+      "sha256": "ee665e11d60aa84b6f3f468b85f11762473f670344da4e3e42cdf6f382019835"
+    },
+    "source_commit": "31ca2fd4142b077d5800c30292915a33e38f1d59",
+    "source_commit_semantics": "POST_TEST_SOURCE_IDENTITY; rawproducerNULL",
+    "metrics": {
+      "control": {
+        "wall_seconds": 848.6774008770008,
+        "cpu_seconds": 382698.863204,
+        "main_step_sum_seconds": 626.3161
+      },
+      "candidate": {
+        "wall_seconds": 660.3921359390952,
+        "cpu_seconds": 320886.634243,
+        "main_step_sum_seconds": 560.65991
+      }
+    },
+    "reductions_percent": {
+      "wall_seconds": 22.18572861058119,
+      "cpu_seconds": 16.15166254832866,
+      "main_step_sum_seconds": 10.482915895024902
+    },
+    "fresh_matched_timing": false,
+    "comparison_design": "Candidate-only science qualification versus frozen original three-hour outputs; UNPAIRED descriptive metrics, no matched timing or causal RQVFTEN claim",
+    "applies_to_current_selection": false,
+    "repeatability_established": false,
+    "scope": "Historical RQVFTENee66/source31ca before RQVBLTEN. Actual4products545/full512 exact,660.3921359390952s MPIwall; candidate-only UNPAIRED descriptive metrics. Does not qualify child2bd1. Existing THREE_HOUR_RESULT/Q bytes and hashes unchanged."
+  },
+  "current_three_hour_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/phy-prep-part2-rthraten-simd/FRESH_THREE_HOUR_QUALIFICATION.json",
+    "sha256": "3efabe855bb66d4a3bd16e80dae73f53e1b4c59fdf39b65c805ed340b7605f8c"
+  },
+  "previous_RTH_short_full_application": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/phy-prep-part2-rthraten-simd/APPLICATION_QUALIFICATION.json",
+    "sha256": "d5c058a57745ea1aa65df469cbbae0e2931a1f7b13c61ef130e47f051b53d117"
   }
 }

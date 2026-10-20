@@ -1,5 +1,19 @@
 # WRF CPU optimization — continuing campaign handoff
 
+## Fresh combined three-hour comparison (2026-10-20)
+
+Current **db5a/archive0c91/sourcec883c564** now has its own fresh original-versus-optimized qualification. All four complete products and545 ordered steps matched exactly, with512 ranks,two tiles,all32 field markers,four positive writers and all model/reader jobs normally closed. The original protected scientific checker is unchanged.
+
+| Measure | Fresh corrected original | Current combined | Reduction |
+|---|---:|---:|---:|
+| Whole model/MPI wall, including I/O and final drain |819.278306s|659.076161s|19.55%|
+| Integration-step elapsed, including communication/backpressure |597.239960s|558.363350s|6.51%|
+| Aggregate four-node cgroup CPU |367612.405251CPU-s|319636.456690CPU-s|13.05%|
+
+This is **one fresh fixed-order pair**, with checked compute-client cache clearing before each arm and no profiler/observer. Server cache/load remain uncontrolled. The observed wall ratio is1.243x; repeatability,1.5x throughput,2x speedup and concurrent-forecast throughput are not established. Main-step elapsed is not integration CPU, and whole-minus-main is not pure I/O. No individual candidate contribution is inferred or added. Current own3h is true; own9h remains false. Historical40d2 three-hour andefbfe nine-hour files remain byte-identical and do not qualify this child.
+
+Evidence: [fresh qualification](tools/cpu-compute/phy-prep-part2-rthraten-simd/FRESH_THREE_HOUR_QUALIFICATION.json),36 verified raw references; [all fresh timing values](tools/cpu-compute/phy-prep-part2-rthraten-simd/FRESH_THREE_HOUR_RESULT.json). Source/runtime selection and paired rollback are unchanged. The separate experimental U-DPn pragma was rejected on its first targeted O2 raw NaN-output mismatch, without timing or promotion. Thompson staging remains unqualified; a transparent READ-test definition review preserves old failures and all mathematical/FP checks. Investigations continue; production/master and AWS suspension are unchanged.
+
 ## Current working selection and recovery (2026-10-20)
 
 Current selecteddb5a/archive0c91/post-test sourcec883c564 includes all prior improvements plus radiation tendency SIMD. Native68 exact checks, complete callers and original2-product/35-step/full512 short science passed; all jobs closed. Complete caller wall fell2.18–2.97% under production selectors and1.22–1.58% in the GD case. This is a caller gain, not a forecast claim. OwnshortSCI is true; current own3h/9h remain false. Raw producers stayNULL. [Current findings](OPTIMIZATION_FINDINGS.md) and tools/cpu-working/selection.json supersede historical selections below.

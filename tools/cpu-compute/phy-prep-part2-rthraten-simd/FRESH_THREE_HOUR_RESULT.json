@@ -1,0 +1,28 @@
+{
+  "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+  "order": [
+    "fresh_corrected_original546b_control",
+    "fresh_current_RTHdb5a_all_prior_pool51a_input06d_NCa32_blockcarry_e1d8_candidate"
+  ],
+  "comparison_design": "Fresh fixed-order corrected-original versus combined current candidate; no isolated outputpadding/SIMD/input or earlierkernel attribution",
+  "metrics": {
+    "control": {
+      "wall_seconds": 819.2783056409098,
+      "cpu_seconds": 367612.40525099996,
+      "main_step_sum_seconds": 597.23996
+    },
+    "candidate": {
+      "wall_seconds": 659.0761610162444,
+      "cpu_seconds": 319636.45668999996,
+      "main_step_sum_seconds": 558.36335
+    }
+  },
+  "reductions_percent": {
+    "wall_seconds": 19.554056725491044,
+    "cpu_seconds": 13.0506881366647,
+    "main_step_sum_seconds": 6.509378575405444
+  },
+  "science_sha256": "cca80d2cdd1561fdf88b587705165a8d1165fb2d26a0f7ced68fa0fd3fc44883",
+  "reader_closure_sha256": "5701080f06ce07284213a5594b6f19384425f807d726626fc1eebd20160eaf45",
+  "limits": "One fresh fixed-order pair, actual checkedcache before each arm; no repeatability or per-kernel causal claim. Main includes communication/backpressure; residual is not pureIO."
+}
