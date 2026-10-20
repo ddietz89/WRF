@@ -1,4 +1,10 @@
-# Private codec variants
+# Current working codec: slide-hash loop unrolling
+
+The default is `slide-hash` (3edf), retaining every881 Huffman/guarded/inline change and altering only the AVX2 slide-hash loop directive. [Exact source, kernel/caller measurements, codec/provider checks, full512 short science and rollback](slide-hash-unroll4/README.md) record its support scope. `build.py` defaults to the tested `build_slide_hash.py` recipe; `--variant huffman` or provider `--codec huffman` selects the retained881 rollback. No production installation occurs.
+
+The historical variant evidence below retains its original scope.
+
+# Historical private codec variants
 
 The Huffman paired Code/Len load codec is the working default. It preserves the f85 codec and changes only trees.lo: three emitters load the same initialized four-byte table entry through alias-safe memcpy under non-DEBUG little-endian layout guards; original field loads remain the fallback. No tree, bitstream, ISA, provider or scientific source change.
 

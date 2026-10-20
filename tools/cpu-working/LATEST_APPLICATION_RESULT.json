@@ -1,30 +1,22 @@
 {
-  "status": "PASS_ACTUAL_FUSED_OUTPUT_PROVIDER_512_TWO_PRODUCTS_35_STEPS_ORIGINAL_SCI_ALL_SCOPES_CLOSED",
+  "status": "PASS_CEC_SLIDE_HASH_UNROLL4_SHORT_ORIGINAL_512_TWO_PRODUCTS35",
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2/wrf.exe",
-    "sha256": "1d6e5213108a5a1501ab319825bfa1a024df367af5037bee5f80d210f72d4f14"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current1d6e-mcica-mask-fusion-current-r1/wrf.exe",
+    "sha256": "cec189a3dbbb6ab95c7f31e29a44ee4eea37d06d8d161fc7349bc52daa468e30"
+  },
+  "codec": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/libz.so.1.3.1.zlib-ng",
+    "sha256": "3edf15a2d69040bb29ff52446bfcf103fbfdb8b7385fd68735e8a536a06f332c"
   },
   "output_shim": {
-    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current375-fused-pack-shuffle-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
-    "sha256": "172306f3a8c482f8aa2f2683c7f847dab62bf695532a06b0e6ddd8ba441a2a07",
-    "provider_source_sha256": "b938317c3430fd11ec02dce7bb0f3201a426369bf4a073a10fc3c152a912960f",
-    "shim_source_sha256": "313e18ed4309eec9b038371dfce227f8f5fc401813b094aa2cddb01e9de47421",
-    "source_commit": null,
-    "native_two_stage_proof": {
-      "receipt_sha256": "75aebf1ae206c0c678051cfc0ec5cff7e79c19b0e742bfcfec110703ae364e1a",
-      "closure_sha256": "ea9f1c25ea06d0e0151d9e8bb90608aae37d9e146802ba85964c757d88e3e2a7",
-      "original_failed_invocation_id": "f97670205f3e4ae899c972089aa08192",
-      "postprocessing_success_invocation_id": "71384091515045558e5c5fa435b17b01",
-      "original_manager_failed_retained": true,
-      "shim_sha256": "172306f3a8c482f8aa2f2683c7f847dab62bf695532a06b0e6ddd8ba441a2a07",
-      "scope": "Actual375parent-exact/current881 fullDSO API/raw/state/world1-negative component only; actual512 activation/runtime/science remains hard."
-    }
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current329f-padding-block32-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
+    "sha256": "de5b3c27224091cc0369062c9f1bbb867b362436a0331892a6ec9cf4fc4fccb4"
   },
   "science": {
-    "receipt_sha256": "7a108c76b39f53ee65c9a4021c4fb14041a1cd934500785edc45063c439106c6",
-    "reader_closure_sha256": "cd933963e9ea9ebb8cb8d3c2a88dc044ebae0fd2e35c9a662912058dfbc0efb9",
-    "reader_exit_code_raw": null,
-    "invocation_id": "caceb5e95f1645c0b14bb509bdbbd568",
+    "status": "PASS_RETAINED_ORIGINAL_TWO_HISTORY_35_STEPS_512_OWNED_FIELD_VIEW",
+    "receipt_sha256": "2d96609be86d3fe6f5d84608721cd2d9f8d676e15c757469d97b163107409da8",
+    "reader_closure_sha256": "7e38c9ba9fe1b72f4e08f1405d3b1d7b76ff252ff00e72dfc0f343242c4646f7",
+    "invocation_id": "b184d22e745949bd860758d19ec773d4",
     "products": 2,
     "ordered_steps": 35,
     "end_time": "2026-10-12_06:10:00",
@@ -42,110 +34,94 @@
       511
     ],
     "protected_original_checker_unchanged": true,
-    "tile_status": "PASS_ACTUAL_480_DISJOINT_TILE_UNIONS_AND_ALL512_OBSERVED_ENVS"
+    "all_model_reader_scopes_closed": true,
+    "reader_exit_code_raw": null
   },
-  "full_qualification_sha256": "afe8c6081fef3a5cd6a54160a07a9571546e4b85586cdc9a848dd6954c7e3f69",
-  "all_own_jobs_closed": true,
-  "observed_candidate_only_metrics": {
-    "MPI_wall_seconds": 139.16318616108038,
-    "aggregate_node_cgroup_CPU_seconds": 53765.947942,
-    "coordinator_RSL_main_step_seconds_sum": 38.4004,
-    "nodes": {
-      "hpc01": {
-        "invocation_id": "565c109e6ea143039ba98fc24b2bbdf1",
-        "memory_peak_bytes": 76199337984,
-        "memory_events": {
-          "low": 0,
-          "high": 0,
-          "max": 0,
-          "oom": 0,
-          "oom_kill": 0,
-          "oom_group_kill": 0
-        },
-        "cpu_stat": {
-          "usage_usec": 13400103798,
-          "user_usec": 12859989730,
-          "system_usec": 540114067,
-          "core_sched.force_idle_usec": 0,
-          "nr_periods": 1402,
-          "nr_throttled": 561,
-          "throttled_usec": 5703145,
-          "nr_bursts": 0,
-          "burst_usec": 0
-        }
+  "runtime_proof": {
+    "all512_complete_maps_bind_actual_codec": true,
+    "tile_status": "PASS_ACTUAL_480_DISJOINT_TILE_UNIONS_AND_ALL512_OBSERVED_ENVS",
+    "input_lifecycle": {
+      "event": "final",
+      "rank": 0,
+      "scopes": 308,
+      "callbacks": 31,
+      "supplied": 17,
+      "declines": 14,
+      "widens": 31,
+      "restores": 31
+    },
+    "writer_lifecycles": {
+      "487": {
+        "event": "final",
+        "rank": 487,
+        "scopes": 261,
+        "callbacks": 216,
+        "supplied": 216,
+        "declines": 0,
+        "guard_declines": 0,
+        "terminal_guards": 0,
+        "releases": 216,
+        "pending": 0,
+        "errors": 0,
+        "widens": 216,
+        "restores": 216,
+        "calls": 261,
+        "foreign_calls": 0
       },
-      "hpc02": {
-        "invocation_id": "d135e936ffe34a8492155cb98ac98e27",
-        "memory_peak_bytes": 73763430400,
-        "memory_events": {
-          "low": 0,
-          "high": 0,
-          "max": 0,
-          "oom": 0,
-          "oom_kill": 0,
-          "oom_group_kill": 0
-        },
-        "cpu_stat": {
-          "usage_usec": 13439645036,
-          "user_usec": 12895629849,
-          "system_usec": 544015187,
-          "core_sched.force_idle_usec": 0,
-          "nr_periods": 1357,
-          "nr_throttled": 861,
-          "throttled_usec": 1367373,
-          "nr_bursts": 0,
-          "burst_usec": 0
-        }
+      "495": {
+        "event": "final",
+        "rank": 495,
+        "scopes": 261,
+        "callbacks": 216,
+        "supplied": 216,
+        "declines": 0,
+        "guard_declines": 0,
+        "terminal_guards": 0,
+        "releases": 216,
+        "pending": 0,
+        "errors": 0,
+        "widens": 216,
+        "restores": 216,
+        "calls": 261,
+        "foreign_calls": 0
       },
-      "hpc03": {
-        "invocation_id": "b82b515a8a854783ae67b93d910ac44d",
-        "memory_peak_bytes": 73712336896,
-        "memory_events": {
-          "low": 0,
-          "high": 0,
-          "max": 0,
-          "oom": 0,
-          "oom_kill": 0,
-          "oom_group_kill": 0
-        },
-        "cpu_stat": {
-          "usage_usec": 13465650483,
-          "user_usec": 12889912202,
-          "system_usec": 575738280,
-          "core_sched.force_idle_usec": 0,
-          "nr_periods": 1354,
-          "nr_throttled": 687,
-          "throttled_usec": 7908399,
-          "nr_bursts": 0,
-          "burst_usec": 0
-        }
+      "503": {
+        "event": "final",
+        "rank": 503,
+        "scopes": 0,
+        "callbacks": 0,
+        "supplied": 0,
+        "declines": 0,
+        "guard_declines": 0,
+        "terminal_guards": 0,
+        "releases": 0,
+        "pending": 0,
+        "errors": 0,
+        "widens": 0,
+        "restores": 0,
+        "calls": 0,
+        "foreign_calls": 0
       },
-      "hpc04": {
-        "invocation_id": "081dd7e8e2ba49c5be66042e73040ce5",
-        "memory_peak_bytes": 73677799424,
-        "memory_events": {
-          "low": 0,
-          "high": 0,
-          "max": 0,
-          "oom": 0,
-          "oom_kill": 0,
-          "oom_group_kill": 0
-        },
-        "cpu_stat": {
-          "usage_usec": 13460548625,
-          "user_usec": 12879947901,
-          "system_usec": 580600723,
-          "core_sched.force_idle_usec": 0,
-          "nr_periods": 1356,
-          "nr_throttled": 668,
-          "throttled_usec": 5630747,
-          "nr_bursts": 0,
-          "burst_usec": 0
-        }
+      "511": {
+        "event": "final",
+        "rank": 511,
+        "scopes": 0,
+        "callbacks": 0,
+        "supplied": 0,
+        "declines": 0,
+        "guard_declines": 0,
+        "terminal_guards": 0,
+        "releases": 0,
+        "pending": 0,
+        "errors": 0,
+        "widens": 0,
+        "restores": 0,
+        "calls": 0,
+        "foreign_calls": 0
       }
     }
   },
-  "fresh_matched_timing": false,
-  "timing_claim": null,
-  "scope": "Ownshort2product35/full512 gate; 47.30/48.92% complete syntheticprovider wall gains and37/38%CPU remain separate. No isolated WRForforecastgain; previousfresh3h18% belongs output375; sustainedlatestcombined9h acceptance pending."
+  "qualification_file": "tools/cpu-output/quilt512/codec/slide-hash-unroll4/APPLICATION_QUALIFICATION.json",
+  "scope": "Exact short original scientific/runtime qualification only; no matched whole-forecast timing or own3h/9h claim.",
+  "post_test_codec_source_commit": "624bc11610aff44c5dbdf458768d660ddbf5b806"
 }

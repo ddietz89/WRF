@@ -1,6 +1,16 @@
 # WRF CPU optimization — continuing campaign handoff
 
-## Current working selection: MCICA mask fusion (2026-10-20)
+## Current working codec: slide-hash unrolling (2026-10-20)
+
+The working configuration now uses codec `3edf15a2` with the retained CEC compute build and de5b quilting provider. One loop-unroll directive preserves the original AVX2 saturating arithmetic and array traversal. Complete-function tests on hpc02/04 measured **12.29–16.49% less wall time** and **15.03–17.72% less process CPU**, with exact arrays and IEEE state. These are standalone function gains, including per-call clock overhead, not output-stage or forecast gains.
+
+The composed codec passed seven corpora, five streaming cases, generic fallback and stock decoding, then the current complete output provider. The short full-grid run passed the original checker on **two complete products and 35 ordered steps**, all512 ranks/two tiles, actual new-codec library hashes and worker lifetimes. Both active writer groups completed216 balanced callbacks; the other two groups had the required zero counters. All model/reader/build jobs closed. The repository build helper reproduced the qualified object and library byte for byte.
+
+[Application evidence](tools/cpu-output/quilt512/codec/slide-hash-unroll4/APPLICATION_QUALIFICATION.json) records exact artifacts and raw receipts. Code commit `624bc116` records the tested codec source after qualification; the WRF source identity remains `80a9cd6f`, executableCEC/archive6034, with frozen raw producer commits unchanged. Restore the paired `PREVIOUS_*_BEFORE_SLIDE_HASH_UNROLL4.json` working records, or choose codec `huffman`, to roll back only this addition while retaining the previous compute/output improvements. Production/master remain unchanged.
+
+A fresh original-versus-combined three-hour comparison is prepared; its result is pending. The earlier **19.05%** whole-wall reduction belongs to the previous1d6e/de5b configuration. Current CEC+3edf has no own three-/nine-hour timing qualification yet. The unmeasured private FAST matcher prototype is excluded.
+
+## Retained MCICA compute improvement (2026-10-20)
 
 The working build now includes MCICA cloud-mask fusion. It passed the original checker on two complete outputs, 35 ordered steps, all 512 ranks and two tiles; all model and reader jobs exited successfully. Complete-caller wall time fell **12.32% and 13.90%**, with **11.41% and 13.76% less process CPU** in opposite-order pairs. Its forecast-wide benefit remains unmeasured, and longer three- and nine-hour comparisons remain pending for this build. [Evidence](tools/cpu-compute/mcica-mask-fusion/QUALIFICATION.json) and [selection](tools/cpu-working/selection.json) identify the exact artifacts and rollback. Source commit `80a9cd6f` records the tested source after qualification; raw producer commits remain `null`.
 
@@ -10,7 +20,7 @@ Previous1d6e/de5b fresh three-hour qualification (not newCEC): corrected-origina
 
 Earlier noon-only and previous-output measurements below retain their historical scope.
 
-Updated **2026-10-20 07:05 UTC**. The persistent Goal is **active**. This file describes the current state, accepted work, closed candidates and remaining investigations. Continue authorized work after a report, failed candidate, successful test or promotion. Recover actual live jobs from `investigation/wrf-cpu/campaign/spot100-20261016/CURRENT_STATE.json` before launching anything; never duplicate an uncertain job.
+Updated **2026-10-20 08:32 UTC**. Current selection is stated at the top; older artifact narratives below retain their historical scope. The persistent Goal is **active**. This file describes the current state, accepted work, closed candidates and remaining investigations. Continue authorized work after a report, failed candidate, successful test or promotion. Recover actual live jobs from `investigation/wrf-cpu/campaign/spot100-20261016/CURRENT_STATE.json` before launching anything; never duplicate an uncertain job.
 
 This consolidated revision supersedes the older live-status paragraphs. Detailed historical snapshots remain in Git commit `8b7c38fe18028a31cb07ceda053d8c19df590957`; raw experimental evidence and failed records remain unchanged. `OPTIMIZATION_FINDINGS.md` retains detailed chronological findings. No production or master changes are authorized. AWS remains suspended.
 
@@ -20,7 +30,7 @@ Source8db/fullshimde5b replaces padding1e0/329f only; WRF1d6e/input06d-NCa32/cod
 
 Own current3h/9h/four-positive-writer qualification remains false. Previous375 fresh3h and172 nine-hour results remain historical. Producer NULL stays NULL; root post-test source tracking is separate. Rollback BEFORE_PADDING_BLOCK32 selection/binding restores329f/provider1e0. Original6269 native failure cause remains unknown; later passes/census do not retroactively clear it. Next is one periodic fresh original546b/de5b three-hour pair after review and resource closure, with no automatic9h replay.
 
-## Selected source, build and qualification
+## Historical source/build qualification before MCICA and slide-hash promotion
 
 Working fork: `https://github.com/ddietz89/WRF`, branch **perf/cpu-20261012**. Selected source **495f10002d87fb5fdcc256c20a9e592c037d9183**, executable **1d6e5213108a5a1501ab319825bfa1a024df367af5037bee5f80d210f72d4f14**, unchanged physics archive **beefab2eb05be13d6da3155885d1195137675893b850b0c2f1f63c38702ec6be** and new I/O archive **651835f31089e16759177734198ece5b121d704355c73abddde483f4cae2c14c**. Evidence-only commits can follow the selected source. Authoritative selection and bindings are in `tools/cpu-working/selection.json` and `CURRENT_SOURCE_BUILD_BINDING.json`; frozen producer `source_commit:null` records are preserved, with post-test tracking separate.
 

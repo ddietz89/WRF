@@ -1,6 +1,16 @@
 # Qualified WRF CPU working configuration
 
-## Current working selection: MCICA mask fusion (2026-10-20)
+## Current working codec: slide-hash unrolling (2026-10-20)
+
+The working configuration now uses codec `3edf15a2` with the retained CEC compute build and de5b quilting provider. One loop-unroll directive preserves the original AVX2 saturating arithmetic and array traversal. Complete-function tests on hpc02/04 measured **12.29–16.49% less wall time** and **15.03–17.72% less process CPU**, with exact arrays and IEEE state. These are standalone function gains, including per-call clock overhead, not output-stage or forecast gains.
+
+The composed codec passed seven corpora, five streaming cases, generic fallback and stock decoding, then the current complete output provider. The short full-grid run passed the original checker on **two complete products and 35 ordered steps**, all512 ranks/two tiles, actual new-codec library hashes and worker lifetimes. Both active writer groups completed216 balanced callbacks; the other two groups had the required zero counters. All model/reader/build jobs closed. The repository build helper reproduced the qualified object and library byte for byte.
+
+[Application evidence](../cpu-output/quilt512/codec/slide-hash-unroll4/APPLICATION_QUALIFICATION.json) records exact artifacts and raw receipts. Code commit `624bc116` records the tested codec source after qualification; the WRF source identity remains `80a9cd6f`, executableCEC/archive6034, with frozen raw producer commits unchanged. Restore the paired `PREVIOUS_*_BEFORE_SLIDE_HASH_UNROLL4.json` working records, or choose codec `huffman`, to roll back only this addition while retaining the previous compute/output improvements. Production/master remain unchanged.
+
+A fresh original-versus-combined three-hour comparison is prepared; its result is pending. The earlier **19.05%** whole-wall reduction belongs to the previous1d6e/de5b configuration. Current CEC+3edf has no own three-/nine-hour timing qualification yet. The unmeasured private FAST matcher prototype is excluded.
+
+## Retained MCICA compute improvement (2026-10-20)
 
 The working build now includes MCICA cloud-mask fusion. It passed the original checker on two complete outputs, 35 ordered steps, all 512 ranks and two tiles; all model and reader jobs exited successfully. Complete-caller wall time fell **12.32% and 13.90%**, with **11.41% and 13.76% less process CPU** in opposite-order pairs. Its forecast-wide benefit remains unmeasured, and longer three- and nine-hour comparisons remain pending for this build. [Evidence](../cpu-compute/mcica-mask-fusion/QUALIFICATION.json) and [selection](selection.json) identify the exact artifacts and rollback. Source commit `80a9cd6f` records the tested source after qualification; raw producer commits remain `null`.
 

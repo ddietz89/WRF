@@ -1,5 +1,5 @@
 {
-  "status": "WORKING_SELECTED_MCICA_MASK_FUSION_AFTER_SHORT_ORIGINAL_SCIENCE",
+  "status": "WORKING_SELECTED_CEC_SLIDE_HASH_UNROLL4_AFTER_SHORT_ORIGINAL_SCIENCE",
   "source_commit": "80a9cd6f65239c29fddbf70b271571070219fdf7",
   "executable": {
     "path": "/pool/wrf-experiment/wrf-cpu/builds/current1d6e-mcica-mask-fusion-current-r1/wrf.exe",
@@ -75,12 +75,12 @@
   "PD_production_member_sha256": "8ec77f864716667aa79d40878fa11276f7dede4017c620201e54f9f83bb32b25",
   "PD_repaired_compile_object_sha256": "e5245eed1f84a67ea9d428bed8d8b2529f568ca49394f9cf8b85d97bdc50f560",
   "PD_equivalence_proof_sha256": "92abf53cb516e4394f2ce232ad81fb4985ea7b1f849310927e54aa4a2b1017cc",
-  "build_scope": "GNU13.3 strict/OMP1/cold06:00-06:10/512=480compute8x60+4x8quilt/faba/twoTiles/CEC/root06dNCa32/outputde5b/codec881/HDF825/shared1/FIELDVIEW1/singleIB;2completeproducts35steps. Zero physics compiles; qualified6d00 reused in one-member overlay/one link;583of584 preserved. Fixed-six typed MODULE semantics retained; allrawMOD equalityFALSE.",
+  "build_scope": "GNU13.3 strict/OMP1/cold06:00-06:10/512=480compute8x60+4x8quilt/faba/twoTiles/CEC/root06dNCa32/outputde5b/codec3edf/HDF825/shared1/FIELDVIEW1/singleIB;2completeproducts35steps. Zero physics compiles; qualified6d00 reused in one-member overlay/one link;583of584 preserved. Fixed-six typed MODULE semantics retained; allrawMOD equalityFALSE. Codec source compiled once and linked once separately; exact3edf reproduction passed. WRF executable/archive remain CEC/6034.",
   "runtime": {
     "WRF_EXPERIMENTAL_TPI_NUMA": 1,
-    "other_settings": "Currentde5b/881/825/faba/FIELDVIEW1/singleIB; rootinput06dNCa32only"
+    "other_settings": "Currentde5b/3edf/825/faba/FIELDVIEW1/singleIB; rootinput06dNCa32only"
   },
-  "previous_binding": "PREVIOUS_SOURCE_BUILD_BINDING_BEFORE_MCICA_MASK_FUSION.json",
+  "previous_binding": "PREVIOUS_SOURCE_BUILD_BINDING_BEFORE_SLIDE_HASH_UNROLL4.json",
   "native": {
     "CQU": {
       "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-cqu-first-species-peel-r1/NATIVE_QUALIFICATION.json",
@@ -129,8 +129,8 @@
     "sha256": "f38a865905d030be42ac0a965b4aa6afbc0eae280902a3839f20df176457f445"
   },
   "full_application": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/mcica-mask-fusion/APPLICATION_QUALIFICATION.json",
-    "sha256": "9c78f316d456b9a0eb4603e678c4c1ac0c586ef3e4d54834dafd8145f979abb5"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-output/quilt512/codec/slide-hash-unroll4/APPLICATION_QUALIFICATION.json",
+    "sha256": "9a6b1eb5a44ae577704a87dea2fa4b43f3a74d0b86fedc5bc7dda530100d620d"
   },
   "current_three_hour_qualified": false,
   "prior_repaired_full_application": {
@@ -291,5 +291,19 @@
     "source_delta": "Three seams only: remove temporary logical cloud mask and its separate fill loop; evaluate identical ordered comparison directly in property consumer. No RNG/physics/flags/API changes.",
     "default_selection": "tools/cpu-working/selection.json",
     "rollback_selection": "tools/cpu-working/PREVIOUS_SELECTION_BEFORE_MCICA_MASK_FUSION.json"
+  },
+  "previous_mcica_full_application": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/mcica-mask-fusion/APPLICATION_QUALIFICATION.json",
+    "sha256": "9c78f316d456b9a0eb4603e678c4c1ac0c586ef3e4d54834dafd8145f979abb5"
+  },
+  "codec": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/libz.so.1.3.1.zlib-ng",
+    "sha256": "3edf15a2d69040bb29ff52446bfcf103fbfdb8b7385fd68735e8a536a06f332c"
+  },
+  "codec_postscience_tracking_commit": "624bc11610aff44c5dbdf458768d660ddbf5b806",
+  "codec_build_reproduction": {
+    "receipt_file": "tools/cpu-output/quilt512/codec/slide-hash-unroll4/REPRODUCTION_RECEIPT.json",
+    "receipt_sha256": "12f027ff848f3852c90163c3cbcfbe8befd536bca4c8029dac720031c5ffb30d",
+    "scope": "Exact object and codec bytes reproduced by actual repository helper; build-only evidence"
   }
 }

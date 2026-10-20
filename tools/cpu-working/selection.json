@@ -14,8 +14,8 @@
       "sha256": "8adc33059a98399cd8adea41de071598aaa2b09ff53eb3ae860cad0c6696b538"
     },
     "ng": {
-      "path": "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/libz.so.1.3.1.zlib-ng",
-      "sha256": "881d0a1aa84f1ac3f3fc60b0c59f7f9b03125fe68065cf44a04170de5655de3c"
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/libz.so.1.3.1.zlib-ng",
+      "sha256": "3edf15a2d69040bb29ff52446bfcf103fbfdb8b7385fd68735e8a536a06f332c"
     }
   },
   "private_hdf5": {
@@ -47,10 +47,10 @@
   "read_affine_IO_archive_sha256": "651835f31089e16759177734198ece5b121d704355c73abddde483f4cae2c14c",
   "read_affine_IO_object_sha256": "c9c4e5b7a0225523e7d85cfc188022d797204d3f4dd4494b54c416e3bec99320",
   "schema_version": 3,
-  "status": "QUALIFIED_MCICA_MASK_FUSION_SHORT_512_TWO_PRODUCTS35",
-  "scope": "GNU13.3 strict/OMP1/cold06:00-06:10/512=480compute8x60+4x8quilt/faba/twoTiles/CEC/root06dNCa32/outputde5b/codec881/HDF825/shared1/FIELDVIEW1/singleIB;2completeproducts35steps.",
-  "includes": "All retained compute, Thompson shared-table/lazy-init, output, codec and HDF5 improvements from the previous selection, READ_DI1 affine rows, plus qualified root-only parallel input chunk decoding. Fused output packing/shuffling removes intermediate padded packed storage; compressedbytes and originalscience exact. MCICA mask/property consumer fusion removes temporary logical-mask allocation/population/readback; all RNG/arithmetic/other code unchanged.",
-  "source_commit_scope": "POST_TEST_SOURCE_IDENTITY80a9 binds exact tested canonical MCICA source after scientific PASS; raw compiled producer source_commit remainsNULL. Separate input/output package identities unchanged.",
+  "status": "QUALIFIED_CEC_SLIDE_HASH_UNROLL4_SHORT_512_TWO_PRODUCTS35",
+  "scope": "GNU13.3 strict/OMP1/cold06:00-06:10/512=480compute8x60+4x8quilt/faba/twoTiles/CEC/root06dNCa32/outputde5b/codec3edf/HDF825/shared1/FIELDVIEW1/singleIB;2completeproducts35steps.",
+  "includes": "All retained compute, Thompson shared-table/lazy-init, output, codec and HDF5 improvements from the previous selection, READ_DI1 affine rows, plus qualified root-only parallel input chunk decoding. Fused output packing/shuffling removes intermediate padded packed storage; compressedbytes and originalscience exact. MCICA mask/property consumer fusion removes temporary logical-mask allocation/population/readback; all RNG/arithmetic/other code unchanged. AVX2 slide-hash loop unrolling removes repeated loop control while preserving the original saturating arithmetic and traversal; Adler remains unchanged.",
+  "source_commit_scope": "POST_TEST_SOURCE_IDENTITY80a9 binds exact tested canonical MCICA source after scientific PASS; raw compiled producer source_commit remainsNULL. Separate input/output package identities unchanged. Codec post-test source identity 624bc11610aff44c5dbdf458768d660ddbf5b806 is separate from the unchanged WRF executable producer.",
   "input_implementation_commit": "614267f340a23ffc342962b3c64e323719fe4d06",
   "root_input": {
     "enabled_in_working_configuration": true,
@@ -78,12 +78,13 @@
       "WRF_INPUT_PREDECODE_OWNER": "/pool/wrf-experiment/wrf-cpu/kernels/ordinary-nc-predecoded-fp-admission-build-hpc02-r3/output/libnetcdf.so.19",
       "WRF_INPUT_SCOPE_LOGDIR": "<fresh_run>/input-logs"
     },
-    "other_511_ranks": "Retain original NC8adc/selected outputde5b/codec881; root input adapter/private NC only on rank0."
+    "other_511_ranks": "Retain original NC8adc/selected outputde5b/codec3edf; root input adapter/private NC only on rank0."
   },
   "science": {
-    "receipt_sha256": "b56f895322a1e0dd8ea64e9cbfd93e3531f7fb70dd793291b6adf3c251b92cd2",
-    "reader_closure_sha256": "ad14da1d576d6ed9f9d7ac70474e8acadeadfb70a0f78b29d61bb4e1f0d0ce67",
-    "invocation_id": "8c03d397d90f4985a746a0f491554961",
+    "status": "PASS_RETAINED_ORIGINAL_TWO_HISTORY_35_STEPS_512_OWNED_FIELD_VIEW",
+    "receipt_sha256": "2d96609be86d3fe6f5d84608721cd2d9f8d676e15c757469d97b163107409da8",
+    "reader_closure_sha256": "7e38c9ba9fe1b72f4e08f1405d3b1d7b76ff252ff00e72dfc0f343242c4646f7",
+    "invocation_id": "b184d22e745949bd860758d19ec773d4",
     "products": 2,
     "ordered_steps": 35,
     "end_time": "2026-10-12_06:10:00",
@@ -100,13 +101,13 @@
       503,
       511
     ],
-    "protected_original_compare_one_AST_exact": true,
+    "protected_original_checker_unchanged": true,
     "all_model_reader_scopes_closed": true,
     "reader_exit_code_raw": null,
-    "protected_original_checker_unchanged": true
+    "protected_original_compare_one_AST_exact": true
   },
   "qualification_file": "tools/cpu-output/quilt512/qualification.json",
-  "current_application_qualification_file": "tools/cpu-compute/mcica-mask-fusion/APPLICATION_QUALIFICATION.json",
+  "current_application_qualification_file": "tools/cpu-output/quilt512/codec/slide-hash-unroll4/APPLICATION_QUALIFICATION.json",
   "source_build_binding_file": "CURRENT_SOURCE_BUILD_BINDING.json",
   "current_three_hour_qualified": false,
   "current_nine_hour_qualified": false,
@@ -152,12 +153,12 @@
   "memory_qualification_file": "tools/cpu-memory/thompson-table-sharing/lazy-group-init/QUALIFICATION.json",
   "activation": "Selection record, not a launcher. Use a fresh bounded lease/run/log directory and the exact root-only input rank-exec binding, with all original runtime checks and cache-before-each-arm SOP. Never preload launchers/helpers.",
   "rollback": {
-    "selection": "PREVIOUS_SELECTION_BEFORE_MCICA_MASK_FUSION.json",
-    "source_build_binding": "PREVIOUS_SOURCE_BUILD_BINDING_BEFORE_MCICA_MASK_FUSION.json",
-    "action": "Select previous qualified1d6e executable and beefab archive; retain currentde5b/root06dNCa32/881/825/allotherimprovements. Revert only three MCICA source seams if rebuilding. No rebuild needed to use retained artifact."
+    "selection": "PREVIOUS_SELECTION_BEFORE_SLIDE_HASH_UNROLL4.json",
+    "source_build_binding": "PREVIOUS_SOURCE_BUILD_BINDING_BEFORE_SLIDE_HASH_UNROLL4.json",
+    "action": "Restore paired pre-slide selection/binding, or select codec huffman881. Retain CEC/MCICA, de5b output, root06d/NCa32, HDF825 and all prior improvements; no WRF rebuild required."
   },
-  "claim_limits": "CurrentCEC exact2/35/all512/twoTiles; complete MCICA caller12.322/13.898%wall and11.406/13.761%CPU improvements are standalone only. Previous1d6e fresh3h19.0486%wall/12.5473%CPU is historical and applies_to_current_selectionFALSE. No currentCEC3h/9h, isolatedforecast, additive or repeatability claim.",
-  "next_qualification": "No automatic long/profile replay solely for this accepted kernel. Further periodic full-grid qualification remains root-selected.",
+  "claim_limits": "CurrentCEC exact2/35/all512/twoTiles; complete MCICA caller12.322/13.898%wall and11.406/13.761%CPU improvements are standalone only. Previous1d6e fresh3h19.0486%wall/12.5473%CPU is historical and applies_to_current_selectionFALSE. No currentCEC3h/9h, isolatedforecast, additive or repeatability claim. Slide-hash complete-function wall12.2855/16.4909% and processCPU15.0276/17.7229% reductions are separate standalone evidence; no isolated forecast benefit or current3h/9h transfer.",
+  "next_qualification": "Prepared fresh corrected-original546b then currentCEC+3edf/de5b three-hour pair; four products/545 steps/all4 positive writers, checked caches before each arm, unchanged exact checker.",
   "output_fusion_qualification_file": "tools/cpu-output/quilt512/padding-block32/NATIVE_QUALIFICATION.json",
   "latest_nine_hour": {
     "evidence_file": "NINE_HOUR_RESULT.json",
@@ -287,5 +288,38 @@
     "source_delta": "Three seams only: remove temporary logical cloud mask and its separate fill loop; evaluate identical ordered comparison directly in property consumer. No RNG/physics/flags/API changes.",
     "default_selection": "tools/cpu-working/selection.json",
     "rollback_selection": "tools/cpu-working/PREVIOUS_SELECTION_BEFORE_MCICA_MASK_FUSION.json"
+  },
+  "previous_mcica_short_science": {
+    "receipt_sha256": "b56f895322a1e0dd8ea64e9cbfd93e3531f7fb70dd793291b6adf3c251b92cd2",
+    "reader_closure_sha256": "ad14da1d576d6ed9f9d7ac70474e8acadeadfb70a0f78b29d61bb4e1f0d0ce67",
+    "invocation_id": "8c03d397d90f4985a746a0f491554961",
+    "products": 2,
+    "ordered_steps": 35,
+    "end_time": "2026-10-12_06:10:00",
+    "world": 512,
+    "compute": 480,
+    "quilt_groups": 4,
+    "quilt_ranks_per_group": 8,
+    "tiles": 2,
+    "positive_writer_roots": [
+      487,
+      495
+    ],
+    "zero_writer_roots": [
+      503,
+      511
+    ],
+    "protected_original_compare_one_AST_exact": true,
+    "all_model_reader_scopes_closed": true,
+    "reader_exit_code_raw": null,
+    "protected_original_checker_unchanged": true
+  },
+  "slide_hash_unroll4_qualification_file": "tools/cpu-output/quilt512/codec/slide-hash-unroll4/APPLICATION_QUALIFICATION.json",
+  "codec_postscience_tracking_commit": "624bc11610aff44c5dbdf458768d660ddbf5b806",
+  "codec_rollback_selection": "tools/cpu-working/PREVIOUS_SELECTION_BEFORE_SLIDE_HASH_UNROLL4.json",
+  "previous_mcica_rollback": {
+    "selection": "PREVIOUS_SELECTION_BEFORE_MCICA_MASK_FUSION.json",
+    "source_build_binding": "PREVIOUS_SOURCE_BUILD_BINDING_BEFORE_MCICA_MASK_FUSION.json",
+    "action": "Select previous qualified1d6e executable and beefab archive; retain currentde5b/root06dNCa32/881/825/allotherimprovements. Revert only three MCICA source seams if rebuilding. No rebuild needed to use retained artifact."
   }
 }
