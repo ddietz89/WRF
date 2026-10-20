@@ -1,77 +1,100 @@
 {
-  "status": "PASS_CURRENT_NINE_HOUR_SCIENCE_PROFILED_UNPAIRED_DIAGNOSTIC",
-  "runtime": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-daytime9h-profile-runtime-r2",
+  "status": "PASS_FRESH_ORIGINAL_LW_ABSCLD_BLOCK_CARRY_NINE_HOUR_ORIGINAL_SCI",
+  "utc": "2026-10-20T16:39:36.834964+00:00",
+  "scope": "Fresh fixed-order corrected-original546b then LW0de7/DF41b/root06dNCa32/outputpool51a/codece1d8;10completeproducts1625/full512/faba/twoTiles/all4positivewriters/all32fieldmarkers; no observer/perf.",
   "raw_producer_source_commit": null,
-  "post_test_source_identity": {
-    "compute": "b37e02ce68336284e8478072ab0178a011b7587c",
-    "output": "909ab6ef55ac5351f9fd03e4019be470e89a3929",
-    "scope": "Post-test source tracking only; frozen producer source_commit remains NULL"
+  "selected_source_context": {
+    "DF_canonical_sha256": "795e00134d47f98f512d61ffc45f93b3599202499ee8d8429009611d21c4b11f",
+    "output_provider_sha256": "7ea74cd6c5172a17cc19bebf93e14e322695ce415feb0a517ea9984941f184eb",
+    "semantics": "RawDFandpoolproducer sourcecommitNULL. Rootrecords posttesttracking commits separately; no fabricatedproducer identity.",
+    "LW_canonical_sha256": "a21e478aafd9535e6a85daa35aa1247eb4899c5610ed61aa043d6df81b9a63f2",
+    "source_post_test_commit": "d27df44feabb1356cd5b6996fa74983d09e3edab",
+    "codec_post_test_source_commit": "862bae1e103fa0085fa4b2eeda845ca3951034ae"
   },
-  "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentCEC-myj-difcof-simd-current-r3/wrf.exe",
-    "sha256": "41bfb335979cefd8f12a8d0c7a682d85d81cae88928fe12ee0badfec58dd7789"
+  "candidate_artifacts": {
+    "executable": "/pool/wrf-experiment/wrf-cpu/builds/current41b-rtrnmc-abscld-scalar-current-r1/wrf.exe",
+    "executable_sha256": "0de73aacab621810fa14a591857344d0818004ffa4817dfd3a356f7ac072ba04",
+    "ng_path": "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng",
+    "ng_sha256": "e1d8bc0774b7c54b4b63e7d6892c6485bec9b3c7032985a229961ba0569cc450",
+    "shim_path": "/pool/wrf-experiment/wrf-cpu/kernels/current-de5b-private-shuffle-scratch-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
+    "shim_sha256": "51a31b3c137a2161700c9930a1e250021b34c598c887a7551e87d304b2ce4d31"
   },
-  "output_shim_sha256": "51a31b3c137a2161700c9930a1e250021b34c598c887a7551e87d304b2ce4d31",
-  "codec_sha256": "3edf15a2d69040bb29ff52446bfcf103fbfdb8b7385fd68735e8a536a06f332c",
-  "science": {
-    "status": "PASS_ORIGINAL_TEN_HISTORY_AND_512_DIRECT_STOCK_LATEST_NINE_HOUR_SEQUENCE",
-    "products": 10,
-    "ordered_steps": 1625,
-    "end": "2026-10-12_15:00:00",
-    "all512_observed": true,
-    "two_tiles": true,
-    "all4_positive_writers": true,
-    "all32_field_markers": true,
-    "reader_invocation_id": "63e304061a0b4a909bebe64438587fb9"
-  },
-  "all_model_closures": {
-    "hpc01": {
-      "unit": "wrf-cpu-production512-current-daytime9h-profile-r2-hpc01.service",
-      "invocation_id": "08887a10da9745dcab1050a141061521",
-      "main_pid": 0,
-      "active_state": "inactive",
-      "result": "success",
-      "exit_code": 0,
-      "cgroup_processes": [],
-      "current_live_invocation_id": "",
-      "reconciled_utc": "2026-10-20T12:25:30.393374+00:00"
+  "reader_invocation_id": "16d914d1620a48bf86f887180d6dfa35",
+  "reader_exit_code_raw": null,
+  "reader_manager_success_invocation_bound": true,
+  "model_invocations": {
+    "control": {
+      "hpc01": {
+        "invocation_id": "9cbd0c72ec2f46e8a3cf8bf2d8071f92",
+        "unit": "wrf-cpu-production512-original-selected9h-control-r1-hpc01.service",
+        "MPI_exit_code": 0,
+        "manager_result": "success"
+      },
+      "hpc02": {
+        "invocation_id": "7c11d3c9ef8142bab891f46499fb3190",
+        "unit": "wrf-cpu-production512-original-selected9h-control-r1-hpc02.service",
+        "MPI_exit_code": 0,
+        "manager_result": "success"
+      },
+      "hpc03": {
+        "invocation_id": "d3935c747507470ea11fce74eda914dd",
+        "unit": "wrf-cpu-production512-original-selected9h-control-r1-hpc03.service",
+        "MPI_exit_code": 0,
+        "manager_result": "success"
+      },
+      "hpc04": {
+        "invocation_id": "1e18419d651d411693c8ae9fdf2421b7",
+        "unit": "wrf-cpu-production512-original-selected9h-control-r1-hpc04.service",
+        "MPI_exit_code": 0,
+        "manager_result": "success"
+      }
     },
-    "hpc02": {
-      "unit": "wrf-cpu-production512-current-daytime9h-profile-r2-hpc02.service",
-      "invocation_id": "4fad241ba54943bb9ae7fa0840225806",
-      "main_pid": 0,
-      "active_state": "inactive",
-      "result": "success",
-      "exit_code": 0,
-      "cgroup_processes": [],
-      "current_live_invocation_id": "",
-      "reconciled_utc": "2026-10-20T12:25:30.644980+00:00"
-    },
-    "hpc03": {
-      "unit": "wrf-cpu-production512-current-daytime9h-profile-r2-hpc03.service",
-      "invocation_id": "0c5684612eba427ca0b13707a1ca8a85",
-      "main_pid": 0,
-      "active_state": "inactive",
-      "result": "success",
-      "exit_code": 0,
-      "cgroup_processes": [],
-      "current_live_invocation_id": "",
-      "reconciled_utc": "2026-10-20T12:25:30.663166+00:00"
-    },
-    "hpc04": {
-      "unit": "wrf-cpu-production512-current-daytime9h-profile-r2-hpc04.service",
-      "invocation_id": "8db2eb16d9b7469986603074e1478bb1",
-      "main_pid": 0,
-      "active_state": "inactive",
-      "result": "success",
-      "exit_code": 0,
-      "cgroup_processes": [],
-      "current_live_invocation_id": "",
-      "reconciled_utc": "2026-10-20T12:25:30.713862+00:00"
+    "candidate": {
+      "hpc01": {
+        "invocation_id": "19c3973378134417b3bd9ea4159c17ac",
+        "unit": "wrf-cpu-production512-original-selected9h-candidate-r1-hpc01.service",
+        "MPI_exit_code": 0,
+        "manager_result": "success"
+      },
+      "hpc02": {
+        "invocation_id": "bf11995f0fa64926b4592853bfecf5c6",
+        "unit": "wrf-cpu-production512-original-selected9h-candidate-r1-hpc02.service",
+        "MPI_exit_code": 0,
+        "manager_result": "success"
+      },
+      "hpc03": {
+        "invocation_id": "cd65860b66284b688a24d7e2b06950aa",
+        "unit": "wrf-cpu-production512-original-selected9h-candidate-r1-hpc03.service",
+        "MPI_exit_code": 0,
+        "manager_result": "success"
+      },
+      "hpc04": {
+        "invocation_id": "35290629a5514ae99e74d0c2a4571332",
+        "unit": "wrf-cpu-production512-original-selected9h-candidate-r1-hpc04.service",
+        "MPI_exit_code": 0,
+        "manager_result": "success"
+      }
     }
   },
-  "reader_strong_closed": true,
-  "writer_lifecycle": {
+  "science": {
+    "products": 10,
+    "ordered_steps": 1625,
+    "world": 512,
+    "compute": 480,
+    "quilt": 32,
+    "tiles": 2,
+    "all4_positive_writer_roots": [
+      487,
+      495,
+      503,
+      511
+    ],
+    "actual_field_view_marker_count": 32,
+    "original_comparisons_all_pass": true,
+    "tile_status": "PASS_ACTUAL_480_DISJOINT_TILE_UNIONS_AND_ALL512_OBSERVED_ENVS",
+    "protected_compare_one_AST_unchanged": true
+  },
+  "writer_lifecycle_actual": {
     "487": {
       "event": "final",
       "rank": 487,
@@ -141,7 +164,7 @@
       "foreign_calls": 0
     }
   },
-  "root_input_lifecycle": {
+  "input_lifecycle_actual": {
     "event": "final",
     "rank": 0,
     "scopes": 436,
@@ -151,93 +174,308 @@
     "widens": 31,
     "restores": 31
   },
-  "memory_invocation_context": {
-    "hpc01": {
-      "invocation_id": "08887a10da9745dcab1050a141061521",
-      "unit": "wrf-cpu-production512-current-daytime9h-profile-r2-hpc01.service",
-      "memory_peak_bytes": 76245442560,
-      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n"
-    },
-    "hpc02": {
-      "invocation_id": "4fad241ba54943bb9ae7fa0840225806",
-      "unit": "wrf-cpu-production512-current-daytime9h-profile-r2-hpc02.service",
-      "memory_peak_bytes": 73742393344,
-      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n"
-    },
-    "hpc03": {
-      "invocation_id": "0c5684612eba427ca0b13707a1ca8a85",
-      "unit": "wrf-cpu-production512-current-daytime9h-profile-r2-hpc03.service",
-      "memory_peak_bytes": 73703325696,
-      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n"
-    },
-    "hpc04": {
-      "invocation_id": "8db2eb16d9b7469986603074e1478bb1",
-      "unit": "wrf-cpu-production512-current-daytime9h-profile-r2-hpc04.service",
-      "memory_peak_bytes": 73793490944,
-      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n"
-    }
-  },
-  "profile": {
-    "summary_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-daytime-ninehour-profile-preparation-r2/ACTUAL_CURRENT_DAYTIME_CAPTURE_SUMMARY.json",
-    "sha256": "7996f04ce6744c97c7eb9d33dd93e822da42b3205dc69a034fb69b512f0d7a4d",
-    "selected_world_ranks": [
-      0,
-      384,
-      416
-    ],
-    "samples": [
-      700,
-      704,
-      710
-    ],
-    "common_sample_overlap_seconds": 14.926,
-    "scope": "Three bounded main-TID intervals; no whole-forecast critical-path/headroom attribution. Native acquisition and report evidence retained in summary."
-  },
-  "comparison_design": "PROFILED_UNPAIRED diagnosticcandidate versus retainedoriginal546b scientificreference; no sustained/matchedforecastspeedupclaim",
-  "metrics": {
+  "model_observations": {
     "control": {
-      "wall_seconds": 2069.3122304237913,
-      "cpu_seconds": 1009264.484921,
-      "main_step_sum_seconds": 1851.54464
+      "MPI_wall_seconds": 2068.6204282799736,
+      "aggregate_node_cgroup_CPU_seconds": 1009950.9548869999,
+      "main_step_wall_sum_seconds": 1852.82922,
+      "memory_peaks_bytes": {
+        "hpc01": 98832248832,
+        "hpc02": 101152460800,
+        "hpc03": 101077553152,
+        "hpc04": 111669149696
+      },
+      "memory_events": {
+        "hpc01": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "hpc02": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "hpc03": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "hpc04": "low 0\nhigh 0\nmax 2466\noom 0\noom_kill 0\noom_group_kill 0\n"
+      }
     },
     "candidate": {
-      "wall_seconds": 1833.8502885708585,
-      "cpu_seconds": 922292.209006,
-      "main_step_sum_seconds": 1736.84978
+      "MPI_wall_seconds": 1828.9245701739565,
+      "aggregate_node_cgroup_CPU_seconds": 919840.608287,
+      "main_step_wall_sum_seconds": 1730.7711,
+      "memory_peaks_bytes": {
+        "hpc01": 76207312896,
+        "hpc02": 73755156480,
+        "hpc03": 73700478976,
+        "hpc04": 73674305536
+      },
+      "memory_events": {
+        "hpc01": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "hpc02": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "hpc03": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "hpc04": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n"
+      }
     }
   },
   "reductions_percent": {
-    "wall_seconds": 11.378753693670996,
-    "cpu_seconds": 8.617391894237493,
-    "main_step_sum_seconds": 6.194550081168993
+    "wall_seconds": 11.587232477701125,
+    "cpu_seconds": 8.9222497551955,
+    "main_step_sum_seconds": 6.587661651838594
   },
-  "latest_matched_unprofiled_benchmark": "THREE_HOUR_FINAL_QUALIFICATION.json",
-  "limits": "Current9h SCI qualified only. Profiled later candidate versus retained original is UNPAIRED descriptive diagnostic: no fresh/sustained/matched forecast speedup, isolated/additive or repeatability claim. Fresh3h19.469520% wall/12.887980% CPU/6.158380% main remains latest matched benchmark. Experimental carry codec excluded.",
-  "references": {
-    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-daytime9h-profile-runtime-r2/science-receipt.json": "2f0a07ecf100d77182ae8be71489ca4ee58205a7ebee313314dd21ff346657cb",
-    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-daytime9h-profile-runtime-r2/reader-closure.json": "d81a1ecfcbd7fad99da9559aec5e8bcf883c288ba4fec6c7d67c90ae7fd25998",
-    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-daytime9h-profile-runtime-r2/RESULT.json": "b50ed5c38dd8cf6cfc285f0307fe99c49a498435561e68c3269f6ac27665db56",
-    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-daytime9h-profile-runtime-r2/source-pins.json": "0cb52b21f428b27017ffca5375c14e02dbe6437f20f65c1e8ae73cf63e98aa45",
-    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-daytime9h-profile-runtime-r2/check_pair.py": "dba20a451ac26be755568d2a693da92365eb8f0a76fc1f85f2672f05ce0fa691",
-    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-daytime9h-profile-runtime-r2/cache-clear-candidate.json": "4879f9bdee50da9b190df3f3de8db0c134add53a21763ff50194f72ca36d0e07",
-    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-daytime9h-profile-runtime-r2/candidate-metadata/completion.json": "53cdb84a144a068057b45946c9cc1285bbf1464b3358f2ebdd223a90da5d3dad",
-    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-daytime9h-profile-runtime-r2/candidate-metadata/hpc02-node.json": "25b6347b3c4f9bc7100c33f41c7df6a47c1d056cd3e68a70efedf9331b53299d",
-    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-daytime9h-profile-runtime-r2/candidate-metadata/hpc04-node.json": "950faf25d68ff3704fe6bec4596962b3302ff003d95c5302b9598259518990c2",
-    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-daytime9h-profile-runtime-r2/candidate-metadata/mpi-launch.json": "ce59f79c5d25364ac15123b67590678e24df7fb621d48f383ea4ddf01703c291",
-    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-daytime9h-profile-runtime-r2/candidate-metadata/adaptive-steps.json": "b5979569534ea0043f289cb7870c72992b71654cdd6b875fb0640e67466f61ff",
-    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-daytime9h-profile-runtime-r2/candidate-metadata/lease.json": "269357a7d8b3d621a828d95b0e085f44926483966c41046aae32b8b6997a6601",
-    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-daytime9h-profile-runtime-r2/candidate-metadata/hpc03-node.json": "974ef363359394805fcdebafd44f7c5446b3bbcf9c93b2bcd769a78e380a764f",
-    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-daytime9h-profile-runtime-r2/candidate-metadata/cache-start-context.json": "0e4c4b93ac3c8cc17413a9022613aa0ca8e0952896a8f1acbac22b0255cdb2ac",
-    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-daytime9h-profile-runtime-r2/candidate-metadata/model-closures.json": "551cf6a9c01d6574529c666127fd99fec892df3d9fbb758918739f6ba427f2c5",
-    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-daytime-ninehour-profile-preparation-r2/ACTUAL_CURRENT_DAYTIME_CAPTURE_SUMMARY.json": "7996f04ce6744c97c7eb9d33dd93e822da42b3205dc69a034fb69b512f0d7a4d",
-    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-daytime9h-profile-runtime-r2/control-metadata/completion.json": "fe2b7b2ae5d3099e17fb9a28841a37a489a8868c785842b6f3292603f84a365a",
-    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-daytime9h-profile-runtime-r2/control-metadata/hpc02-node.json": "dbcc93765b2251bea89b1a3d1e65659df57aafd6586bc286d769016f7746f6e5",
-    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-daytime9h-profile-runtime-r2/control-metadata/hpc04-node.json": "db9fad21f1b8e5ed86eb1fa47bd2efc37f5271de8b4431f67c59e25dc58b03c0",
-    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-daytime9h-profile-runtime-r2/control-metadata/mpi-launch.json": "e94eab660b2d19b4c4fcb11d099757c5d69e08021bde1f511cdd4eb81c918d13",
-    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-daytime9h-profile-runtime-r2/control-metadata/adaptive-steps.json": "cec5734b821abf750cb6d370022f2e241542e6b22a5fdc4fc5f4c6980b65368c",
-    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-daytime9h-profile-runtime-r2/control-metadata/lease.json": "26f72c3126ed1b3bf5faff6db30707aa802753f5937915d53ba297f312d43b9a",
-    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-daytime9h-profile-runtime-r2/control-metadata/hpc03-node.json": "cea61d2c8c851ab1be2cd426c5273abeae05c5c11e095fc41ebefa5e153e8f81",
-    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-daytime9h-profile-runtime-r2/control-metadata/cache-start-context.json": "06921f5b060b3dee69cc84f2cd603ec04f3588c10c322f868ca47bc392819af1",
-    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-daytime9h-profile-runtime-r2/control-metadata/model-closures.json": "5ac5dfed9da1d73aad8e341867bdee0ec38f1a57b95dff252e55a4aec9fb4ef3"
+  "wall_speedup_ratio": 1.1310583618455181,
+  "cache": {
+    "control": {
+      "clear_receipt_sha256": "c410b077ae5c7423901b3bd425d3390742f35e60f6100080eb974f4c0a713405",
+      "all_four_sync_drop3_pass": true,
+      "before_after_meminfo_retained": true,
+      "run_id": "production512-original-selected9h-control-r1",
+      "cache_start_context": {
+        "clear_receipt_sha256": "c410b077ae5c7423901b3bd425d3390742f35e60f6100080eb974f4c0a713405",
+        "pre_mpi_boundary_monotonic_ns": 2088616181414320,
+        "hpc01_clear_end_to_boundary_seconds": 53.81136574,
+        "scope": "Host01 same-boot observation before MPI adapter; subsequent pinned binary/library hashes and loaders inevitably warm code, not scientific-data prefetch."
+      }
+    },
+    "candidate": {
+      "clear_receipt_sha256": "76c011c5d854af0c81122119c2830b508d6d1d8e787b542df9fbbfff8c643ea8",
+      "all_four_sync_drop3_pass": true,
+      "before_after_meminfo_retained": true,
+      "run_id": "production512-original-selected9h-candidate-r1",
+      "cache_start_context": {
+        "clear_receipt_sha256": "76c011c5d854af0c81122119c2830b508d6d1d8e787b542df9fbbfff8c643ea8",
+        "pre_mpi_boundary_monotonic_ns": 2090913202728221,
+        "hpc01_clear_end_to_boundary_seconds": 62.634432117,
+        "scope": "Host01 same-boot observation before MPI adapter; subsequent pinned binary/library hashes and loaders inevitably warm code, not scientific-data prefetch."
+      }
+    }
+  },
+  "resource_contract": {
+    "control": {
+      "wall_cap_seconds": 3600,
+      "nodes": {
+        "hpc01": {
+          "ranks": 128,
+          "cpu_quota_cores": 128,
+          "memory_bytes": 107374182400
+        },
+        "hpc02": {
+          "ranks": 128,
+          "cpu_quota_cores": 128,
+          "memory_bytes": 107374182400
+        },
+        "hpc03": {
+          "ranks": 128,
+          "cpu_quota_cores": 128,
+          "memory_bytes": 107374182400
+        },
+        "hpc04": {
+          "ranks": 128,
+          "cpu_quota_cores": 128,
+          "memory_bytes": 111669149696
+        }
+      },
+      "serial_tiles": 2,
+      "OMP_NUM_THREADS": 1,
+      "swap_scope": "Actual guarded completed job admission MemorySwapMax=0, unchanged original runtime proof."
+    },
+    "candidate": {
+      "wall_cap_seconds": 3600,
+      "nodes": {
+        "hpc01": {
+          "ranks": 128,
+          "cpu_quota_cores": 128,
+          "memory_bytes": 107374182400
+        },
+        "hpc02": {
+          "ranks": 128,
+          "cpu_quota_cores": 128,
+          "memory_bytes": 107374182400
+        },
+        "hpc03": {
+          "ranks": 128,
+          "cpu_quota_cores": 128,
+          "memory_bytes": 107374182400
+        },
+        "hpc04": {
+          "ranks": 128,
+          "cpu_quota_cores": 128,
+          "memory_bytes": 111669149696
+        }
+      },
+      "serial_tiles": 2,
+      "OMP_NUM_THREADS": 1,
+      "swap_scope": "Actual guarded completed job admission MemorySwapMax=0, unchanged original runtime proof."
+    }
+  },
+  "raw_result_label_disclosure": {
+    "raw_result_path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-selected9h-runtime-r1/RESULT.json",
+    "raw_result_sha256": "0ab747a687d94ddc53babf62a78e8518866e6387ac69373a1b7fd950554f072b",
+    "raw_order_literal_preserved": [
+      "fresh_corrected_original546b_control",
+      "fresh_current_LW0de7_DF41b_pool51a_input06d_NCa32_blockcarry_e1d8_candidate"
+    ],
+    "label_status": "Current rawcollector label correctly names actualLW0de7/pool51a/e1d8; preserve raw literal and all raw scopes unchanged.",
+    "qualified_order": [
+      "fresh_corrected_original546b_control",
+      "fresh_current_LW0de7_DF41b_pool51a_input06d_NCa32_blockcarry_e1d8_candidate"
+    ],
+    "authority": "Actual collected per-arm lease.json hashes, originalscience runtime all512 mappedlibrary proofs, and sameINV strongclosures above."
+  },
+  "limits": [
+    "One fresh fixed-order cold06to15 whole-inclusiveIOpair; no isolated/additive/per-kernel or repeatabilityclaim.",
+    "Mainstepelapsed includes communication/backpressure; it is notintegrationCPU and residual is notpureIO.",
+    "No observers/perf/newcapture or INATMexperimental source contributes; actualLW isa21 and codec e1d8.",
+    "RawproducerNULL remainsNULL. PosttestD27 and codec862 are separate source-tracking context.",
+    "No source/default/repo promotion bythislocalassembler; root owns finalworkingupdates.",
+    "Resource-pressure context accompanies all timing comparisons: inspect actual per-node limits, peaks and memory.events above. A max event denotes a memory-limit encounter and can affect wall time; it is not an OOM/kill event. No zero-event assumption, causal attribution or pressure-free matched-performance claim is made."
+  ],
+  "raw_refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-selected9h-runtime-r1/RESULT.json": "0ab747a687d94ddc53babf62a78e8518866e6387ac69373a1b7fd950554f072b",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-selected9h-runtime-r1/science-receipt.json": "ea4a1e60c65cef25bcb9885fa9fb15d538455452e0a51fab26730cd0ea1618be",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-selected9h-runtime-r1/reader-closure.json": "e04e209b107d99749a69fefb9006ed13ef335f509d64425d21cd481890cc4787",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-selected9h-runtime-r1/source-pins.json": "acc25230c20e47acc5348c212626c1d3edcf0e52f9413bdef347feafae560a50",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-selected9h-runtime-r1/control-metadata/lease.json": "137f2ae7951236f121fd3d11028fb667a45c6c011bc3f568139dd4089e5bc504",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-selected9h-runtime-r1/control-metadata/adaptive-steps.json": "c9f4f32642d5abb42d8d59f37808960976e477e754741ec06554303a601d0bde",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-selected9h-runtime-r1/control-metadata/completion.json": "cb234e721c2beaed8cb2f453270ab0954439be248a7f4f1b143285901b66407b",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-selected9h-runtime-r1/control-metadata/model-closures.json": "8e474a108852377e1037552ab86e8b537ff8327184093ac6f08375526491bfdd",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-selected9h-runtime-r1/cache-clear-control.json": "c410b077ae5c7423901b3bd425d3390742f35e60f6100080eb974f4c0a713405",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-selected9h-runtime-r1/control-metadata/cache-start-context.json": "b3c5013e0aa77128e11487e77ca1e9dc9e451c9f8db68e6196c8acea10ee228d",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-selected9h-runtime-r1/control-metadata/mpi-launch.json": "44c3f29c17141cc6f9e178a6b8360ba04292fde937db3a4bac76ff3782904def",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-selected9h-runtime-r1/control-metadata/hpc02-node.json": "7159297964b67335206e74f5cbc75cc73fa15a892073a98427f5639875183ef8",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-selected9h-runtime-r1/control-metadata/hpc03-node.json": "c91202c2c202449b6ae5fa7b3aacbb95d833bd47224cb1b32e4d2c1ac9c84061",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-selected9h-runtime-r1/control-metadata/hpc04-node.json": "c8b4eb5f66af0987ed66d0504e4196f42ffe86387346002fa3319a3e27fce74b",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-selected9h-runtime-r1/candidate-metadata/lease.json": "877044936cf231c8123f5df9cdc76bc2ace6e9f5055b135ce4a7e5c0fb5d1aa8",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-selected9h-runtime-r1/candidate-metadata/adaptive-steps.json": "660bd09cdb3d670139ab75531967b8326813853b5eee17ecf9197b4b74035541",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-selected9h-runtime-r1/candidate-metadata/completion.json": "bd00317d15f94efb6d03b0ecbf7ea41ea8962391e7b2d6a77add5fb11883c3af",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-selected9h-runtime-r1/candidate-metadata/model-closures.json": "433cae3b0ebb49c6855c3d476698b28bf318dada192d302613a766e213383a97",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-selected9h-runtime-r1/cache-clear-candidate.json": "76c011c5d854af0c81122119c2830b508d6d1d8e787b542df9fbbfff8c643ea8",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-selected9h-runtime-r1/candidate-metadata/cache-start-context.json": "2000f7e43387440768a6af524c1c3c88685f10499000b0146c8deec7dae576d4",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-selected9h-runtime-r1/candidate-metadata/mpi-launch.json": "e884dabb85783df09ef09143ace19cd3b224c652534dc463549575c04985b40d",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-selected9h-runtime-r1/candidate-metadata/hpc02-node.json": "db478a324b09a189a1d06bad8ab2f509566222a867eb9061df91d57789eb3d5c",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-selected9h-runtime-r1/candidate-metadata/hpc03-node.json": "4debea20510ac77b307957adbc08cb02ef73c26ed520daef4d7400edb7718d7e",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-selected9h-runtime-r1/candidate-metadata/hpc04-node.json": "7f6a7da4101ff32c39b27faa3fe435b935e7f72e39a39fe02d10a294e8af956d",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-selected9h-runtime-r1/check_pair.py": "af048762c44784ab0af18c8899878e3ed563c867db9ed25bf1506b7a402743f8",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-selected9h-runtime-r1/worker_proof.py": "b2b7b609c51b419f1786062c944ee8d8ba1cc59b767d4fc65fba83b38e3e6236",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-selected9h-runtime-r1/tile_proof.py": "f1c783e0f554fa703568e3b9c431d0906099933ea48e8cf93516cae2381b832b",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-selected9h-runtime-r1/collect_results.py": "22d317bf20589ba02b55316795c74887ee2f39fa55652518d56c2a0a4d34adf3",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-selected9h-runtime-r1/application-binding.json": "4fc78155e00c11339abb89aa3f27f69d3a5f03dd53c1a5d2f326340dec6facd8",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-selected9h-runtime-r1/df-build-receipt.json": "29a114155c65871a576ec882cad3865083afeb8b5d62733c412fce01de5d975e",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-selected9h-runtime-r1/df-build-closure.json": "2090dc13ec1f359e42dc3e2a65b339c76f9a37b20534cd9674dfab720847f53e",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-selected9h-runtime-r1/pool-fullshim-receipt.json": "38c0c5fd04fc1b3376dad35707d32d40b53f8d029fd114bef01f2f5febd1efde",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-selected9h-runtime-r1/pool-fullshim-closure.json": "3c3e37f9d3c1883a5386838582eaeb6f594ff11da5b88f823fa382d640941e35",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-selected9h-runtime-r1/pool-integration-qualification.json": "589c74106d5604c3ea41026b1310dd13bc38ad9fce9df3e32d5ee8ab06624615",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-selected9h-runtime-r1/lw-build-receipt.json": "87a91aafbc77ce2b3b28141afd8af2f40d8fbc77b8a50e2093cca03d0943233e",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-selected9h-runtime-r1/lw-build-closure.json": "df34c8832d43c3f8a18290f422f43d3185482fd8704fafe111d74f13f355e3f4",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-selected9h-runtime-r1/lw-native-qualification.json": "d9020a412142f715d3408a6871c5b23c42f791630e9a900f96efd20b329cb974",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-selected9h-runtime-r1/lw-caller-qualification.json": "fc36e6b0b0de603fbc5ec90fd1610979ed5ddf0d5dcd9c754f892ff8817df89d",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-selected9h-runtime-r1/carry-codec-receipt.json": "90509c6a39375d15dff50ff89beab3ff2510f02128e84c22bd79f0260fa5cae5",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-selected9h-runtime-r1/carry-codec-closure.json": "f7fd0dfcf655af6004f91eb1e71e239ad3b7611a706a9f61ee1326f94d396e96",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-selected9h-runtime-r1/selected-current-threehour-qualification.json": "4da8d5c1ccceb38da5a6c085ee27c7f00597241063ed2760c25ac7528f7e4864"
+  },
+  "own_nine_hour_qualified": true,
+  "profiling": false,
+  "fresh_both_arms": true,
+  "memory_pressure_actual": {
+    "control": {
+      "hpc01": {
+        "limit_bytes": 107374182400,
+        "peak_bytes": 98832248832,
+        "events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "peak_reached_limit": false
+      },
+      "hpc02": {
+        "limit_bytes": 107374182400,
+        "peak_bytes": 101152460800,
+        "events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "peak_reached_limit": false
+      },
+      "hpc03": {
+        "limit_bytes": 107374182400,
+        "peak_bytes": 101077553152,
+        "events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "peak_reached_limit": false
+      },
+      "hpc04": {
+        "limit_bytes": 111669149696,
+        "peak_bytes": 111669149696,
+        "events": {
+          "low": 0,
+          "high": 0,
+          "max": 2466,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "peak_reached_limit": true
+      }
+    },
+    "candidate": {
+      "hpc01": {
+        "limit_bytes": 107374182400,
+        "peak_bytes": 76207312896,
+        "events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "peak_reached_limit": false
+      },
+      "hpc02": {
+        "limit_bytes": 107374182400,
+        "peak_bytes": 73755156480,
+        "events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "peak_reached_limit": false
+      },
+      "hpc03": {
+        "limit_bytes": 107374182400,
+        "peak_bytes": 73700478976,
+        "events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "peak_reached_limit": false
+      },
+      "hpc04": {
+        "limit_bytes": 111669149696,
+        "peak_bytes": 73674305536,
+        "events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "peak_reached_limit": false
+      }
+    }
   }
 }

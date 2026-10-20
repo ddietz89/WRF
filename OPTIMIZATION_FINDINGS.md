@@ -1,12 +1,39 @@
 # WRF CPU optimization findings
 
+## Current combined configuration: fresh nine-hour qualification (2026-10-20)
+
+The selected LW0de7/a21 build, outputpool51a, rootinput06d/NCa32 and codec e1d8 passed the unchanged original comparison through 15:00: **ten complete products, 1,625 ordered timesteps, all 512 ranks, two tiles, all four positive writers and all 32 field-view markers**. All model and reader scopes closed. Current own three-hour and nine-hour qualification are both true. INATM copy grouping and the residual Thompson evaporation pair are excluded from this run.
+
+| Measure | Corrected original | Selected combined | Reduction |
+|---|---:|---:|---:|
+| Whole model/MPI wall, including output and drain |2,068.620428 s|1,828.924570 s|11.5872%|
+| Main-step elapsed, including communication/backpressure |1,852.829220 s|1,730.771100 s|6.5877%|
+| Aggregate node CPU, including output |1,009,950.954887 CPU-s|919,840.608287 CPU-s|8.9222%|
+
+The observed single-forecast speedup is **1.13106×**. The 1.5×/2× goals remain unmet; no concurrent-forecast throughput is measured. This is one fresh control-first pair with client caches cleared before each arm and no observer/perf. File-server cache/load is uncontrolled. Main-step elapsed is not integration-only CPU, and component percentages are not additive.
+
+Peak whole-job charged memory, including file cache, also fell:
+
+| Node | Original peak | Optimized peak |
+|---|---:|---:|
+|hpc01|92.045 GiB|70.974 GiB|
+|hpc02|94.206 GiB|68.690 GiB|
+|hpc03|94.136 GiB|68.639 GiB|
+|hpc04|104.000 GiB|68.615 GiB|
+
+The original hpc04 control encountered its unchanged 104 GiB limit 2,466 times, with no OOM/kill; all optimized memory-event counters were zero. This pressure context accompanies the timing result: the pair is not a pressure-free compute comparison, and no causal attribution is established. These charged peaks are not RSS/PSS, isolated table savings or evidence that two forecasts fit concurrently.
+
+[Final qualification](tools/cpu-working/NINE_HOUR_FINAL_QUALIFICATION.json) (`efbfe35f`) binds 41 verified raw references and the exact cache, rank/library, writer/input and closure evidence. Raw producer source commits remain NULL; source tracking d27df44f and codec tracking 862bae1e are separate post-test identities. No new source/default choice is made by this qualification. Existing rollback to the paired `BEFORE_ABSCLD_SCALAR` selection/binding remains valid; prior profiled and unpaired nine-hour observations stay historical.
+
+The smaller residual Thompson evaporation-pair sharing opportunity remains **retained but unqualified**. Shared O0/O2 native raw/table/state checks passed, but the matching private-mode diagnostic differed on one first-INIT errno word (34 versus 11). All other state words, numerical outputs and full new table bytes matched. Historical same-source evidence shows a similar discrepancy, without establishing its exact cause or waiving the hard check. No consumer build or application promotion occurred. The source estimate is about 0.62 GiB/node steady-state capacity, not a measured peak reduction. The independent review and retained failures remain in the campaign's `thompson-residual-evap-table-capacity-audit-r1/` evidence.
+
 ## Current combined LW + block-carry three-hour qualification (2026-10-20)
 
 The selected build is now **LW0de7/archiveBA63**, with post-test source commit `d27df44f`, codec **e1d8**, outputpool51a and rootinput06d/NCa32. The unchanged original comparison passed **four complete hourly products,545 ordered steps,all512 ranks,two tiles,all four positive writers and all32 field-view markers**. All eight model scopes and the reader strongly closed; no observer/perf was active.
 
 The fresh control-first pair measured **848.677401 → 657.745680s whole model/MPI wall (22.497562% lower,1.290282×)**, **382698.863204 → 318965.303819 aggregate CPU-seconds (16.653710% less)**, and **626.316100 → 556.643430s main-step elapsed (11.124202% lower)**. Main elapsed includes communication/backpressure. This is a single-forecast observation, not measured multi-job throughput; the1.5×/2× goals remain unmet.
 
-Cross-pair variation matters: the prior optimized main560.3518s is only0.66% above this candidate, while the original control rose597.12504→626.3161s (4.89%). Do not attribute the new percentage to LW or codec alone, add component gains, or claim repeatability. **Current own3h is qualified; own9h remains false.** The prior41b/51a/3edf profiled nine-hour science stays historical. Raw producer source commits remain NULL; `d27df44f` is POST_TEST_SOURCE_IDENTITY only. Rollback uses the paired `BEFORE_ABSCLD_SCALAR` selection/binding and reverses only the four ABSCLD source changes, retaining e1d8 and other accepted components.
+Cross-pair variation matters: the prior optimized main560.3518s is only0.66% above this candidate, while the original control rose597.12504→626.3161s (4.89%). Do not attribute the new percentage to LW or codec alone, add component gains, or claim repeatability. **At this three-hour checkpoint own3h was qualified and own9h was pending; the subsequent nine-hour qualification is recorded above.** The prior41b/51a/3edf profiled nine-hour science stays historical. Raw producer source commits remain NULL; `d27df44f` is POST_TEST_SOURCE_IDENTITY only. Rollback uses the paired `BEFORE_ABSCLD_SCALAR` selection/binding and reverses only the four ABSCLD source changes, retaining e1d8 and other accepted components.
 
 ## INATM copy grouping retained for application qualification (2026-10-20)
 

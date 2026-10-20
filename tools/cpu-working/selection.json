@@ -47,8 +47,8 @@
   "read_affine_IO_archive_sha256": "651835f31089e16759177734198ece5b121d704355c73abddde483f4cae2c14c",
   "read_affine_IO_object_sha256": "c9c4e5b7a0225523e7d85cfc188022d797204d3f4dd4494b54c416e3bec99320",
   "schema_version": 3,
-  "status": "QUALIFIED_LW_ABSCLD_BLOCK_CARRY_FRESH_THREE_HOUR_FULL512",
-  "scope": "Current LW0de7/a21 post-testd27 + DF/pool51a/root06dNCa32/codece1d8: fresh original546b control-first three-hour pair;4products545/all512/faba/twoTiles/all4positivewriters/all32markers, no observer/perf. Own3h TRUE, own9h FALSE.",
+  "status": "QUALIFIED_LW_ABSCLD_BLOCK_CARRY_FRESH_THREE_AND_NINE_HOUR_FULL512",
+  "scope": "Current LW0de7/a21 post-testd27 + DF/pool51a/root06dNCa32/codece1d8: fresh original546b control-first three-hour and nine-hour exact pairs; own4products545steps and10products1625steps/full512/faba/twoTiles/all4positivewriters/all32markers; no observers/perf. Both own3h/9h TRUE; significant INATM2+3 remains separate unpromoted application candidate.",
   "includes": "All retained compute, Thompson shared-table/lazy-init, output, codec and HDF5 improvements from the previous selection, READ_DI1 affine rows, plus qualified root-only parallel input chunk decoding. Fused output packing/shuffling removes intermediate padded packed storage; compressedbytes and originalscience exact. MCICA mask/property consumer fusion removes temporary logical-mask allocation/population/readback; all RNG/arithmetic/other code unchanged. AVX2 slide-hash loop unrolling removes repeated loop control while preserving the original saturating arithmetic and traversal; Adler remains unchanged. MYJPBL DIFCOF ordered SIMD adds only two directives; complete captured-caller gains and exact short application qualified. Private four-slot shuffle scratch reuse across callbacks removes repeated scratch allocation, with bounded retention; fullshim/API and originalshortscience exact. Block-local integer bit-buffer carry removes per-symbol state publication in compress_block; exact wholefunction/codeccaller/state and shortscience passed. LW ABSCLD scratch removal keeps identical scalar arithmetic and loop order while removing one allocated scratch stream; native/caller and fresh combined3h exact.",
   "source_commit_scope": "POST_TEST_SOURCE_IDENTITY d27 only; frozen native/overlay producer source_commitNULL unchanged. Existing MYJ and other qualified component flags retained.",
   "input_implementation_commit": "614267f340a23ffc342962b3c64e323719fe4d06",
@@ -110,7 +110,7 @@
   "current_application_qualification_file": "tools/cpu-compute/rtrnmc-abscld-scalar/APPLICATION_QUALIFICATION.json",
   "source_build_binding_file": "CURRENT_SOURCE_BUILD_BINDING.json",
   "current_three_hour_qualified": true,
-  "current_nine_hour_qualified": false,
+  "current_nine_hour_qualified": true,
   "last_three_hour_benchmark": {
     "evidence_file": "THREE_HOUR_RESULT.json",
     "qualification_file": "THREE_HOUR_FINAL_QUALIFICATION.json",
@@ -161,34 +161,144 @@
     "action": "Restore paired prior41b/CF22 bindings and reverse only four-line ABSCLD source patch to c609; retain codece1d8/output51a/root06dNCa32 and other accepted improvements."
   },
   "claim_limits": "One fresh fixed-order whole forecast pair:22.497562% lower MPI wall,16.653710% less aggregate CPU,11.124202% lower main elapsed,1.290281984x single-forecast wall speedup. No isolated LW/codec, additive, repeatability or multi-job-throughput claim;1.5x/2x goals unmet. Prior optimized main560.3518->556.64343 only0.66% shorter; original control597.12504->626.3161 is4.89% longer, showing cross-pair variability. Main includes communication/backpressure. Prior3edf9h remains historical and does not qualify currentLW/e1d8.",
-  "next_qualification": "Current combined LW/e1d8 has exact fresh3h;own9h remainsFALSE. Continue measured portfolio work; no automatic forecast replay.",
+  "next_qualification": "One INATM2+3-only candidate application against retained original4products545steps; not included here. EVAP residual pair retained unqualified after private errno-state mismatch; no consumer build.",
   "output_fusion_qualification_file": "tools/cpu-output/quilt512/padding-block32/NATIVE_QUALIFICATION.json",
   "latest_nine_hour": {
-    "evidence_file": "PREVIOUS_NINE_HOUR_RESULT_BEFORE_BLOCK_CARRY.json",
-    "qualification_file": "PREVIOUS_NINE_HOUR_FINAL_QUALIFICATION_BEFORE_BLOCK_CARRY.json",
-    "qualification_sha256": "d6e3cbbfa051e211e93f8303d332289a650439a9341d3e43e60cfd2887b302d2",
-    "applies_to_current_selection": false,
-    "scientific_scope_only": true,
-    "comparison_design": "PROFILED_UNPAIRED diagnosticcandidate versus retainedoriginal546b scientificreference; no sustained/matchedforecastspeedupclaim",
+    "evidence_file": "NINE_HOUR_RESULT.json",
+    "qualification_file": "NINE_HOUR_FINAL_QUALIFICATION.json",
+    "qualification_sha256": "efbfe35f8a528e778f41770c6093a71ebd4c8bb8f7a1ce8096db54f5b12adaa9",
+    "applies_to_current_selection": true,
+    "scientific_scope_only": false,
+    "comparison_design": "Fresh fixed-order original546b then selected0de7/51a/input06dNCa32/e1d8; inclusive IO and writer drain; no observer/perf. Control04 hit104GiB memory cap; no pressure-free or repeatability claim.",
     "metrics": {
       "control": {
-        "wall_seconds": 2069.3122304237913,
-        "cpu_seconds": 1009264.484921,
-        "main_step_sum_seconds": 1851.54464
+        "wall_seconds": 2068.6204282799736,
+        "cpu_seconds": 1009950.9548869999,
+        "main_step_sum_seconds": 1852.82922
       },
       "candidate": {
-        "wall_seconds": 1833.8502885708585,
-        "cpu_seconds": 922292.209006,
-        "main_step_sum_seconds": 1736.84978
+        "wall_seconds": 1828.9245701739565,
+        "cpu_seconds": 919840.608287,
+        "main_step_sum_seconds": 1730.7711
       }
     },
     "reductions_percent": {
-      "wall_seconds": 11.378753693670996,
-      "cpu_seconds": 8.617391894237493,
-      "main_step_sum_seconds": 6.194550081168993
+      "wall_seconds": 11.587232477701125,
+      "cpu_seconds": 8.9222497551955,
+      "main_step_sum_seconds": 6.587661651838594
     },
+    "wall_speedup_ratio": 1.1310583618455181,
     "repeatability_established": false,
-    "scope": "Current41b/51a/3edf exact10products1625/full512/twoTiles/all4positivewriters/all32markers. Profiled UNPAIRED diagnostic, not matched performance benchmark."
+    "memory_pressure_actual": {
+      "control": {
+        "hpc01": {
+          "limit_bytes": 107374182400,
+          "peak_bytes": 98832248832,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "peak_reached_limit": false
+        },
+        "hpc02": {
+          "limit_bytes": 107374182400,
+          "peak_bytes": 101152460800,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "peak_reached_limit": false
+        },
+        "hpc03": {
+          "limit_bytes": 107374182400,
+          "peak_bytes": 101077553152,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "peak_reached_limit": false
+        },
+        "hpc04": {
+          "limit_bytes": 111669149696,
+          "peak_bytes": 111669149696,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 2466,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "peak_reached_limit": true
+        }
+      },
+      "candidate": {
+        "hpc01": {
+          "limit_bytes": 107374182400,
+          "peak_bytes": 76207312896,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "peak_reached_limit": false
+        },
+        "hpc02": {
+          "limit_bytes": 107374182400,
+          "peak_bytes": 73755156480,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "peak_reached_limit": false
+        },
+        "hpc03": {
+          "limit_bytes": 107374182400,
+          "peak_bytes": 73700478976,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "peak_reached_limit": false
+        },
+        "hpc04": {
+          "limit_bytes": 111669149696,
+          "peak_bytes": 73674305536,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "peak_reached_limit": false
+        }
+      }
+    }
   },
   "padding_only_fill_qualification_file": "tools/cpu-output/quilt512/padding-only-fill/NATIVE_QUALIFICATION.json",
   "padding_block32_qualification_file": "tools/cpu-output/quilt512/padding-block32/NATIVE_QUALIFICATION.json",

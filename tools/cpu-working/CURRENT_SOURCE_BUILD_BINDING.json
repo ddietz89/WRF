@@ -1,5 +1,5 @@
 {
-  "status": "WORKING_SELECTED_LW_ABSCLD_BLOCK_CARRY_AFTER_FRESH_ORIGINAL_THREE_HOUR",
+  "status": "WORKING_SELECTED_LW_ABSCLD_BLOCK_CARRY_QUALIFIED_THREE_AND_NINE_HOUR",
   "source_commit": "d27df44feabb1356cd5b6996fa74983d09e3edab",
   "executable": {
     "path": "/pool/wrf-experiment/wrf-cpu/builds/current41b-rtrnmc-abscld-scalar-current-r1/wrf.exe",
@@ -83,7 +83,7 @@
   "PD_production_member_sha256": "8ec77f864716667aa79d40878fa11276f7dede4017c620201e54f9f83bb32b25",
   "PD_repaired_compile_object_sha256": "e5245eed1f84a67ea9d428bed8d8b2529f568ca49394f9cf8b85d97bdc50f560",
   "PD_equivalence_proof_sha256": "92abf53cb516e4394f2ce232ad81fb4985ea7b1f849310927e54aa4a2b1017cc",
-  "build_scope": "Current LW0de7/a21 post-testd27 + DF/pool51a/root06dNCa32/codece1d8: fresh original546b control-first three-hour pair;4products545/all512/faba/twoTiles/all4positivewriters/all32markers, no observer/perf. Own3h TRUE, own9h FALSE.",
+  "build_scope": "Current LW0de7/a21 post-testd27 + DF/pool51a/root06dNCa32/codece1d8: fresh original546b control-first three-hour and nine-hour exact pairs; own4products545steps and10products1625steps/full512/faba/twoTiles/all4positivewriters/all32markers; no observers/perf. Both own3h/9h TRUE; significant INATM2+3 remains separate unpromoted application candidate.",
   "runtime": {
     "WRF_EXPERIMENTAL_TPI_NUMA": 1,
     "other_settings": "Currentpool51a/codece1d8/HDF825/faba/FIELDVIEW1/shared1/singleIB; rootinput06dNCa32only."
@@ -139,7 +139,7 @@
       "sha256": "d9020a412142f715d3408a6871c5b23c42f791630e9a900f96efd20b329cb974"
     }
   },
-  "current_nine_hour_qualified": false,
+  "current_nine_hour_qualified": true,
   "previous_nine_hour_qualification": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_NINE_HOUR_FINAL_QUALIFICATION_B1FB.json",
     "sha256": "f38a865905d030be42ac0a965b4aa6afbc0eae280902a3839f20df176457f445"
@@ -243,10 +243,10 @@
     "output_postscience_source_commit": "909ab6ef55ac5351f9fd03e4019be470e89a3929"
   },
   "nine_hour_full_application": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_NINE_HOUR_FINAL_QUALIFICATION_BEFORE_BLOCK_CARRY.json",
-    "sha256": "d6e3cbbfa051e211e93f8303d332289a650439a9341d3e43e60cfd2887b302d2",
-    "applies_to_current_selection": false,
-    "scope": "Current41b/51a/3edf exact10products1625/full512/twoTiles/all4positivewriters/all32markers. Profiled UNPAIRED diagnostic, not matched performance benchmark."
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-working/NINE_HOUR_FINAL_QUALIFICATION.json",
+    "sha256": "efbfe35f8a528e778f41770c6093a71ebd4c8bb8f7a1ce8096db54f5b12adaa9",
+    "applies_to_current_selection": true,
+    "scope": "Current LW0de7/a21 post-testd27 + DF/pool51a/root06dNCa32/codece1d8: fresh original546b control-first three-hour and nine-hour exact pairs; own4products545steps and10products1625steps/full512/faba/twoTiles/all4positivewriters/all32markers; no observers/perf. Both own3h/9h TRUE; significant INATM2+3 remains separate unpromoted application candidate."
   },
   "previous_noon75m_full_application": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-output/quilt512/padding-block32/APPLICATION_QUALIFICATION.json",
@@ -474,5 +474,142 @@
     "applies_to_current_selection": false,
     "repeatability_established": false,
     "scope": "GNU13.3 strict/OMP1/cold06:00\u201309:00/full512=480compute8x60+4x8quilt/faba/twoTiles/DF41b/root06dNCa32/outputpool51a/codec3edf/HDF825/shared1/FIELDVIEW1/singleIB;4completeproducts545steps/all4positivewriters/all32markers. One fresh fixed-order wholeinclusiveIO pair; no isolated/additive/repeatability or current9h claim."
+  },
+  "nine_hour_benchmark": {
+    "evidence_file": "NINE_HOUR_RESULT.json",
+    "qualification_file": "NINE_HOUR_FINAL_QUALIFICATION.json",
+    "qualification_sha256": "efbfe35f8a528e778f41770c6093a71ebd4c8bb8f7a1ce8096db54f5b12adaa9",
+    "applies_to_current_selection": true,
+    "scientific_scope_only": false,
+    "comparison_design": "Fresh fixed-order original546b then selected0de7/51a/input06dNCa32/e1d8; inclusive IO and writer drain; no observer/perf. Control04 hit104GiB memory cap; no pressure-free or repeatability claim.",
+    "metrics": {
+      "control": {
+        "wall_seconds": 2068.6204282799736,
+        "cpu_seconds": 1009950.9548869999,
+        "main_step_sum_seconds": 1852.82922
+      },
+      "candidate": {
+        "wall_seconds": 1828.9245701739565,
+        "cpu_seconds": 919840.608287,
+        "main_step_sum_seconds": 1730.7711
+      }
+    },
+    "reductions_percent": {
+      "wall_seconds": 11.587232477701125,
+      "cpu_seconds": 8.9222497551955,
+      "main_step_sum_seconds": 6.587661651838594
+    },
+    "wall_speedup_ratio": 1.1310583618455181,
+    "repeatability_established": false,
+    "memory_pressure_actual": {
+      "control": {
+        "hpc01": {
+          "limit_bytes": 107374182400,
+          "peak_bytes": 98832248832,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "peak_reached_limit": false
+        },
+        "hpc02": {
+          "limit_bytes": 107374182400,
+          "peak_bytes": 101152460800,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "peak_reached_limit": false
+        },
+        "hpc03": {
+          "limit_bytes": 107374182400,
+          "peak_bytes": 101077553152,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "peak_reached_limit": false
+        },
+        "hpc04": {
+          "limit_bytes": 111669149696,
+          "peak_bytes": 111669149696,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 2466,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "peak_reached_limit": true
+        }
+      },
+      "candidate": {
+        "hpc01": {
+          "limit_bytes": 107374182400,
+          "peak_bytes": 76207312896,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "peak_reached_limit": false
+        },
+        "hpc02": {
+          "limit_bytes": 107374182400,
+          "peak_bytes": 73755156480,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "peak_reached_limit": false
+        },
+        "hpc03": {
+          "limit_bytes": 107374182400,
+          "peak_bytes": 73700478976,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "peak_reached_limit": false
+        },
+        "hpc04": {
+          "limit_bytes": 111669149696,
+          "peak_bytes": 73674305536,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "peak_reached_limit": false
+        }
+      }
+    }
   }
 }
