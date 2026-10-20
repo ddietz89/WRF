@@ -6,8 +6,8 @@
   },
   "artifacts": {
     "shim": {
-      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current172-padding-only-fill-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
-      "sha256": "329f70f24fd68bbd94c3ab575d9e0bfbc6ad7e5dba147865d033f83891130a62"
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current329f-padding-block32-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
+      "sha256": "de5b3c27224091cc0369062c9f1bbb867b362436a0331892a6ec9cf4fc4fccb4"
     },
     "owner": {
       "path": "/pool/wrf/WPS_new/runtime/netcdf-owner/lib/libnetcdf.so.19",
@@ -47,8 +47,8 @@
   "read_affine_IO_archive_sha256": "651835f31089e16759177734198ece5b121d704355c73abddde483f4cae2c14c",
   "read_affine_IO_object_sha256": "c9c4e5b7a0225523e7d85cfc188022d797204d3f4dd4494b54c416e3bec99320",
   "schema_version": 3,
-  "status": "PROMOTED_PADDING_ONLY_FILL_WITH_EXACT_512_SHORT_AND_SIGNIFICANT_CALLER_GAIN",
-  "scope": "GNU13.3/Zen2/OMP1/cold06-06:10/512=480compute8x60+4x8quilt/faba/twoTiles/1d6e/root06dNCa32/output329f/codec881/HDF825/shared1/FIELDVIEW1/singleIB;2completeproducts35steps.",
+  "status": "PROMOTED_PADDING_BLOCK32_EXACT_512_NOON75M_AND_INCREMENTAL_CALLER_GAIN",
+  "scope": "GNU13.3/Zen2/OMP1/cold12:00-13:15/512=480compute8x60+4x8quilt/faba/twoTiles/1d6e/root06dNCa32/outputde5b/codec881/HDF825/shared1/FIELDVIEW1/singleIB;2completeproducts230steps.",
   "includes": "All retained compute, Thompson shared-table/lazy-init, output, codec and HDF5 improvements from the previous selection, READ_DI1 affine rows, plus qualified root-only parallel input chunk decoding. Fused output packing/shuffling removes intermediate padded packed storage; compressedbytes and originalscience exact.",
   "source_commit_scope": "source_commit binds the unchanged WRF executable; input_implementation_commit binds the separately compiled literal private input provider/adapter package. Frozen producer source_commit null fields remain unchanged.",
   "input_implementation_commit": "614267f340a23ffc342962b3c64e323719fe4d06",
@@ -78,16 +78,16 @@
       "WRF_INPUT_PREDECODE_OWNER": "/pool/wrf-experiment/wrf-cpu/kernels/ordinary-nc-predecoded-fp-admission-build-hpc02-r3/output/libnetcdf.so.19",
       "WRF_INPUT_SCOPE_LOGDIR": "<fresh_run>/input-logs"
     },
-    "other_511_ranks": "Retain original NC8adc/selected output329f/codec881; root input adapter/private NC only on rank0."
+    "other_511_ranks": "Retain original NC8adc/selected outputde5b/codec881; root input adapter/private NC only on rank0."
   },
   "science": {
-    "receipt_sha256": "36aadc3a19d8a277f40e25964a1ace06713a53992faad614d7e8d8271de59f92",
-    "reader_closure_sha256": "0d6bdc7047f7fb0fc5377187c85311684213f906f2c8a1e9598f2c4717def9ef",
+    "receipt_sha256": "c648100283f7946ac319d77343a072e5a065984e0d2b6fea6c2d1a7034006845",
+    "reader_closure_sha256": "5e7e4b188b16d226758706034109519bc95174966352f09dcba8873ab350f45e",
     "reader_exit_code_raw": null,
-    "invocation_id": "c9fe8d90190343929653c6523919ab4e",
+    "invocation_id": "ac2b06f25a7149ff8164ce632d2abbb9",
     "products": 2,
-    "ordered_steps": 35,
-    "end_time": "2026-10-12_06:10:00",
+    "ordered_steps": 230,
+    "end_time": "2026-10-12_13:15:00",
     "world": 512,
     "compute": 480,
     "quilt_groups": 4,
@@ -106,7 +106,7 @@
     "all_model_reader_scopes_closed": true
   },
   "qualification_file": "tools/cpu-output/quilt512/qualification.json",
-  "current_application_qualification_file": "tools/cpu-output/quilt512/padding-only-fill/APPLICATION_QUALIFICATION.json",
+  "current_application_qualification_file": "tools/cpu-output/quilt512/padding-block32/APPLICATION_QUALIFICATION.json",
   "source_build_binding_file": "CURRENT_SOURCE_BUILD_BINDING.json",
   "current_three_hour_qualified": false,
   "current_nine_hour_qualified": false,
@@ -150,13 +150,13 @@
   "memory_qualification_file": "tools/cpu-memory/thompson-table-sharing/lazy-group-init/QUALIFICATION.json",
   "activation": "Selection record, not a launcher. Use a fresh bounded lease/run/log directory and the exact root-only input rank-exec binding, with all original runtime checks and cache-before-each-arm SOP. Never preload launchers/helpers.",
   "rollback": {
-    "selection": "PREVIOUS_SELECTION_BEFORE_PADDING_ONLY_FILL.json",
-    "source_build_binding": "PREVIOUS_SOURCE_BUILD_BINDING_BEFORE_PADDING_ONLY_FILL.json",
-    "action": "Restore output172 only, retaining1d6e/root06dNCa32/881 and all previous selections; revert provider-only source commit to b938 if rebuilding."
+    "selection": "PREVIOUS_SELECTION_BEFORE_PADDING_BLOCK32.json",
+    "source_build_binding": "PREVIOUS_SOURCE_BUILD_BINDING_BEFORE_PADDING_BLOCK32.json",
+    "action": "Restore output329f/provider1e0 only, retaining1d6e/root06dNCa32/881/825/allcompute; revert provider8db to1e0 if rebuilding. No rebuild solely to select the retained tested329fartifact."
   },
-  "claim_limits": "Own exact2products35/all512/twoTiles; significant5.13/5.20% complete syntheticprovider wall gains and9.24/10.11%CPU remain separate. Previouscurrent172 nine-hour10.97%combinedwall is retained, not isolated or inherited329f evidence. No3h/9h/restart/othercompiler/144h transfer.",
-  "next_qualification": "Currentdaytime75m shortprofile then measuredopportunities; finish SIMD32 diagnostic separately and compose only if worthwhile. Periodic fresh original3h after integration, no automatic9h repeat.",
-  "output_fusion_qualification_file": "tools/cpu-output/quilt512/fusion/NATIVE_QUALIFICATION.json",
+  "claim_limits": "Own exactnoon2products230/full512/twoTiles/487495positive503511inactive. Incremental syntheticcompleteprovider wall2.19/1.78% andprocessCPU3.60/3.04% lower thanpaddingparent are separate fromforecastgain and not additive. Previous375threehour/172ninehour remainhistorical; no own3h/fourpositive/9h/restart/othercompiler/144h transfer.",
+  "next_qualification": "One periodicfreshoriginal546b vscombinedde5b threehour pair afterreview/resourceclosure; no automatic9hreplay. Freshcomputeprofileanalysis andboundedprovidercontext refresh select next measured operation.",
+  "output_fusion_qualification_file": "tools/cpu-output/quilt512/padding-block32/NATIVE_QUALIFICATION.json",
   "latest_nine_hour": {
     "evidence_file": "NINE_HOUR_RESULT.json",
     "qualification_file": "NINE_HOUR_FINAL_QUALIFICATION.json",
@@ -181,7 +181,8 @@
       "main_step_sum_seconds": 5.770902720444271
     },
     "repeatability_established": false,
-    "scope": "Previous output172; no nine-hour transfer to329f."
+    "scope": "Previous output172; no nine-hour transfer to currentde5b or earlier329f."
   },
-  "padding_only_fill_qualification_file": "tools/cpu-output/quilt512/padding-only-fill/NATIVE_QUALIFICATION.json"
+  "padding_only_fill_qualification_file": "tools/cpu-output/quilt512/padding-only-fill/NATIVE_QUALIFICATION.json",
+  "padding_block32_qualification_file": "tools/cpu-output/quilt512/padding-block32/NATIVE_QUALIFICATION.json"
 }

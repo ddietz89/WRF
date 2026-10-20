@@ -1,0 +1,197 @@
+{
+  "status": "ALL_FOUR_INCREMENTAL_COMPLETE_PROVIDER_CALLER_ARMS_PASS_STRONGLY_CLOSED",
+  "scope": "One fixed32 completepublicprovider syntheticWshape225371652B/four56430000Bchunks;02P-C/04C-P/cacheeach; actualfa21 padding vs actualcombined8db.",
+  "source_parent": "1e0/actualfa21",
+  "source_candidate": "8db/actual27d94",
+  "arms": [
+    {
+      "arm": 0,
+      "host": "hpc02",
+      "which": "parent",
+      "invocation": "f8a5f8d7672f442e9c8bdb572226bd90",
+      "wall_seconds": 3.214636932,
+      "process_CPU_seconds": 10.641497675,
+      "maxrss_KiB_wholeharness": 664748,
+      "driver_sha256": "55332f0cf0d337e5167038092c9386a508a46aa6b226bf77ec56b39f87042c49",
+      "gold_sha256": "3fd49e0a2abd0590d3fc7c2c73142f8b196c1a9390344468518446cd4ebcef1b",
+      "cache_checked": true,
+      "cache_begin_utc": "2026-10-20T05:52:51.751350+00:00",
+      "cache_end_utc": "2026-10-20T05:52:54.661649+00:00",
+      "strong_closed": true,
+      "errno_flags_round_mxcsr_cw": [
+        33,
+        36,
+        2048,
+        24452,
+        2943
+      ]
+    },
+    {
+      "arm": 1,
+      "host": "hpc02",
+      "which": "candidate",
+      "invocation": "9e22c738154f4bf988293282fd75ef30",
+      "wall_seconds": 3.144195424,
+      "process_CPU_seconds": 10.258302866,
+      "maxrss_KiB_wholeharness": 664748,
+      "driver_sha256": "55332f0cf0d337e5167038092c9386a508a46aa6b226bf77ec56b39f87042c49",
+      "gold_sha256": "3fd49e0a2abd0590d3fc7c2c73142f8b196c1a9390344468518446cd4ebcef1b",
+      "cache_checked": true,
+      "cache_begin_utc": "2026-10-20T05:53:28.279673+00:00",
+      "cache_end_utc": "2026-10-20T05:53:31.069988+00:00",
+      "strong_closed": true,
+      "errno_flags_round_mxcsr_cw": [
+        33,
+        36,
+        2048,
+        24452,
+        2943
+      ]
+    },
+    {
+      "arm": 2,
+      "host": "hpc04",
+      "which": "candidate",
+      "invocation": "2a7897d105654cfe87b8046541a6586a",
+      "wall_seconds": 3.467700731,
+      "process_CPU_seconds": 10.658086966,
+      "maxrss_KiB_wholeharness": 663760,
+      "driver_sha256": "55332f0cf0d337e5167038092c9386a508a46aa6b226bf77ec56b39f87042c49",
+      "gold_sha256": "3fd49e0a2abd0590d3fc7c2c73142f8b196c1a9390344468518446cd4ebcef1b",
+      "cache_checked": true,
+      "cache_begin_utc": "2026-10-20T05:52:54.483878+00:00",
+      "cache_end_utc": "2026-10-20T05:52:56.397682+00:00",
+      "strong_closed": true,
+      "errno_flags_round_mxcsr_cw": [
+        33,
+        36,
+        2048,
+        24452,
+        2943
+      ]
+    },
+    {
+      "arm": 3,
+      "host": "hpc04",
+      "which": "parent",
+      "invocation": "7d8066ed5575423484eb64b0a9022119",
+      "wall_seconds": 3.530556704,
+      "process_CPU_seconds": 10.991809352,
+      "maxrss_KiB_wholeharness": 665120,
+      "driver_sha256": "55332f0cf0d337e5167038092c9386a508a46aa6b226bf77ec56b39f87042c49",
+      "gold_sha256": "3fd49e0a2abd0590d3fc7c2c73142f8b196c1a9390344468518446cd4ebcef1b",
+      "cache_checked": true,
+      "cache_begin_utc": "2026-10-20T05:53:30.919757+00:00",
+      "cache_end_utc": "2026-10-20T05:53:32.159487+00:00",
+      "strong_closed": true,
+      "errno_flags_round_mxcsr_cw": [
+        33,
+        36,
+        2048,
+        24452,
+        2943
+      ]
+    }
+  ],
+  "pairs": [
+    {
+      "host": "hpc02",
+      "order": "P-C",
+      "parent_wall_seconds": 3.214636932,
+      "candidate_wall_seconds": 3.144195424,
+      "wall_percent_shorter": 2.1912741466631056,
+      "parent_process_CPU_seconds": 10.641497675,
+      "candidate_process_CPU_seconds": 10.258302866,
+      "process_CPU_percent_less": 3.6009481062072477
+    },
+    {
+      "host": "hpc04",
+      "order": "C-P",
+      "parent_wall_seconds": 3.530556704,
+      "candidate_wall_seconds": 3.467700731,
+      "wall_percent_shorter": 1.7803416931042728,
+      "parent_process_CPU_seconds": 10.991809352,
+      "candidate_process_CPU_seconds": 10.658086966,
+      "process_CPU_percent_less": 3.036100566457494
+    }
+  ],
+  "original6269_failure_retained_cause_unknown": true,
+  "initial_R1_candidate_hash": null,
+  "application_science_qualified": false,
+  "production512_positive_qualified": false,
+  "limits": [
+    "Call-only wall and processCPU includecompleteprovider/itsworkers; excludesvalidation/release/initialization. Notwholeharness/cgroup/WRF/ownerCPU.",
+    "Fixedorder pairperhost, no statisticalsignificance/repeatability/productionguardfrequency claim.",
+    "Incremental actualcombinationmeasurement; do not add separatelymeasuredpadding/SIMDpercentages."
+  ],
+  "references": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/avx2-block-transpose-preparation-r1/padding-composition-source-preparation-r1/NATIVE_QUALIFICATION.json": {
+      "sha256": "7dc1e20fb57643edff2c19c9eaf094a9728a13e5f923cd5ca9288d606a63fba5",
+      "bytes": 7663
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/avx2-block-transpose-preparation-r1/padding-composition-source-preparation-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/receipt.json": {
+      "sha256": "4d1eae563a24935718b35d738cd97c9e9d4c78f1ba0fefc4089b95c630b77a34",
+      "bytes": 1788
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/avx2-block-transpose-preparation-r1/padding-composition-source-preparation-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/closure.json": {
+      "sha256": "978a0c7384fc0d0506863e7fa5171aa5d70ffdc43b1e2e66764fd89a201a4b91",
+      "bytes": 1105
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/avx2-block-transpose-preparation-r1/padding-composition-source-preparation-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/controller.json": {
+      "sha256": "cacad8b38c6a7b637e8c71d6fa94b930d22f692b46318bd398a9e9550139be20",
+      "bytes": 2095
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/avx2-block-transpose-preparation-r1/padding-composition-source-preparation-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/cache-clear.json": {
+      "sha256": "bcf0898ad09e7d3ce3ea30815d531eb5ed95521b426b0808f4049e471fde7079",
+      "bytes": 1070
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/avx2-block-transpose-preparation-r1/padding-composition-source-preparation-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/receipt.json": {
+      "sha256": "2d85f0de49ab0e689064de861b893bb435de4d72ca7f81f33ab72f6d6e97ed59",
+      "bytes": 1800
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/avx2-block-transpose-preparation-r1/padding-composition-source-preparation-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/closure.json": {
+      "sha256": "86b8dd741b7fe3a369aeb7551addc0635e3021c06a180e33a18dd197f1efaa24",
+      "bytes": 1105
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/avx2-block-transpose-preparation-r1/padding-composition-source-preparation-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/controller.json": {
+      "sha256": "649b5e94a12ccb1b46b788cd5ff8c1fc4c4cdc8e5e5b2fc04ccc1f90415f1a91",
+      "bytes": 2094
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/avx2-block-transpose-preparation-r1/padding-composition-source-preparation-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/cache-clear.json": {
+      "sha256": "cab9513a47f9155586f736de50ccf5243385ad32d84f4fd8b6f1c0e4ea7b688e",
+      "bytes": 1069
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/avx2-block-transpose-preparation-r1/padding-composition-source-preparation-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/receipt.json": {
+      "sha256": "52a1831deea74bd8e1519ea330b561d08d4261c09bf14508915f02be642e8d39",
+      "bytes": 1800
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/avx2-block-transpose-preparation-r1/padding-composition-source-preparation-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/closure.json": {
+      "sha256": "f50afe159ccdc14a4d9b4d49ae6e3ea62dfedc9ebd0c4e2304095b6bf10ba483",
+      "bytes": 1105
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/avx2-block-transpose-preparation-r1/padding-composition-source-preparation-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/controller.json": {
+      "sha256": "9ede11c651fc6f0663a992c76c83e964b3e1ef20e17f0fb3915bb268ad837387",
+      "bytes": 2096
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/avx2-block-transpose-preparation-r1/padding-composition-source-preparation-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/cache-clear.json": {
+      "sha256": "fc4eedabdf72744af5fe40e00efc86dca8d6a83799c2e07543c5e8fd4dd7d98a",
+      "bytes": 1071
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/avx2-block-transpose-preparation-r1/padding-composition-source-preparation-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/receipt.json": {
+      "sha256": "43507707aa9adf7d6be0c0657fedb482ecb92a5daf9133d746bd0e420e401006",
+      "bytes": 1788
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/avx2-block-transpose-preparation-r1/padding-composition-source-preparation-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/closure.json": {
+      "sha256": "d0523f2273645563eaba4a3ac80189a8dd891b9dad8178174c613196580567f9",
+      "bytes": 1105
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/avx2-block-transpose-preparation-r1/padding-composition-source-preparation-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/controller.json": {
+      "sha256": "2a553b4d750ef1be239cc2986e29171b5ce28da7dcfc6dfa1ec59c7ba5614dca",
+      "bytes": 2094
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/avx2-block-transpose-preparation-r1/padding-composition-source-preparation-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/cache-clear.json": {
+      "sha256": "c90d4109c0bb2dbe8510cbcb58a33102946331c11b5759c6f6bdaac4907b4d51",
+      "bytes": 1069
+    }
+  }
+}

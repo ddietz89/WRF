@@ -1,0 +1,164 @@
+{
+  "status": "PASS_COMBINED8DB_DE5B_FULL512_NOON75M_TWO_PRODUCTS230_APPLICATION",
+  "runtime": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-padding-block32-noon75m-runtime-r1",
+  "source_commit": null,
+  "raw_producer_source_commit": null,
+  "candidate_source_sha256": "8db4037d6c64b3ad60c012678b3810a9d313d0ffd7ba4d379af0f60de3a5a885",
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2/wrf.exe",
+    "sha256": "1d6e5213108a5a1501ab319825bfa1a024df367af5037bee5f80d210f72d4f14"
+  },
+  "full_shim": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current329f-padding-block32-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
+    "sha256": "de5b3c27224091cc0369062c9f1bbb867b362436a0331892a6ec9cf4fc4fccb4",
+    "source_commit": null
+  },
+  "native_qualification_sha256": "7dc1e20fb57643edff2c19c9eaf094a9728a13e5f923cd5ca9288d606a63fba5",
+  "caller_timing_sha256": "1f16a93beda842718664ae260d8388dc6aac7bbd39fb9bc75c27993157517f37",
+  "science": {
+    "status": "PASS_ORIGINAL_TWO_HISTORY_AND_512_NOON75M_ORDERED_SEQUENCE",
+    "receipt_sha256": "c648100283f7946ac319d77343a072e5a065984e0d2b6fea6c2d1a7034006845",
+    "reader_closure_sha256": "5e7e4b188b16d226758706034109519bc95174966352f09dcba8873ab350f45e",
+    "invocation_id": "ac2b06f25a7149ff8164ce632d2abbb9",
+    "complete_products": 2,
+    "ordered_steps": 230,
+    "start": "2026-10-12_12:00:00",
+    "end": "2026-10-12_13:15:00",
+    "all512": true,
+    "compute_ranks": 480,
+    "quilt_ranks": 32,
+    "serial_tiles": 2,
+    "positive_roots": [
+      487,
+      495
+    ],
+    "inactive_zero_roots": [
+      503,
+      511
+    ]
+  },
+  "writer_lifecycle": {
+    "487": {
+      "calls": 261,
+      "scopes": 261,
+      "callbacks": 216,
+      "supplied": 216,
+      "releases": 216,
+      "widens": 216,
+      "restores": 216,
+      "pending": 0,
+      "errors": 0
+    },
+    "495": {
+      "calls": 261,
+      "scopes": 261,
+      "callbacks": 216,
+      "supplied": 216,
+      "releases": 216,
+      "widens": 216,
+      "restores": 216,
+      "pending": 0,
+      "errors": 0
+    },
+    "503": {
+      "calls": 0,
+      "scopes": 0,
+      "callbacks": 0,
+      "supplied": 0,
+      "releases": 0,
+      "widens": 0,
+      "restores": 0,
+      "pending": 0,
+      "errors": 0
+    },
+    "511": {
+      "calls": 0,
+      "scopes": 0,
+      "callbacks": 0,
+      "supplied": 0,
+      "releases": 0,
+      "widens": 0,
+      "restores": 0,
+      "pending": 0,
+      "errors": 0
+    }
+  },
+  "root_input_lifecycle": {
+    "event": "final",
+    "rank": 0,
+    "scopes": 308,
+    "callbacks": 135,
+    "supplied": 17,
+    "declines": 118,
+    "widens": 135,
+    "restores": 135
+  },
+  "model_invocations": {
+    "hpc01": "c7d9b33de29b4c308c7d112ebbbad6b5",
+    "hpc02": "afedc496109c423382f0a3099e58e924",
+    "hpc03": "ef12e892367f4416be11bb6ee5638857",
+    "hpc04": "87c9047af6e14f46963b55b839a05364"
+  },
+  "model_scopes_reconciled_success": true,
+  "reader_strong_closed": true,
+  "reader_exit_code_property": null,
+  "reader_manager_success_invocation_bound": true,
+  "profile_reports": {
+    "0": {
+      "state": "REPORTS_RETAINED",
+      "collector_state": "FINALIZED_DATA_PENDING_NATIVE_PARSE",
+      "raw_sha256": "a0055cb932ed9171b7106f22d44a61b0e526f65997e07f5a8d0a44d04405cca0",
+      "sample_records": 699,
+      "observed_sample_window_monotonic_ns": {
+        "first": 2055508074953752,
+        "last": 2055523066454638,
+        "scope": "Actual observed samples only; same-host phase audits may bound them"
+      },
+      "scope": "Retained raw/report acquisition context only; coarse UNAVAILABLE defaults are preserved in original records, no pipeline status rewrite or modeltiminggain."
+    },
+    "384": {
+      "state": "REPORTS_RETAINED",
+      "collector_state": "FINALIZED_DATA_PENDING_NATIVE_PARSE",
+      "raw_sha256": "18e316bbda1de0ac50d70d45e7419121e2e04d1090e121a56387c5432f134cd7",
+      "sample_records": 703,
+      "observed_sample_window_monotonic_ns": {
+        "first": 2055507939927845,
+        "last": 2055522934339024,
+        "scope": "Actual observed samples only; same-host phase audits may bound them"
+      },
+      "scope": "Retained raw/report acquisition context only; coarse UNAVAILABLE defaults are preserved in original records, no pipeline status rewrite or modeltiminggain."
+    },
+    "416": {
+      "state": "REPORTS_RETAINED",
+      "collector_state": "FINALIZED_DATA_PENDING_NATIVE_PARSE",
+      "raw_sha256": "ec1550fc9fdb667807b2dab78a740a3763dea572cefcbf9fb43c982f75f1333e",
+      "sample_records": 705,
+      "observed_sample_window_monotonic_ns": {
+        "first": 2055507939860103,
+        "last": 2055522938979723,
+        "scope": "Actual observed samples only; same-host phase audits may bound them"
+      },
+      "scope": "Retained raw/report acquisition context only; coarse UNAVAILABLE defaults are preserved in original records, no pipeline status rewrite or modeltiminggain."
+    }
+  },
+  "performance_qualification": false,
+  "source_promotion": "Pending root-only exact8db source/selection commit; no producer NULL mutation or repository change by this artifact.",
+  "resources": "512/480compute8x60+32quilt/twoTiles/128physical/node100,100,100,104GiB/swap0/1200s;375derivedde5b/881/825/faba/singleIB/OMP1/shared1/root06dNCa32",
+  "references": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-padding-block32-noon75m-runtime-r1/source-pins.json": "1d3680ae7630220a9d8f5ca809eb097de0663625bd27f070f547279d2e89144e",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-padding-block32-noon75m-runtime-r1/lease-candidate-granted.json": "36d6c55fc2a64a9bd5ceb28bc6f990cf9a75a9182794dffac16477cf25e7e458",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-padding-block32-noon75m-runtime-r1/science-receipt.json": "c648100283f7946ac319d77343a072e5a065984e0d2b6fea6c2d1a7034006845",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-padding-block32-noon75m-runtime-r1/reader-closure.json": "5e7e4b188b16d226758706034109519bc95174966352f09dcba8873ab350f45e",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-padding-block32-noon75m-runtime-r1/candidate-closures.json": "f543835ce46f7ec8ce95e6e5743b44a2b7c7197ab535df00c33cc5eb99dcd37d",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-padding-block32-noon75m-runtime-r1/cache-clear-candidate.json": "686cd880df5f94e8729038df253c148015ef8e115645e21b7af9357b57e88e09",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-padding-block32-noon75m-runtime-r1/RESULT.json": "1d323a184bfe0f3d56c2612438d5359fe45abc7a2214dea619620fd265ebf3fd",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-padding-block32-noon75m-runtime-r1/candidate-metadata/completion.json": "efb977804a045a834cbc7b60007320c3e8bc0f67fb76b45662e010ec94bac548",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-padding-block32-noon75m-runtime-r1/candidate-metadata/adaptive-steps.json": "d91b16781761199cbfc7288530475c367994cf4ef9726843615c445b5a57eae5",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-padding-block32-noon75m-runtime-r1/check_pair.py": "c8d93a32341302059863682916b354d547241ce00e5e1578f0dda81a83869bf6",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-padding-block32-noon75m-runtime-r1/worker_proof.py": "4b5117cdb2f9a944fdbd2846c798ed4c10c6b98cae1334dfcde91ad64ee4a86b",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/avx2-block-transpose-preparation-r1/padding-composition-source-preparation-r1/NATIVE_QUALIFICATION.json": "7dc1e20fb57643edff2c19c9eaf094a9728a13e5f923cd5ca9288d606a63fba5",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/avx2-block-transpose-preparation-r1/padding-composition-source-preparation-r1/caller-timing-preparation-r1/TIMING_RESULT.json": "1f16a93beda842718664ae260d8388dc6aac7bbd39fb9bc75c27993157517f37",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-fused-pack-shuffle-r1/avx2-block-transpose-preparation-r1/padding-composition-source-preparation-r1/candidate_root_chunk_provider.c": "8db4037d6c64b3ad60c012678b3810a9d313d0ffd7ba4d379af0f60de3a5a885"
+  },
+  "limits": "Own fullgrid scientific acceptance is noon2products230 with487495positive and503511inactive. No own fresh3h/fourpositive/daytime/allhorizon/9h/restart/alternatecompiler transfer. Native world1/state and syntheticcaller gains remain separate. Actual RESULT inherited172label preserved; actual grantedlease/library pins establish de5b. No wholemodeltiminggain asserted. Original6269 failure causeunknown remains retained; laterdiagnostics/census do not retroactively clear it."
+}

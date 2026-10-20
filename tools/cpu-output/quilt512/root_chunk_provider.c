@@ -75,6 +75,31 @@ static void shuffle4_avx2(unsigned char *dst, size_t stride, const unsigned char
     size_t items = nbytes >> 2;
     size_t i = 0;
 
+    /* Four lane-local transposes, then assemble 32 consecutive bytes/plane. */
+    const __m256i transpose = _mm256_setr_epi8(
+        0,4,8,12, 1,5,9,13, 2,6,10,14, 3,7,11,15,
+        0,4,8,12, 1,5,9,13, 2,6,10,14, 3,7,11,15);
+    const __m256i order = _mm256_setr_epi32(0,4,1,5,2,6,3,7);
+    for (; i + 32 <= items; i += 32) {
+        const unsigned char *s = src + 4u * i;
+        __m256i a = _mm256_shuffle_epi8(_mm256_loadu_si256((const __m256i *)(const void *)(s)), transpose);
+        __m256i b = _mm256_shuffle_epi8(_mm256_loadu_si256((const __m256i *)(const void *)(s + 32)), transpose);
+        __m256i c = _mm256_shuffle_epi8(_mm256_loadu_si256((const __m256i *)(const void *)(s + 64)), transpose);
+        __m256i d = _mm256_shuffle_epi8(_mm256_loadu_si256((const __m256i *)(const void *)(s + 96)), transpose);
+        __m256i ab0 = _mm256_unpacklo_epi32(a, b);
+        __m256i ab1 = _mm256_unpackhi_epi32(a, b);
+        __m256i cd0 = _mm256_unpacklo_epi32(c, d);
+        __m256i cd1 = _mm256_unpackhi_epi32(c, d);
+        __m256i p0 = _mm256_permutevar8x32_epi32(_mm256_unpacklo_epi64(ab0, cd0), order);
+        __m256i p1 = _mm256_permutevar8x32_epi32(_mm256_unpackhi_epi64(ab0, cd0), order);
+        __m256i p2 = _mm256_permutevar8x32_epi32(_mm256_unpacklo_epi64(ab1, cd1), order);
+        __m256i p3 = _mm256_permutevar8x32_epi32(_mm256_unpackhi_epi64(ab1, cd1), order);
+        _mm256_storeu_si256((__m256i *)(void *)(dst + i), p0);
+        _mm256_storeu_si256((__m256i *)(void *)(dst + stride + i), p1);
+        _mm256_storeu_si256((__m256i *)(void *)(dst + 2u * stride + i), p2);
+        _mm256_storeu_si256((__m256i *)(void *)(dst + 3u * stride + i), p3);
+    }
+
     for (; i + 8 <= items; i += 8) {
         const unsigned char *s0 = src + 4u * i;
         __m256i v = _mm256_loadu_si256((const __m256i *)(const void *)s0);

@@ -6,6 +6,12 @@ Current continuation handoff: [WRF_CPU_OPTIMIZATION_HANDOFF_2026-10-19.md](WRF_C
 
 The October 19 continuation instruction establishes concurrent incremental-kernel and architectural portfolios, with actual parallel DeepSeek work. The [SOP](TIMING_SOP.md#two-coordinated-optimization-portfolios) records this policy. The current selection and qualification scope are stated below; historical results retain their original artifact bindings.
 
+## Current output update: padding plus SIMD32 promoted after exact noon science (2026-10-20)
+
+Source8db/fullshimde5b replaces padding1e0/329f only; WRF1d6e/input06d-NCa32/codec881/HDF825/compute/shared tables/rank map remain unchanged. Native7dc covers the original eleven cases, a separate66-check boundary oracle and full public API/raw/layout/five-state/world1-negative checks. Incremental complete-provider wall2.19%/1.78% and processCPU3.60%/3.04% reductions versus the padding parent are synthetic caller results, not additive or forecast gains. [Application qualification](tools/cpu-output/quilt512/padding-block32/APPLICATION_QUALIFICATION.json)fb3853 binds SCIc6481002/reader5e7e4b18/INVac2b06f2: two complete products,230 ordered noon steps, all512/two tiles;487/495 each made216 balanced callbacks,503/511 were inactive. Input17 supplied/118 declines/135 restores is the actual whole-noon scope. All model/reader closures passed; REPORTS_RETAINED on all three profile targets coexists with unchanged coarse UNAVAILABLE defaults.
+
+Own current3h/9h/four-positive-writer qualification remains false. Previous375 fresh3h and172 nine-hour results remain historical. Producer NULL stays NULL; root post-test source tracking is separate. Rollback BEFORE_PADDING_BLOCK32 selection/binding restores329f/provider1e0. Original6269 native failure cause remains unknown; later passes/census do not retroactively clear it. Next is one periodic fresh original546b/de5b three-hour pair after review and resource closure, with no automatic9h replay.
+
 ## Current selection: READ DI1 affine rows, exact application PASS (2026-10-20)
 
 Selected **1d6e5213/source495f1000** adds the guarded READ DI1 affine-row path to all81d35 compute, lazy-group/shared-table, output and library improvements. The source change is one include: nonempty rows whose lower bound permits `i-ix` use contiguous addressing; reversed and other paths retain the original ABS expression. No numerical expression, layout, compiler flag, transport or library changed.

@@ -288,20 +288,20 @@
       "provider_source_file": "parallel-pack/root_chunk_provider.c"
     },
     "fused-pack": {
-      "status": "PROMOTED_PADDING_ONLY_FILL_EXACT_512_SHORT_SIGNIFICANT_COMPLETE_CALLER_GAIN",
+      "status": "PROMOTED_PADDING_BLOCK32_EXACT_512_NOON75M_INCREMENTAL_CALLER_GAIN",
       "provider_source_file": "root_chunk_provider.c",
-      "provider_source_sha256": "1e0dee401c98a56a3e5b5ec218e70eb79b4de987e4cde48545d5d4bc80502dfc",
+      "provider_source_sha256": "8db4037d6c64b3ad60c012678b3810a9d313d0ffd7ba4d379af0f60de3a5a885",
       "native_artifact": {
-        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current172-padding-only-fill-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
-        "sha256": "329f70f24fd68bbd94c3ab575d9e0bfbc6ad7e5dba147865d033f83891130a62"
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current329f-padding-block32-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
+        "sha256": "de5b3c27224091cc0369062c9f1bbb867b362436a0331892a6ec9cf4fc4fccb4"
       },
-      "native_qualification_file": "padding-only-fill/NATIVE_QUALIFICATION.json",
-      "application_qualification_file": "padding-only-fill/APPLICATION_QUALIFICATION.json",
-      "caller_timing_file": "padding-only-fill/CALLER_TIMING_RESULT.json",
-      "scope": "Current329f/1e0 owns2products35/all512/twoTiles/2positive+2zero writerroots; previous172 nine-hour references below historical only, no transfer.",
+      "native_qualification_file": "padding-block32/NATIVE_QUALIFICATION.json",
+      "application_qualification_file": "padding-block32/APPLICATION_QUALIFICATION.json",
+      "caller_timing_file": "padding-block32/CALLER_TIMING_RESULT.json",
+      "scope": "Currentde5b/8db ownsnoon2products230/all512/twoTiles/487495positive503511zero;375threehour/172ninehour remainhistorical, no transfer.",
       "nine_hour_qualification_file": "../../cpu-working/NINE_HOUR_FINAL_QUALIFICATION.json",
       "nine_hour_result_file": "../../cpu-working/NINE_HOUR_RESULT.json",
-      "previous172_nine_hour_scope": "Prior172/providerb938; does not qualifycurrent329f."
+      "previous172_nine_hour_scope": "Prior172/providerb938; does not qualifycurrentde5b or329f."
     }
   },
   "default_provider": "fused-pack",
@@ -312,7 +312,7 @@
     "shipped_manifest_sha256": "e36c18ccea261f0f5f8a5164266c72d040fc9df19e4e263301555e087145b3b8",
     "scope": "Unchanged qualified current map only; proposed map unpromoted."
   },
-  "source_scope": "Nested world512 simd-pack working default for the qualified GNU13.3/Zen2/currentmap campaign; original provider remains explicit opt-out; world16/64 source unchanged. Historical native_artifact and activation records remain original4cb provenance.",
+  "source_scope": "World512 fused-pack workingdefault source8db/de5b, qualified GNU13.3/Zen2/currentmap; originalprovideroptout/world16/world64 unchanged. Older native_artifact/activation/timing entries retain historicaloriginal4cb/375 epochs.",
   "variant_recipe_reproduction": {
     "status": "PASS_DEFAULT_AND_OPTIONAL_PACKAGE_BINARY_BYTEIDENTICAL",
     "result_file": "variant-build/result.json",
@@ -406,6 +406,16 @@
     "next_phase": "Controlled reverse-order, one-change regression audit on the fixed three-hour benchmark; no new optimization/probe."
   },
   "current_selected_artifact": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current329f-padding-block32-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
+    "sha256": "de5b3c27224091cc0369062c9f1bbb867b362436a0331892a6ec9cf4fc4fccb4",
+    "provider_source_sha256": "8db4037d6c64b3ad60c012678b3810a9d313d0ffd7ba4d379af0f60de3a5a885",
+    "shim_source_sha256": "313e18ed4309eec9b038371dfce227f8f5fc401813b094aa2cddb01e9de47421",
+    "source_commit": null,
+    "native_qualification_sha256": "7dc1e20fb57643edff2c19c9eaf094a9728a13e5f923cd5ca9288d606a63fba5"
+  },
+  "current_application_qualification_file": "padding-block32/APPLICATION_QUALIFICATION.json",
+  "variant_recipe_reproduction_note": "Historicaloriginal/simd-pack byte-reproduction remainsunchanged. Currentde5b comesfromseparatelypinned native/fullAPIbuild; updatedselector sourcehash8db not rebuiltmerelyforpromotion.",
+  "previous_current_selected_artifact_172": {
     "path": "/pool/wrf-experiment/wrf-cpu/kernels/current375-fused-pack-shuffle-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
     "sha256": "172306f3a8c482f8aa2f2683c7f847dab62bf695532a06b0e6ddd8ba441a2a07",
     "provider_source_sha256": "b938317c3430fd11ec02dce7bb0f3201a426369bf4a073a10fc3c152a912960f",
@@ -420,7 +430,5 @@
       "shim_sha256": "172306f3a8c482f8aa2f2683c7f847dab62bf695532a06b0e6ddd8ba441a2a07",
       "scope": "Actual375parent-exact/current881 fullDSO API/raw/state/world1-negative component only; actual512 activation/runtime/science remains hard."
     }
-  },
-  "current_application_qualification_file": "fusion/APPLICATION_QUALIFICATION.json",
-  "variant_recipe_reproduction_note": "Priororiginal/simd-pack byte-reproduction evidence remains historical. Newfused runtime artifact built and qualified by explicit native recipe; updated package build selector not executed in this source promotion."
+  }
 }
