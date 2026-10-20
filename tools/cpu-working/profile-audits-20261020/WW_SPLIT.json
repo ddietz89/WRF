@@ -1,0 +1,158 @@
+{
+  "decision": "CLOSE_NO_FUSED_COPY_ZERO_MECHANISM_NO_CALLER_NO_TIMING",
+  "status": "PASS_CODEGEN_NO_FUSED_COPY_ZERO_MECHANISM_CLOSE_WITHOUT_CALLER",
+  "scope": "ONE !$omp simd on ordinary WW_SPLIT innerI only. ExistingwwE bitcopy/wwIpositivezero andIEVA-enabled branch unchanged atsource; no removedbytes claimed.",
+  "genuine_parent_object_sha256": "f212b18f20e021a49a923305f75f18bea634af673c101fc77f0ba6c42ef5bb78",
+  "original_PP_sha256": "57b808c0ad6a92938fcb05aa2df39f09e2e382f8bfb548a9afdd3e26608e6217",
+  "parent_allocated_reloc_symbol_exact": true,
+  "public_MODULE_byte_exact": true,
+  "source_inverse_exact": true,
+  "compiler_identity": {
+    "mpif90": "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+    "mpif90_sha256": "2a8b1d4634621b0952d5b1e68701398ed66009cb15e67475f316196edf69b3ca",
+    "gfortran": "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gfortran",
+    "gfortran_sha256": "7874f5d39c7512ec747f9a4ff6ba9d72ba9614a90c4d14ff80ff7f68738fab9a",
+    "wrapper_command": "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gfortran",
+    "LD_PRELOAD_absent": true
+  },
+  "compiler_version_firstline": "GNU Fortran (GCC) 13.3.0",
+  "same_strict_generic_flags": [
+    "-O2",
+    "-fno-fast-math",
+    "-ffp-contract=off",
+    "-w",
+    "-fno-fast-math",
+    "-ffp-contract=off",
+    "-ffree-form",
+    "-ffree-line-length-none",
+    "-fconvert=big-endian",
+    "-frecord-marker=4",
+    "-fallow-argument-mismatch",
+    "-fallow-invalid-boz",
+    "-g",
+    "-fopenmp-simd",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+    "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include"
+  ],
+  "actual_WW_SPLIT_call_counts": {
+    "native": {
+      "memcpy": 1,
+      "memset": 3
+    },
+    "parent": {
+      "memcpy": 1,
+      "memset": 3
+    },
+    "candidate": {
+      "memcpy": 1,
+      "memset": 3
+    }
+  },
+  "actual_copy_fill_relocations": {
+    "native": [
+      {
+        "symbol_offset": "0x2dc",
+        "target": "memcpy-0x4"
+      },
+      {
+        "symbol_offset": "0x2e9",
+        "target": "memset-0x4"
+      },
+      {
+        "symbol_offset": "0x450",
+        "target": "memset-0x4"
+      },
+      {
+        "symbol_offset": "0x45d",
+        "target": "memset-0x4"
+      }
+    ],
+    "parent": [
+      {
+        "symbol_offset": "0x2dc",
+        "target": "memcpy-0x4"
+      },
+      {
+        "symbol_offset": "0x2e9",
+        "target": "memset-0x4"
+      },
+      {
+        "symbol_offset": "0x450",
+        "target": "memset-0x4"
+      },
+      {
+        "symbol_offset": "0x45d",
+        "target": "memset-0x4"
+      }
+    ],
+    "candidate": [
+      {
+        "symbol_offset": "0x2dc",
+        "target": "memcpy-0x4"
+      },
+      {
+        "symbol_offset": "0x2e9",
+        "target": "memset-0x4"
+      },
+      {
+        "symbol_offset": "0x450",
+        "target": "memset-0x4"
+      },
+      {
+        "symbol_offset": "0x45d",
+        "target": "memset-0x4"
+      }
+    ]
+  },
+  "ordinary_branch_result": "Native/freshparent/candidate retain memcpy relocation+0x2dc and memset+0x2e9 (calls return+0x2df/+0x2ec); twoadditionalmemset relocations+0x450/+0x45d remainIEVAinitialization. Onepragma did not remove the measured splitrowcalls.",
+  "numerical_qualification": false,
+  "measured_gain": null,
+  "caller_or_timing_run": false,
+  "disposition_reason": "PrespecifiedcodegenFIRST stop gate: requested fused load/two-store mechanism absent. No compilerflag/helper/ISA variant or fixtureladder; no assertion of numericalfailure or timingregression.",
+  "lifecycle": {
+    "invocation_id": "2df255434526444e866ab5638cd18782",
+    "unit": "wrf-cpu-ww-split-fused-copy-zero-codegen-hpc02-r1.service",
+    "host": "hpc02",
+    "cpus": [
+      24,
+      25
+    ],
+    "memory_bytes": 4294967296,
+    "swap_bytes": 0,
+    "cap_seconds": 300,
+    "main_pid": 0,
+    "active_state": "inactive",
+    "result": "success",
+    "exit_code": 0,
+    "cgroup_paths_absent": true,
+    "same_INV_positive_manager_journal": true,
+    "node_released": true
+  },
+  "working_source_or_default_changed": false,
+  "references": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/ww-split-fused-copy-zero-r1/codegen-gate-r1/actual-native-r1/receipt.json": "6e963cebdaf9fc6a5072b8fe2015041675f8f5621b5c5ce0f6ddcf6dbcb46c14",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/ww-split-fused-copy-zero-r1/codegen-gate-r1/actual-native-r1/closure.json": "f426ded5a652bb6c5f2e166bcf33ac5c7db4368d4a54a38aebdcc32cf6162cf2",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/ww-split-fused-copy-zero-r1/codegen-gate-r1/actual-native-r1/controller.json": "9976c9ac65e6b0ccc18c1e241994525070a2535fcfa6a7140a6569ea89c3aa6c",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/ww-split-fused-copy-zero-r1/codegen-gate-r1/inputs/parent_module_ieva_em.F": "407164f39b91199867a13e5fac6b380d0b21a62ce7ef65605cb4c6069ea98799",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/ww-split-fused-copy-zero-r1/codegen-gate-r1/inputs/candidate_module_ieva_em.F": "87b197778b2855b7586c9809edb3bbd17f6363d8cb213c799f797123026b0fd5",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/ww-split-fused-copy-zero-r1/codegen-gate-r1/inputs/ONE_PRAGMA_ONLY.diff": "d7f6baa7641bd370cbf95928c62832c6cf503e137b3dadc7948268eeade16053",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/ww-split-fused-copy-zero-r1/codegen-gate-r1/inputs/compile-recipe.json": "6faf286ba0ab9b5e679442fce0993a9af868e7a93c28d80cb9aa3310ef75f0f3",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/ww-split-fused-copy-zero-r1/codegen-gate-r1/inputs/run_gate.py": "244899f4402ec4709af7a0dd7c53b76c09f0def422f99cc5e2e164c059675cc7",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/ww-split-fused-copy-zero-r1/codegen-gate-r1/inputs/source-pins.json": "da7b0f842f51b06fad8590726a3eff24959caa61c903bb965e6f54b1bded049c",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/ww-split-fused-copy-zero-r1/PROVIDER_ADJUDICATION.json": "a952341ae58a6725f59de6b37a27f0a2b51d0a802d663f852bca2ea64e95d954",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/ww-split-fused-copy-zero-r1/provider-review-preparation-r1/actual-provider-r1/author/receipt.json": "bc1ff746cab54178443ffda3d1d3c1709db23655706887079f3dd413288ec8ea",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/ww-split-fused-copy-zero-r1/provider-review-preparation-r1/actual-provider-r1/author/response.txt": "19463d0cbc5652f24ec16df815f9e71fd8f74bd23ef6569dcf06b29ba5a7eb65",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/ww-split-fused-copy-zero-r1/provider-review-preparation-r1/actual-provider-r1/review/receipt.json": "dfb7b9a32e93e234e937641d6ad7d03ebd50c9d7626c8c323a9e3d550748e675",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/ww-split-fused-copy-zero-r1/provider-review-preparation-r1/actual-provider-r1/review/response.txt": "af28f0f7827cacccee1fcfdadeeb1d1a9aeea19f1a1989364c98c41d8275ac79"
+  }
+}

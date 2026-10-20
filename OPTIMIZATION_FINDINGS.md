@@ -1,9 +1,19 @@
 # WRF CPU optimization findings
 
-Current nine-hour scientific scope (2026-10-20): selected41b/51a/3edf passed the unchanged original ten-product/1625-step checker, all512 ranks, two tiles, all four positive writers and all32 field markers; model and reader scopes strongly closed. The three actual noon captures contain700/704/710 samples with14.926s common overlap. This was a PROFILED_UNPAIRED diagnostic versus retained original546b:1833.850289s wall/922292.209006s aggregate CPU/1736.849780s main, descriptive differences11.378754%/8.617392%/6.194550%. These are not a fresh or sustained matched speedup. The latest matched unprofiled benchmark remains the fresh three-hour pair19.469520% wall/12.887980% CPU/6.158380% main. ProducerNULL and post-testb37/909 source tracking remain separate; experimental carry codec is excluded. See [nine-hour qualification](tools/cpu-working/NINE_HOUR_FINAL_QUALIFICATION.json).
+## Selected codec: block-local carry (2026-10-20)
+
+The selected codec is now **e1d8 block-carry**, with unchanged WRF41b/sourceb37/archiveCF22, outputpool51a/source909, rootinput06d/NCa32, HDF825, faba map and two tiles. The original short check passed **two complete products,35 ordered steps,all512 ranks**, with exact input/worker/runtime checks; all model and reader scopes strongly closed. The existing067e diagnostic observer was retained. Codec source was recorded after testing in commit `862bae1e`; frozen raw producerNULL records are unchanged.
+
+The fixed synthetic complete compress_block kernel was7.15%/7.23% shorter in wall and7.03%/7.14% lower processCPU across opposite-order hostpairs, with exact bytes/state/FENV. Complete-provider timings were mixed. **No provider or forecast gain is claimed. Current e1d8 owns no three-hour or nine-hour qualification.**
+
+The latest matched three-hour observation—**6.15838% lower main elapsed,19.46952% lower whole wall,12.88798% less aggregateCPU**—belongs to **prior3edf**. Its exact four-product545-step records and the prior profiledUNPAIRED ten-product1625-step nine-hour records are archived under `BEFORE_BLOCK_CARRY`; neither is transferred to e1d8. Main elapsed includes communication/backpressure, not integrationCPU. Rollback restores the paired BEFORE_BLOCK_CARRY selection/binding and slide-hash/3edf codec only.
+
+[Current shortqualification](tools/cpu-output/quilt512/codec/compress-block-local-carry/APPLICATION_QUALIFICATION.json).
+
+Prior3edf nine-hour scientific scope (2026-10-20): then-selected41b/51a/3edf passed the unchanged original ten-product/1625-step checker, all512 ranks, two tiles, all four positive writers and all32 field markers; model and reader scopes strongly closed. The three actual noon captures contain700/704/710 samples with14.926s common overlap. This was a PROFILED_UNPAIRED diagnostic versus retained original546b:1833.850289s wall/922292.209006s aggregate CPU/1736.849780s main, descriptive differences11.378754%/8.617392%/6.194550%. These are not a fresh or sustained matched speedup. The latest matched unprofiled benchmark remains the fresh three-hour pair19.469520% wall/12.887980% CPU/6.158380% main. ProducerNULL and post-testb37/909 source tracking remain separate; Those prior measurements exclude block-carry. See [nine-hour qualification](tools/cpu-working/NINE_HOUR_FINAL_QUALIFICATION.json).
 
 
-## Current DF + pool three-hour qualification (2026-10-20)
+## Prior3edf DF + pool three-hour qualification (2026-10-20)
 
 A fresh control-first corrected-original546b versus current DF41b/pool51a/3edf comparison passed **four complete products,545 ordered steps,all512 ranks,two tiles,all four positive writers and32 field-view markers**. Whole MPI/model wall was **822.587693 → 662.433817s (19.46952% lower,1.241766×)**; aggregate node cgroup CPU was **368895.741336 → 321352.545937s (12.88798% lower)**. Main-step elapsed was597.12504 →560.35180s (6.15838% lower); it includes communication/backpressure and is not integration CPU.
 
@@ -28,7 +38,7 @@ Whole model/MPI wall includes input, initialization, computation, communication,
 
 The private FAST level-invariant prototype passed native/complete-provider exact checks, but complete-provider wall changed0.13% slower/0.03% faster and process CPU0.11% slower/0.51% faster on hpc02/04. No significant saving was established; it is parked and excluded. MYJPBL DIFCOF SIMD passed the genuine-parent full-module captured-caller and32 IEEE/state cases; complete-caller performance/application qualification remain pending. Output-boundary attribution and bounded private shuffle-scratch reuse are continuing investigations, with no new benefit claim.
 
-## Current working codec: slide-hash unrolling (2026-10-20)
+## Prior codec: slide-hash unrolling (2026-10-20)
 
 The working configuration now uses codec `3edf15a2` with the retained CEC compute build and de5b quilting provider. One loop-unroll directive preserves the original AVX2 saturating arithmetic and array traversal. Complete-function tests on hpc02/04 measured **12.29–16.49% less wall time** and **15.03–17.72% less process CPU**, with exact arrays and IEEE state. These are standalone function gains, including per-call clock overhead, not output-stage or forecast gains.
 
@@ -3282,3 +3292,4 @@ Provider37.2590%/37.2809% lowerwall and35.6025%/36.8113% lessprocessCPU describe
 Logical retention is225720000bytes/writer,902880000bytes for four co-located writers (about0.841GiB) between callbacks, not memory savings. Physical peak/PSS/admission effects remain unmeasured. Existing strictC11/-lm fused-pack selector reads the new source hash; it was not rebuilt merely to test reversible selection. Original shared-source pins and other provider branches remain literal.
 
 Historical short-pool closeout (before the fresh three-hour pair and current nine-hour SCI): Rollback restores pairedBEFORE_PRIVATE_SHUFFLE_SCRATCH records tode5b/source8db fromprevious_root_chunk_provider.c, retainingDF41b/3edf/input. Production/master stay unchanged. Nextfresh546b→DF41b/pool51a threehour pair uses4hourlyproducts545/all4positivewriters/all32markers without067e/perf, cacheEACH. PriorCEC3edf/de5b19.30009%wholewall is separate; currentpool has no measuredwhole-run speedup yet. Currentprovider profile capture closed normally; sample analysis selects the next measured opportunity. AWS remains suspended; continue the active Goal.
+Current-profile closeouts (2026-10-20): the one-directive WW_SPLIT trial retained the same memcpy/memset calls, so no caller timing or promotion followed. Thompson repeated-power reuse is already present in the current compiled routine. Sampled PD-advection instructions map to accepted SIMD/cache work or previously closed strict-IEEE lanes. Placement/progress variants already have scoped evidence; selected polling samples alone do not justify another layout sweep. Compact dispositions are retained in `tools/cpu-working/profile-audits-20261020/`. The distinct radiation scratch-scalar candidate remains under investigation.

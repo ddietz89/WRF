@@ -1,4 +1,4 @@
-# Optional block-local bit-buffer carry
+# Default block-local bit-buffer carry
 
 The original short full512 application passed (two complete products and35 ordered steps). The default is now `block-carry`; no build command activates a model. Current e1d8 has no own three-hour or nine-hour qualification.
 

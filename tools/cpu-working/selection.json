@@ -14,8 +14,8 @@
       "sha256": "8adc33059a98399cd8adea41de071598aaa2b09ff53eb3ae860cad0c6696b538"
     },
     "ng": {
-      "path": "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/libz.so.1.3.1.zlib-ng",
-      "sha256": "3edf15a2d69040bb29ff52446bfcf103fbfdb8b7385fd68735e8a536a06f332c"
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng",
+      "sha256": "e1d8bc0774b7c54b4b63e7d6892c6485bec9b3c7032985a229961ba0569cc450"
     }
   },
   "private_hdf5": {
@@ -47,9 +47,9 @@
   "read_affine_IO_archive_sha256": "651835f31089e16759177734198ece5b121d704355c73abddde483f4cae2c14c",
   "read_affine_IO_object_sha256": "c9c4e5b7a0225523e7d85cfc188022d797204d3f4dd4494b54c416e3bec99320",
   "schema_version": 3,
-  "status": "QUALIFIED_MYJ_DIFCOF_PRIVATE_SHUFFLE_SCRATCH_FRESH_THREE_HOUR_FULL512",
-  "scope": "GNU13.3 strict/OMP1/cold06:00\u201309:00/full512=480compute8x60+4x8quilt/faba/twoTiles/DF41b/root06dNCa32/outputpool51a/codec3edf/HDF825/shared1/FIELDVIEW1/singleIB;4completeproducts545steps/all4positivewriters/all32markers. One fresh fixed-order wholeinclusiveIO pair; no isolated/additive/repeatability claim; current9h SCI separately qualified by profiled UNPAIRED diagnostic.",
-  "includes": "All retained compute, Thompson shared-table/lazy-init, output, codec and HDF5 improvements from the previous selection, READ_DI1 affine rows, plus qualified root-only parallel input chunk decoding. Fused output packing/shuffling removes intermediate padded packed storage; compressedbytes and originalscience exact. MCICA mask/property consumer fusion removes temporary logical-mask allocation/population/readback; all RNG/arithmetic/other code unchanged. AVX2 slide-hash loop unrolling removes repeated loop control while preserving the original saturating arithmetic and traversal; Adler remains unchanged. MYJPBL DIFCOF ordered SIMD adds only two directives; complete captured-caller gains and exact short application qualified. Private four-slot shuffle scratch reuse across callbacks removes repeated scratch allocation, with bounded retention; fullshim/API and originalshortscience exact.",
+  "status": "QUALIFIED_BLOCK_CARRY_CODEC_SHORT_FULL512_PENDING_OWN_LONGER_HORIZON",
+  "scope": "Current41b/b37+pool51a/909+block-carrye1d8/root06dNCa32: originalshort2products35/full512/twoTiles/input/writer/closure checks PASS; currentown3h/9h FALSE. Directkernelgain only; completeprovider mixed/no forecastbenefitclaim.",
+  "includes": "All retained compute, Thompson shared-table/lazy-init, output, codec and HDF5 improvements from the previous selection, READ_DI1 affine rows, plus qualified root-only parallel input chunk decoding. Fused output packing/shuffling removes intermediate padded packed storage; compressedbytes and originalscience exact. MCICA mask/property consumer fusion removes temporary logical-mask allocation/population/readback; all RNG/arithmetic/other code unchanged. AVX2 slide-hash loop unrolling removes repeated loop control while preserving the original saturating arithmetic and traversal; Adler remains unchanged. MYJPBL DIFCOF ordered SIMD adds only two directives; complete captured-caller gains and exact short application qualified. Private four-slot shuffle scratch reuse across callbacks removes repeated scratch allocation, with bounded retention; fullshim/API and originalshortscience exact. Block-local integer bit-buffer carry removes per-symbol state publication in compress_block; exact wholefunction/codeccaller/state and shortscience passed.",
   "source_commit_scope": "Committed after actual native/caller/full512 short science; no modification of frozen producer NULL records. Existing qualified MYJ -fopenmp-simd recipe is required for packed lowering; no new flags/global flags or generic-Make reproduction claim.",
   "input_implementation_commit": "614267f340a23ffc342962b3c64e323719fe4d06",
   "root_input": {
@@ -78,16 +78,16 @@
       "WRF_INPUT_PREDECODE_OWNER": "/pool/wrf-experiment/wrf-cpu/kernels/ordinary-nc-predecoded-fp-admission-build-hpc02-r3/output/libnetcdf.so.19",
       "WRF_INPUT_SCOPE_LOGDIR": "<fresh_run>/input-logs"
     },
-    "other_511_ranks": "Retain original NC8adc/selectedoutputpool51a/codec3edf; rootinputadapter/privateNC onlyonrank0."
+    "other_511_ranks": "Retain originalNC8adc/outputpool51a; currentcodece1d8. Rootinputadapter06d/privateNCa32 onlyrank0."
   },
   "science": {
-    "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
-    "receipt_sha256": "82b69d0d6454fa95cc5c9984c498f9dbde0d958315894e06a9eb6eb54bac76c1",
-    "reader_closure_sha256": "2bf74027e74539eb8ccd1750bc0db76fd017746526b09a19f43c20b74bcfd7a4",
-    "invocation_id": "e283901f5d0340b8b2271c55b20d27e4",
-    "products": 4,
-    "ordered_steps": 545,
-    "end_time": "2026-10-12_09:00:00",
+    "status": "PASS_RETAINED_ORIGINAL_TWO_HISTORY_35_STEPS_512_OWNED_FIELD_VIEW",
+    "receipt_sha256": "075e45506947752b3af936dba300740e854e8026b4e1c71beaaa1acfbe006ea2",
+    "reader_closure_sha256": "12a5bd80257029dd17d97fd98b90430fa112abb42e06f899ba95c964c227ec13",
+    "invocation_id": "02a06c4ea28945f99bca5eaccc1ee789",
+    "products": 2,
+    "ordered_steps": 35,
+    "end_time": "2026-10-12_06:10:00",
     "world": 512,
     "compute": 480,
     "quilt_groups": 4,
@@ -95,25 +95,26 @@
     "tiles": 2,
     "positive_writer_roots": [
       487,
-      495,
+      495
+    ],
+    "zero_writer_roots": [
       503,
       511
     ],
-    "zero_writer_roots": [],
-    "field_view_markers": 32,
+    "field_view_markers": 16,
     "protected_original_checker_unchanged": true,
     "all_model_reader_scopes_closed": true,
     "reader_exit_code_raw": null,
-    "protected_original_compare_one_AST_exact": true
+    "reader_manager_success_invocation_bound": true
   },
   "qualification_file": "tools/cpu-output/quilt512/qualification.json",
-  "current_application_qualification_file": "tools/cpu-working/THREE_HOUR_FINAL_QUALIFICATION.json",
+  "current_application_qualification_file": "tools/cpu-output/quilt512/codec/compress-block-local-carry/APPLICATION_QUALIFICATION.json",
   "source_build_binding_file": "CURRENT_SOURCE_BUILD_BINDING.json",
-  "current_three_hour_qualified": true,
-  "current_nine_hour_qualified": true,
+  "current_three_hour_qualified": false,
+  "current_nine_hour_qualified": false,
   "last_three_hour_benchmark": {
-    "evidence_file": "THREE_HOUR_RESULT.json",
-    "qualification_file": "THREE_HOUR_FINAL_QUALIFICATION.json",
+    "evidence_file": "PREVIOUS_THREE_HOUR_RESULT_BEFORE_BLOCK_CARRY.json",
+    "qualification_file": "PREVIOUS_THREE_HOUR_FINAL_QUALIFICATION_BEFORE_BLOCK_CARRY.json",
     "executable": {
       "path": "/pool/wrf-experiment/wrf-cpu/builds/currentCEC-myj-difcof-simd-current-r3/wrf.exe",
       "sha256": "41bfb335979cefd8f12a8d0c7a682d85d81cae88928fe12ee0badfec58dd7789"
@@ -143,7 +144,7 @@
     "wall_speedup_ratio": 1.2417658518144021,
     "full_qualification_sha256": "9a00e131349d9e6785c3f08cef0949c5f4ab6e7bb2b17c10da7d656c85816e40",
     "fresh_matched_timing": true,
-    "applies_to_current_selection": true,
+    "applies_to_current_selection": false,
     "repeatability_established": false,
     "scope": "GNU13.3 strict/OMP1/cold06:00\u201309:00/full512=480compute8x60+4x8quilt/faba/twoTiles/DF41b/root06dNCa32/outputpool51a/codec3edf/HDF825/shared1/FIELDVIEW1/singleIB;4completeproducts545steps/all4positivewriters/all32markers. One fresh fixed-order wholeinclusiveIO pair; no isolated/additive/repeatability or current9h claim."
   },
@@ -156,18 +157,18 @@
   "memory_qualification_file": "tools/cpu-memory/thompson-table-sharing/lazy-group-init/QUALIFICATION.json",
   "activation": "Selection record, not a launcher. Use a fresh bounded lease/run/log directory and the exact root-only input rank-exec binding, with all original runtime checks and cache-before-each-arm SOP. Never preload launchers/helpers.",
   "rollback": {
-    "selection": "PREVIOUS_SELECTION_BEFORE_PRIVATE_SHUFFLE_SCRATCH.json",
-    "source_build_binding": "PREVIOUS_SOURCE_BUILD_BINDING_BEFORE_PRIVATE_SHUFFLE_SCRATCH.json",
-    "action": "Restorede5boutput/8dbprovider only; retainDF41b/3edf/rootinput06dNCa32. Existingprevious_root_chunk_provider.c provides literal source rollback."
+    "selection": "PREVIOUS_SELECTION_BEFORE_BLOCK_CARRY.json",
+    "source_build_binding": "PREVIOUS_SOURCE_BUILD_BINDING_BEFORE_BLOCK_CARRY.json",
+    "action": "Restore paired BEFORE_BLOCK_CARRY records and codecdefault slide-hash/3edf only; retain WRF41b/b37/CF22,pool51a/909,input06dNCa32 andallotheracceptedcode."
   },
-  "claim_limits": "CurrentDF41b/pool51a owns exact4products545/full512/twoTiles/all4positivewriters/all32markers and freshfixed-order wholeinclusiveIO19.46952%wall/12.88798%aggregateCPU observation. Mainelapsed6.15838% is notintegrationCPU. No isolated/additive/repeatability claim; own9h SCI now qualified by profiled UNPAIRED diagnostic; syntheticcaller gains remain separate.",
-  "next_qualification": "Current9h SCI exact10/1625 is qualified by profiled UNPAIRED diagnostic; latest matched unprofiled benchmark remains fresh3h. Continue measured-source/caller opportunities under root scheduling.",
+  "claim_limits": "e1d8 owns short2/35 SCI only. Latest matched3h 19.469520%wall/12.887976%aggregateCPU/6.158382%main belongs PRIOR3edf, not currentcodec; profiledUNPAIRED9h also PRIOR3edf. No new wholeprovider/forecastgain, additive, repeatability or extendedhorizon claim.",
+  "next_qualification": "Currente1d8 has shortSCI only; no new3h/9h transfer. Continue root-approved measuredportfolio work; future periodicqualification separately scoped.",
   "output_fusion_qualification_file": "tools/cpu-output/quilt512/padding-block32/NATIVE_QUALIFICATION.json",
   "latest_nine_hour": {
-    "evidence_file": "NINE_HOUR_RESULT.json",
-    "qualification_file": "NINE_HOUR_FINAL_QUALIFICATION.json",
+    "evidence_file": "PREVIOUS_NINE_HOUR_RESULT_BEFORE_BLOCK_CARRY.json",
+    "qualification_file": "PREVIOUS_NINE_HOUR_FINAL_QUALIFICATION_BEFORE_BLOCK_CARRY.json",
     "qualification_sha256": "d6e3cbbfa051e211e93f8303d332289a650439a9341d3e43e60cfd2887b302d2",
-    "applies_to_current_selection": true,
+    "applies_to_current_selection": false,
     "scientific_scope_only": true,
     "comparison_design": "PROFILED_UNPAIRED diagnosticcandidate versus retainedoriginal546b scientificreference; no sustained/matchedforecastspeedupclaim",
     "metrics": {
@@ -312,8 +313,8 @@
     "protected_original_checker_unchanged": true
   },
   "slide_hash_unroll4_qualification_file": "tools/cpu-output/quilt512/codec/slide-hash-unroll4/APPLICATION_QUALIFICATION.json",
-  "codec_postscience_tracking_commit": "624bc11610aff44c5dbdf458768d660ddbf5b806",
-  "codec_rollback_selection": "tools/cpu-working/PREVIOUS_SELECTION_BEFORE_SLIDE_HASH_UNROLL4.json",
+  "codec_postscience_tracking_commit": "862bae1e103fa0085fa4b2eeda845ca3951034ae",
+  "codec_rollback_selection": "tools/cpu-working/PREVIOUS_SELECTION_BEFORE_BLOCK_CARRY.json",
   "previous_mcica_rollback": {
     "selection": "PREVIOUS_SELECTION_BEFORE_MCICA_MASK_FUSION.json",
     "source_build_binding": "PREVIOUS_SOURCE_BUILD_BINDING_BEFORE_MCICA_MASK_FUSION.json",
@@ -496,5 +497,41 @@
     "applies_to_current_selection": false,
     "repeatability_established": false,
     "scope": "GNU13.3 strict/OMP1/cold06:00\u201309:00/full512=480compute8x60+4x8quilt/faba/twoTiles/CEC/root06dNCa32/outputde5b/codec3edf/HDF825/shared1/FIELDVIEW1/singleIB;4completeproducts545steps/all4positivewriters. One fresh fixed-order inclusiveIO pair; no isolated/additive gain or current9h claim."
+  },
+  "block_carry_qualification_file": "tools/cpu-output/quilt512/codec/compress-block-local-carry/APPLICATION_QUALIFICATION.json",
+  "previous_3edf_three_hour_science": {
+    "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+    "receipt_sha256": "82b69d0d6454fa95cc5c9984c498f9dbde0d958315894e06a9eb6eb54bac76c1",
+    "reader_closure_sha256": "2bf74027e74539eb8ccd1750bc0db76fd017746526b09a19f43c20b74bcfd7a4",
+    "invocation_id": "e283901f5d0340b8b2271c55b20d27e4",
+    "products": 4,
+    "ordered_steps": 545,
+    "end_time": "2026-10-12_09:00:00",
+    "world": 512,
+    "compute": 480,
+    "quilt_groups": 4,
+    "quilt_ranks_per_group": 8,
+    "tiles": 2,
+    "positive_writer_roots": [
+      487,
+      495,
+      503,
+      511
+    ],
+    "zero_writer_roots": [],
+    "field_view_markers": 32,
+    "protected_original_checker_unchanged": true,
+    "all_model_reader_scopes_closed": true,
+    "reader_exit_code_raw": null,
+    "protected_original_compare_one_AST_exact": true
+  },
+  "previous_slide_hash_postscience_tracking_commit": "624bc11610aff44c5dbdf458768d660ddbf5b806",
+  "codec_post_test_source_identity": {
+    "status": "POST_TEST_CODEC_SOURCE_IDENTITY_RECORDED",
+    "source_commit": "862bae1e103fa0085fa4b2eeda845ca3951034ae",
+    "raw_producer_source_commit": null,
+    "source_sha256": "4da0730290a0d161899d23eb282c1ff4eb0377ad049c9a015fc0a521de5350a3",
+    "codec_sha256": "e1d8bc0774b7c54b4b63e7d6892c6485bec9b3c7032985a229961ba0569cc450",
+    "build_script_sha256": "1bd199c6171bd374be1175c3fc328495ba78404262854baa41f900abd7c8a2a4"
   }
 }
