@@ -1,8 +1,8 @@
 {
-  "source_commit": "b37e02ce68336284e8478072ab0178a011b7587c",
+  "source_commit": "d27df44feabb1356cd5b6996fa74983d09e3edab",
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentCEC-myj-difcof-simd-current-r3/wrf.exe",
-    "sha256": "41bfb335979cefd8f12a8d0c7a682d85d81cae88928fe12ee0badfec58dd7789"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current41b-rtrnmc-abscld-scalar-current-r1/wrf.exe",
+    "sha256": "0de73aacab621810fa14a591857344d0818004ffa4817dfd3a356f7ac072ba04"
   },
   "artifacts": {
     "shim": {
@@ -47,10 +47,10 @@
   "read_affine_IO_archive_sha256": "651835f31089e16759177734198ece5b121d704355c73abddde483f4cae2c14c",
   "read_affine_IO_object_sha256": "c9c4e5b7a0225523e7d85cfc188022d797204d3f4dd4494b54c416e3bec99320",
   "schema_version": 3,
-  "status": "QUALIFIED_BLOCK_CARRY_CODEC_SHORT_FULL512_PENDING_OWN_LONGER_HORIZON",
-  "scope": "Current41b/b37+pool51a/909+block-carrye1d8/root06dNCa32: originalshort2products35/full512/twoTiles/input/writer/closure checks PASS; currentown3h/9h FALSE. Directkernelgain only; completeprovider mixed/no forecastbenefitclaim.",
-  "includes": "All retained compute, Thompson shared-table/lazy-init, output, codec and HDF5 improvements from the previous selection, READ_DI1 affine rows, plus qualified root-only parallel input chunk decoding. Fused output packing/shuffling removes intermediate padded packed storage; compressedbytes and originalscience exact. MCICA mask/property consumer fusion removes temporary logical-mask allocation/population/readback; all RNG/arithmetic/other code unchanged. AVX2 slide-hash loop unrolling removes repeated loop control while preserving the original saturating arithmetic and traversal; Adler remains unchanged. MYJPBL DIFCOF ordered SIMD adds only two directives; complete captured-caller gains and exact short application qualified. Private four-slot shuffle scratch reuse across callbacks removes repeated scratch allocation, with bounded retention; fullshim/API and originalshortscience exact. Block-local integer bit-buffer carry removes per-symbol state publication in compress_block; exact wholefunction/codeccaller/state and shortscience passed.",
-  "source_commit_scope": "Committed after actual native/caller/full512 short science; no modification of frozen producer NULL records. Existing qualified MYJ -fopenmp-simd recipe is required for packed lowering; no new flags/global flags or generic-Make reproduction claim.",
+  "status": "QUALIFIED_LW_ABSCLD_BLOCK_CARRY_FRESH_THREE_HOUR_FULL512",
+  "scope": "Current LW0de7/a21 post-testd27 + DF/pool51a/root06dNCa32/codece1d8: fresh original546b control-first three-hour pair;4products545/all512/faba/twoTiles/all4positivewriters/all32markers, no observer/perf. Own3h TRUE, own9h FALSE.",
+  "includes": "All retained compute, Thompson shared-table/lazy-init, output, codec and HDF5 improvements from the previous selection, READ_DI1 affine rows, plus qualified root-only parallel input chunk decoding. Fused output packing/shuffling removes intermediate padded packed storage; compressedbytes and originalscience exact. MCICA mask/property consumer fusion removes temporary logical-mask allocation/population/readback; all RNG/arithmetic/other code unchanged. AVX2 slide-hash loop unrolling removes repeated loop control while preserving the original saturating arithmetic and traversal; Adler remains unchanged. MYJPBL DIFCOF ordered SIMD adds only two directives; complete captured-caller gains and exact short application qualified. Private four-slot shuffle scratch reuse across callbacks removes repeated scratch allocation, with bounded retention; fullshim/API and originalshortscience exact. Block-local integer bit-buffer carry removes per-symbol state publication in compress_block; exact wholefunction/codeccaller/state and shortscience passed. LW ABSCLD scratch removal keeps identical scalar arithmetic and loop order while removing one allocated scratch stream; native/caller and fresh combined3h exact.",
+  "source_commit_scope": "POST_TEST_SOURCE_IDENTITY d27 only; frozen native/overlay producer source_commitNULL unchanged. Existing MYJ and other qualified component flags retained.",
   "input_implementation_commit": "614267f340a23ffc342962b3c64e323719fe4d06",
   "root_input": {
     "enabled_in_working_configuration": true,
@@ -81,13 +81,13 @@
     "other_511_ranks": "Retain originalNC8adc/outputpool51a; currentcodece1d8. Rootinputadapter06d/privateNCa32 onlyrank0."
   },
   "science": {
-    "status": "PASS_RETAINED_ORIGINAL_TWO_HISTORY_35_STEPS_512_OWNED_FIELD_VIEW",
-    "receipt_sha256": "075e45506947752b3af936dba300740e854e8026b4e1c71beaaa1acfbe006ea2",
-    "reader_closure_sha256": "12a5bd80257029dd17d97fd98b90430fa112abb42e06f899ba95c964c227ec13",
-    "invocation_id": "02a06c4ea28945f99bca5eaccc1ee789",
-    "products": 2,
-    "ordered_steps": 35,
-    "end_time": "2026-10-12_06:10:00",
+    "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+    "receipt_sha256": "ad4662121363671a9b00bd69d798af932c4bb5badcbfd158edb29d88ffa6e858",
+    "reader_closure_sha256": "cbad6fdeec5afc8cecabb27d03edc612bcc63725e329784eb671a5e2c0f6284f",
+    "invocation_id": "0a9338483e254035a1cccaf525783c36",
+    "products": 4,
+    "ordered_steps": 545,
+    "end_time": "2026-10-12_09:00:00",
     "world": 512,
     "compute": 480,
     "quilt_groups": 4,
@@ -95,58 +95,57 @@
     "tiles": 2,
     "positive_writer_roots": [
       487,
-      495
-    ],
-    "zero_writer_roots": [
+      495,
       503,
       511
     ],
-    "field_view_markers": 16,
+    "zero_writer_roots": [],
+    "field_view_markers": 32,
     "protected_original_checker_unchanged": true,
     "all_model_reader_scopes_closed": true,
     "reader_exit_code_raw": null,
     "reader_manager_success_invocation_bound": true
   },
   "qualification_file": "tools/cpu-output/quilt512/qualification.json",
-  "current_application_qualification_file": "tools/cpu-output/quilt512/codec/compress-block-local-carry/APPLICATION_QUALIFICATION.json",
+  "current_application_qualification_file": "tools/cpu-compute/rtrnmc-abscld-scalar/APPLICATION_QUALIFICATION.json",
   "source_build_binding_file": "CURRENT_SOURCE_BUILD_BINDING.json",
-  "current_three_hour_qualified": false,
+  "current_three_hour_qualified": true,
   "current_nine_hour_qualified": false,
   "last_three_hour_benchmark": {
-    "evidence_file": "PREVIOUS_THREE_HOUR_RESULT_BEFORE_BLOCK_CARRY.json",
-    "qualification_file": "PREVIOUS_THREE_HOUR_FINAL_QUALIFICATION_BEFORE_BLOCK_CARRY.json",
+    "evidence_file": "THREE_HOUR_RESULT.json",
+    "qualification_file": "THREE_HOUR_FINAL_QUALIFICATION.json",
     "executable": {
-      "path": "/pool/wrf-experiment/wrf-cpu/builds/currentCEC-myj-difcof-simd-current-r3/wrf.exe",
-      "sha256": "41bfb335979cefd8f12a8d0c7a682d85d81cae88928fe12ee0badfec58dd7789"
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current41b-rtrnmc-abscld-scalar-current-r1/wrf.exe",
+      "sha256": "0de73aacab621810fa14a591857344d0818004ffa4817dfd3a356f7ac072ba04"
     },
-    "source_commit": "b37e02ce68336284e8478072ab0178a011b7587c",
+    "source_commit": "d27df44feabb1356cd5b6996fa74983d09e3edab",
+    "source_commit_semantics": "POST_TEST_SOURCE_IDENTITY;rawproducerNULL",
     "output_postscience_source_commit": "909ab6ef55ac5351f9fd03e4019be470e89a3929",
-    "codec_sha256": "3edf15a2d69040bb29ff52446bfcf103fbfdb8b7385fd68735e8a536a06f332c",
-    "codec_source_commit": "624bc11610aff44c5dbdf458768d660ddbf5b806",
+    "codec_sha256": "e1d8bc0774b7c54b4b63e7d6892c6485bec9b3c7032985a229961ba0569cc450",
     "comparison_design": "Fresh fixed-order corrected-original versus combined current candidate; no isolated outputpadding/SIMD/input or earlierkernel attribution",
     "metrics": {
       "control": {
-        "wall_seconds": 822.5876927680802,
-        "cpu_seconds": 368895.741336,
-        "main_step_sum_seconds": 597.12504
+        "wall_seconds": 848.6774008770008,
+        "cpu_seconds": 382698.863204,
+        "main_step_sum_seconds": 626.3161
       },
       "candidate": {
-        "wall_seconds": 662.4338167828973,
-        "cpu_seconds": 321352.54593699996,
-        "main_step_sum_seconds": 560.3518
+        "wall_seconds": 657.7456797780469,
+        "cpu_seconds": 318965.303819,
+        "main_step_sum_seconds": 556.64343
       }
     },
     "reductions_percent": {
-      "wall_seconds": 19.469520075877977,
-      "cpu_seconds": 12.887976214313746,
-      "main_step_sum_seconds": 6.158381835737448
+      "wall_seconds": 22.49756160605314,
+      "cpu_seconds": 16.65371013945929,
+      "main_step_sum_seconds": 11.124202299765251
     },
-    "wall_speedup_ratio": 1.2417658518144021,
-    "full_qualification_sha256": "9a00e131349d9e6785c3f08cef0949c5f4ab6e7bb2b17c10da7d656c85816e40",
+    "wall_speedup_ratio": 1.2902819843125124,
+    "full_qualification_sha256": "4da8d5c1ccceb38da5a6c085ee27c7f00597241063ed2760c25ac7528f7e4864",
     "fresh_matched_timing": true,
-    "applies_to_current_selection": false,
+    "applies_to_current_selection": true,
     "repeatability_established": false,
-    "scope": "GNU13.3 strict/OMP1/cold06:00\u201309:00/full512=480compute8x60+4x8quilt/faba/twoTiles/DF41b/root06dNCa32/outputpool51a/codec3edf/HDF825/shared1/FIELDVIEW1/singleIB;4completeproducts545steps/all4positivewriters/all32markers. One fresh fixed-order wholeinclusiveIO pair; no isolated/additive/repeatability or current9h claim."
+    "scope": "Current LW0de7/a21 post-testd27 + DF/pool51a/root06dNCa32/codece1d8: fresh original546b control-first three-hour pair;4products545/all512/faba/twoTiles/all4positivewriters/all32markers, no observer/perf. Own3h TRUE, own9h FALSE."
   },
   "prior_nine_hour": {
     "evidence_file": "PREVIOUS_NINE_HOUR_RESULT_B1FB.json",
@@ -157,12 +156,12 @@
   "memory_qualification_file": "tools/cpu-memory/thompson-table-sharing/lazy-group-init/QUALIFICATION.json",
   "activation": "Selection record, not a launcher. Use a fresh bounded lease/run/log directory and the exact root-only input rank-exec binding, with all original runtime checks and cache-before-each-arm SOP. Never preload launchers/helpers.",
   "rollback": {
-    "selection": "PREVIOUS_SELECTION_BEFORE_BLOCK_CARRY.json",
-    "source_build_binding": "PREVIOUS_SOURCE_BUILD_BINDING_BEFORE_BLOCK_CARRY.json",
-    "action": "Restore paired BEFORE_BLOCK_CARRY records and codecdefault slide-hash/3edf only; retain WRF41b/b37/CF22,pool51a/909,input06dNCa32 andallotheracceptedcode."
+    "selection": "PREVIOUS_SELECTION_BEFORE_ABSCLD_SCALAR.json",
+    "source_build_binding": "PREVIOUS_SOURCE_BUILD_BINDING_BEFORE_ABSCLD_SCALAR.json",
+    "action": "Restore paired prior41b/CF22 bindings and reverse only four-line ABSCLD source patch to c609; retain codece1d8/output51a/root06dNCa32 and other accepted improvements."
   },
-  "claim_limits": "e1d8 owns short2/35 SCI only. Latest matched3h 19.469520%wall/12.887976%aggregateCPU/6.158382%main belongs PRIOR3edf, not currentcodec; profiledUNPAIRED9h also PRIOR3edf. No new wholeprovider/forecastgain, additive, repeatability or extendedhorizon claim.",
-  "next_qualification": "Currente1d8 has shortSCI only; no new3h/9h transfer. Continue root-approved measuredportfolio work; future periodicqualification separately scoped.",
+  "claim_limits": "One fresh fixed-order whole forecast pair:22.497562% lower MPI wall,16.653710% less aggregate CPU,11.124202% lower main elapsed,1.290281984x single-forecast wall speedup. No isolated LW/codec, additive, repeatability or multi-job-throughput claim;1.5x/2x goals unmet. Prior optimized main560.3518->556.64343 only0.66% shorter; original control597.12504->626.3161 is4.89% longer, showing cross-pair variability. Main includes communication/backpressure. Prior3edf9h remains historical and does not qualify currentLW/e1d8.",
+  "next_qualification": "Current combined LW/e1d8 has exact fresh3h;own9h remainsFALSE. Continue measured portfolio work; no automatic forecast replay.",
   "output_fusion_qualification_file": "tools/cpu-output/quilt512/padding-block32/NATIVE_QUALIFICATION.json",
   "latest_nine_hour": {
     "evidence_file": "PREVIOUS_NINE_HOUR_RESULT_BEFORE_BLOCK_CARRY.json",
@@ -277,15 +276,15 @@
   "mcica_mask_fusion_qualification_file": "tools/cpu-compute/mcica-mask-fusion/QUALIFICATION.json",
   "POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
-    "source_commit": "b37e02ce68336284e8478072ab0178a011b7587c",
+    "source_commit": "d27df44feabb1356cd5b6996fa74983d09e3edab",
     "raw_build_producer_source_commit": null,
-    "canonical_source": "phys/module_bl_myjpbl.F",
-    "canonical_source_sha256": "795e00134d47f98f512d61ffc45f93b3599202499ee8d8429009611d21c4b11f",
-    "preprocessed_candidate_sha256": "2b91deecfe5e853e1352fe5321c5406b14d3a5a50b5d11fd4e7e2be289c340dc",
-    "object_sha256": "13c85052f3eae63ff61f3d0658c2217e7db36a06d2d9ebf6139251f968adb49e",
-    "executable_sha256": "41bfb335979cefd8f12a8d0c7a682d85d81cae88928fe12ee0badfec58dd7789",
-    "archive_sha256": "cf22bba736a25b2e9f0edc483daa6b8717032624612803bbc5fe51dc42ddaee2",
-    "scope": "Committed after actual native/caller/full512 short science; no modification of frozen producer NULL records. Existing qualified MYJ -fopenmp-simd recipe is required for packed lowering; no new flags/global flags or generic-Make reproduction claim."
+    "canonical_source": "phys/module_ra_rrtmg_lw.F",
+    "canonical_source_sha256": "a21e478aafd9535e6a85daa35aa1247eb4899c5610ed61aa043d6df81b9a63f2",
+    "preprocessed_candidate_sha256": "0caa78171153df91b5f5ba770cace8806f19e06126c63c2803cd15530f6419f5",
+    "object_sha256": "51321d77d63c985b6d37e104c3d047e34a530970e0b9b6cfa8fed202f6f5b17f",
+    "executable_sha256": "0de73aacab621810fa14a591857344d0818004ffa4817dfd3a356f7ac072ba04",
+    "archive_sha256": "ba63fe5f0ff27e2add1df7dee06ac0674c0b33441d14a9203a548ae77f60bab3",
+    "scope": "Source-only commit recorded after actual native/caller/overlay and originalfresh3hSCI; not a raw build-producer commit. Four literal ABSCLD changes; INATM9ce excluded."
   },
   "previous_mcica_short_science": {
     "receipt_sha256": "b56f895322a1e0dd8ea64e9cbfd93e3531f7fb70dd793291b6adf3c251b92cd2",
@@ -533,5 +532,81 @@
     "source_sha256": "4da0730290a0d161899d23eb282c1ff4eb0377ad049c9a015fc0a521de5350a3",
     "codec_sha256": "e1d8bc0774b7c54b4b63e7d6892c6485bec9b3c7032985a229961ba0569cc450",
     "build_script_sha256": "1bd199c6171bd374be1175c3fc328495ba78404262854baa41f900abd7c8a2a4"
+  },
+  "archive_sha256": "ba63fe5f0ff27e2add1df7dee06ac0674c0b33441d14a9203a548ae77f60bab3",
+  "previous_block_carry_short_science": {
+    "status": "PASS_RETAINED_ORIGINAL_TWO_HISTORY_35_STEPS_512_OWNED_FIELD_VIEW",
+    "receipt_sha256": "075e45506947752b3af936dba300740e854e8026b4e1c71beaaa1acfbe006ea2",
+    "reader_closure_sha256": "12a5bd80257029dd17d97fd98b90430fa112abb42e06f899ba95c964c227ec13",
+    "invocation_id": "02a06c4ea28945f99bca5eaccc1ee789",
+    "products": 2,
+    "ordered_steps": 35,
+    "end_time": "2026-10-12_06:10:00",
+    "world": 512,
+    "compute": 480,
+    "quilt_groups": 4,
+    "quilt_ranks_per_group": 8,
+    "tiles": 2,
+    "positive_writer_roots": [
+      487,
+      495
+    ],
+    "zero_writer_roots": [
+      503,
+      511
+    ],
+    "field_view_markers": 16,
+    "protected_original_checker_unchanged": true,
+    "all_model_reader_scopes_closed": true,
+    "reader_exit_code_raw": null,
+    "reader_manager_success_invocation_bound": true
+  },
+  "previous_three_hour_benchmark_before_ABSCLD": {
+    "evidence_file": "PREVIOUS_THREE_HOUR_RESULT_BEFORE_BLOCK_CARRY.json",
+    "qualification_file": "PREVIOUS_THREE_HOUR_FINAL_QUALIFICATION_BEFORE_BLOCK_CARRY.json",
+    "executable": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/currentCEC-myj-difcof-simd-current-r3/wrf.exe",
+      "sha256": "41bfb335979cefd8f12a8d0c7a682d85d81cae88928fe12ee0badfec58dd7789"
+    },
+    "source_commit": "b37e02ce68336284e8478072ab0178a011b7587c",
+    "output_postscience_source_commit": "909ab6ef55ac5351f9fd03e4019be470e89a3929",
+    "codec_sha256": "3edf15a2d69040bb29ff52446bfcf103fbfdb8b7385fd68735e8a536a06f332c",
+    "codec_source_commit": "624bc11610aff44c5dbdf458768d660ddbf5b806",
+    "comparison_design": "Fresh fixed-order corrected-original versus combined current candidate; no isolated outputpadding/SIMD/input or earlierkernel attribution",
+    "metrics": {
+      "control": {
+        "wall_seconds": 822.5876927680802,
+        "cpu_seconds": 368895.741336,
+        "main_step_sum_seconds": 597.12504
+      },
+      "candidate": {
+        "wall_seconds": 662.4338167828973,
+        "cpu_seconds": 321352.54593699996,
+        "main_step_sum_seconds": 560.3518
+      }
+    },
+    "reductions_percent": {
+      "wall_seconds": 19.469520075877977,
+      "cpu_seconds": 12.887976214313746,
+      "main_step_sum_seconds": 6.158381835737448
+    },
+    "wall_speedup_ratio": 1.2417658518144021,
+    "full_qualification_sha256": "9a00e131349d9e6785c3f08cef0949c5f4ab6e7bb2b17c10da7d656c85816e40",
+    "fresh_matched_timing": true,
+    "applies_to_current_selection": false,
+    "repeatability_established": false,
+    "scope": "GNU13.3 strict/OMP1/cold06:00\u201309:00/full512=480compute8x60+4x8quilt/faba/twoTiles/DF41b/root06dNCa32/outputpool51a/codec3edf/HDF825/shared1/FIELDVIEW1/singleIB;4completeproducts545steps/all4positivewriters/all32markers. One fresh fixed-order wholeinclusiveIO pair; no isolated/additive/repeatability or current9h claim."
+  },
+  "previous_MYJ_POST_TEST_SOURCE_IDENTITY": {
+    "status": "POST_TEST_SOURCE_IDENTITY",
+    "source_commit": "b37e02ce68336284e8478072ab0178a011b7587c",
+    "raw_build_producer_source_commit": null,
+    "canonical_source": "phys/module_bl_myjpbl.F",
+    "canonical_source_sha256": "795e00134d47f98f512d61ffc45f93b3599202499ee8d8429009611d21c4b11f",
+    "preprocessed_candidate_sha256": "2b91deecfe5e853e1352fe5321c5406b14d3a5a50b5d11fd4e7e2be289c340dc",
+    "object_sha256": "13c85052f3eae63ff61f3d0658c2217e7db36a06d2d9ebf6139251f968adb49e",
+    "executable_sha256": "41bfb335979cefd8f12a8d0c7a682d85d81cae88928fe12ee0badfec58dd7789",
+    "archive_sha256": "cf22bba736a25b2e9f0edc483daa6b8717032624612803bbc5fe51dc42ddaee2",
+    "scope": "Committed after actual native/caller/full512 short science; no modification of frozen producer NULL records. Existing qualified MYJ -fopenmp-simd recipe is required for packed lowering; no new flags/global flags or generic-Make reproduction claim."
   }
 }

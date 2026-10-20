@@ -1,0 +1,27 @@
+--- parent/parent_module_ra_rrtmg_lw.f90
++++ candidate/candidate_module_ra_rrtmg_lw.f90
+@@ -3195,7 +3195,7 @@
+ 
+ 
+ 
+-      real(kind=rb) :: abscld(nlayers,ngptlw)
++      real(kind=rb) :: abscld
+       real(kind=rb) :: atot(nlayers)
+       real(kind=rb) :: atrans(nlayers)
+       real(kind=rb) :: bbugas(nlayers)
+@@ -3324,12 +3324,12 @@
+                ib = ngb(ig)
+                odcld(lay,ig) = secdiff(ib) * taucmc(ig,lay)
+                transcld = exp(-odcld(lay,ig))
+-               abscld(lay,ig) = 1._rb - transcld
+-               efclfrac(lay,ig) = abscld(lay,ig) * cldfmc(ig,lay)
++               abscld = 1._rb - transcld
++               efclfrac(lay,ig) = abscld * cldfmc(ig,lay)
+                icldlyr(lay) = 1
+             else
+                odcld(lay,ig) = 0.0_rb
+-               abscld(lay,ig) = 0.0_rb
++               abscld = 0.0_rb
+                efclfrac(lay,ig) = 0.0_rb
+             endif
+          enddo

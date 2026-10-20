@@ -1,0 +1,99 @@
+{
+  "status": "PASS_CURRENT_RTRNMC_ABSCLD_SCALAR_COMPLETE42_SAME_OPT_RAW_STATE_NOT_TIMING",
+  "source_commit": null,
+  "candidate_canonical_sha256": "a21e478aafd9535e6a85daa35aa1247eb4899c5610ed61aa043d6df81b9a63f2",
+  "candidate_PP_sha256": "0caa78171153df91b5f5ba770cace8806f19e06126c63c2803cd15530f6419f5",
+  "parent_member_sha256": "6d006d67c42b26b375ea1dc9ea0e7f1c9d04b5f07bd33cbdd63d494af5cf96fb",
+  "candidate_object": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/rtrnmc-abscld-scalar-gate-r2/work/O2-candidate/module_ra_rrtmg_lw.o",
+    "sha256": "51321d77d63c985b6d37e104c3d047e34a530970e0b9b6cfa8fed202f6f5b17f"
+  },
+  "invocation_id": "f6bc12e02de74a398e50a3eaca4ac841",
+  "strong_closed": true,
+  "current_parent_reproduction": {
+    "status": "PASS_ALLOCATED_BYTES_RELOCATIONS_NONFILE_SYMBOLS_EXACT",
+    "reference_sha256": "6d006d67c42b26b375ea1dc9ea0e7f1c9d04b5f07bd33cbdd63d494af5cf96fb",
+    "rebuilt_sha256": "a750c0d29f7c43a4b196493577747ed086ba080c2e99c8604fc3d8cfa454b759",
+    "proof_sha256": "0db22107bc23a5aa2eb4a98c35a0f2c6980cca08481f6e6f1a0c3f7aef5ec852"
+  },
+  "cases": {
+    "finite": 36,
+    "safe_source_IEEE": 6,
+    "levels": [
+      "O0 bounds",
+      "strict O2"
+    ],
+    "rounding": [
+      "nearest",
+      "downward"
+    ],
+    "guards": [
+      "complete raw outputs",
+      "readonly inputs",
+      "padding",
+      "errno",
+      "sticky FP flags",
+      "rounding",
+      "MXCSR",
+      "x87 CW"
+    ],
+    "limits": "Not all rounding modes, empty dimensions, trapping or universalIEEE."
+  },
+  "static_allocation_counts": {
+    "parent": {
+      "malloc": 16,
+      "free": 16
+    },
+    "candidate": {
+      "malloc": 15,
+      "free": 15
+    }
+  },
+  "scratch_store_assembly_audit": {
+    "status": "PASS_ACTUAL_SOURCE_LINE_ARRAY_STORE_AND_ZERO_STREAM_REMOVED",
+    "reference_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-daytime-ninehour-profile-preparation-r2/rtrnmc-abscld-scalar-triage-r1/ACTUAL_R2_SCRATCH_STORE_WINDOWS.json",
+    "sha256": "1430b93e4658b796f832ebdee8ac5b51b393d88b41b2030949b073e33f63eab2",
+    "parent_abscld_result_store": "0x1282f: movss %xmm0,0x0(%r13), generated line3327",
+    "parent_abscld_else_zero_store": "0x12874: movl $0x0,0x0(%r13), generated line3332",
+    "candidate_abscld": "generated line3327 subtraction retained in register; no resulting array store; line3332 array zero store absent",
+    "other_arrays_retained": "Candidate odcld store0x127b9/zero0x12825; efclfrac store0x127ef/zero0x1282d. Register13 is reused for odcld, so registername alone is not absence proof.",
+    "parent_cloud_loop_array_streams": 3,
+    "candidate_cloud_loop_array_streams": 2,
+    "arithmetic": "expf and subss remain; source multiply/expression/order unchanged; complete same-opt raw/state gates passed",
+    "scope": "Literal current object/retained assembler only, not timing or wholeforecast headroom."
+  },
+  "prior_failure": "R1 actuallink failed missing current genuine supporthelpers before numerical test; retained. R2 uses alreadyqualified0169 current helpers/tail and reuses proven R1 O2parent.",
+  "timing_qualified": false,
+  "application_qualified": false,
+  "selected_source_modified": false,
+  "raw_refs": [
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-daytime-ninehour-profile-preparation-r2/rtrnmc-abscld-scalar-triage-r1/actual-native-r2/receipt.json",
+      "sha256": "4f6784c47e06c051881e99989458fd69aed09e7eba6667c0d363f460f71a72b8"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-daytime-ninehour-profile-preparation-r2/rtrnmc-abscld-scalar-triage-r1/actual-native-r2/closure.json",
+      "sha256": "b60d48c03b89e309583816bb6d6583c825ad6bf1844da16239525dee8fe17aef"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-daytime-ninehour-profile-preparation-r2/rtrnmc-abscld-scalar-triage-r1/actual-native-r1/receipt.json",
+      "sha256": "74fde7b23ee0d1dcf68f88feb65f9abac1e0fbd8bcdc4ba06f64cae66a491d20"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-daytime-ninehour-profile-preparation-r2/rtrnmc-abscld-scalar-triage-r1/actual-native-r1/closure.json",
+      "sha256": "ca58f37b244c91e7a658ccbcb8b188aba692ffe1d3c3e340744eb8b33ebf257f"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-daytime-ninehour-profile-preparation-r2/rtrnmc-abscld-scalar-triage-r1/native-gate-r2/SOURCE_PROJECTION.json",
+      "sha256": "f58d01bd94bb9b5830cd407c76aaeaa4efdfb13328c5d2c8d425aa805687944e"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-daytime-ninehour-profile-preparation-r2/rtrnmc-abscld-scalar-triage-r1/ADJUDICATION.json",
+      "sha256": "b5470737e75de9ca77ca4b1c4a5ca78495f83bddbca9f78c90104256160e28fb"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-daytime-ninehour-profile-preparation-r2/rtrnmc-abscld-scalar-triage-r1/ACTUAL_R2_SCRATCH_STORE_WINDOWS.json",
+      "sha256": "1430b93e4658b796f832ebdee8ac5b51b393d88b41b2030949b073e33f63eab2"
+    }
+  ]
+}

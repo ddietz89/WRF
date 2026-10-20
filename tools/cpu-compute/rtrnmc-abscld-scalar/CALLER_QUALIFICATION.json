@@ -1,0 +1,341 @@
+{
+  "schema": "RTRNMC_COMPLETE_CALLER_QUALIFICATION_R1",
+  "status": "PASS_EXACT_COMPLETE_CALLER_OPPOSITE_ORDER_BOTH_REGIMES_RETAIN_PENDING_APPLICATION",
+  "source_commit": null,
+  "candidate_canonical_sha256": "a21e478aafd9535e6a85daa35aa1247eb4899c5610ed61aa043d6df81b9a63f2",
+  "candidate_object_sha256": "51321d77d63c985b6d37e104c3d047e34a530970e0b9b6cfa8fed202f6f5b17f",
+  "parent_object_sha256": "6d006d67c42b26b375ea1dc9ea0e7f1c9d04b5f07bd33cbdd63d494af5cf96fb",
+  "native_qualification": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-daytime-ninehour-profile-preparation-r2/rtrnmc-abscld-scalar-triage-r1/NATIVE_QUALIFICATION.json",
+    "sha256": "d9020a412142f715d3408a6871c5b23c42f791630e9a900f96efd20b329cb974",
+    "finite_cases": 36,
+    "safe_source_IEEE_cases": 6,
+    "rounding_modes": [
+      "nearest",
+      "downward"
+    ],
+    "O0_bounds_and_strict_O2_exact": true
+  },
+  "driver_build": {
+    "receipt_sha256": "d2081e25f8852f184ef23469b8553682bf8d544d2140423eadd0d523f2a50a1d",
+    "closure_sha256": "e67eab9675eeeb15e12f228ccec55884b8695594f20b8f2a53b6dea60fafbad9",
+    "WRF_source_compiles": 0,
+    "Fortran_driver_compiles": 1,
+    "C_clock_state_support_compiles": 2,
+    "links": 2
+  },
+  "fixed_work": {
+    "layers": 33,
+    "complete_calls_per_regime_per_arm": 20000,
+    "regimes": [
+      "clear",
+      "mixed"
+    ],
+    "clock_wall": "CLOCK_MONOTONIC integer nanoseconds",
+    "clock_CPU": "CLOCK_THREAD_CPUTIME_ID integer nanoseconds, calling thread only",
+    "inside_clocks": [
+      "output sentinel restore",
+      "original reset_observation wrapper",
+      "complete rtrnmc call",
+      "original read_observation five-state wrapper"
+    ],
+    "outside_clocks": [
+      "table/input setup",
+      "warm reference",
+      "readonly/table/padding checks",
+      "post-loop output/state equality",
+      "raw terminal serialization and checksum"
+    ],
+    "limitations": "The timed wrapper is identical for parent/candidate; this is complete synthetic caller work, not an isolated subtraction or allocation timer."
+  },
+  "resources": "Each arm CPU24/4GiB/swap0/30s; one fixed opposite-order pair per01/04; cacheEACH; no repeat/calibration/matrix",
+  "pairs": [
+    {
+      "host": "hpc01",
+      "order": "P-C",
+      "regimes": {
+        "clear": {
+          "parent_wall_seconds": 1.019838699,
+          "candidate_wall_seconds": 0.907965796,
+          "wall_reduction_percent": 10.969666390351385,
+          "parent_caller_thread_CPU_seconds": 1.019804873,
+          "candidate_caller_thread_CPU_seconds": 0.907915563,
+          "caller_thread_CPU_reduction_percent": 10.971639081391215
+        },
+        "mixed": {
+          "parent_wall_seconds": 1.888141042,
+          "candidate_wall_seconds": 1.831487012,
+          "wall_reduction_percent": 3.0005189622905326,
+          "parent_caller_thread_CPU_seconds": 1.887978568,
+          "candidate_caller_thread_CPU_seconds": 1.831148143,
+          "caller_thread_CPU_reduction_percent": 3.010120239881875
+        }
+      }
+    },
+    {
+      "host": "hpc04",
+      "order": "C-P",
+      "regimes": {
+        "clear": {
+          "parent_wall_seconds": 0.984944601,
+          "candidate_wall_seconds": 0.943577902,
+          "wall_reduction_percent": 4.199901086619596,
+          "parent_caller_thread_CPU_seconds": 0.98471073,
+          "candidate_caller_thread_CPU_seconds": 0.94340854,
+          "caller_thread_CPU_reduction_percent": 4.194347511578355
+        },
+        "mixed": {
+          "parent_wall_seconds": 1.883956762,
+          "candidate_wall_seconds": 1.835926649,
+          "wall_reduction_percent": 2.5494275648349496,
+          "parent_caller_thread_CPU_seconds": 1.88335854,
+          "candidate_caller_thread_CPU_seconds": 1.83545527,
+          "caller_thread_CPU_reduction_percent": 2.543502417760557
+        }
+      }
+    }
+  ],
+  "arms": [
+    {
+      "arm": 0,
+      "host": "hpc01",
+      "which": "parent",
+      "invocation_id": "b7c30df2c91e467aaa0efa7120fa3be3",
+      "regimes": {
+        "clear": {
+          "iterations": 20000,
+          "wall_seconds": 1.019838699,
+          "cpu_seconds": 1.019804873,
+          "raw_bytes": 2344,
+          "raw_sha256": "7581b65eeefb6425a18e5ade424b65950a7a75e1f7cb63ffe9c2bcf2acf13771",
+          "prefix_layers": 33
+        },
+        "mixed": {
+          "iterations": 20000,
+          "wall_seconds": 1.888141042,
+          "cpu_seconds": 1.887978568,
+          "raw_bytes": 2344,
+          "raw_sha256": "d9c412277a6453a6d2e70771d6431c272ecfe4c113e47c2c3fe32255a9957576",
+          "prefix_layers": 0
+        }
+      },
+      "memory_peak_bytes": 181833728,
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "nr_throttled": 0,
+      "cache_boundary": {
+        "utc_begin": "2026-10-20T13:44:33.728927+00:00",
+        "utc_end": "2026-10-20T13:44:36.201097+00:00",
+        "boot_id": "034999ae-50d3-4c47-a288-c1cc0a7308c9",
+        "full_retained_telemetry": true
+      },
+      "same_INV_positive_closed": true
+    },
+    {
+      "arm": 1,
+      "host": "hpc04",
+      "which": "candidate",
+      "invocation_id": "20276d82486e449ba4091a7074ec39a1",
+      "regimes": {
+        "clear": {
+          "iterations": 20000,
+          "wall_seconds": 0.943577902,
+          "cpu_seconds": 0.94340854,
+          "raw_bytes": 2344,
+          "raw_sha256": "7581b65eeefb6425a18e5ade424b65950a7a75e1f7cb63ffe9c2bcf2acf13771",
+          "prefix_layers": 33
+        },
+        "mixed": {
+          "iterations": 20000,
+          "wall_seconds": 1.835926649,
+          "cpu_seconds": 1.83545527,
+          "raw_bytes": 2344,
+          "raw_sha256": "d9c412277a6453a6d2e70771d6431c272ecfe4c113e47c2c3fe32255a9957576",
+          "prefix_layers": 0
+        }
+      },
+      "memory_peak_bytes": 180727808,
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "nr_throttled": 0,
+      "cache_boundary": {
+        "utc_begin": "2026-10-20T13:44:34.304231+00:00",
+        "utc_end": "2026-10-20T13:44:36.206488+00:00",
+        "boot_id": "dc4678a7-56c3-4071-bd55-0b96d1eaafda",
+        "full_retained_telemetry": true
+      },
+      "same_INV_positive_closed": true
+    },
+    {
+      "arm": 2,
+      "host": "hpc01",
+      "which": "candidate",
+      "invocation_id": "8de9125453f348e9918bb411bd8073fb",
+      "regimes": {
+        "clear": {
+          "iterations": 20000,
+          "wall_seconds": 0.907965796,
+          "cpu_seconds": 0.907915563,
+          "raw_bytes": 2344,
+          "raw_sha256": "7581b65eeefb6425a18e5ade424b65950a7a75e1f7cb63ffe9c2bcf2acf13771",
+          "prefix_layers": 33
+        },
+        "mixed": {
+          "iterations": 20000,
+          "wall_seconds": 1.831487012,
+          "cpu_seconds": 1.831148143,
+          "raw_bytes": 2344,
+          "raw_sha256": "d9c412277a6453a6d2e70771d6431c272ecfe4c113e47c2c3fe32255a9957576",
+          "prefix_layers": 0
+        }
+      },
+      "memory_peak_bytes": 181760000,
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "nr_throttled": 0,
+      "cache_boundary": {
+        "utc_begin": "2026-10-20T13:44:44.503990+00:00",
+        "utc_end": "2026-10-20T13:44:46.263965+00:00",
+        "boot_id": "034999ae-50d3-4c47-a288-c1cc0a7308c9",
+        "full_retained_telemetry": true
+      },
+      "same_INV_positive_closed": true
+    },
+    {
+      "arm": 3,
+      "host": "hpc04",
+      "which": "parent",
+      "invocation_id": "d8b61a0dbfd845ea9d4ee9bed11dc61d",
+      "regimes": {
+        "clear": {
+          "iterations": 20000,
+          "wall_seconds": 0.984944601,
+          "cpu_seconds": 0.98471073,
+          "raw_bytes": 2344,
+          "raw_sha256": "7581b65eeefb6425a18e5ade424b65950a7a75e1f7cb63ffe9c2bcf2acf13771",
+          "prefix_layers": 33
+        },
+        "mixed": {
+          "iterations": 20000,
+          "wall_seconds": 1.883956762,
+          "cpu_seconds": 1.88335854,
+          "raw_bytes": 2344,
+          "raw_sha256": "d9c412277a6453a6d2e70771d6431c272ecfe4c113e47c2c3fe32255a9957576",
+          "prefix_layers": 0
+        }
+      },
+      "memory_peak_bytes": 180736000,
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "nr_throttled": 0,
+      "cache_boundary": {
+        "utc_begin": "2026-10-20T13:44:45.057219+00:00",
+        "utc_end": "2026-10-20T13:44:46.306939+00:00",
+        "boot_id": "dc4678a7-56c3-4071-bd55-0b96d1eaafda",
+        "full_retained_telemetry": true
+      },
+      "same_INV_positive_closed": true
+    }
+  ],
+  "raw_refs": [
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-daytime-ninehour-profile-preparation-r2/rtrnmc-abscld-scalar-triage-r1/timing-r1/arm0/actual-native-r1/receipt.json",
+      "sha256": "82dbe138686f6aea3e128b7fa493fb19ec2b8a394f89c2c35324fb0fe192a2de"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-daytime-ninehour-profile-preparation-r2/rtrnmc-abscld-scalar-triage-r1/timing-r1/arm0/actual-native-r1/closure.json",
+      "sha256": "f7cf7f2acc9d8d16b7a8d8565418fd8d233fe80cf3b424456dcede5469b8deb4"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-daytime-ninehour-profile-preparation-r2/rtrnmc-abscld-scalar-triage-r1/timing-r1/arm0/actual-native-r1/controller.json",
+      "sha256": "5594e83b00ffbc8621f35ee708403a0597d14b23df6c8e7df059f2bef89d7540"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-daytime-ninehour-profile-preparation-r2/rtrnmc-abscld-scalar-triage-r1/timing-r1/arm0/actual-native-r1/cache-clear.json",
+      "sha256": "794e26211e7d6c10ecd415a78b009e542d82b52b9a7ee0d34bc541690ab074cf"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-daytime-ninehour-profile-preparation-r2/rtrnmc-abscld-scalar-triage-r1/timing-r1/arm1/actual-native-r1/receipt.json",
+      "sha256": "af19d73c5ce2c8a152c29a245d029e8358c9d68fefc53dbd85e4a0909725ecaf"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-daytime-ninehour-profile-preparation-r2/rtrnmc-abscld-scalar-triage-r1/timing-r1/arm1/actual-native-r1/closure.json",
+      "sha256": "516dd196d938b73b4d2399961d71251bca272b19b986d64949b1a6ec2d5c21e2"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-daytime-ninehour-profile-preparation-r2/rtrnmc-abscld-scalar-triage-r1/timing-r1/arm1/actual-native-r1/controller.json",
+      "sha256": "a7e2f49870782b5cf1f34eab5200c20652632ff0f7f4603d2f220aa95b43a819"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-daytime-ninehour-profile-preparation-r2/rtrnmc-abscld-scalar-triage-r1/timing-r1/arm1/actual-native-r1/cache-clear.json",
+      "sha256": "9e3c3ca32b99546ddd28a690cd420d8feaf77276c2141d82f4bb91d847f7950e"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-daytime-ninehour-profile-preparation-r2/rtrnmc-abscld-scalar-triage-r1/timing-r1/arm2/actual-native-r1/receipt.json",
+      "sha256": "b06bb04fe2e44c09867382b12022ed19315c3f7e2359337cb0e4d05d131b3484"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-daytime-ninehour-profile-preparation-r2/rtrnmc-abscld-scalar-triage-r1/timing-r1/arm2/actual-native-r1/closure.json",
+      "sha256": "803f17ae9e3bb4ad97af93eb81314af2eddd93abd423c830536e0e4c33afe31e"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-daytime-ninehour-profile-preparation-r2/rtrnmc-abscld-scalar-triage-r1/timing-r1/arm2/actual-native-r1/controller.json",
+      "sha256": "33c3c3b81ee55fd62d6a4f09c9a2d925186dd7c453d7442dc1548ccea2ea0466"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-daytime-ninehour-profile-preparation-r2/rtrnmc-abscld-scalar-triage-r1/timing-r1/arm2/actual-native-r1/cache-clear.json",
+      "sha256": "82d61e42d0705b508f1d160d9551e0cccb319d94ff61a0ee8668199473591ca5"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-daytime-ninehour-profile-preparation-r2/rtrnmc-abscld-scalar-triage-r1/timing-r1/arm3/actual-native-r1/receipt.json",
+      "sha256": "cdc1e908d22574265ac7082673d71c9b575c8ce4409fec267a28cd6a71998ec8"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-daytime-ninehour-profile-preparation-r2/rtrnmc-abscld-scalar-triage-r1/timing-r1/arm3/actual-native-r1/closure.json",
+      "sha256": "c7aa20cbe3e1c1063ebb117a309590ef584f1541ce22ecafc56bca8d43e0f421"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-daytime-ninehour-profile-preparation-r2/rtrnmc-abscld-scalar-triage-r1/timing-r1/arm3/actual-native-r1/controller.json",
+      "sha256": "d5fc0544755feadceb98d511d7d80b54fb3d12a43a4108e84f6ac04e2d55c4bb"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-daytime-ninehour-profile-preparation-r2/rtrnmc-abscld-scalar-triage-r1/timing-r1/arm3/actual-native-r1/cache-clear.json",
+      "sha256": "516e52d0a76ec322b4f770904f7ac4e07e8912f1e171234676a0af9118b32bb9"
+    }
+  ],
+  "scope_limits": [
+    "No provider qualification or cost claim.",
+    "No global critical-path, wholeforecast, additive, sustained/repeatability or physical cloud-frequency claim.",
+    "Standalone clear/mixed33layer synthetic cases; no universal IEEE/trapping/empty-dimension claim.",
+    "R1 missing-current-helper link failure retained; R2 native proof uses exact real current helpers, no stubs."
+  ],
+  "selected_source_modified": false,
+  "application_qualified": false,
+  "own_threehour_qualified": false,
+  "own_ninehour_qualified": false,
+  "root_disposition": "RETAIN_FOR_ONE_CANONICAL_OVERLAY_AND_DIRECT_FULL3H_SCI; no additional caller pairs"
+}
