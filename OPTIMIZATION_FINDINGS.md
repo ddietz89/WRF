@@ -1,8 +1,24 @@
 # WRF CPU optimization findings
 
-## Current combined configuration: fresh nine-hour qualification (2026-10-20)
+## Current INATM copy grouping promoted after three-hour science (2026-10-20)
 
-The selected LW0de7/a21 build, outputpool51a, rootinput06d/NCa32 and codec e1d8 passed the unchanged original comparison through 15:00: **ten complete products, 1,625 ordered timesteps, all 512 ranks, two tiles, all four positive writers and all 32 field-view markers**. All model and reader scopes closed. Current own three-hour and nine-hour qualification are both true. INATM copy grouping and the residual Thompson evaporation pair are excluded from this run.
+Selected7f2c/archive42b0/source080cd60b includes all prior improvements plus INATM2+3 copy grouping. The source adds only one loop boundary, grouping the first two and last three cloud-copy families. Opposite-order complete synthetic caller times were20.03% and17.72% shorter, with original O0/O2 raw/IEEE/bounds and module checks exact. This significant caller gain is included under the standing kernel-inclusion policy; no isolated forecast gain is claimed.
+
+The unchanged original application comparison passed four complete outputs,545 ordered timesteps,all512 ranks,two tiles,all four positive writers and all32 field markers. All model and reader scopes closed. [Qualification](tools/cpu-compute/inatm-copy-grouping/APPLICATION_QUALIFICATION.json)3aa31f5f binds24 verified raw references. The reader-routing sidecar repaired a pre-submission fresh-control path assumption; the frozen model payload and original scientific checker remained unchanged.
+
+| Measure | Retained corrected original | Current INATM configuration | Descriptive difference |
+|---|---:|---:|---:|
+| Whole model/MPI wall |848.677401s|659.744601s|22.2620% lower|
+| Main-step elapsed, including communication/backpressure |626.316100s|558.990040s|10.7495% lower|
+| Aggregate node CPU |382698.863204CPU-s|320234.403293CPU-s|16.3221% lower|
+
+This was candidate-only acceptance against retained original outputs: the timing comparison is UNPAIRED, with no new control run, causal INATM contribution or repeatability claim. Main-step elapsed is not integration CPU. Compared with the earlier parent observation657.745680s/318965.303819CPU-s/556.643430s, these totals are slightly higher; separate uncontrolled runs do not establish a causal regression or outweigh the exact, significant complete-caller gain. All memory-event counters were zero; node peaks stayed around69–71GiB.
+
+Own three-hour science is true; own nine-hour qualification is pending. The parent0de fresh nine-hour result below remains separately bound and is not transferred. [Evidence, source identity and rollback](tools/cpu-compute/inatm-copy-grouping/README.md) preserve the rejected five-way split and the paired BEFORE_INATM_GROUPING selection/binding. Raw producer commits remainNULL;080cd60b is post-test source tracking. The residual Thompson evaporation pair remains unqualified, and the new CU SIMD fragment is only a pending kernel screen.
+
+## Previous combined configuration: fresh nine-hour qualification (2026-10-20)
+
+The previously selected LW0de7/a21 build, outputpool51a, rootinput06d/NCa32 and codec e1d8 passed the unchanged original comparison through 15:00: **ten complete products, 1,625 ordered timesteps, all 512 ranks, two tiles, all four positive writers and all 32 field-view markers**. All model and reader scopes closed. That parent has its own three-hour and nine-hour qualification. INATM copy grouping and the residual Thompson evaporation pair are excluded from that run.
 
 | Measure | Corrected original | Selected combined | Reduction |
 |---|---:|---:|---:|
@@ -35,11 +51,11 @@ The fresh control-first pair measured **848.677401 → 657.745680s whole model/M
 
 Cross-pair variation matters: the prior optimized main560.3518s is only0.66% above this candidate, while the original control rose597.12504→626.3161s (4.89%). Do not attribute the new percentage to LW or codec alone, add component gains, or claim repeatability. **At this three-hour checkpoint own3h was qualified and own9h was pending; the subsequent nine-hour qualification is recorded above.** The prior41b/51a/3edf profiled nine-hour science stays historical. Raw producer source commits remain NULL; `d27df44f` is POST_TEST_SOURCE_IDENTITY only. Rollback uses the paired `BEFORE_ABSCLD_SCALAR` selection/binding and reverses only the four ABSCLD source changes, retaining e1d8 and other accepted components.
 
-## INATM copy grouping retained for application qualification (2026-10-20)
+## INATM copy grouping caller evidence before application qualification (2026-10-20)
 
 Grouping the five cloud-copy families into two loops, containing two and three families, reduced complete synthetic INATM caller time by **20.03% on hpc01** and **17.72% on hpc04** in opposite run orders. The original 16-case O0/O2 descriptor, tail, raw, read-only and IEEE checks passed. Actual assembly removed the six repeated stride loads while retaining two copy-loop backedges. Each timed arm used five separate 20,000-call processes; the reported clock covers the descriptor wrapper and INATM, with validation outside it. Caches were cleared before every arm, and all jobs closed.
 
-This significant caller gain is retained pending the original application science check. It is absent from the selected executable and the ongoing original-versus-current nine-hour comparison; no forecast benefit is claimed. The preceding five-loop split passed correctness but slowed the same caller by 6.89% and 9.67%, so that variant remains rejected. [Evidence, scope and both decisions](tools/cpu-compute/inatm-copy-grouping/README.md).
+At this caller-only milestone the gain was pending application science and absent from the parent nine-hour comparison. The subsequent promoted application result is recorded above; no isolated forecast benefit is claimed. The preceding five-loop split passed correctness but slowed the same caller by 6.89% and 9.67%, so that variant remains rejected. [Evidence, scope and both decisions](tools/cpu-compute/inatm-copy-grouping/README.md).
 
 ## Historical block-carry short acceptance, before combined LW three-hour (2026-10-20)
 

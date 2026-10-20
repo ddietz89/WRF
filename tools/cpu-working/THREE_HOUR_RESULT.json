@@ -1,10 +1,10 @@
 {
   "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
   "order": [
-    "fresh_corrected_original546b_control",
-    "fresh_current_LW0de7_DF41b_pool51a_input06d_NCa32_blockcarry_e1d8_candidate"
+    "retained_frozen_corrected_original546b_control",
+    "future_actual_INATM2plus3_child_candidate"
   ],
-  "comparison_design": "Fresh fixed-order corrected-original versus combined current candidate; no isolated outputpadding/SIMD/input or earlierkernel attribution",
+  "comparison_design": "Candidate-only science qualification versus frozen original three-hour outputs; UNPAIRED descriptive metrics, no matched forecast timing or causal kernel claim",
   "metrics": {
     "control": {
       "wall_seconds": 848.6774008770008,
@@ -12,38 +12,17 @@
       "main_step_sum_seconds": 626.3161
     },
     "candidate": {
-      "wall_seconds": 657.7456797780469,
-      "cpu_seconds": 318965.303819,
-      "main_step_sum_seconds": 556.64343
+      "wall_seconds": 659.7446005078964,
+      "cpu_seconds": 320234.403293,
+      "main_step_sum_seconds": 558.99004
     }
   },
-  "reductions_percent": {
-    "wall_seconds": 22.49756160605314,
-    "cpu_seconds": 16.65371013945929,
-    "main_step_sum_seconds": 11.124202299765251
+  "descriptive_difference_vs_retained_original_percent": {
+    "wall_seconds": 22.262027971272268,
+    "cpu_seconds": 16.322091836918506,
+    "main_step_sum_seconds": 10.749533661995914
   },
-  "science_sha256": "ad4662121363671a9b00bd69d798af932c4bb5badcbfd158edb29d88ffa6e858",
-  "reader_closure_sha256": "cbad6fdeec5afc8cecabb27d03edc612bcc63725e329784eb671a5e2c0f6284f",
-  "limits": "One fresh fixed-order pair, actual checkedcache before each arm; no repeatability or per-kernel causal claim. Main includes communication/backpressure; residual is not pureIO.",
-  "qualification_sha256": "4da8d5c1ccceb38da5a6c085ee27c7f00597241063ed2760c25ac7528f7e4864",
-  "candidate_executable_sha256": "0de73aacab621810fa14a591857344d0818004ffa4817dfd3a356f7ac072ba04",
-  "candidate_codec_sha256": "e1d8bc0774b7c54b4b63e7d6892c6485bec9b3c7032985a229961ba0569cc450",
-  "candidate_output_shim_sha256": "51a31b3c137a2161700c9930a1e250021b34c598c887a7551e87d304b2ce4d31",
-  "fresh_matched_timing": true,
-  "repeatability_established": false,
-  "wall_speedup_ratio": 1.2902819843125124,
-  "raw_result_label_disclosure": {
-    "raw_result_path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-block-carry3h-runtime-r1/RESULT.json",
-    "raw_result_sha256": "aca4b7e818934d4d2c96b57c6765bf20b996358dc869bcda2d6fd9796d7b2fe2",
-    "raw_order_literal_preserved": [
-      "fresh_corrected_original546b_control",
-      "fresh_current_LW0de7_DF41b_pool51a_input06d_NCa32_blockcarry_e1d8_candidate"
-    ],
-    "label_status": "Actual current LW0de7/DF41b/pool51a/input06d/NCa32/e1d8 label matches actualleases; frozenruntime/pins/rawRESULT unchanged.",
-    "qualified_order": [
-      "fresh_corrected_original546b_control",
-      "fresh_current_LW0de7_DF41b_pool51a_input06d_NCa32_blockcarry_e1d8_candidate"
-    ],
-    "authority": "Actual collected per-arm lease.json hashes, originalscience runtime all512 mappedlibrary proofs, and sameINV strongclosures above."
-  }
+  "science_sha256": "5b32aa33f1c691f380f1da026898795eadf45fdf670b0ac7f29c1a37efab824a",
+  "reader_closure_sha256": "9156d9139e0690b0677d357e0fbe6658a7d22ae53a36c6b4a018b07c2da8dbd9",
+  "limits": "Candidate-only run with original retained science reference; wall/CPU/main differences are UNPAIRED descriptive context. No new original forecast, matched timing, repeatability or per-kernel causal claim."
 }
