@@ -1,8 +1,8 @@
 {
-  "source_commit": "080cd60b5a88705c2a0c83fe57d656f1a77adba7",
+  "source_commit": "f72e6ebbb621ff758ca2009bf48a8dd36d429d88",
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/current0de-inatm-two-plus-three-current-hpc01-r1/wrf.exe",
-    "sha256": "7f2c71e8d4daabad88dd2c44a686836d34670526562ec7355d2f69f9c501c79c"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current7f2-one-bigstep-cu-simd-hpc01-r1/wrf.exe",
+    "sha256": "2e4f85bda80233130be6d95ae7f81450872dc0efc5bb8f5f47c1f99ff55e95ee"
   },
   "artifacts": {
     "shim": {
@@ -47,10 +47,10 @@
   "read_affine_IO_archive_sha256": "651835f31089e16759177734198ece5b121d704355c73abddde483f4cae2c14c",
   "read_affine_IO_object_sha256": "c9c4e5b7a0225523e7d85cfc188022d797204d3f4dd4494b54c416e3bec99320",
   "schema_version": 3,
-  "status": "QUALIFIED_INATM_GROUPING_THREE_HOUR_FULL512",
-  "scope": "Current INATM2+3 7f2c/source080cd60b/BD74/archive42b0 + prior LW/compute/sharedtables/input06dNCa32/output51a/codece1d8: candidate-only original4products545steps/full512/faba/twoTiles/all4writers/all32markers PASS; own3hTRUE/own9hFALSE. RetainedoriginaltimingsUNPAIRED, no isolatedINATMforecastgain.",
-  "includes": "All retained compute, Thompson shared-table/lazy-init, output, codec and HDF5 improvements from the previous selection, READ_DI1 affine rows, plus qualified root-only parallel input chunk decoding. Fused output packing/shuffling removes intermediate padded packed storage; compressedbytes and originalscience exact. MCICA mask/property consumer fusion removes temporary logical-mask allocation/population/readback; all RNG/arithmetic/other code unchanged. AVX2 slide-hash loop unrolling removes repeated loop control while preserving the original saturating arithmetic and traversal; Adler remains unchanged. MYJPBL DIFCOF ordered SIMD adds only two directives; complete captured-caller gains and exact short application qualified. Private four-slot shuffle scratch reuse across callbacks removes repeated scratch allocation, with bounded retention; fullshim/API and originalshortscience exact. Block-local integer bit-buffer carry removes per-symbol state publication in compress_block; exact wholefunction/codeccaller/state and shortscience passed. LW ABSCLD scratch removal keeps identical scalar arithmetic and loop order while removing one allocated scratch stream; native/caller and fresh combined3h exact. INATM cloud-copy2+3 grouping retains all five fields/radius copies while reducing repeated descriptor/stride loads; complete-caller20.03%/17.72% gains and originalfull3hscience qualified.",
-  "source_commit_scope": "POST_TEST_SOURCE_IDENTITY: actual source-only080cd60b adds two loop-boundary lines after native/caller/build/original3hSCI; frozenproducerNULL unchanged.",
+  "status": "QUALIFIED_CU_PART2_SIMD_THREE_HOUR_FULL512",
+  "scope": "Current INATM+CU2e4f/e296/archiveDD32 plus output51a/codece1d8/rootinput06dNCa32: candidate-only original4products545/full512/faba/twoTiles/all4positivewriters/all32markers. Own3hTRUE/own9hFALSE; retainedoriginal timing UNPAIRED.",
+  "includes": "All retained compute, Thompson shared-table/lazy-init, output, codec and HDF5 improvements from the previous selection, READ_DI1 affine rows, plus qualified root-only parallel input chunk decoding. Fused output packing/shuffling removes intermediate padded packed storage; compressedbytes and originalscience exact. MCICA mask/property consumer fusion removes temporary logical-mask allocation/population/readback; all RNG/arithmetic/other code unchanged. AVX2 slide-hash loop unrolling removes repeated loop control while preserving the original saturating arithmetic and traversal; Adler remains unchanged. MYJPBL DIFCOF ordered SIMD adds only two directives; complete captured-caller gains and exact short application qualified. Private four-slot shuffle scratch reuse across callbacks removes repeated scratch allocation, with bounded retention; fullshim/API and originalshortscience exact. Block-local integer bit-buffer carry removes per-symbol state publication in compress_block; exact wholefunction/codeccaller/state and shortscience passed. LW ABSCLD scratch removal keeps identical scalar arithmetic and loop order while removing one allocated scratch stream; native/caller and fresh combined3h exact. INATM cloud-copy2+3 grouping retains all five fields/radius copies while reducing repeated descriptor/stride loads; complete-caller20.03%/17.72% gains and originalfull3hscience qualified. CU PART2 SIMD adds one directive to the independent innerI loop, keeping per-lane MUT denominator and three true divisions; genuine fullcaller and original3h science qualified.",
+  "source_commit_scope": "POST_TEST_SOURCE_IDENTITY: actual one-directive canonical source commit after actual science; producerNULL preserved.",
   "input_implementation_commit": "614267f340a23ffc342962b3c64e323719fe4d06",
   "root_input": {
     "enabled_in_working_configuration": true,
@@ -82,9 +82,9 @@
   },
   "science": {
     "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
-    "receipt_sha256": "5b32aa33f1c691f380f1da026898795eadf45fdf670b0ac7f29c1a37efab824a",
-    "reader_closure_sha256": "9156d9139e0690b0677d357e0fbe6658a7d22ae53a36c6b4a018b07c2da8dbd9",
-    "invocation_id": "ad483a47db154c1baee2976ac5a04d30",
+    "receipt_sha256": "48e4a30c55a0c383403613cfd79a8e960526b87d3ca8b4d00a6891650a2a8e5e",
+    "reader_closure_sha256": "ab0193950f9513c5e3d1976993aebd8f5a862ffcb0386f74db84cf416bee64ac",
+    "invocation_id": "b392a858b57f4cc7baa782a0023bd445",
     "products": 4,
     "ordered_steps": 545,
     "end_time": "2026-10-12_09:00:00",
@@ -107,19 +107,20 @@
     "reader_manager_success_invocation_bound": true
   },
   "qualification_file": "tools/cpu-output/quilt512/qualification.json",
-  "current_application_qualification_file": "tools/cpu-compute/inatm-copy-grouping/APPLICATION_QUALIFICATION.json",
+  "current_application_qualification_file": "tools/cpu-compute/phy-prep-part2-cu-simd/APPLICATION_QUALIFICATION.json",
   "source_build_binding_file": "CURRENT_SOURCE_BUILD_BINDING.json",
   "current_three_hour_qualified": true,
   "current_nine_hour_qualified": false,
   "last_three_hour_benchmark": {
     "evidence_file": "THREE_HOUR_RESULT.json",
     "qualification_file": "THREE_HOUR_FINAL_QUALIFICATION.json",
-    "full_qualification_sha256": "3aa31f5ff1e936348aad9e09a135a38998018f3e8232a857b67cf880b1493a2c",
+    "full_qualification_sha256": "8e19eea47507e50ef140168dec24835d850399d07aa7dc1c6242c160fa0c3da8",
     "executable": {
-      "path": "/pool/wrf-experiment/wrf-cpu/builds/current0de-inatm-two-plus-three-current-hpc01-r1/wrf.exe",
-      "sha256": "7f2c71e8d4daabad88dd2c44a686836d34670526562ec7355d2f69f9c501c79c"
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current7f2-one-bigstep-cu-simd-hpc01-r1/wrf.exe",
+      "sha256": "2e4f85bda80233130be6d95ae7f81450872dc0efc5bb8f5f47c1f99ff55e95ee"
     },
-    "source_commit": "080cd60b5a88705c2a0c83fe57d656f1a77adba7",
+    "source_commit": "f72e6ebbb621ff758ca2009bf48a8dd36d429d88",
+    "source_commit_semantics": "POST_TEST_SOURCE_IDENTITY; rawproducerNULL",
     "metrics": {
       "control": {
         "wall_seconds": 848.6774008770008,
@@ -127,21 +128,21 @@
         "main_step_sum_seconds": 626.3161
       },
       "candidate": {
-        "wall_seconds": 659.7446005078964,
-        "cpu_seconds": 320234.403293,
-        "main_step_sum_seconds": 558.99004
+        "wall_seconds": 641.2474492019974,
+        "cpu_seconds": 312007.44328400004,
+        "main_step_sum_seconds": 557.65058
       }
     },
     "reductions_percent": {
-      "wall_seconds": 22.262027971272268,
-      "cpu_seconds": 16.322091836918506,
-      "main_step_sum_seconds": 10.749533661995914
+      "wall_seconds": 24.441554760460306,
+      "cpu_seconds": 18.471813406541916,
+      "main_step_sum_seconds": 10.96339691730741
     },
     "fresh_matched_timing": false,
-    "comparison_design": "Candidate-only science qualification versus frozen original three-hour outputs; UNPAIRED descriptive metrics, no matched forecast timing or causal kernel claim",
+    "comparison_design": "Candidate-only science qualification versus frozen original three-hour outputs; UNPAIRED descriptive metrics, no matched timing or causal CU claim",
     "applies_to_current_selection": true,
     "repeatability_established": false,
-    "scope": "Current INATM2+3 7f2c/source080cd60b/BD74/archive42b0 + prior LW/compute/sharedtables/input06dNCa32/output51a/codece1d8: candidate-only original4products545steps/full512/faba/twoTiles/all4writers/all32markers PASS; own3hTRUE/own9hFALSE. RetainedoriginaltimingsUNPAIRED, no isolatedINATMforecastgain."
+    "scope": "Current INATM+CU2e4f/e296/archiveDD32 plus output51a/codece1d8/rootinput06dNCa32: candidate-only original4products545/full512/faba/twoTiles/all4positivewriters/all32markers. Own3hTRUE/own9hFALSE; retainedoriginal timing UNPAIRED."
   },
   "prior_nine_hour": {
     "evidence_file": "PREVIOUS_NINE_HOUR_RESULT_B1FB.json",
@@ -152,12 +153,12 @@
   "memory_qualification_file": "tools/cpu-memory/thompson-table-sharing/lazy-group-init/QUALIFICATION.json",
   "activation": "Selection record, not a launcher. Use a fresh bounded lease/run/log directory and the exact root-only input rank-exec binding, with all original runtime checks and cache-before-each-arm SOP. Never preload launchers/helpers.",
   "rollback": {
-    "selection": "tools/cpu-working/PREVIOUS_SELECTION_BEFORE_INATM_GROUPING.json",
-    "source_build_binding": "tools/cpu-working/PREVIOUS_CURRENT_SOURCE_BUILD_BINDING_BEFORE_INATM_GROUPING.json",
-    "source": "Revert only source commit 080cd60b5a88705c2a0c83fe57d656f1a77adba7 or remove inserted ENDDO/DO boundary to restore canonicala21; select parent0de/BA63 with unchanged51a/input06dNCa32/e1d8."
+    "selection": "tools/cpu-working/PREVIOUS_SELECTION_BEFORE_CU_PART2_SIMD.json",
+    "source_build_binding": "tools/cpu-working/PREVIOUS_CURRENT_SOURCE_BUILD_BINDING_BEFORE_CU_PART2_SIMD.json",
+    "source": "Revert only actual CU source-only commit f72e6ebbb621ff758ca2009bf48a8dd36d429d88 (remove one CU !$OMP SIMD line); paired7f2/42b0/080cd60 with unchanged51a/e1d8/input06dNCa32."
   },
-  "claim_limits": "Current7f2c: one candidate-only original4-product545-step acceptance. Retainedoriginal comparison is UNPAIRED descriptive wall22.2620%lower/aggregateCPU16.3221%less/mainelapsed10.7495%lower, not matched/isolatedINATM or repeatability proof. Mainincludescommunication/backpressure, notintegrationCPU. SignificantcompleteINATMcaller20.03%/17.72% gains are separate. Parent0de/e1d8 fresh9hqual remains historical and doesnotqualify7f2c;1.5x/2xthroughputgoalsunmet.",
-  "next_qualification": "Finish bounded CU-loop fragment screen; require meaningful caller evidence and original application science before any later integration. No automatic nine-hour rerun per small kernel.",
+  "claim_limits": "One candidate-only three-hour science qualification, no fresh control. Wall/aggregateCPU/main differences versus retained original are descriptive UNPAIRED; no isolated CU gain, repeatability or multi-job throughput claim. Synthetic caller+reset and body-only fragment gains remain separate. Historical0de ninehour excludes INATM+CU.",
+  "next_qualification": "No automatic new9h/profile/control solely for CU pragma; next root-selected measured opportunity.",
   "output_fusion_qualification_file": "tools/cpu-output/quilt512/padding-block32/NATIVE_QUALIFICATION.json",
   "latest_nine_hour": {
     "evidence_file": "NINE_HOUR_RESULT.json",
@@ -295,7 +296,7 @@
         }
       }
     },
-    "scope": "Historical exact-qualified parent0de/51a/e1d8 fresh9h pair, before INATMgrouping; doesnotqualify current7f2c."
+    "scope": "Historical qualified0de/51a/e1d8 before INATM+CU; excludes current2e4f."
   },
   "padding_only_fill_qualification_file": "tools/cpu-output/quilt512/padding-only-fill/NATIVE_QUALIFICATION.json",
   "padding_block32_qualification_file": "tools/cpu-output/quilt512/padding-block32/NATIVE_QUALIFICATION.json",
@@ -383,15 +384,16 @@
   "mcica_mask_fusion_qualification_file": "tools/cpu-compute/mcica-mask-fusion/QUALIFICATION.json",
   "POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
-    "source_commit": "080cd60b5a88705c2a0c83fe57d656f1a77adba7",
+    "source_commit": "f72e6ebbb621ff758ca2009bf48a8dd36d429d88",
     "raw_build_producer_source_commit": null,
-    "canonical_source": "phys/module_ra_rrtmg_lw.F",
-    "canonical_source_sha256": "bd74a574e1c01eb23c049b859442cb0c64c75fc788e4c03b6c8277ed7a98fec8",
-    "preprocessed_candidate_sha256": "f4cfe9d1df995d7e4859cc645bb2efd7987d699d94d6d4367dcaddb7c5470639",
-    "object_sha256": "48129208438c56a462098f4b58764b4aecab6bdc06a67878cacd52e2b0720d9d",
-    "executable_sha256": "7f2c71e8d4daabad88dd2c44a686836d34670526562ec7355d2f69f9c501c79c",
-    "archive_sha256": "42b0f78f03f76bd8b490a30cf8de22a3eda78bda6b1219d5a3f913d6034dc7eb",
-    "scope": "Two loop-boundary insertion lines only, committed after native/caller/one-member overlay/original4-product545-step acceptance. RawproducerNULLunchanged; no isolatedforecastgain or own9hqualification."
+    "canonical_source": "dyn_em/module_big_step_utilities_em.F",
+    "canonical_source_sha256": "e29677ca7acaa22110ba55778af901f473ceb75d8edb11b3684fe15c47f33108",
+    "preprocessed_candidate_sha256": "b8af548a510a6e81799cbbf474caa2fad7063b688a122dd7c70586902e1db7dd",
+    "object_sha256": "9c4540e5e4bc7f5c49995e8982feb98ede1cbe479ed08ba8f8d54362f7fbbce8",
+    "module_interface_sha256": "01702a275cfaa6e411f3b53342033027a3beca789ccd80a7b2e1becf3f43e7ee",
+    "executable_sha256": "2e4f85bda80233130be6d95ae7f81450872dc0efc5bb8f5f47c1f99ff55e95ee",
+    "archive_sha256": "dd329f8d0aa126c8475dbb690d0d8571af34b63d20fac48da7c207a1001c934f",
+    "scope": "One CU-loop directive only, committed after native/caller/canonical-preprocess/link/original3hSCI. Frozen rawproducerNULL unchanged; no isolated forecast or own9h claim."
   },
   "previous_mcica_short_science": {
     "receipt_sha256": "b56f895322a1e0dd8ea64e9cbfd93e3531f7fb70dd793291b6adf3c251b92cd2",
@@ -640,7 +642,7 @@
     "codec_sha256": "e1d8bc0774b7c54b4b63e7d6892c6485bec9b3c7032985a229961ba0569cc450",
     "build_script_sha256": "1bd199c6171bd374be1175c3fc328495ba78404262854baa41f900abd7c8a2a4"
   },
-  "archive_sha256": "42b0f78f03f76bd8b490a30cf8de22a3eda78bda6b1219d5a3f913d6034dc7eb",
+  "archive_sha256": "dd329f8d0aa126c8475dbb690d0d8571af34b63d20fac48da7c207a1001c934f",
   "previous_block_carry_short_science": {
     "status": "PASS_RETAINED_ORIGINAL_TWO_HISTORY_35_STEPS_512_OWNED_FIELD_VIEW",
     "receipt_sha256": "075e45506947752b3af936dba300740e854e8026b4e1c71beaaa1acfbe006ea2",
@@ -716,5 +718,67 @@
     "archive_sha256": "cf22bba736a25b2e9f0edc483daa6b8717032624612803bbc5fe51dc42ddaee2",
     "scope": "Committed after actual native/caller/full512 short science; no modification of frozen producer NULL records. Existing qualified MYJ -fopenmp-simd recipe is required for packed lowering; no new flags/global flags or generic-Make reproduction claim."
   },
-  "inatm_grouping_qualification_file": "tools/cpu-compute/inatm-copy-grouping/APPLICATION_QUALIFICATION.json"
+  "inatm_grouping_qualification_file": "tools/cpu-compute/inatm-copy-grouping/APPLICATION_QUALIFICATION.json",
+  "previous_INATM_POST_TEST_SOURCE_IDENTITY": {
+    "status": "POST_TEST_SOURCE_IDENTITY",
+    "source_commit": "080cd60b5a88705c2a0c83fe57d656f1a77adba7",
+    "raw_build_producer_source_commit": null,
+    "canonical_source": "phys/module_ra_rrtmg_lw.F",
+    "canonical_source_sha256": "bd74a574e1c01eb23c049b859442cb0c64c75fc788e4c03b6c8277ed7a98fec8",
+    "preprocessed_candidate_sha256": "f4cfe9d1df995d7e4859cc645bb2efd7987d699d94d6d4367dcaddb7c5470639",
+    "object_sha256": "48129208438c56a462098f4b58764b4aecab6bdc06a67878cacd52e2b0720d9d",
+    "executable_sha256": "7f2c71e8d4daabad88dd2c44a686836d34670526562ec7355d2f69f9c501c79c",
+    "archive_sha256": "42b0f78f03f76bd8b490a30cf8de22a3eda78bda6b1219d5a3f913d6034dc7eb",
+    "scope": "Two loop-boundary insertion lines only, committed after native/caller/one-member overlay/original4-product545-step acceptance. RawproducerNULLunchanged; no isolatedforecastgain or own9hqualification."
+  },
+  "candidate_memory_actual": {
+    "hpc01": {
+      "limit_bytes": 107374182400,
+      "peak_bytes": 76192583680,
+      "events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      }
+    },
+    "hpc02": {
+      "limit_bytes": 107374182400,
+      "peak_bytes": 73774968832,
+      "events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      }
+    },
+    "hpc03": {
+      "limit_bytes": 107374182400,
+      "peak_bytes": 73706328064,
+      "events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      }
+    },
+    "hpc04": {
+      "limit_bytes": 111669149696,
+      "peak_bytes": 73686663168,
+      "events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      }
+    }
+  }
 }

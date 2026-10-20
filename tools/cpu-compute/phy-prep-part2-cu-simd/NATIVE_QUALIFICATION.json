@@ -1,0 +1,73 @@
+{
+  "status": "PASS_GENUINE_FULL_PHY_PREP_PART2_20_FIXED_O2_MODULE_RAW_READONLY_HALO_CONFIG_SPECIES_FIVE_STATE_NOT_TIMING",
+  "utc": "2026-10-20T17:37:42.940511+00:00",
+  "invocation_id": "d41d0842cba44947a6be72b2be3e29d8",
+  "raw_producer_source_commit": null,
+  "canonical_parent_source_sha256": "c41522cd74f10267b705331e18092ce2cda0e8375a7e09c1ecff3e69741df6b6",
+  "canonical_candidate_source_sha256": "e29677ca7acaa22110ba55778af901f473ceb75d8edb11b3684fe15c47f33108",
+  "objects": {
+    "parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/phy-prep-part2-full-caller-native-r2/work/parent/module_big_step_utilities_em.o",
+      "sha256": "3bb5136d38254fae3027f109edbde69c8313aefb0be97ad4201622ca9905028b",
+      "module_interface_sha256": "01702a275cfaa6e411f3b53342033027a3beca789ccd80a7b2e1becf3f43e7ee",
+      "preprocessed_sha256": "f01d82693e811d6daeb9ab395ee267a6ff92c34eba4b0d79beabd04595d5cc9d"
+    },
+    "candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/phy-prep-part2-full-caller-native-r2/work/candidate/module_big_step_utilities_em.o",
+      "sha256": "9c4540e5e4bc7f5c49995e8982feb98ede1cbe479ed08ba8f8d54362f7fbbce8",
+      "module_interface_sha256": "01702a275cfaa6e411f3b53342033027a3beca789ccd80a7b2e1becf3f43e7ee",
+      "preprocessed_sha256": "b8af548a510a6e81799cbbf474caa2fad7063b688a122dd7c70586902e1db7dd"
+    }
+  },
+  "public_module_interface_sha256": "01702a275cfaa6e411f3b53342033027a3beca789ccd80a7b2e1becf3f43e7ee",
+  "parent_native_equivalence": {
+    "status": "PASS_ALLOCATED_BYTES_RELOCATIONS_NONFILE_SYMBOLS_EXACT",
+    "reference_sha256": "a24111c2fa0112eff6572c1aad24db8e55ed5f7d0c266e108f86194ae538f169",
+    "rebuilt_sha256": "3bb5136d38254fae3027f109edbde69c8313aefb0be97ad4201622ca9905028b",
+    "excluded": "Only nonallocated sections (including debug paths), STT_FILE symbol. All allocated text/rodata/data/bss/unwind sections and their relocations exact."
+  },
+  "raw_proofs": {
+    "native": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/phy-prep-part2-full-caller-native-r2/work/native.bin",
+      "sha256": "32a982546bdedeb2173ef82c578d0e4d0796ef98d12b0e3bd341b8b5ce8cfc02",
+      "bytes": 4344960
+    },
+    "parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/phy-prep-part2-full-caller-native-r2/work/parent.bin",
+      "sha256": "32a982546bdedeb2173ef82c578d0e4d0796ef98d12b0e3bd341b8b5ce8cfc02",
+      "bytes": 4344960
+    },
+    "candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/phy-prep-part2-full-caller-native-r2/work/candidate.bin",
+      "sha256": "32a982546bdedeb2173ef82c578d0e4d0796ef98d12b0e3bd341b8b5ce8cfc02",
+      "bytes": 4344960
+    }
+  },
+  "cases": 20,
+  "scope": "Actual public complete PHY_PREP_PART2,34REAL3D actuals+3mass+RMUNDGDTEN+fourcoefficients; wholeparent/candidateO2 once, samequalified strictflags. Nativea241 versus reproducedparent3bb versus candidate9c454 exact4,344,960 rawbytes inclpost-five-state/guard/readonly/halo/config/species. Fixedassignedroundings, no broadoptmatrix.",
+  "R1_failure_retained": {
+    "directory": "/pool/wrf-experiment/wrf-cpu/kernels/phy-prep-part2-full-caller-native-r1/work/parent",
+    "sha256": "3bb5136d38254fae3027f109edbde69c8313aefb0be97ad4201622ca9905028b",
+    "prior_failed_invocation": "abaed504a81d44a8ac96e8416a04499f",
+    "failure": "Driver compile omitted RMUNDGDTEN; no numerical caller ran"
+  },
+  "timing_qualified": false,
+  "application_qualified": false,
+  "limits": [
+    "FullsameO2 fixture only, not universalIEEE or enabled-trap firstfault ordering.",
+    "RetainedactualPPf01d singlepragma producescandidateb8af, canonicalF inverseexact; no normalization or claimfreshwholecanonicalCPPframework.",
+    "Literalcomponentruntime51a/3edf/8adc retained fromvalidatedsupportmanifest, no currentforecastcodec/input activation or performance claim.",
+    "No model/runtime/default/sourcepromotion. R1missingRMUNDGargument faileddrivercompile beforeanynumericalcaller, preserved; R2reusedhardpinnedparent."
+  ],
+  "raw_refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-cu-simd-r1/full-part2-caller-preparation-r2/actual-native-r1/receipt.json": "d422dd5f8e2394a81b3ba9649c99c2115f2097824cd212f7dfc5411cdf21993d",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-cu-simd-r1/full-part2-caller-preparation-r2/actual-native-r1/closure.json": "4e96fd6fd7f5ad2d899a7fe4110b13a01a951d2591d1f5c6915fdb0fa5860441",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-cu-simd-r1/full-part2-caller-preparation-r2/inputs/source-pins.json": "9a8a5021a075d78626062bd2704dbd700600489f7b9508ecfa95c4501a624c58",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-cu-simd-r1/full-part2-caller-preparation-r2/inputs/full_part2_driver.f90": "60c2ca27f9626d35e85cb9e15fa6e336091b3a322ff6757f691b331c41a132cd",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-cu-simd-r1/full-part2-caller-preparation-r2/inputs/parent_module_big_step_utilities_em.F": "c41522cd74f10267b705331e18092ce2cda0e8375a7e09c1ecff3e69741df6b6",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-cu-simd-r1/full-part2-caller-preparation-r2/inputs/candidate_module_big_step_utilities_em.F": "e29677ca7acaa22110ba55778af901f473ceb75d8edb11b3684fe15c47f33108",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-cu-simd-r1/full-part2-caller-preparation-r2/inputs/selected-link-dependencies.json": "0169cd47a7811dad90f4d6bb6043718542ce729b1326d8b73409605a1395005b",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-cu-simd-r1/full-part2-caller-preparation-r2/inputs/r1-receipt.json": "2997c3a30fe0351a7d253b7c3c509c27c4944e67da824b1eb2d1191125d5c9c7",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-cu-simd-r1/full-part2-caller-preparation-r2/inputs/r1-closure.json": "66ecb6129c44be0f5d9eb0a92e8426edb1d1f4f8718923cb2c0749932b666d6e"
+  }
+}

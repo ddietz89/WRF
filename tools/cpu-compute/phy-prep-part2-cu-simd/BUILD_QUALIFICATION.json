@@ -1,0 +1,142 @@
+{
+  "status": "PASS_CURRENT_7F2_ONE_BIGSTEP_CU_CANONICAL_CPP_PROJECTION_REUSE_AND_ORDINARY_LINK_NOT_APPLICATION",
+  "utc": "2026-10-20T17:47:43.995539+00:00",
+  "invocation_id": "6a581691b7584351b980aba967a24bc4",
+  "raw_producer_source_commit": null,
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current7f2-one-bigstep-cu-simd-hpc01-r1/wrf.exe",
+    "sha256": "2e4f85bda80233130be6d95ae7f81450872dc0efc5bb8f5f47c1f99ff55e95ee"
+  },
+  "archive": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current7f2-one-bigstep-cu-simd-hpc01-r1/libwrflib.a",
+    "sha256": "dd329f8d0aa126c8475dbb690d0d8571af34b63d20fac48da7c207a1001c934f"
+  },
+  "parent_executable_sha256": "7f2c71e8d4daabad88dd2c44a686836d34670526562ec7355d2f69f9c501c79c",
+  "parent_archive_sha256": "42b0f78f03f76bd8b490a30cf8de22a3eda78bda6b1219d5a3f913d6034dc7eb",
+  "replacement": {
+    "name": "module_big_step_utilities_em.o",
+    "ordered_index_zero_based": 559,
+    "occurrence": 1,
+    "parent_sha256": "a24111c2fa0112eff6572c1aad24db8e55ed5f7d0c266e108f86194ae538f169",
+    "candidate_sha256": "9c4540e5e4bc7f5c49995e8982feb98ede1cbe479ed08ba8f8d54362f7fbbce8",
+    "other_ordered_occurrences_exact": 583,
+    "public_module_interface_sha256": "01702a275cfaa6e411f3b53342033027a3beca789ccd80a7b2e1becf3f43e7ee"
+  },
+  "canonical_source": {
+    "parent_sha256": "c41522cd74f10267b705331e18092ce2cda0e8375a7e09c1ecff3e69741df6b6",
+    "candidate_sha256": "e29677ca7acaa22110ba55778af901f473ceb75d8edb11b3684fe15c47f33108",
+    "change": "One !$OMP SIMD line at CU inner I loop; inverse byteexact parent",
+    "actual_preprocessing_sha256": "b8af548a510a6e81799cbbf474caa2fad7063b688a122dd7c70586902e1db7dd",
+    "producer_receipt_sha256": "10a180190d1b2d030e7e213c40c6c0d37149aff83f06c630ef8893e4698be33b",
+    "actual_tools_sha256": {
+      "/bin/sed": "23f70dd6496d75419823039e1cebf95a2fd0508c6dfec72ac2352f7e08391dd5",
+      "/usr/bin/cpp": "c48f8b1b5ab757134970d17bc2ecd889df0d1245463036e834ab9be9d5e40765",
+      "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/tools/standard.exe": "26c7cbbf84d12b4ce3d48d28d061552377749c634eb59e3d12de83b41f411a35"
+    },
+    "pipeline": "Qualified sed -> cpp(-P traditional) -> standard.exe -> finalcpp(stdin); no output normalization"
+  },
+  "native_qualification_sha256": "1f8944a99e66bf1b886902fe9f813ae82ddbe11342912b5efca5693871b89ed9",
+  "caller_qualification_sha256": "47f795a95b72ec802566e30cec50dabbeb8c1ef788c4500aa13807bc65195bee",
+  "artifacts_from_actual_successful_worker": {
+    "/pool/wrf-experiment/wrf-cpu/builds/current7f2-one-bigstep-cu-simd-hpc01-r1/wrf.exe": "2e4f85bda80233130be6d95ae7f81450872dc0efc5bb8f5f47c1f99ff55e95ee",
+    "/pool/wrf-experiment/wrf-cpu/builds/current7f2-one-bigstep-cu-simd-hpc01-r1/libwrflib.a": "dd329f8d0aa126c8475dbb690d0d8571af34b63d20fac48da7c207a1001c934f",
+    "/pool/wrf-experiment/wrf-cpu/builds/current7f2-one-bigstep-cu-simd-hpc01-r1/candidate/module_big_step_utilities_em.o": "9c4540e5e4bc7f5c49995e8982feb98ede1cbe479ed08ba8f8d54362f7fbbce8",
+    "/pool/wrf-experiment/wrf-cpu/builds/current7f2-one-bigstep-cu-simd-hpc01-r1/candidate/module_big_step_utilities_em.mod": "01702a275cfaa6e411f3b53342033027a3beca789ccd80a7b2e1becf3f43e7ee",
+    "/pool/wrf-experiment/wrf-cpu/builds/current7f2-one-bigstep-cu-simd-hpc01-r1/canonical-preprocess/module_big_step_utilities_em.f90": "b8af548a510a6e81799cbbf474caa2fad7063b688a122dd7c70586902e1db7dd",
+    "/pool/wrf-experiment/wrf-cpu/builds/current7f2-one-bigstep-cu-simd-hpc01-r1/ordered-libwrflib-proof.json": "e47061c5d5769c688164f80df341348f7f519e1b8e6deb4eb411a7d7cf9161eb"
+  },
+  "source_compiles": 0,
+  "full_WRF_links": 1,
+  "retained_inputs": "Current parent7f2/42b0; 583 other ordered members including currentLW4812/MYJ13c8/Thompsonc3fb; same main/helper and READ6518/11 ordinary dependencies, exact exported object names/types.",
+  "strong_closure": {
+    "same_invocation": true,
+    "PID0": true,
+    "inactive_success_exit0": true,
+    "cgroup_absent_empty": true,
+    "manager_bound_positive": true
+  },
+  "all_local_refs_rehashed": true,
+  "raw_refs": [
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-cu-simd-r1/overlay-build-preparation-r1/actual-native-r1/receipt.json",
+      "sha256": "59d72f9f0ed123317d70bec55399f8cb26aa0abfbd4cf95538392ebe53d1f774"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-cu-simd-r1/overlay-build-preparation-r1/actual-native-r1/closure.json",
+      "sha256": "1f572723439ad9288608878dab2a40081ea5303e0d7bfe924c7c5659cb1e9d62"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-cu-simd-r1/overlay-build-preparation-r1/actual-native-r1/controller.json",
+      "sha256": "5ac225ce71bb2a32c3446c1ee4918d4a248420b60529d97d22d68f0e6200dcfc"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-cu-simd-r1/overlay-build-preparation-r1/manifest.json",
+      "sha256": "d225f41c5392604c5f453edb9226e0eb2d80aa1e71345d0ded861472f414da7c"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-cu-simd-r1/overlay-build-preparation-r1/REBUILD_RECIPE.json",
+      "sha256": "c9f5c9c92641baa0332f68a5c9021a04685f50b21f780114ebd18a5aeddc0d92"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-cu-simd-r1/overlay-build-preparation-r1/run_build.py",
+      "sha256": "edd7c931179613de6de32e5236969c71e0ead96c0565be264ec4487d8134ccfb"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-cu-simd-r1/overlay-build-preparation-r1/controller.py",
+      "sha256": "c87285ae926f4a0f636db0ad44e468078b2b37654897d8c157413fc09d1ba7af"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-cu-simd-r1/overlay-build-preparation-r1/native-receipt.json",
+      "sha256": "d422dd5f8e2394a81b3ba9649c99c2115f2097824cd212f7dfc5411cdf21993d"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-cu-simd-r1/overlay-build-preparation-r1/native-closure.json",
+      "sha256": "4e96fd6fd7f5ad2d899a7fe4110b13a01a951d2591d1f5c6915fdb0fa5860441"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-cu-simd-r1/overlay-build-preparation-r1/native-qualification.json",
+      "sha256": "1f8944a99e66bf1b886902fe9f813ae82ddbe11342912b5efca5693871b89ed9"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-cu-simd-r1/overlay-build-preparation-r1/caller-qualification.json",
+      "sha256": "47f795a95b72ec802566e30cec50dabbeb8c1ef788c4500aa13807bc65195bee"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-cu-simd-r1/overlay-build-preparation-r1/canonical-producer-receipt.json",
+      "sha256": "10a180190d1b2d030e7e213c40c6c0d37149aff83f06c630ef8893e4698be33b"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-cu-simd-r1/overlay-build-preparation-r1/parent-build-receipt.json",
+      "sha256": "8459579900e7199465cb7d735460e1e55afb7de832866315e22e7f7d9e004b36"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-cu-simd-r1/overlay-build-preparation-r1/parent-build-closure.json",
+      "sha256": "f07e2af8313547a0e80fa46cb216176dbfac6670ab25f8b511243f3944f9fd35"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-cu-simd-r1/overlay-build-preparation-r1/parent-ordered-libwrflib-proof.json",
+      "sha256": "2f6ed9ba57d424804e65d5f4fd57d983c59b0e6623b222f9c14a53d8b7a305f0"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-cu-simd-r1/overlay-build-preparation-r1/parent_module_big_step_utilities_em.F",
+      "sha256": "c41522cd74f10267b705331e18092ce2cda0e8375a7e09c1ecff3e69741df6b6"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-cu-simd-r1/overlay-build-preparation-r1/candidate_module_big_step_utilities_em.F",
+      "sha256": "e29677ca7acaa22110ba55778af901f473ceb75d8edb11b3684fe15c47f33108"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-cu-simd-r1/overlay-build-preparation-r1/actual-native-r1/ordered-libwrflib-proof.json",
+      "sha256": "e47061c5d5769c688164f80df341348f7f519e1b8e6deb4eb411a7d7cf9161eb"
+    }
+  ],
+  "limits": [
+    "Build/canonical projection qualification only. No application or science/default promotion.",
+    "Actual child ordered proof fetched read-only and hash/584 rows/583 unchanged/slot559 verified locally; executable/object artifact hashes remain actual successful worker receipt facts (no binary copy).",
+    "6.755782s is bounded build context, not performance timing.",
+    "Caller benefit uses two synthetic forcing regimes; no CONUS forcing or forecast gain inferred."
+  ],
+  "own_three_hour_qualified": false,
+  "own_nine_hour_qualified": false,
+  "ordered_child_proof_locally_verified": true
+}

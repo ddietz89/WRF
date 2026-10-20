@@ -1,0 +1,89 @@
+{
+  "status": "PASS_FRAGMENT_ONLY_CODEGEN_AND_16_O0_O2_EXACT_NOT_FULL_PART2",
+  "invocation_id": "0cc15292b92146e6911660b9db8a9708",
+  "source_parent_sha256": "c41522cd74f10267b705331e18092ce2cda0e8375a7e09c1ecff3e69741df6b6",
+  "source_candidate_sha256": "e29677ca7acaa22110ba55778af901f473ceb75d8edb11b3684fe15c47f33108",
+  "literal_change": "ONE !$OMP SIMD before CUthree-tendency innerI; inverse exact. No denominator hoisting; MUT variesI.",
+  "codegen": {
+    "parent": {
+      "divps": 0,
+      "divss": 3,
+      "mulps": 0,
+      "addps": 0,
+      "packed_memory": 0,
+      "assembly_sha256": "0416f031e0bb9c8307b19a0a8ade1daab3b7820fa3c5aa55332f7ee57ee45aca",
+      "object_sha256": "c7adababc97036310bfc88f2d22e6f65f77971c0f0c7baf6041178eca1b95581"
+    },
+    "candidate": {
+      "divps": 6,
+      "divss": 3,
+      "mulps": 2,
+      "addps": 2,
+      "packed_memory": 7,
+      "assembly_sha256": "a414000dd1863a79d699eb1b783fa0e098b90b6cff2ca2926e86ae62d322f3f6",
+      "object_sha256": "b4ba66dd91bf2bf61ad2662f09917485131eb4a48355563683515377b848cf54"
+    }
+  },
+  "oracles": {
+    "O0": {
+      "cases": 16,
+      "status": "PASS_SAME_OPT_PARENT_CANDIDATE_ALL_RAW_READONLY_HALO_FIVE_STATE",
+      "raw_path": "/pool/wrf-experiment/wrf-cpu/kernels/phy-prep-part2-cu-simd-fragment-r1/work/raw-O0",
+      "raw_sha256": "acbfafad331ed97c02b1a1394d75f134b045025dc9e337207d31474cf3e41c7f",
+      "raw_bytes": 1281280,
+      "executable_sha256": "50176ffc0b078b6f93551f2f518ab08ecf6d429e9478a27ebf7e57ca05e62796"
+    },
+    "O2": {
+      "cases": 16,
+      "status": "PASS_SAME_OPT_PARENT_CANDIDATE_ALL_RAW_READONLY_HALO_FIVE_STATE",
+      "raw_path": "/pool/wrf-experiment/wrf-cpu/kernels/phy-prep-part2-cu-simd-fragment-r1/work/raw-O2",
+      "raw_sha256": "794729510547b6896c81d07e6d4520cf88f00b646c370431b980ae7fbb547072",
+      "raw_bytes": 1281280,
+      "executable_sha256": "8f4abba3cdce956d696a610b32036c51e8fa7a56e7a98f0862bbb49eeb6c2bb3"
+    }
+  },
+  "coverage": "16cases peropt, finite188/nonzeroI/scalar1/width7,8,9/emptyI,J,K/NaNpayload/sNaN/signedzero/subnormal/infinity and actual finite\u00f7zero; all outputraw/halos/readonly/full5state hard, existing observer unchanged. Maskedtraps scope.",
+  "strong_closure": true,
+  "qualification_limits": {
+    "full_PART2": false,
+    "complete_caller": false,
+    "timing": false,
+    "whole_WRF": false,
+    "default": false
+  },
+  "resources": {
+    "memory.peak": "104697856\n",
+    "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+    "cpu.stat": "usage_usec 1164776\nuser_usec 733899\nsystem_usec 430876\ncore_sched.force_idle_usec 0\nnr_periods 79\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n"
+  },
+  "refs": [
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-cu-simd-r1/native-gate-r1/actual-native-r1/receipt.json",
+      "sha256": "82528ef5e9964f0c799298c7ed5adf316ba5c266ed6ab49efecb948c54b397f2"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-cu-simd-r1/native-gate-r1/actual-native-r1/closure.json",
+      "sha256": "e755c92504c69cbc61518ec8e16f7a4b063c0dc261fb2ccce6ae86971a23d934"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-cu-simd-r1/native-gate-r1/actual-native-r1/controller.json",
+      "sha256": "077edc519d38707dc25ec167ea94b1b9e06ad12ff5fbc6fbf81f959a7e317051"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-cu-simd-r1/native-gate-r1/inputs/run_gate.py",
+      "sha256": "ed3797072a56f07f3ed9dbc1432815b707b7e1e0ab4ff07554ac018ab2a60ff1"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-cu-simd-r1/native-gate-r1/inputs/fragment_driver.f90",
+      "sha256": "36e322b5dc5b82bf25fdd78e659ca16ac010d22b5d6b71861cd68c531ac3e74c"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-cu-simd-r1/native-gate-r1/inputs/region_observer.c",
+      "sha256": "274dbde95e634f10310b01a95b56cb545bb4cc8cf2290a6169c1e24dfa65fc5b"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-cu-simd-r1/local-source-r1/ONE_DIRECTIVE.diff",
+      "sha256": "103540bed58b8b10b38b3751048c3aa9af1e0d1b2ad7e55a25ed75d46b39462c"
+    }
+  ]
+}

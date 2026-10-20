@@ -1,5 +1,19 @@
 # WRF CPU optimization findings
 
+## Physics-preparation CU SIMD promoted after exact three-hour qualification (2026-10-20)
+
+Selected2e4f/archiveDD32/sourcef72e6ebb retains every prior selected improvement and adds one SIMD directive to the CU tendency-conversion loop. Original per-lane denominators and true divisions are preserved. Two opposite-order complete synthetic caller pairs were6.76–7.87% shorter for CU-only forcing and4.58–4.91% shorter with combined forcing, including identical restoration work. The approximately66% fragment gain is a separate, narrower result. Exact20-case full-module native and original four-product/545-step full512/two-tile/all-four-writer application checks passed; all model and reader scopes closed. [Qualification](tools/cpu-compute/phy-prep-part2-cu-simd/APPLICATION_QUALIFICATION.json)8e19eea4 binds26 actual references.
+
+| Measure | Retained corrected original | Latest CU combined configuration | Descriptive difference |
+|---|---:|---:|---:|
+| Whole model/MPI wall |848.677401s|641.247449s|24.4416% lower|
+| Main-step elapsed, including communication/backpressure |626.316100s|557.650580s|10.9634% lower|
+| Aggregate node CPU |382698.863204CPU-s|312007.443284CPU-s|18.4718% lower|
+
+This was candidate-only science qualification against retained original outputs. The timing comparison is UNPAIRED, with no isolated CU or repeatability claim. Main-step elapsed is not integration CPU. Actual node peak memory was70.960/68.708/68.644/68.626GiB, including charged file cache, with every memory-event counter zero. Configured limits remain100/100/100/104GiB; those limits are not usage. The prior fresh nine-hour pair measured original92–104GiB versus optimized69–71GiB, about23–34% lower per node. No simultaneous multi-forecast capacity has been established.
+
+Own three-hour science is true; own nine-hour science remains false. Parent0de nine-hour evidence excludes both INATM grouping and CU SIMD. [Evidence and rollback](tools/cpu-compute/phy-prep-part2-cu-simd/README.md) retain exact source identity, one-member build, harness failures and repairs. The stale LATEST view previously pointing to0de has been refreshed to actual2e4f; its real former bytes are preserved. Raw producer commits remainNULL;f72e6ebb is post-test source tracking. Next is the measured scalar PBL conversion loop, using additive live-PBL exceptional-value coverage before any inclusion. No automatic long forecast is required for each directive.
+
 ## Current INATM copy grouping promoted after three-hour science (2026-10-20)
 
 Selected7f2c/archive42b0/source080cd60b includes all prior improvements plus INATM2+3 copy grouping. The source adds only one loop boundary, grouping the first two and last three cloud-copy families. Opposite-order complete synthetic caller times were20.03% and17.72% shorter, with original O0/O2 raw/IEEE/bounds and module checks exact. This significant caller gain is included under the standing kernel-inclusion policy; no isolated forecast gain is claimed.
@@ -14,7 +28,7 @@ The unchanged original application comparison passed four complete outputs,545 o
 
 This was candidate-only acceptance against retained original outputs: the timing comparison is UNPAIRED, with no new control run, causal INATM contribution or repeatability claim. Main-step elapsed is not integration CPU. Compared with the earlier parent observation657.745680s/318965.303819CPU-s/556.643430s, these totals are slightly higher; separate uncontrolled runs do not establish a causal regression or outweigh the exact, significant complete-caller gain. All memory-event counters were zero; node peaks stayed around69–71GiB.
 
-Own three-hour science is true; own nine-hour qualification is pending. The parent0de fresh nine-hour result below remains separately bound and is not transferred. [Evidence, source identity and rollback](tools/cpu-compute/inatm-copy-grouping/README.md) preserve the rejected five-way split and the paired BEFORE_INATM_GROUPING selection/binding. Raw producer commits remainNULL;080cd60b is post-test source tracking. The residual Thompson evaporation pair remains unqualified, and the new CU SIMD fragment is only a pending kernel screen.
+Own three-hour science is true; own nine-hour qualification is pending. The parent0de fresh nine-hour result below remains separately bound and is not transferred. [Evidence, source identity and rollback](tools/cpu-compute/inatm-copy-grouping/README.md) preserve the rejected five-way split and the paired BEFORE_INATM_GROUPING selection/binding. Raw producer commits remainNULL;080cd60b is post-test source tracking. The residual Thompson evaporation pair remains unqualified, and the later CU SIMD qualification is reported above.
 
 ## Previous combined configuration: fresh nine-hour qualification (2026-10-20)
 

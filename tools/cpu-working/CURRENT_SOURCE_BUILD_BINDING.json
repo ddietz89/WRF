@@ -1,11 +1,11 @@
 {
-  "status": "WORKING_SELECTED_INATM_GROUPING_AFTER_ORIGINAL_THREE_HOUR",
-  "source_commit": "080cd60b5a88705c2a0c83fe57d656f1a77adba7",
+  "status": "WORKING_SELECTED_CU_PART2_SIMD_AFTER_ORIGINAL_THREE_HOUR",
+  "source_commit": "f72e6ebbb621ff758ca2009bf48a8dd36d429d88",
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/current0de-inatm-two-plus-three-current-hpc01-r1/wrf.exe",
-    "sha256": "7f2c71e8d4daabad88dd2c44a686836d34670526562ec7355d2f69f9c501c79c"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current7f2-one-bigstep-cu-simd-hpc01-r1/wrf.exe",
+    "sha256": "2e4f85bda80233130be6d95ae7f81450872dc0efc5bb8f5f47c1f99ff55e95ee"
   },
-  "archive_sha256": "42b0f78f03f76bd8b490a30cf8de22a3eda78bda6b1219d5a3f913d6034dc7eb",
+  "archive_sha256": "dd329f8d0aa126c8475dbb690d0d8571af34b63d20fac48da7c207a1001c934f",
   "sources": {
     "dyn_em/start_em.F": "ba19b902eb43c9baa2f59d3ffef0dec7c6a0ccbf0a9ceb062b72e55cff5366fc",
     "phys/module_mp_thompson.F": "4a2bd094c9131e150ab1d7cbcacf66e59d06db65652905d15b2d231180946066",
@@ -16,7 +16,7 @@
     "tools/cpu-memory/thompson-table-sharing/shared_table.c": "6be5e91ac1f63a8dc589af8188363223c44a2b361e1ade85afc1576be2b5c116",
     "dyn_em/module_advect_em.F": "47c7b2b0025dca1971696eacd51d7c589ec2bc20a211cd80f7329404e230fae8",
     "share/module_bc.F": "9eb38066228f430b0ceda85523803d252e5e70dbb7e81a34df07879d112dfb8f",
-    "dyn_em/module_big_step_utilities_em.F": "c41522cd74f10267b705331e18092ce2cda0e8375a7e09c1ecff3e69741df6b6",
+    "dyn_em/module_big_step_utilities_em.F": "e29677ca7acaa22110ba55778af901f473ceb75d8edb11b3684fe15c47f33108",
     "dyn_em/module_em.F": "ca2c2f614bd6e7b6b9c4545d0974890de1ee8254032a55fa205066eb80434dad",
     "dyn_em/module_small_step_em.F": "f998112d879b964e18f7637eb64b3135ea733b23a16a89b53362bdfc75728b98",
     "phys/module_bl_myjpbl.F": "795e00134d47f98f512d61ffc45f93b3599202499ee8d8429009611d21c4b11f",
@@ -80,14 +80,18 @@
     "INATM_grouping_overlay": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/inatm-copy-grouping/BUILD_QUALIFICATION.json",
       "sha256": "e133fdbbbd4762683ee2daa776638503bcc7706f5fb3c7dfeddc357e2e942a6f"
+    },
+    "CU_PART2_overlay": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/phy-prep-part2-cu-simd/BUILD_QUALIFICATION.json",
+      "sha256": "3e6507f5ad3954bf62494a5dc427420b1b8f8579eba34c80a71499f99218c6b8"
     }
   },
-  "qualification_file": "../cpu-compute/inatm-copy-grouping/APPLICATION_QUALIFICATION.json",
+  "qualification_file": "../cpu-compute/phy-prep-part2-cu-simd/APPLICATION_QUALIFICATION.json",
   "PD_real32_equivalence_file": "../cpu-compute/pd-row-workspace/QUALIFICATION.json",
   "PD_production_member_sha256": "8ec77f864716667aa79d40878fa11276f7dede4017c620201e54f9f83bb32b25",
   "PD_repaired_compile_object_sha256": "e5245eed1f84a67ea9d428bed8d8b2529f568ca49394f9cf8b85d97bdc50f560",
   "PD_equivalence_proof_sha256": "92abf53cb516e4394f2ce232ad81fb4985ea7b1f849310927e54aa4a2b1017cc",
-  "build_scope": "Current INATM2+3 7f2c/source080cd60b/BD74/archive42b0 + prior LW/compute/sharedtables/input06dNCa32/output51a/codece1d8: candidate-only original4products545steps/full512/faba/twoTiles/all4writers/all32markers PASS; own3hTRUE/own9hFALSE. RetainedoriginaltimingsUNPAIRED, no isolatedINATMforecastgain.",
+  "build_scope": "Current INATM+CU2e4f/e296/archiveDD32 plus output51a/codece1d8/rootinput06dNCa32: candidate-only original4products545/full512/faba/twoTiles/all4positivewriters/all32markers. Own3hTRUE/own9hFALSE; retainedoriginal timing UNPAIRED.",
   "runtime": {
     "WRF_EXPERIMENTAL_TPI_NUMA": 1,
     "other_settings": "Currentpool51a/codece1d8/HDF825/faba/FIELDVIEW1/shared1/singleIB; rootinput06dNCa32only."
@@ -145,6 +149,10 @@
     "INATM_grouping": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/inatm-copy-grouping/TWO_PLUS_THREE_CODEGEN_QUALIFICATION.json",
       "sha256": "f4ac7e13ec3b8e54220393d88de2965ef3438bee24366a76d3bd765a2d32528d"
+    },
+    "CU_PART2": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/phy-prep-part2-cu-simd/NATIVE_QUALIFICATION.json",
+      "sha256": "1f8944a99e66bf1b886902fe9f813ae82ddbe11342912b5efca5693871b89ed9"
     }
   },
   "current_nine_hour_qualified": false,
@@ -153,8 +161,8 @@
     "sha256": "f38a865905d030be42ac0a965b4aa6afbc0eae280902a3839f20df176457f445"
   },
   "full_application": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/inatm-copy-grouping/APPLICATION_QUALIFICATION.json",
-    "sha256": "3aa31f5ff1e936348aad9e09a135a38998018f3e8232a857b67cf880b1493a2c"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/phy-prep-part2-cu-simd/APPLICATION_QUALIFICATION.json",
+    "sha256": "8e19eea47507e50ef140168dec24835d850399d07aa7dc1c6242c160fa0c3da8"
   },
   "current_three_hour_qualified": true,
   "prior_repaired_full_application": {
@@ -254,7 +262,7 @@
     "path": "/home/ddietz/wrf/WRF/tools/cpu-working/NINE_HOUR_FINAL_QUALIFICATION.json",
     "sha256": "efbfe35f8a528e778f41770c6093a71ebd4c8bb8f7a1ce8096db54f5b12adaa9",
     "applies_to_current_selection": false,
-    "scope": "Historical qualifiedparent0de beforeINATMgrouping; own7f2c ninehourpending."
+    "scope": "Historical0de ninehour; excludes INATM+CU."
   },
   "previous_noon75m_full_application": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-output/quilt512/padding-block32/APPLICATION_QUALIFICATION.json",
@@ -263,12 +271,13 @@
   "three_hour_benchmark": {
     "evidence_file": "THREE_HOUR_RESULT.json",
     "qualification_file": "THREE_HOUR_FINAL_QUALIFICATION.json",
-    "full_qualification_sha256": "3aa31f5ff1e936348aad9e09a135a38998018f3e8232a857b67cf880b1493a2c",
+    "full_qualification_sha256": "8e19eea47507e50ef140168dec24835d850399d07aa7dc1c6242c160fa0c3da8",
     "executable": {
-      "path": "/pool/wrf-experiment/wrf-cpu/builds/current0de-inatm-two-plus-three-current-hpc01-r1/wrf.exe",
-      "sha256": "7f2c71e8d4daabad88dd2c44a686836d34670526562ec7355d2f69f9c501c79c"
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current7f2-one-bigstep-cu-simd-hpc01-r1/wrf.exe",
+      "sha256": "2e4f85bda80233130be6d95ae7f81450872dc0efc5bb8f5f47c1f99ff55e95ee"
     },
-    "source_commit": "080cd60b5a88705c2a0c83fe57d656f1a77adba7",
+    "source_commit": "f72e6ebbb621ff758ca2009bf48a8dd36d429d88",
+    "source_commit_semantics": "POST_TEST_SOURCE_IDENTITY; rawproducerNULL",
     "metrics": {
       "control": {
         "wall_seconds": 848.6774008770008,
@@ -276,21 +285,21 @@
         "main_step_sum_seconds": 626.3161
       },
       "candidate": {
-        "wall_seconds": 659.7446005078964,
-        "cpu_seconds": 320234.403293,
-        "main_step_sum_seconds": 558.99004
+        "wall_seconds": 641.2474492019974,
+        "cpu_seconds": 312007.44328400004,
+        "main_step_sum_seconds": 557.65058
       }
     },
     "reductions_percent": {
-      "wall_seconds": 22.262027971272268,
-      "cpu_seconds": 16.322091836918506,
-      "main_step_sum_seconds": 10.749533661995914
+      "wall_seconds": 24.441554760460306,
+      "cpu_seconds": 18.471813406541916,
+      "main_step_sum_seconds": 10.96339691730741
     },
     "fresh_matched_timing": false,
-    "comparison_design": "Candidate-only science qualification versus frozen original three-hour outputs; UNPAIRED descriptive metrics, no matched forecast timing or causal kernel claim",
+    "comparison_design": "Candidate-only science qualification versus frozen original three-hour outputs; UNPAIRED descriptive metrics, no matched timing or causal CU claim",
     "applies_to_current_selection": true,
     "repeatability_established": false,
-    "scope": "Current INATM2+3 7f2c/source080cd60b/BD74/archive42b0 + prior LW/compute/sharedtables/input06dNCa32/output51a/codece1d8: candidate-only original4products545steps/full512/faba/twoTiles/all4writers/all32markers PASS; own3hTRUE/own9hFALSE. RetainedoriginaltimingsUNPAIRED, no isolatedINATMforecastgain."
+    "scope": "Current INATM+CU2e4f/e296/archiveDD32 plus output51a/codece1d8/rootinput06dNCa32: candidate-only original4products545/full512/faba/twoTiles/all4positivewriters/all32markers. Own3hTRUE/own9hFALSE; retainedoriginal timing UNPAIRED."
   },
   "previous_parent_three_hour_full_application": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_THREE_HOUR_FINAL_QUALIFICATION_BEFORE_CEC_SLIDE.json",
@@ -299,15 +308,16 @@
   },
   "POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
-    "source_commit": "080cd60b5a88705c2a0c83fe57d656f1a77adba7",
+    "source_commit": "f72e6ebbb621ff758ca2009bf48a8dd36d429d88",
     "raw_build_producer_source_commit": null,
-    "canonical_source": "phys/module_ra_rrtmg_lw.F",
-    "canonical_source_sha256": "bd74a574e1c01eb23c049b859442cb0c64c75fc788e4c03b6c8277ed7a98fec8",
-    "preprocessed_candidate_sha256": "f4cfe9d1df995d7e4859cc645bb2efd7987d699d94d6d4367dcaddb7c5470639",
-    "object_sha256": "48129208438c56a462098f4b58764b4aecab6bdc06a67878cacd52e2b0720d9d",
-    "executable_sha256": "7f2c71e8d4daabad88dd2c44a686836d34670526562ec7355d2f69f9c501c79c",
-    "archive_sha256": "42b0f78f03f76bd8b490a30cf8de22a3eda78bda6b1219d5a3f913d6034dc7eb",
-    "scope": "Two loop-boundary insertion lines only, committed after native/caller/one-member overlay/original4-product545-step acceptance. RawproducerNULLunchanged; no isolatedforecastgain or own9hqualification."
+    "canonical_source": "dyn_em/module_big_step_utilities_em.F",
+    "canonical_source_sha256": "e29677ca7acaa22110ba55778af901f473ceb75d8edb11b3684fe15c47f33108",
+    "preprocessed_candidate_sha256": "b8af548a510a6e81799cbbf474caa2fad7063b688a122dd7c70586902e1db7dd",
+    "object_sha256": "9c4540e5e4bc7f5c49995e8982feb98ede1cbe479ed08ba8f8d54362f7fbbce8",
+    "module_interface_sha256": "01702a275cfaa6e411f3b53342033027a3beca789ccd80a7b2e1becf3f43e7ee",
+    "executable_sha256": "2e4f85bda80233130be6d95ae7f81450872dc0efc5bb8f5f47c1f99ff55e95ee",
+    "archive_sha256": "dd329f8d0aa126c8475dbb690d0d8571af34b63d20fac48da7c207a1001c934f",
+    "scope": "One CU-loop directive only, committed after native/caller/canonical-preprocess/link/original3hSCI. Frozen rawproducerNULL unchanged; no isolated forecast or own9h claim."
   },
   "previous_mcica_full_application": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/mcica-mask-fusion/APPLICATION_QUALIFICATION.json",
@@ -613,6 +623,74 @@
           },
           "peak_reached_limit": false
         }
+      }
+    }
+  },
+  "previous_INATM_POST_TEST_SOURCE_IDENTITY": {
+    "status": "POST_TEST_SOURCE_IDENTITY",
+    "source_commit": "080cd60b5a88705c2a0c83fe57d656f1a77adba7",
+    "raw_build_producer_source_commit": null,
+    "canonical_source": "phys/module_ra_rrtmg_lw.F",
+    "canonical_source_sha256": "bd74a574e1c01eb23c049b859442cb0c64c75fc788e4c03b6c8277ed7a98fec8",
+    "preprocessed_candidate_sha256": "f4cfe9d1df995d7e4859cc645bb2efd7987d699d94d6d4367dcaddb7c5470639",
+    "object_sha256": "48129208438c56a462098f4b58764b4aecab6bdc06a67878cacd52e2b0720d9d",
+    "executable_sha256": "7f2c71e8d4daabad88dd2c44a686836d34670526562ec7355d2f69f9c501c79c",
+    "archive_sha256": "42b0f78f03f76bd8b490a30cf8de22a3eda78bda6b1219d5a3f913d6034dc7eb",
+    "scope": "Two loop-boundary insertion lines only, committed after native/caller/one-member overlay/original4-product545-step acceptance. RawproducerNULLunchanged; no isolatedforecastgain or own9hqualification."
+  },
+  "caller": {
+    "CU_PART2": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/phy-prep-part2-cu-simd/CALLER_QUALIFICATION.json",
+      "sha256": "47f795a95b72ec802566e30cec50dabbeb8c1ef788c4500aa13807bc65195bee"
+    }
+  },
+  "candidate_memory_actual": {
+    "hpc01": {
+      "limit_bytes": 107374182400,
+      "peak_bytes": 76192583680,
+      "events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      }
+    },
+    "hpc02": {
+      "limit_bytes": 107374182400,
+      "peak_bytes": 73774968832,
+      "events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      }
+    },
+    "hpc03": {
+      "limit_bytes": 107374182400,
+      "peak_bytes": 73706328064,
+      "events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      }
+    },
+    "hpc04": {
+      "limit_bytes": 111669149696,
+      "peak_bytes": 73686663168,
+      "events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
       }
     }
   }
