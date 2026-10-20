@@ -1,0 +1,301 @@
+{
+  "status": "PASS_ACTUAL_FIXED_ORDER_SINGLE_DUAL_THREE_HOUR_EIGHT_ORIGINAL_COMPARISONS_ALL_SCOPES_CLOSED",
+  "utc": "2026-10-20T00:45:36.068303+00:00",
+  "executable_sha256": "81d35cfa92ff1e84505f94cf3a2fb4cf9761f8215f6e4dc49da0c3bed5db32e8",
+  "source_commit_raw_producer": null,
+  "configuration": {
+    "ranks": 512,
+    "compute": 480,
+    "quilt": 32,
+    "rank_map_sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac",
+    "tiles": 2,
+    "shared_tables": "1",
+    "field_view": "1",
+    "provider": "375",
+    "hdf5": "825",
+    "codec": "881",
+    "single": "ibp1s0f0:1",
+    "dual": "ibp1s0f0:1,ibp33s0f0:1",
+    "eager_rndv_caps": 2
+  },
+  "science": {
+    "original_comparisons": 8,
+    "steps_each": 545,
+    "same_retained_corrected_original": true,
+    "direct_third_pass": false,
+    "protected_check_pair_byteexact": true,
+    "all_original_numeric_nonfinite_metadata_layout_ordered_step_input_readonly_all512_tile_writer_runtime_guards_passed": true
+  },
+  "closure": {
+    "models": 8,
+    "reader_invocation_id": "c8d9d55ec9404b94aa6db6be012ea434",
+    "reader_exit_code_raw": null,
+    "reader_success_bound_to_manager_journal": true,
+    "reader_cgroup_absent": true,
+    "all_owned_scopes_closed": true
+  },
+  "transport_evidence": {
+    "saved_process_environment": "All512ranks perarm matched exact intended literalUCX_NET_DEVICES andrc,sm,self; savedstream checks and unchanged runtimeguard",
+    "configured_endpoints": "Actualrsl.out0000/1/2/3(oneknownrankperhost) show firstportonly in single and BOTH physicalports in dual inter-node rc_mlx5 tagged configs",
+    "port_counters": "UNKNOWN_NOT_COLLECTED_FOR_MODEL",
+    "per_message_stripes_bytes_or_thresholds": "UNKNOWN",
+    "separate_component_epoch": "Fourrankdualfixture observedsecondportcounters; not transferredasmodelcounterproof",
+    "initial_log_scan_limit": "mpi-stdout context/version rows andrsl.error didnotestablishendpoints; laterexistingrsl.OUT logs establishselectedhostconfigs; intermediatecontext-rowcounts are NOT endpointcounts"
+  },
+  "metrics": {
+    "single": {
+      "mpi_adapter_wall_seconds": 670.4958634960931,
+      "main_step_wall_sum_seconds": 562.18516,
+      "observed_steps": 545,
+      "aggregate_model_cgroup_cpu_seconds": 323940.189933,
+      "node_cpu_seconds": {
+        "hpc01": 80963.648247,
+        "hpc02": 80969.375237,
+        "hpc03": 81021.887878,
+        "hpc04": 80985.278571
+      },
+      "node_memory_peak_bytes": {
+        "hpc01": 76188188672,
+        "hpc02": 73755938816,
+        "hpc03": 73718120448,
+        "hpc04": 73683267584
+      },
+      "node_cpu_stat": {
+        "hpc01": "usage_usec 80963648247\nuser_usec 79208582733\nsystem_usec 1755065514\ncore_sched.force_idle_usec 0\nnr_periods 6715\nnr_throttled 4190\nthrottled_usec 31184263\nnr_bursts 0\nburst_usec 0\n",
+        "hpc02": "usage_usec 80969375237\nuser_usec 79089490835\nsystem_usec 1879884402\ncore_sched.force_idle_usec 0\nnr_periods 6668\nnr_throttled 4426\nthrottled_usec 29137469\nnr_bursts 0\nburst_usec 0\n",
+        "hpc03": "usage_usec 81021887878\nuser_usec 79141974319\nsystem_usec 1879913558\ncore_sched.force_idle_usec 0\nnr_periods 6669\nnr_throttled 5017\nthrottled_usec 15545001\nnr_bursts 0\nburst_usec 0\n",
+        "hpc04": "usage_usec 80985278571\nuser_usec 79030214926\nsystem_usec 1955063645\ncore_sched.force_idle_usec 0\nnr_periods 6668\nnr_throttled 4380\nthrottled_usec 12508857\nnr_bursts 0\nburst_usec 0\n"
+      },
+      "node_memory_events": {
+        "hpc01": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "hpc02": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "hpc03": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "hpc04": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n"
+      }
+    },
+    "dual": {
+      "mpi_adapter_wall_seconds": 672.6447875141166,
+      "main_step_wall_sum_seconds": 562.46509,
+      "observed_steps": 545,
+      "aggregate_model_cgroup_cpu_seconds": 324383.392689,
+      "node_cpu_seconds": {
+        "hpc01": 81101.564811,
+        "hpc02": 81089.656262,
+        "hpc03": 81108.383056,
+        "hpc04": 81083.78856
+      },
+      "node_memory_peak_bytes": {
+        "hpc01": 83433099264,
+        "hpc02": 80940822528,
+        "hpc03": 81036947456,
+        "hpc04": 80875786240
+      },
+      "node_cpu_stat": {
+        "hpc01": "usage_usec 81101564811\nuser_usec 79288933329\nsystem_usec 1812631482\ncore_sched.force_idle_usec 0\nnr_periods 6734\nnr_throttled 4416\nthrottled_usec 23717137\nnr_bursts 0\nburst_usec 0\n",
+        "hpc02": "usage_usec 81089656262\nuser_usec 79183765402\nsystem_usec 1905890860\ncore_sched.force_idle_usec 0\nnr_periods 6686\nnr_throttled 5292\nthrottled_usec 7797933\nnr_bursts 0\nburst_usec 0\n",
+        "hpc03": "usage_usec 81108383056\nuser_usec 79200728199\nsystem_usec 1907654856\ncore_sched.force_idle_usec 0\nnr_periods 6686\nnr_throttled 4371\nthrottled_usec 32911782\nnr_bursts 0\nburst_usec 0\n",
+        "hpc04": "usage_usec 81083788560\nuser_usec 79102600953\nsystem_usec 1981187607\ncore_sched.force_idle_usec 0\nnr_periods 6685\nnr_throttled 4424\nthrottled_usec 10954052\nnr_bursts 0\nburst_usec 0\n"
+      },
+      "node_memory_events": {
+        "hpc01": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "hpc02": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "hpc03": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "hpc04": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n"
+      }
+    },
+    "scope": "SCI_PASS; exactly one fixed-order single-first/dual-second pair on same81d35. Model adapter wall and summed545main-step wall; CPU is sum of saved per-node cgroup cpu.stat at MPI/orted receipt emission (not later coordinator validation). No repeated-pair significance or causal network claim.",
+    "dual_relative_change_percent": {
+      "mpi_adapter_wall_seconds": 0.32049772936981746,
+      "main_step_wall_sum_seconds": 0.04979320336382376,
+      "aggregate_model_cgroup_cpu_seconds": 0.1368162302095577
+    },
+    "science_sha256": "728717c69db943c673a47b5dcef7d2d076d5cce00e521cd64258d661f728db1c"
+  },
+  "conclusion": "Bothportlists scientificallyqualified for this exactthreehourcase. No measuredgain in thisfixedorderpair; no causalregression/statisticalsignificance claim. No default/source/transportpromotion bythisagent. Rootownsdisposition.",
+  "raw_references": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/fullgrid-pair-preparation-r1/ROOT_CONDITIONAL_COMPLETE_PAIR_RELEASE.json": {
+      "sha256": "81ce2215505aa95f92932562acb8c2d85c2887b997979a59d8db6fc5fc51ffc9",
+      "bytes": 3227
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/fullgrid-pair-preparation-r1/ACTIVATION.json": {
+      "sha256": "f528b951a145ad8f376ea5a81399eb1aac8615afe86dbc250b4e534f536b67c8",
+      "bytes": 518
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/fullgrid-pair-preparation-r1/PREPARATION.json": {
+      "sha256": "0a22db2f48f0bf355826750c70176bd0dcdbd7f95a9d76495afa57311255ff3e",
+      "bytes": 2976
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/fullgrid-pair-preparation-r1/ACTUAL_PAIR_METRICS.json": {
+      "sha256": "da02a1165a2d9398d8769f21db632007134393d1161edc864a9a6415e233fc8c",
+      "bytes": 4009
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/fullgrid-pair-preparation-r1/actual-transport-metadata/SELECTED_RSL_OUT_ENDPOINTS.json": {
+      "sha256": "447d21813d3e66c7b5d86c7776539039799cab23de12f59fe80b6c0f4045c39e",
+      "bytes": 4370
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/fullgrid-pair-preparation-r1/actual-transport-metadata/SELECTED_RSL_ENDPOINTS.json": {
+      "sha256": "a8230c72d0deccca61cfd1dec1f558a10dc1f4e652260fca5f3e1d7a86d277cc",
+      "bytes": 2423
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/native-preparation-r2/ACTUAL_QUALIFICATION.json": {
+      "sha256": "4d39ffe1320730e618adc9774f608a1562ebea8dfb1ec7d0ef46eac6f6b16e73",
+      "bytes": 14068
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/READINESS_AUDIT.json": {
+      "sha256": "5afec373a7f1a4c151d2df3a6020c8150921eed6c1f66e9ea70ddf759b7b9b9d",
+      "bytes": 21193
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current81-singlerail3h-runtime-r1/source-pins.json": {
+      "sha256": "d4f8e8d98c6aa9f0e509352f15c180aa4901904a80f1cfd6f3891b66684c0758",
+      "bytes": 30949
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current81-singlerail3h-runtime-r1/application-binding.json": {
+      "sha256": "40f7812879c695fb9551caaca662df260385237abe6d09e3c4246b8749ef7794",
+      "bytes": 18062
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current81-singlerail3h-runtime-r1/lease-candidate-proposed.json": {
+      "sha256": "699151ec4f694d6259a1cf607551e7beac190778be587eae17d4eb9c11c9407c",
+      "bytes": 113287
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current81-singlerail3h-runtime-r1/lease-control-proposed.json": {
+      "sha256": "8f901e6a3588d832307c8bacb9a7a2f5db5f9ab4ad11b41c04925df570fcf3b0",
+      "bytes": 110217
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current81-singlerail3h-runtime-r1/check_pair.py": {
+      "sha256": "e2518d75a86b038604c8ab56abe75ff8b67a6939bc0de284857d2208f7249076",
+      "bytes": 5776
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current81-singlerail3h-runtime-r1/candidate-closures.json": {
+      "sha256": "c7fafdf23abad228572b5205e6370bec8a6bce567b3807feeeaaff7d5e13e9cc",
+      "bytes": 23155
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current81-singlerail3h-runtime-r1/cache-clear-candidate.json": {
+      "sha256": "e96a4310058e564f22101893cd65da63a76a59ac9c1c7995593f17ec5dab8aa2",
+      "bytes": 5699
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current81-dualrail3h-runtime-r1/source-pins.json": {
+      "sha256": "a4839cd2a9a30b0f3ce1abc8d8e456ba6cdc3434678d34412b3f01983bda5577",
+      "bytes": 31045
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current81-dualrail3h-runtime-r1/application-binding.json": {
+      "sha256": "cb35769c0c86cd47f3bf9d1545930b7d3578aee14d27c8b163fa46c14bc43489",
+      "bytes": 18074
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current81-dualrail3h-runtime-r1/lease-candidate-proposed.json": {
+      "sha256": "d8bbd9ff62a72049e2abba3dfda7b9702b3b018683ac291df9a79fad51f64a87",
+      "bytes": 113285
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current81-dualrail3h-runtime-r1/lease-control-proposed.json": {
+      "sha256": "8f901e6a3588d832307c8bacb9a7a2f5db5f9ab4ad11b41c04925df570fcf3b0",
+      "bytes": 110217
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current81-dualrail3h-runtime-r1/check_pair.py": {
+      "sha256": "e2518d75a86b038604c8ab56abe75ff8b67a6939bc0de284857d2208f7249076",
+      "bytes": 5776
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current81-dualrail3h-runtime-r1/candidate-closures.json": {
+      "sha256": "4610140ece8190a61d5ca7623ce059229c2dd7c15f7bd92f0e0c56e644542e28",
+      "bytes": 23068
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current81-dualrail3h-runtime-r1/cache-clear-candidate.json": {
+      "sha256": "48e8bc3da70dd82a05f3f1bec154194319fc47c0d1f9000fb45d5fa4e8822e84",
+      "bytes": 5689
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current81-dualrail3h-runtime-r1/science-receipt.json": {
+      "sha256": "728717c69db943c673a47b5dcef7d2d076d5cce00e521cd64258d661f728db1c",
+      "bytes": 856
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current81-dualrail3h-runtime-r1/single-science-versus-original.json": {
+      "sha256": "79f54876966e8a27650132e5227c0c2ce7238bb2ffd6713cb0eed8ae3a634216",
+      "bytes": 4445717
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current81-dualrail3h-runtime-r1/dual-science-versus-original.json": {
+      "sha256": "848c99e636286161cdc56b92f5d8f889447c19f6411feb1c4aa4dd426200d8bc",
+      "bytes": 4445785
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current81-dualrail3h-runtime-r1/reader-closure.json": {
+      "sha256": "a9d686e93ad525d17b879c5e17e464d94940e70d4963d925b838b80999d53ae9",
+      "bytes": 4169
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/fullgrid-pair-preparation-r1/actual-transport-metadata/single/lease.json": {
+      "sha256": "9574ce0c78c366999ccd109b321c80e62298d95a42d0d160227b98717f568ed3",
+      "bytes": 113383
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/fullgrid-pair-preparation-r1/actual-transport-metadata/single/completion.json": {
+      "sha256": "a386c790fd9d4dcc5bd29d505f69ecbe0cd6d1f2f564307ac5ed71cc1917aab7",
+      "bytes": 995
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/fullgrid-pair-preparation-r1/actual-transport-metadata/single/model-closures.json": {
+      "sha256": "f3de7f4aeb9325dda42c0b3c8b4711590c4ac3a719deb6c94062d5821c59da4a",
+      "bytes": 25882
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/fullgrid-pair-preparation-r1/actual-transport-metadata/single/mpi-launch.json": {
+      "sha256": "be7b15aa1a0ef4313b65eb33127514f91ae1fb24db804cc12a7b89ef92e4d2a8",
+      "bytes": 7228
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/fullgrid-pair-preparation-r1/actual-transport-metadata/single/hpc02-node.json": {
+      "sha256": "47263e1786a82338433d7abde71d47c0953882742e5e4232edc6a79fde8fed8d",
+      "bytes": 3715
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/fullgrid-pair-preparation-r1/actual-transport-metadata/single/hpc03-node.json": {
+      "sha256": "01f33ee6f9a849a287bd593d7e1ce1499eca845861b6524e5496231affd3ae7b",
+      "bytes": 3715
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/fullgrid-pair-preparation-r1/actual-transport-metadata/single/hpc04-node.json": {
+      "sha256": "fbaf4244abc6fd1d955e16fee2e909d5982cd9b64b835a219e2bb81938aa8ecb",
+      "bytes": 3714
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/fullgrid-pair-preparation-r1/actual-transport-metadata/single/adaptive-steps.json": {
+      "sha256": "f49d18d9862fa22028b19ab8d429bc7eb7f3c772a6118f5a5403d46dce1d00c4",
+      "bytes": 61521
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/fullgrid-pair-preparation-r1/actual-transport-metadata/single/cache-start-context.json": {
+      "sha256": "b51c0457ea373fc348c4a829d03a4c677cbf465ddfafbb0042aad526b3676a23",
+      "bytes": 362
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/fullgrid-pair-preparation-r1/actual-transport-metadata/single/TRANSPORT_OBSERVATIONS.json": {
+      "sha256": "fdd4d010c0278a7fa90a31bec9b2bfa4bd694ae1948c3e649618385a5a28b611",
+      "bytes": 5366
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/fullgrid-pair-preparation-r1/actual-transport-metadata/dual/lease.json": {
+      "sha256": "e5730418217544e9f1c86d01fb62be71c9aaceb5bb3957b77447f1a9c93250e8",
+      "bytes": 113381
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/fullgrid-pair-preparation-r1/actual-transport-metadata/dual/completion.json": {
+      "sha256": "0d068fdabb38a3b40505583ef65865bacfc0176f78af4a25cdc9c2997acfcb99",
+      "bytes": 995
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/fullgrid-pair-preparation-r1/actual-transport-metadata/dual/model-closures.json": {
+      "sha256": "d9b956705b40eee66fd9249ff5b6541f015cca7793a795a011d79bde3eeae95c",
+      "bytes": 25795
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/fullgrid-pair-preparation-r1/actual-transport-metadata/dual/mpi-launch.json": {
+      "sha256": "16bd57092af8b2cdcc3737496bf6afca958857ec6cd57466f9764fde00aaceee",
+      "bytes": 7212
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/fullgrid-pair-preparation-r1/actual-transport-metadata/dual/hpc02-node.json": {
+      "sha256": "5e86281638af4972312a5db4189c35b01ff73b434c9faee07d7d79d9bf668a18",
+      "bytes": 3708
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/fullgrid-pair-preparation-r1/actual-transport-metadata/dual/hpc03-node.json": {
+      "sha256": "4a706d381ffacbc435c16b8bbd9fda5f58f4060bdd347bcfa9872bf9ca98bfda",
+      "bytes": 3709
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/fullgrid-pair-preparation-r1/actual-transport-metadata/dual/hpc04-node.json": {
+      "sha256": "ac2219db3d6f5aa92339e8d7c8dd6dab27c370e1c26d72799ecec27dde375ed5",
+      "bytes": 3708
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/fullgrid-pair-preparation-r1/actual-transport-metadata/dual/adaptive-steps.json": {
+      "sha256": "b056707daf9cec95bf447ada4e6047fa1d7453bb9b2e47810db898b82e64dedc",
+      "bytes": 61516
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/fullgrid-pair-preparation-r1/actual-transport-metadata/dual/cache-start-context.json": {
+      "sha256": "778106539b4883295908dbe5940cfdeed38d0d86aab34ad83222b971041a3772",
+      "bytes": 362
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/fullgrid-pair-preparation-r1/actual-transport-metadata/dual/TRANSPORT_OBSERVATIONS.json": {
+      "sha256": "77ead1c6aaf7da4a97f21e3ed6ca695aa24caf171d90f4860a8e2d86b942b92c",
+      "bytes": 5398
+    }
+  }
+}
