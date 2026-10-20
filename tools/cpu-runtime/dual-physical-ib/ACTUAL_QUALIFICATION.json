@@ -1,0 +1,276 @@
+{
+  "status": "PASS_TWO_PORT_CONFIGURATION_EXACT_MPI_DIAGNOSTIC_ALL_SCOPES_STRONGLY_CLOSED",
+  "active_manifest_sha256": "bb91f45d42aad79af00b3e2796813d77c66afbb7541d83319f4896ae695384ed",
+  "fixture_binary_sha256": "68656e6f3c1b584fab49abedb00ae72e873e13fa90ab4c7c06593f6870203538",
+  "no_source_compile": true,
+  "world": 4,
+  "hosts": [
+    "hpc02",
+    "hpc03"
+  ],
+  "cpus": [
+    24,
+    25
+  ],
+  "memory_bytes_per_host": 4294967296,
+  "swap_bytes": 0,
+  "wall_cap_seconds": 180,
+  "arms": {
+    "single": {
+      "receipt_sha256": "6a72b73e4734cd5dd8f0ea2ac916f83091103152ed64decadbf1314900dcf8a7",
+      "closures_sha256": "4e90b15d923ff1ddd7c5cd25feedefa12a44f0cf1d194534b910ec6996dd33f9",
+      "invocations": {
+        "hpc02": "f0abda9f52074c8bb7e854ea1ae0319d",
+        "hpc03": "34530b1b7f5c425eaf04ac35b5e7b7c7"
+      },
+      "all6912messages_exact": true,
+      "core_MPI_UCX_and_full_mapped_dependency_identity": true,
+      "actual_ucx_environment": {
+        "UCX_TLS": "rc,sm,self",
+        "UCX_NET_DEVICES": "ibp1s0f0:1",
+        "UCX_POSIX_DIR": "/dev/shm",
+        "UCX_PROTO_INFO": "y",
+        "UCX_LOG_LEVEL": "info",
+        "UCX_MAX_EAGER_RAILS": "2",
+        "UCX_MAX_RNDV_RAILS": "2"
+      },
+      "counter_raw_deltas": {
+        "hpc02": {
+          "ibp1s0f0:1": {
+            "counters/port_xmit_data": 85690003,
+            "counters/port_rcv_data": 115811107
+          },
+          "ibp33s0f0:1": {
+            "counters/port_xmit_data": 0,
+            "counters/port_rcv_data": 0
+          }
+        },
+        "hpc03": {
+          "ibp1s0f0:1": {
+            "counters/port_xmit_data": 85695765,
+            "counters/port_rcv_data": 116092809
+          },
+          "ibp33s0f0:1": {
+            "counters/port_xmit_data": 0,
+            "counters/port_rcv_data": 0
+          }
+        }
+      },
+      "mpi_region_sum_across_four_ranks_per_cell_seconds": [
+        {
+          "phase": 0,
+          "bytes": 1,
+          "seconds": 0.00686295
+        },
+        {
+          "phase": 0,
+          "bytes": 128,
+          "seconds": 0.0026688529999999997
+        },
+        {
+          "phase": 0,
+          "bytes": 8192,
+          "seconds": 0.008609383
+        },
+        {
+          "phase": 0,
+          "bytes": 16384,
+          "seconds": 0.007975683
+        },
+        {
+          "phase": 0,
+          "bytes": 65536,
+          "seconds": 0.005716513
+        },
+        {
+          "phase": 0,
+          "bytes": 1048576,
+          "seconds": 0.056749857
+        },
+        {
+          "phase": 1,
+          "bytes": 1,
+          "seconds": 0.001199089
+        },
+        {
+          "phase": 1,
+          "bytes": 128,
+          "seconds": 0.000376718
+        },
+        {
+          "phase": 1,
+          "bytes": 8192,
+          "seconds": 0.0020171729999999997
+        },
+        {
+          "phase": 1,
+          "bytes": 16384,
+          "seconds": 0.0026952110000000003
+        },
+        {
+          "phase": 1,
+          "bytes": 65536,
+          "seconds": 0.009006489
+        },
+        {
+          "phase": 1,
+          "bytes": 1048576,
+          "seconds": 0.10959642
+        }
+      ],
+      "literal_second_port_use_field": "UNKNOWN_NO_MESSAGE_LEVEL_ATTRIBUTION",
+      "sameINV_positive_closures": true
+    },
+    "dual": {
+      "receipt_sha256": "4238469c35b5f267eda0be8c76bfcde02660ee36f49f41e3ecdc6ac6cc065c76",
+      "closures_sha256": "81e6b0122c10397b6f8212e617ddb05feee3245ce7d6a86be6fff865c93e315f",
+      "invocations": {
+        "hpc02": "0e96b2d6cc0f4912a5dec2b95a4d9180",
+        "hpc03": "ce25cd0e146b4834b97e592961c94f06"
+      },
+      "all6912messages_exact": true,
+      "core_MPI_UCX_and_full_mapped_dependency_identity": true,
+      "actual_ucx_environment": {
+        "UCX_TLS": "rc,sm,self",
+        "UCX_NET_DEVICES": "ibp1s0f0:1,ibp33s0f0:1",
+        "UCX_POSIX_DIR": "/dev/shm",
+        "UCX_PROTO_INFO": "y",
+        "UCX_LOG_LEVEL": "info",
+        "UCX_MAX_EAGER_RAILS": "2",
+        "UCX_MAX_RNDV_RAILS": "2"
+      },
+      "counter_raw_deltas": {
+        "hpc02": {
+          "ibp1s0f0:1": {
+            "counters/port_xmit_data": 43812169,
+            "counters/port_rcv_data": 73917976
+          },
+          "ibp33s0f0:1": {
+            "counters/port_xmit_data": 41253422,
+            "counters/port_rcv_data": 41253422
+          }
+        },
+        "hpc03": {
+          "ibp1s0f0:1": {
+            "counters/port_xmit_data": 43810094,
+            "counters/port_rcv_data": 74218251
+          },
+          "ibp33s0f0:1": {
+            "counters/port_xmit_data": 41253422,
+            "counters/port_rcv_data": 41253422
+          }
+        }
+      },
+      "mpi_region_sum_across_four_ranks_per_cell_seconds": [
+        {
+          "phase": 0,
+          "bytes": 1,
+          "seconds": 0.0011651300000000001
+        },
+        {
+          "phase": 0,
+          "bytes": 128,
+          "seconds": 0.001420966
+        },
+        {
+          "phase": 0,
+          "bytes": 8192,
+          "seconds": 0.0042642800000000005
+        },
+        {
+          "phase": 0,
+          "bytes": 16384,
+          "seconds": 0.002643686
+        },
+        {
+          "phase": 0,
+          "bytes": 65536,
+          "seconds": 0.005074983
+        },
+        {
+          "phase": 0,
+          "bytes": 1048576,
+          "seconds": 0.056906899999999996
+        },
+        {
+          "phase": 1,
+          "bytes": 1,
+          "seconds": 0.001574465
+        },
+        {
+          "phase": 1,
+          "bytes": 128,
+          "seconds": 0.000378276
+        },
+        {
+          "phase": 1,
+          "bytes": 8192,
+          "seconds": 0.002002653
+        },
+        {
+          "phase": 1,
+          "bytes": 16384,
+          "seconds": 0.0038505020000000004
+        },
+        {
+          "phase": 1,
+          "bytes": 65536,
+          "seconds": 0.005374044
+        },
+        {
+          "phase": 1,
+          "bytes": 1048576,
+          "seconds": 0.035127948
+        }
+      ],
+      "literal_second_port_use_field": "UNKNOWN_NO_MESSAGE_LEVEL_ATTRIBUTION",
+      "sameINV_positive_closures": true
+    }
+  },
+  "supported_conclusion": "ExactcurrentMPI/systemUCXrc,sm,self operation passedall6912messagechecks ineacharm. Singleportinterhostconfigslistonlyfirstportandsecondportcountersdidnotadvance. Dualallowedportinterhostconfigslistbothphysicalports; allfourranksreport50/50multifrageager/rendezvouspolicyranges andsecondportTx/Rxcountersadvanceequallyby41,253,422rawunitsoneachhost, firstportalsoadvances. This isobservedsecondportconfigurationanddevicecounteractivityconsistentwiththesyntheticfixture, notper-messagephysicalattribution.",
+  "actual_protocol_detail": "Forrank0dualinterhostcfg2ordinarytaggedsendtable:1485..8230B and8247..33320B multi-frageagerzero-copycopy-out50%eachport;33321..inf (?)rendezvouszero-copyread50%eachport. Otherfast-completion/multivariantsretaintheiractualdifferentthresholdrows. Actualselectedvariantforeachfixturemessagewasnotinstrumented; doNOTinferfromsizealone.",
+  "unknowns": [
+    "Literalruntime second_port_use=UNKNOWN_NO_MESSAGE_LEVEL_ATTRIBUTION retainedunchanged.",
+    "Rawcountersdevicewide, width/unitsnotasserted, backgroundmaycontribute; no reset/wrapseenbetweensnapshotsdoesnotproveabsenceofallcounterambiguity.",
+    "SameSM6/active100Gb/port isnotindependentfabricor200Gb/susablebandwidthproof.",
+    "Noall4endpointuse/full512science/WRFspeedup/defaultpromotion.",
+    "Fixedsinglefirst/dualsecondonepaironly. Per-cellMPIregiontimerissumofranklocalMPIoperationelapsed across4ranks, notglobalwall/throughput orcausalrailbenefit."
+  ],
+  "descriptive_timers_only": {
+    "phase1_1MiB_rank_elapsed_sum_seconds": {
+      "single": 0.10959642,
+      "dual": 0.035127948
+    },
+    "all_other_cells": "Rawunroundedvaluesretainedinarms; nocollapsedrankaverage/speedupclaim. No repetitions authorized."
+  },
+  "failure_history": "R1failedbeforefixtureatstrictMPIprefixexpectedpath; receipt70c341d3/closures126c5657retained, dualR1notrun. R2onlyexpectedprefixandfreshnamespace changed; actualenv/oraclesunchanged.",
+  "resource_handover": "All02/03parentsandpeerstrongclosed; allmanagementSSH/controllercommandsreturned0. No ownMPI/process/cachehelper/watch/readersremain.",
+  "next": "Rootownsdecision; prepareonlysamecurrent81d fullgridpaired3h withliteralhardscience, noactivation/stage/modeluntilreleaseandnative01barrier.",
+  "refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/native-preparation-r2/actual-single/receipt.json": "6a72b73e4734cd5dd8f0ea2ac916f83091103152ed64decadbf1314900dcf8a7",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/native-preparation-r2/actual-single/closures.json": "4e90b15d923ff1ddd7c5cd25feedefa12a44f0cf1d194534b910ec6996dd33f9",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/native-preparation-r2/actual-single/single-clear-hpc02.json": "2c3fd74bbf930bb5ef914b2630a84655b3c98cd855139829a947b80adb24b1a6",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/native-preparation-r2/actual-single/single-clear-hpc03.json": "64540a9467c90aceba562e513cb05db657edd679ac969788bae93d7e098f1596",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/native-preparation-r2/actual-single/rank0.jsonl": "b20f0304da231e7c5fb198aab802c833c3273c905797ab80e88bc39aec6d9a00",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/native-preparation-r2/actual-single/rank0-proof.json": "3ad636d81976fadbb2cb4ff8c92c407ae1628a79c3437260cc87ea03adf12048",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/native-preparation-r2/actual-single/rank1.jsonl": "eeb7ab6d557564ea78c128ed0da66e08c622dd5ebde9eac59a6075230fc8f795",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/native-preparation-r2/actual-single/rank1-proof.json": "6149e9dee731af5ec09d92a8696bd84419ed27aea93b83b4435e966eaf27d186",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/native-preparation-r2/actual-single/rank2.jsonl": "b4d1d2a27178ea3f88abc1a4d1b0aede18c8567a9bea0d1fae3ae085eff2bb73",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/native-preparation-r2/actual-single/rank2-proof.json": "d2a1e5aa1249f17a2c3722023b786590fad34fda1839c2495e046291040188a5",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/native-preparation-r2/actual-single/rank3.jsonl": "4e4390e2b0a195f97290004467bc73303fabc3cbb6603311b67664ecba473e2f",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/native-preparation-r2/actual-single/rank3-proof.json": "08d90048dc369647b25156f767a40502534f178dabf398381c492e8bad00c4b9",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/native-preparation-r2/actual-dual/receipt.json": "4238469c35b5f267eda0be8c76bfcde02660ee36f49f41e3ecdc6ac6cc065c76",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/native-preparation-r2/actual-dual/closures.json": "81e6b0122c10397b6f8212e617ddb05feee3245ce7d6a86be6fff865c93e315f",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/native-preparation-r2/actual-dual/dual-clear-hpc02.json": "e1c7f7228bfb0cdcb9bd68cd10f00cd898240a03c8166e665c2c2b1a99d33b50",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/native-preparation-r2/actual-dual/dual-clear-hpc03.json": "bb2f71315f0e45450192906137582639f2d3d2f0f7121b733dfb14128f0f4bf1",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/native-preparation-r2/actual-dual/rank0.jsonl": "6d9a51fd1fca468353685ef34a2b910b2a109faa5bc88dfba8769c6f9a5bef35",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/native-preparation-r2/actual-dual/rank0-proof.json": "a1378d62b6047bb13fea85e8a5197191ca9f21cd0e86853b4aa10931ccd4841f",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/native-preparation-r2/actual-dual/rank1.jsonl": "37528dc0151f7ba3631a3946c11ce35d1bb56e8e7ea24c7b84ed66dc0dc7240e",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/native-preparation-r2/actual-dual/rank1-proof.json": "f7d94233b24734105bd3e654b94e9b55ab01375388bf48d05bc0e44738586a99",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/native-preparation-r2/actual-dual/rank2.jsonl": "4754e251b39bc741a27e989f907d92ff6638398c443ebd58566f446f5b08c430",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/native-preparation-r2/actual-dual/rank2-proof.json": "c5ffa17c451f797a3613b831a69989e1c72211dd39243b4cb0acac7fd606dc5a",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/native-preparation-r2/actual-dual/rank3.jsonl": "c02e0cf2e4f368a635b3e845af3245ca95f740751b1c45ed3ad7b267a9f0a925",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/native-preparation-r2/actual-dual/rank3-proof.json": "3bb0e1ee928c52be664cf00977a3e434caf64f765e7f8a7e949a3c4ae4553e0e",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/dual-physical-ib-readiness-audit-r1/native-preparation-r2/ACTUAL_INTERHOST_PROTOCOL_TABLES.json": "8f881ed047f03cca4c0fc3cd3ee4e9b8a79f7938bea130357bcbe6b5c3ce439f"
+  }
+}
