@@ -1,6 +1,6 @@
-## Current combined qualification (2026-10-20)
+## Current combined qualification (2026-10-21)
 
-The selected e3da/51a/e1d8 configuration passed original four-product/545-step/full512/two-tile/all-four-writer science. Whole runtime819.278306→661.793683s (19.22% lower), main-step elapsed597.239960→560.596320s (6.14% lower), aggregate CPU367612.405251→321402.587962CPU-s (12.57% lower), UNPAIRED versus retained original2aef. Output51a is unchanged; no isolated output contribution is claimed. Current own9h is false. [Working selection and rollback](../../cpu-working/README.md) supersede the historical build scopes below.
+The selected e3da/51a/e1d8 configuration passed original four-product/545-step/full512/two-tile/all-four-writer science. Whole runtime819.278306→661.793683s (19.22% lower), main-step elapsed597.239960→560.596320s (6.14% lower), aggregate CPU367612.405251→321402.587962CPU-s (12.57% lower), UNPAIRED versus retained original2aef. Output51a is unchanged; no isolated output contribution is claimed. Current own unprofiled9h passed ten products/1625 steps:2068.620428→1832.427071s whole wall (11.4179% lower),1852.829220→1734.321620s main elapsed (6.3960% lower),1009950.954887→921737.195426CPU-s (8.7345% lower), UNPAIRED retained-original546b. No isolated output contribution or repeatability claim. [Nine-hour evidence](../../cpu-compute/uvb-batch/NINE_HOUR_QUALIFICATION.json). [Working selection and rollback](../../cpu-working/README.md) supersede the historical build scopes below.
 
 ## Historical output qualifications
 
