@@ -4099,7 +4099,8 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
    ELSE
 
       WRITE ( wrf_err_message , * ) 'module_advect: advect_scalar_6a, h_order not known ',horz_order
-      CALL wrf_error_fatal ( TRIM( wrf_err_message ) )
+      CALL wrf_error_fatal3("<stdin>",4003,&
+TRIM( wrf_err_message ) )
 
    ENDIF horizontal_order_test
 
@@ -4355,7 +4356,8 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
    ELSE
 
       WRITE (wrf_err_message,*) ' advect_scalar_6a, v_order not known ',vert_order
-      CALL wrf_error_fatal ( wrf_err_message )
+      CALL wrf_error_fatal3("<stdin>",4259,&
+wrf_err_message )
 
    ENDIF vert_order_test
 
@@ -5685,7 +5687,8 @@ ELSE IF (horz_order == 2 ) THEN
    ELSE
 
       WRITE ( wrf_err_message ,*) ' advect_w_6a, h_order not known ',horz_order
-      CALL wrf_error_fatal ( wrf_err_message )
+      CALL wrf_error_fatal3("<stdin>",5589,&
+wrf_err_message )
 
    ENDIF horizontal_order_test
 
@@ -6060,7 +6063,8 @@ ELSE IF (horz_order == 2 ) THEN
    ELSE
 
       WRITE (wrf_err_message ,*) ' advect_w, v_order not known ',vert_order
-      CALL wrf_error_fatal ( wrf_err_message )
+      CALL wrf_error_fatal3("<stdin>",5965,&
+wrf_err_message )
 
    ENDIF vert_order_test
 
@@ -6282,8 +6286,6 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN ! use full stencil
 
-        ! Cache the unchanged REAL map distance once per horizontal point.
-
         IF (kts <= ktf) THEN
 
           DO i = i_start, i_end
@@ -6315,8 +6317,6 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       ELSE IF ( j == jds+1 ) THEN   ! 2nd order flux next to south boundary
 
-            ! Cache the unchanged REAL map distance once per horizontal point.
-
             IF (kts <= ktf) THEN
 
               DO i = i_start, i_end
@@ -6347,8 +6347,6 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       ELSE IF  ( j == jds+2 ) THEN  ! third of 4th order flux 2 in from south boundary
 
-            ! Cache the unchanged REAL map distance once per horizontal point.
-
             IF (kts <= ktf) THEN
 
               DO i = i_start, i_end
@@ -6378,8 +6376,6 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       ELSE IF ( j == jde-1 ) THEN  ! 2nd order flux next to north boundary
 
-            ! Cache the unchanged REAL map distance once per horizontal point.
-
             IF (kts <= ktf) THEN
 
               DO i = i_start, i_end
@@ -6408,8 +6404,6 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
             ENDDO
 
       ELSE IF ( j == jde-2 ) THEN  ! 3rd or 4th order flux 2 in from north boundary
-
-            ! Cache the unchanged REAL map distance once per horizontal point.
 
             IF (kts <= ktf) THEN
 
@@ -6628,8 +6622,6 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN ! use full stencil
 
-        ! Cache the unchanged REAL map distance once per horizontal point.
-
         IF (kts <= ktf) THEN
 
           DO i = i_start, i_end
@@ -6662,8 +6654,6 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       ELSE IF ( j == jds+1 ) THEN   ! 2nd order flux next to south boundary
 
-            ! Cache the unchanged REAL map distance once per horizontal point.
-
             IF (kts <= ktf) THEN
 
               DO i = i_start, i_end
@@ -6694,8 +6684,6 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       ELSE IF  ( j == jds+2 ) THEN  ! third of 4th order flux 2 in from south boundary
 
-            ! Cache the unchanged REAL map distance once per horizontal point.
-
             IF (kts <= ktf) THEN
 
               DO i = i_start, i_end
@@ -6725,8 +6713,6 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       ELSE IF ( j == jde-1 ) THEN  ! 2nd order flux next to north boundary
 
-            ! Cache the unchanged REAL map distance once per horizontal point.
-
             IF (kts <= ktf) THEN
 
               DO i = i_start, i_end
@@ -6755,8 +6741,6 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
             ENDDO
 
       ELSE IF ( j == jde-2 ) THEN  ! 3rd or 4th order flux 2 in from north boundary
-
-            ! Cache the unchanged REAL map distance once per horizontal point.
 
             IF (kts <= ktf) THEN
 
@@ -6974,8 +6958,6 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN ! use full stencil
 
-        ! Cache the unchanged REAL map distance once per horizontal point.
-
         IF (kts <= ktf) THEN
 
           DO i = i_start, i_end
@@ -7006,8 +6988,6 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       ELSE IF ( j == jds+1 ) THEN   ! 2nd order flux next to south boundary
 
-            ! Cache the unchanged REAL map distance once per horizontal point.
-
             IF (kts <= ktf) THEN
 
               DO i = i_start, i_end
@@ -7037,8 +7017,6 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
             ENDDO
 
       ELSE IF ( j == jde-1 ) THEN  ! 2nd order flux next to north boundary
-
-            ! Cache the unchanged REAL map distance once per horizontal point.
 
             IF (kts <= ktf) THEN
 
@@ -7216,8 +7194,6 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN ! use full stencil
 
-        ! Cache the unchanged REAL map distance once per horizontal point.
-
         IF (kts <= ktf) THEN
 
           DO i = i_start, i_end
@@ -7248,8 +7224,6 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       ELSE IF ( j == jds+1 ) THEN   ! 2nd order flux next to south boundary
 
-            ! Cache the unchanged REAL map distance once per horizontal point.
-
             IF (kts <= ktf) THEN
 
               DO i = i_start, i_end
@@ -7279,8 +7253,6 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
             ENDDO
 
       ELSE IF ( j == jde-1 ) THEN  ! 2nd order flux next to north boundary
-
-            ! Cache the unchanged REAL map distance once per horizontal point.
 
             IF (kts <= ktf) THEN
 
@@ -7445,7 +7417,6 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 !  compute fluxes, 2nd order, y flux
 
       DO j = j_start, j_end+1
-        ! Cache the unchanged REAL map distance once per horizontal point.
         IF (kts <= ktf) THEN
           DO i = i_start, i_end
             dy_row(i) = 2./(msftx(i,j)+msftx(i,j-1))/rdy
@@ -7502,7 +7473,8 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
    ELSE
 
       WRITE ( wrf_err_message , * ) 'module_advect: advect_scalar_pd, h_order not known ',horz_order
-      CALL wrf_error_fatal ( TRIM( wrf_err_message ) )
+      CALL wrf_error_fatal3("<stdin>",7156,&
+TRIM( wrf_err_message ) )
 
    ENDIF horizontal_order_test
 
@@ -7929,7 +7901,8 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
    ELSE
 
       WRITE (wrf_err_message,*) ' advect_scalar_pd, v_order not known ',vert_order
-      CALL wrf_error_fatal ( wrf_err_message )
+      CALL wrf_error_fatal3("<stdin>",7583,&
+wrf_err_message )
 
    ENDIF vert_order_test
 
@@ -10271,7 +10244,8 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
    ELSE
 
       WRITE ( wrf_err_message , * ) 'module_advect: advect_scalar_mono, h_order not known ',horz_order
-      CALL wrf_error_fatal ( TRIM( wrf_err_message ) )
+      CALL wrf_error_fatal3("<stdin>",9916,&
+TRIM( wrf_err_message ) )
 
    ENDIF horizontal_order_test
 
@@ -10547,7 +10521,8 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
    ELSE
 
       WRITE (wrf_err_message,*) ' advect_scalar_mono, v_order not known ',vert_order
-      CALL wrf_error_fatal ( wrf_err_message )
+      CALL wrf_error_fatal3("<stdin>",10193,&
+wrf_err_message )
 
    ENDIF vert_order_test
 
