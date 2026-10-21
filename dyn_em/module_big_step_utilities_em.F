@@ -2185,6 +2185,253 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
 
 !-------------------------------------------------------------------------------
 
+#ifdef WRF_EXPERIMENTAL_HPG_NHX_AVX2
+SUBROUTINE horizontal_pressure_gradient( ru_tend,rv_tend,                &
+                                         ph,alt,p,pb,al,php,cqu,cqv,     &
+                                         muu,muv,mu,c1h,c2h,fnm,fnp,rdnw,&
+                                         cf1,cf2,cf3,cfn,cfn1,           &
+                                         rdx,rdy,msfux,msfuy,&
+                                         msfvx,msfvy,msftx,msfty,        &
+                                         config_flags, non_hydrostatic,  &
+                                         top_lid,                        &
+                                         ids, ide, jds, jde, kds, kde,   &
+                                         ims, ime, jms, jme, kms, kme,   &
+                                         its, ite, jts, jte, kts, kte   )
+   IMPLICIT NONE
+   ! Input data
+   TYPE(grid_config_rec_type), INTENT(IN   ) :: config_flags
+   LOGICAL, INTENT (IN   ) :: non_hydrostatic, top_lid
+   INTEGER ,          INTENT(IN   ) :: ids, ide, jds, jde, kds, kde, &
+                                       ims, ime, jms, jme, kms, kme, &
+                                       its, ite, jts, jte, kts, kte
+   REAL, DIMENSION( ims:ime, kms:kme , jms:jme ), INTENT(IN   ) ::        &
+                                                                     ph,  &
+                                                                     alt, &
+                                                                     al,  &
+                                                                     p,   &
+                                                                     pb,  &
+                                                                     php, &
+                                                                     cqu, &
+                                                                     cqv
+   REAL, DIMENSION( ims:ime, kms:kme , jms:jme ), INTENT(INOUT) ::           &
+                                                                    ru_tend, &
+                                                                    rv_tend
+   REAL, DIMENSION( ims:ime, jms:jme ), INTENT(IN   ) :: muu, muv, mu,    &
+                                                            msfux, msfuy, &
+                                                            msfvx, msfvy, &
+                                                            msftx, msfty
+   REAL, DIMENSION( kms:kme ), INTENT(IN   ) :: rdnw, fnm, fnp
+   REAL, DIMENSION( kms:kme ), INTENT(IN   ) :: c1h, c2h
+   REAL,  INTENT(IN   ) :: rdx, rdy, cf1, cf2, cf3, cfn, cfn1
+   INTEGER :: i,j,k, itf, jtf, ktf, i_start, j_start
+   REAL, DIMENSION( ims:ime, kms:kme ) :: dpn
+   REAL :: dpx, dpy
+   REAL, DIMENSION( ims:ime ) :: map_y_cache
+   REAL, DIMENSION( kms:kme ) :: c1
+   LOGICAL :: specified
+   INTERFACE
+     PURE SUBROUTINE wrf_hpg_nhx_consume_avx2( n_i, ld_i, ktf, &
+            i_offset, k_offset, rdx, &
+            ru, ph, alt, p, pb, al, php, cqu, &
+            muu, mu, ratio, dpn, c1h, c2h, c1, rdnw ) &
+         BIND(C,NAME='wrf_hpg_nhx_consume_avx2')
+       USE ISO_C_BINDING, ONLY: C_INT, C_FLOAT
+       INTEGER(C_INT), VALUE, INTENT(IN) :: n_i, ld_i, ktf, i_offset, k_offset
+       REAL(C_FLOAT),  VALUE, INTENT(IN) :: rdx
+       REAL(C_FLOAT), DIMENSION(*), INTENT(INOUT) :: ru
+       REAL(C_FLOAT), DIMENSION(*), INTENT(IN) :: ph, alt, p, pb, al, php, cqu
+       REAL(C_FLOAT), DIMENSION(*), INTENT(IN) :: muu, mu, ratio, dpn
+       REAL(C_FLOAT), DIMENSION(*), INTENT(IN) :: c1h, c2h, c1, rdnw
+     END SUBROUTINE wrf_hpg_nhx_consume_avx2
+   END INTERFACE
+!<DESCRIPTION>
+!
+!  horizontal_pressure_gradient calculates the
+!  horizontal pressure gradient terms for the large-timestep tendency
+!  in the horizontal momentum equations (u,v).
+!
+!</DESCRIPTION>
+   c1 = c1h
+   specified = .false.
+   if(config_flags%specified .or. config_flags%nested) specified = .true.
+!  Notes on map scale factors:
+!  Calculates the pressure gradient terms in ADT eqns 44 and 45
+!  With upper rho -> 'mu', these are:
+!  Eqn 30: -mu*(mx/my)*(1/rho)*partial dp/dx
+!  Eqn 31: -mu*(my/mx)*(1/rho)*partial dp/dy
+!
+!  As we are on nu, rather than height, surfaces:
+!
+!  mu dp/dx = mu alpha partial dp'/dx + (nu mu partial dmubar/dx) alpha'
+!           + mu partial dphi'/dx + (partial dphi/dx)*(partial dp'/dnu - mu')
+!
+!  mu dp/dy = mu alpha partial dp'/dy + (nu mu partial dmubar/dy) alpha'
+!           + mu partial dphi'/dy + (partial dphi/dy)*(partial dp'/dnu - mu')
+! start with the north-south (y) pressure gradient
+   itf=MIN(ite,ide-1)
+   jtf=jte
+   ktf=MIN(kte,kde-1)
+   i_start = its
+   j_start = jts
+   IF ( (config_flags%open_ys .or. specified .or. &
+         config_flags%nested .or. config_flags%polar ) .and. jts == jds ) j_start = jts+1
+   IF ( (config_flags%open_ye .or. specified .or. &
+         config_flags%nested .or. config_flags%polar ) .and. jte == jde ) jtf = jtf-1
+   DO j = j_start, jtf
+     IF ( non_hydrostatic )  THEN
+        k=1
+        DO i = i_start, itf
+          dpn(i,k) = .5*( cf1*(p(i,k  ,j-1)+p(i,k  ,j))   &
+                         +cf2*(p(i,k+1,j-1)+p(i,k+1,j))   &
+                         +cf3*(p(i,k+2,j-1)+p(i,k+2,j))  )
+          dpn(i,kde) = 0.
+        ENDDO
+        IF (top_lid) THEN
+          DO i = i_start, itf
+            dpn(i,kde) = .5*( cfn *(p(i,kde-1,j-1)+p(i,kde-1,j))   &
+                             +cfn1*(p(i,kde-2,j-1)+p(i,kde-2,j)) )
+          ENDDO
+        ENDIF
+        DO k=2,ktf
+          DO i = i_start, itf
+            dpn(i,k) = .5*( fnm(k)*(p(i,k  ,j-1)+p(i,k  ,j))  &
+                           +fnp(k)*(p(i,k-1,j-1)+p(i,k-1,j)) )
+          END DO
+        END DO
+!       ADT eqn 45: -mu*(my/mx)*(1/rho)*partial dp/dy
+!       [alt, al are 1/rho terms; muv, mu are NOT coupled]
+        IF ( ktf >= 1 ) THEN
+          DO i = i_start, itf
+            map_y_cache(i) = msfvy(i,j)/msfvx(i,j)
+          END DO
+        END IF
+        DO K=1,ktf
+          DO i = i_start, itf
+            ! Here are mu dp/dy terms 1-3
+            dpy = map_y_cache(i)*.5*rdy*(c1h(k)*muv(i,j)+c2h(k))*(                          &
+                     (ph (i,k+1,j)-ph (i,k+1,j-1) + ph(i,k,j)-ph(i,k,j-1))  &
+                    +(alt(i,k  ,j)+alt(i,k  ,j-1))*(p (i,k,j)-p (i,k,j-1))  &
+                    +(al (i,k  ,j)+al (i,k  ,j-1))*(pb(i,k,j)-pb(i,k,j-1)) )
+            ! Here is mu dp/dy term 4
+            dpy = dpy + map_y_cache(i)*rdy*(php(i,k,j)-php(i,k,j-1))* &
+                (rdnw(k)*(dpn(i,k+1)-dpn(i,k))-.5*((c1(k)*mu(i,j-1))+(c1(k)*mu(i,j))))
+            rv_tend(i,k,j) = rv_tend(i,k,j)-cqv(i,k,j)*dpy
+          END DO
+        END DO
+
+     ELSE
+
+!       ADT eqn 45: -mu*(my/mx)*(1/rho)*partial dp/dy
+!       [alt, al are 1/rho terms; muv, mu are NOT coupled]
+        DO K=1,ktf
+          DO i = i_start, itf
+            ! Here are mu dp/dy terms 1-3; term 4 not needed if hydrostatic
+            dpy = (msfvy(i,j)/msfvx(i,j))*.5*rdy*(c1h(k)*muv(i,j)+c2h(k))*(                 &
+                     (ph (i,k+1,j)-ph (i,k+1,j-1) + ph(i,k,j)-ph(i,k,j-1))  &
+                    +(alt(i,k  ,j)+alt(i,k  ,j-1))*(p (i,k,j)-p (i,k,j-1))  &
+                    +(al (i,k  ,j)+al (i,k  ,j-1))*(pb(i,k,j)-pb(i,k,j-1)) )
+            rv_tend(i,k,j) = rv_tend(i,k,j)-dpy
+          END DO
+        END DO
+
+     END IF
+
+   ENDDO
+
+!  now the east-west (x) pressure gradient
+
+   itf=ite
+   jtf=MIN(jte,jde-1)
+   ktf=MIN(kte,kde-1)
+   i_start = its
+   j_start = jts
+   IF ( (config_flags%open_xs .or. specified .or. &
+           config_flags%nested ) .and. its == ids ) i_start = its+1
+   IF ( (config_flags%open_xe .or. specified .or. &
+           config_flags%nested ) .and. ite == ide ) itf = itf-1
+   IF ( config_flags%periodic_x ) i_start = its
+   IF ( config_flags%periodic_x ) itf=ite
+
+   DO j = j_start, jtf
+
+     IF ( non_hydrostatic )  THEN
+
+        k=1
+
+        DO i = i_start, itf
+          dpn(i,k) = .5*( cf1*(p(i-1,k  ,j)+p(i,k  ,j))   &
+                         +cf2*(p(i-1,k+1,j)+p(i,k+1,j))   &
+                         +cf3*(p(i-1,k+2,j)+p(i,k+2,j))  )
+          dpn(i,kde) = 0.
+        ENDDO
+        IF (top_lid) THEN
+          DO i = i_start, itf
+            dpn(i,kde) = .5*( cfn *(p(i-1,kde-1,j)+p(i,kde-1,j))   &
+                             +cfn1*(p(i-1,kde-2,j)+p(i,kde-2,j)) )
+          ENDDO
+        ENDIF
+               
+        DO k=2,ktf
+          DO i = i_start, itf
+            dpn(i,k) = .5*( fnm(k)*(p(i-1,k  ,j)+p(i,k  ,j))  &
+                           +fnp(k)*(p(i-1,k-1,j)+p(i,k-1,j)) )
+          END DO
+        END DO
+
+! ADT eqn 44: -mu*(mx/my)*(1/rho)*partial dp/dx
+! [alt, al are 1/rho terms; muu, mu are NOT coupled]
+        IF ( ktf >= 1 ) THEN
+          DO i = i_start, itf
+            map_y_cache(i) = msfux(i,j)/msfuy(i,j)
+          END DO
+        END IF
+        IF ( ktf >= 1 .AND. itf >= i_start ) THEN
+          CALL wrf_hpg_nhx_consume_avx2( &
+               n_i      = itf - i_start + 1, &
+               ld_i     = ime - ims + 1, &
+               ktf      = ktf, &
+               i_offset = i_start - ims, &
+               k_offset = 1 - kms, &
+               rdx      = rdx, &
+               ru       = ru_tend(ims,kms,j), &
+               ph       = ph     (ims,kms,j), &
+               alt      = alt    (ims,kms,j), &
+               p        = p      (ims,kms,j), &
+               pb       = pb     (ims,kms,j), &
+               al       = al     (ims,kms,j), &
+               php      = php    (ims,kms,j), &
+               cqu      = cqu    (ims,kms,j), &
+               muu      = muu    (ims,j), &
+               mu       = mu     (ims,j), &
+               ratio    = map_y_cache(ims), &
+               dpn      = dpn    (ims,kms), &
+               c1h      = c1h    (kms), &
+               c2h      = c2h    (kms), &
+               c1       = c1     (kms), &
+               rdnw     = rdnw   (kms) )
+        END IF
+
+     ELSE
+
+!       ADT eqn 44: -mu*(mx/my)*(1/rho)*partial dp/dx
+!       [alt, al are 1/rho terms; muu, mu are NOT coupled]
+        DO K=1,ktf
+          DO i = i_start, itf
+            ! Here are mu dp/dy terms 1-3; term 4 not needed if hydrostatic
+            dpx = (msfux(i,j)/msfuy(i,j))*.5*rdx*(c1h(k)*muu(i,j)+c2h(k))*(                    &
+                        (ph (i,k+1,j)-ph (i-1,k+1,j) + ph(i,k,j)-ph(i-1,k,j))  &
+                       +(alt(i,k  ,j)+alt(i-1,k  ,j))*(p (i,k,j)-p (i-1,k,j))  &
+                       +(al (i,k  ,j)+al (i-1,k  ,j))*(pb(i,k,j)-pb(i-1,k,j)) )
+            ru_tend(i,k,j) = ru_tend(i,k,j)-dpx
+          END DO
+        END DO
+
+     END IF
+
+   ENDDO
+
+END SUBROUTINE horizontal_pressure_gradient
+#else
 SUBROUTINE horizontal_pressure_gradient( ru_tend,rv_tend,                &
                                          ph,alt,p,pb,al,php,cqu,cqv,     &
                                          muu,muv,mu,c1h,c2h,fnm,fnp,rdnw,&
@@ -2430,6 +2677,7 @@ SUBROUTINE horizontal_pressure_gradient( ru_tend,rv_tend,                &
    ENDDO
 
 END SUBROUTINE horizontal_pressure_gradient
+#endif
 
 !-------------------------------------------------------------------------------
 
