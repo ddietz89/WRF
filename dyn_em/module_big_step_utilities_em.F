@@ -2306,6 +2306,7 @@ SUBROUTINE horizontal_pressure_gradient( ru_tend,rv_tend,                &
           END DO
         END IF
         DO K=1,ktf
+          !$OMP SIMD PRIVATE(dpy)
           DO i = i_start, itf
             ! Here are mu dp/dy terms 1-3
             dpy = map_y_cache(i)*.5*rdy*(c1h(k)*muv(i,j)+c2h(k))*(                          &
@@ -2318,7 +2319,6 @@ SUBROUTINE horizontal_pressure_gradient( ru_tend,rv_tend,                &
             rv_tend(i,k,j) = rv_tend(i,k,j)-cqv(i,k,j)*dpy
           END DO
         END DO
-
      ELSE
 
 !       ADT eqn 45: -mu*(my/mx)*(1/rho)*partial dp/dy
