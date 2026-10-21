@@ -2396,6 +2396,7 @@ SUBROUTINE horizontal_pressure_gradient( ru_tend,rv_tend,                &
           END DO
         END IF
         DO K=1,ktf
+          !$OMP SIMD PRIVATE(dpx)
           DO i = i_start, itf
             ! Here are mu dp/dy terms 1-3
             dpx = map_y_cache(i)*.5*rdx*(c1h(k)*muu(i,j)+c2h(k))*(                    &
