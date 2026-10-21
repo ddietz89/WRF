@@ -4868,6 +4868,7 @@ END SUBROUTINE pole_point_bc
     IF ( ( config_flags%use_theta_m .EQ. 1 ) .AND. (P_Qv .GE. PARAM_FIRST_SCALAR) ) THEN
        do j = j_start,j_end
        do k = k_start, k_end
+       !$OMP SIMD
        do i = i_start, i_end
          th_phy(i,k,j) = (t(i,k,j)+t0)/(1.+R_v/R_d*moist(i,k,j,P_QV))
        enddo
