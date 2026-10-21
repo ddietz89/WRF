@@ -392,6 +392,7 @@ SUBROUTINE small_step_finish( u_2, u_1, v_2, v_1, w_2, w_1,    &
 
   DO j = j_start, j_end
   DO k = kds, kde-1
+!$OMP SIMD
   DO i = i_start, i_endu
     ! u coupled with my
     u_2(i,k,j) = (msfuy(i,j)*u_2(i,k,j) + u_save(i,k,j)*(c1h(k)*muu(i,j)+c2h(k)))/(c1h(k)*muus(i,j)+c2h(k))
