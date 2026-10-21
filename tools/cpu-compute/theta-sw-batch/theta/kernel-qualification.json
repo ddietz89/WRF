@@ -1,0 +1,73 @@
+{
+  "status": "RETAIN_FOR_APPLICATION_EXACT_DIRECT_THETA_KERNEL_GAIN_COMPLETE_CALLER_NEUTRAL",
+  "pairs": {
+    "hpc01": {
+      "parent_wall_seconds": 0.98529832,
+      "candidate_wall_seconds": 0.247351808,
+      "wall_reduction_percent": 74.89574446853821,
+      "parent_process_cpu_seconds": 0.985236238,
+      "candidate_process_cpu_seconds": 0.24733358,
+      "process_cpu_reduction_percent": 74.89601270634546
+    },
+    "hpc02": {
+      "parent_wall_seconds": 0.975434267,
+      "candidate_wall_seconds": 0.247749198,
+      "wall_reduction_percent": 74.60113855114339,
+      "parent_process_cpu_seconds": 0.975392607,
+      "candidate_process_cpu_seconds": 0.247636341,
+      "process_cpu_reduction_percent": 74.6116241580248
+    }
+  },
+  "fixed_repeats": 8192,
+  "geometry": "188I x32K x19J target; physical196x35x23",
+  "gold_sha256": "ada665cb5d0bc3600499dc067aaaea254c488534ee826dec34fae77f98bba253",
+  "gold_bytes": 634952,
+  "binaries": {
+    "parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/phy-prep-moist-theta-direct-kernel-build-r1/work/parent/theta-caller",
+      "sha256": "12104a00efb794346ccc59711003ef7d8a67b58da8eea7ec14b56003b13076f2"
+    },
+    "candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/phy-prep-moist-theta-direct-kernel-build-r1/work/candidate/theta-caller",
+      "sha256": "fcf7eab165a4fb2bb8898fdafd215d5e1d906663ffae99a68cdb3e406813e9d2"
+    }
+  },
+  "codegen": "Actual build hardchecks original scalar DIVSS and onepragma child DIVPS; isolated separate modules/noLTO. Production fullmodule packed path separately native-qualified.",
+  "all_owned_scopes_strongclosed": true,
+  "cache_checked_before_every_arm": true,
+  "parent_child_raw_five_state_readonly_guards_exact": true,
+  "native_qualification_sha256": "c76398f1c5c5dc50481f5a9d64da4e857cb55efe6eae64d60c4330eb13d18161",
+  "complete_caller_qualification_sha256": "f64dad0d421a827e0574efaa22f62298e6821ede1ee82ff653039375c12b0d2d",
+  "complete_caller_result": "Neutral: 01wall0.15155% shorter;02wall0.67089% longer. No complete-stage gain established. RepeatedINTENTOUT/immutableinputs; no percall restoration claimed.",
+  "scope": "Fixed ordinary-input direct target only. Warm/gold/checks outside integerMONOTONIC_RAW/processCPU clock; noFPseconds conversion before checks. Fullnative separately covers original36+12theta+2RHO eachfourroundmodes atO0/O2. Finite notexhaustive; no repeatability, globalheadroom orforecastgain claim.",
+  "application_qualified": false,
+  "producer_source_commit": null,
+  "raw_refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-moist-theta-producer-simd-r1/direct-kernel-preparation-r1/timing-r1/arm0/actual-native-r1/receipt.json": "4b2e678439f37ca5d873936ef4a5e1a05a6537afe0c4c2c3762483c670f83624",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-moist-theta-producer-simd-r1/direct-kernel-preparation-r1/timing-r1/arm0/actual-native-r1/closure.json": "01ef56a66baf8e8176b0f4bc1a265a2aae7cd78e665eab7fa4993ebb50ab4e78",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-moist-theta-producer-simd-r1/direct-kernel-preparation-r1/timing-r1/arm0/actual-native-r1/cache-clear.json": "b310d36a6500548e6de6f7fbaef1a05054a86fd7fcca31c1ad612353d2be560c",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-moist-theta-producer-simd-r1/direct-kernel-preparation-r1/timing-r1/arm0/actual-native-r1/controller.json": "fc7ad551842b114749271e17f3b8d7f11bddb92285ac9a74641c9c81d8853981",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-moist-theta-producer-simd-r1/direct-kernel-preparation-r1/timing-r1/arm1/actual-native-r1/receipt.json": "c8058c83a76a38d69499690eeccf22397f3b4513555edaec0ea08f2e52408400",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-moist-theta-producer-simd-r1/direct-kernel-preparation-r1/timing-r1/arm1/actual-native-r1/closure.json": "e026e2ae6d747ac37a24d22019458c3448328a0cf9b2000285c67a5c261000ae",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-moist-theta-producer-simd-r1/direct-kernel-preparation-r1/timing-r1/arm1/actual-native-r1/cache-clear.json": "3985a5581a5ccc9fc581e8352798cd0f50ade9fcc490431fa873e175d08a28e9",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-moist-theta-producer-simd-r1/direct-kernel-preparation-r1/timing-r1/arm1/actual-native-r1/controller.json": "c4d1469b29e1c23e3ad052f04ab1c0972342829cdfc198aa8b272df541433e6f",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-moist-theta-producer-simd-r1/direct-kernel-preparation-r1/timing-r1/arm2/actual-native-r1/receipt.json": "d7844f812f9af7013b76668e26d939a0c0a2f0d7cf9e95a4fba8b010ad3140d2",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-moist-theta-producer-simd-r1/direct-kernel-preparation-r1/timing-r1/arm2/actual-native-r1/closure.json": "e036fd6e868484779deeec8478aa141900741bef9674062c0c63193a522f6aea",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-moist-theta-producer-simd-r1/direct-kernel-preparation-r1/timing-r1/arm2/actual-native-r1/cache-clear.json": "a133ac0f319c23fe3881b3e15a7382b37c8a9208632a53cd64fae084dc611e62",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-moist-theta-producer-simd-r1/direct-kernel-preparation-r1/timing-r1/arm2/actual-native-r1/controller.json": "63325ee74b9cec5aebb51e9a4fc533ddf8a7e26236e438c0169d5a6cafabf888",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-moist-theta-producer-simd-r1/direct-kernel-preparation-r1/timing-r1/arm3/actual-native-r1/receipt.json": "21206a4370493ddbf51feeda736254cc4f5ef0b038fa412b0952305cb8a62bcb",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-moist-theta-producer-simd-r1/direct-kernel-preparation-r1/timing-r1/arm3/actual-native-r1/closure.json": "48a2a5766536b2ee8d72db01475ca2e274c66a0a1237debfbe5d2a57e2ab48cb",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-moist-theta-producer-simd-r1/direct-kernel-preparation-r1/timing-r1/arm3/actual-native-r1/cache-clear.json": "638ccc3da075e9c9166e09f440d9b63a5d0471422abf4a6d9b5628e9f5cce860",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-moist-theta-producer-simd-r1/direct-kernel-preparation-r1/timing-r1/arm3/actual-native-r1/controller.json": "387a3c43c2e20b94aa71b0df250010abdb0d8eab71002f38a355eedd7c76b8c9",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-moist-theta-producer-simd-r1/direct-kernel-preparation-r1/driver-build-r1/actual-native-r1/receipt.json": "ed4df628d8667963dadade1d0bfb7f2932f2fb48b90c583c512e011f81c284af",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-moist-theta-producer-simd-r1/direct-kernel-preparation-r1/driver-build-r1/actual-native-r1/closure.json": "fc02f86281432fcc757a01f41356e881e05bb7291bba0c7c2f270ca55e195b32",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-moist-theta-producer-simd-r1/direct-kernel-preparation-r1/driver-build-r1/actual-native-r1/controller.json": "aeeb9ed069b374f4cbddf3b8df33ae5c472b1aaa1ca0ae64fe6911432d2400ec",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-moist-theta-producer-simd-r1/NATIVE_QUALIFICATION.json": "c76398f1c5c5dc50481f5a9d64da4e857cb55efe6eae64d60c4330eb13d18161",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-moist-theta-producer-simd-r1/caller-timing-preparation-r1/CALLER_QUALIFICATION.json": "f64dad0d421a827e0574efaa22f62298e6821ede1ee82ff653039375c12b0d2d",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-moist-theta-producer-simd-r1/direct-kernel-preparation-r1/ACTUAL_WAVE.json": "993787804ddd10493e9d66bfc849d0dccf46b987fba43eb3ada0355bf7760c8f",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-moist-theta-producer-simd-r1/direct-kernel-preparation-r1/driver-build-r1/inputs/parent.f90": "e66b41eea4d6e3af06dfc4b96539855e049e9b5304d4dd0ea72d3f291429c893",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-moist-theta-producer-simd-r1/direct-kernel-preparation-r1/driver-build-r1/inputs/candidate.f90": "ab0a78d0e031feb62393e250ba8d971b8566a97470ebf7a217f49968ad0c471b",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-moist-theta-producer-simd-r1/direct-kernel-preparation-r1/driver-build-r1/inputs/driver.c": "ad00ddf38b78a632db9dcd231bdac79a45174928352cb8fda7c757328cc6771b",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-moist-theta-producer-simd-r1/direct-kernel-preparation-r1/driver-build-r1/inputs/run_gate.py": "3ef3639dbe2c638cfb53a3463bf0f55c3550115dabbee8aa4816d2403dee0669"
+  }
+}

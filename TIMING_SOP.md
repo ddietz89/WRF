@@ -86,3 +86,7 @@ Historical qualification leases must use their exact retained validator bodies a
 ## Timing under exact floating-point state checks
 
 Use integer nanoseconds for timestamp capture, elapsed subtraction and duration floors when a native/caller gate compares errno, exception flags, rounding, MXCSR and x87 state. Convert elapsed values to seconds only during reporting after all state/raw checks. A floating-point timer changed MXCSR inexact and falsely failed the tree-flush parent; the retained integer-clock repair preserved work, clock boundaries and all acceptance checks. Never mask the state difference to make a benchmark pass.
+
+## hpc00 toolchain scope
+
+Use hpc00 for supported timing-insensitive work. The current qualified GNU13/MPI prefix cannot run its `mpicc` there: the actual October21 attempt failed before compilation because its `libopen-pal` requires GLIBC2.36/2.38. Preserve that failure; schedule these driver builds on an EPYC node after model timing closes instead of starting a compatibility project or silently changing compilers. The same host lacks the cgroup `memory.peak` file, so metadata helpers must report unavailable telemetry explicitly; do not substitute zero. Evidence: campaign `current-calc-bc-pre13-joint-profile-preparation-r1/col-payload-igatherv-immediate-wait-r1/distributed65-exploratory-preparation-r1/driver-build-hpc00-r1`, failed invocation `9b7b75d122204e86a57e4edef77f42c4`; no driver compiled or model ran.

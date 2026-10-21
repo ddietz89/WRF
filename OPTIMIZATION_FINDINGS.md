@@ -3647,3 +3647,37 @@ The same retained current-f4b profile now identifies the sampled payload `MPI_Ga
 Two compute candidates are retained for the next combined application check. Moist-theta producer SIMD passes the whole-module bounds/O2/four-round-mode oracle and makes its isolated loop74.6–74.9% faster; complete `phy_prep` caller timing is neutral, so no stage gain is claimed. The shortwave case-2/irng-0 direct-CDF path passes40 complete-generator and144 per-draw checks under bounds/O2, then saves34.42/34.58% wall and34.42/34.65% CPU in opposite-order complete-generator pairs (16,384 calls each, caches cleared before every arm). This SW change is distinct from the earlier longwave direct-CDF change. The public target MOD and calls compiled against original MODs pass; a retained failure of all32 raw compiler MOD-byte identity is explicitly outside that narrower ABI claim. Neither candidate is selected or forecast-qualified yet.
 
 A separate payload `Igatherv` plus immediate `Wait` trial has exact native payload/layout/guard results, but its strict floating-point-state gate failed before candidate comparison. A replay of the exact same original executable also varies only in the SSE inexact flag. The failure and all five raw state fields remain preserved; no exception state is masked or waived and no default is changed. Independent method review did not certify the proposed per-return state oracle. A separately labelled four-rank, same-node protocol screen passed exact data/guards and observed113.373→105.846ms maximum-rank wall time and452.153→421.493ms summed process CPU over256calls (1MiB per rank). All five batch-state fields remain exposed; ranks0–2 already enter with different errno values across arms. This one fixed-order screen is exploratory and cannot qualify floating-point state, inter-node/application performance or default inclusion.
+
+## Fresh original versus combined theta/SW three-hour comparison (2026-10-21)
+
+The actual combined executable a50e/archive4b16 includes all selected f4b improvements plus the moist-theta producer SIMD and shortwave case-2 direct-CDF changes. The unchanged original checker passed all four complete outputs and545 ordered steps against a freshly executed corrected-original546b control. Both arms and the reader closed normally; checked client-cache clears preceded each arm. No profiling observer was enabled.
+
+| Metric | Fresh corrected original | Combined candidate | Reduction |
+|---|---:|---:|---:|
+| Whole model/MPI wall |947.713664s|661.091632s|30.2435%|
+| Main-step elapsed sum |725.013200s|560.407420s|22.7038%|
+| Aggregate four-node CPU |432906.028505 CPU-s|320598.551647 CPU-s|25.9427%|
+
+This is one control-first pair, without repeatability or isolated/additive candidate attribution. The new candidate wall is almost identical to the earlier f4b candidate's661.040449s, while the fresh control is slower than the retained819.278306s control. Consequently the increased percentage does not establish a gain from these two additions. Main-step elapsed includes communication and output backpressure; whole-minus-main is not pure I/O. File-server cache/load remain uncontrolled. The measured wall ratio is about1.4335×; concurrent throughput is unmeasured and neither the1.5× nor2× target has been established.
+
+The control's original outer SSH launcher timed out after the actual model started. No forecast was retried. Actual invocation-bound worker records, normal manager closures and the unchanged scientific checker independently establish the successful run; the outer-launch failure remains retained. A later candidate wrapper changed only transport timeout, preserving the frozen model payload and caps.
+
+Three-hour application qualification `6e87cf7a` binds actual image, science `ccc36de6`, reader closure `45887800`, both cache boundaries and component evidence. This06–09 case does not establish changed shortwave execution in daylight. The same combined image is proceeding to the prepared unprofiled noon75m, two-product/230-step scientific check before source/default promotion. Own nine-hour qualification remains false. Current selected default remains f4b until that decision.
+
+## Theta/SW batch promoted after daylight science (2026-10-21)
+
+The same a50e/4b16 image subsequently passed the unchanged original noon75m checker: both12:00/13:00 products and all230 ordered steps through13:15, exact metadata/layout,512-rank/two-tile/input/library and writer acceptance. All four new model jobs and the reader closed normally. Noon qualification `42ae188c` binds science `ea9d4886` and reader closure `e8bfed56`, plus the separate fresh three-hour qualification. It explicitly preserves the retained original control's historical closure format and does not invent missing historical manager certificates. A local assembler's original schema assumption failed; only its supplemental historical-reference parser was repaired, leaving the checker and new-job closure requirements unchanged.
+
+| Unpaired noon scientific context | Retained original | Combined candidate | Descriptive reduction |
+|---|---:|---:|---:|
+| Whole model/MPI wall |444.666163s|311.369271s|29.9768%|
+| Main-step elapsed sum |262.597160s|235.055660s|10.4881%|
+| Aggregate node CPU |194209.614414 CPU-s|151882.834889 CPU-s|21.7944%|
+
+These noon totals are not a fresh matched benchmark or isolated SW gain. The qualified working default now selects a50e/4b16 and both canonical source changes, retaining all previous features and9371/51a/input06dNCa32. Source-only commit97512cc6 follows the actual tests; raw producer commits remain null. Current own3h and noon75m science are true; ownshort and own9h remain false. No fast-math, tolerance, protected-checker, production or master changes were made. [Batch evidence, support scope and paired rollback](tools/cpu-compute/theta-sw-batch/README.md) distinguish kernel, caller and forecast claims.
+
+## Payload nonblocking gather parked after four-node screen (2026-10-21)
+
+The fixed `Igatherv` plus immediate `Wait` candidate's earlier four-rank same-node improvement did not extend to its bounded65-rank four-node screen. The screen uses the actual FABA placement for compute ranks0–63 plus collector480, one-byte payload semantics and synthetic1MiB per rank,256 calls and8 excluded warmups. It does not establish actual application message sizes. Candidate first measured3.329934448s maximum-rank elapsed and214.888871699 summed process CPU-s; genuine parent measured2.475158780s and159.845760137 CPU-s: **34.5342%/34.4351% higher**. Each arm passed full-byte payload/readonly/guard checks, all65 metadata records, checked all-four-node cache clears and normal invocation-bound closures. All five batch-state fields matched in this screen; the earlier strict native floating-point-state failure remains unchanged.
+
+Park this fixed candidate for the selected four-node configuration. This is a concrete unfavorable larger-context observation, not a claim of application regression or a rejection of all nonblocking MPI approaches. No application build or default promotion follows from this screen. Actual output-gather counts/root/group remain absent from the retained profiles; callback totals and field-view marker sizes cannot reconstruct them. Raw records remain under the campaign's `distributed65-exploratory-preparation-r2/actual-distributed65-r2/`.

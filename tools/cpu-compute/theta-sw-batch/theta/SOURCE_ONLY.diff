@@ -1,0 +1,10 @@
+--- a/dyn_em/module_big_step_utilities_em.F
++++ b/dyn_em/module_big_step_utilities_em.F
+@@ -4868,6 +4868,7 @@
+     IF ( ( config_flags%use_theta_m .EQ. 1 ) .AND. (P_Qv .GE. PARAM_FIRST_SCALAR) ) THEN
+        do j = j_start,j_end
+        do k = k_start, k_end
++       !$OMP SIMD
+        do i = i_start, i_end
+          th_phy(i,k,j) = (t(i,k,j)+t0)/(1.+R_v/R_d*moist(i,k,j,P_QV))
+        enddo

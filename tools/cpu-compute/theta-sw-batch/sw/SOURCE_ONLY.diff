@@ -1,0 +1,36 @@
+--- parent_module_ra_rrtmg_sw.F
++++ candidate_module_ra_rrtmg_sw.F
+@@ -1785,8 +1785,7 @@
+          if (irng.eq.0) then 
+             do isubcol = 1,nsubcol
+                do ilev = 1,nlay
+-                  call kissvec(seed1, seed2, seed3, seed4, rand_num)
+-                  CDF(isubcol,:,ilev) = rand_num
++                  call kissvec_case2_cdf(isubcol,ilev)
+                enddo
+             enddo
+          elseif (irng.eq.1) then
+@@ -2001,8 +2000,22 @@
+ !      mean_asmc_stoch(:,:) = mean_asmc_stoch(:,:) / nsubcol
+ !      mean_fsfc_stoch(:,:) = mean_fsfc_stoch(:,:) / nsubcol
+ 
++      contains
++      subroutine kissvec_case2_cdf(subcol,level)
++      integer(kind=im), intent(in) :: subcol,level
++      integer(kind=im) :: i,kiss
++      integer(kind=im) :: m,k,n
++      m(k,n) = ieor(k,ishft(k,n))
++      do i = 1,ncol
++         seed1(i) = 69069_im * seed1(i) + 1327217885_im
++         seed2(i) = m (m (m (seed2(i), 13_im), - 17_im), 5_im)
++         seed3(i) = 18000_im * iand (seed3(i), 65535_im) + ishft (seed3(i), - 16_im)
++         seed4(i) = 30903_im * iand (seed4(i), 65535_im) + ishft (seed4(i), - 16_im)
++         kiss = seed1(i) + seed2(i) + ishft (seed3(i), 16_im) + seed4(i)
++         CDF(subcol,i,level) = kiss*2.328306e-10_rb + 0.5_rb
++      end do
++      end subroutine kissvec_case2_cdf
+       end subroutine generate_stochastic_clouds_sw
+-
+ 
+ !-------------------------------------------------------------------------------------------------- 
+       subroutine kissvec(seed1,seed2,seed3,seed4,ran_arr)

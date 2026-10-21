@@ -1,0 +1,46 @@
+--- frozen_R1_make_actual_qualification.py
++++ make_actual_qualification_r2.py
+@@ -11,6 +11,23 @@
+  assert c['invocation_id']==inv and c['main_pid']==0 and c['active_state']=='inactive'and c['result']=='success'
+  assert c['exit_code']in([0,None]if reader else[0])and c['cgroup_path_absent']and c['cgroup_processes']==[]and c['manager_success_invocation_bound']is True
+  assert any(x.get('INVOCATION_ID')==inv and x.get('MESSAGE')==c['unit']+': Deactivated successfully.'for x in c['journal_rows'])
++def historical_noon_control(c,node,grant,host,B,science,ref):
++ # ONLY the retained original noon control uses its real historical basic closure schema.
++ frozen=load(ref(B/'retained-control.json'))
++ assert frozen['stage']=='/pool/wrf-experiment/wrf-cpu/science-prep/production512-noon-tail75m-r1'
++ assert frozen['source_manifest_sha256']=='595e9c0dc424e13d85e0053429e5b7bd7cf9a83690465e227a624d35abd599a6'
++ for actual,key in [('lease.json','control-lease.json'),('completion.json','control-completion.json'),('model-closures.json','control-model-closures.json'),('adaptive-steps.json','control-adaptive-steps.json')]:ref(B/'control-metadata'/actual,frozen['files'][key])
++ for name,h in frozen['files'].items():ref(B/'retained-control'/name,h)
++ assert grant['source_manifest_sha256']==frozen['source_manifest_sha256']and grant['run_directory']==frozen['control_run_directory']and grant['executable_sha256']=='546b99156cbd809e1cae5e0ea8cebeea44dafd6331abf89e4daea00e0dd0a5e7'and grant['wall_cap_seconds']==1200 and grant['codec']=='ordinary-no-preload'
++ assert c==load(B/'retained-control/control-model-closures.json')[host]
++ assert c['unit']==grant['nodes'][host]['unit']+'.service'==node['unit']==science['runtime']['control']['invocations'][host]['unit']
++ assert c['invocation_id']==node['invocation_id']==science['runtime']['control']['invocations'][host]['invocation_id']
++ assert c['main_pid']==0 and c['active_state']=='inactive'and c['result']=='success'and c['exit_code']==0 and c['cgroup_processes']==[]
++ original=load(B/'retained-control/science-receipt.json');reader=load(B/'retained-control/reader-closure.json')
++ assert original['status']=='PASS_ORIGINAL_TWO_HISTORY_AND_512_NOON75M_ORDERED_SEQUENCE'and original['observed_step_count']==230 and original['observed_last_step']=='2026-10-12_13:15:00'and len(original['comparisons'])==2 and all(x['status']=='PASS'for x in original['comparisons'])
++ closed(reader,original['invocation_id'],True)
++ # Never synthesize modern model certificates or call the historical models newly strongly certified.
++ return {'scope':'Frozen original noon control basic historical closures: PID0/inactive/success/exit0/procs[]; exact own grant/source/metadata/unit/INV and retained originalSCI/reader verified.', 'manager_success_journal_certificate':'UNAVAILABLE_HISTORICALLY','absent_cgroup_certificate':'UNAVAILABLE_HISTORICALLY','new_strong_model_closure_claim':False}
+ def function_ast(p,name):return ast.dump(next(x for x in ast.parse(Path(p).read_text()).body if isinstance(x,ast.FunctionDef)and x.name==name),include_attributes=False)
+ def assemble(a):
+  B=a.runtime.resolve();three=a.mode=='threehour';assert B==SD/('production512-current-moist-theta3h-runtime-r1'if three else'production512-current-theta-sw-noon75m-runtime-r1')
+@@ -63,7 +80,9 @@
+   metrics[arm]={'wall_seconds':nodes['hpc01']['wall_seconds'],'cpu_seconds':sum(int(dict(z.split()for z in x['cpu_stat'].splitlines())['usage_usec'])for x in nodes.values())/1e6,'main_step_sum_seconds':sum(x['wall_seconds']for x in st)}
+   assert all(math.isfinite(x)and x>0 for x in metrics[arm].values());assert all(math.isclose(metrics[arm][k],r['metrics'][arm][k],rel_tol=1e-12,abs_tol=1e-7)for k in metrics[arm])
+   closures=load(D/'model-closures.json')
+-  for h,x in nodes.items():closed(closures[h],x['invocation_id'])
++  for h,x in nodes.items():
++   if arm=='control'and not three:historical_control_scope=historical_noon_control(closures[h],x,grant,h,B,s,ref)
++   else:closed(closures[h],x['invocation_id'])
+   if arm=='candidate':
+    assert grant['source_manifest_sha256']==sha(B/'source-pins.json')and grant['run_directory']==l['run_directory']and grant['executable_sha256']==EXE and grant['source_commit']is None
+    for h,x in nodes.items():
+@@ -78,6 +97,8 @@
+  if three:assert all(math.isclose(reductions[k],r['reductions_percent'][k],abs_tol=1e-9)for k in reductions)
+  q={'status':'PASS_CURRENT_THETA_SW_ORIGINAL_FOUR_PRODUCT_545_STEP_APPLICATION'if three else'PASS_CURRENT_THETA_SW_ORIGINAL_NOON75M_TWO_PRODUCT_230_STEP_APPLICATION','utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'candidate_artifacts':{**{k:l[k]for k in ['executable','executable_sha256','ng_path','ng_sha256','shim_path','shim_sha256']},'archive_sha256':ARCH},'theta_producer':b['theta_artifact'],'sw_producer':b['sw_artifact'],'raw_producer_source_commit':None,'posttest_source_commit':None,'own_short_science_qualified':False,'own_threehour_science_qualified':three,'own_noon75m_science_qualified':not three,'own_ninehour_science_qualified':False,'fresh_control_run':three,'profiling':False,'science':{'products':n,'ordered_steps':steps,'last_step':last,'world':512,'compute':480,'quilt':32,'tiles':2,'positive_writer_roots':positive,'zero_activity_writer_roots':zero,'actual_field_markers':len(markers),'all32_quilt_FIELDVIEW1':True,'protected_compare_one_AST_unchanged':True,'original_comparisons_all_pass':True},'model_invocations':{h:c['invocation_id']for h,c in cl.items()},'reader_invocation_id':reader['invocation_id'],'reader_exit_code_raw':reader['exit_code'],'writer_lifecycle_actual':writers,'input_lifecycle_actual':rt['input_lifecycle'],'candidate_metrics':metrics['candidate'],'original_metrics':metrics['control'],'candidate_memory':memory,'reference':reference,'comparison_design':r.get('comparison_design','UNPAIRED candidate-only noon scientific reference; descriptive metrics only'),'raw_result_labels':{'order':r['order'],'limits':r['limits']},'component_local_references_verified':component_ref_count,'all32_raw_MOD_bytes_certified':False,'SW_daylight_path_scope':'06–09 science does not establish changedSWdaylight execution; separate noonqualification pending.'if three else'Established noon12–13:15 daylight scientific case; no new profile or percall execution counter inferred.','limits':['Exact science qualification only for this actual horizon and image; no current9h transfer.','Combinedtheta+SW stack: no isolated/additive SW/theta forecast gain or repeatability claim.','WholeMPI wall, aggregate4nodecgroupCPU and main-stepelapsed are separate scopes; residual is not pureIO.','Retained nativeR1/R2/R3 MOD/privateuniquifier and too-short2048 timing failures remain valid; targetMCICA/publiccaller scope only, no all32rawMOD certificate.'],'raw_refs':refs}
+  if three:q.update(reductions_percent=reductions,wall_speedup_ratio=metrics['control']['wall_seconds']/metrics['candidate']['wall_seconds'])
++ if not three:q['historical_original_control_model_closure_scope']=historical_control_scope
++ q['assembler_parser_repair']={'scope':'Noon retainedoriginalcontrol historical closure schema only; allnewcandidate/reader and threehour closure gates unchanged.','original_assembler_sha256':'f5c752bdecf1179bd5d8b7b06f85c773aa781fa4181a19b8cff580a267472698','retained_failure_record':{'path':str(ref(Path(__file__).parent/'RETAINED_R1_NOON_ASSEMBLER_FAILURE.json')),'sha256':sha(Path(__file__).parent/'RETAINED_R1_NOON_ASSEMBLER_FAILURE.json')}}
+  if a.prior_threehour:
+   assert not three and a.prior_threehour_sha256;previous=load(ref(a.prior_threehour,a.prior_threehour_sha256));assert previous['status']=='PASS_CURRENT_THETA_SW_ORIGINAL_FOUR_PRODUCT_545_STEP_APPLICATION'and previous['candidate_artifacts']['executable_sha256']==EXE and previous['candidate_artifacts']['archive_sha256']==ARCH;q['separate_actual_threehour_qualification']={'path':str(a.prior_threehour.resolve()),'sha256':a.prior_threehour_sha256};q['own_threehour_science_qualified']=True
+  ref(Path(__file__));assert all(sha(path)==h for path,h in refs.items());return q

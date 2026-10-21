@@ -1,0 +1,28 @@
+{
+  "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+  "order": [
+    "fresh_corrected_original546b_control",
+    "fresh_current_theta_SW_a50e_all_prior_f4b_pool51a_input06d_NCa32_distance9371_candidate"
+  ],
+  "comparison_design": "Fresh corrected-original546b control then currentall+theta+SW candidate; checkedcache each arm, no repeatability or isolated-theta forecast attribution",
+  "metrics": {
+    "control": {
+      "wall_seconds": 947.713663617149,
+      "cpu_seconds": 432906.028505,
+      "main_step_sum_seconds": 725.0132
+    },
+    "candidate": {
+      "wall_seconds": 661.0916317086667,
+      "cpu_seconds": 320598.551647,
+      "main_step_sum_seconds": 560.40742
+    }
+  },
+  "reductions_percent": {
+    "wall_seconds": 30.24352638480793,
+    "cpu_seconds": 25.942691822944397,
+    "main_step_sum_seconds": 22.70383215091808
+  },
+  "science_sha256": "ccc36de6aff0891d57f3f16ba348f256ace9d99ca8918bf29bbd46f8df0fe458",
+  "reader_closure_sha256": "4588780012d21ef1bbbf73eafeab2ac2569a3948ce6fc72cf72a0f478d213e52",
+  "limits": "One fresh fixed-order pair, actual checkedcache before each arm; no repeatability or per-kernel causal claim. Main includes communication/backpressure; residual is not pureIO."
+}

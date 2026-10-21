@@ -1,0 +1,14 @@
+{
+  "status": "SOURCE_ONLY_ACTUAL_AUTHOR_ONE_PRAGMA_CANONICAL_REALIZATION",
+  "canonical_parent_sha256": "92ec84f6aab80afce2b0f3eddad0963a83d5bfe1ac4d4306a81d6d5022e6b650",
+  "canonical_candidate_sha256": "34dd9476f242ede55c1e4511443e43937e229478990532de530c6b26b67f3ea7",
+  "full_module_inverse_exact": true,
+  "old": "       do k = k_start, k_end\n       do i = i_start, i_end\n         th_phy(i,k,j) = (t(i,k,j)+t0)/(1.+R_v/R_d*moist(i,k,j,P_QV))",
+  "new": "       do k = k_start, k_end\n       !$OMP SIMD\n       do i = i_start, i_end\n         th_phy(i,k,j) = (t(i,k,j)+t0)/(1.+R_v/R_d*moist(i,k,j,P_QV))",
+  "author_response_sha256": "d323035dce32d8528950777f98eb626194d4122df49b740d2a66c153be9dae1b",
+  "author_receipt_sha256": "35283e7569d122f9ff46eff5f857b3b365004fd5197e6ac7fb6c0f42e7c8ff5d",
+  "review_response_sha256": "bce0bd2430a78a932a5b14f7f1b5054ea982ae61593788f7ce55f6ea2c700d95",
+  "review_receipt_sha256": "dc75170cd516b3a34142799497ce5c8f3a35a54551ca8f40aaf92439a2551b06",
+  "root_adjudication_sha256": "92d041eb7b15e39910d471d056cbfe142e6af125b323f90db225653b62a158cc",
+  "scope": "ActualauthoroneindentedbareSIMD line; canonicalFrealizationonly, original.f90diffheadernotbuildinput. Existingcalc_php/PART2/allotherexpressions/ELSE/consumersbyteexact. IEEEidentityunproved untilnative."
+}
