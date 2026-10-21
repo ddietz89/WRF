@@ -1,0 +1,19 @@
+{
+  "state": "UNAVAILABLE",
+  "optional": true,
+  "final": true,
+  "error": "RuntimeError('previously verified target disappeared or changed')",
+  "traceback": "Traceback (most recent call last):\n  File \"/pool/wrf-experiment/wrf-cpu/science-prep/production512-current-e3-writer-attribution10m-r1/collectors/writer495/embedded_writer_perf.py\", line 301, in main\n    seen=True;targets={r:target(a,rows[r],line)for r in(495,)};roles={r:fds(t,d)for r,t in targets.items()}\n                         ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/pool/wrf-experiment/wrf-cpu/science-prep/production512-current-e3-writer-attribution10m-r1/collectors/writer495/embedded_writer_perf.py\", line 112, in target\n    pid=int(row['pid']);before=ticks(pid);assert before==str(row['pid_starttime_ticks'])\n                               ^^^^^^^^^^\n  File \"/pool/wrf-experiment/wrf-cpu/science-prep/production512-current-e3-writer-attribution10m-r1/collectors/writer495/embedded_writer_perf.py\", line 28, in ticks\n    def ticks(pid):return Path(f'/proc/{pid}/stat').read_text().rsplit(')',1)[1].split()[19]\n                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.12/pathlib.py\", line 1029, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.12/pathlib.py\", line 1015, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/proc/2058129/stat'\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/pool/wrf-experiment/wrf-cpu/science-prep/production512-current-e3-writer-attribution10m-r1/collectors/writer495/embedded_writer_perf.py\", line 305, in main\n    if seen:raise RuntimeError('previously verified target disappeared or changed')\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: previously verified target disappeared or changed\n",
+  "all_owned_children_closed": true,
+  "root_closure_proofs": {},
+  "remaining_owned_children": [
+    {
+      "pid": 2057975,
+      "parent_pid": 2057973,
+      "startticks": "212057722",
+      "rss_bytes": 25067520
+    }
+  ],
+  "root_children_returncodes": [],
+  "duration_seconds": 134.19382257713005
+}

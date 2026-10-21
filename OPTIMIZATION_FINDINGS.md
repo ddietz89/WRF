@@ -1,5 +1,11 @@
 # WRF CPU optimization findings
 
+## Current output-path attribution (2026-10-21)
+
+The E3 build with the qualified boundary observer passed the original two-product/35-step full-grid checker; all model and reader scopes closed normally. Within each active writer’s public write-call envelope, the compression callback occupied86.18–89.88% and direct HDF5 chunk calls9.05–12.06%. These local envelopes do not measure MPI/gather time or the complete final drain. Each writer made216 callbacks and864 independent chunk streams. A standalone diagnostic is prepared to measure codec initialization/teardown before any lifetime optimization.
+
+The intended writer CPU capture is unavailable: its initial-file trigger never admitted and no recorder started. The failed capture is preserved, without a zero-cost claim or automatic forecast replay. The [bounded diagnostic evidence](tools/cpu-output/current-e3-writer-attribution/README.md) retains exact science, raw boundary measurements, closure proofs and short descriptive wall/main/CPU values. This observer experiment changes no selected source, libraries, defaults or unprofiled long-run qualification.
+
 ## Current combined selection (2026-10-21)
 
 The working fork now selects **e3da6907 / archive4f2a0cf0 / post-test source1ae0c6ee**. It retains all prior improvements and adds final-U velocity SIMD, Prep V coupling SIMD and split rain/cloud staging during Thompson initialization. The unchanged original checker passed all four complete products,545 ordered timesteps,512 ranks,two tiles,all four positive writer groups and all32 field markers. All model and reader jobs closed normally.
