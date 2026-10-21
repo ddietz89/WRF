@@ -1,0 +1,90 @@
+{
+  "status": "REJECT_EXACT_NATIVE_MISMATCH_GLOBAL_BIGSTEP_ZNVER2_NO_FMA",
+  "decision": "Reject this fixed whole-BigStep module-local ISA variant; no rerun, salvage, numerical waiver, further timing or application promotion. Current selected generic670b is unchanged.",
+  "candidate_object_sha256": "f219c358daaa504b143f139724bf694e2df9f0284cbbcfd6d2d56d07cc6b3251",
+  "generic_genuine_object_sha256": "670bb8958047065dd314ab0d2706bac71e9f4d23e511517a47a6c76fd6eddc84",
+  "generic_rebuilt_object_sha256": "7721b699d20090a84f101f461bedbacbcfb8056d299225bfa982b33514b39f8a",
+  "same_canonical_sha256": "8aba45993521c8a13c0ab0e9eae45a2c7c31b7a91042806ecfbe2a3774b98bff",
+  "same_PP_sha256": "438d1910e75a6a5570e2fee195674c88b15d4548baba63d622696cf5861e2702",
+  "module_only_delta": [
+    "-march=znver2",
+    "-mno-fma"
+  ],
+  "actual_failed_gate": "AssertionError(('SAME_OPT_FULL_RAW_READONLY_FIVE_STATE_MISMATCH', 'phy_prep50-O2-phy_prep_driver.f90-O2-candidate-r0'))",
+  "observed": {
+    "fixture": "Original36 complete PHY_PREP",
+    "level": "O2",
+    "forced_rounding": "nearest / PHY_PREP_ROUND_OVERRIDE=0",
+    "genuine_and_fresh_generic_matched_all_four_rounds": true,
+    "genuine_nearest_raw": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/bigstep-current-consumer-zen2-additional-native-r1/work/phy_prep50/O2-phy_prep_driver.f90/genuine/raw-r0.bin",
+      "sha256": "64e417ca35fbc64b126e79546c187c41ced7ee6ceffaa72a7d56c9f869ef4b26",
+      "bytes": 4277244,
+      "executable_sha256": "efaf3e5c57536fe2f96bedf62d110d475ee7bfa3fed7fb8dcf8e5a559c9ae0f4",
+      "PHY_PREP_ROUND_OVERRIDE": 0
+    },
+    "ISA_nearest_raw": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/bigstep-current-consumer-zen2-additional-native-r1/work/phy_prep50/O2-phy_prep_driver.f90/O2-candidate/raw-r0.bin",
+      "sha256": "908e53b251125bee4e312c5fc9b7c1028db611afd590d5ab3adc52e1a00f15b5",
+      "bytes": 4277244,
+      "executable_sha256": "112a317774930f16b15b42246a1112d159e5378ecd649c62515615a4872aa80a",
+      "PHY_PREP_ROUND_OVERRIDE": 0
+    },
+    "all_15_commands_returned_zero": true,
+    "driver_internal_acceptance_completed_before_outer_comparison": true,
+    "strict_fullraw_including_return_state_mismatch": true,
+    "specific_case": null,
+    "output_vs_five_state": null,
+    "NaN_payload_or_other_root_cause": null
+  },
+  "not_reached": [
+    "Remaining ISA PHY36 rounding modes",
+    "O0 comparisons",
+    "theta12",
+    "RHO counterexample2",
+    "calc_php96",
+    "hdiff58",
+    "calc_cq24"
+  ],
+  "actual_terminal": {
+    "invocation_id": "b0aba397d69645b6a0089d5ff1b85d2d",
+    "MainPID": 0,
+    "Result": "exit-code",
+    "ExecMainStatus": 1,
+    "ActiveState": "failed",
+    "cgroup_absent": true,
+    "cgroup_processes": [],
+    "same_INV_failure_manager_journal_proved": true,
+    "meaning": "Physically closed failed worker, not a normal successful qualification."
+  },
+  "retained_HPG_only_evidence": {
+    "native100_same_opt_O0_O2_and_fresh72_pass": true,
+    "caller_qualification_status": "PASS_ONLY_HPG_COMPLETE500_CALLER_SCREEN_NOT_WHOLEMODULE_OR_FORECAST",
+    "complete_HPG_caller_wall_reductions_percent_context": [
+      7.19,
+      5.21
+    ],
+    "scope": "Local HPG benefit only; cannot override observed PHY_PREP native failure or qualify all41 changed functions."
+  },
+  "resources_context_only": {
+    "memory.peak": "505475072\n",
+    "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+    "cpu.stat": "usage_usec 6681504\nuser_usec 4116552\nsystem_usec 2564951\ncore_sched.force_idle_usec 0\nnr_periods 83\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n"
+  },
+  "wholemodule_qualified": false,
+  "application_qualified": false,
+  "new_additional_native_qualification": null,
+  "raw_refs_sha256": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/bigstep-current-consumer-zen2-feasibility-r1/additional-native-coverage-preparation-r1/native-gate-r1/actual-native-r1/receipt.json": "87b2f0448b47899bc574a4623345e0d33217c9307bb9f44433a51938fd46edc0",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/bigstep-current-consumer-zen2-feasibility-r1/additional-native-coverage-preparation-r1/native-gate-r1/actual-native-r1/closure.json": "7511412ba0e251deb7e67fc95d7394520a3f4c5c425c396beee20bb9ad70e750",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/bigstep-current-consumer-zen2-feasibility-r1/additional-native-coverage-preparation-r1/native-gate-r1/actual-native-r1/controller.json": "1cbb1263769d6f0b583d26b2cf47f8f88d5b734849b9aa2916b94812bd7a741c",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/bigstep-current-consumer-zen2-feasibility-r1/additional-native-coverage-preparation-r1/native-gate-r1/inputs/run_gate.py": "6ede9c1047406d16015ee86e13196acf5c030ef31b73d0a1fb455a506ad08abf",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/bigstep-current-consumer-zen2-feasibility-r1/additional-native-coverage-preparation-r1/native-gate-r1/inputs/binding.json": "dd7ba8d029662ffc87998f57ba857d3144045bd1e3799b7a262609ab3e38f1b5",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/bigstep-current-consumer-zen2-feasibility-r1/additional-native-coverage-preparation-r1/native-gate-r1/inputs/source-pins.json": "c977c566056f3220f7208487be478738370f4bab5e25b228703b416e5c38819b",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/bigstep-current-consumer-zen2-feasibility-r1/native-gate-r1/NATIVE_QUALIFICATION.json": "13055bf24dd4277ad853d7a1506239ae196d84abc7384c45612968702628cbda",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/bigstep-current-consumer-zen2-feasibility-r1/native-gate-r1/actual-native-r1/receipt.json": "81d1ba346cde632adad42ad8e1e2b34adf6094e70b9d012272c6555d00078bba",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/bigstep-current-consumer-zen2-feasibility-r1/native-gate-r1/actual-native-r1/closure.json": "b8502b940943ac84e3452bea5fdd3109bb04ba3d6f2ff4ac0b40f85db25486b3",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/bigstep-current-consumer-zen2-feasibility-r1/CALLER_QUALIFICATION.json": "537767b93ea1b615855d4754290ca5bfabeab5d4c89b993d64cc364b7cfb91ff",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/bigstep-current-consumer-zen2-feasibility-r1/additional-native-coverage-preparation-r1/native-gate-r1/PROVIDER_ADJUDICATION_AND_LOCAL_COMPLETION.json": "7e8a873c6297ffde923670922ad692f33e8bc05c55f2c2d205029aa058d01a01"
+  }
+}

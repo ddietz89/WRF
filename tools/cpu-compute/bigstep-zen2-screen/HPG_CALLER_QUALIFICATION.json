@@ -1,0 +1,111 @@
+{
+  "status": "PASS_ONLY_HPG_COMPLETE500_CALLER_SCREEN_NOT_WHOLEMODULE_OR_FORECAST",
+  "utc": "2026-10-21T17:03:04.812591+00:00",
+  "selected_parent_object_sha256": "670bb8958047065dd314ab0d2706bac71e9f4d23e511517a47a6c76fd6eddc84",
+  "ISA_candidate_object_sha256": "f219c358daaa504b143f139724bf694e2df9f0284cbbcfd6d2d56d07cc6b3251",
+  "source_unchanged": true,
+  "canonical_source_sha256": "8aba45993521c8a13c0ab0e9eae45a2c7c31b7a91042806ecfbe2a3774b98bff",
+  "same_module_local_delta": [
+    "-march=znver2",
+    "-mno-fma"
+  ],
+  "cases_per_arm": 500,
+  "geometry": [
+    188,
+    19,
+    32
+  ],
+  "calls_scope": "WholeHPG invocation only; restoration/state seed/checks/rawsink outside integerCLOCK_MONOTONIC_RAW interval. Exact originalbenchmark/helpers retained.",
+  "pairs": {
+    "hpc01": {
+      "parent_wall_seconds": 0.544268403,
+      "candidate_wall_seconds": 0.505117086,
+      "wall_reduction_percent": 7.193384143595038,
+      "parent_process_cpu_seconds": null,
+      "candidate_process_cpu_seconds": null,
+      "cpu_reduction_percent": null
+    },
+    "hpc02": {
+      "parent_wall_seconds": 0.535268524,
+      "candidate_wall_seconds": 0.507357516,
+      "wall_reduction_percent": 5.2143936638426425,
+      "parent_process_cpu_seconds": null,
+      "candidate_process_cpu_seconds": null,
+      "cpu_reduction_percent": null
+    }
+  },
+  "process_cpu_clock": null,
+  "raw_and_five_state_exact": true,
+  "cache_clear_each_arm": true,
+  "all4_arm_jobs_normal_strong_closed": true,
+  "resources_actual": [
+    {
+      "arm": 0,
+      "actual_resources": {
+        "memory.peak": "194158592\n",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "cpu.stat": "usage_usec 2719774\nuser_usec 2369644\nsystem_usec 350129\ncore_sched.force_idle_usec 0\nnr_periods 41\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n"
+      },
+      "cache_scope": "Affected compute-client filesystem cache only; servercache/hardwarecache/load uncontrolled."
+    },
+    {
+      "arm": 1,
+      "actual_resources": {
+        "memory.peak": "194129920\n",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "cpu.stat": "usage_usec 1883514\nuser_usec 1653351\nsystem_usec 230162\ncore_sched.force_idle_usec 0\nnr_periods 21\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n"
+      },
+      "cache_scope": "Affected compute-client filesystem cache only; servercache/hardwarecache/load uncontrolled."
+    },
+    {
+      "arm": 2,
+      "actual_resources": {
+        "memory.peak": "193888256\n",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "cpu.stat": "usage_usec 2105180\nuser_usec 1784630\nsystem_usec 320550\ncore_sched.force_idle_usec 0\nnr_periods 24\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n"
+      },
+      "cache_scope": "Affected compute-client filesystem cache only; servercache/hardwarecache/load uncontrolled."
+    },
+    {
+      "arm": 3,
+      "actual_resources": {
+        "memory.peak": "193929216\n",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "cpu.stat": "usage_usec 1888114\nuser_usec 1572426\nsystem_usec 315688\ncore_sched.force_idle_usec 0\nnr_periods 22\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n"
+      },
+      "cache_scope": "Affected compute-client filesystem cache only; servercache/hardwarecache/load uncontrolled."
+    }
+  ],
+  "codegen_review_sha256": "48c08149e16c7ea668813145b9741f6da2da2ef7d60c624f0aee594ba77b1be1",
+  "native_qualification_sha256": "13055bf24dd4277ad853d7a1506239ae196d84abc7384c45612968702628cbda",
+  "wholemodule_qualified": false,
+  "application_qualified": false,
+  "default_promoted": false,
+  "worth_further_qualification": true,
+  "limits": "One opposite-order pair per host, finite existing synthetic NH completecaller. 7.1934%/5.2144% lowercallerwall only; processCPUunavailable, no isolatedX/forecast/global/repeatability claim, no addition to previous20.9%. Other40 changedroutines require explicit native/application support.",
+  "raw_producer_source_commit": null,
+  "raw_refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/bigstep-current-consumer-zen2-feasibility-r1/complete-caller-timing-preparation-r1/ACTUAL_WAVE.json": "3abfdc93d8fc3fb49d5d03aee57f87c0667a1198843a699cb7e65730b91a1b46",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/bigstep-current-consumer-zen2-feasibility-r1/complete-caller-timing-preparation-r1/ROOT_CFG_REVIEW.json": "48c08149e16c7ea668813145b9741f6da2da2ef7d60c624f0aee594ba77b1be1",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/bigstep-current-consumer-zen2-feasibility-r1/complete-caller-timing-preparation-r1/ROOT_TIMING_ACTIVATION.json": "c03799c45935c65c4abf36d756fbd150233b5475d0be3db88f9dc0e06a74c1f6",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/bigstep-current-consumer-zen2-feasibility-r1/native-gate-r1/NATIVE_QUALIFICATION.json": "13055bf24dd4277ad853d7a1506239ae196d84abc7384c45612968702628cbda",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/bigstep-current-consumer-zen2-feasibility-r1/complete-caller-timing-preparation-r1/driver-build-r1/actual-native-r1/receipt.json": "5081aeb0260f5820eaf787b095c472103f52dea8efe4e2178b08d7c986426038",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/bigstep-current-consumer-zen2-feasibility-r1/complete-caller-timing-preparation-r1/driver-build-r1/actual-native-r1/closure.json": "7c814f68314d52e095465f21f10410405f830e072f53f4929e3c10d7fb58ad0f",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/bigstep-current-consumer-zen2-feasibility-r1/complete-caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/receipt.json": "fa30ab1bcb63723c31741f3a3b8dc3fbc95d5e2436b2609873aa16c236e11427",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/bigstep-current-consumer-zen2-feasibility-r1/complete-caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/closure.json": "57bf66cc1907e4372807d21bb93bfd8d4eccc9513151b127bbb273ac14057d28",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/bigstep-current-consumer-zen2-feasibility-r1/complete-caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/cache-clear.json": "2f2d29ab52fae4411ccd4ee81aa73e7afc7985d98cdd70bbe14107c6409fcc08",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/bigstep-current-consumer-zen2-feasibility-r1/complete-caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/controller.json": "a1b554790a3dd1c8a6b17c025d0c25570a1616494e4befd5034d459590ec9a17",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/bigstep-current-consumer-zen2-feasibility-r1/complete-caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/receipt.json": "962603bd0b30baf36fff35a1515daf0c408ed3d9de0cc507029f8be33fb41db9",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/bigstep-current-consumer-zen2-feasibility-r1/complete-caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/closure.json": "db1421598d166d1d5d02dc9731f5c7ff5a4670e68f38169c214fdc45110051d3",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/bigstep-current-consumer-zen2-feasibility-r1/complete-caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/cache-clear.json": "618f862a276a2bea06bf039ca0d64fbf93370b0c134cfd2ebdba8e72b62367a3",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/bigstep-current-consumer-zen2-feasibility-r1/complete-caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/controller.json": "97f46a2c2181e179517017293190424148dd6243863f29575f29c7ac921310b3",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/bigstep-current-consumer-zen2-feasibility-r1/complete-caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/receipt.json": "7c521e8986ae6494f163da69a93a337e74067ab9ccba7d8ab0530abb5c01bb68",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/bigstep-current-consumer-zen2-feasibility-r1/complete-caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/closure.json": "7315117293cd1715bda86af1b0ffcb52062cfc09fd1f50165d3ae591c3a8f9c5",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/bigstep-current-consumer-zen2-feasibility-r1/complete-caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/cache-clear.json": "465619661ef03dea5350820c9a6511d67f39705e02bd5e6315e23327b6025b51",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/bigstep-current-consumer-zen2-feasibility-r1/complete-caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/controller.json": "945ed90813335206e635bf53340248e5da1c35d56463368e8b3d9725bdc3a35f",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/bigstep-current-consumer-zen2-feasibility-r1/complete-caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/receipt.json": "610014fb3aaeed90839b976f88d75e151b1097c23c49336bbc5ccbd69c7af027",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/bigstep-current-consumer-zen2-feasibility-r1/complete-caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/closure.json": "71c4f5bb089ed10b4c9868a3085cf7d5af7ad8b5df8ec0a5f36ad3eca26b4447",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/bigstep-current-consumer-zen2-feasibility-r1/complete-caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/cache-clear.json": "2d1b3e0240c60d860d9205882f5bfb0b1d821e4eb6200ebb63ba72ac3099c46a",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/bigstep-current-consumer-zen2-feasibility-r1/complete-caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/controller.json": "f294436ae20fcb82aed2b481a2585a1ff181eda9601b24ddc36533ce3feef1a0"
+  }
+}
