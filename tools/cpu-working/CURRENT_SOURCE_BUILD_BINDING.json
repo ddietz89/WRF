@@ -1,5 +1,5 @@
 {
-  "status": "QUALIFIED_CURRENT_HPG_NHX_SHORT_AND_THREE_HOUR_FULL512",
+  "status": "QUALIFIED_CURRENT_HPG_NHX_SHORT_THREE_HOUR_AND_NOON_SCIENCE_FULL512",
   "source_commit": "c3d2de5d92ea5da92dc6937657cfc0557defbef7",
   "executable": {
     "path": "/pool/wrf-experiment/wrf-cpu/builds/current3cdd-one-bigstep-hpg-nhx-row-cache-hpc02-r1/wrf.exe",
@@ -1263,7 +1263,7 @@
     "repeatability_established": false,
     "scope": "Exact4products545/full512/twoTiles/all4positivewriters/all32markers; main-step sum is elapsed not integrationCPU; no isolated/additive/pureIO/memorycausality claim."
   },
-  "scope": "Currentf703/fe72/sourcec3d2 retainsALL3cdd improvements plus exact-orderNH-X rowratio cache;9371/51a/root06dNCa32/FABA/twoTiles/singleIB. Ownshort and actualfreshreverse3h TRUE; ownnoon/9hFALSE. GNU13.3strict/no new runtimeflags/API/allocation.",
+  "scope": "Currentf703/fe72/sourcec3d2 retainsALL3cdd improvements plus exact-orderNH-X rowratio cache;9371/51a/root06dNCa32/FABA/twoTiles/singleIB. Ownshort, actualfreshreverse3h and noon75mSCI TRUE; own9hFALSE. Noon profile unavailable; no noon timing claim. GNU13.3strict/no new runtimeflags/API/allocation.",
   "previous_3582_e1d8_science": {
     "products": 4,
     "ordered_steps": 545,
@@ -1489,8 +1489,11 @@
   },
   "claim_limits": "Ownshort2/35 and freshreverse3h4/545 originalexact/full512/all8model+readerstrongclosures. One candidateFIRST/originalSECOND pair; no repeatability, isolatedHPG/additive/concurrentthroughput/current9h claim. HPGcaller1.34-3.04% lowerwall remainsseparate/processCPU unavailable. Mainelapsed includescomm/backpressure, notintegrationCPU; residualnotpureIO. Sourceposttestc3d2 separate/rawproducerNULL.",
   "source_commit_scope": "Exactsource installed/committed onlyafteractualnative100/caller500/canonicalCPP/one-memberlink/originalshortSCI. RawproducerNULL; no own3h/noon/9h transfer or whole-image source-rebuild claim.",
-  "current_noon75m_qualified": false,
-  "current_noon75m_qualification": null,
+  "current_noon75m_qualified": true,
+  "current_noon75m_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/hpg-nhx-row-cache/NOON_SCIENCE_QUALIFICATION.json",
+    "sha256": "1072c18ef71cc878caa590e190c1950cd2970b221d5f8cc0ac269c848093b184"
+  },
   "comparison_design": "Fresh REVERSE fixed-orderHPGf703FIRST then546bSECOND; cacheEACH; onepair, no repeatability/isolatedHPG/additive/causeclaim.",
   "theta_producer": {
     "pending": false,
@@ -1605,7 +1608,7 @@
     "applies_to_current_selection": false
   },
   "current_application_retry_scope": "No retries: one freshcandidate-first/original-second pair; all actualnormalclosures.",
-  "next_qualification": "One inactive shortcurrentdaytime profile with unchanged originalnoon2products230steps; use actualcurrentprimaryIP/source evidence before another implementation. No additional9h/matrix scheduled.",
+  "next_qualification": "FreshR2 current daytime profiling retry start12:55..13:00/continuationthrough13:10; same30s99Hz/45sagedguard/exactnoonSCI. PriorR1capturefailedbeforeperf and remainsunavailable. No additional9h/matrixscheduled.",
   "daylight_application": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/spcvmc-optical-producer/APPLICATION_QUALIFICATION.json",
     "sha256": "8f9c64380ae23f194bc45bbe2213f762f961af1e1803593d7bd9402169b247ee"
@@ -2154,5 +2157,56 @@
     "field": "memory_actual",
     "scope": "Actualperarm/node counters retained in full APPQ; no inferred peak or pressure-freeclaim."
   },
-  "candidate_memory_actual_scope": "Actualfreshthree-hour f703 candidate; prior short counter records remain in separate99f3APPQ."
+  "candidate_memory_actual_scope": "Actualfreshthree-hour f703 candidate; prior short counter records remain in separate99f3APPQ.",
+  "current_noon75m_science": {
+    "products": 2,
+    "ordered_steps": 230,
+    "last_step": "2026-10-12_13:15:00",
+    "world": 512,
+    "compute": 480,
+    "quilt": 32,
+    "tiles": 2,
+    "positive_writer_roots": [
+      487,
+      495
+    ],
+    "zero_activity_writer_roots": [
+      503,
+      511
+    ],
+    "actual_field_markers": 16,
+    "actual_field_marker_ranks": [
+      480,
+      481,
+      482,
+      483,
+      484,
+      485,
+      486,
+      487,
+      488,
+      489,
+      490,
+      491,
+      492,
+      493,
+      494,
+      495
+    ],
+    "all32_quilt_FIELDVIEW1": true,
+    "protected_compare_one_AST_unchanged": true,
+    "original_comparisons_all_pass": true,
+    "qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/hpg-nhx-row-cache/NOON_SCIENCE_QUALIFICATION.json",
+      "sha256": "1072c18ef71cc878caa590e190c1950cd2970b221d5f8cc0ac269c848093b184"
+    },
+    "profile_data_usable": false,
+    "profiling_attempted": true,
+    "profile_qualification_status": "UNAVAILABLE_NO_DATA_ALL_THREE_GUARD_BEFORE_PERF_START",
+    "fresh_control_run": false,
+    "performance_qualification": false,
+    "actual_reader_closure_sha256": "d5c2cc78f05ae8f87b2e3d5286c7af13f0da2891e3e0243e9610b7107d0c6023",
+    "all_current_models_reader_strong_closed": true,
+    "historical_control_strong_closure_claimed": false
+  }
 }
