@@ -1,0 +1,42 @@
+{
+  "status": "REJECT_PRIVATE_LITERAL_NEXT_HEAD_PREFETCH_NO_APPLICATION",
+  "candidate_codec_sha256": "cbb4b7e1f50fd1925f3535605b80c44f4f23cc8f271216e285d2d1a6e82e425f",
+  "retained_codec_sha256": "e1d8bc0774b7c54b4b63e7d6892c6485bec9b3c7032985a229961ba0569cc450",
+  "native_exactness_pass": true,
+  "application_science_qualified": false,
+  "source_commit": null,
+  "pairs": [
+    {
+      "host": "hpc01",
+      "order": "P-C",
+      "parent_wall_seconds": 2.220025331,
+      "candidate_wall_seconds": 2.220804686,
+      "parent_process_cpu_seconds": 6.755050343,
+      "candidate_process_cpu_seconds": 6.80449913,
+      "wall_reduction_percent": -0.03510568051261487,
+      "process_cpu_reduction_percent": -0.7320269204394991
+    },
+    {
+      "host": "hpc04",
+      "order": "C-P",
+      "parent_wall_seconds": 2.129332965,
+      "candidate_wall_seconds": 2.215785976,
+      "parent_process_cpu_seconds": 6.686181642,
+      "candidate_process_cpu_seconds": 6.78367177,
+      "wall_reduction_percent": -4.06009827589362,
+      "process_cpu_reduction_percent": -1.4580837497384813
+    }
+  ],
+  "decision": "Bothhosts wall/processCPU regress in oneoppositeorderpair. Do notpromote, runforecast, retry/tunehintdistance or reuseaspositivegain. Preserveallnative/rawtiming/reviewerNULL-REJECTevidence.",
+  "limitations": [
+    "Singlefixed32W4 completeproviderpair perhost, warmprivatescratch/setupout; notstatisticalsignificance/repeatability orforecastcause.",
+    "No throttle/memoryevents counters inarmreceipt schema: UNKNOWN.",
+    "Nativeexactness iscodec/component only; no newWRF SCI performed."
+  ],
+  "refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-fast-literal-next-head-prefetch-r1/NATIVE_QUALIFICATION.json": "fd5a36ab44a5e40e511ffb3059e8bb7f5359d7bb75535a54051786438d016964",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-fast-literal-next-head-prefetch-r1/caller-timing-preparation-r1/CALLER_QUALIFICATION.json": "e89a7d4f7edbe90276f132933a09b00fa2cbe7c3b7cfe449a19ba1168f10a54d",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-fast-literal-next-head-prefetch-r1/caller-timing-preparation-r1/ACTUAL_WAVE.json": "5e695881a4473a8f2843ad0f0ee870a28bd62b151278d97296a4cda463c8e35a",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-fast-literal-next-head-prefetch-r1/ADJUDICATION.json": "8eb6d88840cb602783d60dcd429f6fe1ea5e4803c365f597e642fd13b435dc36"
+  }
+}

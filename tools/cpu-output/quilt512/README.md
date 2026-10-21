@@ -77,3 +77,10 @@ That historical freeze is superseded by the activecampaign: the latest periodic 
 The qualified GNU Fortran 13.3.0 working configuration now enables both scoped SmallStep and advection Zen 2 targeting by default. CPU/OS admission remains required; other compiler versions retain generic defaults. `WRF_ADVECTION_ZEN2=0` opts out of the advection setting, and the object/archive/executable must be rebuilt. The exact-qualified paired shortwave helper is also included in working source. These kernel inclusion decisions do not establish a new combined forecast-speedup result; see the latest consolidated findings and timing SOP.
 
 Current FINISH-U [writer CPU evidence](../current-finish-writer-profile/README.md) records the actual current-codec capture and original short science, with explicit window/worker/loss limits and no forecast timing claim. Earlier E3 unavailable acquisition evidence remains preserved.
+
+
+## FINISH U+T three-hour integration and prefetch decision (October 20, 2026, EDT)
+
+Current3582/15b2/sourceee2fdac7 passed the unchanged original four-product/545-step/full512 check with four positive writers and32 markers. Unprofiled UNPAIRED retained original→combined values are819.278306→661.111259s wall (19.3057% lower),597.239960→559.855500s main elapsed (6.2595% lower),367612.405251→320461.895685CPU-s (12.8261% lower). Main elapsed includes MPI/output backpressure; own9h remains false. Output51a/codece1d8 are unchanged. See [actual qualification](../../cpu-compute/smallstep-finish-nonfinal-t-simd/APPLICATION_QUALIFICATION.json).
+
+The [private next-head prefetch](codec/private-fast-next-head-prefetch-rejected/README.md) passed exact component gates but had no measured complete-provider gain: wall0.0351%/4.0601% longer, CPU0.7320%/1.4581% higher in one opposite-order pair per host. All caches/closures/raw/five-state/136-join checks passed; no new WRF scientific qualification or promotion followed.

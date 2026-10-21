@@ -1,0 +1,175 @@
+{
+  "schema": "PRIVATE_FAST_LITERAL_NEXT_HEAD_PREFETCH_NATIVE_V1",
+  "status": "PASS_EXACT_E1D8_PARENT_ONE_PRIVATE_PREFETCH_CODEC_READSET_STREAM_FALLBACK_D45_PROVIDER",
+  "source_commit": null,
+  "application_science_qualified": false,
+  "timing_qualified": false,
+  "parent_codec": {
+    "sha256": "e1d8bc0774b7c54b4b63e7d6892c6485bec9b3c7032985a229961ba0569cc450",
+    "whole_parent_object_and_library_exact": true
+  },
+  "candidate_codec": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/libz.so.1.3.1.zlib-ng",
+    "sha256": "cbb4b7e1f50fd1925f3535605b80c44f4f23cc8f271216e285d2d1a6e82e425f",
+    "object_sha256": "95719e5c53ed649da1a92b042eca7e22fcecc8d29d50ed7998d97deda73a2125"
+  },
+  "candidate_provider_driver": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/provider-candidate",
+    "sha256": "efd5eae43720b2f2eaa33d9efda79b53b7fd3b38702b0fcbda13196e64ee3f9c",
+    "source_path": "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/provider-candidate.c",
+    "source_sha256": "99b636407cad28b93e4fbebc579175dcca8dbe4750d268b23bed1036f03ba216"
+  },
+  "actual_native": {
+    "invocation_id": "7c512d8641ea48029fdc0680bc3560db",
+    "normal_same_INV_strong_closure": true
+  },
+  "source": {
+    "status": "ISOLATED_SOURCE_ONLY_UNQUALIFIED",
+    "parent_codec_sha256": "e1d8bc0774b7c54b4b63e7d6892c6485bec9b3c7032985a229961ba0569cc450",
+    "inverse_exact": true,
+    "generic_guarded_source_unchanged": true,
+    "source_sha256": {
+      "candidate_guarded_deflate_fast.c": "0559097ade765f308ad343754e97f87e17b1995d81a807b670185269224cee94",
+      "SOURCE_ONLY.diff": "2eb5953ac33adec92597cd389a9e559c892735c4edeee78870affe23f5c52fc3",
+      "deflate_fast_shared.h": "e0c7110cddf89960dab72f16a0e6b172cf178c0f8b9efd9d32874281bde5926e",
+      "parent-candidate_guarded_deflate_fast.c": "0559097ade765f308ad343754e97f87e17b1995d81a807b670185269224cee94",
+      "parent-candidate_compare256_avx2.c": "1bb168cb744f6bb18927aa4f9f49fd15bdfd0c3ec855cc7174f46cdd522cdc1b",
+      "parent-deflate_fast_shared.h": "7c9f3c9204ff84ca8d7189768941e7ff9939d210a7e627886c6f5dd699562af1",
+      "candidate_compare256_avx2.c": "2cddf98634c0df1a4e1c70b67432584e2c8dc29f9a532b63011cfab313870d09"
+    },
+    "read_bound_proof": {
+      "invariant": "window[strstart .. strstart+lookahead) consists of valid initialized bytes; head has HASH_SIZE Pos elements",
+      "guard": "lookahead > MIN_LOOKAHEAD (262), hence lookahead >=263",
+      "added_load": "exactly offsets strstart+1 through strstart+4, all strictly below strstart+lookahead",
+      "next_iteration": "After a literal next lookahead>=262; fill_window predicate <262 is false, unless other control flow exits/flushes",
+      "array_bound": "uint32_t golden-ratio hash followed by exact HASH_MASK before head address",
+      "actual_additional_read": true,
+      "limitations": "Proof is conditional on genuine valid-state invariants; native guarded readset/stream/fallback/fullprovider gates remain mandatory. No claim hint is used or performance improves."
+    }
+  },
+  "gates": {
+    "corpora": 13,
+    "streaming": 5,
+    "stock_decoded_all": true,
+    "fallback_forwarding_parent_and_candidate": 255,
+    "D45_real_creates_and_joins_each": 136,
+    "public_exports_dependencies_unchanged": true,
+    "single_changed_shared_link_member": "compare256_avx2.lo",
+    "unchanged_shared_link_members": 51,
+    "private_actual_prefetcht0": true
+  },
+  "additional_readset": {
+    "cases": [
+      {
+        "case": "lookahead261",
+        "literals": 261,
+        "reads": 0,
+        "heads": 0,
+        "l261": 1,
+        "l262": 0,
+        "l263": 0,
+        "l264": 0
+      },
+      {
+        "case": "lookahead262",
+        "literals": 262,
+        "reads": 0,
+        "heads": 0,
+        "l261": 1,
+        "l262": 1,
+        "l263": 0,
+        "l264": 0
+      },
+      {
+        "case": "lookahead263",
+        "literals": 263,
+        "reads": 1,
+        "heads": 1,
+        "l261": 1,
+        "l262": 1,
+        "l263": 1,
+        "l264": 0
+      },
+      {
+        "case": "lookahead264",
+        "literals": 264,
+        "reads": 2,
+        "heads": 2,
+        "l261": 1,
+        "l262": 1,
+        "l263": 1,
+        "l264": 1
+      },
+      {
+        "case": "lookahead32769",
+        "literals": 32769,
+        "reads": 32507,
+        "heads": 32507,
+        "l261": 1,
+        "l262": 1,
+        "l263": 1,
+        "l264": 1
+      },
+      {
+        "case": "lookahead65537",
+        "literals": 65537,
+        "reads": 65274,
+        "heads": 65274,
+        "l261": 1,
+        "l262": 2,
+        "l263": 1,
+        "l264": 1
+      },
+      {
+        "case": "structured",
+        "literals": 227,
+        "reads": 227,
+        "heads": 227,
+        "l261": 0,
+        "l262": 0,
+        "l263": 0,
+        "l264": 0
+      },
+      {
+        "case": "actual",
+        "literals": 42238647,
+        "reads": 42237356,
+        "heads": 42237356,
+        "l261": 0,
+        "l262": 1291,
+        "l263": 1283,
+        "l264": 1289
+      }
+    ],
+    "totals": {
+      "literals": 42338230,
+      "reads": 42335367,
+      "heads": 42335367,
+      "l261": 6,
+      "l262": 1297,
+      "l263": 1287,
+      "l264": 1292
+    },
+    "valid_logical_window_and_head_bounds_hard_checked": true,
+    "production_candidate_not_instrumented": true,
+    "no_mprotect_of_mutable_internal_window_claim": true
+  },
+  "scope": [
+    "SelectedLIT_MEM configuration only; fullFAST hint extra4Bload within validlogicalwindow/head bounds audited; internalmutablewindow notmprotected.",
+    "ExactcurrentD45 W4 synthetic provider fixture with realpack/shuffle/codec/thread/state checks; no MPI512 activation or WRF science/nativecontextclock gain.",
+    "Author raw NULL and reviewer raw REJECT retained; root-authorized mechanicalcompletion with original>MIN guard and exacthash; wastedhint/cache/skid/benefit unknown."
+  ],
+  "raw_refs_sha256": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-fast-literal-next-head-prefetch-r1/native-gate-r1/actual-native-r1/receipt.json": "23d33c6e5d106683afc32d61b3d7d31f15f7b44aa9f36efc00834662aabe84a7",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-fast-literal-next-head-prefetch-r1/native-gate-r1/actual-native-r1/closure.json": "1198e2b0e3a7939c4015632e33774003409985ca0dc58d019e47dc3a2adba54c",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-fast-literal-next-head-prefetch-r1/native-gate-r1/actual-native-r1/controller.json": "47e6591fe2e2608b73601ecd4a7aabf9b20549da7caef018a249f16e45e7c9e7",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-fast-literal-next-head-prefetch-r1/ADJUDICATION.json": "8eb6d88840cb602783d60dcd429f6fe1ea5e4803c365f597e642fd13b435dc36",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-fast-literal-next-head-prefetch-r1/local-source-r1/SOURCE_ONLY.diff": "2eb5953ac33adec92597cd389a9e559c892735c4edeee78870affe23f5c52fc3",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-fast-literal-next-head-prefetch-r1/local-source-r1/SOURCE_PROOF.json": "7d853f75e636019164243d6870fc1444cdd05281b6a48c035eda46e37f58b87a",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-fast-literal-next-head-prefetch-r1/HPC00_READONLY_RESOURCE_AUDIT.json": "13e2443db44aafb75063a4cbb8dde2d24a18b8670a31d1b828709b15f80f2451",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-fast-literal-next-head-prefetch-r1/PARENT_STT_FILE_READONLY.json": "3e7d30e3c32bf71b25d9cc452e6b6a9f84c870dbaa162ac36799024aa5ef443d",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-fast-literal-next-head-prefetch-r1/PARENT_REPRODUCTION_PREFLIGHT.json": "708f2b0fe432661049f143fe2f0f767315e89e5b07799b69286c257b9d41707a",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-fast-literal-next-head-prefetch-r1/ACTUAL_DRIVER_METADATA.json": "30a532ebeff41f21bf2586e83fce5078d1380f65e8402987d6aecea596fb049d",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-fast-literal-next-head-prefetch-r1/native-gate-r1/source-pins.json": "b0e17749413fca81b74a0e7706a9fd895df05534bdefa19a198eccf6d25f474e"
+  }
+}

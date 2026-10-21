@@ -1,0 +1,39 @@
+{
+  "raw_author_patch": null,
+  "raw_review_verdict": "REJECT",
+  "adjudication": "LOCAL_MECHANICAL_COMPLETION_ALLOWED_BY_ROOT_NO_NEW_API",
+  "author_context_refusal": "Supplied packet contains exact complete private clone/shared header; no patch attributed to author.",
+  "B1": "Counterexample explicitly admits offsets1..4 within lookahead>=262; it supplies no valid-state counterexample. Preserve original >MIN guard, not the unnecessary requested +1.",
+  "B2": "Unused hint on flush/exit is real prospective performance cost, not a correctness defect. No guaranteed use claim.",
+  "B3": "Exact unsigned32 hash and HASH_MASK retained.",
+  "author_false_claim": "Added next-position four-byte actual read is explicit; prefetch itself is a hint.",
+  "tests": "Existing seven corpora/five streams/generic fallback/currentD45 W4 stock/raw/state/join gates plus targeted boundary/readset guard required; none run yet.",
+  "receipts": {
+    "author": {
+      "sha256": "db95bf4de886d17054d88aed5b09b4e3043741b1862b497ed8cc45c80b4d4dcb",
+      "usage": {
+        "prompt_tokens": 14124,
+        "completion_tokens": 979,
+        "total_tokens": 15103,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 14124
+      }
+    },
+    "review": {
+      "sha256": "986c72ff2b9a82623b0e98e9dae4a49ad66f00b1b0168cdf714eab337e247dd0",
+      "usage": {
+        "prompt_tokens": 14188,
+        "completion_tokens": 2113,
+        "total_tokens": 16301,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 14188
+      }
+    }
+  }
+}

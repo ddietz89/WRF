@@ -1,0 +1,47 @@
+{
+  "status": "PASS_FIXED32_CURRENT_D45_E1D8_VS_PRIVATE_PREFETCH_COMPLETE_PROVIDER_RAW_STOCK_FIVE_STATE_136_REAL_JOINS_ARM",
+  "invocation_id": "29001c24f8a74d98a543d1ba7a23653a",
+  "host": "hpc01",
+  "which": "candidate",
+  "calls": 32,
+  "wall_seconds": 2.220804686,
+  "process_cpu_seconds": 6.80449913,
+  "driver_sha256": "efd5eae43720b2f2eaa33d9efda79b53b7fd3b38702b0fcbda13196e64ee3f9c",
+  "gold_sha256": "3fd49e0a2abd0590d3fc7c2c73142f8b196c1a9390344468518446cd4ebcef1b",
+  "state": {
+    "errno": 33,
+    "flags": 36,
+    "round": 2048,
+    "mxcsr": 24452,
+    "x87cw": 2943
+  },
+  "ownership": {
+    "real_creates": 136,
+    "real_successful_joins": 136,
+    "create_errors": 0,
+    "join_errors": 0
+  },
+  "complete_result": {
+    "provider": "candidate",
+    "calls": 32,
+    "raw_bytes": 225371652,
+    "chunk_bytes": 56430000,
+    "chunks": 4,
+    "complete_provider_call_wall_ns": 2220804686,
+    "process_cpu_ns": 6804499130,
+    "errno": 33,
+    "flags": 36,
+    "round": 2048,
+    "mxcsr": 24452,
+    "x87cw": 2943,
+    "exact_raw_readonly_gold": true,
+    "release_outside_clock": true,
+    "stock_decode_before_after": true,
+    "maxrss_kib": 719084,
+    "no_MPI512_activation": true
+  },
+  "stdout_sha256": "f933896b2f06f5d881d3d5cf735d6ac57768864654a3a1291687a8aea867cf2f",
+  "stderr_sha256": "db3c583fd5a0a8600493d4b9c0a8c2988915c8b4f91a7ee3f69dc30d0051e853",
+  "source_commit": null,
+  "scope": "Complete provider32 calls after one excluded proof warms private scratch; SAME currentD45 provider, onlye1d8 vs private-literal-prefetch codec. Includespack/shuffle/codec/tempalloc/threadcreatejoin; release/rawcheck/proofs/init excluded, processCPU includesworkers. Cold allocation cost NOTtimed; no WRF/physical-memory claim."
+}

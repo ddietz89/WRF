@@ -1,0 +1,1995 @@
+{
+  "status": "PASS_CURRENT_E1D8_PRIVATE_LITERAL_PREFETCH_PARENT_EXACT_CODEC_STREAM_FALLBACK_D45_PROVIDER",
+  "invocation_id": "7c512d8641ea48029fdc0680bc3560db",
+  "commands": [
+    {
+      "label": "compiler-version",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "--version"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "compile-parent-TU",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-std=c11",
+        "-Wall",
+        "-fPIC",
+        "-DNDEBUG",
+        "-DHAVE_SYMVER",
+        "-D_LARGEFILE64_SOURCE=1",
+        "-DHAVE_CPUID_GNU",
+        "-DHAVE_SYS_AUXV_H",
+        "-DHAVE_LINUX_AUXVEC_H",
+        "-DZLIB_COMPAT",
+        "-DWITH_GZFILEOP",
+        "-fno-semantic-interposition",
+        "-DHAVE_VISIBILITY_HIDDEN",
+        "-DHAVE_VISIBILITY_INTERNAL",
+        "-DHAVE_ATTRIBUTE_ALIGNED",
+        "-DHAVE_BUILTIN_ASSUME_ALIGNED",
+        "-DHAVE_BUILTIN_CTZ",
+        "-DHAVE_BUILTIN_CTZLL",
+        "-DWITH_ALL_FALLBACKS",
+        "-DWITH_OPTIM",
+        "-DX86_FEATURES",
+        "-DX86_HAVE_XSAVE_INTRIN",
+        "-DX86_SSE2",
+        "-DX86_SSSE3",
+        "-DX86_SSE41",
+        "-DX86_SSE42",
+        "-DX86_PCLMULQDQ_CRC",
+        "-DX86_AVX2",
+        "-DX86_AVX512",
+        "-DX86_AVX512VNNI",
+        "-DX86_VPCLMULQDQ_CRC",
+        "-mavx2",
+        "-mbmi2",
+        "-fno-lto",
+        "-DPIC",
+        "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/build",
+        "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/source",
+        "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/source/arch/x86",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/parent-source/compare256_avx2.c",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/parent-compare256_avx2.lo"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "link-exact-whole-parent",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-std=c11",
+        "-Wall",
+        "-DNDEBUG",
+        "-DHAVE_SYMVER",
+        "-D_LARGEFILE64_SOURCE=1",
+        "-DHAVE_CPUID_GNU",
+        "-DHAVE_SYS_AUXV_H",
+        "-DHAVE_LINUX_AUXVEC_H",
+        "-DZLIB_COMPAT",
+        "-DWITH_GZFILEOP",
+        "-DHAVE_VISIBILITY_HIDDEN",
+        "-DHAVE_VISIBILITY_INTERNAL",
+        "-DHAVE_ATTRIBUTE_ALIGNED",
+        "-DHAVE_BUILTIN_ASSUME_ALIGNED",
+        "-DHAVE_BUILTIN_CTZ",
+        "-DHAVE_BUILTIN_CTZLL",
+        "-DWITH_ALL_FALLBACKS",
+        "-DWITH_OPTIM",
+        "-DX86_FEATURES",
+        "-DX86_HAVE_XSAVE_INTRIN",
+        "-DX86_SSE2",
+        "-DX86_SSSE3",
+        "-DX86_SSE41",
+        "-DX86_SSE42",
+        "-DX86_PCLMULQDQ_CRC",
+        "-DX86_AVX2",
+        "-DX86_AVX512",
+        "-DX86_AVX512VNNI",
+        "-DX86_VPCLMULQDQ_CRC",
+        "-shared",
+        "-Wl,-soname,libz.so.1",
+        "-Wl,--version-script,/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/build/zlib.map",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/parent-library.so",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/arch/generic/adler32_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/arch/generic/adler32_fold_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/arch/generic/chunkset_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/arch/generic/compare256_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/arch/generic/crc32_braid_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/arch/generic/crc32_fold_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/arch/generic/slide_hash_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/adler32.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/compress.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/crc32.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/crc32_braid_comb.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/deflate.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/deflate_fast.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/deflate_huff.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/deflate_medium.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/deflate_quick.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/deflate_rle.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/deflate_slow.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/deflate_stored.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/functable.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/infback.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/inflate.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/inftrees.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/insert_string.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/insert_string_roll.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/trees.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/uncompr.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/zutil.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/arch/generic/crc32_chorba_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/cpu_features.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/x86_features.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/chunkset_sse2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/chorba_sse2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/compare256_sse2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/slide_hash_sse2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/adler32_ssse3.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/chunkset_ssse3.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/chorba_sse41.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/adler32_sse42.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/crc32_pclmulqdq.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/slide_hash_avx2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/chunkset_avx2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/compare256_avx2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/adler32_avx2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/adler32_avx512.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/chunkset_avx512.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/compare256_avx512.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/adler32_avx512_vnni.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/crc32_vpclmulqdq.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/gzlib.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/gzread.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/gzwrite.lo"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "compile-candidate-TU",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-std=c11",
+        "-Wall",
+        "-fPIC",
+        "-DNDEBUG",
+        "-DHAVE_SYMVER",
+        "-D_LARGEFILE64_SOURCE=1",
+        "-DHAVE_CPUID_GNU",
+        "-DHAVE_SYS_AUXV_H",
+        "-DHAVE_LINUX_AUXVEC_H",
+        "-DZLIB_COMPAT",
+        "-DWITH_GZFILEOP",
+        "-fno-semantic-interposition",
+        "-DHAVE_VISIBILITY_HIDDEN",
+        "-DHAVE_VISIBILITY_INTERNAL",
+        "-DHAVE_ATTRIBUTE_ALIGNED",
+        "-DHAVE_BUILTIN_ASSUME_ALIGNED",
+        "-DHAVE_BUILTIN_CTZ",
+        "-DHAVE_BUILTIN_CTZLL",
+        "-DWITH_ALL_FALLBACKS",
+        "-DWITH_OPTIM",
+        "-DX86_FEATURES",
+        "-DX86_HAVE_XSAVE_INTRIN",
+        "-DX86_SSE2",
+        "-DX86_SSSE3",
+        "-DX86_SSE41",
+        "-DX86_SSE42",
+        "-DX86_PCLMULQDQ_CRC",
+        "-DX86_AVX2",
+        "-DX86_AVX512",
+        "-DX86_AVX512VNNI",
+        "-DX86_VPCLMULQDQ_CRC",
+        "-mavx2",
+        "-mbmi2",
+        "-fno-lto",
+        "-DPIC",
+        "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/build",
+        "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/source",
+        "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/source/arch/x86",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/candidate-source/compare256_avx2.c",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/candidate-compare256_avx2.lo"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "link-one-candidate",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-std=c11",
+        "-Wall",
+        "-DNDEBUG",
+        "-DHAVE_SYMVER",
+        "-D_LARGEFILE64_SOURCE=1",
+        "-DHAVE_CPUID_GNU",
+        "-DHAVE_SYS_AUXV_H",
+        "-DHAVE_LINUX_AUXVEC_H",
+        "-DZLIB_COMPAT",
+        "-DWITH_GZFILEOP",
+        "-DHAVE_VISIBILITY_HIDDEN",
+        "-DHAVE_VISIBILITY_INTERNAL",
+        "-DHAVE_ATTRIBUTE_ALIGNED",
+        "-DHAVE_BUILTIN_ASSUME_ALIGNED",
+        "-DHAVE_BUILTIN_CTZ",
+        "-DHAVE_BUILTIN_CTZLL",
+        "-DWITH_ALL_FALLBACKS",
+        "-DWITH_OPTIM",
+        "-DX86_FEATURES",
+        "-DX86_HAVE_XSAVE_INTRIN",
+        "-DX86_SSE2",
+        "-DX86_SSSE3",
+        "-DX86_SSE41",
+        "-DX86_SSE42",
+        "-DX86_PCLMULQDQ_CRC",
+        "-DX86_AVX2",
+        "-DX86_AVX512",
+        "-DX86_AVX512VNNI",
+        "-DX86_VPCLMULQDQ_CRC",
+        "-shared",
+        "-Wl,-soname,libz.so.1",
+        "-Wl,--version-script,/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/build/zlib.map",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/libz.so.1.3.1.zlib-ng",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/arch/generic/adler32_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/arch/generic/adler32_fold_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/arch/generic/chunkset_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/arch/generic/compare256_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/arch/generic/crc32_braid_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/arch/generic/crc32_fold_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/arch/generic/slide_hash_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/adler32.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/compress.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/crc32.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/crc32_braid_comb.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/deflate.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/deflate_fast.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/deflate_huff.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/deflate_medium.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/deflate_quick.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/deflate_rle.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/deflate_slow.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/deflate_stored.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/functable.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/infback.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/inflate.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/inftrees.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/insert_string.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/insert_string_roll.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/trees.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/uncompr.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/zutil.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/arch/generic/crc32_chorba_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/cpu_features.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/x86_features.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/chunkset_sse2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/chorba_sse2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/compare256_sse2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/slide_hash_sse2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/adler32_ssse3.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/chunkset_ssse3.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/chorba_sse41.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/adler32_sse42.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/crc32_pclmulqdq.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/slide_hash_avx2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/chunkset_avx2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/compare256_avx2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/adler32_avx2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/adler32_avx512.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/chunkset_avx512.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/compare256_avx512.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/adler32_avx512_vnni.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/crc32_vpclmulqdq.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/gzlib.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/gzread.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/gzwrite.lo"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "private-prefetch-codegen",
+      "argv": [
+        "objdump",
+        "-d",
+        "--no-show-raw-insn",
+        "--disassemble=zng_private_deflate_fast_avx2",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/libz.so.1.3.1.zlib-ng"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "compile-fullFAST-readset-diagnostic",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-std=c11",
+        "-Wall",
+        "-fPIC",
+        "-DNDEBUG",
+        "-DHAVE_SYMVER",
+        "-D_LARGEFILE64_SOURCE=1",
+        "-DHAVE_CPUID_GNU",
+        "-DHAVE_SYS_AUXV_H",
+        "-DHAVE_LINUX_AUXVEC_H",
+        "-DZLIB_COMPAT",
+        "-DWITH_GZFILEOP",
+        "-fno-semantic-interposition",
+        "-DHAVE_VISIBILITY_HIDDEN",
+        "-DHAVE_VISIBILITY_INTERNAL",
+        "-DHAVE_ATTRIBUTE_ALIGNED",
+        "-DHAVE_BUILTIN_ASSUME_ALIGNED",
+        "-DHAVE_BUILTIN_CTZ",
+        "-DHAVE_BUILTIN_CTZLL",
+        "-DWITH_ALL_FALLBACKS",
+        "-DWITH_OPTIM",
+        "-DX86_FEATURES",
+        "-DX86_HAVE_XSAVE_INTRIN",
+        "-DX86_SSE2",
+        "-DX86_SSSE3",
+        "-DX86_SSE41",
+        "-DX86_SSE42",
+        "-DX86_PCLMULQDQ_CRC",
+        "-DX86_AVX2",
+        "-DX86_AVX512",
+        "-DX86_AVX512VNNI",
+        "-DX86_VPCLMULQDQ_CRC",
+        "-mavx2",
+        "-mbmi2",
+        "-fno-lto",
+        "-DPIC",
+        "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/build",
+        "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/source",
+        "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/source/arch/x86",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/audit-source/compare256_avx2.c",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/audit-compare256_avx2.lo"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "link-fullFAST-readset-diagnostic",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-std=c11",
+        "-Wall",
+        "-DNDEBUG",
+        "-DHAVE_SYMVER",
+        "-D_LARGEFILE64_SOURCE=1",
+        "-DHAVE_CPUID_GNU",
+        "-DHAVE_SYS_AUXV_H",
+        "-DHAVE_LINUX_AUXVEC_H",
+        "-DZLIB_COMPAT",
+        "-DWITH_GZFILEOP",
+        "-DHAVE_VISIBILITY_HIDDEN",
+        "-DHAVE_VISIBILITY_INTERNAL",
+        "-DHAVE_ATTRIBUTE_ALIGNED",
+        "-DHAVE_BUILTIN_ASSUME_ALIGNED",
+        "-DHAVE_BUILTIN_CTZ",
+        "-DHAVE_BUILTIN_CTZLL",
+        "-DWITH_ALL_FALLBACKS",
+        "-DWITH_OPTIM",
+        "-DX86_FEATURES",
+        "-DX86_HAVE_XSAVE_INTRIN",
+        "-DX86_SSE2",
+        "-DX86_SSSE3",
+        "-DX86_SSE41",
+        "-DX86_SSE42",
+        "-DX86_PCLMULQDQ_CRC",
+        "-DX86_AVX2",
+        "-DX86_AVX512",
+        "-DX86_AVX512VNNI",
+        "-DX86_VPCLMULQDQ_CRC",
+        "-shared",
+        "-Wl,-soname,libz.so.1",
+        "-Wl,--version-script,/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/build/zlib.map",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/readset-libz.so",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/arch/generic/adler32_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/arch/generic/adler32_fold_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/arch/generic/chunkset_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/arch/generic/compare256_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/arch/generic/crc32_braid_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/arch/generic/crc32_fold_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/arch/generic/slide_hash_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/adler32.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/compress.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/crc32.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/crc32_braid_comb.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/deflate.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/deflate_fast.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/deflate_huff.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/deflate_medium.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/deflate_quick.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/deflate_rle.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/deflate_slow.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/deflate_stored.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/functable.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/infback.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/inflate.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/inftrees.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/insert_string.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/insert_string_roll.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/trees.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/uncompr.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/zutil.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/arch/generic/crc32_chorba_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/cpu_features.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/x86_features.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/chunkset_sse2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/chorba_sse2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/compare256_sse2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/slide_hash_sse2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/adler32_ssse3.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/chunkset_ssse3.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/chorba_sse41.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/adler32_sse42.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/crc32_pclmulqdq.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/slide_hash_avx2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/chunkset_avx2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/compare256_avx2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/adler32_avx2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/adler32_avx512.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/chunkset_avx512.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/compare256_avx512.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/adler32_avx512_vnni.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/crc32_vpclmulqdq.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/gzlib.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/gzread.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/gzwrite.lo"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "selected-config-macros",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-std=c11",
+        "-Wall",
+        "-fPIC",
+        "-DNDEBUG",
+        "-DHAVE_SYMVER",
+        "-D_LARGEFILE64_SOURCE=1",
+        "-DHAVE_CPUID_GNU",
+        "-DHAVE_SYS_AUXV_H",
+        "-DHAVE_LINUX_AUXVEC_H",
+        "-DZLIB_COMPAT",
+        "-DWITH_GZFILEOP",
+        "-fno-semantic-interposition",
+        "-DHAVE_VISIBILITY_HIDDEN",
+        "-DHAVE_VISIBILITY_INTERNAL",
+        "-DHAVE_ATTRIBUTE_ALIGNED",
+        "-DHAVE_BUILTIN_ASSUME_ALIGNED",
+        "-DHAVE_BUILTIN_CTZ",
+        "-DHAVE_BUILTIN_CTZLL",
+        "-DWITH_ALL_FALLBACKS",
+        "-DWITH_OPTIM",
+        "-DX86_FEATURES",
+        "-DX86_HAVE_XSAVE_INTRIN",
+        "-DX86_SSE2",
+        "-DX86_SSSE3",
+        "-DX86_SSE41",
+        "-DX86_SSE42",
+        "-DX86_PCLMULQDQ_CRC",
+        "-DX86_AVX2",
+        "-DX86_AVX512",
+        "-DX86_AVX512VNNI",
+        "-DX86_VPCLMULQDQ_CRC",
+        "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/build",
+        "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/source",
+        "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/source/arch/x86",
+        "-dM",
+        "-E",
+        "-include",
+        "zbuild.h",
+        "-include",
+        "deflate.h",
+        "-x",
+        "c",
+        "/dev/null"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "compile-existing-codec_caller",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-std=c11",
+        "-Wall",
+        "-Wextra",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/codec_caller.c",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-Wl,-rpath,/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lz",
+        "-ldl",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "compile-existing-stream_caller",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-std=c11",
+        "-Wall",
+        "-Wextra",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/stream_caller.c",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-Wl,-rpath,/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lz",
+        "-ldl",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/stream_caller"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "actual-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/actual-shuffled.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/actual-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "actual-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/actual-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/actual-shuffled.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "actual-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/actual-shuffled.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/actual-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "actual-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/actual-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/actual-shuffled.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "zero-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/zero.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/zero-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "zero-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/zero-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/zero.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "zero-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/zero.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/zero-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "zero-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/zero-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/zero.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "structured-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/structured.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/structured-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "structured-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/structured-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/structured.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "structured-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/structured.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/structured-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "structured-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/structured-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/structured.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "ieee-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/ieee.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/ieee-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "ieee-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/ieee-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/ieee.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "ieee-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/ieee.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/ieee-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "ieee-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/ieee-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/ieee.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "random-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/random.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/random-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "random-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/random-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/random.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "random-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/random.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/random-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "random-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/random-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/random.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "empty-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/empty.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/empty-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "empty-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/empty-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/empty.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "empty-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/empty.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/empty-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "empty-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/empty-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/empty.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "tail257-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/tail257.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/tail257-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "tail257-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/tail257-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/tail257.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "tail257-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/tail257.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/tail257-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "tail257-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/tail257-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/tail257.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead261-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead261.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead261-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead261-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead261-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead261.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead261-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead261.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead261-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead261-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead261-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead261.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead262-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead262.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead262-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead262-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead262-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead262.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead262-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead262.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead262-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead262-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead262-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead262.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead263-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead263.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead263-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead263-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead263-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead263.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead263-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead263.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead263-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead263-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead263-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead263.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead264-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead264.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead264-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead264-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead264-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead264.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead264-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead264.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead264-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead264-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead264-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead264.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead32769-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead32769.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead32769-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead32769-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead32769-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead32769.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead32769-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead32769.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead32769-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead32769-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead32769-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead32769.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead65537-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead65537.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead65537-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead65537-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead65537-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead65537.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead65537-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead65537.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead65537-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead65537-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead65537-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead65537.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead261-readset",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead261.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead261-readset.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead262-readset",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead262.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead262-readset.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead263-readset",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead263.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead263-readset.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead264-readset",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead264.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead264-readset.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead32769-readset",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead32769.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead32769-readset.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead65537-readset",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead65537.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/lookahead65537-readset.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "structured-readset",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/structured.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/structured-readset.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "actual-readset",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/actual-shuffled.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/actual-readset.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "empty-stream-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/stream_caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/empty-stream-input.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/empty-stream-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "empty-stream-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/empty-stream-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/empty-stream-input.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "empty-stream-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/stream_caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/empty-stream-input.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/empty-stream-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "empty-stream-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/empty-stream-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/empty-stream-input.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "tail257-stream-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/stream_caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/tail257-stream-input.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/tail257-stream-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "tail257-stream-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/tail257-stream-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/tail257-stream-input.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "tail257-stream-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/stream_caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/tail257-stream-input.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/tail257-stream-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "tail257-stream-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/tail257-stream-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/tail257-stream-input.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "structured-stream-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/stream_caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/structured-stream-input.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/structured-stream-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "structured-stream-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/structured-stream-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/structured-stream-input.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "structured-stream-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/stream_caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/structured-stream-input.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/structured-stream-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "structured-stream-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/structured-stream-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/structured-stream-input.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "ieee-stream-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/stream_caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/ieee-stream-input.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/ieee-stream-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "ieee-stream-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/ieee-stream-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/ieee-stream-input.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "ieee-stream-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/stream_caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/ieee-stream-input.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/ieee-stream-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "ieee-stream-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/ieee-stream-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/ieee-stream-input.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "random-stream-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/stream_caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/random-stream-input.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/random-stream-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "random-stream-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/random-stream-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/random-stream-input.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "random-stream-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/stream_caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/random-stream-input.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/random-stream-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "random-stream-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/random-stream-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/random-stream-input.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "compile-fallback-stream_caller.c",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-std=c11",
+        "-Wall",
+        "-fPIC",
+        "-DNDEBUG",
+        "-DHAVE_SYMVER",
+        "-D_LARGEFILE64_SOURCE=1",
+        "-DHAVE_CPUID_GNU",
+        "-DHAVE_SYS_AUXV_H",
+        "-DHAVE_LINUX_AUXVEC_H",
+        "-DZLIB_COMPAT",
+        "-DWITH_GZFILEOP",
+        "-fno-semantic-interposition",
+        "-DHAVE_VISIBILITY_HIDDEN",
+        "-DHAVE_VISIBILITY_INTERNAL",
+        "-DHAVE_ATTRIBUTE_ALIGNED",
+        "-DHAVE_BUILTIN_ASSUME_ALIGNED",
+        "-DHAVE_BUILTIN_CTZ",
+        "-DHAVE_BUILTIN_CTZLL",
+        "-DWITH_ALL_FALLBACKS",
+        "-DWITH_OPTIM",
+        "-DX86_FEATURES",
+        "-DX86_HAVE_XSAVE_INTRIN",
+        "-DX86_SSE2",
+        "-DX86_SSSE3",
+        "-DX86_SSE41",
+        "-DX86_SSE42",
+        "-DX86_PCLMULQDQ_CRC",
+        "-DX86_AVX2",
+        "-DX86_AVX512",
+        "-DX86_AVX512VNNI",
+        "-DX86_VPCLMULQDQ_CRC",
+        "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/build",
+        "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/source",
+        "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/source/arch/x86",
+        "-Dmain=stream_caller_main",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/stream_caller.c",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/stream_caller.c.o"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "compile-fallback-fallback_route.c",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-std=c11",
+        "-Wall",
+        "-fPIC",
+        "-DNDEBUG",
+        "-DHAVE_SYMVER",
+        "-D_LARGEFILE64_SOURCE=1",
+        "-DHAVE_CPUID_GNU",
+        "-DHAVE_SYS_AUXV_H",
+        "-DHAVE_LINUX_AUXVEC_H",
+        "-DZLIB_COMPAT",
+        "-DWITH_GZFILEOP",
+        "-fno-semantic-interposition",
+        "-DHAVE_VISIBILITY_HIDDEN",
+        "-DHAVE_VISIBILITY_INTERNAL",
+        "-DHAVE_ATTRIBUTE_ALIGNED",
+        "-DHAVE_BUILTIN_ASSUME_ALIGNED",
+        "-DHAVE_BUILTIN_CTZ",
+        "-DHAVE_BUILTIN_CTZLL",
+        "-DWITH_ALL_FALLBACKS",
+        "-DWITH_OPTIM",
+        "-DX86_FEATURES",
+        "-DX86_HAVE_XSAVE_INTRIN",
+        "-DX86_SSE2",
+        "-DX86_SSSE3",
+        "-DX86_SSE41",
+        "-DX86_SSE42",
+        "-DX86_PCLMULQDQ_CRC",
+        "-DX86_AVX2",
+        "-DX86_AVX512",
+        "-DX86_AVX512VNNI",
+        "-DX86_VPCLMULQDQ_CRC",
+        "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/build",
+        "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/source",
+        "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/source/arch/x86",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/fallback_route.c",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/fallback_route.c.o"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "link-fallback-current",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-rdynamic",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/fallback_route.c.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/stream_caller.c.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/arch/generic/adler32_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/arch/generic/adler32_fold_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/arch/generic/chunkset_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/arch/generic/compare256_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/arch/generic/crc32_braid_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/arch/generic/crc32_fold_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/arch/generic/slide_hash_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/adler32.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/compress.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/crc32.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/crc32_braid_comb.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/deflate.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/deflate_fast.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/deflate_huff.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/deflate_medium.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/deflate_quick.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/deflate_rle.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/deflate_slow.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/deflate_stored.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/functable.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/infback.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/inflate.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/inftrees.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/insert_string.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/insert_string_roll.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/trees.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/uncompr.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/zutil.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/arch/generic/crc32_chorba_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/cpu_features.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/x86_features.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/chunkset_sse2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/chorba_sse2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/compare256_sse2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/slide_hash_sse2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/adler32_ssse3.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/chunkset_ssse3.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/chorba_sse41.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/adler32_sse42.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/crc32_pclmulqdq.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/slide_hash_avx2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/chunkset_avx2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/compare256_avx2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/adler32_avx2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/adler32_avx512.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/chunkset_avx512.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/compare256_avx512.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/adler32_avx512_vnni.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/crc32_vpclmulqdq.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/gzlib.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/gzread.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/gzwrite.lo",
+        "-ldl",
+        "-lm",
+        "-pthread",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/fallback-current"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "run-fallback-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/fallback-current",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/structured-stream-input.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/fallback-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "fallback-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/fallback-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/structured-stream-input.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "link-fallback-candidate",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-rdynamic",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/fallback_route.c.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/stream_caller.c.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/arch/generic/adler32_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/arch/generic/adler32_fold_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/arch/generic/chunkset_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/arch/generic/compare256_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/arch/generic/crc32_braid_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/arch/generic/crc32_fold_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/arch/generic/slide_hash_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/adler32.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/compress.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/crc32.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/crc32_braid_comb.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/deflate.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/deflate_fast.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/deflate_huff.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/deflate_medium.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/deflate_quick.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/deflate_rle.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/deflate_slow.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/deflate_stored.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/functable.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/infback.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/inflate.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/inftrees.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/insert_string.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/insert_string_roll.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/trees.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/uncompr.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/zutil.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/arch/generic/crc32_chorba_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/cpu_features.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/x86_features.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/chunkset_sse2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/chorba_sse2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/compare256_sse2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/slide_hash_sse2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/adler32_ssse3.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/chunkset_ssse3.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/chorba_sse41.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/adler32_sse42.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/crc32_pclmulqdq.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/slide_hash_avx2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/chunkset_avx2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/compare256_avx2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/adler32_avx2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/adler32_avx512.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/chunkset_avx512.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/compare256_avx512.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/adler32_avx512_vnni.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/crc32_vpclmulqdq.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/gzlib.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/gzread.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/gzwrite.lo",
+        "-ldl",
+        "-lm",
+        "-pthread",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/fallback-candidate"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "run-fallback-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/fallback-candidate",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/structured-stream-input.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/fallback-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "fallback-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/fallback-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/structured-stream-input.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "compile-provider-codecpath-only-fixture",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-std=c11",
+        "-Wall",
+        "-Wextra",
+        "-Werror=implicit-function-declaration",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-rdynamic",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/provider-candidate.c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/libz.so.1.3.1.zlib-ng",
+        "-ldl",
+        "-lm",
+        "-pthread",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/provider-candidate"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "currentD45-provider-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-codec-provider-hpc04-r1/output/provider-candidate",
+        "candidate",
+        "/pool/wrf-experiment/wrf-cpu/kernels/provider-padding-block32-w-caller-driver-r1/gold.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "currentD45-provider-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/provider-candidate",
+        "candidate",
+        "/pool/wrf-experiment/wrf-cpu/kernels/provider-padding-block32-w-caller-driver-r1/gold.bin"
+      ],
+      "returncode": 0
+    }
+  ],
+  "selected_configuration": {
+    "LIT_MEM": true,
+    "same_native_fixture_flags_headers": true,
+    "other_layouts_not_qualified": true
+  },
+  "private_fullFAST_additional_readset": {
+    "cases": [
+      {
+        "case": "lookahead261",
+        "literals": 261,
+        "reads": 0,
+        "heads": 0,
+        "l261": 1,
+        "l262": 0,
+        "l263": 0,
+        "l264": 0
+      },
+      {
+        "case": "lookahead262",
+        "literals": 262,
+        "reads": 0,
+        "heads": 0,
+        "l261": 1,
+        "l262": 1,
+        "l263": 0,
+        "l264": 0
+      },
+      {
+        "case": "lookahead263",
+        "literals": 263,
+        "reads": 1,
+        "heads": 1,
+        "l261": 1,
+        "l262": 1,
+        "l263": 1,
+        "l264": 0
+      },
+      {
+        "case": "lookahead264",
+        "literals": 264,
+        "reads": 2,
+        "heads": 2,
+        "l261": 1,
+        "l262": 1,
+        "l263": 1,
+        "l264": 1
+      },
+      {
+        "case": "lookahead32769",
+        "literals": 32769,
+        "reads": 32507,
+        "heads": 32507,
+        "l261": 1,
+        "l262": 1,
+        "l263": 1,
+        "l264": 1
+      },
+      {
+        "case": "lookahead65537",
+        "literals": 65537,
+        "reads": 65274,
+        "heads": 65274,
+        "l261": 1,
+        "l262": 2,
+        "l263": 1,
+        "l264": 1
+      },
+      {
+        "case": "structured",
+        "literals": 227,
+        "reads": 227,
+        "heads": 227,
+        "l261": 0,
+        "l262": 0,
+        "l263": 0,
+        "l264": 0
+      },
+      {
+        "case": "actual",
+        "literals": 42238647,
+        "reads": 42237356,
+        "heads": 42237356,
+        "l261": 0,
+        "l262": 1291,
+        "l263": 1283,
+        "l264": 1289
+      }
+    ],
+    "totals": {
+      "literals": 42338230,
+      "reads": 42335367,
+      "heads": 42335367,
+      "l261": 6,
+      "l262": 1297,
+      "l263": 1287,
+      "l264": 1292
+    },
+    "valid_logical_window_and_head_bounds_hard_checked": true,
+    "production_candidate_not_instrumented": true,
+    "no_mprotect_of_mutable_internal_window_claim": true
+  },
+  "currentD45_complete_provider_results": {
+    "current": {
+      "provider": "candidate",
+      "calls": 32,
+      "raw_bytes": 225371652,
+      "chunk_bytes": 56430000,
+      "chunks": 4,
+      "complete_provider_call_wall_ns": 2127625095,
+      "process_cpu_ns": 6707119150,
+      "errno": 33,
+      "flags": 36,
+      "round": 2048,
+      "mxcsr": 24452,
+      "x87cw": 2943,
+      "exact_raw_readonly_gold": true,
+      "release_outside_clock": true,
+      "stock_decode_before_after": true,
+      "maxrss_kib": 719272,
+      "no_MPI512_activation": true
+    },
+    "candidate": {
+      "provider": "candidate",
+      "calls": 32,
+      "raw_bytes": 225371652,
+      "chunk_bytes": 56430000,
+      "chunks": 4,
+      "complete_provider_call_wall_ns": 2138805794,
+      "process_cpu_ns": 6654836855,
+      "errno": 33,
+      "flags": 36,
+      "round": 2048,
+      "mxcsr": 24452,
+      "x87cw": 2943,
+      "exact_raw_readonly_gold": true,
+      "release_outside_clock": true,
+      "stock_decode_before_after": true,
+      "maxrss_kib": 719292,
+      "no_MPI512_activation": true
+    }
+  },
+  "currentD45_real_paired_ownership": {
+    "current": {
+      "real_creates": 136,
+      "real_successful_joins": 136,
+      "create_errors": 0,
+      "join_errors": 0
+    },
+    "candidate": {
+      "real_creates": 136,
+      "real_successful_joins": 136,
+      "create_errors": 0,
+      "join_errors": 0
+    }
+  },
+  "parent_library_sha256": "e1d8bc0774b7c54b4b63e7d6892c6485bec9b3c7032985a229961ba0569cc450",
+  "candidate_library_sha256": "cbb4b7e1f50fd1925f3535605b80c44f4f23cc8f271216e285d2d1a6e82e425f",
+  "candidate_object_sha256": "95719e5c53ed649da1a92b042eca7e22fcecc8d29d50ed7998d97deda73a2125",
+  "ordered_shared_link_inputs": [
+    "arch/generic/adler32_c.lo",
+    "arch/generic/adler32_fold_c.lo",
+    "arch/generic/chunkset_c.lo",
+    "arch/generic/compare256_c.lo",
+    "arch/generic/crc32_braid_c.lo",
+    "arch/generic/crc32_fold_c.lo",
+    "arch/generic/slide_hash_c.lo",
+    "adler32.lo",
+    "compress.lo",
+    "crc32.lo",
+    "crc32_braid_comb.lo",
+    "deflate.lo",
+    "deflate_fast.lo",
+    "deflate_huff.lo",
+    "deflate_medium.lo",
+    "deflate_quick.lo",
+    "deflate_rle.lo",
+    "deflate_slow.lo",
+    "deflate_stored.lo",
+    "functable.lo",
+    "infback.lo",
+    "inflate.lo",
+    "inftrees.lo",
+    "insert_string.lo",
+    "insert_string_roll.lo",
+    "trees.lo",
+    "uncompr.lo",
+    "zutil.lo",
+    "arch/generic/crc32_chorba_c.lo",
+    "cpu_features.lo",
+    "x86_features.lo",
+    "chunkset_sse2.lo",
+    "chorba_sse2.lo",
+    "compare256_sse2.lo",
+    "slide_hash_sse2.lo",
+    "adler32_ssse3.lo",
+    "chunkset_ssse3.lo",
+    "chorba_sse41.lo",
+    "adler32_sse42.lo",
+    "crc32_pclmulqdq.lo",
+    "slide_hash_avx2.lo",
+    "chunkset_avx2.lo",
+    "compare256_avx2.lo",
+    "adler32_avx2.lo",
+    "adler32_avx512.lo",
+    "chunkset_avx512.lo",
+    "compare256_avx512.lo",
+    "adler32_avx512_vnni.lo",
+    "crc32_vpclmulqdq.lo",
+    "gzlib.lo",
+    "gzread.lo",
+    "gzwrite.lo"
+  ],
+  "changed_shared_link_inputs": [
+    "compare256_avx2.lo"
+  ],
+  "shared_link_input_count": 52,
+  "unchanged_shared_link_inputs": 51,
+  "correctness": [
+    {
+      "case": "actual",
+      "input_bytes": 56430000,
+      "encoded_bytes": 46123669,
+      "encoded_sha256": "de7a7f8b6a667cf4c5d2156b1c88881456a0eaf243c67a76777c29aebf41ee69",
+      "stock_decode": "PASS"
+    },
+    {
+      "case": "zero",
+      "input_bytes": 56430000,
+      "encoded_bytes": 54865,
+      "encoded_sha256": "31804c4937df26d308529e555c6e124b5b8e7a1defe8da7eb9143b4737dcf17b",
+      "stock_decode": "PASS"
+    },
+    {
+      "case": "structured",
+      "input_bytes": 56430000,
+      "encoded_bytes": 396165,
+      "encoded_sha256": "d0afcb7e2a0f7d3d0fe1dfd703bcb99ee3b20383e7b3fe447c0aca2092be3184",
+      "stock_decode": "PASS"
+    },
+    {
+      "case": "ieee",
+      "input_bytes": 1048576,
+      "encoded_bytes": 7770,
+      "encoded_sha256": "429a8bc6fb3332ca40507ba2cb15054d583e2b58e7d51ee35b39002e1d3bd901",
+      "stock_decode": "PASS"
+    },
+    {
+      "case": "random",
+      "input_bytes": 1048576,
+      "encoded_bytes": 1048907,
+      "encoded_sha256": "a306a313146a26795e14a81df2055e82b8d0c495c4a3d136700f7a36d409573f",
+      "stock_decode": "PASS"
+    },
+    {
+      "case": "empty",
+      "input_bytes": 0,
+      "encoded_bytes": 8,
+      "encoded_sha256": "4124a9b34347a1f878716df4f671e438e6eb308f70838b5e6c48c3eae46d1c23",
+      "stock_decode": "PASS"
+    },
+    {
+      "case": "tail257",
+      "input_bytes": 257,
+      "encoded_bytes": 268,
+      "encoded_sha256": "62b27837b5309c404805a51fabbf1b5e8f12119072cca7ab15a2bbd4a689ada4",
+      "stock_decode": "PASS"
+    },
+    {
+      "case": "lookahead261",
+      "input_bytes": 261,
+      "encoded_bytes": 272,
+      "encoded_sha256": "97a79e6c71b7eb811af4e69ba8534732f9623de92ab779a0cf29de82d52208dc",
+      "stock_decode": "PASS"
+    },
+    {
+      "case": "lookahead262",
+      "input_bytes": 262,
+      "encoded_bytes": 273,
+      "encoded_sha256": "ea2a7da7c9ccbacc8391f05dba2b371e8ce605073099f0016221c3326bd65eaa",
+      "stock_decode": "PASS"
+    },
+    {
+      "case": "lookahead263",
+      "input_bytes": 263,
+      "encoded_bytes": 274,
+      "encoded_sha256": "bd164a7388414d33aeb40b8f5f97cce080017b6fe16dc48ad5cbf524c5d108be",
+      "stock_decode": "PASS"
+    },
+    {
+      "case": "lookahead264",
+      "input_bytes": 264,
+      "encoded_bytes": 275,
+      "encoded_sha256": "7d268b317a48d59f8c648b48c3f366e44dfc42cff08e95604e4deb42d13d15b6",
+      "stock_decode": "PASS"
+    },
+    {
+      "case": "lookahead32769",
+      "input_bytes": 32769,
+      "encoded_bytes": 32787,
+      "encoded_sha256": "4e356e1545231d0d5a1b268c6ce23f9d4d110d7ff8b2acfdf9041b13ab6d9aa2",
+      "stock_decode": "PASS"
+    },
+    {
+      "case": "lookahead65537",
+      "input_bytes": 65537,
+      "encoded_bytes": 65565,
+      "encoded_sha256": "2cd676511ac68419ea96ed34f8bfe70072efbe257943a748eba85955528a398c",
+      "stock_decode": "PASS"
+    }
+  ],
+  "streaming": [
+    {
+      "case": "empty",
+      "trace_sha256": "07aa21d3cc2e28222fcfaa282cd5902009ecf0b82a95b764613076c4beebecfc",
+      "encoded_sha256": "af289448511a7b361de46b8902d2c15068b13ea2967f47b503f51b8c09a96dcf"
+    },
+    {
+      "case": "tail257",
+      "trace_sha256": "0165350c0240d946ee3404082c2e2d12b7250eadf1ba63beabab4490ba3dd3b9",
+      "encoded_sha256": "434d24ba532b0a60f684a50abddf6758f8e557f36e0de371d04e2abdd9f64295"
+    },
+    {
+      "case": "structured",
+      "trace_sha256": "6fd0c9daaa551d85afe8f2b40c418f04fbceb71a8ae5b9092ce1f1a56c7225d8",
+      "encoded_sha256": "bf80dbf45101fcf5a0f7b945dc58d3cb4996b1e2667b9e2c341b9b94f5eda1af"
+    },
+    {
+      "case": "ieee",
+      "trace_sha256": "5b4b4f624fd0888d010d7e664c11bad57669314147b954329f4dbe6601cb2457",
+      "encoded_sha256": "809fc9e91bdb530b1f82aa6d8d2e5742ad5d9b0b384d11578df1aaf69acb1c83"
+    },
+    {
+      "case": "random",
+      "trace_sha256": "a8d3d4f7e8c345e65fc343fc4f74a413299f67bb1e72f281d90801f868104500",
+      "encoded_sha256": "8fea9c5ffe635bd1600d6e41acb6da64bc9b4ea0105205d1982c7e8180019974"
+    }
+  ],
+  "generic_fallback_forwarding_calls": {
+    "current": 255,
+    "candidate": 255
+  },
+  "exports_unchanged": true,
+  "dependencies_unchanged": true,
+  "artifacts": {
+    "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/libz.so.1.3.1.zlib-ng": "cbb4b7e1f50fd1925f3535605b80c44f4f23cc8f271216e285d2d1a6e82e425f",
+    "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/compare256_avx2.lo": "95719e5c53ed649da1a92b042eca7e22fcecc8d29d50ed7998d97deda73a2125",
+    "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/build/arch/x86/compare256_avx2.lo": "95719e5c53ed649da1a92b042eca7e22fcecc8d29d50ed7998d97deda73a2125",
+    "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/parent-library.so": "e1d8bc0774b7c54b4b63e7d6892c6485bec9b3c7032985a229961ba0569cc450",
+    "/pool/wrf-experiment/wrf-cpu/kernels/fast-literal-next-head-prefetch-native-hpc02-r1/output/private-prefetch-codegen.stdout": "b20c2f84a5d083ad8420923c730bcacf30e0d33391e7d283b65ac7a1275d579e"
+  },
+  "elapsed_seconds_context_only": 31.39433724898845,
+  "scope": "Correctness only, currente1d8 single privateFAST hint; seven original plus bounded lookahead corpus cases, five streams, generic fallback, realD45 W4 fullprovider/raw/stock/five-state/136joins. Diagnostic fullFAST added-read bounds instrumented; no timing/global/WRF/default claim."
+}

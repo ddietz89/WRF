@@ -1,0 +1,235 @@
+{
+  "status": "PASS_GENUINE_COMPLETE_FINISH_RESET_PLUS_CALL_TWO_RK_OPPOSITE_ORDER_EXACT",
+  "native_qualification_sha256": "f999cc555c94b28819046cc5afa288a27afb37e458d560fe83aade92cd31388d",
+  "driver_qualification_sha256": "3c348bd5b4c4a3be77ef368abd8711167839378315be340104ab72f6fdc427cf",
+  "canonical_parent_source_sha256": "528f281fad37016a417873b4a25e0e5121a56df7d671fa9ed2eab6f835f66f2e",
+  "canonical_candidate_source_sha256": "02355516086fa17a8bcc358042636308c9701fd9c38b2d53f9645802d41ec1d6",
+  "parent_object": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/smallstep-finish-u-reconstruction-simd-full-caller-gate-r1/work/O2-candidate/module_small_step_em.o",
+    "sha256": "67e34ca77d35587c4c12286a821cfcb8aa90a8d911910c79843a8c2fff5792cc"
+  },
+  "candidate_object": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/smallstep-finish-nonfinal-t-simd-full-caller-gate-hpc04-r1/work/O2-candidate/module_small_step_em.o",
+    "sha256": "94fbcb5454ecf2666217303bde77a4249094833a2c1f6ab3a7eb0493d456b43b"
+  },
+  "candidate_preprocessed_sha256": "5a8533523e59b7adecb763562fd6e81f9acfae3af7b488418e7426b99bac5c4f",
+  "public_module_interface_sha256": "d50c501497b927ad56b9bb3b7cb9431c827b8092cedf23e83d8f573ccb884b94",
+  "raw_producer_source_commit": null,
+  "geometry": [
+    188,
+    19,
+    32
+  ],
+  "fixed_repeats": 512,
+  "regimes": [
+    "RK1_nonfinal",
+    "RK3_final"
+  ],
+  "clock_scope": "OneRAWwall/processCPUclockpair perregime around512identical6written3D+MU2fullarrayrestores+completeactualFINISHcalls. Setup/allocation/seedonce/fullraw/all5state/readonly/halo/checks outside. No percallFENVreset.",
+  "order": [
+    "01P",
+    "04C",
+    "01C",
+    "04P"
+  ],
+  "pairs": {
+    "hpc01": {
+      "RK1_nonfinal": {
+        "parent_wall_seconds": 0.425511193,
+        "candidate_wall_seconds": 0.370391727,
+        "wall_reduction_percent": 12.953705309462915,
+        "parent_cpu_seconds": 0.425506169,
+        "candidate_cpu_seconds": 0.370348455,
+        "cpu_reduction_percent": 12.962847079192397,
+        "parent_wall_per_call_microseconds": 831.076548828125,
+        "candidate_wall_per_call_microseconds": 723.421341796875,
+        "saved_wall_per_call_microseconds": 107.65520703125001,
+        "saved_cpu_per_call_microseconds": 107.72991015624994
+      },
+      "RK3_final": {
+        "parent_wall_seconds": 0.437828178,
+        "candidate_wall_seconds": 0.432747877,
+        "wall_reduction_percent": 1.1603412606303265,
+        "parent_cpu_seconds": 0.437824335,
+        "candidate_cpu_seconds": 0.432742372,
+        "cpu_reduction_percent": 1.1607310498170542,
+        "parent_wall_per_call_microseconds": 855.13316015625,
+        "candidate_wall_per_call_microseconds": 845.210697265625,
+        "saved_wall_per_call_microseconds": 9.922462890625019,
+        "saved_cpu_per_call_microseconds": 9.925708984375044
+      }
+    },
+    "hpc04": {
+      "RK1_nonfinal": {
+        "parent_wall_seconds": 0.417767816,
+        "candidate_wall_seconds": 0.365299718,
+        "wall_reduction_percent": 12.559152713669075,
+        "parent_cpu_seconds": 0.41774364,
+        "candidate_cpu_seconds": 0.36529136,
+        "cpu_reduction_percent": 12.556093014366422,
+        "parent_wall_per_call_microseconds": 815.952765625,
+        "candidate_wall_per_call_microseconds": 713.47601171875,
+        "saved_wall_per_call_microseconds": 102.47675390625004,
+        "saved_cpu_per_call_microseconds": 102.44585937500004
+      },
+      "RK3_final": {
+        "parent_wall_seconds": 0.438876283,
+        "candidate_wall_seconds": 0.437944104,
+        "wall_reduction_percent": 0.21240131583961652,
+        "parent_cpu_seconds": 0.43886928,
+        "candidate_cpu_seconds": 0.437874051,
+        "cpu_reduction_percent": 0.22677116976608236,
+        "parent_wall_per_call_microseconds": 857.180240234375,
+        "candidate_wall_per_call_microseconds": 855.359578125,
+        "saved_wall_per_call_microseconds": 1.820662109374956,
+        "saved_cpu_per_call_microseconds": 1.9438066406249734
+      }
+    }
+  },
+  "model_or_reader_jobs_launched": false,
+  "arm_invocations": {
+    "0": "3358a05593d64a448d84dfe34b620c34",
+    "1": "a6441995875e4be19996e6c0740d310b",
+    "2": "542bfacf115d4f78bec20e8654d7996f",
+    "3": "1c0e329dbe7942e1908d80197d1c819b"
+  },
+  "all_four_normal_strong_closed": true,
+  "all_four_cache_each_and_helper_drained": true,
+  "full_raw_gold_sha256": "297d6e6fda204f64a4e5268b6d9c6183022e30f8668b354b1a831b14554a352e",
+  "full_raw_gold_bytes": 22990040,
+  "resources_actual": {
+    "0": {
+      "host": "hpc01",
+      "which": "parent",
+      "memory_peak_bytes": 475566080,
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "cpu_stat": {
+        "usage_usec": 2006131,
+        "user_usec": 1344097,
+        "system_usec": 662033,
+        "core_sched.force_idle_usec": 0,
+        "nr_periods": 32,
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      }
+    },
+    "1": {
+      "host": "hpc04",
+      "which": "candidate",
+      "memory_peak_bytes": 475189248,
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "cpu_stat": {
+        "usage_usec": 1826530,
+        "user_usec": 1247093,
+        "system_usec": 579437,
+        "core_sched.force_idle_usec": 0,
+        "nr_periods": 23,
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      }
+    },
+    "2": {
+      "host": "hpc01",
+      "which": "candidate",
+      "memory_peak_bytes": 475074560,
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "cpu_stat": {
+        "usage_usec": 1748344,
+        "user_usec": 1236780,
+        "system_usec": 511563,
+        "core_sched.force_idle_usec": 0,
+        "nr_periods": 19,
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      }
+    },
+    "3": {
+      "host": "hpc04",
+      "which": "parent",
+      "memory_peak_bytes": 475197440,
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "cpu_stat": {
+        "usage_usec": 1777602,
+        "user_usec": 1265310,
+        "system_usec": 512291,
+        "core_sched.force_idle_usec": 0,
+        "nr_periods": 18,
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      }
+    }
+  },
+  "decision": "ROOT_RETAIN_FOR_DIRECT_THREE_HOUR_APPLICATION_QUALIFICATION_PENDING_ACTUAL_BUILD",
+  "application_qualified": false,
+  "limits": [
+    "Two opposite-order hostpairs, one synthetic188x19x32 geometry, not sampledCONUSfrequency/statisticalrepeatability/pureT/forecastgain.",
+    "Clock includes identicalwrittenarrayrestores+completeFINISH; allocation/setup/seedonce/raw/all5state/readonly/halochecks outside. No percallFENVreset.",
+    "Native144records includes immutable80+W32regression+T32/all5states and unchanged72PREP. FailedWcandidate remainsrejected; only genuine112 oracle reused.",
+    "Nonfinal completecaller wall12.9537/12.5592%lower,CPU12.9628/12.5561%lower. Final branch small changes are descriptivecontrol, no global metric transfer.",
+    "No source/default/application promotion in this record; root retained for one direct original3h science qualification."
+  ],
+  "raw_refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-nonfinal-t-simd-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/receipt.json": "98b9e16ce902c3b76f672b0ff2b2b830e2238e4150d5fcfcb17d3d7081ab564a",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-nonfinal-t-simd-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/closure.json": "15676836deea453a6363bf9147065ee210af8595c2fe621e49eb84b57959a815",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-nonfinal-t-simd-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/cache-clear.json": "abbe3b93f473aedae912ed39b1db40a340b1b349439c3e854d85325c56df15f6",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-nonfinal-t-simd-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/controller.json": "d09f595e2c4284ade6f0e493f8ea9ec402b795f27c3819c862b66cb8cf29b69f",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-nonfinal-t-simd-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/receipt.json": "b776084b0fee14f08566700f58ebdf1e4d6e1d3222b1e2661bf5f892dfedd811",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-nonfinal-t-simd-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/closure.json": "1e9cceda7efe7d4e9557986b62f41eabad0d9aa32a7cfd1672defdb67d624f4b",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-nonfinal-t-simd-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/cache-clear.json": "d4fa233fc4ca30814ca1a72347196278b011832f197cf80fa4ca0e6a1673a004",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-nonfinal-t-simd-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/controller.json": "224d989a30671667787878186e89999e0b405c0da9e599f9868bb0aab73d7ffd",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-nonfinal-t-simd-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/receipt.json": "5d2fe04955d9201d92d9ba6efec3063073a13ff4889c92cc8898f88f12a431b1",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-nonfinal-t-simd-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/closure.json": "927f69396aaa409c8fadc90e2e637e5e21661293a485e9ee35185296a6f17434",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-nonfinal-t-simd-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/cache-clear.json": "deea7067499bbda2ad2a451b944d883559068e7c36fcf16deaf0484959bd5a61",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-nonfinal-t-simd-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/controller.json": "4d1bb085c33899bda17fbda62f85e7bd752c1fb1cef435826f163eb6b25da451",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-nonfinal-t-simd-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/receipt.json": "54c4f77430843ea46641b34da06fb86d9cfa2366a370e9cf5a89e1fe1dafff20",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-nonfinal-t-simd-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/closure.json": "a2d4183ecb64da55ef634fc777d46e2a017fc2749b01b7604cb9938519dafe01",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-nonfinal-t-simd-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/cache-clear.json": "0edce564f8ae8c8c8c2fbefc30709cf0f9cb3211e8f5126fcd8c32a97b8122da",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-nonfinal-t-simd-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/controller.json": "1ea3739bdac58c9fcb556ca90367051df39fc76d1aacac866495e2a8b3876c81",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-nonfinal-t-simd-r1/NATIVE_QUALIFICATION.json": "f999cc555c94b28819046cc5afa288a27afb37e458d560fe83aade92cd31388d",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-nonfinal-t-simd-r1/caller-timing-preparation-r1/driver-build-r1/BUILD_QUALIFICATION.json": "3c348bd5b4c4a3be77ef368abd8711167839378315be340104ab72f6fdc427cf",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-nonfinal-t-simd-r1/caller-timing-preparation-r1/driver-build-r1/actual-native-r1/receipt.json": "a507618c5a25c00fa5793dc11088ed74efbef12006f383caea57397586486a09",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-nonfinal-t-simd-r1/caller-timing-preparation-r1/driver-build-r1/actual-native-r1/closure.json": "22089d2ecc442bc71220c09d8701a7f1e94f4e1a807a4ef448d71907f3f972b2",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-nonfinal-t-simd-r1/caller-timing-preparation-r1/driver-build-r1/inputs/timing_driver.f90": "4e76e1ed50ad9e5bd97763eb33d94d5989a26052f20081f9965a0c686a2841d6",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-nonfinal-t-simd-r1/caller-timing-preparation-r1/driver-build-r1/inputs/clock.c": "2d7934b72e52865beb33aec2072982576705e43dbd4ccf66823c62db053b50c3",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-nonfinal-t-simd-r1/caller-timing-preparation-r1/ACTUAL_WAVE.json": "3983d8b9eb24b8819af7dd933e584569c309b6a3774fd31964a212429c98d3c8",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-nonfinal-t-simd-r1/caller-timing-preparation-r1/run_four_arms.py": "281f19d545733bf21a7b45ab916e1dce6f6358ec73e0cdc1d4b0d98a8afad56c",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-nonfinal-t-simd-r1/caller-timing-preparation-r1/PLAN.json": "0213fa8d49211632600cad54920652e192d6aba5a5fc904fd46fed5f4f55f8e3"
+  },
+  "negative_control_scope": "RK3finalTbranch source unchanged; +1.1603%/+0.2124% wall changes descriptive variation/codegen context, not proof of direct target work removal. No subtraction of final control or restoration overhead."
+}

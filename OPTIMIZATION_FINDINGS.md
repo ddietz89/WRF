@@ -1,6 +1,22 @@
 # WRF CPU optimization findings
 
-## Current FINISH-U selection (October 20, 2026, EDT)
+## Current FINISH U+T selection (October 20, 2026, EDT)
+
+The working fork selects **3582f417 / archive15b2dc27 / post-test sourceee2fdac7**, retaining all prior improvements and adding one SIMD directive to nonfinal FINISH temperature reconstruction. The affected complete synthetic caller, including identical restores, was **12.56–12.95% shorter** with **12.56–12.96% less process CPU** in opposite-order host pairs. All 144 complete FINISH cases and 72 PREP regressions passed strict O0/bounds/O2 raw IEEE, five-state, readonly and halo checks. The final-RK regime is an unchanged descriptive control. A one-member archive update preserved 583 other members and the public module interface.
+
+The unchanged original checker passed **four complete products, 545 ordered steps through 09:00, all 512 ranks, two tiles, four positive writers and all 32 field markers**. Every model and reader scope closed normally. [Own three-hour application qualification](tools/cpu-compute/smallstep-finish-nonfinal-t-simd/APPLICATION_QUALIFICATION.json) (`7f361197`) binds 33 actual references. Raw producer commits remain NULL; ee2fdac7 records the tested source afterward. Output51a, codece1d8, input06d/NCa32, faba placement and qualified single-IB transport are unchanged.
+
+| Three-hour measure | Retained corrected original | FINISH U+T combined | Reduction |
+|---|---:|---:|---:|
+| Whole model/MPI wall, including output and drain |819.278306s|661.111259s|19.3057%|
+| Integration-step elapsed, including communication/backpressure |597.239960s|559.855500s|6.2595%|
+| Aggregate four-node CPU |367612.405251CPU-s|320461.895685CPU-s|12.8261%|
+
+This is **UNPAIRED**, using retained corrected-original2aef; no new control was run. Each arm had checked compute-client cache clearing at its own execution. The candidate's actual hpc01 clear-to-pre-MPI-boundary delay was 175.916s; pinned code/library checks and loading remain inside the normal launch sequence. Server cache/load were uncontrolled. Main-step elapsed is not integration CPU, and whole-minus-main is not pure I/O. These observations establish no isolated U/T contribution, additive gain or repeatability. The observed single-forecast wall ratio is 1.2392x; 1.5x throughput and 2x speedup remain unmet, and concurrent-forecast throughput is unmeasured.
+
+**Current own three-hour science is qualified; own separate short and nine-hour qualification are false.** Parent FINISH-U short and E3 nine-hour results below remain historical. [Component evidence and paired rollback](tools/cpu-compute/smallstep-finish-nonfinal-t-simd/README.md) restore FINISH-U 8bfe/6f44/sourcea92 by restoring the three BEFORE_FINISH_NONFINAL_T snapshots and reverting source-only ee2fdac7.
+
+## Previous FINISH-U selection (October 20, 2026, EDT)
 
 The working fork selects **8bfe0e0a / archive6f44a6b7 / post-test sourcea92fc86b**, retaining all previous improvements and adding one SIMD directive to SMALL_STEP_FINISH U reconstruction. Native80-case O0/bounds/O2 and72 PREP regression checks were exact, including raw IEEE output, all five state words, inputs and halos. Complete synthetic FINISH callers, with identical restoration inside the clock, were8.24–11.81% shorter with8.25–11.77% less process CPU in two opposite-order host pairs. These caller gains support inclusion under the standing policy; no isolated forecast contribution is established.
 
@@ -24,7 +40,11 @@ The native self table assigns65.92% of this captured period to `deflate_fast_avx
 
 This profiled startup-sensitive UNPAIRED diagnostic recorded143.469570s wall,38.318570s main-step elapsed and55328.043579CPU-s, against retained original267.534171s/42.031970s/86843.488941CPU-s:46.37%/8.83%/36.29% lower descriptive values. Main-step elapsed includes communication/backpressure. No sustained or isolated speedup is established. The frozen outer collector retained its literal UNAVAILABLE label; finalized rank-specific data, normal recorder closure and successful native analyses remain separate facts. The earlier E3 unavailable capture is unchanged.
 
-The next compute candidate adds one SIMD directive to nonfinal FINISH temperature reconstruction. Its144 FINISH records and72 PREP regressions matched raw output and all five state words at O0/bounds/O2. Opposite-order complete-caller pairs were12.56–12.95% shorter in the affected nonfinal regime with12.56–12.96% less process CPU; the unchanged final regime is a descriptive control. One-member build3582/archive15b2 preserves583 other members. Application qualification is pending; the candidate is not selected and has no own three-/nine-hour result. Next run the periodic original three-hour comparison for combined FINISH U+T. In parallel, test a bounded literal-path hash-bucket prefetch in the measured codec hotspot; no benefit is claimed yet.
+The nonfinal FINISH-T candidate is now selected after direct original three-hour qualification above. The profile belongs to parent FINISH-U8bfe; its actual epoch and coverage remain unchanged.
+
+The bounded literal-path next-head prefetch passed native codec, streaming, generic fallback, added-read bounds and complete-provider exactness. It showed **no measured provider gain**: hpc01 parent→candidate wall2.220025331→2.220804686s, CPU6.755050343→6.804499130s; hpc04 candidate→parent wall2.129332965→2.215785976s, CPU6.686181642→6.783671770s. These are 0.0351%/4.0601% longer wall and 0.7320%/1.4581% more CPU. Every arm had checked cache clearing and normal closure; gold, five-state and 136 real joins matched. Throttling/memory-event counters are UNKNOWN in that arm schema. [Rejected prefetch evidence](tools/cpu-output/quilt512/codec/private-fast-next-head-prefetch-rejected/README.md) preserves the one-pair-per-host scope and raw review/adjudication. No WRF application run or default promotion followed. Selected codece1d8 remains unchanged.
+
+Next, test one distinct private FAST distance-range predicate against currente1d8, requiring exact typed-integer equivalence and fewer generated guard branches before any timing. In parallel, prepare the shortest reused current-build cold-noon profile with contemporaneous gather-arrival evidence; old observer addresses and ABI facts cannot transfer. No global critical-rank or removable-MPI claim is supported yet.
 
 ## Output-path attribution (2026-10-21 UTC)
 

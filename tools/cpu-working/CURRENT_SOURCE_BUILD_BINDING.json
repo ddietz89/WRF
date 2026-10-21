@@ -1,11 +1,11 @@
 {
-  "status": "WORKING_SELECTED_FINISH_U_SIMD_AFTER_ORIGINAL_SHORT",
-  "source_commit": "a92fc86b4545ece49695e3ad52fa72317b92ca54",
+  "status": "WORKING_SELECTED_FINISH_U_NONFINAL_T_AFTER_ORIGINAL_THREE_HOUR",
+  "source_commit": "ee2fdac7776484fbe30bb95a8702f03808d0c5d6",
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/currente3da-one-smallstep-finish-u-simd-hpc02-r1/wrf.exe",
-    "sha256": "8bfe0e0aa4c19a0e7ead89e59c5f9142cda43f4c35ddb9be26e7dd30a4439a40"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current8bfe-one-smallstep-finish-nonfinal-t-simd-hpc02-r1/wrf.exe",
+    "sha256": "3582f4177c3559c11a515fc4616bfb772168269b31e464ab69c8c64c64223b05"
   },
-  "archive_sha256": "6f44a6b7e30c6e53729b1420d2b7bddbd0f8937fce7f2c9a01372cdc210e500b",
+  "archive_sha256": "15b2dc275bfe33a42b771cc8c2f977aa87258352f36fdc51badf41e99b723b83",
   "sources": {
     "dyn_em/start_em.F": "ba19b902eb43c9baa2f59d3ffef0dec7c6a0ccbf0a9ceb062b72e55cff5366fc",
     "phys/module_mp_thompson.F": "88650f32214e09ce65df53a7c2c08c0a30d22faa9142633aa63005dfbe45b24c",
@@ -18,7 +18,7 @@
     "share/module_bc.F": "9eb38066228f430b0ceda85523803d252e5e70dbb7e81a34df07879d112dfb8f",
     "dyn_em/module_big_step_utilities_em.F": "85d02a991228da807d88e29d1dae60dcf60b12d0a24fcae1893f0cde4783bfab",
     "dyn_em/module_em.F": "ca2c2f614bd6e7b6b9c4545d0974890de1ee8254032a55fa205066eb80434dad",
-    "dyn_em/module_small_step_em.F": "528f281fad37016a417873b4a25e0e5121a56df7d671fa9ed2eab6f835f66f2e",
+    "dyn_em/module_small_step_em.F": "02355516086fa17a8bcc358042636308c9701fd9c38b2d53f9645802d41ec1d6",
     "phys/module_bl_myjpbl.F": "795e00134d47f98f512d61ffc45f93b3599202499ee8d8429009611d21c4b11f",
     "external/io_netcdf/transpose_integer_forward.code": "ca8d136ebf9c54f913337802f60fe7d3d0accbb7ef3bb32318a026d6c4f056d9",
     "phys/module_ra_rrtmg_lw.F": "bd74a574e1c01eb23c049b859442cb0c64c75fc788e4c03b6c8277ed7a98fec8"
@@ -108,19 +108,23 @@
     "FINISH_U_overlay": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-finish-u-simd/BUILD_QUALIFICATION.json",
       "sha256": "94db75d3b2d88a457c253f5fc1c2c691689a70874d14d33539f2ec049ba2955f"
+    },
+    "FINISH_NONFINAL_T_overlay": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-finish-nonfinal-t-simd/BUILD_QUALIFICATION.json",
+      "sha256": "93428846967ad4dc50af88b0c4434ca3650b74dccc9f703286b8ded26dd3b4c8"
     }
   },
-  "qualification_file": "../cpu-compute/smallstep-finish-u-simd/APPLICATION_QUALIFICATION.json",
+  "qualification_file": "../cpu-compute/smallstep-finish-nonfinal-t-simd/APPLICATION_QUALIFICATION.json",
   "PD_real32_equivalence_file": "../cpu-compute/pd-row-workspace/QUALIFICATION.json",
   "PD_production_member_sha256": "8ec77f864716667aa79d40878fa11276f7dede4017c620201e54f9f83bb32b25",
   "PD_repaired_compile_object_sha256": "e5245eed1f84a67ea9d428bed8d8b2529f568ca49394f9cf8b85d97bdc50f560",
   "PD_equivalence_proof_sha256": "92abf53cb516e4394f2ce232ad81fb4985ea7b1f849310927e54aa4a2b1017cc",
-  "build_scope": "CurrentFINISH8bfe/6f44 over qualifiedE3UVB, GNU13.3/Zen2/512faba/twoTiles/input06dNCa32/output51a/codece1d8 unchanged. OwnshortTRUE: original2/35/487495positive503511inactive/16markers/all32FIELDVIEW1. Own3hFALSE/own9hFALSE.",
+  "build_scope": "SelectedFINISH-U+nonfinalT3582/15b2; actual directoriginal3h4/545/512/twoTiles/fourwriters/all32markers. Own3hTRUE, ownseparate10mshortFALSE, own9hFALSE. Existinginput06dNCa32/output51a/codece1d8/IB/layout unchanged.",
   "runtime": {
     "WRF_EXPERIMENTAL_TPI_NUMA": 1,
     "other_settings": "Currentpool51a/codece1d8/HDF825/faba/FIELDVIEW1/shared1/singleIB; rootinput06dNCa32only."
   },
-  "previous_binding": "PREVIOUS_CURRENT_SOURCE_BUILD_BINDING_BEFORE_FINISH_U_SIMD.json",
+  "previous_binding": "PREVIOUS_CURRENT_SOURCE_BUILD_BINDING_BEFORE_FINISH_NONFINAL_T.json",
   "native": {
     "CQU": {
       "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-cqu-first-species-peel-r1/NATIVE_QUALIFICATION.json",
@@ -217,6 +221,10 @@
     "FINISH_U": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-finish-u-simd/NATIVE_QUALIFICATION.json",
       "sha256": "7b726ed80c200afc0065f114266c1f944b4db5c81b58b6623b5c02e70476d0eb"
+    },
+    "FINISH_NONFINAL_T": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-finish-nonfinal-t-simd/NATIVE_QUALIFICATION.json",
+      "sha256": "f999cc555c94b28819046cc5afa288a27afb37e458d560fe83aade92cd31388d"
     }
   },
   "current_nine_hour_qualified": false,
@@ -225,10 +233,10 @@
     "sha256": "f38a865905d030be42ac0a965b4aa6afbc0eae280902a3839f20df176457f445"
   },
   "full_application": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-finish-u-simd/APPLICATION_QUALIFICATION.json",
-    "sha256": "d43362d0dfcce055585b356e452df6dfda020e698447540b45783aa6cc04c136"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-finish-nonfinal-t-simd/APPLICATION_QUALIFICATION.json",
+    "sha256": "7f361197ca78518e90435ed751324787c8e523b6b8065a8262fb68118bd27f07"
   },
-  "current_three_hour_qualified": false,
+  "current_three_hour_qualified": true,
   "prior_repaired_full_application": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/myj-mixlen-scratch-reuse/APPLICATION_QUALIFICATION.json",
     "sha256": "55e2170cfc4f695e2eb7124cb4dec541954a9db290979ed2423252a4b117eb2f"
@@ -332,15 +340,15 @@
     "sha256": "fb3853a2dd3561319ec92a5ebf8bb66062b89e2ddbbec57bb591dc84eb023b8d"
   },
   "three_hour_benchmark": {
-    "evidence_file": "tools/cpu-compute/uvb-batch/THREE_HOUR_RESULT.json",
-    "qualification_file": "tools/cpu-compute/uvb-batch/APPLICATION_QUALIFICATION.json",
-    "full_qualification_sha256": "2ed4c147bd6fe7392029d043d349eac53626532625ba6ec804badeb625c6ea28",
+    "evidence_file": "tools/cpu-compute/smallstep-finish-nonfinal-t-simd/THREE_HOUR_RESULT.json",
+    "qualification_file": "tools/cpu-compute/smallstep-finish-nonfinal-t-simd/APPLICATION_QUALIFICATION.json",
+    "full_qualification_sha256": "7f361197ca78518e90435ed751324787c8e523b6b8065a8262fb68118bd27f07",
     "executable": {
-      "path": "/pool/wrf-experiment/wrf-cpu/builds/current267c-uvb-two-member-batch-hpc01-r2/wrf.exe",
-      "sha256": "e3da6907c199175cfb114c856e48f0d67809ae0bb2e1a717e86708e857f03f8f"
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current8bfe-one-smallstep-finish-nonfinal-t-simd-hpc02-r1/wrf.exe",
+      "sha256": "3582f4177c3559c11a515fc4616bfb772168269b31e464ab69c8c64c64223b05"
     },
-    "source_commit": "1ae0c6ee9cd1b5c238a57cf25409c18d380faaed",
-    "source_commit_semantics": "POST_TEST source-only; rawproducerNULL retained",
+    "source_commit": "ee2fdac7776484fbe30bb95a8702f03808d0c5d6",
+    "source_commit_semantics": "POST_TEST source-only; rawproducerNULL",
     "metrics": {
       "control": {
         "wall_seconds": 819.2783056409098,
@@ -348,22 +356,22 @@
         "main_step_sum_seconds": 597.23996
       },
       "candidate": {
-        "wall_seconds": 661.7936829896644,
-        "cpu_seconds": 321402.587962,
-        "main_step_sum_seconds": 560.59632
+        "wall_seconds": 661.1112585389055,
+        "cpu_seconds": 320461.895685,
+        "main_step_sum_seconds": 559.8555
       }
     },
     "reductions_percent": {
-      "wall_seconds": 19.22235967520798,
-      "cpu_seconds": 12.5702551461637,
-      "main_step_sum_seconds": 6.135497028698477
+      "wall_seconds": 19.305655479095407,
+      "cpu_seconds": 12.826147565342993,
+      "main_step_sum_seconds": 6.2595376237048805
     },
-    "wall_speedup_ratio": 1.2379663431355312,
+    "wall_speedup_ratio": 1.2392442195759346,
     "fresh_matched_timing": false,
-    "comparison_design": "UNPAIRED single candidate-only U+V+B versus just-retained fresh original2aef; no newcontrol. WholeMPI includes finaldrain.",
-    "applies_to_current_selection": false,
+    "applies_to_current_selection": true,
     "repeatability_established": false,
-    "scope": "Exact4products545/full512/twoTiles/all4positivewriters/all32markers; main-step sum is elapsed not integrationCPU; no isolated/additive/pureIO/memorycausality claim."
+    "comparison_design": "UNPAIRED candidate-only combined FINISH-U+T versus retained fresh corrected-original2aef reference; no isolated or additive candidate attribution",
+    "scope": "UNPAIRED retainedoriginal2aef vs actual3582/15b2,4products545/512/twoTiles/fourwriters32markers. WholeMPIwall/aggregateprocessCPU/main-stepelapsed separate; no isolated kernel/additive/throughput/forecastrepeatability claim."
   },
   "previous_parent_three_hour_full_application": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_THREE_HOUR_FINAL_QUALIFICATION_BEFORE_CEC_SLIDE.json",
@@ -372,16 +380,16 @@
   },
   "POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
-    "source_commit": "a92fc86b4545ece49695e3ad52fa72317b92ca54",
+    "source_commit": "ee2fdac7776484fbe30bb95a8702f03808d0c5d6",
     "raw_build_producer_source_commit": null,
     "canonical_source": "dyn_em/module_small_step_em.F",
-    "canonical_source_sha256": "528f281fad37016a417873b4a25e0e5121a56df7d671fa9ed2eab6f835f66f2e",
-    "preprocessed_candidate_sha256": "064f88365ec56e4339df94ec274f43ef18fe9ed11252a287a5a6426a3a5fa5cf",
-    "object_sha256": "67e34ca77d35587c4c12286a821cfcb8aa90a8d911910c79843a8c2fff5792cc",
+    "canonical_source_sha256": "02355516086fa17a8bcc358042636308c9701fd9c38b2d53f9645802d41ec1d6",
+    "preprocessed_candidate_sha256": "5a8533523e59b7adecb763562fd6e81f9acfae3af7b488418e7426b99bac5c4f",
+    "object_sha256": "94fbcb5454ecf2666217303bde77a4249094833a2c1f6ab3a7eb0493d456b43b",
     "module_interface_sha256": "d50c501497b927ad56b9bb3b7cb9431c827b8092cedf23e83d8f573ccb884b94",
-    "executable_sha256": "8bfe0e0aa4c19a0e7ead89e59c5f9142cda43f4c35ddb9be26e7dd30a4439a40",
-    "archive_sha256": "6f44a6b7e30c6e53729b1420d2b7bddbd0f8937fce7f2c9a01372cdc210e500b",
-    "scope": "One FINISH-U directive installed/committed only after actual native80/caller/canonicalCPP/one-memberlink/originalshortSCI. RawproducerNULL; parentE3own3/9 historical only."
+    "executable_sha256": "3582f4177c3559c11a515fc4616bfb772168269b31e464ab69c8c64c64223b05",
+    "archive_sha256": "15b2dc275bfe33a42b771cc8c2f977aa87258352f36fdc51badf41e99b723b83",
+    "scope": "One nonfinal FINISH-T pragma over qualified FINISH-U528f, installed only after actual144native/fullcaller/canonicalCPP/onelink/original4/545SCI. RawproducerNULL; parentFshort/E3long stayhistorical."
   },
   "previous_mcica_full_application": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/mcica-mask-fusion/APPLICATION_QUALIFICATION.json",
@@ -730,12 +738,16 @@
     "FINISH_U": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-finish-u-simd/CALLER_QUALIFICATION.json",
       "sha256": "1d70afda3f6dcec6ddfa40338ad39efadede422d0f851cc2c0c14d2836d8e6c0"
+    },
+    "FINISH_NONFINAL_T": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-finish-nonfinal-t-simd/CALLER_QUALIFICATION.json",
+      "sha256": "26b8b28264980195ac6392edcdd97cec2e2a7bd6887d7ef87282a81dd1893ddb"
     }
   },
   "candidate_memory_actual": {
     "hpc01": {
       "limit_bytes": 107374182400,
-      "peak_bytes": 63001796608,
+      "peak_bytes": 63025725440,
       "events": {
         "low": 0,
         "high": 0,
@@ -747,7 +759,7 @@
     },
     "hpc02": {
       "limit_bytes": 107374182400,
-      "peak_bytes": 60731424768,
+      "peak_bytes": 60731944960,
       "events": {
         "low": 0,
         "high": 0,
@@ -759,7 +771,7 @@
     },
     "hpc03": {
       "limit_bytes": 107374182400,
-      "peak_bytes": 60690280448,
+      "peak_bytes": 60694220800,
       "events": {
         "low": 0,
         "high": 0,
@@ -771,7 +783,7 @@
     },
     "hpc04": {
       "limit_bytes": 111669149696,
-      "peak_bytes": 60667854848,
+      "peak_bytes": 60672860160,
       "events": {
         "low": 0,
         "high": 0,
@@ -800,7 +812,7 @@
     "archive_sha256": "dd329f8d0aa126c8475dbb690d0d8571af34b63d20fac48da7c207a1001c934f",
     "scope": "One CU-loop directive only, committed after native/caller/canonical-preprocess/link/original3hSCI. Frozen rawproducerNULL unchanged; no isolated forecast or own9h claim."
   },
-  "current_short_qualified": true,
+  "current_short_qualified": false,
   "previous_PBL_PART2_POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
     "source_commit": "61c2b67e086360442b07a83090df5712b7905d8f",
@@ -889,7 +901,10 @@
     "repeatability_established": false,
     "scope": "Historical RQVFTENee66/source31ca before RQVBLTEN. Actual4products545/full512 exact,660.3921359390952s MPIwall; candidate-only UNPAIRED descriptive metrics. Does not qualify child2bd1. Existing THREE_HOUR_RESULT/Q bytes and hashes unchanged."
   },
-  "current_three_hour_qualification": null,
+  "current_three_hour_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-finish-nonfinal-t-simd/APPLICATION_QUALIFICATION.json",
+    "sha256": "7f361197ca78518e90435ed751324787c8e523b6b8065a8262fb68118bd27f07"
+  },
   "previous_RTH_short_full_application": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/phy-prep-part2-rthraten-simd/APPLICATION_QUALIFICATION.json",
     "sha256": "d5c058a57745ea1aa65df469cbbae0e2931a1f7b13c61ef130e47f051b53d117"
@@ -943,29 +958,33 @@
     "scope": "Exact4products545/full512/twoTiles/all32markers/fourpositivewriters; all8models+reader normally closed. Includes all current promotions; no isolated directive or concurrent-throughput claim."
   },
   "science": {
-    "status": "PASS_RETAINED_ORIGINAL_TWO_HISTORY_35_STEPS_512_OWNED_FIELD_VIEW",
-    "receipt_sha256": "3ecce5ccc9731ae036668b12715381330b9ca4d60dacde846612c7f74cb273cd",
-    "reader_closure_sha256": "762161a0a680a68924e471e95ba856e72efe9eb0ab1b02b7864905c0569d67e1",
-    "invocation_id": "80563e962a66448ea527c6c6a73379be",
-    "products": 2,
-    "ordered_steps": 35,
-    "end_time": "2026-10-12_06:10:00",
+    "products": 4,
+    "ordered_steps": 545,
+    "last_step": "2026-10-12_09:00:00",
     "world": 512,
     "compute": 480,
-    "quilt_groups": 4,
-    "quilt_ranks_per_group": 8,
+    "quilt": 32,
     "tiles": 2,
     "positive_writer_roots": [
       487,
-      495
-    ],
-    "zero_writer_roots": [
+      495,
       503,
       511
     ],
-    "field_view_markers": 16,
+    "zero_activity_writer_roots": [],
+    "actual_field_markers": 32,
+    "all32_quilt_FIELDVIEW1": true,
+    "protected_compare_one_AST_unchanged": true,
+    "original_comparisons_all_pass": true,
+    "end_time": "2026-10-12_09:00:00",
+    "quilt_groups": 4,
+    "quilt_ranks_per_group": 8,
+    "field_view_markers": 32,
     "all32_quilt_FIELDVIEW1_observed": true,
-    "protected_original_checker_unchanged": true,
+    "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+    "receipt_sha256": "ce530456405004961911712a01956f16ebaa181609b8b29d409b944e9aa07691",
+    "reader_closure_sha256": "00ef83c1c01b4857ff63e8442b05edf8316e10b4c32e030c5b9d703b114e746b",
+    "invocation_id": "ace9c60baee84c9aba4eafe45a3d2d7d",
     "all_model_reader_scopes_closed": true,
     "reader_exit_code_raw": null,
     "reader_manager_success_invocation_bound": true
@@ -980,7 +999,7 @@
     "physical_memory_reduction_causally_qualified": false
   },
   "current_nine_hour_qualification": null,
-  "current_application_qualification_file": "tools/cpu-compute/smallstep-finish-u-simd/APPLICATION_QUALIFICATION.json",
+  "current_application_qualification_file": "tools/cpu-compute/smallstep-finish-nonfinal-t-simd/APPLICATION_QUALIFICATION.json",
   "previous_E3_POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
     "source_commit": "1ae0c6ee9cd1b5c238a57cf25409c18d380faaed",
@@ -1034,5 +1053,88 @@
   "previous_E3_current_nine_hour_qualification": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/uvb-batch/NINE_HOUR_QUALIFICATION.json",
     "sha256": "76cb0073ad13b70a5854e78f41fb1a69cd2ace368dcf78b313f5d348db19e6bb"
-  }
+  },
+  "previous_FINISH_U_POST_TEST_SOURCE_IDENTITY": {
+    "status": "POST_TEST_SOURCE_IDENTITY",
+    "source_commit": "a92fc86b4545ece49695e3ad52fa72317b92ca54",
+    "raw_build_producer_source_commit": null,
+    "canonical_source": "dyn_em/module_small_step_em.F",
+    "canonical_source_sha256": "528f281fad37016a417873b4a25e0e5121a56df7d671fa9ed2eab6f835f66f2e",
+    "preprocessed_candidate_sha256": "064f88365ec56e4339df94ec274f43ef18fe9ed11252a287a5a6426a3a5fa5cf",
+    "object_sha256": "67e34ca77d35587c4c12286a821cfcb8aa90a8d911910c79843a8c2fff5792cc",
+    "module_interface_sha256": "d50c501497b927ad56b9bb3b7cb9431c827b8092cedf23e83d8f573ccb884b94",
+    "executable_sha256": "8bfe0e0aa4c19a0e7ead89e59c5f9142cda43f4c35ddb9be26e7dd30a4439a40",
+    "archive_sha256": "6f44a6b7e30c6e53729b1420d2b7bddbd0f8937fce7f2c9a01372cdc210e500b",
+    "scope": "One FINISH-U directive installed/committed only after actual native80/caller/canonicalCPP/one-memberlink/originalshortSCI. RawproducerNULL; parentE3own3/9 historical only."
+  },
+  "previous_FINISH_U_science": {
+    "status": "PASS_RETAINED_ORIGINAL_TWO_HISTORY_35_STEPS_512_OWNED_FIELD_VIEW",
+    "receipt_sha256": "3ecce5ccc9731ae036668b12715381330b9ca4d60dacde846612c7f74cb273cd",
+    "reader_closure_sha256": "762161a0a680a68924e471e95ba856e72efe9eb0ab1b02b7864905c0569d67e1",
+    "invocation_id": "80563e962a66448ea527c6c6a73379be",
+    "products": 2,
+    "ordered_steps": 35,
+    "end_time": "2026-10-12_06:10:00",
+    "world": 512,
+    "compute": 480,
+    "quilt_groups": 4,
+    "quilt_ranks_per_group": 8,
+    "tiles": 2,
+    "positive_writer_roots": [
+      487,
+      495
+    ],
+    "zero_writer_roots": [
+      503,
+      511
+    ],
+    "field_view_markers": 16,
+    "all32_quilt_FIELDVIEW1_observed": true,
+    "protected_original_checker_unchanged": true,
+    "all_model_reader_scopes_closed": true,
+    "reader_exit_code_raw": null,
+    "reader_manager_success_invocation_bound": true
+  },
+  "previous_FINISH_U_qualification_scope": {
+    "executable_sha256": "8bfe0e0aa4c19a0e7ead89e59c5f9142cda43f4c35ddb9be26e7dd30a4439a40",
+    "own_short_qualified": true,
+    "own_three_hour_qualified": false,
+    "own_nine_hour_qualified": false,
+    "applies_to_current_selection": false
+  },
+  "previous_FINISH_U_three_hour_benchmark": {
+    "evidence_file": "tools/cpu-compute/uvb-batch/THREE_HOUR_RESULT.json",
+    "qualification_file": "tools/cpu-compute/uvb-batch/APPLICATION_QUALIFICATION.json",
+    "full_qualification_sha256": "2ed4c147bd6fe7392029d043d349eac53626532625ba6ec804badeb625c6ea28",
+    "executable": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current267c-uvb-two-member-batch-hpc01-r2/wrf.exe",
+      "sha256": "e3da6907c199175cfb114c856e48f0d67809ae0bb2e1a717e86708e857f03f8f"
+    },
+    "source_commit": "1ae0c6ee9cd1b5c238a57cf25409c18d380faaed",
+    "source_commit_semantics": "POST_TEST source-only; rawproducerNULL retained",
+    "metrics": {
+      "control": {
+        "wall_seconds": 819.2783056409098,
+        "cpu_seconds": 367612.40525099996,
+        "main_step_sum_seconds": 597.23996
+      },
+      "candidate": {
+        "wall_seconds": 661.7936829896644,
+        "cpu_seconds": 321402.587962,
+        "main_step_sum_seconds": 560.59632
+      }
+    },
+    "reductions_percent": {
+      "wall_seconds": 19.22235967520798,
+      "cpu_seconds": 12.5702551461637,
+      "main_step_sum_seconds": 6.135497028698477
+    },
+    "wall_speedup_ratio": 1.2379663431355312,
+    "fresh_matched_timing": false,
+    "comparison_design": "UNPAIRED single candidate-only U+V+B versus just-retained fresh original2aef; no newcontrol. WholeMPI includes finaldrain.",
+    "applies_to_current_selection": false,
+    "repeatability_established": false,
+    "scope": "Exact4products545/full512/twoTiles/all4positivewriters/all32markers; main-step sum is elapsed not integrationCPU; no isolated/additive/pureIO/memorycausality claim."
+  },
+  "scope": "SelectedFINISH-U+nonfinalT3582/15b2; actual directoriginal3h4/545/512/twoTiles/fourwriters/all32markers. Own3hTRUE, ownseparate10mshortFALSE, own9hFALSE. Existinginput06dNCa32/output51a/codece1d8/IB/layout unchanged."
 }

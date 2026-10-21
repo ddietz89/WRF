@@ -1,0 +1,38 @@
+--- parent/candidate_compare256_avx2.c
++++ candidate/candidate_compare256_avx2.c
+@@ -90,7 +90,11 @@
+ #pragma push_macro("ZNG_PRIVATE_FAST_MATCH")
+ #define deflate_fast zng_private_deflate_fast_avx2
+ #define ZNG_PRIVATE_FAST_MATCH zng_private_longest_match_avx2_inline
++#pragma push_macro("ZNG_PRIVATE_FAST_LITERAL_PREFETCH")
++#undef ZNG_PRIVATE_FAST_LITERAL_PREFETCH
++#define ZNG_PRIVATE_FAST_LITERAL_PREFETCH 1
+ #include "deflate_fast_shared.h"
++#pragma pop_macro("ZNG_PRIVATE_FAST_LITERAL_PREFETCH")
+ #pragma pop_macro("ZNG_PRIVATE_FAST_MATCH")
+ #pragma pop_macro("deflate_fast")
+ #endif
+--- parent/deflate_fast_shared.h
++++ candidate/deflate_fast_shared.h
+@@ -98,6 +98,21 @@
+             match_len = 0;
+         } else {
+             /* No match, output a literal byte */
++#if defined(ZNG_PRIVATE_FAST_LITERAL_PREFETCH)
++            /* The next-position four-byte load is within current valid lookahead.
++             * The hint may be unused if tally causes a flush or the caller exits. */
++            if (s->lookahead > MIN_LOOKAHEAD) {
++                uint32_t next_val, next_hm;
++#if BYTE_ORDER == LITTLE_ENDIAN
++                next_val = zng_memread_4(s->window + s->strstart + 1);
++#else
++                next_val = ZSWAP32(zng_memread_4(s->window + s->strstart + 1));
++#endif
++                next_hm = ((next_val * 2654435761U) >> 16);
++                next_hm &= HASH_MASK;
++                __builtin_prefetch((const void *)&s->head[next_hm], 0, 3);
++            }
++#endif
+             bflush = zng_tr_tally_lit(s, s->window[s->strstart]);
+             s->lookahead--;
+             s->strstart++;
