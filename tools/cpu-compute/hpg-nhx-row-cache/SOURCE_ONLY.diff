@@ -1,0 +1,14 @@
+--- a/dyn_em/module_big_step_utilities_em.F
++++ b/dyn_em/module_big_step_utilities_em.F
+@@ -2392,0 +2393,5 @@
++        IF ( ktf >= 1 ) THEN
++          DO i = i_start, itf
++            map_y_cache(i) = msfux(i,j)/msfuy(i,j)
++          END DO
++        END IF
+@@ -2396 +2401 @@
+-            dpx = (msfux(i,j)/msfuy(i,j))*.5*rdx*(c1h(k)*muu(i,j)+c2h(k))*(                    &
++            dpx = map_y_cache(i)*.5*rdx*(c1h(k)*muu(i,j)+c2h(k))*(                    &
+@@ -2401 +2406 @@
+-            dpx = dpx + (msfux(i,j)/msfuy(i,j))*rdx*(php(i,k,j)-php(i-1,k,j))* &
++            dpx = dpx + map_y_cache(i)*rdx*(php(i,k,j)-php(i-1,k,j))* &

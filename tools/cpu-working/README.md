@@ -1,5 +1,13 @@
 # Current working configuration — October 21, 2026
 
+Selected **f703115b / archivefe72cb2e / post-test sourcec3d2de5d** adds NH-X row-ratio caching to all3cdd improvements. Complete finite500-call HPG timings were1.34–3.04% shorter with exact raw/state results; process CPU unavailable. Original short2product/35step/full512/two-tile science and normal closures passed. OwnshortTRUE; own3h/noon/9hFALSE. [Evidence and rollback](../cpu-compute/hpg-nhx-row-cache/README.md) preserve scope.
+
+Current short observations are137.963208s whole wall,38.623270s main elapsed and53408.251218 aggregateCPU-s; retained-original267.534171s/42.031970s/86843.488941CPU-s is unpaired, not a forecast gain. Main elapsed includes communication/backpressure and is not integration CPU. The prior3cdd nine-hour result below remains historical. Next is one fresh reverse-order3h pair. Production/master unchanged; AWS suspended.
+
+---
+
+# Historical3cdd working configuration — October 21, 2026
+
 Selected **3cdd1c0f / archivebf53b5c5 / post-test sourcecbeb3b19** retains all previous improvements plus shortwave optical producer SIMD. Codec9371, output51a, root input06d/NCa32, two tiles, FABA placement and the qualified single InfiniBand rail remain selected. Production/master remain unchanged; AWS is suspended.
 
 The fresh original-first nine-hour pair passed all10 products and1,625 ordered steps exactly. Whole MPI wall was **2375.176475→1840.543608s (22.5092% lower)**; main-step elapsed **2157.669640→1742.032690s (19.2632% lower)**; aggregate four-node CPU **1166063.791005→925475.897719CPU-s (20.6325% lower)**. Both arms had checked client-cache clearing, all models and reader closed normally, and no profile ran. Own9h and noon75m TRUE; separate ownshort/3h FALSE. [Actual qualification](../cpu-compute/spcvmc-optical-producer/NINE_HOUR_APPLICATION_QUALIFICATION.json) and [support/rollback](../cpu-compute/spcvmc-optical-producer/README.md) preserve scope.

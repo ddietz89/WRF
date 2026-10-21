@@ -1,0 +1,168 @@
+{
+  "status": "PASS_CURRENT_HPG_NHX_COMPLETE_CALLER_500_OPPOSITE_ORDER_EXACT_RAW_FIVE_STATE",
+  "utc": "2026-10-21T12:55:49.261606+00:00",
+  "native_qualification_sha256": "28a6e56f87fdd8c85536ea08371d804268b55a978156afa5252dfff34fe154d8",
+  "root_cfg_review_sha256": "83931ea44623ee7080e6e0da0590d96d955d938fc84d292cde3dbb1df469ea9e",
+  "wave_sha256": "1ec4c001c25a09f6368359e1b3550bd101be7d685148d099bf41aefe84c13072",
+  "driver_receipt_sha256": "7bdc94742d5165691b3d06cba7afcbd5790c6b5ebdc425514cdb246f54cddcb6",
+  "driver_closure_sha256": "126dbb0c749e35038948c4dba9f1b0f9977906f535c8eccc340e81490f7bb0a7",
+  "candidate_object": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/hpg-nhx-current2ffc-full-native-r1/work/O2-candidate/module_big_step_utilities_em.o",
+    "sha256": "a048af2996029a217fc5400d4fd191da656453a24ab4ebda89464acb1f63cdbf",
+    "module_interface_sha256": "01702a275cfaa6e411f3b53342033027a3beca789ccd80a7b2e1becf3f43e7ee"
+  },
+  "parent_object": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/phy-prep-moist-theta-producer-simd-native-r1/work/O2-candidate/module_big_step_utilities_em.o",
+    "sha256": "2ffc1eb6f01f0e73e59aa5a21bb5c071d94b64d1627bf9b9297c13c4ae13ff99",
+    "module_interface_sha256": "01702a275cfaa6e411f3b53342033027a3beca789ccd80a7b2e1becf3f43e7ee"
+  },
+  "executables": {
+    "parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/hpg-nhx-complete-caller-driver-r1/work/caller-parent",
+      "sha256": "3244afa744ab074ebcdf9e49636d695eb9a3b72c179e10ab3d523ee27bd4b707"
+    },
+    "candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/hpg-nhx-complete-caller-driver-r1/work/caller-candidate",
+      "sha256": "fe437530c014098d8729122102350ba6bbaadc9ac9761ca9570ad41466597331"
+    }
+  },
+  "calls_per_arm": 500,
+  "active_geometry": [
+    188,
+    19,
+    32
+  ],
+  "input_scope": "Originalfinite nonconstant synthetic completeHPG NHcase, no capturedproductiondata.",
+  "clock_scope": "Unchanged benchmark: only complete HPG call inside each integer CLOCK_MONOTONIC_RAW pair; tendency restores, state seed, checks, raw sink outside. No process CPU clock.",
+  "process_cpu_clock": null,
+  "process_cpu_seconds": null,
+  "pairs": {
+    "hpc01": {
+      "parent_wall_seconds": 0.697333959,
+      "candidate_wall_seconds": 0.676148291,
+      "wall_reduction_percent": 3.0380949796824708,
+      "parent_process_cpu_seconds": null,
+      "candidate_process_cpu_seconds": null,
+      "cpu_reduction_percent": null
+    },
+    "hpc04": {
+      "parent_wall_seconds": 0.691559998,
+      "candidate_wall_seconds": 0.682316582,
+      "wall_reduction_percent": 1.3366036246648227,
+      "parent_process_cpu_seconds": null,
+      "candidate_process_cpu_seconds": null,
+      "cpu_reduction_percent": null
+    }
+  },
+  "arms": [
+    {
+      "arm": 0,
+      "host": "hpc01",
+      "which": "parent",
+      "wall_seconds": 0.697333959,
+      "invocation_id": "10942a10e0c74f39960906d1afb20b02",
+      "raw_sha256": "36def966e25151950c372ebc7fd0cadc78144c73d9e3f1f8a2c38fd75184c70c",
+      "raw_bytes": 8407988,
+      "normal_strong_closed": true,
+      "checked_client_cache_clear": true,
+      "resources": {
+        "memory.peak": "193998848\n",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "cpu.stat": "usage_usec 2948931\nuser_usec 2615184\nsystem_usec 333747\ncore_sched.force_idle_usec 0\nnr_periods 67\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n"
+      },
+      "state_stdout": "child_cpu24=PASS; FE_TONEAREST; errnoERANGE; state=          34           0          32        8096         895"
+    },
+    {
+      "arm": 1,
+      "host": "hpc01",
+      "which": "candidate",
+      "wall_seconds": 0.676148291,
+      "invocation_id": "627e603b70014228ab1298a459d0e48a",
+      "raw_sha256": "36def966e25151950c372ebc7fd0cadc78144c73d9e3f1f8a2c38fd75184c70c",
+      "raw_bytes": 8407988,
+      "normal_strong_closed": true,
+      "checked_client_cache_clear": true,
+      "resources": {
+        "memory.peak": "193933312\n",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "cpu.stat": "usage_usec 2757251\nuser_usec 2490388\nsystem_usec 266862\ncore_sched.force_idle_usec 0\nnr_periods 30\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n"
+      },
+      "state_stdout": "child_cpu24=PASS; FE_TONEAREST; errnoERANGE; state=          34           0          32        8096         895"
+    },
+    {
+      "arm": 2,
+      "host": "hpc04",
+      "which": "candidate",
+      "wall_seconds": 0.682316582,
+      "invocation_id": "14e81f8022de49e2a3f2c79b749f9ddf",
+      "raw_sha256": "36def966e25151950c372ebc7fd0cadc78144c73d9e3f1f8a2c38fd75184c70c",
+      "raw_bytes": 8407988,
+      "normal_strong_closed": true,
+      "checked_client_cache_clear": true,
+      "resources": {
+        "memory.peak": "194002944\n",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "cpu.stat": "usage_usec 2175124\nuser_usec 1939002\nsystem_usec 236122\ncore_sched.force_idle_usec 0\nnr_periods 23\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n"
+      },
+      "state_stdout": "child_cpu24=PASS; FE_TONEAREST; errnoERANGE; state=          34           0          32        8096         895"
+    },
+    {
+      "arm": 3,
+      "host": "hpc04",
+      "which": "parent",
+      "wall_seconds": 0.691559998,
+      "invocation_id": "873304e253c3483db7bd415e24d7fe88",
+      "raw_sha256": "36def966e25151950c372ebc7fd0cadc78144c73d9e3f1f8a2c38fd75184c70c",
+      "raw_bytes": 8407988,
+      "normal_strong_closed": true,
+      "checked_client_cache_clear": true,
+      "resources": {
+        "memory.peak": "194121728\n",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "cpu.stat": "usage_usec 2451255\nuser_usec 2204230\nsystem_usec 247025\ncore_sched.force_idle_usec 0\nnr_periods 26\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n"
+      },
+      "state_stdout": "child_cpu24=PASS; FE_TONEAREST; errnoERANGE; state=          34           0          32        8096         895"
+    }
+  ],
+  "all_full_raw_and_five_state_exact": true,
+  "all_four_scopes_normal_strong_closed": true,
+  "all_four_separate_client_cache_clears_passed": true,
+  "source_compiles_in_driver_build": 0,
+  "ordinary_links_in_driver_build": 2,
+  "root_disposition": "RETAIN_FOR_APPLICATION_QUALIFICATION: exactnative+meaningfulpositive1.34-3.04%fullcaller observations, tiny sourcechange/reusedexistingrowcache. Owner inclusionpolicy applies; no establishedisolatedkernel/global/forecastgain.",
+  "application_qualified": false,
+  "integrated_or_selected": false,
+  "producer_source_commit": null,
+  "limits": [
+    "One opposite-order pairperhost; no statisticalsignificance/repeatability or isolatedNHX share claim.",
+    "Wholeprocedure/automaticsetup timed; tendencyrestores,FPseed,guards/checks/rawsink OUTSIDE each percall integerns clock.",
+    "ProcessCPU unavailable; recordedcgroupCPU includesverification/wrapperwork and is not procedureCPU.",
+    "Exactnative100 finiteIEEE/alias/empty tests separate; no universalIEEE/traps/meteorologicalcoverageclaim.",
+    "No newapplication/defaultqualification yet; selected3cdd9h doesnotcontainthiscandidate."
+  ],
+  "raw_refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pressure-gradient-nhx-ratio-investigation-r1/complete-caller-timing-preparation-r1/ACTUAL_WAVE.json": "1ec4c001c25a09f6368359e1b3550bd101be7d685148d099bf41aefe84c13072",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pressure-gradient-nhx-ratio-investigation-r1/NATIVE_QUALIFICATION.json": "28a6e56f87fdd8c85536ea08371d804268b55a978156afa5252dfff34fe154d8",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pressure-gradient-nhx-ratio-investigation-r1/ROOT_CFG_REVIEW.json": "83931ea44623ee7080e6e0da0590d96d955d938fc84d292cde3dbb1df469ea9e",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pressure-gradient-nhx-ratio-investigation-r1/complete-caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/receipt.json": "53e6d1c37258da1bd8762ce28c2d69fd81b199ff2dedd7a4dcb0942f13142256",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pressure-gradient-nhx-ratio-investigation-r1/complete-caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/closure.json": "c4de80f128948333d87bac4de5df08452d12cce83f8237d9587292a7e9feccd7",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pressure-gradient-nhx-ratio-investigation-r1/complete-caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/cache-clear.json": "1624a7275072b731af7052523387e71e1eb1bb786b44da3eb7f0aeda1f7a88fc",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pressure-gradient-nhx-ratio-investigation-r1/complete-caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/controller.json": "fc99eecf5f58bbad8181cf11ce8dd32d3ac864812b0504760373b3639908c88b",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pressure-gradient-nhx-ratio-investigation-r1/complete-caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/receipt.json": "08f136402b40ea13f2193bc2ba246a73df258c5b966f6c402bb93a4b22e48510",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pressure-gradient-nhx-ratio-investigation-r1/complete-caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/closure.json": "e3303821aef6f321c0fdb9427fb72138ecb3ebf179bd9b589f0e7fa0f3575ec1",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pressure-gradient-nhx-ratio-investigation-r1/complete-caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/cache-clear.json": "8c58ebac33aac935138925568cda8a1987753a623a3a93e715ffad6bc3be25f4",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pressure-gradient-nhx-ratio-investigation-r1/complete-caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/controller.json": "40080f712d3409df8a984a6d46b29666a28b34a495ff0bfe1651842f0bd51173",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pressure-gradient-nhx-ratio-investigation-r1/complete-caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/receipt.json": "68fdee2bae6f0b930bc4b4dfa87e7ed210c2ec20ef461f244ddc57deffa71897",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pressure-gradient-nhx-ratio-investigation-r1/complete-caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/closure.json": "fd885ef0886f8fd15d60887b1d29695bf7bd332ba1e90b95e9b9610a8017460a",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pressure-gradient-nhx-ratio-investigation-r1/complete-caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/cache-clear.json": "f2e82c94ec819be7f04ffa8b196520aa6df7d37c489842116033e3f565c07cf8",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pressure-gradient-nhx-ratio-investigation-r1/complete-caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/controller.json": "6aec89bd49acac933c8806c1b5c003888f5d98a2d6aebf116881b312913cc790",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pressure-gradient-nhx-ratio-investigation-r1/complete-caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/receipt.json": "c1ac75a232a313054aa6681d155419b0bb74699e5bc2e56193b98d92de888716",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pressure-gradient-nhx-ratio-investigation-r1/complete-caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/closure.json": "a47dc42d16f0f4c71d715c49e72bf1301b8f2319b7343e52fc3ced7104f0f5db",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pressure-gradient-nhx-ratio-investigation-r1/complete-caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/cache-clear.json": "d7d02ccb5d89cd2beeba78d105b092f988340ee80036723b5961cf3988fa78ab",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pressure-gradient-nhx-ratio-investigation-r1/complete-caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/controller.json": "e1dd02b073b8f477d2fd1d3e4e851f50fbc004fb04c59c400318261a34271e5e",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pressure-gradient-nhx-ratio-investigation-r1/complete-caller-timing-preparation-r1/driver-build-r1/actual-native-r1/receipt.json": "7bdc94742d5165691b3d06cba7afcbd5790c6b5ebdc425514cdb246f54cddcb6",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pressure-gradient-nhx-ratio-investigation-r1/complete-caller-timing-preparation-r1/driver-build-r1/actual-native-r1/closure.json": "126dbb0c749e35038948c4dba9f1b0f9977906f535c8eccc340e81490f7bb0a7",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pressure-gradient-nhx-ratio-investigation-r1/complete-caller-timing-preparation-r1/driver-build-r1/actual-native-r1/controller.json": "dcdddeec477389a04025a1ad00e85fd9b9ffb58e85d9582ce62482207b1872b4",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pressure-gradient-nhx-ratio-investigation-r1/actual-codegen-review-r1/CODEGEN_REVIEW_CANDIDATE.json": "cba466fe1293e514234684a40c4e34d6169df378bd577ada2cd2aa0466a83c6f"
+  }
+}

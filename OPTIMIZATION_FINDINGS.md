@@ -1,6 +1,14 @@
 # WRF CPU optimization findings
 
-## Current selection: shortwave optical producer SIMD (October 21, 2026, UTC)
+## Current selection: NH-X pressure-gradient row cache (October 21, 2026, UTC)
+
+Selected **f703115b / archivefe72cb2e / post-test sourcec3d2de5d** retains every3cdd improvement and reuses the existing row scratch for one map-factor quotient per I/J, outside the vertical loop. The true division and remaining expression order are preserved; there is no new array, allocation or compiler flag. Complete500-call synthetic HPG timings were **1.34–3.04% shorter** in opposite-order host pairs, with raw output and five return-state fields exact. Process CPU time was unavailable.
+
+The full100-case genuine/O0-bounds/O2 native gate and unchanged original full512 application checks passed: **two products,35ordered steps,two tiles,16active markers,all32quiltFIELDVIEW1 and expected writer lifetimes**. Every model/reader scope closed normally. The short candidate measured137.963208s whole wall,38.623270s main elapsed and53408.251218 aggregateCPU-s; retained original267.534171s/42.031970s/86843.488941CPU-s is unpaired context, not an HPG forecast gain. Default inclusion rests on the exact-qualified caller gain and small change. Own short science is qualified; own3h/noon/9h remain false.
+
+[Evidence and paired rollback](tools/cpu-compute/hpg-nhx-row-cache/README.md) bind95application references, the actual one-member link with583unchanged members and the separate post-test source identity. The latest full nine-hour result belongs to parent3cdd below; no horizon or timing is transferred. One fresh reverse-order three-hour comparison, candidate first/original second, is prepared to qualify this combined child and observe the original-control timing variation. Production/master remain unchanged; AWS is suspended.
+
+## Previous selection: shortwave optical producer SIMD (October 21, 2026, UTC)
 
 The working configuration selects **3cdd1c0f / archivebf53b5c5 / post-test sourcecbeb3b19**, retaining every a50e improvement and its runtime settings. Four unchanged optical expressions now run in one independent layer SIMD loop before the original serial beam recurrences. Complete synthetic callers were **0.96–1.47% shorter** with exact native checks. The unchanged original full-grid checker has now passed **ten products and1,625 ordered steps through15:00**, plus its separate noon75m two-product/230-step check. All eight model scopes and the nine-hour reader closed normally. Own noon75m and nine-hour science are qualified; separate own short/three-hour qualification remain false.
 
