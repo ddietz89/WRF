@@ -1,0 +1,99 @@
+{
+  "status": "PASS_ACTUAL_CODEGEN_CALLING_LAYOUT_AND_RELOCATION_REVIEW_FOR_NATIVE_CALLER_ONLY",
+  "utc": "2026-10-21T19:15:19.249941+00:00",
+  "actual_native_receipt_sha256": "84da813211432fd2d419a56d2c910510579e989a32dde164efd5abec8da3c28b",
+  "actual_native_closure_sha256": "8712f063d2c9ffc63e6579d2b1393ac32b51ca0c58f267b30c3410b78c77b5d8",
+  "helper_object": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/hpg-nhx-isolated-avx2-consumer-native-r3/work/nhx-helper-O2.o",
+    "sha256": "ae13adfa248c9613be20c56bd1f8e77a3ff8d79a985ffb163acc16be629d0f8c",
+    "flags": [
+      "-O2",
+      "-mavx2",
+      "-mno-fma",
+      "-fno-fast-math",
+      "-ffp-contract=off",
+      "-std=c11"
+    ],
+    "source_sha256": "977127190ffc6371f32cefada20350188a43475d933fbf15fae878d6b6e2c77f"
+  },
+  "Fortran_candidate_object": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/hpg-nhx-isolated-avx2-consumer-native-r3/work/O2-candidate/module_big_step_utilities_em.o",
+    "sha256": "2b056547f37216365464b4a08a790b2ea123fe9e133dc19a629a724d05eb5e1a",
+    "preprocessed_sha256": "0632694b8cb530f84b502117dfa26a4fc56cc4c613b79ddba087aa86f7f22233",
+    "module_interface_sha256": "99bf236d5333207d771aa579433afe937f9d7edfdef269003905520918ffd9c8",
+    "compiled_mod_observed_token_match": true,
+    "arm": "O2-candidate",
+    "compiled_mod_sha256": "99bf236d5333207d771aa579433afe937f9d7edfdef269003905520918ffd9c8",
+    "compiled_decode_sha256": "c3403d4b857d1263b5de0d54d83f0411a3acd5b2b1b77681a25399f231b6dafd",
+    "module_flags": [
+      "-O2",
+      "-fno-fast-math",
+      "-ffp-contract=off",
+      "-w",
+      "-fno-fast-math",
+      "-ffp-contract=off",
+      "-ffree-form",
+      "-ffree-line-length-none",
+      "-fconvert=big-endian",
+      "-frecord-marker=4",
+      "-fallow-argument-mismatch",
+      "-fallow-invalid-boz",
+      "-g",
+      "-fopenmp-simd",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+      "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include"
+    ]
+  },
+  "mechanism": {
+    "main": "Helper198..2a1 YMM8,32byteIadvance; scalar330..436,4byteI; Kbackedge487\u2192150; empty45/4d\u2192490 beforedataFP; n_i<=7\u21924a0\u2192scalar2c2/330; vzeroupper48d",
+    "FMA_or_reciprocal": false,
+    "main_FP_stack_spills": false,
+    "GPR_pointer_stack_traffic": true,
+    "Fortran_nominal_frame_hex": {
+      "parent": "0x3a8",
+      "candidate": "0x338"
+    },
+    "helper_frame": "0x28 plus savedregs/redzone/32alignment; no totalstack-saving claim",
+    "private_ABI": "5VALUECINT GPRs,rdxVALUECFLOAT XMM0,ru6thintegerargR9,15remainingpointerstack;22args; no restrict/alignment assumption",
+    "HPG_private_helper_calls_per_active_J": 1
+  },
+  "other_functions_text_exact": true,
+  "couple_RELA": {
+    "status": "SEMANTICALLY_NEUTRAL_FUNCTION_SYMBOL_OFFSET_SHIFT_ONLY",
+    "relative_call_offsets": [
+      1654,
+      2172
+    ],
+    "target": "__module_big_step_utilities_em_MOD_calc_mu_staggered",
+    "symbol_value_parent": 185744,
+    "symbol_value_candidate": 183248,
+    "shift_bytes": -2496,
+    "target_bytes": 2591,
+    "target_text_sha256": "7b2d8011172a6f3c55fdef2e3a07fd5519a536b31a6d8e01cf5a75f6fd3f37be",
+    "all6relative_offset_kind_target_identity_size_addends_equal": true
+  },
+  "public_module_interface_exact": false,
+  "public_calling_layout_review": "Supported typedpublicHPGdummies unchanged: actualwholedecodedMODtokenstream differs solely by meaningfulcompiler ARRAY_OUTER_DEPENDENCY summary. This maychangefreshcallerconservatism; no freshcaller-codeidentity or universalABIclaim. InternalCABI additionally supported by genuine100/72prefixsameopt raw/fivestate.",
+  "timing_qualified": false,
+  "application_qualified": false,
+  "wholemodule_qualified": false,
+  "references": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/hpg-nhx-isolated-avx2-consumer-r1/native-gate-r3/actual-native-r3/receipt.json": "84da813211432fd2d419a56d2c910510579e989a32dde164efd5abec8da3c28b",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/hpg-nhx-isolated-avx2-consumer-r1/native-gate-r3/actual-native-r3/closure.json": "8712f063d2c9ffc63e6579d2b1393ac32b51ca0c58f267b30c3410b78c77b5d8",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/hpg-nhx-isolated-avx2-consumer-r1/native-gate-r3/actual-codegen-review-r1/COLLECTION_INDEX.json": "d623bda83c7f6b308ad9b7aef0b4f028091fb5d3d52c2b51fea5ddd8f44af7af",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/hpg-nhx-isolated-avx2-consumer-r1/native-gate-r3/actual-codegen-review-r1/helper-codegen-O2.log": "4a0d2abe050b2a553851eb3ecdb4e67999a5bfe598b37534904decbcf509fe07",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/hpg-nhx-isolated-avx2-consumer-r1/native-gate-r3/actual-codegen-review-r1/hpg-codegen-parent.log": "013b81b135381096bec6fdd6f1c872352625956767203b05f381934510aaf6e9",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/hpg-nhx-isolated-avx2-consumer-r1/native-gate-r3/actual-codegen-review-r1/hpg-codegen-candidate.log": "f6a25de30c34f2d053e157d85f125c7e685037f2a40c6ced11f1667d6bbf941c",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/hpg-nhx-isolated-avx2-consumer-r1/native-gate-r3/actual-codegen-review-r1/COUPLE_RELOCATION_METADATA.json": "7b34f9982b1841f1d05cab11fb5454602e2d6bad596ce9fe99af7274eb688822"
+  }
+}

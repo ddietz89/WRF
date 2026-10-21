@@ -1,4 +1,12 @@
-# Current working selection: NH-X consumer SIMD
+# Current working selection: isolated NH-X AVX2 helper
+
+**a61a273b / archive 9dc6b5e5 / post-test source 5f184bcc** retains all prior improvements. The private helper reduced complete synthetic HPG caller wall by **9.28% and 7.67%** in opposite-order pairs; raw output and five state fields matched. The original full-grid short check passed both products and all 35 steps, with normal closures. Process CPU was unavailable in the caller test.
+
+The qualified GNU13.3 EPYC recipe enables the helper; ordinary source keeps the portable Fortran path. Own short science is qualified; own three-hour, noon-profile and nine-hour checks remain pending. A three-hour combined test is prepared. Previous 1749 long-run results below retain their actual artifact scope. [Evidence, build recipe and paired rollback](../cpu-compute/hpg-nhx-isolated-avx2-consumer/README.md). Production/master are unchanged; AWS remains suspended.
+
+---
+
+# Historical 1749 working selection: NH-X consumer SIMD
 
 **1749f701 / archivef18c135a / post-test sourcea531104f** retains every f703 improvement. One NH-X inner-I directive delivered20.94%/20.87% lower complete synthetic HPG caller wall time; native100 and original full512 short2product/35step exact checks passed. Extra112B frame/spills are documented; process CPU unavailable. The selected build passed its own short, three-hour and nine-hour scientific checks; its own noon check remains unqualified. [Evidence and rollback](../cpu-compute/hpg-nhx-consumer-simd/README.md).
 

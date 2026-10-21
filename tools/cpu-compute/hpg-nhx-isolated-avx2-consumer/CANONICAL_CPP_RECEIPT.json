@@ -1,0 +1,216 @@
+{
+  "status": "PASS_PORTABLE_HPG_MACRO_OFF_ON_EXACT_QUALIFIED_CANONICAL_CPP_ONLY",
+  "invocation_id": "78c72821a265402cb979d258fa980a27",
+  "commands": [
+    {
+      "label": "portable-OFF-sed",
+      "argv": [
+        "/bin/sed",
+        "-e",
+        "s/^\\!.*'.*//",
+        "-e",
+        "s/^ *\\!.*'.*//",
+        "/pool/wrf-experiment/wrf-cpu/source-discovery/current1749-portable-hpg-canonical-cpp-hpc02-r2-output/OFF/module_big_step_utilities_em.F"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "portable-OFF-cpp",
+      "argv": [
+        "/usr/bin/cpp",
+        "-P",
+        "-traditional-cpp",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-DEM_CORE=1",
+        "-DNMM_CORE=0",
+        "-DNMM_MAX_DIM=2600",
+        "-DDA_CORE=0",
+        "-DWRFPLUS=0",
+        "-DIWORDSIZE=4",
+        "-DDWORDSIZE=8",
+        "-DRWORDSIZE=4",
+        "-DLWORDSIZE=4",
+        "-DNONSTANDARD_SYSTEM_SUBR",
+        "-DWRF_USE_CLM",
+        "-DUSE_NETCDF4_FEATURES",
+        "-DWRFIO_NCD_LARGE_FILE_SUPPORT",
+        "-DDM_PARALLEL",
+        "-DNETCDF",
+        "-DLANDREAD_STUB=1",
+        "-DUSE_ALLOCATABLES",
+        "-Dwrfmodel",
+        "-DGRIB1",
+        "-DINTIO",
+        "-DKEEP_INT_AROUND",
+        "-DLIMIT_ARGS",
+        "-DBUILD_RRTMG_FAST=0",
+        "-DBUILD_RRTMK=0",
+        "-DBUILD_SBM_FAST=1",
+        "-DSHOW_ALL_VARS_USED=0",
+        "-DCONFIG_BUF_LEN=65536",
+        "-DMAX_DOMAINS_F=21",
+        "-DMAX_HISTORY=25",
+        "-DNMM_NEST=0",
+        "-I.",
+        "-traditional-cpp",
+        "-DUSE_NETCDF4_FEATURES",
+        "-DWRFIO_NCD_LARGE_FILE_SUPPORT",
+        "/pool/wrf-experiment/wrf-cpu/source-discovery/current1749-portable-hpg-canonical-cpp-hpc02-r2-output/OFF/module_big_step_utilities_em.G"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "portable-OFF-standard",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/tools/standard.exe",
+        "/pool/wrf-experiment/wrf-cpu/source-discovery/current1749-portable-hpg-canonical-cpp-hpc02-r2-output/OFF/module_big_step_utilities_em.bb"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "portable-OFF-final-cpp",
+      "argv": [
+        "/usr/bin/cpp",
+        "-P",
+        "-traditional-cpp",
+        "-traditional-cpp",
+        "-DUSE_NETCDF4_FEATURES",
+        "-DWRFIO_NCD_LARGE_FILE_SUPPORT"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "portable-ON-sed",
+      "argv": [
+        "/bin/sed",
+        "-e",
+        "s/^\\!.*'.*//",
+        "-e",
+        "s/^ *\\!.*'.*//",
+        "/pool/wrf-experiment/wrf-cpu/source-discovery/current1749-portable-hpg-canonical-cpp-hpc02-r2-output/ON/module_big_step_utilities_em.F"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "portable-ON-cpp",
+      "argv": [
+        "/usr/bin/cpp",
+        "-P",
+        "-traditional-cpp",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-DEM_CORE=1",
+        "-DNMM_CORE=0",
+        "-DNMM_MAX_DIM=2600",
+        "-DDA_CORE=0",
+        "-DWRFPLUS=0",
+        "-DIWORDSIZE=4",
+        "-DDWORDSIZE=8",
+        "-DRWORDSIZE=4",
+        "-DLWORDSIZE=4",
+        "-DNONSTANDARD_SYSTEM_SUBR",
+        "-DWRF_USE_CLM",
+        "-DUSE_NETCDF4_FEATURES",
+        "-DWRFIO_NCD_LARGE_FILE_SUPPORT",
+        "-DDM_PARALLEL",
+        "-DNETCDF",
+        "-DLANDREAD_STUB=1",
+        "-DUSE_ALLOCATABLES",
+        "-Dwrfmodel",
+        "-DGRIB1",
+        "-DINTIO",
+        "-DKEEP_INT_AROUND",
+        "-DLIMIT_ARGS",
+        "-DBUILD_RRTMG_FAST=0",
+        "-DBUILD_RRTMK=0",
+        "-DBUILD_SBM_FAST=1",
+        "-DSHOW_ALL_VARS_USED=0",
+        "-DCONFIG_BUF_LEN=65536",
+        "-DMAX_DOMAINS_F=21",
+        "-DMAX_HISTORY=25",
+        "-DNMM_NEST=0",
+        "-I.",
+        "-traditional-cpp",
+        "-DUSE_NETCDF4_FEATURES",
+        "-DWRFIO_NCD_LARGE_FILE_SUPPORT",
+        "-DWRF_EXPERIMENTAL_HPG_NHX_AVX2",
+        "/pool/wrf-experiment/wrf-cpu/source-discovery/current1749-portable-hpg-canonical-cpp-hpc02-r2-output/ON/module_big_step_utilities_em.G"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "portable-ON-standard",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/tools/standard.exe",
+        "/pool/wrf-experiment/wrf-cpu/source-discovery/current1749-portable-hpg-canonical-cpp-hpc02-r2-output/ON/module_big_step_utilities_em.bb"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "portable-ON-final-cpp",
+      "argv": [
+        "/usr/bin/cpp",
+        "-P",
+        "-traditional-cpp",
+        "-traditional-cpp",
+        "-DUSE_NETCDF4_FEATURES",
+        "-DWRFIO_NCD_LARGE_FILE_SUPPORT"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "arms": {
+    "OFF": {
+      "path": "/pool/wrf-experiment/wrf-cpu/source-discovery/current1749-portable-hpg-canonical-cpp-hpc02-r2-output/OFF/module_big_step_utilities_em.f90",
+      "sha256": "438d1910e75a6a5570e2fee195674c88b15d4548baba63d622696cf5861e2702",
+      "bytes": 190973,
+      "expected_sha256": "438d1910e75a6a5570e2fee195674c88b15d4548baba63d622696cf5861e2702",
+      "exact": true,
+      "CPPFLAGS": "-DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DDA_CORE=0 -DWRFPLUS=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR  -DWRF_USE_CLM -DUSE_NETCDF4_FEATURES -DWRFIO_NCD_LARGE_FILE_SUPPORT  -DDM_PARALLEL -DNETCDF -DLANDREAD_STUB=1 -DUSE_ALLOCATABLES -Dwrfmodel -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DBUILD_RRTMG_FAST=0 -DBUILD_RRTMK=0 -DBUILD_SBM_FAST=1 -DSHOW_ALL_VARS_USED=0 -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0  -I. -traditional-cpp -DUSE_NETCDF4_FEATURES -DWRFIO_NCD_LARGE_FILE_SUPPORT "
+    },
+    "ON": {
+      "path": "/pool/wrf-experiment/wrf-cpu/source-discovery/current1749-portable-hpg-canonical-cpp-hpc02-r2-output/ON/module_big_step_utilities_em.f90",
+      "sha256": "0632694b8cb530f84b502117dfa26a4fc56cc4c613b79ddba087aa86f7f22233",
+      "bytes": 192095,
+      "expected_sha256": "0632694b8cb530f84b502117dfa26a4fc56cc4c613b79ddba087aa86f7f22233",
+      "exact": true,
+      "CPPFLAGS": "-DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DDA_CORE=0 -DWRFPLUS=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR  -DWRF_USE_CLM -DUSE_NETCDF4_FEATURES -DWRFIO_NCD_LARGE_FILE_SUPPORT  -DDM_PARALLEL -DNETCDF -DLANDREAD_STUB=1 -DUSE_ALLOCATABLES -Dwrfmodel -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DBUILD_RRTMG_FAST=0 -DBUILD_RRTMK=0 -DBUILD_SBM_FAST=1 -DSHOW_ALL_VARS_USED=0 -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0  -I. -traditional-cpp -DUSE_NETCDF4_FEATURES -DWRFIO_NCD_LARGE_FILE_SUPPORT  -DWRF_EXPERIMENTAL_HPG_NHX_AVX2"
+    }
+  },
+  "source_commit": null,
+  "module_compiles": 0,
+  "C_compiles": 0,
+  "links": 0,
+  "MPI_calls": 0,
+  "cache_actions": 0,
+  "timing_claim": false,
+  "actual_tools_sha256": {
+    "/bin/sed": "23f70dd6496d75419823039e1cebf95a2fd0508c6dfec72ac2352f7e08391dd5",
+    "/usr/bin/cpp": "c48f8b1b5ab757134970d17bc2ecd889df0d1245463036e834ab9be9d5e40765",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/tools/standard.exe": "26c7cbbf84d12b4ce3d48d28d061552377749c634eb59e3d12de83b41f411a35"
+  },
+  "source_pins_after": {
+    "REBUILD_RECIPE.json": "0a98b487077ce72a67aeea9e1d50f304a6314d4b56131c9fc9cde335fe346e8e",
+    "SOURCE_BLANKLINE_ONLY.diff": "519f8f116cc041766d8e3cfbf023e69fed2152539ad0647b396ecc2cf2f6f747",
+    "candidate_module_big_step_utilities_em.F": "562beaedf4ca3d66d750e35cfca1742da443cf55724f8605f28497100408b838",
+    "canonical-producer-receipt.json": "10a180190d1b2d030e7e213c40c6c0d37149aff83f06c630ef8893e4698be33b",
+    "canonical_compile.py": "c5b2384e2ef4a2d1192abeb11f789d44a4800a382138ace21d68d33564e98b5a",
+    "configure.wrf.qualified": "6d2d788bd02677e6b3603cf9f011b5d51ad19cc418accc773da5a713c1fb7c5c",
+    "controller.py": "b76e3b560bdf09119ff3a542b472effd4a1ce40f3edad9d5f170e4f0496fc25d",
+    "parent_module_big_step_utilities_em.F": "8aba45993521c8a13c0ab0e9eae45a2c7c31b7a91042806ecfbe2a3774b98bff",
+    "portable-source-projection.json": "1fba9aae07663e4097c97304285ed7be2494ba15e381822415b2488aaa1e3e25",
+    "portable_module_big_step_utilities_em.F": "4db9d514f264f66918ac0ea99cd299fd434063b7c715c78472b942cc50ce1ee4",
+    "prior-failed-r1-closure.json": "ed01e39f1ce5d7cdef9865aa9b3025b1d28b4e3df042f3f69b3bbb0f1bfdc760",
+    "prior-failed-r1-receipt.json": "95f8f1d32af571df538014423aa39ecf62c3b7059a63b38e24f8b4f8f84391a4",
+    "run_build.py": "a7d84e546f693580b565f6f1cbdebffe33e5208101b53aa9b06969fc8f58ceba"
+  }
+}

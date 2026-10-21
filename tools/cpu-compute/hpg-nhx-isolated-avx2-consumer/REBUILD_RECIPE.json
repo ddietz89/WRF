@@ -1,0 +1,46 @@
+{
+  "scope": "Explicit opt-in only; standard source macroOFF originalFortran requires no helper. No full-image source rebuild claim.",
+  "qualified_recipe_macro": {
+    "WRF_EXPERIMENTAL_HPG_NHX_AVX2": 1,
+    "generic_source_default": 0
+  },
+  "BigStep_CPPFLAGS_append": [
+    "-DWRF_EXPERIMENTAL_HPG_NHX_AVX2"
+  ],
+  "Fortran_flags": "UNCHANGED qualified generic GNU13.3 strict module flags",
+  "helper_C_flags": [
+    "-O2",
+    "-mavx2",
+    "-mno-fma",
+    "-fno-fast-math",
+    "-ffp-contract=off",
+    "-std=c11"
+  ],
+  "helper_source": "tools/cpu-compute/hpg-nhx-isolated-avx2-consumer/wrf_hpg_nhx_consume_avx2.c",
+  "explicit_link": "Exactly one helper object immediately before libwrflib.a, actual tested overlay recipe; global flags unchanged.",
+  "raw_build_producer_source_commit": null,
+  "guarded_source_sha256": "4db9d514f264f66918ac0ea99cd299fd434063b7c715c78472b942cc50ce1ee4",
+  "helper_source_sha256": "977127190ffc6371f32cefada20350188a43475d933fbf15fae878d6b6e2c77f",
+  "canonical_CPP_actual": {
+    "receipt": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/hpg-nhx-isolated-avx2-consumer/CANONICAL_CPP_RECEIPT.json",
+      "sha256": "0711b5c940c93c05f72d9cf7b53974b7f07e5e2df8107405076b0d07dac29691"
+    },
+    "closure": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/hpg-nhx-isolated-avx2-consumer/CANONICAL_CPP_CLOSURE.json",
+      "sha256": "0030ad73d6a038308da6ceb8a7755f78969f51f1e749e0315b2537b5f1950783"
+    },
+    "OFF": "438d1910e75a6a5570e2fee195674c88b15d4548baba63d622696cf5861e2702",
+    "ON": "0632694b8cb530f84b502117dfa26a4fc56cc4c613b79ddba087aa86f7f22233"
+  },
+  "application_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/hpg-nhx-isolated-avx2-consumer/APPLICATION_QUALIFICATION.json",
+    "sha256": "7d42b8402328f2c89f9395f944c29cdbd4510358b2a2c69648b5fa3d749636b7"
+  },
+  "build_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/hpg-nhx-isolated-avx2-consumer/BUILD_QUALIFICATION.json",
+    "sha256": "a671bf6052e6480c995bd4000d962450ab288a243646116c42a8ce9929a1b520"
+  },
+  "public_module_interface_exact": false,
+  "source_rebuilt_image_certified": false
+}

@@ -1,11 +1,11 @@
 {
-  "status": "QUALIFIED_CURRENT_HPG_NHX_CONSUMER_SHORT_THREE_AND_NINE_HOUR_FULL512",
-  "source_commit": "a531104f2070bdbc918fe20b95cfe3651f340de5",
+  "status": "CURRENT_ISOLATED_HPG_AVX2_HELPER_OWN_SHORT_SCIENCE_ONLY",
+  "source_commit": "5f184bcca0ff22a740c9c9b43b3cadd2a51b7ec3",
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentf703-one-bigstep-hpg-nhx-consumer-simd-hpc02-r1/wrf.exe",
-    "sha256": "1749f701a126b55788e04806fa77eee2a46c5a388b648b77188e3cc1c52151d5"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current1749-one-isolated-hpg-avx2-helper-hpc02-r1/wrf.exe",
+    "sha256": "a61a273b7fb721132ac179939b19fa9273764b702f43d7fa7cdc248bb9119df6"
   },
-  "archive_sha256": "f18c135ac6afcccf9b352b7db3d6e5994e1bf98e169c035fbfa0afc4a5b65692",
+  "archive_sha256": "9dc6b5e5a1b1b70b2ccbcfff68c1658e3c4b73ed20cd1dbe1438c453aeb4e1f5",
   "sources": {
     "dyn_em/start_em.F": "ba19b902eb43c9baa2f59d3ffef0dec7c6a0ccbf0a9ceb062b72e55cff5366fc",
     "phys/module_mp_thompson.F": "88650f32214e09ce65df53a7c2c08c0a30d22faa9142633aa63005dfbe45b24c",
@@ -16,13 +16,14 @@
     "tools/cpu-memory/thompson-table-sharing/shared_table.c": "6be5e91ac1f63a8dc589af8188363223c44a2b361e1ade85afc1576be2b5c116",
     "dyn_em/module_advect_em.F": "47c7b2b0025dca1971696eacd51d7c589ec2bc20a211cd80f7329404e230fae8",
     "share/module_bc.F": "053f90bf4c0220b8bfde1397304fa7b5512678361132159e34bc9515a49c802f",
-    "dyn_em/module_big_step_utilities_em.F": "8aba45993521c8a13c0ab0e9eae45a2c7c31b7a91042806ecfbe2a3774b98bff",
+    "dyn_em/module_big_step_utilities_em.F": "4db9d514f264f66918ac0ea99cd299fd434063b7c715c78472b942cc50ce1ee4",
     "dyn_em/module_em.F": "ca2c2f614bd6e7b6b9c4545d0974890de1ee8254032a55fa205066eb80434dad",
     "dyn_em/module_small_step_em.F": "02355516086fa17a8bcc358042636308c9701fd9c38b2d53f9645802d41ec1d6",
     "phys/module_bl_myjpbl.F": "795e00134d47f98f512d61ffc45f93b3599202499ee8d8429009611d21c4b11f",
     "external/io_netcdf/transpose_integer_forward.code": "ca8d136ebf9c54f913337802f60fe7d3d0accbb7ef3bb32318a026d6c4f056d9",
     "phys/module_ra_rrtmg_lw.F": "bd74a574e1c01eb23c049b859442cb0c64c75fc788e4c03b6c8277ed7a98fec8",
-    "phys/module_ra_rrtmg_sw.F": "b475a85d1865a58ae0d4a8240cb7a4efca1802d67405234c7c5c522d667c4877"
+    "phys/module_ra_rrtmg_sw.F": "b475a85d1865a58ae0d4a8240cb7a4efca1802d67405234c7c5c522d667c4877",
+    "tools/cpu-compute/hpg-nhx-isolated-avx2-consumer/wrf_hpg_nhx_consume_avx2.c": "977127190ffc6371f32cefada20350188a43475d933fbf15fae878d6b6e2c77f"
   },
   "build": {
     "CQU_canonical": {
@@ -288,149 +289,37 @@
         "run_build.py": "60134af6171e609b6c08bd2cf693894f76800318d31f51a7472a78b77f586eee"
       },
       "expected_worker_status": "BUILT_CURRENT_F703_ONE_BIGSTEP_HPG_NHX_CONSUMER_SIMD_PENDING_APPLICATION"
+    },
+    "ISOLATED_HPG_AVX2_HELPER": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/hpg-nhx-isolated-avx2-consumer/BUILD_QUALIFICATION.json",
+      "sha256": "a671bf6052e6480c995bd4000d962450ab288a243646116c42a8ce9929a1b520"
     }
   },
-  "qualification_file": "tools/cpu-compute/hpg-nhx-consumer-simd/APPLICATION_QUALIFICATION.json",
+  "qualification_file": "tools/cpu-compute/hpg-nhx-isolated-avx2-consumer/APPLICATION_QUALIFICATION.json",
   "PD_real32_equivalence_file": "../cpu-compute/pd-row-workspace/QUALIFICATION.json",
   "PD_production_member_sha256": "8ec77f864716667aa79d40878fa11276f7dede4017c620201e54f9f83bb32b25",
   "PD_repaired_compile_object_sha256": "e5245eed1f84a67ea9d428bed8d8b2529f568ca49394f9cf8b85d97bdc50f560",
   "PD_equivalence_proof_sha256": "92abf53cb516e4394f2ce232ad81fb4985ea7b1f849310927e54aa4a2b1017cc",
-  "build_scope": "Actual native670b O2 object reused in one ordinary link overf703: onlyBigStep slot559 changes,583otherarchiveoccurrences exact. Freshcanonical8aba\u2192438d, publicMOD0170same. No wholeimage source-rebuild claim; rawproducerNULL.",
+  "build_scope": "Actual one-member plus explicit isolated C helper overlay; zero production compiles/one link. Guarded portable source OFF/ON canonical CPP exact, not a source-rebuilt full-image certificate.",
   "runtime": {
     "WRF_EXPERIMENTAL_TPI_NUMA": 1,
     "other_settings": "Current3cdd/bf53 retains every a50e improvement plus SPCVMC optical producer split;9371/51a/root06dNCa32/HDF825/faba/twoTiles/singleIB. Own noon75m TRUE; ownshort/3h/9h FALSE. GNU13.3 strict module-local -fopenmp-simd; production/master unchanged."
   },
   "previous_binding": "tools/cpu-working/PREVIOUS_CURRENT_SOURCE_BUILD_BINDING_BEFORE_THETA_SW_BATCH.json",
   "native": {
-    "CQU": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-cqu-first-species-peel-r1/NATIVE_QUALIFICATION.json",
-      "sha256": "166095e94fd936a87d8ca54db8554c1b7b2c867e4fee80bbb0eb45f7841c5c37"
-    },
-    "six_owner": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-rain-freezing-owner-feasibility-r1/NATIVE_QUALIFICATION.json",
-      "sha256": "46e364a4d26ab8dcee7be9fb240627d36db7b4a64ad5af3a45534615aa34780e"
-    },
-    "ten_owner": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-rain-graupel-owner-feasibility-r1/NATIVE_QUALIFICATION.json",
-      "sha256": "4f25eb1e531f49800ddaaf4415aa48140a42bbd966bdfcc6567cc740374fb92d"
-    },
-    "rain_snow_family": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-rain-snow-owner-feasibility-r1/NATIVE_QUALIFICATION.json",
-      "sha256": "4dd0b264482be1e756f6d3a725f38a764e447af617159e3ad2d22bf679a23eaf"
-    },
-    "TCG": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-tcg-stage-owner-r1/NATIVE_QUALIFICATION.json",
-      "sha256": "29e5ac254f02fef5e48a04f0e0b089e19ef83ff2c8c5cbfae268fa5dd4935549"
-    },
-    "RK_later_pass": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-rk-later-pass-current-triage-r1/NATIVE_QUALIFICATION.json",
-      "sha256": "06e3fc1ee68ab8dedb6ba06fe599ddde7066f727a501e9d2a5ff7e0c84f29b95"
-    },
-    "W_RHS": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current3bb2-radiationwindow-triage-r1/NATIVE_QUALIFICATION.json",
-      "sha256": "6e520d26b2c3cd46dffe6e3b9bdcd05ee7d273d012288d1e9e22df15611622c8"
-    },
-    "MYJ_MIXLEN": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/myj-mixlen-scratch-reuse/NATIVE_QUALIFICATION.json",
-      "sha256": "1cd383339e62361ad8d4dd178e1717fc334b6f7c4bbf6a53fa5787b6ade1060a"
-    },
-    "lazy_fixed_group_initialization": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-qg-group-early-publication-feasibility-r1/NATIVE_QUALIFICATION.json",
-      "sha256": "033a868f928535bdd6e769be0cafbec338a556090dd11db1185dce5bc4525afe"
-    },
-    "MCICA_mask_fusion": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/mcica-mask-fusion/NATIVE_QUALIFICATION.json",
-      "sha256": "2588a5e0374a2964237f5ea1f15c38bd080af42ecc0cf814f4f42251c5e0cc15"
-    },
-    "MYJ_DIFCOF": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/myj-difcof-simd/NATIVE_QUALIFICATION.json",
-      "sha256": "c2a1f417b570fed03899ef66e8ca31bc292910933efa8958bd1f41d1532020be"
-    },
-    "LW_ABSCLD": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/rtrnmc-abscld-scalar/NATIVE_QUALIFICATION.json",
-      "sha256": "d9020a412142f715d3408a6871c5b23c42f791630e9a900f96efd20b329cb974"
-    },
-    "INATM_grouping": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/inatm-copy-grouping/TWO_PLUS_THREE_CODEGEN_QUALIFICATION.json",
-      "sha256": "f4ac7e13ec3b8e54220393d88de2965ef3438bee24366a76d3bd765a2d32528d"
-    },
-    "CU_PART2": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/phy-prep-part2-cu-simd/NATIVE_QUALIFICATION.json",
-      "sha256": "1f8944a99e66bf1b886902fe9f813ae82ddbe11342912b5efca5693871b89ed9"
-    },
-    "PBL_PART2": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/phy-prep-part2-pbl-simd/NATIVE_QUALIFICATION.json",
-      "sha256": "1ea98dd8de19feea83e192d9b104a4d372fb1633af52a6b2afe9baa4709e3a8f"
-    },
-    "RQVFTEN_PART2": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/phy-prep-part2-rqvften-simd/NATIVE_QUALIFICATION.json",
-      "sha256": "46669bf117e5c0b506570cb7444b0b901a6843a672ff7166680ce6bba49cff5d"
-    },
-    "RQVBLTEN_PART2": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/phy-prep-part2-rqvblten-simd/NATIVE_QUALIFICATION.json",
-      "sha256": "1298d18aea8d00fc6e2d85292e13a7c5800d6d0be37523e51a3750c9bbb75242"
-    },
-    "RTHRATEN_PART2": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/phy-prep-part2-rthraten-simd/NATIVE_QUALIFICATION.json",
-      "sha256": "fe676df9300acd87f314267c7cf272b9e6e310f4ec97e63aac213339dfac818e"
-    },
-    "UV_final_U": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/uvb-batch/evidence/U_NATIVE_QUALIFICATION.json",
-      "sha256": "1cf2940d40ff4db82466ae6929b315284347e166b4bbccff7b128c3a803a84cc"
-    },
-    "SmallStep_Prep_V": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/uvb-batch/evidence/V_NATIVE_QUALIFICATION.json",
-      "sha256": "db645c9dc70c43a8114c385479fcc69c8d574646e123560de08d482c14525692"
-    },
-    "Thompson_freeze_READ": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/uvb-batch/evidence/B_READ_QUALIFICATION.json",
-      "sha256": "f0253041c961c55127f3a891138f3699214b1f79a02e66db409e5f7ccd98773a"
-    },
-    "Thompson_freeze_COMPUTED": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/uvb-batch/evidence/B_COMPUTED_QUALIFICATION.json",
-      "sha256": "68e82361d97b4677d6083a62db973fb5b66a198f31bf3b47444a8275903e796f"
-    },
-    "Thompson_freeze_PARTIAL": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/uvb-batch/evidence/B_PARTIAL_READ_QUALIFICATION.json",
-      "sha256": "c790a2b9de9e9d552f0bc3b5418035e865c23e8e3759e21f91c1ca9244f0ed47"
-    },
-    "FINISH_U": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-finish-u-simd/NATIVE_QUALIFICATION.json",
-      "sha256": "7b726ed80c200afc0065f114266c1f944b4db5c81b58b6623b5c02e70476d0eb"
-    },
-    "FINISH_NONFINAL_T": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-finish-nonfinal-t-simd/NATIVE_QUALIFICATION.json",
-      "sha256": "f999cc555c94b28819046cc5afa288a27afb37e458d560fe83aade92cd31388d"
-    },
-    "calc_php": "tools/cpu-compute/calc-php-bc-simd/CALC_NATIVE_QUALIFICATION.json",
-    "bc_copy": "tools/cpu-compute/calc-php-bc-simd/BC_NATIVE_QUALIFICATION.json",
-    "theta_producer": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/theta-sw-batch/theta/native-qualification.json",
-      "sha256": "c76398f1c5c5dc50481f5a9d64da4e857cb55efe6eae64d60c4330eb13d18161"
-    },
-    "sw_producer": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/theta-sw-batch/sw/native-qualification.json",
-      "sha256": "b1cb8c117a668b58eba75e3594fc1d4053667b4e734e24b6d787390201de78af"
-    },
-    "SPCVMC_optical_producer": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/spcvmc-optical-producer/NATIVE_QUALIFICATION.json",
-      "sha256": "7f2c824414bc7edb0d6cfb9b7f81aba535bb27f78a4866f8a62ee63afc9e0453"
-    },
-    "HPG_NHX_CONSUMER": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/hpg-nhx-consumer-simd/NATIVE_QUALIFICATION.json",
-      "sha256": "6a563847f62a8b996a66103e15b54cab052c512906bdcc399b112e0e710b87b0"
-    }
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/hpg-nhx-isolated-avx2-consumer/NATIVE_QUALIFICATION.json",
+    "sha256": "1664843dd7f1cb80a8fec010effd81ab82fdb28e50687a5a330e198187f1ef4a"
   },
-  "current_nine_hour_qualified": true,
+  "current_nine_hour_qualified": false,
   "previous_nine_hour_qualification": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_NINE_HOUR_FINAL_QUALIFICATION_B1FB.json",
     "sha256": "f38a865905d030be42ac0a965b4aa6afbc0eae280902a3839f20df176457f445"
   },
   "full_application": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/hpg-nhx-consumer-simd/NINE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "d686b176dfde3212312746cdf151dcdf709f0ab88c161affc5724d4dc68d62e5"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/hpg-nhx-isolated-avx2-consumer/APPLICATION_QUALIFICATION.json",
+    "sha256": "7d42b8402328f2c89f9395f944c29cdbd4510358b2a2c69648b5fa3d749636b7"
   },
-  "current_three_hour_qualified": true,
+  "current_three_hour_qualified": false,
   "prior_repaired_full_application": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/myj-mixlen-scratch-reuse/APPLICATION_QUALIFICATION.json",
     "sha256": "55e2170cfc4f695e2eb7124cb4dec541954a9db290979ed2423252a4b117eb2f"
@@ -526,7 +415,8 @@
   },
   "nine_hour_full_application": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/hpg-nhx-consumer-simd/NINE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "d686b176dfde3212312746cdf151dcdf709f0ab88c161affc5724d4dc68d62e5"
+    "sha256": "d686b176dfde3212312746cdf151dcdf709f0ab88c161affc5724d4dc68d62e5",
+    "applies_to_current_selection": false
   },
   "previous_noon75m_full_application": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-output/quilt512/padding-block32/APPLICATION_QUALIFICATION.json",
@@ -538,18 +428,19 @@
     "applies_to_current_selection": false
   },
   "POST_TEST_SOURCE_IDENTITY": {
-    "status": "POST_TEST_SOURCE_IDENTITY",
-    "source_commit": "a531104f2070bdbc918fe20b95cfe3651f340de5",
+    "status": "POST_TEST_GUARDED_SOURCE_AND_HELPER_IDENTITY",
+    "source_commit": "5f184bcca0ff22a740c9c9b43b3cadd2a51b7ec3",
     "raw_build_producer_source_commit": null,
-    "canonical_source": "dyn_em/module_big_step_utilities_em.F",
-    "canonical_source_sha256": "8aba45993521c8a13c0ab0e9eae45a2c7c31b7a91042806ecfbe2a3774b98bff",
-    "preprocessed_candidate_sha256": "438d1910e75a6a5570e2fee195674c88b15d4548baba63d622696cf5861e2702",
-    "object_sha256": "670bb8958047065dd314ab0d2706bac71e9f4d23e511517a47a6c76fd6eddc84",
-    "module_interface_sha256": "01702a275cfaa6e411f3b53342033027a3beca789ccd80a7b2e1becf3f43e7ee",
-    "executable_sha256": "1749f701a126b55788e04806fa77eee2a46c5a388b648b77188e3cc1c52151d5",
-    "archive_sha256": "f18c135ac6afcccf9b352b7db3d6e5994e1bf98e169c035fbfa0afc4a5b65692",
-    "application_qualification_sha256": "53e15d567f2bea93fd2984883696279976e171c5055ec48c6d7ad280f81b8c67",
-    "scope": "Exactly one SIMD PRIVATE(dpx) directive committed after genuine native100/two complete500-call pairs/current canonical CPP/one-member link/original shortSCI. Frozen native/build/application source producers remainNULL. Ownshort only, no current3h/noon/9h transfer; no wholeimage source rebuild certificate."
+    "guarded_source_sha256": "4db9d514f264f66918ac0ea99cd299fd434063b7c715c78472b942cc50ce1ee4",
+    "enabled_canonical_sha256": "562beaedf4ca3d66d750e35cfca1742da443cf55724f8605f28497100408b838",
+    "preprocessed_candidate_sha256": "0632694b8cb530f84b502117dfa26a4fc56cc4c613b79ddba087aa86f7f22233",
+    "default_preprocessed_sha256": "438d1910e75a6a5570e2fee195674c88b15d4548baba63d622696cf5861e2702",
+    "helper_source_sha256": "977127190ffc6371f32cefada20350188a43475d933fbf15fae878d6b6e2c77f",
+    "executable_sha256": "a61a273b7fb721132ac179939b19fa9273764b702f43d7fa7cdc248bb9119df6",
+    "archive_sha256": "9dc6b5e5a1b1b70b2ccbcfff68c1658e3c4b73ed20cd1dbe1438c453aeb4e1f5",
+    "application_qualification_sha256": "7d42b8402328f2c89f9395f944c29cdbd4510358b2a2c69648b5fa3d749636b7",
+    "public_module_interface_exact": false,
+    "scope": "Post-test guarded source/helper commit 5f184bcca0ff22a740c9c9b43b3cadd2a51b7ec3. Macro-OFF/ON canonical CPP exactly matches qualified 1749/R3 inputs. Frozen native/build producers remain NULL; no whole-image source rebuild is claimed."
   },
   "previous_mcica_full_application": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/mcica-mask-fusion/APPLICATION_QUALIFICATION.json",
@@ -760,7 +651,7 @@
       "control",
       "candidate"
     ],
-    "applies_to_current_selection": true,
+    "applies_to_current_selection": false,
     "repeatability_established": false,
     "concurrent_throughput_measured": false,
     "comparison_design": "Fresh corrected-original546b FIRST then selected1749 SECOND in R2 namespace; actual checkedcache EACH, one fixed-order pair.",
@@ -787,59 +678,13 @@
     "scope": "Two loop-boundary insertion lines only, committed after native/caller/one-member overlay/original4-product545-step acceptance. RawproducerNULLunchanged; no isolatedforecastgain or own9hqualification."
   },
   "caller": {
-    "CU_PART2": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/phy-prep-part2-cu-simd/CALLER_QUALIFICATION.json",
-      "sha256": "47f795a95b72ec802566e30cec50dabbeb8c1ef788c4500aa13807bc65195bee"
-    },
-    "PBL_PART2": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/phy-prep-part2-pbl-simd/CALLER_QUALIFICATION.json",
-      "sha256": "9eaeaaba7611b8a4f710399d73349924eddd72d3795f983ce4f33a664ee3bca0"
-    },
-    "RQVFTEN_PART2": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/phy-prep-part2-rqvften-simd/CALLER_QUALIFICATION.json",
-      "sha256": "195dee6c15ee611597d2c1079868c10c55910c3693351659c967c578639ab48f"
-    },
-    "RQVBLTEN_PART2": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/phy-prep-part2-rqvblten-simd/CALLER_QUALIFICATION.json",
-      "sha256": "636e696a014fcb7900791f41b1964ba1f2e474e7797bb84f67573aed15c2fd15"
-    },
-    "RTHRATEN_PART2": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/phy-prep-part2-rthraten-simd/CALLER_QUALIFICATION.json",
-      "sha256": "6b426efb3dcf77a71312a7e305249a16546d45ec6bdaa1357e7c57c948f2cabf"
-    },
-    "UV_final_U": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/uvb-batch/evidence/U_CALLER_QUALIFICATION.json",
-      "sha256": "b11e85ec67fb88f07f0dc5fb550e631088cec249f24e9c08d86c305dfd8eadc8"
-    },
-    "SmallStep_Prep_V": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/uvb-batch/evidence/V_CALLER_QUALIFICATION.json",
-      "sha256": "ebfeb6d207b599821ca02d5dcc5e23e89e73c95a2e3e13674e17047c0d17376c"
-    },
-    "FINISH_U": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-finish-u-simd/CALLER_QUALIFICATION.json",
-      "sha256": "1d70afda3f6dcec6ddfa40338ad39efadede422d0f851cc2c0c14d2836d8e6c0"
-    },
-    "FINISH_NONFINAL_T": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-finish-nonfinal-t-simd/CALLER_QUALIFICATION.json",
-      "sha256": "26b8b28264980195ac6392edcdd97cec2e2a7bd6887d7ef87282a81dd1893ddb"
-    },
-    "theta_producer": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/theta-sw-batch/theta/caller-qualification.json",
-      "sha256": "f64dad0d421a827e0574efaa22f62298e6821ede1ee82ff653039375c12b0d2d"
-    },
-    "sw_producer": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/theta-sw-batch/sw/caller-qualification.json",
-      "sha256": "72f7f53b58e484289dacd05a29436a88b11c787a60d1ca61f43ce7de1f58dc1d"
-    },
-    "SPCVMC_optical_producer": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/spcvmc-optical-producer/CALLER_QUALIFICATION.json",
-      "sha256": "e06aac8975f3eacb7d4c82f7c4e1417ff41e37677536831b7ec63995469b9527"
-    }
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/hpg-nhx-isolated-avx2-consumer/CALLER_ACTUAL_WAVE.json",
+    "sha256": "c2c984122cea902f1086cd4cc3a51c42d54076aaa60d2f3aedbacaff4c17138a"
   },
   "candidate_memory_actual": {
     "hpc01": {
       "limit_bytes": 107374182400,
-      "peak_bytes": 63016488960,
+      "peak_bytes": 63010852864,
       "events": {
         "low": 0,
         "high": 0,
@@ -847,22 +692,11 @@
         "oom": 0,
         "oom_kill": 0,
         "oom_group_kill": 0
-      },
-      "cpu_stat": {
-        "usage_usec": 230647478299,
-        "user_usec": 226286343665,
-        "system_usec": 4361134634,
-        "core_sched.force_idle_usec": 0,
-        "nr_periods": 18365,
-        "nr_throttled": 12964,
-        "throttled_usec": 65039860,
-        "nr_bursts": 0,
-        "burst_usec": 0
       }
     },
     "hpc02": {
       "limit_bytes": 107374182400,
-      "peak_bytes": 60724621312,
+      "peak_bytes": 60734009344,
       "events": {
         "low": 0,
         "high": 0,
@@ -870,22 +704,11 @@
         "oom": 0,
         "oom_kill": 0,
         "oom_group_kill": 0
-      },
-      "cpu_stat": {
-        "usage_usec": 230602504199,
-        "user_usec": 225832396810,
-        "system_usec": 4770107388,
-        "core_sched.force_idle_usec": 0,
-        "nr_periods": 18313,
-        "nr_throttled": 12634,
-        "throttled_usec": 90443229,
-        "nr_bursts": 0,
-        "burst_usec": 0
       }
     },
     "hpc03": {
       "limit_bytes": 107374182400,
-      "peak_bytes": 60690329600,
+      "peak_bytes": 60684541952,
       "events": {
         "low": 0,
         "high": 0,
@@ -893,22 +716,11 @@
         "oom": 0,
         "oom_kill": 0,
         "oom_group_kill": 0
-      },
-      "cpu_stat": {
-        "usage_usec": 230700184831,
-        "user_usec": 226056232842,
-        "system_usec": 4643951989,
-        "core_sched.force_idle_usec": 0,
-        "nr_periods": 18314,
-        "nr_throttled": 15203,
-        "throttled_usec": 28423737,
-        "nr_bursts": 0,
-        "burst_usec": 0
       }
     },
     "hpc04": {
       "limit_bytes": 111669149696,
-      "peak_bytes": 73573076992,
+      "peak_bytes": 60664250368,
       "events": {
         "low": 0,
         "high": 0,
@@ -916,17 +728,6 @@
         "oom": 0,
         "oom_kill": 0,
         "oom_group_kill": 0
-      },
-      "cpu_stat": {
-        "usage_usec": 230573485683,
-        "user_usec": 225809002622,
-        "system_usec": 4764483061,
-        "core_sched.force_idle_usec": 0,
-        "nr_periods": 18311,
-        "nr_throttled": 13363,
-        "throttled_usec": 14742567,
-        "nr_bursts": 0,
-        "burst_usec": 0
       }
     }
   },
@@ -977,7 +778,7 @@
     "scope": "One RQVFTEN-loop directive only, committed after native/caller/canonical-preprocess/link/original3hSCI. Frozen rawproducerNULL unchanged; no isolated forecast or own9h claim."
   },
   "current_profiled_nine_hour_science_qualified": false,
-  "current_unprofiled_nine_hour_science_qualified": true,
+  "current_unprofiled_nine_hour_science_qualified": false,
   "current_profiled_nine_hour_qualification": null,
   "previous_RQVBLTEN_PART2_POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
@@ -1037,10 +838,7 @@
     "repeatability_established": false,
     "scope": "Historical RQVFTENee66/source31ca before RQVBLTEN. Actual4products545/full512 exact,660.3921359390952s MPIwall; candidate-only UNPAIRED descriptive metrics. Does not qualify child2bd1. Existing THREE_HOUR_RESULT/Q bytes and hashes unchanged."
   },
-  "current_three_hour_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/hpg-nhx-consumer-simd/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "7276ff60bd77fd04ae22a029dba1f1637fa287f15c9dbe10a60f47993df63213"
-  },
+  "current_three_hour_qualification": null,
   "previous_RTH_short_full_application": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/phy-prep-part2-rthraten-simd/APPLICATION_QUALIFICATION.json",
     "sha256": "d5c058a57745ea1aa65df469cbbae0e2931a1f7b13c61ef130e47f051b53d117"
@@ -1094,25 +892,43 @@
     "scope": "Exact4products545/full512/twoTiles/all32markers/fourpositivewriters; all8models+reader normally closed. Includes all current promotions; no isolated directive or concurrent-throughput claim."
   },
   "science": {
-    "products": 10,
-    "ordered_steps": 1625,
-    "last_step": "2026-10-12_15:00:00",
+    "products": 2,
+    "ordered_steps": 35,
+    "last_step": "2026-10-12_06:10:00",
     "world": 512,
     "compute": 480,
     "quilt": 32,
     "tiles": 2,
     "positive_writer_roots": [
       487,
-      495,
+      495
+    ],
+    "zero_activity_writer_roots": [
       503,
       511
     ],
-    "zero_activity_writer_roots": [],
-    "actual_field_markers": 32,
+    "actual_field_marker_ranks": [
+      480,
+      481,
+      482,
+      483,
+      484,
+      485,
+      486,
+      487,
+      488,
+      489,
+      490,
+      491,
+      492,
+      493,
+      494,
+      495
+    ],
     "all32_quilt_FIELDVIEW1": true,
     "protected_compare_one_AST_unchanged": true,
     "original_comparisons_all_pass": true,
-    "qualification_sha256": "d686b176dfde3212312746cdf151dcdf709f0ab88c161affc5724d4dc68d62e5",
+    "qualification_sha256": "7d42b8402328f2c89f9395f944c29cdbd4510358b2a2c69648b5fa3d749636b7",
     "all_model_reader_scopes_closed": true
   },
   "Thompson_freeze_split_contract": {
@@ -1124,11 +940,8 @@
     "creator_libm_errno_preservation": false,
     "physical_memory_reduction_causally_qualified": false
   },
-  "current_nine_hour_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/hpg-nhx-consumer-simd/NINE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "d686b176dfde3212312746cdf151dcdf709f0ab88c161affc5724d4dc68d62e5"
-  },
-  "current_application_qualification_file": "tools/cpu-compute/hpg-nhx-consumer-simd/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+  "current_nine_hour_qualification": null,
+  "current_application_qualification_file": "tools/cpu-compute/hpg-nhx-isolated-avx2-consumer/APPLICATION_QUALIFICATION.json",
   "previous_E3_POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
     "source_commit": "1ae0c6ee9cd1b5c238a57cf25409c18d380faaed",
@@ -1265,7 +1078,7 @@
     "repeatability_established": false,
     "scope": "Exact4products545/full512/twoTiles/all4positivewriters/all32markers; main-step sum is elapsed not integrationCPU; no isolated/additive/pureIO/memorycausality claim."
   },
-  "scope": "Selected 1749 owns separate exact short (2 products/35 steps), three-hour (4/545) and unprofiled nine-hour (10/1625) qualification. Its separate noon-profile check remains unqualified. Raw producer source identities remain NULL; post-test source a531 is unchanged.",
+  "scope": "Current a61a isolated HPG helper: own original2/35 shortSCI only. Prior1749 3h/9h historical; no noon/3h/9h transfer.",
   "previous_3582_e1d8_science": {
     "products": 4,
     "ordered_steps": 545,
@@ -1447,8 +1260,8 @@
     "qualification_file": "../cpu-output/quilt512/codec/private-fast-distance-range/APPLICATION_QUALIFICATION.json"
   },
   "current_application_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/hpg-nhx-consumer-simd/NINE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "d686b176dfde3212312746cdf151dcdf709f0ab88c161affc5724d4dc68d62e5"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/hpg-nhx-isolated-avx2-consumer/APPLICATION_QUALIFICATION.json",
+    "sha256": "7d42b8402328f2c89f9395f944c29cdbd4510358b2a2c69648b5fa3d749636b7"
   },
   "last_three_hour_benchmark": {
     "qualification_file": "tools/cpu-compute/hpg-nhx-row-cache/THREE_HOUR_APPLICATION_QUALIFICATION.json",
@@ -1489,11 +1302,19 @@
     "comparison_design": "Fresh REVERSE fixed-orderHPGf703FIRST then546bSECOND; cacheEACH; onepair, no repeatability/isolatedHPG/additive/causeclaim.",
     "scope": "One fresh reverse fixed-order pair with cache EACH. Wholewall includes initialization/output/drain; mainelapsed includescommunication/backpressure, notintegrationCPU; aggregateCPU retainsownscope. No isolatedHPG/additive/sustained9h/concurrentthroughput claim."
   },
-  "claim_limits": "Selected 1749 owns separate exact short (2 products/35 steps), three-hour (4/545) and unprofiled nine-hour (10/1625) qualification. Its separate noon-profile check remains unqualified. Raw producer source identities remain NULL; post-test source a531 is unchanged. One fresh corrected-original 546b first / selected 1749 second pair, with checked client-cache clearing before each arm. Control hpc04 reached 104 GiB with 2468 max events and no OOM; candidate memory events were zero. Both arms encountered CPU-quota throttling. File-server load/cache were uncontrolled. Main-step elapsed includes communication/backpressure; aggregate CPU includes MPI spin. No isolated/additive gain, repeatability, concurrent-throughput or causal pressure claim.",
-  "source_commit_scope": "Original oneSIMDPRIVATE(dpx) source-onlya531 aftercomponent/shortscience; sameimage nowownsseparate3h+9hSCI. Frozen rawproducerNULL remainsunchanged; no wholeimagesourcerebuildcertificate.",
+  "claim_limits": [
+    "Ownshort only; parent1749 own3h/9h remain historical and do not apply to a61a. No noon/9h transfer.",
+    "One finite completeHPG500 oppositeorder pair perhost9.2753/7.6651 percent lowerwall; CPUunavailable/no significance,repeatability,isolatedX or forecastgainclaim.",
+    "RawMOD99bf differs0170: bounded R3 compileranalysis-token/native/caller contract; no rawMODexact or freshWRFcallercompile certificate.",
+    "Zero productioncompiles/oneordinarylink with one explicitChelper; guardedportable sourceCPPproof is separate future-source evidence, not an actual rebuild.",
+    "Allmetricsdistinct wholeMPIwall/aggregate4nodeCPU includingspin/mainelapsed; old original comparison UNPAIRED/context only. RawproducerNULL/sourceposttestfutureNULL.",
+    "Standard WRF source defaults macroOFF to original Fortran; only qualified explicit BigStep CPP macroON recipe links C helper. No global ISA flags or generic-build unresolved helper. Whole-HPG duplicate branch retained to preserve exact canonical bytes; 26 historical blank-line differences prevent two minimal seams.",
+    "Current source support is qualified GNU13.3 on admitted AVX2-capable EPYC nodes; AOCC/Intel remain experimental."
+  ],
+  "source_commit_scope": "Post-test guarded source/helper commit 5f184bcca0ff22a740c9c9b43b3cadd2a51b7ec3. Macro-OFF/ON canonical CPP exactly matches qualified 1749/R3 inputs. Frozen native/build producers remain NULL; no whole-image source rebuild is claimed.",
   "current_noon75m_qualified": false,
   "current_noon75m_qualification": null,
-  "comparison_design": "Fresh corrected-original546b FIRST then selected1749 SECOND in R2 namespace; actual checkedcache EACH, one fixed-order pair.",
+  "comparison_design": "Candidate-only a61a original2/35 SCI versus retained546b; metricsUNPAIRED descriptive, no matchedforecast or isolatedhelpergainclaim.",
   "theta_producer": {
     "pending": false,
     "source_commit": null,
@@ -1607,7 +1428,7 @@
     "applies_to_current_selection": false
   },
   "current_application_retry_scope": "Successful R2fresh546bFIRST/1749SECOND ninehourpair withall8model+reader strongclosures. EarlierfailedMPIinit/attempts remainhistoricalfailures.",
-  "next_qualification": "Current1749ownshort/3h/9hscience qualified; ownnoonFALSE. Experimentalhelper/ISA candidates requiretheirown native/caller/application proof; no transfer.",
+  "next_qualification": "Current a61a own3h/noon/9h remain unqualified; scheduling belongs to root.",
   "previous_A50E_before_SPCVMC": {
     "paired_record": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_CURRENT_SOURCE_BUILD_BINDING_BEFORE_SPCVMC_OPTICAL.json",
@@ -1887,7 +1708,7 @@
       "control",
       "candidate"
     ],
-    "applies_to_current_selection": true,
+    "applies_to_current_selection": false,
     "repeatability_established": false,
     "concurrent_throughput_measured": false,
     "comparison_design": "Fresh corrected-original546b FIRST then selected1749 SECOND in R2 namespace; actual checkedcache EACH, one fixed-order pair.",
@@ -2005,9 +1826,9 @@
     }
   },
   "short_application_metrics": {
-    "wall_seconds": 138.76887901499867,
-    "cpu_seconds": 53717.228135,
-    "main_step_sum_seconds": 38.45367
+    "wall_seconds": 138.84895383985713,
+    "cpu_seconds": 53688.507095,
+    "main_step_sum_seconds": 38.866749999999996
   },
   "retained_original_short_metrics": {
     "wall_seconds": 267.5341711281799,
@@ -2045,7 +1866,7 @@
     "source_commit": "97512cc69b4f144c399fb04bcebf8d146ddc78ff",
     "applies_to_current_selection": false
   },
-  "candidate_memory_actual_scope": "Actualcurrent1749ninehour finalpernode chargedpeaks/events/cpustat; no residentattribution/capacity/causalclaim.",
+  "candidate_memory_actual_scope": "Actual a61a short 2-product/35-step final charged peaks/events; no resident-memory attribution or capacity claim. Prior 1749 nine-hour pressure context remains in its immutable qualification.",
   "previous_HPG_NHX_before_CONSUMER": {
     "paired_snapshot": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_CURRENT_SOURCE_BUILD_BINDING_BEFORE_HPG_NHX_CONSUMER.json",
@@ -2215,23 +2036,22 @@
     "expected_worker_status": "BUILT_CURRENT_F703_ONE_BIGSTEP_HPG_NHX_CONSUMER_SIMD_PENDING_APPLICATION"
   },
   "rollback": {
-    "selection.json": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_selection_BEFORE_HPG_NHX_CONSUMER.json",
-      "sha256": "de46ce1c867dd94b45f28c5247202d94a454bccc4cdba7df052980901b5abf90"
-    },
-    "CURRENT_SOURCE_BUILD_BINDING.json": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_CURRENT_SOURCE_BUILD_BINDING_BEFORE_HPG_NHX_CONSUMER.json",
-      "sha256": "357e465d4c7bc613f39075a7a8a4bd4b8986e730f3d65f1d0e004a70111aa6c1"
-    },
-    "LATEST_APPLICATION_RESULT.json": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_LATEST_APPLICATION_RESULT_BEFORE_HPG_NHX_CONSUMER.json",
-      "sha256": "fa7ef2763e9477f19b1e2a0fc0c0dd7d942b1d1b7280ce34bfb4b42b0643929e"
-    },
-    "source_commit": "a531104f2070bdbc918fe20b95cfe3651f340de5",
-    "source_action": "Revert only source-onlya531104f, then restore ALL THREE BEFORE_HPG_NHX_CONSUMER snapshots together. Returns f703/fe72/sourcec3d2 and its own actual short/3h/noon evidence.",
-    "parent_executable_sha256": "f703115b7ddae2f15112d01f793624bd023ef1d188394926505986a9697984c6",
-    "parent_archive_sha256": "fe72cb2e98e8b321220bfbbd2c3f0f8ff9e49b437552618c1960eaf97a016b6f",
-    "source_recipe": "tools/cpu-compute/hpg-nhx-consumer-simd/ROLLBACK.json"
+    "git_commit": "fe25000bd85d6b1ea42e32db6478a250ed0baf6b",
+    "executable_sha256": "1749f701a126b55788e04806fa77eee2a46c5a388b648b77188e3cc1c52151d5",
+    "archive_sha256": "f18c135ac6afcccf9b352b7db3d6e5994e1bf98e169c035fbfa0afc4a5b65692",
+    "posttest_source_commit": "a531104f2070bdbc918fe20b95cfe3651f340de5",
+    "own9h_qualification_sha256": "d686b176dfde3212312746cdf151dcdf709f0ab88c161affc5724d4dc68d62e5",
+    "paired_restore_files": [
+      "dyn_em/module_big_step_utilities_em.F",
+      "tools/cpu-working/selection.json",
+      "tools/cpu-working/LATEST_APPLICATION_RESULT.json",
+      "tools/cpu-working/CURRENT_SOURCE_BUILD_BINDING.json"
+    ],
+    "remove_new_files": [
+      "tools/cpu-compute/hpg-nhx-isolated-avx2-consumer/wrf_hpg_nhx_consume_avx2.c",
+      "tools/cpu-compute/hpg-nhx-isolated-avx2-consumer/REBUILD_RECIPE.json"
+    ],
+    "scope": "Restore1749 source plus all3working records together from exact priorGit; remove only originally absent newhelper/recipe. No f703 rollback or transfer of9h to a61a."
   },
   "historical_3cdd_daylight_application_before_HPG_CONSUMER": {
     "evidence": {
@@ -2313,7 +2133,7 @@
     "fresh_control_run": false,
     "paired_speedup_claimed": false,
     "repeatability_established": false,
-    "applies_to_current_selection": true,
+    "applies_to_current_selection": false,
     "comparison_design": "Candidate-only consumer1749 original4/545 threehour science qualification against retained completed R3original546b; allmetricsUNPAIRED/descriptive, no forecastgain attribution. Raw RESULT labels retained literally; actual consumer build/component identities determine scope."
   },
   "before_HPG_CONSUMER_own9h": {
@@ -2347,6 +2167,83 @@
         "main_step_sum_seconds": 19.26323392120399
       },
       "applies_to_current_selection": false
+    }
+  },
+  "before_ISOLATED_HPG_AVX2_HELPER": {
+    "executable": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/currentf703-one-bigstep-hpg-nhx-consumer-simd-hpc02-r1/wrf.exe",
+      "sha256": "1749f701a126b55788e04806fa77eee2a46c5a388b648b77188e3cc1c52151d5"
+    },
+    "archive_sha256": "f18c135ac6afcccf9b352b7db3d6e5994e1bf98e169c035fbfa0afc4a5b65692",
+    "source_commit": "a531104f2070bdbc918fe20b95cfe3651f340de5",
+    "current_application_qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/hpg-nhx-consumer-simd/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "d686b176dfde3212312746cdf151dcdf709f0ab88c161affc5724d4dc68d62e5"
+    },
+    "own9h_qualification_sha256": "d686b176dfde3212312746cdf151dcdf709f0ab88c161affc5724d4dc68d62e5",
+    "applies_to_current_selection": false,
+    "paired_rollback_git_commit": "fe25000bd85d6b1ea42e32db6478a250ed0baf6b"
+  },
+  "isolated_hpg_avx2_producer": {
+    "version": 1,
+    "pending": false,
+    "source_commit": null,
+    "directory": "/pool/wrf-experiment/wrf-cpu/builds/current1749-one-isolated-hpg-avx2-helper-hpc02-r1",
+    "executable_sha256": "a61a273b7fb721132ac179939b19fa9273764b702f43d7fa7cdc248bb9119df6",
+    "archive_sha256": "9dc6b5e5a1b1b70b2ccbcfff68c1658e3c4b73ed20cd1dbe1438c453aeb4e1f5",
+    "receipt_sha256": "0fa1e702f425e580787744877efcfe8defb9a414e3deb306051be20a9f6fe7e5",
+    "closure_sha256": "31b7ebadcda85be056dd902e2fc5a9466baffafef41abd30797551a926c52a6d",
+    "ordered_proof_sha256": "550577416451535c43fecc46c7c826339d4b31a34a73664222af1ab172d16017",
+    "source_manifest_sha256": "04c4b75f9bd287d114a4b987277c33d585d8d264e5f0fb12166ed209a244a824",
+    "build_qualification_sha256": "a671bf6052e6480c995bd4000d962450ab288a243646116c42a8ce9929a1b520",
+    "parent_executable_sha256": "1749f701a126b55788e04806fa77eee2a46c5a388b648b77188e3cc1c52151d5",
+    "parent_archive_sha256": "f18c135ac6afcccf9b352b7db3d6e5994e1bf98e169c035fbfa0afc4a5b65692",
+    "parent_member_sha256": "670bb8958047065dd314ab0d2706bac71e9f4d23e511517a47a6c76fd6eddc84",
+    "qualified_object_sha256": "2b056547f37216365464b4a08a790b2ea123fe9e133dc19a629a724d05eb5e1a",
+    "helper_object": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/hpg-nhx-isolated-avx2-consumer-native-r3/work/nhx-helper-O2.o",
+      "sha256": "ae13adfa248c9613be20c56bd1f8e77a3ff8d79a985ffb163acc16be629d0f8c",
+      "flags": [
+        "-O2",
+        "-mavx2",
+        "-mno-fma",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-std=c11"
+      ],
+      "source_sha256": "977127190ffc6371f32cefada20350188a43475d933fbf15fae878d6b6e2c77f"
+    },
+    "canonical_candidate_sha256": "562beaedf4ca3d66d750e35cfca1742da443cf55724f8605f28497100408b838",
+    "preprocessed_candidate_sha256": "0632694b8cb530f84b502117dfa26a4fc56cc4c613b79ddba087aa86f7f22233",
+    "module_interface_sha256": "99bf236d5333207d771aa579433afe937f9d7edfdef269003905520918ffd9c8",
+    "public_module_interface_exact": false,
+    "native_qualification_sha256": "1664843dd7f1cb80a8fec010effd81ab82fdb28e50687a5a330e198187f1ef4a",
+    "root_cfg_sha256": "42f924c448966094bce6e9693d1ef467a26d04e0b4aae8525d1a407de43abc2c",
+    "caller_wave_sha256": "c2c984122cea902f1086cd4cc3a51c42d54076aaa60d2f3aedbacaff4c17138a",
+    "evidence_files_sha256": {
+      "isolated-native-qualification.json": "1664843dd7f1cb80a8fec010effd81ab82fdb28e50687a5a330e198187f1ef4a",
+      "isolated-native-receipt.json": "84da813211432fd2d419a56d2c910510579e989a32dde164efd5abec8da3c28b",
+      "isolated-native-closure.json": "8712f063d2c9ffc63e6579d2b1393ac32b51ca0c58f267b30c3410b78c77b5d8",
+      "isolated-root-cfg.json": "42f924c448966094bce6e9693d1ef467a26d04e0b4aae8525d1a407de43abc2c",
+      "isolated-caller-wave.json": "c2c984122cea902f1086cd4cc3a51c42d54076aaa60d2f3aedbacaff4c17138a"
+    },
+    "caller_raw_files": {
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/hpg-nhx-isolated-avx2-consumer-r1/complete-caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/receipt.json": "isolated-caller-arm0-receipt.json",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/hpg-nhx-isolated-avx2-consumer-r1/complete-caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/closure.json": "isolated-caller-arm0-closure.json",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/hpg-nhx-isolated-avx2-consumer-r1/complete-caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/cache-clear.json": "isolated-caller-arm0-cache-clear.json",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/hpg-nhx-isolated-avx2-consumer-r1/complete-caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/controller.json": "isolated-caller-arm0-controller.json",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/hpg-nhx-isolated-avx2-consumer-r1/complete-caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/receipt.json": "isolated-caller-arm1-receipt.json",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/hpg-nhx-isolated-avx2-consumer-r1/complete-caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/closure.json": "isolated-caller-arm1-closure.json",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/hpg-nhx-isolated-avx2-consumer-r1/complete-caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/cache-clear.json": "isolated-caller-arm1-cache-clear.json",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/hpg-nhx-isolated-avx2-consumer-r1/complete-caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/controller.json": "isolated-caller-arm1-controller.json",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/hpg-nhx-isolated-avx2-consumer-r1/complete-caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/receipt.json": "isolated-caller-arm2-receipt.json",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/hpg-nhx-isolated-avx2-consumer-r1/complete-caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/closure.json": "isolated-caller-arm2-closure.json",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/hpg-nhx-isolated-avx2-consumer-r1/complete-caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/cache-clear.json": "isolated-caller-arm2-cache-clear.json",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/hpg-nhx-isolated-avx2-consumer-r1/complete-caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/controller.json": "isolated-caller-arm2-controller.json",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/hpg-nhx-isolated-avx2-consumer-r1/complete-caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/receipt.json": "isolated-caller-arm3-receipt.json",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/hpg-nhx-isolated-avx2-consumer-r1/complete-caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/closure.json": "isolated-caller-arm3-closure.json",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/hpg-nhx-isolated-avx2-consumer-r1/complete-caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/cache-clear.json": "isolated-caller-arm3-cache-clear.json",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/hpg-nhx-isolated-avx2-consumer-r1/complete-caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/controller.json": "isolated-caller-arm3-controller.json"
     }
   }
 }
