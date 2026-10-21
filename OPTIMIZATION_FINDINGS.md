@@ -1,6 +1,28 @@
 # WRF CPU optimization findings
 
-## Current selection: private FAST distance guard (October 20, 2026, EDT)
+## Current selection: theta/SW batch (October 21, 2026, UTC)
+
+The working branch selects **a50e5cf7 / archive4b16c9ff / post-test source97512cc6**, retaining all earlier compute, shared-table, input and output improvements. Codec9371, output51a, input06d/NCa32, FABA placement, two tiles and the qualified single InfiniBand rail remain selected. The unchanged original checker passed four complete products and545 ordered steps in a fresh corrected-original/control-first three-hour pair, then two products and230 steps in the separate noon75m scientific check. All model and reader jobs closed normally. Current own three-hour and noon75m science are qualified; own short and nine-hour qualification remain false.
+
+| Fresh three-hour pair | Corrected original | Combined current | Reduction |
+|---|---:|---:|---:|
+| Whole model/MPI wall, including output and drain |947.713664s|661.091632s|30.2435%|
+| Integration-step elapsed, including communication/backpressure |725.013200s|560.407420s|22.7038%|
+| Aggregate four-node CPU |432906.028505 CPU-s|320598.551647 CPU-s|25.9427%|
+
+This is one fixed-order pair with checked client-cache clearing before each arm. The current candidate is almost identical to the preceding f4b observation661.040449s; the larger percentage reflects a slower fresh control than the earlier819.278306s reference and does not establish an incremental theta/SW forecast gain. Main-step elapsed is not integration CPU; whole-minus-main is not pure I/O. File-server load/cache remain uncontrolled. The measured wall ratio is1.4336x; concurrent throughput, repeatability and sustained current-build nine-hour benefit remain unestablished. Kernel, caller and forecast percentages are separate and are not added.
+
+[Current evidence, support scope and rollback](tools/cpu-compute/theta-sw-batch/README.md) bind the actual three-hour/noon scientific results and paired selection/source records. The later sections retain their original historical epochs. The payload `Igatherv`/immediate-`Wait` trial is parked after its unfavorable four-node screen; the next communication question is actual quilting gather geometry. Production and master remain untouched; AWS is suspended.
+
+## Active investigations after the current selection (October 21, UTC)
+
+The output-collection `Igatherv` plus immediate `Wait` candidate is **parked**: its four-node 65-rank screen was 34.53% longer in maximum-rank wall time and 34.44% higher in aggregate CPU than the original payload gather. Data and guards passed in that exploratory batch; the separate strict MPI-state failure remains preserved. This result supports no application promotion or general claim about nonblocking MPI.
+
+A short current-build forecast completed both outputs and all35 steps, but its new output-count recorder overflowed the2048-record companion buffer (3299–3468 calls per active rank). The diagnostic postcheck failed; no scientific reader or successful application qualification is claimed. All actual model processes closed. A capacity-only4096-record/2MiB repair passed the existing controlled-C, genuine four-rank and separate protected-V2 native checks. V2 remains unchanged. A fresh short capture will measure actual gather geometry; initial-output observations will not establish the daytime critical path.
+
+A distinct shortwave candidate separates four independent optical-property assignments from serial beam recurrences, enabling packed arithmetic without changing the expressions. Generated-code checks passed. Twelve finite optimized whole-SPCVMC cases matched the selected original, flag-only parent and candidate exactly. The bounds-checked original exposed an invalid one-layer synthetic fixture; that failure is retained and the fixture is being repaired before numerical qualification. There is **no measured caller or forecast gain, application qualification or promotion** for this candidate yet.
+
+## Previous selection: private FAST distance guard (October 20, 2026, EDT)
 
 The working configuration selects **WRF3582/archive15b2/sourceee2fdac7 plus codec937130c2/post-test codec sourcec57e3851**. Output51a, input06d/NCa32, faba placement, two tiles, single-IB transport and all preceding compute improvements remain. The private AVX2 FAST distance/head guard now uses one unsigned interval test, reducing its actual conditional branches from three to two without extra reads, changed matching or reordered scientific arithmetic. Other codec implementations retain the original predicate.
 
