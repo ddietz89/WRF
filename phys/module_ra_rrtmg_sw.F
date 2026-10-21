@@ -8611,6 +8611,15 @@ end subroutine
             zrupd(klev+1)=palbd(ibm)
     
 ! Top of layer loop
+            !$OMP SIMD PRIVATE(ikl)
+            do jk=1,klev
+               ikl=klev+1-jk
+               ztauc(jk) = ztaur(ikl,iw) + ztaug(ikl,iw) + ptaua(ikl,ibm)
+               zomcc(jk) = ztaur(ikl,iw) * 1.0_rb + ptaua(ikl,ibm) * pomga(ikl,ibm)
+               zgcc(jk) = pasya(ikl,ibm) * pomga(ikl,ibm) * ptaua(ikl,ibm) / zomcc(jk)
+               zomcc(jk) = zomcc(jk) / ztauc(jk)
+            enddo
+
             do jk=1,klev
 
 ! Note: two-stream calculations proceed from top to bottom; 
@@ -8639,10 +8648,6 @@ end subroutine
 !               zomco(jk) = zomco(jk) / ztauo(jk)
 
 ! Clear-sky optical parameters including aerosols
-               ztauc(jk) = ztaur(ikl,iw) + ztaug(ikl,iw) + ptaua(ikl,ibm)
-               zomcc(jk) = ztaur(ikl,iw) * 1.0_rb + ptaua(ikl,ibm) * pomga(ikl,ibm)
-               zgcc(jk) = pasya(ikl,ibm) * pomga(ikl,ibm) * ptaua(ikl,ibm) / zomcc(jk)
-               zomcc(jk) = zomcc(jk) / ztauc(jk)
 
 ! Pre-delta-scaling clear and cloudy direct beam transmittance (must use 'orig', unscaled cloud OD)       
 !   \/\/\/ This block of code is only needed for direct beam calculation
