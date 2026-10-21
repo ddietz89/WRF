@@ -1,0 +1,32 @@
+{
+  "status": "ACCEPTED_METADATA_DIAGNOSTIC_NOT_APPLICATION_OR_PERFORMANCE_QUALIFICATION",
+  "original_coordinator_failed_exit": 1,
+  "original_run_normal": false,
+  "exact_original_products": 2,
+  "ordered_steps": 35,
+  "accepted_files": {
+    "A61A_OUTPUT_PAYLOAD_METADATA.json": "c53aa33719c18c431ef27f6018e182e5535eb32dd4b973e116220b0f9e711103",
+    "A61A_OUTPUT_METADATA_SUMMARY_CLOSURE.json": "ec4d5f7cce82cbf20ea509e60184ce13324ac2c426c3f6636a1f986a2bfa5f5d",
+    "A61A_OUTPUT_METADATA_SUMMARY_RECEIPT.json": "b19ce80696cf1afadb988151353ac2bde581b0702606535c32c43612bcfb7651",
+    "A61A_OUTPUT_POSTFAILURE_DIAGNOSTIC_QUALIFICATION.json": "7253cb7377dd663b58a7bcd5a1833400150ffec1e278de389ae1af2dbdf261f6",
+    "A61A_OUTPUT_POSTFAILURE_READER_CLOSURE.json": "ab221be1eace7b8379d4b5a1a0c846b9b794c7b0751e516ead600b0df8f13749",
+    "A61A_OUTPUT_POSTFAILURE_VERIFIED_READER_CLOSURE.json": "eb44a686b7a7c24ea422b44808259cb8029649d3a7fb50eacf5435cc17b09689"
+  },
+  "external_raw_refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current1749-output-gatherv-metadata-feasibility-r1/a61a-short-metadata-diagnostic-preparation-r1/postfailure-reader-preparation-r1/actual-native-r1/postfailure-science-comparison.json": "2be79b0929e703385444804379129e2a8ab6d8a7d3899ecb28a1f9ab54870abe",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current1749-output-gatherv-metadata-feasibility-r1/a61a-short-metadata-diagnostic-preparation-r1/ACTUAL_FAILED_FINALIZATION_CLOSURES_AND_HEADER_COUNTS.json": "17310d7f168b83ca3ffa086947ea3728ae68282508b01140e761222604c5f94e",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current1749-output-gatherv-metadata-feasibility-r1/a61a-short-metadata-diagnostic-preparation-r1/postfailure-reader-preparation-r1/ROOT_OUTPUT_READONLY_FREEZE_ACTUAL.json": "82a428a763d6c184974874e4db2b8f035ee7d4eee7a08b02925f7e34252604c5",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current1749-output-gatherv-metadata-feasibility-r1/a61a-short-metadata-diagnostic-preparation-r1/postfailure-reader-preparation-r1/STATIC_REVIEW.json": "ca783d137c05ef316c8a492bae665074e67a67566a1a7214178422efa599bb08"
+  },
+  "records": 1639008,
+  "reader_invocation_id": "65f1a5cbef5c41e8a5fab66e90f77e33",
+  "scope": [
+    "Postfailure accepted exact cold06\u219206:10 original2/35 science+metadata only. Original coordinator failed1 remains; no original APPQ/default or daytime/forecast transfer.",
+    "Timestamps bracket COL_BEFORE\u2192real PMPI_Gatherv\u2192COL_RETURNED; state/clock seam overhead included. Count-Gather/Type_match/setup excluded. Not pure MPI or full col_on_comm.",
+    "Group membership/root/type joins are descriptive; no cross-rank ordinal/token matching or global event identity.",
+    "Elapsed/CPU sums across ranks overlap and are rank-time, not global elapsed, exclusive cost, critical path or removable time. Max per-rank total and summed total give only algebraic rank-time bounds, not speedup bounds.",
+    "Root count-vector volumes counted once per root record; local send volumes are a separate view and must not be added. Positive nonroot contributors are logical count metadata, not observed network messages.",
+    "No crosshost clock alignment/latestof8/network-vs-copy-vs-spin cause inference/performance qualification. Excluded480 group members/root count vectors remain unknown."
+  ],
+  "next": "Investigate writer work preceding the next eight-rank payload gather; do not infer global removable time or network cost from overlapping rank residence."
+}

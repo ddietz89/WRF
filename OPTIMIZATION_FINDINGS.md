@@ -1,6 +1,16 @@
 # WRF CPU optimization findings
 
-## Current selection: NH-X consumer SIMD (October 21, 2026, UTC)
+## Current selection: NH-Y pressure-gradient consumer SIMD (October 21, 2026, UTC)
+
+The working fork selects **bc543d56 / archive 9a909457 / post-test source 9e259378**, retaining all previous changes and adding one independent-I `SIMD PRIVATE(dpy)` directive. The genuine current-module 100-case O0/bounds/O2 raw and five-state gate passed. Opposite-order 500-call complete HPG pairs were **36.85% and 35.72% shorter**, with exact results and cache clearing before every arm; process CPU was unavailable. A 352-byte larger frame and floating-point spills are included in that measured tradeoff.
+
+The unchanged original full-grid checker passed **both products and all 35 ordered steps**, with 512 ranks, two tiles, expected writer/field-view behavior and normal closures of every model and reader job. This build owns short science only; a61a's three-hour and 1749's nine-hour proofs do not transfer. Short wall/main-step/aggregate-CPU observations were 140.797629 / 39.903320 / 54631.865472 seconds; the retained-original comparison is unpaired and establishes no isolated Y-loop or forecast speedup. Main-step elapsed includes communication/backpressure, and aggregate CPU includes MPI spin. [Evidence, supported recipe and rollback](tools/cpu-compute/hpg-nhy-consumer-i-simd/README.md).
+
+The current output diagnostic's two products and 35 steps also passed the original comparator through a separate reader. Its original coordinator bookkeeping failure is preserved: the strict decoder had incorrectly required output calls from 16 proven inactive quilt ranks. A new sidecar validates those empty traces while delegating all other ranks to the unchanged decoder. This diagnostic is not a normal application qualification or performance comparison. Accepted metadata now records actual communicator membership, root byte volumes and payload-wrapper rank residence; preceding count-Gather and memcpy costs remain unmeasured. Further attribution uses these records without adding overlapping rank times or treating them as removable global cost. [Accepted metadata and scope](tools/cpu-working/profile-audits-20261021/A61A_OUTPUT_METADATA_EVIDENCE.json).
+
+The following entries retain their named historical artifacts. They do not override the current selection above. Production and master remain unchanged; AWS is suspended.
+
+## Historical 1749 selection: NH-X consumer SIMD (October 21, 2026, UTC)
 
 Selected **1749f701 / archivef18c135a / post-test sourcea531104f** retains all f703 improvements and adds one independent inner-I `SIMD PRIVATE(dpx)` directive. Exact native100/O0-bounds/O2 checks and original full512 short science passed **two products/35ordered steps/two tiles/expected writer lifetimes**; all jobs closed normally. Native rounding scope is nearest/downward only. Two opposite-order500-call complete HPG pairs were **20.94% and20.87% shorter**, with exact raw/five-state output and cache clearing before each arm; process CPU unavailable. Actual packed code adds112B of frame and temporary spills, explicitly recorded and accepted on measured net caller benefit.
 

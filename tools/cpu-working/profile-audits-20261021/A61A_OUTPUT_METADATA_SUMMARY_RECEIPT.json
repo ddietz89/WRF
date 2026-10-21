@@ -1,0 +1,39 @@
+{
+  "status": "PASS_ACTUAL_A61A_POSTFAILURE_PAYLOAD_METADATA_SUMMARY_ONLY",
+  "invocation_id": "15554478426143f8ba1dee7c61cc3975",
+  "source_pins_sha256": "cd8b9f2043e1fd702628ff74ab877949ea88ed59164e22fbccddb6e3c9b6e2b3",
+  "actual_entry": {
+    "host": "hpc00",
+    "pid": 582354,
+    "affinity": [
+      0,
+      1
+    ],
+    "cgroup": "/sys/fs/cgroup/system.slice/wrf-cpu-current-a61a-col-postfailure-summary-hpc00-r1.service",
+    "cpu_max": "200000 100000",
+    "memory_max": 2147483648,
+    "memory_swap_max": "0"
+  },
+  "command": {
+    "argv": [
+      "/usr/bin/python3",
+      "-B",
+      "/pool/wrf-experiment/wrf-cpu/source-discovery/current-a61a-col-postfailure-summary-hpc00-r1/summarize_geometry.py",
+      "--binding",
+      "/pool/wrf-experiment/wrf-cpu/source-discovery/current-a61a-col-postfailure-summary-hpc00-r1/binding.json",
+      "--out",
+      "/pool/wrf-experiment/wrf-cpu/source-discovery/current-a61a-col-postfailure-summary-hpc00-r1/ACTUAL_GEOMETRY_SUMMARY.json"
+    ],
+    "returncode": 0,
+    "stdout": "{\"status\": \"PASS_ACTUAL_A61A_POSTFAILURE_PAYLOAD_METADATA_NO_PERFORMANCE_CLAIM\", \"sha256\": \"c53aa33719c18c431ef27f6018e182e5535eb32dd4b973e116220b0f9e711103\", \"bytes\": 70533, \"raw_files\": 512, \"records\": 1639008}\n",
+    "stderr": ""
+  },
+  "summary_sha256": "c53aa33719c18c431ef27f6018e182e5535eb32dd4b973e116220b0f9e711103",
+  "summary_bytes": 70533,
+  "scope": "Actual accepted a61a initial2/35 metadata only. Source-matched Gatherv payload-wrapper residence including seams, not complete COL cost. No synchronized crosshost clocks/global critical/removable/cause or performance qualification. Raw metadata remains shared storage.",
+  "cpu.stat": "usage_usec 33140503\nuser_usec 32406353\nsystem_usec 734150\nnr_periods 628\nnr_throttled 0\nthrottled_usec 0\n",
+  "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\n",
+  "memory_peak_bytes": null,
+  "memory_peak_status": "UNAVAILABLE_NOT_ADMITTED_ON_GATEWAY",
+  "elapsed_seconds": 62.746347438995144
+}
