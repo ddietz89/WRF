@@ -82,3 +82,7 @@ When adapting a retained forecast to another horizon, carry its worker-activity 
 ## Historical lease horizon routing
 
 Historical qualification leases must use their exact retained validator bodies and their own scope, including __file__-relative rank-map tables. The historical three-hour checks retain 1,200-second caps; current nine-hour runtime checks retain 3,600 seconds. Do not route historical leases through cached current-horizon modules or widen resource guards to pass ancestry. Preserve preflight failures and repair routing before any cache clear or model launch.
+
+## Timing under exact floating-point state checks
+
+Use integer nanoseconds for timestamp capture, elapsed subtraction and duration floors when a native/caller gate compares errno, exception flags, rounding, MXCSR and x87 state. Convert elapsed values to seconds only during reporting after all state/raw checks. A floating-point timer changed MXCSR inexact and falsely failed the tree-flush parent; the retained integer-clock repair preserved work, clock boundaries and all acceptance checks. Never mask the state difference to make a benchmark pass.

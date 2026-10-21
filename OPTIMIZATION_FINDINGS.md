@@ -3609,3 +3609,33 @@ Calc_php adds one independent-I SIMD directive while retaining scalar expression
 [Application qualification](tools/cpu-compute/calc-php-bc-simd/APPLICATION_QUALIFICATION.json), [raw reference map](tools/cpu-compute/calc-php-bc-simd/APPLICATION_RAW_MAP.json), native/caller JSON records and [source-backed rebuild](tools/cpu-compute/calc-php-bc-simd/source-rebuild/README.md) retain evidence. The actual source-backed rebuild produced3db1 with exact allocated sections/relocations/non-file symbols for both members and preserved other582 members; **3db1 itself has no application qualification**. Frozen producer source identities remain null; [source identity](tools/cpu-compute/calc-php-bc-simd/POST_TEST_SOURCE_IDENTITY.json) records the later source-only commit separately.
 
 Rollback restores the three paired `BEFORE_CALC_PHP_BC_SIMD` working records and reverses [the two directives](tools/cpu-compute/calc-php-bc-simd/SOURCE_ONLY.diff), selecting previous3582/15b2 with the same9371 codec/output/input. Selection metadata is not a launcher. Use fresh leases, existing resource/worker/input/rank guards and checked cache clears before each timing arm.
+
+## Tree run-descriptor replay rejected after finite repeat (2026-10-21)
+
+The fixed candidate records code-length run descriptors during the original tree scan, then replays them after codebook construction. Narrow directed/full-flush tests passed exact raw bytes, integer state, all five FP/errno fields and stock decoding. Full13-corpus/5-stream/provider/application qualification was not run.
+
+One cache-before-each-arm opposite-order screen gave small hpc04 gains (1.07–4.90% lower wall) but hpc01 regressions in all three complete-flush branches. A single preregistered reversed hpc01 C→P pair reproduced **21.95%/35.32%/23.70% higher wall** in dynamic/static/stored branches, with CPU higher in every branch. All six arms passed exact gold and normal invocation-bound empty-cgroup closures. The observed performance cost is sufficient to reject this fixed candidate for the multi-node working configuration. Host-cause attribution and global forecast impact remain unknown; hpc04 gains remain retained. No further variants, repeats or automatic broader gates are planned. Selected codec9371 is unchanged.
+
+An initial parent-only abort was a measurement defect: floating-point timestamp arithmetic changed MXCSR inexact. Integer nanoseconds fixed the clock while preserving work, boundaries, 100ms floors and all five-state checks. Seconds conversion occurs only after every correctness check.
+
+The before-execution barrier amendment used the existing SOP's disjoint-node rule: hpc01 timing while the timing-insensitive reader used hpc03, after all four models/recorders/helpers closed. Methods, caps and decision predicate were unchanged. Complete raw evidence stays at the paths in the qualification/index files. No promoted source/default change or rollback is needed.
+
+[Evidence](tools/cpu-output/quilt512/codec/rejected-tree-run-replay/README.md).
+
+## 2026-10-21: selected f4b daytime profile covers the output/arrival interval
+
+The current f4b/9371/51a configuration passed both complete original noon products and all230 ordered steps, all512 rank/input/library/two-tile/writer checks, and normal model/reader/recorder closure. Three15-second captures targeted actual ranks0/120/124 on hpc01, with identity, current observer mapping, perf file identity and two growth transitions checked while the forecast ran. Their shared14.959874-second interval covers the source-proven13:00 history handling inside185exit→186entry, plus ordinal186 entry/exit on all three. This gap also includes preceding solve work, otherMPI and scheduling; its duration is not pure I/O.
+
+| Instrumented noon75m context | Retained original | Current f4b | Descriptive reduction |
+|---|---:|---:|---:|
+|Whole model/MPI wall|444.666163s|309.573005s|30.3808%|
+|Summed main-step elapsed|262.597160s|236.235270s|10.0389%|
+|Aggregate node-cgroup CPU|194209.614414s|151440.388358s|22.0222%|
+
+These are **UNPAIRED diagnostic totals**, not a new benchmark, isolated gain or repeatability result. The retained original is the scientific reference; client caches were cleared before the candidate, while server cache/load were uncontrolled. Main-step elapsed includes communication/backpressure and is not integrationCPU. The selected unprofiled three-hour result above remains the latest benchmark. Frozen raw RESULT retains a stale3582/e1d8 descriptive order label; actual grant/runtime/library proofs bind f4b/9371, and the raw record remains unchanged.
+
+Ordinal186 shows951.629ms entry spread among hpc01's120 compute ranks. Selected rank124 was last locally; its inter-gather gap was2214.213ms with2111.647ms threadCPU, versus root0's1354.102ms gap and894.579ms gather. These are local elapsed/threadCPU envelopes including MPI progress, not pure compute or globally removable communication cost. Same-window retained-stack analysis assigns51.26%/54.25% of inter-gather sample periods on120/124 to nearest WRF caller `col_on_comm+0xd9`; halo X/Y calls also appear. Every selected gather sample resolves to the adaptive `wrf_dm_mintile_double` caller. Exact current ELF/source joining is required before treating `col_on_comm` as a particular output path. No cross-host clock ordering, global critical-rank winner or network-capacity claim follows.
+
+The first stack parser failed on seven literal `(inlined)` annotations. All702 rank0 sample identities and first-frame instruction addresses were already exact. A bounded representation-only repair preserves those hard guards and ordinary DSO checks, keeps inline ownership unknown, and reuses the retained rank0 text. All three ranks then passed; original failure and diagnostic remain preserved. Sample/header counts agree, but producer loss remainsUNKNOWN.
+
+[Compact evidence and verified raw references](tools/cpu-working/profile-audits-20261021/CURRENT_F4B_PRE13.json) record the actual science, closures, clocks, grouped samples and caller scope. Two measured source leads are progressing separately: moist-theta producer SIMD passed genuine whole-PHY_PREP native checks, while shortwave direct-CDF generation is entering its own genuine SW gate. Neither is promoted or credited with forecast savings yet. AWS remains suspended; production/master stay unchanged.

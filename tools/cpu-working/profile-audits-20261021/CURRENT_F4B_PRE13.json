@@ -1,0 +1,1898 @@
+{
+  "status": "EXACT_QUALIFIED_CURRENT_F4B_PRE13_PROFILE_AND_SOURCE_PROVEN_Q186_COVERAGE",
+  "created_utc": "2026-10-21T06:26:56.166926+00:00",
+  "actual_configuration": {
+    "wrf_sha256": "f4b3c348c12c4863a869a7f9da0ede6516406989758e7a320fb6042ba5ee55c8",
+    "codec_sha256": "937130c2a2d53e1d11c978dce1b661400daca9da7b8ae99029333dbc1103d178",
+    "output_shim_prefix": "51a31b3c",
+    "world": 512,
+    "compute": 480,
+    "quilt": 32,
+    "tiles": 2,
+    "ucx": "rc,sm,self",
+    "IB_device": "ibp1s0f0:1",
+    "dual_rail": false
+  },
+  "science": {
+    "original_products_exact": 2,
+    "ordered_steps_exact": 230,
+    "final_model_time": "2026-10-12_13:15:00",
+    "all512_identity_rank_input_library_tile_checks_pass": true,
+    "all_model_reader_recorder_jobs_closed": true,
+    "scientific_checker_changed": false
+  },
+  "raw_label_disclosure": "Frozen RESULT order retains an inherited3582/e1d8 descriptive label. Actual grant/runtime proofs bind f4b/9371. Frozen record preserved; no historical qualification transfer.",
+  "metrics": {
+    "wall_seconds": {
+      "retained_original": 444.66616299399175,
+      "fresh_profiled_f4b": 309.57300540292636,
+      "descriptive_reduction_percent": 30.3808044852045
+    },
+    "cpu_seconds": {
+      "retained_original": 194209.614414,
+      "fresh_profiled_f4b": 151440.388358,
+      "descriptive_reduction_percent": 22.022198120855187
+    },
+    "main_step_sum_seconds": {
+      "retained_original": 262.59716,
+      "fresh_profiled_f4b": 236.23527,
+      "descriptive_reduction_percent": 10.038909027043537
+    }
+  },
+  "performance_qualification": false,
+  "timing_scope": "UNPAIRED instrumented75m diagnostic vs retained original scientific reference. Client cache clear before candidate; server cache/load uncontrolled. Main-step includes comm/backpressure, not integrationCPU; wall-minus-main not pureIO. Selected unprofiled3h remains benchmark.",
+  "early_acquisition": "All3 target PIDs/cores/currentobservermaps/perfFDidentity and two rawgrowth transitions checked before forecast ended. Legacy monitor checked obsoleteobservername; actualcurrentmap proof passes.",
+  "common_capture_seconds": 14.95987361,
+  "pre13_coverage": {
+    "status": "COVERED_SOURCE_PROVEN_PRE13_IO_GAP_THROUGH_Q186",
+    "actual_ordered_step_join_185_186": true,
+    "ranks": {
+      "0": {
+        "prior185_exit_to186_entry_fully_within_common_sample_window": true,
+        "q186_entry_within_common_sample_window": true,
+        "q186_exit_within_common_sample_window": true,
+        "q186_has_common_samples": true
+      },
+      "120": {
+        "prior185_exit_to186_entry_fully_within_common_sample_window": true,
+        "q186_entry_within_common_sample_window": true,
+        "q186_exit_within_common_sample_window": true,
+        "q186_has_common_samples": true
+      },
+      "124": {
+        "prior185_exit_to186_entry_fully_within_common_sample_window": true,
+        "q186_entry_within_common_sample_window": true,
+        "q186_exit_within_common_sample_window": true,
+        "q186_has_common_samples": true
+      }
+    },
+    "source_proof_scope": "Original source-proven med_before_solve_io/history13:00 occurs inside185exit\u2192186entry; full gap inclusion is conservative coverage, not a measured I/O duration. MISSED is retained with no autoextend/retry."
+  },
+  "profiles": {
+    "0": {
+      "pid": 3776455,
+      "q186_existing_clocks": {
+        "gap_wall_ns": 1354101728,
+        "gap_thread_cpu_ns": 1285770482,
+        "gather_wall_ns": 894579316,
+        "gather_thread_cpu_ns": 855935042
+      },
+      "counts_and_period_conserved": true,
+      "common": {
+        "sample_count": 700,
+        "period_sum": 36846147141,
+        "top8_function_groups": [
+          {
+            "dso": "/usr/lib/x86_64-linux-gnu/ucx/libuct_ib.so.0.0.0",
+            "known_dso": true,
+            "function": "[unknown]",
+            "recognized_symbol": false,
+            "sample_count": 73,
+            "period": 3817489713
+          },
+          {
+            "dso": "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib/libopen-pal.so.40.30.3",
+            "known_dso": true,
+            "function": "opal_progress",
+            "recognized_symbol": true,
+            "sample_count": 55,
+            "period": 2890885994
+          },
+          {
+            "dso": "/usr/lib/x86_64-linux-gnu/libucp.so.0.0.0",
+            "known_dso": true,
+            "function": "ucp_worker_progress",
+            "recognized_symbol": true,
+            "sample_count": 48,
+            "period": 2506908639
+          },
+          {
+            "dso": "/usr/lib/x86_64-linux-gnu/libuct.so.0.0.0",
+            "known_dso": true,
+            "function": "[unknown]",
+            "recognized_symbol": false,
+            "sample_count": 48,
+            "period": 2494243707
+          },
+          {
+            "dso": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+            "known_dso": true,
+            "function": "[unknown]",
+            "recognized_symbol": false,
+            "sample_count": 43,
+            "period": 2237308101
+          },
+          {
+            "dso": "/pool/wrf-experiment/wrf-cpu/builds/current0a551-one-bc-packed-copy-hpc02-r1/wrf.exe",
+            "known_dso": true,
+            "function": "__rrtmg_sw_spcvmc_MOD_spcvmc_sw",
+            "recognized_symbol": true,
+            "sample_count": 30,
+            "period": 1614515115
+          },
+          {
+            "dso": "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib/libopen-pal.so.40.30.3",
+            "known_dso": true,
+            "function": "opal_timer_linux_get_cycles_sys_timer",
+            "recognized_symbol": true,
+            "sample_count": 30,
+            "period": 1554499141
+          },
+          {
+            "dso": "/pool/wrf-experiment/wrf-cpu/builds/current0a551-one-bc-packed-copy-hpc02-r1/wrf.exe",
+            "known_dso": true,
+            "function": "__rrtmg_sw_vrtqdr_MOD_vrtqdr_sw_pair",
+            "recognized_symbol": true,
+            "sample_count": 28,
+            "period": 1500032176
+          }
+        ]
+      },
+      "q186_intergather": {
+        "sample_count": 64,
+        "period_sum": 3344906568,
+        "top8_function_groups": [
+          {
+            "dso": "/usr/lib/x86_64-linux-gnu/ucx/libuct_ib.so.0.0.0",
+            "known_dso": true,
+            "function": "[unknown]",
+            "recognized_symbol": false,
+            "sample_count": 9,
+            "period": 461193180
+          },
+          {
+            "dso": "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib/libopen-pal.so.40.30.3",
+            "known_dso": true,
+            "function": "opal_progress",
+            "recognized_symbol": true,
+            "sample_count": 6,
+            "period": 316159465
+          },
+          {
+            "dso": "/usr/lib/x86_64-linux-gnu/libuct.so.0.0.0",
+            "known_dso": true,
+            "function": "[unknown]",
+            "recognized_symbol": false,
+            "sample_count": 5,
+            "period": 262009387
+          },
+          {
+            "dso": "/usr/lib/x86_64-linux-gnu/libucp.so.0.0.0",
+            "known_dso": true,
+            "function": "ucp_worker_progress",
+            "recognized_symbol": true,
+            "sample_count": 5,
+            "period": 258509105
+          },
+          {
+            "dso": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+            "known_dso": true,
+            "function": "[unknown]",
+            "recognized_symbol": false,
+            "sample_count": 4,
+            "period": 207366117
+          },
+          {
+            "dso": "/usr/lib/x86_64-linux-gnu/libucs.so.0.0.0",
+            "known_dso": true,
+            "function": "ucs_arbiter_dispatch_nonempty",
+            "recognized_symbol": true,
+            "sample_count": 2,
+            "period": 105535633
+          },
+          {
+            "dso": "/usr/lib/x86_64-linux-gnu/libm.so.6",
+            "known_dso": true,
+            "function": "[unknown]",
+            "recognized_symbol": false,
+            "sample_count": 2,
+            "period": 104892599
+          },
+          {
+            "dso": "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib/openmpi/mca_pml_ucx.so",
+            "known_dso": true,
+            "function": "mca_pml_ucx_send",
+            "recognized_symbol": true,
+            "sample_count": 2,
+            "period": 104414299
+          }
+        ]
+      },
+      "q186_gather": {
+        "sample_count": 42,
+        "period_sum": 2217499968,
+        "top8_function_groups": [
+          {
+            "dso": "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib/libopen-pal.so.40.30.3",
+            "known_dso": true,
+            "function": "opal_progress",
+            "recognized_symbol": true,
+            "sample_count": 12,
+            "period": 636107410
+          },
+          {
+            "dso": "/usr/lib/x86_64-linux-gnu/ucx/libuct_ib.so.0.0.0",
+            "known_dso": true,
+            "function": "[unknown]",
+            "recognized_symbol": false,
+            "sample_count": 10,
+            "period": 528227937
+          },
+          {
+            "dso": "/usr/lib/x86_64-linux-gnu/libuct.so.0.0.0",
+            "known_dso": true,
+            "function": "[unknown]",
+            "recognized_symbol": false,
+            "sample_count": 6,
+            "period": 316278317
+          },
+          {
+            "dso": "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib/libopen-pal.so.40.30.3",
+            "known_dso": true,
+            "function": "opal_timer_linux_get_cycles_sys_timer",
+            "recognized_symbol": true,
+            "sample_count": 5,
+            "period": 264166200
+          },
+          {
+            "dso": "/usr/lib/x86_64-linux-gnu/libucp.so.0.0.0",
+            "known_dso": true,
+            "function": "ucp_worker_progress",
+            "recognized_symbol": true,
+            "sample_count": 4,
+            "period": 210617961
+          },
+          {
+            "dso": "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib/openmpi/mca_coll_libnbc.so",
+            "known_dso": true,
+            "function": "ompi_coll_libnbc_progress",
+            "recognized_symbol": true,
+            "sample_count": 2,
+            "period": 104811058
+          },
+          {
+            "dso": "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib/libopen-pal.so.40.30.3",
+            "known_dso": true,
+            "function": "opal_progress_events.isra.0",
+            "recognized_symbol": true,
+            "sample_count": 2,
+            "period": 104742173
+          },
+          {
+            "dso": "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib/libopen-pal.so.40.30.3",
+            "known_dso": true,
+            "function": "ompi_sync_wait_mt",
+            "recognized_symbol": true,
+            "sample_count": 1,
+            "period": 52548912
+          }
+        ]
+      }
+    },
+    "120": {
+      "pid": 3776486,
+      "q186_existing_clocks": {
+        "gap_wall_ns": 2160140379,
+        "gap_thread_cpu_ns": 2056775350,
+        "gather_wall_ns": 88765552,
+        "gather_thread_cpu_ns": 88761009
+      },
+      "counts_and_period_conserved": true,
+      "common": {
+        "sample_count": 696,
+        "period_sum": 37260657843,
+        "top8_function_groups": [
+          {
+            "dso": "/usr/lib/x86_64-linux-gnu/ucx/libuct_ib.so.0.0.0",
+            "known_dso": true,
+            "function": "[unknown]",
+            "recognized_symbol": false,
+            "sample_count": 82,
+            "period": 4348116794
+          },
+          {
+            "dso": "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib/libopen-pal.so.40.30.3",
+            "known_dso": true,
+            "function": "opal_progress",
+            "recognized_symbol": true,
+            "sample_count": 60,
+            "period": 3154928264
+          },
+          {
+            "dso": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+            "known_dso": true,
+            "function": "[unknown]",
+            "recognized_symbol": false,
+            "sample_count": 51,
+            "period": 2768979849
+          },
+          {
+            "dso": "/usr/lib/x86_64-linux-gnu/libuct.so.0.0.0",
+            "known_dso": true,
+            "function": "[unknown]",
+            "recognized_symbol": false,
+            "sample_count": 41,
+            "period": 2164326858
+          },
+          {
+            "dso": "/usr/lib/x86_64-linux-gnu/libucp.so.0.0.0",
+            "known_dso": true,
+            "function": "ucp_worker_progress",
+            "recognized_symbol": true,
+            "sample_count": 35,
+            "period": 1850963395
+          },
+          {
+            "dso": "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib/libopen-pal.so.40.30.3",
+            "known_dso": true,
+            "function": "opal_timer_linux_get_cycles_sys_timer",
+            "recognized_symbol": true,
+            "sample_count": 26,
+            "period": 1381779674
+          },
+          {
+            "dso": "/pool/wrf-experiment/wrf-cpu/builds/current0a551-one-bc-packed-copy-hpc02-r1/wrf.exe",
+            "known_dso": true,
+            "function": "__rrtmg_sw_spcvmc_MOD_spcvmc_sw",
+            "recognized_symbol": true,
+            "sample_count": 25,
+            "period": 1372312723
+          },
+          {
+            "dso": "/pool/wrf-experiment/wrf-cpu/builds/current0a551-one-bc-packed-copy-hpc02-r1/wrf.exe",
+            "known_dso": true,
+            "function": "__rrtmg_sw_vrtqdr_MOD_vrtqdr_sw_pair",
+            "recognized_symbol": true,
+            "sample_count": 25,
+            "period": 1367765271
+          }
+        ]
+      },
+      "q186_intergather": {
+        "sample_count": 101,
+        "period_sum": 5364203400,
+        "top8_function_groups": [
+          {
+            "dso": "/usr/lib/x86_64-linux-gnu/ucx/libuct_ib.so.0.0.0",
+            "known_dso": true,
+            "function": "[unknown]",
+            "recognized_symbol": false,
+            "sample_count": 31,
+            "period": 1651526212
+          },
+          {
+            "dso": "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib/openmpi/mca_pml_ucx.so",
+            "known_dso": true,
+            "function": "mca_pml_ucx_send",
+            "recognized_symbol": true,
+            "sample_count": 15,
+            "period": 777391134
+          },
+          {
+            "dso": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+            "known_dso": true,
+            "function": "[unknown]",
+            "recognized_symbol": false,
+            "sample_count": 8,
+            "period": 438767850
+          },
+          {
+            "dso": "/usr/lib/x86_64-linux-gnu/libuct.so.0.0.0",
+            "known_dso": true,
+            "function": "[unknown]",
+            "recognized_symbol": false,
+            "sample_count": 8,
+            "period": 418893128
+          },
+          {
+            "dso": "/usr/lib/x86_64-linux-gnu/libucp.so.0.0.0",
+            "known_dso": true,
+            "function": "ucp_request_check_status",
+            "recognized_symbol": true,
+            "sample_count": 6,
+            "period": 319273273
+          },
+          {
+            "dso": "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib/libopen-pal.so.40.30.3",
+            "known_dso": true,
+            "function": "opal_progress",
+            "recognized_symbol": true,
+            "sample_count": 5,
+            "period": 257506900
+          },
+          {
+            "dso": "/usr/lib/x86_64-linux-gnu/libm.so.6",
+            "known_dso": true,
+            "function": "[unknown]",
+            "recognized_symbol": false,
+            "sample_count": 3,
+            "period": 161036706
+          },
+          {
+            "dso": "/usr/lib/x86_64-linux-gnu/libucp.so.0.0.0",
+            "known_dso": true,
+            "function": "ucp_worker_progress",
+            "recognized_symbol": true,
+            "sample_count": 3,
+            "period": 158938378
+          }
+        ]
+      },
+      "q186_gather": {
+        "sample_count": 4,
+        "period_sum": 217052901,
+        "top8_function_groups": [
+          {
+            "dso": "/usr/lib/x86_64-linux-gnu/libucp.so.0.0.0",
+            "known_dso": true,
+            "function": "ucp_worker_progress",
+            "recognized_symbol": true,
+            "sample_count": 2,
+            "period": 108463676
+          },
+          {
+            "dso": "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib/libopen-pal.so.40.30.3",
+            "known_dso": true,
+            "function": "opal_progress",
+            "recognized_symbol": true,
+            "sample_count": 1,
+            "period": 54314900
+          },
+          {
+            "dso": "/usr/lib/x86_64-linux-gnu/ucx/libuct_ib.so.0.0.0",
+            "known_dso": true,
+            "function": "[unknown]",
+            "recognized_symbol": false,
+            "sample_count": 1,
+            "period": 54274325
+          }
+        ]
+      }
+    },
+    "124": {
+      "pid": 3776483,
+      "q186_existing_clocks": {
+        "gap_wall_ns": 2214213377,
+        "gap_thread_cpu_ns": 2111647117,
+        "gather_wall_ns": 34701464,
+        "gather_thread_cpu_ns": 34698556
+      },
+      "counts_and_period_conserved": true,
+      "common": {
+        "sample_count": 697,
+        "period_sum": 37202419899,
+        "top8_function_groups": [
+          {
+            "dso": "/usr/lib/x86_64-linux-gnu/ucx/libuct_ib.so.0.0.0",
+            "known_dso": true,
+            "function": "[unknown]",
+            "recognized_symbol": false,
+            "sample_count": 72,
+            "period": 3830167611
+          },
+          {
+            "dso": "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib/libopen-pal.so.40.30.3",
+            "known_dso": true,
+            "function": "opal_progress",
+            "recognized_symbol": true,
+            "sample_count": 55,
+            "period": 2890848886
+          },
+          {
+            "dso": "/usr/lib/x86_64-linux-gnu/libucp.so.0.0.0",
+            "known_dso": true,
+            "function": "ucp_worker_progress",
+            "recognized_symbol": true,
+            "sample_count": 47,
+            "period": 2453475288
+          },
+          {
+            "dso": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+            "known_dso": true,
+            "function": "[unknown]",
+            "recognized_symbol": false,
+            "sample_count": 43,
+            "period": 2312928918
+          },
+          {
+            "dso": "/usr/lib/x86_64-linux-gnu/libuct.so.0.0.0",
+            "known_dso": true,
+            "function": "[unknown]",
+            "recognized_symbol": false,
+            "sample_count": 41,
+            "period": 2127522586
+          },
+          {
+            "dso": "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib/libopen-pal.so.40.30.3",
+            "known_dso": true,
+            "function": "opal_timer_linux_get_cycles_sys_timer",
+            "recognized_symbol": true,
+            "sample_count": 34,
+            "period": 1778423852
+          },
+          {
+            "dso": "/pool/wrf-experiment/wrf-cpu/builds/current0a551-one-bc-packed-copy-hpc02-r1/wrf.exe",
+            "known_dso": true,
+            "function": "__rrtmg_sw_spcvmc_MOD_spcvmc_sw",
+            "recognized_symbol": true,
+            "sample_count": 19,
+            "period": 1040962915
+          },
+          {
+            "dso": "/pool/wrf-experiment/wrf-cpu/builds/current0a551-one-bc-packed-copy-hpc02-r1/wrf.exe",
+            "known_dso": true,
+            "function": "__module_advect_em_MOD_advect_scalar_pd",
+            "recognized_symbol": true,
+            "sample_count": 17,
+            "period": 968730356
+          }
+        ]
+      },
+      "q186_intergather": {
+        "sample_count": 103,
+        "period_sum": 5479302434,
+        "top8_function_groups": [
+          {
+            "dso": "/usr/lib/x86_64-linux-gnu/ucx/libuct_ib.so.0.0.0",
+            "known_dso": true,
+            "function": "[unknown]",
+            "recognized_symbol": false,
+            "sample_count": 24,
+            "period": 1271102337
+          },
+          {
+            "dso": "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib/openmpi/mca_pml_ucx.so",
+            "known_dso": true,
+            "function": "mca_pml_ucx_send",
+            "recognized_symbol": true,
+            "sample_count": 18,
+            "period": 950902811
+          },
+          {
+            "dso": "/usr/lib/x86_64-linux-gnu/libucp.so.0.0.0",
+            "known_dso": true,
+            "function": "ucp_worker_progress",
+            "recognized_symbol": true,
+            "sample_count": 9,
+            "period": 480890075
+          },
+          {
+            "dso": "/usr/lib/x86_64-linux-gnu/libuct.so.0.0.0",
+            "known_dso": true,
+            "function": "[unknown]",
+            "recognized_symbol": false,
+            "sample_count": 8,
+            "period": 419486175
+          },
+          {
+            "dso": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+            "known_dso": true,
+            "function": "[unknown]",
+            "recognized_symbol": false,
+            "sample_count": 5,
+            "period": 260703799
+          },
+          {
+            "dso": "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib/libopen-pal.so.40.30.3",
+            "known_dso": true,
+            "function": "opal_timer_linux_get_cycles_sys_timer",
+            "recognized_symbol": true,
+            "sample_count": 5,
+            "period": 260349277
+          },
+          {
+            "dso": "/usr/lib/x86_64-linux-gnu/libm.so.6",
+            "known_dso": true,
+            "function": "[unknown]",
+            "recognized_symbol": false,
+            "sample_count": 4,
+            "period": 223467190
+          },
+          {
+            "dso": "/usr/lib/x86_64-linux-gnu/libucp.so.0.0.0",
+            "known_dso": true,
+            "function": "ucp_request_check_status",
+            "recognized_symbol": true,
+            "sample_count": 4,
+            "period": 214378311
+          }
+        ]
+      },
+      "q186_gather": {
+        "sample_count": 2,
+        "period_sum": 108567036,
+        "top8_function_groups": [
+          {
+            "dso": "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib/libopen-pal.so.40.30.3",
+            "known_dso": true,
+            "function": "ompi_sync_wait_mt",
+            "recognized_symbol": true,
+            "sample_count": 1,
+            "period": 54286898
+          },
+          {
+            "dso": "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib/libopen-pal.so.40.30.3",
+            "known_dso": true,
+            "function": "opal_progress",
+            "recognized_symbol": true,
+            "sample_count": 1,
+            "period": 54280138
+          }
+        ]
+      }
+    }
+  },
+  "q186_hpc01_120rank_entry_spread_ns": 951629119,
+  "q186_ranks_later_than_selected": {
+    "0": 109,
+    "120": 1,
+    "124": 0
+  },
+  "interpretation": "185exit\u2192186entry contains13:00history but also previoussolve, otherMPI and scheduling. Late120/124 show send/progress;0 reaches gather earlier. Primary IP does not prove output versus halo caller, networkcapacity or removablecost. Within-host clocks only; no global critical-rank winner.",
+  "caller_ancestry_status": "PASS_REPRESENTATION_ONLY_R2_SAME_CLOSED_RAW; originalR1failure retained",
+  "loss_scope": "No parsed/header count disagreement observed; producer loss remains UNKNOWN.",
+  "raw_references": [
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-calc-bc-pre13-noon75m-joint-runtime-r1/RESULT.json",
+      "sha256": "36b869a8c299bdf0c17d5dae42b3deb9f6732964bc3fc35e6e2e39f6ee820530",
+      "bytes": 1137
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-calc-bc-pre13-noon75m-joint-runtime-r1/science-receipt.json",
+      "sha256": "8269a76e58b7b31d0b92aaa98e4bca9bfdf413bc2bed17b32c7a7a4ec4253feb",
+      "bytes": 4505386
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-calc-bc-pre13-noon75m-joint-runtime-r1/reader-closure.json",
+      "sha256": "3d776ffa02798a514443654da0f2038f6a186d9e6fd75f9bb540a91070724e97",
+      "bytes": 4183
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-calc-bc-pre13-noon75m-joint-runtime-r1/candidate-closures.json",
+      "sha256": "3232d47d75bd36aa3f3569c2297556cba3678336ed54b50e598e0eb70dc04c61",
+      "bytes": 24179
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-calc-bc-pre13-noon75m-joint-runtime-r1/ACTUAL_LIVE_CAPTURE.jsonl",
+      "sha256": "a00cc35083d86320b79be612aa1a6e2f75415c39464e37c779144a65983897b0",
+      "bytes": 10877
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-calc-bc-pre13-noon75m-joint-runtime-r1/current-target-early-health.json",
+      "sha256": "ace2858680ebce5b0055f5ab37553e5b76e3f60e049f06e4857da057153287f7",
+      "bytes": 1064
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-calc-bc-pre13-noon75m-joint-runtime-r1/pre-reader-profile-closure-check.json",
+      "sha256": "1bc14e72a2be6e3aa71456840ccde09a89b7193e4ee1ea33ab6f1261e67eec08",
+      "bytes": 959
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-calc-bc-pre13-noon75m-joint-runtime-r1/lease-candidate-granted.json",
+      "sha256": "b5d15af6d6f5966d9150c59fd210e073b4a703630ea701d12eaec609fbe5806e",
+      "bytes": 156517
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-calc-bc-pre13-noon75m-joint-runtime-r1/source-pins.json",
+      "sha256": "707031ccf896f880f37b527e6b84cbad58c061d74c030ad1a0a8c5b8831cea6b",
+      "bytes": 87973
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-calc-bc-pre13-joint-profile-preparation-r1/closed-pre13-samewindow-analysis-preparation-r1/ACTUAL_GAP_ANALYSIS.json",
+      "sha256": "02690ea81a1f67afe572bd787fafe01a1e2ee7ff2aa0f69e0138a2d54d4fbe05",
+      "bytes": 54964
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-calc-bc-pre13-joint-profile-preparation-r1/closed-pre13-samewindow-analysis-preparation-r1/ACTUAL_CLOSURE.json",
+      "sha256": "3c8630704bcec2317775f6a35431f766a8d8271c42746ba5816675c49d2e1eae",
+      "bytes": 3096
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-calc-bc-pre13-joint-profile-preparation-r1/closed-pre13-function-groups-preparation-r1/ACTUAL_FUNCTION_GROUPS.json",
+      "sha256": "e51cb51355fffd368c7835ed5bf156bcbc1ac7a9fbb1d593553c297156226ab8",
+      "bytes": 407409
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-calc-bc-pre13-joint-profile-preparation-r1/closed-pre13-function-groups-preparation-r1/ACTUAL_CLOSURE.json",
+      "sha256": "eb63d8d27393e1f488e98357b94147432ee542aa80143b71920b7a627a918593",
+      "bytes": 1696
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-calc-bc-pre13-joint-profile-preparation-r1/closed-pre13-caller-ancestry-preparation-r1/ACTUAL_CALLER_ANCESTRY.json",
+      "sha256": "45d7a27774193e326475a887e22e57058877c17231e465f788c0b0289184fcf4",
+      "bytes": 1040
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-calc-bc-pre13-joint-profile-preparation-r1/closed-pre13-caller-ancestry-preparation-r1/ACTUAL_CLOSURE.json",
+      "sha256": "25a358f22c48ae88c1648837cd63ef744b981156ecae3ca7e9aba15beaf39f07",
+      "bytes": 6924
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-calc-bc-pre13-joint-profile-preparation-r1/closed-pre13-caller-ancestry-preparation-r1/literal-identity-mismatch-diagnostic-r2/ACTUAL_LITERAL_DIFFERENCE.json",
+      "sha256": "bfb115fed9c66ff426198746d8ed7a01e8320ebb4b55f926be3a60e17866af91",
+      "bytes": 3853
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-calc-bc-pre13-joint-profile-preparation-r1/closed-pre13-caller-ancestry-preparation-r2/ACTUAL_CALLER_ANCESTRY.json",
+      "sha256": "08e385c5a2ce57c168b640b24143ba2070580c0cf5e9e69b8535845e310acdc2",
+      "bytes": 269147
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-calc-bc-pre13-joint-profile-preparation-r1/closed-pre13-caller-ancestry-preparation-r2/ACTUAL_CLOSURE.json",
+      "sha256": "179c25f126b7d33142d7e0f8616054d081df7229d562cc933c80d2ca7feffe4c",
+      "bytes": 5234
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-calc-bc-pre13-joint-profile-preparation-r1/closed-pre13-caller-ancestry-preparation-r2/R1_TO_R2_REPRESENTATION_ONLY.diff",
+      "sha256": "d2837053ff4e7f17ae8155275af3e848f54bba3293b606226602cc22ae3e0b35",
+      "bytes": 7624
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-calc-bc-pre13-joint-profile-preparation-r1/closed-pre13-caller-ancestry-preparation-r2/source-pins.json",
+      "sha256": "f9b7da865668a38bf2f3d19bd0e9aacf5ded2326914aa6bd13942e5a00aa4741",
+      "bytes": 484
+    }
+  ],
+  "caller_ancestry": {
+    "invocation_id": "c5f9fbcda9544f139700a0e1daa99fa6",
+    "rank0_text_reused_without_perf_rerender": true,
+    "all5sampleidentities_and_firstIP_hard": true,
+    "only_literal_inlined_DSO_decoration_accepted": true,
+    "inline_owner": "UNKNOWN",
+    "scope": [
+      "Same selected main-thread samples only; ancestry is caller context, not replacement primaryIP or exclusive/global cost.",
+      "Unknown libc is not automatically copy/fill. Halo/output requires later actualcurrentELF/source sitejoin; old3bb PCs not used.",
+      "Only compact names/offset/counts/periods leave cluster; fullchains/stackbytes stay here."
+    ],
+    "ranks": {
+      "0": {
+        "all_parsed_samples": 702,
+        "gold_identity_and_first_frame_IP_exact": true,
+        "parse_mode": "REUSED_R1_HASH_VERIFIED_TEXT_NO_PERF_RERENDER",
+        "contexts": {
+          "common": {
+            "sample_count": 700,
+            "period_sum": 36846147141,
+            "unresolved_samples": 4,
+            "inline_decorations": 7,
+            "nearest_WRF_groups": [
+              {
+                "caller": "PRIMARY_WRF_NO_CALLER_ATTRIBUTION",
+                "samples": 328,
+                "period": 17429229833
+              },
+              {
+                "caller": "rsl_lite_exch_y_+0x1c3",
+                "samples": 103,
+                "period": 5368579251
+              },
+              {
+                "caller": "rsl_lite_exch_x_+0x1c3",
+                "samples": 90,
+                "period": 4719386594
+              },
+              {
+                "caller": "__module_dm_MOD_wrf_dm_mintile_double+0x65",
+                "samples": 87,
+                "period": 4563841872
+              },
+              {
+                "caller": "col_on_comm+0xd9",
+                "samples": 14,
+                "period": 724503354
+              },
+              {
+                "caller": "__module_big_step_utilities_em_MOD_zero_tend+0x15e",
+                "samples": 9,
+                "period": 479431452
+              },
+              {
+                "caller": "f_pack_int_ikj_+0x2f9",
+                "samples": 5,
+                "period": 257659200
+              },
+              {
+                "caller": "UNRESOLVED_NO_WRF_FRAME",
+                "samples": 4,
+                "period": 205649335
+              },
+              {
+                "caller": "__module_ieva_em_MOD_ww_split+0x2df",
+                "samples": 3,
+                "period": 164360602
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_compt_fr_the+0x248",
+                "samples": 4,
+                "period": 157911192
+              },
+              {
+                "caller": "__module_diag_nwp_MOD_diagnostic_output_nwp+0x35f9",
+                "samples": 2,
+                "period": 105018618
+              },
+              {
+                "caller": "__module_big_step_utilities_em_MOD_initialize_moist_old+0x18a",
+                "samples": 2,
+                "period": 104561306
+              },
+              {
+                "caller": "__module_radiation_driver_MOD_radiation_driver+0x3c50",
+                "samples": 1,
+                "period": 59650378
+              },
+              {
+                "caller": "__module_big_step_utilities_em_MOD_phy_prep+0x999",
+                "samples": 1,
+                "period": 59173426
+              },
+              {
+                "caller": "__module_surface_driver_MOD_surface_driver+0x1c80",
+                "samples": 1,
+                "period": 59106694
+              },
+              {
+                "caller": "__module_advect_em_MOD_advect_scalar+0x7c91",
+                "samples": 1,
+                "period": 58986481
+              },
+              {
+                "caller": "__wrf_esmf_timemod_MOD_esmfold_timegetstring+0xa3",
+                "samples": 1,
+                "period": 58354173
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_calc_refl10cm+0x1d3",
+                "samples": 1,
+                "period": 58169382
+              },
+              {
+                "caller": "__module_big_step_utilities_em_MOD_moist_physics_prep_em+0x720",
+                "samples": 1,
+                "period": 57276612
+              },
+              {
+                "caller": "__module_bl_myjpbl_MOD_myjpbl+0x143e",
+                "samples": 1,
+                "period": 56814269
+              },
+              {
+                "caller": "__module_small_step_em_MOD_small_step_prep+0x1e39",
+                "samples": 1,
+                "period": 56802074
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_mp_thompson+0x718",
+                "samples": 1,
+                "period": 55858025
+              },
+              {
+                "caller": "__diag_functions_MOD_thetae+0xa1",
+                "samples": 1,
+                "period": 55572031
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_calc_refl10cm+0x176",
+                "samples": 1,
+                "period": 55076755
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_calc_refl10cm+0x159e",
+                "samples": 1,
+                "period": 54657835
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_mp_thompson+0x264",
+                "samples": 1,
+                "period": 54592704
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_mp_thompson+0x837",
+                "samples": 1,
+                "period": 54582072
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_mp_thompson+0x1b15",
+                "samples": 1,
+                "period": 54488096
+              },
+              {
+                "caller": "__rrtmg_sw_vrtqdr_MOD_vrtqdr_sw_pair+0x411",
+                "samples": 1,
+                "period": 54246028
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_compt_fr_the+0x30b",
+                "samples": 1,
+                "period": 54107751
+              },
+              {
+                "caller": "__module_small_step_em_MOD_sumflux+0xb82",
+                "samples": 1,
+                "period": 54068123
+              },
+              {
+                "caller": "__module_bl_gwdo_MOD_gwdo+0x8c0",
+                "samples": 1,
+                "period": 53904323
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_mp_thompson+0x1bff",
+                "samples": 1,
+                "period": 53764282
+              },
+              {
+                "caller": "__rrtmg_lw_rad_MOD_rrtmg_lw+0x55b1",
+                "samples": 1,
+                "period": 53729200
+              },
+              {
+                "caller": "__module_small_step_em_MOD_advance_w+0x345b",
+                "samples": 1,
+                "period": 53629194
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_calc_refl10cm+0x1689",
+                "samples": 1,
+                "period": 53577413
+              },
+              {
+                "caller": "__module_diag_nwp_MOD_diagnostic_output_nwp+0x3633",
+                "samples": 1,
+                "period": 53416994
+              },
+              {
+                "caller": "__diag_functions_MOD_calc_rh+0x39",
+                "samples": 1,
+                "period": 53303860
+              },
+              {
+                "caller": "__module_dm_MOD_wrf_dm_maxtile_real+0x77",
+                "samples": 1,
+                "period": 53271664
+              },
+              {
+                "caller": "__rrtmg_lw_rad_MOD_rrtmg_lw+0xee6",
+                "samples": 1,
+                "period": 53062917
+              },
+              {
+                "caller": "__module_cu_tiedtke_MOD_cuadjtq+0x244",
+                "samples": 1,
+                "period": 52959797
+              },
+              {
+                "caller": "__module_small_step_em_MOD_small_step_prep+0x260a",
+                "samples": 1,
+                "period": 52926969
+              },
+              {
+                "caller": "__module_big_step_utilities_em_MOD_calc_p_rho_phi+0x6de",
+                "samples": 1,
+                "period": 52600314
+              },
+              {
+                "caller": "rsl_lite_exch_y_+0x1fe",
+                "samples": 1,
+                "period": 52503130
+              },
+              {
+                "caller": "vspow_+0x31",
+                "samples": 1,
+                "period": 52379856
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_mp_thompson+0x6c8",
+                "samples": 1,
+                "period": 52273820
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_mp_thompson+0x1bb1",
+                "samples": 1,
+                "period": 52164711
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_mp_thompson+0x1dfa",
+                "samples": 1,
+                "period": 52106299
+              },
+              {
+                "caller": "__module_configure_MOD_in_use_for_config+0x36c4a",
+                "samples": 1,
+                "period": 52083617
+              },
+              {
+                "caller": "__module_diag_nwp_MOD_diagnostic_output_nwp+0x35c0",
+                "samples": 1,
+                "period": 52015409
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_mp_thompson+0x19bc",
+                "samples": 1,
+                "period": 51875863
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_mp_thompson+0x2e16",
+                "samples": 1,
+                "period": 51749572
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_mp_thompson+0x936",
+                "samples": 2,
+                "period": 51706663
+              },
+              {
+                "caller": "__module_small_step_em_MOD_small_step_prep+0x24b9",
+                "samples": 1,
+                "period": 51348602
+              },
+              {
+                "caller": "__module_sf_noahlsm_MOD_tdfcnd+0x163",
+                "samples": 1,
+                "period": 50928179
+              },
+              {
+                "caller": "__module_bc_MOD_set_physical_bc3d+0xfb0",
+                "samples": 1,
+                "period": 49533912
+              },
+              {
+                "caller": "get_datatype_from_typesize+0x45",
+                "samples": 1,
+                "period": 48538386
+              },
+              {
+                "caller": "__module_cu_tiedtke_MOD_cuini+0xa99",
+                "samples": 1,
+                "period": 48445914
+              },
+              {
+                "caller": "wrf_quilt_write_field_+0x5c2",
+                "samples": 1,
+                "period": 45732439
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_mp_thompson+0x5da",
+                "samples": 1,
+                "period": 38898324
+              }
+            ]
+          },
+          "q186_intergather": {
+            "sample_count": 64,
+            "period_sum": 3344906568,
+            "unresolved_samples": 0,
+            "inline_decorations": 1,
+            "nearest_WRF_groups": [
+              {
+                "caller": "PRIMARY_WRF_NO_CALLER_ATTRIBUTION",
+                "samples": 23,
+                "period": 1222364576
+              },
+              {
+                "caller": "rsl_lite_exch_y_+0x1c3",
+                "samples": 15,
+                "period": 784494844
+              },
+              {
+                "caller": "col_on_comm+0xd9",
+                "samples": 14,
+                "period": 724503354
+              },
+              {
+                "caller": "rsl_lite_exch_x_+0x1c3",
+                "samples": 4,
+                "period": 207014253
+              },
+              {
+                "caller": "__module_big_step_utilities_em_MOD_zero_tend+0x15e",
+                "samples": 2,
+                "period": 103008680
+              },
+              {
+                "caller": "__diag_functions_MOD_thetae+0xa1",
+                "samples": 1,
+                "period": 55572031
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_mp_thompson+0x6c8",
+                "samples": 1,
+                "period": 52273820
+              },
+              {
+                "caller": "__module_configure_MOD_in_use_for_config+0x36c4a",
+                "samples": 1,
+                "period": 52083617
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_compt_fr_the+0x248",
+                "samples": 1,
+                "period": 49320568
+              },
+              {
+                "caller": "get_datatype_from_typesize+0x45",
+                "samples": 1,
+                "period": 48538386
+              },
+              {
+                "caller": "wrf_quilt_write_field_+0x5c2",
+                "samples": 1,
+                "period": 45732439
+              }
+            ]
+          },
+          "q186_gather": {
+            "sample_count": 42,
+            "period_sum": 2217499968,
+            "unresolved_samples": 0,
+            "inline_decorations": 0,
+            "nearest_WRF_groups": [
+              {
+                "caller": "__module_dm_MOD_wrf_dm_mintile_double+0x65",
+                "samples": 42,
+                "period": 2217499968
+              }
+            ]
+          }
+        }
+      },
+      "120": {
+        "all_parsed_samples": 702,
+        "gold_identity_and_first_frame_IP_exact": true,
+        "parse_mode": "ONE_EXISTING_RAW_PERF_SCRIPT_PASS",
+        "contexts": {
+          "common": {
+            "sample_count": 696,
+            "period_sum": 37260657843,
+            "unresolved_samples": 7,
+            "inline_decorations": 2,
+            "nearest_WRF_groups": [
+              {
+                "caller": "PRIMARY_WRF_NO_CALLER_ATTRIBUTION",
+                "samples": 330,
+                "period": 17831304526
+              },
+              {
+                "caller": "rsl_lite_exch_x_+0x1c3",
+                "samples": 80,
+                "period": 4206711252
+              },
+              {
+                "caller": "rsl_lite_exch_y_+0x1c3",
+                "samples": 73,
+                "period": 3878491677
+              },
+              {
+                "caller": "col_on_comm+0xd9",
+                "samples": 51,
+                "period": 2692135389
+              },
+              {
+                "caller": "__module_dm_MOD_wrf_dm_mintile_double+0x65",
+                "samples": 46,
+                "period": 2458582230
+              },
+              {
+                "caller": "rsl_lite_exch_y_+0x126",
+                "samples": 38,
+                "period": 1975433931
+              },
+              {
+                "caller": "__module_big_step_utilities_em_MOD_zero_tend+0x15e",
+                "samples": 13,
+                "period": 723246546
+              },
+              {
+                "caller": "UNRESOLVED_NO_WRF_FRAME",
+                "samples": 7,
+                "period": 365894747
+              },
+              {
+                "caller": "__module_ieva_em_MOD_ww_split+0x2df",
+                "samples": 6,
+                "period": 324618130
+              },
+              {
+                "caller": "f_pack_int_ikj_+0x2f9",
+                "samples": 5,
+                "period": 270241348
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_mp_thompson+0x1dfa",
+                "samples": 2,
+                "period": 110331784
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_calc_refl10cm+0x22d",
+                "samples": 2,
+                "period": 108232330
+              },
+              {
+                "caller": "__module_diag_nwp_MOD_diagnostic_output_nwp+0x35f9",
+                "samples": 2,
+                "period": 104094177
+              },
+              {
+                "caller": "vspow_+0x31",
+                "samples": 2,
+                "period": 103955109
+              },
+              {
+                "caller": "__diag_functions_MOD_calc_rh+0x39",
+                "samples": 2,
+                "period": 102685281
+              },
+              {
+                "caller": "f_unpack_int_ikj_+0x309",
+                "samples": 2,
+                "period": 101243388
+              },
+              {
+                "caller": "__module_sf_noahlsm_MOD_smflx+0x5d0",
+                "samples": 1,
+                "period": 59135850
+              },
+              {
+                "caller": "__module_advect_em_MOD_advect_scalar_pd+0x4685",
+                "samples": 1,
+                "period": 58194102
+              },
+              {
+                "caller": "col_on_comm+0x2f",
+                "samples": 1,
+                "period": 57697755
+              },
+              {
+                "caller": "__module_sf_myjsfc_MOD_myjsfc+0xd11",
+                "samples": 1,
+                "period": 57233705
+              },
+              {
+                "caller": "__diag_functions_MOD_the2t+0xcf",
+                "samples": 1,
+                "period": 56459290
+              },
+              {
+                "caller": "__module_cu_tiedtke_MOD_cu_tiedtke+0xfdc",
+                "samples": 1,
+                "period": 56315083
+              },
+              {
+                "caller": "__module_pbl_driver_MOD_pbl_driver+0x1fc9",
+                "samples": 1,
+                "period": 55782044
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_mp_thompson+0x1998",
+                "samples": 1,
+                "period": 55457081
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_mp_thompson+0x50f",
+                "samples": 1,
+                "period": 55392924
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_mp_thompson+0x185b",
+                "samples": 1,
+                "period": 55369157
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_mp_thompson+0x1b15",
+                "samples": 1,
+                "period": 55308045
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_mp_thompson+0x1882",
+                "samples": 1,
+                "period": 55289292
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_calc_refl10cm+0x14b2",
+                "samples": 1,
+                "period": 55148725
+              },
+              {
+                "caller": "__module_ra_rrtmg_sw_MOD_rrtmg_swrad+0x44dc",
+                "samples": 1,
+                "period": 55021997
+              },
+              {
+                "caller": "__module_small_step_em_MOD_small_step_prep+0x21aa",
+                "samples": 1,
+                "period": 54984915
+              },
+              {
+                "caller": "__rrtmg_sw_spcvmc_MOD_spcvmc_sw+0x340e",
+                "samples": 1,
+                "period": 54955344
+              },
+              {
+                "caller": "__module_small_step_em_MOD_sumflux+0xb75",
+                "samples": 1,
+                "period": 54948243
+              },
+              {
+                "caller": "__rrtmg_sw_vrtqdr_MOD_vrtqdr_sw_pair+0x411",
+                "samples": 1,
+                "period": 54938281
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_calc_refl10cm+0x156a",
+                "samples": 1,
+                "period": 54782005
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_compt_fr_the+0x69",
+                "samples": 1,
+                "period": 54567045
+              },
+              {
+                "caller": "__module_cu_tiedtke_MOD_cumastr_new+0x3a8",
+                "samples": 1,
+                "period": 54307032
+              },
+              {
+                "caller": "__module_big_step_utilities_em_MOD_initialize_moist_old+0x18a",
+                "samples": 1,
+                "period": 54301603
+              },
+              {
+                "caller": "__mcica_subcol_gen_sw_MOD_generate_stochastic_clouds_sw+0x12fe",
+                "samples": 1,
+                "period": 54183792
+              },
+              {
+                "caller": "__module_dm_MOD_wrf_dm_maxtile_real+0x77",
+                "samples": 1,
+                "period": 54042666
+              },
+              {
+                "caller": "__module_em_MOD_rk_update_scalar+0x1a65",
+                "samples": 1,
+                "period": 54040335
+              },
+              {
+                "caller": "__module_diag_afwa_MOD_afwa_diagnostics_driver+0x1fae",
+                "samples": 1,
+                "period": 53969143
+              },
+              {
+                "caller": "__rrtmg_lw_rad_MOD_rrtmg_lw+0x54e6",
+                "samples": 1,
+                "period": 53833001
+              },
+              {
+                "caller": "__module_small_step_em_MOD_sumflux+0xb82",
+                "samples": 1,
+                "period": 53214477
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_calc_refl10cm+0x15ab",
+                "samples": 1,
+                "period": 53177954
+              },
+              {
+                "caller": "rsl_lite_exch_y_+0x318",
+                "samples": 1,
+                "period": 52975825
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_calc_refl10cm+0x1539",
+                "samples": 1,
+                "period": 52117577
+              },
+              {
+                "caller": "__module_diffusion_em_MOD_calculate_n2+0x1009",
+                "samples": 1,
+                "period": 52069944
+              },
+              {
+                "caller": "wrf_quilt_write_field_+0x7ec",
+                "samples": 1,
+                "period": 50413467
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_mp_thompson+0x502",
+                "samples": 1,
+                "period": 49793111
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_mp_thompson+0x274",
+                "samples": 1,
+                "period": 44035188
+              }
+            ]
+          },
+          "q186_intergather": {
+            "sample_count": 101,
+            "period_sum": 5364203400,
+            "unresolved_samples": 1,
+            "inline_decorations": 1,
+            "nearest_WRF_groups": [
+              {
+                "caller": "col_on_comm+0xd9",
+                "samples": 51,
+                "period": 2692135389
+              },
+              {
+                "caller": "PRIMARY_WRF_NO_CALLER_ATTRIBUTION",
+                "samples": 18,
+                "period": 968045097
+              },
+              {
+                "caller": "rsl_lite_exch_x_+0x1c3",
+                "samples": 11,
+                "period": 570999314
+              },
+              {
+                "caller": "rsl_lite_exch_y_+0x1c3",
+                "samples": 4,
+                "period": 215587622
+              },
+              {
+                "caller": "rsl_lite_exch_y_+0x126",
+                "samples": 4,
+                "period": 206914039
+              },
+              {
+                "caller": "f_pack_int_ikj_+0x2f9",
+                "samples": 2,
+                "period": 113599522
+              },
+              {
+                "caller": "__module_big_step_utilities_em_MOD_zero_tend+0x15e",
+                "samples": 2,
+                "period": 112281866
+              },
+              {
+                "caller": "col_on_comm+0x2f",
+                "samples": 1,
+                "period": 57697755
+              },
+              {
+                "caller": "__diag_functions_MOD_the2t+0xcf",
+                "samples": 1,
+                "period": 56459290
+              },
+              {
+                "caller": "__module_cu_tiedtke_MOD_cu_tiedtke+0xfdc",
+                "samples": 1,
+                "period": 56315083
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_calc_refl10cm+0x14b2",
+                "samples": 1,
+                "period": 55148725
+              },
+              {
+                "caller": "__module_em_MOD_rk_update_scalar+0x1a65",
+                "samples": 1,
+                "period": 54040335
+              },
+              {
+                "caller": "UNRESOLVED_NO_WRF_FRAME",
+                "samples": 1,
+                "period": 53019628
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_calc_refl10cm+0x1539",
+                "samples": 1,
+                "period": 52117577
+              },
+              {
+                "caller": "wrf_quilt_write_field_+0x7ec",
+                "samples": 1,
+                "period": 50413467
+              },
+              {
+                "caller": "__diag_functions_MOD_calc_rh+0x39",
+                "samples": 1,
+                "period": 49428691
+              }
+            ]
+          },
+          "q186_gather": {
+            "sample_count": 4,
+            "period_sum": 217052901,
+            "unresolved_samples": 0,
+            "inline_decorations": 0,
+            "nearest_WRF_groups": [
+              {
+                "caller": "__module_dm_MOD_wrf_dm_mintile_double+0x65",
+                "samples": 4,
+                "period": 217052901
+              }
+            ]
+          }
+        }
+      },
+      "124": {
+        "all_parsed_samples": 704,
+        "gold_identity_and_first_frame_IP_exact": true,
+        "parse_mode": "ONE_EXISTING_RAW_PERF_SCRIPT_PASS",
+        "contexts": {
+          "common": {
+            "sample_count": 697,
+            "period_sum": 37202419899,
+            "unresolved_samples": 0,
+            "inline_decorations": 6,
+            "nearest_WRF_groups": [
+              {
+                "caller": "PRIMARY_WRF_NO_CALLER_ATTRIBUTION",
+                "samples": 334,
+                "period": 18062200852
+              },
+              {
+                "caller": "rsl_lite_exch_x_+0x1c3",
+                "samples": 77,
+                "period": 3961113871
+              },
+              {
+                "caller": "rsl_lite_exch_y_+0x1c3",
+                "samples": 65,
+                "period": 3432068808
+              },
+              {
+                "caller": "col_on_comm+0xd9",
+                "samples": 56,
+                "period": 2972462052
+              },
+              {
+                "caller": "__module_dm_MOD_wrf_dm_mintile_double+0x65",
+                "samples": 46,
+                "period": 2450940055
+              },
+              {
+                "caller": "rsl_lite_exch_x_+0x12e",
+                "samples": 34,
+                "period": 1749406377
+              },
+              {
+                "caller": "rsl_lite_exch_y_+0x126",
+                "samples": 19,
+                "period": 999605254
+              },
+              {
+                "caller": "__module_big_step_utilities_em_MOD_zero_tend+0x15e",
+                "samples": 13,
+                "period": 697197873
+              },
+              {
+                "caller": "__module_ieva_em_MOD_ww_split+0x2df",
+                "samples": 5,
+                "period": 280989914
+              },
+              {
+                "caller": "f_pack_int_ikj_+0x2f9",
+                "samples": 4,
+                "period": 205845284
+              },
+              {
+                "caller": "vspow_+0x31",
+                "samples": 3,
+                "period": 165894735
+              },
+              {
+                "caller": "__module_ieva_em_MOD_ww_split+0x2ec",
+                "samples": 2,
+                "period": 109672013
+              },
+              {
+                "caller": "__module_big_step_utilities_em_MOD_calc_p_rho_phi+0x6de",
+                "samples": 2,
+                "period": 104532214
+              },
+              {
+                "caller": "__module_sf_noahlsm_MOD_shflx+0x152",
+                "samples": 1,
+                "period": 60100213
+              },
+              {
+                "caller": "__module_big_step_utilities_em_MOD_phy_prep+0x999",
+                "samples": 1,
+                "period": 59951820
+              },
+              {
+                "caller": "__module_small_step_em_MOD_small_step_prep+0x260a",
+                "samples": 1,
+                "period": 58680938
+              },
+              {
+                "caller": "__module_big_step_utilities_em_MOD_moist_physics_prep_em+0xc5a",
+                "samples": 1,
+                "period": 58171287
+              },
+              {
+                "caller": "__module_bl_myjpbl_MOD_myjpbl+0x2748",
+                "samples": 1,
+                "period": 57118305
+              },
+              {
+                "caller": "__diag_functions_MOD_thetae+0xa1",
+                "samples": 1,
+                "period": 56609994
+              },
+              {
+                "caller": "__rrtmg_sw_rad_MOD_rrtmg_sw+0x15c0",
+                "samples": 1,
+                "period": 56493689
+              },
+              {
+                "caller": "__module_em_MOD_rk_update_scalar+0x1a65",
+                "samples": 1,
+                "period": 56339267
+              },
+              {
+                "caller": "__diag_functions_MOD_the2t+0xcf",
+                "samples": 1,
+                "period": 56199898
+              },
+              {
+                "caller": "__diag_functions_MOD_buoyancy+0x171",
+                "samples": 1,
+                "period": 56188240
+              },
+              {
+                "caller": "__module_big_step_utilities_em_MOD_moist_physics_prep_em+0x7e4",
+                "samples": 1,
+                "period": 55720094
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_mp_thompson+0x718",
+                "samples": 1,
+                "period": 55627966
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_mp_thompson+0x891",
+                "samples": 1,
+                "period": 55463376
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_mp_thompson+0x294",
+                "samples": 1,
+                "period": 55376640
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_mp_thompson+0x184e",
+                "samples": 1,
+                "period": 55334817
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_compt_fr_the+0x30b",
+                "samples": 1,
+                "period": 55330943
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_mp_thompson+0x1b49",
+                "samples": 1,
+                "period": 55322954
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_calc_refl10cm+0x25d",
+                "samples": 1,
+                "period": 55300426
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_calc_refl10cm+0x1577",
+                "samples": 1,
+                "period": 55235815
+              },
+              {
+                "caller": "__rrtmg_sw_vrtqdr_MOD_vrtqdr_sw_pair+0x411",
+                "samples": 1,
+                "period": 54883961
+              },
+              {
+                "caller": "__rrtmg_sw_spcvmc_MOD_spcvmc_sw+0xee2",
+                "samples": 1,
+                "period": 54860629
+              },
+              {
+                "caller": "__rrtmg_sw_rad_MOD_rrtmg_sw+0x61e8",
+                "samples": 1,
+                "period": 54732564
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_mp_thompson+0x284",
+                "samples": 1,
+                "period": 54728578
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_mp_thompson+0x1dfa",
+                "samples": 1,
+                "period": 54469058
+              },
+              {
+                "caller": "__module_sf_myjsfc_MOD_myjsfc+0x172f",
+                "samples": 1,
+                "period": 54195600
+              },
+              {
+                "caller": "__module_dm_MOD_wrf_dm_maxtile_real+0x77",
+                "samples": 1,
+                "period": 54070484
+              },
+              {
+                "caller": "__module_small_step_em_MOD_small_step_prep+0x232a",
+                "samples": 1,
+                "period": 53907025
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_compt_fr_the+0x248",
+                "samples": 1,
+                "period": 53874917
+              },
+              {
+                "caller": "__module_diag_afwa_MOD_precip_type_diagnostics+0x857",
+                "samples": 1,
+                "period": 53467400
+              },
+              {
+                "caller": "__module_em_MOD_rk_update_scalar_pd+0xbff",
+                "samples": 1,
+                "period": 53025996
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_mp_thompson+0x18e7",
+                "samples": 1,
+                "period": 51659283
+              },
+              {
+                "caller": "__module_em_MOD_rk_update_scalar+0x96e",
+                "samples": 1,
+                "period": 49472815
+              },
+              {
+                "caller": "__module_small_step_em_MOD_advance_uv+0x29bb",
+                "samples": 1,
+                "period": 49402052
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_theta_e+0x97",
+                "samples": 1,
+                "period": 49391303
+              },
+              {
+                "caller": "__module_internal_header_util_MOD_int_pack_string+0xa8",
+                "samples": 1,
+                "period": 47083458
+              },
+              {
+                "caller": "f_unpack_int_ikj_+0x309",
+                "samples": 1,
+                "period": 46629447
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_calc_refl10cm+0xef",
+                "samples": 1,
+                "period": 46069345
+              }
+            ]
+          },
+          "q186_intergather": {
+            "sample_count": 103,
+            "period_sum": 5479302434,
+            "unresolved_samples": 0,
+            "inline_decorations": 0,
+            "nearest_WRF_groups": [
+              {
+                "caller": "col_on_comm+0xd9",
+                "samples": 56,
+                "period": 2972462052
+              },
+              {
+                "caller": "PRIMARY_WRF_NO_CALLER_ATTRIBUTION",
+                "samples": 20,
+                "period": 1088853851
+              },
+              {
+                "caller": "rsl_lite_exch_x_+0x12e",
+                "samples": 7,
+                "period": 357260819
+              },
+              {
+                "caller": "rsl_lite_exch_x_+0x1c3",
+                "samples": 6,
+                "period": 304199634
+              },
+              {
+                "caller": "rsl_lite_exch_y_+0x1c3",
+                "samples": 2,
+                "period": 109816073
+              },
+              {
+                "caller": "rsl_lite_exch_y_+0x126",
+                "samples": 2,
+                "period": 105420711
+              },
+              {
+                "caller": "__module_bl_myjpbl_MOD_myjpbl+0x2748",
+                "samples": 1,
+                "period": 57118305
+              },
+              {
+                "caller": "__diag_functions_MOD_thetae+0xa1",
+                "samples": 1,
+                "period": 56609994
+              },
+              {
+                "caller": "__module_em_MOD_rk_update_scalar+0x1a65",
+                "samples": 1,
+                "period": 56339267
+              },
+              {
+                "caller": "__diag_functions_MOD_the2t+0xcf",
+                "samples": 1,
+                "period": 56199898
+              },
+              {
+                "caller": "__diag_functions_MOD_buoyancy+0x171",
+                "samples": 1,
+                "period": 56188240
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_mp_thompson+0x891",
+                "samples": 1,
+                "period": 55463376
+              },
+              {
+                "caller": "__module_mp_thompson_MOD_mp_thompson+0x1dfa",
+                "samples": 1,
+                "period": 54469058
+              },
+              {
+                "caller": "f_pack_int_ikj_+0x2f9",
+                "samples": 1,
+                "period": 54308593
+              },
+              {
+                "caller": "__module_big_step_utilities_em_MOD_zero_tend+0x15e",
+                "samples": 1,
+                "period": 47509105
+              },
+              {
+                "caller": "__module_internal_header_util_MOD_int_pack_string+0xa8",
+                "samples": 1,
+                "period": 47083458
+              }
+            ]
+          },
+          "q186_gather": {
+            "sample_count": 2,
+            "period_sum": 108567036,
+            "unresolved_samples": 0,
+            "inline_decorations": 0,
+            "nearest_WRF_groups": [
+              {
+                "caller": "__module_dm_MOD_wrf_dm_mintile_double+0x65",
+                "samples": 2,
+                "period": 108567036
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

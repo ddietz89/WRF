@@ -1,0 +1,277 @@
+{
+  "schema": "TREE_RUN_REPLAY_SINGLE_REVERSE_PAIR_QUALIFICATION",
+  "status": "PASS_FINITE_REPEAT_EXECUTION_PREREGISTERED_REJECT_TRIGGERED",
+  "parent_codec_sha256": "937130c2a2d53e1d11c978dce1b661400daca9da7b8ae99029333dbc1103d178",
+  "fixed_candidate_codec_sha256": "74426e39dfd908c98810db21006ea357e3362ea2ca2c23209502a20103c22d06",
+  "candidate_selected": false,
+  "source_commit": null,
+  "order": [
+    "hpc01_candidate",
+    "hpc01_parent"
+  ],
+  "regimes": [
+    {
+      "name": "DYNAMIC",
+      "BTYPE": 2,
+      "parent_wall_seconds": 0.873936822999,
+      "candidate_wall_seconds": 1.065802056999,
+      "wall_reduction_percent": -21.954130888042435,
+      "parent_process_cpu_seconds": 0.873937128999,
+      "candidate_process_cpu_seconds": 1.065717492999,
+      "process_cpu_reduction_percent": -21.944411976141076
+    },
+    {
+      "name": "STATIC",
+      "BTYPE": 1,
+      "parent_wall_seconds": 0.625351467999,
+      "candidate_wall_seconds": 0.846252633999,
+      "wall_reduction_percent": -35.324321969985874,
+      "parent_process_cpu_seconds": 0.625313967999,
+      "candidate_process_cpu_seconds": 0.846107215999,
+      "process_cpu_reduction_percent": -35.30918215477206
+    },
+    {
+      "name": "STORED",
+      "BTYPE": 0,
+      "parent_wall_seconds": 0.797840228999,
+      "candidate_wall_seconds": 0.986926002999,
+      "wall_reduction_percent": -23.699704167240853,
+      "parent_process_cpu_seconds": 0.797726684999,
+      "candidate_process_cpu_seconds": 0.986879418999,
+      "process_cpu_reduction_percent": -23.7114713042647
+    }
+  ],
+  "arms": [
+    {
+      "arm": 0,
+      "host": "hpc01",
+      "which": "candidate",
+      "invocation_id": "a8cbbb2c317b475c9f0c132dacc2089d",
+      "regimes": [
+        {
+          "name": "DYNAMIC",
+          "BTYPE": 2,
+          "wall_seconds": 1.065802056999,
+          "process_cpu_seconds": 1.065717492999
+        },
+        {
+          "name": "STATIC",
+          "BTYPE": 1,
+          "wall_seconds": 0.846252633999,
+          "process_cpu_seconds": 0.846107215999
+        },
+        {
+          "name": "STORED",
+          "BTYPE": 0,
+          "wall_seconds": 0.986926002999,
+          "process_cpu_seconds": 0.986879418999
+        }
+      ],
+      "receipt_sha256": "effb4b2041abd13b2a7acef5d880e32c139801d8e80432caac9576b4ec623ec2",
+      "closure_sha256": "cb199b418460d65e484a0f67157d86ce3bd5e3f9270f71dfac4b5cca1404468b",
+      "cache_clear_sha256": "8f021956a5ef79203e7999804b8a67388149e1721ba52405afc5605449cd00f5",
+      "controller_sha256": "c874dbe47066356e4212cd292cea59748cb8ff9c5082e8d742821effb9bda02e",
+      "gold_sha256": "f0959767cd17da52b2fe7db5c72a8af94c574a2538ba11b530795544790ff4b3",
+      "snapshot_inside_clock": false,
+      "cache_each_pass": true,
+      "host_idle_at_cache_check": true,
+      "normal_same_INV_strong_closure": true,
+      "cpu_throttle_counters": "UNKNOWN_NOT_RECORDED",
+      "memory_events": "UNKNOWN_NOT_RECORDED",
+      "frequency_temperature_SMT_activity": "UNKNOWN_NOT_RECORDED"
+    },
+    {
+      "arm": 1,
+      "host": "hpc01",
+      "which": "parent",
+      "invocation_id": "b9268d4b9c0d46e0bf780cedf7946efd",
+      "regimes": [
+        {
+          "name": "DYNAMIC",
+          "BTYPE": 2,
+          "wall_seconds": 0.873936822999,
+          "process_cpu_seconds": 0.873937128999
+        },
+        {
+          "name": "STATIC",
+          "BTYPE": 1,
+          "wall_seconds": 0.625351467999,
+          "process_cpu_seconds": 0.625313967999
+        },
+        {
+          "name": "STORED",
+          "BTYPE": 0,
+          "wall_seconds": 0.797840228999,
+          "process_cpu_seconds": 0.797726684999
+        }
+      ],
+      "receipt_sha256": "492d023ac80a513331be7c101369c38f62d08e93c4d07bb50305db1bbf3e8e2c",
+      "closure_sha256": "38031decf5c411b6089b4d4e3e3b762304c2cb78e5bc8576f6ca565d84362640",
+      "cache_clear_sha256": "abf28b53e7dad851117a0bda97fa7809c69fdd772be03b80396b90432fa7525d",
+      "controller_sha256": "52e6b05b22f16785bc8813703275c5b1bcaa1e02048434b17748a6042fe0f552",
+      "gold_sha256": "f0959767cd17da52b2fe7db5c72a8af94c574a2538ba11b530795544790ff4b3",
+      "snapshot_inside_clock": false,
+      "cache_each_pass": true,
+      "host_idle_at_cache_check": true,
+      "normal_same_INV_strong_closure": true,
+      "cpu_throttle_counters": "UNKNOWN_NOT_RECORDED",
+      "memory_events": "UNKNOWN_NOT_RECORDED",
+      "frequency_temperature_SMT_activity": "UNKNOWN_NOT_RECORDED"
+    }
+  ],
+  "preregistered_regression_persists": true,
+  "preregistration_sha256": "21d0d04cdb31d4dcbc66ea7f72127f11d2a972a5ce4fbe86011a7929700bb03c",
+  "before_preregistration_sha256": "475e72498c28b0cfbfcbbfc594fdc2c4a8dbf5c1fe490525ca837f3b2e531aae",
+  "entry_barrier_amendment": {
+    "utc": "2026-10-21T05:59:31.805430+00:00",
+    "before_preregistration_sha256": "475e72498c28b0cfbfcbbfc594fdc2c4a8dbf5c1fe490525ca837f3b2e531aae",
+    "after_preregistration_sha256": "21d0d04cdb31d4dcbc66ea7f72127f11d2a972a5ce4fbe86011a7929700bb03c",
+    "reason": "Use existing owner-authorized SOP disjoint-node parallelism before any repeat arm executes; original full-grid/recorder closures complete, SCI reader onlyhpc03. No resource guard, correctness or decision relaxation.",
+    "four_model_reconcile_session_closed": 36378,
+    "all_recorders_helpers_pre_reader_closure_record": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-calc-bc-pre13-noon75m-joint-runtime-r1/pre-reader-profile-closure-check.json",
+    "timing_nodes": [
+      "hpc01"
+    ],
+    "reader_node": "hpc03",
+    "cache_on_reader_node": false
+  },
+  "amendment_scope": "Pre-execution SOP-authorized disjoint hpc01 timing while timing-insensitive SCIreader hpc03 active; allfullmodels/recorders/helpers closed. No clock/work/decision/count/caps/correctness changes; no cache onreader node. Before+amendment retained.",
+  "original_single_wave_pairs_preserved": {
+    "hpc01": {
+      "order": [
+        "parent",
+        "candidate"
+      ],
+      "regimes": [
+        {
+          "name": "DYNAMIC",
+          "BTYPE": 2,
+          "parent_wall_seconds": 0.868815210999,
+          "candidate_wall_seconds": 1.032136064999,
+          "wall_reduction_percent": -18.79811171954582,
+          "parent_process_cpu_seconds": 0.868437455999,
+          "candidate_process_cpu_seconds": 1.032133707999,
+          "process_cpu_reduction_percent": -18.849515399090365
+        },
+        {
+          "name": "STATIC",
+          "BTYPE": 1,
+          "parent_wall_seconds": 0.632141725999,
+          "candidate_wall_seconds": 0.835440615999,
+          "wall_reduction_percent": -32.16033393124276,
+          "parent_process_cpu_seconds": 0.631969840999,
+          "candidate_process_cpu_seconds": 0.835398890999,
+          "process_cpu_reduction_percent": -32.189676912180666
+        },
+        {
+          "name": "STORED",
+          "BTYPE": 0,
+          "parent_wall_seconds": 0.798895032999,
+          "candidate_wall_seconds": 0.962070683999,
+          "wall_reduction_percent": -20.425167795504894,
+          "parent_process_cpu_seconds": 0.798766473999,
+          "candidate_process_cpu_seconds": 0.961945815999,
+          "process_cpu_reduction_percent": -20.428917250751333
+        }
+      ]
+    },
+    "hpc04": {
+      "order": [
+        "candidate",
+        "parent"
+      ],
+      "regimes": [
+        {
+          "name": "DYNAMIC",
+          "BTYPE": 2,
+          "parent_wall_seconds": 0.872631771999,
+          "candidate_wall_seconds": 0.854702124999,
+          "wall_reduction_percent": 2.05466355630477,
+          "parent_process_cpu_seconds": 0.872630639999,
+          "candidate_process_cpu_seconds": 0.854708089999,
+          "process_cpu_reduction_percent": 2.053852933701772
+        },
+        {
+          "name": "STATIC",
+          "BTYPE": 1,
+          "parent_wall_seconds": 0.626174944999,
+          "candidate_wall_seconds": 0.619500024999,
+          "wall_reduction_percent": 1.065983245307045,
+          "parent_process_cpu_seconds": 0.626141979999,
+          "candidate_process_cpu_seconds": 0.619450409999,
+          "process_cpu_reduction_percent": 1.0686985082857148
+        },
+        {
+          "name": "STORED",
+          "BTYPE": 0,
+          "parent_wall_seconds": 0.800531372999,
+          "candidate_wall_seconds": 0.761293924999,
+          "wall_reduction_percent": 4.901425393611536,
+          "parent_process_cpu_seconds": 0.800499379999,
+          "candidate_process_cpu_seconds": 0.761153409999,
+          "process_cpu_reduction_percent": 4.915178072973536
+        }
+      ]
+    }
+  },
+  "clock_and_work_scope": "Common fresh/reset including real production-style resets+tally+full zng_tr_flush_block build/scan/cache/replay/branch/emits/align INSIDE clocks. Allocation/free, proof/snapshot serialization, stockdecode and exact raw/input/state comparisons OUTSIDE. Integer ns wall/processCPU;100000000ns floor; finalsecondsconversion only after finalgold.",
+  "all_exactness": "Same actualintegerR2 exes, originalf095gold,32768/4096B/three BTYPEs,raw/readonly/FP fivefields+padding/stockdecode; checkedcacheEACH and positiveclosure; parent/candidate production source unchanged.",
+  "limits": [
+    "One original oppositehostorder wave plus one hpc01 reverseorder pair only, not statisticalsignificance or productionmix",
+    "Originalhpc04 modestpositive outcomes retained; hpc01 fixedcandidate slower in bothroleorders acrossall3regimes",
+    "Cause UNKNOWN: no retained throttle/frequency/memoryevent/sibling counters; no causal attribution to stack traffic or hoststate",
+    "No fullcodec13corpora/5streams/provider/application qualification, no WRF/globalperformance claim"
+  ],
+  "original_qualification_raw_refs_sha256": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/ACTUAL_WAVE_R2.json": "721d34b7a1e0e9c6791a41992925cff53279050062f8778eb04e2477bc3b7a4e",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/driver-build-r2/actual-native-r1/receipt.json": "7e619b715a94e0bcf5032f123ae04bd85a0b983c9389d9cf1fc98254344cad7a",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/driver-build-r2/actual-native-r1/closure.json": "3612242a295950bdae91b14c125b78983f501dde3eed06855405138e68280698",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/driver-build-r2/SOURCE_CLOCK_SCOPE_PROOF.json": "fae17c5dd54643b02b2cf3fb7d096443e677938605a659474b374a2993ea16dd",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/ORACLE_CODEGEN_QUALIFICATION.json": "25c91271ef4c11354eada14f4200e10bf401e4b9de3d8c1a93aff50fe1578c6d",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/timing-r2/arm0/actual-native-r1/receipt.json": "1a05f1849ff0abd420ed2cc653233586d4bb41577d34ed4ebe7b1e1d27149a8e",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/timing-r2/arm0/actual-native-r1/closure.json": "2665830bc0f73a34c1f9af2ead578dbdd455fe8f6b07fb4b128fed82a1fc2081",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/timing-r2/arm0/actual-native-r1/cache-clear.json": "ff4c58f8bbe8eab36cd02f92cca2ff0e0e2baf9af03854e56a8460d6fe083508",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/timing-r2/arm0/actual-native-r1/controller.json": "3b28f674d34eebeb51cc30606799c9c64844b56bdd1e1cf1a3424ab7be8a0b32",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/timing-r2/arm1/actual-native-r1/receipt.json": "9339d20f1b464c94f0374d1252bd239547153b1a1bbe40902d7d0480876a27f0",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/timing-r2/arm1/actual-native-r1/closure.json": "3cbe95be74e61a6608a0d96ad33064555fab26f85076de2bdd61ba39f160ec02",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/timing-r2/arm1/actual-native-r1/cache-clear.json": "ea5cfca78e9f4bf9ed11a97aeecb4618246c2200300dd5c48efd793441088641",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/timing-r2/arm1/actual-native-r1/controller.json": "f9b2ab7aae75684e1e214c07e421bef865d1d89b67fa08015174cd1cd1ff29ed",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/timing-r2/arm2/actual-native-r1/receipt.json": "560e747589de14dadcd4d84d3dfad880ee6d96dd8e6058ba688f4d6c4db64e09",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/timing-r2/arm2/actual-native-r1/closure.json": "46840bca396ec402aea1c44789dde8ca1f91049f9f236a1453b0ce12ecf95dd4",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/timing-r2/arm2/actual-native-r1/cache-clear.json": "0a2503d5d561469dfa3299af8bde4786af974d66dae0e915801bbb133172062a",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/timing-r2/arm2/actual-native-r1/controller.json": "0bea47c8cbebcb66f6fd7b23e8d19c552a2d7cd16bf986b67538cd9fac836b2a",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/timing-r2/arm3/actual-native-r1/receipt.json": "ee5346390366fb03d4cedd5ea54824f9a91dde5f7f6b533dfc848adb5a88e0d5",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/timing-r2/arm3/actual-native-r1/closure.json": "167ddbaafbc24e356f323c8116d4110a25af33b438a5ad3b3978bdde27bd7ab0",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/timing-r2/arm3/actual-native-r1/cache-clear.json": "5c8efcaff6e70a0e4ec4a702a531ff69e3a27203a4bd5778468eabcde0da2c03",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/timing-r2/arm3/actual-native-r1/controller.json": "09e092c1e5d1c10e787a51b1ea67084d113b1c4dccbdf490a04eaf291946a4b6",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/timing-r1/arm0/actual-native-r1/receipt.json": "dbace9736a646c4b75ec57949042fe65b7d98ec5751b9b7b7ad17a10b34fe800",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/timing-r1/arm0/actual-native-r1/closure.json": "c4cc3c055bae0ad6a3e8c4bd38d4684ea7e27f1ee477dff4e789aa9647342351",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/parent-abort-diagnostic-preparation-r1/build-r1/actual-native-r1/receipt.json": "6a0e33b3bfbb312eb47d5338fbcb5fd3b3f4a7526442f60f7b9a854539fc978e",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/parent-abort-diagnostic-preparation-r1/build-r1/actual-native-r1/closure.json": "01275fffeb09a1728e7c6887d60ca60e456db97b02e7850129c9d5de00486352",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/parent-abort-diagnostic-preparation-r1/diagnostic-r1/actual-native-r1/receipt.json": "7d2b886c0d95ce89c0e77dd29a4c5324bbd605ce96de7ddd881a91bf3c1ae023",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/parent-abort-diagnostic-preparation-r1/diagnostic-r1/actual-native-r1/closure.json": "85dac0feb340cda2ff499e85701d84d1bda98901623d81976bff8fac89e4357b"
+  },
+  "raw_refs_sha256": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/CALLER_QUALIFICATION.json": "c2a35a3224be8bbc44fa19cb7e9d9779d0e352744a93fb49c2d129b237c8b902",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/hpc01-reverse-repeat-r1/ACTUAL_PAIR.json": "28b9a3e5438b9c84872a5c7ccdaa2aa0221c42a19af77b50684d85fc60a1b144",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/hpc01-reverse-repeat-r1/arm0/actual-native-r1/receipt.json": "effb4b2041abd13b2a7acef5d880e32c139801d8e80432caac9576b4ec623ec2",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/hpc01-reverse-repeat-r1/arm0/actual-native-r1/closure.json": "cb199b418460d65e484a0f67157d86ce3bd5e3f9270f71dfac4b5cca1404468b",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/hpc01-reverse-repeat-r1/arm0/actual-native-r1/cache-clear.json": "8f021956a5ef79203e7999804b8a67388149e1721ba52405afc5605449cd00f5",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/hpc01-reverse-repeat-r1/arm0/actual-native-r1/controller.json": "c874dbe47066356e4212cd292cea59748cb8ff9c5082e8d742821effb9bda02e",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/hpc01-reverse-repeat-r1/arm0/inputs/binding.json": "d20a3b1c0f84008f0a4520bc4de932ffa81e86f82f604d13c65936916dbae254",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/hpc01-reverse-repeat-r1/arm0/inputs/source-pins.json": "40deb62466e26e833a0ade55796f8a18de329b2708cd7628e9c5f90559663741",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/hpc01-reverse-repeat-r1/arm1/actual-native-r1/receipt.json": "492d023ac80a513331be7c101369c38f62d08e93c4d07bb50305db1bbf3e8e2c",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/hpc01-reverse-repeat-r1/arm1/actual-native-r1/closure.json": "38031decf5c411b6089b4d4e3e3b762304c2cb78e5bc8576f6ca565d84362640",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/hpc01-reverse-repeat-r1/arm1/actual-native-r1/cache-clear.json": "abf28b53e7dad851117a0bda97fa7809c69fdd772be03b80396b90432fa7525d",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/hpc01-reverse-repeat-r1/arm1/actual-native-r1/controller.json": "52e6b05b22f16785bc8813703275c5b1bcaa1e02048434b17748a6042fe0f552",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/hpc01-reverse-repeat-r1/arm1/inputs/binding.json": "78b2445d3e0b17d83abb03f6cdd0a0130f53edd6dfff543cf7ecb51453e91a24",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/hpc01-reverse-repeat-r1/arm1/inputs/source-pins.json": "0afd40a55c5034d7aa0669ae404433a87e7e1c29b59bb9c7c54c6ec27dca617f",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/hpc01-reverse-repeat-r1/ENTRY_BARRIER_AMENDMENT.json": "3bb0e1e51d979e418f0b5f1cb7b6b2a4ab165db49f0ce422b867b9346eec954e",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/hpc01-reverse-repeat-r1/PREREGISTRATION.json": "21d0d04cdb31d4dcbc66ea7f72127f11d2a972a5ce4fbe86011a7929700bb03c",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/hpc01-reverse-repeat-r1/before-root-release/PREREGISTRATION.json": "475e72498c28b0cfbfcbbfc594fdc2c4a8dbf5c1fe490525ca837f3b2e531aae",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/hpc01-reverse-repeat-r1/ROOT_ADJUDICATION.json": "a96f334accf3a145059dcfb7a63a83000ad22dee3078ab176ae61e220ea44754",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-calc-bc-pre13-noon75m-joint-runtime-r1/pre-reader-profile-closure-check.json": "1bc14e72a2be6e3aa71456840ccde09a89b7193e4ee1ea33ab6f1261e67eec08",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/hpc01-reverse-repeat-r1/run_pair.py": "67348c3ab30fe4cb2e6f654eb053c4f3926f65e88dfe2c55639d0d329994df97",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/kernel-timing-preparation-r1/hpc01-reverse-repeat-r1/INPUTS.json": "fa1e0ecfa6b84f3630f50fea1248702a4cbca5fc6cb33a6e120b89b03842438c"
+  }
+}

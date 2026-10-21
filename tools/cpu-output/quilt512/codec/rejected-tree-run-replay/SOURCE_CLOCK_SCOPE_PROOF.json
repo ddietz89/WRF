@@ -1,0 +1,22 @@
+{
+  "status": "LOCAL_SOURCE_ONLY_NOT_COMPILED",
+  "original_source_sha256": "99c88da21eb00dd5c59d38ea04f687bd6cbc489367514f28a7b19f4637a8727b",
+  "integer_source_sha256": "ede8267c9c6dfb6c0891a7f135d11de1ae555e4069b03f057d596f72da522a28",
+  "unchanged": [
+    "COUNT32768",
+    "clock call order and boundaries",
+    "three4096B payloads/BTYPE2,1,0",
+    "reset+tally+completeflush inside clocks",
+    "full fivefield/padding memcmp before/post",
+    "snapshot outside clocks",
+    "original golden/stockdecode/readonly checks",
+    "same100ms wall/CPU floors expressed as100000000ns"
+  ],
+  "changed": [
+    "clock captures/storage/elapsed subtraction/floor comparisons use uint64_t integer ns",
+    "ns-to-seconds floating conversion ONLY final JSON printing after all regime and finalgold comparisons"
+  ],
+  "failure_preserved": "Original parent arm failed; diagnostic SIGABRT proved only MXCSRbit5, all other state/raw/input/floor passed; no candidate timing result",
+  "actual_parent_fp_diagnostic_receipt_sha256": "7d2b886c0d95ce89c0e77dd29a4c5324bbd605ce96de7ddd881a91bf3c1ae023",
+  "actual_parent_fp_diagnostic_closure_sha256": "85dac0feb340cda2ff499e85701d84d1bda98901623d81976bff8fac89e4357b"
+}

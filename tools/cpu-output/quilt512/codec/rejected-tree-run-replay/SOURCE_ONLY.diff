@@ -1,0 +1,218 @@
+--- parent/trees.c
++++ candidate/trees.c
+@@ -62,6 +62,23 @@
+ static const static_tree_desc  static_bl_desc =
+ {(const ct_data *)0, extra_blbits, 0,   BL_CODES, MAX_BL_BITS};
+ 
++/* Per-flush automatic descriptors; no deflate_state or public ABI change. */
++typedef struct {
++    uint8_t symbol;
++    uint8_t extra_value;
++    uint8_t extra_bits;
++} tree_run_token;
++#define TREE_RUN_CAPACITY (L_CODES + D_CODES)
++
++static inline void tree_run_push(tree_run_token *tokens, unsigned *used,
++                                 unsigned symbol, unsigned value, unsigned bits) {
++    Assert(*used < TREE_RUN_CAPACITY, "tree run descriptor overflow");
++    tokens[*used].symbol = (uint8_t)symbol;
++    tokens[*used].extra_value = (uint8_t)value;
++    tokens[*used].extra_bits = (uint8_t)bits;
++    ++*used;
++}
++
+ /* ===========================================================================
+  * Local (static) routines in this file.
+  */
+@@ -70,10 +87,10 @@
+ static inline void pqdownheap       (unsigned char *depth, int *heap, const int heap_len, ct_data *tree, int k);
+ static void build_tree       (deflate_state *s, tree_desc *desc);
+ static void gen_bitlen       (deflate_state *s, tree_desc *desc);
+-static void scan_tree        (deflate_state *s, ct_data *tree, int max_code);
+-static void send_tree        (deflate_state *s, ct_data *tree, int max_code);
+-static int  build_bl_tree    (deflate_state *s);
+-static void send_all_trees   (deflate_state *s, int lcodes, int dcodes, int blcodes);
++static void scan_tree        (deflate_state *s, ct_data *tree, int max_code, tree_run_token *tokens, unsigned *used);
++static void send_tree        (deflate_state *s, const tree_run_token *tokens, unsigned count);
++static int  build_bl_tree    (deflate_state *s, tree_run_token *tokens, unsigned *literal_count, unsigned *total_count);
++static void send_all_trees   (deflate_state *s, int lcodes, int dcodes, int blcodes, const tree_run_token *tokens, unsigned literal_count, unsigned total_count);
+ static void compress_block   (deflate_state *s, const ct_data *ltree, const ct_data *dtree);
+ static int  detect_data_type (deflate_state *s);
+ 
+@@ -411,7 +428,7 @@
+  * Scan a literal or distance tree to determine the frequencies of the codes
+  * in the bit length tree.
+  */
+-static void scan_tree(deflate_state *s, ct_data *tree, int max_code) {
++static void scan_tree(deflate_state *s, ct_data *tree, int max_code, tree_run_token *tokens, unsigned *used) {
+     /* tree: the tree to be scanned */
+     /* max_code: and its largest code of non zero frequency */
+     int n;                     /* iterates over all tree elements */
+@@ -434,14 +451,23 @@
+             continue;
+         } else if (count < min_count) {
+             s->bl_tree[curlen].Freq += count;
++            for (unsigned i = 0; i < count; i++)
++                tree_run_push(tokens, used, (unsigned)curlen, 0, 0);
+         } else if (curlen != 0) {
+-            if (curlen != prevlen)
++            unsigned emit_count = count;
++            if (curlen != prevlen) {
+                 s->bl_tree[curlen].Freq++;
++                tree_run_push(tokens, used, (unsigned)curlen, 0, 0);
++                --emit_count;
++            }
+             s->bl_tree[REP_3_6].Freq++;
++            tree_run_push(tokens, used, REP_3_6, emit_count-3, 2);
+         } else if (count <= 10) {
+             s->bl_tree[REPZ_3_10].Freq++;
++            tree_run_push(tokens, used, REPZ_3_10, count-3, 3);
+         } else {
+             s->bl_tree[REPZ_11_138].Freq++;
++            tree_run_push(tokens, used, REPZ_11_138, count-11, 7);
+         }
+         count = 0;
+         prevlen = curlen;
+@@ -459,64 +485,21 @@
+  * Send a literal or distance tree in compressed form, using the codes in
+  * bl_tree.
+  */
+-static void send_tree(deflate_state *s, ct_data *tree, int max_code) {
+-    /* tree: the tree to be scanned */
+-    /* max_code and its largest code of non zero frequency */
+-    int n;                     /* iterates over all tree elements */
+-    int prevlen = -1;          /* last emitted length */
+-    int curlen;                /* length of current code */
+-    int nextlen = tree[0].Len; /* length of next code */
+-    int count = 0;             /* repeat count of the current code */
+-    int max_count = 7;         /* max repeat count */
+-    int min_count = 4;         /* min repeat count */
+-
+-    /* tree[max_code+1].Len = -1; */  /* guard already set */
+-    if (nextlen == 0)
+-        max_count = 138, min_count = 3;
+-
+-    // Temp local variables
++static void send_tree(deflate_state *s, const tree_run_token *tokens, unsigned count) {
+     uint32_t bi_valid = s->bi_valid;
+     uint64_t bi_buf = s->bi_buf;
+ 
+-    for (n = 0; n <= max_code; n++) {
+-        curlen = nextlen;
+-        nextlen = tree[n+1].Len;
+-        if (++count < max_count && curlen == nextlen) {
+-            continue;
+-        } else if (count < min_count) {
+-            do {
+-                send_code(s, curlen, s->bl_tree, bi_buf, bi_valid);
+-            } while (--count != 0);
+-
+-        } else if (curlen != 0) {
+-            if (curlen != prevlen) {
+-                send_code(s, curlen, s->bl_tree, bi_buf, bi_valid);
+-                count--;
+-            }
+-            Assert(count >= 3 && count <= 6, " 3_6?");
+-            send_code(s, REP_3_6, s->bl_tree, bi_buf, bi_valid);
+-            send_bits(s, count-3, 2, bi_buf, bi_valid);
+-
+-        } else if (count <= 10) {
+-            send_code(s, REPZ_3_10, s->bl_tree, bi_buf, bi_valid);
+-            send_bits(s, count-3, 3, bi_buf, bi_valid);
+-
+-        } else {
+-            send_code(s, REPZ_11_138, s->bl_tree, bi_buf, bi_valid);
+-            send_bits(s, count-11, 7, bi_buf, bi_valid);
++    for (unsigned i = 0; i < count; i++) {
++        const tree_run_token *token = &tokens[i];
++        if (token->symbol == REP_3_6) {
++            int run_count = (int)token->extra_value + 3;
++            Assert(run_count >= 3 && run_count <= 6, " 3_6?");
+         }
+-        count = 0;
+-        prevlen = curlen;
+-        if (nextlen == 0) {
+-            max_count = 138, min_count = 3;
+-        } else if (curlen == nextlen) {
+-            max_count = 6, min_count = 3;
+-        } else {
+-            max_count = 7, min_count = 4;
+-        }
+-    }
+-
+-    // Store back temp variables
++        send_code(s, token->symbol, s->bl_tree, bi_buf, bi_valid);
++        if (token->extra_bits != 0)
++            send_bits(s, token->extra_value, token->extra_bits, bi_buf, bi_valid);
++    }
++
+     s->bi_buf = bi_buf;
+     s->bi_valid = bi_valid;
+ }
+@@ -525,12 +508,14 @@
+  * Construct the Huffman tree for the bit lengths and return the index in
+  * bl_order of the last bit length code to send.
+  */
+-static int build_bl_tree(deflate_state *s) {
++static int build_bl_tree(deflate_state *s, tree_run_token *tokens, unsigned *literal_count, unsigned *total_count) {
+     int max_blindex;  /* index of last bit length code of non zero freq */
+ 
+     /* Determine the bit length frequencies for literal and distance trees */
+-    scan_tree(s, (ct_data *)s->dyn_ltree, s->l_desc.max_code);
+-    scan_tree(s, (ct_data *)s->dyn_dtree, s->d_desc.max_code);
++    *total_count = 0;
++    scan_tree(s, (ct_data *)s->dyn_ltree, s->l_desc.max_code, tokens, total_count);
++    *literal_count = *total_count;
++    scan_tree(s, (ct_data *)s->dyn_dtree, s->d_desc.max_code, tokens, total_count);
+ 
+     /* Build the bit length tree: */
+     build_tree(s, (tree_desc *)(&(s->bl_desc)));
+@@ -558,7 +543,7 @@
+  * lengths of the bit length codes, the literal tree and the distance tree.
+  * IN assertion: lcodes >= 257, dcodes >= 1, blcodes >= 4.
+  */
+-static void send_all_trees(deflate_state *s, int lcodes, int dcodes, int blcodes) {
++static void send_all_trees(deflate_state *s, int lcodes, int dcodes, int blcodes, const tree_run_token *tokens, unsigned literal_count, unsigned total_count) {
+     int rank;                    /* index in bl_order */
+ 
+     Assert(lcodes >= 257 && dcodes >= 1 && blcodes >= 4, "not enough codes");
+@@ -582,10 +567,10 @@
+     s->bi_buf = bi_buf;
+     s->bi_valid = bi_valid;
+ 
+-    send_tree(s, (ct_data *)s->dyn_ltree, lcodes-1); /* literal tree */
++    send_tree(s, tokens, literal_count); /* literal tree */
+     Tracev((stderr, "\nlit tree: sent %lu", s->bits_sent));
+ 
+-    send_tree(s, (ct_data *)s->dyn_dtree, dcodes-1); /* distance tree */
++    send_tree(s, tokens + literal_count, total_count - literal_count); /* distance tree */
+     Tracev((stderr, "\ndist tree: sent %lu", s->bits_sent));
+ }
+ 
+@@ -631,6 +616,8 @@
+     /* last: one if this is the last block for a file */
+     unsigned long opt_lenb, static_lenb; /* opt_len and static_len in bytes */
+     int max_blindex = 0;  /* index of last bit length code of non zero freq */
++    tree_run_token tokens[TREE_RUN_CAPACITY];
++    unsigned literal_count = 0, total_count = 0;
+ 
+     /* Build the Huffman trees unless a stored block is forced */
+     if (UNLIKELY(s->sym_next == 0)) {
+@@ -655,7 +642,7 @@
+         /* Build the bit length tree for the above two trees, and get the index
+          * in bl_order of the last bit length code to send.
+          */
+-        max_blindex = build_bl_tree(s);
++        max_blindex = build_bl_tree(s, tokens, &literal_count, &total_count);
+ 
+         /* Determine the best encoding. Compute the block lengths in bytes. */
+         opt_lenb = (s->opt_len+3+7) >> 3;
+@@ -689,7 +676,7 @@
+         cmpr_bits_add(s, s->static_len);
+     } else {
+         zng_tr_emit_tree(s, DYN_TREES, last);
+-        send_all_trees(s, s->l_desc.max_code+1, s->d_desc.max_code+1, max_blindex+1);
++        send_all_trees(s, s->l_desc.max_code+1, s->d_desc.max_code+1, max_blindex+1, tokens, literal_count, total_count);
+         compress_block(s, (const ct_data *)s->dyn_ltree, (const ct_data *)s->dyn_dtree);
+         cmpr_bits_add(s, s->opt_len);
+     }

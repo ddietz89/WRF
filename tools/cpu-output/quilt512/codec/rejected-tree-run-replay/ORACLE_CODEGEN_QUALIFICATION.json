@@ -1,0 +1,270 @@
+{
+  "schema": "EXACT_TREE_RUN_FINITE_ORACLE_CODEGEN_V1",
+  "status": "PASS_25_DIRECTED_RUN_TRACES_4_GENUINE_FLUSH_CASES_PENDING_COST_FULLCODEC_PROVIDER",
+  "source_commit": null,
+  "local_authorship": true,
+  "provider_reviews_prospective_not_candidateapproval": true,
+  "parent_codec_sha256": "937130c2a2d53e1d11c978dce1b661400daca9da7b8ae99029333dbc1103d178",
+  "candidate_codec_sha256": "74426e39dfd908c98810db21006ea357e3362ea2ca2c23209502a20103c22d06",
+  "parent_trees_object_sha256": "a38a21011f6a7cb6fc0cc9b9e5a20273468620533fd8d110dcf9839009896800",
+  "candidate_trees_object_sha256": "9dede8ecd4b35ef147a174278e6738fd1145458f3cb758fd2b433f22d841fd64",
+  "normal_same_INV_strong_closure": true,
+  "invocation_id": "64ff3dc21c624a8f992dbe6ccec819c1",
+  "genuine_oracle": {
+    "parent": {
+      "status": "PASS_GENUINE_FULLTREES_25_RUN_PATTERNS_4_FULL_FLUSH_BRANCHES_RAW_STATE_FP_STOCK",
+      "run_cases": 25,
+      "flush_cases": 4,
+      "stored": 1,
+      "static": 2,
+      "dynamic": 1,
+      "internal_kernel_cleanup_return": 0
+    },
+    "candidate": {
+      "status": "PASS_GENUINE_FULLTREES_25_RUN_PATTERNS_4_FULL_FLUSH_BRANCHES_RAW_STATE_FP_STOCK",
+      "run_cases": 25,
+      "flush_cases": 4,
+      "stored": 1,
+      "static": 2,
+      "dynamic": 1,
+      "internal_kernel_cleanup_return": 0
+    }
+  },
+  "raw_snapshot_output_sha256": {
+    "parent": "86f642b7582fa075d93a2a6d5b6e96b3a1c94b5977283f478d01c0a21e6c9a13",
+    "candidate": "86f642b7582fa075d93a2a6d5b6e96b3a1c94b5977283f478d01c0a21e6c9a13"
+  },
+  "actual_codegen": {
+    "parent": {
+      "scan_tree": {
+        "static_instruction_lines": 99,
+        "calls": [],
+        "rsp_memory_operands": [],
+        "prologue": [
+          "    ead0:\tmovzwl 0x2(%rsi),%ecx",
+          "    ead4:\tmov    %rdi,%r9",
+          "    ead7:\tmovslq %edx,%rax",
+          "    eada:\tmov    $0xffffffff,%r10d",
+          "    eae0:\tmov    %r10w,0x6(%rsi,%rax,4)",
+          "    eae6:\tcmp    $0x1,%ecx",
+          "    eae9:\tsbb    %r8d,%r8d",
+          "    eaec:\tadd    $0x4,%r8d",
+          "    eaf0:\tcmp    $0x1,%ecx",
+          "    eaf3:\tsbb    %edi,%edi",
+          "    eaf5:\tand    $0x83,%di",
+          "    eafa:\tadd    $0x7,%edi",
+          "    eafd:\ttest   %edx,%edx",
+          "    eaff:\tjs     eb9f <scan_tree+0xcf>",
+          "    eb05:\tlea    0xa(%rsi,%rax,4),%r11",
+          "    eb0a:\tlea    0x6(%rsi),%rdx"
+        ],
+        "rbp_not_assumed_stack": "rbp isgeneralregisterunlessmovrsp,rbpprovesframe; no naive(%rbp)stackcount"
+      },
+      "send_tree": {
+        "static_instruction_lines": 395,
+        "calls": [],
+        "rsp_memory_operands": [],
+        "prologue": [
+          "    ec50:\tmovzwl 0x2(%rsi),%r11d",
+          "    ec55:\tmov    %rdi,%rax",
+          "    ec58:\tmov    0x1780(%rdi),%edi",
+          "    ec5e:\tmov    0x1778(%rax),%r8",
+          "    ec65:\tcmp    $0x1,%r11d",
+          "    ec69:\tsbb    %r9d,%r9d",
+          "    ec6c:\tadd    $0x4,%r9d",
+          "    ec70:\tcmp    $0x1,%r11d",
+          "    ec74:\tsbb    %ecx,%ecx",
+          "    ec76:\tand    $0x83,%ecx",
+          "    ec7c:\tadd    $0x7,%ecx",
+          "    ec7f:\ttest   %edx,%edx",
+          "    ec81:\tjs     f1fa <send_tree+0x5aa>",
+          "    ec87:\tpush   %r15",
+          "    ec89:\tmovslq %edx,%rdx",
+          "    ec8c:\tmov    $0xffffffff,%r10d"
+        ],
+        "rbp_not_assumed_stack": "rbp isgeneralregisterunlessmovrsp,rbpprovesframe; no naive(%rbp)stackcount"
+      },
+      "zng_tr_flush_block": {
+        "static_instruction_lines": 395,
+        "calls": [
+          "   100f0:\tcall   f700 <build_tree>",
+          "   10100:\tcall   f700 <build_tree>",
+          "   10113:\tcall   ead0 <scan_tree>",
+          "   10126:\tcall   ead0 <scan_tree>",
+          "   10136:\tcall   f700 <build_tree>",
+          "   1031e:\tcall   ec50 <send_tree>",
+          "   1032c:\tcall   ec50 <send_tree>",
+          "   1033a:\tcall   f220 <compress_block>",
+          "   103a3:\tcall   f220 <compress_block>",
+          "   1049a:\tcall   ff90 <zng_tr_stored_block>"
+        ],
+        "rsp_memory_operands": [
+          "   100e0:\tmov    %r8b,0xf(%rsp)",
+          "   100ed:\tmov    %ecx,(%rsp)",
+          "   1013b:\tmovzbl 0xf(%rsp),%r8d",
+          "   10141:\tmov    (%rsp),%ecx",
+          "   10246:\tmov    %r9,(%rsp)",
+          "   1025d:\tmov    (%rsp),%rsi",
+          "   10611:\tmov    %r15,(%rsp)"
+        ],
+        "prologue": [
+          "   10080:\tpush   %r15",
+          "   10082:\tmov    %rsi,%r15",
+          "   10085:\tpush   %r14",
+          "   10087:\tmov    %edx,%r14d",
+          "   1008a:\tpush   %r13",
+          "   1008c:\tmov    %ecx,%r13d",
+          "   1008f:\tpush   %r12",
+          "   10091:\tmov    %rdi,%r12",
+          "   10094:\tpush   %rbp",
+          "   10095:\tpush   %rbx",
+          "   10096:\tsub    $0x18,%rsp",
+          "   1009a:\tmov    0x1740(%rdi),%ebp",
+          "   100a0:\ttest   %rsi,%rsi",
+          "   100a3:\tsetne  %r8b",
+          "   100a7:\ttest   %ebp,%ebp",
+          "   100a9:\tje     106ba <zng_tr_flush_block+0x63a>"
+        ],
+        "rbp_not_assumed_stack": "rbp isgeneralregisterunlessmovrsp,rbpprovesframe; no naive(%rbp)stackcount"
+      }
+    },
+    "candidate": {
+      "scan_tree": {
+        "static_instruction_lines": 143,
+        "calls": [],
+        "rsp_memory_operands": [],
+        "prologue": [
+          "    ead0:\tpush   %r12",
+          "    ead2:\tmov    %rdi,%r10",
+          "    ead5:\tmov    %rsi,%rax",
+          "    ead8:\tmov    $0xffffffff,%r9d",
+          "    eade:\tpush   %rbp",
+          "    eadf:\tpush   %rbx",
+          "    eae0:\tmovzwl 0x2(%rsi),%edi",
+          "    eae4:\tmov    %rcx,%rbx",
+          "    eae7:\tmovslq %edx,%rsi",
+          "    eaea:\tmov    %r9w,0x6(%rax,%rsi,4)",
+          "    eaf0:\tcmp    $0x1,%edi",
+          "    eaf3:\tsbb    %r12d,%r12d",
+          "    eaf6:\tadd    $0x4,%r12d",
+          "    eafa:\tcmp    $0x1,%edi",
+          "    eafd:\tsbb    %ecx,%ecx",
+          "    eaff:\tand    $0x83,%cx"
+        ],
+        "rbp_not_assumed_stack": "rbp isgeneralregisterunlessmovrsp,rbpprovesframe; no naive(%rbp)stackcount"
+      },
+      "send_tree": {
+        "static_instruction_lines": 93,
+        "calls": [],
+        "rsp_memory_operands": [],
+        "prologue": [
+          "    ece0:\tmov    0x1780(%rdi),%ecx",
+          "    ece6:\tmov    %rdi,%rax",
+          "    ece9:\tmov    0x1778(%rdi),%rdi",
+          "    ecf0:\ttest   %edx,%edx",
+          "    ecf2:\tje     ee18 <send_tree+0x138>",
+          "    ecf8:\tmov    %edx,%edx",
+          "    ecfa:\tpush   %rbx",
+          "    ecfb:\tmov    $0x40,%ebx",
+          "    ed00:\tlea    (%rdx,%rdx,2),%r11",
+          "    ed04:\tadd    %rsi,%r11",
+          "    ed07:\tjmp    ed48 <send_tree+0x68>",
+          "    ed09:\tnopl   0x0(%rax)",
+          "    ed10:\tshl    %cl,%rdx",
+          "    ed13:\tmov    %r8d,%ecx",
+          "    ed16:\tor     %rdx,%rdi",
+          "    ed19:\tmovzbl 0x2(%rsi),%edx"
+        ],
+        "rbp_not_assumed_stack": "rbp isgeneralregisterunlessmovrsp,rbpprovesframe; no naive(%rbp)stackcount"
+      },
+      "zng_tr_flush_block": {
+        "static_instruction_lines": 404,
+        "calls": [
+          "    fd10:\tcall   f310 <build_tree>",
+          "    fd20:\tcall   f310 <build_tree>",
+          "    fd3b:\tcall   ead0 <scan_tree>",
+          "    fd56:\tcall   ead0 <scan_tree>",
+          "    fd66:\tcall   f310 <build_tree>",
+          "    ff66:\tcall   ece0 <send_tree>",
+          "    ff7d:\tcall   ece0 <send_tree>",
+          "    ff8b:\tcall   ee30 <compress_block>",
+          "    ffb0:\tcall   fba0 <zng_tr_stored_block>",
+          "   100f1:\tcall   ee30 <compress_block>"
+        ],
+        "rsp_memory_operands": [
+          "    fcb3:\tmovl   $0x0,0x2c(%rsp)",
+          "    fcf4:\tmov    %r9d,0x18(%rsp)",
+          "    fcf9:\tlea    0x30(%rsp),%r14",
+          "    fcfe:\tmov    %r10,0x10(%rsp)",
+          "    fd0b:\tmov    %r11d,0xc(%rsp)",
+          "    fd25:\tlea    0x2c(%rsp),%r8",
+          "    fd51:\tmov    0x2c(%rsp),%r13d",
+          "    fd6b:\tmov    0xc(%rsp),%r11d",
+          "    fd70:\tmov    0x10(%rsp),%r10",
+          "    fd7a:\tmov    0x18(%rsp),%r9d",
+          "    fe13:\tmov    0x2c(%rsp),%edx",
+          "    fe26:\tmov    %edx,0xc(%rsp)",
+          "    fe64:\tmov    %rsi,0x10(%rsp)",
+          "    fe8e:\tmov    %r10,0x18(%rsp)",
+          "    fe9c:\tmov    0x10(%rsp),%r10",
+          "    fea4:\tmov    0x18(%rsp),%r10",
+          "    ff6b:\tmov    0xc(%rsp),%edx",
+          "   1022d:\tmov    0x10(%rsp),%rsi"
+        ],
+        "prologue": [
+          "    fc90:\tpush   %r15",
+          "    fc92:\tmov    %rsi,%r10",
+          "    fc95:\tmov    %edx,%r9d",
+          "    fc98:\tmov    %ecx,%r15d",
+          "    fc9b:\tpush   %r14",
+          "    fc9d:\tpush   %r13",
+          "    fc9f:\tpush   %r12",
+          "    fca1:\tmov    %rdi,%r12",
+          "    fca4:\tpush   %rbp",
+          "    fca5:\tpush   %rbx",
+          "    fca6:\tsub    $0x3f8,%rsp",
+          "    fcad:\tmov    0x1740(%rdi),%ebp",
+          "    fcb3:\tmovl   $0x0,0x2c(%rsp)",
+          "    fcbb:\ttest   %ebp,%ebp",
+          "    fcbd:\tje     102cd <zng_tr_flush_block+0x63d>",
+          "    fcc3:\tmov    0xb0(%rdi),%ebx"
+        ],
+        "rbp_not_assumed_stack": "rbp isgeneralregisterunlessmovrsp,rbpprovesframe; no naive(%rbp)stackcount"
+      }
+    }
+  },
+  "codegen_assessment": [
+    "scan_tree adds descriptorstores/3savedregisters and 99\u2192143staticinstructions; no callsites",
+    "send_tree nowiterates3bytetokens/readssymbol+extra-width+conditionalextra-value ratherthanclassifyingLenruns;395\u219293staticinstructions, oldrunclassifierremoved",
+    "Flushstacksub24\u21921016bytes, +992explicitallocatedbytes; 316x3=948descriptorbytes+counts/alignment/locals. Same6savedregs/10callsitecounts; staticmemoryoperandcounts areNOTruntimecycles",
+    "Descriptorstore/replaytraffic andstored/staticwastedwrites includedinfuturefullcost; no gain frominstruction orcodesizecounts"
+  ],
+  "wrapper_objects": {
+    "parent-tree-wrapper.o": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/tree-length-run-replay-oracle-codegen-hpc04-r1/output/parent-tree-wrapper.o",
+      "bytes": 17600,
+      "sha256": "b058a2951734f1c094c223ae7d46ef88e8629467044d3f3180e7daa009a65cd6"
+    },
+    "candidate-tree-wrapper.o": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/tree-length-run-replay-oracle-codegen-hpc04-r1/output/candidate-tree-wrapper.o",
+      "bytes": 16840,
+      "sha256": "bf1e04b9262c1edfdd76b405c47d9371455fa729e081b2ff5a98331361256960"
+    }
+  },
+  "application_science_qualified": false,
+  "fullcodec_native_qualified": false,
+  "kernel_timing_qualified": false,
+  "limits": [
+    "OnlyactualselectedGNU13O2/nonDEBUGflags andfiniteFE_DOWNWARD/INVALID|INEXACTstate, notallFPmodes/domainuniversality",
+    "RunLenpatterns exerciseinternalrunfunctions, notclaimedHuffman-validfullstreams;4genuineflushpayloadsstockrawdecoded",
+    "Fulltracearrayscopiedrawzero-padding/pointernormalizationavoided; exactparentcandidatebytes, cleanupreturn0actual"
+  ],
+  "raw_refs_sha256": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/oracle-codegen-gate-r1/actual-native-r1/receipt.json": "2512fcf2d7f76ed1f4d4dc7f05b646169eb89bc0fd8b6e9a822dcd28cfb9c269",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/oracle-codegen-gate-r1/actual-native-r1/closure.json": "7938d9464f82fa21273790399b15aa8d251a6d12aded6c07e572948481fcf0a2",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/oracle-codegen-gate-r1/actual-native-r1/controller.json": "7e929454aab0e801108aecc484baf2579b699ee8e0d8e9a5a5d48c951d882f56",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/oracle-codegen-gate-r1/actual-native-r1/wrapper-artifacts.json": "8028cf32be6180659d223b34f488b4b8600f28b9a397b2cb5e98e629f71a2125",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/local-source-r1/SOURCE_PROOF.json": "011847da150f7e870450ae58d87a1b8686ed107714b818a95f2b45d2a4790dbf",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-tree-length-run-replay-r1/local-source-r1/SOURCE_ONLY.diff": "953c27df5c4f66d5addb90a6ef85692b31fc8f910e8b828219b0353d1737a7b8"
+  }
+}
