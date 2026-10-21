@@ -1,5 +1,5 @@
 {
-  "status": "QUALIFIED_CURRENT_HPG_NHX_SHORT_FULL512",
+  "status": "QUALIFIED_CURRENT_HPG_NHX_SHORT_AND_THREE_HOUR_FULL512",
   "source_commit": "c3d2de5d92ea5da92dc6937657cfc0557defbef7",
   "executable": {
     "path": "/pool/wrf-experiment/wrf-cpu/builds/current3cdd-one-bigstep-hpg-nhx-row-cache-hpc02-r1/wrf.exe",
@@ -355,7 +355,7 @@
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/spcvmc-optical-producer/APPLICATION_QUALIFICATION.json",
     "sha256": "8f9c64380ae23f194bc45bbe2213f762f961af1e1803593d7bd9402169b247ee"
   },
-  "current_three_hour_qualified": false,
+  "current_three_hour_qualified": true,
   "prior_repaired_full_application": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/myj-mixlen-scratch-reuse/APPLICATION_QUALIFICATION.json",
     "sha256": "55e2170cfc4f695e2eb7124cb4dec541954a9db290979ed2423252a4b117eb2f"
@@ -849,7 +849,7 @@
   "candidate_memory_actual": {
     "hpc01": {
       "limit_bytes": 107374182400,
-      "peak_bytes": 63020380160,
+      "peak_bytes": 63024910336,
       "events": {
         "low": 0,
         "high": 0,
@@ -861,7 +861,7 @@
     },
     "hpc02": {
       "limit_bytes": 107374182400,
-      "peak_bytes": 60721315840,
+      "peak_bytes": 60727345152,
       "events": {
         "low": 0,
         "high": 0,
@@ -873,7 +873,7 @@
     },
     "hpc03": {
       "limit_bytes": 107374182400,
-      "peak_bytes": 60688883712,
+      "peak_bytes": 60686536704,
       "events": {
         "low": 0,
         "high": 0,
@@ -885,7 +885,7 @@
     },
     "hpc04": {
       "limit_bytes": 111669149696,
-      "peak_bytes": 60650172416,
+      "peak_bytes": 60651200512,
       "events": {
         "low": 0,
         "high": 0,
@@ -1003,7 +1003,10 @@
     "repeatability_established": false,
     "scope": "Historical RQVFTENee66/source31ca before RQVBLTEN. Actual4products545/full512 exact,660.3921359390952s MPIwall; candidate-only UNPAIRED descriptive metrics. Does not qualify child2bd1. Existing THREE_HOUR_RESULT/Q bytes and hashes unchanged."
   },
-  "current_three_hour_qualification": null,
+  "current_three_hour_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/hpg-nhx-row-cache/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "b8217c21e8f81ebaceb751334066cbcae6c7392a746770e3c923e6b674c9fd2e"
+  },
   "previous_RTH_short_full_application": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/phy-prep-part2-rthraten-simd/APPLICATION_QUALIFICATION.json",
     "sha256": "d5c058a57745ea1aa65df469cbbae0e2931a1f7b13c61ef130e47f051b53d117"
@@ -1057,22 +1060,21 @@
     "scope": "Exact4products545/full512/twoTiles/all32markers/fourpositivewriters; all8models+reader normally closed. Includes all current promotions; no isolated directive or concurrent-throughput claim."
   },
   "science": {
-    "products": 2,
-    "ordered_steps": 35,
-    "last_step": "2026-10-12_06:10:00",
+    "products": 4,
+    "ordered_steps": 545,
+    "last_step": "2026-10-12_09:00:00",
     "world": 512,
     "compute": 480,
     "quilt": 32,
     "tiles": 2,
     "positive_writer_roots": [
       487,
-      495
-    ],
-    "zero_activity_writer_roots": [
+      495,
       503,
       511
     ],
-    "actual_field_markers": 16,
+    "zero_activity_writer_roots": [],
+    "actual_field_markers": 32,
     "actual_field_marker_ranks": [
       480,
       481,
@@ -1089,14 +1091,30 @@
       492,
       493,
       494,
-      495
+      495,
+      496,
+      497,
+      498,
+      499,
+      500,
+      501,
+      502,
+      503,
+      504,
+      505,
+      506,
+      507,
+      508,
+      509,
+      510,
+      511
     ],
     "all32_quilt_FIELDVIEW1": true,
     "protected_compare_one_AST_unchanged": true,
-    "external_exact16_marker_gate": true,
+    "actual_full32_marker_gate": true,
     "original_comparisons_all_pass": true,
     "all_model_reader_scopes_closed": true,
-    "qualification_sha256": "99f3f5383f679b4088be4e15074a20afd89b6be43f99bf7f67384df1d71de172"
+    "qualification_sha256": "b8217c21e8f81ebaceb751334066cbcae6c7392a746770e3c923e6b674c9fd2e"
   },
   "Thompson_freeze_split_contract": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/uvb-batch/evidence/B_PRODUCTION_ARTIFACT_CONTRACT.json",
@@ -1108,7 +1126,7 @@
     "physical_memory_reduction_causally_qualified": false
   },
   "current_nine_hour_qualification": null,
-  "current_application_qualification_file": "tools/cpu-compute/hpg-nhx-row-cache/APPLICATION_QUALIFICATION.json",
+  "current_application_qualification_file": "tools/cpu-compute/hpg-nhx-row-cache/THREE_HOUR_APPLICATION_QUALIFICATION.json",
   "previous_E3_POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
     "source_commit": "1ae0c6ee9cd1b5c238a57cf25409c18d380faaed",
@@ -1245,7 +1263,7 @@
     "repeatability_established": false,
     "scope": "Exact4products545/full512/twoTiles/all4positivewriters/all32markers; main-step sum is elapsed not integrationCPU; no isolated/additive/pureIO/memorycausality claim."
   },
-  "scope": "Currentf703/fe72/sourcec3d2 retainsALL3cdd improvements plus one exact-order NH-X rowratio cache; same9371/51a/root06dNCa32/FABA/twoTiles/singleIB. OwnshortTRUE; own3h/noon/9hFALSE. GNU13.3strict, no new runtime flags/API/allocation.",
+  "scope": "Currentf703/fe72/sourcec3d2 retainsALL3cdd improvements plus exact-orderNH-X rowratio cache;9371/51a/root06dNCa32/FABA/twoTiles/singleIB. Ownshort and actualfreshreverse3h TRUE; ownnoon/9hFALSE. GNU13.3strict/no new runtimeflags/API/allocation.",
   "previous_3582_e1d8_science": {
     "products": 4,
     "ordered_steps": 545,
@@ -1427,68 +1445,53 @@
     "qualification_file": "../cpu-output/quilt512/codec/private-fast-distance-range/APPLICATION_QUALIFICATION.json"
   },
   "current_application_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/hpg-nhx-row-cache/APPLICATION_QUALIFICATION.json",
-    "sha256": "99f3f5383f679b4088be4e15074a20afd89b6be43f99bf7f67384df1d71de172"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/hpg-nhx-row-cache/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "b8217c21e8f81ebaceb751334066cbcae6c7392a746770e3c923e6b674c9fd2e"
   },
   "last_three_hour_benchmark": {
-    "qualification_file": "tools/cpu-compute/theta-sw-batch/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-    "qualification_sha256": "6e87cf7a255e5f02547cde9c7286e8b0ed709dbfc49af4bf60130d03a4d789ca",
+    "qualification_file": "tools/cpu-compute/hpg-nhx-row-cache/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "qualification_sha256": "b8217c21e8f81ebaceb751334066cbcae6c7392a746770e3c923e6b674c9fd2e",
     "executable": {
-      "path": "/pool/wrf-experiment/wrf-cpu/builds/currentfb43-one-sw-direct-cdf-hpc02-r1/wrf.exe",
-      "sha256": "a50e5cf7cc8bf8876b8df4d2b01fac73bae917c70efe9cd0b683ea9ee76626f1"
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current3cdd-one-bigstep-hpg-nhx-row-cache-hpc02-r1/wrf.exe",
+      "sha256": "f703115b7ddae2f15112d01f793624bd023ef1d188394926505986a9697984c6"
     },
-    "archive_sha256": "4b16c9ff1019035d950eeaa91c348afdc86632067b73976b8608bc75f39bcb39",
-    "source_commit": "97512cc69b4f144c399fb04bcebf8d146ddc78ff",
-    "comparison_design": "Fresh corrected-original546b control then currentall+theta+SW candidate; checkedcache each arm, no repeatability or isolated-theta forecast attribution",
+    "executable_sha256": "f703115b7ddae2f15112d01f793624bd023ef1d188394926505986a9697984c6",
+    "archive_sha256": "fe72cb2e98e8b321220bfbbd2c3f0f8ff9e49b437552618c1960eaf97a016b6f",
+    "source_commit": "c3d2de5d92ea5da92dc6937657cfc0557defbef7",
     "metrics": {
       "control": {
-        "wall_seconds": 947.713663617149,
-        "cpu_seconds": 432906.028505,
-        "main_step_sum_seconds": 725.0132
+        "wall_seconds": 914.0027063428424,
+        "cpu_seconds": 416098.178201,
+        "main_step_sum_seconds": 692.22938
       },
       "candidate": {
-        "wall_seconds": 661.0916317086667,
-        "cpu_seconds": 320598.551647,
-        "main_step_sum_seconds": 560.40742
+        "wall_seconds": 662.9043105957098,
+        "cpu_seconds": 320842.859578,
+        "main_step_sum_seconds": 560.87333
       }
     },
     "reductions_percent": {
-      "wall_seconds": 30.24352638480793,
-      "cpu_seconds": 25.942691822944397,
-      "main_step_sum_seconds": 22.70383215091808
+      "wall_seconds": 27.472390836985728,
+      "cpu_seconds": 22.892510376958697,
+      "main_step_sum_seconds": 18.975798166786852
     },
-    "wall_speedup_ratio": 1.4335587052700622,
+    "wall_speedup_ratio": 1.3787852812745878,
     "fresh_control_run": true,
-    "fresh_matched_timing": true,
+    "execution_order": [
+      "candidate",
+      "control"
+    ],
+    "profiling": false,
     "repeatability_established": false,
-    "applies_to_current_selection": false,
-    "scope": "One fresh fixed-order original546b control\u2192combinedtheta+SW candidate, checkedcacheeach. No repeatability, isolated/additive theta/SW contribution, or current9h claim. WholeMPIwall includes full output/drain; mainstepelapsed includes communication/backpressure, not integrationCPU; residual not pureIO. Freshcontrol947.71 differs from prior819.28 while candidate661.09 is near prior661.04; larger reduction is not a measured incremental theta/SW forecast gain.",
-    "prior_selected_f4b_context": {
-      "application_qualification": {
-        "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/calc-php-bc-simd/APPLICATION_QUALIFICATION.json",
-        "sha256": "177c1a6d4facce38ea6e17234446e028e4c52facb382570be5c73b2bd25c49a0"
-      },
-      "metrics": {
-        "control": {
-          "wall_seconds": 819.2783056409098,
-          "cpu_seconds": 367612.40525099996,
-          "main_step_sum_seconds": 597.23996
-        },
-        "candidate": {
-          "wall_seconds": 661.0404487038031,
-          "cpu_seconds": 320470.901248,
-          "main_step_sum_seconds": 558.88537
-        }
-      },
-      "scope": "Historical unpaired context only; not current control, not isolated two-change effect."
-    },
-    "scope_after_SPCVMC": "Actual parenta50e3h observation retained unchanged; not own3cdd qualification or timing."
+    "applies_to_current_selection": true,
+    "comparison_design": "Fresh REVERSE fixed-orderHPGf703FIRST then546bSECOND; cacheEACH; onepair, no repeatability/isolatedHPG/additive/causeclaim.",
+    "scope": "One fresh reverse fixed-order pair with cache EACH. Wholewall includes initialization/output/drain; mainelapsed includescommunication/backpressure, notintegrationCPU; aggregateCPU retainsownscope. No isolatedHPG/additive/sustained9h/concurrentthroughput claim."
   },
-  "claim_limits": "Ownshort2products35steps only; originalprotectedSCI exact/allmodelsreaderclosed. Completefinite500HPGcaller1.34\u20133.04% lowerwall on2oppositeorderhosts; processCPU unavailable. ShortforecastmetricsUNPAIRED descriptive only; no isolatedHPG forecastgain/repeatability or inherited3h/noon/9h qualification. Mainelapsed includescommunication/backpressure, notintegrationCPU; residualnotpureIO. RawproducerNULL/posttestsource separate.",
+  "claim_limits": "Ownshort2/35 and freshreverse3h4/545 originalexact/full512/all8model+readerstrongclosures. One candidateFIRST/originalSECOND pair; no repeatability, isolatedHPG/additive/concurrentthroughput/current9h claim. HPGcaller1.34-3.04% lowerwall remainsseparate/processCPU unavailable. Mainelapsed includescomm/backpressure, notintegrationCPU; residualnotpureIO. Sourceposttestc3d2 separate/rawproducerNULL.",
   "source_commit_scope": "Exactsource installed/committed onlyafteractualnative100/caller500/canonicalCPP/one-memberlink/originalshortSCI. RawproducerNULL; no own3h/noon/9h transfer or whole-image source-rebuild claim.",
   "current_noon75m_qualified": false,
   "current_noon75m_qualification": null,
-  "comparison_design": "Candidate-only original2/35 science qualification against frozen546b; allmetricsUNPAIRED/descriptive, no forecastgain attribution.",
+  "comparison_design": "Fresh REVERSE fixed-orderHPGf703FIRST then546bSECOND; cacheEACH; onepair, no repeatability/isolatedHPG/additive/causeclaim.",
   "theta_producer": {
     "pending": false,
     "source_commit": null,
@@ -1601,8 +1604,8 @@
     },
     "applies_to_current_selection": false
   },
-  "current_application_retry_scope": "Single successful HPG10m model invocation, no modelretry; normal all4model/reader closures and original2product35step SCI. Prepared/staged beforecheckedcache; sourcecommitted afterward.",
-  "next_qualification": "ONE fresh reverse-order3h pair: currentf703FIRST then corrected-original546bSECOND,4products545steps; exact originalscience/caches/resourceguards. Newcontrolobservationaddressesoriginaltimingvariation without causal/repeatability claim.",
+  "current_application_retry_scope": "No retries: one freshcandidate-first/original-second pair; all actualnormalclosures.",
+  "next_qualification": "One inactive shortcurrentdaytime profile with unchanged originalnoon2products230steps; use actualcurrentprimaryIP/source evidence before another implementation. No additional9h/matrix scheduled.",
   "daylight_application": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/spcvmc-optical-producer/APPLICATION_QUALIFICATION.json",
     "sha256": "8f9c64380ae23f194bc45bbe2213f762f961af1e1803593d7bd9402169b247ee"
@@ -2101,5 +2104,55 @@
     "cpu_seconds": 86843.488941,
     "main_step_sum_seconds": 42.03197
   },
-  "raw_result_label_disclosure": "Raw short RESULT preserves inherited actual_full_PART2_PBL_child_candidate label. Actual f703 lease/build/HPGqualified source identify currentcandidate; rawreceipt notrewritten."
+  "raw_result_label_disclosure": "Raw short RESULT preserves inherited actual_full_PART2_PBL_child_candidate label. Actual f703 lease/build/HPGqualified source identify currentcandidate; rawreceipt notrewritten.",
+  "separate_HPG_short_science_before_own3h": {
+    "products": 2,
+    "ordered_steps": 35,
+    "scope": "Separate same-image short scientific qualification; complete raw acceptance stays in APPLICATION_QUALIFICATION.json.",
+    "qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/hpg-nhx-row-cache/APPLICATION_QUALIFICATION.json",
+      "sha256": "99f3f5383f679b4088be4e15074a20afd89b6be43f99bf7f67384df1d71de172"
+    }
+  },
+  "separate_HPG_short_application_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/hpg-nhx-row-cache/APPLICATION_QUALIFICATION.json",
+    "sha256": "99f3f5383f679b4088be4e15074a20afd89b6be43f99bf7f67384df1d71de172"
+  },
+  "historical_three_hour_benchmark_before_HPG_own3h": {
+    "qualification_file": "tools/cpu-compute/theta-sw-batch/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "qualification_sha256": "6e87cf7a255e5f02547cde9c7286e8b0ed709dbfc49af4bf60130d03a4d789ca",
+    "executable": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/currentfb43-one-sw-direct-cdf-hpc02-r1/wrf.exe",
+      "sha256": "a50e5cf7cc8bf8876b8df4d2b01fac73bae917c70efe9cd0b683ea9ee76626f1"
+    },
+    "archive_sha256": "4b16c9ff1019035d950eeaa91c348afdc86632067b73976b8608bc75f39bcb39",
+    "source_commit": "97512cc69b4f144c399fb04bcebf8d146ddc78ff",
+    "applies_to_current_selection": false
+  },
+  "three_hour_metrics": {
+    "control": {
+      "wall_seconds": 914.0027063428424,
+      "cpu_seconds": 416098.178201,
+      "main_step_sum_seconds": 692.22938
+    },
+    "candidate": {
+      "wall_seconds": 662.9043105957098,
+      "cpu_seconds": 320842.859578,
+      "main_step_sum_seconds": 560.87333
+    }
+  },
+  "three_hour_reductions_percent": {
+    "wall_seconds": 27.472390836985728,
+    "cpu_seconds": 22.892510376958697,
+    "main_step_sum_seconds": 18.975798166786852
+  },
+  "three_hour_memory_actual": {
+    "qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/hpg-nhx-row-cache/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "b8217c21e8f81ebaceb751334066cbcae6c7392a746770e3c923e6b674c9fd2e"
+    },
+    "field": "memory_actual",
+    "scope": "Actualperarm/node counters retained in full APPQ; no inferred peak or pressure-freeclaim."
+  },
+  "candidate_memory_actual_scope": "Actualfreshthree-hour f703 candidate; prior short counter records remain in separate99f3APPQ."
 }

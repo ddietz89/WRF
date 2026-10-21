@@ -1,0 +1,28 @@
+{
+  "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+  "order": [
+    "fresh_current_HPGf703_allprior_candidate_FIRST",
+    "fresh_corrected_original546b_control_SECOND"
+  ],
+  "comparison_design": "Fresh REVERSE order currentHPGf703 allprior candidate FIRST then corrected-original546b control SECOND; checkedcache each arm, no repeatability or isolatedHPG forecast attribution",
+  "metrics": {
+    "control": {
+      "wall_seconds": 914.0027063428424,
+      "cpu_seconds": 416098.178201,
+      "main_step_sum_seconds": 692.22938
+    },
+    "candidate": {
+      "wall_seconds": 662.9043105957098,
+      "cpu_seconds": 320842.85957800003,
+      "main_step_sum_seconds": 560.87333
+    }
+  },
+  "reductions_percent": {
+    "wall_seconds": 27.472390836985728,
+    "cpu_seconds": 22.892510376958686,
+    "main_step_sum_seconds": 18.975798166786852
+  },
+  "science_sha256": "ce3e471f6f582f202b1e581b5bf63d297909661f7f06c7a879ebfa99df7b9b7f",
+  "reader_closure_sha256": "dea12699903da4f27e79b11f8b2107de106b17a343f270699d60b47a82f4c116",
+  "limits": "One fresh fixed-order pair, actual checkedcache before each arm; no repeatability or per-kernel causal claim. Main includes communication/backpressure; residual is not pureIO."
+}
