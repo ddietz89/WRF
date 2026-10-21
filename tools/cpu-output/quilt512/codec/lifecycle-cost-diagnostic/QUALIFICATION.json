@@ -1,0 +1,123 @@
+{
+  "status": "PASS_BOUNDED_CURRENT_E1D8_COMPLETE_PROVIDER_LIFECYCLE_DIAGNOSTIC_PARK_REUSE",
+  "build_invocation_id": "3caf2efe153b46e7a98f14e9257b7c5b",
+  "diagnostic_invocation_id": "9938694ff8934366a4cbf10e84af0052",
+  "scope": {
+    "actual_provider": "D45 source7ea same51a provider logic",
+    "actual_codec_sha256": "e1d8bc0774b7c54b4b63e7d6892c6485bec9b3c7032985a229961ba0569cc450",
+    "synthetic_geometry": [
+      1,
+      33,
+      1139,
+      1499
+    ],
+    "chunk_geometry": [
+      1,
+      33,
+      570,
+      750
+    ],
+    "steady_callbacks": 32,
+    "chunks_per_callback": 4,
+    "before_after_stock_decode_proofs": 2,
+    "real_paired_creates_joins_each_execution": 136,
+    "MPI512_qualified": false,
+    "WRF_payload_representative": false,
+    "scientific_acceptance": false,
+    "optimization_implemented": false
+  },
+  "actual_counts_and_brackets": {
+    "probe": "CURRENT_E1D8_INIT_END",
+    "init_count": 128,
+    "end_count": 128,
+    "rows": 256,
+    "init_thread_cpu_ns_sum": 5612153,
+    "end_thread_cpu_ns_sum": 360420,
+    "init_elapsed_ns_sum": 6179729,
+    "end_elapsed_ns_sum": 674731,
+    "init_monotonic_union_ns": 4218973,
+    "end_monotonic_union_ns": 674731,
+    "combined_monotonic_union_ns": 4893704,
+    "whole_provider_wall_ns": 2173573741,
+    "whole_process_cpu_ns": 6751547361,
+    "overhead_included_unknown": true,
+    "actual_native_status_all_Z_OK": true
+  },
+  "baseline": {
+    "provider": "candidate",
+    "calls": 32,
+    "raw_bytes": 225371652,
+    "chunk_bytes": 56430000,
+    "chunks": 4,
+    "complete_provider_call_wall_ns": 2145037614,
+    "process_cpu_ns": 6712801322,
+    "errno": 33,
+    "flags": 36,
+    "round": 2048,
+    "mxcsr": 24452,
+    "x87cw": 2943,
+    "exact_raw_readonly_gold": true,
+    "release_outside_clock": true,
+    "stock_decode_before_after": true,
+    "maxrss_kib": 718736,
+    "no_MPI512_activation": true
+  },
+  "observed": {
+    "provider": "candidate",
+    "calls": 32,
+    "raw_bytes": 225371652,
+    "chunk_bytes": 56430000,
+    "chunks": 4,
+    "complete_provider_call_wall_ns": 2173573741,
+    "process_cpu_ns": 6751547361,
+    "errno": 33,
+    "flags": 36,
+    "round": 2048,
+    "mxcsr": 24452,
+    "x87cw": 2943,
+    "exact_raw_readonly_gold": true,
+    "release_outside_clock": true,
+    "stock_decode_before_after": true,
+    "maxrss_kib": 718752,
+    "no_MPI512_activation": true
+  },
+  "derived_descriptive_only": {
+    "init_plus_end_thread_cpu_ns_sum": 5972573,
+    "lifecycle_bracket_cpu_percent_of_observed_process_cpu": 0.08846228398693151,
+    "lifecycle_combined_union_percent_of_observed_provider_wall": 0.2251455245198419,
+    "observed_vs_baseline_provider_wall_percent_change": 1.3303322428358966,
+    "observed_vs_baseline_process_cpu_percent_change": 0.5771962723374102
+  },
+  "hard_gates": [
+    "Actual128Init+128End proves executable interposition hit fixed32x4calls; both realnative pointers pinned via dladdr to actuale1d8 before warmproof",
+    "Allactualnative returncodesZ_OK; entry/nativePOST fullfenv+errno preserved; baselineobserved five-state equality",
+    "Compressed bytes exact existinggold; independentstockb65 decodedraw/layout/fill/tails +readonly options/raw beforeafter proofs",
+    "136successful realpaired creates/joins eachrun; no create/join errors",
+    "Checked02cache immediatelybefore ONE diagnostic, compileanddiagnostic normalstrongsameINV positiveclosures"
+  ],
+  "limits": [
+    "PhaseCPU is sum of per-threadbrackets; wallunion uses sameCLOCK_MONOTONIC intervals, not additive elapsed sums",
+    "Brackets include clocks/fenv/control overhead; some helper overhead is outside brackets. Difference versus baseline includes ordering/noise and instrumentation; it is not calibrated overhead",
+    "No overhead subtraction, removable-cost upperbound, wholeforecast/production fraction, purecodec throughput, independentstreamreset correctness, or speedup claim",
+    "Onechunkperworker means within-workerreset has no amortization; crosscallbackreuse requires additional ownership/lifetime machinery and is NOT implemented",
+    "Production864pair/writer count is separate source/log evidence; do not scale synthetic timing to production",
+    "Pre-submissionSSH failures attempts1/2 and raw incompleteauthor/review returns retained. No nativefailure disguised asPASS"
+  ],
+  "disposition": "PARK crosscallback codecstate reuse: this actualfixedW4currente1d8 diagnostic attributes only a small bracket share; it does not justify a bank implementation or another model/profile replay. No furtherjobs.",
+  "rawrefs_sha256": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-codec-lifecycle-cost-diagnostic-r1/driver-build-r1/actual-native-attempt3/receipt.json": "0ddcaee038130a10cf6f58ec86cbf459d8acf9663176f2d520f5bfaf465326b9",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-codec-lifecycle-cost-diagnostic-r1/driver-build-r1/actual-native-attempt3/closure.json": "40d79385ce124bd40e51ff71eb5b11525f607503199ccebb586a5df511f068f3",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-codec-lifecycle-cost-diagnostic-r1/driver-build-r1/actual-native-attempt3/controller.json": "5943a69fe1f6c91ed71bbeadd593d332b7845b7d0bba8395ac823f9279b1dd8c",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-codec-lifecycle-cost-diagnostic-r1/diagnostic-r1/actual-native-r1/receipt.json": "1c5988fd429163bc1872cfeb471627ab6451255c5d30d99dc7972da44255d3b6",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-codec-lifecycle-cost-diagnostic-r1/diagnostic-r1/actual-native-r1/closure.json": "543904d218eb60e7cf0e5d9a00170365f3069890f007688894651474a0ef7b77",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-codec-lifecycle-cost-diagnostic-r1/diagnostic-r1/actual-native-r1/controller.json": "494eee29eb470aab0e7b2c76fd9bf813605325427b156eed4c5088128d5877a1",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-codec-lifecycle-cost-diagnostic-r1/diagnostic-r1/actual-native-r1/cache-clear.json": "d122f9c6c0b4870c5713ccbd5e4d0095cddf4475ca4d9771b15ae12a8e7972a3",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-codec-lifecycle-cost-diagnostic-r1/driver-build-r1/inputs/source-pins.json": "e0a8982699515466a9ba1b8b98c5b7c09b917255488cefd83abc1dbc8b6dc446",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-codec-lifecycle-cost-diagnostic-r1/diagnostic-r1/inputs/source-pins.json": "0bcf84f13780fd2d9e964fef1de24088e38c51dfd1e15a7b7368791f0214d73a",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-codec-lifecycle-cost-diagnostic-r1/driver-build-r1/inputs/codec_lifecycle_probe.c": "32b740ef28397e5b7d7f170402233321ed5d0228713108d74b6523b20cc3ec67",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-codec-lifecycle-cost-diagnostic-r1/driver-build-r1/inputs/provider_caller.observed.c": "a23225bd80bb601d1c960a28625f1ec12ff2e80134a6110f5e56327110cc9b3d",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-codec-lifecycle-cost-diagnostic-r1/driver-build-r1/actual-native-r1/controller.json": "03018dcc2bc53371b746acc84c118f866e93b460e45ba48be53114f59189432e",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-codec-lifecycle-cost-diagnostic-r1/driver-build-r1/actual-native-attempt2/controller.json": "89fc15497e654561738905c622562ef93e0eef29165e7750438108f1cbf9b5c1",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/provider-codec-lifecycle-cost-diagnostic-r1/ADJUDICATION.json": "5a8ef162e65c043665d8c85866bf507be37503751975d23fa93d584a3c2f2528"
+  }
+}

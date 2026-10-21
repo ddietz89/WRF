@@ -1,0 +1,58 @@
+{
+  "status": "PASS_CURRENT_E1D8_LIFECYCLE_DRIVER_COMPILE_LINK_ONLY",
+  "invocation_id": "3caf2efe153b46e7a98f14e9257b7c5b",
+  "commands": [
+    {
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-std=c11",
+        "-Wall",
+        "-Wextra",
+        "-Werror=implicit-function-declaration",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/codec-lifecycle-cost-driver-hpc02-r1",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-rdynamic",
+        "/pool/wrf-experiment/wrf-cpu/kernels/codec-lifecycle-cost-driver-hpc02-r1/provider_caller.observed.c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/codec-lifecycle-cost-driver-hpc02-r1/codec_lifecycle_probe.c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng",
+        "-ldl",
+        "-lm",
+        "-pthread",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/codec-lifecycle-cost-driver-hpc02-r1/provider-lifecycle-observed"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 3.0727871390990913,
+      "stderr": "/pool/wrf-experiment/wrf-cpu/kernels/codec-lifecycle-cost-driver-hpc02-r1/provider_caller.observed.c:20: warning: ignoring \u2018#pragma STDC FENV_ACCESS\u2019 [-Wunknown-pragmas]\n   20 | #pragma STDC FENV_ACCESS ON\n      | \n/pool/wrf-experiment/wrf-cpu/kernels/codec-lifecycle-cost-driver-hpc02-r1/provider_caller.observed.c: In function \u2018main\u2019:\n/pool/wrf-experiment/wrf-cpu/kernels/codec-lifecycle-cost-driver-hpc02-r1/provider_caller.observed.c:135:2: warning: this \u2018for\u2019 clause does not guard... [-Wmisleading-indentation]\n  135 |  for(int i=0;i<4;i++)free(gold[i]);free(before);free(raw);return 0;\n      |  ^~~\n/pool/wrf-experiment/wrf-cpu/kernels/codec-lifecycle-cost-driver-hpc02-r1/provider_caller.observed.c:135:36: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the \u2018for\u2019\n  135 |  for(int i=0;i<4;i++)free(gold[i]);free(before);free(raw);return 0;\n      |                                    ^~~~\n/pool/wrf-experiment/wrf-cpu/kernels/codec-lifecycle-cost-driver-hpc02-r1/codec_lifecycle_probe.c:14: warning: ignoring \u2018#pragma STDC FENV_ACCESS\u2019 [-Wunknown-pragmas]\n   14 | #pragma STDC FENV_ACCESS ON\n      | \n"
+    }
+  ],
+  "artifacts": {
+    "/pool/wrf-experiment/wrf-cpu/kernels/codec-lifecycle-cost-driver-hpc02-r1/provider-lifecycle-observed": "83e7c280d5d3e03566f95b5fbaf62f62b93bc9cb83222e5602d474a055645ccb"
+  },
+  "source_pins": {
+    "artifact-pins.json": "3ee203d58aebdf5420c24e8fd298f9e72c4e22f7bab6d13820bdfe724df24f58",
+    "binding.json": "9e2f66366215f33fe18c11492dfe5eca0c664a9115d22632f7216358ddcffe90",
+    "codec_lifecycle_probe.c": "32b740ef28397e5b7d7f170402233321ed5d0228713108d74b6523b20cc3ec67",
+    "lifecycle_probe.h": "b34493d19ca0ff382c3e78b54df1bf7fecc9793df55095f859f359d26cad6b25",
+    "netcdf_precompressed.h": "f050797799f235dea8be9400198d0b8d44fbfca2acb45ed4a914b75b717311b4",
+    "provider_caller.observed.c": "a23225bd80bb601d1c960a28625f1ec12ff2e80134a6110f5e56327110cc9b3d",
+    "root_chunk_provider.h": "969fc7475b5b6da0f135557746e008e3599e303e19c6cec8e9c5294c5a75cf0c",
+    "run_gate.py": "4c1dff28a0b91483b7270bd1992359f54a8284cd713371fa008e8be57bfd39d4"
+  },
+  "dependency_sha256": {
+    "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc": "360898b5e41799b7a5fcaf7acb2dfb4cab0017c5b3debc91e330636f1d0d37b9",
+    "/pool/wrf-experiment/wrf-cpu/kernels/provider-private-shuffle-scratch-reuse-native-r1/candidate-provider.so": "d45eafa7a7f03be7bd3770eb1e0cd21b280eca7ff143fbcfb5f68a4a16530509",
+    "/pool/wrf-experiment/wrf-cpu/kernels/provider-padding-block32-native-r1/candidate-provider.so": "27d94f82c36f19852b8191b5a4d8a171c2ae974d8e78db72182d8a8d5ecf15ce",
+    "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng": "e1d8bc0774b7c54b4b63e7d6892c6485bec9b3c7032985a229961ba0569cc450",
+    "/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib/libz.so.1.3.1": "b65f7f34c3180cbee93aeec785bba6b95beca585190e4a899c3b7648b7842830",
+    "/pool/wrf-experiment/wrf-cpu/kernels/provider-padding-block32-w-caller-driver-r1/gold.bin": "3fd49e0a2abd0590d3fc7c2c73142f8b196c1a9390344468518446cd4ebcef1b",
+    "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-codec-provider-hpc04-r1/output/provider-candidate": "9f89ca903ea91c4872605e09db95661583d920e6670d179b8cd7bf4d4b9f6da5"
+  },
+  "executions": 0,
+  "provider_compiles": 0,
+  "codec_compiles": 0,
+  "scope": "Diagnostic helper/caller compile-link only; no native qualification or timing"
+}

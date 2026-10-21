@@ -1,4 +1,8 @@
-## Current combined qualification (2026-10-21)
+## Current compute selection; output unchanged (October 20, 2026, EDT)
+
+Selected **FINISH8bfe/archive6f44/sourcea92fc86b** retains all prior improvements and adds one exact-qualified U reconstruction SIMD directive. Original two-product/35-step/full512/two-tile science passed; complete FINISH caller wall fell8.24–11.81% in the bounded opposite-order tests. OwnshortTRUE; own3h/9hFALSE. The previous E3 long-run records below do not apply to this child. Output51a/codece1d8/input06dNCa32/faba/single-IB remain unchanged. [Evidence and paired rollback](../../cpu-compute/smallstep-finish-u-simd/README.md).
+
+## Previous E3 combined qualification (2026-10-21 UTC)
 
 The selected e3da/51a/e1d8 configuration passed original four-product/545-step/full512/two-tile/all-four-writer science. Whole runtime819.278306→661.793683s (19.22% lower), main-step elapsed597.239960→560.596320s (6.14% lower), aggregate CPU367612.405251→321402.587962CPU-s (12.57% lower), UNPAIRED versus retained original2aef. Output51a is unchanged; no isolated output contribution is claimed. Current own unprofiled9h passed ten products/1625 steps:2068.620428→1832.427071s whole wall (11.4179% lower),1852.829220→1734.321620s main elapsed (6.3960% lower),1009950.954887→921737.195426CPU-s (8.7345% lower), UNPAIRED retained-original546b. No isolated output contribution or repeatability claim. [Nine-hour evidence](../../cpu-compute/uvb-batch/NINE_HOUR_QUALIFICATION.json). [Working selection and rollback](../../cpu-working/README.md) supersede the historical build scopes below.
 

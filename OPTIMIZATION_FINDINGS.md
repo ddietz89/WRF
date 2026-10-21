@@ -1,14 +1,30 @@
 # WRF CPU optimization findings
 
-## Current output-path attribution (2026-10-21)
+## Current FINISH-U selection (October 20, 2026, EDT)
 
-The E3 build with the qualified boundary observer passed the original two-product/35-step full-grid checker; all model and reader scopes closed normally. Within each active writer’s public write-call envelope, the compression callback occupied86.18–89.88% and direct HDF5 chunk calls9.05–12.06%. These local envelopes do not measure MPI/gather time or the complete final drain. Each writer made216 callbacks and864 independent chunk streams. A standalone diagnostic is prepared to measure codec initialization/teardown before any lifetime optimization.
+The working fork selects **8bfe0e0a / archive6f44a6b7 / post-test sourcea92fc86b**, retaining all previous improvements and adding one SIMD directive to SMALL_STEP_FINISH U reconstruction. Native80-case O0/bounds/O2 and72 PREP regression checks were exact, including raw IEEE output, all five state words, inputs and halos. Complete synthetic FINISH callers, with identical restoration inside the clock, were8.24–11.81% shorter with8.25–11.77% less process CPU in two opposite-order host pairs. These caller gains support inclusion under the standing policy; no isolated forecast contribution is established.
+
+The unchanged original checker passed **two complete products,35 ordered steps,all512 ranks,two tiles,two positive writers,16 active-group markers and all32 quilt FIELDVIEW1 settings**. Every model and reader scope closed normally. [Actual short application qualification](tools/cpu-compute/smallstep-finish-u-simd/APPLICATION_QUALIFICATION.json) (`d43362d0`) binds32 references. Raw producer commits stayNULL; the tested source was committed afterward. Output51a, codece1d8, input06d/NCa32, faba placement and the qualified single-IB transport are unchanged.
+
+**Own short science is qualified; own three-/nine-hour qualification is false.** The E3 results below belong to the previous build and remain historical. This ten-minute startup/output comparison is UNPAIRED and descriptive:
+
+| Short-case measure | Retained corrected original | FINISH-U combined | Descriptive reduction |
+|---|---:|---:|---:|
+|Whole model/MPI wall|267.534171s|137.377727s|48.6504%|
+|Integration-step elapsed, including communication/backpressure|42.031970s|38.865730s|7.5329%|
+|Aggregate node CPU|86843.488941CPU-s|52939.635895CPU-s|39.0402%|
+
+Client caches were cleared, but the gateway outage caused a recorded1,131.818s clear-to-launch gap. The original receipt, failed pre-submission attempts and actual delay remain preserved. File-server cache/load were uncontrolled. These short values establish no sustained speedup, isolated contribution or repeatability. Main-step elapsed is not integration CPU. The raw result's inherited PART2_PBL name is disclosed; actual leases and artifact proofs identify FINISH8bfe. The report-reference filename repair changes no science, tolerance or timing value. [Evidence and paired rollback](tools/cpu-compute/smallstep-finish-u-simd/README.md) restore E3/source1ae and its long-run scope.
+
+## Output-path attribution (2026-10-21 UTC)
+
+The E3 build with the qualified boundary observer passed the original two-product/35-step full-grid checker; all model and reader scopes closed normally. Within each active writer’s public write-call envelope, the compression callback occupied86.18–89.88% and direct HDF5 chunk calls9.05–12.06%. These local envelopes do not measure MPI/gather time or the complete final drain. Each writer made216 callbacks and864 independent chunk streams. The completed [lifecycle diagnostic](tools/cpu-output/quilt512/codec/lifecycle-cost-diagnostic/README.md) measured5.973ms init/end thread CPU out of6.752s complete-provider CPU (0.08846%) in128 synthetic streams. Its same-clock bracket union was0.22515% of provider wall, with uncalibrated instrumentation overhead included. Stream reuse is parked: no significant benefit justifies its additional cross-callback lifetime machinery. These are synthetic component observations, without a production fraction or removable-cost ceiling.
 
 The intended writer CPU capture is unavailable: its initial-file trigger never admitted and no recorder started. The failed capture is preserved, without a zero-cost claim or automatic forecast replay. The [bounded diagnostic evidence](tools/cpu-output/current-e3-writer-attribution/README.md) retains exact science, raw boundary measurements, closure proofs and short descriptive wall/main/CPU values. This observer experiment changes no selected source, libraries, defaults or unprofiled long-run qualification.
 
-## Current combined selection (2026-10-21)
+## Previous E3 combined selection (2026-10-21 UTC)
 
-The working fork now selects **e3da6907 / archive4f2a0cf0 / post-test source1ae0c6ee**. It retains all prior improvements and adds final-U velocity SIMD, Prep V coupling SIMD and split rain/cloud staging during Thompson initialization. The unchanged original checker passed all four complete products,545 ordered timesteps,512 ranks,two tiles,all four positive writer groups and all32 field markers. All model and reader jobs closed normally.
+The previous working selection was **e3da6907 / archive4f2a0cf0 / post-test source1ae0c6ee**. It retains all prior improvements and adds final-U velocity SIMD, Prep V coupling SIMD and split rain/cloud staging during Thompson initialization. The unchanged original checker passed all four complete products,545 ordered timesteps,512 ranks,two tiles,all four positive writer groups and all32 field markers. All model and reader jobs closed normally.
 
 | Three-hour measure | Retained corrected original | Current combined | Reduction |
 |---|---:|---:|---:|
@@ -18,7 +34,7 @@ The working fork now selects **e3da6907 / archive4f2a0cf0 / post-test source1ae0
 
 This is **UNPAIRED**, using the actual retained fresh original2aef control; no new control was run. Both arms had checked client-cache clearing at their own execution. The candidate's actual clear-to-launch delay is retained after a pre-model launcher-reference repair. File-server cache/load remain uncontrolled. Main-step elapsed is not integration CPU; whole-minus-main is not pure I/O. These values establish no isolated candidate contribution, additive percentage, repeatability or nine-hour result. The observed single-forecast wall ratio is1.2380x; the1.5x throughput and2x speedup goals remain unmet, and concurrent-forecast throughput is unmeasured.
 
-### Current nine-hour qualification (2026-10-21)
+### E3 nine-hour qualification (2026-10-21 UTC)
 
 The same selected image passed the unchanged original comparison through 15:00: **ten complete products, 1,625 ordered timesteps, all 512 ranks, two tiles, all four positive writers and 32 field markers**. Every model and reader scope closed normally; no observer or profiler was active.
 
@@ -42,7 +58,7 @@ The combined build reused two qualified objects, preserved582 other ordered arch
 
 Rollback restores the paired BEFORE_UV_B_BATCH selection/build-binding/latest snapshots and reverts source-only1ae0c6ee, returning to db5a/0c91/sourcec883c564 with unchanged libraries. Actual qualification2ed4c147 binds58 verified raw references. The initial pre-model missing-control-reference failure and the first build's private-symbol guard failure are preserved; neither is relabeled as a successful original attempt.
 
-The coefficient-loop SIMD candidate is [rejected with exact evidence](tools/cpu-compute/calc-coef-w-middle-i-simd-rejected/README.md). It produced packed divisions but selected a different NaN payload in ALPHA(1,2,0): parent0x7fc12345 versus child0xffc54321. Cases7–8 across all four rounding modes contained4464 differing words; the other72 complete CALC records matched. No O0, timing, application test or source promotion followed this hard O2 failure. The separate first fixture-parser failure remains preserved. The earlier U-DPn pragma is also rejected on exact IEEE output. A distinct FINISH-U reconstruction candidate passed80 complete native cases and all four complete-caller timing arms (8.2–11.8% shorter); experimental8bfe/archive6f44 is built, with original short application qualification pending. It is not included in the selected E3DA timings. The next current-build writer profile uses a bounded short diagnostic, with no forecast timing claim. Continue measured investigations after closing these decisions; a status or promotion is not a stopping point.
+The coefficient-loop SIMD candidate is [rejected with exact evidence](tools/cpu-compute/calc-coef-w-middle-i-simd-rejected/README.md). It produced packed divisions but selected a different NaN payload in ALPHA(1,2,0): parent0x7fc12345 versus child0xffc54321. Cases7–8 across all four rounding modes contained4464 differing words; the other72 complete CALC records matched. No O0, timing, application test or source promotion followed this hard O2 failure. The separate first fixture-parser failure remains preserved. The earlier U-DPn pragma is also rejected on exact IEEE output. The distinct FINISH-U reconstruction change is now selected after original short application science above; the E3DA timings exclude it. The distinct FINISH W/PH/WW directive is [rejected](tools/cpu-compute/smallstep-finish-w-ph-ww-simd-rejected/README.md): PH2 selected a different NaN payload in4,224 words across cases21–22 and four rounding modes. W2, WW and all560 state words matched. The original80-record prefix was unchanged; the earlier expected-hash transcription failure is preserved separately. No timing, application test or promotion followed the real O2 failure. A new bounded writer capture targets the second output with no forecast timing claim. Continue measured investigations after closing these decisions; a status or promotion is not a stopping point.
 
 Evidence: [actual combined qualification](tools/cpu-compute/uvb-batch/APPLICATION_QUALIFICATION.json), [all three-hour observations](tools/cpu-compute/uvb-batch/THREE_HOUR_RESULT.json), [component evidence and rollback](tools/cpu-compute/uvb-batch/README.md).
 

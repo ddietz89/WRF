@@ -1,0 +1,98 @@
+{
+  "status": "PASS_CURRENT9895_COMPLETE_FINISH_U_SIMD_80_CASES_O0_BOUNDS_O2_RAW_READONLY_HALO_FIVE_STATE_NOT_TIMING",
+  "invocation_id": "068f91b53c9941edae56a92b5244cee7",
+  "source_commit": null,
+  "canonical_parent_sha256": "425167eda5868d28d358a16cf41f0642df9dcedacae563ec73c127d49ea0778e",
+  "canonical_candidate_sha256": "528f281fad37016a417873b4a25e0e5121a56df7d671fa9ed2eab6f835f66f2e",
+  "parent_object": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/smallstep-prep-v-coupling-simd-full-caller-gate-r1/work/O2-candidate/module_small_step_em.o",
+    "sha256": "98950138203abd25f355e6a94611ee22c7fb9c598eaff7464edddd46a8a00391"
+  },
+  "objects": {
+    "O2-parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/smallstep-finish-u-reconstruction-simd-full-caller-gate-r1/work/O2-parent/module_small_step_em.o",
+      "sha256": "4763ecb708c0668fbccf5a1eb92ee0d582552555b3ca5e29a61a781406e8b1bd"
+    },
+    "O2-candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/smallstep-finish-u-reconstruction-simd-full-caller-gate-r1/work/O2-candidate/module_small_step_em.o",
+      "sha256": "67e34ca77d35587c4c12286a821cfcb8aa90a8d911910c79843a8c2fff5792cc"
+    },
+    "O0-parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/smallstep-finish-u-reconstruction-simd-full-caller-gate-r1/work/O0-parent/module_small_step_em.o",
+      "sha256": "4a5915fa4dc30770d5cccc7131d77104a0d74a0a955a7a60b6590ab2133d43a0"
+    },
+    "O0-candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/smallstep-finish-u-reconstruction-simd-full-caller-gate-r1/work/O0-candidate/module_small_step_em.o",
+      "sha256": "875135a311c928f4cda2f41eaad3ce3ec67d4a4918f348bf3ada8890998c582d"
+    }
+  },
+  "public_module_interface_sha256": "d50c501497b927ad56b9bb3b7cb9431c827b8092cedf23e83d8f573ccb884b94",
+  "preprocessed_candidate_sha256": "064f88365ec56e4339df94ec274f43ef18fe9ed11252a287a5a6426a3a5fa5cf",
+  "case_count": 80,
+  "unchanged_PREP_regression_count": 72,
+  "scope": "20fixedcompleteFINISHcases\u00d74roundings. O2native9895+freshparent+childexact; O0same-levelpairwithbounds. All6written3D/MU2 raw,18x3D+15x2D readonly/physicalhalos/staggeredwriteextent,coefs/DTS/params,all5statehard. No crossoptNaN equality assumed.",
+  "raw_proofs": {
+    "native-current": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/smallstep-finish-u-reconstruction-simd-full-caller-gate-r1/work/native-current-FINISH.bin",
+      "sha256": "9dbdc81f0ca08c1d08ff09bd51c5ca6c39b9feabf282219eb46548a36e272676",
+      "bytes": 167282240
+    },
+    "O2-parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/smallstep-finish-u-reconstruction-simd-full-caller-gate-r1/work/O2-parent-FINISH.bin",
+      "sha256": "9dbdc81f0ca08c1d08ff09bd51c5ca6c39b9feabf282219eb46548a36e272676",
+      "bytes": 167282240
+    },
+    "O2-candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/smallstep-finish-u-reconstruction-simd-full-caller-gate-r1/work/O2-candidate-FINISH.bin",
+      "sha256": "9dbdc81f0ca08c1d08ff09bd51c5ca6c39b9feabf282219eb46548a36e272676",
+      "bytes": 167282240
+    },
+    "O0-parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/smallstep-finish-u-reconstruction-simd-full-caller-gate-r1/work/O0-parent-FINISH.bin",
+      "sha256": "6a81aa017f597f8f8c247b8452f568652af6d2647a3c3f8841a5492f61165b04",
+      "bytes": 167282240
+    },
+    "O0-candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/smallstep-finish-u-reconstruction-simd-full-caller-gate-r1/work/O0-candidate-FINISH.bin",
+      "sha256": "6a81aa017f597f8f8c247b8452f568652af6d2647a3c3f8841a5492f61165b04",
+      "bytes": 167282240
+    }
+  },
+  "codegen": {
+    "parent": {
+      "object_sha256": "4763ecb708c0668fbccf5a1eb92ee0d582552555b3ca5e29a61a781406e8b1bd",
+      "assembly_sha256": "9a6fec829f0ada8d48ebc56362b0fca0c44b382bb10e2f8866dd7b2993858294",
+      "DIVPS": 0,
+      "DIVSS": 5
+    },
+    "candidate": {
+      "object_sha256": "67e34ca77d35587c4c12286a821cfcb8aa90a8d911910c79843a8c2fff5792cc",
+      "assembly_sha256": "44cda3c991d6058c10f208d0ce8487614afbe9c59caa3e418f193e4bdc4ce18d",
+      "DIVPS": 2,
+      "DIVSS": 5,
+      "packed_division_source_lines": [
+        420,
+        420
+      ],
+      "expected_U_assignment_line": 420
+    }
+  },
+  "genuine_parent_proof": "PASS_ALLOCATED_BYTES_RELOCATIONS_NONFILE_SYMBOLS_EXACT",
+  "source_inverse_exact": true,
+  "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+  "memory_peak_bytes": 1665171456,
+  "timing_qualified": false,
+  "application_qualified": false,
+  "historical_prerequisites": "Inputnative-* receipts are V9895donor only; newactualPASS is above sameINV FINISHworker+normalclosure. CALCNaNfailure remains separate rejectedtrial.",
+  "raw_refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-current-source-triage-r1/actual-native-r1/receipt.json": "263cda4f9f0a569f60c910cac7a5063e361ff35a3fcd61df85ca83e66385cd5c",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-current-source-triage-r1/actual-native-r1/closure.json": "a61b91888a184938df9255a4b683432f1b532d49c0a21fe71621f4058e2028e8",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-current-source-triage-r1/actual-native-r1/controller.json": "c05f817fb51b51cf6d3a94e0df034c9520bf5faf0063fa6287452acde911def7",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-current-source-triage-r1/native-gate-r1/source-pins.json": "098ff5206d524cef5c59c606301dfdd14f7c31d109ab1176c8ccafd32f4a904c",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-current-source-triage-r1/native-gate-r1/binding.json": "13b9bdd7a1e105167a34fa583d563b3ceb74d11389226dba377ddece20056279",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-current-source-triage-r1/native-gate-r1/SOURCE_INVERSE.json": "8e95e55d77919dd608d30233031348f7f53d89765c246a418cabea0c49a7069e",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-current-source-triage-r1/native-gate-r1/finish_driver.f90": "ea09bb4252e7d6df6560c6b22028d191b1c861b8198016594d561c9370665752",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-current-source-triage-r1/native-gate-r1/run_gate.py": "98914a4b0da63dc21322fcccb821a5fd6a9e23ea485057016a29806906bff2e0",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-current-source-triage-r1/provider-review-r1/ADJUDICATION.json": "d181dffa217589228e915e664c5e8193bcc10b1cb4d2777510888c096098d709"
+  }
+}

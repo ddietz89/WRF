@@ -1,0 +1,205 @@
+{
+  "status": "REJECTED_CURRENT67E3_FINISH_W_PH_WW_SIMD_HARD_O2_PH2_NAN_PAYLOAD_MISMATCH_NOT_PROMOTED",
+  "native_qualified": false,
+  "timing_qualified": false,
+  "application_qualified": false,
+  "source_parent_sha256": "528f281fad37016a417873b4a25e0e5121a56df7d671fa9ed2eab6f835f66f2e",
+  "source_candidate_sha256": "cfb81073a844c31fad0d929456f750dba7b90238dd48d874dff62467b21379c7",
+  "candidate_PP_sha256": "8e68c4321f20e32d9a666b0e43dbd6f4944c1a5f312afe9b1d8b042d35b75108",
+  "raw_producer_source_commit": null,
+  "source_scope": "One !$OMP SIMD immediately before W/PH/WW innerI; prior U SIMD exact; one-line inverse restores528f. Isolated local mechanical completion after actualauthor NULLpatch; not installed.",
+  "machine_mechanism": {
+    "parent": {
+      "object_sha256": "25199dfdfa6761ce2ef61eb5b381fc322ecb35e1442d631dfb81d09fc585b8f2",
+      "assembly_sha256": "ade3767c485efeefda78ed2ebcfc15e739eeb887afe0e79934af4778e05ddbee",
+      "DIVPS": 2,
+      "DIVSS": 5
+    },
+    "candidate": {
+      "object_sha256": "3581d3d0d3de7858466f149dd4e9df2c2ac244a54393bf121f1cd98e4750ce6c",
+      "assembly_sha256": "70aeb76827efd08a195657a666d1621e5121857484a365a6a7f15e4ed28227e2",
+      "DIVPS": 4,
+      "DIVSS": 5,
+      "packed_division_source_lines": [
+        420,
+        420,
+        430,
+        430
+      ],
+      "expected_W_assignment_line": 430,
+      "packed_add_source_lines": [
+        420,
+        420,
+        420,
+        420,
+        420,
+        420,
+        430,
+        430,
+        430,
+        431,
+        432,
+        430,
+        430,
+        430,
+        431,
+        432
+      ]
+    }
+  },
+  "genuine_parent_object_sha256": "67e34ca77d35587c4c12286a821cfcb8aa90a8d911910c79843a8c2fff5792cc",
+  "actual_R2_invocation": "4e8a8a55a3314bf3a2d7d6dbdb24ae37",
+  "R2_actual_status": "FAIL_RETAINED_NO_RETRY",
+  "R2_hard_error": "AssertionError(('O2', 'candidate', 'FINISH_RAW_FIVE_STATE_MISMATCH'))",
+  "R2_terminal": "exit1,MainPID0,cgroupabsentempty,sameINVmanagerfailed; failedstate retained",
+  "original80_prefix": {
+    "bytes": 167282240,
+    "hash": "9dbdc81f0ca08c1d08ff09bd51c5ca6c39b9feabf282219eb46548a36e272676",
+    "all_three_prefixes_exact": true
+  },
+  "genuine_and_fresh_parent112_exact": true,
+  "full112_bindings": {
+    "native-current": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/smallstep-finish-w-ph-ww-simd-full-caller-gate-hpc04-r2/work/native-current-FINISH.bin",
+      "sha256": "f4a5f9cc4cabba2d6a412ad809adb643a49cd8eea682101ab9a013837c1bb966",
+      "bytes": 234195136,
+      "original80_prefix_sha256": "9dbdc81f0ca08c1d08ff09bd51c5ca6c39b9feabf282219eb46548a36e272676",
+      "original80_prefix_bytes": 167282240
+    },
+    "O2-parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/smallstep-finish-w-ph-ww-simd-full-caller-gate-hpc04-r2/work/O2-parent-FINISH.bin",
+      "sha256": "f4a5f9cc4cabba2d6a412ad809adb643a49cd8eea682101ab9a013837c1bb966",
+      "bytes": 234195136,
+      "original80_prefix_sha256": "9dbdc81f0ca08c1d08ff09bd51c5ca6c39b9feabf282219eb46548a36e272676",
+      "original80_prefix_bytes": 167282240
+    },
+    "O2-candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/smallstep-finish-w-ph-ww-simd-full-caller-gate-hpc04-r2/work/O2-candidate-FINISH.bin",
+      "sha256": "59e76720f054a5fef04f5ebe300db55b063e25ebc99faeec70aeeda26e0c4c2e",
+      "bytes": 234195136,
+      "original80_prefix_sha256": "9dbdc81f0ca08c1d08ff09bd51c5ca6c39b9feabf282219eb46548a36e272676",
+      "original80_prefix_bytes": 167282240
+    }
+  },
+  "scientific_mismatch": {
+    "first": {
+      "record_ordinal": 80,
+      "case": 21,
+      "rounding": 0,
+      "different_words": 528,
+      "counts": {
+        "PH2": 528
+      },
+      "first": {
+        "absolute_byte_offset": 168220440,
+        "word_in_record": 234550,
+        "category": "field3D",
+        "field": "PH2",
+        "field_index": 9,
+        "index_ikj": [
+          1,
+          1,
+          0
+        ],
+        "parent_bits": "0x7fc12345",
+        "candidate_bits": "0xffc54321"
+      }
+    },
+    "total_words": 4224,
+    "fields": {
+      "PH2": 4224
+    },
+    "cases": [
+      21,
+      22
+    ],
+    "rounding_modes": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "words_each_case_rounding": 528,
+    "other104_records_exact": true,
+    "all560_state_words_exact": true,
+    "state_differences": []
+  },
+  "execution_limits": {
+    "O0": "NOT_RUN: hardO2child failure stops gate",
+    "candidate72PREP": "NOT_RUN: candidatecompleteFINISH failed first; do not transfer parent regression success",
+    "timing": "NOT_RUN",
+    "application": "NOT_RUN",
+    "retries_or_operand_repair": "NONE; lane closed"
+  },
+  "R1_fixture_oracle_failure_separate": {
+    "status": "FAILED_GATE_EXPECTED_HASH_TRANSCRIPTION_ERROR",
+    "actual_invocation": "4cf07dbd58734a93a862ebbcdb897e3d",
+    "wrong_expected_hash": "9dbdc81f0ca08c1d08ff09bd51c4ca6c39b9feabf282219eb46548a36e272676",
+    "correct_expected_hash": "9dbdc81f0ca08c1d08ff09bd51c5ca6c39b9feabf282219eb46548a36e272676",
+    "actual_prefix_difference_words": 0,
+    "scope": "Genuine112 ran; prefix rejected against one wrong manually transcribed expectedhash. No candidate execution inR1; no scientificfailure claim. R1unchanged, correctiononlyfreshR2+earlyreceiptconsistency."
+  },
+  "disposition": "REJECT without O0/timing/application/reassociation/salvage; selected FINISH-U qualification independent and unchanged. No gain measured.",
+  "raw_refs": [
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-w-ph-ww-simd-r1/actual-native-r1/receipt.json",
+      "sha256": "096aa129643efabfca680d5800c64234f8f0284a027d278a7708e341cb875b79"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-w-ph-ww-simd-r1/actual-native-r1/closure.json",
+      "sha256": "8ba93aa87da440e8ba1ca66446eb52778f17b5022ebe374b9b29354015d07dd3"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-w-ph-ww-simd-r1/actual-native-r2/receipt.json",
+      "sha256": "a14a575ef07fdb01216c7ad8b80ca88b6a9c140afeb6d22e6e9e52667da32717"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-w-ph-ww-simd-r1/actual-native-r2/closure.json",
+      "sha256": "65b06c731e7b45156f6d48981a29a19e7e9119c97d97887b664199b9a1b7d0e4"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-w-ph-ww-simd-r1/native-gate-r1/source-pins.json",
+      "sha256": "3a90538d122ed22ebe23ceb6184b00586442f70c5ae2513dd087b3432c84e53b"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-w-ph-ww-simd-r1/native-gate-r2/source-pins.json",
+      "sha256": "e83d5a675982f412671760c6193b030ba23426e72cfe77ba96506425370403f4"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-w-ph-ww-simd-r1/scientific-failure-localization-r1/RESULT.json",
+      "sha256": "216d7808bfb62c0d3e8b77294b450d86affac9109c7ea8b10dc4d5c8406acbed"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-w-ph-ww-simd-r1/scientific-failure-localization-r1/read_first_differences.py",
+      "sha256": "3038a0ac18a1ca89f5647f9a3ba716cb8e1cdede4c2719e69ebcb21ef32b849a"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-w-ph-ww-simd-r1/prefix-localization-r2/RESULT.json",
+      "sha256": "36beca2fe1807e4d333332b0d45bb7765228e0738d8846ed125eaa85066f3996"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-w-ph-ww-simd-r1/prefix-localization-r1/LOCAL_BINDING_DIAGNOSIS.json",
+      "sha256": "6b021b91cff12c6fcfeee60cfd900d2df0359cb014033e8919b1d0a941f43760"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-w-ph-ww-simd-r1/R1_TO_R2_ORACLE_BINDING_ONLY.diff",
+      "sha256": "45d450fd6273c52a9227d6747bf9e594b7a10576b66633cf662ab46b777a6fd1"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-w-ph-ww-simd-r1/local-source-r1/SOURCE_ONLY.F.diff",
+      "sha256": "be9ead6fe0cd367fea13e7e3217dd04527224e1eef4992c3733201205aa7bd47"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-w-ph-ww-simd-r1/local-source-r1/SOURCE_INVERSE.json",
+      "sha256": "77b48716c2b257b6049125c95803f69c42746b7e112d3b2ce1d56c2c6775cda8"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-w-ph-ww-simd-r1/fixture-preparation-r1/ADDITIVE_EIGHT_W_CASES_ONLY.diff",
+      "sha256": "0f49818daaada7295de59a59aeeb2181cff90657f86423452546b00c2b085fb7"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/smallstep-finish-w-ph-ww-simd-r1/provider-review-r1/ADJUDICATION.json",
+      "sha256": "705529b30baedae73c8a0b8f8d04248097a931ac4134fedc8fe92b9119267e4b"
+    }
+  ]
+}

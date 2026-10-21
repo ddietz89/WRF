@@ -1,0 +1,60 @@
+--- preserved-R1/binding.json
++++ inactive-R2/binding.json
+@@ -1,6 +1,6 @@
+ {
+-  "ready": true,
+-  "root_authorized": true,
++  "ready": false,
++  "root_authorized": false,
+   "native_current_object": "/pool/wrf-experiment/wrf-cpu/kernels/smallstep-finish-u-reconstruction-simd-full-caller-gate-r1/work/O2-candidate/module_small_step_em.o",
+   "native_current_object_sha256": "67e34ca77d35587c4c12286a821cfcb8aa90a8d911910c79843a8c2fff5792cc",
+   "current_parent_archive": "/pool/wrf-experiment/wrf-cpu/builds/currente3da-one-smallstep-finish-u-simd-hpc02-r1/libwrflib.a",
+@@ -41,6 +41,6 @@
+   "historical_profile_join_object": "/pool/wrf-experiment/wrf-cpu/kernels/smallstep-prep-v-coupling-simd-full-caller-gate-r1/work/O2-candidate/module_small_step_em.o",
+   "historical_profile_join_object_sha256": "98950138203abd25f355e6a94611ee22c7fb9c598eaff7464edddd46a8a00391",
+   "original_FINISH_prefix_bytes": 167282240,
+-  "original_FINISH_O2_sha256": "9dbdc81f0ca08c1d08ff09bd51c4ca6c39b9feabf282219eb46548a36e272676",
++  "original_FINISH_O2_sha256": "9dbdc81f0ca08c1d08ff09bd51c5ca6c39b9feabf282219eb46548a36e272676",
+   "original_FINISH_O0_sha256": "6a81aa017f597f8f8c247b8452f568652af6d2647a3c3f8841a5492f61165b04"
+ }
+--- preserved-R1/run_gate.py
++++ inactive-R2/run_gate.py
+@@ -22,6 +22,14 @@
+  r['actual_resources']={'hostname':socket.gethostname(),'affinity':sorted(os.sched_getaffinity(0)),'cgroup':str(cg),'cpu_max':(cg/'cpu.max').read_text().strip(),'memory_max':(cg/'memory.max').read_text().strip(),'memory_swap_max':(cg/'memory.swap.max').read_text().strip()}
+  pins=json.loads((P/'source-pins.json').read_text())['files_sha256'];assert all(sha(P/n)==h for n,h in pins.items())
+  b=json.loads((P/'binding.json').read_text());assert b['ready']and b['root_authorized']
++ # Oracle expectations come from the exact pinned actual parent receipt, never transcription.
++ assert sha(P/'native-receipt.json')==b['qualified_parent_native_receipt_sha256']
++ oldproof=json.loads((P/'native-receipt.json').read_text())['finish_proofs']
++ assert len({(oldproof[n]['sha256'],oldproof[n]['bytes'])for n in ['native-current','O2-parent','O2-candidate']})==1
++ assert oldproof['O0-parent']['sha256']==oldproof['O0-candidate']['sha256']
++ assert b['original_FINISH_O2_sha256']==oldproof['native-current']['sha256']
++ assert b['original_FINISH_O0_sha256']==oldproof['O0-parent']['sha256']
++ assert b['original_FINISH_prefix_bytes']==oldproof['native-current']['bytes']==oldproof['O0-parent']['bytes']
+  parent=(P/'parent_module_small_step_em.f90').read_text();candidate=(P/'candidate_module_small_step_em.f90').read_text()
+  assert sha(P/'parent_module_small_step_em.f90')==b['parent_source_sha256']
+  assert sha(P/'candidate_module_small_step_em.f90')==b['candidate_source_sha256']
+--- controller-r1
++++ controller-r2
+@@ -1,9 +1,9 @@
+ """Prepared controller. Root alone activates correctness-only hpc04 after source/gate review and ready/pins refresh."""
+ from pathlib import Path
+ import argparse,base64,hashlib,json,shlex,subprocess,time
+-P=Path(__file__).resolve().parent/'native-gate-r1'
+-S='/pool/wrf-experiment/wrf-cpu/kernels/smallstep-finish-w-ph-ww-simd-full-caller-gate-hpc04-r1'
+-UNIT='wrf-cpu-smallstep-finish-w-ph-ww-simd-full-caller-gate-hpc04-r1.service'
++P=Path(__file__).resolve().parent/'native-gate-r2'
++S='/pool/wrf-experiment/wrf-cpu/kernels/smallstep-finish-w-ph-ww-simd-full-caller-gate-hpc04-r2'
++UNIT='wrf-cpu-smallstep-finish-w-ph-ww-simd-full-caller-gate-hpc04-r2.service'
+ ap=argparse.ArgumentParser()
+ ap.add_argument('--execute-after-root-release',action='store_true',required=True)
+ ap.add_argument('--expected-pins-sha256',required=True)
+@@ -14,7 +14,7 @@
+ assert json.loads((P/'binding.json').read_text())['ready']is True and json.loads((P/'binding.json').read_text())['root_authorized']is True
+ assert all(Path(n).name==n and sha(P/n)==h for n,h in pins.items())
+ # One controller receipt, one actual worker receipt and one actual terminal closure.
+-R=P.parent/'actual-native-r1';R.mkdir(exist_ok=False)
++R=P.parent/'actual-native-r2';R.mkdir(exist_ok=False)
+ r={'status':'FAIL_RETAINED_NO_RETRY','namespace':S,'unit':UNIT,'expected_pins_sha256':a.expected_pins_sha256}
+ def gateway(code,timeout=35):
+  z=subprocess.run(['ssh','-o','BatchMode=yes','-o','ConnectTimeout=10','-o','HostKeyAlias=hpc00','100.103.134.47','python3 -'],input=code,capture_output=True,text=True,timeout=timeout)

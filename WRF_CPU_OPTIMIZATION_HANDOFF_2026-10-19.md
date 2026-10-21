@@ -1,8 +1,18 @@
 # WRF CPU optimization campaign handoff
 
-## Current combined selection (2026-10-21)
+## Current selection and continuation (October 20, 2026, EDT)
 
-The working fork now selects **e3da6907 / archive4f2a0cf0 / post-test source1ae0c6ee**. It retains all prior improvements and adds final-U velocity SIMD, Prep V coupling SIMD and split rain/cloud staging during Thompson initialization. The unchanged original checker passed all four complete products,545 ordered timesteps,512 ranks,two tiles,all four positive writer groups and all32 field markers. All model and reader jobs closed normally.
+Selected8bfe/archive6f44/sourcea92fc86b retains all prior improvements and adds FINISH U reconstruction SIMD. Native80FINISH+72PREP checks, opposite-order complete-caller gains of8.24–11.81%, and the original two-product/35-step/full512/two-tile science check passed. Every job closed normally. OwnshortTRUE; own3h/9hFALSE. The parent E3 tables below remain historical. [Current findings](OPTIMIZATION_FINDINGS.md) report wall, main-step elapsed and aggregate CPU with the short-case/cache-gap limits; [qualification and rollback](tools/cpu-compute/smallstep-finish-u-simd/README.md) bind actual artifacts and paired E3 backups.
+
+The FINISH W/PH/WW directive is rejected after a genuine O2 raw-output failure:4,224 PH2 words chose different NaN payloads in cases21–22 across four rounding modes. All560 state words and other fields matched. The original80-record prefix stayed exact; the separate first-run oracle-hash transcription error and corrected retry are retained. No timing, application or promotion followed. [Rejected evidence](tools/cpu-compute/smallstep-finish-w-ph-ww-simd-rejected/README.md) closes that lane; next investigate the separately sampled nonfinal T loop.
+
+The codec lifecycle diagnostic passed exact bytes/independent decode/five-state/join checks and measured only0.08846% of complete-provider CPU in init/end brackets. Cross-callback stream reuse is parked; no optimization was implemented. The next architectural measurement prepares a current-e1d8 writer capture using the existing protocol at writer495's second06:10 output. Actual FD ownership must be observed; the previous unavailable capture is preserved. Activation waits for root's review and all conflicting scopes to close.
+
+Recover live jobs and allocations from CURRENT_STATE.json before any retry. Continue the active Goal after qualification, promotion or status. AWS is suspended, exact science and cache SOP remain hard, and production/master are excluded.
+
+## Previous E3 combined selection (2026-10-21 UTC)
+
+The previous working selection was **e3da6907 / archive4f2a0cf0 / post-test source1ae0c6ee**. It retains all prior improvements and adds final-U velocity SIMD, Prep V coupling SIMD and split rain/cloud staging during Thompson initialization. The unchanged original checker passed all four complete products,545 ordered timesteps,512 ranks,two tiles,all four positive writer groups and all32 field markers. All model and reader jobs closed normally.
 
 | Three-hour measure | Retained corrected original | Current combined | Reduction |
 |---|---:|---:|---:|
@@ -12,7 +22,7 @@ The working fork now selects **e3da6907 / archive4f2a0cf0 / post-test source1ae0
 
 This is **UNPAIRED**, using the actual retained fresh original2aef control; no new control was run. Both arms had checked client-cache clearing at their own execution. The candidate's actual clear-to-launch delay is retained after a pre-model launcher-reference repair. File-server cache/load remain uncontrolled. Main-step elapsed is not integration CPU; whole-minus-main is not pure I/O. These values establish no isolated candidate contribution, additive percentage, repeatability or nine-hour result. The observed single-forecast wall ratio is1.2380x; the1.5x throughput and2x speedup goals remain unmet, and concurrent-forecast throughput is unmeasured.
 
-### Current nine-hour qualification (2026-10-21)
+### E3 nine-hour qualification (2026-10-21 UTC)
 
 The same selected image passed the unchanged original comparison through 15:00: **ten complete products, 1,625 ordered timesteps, all 512 ranks, two tiles, all four positive writers and 32 field markers**. Every model and reader scope closed normally; no observer or profiler was active.
 
@@ -36,7 +46,7 @@ The combined build reused two qualified objects, preserved582 other ordered arch
 
 Rollback restores the paired BEFORE_UV_B_BATCH selection/build-binding/latest snapshots and reverts source-only1ae0c6ee, returning to db5a/0c91/sourcec883c564 with unchanged libraries. Actual qualification2ed4c147 binds58 verified raw references. The initial pre-model missing-control-reference failure and the first build's private-symbol guard failure are preserved; neither is relabeled as a successful original attempt.
 
-The next coefficient-loop SIMD candidate produced packed divisions but failed the hard O2 complete-routine raw/state comparison, so it is excluded without performance testing. The earlier U-DPn pragma is also rejected on exact IEEE output. A distinct FINISH-U reconstruction candidate passed80 complete native cases and all four complete-caller timing arms (8.2–11.8% shorter); experimental8bfe/archive6f44 is built, with original short application qualification pending. It is not included in the selected E3DA timings. The next current-build writer profile uses a bounded short diagnostic, with no forecast timing claim. Continue measured investigations after closing these decisions; a status or promotion is not a stopping point.
+The next coefficient-loop SIMD candidate produced packed divisions but failed the hard O2 complete-routine raw/state comparison, so it is excluded without performance testing. The earlier U-DPn pragma is also rejected on exact IEEE output. FINISH-U is now selected after original short science above; these E3DA timings exclude it. Current W native qualification and the prepared second-output writer capture remain separate investigations. Continue measured investigations after closing these decisions; a status or promotion is not a stopping point.
 
 Recover exact live jobs and ownership from `/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/CURRENT_STATE.json` before any action. Use [TIMING_SOP.md](TIMING_SOP.md), [findings](OPTIMIZATION_FINDINGS.md) and [working selection](tools/cpu-working/selection.json). All future project DeepSeek packets remain authorized with denied tools/240seconds and no credentials/scientific arrays. AWS remains suspended; its frozen$4.6495 commitment is not an invoice and remains separate from provider usage. Production/master and additional spending remain excluded.
 
