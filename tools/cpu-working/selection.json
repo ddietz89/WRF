@@ -59,8 +59,8 @@
   "read_affine_IO_archive_sha256": "651835f31089e16759177734198ece5b121d704355c73abddde483f4cae2c14c",
   "read_affine_IO_object_sha256": "c9c4e5b7a0225523e7d85cfc188022d797204d3f4dd4494b54c416e3bec99320",
   "schema_version": 3,
-  "status": "QUALIFIED_CURRENT_SPCVMC_NOON75M_FULL512",
-  "scope": "Current3cdd/bf53 retains every a50e improvement plus SPCVMC optical producer split;9371/51a/root06dNCa32/HDF825/faba/twoTiles/singleIB. Own noon75m TRUE; ownshort/3h/9h FALSE. GNU13.3 strict module-local -fopenmp-simd; production/master unchanged.",
+  "status": "QUALIFIED_CURRENT_SPCVMC_NINE_HOUR_NOON_FULL512",
+  "scope": "Current3cdd/bf53 retains every a50e improvement plus SPCVMC optical producer split;9371/51a/root06dNCa32/HDF825/faba/twoTiles/singleIB. Own noon75m and9h TRUE; ownshort/3h FALSE. StrictGNU13.3 module-local -fopenmp-simd; production/master unchanged.",
   "includes": "All retained compute, Thompson shared-table/lazy-init, output, codec and HDF5 improvements from the previous selection, READ_DI1 affine rows, plus qualified root-only parallel input chunk decoding. Fused output packing/shuffling removes intermediate padded packed storage; compressedbytes and originalscience exact. MCICA mask/property consumer fusion removes temporary logical-mask allocation/population/readback; all RNG/arithmetic/other code unchanged. AVX2 slide-hash loop unrolling removes repeated loop control while preserving the original saturating arithmetic and traversal; Adler remains unchanged. MYJPBL DIFCOF ordered SIMD adds only two directives; complete captured-caller gains and exact short application qualified. Private four-slot shuffle scratch reuse across callbacks removes repeated scratch allocation, with bounded retention; fullshim/API and originalshortscience exact. Block-local integer bit-buffer carry removes per-symbol state publication in compress_block; exact wholefunction/codeccaller/state and shortscience passed. LW ABSCLD scratch removal keeps identical scalar arithmetic and loop order while removing one allocated scratch stream; native/caller and fresh combined3h exact. INATM cloud-copy2+3 grouping retains all five fields/radius copies while reducing repeated descriptor/stride loads; complete-caller20.03%/17.72% gains and originalfull3hscience qualified. CU PART2 SIMD adds one directive to the independent innerI loop, keeping per-lane MUT denominator and three true divisions; genuine fullcaller and original3h science qualified. PBL PART2 SIMD adds one independentI directive retaining per-lane denominator arithmetic; native/caller/originalshortscience exact. RQVFTEN SIMD adds one directive to the independent moisture-forcingI loop, keeping per-lane MUT denominator and true division; native44/genuinecompletecaller/original3hscience qualified. RQVBLTEN PART2 SIMD adds one independentI directive retaining per-lane MUT denominator and true division; native56/caller/originalshortscience exact. RTHRATEN PART2 SIMD adds one independentI directive retaining per-lane MUT denominator and true division; native68/caller/originalshortscience exact. Independent final-U andPrepV SIMD retain per-cell arithmetic with exactnative/caller science. Thompson freeze initialization splits rain/cloud staging under namedREAD/COMPUTED/PARTIAL science-FP-ownership contract; wholeINIT errno isnotqualified. FINISH U-reconstruction adds one independent-I SIMD directive; native80/fullcaller/actualshortscience exact. FINISH nonfinalT adds one exact independent-I SIMD directive; actual144native/fullcaller/direct3h science. Calc_php geopotential SIMD and open_ys boundary copy SIMD add one directive each; exact native/complete caller/original combined3h qualified. Actual theta producer stores only for active moist species and SW case2/irng0 private directCDF producer are added; componentnative/caller and actualcombined3h exact. Separate noon75m originalscience also passed; no isolated forecastincrement attribution. SPCVMC optical producer split adds one independent layer SIMD pass before unchanged serial beam recurrences; exact native/complete-caller/daylight science passed.",
   "source_commit_scope": "Post-test source-only commit after actual original noon science. Frozen native/caller/build producer commits remain NULL. Qualified canonical/PP module-local SIMD recipe; no whole-image rebuild or own3h/9h transfer.",
   "input_implementation_commit": "614267f340a23ffc342962b3c64e323719fe4d06",
@@ -93,33 +93,32 @@
     "other_511_ranks": "OriginalNC8adc/output51a and selected9371 codec; inputadapter06d/privateNCa32 onlyrank0."
   },
   "science": {
-    "products": 2,
-    "ordered_steps": 230,
-    "last_step": "2026-10-12_13:15:00",
+    "products": 10,
+    "ordered_steps": 1625,
+    "last_step": "2026-10-12_15:00:00",
     "world": 512,
     "compute": 480,
     "quilt": 32,
     "tiles": 2,
     "positive_writer_roots": [
       487,
-      495
-    ],
-    "zero_activity_writer_roots": [
+      495,
       503,
       511
     ],
-    "actual_field_markers": 16,
+    "zero_activity_writer_roots": [],
+    "actual_field_markers": 32,
     "all32_quilt_FIELDVIEW1": true,
     "protected_compare_one_AST_unchanged": true,
     "original_comparisons_all_pass": true,
     "all_model_reader_scopes_closed": true,
-    "qualification_sha256": "8f9c64380ae23f194bc45bbe2213f762f961af1e1803593d7bd9402169b247ee"
+    "qualification_sha256": "1b048955ee8a7f9c2e30dea19fd8cd769aaa0e23242d268694b8afaf0c213364"
   },
-  "qualification_file": "tools/cpu-compute/spcvmc-optical-producer/APPLICATION_QUALIFICATION.json",
-  "current_application_qualification_file": "tools/cpu-compute/spcvmc-optical-producer/APPLICATION_QUALIFICATION.json",
+  "qualification_file": "tools/cpu-compute/spcvmc-optical-producer/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+  "current_application_qualification_file": "tools/cpu-compute/spcvmc-optical-producer/NINE_HOUR_APPLICATION_QUALIFICATION.json",
   "source_build_binding_file": "CURRENT_SOURCE_BUILD_BINDING.json",
   "current_three_hour_qualified": false,
-  "current_nine_hour_qualified": false,
+  "current_nine_hour_qualified": true,
   "prior_nine_hour": {
     "evidence_file": "PREVIOUS_NINE_HOUR_RESULT_B1FB.json",
     "qualification_file": "PREVIOUS_NINE_HOUR_FINAL_QUALIFICATION_B1FB.json",
@@ -148,43 +147,44 @@
     "parent_SW_sha256": "96cb2bf68c504b6321cc2e02380e8d11505968df02160581d2f89de1f2c0f35c",
     "source_recipe": "tools/cpu-compute/spcvmc-optical-producer/ROLLBACK.json"
   },
-  "claim_limits": "Actual unprofiled noon original science passed2products230steps. Candidate309.833275s wall/235.343340s main/151770.087473CPU-s is UNPAIRED against retained original; no isolated SPCVMC forecast gain, repeatability or horizon transfer. Whole-minus-main is not pureIO. Main elapsed includes communication/backpressure and is not integrationCPU.",
-  "next_qualification": "Bounded actual-size8 communication test, then periodic fresh-original/current nine-hour pair; no new image3h/9h qualification yet.",
+  "claim_limits": "One fresh original-first nine-hour pair with checked client-cache clearing before each arm. Whole MPI wall includes output and drain; main-step sum is elapsed including communication/backpressure, not integration CPU; aggregate four-node CPU is separate. Original hpc04 reached104GiB cap,max2385,high/oom/oomkill0; candidate all memory events0. File-server caches/load uncontrolled. No isolated/additive SPCVMC gain, repeatability or concurrent-throughput claim. Earlier control was2068.620428s while this was2375.176475s; optimized1832.427071\u21921840.543608s spans different source epochs, no incremental-gain claim.",
+  "next_qualification": "New NH-X pressure-gradient ratio cache f703/fe72 has native/caller/build qualification and is undergoing separate short2product35step application checks; not selected/included in this nine-hour result.",
   "output_fusion_qualification_file": "tools/cpu-output/quilt512/padding-block32/NATIVE_QUALIFICATION.json",
   "latest_nine_hour": {
-    "evidence_file": "tools/cpu-compute/uvb-batch/NINE_HOUR_RESULT.json",
-    "qualification_file": "tools/cpu-compute/uvb-batch/NINE_HOUR_QUALIFICATION.json",
-    "qualification_sha256": "76cb0073ad13b70a5854e78f41fb1a69cd2ace368dcf78b313f5d348db19e6bb",
-    "executable_sha256": "e3da6907c199175cfb114c856e48f0d67809ae0bb2e1a717e86708e857f03f8f",
-    "source_commit": "1ae0c6ee9cd1b5c238a57cf25409c18d380faaed",
-    "source_commit_semantics": "POST_TEST source identity; raw producer remains NULL",
+    "evidence_file": "tools/cpu-compute/spcvmc-optical-producer/NINE_HOUR_RESULT.json",
+    "qualification_file": "tools/cpu-compute/spcvmc-optical-producer/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+    "qualification_sha256": "1b048955ee8a7f9c2e30dea19fd8cd769aaa0e23242d268694b8afaf0c213364",
+    "executable_sha256": "3cdd1c0fbf6d5e6a2d365f7636735552c241d4db67eafa715415e6883f90b7f5",
+    "source_commit": "cbeb3b192f72d7fc46bd53382f7c376cb5338cb5",
+    "source_commit_semantics": "POST_TEST source identity; raw native/build producer remains NULL",
     "metrics": {
       "control": {
-        "wall_seconds": 2068.6204282799736,
-        "cpu_seconds": 1009950.9548869999,
-        "main_step_sum_seconds": 1852.82922
+        "wall_seconds": 2375.1764749530703,
+        "cpu_seconds": 1166063.791005,
+        "main_step_sum_seconds": 2157.66964
       },
       "candidate": {
-        "wall_seconds": 1832.4270710609853,
-        "cpu_seconds": 921737.195426,
-        "main_step_sum_seconds": 1734.32162
+        "wall_seconds": 1840.543607906904,
+        "cpu_seconds": 925475.897719,
+        "main_step_sum_seconds": 1742.03269
       }
     },
     "reductions_percent": {
-      "wall_seconds": 11.417916694140906,
-      "cpu_seconds": 8.734459731350997,
-      "main_step_sum_seconds": 6.396034708476805
+      "wall_seconds": 22.509185009367762,
+      "cpu_seconds": 20.632481270912596,
+      "main_step_sum_seconds": 19.26323392120399
     },
-    "wall_speedup_ratio": 1.1288964570263804,
-    "fresh_matched_timing": false,
-    "applies_to_current_selection": false,
+    "wall_speedup_ratio": 1.2904755229647393,
+    "fresh_control_run": true,
+    "fresh_matched_timing": true,
+    "applies_to_current_selection": true,
     "repeatability_established": false,
-    "comparison_design": "UNPAIRED candidate-onlycurrentUVB versus retainedoriginal9h; no freshcontrol, isolatedcontribution oradditiveattribution",
+    "comparison_design": "Fresh corrected-original546b FIRST then selected3cdd, checkedcache EACH arm; one fixed-order pair, no repeatability/isolated/additive claim.",
     "memory_pressure_actual": {
       "control": {
         "hpc01": {
           "limit_bytes": 107374182400,
-          "peak_bytes": 98832248832,
+          "peak_bytes": 98849300480,
           "events": {
             "low": 0,
             "high": 0,
@@ -196,7 +196,7 @@
         },
         "hpc02": {
           "limit_bytes": 107374182400,
-          "peak_bytes": 101152460800,
+          "peak_bytes": 101103562752,
           "events": {
             "low": 0,
             "high": 0,
@@ -208,7 +208,7 @@
         },
         "hpc03": {
           "limit_bytes": 107374182400,
-          "peak_bytes": 101077553152,
+          "peak_bytes": 101093691392,
           "events": {
             "low": 0,
             "high": 0,
@@ -224,7 +224,7 @@
           "events": {
             "low": 0,
             "high": 0,
-            "max": 2466,
+            "max": 2385,
             "oom": 0,
             "oom_kill": 0,
             "oom_group_kill": 0
@@ -234,7 +234,7 @@
       "candidate": {
         "hpc01": {
           "limit_bytes": 107374182400,
-          "peak_bytes": 63023669248,
+          "peak_bytes": 63019872256,
           "events": {
             "low": 0,
             "high": 0,
@@ -246,7 +246,7 @@
         },
         "hpc02": {
           "limit_bytes": 107374182400,
-          "peak_bytes": 60731760640,
+          "peak_bytes": 60741238784,
           "events": {
             "low": 0,
             "high": 0,
@@ -258,7 +258,7 @@
         },
         "hpc03": {
           "limit_bytes": 107374182400,
-          "peak_bytes": 60684115968,
+          "peak_bytes": 60671574016,
           "events": {
             "low": 0,
             "high": 0,
@@ -270,7 +270,7 @@
         },
         "hpc04": {
           "limit_bytes": 111669149696,
-          "peak_bytes": 73684742144,
+          "peak_bytes": 72784842752,
           "events": {
             "low": 0,
             "high": 0,
@@ -282,7 +282,7 @@
         }
       }
     },
-    "scope": "Unprofiled exact10products/1625steps/512ranks/twoTiles/4positivewriters/32markers. Main-step sum is elapsed including comm/backpressure. Original04 reached104GiB/2466maxevents; no pressure-free, isolated or additive claim."
+    "scope": "One fresh original-first nine-hour pair with checked client-cache clearing before each arm. Whole MPI wall includes output and drain; main-step sum is elapsed including communication/backpressure, not integration CPU; aggregate four-node CPU is separate. Original hpc04 reached104GiB cap,max2385,high/oom/oomkill0; candidate all memory events0. File-server caches/load uncontrolled. No isolated/additive SPCVMC gain, repeatability or concurrent-throughput claim. Earlier control was2068.620428s while this was2375.176475s; optimized1832.427071\u21921840.543608s spans different source epochs, no incremental-gain claim."
   },
   "padding_only_fill_qualification_file": "tools/cpu-output/quilt512/padding-only-fill/NATIVE_QUALIFICATION.json",
   "padding_block32_qualification_file": "tools/cpu-output/quilt512/padding-block32/NATIVE_QUALIFICATION.json",
@@ -819,7 +819,7 @@
     "scope": "One RQVFTEN-loop directive only, committed after native/caller/canonical-preprocess/link/original3hSCI. Frozen rawproducerNULL unchanged; no isolated forecast or own9h claim."
   },
   "current_profiled_nine_hour_science_qualified": false,
-  "current_unprofiled_nine_hour_science_qualified": false,
+  "current_unprofiled_nine_hour_science_qualified": true,
   "current_profiled_nine_hour_qualification": null,
   "previous_RQVBLTEN_PART2_POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
@@ -984,41 +984,45 @@
     "repeatability_established": false,
     "scope": "Exact4products545/full512/twoTiles/all32markers/fourpositivewriters; all8models+reader normally closed. Includes all current promotions; no isolated directive or concurrent-throughput claim."
   },
-  "current_nine_hour_qualification": null,
+  "current_nine_hour_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/spcvmc-optical-producer/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "1b048955ee8a7f9c2e30dea19fd8cd769aaa0e23242d268694b8afaf0c213364"
+  },
   "nine_hour_benchmark": {
-    "evidence_file": "tools/cpu-compute/uvb-batch/NINE_HOUR_RESULT.json",
-    "qualification_file": "tools/cpu-compute/uvb-batch/NINE_HOUR_QUALIFICATION.json",
-    "qualification_sha256": "76cb0073ad13b70a5854e78f41fb1a69cd2ace368dcf78b313f5d348db19e6bb",
-    "executable_sha256": "e3da6907c199175cfb114c856e48f0d67809ae0bb2e1a717e86708e857f03f8f",
-    "source_commit": "1ae0c6ee9cd1b5c238a57cf25409c18d380faaed",
-    "source_commit_semantics": "POST_TEST source identity; raw producer remains NULL",
+    "evidence_file": "tools/cpu-compute/spcvmc-optical-producer/NINE_HOUR_RESULT.json",
+    "qualification_file": "tools/cpu-compute/spcvmc-optical-producer/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+    "qualification_sha256": "1b048955ee8a7f9c2e30dea19fd8cd769aaa0e23242d268694b8afaf0c213364",
+    "executable_sha256": "3cdd1c0fbf6d5e6a2d365f7636735552c241d4db67eafa715415e6883f90b7f5",
+    "source_commit": "cbeb3b192f72d7fc46bd53382f7c376cb5338cb5",
+    "source_commit_semantics": "POST_TEST source identity; raw native/build producer remains NULL",
     "metrics": {
       "control": {
-        "wall_seconds": 2068.6204282799736,
-        "cpu_seconds": 1009950.9548869999,
-        "main_step_sum_seconds": 1852.82922
+        "wall_seconds": 2375.1764749530703,
+        "cpu_seconds": 1166063.791005,
+        "main_step_sum_seconds": 2157.66964
       },
       "candidate": {
-        "wall_seconds": 1832.4270710609853,
-        "cpu_seconds": 921737.195426,
-        "main_step_sum_seconds": 1734.32162
+        "wall_seconds": 1840.543607906904,
+        "cpu_seconds": 925475.897719,
+        "main_step_sum_seconds": 1742.03269
       }
     },
     "reductions_percent": {
-      "wall_seconds": 11.417916694140906,
-      "cpu_seconds": 8.734459731350997,
-      "main_step_sum_seconds": 6.396034708476805
+      "wall_seconds": 22.509185009367762,
+      "cpu_seconds": 20.632481270912596,
+      "main_step_sum_seconds": 19.26323392120399
     },
-    "wall_speedup_ratio": 1.1288964570263804,
-    "fresh_matched_timing": false,
-    "applies_to_current_selection": false,
+    "wall_speedup_ratio": 1.2904755229647393,
+    "fresh_control_run": true,
+    "fresh_matched_timing": true,
+    "applies_to_current_selection": true,
     "repeatability_established": false,
-    "comparison_design": "UNPAIRED candidate-onlycurrentUVB versus retainedoriginal9h; no freshcontrol, isolatedcontribution oradditiveattribution",
+    "comparison_design": "Fresh corrected-original546b FIRST then selected3cdd, checkedcache EACH arm; one fixed-order pair, no repeatability/isolated/additive claim.",
     "memory_pressure_actual": {
       "control": {
         "hpc01": {
           "limit_bytes": 107374182400,
-          "peak_bytes": 98832248832,
+          "peak_bytes": 98849300480,
           "events": {
             "low": 0,
             "high": 0,
@@ -1030,7 +1034,7 @@
         },
         "hpc02": {
           "limit_bytes": 107374182400,
-          "peak_bytes": 101152460800,
+          "peak_bytes": 101103562752,
           "events": {
             "low": 0,
             "high": 0,
@@ -1042,7 +1046,7 @@
         },
         "hpc03": {
           "limit_bytes": 107374182400,
-          "peak_bytes": 101077553152,
+          "peak_bytes": 101093691392,
           "events": {
             "low": 0,
             "high": 0,
@@ -1058,7 +1062,7 @@
           "events": {
             "low": 0,
             "high": 0,
-            "max": 2466,
+            "max": 2385,
             "oom": 0,
             "oom_kill": 0,
             "oom_group_kill": 0
@@ -1068,7 +1072,7 @@
       "candidate": {
         "hpc01": {
           "limit_bytes": 107374182400,
-          "peak_bytes": 63023669248,
+          "peak_bytes": 63019872256,
           "events": {
             "low": 0,
             "high": 0,
@@ -1080,7 +1084,7 @@
         },
         "hpc02": {
           "limit_bytes": 107374182400,
-          "peak_bytes": 60731760640,
+          "peak_bytes": 60741238784,
           "events": {
             "low": 0,
             "high": 0,
@@ -1092,7 +1096,7 @@
         },
         "hpc03": {
           "limit_bytes": 107374182400,
-          "peak_bytes": 60684115968,
+          "peak_bytes": 60671574016,
           "events": {
             "low": 0,
             "high": 0,
@@ -1104,7 +1108,7 @@
         },
         "hpc04": {
           "limit_bytes": 111669149696,
-          "peak_bytes": 73684742144,
+          "peak_bytes": 72784842752,
           "events": {
             "low": 0,
             "high": 0,
@@ -1116,7 +1120,7 @@
         }
       }
     },
-    "scope": "Unprofiled exact10products/1625steps/512ranks/twoTiles/4positivewriters/32markers. Main-step sum is elapsed including comm/backpressure. Original04 reached104GiB/2466maxevents; no pressure-free, isolated or additive claim."
+    "scope": "One fresh original-first nine-hour pair with checked client-cache clearing before each arm. Whole MPI wall includes output and drain; main-step sum is elapsed including communication/backpressure, not integration CPU; aggregate four-node CPU is separate. Original hpc04 reached104GiB cap,max2385,high/oom/oomkill0; candidate all memory events0. File-server caches/load uncontrolled. No isolated/additive SPCVMC gain, repeatability or concurrent-throughput claim. Earlier control was2068.620428s while this was2375.176475s; optimized1832.427071\u21921840.543608s spans different source epochs, no incremental-gain claim."
   },
   "previous_nine_hour_before_UVB": {
     "evidence_file": "NINE_HOUR_RESULT.json",
@@ -1570,8 +1574,8 @@
     "qualification_file": "tools/cpu-output/quilt512/codec/private-fast-distance-range/APPLICATION_QUALIFICATION.json"
   },
   "current_application_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/spcvmc-optical-producer/APPLICATION_QUALIFICATION.json",
-    "sha256": "8f9c64380ae23f194bc45bbe2213f762f961af1e1803593d7bd9402169b247ee"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/spcvmc-optical-producer/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "1b048955ee8a7f9c2e30dea19fd8cd769aaa0e23242d268694b8afaf0c213364"
   },
   "last_three_hour_benchmark": {
     "qualification_file": "tools/cpu-compute/theta-sw-batch/THREE_HOUR_APPLICATION_QUALIFICATION.json",
@@ -1632,7 +1636,7 @@
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/spcvmc-optical-producer/APPLICATION_QUALIFICATION.json",
     "sha256": "8f9c64380ae23f194bc45bbe2213f762f961af1e1803593d7bd9402169b247ee"
   },
-  "comparison_design": "UNPAIRED candidate-only noon scientific reference; descriptive metrics only",
+  "comparison_design": "Fresh corrected-original546b FIRST then selected3cdd, checkedcache EACH arm; one fixed-order pair, no repeatability/isolated/additive claim.",
   "theta_producer": {
     "pending": false,
     "source_commit": null,
@@ -1871,5 +1875,300 @@
     "module_interface_contract": "Originalparent32MODs retained for consumers; genuine62argSPCVMC/32argSETCOEF caller/publicGLOBALdataABI exact, targetMCICA rawMODexact. No all32rawMODchildidentity claim.",
     "all32_raw_MOD_bytes_certified": false,
     "target_MCICA_raw_MOD_sha256": "f1ce128004b7fe9265c995370dac4464bdf4d15f962d3ac3de00e0606cae35f3"
-  }
+  },
+  "before_SPCVMC_own9h_latest_nine_hour": {
+    "evidence_file": "tools/cpu-compute/uvb-batch/NINE_HOUR_RESULT.json",
+    "qualification_file": "tools/cpu-compute/uvb-batch/NINE_HOUR_QUALIFICATION.json",
+    "qualification_sha256": "76cb0073ad13b70a5854e78f41fb1a69cd2ace368dcf78b313f5d348db19e6bb",
+    "executable_sha256": "e3da6907c199175cfb114c856e48f0d67809ae0bb2e1a717e86708e857f03f8f",
+    "source_commit": "1ae0c6ee9cd1b5c238a57cf25409c18d380faaed",
+    "source_commit_semantics": "POST_TEST source identity; raw producer remains NULL",
+    "metrics": {
+      "control": {
+        "wall_seconds": 2068.6204282799736,
+        "cpu_seconds": 1009950.9548869999,
+        "main_step_sum_seconds": 1852.82922
+      },
+      "candidate": {
+        "wall_seconds": 1832.4270710609853,
+        "cpu_seconds": 921737.195426,
+        "main_step_sum_seconds": 1734.32162
+      }
+    },
+    "reductions_percent": {
+      "wall_seconds": 11.417916694140906,
+      "cpu_seconds": 8.734459731350997,
+      "main_step_sum_seconds": 6.396034708476805
+    },
+    "wall_speedup_ratio": 1.1288964570263804,
+    "fresh_matched_timing": false,
+    "applies_to_current_selection": false,
+    "repeatability_established": false,
+    "comparison_design": "UNPAIRED candidate-onlycurrentUVB versus retainedoriginal9h; no freshcontrol, isolatedcontribution oradditiveattribution",
+    "memory_pressure_actual": {
+      "control": {
+        "hpc01": {
+          "limit_bytes": 107374182400,
+          "peak_bytes": 98832248832,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          }
+        },
+        "hpc02": {
+          "limit_bytes": 107374182400,
+          "peak_bytes": 101152460800,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          }
+        },
+        "hpc03": {
+          "limit_bytes": 107374182400,
+          "peak_bytes": 101077553152,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          }
+        },
+        "hpc04": {
+          "limit_bytes": 111669149696,
+          "peak_bytes": 111669149696,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 2466,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          }
+        }
+      },
+      "candidate": {
+        "hpc01": {
+          "limit_bytes": 107374182400,
+          "peak_bytes": 63023669248,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          }
+        },
+        "hpc02": {
+          "limit_bytes": 107374182400,
+          "peak_bytes": 60731760640,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          }
+        },
+        "hpc03": {
+          "limit_bytes": 107374182400,
+          "peak_bytes": 60684115968,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          }
+        },
+        "hpc04": {
+          "limit_bytes": 111669149696,
+          "peak_bytes": 73684742144,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          }
+        }
+      }
+    },
+    "scope": "Unprofiled exact10products/1625steps/512ranks/twoTiles/4positivewriters/32markers. Main-step sum is elapsed including comm/backpressure. Original04 reached104GiB/2466maxevents; no pressure-free, isolated or additive claim."
+  },
+  "before_SPCVMC_own9h_nine_hour_benchmark": {
+    "evidence_file": "tools/cpu-compute/uvb-batch/NINE_HOUR_RESULT.json",
+    "qualification_file": "tools/cpu-compute/uvb-batch/NINE_HOUR_QUALIFICATION.json",
+    "qualification_sha256": "76cb0073ad13b70a5854e78f41fb1a69cd2ace368dcf78b313f5d348db19e6bb",
+    "executable_sha256": "e3da6907c199175cfb114c856e48f0d67809ae0bb2e1a717e86708e857f03f8f",
+    "source_commit": "1ae0c6ee9cd1b5c238a57cf25409c18d380faaed",
+    "source_commit_semantics": "POST_TEST source identity; raw producer remains NULL",
+    "metrics": {
+      "control": {
+        "wall_seconds": 2068.6204282799736,
+        "cpu_seconds": 1009950.9548869999,
+        "main_step_sum_seconds": 1852.82922
+      },
+      "candidate": {
+        "wall_seconds": 1832.4270710609853,
+        "cpu_seconds": 921737.195426,
+        "main_step_sum_seconds": 1734.32162
+      }
+    },
+    "reductions_percent": {
+      "wall_seconds": 11.417916694140906,
+      "cpu_seconds": 8.734459731350997,
+      "main_step_sum_seconds": 6.396034708476805
+    },
+    "wall_speedup_ratio": 1.1288964570263804,
+    "fresh_matched_timing": false,
+    "applies_to_current_selection": false,
+    "repeatability_established": false,
+    "comparison_design": "UNPAIRED candidate-onlycurrentUVB versus retainedoriginal9h; no freshcontrol, isolatedcontribution oradditiveattribution",
+    "memory_pressure_actual": {
+      "control": {
+        "hpc01": {
+          "limit_bytes": 107374182400,
+          "peak_bytes": 98832248832,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          }
+        },
+        "hpc02": {
+          "limit_bytes": 107374182400,
+          "peak_bytes": 101152460800,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          }
+        },
+        "hpc03": {
+          "limit_bytes": 107374182400,
+          "peak_bytes": 101077553152,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          }
+        },
+        "hpc04": {
+          "limit_bytes": 111669149696,
+          "peak_bytes": 111669149696,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 2466,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          }
+        }
+      },
+      "candidate": {
+        "hpc01": {
+          "limit_bytes": 107374182400,
+          "peak_bytes": 63023669248,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          }
+        },
+        "hpc02": {
+          "limit_bytes": 107374182400,
+          "peak_bytes": 60731760640,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          }
+        },
+        "hpc03": {
+          "limit_bytes": 107374182400,
+          "peak_bytes": 60684115968,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          }
+        },
+        "hpc04": {
+          "limit_bytes": 111669149696,
+          "peak_bytes": 73684742144,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          }
+        }
+      }
+    },
+    "scope": "Unprofiled exact10products/1625steps/512ranks/twoTiles/4positivewriters/32markers. Main-step sum is elapsed including comm/backpressure. Original04 reached104GiB/2466maxevents; no pressure-free, isolated or additive claim."
+  },
+  "before_SPCVMC_own9h_current_application_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/spcvmc-optical-producer/APPLICATION_QUALIFICATION.json",
+    "sha256": "8f9c64380ae23f194bc45bbe2213f762f961af1e1803593d7bd9402169b247ee"
+  },
+  "before_SPCVMC_own9h_science": {
+    "products": 2,
+    "ordered_steps": 230,
+    "last_step": "2026-10-12_13:15:00",
+    "world": 512,
+    "compute": 480,
+    "quilt": 32,
+    "tiles": 2,
+    "positive_writer_roots": [
+      487,
+      495
+    ],
+    "zero_activity_writer_roots": [
+      503,
+      511
+    ],
+    "actual_field_markers": 16,
+    "all32_quilt_FIELDVIEW1": true,
+    "protected_compare_one_AST_unchanged": true,
+    "original_comparisons_all_pass": true,
+    "all_model_reader_scopes_closed": true,
+    "qualification_sha256": "8f9c64380ae23f194bc45bbe2213f762f961af1e1803593d7bd9402169b247ee"
+  },
+  "before_SPCVMC_own9h_claim_limits": "Actual unprofiled noon original science passed2products230steps. Candidate309.833275s wall/235.343340s main/151770.087473CPU-s is UNPAIRED against retained original; no isolated SPCVMC forecast gain, repeatability or horizon transfer. Whole-minus-main is not pureIO. Main elapsed includes communication/backpressure and is not integrationCPU.",
+  "before_SPCVMC_own9h_comparison_design": "UNPAIRED candidate-only noon scientific reference; descriptive metrics only"
 }

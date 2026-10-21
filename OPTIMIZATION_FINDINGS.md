@@ -2,11 +2,19 @@
 
 ## Current selection: shortwave optical producer SIMD (October 21, 2026, UTC)
 
-The working configuration selects **3cdd1c0f / archivebf53b5c5 / post-test sourcecbeb3b19**, retaining every a50e improvement and its runtime settings. Four unchanged optical expressions now run in one independent layer SIMD loop before the original serial beam recurrences. Complete synthetic callers were **0.96–1.47% shorter** in opposite-order host pairs; all strict native checks and the unchanged original full-grid noon checker passed **two products and230 ordered steps**. All new model and reader scopes closed normally.
+The working configuration selects **3cdd1c0f / archivebf53b5c5 / post-test sourcecbeb3b19**, retaining every a50e improvement and its runtime settings. Four unchanged optical expressions now run in one independent layer SIMD loop before the original serial beam recurrences. Complete synthetic callers were **0.96–1.47% shorter** with exact native checks. The unchanged original full-grid checker has now passed **ten products and1,625 ordered steps through15:00**, plus its separate noon75m two-product/230-step check. All eight model scopes and the nine-hour reader closed normally. Own noon75m and nine-hour science are qualified; separate own short/three-hour qualification remain false.
 
-The observed noon totals were309.833275s whole wall,235.343340s main-step elapsed and151770.087473 aggregateCPU-s. These are unpaired observations, close to the preceding a50e311.369271s/235.055660s/151882.834889CPU-s; they establish no isolated forecast gain. Default inclusion rests on the exact-qualified caller benefit and small implementation, not a claimed forecast percentage. **Own noon75m science is qualified; own short/three-/nine-hour qualification remain false.** The latest full three-hour results below belong to parenta50e and remain separate.
+| Fresh nine-hour pair | Corrected original | Combined current | Reduction |
+|---|---:|---:|---:|
+| Whole model/MPI wall, including output and drain |2375.176475s|1840.543608s|22.5092%|
+| Integration-step elapsed, including communication/backpressure |2157.669640s|1742.032690s|19.2632%|
+| Aggregate four-node CPU |1166063.791005 CPU-s|925475.897719 CPU-s|20.6325%|
 
-[Evidence, required module-local compiler flag and rollback](tools/cpu-compute/spcvmc-optical-producer/README.md) preserve the actual GNU13.3 support scope, original finite-fixture failure, raw producerNULL and public-interface limits. Production and master remain unchanged. A bounded large-message gather investigation and the next fresh nine-hour comparison follow; AWS remains suspended.
+This is **one fresh original-first fixed-order pair**, with checked compute-client cache clearing before each arm and no profiling. The original hpc04 reached its104GiB cap with2,385 max events; high/oom/oom-kill remained zero, and all candidate memory events were zero. The limit context is disclosed without assigning a cause or claiming pressure-free timing. File-server caches/load were uncontrolled. Main-step elapsed is not integration CPU; whole-minus-main is not pure I/O. The single-forecast wall ratio is1.2905x; repeatability and concurrent throughput remain unmeasured, and neither the1.5x throughput nor2x speedup target is established.
+
+The preceding original nine-hour observation was2068.620428s versus2375.176475s here, whereas the earlier optimized1832.427071s and latest1840.543608s are close and belong to different source epochs. The larger percentage does not demonstrate a new incremental SPCVMC forecast gain. Approximately305 of307 extra original seconds occur within timestep totals, not just final drain; this is not a causal attribution. The separate prior a50e three-hour result below remains historical and is not transferred or added.
+
+[Nine-hour qualification](tools/cpu-compute/spcvmc-optical-producer/NINE_HOUR_APPLICATION_QUALIFICATION.json) binds112 actual references. [Component evidence, compiler flag and rollback](tools/cpu-compute/spcvmc-optical-producer/README.md) preserve GNU13.3 support, the original finite-fixture failure, raw producerNULL and public-interface limits. A new NH-X row-ratio cache has passed native100-case and complete-caller tests (1.34–3.04% lower caller wall, process CPU unavailable) and a one-member link; its separate short application qualification is in flight and it is not in this nine-hour build. Production/master remain unchanged; AWS is suspended.
 
 ## Previous combined three-hour selection: theta/SW batch (October 21, 2026, UTC)
 

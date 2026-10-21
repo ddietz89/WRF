@@ -1,5 +1,5 @@
 {
-  "status": "QUALIFIED_CURRENT_SPCVMC_NOON75M_FULL512",
+  "status": "QUALIFIED_CURRENT_SPCVMC_NINE_HOUR_NOON_FULL512",
   "source_commit": "cbeb3b192f72d7fc46bd53382f7c376cb5338cb5",
   "executable": {
     "path": "/pool/wrf-experiment/wrf-cpu/builds/currenta50e-one-sw-optical-producer-split-hpc02-r1/wrf.exe",
@@ -219,7 +219,7 @@
       "sha256": "b5746b48d168431a8d97f3abeee3379d841137e809307656809b4786b159d9ae"
     }
   },
-  "qualification_file": "tools/cpu-compute/spcvmc-optical-producer/APPLICATION_QUALIFICATION.json",
+  "qualification_file": "tools/cpu-compute/spcvmc-optical-producer/NINE_HOUR_APPLICATION_QUALIFICATION.json",
   "PD_real32_equivalence_file": "../cpu-compute/pd-row-workspace/QUALIFICATION.json",
   "PD_production_member_sha256": "8ec77f864716667aa79d40878fa11276f7dede4017c620201e54f9f83bb32b25",
   "PD_repaired_compile_object_sha256": "e5245eed1f84a67ea9d428bed8d8b2529f568ca49394f9cf8b85d97bdc50f560",
@@ -346,7 +346,7 @@
       "sha256": "7f2c824414bc7edb0d6cfb9b7f81aba535bb27f78a4866f8a62ee63afc9e0453"
     }
   },
-  "current_nine_hour_qualified": false,
+  "current_nine_hour_qualified": true,
   "previous_nine_hour_qualification": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_NINE_HOUR_FINAL_QUALIFICATION_B1FB.json",
     "sha256": "f38a865905d030be42ac0a965b4aa6afbc0eae280902a3839f20df176457f445"
@@ -449,7 +449,10 @@
     "caller_timing_file": "tools/cpu-output/quilt512/private-shuffle-scratch-reuse/TIMING_QUALIFICATION.json",
     "output_postscience_source_commit": "909ab6ef55ac5351f9fd03e4019be470e89a3929"
   },
-  "nine_hour_full_application": null,
+  "nine_hour_full_application": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/spcvmc-optical-producer/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "1b048955ee8a7f9c2e30dea19fd8cd769aaa0e23242d268694b8afaf0c213364"
+  },
   "previous_noon75m_full_application": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-output/quilt512/padding-block32/APPLICATION_QUALIFICATION.json",
     "sha256": "fb3853a2dd3561319ec92a5ebf8bb66062b89e2ddbbec57bb591dc84eb023b8d"
@@ -648,39 +651,40 @@
     "scope": "GNU13.3 strict/OMP1/cold06:00\u201309:00/full512=480compute8x60+4x8quilt/faba/twoTiles/DF41b/root06dNCa32/outputpool51a/codec3edf/HDF825/shared1/FIELDVIEW1/singleIB;4completeproducts545steps/all4positivewriters/all32markers. One fresh fixed-order wholeinclusiveIO pair; no isolated/additive/repeatability or current9h claim."
   },
   "nine_hour_benchmark": {
-    "evidence_file": "tools/cpu-compute/uvb-batch/NINE_HOUR_RESULT.json",
-    "qualification_file": "tools/cpu-compute/uvb-batch/NINE_HOUR_QUALIFICATION.json",
-    "qualification_sha256": "76cb0073ad13b70a5854e78f41fb1a69cd2ace368dcf78b313f5d348db19e6bb",
-    "executable_sha256": "e3da6907c199175cfb114c856e48f0d67809ae0bb2e1a717e86708e857f03f8f",
-    "source_commit": "1ae0c6ee9cd1b5c238a57cf25409c18d380faaed",
-    "source_commit_semantics": "POST_TEST source identity; raw producer remains NULL",
+    "evidence_file": "tools/cpu-compute/spcvmc-optical-producer/NINE_HOUR_RESULT.json",
+    "qualification_file": "tools/cpu-compute/spcvmc-optical-producer/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+    "qualification_sha256": "1b048955ee8a7f9c2e30dea19fd8cd769aaa0e23242d268694b8afaf0c213364",
+    "executable_sha256": "3cdd1c0fbf6d5e6a2d365f7636735552c241d4db67eafa715415e6883f90b7f5",
+    "source_commit": "cbeb3b192f72d7fc46bd53382f7c376cb5338cb5",
+    "source_commit_semantics": "POST_TEST source identity; raw native/build producer remains NULL",
     "metrics": {
       "control": {
-        "wall_seconds": 2068.6204282799736,
-        "cpu_seconds": 1009950.9548869999,
-        "main_step_sum_seconds": 1852.82922
+        "wall_seconds": 2375.1764749530703,
+        "cpu_seconds": 1166063.791005,
+        "main_step_sum_seconds": 2157.66964
       },
       "candidate": {
-        "wall_seconds": 1832.4270710609853,
-        "cpu_seconds": 921737.195426,
-        "main_step_sum_seconds": 1734.32162
+        "wall_seconds": 1840.543607906904,
+        "cpu_seconds": 925475.897719,
+        "main_step_sum_seconds": 1742.03269
       }
     },
     "reductions_percent": {
-      "wall_seconds": 11.417916694140906,
-      "cpu_seconds": 8.734459731350997,
-      "main_step_sum_seconds": 6.396034708476805
+      "wall_seconds": 22.509185009367762,
+      "cpu_seconds": 20.632481270912596,
+      "main_step_sum_seconds": 19.26323392120399
     },
-    "wall_speedup_ratio": 1.1288964570263804,
-    "fresh_matched_timing": false,
-    "applies_to_current_selection": false,
+    "wall_speedup_ratio": 1.2904755229647393,
+    "fresh_control_run": true,
+    "fresh_matched_timing": true,
+    "applies_to_current_selection": true,
     "repeatability_established": false,
-    "comparison_design": "UNPAIRED candidate-onlycurrentUVB versus retainedoriginal9h; no freshcontrol, isolatedcontribution oradditiveattribution",
+    "comparison_design": "Fresh corrected-original546b FIRST then selected3cdd, checkedcache EACH arm; one fixed-order pair, no repeatability/isolated/additive claim.",
     "memory_pressure_actual": {
       "control": {
         "hpc01": {
           "limit_bytes": 107374182400,
-          "peak_bytes": 98832248832,
+          "peak_bytes": 98849300480,
           "events": {
             "low": 0,
             "high": 0,
@@ -692,7 +696,7 @@
         },
         "hpc02": {
           "limit_bytes": 107374182400,
-          "peak_bytes": 101152460800,
+          "peak_bytes": 101103562752,
           "events": {
             "low": 0,
             "high": 0,
@@ -704,7 +708,7 @@
         },
         "hpc03": {
           "limit_bytes": 107374182400,
-          "peak_bytes": 101077553152,
+          "peak_bytes": 101093691392,
           "events": {
             "low": 0,
             "high": 0,
@@ -720,7 +724,7 @@
           "events": {
             "low": 0,
             "high": 0,
-            "max": 2466,
+            "max": 2385,
             "oom": 0,
             "oom_kill": 0,
             "oom_group_kill": 0
@@ -730,7 +734,7 @@
       "candidate": {
         "hpc01": {
           "limit_bytes": 107374182400,
-          "peak_bytes": 63023669248,
+          "peak_bytes": 63019872256,
           "events": {
             "low": 0,
             "high": 0,
@@ -742,7 +746,7 @@
         },
         "hpc02": {
           "limit_bytes": 107374182400,
-          "peak_bytes": 60731760640,
+          "peak_bytes": 60741238784,
           "events": {
             "low": 0,
             "high": 0,
@@ -754,7 +758,7 @@
         },
         "hpc03": {
           "limit_bytes": 107374182400,
-          "peak_bytes": 60684115968,
+          "peak_bytes": 60671574016,
           "events": {
             "low": 0,
             "high": 0,
@@ -766,7 +770,7 @@
         },
         "hpc04": {
           "limit_bytes": 111669149696,
-          "peak_bytes": 73684742144,
+          "peak_bytes": 72784842752,
           "events": {
             "low": 0,
             "high": 0,
@@ -778,7 +782,7 @@
         }
       }
     },
-    "scope": "Unprofiled exact10products/1625steps/512ranks/twoTiles/4positivewriters/32markers. Main-step sum is elapsed including comm/backpressure. Original04 reached104GiB/2466maxevents; no pressure-free, isolated or additive claim."
+    "scope": "One fresh original-first nine-hour pair with checked client-cache clearing before each arm. Whole MPI wall includes output and drain; main-step sum is elapsed including communication/backpressure, not integration CPU; aggregate four-node CPU is separate. Original hpc04 reached104GiB cap,max2385,high/oom/oomkill0; candidate all memory events0. File-server caches/load uncontrolled. No isolated/additive SPCVMC gain, repeatability or concurrent-throughput claim. Earlier control was2068.620428s while this was2375.176475s; optimized1832.427071\u21921840.543608s spans different source epochs, no incremental-gain claim."
   },
   "previous_INATM_POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
@@ -939,7 +943,7 @@
     "scope": "One RQVFTEN-loop directive only, committed after native/caller/canonical-preprocess/link/original3hSCI. Frozen rawproducerNULL unchanged; no isolated forecast or own9h claim."
   },
   "current_profiled_nine_hour_science_qualified": false,
-  "current_unprofiled_nine_hour_science_qualified": false,
+  "current_unprofiled_nine_hour_science_qualified": true,
   "current_profiled_nine_hour_qualification": null,
   "previous_RQVBLTEN_PART2_POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
@@ -1053,27 +1057,26 @@
     "scope": "Exact4products545/full512/twoTiles/all32markers/fourpositivewriters; all8models+reader normally closed. Includes all current promotions; no isolated directive or concurrent-throughput claim."
   },
   "science": {
-    "products": 2,
-    "ordered_steps": 230,
-    "last_step": "2026-10-12_13:15:00",
+    "products": 10,
+    "ordered_steps": 1625,
+    "last_step": "2026-10-12_15:00:00",
     "world": 512,
     "compute": 480,
     "quilt": 32,
     "tiles": 2,
     "positive_writer_roots": [
       487,
-      495
-    ],
-    "zero_activity_writer_roots": [
+      495,
       503,
       511
     ],
-    "actual_field_markers": 16,
+    "zero_activity_writer_roots": [],
+    "actual_field_markers": 32,
     "all32_quilt_FIELDVIEW1": true,
     "protected_compare_one_AST_unchanged": true,
     "original_comparisons_all_pass": true,
     "all_model_reader_scopes_closed": true,
-    "qualification_sha256": "8f9c64380ae23f194bc45bbe2213f762f961af1e1803593d7bd9402169b247ee"
+    "qualification_sha256": "1b048955ee8a7f9c2e30dea19fd8cd769aaa0e23242d268694b8afaf0c213364"
   },
   "Thompson_freeze_split_contract": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/uvb-batch/evidence/B_PRODUCTION_ARTIFACT_CONTRACT.json",
@@ -1084,8 +1087,11 @@
     "creator_libm_errno_preservation": false,
     "physical_memory_reduction_causally_qualified": false
   },
-  "current_nine_hour_qualification": null,
-  "current_application_qualification_file": "tools/cpu-compute/spcvmc-optical-producer/APPLICATION_QUALIFICATION.json",
+  "current_nine_hour_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/spcvmc-optical-producer/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "1b048955ee8a7f9c2e30dea19fd8cd769aaa0e23242d268694b8afaf0c213364"
+  },
+  "current_application_qualification_file": "tools/cpu-compute/spcvmc-optical-producer/NINE_HOUR_APPLICATION_QUALIFICATION.json",
   "previous_E3_POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
     "source_commit": "1ae0c6ee9cd1b5c238a57cf25409c18d380faaed",
@@ -1222,7 +1228,7 @@
     "repeatability_established": false,
     "scope": "Exact4products545/full512/twoTiles/all4positivewriters/all32markers; main-step sum is elapsed not integrationCPU; no isolated/additive/pureIO/memorycausality claim."
   },
-  "scope": "Current3cdd/bf53 retains every a50e improvement plus SPCVMC optical producer split;9371/51a/root06dNCa32/HDF825/faba/twoTiles/singleIB. Own noon75m TRUE; ownshort/3h/9h FALSE. GNU13.3 strict module-local -fopenmp-simd; production/master unchanged.",
+  "scope": "Current3cdd/bf53 retains every a50e improvement plus SPCVMC optical producer split;9371/51a/root06dNCa32/HDF825/faba/twoTiles/singleIB. Own noon75m and9h TRUE; ownshort/3h FALSE. StrictGNU13.3 module-local -fopenmp-simd; production/master unchanged.",
   "previous_3582_e1d8_science": {
     "products": 4,
     "ordered_steps": 545,
@@ -1404,8 +1410,8 @@
     "qualification_file": "../cpu-output/quilt512/codec/private-fast-distance-range/APPLICATION_QUALIFICATION.json"
   },
   "current_application_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/spcvmc-optical-producer/APPLICATION_QUALIFICATION.json",
-    "sha256": "8f9c64380ae23f194bc45bbe2213f762f961af1e1803593d7bd9402169b247ee"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/spcvmc-optical-producer/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "1b048955ee8a7f9c2e30dea19fd8cd769aaa0e23242d268694b8afaf0c213364"
   },
   "last_three_hour_benchmark": {
     "qualification_file": "tools/cpu-compute/theta-sw-batch/THREE_HOUR_APPLICATION_QUALIFICATION.json",
@@ -1461,14 +1467,14 @@
     },
     "scope_after_SPCVMC": "Actual parenta50e3h observation retained unchanged; not own3cdd qualification or timing."
   },
-  "claim_limits": "Actual unprofiled noon original science passed2products230steps. Candidate309.833275s wall/235.343340s main/151770.087473CPU-s is UNPAIRED against retained original; no isolated SPCVMC forecast gain, repeatability or horizon transfer. Whole-minus-main is not pureIO. Main elapsed includes communication/backpressure and is not integrationCPU.",
+  "claim_limits": "One fresh original-first nine-hour pair with checked client-cache clearing before each arm. Whole MPI wall includes output and drain; main-step sum is elapsed including communication/backpressure, not integration CPU; aggregate four-node CPU is separate. Original hpc04 reached104GiB cap,max2385,high/oom/oomkill0; candidate all memory events0. File-server caches/load uncontrolled. No isolated/additive SPCVMC gain, repeatability or concurrent-throughput claim. Earlier control was2068.620428s while this was2375.176475s; optimized1832.427071\u21921840.543608s spans different source epochs, no incremental-gain claim.",
   "source_commit_scope": "Post-test source-only commit after actual original noon science. Frozen native/caller/build producer commits remain NULL. Qualified canonical/PP module-local SIMD recipe; no whole-image rebuild or own3h/9h transfer.",
   "current_noon75m_qualified": true,
   "current_noon75m_qualification": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/spcvmc-optical-producer/APPLICATION_QUALIFICATION.json",
     "sha256": "8f9c64380ae23f194bc45bbe2213f762f961af1e1803593d7bd9402169b247ee"
   },
-  "comparison_design": "UNPAIRED candidate-only noon scientific reference; descriptive metrics only",
+  "comparison_design": "Fresh corrected-original546b FIRST then selected3cdd, checkedcache EACH arm; one fixed-order pair, no repeatability/isolated/additive claim.",
   "theta_producer": {
     "pending": false,
     "source_commit": null,
@@ -1584,7 +1590,7 @@
   "three_hour_metrics": null,
   "three_hour_reductions_percent": null,
   "current_application_retry_scope": "One fresh unprofiled noon candidate; no forecast/reader retry. All new models/reader normally closed. Original retained noon control uses its explicitly qualified historical basic closure schema.",
-  "next_qualification": "Bounded actual-size8 communication test, then periodic fresh-original/current nine-hour pair; no new image3h/9h qualification yet.",
+  "next_qualification": "New NH-X pressure-gradient ratio cache f703/fe72 has native/caller/build qualification and is undergoing separate short2product35step application checks; not selected/included in this nine-hour result.",
   "noon75m_science": {
     "products": 2,
     "ordered_steps": 230,
@@ -1712,5 +1718,301 @@
     "module_interface_contract": "Originalparent32MODs retained for consumers; genuine62argSPCVMC/32argSETCOEF caller/publicGLOBALdataABI exact, targetMCICA rawMODexact. No all32rawMODchildidentity claim.",
     "all32_raw_MOD_bytes_certified": false,
     "target_MCICA_raw_MOD_sha256": "f1ce128004b7fe9265c995370dac4464bdf4d15f962d3ac3de00e0606cae35f3"
+  },
+  "before_SPCVMC_own9h_nine_hour_benchmark": {
+    "evidence_file": "tools/cpu-compute/uvb-batch/NINE_HOUR_RESULT.json",
+    "qualification_file": "tools/cpu-compute/uvb-batch/NINE_HOUR_QUALIFICATION.json",
+    "qualification_sha256": "76cb0073ad13b70a5854e78f41fb1a69cd2ace368dcf78b313f5d348db19e6bb",
+    "executable_sha256": "e3da6907c199175cfb114c856e48f0d67809ae0bb2e1a717e86708e857f03f8f",
+    "source_commit": "1ae0c6ee9cd1b5c238a57cf25409c18d380faaed",
+    "source_commit_semantics": "POST_TEST source identity; raw producer remains NULL",
+    "metrics": {
+      "control": {
+        "wall_seconds": 2068.6204282799736,
+        "cpu_seconds": 1009950.9548869999,
+        "main_step_sum_seconds": 1852.82922
+      },
+      "candidate": {
+        "wall_seconds": 1832.4270710609853,
+        "cpu_seconds": 921737.195426,
+        "main_step_sum_seconds": 1734.32162
+      }
+    },
+    "reductions_percent": {
+      "wall_seconds": 11.417916694140906,
+      "cpu_seconds": 8.734459731350997,
+      "main_step_sum_seconds": 6.396034708476805
+    },
+    "wall_speedup_ratio": 1.1288964570263804,
+    "fresh_matched_timing": false,
+    "applies_to_current_selection": false,
+    "repeatability_established": false,
+    "comparison_design": "UNPAIRED candidate-onlycurrentUVB versus retainedoriginal9h; no freshcontrol, isolatedcontribution oradditiveattribution",
+    "memory_pressure_actual": {
+      "control": {
+        "hpc01": {
+          "limit_bytes": 107374182400,
+          "peak_bytes": 98832248832,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          }
+        },
+        "hpc02": {
+          "limit_bytes": 107374182400,
+          "peak_bytes": 101152460800,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          }
+        },
+        "hpc03": {
+          "limit_bytes": 107374182400,
+          "peak_bytes": 101077553152,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          }
+        },
+        "hpc04": {
+          "limit_bytes": 111669149696,
+          "peak_bytes": 111669149696,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 2466,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          }
+        }
+      },
+      "candidate": {
+        "hpc01": {
+          "limit_bytes": 107374182400,
+          "peak_bytes": 63023669248,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          }
+        },
+        "hpc02": {
+          "limit_bytes": 107374182400,
+          "peak_bytes": 60731760640,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          }
+        },
+        "hpc03": {
+          "limit_bytes": 107374182400,
+          "peak_bytes": 60684115968,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          }
+        },
+        "hpc04": {
+          "limit_bytes": 111669149696,
+          "peak_bytes": 73684742144,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          }
+        }
+      }
+    },
+    "scope": "Unprofiled exact10products/1625steps/512ranks/twoTiles/4positivewriters/32markers. Main-step sum is elapsed including comm/backpressure. Original04 reached104GiB/2466maxevents; no pressure-free, isolated or additive claim."
+  },
+  "before_SPCVMC_own9h_current_application_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/spcvmc-optical-producer/APPLICATION_QUALIFICATION.json",
+    "sha256": "8f9c64380ae23f194bc45bbe2213f762f961af1e1803593d7bd9402169b247ee"
+  },
+  "before_SPCVMC_own9h_science": {
+    "products": 2,
+    "ordered_steps": 230,
+    "last_step": "2026-10-12_13:15:00",
+    "world": 512,
+    "compute": 480,
+    "quilt": 32,
+    "tiles": 2,
+    "positive_writer_roots": [
+      487,
+      495
+    ],
+    "zero_activity_writer_roots": [
+      503,
+      511
+    ],
+    "actual_field_markers": 16,
+    "all32_quilt_FIELDVIEW1": true,
+    "protected_compare_one_AST_unchanged": true,
+    "original_comparisons_all_pass": true,
+    "all_model_reader_scopes_closed": true,
+    "qualification_sha256": "8f9c64380ae23f194bc45bbe2213f762f961af1e1803593d7bd9402169b247ee"
+  },
+  "before_SPCVMC_own9h_claim_limits": "Actual unprofiled noon original science passed2products230steps. Candidate309.833275s wall/235.343340s main/151770.087473CPU-s is UNPAIRED against retained original; no isolated SPCVMC forecast gain, repeatability or horizon transfer. Whole-minus-main is not pureIO. Main elapsed includes communication/backpressure and is not integrationCPU.",
+  "before_SPCVMC_own9h_comparison_design": "UNPAIRED candidate-only noon scientific reference; descriptive metrics only",
+  "latest_nine_hour": {
+    "evidence_file": "tools/cpu-compute/spcvmc-optical-producer/NINE_HOUR_RESULT.json",
+    "qualification_file": "tools/cpu-compute/spcvmc-optical-producer/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+    "qualification_sha256": "1b048955ee8a7f9c2e30dea19fd8cd769aaa0e23242d268694b8afaf0c213364",
+    "executable_sha256": "3cdd1c0fbf6d5e6a2d365f7636735552c241d4db67eafa715415e6883f90b7f5",
+    "source_commit": "cbeb3b192f72d7fc46bd53382f7c376cb5338cb5",
+    "source_commit_semantics": "POST_TEST source identity; raw native/build producer remains NULL",
+    "metrics": {
+      "control": {
+        "wall_seconds": 2375.1764749530703,
+        "cpu_seconds": 1166063.791005,
+        "main_step_sum_seconds": 2157.66964
+      },
+      "candidate": {
+        "wall_seconds": 1840.543607906904,
+        "cpu_seconds": 925475.897719,
+        "main_step_sum_seconds": 1742.03269
+      }
+    },
+    "reductions_percent": {
+      "wall_seconds": 22.509185009367762,
+      "cpu_seconds": 20.632481270912596,
+      "main_step_sum_seconds": 19.26323392120399
+    },
+    "wall_speedup_ratio": 1.2904755229647393,
+    "fresh_control_run": true,
+    "fresh_matched_timing": true,
+    "applies_to_current_selection": true,
+    "repeatability_established": false,
+    "comparison_design": "Fresh corrected-original546b FIRST then selected3cdd, checkedcache EACH arm; one fixed-order pair, no repeatability/isolated/additive claim.",
+    "memory_pressure_actual": {
+      "control": {
+        "hpc01": {
+          "limit_bytes": 107374182400,
+          "peak_bytes": 98849300480,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          }
+        },
+        "hpc02": {
+          "limit_bytes": 107374182400,
+          "peak_bytes": 101103562752,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          }
+        },
+        "hpc03": {
+          "limit_bytes": 107374182400,
+          "peak_bytes": 101093691392,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          }
+        },
+        "hpc04": {
+          "limit_bytes": 111669149696,
+          "peak_bytes": 111669149696,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 2385,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          }
+        }
+      },
+      "candidate": {
+        "hpc01": {
+          "limit_bytes": 107374182400,
+          "peak_bytes": 63019872256,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          }
+        },
+        "hpc02": {
+          "limit_bytes": 107374182400,
+          "peak_bytes": 60741238784,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          }
+        },
+        "hpc03": {
+          "limit_bytes": 107374182400,
+          "peak_bytes": 60671574016,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          }
+        },
+        "hpc04": {
+          "limit_bytes": 111669149696,
+          "peak_bytes": 72784842752,
+          "events": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          }
+        }
+      }
+    },
+    "scope": "One fresh original-first nine-hour pair with checked client-cache clearing before each arm. Whole MPI wall includes output and drain; main-step sum is elapsed including communication/backpressure, not integration CPU; aggregate four-node CPU is separate. Original hpc04 reached104GiB cap,max2385,high/oom/oomkill0; candidate all memory events0. File-server caches/load uncontrolled. No isolated/additive SPCVMC gain, repeatability or concurrent-throughput claim. Earlier control was2068.620428s while this was2375.176475s; optimized1832.427071\u21921840.543608s spans different source epochs, no incremental-gain claim."
   }
 }

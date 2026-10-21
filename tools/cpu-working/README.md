@@ -1,5 +1,17 @@
 # Current working configuration — October 21, 2026
 
+Selected **3cdd1c0f / archivebf53b5c5 / post-test sourcecbeb3b19** retains all previous improvements plus shortwave optical producer SIMD. Codec9371, output51a, root input06d/NCa32, two tiles, FABA placement and the qualified single InfiniBand rail remain selected. Production/master remain unchanged; AWS is suspended.
+
+The fresh original-first nine-hour pair passed all10 products and1,625 ordered steps exactly. Whole MPI wall was **2375.176475→1840.543608s (22.5092% lower)**; main-step elapsed **2157.669640→1742.032690s (19.2632% lower)**; aggregate four-node CPU **1166063.791005→925475.897719CPU-s (20.6325% lower)**. Both arms had checked client-cache clearing, all models and reader closed normally, and no profile ran. Own9h and noon75m TRUE; separate ownshort/3h FALSE. [Actual qualification](../cpu-compute/spcvmc-optical-producer/NINE_HOUR_APPLICATION_QUALIFICATION.json) and [support/rollback](../cpu-compute/spcvmc-optical-producer/README.md) preserve scope.
+
+This is one fixed-order pair. Original hpc04 hit104GiB with2,385 max events and no high/oom/oom-kill; the candidate had zero memory events. Server load/cache were uncontrolled. The latest original was14.82% slower than the previous retained original, while the optimized observations differ by0.44% across source epochs. No isolated/additive kernel gain, repeatability, concurrent throughput or1.5x/2x target achievement is claimed. Main-step elapsed includes communication/backpressure and is not integration CPU.
+
+The following selection descriptions are historical and retain their actual source and qualification epochs.
+
+---
+
+# Historical f4b working configuration — October 21, 2026
+
 The working configuration selects the **actual three-hour-tested f4b executable / a43 archive**, with all prior improvements, codec9371, output51a, root-only input06d/NCa32, HDF825, two tiles and the existing single InfiniBand rail. Production and master are unchanged.
 
 The unchanged original checker passed four complete products and 545 ordered steps, all512 ranks, all four positive output writers, 32 markers and exact metadata/layout. All model and reader jobs closed normally. The actual candidate-only unprofiled run took **661.040449s whole model/MPI wall**, **558.885370s main-step elapsed** and **320470.901248 aggregate node CPU-s**. Against retained corrected-original2aef (819.278306s /597.239960s /367612.405251CPU-s), these are **19.31% /6.42% /12.82% lower**, respectively. This is **UNPAIRED**, without a fresh control or repeatability claim. Main-step elapsed includes communication/backpressure and is not integration CPU. File-server cache/load remain uncontrolled. No component gains are added or attributed from these totals. Own3h TRUE; separate ownshort and own9h FALSE. Single-run wall ratio1.239377x; concurrent throughput is unmeasured and the1.5x/2x goals are not met.
