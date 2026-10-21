@@ -1,5 +1,5 @@
 {
-  "status": "QUALIFIED_CURRENT_HPG_NHX_CONSUMER_SIMD_SHORT_AND_THREE_HOUR_FULL512",
+  "status": "QUALIFIED_CURRENT_HPG_NHX_CONSUMER_SHORT_THREE_AND_NINE_HOUR_FULL512",
   "executable": {
     "path": "/pool/wrf-experiment/wrf-cpu/builds/currentf703-one-bigstep-hpg-nhx-consumer-simd-hpc02-r1/wrf.exe",
     "sha256": "1749f701a126b55788e04806fa77eee2a46c5a388b648b77188e3cc1c52151d5"
@@ -14,9 +14,9 @@
   },
   "source_commit": "a531104f2070bdbc918fe20b95cfe3651f340de5",
   "science": {
-    "products": 4,
-    "ordered_steps": 545,
-    "last_step": "2026-10-12_09:00:00",
+    "products": 10,
+    "ordered_steps": 1625,
+    "last_step": "2026-10-12_15:00:00",
     "world": 512,
     "compute": 480,
     "quilt": 32,
@@ -29,53 +29,18 @@
     ],
     "zero_activity_writer_roots": [],
     "actual_field_markers": 32,
-    "actual_field_marker_ranks": [
-      480,
-      481,
-      482,
-      483,
-      484,
-      485,
-      486,
-      487,
-      488,
-      489,
-      490,
-      491,
-      492,
-      493,
-      494,
-      495,
-      496,
-      497,
-      498,
-      499,
-      500,
-      501,
-      502,
-      503,
-      504,
-      505,
-      506,
-      507,
-      508,
-      509,
-      510,
-      511
-    ],
     "all32_quilt_FIELDVIEW1": true,
     "protected_compare_one_AST_unchanged": true,
-    "external_exact32_marker_gate": true,
     "original_comparisons_all_pass": true,
-    "all_model_reader_scopes_closed": true,
-    "qualification_sha256": "7276ff60bd77fd04ae22a029dba1f1637fa287f15c9dbe10a60f47993df63213"
+    "qualification_sha256": "d686b176dfde3212312746cdf151dcdf709f0ab88c161affc5724d4dc68d62e5",
+    "all_model_reader_scopes_closed": true
   },
   "current_application_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/hpg-nhx-consumer-simd/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "7276ff60bd77fd04ae22a029dba1f1637fa287f15c9dbe10a60f47993df63213"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/hpg-nhx-consumer-simd/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "d686b176dfde3212312746cdf151dcdf709f0ab88c161affc5724d4dc68d62e5"
   },
   "current_three_hour_qualified": true,
-  "current_nine_hour_qualified": false,
+  "current_nine_hour_qualified": true,
   "prior_three_hour_benchmark": {
     "evidence_file": "PREVIOUS_THREE_HOUR_RESULT_BEFORE_DIFCOF_POOL.json",
     "qualification_file": "PREVIOUS_THREE_HOUR_FINAL_QUALIFICATION_BEFORE_DIFCOF_POOL.json",
@@ -111,8 +76,8 @@
     "repeatability_established": false,
     "scope": "GNU13.3 strict/OMP1/cold06:00\u201309:00/full512=480compute8x60+4x8quilt/faba/twoTiles/CEC/root06dNCa32/outputde5b/codec3edf/HDF825/shared1/FIELDVIEW1/singleIB;4completeproducts545steps/all4positivewriters. One fresh fixed-order inclusiveIO pair; no isolated/additive gain or current9h claim."
   },
-  "scope": "Current1749/f18/sourcea531 retainsALLf703 improvements plus one exactNH-X innerI SIMD. OwnshortandthreehourSCI TRUE; ownnoon/9hFALSE. Actual3hcomparisonusesretainedR3original546b; allmetricsUNPAIRED, no isolatedconsumer speedup. 9371/51a/root06dNCa32/FABA/twoTiles/singleIB unchanged.",
-  "claim_limits": "Current1749 owns short2/35 andthreehour4/545 exactscience/allclosures; no noon/9h transfer. Latest3h candidate668.899757wall/564.772720mainelapsed/324253.307580CPU-s vsretainedoriginal914.002706/692.229380/416098.178201 isUNPAIRED descriptive context, notisolatedconsumer gain/pairedspeedup/repeatability. Earlierf703freshreversepair remainsseparate. Native100TWOrounding/500callers20.9%/extra112Bspills retained, processCPU unavailable incaller. MainelapsednotintegrationCPU; residualnotpureIO. RawproducerNULL/postsourceidentityseparate.",
+  "scope": "Selected 1749 owns separate exact short (2 products/35 steps), three-hour (4/545) and unprofiled nine-hour (10/1625) qualification. Its separate noon-profile check remains unqualified. Raw producer source identities remain NULL; post-test source a531 is unchanged.",
+  "claim_limits": "Selected 1749 owns separate exact short (2 products/35 steps), three-hour (4/545) and unprofiled nine-hour (10/1625) qualification. Its separate noon-profile check remains unqualified. Raw producer source identities remain NULL; post-test source a531 is unchanged. One fresh corrected-original 546b first / selected 1749 second pair, with checked client-cache clearing before each arm. Control hpc04 reached 104 GiB with 2468 max events and no OOM; candidate memory events were zero. Both arms encountered CPU-quota throttling. File-server load/cache were uncontrolled. Main-step elapsed includes communication/backpressure; aggregate CPU includes MPI spin. No isolated/additive gain, repeatability, concurrent-throughput or causal pressure claim.",
   "output_postscience_tracking_commit": "909ab6ef55ac5351f9fd03e4019be470e89a3929",
   "previous_DF_pool_short_science": {
     "status": "PASS_RETAINED_ORIGINAL_TWO_HISTORY_35_STEPS_512_OWNED_FIELD_VIEW",
@@ -254,7 +219,7 @@
   "candidate_memory_actual": {
     "hpc01": {
       "limit_bytes": 107374182400,
-      "peak_bytes": 63032909824,
+      "peak_bytes": 63016488960,
       "events": {
         "low": 0,
         "high": 0,
@@ -262,11 +227,22 @@
         "oom": 0,
         "oom_kill": 0,
         "oom_group_kill": 0
+      },
+      "cpu_stat": {
+        "usage_usec": 230647478299,
+        "user_usec": 226286343665,
+        "system_usec": 4361134634,
+        "core_sched.force_idle_usec": 0,
+        "nr_periods": 18365,
+        "nr_throttled": 12964,
+        "throttled_usec": 65039860,
+        "nr_bursts": 0,
+        "burst_usec": 0
       }
     },
     "hpc02": {
       "limit_bytes": 107374182400,
-      "peak_bytes": 60715204608,
+      "peak_bytes": 60724621312,
       "events": {
         "low": 0,
         "high": 0,
@@ -274,11 +250,22 @@
         "oom": 0,
         "oom_kill": 0,
         "oom_group_kill": 0
+      },
+      "cpu_stat": {
+        "usage_usec": 230602504199,
+        "user_usec": 225832396810,
+        "system_usec": 4770107388,
+        "core_sched.force_idle_usec": 0,
+        "nr_periods": 18313,
+        "nr_throttled": 12634,
+        "throttled_usec": 90443229,
+        "nr_bursts": 0,
+        "burst_usec": 0
       }
     },
     "hpc03": {
       "limit_bytes": 107374182400,
-      "peak_bytes": 60678979584,
+      "peak_bytes": 60690329600,
       "events": {
         "low": 0,
         "high": 0,
@@ -286,11 +273,22 @@
         "oom": 0,
         "oom_kill": 0,
         "oom_group_kill": 0
+      },
+      "cpu_stat": {
+        "usage_usec": 230700184831,
+        "user_usec": 226056232842,
+        "system_usec": 4643951989,
+        "core_sched.force_idle_usec": 0,
+        "nr_periods": 18314,
+        "nr_throttled": 15203,
+        "throttled_usec": 28423737,
+        "nr_bursts": 0,
+        "burst_usec": 0
       }
     },
     "hpc04": {
       "limit_bytes": 111669149696,
-      "peak_bytes": 60652605440,
+      "peak_bytes": 73573076992,
       "events": {
         "low": 0,
         "high": 0,
@@ -298,6 +296,17 @@
         "oom": 0,
         "oom_kill": 0,
         "oom_group_kill": 0
+      },
+      "cpu_stat": {
+        "usage_usec": 230573485683,
+        "user_usec": 225809002622,
+        "system_usec": 4764483061,
+        "core_sched.force_idle_usec": 0,
+        "nr_periods": 18311,
+        "nr_throttled": 13363,
+        "throttled_usec": 14742567,
+        "nr_bursts": 0,
+        "burst_usec": 0
       }
     }
   },
@@ -320,7 +329,7 @@
     "scope": "One CU-loop directive only, committed after native/caller/canonical-preprocess/link/original3hSCI. Frozen rawproducerNULL unchanged; no isolated forecast or own9h claim."
   },
   "current_short_qualified": true,
-  "comparison_design": "Candidate-only consumer1749 original4/545 threehour science qualification against retained completed R3original546b; allmetricsUNPAIRED/descriptive, no forecastgain attribution. Raw RESULT labels retained literally; actual consumer build/component identities determine scope.",
+  "comparison_design": "Fresh corrected-original546b FIRST then selected1749 SECOND in R2 namespace; actual checkedcache EACH, one fixed-order pair.",
   "previous_PBL_PART2_POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
     "source_commit": "61c2b67e086360442b07a83090df5712b7905d8f",
@@ -359,9 +368,9 @@
     "scope": "One RQVFTEN-loop directive only, committed after native/caller/canonical-preprocess/link/original3hSCI. Frozen rawproducerNULL unchanged; no isolated forecast or own9h claim."
   },
   "archive_sha256": "f18c135ac6afcccf9b352b7db3d6e5994e1bf98e169c035fbfa0afc4a5b65692",
-  "current_application_retry_scope": "One actual1749candidate-only threehour run aftershortqualification; retained completedR3original546b reference, no newcontrol forecast or modelretry. All8model+readerinvocations normalstrongclosed.",
+  "current_application_retry_scope": "Successful R2fresh546bFIRST/1749SECOND ninehourpair withall8model+reader strongclosures. EarlierfailedMPIinit/attempts remainhistoricalfailures.",
   "current_profiled_nine_hour_science_qualified": false,
-  "current_unprofiled_nine_hour_science_qualified": false,
+  "current_unprofiled_nine_hour_science_qualified": true,
   "current_profiled_nine_hour_qualification": null,
   "previous_RQVBLTEN_PART2_POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
@@ -533,142 +542,57 @@
     "repeatability_established": false,
     "scope": "Exact4products545/full512/twoTiles/all32markers/fourpositivewriters; all8models+reader normally closed. Includes all current promotions; no isolated directive or concurrent-throughput claim."
   },
-  "current_nine_hour_qualification": null,
+  "current_nine_hour_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/hpg-nhx-consumer-simd/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "d686b176dfde3212312746cdf151dcdf709f0ab88c161affc5724d4dc68d62e5"
+  },
   "nine_hour_benchmark": {
-    "evidence_file": "tools/cpu-compute/spcvmc-optical-producer/NINE_HOUR_RESULT.json",
-    "qualification_file": "tools/cpu-compute/spcvmc-optical-producer/NINE_HOUR_APPLICATION_QUALIFICATION.json",
-    "qualification_sha256": "1b048955ee8a7f9c2e30dea19fd8cd769aaa0e23242d268694b8afaf0c213364",
-    "executable_sha256": "3cdd1c0fbf6d5e6a2d365f7636735552c241d4db67eafa715415e6883f90b7f5",
-    "source_commit": "cbeb3b192f72d7fc46bd53382f7c376cb5338cb5",
-    "source_commit_semantics": "POST_TEST source identity; raw native/build producer remains NULL",
+    "evidence_file": "tools/cpu-compute/hpg-nhx-consumer-simd/NINE_HOUR_RESULT.json",
+    "qualification_file": "tools/cpu-compute/hpg-nhx-consumer-simd/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+    "qualification_sha256": "d686b176dfde3212312746cdf151dcdf709f0ab88c161affc5724d4dc68d62e5",
+    "executable_sha256": "1749f701a126b55788e04806fa77eee2a46c5a388b648b77188e3cc1c52151d5",
+    "archive_sha256": "f18c135ac6afcccf9b352b7db3d6e5994e1bf98e169c035fbfa0afc4a5b65692",
+    "source_commit": "a531104f2070bdbc918fe20b95cfe3651f340de5",
+    "source_commit_semantics": "POST_TEST identity; rawproducer source_commitNULL",
     "metrics": {
       "control": {
-        "wall_seconds": 2375.1764749530703,
-        "cpu_seconds": 1166063.791005,
-        "main_step_sum_seconds": 2157.66964
+        "wall_seconds": 2434.0523107456975,
+        "cpu_seconds": 1196242.042695,
+        "main_step_sum_seconds": 2217.65407
       },
       "candidate": {
-        "wall_seconds": 1840.543607906904,
-        "cpu_seconds": 925475.897719,
-        "main_step_sum_seconds": 1742.03269
+        "wall_seconds": 1834.780146389734,
+        "cpu_seconds": 922523.653012,
+        "main_step_sum_seconds": 1735.35378
       }
     },
     "reductions_percent": {
-      "wall_seconds": 22.509185009367762,
-      "cpu_seconds": 20.632481270912596,
-      "main_step_sum_seconds": 19.26323392120399
+      "wall_seconds": 24.620348614133526,
+      "cpu_seconds": 22.881522293460186,
+      "main_step_sum_seconds": 21.748220181157475
     },
-    "wall_speedup_ratio": 1.2904755229647393,
+    "wall_speedup_ratio": 1.326617968662426,
     "fresh_control_run": true,
     "fresh_matched_timing": true,
-    "applies_to_current_selection": false,
+    "execution_order": [
+      "control",
+      "candidate"
+    ],
+    "applies_to_current_selection": true,
     "repeatability_established": false,
-    "comparison_design": "Fresh corrected-original546b FIRST then selected3cdd, checkedcache EACH arm; one fixed-order pair, no repeatability/isolated/additive claim.",
-    "memory_pressure_actual": {
-      "control": {
-        "hpc01": {
-          "limit_bytes": 107374182400,
-          "peak_bytes": 98849300480,
-          "events": {
-            "low": 0,
-            "high": 0,
-            "max": 0,
-            "oom": 0,
-            "oom_kill": 0,
-            "oom_group_kill": 0
-          }
-        },
-        "hpc02": {
-          "limit_bytes": 107374182400,
-          "peak_bytes": 101103562752,
-          "events": {
-            "low": 0,
-            "high": 0,
-            "max": 0,
-            "oom": 0,
-            "oom_kill": 0,
-            "oom_group_kill": 0
-          }
-        },
-        "hpc03": {
-          "limit_bytes": 107374182400,
-          "peak_bytes": 101093691392,
-          "events": {
-            "low": 0,
-            "high": 0,
-            "max": 0,
-            "oom": 0,
-            "oom_kill": 0,
-            "oom_group_kill": 0
-          }
-        },
-        "hpc04": {
-          "limit_bytes": 111669149696,
-          "peak_bytes": 111669149696,
-          "events": {
-            "low": 0,
-            "high": 0,
-            "max": 2385,
-            "oom": 0,
-            "oom_kill": 0,
-            "oom_group_kill": 0
-          }
-        }
-      },
-      "candidate": {
-        "hpc01": {
-          "limit_bytes": 107374182400,
-          "peak_bytes": 63019872256,
-          "events": {
-            "low": 0,
-            "high": 0,
-            "max": 0,
-            "oom": 0,
-            "oom_kill": 0,
-            "oom_group_kill": 0
-          }
-        },
-        "hpc02": {
-          "limit_bytes": 107374182400,
-          "peak_bytes": 60741238784,
-          "events": {
-            "low": 0,
-            "high": 0,
-            "max": 0,
-            "oom": 0,
-            "oom_kill": 0,
-            "oom_group_kill": 0
-          }
-        },
-        "hpc03": {
-          "limit_bytes": 107374182400,
-          "peak_bytes": 60671574016,
-          "events": {
-            "low": 0,
-            "high": 0,
-            "max": 0,
-            "oom": 0,
-            "oom_kill": 0,
-            "oom_group_kill": 0
-          }
-        },
-        "hpc04": {
-          "limit_bytes": 111669149696,
-          "peak_bytes": 72784842752,
-          "events": {
-            "low": 0,
-            "high": 0,
-            "max": 0,
-            "oom": 0,
-            "oom_kill": 0,
-            "oom_group_kill": 0
-          }
-        }
-      }
-    },
-    "scope": "One fresh original-first nine-hour pair with checked client-cache clearing before each arm. Whole MPI wall includes output and drain; main-step sum is elapsed including communication/backpressure, not integration CPU; aggregate four-node CPU is separate. Original hpc04 reached104GiB cap,max2385,high/oom/oomkill0; candidate all memory events0. File-server caches/load uncontrolled. No isolated/additive SPCVMC gain, repeatability or concurrent-throughput claim. Earlier control was2068.620428s while this was2375.176475s; optimized1832.427071\u21921840.543608s spans different source epochs, no incremental-gain claim."
+    "concurrent_throughput_measured": false,
+    "comparison_design": "Fresh corrected-original546b FIRST then selected1749 SECOND in R2 namespace; actual checkedcache EACH, one fixed-order pair.",
+    "scope": "One fresh corrected-original 546b first / selected 1749 second pair, with checked client-cache clearing before each arm. Control hpc04 reached 104 GiB with 2468 max events and no OOM; candidate memory events were zero. Both arms encountered CPU-quota throttling. File-server load/cache were uncontrolled. Main-step elapsed includes communication/backpressure; aggregate CPU includes MPI spin. No isolated/additive gain, repeatability, concurrent-throughput or causal pressure claim.",
+    "memory_pressure_evidence": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/hpg-nhx-consumer-simd/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "d686b176dfde3212312746cdf151dcdf709f0ab88c161affc5724d4dc68d62e5",
+      "control_hpc04_limit_GiB": 104,
+      "control_hpc04_max_events": 2468,
+      "candidate_memory_events_zero": true,
+      "both_arms_CPU_quota_throttling": true
+    }
   },
-  "current_application_qualification_file": "tools/cpu-compute/hpg-nhx-consumer-simd/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+  "current_application_qualification_file": "tools/cpu-compute/hpg-nhx-consumer-simd/NINE_HOUR_APPLICATION_QUALIFICATION.json",
   "previous_E3_POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
     "source_commit": "1ae0c6ee9cd1b5c238a57cf25409c18d380faaed",
@@ -1145,7 +1069,7 @@
     "comparison_design": "Fresh REVERSE fixed-orderHPGf703FIRST then546bSECOND; cacheEACH; onepair, no repeatability/isolatedHPG/additive/causeclaim.",
     "scope": "One fresh reverse fixed-order pair with cache EACH. Wholewall includes initialization/output/drain; mainelapsed includescommunication/backpressure, notintegrationCPU; aggregateCPU retainsownscope. No isolatedHPG/additive/sustained9h/concurrentthroughput claim."
   },
-  "source_commit_scope": "Exactly one SIMD PRIVATE(dpx) directive committed after genuine native100/two complete500-call pairs/current canonical CPP/one-member link/original shortSCI. Frozen native/build/application source producers remainNULL. Ownshort only, no current3h/noon/9h transfer; no wholeimage source rebuild certificate.",
+  "source_commit_scope": "Original oneSIMDPRIVATE(dpx) source-onlya531 aftercomponent/shortscience; sameimage nowownsseparate3h+9hSCI. Frozen rawproducerNULL remainsunchanged; no wholeimagesourcerebuildcertificate.",
   "current_noon75m_qualified": false,
   "current_noon75m_qualification": null,
   "theta_producer": {
@@ -1260,7 +1184,7 @@
     },
     "applies_to_current_selection": false
   },
-  "next_qualification": "Continue one bounded currentBigStepISA feasibility/native screen onlyifjustified; no broadcompiler/ISA sweep. Selected1749 stillhas no ownnoon/9h qualification; selected sustained comparison when next worthwhilebatch isready.",
+  "next_qualification": "Current1749ownshort/3h/9hscience qualified; ownnoonFALSE. Experimentalhelper/ISA candidates requiretheirown native/caller/application proof; no transfer.",
   "previous_A50E_before_SPCVMC": {
     "paired_record": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_LATEST_APPLICATION_RESULT_BEFORE_SPCVMC_OPTICAL.json",
@@ -1509,138 +1433,50 @@
   "before_SPCVMC_own9h_claim_limits": "Actual unprofiled noon original science passed2products230steps. Candidate309.833275s wall/235.343340s main/151770.087473CPU-s is UNPAIRED against retained original; no isolated SPCVMC forecast gain, repeatability or horizon transfer. Whole-minus-main is not pureIO. Main elapsed includes communication/backpressure and is not integrationCPU.",
   "before_SPCVMC_own9h_comparison_design": "UNPAIRED candidate-only noon scientific reference; descriptive metrics only",
   "latest_nine_hour": {
-    "evidence_file": "tools/cpu-compute/spcvmc-optical-producer/NINE_HOUR_RESULT.json",
-    "qualification_file": "tools/cpu-compute/spcvmc-optical-producer/NINE_HOUR_APPLICATION_QUALIFICATION.json",
-    "qualification_sha256": "1b048955ee8a7f9c2e30dea19fd8cd769aaa0e23242d268694b8afaf0c213364",
-    "executable_sha256": "3cdd1c0fbf6d5e6a2d365f7636735552c241d4db67eafa715415e6883f90b7f5",
-    "source_commit": "cbeb3b192f72d7fc46bd53382f7c376cb5338cb5",
-    "source_commit_semantics": "POST_TEST source identity; raw native/build producer remains NULL",
+    "evidence_file": "tools/cpu-compute/hpg-nhx-consumer-simd/NINE_HOUR_RESULT.json",
+    "qualification_file": "tools/cpu-compute/hpg-nhx-consumer-simd/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+    "qualification_sha256": "d686b176dfde3212312746cdf151dcdf709f0ab88c161affc5724d4dc68d62e5",
+    "executable_sha256": "1749f701a126b55788e04806fa77eee2a46c5a388b648b77188e3cc1c52151d5",
+    "archive_sha256": "f18c135ac6afcccf9b352b7db3d6e5994e1bf98e169c035fbfa0afc4a5b65692",
+    "source_commit": "a531104f2070bdbc918fe20b95cfe3651f340de5",
+    "source_commit_semantics": "POST_TEST identity; rawproducer source_commitNULL",
     "metrics": {
       "control": {
-        "wall_seconds": 2375.1764749530703,
-        "cpu_seconds": 1166063.791005,
-        "main_step_sum_seconds": 2157.66964
+        "wall_seconds": 2434.0523107456975,
+        "cpu_seconds": 1196242.042695,
+        "main_step_sum_seconds": 2217.65407
       },
       "candidate": {
-        "wall_seconds": 1840.543607906904,
-        "cpu_seconds": 925475.897719,
-        "main_step_sum_seconds": 1742.03269
+        "wall_seconds": 1834.780146389734,
+        "cpu_seconds": 922523.653012,
+        "main_step_sum_seconds": 1735.35378
       }
     },
     "reductions_percent": {
-      "wall_seconds": 22.509185009367762,
-      "cpu_seconds": 20.632481270912596,
-      "main_step_sum_seconds": 19.26323392120399
+      "wall_seconds": 24.620348614133526,
+      "cpu_seconds": 22.881522293460186,
+      "main_step_sum_seconds": 21.748220181157475
     },
-    "wall_speedup_ratio": 1.2904755229647393,
+    "wall_speedup_ratio": 1.326617968662426,
     "fresh_control_run": true,
     "fresh_matched_timing": true,
-    "applies_to_current_selection": false,
+    "execution_order": [
+      "control",
+      "candidate"
+    ],
+    "applies_to_current_selection": true,
     "repeatability_established": false,
-    "comparison_design": "Fresh corrected-original546b FIRST then selected3cdd, checkedcache EACH arm; one fixed-order pair, no repeatability/isolated/additive claim.",
-    "memory_pressure_actual": {
-      "control": {
-        "hpc01": {
-          "limit_bytes": 107374182400,
-          "peak_bytes": 98849300480,
-          "events": {
-            "low": 0,
-            "high": 0,
-            "max": 0,
-            "oom": 0,
-            "oom_kill": 0,
-            "oom_group_kill": 0
-          }
-        },
-        "hpc02": {
-          "limit_bytes": 107374182400,
-          "peak_bytes": 101103562752,
-          "events": {
-            "low": 0,
-            "high": 0,
-            "max": 0,
-            "oom": 0,
-            "oom_kill": 0,
-            "oom_group_kill": 0
-          }
-        },
-        "hpc03": {
-          "limit_bytes": 107374182400,
-          "peak_bytes": 101093691392,
-          "events": {
-            "low": 0,
-            "high": 0,
-            "max": 0,
-            "oom": 0,
-            "oom_kill": 0,
-            "oom_group_kill": 0
-          }
-        },
-        "hpc04": {
-          "limit_bytes": 111669149696,
-          "peak_bytes": 111669149696,
-          "events": {
-            "low": 0,
-            "high": 0,
-            "max": 2385,
-            "oom": 0,
-            "oom_kill": 0,
-            "oom_group_kill": 0
-          }
-        }
-      },
-      "candidate": {
-        "hpc01": {
-          "limit_bytes": 107374182400,
-          "peak_bytes": 63019872256,
-          "events": {
-            "low": 0,
-            "high": 0,
-            "max": 0,
-            "oom": 0,
-            "oom_kill": 0,
-            "oom_group_kill": 0
-          }
-        },
-        "hpc02": {
-          "limit_bytes": 107374182400,
-          "peak_bytes": 60741238784,
-          "events": {
-            "low": 0,
-            "high": 0,
-            "max": 0,
-            "oom": 0,
-            "oom_kill": 0,
-            "oom_group_kill": 0
-          }
-        },
-        "hpc03": {
-          "limit_bytes": 107374182400,
-          "peak_bytes": 60671574016,
-          "events": {
-            "low": 0,
-            "high": 0,
-            "max": 0,
-            "oom": 0,
-            "oom_kill": 0,
-            "oom_group_kill": 0
-          }
-        },
-        "hpc04": {
-          "limit_bytes": 111669149696,
-          "peak_bytes": 72784842752,
-          "events": {
-            "low": 0,
-            "high": 0,
-            "max": 0,
-            "oom": 0,
-            "oom_kill": 0,
-            "oom_group_kill": 0
-          }
-        }
-      }
-    },
-    "scope": "One fresh original-first nine-hour pair with checked client-cache clearing before each arm. Whole MPI wall includes output and drain; main-step sum is elapsed including communication/backpressure, not integration CPU; aggregate four-node CPU is separate. Original hpc04 reached104GiB cap,max2385,high/oom/oomkill0; candidate all memory events0. File-server caches/load uncontrolled. No isolated/additive SPCVMC gain, repeatability or concurrent-throughput claim. Earlier control was2068.620428s while this was2375.176475s; optimized1832.427071\u21921840.543608s spans different source epochs, no incremental-gain claim."
+    "concurrent_throughput_measured": false,
+    "comparison_design": "Fresh corrected-original546b FIRST then selected1749 SECOND in R2 namespace; actual checkedcache EACH, one fixed-order pair.",
+    "scope": "One fresh corrected-original 546b first / selected 1749 second pair, with checked client-cache clearing before each arm. Control hpc04 reached 104 GiB with 2468 max events and no OOM; candidate memory events were zero. Both arms encountered CPU-quota throttling. File-server load/cache were uncontrolled. Main-step elapsed includes communication/backpressure; aggregate CPU includes MPI spin. No isolated/additive gain, repeatability, concurrent-throughput or causal pressure claim.",
+    "memory_pressure_evidence": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/hpg-nhx-consumer-simd/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "d686b176dfde3212312746cdf151dcdf709f0ab88c161affc5724d4dc68d62e5",
+      "control_hpc04_limit_GiB": 104,
+      "control_hpc04_max_events": 2468,
+      "candidate_memory_events_zero": true,
+      "both_arms_CPU_quota_throttling": true
+    }
   },
   "previous_SPCVMC_before_HPG_NHX": {
     "paired_record": {
@@ -1779,7 +1615,7 @@
     "source_commit": "97512cc69b4f144c399fb04bcebf8d146ddc78ff",
     "applies_to_current_selection": false
   },
-  "candidate_memory_actual_scope": "Current1749 threehour4/545 wholeboundedmodeljob peaks/events only, not resident-memory attribution or parent9h evidence.",
+  "candidate_memory_actual_scope": "Actualcurrent1749ninehour finalpernode chargedpeaks/events/cpustat; no residentattribution/capacity/causalclaim.",
   "previous_HPG_NHX_before_CONSUMER": {
     "paired_snapshot": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_LATEST_APPLICATION_RESULT_BEFORE_HPG_NHX_CONSUMER.json",
@@ -2041,5 +1877,38 @@
     "repeatability_established": false,
     "applies_to_current_selection": true,
     "comparison_design": "Candidate-only consumer1749 original4/545 threehour science qualification against retained completed R3original546b; allmetricsUNPAIRED/descriptive, no forecastgain attribution. Raw RESULT labels retained literally; actual consumer build/component identities determine scope."
+  },
+  "before_HPG_CONSUMER_own9h": {
+    "working_records_commit": "3dc1509d12a1e7205a885cfef5acf452ab8ff88e",
+    "scope": "Exact complete prior working records remain at this Git commit; prior component evidence is unchanged. Historical nine-hour result applies to 3cdd, not the current artifact. Separate current short/three-hour fields are preserved in this record.",
+    "current_application_qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/hpg-nhx-consumer-simd/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "7276ff60bd77fd04ae22a029dba1f1637fa287f15c9dbe10a60f47993df63213"
+    },
+    "historical_nine_hour": {
+      "evidence_file": "tools/cpu-compute/spcvmc-optical-producer/NINE_HOUR_RESULT.json",
+      "qualification_file": "tools/cpu-compute/spcvmc-optical-producer/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+      "qualification_sha256": "1b048955ee8a7f9c2e30dea19fd8cd769aaa0e23242d268694b8afaf0c213364",
+      "executable_sha256": "3cdd1c0fbf6d5e6a2d365f7636735552c241d4db67eafa715415e6883f90b7f5",
+      "source_commit": "cbeb3b192f72d7fc46bd53382f7c376cb5338cb5",
+      "metrics": {
+        "control": {
+          "wall_seconds": 2375.1764749530703,
+          "cpu_seconds": 1166063.791005,
+          "main_step_sum_seconds": 2157.66964
+        },
+        "candidate": {
+          "wall_seconds": 1840.543607906904,
+          "cpu_seconds": 925475.897719,
+          "main_step_sum_seconds": 1742.03269
+        }
+      },
+      "reductions_percent": {
+        "wall_seconds": 22.509185009367762,
+        "cpu_seconds": 20.632481270912596,
+        "main_step_sum_seconds": 19.26323392120399
+      },
+      "applies_to_current_selection": false
+    }
   }
 }

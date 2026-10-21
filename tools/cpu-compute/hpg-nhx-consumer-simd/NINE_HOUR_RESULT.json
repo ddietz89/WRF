@@ -1,0 +1,28 @@
+{
+  "status": "PASS_ORIGINAL_TEN_HISTORY_AND_512_DIRECT_STOCK_LATEST_NINE_HOUR_SEQUENCE",
+  "order": [
+    "fresh_corrected_original546b_control",
+    "fresh_current_HPG_NHX_consumer1749_allprior_SPCVMC_theta_SW_BC_input06d_NCa32_pool51a_codec9371_candidate"
+  ],
+  "comparison_design": "Fresh fixed-order corrected-original versus combined current candidate; no isolated outputpadding/SIMD/input or earlierkernel attribution",
+  "metrics": {
+    "control": {
+      "wall_seconds": 2434.0523107456975,
+      "cpu_seconds": 1196242.0426949998,
+      "main_step_sum_seconds": 2217.65407
+    },
+    "candidate": {
+      "wall_seconds": 1834.780146389734,
+      "cpu_seconds": 922523.653012,
+      "main_step_sum_seconds": 1735.35378
+    }
+  },
+  "reductions_percent": {
+    "wall_seconds": 24.620348614133526,
+    "cpu_seconds": 22.881522293460176,
+    "main_step_sum_seconds": 21.748220181157475
+  },
+  "science_sha256": "f2306f8a04cef21f420c5e0f543b898a9aea5749c258b438022cf88523920059",
+  "reader_closure_sha256": "0225a95d40b3fc78f1a8655a77f4195ec8e88f361d029291e1ff6837c473d83b",
+  "limits": "One fresh fixed-order pair, actual checkedcache before each arm; no repeatability or per-kernel causal claim. Main includes communication/backpressure; residual is not pureIO."
+}

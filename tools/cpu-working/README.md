@@ -1,12 +1,27 @@
 # Current working selection: NH-X consumer SIMD
 
-**1749f701 / archivef18c135a / post-test sourcea531104f** retains every f703 improvement. One NH-X inner-I directive delivered20.94%/20.87% lower complete synthetic HPG caller wall time; native100 and original full512 short2product/35step exact checks passed. Extra112B frame/spills are documented; process CPU unavailable. The selected build passed its own short and three-hour scientific checks; its own noon and nine-hour checks remain pending. [Evidence and rollback](../cpu-compute/hpg-nhx-consumer-simd/README.md).
+**1749f701 / archivef18c135a / post-test sourcea531104f** retains every f703 improvement. One NH-X inner-I directive delivered20.94%/20.87% lower complete synthetic HPG caller wall time; native100 and original full512 short2product/35step exact checks passed. Extra112B frame/spills are documented; process CPU unavailable. The selected build passed its own short, three-hour and nine-hour scientific checks; its own noon check remains unqualified. [Evidence and rollback](../cpu-compute/hpg-nhx-consumer-simd/README.md).
 
 The latest 1749 three-hour run passed all four products and 545 timesteps: 668.899757 seconds wall, 564.772720 seconds main-step elapsed and 324253.307580 aggregate CPU-seconds. The retained original measured 914.002706 / 692.229380 / 416098.178201, respectively. This comparison is **unpaired**; it does not isolate the consumer change. Earlier three-hour and nine-hour timing results below are historical for their named artifacts. No current forecast-gain claim is transferred. Restore all three BEFORE_HPG_NHX_CONSUMER snapshots and revert source-onlya531104f for rollback. Production/master unchanged; AWS suspended.
 
+
+The unchanged scientific checker passed all **10 products and 1,625 ordered steps** for the selected 1749 build against a fresh corrected-original 546b control. All eight model scopes and the reader closed normally. Both arms used 512 ranks, two tiles, the same placement and single InfiniBand rail, and checked client-cache clearing before launch. The original ran first; neither arm was profiled.
+
+| Metric | Original 546b | Selected 1749 | Reduction |
+| --- | ---: | ---: | ---: |
+| Whole model/MPI wall, seconds | 2434.052311 | 1834.780146 | 24.6203% |
+| Main-step elapsed sum, seconds | 2217.654070 | 1735.353780 | 21.7482% |
+| Aggregate node CPU-seconds | 1196242.042695 | 922523.653012 | 22.8815% |
+
+This is one control-first pair. File-server load and caches were uncontrolled. Original hpc04 reached its 104 GiB memory limit with 2,468 max events and no OOM; the candidate had zero memory events. Both arms encountered CPU-quota throttling. Main-step elapsed includes communication and output backpressure; aggregate CPU includes MPI spin. These totals do not isolate a component, establish repeatability or measure concurrent throughput. The single-pair wall ratio is 1.3266×; the 1.5× and 2× targets remain unmet.
+
+Executable 1749, archive f18, post-test source a531 and the selected libraries/defaults are unchanged. Frozen producer source identities remain NULL. This build now owns separate short, three-hour and nine-hour scientific qualification; its separate noon-profile check remains unqualified. The experimental isolated AVX2 helper is **not included** in this forecast. [Actual qualification](../cpu-compute/hpg-nhx-consumer-simd/NINE_HOUR_APPLICATION_QUALIFICATION.json) retains the evidence and limits.
+
+Legacy `NINE_HOUR_FINAL_QUALIFICATION.json` and `NINE_HOUR_RESULT.json` in this directory retain an older artifact. The current selection points to the consumer evidence above; historical pinned files are preserved.
+
 ---
 
-# Current working configuration — October 21, 2026
+# Historical f703 configuration — October 21, 2026
 
 Selected **f703115b / archivefe72cb2e / post-test sourcec3d2de5d** adds NH-X row-ratio caching to all3cdd improvements. Complete finite500-call HPG timings were1.34–3.04% shorter with exact raw/state results; process CPU unavailable. Original short2product/35step/full512/two-tile science and normal closures passed. OwnshortTRUE; own3h/noon/9hFALSE. [Evidence and rollback](../cpu-compute/hpg-nhx-row-cache/README.md) preserve scope.
 

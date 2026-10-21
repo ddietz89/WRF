@@ -3762,3 +3762,18 @@ Curvature VXGM producer SIMD was rejected by exact whole-call O2 output comparis
 HPG isolated-C R1 and R2 both stopped at the compiler-interface gate before C compilation or numerical execution. R1 lost IMPLICIT_PURE and gained ARRAY_OUTER_DEPENDENCY in generated module metadata. R2 restored IMPLICIT_PURE but still gained ARRAY_OUTER_DEPENDENCY. Both failed invocations have positive manager failure records, MainPID 0 and absent/empty cgroups. These are compiler-interface failures, not numerical results. R3 is pending a prospective compatible-analysis-interface contract with the R2 source/C unchanged; it does not retroactively pass R1/R2 or constitute an owner exception. Selected1749 is unchanged; none of these records supports timing, speed, default or application claims.
 
 [Compact evidence and support limits](tools/cpu-compute/curvature-hpg-interface-screen/README.md) preserve the failed invocations and exact mismatch attribution. The ongoing nine-hour measurement uses frozen1749; no experimental helper or rejected directive has been added.
+
+
+## Current1749 fresh nine-hour qualification (2026-10-21)
+
+The unchanged scientific checker passed all **10 products and 1,625 ordered steps** for the selected 1749 build against a fresh corrected-original 546b control. All eight model scopes and the reader closed normally. Both arms used 512 ranks, two tiles, the same placement and single InfiniBand rail, and checked client-cache clearing before launch. The original ran first; neither arm was profiled.
+
+| Metric | Original 546b | Selected 1749 | Reduction |
+| --- | ---: | ---: | ---: |
+| Whole model/MPI wall, seconds | 2434.052311 | 1834.780146 | 24.6203% |
+| Main-step elapsed sum, seconds | 2217.654070 | 1735.353780 | 21.7482% |
+| Aggregate node CPU-seconds | 1196242.042695 | 922523.653012 | 22.8815% |
+
+This is one control-first pair. File-server load and caches were uncontrolled. Original hpc04 reached its 104 GiB memory limit with 2,468 max events and no OOM; the candidate had zero memory events. Both arms encountered CPU-quota throttling. Main-step elapsed includes communication and output backpressure; aggregate CPU includes MPI spin. These totals do not isolate a component, establish repeatability or measure concurrent throughput. The single-pair wall ratio is 1.3266×; the 1.5× and 2× targets remain unmet.
+
+Executable 1749, archive f18, post-test source a531 and the selected libraries/defaults are unchanged. Frozen producer source identities remain NULL. This build now owns separate short, three-hour and nine-hour scientific qualification; its separate noon-profile check remains unqualified. The experimental isolated AVX2 helper is **not included** in this forecast. [Actual qualification](tools/cpu-compute/hpg-nhx-consumer-simd/NINE_HOUR_APPLICATION_QUALIFICATION.json) retains the evidence and limits.
