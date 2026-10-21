@@ -1,4 +1,8 @@
-## Current compute selection; output unchanged (October 20, 2026, EDT)
+## Current codec selection (October 20, 2026, EDT)
+
+Current **WRF3582/15b2/sourceee2fdac7 + codec9371/post-test codec sourcec57e3851** retains output51a and all preceding improvements. The private distance guard removes one conditional branch with exact native/provider/streaming checks. Complete-provider CPU was0.3850%/0.3371% lower with mixed wall; no forecast gain is established. Original short full512/two-product/35-step science and normal model/reader closure passed; ownshortTRUE, own3h/9hFALSE. The prior3582/e1d8 full-three-hour result is historical:819.278306→661.111259s wall,597.239960→559.855500s main elapsed,367612.405251→320461.895685CPU-s, UNPAIRED. [Codec evidence, reproduction and rollback](codec/private-fast-distance-range/README.md).
+
+## Previous FINISH-U compute selection; output unchanged (October 20, 2026, EDT)
 
 Selected **FINISH8bfe/archive6f44/sourcea92fc86b** retains all prior improvements and adds one exact-qualified U reconstruction SIMD directive. Original two-product/35-step/full512/two-tile science passed; complete FINISH caller wall fell8.24–11.81% in the bounded opposite-order tests. OwnshortTRUE; own3h/9hFALSE. The previous E3 long-run records below do not apply to this child. Output51a/codece1d8/input06dNCa32/faba/single-IB remain unchanged. [Evidence and paired rollback](../../cpu-compute/smallstep-finish-u-simd/README.md).
 

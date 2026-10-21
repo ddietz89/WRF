@@ -14,8 +14,8 @@
       "sha256": "8adc33059a98399cd8adea41de071598aaa2b09ff53eb3ae860cad0c6696b538"
     },
     "ng": {
-      "path": "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng",
-      "sha256": "e1d8bc0774b7c54b4b63e7d6892c6485bec9b3c7032985a229961ba0569cc450"
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/private-fast-distance-range-native-hpc02-r1/output/build/libz.so.1.3.1.zlib-ng",
+      "sha256": "937130c2a2d53e1d11c978dce1b661400daca9da7b8ae99029333dbc1103d178"
     }
   },
   "private_hdf5": {
@@ -47,8 +47,8 @@
   "read_affine_IO_archive_sha256": "651835f31089e16759177734198ece5b121d704355c73abddde483f4cae2c14c",
   "read_affine_IO_object_sha256": "c9c4e5b7a0225523e7d85cfc188022d797204d3f4dd4494b54c416e3bec99320",
   "schema_version": 3,
-  "status": "QUALIFIED_CURRENT_FINISH_U_NONFINAL_T_ORIGINAL_THREE_HOUR_FULL512",
-  "scope": "SelectedFINISH-U+nonfinalT3582/15b2; actual directoriginal3h4/545/512/twoTiles/fourwriters/all32markers. Own3hTRUE, ownseparate10mshortFALSE, own9hFALSE. Existinginput06dNCa32/output51a/codece1d8/IB/layout unchanged.",
+  "status": "QUALIFIED_CURRENT_3582_PRIVATE_FAST_DISTANCE9371_ORIGINAL_SHORT_FULL512",
+  "scope": "Selected3582/15b2 plus privateFASTdistance9371, output51a/input06dNCa32/faba/twoTiles unchanged. Actualoriginalshort2/35/full512/twopositivewriters/16markers/all32FV1; ownshortTRUE, own3h9hFALSE. Prior3582/e1d8 threehour remains historical, not transferred.",
   "includes": "All retained compute, Thompson shared-table/lazy-init, output, codec and HDF5 improvements from the previous selection, READ_DI1 affine rows, plus qualified root-only parallel input chunk decoding. Fused output packing/shuffling removes intermediate padded packed storage; compressedbytes and originalscience exact. MCICA mask/property consumer fusion removes temporary logical-mask allocation/population/readback; all RNG/arithmetic/other code unchanged. AVX2 slide-hash loop unrolling removes repeated loop control while preserving the original saturating arithmetic and traversal; Adler remains unchanged. MYJPBL DIFCOF ordered SIMD adds only two directives; complete captured-caller gains and exact short application qualified. Private four-slot shuffle scratch reuse across callbacks removes repeated scratch allocation, with bounded retention; fullshim/API and originalshortscience exact. Block-local integer bit-buffer carry removes per-symbol state publication in compress_block; exact wholefunction/codeccaller/state and shortscience passed. LW ABSCLD scratch removal keeps identical scalar arithmetic and loop order while removing one allocated scratch stream; native/caller and fresh combined3h exact. INATM cloud-copy2+3 grouping retains all five fields/radius copies while reducing repeated descriptor/stride loads; complete-caller20.03%/17.72% gains and originalfull3hscience qualified. CU PART2 SIMD adds one directive to the independent innerI loop, keeping per-lane MUT denominator and three true divisions; genuine fullcaller and original3h science qualified. PBL PART2 SIMD adds one independentI directive retaining per-lane denominator arithmetic; native/caller/originalshortscience exact. RQVFTEN SIMD adds one directive to the independent moisture-forcingI loop, keeping per-lane MUT denominator and true division; native44/genuinecompletecaller/original3hscience qualified. RQVBLTEN PART2 SIMD adds one independentI directive retaining per-lane MUT denominator and true division; native56/caller/originalshortscience exact. RTHRATEN PART2 SIMD adds one independentI directive retaining per-lane MUT denominator and true division; native68/caller/originalshortscience exact. Independent final-U andPrepV SIMD retain per-cell arithmetic with exactnative/caller science. Thompson freeze initialization splits rain/cloud staging under namedREAD/COMPUTED/PARTIAL science-FP-ownership contract; wholeINIT errno isnotqualified. FINISH U-reconstruction adds one independent-I SIMD directive; native80/fullcaller/actualshortscience exact. FINISH nonfinalT adds one exact independent-I SIMD directive; actual144native/fullcaller/direct3h science.",
   "source_commit_scope": "POST_TEST one-source identity; rawproducerNULL preserved.",
   "input_implementation_commit": "614267f340a23ffc342962b3c64e323719fe4d06",
@@ -81,76 +81,36 @@
     "other_511_ranks": "Retain originalNC8adc/outputpool51a; currentcodece1d8. Rootinputadapter06d/privateNCa32 onlyrank0."
   },
   "science": {
-    "products": 4,
-    "ordered_steps": 545,
-    "last_step": "2026-10-12_09:00:00",
+    "products": 2,
+    "ordered_steps": 35,
+    "last_step": "2026-10-12_06:10:00",
     "world": 512,
     "compute": 480,
     "quilt": 32,
     "tiles": 2,
     "positive_writer_roots": [
       487,
-      495,
+      495
+    ],
+    "zero_activity_writer_roots": [
       503,
       511
     ],
-    "zero_activity_writer_roots": [],
-    "actual_field_markers": 32,
+    "actual_field_markers": 16,
     "all32_quilt_FIELDVIEW1": true,
     "protected_compare_one_AST_unchanged": true,
     "original_comparisons_all_pass": true,
-    "end_time": "2026-10-12_09:00:00",
-    "quilt_groups": 4,
-    "quilt_ranks_per_group": 8,
-    "field_view_markers": 32,
-    "all32_quilt_FIELDVIEW1_observed": true,
-    "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
-    "receipt_sha256": "ce530456405004961911712a01956f16ebaa181609b8b29d409b944e9aa07691",
-    "reader_closure_sha256": "00ef83c1c01b4857ff63e8442b05edf8316e10b4c32e030c5b9d703b114e746b",
-    "invocation_id": "ace9c60baee84c9aba4eafe45a3d2d7d",
-    "all_model_reader_scopes_closed": true,
-    "reader_exit_code_raw": null,
-    "reader_manager_success_invocation_bound": true
+    "status": "PASS_RETAINED_ORIGINAL_TWO_HISTORY_35_STEPS_512_OWNED_FIELD_VIEW",
+    "receipt_sha256": "47b645a5f45ced6f98d9af46926d6fbcee58788d21b6a458a983728c353d10b2",
+    "reader_closure_sha256": "33d5311069817c89cb659954916ae385ae2a72a6b20611e358c006573a8e6b30",
+    "invocation_id": "e01d8903c5824d7d846f2006a6f8f5bc",
+    "all_model_reader_scopes_closed": true
   },
-  "qualification_file": "tools/cpu-compute/smallstep-finish-nonfinal-t-simd/APPLICATION_QUALIFICATION.json",
-  "current_application_qualification_file": "tools/cpu-compute/smallstep-finish-nonfinal-t-simd/APPLICATION_QUALIFICATION.json",
+  "qualification_file": "tools/cpu-output/quilt512/codec/private-fast-distance-range/APPLICATION_QUALIFICATION.json",
+  "current_application_qualification_file": "tools/cpu-output/quilt512/codec/private-fast-distance-range/APPLICATION_QUALIFICATION.json",
   "source_build_binding_file": "CURRENT_SOURCE_BUILD_BINDING.json",
-  "current_three_hour_qualified": true,
+  "current_three_hour_qualified": false,
   "current_nine_hour_qualified": false,
-  "last_three_hour_benchmark": {
-    "evidence_file": "tools/cpu-compute/smallstep-finish-nonfinal-t-simd/THREE_HOUR_RESULT.json",
-    "qualification_file": "tools/cpu-compute/smallstep-finish-nonfinal-t-simd/APPLICATION_QUALIFICATION.json",
-    "full_qualification_sha256": "7f361197ca78518e90435ed751324787c8e523b6b8065a8262fb68118bd27f07",
-    "executable": {
-      "path": "/pool/wrf-experiment/wrf-cpu/builds/current8bfe-one-smallstep-finish-nonfinal-t-simd-hpc02-r1/wrf.exe",
-      "sha256": "3582f4177c3559c11a515fc4616bfb772168269b31e464ab69c8c64c64223b05"
-    },
-    "source_commit": "ee2fdac7776484fbe30bb95a8702f03808d0c5d6",
-    "source_commit_semantics": "POST_TEST source-only; rawproducerNULL",
-    "metrics": {
-      "control": {
-        "wall_seconds": 819.2783056409098,
-        "cpu_seconds": 367612.40525099996,
-        "main_step_sum_seconds": 597.23996
-      },
-      "candidate": {
-        "wall_seconds": 661.1112585389055,
-        "cpu_seconds": 320461.895685,
-        "main_step_sum_seconds": 559.8555
-      }
-    },
-    "reductions_percent": {
-      "wall_seconds": 19.305655479095407,
-      "cpu_seconds": 12.826147565342993,
-      "main_step_sum_seconds": 6.2595376237048805
-    },
-    "wall_speedup_ratio": 1.2392442195759346,
-    "fresh_matched_timing": false,
-    "applies_to_current_selection": true,
-    "repeatability_established": false,
-    "comparison_design": "UNPAIRED candidate-only combined FINISH-U+T versus retained fresh corrected-original2aef reference; no isolated or additive candidate attribution",
-    "scope": "UNPAIRED retainedoriginal2aef vs actual3582/15b2,4products545/512/twoTiles/fourwriters32markers. WholeMPIwall/aggregateprocessCPU/main-stepelapsed separate; no isolated kernel/additive/throughput/forecastrepeatability claim."
-  },
   "prior_nine_hour": {
     "evidence_file": "PREVIOUS_NINE_HOUR_RESULT_B1FB.json",
     "qualification_file": "PREVIOUS_NINE_HOUR_FINAL_QUALIFICATION_B1FB.json",
@@ -160,12 +120,14 @@
   "memory_qualification_file": "tools/cpu-memory/thompson-table-sharing/lazy-group-init/QUALIFICATION.json",
   "activation": "Selection record, not a launcher. Use a fresh bounded lease/run/log directory and the exact root-only input rank-exec binding, with all original runtime checks and cache-before-each-arm SOP. Never preload launchers/helpers.",
   "rollback": {
-    "selection": "tools/cpu-working/PREVIOUS_SELECTION_BEFORE_FINISH_NONFINAL_T.json",
-    "source_build_binding": "tools/cpu-working/PREVIOUS_CURRENT_SOURCE_BUILD_BINDING_BEFORE_FINISH_NONFINAL_T.json",
-    "source": "Revert only actual T sourcecommit ee2fdac7776484fbe30bb95a8702f03808d0c5d6 restoring528f/8bfe/6f44; paired parentFshortTRUE/3h9hFALSE."
+    "selection": "tools/cpu-working/PREVIOUS_SELECTION_BEFORE_PRIVATE_FAST_DISTANCE_CODEC.json",
+    "source_build_binding": "tools/cpu-working/PREVIOUS_CURRENT_SOURCE_BUILD_BINDING_BEFORE_PRIVATE_FAST_DISTANCE_CODEC.json",
+    "latest": "tools/cpu-working/PREVIOUS_LATEST_APPLICATION_RESULT_BEFORE_PRIVATE_FAST_DISTANCE_CODEC.json",
+    "codec_selection": "tools/cpu-output/quilt512/codec/PREVIOUS_SELECTION_BEFORE_PRIVATE_FAST_DISTANCE_CODEC.json",
+    "source_recipe": "Root restores prior codec selector/source commit first; metadata helper never performs source/Git operations. Prior3582/e1d8 owns3h, no ownshort."
   },
-  "claim_limits": "Complete synthetic FINISH nonfinal caller12.95/12.56%wall and12.96/12.56%CPU lower; finalRKcontrol smallchanges descriptive only. Actual whole3h metrics are separate UNPAIRED original2aef context, no isolatedT/U/additive/globalprofile or multi-jobthroughput attribution. Fshortd433 and E3long remainhistorical.",
-  "next_qualification": "Own3h current; no ownseparate10m/9h transfer or automatic newlongforecast.",
+  "claim_limits": "Exactprivate distanceguard3to2; completeproviderCPU0.385/0.337%lower withmixedwall+2.208/-0.275%reduction. Modestcomponent evidence, no significance, global orforecastgain. Ownnewlongqualification pending.",
+  "next_qualification": "Noautomaticlongforecast; new9371 combination ownshortonly.",
   "output_fusion_qualification_file": "tools/cpu-output/quilt512/padding-block32/NATIVE_QUALIFICATION.json",
   "latest_nine_hour": {
     "evidence_file": "tools/cpu-compute/uvb-batch/NINE_HOUR_RESULT.json",
@@ -637,12 +599,19 @@
   },
   "previous_slide_hash_postscience_tracking_commit": "624bc11610aff44c5dbdf458768d660ddbf5b806",
   "codec_post_test_source_identity": {
-    "status": "POST_TEST_CODEC_SOURCE_IDENTITY_RECORDED",
-    "source_commit": "862bae1e103fa0085fa4b2eeda845ca3951034ae",
+    "status": "POST_TEST_CODEC_SOURCE_IDENTITY",
+    "source_commit": "c57e38512dfbda46e3f6725a5dc670d8eb6d2f5b",
     "raw_producer_source_commit": null,
-    "source_sha256": "4da0730290a0d161899d23eb282c1ff4eb0377ad049c9a015fc0a521de5350a3",
-    "codec_sha256": "e1d8bc0774b7c54b4b63e7d6892c6485bec9b3c7032985a229961ba0569cc450",
-    "build_script_sha256": "1bd199c6171bd374be1175c3fc328495ba78404262854baa41f900abd7c8a2a4"
+    "compute_source_identity_unchanged": "ee2fdac7776484fbe30bb95a8702f03808d0c5d6",
+    "codec_sha256": "937130c2a2d53e1d11c978dce1b661400daca9da7b8ae99029333dbc1103d178",
+    "source_files_sha256": {
+      "build.py": "36585e1d5f03170f45328665aac849818790a84c16a2dc34a2d9561d03743645",
+      "build_distance.py": "8bee5f07b0bb7d53a70aa8fe0ca5ce6ef22045a2cbc1dbf3a4b9997d8e96bbdd",
+      "private-fast-distance-range/candidate_compare256_avx2.c": "418a87c11da302d6c4d53b67111ba3da3799af3a6022c62ee281419b43dbbf02",
+      "private-fast-distance-range/deflate_fast_shared.h": "b52f0ea9480aff5b933d4fa4ca65538c6da579ed841ba2605bb771dd763fe21c",
+      "private-fast-distance-range/parent-ordered-inputs.json": "23de2ef804927c8b6778047e7b8aaee0be57a9eb2a3ccd6edf68fe3458a1007b"
+    },
+    "semantics": "Post-test codec source/recipe tracking only; does not relabel native/build producer NULL or imply WRF relink."
   },
   "archive_sha256": "15b2dc275bfe33a42b771cc8c2f977aa87258352f36fdc51badf41e99b723b83",
   "previous_block_carry_short_science": {
@@ -736,7 +705,7 @@
   "candidate_memory_actual": {
     "hpc01": {
       "limit_bytes": 107374182400,
-      "peak_bytes": 63025725440,
+      "peak_bytes": 63018332160,
       "events": {
         "low": 0,
         "high": 0,
@@ -748,7 +717,7 @@
     },
     "hpc02": {
       "limit_bytes": 107374182400,
-      "peak_bytes": 60731944960,
+      "peak_bytes": 60720418816,
       "events": {
         "low": 0,
         "high": 0,
@@ -760,7 +729,7 @@
     },
     "hpc03": {
       "limit_bytes": 107374182400,
-      "peak_bytes": 60694220800,
+      "peak_bytes": 60684541952,
       "events": {
         "low": 0,
         "high": 0,
@@ -772,7 +741,7 @@
     },
     "hpc04": {
       "limit_bytes": 111669149696,
-      "peak_bytes": 60672860160,
+      "peak_bytes": 60667478016,
       "events": {
         "low": 0,
         "high": 0,
@@ -801,7 +770,7 @@
     "archive_sha256": "dd329f8d0aa126c8475dbb690d0d8571af34b63d20fac48da7c207a1001c934f",
     "scope": "One CU-loop directive only, committed after native/caller/canonical-preprocess/link/original3hSCI. Frozen rawproducerNULL unchanged; no isolated forecast or own9h claim."
   },
-  "current_short_qualified": false,
+  "current_short_qualified": true,
   "previous_PBL_PART2_POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
     "source_commit": "61c2b67e086360442b07a83090df5712b7905d8f",
@@ -918,10 +887,7 @@
     "repeatability_established": false,
     "scope": "Historical RQVFTENee66/source31ca before RQVBLTEN. Actual4products545/full512 exact,660.3921359390952s MPIwall; candidate-only UNPAIRED descriptive metrics. Does not qualify child2bd1. Existing THREE_HOUR_RESULT/Q bytes and hashes unchanged."
   },
-  "current_three_hour_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-finish-nonfinal-t-simd/APPLICATION_QUALIFICATION.json",
-    "sha256": "7f361197ca78518e90435ed751324787c8e523b6b8065a8262fb68118bd27f07"
-  },
+  "current_three_hour_qualification": null,
   "previous_RTH_POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
     "source_commit": "c883c564a037422631b7c3dd8c69cf532fe391a6",
@@ -1405,5 +1371,87 @@
     "applies_to_current_selection": false,
     "repeatability_established": false,
     "scope": "Exact4products545/full512/twoTiles/all4positivewriters/all32markers; main-step sum is elapsed not integrationCPU; no isolated/additive/pureIO/memorycausality claim."
+  },
+  "previous_3582_e1d8_science": {
+    "products": 4,
+    "ordered_steps": 545,
+    "last_step": "2026-10-12_09:00:00",
+    "world": 512,
+    "compute": 480,
+    "quilt": 32,
+    "tiles": 2,
+    "positive_writer_roots": [
+      487,
+      495,
+      503,
+      511
+    ],
+    "zero_activity_writer_roots": [],
+    "actual_field_markers": 32,
+    "all32_quilt_FIELDVIEW1": true,
+    "protected_compare_one_AST_unchanged": true,
+    "original_comparisons_all_pass": true,
+    "end_time": "2026-10-12_09:00:00",
+    "quilt_groups": 4,
+    "quilt_ranks_per_group": 8,
+    "field_view_markers": 32,
+    "all32_quilt_FIELDVIEW1_observed": true,
+    "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+    "receipt_sha256": "ce530456405004961911712a01956f16ebaa181609b8b29d409b944e9aa07691",
+    "reader_closure_sha256": "00ef83c1c01b4857ff63e8442b05edf8316e10b4c32e030c5b9d703b114e746b",
+    "invocation_id": "ace9c60baee84c9aba4eafe45a3d2d7d",
+    "all_model_reader_scopes_closed": true,
+    "reader_exit_code_raw": null,
+    "reader_manager_success_invocation_bound": true
+  },
+  "previous_3582_e1d8_current_three_hour_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-finish-nonfinal-t-simd/APPLICATION_QUALIFICATION.json",
+    "sha256": "7f361197ca78518e90435ed751324787c8e523b6b8065a8262fb68118bd27f07"
+  },
+  "previous_3582_e1d8_codec_post_test_source_identity": {
+    "status": "POST_TEST_CODEC_SOURCE_IDENTITY_RECORDED",
+    "source_commit": "862bae1e103fa0085fa4b2eeda845ca3951034ae",
+    "raw_producer_source_commit": null,
+    "source_sha256": "4da0730290a0d161899d23eb282c1ff4eb0377ad049c9a015fc0a521de5350a3",
+    "codec_sha256": "e1d8bc0774b7c54b4b63e7d6892c6485bec9b3c7032985a229961ba0569cc450",
+    "build_script_sha256": "1bd199c6171bd374be1175c3fc328495ba78404262854baa41f900abd7c8a2a4"
+  },
+  "previous_3582_e1d8_last_three_hour_benchmark": {
+    "applies_to_current_selection": false,
+    "original_record": {
+      "evidence_file": "tools/cpu-compute/smallstep-finish-nonfinal-t-simd/THREE_HOUR_RESULT.json",
+      "qualification_file": "tools/cpu-compute/smallstep-finish-nonfinal-t-simd/APPLICATION_QUALIFICATION.json",
+      "full_qualification_sha256": "7f361197ca78518e90435ed751324787c8e523b6b8065a8262fb68118bd27f07",
+      "executable": {
+        "path": "/pool/wrf-experiment/wrf-cpu/builds/current8bfe-one-smallstep-finish-nonfinal-t-simd-hpc02-r1/wrf.exe",
+        "sha256": "3582f4177c3559c11a515fc4616bfb772168269b31e464ab69c8c64c64223b05"
+      },
+      "source_commit": "ee2fdac7776484fbe30bb95a8702f03808d0c5d6",
+      "source_commit_semantics": "POST_TEST source-only; rawproducerNULL",
+      "metrics": {
+        "control": {
+          "wall_seconds": 819.2783056409098,
+          "cpu_seconds": 367612.40525099996,
+          "main_step_sum_seconds": 597.23996
+        },
+        "candidate": {
+          "wall_seconds": 661.1112585389055,
+          "cpu_seconds": 320461.895685,
+          "main_step_sum_seconds": 559.8555
+        }
+      },
+      "reductions_percent": {
+        "wall_seconds": 19.305655479095407,
+        "cpu_seconds": 12.826147565342993,
+        "main_step_sum_seconds": 6.2595376237048805
+      },
+      "wall_speedup_ratio": 1.2392442195759346,
+      "fresh_matched_timing": false,
+      "applies_to_current_selection": true,
+      "repeatability_established": false,
+      "comparison_design": "UNPAIRED candidate-only combined FINISH-U+T versus retained fresh corrected-original2aef reference; no isolated or additive candidate attribution",
+      "scope": "UNPAIRED retainedoriginal2aef vs actual3582/15b2,4products545/512/twoTiles/fourwriters32markers. WholeMPIwall/aggregateprocessCPU/main-stepelapsed separate; no isolated kernel/additive/throughput/forecastrepeatability claim."
+    },
+    "codec_sha256": "e1d8bc0774b7c54b4b63e7d6892c6485bec9b3c7032985a229961ba0569cc450"
   }
 }

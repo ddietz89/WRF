@@ -1,4 +1,8 @@
-# Current working codec: slide-hash loop unrolling
+# Current working codec: private FAST distance interval
+
+The default is `private-distance` (9371), retaining the previous block-carrye1d8 and all earlier changes. [Exact source, native/caller checks, original short full512 science and reproduction](private-fast-distance-range/README.md) define its scope. Both this `build.py` and the parent provider build default to it. `--variant block-carry` or provider `--codec block-carry` selects the prior exacte1d8 path. No production installation occurs. The current combination owns short qualification only; prior three-/nine-hour results retain their tested codec epoch.
+
+# Previous codec: slide-hash loop unrolling
 
 The default is `slide-hash` (3edf), retaining every881 Huffman/guarded/inline change and altering only the AVX2 slide-hash loop directive. [Exact source, kernel/caller measurements, codec/provider checks, full512 short science and rollback](slide-hash-unroll4/README.md) record its support scope. `build.py` defaults to the tested `build_slide_hash.py` recipe; `--variant huffman` or provider `--codec huffman` selects the retained881 rollback. No production installation occurs.
 

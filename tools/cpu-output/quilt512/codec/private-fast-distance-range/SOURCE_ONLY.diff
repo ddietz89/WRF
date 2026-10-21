@@ -1,0 +1,28 @@
+--- selected-e1d8/candidate_compare256_avx2.c
++++ prospective-private-distance/candidate_compare256_avx2.c
+@@ -90,7 +90,11 @@
+ #pragma push_macro("ZNG_PRIVATE_FAST_MATCH")
+ #define deflate_fast zng_private_deflate_fast_avx2
+ #define ZNG_PRIVATE_FAST_MATCH zng_private_longest_match_avx2_inline
++#pragma push_macro("ZNG_PRIVATE_FAST_DISTANCE_RANGE")
++#undef ZNG_PRIVATE_FAST_DISTANCE_RANGE
++#define ZNG_PRIVATE_FAST_DISTANCE_RANGE 1
+ #include "deflate_fast_shared.h"
++#pragma pop_macro("ZNG_PRIVATE_FAST_DISTANCE_RANGE")
+ #pragma pop_macro("ZNG_PRIVATE_FAST_MATCH")
+ #pragma pop_macro("deflate_fast")
+ #endif
+--- selected-e1d8/deflate_fast_shared.h
++++ prospective-private-distance/deflate_fast_shared.h
+@@ -59,7 +59,11 @@
+             /* Find the longest match, discarding those <= prev_length.
+              * At this point we have always match length < WANT_MIN_MATCH
+              */
++#if defined(ZNG_PRIVATE_FAST_DISTANCE_RANGE)
++            if ((uint64_t)(dist - 1) < (uint64_t)MAX_DIST(s) && hash_head != 0) {
++#else
+             if (dist <= MAX_DIST(s) && dist > 0 && hash_head != 0) {
++#endif
+                 /* To simplify the code, we prevent matches with the string
+                  * of window index 0 (in particular we have to avoid a match
+                  * of the string with itself at the start of the input file).

@@ -1,0 +1,142 @@
+{
+  "schema": "PRIVATE_FAST_UNSIGNED_DISTANCE_NATIVE_V1",
+  "status": "PASS_EXACT_E1D8_PARENT_PRIVATE_DISTANCE_RANGE_TYPED_BOUNDARIES_CODEGEN_CODEC_STREAM_FALLBACK_D45_PROVIDER",
+  "source_commit": null,
+  "application_science_qualified": false,
+  "timing_qualified": false,
+  "parent_codec": {
+    "sha256": "e1d8bc0774b7c54b4b63e7d6892c6485bec9b3c7032985a229961ba0569cc450",
+    "whole_parent_object_and_library_exact": true
+  },
+  "candidate_codec": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/private-fast-distance-range-native-hpc02-r1/output/build/libz.so.1.3.1.zlib-ng",
+    "sha256": "937130c2a2d53e1d11c978dce1b661400daca9da7b8ae99029333dbc1103d178",
+    "object_sha256": "9c528a300ee599e74de3e6d8605df98d48e23e4f8e96ffd2c6aee4c0a20cc9d1"
+  },
+  "candidate_provider_driver": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/private-fast-distance-range-native-hpc02-r1/output/provider-candidate",
+    "sha256": "1e3f6d997b48063b1b5e4d9f5f106b858ab21ba06cf82121c27634a58883377b",
+    "source_path": "/pool/wrf-experiment/wrf-cpu/kernels/private-fast-distance-range-native-hpc02-r1/output/provider-candidate.c",
+    "source_sha256": "5580a7c2745986371802cfa200251a4ed8909ab163afa67d959b64ebd155202b"
+  },
+  "actual_native": {
+    "invocation_id": "515e25750180495aa101d11b24a9f67b",
+    "normal_same_INV_strong_closure": true
+  },
+  "source": {
+    "status": "ONE_SUPPORTED_PREDICATE_ACTUAL_RETURNS_ADJUDICATED_NATIVE_PENDING",
+    "inverse_exact": true,
+    "parent_codec_sha256": "e1d8bc0774b7c54b4b63e7d6892c6485bec9b3c7032985a229961ba0569cc450",
+    "files_sha256": {
+      "candidate_compare256_avx2.c": "418a87c11da302d6c4d53b67111ba3da3799af3a6022c62ee281419b43dbbf02",
+      "candidate_guarded_deflate_fast.c": "0559097ade765f308ad343754e97f87e17b1995d81a807b670185269224cee94",
+      "deflate_fast_shared.h": "b52f0ea9480aff5b933d4fa4ca65538c6da579ed841ba2605bb771dd763fe21c"
+    },
+    "contract_sha256": "505cb53c7d6f5714dba91408024054be402bbd20ef3d05692d571c72d6ae6683",
+    "additional_reads": false,
+    "prefetch": false,
+    "parent_prefetch_rejected_source_not_used": true,
+    "adjudication_sha256": "16b95fc930b1db55100f74cd49ef70de77ac6fbe511102f1a527a32a5f02f96f",
+    "raw_author_patch_scope_not_accepted": true,
+    "local_private_macro_scope_inverse_exact": true
+  },
+  "codegen": {
+    "raw_actual_windows": {
+      "parent": {
+        "assembly": "   1b86f:\timul   $0x9e3779b1,(%rax),%ecx\n   1b875:\tshr    $0x10,%ecx\n   1b878:\tlea    (%rsi,%rcx,2),%rcx\n   1b87c:\tmovzwl (%rcx),%edi\n   1b87f:\tmov    %edi,%esi\n   1b881:\tcmp    %edi,%r15d\n   1b884:\tje     1b89a <zng_private_deflate_fast_avx2+0x7a>\n   1b886:\tmov    0x60(%rbx),%r9\n   1b88a:\tmov    %r15d,%r10d\n   1b88d:\tand    0x48(%rbx),%r10d\n   1b891:\tmov    %di,(%r9,%r10,2)\n   1b896:\tmov    %r15w,(%rcx)\n   1b89a:\tmovzwl %si,%r9d\n   1b89e:\tmov    %r8,%rcx\n   1b8a1:\tsub    %r9,%rcx\n   1b8a4:\tmov    0x40(%rbx),%r9d\n   1b8a8:\tlea    -0x106(%r9),%r10d\n   1b8af:\tmov    %r10,%r8\n   1b8b2:\tcmp    %rcx,%r10\n   1b8b5:\tjl     1b8c8 <zng_private_deflate_fast_avx2+0xa8>\n   1b8b7:\ttest   %rcx,%rcx\n   1b8ba:\tjle    1b8c8 <zng_private_deflate_fast_avx2+0xa8>\n   1b8bc:\ttest   %si,%si\n   1b8bf:\tjne    1b9d0 <zng_private_deflate_fast_avx2+0x1b0>\n   1b8c5:\tnopl   (%rax)",
+        "conditional_branches": [
+          "je",
+          "jl",
+          "jle",
+          "jne"
+        ],
+        "count": 4
+      },
+      "candidate": {
+        "assembly": "   1b86f:\timul   $0x9e3779b1,(%rax),%esi\n   1b875:\tshr    $0x10,%esi\n   1b878:\tlea    (%rdi,%rsi,2),%r8\n   1b87c:\tmovzwl (%r8),%edi\n   1b880:\tmov    %edi,%esi\n   1b882:\tcmp    %edi,%r15d\n   1b885:\tje     1b89b <zng_private_deflate_fast_avx2+0x7b>\n   1b887:\tmov    0x60(%rbx),%r9\n   1b88b:\tmov    %r15d,%r10d\n   1b88e:\tand    0x48(%rbx),%r10d\n   1b892:\tmov    %di,(%r9,%r10,2)\n   1b897:\tmov    %r15w,(%r8)\n   1b89b:\tmov    0x40(%rbx),%r9d\n   1b89f:\tmovzwl %si,%r10d\n   1b8a3:\tsub    %r10,%rcx\n   1b8a6:\tlea    -0x106(%r9),%r8d\n   1b8ad:\tsub    $0x1,%rcx\n   1b8b1:\tmov    %r8d,%r10d\n   1b8b4:\tcmp    %r10,%rcx\n   1b8b7:\tjae    1b8c8 <zng_private_deflate_fast_avx2+0xa8>\n   1b8b9:\ttest   %si,%si\n   1b8bc:\tjne    1b9d0 <zng_private_deflate_fast_avx2+0x1b0>\n   1b8c2:\tnopw   0x0(%rax,%rax,1)",
+        "conditional_branches": [
+          "je",
+          "jae",
+          "jne"
+        ],
+        "count": 3
+      }
+    },
+    "independent_mapping": "Both alignedwindows startactualgoldenhashmultiply and stopbeforeliteralLIT_MEM0x1740 load. Thecount4to3 includes unchangedhead==strstart je. Actualdistance/headguard3to2:parentjl+jle+jne ->candidateunsignedjae+jne. sub1and64bitcmp/JAE verifyexactunsignedrange; w_sizeLEA32 preservesoriginaluint32boundwrap. No removedchainorheadnonzero checks.",
+    "whole_function_instruction_count_or_latency_not_claimed": true
+  },
+  "representable_distance_boundaries": {
+    "status": "PASS_GENUINE_UINT32_POS16_DISTANCE_BOUNDARIES_ALL_HEAD_VALUES",
+    "checked": 5572946,
+    "proof_scope": "Algebra covers full representable interval; finite C cases enumerate all65536 heads and selected strstart/bound edges incl original unsigned MAX_DIST underflow. Not exhaustive product domain."
+  },
+  "actual_fullFAST_interval_equivalence": {
+    "cases": [
+      {
+        "case": "lookahead261",
+        "calls": 258
+      },
+      {
+        "case": "lookahead262",
+        "calls": 259
+      },
+      {
+        "case": "lookahead263",
+        "calls": 260
+      },
+      {
+        "case": "lookahead264",
+        "calls": 261
+      },
+      {
+        "case": "lookahead32769",
+        "calls": 32766
+      },
+      {
+        "case": "lookahead65537",
+        "calls": 65534
+      },
+      {
+        "case": "structured",
+        "calls": 220656
+      },
+      {
+        "case": "actual",
+        "calls": 44224491
+      }
+    ],
+    "totals": {
+      "calls": 44544485
+    },
+    "original_and_candidate_predicate_hard_checked_per_execution": true,
+    "production_candidate_not_instrumented": true
+  },
+  "gates": {
+    "corpora": 13,
+    "streaming": 5,
+    "stock_decoded_all": true,
+    "fallback_forwarding_parent_and_candidate": 255,
+    "D45_real_creates_and_joins_each": 136,
+    "public_exports_dependencies_unchanged": true,
+    "single_changed_shared_link_member": "compare256_avx2.lo",
+    "unchanged_shared_link_members": 51,
+    "generic_object_reused_unchanged": true
+  },
+  "scope": [
+    "SelectedLIT_MEM ABI/config only; algebra overuint32strstart/uint16head/alluint32bounds, actualCfinite5,572,946cases notexhaustiveproduct; no undefinedsignedsubtract inrepresentabledomain.",
+    "ExactcurrentD45 W4 syntheticprovider; no MPI512/newWRFscience/no benefit fromnativecontextclocks.",
+    "Actualauthor invalidglobalgating/rawreviewNOT_ESTABLISHED+selfcorrectedunderflow retained; onlysupportedarithmetic withlocalprivate-onlyscope completion.",
+    "Noextra source loads/prefetch/chain/matcher/level/FP/errno/API change; timing andapplication pending."
+  ],
+  "raw_refs_sha256": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-private-fast-distance-range-r1/native-gate-r1/actual-native-r1/receipt.json": "726be650ad92ec7f7674f32a6629c15310054e233b4782f604ecc990f3fdb4ab",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-private-fast-distance-range-r1/native-gate-r1/actual-native-r1/closure.json": "5bd5ccdb7c6885d2af8ec414fd252ae7f29fdd7c9f68dc5ca81841661be30568",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-private-fast-distance-range-r1/native-gate-r1/actual-native-r1/controller.json": "84a35e1dc84dc117edaa0ae1a9a7a8fc051986b20772e163cac5801f5ac16e31",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-private-fast-distance-range-r1/ADJUDICATION.json": "16b95fc930b1db55100f74cd49ef70de77ac6fbe511102f1a527a32a5f02f96f",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-private-fast-distance-range-r1/native-gate-r1/SOURCE_ONLY.diff": "2a2b0e4798dc2425a8d18006becb850c9154426647658bab11b570079a786082",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-private-fast-distance-range-r1/native-gate-r1/SOURCE_PROOF.json": "02b6d60469441f4e37fb661f1e1fd248c2f7fab550a44cfc4e710148e4d77af5",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-private-fast-distance-range-r1/ACTUAL_DRIVER_METADATA.json": "4e76590aa1ea01ca08812937a0d5e887880c8d349e40a9a7837e3d7052a32442",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-private-fast-distance-range-r1/native-gate-r1/source-pins.json": "08035b3cea853c105b505d11637b3880cf455a4b3d5f83424afa7bd4e286335f",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/codec-private-fast-distance-range-r1/CONTRACT.json": "505cb53c7d6f5714dba91408024054be402bbd20ef3d05692d571c72d6ae6683"
+  }
+}

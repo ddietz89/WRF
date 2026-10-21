@@ -1,0 +1,268 @@
+{
+  "default": "block-carry",
+  "scope": "CurrentGNU13 codec block-localbitcarrye1d8: exactnative/fullcodec/D45provider andshortoriginal2/35 SCI; syntheticdirectkernelgain only, providerpairs mixed. No own3h/9h orforecastgain transfer.",
+  "variants": {
+    "inline": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/codec-quick-insert-inline-r1/build/libz.so.1.3.1.zlib-ng",
+      "sha256": "bac29f50ba4dc42cce3def8d2fd16ecc21f63666839e678475d24e0bbb352121"
+    },
+    "original": {
+      "path": "/pool/wrf/WPS_new/runtime/zlib-ng/lib/libz.so.1.3.1.zlib-ng",
+      "sha256": "5d69c44314f30e4a6f6c76ee26a454538f7e1b019afe5782e67a6b94ba794b64"
+    },
+    "guarded": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/codec-avx2-caller-specialization-r1/build/libz.so.1.3.1.zlib-ng",
+      "sha256": "f85f24ba39b67ddb799b3bfcd7e01f9e1c0371fdac24ba7f0e6f400105bc738d"
+    },
+    "huffman": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/codec-huffman-word-load-native-r1/build/libz.so.1.3.1.zlib-ng",
+      "sha256": "881d0a1aa84f1ac3f3fc60b0c59f7f9b03125fe68065cf44a04170de5655de3c"
+    },
+    "slide-hash": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/slide-hash-current881-codec-provider-qual-hpc02-r1/output/build/libz.so.1.3.1.zlib-ng",
+      "sha256": "3edf15a2d69040bb29ff52446bfcf103fbfdb8b7385fd68735e8a536a06f332c"
+    },
+    "block-carry": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng",
+      "sha256": "e1d8bc0774b7c54b4b63e7d6892c6485bec9b3c7032985a229961ba0569cc450",
+      "status": "SELECTED_AFTER_ORIGINAL_SHORT_FULL512_SCI",
+      "source_commit": null,
+      "evidence": "compress-block-local-carry/EVIDENCE.json",
+      "science_pending": false
+    }
+  },
+  "application_evidence": {
+    "status": "PASS_ORIGINAL_TWO_HISTORY_AND_512_CODEC_TRANSPOSE_ONE_HOUR_SEQUENCE",
+    "science_receipt_sha256": "b669bd674aed9bc5597943a8eafbf771a7e4501974dc11a42e5cdbffb3839355",
+    "reader_closure_sha256": "bb51636ef6f9b3fe701a681afa34db1ea1f2166b62992c0c984a7dd11caaedf0",
+    "control_executable_sha256": "9b853a5294e22f5f7a686e746469f6c52e8f9aabede5291c839efb07792b6a57",
+    "candidate_executable_sha256": "7022b4545030a190f478f8e503aa8a14e0872a0d497a2929354ccf37529b5e08",
+    "complete_products": 2,
+    "ordered_steps": 185,
+    "world_size": 512,
+    "decomposition": [
+      8,
+      60
+    ],
+    "control_wall_seconds": 477.813882,
+    "candidate_wall_seconds": 427.452763,
+    "wall_reduction_percent": 10.539903,
+    "control_aggregate_cpu_seconds": 221168.80198,
+    "candidate_aggregate_cpu_seconds": 197710.480472,
+    "cpu_reduction_percent": 10.606524,
+    "scope": "One fresh control-first one-hour combined comparison; exact original science/meta/layout/runtime. No isolated, additive, causal, repeatable or three-hour gain claim."
+  },
+  "guarded_application_evidence": {
+    "status": "PASS_ORIGINAL_TWO_HISTORY_AND_512_AVX2_CODEC_ONE_HOUR_SEQUENCE",
+    "scope": "One fresh control-first codec-only comparison; original metadata, layout, raw science, ordered steps and runtime passed. Prior same 6eb77/bac29 candidate wall 418.984297 was close to f85 and much below fresh bac29 control. No established isolated or repeatable whole-model codec benefit; no additive/kernel-to-wall claim.",
+    "control_executable_sha256": "6eb77d1eb6ba274b832cfec8ca31c2721c5c2cf797314cec842129bfd4169334",
+    "candidate_executable_sha256": "6eb77d1eb6ba274b832cfec8ca31c2721c5c2cf797314cec842129bfd4169334",
+    "control_wall_seconds": 504.603209235,
+    "candidate_wall_seconds": 422.216255894,
+    "wall_reduction_percent": 16.327076767,
+    "control_aggregate_cpu_seconds": 237990.250823,
+    "candidate_aggregate_cpu_seconds": 194010.209086,
+    "cpu_reduction_percent": 18.479766119,
+    "prior_same_control_configuration_wall_seconds": 418.984296886,
+    "science_receipt_sha256": "189e0d84e689beffe848d0a5fb0da4a81bfbe98dbf0a789233df428c5e166df3",
+    "reader_closure_sha256": "f611580b9cbeded06ecf8f0eb573013270ef2688c47ca949682f30e78f26338c",
+    "runtime_manifest_sha256": "65fa25522bfc81948aa11f8d42b351b848c4cd08e16c06c04b63593c345f8b23",
+    "complete_products": 2,
+    "ordered_steps": 185,
+    "world_size": 512,
+    "decomposition": [
+      8,
+      60
+    ]
+  },
+  "guarded_package_reproduction": {
+    "receipt_sha256": "e3d7bd5d3741d4cec1f65f738d65057ceba66d0dc75435152beaed5c03496bd0",
+    "closure_sha256": "62ac5fcd4ba816f789c0ca1562165f1e9f7ce3184fda3c70b7ec7bb60fba60f3",
+    "status": "PASS_PRIVATE_CODEC_F85_AND_PROVIDER375_GUARDED_INLINE_ORIGINAL_SELECTION_PACKAGE_REPRODUCTION",
+    "invocation_id": "f0ac64d269224194a3f3f6cca7fa556a"
+  },
+  "application_evidence_applies_to": {
+    "codec_variant": "inline",
+    "codec_sha256": "bac29f50ba4dc42cce3def8d2fd16ecc21f63666839e678475d24e0bbb352121",
+    "combined_change": "Prior inline-insertion codec plus integer Transpose; historical record does not qualify guarded AVX2 codec."
+  },
+  "guarded_three_hour_application_evidence": {
+    "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+    "control_executable_sha256": "546b99156cbd809e1cae5e0ea8cebeea44dafd6331abf89e4daea00e0dd0a5e7",
+    "candidate_executable_sha256": "6eb77d1eb6ba274b832cfec8ca31c2721c5c2cf797314cec842129bfd4169334",
+    "provider_sha256": "375aa7e3198d42d84e3c95612f5475216354e2c4cb33c053eea42ac29f4bdb2a",
+    "codec_sha256": "f85f24ba39b67ddb799b3bfcd7e01f9e1c0371fdac24ba7f0e6f400105bc738d",
+    "runtime_manifest_sha256": "5a5874121198ee8c7f31fa6daa0dd28140fe2c9372017e53c57858d00b5b77d5",
+    "science_receipt_sha256": "0a13cd718515f5ccfeb3841718e18900424227660c6effbee8e2dea791bb0c3f",
+    "reader_closure_sha256": "be636a60a4458d6e94151d7a628598a90c27568276a77531681d0dbeb59d94af",
+    "reader_invocation_id": "52b3b016662f41d880943ad8a1e2e072",
+    "complete_products": 4,
+    "ordered_steps": 545,
+    "world_size": 512,
+    "decomposition": [
+      8,
+      60
+    ],
+    "forecast_hours": 3,
+    "control_wall_seconds": 1033.064578,
+    "candidate_wall_seconds": 906.067103,
+    "wall_reduction_percent": 12.2933,
+    "control_aggregate_cpu_seconds": 476650.905977,
+    "candidate_aggregate_cpu_seconds": 440787.653496,
+    "cpu_reduction_percent": 7.524,
+    "control_main_step_sum_seconds": 810.08496,
+    "candidate_main_step_sum_seconds": 750.22359,
+    "scope": "One fresh corrected-stock-first direct combined comparison, equal physical CPU and100/104GiB budgets, current map and literal inputs/namelist. No isolated/additive/causal/repeatability, restart, longer horizon, other compiler/hardware or production claim.",
+    "benchmark": {
+      "grid": [
+        1500,
+        1140,
+        33
+      ],
+      "start": "2026-10-12_06:00:00",
+      "end": "2026-10-12_09:00:00",
+      "namelist_sha256": "70cd1d753c0d51891d11ed7a8f35fc9057606f9d6c2c0cbb97b88e02d47df6cb",
+      "physical_cpus_per_node": 128,
+      "memory_gib_by_node": {
+        "hpc01": 100,
+        "hpc02": 100,
+        "hpc03": 100,
+        "hpc04": 104
+      },
+      "working_fork_commit": "cb858aff",
+      "categories": "Corrected stock versus accepted complete configuration; unpromoted trials remain separate."
+    },
+    "next_phase": "Controlled reverse-order, one-change regression audit on the fixed three-hour benchmark; no new optimization/probe."
+  },
+  "huffman_application_evidence": {
+    "status": "PASS_ORIGINAL_TWO_HISTORY_AND_512_HUFFMAN_WORD_LOAD_A630_ONE_HOUR",
+    "science_receipt_sha256": "77450a38edfa815bef451096d4e267bb43dec7eeb46f1a258d7c327bcc267286",
+    "reader_closure_sha256": "2e4a2ba9682b60409cd9058dd2f0fdda1348e41489f6447cca9f225976b0c320",
+    "source_manifest_sha256": "e3c7525da8e426bfda9d14318fa7315179664df5512cac769020a88a47ce4343",
+    "executable_sha256": "a6305d9abae88e13fde0ff0c6618fedcc9fc182974d0430e638ec208b6d5b9dc",
+    "provider_sha256": "375aa7e3198d42d84e3c95612f5475216354e2c4cb33c053eea42ac29f4bdb2a",
+    "reference_codec_sha256": "f85f24ba39b67ddb799b3bfcd7e01f9e1c0371fdac24ba7f0e6f400105bc738d",
+    "complete_products": 2,
+    "ordered_steps": 185,
+    "world_size": 512,
+    "decomposition": [
+      8,
+      60
+    ],
+    "scope": "Exact compatibility diagnostic against retained current control; not a fresh paired timing comparison. Strict emitter/caller/provider gates exact; first provider pair negative and sync exit separately UNKNOWN; one host, five alternating pairs only."
+  },
+  "huffman_combined_three_hour_application_evidence": {
+    "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+    "scope": "One fixed-order pair, four clients actually sync/drop3 before each arm. File-server cache unknown. Main includes communication/backpressure; residual is not pure I/O. No isolated/additive cache or repeatability claim.",
+    "control_executable_sha256": "546b99156cbd809e1cae5e0ea8cebeea44dafd6331abf89e4daea00e0dd0a5e7",
+    "candidate_executable_sha256": "0d2150efa67026fd5e3760e1a638b9ddb4da490ec5a0225e25f431cd66005b38",
+    "provider_sha256": "375aa7e3198d42d84e3c95612f5475216354e2c4cb33c053eea42ac29f4bdb2a",
+    "codec_sha256": "881d0a1aa84f1ac3f3fc60b0c59f7f9b03125fe68065cf44a04170de5655de3c",
+    "science_receipt_sha256": "7506848a56be0d80abb571102700d3f38d824d0158da285f5bf03f15754b5ed0",
+    "reader_closure_sha256": "a176412ba6d0fbbdbe2749d671ae45d179447ecb191c9841ce34703af1da9a61",
+    "reader_invocation_id": "30eea436e3974e8fa8c94268d00afb6a",
+    "reader_actual_cgroup_absent": true,
+    "complete_products": 4,
+    "ordered_steps": 545,
+    "world_size": 512,
+    "decomposition": [
+      8,
+      60
+    ],
+    "order": [
+      "corrected_stock546b_control",
+      "all_accepted_inatm0d2150_provider375_huffman881d_candidate"
+    ],
+    "metrics": {
+      "control": {
+        "wall_seconds": 824.6481379750185,
+        "cpu_seconds": 369296.219257,
+        "main_step_sum_seconds": 597.3152
+      },
+      "candidate": {
+        "wall_seconds": 722.9917456179392,
+        "cpu_seconds": 350764.342648,
+        "main_step_sum_seconds": 574.96202
+      }
+    },
+    "reductions_percent": {
+      "wall_seconds": 12.327244515061142,
+      "cpu_seconds": 5.018160393378778,
+      "main_step_sum_seconds": 3.7422754351471355
+    },
+    "cache_boundary": "Separate checked sync and drop_caches3 on all four clients before EACH arm; file-server cache uncontrolled.",
+    "interpretation": "One combined-package fixed-order comparison. Main-step sums include communication/backpressure; wall-minus-main residual is not pure I/O. No isolated/additive feature attribution or repeatability claim."
+  },
+  "slide_hash_application_evidence": {
+    "qualification_file": "tools/cpu-output/quilt512/codec/slide-hash-unroll4/APPLICATION_QUALIFICATION.json",
+    "qualification_sha256": "9a6b1eb5a44ae577704a87dea2fa4b43f3a74d0b86fedc5bc7dda530100d620d",
+    "status": "PASS_RETAINED_ORIGINAL_TWO_HISTORY_35_STEPS_512_OWNED_FIELD_VIEW",
+    "receipt_sha256": "2d96609be86d3fe6f5d84608721cd2d9f8d676e15c757469d97b163107409da8",
+    "reader_closure_sha256": "7e38c9ba9fe1b72f4e08f1405d3b1d7b76ff252ff00e72dfc0f343242c4646f7",
+    "invocation_id": "b184d22e745949bd860758d19ec773d4",
+    "products": 2,
+    "ordered_steps": 35,
+    "end_time": "2026-10-12_06:10:00",
+    "world": 512,
+    "compute": 480,
+    "quilt_groups": 4,
+    "quilt_ranks_per_group": 8,
+    "tiles": 2,
+    "positive_writer_roots": [
+      487,
+      495
+    ],
+    "zero_writer_roots": [
+      503,
+      511
+    ],
+    "protected_original_checker_unchanged": true,
+    "all_model_reader_scopes_closed": true,
+    "reader_exit_code_raw": null,
+    "executable_sha256": "cec189a3dbbb6ab95c7f31e29a44ee4eea37d06d8d161fc7349bc52daa468e30",
+    "codec_sha256": "3edf15a2d69040bb29ff52446bfcf103fbfdb8b7385fd68735e8a536a06f332c",
+    "claim_limits": [
+      "No isolated codec/provider/forecast gain established by this short qualification.",
+      "Standalone complete slide-hash function timing is synthetic resident data; not a forecast gain.",
+      "Historical 19.05% whole-wall result belongs to prior combined configuration, not this codec addition.",
+      "Current combination has no own periodic three-hour or nine-hour qualification yet.",
+      "Private FAST level-invariant prototype is excluded."
+    ]
+  },
+  "slide_hash_postscience_tracking_commit": "624bc11610aff44c5dbdf458768d660ddbf5b806",
+  "block_carry_application_evidence": {
+    "qualification_file": "tools/cpu-output/quilt512/codec/compress-block-local-carry/APPLICATION_QUALIFICATION.json",
+    "qualification_sha256": "3b8ad7a20971b0cd36d6bf3f019dc50ac638df7c9517505fd8244f4e9db01618",
+    "science": {
+      "status": "PASS_RETAINED_ORIGINAL_TWO_HISTORY_35_STEPS_512_OWNED_FIELD_VIEW",
+      "receipt_sha256": "075e45506947752b3af936dba300740e854e8026b4e1c71beaaa1acfbe006ea2",
+      "reader_closure_sha256": "12a5bd80257029dd17d97fd98b90430fa112abb42e06f899ba95c964c227ec13",
+      "invocation_id": "02a06c4ea28945f99bca5eaccc1ee789",
+      "products": 2,
+      "ordered_steps": 35,
+      "end_time": "2026-10-12_06:10:00",
+      "world": 512,
+      "compute": 480,
+      "quilt_groups": 4,
+      "quilt_ranks_per_group": 8,
+      "tiles": 2,
+      "positive_writer_roots": [
+        487,
+        495
+      ],
+      "zero_writer_roots": [
+        503,
+        511
+      ],
+      "field_view_markers": 16,
+      "protected_original_checker_unchanged": true,
+      "all_model_reader_scopes_closed": true,
+      "reader_exit_code_raw": null,
+      "reader_manager_success_invocation_bound": true
+    },
+    "current_three_hour_qualified": false,
+    "current_nine_hour_qualified": false,
+    "post_test_source_commit": null
+  },
+  "block_carry_postscience_tracking_commit": "862bae1e103fa0085fa4b2eeda845ca3951034ae"
+}

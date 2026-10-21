@@ -1,6 +1,16 @@
 # WRF CPU optimization findings
 
-## Current FINISH U+T selection (October 20, 2026, EDT)
+## Current selection: private FAST distance guard (October 20, 2026, EDT)
+
+The working configuration selects **WRF3582/archive15b2/sourceee2fdac7 plus codec937130c2/post-test codec sourcec57e3851**. Output51a, input06d/NCa32, faba placement, two tiles, single-IB transport and all preceding compute improvements remain. The private AVX2 FAST distance/head guard now uses one unsigned interval test, reducing its actual conditional branches from three to two without extra reads, changed matching or reordered scientific arithmetic. Other codec implementations retain the original predicate.
+
+Typed boundaries, 44,544,485 full-FAST interval comparisons, thirteen corpora, five streaming cases, generic fallback, compressed bytes, stock decoding, five-state and complete-provider checks passed. In one opposite-order pair per host, provider CPU was **0.3850%/0.3371% lower**; wall was **2.2079% lower/0.2751% higher**. These modest component observations support retention under the owner inclusion rule; statistical significance and a forecast gain are unestablished. The raw PARK recommendation and root retain decision are both preserved.
+
+The unchanged original full-grid checker passed **both products, all 35 ordered steps, all512 ranks, two tiles, the two positive/two inactive writers, 16 active markers and all32 quilt FIELDVIEW1 settings**. Every model and reader scope closed normally. [Actual application qualification](tools/cpu-output/quilt512/codec/private-fast-distance-range/APPLICATION_QUALIFICATION.json) (`d24b2482`) binds36 verified references. The source-backed builder independently reproduced exacte1d8 and then9371, changing only one of52 objects, with unchanged exports/dependencies and no WRF compile or link. Raw producer commits remain NULL; post-test compute and codec source identities are separate.
+
+**This combination owns short qualification; own three-/nine-hour qualification is false.** Its candidate-only short wall137.840886s, main elapsed38.995740s and aggregateCPU53292.398910CPU-s are descriptive, unpaired values. The prior3582/e1d8 three-hour result below is historical and is not transferred or added. [Evidence and rollback](tools/cpu-output/quilt512/codec/private-fast-distance-range/README.md) retain the prior codec selector and paired selection/build-binding/latest snapshots. Production/master remain untouched; AWS stays suspended.
+
+## Previous FINISH U+T / e1d8 selection (October 20, 2026, EDT)
 
 The working fork selects **3582f417 / archive15b2dc27 / post-test sourceee2fdac7**, retaining all prior improvements and adding one SIMD directive to nonfinal FINISH temperature reconstruction. The affected complete synthetic caller, including identical restores, was **12.56–12.95% shorter** with **12.56–12.96% less process CPU** in opposite-order host pairs. All 144 complete FINISH cases and 72 PREP regressions passed strict O0/bounds/O2 raw IEEE, five-state, readonly and halo checks. The final-RK regime is an unchanged descriptive control. A one-member archive update preserved 583 other members and the public module interface.
 

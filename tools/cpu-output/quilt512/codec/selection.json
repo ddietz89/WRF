@@ -1,6 +1,6 @@
 {
-  "default": "block-carry",
-  "scope": "CurrentGNU13 codec block-localbitcarrye1d8: exactnative/fullcodec/D45provider andshortoriginal2/35 SCI; syntheticdirectkernelgain only, providerpairs mixed. No own3h/9h orforecastgain transfer.",
+  "default": "private-distance",
+  "scope": "Selected3582/15b2 plus privateFASTdistance9371, output51a/input06dNCa32/faba/twoTiles unchanged. Actualoriginalshort2/35/full512/twopositivewriters/16markers/all32FV1; ownshortTRUE, own3h9hFALSE. Prior3582/e1d8 threehour remains historical, not transferred.",
   "variants": {
     "inline": {
       "path": "/pool/wrf-experiment/wrf-cpu/builds/codec-quick-insert-inline-r1/build/libz.so.1.3.1.zlib-ng",
@@ -29,6 +29,15 @@
       "source_commit": null,
       "evidence": "compress-block-local-carry/EVIDENCE.json",
       "science_pending": false
+    },
+    "private-distance": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/private-fast-distance-range-native-hpc02-r1/output/build/libz.so.1.3.1.zlib-ng",
+      "sha256": "937130c2a2d53e1d11c978dce1b661400daca9da7b8ae99029333dbc1103d178",
+      "status": "SELECTED_AFTER_ORIGINAL_SHORT_FULL512_SCI",
+      "source_commit": null,
+      "post_test_source_commit": "c57e38512dfbda46e3f6725a5dc670d8eb6d2f5b",
+      "science_pending": false,
+      "evidence": "private-fast-distance-range/EVIDENCE.json"
     }
   },
   "application_evidence": {
@@ -264,5 +273,36 @@
     "current_nine_hour_qualified": false,
     "post_test_source_commit": null
   },
-  "block_carry_postscience_tracking_commit": "862bae1e103fa0085fa4b2eeda845ca3951034ae"
+  "block_carry_postscience_tracking_commit": "862bae1e103fa0085fa4b2eeda845ca3951034ae",
+  "private_distance_short_application": {
+    "qualification": "tools/cpu-output/quilt512/codec/private-fast-distance-range/APPLICATION_QUALIFICATION.json",
+    "qualification_sha256": "d24b2482603158d771261c34f8a60064cbc495ecf48e43b978381f3ae8e4a82e",
+    "science": {
+      "products": 2,
+      "ordered_steps": 35,
+      "last_step": "2026-10-12_06:10:00",
+      "world": 512,
+      "compute": 480,
+      "quilt": 32,
+      "tiles": 2,
+      "positive_writer_roots": [
+        487,
+        495
+      ],
+      "zero_activity_writer_roots": [
+        503,
+        511
+      ],
+      "actual_field_markers": 16,
+      "all32_quilt_FIELDVIEW1": true,
+      "protected_compare_one_AST_unchanged": true,
+      "original_comparisons_all_pass": true,
+      "status": "PASS_RETAINED_ORIGINAL_TWO_HISTORY_35_STEPS_512_OWNED_FIELD_VIEW",
+      "receipt_sha256": "47b645a5f45ced6f98d9af46926d6fbcee58788d21b6a458a983728c353d10b2",
+      "reader_closure_sha256": "33d5311069817c89cb659954916ae385ae2a72a6b20611e358c006573a8e6b30",
+      "invocation_id": "e01d8903c5824d7d846f2006a6f8f5bc",
+      "all_model_reader_scopes_closed": true
+    },
+    "scope": "Selected3582/15b2 plus privateFASTdistance9371, output51a/input06dNCa32/faba/twoTiles unchanged. Actualoriginalshort2/35/full512/twopositivewriters/16markers/all32FV1; ownshortTRUE, own3h9hFALSE. Prior3582/e1d8 threehour remains historical, not transferred."
+  }
 }
