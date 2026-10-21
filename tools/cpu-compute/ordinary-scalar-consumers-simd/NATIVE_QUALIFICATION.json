@@ -1,0 +1,107 @@
+{
+  "status": "PASS_CURRENT8EC_TWO_CONSUMER_NATIVE_WHOLE_CALL_RAW_READONLY_FIVE_STATE_ONLY",
+  "actual_native_invocation": "7c28dcec78394efe802bf73810eb78da",
+  "actual_native_receipt": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/next-measured-opportunity-r1/ordinary-consumer-simd-provider-preparation-r1/native-gate-r2/actual-native-r1/receipt.json",
+    "sha256": "98811b33b7cda456b05dd7ae6a79ec9c67d4d86bd453f4c1eb6c8750c20aca09"
+  },
+  "actual_native_closure": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/next-measured-opportunity-r1/ordinary-consumer-simd-provider-preparation-r1/native-gate-r2/actual-native-r1/closure.json",
+    "sha256": "c55d0c1876817d3186b0983a0c8d91d0cade66a71893ac39c3d65ddd5f42af35"
+  },
+  "objects": {
+    "O2-parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/source-discovery/current8ec-genuine-o2-reproduction-hpc02-r1-output/canonical-parent/module_advect_em.o",
+      "sha256": "fa06fac6858cf3cd43acec68a1a47df40db02e77586a3414ef3590bc2fd5b3a9"
+    },
+    "O2-candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/source-discovery/current8ec-ordinary-two-consumers-native-hpc02-r1-output/O2-candidate/module_advect_em.o",
+      "sha256": "a36b2947cd1fa0e7bfa6b94b42380850a10713cedb8e1f773de0302ca598fe1a"
+    },
+    "O0-parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/source-discovery/current8ec-ordinary-two-consumers-native-hpc02-r1-output/O0-parent/module_advect_em.o",
+      "sha256": "5c0cb6e73cc99b43448b7b744c48d13ef1c220ec86d4b72f3f87a700036a295c"
+    },
+    "O0-candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/source-discovery/current8ec-ordinary-two-consumers-native-hpc02-r1-output/O0-candidate/module_advect_em.o",
+      "sha256": "36b8c035a92887d326c6790c2929a725aa5e59f692fa0b53ab49382ae507308f"
+    }
+  },
+  "public_module_sha256": "88e9fcbf27d28de7f12c22df0aac07aef26d4463f303e5a51b135a6a7e454750",
+  "actual_canonical_PP": {
+    "parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/source-discovery/current8ec-ordinary-two-consumers-native-hpc02-r1-output/canonical-parent/module_advect_em.f90",
+      "sha256": "67d04896edd6cce4afb7e39d2b3520105e6c9b637b1784447c2bafc2f835e93a"
+    },
+    "candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/source-discovery/current8ec-ordinary-two-consumers-native-hpc02-r1-output/canonical-candidate/module_advect_em.f90",
+      "sha256": "64e94b4e8cd8b5e70a5e99251d4dfd0d898b7d052ab85f4f5a2b8e1fd486e7a9"
+    }
+  },
+  "native_fixtures": {
+    "captured_tendency_cells": 404250,
+    "unchanged_finite_edge_cases": 13,
+    "additive_whole_call_target_cases": 32,
+    "target_rounding_modes": 4,
+    "same_opt_O0_bounds_O2": true,
+    "fullraw_readonly_and_five_state_exact": true,
+    "defined_halos_and_emptyI_checked": true,
+    "universal_IEEE_or_trap_coverage": false
+  },
+  "target_codegen": [
+    {
+      "candidate_PP_lines": [
+        3448,
+        3455
+      ],
+      "vector_report": [
+        "module_advect_em.f90:3450:37: optimized: loop vectorized using 32 byte vectors",
+        "module_advect_em.f90:3450:37: optimized: loop vectorized using 16 byte vectors"
+      ],
+      "actual_packed_instructions": [
+        "   44646:\tc4 c1 64 59 0c 04    \tvmulps (%r12,%rax,1),%ymm3,%ymm1",
+        "   4464c:\tc5 cc 5c 04 06       \tvsubps (%rsi,%rax,1),%ymm6,%ymm0",
+        "   44656:\tc5 fc 59 c1          \tvmulps %ymm1,%ymm0,%ymm0",
+        "   4465a:\tc5 cc 5c c0          \tvsubps %ymm0,%ymm6,%ymm0",
+        "   44713:\tc5 f8 5c 04 b0       \tvsubps (%rax,%rsi,4),%xmm0,%xmm0",
+        "   4472b:\tc5 f0 59 0c 88       \tvmulps (%rax,%rcx,4),%xmm1,%xmm1",
+        "   44730:\tc5 f8 59 c1          \tvmulps %xmm1,%xmm0,%xmm0",
+        "   44734:\tc5 c8 5c c0          \tvsubps %xmm0,%xmm6,%xmm0"
+      ]
+    },
+    {
+      "candidate_PP_lines": [
+        4246,
+        4253
+      ],
+      "vector_report": [
+        "module_advect_em.f90:4248:77: optimized: loop vectorized using 32 byte vectors",
+        "module_advect_em.f90:4248:77: optimized: loop vectorized using 16 byte vectors"
+      ],
+      "actual_packed_instructions": [
+        "   412d6:\tc4 c1 44 5c 44 05 00 \tvsubps 0x0(%r13,%rax,1),%ymm7,%ymm0",
+        "   412e2:\tc5 fc 59 c1          \tvmulps %ymm1,%ymm0,%ymm0",
+        "   412e6:\tc5 c4 5c c0          \tvsubps %ymm0,%ymm7,%ymm0",
+        "   41379:\tc5 f8 5c 04 90       \tvsubps (%rax,%rdx,4),%xmm0,%xmm0",
+        "   4138f:\tc5 f8 59 c1          \tvmulps %xmm1,%xmm0,%xmm0",
+        "   41393:\tc5 c0 5c c0          \tvsubps %xmm0,%xmm7,%xmm0"
+      ]
+    }
+  ],
+  "root_CFG_tail_guard_spill_review": null,
+  "complete_caller_timing_qualified": false,
+  "application_science_qualified": false,
+  "raw_source_producer_commit": null,
+  "posttest_source_commit": null,
+  "retained_R1_failure": "Pre-firstnumericalcall fixture-link failure only; no numerical rejection, actualfailedINV6c804/CGabsent preserved.",
+  "raw_refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/next-measured-opportunity-r1/ordinary-consumer-simd-provider-preparation-r1/native-gate-r2/actual-native-r1/receipt.json": "98811b33b7cda456b05dd7ae6a79ec9c67d4d86bd453f4c1eb6c8750c20aca09",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/next-measured-opportunity-r1/ordinary-consumer-simd-provider-preparation-r1/native-gate-r2/actual-native-r1/closure.json": "c55d0c1876817d3186b0983a0c8d91d0cade66a71893ac39c3d65ddd5f42af35",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/next-measured-opportunity-r1/ordinary-consumer-simd-provider-preparation-r1/native-gate-r2/failed-R1-receipt.json": "15c0f38dbc7db21299d10547915827807df211a8c0d502cb14771c26065189c1",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/next-measured-opportunity-r1/ordinary-consumer-simd-provider-preparation-r1/native-gate-r2/failed-R1-closure.json": "5139ede937c9a883991a5064aa4320a7a3d454459e060238ec8f9c80c97a9746",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/next-measured-opportunity-r1/ordinary-consumer-simd-provider-preparation-r1/native-gate-r2/actual-parent-receipt.json": "8d196252477a86993e0f1edd6f1d629bbe44c8a062baf3ea1a17c385ca7c5259",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/next-measured-opportunity-r1/ordinary-consumer-simd-provider-preparation-r1/native-gate-r2/actual-parent-closure.json": "6da393ffd44b5f7fa51338f3390de90c6b338aabbebe9d6539dac548e6c6d514",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/next-measured-opportunity-r1/ordinary-consumer-simd-provider-preparation-r1/native-gate-r2/ROOT_ACTUAL_COMPLETED_R1_ARTIFACT_HASHES.json": "0811904bd730abc2565e5cb547c96e5b8d9263cc3085922705c0ee6e644389eb",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/next-measured-opportunity-r1/ordinary-consumer-simd-provider-preparation-r1/local-source-r1/SOURCE_PROJECTION_AND_ADJUDICATION.json": "5e873dd34a4d19cef166bd7a4692c88b9a6f8309707e6e6a1afad22a90c32caa"
+  }
+}

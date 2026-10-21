@@ -1,0 +1,65 @@
+{
+  "status": "PASS_ACTUAL_TWO_CONSUMER_CFG_LITERAL_REVIEW",
+  "candidate_object_sha256": "a36b2947cd1fa0e7bfa6b94b42380850a10713cedb8e1f773de0302ca598fe1a",
+  "evidence": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/next-measured-opportunity-r1/ordinary-consumer-simd-provider-preparation-r1/native-gate-r2/actual-codegen-r1/ordinary-codegen-parent.log": "473918ba66330c6dfc6cb0849ea3de85242e015d067c0be61ccd4c9aedfefe61",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/next-measured-opportunity-r1/ordinary-consumer-simd-provider-preparation-r1/native-gate-r2/actual-codegen-r1/ordinary-codegen-candidate.log": "ab56ff7fad9ccfd9ad4467c403214ce92addacaab7e11ac1be1a16ac0cb957dc"
+  },
+  "independent_reviewer": "spot_campaign",
+  "Y5": {
+    "empty_guard": [
+      "445e0",
+      "4478a"
+    ],
+    "short_width_guard": [
+      "44602",
+      "45026",
+      "44692"
+    ],
+    "YMM8_backedge": [
+      "44640",
+      "4466a"
+    ],
+    "XMM4_remainder": [
+      "446d4",
+      "44738"
+    ],
+    "scalar_tail": [
+      "44760",
+      "44788"
+    ]
+  },
+  "vertical3": {
+    "empty_guard": [
+      "41280",
+      "413d4"
+    ],
+    "short_width_guard": [
+      "4129b",
+      "4184e",
+      "4131e"
+    ],
+    "YMM8_backedge": [
+      "412d0",
+      "412f6"
+    ],
+    "XMM4_remainder": [
+      "4135b",
+      "41397"
+    ],
+    "scalar_tail": [
+      "413b0",
+      "413d2"
+    ]
+  },
+  "operation_order": "Separate products, differences and tendency subtraction; no FMA or reciprocal.",
+  "FP_spills_inside_two_YMM_backedges": false,
+  "setup_tail_stack_loads_remain": true,
+  "fixed_frame_bytes": {
+    "parent": 1344,
+    "candidate": 1376,
+    "increase": 32,
+    "alignment": 32
+  },
+  "scope": "Actual codegen only; native correctness is separately qualified. No timing or whole-function no-spill claim."
+}
