@@ -1,0 +1,28 @@
+{
+  "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+  "order": [
+    "new_current1749_candidate_ONLY",
+    "retained_original546b_reference"
+  ],
+  "comparison_design": "UNPAIRED new1749 candidate-only versus retained original546b R3 control; checkedcache before newcandidate only; no paired speedup/repeatability/isolatedconsumer forecast attribution",
+  "metrics": {
+    "control": {
+      "wall_seconds": 914.0027063428424,
+      "cpu_seconds": 416098.178201,
+      "main_step_sum_seconds": 692.22938
+    },
+    "candidate": {
+      "wall_seconds": 668.8997566560283,
+      "cpu_seconds": 324253.30758,
+      "main_step_sum_seconds": 564.77272
+    }
+  },
+  "reductions_percent": {
+    "wall_seconds": 26.81643587988195,
+    "cpu_seconds": 22.072884581732886,
+    "main_step_sum_seconds": 18.41248922430885
+  },
+  "science_sha256": "eb08417fce72ac6dd3aa3f571b217f121b75a8728866ffe75609eb2e3967a140",
+  "reader_closure_sha256": "c44a859340fc10dd56bb850662ea9e681b07e55d6975960bac519cb99d351f0c",
+  "limits": "UNPAIRED candidate-only versus retained original; actual checkedcache before newcandidate only. No repeated pair or per-kernel causal claim. Main includes communication/backpressure; residual is not pureIO."
+}

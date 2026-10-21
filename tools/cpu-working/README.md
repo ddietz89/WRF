@@ -1,8 +1,8 @@
 # Current working selection: NH-X consumer SIMD
 
-**1749f701 / archivef18c135a / post-test sourcea531104f** retains every f703 improvement. One NH-X inner-I directive delivered20.94%/20.87% lower complete synthetic HPG caller wall time; native100 and original full512 short2product/35step exact checks passed. Extra112B frame/spills are documented; process CPU unavailable. OwnshortTRUE, own3h/noon/9hFALSE. [Evidence and rollback](../cpu-compute/hpg-nhx-consumer-simd/README.md).
+**1749f701 / archivef18c135a / post-test sourcea531104f** retains every f703 improvement. One NH-X inner-I directive delivered20.94%/20.87% lower complete synthetic HPG caller wall time; native100 and original full512 short2product/35step exact checks passed. Extra112B frame/spills are documented; process CPU unavailable. The selected build passed its own short and three-hour scientific checks; its own noon and nine-hour checks remain pending. [Evidence and rollback](../cpu-compute/hpg-nhx-consumer-simd/README.md).
 
-Prior three-hour and nine-hour timing results below are historical for their named artifacts. No current forecast-gain claim is transferred. Restore all three BEFORE_HPG_NHX_CONSUMER snapshots and revert source-onlya531104f for rollback. Production/master unchanged; AWS suspended.
+The latest 1749 three-hour run passed all four products and 545 timesteps: 668.899757 seconds wall, 564.772720 seconds main-step elapsed and 324253.307580 aggregate CPU-seconds. The retained original measured 914.002706 / 692.229380 / 416098.178201, respectively. This comparison is **unpaired**; it does not isolate the consumer change. Earlier three-hour and nine-hour timing results below are historical for their named artifacts. No current forecast-gain claim is transferred. Restore all three BEFORE_HPG_NHX_CONSUMER snapshots and revert source-onlya531104f for rollback. Production/master unchanged; AWS suspended.
 
 ---
 
