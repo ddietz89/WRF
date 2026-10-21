@@ -414,6 +414,7 @@ SUBROUTINE small_step_finish( u_2, u_1, v_2, v_1, w_2, w_1,    &
   IF ( rk_step < rk_order ) THEN
     DO j = j_start, j_end
     DO k = kds, kde-1
+!$OMP SIMD
     DO i = i_start, i_end
       t_2(i,k,j) = (t_2(i,k,j) + t_save(i,k,j)*(c1h(k)*mut(i,j)+c2h(k)))/(c1h(k)*muts(i,j)+c2h(k))
     ENDDO
