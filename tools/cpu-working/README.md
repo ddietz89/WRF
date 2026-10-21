@@ -2,7 +2,10 @@
 
 **a61a273b / archive 9dc6b5e5 / post-test source 5f184bcc** retains all prior improvements. The private helper reduced complete synthetic HPG caller wall by **9.28% and 7.67%** in opposite-order pairs; raw output and five state fields matched. The original full-grid short check passed both products and all 35 steps, with normal closures. Process CPU was unavailable in the caller test.
 
-The qualified GNU13.3 EPYC recipe enables the helper; ordinary source keeps the portable Fortran path. Own short science is qualified; own three-hour, noon-profile and nine-hour checks remain pending. A three-hour combined test is prepared. Previous 1749 long-run results below retain their actual artifact scope. [Evidence, build recipe and paired rollback](../cpu-compute/hpg-nhx-isolated-avx2-consumer/README.md). Production/master are unchanged; AWS remains suspended.
+The qualified GNU13.3 EPYC recipe enables the helper; ordinary source keeps the portable Fortran path. Own short and three-hour science are qualified; noon-profile and nine-hour checks remain pending. The three-hour check passed four products and 545 ordered steps. Previous 1749 long-run results below retain their actual artifact scope. [Evidence, build recipe and paired rollback](../cpu-compute/hpg-nhx-isolated-avx2-consumer/README.md). Production/master are unchanged; AWS remains suspended.
+
+The a61a build passed the unchanged original four-product/545-step three-hour check with all 512 ranks, two tiles, all four active writers and normal model/checker closures. Whole wall was 661.160262 versus 914.002706 seconds for the retained original (27.6632% lower); main-step elapsed was 559.247310 versus 692.229380 seconds (19.2107% lower); aggregate CPU was 319721.189654 versus 416098.178201 CPU-seconds (23.1621% lower). These are **unpaired observations from different epochs**, not a matched benchmark, isolated helper gain or repeatability result. Own short and three-hour science are qualified; noon and nine-hour science remain unqualified. Source 5f184bcc is post-test tracking; frozen producer identities remain null. The inherited1749 text in the raw result is retained and explicitly distinguished from the actual a61a artifact.
+
 
 ---
 
