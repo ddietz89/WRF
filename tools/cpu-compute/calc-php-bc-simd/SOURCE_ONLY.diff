@@ -1,0 +1,20 @@
+--- a/dyn_em/module_big_step_utilities_em.F
++++ b/dyn_em/module_big_step_utilities_em.F
+@@ -1259,6 +1259,7 @@
+ 
+       DO j=jts,jtf
+       DO k=kts,ktf
++!$OMP SIMD
+       DO i=its,itf
+         php(i,k,j) = 0.5*(phb(i,k,j)+phb(i,k+1,j)+ph(i,k,j)+ph(i,k+1,j))
+       ENDDO
+--- a/share/module_bc.F
++++ b/share/module_bc.F
+@@ -1067,6 +1067,7 @@
+                          ( jts == jds) .and. open_bc_copy )  THEN
+ 
+             DO k = kts, k_end
++!$OMP SIMD PRIVATE(bc_source)
+             DO i = i_start, i_end
+               bc_source = dat(i,k,jds)
+               dat(i,k,jds-1) = bc_source

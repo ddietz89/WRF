@@ -1,0 +1,55 @@
+{
+  "status": "PROMOTED_AFTER_ACTUAL_ORIGINAL_3H",
+  "post_test_source_identity": {
+    "status": "POST_TEST_SOURCE_IDENTITY",
+    "source_commit": "595672962ad081e5c1f0190aeb8c919f709029b1",
+    "raw_build_producer_source_commit": null,
+    "sources": {
+      "dyn_em/module_big_step_utilities_em.F": "92ec84f6aab80afce2b0f3eddad0963a83d5bfe1ac4d4306a81d6d5022e6b650",
+      "share/module_bc.F": "053f90bf4c0220b8bfde1397304fa7b5512678361132159e34bc9515a49c802f"
+    },
+    "executable_sha256": "f4b3c348c12c4863a869a7f9da0ede6516406989758e7a320fb6042ba5ee55c8",
+    "archive_sha256": "a43a8357752c00966880e39951d9bd8036d30a480a2468b98a9673b77b28c7f2",
+    "scope": "Source-only commit after actual f4b combined original4/545 science. Raw build producer identities remain NULL. Source-backed rebuild3db1 has semantic member proofs, but has no own application qualification."
+  },
+  "application_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/calc-php-bc-simd/APPLICATION_QUALIFICATION.json",
+    "sha256": "177c1a6d4facce38ea6e17234446e028e4c52facb382570be5c73b2bd25c49a0"
+  },
+  "benchmark": {
+    "qualification_file": "tools/cpu-compute/calc-php-bc-simd/APPLICATION_QUALIFICATION.json",
+    "qualification_sha256": "177c1a6d4facce38ea6e17234446e028e4c52facb382570be5c73b2bd25c49a0",
+    "executable": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current0a551-one-bc-packed-copy-hpc02-r1/wrf.exe",
+      "sha256": "f4b3c348c12c4863a869a7f9da0ede6516406989758e7a320fb6042ba5ee55c8"
+    },
+    "archive_sha256": "a43a8357752c00966880e39951d9bd8036d30a480a2468b98a9673b77b28c7f2",
+    "source_commit": "595672962ad081e5c1f0190aeb8c919f709029b1",
+    "comparison_design": "UNPAIRED candidate-only currentall+calc_php+BCpackedcopy versus retained fresh corrected-original2aef reference; no isolated or additive candidate attribution",
+    "metrics": {
+      "control": {
+        "wall_seconds": 819.2783056409098,
+        "cpu_seconds": 367612.40525099996,
+        "main_step_sum_seconds": 597.23996
+      },
+      "candidate": {
+        "wall_seconds": 661.0404487038031,
+        "cpu_seconds": 320470.901248,
+        "main_step_sum_seconds": 558.88537
+      }
+    },
+    "reductions_percent": {
+      "wall_seconds": 19.314298431632395,
+      "cpu_seconds": 12.823697821299717,
+      "main_step_sum_seconds": 6.421973171386597
+    },
+    "wall_speedup_ratio": 1.239376965883686,
+    "fresh_matched_timing": false,
+    "applies_to_current_selection": true,
+    "repeatability_established": false,
+    "scope": "Unpaired candidate-only unprofiled original3h comparison to retained corrected original2aef. Whole wall includes I/O/final drain; main-step sum is elapsed with communication/backpressure, not integration CPU. No component/additive contribution or sustained9h claim."
+  },
+  "all39_raw_refs_rehashed": true,
+  "selection_rollback_suffix": "BEFORE_CALC_PHP_BC_SIMD",
+  "source_reproduction_no_application_transfer": true
+}

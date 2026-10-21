@@ -1,0 +1,95 @@
+{
+  "status": "PASS_GENUINE_COMPLETE_CALC_PHP_RESET_PLUS_CALL_OPPOSITE_ORDER_EXACT",
+  "native_qualification_sha256": "31eb71c4aaded84ef3eeca1abb6f112d6500fa276882b76ff430b58ee4155f22",
+  "candidate_object": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/calc-php-current8251-wholemodule-r1/work/candidate/module_big_step_utilities_em.o",
+    "sha256": "271644d493078964eca5b2316556b5db2e59d55a1052398c3a67e5ddfff87a45",
+    "preprocessed_sha256": "d32108b8ad34bb13c1fbbeb144590826bb692cee80d3bdf8f50f245884559966",
+    "module_interface_sha256": "01702a275cfaa6e411f3b53342033027a3beca789ccd80a7b2e1becf3f43e7ee"
+  },
+  "canonical_candidate_source_sha256": "92ec84f6aab80afce2b0f3eddad0963a83d5bfe1ac4d4306a81d6d5022e6b650",
+  "pairs": {
+    "hpc01": {
+      "calc_php": {
+        "parent_wall_seconds": 0.443401312,
+        "candidate_wall_seconds": 0.178998585,
+        "wall_reduction_percent": 59.63056938361066,
+        "parent_cpu_seconds": 0.443439117,
+        "candidate_cpu_seconds": 0.179028249,
+        "cpu_reduction_percent": 59.62732151119632
+      }
+    },
+    "hpc04": {
+      "calc_php": {
+        "parent_wall_seconds": 0.409655776,
+        "candidate_wall_seconds": 0.180461419,
+        "wall_reduction_percent": 55.94803501562249,
+        "parent_cpu_seconds": 0.40969132,
+        "candidate_cpu_seconds": 0.18048822,
+        "cpu_reduction_percent": 55.94531512163841
+      }
+    }
+  },
+  "fixed_repeats": 4096,
+  "geometry": [
+    188,
+    19,
+    32
+  ],
+  "all_four_normal_strong_closed": true,
+  "all_four_cache_each_and_helper_drained": true,
+  "gold_sha256": "7bb3ed57012b49e19fde077ce9300b87c36bce83a4ff5aeee3e119967f2449e7",
+  "clock_scope": "Restore entirephp sentinel array then WHOLEcalc_php periteration, repeated4096. Fixed nonconstant finite ph/phb readonly. Allocation/fill/onecallgold/statecontrols/fullraw/readonly/halo validation outsideclock.",
+  "cpu_scope": "Singleprocess CLOCK_PROCESS_CPUTIME_ID, not node or forecast aggregateCPU",
+  "resources_actual": {
+    "0": {
+      "memory.peak": "189317120\n",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "cpu.stat": "usage_usec 898384\nuser_usec 623513\nsystem_usec 274871\ncore_sched.force_idle_usec 0\nnr_periods 20\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n"
+    },
+    "1": {
+      "memory.peak": "189403136\n",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "cpu.stat": "usage_usec 567085\nuser_usec 350139\nsystem_usec 216945\ncore_sched.force_idle_usec 0\nnr_periods 7\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n"
+    },
+    "2": {
+      "memory.peak": "189718528\n",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "cpu.stat": "usage_usec 613760\nuser_usec 365644\nsystem_usec 248116\ncore_sched.force_idle_usec 0\nnr_periods 9\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n"
+    },
+    "3": {
+      "memory.peak": "189456384\n",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "cpu.stat": "usage_usec 794915\nuser_usec 576840\nsystem_usec 218074\ncore_sched.force_idle_usec 0\nnr_periods 10\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n"
+    }
+  },
+  "raw_refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-calc-php-i-simd-r1/complete-caller-timing-r1/ACTUAL_WAVE.json": "b0e3618203390c4cc02c34d1ba5b849fe5b2eb5dd0a078731707513e71475d9f",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-calc-php-i-simd-r1/complete-caller-timing-r1/timing-r1/arm0/actual-native-r1/receipt.json": "6b03c1794d4458d717d38c2b400f37d1b774d2c31800c0f2ff9e81a20e26fc07",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-calc-php-i-simd-r1/complete-caller-timing-r1/timing-r1/arm0/actual-native-r1/closure.json": "096ed20ba9d4eed79efe7255e0fc893c885844362937728bca50f8291b84d466",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-calc-php-i-simd-r1/complete-caller-timing-r1/timing-r1/arm0/actual-native-r1/cache-clear.json": "ec32ee7e38f5b174ec309cc235c89b723e6a47682736d65d32d2383c60adc3ba",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-calc-php-i-simd-r1/complete-caller-timing-r1/timing-r1/arm0/actual-native-r1/controller.json": "9b6d683b78216af3d3cbd68cc65f40f307da913578199b3a180aa20a5781a834",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-calc-php-i-simd-r1/complete-caller-timing-r1/timing-r1/arm1/actual-native-r1/receipt.json": "4c0e50bee605dda6238561808118ccf5e332e45f751e4f1702902fedda53fd5b",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-calc-php-i-simd-r1/complete-caller-timing-r1/timing-r1/arm1/actual-native-r1/closure.json": "6c4efa71cd4dc4a16977d328e4e8097e50f729103dab970a965a7f578480cc51",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-calc-php-i-simd-r1/complete-caller-timing-r1/timing-r1/arm1/actual-native-r1/cache-clear.json": "340c47a51166dba7fc79f29c73b22de80d9f572713546180019219ac6e5c667d",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-calc-php-i-simd-r1/complete-caller-timing-r1/timing-r1/arm1/actual-native-r1/controller.json": "ab400f6d08e3c3b4ad1c34e76b9acad62db671e107646bf8f736a7c4a86ed46f",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-calc-php-i-simd-r1/complete-caller-timing-r1/timing-r1/arm2/actual-native-r1/receipt.json": "7bc242531296513d19475dd144ae4fbe500290a5ed163a55151950ad3e16043e",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-calc-php-i-simd-r1/complete-caller-timing-r1/timing-r1/arm2/actual-native-r1/closure.json": "3c1e59f3856a56aade70daae986db3bea81171f51a7f686920af8473fcd08ad6",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-calc-php-i-simd-r1/complete-caller-timing-r1/timing-r1/arm2/actual-native-r1/cache-clear.json": "e1d94106b590fab1a646ed8fd78d08f97ca335babdf6f7ccb7127842e6f68bea",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-calc-php-i-simd-r1/complete-caller-timing-r1/timing-r1/arm2/actual-native-r1/controller.json": "31c4dc733c3eb2442fa6dcdd1be3a64d3a48c22c179502ad6f439dfb65a947b8",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-calc-php-i-simd-r1/complete-caller-timing-r1/timing-r1/arm3/actual-native-r1/receipt.json": "3ca209f81f5fd65c418e34b3700704be995f29bb951436b5545a90cd89437571",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-calc-php-i-simd-r1/complete-caller-timing-r1/timing-r1/arm3/actual-native-r1/closure.json": "599460782dbac52f53085531a7efe43df673cc500b10d929e947fbe66619cd87",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-calc-php-i-simd-r1/complete-caller-timing-r1/timing-r1/arm3/actual-native-r1/cache-clear.json": "f2c1792d2c967b50fb8845ffccc1c962107fa171933985e4d24392248d1b2269",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-calc-php-i-simd-r1/complete-caller-timing-r1/timing-r1/arm3/actual-native-r1/controller.json": "0441bf2530272afc27032e1c9ccfff541528a63b01520be4c8ae44577c86ff5c",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-calc-php-i-simd-r1/NATIVE_QUALIFICATION.json": "31eb71c4aaded84ef3eeca1abb6f112d6500fa276882b76ff430b58ee4155f22",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-calc-php-i-simd-r1/complete-caller-timing-r1/driver-build-r1/actual-native-r1/receipt.json": "43b51103a0d7515adac1ea9f1bc735a3479fe0d2927f4047eb62fa4a20b9b395",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-calc-php-i-simd-r1/complete-caller-timing-r1/driver-build-r1/actual-native-r1/closure.json": "5185dbe262327dfd630880ee96158c80dde34ca6d2a07b4ba8cd1b165ca72997",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-calc-php-i-simd-r1/complete-caller-timing-r1/driver-build-r1/inputs/timing_driver.f90": "922ea8b6f55508b1cc5848d10ff4dfd1fded87a9219e31eccc2f580af5c66fb2",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-calc-php-i-simd-r1/complete-caller-timing-r1/driver-build-r1/inputs/benchmark_clock.c": "2d7934b72e52865beb33aec2072982576705e43dbd4ccf66823c62db053b50c3"
+  },
+  "limits": [
+    "One representative finite completeprocedure field on2hosts/oneoppositepair each; descriptive not statistical significance or forecast gain.",
+    "Synthetic field no model/control timing or selected-rank/global headroom transfer.",
+    "Prior harnessR1 failure retained; genuinewholemodule/nativeQ passes standalone."
+  ]
+}

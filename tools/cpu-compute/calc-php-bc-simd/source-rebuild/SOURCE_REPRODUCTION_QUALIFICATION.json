@@ -1,0 +1,71 @@
+{
+  "status": "PASS_ACTUAL_TWO_CANONICAL_SOURCE_REPRODUCTION_AND_COMBINED_LINK_STRONG_CLOSED",
+  "invocation_id": "84f7ce25c9244c1887fa299c9760972a",
+  "raw_producer_commit": null,
+  "post_test_source_commit": null,
+  "resource_scope": {
+    "host": "hpc02",
+    "cpus": [
+      24,
+      25
+    ],
+    "memory_bytes": 8589934592,
+    "swap_bytes": 0,
+    "runtime_cap_seconds": 600
+  },
+  "source_compiles": 2,
+  "ordinary_WRF_links": 1,
+  "qualified_objects_copied": false,
+  "unchanged_ordered_archive_occurrences": 582,
+  "replaced_indices": [
+    116,
+    559
+  ],
+  "source_reproductions": {
+    "calc": {
+      "canonical_source_sha256": "92ec84f6aab80afce2b0f3eddad0963a83d5bfe1ac4d4306a81d6d5022e6b650",
+      "preprocessed_sha256": "d32108b8ad34bb13c1fbbeb144590826bb692cee80d3bdf8f50f245884559966",
+      "object_sha256": "ab0ab57626d0ad2e3959bc2da7743fe288588f3bf8bec0f68e5145877a122ee7",
+      "qualified_reference_sha256": "271644d493078964eca5b2316556b5db2e59d55a1052398c3a67e5ddfff87a45",
+      "allocated_relocations_nonfile_symbols_exact": true,
+      "module_sha256": "01702a275cfaa6e411f3b53342033027a3beca789ccd80a7b2e1becf3f43e7ee",
+      "semantic_proof_sha256": "c2fe2aaa83cba7c05da5bd2925b7b2ba9155c0335f78a95abb1b6a1566c76bd3"
+    },
+    "bc": {
+      "canonical_source_sha256": "053f90bf4c0220b8bfde1397304fa7b5512678361132159e34bc9515a49c802f",
+      "preprocessed_sha256": "d88186e27379e2750f5e193a8edcd941ed5a8533d3df521e49060140cfd6ce91",
+      "object_sha256": "ed3e4816192d56d1a1eb9f1c26c3e28f52b2a8c86c1e24e75fb780df0c41a640",
+      "qualified_reference_sha256": "adde8c7bac270eeecbdace96492e76cc7c81802cb35e250ae9f38ea04697ff83",
+      "allocated_relocations_nonfile_symbols_exact": true,
+      "module_sha256": "3bab4d814d238e5c79b7623dddee943341ccee88bb7e548afe12500128964336",
+      "semantic_proof_sha256": "8229937efae265218f5e0b4e819e417fa8a0bad1f1fb40c4a9366d1826612445"
+    }
+  },
+  "new_BC_module_local_flag": "-fopenmp-simd",
+  "existing_calc_flags_preserved": true,
+  "global_flags_unchanged": true,
+  "artifacts": {
+    "/pool/wrf-experiment/wrf-cpu/builds/current3582-calc-bc-source-reproduction-hpc02-r1/wrf.exe": "3db1a46b5b548654a1121569e711f3ebe255b3023032f5d1ee15bc5a9d4e3b4e",
+    "/pool/wrf-experiment/wrf-cpu/builds/current3582-calc-bc-source-reproduction-hpc02-r1/libwrflib.a": "205ed71e6d318b9760fa5861be2fd7e069a207bb3a2db2c1c4d4903b1c8227c3",
+    "/pool/wrf-experiment/wrf-cpu/builds/current3582-calc-bc-source-reproduction-hpc02-r1/ordered-libwrflib-proof.json": "db0d9bbad716a49aed5c538bcf7005da2ed2e4249a311af6a78fa2a24dd3d431"
+  },
+  "all17_commands_returned_zero": true,
+  "strongclosure": {
+    "same_invocation": true,
+    "MainPID": 0,
+    "active_state": "inactive",
+    "result": "success",
+    "ExecMainStatus": 0,
+    "cgroup_absent_empty": true,
+    "positive_same_invocation_journal": true
+  },
+  "raw_refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-set-physical-bc3d-source-triage-r1/source-promotion-preparation-r1/source-build-r1/actual-native-r1/receipt.json": "e7b7be145fb55f0c35a034603cdb6ef3946369434cd3e14a06cde3daa78efc06",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-set-physical-bc3d-source-triage-r1/source-promotion-preparation-r1/source-build-r1/actual-native-r1/closure.json": "6093e40fdbb08a0e25ea28f6a1c800ec80acba9f864d5b98af13588e5747e4e2",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-set-physical-bc3d-source-triage-r1/source-promotion-preparation-r1/source-build-r1/actual-native-r1/controller.json": "269c5d6481ed3779be3d4d0c653ab57b94afe701c1903d1a1e4604960530b5b2",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-set-physical-bc3d-source-triage-r1/source-promotion-preparation-r1/source-build-r1/manifest.json": "be7c7a2940526e9e1ba287962d530e14e9d405a539e7a41c4654dacb50d37726",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-set-physical-bc3d-source-triage-r1/source-promotion-preparation-r1/source-build-r1/run_build.py": "1fe41a2babc1808e5adac2b6afd7fada27c5c75190208aafcbbb85a011f822cd",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-set-physical-bc3d-source-triage-r1/source-promotion-preparation-r1/source-build-r1/controller.py": "1efb6ca295d832279564c7be4e0376251e5005caa23bd5b47e7c3d2ffeace0f3"
+  },
+  "scope": "Create-only GNU13.3 source rebuild of two canonical candidates with exact qualified preprocessing/MOD and allocated sections/relocations/non-file symbols versus actual2716/adde; other582 archive members/link dependencies preserved. This build produced3db1, not the f4b image used by combined application science. No model run, raw scientific comparison, timing gain or application/horizon qualification for3db1; no whole-executable hash equivalence asserted. Separate raw debug-bearing object hashes are reported honestly."
+}

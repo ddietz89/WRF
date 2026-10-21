@@ -1,0 +1,82 @@
+{
+  "status": "PASS_CURRENT_DE98_BC_PACKED_COPY_NATIVE_672_O2_FLAG_ONLY_EXACT_CODEGEN_ACCEPTED",
+  "invocation_id": "fb92e1635b894b45a3cce8266168e9b8",
+  "objects": {
+    "selected-noomp": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-boundary-three-copy-simd-native-hpc03-r2/output/selected-noomp/module_bc.o",
+      "sha256": "9fdb638f94ea2a3bdd1711704b6fe88b107ad08581f2cb2877be8fe2a07d3c3b"
+    },
+    "flag-only": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-boundary-three-copy-simd-native-hpc03-r2/output/flag-only/module_bc.o",
+      "sha256": "223e96e93dbee2f76b283c3a23ff1af9b91b545aee05378cba2853110472d169"
+    },
+    "candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-boundary-three-copy-simd-native-hpc03-r2/output/candidate/module_bc.o",
+      "sha256": "adde8c7bac270eeecbdace96492e76cc7c81802cb35e250ae9f38ea04697ff83"
+    }
+  },
+  "module_interface_sha256": "3bab4d814d238e5c79b7623dddee943341ccee88bb7e548afe12500128964336",
+  "strict_selected_NOOMP_parent_allocated_relocations_ABI_exact": true,
+  "flag_only_whole_module_allocated_relocations_ABI_exact": true,
+  "canonical_source_preprocessing": {
+    "parent": {
+      "source_sha256": "9eb38066228f430b0ceda85523803d252e5e70dbb7e81a34df07879d112dfb8f",
+      "PP_sha256": "6b04ab5d849453b9ec8b1b3e1e050959b15f98d10b14335e4ee0f972f264b9db"
+    },
+    "candidate": {
+      "source_sha256": "053f90bf4c0220b8bfde1397304fa7b5512678361132159e34bc9515a49c802f",
+      "PP_sha256": "d88186e27379e2750f5e193a8edcd941ed5a8533d3df521e49060140cfd6ce91"
+    }
+  },
+  "cases": {
+    "selected-noomp": {
+      "cases": 672,
+      "raw_bytes": 10682112,
+      "raw_sha256": "9e9b731895f79d28a69a75c65d1e196e9378a99651768ea7757ca40135eb9576",
+      "raw_and_five_state": "PASS"
+    },
+    "flag-only": {
+      "cases": 672,
+      "raw_bytes": 10682112,
+      "raw_sha256": "9e9b731895f79d28a69a75c65d1e196e9378a99651768ea7757ca40135eb9576",
+      "raw_and_five_state": "PASS"
+    },
+    "candidate": {
+      "cases": 672,
+      "raw_bytes": 10682112,
+      "raw_sha256": "9e9b731895f79d28a69a75c65d1e196e9378a99651768ea7757ca40135eb9576",
+      "raw_and_five_state": "PASS"
+    }
+  },
+  "codegen": {
+    "root_literal_review": "SOURCE_ONLY_CODEGEN_ACCEPT_4LANE_MOVUPS_1LOAD_3STORES",
+    "inner_loop": [
+      "   14c30:\tmovups 0x0(%rbp,%rdx,1),%xmm0",
+      "   14c35:\tmovups %xmm0,(%rbx,%rdx,1)",
+      "   14c39:\tmovups %xmm0,(%r11,%rdx,1)",
+      "   14c3e:\tmovups %xmm0,(%r10,%rdx,1)",
+      "   14c43:\tadd    $0x10,%rdx",
+      "   14c47:\tcmp    %r12,%rdx",
+      "   14c4a:\tjne    14c30 <__module_bc_MOD_set_physical_bc3d+0xe20>"
+    ],
+    "loop_stride_bytes": 16,
+    "loop_payload_FP_arithmetic": false,
+    "inner_loop_calls_or_stack_accesses": false,
+    "object_bytes": {
+      "selected-noomp": 428048,
+      "flag-only": 428056,
+      "candidate": 429200
+    },
+    "limit": "Setupstackaccesses and2/1tailsretained; fullsourcewindow/native672 scope, notuniversaloverread/trap/alias/nospillproof. No gain measured yet."
+  },
+  "prior_failure": "R1PRECOMPILEmissingqualifiedcoreenvironment remainsfailed/closed; recoveredoutputreceipt7985/closured50f preserved, notnumericalfailure. R2samecandidate/flags/672+exactcoreenv+receiptpathrepair.",
+  "scope": "CurrentselectedBCmodulede98 andnewonePRIVATEpragma candidate underqualifiedGNU13.3;3O2arms/full672raw+five-state. PriorO0bounds retainedhistorically; no newcandidateO0claim, no timing/application/defaultclaim.",
+  "rawrefs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-set-physical-bc3d-source-triage-r1/native-gate-r2/actual-native-r1/receipt.json": "283d891dce90ed071c2c903dfecb504a509133f11c15f1f50c18644055bd12a8",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-set-physical-bc3d-source-triage-r1/native-gate-r2/actual-native-r1/closure.json": "6cfc768c8731894065214b30365c6f9901ee6f2fbb4eb39481c6eb009224118c",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-set-physical-bc3d-source-triage-r1/native-gate-r2/inputs/candidate_module_bc.F": "053f90bf4c0220b8bfde1397304fa7b5512678361132159e34bc9515a49c802f",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-set-physical-bc3d-source-triage-r1/native-gate-r2/inputs/SOURCE_INVERSE.json": "0095ad7c70ea5186045848f00836467c82176a7c4f965e86026d3dc08f79d795",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-set-physical-bc3d-source-triage-r1/native-gate-r1/actual-native-r1/recovered-output-receipt.json": "7985cce0184a72bbafe456c4f9afee496c5bf71a7b92245b854c9966c9581ed5",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-set-physical-bc3d-source-triage-r1/native-gate-r1/actual-native-r1/closure.json": "d50f0010b5a6210e32dbc1f1cef4bac075444779f6ec2b97bdb1f40235a0fc90"
+  }
+}

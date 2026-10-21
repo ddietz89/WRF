@@ -1,11 +1,11 @@
 {
-  "status": "WORKING_SELECTED_3582_PRIVATE_FAST_DISTANCE9371_AFTER_ORIGINAL_SHORT",
-  "source_commit": "ee2fdac7776484fbe30bb95a8702f03808d0c5d6",
+  "status": "QUALIFIED_CURRENT_F4B_CALC_PHP_BC_SIMD_ORIGINAL_FOUR_PRODUCT_545_STEP_FULL512",
+  "source_commit": "595672962ad081e5c1f0190aeb8c919f709029b1",
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/current8bfe-one-smallstep-finish-nonfinal-t-simd-hpc02-r1/wrf.exe",
-    "sha256": "3582f4177c3559c11a515fc4616bfb772168269b31e464ab69c8c64c64223b05"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current0a551-one-bc-packed-copy-hpc02-r1/wrf.exe",
+    "sha256": "f4b3c348c12c4863a869a7f9da0ede6516406989758e7a320fb6042ba5ee55c8"
   },
-  "archive_sha256": "15b2dc275bfe33a42b771cc8c2f977aa87258352f36fdc51badf41e99b723b83",
+  "archive_sha256": "a43a8357752c00966880e39951d9bd8036d30a480a2468b98a9673b77b28c7f2",
   "sources": {
     "dyn_em/start_em.F": "ba19b902eb43c9baa2f59d3ffef0dec7c6a0ccbf0a9ceb062b72e55cff5366fc",
     "phys/module_mp_thompson.F": "88650f32214e09ce65df53a7c2c08c0a30d22faa9142633aa63005dfbe45b24c",
@@ -15,8 +15,8 @@
     "tools/cpu-memory/thompson-table-sharing/thompson_tpi_bridge.c": "eed11ee2c18caf9581146d1edfc42dec0c9b256a09d5147872d03cd860b0506e",
     "tools/cpu-memory/thompson-table-sharing/shared_table.c": "6be5e91ac1f63a8dc589af8188363223c44a2b361e1ade85afc1576be2b5c116",
     "dyn_em/module_advect_em.F": "47c7b2b0025dca1971696eacd51d7c589ec2bc20a211cd80f7329404e230fae8",
-    "share/module_bc.F": "9eb38066228f430b0ceda85523803d252e5e70dbb7e81a34df07879d112dfb8f",
-    "dyn_em/module_big_step_utilities_em.F": "85d02a991228da807d88e29d1dae60dcf60b12d0a24fcae1893f0cde4783bfab",
+    "share/module_bc.F": "053f90bf4c0220b8bfde1397304fa7b5512678361132159e34bc9515a49c802f",
+    "dyn_em/module_big_step_utilities_em.F": "92ec84f6aab80afce2b0f3eddad0963a83d5bfe1ac4d4306a81d6d5022e6b650",
     "dyn_em/module_em.F": "ca2c2f614bd6e7b6b9c4545d0974890de1ee8254032a55fa205066eb80434dad",
     "dyn_em/module_small_step_em.F": "02355516086fa17a8bcc358042636308c9701fd9c38b2d53f9645802d41ec1d6",
     "phys/module_bl_myjpbl.F": "795e00134d47f98f512d61ffc45f93b3599202499ee8d8429009611d21c4b11f",
@@ -120,19 +120,67 @@
     "PRIVATE_FAST_DISTANCE_REPRODUCTION": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-output/quilt512/codec/private-fast-distance-range/REPRODUCTION_QUALIFICATION.json",
       "sha256": "09dfa1d3eb721f788578329acab71f47f7d2ed14f2ef729a140bcd553c3f9afd"
+    },
+    "CALC_PHP_overlay": {
+      "pending": false,
+      "source_commit": null,
+      "directory": "/pool/wrf-experiment/wrf-cpu/builds/current3582-one-bigstep-calc-php-simd-hpc02-r1",
+      "executable_sha256": "0a551d6e37764817e86ecb6b6307b2f8376e888e274576c11cc7349fe3cfd6cd",
+      "archive_sha256": "8592e6ccb762f18e81ec5abf693e4bd545898c14e66e96f5d83f8642cdf292bc",
+      "receipt_sha256": "fe7171ef25886557bc8129649a44421c38edf13cab1573db1b2863cf018c8653",
+      "closure_sha256": "4c2d77168c43fe32c8601d052cc7c3b9b8fb278f75ddde08ba37b7d874bba29b",
+      "ordered_proof_sha256": "a56f39263c9cbe8d29857e025ee24274df46c65cd4d770f31aa2225d025b237f",
+      "source_manifest_sha256": "894d3d52b323ba144dd09c8d680ce461e3be4234248965ab7ca9797bf03dcbc7",
+      "build_qualification_sha256": "0c332faf93de205c392f8a3ab17ba67e0bf97c7d0179da3b301cfe07600465ab",
+      "object_sha256": "271644d493078964eca5b2316556b5db2e59d55a1052398c3a67e5ddfff87a45",
+      "canonical_source_sha256": "92ec84f6aab80afce2b0f3eddad0963a83d5bfe1ac4d4306a81d6d5022e6b650",
+      "preprocessed_sha256": "d32108b8ad34bb13c1fbbeb144590826bb692cee80d3bdf8f50f245884559966",
+      "module_interface_sha256": "01702a275cfaa6e411f3b53342033027a3beca789ccd80a7b2e1becf3f43e7ee",
+      "parent_executable_sha256": "3582f4177c3559c11a515fc4616bfb772168269b31e464ab69c8c64c64223b05",
+      "parent_archive_sha256": "15b2dc275bfe33a42b771cc8c2f977aa87258352f36fdc51badf41e99b723b83",
+      "native_qualification_sha256": "31eb71c4aaded84ef3eeca1abb6f112d6500fa276882b76ff430b58ee4155f22",
+      "caller_qualification_sha256": "9d96e113b49b86885da9369e9d564fed7ec1d9a0794574e76792b09675043315",
+      "expected_worker_status": "BUILT_CURRENT_3582_ONE_BIGSTEP_CALC_PHP_SIMD_PENDING_APPLICATION"
+    },
+    "BC_PACKED_COPY_overlay": {
+      "pending": false,
+      "source_commit": null,
+      "directory": "/pool/wrf-experiment/wrf-cpu/builds/current0a551-one-bc-packed-copy-hpc02-r1",
+      "executable_sha256": "f4b3c348c12c4863a869a7f9da0ede6516406989758e7a320fb6042ba5ee55c8",
+      "archive_sha256": "a43a8357752c00966880e39951d9bd8036d30a480a2468b98a9673b77b28c7f2",
+      "receipt_sha256": "d8b6000d5b3005dda07200b6ad5bec43cd4cd2ea7823dda71c7ee1e0bc864eaa",
+      "closure_sha256": "d150bab106a88bfc3a4c86efe4c37626e0699c259af58109f6c97bbb1eddcf2b",
+      "ordered_proof_sha256": "50bf4d767c2b4d362fa8e9da14bab489c2405feb678f711864b79fac1886be6f",
+      "source_manifest_sha256": "694a47f13b5b363493d2470ba8a77ace2865e284e231008aba938a32fdb6ff9a",
+      "build_qualification_sha256": "8240db8fab778120148cb21b7d087d85a3480953fc091747d2b48ddaf360e364",
+      "object_sha256": "adde8c7bac270eeecbdace96492e76cc7c81802cb35e250ae9f38ea04697ff83",
+      "canonical_source_sha256": "053f90bf4c0220b8bfde1397304fa7b5512678361132159e34bc9515a49c802f",
+      "preprocessed_sha256": "d88186e27379e2750f5e193a8edcd941ed5a8533d3df521e49060140cfd6ce91",
+      "module_interface_sha256": "3bab4d814d238e5c79b7623dddee943341ccee88bb7e548afe12500128964336",
+      "parent_executable_sha256": "0a551d6e37764817e86ecb6b6307b2f8376e888e274576c11cc7349fe3cfd6cd",
+      "parent_archive_sha256": "8592e6ccb762f18e81ec5abf693e4bd545898c14e66e96f5d83f8642cdf292bc",
+      "native_qualification_sha256": "26acbcb061570c2d45242bca5792d2a4fb295793b496183c223617f3edf378a4",
+      "caller_qualification_sha256": "111ec80bb3cb1c3439995c65399e9332cfda1a653ba6ec0a1b2182974dc0f3cf",
+      "module_local_compile_flag": "-fopenmp-simd",
+      "expected_worker_status": "BUILT_CURRENT_0A551_ONE_BC_PACKED_COPY_PENDING_COMBINED_APPLICATION"
+    },
+    "CALC_BC_SOURCE_REPRODUCTION": {
+      "recipe": "tools/cpu-compute/calc-php-bc-simd/source-rebuild/README.md",
+      "qualification_sha256": "9e062f994e4f95be1d0863440c83bb66ee92e86f595ad1c3e12faa37533edb7e",
+      "reproduced_executable_application_qualified": false
     }
   },
-  "qualification_file": "../cpu-output/quilt512/codec/private-fast-distance-range/APPLICATION_QUALIFICATION.json",
+  "qualification_file": "tools/cpu-compute/calc-php-bc-simd/APPLICATION_QUALIFICATION.json",
   "PD_real32_equivalence_file": "../cpu-compute/pd-row-workspace/QUALIFICATION.json",
   "PD_production_member_sha256": "8ec77f864716667aa79d40878fa11276f7dede4017c620201e54f9f83bb32b25",
   "PD_repaired_compile_object_sha256": "e5245eed1f84a67ea9d428bed8d8b2529f568ca49394f9cf8b85d97bdc50f560",
   "PD_equivalence_proof_sha256": "92abf53cb516e4394f2ce232ad81fb4985ea7b1f849310927e54aa4a2b1017cc",
-  "build_scope": "Selected3582/15b2 plus privateFASTdistance9371, output51a/input06dNCa32/faba/twoTiles unchanged. Actualoriginalshort2/35/full512/twopositivewriters/16markers/all32FV1; ownshortTRUE, own3h9hFALSE. Prior3582/e1d8 threehour remains historical, not transferred.",
+  "build_scope": "Qualified GNU13.3 canonical two-source compilation and ordinary overlay link. Explicit module-local BC -fopenmp-simd, calc prior strict SIMD flags unchanged. Frozen f4b actual combined3h tested; source-reproduction3db1 is semantic member evidence only, no application transfer.",
   "runtime": {
     "WRF_EXPERIMENTAL_TPI_NUMA": 1,
-    "other_settings": "Current3582/15b2+51a/9371/HDF825/faba/FIELDVIEW1/shared1/singleIB/rootinput06dNCa32; ownshortonly."
+    "other_settings": "Current f4b/a43 +9371/51a/root06dNCa32/HDF825/faba/twoTiles/singleIB; own3h TRUE, own short/9h FALSE. All prior selected improvements retained. Production/master untouched."
   },
-  "previous_binding": "PREVIOUS_CURRENT_SOURCE_BUILD_BINDING_BEFORE_PRIVATE_FAST_DISTANCE_CODEC.json",
+  "previous_binding": "PREVIOUS_CURRENT_SOURCE_BUILD_BINDING_BEFORE_CALC_PHP_BC_SIMD.json",
   "native": {
     "CQU": {
       "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-cqu-first-species-peel-r1/NATIVE_QUALIFICATION.json",
@@ -233,7 +281,9 @@
     "FINISH_NONFINAL_T": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-finish-nonfinal-t-simd/NATIVE_QUALIFICATION.json",
       "sha256": "f999cc555c94b28819046cc5afa288a27afb37e458d560fe83aade92cd31388d"
-    }
+    },
+    "calc_php": "tools/cpu-compute/calc-php-bc-simd/CALC_NATIVE_QUALIFICATION.json",
+    "bc_copy": "tools/cpu-compute/calc-php-bc-simd/BC_NATIVE_QUALIFICATION.json"
   },
   "current_nine_hour_qualified": false,
   "previous_nine_hour_qualification": {
@@ -241,10 +291,10 @@
     "sha256": "f38a865905d030be42ac0a965b4aa6afbc0eae280902a3839f20df176457f445"
   },
   "full_application": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-output/quilt512/codec/private-fast-distance-range/APPLICATION_QUALIFICATION.json",
-    "sha256": "d24b2482603158d771261c34f8a60064cbc495ecf48e43b978381f3ae8e4a82e"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/calc-php-bc-simd/APPLICATION_QUALIFICATION.json",
+    "sha256": "177c1a6d4facce38ea6e17234446e028e4c52facb382570be5c73b2bd25c49a0"
   },
-  "current_three_hour_qualified": false,
+  "current_three_hour_qualified": true,
   "prior_repaired_full_application": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/myj-mixlen-scratch-reuse/APPLICATION_QUALIFICATION.json",
     "sha256": "55e2170cfc4f695e2eb7124cb4dec541954a9db290979ed2423252a4b117eb2f"
@@ -354,16 +404,15 @@
   },
   "POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
-    "source_commit": "ee2fdac7776484fbe30bb95a8702f03808d0c5d6",
+    "source_commit": "595672962ad081e5c1f0190aeb8c919f709029b1",
     "raw_build_producer_source_commit": null,
-    "canonical_source": "dyn_em/module_small_step_em.F",
-    "canonical_source_sha256": "02355516086fa17a8bcc358042636308c9701fd9c38b2d53f9645802d41ec1d6",
-    "preprocessed_candidate_sha256": "5a8533523e59b7adecb763562fd6e81f9acfae3af7b488418e7426b99bac5c4f",
-    "object_sha256": "94fbcb5454ecf2666217303bde77a4249094833a2c1f6ab3a7eb0493d456b43b",
-    "module_interface_sha256": "d50c501497b927ad56b9bb3b7cb9431c827b8092cedf23e83d8f573ccb884b94",
-    "executable_sha256": "3582f4177c3559c11a515fc4616bfb772168269b31e464ab69c8c64c64223b05",
-    "archive_sha256": "15b2dc275bfe33a42b771cc8c2f977aa87258352f36fdc51badf41e99b723b83",
-    "scope": "One nonfinal FINISH-T pragma over qualified FINISH-U528f, installed only after actual144native/fullcaller/canonicalCPP/onelink/original4/545SCI. RawproducerNULL; parentFshort/E3long stayhistorical."
+    "sources": {
+      "dyn_em/module_big_step_utilities_em.F": "92ec84f6aab80afce2b0f3eddad0963a83d5bfe1ac4d4306a81d6d5022e6b650",
+      "share/module_bc.F": "053f90bf4c0220b8bfde1397304fa7b5512678361132159e34bc9515a49c802f"
+    },
+    "executable_sha256": "f4b3c348c12c4863a869a7f9da0ede6516406989758e7a320fb6042ba5ee55c8",
+    "archive_sha256": "a43a8357752c00966880e39951d9bd8036d30a480a2468b98a9673b77b28c7f2",
+    "scope": "Source-only commit after actual f4b combined original4/545 science. Raw build producer identities remain NULL. Source-backed rebuild3db1 has semantic member proofs, but has no own application qualification."
   },
   "previous_mcica_full_application": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/mcica-mask-fusion/APPLICATION_QUALIFICATION.json",
@@ -728,7 +777,7 @@
   "candidate_memory_actual": {
     "hpc01": {
       "limit_bytes": 107374182400,
-      "peak_bytes": 63018332160,
+      "peak_bytes": 63014166528,
       "events": {
         "low": 0,
         "high": 0,
@@ -740,7 +789,7 @@
     },
     "hpc02": {
       "limit_bytes": 107374182400,
-      "peak_bytes": 60720418816,
+      "peak_bytes": 60735942656,
       "events": {
         "low": 0,
         "high": 0,
@@ -752,7 +801,7 @@
     },
     "hpc03": {
       "limit_bytes": 107374182400,
-      "peak_bytes": 60684541952,
+      "peak_bytes": 60679491584,
       "events": {
         "low": 0,
         "high": 0,
@@ -764,7 +813,7 @@
     },
     "hpc04": {
       "limit_bytes": 111669149696,
-      "peak_bytes": 60667478016,
+      "peak_bytes": 60660391936,
       "events": {
         "low": 0,
         "high": 0,
@@ -793,7 +842,7 @@
     "archive_sha256": "dd329f8d0aa126c8475dbb690d0d8571af34b63d20fac48da7c207a1001c934f",
     "scope": "One CU-loop directive only, committed after native/caller/canonical-preprocess/link/original3hSCI. Frozen rawproducerNULL unchanged; no isolated forecast or own9h claim."
   },
-  "current_short_qualified": true,
+  "current_short_qualified": false,
   "previous_PBL_PART2_POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
     "source_commit": "61c2b67e086360442b07a83090df5712b7905d8f",
@@ -882,7 +931,10 @@
     "repeatability_established": false,
     "scope": "Historical RQVFTENee66/source31ca before RQVBLTEN. Actual4products545/full512 exact,660.3921359390952s MPIwall; candidate-only UNPAIRED descriptive metrics. Does not qualify child2bd1. Existing THREE_HOUR_RESULT/Q bytes and hashes unchanged."
   },
-  "current_three_hour_qualification": null,
+  "current_three_hour_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/calc-php-bc-simd/APPLICATION_QUALIFICATION.json",
+    "sha256": "177c1a6d4facce38ea6e17234446e028e4c52facb382570be5c73b2bd25c49a0"
+  },
   "previous_RTH_short_full_application": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/phy-prep-part2-rthraten-simd/APPLICATION_QUALIFICATION.json",
     "sha256": "d5c058a57745ea1aa65df469cbbae0e2931a1f7b13c61ef130e47f051b53d117"
@@ -936,30 +988,26 @@
     "scope": "Exact4products545/full512/twoTiles/all32markers/fourpositivewriters; all8models+reader normally closed. Includes all current promotions; no isolated directive or concurrent-throughput claim."
   },
   "science": {
-    "products": 2,
-    "ordered_steps": 35,
-    "last_step": "2026-10-12_06:10:00",
+    "products": 4,
+    "ordered_steps": 545,
+    "last_step": "2026-10-12_09:00:00",
     "world": 512,
     "compute": 480,
     "quilt": 32,
     "tiles": 2,
     "positive_writer_roots": [
       487,
-      495
-    ],
-    "zero_activity_writer_roots": [
+      495,
       503,
       511
     ],
-    "actual_field_markers": 16,
+    "zero_activity_writer_roots": [],
+    "actual_field_markers": 32,
     "all32_quilt_FIELDVIEW1": true,
     "protected_compare_one_AST_unchanged": true,
     "original_comparisons_all_pass": true,
-    "status": "PASS_RETAINED_ORIGINAL_TWO_HISTORY_35_STEPS_512_OWNED_FIELD_VIEW",
-    "receipt_sha256": "47b645a5f45ced6f98d9af46926d6fbcee58788d21b6a458a983728c353d10b2",
-    "reader_closure_sha256": "33d5311069817c89cb659954916ae385ae2a72a6b20611e358c006573a8e6b30",
-    "invocation_id": "e01d8903c5824d7d846f2006a6f8f5bc",
-    "all_model_reader_scopes_closed": true
+    "all_model_reader_scopes_closed": true,
+    "qualification_sha256": "177c1a6d4facce38ea6e17234446e028e4c52facb382570be5c73b2bd25c49a0"
   },
   "Thompson_freeze_split_contract": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/uvb-batch/evidence/B_PRODUCTION_ARTIFACT_CONTRACT.json",
@@ -971,7 +1019,7 @@
     "physical_memory_reduction_causally_qualified": false
   },
   "current_nine_hour_qualification": null,
-  "current_application_qualification_file": "tools/cpu-output/quilt512/codec/private-fast-distance-range/APPLICATION_QUALIFICATION.json",
+  "current_application_qualification_file": "tools/cpu-compute/calc-php-bc-simd/APPLICATION_QUALIFICATION.json",
   "previous_E3_POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
     "source_commit": "1ae0c6ee9cd1b5c238a57cf25409c18d380faaed",
@@ -1108,7 +1156,7 @@
     "repeatability_established": false,
     "scope": "Exact4products545/full512/twoTiles/all4positivewriters/all32markers; main-step sum is elapsed not integrationCPU; no isolated/additive/pureIO/memorycausality claim."
   },
-  "scope": "Selected3582/15b2 plus privateFASTdistance9371, output51a/input06dNCa32/faba/twoTiles unchanged. Actualoriginalshort2/35/full512/twopositivewriters/16markers/all32FV1; ownshortTRUE, own3h9hFALSE. Prior3582/e1d8 threehour remains historical, not transferred.",
+  "scope": "Current f4b/a43 +9371/51a/root06dNCa32/HDF825/faba/twoTiles/singleIB; own3h TRUE, own short/9h FALSE. All prior selected improvements retained. Production/master untouched.",
   "previous_3582_e1d8_science": {
     "products": 4,
     "ordered_steps": 545,
@@ -1190,5 +1238,142 @@
       "scope": "UNPAIRED retainedoriginal2aef vs actual3582/15b2,4products545/512/twoTiles/fourwriters32markers. WholeMPIwall/aggregateprocessCPU/main-stepelapsed separate; no isolated kernel/additive/throughput/forecastrepeatability claim."
     },
     "codec_sha256": "e1d8bc0774b7c54b4b63e7d6892c6485bec9b3c7032985a229961ba0569cc450"
-  }
+  },
+  "previous_3582_9371_selection_facts": {
+    "POST_TEST_SOURCE_IDENTITY": {
+      "status": "POST_TEST_SOURCE_IDENTITY",
+      "source_commit": "ee2fdac7776484fbe30bb95a8702f03808d0c5d6",
+      "raw_build_producer_source_commit": null,
+      "canonical_source": "dyn_em/module_small_step_em.F",
+      "canonical_source_sha256": "02355516086fa17a8bcc358042636308c9701fd9c38b2d53f9645802d41ec1d6",
+      "preprocessed_candidate_sha256": "5a8533523e59b7adecb763562fd6e81f9acfae3af7b488418e7426b99bac5c4f",
+      "object_sha256": "94fbcb5454ecf2666217303bde77a4249094833a2c1f6ab3a7eb0493d456b43b",
+      "module_interface_sha256": "d50c501497b927ad56b9bb3b7cb9431c827b8092cedf23e83d8f573ccb884b94",
+      "executable_sha256": "3582f4177c3559c11a515fc4616bfb772168269b31e464ab69c8c64c64223b05",
+      "archive_sha256": "15b2dc275bfe33a42b771cc8c2f977aa87258352f36fdc51badf41e99b723b83",
+      "scope": "One nonfinal FINISH-T pragma over qualified FINISH-U528f, installed only after actual144native/fullcaller/canonicalCPP/onelink/original4/545SCI. RawproducerNULL; parentFshort/E3long stayhistorical."
+    },
+    "science": {
+      "products": 2,
+      "ordered_steps": 35,
+      "last_step": "2026-10-12_06:10:00",
+      "world": 512,
+      "compute": 480,
+      "quilt": 32,
+      "tiles": 2,
+      "positive_writer_roots": [
+        487,
+        495
+      ],
+      "zero_activity_writer_roots": [
+        503,
+        511
+      ],
+      "actual_field_markers": 16,
+      "all32_quilt_FIELDVIEW1": true,
+      "protected_compare_one_AST_unchanged": true,
+      "original_comparisons_all_pass": true,
+      "status": "PASS_RETAINED_ORIGINAL_TWO_HISTORY_35_STEPS_512_OWNED_FIELD_VIEW",
+      "receipt_sha256": "47b645a5f45ced6f98d9af46926d6fbcee58788d21b6a458a983728c353d10b2",
+      "reader_closure_sha256": "33d5311069817c89cb659954916ae385ae2a72a6b20611e358c006573a8e6b30",
+      "invocation_id": "e01d8903c5824d7d846f2006a6f8f5bc",
+      "all_model_reader_scopes_closed": true
+    },
+    "scope": "Selected3582/15b2 plus privateFASTdistance9371, output51a/input06dNCa32/faba/twoTiles unchanged. Actualoriginalshort2/35/full512/twopositivewriters/16markers/all32FV1; ownshortTRUE, own3h9hFALSE. Prior3582/e1d8 threehour remains historical, not transferred.",
+    "full_application": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-output/quilt512/codec/private-fast-distance-range/APPLICATION_QUALIFICATION.json",
+      "sha256": "d24b2482603158d771261c34f8a60064cbc495ecf48e43b978381f3ae8e4a82e"
+    },
+    "current_three_hour_qualification": null,
+    "candidate_memory_actual": {
+      "hpc01": {
+        "limit_bytes": 107374182400,
+        "peak_bytes": 63018332160,
+        "events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        }
+      },
+      "hpc02": {
+        "limit_bytes": 107374182400,
+        "peak_bytes": 60720418816,
+        "events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        }
+      },
+      "hpc03": {
+        "limit_bytes": 107374182400,
+        "peak_bytes": 60684541952,
+        "events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        }
+      },
+      "hpc04": {
+        "limit_bytes": 111669149696,
+        "peak_bytes": 60667478016,
+        "events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        }
+      }
+    },
+    "qualification_file": "../cpu-output/quilt512/codec/private-fast-distance-range/APPLICATION_QUALIFICATION.json"
+  },
+  "current_application_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/calc-php-bc-simd/APPLICATION_QUALIFICATION.json",
+    "sha256": "177c1a6d4facce38ea6e17234446e028e4c52facb382570be5c73b2bd25c49a0"
+  },
+  "last_three_hour_benchmark": {
+    "qualification_file": "tools/cpu-compute/calc-php-bc-simd/APPLICATION_QUALIFICATION.json",
+    "qualification_sha256": "177c1a6d4facce38ea6e17234446e028e4c52facb382570be5c73b2bd25c49a0",
+    "executable": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current0a551-one-bc-packed-copy-hpc02-r1/wrf.exe",
+      "sha256": "f4b3c348c12c4863a869a7f9da0ede6516406989758e7a320fb6042ba5ee55c8"
+    },
+    "archive_sha256": "a43a8357752c00966880e39951d9bd8036d30a480a2468b98a9673b77b28c7f2",
+    "source_commit": "595672962ad081e5c1f0190aeb8c919f709029b1",
+    "comparison_design": "UNPAIRED candidate-only currentall+calc_php+BCpackedcopy versus retained fresh corrected-original2aef reference; no isolated or additive candidate attribution",
+    "metrics": {
+      "control": {
+        "wall_seconds": 819.2783056409098,
+        "cpu_seconds": 367612.40525099996,
+        "main_step_sum_seconds": 597.23996
+      },
+      "candidate": {
+        "wall_seconds": 661.0404487038031,
+        "cpu_seconds": 320470.901248,
+        "main_step_sum_seconds": 558.88537
+      }
+    },
+    "reductions_percent": {
+      "wall_seconds": 19.314298431632395,
+      "cpu_seconds": 12.823697821299717,
+      "main_step_sum_seconds": 6.421973171386597
+    },
+    "wall_speedup_ratio": 1.239376965883686,
+    "fresh_matched_timing": false,
+    "applies_to_current_selection": true,
+    "repeatability_established": false,
+    "scope": "Unpaired candidate-only unprofiled original3h comparison to retained corrected original2aef. Whole wall includes I/O/final drain; main-step sum is elapsed with communication/backpressure, not integration CPU. No component/additive contribution or sustained9h claim."
+  },
+  "claim_limits": "Unpaired candidate-only unprofiled original3h comparison to retained corrected original2aef. Whole wall includes I/O/final drain; main-step sum is elapsed with communication/backpressure, not integration CPU. No component/additive contribution or sustained9h claim.",
+  "source_commit_scope": "POST_TEST source-only identity; raw producer NULL preserved."
 }

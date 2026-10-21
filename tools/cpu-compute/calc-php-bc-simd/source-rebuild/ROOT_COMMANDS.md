@@ -1,0 +1,5 @@
+Inactive source-backed reproduction; root review/activation required. No test/model execution or cache clearing. Host02 CPU24–25/8GiB/swap0/600s. Root changes only two recipe readiness flags, refreshes manifest, then:
+
+python3 /home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-set-physical-bc3d-source-triage-r1/source-promotion-preparation-r1/source-build-r1/controller.py --execute-after-root-release --expected-pins-sha256 <actual-active-manifest-sha256>
+
+Creates fresh current3582-calc-bc-source-reproduction-hpc02-r1 output. Rebuilds both actual canonical candidates (two module compiles) using exact qualified GNU13 flags and dependencies; only new BC module adds -fopenmp-simd, calc keeps its existing qualified -fopenmp-simd recipe. Exact PP/MOD and allocated/relocation/non-file-symbol comparison hard against actual qualified objects; no normalization. Replaces slots116/559 from current3582 archive15b2, preserves582 other ordered members and all link dependencies, one ordinary link. Does not run produced model or claim application PASS. Failed receipts retained, no retries.

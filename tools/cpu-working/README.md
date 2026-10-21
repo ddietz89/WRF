@@ -1,8 +1,24 @@
-## Current working selection (October 20, 2026, EDT)
+# Current working configuration — October 21, 2026
+
+The working configuration selects the **actual three-hour-tested f4b executable / a43 archive**, with all prior improvements, codec9371, output51a, root-only input06d/NCa32, HDF825, two tiles and the existing single InfiniBand rail. Production and master are unchanged.
+
+The unchanged original checker passed four complete products and 545 ordered steps, all512 ranks, all four positive output writers, 32 markers and exact metadata/layout. All model and reader jobs closed normally. The actual candidate-only unprofiled run took **661.040449s whole model/MPI wall**, **558.885370s main-step elapsed** and **320470.901248 aggregate node CPU-s**. Against retained corrected-original2aef (819.278306s /597.239960s /367612.405251CPU-s), these are **19.31% /6.42% /12.82% lower**, respectively. This is **UNPAIRED**, without a fresh control or repeatability claim. Main-step elapsed includes communication/backpressure and is not integration CPU. File-server cache/load remain uncontrolled. No component gains are added or attributed from these totals. Own3h TRUE; separate ownshort and own9h FALSE. Single-run wall ratio1.239377x; concurrent throughput is unmeasured and the1.5x/2x goals are not met.
+
+Calc_php adds one independent-I SIMD directive while retaining scalar expression order. Its complete synthetic caller (including per-call output restoration) measured55.95–59.63% lower wall; 96 finite/IEEE cases and genuine module checks passed. Boundary-copy adds one independent-I directive with private `bc_source`; 672 exact cases passed, and its repeated complete synthetic caller measured70.08–73.33% lower wall. Those are caller gains, not forecast gains. The boundary module requires its **module-local `-fopenmp-simd`** flag in the qualified GNU13.3 recipe; generic builds lacking that flag are not performance-qualified. Existing global arithmetic flags remain unchanged. AOCC/Intel remain experimental, without new qualification here.
+
+[Application qualification](../cpu-compute/calc-php-bc-simd/APPLICATION_QUALIFICATION.json), [raw reference map](../cpu-compute/calc-php-bc-simd/APPLICATION_RAW_MAP.json), native/caller JSON records and [source-backed rebuild](../cpu-compute/calc-php-bc-simd/source-rebuild/README.md) retain evidence. The actual source-backed rebuild produced3db1 with exact allocated sections/relocations/non-file symbols for both members and preserved other582 members; **3db1 itself has no application qualification**. Frozen producer source identities remain null; [source identity](../cpu-compute/calc-php-bc-simd/POST_TEST_SOURCE_IDENTITY.json) records the later source-only commit separately.
+
+Rollback restores the three paired `BEFORE_CALC_PHP_BC_SIMD` working records and reverses [the two directives](../cpu-compute/calc-php-bc-simd/SOURCE_ONLY.diff), selecting previous3582/15b2 with the same9371 codec/output/input. Selection metadata is not a launcher. Use fresh leases, existing resource/worker/input/rank guards and checked cache clears before each timing arm.
+
+---
+
+The following sections are historical records. Their uses of “selected” or “current” refer to their own recorded builds and do not override the selection above.
+
+## Historical working selection (October 20, 2026, EDT)
 
 Selected **FINISH8bfe/archive6f44/sourcea92fc86b** retains all prior improvements and adds one exact-qualified U reconstruction SIMD directive. Original two-product/35-step/full512/two-tile science passed; complete FINISH caller wall fell8.24–11.81% in the bounded opposite-order tests. OwnshortTRUE; own3h/9hFALSE. The previous E3 long-run records below do not apply to this child. Output51a/codece1d8/input06dNCa32/faba/single-IB remain unchanged. [Evidence and paired rollback](../cpu-compute/smallstep-finish-u-simd/README.md).
 
-## Current combined selection (2026-10-21)
+## Historical combined selection (2026-10-21)
 
 The working fork now selects **e3da6907 / archive4f2a0cf0 / post-test source1ae0c6ee**. It retains all prior improvements and adds final-U velocity SIMD, Prep V coupling SIMD and split rain/cloud staging during Thompson initialization. The unchanged original checker passed all four complete products,545 ordered timesteps,512 ranks,two tiles,all four positive writer groups and all32 field markers. All model and reader jobs closed normally.
 
@@ -14,7 +30,7 @@ The working fork now selects **e3da6907 / archive4f2a0cf0 / post-test source1ae0
 
 This is **UNPAIRED**, using the actual retained fresh original2aef control; no new control was run. Both arms had checked client-cache clearing at their own execution. The candidate's actual clear-to-launch delay is retained after a pre-model launcher-reference repair. File-server cache/load remain uncontrolled. Main-step elapsed is not integration CPU; whole-minus-main is not pure I/O. These values establish no isolated candidate contribution, additive percentage, repeatability or nine-hour result. The observed single-forecast wall ratio is1.2380x; the1.5x throughput and2x speedup goals remain unmet, and concurrent-forecast throughput is unmeasured.
 
-### Current nine-hour qualification (2026-10-21)
+### Historical nine-hour qualification (2026-10-21)
 
 The same selected image passed the unchanged original comparison through 15:00: **ten complete products, 1,625 ordered timesteps, all 512 ranks, two tiles, all four positive writers and 32 field markers**. Every model and reader scope closed normally; no observer or profiler was active.
 
@@ -69,11 +85,11 @@ Whole wall includes input, initialization, compute, communication, output and fi
 Prior3edf nine-hour scientific scope (2026-10-20): then-selected41b/51a/3edf passed the unchanged original ten-product/1625-step checker, all512 ranks, two tiles, all four positive writers and all32 field markers; model and reader scopes strongly closed. The three actual noon captures contain700/704/710 samples with14.926s common overlap. This was a PROFILED_UNPAIRED diagnostic versus retained original546b:1833.850289s wall/922292.209006s aggregate CPU/1736.849780s main, descriptive differences11.378754%/8.617392%/6.194550%. These are not a fresh or sustained matched speedup. At that prior milestone, the matched unprofiled benchmark was the fresh three-hour pair19.469520% wall/12.887980% CPU/6.158380% main; the current LW+e1d8 pair is above. ProducerNULL and post-testb37/909 source tracking remain separate; Those prior measurements exclude block-carry. See [nine-hour qualification](NINE_HOUR_FINAL_QUALIFICATION.json).
 
 
-# Current output addition: private shuffle-scratch reuse (2026-10-20)
+# Historical output addition: private shuffle-scratch reuse (2026-10-20)
 
 Selected output51a/source909ab6ef is combined with WRF41b/sourceb37 and all earlier improvements. Native/fullshim/publicAPI and original2products35/all512/twoTiles/input/worker/closure checks passed. Provider37.26%/37.28% gains describe32steady **synthetic** W-shaped calls after excluded warm proof, with bounded225.72MB/writer retention; no isolated or overall forecast gain is claimed. [Evidence](../cpu-output/quilt512/private-shuffle-scratch-reuse/QUALIFICATION.json). The actual fresh combined three-hour result is now recorded above; current nine-hour SCI is separately qualified above. Rollback restores pairedBEFORE_PRIVATE_SHUFFLE_SCRATCH records tode5b, retaining41b/3edf/input.
 
-# Current working build: MYJPBL DIFCOF SIMD (2026-10-20)
+# Historical working build: MYJPBL DIFCOF SIMD (2026-10-20)
 
 Selected41b/sourceb37e adds the exact ordered DIFCOF SIMD directives to all prior improvements. Complete captured-caller wall fell2.38%/1.18% and processCPU2.44%/1.20% in opposite-order pairs. Original two products/35orderedsteps/all512/twoTiles/writer/input/runtime checks passed; all model/reader jobs closed. The application carried the ABI-qualified diagnostic write observer. The original short gate alone established no long-horizon gain; the current combined three-hour qualification is now above, with current nine-hour SCI separately qualified above. [Evidence](../cpu-compute/myj-difcof-simd/QUALIFICATION.json).
 

@@ -3557,3 +3557,55 @@ All three actual main-thread captures were checked early for target identity, pe
 This is an UNPAIRED instrumented diagnostic against a retained original, not an unprofiled benchmark or isolated gain. Main-step time is elapsed, not integrationCPU. Historical full-three-/nine-hour results retain their own configurations and scopes.
 
 The actual scalar `calc_php` main loop is the next finite source/codegen investigation. Its sampled MULSS is0.4111% of rank0 common-interval period; that is selected-rank opportunity context, not a forecast saving. Separately, the literal-cursor decoder removes five metadata reads but adds two loop-head stack stores. The original no-spill screen failed and remains unchanged; one same-candidate native/caller tradeoff test is authorized under the inclusion rule. Its first new fixture failed a parent-only coverage condition; original13corpora/five-stream comparisons passed before it. A fresh fixture-only repair preserves every predicate and the failed run. No candidate timing/default/forecast claim follows yet. AWS remains suspended; production/master stay unchanged. Continue the active Goal.
+
+
+## 2026-10-21: literal-cursor decoder trial closed
+
+The same fixed decoder candidate passed the original 13 corpora, five streaming cases, generic-fallback routing, genuine cursor boundary/reset checks, independent stock decoding and the complete four-thread provider's raw/readonly/five-state checks with 136 real create/join pairs. The first added boundary fixture failed to expose a match at a parent API return; its failure remains retained. A fixture-only zero-run repair exposed the required state on both arms without changing any predicate or candidate byte.
+
+One opposite-order complete-provider pair on each node found no worthwhile gain:
+
+| Host and order | Parent wall / process CPU | Candidate wall / process CPU | Candidate change |
+|---|---:|---:|---|
+| hpc01, parent first | 2.183627s / 6.728769s | 2.172152s / 6.791996s | wall 0.5255% lower; CPU 0.9397% higher |
+| hpc04, candidate first | 2.171522s / 6.740519s | 2.197545s / 6.802501s | wall 1.1984% higher; CPU 0.9195% higher |
+
+Reject this candidate. It removes five metadata reads but adds two unconditional loop-head stack stores; the original no-spill screen remains failed. The repeated CPU cost and absent significant caller gain support exclusion, without proving that the stack stores caused the cost. All four arms passed checked cache clearing and normal closure. The clock covers 32 complete synthetic W-shaped provider calls after an excluded warm proof, not cold allocation or WRF runtime. Qualification `825b3f53` binds 24 verified references. Selected codec9371 stays unchanged; no application run or source/default promotion is warranted.
+
+
+## 2026-10-21: geopotential calculation SIMD retained for integration
+
+The current daytime profile identified a scalar main I loop in `calc_php`, which averages four adjacent-level geopotential terms. One SIMD directive, with the existing strict module flags, now emits packed adds and multiplication while leaving the expression unchanged. The minimal complete-procedure screen passed 96 raw/readonly/extent/halo/five-state cases at O0 and O2, including four IEEE rounding modes and exceptional operand permutations. A first wrapper-name assertion failed before compilation and is retained separately; its finite repair changed only procedure-symbol matching.
+
+The genuine current wholemodule was then reproduced exactly in allocated bytes, relocations and symbols. Rebuilt parent and candidate retained the public module interface; all 96 cases matched the genuine current object and the earlier procedure screen. The candidate has no fast-math, reciprocal, FMA or new ISA flag. Native qualification `31eb71c4` and caller qualification `9d96e113` keep this separate from the unrelated PART2 caller.
+
+| Complete calculation caller | Parent wall / process CPU | Candidate wall / process CPU | Reduction, wall / CPU |
+|---|---:|---:|---:|
+| hpc01, parent first | 0.443401s / 0.443439s | 0.178999s / 0.179028s | 59.6306% / 59.6273% |
+| hpc04, candidate first | 0.409656s / 0.409691s | 0.180461s / 0.180488s | 55.9480% / 55.9453% |
+
+Each arm performs 4096 complete calls on a finite 188×19×32 field, with output restoration inside both clocks. Allocation, input construction, warm proof and full raw/state/readonly/halo checks remain outside. Both arms preserve identical final raw gold; checked cache clearing, positive closure, zero memory-limit events and zero throttling were verified. These are complete-caller gains on one representative geometry, not whole-WRF savings or repeatability evidence.
+
+Retain for integration under the standing inclusion rule. The actual overlay replaces one BigStep archive member and preserves the other 583, with zero WRF source compiles and one link. Executable `0a551d6e` and archive `8592e6cc` are built, but application qualification and default/source promotion remain pending. The next periodic three-hour comparison will use the unchanged original four-product/545-step checker and the retained corrected-original reference; its timing is explicitly unpaired. Selected configuration remains `3582/9371` until that application passes.
+
+
+## 2026-10-21: boundary-copy SIMD retained for combined application
+
+The current open-ys boundary copy already loads once and stores three halos; that earlier reuse is not a new gain. One SIMD directive with private bc_source, plus explicit module-local fopenmp-simd, now lowers the independent I loop to one packed load and three packed stores. The flag-only rebuilt parent is allocated-code exact to the original; public MOD/ABI stay unchanged. All 672 native whole-field/five-state cases passed for genuine current, flag-only and packed objects, including the prior boundary widths and halos. Current child object adde8c7b, native qualification26acbcb0.
+
+Complete synthetic set_physical_bc3d callers (188I×32K, open_ys/t,262144 calls, no per-call restore) were 73.3334% shorter wall/73.3333% less processCPU on hpc01 and70.0828%/70.0867% on hpc04 in opposite orders. Individual parent→child wall/CPU seconds:01 1.464642078/1.464520960→0.390570446/0.390538743;04 1.426413564/1.426337521→0.426742896/0.426664569. Warmup/reset/raw/whole-field/five-state guards are outside clocks; cache clears preceded every arm and all four scopes closed normally. Root caught and corrected inherited controller-host routing before any job/cache ran; original bytes and diff are retained. This is a resident synthetic caller gain, not captured-science, forecast or repeatability evidence.
+
+Retain for integration with calc_php SIMD and all previous selected improvements. Original exact full-grid application qualification is pending; source/defaults remain unchanged. Rollback is the single directive removal and module-local flag restoration, returning to selected byte-exact parent. Significant caller gains are not added to one another or to forecast percentages. Production/master remain unchanged and AWS suspended.
+
+
+## Combined calc_php + boundary-copy SIMD promoted (2026-10-21)
+
+The working configuration selects the **actual three-hour-tested f4b executable / a43 archive**, with all prior improvements, codec9371, output51a, root-only input06d/NCa32, HDF825, two tiles and the existing single InfiniBand rail. Production and master are unchanged.
+
+The unchanged original checker passed four complete products and 545 ordered steps, all512 ranks, all four positive output writers, 32 markers and exact metadata/layout. All model and reader jobs closed normally. The actual candidate-only unprofiled run took **661.040449s whole model/MPI wall**, **558.885370s main-step elapsed** and **320470.901248 aggregate node CPU-s**. Against retained corrected-original2aef (819.278306s /597.239960s /367612.405251CPU-s), these are **19.31% /6.42% /12.82% lower**, respectively. This is **UNPAIRED**, without a fresh control or repeatability claim. Main-step elapsed includes communication/backpressure and is not integration CPU. File-server cache/load remain uncontrolled. No component gains are added or attributed from these totals. Own3h TRUE; separate ownshort and own9h FALSE. Single-run wall ratio1.239377x; concurrent throughput is unmeasured and the1.5x/2x goals are not met.
+
+Calc_php adds one independent-I SIMD directive while retaining scalar expression order. Its complete synthetic caller (including per-call output restoration) measured55.95–59.63% lower wall; 96 finite/IEEE cases and genuine module checks passed. Boundary-copy adds one independent-I directive with private `bc_source`; 672 exact cases passed, and its repeated complete synthetic caller measured70.08–73.33% lower wall. Those are caller gains, not forecast gains. The boundary module requires its **module-local `-fopenmp-simd`** flag in the qualified GNU13.3 recipe; generic builds lacking that flag are not performance-qualified. Existing global arithmetic flags remain unchanged. AOCC/Intel remain experimental, without new qualification here.
+
+[Application qualification](tools/cpu-compute/calc-php-bc-simd/APPLICATION_QUALIFICATION.json), [raw reference map](tools/cpu-compute/calc-php-bc-simd/APPLICATION_RAW_MAP.json), native/caller JSON records and [source-backed rebuild](tools/cpu-compute/calc-php-bc-simd/source-rebuild/README.md) retain evidence. The actual source-backed rebuild produced3db1 with exact allocated sections/relocations/non-file symbols for both members and preserved other582 members; **3db1 itself has no application qualification**. Frozen producer source identities remain null; [source identity](tools/cpu-compute/calc-php-bc-simd/POST_TEST_SOURCE_IDENTITY.json) records the later source-only commit separately.
+
+Rollback restores the three paired `BEFORE_CALC_PHP_BC_SIMD` working records and reverses [the two directives](tools/cpu-compute/calc-php-bc-simd/SOURCE_ONLY.diff), selecting previous3582/15b2 with the same9371 codec/output/input. Selection metadata is not a launcher. Use fresh leases, existing resource/worker/input/rank guards and checked cache clears before each timing arm.

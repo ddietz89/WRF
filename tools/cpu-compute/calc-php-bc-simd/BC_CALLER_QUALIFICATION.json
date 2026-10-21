@@ -1,0 +1,93 @@
+{
+  "status": "PASS_EXACT_CURRENT_COMPLETE_SYNTHETIC_BC_CALLER_RETAIN_FOR_APPLICATION",
+  "created_utc": "2026-10-21T04:46:17.364159+00:00",
+  "raw_arms": [
+    {
+      "host": "hpc01",
+      "which": 1,
+      "wall_seconds": 1.464642078,
+      "cpu_seconds": 1.46452096,
+      "calls": 262144,
+      "output_sha256": "ba75bf678057f264aeaed2d95cf9165f779c4accf8a924d3d5b86ab1c08e5930",
+      "invocation_id": "dc22b6005e3a40f88c4be7570c096b81",
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "cpu_stat": "usage_usec 1913181\nuser_usec 1633008\nsystem_usec 280172\ncore_sched.force_idle_usec 0\nnr_periods 39\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n"
+    },
+    {
+      "host": "hpc01",
+      "which": 2,
+      "wall_seconds": 0.390570446,
+      "cpu_seconds": 0.390538743,
+      "calls": 262144,
+      "output_sha256": "ba75bf678057f264aeaed2d95cf9165f779c4accf8a924d3d5b86ab1c08e5930",
+      "invocation_id": "46998f0728cd4b2fb391ddf90d815158",
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "cpu_stat": "usage_usec 706304\nuser_usec 522267\nsystem_usec 184037\ncore_sched.force_idle_usec 0\nnr_periods 8\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n"
+    },
+    {
+      "host": "hpc04",
+      "which": 2,
+      "wall_seconds": 0.426742896,
+      "cpu_seconds": 0.426664569,
+      "calls": 262144,
+      "output_sha256": "ba75bf678057f264aeaed2d95cf9165f779c4accf8a924d3d5b86ab1c08e5930",
+      "invocation_id": "ee990f9bae95427985bfc23c431976d1",
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "cpu_stat": "usage_usec 916628\nuser_usec 595708\nsystem_usec 320920\ncore_sched.force_idle_usec 0\nnr_periods 38\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n"
+    },
+    {
+      "host": "hpc04",
+      "which": 1,
+      "wall_seconds": 1.426413564,
+      "cpu_seconds": 1.426337521,
+      "calls": 262144,
+      "output_sha256": "ba75bf678057f264aeaed2d95cf9165f779c4accf8a924d3d5b86ab1c08e5930",
+      "invocation_id": "9dd2c7642232472e95e209e3cb90033e",
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "cpu_stat": "usage_usec 1753381\nuser_usec 1562468\nsystem_usec 190912\ncore_sched.force_idle_usec 0\nnr_periods 19\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n"
+    }
+  ],
+  "pairs": [
+    {
+      "host": "hpc01",
+      "parent_arm": 0,
+      "candidate_arm": 1,
+      "wall_reduction_percent": 73.33338623362971,
+      "process_cpu_reduction_percent": 73.33334560128111
+    },
+    {
+      "host": "hpc04",
+      "parent_arm": 3,
+      "candidate_arm": 2,
+      "wall_reduction_percent": 70.08280720471332,
+      "process_cpu_reduction_percent": 70.0867036926248
+    }
+  ],
+  "scope": "262144 complete set_physical_bc3d calls,188Ix32K/open_ys/t,resident repeated routine; two warmups/reset/wholefield/state/rawoutside clocks. No captured scientific caller, forecast or global percent claim. One opposite-order pair/node; no repeatability claim. Module-local fopenmp-simd explicitly qualified; flag-only parent allocated-code exact. Rootcaughtandfixed inheritedhost routing BEFOREjobs, originalbeforebytes retained.",
+  "source_promotion": false,
+  "default_selection_changed": false,
+  "application_qualification_pending": true,
+  "evidence": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-set-physical-bc3d-source-triage-r1/NATIVE_QUALIFICATION.json": "26acbcb061570c2d45242bca5792d2a4fb295793b496183c223617f3edf378a4",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-set-physical-bc3d-source-triage-r1/caller-timing-preparation-r1/CONTROLLER_HOST_REPAIR.json": "6b40de2190a88221f8f2a14022b52edb908749ad109f7e0183d50c53b902934d",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-set-physical-bc3d-source-triage-r1/caller-timing-preparation-r1/CONTROLLER_HOST_ONLY.diff": "3dc73d6e0aa82365da6afd610adf3747b6a8adafdfe4866132ba32b388b26a05",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-set-physical-bc3d-source-triage-r1/caller-timing-preparation-r1/timing-r1/ACTIVE_PINS.json": "6e928ea15880a51ef7295c3d2e4483fd533ea813d2b263fc9f6cab9b9dd9be70",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-set-physical-bc3d-source-triage-r1/caller-timing-preparation-r1/timing-r1/ACTUAL_WAVE.json": "e3390bfbc99204f49fe7c092dc543b89de7f9e6cc814567349b41b3bd66d9b8d",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-set-physical-bc3d-source-triage-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/receipt.json": "607d3bdb2ba70606c18bafcda793e74cf453e23966f850703672ed0d6be47641",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-set-physical-bc3d-source-triage-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/closure.json": "3d08c930184100716e3079dd333a87b55ddab918302d288acdc9011a97c0a7e2",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-set-physical-bc3d-source-triage-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/cache-clear.json": "2bb751016e8ebd8fbf8ae7b2066f5d6fd0c0f125ba85117674a3b60ad030fabe",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-set-physical-bc3d-source-triage-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/controller.json": "f4c73e71fe9f2b6669dd9e26e0dac63a17d1aa7f8ca9cef0753852819fde9d8f",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-set-physical-bc3d-source-triage-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/receipt.json": "71ebb81af21648de008347bd82bbec5a519807181195d005154f15a5fba9805f",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-set-physical-bc3d-source-triage-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/closure.json": "8b7a7a4e8170cc310ad31da34387f849420069c329b594dac4bbb3157fa76462",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-set-physical-bc3d-source-triage-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/cache-clear.json": "2ded2a1586dd266e0adb1e323a438afdc0c117fcfa2d5d785432d065ea02cfe7",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-set-physical-bc3d-source-triage-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/controller.json": "3c3bd15c7285bab43581c6ae4db5510c94c60445bd932eacfebe51681d0e4090",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-set-physical-bc3d-source-triage-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/receipt.json": "19b81f3748f453e64a24f5403b70722fb27e05f546d20365ecac09f7487fe9a5",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-set-physical-bc3d-source-triage-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/closure.json": "478abc5376e082b5a1910aedfd09f2341fc12a5a0fde5bd45a38d81e928a5676",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-set-physical-bc3d-source-triage-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/cache-clear.json": "4f3f365fa1f376c4ec5589e355d94b1e470546a36151e74b328124eb4a0e9680",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-set-physical-bc3d-source-triage-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/controller.json": "99d73b165be0f67cb578da4ade56bf4b1d6a3a9a5ec4e6d208a24750ff95ce22",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-set-physical-bc3d-source-triage-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/receipt.json": "8d7a0dc349d3841299d531ef510c3ddd07c93984f23249abe09e819a07ff2783",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-set-physical-bc3d-source-triage-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/closure.json": "10bfcaf3a86f339275b396968706307da9fb3538b087955ba7ffc3d54704cd50",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-set-physical-bc3d-source-triage-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/cache-clear.json": "21c232b479fd0bdc03f5f92f7c0152dabb2001796494429b9399a73b4037c57c",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-set-physical-bc3d-source-triage-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/controller.json": "4ab26c830bcffbaae994abe056987013a7a07aa3d1a18197e15a05ed30a95559"
+  }
+}
