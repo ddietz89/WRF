@@ -1,20 +1,30 @@
 # WRF CPU optimization findings
 
-## Current selection: NH-Y pressure-gradient consumer SIMD (October 21, 2026, UTC)
+## Current selection: ordinary scalar-consumer SIMD (October 21, 2026, UTC)
 
-The working fork selects **bc543d56 / archive 9a909457 / selected-source tracking f2561d35**, retaining all previous changes and adding one independent-I `SIMD PRIVATE(dpy)` directive. The genuine current-module 100-case O0/bounds/O2 raw and five-state gate passed. Opposite-order 500-call complete HPG pairs were **36.85% and 35.72% shorter**, with exact results and cache clearing before every arm; process CPU was unavailable. A 352-byte larger frame and floating-point spills are included in that measured tradeoff.
+The working fork selects **bb65f657 / archive05075008 / post-test source38580817**, retaining all previous compute, shared-table, input and output changes. Two independent final consumers in scalar advection gain SIMD directives without changing arithmetic order, schedule or flags. Exact native/captured-caller checks passed; opposite-order4096-call whole-caller pairs were **22.93% and24.19% shorter**, with caller process CPU unavailable. The unchanged original full-grid checker then passed **all four products and545 ordered steps**,512 ranks/two tiles/four positive writers/32 field-view markers. Every model and reader job closed normally. Own three-hour science is qualified; separate own short/noon75m/nine-hour flags remain false.
+
+| Fresh three-hour pair | Corrected original546b | Combined bb65 | Reduction |
+|---|---:|---:|---:|
+| Whole model/MPI wall, including output and drain |980.207680s|661.484224s|32.5159%|
+| Integration-step elapsed, including communication/backpressure |757.688050s|559.029630s|26.2190%|
+| Aggregate four-node CPU |449620.407146 CPU-s|320418.104722 CPU-s|28.7359%|
+
+This is one fresh original-first pair with checked compute-client cache clearing before each arm. Both arms had zero memory events, with actual CPU-quota throttling; file-server load/cache remained uncontrolled. Main-step elapsed is not integration CPU, aggregate CPU includes MPI spin, and whole-minus-main is not pure I/O. The measured wall ratio is1.48183x; neither repeatability, concurrent throughput nor an isolated incremental gain is established. Caller/kernel/forecast percentages are not added. [Evidence, strict GNU recipe and rollback](tools/cpu-compute/ordinary-scalar-consumers-simd/README.md).
+
+An original-only output-provider diagnostic measured allocation/free wrappers at **1.03% of provider-plus-release wall phases**, with exact bytes/state. This is a component-cost observation. The bounded result-capacity-reuse candidate has since passed its original11 layout/original14 scratch/additive12 ownership/error cases and W4 raw/gold/stock/state checks; opposite-order matched provider-plus-owner-release pairs measured **6.06% and4.18% lower wall**, and **2.63% and2.66% lower process CPU**, with exact bytes/state and cache clearing before each arm. These are warm fixed32-call component measurements, not whole-output or forecast gains. Full-shim/application validation is next. It is not in bb65 and has no full-grid or physical-memory admission yet. [Actual component attribution and limits](tools/cpu-working/profile-audits-20261021/result-allocation-cost/README.md).
+
+The remaining PD final-X/Y SIMD candidate generated packed code at both sites, but its first gate stopped before numerical cases because two inserted source lines shifted two generated error-coordinate immediates in a neighboring routine. That failed attempt is retained. A source-layout repair preserves the original strict outside-function byte/relocation gate; no scientific tolerance or comparison is relaxed.
+
+The following entries retain their named historical artifacts and qualification scopes. Production and master remain unchanged; AWS is suspended.
+
+## Historical bc54 selection: NH-Y pressure-gradient consumer SIMD (October 21, 2026, UTC)
+
+The historical working configuration selected **bc543d56 / archive 9a909457 / selected-source tracking f2561d35**, retaining all previous changes and adding one independent-I `SIMD PRIVATE(dpy)` directive. The genuine current-module 100-case O0/bounds/O2 raw and five-state gate passed. Opposite-order 500-call complete HPG pairs were **36.85% and 35.72% shorter**, with exact results and cache clearing before every arm; process CPU was unavailable. A 352-byte larger frame and floating-point spills are included in that measured tradeoff.
 
 The unchanged original full-grid checker passed **both products and all 35 ordered steps**, with 512 ranks, two tiles, expected writer/field-view behavior and normal closures of every model and reader job. This build owns short science only; a61a's three-hour and 1749's nine-hour proofs do not transfer. Short wall/main-step/aggregate-CPU observations were 140.797629 / 39.903320 / 54631.865472 seconds; the retained-original comparison is unpaired and establishes no isolated Y-loop or forecast speedup. Main-step elapsed includes communication/backpressure, and aggregate CPU includes MPI spin. [Evidence, supported recipe and rollback](tools/cpu-compute/hpg-nhy-consumer-i-simd/README.md).
 
-A separate [advection source packaging repair](tools/cpu-compute/advection-canonical-source/README.md) now reproduces the selected member's runtime sections, relocations, 77 non-file symbols and public module exactly. It preserves historical error coordinates explicitly and changes no arithmetic, selected image or scientific qualification. The two next ordinary-consumer SIMD directives remain experimental.
-
-The current output diagnostic's two products and 35 steps also passed the original comparator through a separate reader. Its original coordinator bookkeeping failure is preserved: the strict decoder had incorrectly required output calls from 16 proven inactive quilt ranks. A new sidecar validates those empty traces while delegating all other ranks to the unchanged decoder. This diagnostic is not a normal application qualification or performance comparison. Accepted metadata now records actual communicator membership, root byte volumes and payload-wrapper rank residence; preceding count-Gather and memcpy costs remain unmeasured. Further attribution uses these records without adding overlapping rank times or treating them as removable global cost. [Accepted metadata and scope](tools/cpu-working/profile-audits-20261021/A61A_OUTPUT_METADATA_EVIDENCE.json).
-
-Two new ordinary scalar-consumer directives passed exact native checks and reduced captured whole-caller wall time by **22.93% and24.19%** in opposite-order host pairs. The combined bb65 image changes one archive member and is undergoing its own fresh original-first three-hour full-grid comparison; it is not selected yet. [Caller evidence and pending scope](tools/cpu-compute/ordinary-scalar-consumers-simd/README.md).
-
-An original-only output-provider diagnostic measured allocation/free wrappers at **1.03% of provider-plus-release wall phases**, with exact bytes/state. This is a component-cost observation, not a speedup. A bounded capacity-reuse candidate is retained for ownership, native and memory qualification. [Actual attribution and limits](tools/cpu-working/profile-audits-20261021/result-allocation-cost/README.md).
-
-The following entries retain their named historical artifacts. They do not override the current selection above. Production and master remain unchanged; AWS is suspended.
+A separate [advection source packaging repair](tools/cpu-compute/advection-canonical-source/README.md) now reproduces the selected member's runtime sections, relocations, 77 non-file symbols and public module exactly. It preserves historical error coordinates explicitly and changes no arithmetic, selected image or scientific qualification. The later ordinary-consumer directives are qualified separately above.
 
 ## Historical 1749 selection: NH-X consumer SIMD (October 21, 2026, UTC)
 

@@ -1,0 +1,28 @@
+{
+  "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+  "order": [
+    "fresh_corrected_original546b_control",
+    "fresh_current_bc54_plus_advection_ordinary_two_consumers_bb65_allprior_IO_candidate"
+  ],
+  "comparison_design": "Fresh fixed-order corrected-original versus combined current candidate; no isolated outputpadding/SIMD/input or earlierkernel attribution",
+  "metrics": {
+    "control": {
+      "wall_seconds": 980.2076796269976,
+      "cpu_seconds": 449620.40714599995,
+      "main_step_sum_seconds": 757.68805
+    },
+    "candidate": {
+      "wall_seconds": 661.4842236377299,
+      "cpu_seconds": 320418.10472199996,
+      "main_step_sum_seconds": 559.02963
+    }
+  },
+  "reductions_percent": {
+    "wall_seconds": 32.515910925177906,
+    "cpu_seconds": 28.735862601104234,
+    "main_step_sum_seconds": 26.219025098785707
+  },
+  "science_sha256": "c5e43a83f0e2f7a046fd35caa3b0ea4ebe8cfe3f514847c09ef3fa5c0e3eede1",
+  "reader_closure_sha256": "57a4a5436845ef2adc928f06e1eeb2d4e20ca306bebd58fd2f6c0cab68f63963",
+  "limits": "One fresh fixed-order pair, actual checkedcache before each arm; no repeatability or per-kernel causal claim. Main includes communication/backpressure; residual is not pureIO."
+}
