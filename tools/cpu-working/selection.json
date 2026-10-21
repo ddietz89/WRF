@@ -1,8 +1,8 @@
 {
-  "source_commit": "97512cc69b4f144c399fb04bcebf8d146ddc78ff",
+  "source_commit": "cbeb3b192f72d7fc46bd53382f7c376cb5338cb5",
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentfb43-one-sw-direct-cdf-hpc02-r1/wrf.exe",
-    "sha256": "a50e5cf7cc8bf8876b8df4d2b01fac73bae917c70efe9cd0b683ea9ee76626f1"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/currenta50e-one-sw-optical-producer-split-hpc02-r1/wrf.exe",
+    "sha256": "3cdd1c0fbf6d5e6a2d365f7636735552c241d4db67eafa715415e6883f90b7f5"
   },
   "artifacts": {
     "shim": {
@@ -32,14 +32,16 @@
     "thompson_build_scope": "GNU13.3 strict cold one-domain DIMNRHG1/OMP1:23fields/12fixedowners, lazyfixedgrouppublication and privateTCGINITsentinel; no-macro localCPPprojection literal, no genericwhole-object qualification.",
     "BC_module_local_flag": "-fopenmp-simd",
     "BC_flag_scope": "Required only for qualified module_bc.F recipe; no global fast math/flags change. Generic builds without this flag do not claim BC SIMD.",
-    "source_rebuild_recipe": "tools/cpu-compute/theta-sw-batch/README.md",
+    "source_rebuild_recipe": "tools/cpu-compute/spcvmc-optical-producer/README.md",
     "theta_SW_source_recipes": {
       "theta": "tools/cpu-compute/theta-sw-batch/theta/REBUILD_RECIPE.json",
       "SW": "tools/cpu-compute/theta-sw-batch/sw/REBUILD_RECIPE.json",
       "scope": "Frozen actual overlay recipes over f4b; canonical sources equal posttestcommit. PriorcalcBCrebuild is parent-only evidence; no wholea50e source-reproduction claim."
     },
     "parent_calc_BC_source_rebuild_recipe": "tools/cpu-compute/calc-php-bc-simd/source-rebuild/README.md",
-    "source_rebuild_scope": "Actual theta/SW overlay recipes plus preserved parent recipe; no generic wholea50e reproduction/application transfer."
+    "source_rebuild_scope": "Current canonical-bound qualified PP single SW unit plus actual one-member overlay; original module consumers retained; no whole-image source reproduction.",
+    "SPCVMC_module_local_flag": "-fopenmp-simd",
+    "SPCVMC_source_recipe": "tools/cpu-compute/spcvmc-optical-producer/REBUILD_RECIPE.json"
   },
   "runtime": {
     "OMP_NUM_THREADS": 1,
@@ -57,10 +59,10 @@
   "read_affine_IO_archive_sha256": "651835f31089e16759177734198ece5b121d704355c73abddde483f4cae2c14c",
   "read_affine_IO_object_sha256": "c9c4e5b7a0225523e7d85cfc188022d797204d3f4dd4494b54c416e3bec99320",
   "schema_version": 3,
-  "status": "QUALIFIED_CURRENT_A50E_THETA_SW_THREEHOUR_AND_NOON_FULL512",
-  "scope": "Current a50e/4b16 theta+SW plus all prior f4b improvements;9371/51a/root06dNCa32/HDF825/faba/twoTiles/singleIB. Own3h and noon75m TRUE; ownshort/9h FALSE. GNU13.3 strict qualified scope; production/master unchanged.",
-  "includes": "All retained compute, Thompson shared-table/lazy-init, output, codec and HDF5 improvements from the previous selection, READ_DI1 affine rows, plus qualified root-only parallel input chunk decoding. Fused output packing/shuffling removes intermediate padded packed storage; compressedbytes and originalscience exact. MCICA mask/property consumer fusion removes temporary logical-mask allocation/population/readback; all RNG/arithmetic/other code unchanged. AVX2 slide-hash loop unrolling removes repeated loop control while preserving the original saturating arithmetic and traversal; Adler remains unchanged. MYJPBL DIFCOF ordered SIMD adds only two directives; complete captured-caller gains and exact short application qualified. Private four-slot shuffle scratch reuse across callbacks removes repeated scratch allocation, with bounded retention; fullshim/API and originalshortscience exact. Block-local integer bit-buffer carry removes per-symbol state publication in compress_block; exact wholefunction/codeccaller/state and shortscience passed. LW ABSCLD scratch removal keeps identical scalar arithmetic and loop order while removing one allocated scratch stream; native/caller and fresh combined3h exact. INATM cloud-copy2+3 grouping retains all five fields/radius copies while reducing repeated descriptor/stride loads; complete-caller20.03%/17.72% gains and originalfull3hscience qualified. CU PART2 SIMD adds one directive to the independent innerI loop, keeping per-lane MUT denominator and three true divisions; genuine fullcaller and original3h science qualified. PBL PART2 SIMD adds one independentI directive retaining per-lane denominator arithmetic; native/caller/originalshortscience exact. RQVFTEN SIMD adds one directive to the independent moisture-forcingI loop, keeping per-lane MUT denominator and true division; native44/genuinecompletecaller/original3hscience qualified. RQVBLTEN PART2 SIMD adds one independentI directive retaining per-lane MUT denominator and true division; native56/caller/originalshortscience exact. RTHRATEN PART2 SIMD adds one independentI directive retaining per-lane MUT denominator and true division; native68/caller/originalshortscience exact. Independent final-U andPrepV SIMD retain per-cell arithmetic with exactnative/caller science. Thompson freeze initialization splits rain/cloud staging under namedREAD/COMPUTED/PARTIAL science-FP-ownership contract; wholeINIT errno isnotqualified. FINISH U-reconstruction adds one independent-I SIMD directive; native80/fullcaller/actualshortscience exact. FINISH nonfinalT adds one exact independent-I SIMD directive; actual144native/fullcaller/direct3h science. Calc_php geopotential SIMD and open_ys boundary copy SIMD add one directive each; exact native/complete caller/original combined3h qualified. Actual theta producer stores only for active moist species and SW case2/irng0 private directCDF producer are added; componentnative/caller and actualcombined3h exact. Separate noon75m originalscience also passed; no isolated forecastincrement attribution.",
-  "source_commit_scope": "Source-only commit after actual combined3h and noon75m original science. Frozen build/native/caller source_commit NULL retained; no whole-image source-reproduction or own9h transfer.",
+  "status": "QUALIFIED_CURRENT_SPCVMC_NOON75M_FULL512",
+  "scope": "Current3cdd/bf53 retains every a50e improvement plus SPCVMC optical producer split;9371/51a/root06dNCa32/HDF825/faba/twoTiles/singleIB. Own noon75m TRUE; ownshort/3h/9h FALSE. GNU13.3 strict module-local -fopenmp-simd; production/master unchanged.",
+  "includes": "All retained compute, Thompson shared-table/lazy-init, output, codec and HDF5 improvements from the previous selection, READ_DI1 affine rows, plus qualified root-only parallel input chunk decoding. Fused output packing/shuffling removes intermediate padded packed storage; compressedbytes and originalscience exact. MCICA mask/property consumer fusion removes temporary logical-mask allocation/population/readback; all RNG/arithmetic/other code unchanged. AVX2 slide-hash loop unrolling removes repeated loop control while preserving the original saturating arithmetic and traversal; Adler remains unchanged. MYJPBL DIFCOF ordered SIMD adds only two directives; complete captured-caller gains and exact short application qualified. Private four-slot shuffle scratch reuse across callbacks removes repeated scratch allocation, with bounded retention; fullshim/API and originalshortscience exact. Block-local integer bit-buffer carry removes per-symbol state publication in compress_block; exact wholefunction/codeccaller/state and shortscience passed. LW ABSCLD scratch removal keeps identical scalar arithmetic and loop order while removing one allocated scratch stream; native/caller and fresh combined3h exact. INATM cloud-copy2+3 grouping retains all five fields/radius copies while reducing repeated descriptor/stride loads; complete-caller20.03%/17.72% gains and originalfull3hscience qualified. CU PART2 SIMD adds one directive to the independent innerI loop, keeping per-lane MUT denominator and three true divisions; genuine fullcaller and original3h science qualified. PBL PART2 SIMD adds one independentI directive retaining per-lane denominator arithmetic; native/caller/originalshortscience exact. RQVFTEN SIMD adds one directive to the independent moisture-forcingI loop, keeping per-lane MUT denominator and true division; native44/genuinecompletecaller/original3hscience qualified. RQVBLTEN PART2 SIMD adds one independentI directive retaining per-lane MUT denominator and true division; native56/caller/originalshortscience exact. RTHRATEN PART2 SIMD adds one independentI directive retaining per-lane MUT denominator and true division; native68/caller/originalshortscience exact. Independent final-U andPrepV SIMD retain per-cell arithmetic with exactnative/caller science. Thompson freeze initialization splits rain/cloud staging under namedREAD/COMPUTED/PARTIAL science-FP-ownership contract; wholeINIT errno isnotqualified. FINISH U-reconstruction adds one independent-I SIMD directive; native80/fullcaller/actualshortscience exact. FINISH nonfinalT adds one exact independent-I SIMD directive; actual144native/fullcaller/direct3h science. Calc_php geopotential SIMD and open_ys boundary copy SIMD add one directive each; exact native/complete caller/original combined3h qualified. Actual theta producer stores only for active moist species and SW case2/irng0 private directCDF producer are added; componentnative/caller and actualcombined3h exact. Separate noon75m originalscience also passed; no isolated forecastincrement attribution. SPCVMC optical producer split adds one independent layer SIMD pass before unchanged serial beam recurrences; exact native/complete-caller/daylight science passed.",
+  "source_commit_scope": "Post-test source-only commit after actual original noon science. Frozen native/caller/build producer commits remain NULL. Qualified canonical/PP module-local SIMD recipe; no whole-image rebuild or own3h/9h transfer.",
   "input_implementation_commit": "614267f340a23ffc342962b3c64e323719fe4d06",
   "root_input": {
     "enabled_in_working_configuration": true,
@@ -91,31 +93,32 @@
     "other_511_ranks": "OriginalNC8adc/output51a and selected9371 codec; inputadapter06d/privateNCa32 onlyrank0."
   },
   "science": {
-    "products": 4,
-    "ordered_steps": 545,
-    "last_step": "2026-10-12_09:00:00",
+    "products": 2,
+    "ordered_steps": 230,
+    "last_step": "2026-10-12_13:15:00",
     "world": 512,
     "compute": 480,
     "quilt": 32,
     "tiles": 2,
     "positive_writer_roots": [
       487,
-      495,
+      495
+    ],
+    "zero_activity_writer_roots": [
       503,
       511
     ],
-    "zero_activity_writer_roots": [],
-    "actual_field_markers": 32,
+    "actual_field_markers": 16,
     "all32_quilt_FIELDVIEW1": true,
     "protected_compare_one_AST_unchanged": true,
     "original_comparisons_all_pass": true,
     "all_model_reader_scopes_closed": true,
-    "qualification_sha256": "6e87cf7a255e5f02547cde9c7286e8b0ed709dbfc49af4bf60130d03a4d789ca"
+    "qualification_sha256": "8f9c64380ae23f194bc45bbe2213f762f961af1e1803593d7bd9402169b247ee"
   },
-  "qualification_file": "tools/cpu-compute/theta-sw-batch/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-  "current_application_qualification_file": "tools/cpu-compute/theta-sw-batch/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+  "qualification_file": "tools/cpu-compute/spcvmc-optical-producer/APPLICATION_QUALIFICATION.json",
+  "current_application_qualification_file": "tools/cpu-compute/spcvmc-optical-producer/APPLICATION_QUALIFICATION.json",
   "source_build_binding_file": "CURRENT_SOURCE_BUILD_BINDING.json",
-  "current_three_hour_qualified": true,
+  "current_three_hour_qualified": false,
   "current_nine_hour_qualified": false,
   "prior_nine_hour": {
     "evidence_file": "PREVIOUS_NINE_HOUR_RESULT_B1FB.json",
@@ -126,13 +129,27 @@
   "memory_qualification_file": "tools/cpu-memory/thompson-table-sharing/lazy-group-init/QUALIFICATION.json",
   "activation": "Selection record, not a launcher. Use a fresh bounded lease/run/log directory and the exact root-only input rank-exec binding, with all original runtime checks and cache-before-each-arm SOP. Never preload launchers/helpers.",
   "rollback": {
-    "selection": "tools/cpu-working/PREVIOUS_SELECTION_BEFORE_THETA_SW_BATCH.json",
-    "source_build_binding": "tools/cpu-working/PREVIOUS_CURRENT_SOURCE_BUILD_BINDING_BEFORE_THETA_SW_BATCH.json",
-    "latest": "tools/cpu-working/PREVIOUS_LATEST_APPLICATION_RESULT_BEFORE_THETA_SW_BATCH.json",
-    "source_recipe": "Restore all3 pairedrecords and BOTH source files from parent of source-only97512cc6; verify BigStep92ec84f6 and SW836fe849. Select actual f4b/a43 with unchanged9371/51a/root06dNCa32. SW inverse alone does not undo theta."
+    "selection.json": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_SELECTION_BEFORE_SPCVMC_OPTICAL.json",
+      "sha256": "fef4a844aed076985c40d6138f0580cf6532c2c0cc9a328afdb76a86501044bd"
+    },
+    "CURRENT_SOURCE_BUILD_BINDING.json": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_CURRENT_SOURCE_BUILD_BINDING_BEFORE_SPCVMC_OPTICAL.json",
+      "sha256": "74cbb6547192440614ed96970d81ecedcfd47dac3766392dfd599264b855d229"
+    },
+    "LATEST_APPLICATION_RESULT.json": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_LATEST_APPLICATION_RESULT_BEFORE_SPCVMC_OPTICAL.json",
+      "sha256": "33a1485c26b2168e75f39fa64edac11f41cbc208fa823311ab62ceffa419dd8b"
+    },
+    "source_commit": "cbeb3b192f72d7fc46bd53382f7c376cb5338cb5",
+    "source_action": "Restore only phys/module_ra_rrtmg_sw.F from this source commit parent, then restore ALL THREE exact paired view snapshots. Theta remains unchanged.",
+    "parent_executable_sha256": "a50e5cf7cc8bf8876b8df4d2b01fac73bae917c70efe9cd0b683ea9ee76626f1",
+    "parent_archive_sha256": "4b16c9ff1019035d950eeaa91c348afdc86632067b73976b8608bc75f39bcb39",
+    "parent_SW_sha256": "96cb2bf68c504b6321cc2e02380e8d11505968df02160581d2f89de1f2c0f35c",
+    "source_recipe": "tools/cpu-compute/spcvmc-optical-producer/ROLLBACK.json"
   },
-  "claim_limits": "One fresh fixed-order original546b control\u2192combinedtheta+SW candidate, checkedcacheeach. No repeatability, isolated/additive theta/SW contribution, or current9h claim. WholeMPIwall includes full output/drain; mainstepelapsed includes communication/backpressure, not integrationCPU; residual not pureIO. Freshcontrol947.71 differs from prior819.28 while candidate661.09 is near prior661.04; larger reduction is not a measured incremental theta/SW forecast gain.",
-  "next_qualification": "Finish distributed65 exploratory verdict, then next measured architectural opportunity. Own9h remains false; no isolated/additive theta/SW forecast claim.",
+  "claim_limits": "Actual unprofiled noon original science passed2products230steps. Candidate309.833275s wall/235.343340s main/151770.087473CPU-s is UNPAIRED against retained original; no isolated SPCVMC forecast gain, repeatability or horizon transfer. Whole-minus-main is not pureIO. Main elapsed includes communication/backpressure and is not integrationCPU.",
+  "next_qualification": "Bounded actual-size8 communication test, then periodic fresh-original/current nine-hour pair; no new image3h/9h qualification yet.",
   "output_fusion_qualification_file": "tools/cpu-output/quilt512/padding-block32/NATIVE_QUALIFICATION.json",
   "latest_nine_hour": {
     "evidence_file": "tools/cpu-compute/uvb-batch/NINE_HOUR_RESULT.json",
@@ -353,15 +370,14 @@
   "mcica_mask_fusion_qualification_file": "tools/cpu-compute/mcica-mask-fusion/QUALIFICATION.json",
   "POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
-    "source_commit": "97512cc69b4f144c399fb04bcebf8d146ddc78ff",
+    "source_commit": "cbeb3b192f72d7fc46bd53382f7c376cb5338cb5",
     "raw_build_producer_source_commit": null,
     "sources": {
-      "dyn_em/module_big_step_utilities_em.F": "34dd9476f242ede55c1e4511443e43937e229478990532de530c6b26b67f3ea7",
-      "phys/module_ra_rrtmg_sw.F": "96cb2bf68c504b6321cc2e02380e8d11505968df02160581d2f89de1f2c0f35c"
+      "phys/module_ra_rrtmg_sw.F": "b475a85d1865a58ae0d4a8240cb7a4efca1802d67405234c7c5c522d667c4877"
     },
-    "executable_sha256": "a50e5cf7cc8bf8876b8df4d2b01fac73bae917c70efe9cd0b683ea9ee76626f1",
-    "archive_sha256": "4b16c9ff1019035d950eeaa91c348afdc86632067b73976b8608bc75f39bcb39",
-    "scope": "Source-only commit after actual combined3h and noon75m original science. Frozen build/native/caller source_commit NULL retained; no whole-image source-reproduction or own9h transfer."
+    "executable_sha256": "3cdd1c0fbf6d5e6a2d365f7636735552c241d4db67eafa715415e6883f90b7f5",
+    "archive_sha256": "bf53b5c528a9f9e4f7015e0990980d27698da6171c8c747cd530c0a81eaa12eb",
+    "scope": "Post-test source-only commit after actual original noon science. Frozen native/caller/build producer commits remain NULL. Qualified canonical/PP module-local SIMD recipe; no whole-image rebuild or own3h/9h transfer."
   },
   "previous_mcica_short_science": {
     "receipt_sha256": "b56f895322a1e0dd8ea64e9cbfd93e3531f7fb70dd793291b6adf3c251b92cd2",
@@ -617,7 +633,7 @@
     },
     "semantics": "Post-test codec source/recipe tracking only; does not relabel native/build producer NULL or imply WRF relink."
   },
-  "archive_sha256": "4b16c9ff1019035d950eeaa91c348afdc86632067b73976b8608bc75f39bcb39",
+  "archive_sha256": "bf53b5c528a9f9e4f7015e0990980d27698da6171c8c747cd530c0a81eaa12eb",
   "previous_block_carry_short_science": {
     "status": "PASS_RETAINED_ORIGINAL_TWO_HISTORY_35_STEPS_512_OWNED_FIELD_VIEW",
     "receipt_sha256": "075e45506947752b3af936dba300740e854e8026b4e1c71beaaa1acfbe006ea2",
@@ -709,7 +725,7 @@
   "candidate_memory_actual": {
     "hpc01": {
       "limit_bytes": 107374182400,
-      "peak_bytes": 63011278848,
+      "peak_bytes": 63018754048,
       "events": {
         "low": 0,
         "high": 0,
@@ -721,7 +737,7 @@
     },
     "hpc02": {
       "limit_bytes": 107374182400,
-      "peak_bytes": 60721041408,
+      "peak_bytes": 60760276992,
       "events": {
         "low": 0,
         "high": 0,
@@ -733,7 +749,7 @@
     },
     "hpc03": {
       "limit_bytes": 107374182400,
-      "peak_bytes": 60682076160,
+      "peak_bytes": 60683689984,
       "events": {
         "low": 0,
         "high": 0,
@@ -745,7 +761,7 @@
     },
     "hpc04": {
       "limit_bytes": 111669149696,
-      "peak_bytes": 60653895680,
+      "peak_bytes": 60660846592,
       "events": {
         "low": 0,
         "high": 0,
@@ -891,10 +907,7 @@
     "repeatability_established": false,
     "scope": "Historical RQVFTENee66/source31ca before RQVBLTEN. Actual4products545/full512 exact,660.3921359390952s MPIwall; candidate-only UNPAIRED descriptive metrics. Does not qualify child2bd1. Existing THREE_HOUR_RESULT/Q bytes and hashes unchanged."
   },
-  "current_three_hour_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/theta-sw-batch/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "6e87cf7a255e5f02547cde9c7286e8b0ed709dbfc49af4bf60130d03a4d789ca"
-  },
+  "current_three_hour_qualification": null,
   "previous_RTH_POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
     "source_commit": "c883c564a037422631b7c3dd8c69cf532fe391a6",
@@ -1557,8 +1570,8 @@
     "qualification_file": "tools/cpu-output/quilt512/codec/private-fast-distance-range/APPLICATION_QUALIFICATION.json"
   },
   "current_application_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/theta-sw-batch/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "6e87cf7a255e5f02547cde9c7286e8b0ed709dbfc49af4bf60130d03a4d789ca"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/spcvmc-optical-producer/APPLICATION_QUALIFICATION.json",
+    "sha256": "8f9c64380ae23f194bc45bbe2213f762f961af1e1803593d7bd9402169b247ee"
   },
   "last_three_hour_benchmark": {
     "qualification_file": "tools/cpu-compute/theta-sw-batch/THREE_HOUR_APPLICATION_QUALIFICATION.json",
@@ -1591,7 +1604,7 @@
     "fresh_control_run": true,
     "fresh_matched_timing": true,
     "repeatability_established": false,
-    "applies_to_current_selection": true,
+    "applies_to_current_selection": false,
     "scope": "One fresh fixed-order original546b control\u2192combinedtheta+SW candidate, checkedcacheeach. No repeatability, isolated/additive theta/SW contribution, or current9h claim. WholeMPIwall includes full output/drain; mainstepelapsed includes communication/backpressure, not integrationCPU; residual not pureIO. Freshcontrol947.71 differs from prior819.28 while candidate661.09 is near prior661.04; larger reduction is not a measured incremental theta/SW forecast gain.",
     "prior_selected_f4b_context": {
       "application_qualification": {
@@ -1611,14 +1624,15 @@
         }
       },
       "scope": "Historical unpaired context only; not current control, not isolated two-change effect."
-    }
+    },
+    "scope_after_SPCVMC": "Actual parenta50e3h observation retained unchanged; not own3cdd qualification or timing."
   },
   "current_noon75m_qualified": true,
   "current_noon75m_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/theta-sw-batch/NOON_APPLICATION_QUALIFICATION.json",
-    "sha256": "42ae188cf2ccdfc1fb807a5392f47e011f8d00f9d4e6763aadabd65ae426d59a"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/spcvmc-optical-producer/APPLICATION_QUALIFICATION.json",
+    "sha256": "8f9c64380ae23f194bc45bbe2213f762f961af1e1803593d7bd9402169b247ee"
   },
-  "comparison_design": "Fresh corrected-original546b control then currentall+theta+SW candidate; checkedcache each arm, no repeatability or isolated-theta forecast attribution",
+  "comparison_design": "UNPAIRED candidate-only noon scientific reference; descriptive metrics only",
   "theta_producer": {
     "pending": false,
     "source_commit": null,
@@ -1731,24 +1745,9 @@
     },
     "applies_to_current_selection": false
   },
-  "three_hour_metrics": {
-    "control": {
-      "wall_seconds": 947.713663617149,
-      "cpu_seconds": 432906.028505,
-      "main_step_sum_seconds": 725.0132
-    },
-    "candidate": {
-      "wall_seconds": 661.0916317086667,
-      "cpu_seconds": 320598.551647,
-      "main_step_sum_seconds": 560.40742
-    }
-  },
-  "three_hour_reductions_percent": {
-    "wall_seconds": 30.24352638480793,
-    "cpu_seconds": 25.942691822944397,
-    "main_step_sum_seconds": 22.70383215091808
-  },
-  "current_application_retry_scope": "Fresh original control outerSSH timeout retained; actual all8 modelINV records/normalclosures and original science passed independently. Candidate and noon launchers normal; no model retries or fabricated completion.",
+  "three_hour_metrics": null,
+  "three_hour_reductions_percent": null,
+  "current_application_retry_scope": "One fresh unprofiled noon candidate; no forecast/reader retry. All new models/reader normally closed. Original retained noon control uses its explicitly qualified historical basic closure schema.",
   "noon75m_science": {
     "products": 2,
     "ordered_steps": 230,
@@ -1769,26 +1768,108 @@
     "all32_quilt_FIELDVIEW1": true,
     "protected_compare_one_AST_unchanged": true,
     "original_comparisons_all_pass": true,
+    "all_model_reader_scopes_closed": true,
+    "qualification_sha256": "8f9c64380ae23f194bc45bbe2213f762f961af1e1803593d7bd9402169b247ee",
     "qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/theta-sw-batch/NOON_APPLICATION_QUALIFICATION.json",
-      "sha256": "42ae188cf2ccdfc1fb807a5392f47e011f8d00f9d4e6763aadabd65ae426d59a"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/spcvmc-optical-producer/APPLICATION_QUALIFICATION.json",
+      "sha256": "8f9c64380ae23f194bc45bbe2213f762f961af1e1803593d7bd9402169b247ee"
     },
-    "reference_scope": {
-      "scope": "Frozen original noon control basic historical closures: PID0/inactive/success/exit0/procs[]; exact own grant/source/metadata/unit/INV and retained originalSCI/reader verified.",
-      "manager_success_journal_certificate": "UNAVAILABLE_HISTORICALLY",
-      "absent_cgroup_certificate": "UNAVAILABLE_HISTORICALLY",
-      "new_strong_model_closure_claim": false
-    },
+    "reference_scope": "Retained original scientific reference only",
     "performance_qualification": false,
     "candidate_metrics": {
-      "wall_seconds": 311.3692705533467,
-      "cpu_seconds": 151882.834889,
-      "main_step_sum_seconds": 235.05566
+      "wall_seconds": 309.8332746438682,
+      "cpu_seconds": 151770.087473,
+      "main_step_sum_seconds": 235.34334
     },
     "retained_original_metrics": {
       "wall_seconds": 444.66616299399175,
       "cpu_seconds": 194209.614414,
       "main_step_sum_seconds": 262.59716
     }
+  },
+  "previous_A50E_before_SPCVMC": {
+    "paired_record": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_SELECTION_BEFORE_SPCVMC_OPTICAL.json",
+      "sha256": "fef4a844aed076985c40d6138f0580cf6532c2c0cc9a328afdb76a86501044bd"
+    },
+    "executable": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/currentfb43-one-sw-direct-cdf-hpc02-r1/wrf.exe",
+      "sha256": "a50e5cf7cc8bf8876b8df4d2b01fac73bae917c70efe9cd0b683ea9ee76626f1"
+    },
+    "archive_sha256": "4b16c9ff1019035d950eeaa91c348afdc86632067b73976b8608bc75f39bcb39",
+    "source_commit": "97512cc69b4f144c399fb04bcebf8d146ddc78ff",
+    "own_threehour_qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/theta-sw-batch/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "6e87cf7a255e5f02547cde9c7286e8b0ed709dbfc49af4bf60130d03a4d789ca"
+    },
+    "own_noon75m_qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/theta-sw-batch/NOON_APPLICATION_QUALIFICATION.json",
+      "sha256": "42ae188cf2ccdfc1fb807a5392f47e011f8d00f9d4e6763aadabd65ae426d59a"
+    },
+    "applies_to_current_selection": false
+  },
+  "spcvmc_producer": {
+    "pending": false,
+    "source_commit": null,
+    "directory": "/pool/wrf-experiment/wrf-cpu/builds/currenta50e-one-sw-optical-producer-split-hpc02-r1",
+    "executable_sha256": "3cdd1c0fbf6d5e6a2d365f7636735552c241d4db67eafa715415e6883f90b7f5",
+    "archive_sha256": "bf53b5c528a9f9e4f7015e0990980d27698da6171c8c747cd530c0a81eaa12eb",
+    "receipt_sha256": "9035c909ceec256c31c96c2a2f916d5a26604fd60815a076e72697b5bb64c54d",
+    "closure_sha256": "f33cc4bc54acd4e15e678ae918d0bcaa83af43f97fab47215eae5913dea4ab8b",
+    "ordered_proof_sha256": "bb279ba368d28075ce63db38ba2a5093d600608dd79a9b97c516181c6daba3fa",
+    "source_manifest_sha256": "ae437837afe6b6f8b035a3990000a52f49d22e502fc3621ce10e7657ebdbeef4",
+    "build_qualification_sha256": "b5746b48d168431a8d97f3abeee3379d841137e809307656809b4786b159d9ae",
+    "expected_worker_status": "BUILT_CURRENT_A50E_ONE_SW_OPTICAL_PRODUCER_SPLIT_PENDING_APPLICATION",
+    "parent_executable_sha256": "a50e5cf7cc8bf8876b8df4d2b01fac73bae917c70efe9cd0b683ea9ee76626f1",
+    "parent_archive_sha256": "4b16c9ff1019035d950eeaa91c348afdc86632067b73976b8608bc75f39bcb39",
+    "parent_object_sha256": "761c012bdc7d3520095949209613316e77b0a7bf059e0d30083d9840b09496f0",
+    "parent_canonical_source_sha256": "96cb2bf68c504b6321cc2e02380e8d11505968df02160581d2f89de1f2c0f35c",
+    "parent_preprocessed_sha256": "ec1f1d632fb9a59d01771f94842d489bab866328d8e8e3a9e3b493f89f3fc17e",
+    "canonical_candidate_sha256": "b475a85d1865a58ae0d4a8240cb7a4efca1802d67405234c7c5c522d667c4877",
+    "qualified_object_sha256": "1b5250e92b95d9855f55bd52032ff7b93cfbec7a7bcb0835fca3cd763a2c0f69",
+    "qualified_preprocessed_sha256": "d893bd455ce75dbd98474f32c162416933bcd81adeb2e7ed2ee0842c50a06dc9",
+    "replacement_index": 275,
+    "replacement_member": "module_ra_rrtmg_sw.o",
+    "unchanged_archive_occurrences": 583,
+    "whole_native_qualification_sha256": "7f2c824414bc7edb0d6cfb9b7f81aba535bb27f78a4866f8a62ee63afc9e0453",
+    "caller_qualification_sha256": "e06aac8975f3eacb7d4c82f7c4e1417ff41e37677536831b7ec63995469b9527",
+    "own_noon_application_qualification": null,
+    "scope": "ActualexistingwholeSPCVMC finite native facts only; futurecanonicalfullWRFproducer/orderedproof/modules/library/sourcefacts pending. No blanketallMOD byteclaim.",
+    "caller_raw_ref_map": {
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/receipt.json": "spcvmc-caller-ref-00.json",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/closure.json": "spcvmc-caller-ref-01.json",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/cache-clear.json": "spcvmc-caller-ref-02.json",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/caller-timing-preparation-r1/timing-r1/arm0/actual-native-r1/controller.json": "spcvmc-caller-ref-03.json",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/receipt.json": "spcvmc-caller-ref-04.json",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/closure.json": "spcvmc-caller-ref-05.json",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/cache-clear.json": "spcvmc-caller-ref-06.json",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/caller-timing-preparation-r1/timing-r1/arm1/actual-native-r1/controller.json": "spcvmc-caller-ref-07.json",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/receipt.json": "spcvmc-caller-ref-08.json",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/closure.json": "spcvmc-caller-ref-09.json",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/cache-clear.json": "spcvmc-caller-ref-10.json",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/caller-timing-preparation-r1/timing-r1/arm2/actual-native-r1/controller.json": "spcvmc-caller-ref-11.json",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/receipt.json": "spcvmc-caller-ref-12.json",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/closure.json": "spcvmc-caller-ref-13.json",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/cache-clear.json": "spcvmc-caller-ref-14.json",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/controller.json": "spcvmc-caller-ref-15.json"
+    },
+    "build_raw_ref_map": {
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/overlay-build-preparation-r1/actual-native-r1/receipt.json": "spcvmc-build-ref-00.json",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/overlay-build-preparation-r1/actual-native-r1/closure.json": "spcvmc-build-ref-01.json",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/overlay-build-preparation-r1/actual-native-r1/controller.json": "spcvmc-build-ref-02.json",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/overlay-build-preparation-r1/actual-native-r1/ordered-libwrflib-proof.json": "spcvmc-build-ref-03.json",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/overlay-build-preparation-r1/manifest.json": "spcvmc-build-ref-04.json",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/overlay-build-preparation-r1/REBUILD_RECIPE.json": "spcvmc-build-ref-05.json",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/overlay-build-preparation-r1/SOURCE_PROOF.json": "spcvmc-build-ref-06.json",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/overlay-build-preparation-r1/native-qualification.json": "spcvmc-build-ref-07.json",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/overlay-build-preparation-r1/caller-qualification.json": "spcvmc-build-ref-08.json",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/overlay-build-preparation-r1/parent-build-qualification.json": "spcvmc-build-ref-09.json",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/overlay-build-preparation-r1/parent-ordered-libwrflib-proof.json": "spcvmc-build-ref-10.json",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/overlay-build-preparation-r1/codegen-receipt.json": "spcvmc-build-ref-11.json",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/overlay-build-preparation-r1/codegen-closure.json": "spcvmc-build-ref-12.json"
+    },
+    "module_interface_contract": "Originalparent32MODs retained for consumers; genuine62argSPCVMC/32argSETCOEF caller/publicGLOBALdataABI exact, targetMCICA rawMODexact. No all32rawMODchildidentity claim.",
+    "all32_raw_MOD_bytes_certified": false,
+    "target_MCICA_raw_MOD_sha256": "f1ce128004b7fe9265c995370dac4464bdf4d15f962d3ac3de00e0606cae35f3"
   }
 }

@@ -1,0 +1,21 @@
+# Shortwave optical producer SIMD
+
+The working configuration selects executable **3cdd1c0f / archivebf53b5c5**, retaining all previous a50e improvements and the same input, output, codec, placement and single-rail InfiniBand settings. Post-test source commit **cbeb3b192f72d7fc46bd53382f7c376cb5338cb5** moves four unchanged optical expressions into one independent layer loop ahead of the original serial beam recurrences. The actual native/caller/build producer commits remain null.
+
+Complete 33-layer mixed-column callers, including identical restores, were **0.96% and1.47% shorter**, with0.96% and1.47% less process CPU in opposite-order host pairs. This is a complete synthetic caller result, not an isolated producer or forecast gain. The small source change and exact qualification support default inclusion under the owner policy.
+
+The genuine whole-SPCVMC fixture passed all six original/flag-only/candidate O0-bounds/O2 streams:14 flux arrays, canaries, readonly inputs,214 initialized tables and five return-state fields. Cases cover valid3/4/33-layer clear/mixed columns, nearest/downward rounding and seeded exception state. Invalid LUT inputs, unrestricted NaNs and enabled traps are outside that finite scope. The original one-layer bounds failure is preserved; replacing that invalid fixture did not relax the original oracle.
+
+The unchanged original scientific checker passed **both complete products and230 ordered steps through13:15**, with512 ranks,480 compute, two tiles, all32 quilt ranks using FIELDVIEW1 and the expected two positive/two inactive writer roots. All new model and reader invocations closed normally. Original noon control closures retain their actual historical basic schema; missing historical strong certificates are not invented.
+
+The candidate's observed totals were **309.833275s whole wall,235.343340s main-step elapsed and151770.087473 aggregate CPU-s**. The preceding a50e observation was311.369271s/235.055660s/151882.834889CPU-s. These separate unpaired observations establish no isolated forecast gain or repeatability. Main-step elapsed includes communication/backpressure; it is not integration CPU, and whole-minus-main is not pure I/O. Client caches were cleared before this candidate; file-server cache/load were uncontrolled.
+
+**This image owns noon75m scientific qualification only. Own short, three-hour and nine-hour qualification remain false.** The preceding a50e three-hour result is preserved separately, without transferring its horizon or timing to this child.
+
+The qualified GNU13.3 build requires **module-local `-fopenmp-simd`** and retains strict `-fno-fast-math -ffp-contract=off`. Its flag-only parent was code-equivalent. The actual one-member overlay changed only SW slot275 and preserved583 other archive members, using the original module files for consumers. Target MCICA/public-data ABI checks do not certify all32 child raw MOD files. AOCC and Intel remain eligible experimental stacks; this qualification is GNU-specific.
+
+[REBUILD_RECIPE.json](REBUILD_RECIPE.json) preserves the actual compiler argv, canonicalb475/qualified-PPd893/object1b525 identities and dependency pins. The complete retained replay package is `/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/promotion-source-rebuild-preparation-r1/`; `python3 rebuild_sw.py` there verifies its exact source join without compiling. Explicit execution requires a fresh bounded job on the qualified toolchain. That prepared single-module replay has not been run and makes no whole-image `.F`-only rebuild claim. Canonical and PP procedure bytes differ in comments/blank lines; their statement/OpenMP projections match exactly.
+
+[APPLICATION_QUALIFICATION.json](APPLICATION_QUALIFICATION.json), the native/caller/build/codegen records and [RAW_SOURCE_MAP.json](RAW_SOURCE_MAP.json) bind actual evidence and unchanged detailed records at their retained paths. Raw RESULT keeps its inherited a50e label; actual grants and typed qualification bind3cdd. No raw receipt was rewritten.
+
+Rollback: restore only `phys/module_ra_rrtmg_sw.F` from the parent ofcbeb3b19, and restore **all three** paired working-view snapshots in [ROLLBACK.json](ROLLBACK.json). This restores a50e/4b16 and source96cb; theta34dd remains enabled. Production and master are untouched; AWS remains suspended.

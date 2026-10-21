@@ -1,0 +1,85 @@
+{
+  "status": "PASS_USEFUL_PACKED_OPTICAL_PRODUCER_CODEGEN_ONLY_NATIVE_CALLER_PENDING",
+  "invocation_id": "0dd799d60e7843d7bcbd39be84fed211",
+  "selected_current_parent_object_sha256": "761c012bdc7d3520095949209613316e77b0a7bf059e0d30083d9840b09496f0",
+  "actual_objects": {
+    "unchanged": {
+      "path": "/pool/wrf-experiment/wrf-cpu/source-discovery/spcvmc-optical-producer-codegen-r1/work/unchanged/module_ra_rrtmg_sw.o",
+      "sha256": "806de86b5297305645eebc23a088d8c584fb604fbafcc7f1d0b264cbd05c1c40"
+    },
+    "flag-only": {
+      "path": "/pool/wrf-experiment/wrf-cpu/source-discovery/spcvmc-optical-producer-codegen-r1/work/flag-only/module_ra_rrtmg_sw.o",
+      "sha256": "12351debea0a7e204c9ce25bdc8d498e6c6c89c9ccb5853ac34828df89c990a3"
+    },
+    "candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/source-discovery/spcvmc-optical-producer-codegen-r1/work/candidate/module_ra_rrtmg_sw.o",
+      "sha256": "1b5250e92b95d9855f55bd52032ff7b93cfbec7a7bcb0835fca3cd763a2c0f69"
+    }
+  },
+  "selected761c_reproduction": {
+    "status": "PASS_ALLOCATED_BYTES_RELOCATIONS_NONFILE_SYMBOLS_EXACT",
+    "reference_sha256": "761c012bdc7d3520095949209613316e77b0a7bf059e0d30083d9840b09496f0",
+    "rebuilt_sha256": "806de86b5297305645eebc23a088d8c584fb604fbafcc7f1d0b264cbd05c1c40",
+    "excluded": "Only nonallocated sections (including debug paths), STT_FILE symbol. All allocated text/rodata/data/bss/unwind sections and their relocations exact."
+  },
+  "flag_only_all_allocated_equivalence": {
+    "status": "PASS_ALLOCATED_BYTES_RELOCATIONS_NONFILE_SYMBOLS_EXACT",
+    "reference_sha256": "806de86b5297305645eebc23a088d8c584fb604fbafcc7f1d0b264cbd05c1c40",
+    "rebuilt_sha256": "12351debea0a7e204c9ce25bdc8d498e6c6c89c9ccb5853ac34828df89c990a3",
+    "excluded": "Only nonallocated sections (including debug paths), STT_FILE symbol. All allocated text/rodata/data/bss/unwind sections and their relocations exact."
+  },
+  "public_ABI_status": "PASS_DEFINED_GLOBAL_DATA_ABI_EXACT_LOCAL_INVENTORY_RECORDED",
+  "actual_codegen": {
+    "4lane_loop": [
+      "0x21790",
+      "0x2187a"
+    ],
+    "packed_divides": [
+      "0x2185f",
+      "0x21862"
+    ],
+    "reverse_contiguous_loads": "MOVUPS plus SHUFPS0x1b",
+    "other_input_packing": "Scalar stride loads plus UNPCKLPS/MOVLHPS",
+    "tail": "two-lane DIVPS with upperlaneconstant.LC192 and scalar DIVSS; constant/aggregateFPbehavior mustpass native, no safetyassumption",
+    "overhead": "Integerstackaddress/stride reloads, inputpacking and addedlooptraversal exist; no cost isolation or speedup claim.",
+    "text_bytes": {
+      "unchanged": 236702,
+      "flag-only": 236702,
+      "candidate": 237742
+    }
+  },
+  "next": "One genuine fullSPCVMC fixture afteractualauthor/review; no existinggenerator/REFTRA/VRTQDR fixture qualifies fullroutine. Initialization genuineMPI/tableload/rrtmg_sw_ini/setcoef required, finite typed inputs with full14outputs/readonly/fivestate.",
+  "numerical_native_qualified": false,
+  "application_qualified": false,
+  "timing_gain_qualified": false,
+  "raw_refs": [
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/codegen-gate-r1/actual-native-r1/receipt.json",
+      "sha256": "5b9d317401dd03936fa8b6f5f244373c5e52ca95a2e27c54cc79bef60d0769d8"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/codegen-gate-r1/actual-native-r1/closure.json",
+      "sha256": "044bdfc2cc9cd3da35a27cbfa3f179fe86957c00293188f0ea74b76bb31b7425"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/codegen-gate-r1/actual-native-r1/verified-closure.json",
+      "sha256": "51ebe17b7cf4890a28f2f882c65a14e4e49d64ef12a6574ce475380cc665bdf2"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/codegen-gate-r1/actual-native-r1/controller.json",
+      "sha256": "6aee2254a52f24139f8e16b932c7be63b6e42b69c34ed72a2b6eeea4ba3d7614"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/codegen-gate-r1/SOURCE_PROOF.json",
+      "sha256": "cbce380636f2250c0e1a6a0d652b22c8b71edaf1bf2bdbf5283cd02eed126e9b"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/SOURCE_RELATION.json",
+      "sha256": "19feb60977420607a6f6c854ea4dc1c3e577ab3532edaa1bb4d4983ab9195829"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/PROVIDER_ADJUDICATION.json",
+      "sha256": "743089ac6d929e1f0a5d008519305d24d50fd4a4080739bd11363b1ed1609b41"
+    }
+  ]
+}

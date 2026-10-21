@@ -1,0 +1,29 @@
+{
+  "status": "PASS_LOCAL_CANONICAL_QUALIFIED_PP_SOURCE_JOIN_ONLY",
+  "joins": {
+    "parent": {
+      "canonical_body_bytes": 25669,
+      "canonical_body_sha256": "ea5d3635d2aaf97d4adb66eeb25385e2976228824ae2806e1e514bfbc6a1be0c",
+      "PP_body_bytes": 16482,
+      "PP_body_sha256": "180d23de81d4a34a76c9b909364140b22f28aec702d3092b80173f5a8da757ee",
+      "whole_procedure_byteexact": false,
+      "statement_and_OMP_projection_exact": true,
+      "projection_sha256": "90d9af992166ae3e967ebed49ca72c5029d4aff4631a66c625aeec080b739d55",
+      "CPP_directives": 0
+    },
+    "candidate": {
+      "canonical_body_bytes": 25778,
+      "canonical_body_sha256": "6a1333f284275626eba0a93b2025d90aade279050ed59a42cefbbedeb9feb522",
+      "PP_body_bytes": 16591,
+      "PP_body_sha256": "58c0cb7dd051bc4718e991dadc2049830cdd66ef9ff8b2f9e0f9f56c1e1d838c",
+      "whole_procedure_byteexact": false,
+      "statement_and_OMP_projection_exact": true,
+      "projection_sha256": "228d542e4e69892a4dc7cc8bf14b0970384959d79894d65ebbb120da96175773",
+      "CPP_directives": 0
+    }
+  },
+  "whole_procedure_byteexact": false,
+  "explanation": "Neither parent nor candidate wholeprocedure is rawbyteexact between.F andPP. Qualified preprocessing removes ordinary comments/inlinecomments and blanks. Both containzeroCPPdirectives; quote-aware ordinarycomment-removal projection preserves!$OMP and matchesexactly. Fullsourcehashes remainhard; thisprojection is explanatory sourcejoin, not numericaloracle or ELFnormalization.",
+  "source_commit": null,
+  "no_compile_or_execution": true
+}

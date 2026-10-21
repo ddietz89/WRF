@@ -1,0 +1,63 @@
+{
+  "status": "PREPARED_NOT_EXECUTED",
+  "source_commit": null,
+  "producer_commit": null,
+  "posttest_source_commit": null,
+  "input_pins": {
+    "selected96cb_module_ra_rrtmg_sw.F": "96cb2bf68c504b6321cc2e02380e8d11505968df02160581d2f89de1f2c0f35c",
+    "selected96cb_module_ra_rrtmg_sw.f90": "ec1f1d632fb9a59d01771f94842d489bab866328d8e8e3a9e3b493f89f3fc17e",
+    "candidate_module_ra_rrtmg_sw.F": "b475a85d1865a58ae0d4a8240cb7a4efca1802d67405234c7c5c522d667c4877",
+    "candidate_module_ra_rrtmg_sw.f90": "d893bd455ce75dbd98474f32c162416933bcd81adeb2e7ed2ee0842c50a06dc9",
+    "SOURCE_PROOF.json": "cbce380636f2250c0e1a6a0d652b22c8b71edaf1bf2bdbf5283cd02eed126e9b",
+    "elf_semantics.py": "e36f2c3cdef1398b2c099db555ea4fe54034dfa8c714a3a50bc4380920630e82",
+    "selected-link-dependencies.json": "0169cd47a7811dad90f4d6bb6043718542ce729b1326d8b73409605a1395005b"
+  },
+  "actual_codegen_receipt": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/codegen-gate-r1/actual-native-r1/receipt.json",
+    "sha256": "5b9d317401dd03936fa8b6f5f244373c5e52ca95a2e27c54cc79bef60d0769d8"
+  },
+  "actual_codegen_invocation_id": "0dd799d60e7843d7bcbd39be84fed211",
+  "selected_parent_canonical_sha256": "96cb2bf68c504b6321cc2e02380e8d11505968df02160581d2f89de1f2c0f35c",
+  "selected_parent_PP_sha256": "ec1f1d632fb9a59d01771f94842d489bab866328d8e8e3a9e3b493f89f3fc17e",
+  "candidate_canonical_sha256": "b475a85d1865a58ae0d4a8240cb7a4efca1802d67405234c7c5c522d667c4877",
+  "candidate_PP_sha256": "d893bd455ce75dbd98474f32c162416933bcd81adeb2e7ed2ee0842c50a06dc9",
+  "reference_object": {
+    "path": "/pool/wrf-experiment/wrf-cpu/source-discovery/spcvmc-optical-producer-codegen-r1/work/candidate/module_ra_rrtmg_sw.o",
+    "sha256": "1b5250e92b95d9855f55bd52032ff7b93cfbec7a7bcb0835fca3cd763a2c0f69"
+  },
+  "actual_compile_argv": [
+    "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+    "-o",
+    "/pool/wrf-experiment/wrf-cpu/source-discovery/spcvmc-optical-producer-codegen-r1/work/candidate/module_ra_rrtmg_sw.o",
+    "-c",
+    "-O2",
+    "-fno-fast-math",
+    "-ffp-contract=off",
+    "-w",
+    "-fno-fast-math",
+    "-ffp-contract=off",
+    "-ffree-form",
+    "-ffree-line-length-none",
+    "-fconvert=big-endian",
+    "-frecord-marker=4",
+    "-fallow-argument-mismatch",
+    "-fallow-invalid-boz",
+    "-g",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+    "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+    "-fopenmp-simd",
+    "module_ra_rrtmg_sw.f90"
+  ],
+  "module_local_extra_flags": [
+    "-fopenmp-simd"
+  ],
+  "runtime_ld_library_path": "/pool/wrf-experiment/wrf-cpu/builds/hdf5-sse2-unshuffle4-private-r3/output/candidate/lib:/pool/wrf/WPS_new/runtime/netcdf-owner/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib",
+  "scope": "Replay onechangedSWmodule from canonical-bound qualifiedPP context. No genericwholeimage .F-only reproduction, no arbitraryCPP configuration or all32MODidentity certification. Relocateddebug/sourcepaths may change fullobjecthash; require actualreference allocated/RELA/non-file equivalence without normalizing storedELF."
+}

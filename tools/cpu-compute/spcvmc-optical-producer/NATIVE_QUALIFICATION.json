@@ -1,0 +1,247 @@
+{
+  "status": "PASS_GENUINE_WHOLE_SPCVMC_12_FINITE_CASES_O0_BOUNDS_O2_ALL14_FLUX_READONLY_TABLES_FIVE_STATE",
+  "qualification_scope": "Genuine complete SPCVMC finite synthetic caller correctness; no performance or application qualification",
+  "actual_invocation_id": "4e1a20ed90724d059e6904dc5eb32870",
+  "actual_receipt_sha256": "dc5558261e4d950fd7fd83584311fa43cfa756ff801e5a23ab36283213445731",
+  "actual_closure_sha256": "6e25ab198e4ced4249b741847ea81d30cda4c3311d5610a1b0177b4408e02b22",
+  "actual_controller_sha256": "55fe4e1c3a1e4345bade4f94040c1c2e693cb1b6cdce3ff0bddc942e2909b1d6",
+  "source_pins_sha256": "41cd0d41edc4e6e9d0fc9377884f7a9a01e171ff9691227d3e2cef1f99f31aba",
+  "selected_source_sha256": "96cb2bf68c504b6321cc2e02380e8d11505968df02160581d2f89de1f2c0f35c",
+  "selected_preprocessed_sha256": "ec1f1d632fb9a59d01771f94842d489bab866328d8e8e3a9e3b493f89f3fc17e",
+  "selected_object_sha256": "761c012bdc7d3520095949209613316e77b0a7bf059e0d30083d9840b09496f0",
+  "canonical_candidate_source_sha256": "b475a85d1865a58ae0d4a8240cb7a4efca1802d67405234c7c5c522d667c4877",
+  "candidate_preprocessed_sha256": "d893bd455ce75dbd98474f32c162416933bcd81adeb2e7ed2ee0842c50a06dc9",
+  "objects": {
+    "O2": {
+      "unchanged": {
+        "path": "/pool/wrf-experiment/wrf-cpu/source-discovery/spcvmc-optical-producer-codegen-r1/work/unchanged/module_ra_rrtmg_sw.o",
+        "sha256": "806de86b5297305645eebc23a088d8c584fb604fbafcc7f1d0b264cbd05c1c40"
+      },
+      "flag-only": {
+        "path": "/pool/wrf-experiment/wrf-cpu/source-discovery/spcvmc-optical-producer-codegen-r1/work/flag-only/module_ra_rrtmg_sw.o",
+        "sha256": "12351debea0a7e204c9ce25bdc8d498e6c6c89c9ccb5853ac34828df89c990a3"
+      },
+      "candidate": {
+        "path": "/pool/wrf-experiment/wrf-cpu/source-discovery/spcvmc-optical-producer-codegen-r1/work/candidate/module_ra_rrtmg_sw.o",
+        "sha256": "1b5250e92b95d9855f55bd52032ff7b93cfbec7a7bcb0835fca3cd763a2c0f69"
+      }
+    },
+    "O0_bounds": {
+      "unchanged": {
+        "path": "/pool/wrf-experiment/wrf-cpu/source-discovery/spcvmc-whole-caller-native-r1/work/O0-unchanged-module/module_ra_rrtmg_sw.o",
+        "sha256": "90b4538248c4a74fd9df815f5c250b3dfcf5923eee9acdb7e973c4c872c30e2c"
+      },
+      "flag-only": {
+        "path": "/pool/wrf-experiment/wrf-cpu/source-discovery/spcvmc-whole-caller-native-r1/work/O0-flag-only-module/module_ra_rrtmg_sw.o",
+        "sha256": "815f5e070afa3278c82ffb1a431dba2932036b0a6c4359e86113c93cd77c34b1"
+      },
+      "candidate": {
+        "path": "/pool/wrf-experiment/wrf-cpu/source-discovery/spcvmc-whole-caller-native-r1/work/O0-candidate-module/module_ra_rrtmg_sw.o",
+        "sha256": "63097660269dbc2c2f41de12d7060cf3df550457f8b99438546f4d135eb127e1"
+      }
+    }
+  },
+  "producer_source_commit": null,
+  "codegen": {
+    "receipt_sha256": "5b9d317401dd03936fa8b6f5f244373c5e52ca95a2e27c54cc79bef60d0769d8",
+    "selected_object_reproduction": {
+      "status": "PASS_ALLOCATED_BYTES_RELOCATIONS_NONFILE_SYMBOLS_EXACT",
+      "reference_sha256": "761c012bdc7d3520095949209613316e77b0a7bf059e0d30083d9840b09496f0",
+      "rebuilt_sha256": "806de86b5297305645eebc23a088d8c584fb604fbafcc7f1d0b264cbd05c1c40",
+      "excluded": "Only nonallocated sections (including debug paths), STT_FILE symbol. All allocated text/rodata/data/bss/unwind sections and their relocations exact."
+    },
+    "flag_only_equivalence": {
+      "status": "PASS_ALLOCATED_BYTES_RELOCATIONS_NONFILE_SYMBOLS_EXACT",
+      "reference_sha256": "806de86b5297305645eebc23a088d8c584fb604fbafcc7f1d0b264cbd05c1c40",
+      "rebuilt_sha256": "12351debea0a7e204c9ce25bdc8d498e6c6c89c9ccb5853ac34828df89c990a3",
+      "excluded": "Only nonallocated sections (including debug paths), STT_FILE symbol. All allocated text/rodata/data/bss/unwind sections and their relocations exact."
+    },
+    "packed_producer_seen": true
+  },
+  "fixture": {
+    "levels": [
+      4,
+      3,
+      33
+    ],
+    "cases_per_executable": 12,
+    "regimes": [
+      "clear",
+      "mixed cloud"
+    ],
+    "state_seeds": [
+      "nearest, cleared exceptions, ERANGE",
+      "downward, sticky DIVBYZERO, ERANGE"
+    ],
+    "outputs": 14,
+    "raw_bytes_per_executable": 11360,
+    "real_initializer": "rrtmg_swlookuptable + rrtmg_sw_ini + SETCOEF_SW",
+    "setcoef_domain_guard": "1 <= laytrop < nlayers",
+    "readonly_table_fields": 214,
+    "whole_module_reused": true,
+    "module_compiles": 0,
+    "driver_compiles": 2,
+    "links": 6
+  },
+  "hard_oracles": {
+    "same_mode_full_raw_headers_outputs_and_five_return_state_words": true,
+    "readonly_inputs_scalars_indices_controls": true,
+    "readonly_initialized_table_snapshot": true,
+    "output_boundary_canaries": true,
+    "O0_bounds_checked_full_modules_and_driver": true,
+    "global_public_data_ABI": true,
+    "all32_raw_MOD_bytes_certified": false
+  },
+  "outputs": {
+    "O2": {
+      "unchanged": {
+        "path": "/pool/wrf-experiment/wrf-cpu/source-discovery/spcvmc-whole-caller-native-r2/work/O2-unchanged-caller/full.raw",
+        "sha256": "be746561c7b9bd85a72b069f90ebf78c238b7db4c8c5e87908f3f5d7eef7dfea",
+        "bytes": 11360,
+        "executable_sha256": "73efdf9bae8d09272f0a54ae8a0ae4fb1382814b332121dcd9d117ea585b8642"
+      },
+      "flag-only": {
+        "path": "/pool/wrf-experiment/wrf-cpu/source-discovery/spcvmc-whole-caller-native-r2/work/O2-flag-only-caller/full.raw",
+        "sha256": "be746561c7b9bd85a72b069f90ebf78c238b7db4c8c5e87908f3f5d7eef7dfea",
+        "bytes": 11360,
+        "executable_sha256": "36ca93459b1101c054ce4689de6d9e33cf4862908535857440c41f5e14031aa0"
+      },
+      "candidate": {
+        "path": "/pool/wrf-experiment/wrf-cpu/source-discovery/spcvmc-whole-caller-native-r2/work/O2-candidate-caller/full.raw",
+        "sha256": "be746561c7b9bd85a72b069f90ebf78c238b7db4c8c5e87908f3f5d7eef7dfea",
+        "bytes": 11360,
+        "executable_sha256": "ee2d97885f752fb3536987d1efcf11224c154ebc9ce9473c56f79738785a8806"
+      }
+    },
+    "O0": {
+      "unchanged": {
+        "path": "/pool/wrf-experiment/wrf-cpu/source-discovery/spcvmc-whole-caller-native-r2/work/O0-unchanged-caller/full.raw",
+        "sha256": "be746561c7b9bd85a72b069f90ebf78c238b7db4c8c5e87908f3f5d7eef7dfea",
+        "bytes": 11360,
+        "executable_sha256": "9db8383ab8c5e81c5f16ceae8030f97c6ed2eb932e5f8c5b629b88cf772ef991"
+      },
+      "flag-only": {
+        "path": "/pool/wrf-experiment/wrf-cpu/source-discovery/spcvmc-whole-caller-native-r2/work/O0-flag-only-caller/full.raw",
+        "sha256": "be746561c7b9bd85a72b069f90ebf78c238b7db4c8c5e87908f3f5d7eef7dfea",
+        "bytes": 11360,
+        "executable_sha256": "bff5ed7fc564fbda9a4a25adbb16a4aa8a6e4141d57cc67a66ddd5648b76a642"
+      },
+      "candidate": {
+        "path": "/pool/wrf-experiment/wrf-cpu/source-discovery/spcvmc-whole-caller-native-r2/work/O0-candidate-caller/full.raw",
+        "sha256": "be746561c7b9bd85a72b069f90ebf78c238b7db4c8c5e87908f3f5d7eef7dfea",
+        "bytes": 11360,
+        "executable_sha256": "53ac520f2b0130cd748a01b92a3311bfbf34ffe2ebd3b699882b11cb7e87a121"
+      }
+    }
+  },
+  "resource_context": {
+    "actual_entry": {
+      "host": "hpc01",
+      "pid": 3806117,
+      "affinity": [
+        24,
+        25
+      ],
+      "cgroup": "/sys/fs/cgroup/system.slice/wrf-cpu-spcvmc-whole-caller-native-hpc01-r2.service"
+    },
+    "cpu.stat": "usage_usec 11966703\nuser_usec 6152138\nsystem_usec 5814564\ncore_sched.force_idle_usec 0\nnr_periods 156\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+    "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+    "memory.peak": "652374016\n"
+  },
+  "normal_strong_closure": true,
+  "prior_failure_preserved": {
+    "invocation_id": "b1d462428f564476aea60305a45bf12a",
+    "receipt_sha256": "8c0c904317970a00c3d0af958533f56b650bc757810b6040c8ccd70cc5caaaf2",
+    "closure_sha256": "e9555db50fb093936f06048360a823722eb0e6320b3e531448261194d084a1b8",
+    "cause": "Original O0 TAUMOL18jp(lay+1) at laytrop=n1; fixture n1invalid"
+  },
+  "limits": [
+    "Finite synthetic inputs only; no unrestricted NaN, enabled-trap, general LUT-domain, captured production column or universal rounding-mode claim.",
+    "No elapsed service duration is a timing gain.",
+    "No whole application science or default selection claim."
+  ],
+  "timing_gain_qualified": false,
+  "application_qualified": false,
+  "raw_refs": [
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/whole-spcvmc-fixture-preparation-r1/native-gate-r2/actual-native-r1/receipt.json",
+      "sha256": "dc5558261e4d950fd7fd83584311fa43cfa756ff801e5a23ab36283213445731",
+      "bytes": 248819
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/whole-spcvmc-fixture-preparation-r1/native-gate-r2/actual-native-r1/closure.json",
+      "sha256": "6e25ab198e4ced4249b741847ea81d30cda4c3311d5610a1b0177b4408e02b22",
+      "bytes": 1078
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/whole-spcvmc-fixture-preparation-r1/native-gate-r2/actual-native-r1/controller.json",
+      "sha256": "55fe4e1c3a1e4345bade4f94040c1c2e693cb1b6cdce3ff0bddc942e2909b1d6",
+      "bytes": 1007
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/whole-spcvmc-fixture-preparation-r1/native-gate-r2/source-pins.json",
+      "sha256": "41cd0d41edc4e6e9d0fc9377884f7a9a01e171ff9691227d3e2cef1f99f31aba",
+      "bytes": 2042
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/whole-spcvmc-fixture-preparation-r1/native-gate-r2/binding.json",
+      "sha256": "f4848779ea1d952878fee4b516648de0ce2cbe670d773d7a8238ded74f65e4f1",
+      "bytes": 4001
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/whole-spcvmc-fixture-preparation-r1/native-gate-r2/full_spcvmc_driver.f90",
+      "sha256": "ffb35ca3099f0bd21f70d50d11af05671a9949a4c1cf77a86ece448ba8c54c4d",
+      "bytes": 17840
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/whole-spcvmc-fixture-preparation-r1/native-gate-r2/region_observer.c",
+      "sha256": "99395063bf74fa1668e6784a08953a06011c854a7d42373c387f7cdddf25da7d",
+      "bytes": 731
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/whole-spcvmc-fixture-preparation-r1/native-gate-r2/READONLY_TABLE_FIELDS.json",
+      "sha256": "d64e72630b5f5915369c1ad4a718f956f32b7793894286a65be2a24cae77cabf",
+      "bytes": 3892
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/whole-spcvmc-fixture-preparation-r1/native-gate-r2/SOURCE_PROOF.json",
+      "sha256": "cbce380636f2250c0e1a6a0d652b22c8b71edaf1bf2bdbf5283cd02eed126e9b",
+      "bytes": 1411
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/whole-spcvmc-fixture-preparation-r1/native-gate-r2/codegen-receipt.json",
+      "sha256": "5b9d317401dd03936fa8b6f5f244373c5e52ca95a2e27c54cc79bef60d0769d8",
+      "bytes": 86500
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/whole-spcvmc-fixture-preparation-r1/native-gate-r2/codegen-closure.json",
+      "sha256": "044bdfc2cc9cd3da35a27cbfa3f179fe86957c00293188f0ea74b76bb31b7425",
+      "bytes": 1093
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/whole-spcvmc-fixture-preparation-r1/native-gate-r2/codegen-verified-closure.json",
+      "sha256": "51ebe17b7cf4890a28f2f882c65a14e4e49d64ef12a6574ce475380cc665bdf2",
+      "bytes": 4109
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/whole-spcvmc-fixture-preparation-r1/native-gate-r2/failed-r1-receipt.json",
+      "sha256": "8c0c904317970a00c3d0af958533f56b650bc757810b6040c8ccd70cc5caaaf2",
+      "bytes": 248546
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/whole-spcvmc-fixture-preparation-r1/native-gate-r2/failed-r1-closure.json",
+      "sha256": "e9555db50fb093936f06048360a823722eb0e6320b3e531448261194d084a1b8",
+      "bytes": 1308
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/whole-spcvmc-fixture-preparation-r1/R1_TO_R2_DRIVER_ONLY.diff",
+      "sha256": "7768c8b4f655060f0a778c2727beee3c45e59323958e2626480aaf077c62358b",
+      "bytes": 1314
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/whole-spcvmc-fixture-preparation-r1/R1_FAILURE_AND_R2_REPAIR.json",
+      "sha256": "6125bded6689de7285f318cd5977f90341c2b646b4c4b96765b6e6183b0704cc",
+      "bytes": 5274
+    }
+  ]
+}
