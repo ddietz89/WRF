@@ -1,0 +1,97 @@
+{
+  "status": "REJECT_EXACT_NATIVE_MISMATCH",
+  "candidate_canonical_sha256": "490be9e5d8153f2e21317d433dbca1f0a9f824dcb8e594da6c28bfce2f721080",
+  "candidate_actual_PP_sha256": "53024af530589cda0a5571ad97c305580bc0fa9af7f1978d4463971b2c9666fe",
+  "candidate_O2_object_sha256": "a5df33a2636e5175e3f7e1cff94bfcc1dd2943a466271ab9192d9cb09306c2ed",
+  "experimental_parent_object_sha256": "670bb8958047065dd314ab0d2706bac71e9f4d23e511517a47a6c76fd6eddc84",
+  "native_invocation_id": "9a81747dee074bb4a903f012cc8349b0",
+  "observed_failure": "AssertionError(('O2', 'candidate', 'SAME_OPT_FULL_RAW_OR_FIVE_STATE_MISMATCH'))",
+  "actual_proven_facts": [
+    "Both fresh canonical parent438d and child53024 passed exact PP expectation.",
+    "All four O0-bounds/O2 parent/candidate wholemodule compilations completed, with hard publicMOD0170 and symbol gates before callers.",
+    "Fresh genuine current670b original19/additive24 prefix passed before candidate calls.",
+    "O0parent/candidate full24 serialized buffers exact; O0fresh19 prefix passed.",
+    "O2rebuiltparent full24 matches genuine670b additive24 exactly.",
+    "O2candidate completed whole24caller successfully and passed its internal readonly-input/bounds checks, but serialized151776B buffer differs from SAME-OPT currentO2parent.",
+    "Hard comparison combines case number, all three output allocations and five postcall state fields; it does not identify which category or case differs.",
+    "All commands returned0; failure is exact comparison assertion, not launch/compiler/expectedPP or caller setup failure.",
+    "Failed worker closed positively as failedexit1/PID0/cgroupabsentempty with matching managerINV. No nativePASS/caller/app qualification."
+  ],
+  "same_opt_raw_evidence": {
+    "genuine-original19": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/calc-cq-species-i-simd-experimental670b-full-native-r2/work/call-genuine-original19/raw.bin",
+      "sha256": "aca4ec9067b0fa0b329a760c83058abda8a3b62c5e8cc169f9d58e5f85d1abed",
+      "bytes": 120156,
+      "executable_sha256": "5b774db1782eeae9163e22931c36b57407102b71c0635c1a21a03f11fc86193d",
+      "cases": 19
+    },
+    "genuine-additive24": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/calc-cq-species-i-simd-experimental670b-full-native-r2/work/call-genuine-additive24/raw.bin",
+      "sha256": "ad97c5ddc84f147ddd10506539e8c703e47e9a6e3b0a2baef1eba36092e2c7fe",
+      "bytes": 151776,
+      "executable_sha256": "d83e4ef447a0dc7d0dbcec3af8b3d856be098fccfedc9a1051fa50826ce97e7e",
+      "cases": 24
+    },
+    "O0-parent-original19": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/calc-cq-species-i-simd-experimental670b-full-native-r2/work/call-O0-parent-original19/raw.bin",
+      "sha256": "638ce09e5125bb990eadf128004921767a06a8a8bfc30f23643ec00061a4698b",
+      "bytes": 120156,
+      "executable_sha256": "23d91af7f0eabccbe163169ab6d843d7a7231cbfa9b5d4dd18d6e0d29d56f12e",
+      "cases": 19
+    },
+    "O0-parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/calc-cq-species-i-simd-experimental670b-full-native-r2/work/call-O0-parent/raw.bin",
+      "sha256": "b617eb07fcd12ad36803df0ac7445bcdba9b3d4ddc740a36b672fef7fabd1aec",
+      "bytes": 151776,
+      "executable_sha256": "8a1f461854fd54bc5676eb901cf1f25c152b8509891640788cad20031dc0f744",
+      "cases": 24
+    },
+    "O0-candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/calc-cq-species-i-simd-experimental670b-full-native-r2/work/call-O0-candidate/raw.bin",
+      "sha256": "b617eb07fcd12ad36803df0ac7445bcdba9b3d4ddc740a36b672fef7fabd1aec",
+      "bytes": 151776,
+      "executable_sha256": "a22d37802e257ad02466e838ab60faae58e0e06a5e8af56af1b683f0f19dfd0f",
+      "cases": 24
+    },
+    "O2-parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/calc-cq-species-i-simd-experimental670b-full-native-r2/work/call-O2-parent/raw.bin",
+      "sha256": "ad97c5ddc84f147ddd10506539e8c703e47e9a6e3b0a2baef1eba36092e2c7fe",
+      "bytes": 151776,
+      "executable_sha256": "0464595f0b6fb7f95614868a14ad62ed64971519689b9117537579e86a3d8e30",
+      "cases": 24
+    },
+    "O2-candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/calc-cq-species-i-simd-experimental670b-full-native-r2/work/call-O2-candidate/raw.bin",
+      "sha256": "9f00ef58a543f0deffcbf3eaad89d4f7711d8d8ffd2ab97a22e587cb3cc28f8e",
+      "bytes": 151776,
+      "executable_sha256": "a609f727761bdcb4e8be8ad66fb03a9b3f0621706de4621d76d3cea66caf1d2c",
+      "cases": 24
+    }
+  },
+  "cause_assessment": {
+    "output_word_mismatch_proven_separately": false,
+    "five_state_mismatch_proven_separately": false,
+    "failing_case_identified": false,
+    "NaN_payload_cause_proven": false,
+    "codegen_cause_proven": false,
+    "explanation": "Candidate SIMD may affect NaN payload/operand selection or state, but no bounded rawdiff/codegen evidence has been collected to establish the actual cause. Reject on exact-observed contract mismatch only."
+  },
+  "separate_R1_failure": "R1 failed candidate EXPECTED_PP before compilation: projected88562 lacked canonical diagnostic line1055\u21921058. Its raw receipt/closure and the finite canonical53024 expectation repair remain preserved; R1 was not a science failure.",
+  "disposition": "Reject this fixed three-directive candidate. No thirdvariant, tolerance/operand/SIMDguard salvage, timing, newAPI or application/default/source promotion.",
+  "additional_remote_diagnosis_required_for_disposition": false,
+  "raw_refs_sha256": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/calc-cq-species-i-simd-r1/full-native-preparation-r2/actual-native-r1/receipt.json": "fb0808a5a4d6dbfd583ee9e91a01ca1b9273f87a98961a15ea7f8e28c5fad5ad",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/calc-cq-species-i-simd-r1/full-native-preparation-r2/actual-native-r1/closure.json": "abadfa0eed29a3211b83fba09c87a57fae1493c887553d1daaad5c4d119fc5da",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/calc-cq-species-i-simd-r1/full-native-preparation-r2/actual-native-r1/controller.json": "1e33922ae476bbfcdfea77b7a64a44ee7c1948782821fac292abea75cbce7e96",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/calc-cq-species-i-simd-r1/full-native-preparation-r2/inputs/whole_caller.f90": "3007e75725c4f3ab3c5317796d146c207c6dbe08be6b879c03beb5e75fb2fbbb",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/calc-cq-species-i-simd-r1/full-native-preparation-r2/inputs/original19_driver.f90": "1cac2b11f31a9ee3a30aad00396e6a56e57ce885c674f3ff87949de970a9698a",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/calc-cq-species-i-simd-r1/full-native-preparation-r2/inputs/region_observer.c": "99395063bf74fa1668e6784a08953a06011c854a7d42373c387f7cdddf25da7d",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/calc-cq-species-i-simd-r1/full-native-preparation-r2/inputs/run_gate.py": "76ebcb90fface3177e5b6f12804b2cb390d26d2b16b7df46630d02bb51771cab",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/calc-cq-species-i-simd-r1/full-native-preparation-r2/inputs/binding.json": "e37edff4460e632dcd1a475f0818a591f9b5fa5541e41fe05e5a44ffd70c1fbd",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/calc-cq-species-i-simd-r1/full-native-preparation-r2/inputs/SOURCE_PROJECTION_AND_PROVIDER_ADJUDICATION.json": "02d89d6f130901400ad5bd3d862c4cbcbb6de0ebe23b2205574cb05c9269c451",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/calc-cq-species-i-simd-r1/full-native-preparation-r1/actual-native-r1/receipt.json": "4ae78e329dffea1a641917f61b7d9f08ea2ccbf59319dd431883191d7c4f8b89",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/calc-cq-species-i-simd-r1/full-native-preparation-r1/actual-native-r1/closure.json": "ba98661db2448bd7fedde5ee8872f73858be3fda8d33f601c3fd6f8541338db3",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/calc-cq-species-i-simd-r1/full-native-preparation-r1/actual-native-r1/controller.json": "d4a8c90dab031fc0e9173e9763bfbdb0d48a308cbec1e43b49dad77df7c30462",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/calc-cq-species-i-simd-r1/full-native-preparation-r1/actual-native-r1/ACTUAL_CANONICAL_CANDIDATE.json": "9dafb284c079350e88db6cf7a7cfd19b68f224702135cf25563c46c4589b238f"
+  }
+}

@@ -1,3 +1,11 @@
+# Current working selection: NH-X consumer SIMD
+
+**1749f701 / archivef18c135a / post-test sourcea531104f** retains every f703 improvement. One NH-X inner-I directive delivered20.94%/20.87% lower complete synthetic HPG caller wall time; native100 and original full512 short2product/35step exact checks passed. Extra112B frame/spills are documented; process CPU unavailable. OwnshortTRUE, own3h/noon/9hFALSE. [Evidence and rollback](../cpu-compute/hpg-nhx-consumer-simd/README.md).
+
+Prior three-hour and nine-hour timing results below are historical for their named artifacts. No current forecast-gain claim is transferred. Restore all three BEFORE_HPG_NHX_CONSUMER snapshots and revert source-onlya531104f for rollback. Production/master unchanged; AWS suspended.
+
+---
+
 # Current working configuration — October 21, 2026
 
 Selected **f703115b / archivefe72cb2e / post-test sourcec3d2de5d** adds NH-X row-ratio caching to all3cdd improvements. Complete finite500-call HPG timings were1.34–3.04% shorter with exact raw/state results; process CPU unavailable. Original short2product/35step/full512/two-tile science and normal closures passed. OwnshortTRUE; own3h/noon/9hFALSE. [Evidence and rollback](../cpu-compute/hpg-nhx-row-cache/README.md) preserve scope.

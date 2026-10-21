@@ -1,0 +1,10 @@
+--- a/dyn_em/module_big_step_utilities_em.F
++++ b/dyn_em/module_big_step_utilities_em.F
+@@ -2396,6 +2396,7 @@
+           END DO
+         END IF
+         DO K=1,ktf
++          !$OMP SIMD PRIVATE(dpx)
+           DO i = i_start, itf
+             ! Here are mu dp/dy terms 1-3
+             dpx = map_y_cache(i)*.5*rdx*(c1h(k)*muu(i,j)+c2h(k))*(                    &

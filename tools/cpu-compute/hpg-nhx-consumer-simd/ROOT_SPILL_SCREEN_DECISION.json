@@ -1,0 +1,92 @@
+{
+  "status": "ACTUAL_SOURCE_JOINED_PACKED_CONSUMER_WITH_NEW_SPILLS_NO_PERFORMANCE_QUALIFICATION",
+  "invocation_id": "66b171db1f3b4cd28f151e24606b19b2",
+  "candidate_O2_object_sha256": "670bb8958047065dd314ab0d2706bac71e9f4d23e511517a47a6c76fd6eddc84",
+  "target_consumer_packed": true,
+  "target_memory_span_bounded": true,
+  "no_unexpected_spills": false,
+  "no_new_array_allocation": true,
+  "canonical_and_PP_outside_single_directive_byteexact": true,
+  "outside_function_machine_code_byteexact_certified": false,
+  "outside_function_machine_code_scope": "Not established by the returned function-only disassembly; do not infer whole-object code equality from source inverse or parent-reproduction proof.",
+  "source_join": {
+    "procedure": "horizontal_pressure_gradient",
+    "candidate_PP_lines": "2403\u20132421; directive2409; arithmetic2412\u20132419",
+    "parent_PP_lines": "2403\u20132420; arithmetic2411\u20132418",
+    "unchanged_bounds": "i_start/itf boundary and periodic adjustments; j_start..jtf; k1..ktf; cache fill only ktf>=1. No additional scientific memory operand in source."
+  },
+  "packed_evidence": {
+    "main_loop_object_addresses": "0x1c7c0\u20130x1c8fd",
+    "arithmetic": "SSE mulps/addps/subps preserve independent I-lane expression structure; final ru_tend load0x1c8e8, multiply0x1c8ec, subtract0x1c8ef, store0x1c8f2. Parent consumer0x1c628 onward uses scalar mulss/addss/subss.",
+    "memory_span": "Main movups loads/stores are16bytes/four contiguous REAL32 I values. Byte induction0x1c8f6 adds16; compare0x1c8fa/backedge0x1c8fd limits floor(N/4) vectors. Trip setup shift-right2 at0x1c199, shift/byte bound stored0x1c1ba; Nmod4 computed0x1c5b3\u20130x1c5c2. Source i-1 neighbors retain their original halo requirement.",
+    "tails": "N<=3 branches0x1c675\u20130x1c693 to0x1d36e then epilogue. Nmod4 zero skips0x1c942\u20130x1c944; two-lane movq input/movlps store0x1cb3b handles2; bit0 test0x1cb42\u20130x1cb45 controls final scalar path0x1cb50\u20130x1cca8. No full-width rounded-up tail store.",
+    "empty_bounds": "I empty check0x1c5d8\u20130x1c5e6 branches past consumer to0x1ccaf; source K and J loop guards unchanged; actual100 fixture includes empty I/J/K and readonly halo guards."
+  },
+  "spill_evidence": {
+    "parent_stack_frame_hex": "0x338",
+    "candidate_stack_frame_hex": "0x3a8",
+    "increase_bytes": 112,
+    "candidate_packed_loop_temporary_stores": [
+      "0x1c7da movaps xmm2,(rsp)",
+      "0x1c82f movaps xmm2,0x10(rsp)",
+      "0x1c86f movaps xmm2,0x10(rsp)",
+      "0x1c87d movaps xmm2,0x20(rsp)",
+      "0x1c8a7 movaps xmm15,0x10(rsp)"
+    ],
+    "candidate_reloads": [
+      "0x1c839 addps0x10(rsp),xmm2",
+      "0x1c850 movaps(rsp),xmm2",
+      "0x1c885 movaps0x10(rsp),xmm1",
+      "0x1c8c9 movaps(rsp),xmm15"
+    ],
+    "interpretation": "New per-vector stack temporary traffic and larger frame are observed. Parent already has scalar coefficient stack traffic. Counts alone establish neither net caller gain nor regression; no no-spill PASS."
+  },
+  "allocation_evidence": {
+    "parent_call_relocations": [
+      "malloc-0x4",
+      "malloc-0x4",
+      "malloc-0x4",
+      "free-0x4",
+      "free-0x4",
+      "free-0x4"
+    ],
+    "candidate_call_relocations": [
+      "malloc-0x4",
+      "malloc-0x4",
+      "malloc-0x4",
+      "free-0x4",
+      "free-0x4",
+      "free-0x4"
+    ],
+    "scope": "Same three existing malloc and three free relocations within HPG; no source array/declaration/allocation added; no call instruction within packed consumer loop."
+  },
+  "native_evidence": "Actual PASS100 O0bounds/O2 fullraw/five-state/readonly/config/physical/empty/legal readonly alias and fresh72 prefix; finite cases and two rounding modes only, no universalIEEE/trap claim.",
+  "failures": [
+    "Requested no_unexpected_spills characterization is FALSE."
+  ],
+  "performance_qualified": false,
+  "caller_release_requires_separate_root_performance_screen_decision": true,
+  "raw_refs_sha256": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pressure-gradient-nhx-consumer-simd-r1/full-native-preparation-r1/actual-native-r1/receipt.json": "9115b969a13e94392ee5e9102cb85133a3a92544e1d1dd93dd17390423099f1b",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pressure-gradient-nhx-consumer-simd-r1/full-native-preparation-r1/actual-native-r1/closure.json": "71eb011af3183c4108be3403f066179b262102a88b8b27501c216f4f394720a7",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pressure-gradient-nhx-consumer-simd-r1/full-native-preparation-r1/actual-native-r1/hpg-codegen-parent.log": "1092b01d6ee31f8d9cfaa4b583650d7a8bec8e0e99d27db7fe50c47fa87e1e0e",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pressure-gradient-nhx-consumer-simd-r1/full-native-preparation-r1/actual-native-r1/hpg-codegen-candidate.log": "a16143ef672e1b0622c3d269950836276057162242c8c2c47855eec6618d8aa9",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pressure-gradient-nhx-consumer-simd-r1/full-native-preparation-r1/actual-native-r1/genuine-parent-proof.json": "3b2dc87ed8d5755e9f8d4c5160ffcb0387cfadb92e935ab108d0a9e0a4fa31c1",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pressure-gradient-nhx-consumer-simd-r1/full-native-preparation-r1/inputs/parent_module_big_step_utilities_em.F": "16d05da105cb276425b79244292f6c741d1a9e525ff9f40fdfb0d7f4101b2317",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pressure-gradient-nhx-consumer-simd-r1/full-native-preparation-r1/inputs/candidate_module_big_step_utilities_em.F": "8aba45993521c8a13c0ab0e9eae45a2c7c31b7a91042806ecfbe2a3774b98bff",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pressure-gradient-nhx-consumer-simd-r1/full-native-preparation-r1/inputs/parent_module_big_step_utilities_em.f90": "8d2d93654c1f3bc18a02e9d34e7a41a5e95567c6cb7204367d78970552ceba18",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pressure-gradient-nhx-consumer-simd-r1/full-native-preparation-r1/inputs/candidate_module_big_step_utilities_em.f90": "438d1910e75a6a5570e2fee195674c88b15d4548baba63d622696cf5861e2702"
+  },
+  "native_receipt_sha256": "9115b969a13e94392ee5e9102cb85133a3a92544e1d1dd93dd17390423099f1b",
+  "parent_asm_sha256": "1092b01d6ee31f8d9cfaa4b583650d7a8bec8e0e99d27db7fe50c47fa87e1e0e",
+  "candidate_asm_sha256": "a16143ef672e1b0622c3d269950836276057162242c8c2c47855eec6618d8aa9",
+  "root_performance_screen_decision": {
+    "status": "ALLOW_BOUNDED_CURRENT_CALLER_WITH_DOCUMENTED_SPILLS",
+    "utc": "2026-10-21T15:21:14.324936+00:00",
+    "native_receipt_sha256": "9115b969a13e94392ee5e9102cb85133a3a92544e1d1dd93dd17390423099f1b",
+    "candidate_object_sha256": "670bb8958047065dd314ab0d2706bac71e9f4d23e511517a47a6c76fd6eddc84",
+    "codegen_review_sha256": "123a3b6e5d90a829b1bec3d6139b00531a577a41537e836b456884121fa765c4",
+    "reason": "Actual bounded packed loop and native100 exact passed. Additional112-byte frame and packed temporary stack traffic are characterized, not a scientific failure or measured regression. Measure the complete existing500-call caller to assess net cost; do not fabricate no-spill PASS or promote from codegen alone.",
+    "limits": "Only prospective performance-screen criterion changes. No source/flags/native/numerical/readonly/FP-state/benchmarkwork/clock/caches/resource/closure/application changes; no gain claimed."
+  }
+}
