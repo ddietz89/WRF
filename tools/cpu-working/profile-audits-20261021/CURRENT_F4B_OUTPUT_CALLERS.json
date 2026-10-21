@@ -1,0 +1,58 @@
+{
+  "status": "ACTUAL_OUTPUT_QUILT_IOSYNC_PAYLOAD_PATH_RESOLVED_ARCHITECTURAL_QUESTION_ONLY",
+  "current_executable_sha256": "f4b3c348c12c4863a869a7f9da0ede6516406989758e7a320fb6042ba5ee55c8",
+  "actual_higher_caller_result_sha256": "c04cf1315dcbb588da921ebcbf7294db93feaacdf7b40df6ad1cc07b48657e95",
+  "actual_higher_caller_closure_sha256": "e044e063cd9704eacba3abaf28d8b7decdcad719e3e6c15187d0f50669b07cd6",
+  "q186_facts": {
+    "0": {
+      "col_payload_samples": 14,
+      "col_payload_period": 724503354,
+      "iosync_samples": 11,
+      "iosync_period": 566060967,
+      "iosync_percent_of_selected_intergather_period": 16.923072602845867,
+      "unresolved_col_samples": 0
+    },
+    "120": {
+      "col_payload_samples": 51,
+      "col_payload_period": 2692135389,
+      "iosync_samples": 46,
+      "iosync_period": 2423577290,
+      "iosync_percent_of_selected_intergather_period": 45.18056287723915,
+      "unresolved_col_samples": 0
+    },
+    "124": {
+      "col_payload_samples": 56,
+      "col_payload_period": 2972462052,
+      "iosync_samples": 50,
+      "iosync_period": 2649850012,
+      "iosync_percent_of_selected_intergather_period": 48.36108325682539,
+      "unresolved_col_samples": 0
+    }
+  },
+  "source_iosync": {
+    "path": "/home/ddietz/wrf/WRF/frame/module_io_quilt_old.F",
+    "whole_source_sha256": "0dcca805f5e1684320b0975684ec716562f821a3cfd8f8c6bf7bcece99bed1b8",
+    "procedure_start_line": 3357,
+    "procedure_end_line": 3437,
+    "literal_procedure_sha256": "b23a083e1999a5d0ca4d861a23621072735af8188f46cf74b04b65df439a3a50",
+    "sequence": "derive iserver from DataHandle; derive comm_io_group; size MPI_Reduce; blocking collect_on_comm(countGather,payloadGatherv); reset cursor/deallocate and nullify client int_local_output_buffer",
+    "observed_route": "collect_on_comm_+a\u2192wrf_quilt_iosync_+f8\u2192module_io wrf_iosync+1c3\u2192output_wrf+eb60",
+    "actual_communicator_id_size_root": null
+  },
+  "architecture_question": "Can the actual output collection path overlap or hierarchically aggregate payload under a finite owned-buffer contract without changing ordered message/header semantics or increasing peak past admitted caps? No implementation/gain established. A bare MPI_Igatherv substitution followedby immediateWait offers no source-proven overlap; returning beforecompletion violates immediateclientbuffer release. Bothclient andserver participation/order need design review.",
+  "cause_unknown": [
+    "Current receive/service progress versus transfer versus lateparticipant readiness/backpressure not partitioned.",
+    "No root/communicator values observed; no writer495 or otherroot assigned from filetime inference.",
+    "Current sampled client output wait doesnotidentifywhich servercompression/write phase caused it."
+  ],
+  "already_closed_distinct": [
+    "quilt readiness blockingReduce\u2192Ireduce/backoff slower, not payloadGatherv",
+    "adaptive6gather FE_INEXACT failure, not colpayload",
+    "Direct8/EarlyX/NUMA/XPMEM/progress screens, not thisoutputprotocol",
+    "Historical collectCsetup/count/type/malloc share negligible, not a justifiednewmicrotarget"
+  ],
+  "no_global_cost_claim": true,
+  "no_new_implementation_or_dispatch": true,
+  "interpretation_source_sha256": "df8d253fa3aa84aee081ae9b7daf57b0ca424a1f49a09426a75844b37c2b7806",
+  "lower_callsite_source_join_sha256": "beb8a026f4d459970214fb8066b4288c025fd1eb0d4b2b90a0d96152f92e7e21"
+}
