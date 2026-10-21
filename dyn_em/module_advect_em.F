@@ -3531,12 +3531,12 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
         IF(j > j_start) THEN
 
           DO k=kts,ktf
+!$omp simd private(mrdy)
           DO i = i_start, i_end
             mrdy=msftx(i,j-1)*rdy    ! see ADT eqn 48 [rho->rho*q] dividing by my, 2nd term RHS
             tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*(fqy(i,k,jp1)-fqy(i,k,jp0))
           ENDDO
           ENDDO
-
         ENDIF
 
         END IF
@@ -4329,11 +4329,11 @@ TRIM( wrf_err_message ) )
          ENDDO
 
          DO k=kts,ktf
+!$omp simd
          DO i = i_start, i_end
             tendency(i,k,j)=tendency(i,k,j)-rdzw(k)*(vflux(i,k+1)-vflux(i,k))
          ENDDO
          ENDDO
-
       ENDDO
 
    ELSE IF (vert_order == 2) THEN    
