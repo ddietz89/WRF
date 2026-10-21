@@ -1067,6 +1067,7 @@ CONTAINS
                          ( jts == jds) .and. open_bc_copy )  THEN
 
             DO k = kts, k_end
+!$OMP SIMD PRIVATE(bc_source)
             DO i = i_start, i_end
               bc_source = dat(i,k,jds)
               dat(i,k,jds-1) = bc_source

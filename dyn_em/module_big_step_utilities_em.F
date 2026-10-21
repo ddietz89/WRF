@@ -1259,6 +1259,7 @@ SUBROUTINE calc_php ( php, ph, phb,                  &
 
       DO j=jts,jtf
       DO k=kts,ktf
+!$OMP SIMD
       DO i=its,itf
         php(i,k,j) = 0.5*(phb(i,k,j)+phb(i,k+1,j)+ph(i,k,j)+ph(i,k+1,j))
       ENDDO
