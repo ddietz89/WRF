@@ -2390,15 +2390,20 @@ SUBROUTINE horizontal_pressure_gradient( ru_tend,rv_tend,                &
 
 ! ADT eqn 44: -mu*(mx/my)*(1/rho)*partial dp/dx
 ! [alt, al are 1/rho terms; muu, mu are NOT coupled]
+        IF ( ktf >= 1 ) THEN
+          DO i = i_start, itf
+            map_y_cache(i) = msfux(i,j)/msfuy(i,j)
+          END DO
+        END IF
         DO K=1,ktf
           DO i = i_start, itf
             ! Here are mu dp/dy terms 1-3
-            dpx = (msfux(i,j)/msfuy(i,j))*.5*rdx*(c1h(k)*muu(i,j)+c2h(k))*(                    &
+            dpx = map_y_cache(i)*.5*rdx*(c1h(k)*muu(i,j)+c2h(k))*(                    &
                         (ph (i,k+1,j)-ph (i-1,k+1,j) + ph(i,k,j)-ph(i-1,k,j))  &
                        +(alt(i,k  ,j)+alt(i-1,k  ,j))*(p (i,k,j)-p (i-1,k,j))  &
                        +(al (i,k  ,j)+al (i-1,k  ,j))*(pb(i,k,j)-pb(i-1,k,j)) )
             ! Here is mu dp/dy term 4
-            dpx = dpx + (msfux(i,j)/msfuy(i,j))*rdx*(php(i,k,j)-php(i-1,k,j))* &
+            dpx = dpx + map_y_cache(i)*rdx*(php(i,k,j)-php(i-1,k,j))* &
                 (rdnw(k)*(dpn(i,k+1)-dpn(i,k))-.5*((c1(k)*mu(i-1,j))+(c1(k)*mu(i,j))))
             ru_tend(i,k,j) = ru_tend(i,k,j)-cqu(i,k,j)*dpx
           END DO
