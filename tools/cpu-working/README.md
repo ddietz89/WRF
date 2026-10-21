@@ -1,8 +1,10 @@
 # Current working selection: NH-Y pressure-gradient consumer SIMD
 
-**bc543d56 / archive 9a909457 / post-test source 9e259378** retains all previous improvements and adds one NH-Y inner-I directive. Complete synthetic HPG caller wall fell **36.85% and 35.72%** in opposite-order host pairs with exact raw output and state; process CPU was unavailable. Native 100-case bounds/O2 checks and the unchanged original full-grid short comparison passed exactly: two products, 35 ordered steps, 512 ranks, two tiles, and normal model/checker closures.
+**bc543d56 / archive 9a909457 / NH-Y introduction 9e259378** retains all previous improvements and adds one NH-Y inner-I directive. Complete synthetic HPG caller wall fell **36.85% and 35.72%** in opposite-order host pairs with exact raw output and state; process CPU was unavailable. Native 100-case bounds/O2 checks and the unchanged original full-grid short comparison passed exactly: two products, 35 ordered steps, 512 ranks, two tiles, and normal model/checker closures.
 
 Own short science is qualified; own three-hour, noon and nine-hour science are not. Parent a61a's three-hour result and 1749's nine-hour result below retain their own artifacts. The short candidate observations are 140.797629 seconds whole wall, 39.903320 seconds main-step elapsed and 54631.865472 aggregate CPU-seconds; retained-original differences are unpaired context, with no Y-loop forecast-speedup claim. [Evidence, support and paired rollback](../cpu-compute/hpg-nhy-consumer-i-simd/README.md). The qualified GNU13.3 recipe enables the existing HPG macro; generic source remains portable. Production/master are unchanged; AWS is suspended.
+
+The overall selected source now includes the separately [qualified advection source packaging repair](../cpu-compute/advection-canonical-source/README.md). It rebuilds the selected member exactly in all runtime sections and interface; the executable, scientific qualification and timings are unchanged.
 
 ---
 

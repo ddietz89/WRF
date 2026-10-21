@@ -1,5 +1,5 @@
 {
-  "source_commit": "9e25937873be1d5226386f07a3bcad65b98a69ac",
+  "source_commit": "f2561d359d44fcd15ac7eb841c30ca8fe8c7f858",
   "executable": {
     "path": "/pool/wrf-experiment/wrf-cpu/builds/currenta61a-one-bigstep-nhy-consumer-simd-hpc02-r1/wrf.exe",
     "sha256": "bc543d569fb1c68805a011dcc75da5a8fe29d43629b26fccbe4e4eba1b215921"
@@ -69,7 +69,7 @@
   "status": "CURRENT_NHY_CONSUMER_SIMD_OWN_SHORT_ONLY",
   "scope": "Currentbc54/9a90 NHYone-directive ownoriginal2/35short only; parenta61a own3h historical/nonapplicable; no noon3h9h transfer.",
   "includes": "All retained compute, Thompson shared-table/lazy-init, output, codec and HDF5 improvements from the previous selection, READ_DI1 affine rows, plus qualified root-only parallel input chunk decoding. Fused output packing/shuffling removes intermediate padded packed storage; compressedbytes and originalscience exact. MCICA mask/property consumer fusion removes temporary logical-mask allocation/population/readback; all RNG/arithmetic/other code unchanged. AVX2 slide-hash loop unrolling removes repeated loop control while preserving the original saturating arithmetic and traversal; Adler remains unchanged. MYJPBL DIFCOF ordered SIMD adds only two directives; complete captured-caller gains and exact short application qualified. Private four-slot shuffle scratch reuse across callbacks removes repeated scratch allocation, with bounded retention; fullshim/API and originalshortscience exact. Block-local integer bit-buffer carry removes per-symbol state publication in compress_block; exact wholefunction/codeccaller/state and shortscience passed. LW ABSCLD scratch removal keeps identical scalar arithmetic and loop order while removing one allocated scratch stream; native/caller and fresh combined3h exact. INATM cloud-copy2+3 grouping retains all five fields/radius copies while reducing repeated descriptor/stride loads; complete-caller20.03%/17.72% gains and originalfull3hscience qualified. CU PART2 SIMD adds one directive to the independent innerI loop, keeping per-lane MUT denominator and three true divisions; genuine fullcaller and original3h science qualified. PBL PART2 SIMD adds one independentI directive retaining per-lane denominator arithmetic; native/caller/originalshortscience exact. RQVFTEN SIMD adds one directive to the independent moisture-forcingI loop, keeping per-lane MUT denominator and true division; native44/genuinecompletecaller/original3hscience qualified. RQVBLTEN PART2 SIMD adds one independentI directive retaining per-lane MUT denominator and true division; native56/caller/originalshortscience exact. RTHRATEN PART2 SIMD adds one independentI directive retaining per-lane MUT denominator and true division; native68/caller/originalshortscience exact. Independent final-U andPrepV SIMD retain per-cell arithmetic with exactnative/caller science. Thompson freeze initialization splits rain/cloud staging under namedREAD/COMPUTED/PARTIAL science-FP-ownership contract; wholeINIT errno isnotqualified. FINISH U-reconstruction adds one independent-I SIMD directive; native80/fullcaller/actualshortscience exact. FINISH nonfinalT adds one exact independent-I SIMD directive; actual144native/fullcaller/direct3h science. Calc_php geopotential SIMD and open_ys boundary copy SIMD add one directive each; exact native/complete caller/original combined3h qualified. Actual theta producer stores only for active moist species and SW case2/irng0 private directCDF producer are added; componentnative/caller and actualcombined3h exact. Separate noon75m originalscience also passed; no isolated forecastincrement attribution. SPCVMC optical producer split adds one independent layer SIMD pass before unchanged serial beam recurrences; exact native/complete-caller/daylight science passed. NH-X final nonhydrostatic pressure consumer adds one SIMD PRIVATE(dpx) directive. Native100/exactcompletecaller500 and originalshortSCI qualified; measured20.9% completecaller lowerwall despite characterized112B extra frame/spills. No isolatedforecast gain claimed.",
-  "source_commit_scope": "Post-test source-only identity; frozen native/build/application producer commits remain NULL.",
+  "source_commit_scope": "Post-test selected-source tracking includes a source-packaging repair; selected image and existing science unchanged. Frozen producers remain NULL; NHY introduction identity remains9e259378.",
   "input_implementation_commit": "614267f340a23ffc342962b3c64e323719fe4d06",
   "root_input": {
     "enabled_in_working_configuration": true,
@@ -162,14 +162,15 @@
       "dyn_em/module_big_step_utilities_em.F",
       "tools/cpu-working/selection.json",
       "tools/cpu-working/LATEST_APPLICATION_RESULT.json",
-      "tools/cpu-working/CURRENT_SOURCE_BUILD_BINDING.json"
+      "tools/cpu-working/CURRENT_SOURCE_BUILD_BINDING.json",
+      "dyn_em/module_advect_em.F"
     ],
     "unchanged_helper": {
       "path": "tools/cpu-compute/hpg-nhx-isolated-avx2-consumer/wrf_hpg_nhx_consume_avx2.c",
       "sha256": "977127190ffc6371f32cefada20350188a43475d933fbf15fae878d6b6e2c77f"
     },
     "new_component_scope": "tools/cpu-compute/hpg-nhy-consumer-i-simd",
-    "instruction": "Root restores .F+all3workingrecords together from exact83ee commit, and reverts only newNYcomponent evidence/recipe changes. ExistingChelper is unchanged and must not be removed. No huge historicalJSON snapshots in repo."
+    "instruction": "Whole selected-tree rollback restores both source files and all3workingrecords from83ee; preserve existingChelper. Canonical-only rollback uses50df in reproduction record."
   },
   "claim_limits": [
     "Ownshort only; parenta61a own3hQef07 remains historical and doesnot applytobc54. Ownnoon/3h/9hFALSE.",
@@ -2667,5 +2668,32 @@
       "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/hpg-nhy-consumer-i-simd-r1/complete-caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/controller.json": "nhy-caller-arm3-controller.json"
     },
     "parent_directory": "/pool/wrf-experiment/wrf-cpu/builds/current1749-one-isolated-hpg-avx2-helper-hpc02-r1"
+  },
+  "CANONICAL_ADVECTION_SOURCE_REPRODUCTION": {
+    "status": "SOURCE_PACKAGING_ONLY_CANONICAL_REPRODUCTION_SUPPORTED",
+    "source_commit": "f2561d359d44fcd15ac7eb841c30ca8fe8c7f858",
+    "canonical_source": "dyn_em/module_advect_em.F",
+    "canonical_source_sha256": "eea0e4c93b22d8f1465fcb0fb57f9daa1c9ebf257684b976beb4d31482fa00ba",
+    "previous_source_sha256": "47c7b2b0025dca1971696eacd51d7c589ec2bc20a211cd80f7329404e230fae8",
+    "preprocessed_sha256": "67d04896edd6cce4afb7e39d2b3520105e6c9b637b1784447c2bafc2f835e93a",
+    "selected_member_sha256": "8ec77f864716667aa79d40878fa11276f7dede4017c620201e54f9f83bb32b25",
+    "fresh_reproduction_object_sha256": "fa06fac6858cf3cd43acec68a1a47df40db02e77586a3414ef3590bc2fd5b3a9",
+    "public_module_sha256": "88e9fcbf27d28de7f12c22df0aac07aef26d4463f303e5a51b135a6a7e454750",
+    "equivalence_proof_sha256": "1d646b532185bed045f2919e1f990f3bb95844d076e382f91eacb1c91c7572ca",
+    "raw_build_producer_source_commit": null,
+    "post_test_NHY_introduction_source_commit": "9e25937873be1d5226386f07a3bcad65b98a69ac",
+    "scope": "Source packaging only; selected production member/image/archive and existing scientific qualification are unchanged. Fresh object is allocated/relocation/non-FILE-symbol equivalent, not full-file SHA identical.",
+    "evidence_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/advection-canonical-source/EVIDENCE_INDEX.json",
+    "evidence_sha256": "7d6d0393a21963d94a21550819fa06ceeabf64bf9ee74e55dced53f5319fcafb",
+    "rollback": {
+      "git_commit": "50dfec52dcec9b952719c68dc54034e3f6b7afa6",
+      "paired_restore_files": [
+        "dyn_em/module_advect_em.F",
+        "tools/cpu-working/selection.json",
+        "tools/cpu-working/LATEST_APPLICATION_RESULT.json",
+        "tools/cpu-working/CURRENT_SOURCE_BUILD_BINDING.json"
+      ],
+      "selected_image_changes": false
+    }
   }
 }

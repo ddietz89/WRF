@@ -1,0 +1,86 @@
+diff --git a/dyn_em/module_advect_em.F b/dyn_em/module_advect_em.F
+index 35cb7242..0c653851 100644
+--- a/dyn_em/module_advect_em.F
++++ b/dyn_em/module_advect_em.F
+@@ -4102 +4102,2 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
+-      CALL wrf_error_fatal ( TRIM( wrf_err_message ) )
++      CALL wrf_error_fatal3("<stdin>",4003,&
++TRIM( wrf_err_message ) )
+@@ -4358 +4359,2 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
+-      CALL wrf_error_fatal ( wrf_err_message )
++      CALL wrf_error_fatal3("<stdin>",4259,&
++wrf_err_message )
+@@ -5688 +5690,2 @@ ELSE IF (horz_order == 2 ) THEN
+-      CALL wrf_error_fatal ( wrf_err_message )
++      CALL wrf_error_fatal3("<stdin>",5589,&
++wrf_err_message )
+@@ -6063 +6066,2 @@ ELSE IF (horz_order == 2 ) THEN
+-      CALL wrf_error_fatal ( wrf_err_message )
++      CALL wrf_error_fatal3("<stdin>",5965,&
++wrf_err_message )
+@@ -6285,2 +6288,0 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
+-        ! Cache the unchanged REAL map distance once per horizontal point.
+-
+@@ -6318,2 +6319,0 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
+-            ! Cache the unchanged REAL map distance once per horizontal point.
+-
+@@ -6350,2 +6349,0 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
+-            ! Cache the unchanged REAL map distance once per horizontal point.
+-
+@@ -6381,2 +6378,0 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
+-            ! Cache the unchanged REAL map distance once per horizontal point.
+-
+@@ -6412,2 +6407,0 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
+-            ! Cache the unchanged REAL map distance once per horizontal point.
+-
+@@ -6631,2 +6624,0 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
+-        ! Cache the unchanged REAL map distance once per horizontal point.
+-
+@@ -6665,2 +6656,0 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
+-            ! Cache the unchanged REAL map distance once per horizontal point.
+-
+@@ -6697,2 +6686,0 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
+-            ! Cache the unchanged REAL map distance once per horizontal point.
+-
+@@ -6728,2 +6715,0 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
+-            ! Cache the unchanged REAL map distance once per horizontal point.
+-
+@@ -6759,2 +6744,0 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
+-            ! Cache the unchanged REAL map distance once per horizontal point.
+-
+@@ -6977,2 +6960,0 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
+-        ! Cache the unchanged REAL map distance once per horizontal point.
+-
+@@ -7009,2 +6990,0 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
+-            ! Cache the unchanged REAL map distance once per horizontal point.
+-
+@@ -7041,2 +7020,0 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
+-            ! Cache the unchanged REAL map distance once per horizontal point.
+-
+@@ -7219,2 +7196,0 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
+-        ! Cache the unchanged REAL map distance once per horizontal point.
+-
+@@ -7251,2 +7226,0 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
+-            ! Cache the unchanged REAL map distance once per horizontal point.
+-
+@@ -7283,2 +7256,0 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
+-            ! Cache the unchanged REAL map distance once per horizontal point.
+-
+@@ -7448 +7419,0 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
+-        ! Cache the unchanged REAL map distance once per horizontal point.
+@@ -7505 +7476,2 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
+-      CALL wrf_error_fatal ( TRIM( wrf_err_message ) )
++      CALL wrf_error_fatal3("<stdin>",7156,&
++TRIM( wrf_err_message ) )
+@@ -7932 +7904,2 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
+-      CALL wrf_error_fatal ( wrf_err_message )
++      CALL wrf_error_fatal3("<stdin>",7583,&
++wrf_err_message )
+@@ -10274 +10247,2 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
+-      CALL wrf_error_fatal ( TRIM( wrf_err_message ) )
++      CALL wrf_error_fatal3("<stdin>",9916,&
++TRIM( wrf_err_message ) )
+@@ -10550 +10524,2 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
+-      CALL wrf_error_fatal ( wrf_err_message )
++      CALL wrf_error_fatal3("<stdin>",10193,&
++wrf_err_message )
