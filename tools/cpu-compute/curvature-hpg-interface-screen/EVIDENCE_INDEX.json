@@ -1,0 +1,131 @@
+{
+  "status": "LOCAL_CLOSEOUT_EVIDENCE_ONLY",
+  "created_utc": "2026-10-21T18:39:04.544670+00:00",
+  "selected_executable_sha256": "1749f701a126b55788e04806fa77eee2a46c5a388b648b77188e3cc1c52151d5",
+  "selected_artifact_changed": false,
+  "raw_producer_source_commit": null,
+  "results": [
+    {
+      "experiment": "curvature VXGM bare SIMD",
+      "disposition": "REJECT_EXACT_O2_WHOLE_CALL_RAW_MISMATCH",
+      "invocation_id": "c40b7338b213499abfb212fe52db8b41",
+      "differing_words": 9,
+      "affected_cases": [
+        53,
+        54,
+        55
+      ],
+      "unaffected_added_cases": [
+        56,
+        57,
+        58
+      ],
+      "fields": [
+        "ru_tend",
+        "rv_tend"
+      ],
+      "original52_prefix_same_opt_exact": true,
+      "O0_all58_same_opt_exact": true,
+      "readonly_and_five_state_exact": true,
+      "instruction_causality": "NOT_ESTABLISHED",
+      "timing_or_application": false
+    },
+    {
+      "experiment": "HPG isolated C R1",
+      "disposition": "CLOSED_COMPILER_INTERFACE_GATE_FAILURE_NO_NUMERICAL_RESULT",
+      "invocation_id": "8f378d8dd3e1436cac10651b3a24f006",
+      "gfortran_metadata_change": "IMPLICIT_PURE lost; ARRAY_OUTER_DEPENDENCY gained",
+      "original_MOD_sha256": "01702a275cfaa6e411f3b53342033027a3beca789ccd80a7b2e1becf3f43e7ee",
+      "candidate_MOD_sha256": "d7e7585a39776a9e0846c09ee9fd5436f737059e7ce8e3f465133cbfde91ea39",
+      "Fortran_O2_parent_and_candidate_compile_return0": true,
+      "C_helper_compiled": false,
+      "numerical_cases_executed": 0,
+      "timing_or_application": false
+    },
+    {
+      "experiment": "HPG isolated C R2",
+      "disposition": "CLOSED_COMPILER_INTERFACE_GATE_FAILURE_NO_NUMERICAL_RESULT",
+      "invocation_id": "935429992015446a94be187f90eeab7d",
+      "gfortran_metadata_change": "IMPLICIT_PURE retained/restored; one ARRAY_OUTER_DEPENDENCY gained",
+      "original_MOD_sha256": "01702a275cfaa6e411f3b53342033027a3beca789ccd80a7b2e1becf3f43e7ee",
+      "candidate_MOD_sha256": "99bf236d5333207d771aa579433afe937f9d7edfdef269003905520918ffd9c8",
+      "Fortran_O2_parent_and_candidate_compile_return0": true,
+      "C_helper_compiled": false,
+      "numerical_cases_executed": 0,
+      "timing_or_application": false
+    }
+  ],
+  "R3": "Pending prospective compatible-analysis-interface contract; same R2 source/C, no retroactive pass or owner special exception. No R3 result asserted.",
+  "verification": "All listed local files rehashed; receipt/closure invocation, failure status, zero MainPID, absent/empty cgroup and positive manager-failure event checked; disposition and diagnosis hashes cross-checked. No remote/raw-array read or execution.",
+  "references": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/curvature-vxgm-producer-i-simd-r1/native-gate-r1/actual-native-r1/receipt.json": {
+      "sha256": "e174e5ff17a245ee3c9692c446dbe1abc66c01eed77983517552f9fb7c86f850",
+      "bytes": 74361
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/curvature-vxgm-producer-i-simd-r1/native-gate-r1/actual-native-r1/closure.json": {
+      "sha256": "6425a35fa7b3c589416be537b6d5666a82e5550f01d7eeb61afebf7cc9ce1d9c",
+      "bytes": 1383
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/curvature-vxgm-producer-i-simd-r1/native-gate-r1/REJECT_EXACT_NATIVE_MISMATCH.json": {
+      "sha256": "d103eeba876d0790955e5ef886a9c5025b86cfbd67faf71d1ab29da219d1b273",
+      "bytes": 1486
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/curvature-vxgm-producer-i-simd-r1/native-mismatch-metadata-preparation-r1/ACTUAL_MISMATCH_METADATA.json": {
+      "sha256": "bee2a4c236ade0627d273a8c2de236aa839a9fd6249ffdfe7b1cc16ab77f5074",
+      "bytes": 3589
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/hpg-nhx-isolated-avx2-consumer-r1/native-gate-r1/actual-native-r1/receipt.json": {
+      "sha256": "2371594c89697e34411117c3f5d6e7ce65f3edabdaf8944892224fbea57b476f",
+      "bytes": 12642
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/hpg-nhx-isolated-avx2-consumer-r1/native-gate-r1/actual-native-r1/closure.json": {
+      "sha256": "d6ccde161bd18a654b7c746764cc81c576131cf32ad3edd1e2b0106dbee2facb",
+      "bytes": 1343
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/hpg-nhx-isolated-avx2-consumer-r1/native-gate-r1/actual-mod-interface-diagnosis-r1/RECEIPT.json": {
+      "sha256": "04ac64ee6b6f4d821bb27304634fadcf4cca2ad763dc5b4fb6afe73ed4d3ba00",
+      "bytes": 497
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/hpg-nhx-isolated-avx2-consumer-r1/native-gate-r1/actual-mod-interface-diagnosis-r1/PUBLIC_MOD.diff": {
+      "sha256": "163129209bac501bdb59840d1a659fc4868c7b82380686f91e8b2abeee541283",
+      "bytes": 1162
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/hpg-nhx-isolated-avx2-consumer-r1/native-gate-r1/actual-mod-interface-diagnosis-r1/O2-parent.mod": {
+      "sha256": "01702a275cfaa6e411f3b53342033027a3beca789ccd80a7b2e1becf3f43e7ee",
+      "bytes": 65980
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/hpg-nhx-isolated-avx2-consumer-r1/native-gate-r1/actual-mod-interface-diagnosis-r1/O2-candidate.mod": {
+      "sha256": "d7e7585a39776a9e0846c09ee9fd5436f737059e7ce8e3f465133cbfde91ea39",
+      "bytes": 65985
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/hpg-nhx-isolated-avx2-consumer-r1/native-gate-r1/INTERFACE_GATE_DISPOSITION.json": {
+      "sha256": "f56c208957b2b42226028480e7fc52d26a4807b271d56f8c31dce96749a136e9",
+      "bytes": 1575
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/hpg-nhx-isolated-avx2-consumer-r1/native-gate-r2/actual-native-r2/receipt.json": {
+      "sha256": "528640af738a71c2b056d68800885386f9ae4eb23036c8f52b005cf480976d3c",
+      "bytes": 12642
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/hpg-nhx-isolated-avx2-consumer-r1/native-gate-r2/actual-native-r2/closure.json": {
+      "sha256": "5c23f167e8d76f906abf8609982463d700983c0b97030b91cfac5c226a31beca",
+      "bytes": 1343
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/hpg-nhx-isolated-avx2-consumer-r1/native-gate-r2/actual-mod-interface-diagnosis-r2/RECEIPT.json": {
+      "sha256": "3b332672888f13a087a7052c938b684b73bb51616c988b5c35359cc7a282069a",
+      "bytes": 497
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/hpg-nhx-isolated-avx2-consumer-r1/native-gate-r2/actual-mod-interface-diagnosis-r2/PUBLIC_MOD.diff": {
+      "sha256": "dcbeaeef518fce1dc1521ca32e954eac65a4f1cc04eb7d5bd3486c3a7598c3b8",
+      "bytes": 1180
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/hpg-nhx-isolated-avx2-consumer-r1/native-gate-r2/actual-mod-interface-diagnosis-r2/O2-parent.mod": {
+      "sha256": "01702a275cfaa6e411f3b53342033027a3beca789ccd80a7b2e1becf3f43e7ee",
+      "bytes": 65980
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/hpg-nhx-isolated-avx2-consumer-r1/native-gate-r2/actual-mod-interface-diagnosis-r2/O2-candidate.mod": {
+      "sha256": "99bf236d5333207d771aa579433afe937f9d7edfdef269003905520918ffd9c8",
+      "bytes": 65993
+    }
+  },
+  "snippet_sha256": "4c6a437c22f26f435d24ed661b6ebc7e7dfd09228b523a89244238d8735bf261"
+}
