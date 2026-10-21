@@ -1,0 +1,217 @@
+{
+  "status": "ACTUAL_CURRENT_FINISH_8BFE_E1D8_WRITER495_NATIVE_SELF_AND_LIFETIME_REPORTS_RETAINED",
+  "runtime": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-finish-writer-attribution10m-runtime-r1",
+  "renderer_invocation_id": "1870933cc98049dbbc271933230f9bb2",
+  "actual_raw_sha256": "590265c8875191704ae96b142ba1ad099eaa24f4c92ece870b3ca48ce5834b87",
+  "actual_target": {
+    "rank": 495,
+    "pid": 2069217,
+    "startticks": "212510430",
+    "exe": "/pool/wrf-experiment/wrf-cpu/builds/currente3da-one-smallstep-finish-u-simd-hpc02-r1/wrf.exe",
+    "image_sha256": "8bfe0e0aa4c19a0e7ead89e59c5f9142cda43f4c35ddb9be26e7dd30a4439a40"
+  },
+  "actual_file_owner_evidence": [
+    {
+      "fd": 39,
+      "file": "/pool/wrf-experiment/wrf-cpu/runs/production512-current-finish-writer-attribution10m-candidate-r1/wrfout_d01_2026-10-12_06:10:00",
+      "flags_octal": "0o100002",
+      "inode": 5637334762,
+      "mount_id": 537,
+      "device": 52
+    }
+  ],
+  "capture": {
+    "request_seconds": 15,
+    "observed_sample_span_seconds": 14.907197713,
+    "samples": 1814,
+    "period_sum": 73310030426,
+    "native_capture_outcome": "NORMAL_NATIVE_COMPLETION_PENDING_PARSE",
+    "partial_acquisition": false,
+    "raw_bytes": 15543072,
+    "native_TotalLostSamples": 0,
+    "PERF_RECORD_LOST_lines": 0,
+    "numeric_lost_sample_count_otherwise": "UNKNOWN; native task/loss records retained",
+    "event": "cycles:uH,49Hz,DWARF8192,inherit=1,exclude_kernel=1",
+    "primary_IP_record_join": "PENDING_EXISTING_RAW_G_RERENDER_NOT_INFERRED_FROM_DISPLAYED_CHAINS"
+  },
+  "roles": {
+    "counts": {
+      "main_callback": 15,
+      "main_other": 241,
+      "worker_body": 1333,
+      "worker_startup": 31,
+      "worker_teardown": 1,
+      "unknown": 193
+    },
+    "period": {
+      "main_callback": {
+        "period_known_count": 15,
+        "period_unknown_count": 0,
+        "known_period_sum": 1308361,
+        "count": 15,
+        "period_sum": 1308361
+      },
+      "main_other": {
+        "period_known_count": 241,
+        "period_unknown_count": 0,
+        "known_period_sum": 3167807278,
+        "count": 241,
+        "period_sum": 3167807278
+      },
+      "worker_body": {
+        "period_known_count": 1333,
+        "period_unknown_count": 0,
+        "known_period_sum": 70070936474,
+        "count": 1333,
+        "period_sum": 70070936474
+      },
+      "worker_startup": {
+        "period_known_count": 31,
+        "period_unknown_count": 0,
+        "known_period_sum": 3528574,
+        "count": 31,
+        "period_sum": 3528574
+      },
+      "worker_teardown": {
+        "period_known_count": 1,
+        "period_unknown_count": 0,
+        "known_period_sum": 63268573,
+        "count": 1,
+        "period_sum": 63268573
+      },
+      "unknown": {
+        "period_known_count": 193,
+        "period_unknown_count": 0,
+        "known_period_sum": 3181166,
+        "count": 193,
+        "period_sum": 3181166
+      }
+    },
+    "period_percent": {
+      "main_callback": 0.0017846957536331606,
+      "main_other": 4.321110303176892,
+      "worker_body": 95.58164969625871,
+      "worker_startup": 0.004813221300681063,
+      "worker_teardown": 0.08630275097739051,
+      "unknown": 0.004339332532689515
+    },
+    "sampled_worker_body_generations": 26,
+    "known_fullwriter_generations": 216,
+    "known_worker_records": 864,
+    "ambiguous_main_affinity_observations": [],
+    "foreign_pids": [],
+    "invalid_records": []
+  },
+  "native_self_top12": [
+    {
+      "native_displayed_percent": 65.92,
+      "mode": ".",
+      "symbol": "zng_private_deflate_fast_avx2",
+      "dso_basename": "libz.so.1.3.1.zlib-ng"
+    },
+    {
+      "native_displayed_percent": 8.81,
+      "mode": ".",
+      "symbol": "build_tree",
+      "dso_basename": "libz.so.1.3.1.zlib-ng"
+    },
+    {
+      "native_displayed_percent": 7.89,
+      "mode": ".",
+      "symbol": "shuffle4_avx2",
+      "dso_basename": "wrf_quilt_thread_shim.so"
+    },
+    {
+      "native_displayed_percent": 7.37,
+      "mode": ".",
+      "symbol": "compress_block",
+      "dso_basename": "libz.so.1.3.1.zlib-ng"
+    },
+    {
+      "native_displayed_percent": 1.3,
+      "mode": ".",
+      "symbol": "slide_hash_avx2",
+      "dso_basename": "libz.so.1.3.1.zlib-ng"
+    },
+    {
+      "native_displayed_percent": 1.29,
+      "mode": ".",
+      "symbol": "adler32_fold_copy_impl.part.0",
+      "dso_basename": "libz.so.1.3.1.zlib-ng"
+    },
+    {
+      "native_displayed_percent": 1.23,
+      "mode": "k",
+      "symbol": "0xffffffffa87cabe7",
+      "dso_basename": "[unknown]"
+    },
+    {
+      "native_displayed_percent": 0.53,
+      "mode": ".",
+      "symbol": "mca_pml_ucx_recv",
+      "dso_basename": "mca_pml_ucx.so"
+    },
+    {
+      "native_displayed_percent": 0.52,
+      "mode": ".",
+      "symbol": "insert_string",
+      "dso_basename": "libz.so.1.3.1.zlib-ng"
+    },
+    {
+      "native_displayed_percent": 0.46,
+      "mode": ".",
+      "symbol": "0x0000000000188ef1",
+      "dso_basename": "libc.so.6"
+    },
+    {
+      "native_displayed_percent": 0.32,
+      "mode": ".",
+      "symbol": "scan_tree",
+      "dso_basename": "libz.so.1.3.1.zlib-ng"
+    },
+    {
+      "native_displayed_percent": 0.27,
+      "mode": ".",
+      "symbol": "send_tree",
+      "dso_basename": "libz.so.1.3.1.zlib-ng"
+    }
+  ],
+  "actual_mapped_libraries": {
+    "/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib/libnetcdff.so.7.1.0": "e271f9b96203b03c2e21f9e044b4cbe13534f309b100ae369dd0799fa7a2a6d6",
+    "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib/libmpi.so.40.30.6": "239014e332e2a784c9b2e48ec7f440245a03e9d7bebe1de163a23929c9cdd9a7",
+    "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib/libmpi_mpifh.so.40.30.0": "340fba7387c02a8cab01fcf859855ebafd0f8b94eeb90eba5c83729ea5bad0f9",
+    "/usr/lib/x86_64-linux-gnu/libucp.so.0.0.0": "54246b4c096b95a7eab20d1135aaa7e516751dd0f96eb1054824750063fd7fab",
+    "/pool/wrf/WPS_new/runtime/netcdf-owner/lib/libnetcdf.so.19": "8adc33059a98399cd8adea41de071598aaa2b09ff53eb3ae860cad0c6696b538",
+    "/pool/wrf-experiment/wrf-cpu/builds/hdf5-sse2-unshuffle4-private-r3/output/candidate/lib/libhdf5.so.310.3.0": "825e2f1f24bee6feaf537cb7a4b1207044fb90ec1afc2dd96571b33b1056ba19",
+    "/pool/wrf-experiment/wrf-cpu/kernels/current-de5b-private-shuffle-scratch-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so": "51a31b3c137a2161700c9930a1e250021b34c598c887a7551e87d304b2ce4d31",
+    "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng": "e1d8bc0774b7c54b4b63e7d6892c6485bec9b3c7032985a229961ba0569cc450",
+    "/pool/wrf-experiment/wrf-cpu/kernels/current-write-boundary-observer-native-r1/observer.so": "067e8e7bc6627368d9acabd7588e067d8695e0d0dfc1e287831b588530465823"
+  },
+  "science": {
+    "status": "PASS_ORIGINAL2PRODUCTS35_PROFILED_OBSERVER_DIAGNOSTIC",
+    "science_sha256": "a980b511fcced1df17c075770059e2216c7663fc0d33aa628fb4cab66c34f3d6",
+    "reader_closure_sha256": "3ee613dd09d036bbe26fa373e67a93fb83ed7e5035efe6d07fa785a6d27bbc49",
+    "result_sha256": "e1422431b5f2241591968aef214e8a61e9e9bc8e1717c341bfa00a895046636e",
+    "timing": "UNPAIRED/profiled+067e; no timinggain/isolated/additive/repeatabilityclaim"
+  },
+  "limits": [
+    "Native self table is symbolaggregation; displayedpercents rounded, not perinstructioncounts",
+    "FirstdisplayedDWARFframe NOTusedasprimaryIP; explicitGsame-rawjoinpending",
+    "26sampledworker-bodygenerations of216known; otherfuture/existingworkers/wholeoutput coverage notassumed",
+    "Usercycleperiodweights not blockedtime/wall/globalIO/removableheadroom; MPI/gather/finaldrain remainUNKNOWN",
+    "Native TotalLostSamples0 and noLOSTlines retained; no absolutecompleteness/noise assertion",
+    "Observer+recorder overhead present; sourcehypothesis495secondhistory NOWindependentlyobservedexactFD, not retroactivelyassertedold487fileownership"
+  ],
+  "rawrefs_sha256": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-b-current-output-next-lead-audit-r1/production-writer-second0610-preparation-r1/closed-renderer-reuse-r1/actual-closed-reports-r1/writer-profile-second0610-rank495-r1/report-final.json": "7593ec02f1eb249ba693663117940c81f15b268e20e22eb343ec3a0c525e0f97",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-b-current-output-next-lead-audit-r1/production-writer-second0610-preparation-r1/closed-renderer-reuse-r1/actual-closed-reports-r1/writer-profile-second0610-rank495-r1/rank495.self.txt": "c4e7b68c1b4c1553ce153093cf2c72724b0f264ec5cfcb34b284220a2f0cabfd",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-b-current-output-next-lead-audit-r1/production-writer-second0610-preparation-r1/closed-renderer-reuse-r1/actual-closed-reports-r1/writer-profile-second0610-rank495-r1/rank495.samples.txt": "ebe5b4b202e99108f375d0a8d6fe5a1f01d3dc4ffb895abbeb0aed1e779da6c5",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-b-current-output-next-lead-audit-r1/production-writer-second0610-preparation-r1/closed-renderer-reuse-r1/actual-closed-reports-r1/writer-profile-second0610-rank495-r1/rank495.evlist.txt": "173df532608c0544b39e61623d6a0147fca81bfaaac74715d7ee9b5a96f179f9",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-b-current-output-next-lead-audit-r1/production-writer-second0610-preparation-r1/closed-renderer-reuse-r1/actual-closed-reports-r1/writer-profile-second0610-rank495-r1/rank495.tasks.txt": "e9e2851c911b15766c1a23583f51bc147dbc4eae8dd400b3b9a5d669dfcbfbff",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-b-current-output-next-lead-audit-r1/production-writer-second0610-preparation-r1/closed-renderer-reuse-r1/actual-closed-reports-r1/RENDERER_STRONG_CLOSURE.json": "f561866dc06671dfbb25ae330f573e9be63a190d2011ac613c0450aca2003bf3",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-b-current-output-next-lead-audit-r1/production-writer-second0610-preparation-r1/closed-renderer-reuse-r1/actual-closed-reports-r1/CLOSED_REPORT_COPY.json": "5bd1fff86a2f3d690d80f7c33488a1d521021490b8df8f7b72235e3178d7f3bc",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-finish-writer-attribution10m-runtime-r1/science-receipt.json": "a980b511fcced1df17c075770059e2216c7663fc0d33aa628fb4cab66c34f3d6",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-finish-writer-attribution10m-runtime-r1/reader-closure.json": "3ee613dd09d036bbe26fa373e67a93fb83ed7e5035efe6d07fa785a6d27bbc49",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-finish-writer-attribution10m-runtime-r1/RESULT.json": "e1422431b5f2241591968aef214e8a61e9e9bc8e1717c341bfa00a895046636e"
+  }
+}

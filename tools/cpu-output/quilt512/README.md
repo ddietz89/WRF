@@ -75,3 +75,5 @@ That historical freeze is superseded by the activecampaign: the latest periodic 
 
 
 The qualified GNU Fortran 13.3.0 working configuration now enables both scoped SmallStep and advection Zen 2 targeting by default. CPU/OS admission remains required; other compiler versions retain generic defaults. `WRF_ADVECTION_ZEN2=0` opts out of the advection setting, and the object/archive/executable must be rebuilt. The exact-qualified paired shortwave helper is also included in working source. These kernel inclusion decisions do not establish a new combined forecast-speedup result; see the latest consolidated findings and timing SOP.
+
+Current FINISH-U [writer CPU evidence](../current-finish-writer-profile/README.md) records the actual current-codec capture and original short science, with explicit window/worker/loss limits and no forecast timing claim. Earlier E3 unavailable acquisition evidence remains preserved.

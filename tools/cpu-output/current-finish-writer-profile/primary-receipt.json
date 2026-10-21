@@ -1,0 +1,607 @@
+{
+  "status": "PASS_CURRENT_WRITER_EXISTING_RAW_PRIMARY_IP_MMAPPED_CODEGEN",
+  "invocation_id": "7295fa1ee5df4b5fb3c99c52e4f6ccd6",
+  "commands": [
+    {
+      "name": "primary-ip",
+      "argv": [
+        "/usr/lib/linux-tools-6.8.0-88/perf",
+        "script",
+        "--ns",
+        "-G",
+        "-F",
+        "pid,tid,time,event,period,ip,sym,symoff,dso",
+        "-i",
+        "/pool/wrf-experiment/wrf-cpu/runs/production512-current-finish-writer-attribution10m-candidate-r1/writer-profile-second0610-rank495-r1/rank495.perf.data"
+      ],
+      "returncode": 0,
+      "stdout_sha256": "a46da6595e76139c3c4eca6fe79c499a1698c99e2735d354e552d6da59a18d55",
+      "stdout_bytes": 348696,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 0
+    },
+    {
+      "name": "mmap-task",
+      "argv": [
+        "/usr/lib/linux-tools-6.8.0-88/perf",
+        "script",
+        "--ns",
+        "-G",
+        "--show-mmap-events",
+        "--show-task-events",
+        "-F",
+        "pid,tid,time,event,period,ip,sym,symoff,dso",
+        "-i",
+        "/pool/wrf-experiment/wrf-cpu/runs/production512-current-finish-writer-attribution10m-candidate-r1/writer-profile-second0610-rank495-r1/rank495.perf.data"
+      ],
+      "returncode": 0,
+      "stdout_sha256": "e28d442a4b4585273d7f8b5b3817569519b1c110d9bc1c1f843859cff76ff920",
+      "stdout_bytes": 538853,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 0
+    },
+    {
+      "name": "buildids",
+      "argv": [
+        "/usr/lib/linux-tools-6.8.0-88/perf",
+        "buildid-list",
+        "-i",
+        "/pool/wrf-experiment/wrf-cpu/runs/production512-current-finish-writer-attribution10m-candidate-r1/writer-profile-second0610-rank495-r1/rank495.perf.data"
+      ],
+      "returncode": 0,
+      "stdout_sha256": "194c3ca93d60b19a41519d098dd8446bc89d1a0f020f306cd67f0d0db358f61e",
+      "stdout_bytes": 1239,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 0
+    }
+  ],
+  "raw_sha256": "590265c8875191704ae96b142ba1ad099eaa24f4c92ece870b3ca48ce5834b87",
+  "raw_stat_unchanged": true,
+  "raw_samples": 1814,
+  "total_period": 73310030426,
+  "primary_symbols": [
+    {
+      "dso": "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng",
+      "symbol": "zng_private_deflate_fast_avx2",
+      "samples": 819,
+      "period": 48324557917
+    },
+    {
+      "dso": "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng",
+      "symbol": "build_tree",
+      "samples": 108,
+      "period": 6456291674
+    },
+    {
+      "dso": "/pool/wrf-experiment/wrf-cpu/kernels/current-de5b-private-shuffle-scratch-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
+      "symbol": "shuffle4_avx2",
+      "samples": 213,
+      "period": 5785198940
+    },
+    {
+      "dso": "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng",
+      "symbol": "compress_block",
+      "samples": 90,
+      "period": 5399559543
+    },
+    {
+      "dso": "[unknown]",
+      "symbol": "[unknown]",
+      "samples": 230,
+      "period": 2124466031
+    },
+    {
+      "dso": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+      "symbol": "[unknown]",
+      "samples": 216,
+      "period": 1284228098
+    },
+    {
+      "dso": "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng",
+      "symbol": "slide_hash_avx2",
+      "samples": 19,
+      "period": 950541865
+    },
+    {
+      "dso": "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng",
+      "symbol": "adler32_fold_copy_impl.part.0",
+      "samples": 16,
+      "period": 946902644
+    },
+    {
+      "dso": "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib/openmpi/mca_pml_ucx.so",
+      "symbol": "mca_pml_ucx_recv",
+      "samples": 21,
+      "period": 384967596
+    },
+    {
+      "dso": "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng",
+      "symbol": "insert_string",
+      "samples": 6,
+      "period": 381144159
+    },
+    {
+      "dso": "/usr/lib/x86_64-linux-gnu/ucx/libuct_ib.so.0.0.0",
+      "symbol": "[unknown]",
+      "samples": 19,
+      "period": 272086508
+    },
+    {
+      "dso": "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng",
+      "symbol": "scan_tree",
+      "samples": 4,
+      "period": 236312285
+    },
+    {
+      "dso": "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng",
+      "symbol": "send_tree",
+      "samples": 3,
+      "period": 196461073
+    },
+    {
+      "dso": "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng",
+      "symbol": "gen_codes",
+      "samples": 3,
+      "period": 123789309
+    },
+    {
+      "dso": "/usr/lib/x86_64-linux-gnu/libucp.so.0.0.0",
+      "symbol": "ucp_worker_progress",
+      "samples": 7,
+      "period": 91947184
+    },
+    {
+      "dso": "/usr/lib/x86_64-linux-gnu/libuct.so.0.0.0",
+      "symbol": "[unknown]",
+      "samples": 5,
+      "period": 56260443
+    },
+    {
+      "dso": "/pool/wrf-experiment/wrf-cpu/kernels/current-de5b-private-shuffle-scratch-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
+      "symbol": "wps_worker",
+      "samples": 4,
+      "period": 46685962
+    },
+    {
+      "dso": "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib/openmpi/mca_pml_ucx.so",
+      "symbol": "opal_progress@plt",
+      "samples": 1,
+      "period": 38937220
+    },
+    {
+      "dso": "/pool/wrf-experiment/wrf-cpu/builds/currente3da-one-smallstep-finish-u-simd-hpc02-r1/wrf.exe",
+      "symbol": "store_patch_in_outbuf_",
+      "samples": 3,
+      "period": 36440899
+    },
+    {
+      "dso": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+      "symbol": "pthread_mutex_unlock",
+      "samples": 1,
+      "period": 31437924
+    },
+    {
+      "dso": "/pool/wrf-experiment/wrf-cpu/builds/hdf5-sse2-unshuffle4-private-r3/output/candidate/lib/libhdf5.so.310.3.0",
+      "symbol": "H5Pget_layout",
+      "samples": 1,
+      "period": 30808828
+    },
+    {
+      "dso": "/pool/wrf-experiment/wrf-cpu/builds/hdf5-sse2-unshuffle4-private-r3/output/candidate/lib/libhdf5.so.310.3.0",
+      "symbol": "H5T_detect_class",
+      "samples": 1,
+      "period": 26369264
+    },
+    {
+      "dso": "/usr/lib/x86_64-linux-gnu/libucs.so.0.0.0",
+      "symbol": "ucs_pgtable_insert",
+      "samples": 1,
+      "period": 21492073
+    },
+    {
+      "dso": "/pool/wrf-experiment/wrf-cpu/builds/currente3da-one-smallstep-finish-u-simd-hpc02-r1/wrf.exe",
+      "symbol": "__module_internal_header_util_MOD_int_get_write_field_header",
+      "samples": 1,
+      "period": 16465746
+    },
+    {
+      "dso": "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib/openmpi/mca_pml_ucx.so",
+      "symbol": "ucp_request_test@plt",
+      "samples": 1,
+      "period": 15060628
+    },
+    {
+      "dso": "/pool/wrf-experiment/wrf-cpu/builds/hdf5-sse2-unshuffle4-private-r3/output/candidate/lib/libhdf5.so.310.3.0",
+      "symbol": "H5FL_fac_malloc",
+      "samples": 1,
+      "period": 11096839
+    },
+    {
+      "dso": "/pool/wrf-experiment/wrf-cpu/builds/hdf5-sse2-unshuffle4-private-r3/output/candidate/lib/libhdf5.so.310.3.0",
+      "symbol": "H5CX_set_vol_wrap_ctx",
+      "samples": 1,
+      "period": 8132314
+    },
+    {
+      "dso": "/pool/wrf-experiment/wrf-cpu/builds/hdf5-sse2-unshuffle4-private-r3/output/candidate/lib/libhdf5.so.310.3.0",
+      "symbol": "H5I__find_id",
+      "samples": 1,
+      "period": 3877736
+    },
+    {
+      "dso": "/pool/wrf-experiment/wrf-cpu/builds/hdf5-sse2-unshuffle4-private-r3/output/candidate/lib/libhdf5.so.310.3.0",
+      "symbol": "H5D__btree_cmp3",
+      "samples": 1,
+      "period": 3777360
+    },
+    {
+      "dso": "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng",
+      "symbol": "zng_tr_init",
+      "samples": 1,
+      "period": 2829197
+    },
+    {
+      "dso": "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng",
+      "symbol": "deflateInit2_",
+      "samples": 1,
+      "period": 1017857
+    },
+    {
+      "dso": "/pool/wrf-experiment/wrf-cpu/builds/hdf5-sse2-unshuffle4-private-r3/output/candidate/lib/libhdf5.so.310.3.0",
+      "symbol": "H5PB_write",
+      "samples": 1,
+      "period": 761008
+    },
+    {
+      "dso": "/pool/wrf-experiment/wrf-cpu/kernels/current-de5b-private-shuffle-scratch-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
+      "symbol": "log_mask",
+      "samples": 1,
+      "period": 46585
+    },
+    {
+      "dso": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+      "symbol": "pthread_create",
+      "samples": 1,
+      "period": 45943
+    },
+    {
+      "dso": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+      "symbol": "__libc_scratch_buffer_set_array_size",
+      "samples": 2,
+      "period": 12752
+    },
+    {
+      "dso": "/pool/wrf-experiment/wrf-cpu/builds/hdf5-sse2-unshuffle4-private-r3/output/candidate/lib/libhdf5.so.310.3.0",
+      "symbol": "H5FD__sec2_write",
+      "samples": 1,
+      "period": 9314
+    },
+    {
+      "dso": "/pool/wrf-experiment/wrf-cpu/builds/hdf5-sse2-unshuffle4-private-r3/output/candidate/lib/libhdf5.so.310.3.0",
+      "symbol": "H5CX_get_actual_selection_io_mode",
+      "samples": 1,
+      "period": 9314
+    },
+    {
+      "dso": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+      "symbol": "__ctype_init",
+      "samples": 5,
+      "period": 391
+    },
+    {
+      "dso": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+      "symbol": "strchrnul@plt",
+      "samples": 1,
+      "period": 1
+    },
+    {
+      "dso": "/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2",
+      "symbol": "__tls_get_addr",
+      "samples": 1,
+      "period": 1
+    }
+  ],
+  "hot_FAST_primary_join": [
+    {
+      "primary_ip": "0x8d7e27cb87f",
+      "symbol": "zng_private_deflate_fast_avx2+0x5f",
+      "period": 8565927882,
+      "ELF_symbol_start": "0x1b820",
+      "ELF_symbol_size": 1717,
+      "symbol_offset": 95,
+      "ELF_address": "0x1b87f",
+      "objdump_argv": [
+        "/usr/bin/objdump",
+        "-d",
+        "--no-show-raw-insn",
+        "--start-address=0x1b84f",
+        "--stop-address=0x1b8bf",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng"
+      ],
+      "instructions": "\n/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng:     file format elf64-x86-64\n\n\nDisassembly of section .text:\n\n000000000001b84f <zng_private_deflate_fast_avx2+0x2f>:\n   1b84f:\tadd    $0xf000001,%eax\n   1b854:\txchg   %ah,(%rdi)\n   1b856:\tadd    %eax,(%rax)\n   1b858:\tadd    %al,-0x45(%rbx,%rcx,4)\n   1b85c:\ttest   %al,(%rax)\n   1b85e:\tadd    %al,(%rax)\n   1b860:\tmov    0x58(%rbx),%rdx\n   1b864:\tmov    %r15d,%r8d\n   1b867:\tmov    0x68(%rbx),%rsi\n   1b86b:\tlea    (%rdx,%r8,1),%rax\n   1b86f:\timul   $0x9e3779b1,(%rax),%ecx\n   1b875:\tshr    $0x10,%ecx\n   1b878:\tlea    (%rsi,%rcx,2),%rcx\n   1b87c:\tmovzwl (%rcx),%edi\n   1b87f:\tmov    %edi,%esi\n   1b881:\tcmp    %edi,%r15d\n   1b884:\tje     1b89a <zng_private_deflate_fast_avx2+0x7a>\n   1b886:\tmov    0x60(%rbx),%r9\n   1b88a:\tmov    %r15d,%r10d\n   1b88d:\tand    0x48(%rbx),%r10d\n   1b891:\tmov    %di,(%r9,%r10,2)\n   1b896:\tmov    %r15w,(%rcx)\n   1b89a:\tmovzwl %si,%r9d\n   1b89e:\tmov    %r8,%rcx\n   1b8a1:\tsub    %r9,%rcx\n   1b8a4:\tmov    0x40(%rbx),%r9d\n   1b8a8:\tlea    -0x106(%r9),%r10d\n   1b8af:\tmov    %r10,%r8\n   1b8b2:\tcmp    %rcx,%r10\n   1b8b5:\tjl     1b8c8 <zng_private_deflate_fast_avx2+0xa8>\n   1b8b7:\ttest   %rcx,%rcx\n   1b8ba:\tjle    1b8c8 <zng_private_deflate_fast_avx2+0xa8>\n   1b8bc:\ttest   %si,%si\n",
+      "addr2line_returncode": 0,
+      "addr2line": "zng_private_deflate_fast_avx2\n:?\n",
+      "source_line_scope": "Onlyliteraladdr2line result; ??staysunknown. Match/hashsourceclass requireslocalsource+exactcompiledinstructions, notcallerframes."
+    },
+    {
+      "primary_ip": "0x8d7e27cbc97",
+      "symbol": "zng_private_deflate_fast_avx2+0x477",
+      "period": 4034804565,
+      "ELF_symbol_start": "0x1b820",
+      "ELF_symbol_size": 1717,
+      "symbol_offset": 1143,
+      "ELF_address": "0x1bc97",
+      "objdump_argv": [
+        "/usr/bin/objdump",
+        "-d",
+        "--no-show-raw-insn",
+        "--start-address=0x1bc67",
+        "--stop-address=0x1bcd7",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng"
+      ],
+      "instructions": "\n/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng:     file format elf64-x86-64\n\n\nDisassembly of section .text:\n\n000000000001bc67 <zng_private_deflate_fast_avx2+0x447>:\n   1bc67:\tadd    %al,-0x6(%rcx,%rcx,4)\n   1bc6b:\tvzeroupper\n   1bc6e:\tcall   e8e0 <insert_string>\n   1bc73:\tadd    %r15d,0x84(%rbx)\n   1bc7a:\tjmp    1bb87 <zng_private_deflate_fast_avx2+0x367>\n   1bc7f:\tnop\n   1bc80:\tmov    %ecx,0x10(%rsp)\n   1bc84:\tmovzwl 0x28(%rsp),%r8d\n   1bc8a:\tmov    0x38(%rsp),%rcx\n   1bc8f:\tmovzwl %si,%edi\n   1bc92:\tcmp    %r8w,(%rcx,%rdi,1)\n   1bc97:\tjne    1bca8 <zng_private_deflate_fast_avx2+0x488>\n   1bc99:\tmovzwl 0x20(%rsp),%ecx\n   1bc9e:\tcmp    %cx,(%rdx,%rdi,1)\n   1bca2:\tje     1be6f <zng_private_deflate_fast_avx2+0x64f>\n   1bca8:\tsub    $0x1,%r10d\n   1bcac:\tje     1b8c8 <zng_private_deflate_fast_avx2+0xa8>\n   1bcb2:\tand    0x34(%rsp),%si\n   1bcb7:\tmovzwl %si,%esi\n   1bcba:\tmovzwl 0x0(%r13,%rsi,2),%esi\n   1bcc0:\tcmp    %si,%r9w\n   1bcc4:\tjae    1b8c8 <zng_private_deflate_fast_avx2+0xa8>\n   1bcca:\tjmp    1bc8a <zng_private_deflate_fast_avx2+0x46a>\n   1bccc:\tcmp    $0x4,%r11d\n   1bcd0:\tjg     1be45 <zng_private_deflate_fast_avx2+0x625>\n   1bcd6:\t.byte 0x8b\n",
+      "addr2line_returncode": 0,
+      "addr2line": "zng_private_deflate_fast_avx2\n:?\n",
+      "source_line_scope": "Onlyliteraladdr2line result; ??staysunknown. Match/hashsourceclass requireslocalsource+exactcompiledinstructions, notcallerframes."
+    },
+    {
+      "primary_ip": "0x8d7e27cb8ba",
+      "symbol": "zng_private_deflate_fast_avx2+0x9a",
+      "period": 4006337383,
+      "ELF_symbol_start": "0x1b820",
+      "ELF_symbol_size": 1717,
+      "symbol_offset": 154,
+      "ELF_address": "0x1b8ba",
+      "objdump_argv": [
+        "/usr/bin/objdump",
+        "-d",
+        "--no-show-raw-insn",
+        "--start-address=0x1b88a",
+        "--stop-address=0x1b8fa",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng"
+      ],
+      "instructions": "\n/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng:     file format elf64-x86-64\n\n\nDisassembly of section .text:\n\n000000000001b88a <zng_private_deflate_fast_avx2+0x6a>:\n   1b88a:\tmov    %r15d,%r10d\n   1b88d:\tand    0x48(%rbx),%r10d\n   1b891:\tmov    %di,(%r9,%r10,2)\n   1b896:\tmov    %r15w,(%rcx)\n   1b89a:\tmovzwl %si,%r9d\n   1b89e:\tmov    %r8,%rcx\n   1b8a1:\tsub    %r9,%rcx\n   1b8a4:\tmov    0x40(%rbx),%r9d\n   1b8a8:\tlea    -0x106(%r9),%r10d\n   1b8af:\tmov    %r10,%r8\n   1b8b2:\tcmp    %rcx,%r10\n   1b8b5:\tjl     1b8c8 <zng_private_deflate_fast_avx2+0xa8>\n   1b8b7:\ttest   %rcx,%rcx\n   1b8ba:\tjle    1b8c8 <zng_private_deflate_fast_avx2+0xa8>\n   1b8bc:\ttest   %si,%si\n   1b8bf:\tjne    1b9d0 <zng_private_deflate_fast_avx2+0x1b0>\n   1b8c5:\tnopl   (%rax)\n   1b8c8:\tmov    0x1740(%rbx),%r12d\n   1b8cf:\tmov    0x1730(%rbx),%rdi\n   1b8d6:\tmov    0x1738(%rbx),%rsi\n   1b8dd:\tmovzbl (%rax),%eax\n   1b8e0:\tmov    %r12d,%edx\n   1b8e3:\txor    %r8d,%r8d\n   1b8e6:\tadd    $0x1,%r12d\n   1b8ea:\tmov    %r8w,(%rdi,%rdx,2)\n   1b8ef:\tmov    %r12d,0x1740(%rbx)\n   1b8f6:\tmov    %al,(%rsi,%rdx,1)\n   1b8f9:\tdata16\n",
+      "addr2line_returncode": 0,
+      "addr2line": "zng_private_deflate_fast_avx2\n:?\n",
+      "source_line_scope": "Onlyliteraladdr2line result; ??staysunknown. Match/hashsourceclass requireslocalsource+exactcompiledinstructions, notcallerframes."
+    },
+    {
+      "primary_ip": "0x8d7e27cbcc0",
+      "symbol": "zng_private_deflate_fast_avx2+0x4a0",
+      "period": 3701454057,
+      "ELF_symbol_start": "0x1b820",
+      "ELF_symbol_size": 1717,
+      "symbol_offset": 1184,
+      "ELF_address": "0x1bcc0",
+      "objdump_argv": [
+        "/usr/bin/objdump",
+        "-d",
+        "--no-show-raw-insn",
+        "--start-address=0x1bc90",
+        "--stop-address=0x1bd00",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng"
+      ],
+      "instructions": "\n/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng:     file format elf64-x86-64\n\n\nDisassembly of section .text:\n\n000000000001bc90 <zng_private_deflate_fast_avx2+0x470>:\n   1bc90:\tmov    $0xfe,%bh\n   1bc92:\tcmp    %r8w,(%rcx,%rdi,1)\n   1bc97:\tjne    1bca8 <zng_private_deflate_fast_avx2+0x488>\n   1bc99:\tmovzwl 0x20(%rsp),%ecx\n   1bc9e:\tcmp    %cx,(%rdx,%rdi,1)\n   1bca2:\tje     1be6f <zng_private_deflate_fast_avx2+0x64f>\n   1bca8:\tsub    $0x1,%r10d\n   1bcac:\tje     1b8c8 <zng_private_deflate_fast_avx2+0xa8>\n   1bcb2:\tand    0x34(%rsp),%si\n   1bcb7:\tmovzwl %si,%esi\n   1bcba:\tmovzwl 0x0(%r13,%rsi,2),%esi\n   1bcc0:\tcmp    %si,%r9w\n   1bcc4:\tjae    1b8c8 <zng_private_deflate_fast_avx2+0xa8>\n   1bcca:\tjmp    1bc8a <zng_private_deflate_fast_avx2+0x46a>\n   1bccc:\tcmp    $0x4,%r11d\n   1bcd0:\tjg     1be45 <zng_private_deflate_fast_avx2+0x625>\n   1bcd6:\tmov    0x1740(%rbx),%edx\n   1bcdc:\tmov    0x1730(%rbx),%rdi\n   1bce3:\tmov    0x1738(%rbx),%rsi\n   1bcea:\tmov    %rdx,%r12\n   1bced:\tlea    (%rdi,%rdx,2),%r9\n   1bcf1:\tlea    0x1(%rdx),%r8d\n   1bcf5:\tadd    %rsi,%rdx\n   1bcf8:\tcmp    $0x3,%ecx\n   1bcfb:\t.byte 0xf\n   1bcfc:\txchg   %eax,%esp\n   1bcfe:\tstd\n   1bcff:\t.byte 0xff\n",
+      "addr2line_returncode": 0,
+      "addr2line": "zng_private_deflate_fast_avx2\n:?\n",
+      "source_line_scope": "Onlyliteraladdr2line result; ??staysunknown. Match/hashsourceclass requireslocalsource+exactcompiledinstructions, notcallerframes."
+    },
+    {
+      "primary_ip": "0x8d7e27cbc8a",
+      "symbol": "zng_private_deflate_fast_avx2+0x46a",
+      "period": 1925419987,
+      "ELF_symbol_start": "0x1b820",
+      "ELF_symbol_size": 1717,
+      "symbol_offset": 1130,
+      "ELF_address": "0x1bc8a",
+      "objdump_argv": [
+        "/usr/bin/objdump",
+        "-d",
+        "--no-show-raw-insn",
+        "--start-address=0x1bc5a",
+        "--stop-address=0x1bcca",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng"
+      ],
+      "instructions": "\n/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng:     file format elf64-x86-64\n\n\nDisassembly of section .text:\n\n000000000001bc5a <zng_private_deflate_fast_avx2+0x43a>:\n   1bc5a:\tadd    %eax,0x79(%rbp,%rcx,4)\n   1bc5e:\tdecl   -0x77(%rax)\n   1bc61:\tfisttps 0x84b3(%rcx)\n   1bc67:\tadd    %al,-0x6(%rcx,%rcx,4)\n   1bc6b:\tvzeroupper\n   1bc6e:\tcall   e8e0 <insert_string>\n   1bc73:\tadd    %r15d,0x84(%rbx)\n   1bc7a:\tjmp    1bb87 <zng_private_deflate_fast_avx2+0x367>\n   1bc7f:\tnop\n   1bc80:\tmov    %ecx,0x10(%rsp)\n   1bc84:\tmovzwl 0x28(%rsp),%r8d\n   1bc8a:\tmov    0x38(%rsp),%rcx\n   1bc8f:\tmovzwl %si,%edi\n   1bc92:\tcmp    %r8w,(%rcx,%rdi,1)\n   1bc97:\tjne    1bca8 <zng_private_deflate_fast_avx2+0x488>\n   1bc99:\tmovzwl 0x20(%rsp),%ecx\n   1bc9e:\tcmp    %cx,(%rdx,%rdi,1)\n   1bca2:\tje     1be6f <zng_private_deflate_fast_avx2+0x64f>\n   1bca8:\tsub    $0x1,%r10d\n   1bcac:\tje     1b8c8 <zng_private_deflate_fast_avx2+0xa8>\n   1bcb2:\tand    0x34(%rsp),%si\n   1bcb7:\tmovzwl %si,%esi\n   1bcba:\tmovzwl 0x0(%r13,%rsi,2),%esi\n   1bcc0:\tcmp    %si,%r9w\n   1bcc4:\tjae    1b8c8 <zng_private_deflate_fast_avx2+0xa8>\n",
+      "addr2line_returncode": 0,
+      "addr2line": "zng_private_deflate_fast_avx2\n:?\n",
+      "source_line_scope": "Onlyliteraladdr2line result; ??staysunknown. Match/hashsourceclass requireslocalsource+exactcompiledinstructions, notcallerframes."
+    },
+    {
+      "primary_ip": "0x8d7e27cb8cf",
+      "symbol": "zng_private_deflate_fast_avx2+0xaf",
+      "period": 1630992246,
+      "ELF_symbol_start": "0x1b820",
+      "ELF_symbol_size": 1717,
+      "symbol_offset": 175,
+      "ELF_address": "0x1b8cf",
+      "objdump_argv": [
+        "/usr/bin/objdump",
+        "-d",
+        "--no-show-raw-insn",
+        "--start-address=0x1b89f",
+        "--stop-address=0x1b90f",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng"
+      ],
+      "instructions": "\n/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng:     file format elf64-x86-64\n\n\nDisassembly of section .text:\n\n000000000001b89f <zng_private_deflate_fast_avx2+0x7f>:\n   1b89f:\tmov    %eax,%ecx\n   1b8a1:\tsub    %r9,%rcx\n   1b8a4:\tmov    0x40(%rbx),%r9d\n   1b8a8:\tlea    -0x106(%r9),%r10d\n   1b8af:\tmov    %r10,%r8\n   1b8b2:\tcmp    %rcx,%r10\n   1b8b5:\tjl     1b8c8 <zng_private_deflate_fast_avx2+0xa8>\n   1b8b7:\ttest   %rcx,%rcx\n   1b8ba:\tjle    1b8c8 <zng_private_deflate_fast_avx2+0xa8>\n   1b8bc:\ttest   %si,%si\n   1b8bf:\tjne    1b9d0 <zng_private_deflate_fast_avx2+0x1b0>\n   1b8c5:\tnopl   (%rax)\n   1b8c8:\tmov    0x1740(%rbx),%r12d\n   1b8cf:\tmov    0x1730(%rbx),%rdi\n   1b8d6:\tmov    0x1738(%rbx),%rsi\n   1b8dd:\tmovzbl (%rax),%eax\n   1b8e0:\tmov    %r12d,%edx\n   1b8e3:\txor    %r8d,%r8d\n   1b8e6:\tadd    $0x1,%r12d\n   1b8ea:\tmov    %r8w,(%rdi,%rdx,2)\n   1b8ef:\tmov    %r12d,0x1740(%rbx)\n   1b8f6:\tmov    %al,(%rsi,%rdx,1)\n   1b8f9:\taddw   $0x1,0x104(%rbx,%rax,4)\n   1b902:\tmov    0x4c(%rbx),%eax\n   1b905:\tlea    -0x1(%rax),%r12d\n   1b909:\tmov    0x84(%rbx),%eax\n",
+      "addr2line_returncode": 0,
+      "addr2line": "zng_private_deflate_fast_avx2\n:?\n",
+      "source_line_scope": "Onlyliteraladdr2line result; ??staysunknown. Match/hashsourceclass requireslocalsource+exactcompiledinstructions, notcallerframes."
+    },
+    {
+      "primary_ip": "0x8d7e27cb875",
+      "symbol": "zng_private_deflate_fast_avx2+0x55",
+      "period": 1526749718,
+      "ELF_symbol_start": "0x1b820",
+      "ELF_symbol_size": 1717,
+      "symbol_offset": 85,
+      "ELF_address": "0x1b875",
+      "objdump_argv": [
+        "/usr/bin/objdump",
+        "-d",
+        "--no-show-raw-insn",
+        "--start-address=0x1b845",
+        "--stop-address=0x1b8b5",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng"
+      ],
+      "instructions": "\n/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng:     file format elf64-x86-64\n\n\nDisassembly of section .text:\n\n000000000001b845 <zng_private_deflate_fast_avx2+0x25>:\n   1b845:\tadd    %r8b,(%rax)\n   1b848:\tmov    0x4c(%rbx),%r12d\n   1b84c:\tcmp    $0x105,%r12d\n   1b853:\tjbe    1b980 <zng_private_deflate_fast_avx2+0x160>\n   1b859:\tmov    0x84(%rbx),%r15d\n   1b860:\tmov    0x58(%rbx),%rdx\n   1b864:\tmov    %r15d,%r8d\n   1b867:\tmov    0x68(%rbx),%rsi\n   1b86b:\tlea    (%rdx,%r8,1),%rax\n   1b86f:\timul   $0x9e3779b1,(%rax),%ecx\n   1b875:\tshr    $0x10,%ecx\n   1b878:\tlea    (%rsi,%rcx,2),%rcx\n   1b87c:\tmovzwl (%rcx),%edi\n   1b87f:\tmov    %edi,%esi\n   1b881:\tcmp    %edi,%r15d\n   1b884:\tje     1b89a <zng_private_deflate_fast_avx2+0x7a>\n   1b886:\tmov    0x60(%rbx),%r9\n   1b88a:\tmov    %r15d,%r10d\n   1b88d:\tand    0x48(%rbx),%r10d\n   1b891:\tmov    %di,(%r9,%r10,2)\n   1b896:\tmov    %r15w,(%rcx)\n   1b89a:\tmovzwl %si,%r9d\n   1b89e:\tmov    %r8,%rcx\n   1b8a1:\tsub    %r9,%rcx\n   1b8a4:\tmov    0x40(%rbx),%r9d\n   1b8a8:\tlea    -0x106(%r9),%r10d\n   1b8af:\tmov    %r10,%r8\n   1b8b2:\tcmp    %rcx,%r10\n",
+      "addr2line_returncode": 0,
+      "addr2line": "zng_private_deflate_fast_avx2\n:?\n",
+      "source_line_scope": "Onlyliteraladdr2line result; ??staysunknown. Match/hashsourceclass requireslocalsource+exactcompiledinstructions, notcallerframes."
+    },
+    {
+      "primary_ip": "0x8d7e27cb8b5",
+      "symbol": "zng_private_deflate_fast_avx2+0x95",
+      "period": 1245949616,
+      "ELF_symbol_start": "0x1b820",
+      "ELF_symbol_size": 1717,
+      "symbol_offset": 149,
+      "ELF_address": "0x1b8b5",
+      "objdump_argv": [
+        "/usr/bin/objdump",
+        "-d",
+        "--no-show-raw-insn",
+        "--start-address=0x1b885",
+        "--stop-address=0x1b8f5",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng"
+      ],
+      "instructions": "\n/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng:     file format elf64-x86-64\n\n\nDisassembly of section .text:\n\n000000000001b885 <zng_private_deflate_fast_avx2+0x65>:\n   1b885:\tadc    $0x4c,%al\n   1b887:\tmov    0x60(%rbx),%ecx\n   1b88a:\tmov    %r15d,%r10d\n   1b88d:\tand    0x48(%rbx),%r10d\n   1b891:\tmov    %di,(%r9,%r10,2)\n   1b896:\tmov    %r15w,(%rcx)\n   1b89a:\tmovzwl %si,%r9d\n   1b89e:\tmov    %r8,%rcx\n   1b8a1:\tsub    %r9,%rcx\n   1b8a4:\tmov    0x40(%rbx),%r9d\n   1b8a8:\tlea    -0x106(%r9),%r10d\n   1b8af:\tmov    %r10,%r8\n   1b8b2:\tcmp    %rcx,%r10\n   1b8b5:\tjl     1b8c8 <zng_private_deflate_fast_avx2+0xa8>\n   1b8b7:\ttest   %rcx,%rcx\n   1b8ba:\tjle    1b8c8 <zng_private_deflate_fast_avx2+0xa8>\n   1b8bc:\ttest   %si,%si\n   1b8bf:\tjne    1b9d0 <zng_private_deflate_fast_avx2+0x1b0>\n   1b8c5:\tnopl   (%rax)\n   1b8c8:\tmov    0x1740(%rbx),%r12d\n   1b8cf:\tmov    0x1730(%rbx),%rdi\n   1b8d6:\tmov    0x1738(%rbx),%rsi\n   1b8dd:\tmovzbl (%rax),%eax\n   1b8e0:\tmov    %r12d,%edx\n   1b8e3:\txor    %r8d,%r8d\n   1b8e6:\tadd    $0x1,%r12d\n   1b8ea:\tmov    %r8w,(%rdi,%rdx,2)\n   1b8ef:\trex.R\n   1b8f0:\t.byte 0x89\n   1b8f1:\t.byte 0xa3\n   1b8f2:\trex (bad)\n\t...\n",
+      "addr2line_returncode": 0,
+      "addr2line": "zng_private_deflate_fast_avx2\n:?\n",
+      "source_line_scope": "Onlyliteraladdr2line result; ??staysunknown. Match/hashsourceclass requireslocalsource+exactcompiledinstructions, notcallerframes."
+    },
+    {
+      "primary_ip": "0x8d7e27cb9d3",
+      "symbol": "zng_private_deflate_fast_avx2+0x1b3",
+      "period": 1159025818,
+      "ELF_symbol_start": "0x1b820",
+      "ELF_symbol_size": 1717,
+      "symbol_offset": 435,
+      "ELF_address": "0x1b9d3",
+      "objdump_argv": [
+        "/usr/bin/objdump",
+        "-d",
+        "--no-show-raw-insn",
+        "--start-address=0x1b9a3",
+        "--stop-address=0x1ba13",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng"
+      ],
+      "instructions": "\n/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng:     file format elf64-x86-64\n\n\nDisassembly of section .text:\n\n000000000001b9a3 <zng_private_deflate_fast_avx2+0x183>:\n   1b9a3:\tleave\n   1b9a4:\tje     1b96c <zng_private_deflate_fast_avx2+0x14c>\n   1b9a6:\tmov    0x84(%rbx),%r15d\n   1b9ad:\ttest   %r12d,%r12d\n   1b9b0:\tje     1bb9b <zng_private_deflate_fast_avx2+0x37b>\n   1b9b6:\tmov    0x58(%rbx),%rdx\n   1b9ba:\tmov    %r15d,%eax\n   1b9bd:\tadd    %rdx,%rax\n   1b9c0:\tcmp    $0x3,%r12d\n   1b9c4:\tjbe    1b8c8 <zng_private_deflate_fast_avx2+0xa8>\n   1b9ca:\tjmp    1b864 <zng_private_deflate_fast_avx2+0x44>\n   1b9cf:\tnop\n   1b9d0:\tmov    0x48(%rbx),%ecx\n   1b9d3:\tmov    0x60(%rbx),%r13\n   1b9d7:\tmov    %ecx,0x34(%rsp)\n   1b9db:\tmov    0x8c(%rbx),%ecx\n   1b9e1:\ttest   %ecx,%ecx\n   1b9e3:\tje     1bbe0 <zng_private_deflate_fast_avx2+0x3c0>\n   1b9e9:\tlea    -0x1(%rcx),%r10d\n   1b9ed:\tcmp    $0x3,%ecx\n   1b9f0:\tja     1bc40 <zng_private_deflate_fast_avx2+0x420>\n   1b9f6:\tmov    (%rax),%r11\n   1b9f9:\tmov    %r11,0x20(%rsp)\n   1b9fe:\tmov    (%rax,%r10,1),%r11\n   1ba02:\tmov    %r11,0x28(%rsp)\n   1ba07:\tlea    (%rdx,%r10,1),%r11\n   1ba0b:\tmov    0x90(%rbx),%r10d\n   1ba12:\trex.WR\n",
+      "addr2line_returncode": 0,
+      "addr2line": "zng_private_deflate_fast_avx2\n:?\n",
+      "source_line_scope": "Onlyliteraladdr2line result; ??staysunknown. Match/hashsourceclass requireslocalsource+exactcompiledinstructions, notcallerframes."
+    },
+    {
+      "primary_ip": "0x8d7e27cbc8f",
+      "symbol": "zng_private_deflate_fast_avx2+0x46f",
+      "period": 950531161,
+      "ELF_symbol_start": "0x1b820",
+      "ELF_symbol_size": 1717,
+      "symbol_offset": 1135,
+      "ELF_address": "0x1bc8f",
+      "objdump_argv": [
+        "/usr/bin/objdump",
+        "-d",
+        "--no-show-raw-insn",
+        "--start-address=0x1bc5f",
+        "--stop-address=0x1bccf",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng"
+      ],
+      "instructions": "\n/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng:     file format elf64-x86-64\n\n\nDisassembly of section .text:\n\n000000000001bc5f <zng_private_deflate_fast_avx2+0x43f>:\n   1bc5f:\tmov    %rbx,%rdi\n   1bc62:\tmov    %esi,0x84(%rbx)\n   1bc68:\tmov    %r15d,%edx\n   1bc6b:\tvzeroupper\n   1bc6e:\tcall   e8e0 <insert_string>\n   1bc73:\tadd    %r15d,0x84(%rbx)\n   1bc7a:\tjmp    1bb87 <zng_private_deflate_fast_avx2+0x367>\n   1bc7f:\tnop\n   1bc80:\tmov    %ecx,0x10(%rsp)\n   1bc84:\tmovzwl 0x28(%rsp),%r8d\n   1bc8a:\tmov    0x38(%rsp),%rcx\n   1bc8f:\tmovzwl %si,%edi\n   1bc92:\tcmp    %r8w,(%rcx,%rdi,1)\n   1bc97:\tjne    1bca8 <zng_private_deflate_fast_avx2+0x488>\n   1bc99:\tmovzwl 0x20(%rsp),%ecx\n   1bc9e:\tcmp    %cx,(%rdx,%rdi,1)\n   1bca2:\tje     1be6f <zng_private_deflate_fast_avx2+0x64f>\n   1bca8:\tsub    $0x1,%r10d\n   1bcac:\tje     1b8c8 <zng_private_deflate_fast_avx2+0xa8>\n   1bcb2:\tand    0x34(%rsp),%si\n   1bcb7:\tmovzwl %si,%esi\n   1bcba:\tmovzwl 0x0(%r13,%rsi,2),%esi\n   1bcc0:\tcmp    %si,%r9w\n   1bcc4:\tjae    1b8c8 <zng_private_deflate_fast_avx2+0xa8>\n   1bcca:\tjmp    1bc8a <zng_private_deflate_fast_avx2+0x46a>\n   1bccc:\trex.B\n   1bccd:\t.byte 0x83\n   1bcce:\tsti\n",
+      "addr2line_returncode": 0,
+      "addr2line": "zng_private_deflate_fast_avx2\n:?\n",
+      "source_line_scope": "Onlyliteraladdr2line result; ??staysunknown. Match/hashsourceclass requireslocalsource+exactcompiledinstructions, notcallerframes."
+    },
+    {
+      "primary_ip": "0x8d7e27cb89e",
+      "symbol": "zng_private_deflate_fast_avx2+0x7e",
+      "period": 873371462,
+      "ELF_symbol_start": "0x1b820",
+      "ELF_symbol_size": 1717,
+      "symbol_offset": 126,
+      "ELF_address": "0x1b89e",
+      "objdump_argv": [
+        "/usr/bin/objdump",
+        "-d",
+        "--no-show-raw-insn",
+        "--start-address=0x1b86e",
+        "--stop-address=0x1b8de",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng"
+      ],
+      "instructions": "\n/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng:     file format elf64-x86-64\n\n\nDisassembly of section .text:\n\n000000000001b86e <zng_private_deflate_fast_avx2+0x4e>:\n   1b86e:\tadd    0x8(%rcx),%ch\n   1b871:\tmov    $0x79,%cl\n   1b873:\t(bad)\n   1b874:\tsahf\n   1b875:\tshr    $0x10,%ecx\n   1b878:\tlea    (%rsi,%rcx,2),%rcx\n   1b87c:\tmovzwl (%rcx),%edi\n   1b87f:\tmov    %edi,%esi\n   1b881:\tcmp    %edi,%r15d\n   1b884:\tje     1b89a <zng_private_deflate_fast_avx2+0x7a>\n   1b886:\tmov    0x60(%rbx),%r9\n   1b88a:\tmov    %r15d,%r10d\n   1b88d:\tand    0x48(%rbx),%r10d\n   1b891:\tmov    %di,(%r9,%r10,2)\n   1b896:\tmov    %r15w,(%rcx)\n   1b89a:\tmovzwl %si,%r9d\n   1b89e:\tmov    %r8,%rcx\n   1b8a1:\tsub    %r9,%rcx\n   1b8a4:\tmov    0x40(%rbx),%r9d\n   1b8a8:\tlea    -0x106(%r9),%r10d\n   1b8af:\tmov    %r10,%r8\n   1b8b2:\tcmp    %rcx,%r10\n   1b8b5:\tjl     1b8c8 <zng_private_deflate_fast_avx2+0xa8>\n   1b8b7:\ttest   %rcx,%rcx\n   1b8ba:\tjle    1b8c8 <zng_private_deflate_fast_avx2+0xa8>\n   1b8bc:\ttest   %si,%si\n   1b8bf:\tjne    1b9d0 <zng_private_deflate_fast_avx2+0x1b0>\n   1b8c5:\tnopl   (%rax)\n   1b8c8:\tmov    0x1740(%rbx),%r12d\n   1b8cf:\tmov    0x1730(%rbx),%rdi\n   1b8d6:\tmov    0x1738(%rbx),%rsi\n   1b8dd:\t.byte 0xf\n",
+      "addr2line_returncode": 0,
+      "addr2line": "zng_private_deflate_fast_avx2\n:?\n",
+      "source_line_scope": "Onlyliteraladdr2line result; ??staysunknown. Match/hashsourceclass requireslocalsource+exactcompiledinstructions, notcallerframes."
+    },
+    {
+      "primary_ip": "0x8d7e27cb928",
+      "symbol": "zng_private_deflate_fast_avx2+0x108",
+      "period": 771924160,
+      "ELF_symbol_start": "0x1b820",
+      "ELF_symbol_size": 1717,
+      "symbol_offset": 264,
+      "ELF_address": "0x1b928",
+      "objdump_argv": [
+        "/usr/bin/objdump",
+        "-d",
+        "--no-show-raw-insn",
+        "--start-address=0x1b8f8",
+        "--stop-address=0x1b968",
+        "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng"
+      ],
+      "instructions": "\n/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng:     file format elf64-x86-64\n\n\nDisassembly of section .text:\n\n000000000001b8f8 <zng_private_deflate_fast_avx2+0xd8>:\n   1b8f8:\t(bad)\n   1b8f9:\taddw   $0x1,0x104(%rbx,%rax,4)\n   1b902:\tmov    0x4c(%rbx),%eax\n   1b905:\tlea    -0x1(%rax),%r12d\n   1b909:\tmov    0x84(%rbx),%eax\n   1b90f:\tmov    %r12d,0x4c(%rbx)\n   1b913:\tlea    0x1(%rax),%edx\n   1b916:\tmov    0x1744(%rbx),%eax\n   1b91c:\tmov    %edx,0x84(%rbx)\n   1b922:\tcmp    %eax,0x1740(%rbx)\n   1b928:\tjne    1b84c <zng_private_deflate_fast_avx2+0x2c>\n   1b92e:\tmov    0x74(%rbx),%eax\n   1b931:\txor    %esi,%esi\n   1b933:\tsub    %eax,%edx\n   1b935:\ttest   %eax,%eax\n   1b937:\tjs     1b940 <zng_private_deflate_fast_avx2+0x120>\n   1b939:\tmovslq %eax,%rsi\n   1b93c:\tadd    0x58(%rbx),%rsi\n   1b940:\txor    %ecx,%ecx\n   1b942:\tmov    %rbx,%rdi\n   1b945:\tvzeroupper\n   1b948:\tcall   10080 <zng_tr_flush_block>\n   1b94d:\tmov    0x84(%rbx),%eax\n   1b953:\tmov    (%rbx),%rdi\n   1b956:\tmov    %eax,0x74(%rbx)\n   1b959:\tcall   6100 <flush_pending>\n   1b95e:\tmov    (%rbx),%rax\n   1b961:\tmov    0x20(%rax),%ecx\n   1b964:\ttest   %ecx,%ecx\n   1b966:\t.byte 0xf\n   1b967:\t.byte 0x85\n",
+      "addr2line_returncode": 0,
+      "addr2line": "zng_private_deflate_fast_avx2\n:?\n",
+      "source_line_scope": "Onlyliteraladdr2line result; ??staysunknown. Match/hashsourceclass requireslocalsource+exactcompiledinstructions, notcallerframes."
+    }
+  ],
+  "FAST_primary_period": 48324557917,
+  "FAST_primary_distinct_IPs": 96,
+  "captured_buildids": [
+    "                                         /pool/wrf-experiment/wrf-cpu/builds/currente3da-one-smallstep-finish-u-simd-hpc02-r1/wrf.exe",
+    "                                         /usr/lib/x86_64-linux-gnu/ucx/libuct_ib.so.0.0.0",
+    "                                         /usr/lib/x86_64-linux-gnu/libucp.so.0.0.0",
+    "                                         /usr/lib/x86_64-linux-gnu/libucs.so.0.0.0",
+    "                                         /usr/lib/x86_64-linux-gnu/libuct.so.0.0.0",
+    "                                         /pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib/openmpi/mca_pml_ucx.so",
+    "                                         /pool/wrf-experiment/wrf-cpu/builds/hdf5-sse2-unshuffle4-private-r3/output/candidate/lib/libhdf5.so.310.3.0",
+    "                                         /usr/lib/x86_64-linux-gnu/libc.so.6",
+    "                                         /pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng",
+    "                                         /pool/wrf-experiment/wrf-cpu/kernels/current-de5b-private-shuffle-scratch-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
+    "                                         /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2"
+  ],
+  "mmap_rows": 1038,
+  "project_mmap_lines": [
+    "      0/0           0.000000000: PERF_RECORD_MMAP2 2069217/2069217: [0x400000(0x6000) @ 0 00:34 5637298026 0]: r--p /pool/wrf-experiment/wrf-cpu/builds/currente3da-one-smallstep-finish-u-simd-hpc02-r1/wrf.exe",
+    "      0/0           0.000000000: PERF_RECORD_MMAP2 2069217/2069217: [0x406000(0x21ad000) @ 0x6000 00:34 5637298026 0]: r-xp /pool/wrf-experiment/wrf-cpu/builds/currente3da-one-smallstep-finish-u-simd-hpc02-r1/wrf.exe",
+    "      0/0           0.000000000: PERF_RECORD_MMAP2 2069217/2069217: [0x25b3000(0x326000) @ 0x21b3000 00:34 5637298026 0]: r--p /pool/wrf-experiment/wrf-cpu/builds/currente3da-one-smallstep-finish-u-simd-hpc02-r1/wrf.exe",
+    "      0/0           0.000000000: PERF_RECORD_MMAP2 2069217/2069217: [0x28d9000(0x1000) @ 0x24d8000 00:34 5637298026 0]: r--p /pool/wrf-experiment/wrf-cpu/builds/currente3da-one-smallstep-finish-u-simd-hpc02-r1/wrf.exe",
+    "      0/0           0.000000000: PERF_RECORD_MMAP2 2069217/2069217: [0x28da000(0xa2000) @ 0x24d9000 00:34 5637298026 0]: rw-p /pool/wrf-experiment/wrf-cpu/builds/currente3da-one-smallstep-finish-u-simd-hpc02-r1/wrf.exe",
+    "      0/0           0.000000000: PERF_RECORD_MMAP2 2069217/2069217: [0x8d7e27b0000(0x3000) @ 0 00:34 5637246519 0]: r--p /pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng",
+    "      0/0           0.000000000: PERF_RECORD_MMAP2 2069217/2069217: [0x8d7e27b3000(0x1f000) @ 0x3000 00:34 5637246519 0]: r-xp /pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng",
+    "      0/0           0.000000000: PERF_RECORD_MMAP2 2069217/2069217: [0x8d7e27d2000(0xa000) @ 0x22000 00:34 5637246519 0]: r--p /pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng",
+    "      0/0           0.000000000: PERF_RECORD_MMAP2 2069217/2069217: [0x8d7e27dc000(0x1000) @ 0x2b000 00:34 5637246519 0]: r--p /pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng",
+    "      0/0           0.000000000: PERF_RECORD_MMAP2 2069217/2069217: [0x8d7e27dd000(0x1000) @ 0x2c000 00:34 5637246519 0]: rw-p /pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng",
+    "      0/0           0.000000000: PERF_RECORD_MMAP2 2069217/2069217: [0x8d7e27de000(0x2000) @ 0 00:34 5637227492 0]: r--p /pool/wrf-experiment/wrf-cpu/kernels/current-de5b-private-shuffle-scratch-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
+    "      0/0           0.000000000: PERF_RECORD_MMAP2 2069217/2069217: [0x8d7e27e0000(0x5000) @ 0x2000 00:34 5637227492 0]: r-xp /pool/wrf-experiment/wrf-cpu/kernels/current-de5b-private-shuffle-scratch-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
+    "      0/0           0.000000000: PERF_RECORD_MMAP2 2069217/2069217: [0x8d7e27e5000(0x2000) @ 0x7000 00:34 5637227492 0]: r--p /pool/wrf-experiment/wrf-cpu/kernels/current-de5b-private-shuffle-scratch-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
+    "      0/0           0.000000000: PERF_RECORD_MMAP2 2069217/2069217: [0x8d7e27e7000(0x1000) @ 0x8000 00:34 5637227492 0]: r--p /pool/wrf-experiment/wrf-cpu/kernels/current-de5b-private-shuffle-scratch-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
+    "      0/0           0.000000000: PERF_RECORD_MMAP2 2069217/2069217: [0x8d7e27e8000(0x1000) @ 0x9000 00:34 5637227492 0]: rw-p /pool/wrf-experiment/wrf-cpu/kernels/current-de5b-private-shuffle-scratch-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so"
+  ],
+  "metadata_tool_sha256": {
+    "/usr/bin/nm": "910ad8a63896f722374fdf22951d2a436c74e3ac9677511cc56378296bdf86cc",
+    "/usr/bin/objdump": "d0041e7511460b9ebfd95ce4f9d93c7ffea398ffc1cb2c316a220dd8e533db3d",
+    "/usr/bin/addr2line": "e43ace7e4b089a1c097034838d722d6519715c4a265fde346fbd793f7ff01fed"
+  },
+  "source_pins_sha256": "14173692cd5b7a3eac4a73920cbaceab380c079324d1c080f4dafba1f0142879",
+  "project_images_sha256": {
+    "/pool/wrf-experiment/wrf-cpu/builds/currente3da-one-smallstep-finish-u-simd-hpc02-r1/wrf.exe": "8bfe0e0aa4c19a0e7ead89e59c5f9142cda43f4c35ddb9be26e7dd30a4439a40",
+    "/pool/wrf-experiment/wrf-cpu/kernels/compress-block-local-carry-native-hpc04-r1/output/build/libz.so.1.3.1.zlib-ng": "e1d8bc0774b7c54b4b63e7d6892c6485bec9b3c7032985a229961ba0569cc450",
+    "/pool/wrf-experiment/wrf-cpu/kernels/current-de5b-private-shuffle-scratch-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so": "51a31b3c137a2161700c9930a1e250021b34c598c887a7551e87d304b2ce4d31"
+  },
+  "compact_artifacts": {
+    "/pool/wrf-experiment/wrf-cpu/kernels/finish-writer-e1d8-primary-ip-parse-hpc03-r1/analysis-output/primary-records.json": "61773ebd173e90cb02fb3feaf4f88718413933c8e6dd060f14e0b40cce5329ab"
+  },
+  "elapsed_seconds_context_only": 1.3252034028992057,
+  "limits": "Sameactualwriter4950610raw only; no capture/source/kernel/forecast/scientificgain. Existingfutureworkercoverage26sampledof216knownfieldgenerations isseparate, no fullwindow/allworkerCPUheadroom. No chainfirstframe usedasprimary. UnknownIP/DSO/source remainUNKNOWN."
+}
