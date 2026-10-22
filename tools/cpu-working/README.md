@@ -1,4 +1,22 @@
-# Current working selection: V-advection SIMD and shortwave initialization
+# Current working selection: physics tendency SIMD
+
+**7087c69d / archive a71d7b28 / post-test source634f293d** retains all previous selected improvements and adds one inner-I `add_a2a` SIMD directive with a GNU module-local flag. The selected bindings all identify this artifact set.
+
+| Fresh three-hour pair, October22 | Corrected original546b | Combined7087 | Reduction |
+|---|---:|---:|---:|
+| Model/MPI wall |821.985931s|659.368571s|19.7835%|
+| Main-step elapsed |598.154780s|557.023960s|6.8763%|
+| Aggregate node CPU |368750.239428 CPU-s|319850.766687 CPU-s|13.2609%|
+
+New run IDs: `production512-current-add-a2a3h-{control,candidate}-r1`; raw result `de43f90a`. All four complete products and545 ordered steps passed exactly, including metadata/layout,512 ranks,two tiles,all four writer groups and32 field markers. All models and reader closed. Checked client-cache clears preceded each arm. One original-first pair measures the total package, not this directive alone; server cache/load are uncontrolled and repeatability is unestablished. Main elapsed includes communication/output backpressure.
+
+[Evidence, support, recipe and atomic rollback](../cpu-compute/add-a2a-simd/README.md). Own3h is true; ownnoon/9h/restart are false until separate qualification. The eight changed calling routines are disclosed rather than claimed byte-exact. Source634f293d is post-test tracking; raw producer remains null. Production/master are unchanged; AWS is suspended.
+
+All following selection descriptions are historical. The generic older three-hour files do not override the qualification pointed to by `selection.json`.
+
+---
+
+# Historical a437 selection: V-advection SIMD and shortwave initialization
 
 **a437888c / archive81f6a950 / post-test sourced5d09385** retains the previous configuration and adds the qualified V Y5 producer directive and seven shortwave initialization guards. The current source/build/application records in this directory all identify this same artifact set.
 

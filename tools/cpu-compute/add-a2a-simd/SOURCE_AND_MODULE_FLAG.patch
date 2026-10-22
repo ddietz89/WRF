@@ -1,0 +1,30 @@
+--- a/phys/module_physics_addtendc.F
++++ b/phys/module_physics_addtendc.F
+@@ -2487,6 +2487,7 @@
+ 
+    DO j = j_start,j_end
+    DO k = kts,ktf
++!$OMP SIMD
+    DO i = i_start,i_end
+       lvar(i,k,j) = lvar(i,k,j) + rvar(i,k,j)
+    ENDDO
+--- a/phys/Makefile
++++ b/phys/Makefile
+@@ -434,6 +434,17 @@
+ 
+ include ../configure.wrf
+ 
++# Enable GNU add_a2a SIMD in the qualified pure-MPI configuration; no thread team.
++# Use make WRF_ADDTENDC_SIMD=0 and rebuild this object/archive/executable to opt out.
++WRF_ADDTENDC_SIMD ?= 1
++ifeq ($(WRF_ADDTENDC_SIMD),1)
++ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
++ifeq ($(strip $(OMP)),)
++module_physics_addtendc.o: private override FCFLAGS += -fopenmp-simd
++endif
++endif
++endif
++
+ non_nmm : $(MODULES) $(FIRE_MODULES) $(OBJS) $(DIAGNOSTIC_MODULES_EM) $(NOAHMP_MODULES)
+ 
+ submodules :

@@ -1,0 +1,77 @@
+{
+  "status": "PASS_OWN_NOON_SCIENCE_WITH_TWO_QUALIFIED_PROFILES_TWO_UNAVAILABLE",
+  "run_id": "production512-current-a437-fourhost-noon75m-profile-candidate-r2",
+  "executable_sha256": "a437888cd99708fc1b10dc05ce2c3c2441c1170a4c1916b7b606a5c2757526fd",
+  "lease_sha256": "362c3a4a39d3ccf7b1f9f936dfdb5144a5a7a21ec53de8cb31479f9b52ca53dd",
+  "science": {
+    "complete_products": 2,
+    "ordered_steps": 230,
+    "end_time": "2026-10-12_13:15:00",
+    "unchanged_original_checker": true,
+    "exact": true,
+    "reader_invocation_id": "6d15c9ac9c2f4695bd9cfe9de9ab593d",
+    "all_model_reader_auxiliary_scopes_closed": true
+  },
+  "capture": {
+    "all_four_qualified": false,
+    "qualified": {
+      "120": {
+        "host": "hpc01",
+        "actual_primary_count": 1415,
+        "actual_period_sum": 36991538363,
+        "actual_sample_span_seconds": 14.995728701,
+        "raw_binding": {
+          "path": "/pool/wrf-experiment/wrf-cpu/runs/production512-current-a437-fourhost-noon75m-profile-candidate-r2/compute-profile-steady-rank0-r1/rank120.perf.data",
+          "sha256": "c5700b0daab5fea1eed9096906076f6c312301e8c0cac33e7ceda0ee854969b3",
+          "bytes": 12104100,
+          "pid": 4002594,
+          "target_startticks": "227441758"
+        },
+        "parent_phase_qualified": true
+      },
+      "122": {
+        "host": "hpc03",
+        "actual_primary_count": 1395,
+        "actual_period_sum": 40252054642,
+        "actual_sample_span_seconds": 14.999792448,
+        "raw_binding": {
+          "path": "/pool/wrf-experiment/wrf-cpu/runs/production512-current-a437-fourhost-noon75m-profile-candidate-r2/compute-profile-steady-rank2-r1/rank122.perf.data",
+          "sha256": "4baa08abfbf8257ee14772fe1616ae86c3b2bc4148401273a50df406f9c555be",
+          "bytes": 11935156,
+          "pid": 1896327,
+          "target_startticks": "227420418"
+        },
+        "parent_phase_qualified": true
+      }
+    },
+    "unavailable": {
+      "121": "hpc02 actualkernel88 boundmistakenlyperf90; missingpathbeforeRecorderService,no nativecreated",
+      "123": "hpc04 actualkernel90 boundmistakenlyperf88; missingpathbeforeRecorderService,no nativecreated"
+    },
+    "sole_publisher_repair_worked": true,
+    "no_cross_host_clock_intersection": true,
+    "numeric_sample_loss": "UNKNOWN",
+    "may_include_1300_output": true,
+    "no_global_critical_path_or_headroom_claim": true,
+    "no_new_profile_retry_planned": true
+  },
+  "descriptive_unpaired_only": {
+    "model_wall_seconds": 309.627658,
+    "main_step_elapsed_seconds": 235.42983,
+    "aggregate_node_CPU_seconds": 151669.276277,
+    "fresh_control": false,
+    "speedup_claim": null
+  },
+  "evidence_files_sha256": {
+    "science-receipt.json": "c29c196a332e6e0bbb38a3a487c991b47f7058a495fa0d042cbac183ca96c5bf",
+    "reader-closure.json": "9c3cd798edc417330f7b3e06633e572a2a6ef55e47479564e9ca2ee0956724d3",
+    "PRIMARY_SUMMARY.json": "822720434f404ae7b8ecae81ed6d2e9ac02c7f546728445af37ec9e5dc2efc9e",
+    "capture-drain.json": "efd9801c5f81bf292d312eeaa008e4ed159652b86f582afc0ed7d3bbb7581422"
+  },
+  "mapping_and_source_lookup": {
+    "actual_mmap_metadata_sha256": "93af72e2891d78be4cfad4215e1213865f57f3c09c36c3b9fa3ceb07f27a92e4",
+    "current_ELF_lookup_sha256": "d61b12d5b900a6e8dddfc0499b3813b2ca9aed74328ef935276468752d58ecb3",
+    "lookup_scope": "12actualsamplePCs withinverifiedfilebackedcurrenta437RX; source/asm provenance only"
+  },
+  "new_measured_opportunity": "add_a2a scalar independentpointwiseaddition, currentPC0x1241b15;4rank122samples/0.267053percent selectedthread period, not globalheadroom. CandidateGenuine/fullgridqualificationpending."
+}

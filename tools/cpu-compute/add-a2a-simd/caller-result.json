@@ -1,0 +1,338 @@
+{
+  "status": "PASS_TWO_OPPOSITE_ORDER_FULLCALLER_PAIRS",
+  "scope": "Complete add_a2a;187I50K10J physical200x52x14;20000calls;allactualconfig/bounds/add insideclock;no forecast claim",
+  "hosts": [
+    {
+      "host": "hpc01",
+      "status": "PASS_ONE_OPPOSITE_ORDER_FULLCALLER_PAIR",
+      "arms": [
+        {
+          "pair": 1,
+          "arm": "parent",
+          "unit": "wrf-cpu-add-a2a-wholecaller-a437-hpc01-p1-parent-r1",
+          "launch": {
+            "cacheclear": {
+              "node": "hpc01",
+              "before_utc": "2026-10-22T19:35:13.339304+00:00",
+              "before_kib": {
+                "MemAvailable": 124196724,
+                "Cached": 3564324,
+                "Dirty": 8,
+                "Writeback": 0
+              },
+              "previous_own_arm_closed": true,
+              "fileserver_cache": "UNKNOWN_NOT_CLEARED",
+              "sync_rc": 0,
+              "drop3_rc": 0,
+              "drop3_stdout": "3\n",
+              "after_utc": "2026-10-22T19:35:14.207198+00:00",
+              "after_kib": {
+                "MemAvailable": 125068272,
+                "Cached": 202216,
+                "Dirty": 252,
+                "Writeback": 0
+              }
+            },
+            "launch_rc": 0,
+            "launch_stdout": "",
+            "launch_stderr": "Running as unit: wrf-cpu-add-a2a-wholecaller-a437-hpc01-p1-parent-r1.service; invocation ID: 1a167cb2a337486e8d8b9d457a043635\n",
+            "initial_state": "RuntimeMaxUSec=30s\nMainPID=4004856\nControlGroup=/system.slice/wrf-cpu-add-a2a-wholecaller-a437-hpc01-p1-parent-r1.service\nAllowedCPUs=24\nMemoryMax=4294967296\nActiveState=active\nInvocationID=1a167cb2a337486e8d8b9d457a043635\n"
+          },
+          "completed_state": {
+            "MainPID": "0",
+            "Result": "success",
+            "ExecMainStatus": "0",
+            "ActiveState": "active",
+            "SubState": "exited",
+            "InvocationID": "1a167cb2a337486e8d8b9d457a043635"
+          },
+          "closure": {
+            "stop_rc": 0,
+            "state": {
+              "MainPID": "0",
+              "Result": "success",
+              "ExecMainStatus": "0",
+              "ControlGroup": "",
+              "ActiveState": "inactive",
+              "InvocationID": ""
+            },
+            "cgroup_procs": [],
+            "own_cgroup_exists": false
+          },
+          "closed_exact": true,
+          "receipt": {
+            "status": "PASS_FULLCALLER_20000_RAW_READONLY_IEEE",
+            "arm": "parent",
+            "host": "hpc01",
+            "invocation": "1a167cb2a337486e8d8b9d457a043635",
+            "affinity": [
+              24
+            ],
+            "binary_sha256": "2d9b3ecdd5ab02a25a397a66176f876426e70c8610e990402a121f76e1df7f4c",
+            "child_rc": 0,
+            "child_initial_cpu_allowed": "24",
+            "fp_state_stdout": "FE_TONEAREST; state=           4           4           0        8068",
+            "iterations": 20000,
+            "elapsed_ns": 699148933,
+            "raw_sha256": "000309225defd2d040e694063f4d552ceec09ec9a3643a0813c98dac2eae3dc9",
+            "raw_bytes": 1164816,
+            "raw_path": "/pool/wrf-experiment/wrf-cpu/kernels/add-a2a-wholecaller-screen-current-a437-r1/timing-r1/hpc01-p1-parent.work/output.raw"
+          }
+        },
+        {
+          "pair": 1,
+          "arm": "candidate",
+          "unit": "wrf-cpu-add-a2a-wholecaller-a437-hpc01-p1-candidate-r1",
+          "launch": {
+            "cacheclear": {
+              "node": "hpc01",
+              "before_utc": "2026-10-22T19:35:29.118198+00:00",
+              "before_kib": {
+                "MemAvailable": 125021908,
+                "Cached": 216756,
+                "Dirty": 524,
+                "Writeback": 0
+              },
+              "previous_own_arm_closed": true,
+              "fileserver_cache": "UNKNOWN_NOT_CLEARED",
+              "sync_rc": 0,
+              "drop3_rc": 0,
+              "drop3_stdout": "3\n",
+              "after_utc": "2026-10-22T19:35:29.222554+00:00",
+              "after_kib": {
+                "MemAvailable": 125018000,
+                "Cached": 203712,
+                "Dirty": 604,
+                "Writeback": 20
+              }
+            },
+            "launch_rc": 0,
+            "launch_stdout": "",
+            "launch_stderr": "Running as unit: wrf-cpu-add-a2a-wholecaller-a437-hpc01-p1-candidate-r1.service; invocation ID: 08eb920cbc6e44979ccbdd44a6720ea3\n",
+            "initial_state": "RuntimeMaxUSec=30s\nMainPID=4005449\nControlGroup=/system.slice/wrf-cpu-add-a2a-wholecaller-a437-hpc01-p1-candidate-r1.service\nAllowedCPUs=24\nMemoryMax=4294967296\nActiveState=active\nInvocationID=08eb920cbc6e44979ccbdd44a6720ea3\n"
+          },
+          "completed_state": {
+            "MainPID": "0",
+            "Result": "success",
+            "ExecMainStatus": "0",
+            "ActiveState": "active",
+            "SubState": "exited",
+            "InvocationID": "08eb920cbc6e44979ccbdd44a6720ea3"
+          },
+          "closure": {
+            "stop_rc": 0,
+            "state": {
+              "MainPID": "0",
+              "Result": "success",
+              "ExecMainStatus": "0",
+              "ControlGroup": "",
+              "ActiveState": "inactive",
+              "InvocationID": ""
+            },
+            "cgroup_procs": [],
+            "own_cgroup_exists": false
+          },
+          "closed_exact": true,
+          "receipt": {
+            "status": "PASS_FULLCALLER_20000_RAW_READONLY_IEEE",
+            "arm": "candidate",
+            "host": "hpc01",
+            "invocation": "08eb920cbc6e44979ccbdd44a6720ea3",
+            "affinity": [
+              24
+            ],
+            "binary_sha256": "1c17478e5e5274bd3d51c35d1234561828919fddb6c05ae9a033fb880e2d415e",
+            "child_rc": 0,
+            "child_initial_cpu_allowed": "24",
+            "fp_state_stdout": "FE_TONEAREST; state=           4           4           0        8068",
+            "iterations": 20000,
+            "elapsed_ns": 308926719,
+            "raw_sha256": "000309225defd2d040e694063f4d552ceec09ec9a3643a0813c98dac2eae3dc9",
+            "raw_bytes": 1164816,
+            "raw_path": "/pool/wrf-experiment/wrf-cpu/kernels/add-a2a-wholecaller-screen-current-a437-r1/timing-r1/hpc01-p1-candidate.work/output.raw"
+          }
+        }
+      ],
+      "comparisons": [
+        {
+          "pair": 1,
+          "order": [
+            "parent",
+            "candidate"
+          ],
+          "parent_ns": 699148933,
+          "candidate_ns": 308926719,
+          "reduction_percent": 55.81388965661198,
+          "raw_sha256": "000309225defd2d040e694063f4d552ceec09ec9a3643a0813c98dac2eae3dc9",
+          "raw_bytes": 1164816
+        }
+      ]
+    },
+    {
+      "host": "hpc02",
+      "status": "PASS_ONE_OPPOSITE_ORDER_FULLCALLER_PAIR",
+      "arms": [
+        {
+          "pair": 1,
+          "arm": "candidate",
+          "unit": "wrf-cpu-add-a2a-wholecaller-a437-hpc02-p1-candidate-r1",
+          "launch": {
+            "cacheclear": {
+              "node": "hpc02",
+              "before_utc": "2026-10-22T19:35:14.298020+00:00",
+              "before_kib": {
+                "MemAvailable": 125300260,
+                "Cached": 595544,
+                "Dirty": 508,
+                "Writeback": 0
+              },
+              "previous_own_arm_closed": true,
+              "fileserver_cache": "UNKNOWN_NOT_CLEARED",
+              "sync_rc": 0,
+              "drop3_rc": 0,
+              "drop3_stdout": "3\n",
+              "after_utc": "2026-10-22T19:35:14.554242+00:00",
+              "after_kib": {
+                "MemAvailable": 125511348,
+                "Cached": 187980,
+                "Dirty": 192,
+                "Writeback": 16
+              }
+            },
+            "launch_rc": 0,
+            "launch_stdout": "",
+            "launch_stderr": "Running as unit: wrf-cpu-add-a2a-wholecaller-a437-hpc02-p1-candidate-r1.service; invocation ID: a359a4e294c1405f9aab1f5384f5bade\n",
+            "initial_state": "RuntimeMaxUSec=30s\nMainPID=2042179\nControlGroup=/system.slice/wrf-cpu-add-a2a-wholecaller-a437-hpc02-p1-candidate-r1.service\nAllowedCPUs=24\nMemoryMax=4294967296\nActiveState=active\nInvocationID=a359a4e294c1405f9aab1f5384f5bade\n"
+          },
+          "completed_state": {
+            "MainPID": "0",
+            "Result": "success",
+            "ExecMainStatus": "0",
+            "ActiveState": "active",
+            "SubState": "exited",
+            "InvocationID": "a359a4e294c1405f9aab1f5384f5bade"
+          },
+          "closure": {
+            "stop_rc": 0,
+            "state": {
+              "MainPID": "0",
+              "Result": "success",
+              "ExecMainStatus": "0",
+              "ControlGroup": "",
+              "ActiveState": "inactive",
+              "InvocationID": ""
+            },
+            "cgroup_procs": [],
+            "own_cgroup_exists": false
+          },
+          "closed_exact": true,
+          "receipt": {
+            "status": "PASS_FULLCALLER_20000_RAW_READONLY_IEEE",
+            "arm": "candidate",
+            "host": "hpc02",
+            "invocation": "a359a4e294c1405f9aab1f5384f5bade",
+            "affinity": [
+              24
+            ],
+            "binary_sha256": "1c17478e5e5274bd3d51c35d1234561828919fddb6c05ae9a033fb880e2d415e",
+            "child_rc": 0,
+            "child_initial_cpu_allowed": "24",
+            "fp_state_stdout": "FE_TONEAREST; state=           4           4           0        8068",
+            "iterations": 20000,
+            "elapsed_ns": 309021906,
+            "raw_sha256": "000309225defd2d040e694063f4d552ceec09ec9a3643a0813c98dac2eae3dc9",
+            "raw_bytes": 1164816,
+            "raw_path": "/pool/wrf-experiment/wrf-cpu/kernels/add-a2a-wholecaller-screen-current-a437-r1/timing-r1/hpc02-p1-candidate.work/output.raw"
+          }
+        },
+        {
+          "pair": 1,
+          "arm": "parent",
+          "unit": "wrf-cpu-add-a2a-wholecaller-a437-hpc02-p1-parent-r1",
+          "launch": {
+            "cacheclear": {
+              "node": "hpc02",
+              "before_utc": "2026-10-22T19:35:30.076581+00:00",
+              "before_kib": {
+                "MemAvailable": 125495880,
+                "Cached": 202420,
+                "Dirty": 44,
+                "Writeback": 20
+              },
+              "previous_own_arm_closed": true,
+              "fileserver_cache": "UNKNOWN_NOT_CLEARED",
+              "sync_rc": 0,
+              "drop3_rc": 0,
+              "drop3_stdout": "3\n",
+              "after_utc": "2026-10-22T19:35:30.182458+00:00",
+              "after_kib": {
+                "MemAvailable": 125500828,
+                "Cached": 188992,
+                "Dirty": 104,
+                "Writeback": 20
+              }
+            },
+            "launch_rc": 0,
+            "launch_stdout": "",
+            "launch_stderr": "Running as unit: wrf-cpu-add-a2a-wholecaller-a437-hpc02-p1-parent-r1.service; invocation ID: 4d256a6346224d2abc98cb6883fec207\n",
+            "initial_state": "RuntimeMaxUSec=30s\nMainPID=2042772\nControlGroup=/system.slice/wrf-cpu-add-a2a-wholecaller-a437-hpc02-p1-parent-r1.service\nAllowedCPUs=24\nMemoryMax=4294967296\nActiveState=active\nInvocationID=4d256a6346224d2abc98cb6883fec207\n"
+          },
+          "completed_state": {
+            "MainPID": "0",
+            "Result": "success",
+            "ExecMainStatus": "0",
+            "ActiveState": "active",
+            "SubState": "exited",
+            "InvocationID": "4d256a6346224d2abc98cb6883fec207"
+          },
+          "closure": {
+            "stop_rc": 0,
+            "state": {
+              "MainPID": "0",
+              "Result": "success",
+              "ExecMainStatus": "0",
+              "ControlGroup": "",
+              "ActiveState": "inactive",
+              "InvocationID": ""
+            },
+            "cgroup_procs": [],
+            "own_cgroup_exists": false
+          },
+          "closed_exact": true,
+          "receipt": {
+            "status": "PASS_FULLCALLER_20000_RAW_READONLY_IEEE",
+            "arm": "parent",
+            "host": "hpc02",
+            "invocation": "4d256a6346224d2abc98cb6883fec207",
+            "affinity": [
+              24
+            ],
+            "binary_sha256": "2d9b3ecdd5ab02a25a397a66176f876426e70c8610e990402a121f76e1df7f4c",
+            "child_rc": 0,
+            "child_initial_cpu_allowed": "24",
+            "fp_state_stdout": "FE_TONEAREST; state=           4           4           0        8068",
+            "iterations": 20000,
+            "elapsed_ns": 700944357,
+            "raw_sha256": "000309225defd2d040e694063f4d552ceec09ec9a3643a0813c98dac2eae3dc9",
+            "raw_bytes": 1164816,
+            "raw_path": "/pool/wrf-experiment/wrf-cpu/kernels/add-a2a-wholecaller-screen-current-a437-r1/timing-r1/hpc02-p1-parent.work/output.raw"
+          }
+        }
+      ],
+      "comparisons": [
+        {
+          "pair": 1,
+          "order": [
+            "candidate",
+            "parent"
+          ],
+          "parent_ns": 700944357,
+          "candidate_ns": 309021906,
+          "reduction_percent": 55.913489720839564,
+          "raw_sha256": "000309225defd2d040e694063f4d552ceec09ec9a3643a0813c98dac2eae3dc9",
+          "raw_bytes": 1164816
+        }
+      ]
+    }
+  ]
+}

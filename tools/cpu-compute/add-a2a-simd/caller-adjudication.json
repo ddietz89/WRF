@@ -1,0 +1,38 @@
+{
+  "status": "PASS_TWO_FIXED_OPPOSITE_ORDER_COMPLETECALLER_PAIRS",
+  "source": "RESULT.json",
+  "source_sha256": "f69f3812f8d7cbf6f434a22abf74729da8e57c7ecd136a78d582fc7416d11f5e",
+  "comparisons": [
+    {
+      "host": "hpc01",
+      "pair": 1,
+      "order": [
+        "parent",
+        "candidate"
+      ],
+      "parent_ns": 699148933,
+      "candidate_ns": 308926719,
+      "reduction_percent": 55.81388965661198,
+      "raw_sha256": "000309225defd2d040e694063f4d552ceec09ec9a3643a0813c98dac2eae3dc9",
+      "raw_bytes": 1164816
+    },
+    {
+      "host": "hpc02",
+      "pair": 1,
+      "order": [
+        "candidate",
+        "parent"
+      ],
+      "parent_ns": 700944357,
+      "candidate_ns": 309021906,
+      "reduction_percent": 55.913489720839564,
+      "raw_sha256": "000309225defd2d040e694063f4d552ceec09ec9a3643a0813c98dac2eae3dc9",
+      "raw_bytes": 1164816
+    }
+  ],
+  "process_cpu": "UNAVAILABLE_NOT_INSTRUMENTED",
+  "scope": "20,000 complete synthetic add_a2a calls with 187x50x10 active, physical200x52x14; percall restoration/checks outside timing; normal acceptance warms code/data, no coldcacheclaim",
+  "genuine_fullmodule_pending": true,
+  "forecast_gain": "NOT_MEASURED",
+  "repeatability_scope": "one pair pernode01/02 only; subsecond summedcalleeintervals"
+}
