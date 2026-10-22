@@ -2487,6 +2487,7 @@ SUBROUTINE add_a2a(lvar,rvar,config_flags,                  &
 
    DO j = j_start,j_end
    DO k = kts,ktf
+!$OMP SIMD
    DO i = i_start,i_end
       lvar(i,k,j) = lvar(i,k,j) + rvar(i,k,j)
    ENDDO

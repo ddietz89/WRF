@@ -434,6 +434,17 @@ $(LIBTARGET) :
 
 include ../configure.wrf
 
+# Enable GNU add_a2a SIMD in the qualified pure-MPI configuration; no thread team.
+# Use make WRF_ADDTENDC_SIMD=0 and rebuild this object/archive/executable to opt out.
+WRF_ADDTENDC_SIMD ?= 1
+ifeq ($(WRF_ADDTENDC_SIMD),1)
+ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+ifeq ($(strip $(OMP)),)
+module_physics_addtendc.o: private override FCFLAGS += -fopenmp-simd
+endif
+endif
+endif
+
 non_nmm : $(MODULES) $(FIRE_MODULES) $(OBJS) $(DIAGNOSTIC_MODULES_EM) $(NOAHMP_MODULES)
 
 submodules :
