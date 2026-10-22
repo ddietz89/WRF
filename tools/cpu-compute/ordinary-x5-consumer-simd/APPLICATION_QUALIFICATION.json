@@ -1,0 +1,134 @@
+{
+  "status": "PASS_CURRENT_X5_OWN_ONEHOUR_TWO_PRODUCT_185_STEP_SCIENCE",
+  "candidate_artifacts": {
+    "exe": "4adb20e0f0c565e7146d637703b7144c1009a5a19db7c0fa7352b8c772ac44f2",
+    "archive": "f9113cba204ce29705ff671aaedcc5e06f41489e09982e7ba05acbe1d6b9635d",
+    "advection_object": "99da9c6a0d8fc892b6c0754d7925f3f779c06f7e133ce24a6d62f1b850b611f5",
+    "MOD": "88e9fcbf27d28de7f12c22df0aac07aef26d4463f303e5a51b135a6a7e454750",
+    "shim": "8bee3346e6fbf5b32d1f123efce4edfd8a16cf0c2f64948ba02a4c60b997097f",
+    "codec": "937130c2a2d53e1d11c978dce1b661400daca9da7b8ae99029333dbc1103d178"
+  },
+  "raw_producer_source_commit": null,
+  "posttest_source_commit": null,
+  "retained_reference": {
+    "stage": "/pool/wrf-experiment/wrf-cpu/science-prep/production512-current-coriolis-u-phy-fixed8-3h-r1",
+    "run_directory": "/pool/wrf-experiment/wrf-cpu/runs/production512-current-coriolis-u-phy-fixed8-3h-candidate-r1",
+    "grant_sha256": "b294fabb32be12e666eecc3c47ce395f62948e9301667cfc0ae074038c31cbef",
+    "source_manifest_sha256": "603bb800dd845e9b108b12a1047fe27134da30789ad68164b0e96ddf63b14613",
+    "executable_sha256": "769195b84ddf4aa9536531d1601785e72a0da0dc86844203ef4d55041d0d036b",
+    "runtime_checks_sha256": "3f0fd06fdd366c2cd3b790e4e074ab0e2a02c1e184bac4e48a304b277ef6460f",
+    "science_sha256": "cd523de0a5089032f8a71b7cbb1743211ac723ed2f538f403f90f4a624004edb",
+    "reader_closure_sha256": "4829453f4f254c0af6c8bfeaad19ae292db82ebf015e00775cd210d256823cba",
+    "metadata_sha256": {
+      "completion.json": "0cb851de194f5895a7a4677f6c8cf7df4630095057ad9eb160e3e37369d20f9a",
+      "model-closures.json": "400beb0c1e787a0d4c070a8bd7552f8bb030a369bddd89adfe746b31543ef0b1",
+      "adaptive-steps.json": "1f34a151ae6509dac764f180adcdfe712dea49df79f868e804d439b09d1a735a",
+      "lease.json": "b294fabb32be12e666eecc3c47ce395f62948e9301667cfc0ae074038c31cbef"
+    },
+    "parent_expected_steps": 545,
+    "prefix_steps": 185,
+    "prefix_products": [
+      "wrfout_d01_2026-10-12_06:00:00",
+      "wrfout_d01_2026-10-12_07:00:00"
+    ]
+  },
+  "science": {
+    "products": 2,
+    "ordered_steps": 185,
+    "last_step": "2026-10-12_07:00:00",
+    "world": 512,
+    "compute": 480,
+    "quilt": 32,
+    "tiles": 2,
+    "positive_writer_roots": [
+      487,
+      495
+    ],
+    "zero_activity_writer_roots": [
+      503,
+      511
+    ],
+    "actual_field_marker_ranks": [
+      480,
+      481,
+      482,
+      483,
+      484,
+      485,
+      486,
+      487,
+      488,
+      489,
+      490,
+      491,
+      492,
+      493,
+      494,
+      495
+    ],
+    "all32_FIELDVIEW1": true,
+    "original_compare_one_AST_exact": true
+  },
+  "strong_closures": {
+    "new_models": 4,
+    "reader": true,
+    "reader_invocation_id": "065d4bccc52c4a8c93bf5ce495fda166"
+  },
+  "metrics": {
+    "candidate": {
+      "wall_seconds": 278.8371017770842,
+      "cpu_seconds": 125863.68037799999,
+      "main_step_sum_seconds": 180.82964
+    }
+  },
+  "performance_qualification": false,
+  "qualification_limits": {
+    "own_onehour_qualified": true,
+    "own_three_hour_qualified": false,
+    "own_noon75m_qualified": false,
+    "own_nine_hour_qualified": false,
+    "restart_qualified": false,
+    "raw_producer_commit_remains_null": true
+  },
+  "scope": "Candidate-only185-step scientific comparison to retainedcurrent769 first2products/185orderedsteps. TimingUNPAIRED/descriptive; no forecastspeedup, isolatedX5/additive/repeatability claim orparent3htransfer. Native/completecaller qualifications stayseparate.",
+  "source_manifest_sha256": "e9d3808f638b46ff28bd70ef0fab2e6db701b4bb8069942db6f6c3888d176a76",
+  "raw_refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-x5-consumer1h-runtime-r1/source-pins.json": "e9d3808f638b46ff28bd70ef0fab2e6db701b4bb8069942db6f6c3888d176a76",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-x5-consumer1h-runtime-r1/application-binding.json": "d52960a0ebeb514eaeb612480116ee0f354f0e302578422ee036821fae65bb43",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-x5-consumer1h-runtime-r1/lease-candidate-proposed.json": "87bc1f5f8a9aa967013aec9313bf1821b50005354173be7b4243310e40062dc9",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-x5-consumer1h-runtime-r1/science-receipt.json": "f25575417e50a748dd5455ab0e3daf5338194311d55477833b6df42c78c08a65",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-x5-consumer1h-runtime-r1/reader-closure.json": "191eefc40fc263bf0077651da11c028625843b33bda0304552cb986b3b715563",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-x5-consumer1h-runtime-r1/RESULT.json": "b33f9e08ba807f073d60e6d6b22ca63573643dcd848858d483722fb580c1cff9",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-x5-consumer1h-runtime-r1/candidate-metadata/lease.json": "cf08141ba1154e92ee487e4176e2161c6702e0d50e531944e4506d0c29ebe1dd",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-x5-consumer1h-runtime-r1/candidate-metadata/model-closures.json": "9a55ac44861e825f1388af8a8e43709fec1cee9720e4dbe9a25659fabdd4bb91",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-x5-consumer1h-runtime-r1/candidate-metadata/completion.json": "3f9b3ae4455e138b09653e2b1447c96ce50831ef21fa6c4b485f7d2e32e3c9bc",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-x5-consumer1h-runtime-r1/candidate-metadata/adaptive-steps.json": "ba4c4a5156495cf8d8b4454e1d833081d5b3bc7efa47c573f367a3aa8bce0227",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-x5-consumer1h-runtime-r1/candidate-metadata/mpi-launch.json": "fd5788b86d4fe57cd31a1288196d482b79604e5c12098d8c9ebbb26fab59e0d5",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-x5-consumer1h-runtime-r1/candidate-metadata/hpc02-node.json": "8a67c05ee56ce9f2daa35ffc8a641598f29ce6791415aa345d350cba5b414d78",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-x5-consumer1h-runtime-r1/candidate-metadata/hpc03-node.json": "78132f6c0a4d6c599af758525babcf1c67801d8f0d3478e1e493f07596ef941c",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-x5-consumer1h-runtime-r1/candidate-metadata/hpc04-node.json": "53fc28b7dd3c8a6e37cb363e1b45f3d48857a4a8c6f335084c1d36d0891994b5",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-x5-consumer1h-runtime-r1/x5-native-receipt.json": "3fcb779cad8d1cef21112d7486733eec57dd0f2d564dea003c12f854f1033015",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-x5-consumer1h-runtime-r1/x5-native-closure.json": "24bf927ae9c5004e2f08a9823819e8588e472cb908277d560c7778e955f79c7d",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-x5-consumer1h-runtime-r1/x5-caller-wave.json": "ebc86c753bdd55a904df8487efbd4f54b9602d78a67968e863e57db61b24dc39",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-x5-consumer1h-runtime-r1/x5-source-inverse.json": "7883986615298d9fcb5a894cdf9b3f905b79cdc07f88fc1d16761faad6f55bae",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-x5-consumer1h-runtime-r1/x5-caller-arm0-receipt.json": "b582b31c90d45f78e161e08343d98cdb997c20fec5fb6cb158d6de6a030f7173",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-x5-consumer1h-runtime-r1/x5-caller-arm0-closure.json": "bff1229aff58a661ba3a4060134cb2e6fe684f361c8236fa1791486d9e4cf3e7",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-x5-consumer1h-runtime-r1/x5-caller-arm0-cache-clear.json": "2d9598c42e8da1462ed5fd222382283f302bfb3bcc395852766eb53ed280fe83",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-x5-consumer1h-runtime-r1/x5-caller-arm0-controller.json": "c6e86f48863377aa609edb5e245e4764687ea4ab47e9de1476ba429ac98c75fa",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-x5-consumer1h-runtime-r1/x5-caller-arm1-receipt.json": "324ff3ca5a8126c0261022209175d60753177771f442282b063b6e539545e598",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-x5-consumer1h-runtime-r1/x5-caller-arm1-closure.json": "44df4b0feab654940ed7dcbd6ad1c7776755b38ebb06a532470a7a39d57ad258",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-x5-consumer1h-runtime-r1/x5-caller-arm1-cache-clear.json": "c7356e846555c9f515ab9ff317d87ca244692f87f5fa1390c0199f9162164105",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-x5-consumer1h-runtime-r1/x5-caller-arm1-controller.json": "8c431b7355c9ec99e12a686df7460f148e0b819b6902cd7d42cfd550ff23f69a",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-x5-consumer1h-runtime-r1/x5-caller-arm2-receipt.json": "28530ad9bdeb961c3b3b73024f5b4f0b1011907568de613e933446a61f7b562f",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-x5-consumer1h-runtime-r1/x5-caller-arm2-closure.json": "3eb6a86c39275c80e70a2651d70b42d00566b68328f92b27c01b18aa4671f5f0",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-x5-consumer1h-runtime-r1/x5-caller-arm2-cache-clear.json": "ba2fc6cb21cde08b49f313bf813b81a4bb5da5ec06663613993c6df4ffd25dfe",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-x5-consumer1h-runtime-r1/x5-caller-arm2-controller.json": "afc8ccc05ad1392fe15f7e4e58b8e6af22620db4f4733e916be77b97a2274f2e",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-x5-consumer1h-runtime-r1/x5-caller-arm3-receipt.json": "a399a5b5a1e53d23b0578f01807749327e63ff83119e46718f5f6aea1ef5b708",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-x5-consumer1h-runtime-r1/x5-caller-arm3-closure.json": "0ca05a984bb33f0fe605570c88a543fe50ce7beb9553ca6e737049352b269ee6",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-x5-consumer1h-runtime-r1/x5-caller-arm3-cache-clear.json": "96811b3c1d5f28c83cfd0e1f988fe0deacecaabc70ca936b81da1b7ee60d7838",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-x5-consumer1h-runtime-r1/x5-caller-arm3-controller.json": "7c17a026fb9e2c82e5500607f39df7cf9ed1d20e689ed4a2d2555a44056515ed",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-x5-consumer1h-runtime-r1/x5-build-receipt.json": "ff606477639d1c8bdd2938848c695ff0b9f38ac5b1bfc6e7e4d7591bd99843c8",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-x5-consumer1h-runtime-r1/x5-build-closure.json": "abaa710327ac7c995516c5cfdc0e9b9961ada954368f1abcecf820d8260fbfe5",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-x5-consumer1h-runtime-r1/x5-ordered-proof.json": "ae9ceb03cdc1ee8b2d950b4ee5e8b4bc215c04fef265ed58a2bfd0d1a3b5194f"
+  }
+}

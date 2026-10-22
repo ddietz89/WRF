@@ -3640,8 +3640,8 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
        ENDIF
 
 !  x flux-divergence into tendency
-
           DO k=kts,ktf
+          !$omp simd private(mrdx)
           DO i = i_start, i_end
             mrdx=msftx(i,j)*rdx      ! see ADT eqn 48 [rho->rho*q] dividing by my, 1st term RHS
             tendency(i,k,j) = tendency(i,k,j) - mrdx*(fqx(i+1,k)-fqx(i,k))

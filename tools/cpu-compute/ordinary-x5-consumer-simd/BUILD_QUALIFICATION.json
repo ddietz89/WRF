@@ -1,0 +1,392 @@
+{
+  "status": "BUILT_CURRENT769_ORDINARY_X5_ONE_MEMBER_PENDING_APPLICATION",
+  "invocation_id": "b9eacb0362ba4f038d050b9589eb287c",
+  "source_commit": null,
+  "source_compiles": 0,
+  "Fortran_compiles": 0,
+  "C_compiles": 0,
+  "commands": [
+    {
+      "label": "qualified-env",
+      "argv": [
+        "/bin/bash",
+        "-c",
+        "source \"$1\"; python3 -c \"$2\"",
+        "env",
+        "/pool/wrf-experiment/tooling/m6-parallel/mpi-ib-env.sh",
+        "import os,json;print(json.dumps({k:os.environ[k]for k in [\"PATH\",\"LD_LIBRARY_PATH\",\"OPAL_PREFIX\"]if k in os.environ}))"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "canonical-parent-sed",
+      "argv": [
+        "/bin/sed",
+        "-e",
+        "s/^\\!.*'.*//",
+        "-e",
+        "s/^ *\\!.*'.*//",
+        "/pool/wrf-experiment/wrf-cpu/builds/current769-ordinary-x5-one-member-r2/canonical-parent/module_advect_em.F"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "canonical-parent-cpp",
+      "argv": [
+        "/usr/bin/cpp",
+        "-P",
+        "-traditional-cpp",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-DEM_CORE=1",
+        "-DNMM_CORE=0",
+        "-DNMM_MAX_DIM=2600",
+        "-DDA_CORE=0",
+        "-DWRFPLUS=0",
+        "-DIWORDSIZE=4",
+        "-DDWORDSIZE=8",
+        "-DRWORDSIZE=4",
+        "-DLWORDSIZE=4",
+        "-DNONSTANDARD_SYSTEM_SUBR",
+        "-DWRF_USE_CLM",
+        "-DUSE_NETCDF4_FEATURES",
+        "-DWRFIO_NCD_LARGE_FILE_SUPPORT",
+        "-DDM_PARALLEL",
+        "-DNETCDF",
+        "-DLANDREAD_STUB=1",
+        "-DUSE_ALLOCATABLES",
+        "-Dwrfmodel",
+        "-DGRIB1",
+        "-DINTIO",
+        "-DKEEP_INT_AROUND",
+        "-DLIMIT_ARGS",
+        "-DBUILD_RRTMG_FAST=0",
+        "-DBUILD_RRTMK=0",
+        "-DBUILD_SBM_FAST=1",
+        "-DSHOW_ALL_VARS_USED=0",
+        "-DCONFIG_BUF_LEN=65536",
+        "-DMAX_DOMAINS_F=21",
+        "-DMAX_HISTORY=25",
+        "-DNMM_NEST=0",
+        "-I.",
+        "-traditional-cpp",
+        "-DUSE_NETCDF4_FEATURES",
+        "-DWRFIO_NCD_LARGE_FILE_SUPPORT",
+        "/pool/wrf-experiment/wrf-cpu/builds/current769-ordinary-x5-one-member-r2/canonical-parent/module_advect_em.G"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "canonical-parent-standard",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/tools/standard.exe",
+        "/pool/wrf-experiment/wrf-cpu/builds/current769-ordinary-x5-one-member-r2/canonical-parent/module_advect_em.bb"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "canonical-parent-final-cpp",
+      "argv": [
+        "/usr/bin/cpp",
+        "-P",
+        "-traditional-cpp",
+        "-traditional-cpp",
+        "-DUSE_NETCDF4_FEATURES",
+        "-DWRFIO_NCD_LARGE_FILE_SUPPORT"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "canonical-candidate-sed",
+      "argv": [
+        "/bin/sed",
+        "-e",
+        "s/^\\!.*'.*//",
+        "-e",
+        "s/^ *\\!.*'.*//",
+        "/pool/wrf-experiment/wrf-cpu/builds/current769-ordinary-x5-one-member-r2/canonical-candidate/module_advect_em.F"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "canonical-candidate-cpp",
+      "argv": [
+        "/usr/bin/cpp",
+        "-P",
+        "-traditional-cpp",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-DEM_CORE=1",
+        "-DNMM_CORE=0",
+        "-DNMM_MAX_DIM=2600",
+        "-DDA_CORE=0",
+        "-DWRFPLUS=0",
+        "-DIWORDSIZE=4",
+        "-DDWORDSIZE=8",
+        "-DRWORDSIZE=4",
+        "-DLWORDSIZE=4",
+        "-DNONSTANDARD_SYSTEM_SUBR",
+        "-DWRF_USE_CLM",
+        "-DUSE_NETCDF4_FEATURES",
+        "-DWRFIO_NCD_LARGE_FILE_SUPPORT",
+        "-DDM_PARALLEL",
+        "-DNETCDF",
+        "-DLANDREAD_STUB=1",
+        "-DUSE_ALLOCATABLES",
+        "-Dwrfmodel",
+        "-DGRIB1",
+        "-DINTIO",
+        "-DKEEP_INT_AROUND",
+        "-DLIMIT_ARGS",
+        "-DBUILD_RRTMG_FAST=0",
+        "-DBUILD_RRTMK=0",
+        "-DBUILD_SBM_FAST=1",
+        "-DSHOW_ALL_VARS_USED=0",
+        "-DCONFIG_BUF_LEN=65536",
+        "-DMAX_DOMAINS_F=21",
+        "-DMAX_HISTORY=25",
+        "-DNMM_NEST=0",
+        "-I.",
+        "-traditional-cpp",
+        "-DUSE_NETCDF4_FEATURES",
+        "-DWRFIO_NCD_LARGE_FILE_SUPPORT",
+        "/pool/wrf-experiment/wrf-cpu/builds/current769-ordinary-x5-one-member-r2/canonical-candidate/module_advect_em.G"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "canonical-candidate-standard",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/tools/standard.exe",
+        "/pool/wrf-experiment/wrf-cpu/builds/current769-ordinary-x5-one-member-r2/canonical-candidate/module_advect_em.bb"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "canonical-candidate-final-cpp",
+      "argv": [
+        "/usr/bin/cpp",
+        "-P",
+        "-traditional-cpp",
+        "-traditional-cpp",
+        "-DUSE_NETCDF4_FEATURES",
+        "-DWRFIO_NCD_LARGE_FILE_SUPPORT"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "current-member",
+      "argv": [
+        "/usr/bin/ar",
+        "p",
+        "/pool/wrf-experiment/wrf-cpu/builds/currenta377-coriolis-u-and-phy-avx2-hpc02-r1/libwrflib.a",
+        "module_advect_em.o"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "parent-exports",
+      "argv": [
+        "/usr/bin/nm",
+        "-g",
+        "--defined-only",
+        "--format=posix",
+        "/pool/wrf-experiment/wrf-cpu/builds/current769-ordinary-x5-one-member-r2/current-module_advect_em.o"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "candidate-exports",
+      "argv": [
+        "/usr/bin/nm",
+        "-g",
+        "--defined-only",
+        "--format=posix",
+        "/pool/wrf-experiment/wrf-cpu/builds/current769-ordinary-x5-one-member-r2/candidate/module_advect_em.o"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "replace-only-advection",
+      "argv": [
+        "/usr/bin/ar",
+        "r",
+        "/pool/wrf-experiment/wrf-cpu/builds/current769-ordinary-x5-one-member-r2/libwrflib.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/current769-ordinary-x5-one-member-r2/candidate/module_advect_em.o"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "ranlib",
+      "argv": [
+        "/usr/bin/ranlib",
+        "/pool/wrf-experiment/wrf-cpu/builds/current769-ordinary-x5-one-member-r2/libwrflib.a"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "one-unchanged-recipe-WRF-link",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/builds/current769-ordinary-x5-one-member-r2/wrf.exe",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-Wl,-rpath,/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tcg-twelve-owner-canonical-current-r1/candidate/wrf.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tcg-twelve-owner-canonical-current-r1/candidate/module_wrf_top.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/hpg-nhx-isolated-avx2-consumer-native-r3/work/nhx-helper-O2.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/phy-height-private-avx2-fixed8-native-hpc04-r1/work/helper-O2.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/current769-ordinary-x5-one-member-r2/libwrflib.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-lesmf_time",
+        "/pool/wrf-experiment/wrf-cpu/builds/rsl-narrow-integer-copy-r1/librsl_lite.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2",
+        "-lwrfio_nf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-lnetcdf"
+      ],
+      "returncode": 0
+    }
+  ],
+  "canonical_CPP_readback": {
+    "parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current769-ordinary-x5-one-member-r2/canonical-parent/module_advect_em.f90",
+      "sha256": "b4eb28b35dbeee05f16e7b7c8821d87a699d9333ce1707f4d74f4c5a2afe1dc0"
+    },
+    "candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current769-ordinary-x5-one-member-r2/canonical-candidate/module_advect_em.f90",
+      "sha256": "1e45650c7e1a8c88ac6f2031072836b2572755f58803b56418ddc330a03d20df"
+    }
+  },
+  "parent_executable_sha256": "769195b84ddf4aa9536531d1601785e72a0da0dc86844203ef4d55041d0d036b",
+  "parent_archive_sha256": "a99fc18e01e30d9a1196ecb9859351bf4903091aac636edd9bbed0a25f2052b9",
+  "parent_member_sha256": "2419890571db0f010c6e6d48329815f166497217d5fdac9957cb1d3b754cfe2d",
+  "candidate_member_sha256": "99da9c6a0d8fc892b6c0754d7925f3f779c06f7e133ce24a6d62f1b850b611f5",
+  "only_module_advect_em_object_changed": true,
+  "changed_archive_members": [
+    "module_advect_em.o"
+  ],
+  "archive_member_count": 584,
+  "unchanged_archive_occurrences": 583,
+  "qualified_object_reuse": true,
+  "full_WRF_links": 1,
+  "module_interface_sha256": "88e9fcbf27d28de7f12c22df0aac07aef26d4463f303e5a51b135a6a7e454750",
+  "module_interface_unchanged": true,
+  "canonical_parent_sha256": "9955f77e4788288d09ab4f434c5f85a7930fcfe9ccd6060aaef5286052da40db",
+  "canonical_candidate_sha256": "42ab7004b0d45582d853861da480caf9e589ecc8f2e669b56444fbc39ce72e28",
+  "preprocessed_parent_sha256": "b4eb28b35dbeee05f16e7b7c8821d87a699d9333ce1707f4d74f4c5a2afe1dc0",
+  "preprocessed_candidate_sha256": "1e45650c7e1a8c88ac6f2031072836b2572755f58803b56418ddc330a03d20df",
+  "native_receipt_sha256": "3fcb779cad8d1cef21112d7486733eec57dd0f2d564dea003c12f854f1033015",
+  "caller_wave_sha256": "ebc86c753bdd55a904df8487efbd4f54b9602d78a67968e863e57db61b24dc39",
+  "direct_link_input_pins": {
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tcg-twelve-owner-canonical-current-r1/candidate/wrf.o": "33251ef3f1810d6dfbd5571943b80cc15f92c16f9cc03bb661b2ca945a48769d",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tcg-twelve-owner-canonical-current-r1/candidate/module_wrf_top.o": "65001523868ea86923d536b595270eb74ae85d4d8aab722975e6cd5e72b493f1",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o": "3a94b6864d7b3d2df4efc4f1afabe6dd519b6f73c9785738f219e6206727e4ec",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o": "54be5b6686914b8496b3d451205582b7bf854f23e52176c13ab34f66255946d4",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o": "4f037f15d1dc99ac826fccdfbf500221ae63132896e90a627446bc3fff8b8263",
+    "/pool/wrf-experiment/wrf-cpu/kernels/hpg-nhx-isolated-avx2-consumer-native-r3/work/nhx-helper-O2.o": "ae13adfa248c9613be20c56bd1f8e77a3ff8d79a985ffb163acc16be629d0f8c",
+    "/pool/wrf-experiment/wrf-cpu/kernels/phy-height-private-avx2-fixed8-native-hpc04-r1/work/helper-O2.o": "b6a707c4f00670eb6611e45513381d275b31c82fe7c6bf08d548de286b9a0467",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a": "43440c838a792ee55cdb93165c7996173df197d3e6afbd9c69e196b64b869a34",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a": "fa5423d57121eae7505cd464e0a9826c36eadf91a6a884aee96f6a7aa4279a29",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a": "93675f19d4c2d39ff9de6909f76e4ccddf0844440abe38fa37aea97bb42fb4f0",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a": "a06e4111dbb308bbe94c1cb2c0e21c608fde3e906dec74a10910b5842cac5ca0",
+    "/pool/wrf-experiment/wrf-cpu/builds/rsl-narrow-integer-copy-r1/librsl_lite.a": "982d0c81abed9d9209ea955e63c0851ae7eaa51b6ade4748303176b51eaaa130",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o": "175cbd87243a7ff3412f1850e76dac102eb4edc5db684bfdc97d419694d44a78",
+    "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o": "8ab87436bdb22d9d0ef3c1257e25f415727ede16be8535b8e037832a12fe9752",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90/libesmf_time.a": "4c1ebf810767e36db24471cac830970afb2c440eb241f4664b1d3398ecf0f84a",
+    "/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib/libnetcdff.so": "e271f9b96203b03c2e21f9e044b4cbe13534f309b100ae369dd0799fa7a2a6d6",
+    "/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib/libnetcdf.so": "7036a91b172b3f1171c1ebd86813a208a302cf9145013d58611570cfa12e2780",
+    "/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2/libwrfio_nf.a": "651835f31089e16759177734198ece5b121d704355c73abddde483f4cae2c14c"
+  },
+  "link_command": [
+    "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+    "-o",
+    "/pool/wrf-experiment/wrf-cpu/builds/current769-ordinary-x5-one-member-r2/wrf.exe",
+    "-O2",
+    "-fno-fast-math",
+    "-ffp-contract=off",
+    "-w",
+    "-fno-fast-math",
+    "-ffp-contract=off",
+    "-ffree-form",
+    "-ffree-line-length-none",
+    "-fconvert=big-endian",
+    "-frecord-marker=4",
+    "-fallow-argument-mismatch",
+    "-fallow-invalid-boz",
+    "-g",
+    "-Wl,-rpath,/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib",
+    "-fno-fast-math",
+    "-ffp-contract=off",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tcg-twelve-owner-canonical-current-r1/candidate/wrf.o",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tcg-twelve-owner-canonical-current-r1/candidate/module_wrf_top.o",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o",
+    "/pool/wrf-experiment/wrf-cpu/kernels/hpg-nhx-isolated-avx2-consumer-native-r3/work/nhx-helper-O2.o",
+    "/pool/wrf-experiment/wrf-cpu/kernels/phy-height-private-avx2-fixed8-native-hpc04-r1/work/helper-O2.o",
+    "/pool/wrf-experiment/wrf-cpu/builds/current769-ordinary-x5-one-member-r2/libwrflib.a",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a",
+    "-L/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+    "-lesmf_time",
+    "/pool/wrf-experiment/wrf-cpu/builds/rsl-narrow-integer-copy-r1/librsl_lite.a",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o",
+    "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o",
+    "-L/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2",
+    "-lwrfio_nf",
+    "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+    "-lnetcdff",
+    "-lnetcdf",
+    "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+    "-lnetcdf",
+    "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+    "-lnetcdff",
+    "-lnetcdf",
+    "-lnetcdf"
+  ],
+  "artifacts": {
+    "/pool/wrf-experiment/wrf-cpu/builds/current769-ordinary-x5-one-member-r2/wrf.exe": "4adb20e0f0c565e7146d637703b7144c1009a5a19db7c0fa7352b8c772ac44f2",
+    "/pool/wrf-experiment/wrf-cpu/builds/current769-ordinary-x5-one-member-r2/libwrflib.a": "f9113cba204ce29705ff671aaedcc5e06f41489e09982e7ba05acbe1d6b9635d",
+    "/pool/wrf-experiment/wrf-cpu/builds/current769-ordinary-x5-one-member-r2/candidate/module_advect_em.o": "99da9c6a0d8fc892b6c0754d7925f3f779c06f7e133ce24a6d62f1b850b611f5",
+    "/pool/wrf-experiment/wrf-cpu/builds/current769-ordinary-x5-one-member-r2/candidate/module_advect_em.mod": "88e9fcbf27d28de7f12c22df0aac07aef26d4463f303e5a51b135a6a7e454750",
+    "/pool/wrf-experiment/wrf-cpu/builds/current769-ordinary-x5-one-member-r2/ordered-libwrflib-proof.json": "ae9ceb03cdc1ee8b2d950b4ee5e8b4bc215c04fef265ed58a2bfd0d1a3b5194f"
+  },
+  "application_science_qualified": false,
+  "elapsed_seconds_context_only": 6.401219674851745,
+  "memory_peak_bytes": 547082240,
+  "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+  "cpu_stat": "usage_usec 5161792\nuser_usec 1585543\nsystem_usec 3576248\ncore_sched.force_idle_usec 0\nnr_periods 65\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n"
+}

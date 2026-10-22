@@ -1,0 +1,11 @@
+{
+  "status": "PROSPECTIVE_MANAGEMENT_ROUTE_REPAIR_NO_MODEL_YET",
+  "utc": "2026-10-22T13:59:08.352841+00:00",
+  "original_management_sha256": "5c7c7f483797359a17ff17077bcd54c7a09ead108ecd39f54c99b7c938568979",
+  "repaired_management_sha256": "8b5b991f6b990e44d8e2832d89168be5214583d1a32609d60aa885eb536505ab",
+  "active_manifest_sha256": "e9d3808f638b46ff28bd70ef0fab2e6db701b4bb8069942db6f6c3888d176a76",
+  "retained_reference_checker_sha256": "72d600fed48abf227254b50ca6f3bcb83b1b94bff869fa69370d9d5972e4a14b",
+  "old_route": " control_context=S;stock=json.loads((control_context/'lease-control-granted.json').read_text());D=Path(stock['run_directory']);",
+  "new_route": " from retained_current769 import check_reference\n retained=check_reference(S);stock=retained['lease'];D=Path(retained['run_directory']);",
+  "scope": "Use qualified retained current769 control context; preserve completion assertion, all four actual closed-unit and model-closure guards. Staged files, lease, model, input/cache guards and protected scientific checker are unchanged."
+}
