@@ -1,0 +1,81 @@
+{
+  "status": "PASS_PRIVATE_AVX2_PHY_ROW_STRICT_NATIVE_AND_ACTUAL_CODEGEN",
+  "utc": "2026-10-22T10:00:59.142643+00:00",
+  "helper_source_sha256": "8804ccc05530880a9838c634e412029c2f778b8400c0dd2b5ce6caedf57f7051",
+  "helper_objects": {
+    "O2": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/phy-height-private-avx2-fixed8-native-hpc04-r1/work/helper-O2.o",
+      "sha256": "b6a707c4f00670eb6611e45513381d275b31c82fe7c6bf08d548de286b9a0467",
+      "flags": [
+        "-O2",
+        "-std=c11",
+        "-mavx2",
+        "-mno-fma",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-frounding-math",
+        "-DWRF_PHY_HEIGHT_PARENT_O2=1"
+      ],
+      "cached_object_reuse": true
+    },
+    "O0": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/phy-height-private-avx2-fixed8-native-hpc04-r1/work/helper-O0.o",
+      "sha256": "6916f470d6df1a1d86c6c3a3a9e10b523f2b8c03e31d10b2616e26e633836c6a",
+      "flags": [
+        "-O0",
+        "-std=c11",
+        "-mavx2",
+        "-mno-fma",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-frounding-math",
+        "-DWRF_PHY_HEIGHT_PARENT_O0=1"
+      ],
+      "cached_object_reuse": true
+    }
+  },
+  "current_Fortran_unchanged": "O2 selected26b/MODf7bd; sameoptimization original parents and currentSSE2 compared",
+  "cases": 55,
+  "rounding_modes": 4,
+  "optimization_modes": [
+    "O2",
+    "O0 bounds"
+  ],
+  "directed_comparisons_per_mode": 936,
+  "raw_inputs_outputs_state_exact": true,
+  "returned_state": [
+    "errno",
+    "rounding",
+    "FE flags",
+    "MXCSR",
+    "x87CW"
+  ],
+  "read_only_and_physical_guards": true,
+  "standalone_reference": "Held matching optimization SSE2; all10311capturedheightwords bound to genuineoriginalraw",
+  "private_ABI_unchanged": true,
+  "module_or_Fortran_driver_compiles": 0,
+  "actual_helper_C_compiles_total": 2,
+  "actual_generic_C_driver_compiles_total": 1,
+  "R1": "Pre-numerical link failure preserved; R2 reuses exact compiledC objects with qualifiedMPIlinker",
+  "actual_invocation": "4e16177aa12d48b09dfe484967613afa",
+  "manager_success_and_own_cgroup_absent": true,
+  "actual_codegen_independent_ACK": true,
+  "scope_limits": [
+    "No timing or application gain qualified",
+    "Targetx86AVX2 OS support actualadmitted; genericnonAVXscope excluded",
+    "Trap-first-fault equivalence notestablished; existingmaskedtrapcontract preserved",
+    "PublicMOD/functionsignatures unchanged; no Fortranrecompile"
+  ],
+  "timing_qualified": false,
+  "application_qualified": false,
+  "selected": false,
+  "raw_refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/phy-height-private-avx2-fixed8-r1/native-gate-r2/actual-native-r1/receipt.json": "ad000ae678a2593c6d40e1c4061e8f2b700936782434acaac674fbfa305e66be",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/phy-height-private-avx2-fixed8-r1/native-gate-r2/actual-native-r1/closure.json": "ae9d8e38e6309f3d0685f24141bbdd5c03b1b81efe5cbeaeb51666051204bad9",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/phy-height-private-avx2-fixed8-r1/native-gate-r2/actual-native-r1/controller.json": "e58e138c4f222954cdc1eb9ee4a4ff4ace2b4462549f2a26670ce1596f1f4a91",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/phy-height-private-avx2-fixed8-r1/independent-actual-codegen-review-r1/ACTUAL_CFG_REVIEW.json": "7701ad0a581cf0485fec14044f9f6325508d450f7cd57ad2601644dd96fedc0c",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/phy-height-private-avx2-fixed8-r1/native-gate-r2/inputs/source-pins.json": "bc5fe0a1f0cd15230c0420727fcf62dcee3996264367603e8e30a0c190da2e35",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/phy-height-private-avx2-fixed8-r1/local-source-r1/phy_height_row_legacy.c": "8804ccc05530880a9838c634e412029c2f778b8400c0dd2b5ce6caedf57f7051",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/phy-height-private-avx2-fixed8-r1/native-gate-r1/actual-native-r1/ACTUAL_REUSABLE_C_OBJECT_PINS.json": "0622bccb4cc382ce0d0aad10bc56fbbe55044d7bcdd2083a046144d15c660aad"
+  }
+}
