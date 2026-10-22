@@ -1,0 +1,109 @@
+{
+  "status": "PASS_CURRENT_A36_PD_FINAL_XY_NATIVE_SAMEOPT_RAW_FIVE_STATE_PENDING_CFG_AND_TIMING",
+  "utc": "2026-10-21T23:25:52.192687+00:00",
+  "invocation_id": "c8e8310f4db94d598bc64c7cddece2d1",
+  "raw_producer_source_commit": null,
+  "canonical_parent_source_sha256": "2fbc50bff7de9e377cb18a1f491490070e32c43891fad2aea6bc15b8fe9a32a6",
+  "canonical_candidate_source_sha256": "9955f77e4788288d09ab4f434c5f85a7930fcfe9ccd6060aaef5286052da40db",
+  "canonical_preprocessing": {
+    "parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/pd-final-xy-two-consumers-currenta36-native-hpc02-r2/work/canonical-parent/module_advect_em.f90",
+      "sha256": "64e94b4e8cd8b5e70a5e99251d4dfd0d898b7d052ab85f4f5a2b8e1fd486e7a9"
+    },
+    "candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/pd-final-xy-two-consumers-currenta36-native-hpc02-r2/work/canonical-candidate/module_advect_em.f90",
+      "sha256": "b4eb28b35dbeee05f16e7b7c8821d87a699d9333ce1707f4d74f4c5a2afe1dc0"
+    }
+  },
+  "objects": {
+    "O2-parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/pd-final-xy-two-consumers-currenta36-native-hpc02-r2/work/O2-parent/module_advect_em.o",
+      "sha256": "01a473f0a25b32a9d3e8c75c9f74ca3435afa81221d9ea4c1c8026aa9eaf565b"
+    },
+    "O2-candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/pd-final-xy-two-consumers-currenta36-native-hpc02-r2/work/O2-candidate/module_advect_em.o",
+      "sha256": "2419890571db0f010c6e6d48329815f166497217d5fdac9957cb1d3b754cfe2d"
+    },
+    "O0-parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/pd-final-xy-two-consumers-currenta36-native-hpc02-r2/work/O0-parent/module_advect_em.o",
+      "sha256": "cdf0df6387e95f70bf526569edbe597757cf2eb173bc793810902e7f0f0fadae"
+    },
+    "O0-candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/pd-final-xy-two-consumers-currenta36-native-hpc02-r2/work/O0-candidate/module_advect_em.o",
+      "sha256": "4dd51ebab037b75f30b0f2596f2f36a6889c1fe38f37e4c93935addccd615a91"
+    }
+  },
+  "module_interface_sha256": "88e9fcbf27d28de7f12c22df0aac07aef26d4463f303e5a51b135a6a7e454750",
+  "parent_object_sha256": "a36b2947cd1fa0e7bfa6b94b42380850a10713cedb8e1f773de0302ca598fe1a",
+  "parent_archive_sha256": "05075008f8dd34243ff4ca4bb7b25e96789e3d6542c0c3dffd268b80ca0f2f58",
+  "strict_parent_runtime_sections_RELA_and_nonFILE_symbols_exact": true,
+  "all_nonPD_function_text_and_relative_RELA_exact": true,
+  "target_codegen": [
+    {
+      "source_lines": [
+        7962,
+        7974
+      ],
+      "vector_report": [
+        "module_advect_em.f90:7968:66: optimized: loop vectorized using 32 byte vectors",
+        "module_advect_em.f90:7968:66: optimized: loop vectorized using 16 byte vectors"
+      ],
+      "actual_packed_instructions": [
+        "   2115b:\tc4 c1 4c 5c 04 13    \tvsubps (%r11,%rdx,1),%ymm6,%ymm0",
+        "   21161:\tc4 c1 7c 58 04 12    \tvaddps (%r10,%rdx,1),%ymm0,%ymm0",
+        "   21167:\tc5 fc 5c 04 17       \tvsubps (%rdi,%rdx,1),%ymm0,%ymm0",
+        "   2116c:\tc5 fc 59 c1          \tvmulps %ymm1,%ymm0,%ymm0",
+        "   21170:\tc5 fc 59 04 10       \tvmulps (%rax,%rdx,1),%ymm0,%ymm0",
+        "   21175:\tc5 d4 5c c0          \tvsubps %ymm0,%ymm5,%ymm0",
+        "   211f8:\tc4 c1 48 5c 44 3d fc \tvsubps -0x4(%r13,%rdi,1),%xmm6,%xmm0",
+        "   211ff:\tc4 c1 78 58 04 3e    \tvaddps (%r14,%rdi,1),%xmm0,%xmm0",
+        "   21205:\tc4 c1 78 5c 44 3e fc \tvsubps -0x4(%r14,%rdi,1),%xmm0,%xmm0",
+        "   2121f:\tc5 f8 59 c1          \tvmulps %xmm1,%xmm0,%xmm0",
+        "   21223:\tc5 f8 59 04 b7       \tvmulps (%rdi,%rsi,4),%xmm0,%xmm0",
+        "   21234:\tc5 d0 5c c0          \tvsubps %xmm0,%xmm5,%xmm0"
+      ]
+    },
+    {
+      "source_lines": [
+        7998,
+        8010
+      ],
+      "vector_report": [
+        "module_advect_em.f90:8005:66: optimized: loop vectorized using 32 byte vectors",
+        "module_advect_em.f90:8005:66: optimized: loop vectorized using 16 byte vectors"
+      ],
+      "actual_packed_instructions": [
+        "   21a2b:\tc4 c1 4c 5c 04 06    \tvsubps (%r14,%rax,1),%ymm6,%ymm0",
+        "   21a31:\tc5 fc 58 04 07       \tvaddps (%rdi,%rax,1),%ymm0,%ymm0",
+        "   21a36:\tc5 fc 5c 04 06       \tvsubps (%rsi,%rax,1),%ymm0,%ymm0",
+        "   21a3b:\tc5 fc 59 c1          \tvmulps %ymm1,%ymm0,%ymm0",
+        "   21a3f:\tc4 c1 7c 59 04 04    \tvmulps (%r12,%rax,1),%ymm0,%ymm0",
+        "   21a45:\tc5 d4 5c c0          \tvsubps %ymm0,%ymm5,%ymm0",
+        "   21ad9:\tc4 a1 48 5c 04 b3    \tvsubps (%rbx,%r14,4),%xmm6,%xmm0",
+        "   21adf:\tc4 c1 78 58 04 34    \tvaddps (%r12,%rsi,1),%xmm0,%xmm0",
+        "   21aed:\tc4 81 78 5c 04 b4    \tvsubps (%r12,%r14,4),%xmm0,%xmm0",
+        "   21afe:\tc5 f8 59 c1          \tvmulps %xmm1,%xmm0,%xmm0",
+        "   21b02:\tc5 f8 59 04 96       \tvmulps (%rsi,%rdx,4),%xmm0,%xmm0",
+        "   21b13:\tc5 d0 5c c0          \tvsubps %xmm0,%xmm5,%xmm0"
+      ]
+    }
+  ],
+  "all_original_150_plus6_captured_and24_IEEE_O0_O2_exact": true,
+  "all_five_state_and_readonly_checks_exact": true,
+  "original_failed_R1_preserved": true,
+  "original_R1_numerical_cases": 0,
+  "timing_qualified": false,
+  "application_qualified": false,
+  "literal_main_remainder_tail_CFG_review_pending": true,
+  "limits": "Finite whole-PD native-self/fresh O2parent/child/fresh O0parent/child gates. Same-opt original captured oracle; no crossopt/NaN/state normalization. Source retains ordinary selected directives and adds exactly two PD directives/two blank removals to preserve downstream diagnostic coordinates. No blanket IEEE or forecast claim.",
+  "raw_refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pd-final-xy-tendency-i-simd-r1/canonical-provenance-reopened-r1/native-gate-r2/actual-native-r1/receipt.json": "7a49aa93b120b4fe5302613a214c293d488c1fc68e13e05a4deb10679e136650",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pd-final-xy-tendency-i-simd-r1/canonical-provenance-reopened-r1/native-gate-r2/actual-native-r1/closure.json": "a2114def3418ba40c32907339116c014abdd727f9957bcd02eceff3e626c12a2",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pd-final-xy-tendency-i-simd-r1/canonical-provenance-reopened-r1/native-gate-r2/inputs/source-pins.json": "3453b442e05ac9138ec7ffa58da6ac8426c9d6a8da43eeeae2c50ecdde572da3",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pd-final-xy-tendency-i-simd-r1/canonical-provenance-reopened-r1/native-gate-r2/inputs/binding.json": "fb72d46da2326bfc8b6ce383bf5063dda627abc96b1631485bf353ac481020bb",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pd-final-xy-tendency-i-simd-r1/canonical-provenance-reopened-r1/native-gate-r2/inputs/candidate_module_advect_em.F": "9955f77e4788288d09ab4f434c5f85a7930fcfe9ccd6060aaef5286052da40db",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pd-final-xy-tendency-i-simd-r1/canonical-provenance-reopened-r1/native-gate-r2/inputs/parent_module_advect_em.F": "2fbc50bff7de9e377cb18a1f491490070e32c43891fad2aea6bc15b8fe9a32a6",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pd-final-xy-tendency-i-simd-r1/canonical-provenance-reopened-r1/native-gate-r2/inputs/run_gate.py": "f14853bd5a313d676dac081f3d84804e0096be117d197c167f6c9cd8e55e6032",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pd-final-xy-tendency-i-simd-r1/canonical-provenance-reopened-r1/native-gate-r2/ROOT_SOURCE_REVIEW.json": "e669dbe954ed1bd1e67dd747718e8253ca814fb1104f7921ecbcffdda5c7f9ec"
+  }
+}

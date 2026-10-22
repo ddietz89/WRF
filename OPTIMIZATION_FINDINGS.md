@@ -1,8 +1,25 @@
 # WRF CPU optimization findings
 
-## Current selection: ordinary scalar-consumer SIMD (October 21, 2026, UTC)
+## Current selection: PD SIMD and output-buffer reuse (October 22, 2026, UTC)
 
-The working fork selects **bb65f657 / archive05075008 / post-test source38580817**, retaining all previous compute, shared-table, input and output changes. Two independent final consumers in scalar advection gain SIMD directives without changing arithmetic order, schedule or flags. Exact native/captured-caller checks passed; opposite-order4096-call whole-caller pairs were **22.93% and24.19% shorter**, with caller process CPU unavailable. The unchanged original full-grid checker then passed **all four products and545 ordered steps**,512 ranks/two tiles/four positive writers/32 field-view markers. Every model and reader job closed normally. Own three-hour science is qualified; separate own short/noon75m/nine-hour flags remain false.
+Selected **fbcd0463 / a49db4d9 + output8bee3346**, post-test source **6697020f**, retains all previous improvements and adds two PD final-consumer SIMD directives plus compressed-result capacity reuse. Complete PD caller wall was **6.07–9.19% lower**; warm provider-plus-owner-release wall was **4.18–6.06% lower**. Both passed exact native/state checks. These are distinct component measurements and are not added.
+
+The unchanged original checker passed **four products and545 ordered timesteps**, all512 ranks, two tiles, all four positive writers and32 field markers. Every model and reader job closed normally. Current own three-hour qualification is true; separate own short/noon/nine-hour flags remain false.
+
+| Three-hour measure | Retained corrected original546b | Combined fbcd/8bee | Descriptive reduction |
+|---|---:|---:|---:|
+|Whole model/MPI wall including output/drain|980.207680s|658.139651s|32.8571%|
+|Integration-step elapsed including communication/backpressure|757.688050s|556.421030s|26.5633%|
+|Aggregate four-node CPU|449620.407146CPU-s|318924.867798CPU-s|29.0680%|
+
+This is **UNPAIRED**, using the original from the preceding fresh comparison. Both arms had checked compute-client cache clearing at their own execution; file-server load/cache remained uncontrolled. Main-step elapsed is not integration CPU, aggregate CPU includes MPI spin, and no isolated/additive contribution or repeatability is established. Single-forecast wall ratio1.48936x does not establish the1.5x throughput or2x goal. All candidate memory events were zero; actual quota throttling and node peaks remain in the qualification. [Evidence, build scope and six-file rollback](tools/cpu-compute/pd-result-capacity-combined/README.md).
+
+The next V-advection literal map-ratio cache has passed its genuine-current O0/bounds/O2 captured/focused raw, state and readonly native gate. It remains **unpromoted** pending generated-code review and complete-caller measurement; sparse/native scope is not whole-V, trapping-mode or application qualification. AWS remains suspended; production and master are unchanged.
+
+
+## Previous bb65 selection: ordinary scalar-consumer SIMD (October 21, 2026, UTC)
+
+The previous working configuration selected **bb65f657 / archive05075008 / post-test source38580817**, retaining all previous compute, shared-table, input and output changes. Two independent final consumers in scalar advection gain SIMD directives without changing arithmetic order, schedule or flags. Exact native/captured-caller checks passed; opposite-order4096-call whole-caller pairs were **22.93% and24.19% shorter**, with caller process CPU unavailable. The unchanged original full-grid checker then passed **all four products and545 ordered steps**,512 ranks/two tiles/four positive writers/32 field-view markers. Every model and reader job closed normally. Own three-hour science is qualified; separate own short/noon75m/nine-hour flags remain false.
 
 | Fresh three-hour pair | Corrected original546b | Combined bb65 | Reduction |
 |---|---:|---:|---:|

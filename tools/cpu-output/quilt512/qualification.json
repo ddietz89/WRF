@@ -1,5 +1,5 @@
 {
-  "status": "QUALIFIED_OPT_IN_WORLD512_WORKING_FORK",
+  "status": "QUALIFIED_CURRENT_RESULT_CAPACITY_FULL512_COMBINED_THREE_HOUR",
   "proposed_fork_path": "WRF/tools/cpu-output/quilt512",
   "variant_source_sha256": "313e18ed4309eec9b038371dfce227f8f5fc401813b094aa2cddb01e9de47421",
   "existing_shared_directory_relative": "..",
@@ -288,18 +288,18 @@
       "provider_source_file": "parallel-pack/root_chunk_provider.c"
     },
     "fused-pack": {
-      "status": "PROMOTED_EXACT_PRIVATE_SHUFFLE_SCRATCH_SHORT_FULL512",
+      "status": "PROMOTED_RESULT_CAPACITY_EXACT_COMBINED_THREE_HOUR_FULL512",
       "provider_source_file": "root_chunk_provider.c",
-      "provider_source_sha256": "7ea74cd6c5172a17cc19bebf93e14e322695ce415feb0a517ea9984941f184eb",
+      "provider_source_sha256": "86aaf478ced3cdc2b752effba2d71741e8741937d7e8bad8535c323b751ab1ca",
       "native_artifact": {
-        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-de5b-private-shuffle-scratch-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
-        "sha256": "51a31b3c137a2161700c9930a1e250021b34c598c887a7551e87d304b2ce4d31"
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current51a-result-capacity-integration-hpc01-r1/candidate/wrf_quilt_thread_shim.so",
+        "sha256": "8bee3346e6fbf5b32d1f123efce4edfd8a16cf0c2f64948ba02a4c60b997097f"
       },
-      "native_qualification_file": "private-shuffle-scratch-reuse/INTEGRATION_QUALIFICATION.json",
-      "application_qualification_file": "private-shuffle-scratch-reuse/APPLICATION_QUALIFICATION.json",
-      "caller_timing_file": "private-shuffle-scratch-reuse/TIMING_QUALIFICATION.json",
-      "scope": "InitialR1instantthreadcensusFAIL remainsunresolved; diagnosticloggingandoriginalR2fixture passed, no inventedcause. No active-unload/unsupportedcaller/own9h/restart/othercompiler claims. Instrumented application samePIDcallbacks descriptively4.27%/3.11% shorter thanpreviousDFde5b, UNPAIRED, notattributableforecastgain. ActualcombinedDF41b/pool51a/3edf fresh3h original4products545/full512/all4writers nowqualified; measuredwholewall/aggregateCPU arecombined, no isolatedprovider claim.",
-      "three_hour_qualification_file": "../../cpu-working/THREE_HOUR_FINAL_QUALIFICATION.json"
+      "native_qualification_file": "../../cpu-compute/pd-result-capacity-combined/CAPACITY_FULL_SHIM_QUALIFICATION.json",
+      "application_qualification_file": "../../cpu-compute/pd-result-capacity-combined/APPLICATION_QUALIFICATION.json",
+      "caller_timing_file": "../../cpu-compute/pd-result-capacity-combined/CAPACITY_CALLER_QUALIFICATION.json",
+      "scope": "Current86aa/8bee resultcapacity source and exactowncombined4/545 withfourpositivewriters32markers. Nativefullshimworld1/negativecomponent and own512science separate; timingsUNPAIRED/retainedoriginaladc46, no isolatedforecastgain or logical=physicalcost. Ownshort/noon9hFALSE forcombinedimage.",
+      "three_hour_qualification_file": "../../cpu-compute/pd-result-capacity-combined/APPLICATION_QUALIFICATION.json"
     }
   },
   "default_provider": "fused-pack",
@@ -310,7 +310,7 @@
     "shipped_manifest_sha256": "e36c18ccea261f0f5f8a5164266c72d040fc9df19e4e263301555e087145b3b8",
     "scope": "Unchanged qualified current map only; proposed map unpromoted."
   },
-  "source_scope": "Currentfused-pack provider7ea/fullshim51a afterexactshort512 science;313e/headers/API unchanged. Previous8db/de5b retained forrollback. RawproducerNULL, separateposttest909ab6ef. No own3h9h transfer.",
+  "source_scope": "Currentfused-pack provider86aa/fullshim8bee; shim313e/header/API/strictdefaultbuildflags unchanged. Sourceposttest tracking separate from frozenrawproducerNULL. Currentcombinedown3h4/545 only; no separateownshort/noon9h transfer.",
   "variant_recipe_reproduction": {
     "status": "PASS_DEFAULT_AND_OPTIONAL_PACKAGE_BINARY_BYTEIDENTICAL",
     "result_file": "variant-build/result.json",
@@ -320,40 +320,45 @@
     "invocation_id": "755c4667fd324a5bbbf5bbfc0405e966",
     "default_original_receipt_sha256": "071b7462cba70989955a53f09addf1effa8af67c54a9b8388f54f4f26c1391d1",
     "optional_receipt_sha256": "e4f45895b00dc8abee614051a19133ff1a521c2a9735dfeb77c173b519eec418",
-    "scope": "One closed build-only unit. Defaultoriginal4cb and explicitoptional375aa exact; no new model or deployment qualification."
+    "scope": "One closed build-only unit. Defaultoriginal4cb and explicitoptional375aa exact; no new model or deployment qualification.",
+    "applies_to_current_selected_artifact": false
   },
   "latest_combined_application_qualification": {
-    "scope": "GNU 13.3 / qualified Zen 2 hosts hpc01-04 / current map / world512 / full grid / three simulated hours; combined changes only",
-    "default_provider": "simd-pack",
-    "provider_sha256": "375aa7e3198d42d84e3c95612f5475216354e2c4cb33c053eea42ac29f4bdb2a",
-    "candidate_executable_sha256": "1799376a1e3a439bcd7c22f5d9b554a1b8372ee619856eb693f96a993b718b22",
-    "control_executable_sha256": "12d3cf5e102fca2bb440ee47cef9d93af901b45300981caced7bbbb99fbe37e6",
-    "control_provider_sha256": "4cb1c2abc61e60be2c79fc40ab9b9fd45fb19aefb59798afd2bbdad09d20cc71",
-    "manifest_sha256": "fab6eb31cbee993595799a9d98c115e66ad9ca7d9340ea118dd307f0a2eeff80",
-    "science_receipt_sha256": "d75707763a03d355bd92cca29a2684827f99c22e341547e79f4dcd55f852cf11",
-    "reader_closure_sha256": "5808a21af56949082d42d2ef317e12b33ef0c26212b0a905ff81848f0e892842",
-    "science_status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_NEXT_DEFAULT_THREE_HOUR_SEQUENCE",
-    "complete_products": 4,
-    "ordered_timesteps": 545,
-    "writer_roots": [
+    "path": "../../cpu-compute/pd-result-capacity-combined/APPLICATION_QUALIFICATION.json",
+    "sha256": "d843ebe334a96db16b4fe7fc8ae066b5fccd0374d0660401b10605c4a9817d11",
+    "candidate_executable_sha256": "fbcd04634d5dee1439af4bba9052f1b7f673c0cfc15dfd2b4ac31b4dec7751dc",
+    "archive_sha256": "a49db4d9583801968574885305ff399e7ceb883ef99a630122b3016a1dd803ba",
+    "shim_sha256": "8bee3346e6fbf5b32d1f123efce4edfd8a16cf0c2f64948ba02a4c60b997097f",
+    "codec_sha256": "937130c2a2d53e1d11c978dce1b661400daca9da7b8ae99029333dbc1103d178",
+    "products": 4,
+    "ordered_steps": 545,
+    "world": 512,
+    "tiles": 2,
+    "all4_positive_writer_roots": [
       487,
       495,
       503,
       511
     ],
-    "callbacks_per_root": 216,
-    "all_jobs_closed": true,
-    "wall_seconds": {
-      "control": 900.083646676,
-      "candidate": 894.374112873
+    "field_view_markers": 32,
+    "own_short_qualified": false,
+    "own_threehour_qualified": true,
+    "own_noon75m_qualified": false,
+    "own_nine_hour_qualified": false,
+    "fresh_control_run": false,
+    "metrics": {
+      "candidate": {
+        "wall_seconds": 658.1396509120241,
+        "cpu_seconds": 318924.867798,
+        "main_step_sum_seconds": 556.42103
+      },
+      "retained_original": {
+        "wall_seconds": 980.2076796269976,
+        "cpu_seconds": 449620.40714599995,
+        "main_step_sum_seconds": 757.68805
+      }
     },
-    "aggregate_cgroup_cpu_seconds": {
-      "control": 437025.191032,
-      "candidate": 433118.033194
-    },
-    "observed_wall_reduction_percent": 0.634333689,
-    "observed_cpu_reduction_percent": 0.894034925,
-    "limitations": "One current-default-first pair with staging gap, shared-load/cache/order limits; small differences near variation, no repeatable whole-model or isolated-component speedup established. Earlier kernel percentages are not additive. No restart/144-hour/other compiler or hardware qualification. Failed x-cache and new Advection ISA variant excluded; exact native Advection restored."
+    "scope": "Candidate-only combinedfbcd/a49 with PDfinalXY and capacity8bee original4/545 versus retained fresh corrected-original546b from adc46. UNPAIRED descriptive metrics, no currentfreshpair/matchedincrement/isolatedkernel/repeatability or throughput claim."
   },
   "latest_direct_corrected_stock_three_hour_qualification": {
     "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
@@ -401,19 +406,22 @@
       "working_fork_commit": "cb858aff",
       "categories": "Corrected stock versus accepted complete configuration; unpromoted trials remain separate."
     },
-    "next_phase": "Controlled reverse-order, one-change regression audit on the fixed three-hour benchmark; no new optimization/probe."
+    "next_phase": "Controlled reverse-order, one-change regression audit on the fixed three-hour benchmark; no new optimization/probe.",
+    "applies_to_current_selected_artifact": false,
+    "historical": true
   },
   "current_selected_artifact": {
-    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-de5b-private-shuffle-scratch-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
-    "sha256": "51a31b3c137a2161700c9930a1e250021b34c598c887a7551e87d304b2ce4d31",
-    "provider_source_sha256": "7ea74cd6c5172a17cc19bebf93e14e322695ce415feb0a517ea9984941f184eb",
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current51a-result-capacity-integration-hpc01-r1/candidate/wrf_quilt_thread_shim.so",
+    "sha256": "8bee3346e6fbf5b32d1f123efce4edfd8a16cf0c2f64948ba02a4c60b997097f",
+    "provider_source_sha256": "86aaf478ced3cdc2b752effba2d71741e8741937d7e8bad8535c323b751ab1ca",
     "shim_source_sha256": "313e18ed4309eec9b038371dfce227f8f5fc401813b094aa2cddb01e9de47421",
     "source_commit": null,
-    "post_test_source_commit": "909ab6ef55ac5351f9fd03e4019be470e89a3929",
-    "native_qualification_sha256": "589c74106d5604c3ea41026b1310dd13bc38ad9fce9df3e32d5ee8ab06624615"
+    "post_test_source_commit": "6697020f800df164e3dee6d04d7c3639b297cca6",
+    "native_qualification_sha256": "2329e2197c5d1c25d924df1cdcf2bd14bf8d10ebce6a48c30e4ab0be663093fd",
+    "application_qualification_sha256": "d843ebe334a96db16b4fe7fc8ae066b5fccd0374d0660401b10605c4a9817d11"
   },
-  "current_application_qualification_file": "private-shuffle-scratch-reuse/APPLICATION_QUALIFICATION.json",
-  "variant_recipe_reproduction_note": "ExistingstrictC11/-lm builder reads7ea; actual51a comes from its completednative/API build, no rebuildmerelyselectorpromotion.",
+  "current_application_qualification_file": "../../cpu-compute/pd-result-capacity-combined/APPLICATION_QUALIFICATION.json",
+  "variant_recipe_reproduction_note": "Historical optional375/original4cb byteidentity proof is retained; no newdefaultprovider build was run for86aa/8bee selectorpromotion. Defaultstrictflags/shim313e/sharedsources unchanged; actual8bee fullshim build/native proof is linked separately.",
   "previous_current_selected_artifact_172": {
     "path": "/pool/wrf-experiment/wrf-cpu/kernels/current375-fused-pack-shuffle-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
     "sha256": "172306f3a8c482f8aa2f2683c7f847dab62bf695532a06b0e6ddd8ba441a2a07",
@@ -431,15 +439,12 @@
     }
   },
   "current_three_hour_application": {
-    "qualified": true,
-    "applies_to_current_selected_artifact": true,
-    "path": "tools/cpu-working/THREE_HOUR_FINAL_QUALIFICATION.json",
-    "sha256": "9a00e131349d9e6785c3f08cef0949c5f4ab6e7bb2b17c10da7d656c85816e40",
-    "result_path": "tools/cpu-working/THREE_HOUR_RESULT.json",
-    "result_sha256": "f5ad7b333c63849da5efbb7531aafa984c63708fe7849305cfa9bf101fe4af0f",
-    "executable_sha256": "41bfb335979cefd8f12a8d0c7a682d85d81cae88928fe12ee0badfec58dd7789",
-    "shim_sha256": "51a31b3c137a2161700c9930a1e250021b34c598c887a7551e87d304b2ce4d31",
-    "codec_sha256": "3edf15a2d69040bb29ff52446bfcf103fbfdb8b7385fd68735e8a536a06f332c",
+    "path": "../../cpu-compute/pd-result-capacity-combined/APPLICATION_QUALIFICATION.json",
+    "sha256": "d843ebe334a96db16b4fe7fc8ae066b5fccd0374d0660401b10605c4a9817d11",
+    "candidate_executable_sha256": "fbcd04634d5dee1439af4bba9052f1b7f673c0cfc15dfd2b4ac31b4dec7751dc",
+    "archive_sha256": "a49db4d9583801968574885305ff399e7ceb883ef99a630122b3016a1dd803ba",
+    "shim_sha256": "8bee3346e6fbf5b32d1f123efce4edfd8a16cf0c2f64948ba02a4c60b997097f",
+    "codec_sha256": "937130c2a2d53e1d11c978dce1b661400daca9da7b8ae99029333dbc1103d178",
     "products": 4,
     "ordered_steps": 545,
     "world": 512,
@@ -451,8 +456,26 @@
       511
     ],
     "field_view_markers": 32,
+    "own_short_qualified": false,
+    "own_threehour_qualified": true,
+    "own_noon75m_qualified": false,
     "own_nine_hour_qualified": false,
-    "scope": "GNU13.3 strict/OMP1/cold06:00\u201309:00/full512=480compute8x60+4x8quilt/faba/twoTiles/DF41b/root06dNCa32/outputpool51a/codec3edf/HDF825/shared1/FIELDVIEW1/singleIB;4completeproducts545steps/all4positivewriters/all32markers. One fresh fixed-order wholeinclusiveIO pair; no isolated/additive/repeatability or current9h claim."
+    "fresh_control_run": false,
+    "metrics": {
+      "candidate": {
+        "wall_seconds": 658.1396509120241,
+        "cpu_seconds": 318924.867798,
+        "main_step_sum_seconds": 556.42103
+      },
+      "retained_original": {
+        "wall_seconds": 980.2076796269976,
+        "cpu_seconds": 449620.40714599995,
+        "main_step_sum_seconds": 757.68805
+      }
+    },
+    "scope": "Candidate-only combinedfbcd/a49 with PDfinalXY and capacity8bee original4/545 versus retained fresh corrected-original546b from adc46. UNPAIRED descriptive metrics, no currentfreshpair/matchedincrement/isolatedkernel/repeatability or throughput claim.",
+    "qualified": true,
+    "applies_to_current_selected_artifact": true
   },
   "previous_fused_pack_before_private_scratch": {
     "status": "PROMOTED_PADDING_BLOCK32_EXACT_512_NOON75M_INCREMENTAL_CALLER_GAIN",
@@ -505,5 +528,15 @@
     "result_path": "tools/cpu-working/PREVIOUS_THREE_HOUR_RESULT_BEFORE_DIFCOF_POOL.json",
     "result_sha256": "c13787cb64fd692f2fe6bc612e75ad46a1455288b6da9f81a413944cd1ef8107",
     "scope": "PreviousCEC/de5b/3edf fixed-order fresh3h;19.30009%wall/12.78753%CPU, preserved literalhistoricalevidence."
+  },
+  "before_RESULT_CAPACITY_51a_selector": {
+    "git_commit": "69f3e9a06fa0e9ca07eb27e82d21b08d79e018cc",
+    "qualification_sha256": "75ab791cb8d02d7afb08363fa37d70a8043cd8b3a04f511be27aa977fd0b1f36",
+    "provider_source_sha256": "7ea74cd6c5172a17cc19bebf93e14e322695ce415feb0a517ea9984941f184eb",
+    "native_artifact": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-de5b-private-shuffle-scratch-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
+      "sha256": "51a31b3c137a2161700c9930a1e250021b34c598c887a7551e87d304b2ce4d31"
+    },
+    "scope": "Historical selector/native/application fields preserved in priorGit; no fullJSON duplicate."
   }
 }
