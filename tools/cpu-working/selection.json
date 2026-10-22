@@ -72,8 +72,8 @@
   "read_affine_IO_archive_sha256": "651835f31089e16759177734198ece5b121d704355c73abddde483f4cae2c14c",
   "read_affine_IO_object_sha256": "c9c4e5b7a0225523e7d85cfc188022d797204d3f4dd4494b54c416e3bec99320",
   "schema_version": 3,
-  "status": "CURRENT_ORDINARY_X5_OWN_ONE_HOUR_SCIENCE_ONLY",
-  "scope": "Current4adb/f911: one ordinary X-order5 consumer SIMD directive; own06:00/07:00 two-product185orderedstep one-hour science only against retainedcurrent7693h exactprefix. Existing512/FABA/twoYtiles/input/output/runtime identities preserved. No own35step06:10/three-hour/noon/nine-hour qualification; no forecastgainclaim.",
+  "status": "CURRENT_ORDINARY_X5_OWN_FRESH_THREE_HOUR",
+  "scope": "Current4adb/f911 X5one-directive child; ownfresh4products545/full512/twoYtiles/all4writers. Retains ownonehour; no own35step/noon/ninehour transfer.",
   "includes": "All previous selected compute/shared-table/input/output improvements plus exact CoriolisU metric cache and privatePHY fixed8 helper. Current769 own3h only; parenta377 and older horizon evidence historical. FailedSWguard/refusion and HDIFFmapcache remain excluded.",
   "source_commit_scope": "Exact dedicated post-test source commit; never retroactive raw producer provenance or whole-image source rebuild.",
   "input_implementation_commit": "614267f340a23ffc342962b3c64e323719fe4d06",
@@ -106,21 +106,20 @@
     "other_511_ranks": "OriginalNC8adc/output51a and selected9371 codec; inputadapter06d/privateNCa32 onlyrank0."
   },
   "science": {
-    "products": 2,
-    "ordered_steps": 185,
-    "last_step": "2026-10-12_07:00:00",
+    "products": 4,
+    "ordered_steps": 545,
+    "last_step": "2026-10-12_09:00:00",
     "world": 512,
     "compute": 480,
     "quilt": 32,
     "tiles": 2,
     "positive_writer_roots": [
       487,
-      495
-    ],
-    "zero_activity_writer_roots": [
+      495,
       503,
       511
     ],
+    "zero_activity_writer_roots": [],
     "actual_field_marker_ranks": [
       480,
       481,
@@ -137,15 +136,31 @@
       492,
       493,
       494,
-      495
+      495,
+      496,
+      497,
+      498,
+      499,
+      500,
+      501,
+      502,
+      503,
+      504,
+      505,
+      506,
+      507,
+      508,
+      509,
+      510,
+      511
     ],
     "all32_FIELDVIEW1": true,
     "original_compare_one_AST_exact": true
   },
-  "qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/ordinary-x5-consumer-simd/APPLICATION_QUALIFICATION.json",
-  "current_application_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/ordinary-x5-consumer-simd/APPLICATION_QUALIFICATION.json",
+  "qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/ordinary-x5-consumer-simd/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+  "current_application_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/ordinary-x5-consumer-simd/THREE_HOUR_APPLICATION_QUALIFICATION.json",
   "source_build_binding_file": "CURRENT_SOURCE_BUILD_BINDING.json",
-  "current_three_hour_qualified": false,
+  "current_three_hour_qualified": true,
   "current_nine_hour_qualified": false,
   "prior_nine_hour": {
     "evidence_file": "PREVIOUS_NINE_HOUR_RESULT_B1FB.json",
@@ -174,8 +189,8 @@
     ],
     "rule": "Restore source and all3records together from c18c930; remove only new helper/recipe support, preserve experiment evidence."
   },
-  "claim_limits": "Own one-hour exactscience only; one-host/oppositeorder wholecaller gains do not establish isolatedloop or fullforecast gain. One-hour observations unpaired/descriptive; retained reference was current7693h prefix.",
-  "next_qualification": "Fresh original-first3h pending; no horizontransfer or automatic benchmark claim.",
+  "claim_limits": "One fresh fixed-order pair; no isolated/additive/repeatability forecast claim. Main/aggregateCPU/wall distinct.",
+  "next_qualification": "Continue next measured opportunity; selected9h only when required for new daylight/sustained behavior. No automatic noon/ninehour/restart horizon transfer.",
   "output_fusion_qualification_file": "tools/cpu-output/quilt512/padding-block32/NATIVE_QUALIFICATION.json",
   "latest_nine_hour": null,
   "padding_only_fill_qualification_file": "tools/cpu-output/quilt512/padding-only-fill/NATIVE_QUALIFICATION.json",
@@ -842,7 +857,10 @@
     "repeatability_established": false,
     "scope": "Historical RQVFTENee66/source31ca before RQVBLTEN. Actual4products545/full512 exact,660.3921359390952s MPIwall; candidate-only UNPAIRED descriptive metrics. Does not qualify child2bd1. Existing THREE_HOUR_RESULT/Q bytes and hashes unchanged."
   },
-  "current_three_hour_qualification": null,
+  "current_three_hour_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/ordinary-x5-consumer-simd/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "3f4ec58e3fac204ad71194229ce74ba275523187bc03f078426ca633308d640c"
+  },
   "previous_RTH_POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
     "source_commit": "c883c564a037422631b7c3dd8c69cf532fe391a6",
@@ -1373,48 +1391,37 @@
     "qualification_file": "tools/cpu-output/quilt512/codec/private-fast-distance-range/APPLICATION_QUALIFICATION.json"
   },
   "current_application_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/ordinary-x5-consumer-simd/APPLICATION_QUALIFICATION.json",
-    "sha256": "599cc661c1609baa4e21324655b33f87951ab884b8a23025312908d2b7e58322"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/ordinary-x5-consumer-simd/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "3f4ec58e3fac204ad71194229ce74ba275523187bc03f078426ca633308d640c"
   },
   "last_three_hour_benchmark": {
-    "applies_to_current_selection": false,
-    "historical_executable_sha256": "769195b84ddf4aa9536531d1601785e72a0da0dc86844203ef4d55041d0d036b",
-    "scope": "Historicalcurrent7693hobservations, not4adbqualification/performance.",
-    "historical_record": {
-      "metrics": {
-        "control": {
-          "wall_seconds": 964.8496336680837,
-          "cpu_seconds": 442089.05346200004,
-          "main_step_sum_seconds": 742.86968
-        },
-        "candidate": {
-          "wall_seconds": 659.1368064042181,
-          "cpu_seconds": 319400.643832,
-          "main_step_sum_seconds": 555.44999
-        }
+    "applies_to_current_selection": true,
+    "qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/ordinary-x5-consumer-simd/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "3f4ec58e3fac204ad71194229ce74ba275523187bc03f078426ca633308d640c"
+    },
+    "metrics": {
+      "control": {
+        "wall_seconds": 824.177364682313,
+        "cpu_seconds": 371218.489792,
+        "main_step_sum_seconds": 607.31625
       },
-      "order": [
-        "fresh_corrected_original546b_control",
-        "fresh_combined_CoriolisU_PHY_fixed8_allprior_candidate"
-      ],
-      "comparison_design": "Fresh original546b FIRST versus combined fixed8 candidate SECOND; one fixed-order pair, no isolated/helper/additive/repeatability claim",
-      "reductions_percent": {
-        "wall_seconds": 31.685022888139823,
-        "cpu_seconds": 27.751967317269443,
-        "main_step_sum_seconds": 25.22914786345838
-      },
-      "limits": "One fresh fixed-order pair, actual checkedcache before each arm; no repeatability or per-kernel causal claim. Main includes communication/backpressure; residual is not pureIO.",
-      "science_sha256": "cd523de0a5089032f8a71b7cbb1743211ac723ed2f538f403f90f4a624004edb",
-      "reader_closure_sha256": "4829453f4f254c0af6c8bfeaad19ae292db82ebf015e00775cd210d256823cba",
-      "qualification": {
-        "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/coriolis-u-phy-fixed8-batch/APPLICATION_QUALIFICATION.json",
-        "sha256": "0ce16488e6b28050e699f65046cd18d950fa4bf5d16a7a3cdfc7464f7e602464"
+      "candidate": {
+        "wall_seconds": 640.2438324331306,
+        "cpu_seconds": 311320.066538,
+        "main_step_sum_seconds": 555.89896
       }
-    }
+    },
+    "reductions_percent": {
+      "wall_seconds": 22.317226865370344,
+      "cpu_seconds": 16.135624948951776,
+      "main_step_sum_seconds": 8.466312238475416
+    },
+    "comparison_design": "Fresh original546b FIRST versus currentX5 child SECOND; one fixed-order pair, no isolated/helper/additive/repeatability claim"
   },
   "current_noon75m_qualified": false,
   "current_noon75m_qualification": null,
-  "comparison_design": "Candidate-only06..07onehour versus retainedcurrent7693h prefix forprotectedscience; metricsunpaired/descriptiveonly, no currentoriginalcontroltiming orforecastgain.",
+  "comparison_design": "Fresh original546b FIRST versus currentX5 child SECOND; one fixed-order pair, no isolated/helper/additive/repeatability claim",
   "theta_producer": {
     "pending": false,
     "source_commit": null,
@@ -1527,7 +1534,7 @@
     },
     "applies_to_current_selection": false
   },
-  "current_application_retry_scope": "Own candidateonehour model+originalreader strongclosed; retainedcurrent7693h controlprefix. BuildR1 binaryadapterfailure preserved/R2 wrapperrepair, no scientific waiver.",
+  "current_application_retry_scope": "Fresh original546b FIRST/current4adb SECOND; both normalclosures; originalprotected4products545 checker normalclosed. Prioronehour externalrouting/buildfailures retainedhistorically.",
   "previous_A50E_before_SPCVMC": {
     "paired_record": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_SELECTION_BEFORE_SPCVMC_OPTICAL.json",
@@ -2012,9 +2019,9 @@
     }
   },
   "raw_result_label_disclosure": {
-    "raw_qualification_sha256": "599cc661c1609baa4e21324655b33f87951ab884b8a23025312908d2b7e58322",
-    "scope": "Ownonehour185/twoproductscience; all4models+readerstrongclosed. No own3h/noon9h/35steps qualification.",
-    "metrics": "Currentcandidateonehourdescriptiveonly; previous769paired3h metrics arehistorical."
+    "raw_qualification_sha256": "3f4ec58e3fac204ad71194229ce74ba275523187bc03f078426ca633308d640c",
+    "scope": "Ownfresh4product545stepthreehour science and onefixedorderpair. Ownonehourretained; short35/noon/ninehour/restartFALSE.",
+    "metrics": "Actualcurrentfreshpair wholewall/mainelapsed/allnodeunitCPU; no isolated/additive/repeatability attribution."
   },
   "separate_HPG_short_science_before_own3h": {
     "products": 2,
@@ -2256,40 +2263,29 @@
     "sha256": "53e15d567f2bea93fd2984883696279976e171c5055ec48c6d7ad280f81b8c67"
   },
   "latest_three_hour_observation": {
-    "applies_to_current_selection": false,
-    "historical_executable_sha256": "769195b84ddf4aa9536531d1601785e72a0da0dc86844203ef4d55041d0d036b",
-    "scope": "Historicalcurrent7693hobservations, not4adbqualification/performance.",
-    "historical_record": {
-      "metrics": {
-        "control": {
-          "wall_seconds": 964.8496336680837,
-          "cpu_seconds": 442089.05346200004,
-          "main_step_sum_seconds": 742.86968
-        },
-        "candidate": {
-          "wall_seconds": 659.1368064042181,
-          "cpu_seconds": 319400.643832,
-          "main_step_sum_seconds": 555.44999
-        }
+    "applies_to_current_selection": true,
+    "qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/ordinary-x5-consumer-simd/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "3f4ec58e3fac204ad71194229ce74ba275523187bc03f078426ca633308d640c"
+    },
+    "metrics": {
+      "control": {
+        "wall_seconds": 824.177364682313,
+        "cpu_seconds": 371218.489792,
+        "main_step_sum_seconds": 607.31625
       },
-      "order": [
-        "fresh_corrected_original546b_control",
-        "fresh_combined_CoriolisU_PHY_fixed8_allprior_candidate"
-      ],
-      "comparison_design": "Fresh original546b FIRST versus combined fixed8 candidate SECOND; one fixed-order pair, no isolated/helper/additive/repeatability claim",
-      "reductions_percent": {
-        "wall_seconds": 31.685022888139823,
-        "cpu_seconds": 27.751967317269443,
-        "main_step_sum_seconds": 25.22914786345838
-      },
-      "limits": "One fresh fixed-order pair, actual checkedcache before each arm; no repeatability or per-kernel causal claim. Main includes communication/backpressure; residual is not pureIO.",
-      "science_sha256": "cd523de0a5089032f8a71b7cbb1743211ac723ed2f538f403f90f4a624004edb",
-      "reader_closure_sha256": "4829453f4f254c0af6c8bfeaad19ae292db82ebf015e00775cd210d256823cba",
-      "qualification": {
-        "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/coriolis-u-phy-fixed8-batch/APPLICATION_QUALIFICATION.json",
-        "sha256": "0ce16488e6b28050e699f65046cd18d950fa4bf5d16a7a3cdfc7464f7e602464"
+      "candidate": {
+        "wall_seconds": 640.2438324331306,
+        "cpu_seconds": 311320.066538,
+        "main_step_sum_seconds": 555.89896
       }
-    }
+    },
+    "reductions_percent": {
+      "wall_seconds": 22.317226865370344,
+      "cpu_seconds": 16.135624948951776,
+      "main_step_sum_seconds": 8.466312238475416
+    },
+    "comparison_design": "Fresh original546b FIRST versus currentX5 child SECOND; one fixed-order pair, no isolated/helper/additive/repeatability claim"
   },
   "before_HPG_CONSUMER_own9h": {
     "working_records_commit": "3dc1509d12a1e7205a885cfef5acf452ab8ff88e",
@@ -3316,21 +3312,31 @@
       "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/phy-prep-z-at-w-producer-i-simd-r1/row-api-integration-preparation-r1/integration-preparation-r1/overlay-build-r1/caller-arm3-controller.json": "phy-build-ref-27.json"
     }
   },
-  "science_sha256": "cd523de0a5089032f8a71b7cbb1743211ac723ed2f538f403f90f4a624004edb",
-  "reader_closure_sha256": "4829453f4f254c0af6c8bfeaad19ae292db82ebf015e00775cd210d256823cba",
+  "science_sha256": "e307566cb88cfe0bae4ace0883fae149f036e5e3b74a9f023ad1c5eddead0d01",
+  "reader_closure_sha256": "38aa7b94ed81df02956b8937b1c1947503e0f6351d335ff9505e19b446b8d9b0",
   "metrics": {
+    "control": {
+      "wall_seconds": 824.177364682313,
+      "cpu_seconds": 371218.489792,
+      "main_step_sum_seconds": 607.31625
+    },
     "candidate": {
-      "wall_seconds": 278.8371017770842,
-      "cpu_seconds": 125863.68037799999,
-      "main_step_sum_seconds": 180.82964
+      "wall_seconds": 640.2438324331306,
+      "cpu_seconds": 311320.066538,
+      "main_step_sum_seconds": 555.89896
     }
   },
   "order": [
-    "current4adb_candidate_only_one_hour"
+    "fresh_corrected_original546b_control",
+    "fresh_current_X5_child_candidate"
   ],
-  "reductions_percent": null,
+  "reductions_percent": {
+    "wall_seconds": 22.317226865370344,
+    "cpu_seconds": 16.135624948951776,
+    "main_step_sum_seconds": 8.466312238475416
+  },
   "limits": "One fresh fixed-order pair, actual checkedcache before each arm; no repeatability or per-kernel causal claim. Main includes communication/backpressure; residual is not pureIO.",
-  "raw_result_status": "PASS_CURRENT_X5_OWN_ONEHOUR_TWO_PRODUCT_185_STEP_SCIENCE",
+  "raw_result_status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
   "descriptive_difference_vs_retained_original_percent": null,
   "previous_current769_before_X5": {
     "source_commit": "014ab2e074c0a604cc2beea06680028b7e691492",
@@ -3751,5 +3757,92 @@
     "module_interface_sha256": "88e9fcbf27d28de7f12c22df0aac07aef26d4463f303e5a51b135a6a7e454750",
     "build_receipt_sha256": "ff606477639d1c8bdd2938848c695ff0b9f38ac5b1bfc6e7e4d7591bd99843c8",
     "scope": "Exactcurrent4adb/f911/99da one-memberproducer; previous2419/769wholeimageproducerfacts explicitlyhistorical."
-  }
+  },
+  "previous_X5_onehour_current_context": {
+    "scope": "Current4adb/f911: one ordinary X-order5 consumer SIMD directive; own06:00/07:00 two-product185orderedstep one-hour science only against retainedcurrent7693h exactprefix. Existing512/FABA/twoYtiles/input/output/runtime identities preserved. No own35step06:10/three-hour/noon/nine-hour qualification; no forecastgainclaim.",
+    "science": {
+      "products": 2,
+      "ordered_steps": 185,
+      "last_step": "2026-10-12_07:00:00",
+      "world": 512,
+      "compute": 480,
+      "quilt": 32,
+      "tiles": 2,
+      "positive_writer_roots": [
+        487,
+        495
+      ],
+      "zero_activity_writer_roots": [
+        503,
+        511
+      ],
+      "actual_field_marker_ranks": [
+        480,
+        481,
+        482,
+        483,
+        484,
+        485,
+        486,
+        487,
+        488,
+        489,
+        490,
+        491,
+        492,
+        493,
+        494,
+        495
+      ],
+      "all32_FIELDVIEW1": true,
+      "original_compare_one_AST_exact": true
+    },
+    "current_application_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/ordinary-x5-consumer-simd/APPLICATION_QUALIFICATION.json",
+    "current_three_hour_qualified": false,
+    "current_nine_hour_qualified": false,
+    "claim_limits": "Own one-hour exactscience only; one-host/oppositeorder wholecaller gains do not establish isolatedloop or fullforecast gain. One-hour observations unpaired/descriptive; retained reference was current7693h prefix.",
+    "current_short_qualified": false,
+    "current_profiled_nine_hour_science_qualified": false,
+    "current_unprofiled_nine_hour_science_qualified": false,
+    "current_profiled_nine_hour_qualification": null,
+    "current_three_hour_qualification": null,
+    "current_nine_hour_qualification": null,
+    "current_application_qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/ordinary-x5-consumer-simd/APPLICATION_QUALIFICATION.json",
+      "sha256": "599cc661c1609baa4e21324655b33f87951ab884b8a23025312908d2b7e58322"
+    },
+    "current_noon75m_qualified": false,
+    "current_noon75m_qualification": null,
+    "comparison_design": "Candidate-only06..07onehour versus retainedcurrent7693h prefix forprotectedscience; metricsunpaired/descriptiveonly, no currentoriginalcontroltiming orforecastgain.",
+    "current_application_retry_scope": "Own candidateonehour model+originalreader strongclosed; retainedcurrent7693h controlprefix. BuildR1 binaryadapterfailure preserved/R2 wrapperrepair, no scientific waiver.",
+    "metrics": {
+      "candidate": {
+        "wall_seconds": 278.8371017770842,
+        "cpu_seconds": 125863.68037799999,
+        "main_step_sum_seconds": 180.82964
+      }
+    },
+    "order": [
+      "current4adb_candidate_only_one_hour"
+    ],
+    "reductions_percent": null,
+    "raw_result_status": "PASS_CURRENT_X5_OWN_ONEHOUR_TWO_PRODUCT_185_STEP_SCIENCE",
+    "current_one_hour_qualified": true,
+    "current_one_hour_qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/ordinary-x5-consumer-simd/APPLICATION_QUALIFICATION.json",
+      "sha256": "599cc661c1609baa4e21324655b33f87951ab884b8a23025312908d2b7e58322"
+    }
+  },
+  "historical_fields_before_X5_threehour_update": {
+    "science_sha256": "cd523de0a5089032f8a71b7cbb1743211ac723ed2f538f403f90f4a624004edb",
+    "performance_qualification": null,
+    "next_qualification": "Fresh original-first3h pending; no horizontransfer or automatic benchmark claim.",
+    "current_application_retry_scope": "Own candidateonehour model+originalreader strongclosed; retainedcurrent7693h controlprefix. BuildR1 binaryadapterfailure preserved/R2 wrapperrepair, no scientific waiver.",
+    "raw_result_label_disclosure": {
+      "raw_qualification_sha256": "599cc661c1609baa4e21324655b33f87951ab884b8a23025312908d2b7e58322",
+      "scope": "Ownonehour185/twoproductscience; all4models+readerstrongclosed. No own3h/noon9h/35steps qualification.",
+      "metrics": "Currentcandidateonehourdescriptiveonly; previous769paired3h metrics arehistorical."
+    }
+  },
+  "performance_qualification": "ONE_FRESH_ORIGINAL_FIRST_THREE_HOUR_PAIR_NO_ISOLATED_OR_REPEATABILITY_CLAIM"
 }

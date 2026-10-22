@@ -3985,3 +3985,20 @@ The qualified object was reused with exact canonical source/CPP readback and unc
 A separate `SIMD PRIVATE(APEX,TX)` directive in the initial MYJPBL grid-I height/thermodynamic producer compiled and reproduced the genuine current parent, preserving public MOD bytes. The actual full control-flow review found only scalar arithmetic and a one-element I increment, including the pragma-adjacent, optional-QCI and out-of-line paths. The codegen gate stopped before O0, captured-caller replay or the prepared exceptional fixture; no numerical failure or speedup is claimed.
 
 Close this fixed bare directive without promotion or a timing ladder. Its source-associated instruction counts differ, which is not timing evidence. The qualified working source remains unchanged in MYJPBL. [Actual failed gate, closure, source and full-CFG evidence](tools/cpu-compute/rejected/myj-grid-producer-i-simd/README.md).
+
+
+## 2026-10-22 — Latest X5 combined build passes fresh three-hour comparison
+
+The selected `4adb20e0` / `f9113cba` configuration, including ordinary X5 consumer SIMD and all prior promoted improvements, passed four complete hourly products and all 545 ordered timesteps against a fresh corrected-original `546b9915` forecast. All 512 ranks, two Y tiles, four positive candidate writer roots, 32 acquisition markers, runtime/library identities and metadata/layout checks passed. All eight model scopes and the unchanged original scientific reader closed normally. Source and executable are unchanged by this evidence update.
+
+| Fresh three-hour full-grid measure | Corrected original546b | Combined4adb | Reduction |
+|---|---:|---:|---:|
+| Model/MPI wall |824.177365s (13.74min)|640.243832s (10.67min)|**22.3172%**|
+| Main-step elapsed sum |607.316250s (10.12min)|555.898960s (9.26min)|**8.4663%**|
+| Aggregate node CPU |371218.489792CPU-s (103.12CPUh)|311320.066538CPU-s (86.48CPUh)|**16.1356%**|
+
+This was one unprofiled original-first pair with separate checked compute-client cache clears, unchanged placement and the qualified single InfiniBand rail. Main elapsed includes communication/output backpressure; aggregate CPU includes MPI spin. Server cache and load remain uncontrolled. These are package observations, not an isolated X5 gain, additive component result or repeatability claim. The standalone captured-caller reductions remain separate.
+
+The preceding fresh original/combined769 pair was964.849634/659.136806 seconds. The new optimized arm was faster in wall time, while the unchanged original546b control also ran substantially faster; thus the new paired reduction is smaller. The two pairs alone do not establish a code regression or identify an I/O/MPI cause. The single-forecast wall ratio in this pair is1.28729×; concurrent throughput remains unmeasured, and neither1.5× nor2× has been established by this comparison.
+
+The current image now owns one-hour and three-hour science. Short35, noon, nine-hour and restart scopes remain unqualified; earlier769 daytime andfbcd nine-hour evidence remain historical. Raw producer commits are null, and source6192344e is post-test tracking. [Actual qualification, measured result and rollback](tools/cpu-compute/ordinary-x5-consumer-simd/README.md). Production/master are unchanged; AWS remains suspended. Continue the next distinct measured kernel and architectural investigations without repeating completed tests without new evidence.
