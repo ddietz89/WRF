@@ -1,0 +1,13 @@
+{
+  "status": "ACTUAL_AUTHOR_LITERAL_APPLIED_OFFREPO",
+  "provider_author_status": "implemented",
+  "parent_sha256": "795e00134d47f98f512d61ffc45f93b3599202499ee8d8429009611d21c4b11f",
+  "candidate_sha256": "1934d52b6899e4092311e893009d0567068f171672a90a5b93535ab2206bdf92",
+  "old_fragment": "        DO I=ITS,ITE\n          ZINT(I,K,J)=ZINT(I,K+1,J)+DZ(I,KFLIP,J)\n          APEX=1./EXNER(I,K,J)",
+  "new_fragment": "!$OMP SIMD PRIVATE(APEX,TX)\n        DO I=ITS,ITE\n          ZINT(I,K,J)=ZINT(I,K+1,J)+DZ(I,KFLIP,J)\n          APEX=1./EXNER(I,K,J)",
+  "inverse_exact": true,
+  "only_one_directive": true,
+  "source_commit": null,
+  "native": null,
+  "review_adjudication": "No concrete source blocker. Generic claims of implicit scalar sharing and cache-cold are not scientific/performance acceptance; actual strict native and qualified cache method decide. true DIVPS is valid packed true division."
+}

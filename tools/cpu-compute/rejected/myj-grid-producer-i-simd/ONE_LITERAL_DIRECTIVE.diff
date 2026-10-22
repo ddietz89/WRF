@@ -1,0 +1,10 @@
+--- current795e.F
++++ candidate.F
+@@ -323,6 +323,7 @@
+       DO J=JTS,JTE
+       DO K=KTE,KTS,-1
+         KFLIP=KTE+1-K
++!$OMP SIMD PRIVATE(APEX,TX)
+         DO I=ITS,ITE
+           ZINT(I,K,J)=ZINT(I,K+1,J)+DZ(I,KFLIP,J)
+           APEX=1./EXNER(I,K,J)

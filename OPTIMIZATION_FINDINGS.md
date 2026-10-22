@@ -3978,3 +3978,10 @@ One SIMD directive in the final fifth-order X-direction ordinary-advection consu
 The actual one-member integration `4adb20e0` / `f9113cba` then passed two complete full-grid products, metadata/layout and all 185 ordered steps through 07:00 against the retained current769 prefix, using the unchanged original checker. All 512 ranks, two Y tiles, required two-output writer activity and model/reader closures passed. This image owns one-hour science only; short35, three-hour, noon and nine-hour qualification remain false. The earlier fresh original/769 three-hour result remains historical and does not transfer. The one-hour wall/main/CPU totals are unpaired descriptive observations.
 
 The qualified object was reused with exact canonical source/CPP readback and unchanged public MOD; 583 archive members and other linked components remain unchanged. No new global arithmetic or compiler flags are introduced. Raw build producer commits remain null; later source tracking is separate. [Actual evidence, recipe and paired rollback](tools/cpu-compute/ordinary-x5-consumer-simd/README.md). A fresh original-versus-combined three-hour pair is the next consolidated timing check.
+
+
+## 2026-10-22 — MYJPBL grid-producer directive remains scalar
+
+A separate `SIMD PRIVATE(APEX,TX)` directive in the initial MYJPBL grid-I height/thermodynamic producer compiled and reproduced the genuine current parent, preserving public MOD bytes. The actual full control-flow review found only scalar arithmetic and a one-element I increment, including the pragma-adjacent, optional-QCI and out-of-line paths. The codegen gate stopped before O0, captured-caller replay or the prepared exceptional fixture; no numerical failure or speedup is claimed.
+
+Close this fixed bare directive without promotion or a timing ladder. Its source-associated instruction counts differ, which is not timing evidence. The qualified working source remains unchanged in MYJPBL. [Actual failed gate, closure, source and full-CFG evidence](tools/cpu-compute/rejected/myj-grid-producer-i-simd/README.md).

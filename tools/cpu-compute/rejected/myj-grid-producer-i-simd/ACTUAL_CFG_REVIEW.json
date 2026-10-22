@@ -1,0 +1,74 @@
+{
+  "status": "ACTUAL_FULL_CFG_CONFIRMS_SCALAR_FIXED_DIRECTIVE_NOT_DWARF_BAND_FALSE_NEGATIVE",
+  "parent": {
+    "full_asm_sha256": "4c43e52bb04ae792192aa4d875d321f40b9e93950d0c0a7aade21c861ae7955e",
+    "native_body_source_band": [
+      349,
+      358
+    ],
+    "expanded_band_including_pragma_and_neighbors": [
+      345,
+      362
+    ],
+    "expanded_source_associated_instruction_count": 180,
+    "expanded_packed_arithmetic_rows": [],
+    "actual_reviewed_object_address_spans": [
+      [
+        "0x3fd0",
+        "0x4068"
+      ],
+      [
+        "0x85aa",
+        "0x85cb"
+      ]
+    ]
+  },
+  "candidate": {
+    "full_asm_sha256": "7fb5a5f0f0f31b8c6d92c4aaec2f34be8731973dffb71c14c6e902e7bd062785",
+    "native_body_source_band": [
+      350,
+      359
+    ],
+    "expanded_band_including_pragma_and_neighbors": [
+      345,
+      362
+    ],
+    "expanded_source_associated_instruction_count": 166,
+    "expanded_packed_arithmetic_rows": [],
+    "actual_reviewed_object_address_spans": [
+      [
+        "0x3cd2",
+        "0x4025"
+      ],
+      [
+        "0x83a0",
+        "0x83b0"
+      ]
+    ]
+  },
+  "candidate_main_I": {
+    "entry": "0x3f53",
+    "scalar_operations": {
+      "ZINT_addss": "0x3f5a",
+      "APE_divss": "0x3f6f",
+      "optional_CWM_addss": "0x3f8a",
+      "THE_divss": "0x3f9c",
+      "THE_mulss1": "0x3fa0",
+      "THE_subss": "0x3fa7",
+      "THE_mulss2": "0x3fab"
+    },
+    "index_increment": "0x3f98 LEA rax+1",
+    "backedge": "0x3fb8 JGE 0x3f50",
+    "optional_QCI_guard": "0x3f85 TEST r14d;0x3f88 JE0x3f95 skips load/add at3f8a",
+    "emptyI_path": "0x3e2e JG0x83a0 then integerjmp0x3fc1, no alternatepackedbody",
+    "K_outer": "0x3fde SUB1edx;0x3fe8 JLE0x3e20",
+    "J_outer": "0x3ff5 ADD1edi;0x3fff JGE0x3d58"
+  },
+  "parent_main_I": "0x3fe3..0x4047 scalar ADDSS/DIVSS/MULSS, +1 LEA4027/backedge4047->3fe0",
+  "limitations": [
+    "Object-relative PCs only, not transferred to another ELF or function",
+    "Source-associated194/147 instruction counts are NOT performance proof",
+    "No numeric or timing call executed; no scientific rejection or measuredspeedup/slowing claim",
+    "This fixedpragma isscalar; no claim vectorization can never work withother mechanisms; no newvariant proposed"
+  ]
+}
