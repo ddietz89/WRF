@@ -8051,6 +8051,7 @@ wrf_err_message )
   DO j = j_start, j_end
   DO k = kts, ktf
 !DEC$ vector always  
+!$OMP SIMD
   DO i = i_start, i_end
 
      ! Un-"canceled" map scale factor, ADT Eq. 48
@@ -8086,6 +8087,7 @@ wrf_err_message )
   DO j = j_start, j_end
   DO k = kts, ktf
 !DEC$ vector always
+!$OMP SIMD
   DO i = i_start, i_end
 
      ! Un-"canceled" map scale factor, ADT Eq. 48
@@ -8097,7 +8099,6 @@ wrf_err_message )
   ENDDO
   ENDDO
   ENDDO
-
   IF(tenddec) THEN
   DO j = j_start, j_end
   DO k = kts, ktf
@@ -8111,7 +8112,6 @@ wrf_err_message )
   ENDDO
   ENDDO
   END IF
-
 END SUBROUTINE advect_scalar_pd
 
 !----------------------------------------------------------------

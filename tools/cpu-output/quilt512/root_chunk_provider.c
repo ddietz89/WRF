@@ -47,7 +47,7 @@ typedef struct { size_t nbytes; unsigned char*comp; size_t cap; size_t out; int 
 /* Fixed four-slot idle shuffle-scratch bank shared by all provider calls. */
 #define WPS_SCRATCH_SLOTS 4
 #define WPS_SCRATCH_CAP ((size_t)56430000)
-typedef struct { unsigned char*ptr; size_t cap; } wps_scratch_slot;
+typedef struct { unsigned char*ptr; size_t cap; unsigned char*result_ptr; size_t result_cap; } wps_scratch_slot;
 static wps_scratch_slot wps_slots[WPS_SCRATCH_SLOTS];
 static atomic_flag wps_bank_lock = ATOMIC_FLAG_INIT;
 
@@ -57,7 +57,7 @@ __attribute__((destructor)) static void wps_slot_teardown(void){
     int save_errno=errno; fenv_t save_fenv;
     if(fegetenv(&save_fenv)){abort();}
     if(!atomic_flag_test_and_set(&wps_bank_lock)){
-        for(int i=0;i<WPS_SCRATCH_SLOTS;i++){free(wps_slots[i].ptr);wps_slots[i].ptr=NULL;wps_slots[i].cap=0;}
+        for(int i=0;i<WPS_SCRATCH_SLOTS;i++){free(wps_slots[i].ptr);wps_slots[i].ptr=NULL;wps_slots[i].cap=0;free(wps_slots[i].result_ptr);wps_slots[i].result_ptr=NULL;wps_slots[i].result_cap=0;}
         atomic_flag_clear(&wps_bank_lock);
     }
     if(fesetenv(&save_fenv)){abort();}
@@ -261,8 +261,9 @@ static void* wps_worker(void*a){
     return NULL;
 }
 
-typedef struct { unsigned char*buffers[4]; } wps_storage;
-static void wps_release(void*u){wps_storage*s=u;if(s){for(int i=0;i<4;i++)free(s->buffers[i]);free(s);}}
+typedef struct { unsigned char*buffers[4]; int bank_lease; } wps_storage;
+/* The owner has finished consuming result bytes before this release callback. */
+static void wps_release(void*u){wps_storage*s=u;if(s){if(s->bank_lease)atomic_flag_clear(&wps_bank_lock);else for(int i=0;i<4;i++)free(s->buffers[i]);free(s);}}
 
 int wps_root_provider(const nc_precompressed_float_layout*layout,const void*raw,size_t bytes,
                       nc_precompressed_float_batch*result,void*user){
@@ -279,23 +280,35 @@ int wps_root_provider(const nc_precompressed_float_layout*layout,const void*raw,
     for(int i=0;i<4;i++){if(opt->cpus[i]<0||opt->cpus[i]>=CPU_SETSIZE||!CPU_ISSET(opt->cpus[i],&allowed))return NC_EINVAL;for(int k=0;k<i;k++)if(opt->cpus[i]==opt->cpus[k])return NC_EINVAL;}
 
     int cache_eligible=(opt->threads==4&&chunk_bytes<=WPS_SCRATCH_CAP);
-    int lease_held=0;
-
+    size_t cached_result_required=0;
+    if(cache_eligible){
+        cached_result_required=(size_t)compressBound((uLong)chunk_bytes);
+        size_t result_bound=(size_t)compressBound((uLong)WPS_SCRATCH_CAP);
+        cache_eligible=(cached_result_required>0&&cached_result_required<=result_bound&&cached_result_required<=UINT_MAX);
+    }
+    /* One nonblocking lease covers both storage kinds through owner release. */
+    int lease_held=(cache_eligible&&layout->batch_count<=WPS_SCRATCH_SLOTS&&!atomic_flag_test_and_set(&wps_bank_lock));
 
     wps_job jobs[NC_PRECOMPRESSED_BATCH_MAX];
     pthread_t tid[NC_PRECOMPRESSED_BATCH_MAX];
     for(size_t c=0;c<layout->batch_count;c++){
-        jobs[c].nbytes=chunk_bytes; jobs[c].cap=compressBound((uLong)chunk_bytes);
-        jobs[c].comp=(unsigned char*)malloc(jobs[c].cap?jobs[c].cap:1); jobs[c].err=0; jobs[c].out=0; jobs[c].cpu=opt->cpus[c];
+        jobs[c].nbytes=chunk_bytes;
+        /* Keep this invocation's original codec bound, never a larger retained capacity. */
+        jobs[c].cap=lease_held?cached_result_required:(size_t)compressBound((uLong)chunk_bytes);
+        if(lease_held){
+            wps_scratch_slot*slot=&wps_slots[c];
+            if(slot->result_cap<jobs[c].cap){
+                unsigned char*fresh=(unsigned char*)malloc(jobs[c].cap);
+                if(!fresh){atomic_flag_clear(&wps_bank_lock);return NC_ENOMEM;}
+                unsigned char*prior=slot->result_ptr;
+                slot->result_ptr=fresh;slot->result_cap=jobs[c].cap;free(prior);
+            }
+            jobs[c].comp=slot->result_ptr;
+        }else jobs[c].comp=(unsigned char*)malloc(jobs[c].cap?jobs[c].cap:1);
+        jobs[c].err=0; jobs[c].out=0; jobs[c].cpu=opt->cpus[c];
         jobs[c].layout=layout; jobs[c].raw=(const unsigned char*)raw; jobs[c].chunk=c;
-        jobs[c].leased_ok=0; jobs[c].lease_slot=0;
-        if(!jobs[c].comp){for(size_t k=0;k<c;k++)free(jobs[k].comp);return NC_ENOMEM;}
-    }
-    if(cache_eligible&&layout->batch_count<=WPS_SCRATCH_SLOTS&&!atomic_flag_test_and_set(&wps_bank_lock)){
-        lease_held=1;
-        for(size_t c=0;c<layout->batch_count;c++){
-            jobs[c].leased_ok=1; jobs[c].lease_slot=c;
-        }
+        jobs[c].leased_ok=lease_held; jobs[c].lease_slot=c;
+        if(!jobs[c].comp){if(lease_held)atomic_flag_clear(&wps_bank_lock);else for(size_t k=0;k<c;k++)free(jobs[k].comp);return NC_ENOMEM;}
     }
     size_t started=0;int bad=0;
     if(opt->threads==1){for(size_t c=0;c<layout->batch_count;c++){jobs[c].cpu=opt->cpus[0];wps_worker(&jobs[c]);if(jobs[c].err)bad=1;}if(pthread_setaffinity_np(pthread_self(),sizeof allowed,&allowed))abort();}
@@ -304,10 +317,10 @@ int wps_root_provider(const nc_precompressed_float_layout*layout,const void*raw,
       bad=(started!=layout->batch_count);
       for(size_t c=0;c<started;c++){if(pthread_join(tid[c],NULL)){/* unsafe to return/free while an unjoined worker may live */ abort();}if(jobs[c].err)bad=1;}
     }
-    if(lease_held){atomic_flag_clear(&wps_bank_lock);lease_held=0;}
-    if(bad){for(size_t c=0;c<layout->batch_count;c++)free(jobs[c].comp);return NC_EIO;}
+    if(bad){if(lease_held)atomic_flag_clear(&wps_bank_lock);else for(size_t c=0;c<layout->batch_count;c++)free(jobs[c].comp);return NC_EIO;}
     wps_storage*st=(wps_storage*)calloc(1,sizeof *st);
-    if(!st){for(size_t c=0;c<layout->batch_count;c++)free(jobs[c].comp);return NC_ENOMEM;}
+    if(!st){if(lease_held)atomic_flag_clear(&wps_bank_lock);else for(size_t c=0;c<layout->batch_count;c++)free(jobs[c].comp);return NC_ENOMEM;}
+    st->bank_lease=lease_held;
     for(size_t c=0;c<layout->batch_count;c++){
         st->buffers[c]=jobs[c].comp;result->data[c]=jobs[c].comp;result->nbytes[c]=jobs[c].out;
     }
