@@ -1,0 +1,358 @@
+{
+  "status": "PROVEN_SELECTED_QUALIFIED_PP_REPLAY_DIFFERS_FROM_FRESH_CANONICAL_CPP_NO_NUMERIC_RUN",
+  "cause": "R1 preparation incorrectly assumed retained manually projected selected PP d893 was literal output of current canonical b475. Existing selected promotion README explicitly disclaims general .F-only rebuild and prescribes exact qualified PP replay. R2 actual CPP establishes the distinction.",
+  "selected_PP": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current4adb-noon75m-profile-preparation-r2/swinatm-redundant-initialization-triage-r1/canonical-whole-callee-native-r1/parent_module_ra_rrtmg_sw.f90",
+    "sha256": "d893bd455ce75dbd98474f32c162416933bcd81adeb2e7ed2ee0842c50a06dc9"
+  },
+  "actual_canonical_parent_CPP": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current4adb-noon75m-profile-preparation-r2/swinatm-redundant-initialization-triage-r1/canonical-whole-callee-native-r2/actual-parent-CPP-diagnosis-r1/actual-module_ra_rrtmg_sw.f90",
+    "sha256": "8d2a4f3254da3e49863eba194f20ece6d332717f76c14be4183d061046d00e3e"
+  },
+  "predicted_actual_canonical_child_CPP": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current4adb-noon75m-profile-preparation-r2/swinatm-redundant-initialization-triage-r1/selected-qualified-PP-producer-diagnosis-r1/expected_actual_canonical_candidate.f90",
+    "sha256": "854b9264e45c40cb2c0814ebaca044a9de31da3f6a2ea0fe0525d379c1490848",
+    "actual_execution": false
+  },
+  "actual_selected_producer_receipt": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/spcvmc-optical-producer-split-r1/codegen-gate-r1/actual-native-r1/receipt.json",
+    "sha256": "5b9d317401dd03936fa8b6f5f244373c5e52ca95a2e27c54cc79bef60d0769d8",
+    "invocation_id": "0dd799d60e7843d7bcbd39be84fed211"
+  },
+  "all_nonblank_noncomment_lines_equal_except_explicit_fatal_line_arguments": true,
+  "code_statement_count": 7263,
+  "fatal_call_count": 27,
+  "changed_fatal_arguments": [
+    {
+      "selected": {
+        "physical_PP_line": 2285,
+        "literal_line_argument": 2287,
+        "statement": "call wrf_error_fatal3(\"<stdin>\",2287,&"
+      },
+      "actual_canonical": {
+        "physical_PP_line": 2311,
+        "literal_line_argument": 2300,
+        "statement": "call wrf_error_fatal3(\"<stdin>\",2300,&"
+      }
+    },
+    {
+      "selected": {
+        "physical_PP_line": 2303,
+        "literal_line_argument": 2305,
+        "statement": "call wrf_error_fatal3(\"<stdin>\",2305,&"
+      },
+      "actual_canonical": {
+        "physical_PP_line": 2329,
+        "literal_line_argument": 2318,
+        "statement": "call wrf_error_fatal3(\"<stdin>\",2318,&"
+      }
+    },
+    {
+      "selected": {
+        "physical_PP_line": 2308,
+        "literal_line_argument": 2310,
+        "statement": "call wrf_error_fatal3(\"<stdin>\",2310,&"
+      },
+      "actual_canonical": {
+        "physical_PP_line": 2334,
+        "literal_line_argument": 2323,
+        "statement": "call wrf_error_fatal3(\"<stdin>\",2323,&"
+      }
+    },
+    {
+      "selected": {
+        "physical_PP_line": 2337,
+        "literal_line_argument": 2339,
+        "statement": "call wrf_error_fatal3(\"<stdin>\",2339,&"
+      },
+      "actual_canonical": {
+        "physical_PP_line": 2363,
+        "literal_line_argument": 2352,
+        "statement": "call wrf_error_fatal3(\"<stdin>\",2352,&"
+      }
+    },
+    {
+      "selected": {
+        "physical_PP_line": 2355,
+        "literal_line_argument": 2357,
+        "statement": "call wrf_error_fatal3(\"<stdin>\",2357,&"
+      },
+      "actual_canonical": {
+        "physical_PP_line": 2381,
+        "literal_line_argument": 2370,
+        "statement": "call wrf_error_fatal3(\"<stdin>\",2370,&"
+      }
+    },
+    {
+      "selected": {
+        "physical_PP_line": 2360,
+        "literal_line_argument": 2362,
+        "statement": "call wrf_error_fatal3(\"<stdin>\",2362,&"
+      },
+      "actual_canonical": {
+        "physical_PP_line": 2386,
+        "literal_line_argument": 2375,
+        "statement": "call wrf_error_fatal3(\"<stdin>\",2375,&"
+      }
+    },
+    {
+      "selected": {
+        "physical_PP_line": 2369,
+        "literal_line_argument": 2371,
+        "statement": "call wrf_error_fatal3(\"<stdin>\",2371,&"
+      },
+      "actual_canonical": {
+        "physical_PP_line": 2395,
+        "literal_line_argument": 2384,
+        "statement": "call wrf_error_fatal3(\"<stdin>\",2384,&"
+      }
+    },
+    {
+      "selected": {
+        "physical_PP_line": 2374,
+        "literal_line_argument": 2376,
+        "statement": "call wrf_error_fatal3(\"<stdin>\",2376,&"
+      },
+      "actual_canonical": {
+        "physical_PP_line": 2400,
+        "literal_line_argument": 2389,
+        "statement": "call wrf_error_fatal3(\"<stdin>\",2389,&"
+      }
+    },
+    {
+      "selected": {
+        "physical_PP_line": 2379,
+        "literal_line_argument": 2381,
+        "statement": "call wrf_error_fatal3(\"<stdin>\",2381,&"
+      },
+      "actual_canonical": {
+        "physical_PP_line": 2405,
+        "literal_line_argument": 2394,
+        "statement": "call wrf_error_fatal3(\"<stdin>\",2394,&"
+      }
+    },
+    {
+      "selected": {
+        "physical_PP_line": 2384,
+        "literal_line_argument": 2386,
+        "statement": "call wrf_error_fatal3(\"<stdin>\",2386,&"
+      },
+      "actual_canonical": {
+        "physical_PP_line": 2410,
+        "literal_line_argument": 2399,
+        "statement": "call wrf_error_fatal3(\"<stdin>\",2399,&"
+      }
+    },
+    {
+      "selected": {
+        "physical_PP_line": 2389,
+        "literal_line_argument": 2391,
+        "statement": "call wrf_error_fatal3(\"<stdin>\",2391,&"
+      },
+      "actual_canonical": {
+        "physical_PP_line": 2415,
+        "literal_line_argument": 2404,
+        "statement": "call wrf_error_fatal3(\"<stdin>\",2404,&"
+      }
+    },
+    {
+      "selected": {
+        "physical_PP_line": 11464,
+        "literal_line_argument": 11393,
+        "statement": "CALL wrf_error_fatal3(\"<stdin>\",11393,&"
+      },
+      "actual_canonical": {
+        "physical_PP_line": 11489,
+        "literal_line_argument": 11478,
+        "statement": "CALL wrf_error_fatal3(\"<stdin>\",11478,&"
+      }
+    },
+    {
+      "selected": {
+        "physical_PP_line": 11494,
+        "literal_line_argument": 11423,
+        "statement": "CALL wrf_error_fatal3(\"<stdin>\",11423,&"
+      },
+      "actual_canonical": {
+        "physical_PP_line": 11519,
+        "literal_line_argument": 11508,
+        "statement": "CALL wrf_error_fatal3(\"<stdin>\",11508,&"
+      }
+    },
+    {
+      "selected": {
+        "physical_PP_line": 11592,
+        "literal_line_argument": 11521,
+        "statement": "CALL wrf_error_fatal3(\"<stdin>\",11521,&"
+      },
+      "actual_canonical": {
+        "physical_PP_line": 11617,
+        "literal_line_argument": 11606,
+        "statement": "CALL wrf_error_fatal3(\"<stdin>\",11606,&"
+      }
+    },
+    {
+      "selected": {
+        "physical_PP_line": 11673,
+        "literal_line_argument": 11602,
+        "statement": "CALL wrf_error_fatal3(\"<stdin>\",11602,&"
+      },
+      "actual_canonical": {
+        "physical_PP_line": 11698,
+        "literal_line_argument": 11687,
+        "statement": "CALL wrf_error_fatal3(\"<stdin>\",11687,&"
+      }
+    },
+    {
+      "selected": {
+        "physical_PP_line": 11754,
+        "literal_line_argument": 11683,
+        "statement": "CALL wrf_error_fatal3(\"<stdin>\",11683,&"
+      },
+      "actual_canonical": {
+        "physical_PP_line": 11779,
+        "literal_line_argument": 11768,
+        "statement": "CALL wrf_error_fatal3(\"<stdin>\",11768,&"
+      }
+    },
+    {
+      "selected": {
+        "physical_PP_line": 11835,
+        "literal_line_argument": 11764,
+        "statement": "CALL wrf_error_fatal3(\"<stdin>\",11764,&"
+      },
+      "actual_canonical": {
+        "physical_PP_line": 11860,
+        "literal_line_argument": 11849,
+        "statement": "CALL wrf_error_fatal3(\"<stdin>\",11849,&"
+      }
+    },
+    {
+      "selected": {
+        "physical_PP_line": 11918,
+        "literal_line_argument": 11847,
+        "statement": "CALL wrf_error_fatal3(\"<stdin>\",11847,&"
+      },
+      "actual_canonical": {
+        "physical_PP_line": 11943,
+        "literal_line_argument": 11932,
+        "statement": "CALL wrf_error_fatal3(\"<stdin>\",11932,&"
+      }
+    },
+    {
+      "selected": {
+        "physical_PP_line": 11999,
+        "literal_line_argument": 11928,
+        "statement": "CALL wrf_error_fatal3(\"<stdin>\",11928,&"
+      },
+      "actual_canonical": {
+        "physical_PP_line": 12024,
+        "literal_line_argument": 12013,
+        "statement": "CALL wrf_error_fatal3(\"<stdin>\",12013,&"
+      }
+    },
+    {
+      "selected": {
+        "physical_PP_line": 12080,
+        "literal_line_argument": 12009,
+        "statement": "CALL wrf_error_fatal3(\"<stdin>\",12009,&"
+      },
+      "actual_canonical": {
+        "physical_PP_line": 12105,
+        "literal_line_argument": 12094,
+        "statement": "CALL wrf_error_fatal3(\"<stdin>\",12094,&"
+      }
+    },
+    {
+      "selected": {
+        "physical_PP_line": 12150,
+        "literal_line_argument": 12079,
+        "statement": "CALL wrf_error_fatal3(\"<stdin>\",12079,&"
+      },
+      "actual_canonical": {
+        "physical_PP_line": 12175,
+        "literal_line_argument": 12164,
+        "statement": "CALL wrf_error_fatal3(\"<stdin>\",12164,&"
+      }
+    },
+    {
+      "selected": {
+        "physical_PP_line": 12239,
+        "literal_line_argument": 12168,
+        "statement": "CALL wrf_error_fatal3(\"<stdin>\",12168,&"
+      },
+      "actual_canonical": {
+        "physical_PP_line": 12264,
+        "literal_line_argument": 12253,
+        "statement": "CALL wrf_error_fatal3(\"<stdin>\",12253,&"
+      }
+    },
+    {
+      "selected": {
+        "physical_PP_line": 12297,
+        "literal_line_argument": 12226,
+        "statement": "CALL wrf_error_fatal3(\"<stdin>\",12226,&"
+      },
+      "actual_canonical": {
+        "physical_PP_line": 12322,
+        "literal_line_argument": 12311,
+        "statement": "CALL wrf_error_fatal3(\"<stdin>\",12311,&"
+      }
+    },
+    {
+      "selected": {
+        "physical_PP_line": 12331,
+        "literal_line_argument": 12260,
+        "statement": "CALL wrf_error_fatal3(\"<stdin>\",12260,&"
+      },
+      "actual_canonical": {
+        "physical_PP_line": 12356,
+        "literal_line_argument": 12345,
+        "statement": "CALL wrf_error_fatal3(\"<stdin>\",12345,&"
+      }
+    },
+    {
+      "selected": {
+        "physical_PP_line": 12403,
+        "literal_line_argument": 12332,
+        "statement": "CALL wrf_error_fatal3(\"<stdin>\",12332,&"
+      },
+      "actual_canonical": {
+        "physical_PP_line": 12428,
+        "literal_line_argument": 12417,
+        "statement": "CALL wrf_error_fatal3(\"<stdin>\",12417,&"
+      }
+    },
+    {
+      "selected": {
+        "physical_PP_line": 12470,
+        "literal_line_argument": 12399,
+        "statement": "CALL wrf_error_fatal3(\"<stdin>\",12399,&"
+      },
+      "actual_canonical": {
+        "physical_PP_line": 12495,
+        "literal_line_argument": 12484,
+        "statement": "CALL wrf_error_fatal3(\"<stdin>\",12484,&"
+      }
+    },
+    {
+      "selected": {
+        "physical_PP_line": 12556,
+        "literal_line_argument": 12485,
+        "statement": "CALL wrf_error_fatal3(\"<stdin>\",12485,&"
+      },
+      "actual_canonical": {
+        "physical_PP_line": 12581,
+        "literal_line_argument": 12570,
+        "statement": "CALL wrf_error_fatal3(\"<stdin>\",12570,&"
+      }
+    }
+  ],
+  "target_INATM_SW_has_no_fatal_calls": true,
+  "target_original_statement_stream_exact": true,
+  "actual_source_or_object_not_normalized": true,
+  "existing_replay_contract": "Exact selected d893 PP+exact recorded GNU13 flags including existing module-local -fopenmp-simd; fresh parent must match actual1b allocated bytes/RELA/nonFILE. No wholeimage .F-only reproduction claim.",
+  "recommended_bounded_route": "Fresh R3 retains failed R1/R2. Require actual canonical P CPP8d2a and child predicted exact full hashes as source-readback facts, SEPARATELY copy exact selected qualified PPd893 / literal projected child9ee518 for compilation. Existing actual1b allocated reproduction hard before any child compile; targetMOD/publicABI/16x4 wholecallee science hard. Do NOT label retained d893 actual canonical output, do NOT normalize actual CPP/object/raw, no error-path diagnostic identity with fresh canonical claimed. Root explicit source/provenance scope decision before release.",
+  "qualification": null,
+  "no_compilation_or_remote": true
+}

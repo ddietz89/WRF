@@ -1,0 +1,5 @@
+# sw-inatm-active-initialization
+
+Skip seven overwritten active-cloud initialization rectangles while preserving tails and inactive/empty behavior. Complete synthetic INATM_SW caller wall fell38.9700%/39.5824%, with38.9667%/39.5811% less process CPU in opposite-order pairs. Exact selected qualified-PP replay and the one proved wrapper MOD-ID serialization difference are explicit; no fresh canonical-to-selected ELF reproduction is claimed.
+
+Promoted with the [combined three-hour-qualified build](../vy-sw-qualified-batch/README.md). Native/caller qualification records preserve their original component scope; actual application acceptance is in the batch qualification, not transferred parent evidence. See NATIVE_AND_CALLER_QUALIFICATION.json, REBUILD_RECIPE.json and ROLLBACK.md for the exact finite coverage and earlier failures. The actual combined build owns three-hour science; daytime/noon and nine-hour tests remain pending. Raw producer commits are null; source d5d09385 is post-test tracking.

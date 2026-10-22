@@ -1,0 +1,316 @@
+{
+  "status": "ACK_ACTUAL_SEVEN_FILL_ACTIVE_RECTANGLE_ELISION_GUARDS_TAILS_PRESERVED_PENDING_CALLER_COST",
+  "actual_native": {
+    "receipt": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current4adb-noon75m-profile-preparation-r2/swinatm-redundant-initialization-triage-r1/cached-O2-compatible-wrapper-whole-callee-native-r4/actual-native-r1/receipt.json",
+    "receipt_sha256": "776167f44a7300a3d937c5e6bb10fa08e8b4aea4a41f45e0201870ba57deaf43",
+    "closure": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current4adb-noon75m-profile-preparation-r2/swinatm-redundant-initialization-triage-r1/cached-O2-compatible-wrapper-whole-callee-native-r4/actual-native-r1/closure.json",
+    "closure_sha256": "8c73b68a92884486d94acbf21a157923b7054736e2a238cb8ed28296093f83ec",
+    "invocation_id": "fb3ff08a633a413394329bf9d42ff2ce"
+  },
+  "assembly": {
+    "parent": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current4adb-noon75m-profile-preparation-r2/swinatm-redundant-initialization-triage-r1/actual-native-codegen-readback-r1/parent-whole-INATM_SW.asm",
+      "sha256": "37dffe2baf4aa5649446c75ab879af0ede8f3b401f42ed691c7f1ed150c23056",
+      "bytes": 213802,
+      "call_sites": [
+        {
+          "address": "0x24cd5",
+          "source_line": 9905,
+          "instruction": "call   24cda <__rrtmg_sw_rad_MOD_inatm_sw+0x173a>"
+        }
+      ],
+      "frame_allocation": [
+        "sub    $0x668,%rsp"
+      ]
+    },
+    "candidate": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current4adb-noon75m-profile-preparation-r2/swinatm-redundant-initialization-triage-r1/actual-native-codegen-readback-r1/candidate-whole-INATM_SW.asm",
+      "sha256": "43fadc671c58cb725cfd27c1c41b57fbd5afc21e8ede6042a3d696857d100975",
+      "bytes": 265250,
+      "call_sites": [
+        {
+          "address": "0x24ee5",
+          "source_line": 9922,
+          "instruction": "call   24eea <__rrtmg_sw_rad_MOD_inatm_sw+0x194a>"
+        }
+      ],
+      "frame_allocation": [
+        "sub    $0x6d8,%rsp"
+      ]
+    }
+  },
+  "source_proposal_sha256": "ae12c3fdd14440de40fe8e474835b18f6f1a08bd2e09fc0fb343155a0ddc56c2",
+  "qualified_child_PP_sha256": "9ee5188cbb7af08869e87e45d6c59955dcdded4874d7ac77a17f6fee13eb5bf9",
+  "actual_guard": {
+    "nlay_argument": "RSI saved235c1\u2192stack210; dereference2457f/24587\u2192stack8 at24589",
+    "icld_argument": "RDX saved235d5\u2192stack3f8, dereferenced2464d/2465a",
+    "positive_tests": [
+      "24663 test r8d(nlay);24666 jle2471e",
+      "2466c test eax(icld);2466e jle2471e"
+    ],
+    "inactive_or_empty_target": "2471e begins original full cldf fill; originalseven wholefills9899..9905 remain",
+    "active_target": "24674 begins first rowtail; inlinepath jumps2689b to first coltail; final2710c rejoins24bcf CSW wholefill"
+  },
+  "fields": [
+    {
+      "field": "cldfmc",
+      "constant": 0,
+      "row_tail_range": [
+        "0x24674",
+        "0x2471c"
+      ],
+      "column_tail_range": [
+        "0x2689b",
+        "0x26942"
+      ],
+      "row_tail": {
+        "guard": "actual descriptor row extent >112",
+        "start": "row113 ($0x71 times actual row stride)",
+        "end": "actual descriptor row extent; descriptor strides retained"
+      },
+      "column_tail": {
+        "guard": "nlayers < actual descriptor column extent",
+        "start": "nlayers+1",
+        "rows": "112 iterations; disjoint from rowtail"
+      },
+      "tail_FP_arithmetic_added": false,
+      "store_examples": [
+        {
+          "address": "0x246f4",
+          "instruction": "movl   $0x0,(%r9)"
+        },
+        {
+          "address": "0x26920",
+          "instruction": "movl   $0x0,(%r9)"
+        }
+      ]
+    },
+    {
+      "field": "taucmc",
+      "constant": 0,
+      "row_tail_range": [
+        "0x26944",
+        "0x269df"
+      ],
+      "column_tail_range": [
+        "0x269e1",
+        "0x26a8a"
+      ],
+      "row_tail": {
+        "guard": "actual descriptor row extent >112",
+        "start": "row113 ($0x71 times actual row stride)",
+        "end": "actual descriptor row extent; descriptor strides retained"
+      },
+      "column_tail": {
+        "guard": "nlayers < actual descriptor column extent",
+        "start": "nlayers+1",
+        "rows": "112 iterations; disjoint from rowtail"
+      },
+      "tail_FP_arithmetic_added": false,
+      "store_examples": [
+        {
+          "address": "0x269c4",
+          "instruction": "movl   $0x0,(%r8)"
+        },
+        {
+          "address": "0x26a70",
+          "instruction": "movl   $0x0,(%r8)"
+        }
+      ]
+    },
+    {
+      "field": "ssacmc",
+      "constant": 1,
+      "row_tail_range": [
+        "0x26a8c",
+        "0x26b2d"
+      ],
+      "column_tail_range": [
+        "0x26b2f",
+        "0x26bd8"
+      ],
+      "row_tail": {
+        "guard": "actual descriptor row extent >112",
+        "start": "row113 ($0x71 times actual row stride)",
+        "end": "actual descriptor row extent; descriptor strides retained"
+      },
+      "column_tail": {
+        "guard": "nlayers < actual descriptor column extent",
+        "start": "nlayers+1",
+        "rows": "112 iterations; disjoint from rowtail"
+      },
+      "tail_FP_arithmetic_added": false,
+      "store_examples": [
+        {
+          "address": "0x26b14",
+          "instruction": "movss  %xmm0,(%r8)"
+        },
+        {
+          "address": "0x26bc0",
+          "instruction": "movss  %xmm0,(%r8)"
+        }
+      ]
+    },
+    {
+      "field": "asmcmc",
+      "constant": 0,
+      "row_tail_range": [
+        "0x26bda",
+        "0x26c7f"
+      ],
+      "column_tail_range": [
+        "0x26c81",
+        "0x26d2a"
+      ],
+      "row_tail": {
+        "guard": "actual descriptor row extent >112",
+        "start": "row113 ($0x71 times actual row stride)",
+        "end": "actual descriptor row extent; descriptor strides retained"
+      },
+      "column_tail": {
+        "guard": "nlayers < actual descriptor column extent",
+        "start": "nlayers+1",
+        "rows": "112 iterations; disjoint from rowtail"
+      },
+      "tail_FP_arithmetic_added": false,
+      "store_examples": [
+        {
+          "address": "0x26c64",
+          "instruction": "movl   $0x0,(%r8)"
+        },
+        {
+          "address": "0x26d10",
+          "instruction": "movl   $0x0,(%r8)"
+        }
+      ]
+    },
+    {
+      "field": "fsfcmc",
+      "constant": 0,
+      "row_tail_range": [
+        "0x26d2c",
+        "0x26dd7"
+      ],
+      "column_tail_range": [
+        "0x26dd9",
+        "0x26e7a"
+      ],
+      "row_tail": {
+        "guard": "actual descriptor row extent >112",
+        "start": "row113 ($0x71 times actual row stride)",
+        "end": "actual descriptor row extent; descriptor strides retained"
+      },
+      "column_tail": {
+        "guard": "nlayers < actual descriptor column extent",
+        "start": "nlayers+1",
+        "rows": "112 iterations; disjoint from rowtail"
+      },
+      "tail_FP_arithmetic_added": false,
+      "store_examples": [
+        {
+          "address": "0x26dbc",
+          "instruction": "movl   $0x0,(%r8)"
+        },
+        {
+          "address": "0x26e60",
+          "instruction": "movl   $0x0,(%r8)"
+        }
+      ]
+    },
+    {
+      "field": "ciwpmc",
+      "constant": 0,
+      "row_tail_range": [
+        "0x26e7c",
+        "0x26f1f"
+      ],
+      "column_tail_range": [
+        "0x26f21",
+        "0x26fc2"
+      ],
+      "row_tail": {
+        "guard": "actual descriptor row extent >112",
+        "start": "row113 ($0x71 times actual row stride)",
+        "end": "actual descriptor row extent; descriptor strides retained"
+      },
+      "column_tail": {
+        "guard": "nlayers < actual descriptor column extent",
+        "start": "nlayers+1",
+        "rows": "112 iterations; disjoint from rowtail"
+      },
+      "tail_FP_arithmetic_added": false,
+      "store_examples": [
+        {
+          "address": "0x26f04",
+          "instruction": "movl   $0x0,(%r8)"
+        },
+        {
+          "address": "0x26fa8",
+          "instruction": "movl   $0x0,(%r8)"
+        }
+      ]
+    },
+    {
+      "field": "clwpmc",
+      "constant": 0,
+      "row_tail_range": [
+        "0x26fc4",
+        "0x27062"
+      ],
+      "column_tail_range": [
+        "0x27064",
+        "0x2710c"
+      ],
+      "row_tail": {
+        "guard": "actual descriptor row extent >112",
+        "start": "row113 ($0x71 times actual row stride)",
+        "end": "actual descriptor row extent; descriptor strides retained"
+      },
+      "column_tail": {
+        "guard": "nlayers < actual descriptor column extent",
+        "start": "nlayers+1",
+        "rows": "112 iterations; disjoint from rowtail"
+      },
+      "tail_FP_arithmetic_added": false,
+      "store_examples": [
+        {
+          "address": "0x27044",
+          "instruction": "movl   $0x0,(%r8)"
+        },
+        {
+          "address": "0x270f0",
+          "instruction": "movl   $0x0,(%r8)"
+        }
+      ]
+    }
+  ],
+  "readset_and_other_work": {
+    "new_tail_initializers_read_old_cloud_payload": false,
+    "actual_added_tail_instructions": "Integer descriptor/stride/bound/address work; scalar zero stores, SSACMC constant loads/stores; no new FP arithmetic or allocator calls.",
+    "seven_original_input_copy_load_store_path": "candidate26028..2606b retains7 MOVSS inputload/outputstore pairs in originalfieldorder (parent25e00..25e43)",
+    "snow_condition": "candidate2602c cmpl$5; conditional eighthinputcopy26077/26080 remains (parent25e04 and25e4f/25e57)",
+    "csw_full_zero": "candidate24bcf onward unchanged sourcefill9907; otherWKL/radius/aerosol/gas work remains",
+    "one_existing_call_each": "parent24cd5/source9905 andchild24ee5/source9922 joined to original earth_sun assignment; no new static calls. -d logs do not provide resolved call relocation identity, so no new relocation-target proof claimed."
+  },
+  "frame_characterization": {
+    "parent_bytes": 1640,
+    "candidate_bytes": 1752,
+    "increase_bytes": 112,
+    "spill_free_claimed": false,
+    "cost_inferred_from_instruction_count": false
+  },
+  "production_shape_source_derived_only": {
+    "rows": 112,
+    "layers": 33,
+    "output_columns": 34,
+    "seven_parent_fill_bytes": 106624,
+    "seven_candidate_fill_bytes": 3136,
+    "avoided_fill_bytes_per_call": 103488,
+    "unchanged_active_seven_input_copy_bytes": 103488,
+    "actual_memory_traffic_or_performance_measured_here": false
+  },
+  "native_scope": "Actual genuineO2/freshP/child andO0sameoptP/child all16cases\u00d74rounds852492B each pass fullraw/read-only/physical/five-state; target/raw31MOD+compatiblewrapper/publicGLOBALABI hard. No downstream/fullmodule/forecast science or trapping-mode claim.",
+  "recommendation": "Proceed existing bounded complete-INATM caller timing, sharedoriginaldriver, fixedwork/integerwall+processCPU/cacheEACH/oppositehostorder; no source or fixture changes needed.",
+  "caller_gain": null,
+  "application_qualified": false
+}

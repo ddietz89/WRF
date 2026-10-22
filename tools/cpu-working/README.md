@@ -1,4 +1,22 @@
-# Current working selection: Coriolis U cache and private PHY AVX2 rows
+# Current working selection: V-advection SIMD and shortwave initialization
+
+**a437888c / archive81f6a950 / post-test sourced5d09385** retains the previous configuration and adds the qualified V Y5 producer directive and seven shortwave initialization guards. The current source/build/application records in this directory all identify this same artifact set.
+
+| Fresh three-hour pair, October22 | Corrected original546b | Combineda437 | Reduction |
+|---|---:|---:|---:|
+| Model/MPI wall |831.150893s|638.376558s|23.1937%|
+| Main-step elapsed |610.539530s|554.898530s|9.1134%|
+| Aggregate node CPU |374060.951199 CPU-s|310676.786383 CPU-s|16.9449%|
+
+All four complete products, metadata/layout and545 ordered steps passed the unchanged checker, including512 ranks, both tiles, all four active writer roots and32 acquisition markers. All eight model scopes and the reader closed normally. Separate client-cache clears preceded both arms. This is one unprofiled original-first pair; server load/cache remain uncontrolled, main elapsed includes communication/output backpressure, and no isolated/additive or repeatability claim follows.
+
+This is the new `production512-current-vy-sw-batch3h-{control,candidate}-r2` comparison, raw result `ec263cf2`. It is distinct from the retained4adb comparison. [Current evidence, recipe and rollback](../cpu-compute/vy-sw-qualified-batch/README.md). Own three-hour qualification is true; separate short/one-hour, noon/daytime, nine-hour and restart scopes do not transfer. Source d5d09385 is post-test tracking; raw producer commits remain null. Production/master are unchanged; AWS is suspended.
+
+The generic `THREE_HOUR_RESULT.json` and `THREE_HOUR_FINAL_QUALIFICATION.json` here retain older pinned evidence. Use `selection.json` and its current qualification link above for the latest accepted result. All following selection descriptions are historical.
+
+---
+
+# Historical769 selection: Coriolis U cache and private PHY AVX2 rows
 
 **769195b8 / archive a99fc18e / post-test source014ab2e0** retain all previous improvements and add the exact-qualified Coriolis U cache and wider private height helper. The selected GNU13.3 recipe enables the row API and AVX2 helper; generic PHY source remains macro-off. Global strict arithmetic flags remain unchanged.
 

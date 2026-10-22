@@ -1,0 +1,28 @@
+{
+  "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+  "order": [
+    "fresh_corrected_original546b_control",
+    "fresh_current_X5_child_candidate"
+  ],
+  "comparison_design": "Fresh original546b FIRST versus currentX5 child SECOND; one fixed-order pair, no isolated/helper/additive/repeatability claim",
+  "metrics": {
+    "control": {
+      "wall_seconds": 831.1508929198608,
+      "cpu_seconds": 374060.95119899994,
+      "main_step_sum_seconds": 610.53953
+    },
+    "candidate": {
+      "wall_seconds": 638.3765581408516,
+      "cpu_seconds": 310676.78638299997,
+      "main_step_sum_seconds": 554.89853
+    }
+  },
+  "reductions_percent": {
+    "wall_seconds": 23.19366271770299,
+    "cpu_seconds": 16.94487612589096,
+    "main_step_sum_seconds": 9.113414818529431
+  },
+  "science_sha256": "bd5a0b127db1b5c30efea4b95ad76d07e0ccda63d7c191dd21008f2edf175a86",
+  "reader_closure_sha256": "32f257aab74f30d154351e977bb118ca4274b22aaac237ee582a0bd5ab9e60f6",
+  "limits": "One fresh fixed-order pair, actual checkedcache before each arm; no repeatability or per-kernel causal claim. Main includes communication/backpressure; residual is not pureIO."
+}

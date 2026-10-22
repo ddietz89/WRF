@@ -1,0 +1,81 @@
+{
+  "status": "QUALIFIED_EXACT_PREPROCESSED_SOURCE_REPLAY_NOT_GENERAL_F_ONLY_REBUILD",
+  "source_producer_commit": null,
+  "posttest_source_commit": null,
+  "canonical_parent_sha256": "b475a85d1865a58ae0d4a8240cb7a4efca1802d67405234c7c5c522d667c4877",
+  "canonical_candidate": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current4adb-noon75m-profile-preparation-r2/swinatm-redundant-initialization-triage-r1/local-source-r1/candidate_module_ra_rrtmg_sw.F",
+    "sha256": "ae12c3fdd14440de40fe8e474835b18f6f1a08bd2e09fc0fb343155a0ddc56c2"
+  },
+  "compiled_qualified_PP_parent_sha256": "d893bd455ce75dbd98474f32c162416933bcd81adeb2e7ed2ee0842c50a06dc9",
+  "compiled_qualified_PP_candidate": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current4adb-noon75m-profile-preparation-r2/swinatm-redundant-initialization-triage-r1/canonical-whole-callee-native-r1/candidate_module_ra_rrtmg_sw.f90",
+    "sha256": "9ee5188cbb7af08869e87e45d6c59955dcdded4874d7ac77a17f6fee13eb5bf9"
+  },
+  "actual_fresh_canonical_CPP_readback": {
+    "parent_sha256": "8d2a4f3254da3e49863eba194f20ece6d332717f76c14be4183d061046d00e3e",
+    "candidate_sha256": "854b9264e45c40cb2c0814ebaca044a9de31da3f6a2ea0fe0525d379c1490848",
+    "used_for_selected_object_compilation": false,
+    "diagnosis": "evidence/QUALIFIED_PP_PROVENANCE.json"
+  },
+  "actual_successful_child_compile_argv": [
+    "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+    "-o",
+    "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-qualified-pp-native-hpc03-r3/work/O2-candidate/module_ra_rrtmg_sw.o",
+    "-c",
+    "-O2",
+    "-fno-fast-math",
+    "-ffp-contract=off",
+    "-w",
+    "-fno-fast-math",
+    "-ffp-contract=off",
+    "-ffree-form",
+    "-ffree-line-length-none",
+    "-fconvert=big-endian",
+    "-frecord-marker=4",
+    "-fallow-argument-mismatch",
+    "-fallow-invalid-boz",
+    "-g",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+    "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+    "-fopenmp-simd",
+    "module_ra_rrtmg_sw.f90"
+  ],
+  "replay_rule": "Fresh private directory; verify complete qualifiedPP SHA9ee518, copy unchanged to module_ra_rrtmg_sw.f90. Use recorded GNU13.3 argv changing ONLY output path, retain source basename/all include paths/existing module-local -fopenmp-simd. Compare resulting allocated/RELA/nonFILE representation to actual8478 child. No object/hash normalization. Parent replayd893 must reproduce actualselected1b likewise. Keep new MODs private; top wrapper raw differs, graph proof mandatory.",
+  "existing_module_local_extra_flags": [
+    "-fopenmp-simd"
+  ],
+  "new_global_flags": [],
+  "fresh_canonical_CPP_to_selected_ELF_equivalence_claimed": false,
+  "candidate_reference": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-qualified-pp-native-hpc03-r3/work/O2-candidate/module_ra_rrtmg_sw.o",
+    "sha256": "8478ec01bee576d76681f3ea14b35a45475105223ec63798ac8bace99fd8e098",
+    "cached_no_recompile": true
+  },
+  "genuine_parent_reference": {
+    "path": "/pool/wrf-experiment/wrf-cpu/source-discovery/spcvmc-optical-producer-codegen-r1/work/candidate/module_ra_rrtmg_sw.o",
+    "sha256": "1b5250e92b95d9855f55bd52032ff7b93cfbec7a7bcb0835fca3cd763a2c0f69"
+  },
+  "interface_contract": {
+    "target_rrtmg_sw_rad_raw_sha256": "a799bb9bb1827d52f5acf2da1d117bbca66619035d2cd3ce0a574be1798daae7",
+    "all_raw_MOD_identity": false,
+    "one_wrapper_definition_reference_ID_permutation_only": true,
+    "complete_proof": "evidence/WRAPPER_IDENTITY_PROOF.json"
+  },
+  "actual_new_WRF_image_archive_or_source_commit": {
+    "executable_sha256": "a437888cd99708fc1b10dc05ce2c3c2441c1170a4c1916b7b606a5c2757526fd",
+    "archive_sha256": "81f6a9509878fe6e94afb15e0a5de41af5e4329e9ca52951f358b81e35951fae",
+    "posttest_source_commit": "d5d09385eb3a4ce641af3c5b5ef35eadb97593ac",
+    "raw_producer_source_commit": null,
+    "batch_recipe": "../vy-sw-qualified-batch/REBUILD_RECIPE.json",
+    "application_qualification": "../vy-sw-qualified-batch/THREE_HOUR_APPLICATION_QUALIFICATION.json"
+  },
+  "build_application_scope": "Any application build and source/default promotion must separately bind actual image/archive and pass original science; no application qualification is implied here."
+}

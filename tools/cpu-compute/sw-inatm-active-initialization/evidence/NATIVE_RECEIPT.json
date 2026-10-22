@@ -1,0 +1,5363 @@
+{
+  "status": "PASS_GENUINE_CURRENT_WHOLE_INATM_SW_16_FOURROUND_O2_O0",
+  "invocation_id": "fb3ff08a633a413394329bf9d42ff2ce",
+  "commands": [
+    {
+      "label": "helper-region_observer",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/region_observer.c",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/region_observer.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "helper-physical_observer",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/physical_observer.c",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/physical_observer.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "compile-O0-parent",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/O0-parent/module_ra_rrtmg_sw.o",
+        "-c",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-fopenmp-simd",
+        "-O0",
+        "-fcheck=all",
+        "-fbacktrace",
+        "module_ra_rrtmg_sw.f90"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "compile-O0-candidate",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/O0-candidate/module_ra_rrtmg_sw.o",
+        "-c",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-fopenmp-simd",
+        "-O0",
+        "-fcheck=all",
+        "-fbacktrace",
+        "module_ra_rrtmg_sw.f90"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "target-asm-parent",
+      "argv": [
+        "objdump",
+        "-dSl",
+        "--disassemble=__rrtmg_sw_rad_MOD_inatm_sw",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-qualified-pp-native-hpc03-r3/work/O2-parent/module_ra_rrtmg_sw.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "37dffe2baf4aa5649446c75ab879af0ede8f3b401f42ed691c7f1ed150c23056"
+    },
+    {
+      "label": "target-asm-candidate",
+      "argv": [
+        "objdump",
+        "-dSl",
+        "--disassemble=__rrtmg_sw_rad_MOD_inatm_sw",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-qualified-pp-native-hpc03-r3/work/O2-candidate/module_ra_rrtmg_sw.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "43fadc671c58cb725cfd27c1c41b57fbd5afc21e8ede6042a3d696857d100975"
+    },
+    {
+      "label": "compile-driver-O2",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/O2-parent",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-fopenmp-simd",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/full_caller_driver.f90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/O2-parent/driver.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "link-caller-genuine-O2",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-genuine-O2/fixture",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-Wl,-rpath,/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/hpg-nhx-isolated-avx2-consumer-native-r3/work/nhx-helper-O2.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/phy-height-private-avx2-fixed8-native-hpc04-r1/work/helper-O2.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/O2-parent/driver.o",
+        "/pool/wrf-experiment/wrf-cpu/source-discovery/spcvmc-optical-producer-codegen-r1/work/candidate/module_ra_rrtmg_sw.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/region_observer.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/physical_observer.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/current769-ordinary-x5-one-member-r2/libwrflib.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-lesmf_time",
+        "/pool/wrf-experiment/wrf-cpu/builds/rsl-narrow-integer-copy-r1/librsl_lite.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2",
+        "-lwrfio_nf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-lnetcdf",
+        "-lm"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "execute-genuine-O2-r0",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-genuine-O2/fixture",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-genuine-O2/r0.raw",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "5d80b8075e67964f1e2c4299b168855e10f1f8c678ab8295d03f984f29eccda0"
+    },
+    {
+      "label": "execute-genuine-O2-r1",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-genuine-O2/fixture",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-genuine-O2/r1.raw",
+        "1"
+      ],
+      "returncode": 0,
+      "log_sha256": "5d80b8075e67964f1e2c4299b168855e10f1f8c678ab8295d03f984f29eccda0"
+    },
+    {
+      "label": "execute-genuine-O2-r2",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-genuine-O2/fixture",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-genuine-O2/r2.raw",
+        "2"
+      ],
+      "returncode": 0,
+      "log_sha256": "5d80b8075e67964f1e2c4299b168855e10f1f8c678ab8295d03f984f29eccda0"
+    },
+    {
+      "label": "execute-genuine-O2-r3",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-genuine-O2/fixture",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-genuine-O2/r3.raw",
+        "3"
+      ],
+      "returncode": 0,
+      "log_sha256": "5d80b8075e67964f1e2c4299b168855e10f1f8c678ab8295d03f984f29eccda0"
+    },
+    {
+      "label": "link-caller-O2-parent",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O2-parent/fixture",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-Wl,-rpath,/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/hpg-nhx-isolated-avx2-consumer-native-r3/work/nhx-helper-O2.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/phy-height-private-avx2-fixed8-native-hpc04-r1/work/helper-O2.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/O2-parent/driver.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-qualified-pp-native-hpc03-r3/work/O2-parent/module_ra_rrtmg_sw.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/region_observer.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/physical_observer.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/current769-ordinary-x5-one-member-r2/libwrflib.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-lesmf_time",
+        "/pool/wrf-experiment/wrf-cpu/builds/rsl-narrow-integer-copy-r1/librsl_lite.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2",
+        "-lwrfio_nf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-lnetcdf",
+        "-lm"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "execute-O2-parent-r0",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O2-parent/fixture",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O2-parent/r0.raw",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "5d80b8075e67964f1e2c4299b168855e10f1f8c678ab8295d03f984f29eccda0"
+    },
+    {
+      "label": "execute-O2-parent-r1",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O2-parent/fixture",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O2-parent/r1.raw",
+        "1"
+      ],
+      "returncode": 0,
+      "log_sha256": "5d80b8075e67964f1e2c4299b168855e10f1f8c678ab8295d03f984f29eccda0"
+    },
+    {
+      "label": "execute-O2-parent-r2",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O2-parent/fixture",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O2-parent/r2.raw",
+        "2"
+      ],
+      "returncode": 0,
+      "log_sha256": "5d80b8075e67964f1e2c4299b168855e10f1f8c678ab8295d03f984f29eccda0"
+    },
+    {
+      "label": "execute-O2-parent-r3",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O2-parent/fixture",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O2-parent/r3.raw",
+        "3"
+      ],
+      "returncode": 0,
+      "log_sha256": "5d80b8075e67964f1e2c4299b168855e10f1f8c678ab8295d03f984f29eccda0"
+    },
+    {
+      "label": "link-caller-O2-candidate",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O2-candidate/fixture",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-Wl,-rpath,/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/hpg-nhx-isolated-avx2-consumer-native-r3/work/nhx-helper-O2.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/phy-height-private-avx2-fixed8-native-hpc04-r1/work/helper-O2.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/O2-parent/driver.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-qualified-pp-native-hpc03-r3/work/O2-candidate/module_ra_rrtmg_sw.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/region_observer.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/physical_observer.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/current769-ordinary-x5-one-member-r2/libwrflib.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-lesmf_time",
+        "/pool/wrf-experiment/wrf-cpu/builds/rsl-narrow-integer-copy-r1/librsl_lite.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2",
+        "-lwrfio_nf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-lnetcdf",
+        "-lm"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "execute-O2-candidate-r0",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O2-candidate/fixture",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O2-candidate/r0.raw",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "5d80b8075e67964f1e2c4299b168855e10f1f8c678ab8295d03f984f29eccda0"
+    },
+    {
+      "label": "execute-O2-candidate-r1",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O2-candidate/fixture",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O2-candidate/r1.raw",
+        "1"
+      ],
+      "returncode": 0,
+      "log_sha256": "5d80b8075e67964f1e2c4299b168855e10f1f8c678ab8295d03f984f29eccda0"
+    },
+    {
+      "label": "execute-O2-candidate-r2",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O2-candidate/fixture",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O2-candidate/r2.raw",
+        "2"
+      ],
+      "returncode": 0,
+      "log_sha256": "5d80b8075e67964f1e2c4299b168855e10f1f8c678ab8295d03f984f29eccda0"
+    },
+    {
+      "label": "execute-O2-candidate-r3",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O2-candidate/fixture",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O2-candidate/r3.raw",
+        "3"
+      ],
+      "returncode": 0,
+      "log_sha256": "5d80b8075e67964f1e2c4299b168855e10f1f8c678ab8295d03f984f29eccda0"
+    },
+    {
+      "label": "compile-driver-O0",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/O0-parent",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-fopenmp-simd",
+        "-O0",
+        "-fcheck=all",
+        "-fbacktrace",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/full_caller_driver.f90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/O0-parent/driver.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "link-caller-O0-parent",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O0-parent/fixture",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-Wl,-rpath,/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/hpg-nhx-isolated-avx2-consumer-native-r3/work/nhx-helper-O2.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/phy-height-private-avx2-fixed8-native-hpc04-r1/work/helper-O2.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/O0-parent/driver.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/O0-parent/module_ra_rrtmg_sw.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/region_observer.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/physical_observer.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/current769-ordinary-x5-one-member-r2/libwrflib.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-lesmf_time",
+        "/pool/wrf-experiment/wrf-cpu/builds/rsl-narrow-integer-copy-r1/librsl_lite.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2",
+        "-lwrfio_nf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-lnetcdf",
+        "-lm"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "execute-O0-parent-r0",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O0-parent/fixture",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O0-parent/r0.raw",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "5d80b8075e67964f1e2c4299b168855e10f1f8c678ab8295d03f984f29eccda0"
+    },
+    {
+      "label": "execute-O0-parent-r1",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O0-parent/fixture",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O0-parent/r1.raw",
+        "1"
+      ],
+      "returncode": 0,
+      "log_sha256": "5d80b8075e67964f1e2c4299b168855e10f1f8c678ab8295d03f984f29eccda0"
+    },
+    {
+      "label": "execute-O0-parent-r2",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O0-parent/fixture",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O0-parent/r2.raw",
+        "2"
+      ],
+      "returncode": 0,
+      "log_sha256": "5d80b8075e67964f1e2c4299b168855e10f1f8c678ab8295d03f984f29eccda0"
+    },
+    {
+      "label": "execute-O0-parent-r3",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O0-parent/fixture",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O0-parent/r3.raw",
+        "3"
+      ],
+      "returncode": 0,
+      "log_sha256": "5d80b8075e67964f1e2c4299b168855e10f1f8c678ab8295d03f984f29eccda0"
+    },
+    {
+      "label": "link-caller-O0-candidate",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O0-candidate/fixture",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-Wl,-rpath,/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/hpg-nhx-isolated-avx2-consumer-native-r3/work/nhx-helper-O2.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/phy-height-private-avx2-fixed8-native-hpc04-r1/work/helper-O2.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/O0-parent/driver.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/O0-candidate/module_ra_rrtmg_sw.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/region_observer.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/physical_observer.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/current769-ordinary-x5-one-member-r2/libwrflib.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-lesmf_time",
+        "/pool/wrf-experiment/wrf-cpu/builds/rsl-narrow-integer-copy-r1/librsl_lite.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2",
+        "-lwrfio_nf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-lnetcdf",
+        "-lm"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "execute-O0-candidate-r0",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O0-candidate/fixture",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O0-candidate/r0.raw",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "5d80b8075e67964f1e2c4299b168855e10f1f8c678ab8295d03f984f29eccda0"
+    },
+    {
+      "label": "execute-O0-candidate-r1",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O0-candidate/fixture",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O0-candidate/r1.raw",
+        "1"
+      ],
+      "returncode": 0,
+      "log_sha256": "5d80b8075e67964f1e2c4299b168855e10f1f8c678ab8295d03f984f29eccda0"
+    },
+    {
+      "label": "execute-O0-candidate-r2",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O0-candidate/fixture",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O0-candidate/r2.raw",
+        "2"
+      ],
+      "returncode": 0,
+      "log_sha256": "5d80b8075e67964f1e2c4299b168855e10f1f8c678ab8295d03f984f29eccda0"
+    },
+    {
+      "label": "execute-O0-candidate-r3",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O0-candidate/fixture",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O0-candidate/r3.raw",
+        "3"
+      ],
+      "returncode": 0,
+      "log_sha256": "5d80b8075e67964f1e2c4299b168855e10f1f8c678ab8295d03f984f29eccda0"
+    }
+  ],
+  "native_outputs": {
+    "genuine-O2": {
+      "0": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-genuine-O2/r0.raw",
+        "bytes": 852492,
+        "sha256": "d897554bafa2c490bddf61628b0d5773d533daa072b662e6f0f9d1517edbe4a2",
+        "raw_readonly_physical_five_state_pass": true
+      },
+      "1": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-genuine-O2/r1.raw",
+        "bytes": 852492,
+        "sha256": "63286fef5008f26a0fcc02d7212ed0026e1ea792142c4d4aa66ee133c0775d69",
+        "raw_readonly_physical_five_state_pass": true
+      },
+      "2": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-genuine-O2/r2.raw",
+        "bytes": 852492,
+        "sha256": "d7ecac53282582e4e6b555b9fab8ba53d869f4e40265e1e3c815c47072548d83",
+        "raw_readonly_physical_five_state_pass": true
+      },
+      "3": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-genuine-O2/r3.raw",
+        "bytes": 852492,
+        "sha256": "17e657e21cd988ca063b9a3124b9721beb6ac9fa9aef07e0e0897ea6755cd495",
+        "raw_readonly_physical_five_state_pass": true
+      }
+    },
+    "O2-parent": {
+      "0": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O2-parent/r0.raw",
+        "bytes": 852492,
+        "sha256": "d897554bafa2c490bddf61628b0d5773d533daa072b662e6f0f9d1517edbe4a2",
+        "raw_readonly_physical_five_state_pass": true
+      },
+      "1": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O2-parent/r1.raw",
+        "bytes": 852492,
+        "sha256": "63286fef5008f26a0fcc02d7212ed0026e1ea792142c4d4aa66ee133c0775d69",
+        "raw_readonly_physical_five_state_pass": true
+      },
+      "2": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O2-parent/r2.raw",
+        "bytes": 852492,
+        "sha256": "d7ecac53282582e4e6b555b9fab8ba53d869f4e40265e1e3c815c47072548d83",
+        "raw_readonly_physical_five_state_pass": true
+      },
+      "3": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O2-parent/r3.raw",
+        "bytes": 852492,
+        "sha256": "17e657e21cd988ca063b9a3124b9721beb6ac9fa9aef07e0e0897ea6755cd495",
+        "raw_readonly_physical_five_state_pass": true
+      }
+    },
+    "O2-candidate": {
+      "0": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O2-candidate/r0.raw",
+        "bytes": 852492,
+        "sha256": "d897554bafa2c490bddf61628b0d5773d533daa072b662e6f0f9d1517edbe4a2",
+        "raw_readonly_physical_five_state_pass": true
+      },
+      "1": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O2-candidate/r1.raw",
+        "bytes": 852492,
+        "sha256": "63286fef5008f26a0fcc02d7212ed0026e1ea792142c4d4aa66ee133c0775d69",
+        "raw_readonly_physical_five_state_pass": true
+      },
+      "2": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O2-candidate/r2.raw",
+        "bytes": 852492,
+        "sha256": "d7ecac53282582e4e6b555b9fab8ba53d869f4e40265e1e3c815c47072548d83",
+        "raw_readonly_physical_five_state_pass": true
+      },
+      "3": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O2-candidate/r3.raw",
+        "bytes": 852492,
+        "sha256": "17e657e21cd988ca063b9a3124b9721beb6ac9fa9aef07e0e0897ea6755cd495",
+        "raw_readonly_physical_five_state_pass": true
+      }
+    },
+    "O0-parent": {
+      "0": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O0-parent/r0.raw",
+        "bytes": 852492,
+        "sha256": "d897554bafa2c490bddf61628b0d5773d533daa072b662e6f0f9d1517edbe4a2",
+        "raw_readonly_physical_five_state_pass": true
+      },
+      "1": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O0-parent/r1.raw",
+        "bytes": 852492,
+        "sha256": "63286fef5008f26a0fcc02d7212ed0026e1ea792142c4d4aa66ee133c0775d69",
+        "raw_readonly_physical_five_state_pass": true
+      },
+      "2": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O0-parent/r2.raw",
+        "bytes": 852492,
+        "sha256": "d7ecac53282582e4e6b555b9fab8ba53d869f4e40265e1e3c815c47072548d83",
+        "raw_readonly_physical_five_state_pass": true
+      },
+      "3": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O0-parent/r3.raw",
+        "bytes": 852492,
+        "sha256": "17e657e21cd988ca063b9a3124b9721beb6ac9fa9aef07e0e0897ea6755cd495",
+        "raw_readonly_physical_five_state_pass": true
+      }
+    },
+    "O0-candidate": {
+      "0": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O0-candidate/r0.raw",
+        "bytes": 852492,
+        "sha256": "d897554bafa2c490bddf61628b0d5773d533daa072b662e6f0f9d1517edbe4a2",
+        "raw_readonly_physical_five_state_pass": true
+      },
+      "1": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O0-candidate/r1.raw",
+        "bytes": 852492,
+        "sha256": "63286fef5008f26a0fcc02d7212ed0026e1ea792142c4d4aa66ee133c0775d69",
+        "raw_readonly_physical_five_state_pass": true
+      },
+      "2": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O0-candidate/r2.raw",
+        "bytes": 852492,
+        "sha256": "d7ecac53282582e4e6b555b9fab8ba53d869f4e40265e1e3c815c47072548d83",
+        "raw_readonly_physical_five_state_pass": true
+      },
+      "3": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/caller-O0-candidate/r3.raw",
+        "bytes": 852492,
+        "sha256": "17e657e21cd988ca063b9a3124b9721beb6ac9fa9aef07e0e0897ea6755cd495",
+        "raw_readonly_physical_five_state_pass": true
+      }
+    }
+  },
+  "scope": "16 whole genuine current SW INATM cases x4 rounding modes; sameopt O2 genuine/current parent/child and O0bounds parent/child. No downstream radiation or wholemodule-science claim.",
+  "cached_R3_failed_receipt_sha256": "35ea2bd805e94aaef12e78d1015e507e313c5400e2d23f03c256e7b4093bd9cd",
+  "cached_R3_failed_closure_sha256": "602d9968542837deb4f5ba25c2a571cab44120ca94b4ea1fbdece27022300066",
+  "original_R1_R2_R3_failures_preserved": true,
+  "actual_canonical_CPP_readback_bound_separately_from_selected_qualified_PP": true,
+  "build_source_kind": "EXACT_SELECTED_QUALIFIED_PP_REPLAY_NOT_FRESH_CANONICAL_CPP",
+  "selected_1b_producer_receipt_sha256": "5b9d317401dd03936fa8b6f5f244373c5e52ca95a2e27c54cc79bef60d0769d8",
+  "source_provenance_diagnosis_sha256": "b3314ca684037e366a7085c34d72c6cc3f56eec9f64783bb8322241ec4f9b315",
+  "genuine_parent_allocated_proof_sha256": "b88a2b3d1ad81a9ee81ed99c5a46e6190213dc86593fadfc8107ced1853ad69c",
+  "objects": {
+    "O2-parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-qualified-pp-native-hpc03-r3/work/O2-parent/module_ra_rrtmg_sw.o",
+      "sha256": "8f7900e324ec726e4458be4b8c249ba622abe30ae8e2047a7a330c9ae0a24364",
+      "cached_no_recompile": true
+    },
+    "O2-candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-qualified-pp-native-hpc03-r3/work/O2-candidate/module_ra_rrtmg_sw.o",
+      "sha256": "8478ec01bee576d76681f3ea14b35a45475105223ec63798ac8bace99fd8e098",
+      "cached_no_recompile": true
+    },
+    "O0-parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/O0-parent/module_ra_rrtmg_sw.o",
+      "sha256": "78ee5b8e92d431f012d4c37ab398943836149d8a26ac3073519857449e9633ee"
+    },
+    "O0-candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/O0-candidate/module_ra_rrtmg_sw.o",
+      "sha256": "af5812b0aaef22fd4667a3662af3f0bc0a813eca19e7e8354a8c922ff23f73ee"
+    }
+  },
+  "MOD_maps": {
+    "O2-parent": {
+      "rrsw_wvn.mod": "1f48ae14ff0a954b9e8b2578186567c18bfd8218b4e22e3ed7e8bc372ddbf8d5",
+      "rrsw_kg28.mod": "213900ecd9f7c931c23e3de492be7f17864afab0bb2b1d7e9f0b8e82ee886cf7",
+      "rrsw_con.mod": "fb51e5fc6dce1ac8e867b67bc8c0d03fb613024a4e7f64f0fa29462fb466cfff",
+      "rrsw_kg26.mod": "f5f6a21e9a441efe589ee0839fddf64e84d4de87d91a4a1100c0776d458acdf0",
+      "rrsw_kg21.mod": "eae56e4c38802d2003d7815c9a302c26e75c50ce8347535177f562fb9f14b927",
+      "rrsw_ref.mod": "93aa1c9bd6823958cebb65e2f1bc8fd6d8ce789ed9077ea679ed561f55e94610",
+      "module_ra_rrtmg_sw.mod": "0cd45647dac0ad7b3f76c6a8a0dc328a90b1cfa10bdf71c064c2d372918ffc4a",
+      "rrsw_kg20.mod": "e42255c36081bb6aab4c21d4e20d432ab81ca05b4782ad543ef1211242e487be",
+      "rrsw_kg27.mod": "d57d3bc5c5fa2e1fd317fb9f7b9d19dd6ba62a74a10c4336ec3d908272f82747",
+      "rrsw_vsn.mod": "6a8c18f18b3364ecb6f4db4abf47e19088a3c66349d53e6a101d2bc20b537cf0",
+      "parrrsw.mod": "b234a02f775bf092b734fb5ef137dd6f4717781a669bf81e5f2ca69c32588484",
+      "rrtmg_sw_reftra.mod": "5cbbcb0e2f6e397820d27895c6dbccc205f2ee3b8b99fb1b819063fd558957a9",
+      "rrsw_kg29.mod": "db409696aa6ef724d59a83ca3edb9a09d3ba21bf716bcb8a7e0f1e5e33a0d25f",
+      "rrsw_cld.mod": "ce857514272577abbfb2d8c9de74e77130a5f57af047db658a081594f09ab051",
+      "rrtmg_sw_setcoef.mod": "17e2080dd912773015c3b0b02c0954a3ec020834818033911f5c3f31b90be3c8",
+      "rrsw_tbl.mod": "af07ffe46345dbfd25b1e7893714c76b4c4d38f79c75fd11714af9f5e79ab846",
+      "rrtmg_sw_init.mod": "0652654e0268adf885a3c613c7177661add0071e87830865057e2f5af455438d",
+      "rrsw_kg24.mod": "884f3a25dc14b62f606092de66faca3e3f06bd2a1afa88179e9294169bd44603",
+      "rrsw_kg23.mod": "5ccf4233335eb7d0a99aa7f0ca36f95d512a6f2506310d906cbf457010f315c3",
+      "rrsw_aer.mod": "e8be31f06ec4b93cf72de0ca749840dd9a522b8e8bf014879fccea88b4818359",
+      "rrtmg_sw_rad.mod": "a799bb9bb1827d52f5acf2da1d117bbca66619035d2cd3ce0a574be1798daae7",
+      "rrsw_kg18.mod": "91d205b2ef9511925fe7e45ef00ca8cd05fe45a85ebf305b3f7835a4fe93fa49",
+      "rrsw_kg16.mod": "5be201c85c169e73f6ef294122163b696878102bd84582270386496e52b4c696",
+      "rrtmg_sw_taumol.mod": "a2596e28594a1abd14f8e916475f7e6e75d1ae62fa8a0fe966ed37dad4291326",
+      "rrtmg_sw_cldprmc.mod": "17df6042855e1a9e6c51de7a2e1605cda49a4f6896fbdced2ae8d8bac56caa7e",
+      "rrtmg_sw_spcvmc.mod": "37432d94aaf9a72cf07c7e54f476699e166b4a1ed304d5699900f1cf4c3f79ed",
+      "rrtmg_sw_vrtqdr.mod": "be843b86404ef149e2006b5ebc7e2a50d935252119e892896334fda2115383ad",
+      "rrsw_kg17.mod": "e6b659719a34943a5072ccd4ec704c6fea4583b937b28601439016c32bc9a489",
+      "rrsw_kg19.mod": "0c42b072a72f6e08631c7e3f4b202e1a4b438aa29077bd59d88b1efa22fddb77",
+      "mcica_subcol_gen_sw.mod": "f1ce128004b7fe9265c995370dac4464bdf4d15f962d3ac3de00e0606cae35f3",
+      "rrsw_kg22.mod": "9bfd76b1baac9346132c1aa6b01ba3ac1d6d87fb7acc1d0019374b90e9a4604b",
+      "rrsw_kg25.mod": "b91dc9ca00dbc9501f413a8df63f02517c5a1f946cdbafcfb926981033773139"
+    },
+    "O2-candidate": {
+      "rrtmg_sw_spcvmc.mod": "37432d94aaf9a72cf07c7e54f476699e166b4a1ed304d5699900f1cf4c3f79ed",
+      "rrsw_kg25.mod": "b91dc9ca00dbc9501f413a8df63f02517c5a1f946cdbafcfb926981033773139",
+      "rrtmg_sw_setcoef.mod": "17e2080dd912773015c3b0b02c0954a3ec020834818033911f5c3f31b90be3c8",
+      "rrsw_kg22.mod": "9bfd76b1baac9346132c1aa6b01ba3ac1d6d87fb7acc1d0019374b90e9a4604b",
+      "rrtmg_sw_vrtqdr.mod": "be843b86404ef149e2006b5ebc7e2a50d935252119e892896334fda2115383ad",
+      "rrsw_kg19.mod": "0c42b072a72f6e08631c7e3f4b202e1a4b438aa29077bd59d88b1efa22fddb77",
+      "rrsw_kg17.mod": "e6b659719a34943a5072ccd4ec704c6fea4583b937b28601439016c32bc9a489",
+      "rrtmg_sw_taumol.mod": "a2596e28594a1abd14f8e916475f7e6e75d1ae62fa8a0fe966ed37dad4291326",
+      "rrtmg_sw_rad.mod": "a799bb9bb1827d52f5acf2da1d117bbca66619035d2cd3ce0a574be1798daae7",
+      "rrsw_tbl.mod": "af07ffe46345dbfd25b1e7893714c76b4c4d38f79c75fd11714af9f5e79ab846",
+      "rrsw_kg16.mod": "5be201c85c169e73f6ef294122163b696878102bd84582270386496e52b4c696",
+      "rrsw_kg18.mod": "91d205b2ef9511925fe7e45ef00ca8cd05fe45a85ebf305b3f7835a4fe93fa49",
+      "rrsw_kg23.mod": "5ccf4233335eb7d0a99aa7f0ca36f95d512a6f2506310d906cbf457010f315c3",
+      "rrsw_aer.mod": "e8be31f06ec4b93cf72de0ca749840dd9a522b8e8bf014879fccea88b4818359",
+      "parrrsw.mod": "b234a02f775bf092b734fb5ef137dd6f4717781a669bf81e5f2ca69c32588484",
+      "rrsw_kg24.mod": "884f3a25dc14b62f606092de66faca3e3f06bd2a1afa88179e9294169bd44603",
+      "rrsw_cld.mod": "ce857514272577abbfb2d8c9de74e77130a5f57af047db658a081594f09ab051",
+      "rrsw_vsn.mod": "6a8c18f18b3364ecb6f4db4abf47e19088a3c66349d53e6a101d2bc20b537cf0",
+      "rrsw_kg29.mod": "db409696aa6ef724d59a83ca3edb9a09d3ba21bf716bcb8a7e0f1e5e33a0d25f",
+      "rrsw_kg27.mod": "d57d3bc5c5fa2e1fd317fb9f7b9d19dd6ba62a74a10c4336ec3d908272f82747",
+      "rrsw_kg20.mod": "e42255c36081bb6aab4c21d4e20d432ab81ca05b4782ad543ef1211242e487be",
+      "module_ra_rrtmg_sw.mod": "f3af3fe87438d7abaa28613ef4497a3b8a579d1883892789180bede73966fbc1",
+      "mcica_subcol_gen_sw.mod": "f1ce128004b7fe9265c995370dac4464bdf4d15f962d3ac3de00e0606cae35f3",
+      "rrtmg_sw_reftra.mod": "5cbbcb0e2f6e397820d27895c6dbccc205f2ee3b8b99fb1b819063fd558957a9",
+      "rrtmg_sw_cldprmc.mod": "17df6042855e1a9e6c51de7a2e1605cda49a4f6896fbdced2ae8d8bac56caa7e",
+      "rrtmg_sw_init.mod": "0652654e0268adf885a3c613c7177661add0071e87830865057e2f5af455438d",
+      "rrsw_kg21.mod": "eae56e4c38802d2003d7815c9a302c26e75c50ce8347535177f562fb9f14b927",
+      "rrsw_kg26.mod": "f5f6a21e9a441efe589ee0839fddf64e84d4de87d91a4a1100c0776d458acdf0",
+      "rrsw_wvn.mod": "1f48ae14ff0a954b9e8b2578186567c18bfd8218b4e22e3ed7e8bc372ddbf8d5",
+      "rrsw_ref.mod": "93aa1c9bd6823958cebb65e2f1bc8fd6d8ce789ed9077ea679ed561f55e94610",
+      "rrsw_kg28.mod": "213900ecd9f7c931c23e3de492be7f17864afab0bb2b1d7e9f0b8e82ee886cf7",
+      "rrsw_con.mod": "fb51e5fc6dce1ac8e867b67bc8c0d03fb613024a4e7f64f0fa29462fb466cfff"
+    },
+    "O0-parent": {
+      "rrsw_kg27.mod": "d57d3bc5c5fa2e1fd317fb9f7b9d19dd6ba62a74a10c4336ec3d908272f82747",
+      "rrsw_kg20.mod": "e42255c36081bb6aab4c21d4e20d432ab81ca05b4782ad543ef1211242e487be",
+      "rrsw_kg29.mod": "db409696aa6ef724d59a83ca3edb9a09d3ba21bf716bcb8a7e0f1e5e33a0d25f",
+      "rrsw_wvn.mod": "1f48ae14ff0a954b9e8b2578186567c18bfd8218b4e22e3ed7e8bc372ddbf8d5",
+      "module_ra_rrtmg_sw.mod": "0cd45647dac0ad7b3f76c6a8a0dc328a90b1cfa10bdf71c064c2d372918ffc4a",
+      "rrsw_con.mod": "fb51e5fc6dce1ac8e867b67bc8c0d03fb613024a4e7f64f0fa29462fb466cfff",
+      "rrsw_ref.mod": "93aa1c9bd6823958cebb65e2f1bc8fd6d8ce789ed9077ea679ed561f55e94610",
+      "rrtmg_sw_setcoef.mod": "17e2080dd912773015c3b0b02c0954a3ec020834818033911f5c3f31b90be3c8",
+      "rrtmg_sw_taumol.mod": "a2596e28594a1abd14f8e916475f7e6e75d1ae62fa8a0fe966ed37dad4291326",
+      "rrsw_kg28.mod": "213900ecd9f7c931c23e3de492be7f17864afab0bb2b1d7e9f0b8e82ee886cf7",
+      "rrsw_kg21.mod": "eae56e4c38802d2003d7815c9a302c26e75c50ce8347535177f562fb9f14b927",
+      "rrsw_kg26.mod": "f5f6a21e9a441efe589ee0839fddf64e84d4de87d91a4a1100c0776d458acdf0",
+      "rrtmg_sw_vrtqdr.mod": "be843b86404ef149e2006b5ebc7e2a50d935252119e892896334fda2115383ad",
+      "rrtmg_sw_spcvmc.mod": "37432d94aaf9a72cf07c7e54f476699e166b4a1ed304d5699900f1cf4c3f79ed",
+      "rrtmg_sw_init.mod": "0652654e0268adf885a3c613c7177661add0071e87830865057e2f5af455438d",
+      "rrsw_cld.mod": "ce857514272577abbfb2d8c9de74e77130a5f57af047db658a081594f09ab051",
+      "mcica_subcol_gen_sw.mod": "f1ce128004b7fe9265c995370dac4464bdf4d15f962d3ac3de00e0606cae35f3",
+      "rrsw_vsn.mod": "6a8c18f18b3364ecb6f4db4abf47e19088a3c66349d53e6a101d2bc20b537cf0",
+      "rrsw_aer.mod": "e8be31f06ec4b93cf72de0ca749840dd9a522b8e8bf014879fccea88b4818359",
+      "rrtmg_sw_rad.mod": "a799bb9bb1827d52f5acf2da1d117bbca66619035d2cd3ce0a574be1798daae7",
+      "rrsw_kg25.mod": "b91dc9ca00dbc9501f413a8df63f02517c5a1f946cdbafcfb926981033773139",
+      "rrtmg_sw_cldprmc.mod": "17df6042855e1a9e6c51de7a2e1605cda49a4f6896fbdced2ae8d8bac56caa7e",
+      "rrsw_kg22.mod": "9bfd76b1baac9346132c1aa6b01ba3ac1d6d87fb7acc1d0019374b90e9a4604b",
+      "rrsw_kg17.mod": "e6b659719a34943a5072ccd4ec704c6fea4583b937b28601439016c32bc9a489",
+      "rrsw_tbl.mod": "af07ffe46345dbfd25b1e7893714c76b4c4d38f79c75fd11714af9f5e79ab846",
+      "rrsw_kg19.mod": "0c42b072a72f6e08631c7e3f4b202e1a4b438aa29077bd59d88b1efa22fddb77",
+      "rrtmg_sw_reftra.mod": "5cbbcb0e2f6e397820d27895c6dbccc205f2ee3b8b99fb1b819063fd558957a9",
+      "rrsw_kg18.mod": "91d205b2ef9511925fe7e45ef00ca8cd05fe45a85ebf305b3f7835a4fe93fa49",
+      "rrsw_kg16.mod": "5be201c85c169e73f6ef294122163b696878102bd84582270386496e52b4c696",
+      "rrsw_kg23.mod": "5ccf4233335eb7d0a99aa7f0ca36f95d512a6f2506310d906cbf457010f315c3",
+      "rrsw_kg24.mod": "884f3a25dc14b62f606092de66faca3e3f06bd2a1afa88179e9294169bd44603",
+      "parrrsw.mod": "b234a02f775bf092b734fb5ef137dd6f4717781a669bf81e5f2ca69c32588484"
+    },
+    "O0-candidate": {
+      "module_ra_rrtmg_sw.mod": "f3af3fe87438d7abaa28613ef4497a3b8a579d1883892789180bede73966fbc1",
+      "rrsw_kg17.mod": "e6b659719a34943a5072ccd4ec704c6fea4583b937b28601439016c32bc9a489",
+      "rrsw_kg19.mod": "0c42b072a72f6e08631c7e3f4b202e1a4b438aa29077bd59d88b1efa22fddb77",
+      "rrtmg_sw_taumol.mod": "a2596e28594a1abd14f8e916475f7e6e75d1ae62fa8a0fe966ed37dad4291326",
+      "rrsw_ref.mod": "93aa1c9bd6823958cebb65e2f1bc8fd6d8ce789ed9077ea679ed561f55e94610",
+      "rrsw_con.mod": "fb51e5fc6dce1ac8e867b67bc8c0d03fb613024a4e7f64f0fa29462fb466cfff",
+      "parrrsw.mod": "b234a02f775bf092b734fb5ef137dd6f4717781a669bf81e5f2ca69c32588484",
+      "rrsw_kg25.mod": "b91dc9ca00dbc9501f413a8df63f02517c5a1f946cdbafcfb926981033773139",
+      "rrtmg_sw_init.mod": "0652654e0268adf885a3c613c7177661add0071e87830865057e2f5af455438d",
+      "rrsw_wvn.mod": "1f48ae14ff0a954b9e8b2578186567c18bfd8218b4e22e3ed7e8bc372ddbf8d5",
+      "rrsw_kg22.mod": "9bfd76b1baac9346132c1aa6b01ba3ac1d6d87fb7acc1d0019374b90e9a4604b",
+      "rrtmg_sw_vrtqdr.mod": "be843b86404ef149e2006b5ebc7e2a50d935252119e892896334fda2115383ad",
+      "rrtmg_sw_spcvmc.mod": "37432d94aaf9a72cf07c7e54f476699e166b4a1ed304d5699900f1cf4c3f79ed",
+      "rrsw_kg23.mod": "5ccf4233335eb7d0a99aa7f0ca36f95d512a6f2506310d906cbf457010f315c3",
+      "rrtmg_sw_cldprmc.mod": "17df6042855e1a9e6c51de7a2e1605cda49a4f6896fbdced2ae8d8bac56caa7e",
+      "rrsw_kg24.mod": "884f3a25dc14b62f606092de66faca3e3f06bd2a1afa88179e9294169bd44603",
+      "rrsw_vsn.mod": "6a8c18f18b3364ecb6f4db4abf47e19088a3c66349d53e6a101d2bc20b537cf0",
+      "rrsw_kg18.mod": "91d205b2ef9511925fe7e45ef00ca8cd05fe45a85ebf305b3f7835a4fe93fa49",
+      "rrsw_cld.mod": "ce857514272577abbfb2d8c9de74e77130a5f57af047db658a081594f09ab051",
+      "rrsw_kg16.mod": "5be201c85c169e73f6ef294122163b696878102bd84582270386496e52b4c696",
+      "rrsw_kg27.mod": "d57d3bc5c5fa2e1fd317fb9f7b9d19dd6ba62a74a10c4336ec3d908272f82747",
+      "rrsw_aer.mod": "e8be31f06ec4b93cf72de0ca749840dd9a522b8e8bf014879fccea88b4818359",
+      "rrsw_kg20.mod": "e42255c36081bb6aab4c21d4e20d432ab81ca05b4782ad543ef1211242e487be",
+      "rrsw_kg29.mod": "db409696aa6ef724d59a83ca3edb9a09d3ba21bf716bcb8a7e0f1e5e33a0d25f",
+      "mcica_subcol_gen_sw.mod": "f1ce128004b7fe9265c995370dac4464bdf4d15f962d3ac3de00e0606cae35f3",
+      "rrsw_tbl.mod": "af07ffe46345dbfd25b1e7893714c76b4c4d38f79c75fd11714af9f5e79ab846",
+      "rrtmg_sw_reftra.mod": "5cbbcb0e2f6e397820d27895c6dbccc205f2ee3b8b99fb1b819063fd558957a9",
+      "rrsw_kg28.mod": "213900ecd9f7c931c23e3de492be7f17864afab0bb2b1d7e9f0b8e82ee886cf7",
+      "rrsw_kg21.mod": "eae56e4c38802d2003d7815c9a302c26e75c50ce8347535177f562fb9f14b927",
+      "rrsw_kg26.mod": "f5f6a21e9a441efe589ee0839fddf64e84d4de87d91a4a1100c0776d458acdf0",
+      "rrtmg_sw_rad.mod": "a799bb9bb1827d52f5acf2da1d117bbca66619035d2cd3ce0a574be1798daae7",
+      "rrtmg_sw_setcoef.mod": "17e2080dd912773015c3b0b02c0954a3ec020834818033911f5c3f31b90be3c8"
+    }
+  },
+  "compatible_wrapper": {
+    "O2": {
+      "status": "PASS_ONE_WRAPPER_TYPED_ID_PERMUTATION_ONLY",
+      "parent_raw_sha256": "0cd45647dac0ad7b3f76c6a8a0dc328a90b1cfa10bdf71c064c2d372918ffc4a",
+      "candidate_raw_sha256": "f3af3fe87438d7abaa28613ef4497a3b8a579d1883892789180bede73966fbc1",
+      "raw_equal": false,
+      "definitions": 394,
+      "literal_entire_definition_bodies_equal": true,
+      "public_aliases": 53,
+      "typed_symbol_edges": 1002,
+      "typed_namespace_edges": 788,
+      "graph_sha256": "b54df4f8e18b2f165e675edd839b339202095824f6140faf761e89c6bbdeda2c",
+      "changed_definition_IDs": [
+        {
+          "parent_id": 6,
+          "candidate_id": 11,
+          "name": "buffered",
+          "origin_module": "module_wrf_error"
+        },
+        {
+          "parent_id": 7,
+          "candidate_id": 6,
+          "name": "fer_mp_hires_advect",
+          "origin_module": "module_state_description"
+        },
+        {
+          "parent_id": 11,
+          "candidate_id": 7,
+          "name": "fer_mp_hires",
+          "origin_module": "module_state_description"
+        },
+        {
+          "parent_id": 12,
+          "candidate_id": 13,
+          "name": "min_allowed_buffer_size",
+          "origin_module": "module_wrf_error"
+        },
+        {
+          "parent_id": 13,
+          "candidate_id": 15,
+          "name": "module_state_description",
+          "origin_module": "module_state_description"
+        },
+        {
+          "parent_id": 15,
+          "candidate_id": 16,
+          "name": "silence",
+          "origin_module": "module_wrf_error"
+        },
+        {
+          "parent_id": 16,
+          "candidate_id": 20,
+          "name": "stderrlog",
+          "origin_module": "module_wrf_error"
+        },
+        {
+          "parent_id": 20,
+          "candidate_id": 23,
+          "name": "wrf_debug_level",
+          "origin_module": "module_wrf_error"
+        },
+        {
+          "parent_id": 22,
+          "candidate_id": 24,
+          "name": "wrf_log_write",
+          "origin_module": "module_wrf_error"
+        },
+        {
+          "parent_id": 23,
+          "candidate_id": 25,
+          "name": "wrf_log_set_buffer_size",
+          "origin_module": "module_wrf_error"
+        },
+        {
+          "parent_id": 24,
+          "candidate_id": 22,
+          "name": "wrf_log_flush",
+          "origin_module": "module_wrf_error"
+        },
+        {
+          "parent_id": 25,
+          "candidate_id": 12,
+          "name": "module_model_constants",
+          "origin_module": "module_model_constants"
+        }
+      ],
+      "no_global_numeric_or_body_token_normalization": true
+    },
+    "O0": {
+      "status": "PASS_ONE_WRAPPER_TYPED_ID_PERMUTATION_ONLY",
+      "parent_raw_sha256": "0cd45647dac0ad7b3f76c6a8a0dc328a90b1cfa10bdf71c064c2d372918ffc4a",
+      "candidate_raw_sha256": "f3af3fe87438d7abaa28613ef4497a3b8a579d1883892789180bede73966fbc1",
+      "raw_equal": false,
+      "definitions": 394,
+      "literal_entire_definition_bodies_equal": true,
+      "public_aliases": 53,
+      "typed_symbol_edges": 1002,
+      "typed_namespace_edges": 788,
+      "graph_sha256": "b54df4f8e18b2f165e675edd839b339202095824f6140faf761e89c6bbdeda2c",
+      "changed_definition_IDs": [
+        {
+          "parent_id": 6,
+          "candidate_id": 11,
+          "name": "buffered",
+          "origin_module": "module_wrf_error"
+        },
+        {
+          "parent_id": 7,
+          "candidate_id": 6,
+          "name": "fer_mp_hires_advect",
+          "origin_module": "module_state_description"
+        },
+        {
+          "parent_id": 11,
+          "candidate_id": 7,
+          "name": "fer_mp_hires",
+          "origin_module": "module_state_description"
+        },
+        {
+          "parent_id": 12,
+          "candidate_id": 13,
+          "name": "min_allowed_buffer_size",
+          "origin_module": "module_wrf_error"
+        },
+        {
+          "parent_id": 13,
+          "candidate_id": 15,
+          "name": "module_state_description",
+          "origin_module": "module_state_description"
+        },
+        {
+          "parent_id": 15,
+          "candidate_id": 16,
+          "name": "silence",
+          "origin_module": "module_wrf_error"
+        },
+        {
+          "parent_id": 16,
+          "candidate_id": 20,
+          "name": "stderrlog",
+          "origin_module": "module_wrf_error"
+        },
+        {
+          "parent_id": 20,
+          "candidate_id": 23,
+          "name": "wrf_debug_level",
+          "origin_module": "module_wrf_error"
+        },
+        {
+          "parent_id": 22,
+          "candidate_id": 24,
+          "name": "wrf_log_write",
+          "origin_module": "module_wrf_error"
+        },
+        {
+          "parent_id": 23,
+          "candidate_id": 25,
+          "name": "wrf_log_set_buffer_size",
+          "origin_module": "module_wrf_error"
+        },
+        {
+          "parent_id": 24,
+          "candidate_id": 22,
+          "name": "wrf_log_flush",
+          "origin_module": "module_wrf_error"
+        },
+        {
+          "parent_id": 25,
+          "candidate_id": 12,
+          "name": "module_model_constants",
+          "origin_module": "module_model_constants"
+        }
+      ],
+      "no_global_numeric_or_body_token_normalization": true
+    }
+  },
+  "public_ABI": {
+    "O2": {
+      "status": "PASS_DEFINED_GLOBAL_DATA_ABI_EXACT_LOCAL_INVENTORY_RECORDED",
+      "parent_all_LOCAL_functions": [
+        "taumol21.9",
+        "taumol22.8",
+        "taumol24.6",
+        "taumol25.5",
+        "taumol26.4",
+        "taumol27.3",
+        "taumol28.2",
+        "taumol29.1"
+      ],
+      "candidate_all_LOCAL_functions": [
+        "taumol21.9",
+        "taumol22.8",
+        "taumol24.6",
+        "taumol25.5",
+        "taumol26.4",
+        "taumol27.3",
+        "taumol28.2",
+        "taumol29.1"
+      ],
+      "defined_globals": {
+        "__mcica_subcol_gen_sw_MOD_generate_stochastic_clouds_sw": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__mcica_subcol_gen_sw_MOD_kissvec": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__mcica_subcol_gen_sw_MOD_mcica_subcol_sw": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__mersennetwister_MOD_getrandomreal": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__mersennetwister_MOD_initialize_scalar": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_clwrf_support_MOD_read_camgases": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_rrtmg_lw_MOD_inirad": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_rrtmg_lw_MOD_reicalc": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_rrtmg_lw_MOD_relcalc": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_rrtmg_lw_MOD_retab": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_rrtmg_sw_MOD_rrtmg_swinit": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_rrtmg_sw_MOD_rrtmg_swlookuptable": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_rrtmg_sw_MOD_rrtmg_swrad": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_rrtmg_sw_MOD_sw_kgb16": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_rrtmg_sw_MOD_sw_kgb17": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_rrtmg_sw_MOD_sw_kgb18": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_rrtmg_sw_MOD_sw_kgb19": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_rrtmg_sw_MOD_sw_kgb20": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_rrtmg_sw_MOD_sw_kgb21": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_rrtmg_sw_MOD_sw_kgb22": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_rrtmg_sw_MOD_sw_kgb23": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_rrtmg_sw_MOD_sw_kgb24": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_rrtmg_sw_MOD_sw_kgb25": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_rrtmg_sw_MOD_sw_kgb26": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_rrtmg_sw_MOD_sw_kgb27": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_rrtmg_sw_MOD_sw_kgb28": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_rrtmg_sw_MOD_sw_kgb29": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrsw_aer_MOD_rsrasya": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 336
+        },
+        "__rrsw_aer_MOD_rsrpiza": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 336
+        },
+        "__rrsw_aer_MOD_rsrtaua": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 336
+        },
+        "__rrsw_cld_MOD_abari": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 20
+        },
+        "__rrsw_cld_MOD_asyice2": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 2408
+        },
+        "__rrsw_cld_MOD_asyice3": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 2576
+        },
+        "__rrsw_cld_MOD_asyliq1": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 3248
+        },
+        "__rrsw_cld_MOD_bbari": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 20
+        },
+        "__rrsw_cld_MOD_cbari": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 20
+        },
+        "__rrsw_cld_MOD_dbari": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 20
+        },
+        "__rrsw_cld_MOD_ebari": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 20
+        },
+        "__rrsw_cld_MOD_extice2": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 2408
+        },
+        "__rrsw_cld_MOD_extice3": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 2576
+        },
+        "__rrsw_cld_MOD_extliq1": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 3248
+        },
+        "__rrsw_cld_MOD_fbari": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 20
+        },
+        "__rrsw_cld_MOD_fdlice3": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 2576
+        },
+        "__rrsw_cld_MOD_ssaice2": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 2408
+        },
+        "__rrsw_cld_MOD_ssaice3": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 2576
+        },
+        "__rrsw_cld_MOD_ssaliq1": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 3248
+        },
+        "__rrsw_con_MOD_alosmt": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_con_MOD_avogad": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_con_MOD_boltz": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_con_MOD_clight": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_con_MOD_fluxfac": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_con_MOD_gascon": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_con_MOD_grav": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_con_MOD_heatfac": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_con_MOD_oneminus": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_con_MOD_pi": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_con_MOD_planck": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_con_MOD_radcn1": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_con_MOD_radcn2": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_con_MOD_sbcnst": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_con_MOD_secdy": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg16_MOD_forref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 72
+        },
+        "__rrsw_kg16_MOD_forrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 192
+        },
+        "__rrsw_kg16_MOD_kao": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 37440
+        },
+        "__rrsw_kg16_MOD_kbo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 15040
+        },
+        "__rrsw_kg16_MOD_layreffr": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg16_MOD_rayl": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg16_MOD_selfref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 240
+        },
+        "__rrsw_kg16_MOD_selfrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 640
+        },
+        "__rrsw_kg16_MOD_sfluxref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 24
+        },
+        "__rrsw_kg16_MOD_sfluxrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 64
+        },
+        "__rrsw_kg16_MOD_strrat1": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg17_MOD_forref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 192
+        },
+        "__rrsw_kg17_MOD_forrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 256
+        },
+        "__rrsw_kg17_MOD_kao": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 37440
+        },
+        "__rrsw_kg17_MOD_kbo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 75200
+        },
+        "__rrsw_kg17_MOD_layreffr": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg17_MOD_rayl": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg17_MOD_selfref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 480
+        },
+        "__rrsw_kg17_MOD_selfrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 640
+        },
+        "__rrsw_kg17_MOD_sfluxref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 240
+        },
+        "__rrsw_kg17_MOD_sfluxrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 320
+        },
+        "__rrsw_kg17_MOD_strrat": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg18_MOD_forref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 96
+        },
+        "__rrsw_kg18_MOD_forrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 192
+        },
+        "__rrsw_kg18_MOD_kao": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 37440
+        },
+        "__rrsw_kg18_MOD_kbo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 15040
+        },
+        "__rrsw_kg18_MOD_layreffr": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg18_MOD_rayl": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg18_MOD_selfref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 320
+        },
+        "__rrsw_kg18_MOD_selfrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 640
+        },
+        "__rrsw_kg18_MOD_sfluxref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 288
+        },
+        "__rrsw_kg18_MOD_sfluxrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 576
+        },
+        "__rrsw_kg18_MOD_strrat": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg19_MOD_forref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 96
+        },
+        "__rrsw_kg19_MOD_forrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 192
+        },
+        "__rrsw_kg19_MOD_kao": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 37440
+        },
+        "__rrsw_kg19_MOD_kbo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 15040
+        },
+        "__rrsw_kg19_MOD_layreffr": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg19_MOD_rayl": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg19_MOD_selfref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 320
+        },
+        "__rrsw_kg19_MOD_selfrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 640
+        },
+        "__rrsw_kg19_MOD_sfluxref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 288
+        },
+        "__rrsw_kg19_MOD_sfluxrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 576
+        },
+        "__rrsw_kg19_MOD_strrat": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg20_MOD_absch4": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 40
+        },
+        "__rrsw_kg20_MOD_absch4o": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 64
+        },
+        "__rrsw_kg20_MOD_forref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 160
+        },
+        "__rrsw_kg20_MOD_forrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 256
+        },
+        "__rrsw_kg20_MOD_kao": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4160
+        },
+        "__rrsw_kg20_MOD_kbo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 15040
+        },
+        "__rrsw_kg20_MOD_layreffr": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg20_MOD_rayl": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg20_MOD_selfref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 400
+        },
+        "__rrsw_kg20_MOD_selfrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 640
+        },
+        "__rrsw_kg20_MOD_sfluxref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 40
+        },
+        "__rrsw_kg20_MOD_sfluxrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 64
+        },
+        "__rrsw_kg21_MOD_forref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 160
+        },
+        "__rrsw_kg21_MOD_forrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 256
+        },
+        "__rrsw_kg21_MOD_kao": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 37440
+        },
+        "__rrsw_kg21_MOD_kbo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 75200
+        },
+        "__rrsw_kg21_MOD_layreffr": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg21_MOD_rayl": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg21_MOD_selfref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 400
+        },
+        "__rrsw_kg21_MOD_selfrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 640
+        },
+        "__rrsw_kg21_MOD_sfluxref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 360
+        },
+        "__rrsw_kg21_MOD_sfluxrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 576
+        },
+        "__rrsw_kg21_MOD_strrat": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg22_MOD_forref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 24
+        },
+        "__rrsw_kg22_MOD_forrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 192
+        },
+        "__rrsw_kg22_MOD_kao": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 37440
+        },
+        "__rrsw_kg22_MOD_kbo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 15040
+        },
+        "__rrsw_kg22_MOD_layreffr": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg22_MOD_rayl": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg22_MOD_selfref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 80
+        },
+        "__rrsw_kg22_MOD_selfrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 640
+        },
+        "__rrsw_kg22_MOD_sfluxref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 72
+        },
+        "__rrsw_kg22_MOD_sfluxrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 576
+        },
+        "__rrsw_kg22_MOD_strrat": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg23_MOD_forref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 120
+        },
+        "__rrsw_kg23_MOD_forrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 192
+        },
+        "__rrsw_kg23_MOD_givfac": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg23_MOD_kao": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4160
+        },
+        "__rrsw_kg23_MOD_layreffr": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg23_MOD_rayl": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 40
+        },
+        "__rrsw_kg23_MOD_raylo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 64
+        },
+        "__rrsw_kg23_MOD_selfref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 400
+        },
+        "__rrsw_kg23_MOD_selfrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 640
+        },
+        "__rrsw_kg23_MOD_sfluxref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 40
+        },
+        "__rrsw_kg23_MOD_sfluxrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 64
+        },
+        "__rrsw_kg24_MOD_abso3a": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 32
+        },
+        "__rrsw_kg24_MOD_abso3ao": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 64
+        },
+        "__rrsw_kg24_MOD_abso3b": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 32
+        },
+        "__rrsw_kg24_MOD_abso3bo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 64
+        },
+        "__rrsw_kg24_MOD_forref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 96
+        },
+        "__rrsw_kg24_MOD_forrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 192
+        },
+        "__rrsw_kg24_MOD_kao": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 37440
+        },
+        "__rrsw_kg24_MOD_kbo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 15040
+        },
+        "__rrsw_kg24_MOD_layreffr": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg24_MOD_rayla": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 288
+        },
+        "__rrsw_kg24_MOD_raylao": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 576
+        },
+        "__rrsw_kg24_MOD_raylb": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 32
+        },
+        "__rrsw_kg24_MOD_raylbo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 64
+        },
+        "__rrsw_kg24_MOD_selfref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 320
+        },
+        "__rrsw_kg24_MOD_selfrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 640
+        },
+        "__rrsw_kg24_MOD_sfluxref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 288
+        },
+        "__rrsw_kg24_MOD_sfluxrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 576
+        },
+        "__rrsw_kg24_MOD_strrat": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg25_MOD_abso3a": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 24
+        },
+        "__rrsw_kg25_MOD_abso3ao": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 64
+        },
+        "__rrsw_kg25_MOD_abso3b": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 24
+        },
+        "__rrsw_kg25_MOD_abso3bo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 64
+        },
+        "__rrsw_kg25_MOD_kao": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4160
+        },
+        "__rrsw_kg25_MOD_layreffr": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg25_MOD_rayl": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 24
+        },
+        "__rrsw_kg25_MOD_raylo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 64
+        },
+        "__rrsw_kg25_MOD_sfluxref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 24
+        },
+        "__rrsw_kg25_MOD_sfluxrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 64
+        },
+        "__rrsw_kg26_MOD_rayl": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 24
+        },
+        "__rrsw_kg26_MOD_raylo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 64
+        },
+        "__rrsw_kg26_MOD_sfluxref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 24
+        },
+        "__rrsw_kg26_MOD_sfluxrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 64
+        },
+        "__rrsw_kg27_MOD_kao": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4160
+        },
+        "__rrsw_kg27_MOD_kbo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 15040
+        },
+        "__rrsw_kg27_MOD_layreffr": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg27_MOD_rayl": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 32
+        },
+        "__rrsw_kg27_MOD_raylo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 64
+        },
+        "__rrsw_kg27_MOD_scalekur": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg27_MOD_sfluxref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 32
+        },
+        "__rrsw_kg27_MOD_sfluxrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 64
+        },
+        "__rrsw_kg28_MOD_kao": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 37440
+        },
+        "__rrsw_kg28_MOD_kbo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 75200
+        },
+        "__rrsw_kg28_MOD_layreffr": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg28_MOD_rayl": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg28_MOD_sfluxref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 120
+        },
+        "__rrsw_kg28_MOD_sfluxrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 320
+        },
+        "__rrsw_kg28_MOD_strrat": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg29_MOD_absco2": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 48
+        },
+        "__rrsw_kg29_MOD_absco2o": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 64
+        },
+        "__rrsw_kg29_MOD_absh2o": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 48
+        },
+        "__rrsw_kg29_MOD_absh2oo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 64
+        },
+        "__rrsw_kg29_MOD_forref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 192
+        },
+        "__rrsw_kg29_MOD_forrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 256
+        },
+        "__rrsw_kg29_MOD_kao": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4160
+        },
+        "__rrsw_kg29_MOD_kbo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 15040
+        },
+        "__rrsw_kg29_MOD_layreffr": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg29_MOD_rayl": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg29_MOD_selfref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 480
+        },
+        "__rrsw_kg29_MOD_selfrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 640
+        },
+        "__rrsw_kg29_MOD_sfluxref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 48
+        },
+        "__rrsw_kg29_MOD_sfluxrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 64
+        },
+        "__rrsw_ref_MOD_pref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 236
+        },
+        "__rrsw_ref_MOD_preflog": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 236
+        },
+        "__rrsw_ref_MOD_tref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 236
+        },
+        "__rrsw_tbl_MOD_bpade": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_tbl_MOD_exp_tbl": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 40004
+        },
+        "__rrsw_tbl_MOD_tau_tbl": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_vsn_MOD_hnamatm": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 20
+        },
+        "__rrsw_vsn_MOD_hnamclc": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 20
+        },
+        "__rrsw_vsn_MOD_hnamcld": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 20
+        },
+        "__rrsw_vsn_MOD_hnamext": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 20
+        },
+        "__rrsw_vsn_MOD_hnamini": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 20
+        },
+        "__rrsw_vsn_MOD_hnamkg": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 20
+        },
+        "__rrsw_vsn_MOD_hnamrft": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 20
+        },
+        "__rrsw_vsn_MOD_hnamrtm": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 20
+        },
+        "__rrsw_vsn_MOD_hnamset": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 20
+        },
+        "__rrsw_vsn_MOD_hnamspc": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 20
+        },
+        "__rrsw_vsn_MOD_hnamspv": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 20
+        },
+        "__rrsw_vsn_MOD_hnamtau": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 20
+        },
+        "__rrsw_vsn_MOD_hnamutl": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 20
+        },
+        "__rrsw_vsn_MOD_hnamvqd": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 20
+        },
+        "__rrsw_vsn_MOD_hvratm": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 18
+        },
+        "__rrsw_vsn_MOD_hvrclc": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 18
+        },
+        "__rrsw_vsn_MOD_hvrcld": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 18
+        },
+        "__rrsw_vsn_MOD_hvrext": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 18
+        },
+        "__rrsw_vsn_MOD_hvrini": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 18
+        },
+        "__rrsw_vsn_MOD_hvrkg": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 18
+        },
+        "__rrsw_vsn_MOD_hvrrft": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 18
+        },
+        "__rrsw_vsn_MOD_hvrrtm": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 18
+        },
+        "__rrsw_vsn_MOD_hvrset": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 18
+        },
+        "__rrsw_vsn_MOD_hvrspc": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 18
+        },
+        "__rrsw_vsn_MOD_hvrspv": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 18
+        },
+        "__rrsw_vsn_MOD_hvrtau": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 18
+        },
+        "__rrsw_vsn_MOD_hvrutl": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 18
+        },
+        "__rrsw_vsn_MOD_hvrvqd": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 18
+        },
+        "__rrsw_wvn_MOD_delwave": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 56
+        },
+        "__rrsw_wvn_MOD_ng": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 56
+        },
+        "__rrsw_wvn_MOD_ngb": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 448
+        },
+        "__rrsw_wvn_MOD_ngc": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 56
+        },
+        "__rrsw_wvn_MOD_ngm": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 896
+        },
+        "__rrsw_wvn_MOD_ngn": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 448
+        },
+        "__rrsw_wvn_MOD_ngs": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 56
+        },
+        "__rrsw_wvn_MOD_nspa": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 56
+        },
+        "__rrsw_wvn_MOD_nspb": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 56
+        },
+        "__rrsw_wvn_MOD_rwgt": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 896
+        },
+        "__rrsw_wvn_MOD_wavenum1": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 56
+        },
+        "__rrsw_wvn_MOD_wavenum2": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 56
+        },
+        "__rrsw_wvn_MOD_wt": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 64
+        },
+        "__rrtmg_sw_cldprmc_MOD_cldprmc_sw": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_init_MOD_cmbgb16s": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_init_MOD_cmbgb17": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_init_MOD_cmbgb18": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_init_MOD_cmbgb19": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_init_MOD_cmbgb20": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_init_MOD_cmbgb21": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_init_MOD_cmbgb22": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_init_MOD_cmbgb23": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_init_MOD_cmbgb24": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_init_MOD_cmbgb25": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_init_MOD_cmbgb26": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_init_MOD_cmbgb27": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_init_MOD_cmbgb28": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_init_MOD_cmbgb29": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_init_MOD_rrtmg_sw_ini": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_init_MOD_swaerpr": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_init_MOD_swcldpr": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_init_MOD_swcmbdat": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_init_MOD_swdatinit": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_rad_MOD_earth_sun": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_rad_MOD_inatm_sw": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_rad_MOD_rrtmg_sw": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_reftra_MOD_reftra_sw": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_setcoef_MOD_setcoef_sw": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_setcoef_MOD_swatmref": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_spcvmc_MOD_spcvmc_sw": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_taumol_MOD_taumol_sw": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_vrtqdr_MOD_vrtqdr_sw": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_vrtqdr_MOD_vrtqdr_sw_pair": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "_gfortran_spread": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "_gfortran_st_close": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "_gfortran_st_inquire": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "_gfortran_st_open": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "_gfortran_st_read": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "_gfortran_st_read_done": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "_gfortran_st_write": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "_gfortran_st_write_done": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "_gfortran_stop_string": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "_gfortran_transfer_array": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "_gfortran_transfer_character_write": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "_gfortran_transfer_integer": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "_gfortran_transfer_integer_write": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "_gfortran_transfer_real": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "_gfortran_transfer_real_write": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "expf": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "free": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "logf": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "malloc": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "memcpy": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "memset": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "powf": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "rrsw_kg16.eq.0_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 5640
+        },
+        "rrsw_kg16.eq.1_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 14040
+        },
+        "rrsw_kg17.eq.0_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 56400
+        },
+        "rrsw_kg17.eq.1_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 28080
+        },
+        "rrsw_kg18.eq.0_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 7520
+        },
+        "rrsw_kg18.eq.1_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 18720
+        },
+        "rrsw_kg19.eq.0_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 7520
+        },
+        "rrsw_kg19.eq.1_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 18720
+        },
+        "rrsw_kg20.eq.0_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 9400
+        },
+        "rrsw_kg20.eq.1_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 2600
+        },
+        "rrsw_kg21.eq.0_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 47000
+        },
+        "rrsw_kg21.eq.1_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 23400
+        },
+        "rrsw_kg22.eq.0_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 1880
+        },
+        "rrsw_kg22.eq.1_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4680
+        },
+        "rrsw_kg23.eq.0_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 2600
+        },
+        "rrsw_kg24.eq.0_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 7520
+        },
+        "rrsw_kg24.eq.1_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 18720
+        },
+        "rrsw_kg25.eq.0_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 1560
+        },
+        "rrsw_kg27.eq.0_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 7520
+        },
+        "rrsw_kg27.eq.1_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 2080
+        },
+        "rrsw_kg28.eq.0_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 28200
+        },
+        "rrsw_kg28.eq.1_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 14040
+        },
+        "rrsw_kg29.eq.0_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 11280
+        },
+        "rrsw_kg29.eq.1_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 3120
+        },
+        "sincosf": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "wrf_debug_": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "wrf_dm_bcast_bytes_": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "wrf_dm_bcast_integer_": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "wrf_dm_bcast_real_": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "wrf_dm_on_monitor_": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "wrf_error_fatal3_": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        }
+      },
+      "candidate_added_LOCAL_functions": [],
+      "candidate_removed_LOCAL_functions": [],
+      "function_code_sizes_compared": false,
+      "MOD_bytes_normalized": false
+    },
+    "O0": {
+      "status": "PASS_DEFINED_GLOBAL_DATA_ABI_EXACT_LOCAL_INVENTORY_RECORDED",
+      "parent_all_LOCAL_functions": [
+        "kissvec_case2_cdf.0",
+        "taumol16.14",
+        "taumol17.13",
+        "taumol18.12",
+        "taumol19.11",
+        "taumol20.10",
+        "taumol21.9",
+        "taumol22.8",
+        "taumol23.7",
+        "taumol24.6",
+        "taumol25.5",
+        "taumol26.4",
+        "taumol27.3",
+        "taumol28.2",
+        "taumol29.1"
+      ],
+      "candidate_all_LOCAL_functions": [
+        "kissvec_case2_cdf.0",
+        "taumol16.14",
+        "taumol17.13",
+        "taumol18.12",
+        "taumol19.11",
+        "taumol20.10",
+        "taumol21.9",
+        "taumol22.8",
+        "taumol23.7",
+        "taumol24.6",
+        "taumol25.5",
+        "taumol26.4",
+        "taumol27.3",
+        "taumol28.2",
+        "taumol29.1"
+      ],
+      "defined_globals": {
+        "__mcica_subcol_gen_sw_MOD_generate_stochastic_clouds_sw": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__mcica_subcol_gen_sw_MOD_kissvec": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__mcica_subcol_gen_sw_MOD_mcica_subcol_sw": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__mersennetwister_MOD_getrandomreal": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__mersennetwister_MOD_initialize_scalar": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_clwrf_support_MOD_read_camgases": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_rrtmg_lw_MOD_inirad": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_rrtmg_lw_MOD_reicalc": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_rrtmg_lw_MOD_relcalc": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_rrtmg_lw_MOD_retab": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_rrtmg_sw_MOD_rrtmg_swinit": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_rrtmg_sw_MOD_rrtmg_swlookuptable": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_rrtmg_sw_MOD_rrtmg_swrad": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_rrtmg_sw_MOD_sw_kgb16": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_rrtmg_sw_MOD_sw_kgb17": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_rrtmg_sw_MOD_sw_kgb18": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_rrtmg_sw_MOD_sw_kgb19": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_rrtmg_sw_MOD_sw_kgb20": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_rrtmg_sw_MOD_sw_kgb21": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_rrtmg_sw_MOD_sw_kgb22": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_rrtmg_sw_MOD_sw_kgb23": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_rrtmg_sw_MOD_sw_kgb24": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_rrtmg_sw_MOD_sw_kgb25": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_rrtmg_sw_MOD_sw_kgb26": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_rrtmg_sw_MOD_sw_kgb27": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_rrtmg_sw_MOD_sw_kgb28": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__module_ra_rrtmg_sw_MOD_sw_kgb29": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__powisf2": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrsw_aer_MOD_rsrasya": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 336
+        },
+        "__rrsw_aer_MOD_rsrpiza": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 336
+        },
+        "__rrsw_aer_MOD_rsrtaua": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 336
+        },
+        "__rrsw_cld_MOD_abari": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 20
+        },
+        "__rrsw_cld_MOD_asyice2": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 2408
+        },
+        "__rrsw_cld_MOD_asyice3": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 2576
+        },
+        "__rrsw_cld_MOD_asyliq1": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 3248
+        },
+        "__rrsw_cld_MOD_bbari": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 20
+        },
+        "__rrsw_cld_MOD_cbari": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 20
+        },
+        "__rrsw_cld_MOD_dbari": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 20
+        },
+        "__rrsw_cld_MOD_ebari": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 20
+        },
+        "__rrsw_cld_MOD_extice2": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 2408
+        },
+        "__rrsw_cld_MOD_extice3": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 2576
+        },
+        "__rrsw_cld_MOD_extliq1": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 3248
+        },
+        "__rrsw_cld_MOD_fbari": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 20
+        },
+        "__rrsw_cld_MOD_fdlice3": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 2576
+        },
+        "__rrsw_cld_MOD_ssaice2": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 2408
+        },
+        "__rrsw_cld_MOD_ssaice3": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 2576
+        },
+        "__rrsw_cld_MOD_ssaliq1": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 3248
+        },
+        "__rrsw_con_MOD_alosmt": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_con_MOD_avogad": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_con_MOD_boltz": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_con_MOD_clight": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_con_MOD_fluxfac": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_con_MOD_gascon": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_con_MOD_grav": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_con_MOD_heatfac": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_con_MOD_oneminus": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_con_MOD_pi": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_con_MOD_planck": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_con_MOD_radcn1": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_con_MOD_radcn2": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_con_MOD_sbcnst": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_con_MOD_secdy": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg16_MOD_forref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 72
+        },
+        "__rrsw_kg16_MOD_forrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 192
+        },
+        "__rrsw_kg16_MOD_kao": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 37440
+        },
+        "__rrsw_kg16_MOD_kbo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 15040
+        },
+        "__rrsw_kg16_MOD_layreffr": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg16_MOD_rayl": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg16_MOD_selfref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 240
+        },
+        "__rrsw_kg16_MOD_selfrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 640
+        },
+        "__rrsw_kg16_MOD_sfluxref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 24
+        },
+        "__rrsw_kg16_MOD_sfluxrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 64
+        },
+        "__rrsw_kg16_MOD_strrat1": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg17_MOD_forref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 192
+        },
+        "__rrsw_kg17_MOD_forrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 256
+        },
+        "__rrsw_kg17_MOD_kao": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 37440
+        },
+        "__rrsw_kg17_MOD_kbo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 75200
+        },
+        "__rrsw_kg17_MOD_layreffr": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg17_MOD_rayl": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg17_MOD_selfref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 480
+        },
+        "__rrsw_kg17_MOD_selfrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 640
+        },
+        "__rrsw_kg17_MOD_sfluxref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 240
+        },
+        "__rrsw_kg17_MOD_sfluxrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 320
+        },
+        "__rrsw_kg17_MOD_strrat": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg18_MOD_forref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 96
+        },
+        "__rrsw_kg18_MOD_forrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 192
+        },
+        "__rrsw_kg18_MOD_kao": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 37440
+        },
+        "__rrsw_kg18_MOD_kbo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 15040
+        },
+        "__rrsw_kg18_MOD_layreffr": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg18_MOD_rayl": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg18_MOD_selfref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 320
+        },
+        "__rrsw_kg18_MOD_selfrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 640
+        },
+        "__rrsw_kg18_MOD_sfluxref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 288
+        },
+        "__rrsw_kg18_MOD_sfluxrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 576
+        },
+        "__rrsw_kg18_MOD_strrat": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg19_MOD_forref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 96
+        },
+        "__rrsw_kg19_MOD_forrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 192
+        },
+        "__rrsw_kg19_MOD_kao": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 37440
+        },
+        "__rrsw_kg19_MOD_kbo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 15040
+        },
+        "__rrsw_kg19_MOD_layreffr": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg19_MOD_rayl": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg19_MOD_selfref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 320
+        },
+        "__rrsw_kg19_MOD_selfrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 640
+        },
+        "__rrsw_kg19_MOD_sfluxref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 288
+        },
+        "__rrsw_kg19_MOD_sfluxrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 576
+        },
+        "__rrsw_kg19_MOD_strrat": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg20_MOD_absch4": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 40
+        },
+        "__rrsw_kg20_MOD_absch4o": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 64
+        },
+        "__rrsw_kg20_MOD_forref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 160
+        },
+        "__rrsw_kg20_MOD_forrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 256
+        },
+        "__rrsw_kg20_MOD_kao": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4160
+        },
+        "__rrsw_kg20_MOD_kbo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 15040
+        },
+        "__rrsw_kg20_MOD_layreffr": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg20_MOD_rayl": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg20_MOD_selfref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 400
+        },
+        "__rrsw_kg20_MOD_selfrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 640
+        },
+        "__rrsw_kg20_MOD_sfluxref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 40
+        },
+        "__rrsw_kg20_MOD_sfluxrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 64
+        },
+        "__rrsw_kg21_MOD_forref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 160
+        },
+        "__rrsw_kg21_MOD_forrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 256
+        },
+        "__rrsw_kg21_MOD_kao": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 37440
+        },
+        "__rrsw_kg21_MOD_kbo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 75200
+        },
+        "__rrsw_kg21_MOD_layreffr": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg21_MOD_rayl": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg21_MOD_selfref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 400
+        },
+        "__rrsw_kg21_MOD_selfrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 640
+        },
+        "__rrsw_kg21_MOD_sfluxref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 360
+        },
+        "__rrsw_kg21_MOD_sfluxrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 576
+        },
+        "__rrsw_kg21_MOD_strrat": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg22_MOD_forref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 24
+        },
+        "__rrsw_kg22_MOD_forrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 192
+        },
+        "__rrsw_kg22_MOD_kao": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 37440
+        },
+        "__rrsw_kg22_MOD_kbo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 15040
+        },
+        "__rrsw_kg22_MOD_layreffr": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg22_MOD_rayl": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg22_MOD_selfref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 80
+        },
+        "__rrsw_kg22_MOD_selfrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 640
+        },
+        "__rrsw_kg22_MOD_sfluxref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 72
+        },
+        "__rrsw_kg22_MOD_sfluxrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 576
+        },
+        "__rrsw_kg22_MOD_strrat": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg23_MOD_forref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 120
+        },
+        "__rrsw_kg23_MOD_forrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 192
+        },
+        "__rrsw_kg23_MOD_givfac": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg23_MOD_kao": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4160
+        },
+        "__rrsw_kg23_MOD_layreffr": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg23_MOD_rayl": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 40
+        },
+        "__rrsw_kg23_MOD_raylo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 64
+        },
+        "__rrsw_kg23_MOD_selfref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 400
+        },
+        "__rrsw_kg23_MOD_selfrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 640
+        },
+        "__rrsw_kg23_MOD_sfluxref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 40
+        },
+        "__rrsw_kg23_MOD_sfluxrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 64
+        },
+        "__rrsw_kg24_MOD_abso3a": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 32
+        },
+        "__rrsw_kg24_MOD_abso3ao": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 64
+        },
+        "__rrsw_kg24_MOD_abso3b": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 32
+        },
+        "__rrsw_kg24_MOD_abso3bo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 64
+        },
+        "__rrsw_kg24_MOD_forref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 96
+        },
+        "__rrsw_kg24_MOD_forrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 192
+        },
+        "__rrsw_kg24_MOD_kao": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 37440
+        },
+        "__rrsw_kg24_MOD_kbo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 15040
+        },
+        "__rrsw_kg24_MOD_layreffr": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg24_MOD_rayla": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 288
+        },
+        "__rrsw_kg24_MOD_raylao": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 576
+        },
+        "__rrsw_kg24_MOD_raylb": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 32
+        },
+        "__rrsw_kg24_MOD_raylbo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 64
+        },
+        "__rrsw_kg24_MOD_selfref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 320
+        },
+        "__rrsw_kg24_MOD_selfrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 640
+        },
+        "__rrsw_kg24_MOD_sfluxref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 288
+        },
+        "__rrsw_kg24_MOD_sfluxrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 576
+        },
+        "__rrsw_kg24_MOD_strrat": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg25_MOD_abso3a": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 24
+        },
+        "__rrsw_kg25_MOD_abso3ao": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 64
+        },
+        "__rrsw_kg25_MOD_abso3b": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 24
+        },
+        "__rrsw_kg25_MOD_abso3bo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 64
+        },
+        "__rrsw_kg25_MOD_kao": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4160
+        },
+        "__rrsw_kg25_MOD_layreffr": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg25_MOD_rayl": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 24
+        },
+        "__rrsw_kg25_MOD_raylo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 64
+        },
+        "__rrsw_kg25_MOD_sfluxref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 24
+        },
+        "__rrsw_kg25_MOD_sfluxrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 64
+        },
+        "__rrsw_kg26_MOD_rayl": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 24
+        },
+        "__rrsw_kg26_MOD_raylo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 64
+        },
+        "__rrsw_kg26_MOD_sfluxref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 24
+        },
+        "__rrsw_kg26_MOD_sfluxrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 64
+        },
+        "__rrsw_kg27_MOD_kao": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4160
+        },
+        "__rrsw_kg27_MOD_kbo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 15040
+        },
+        "__rrsw_kg27_MOD_layreffr": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg27_MOD_rayl": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 32
+        },
+        "__rrsw_kg27_MOD_raylo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 64
+        },
+        "__rrsw_kg27_MOD_scalekur": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg27_MOD_sfluxref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 32
+        },
+        "__rrsw_kg27_MOD_sfluxrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 64
+        },
+        "__rrsw_kg28_MOD_kao": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 37440
+        },
+        "__rrsw_kg28_MOD_kbo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 75200
+        },
+        "__rrsw_kg28_MOD_layreffr": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg28_MOD_rayl": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg28_MOD_sfluxref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 120
+        },
+        "__rrsw_kg28_MOD_sfluxrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 320
+        },
+        "__rrsw_kg28_MOD_strrat": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg29_MOD_absco2": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 48
+        },
+        "__rrsw_kg29_MOD_absco2o": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 64
+        },
+        "__rrsw_kg29_MOD_absh2o": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 48
+        },
+        "__rrsw_kg29_MOD_absh2oo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 64
+        },
+        "__rrsw_kg29_MOD_forref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 192
+        },
+        "__rrsw_kg29_MOD_forrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 256
+        },
+        "__rrsw_kg29_MOD_kao": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4160
+        },
+        "__rrsw_kg29_MOD_kbo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 15040
+        },
+        "__rrsw_kg29_MOD_layreffr": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg29_MOD_rayl": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_kg29_MOD_selfref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 480
+        },
+        "__rrsw_kg29_MOD_selfrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 640
+        },
+        "__rrsw_kg29_MOD_sfluxref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 48
+        },
+        "__rrsw_kg29_MOD_sfluxrefo": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 64
+        },
+        "__rrsw_ref_MOD_pref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 236
+        },
+        "__rrsw_ref_MOD_preflog": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 236
+        },
+        "__rrsw_ref_MOD_tref": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 236
+        },
+        "__rrsw_tbl_MOD_bpade": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_tbl_MOD_exp_tbl": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 40004
+        },
+        "__rrsw_tbl_MOD_tau_tbl": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4
+        },
+        "__rrsw_vsn_MOD_hnamatm": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 20
+        },
+        "__rrsw_vsn_MOD_hnamclc": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 20
+        },
+        "__rrsw_vsn_MOD_hnamcld": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 20
+        },
+        "__rrsw_vsn_MOD_hnamext": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 20
+        },
+        "__rrsw_vsn_MOD_hnamini": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 20
+        },
+        "__rrsw_vsn_MOD_hnamkg": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 20
+        },
+        "__rrsw_vsn_MOD_hnamrft": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 20
+        },
+        "__rrsw_vsn_MOD_hnamrtm": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 20
+        },
+        "__rrsw_vsn_MOD_hnamset": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 20
+        },
+        "__rrsw_vsn_MOD_hnamspc": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 20
+        },
+        "__rrsw_vsn_MOD_hnamspv": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 20
+        },
+        "__rrsw_vsn_MOD_hnamtau": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 20
+        },
+        "__rrsw_vsn_MOD_hnamutl": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 20
+        },
+        "__rrsw_vsn_MOD_hnamvqd": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 20
+        },
+        "__rrsw_vsn_MOD_hvratm": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 18
+        },
+        "__rrsw_vsn_MOD_hvrclc": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 18
+        },
+        "__rrsw_vsn_MOD_hvrcld": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 18
+        },
+        "__rrsw_vsn_MOD_hvrext": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 18
+        },
+        "__rrsw_vsn_MOD_hvrini": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 18
+        },
+        "__rrsw_vsn_MOD_hvrkg": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 18
+        },
+        "__rrsw_vsn_MOD_hvrrft": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 18
+        },
+        "__rrsw_vsn_MOD_hvrrtm": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 18
+        },
+        "__rrsw_vsn_MOD_hvrset": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 18
+        },
+        "__rrsw_vsn_MOD_hvrspc": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 18
+        },
+        "__rrsw_vsn_MOD_hvrspv": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 18
+        },
+        "__rrsw_vsn_MOD_hvrtau": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 18
+        },
+        "__rrsw_vsn_MOD_hvrutl": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 18
+        },
+        "__rrsw_vsn_MOD_hvrvqd": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 18
+        },
+        "__rrsw_wvn_MOD_delwave": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 56
+        },
+        "__rrsw_wvn_MOD_ng": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 56
+        },
+        "__rrsw_wvn_MOD_ngb": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 448
+        },
+        "__rrsw_wvn_MOD_ngc": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 56
+        },
+        "__rrsw_wvn_MOD_ngm": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 896
+        },
+        "__rrsw_wvn_MOD_ngn": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 448
+        },
+        "__rrsw_wvn_MOD_ngs": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 56
+        },
+        "__rrsw_wvn_MOD_nspa": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 56
+        },
+        "__rrsw_wvn_MOD_nspb": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 56
+        },
+        "__rrsw_wvn_MOD_rwgt": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 896
+        },
+        "__rrsw_wvn_MOD_wavenum1": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 56
+        },
+        "__rrsw_wvn_MOD_wavenum2": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 56
+        },
+        "__rrsw_wvn_MOD_wt": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 64
+        },
+        "__rrtmg_sw_cldprmc_MOD_cldprmc_sw": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_init_MOD_cmbgb16s": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_init_MOD_cmbgb17": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_init_MOD_cmbgb18": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_init_MOD_cmbgb19": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_init_MOD_cmbgb20": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_init_MOD_cmbgb21": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_init_MOD_cmbgb22": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_init_MOD_cmbgb23": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_init_MOD_cmbgb24": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_init_MOD_cmbgb25": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_init_MOD_cmbgb26": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_init_MOD_cmbgb27": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_init_MOD_cmbgb28": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_init_MOD_cmbgb29": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_init_MOD_rrtmg_sw_ini": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_init_MOD_swaerpr": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_init_MOD_swcldpr": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_init_MOD_swcmbdat": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_init_MOD_swdatinit": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_rad_MOD_earth_sun": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_rad_MOD_inatm_sw": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_rad_MOD_rrtmg_sw": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_reftra_MOD_reftra_sw": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_setcoef_MOD_setcoef_sw": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_setcoef_MOD_swatmref": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_spcvmc_MOD_spcvmc_sw": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_taumol_MOD_taumol_sw": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_vrtqdr_MOD_vrtqdr_sw": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "__rrtmg_sw_vrtqdr_MOD_vrtqdr_sw_pair": {
+          "binding": 1,
+          "type": 2,
+          "visibility": 0,
+          "data_size": null
+        },
+        "_gfortran_os_error_at": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "_gfortran_runtime_error_at": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "_gfortran_spread": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "_gfortran_st_close": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "_gfortran_st_inquire": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "_gfortran_st_open": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "_gfortran_st_read": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "_gfortran_st_read_done": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "_gfortran_st_write": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "_gfortran_st_write_done": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "_gfortran_stop_string": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "_gfortran_transfer_array": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "_gfortran_transfer_character_write": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "_gfortran_transfer_integer": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "_gfortran_transfer_integer_write": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "_gfortran_transfer_real": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "_gfortran_transfer_real_write": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "cosf": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "expf": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "free": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "logf": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "malloc": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "powf": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "rrsw_kg16.eq.0_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 5640
+        },
+        "rrsw_kg16.eq.1_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 14040
+        },
+        "rrsw_kg17.eq.0_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 56400
+        },
+        "rrsw_kg17.eq.1_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 28080
+        },
+        "rrsw_kg18.eq.0_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 7520
+        },
+        "rrsw_kg18.eq.1_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 18720
+        },
+        "rrsw_kg19.eq.0_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 7520
+        },
+        "rrsw_kg19.eq.1_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 18720
+        },
+        "rrsw_kg20.eq.0_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 9400
+        },
+        "rrsw_kg20.eq.1_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 2600
+        },
+        "rrsw_kg21.eq.0_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 47000
+        },
+        "rrsw_kg21.eq.1_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 23400
+        },
+        "rrsw_kg22.eq.0_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 1880
+        },
+        "rrsw_kg22.eq.1_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 4680
+        },
+        "rrsw_kg23.eq.0_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 2600
+        },
+        "rrsw_kg24.eq.0_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 7520
+        },
+        "rrsw_kg24.eq.1_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 18720
+        },
+        "rrsw_kg25.eq.0_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 1560
+        },
+        "rrsw_kg27.eq.0_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 7520
+        },
+        "rrsw_kg27.eq.1_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 2080
+        },
+        "rrsw_kg28.eq.0_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 28200
+        },
+        "rrsw_kg28.eq.1_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 14040
+        },
+        "rrsw_kg29.eq.0_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 11280
+        },
+        "rrsw_kg29.eq.1_": {
+          "binding": 1,
+          "type": 1,
+          "visibility": 0,
+          "data_size": 3120
+        },
+        "sinf": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "wrf_debug_": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "wrf_dm_bcast_bytes_": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "wrf_dm_bcast_integer_": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "wrf_dm_bcast_real_": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "wrf_dm_on_monitor_": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        },
+        "wrf_error_fatal3_": {
+          "binding": 1,
+          "type": 0,
+          "visibility": 0,
+          "data_size": null
+        }
+      },
+      "candidate_added_LOCAL_functions": [],
+      "candidate_removed_LOCAL_functions": [],
+      "function_code_sizes_compared": false,
+      "MOD_bytes_normalized": false
+    }
+  },
+  "target_codegen": {
+    "parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/target-asm-parent.log",
+      "sha256": "37dffe2baf4aa5649446c75ab879af0ede8f3b401f42ed691c7f1ed150c23056"
+    },
+    "candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-swinatm-seven-init-cached-compatible-native-hpc03-r4/work/target-asm-candidate.log",
+      "sha256": "43fadc671c58cb725cfd27c1c41b57fbd5afc21e8ede6042a3d696857d100975"
+    }
+  },
+  "wholemodule_compiler_identity_claimed": false,
+  "source_pins_sha256": "cee609ef29db21f2f0690d7d2b24bc4dd83aa3d79f05a565738e2e26e397baed",
+  "canonical_outside_INATM_SW_source_unchanged": true,
+  "application_qualified": false,
+  "wholemodule_IEEE_qualified": false,
+  "new_O2_module_compiles": 0,
+  "new_O0_module_compiles": 2,
+  "raw_all_MOD_byteidentity_claimed": false,
+  "elapsed_seconds_context_only": 14.234551213681698
+}

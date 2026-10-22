@@ -1,0 +1,162 @@
+{
+  "status": "NATIVE_AND_SIGNIFICANT_CALLER_QUALIFIED_APPLICATION_PENDING_NOT_PROMOTED",
+  "component": "ordinary advect_v Y-order5 interior I flux producer SIMD PRIVATE(vel)",
+  "source": {
+    "parent_sha256": "42ab7004b0d45582d853861da480caf9e589ecc8f2e669b56444fbc39ce72e28",
+    "candidate_sha256": "abf5f49df6e867c1a162e323cdf15200558d9168b137399e3fef4f73b005d893",
+    "parent_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/advect-v-y5-flux-producer-i-simd-r1/local-completion-r1/parent_module_advect_em.F",
+    "candidate_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/advect-v-y5-flux-producer-i-simd-r1/local-completion-r1/candidate_module_advect_em.F",
+    "parent_PP_sha256": "1e45650c7e1a8c88ac6f2031072836b2572755f58803b56418ddc330a03d20df",
+    "candidate_PP_sha256": "c565c3a8711176f65d58023a6078e0e46d0f9e911d7ddecf5770258baa646196",
+    "patch_sha256": "dbd73142429307d9d4132f59246f67219983f27b0771e28ab2ca8b8b2ccffb4f"
+  },
+  "provenance": {
+    "actual_author_literal_unchanged": true,
+    "author_receipt_sha256": "11ae196614b3c9a805ed3e0d270e9c2fbeee7c83d4441ebb57c628fc8b1fc83d",
+    "correction": "Author prose blank location inaccurate; actual literal removes blank before ELSE IF(j==jde), unchanged.",
+    "raw_source_producer_commit": null,
+    "posttest_source_commit": null
+  },
+  "native": {
+    "status": "PASS_CURRENT_CURRENT4ADB_VY5_PRODUCER_FINITE_CAPTURE_AND_FOCUSED_O0_O2_NATIVE_PENDING_CFG_CALLER",
+    "invocation": "c2cc497b6eaf4dd9ac59e33b54b05fdd",
+    "parent_object_sha256": "99da9c6a0d8fc892b6c0754d7925f3f779c06f7e133ce24a6d62f1b850b611f5",
+    "candidate_O2": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-v-y5-flux-simd-native-hpc02-r1/work/O2-candidate/module_advect_em.o",
+      "sha256": "3793350e6c1b4bc089c439f2a0ddb27332ad8a10ca39e17f1dbf4fd4cad87da3"
+    },
+    "candidate_O0": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current4adb-v-y5-flux-simd-native-hpc02-r1/work/O0-candidate/module_advect_em.o",
+      "sha256": "8d8af369745e7afd84b736a453d819cc6f49dca4f7e60bcd4375eb47ce1f274b"
+    },
+    "MOD_sha256": "88e9fcbf27d28de7f12c22df0aac07aef26d4463f303e5a51b135a6a7e454750",
+    "genuine_parent_allocated_relocation_exact": true,
+    "outside_V_functions_text_relocations_exact": true,
+    "scope": "Two captured completeV calls + original9focused +20Y5focused, each four round modes, sameopt O2genuine/P/C and O0bounds P/C. Fullraw/readonly/config/physical footprint/five-state exact. No emptyK/allorders/traps/universalNaN/application claim."
+  },
+  "caller": {
+    "status": "PASS_TWO_OPPOSITE_ORDER_VY_WHOLECALLER_PAIRS",
+    "scope": "ONE fullV syntheticfiniteworkload on actualcurrentrank124 tileI187/J10,2048completeAPIcalls perarm;noforecastgainclaim,sharedrestores/warmgold/fullrawreadonlyfootprint5state. Hashacceptance/warmproofs readexecutables/dependencies and warmdata; nocoldCPU/pagecacheclaim.",
+    "comparisons": [
+      {
+        "host": "hpc01",
+        "measurements": {
+          "vy": {
+            "parent": {
+              "wall_seconds": 1.407612902,
+              "cpu_seconds": 1.405931225,
+              "repeats": 2048
+            },
+            "candidate": {
+              "wall_seconds": 1.055444445,
+              "cpu_seconds": 1.054447437,
+              "repeats": 2048
+            },
+            "wall_reduction_percent": 25.01884264485096,
+            "cpu_reduction_percent": 25.00006982916251
+          }
+        }
+      },
+      {
+        "host": "hpc02",
+        "measurements": {
+          "vy": {
+            "parent": {
+              "wall_seconds": 1.415642096,
+              "cpu_seconds": 1.4138144620000002,
+              "repeats": 2048
+            },
+            "candidate": {
+              "wall_seconds": 1.058998195,
+              "cpu_seconds": 1.05710401,
+              "repeats": 2048
+            },
+            "wall_reduction_percent": 25.193083902189915,
+            "cpu_reduction_percent": 25.230358126015563
+          }
+        }
+      }
+    ],
+    "order": [
+      {
+        "hpc01": "parent",
+        "hpc02": "candidate"
+      },
+      {
+        "hpc01": "candidate",
+        "hpc02": "parent"
+      }
+    ],
+    "calls_per_arm": 2048,
+    "tile_I": 187,
+    "tile_J": 10,
+    "K_source_valid": 33,
+    "field_values": "synthetic finite, not captured production fields",
+    "clock_boundary": "Complete callee including all original passes/allocations only; tendency restore and reset beforeclock; everycall raw/readonly/config/footprint/five-state checks afterclock. Integer MONOTONIC/processCPU clock preserves fenv/errno.",
+    "actual_four_arms_cache_each_separate_checked_sync_drop3": true,
+    "actual_four_normal_closed_units": true,
+    "build_warm_measurements_are_campaign_timing": false,
+    "forecast_gain_claim": false
+  },
+  "application_qualification": null,
+  "own_three_hour_qualified": false,
+  "own_noon_qualified": false,
+  "own_nine_hour_qualified": false,
+  "source_or_default_promoted": false,
+  "pending": "Root must bind actual own3h exact4products545steps/all512/2Y/all4writerroots+32markers/runtime and all8models+originalreader strongnormalclosure before publication; no parent horizon transfer.",
+  "limits": [
+    "One opposite-order pair/host01/02; no repeatability/isolated/additive/global25% inference.",
+    "Actual CFG true8/4lane DIVPS+scalar DIVSS, no FMA/reciprocal; frame0x4d8->0x580 and one4lanecleanup vectorstackstore included in caller cost.",
+    "Combined artifact inventory success is not application PASS. Stage-only failed R1 is not a forecast or new performance evidence."
+  ],
+  "evidence_refs": {
+    "native_receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/advect-v-y5-flux-producer-i-simd-r1/native-gate-r1/actual-native-r1/receipt.json",
+      "sha256": "4edb7bbd5fb7a6cca454c0a95767e5646811921b86ff3d62aba76c4e34c6af3d"
+    },
+    "native_closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/advect-v-y5-flux-producer-i-simd-r1/native-gate-r1/actual-native-r1/closure.json",
+      "sha256": "d00182a069f5df144aa329d25bb92f16efc44bc6dcee01be646d476346f1415d"
+    },
+    "CFG": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/advect-v-y5-flux-producer-i-simd-r1/independent-codegen-review-r1/REVIEW.json",
+      "sha256": "e3c44dea3962e645fdfba0c7e0705e4d9876e50ba9e269f2ff8f21fed68f8d54"
+    },
+    "caller": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/advect-v-y5-flux-producer-i-simd-r1/caller-timing-preparation-r1/timing-r1/actual-result-r1/RESULT.json",
+      "sha256": "6a4721b0512aba2589a0a1ce46fe8157ccd05c458e9b6d661f7ab9d17fdf4400"
+    },
+    "retain": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/advect-v-y5-flux-producer-i-simd-r1/ACTUAL_RETAIN_DECISION.json",
+      "sha256": "06d4583ecdd1fb1311cdc67d6e464ee64d546ed75c9888fe9991e4aed0c5c572"
+    },
+    "author": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/advect-v-y5-flux-producer-i-simd-r1/provider-review-r1/actual-provider-r1/author/receipt.json",
+      "sha256": "11ae196614b3c9a805ed3e0d270e9c2fbeee7c83d4441ebb57c628fc8b1fc83d"
+    },
+    "provider_review": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/advect-v-y5-flux-producer-i-simd-r1/provider-review-r1/actual-provider-r1/review/receipt.json",
+      "sha256": "ae35b8719d2e5f6a7632ae797f4d78616d3d8e96adbe2e4bb35744bcfbb260d0"
+    },
+    "source_adjudication": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/advect-v-y5-flux-producer-i-simd-r1/local-completion-r1/ADJUDICATION.json",
+      "sha256": "a30a1bb568a51c3c80f6278ef7ac33d7aa2e29a4c1b2a97cb4e3861fc38d8c2d"
+    },
+    "recipe": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/advect-v-y5-flux-producer-i-simd-r1/native-gate-r1/inputs/recipe.json",
+      "sha256": "b82103b44e3a69f8738cf83ac73e891567436b9cb8b543896c966cd861ebc300"
+    },
+    "canonical_helper": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/advect-v-y5-flux-producer-i-simd-r1/native-gate-r1/inputs/canonical_compile.py",
+      "sha256": "c5b2384e2ef4a2d1192abeb11f789d44a4800a382138ace21d68d33564e98b5a"
+    },
+    "canonical_flags": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/advect-v-y5-flux-producer-i-simd-r1/native-gate-r1/inputs/canonical-flags-producer.json",
+      "sha256": "10a180190d1b2d030e7e213c40c6c0d37149aff83f06c630ef8893e4698be33b"
+    },
+    "native_binding": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/advect-v-y5-flux-producer-i-simd-r1/native-gate-r1/inputs/binding.json",
+      "sha256": "9fb46a11f6088ec7c3c8c721e74e265a925edf1e0c3c4ee1ac710ca313dac754"
+    }
+  }
+}

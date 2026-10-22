@@ -1,0 +1,5 @@
+# Atomic working-selection rollback
+
+Restore source and all three selection/binding/application records from the pre-promotion commit f1429740c7d53d9e9696d1ef237076f366baeb01, selecting retained executable4adb20e0/f9113cba archive together. Revert the dedicated source commit d5d09385eb3a4ce641af3c5b5ef35eadb97593ac and the subsequent qualification/default update on the working branch; preserve all experiment evidence. Do not modify production or master.
+
+Exact source/record preimages are additionally retained under campaign advect-v-y5-flux-producer-i-simd-r1/combined-publication-binding-preparation-r1/actual-prepromotion-snapshot-r1 (manifest e32b88dcfcea611ccd07777c7c1205f3dc3154391563c9181dd79c722f3d37dd). Restore both source files and tools/cpu-working/{selection.json,CURRENT_SOURCE_BUILD_BINDING.json,LATEST_APPLICATION_RESULT.json} coherently. A component-only rollback creates a different artifact combination and requires its own link/binding and applicable qualification. Do not reuse qualification for a changed executable.

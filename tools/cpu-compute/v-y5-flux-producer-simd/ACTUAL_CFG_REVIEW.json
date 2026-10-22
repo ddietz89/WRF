@@ -1,0 +1,64 @@
+{
+  "status": "ACK_ACTUAL_PACKED_Y5_MECHANISM_FINITE_NATIVE_SCOPE_CALLER_PENDING",
+  "candidate_object_sha256": "3793350e6c1b4bc089c439f2a0ddb27332ad8a10ca39e17f1dbf4fd4cad87da3",
+  "native_receipt_sha256": "4edb7bbd5fb7a6cca454c0a95767e5646811921b86ff3d62aba76c4e34c6af3d",
+  "native_closure_sha256": "d00182a069f5df144aa329d25bb92f16efc44bc6dcee01be646d476346f1415d",
+  "native_invocation": "c2cc497b6eaf4dd9ac59e33b54b05fdd",
+  "asm": {
+    "parent": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/advect-v-y5-flux-producer-i-simd-r1/actual-codegen-readback-r1/parent-full-V.asm",
+      "sha256": "0a37dccd13686a1f67bc81d2d509c3393d37bf91b0a6dde596c87843e7cada96"
+    },
+    "candidate": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/advect-v-y5-flux-producer-i-simd-r1/actual-codegen-readback-r1/candidate-full-V.asm",
+      "sha256": "3f96b2a1b915c078ab5c3fa22f04bcd1e0e1c0767959d67443b7f771e3156070"
+    }
+  },
+  "mechanism": {
+    "parent_scalar_body": [
+      "0x4eb60",
+      "0x4ebff"
+    ],
+    "candidate_eight_lane_body": [
+      "0x4f960",
+      "0x4fa04"
+    ],
+    "true_divides": {
+      "eight": [
+        "0x4f9c9",
+        "0x4f9ec"
+      ],
+      "four": [
+        "0x4fb85",
+        "0x4fb96"
+      ],
+      "scalar": [
+        "0x4fca9",
+        "0x4fcba"
+      ]
+    },
+    "no_target_calls_or_reciprocal_or_FMA": true,
+    "sign": "Velocity sign-bit AND, XOR with timestep-derived +/-1; same packed/four/scalar structure, no ordered compare replacing signbit. Finite raw special-word and five-state native checks supply observed priority coverage.",
+    "memory": "Eight/four complete contiguous I groups over unchanged six V rows and two RV rows; unaligned loads/stores, scalar remainder. No speculative extra lane group found.",
+    "guards": [
+      "K empty branch 0x4f589 before FP",
+      "I empty branch 0x4f867 before FP",
+      "eight-lane length admission 0x4f88a..0x4f896",
+      "mod8 cleanup test 0x4fa11",
+      "mod4 cleanup test 0x4fba7",
+      "scalar endpoint 0x4fccf"
+    ],
+    "cost_limits": {
+      "parent_frame_hex": "0x4d8",
+      "candidate_frame_hex": "0x580",
+      "main_FP_stack_traffic": false,
+      "four_lane_cleanup_extra_vector_store": "0x4fad5 vmovaps xmm7 to stack",
+      "performance_gain_inferred": false
+    }
+  },
+  "scope_limits": [
+    "Not universal NaN-payload/FP equivalence proof; actual original9/two captures/20Y5 four-round sameopt O2/O0 remain qualification scope.",
+    "No emptyK/allorders/traps/application or wholeforecast performance claim.",
+    "Wholecaller timing is next gate, not yet executed."
+  ]
+}
