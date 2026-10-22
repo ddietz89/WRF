@@ -1,0 +1,422 @@
+{
+  "status": "FAIL_RETAINED",
+  "invocation_id": "ea1b67a83b2f48038f4f11bee378c18a",
+  "commands": [
+    {
+      "label": "compiler",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "--version"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "original24_observer",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-native-hpc02-r1/original24_observer.c",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-native-hpc02-r1/work/original24_observer.o"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "five_state_observer",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-native-hpc02-r1/five_state_observer.c",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-native-hpc02-r1/work/five_state_observer.o"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "PP-O2-parent-sed",
+      "argv": [
+        "/bin/sed",
+        "-e",
+        "s/^\\!.*'.*//",
+        "-e",
+        "s/^ *\\!.*'.*//",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-native-hpc02-r1/work/O2-parent/module_mp_thompson.F"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "PP-O2-parent-cpp",
+      "argv": [
+        "/usr/bin/cpp",
+        "-P",
+        "-traditional-cpp",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-DEM_CORE=1",
+        "-DNMM_CORE=0",
+        "-DNMM_MAX_DIM=2600",
+        "-DDA_CORE=0",
+        "-DWRFPLUS=0",
+        "-DIWORDSIZE=4",
+        "-DDWORDSIZE=8",
+        "-DRWORDSIZE=4",
+        "-DLWORDSIZE=4",
+        "-DNONSTANDARD_SYSTEM_SUBR",
+        "-DWRF_USE_CLM",
+        "-DUSE_NETCDF4_FEATURES",
+        "-DWRFIO_NCD_LARGE_FILE_SUPPORT",
+        "-DDM_PARALLEL",
+        "-DNETCDF",
+        "-DLANDREAD_STUB=1",
+        "-DUSE_ALLOCATABLES",
+        "-Dwrfmodel",
+        "-DGRIB1",
+        "-DINTIO",
+        "-DKEEP_INT_AROUND",
+        "-DLIMIT_ARGS",
+        "-DBUILD_RRTMG_FAST=0",
+        "-DBUILD_RRTMK=0",
+        "-DBUILD_SBM_FAST=1",
+        "-DSHOW_ALL_VARS_USED=0",
+        "-DCONFIG_BUF_LEN=65536",
+        "-DMAX_DOMAINS_F=21",
+        "-DMAX_HISTORY=25",
+        "-DNMM_NEST=0",
+        "-I.",
+        "-traditional-cpp",
+        "-DUSE_NETCDF4_FEATURES",
+        "-DWRFIO_NCD_LARGE_FILE_SUPPORT",
+        "-DWRF_EXPERIMENTAL_TPI_NUMA",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-native-hpc02-r1/work/O2-parent/module_mp_thompson.G"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "PP-O2-parent-standard",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/tools/standard.exe",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-native-hpc02-r1/work/O2-parent/module_mp_thompson.bb"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "PP-O2-parent-final-cpp",
+      "argv": [
+        "/usr/bin/cpp",
+        "-P",
+        "-traditional-cpp",
+        "-traditional-cpp",
+        "-DUSE_NETCDF4_FEATURES",
+        "-DWRFIO_NCD_LARGE_FILE_SUPPORT"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "compile-O2-parent",
+      "argv": [
+        "time",
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-o",
+        "module_mp_thompson.o",
+        "-c",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-native-hpc02-r1/work/O2-parent",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "module_mp_thompson.f90"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "PP-O0-parent-sed",
+      "argv": [
+        "/bin/sed",
+        "-e",
+        "s/^\\!.*'.*//",
+        "-e",
+        "s/^ *\\!.*'.*//",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-native-hpc02-r1/work/O0-parent/module_mp_thompson.F"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "PP-O0-parent-cpp",
+      "argv": [
+        "/usr/bin/cpp",
+        "-P",
+        "-traditional-cpp",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-DEM_CORE=1",
+        "-DNMM_CORE=0",
+        "-DNMM_MAX_DIM=2600",
+        "-DDA_CORE=0",
+        "-DWRFPLUS=0",
+        "-DIWORDSIZE=4",
+        "-DDWORDSIZE=8",
+        "-DRWORDSIZE=4",
+        "-DLWORDSIZE=4",
+        "-DNONSTANDARD_SYSTEM_SUBR",
+        "-DWRF_USE_CLM",
+        "-DUSE_NETCDF4_FEATURES",
+        "-DWRFIO_NCD_LARGE_FILE_SUPPORT",
+        "-DDM_PARALLEL",
+        "-DNETCDF",
+        "-DLANDREAD_STUB=1",
+        "-DUSE_ALLOCATABLES",
+        "-Dwrfmodel",
+        "-DGRIB1",
+        "-DINTIO",
+        "-DKEEP_INT_AROUND",
+        "-DLIMIT_ARGS",
+        "-DBUILD_RRTMG_FAST=0",
+        "-DBUILD_RRTMK=0",
+        "-DBUILD_SBM_FAST=1",
+        "-DSHOW_ALL_VARS_USED=0",
+        "-DCONFIG_BUF_LEN=65536",
+        "-DMAX_DOMAINS_F=21",
+        "-DMAX_HISTORY=25",
+        "-DNMM_NEST=0",
+        "-I.",
+        "-traditional-cpp",
+        "-DUSE_NETCDF4_FEATURES",
+        "-DWRFIO_NCD_LARGE_FILE_SUPPORT",
+        "-DWRF_EXPERIMENTAL_TPI_NUMA",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-native-hpc02-r1/work/O0-parent/module_mp_thompson.G"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "PP-O0-parent-standard",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/tools/standard.exe",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-native-hpc02-r1/work/O0-parent/module_mp_thompson.bb"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "PP-O0-parent-final-cpp",
+      "argv": [
+        "/usr/bin/cpp",
+        "-P",
+        "-traditional-cpp",
+        "-traditional-cpp",
+        "-DUSE_NETCDF4_FEATURES",
+        "-DWRFIO_NCD_LARGE_FILE_SUPPORT"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "compile-O0-parent",
+      "argv": [
+        "time",
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-o",
+        "module_mp_thompson.o",
+        "-c",
+        "-O0",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-fcheck=all",
+        "-fbacktrace",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-native-hpc02-r1/work/O0-parent",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "module_mp_thompson.f90"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "PP-O0-candidate-sed",
+      "argv": [
+        "/bin/sed",
+        "-e",
+        "s/^\\!.*'.*//",
+        "-e",
+        "s/^ *\\!.*'.*//",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-native-hpc02-r1/work/O0-candidate/module_mp_thompson.F"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "PP-O0-candidate-cpp",
+      "argv": [
+        "/usr/bin/cpp",
+        "-P",
+        "-traditional-cpp",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-DEM_CORE=1",
+        "-DNMM_CORE=0",
+        "-DNMM_MAX_DIM=2600",
+        "-DDA_CORE=0",
+        "-DWRFPLUS=0",
+        "-DIWORDSIZE=4",
+        "-DDWORDSIZE=8",
+        "-DRWORDSIZE=4",
+        "-DLWORDSIZE=4",
+        "-DNONSTANDARD_SYSTEM_SUBR",
+        "-DWRF_USE_CLM",
+        "-DUSE_NETCDF4_FEATURES",
+        "-DWRFIO_NCD_LARGE_FILE_SUPPORT",
+        "-DDM_PARALLEL",
+        "-DNETCDF",
+        "-DLANDREAD_STUB=1",
+        "-DUSE_ALLOCATABLES",
+        "-Dwrfmodel",
+        "-DGRIB1",
+        "-DINTIO",
+        "-DKEEP_INT_AROUND",
+        "-DLIMIT_ARGS",
+        "-DBUILD_RRTMG_FAST=0",
+        "-DBUILD_RRTMK=0",
+        "-DBUILD_SBM_FAST=1",
+        "-DSHOW_ALL_VARS_USED=0",
+        "-DCONFIG_BUF_LEN=65536",
+        "-DMAX_DOMAINS_F=21",
+        "-DMAX_HISTORY=25",
+        "-DNMM_NEST=0",
+        "-I.",
+        "-traditional-cpp",
+        "-DUSE_NETCDF4_FEATURES",
+        "-DWRFIO_NCD_LARGE_FILE_SUPPORT",
+        "-DWRF_EXPERIMENTAL_TPI_NUMA",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-native-hpc02-r1/work/O0-candidate/module_mp_thompson.G"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "PP-O0-candidate-standard",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/tools/standard.exe",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-native-hpc02-r1/work/O0-candidate/module_mp_thompson.bb"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "PP-O0-candidate-final-cpp",
+      "argv": [
+        "/usr/bin/cpp",
+        "-P",
+        "-traditional-cpp",
+        "-traditional-cpp",
+        "-DUSE_NETCDF4_FEATURES",
+        "-DWRFIO_NCD_LARGE_FILE_SUPPORT"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "compile-O0-candidate",
+      "argv": [
+        "time",
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-o",
+        "module_mp_thompson.o",
+        "-c",
+        "-O0",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-fcheck=all",
+        "-fbacktrace",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-native-hpc02-r1/work/O0-candidate",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "module_mp_thompson.f90"
+      ],
+      "rc": 0
+    }
+  ],
+  "observations": {},
+  "scope": "current242c genuine parent, original24 prefix plus same24 four-round/five-state whole compT; sameopt only; no timing/application",
+  "objects": {
+    "O2-parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-native-hpc02-r1/work/O2-parent/module_mp_thompson.o",
+      "sha256": "e03e717f266e9a21af9847b44fd317a416b5177e5abd577f784d69ea53335184",
+      "PP_sha256": "f55213b4cde5d8f8311989aefa6413f56faabb45a9937ef3755fa7b27c19e687",
+      "MOD_sha256": "2b20e2811653339ea7df9463b3c991491ba7b573eee9aa615ec15e8865511816",
+      "helper": null
+    },
+    "O0-parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-native-hpc02-r1/work/O0-parent/module_mp_thompson.o",
+      "sha256": "531260170f371ceae8fbb3f29e94ef6cc291bdbaa5ef8ee74b2d75f1ad26bfa5",
+      "PP_sha256": "f55213b4cde5d8f8311989aefa6413f56faabb45a9937ef3755fa7b27c19e687",
+      "MOD_sha256": "2b20e2811653339ea7df9463b3c991491ba7b573eee9aa615ec15e8865511816",
+      "helper": null
+    }
+  },
+  "genuine_parent_proof_sha256": "c3e55f3cfb38da4c085c5a77013a938ba4fa5ee70f9ae259d97daf3d4a12d099",
+  "error": "AssertionError('PUBLIC_MOD_MISMATCH')",
+  "traceback": "Traceback (most recent call last):\n  File \"/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-native-hpc02-r1/run_gate.py\", line 64, in <module>\n    for opt,arm in [('O0','parent'),('O0','candidate'),('O2','candidate')]:built[opt+'-'+arm]=build(opt,arm)\n                                                                                              ^^^^^^^^^^^^^^\n  File \"/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-native-hpc02-r1/run_gate.py\", line 55, in build\n    assert sha(d/'module_mp_thompson.mod')==b['native_module_sha256'],'PUBLIC_MOD_MISMATCH'\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: PUBLIC_MOD_MISMATCH\n",
+  "elapsed_seconds_context_only": 19.503260151017457
+}

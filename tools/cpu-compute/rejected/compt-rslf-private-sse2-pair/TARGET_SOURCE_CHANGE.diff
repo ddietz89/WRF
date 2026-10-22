@@ -1,0 +1,28 @@
+--- current-parent.F
++++ candidate.F
+@@ -7971,6 +7971,15 @@
+       real:: thelcl_K, pres_Pa
+       real:: guess, epsilon, w1, w2, tenu, tenup, cor, thwlcl_K
+       integer:: iter
++      INTERFACE
++        PURE SUBROUTINE wrf_compt_rslf_pair_ordered(p,t0,t1,w0,w1) &
++          BIND(C,NAME="wrf_compt_rslf_pair_ordered_")
++          USE ISO_C_BINDING, ONLY: C_FLOAT
++          IMPLICIT NONE
++          REAL(C_FLOAT), INTENT(IN) :: p,t0,t1
++          REAL(C_FLOAT), INTENT(OUT) :: w0,w1
++        END SUBROUTINE
++      END INTERFACE
+ 
+ !+---+
+ 
+@@ -7978,8 +7987,7 @@
+      &     * (pres_Pa/100000.0)**.2
+       epsilon=0.01
+       do iter=1,100
+-         w1 = rslf(pres_Pa,guess)
+-         w2 = rslf(pres_Pa,guess+1.)
++         CALL wrf_compt_rslf_pair_ordered(pres_Pa,guess,guess+1.,w1,w2)
+          tenu = theta_e(pres_Pa,guess,w1,guess)
+          tenup = theta_e(pres_Pa,guess+1,w2,guess+1.)
+          cor = (thelcl_K - tenu) / (tenup - tenu)

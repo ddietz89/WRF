@@ -1,0 +1,23 @@
+{
+  "status": "ACK_ACTUAL_PRIVATE_HELPER_MACHINECODE_SUPPORTED_MASKED_TRAP_SCOPE",
+  "refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/actual-helper-codegen-r1/helper-codegen-O0.stdout": "6f4f639f2de3582eaa0b104c855baab0b3a3645c57296a1c1bcb74f97737f6ea",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/actual-helper-codegen-r1/helper-codegen-O2.stdout": "d5dda45477b1400d77eb82e66989f24b2fa24972150b10f40c3e4b102fcbf54c",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/actual-helper-codegen-r1/COPY.json": "07c9dd0987f47700a3bf36de430aa065be260b9e9ee18a3b5889894390f25db8"
+  },
+  "lane_initialization": "O2MOVSSmemory then UNPCKLPS0xc/MOVLHPS0x17 establishesT0,T1,T0,T1. O0MOVDzeroedscalar loads,UNPCKLPS0xab,MOVHPS0xd4 duplicates initializedlowerpair. P/allconstant loads broadcastSHUFPS00 beforearithmetic.",
+  "both_mode_fp_counts": {
+    "mulps": 10,
+    "addps": 8,
+    "subps": 2,
+    "maxps": 1,
+    "minps": 1,
+    "divps": 1
+  },
+  "mode_priority": "O2firstmul0x40 C8DEST/XSOURCE; runningDESTadds0x4f..cd. O0firstmul0x1e2 XDEST/C8SOURCE; coefficientDESTadds0x233..5c1; subsequentrunningDESTmul. Cap.15DEST/Psource; MINESLDEST/capsource; numerator.622DEST/ESLsource; denominatorPDEST-ESLsource; DIVnumDEST/densource.",
+  "true_division_no_fma_reciprocal_extra_scalar_fp_or_calls": true,
+  "independent_schedule_disclosure": "Bothhelpers compute denominatorP-ESL before numerator.622*ESL(O2e2/f1;O067c/6c9). Scalarparent schedule differs. No dependency/newFP work; actualmaskedtrap nativechecks passed. Not trapping/firstfault-order equivalence.",
+  "memory_scope": "O2straightline leaf noheap; O0stackheavy leaf. Bothstoreonly2scalaroutputs aftercompletearithmetic; no wider outputstore.",
+  "constant_scope": "Assembly shows broadcastloads, but objdumpwithoutrelocation/rodatavalues doesnot independentlyrederiveconstantbits. Exactsource62693/nativeactualbinding remainauthorities; no newgate requested.",
+  "limits": "Actualhelpercode only; source/compiler-analysis MOD contract remains scoped. No wholemodule/caller/application/performanceclaim fromthisreview."
+}

@@ -1,0 +1,20 @@
+--- failedR1/timing_driver.f90
++++ R2/timing_driver.f90
+@@ -32,7 +32,7 @@
+ storage=transfer(int(z'c4424000',int32),0.)
+ storage(2,:)=[250.,280.,300.,330.,360.,400.,475.,335.5]
+ storage(3,:)=[20000.,60000.,100000.,85000.,50000.,10000.,75000.,75000.]
+-before=transfer(storage,before)
++before=reshape(transfer(storage,before),shape(before))
+ checksum=0_int64
+ w0=bench_clock();c0=bench_cpu_clock()
+ if(observer_begin(0_c_int)/=0)error stop 'observer setup'
+@@ -46,7 +46,7 @@
+ enddo
+ call observer_end(obs)
+ c1=bench_cpu_clock();w1=bench_clock()
+-after=transfer(storage,after)
++after=reshape(transfer(storage,after),shape(after))
+ if(any(before/=after))error stop 'readonly scalar or physical guard changed'
+ open(newunit=u,file=trim(path),access='stream',form='unformatted',status='new')
+ write(u)1,reps

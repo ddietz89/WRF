@@ -1,0 +1,370 @@
+{
+  "status": "REJECT_FIXED_PRIVATE_SSE2_PAIR_MEASURED_COMPLETE_COMPT_REGRESSION",
+  "decision": "Do not promote or expand qualification of this fixed helper; no automatic rerun or repair variant. Current selected source/default unchanged.",
+  "scope": "two packed RSLF polynomials within complete compT_fr_The; exact target-native only, not whole Thompson",
+  "source_commit": null,
+  "candidate_source_promoted": false,
+  "candidate_helper_sha256": "62693a3ca31229555730862404cbf983616a9f9db2fe112e38f50188491ee44e",
+  "genuine_current_compT_instruction_sha256": "1f4f29dbb0824740d9a7f7d14d0c26ca17340abac79c22f7fb1204ff1890ad01",
+  "genuine_current_compT_instruction_bytes": 1027,
+  "native": {
+    "status": "PASS_TARGET_ONLY",
+    "original24_prefix_O2": "a1f1cd2e0537bd186c0f42a1fe0994a2a20012043c108cb6f0efd3eb76fd5947",
+    "original24_prefix_O0": "1bd7b0e80e55ee228eb8509055945a901f8049ca69ab3c3939a21c6448190644",
+    "four_round_sameopt_original24_full_raw_readonly_physical_five_state": true,
+    "observations": 21,
+    "public_module_interface_exact": false,
+    "permitted_MOD_delta": "exact observed ARRAY_OUTER_DEPENDENCY insertion on compT; all remaining decoded tokens exact",
+    "fresh_caller_codegen_identity": false,
+    "universal_IEEE_or_trap_first_fault": false,
+    "unrelated_module_changes_qualified": false,
+    "full_Thompson_qualification": false,
+    "application_qualification": false
+  },
+  "timing": {
+    "status": "ALL_FOUR_ARMS_EXACT_NORMAL_CLOSED",
+    "wave_sha256": "16497418da54a49d56ac13b45f0f978192a58086dcae0bb7f334e81feea18b2e",
+    "work": "original finitecases1\u20138,20000cycles=160000 completecompT calls per measured arm",
+    "same_generic_driver_object_both_arms": true,
+    "integer_wall_and_process_cpu_clocks": true,
+    "checks": "exactgenuine finite8 results/bitchecksum/read-only/physical/five-state before/measured/after; no output tolerance",
+    "cache": "checked sync/drop3 before EACHarm; ordinary validation hashes and before/afterproofs warm executable/data; no coldCPU/pagecacheclaim",
+    "comparisons": [
+      {
+        "host": "hpc02",
+        "order": "P,C",
+        "parent_wall_seconds": 0.142650746,
+        "candidate_wall_seconds": 0.162739923,
+        "wall_percent_longer": 14.082770376819486,
+        "parent_process_cpu_seconds": 0.142616027,
+        "candidate_process_cpu_seconds": 0.162697004,
+        "process_cpu_percent_longer": 14.080449036769194
+      },
+      {
+        "host": "hpc04",
+        "order": "C,P",
+        "parent_wall_seconds": 0.142174092,
+        "candidate_wall_seconds": 0.162898321,
+        "wall_percent_longer": 14.57665648393942,
+        "parent_process_cpu_seconds": 0.14216955,
+        "candidate_process_cpu_seconds": 0.16289369,
+        "process_cpu_percent_longer": 14.577059574289986
+      }
+    ],
+    "arms": [
+      {
+        "arm": 0,
+        "host": "hpc02",
+        "role": "parent",
+        "invocation_id": "234d6ed0d9a24b8787be29708623e993",
+        "wall_seconds": 0.142650746,
+        "process_cpu_seconds": 0.142616027,
+        "calls": 160000,
+        "gold_sha256": "2a5d223478f95a6b5b6be7d29cbb1ca62784b6d745775e2c028b7aba4bb96979",
+        "state": [
+          4,
+          36,
+          0,
+          8100,
+          895
+        ],
+        "memory_peak_bytes": 178094080,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "cache_each_and_helper_drained": true,
+        "normal_strong_closure": true,
+        "short_duration_limit": false
+      },
+      {
+        "arm": 1,
+        "host": "hpc04",
+        "role": "candidate",
+        "invocation_id": "107406b08d0b4ccc8e0bbbaf0e7dcae9",
+        "wall_seconds": 0.162898321,
+        "process_cpu_seconds": 0.16289369,
+        "calls": 160000,
+        "gold_sha256": "2a5d223478f95a6b5b6be7d29cbb1ca62784b6d745775e2c028b7aba4bb96979",
+        "state": [
+          4,
+          36,
+          0,
+          8100,
+          895
+        ],
+        "memory_peak_bytes": 178036736,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "cache_each_and_helper_drained": true,
+        "normal_strong_closure": true,
+        "short_duration_limit": false
+      },
+      {
+        "arm": 2,
+        "host": "hpc02",
+        "role": "candidate",
+        "invocation_id": "73246a20d9834a67b573ffcaa9b3aac2",
+        "wall_seconds": 0.162739923,
+        "process_cpu_seconds": 0.162697004,
+        "calls": 160000,
+        "gold_sha256": "2a5d223478f95a6b5b6be7d29cbb1ca62784b6d745775e2c028b7aba4bb96979",
+        "state": [
+          4,
+          36,
+          0,
+          8100,
+          895
+        ],
+        "memory_peak_bytes": 177840128,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "cache_each_and_helper_drained": true,
+        "normal_strong_closure": true,
+        "short_duration_limit": false
+      },
+      {
+        "arm": 3,
+        "host": "hpc04",
+        "role": "parent",
+        "invocation_id": "e59b9b9f5e2e4c449417e78e24d1e1bd",
+        "wall_seconds": 0.142174092,
+        "process_cpu_seconds": 0.14216955,
+        "calls": 160000,
+        "gold_sha256": "2a5d223478f95a6b5b6be7d29cbb1ca62784b6d745775e2c028b7aba4bb96979",
+        "state": [
+          4,
+          36,
+          0,
+          8100,
+          895
+        ],
+        "memory_peak_bytes": 178057216,
+        "memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "cache_each_and_helper_drained": true,
+        "normal_strong_closure": true,
+        "short_duration_limit": false
+      }
+    ],
+    "limitations": [
+      "one fixed opposite-order pair perhost; synthetic inputs, no repeatability forecast/globalheadroom/criticalpath claim",
+      "all durations .142\u2013.163s >.1s, still short exploratory measurements; no automatic retune/rerun",
+      "original baseline fully inlines both RSLF chains; private call/inlining/register-schedule overhead is a plausible explanation, NOT independently established cause",
+      "full Thompson and application qualification not pursued after measured wholefunction regression"
+    ]
+  },
+  "preserved_history": [
+    "old Fortran2lane prototype was exact24sameopt but scalarized/no useful packedcode; not a scientific rejection",
+    "actual provider outline had explicit placeholders/incorrectduplicateupper/operandmodes/BIND name; rejected before compilation, raw preserved; local correction documented",
+    "R1 failed exactMOD guard before numerical calls; frozen",
+    "R2 local mutable-artifact manifest failure before staging preserved; then actualR2 failed unrelated-function guard before numerical calls; no equivalence assertion",
+    "unrelated Thompson function/relocation/text changes explicitly UNQUALIFIED; not normalized away",
+    "driverbuildR1 rank-shape compile failure before proof, retained; freshR2 twoRESHAPEfixes only, reused clock/observer objects",
+    "actualR3 target-only native PASS is a new scoped attempt, not retroactive R1/R2 pass"
+  ],
+  "raw_refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/whole-compt-timing-preparation-r1/ACTUAL_WAVE.json": {
+      "sha256": "16497418da54a49d56ac13b45f0f978192a58086dcae0bb7f334e81feea18b2e",
+      "bytes": 3271
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/native-gate-r3/actual-native-r1/receipt.json": {
+      "sha256": "70cdfc49ed93a3784f8f97517ae5ece092c555932f37f7e2534a52e81b11a256",
+      "bytes": 114377
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/native-gate-r3/actual-native-r1/closure.json": {
+      "sha256": "f45cacff944fa5db333b3f124b70ed5b492a6390117126b8f1f2ac5a0e75ba27",
+      "bytes": 1142
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/actual-helper-codegen-r1/INDEPENDENT_ACTUAL_HELPER_ASM_REVIEW.json": {
+      "sha256": "67fc1d03b1f4663714477b5dc27715ece6c5c6ef259a3ca5703ad8ee2350af21",
+      "bytes": 2247
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/whole-compt-timing-preparation-r1/driver-build-r2/actual-native-r1/receipt.json": {
+      "sha256": "58215bfd6d258550570869dfc65ab41b1747d8868182f0761340fc3db4864f9d",
+      "bytes": 14399
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/whole-compt-timing-preparation-r1/driver-build-r2/actual-native-r1/closure.json": {
+      "sha256": "871f68cf0870c7a7de558345d93f33dcf60e2e5ef9c1b2b31d1b3ac0aab13826",
+      "bytes": 1138
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/native-gate-r1/actual-native-r1/receipt.json": {
+      "sha256": "4d7e4dcbbf5b84f902c564d77a6288fef7189b35e9b186efddd942180343292d",
+      "bytes": 15644
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/native-gate-r1/actual-native-r1/closure.json": {
+      "sha256": "81489225d2a73fa24f582929e0c0415704c9a480382037f453a280ed9d35e6af",
+      "bytes": 1344
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/native-gate-r2/actual-native-r1/receipt.json": {
+      "sha256": "7a137ac654d1bc3e9fc02794209ab73d2d1ab01a0a6b66b6f63ee7f6885a00e1",
+      "bytes": 12724
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/native-gate-r2/actual-native-r1/closure.json": {
+      "sha256": "d5105ac8b6db603639418850a74e8ef0a453ea67f8b707c0b81b2fc63ba64025",
+      "bytes": 1388
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/whole-compt-timing-preparation-r1/driver-build-r1/actual-native-r1/receipt.json": {
+      "sha256": "f77d11e5eb5aad60d55d4a0a7daab9c0cb5b8ab97133ed732bb7873a03ed7973",
+      "bytes": 7725
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/whole-compt-timing-preparation-r1/driver-build-r1/actual-native-r1/closure.json": {
+      "sha256": "cc272cf628b7ef36e5b5be4d11e765c5e1cd85c41b5ae891689c18149efd0a42",
+      "bytes": 1389
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/local-completion-r1/compt_rslf_pair_ordered.c": {
+      "sha256": "62693a3ca31229555730862404cbf983616a9f9db2fe112e38f50188491ee44e",
+      "bytes": 1876
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/local-completion-r1/ADJUDICATION.json": {
+      "sha256": "c9522b2aeee2c13b26c83951dd7f95046c7b6e5b639d98be6bcf6375d4c9c8bb",
+      "bytes": 870
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/native-gate-r1/candidate.diff": {
+      "sha256": "a1af3d0609872e1f8fbe00b5f5165629e51dcc142a05f934e17e92a65f720931",
+      "bytes": 943
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/whole-compt-timing-preparation-r1/driver-build-r2/DRIVER_RANK_SHAPE_ONLY.diff": {
+      "sha256": "8f1ba41d62a757b3a0f3ae45eb0573a3a7e1b8b96d6109bbb8e02f0e167f0b10",
+      "bytes": 801
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/whole-compt-timing-preparation-r1/timing-r1/arm0/actual-native-r1/receipt.json": {
+      "sha256": "34d774f96a9d00a85def711bbfbd94e700dfa3c51c3044ee353dc806b5073ef6",
+      "bytes": 2191
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/whole-compt-timing-preparation-r1/timing-r1/arm0/actual-native-r1/closure.json": {
+      "sha256": "147f99669788588179561621e630d55344ecaa1578ee39f949eb9e33291020eb",
+      "bytes": 1095
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/whole-compt-timing-preparation-r1/timing-r1/arm0/actual-native-r1/cache-clear.json": {
+      "sha256": "0a8265d51a45214e7fa1d045cb37a724cd0b6e8049a3ac7c8b18284a538114e4",
+      "bytes": 1150
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/whole-compt-timing-preparation-r1/timing-r1/arm0/actual-native-r1/controller.json": {
+      "sha256": "bca39b84d47456ce1a4387a683cdc131a80205df88bd5ce57028622d59d86b81",
+      "bytes": 2185
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/whole-compt-timing-preparation-r1/timing-r1/arm1/actual-native-r1/receipt.json": {
+      "sha256": "bf2e1a633dbb6d07f86a99b0153b1abd15f14e8709d4c04252e5193f4ef423f9",
+      "bytes": 2196
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/whole-compt-timing-preparation-r1/timing-r1/arm1/actual-native-r1/closure.json": {
+      "sha256": "40b96347abcdda7dd4433391e5e7a6c117dd7f8825b157901559dacf1b93c469",
+      "bytes": 1095
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/whole-compt-timing-preparation-r1/timing-r1/arm1/actual-native-r1/cache-clear.json": {
+      "sha256": "4a33ebf6afaf32f824be24b3868b2dfd7b0e637a9c101f8154e9aa6f74f73d0d",
+      "bytes": 1150
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/whole-compt-timing-preparation-r1/timing-r1/arm1/actual-native-r1/controller.json": {
+      "sha256": "ab58e13483ecd6109bdb053a3c95d47e5b514bd3345762a663dddff4ee4ea323",
+      "bytes": 2185
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/whole-compt-timing-preparation-r1/timing-r1/arm2/actual-native-r1/receipt.json": {
+      "sha256": "6f0355abf90e3e4b4fd10bde69a3b53ac4961af44f5f81fce05780b963a08d93",
+      "bytes": 2197
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/whole-compt-timing-preparation-r1/timing-r1/arm2/actual-native-r1/closure.json": {
+      "sha256": "a1b5e68cfc181fc954bb663c24c2214b64e14609f05cc9a51eaa46a42593b4ed",
+      "bytes": 1095
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/whole-compt-timing-preparation-r1/timing-r1/arm2/actual-native-r1/cache-clear.json": {
+      "sha256": "bfd01f5f59d2920da135a7dc244d28728c1c07445a6b4423b398bc93b0c1d922",
+      "bytes": 1148
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/whole-compt-timing-preparation-r1/timing-r1/arm2/actual-native-r1/controller.json": {
+      "sha256": "7c9edee6a59f28d5035eaa6d52070cc7ff029f3477c666f29e8469090fb629fe",
+      "bytes": 2183
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/whole-compt-timing-preparation-r1/timing-r1/arm3/actual-native-r1/receipt.json": {
+      "sha256": "a4b954692f068b3de58c3a42909e77a334087429e4b4e516c3496eb35fddaab7",
+      "bytes": 2190
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/whole-compt-timing-preparation-r1/timing-r1/arm3/actual-native-r1/closure.json": {
+      "sha256": "682f8d556ab1e386da95aefd4f2c211027a80b1f047d6a95f571d043fe4f4644",
+      "bytes": 1095
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/whole-compt-timing-preparation-r1/timing-r1/arm3/actual-native-r1/cache-clear.json": {
+      "sha256": "7cc1593824e545dc5216cfb683c1cadb632453ac9afd0162addbf1d4c081f99e",
+      "bytes": 1148
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/whole-compt-timing-preparation-r1/timing-r1/arm3/actual-native-r1/controller.json": {
+      "sha256": "bb9b39b1766bf6ce2fd021d4bb9bcce297d17e5dc52a7c24a15b4a451cff46fa",
+      "bytes": 2183
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/provider-review-r1/actual-provider-r1/author/receipt.json": {
+      "sha256": "bd0a6f393bbd40d2cb685d039f2857429b90744458dbf6da66271a0de9917851",
+      "bytes": 967
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/provider-review-r1/actual-provider-r1/author/response.txt": {
+      "sha256": "9f4069e9c6b846b3527b48f7454439a1e0cc38679b5ec7ea8023fbec335406ae",
+      "bytes": 8712
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/provider-review-r1/actual-provider-r1/review/receipt.json": {
+      "sha256": "cc6bb7571f5de3326a9a12dcf06c698c8621ec73184240fc46ea8b40286e2615",
+      "bytes": 967
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/provider-review-r1/actual-provider-r1/review/response.txt": {
+      "sha256": "090059088b2ddf5a42ba771d16918f3192e8bb389514ba413a3aa490f43800fe",
+      "bytes": 10814
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/ASSESSMENT.json": {
+      "sha256": "724f4443bc7d2fe135a9b0e6cd8daa0d9061768578a536e6d9e60d01af9e03d8",
+      "bytes": 1697
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/mod-mismatch-diagnosis-r1/ACTUAL_MOD_DIFF.txt": {
+      "sha256": "2505d31f8e59801af5a0a1862df81e90ddb9a803ee7d5657083fe67f3be32393",
+      "bytes": 717
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/unaffected-relocation-diagnosis-r1/ACTUAL_UNAFFECTED_DELTA.json": {
+      "sha256": "782f86a819ff3bcb3881702951bd8a888dfa390a164f9422193e3f47e2231e28",
+      "bytes": 3289717
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/distributed-slow-typical-profile-plan-r1/current769-rslf-opcode-read-r1/ACTUAL_OPCODE_READ.json": {
+      "sha256": "24fdf4850f486028c9aecdeb52224b6849abdf8c9049be443a10ae09795dd461",
+      "bytes": 52079
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/whole-compt-timing-preparation-r1/driver-build-r2/ACTUAL_R1_C_OBJECT_PINS.json": {
+      "sha256": "fb8769289699f6ff37bc0241add589b70558708876101c291b405f59ddfadab0",
+      "bytes": 465
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/compt-rslf-private-sse2-pair-r1/R2_ACTUAL_REUSE_HASHES.json": {
+      "sha256": "e8dbafc3a3b17cf6d0f39a033ba67003858f1df0e9bb279fc41aae2e1d9038d8",
+      "bytes": 3109
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/source-discovery/compt-rslf-pair-current-daylight-r1/DISPOSITION.json": {
+      "sha256": "7003da4752fa37078c267b21bdc449190b718e63f34b0fda91330fc65e5af7d2",
+      "bytes": 6026
+    }
+  }
+}

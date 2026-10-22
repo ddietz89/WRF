@@ -1,0 +1,90 @@
+{
+  "status": "FAIL_RETAINED_NO_RETRY",
+  "invocation_id": "1e9945eee3f64ad78a09b1b471d3e66d",
+  "commands": [
+    {
+      "label": "compile-benchmark_clock",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-timing-build-hpc02-r1/benchmark_clock.c",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-timing-build-hpc02-r1/work/benchmark_clock.o"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "compile-five_state_observer",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-timing-build-hpc02-r1/five_state_observer.c",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-timing-build-hpc02-r1/work/five_state_observer.o"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "compile-shared-timing-driver",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-Wl,-rpath,/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-timing-build-hpc02-r1/work/mods",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-timing-build-hpc02-r1/timing_driver.f90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-timing-build-hpc02-r1/work/timing-driver.o"
+      ],
+      "rc": 1
+    }
+  ],
+  "physics_compiles": 0,
+  "C_helper_compiles": 0,
+  "fixed_repeats": 20000,
+  "cases": 8,
+  "actual_dependency_pins": {
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tcg-twelve-owner-canonical-current-r1/candidate/module_wrf_top.o": "65001523868ea86923d536b595270eb74ae85d4d8aab722975e6cd5e72b493f1",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tcg-twelve-owner-canonical-current-r1/candidate/wrf.o": "33251ef3f1810d6dfbd5571943b80cc15f92c16f9cc03bb661b2ca945a48769d",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o": "3a94b6864d7b3d2df4efc4f1afabe6dd519b6f73c9785738f219e6206727e4ec",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o": "54be5b6686914b8496b3d451205582b7bf854f23e52176c13ab34f66255946d4",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o": "4f037f15d1dc99ac826fccdfbf500221ae63132896e90a627446bc3fff8b8263",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a": "43440c838a792ee55cdb93165c7996173df197d3e6afbd9c69e196b64b869a34",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a": "fa5423d57121eae7505cd464e0a9826c36eadf91a6a884aee96f6a7aa4279a29",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a": "93675f19d4c2d39ff9de6909f76e4ccddf0844440abe38fa37aea97bb42fb4f0",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a": "a06e4111dbb308bbe94c1cb2c0e21c608fde3e906dec74a10910b5842cac5ca0",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o": "175cbd87243a7ff3412f1850e76dac102eb4edc5db684bfdc97d419694d44a78",
+    "/pool/wrf-experiment/wrf-cpu/builds/rsl-narrow-integer-copy-r1/librsl_lite.a": "982d0c81abed9d9209ea955e63c0851ae7eaa51b6ade4748303176b51eaaa130",
+    "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o": "8ab87436bdb22d9d0ef3c1257e25f415727ede16be8535b8e037832a12fe9752",
+    "/pool/wrf-experiment/wrf-cpu/kernels/hpg-nhx-isolated-avx2-consumer-native-r3/work/nhx-helper-O2.o": "ae13adfa248c9613be20c56bd1f8e77a3ff8d79a985ffb163acc16be629d0f8c",
+    "/pool/wrf-experiment/wrf-cpu/kernels/phy-height-private-avx2-fixed8-native-hpc04-r1/work/helper-O2.o": "b6a707c4f00670eb6611e45513381d275b31c82fe7c6bf08d548de286b9a0467"
+  },
+  "runtime_env": {
+    "LD_LIBRARY_PATH": "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib",
+    "OMP_NUM_THREADS": "1",
+    "OMP_DYNAMIC": "FALSE"
+  },
+  "error": "AssertionError(('compile-shared-timing-driver', '/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-timing-build-hpc02-r1/timing_driver.f90:35:0:\\n\\n   35 | before=transfer(storage,before)\\n      | \\nError: Incompatible ranks 2 and 1 in assignment at (1)\\n/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-timing-build-hpc02-r1/timing_driver.f90:49:0:\\n\\n   49 | after=transfer(storage,after)\\n      | \\nError: Incompatible ranks 2 and 1 in assignment at (1)\\n'))",
+  "traceback": "Traceback (most recent call last):\n  File \"/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-timing-build-hpc02-r1/run_gate.py\", line 22, in <module>\n    run([fc,*flags,'-I'+str(mods),'-c',P/'timing_driver.f90','-o',D/'timing-driver.o'],D,'compile-shared-timing-driver')\n  File \"/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-timing-build-hpc02-r1/run_gate.py\", line 6, in run\n    z=subprocess.run(list(map(str,a)),cwd=d,capture_output=True,text=True,timeout=min(90,max(1,280-time.monotonic()+beg)));(P/(label+'.stdout')).write_text(z.stdout);(P/(label+'.stderr')).write_text(z.stderr);r['commands'].append({'label':label,'argv':list(map(str,a)),'rc':z.returncode});assert z.returncode==0,(label,z.stderr[-3500:]);return z\n                                                                                                                                                                                                                                                                                                        ^^^^^^^^^^^^^^^\nAssertionError: ('compile-shared-timing-driver', '/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-timing-build-hpc02-r1/timing_driver.f90:35:0:\\n\\n   35 | before=transfer(storage,before)\\n      | \\nError: Incompatible ranks 2 and 1 in assignment at (1)\\n/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-timing-build-hpc02-r1/timing_driver.f90:49:0:\\n\\n   49 | after=transfer(storage,after)\\n      | \\nError: Incompatible ranks 2 and 1 in assignment at (1)\\n')\n",
+  "elapsed_seconds_context_only": 0.5727323088794947
+}

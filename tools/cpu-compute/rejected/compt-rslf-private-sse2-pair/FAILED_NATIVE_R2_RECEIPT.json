@@ -1,0 +1,288 @@
+{
+  "status": "FAIL_RETAINED",
+  "invocation_id": "78a9f85799d84cdab1f132d4d0620af8",
+  "commands": [
+    {
+      "label": "compiler",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "--version"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "original24_observer",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-compatible-native-hpc02-r2/original24_observer.c",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-compatible-native-hpc02-r2/work/original24_observer.o"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "five_state_observer",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-compatible-native-hpc02-r2/five_state_observer.c",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-compatible-native-hpc02-r2/work/five_state_observer.o"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "helper-O0",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O0",
+        "-msse2",
+        "-mno-avx",
+        "-mno-fma",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-DWRF_COMPT_RSLF_PAIR_OPT_O0",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-compatible-native-hpc02-r2/compt_rslf_pair_ordered.c",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-compatible-native-hpc02-r2/work/O0-candidate/helper.o"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "helper-codegen-O0",
+      "argv": [
+        "objdump",
+        "-d",
+        "--disassemble=wrf_compt_rslf_pair_ordered_",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-compatible-native-hpc02-r2/work/O0-candidate/helper.o"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "PP-O2-candidate-sed",
+      "argv": [
+        "/bin/sed",
+        "-e",
+        "s/^\\!.*'.*//",
+        "-e",
+        "s/^ *\\!.*'.*//",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-compatible-native-hpc02-r2/work/O2-candidate/module_mp_thompson.F"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "PP-O2-candidate-cpp",
+      "argv": [
+        "/usr/bin/cpp",
+        "-P",
+        "-traditional-cpp",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-DEM_CORE=1",
+        "-DNMM_CORE=0",
+        "-DNMM_MAX_DIM=2600",
+        "-DDA_CORE=0",
+        "-DWRFPLUS=0",
+        "-DIWORDSIZE=4",
+        "-DDWORDSIZE=8",
+        "-DRWORDSIZE=4",
+        "-DLWORDSIZE=4",
+        "-DNONSTANDARD_SYSTEM_SUBR",
+        "-DWRF_USE_CLM",
+        "-DUSE_NETCDF4_FEATURES",
+        "-DWRFIO_NCD_LARGE_FILE_SUPPORT",
+        "-DDM_PARALLEL",
+        "-DNETCDF",
+        "-DLANDREAD_STUB=1",
+        "-DUSE_ALLOCATABLES",
+        "-Dwrfmodel",
+        "-DGRIB1",
+        "-DINTIO",
+        "-DKEEP_INT_AROUND",
+        "-DLIMIT_ARGS",
+        "-DBUILD_RRTMG_FAST=0",
+        "-DBUILD_RRTMK=0",
+        "-DBUILD_SBM_FAST=1",
+        "-DSHOW_ALL_VARS_USED=0",
+        "-DCONFIG_BUF_LEN=65536",
+        "-DMAX_DOMAINS_F=21",
+        "-DMAX_HISTORY=25",
+        "-DNMM_NEST=0",
+        "-I.",
+        "-traditional-cpp",
+        "-DUSE_NETCDF4_FEATURES",
+        "-DWRFIO_NCD_LARGE_FILE_SUPPORT",
+        "-DWRF_EXPERIMENTAL_TPI_NUMA",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-compatible-native-hpc02-r2/work/O2-candidate/module_mp_thompson.G"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "PP-O2-candidate-standard",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/tools/standard.exe",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-compatible-native-hpc02-r2/work/O2-candidate/module_mp_thompson.bb"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "PP-O2-candidate-final-cpp",
+      "argv": [
+        "/usr/bin/cpp",
+        "-P",
+        "-traditional-cpp",
+        "-traditional-cpp",
+        "-DUSE_NETCDF4_FEATURES",
+        "-DWRFIO_NCD_LARGE_FILE_SUPPORT"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "compile-O2-candidate",
+      "argv": [
+        "time",
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-o",
+        "module_mp_thompson.o",
+        "-c",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-compatible-native-hpc02-r2/work/O2-candidate",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "module_mp_thompson.f90"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "helper-O2",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-msse2",
+        "-mno-avx",
+        "-mno-fma",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-DWRF_COMPT_RSLF_PAIR_OPT_O2",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-compatible-native-hpc02-r2/compt_rslf_pair_ordered.c",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-compatible-native-hpc02-r2/work/O2-candidate/helper.o"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "helper-codegen-O2",
+      "argv": [
+        "objdump",
+        "-d",
+        "--disassemble=wrf_compt_rslf_pair_ordered_",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-compatible-native-hpc02-r2/work/O2-candidate/helper.o"
+      ],
+      "rc": 0
+    }
+  ],
+  "observations": {},
+  "scope": "current242c genuine parent, original24 prefix plus same24 four-round/five-state whole compT; sameopt only; no timing/application",
+  "retained_R1_failure_sha256": "4d7e4dcbbf5b84f902c564d77a6288fef7189b35e9b186efddd942180343292d",
+  "observed_module_contract": {
+    "status": "PASS_ONLY_EXACT_OBSERVED_COMPT_ARRAY_OUTER_DEPENDENCY_INSERTION",
+    "parent_mod_sha256": "2b20e2811653339ea7df9463b3c991491ba7b573eee9aa615ec15e8865511816",
+    "candidate_mod_sha256": "900284985d03e91b3111d782e016cff1b73309df3585fd6f5f7ade8ec61d4bfe",
+    "insertion_index": 456489,
+    "public_module_interface_exact": false,
+    "all_other_decoded_tokens_exact": true,
+    "limitation": "Meaningful GNU dependency summary; fresh callers may become more conservative. No fresh-caller-code identity, universal ABI, scientific or application claim."
+  },
+  "objects": {
+    "O2-parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-compatible-native-hpc02-r2/work/O2-parent/module_mp_thompson.o",
+      "sha256": "e03e717f266e9a21af9847b44fd317a416b5177e5abd577f784d69ea53335184",
+      "PP_sha256": "f55213b4cde5d8f8311989aefa6413f56faabb45a9937ef3755fa7b27c19e687",
+      "MOD_sha256": "2b20e2811653339ea7df9463b3c991491ba7b573eee9aa615ec15e8865511816",
+      "helper": null
+    },
+    "O0-parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-compatible-native-hpc02-r2/work/O0-parent/module_mp_thompson.o",
+      "sha256": "531260170f371ceae8fbb3f29e94ef6cc291bdbaa5ef8ee74b2d75f1ad26bfa5",
+      "PP_sha256": "f55213b4cde5d8f8311989aefa6413f56faabb45a9937ef3755fa7b27c19e687",
+      "MOD_sha256": "2b20e2811653339ea7df9463b3c991491ba7b573eee9aa615ec15e8865511816",
+      "helper": null
+    },
+    "O0-candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-compatible-native-hpc02-r2/work/O0-candidate/module_mp_thompson.o",
+      "sha256": "ad85218fca476dcd0de0df237d2c37e168284e1c1112cb4488729cbf11d4c07a",
+      "PP_sha256": "bb83dbf401f5227f7b0950ea03956ae4ec0678ef90afe867a80042b9f84db68d",
+      "MOD_sha256": "900284985d03e91b3111d782e016cff1b73309df3585fd6f5f7ade8ec61d4bfe",
+      "helper": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-compatible-native-hpc02-r2/work/O0-candidate/helper.o",
+        "sha256": "a1e7a0a4d4f914b9eb5a3532a8f858248525f0e616ba07399caf90a5d9d469bd"
+      }
+    },
+    "O2-candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-compatible-native-hpc02-r2/work/O2-candidate/module_mp_thompson.o",
+      "sha256": "c296fab65e0d22e63bec0ef97b551177f3afdb35202456514e5ba0029df62b53",
+      "PP_sha256": "bb83dbf401f5227f7b0950ea03956ae4ec0678ef90afe867a80042b9f84db68d",
+      "MOD_sha256": "900284985d03e91b3111d782e016cff1b73309df3585fd6f5f7ade8ec61d4bfe",
+      "helper": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-compatible-native-hpc02-r2/work/O2-candidate/helper.o",
+        "sha256": "faf0aad71599e04b31008bc454c692254608b6d4a85ad5805122047931162930"
+      }
+    }
+  },
+  "genuine_parent_proof_sha256": "c3e55f3cfb38da4c085c5a77013a938ba4fa5ee70f9ae259d97daf3d4a12d099",
+  "compatible_interface_proofs": {
+    "O0-candidate": {
+      "status": "PASS_ONLY_EXACT_OBSERVED_COMPT_ARRAY_OUTER_DEPENDENCY_INSERTION",
+      "parent_mod_sha256": "2b20e2811653339ea7df9463b3c991491ba7b573eee9aa615ec15e8865511816",
+      "candidate_mod_sha256": "900284985d03e91b3111d782e016cff1b73309df3585fd6f5f7ade8ec61d4bfe",
+      "insertion_index": 456489,
+      "public_module_interface_exact": false,
+      "all_other_decoded_tokens_exact": true,
+      "limitation": "Meaningful GNU dependency summary; fresh callers may become more conservative. No fresh-caller-code identity, universal ABI, scientific or application claim."
+    },
+    "O2-candidate": {
+      "status": "PASS_ONLY_EXACT_OBSERVED_COMPT_ARRAY_OUTER_DEPENDENCY_INSERTION",
+      "parent_mod_sha256": "2b20e2811653339ea7df9463b3c991491ba7b573eee9aa615ec15e8865511816",
+      "candidate_mod_sha256": "900284985d03e91b3111d782e016cff1b73309df3585fd6f5f7ade8ec61d4bfe",
+      "insertion_index": 456489,
+      "public_module_interface_exact": false,
+      "all_other_decoded_tokens_exact": true,
+      "limitation": "Meaningful GNU dependency summary; fresh callers may become more conservative. No fresh-caller-code identity, universal ABI, scientific or application claim."
+    }
+  },
+  "error": "AssertionError(('UNRELATED_FUNCTION_TEXT_OR_RELOCATION_CHANGED', 'O2'))",
+  "traceback": "Traceback (most recent call last):\n  File \"/pool/wrf-experiment/wrf-cpu/kernels/current769-compt-private-sse2-pair-compatible-native-hpc02-r2/run_gate.py\", line 89, in <module>\n    a=unaffected(built[opt+'-parent'][1]);z=unaffected(built[opt+'-candidate'][1]);(P/('unaffected-'+opt+'.json')).write_text(json.dumps({'parent':a,'candidate':z},indent=2)+'\\n');assert a==z,('UNRELATED_FUNCTION_TEXT_OR_RELOCATION_CHANGED',opt)\n                                                                                                                                                                                           ^^^^\nAssertionError: ('UNRELATED_FUNCTION_TEXT_OR_RELOCATION_CHANGED', 'O2')\n",
+  "elapsed_seconds_context_only": 11.624638773035258
+}
