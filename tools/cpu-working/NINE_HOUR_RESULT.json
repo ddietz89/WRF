@@ -2,27 +2,27 @@
   "status": "PASS_ORIGINAL_TEN_HISTORY_AND_512_DIRECT_STOCK_LATEST_NINE_HOUR_SEQUENCE",
   "order": [
     "fresh_corrected_original546b_control",
-    "fresh_current_LW0de7_DF41b_pool51a_input06d_NCa32_blockcarry_e1d8_candidate"
+    "fresh_selected_FBCD_PD_allprior_with_result_capacity8bee_codec9371_candidate"
   ],
   "comparison_design": "Fresh fixed-order corrected-original versus combined current candidate; no isolated outputpadding/SIMD/input or earlierkernel attribution",
   "metrics": {
     "control": {
-      "wall_seconds": 2068.6204282799736,
-      "cpu_seconds": 1009950.9548869999,
-      "main_step_sum_seconds": 1852.82922
+      "wall_seconds": 2306.344228322152,
+      "cpu_seconds": 1132283.412013,
+      "main_step_sum_seconds": 2092.72855
     },
     "candidate": {
-      "wall_seconds": 1828.9245701739565,
-      "cpu_seconds": 919840.608287,
-      "main_step_sum_seconds": 1730.7711
+      "wall_seconds": 1825.2293158732355,
+      "cpu_seconds": 919086.0741600001,
+      "main_step_sum_seconds": 1730.64904
     }
   },
   "reductions_percent": {
-    "wall_seconds": 11.587232477701125,
-    "cpu_seconds": 8.9222497551955,
-    "main_step_sum_seconds": 6.587661651838594
+    "wall_seconds": 20.860498903016055,
+    "cpu_seconds": 18.828972993075364,
+    "main_step_sum_seconds": 17.30179052605747
   },
-  "science_sha256": "ea4a1e60c65cef25bcb9885fa9fb15d538455452e0a51fab26730cd0ea1618be",
-  "reader_closure_sha256": "e04e209b107d99749a69fefb9006ed13ef335f509d64425d21cd481890cc4787",
+  "science_sha256": "68aa7427941db82215dc0b5a26842a4bc3a48fc9d8e6be2b9847f3c59e875abd",
+  "reader_closure_sha256": "6ced782585b0c629f45fc437882c90c0e51e303d799c6a713023f547f733806d",
   "limits": "One fresh fixed-order pair, actual checkedcache before each arm; no repeatability or per-kernel causal claim. Main includes communication/backpressure; residual is not pureIO."
 }

@@ -1,5 +1,5 @@
 {
-  "status": "QUALIFIED_CURRENT_RESULT_CAPACITY_FULL512_COMBINED_THREE_HOUR",
+  "status": "QUALIFIED_CURRENT_RESULT_CAPACITY_FULL512_COMBINED_NINE_HOUR",
   "proposed_fork_path": "WRF/tools/cpu-output/quilt512",
   "variant_source_sha256": "313e18ed4309eec9b038371dfce227f8f5fc401813b094aa2cddb01e9de47421",
   "existing_shared_directory_relative": "..",
@@ -324,14 +324,14 @@
     "applies_to_current_selected_artifact": false
   },
   "latest_combined_application_qualification": {
-    "path": "../../cpu-compute/pd-result-capacity-combined/APPLICATION_QUALIFICATION.json",
-    "sha256": "d843ebe334a96db16b4fe7fc8ae066b5fccd0374d0660401b10605c4a9817d11",
+    "path": "../../cpu-compute/pd-result-capacity-combined/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "e4dc3236697bcb6a3faa5621e023e652a6ea9c98cdb4209e1ddd7ec0952bec91",
     "candidate_executable_sha256": "fbcd04634d5dee1439af4bba9052f1b7f673c0cfc15dfd2b4ac31b4dec7751dc",
     "archive_sha256": "a49db4d9583801968574885305ff399e7ceb883ef99a630122b3016a1dd803ba",
     "shim_sha256": "8bee3346e6fbf5b32d1f123efce4edfd8a16cf0c2f64948ba02a4c60b997097f",
     "codec_sha256": "937130c2a2d53e1d11c978dce1b661400daca9da7b8ae99029333dbc1103d178",
-    "products": 4,
-    "ordered_steps": 545,
+    "products": 10,
+    "ordered_steps": 1625,
     "world": 512,
     "tiles": 2,
     "all4_positive_writer_roots": [
@@ -343,22 +343,27 @@
     "field_view_markers": 32,
     "own_short_qualified": false,
     "own_threehour_qualified": true,
-    "own_noon75m_qualified": false,
-    "own_nine_hour_qualified": false,
-    "fresh_control_run": false,
+    "own_noon75m_qualified": true,
+    "own_nine_hour_qualified": true,
+    "fresh_control_run": true,
     "metrics": {
-      "candidate": {
-        "wall_seconds": 658.1396509120241,
-        "cpu_seconds": 318924.867798,
-        "main_step_sum_seconds": 556.42103
+      "control": {
+        "wall_seconds": 2306.344228322152,
+        "cpu_seconds": 1132283.412013,
+        "main_step_sum_seconds": 2092.72855
       },
-      "retained_original": {
-        "wall_seconds": 980.2076796269976,
-        "cpu_seconds": 449620.40714599995,
-        "main_step_sum_seconds": 757.68805
+      "candidate": {
+        "wall_seconds": 1825.2293158732355,
+        "cpu_seconds": 919086.0741600001,
+        "main_step_sum_seconds": 1730.64904
       }
     },
-    "scope": "Candidate-only combinedfbcd/a49 with PDfinalXY and capacity8bee original4/545 versus retained fresh corrected-original546b from adc46. UNPAIRED descriptive metrics, no currentfreshpair/matchedincrement/isolatedkernel/repeatability or throughput claim."
+    "scope": "Actual currentfbcd/a49/8bee original10products/1625steps fresh9h pair; not isolatedprovider gain or repeatability.",
+    "reductions_percent": {
+      "wall_seconds": 20.860498903016055,
+      "cpu_seconds": 18.828972993075364,
+      "main_step_sum_seconds": 17.30179052605747
+    }
   },
   "latest_direct_corrected_stock_three_hour_qualification": {
     "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
@@ -418,9 +423,9 @@
     "source_commit": null,
     "post_test_source_commit": "6697020f800df164e3dee6d04d7c3639b297cca6",
     "native_qualification_sha256": "2329e2197c5d1c25d924df1cdcf2bd14bf8d10ebce6a48c30e4ab0be663093fd",
-    "application_qualification_sha256": "d843ebe334a96db16b4fe7fc8ae066b5fccd0374d0660401b10605c4a9817d11"
+    "application_qualification_sha256": "e4dc3236697bcb6a3faa5621e023e652a6ea9c98cdb4209e1ddd7ec0952bec91"
   },
-  "current_application_qualification_file": "../../cpu-compute/pd-result-capacity-combined/APPLICATION_QUALIFICATION.json",
+  "current_application_qualification_file": "../../cpu-compute/pd-result-capacity-combined/NINE_HOUR_APPLICATION_QUALIFICATION.json",
   "variant_recipe_reproduction_note": "Historical optional375/original4cb byteidentity proof is retained; no newdefaultprovider build was run for86aa/8bee selectorpromotion. Defaultstrictflags/shim313e/sharedsources unchanged; actual8bee fullshim build/native proof is linked separately.",
   "previous_current_selected_artifact_172": {
     "path": "/pool/wrf-experiment/wrf-cpu/kernels/current375-fused-pack-shuffle-integration-hpc02-r1/candidate/wrf_quilt_thread_shim.so",
@@ -538,5 +543,84 @@
       "sha256": "51a31b3c137a2161700c9930a1e250021b34c598c887a7551e87d304b2ce4d31"
     },
     "scope": "Historical selector/native/application fields preserved in priorGit; no fullJSON duplicate."
+  },
+  "before_current_own_ninehour_combined_application": {
+    "path": "../../cpu-compute/pd-result-capacity-combined/APPLICATION_QUALIFICATION.json",
+    "sha256": "d843ebe334a96db16b4fe7fc8ae066b5fccd0374d0660401b10605c4a9817d11",
+    "candidate_executable_sha256": "fbcd04634d5dee1439af4bba9052f1b7f673c0cfc15dfd2b4ac31b4dec7751dc",
+    "archive_sha256": "a49db4d9583801968574885305ff399e7ceb883ef99a630122b3016a1dd803ba",
+    "shim_sha256": "8bee3346e6fbf5b32d1f123efce4edfd8a16cf0c2f64948ba02a4c60b997097f",
+    "codec_sha256": "937130c2a2d53e1d11c978dce1b661400daca9da7b8ae99029333dbc1103d178",
+    "products": 4,
+    "ordered_steps": 545,
+    "world": 512,
+    "tiles": 2,
+    "all4_positive_writer_roots": [
+      487,
+      495,
+      503,
+      511
+    ],
+    "field_view_markers": 32,
+    "own_short_qualified": false,
+    "own_threehour_qualified": true,
+    "own_noon75m_qualified": false,
+    "own_nine_hour_qualified": false,
+    "fresh_control_run": false,
+    "metrics": {
+      "candidate": {
+        "wall_seconds": 658.1396509120241,
+        "cpu_seconds": 318924.867798,
+        "main_step_sum_seconds": 556.42103
+      },
+      "retained_original": {
+        "wall_seconds": 980.2076796269976,
+        "cpu_seconds": 449620.40714599995,
+        "main_step_sum_seconds": 757.68805
+      }
+    },
+    "scope": "Candidate-only combinedfbcd/a49 with PDfinalXY and capacity8bee original4/545 versus retained fresh corrected-original546b from adc46. UNPAIRED descriptive metrics, no currentfreshpair/matchedincrement/isolatedkernel/repeatability or throughput claim."
+  },
+  "current_nine_hour_application": {
+    "path": "../../cpu-compute/pd-result-capacity-combined/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "e4dc3236697bcb6a3faa5621e023e652a6ea9c98cdb4209e1ddd7ec0952bec91",
+    "candidate_executable_sha256": "fbcd04634d5dee1439af4bba9052f1b7f673c0cfc15dfd2b4ac31b4dec7751dc",
+    "archive_sha256": "a49db4d9583801968574885305ff399e7ceb883ef99a630122b3016a1dd803ba",
+    "shim_sha256": "8bee3346e6fbf5b32d1f123efce4edfd8a16cf0c2f64948ba02a4c60b997097f",
+    "codec_sha256": "937130c2a2d53e1d11c978dce1b661400daca9da7b8ae99029333dbc1103d178",
+    "products": 10,
+    "ordered_steps": 1625,
+    "world": 512,
+    "tiles": 2,
+    "all4_positive_writer_roots": [
+      487,
+      495,
+      503,
+      511
+    ],
+    "field_view_markers": 32,
+    "own_short_qualified": false,
+    "own_threehour_qualified": true,
+    "own_noon75m_qualified": true,
+    "own_nine_hour_qualified": true,
+    "fresh_control_run": true,
+    "metrics": {
+      "control": {
+        "wall_seconds": 2306.344228322152,
+        "cpu_seconds": 1132283.412013,
+        "main_step_sum_seconds": 2092.72855
+      },
+      "candidate": {
+        "wall_seconds": 1825.2293158732355,
+        "cpu_seconds": 919086.0741600001,
+        "main_step_sum_seconds": 1730.64904
+      }
+    },
+    "scope": "Actual currentfbcd/a49/8bee original10products/1625steps fresh9h pair; not isolatedprovider gain or repeatability.",
+    "reductions_percent": {
+      "wall_seconds": 20.860498903016055,
+      "cpu_seconds": 18.828972993075364,
+      "main_step_sum_seconds": 17.30179052605747
+    }
   }
 }

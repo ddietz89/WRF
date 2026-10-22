@@ -1,5 +1,5 @@
 {
-  "status": "CURRENT_FBCD_PD_RESULT_CAPACITY_OWN_THREE_HOUR",
+  "status": "CURRENT_FBCD_PD_RESULT_CAPACITY_OWN_NINE_HOUR",
   "executable": {
     "path": "/pool/wrf-experiment/wrf-cpu/builds/currentbb65-one-advection-pd-final-xy-simd-hpc02-r1/wrf.exe",
     "sha256": "fbcd04634d5dee1439af4bba9052f1b7f673c0cfc15dfd2b4ac31b4dec7751dc"
@@ -14,9 +14,9 @@
   },
   "source_commit": "6697020f800df164e3dee6d04d7c3639b297cca6",
   "science": {
-    "products": 4,
-    "ordered_steps": 545,
-    "last_step": "2026-10-12_09:00:00",
+    "products": 10,
+    "ordered_steps": 1625,
+    "last_step": "2026-10-12_15:00:00",
     "world": 512,
     "compute": 480,
     "quilt": 32,
@@ -27,7 +27,9 @@
       503,
       511
     ],
-    "zero_activity_writer_roots": [],
+    "all32_quilt_FIELDVIEW1": true,
+    "protected_compare_one_AST_unchanged": true,
+    "original_comparisons_all_pass": true,
     "actual_field_marker_ranks": [
       480,
       481,
@@ -62,22 +64,18 @@
       510,
       511
     ],
-    "all32_quilt_FIELDVIEW1": true,
-    "protected_compare_one_AST_unchanged": true,
-    "original_comparisons_all_pass": true,
-    "qualification_sha256": "d843ebe334a96db16b4fe7fc8ae066b5fccd0374d0660401b10605c4a9817d11",
-    "invocation_id": "b519b584296947959f3ee95a93a76221",
-    "receipt_sha256": "8870e057775338337c58660b61d4cd65642f71f090ff2041dd1f35a32daa9913",
-    "reader_closure_sha256": "1ae8b123286f3f5c9eca7a95feabf7834813dd23f7c8019abec50d49dc63dd71",
-    "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+    "qualification_sha256": "e4dc3236697bcb6a3faa5621e023e652a6ea9c98cdb4209e1ddd7ec0952bec91",
+    "invocation_id": "2b56a4b854884560ae1fbed43c48273f",
+    "receipt_sha256": "68aa7427941db82215dc0b5a26842a4bc3a48fc9d8e6be2b9847f3c59e875abd",
+    "reader_closure_sha256": "6ced782585b0c629f45fc437882c90c0e51e303d799c6a713023f547f733806d",
     "all_model_reader_scopes_closed": true
   },
   "current_application_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/pd-result-capacity-combined/APPLICATION_QUALIFICATION.json",
-    "sha256": "d843ebe334a96db16b4fe7fc8ae066b5fccd0374d0660401b10605c4a9817d11"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/pd-result-capacity-combined/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "e4dc3236697bcb6a3faa5621e023e652a6ea9c98cdb4209e1ddd7ec0952bec91"
   },
   "current_three_hour_qualified": true,
-  "current_nine_hour_qualified": false,
+  "current_nine_hour_qualified": true,
   "prior_three_hour_benchmark": {
     "evidence_file": "PREVIOUS_THREE_HOUR_RESULT_BEFORE_DIFCOF_POOL.json",
     "qualification_file": "PREVIOUS_THREE_HOUR_FINAL_QUALIFICATION_BEFORE_DIFCOF_POOL.json",
@@ -113,11 +111,11 @@
     "repeatability_established": false,
     "scope": "GNU13.3 strict/OMP1/cold06:00\u201309:00/full512=480compute8x60+4x8quilt/faba/twoTiles/CEC/root06dNCa32/outputde5b/codec3edf/HDF825/shared1/FIELDVIEW1/singleIB;4completeproducts545steps/all4positivewriters. One fresh fixed-order inclusiveIO pair; no isolated/additive gain or current9h claim."
   },
-  "scope": "Combinedfbcd/a49 PDfinalXY plus result-capacity8bee; retains all previous compute/input/output. Ownoriginal4/545 three-hour only.",
+  "scope": "Current fbcd/a49 with result-capacity8bee and all previous qualified improvements: own exact10products/1625steps unprofiled nine-hour original comparison; own3h/noon remain separate. No short/restart/144h, per-component or repeatability claim.",
   "claim_limits": [
-    "Owncombined3h original4/545 only; ownseparate-short/noon/ninehourFALSE. Parentbb65 own3h938c/capacityshort733b are historical/component scopes.",
-    "Candidate-only versus retainedfreshoriginaladc46: metricsUNPAIRED, no matchedincrement, isolatedkernel, additive, repeatability or throughput claim.",
-    "Fourpositivewriterroots/32markers observed; actualpernode memoryevents/peaks/quota throttling retained. Logicalcachebound is not measuredphysicalmemory/per-rootcost."
+    "Own unprofiled nine-hour original comparison passed10products/1625steps; own three-hour4/545 and noon2/230 are separate actual qualifications. Current ownshort remainsFALSE.",
+    "One fresh corrected-original-first pair with cacheclear EACH: no isolatedcomponent/additive/repeatability/concurrent-throughput claim. Main elapsed includes compute, communication/backpressure; aggregate CPU includes spin.",
+    "Allfour positivewriterroots and all32 FIELDVIEW1markers observed; final per-node peaks/events/cpu.stat retained. No physicalmemory or causal cost inference from logicalcapacity alone."
   ],
   "output_postscience_tracking_commit": "909ab6ef55ac5351f9fd03e4019be470e89a3929",
   "previous_DF_pool_short_science": {
@@ -356,7 +354,7 @@
     "scope": "One CU-loop directive only, committed after native/caller/canonical-preprocess/link/original3hSCI. Frozen rawproducerNULL unchanged; no isolated forecast or own9h claim."
   },
   "current_short_qualified": false,
-  "comparison_design": "Candidate-only science qualification versus frozen original three-hour outputs; UNPAIRED descriptive metrics, no matched forecast timing or causal kernel claim",
+  "comparison_design": "Fresh fixed-order corrected-original versus combined current candidate; no isolated outputpadding/SIMD/input or earlierkernel attribution",
   "previous_PBL_PART2_POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
     "source_commit": "61c2b67e086360442b07a83090df5712b7905d8f",
@@ -397,7 +395,7 @@
   "archive_sha256": "a49db4d9583801968574885305ff399e7ceb883ef99a630122b3016a1dd803ba",
   "current_application_retry_scope": "Owncandidateonly4/545 exactSCI versus immutableadc46 reference; originalfailures preserved/no forecastretry or waiver.",
   "current_profiled_nine_hour_science_qualified": false,
-  "current_unprofiled_nine_hour_science_qualified": false,
+  "current_unprofiled_nine_hour_science_qualified": true,
   "current_profiled_nine_hour_qualification": null,
   "previous_RQVBLTEN_PART2_POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
@@ -569,54 +567,54 @@
     "repeatability_established": false,
     "scope": "Exact4products545/full512/twoTiles/all32markers/fourpositivewriters; all8models+reader normally closed. Includes all current promotions; no isolated directive or concurrent-throughput claim."
   },
-  "current_nine_hour_qualification": null,
+  "current_nine_hour_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/pd-result-capacity-combined/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "e4dc3236697bcb6a3faa5621e023e652a6ea9c98cdb4209e1ddd7ec0952bec91"
+  },
   "nine_hour_benchmark": {
-    "evidence_file": "tools/cpu-compute/hpg-nhx-consumer-simd/NINE_HOUR_RESULT.json",
-    "qualification_file": "tools/cpu-compute/hpg-nhx-consumer-simd/NINE_HOUR_APPLICATION_QUALIFICATION.json",
-    "qualification_sha256": "d686b176dfde3212312746cdf151dcdf709f0ab88c161affc5724d4dc68d62e5",
-    "executable_sha256": "1749f701a126b55788e04806fa77eee2a46c5a388b648b77188e3cc1c52151d5",
-    "archive_sha256": "f18c135ac6afcccf9b352b7db3d6e5994e1bf98e169c035fbfa0afc4a5b65692",
-    "source_commit": "a531104f2070bdbc918fe20b95cfe3651f340de5",
-    "source_commit_semantics": "POST_TEST identity; rawproducer source_commitNULL",
+    "evidence_file": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-fbcd-selected9h-runtime-r1/RESULT.json",
+    "qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/pd-result-capacity-combined/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+    "qualification_sha256": "e4dc3236697bcb6a3faa5621e023e652a6ea9c98cdb4209e1ddd7ec0952bec91",
+    "executable_sha256": "fbcd04634d5dee1439af4bba9052f1b7f673c0cfc15dfd2b4ac31b4dec7751dc",
+    "archive_sha256": "a49db4d9583801968574885305ff399e7ceb883ef99a630122b3016a1dd803ba",
+    "source_commit": "6697020f800df164e3dee6d04d7c3639b297cca6",
+    "source_commit_semantics": "Post-test joint source tracking; raw producer commits remain NULL. This is actual own fbcd/a49/8bee nine-hour coverage, not parent transfer.",
     "metrics": {
       "control": {
-        "wall_seconds": 2434.0523107456975,
-        "cpu_seconds": 1196242.042695,
-        "main_step_sum_seconds": 2217.65407
+        "wall_seconds": 2306.344228322152,
+        "cpu_seconds": 1132283.412013,
+        "main_step_sum_seconds": 2092.72855
       },
       "candidate": {
-        "wall_seconds": 1834.780146389734,
-        "cpu_seconds": 922523.653012,
-        "main_step_sum_seconds": 1735.35378
+        "wall_seconds": 1825.2293158732355,
+        "cpu_seconds": 919086.0741600001,
+        "main_step_sum_seconds": 1730.64904
       }
     },
     "reductions_percent": {
-      "wall_seconds": 24.620348614133526,
-      "cpu_seconds": 22.881522293460186,
-      "main_step_sum_seconds": 21.748220181157475
+      "wall_seconds": 20.860498903016055,
+      "cpu_seconds": 18.828972993075364,
+      "main_step_sum_seconds": 17.30179052605747
     },
-    "wall_speedup_ratio": 1.326617968662426,
+    "wall_speedup_ratio": 1.2635914886227537,
     "fresh_control_run": true,
     "fresh_matched_timing": true,
     "execution_order": [
-      "control",
-      "candidate"
+      "fresh_corrected_original546b_control",
+      "fresh_selected_FBCD_PD_allprior_with_result_capacity8bee_codec9371_candidate"
     ],
-    "applies_to_current_selection": false,
+    "applies_to_current_selection": true,
     "repeatability_established": false,
     "concurrent_throughput_measured": false,
-    "comparison_design": "Fresh corrected-original546b FIRST then selected1749 SECOND in R2 namespace; actual checkedcache EACH, one fixed-order pair.",
-    "scope": "One fresh corrected-original 546b first / selected 1749 second pair, with checked client-cache clearing before each arm. Control hpc04 reached 104 GiB with 2468 max events and no OOM; candidate memory events were zero. Both arms encountered CPU-quota throttling. File-server load/cache were uncontrolled. Main-step elapsed includes communication/backpressure; aggregate CPU includes MPI spin. No isolated/additive gain, repeatability, concurrent-throughput or causal pressure claim.",
+    "comparison_design": "Fresh fixed-order corrected-original versus combined current candidate; no isolated outputpadding/SIMD/input or earlierkernel attribution",
+    "scope": "Current fbcd/a49 with result-capacity8bee and all previous qualified improvements: own exact10products/1625steps unprofiled nine-hour original comparison; own3h/noon remain separate. No short/restart/144h, per-component or repeatability claim.",
     "memory_pressure_evidence": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/hpg-nhx-consumer-simd/NINE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "d686b176dfde3212312746cdf151dcdf709f0ab88c161affc5724d4dc68d62e5",
-      "control_hpc04_limit_GiB": 104,
-      "control_hpc04_max_events": 2468,
-      "candidate_memory_events_zero": true,
-      "both_arms_CPU_quota_throttling": true
+      "qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/pd-result-capacity-combined/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+      "field": "memory_actual",
+      "scope": "Final actual per-node peaks/events/cpu_stat; not interim maxima or causality."
     }
   },
-  "current_application_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/pd-result-capacity-combined/APPLICATION_QUALIFICATION.json",
+  "current_application_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/pd-result-capacity-combined/NINE_HOUR_APPLICATION_QUALIFICATION.json",
   "previous_E3_POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
     "source_commit": "1ae0c6ee9cd1b5c238a57cf25409c18d380faaed",
@@ -1201,7 +1199,7 @@
     },
     "applies_to_current_selection": false
   },
-  "next_qualification": "Own3h qualifies combinedimage; no separate short/noon9h transfer. Root schedules next useful evidence only.",
+  "next_qualification": "Continue the next measured opportunity; no automatic repetition of qualified horizons.",
   "previous_A50E_before_SPCVMC": {
     "paired_record": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_LATEST_APPLICATION_RESULT_BEFORE_SPCVMC_OPTICAL.json",
@@ -1450,49 +1448,46 @@
   "before_SPCVMC_own9h_claim_limits": "Actual unprofiled noon original science passed2products230steps. Candidate309.833275s wall/235.343340s main/151770.087473CPU-s is UNPAIRED against retained original; no isolated SPCVMC forecast gain, repeatability or horizon transfer. Whole-minus-main is not pureIO. Main elapsed includes communication/backpressure and is not integrationCPU.",
   "before_SPCVMC_own9h_comparison_design": "UNPAIRED candidate-only noon scientific reference; descriptive metrics only",
   "latest_nine_hour": {
-    "evidence_file": "tools/cpu-compute/hpg-nhx-consumer-simd/NINE_HOUR_RESULT.json",
-    "qualification_file": "tools/cpu-compute/hpg-nhx-consumer-simd/NINE_HOUR_APPLICATION_QUALIFICATION.json",
-    "qualification_sha256": "d686b176dfde3212312746cdf151dcdf709f0ab88c161affc5724d4dc68d62e5",
-    "executable_sha256": "1749f701a126b55788e04806fa77eee2a46c5a388b648b77188e3cc1c52151d5",
-    "archive_sha256": "f18c135ac6afcccf9b352b7db3d6e5994e1bf98e169c035fbfa0afc4a5b65692",
-    "source_commit": "a531104f2070bdbc918fe20b95cfe3651f340de5",
-    "source_commit_semantics": "POST_TEST identity; rawproducer source_commitNULL",
+    "evidence_file": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-fbcd-selected9h-runtime-r1/RESULT.json",
+    "qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/pd-result-capacity-combined/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+    "qualification_sha256": "e4dc3236697bcb6a3faa5621e023e652a6ea9c98cdb4209e1ddd7ec0952bec91",
+    "executable_sha256": "fbcd04634d5dee1439af4bba9052f1b7f673c0cfc15dfd2b4ac31b4dec7751dc",
+    "archive_sha256": "a49db4d9583801968574885305ff399e7ceb883ef99a630122b3016a1dd803ba",
+    "source_commit": "6697020f800df164e3dee6d04d7c3639b297cca6",
+    "source_commit_semantics": "Post-test joint source tracking; raw producer commits remain NULL. This is actual own fbcd/a49/8bee nine-hour coverage, not parent transfer.",
     "metrics": {
       "control": {
-        "wall_seconds": 2434.0523107456975,
-        "cpu_seconds": 1196242.042695,
-        "main_step_sum_seconds": 2217.65407
+        "wall_seconds": 2306.344228322152,
+        "cpu_seconds": 1132283.412013,
+        "main_step_sum_seconds": 2092.72855
       },
       "candidate": {
-        "wall_seconds": 1834.780146389734,
-        "cpu_seconds": 922523.653012,
-        "main_step_sum_seconds": 1735.35378
+        "wall_seconds": 1825.2293158732355,
+        "cpu_seconds": 919086.0741600001,
+        "main_step_sum_seconds": 1730.64904
       }
     },
     "reductions_percent": {
-      "wall_seconds": 24.620348614133526,
-      "cpu_seconds": 22.881522293460186,
-      "main_step_sum_seconds": 21.748220181157475
+      "wall_seconds": 20.860498903016055,
+      "cpu_seconds": 18.828972993075364,
+      "main_step_sum_seconds": 17.30179052605747
     },
-    "wall_speedup_ratio": 1.326617968662426,
+    "wall_speedup_ratio": 1.2635914886227537,
     "fresh_control_run": true,
     "fresh_matched_timing": true,
     "execution_order": [
-      "control",
-      "candidate"
+      "fresh_corrected_original546b_control",
+      "fresh_selected_FBCD_PD_allprior_with_result_capacity8bee_codec9371_candidate"
     ],
-    "applies_to_current_selection": false,
+    "applies_to_current_selection": true,
     "repeatability_established": false,
     "concurrent_throughput_measured": false,
-    "comparison_design": "Fresh corrected-original546b FIRST then selected1749 SECOND in R2 namespace; actual checkedcache EACH, one fixed-order pair.",
-    "scope": "One fresh corrected-original 546b first / selected 1749 second pair, with checked client-cache clearing before each arm. Control hpc04 reached 104 GiB with 2468 max events and no OOM; candidate memory events were zero. Both arms encountered CPU-quota throttling. File-server load/cache were uncontrolled. Main-step elapsed includes communication/backpressure; aggregate CPU includes MPI spin. No isolated/additive gain, repeatability, concurrent-throughput or causal pressure claim.",
+    "comparison_design": "Fresh fixed-order corrected-original versus combined current candidate; no isolated outputpadding/SIMD/input or earlierkernel attribution",
+    "scope": "Current fbcd/a49 with result-capacity8bee and all previous qualified improvements: own exact10products/1625steps unprofiled nine-hour original comparison; own3h/noon remain separate. No short/restart/144h, per-component or repeatability claim.",
     "memory_pressure_evidence": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/hpg-nhx-consumer-simd/NINE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "d686b176dfde3212312746cdf151dcdf709f0ab88c161affc5724d4dc68d62e5",
-      "control_hpc04_limit_GiB": 104,
-      "control_hpc04_max_events": 2468,
-      "candidate_memory_events_zero": true,
-      "both_arms_CPU_quota_throttling": true
+      "qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/pd-result-capacity-combined/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+      "field": "memory_actual",
+      "scope": "Final actual per-node peaks/events/cpu_stat; not interim maxima or causality."
     }
   },
   "previous_SPCVMC_before_HPG_NHX": {
@@ -2271,14 +2266,14 @@
   },
   "metrics": {
     "control": {
-      "wall_seconds": 980.2076796269976,
-      "cpu_seconds": 449620.40714599995,
-      "main_step_sum_seconds": 757.68805
+      "wall_seconds": 2306.344228322152,
+      "cpu_seconds": 1132283.412013,
+      "main_step_sum_seconds": 2092.72855
     },
     "candidate": {
-      "wall_seconds": 658.1396509120241,
-      "cpu_seconds": 318924.867798,
-      "main_step_sum_seconds": 556.42103
+      "wall_seconds": 1825.2293158732355,
+      "cpu_seconds": 919086.0741600001,
+      "main_step_sum_seconds": 1730.64904
     }
   },
   "before_PD_RESULT_CAPACITY": {
@@ -2392,8 +2387,72 @@
     "cpu_seconds": 29.06797317710731,
     "main_step_sum_seconds": 26.563309266920598
   },
-  "science_sha256": "8870e057775338337c58660b61d4cd65642f71f090ff2041dd1f35a32daa9913",
+  "science_sha256": "68aa7427941db82215dc0b5a26842a4bc3a48fc9d8e6be2b9847f3c59e875abd",
   "reader_closure_sha256": "1ae8b123286f3f5c9eca7a95feabf7834813dd23f7c8019abec50d49dc63dd71",
   "limits": "Candidate-only run with original retained science reference; wall/CPU/main differences are UNPAIRED descriptive context. No new original forecast, matched timing, repeatability or per-kernel causal claim.",
-  "raw_result_status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE"
+  "raw_result_status": "PASS_ORIGINAL_TEN_HISTORY_AND_512_DIRECT_STOCK_LATEST_NINE_HOUR_SEQUENCE",
+  "reductions_percent": {
+    "wall_seconds": 20.860498903016055,
+    "cpu_seconds": 18.828972993075364,
+    "main_step_sum_seconds": 17.30179052605747
+  },
+  "before_own_FBCD_ninehour_science": {
+    "products": 4,
+    "ordered_steps": 545,
+    "last_step": "2026-10-12_09:00:00",
+    "world": 512,
+    "compute": 480,
+    "quilt": 32,
+    "tiles": 2,
+    "positive_writer_roots": [
+      487,
+      495,
+      503,
+      511
+    ],
+    "zero_activity_writer_roots": [],
+    "actual_field_marker_ranks": [
+      480,
+      481,
+      482,
+      483,
+      484,
+      485,
+      486,
+      487,
+      488,
+      489,
+      490,
+      491,
+      492,
+      493,
+      494,
+      495,
+      496,
+      497,
+      498,
+      499,
+      500,
+      501,
+      502,
+      503,
+      504,
+      505,
+      506,
+      507,
+      508,
+      509,
+      510,
+      511
+    ],
+    "all32_quilt_FIELDVIEW1": true,
+    "protected_compare_one_AST_unchanged": true,
+    "original_comparisons_all_pass": true,
+    "qualification_sha256": "d843ebe334a96db16b4fe7fc8ae066b5fccd0374d0660401b10605c4a9817d11",
+    "invocation_id": "b519b584296947959f3ee95a93a76221",
+    "receipt_sha256": "8870e057775338337c58660b61d4cd65642f71f090ff2041dd1f35a32daa9913",
+    "reader_closure_sha256": "1ae8b123286f3f5c9eca7a95feabf7834813dd23f7c8019abec50d49dc63dd71",
+    "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+    "all_model_reader_scopes_closed": true
+  }
 }

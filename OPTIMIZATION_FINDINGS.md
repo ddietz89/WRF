@@ -3866,3 +3866,20 @@ The graupel diagnostic's invariant power expression is already outside the verti
 A separate MPI post/Wait observer passed a genuine two-rank same-real-return raw-output and five-state fixture, plus controlled request reuse, ambiguity, failed operation, clock-error and bounded-buffer cases. An initial test-wrapper variable-shadowing failure is retained; the corrected rerun passed. This qualifies the diagnostic's native protocol only. Current-executable call-site binding, production DSO and application qualification remain pending. Local timing envelopes include observer work and do not establish pure transport cost, cross-host arrival order or globally removable waiting. The observer is excluded from the fresh unprofiled corrected-original/current nine-hour comparison now in progress. Selected source and performance claims remain unchanged.
 
 [Mechanism decisions and native diagnostic limits](tools/cpu-compute/current-fbcd-followup-closeout/MECHANISM_AND_DIAGNOSTIC_CLOSEOUT.json) retain exact evidence hashes. The old Wait record layout is unchanged, but its timing bracket now includes four additional clock reads; direct comparisons must account for that observer difference.
+
+
+## 2026-10-22 — Selected combined build passes its own fresh nine-hour comparison
+
+The selected `fbcd0463` / `a49db4d9` executable and `8bee3346` compression shim passed the unchanged original checker for all **10 complete history products and 1,625 ordered steps** from 06:00 through 15:00. All 512 ranks, two tiles, four positive writer roots, 32 FIELDVIEW1 markers, input/output lifecycles and actual model/reader closures passed. This is current-build evidence; the earlier parent nine-hour qualification is preserved separately. The selected source and artifacts have not changed.
+
+| Measured scope | Fresh corrected original | Selected combined build | Reduction |
+|---|---:|---:|---:|
+| Model/MPI wall | 2,306.344228 s (38.44 min) | 1,825.229316 s (30.42 min) | **20.8605%** |
+| Main-step elapsed sum | 2,092.728550 s | 1,730.649040 s | **17.3018%** |
+| Aggregate process CPU | 1,132,283.412013 CPU-s | 919,086.074160 CPU-s | **18.8290%** |
+
+These are one fresh, unprofiled, original-first pair with checked client-cache clearing before each arm, the qualified single InfiniBand interface and unchanged rank/affinity/CPU/memory limits. Main elapsed includes computation, communication and output backpressure; it is not integration CPU. Aggregate CPU includes MPI spin. No isolated component, additive percentage, repeated-order or concurrent-throughput claim follows. The nine per-hour main-elapsed reductions were 15.03–24.73%; the nested first-three/first-six/all-nine-hour reductions were 19.83/17.68/17.30%. Those are partitions of this run, not separate horizon benchmarks.
+
+The observed whole-run wall ratio is **1.26359×**. Reaching 1.5× or 2× relative to this control would require a further 15.76% or 36.82% reduction in the current wall time, respectively; those are arithmetic targets, not demonstrated headroom. Current own three-hour, noon and nine-hour science are qualified; separate short, restart and 144-hour coverage are not inferred. No pending PHY height producer, new four-layer radiation guard or MPI observer is included in this forecast pair.
+
+[Actual current nine-hour qualification, per-node telemetry, hourly partition and exact evidence hashes](tools/cpu-compute/pd-result-capacity-combined/NINE_HOUR_APPLICATION_QUALIFICATION.json). Rollback remains the paired source/selection/shim rollback documented in `tools/cpu-working/CURRENT_SOURCE_BUILD_BINDING.json`; this evidence-only update changes no code, selected artifact or production file.
