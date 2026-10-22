@@ -3925,24 +3925,18 @@ SUBROUTINE coriolis ( ru, rv, rw, ru_tend, rv_tend, rw_tend, &
                       ids, ide, jds, jde, kds, kde,          &
                       ims, ime, jms, jme, kms, kme,          &
                       its, ite, jts, jte, kts, kte          )
-
    IMPLICIT NONE
-   
    ! Input data
-   
    TYPE(grid_config_rec_type) ,           INTENT(IN   ) :: config_flags   
-
    INTEGER ,                 INTENT(IN   ) :: ids, ide, jds, jde, kds, kde, &
                                               ims, ime, jms, jme, kms, kme, &
                                               its, ite, jts, jte, kts, kte
-
    REAL , DIMENSION( ims:ime , kms:kme , jms:jme ) , INTENT(INOUT) :: ru_tend, &
                                                                 rv_tend, &
                                                                 rw_tend
    REAL , DIMENSION( ims:ime , kms:kme , jms:jme ) , INTENT(IN   ) :: ru, &
                                                                 rv, &
                                                                 rw
-
    REAL , DIMENSION( ims:ime , jms:jme ) ,         INTENT(IN   ) :: msfux,      &
                                                                 msfuy,      &
                                                                 msfvx,      &
@@ -4001,10 +3995,16 @@ SUBROUTINE coriolis ( ru, rv, rw, ru_tend, rv_tend, rw_tend, &
 
    DO j = jts, MIN(jte,jde-1)
 
+   IF (kts <= ktf) THEN
+      DO i = i_start, i_end
+         map_v_cache(i)=msfux(i,j)/msfuy(i,j)
+      ENDDO
+   ENDIF
+
    DO k=kts,ktf
    DO i = i_start, i_end
    
-     ru_tend(i,k,j)=ru_tend(i,k,j) + (msfux(i,j)/msfuy(i,j))*0.5*(f(i,j)+f(i-1,j)) &
+     ru_tend(i,k,j)=ru_tend(i,k,j) + (map_v_cache(i))*0.5*(f(i,j)+f(i-1,j)) &
        *0.25*(rv(i-1,k,j+1)+rv(i,k,j+1)+rv(i-1,k,j)+rv(i,k,j)) &
            - 0.5*(e(i,j)+e(i-1,j))*0.5*(cosa(i,j)+cosa(i-1,j)) &
        *0.25*(rw(i-1,k+1,j)+rw(i-1,k,j)+rw(i,k+1,j)+rw(i,k,j))
