@@ -1,4 +1,22 @@
-# Current working selection: NH-Y pressure-gradient consumer SIMD
+# Current working selection: Coriolis U cache and private PHY AVX2 rows
+
+**769195b8 / archive a99fc18e / post-test source014ab2e0** retain all previous improvements and add the exact-qualified Coriolis U cache and wider private height helper. The selected GNU13.3 recipe enables the row API and AVX2 helper; generic PHY source remains macro-off. Global strict arithmetic flags remain unchanged.
+
+| Fresh three-hour full-grid pair | Corrected original | Selected combined | Reduction |
+|---|---:|---:|---:|
+| Model/MPI wall |964.849634s|659.136806s|31.6850%|
+| Main-step elapsed |742.869680s|555.449990s|25.2291%|
+| Aggregate node CPU |442089.053462CPU-s|319400.643832CPU-s|27.7520%|
+
+All four complete products and545 ordered steps passed the unchanged exact checker, including metadata/layout,512 ranks,two tiles,all four active writer roots and32 markers. All model and reader jobs closed normally. Both arms had checked client-cache clears and used the same FABA placement, single InfiniBand rail and resource limits. This is one original-first unprofiled pair; main elapsed includes communication/output backpressure, and aggregate CPU includes MPI spin. File-server load/cache remain uncontrolled. No isolated component contribution, additive gain, repeatability or concurrent-throughput claim follows.
+
+Own three-hour science is qualified; this image has no separate short/noon/nine-hour qualification. Parent results below retain their named artifacts. [Evidence, recipe and rollback](../cpu-compute/coriolis-u-phy-fixed8-batch/README.md) describe the support scope. Raw producer commits remainNULL;014ab2e0 is post-test tracking. Production/master are unchanged; AWS is suspended.
+
+All following selection descriptions are historical.
+
+---
+
+# Historical bc54 selection: NH-Y pressure-gradient consumer SIMD
 
 **bc543d56 / archive 9a909457 / NH-Y introduction 9e259378** retains all previous improvements and adds one NH-Y inner-I directive. Complete synthetic HPG caller wall fell **36.85% and 35.72%** in opposite-order host pairs with exact raw output and state; process CPU was unavailable. Native 100-case bounds/O2 checks and the unchanged original full-grid short comparison passed exactly: two products, 35 ordered steps, 512 ranks, two tiles, and normal model/checker closures.
 

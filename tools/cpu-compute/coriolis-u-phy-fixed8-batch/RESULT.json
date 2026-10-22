@@ -1,0 +1,28 @@
+{
+  "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+  "order": [
+    "fresh_corrected_original546b_control",
+    "fresh_combined_CoriolisU_PHY_fixed8_allprior_candidate"
+  ],
+  "comparison_design": "Fresh original546b FIRST versus combined fixed8 candidate SECOND; one fixed-order pair, no isolated/helper/additive/repeatability claim",
+  "metrics": {
+    "control": {
+      "wall_seconds": 964.8496336680837,
+      "cpu_seconds": 442089.05346200004,
+      "main_step_sum_seconds": 742.86968
+    },
+    "candidate": {
+      "wall_seconds": 659.1368064042181,
+      "cpu_seconds": 319400.643832,
+      "main_step_sum_seconds": 555.44999
+    }
+  },
+  "reductions_percent": {
+    "wall_seconds": 31.685022888139823,
+    "cpu_seconds": 27.751967317269443,
+    "main_step_sum_seconds": 25.22914786345838
+  },
+  "science_sha256": "cd523de0a5089032f8a71b7cbb1743211ac723ed2f538f403f90f4a624004edb",
+  "reader_closure_sha256": "4829453f4f254c0af6c8bfeaad19ae292db82ebf015e00775cd210d256823cba",
+  "limits": "One fresh fixed-order pair, actual checkedcache before each arm; no repeatability or per-kernel causal claim. Main includes communication/backpressure; residual is not pureIO."
+}

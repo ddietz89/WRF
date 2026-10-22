@@ -1,0 +1,107 @@
+{
+  "status": "PASS_COMBINED_CORIOLIS_U_CACHE_AND_PRIVATE_PHY_AVX2_BUILD_PENDING_APPLICATION",
+  "utc": "2026-10-22T10:36:51.967337+00:00",
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/currenta377-coriolis-u-and-phy-avx2-hpc02-r1/wrf.exe",
+    "sha256": "769195b84ddf4aa9536531d1601785e72a0da0dc86844203ef4d55041d0d036b"
+  },
+  "archive": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/currenta377-coriolis-u-and-phy-avx2-hpc02-r1/libwrflib.a",
+    "sha256": "a99fc18e01e30d9a1196ecb9859351bf4903091aac636edd9bbed0a25f2052b9"
+  },
+  "raw_producer_source_commit": null,
+  "posttest_source_commit": null,
+  "parent_selected_image": "a377f2ff23e87e3769e472b69538b8681954376114b0a163ab37700a0e176e7e",
+  "canonical_Fortran_source_sha256": "e77b979a9bad159dfe27595ccfbbfecd2abbbb9c29430a3c6e5124bd111397b5",
+  "preprocessed_Fortran_sha256": "509d964f3d79067e42ef907b7e54e437ba6eabc0c20a9da20bf517c5fb57c9f3",
+  "private_C_source_sha256": "8804ccc05530880a9838c634e412029c2f778b8400c0dd2b5ce6caedf57f7051",
+  "new_helper_object": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/phy-height-private-avx2-fixed8-native-hpc04-r1/work/helper-O2.o",
+    "sha256": "b6a707c4f00670eb6611e45513381d275b31c82fe7c6bf08d548de286b9a0467",
+    "flags": [
+      "-O2",
+      "-std=c11",
+      "-mavx2",
+      "-mno-fma",
+      "-fno-fast-math",
+      "-ffp-contract=off",
+      "-frounding-math",
+      "-DWRF_PHY_HEIGHT_PARENT_O2=1"
+    ],
+    "cached_object_reuse": true
+  },
+  "new_Fortran_object": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-a377-coriolis-u-cache-native-hpc04-r1/work/O2-candidate/module_big_step_utilities_em.o",
+    "sha256": "926fe28f70514ded0a3412d1228fdbc9d772e63010dd465708b9719047c99421",
+    "module_interface_sha256": "f7bd79ee7013b3f8039f5e22b193750024592039c8e74f65ccc783a2e3097958",
+    "PP_sha256": "509d964f3d79067e42ef907b7e54e437ba6eabc0c20a9da20bf517c5fb57c9f3",
+    "module_flags": [
+      "-O2",
+      "-fno-fast-math",
+      "-ffp-contract=off",
+      "-w",
+      "-fno-fast-math",
+      "-ffp-contract=off",
+      "-ffree-form",
+      "-ffree-line-length-none",
+      "-fconvert=big-endian",
+      "-frecord-marker=4",
+      "-fallow-argument-mismatch",
+      "-fallow-invalid-boz",
+      "-g",
+      "-fopenmp-simd",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+      "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include"
+    ],
+    "reused_from_failed_R1": true
+  },
+  "unchanged_public_MOD_sha256": "f7bd79ee7013b3f8039f5e22b193750024592039c8e74f65ccc783a2e3097958",
+  "archive_one_occurrence_replaced": 559,
+  "archive_unchanged_occurrences": 583,
+  "source_compiles": 0,
+  "WRF_links": 1,
+  "paired_complete_PHY_cases": 55,
+  "paired_complete_PHY_roundings": 4,
+  "paired_complete_PHY_modes": [
+    "O2",
+    "O0 bounds"
+  ],
+  "paired_complete_PHY_records": 64,
+  "paired_complete_PHY_raw_readonly_physical_five_state_exact": true,
+  "Coriolis_native_cases_per_mode": 107,
+  "Coriolis_native_roundings": 4,
+  "private_PHY_directed_comparisons_per_mode": 936,
+  "source_outside_Coriolis_and_physical_coordinates_exact": true,
+  "public_Fortran_names_types_exact": true,
+  "existing_output_input_MPI_libraries_unchanged": true,
+  "performance_scopes": "C8standalone42.38/45.71%gain, completePHYneutral/mixed; Corioliscompletecaller.80/1.22%gain. Notadded; noforecastclaim.",
+  "support": "GNU13.3 x86AVX2, explicithelperoptimizationmodes, existingmaskedFPcontract; genericPHYmacrooff; othercompilerstacksnotqualifiedbythisevidence",
+  "qualification_scope": {
+    "own_short": false,
+    "own_threehour": false,
+    "own_noon75m": false,
+    "own_ninehour": false
+  },
+  "selected": false,
+  "raw_refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/phy-height-private-avx2-fixed8-r1/integration-preparation-r1/coriolis-and-helper-combined-relink-r1/actual-native-r1/receipt.json": "6e51525a85a877c8cd2c65ef70d7eb1fc86caf097ecb4532dfd985d846891486",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/phy-height-private-avx2-fixed8-r1/integration-preparation-r1/coriolis-and-helper-combined-relink-r1/actual-native-r1/closure.json": "b5e100914edaa09c30f783385bd4f2811e950ebad2596b722c6a591d160061f8",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/phy-height-private-avx2-fixed8-r1/integration-preparation-r1/coriolis-and-helper-combined-relink-r1/actual-native-r1/ordered-libwrflib-proof.json": "a2e661d71df1197dd831e95055a330c5638f3b23f7e715ffd7e61ec8d2eafc32",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/phy-height-private-avx2-fixed8-r1/integration-preparation-r1/coriolis-and-helper-combined-relink-r1/REBUILD_RECIPE.json": "82520e94ce147bec34f4c44038189e56f24ac10b7cd6882293a109fce9fe9110",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/phy-height-private-avx2-fixed8-r1/integration-preparation-r1/coriolis-and-helper-combined-relink-r1/manifest.json": "0b4e4ba4a7790d7a7fb60c9e247ccecd0f96d32754e6c52adff455fd866944dc",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/phy-height-private-avx2-fixed8-r1/NATIVE_QUALIFICATION.json": "3fc866a732a65fbbc4fdc526b2faf9deba047c237773cef79311a9696aeda86b",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/phy-height-private-avx2-fixed8-r1/TIMING_QUALIFICATION.json": "05be83117604abe751325a14ead2a6937622f792ce4db59028522329c8593a5b",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/next-coriolis-u-row-eligibility-audit-r1/NATIVE_AND_CALLER_QUALIFICATION.json": "b83ad339b96a18032feeb87e5e53dcd65e325c40d84b878c36d041556739d6ad",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/next-coriolis-u-row-eligibility-audit-r1/combined-integration-independent-review-preparation-r1/ACTUAL_REVIEW_ADJUDICATION.json": "16261fd9116f074b4fe8b5188cf7d83efb9aa42f413116b1194dde942656c2e6"
+  }
+}

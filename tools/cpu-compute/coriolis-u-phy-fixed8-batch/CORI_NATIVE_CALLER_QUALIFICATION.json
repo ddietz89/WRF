@@ -1,0 +1,104 @@
+{
+  "status": "RETAIN_EXACT_NATIVE107_AND_COMPLETE_CORIOLIS_CALLER_GAIN_APPLICATION_PENDING",
+  "utc": "2026-10-22T10:26:41.688279+00:00",
+  "native_cases_per_optimization": 107,
+  "original_prefix_cases": 99,
+  "optimization_modes": [
+    "O2",
+    "O0 bounds"
+  ],
+  "rounding_modes": 4,
+  "native_invocation": "b55f300f66b546a587cf45f70f4dd17e",
+  "candidateO2": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-a377-coriolis-u-cache-native-hpc04-r1/work/O2-candidate/module_big_step_utilities_em.o",
+    "sha256": "926fe28f70514ded0a3412d1228fdbc9d772e63010dd465708b9719047c99421",
+    "module_interface_sha256": "f7bd79ee7013b3f8039f5e22b193750024592039c8e74f65ccc783a2e3097958",
+    "PP_sha256": "509d964f3d79067e42ef907b7e54e437ba6eabc0c20a9da20bf517c5fb57c9f3",
+    "module_flags": [
+      "-O2",
+      "-fno-fast-math",
+      "-ffp-contract=off",
+      "-w",
+      "-fno-fast-math",
+      "-ffp-contract=off",
+      "-ffree-form",
+      "-ffree-line-length-none",
+      "-fconvert=big-endian",
+      "-frecord-marker=4",
+      "-fallow-argument-mismatch",
+      "-fallow-invalid-boz",
+      "-g",
+      "-fopenmp-simd",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+      "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include"
+    ],
+    "reused_from_failed_R1": true
+  },
+  "public_MOD_sha256": "f7bd79ee7013b3f8039f5e22b193750024592039c8e74f65ccc783a2e3097958",
+  "all_three_INOUT_and_readonly_physical_raw_and_five_state_exact": true,
+  "source_V_W_and_outside_Coriolis_exact": true,
+  "source_physical_coordinates_preserved": true,
+  "codegen": "U quotient producer precedes K; none in U I/K consumer; guards preserved, V overwrites sameworkspace; Wdivision remains, no extraallocation",
+  "measurement_scope": "Existing4000completeCORIOLIScalls includingU/V/W/cacheallocation; one opposite-order pair/node. Kernel/wholecaller, not forecast. Original INTEGERns CLOCK_MONOTONIC_RAW unchanged.",
+  "caller_region_process_CPU": "UNAVAILABLE; no processCPUclock in retaineddriver",
+  "comparisons": {
+    "hpc03": {
+      "pair": 1,
+      "order": [
+        "parent",
+        "candidate"
+      ],
+      "parent_ns": 3667397310,
+      "candidate_ns": 3638040237,
+      "reduction_percent": 0.8004879351345764,
+      "raw_sha256": "1942f0a9fd368a7ba45fb6de3652555da67c7cf289d88c46458a7537858f8629",
+      "raw_bytes": 5158764
+    },
+    "hpc04": {
+      "pair": 1,
+      "order": [
+        "candidate",
+        "parent"
+      ],
+      "parent_ns": 3672152586,
+      "candidate_ns": 3627368152,
+      "reduction_percent": 1.2195689844354414,
+      "raw_sha256": "1942f0a9fd368a7ba45fb6de3652555da67c7cf289d88c46458a7537858f8629",
+      "raw_bytes": 5158764
+    }
+  },
+  "actual_arm_invocations": [
+    "e4c28eefdadd445ba9513baa0b04593d",
+    "f712c0c2ad45450c93ff18073aef7a4c",
+    "0b41bd353ca941b9baa1c1078ff24461",
+    "14def641c63749a9b18df7b5787d6a8c"
+  ],
+  "selected": false,
+  "application_qualified": false,
+  "repeatability_established": false,
+  "forecast_gain_claimed": false,
+  "decision": "Retain meaningful exact completecaller gain onbothnodes for combinedapplication with exactPHY8kernel; do not addpercentages",
+  "failures_preserved": [
+    "R1fixture undeclaredsa before numeric, R2onlytyped7f812345constant repair; no candidatevariant",
+    "callerbuildR1 wronghostcontroller failedbeforelinks; R2actualcorrect03 only, sameworker/payload, no repeatedcompiles"
+  ],
+  "raw_refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/next-coriolis-u-row-eligibility-audit-r1/native-gate-r2/actual-native-r2/receipt.json": "1a79c3aca00d1c925470e1dfcbfd1f01942d7391a4bbaace320a2b2c76287bff",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/next-coriolis-u-row-eligibility-audit-r1/native-gate-r2/actual-native-r2/closure.json": "7ce94502aac055ce06a184cdf47699d3c748be2c7a37b822f73a6e633ab9d7ed",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/next-coriolis-u-row-eligibility-audit-r1/CODEGEN_REVIEW.json": "24ae7de33e45735c157b1745333d9c22fa61440cf9f0a86d7256cc26efd09eef",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/next-coriolis-u-row-eligibility-audit-r1/local-source-r1/SOURCE_INVERSE_REVIEW.json": "127f9a68aa2440af8c26578c6bf76c6a7355f5556cbfcf29efac0229ef3fbdce",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/next-coriolis-u-row-eligibility-audit-r1/caller-timing-preparation-r1/ROOT_TIMING_RUN.json": "83324257831cb155f4624206596135a8cea79362c255395b39e1cf8ed90eb573",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/next-coriolis-u-row-eligibility-audit-r1/caller-timing-preparation-r1/build-r2/actual-native-r1/receipt.json": "e896bd29da264a7e6be9b18a7ed50d1e26dfc9c5d1ca56b2a8e6336e0e0ca8c9",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/next-coriolis-u-row-eligibility-audit-r1/caller-timing-preparation-r1/build-r2/actual-native-r1/closure.json": "6dde4a236b70473b4a45d73a3253bf3cc82fa1d51e28a68d332ab7c1d9bc9830"
+  }
+}
