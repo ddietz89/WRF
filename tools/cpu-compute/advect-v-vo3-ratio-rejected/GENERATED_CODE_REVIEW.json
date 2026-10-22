@@ -1,0 +1,448 @@
+{
+  "status": "ACTUAL_LITERAL_CFG_MECHANISM_REVIEW_NATIVE_EXACT_FINITE_SCOPE_NO_GAIN_CLAIM",
+  "native_qualification_sha256": "6b586c762336d3622f1c79803ec4756c7f0e516fe9a8ea656f2babccc37aff4b",
+  "actual_objects": {
+    "O2-parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/advect-v-vo3-literal-ratio-current-pd9955-native-hpc02-r1/work/O2-parent/module_advect_em.o",
+      "sha256": "c7ebc0505cf7896be69dac23e25a8b7e2f4b4b950f178bac745f37ead876089e"
+    },
+    "O2-candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/advect-v-vo3-literal-ratio-current-pd9955-native-hpc02-r1/work/O2-candidate/module_advect_em.o",
+      "sha256": "6767a78c9afe63825de5781125f386847424620e6406087b8b8417eb55c71164"
+    },
+    "O0-parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/advect-v-vo3-literal-ratio-current-pd9955-native-hpc02-r1/work/O0-parent/module_advect_em.o",
+      "sha256": "97b10806d66bb5a4706a2b239c42507f1304247329c45ce06de01fde3c3de397"
+    },
+    "O0-candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/advect-v-vo3-literal-ratio-current-pd9955-native-hpc02-r1/work/O0-candidate/module_advect_em.o",
+      "sha256": "9c6f908104e700e42d3e38d734d1aeb4fc081b73cf429e82b1408dadac8e9549"
+    }
+  },
+  "facts": {
+    "target_division_outside_consumer_K": true,
+    "target_consumer_uses_cached_memory_operand_no_DIV": true,
+    "cache_original_I_range_only": true,
+    "empty_I_skips_cache_fill": true,
+    "empty_J_skips_branch": true,
+    "nonempty_K_guard_before_cache_fill": true,
+    "original_arithmetic_grouping_rounding_sites_preserved": true,
+    "physical_VMULSS_operand_order_identical": false,
+    "no_stack_references_in_full_target_K_cycle": true,
+    "no_calls_in_target_cycles": true,
+    "fixed_frame_bytes_unchanged": true,
+    "existing_allocation_call_inventory_unchanged": true,
+    "no_new_array_allocation_source": true,
+    "finite_native_cases_raw_five_state_exact": true,
+    "arbitrary_dual_NaN_payload_equivalence_established": false,
+    "trapping_modes_established": false
+  },
+  "parent": {
+    "division": "0x4cb0e",
+    "I_backedge": [
+      "0x4cb35",
+      "0x4cb00"
+    ],
+    "K_backedge": [
+      "0x4cb47",
+      "0x4caf0"
+    ],
+    "target_cycle": [
+      {
+        "pc": 314096,
+        "pc_hex": "0x4caf0",
+        "instruction": "cmp    %r13d,%r8d",
+        "source_line": 2901
+      },
+      {
+        "pc": 314099,
+        "pc_hex": "0x4caf3",
+        "instruction": "jg     4cb37 <__module_advect_em_MOD_advect_v+0x4897>",
+        "source_line": 2901
+      },
+      {
+        "pc": 314101,
+        "pc_hex": "0x4caf5",
+        "instruction": "vmovss (%rbx),%xmm5",
+        "source_line": 2904
+      },
+      {
+        "pc": 314105,
+        "pc_hex": "0x4caf9",
+        "instruction": "xor    %esi,%esi",
+        "source_line": 2904
+      },
+      {
+        "pc": 314107,
+        "pc_hex": "0x4cafb",
+        "instruction": "nopl   0x0(%rax,%rax,1)",
+        "source_line": 2904
+      },
+      {
+        "pc": 314112,
+        "pc_hex": "0x4cb00",
+        "instruction": "vmovss (%rax,%rsi,4),%xmm0",
+        "source_line": 2904
+      },
+      {
+        "pc": 314117,
+        "pc_hex": "0x4cb05",
+        "instruction": "vmovss (%r10,%rsi,4),%xmm2",
+        "source_line": 2904
+      },
+      {
+        "pc": 314123,
+        "pc_hex": "0x4cb0b",
+        "instruction": "mov    %rsi,%r14",
+        "source_line": 2904
+      },
+      {
+        "pc": 314126,
+        "pc_hex": "0x4cb0e",
+        "instruction": "vdivss (%rdx,%rsi,4),%xmm0,%xmm0",
+        "source_line": 2904
+      },
+      {
+        "pc": 314131,
+        "pc_hex": "0x4cb13",
+        "instruction": "vsubss (%r11,%rsi,4),%xmm2,%xmm2",
+        "source_line": 2904
+      },
+      {
+        "pc": 314137,
+        "pc_hex": "0x4cb19",
+        "instruction": "vmulss %xmm5,%xmm0,%xmm0",
+        "source_line": 2904
+      },
+      {
+        "pc": 314141,
+        "pc_hex": "0x4cb1d",
+        "instruction": "vmulss %xmm2,%xmm0,%xmm0",
+        "source_line": 2904
+      },
+      {
+        "pc": 314145,
+        "pc_hex": "0x4cb21",
+        "instruction": "vmovss (%rdi,%rsi,4),%xmm2",
+        "source_line": 2904
+      },
+      {
+        "pc": 314150,
+        "pc_hex": "0x4cb26",
+        "instruction": "vsubss %xmm0,%xmm2,%xmm2",
+        "source_line": 2904
+      },
+      {
+        "pc": 314154,
+        "pc_hex": "0x4cb2a",
+        "instruction": "vmovss %xmm2,(%rdi,%rsi,4)",
+        "source_line": 2904
+      },
+      {
+        "pc": 314159,
+        "pc_hex": "0x4cb2f",
+        "instruction": "inc    %rsi",
+        "source_line": 2901
+      },
+      {
+        "pc": 314162,
+        "pc_hex": "0x4cb32",
+        "instruction": "cmp    %r14,%rcx",
+        "source_line": 2901
+      },
+      {
+        "pc": 314165,
+        "pc_hex": "0x4cb35",
+        "instruction": "jne    4cb00 <__module_advect_em_MOD_advect_v+0x4860>",
+        "source_line": 2901
+      },
+      {
+        "pc": 314167,
+        "pc_hex": "0x4cb37",
+        "instruction": "add    $0x4,%rbx",
+        "source_line": 2900
+      },
+      {
+        "pc": 314171,
+        "pc_hex": "0x4cb3b",
+        "instruction": "add    %rbp,%rdi",
+        "source_line": 2900
+      },
+      {
+        "pc": 314174,
+        "pc_hex": "0x4cb3e",
+        "instruction": "add    %r9,%r10",
+        "source_line": 2900
+      },
+      {
+        "pc": 314177,
+        "pc_hex": "0x4cb41",
+        "instruction": "add    %r9,%r11",
+        "source_line": 2900
+      },
+      {
+        "pc": 314180,
+        "pc_hex": "0x4cb44",
+        "instruction": "cmp    %rbx,%r12",
+        "source_line": 2900
+      },
+      {
+        "pc": 314183,
+        "pc_hex": "0x4cb47",
+        "instruction": "jne    4caf0 <__module_advect_em_MOD_advect_v+0x4850>",
+        "source_line": 2900
+      }
+    ]
+  },
+  "candidate": {
+    "cache_division": "0x4cfa9",
+    "cache_store": "0x4cfae",
+    "cache_I_backedge": [
+      "0x4cfba",
+      "0x4cfa0"
+    ],
+    "consumer_cached_ratio_multiply_memory_operand": "0x4d026 vmulss (%rdi,%rcx,4),%xmm2,%xmm1",
+    "consumer_I_backedge": [
+      "0x4d04c",
+      "0x4d020"
+    ],
+    "consumer_K_backedge": [
+      "0x4d05e",
+      "0x4d010"
+    ],
+    "cache_cycle": [
+      {
+        "pc": 315296,
+        "pc_hex": "0x4cfa0",
+        "instruction": "vmovss (%r8,%rcx,4),%xmm0",
+        "source_line": 2896
+      },
+      {
+        "pc": 315302,
+        "pc_hex": "0x4cfa6",
+        "instruction": "mov    %rcx,%rsi",
+        "source_line": 2896
+      },
+      {
+        "pc": 315305,
+        "pc_hex": "0x4cfa9",
+        "instruction": "vdivss (%rdi,%rcx,4),%xmm0,%xmm0",
+        "source_line": 2896
+      },
+      {
+        "pc": 315310,
+        "pc_hex": "0x4cfae",
+        "instruction": "vmovss %xmm0,(%r9,%rcx,4)",
+        "source_line": 2896
+      },
+      {
+        "pc": 315316,
+        "pc_hex": "0x4cfb4",
+        "instruction": "inc    %rcx",
+        "source_line": 2895
+      },
+      {
+        "pc": 315319,
+        "pc_hex": "0x4cfb7",
+        "instruction": "cmp    %rsi,%rax",
+        "source_line": 2895
+      },
+      {
+        "pc": 315322,
+        "pc_hex": "0x4cfba",
+        "instruction": "jne    4cfa0 <__module_advect_em_MOD_advect_v+0x4d00>",
+        "source_line": 2895
+      }
+    ],
+    "full_consumer_K_cycle": [
+      {
+        "pc": 315408,
+        "pc_hex": "0x4d010",
+        "instruction": "cmp    %r13d,%r11d",
+        "source_line": 2901
+      },
+      {
+        "pc": 315411,
+        "pc_hex": "0x4d013",
+        "instruction": "jg     4d04e <__module_advect_em_MOD_advect_v+0x4dae>",
+        "source_line": 2901
+      },
+      {
+        "pc": 315413,
+        "pc_hex": "0x4d015",
+        "instruction": "vmovss (%r10),%xmm2",
+        "source_line": 2904
+      },
+      {
+        "pc": 315418,
+        "pc_hex": "0x4d01a",
+        "instruction": "xor    %ecx,%ecx",
+        "source_line": 2904
+      },
+      {
+        "pc": 315420,
+        "pc_hex": "0x4d01c",
+        "instruction": "nopl   0x0(%rax)",
+        "source_line": 2904
+      },
+      {
+        "pc": 315424,
+        "pc_hex": "0x4d020",
+        "instruction": "vmovss (%r8,%rcx,4),%xmm0",
+        "source_line": 2904
+      },
+      {
+        "pc": 315430,
+        "pc_hex": "0x4d026",
+        "instruction": "vmulss (%rdi,%rcx,4),%xmm2,%xmm1",
+        "source_line": 2904
+      },
+      {
+        "pc": 315435,
+        "pc_hex": "0x4d02b",
+        "instruction": "mov    %rcx,%r14",
+        "source_line": 2904
+      },
+      {
+        "pc": 315438,
+        "pc_hex": "0x4d02e",
+        "instruction": "vsubss (%r9,%rcx,4),%xmm0,%xmm0",
+        "source_line": 2904
+      },
+      {
+        "pc": 315444,
+        "pc_hex": "0x4d034",
+        "instruction": "vmulss %xmm1,%xmm0,%xmm0",
+        "source_line": 2904
+      },
+      {
+        "pc": 315448,
+        "pc_hex": "0x4d038",
+        "instruction": "vmovss (%rsi,%rcx,4),%xmm1",
+        "source_line": 2904
+      },
+      {
+        "pc": 315453,
+        "pc_hex": "0x4d03d",
+        "instruction": "vsubss %xmm0,%xmm1,%xmm1",
+        "source_line": 2904
+      },
+      {
+        "pc": 315457,
+        "pc_hex": "0x4d041",
+        "instruction": "vmovss %xmm1,(%rsi,%rcx,4)",
+        "source_line": 2904
+      },
+      {
+        "pc": 315462,
+        "pc_hex": "0x4d046",
+        "instruction": "inc    %rcx",
+        "source_line": 2901
+      },
+      {
+        "pc": 315465,
+        "pc_hex": "0x4d049",
+        "instruction": "cmp    %r14,%rax",
+        "source_line": 2901
+      },
+      {
+        "pc": 315468,
+        "pc_hex": "0x4d04c",
+        "instruction": "jne    4d020 <__module_advect_em_MOD_advect_v+0x4d80>",
+        "source_line": 2901
+      },
+      {
+        "pc": 315470,
+        "pc_hex": "0x4d04e",
+        "instruction": "add    $0x4,%r10",
+        "source_line": 2900
+      },
+      {
+        "pc": 315474,
+        "pc_hex": "0x4d052",
+        "instruction": "add    %rbx,%rsi",
+        "source_line": 2900
+      },
+      {
+        "pc": 315477,
+        "pc_hex": "0x4d055",
+        "instruction": "add    %rdx,%r8",
+        "source_line": 2900
+      },
+      {
+        "pc": 315480,
+        "pc_hex": "0x4d058",
+        "instruction": "add    %rdx,%r9",
+        "source_line": 2900
+      },
+      {
+        "pc": 315483,
+        "pc_hex": "0x4d05b",
+        "instruction": "cmp    %r10,%rbp",
+        "source_line": 2900
+      },
+      {
+        "pc": 315486,
+        "pc_hex": "0x4d05e",
+        "instruction": "jne    4d010 <__module_advect_em_MOD_advect_v+0x4d70>",
+        "source_line": 2900
+      }
+    ],
+    "guard_evidence": {
+      "J_empty": "0x4c40d cmp %ebp,0x68(%rsp);0x4c411 jl0x4b100",
+      "I_empty": "0x4c8eb cmp %esi,0x4(%rsp);0x4c8ef jg0x4e251;0x4e25f jmp0x4cfbc bypassesfill",
+      "K_nonempty": "0x4ca31 cmp %esi,0x1c(%rsp);0x4ca35 jle0x4cf67 entersfill; fallthrough0x4ca3b nextJ",
+      "K_empty_on_I_empty_path": "0x4e255 cmp %esi,0x1c(%rsp);0x4e259 jg0x4ca3b bypassesconsumer"
+    }
+  },
+  "arithmetic": {
+    "parent": [
+      "ratio=msfvy/msfvx",
+      "vflux_difference=vflux(k+1)-vflux(k)",
+      "p=ratio*rdzw",
+      "q=p*vflux_difference",
+      "tendency=tendency-q"
+    ],
+    "candidate": [
+      "cached_ratio=msfvy/msfvx,storeREAL32",
+      "p=rdzw*cached_ratio (commuted hardware operands)",
+      "vflux_difference=vflux(k+1)-vflux(k)",
+      "q=vflux_difference*p (commuted hardware operands)",
+      "tendency=tendency-q"
+    ],
+    "no_reassociation_or_FMA_observed": true,
+    "limitation": "Grouping and rounding sites equal, hardware VMULSS source operand order is swapped at both multiplies. Actual9focused cases/capture pass; simultaneous distinct NaN payloads in ratio/rdzw/difference not established. No mismatch or trap claim inferred. Root informed before timing."
+  },
+  "frame_calls": {
+    "parent_frame_hex": "0x4d8",
+    "candidate_frame_hex": "0x4d8",
+    "callsite_count_each": 29,
+    "call_targets_each": {
+      "malloc-0x4": 3,
+      "free-0x4": 4,
+      "_gfortran_st_write-0x4": 2,
+      "_gfortran_transfer_character_write-0x4": 2,
+      "_gfortran_transfer_integer_write-0x4": 2,
+      "_gfortran_st_write_done-0x4": 2,
+      "_gfortran_string_trim-0x4": 2,
+      "wrf_error_fatal3_-0x4": 2,
+      "memset-0x4": 10
+    },
+    "scope": "Allocation count/static frame and hot-cycle stack evidence only; no broad instruction counts used as cost proof. Setup/J spill scheduling may differ; no fullfunction spill-free claim."
+  },
+  "scope_limits": [
+    "No caller speed evidence yet.",
+    "No whole-V/allorders/emptyK/trapping/scientific horizon qualification.",
+    "Profile target3historicalrank120samples only; no global share."
+  ],
+  "raw_refs_sha256": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/advect-v-vo3-consumer-current-source-triage-r1/codegen-fetch-preparation-r1/actual-codegen-r1/receipt.json": "be1681c80d7a6692f13cd1b7d4414c89bbd2fd11821fb315c3d26c0b04eab249",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/advect-v-vo3-consumer-current-source-triage-r1/codegen-fetch-preparation-r1/actual-codegen-r1/closure.json": "988f09cf9fc946951d5aa288608f2675aa36d4c2b95e0bb6edaedb942f04e4f0",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/advect-v-vo3-consumer-current-source-triage-r1/codegen-fetch-preparation-r1/actual-codegen-r1/COLLECTION.json": "4c033b0b7d3a6546a1d35b10ef454826c78a5e33703d180dd0e34f264906fee8",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/advect-v-vo3-consumer-current-source-triage-r1/codegen-fetch-preparation-r1/actual-codegen-r1/full-V-codegen-parent.stdout": "fcb9ed649d32bde6b411e3947e63ac5fe28c139712596499961ec525c8abaa21",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/advect-v-vo3-consumer-current-source-triage-r1/codegen-fetch-preparation-r1/actual-codegen-r1/full-V-codegen-candidate.stdout": "cd3858e10282577fbc07fa61c770d3893b443f3849a9def3a685cbfc5c24eccc",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/advect-v-vo3-consumer-current-source-triage-r1/codegen-fetch-preparation-r1/actual-codegen-r1/canonical-parent/module_advect_em.f90": "b4eb28b35dbeee05f16e7b7c8821d87a699d9333ce1707f4d74f4c5a2afe1dc0",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/advect-v-vo3-consumer-current-source-triage-r1/codegen-fetch-preparation-r1/actual-codegen-r1/canonical-candidate/module_advect_em.f90": "710be84865bbc3a676f8f39e7311751bdda364ad87e1fe60a394f7b778a93de3",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/advect-v-vo3-consumer-current-source-triage-r1/NATIVE_QUALIFICATION.json": "6b586c762336d3622f1c79803ec4756c7f0e516fe9a8ea656f2babccc37aff4b"
+  }
+}

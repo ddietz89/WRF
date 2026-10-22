@@ -1,0 +1,53 @@
+{
+  "status": "REJECT_UNPROMOTED_VO3_RATIO_CACHE_EXACT_NAN_PAYLOAD_FAILURE",
+  "utc": "2026-10-22T00:46:19.936883+00:00",
+  "candidate_source_sha256": "0b04f3414cf57f1896c511996174ccec390f0261dc7d8e058094e3a54977ac19",
+  "parent_source_sha256": "9955f77e4788288d09ab4f434c5f85a7930fcfe9ccd6060aaef5286052da40db",
+  "actual_failed_invocation": "c5cb2ad67e0248db8a70dbcfab49f1e7",
+  "acceptance": "Original exact raw IEEE and five-state rules unchanged; no NaN-class normalization or tolerance waiver.",
+  "findings": [
+    "Genuine current O2 and fresh O2 parent agree on all four supplemental cases. Same candidate changes one output word in case10 and two in case11, in both existing rounding/seed recipes.",
+    "Case10 changes payload7fc11111\u21927fc22222 at(5,3,4); case11 changes7fc33333\u21927fc44444 at(5,1,4)/(5,2,4). Exact state, readonly/config and unwritten guards still pass.",
+    "Actual generated consumer commutes multiplication operands; this explains which distinct NaN payload survives. No reciprocal/FMA or reassociation was introduced.",
+    "The prior finite/captured native PASS remains valid in its stated scope; it did not cover these dual-NaN combinations.",
+    "Supplement uses original explicit horizontal-order0 no-op to prevent horizontal pre-poisoning. All production module objects are reused; zero WRF source compiles. Supplemental O0 cases were not reached after the O2 failure."
+  ],
+  "failed_scope_closed": {
+    "main_pid": 0,
+    "manager_result": "exit-code",
+    "exit_code": 1,
+    "active_state": "failed",
+    "cgroup_path_absent": true,
+    "cgroup_processes": [],
+    "normal_success_claimed": false
+  },
+  "caller_timing_run": false,
+  "application_run": false,
+  "promoted": false,
+  "source_variants_run": 0,
+  "selected_working_configuration_changed": false,
+  "next": "Close this fixed candidate and use the current promoted-build daytime profile to select the next measured opportunity.",
+  "evidence": {
+    "INITIAL_FINITE_NATIVE_QUALIFICATION.json": {
+      "sha256": "6b586c762336d3622f1c79803ec4756c7f0e516fe9a8ea656f2babccc37aff4b"
+    },
+    "DUAL_NAN_RECEIPT.json": {
+      "sha256": "9af83007cbe30aa6a0529116ccbb036b70b25ff7f85eda1c6a68fe521612ef6d"
+    },
+    "FAILED_UNIT_CLOSURE.json": {
+      "sha256": "2a764adb49424e72924297fb3eafc41a314659f0b1e2d19f6b6451b08fc6d986"
+    },
+    "ACTUAL_SYNTHETIC_RAW_DIFFERENCES.json": {
+      "sha256": "fd37cba92e4b6b499c5ada5b6d8b0c35e16602acd1b9df87b5b4eb6d79daa7fb"
+    },
+    "REJECTED_SOURCE.diff": {
+      "sha256": "795928e4d584c03377e548ba67f56078e5a84f049e6230b7863ed4ad42f5b82a"
+    },
+    "GENERATED_CODE_REVIEW.json": {
+      "sha256": "49d51952e2143614232c164d5309b67f92c5373497aaa88bb5b345a46ac58187"
+    },
+    "FOCUSED_TEST_ADDITION.diff": {
+      "sha256": "ec0538868743bf652b99ee2bc596bdf4f0ca31d28eeffffcada136447d3238db"
+    }
+  }
+}

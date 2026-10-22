@@ -1,0 +1,18 @@
+--- original_focused_v.f90
++++ dual_nan_focused_v.f90
+@@ -108,6 +108,15 @@
+  msfvy(5,4)=TRANSFER(1,1.0);msfvx(5,4)=1.0
+  msfvy(6,4)=TRANSFER(INT(Z'7F7FFFFF'),1.0);msfvx(6,4)=TRANSFER(INT(Z'00800000'),1.0)
+  CASE(9) ! legal readonly map alias, actual call below passes msfvx twice
++ CASE(10) ! isolate original first VMULSS: distinct map-ratio and rdzw NaN payloads
++ cfg%h_mom_adv_order=0
++ msfvy(5,4)=TRANSFER(INT(Z'7FC11111'),1.0)
++ rdzw(3)=TRANSFER(INT(Z'7FC22222'),1.0)
++ CASE(11) ! isolate second VMULSS: ratio-product and boundary vflux difference payloads
++ cfg%h_mom_adv_order=0
++ msfvy(5,4)=TRANSFER(INT(Z'7FC33333'),1.0)
++ rom(5,2,4)=TRANSFER(INT(Z'7FC44444'),1.0)
++ rom(5,2,3)=TRANSFER(INT(Z'7FC44444'),1.0)
+  CASE DEFAULT
+  STOP 61
+  END SELECT
