@@ -1,0 +1,143 @@
+{
+  "status": "ROOT_PARK_TWO_FIXED_CANDIDATES_NO_DEFAULT_CHANGE",
+  "selected_source": "6697020f800df164e3dee6d04d7c3639b297cca6",
+  "selected_executable": "fbcd04634d5dee1439af4bba9052f1b7f673c0cfc15dfd2b4ac31b4dec7751dc",
+  "PD": {
+    "canonical_candidate": "d906a75e2e9226830deb6acebb99c1eb9b39df5742036ad043888f08c025890f",
+    "exact_native_and_caller_pass": true,
+    "caller_pairs": {
+      "hpc01": {
+        "parent_wall_seconds": 2.168674563,
+        "candidate_wall_seconds": 2.198888124,
+        "wall_reduction_percent": -1.393180955569684,
+        "parent_process_cpu_seconds": 2.168332503,
+        "candidate_process_cpu_seconds": 2.198744397,
+        "cpu_reduction_percent": -1.4025475317057667
+      },
+      "hpc02": {
+        "parent_wall_seconds": 2.250576468,
+        "candidate_wall_seconds": 2.248251235,
+        "wall_reduction_percent": 0.10331721819105688,
+        "parent_process_cpu_seconds": 2.250067111,
+        "candidate_process_cpu_seconds": 2.247556437,
+        "cpu_reduction_percent": 0.11158218293693123
+      }
+    },
+    "decision": "PARK_FIXED_DIRECTIVE_NOT_PROMOTED",
+    "reason": "No measured isolated zero-loop improvement and no clear captured whole-caller gain. Packed stores alone do not establish speed. Native/source/caller evidence and earlier wrong-VO6/cache-host failures retained.",
+    "application_qualified": false
+  },
+  "SW": {
+    "canonical_candidate": "13c027ab121e18b52c88c69c0e4eedcb53264696032c7ade2390b9afa49120f3",
+    "exact_native_and_caller_pass": true,
+    "caller_waves": {
+      "caller-timing-preparation-r1": {
+        "pair-timing-r1": {
+          "pairs": {
+            "hpc03": {
+              "parent_wall_seconds": 1.34271039,
+              "candidate_wall_seconds": 1.313129417,
+              "wall_reduction_percent": 2.2030791762920554,
+              "parent_process_cpu_seconds": 1.342515197,
+              "candidate_process_cpu_seconds": 1.312817052,
+              "process_cpu_reduction_percent": 2.2121272866306385
+            },
+            "hpc04": {
+              "parent_wall_seconds": 1.305170482,
+              "candidate_wall_seconds": 1.34974157,
+              "wall_reduction_percent": -3.414962919763598,
+              "parent_process_cpu_seconds": 1.305125991,
+              "candidate_process_cpu_seconds": 1.34962878,
+              "process_cpu_reduction_percent": -3.409846199285438
+            }
+          },
+          "limits": "One synthetic33level geometry,1048576 wholepairedquadraturecalls plus identical outputrestores inside integerwall/processCPU clocks; original128raw/fivestate warm and finalguards outsideclocks. One opposite-orderpairperhost03/04, checkedcachebeforeEACHtimedbinary after own-host closures. No isolatedfinalregion/forecast/capturedapplication/repeatabilityclaim."
+        },
+        "spc-timing-r1": {
+          "pairs": {
+            "hpc03": {
+              "parent_wall_seconds": 1.468907821,
+              "candidate_wall_seconds": 1.459569976,
+              "wall_reduction_percent": 0.6356998626124044,
+              "parent_process_cpu_seconds": 1.468610711,
+              "candidate_process_cpu_seconds": 1.459249839,
+              "process_cpu_reduction_percent": 0.6373964134870014
+            },
+            "hpc04": {
+              "parent_wall_seconds": 1.477044481,
+              "candidate_wall_seconds": 1.469444512,
+              "wall_reduction_percent": 0.5145389389258459,
+              "parent_process_cpu_seconds": 1.47688544,
+              "candidate_process_cpu_seconds": 1.46929868,
+              "process_cpu_reduction_percent": 0.5136999657874508
+            }
+          },
+          "limits": "One synthetic33level mixedcloud geometry,4096 completeSPCVMC calls plus identical outputrestores inside integerwall/processCPU clocks; original12fullraw/fivestate warm,14outputs/214readonlytables/canaries outsideclocks. One opposite-orderpairperhost03/04, checkedcachebeforeEACHtimedbinary after own-host closures. No isolatedproducer/forecast/capturedapplication/repeatabilityclaim."
+        }
+      },
+      "caller-timing-preparation-r2": {
+        "pair-timing-r1": {
+          "pairs": {
+            "hpc03": {
+              "parent_wall_seconds": 5.216466117,
+              "candidate_wall_seconds": 5.256818717,
+              "wall_reduction_percent": -0.7735620072081728,
+              "parent_process_cpu_seconds": 5.215026877,
+              "candidate_process_cpu_seconds": 5.255773894,
+              "process_cpu_reduction_percent": -0.7813385810091944
+            },
+            "hpc04": {
+              "parent_wall_seconds": 5.215299979,
+              "candidate_wall_seconds": 5.284702385,
+              "wall_reduction_percent": -1.3307461944558563,
+              "parent_process_cpu_seconds": 5.213940179,
+              "candidate_process_cpu_seconds": 5.28302446,
+              "process_cpu_reduction_percent": -1.3249918224656376
+            }
+          },
+          "limits": "One synthetic33level geometry,4194304 wholepairedquadraturecalls plus identical outputrestores inside integerwall/processCPU clocks; original128raw/fivestate warm and finalguards outsideclocks. One opposite-orderpairperhost03/04, checkedcachebeforeEACHtimedbinary after own-host closures. No isolatedfinalregion/forecast/capturedapplication/repeatabilityclaim."
+        },
+        "spc-timing-r1": {
+          "pairs": {
+            "hpc03": {
+              "parent_wall_seconds": 5.944023444,
+              "candidate_wall_seconds": 5.835070403,
+              "wall_reduction_percent": 1.8329847118954357,
+              "parent_process_cpu_seconds": 5.942307731,
+              "candidate_process_cpu_seconds": 5.833597355,
+              "process_cpu_reduction_percent": 1.829430263816123
+            },
+            "hpc04": {
+              "parent_wall_seconds": 5.87540122,
+              "candidate_wall_seconds": 5.87803431,
+              "wall_reduction_percent": -0.044815492617544805,
+              "parent_process_cpu_seconds": 5.8747235,
+              "candidate_process_cpu_seconds": 5.8771978,
+              "process_cpu_reduction_percent": -0.042117726902390906
+            }
+          },
+          "limits": "One synthetic33level mixedcloud geometry,16384 completeSPCVMC calls plus identical outputrestores inside integerwall/processCPU clocks; original12fullraw/fivestate warm,14outputs/214readonlytables/canaries outsideclocks. One opposite-orderpairperhost03/04, checkedcachebeforeEACHtimedbinary after own-host closures. No isolatedproducer/forecast/capturedapplication/repeatabilityclaim."
+        }
+      }
+    },
+    "decision": "PARK_FIXED_DIRECTIVE_NOT_PROMOTED",
+    "reason": "No measured isolated final-flux gain. Longer whole-pair calls were slower on both hosts; complete-SPCVMC results were small positive/neutral. Retain all favorable and unfavorable data. This does not establish forecast regression or reject a proven kernel gain. No further broad matrix justified.",
+    "application_qualified": false
+  },
+  "policy": "Significant measured exact-qualified kernel improvements remain eligible without a separately conclusive forecast gain. Neither fixed candidate has yet established that local benefit; SIMD code generation alone is insufficient.",
+  "scope": "Caller clocks/process CPU are not full-WRF wall or integration CPU. One opposite-order pair per host per fixed-work test; no statistical/global/forecast/isolated-region inference.",
+  "evidence_sha256": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pd-vertical3-boundary-zero-i-simd-r1/native-gate-r1/actual-native-r1/receipt.json": "4d49b445f486d7d80869920b0de115c388e3bc1ee6c41e604c0fa2b5e8c6f4ac",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pd-vertical3-boundary-zero-i-simd-r1/native-gate-r1/actual-native-r1/closure.json": "ce6ba4431c9316e73495edb55a8a505f554490196b38af2894593c46a44ecc65",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pd-vertical3-boundary-zero-i-simd-r1/native-gate-r1/NATIVE_QUALIFICATION.json": "f12d6587cabfbe7910100bd637939ee940d957c4d9a19c078d881ad6c1968e75",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pd-vertical3-boundary-zero-i-simd-r1/complete-caller-timing-preparation-r1/ROOT_CFG_REVIEW.json": "3afe84df30526a116714b253526bddf7e4a7f5b6f2d540bf8cb4b979ce145384",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/pd-vertical3-boundary-zero-i-simd-r1/complete-caller-timing-preparation-r1/ACTUAL_WAVE_R2.json": "31fe6516d3305a2b3b37f60710ca499681670e75e6414382a78ffa947d949a78",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/shortwave-paired-final-flux-simd-r1/caller-qualification-r1/CALLER_QUALIFICATION.json": "b1717975c164bdd018b5c3fb7cde816e181d92bded7e4beb138e1423c4be1360",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/shortwave-paired-final-flux-simd-r1/caller-qualification-r1/DISPOSITION.json": "236b31fcce2f339c45cea587e20fb0723ecdd50a4f6669a306397c48012b8747",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/shortwave-paired-final-flux-simd-r1/caller-timing-preparation-r1/pair-timing-r1/ACTUAL_WAVE.json": "c7bc3483c97c7056840307418f31f4b6576d3baf44bde8261ca92a15260c8dfe",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/shortwave-paired-final-flux-simd-r1/caller-timing-preparation-r1/spc-timing-r1/ACTUAL_WAVE.json": "588658fb8d8f9dfcfe6e5e977661123ac21594ee9ac6b325149bfe94a974e1ef",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/shortwave-paired-final-flux-simd-r1/caller-timing-preparation-r2/pair-timing-r1/ACTUAL_WAVE.json": "40e246ac9972c6acd8ce026cfa282f042e08671df4254f17229c9656d5c3423f",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/shortwave-paired-final-flux-simd-r1/caller-timing-preparation-r2/spc-timing-r1/ACTUAL_WAVE.json": "a02cf57eaecb526d0f7d90ad6e4e7275c2739374350e4ad3e958a329912b2c49"
+  },
+  "created_utc": "2026-10-22T02:33:11.655010+00:00"
+}
