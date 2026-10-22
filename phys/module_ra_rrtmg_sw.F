@@ -9918,13 +9918,30 @@ end subroutine
 !  into RRTM array WKL below.
 
        wkl(:,:) = 0.0_rb
-       cldfmc(:,:) = 0.0_rb
-       taucmc(:,:) = 0.0_rb
-       ssacmc(:,:) = 1.0_rb
-       asmcmc(:,:) = 0.0_rb
-       fsfcmc(:,:) = 0.0_rb
-       ciwpmc(:,:) = 0.0_rb
-       clwpmc(:,:) = 0.0_rb
+      if (icld .ge. 1 .and. nlayers .gt. 0) then
+         if (size(cldfmc,1) .gt. ngptsw) cldfmc(ngptsw+1:,:) = 0.0_rb
+         if (size(cldfmc,2) .gt. nlayers) cldfmc(1:ngptsw,nlayers+1:) = 0.0_rb
+         if (size(taucmc,1) .gt. ngptsw) taucmc(ngptsw+1:,:) = 0.0_rb
+         if (size(taucmc,2) .gt. nlayers) taucmc(1:ngptsw,nlayers+1:) = 0.0_rb
+         if (size(ssacmc,1) .gt. ngptsw) ssacmc(ngptsw+1:,:) = 1.0_rb
+         if (size(ssacmc,2) .gt. nlayers) ssacmc(1:ngptsw,nlayers+1:) = 1.0_rb
+         if (size(asmcmc,1) .gt. ngptsw) asmcmc(ngptsw+1:,:) = 0.0_rb
+         if (size(asmcmc,2) .gt. nlayers) asmcmc(1:ngptsw,nlayers+1:) = 0.0_rb
+         if (size(fsfcmc,1) .gt. ngptsw) fsfcmc(ngptsw+1:,:) = 0.0_rb
+         if (size(fsfcmc,2) .gt. nlayers) fsfcmc(1:ngptsw,nlayers+1:) = 0.0_rb
+         if (size(ciwpmc,1) .gt. ngptsw) ciwpmc(ngptsw+1:,:) = 0.0_rb
+         if (size(ciwpmc,2) .gt. nlayers) ciwpmc(1:ngptsw,nlayers+1:) = 0.0_rb
+         if (size(clwpmc,1) .gt. ngptsw) clwpmc(ngptsw+1:,:) = 0.0_rb
+         if (size(clwpmc,2) .gt. nlayers) clwpmc(1:ngptsw,nlayers+1:) = 0.0_rb
+      else
+         cldfmc(:,:) = 0.0_rb
+         taucmc(:,:) = 0.0_rb
+         ssacmc(:,:) = 1.0_rb
+         asmcmc(:,:) = 0.0_rb
+         fsfcmc(:,:) = 0.0_rb
+         ciwpmc(:,:) = 0.0_rb
+         clwpmc(:,:) = 0.0_rb
+      endif
        cswpmc(:,:) = 0.0_rb
        reicmc(:) = 0.0_rb
        relqmc(:) = 0.0_rb
@@ -9954,10 +9971,8 @@ end subroutine
          solvar(ib) = scon / rrsw_scon 
          adjflux(ib) = adjflx * solvar(ib)
       enddo
-
 !  Set surface temperature.
       tbound = tsfc(iplon)
-
 !  Install input GCM arrays into RRTMG_SW arrays for pressure, temperature,
 !  and molecular amounts.  
 !  Pressures are input in mb, or are converted to mb here.
@@ -9971,7 +9986,6 @@ end subroutine
 !  Note: In RRTMG, layer indexing goes from bottom to top, and coding below
 !  assumes GCM input fields are also bottom to top. Input layer indexing
 !  from GCM fields should be reversed here if necessary.
-
       pz(0) = plev(iplon,1)
       tz(0) = tlev(iplon,1)
       do l = 1, nlayers
@@ -9995,7 +10009,6 @@ end subroutine
          coldry(l) = (pz(l-1)-pz(l)) * 1.e3_rb * avogad / &
                      (1.e2_rb * grav * amm * (1._rb + wkl(1,l)))
       enddo
-
 ! The following section can be used to set values for an additional layer (from
 ! the GCM top level to 1.e-4 mb) for improved calculation of TOA fluxes. 
 ! Temperature and molecular amounts in the extra model layer are set to 
@@ -10003,7 +10016,6 @@ end subroutine
 ! here if necessary. 
 ! If this feature is utilized, increase nlayers by one above, limit the two
 ! loops above to (nlayers-1), and set the top most (nlayers) layer values here. 
-
 !      pavel(nlayers) = 0.5_rb * pz(nlayers-1)
 !      tavel(nlayers) = tavel(nlayers-1)
 !      pz(nlayers) = 1.e-4_rb
@@ -10019,19 +10031,15 @@ end subroutine
 !      amm = (1._rb - wkl(1,nlayers-1)) * amd + wkl(1,nlayers-1) * amw
 !      coldry(nlayers) = (pz(nlayers-1)) * 1.e3_rb * avogad / &
 !                        (1.e2_rb * grav * amm * (1._rb + wkl(1,nlayers-1)))
-
 ! At this point all molecular amounts in wkl are in volume mixing ratio; 
 ! convert to molec/cm2 based on coldry for use in rrtm.  
-
       do l = 1, nlayers
          do imol = 1, nmol
             wkl(imol,l) = coldry(l) * wkl(imol,l)
          enddo
       enddo
-
 ! Transfer aerosol optical properties to RRTM variables;
 ! modify to reverse layer indexing here if necessary.
-
       if (iaer .ge. 1) then 
          do ib = 1, nbndsw
             do l = 1, nlayers
@@ -10041,18 +10049,14 @@ end subroutine
             enddo
          enddo
       endif
-
 ! Transfer cloud fraction and cloud optical properties to RRTM variables;
 ! modify to reverse layer indexing here if necessary.
-
       if (icld .ge. 1) then 
          inflag = inflgsw
          iceflag = iceflgsw
          liqflag = liqflgsw
-
 ! Move incoming GCM cloud arrays to RRTMG cloud arrays.
 ! For GCM input, incoming reicmcl is defined based on selected ice parameterization (inflgsw)
-
          do l = 1, nlayers
             do ig = 1, ngptsw
                cldfmc(ig,l) = cldfmcl(ig,iplon,l)
@@ -10072,9 +10076,7 @@ end subroutine
                resnmc(l) = resnmcl(iplon,l)
             endif 
          enddo
-
 ! If an extra layer is being used in RRTMG, set all cloud properties to zero in the extra layer.
-
 !         cldfmc(:,nlayers) = 0.0_rb
 !         taucmc(:,nlayers) = 0.0_rb
 !         ssacmc(:,nlayers) = 1.0_rb
@@ -10084,9 +10086,7 @@ end subroutine
 !         clwpmc(:,nlayers) = 0.0_rb
 !         reicmc(nlayers) = 0.0_rb
 !         relqmc(nlayers) = 0.0_rb
-      
       endif
-
       end subroutine inatm_sw
 
       end module rrtmg_sw_rad

@@ -1966,6 +1966,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN
 
         DO k=kts,ktf
+!$OMP SIMD PRIVATE(vel)
         DO i = i_start, i_end
           vel = 0.5*(rv(i,k,j)+rv(i,k,j-1))
           fqy( i, k, jp1 ) = vel*flux5(               &
@@ -1997,7 +1998,6 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
                    v(i,k,j-2),v(i,k,j-1),v(i,k,j),v(i,k,j+1),vel )
             ENDDO
             ENDDO
-
 
      ELSE IF ( j == jde ) THEN  ! 2nd order flux next to north boundary
 
