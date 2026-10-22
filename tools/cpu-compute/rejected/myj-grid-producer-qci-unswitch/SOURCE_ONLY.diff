@@ -1,0 +1,38 @@
+--- parent_module_bl_myjpbl.F
++++ candidate_module_bl_myjpbl.F
+@@ -323,18 +323,34 @@
+       DO J=JTS,JTE
+       DO K=KTE,KTS,-1
+         KFLIP=KTE+1-K
++        IF (flQI) THEN
++!$OMP SIMD PRIVATE(APEX,TX)
+         DO I=ITS,ITE
+           ZINT(I,K,J)=ZINT(I,K+1,J)+DZ(I,KFLIP,J)
+           APEX=1./EXNER(I,K,J)
+           APE(I,K,J)=APEX
+           TX=T(I,K,J)
+           CWM(I,K,J)=QCW(I,K,J)                          !BSF
+-          IF (flQI) CWM(I,K,J)=CWM(I,K,J)+QCI(I,K,J)     !BSF
++          CWM(I,K,J)=CWM(I,K,J)+QCI(I,K,J)              !BSF
+ !BSF          IF (flQS) CWM(I,K,J)=CWM(I,K,J)+QCS(I,K,J)
+ !BSF          IF (flQR) CWM(I,K,J)=CWM(I,K,J)+QCR(I,K,J)
+ !BSF          IF (flQG) CWM(I,K,J)=CWM(I,K,J)+QCG(I,K,J)
+           THE(I,K,J)=(CWM(I,K,J)*(-ELOCP/TX)+1.)*TH(I,K,J)
+         ENDDO
++        ELSE
++!$OMP SIMD PRIVATE(APEX,TX)
++        DO I=ITS,ITE
++          ZINT(I,K,J)=ZINT(I,K+1,J)+DZ(I,KFLIP,J)
++          APEX=1./EXNER(I,K,J)
++          APE(I,K,J)=APEX
++          TX=T(I,K,J)
++          CWM(I,K,J)=QCW(I,K,J)                          !BSF
++!BSF          IF (flQS) CWM(I,K,J)=CWM(I,K,J)+QCS(I,K,J)
++!BSF          IF (flQR) CWM(I,K,J)=CWM(I,K,J)+QCR(I,K,J)
++!BSF          IF (flQG) CWM(I,K,J)=CWM(I,K,J)+QCG(I,K,J)
++          THE(I,K,J)=(CWM(I,K,J)*(-ELOCP/TX)+1.)*TH(I,K,J)
++        ENDDO
++        ENDIF
+       ENDDO
+       ENDDO
+ !

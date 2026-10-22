@@ -1,0 +1,274 @@
+{
+  "status": "REJECTED_FIXED_QCI_UNSWITCH_SAMEOPT_DIRECTED_ROUNDING_OUTPUT_MISMATCH",
+  "selected": false,
+  "promoted": false,
+  "candidate_source_sha256": "baeb74480c90035e8e2eae519cef550395b5854f3ca9e109347d9d9354168082",
+  "current_MYJ_source_sha256": "795e00134d47f98f512d61ffc45f93b3599202499ee8d8429009611d21c4b11f",
+  "genuine_current_member_sha256": "13c85052f3eae63ff61f3d0658c2217e7db36a06d2d9ebf6139251f968adb49e",
+  "parent_PP_sha256": "2b91deecfe5e853e1352fe5321c5406b14d3a5a50b5d11fd4e7e2be289c340dc",
+  "candidate_PP_sha256": "66fe5f912de9fa0334cbae6a841ff76ec1648169b60f05ba2ec0cd087fa40f3d",
+  "public_MOD_sha256": "b16bb1b06b2b18abd8b61cf81bd61ae349e2728ddd32f52d3d58dafec14309e2",
+  "source_scope": "One explicit optional-QCI IF around true/false I loops with SIMD PRIVATE(APEX,TX); J and descendingK/order/math/signature untouched; exact literal inverse/outside-target identity. Authorized local contract completion after author returned no fragment; not provider implementation.",
+  "packing": {
+    "scope": "Actual R1 source-joined screen both paths ADDPS/MULPS/DIVPS; no gain claim or complete guard/tail/codegen acceptance",
+    "paths": [
+      {
+        "source_lines": [
+          351,
+          360
+        ],
+        "acquired_with_pragma_neighbors": [
+          349,
+          362
+        ],
+        "source_joined_instructions": 293,
+        "packed_rows": [
+          "    89bd:\t0f 58 c6             \taddps  %xmm6,%xmm0",
+          "    89cc:\t0f 5e c6             \tdivps  %xmm6,%xmm0",
+          "    89de:\t0f 58 f0             \taddps  %xmm0,%xmm6",
+          "    89e5:\t41 0f 5e c4          \tdivps  %xmm12,%xmm0",
+          "    89ed:\t0f 59 c6             \tmulps  %xmm6,%xmm0",
+          "    89f4:\t0f 58 c7             \taddps  %xmm7,%xmm0",
+          "    89f7:\t0f 59 c6             \tmulps  %xmm6,%xmm0"
+        ],
+        "target_asm_sha256": "9b0358689e78d1004ff4a945d900bf7310ea0064efa899c8834437ff2d76868c",
+        "useful_packed_mechanism": true
+      },
+      {
+        "source_lines": [
+          365,
+          373
+        ],
+        "acquired_with_pragma_neighbors": [
+          363,
+          375
+        ],
+        "source_joined_instructions": 339,
+        "packed_rows": [
+          "    8702:\t41 0f 58 c5          \taddps  %xmm13,%xmm0",
+          "    8717:\t41 0f 5e c6          \tdivps  %xmm14,%xmm0",
+          "    872d:\t41 0f 5e c7          \tdivps  %xmm15,%xmm0",
+          "    8731:\t41 0f 59 c3          \tmulps  %xmm11,%xmm0",
+          "    8735:\t0f 58 c7             \taddps  %xmm7,%xmm0",
+          "    8738:\t41 0f 59 c4          \tmulps  %xmm12,%xmm0"
+        ],
+        "target_asm_sha256": "1bbd2364a80fd5160ac36aa0674fe34ce21f4e69ad854070d102d5af456f3649",
+        "useful_packed_mechanism": true
+      }
+    ]
+  },
+  "genuine_reproduction": {
+    "passed": true,
+    "actual_proof_sha256": "9f22b61caf2ca3aba05bb16e15024fc02e321d0a6789a1c78d37c1e7c5550ec8",
+    "allocated_RELA_nonFILE_symbols": "exact",
+    "MOD": "exact"
+  },
+  "attempts": [
+    {
+      "attempt": "R1",
+      "invocation_id": "de80964a987543de854d7569abd34df8",
+      "outcome": "legacy fixture link order failed unresolved wrf_error_fatal_ before numerical execution; O2/O0 modules built and MOD passed"
+    },
+    {
+      "attempt": "R2",
+      "invocation_id": "bae65073fba34db0a60dd2d97916bf17",
+      "outcome": "samearchive rescan resolved first U but late cyclic RSL references blocked link before numerical execution; no module/C/CPP recompile"
+    },
+    {
+      "attempt": "R3",
+      "invocation_id": "bf1b4a1dea4e4a7f882b38f7c0798ae7",
+      "outcome": "proper archive group linked; genuine/O2parent/O2candidate captured wholeMYJ passed; O2 focused output mismatch stopped before O0 numerics; no module/C/CPP recompile"
+    }
+  ],
+  "actual_failure": {
+    "comparison": "same-opt O2 parent vs candidate exact-source target projection, 19cases x4round=76observations, 140012words each",
+    "different_words": 2,
+    "location": "case13 subnormals, THE(I3,K2,J1), rounding indices1 DOWN and2 UP",
+    "DOWN": {
+      "parent": "0xaf83126e",
+      "candidate": "0xff800000"
+    },
+    "UP": {
+      "parent": "0xff800000",
+      "candidate": "0xaf83126e"
+    },
+    "all_observed_five_states_equal": true,
+    "all_other_output_words_equal": true,
+    "readonly_and_physical_checks_passed": true,
+    "new_competing_ZINT_NaN_cases_no_difference": true,
+    "compiler_arithmetic_detail": "UNESTABLISHED; no source-level algebraic diagnosis inferred from result counts",
+    "projection_scope": "Supplementary source-exact producer, not a complete wholeMYJ adversarial input claim"
+  },
+  "executed_scope": {
+    "captured_whole_MYJ": "genuine and O2parent/O2candidate passed fullmutable471200+definedOUT428640 + readonly and five-state at retained capture",
+    "O2_focused": "all19cases fourrounds executed; exact comparison failed two words",
+    "O0_modules": "already compiled and cached; publicMOD exact",
+    "O0_numerical": "NEVER EXECUTED",
+    "timing": "NOT RUN",
+    "application": "NOT RUN",
+    "native_acceptance": false
+  },
+  "resource_scope": {
+    "host": "hpc02",
+    "cpus": [
+      24,
+      25
+    ],
+    "memory_bytes": 4294967296,
+    "swap_bytes": 0,
+    "cap_seconds": 300,
+    "R3_memory_peak_bytes": 246349824,
+    "R3_memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+    "R3_cpu_stat": "usage_usec 13443199\nuser_usec 10930302\nsystem_usec 2512897\ncore_sched.force_idle_usec 0\nnr_periods 150\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+    "closure": "all3 positively failed, PID0/cgroupabsent; failure is retained not normal-success"
+  },
+  "objects": {
+    "O2-parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current13c8-myj-qci-unswitch-native-hpc02-r3/work/O2-parent/module_bl_myjpbl.o",
+      "sha256": "03f4f9284c17cde0ebdda1fc8534e0bee759c0e2012ff1e52cf47e4e4cc525ac",
+      "PP_sha256": "2b91deecfe5e853e1352fe5321c5406b14d3a5a50b5d11fd4e7e2be289c340dc",
+      "MOD_sha256": "b16bb1b06b2b18abd8b61cf81bd61ae349e2728ddd32f52d3d58dafec14309e2",
+      "reused_from": "/pool/wrf-experiment/wrf-cpu/kernels/current13c8-myj-qci-unswitch-native-hpc02-r1/work/O2-parent/module_bl_myjpbl.o"
+    },
+    "O2-candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current13c8-myj-qci-unswitch-native-hpc02-r3/work/O2-candidate/module_bl_myjpbl.o",
+      "sha256": "ef2b16d914a3be47e0926e460b62957dbbb6c3bb53b2cd7b0ea0b038b23d5de0",
+      "PP_sha256": "66fe5f912de9fa0334cbae6a841ff76ec1648169b60f05ba2ec0cd087fa40f3d",
+      "MOD_sha256": "b16bb1b06b2b18abd8b61cf81bd61ae349e2728ddd32f52d3d58dafec14309e2",
+      "reused_from": "/pool/wrf-experiment/wrf-cpu/kernels/current13c8-myj-qci-unswitch-native-hpc02-r1/work/O2-candidate/module_bl_myjpbl.o"
+    },
+    "O0-parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current13c8-myj-qci-unswitch-native-hpc02-r3/work/O0-parent/module_bl_myjpbl.o",
+      "sha256": "1acb5478a5445a71ed1e67214a568816942b744886a28c9d9b942941a6332b7d",
+      "PP_sha256": "2b91deecfe5e853e1352fe5321c5406b14d3a5a50b5d11fd4e7e2be289c340dc",
+      "MOD_sha256": "b16bb1b06b2b18abd8b61cf81bd61ae349e2728ddd32f52d3d58dafec14309e2",
+      "reused_from": "/pool/wrf-experiment/wrf-cpu/kernels/current13c8-myj-qci-unswitch-native-hpc02-r1/work/O0-parent/module_bl_myjpbl.o"
+    },
+    "O0-candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current13c8-myj-qci-unswitch-native-hpc02-r3/work/O0-candidate/module_bl_myjpbl.o",
+      "sha256": "995481d65da7da18f504c98c5e03a8019b7a5c69148beea1615225c6faabb032",
+      "PP_sha256": "66fe5f912de9fa0334cbae6a841ff76ec1648169b60f05ba2ec0cd087fa40f3d",
+      "MOD_sha256": "b16bb1b06b2b18abd8b61cf81bd61ae349e2728ddd32f52d3d58dafec14309e2",
+      "reused_from": "/pool/wrf-experiment/wrf-cpu/kernels/current13c8-myj-qci-unswitch-native-hpc02-r1/work/O0-candidate/module_bl_myjpbl.o"
+    }
+  },
+  "measured_relevance": "Nine sparse retained current769 selected-thread primary-IP producer hits; no global headroom or current4adb profile claim. Numeric loss UNKNOWN; rank125 positive-prefix only.",
+  "limits": [
+    "No performance result; packed opcodes do not establish improvement.",
+    "No compiler-arithmetic cause established for directed-rounding/subnormal mismatch.",
+    "No O0 numerical acceptance or failure claim.",
+    "No unrelated wholemodule machinecode qualification.",
+    "Prior barepragma scalar trial remains separate codegen-no-mechanism disposition."
+  ],
+  "decision": "Close this fixed candidate UNPROMOTED, no source/selection changes or helper/ISA/variant repair ladder. Selected4adb MYJ source795e unchanged.",
+  "raw_refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-grid-producer-qci-unswitch-r1/native-gate-r1/actual-native-r1/receipt.json": {
+      "sha256": "ad7fa4107287063db927ae3b801e7130d5c0e8f4becd01dedcff78e2ff84ef59",
+      "bytes": 41605
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-grid-producer-qci-unswitch-r1/native-gate-r1/actual-native-r1/closure.json": {
+      "sha256": "c688e73f7c10defb9a7e5ac57e5ec8b6610a007be7ba0df5d8719747f439a6b8",
+      "bytes": 1341
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-grid-producer-qci-unswitch-r1/native-gate-r2/actual-native-r1/receipt.json": {
+      "sha256": "d4debef83a104ed27d7c7c3446517631bef8829c625a31badc89922468555c8d",
+      "bytes": 29681
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-grid-producer-qci-unswitch-r1/native-gate-r2/actual-native-r1/closure.json": {
+      "sha256": "bb8bd7f467521ba1a58211c6b9471a88d8f7ca70f56f1ac63e0a1f38cdbbff17",
+      "bytes": 1341
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-grid-producer-qci-unswitch-r1/native-gate-r3/actual-native-r1/receipt.json": {
+      "sha256": "5baad3d9ca94c43dc460b4d751d406a8cf10b763d62f7e9922becf8a319492c0",
+      "bytes": 48616
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-grid-producer-qci-unswitch-r1/native-gate-r3/actual-native-r1/closure.json": {
+      "sha256": "85618c20790109a1214b125aa791181a2e9452251cf0092cb25bd7ca8267b25e",
+      "bytes": 1341
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-grid-producer-qci-unswitch-r1/ROOT_TYPED_DIFF.json": {
+      "sha256": "52c6458b8f8b793a646b148831ccc190ed5dbb5c48211e6d6e6bb0ee4b20df2f",
+      "bytes": 1553
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-grid-producer-qci-unswitch-r1/local-completion-r1/ONE_UNSWITCH.diff": {
+      "sha256": "1bff3c2987b0514007605a30266dc8a7becb73dfbc2efeb105447ca78661d534",
+      "bytes": 1350
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-grid-producer-qci-unswitch-r1/local-completion-r1/ADJUDICATION.json": {
+      "sha256": "1b048c50fdb211371f746c5963a89eafdd36f43569262a745adad5288a6ec9cf",
+      "bytes": 3163
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-grid-producer-qci-unswitch-r1/actual-provider-r1/author/receipt.json": {
+      "sha256": "1c7a64f50e60b4bd0d0158cadedc0a23afa159ecb6d0422afcdca276fc662f35",
+      "bytes": 964
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-grid-producer-qci-unswitch-r1/actual-provider-r1/author/response.txt": {
+      "sha256": "d5f626570f9f977fe6b03026e70441918018fb0d3cced235fbc952e8f7419574",
+      "bytes": 2617
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-grid-producer-qci-unswitch-r1/actual-provider-r1/review/receipt.json": {
+      "sha256": "ebf752fd59c40fd3380bc20175a0586c6399e78a8286d523fc2d4d87295b5eaa",
+      "bytes": 965
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-grid-producer-qci-unswitch-r1/actual-provider-r1/review/response.txt": {
+      "sha256": "fe653422972c30ea611f5435d5d121c0b160c30a77dc01b44dd3e1c3ab5f14f7",
+      "bytes": 6722
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-grid-producer-qci-unswitch-r1/actual-targeted-review-r1/receipt.json": {
+      "sha256": "4fedd106e14798b1fa62f3b8816223ce278de9aed3d2f598d83c533fe6d87b60",
+      "bytes": 981
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-grid-producer-qci-unswitch-r1/actual-targeted-review-r1/response.txt": {
+      "sha256": "ecb5ab086fa87cf2412885176332e6ec91ebc13a4ef026dbcdcf9c368fa85f51",
+      "bytes": 4552
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-grid-producer-qci-unswitch-r1/native-gate-r1/source-pins.json": {
+      "sha256": "d1a22185b359539e7d1d5f95899e9806839f1fe4559dd68b47121245ddbc6244",
+      "bytes": 2292
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-grid-producer-qci-unswitch-r1/native-gate-r3/source-pins.json": {
+      "sha256": "96b9d5d16f2e481138c0d514627b6f26e0181a88617f3a1f9853452365e7a2fc",
+      "bytes": 2792
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-grid-producer-qci-unswitch-r1/native-gate-r2/source-pins.json": {
+      "sha256": "f4e977d4bc2e497a46b425c3301efcac0c60a1a63f90fe316ab832d77355c165",
+      "bytes": 2596
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-grid-producer-qci-unswitch-r1/native-gate-r1/controller.py": {
+      "sha256": "ea9ceeed7f356c2ad74ebc272cfa67e5f702b9f82c5f87dc0f857d4a7562bdb1",
+      "bytes": 6885
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-grid-producer-qci-unswitch-r1/native-gate-r3/controller.py": {
+      "sha256": "dc3ffbff275c3a1a91618aea666bc26b72cb294ad519d552d3478cd6869b6804",
+      "bytes": 6885
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-grid-producer-qci-unswitch-r1/native-gate-r2/controller.py": {
+      "sha256": "f8477ad251fca9fce9b9a55558c9972d1b6affade81b8b5d8b9cbf74ef4eab8f",
+      "bytes": 6885
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-grid-producer-qci-unswitch-r1/local-completion-r1/parent_module_bl_myjpbl.F": {
+      "sha256": "795e00134d47f98f512d61ffc45f93b3599202499ee8d8429009611d21c4b11f",
+      "bytes": 66080
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-grid-producer-qci-unswitch-r1/local-completion-r1/candidate_module_bl_myjpbl.F": {
+      "sha256": "baeb74480c90035e8e2eae519cef550395b5854f3ca9e109347d9d9354168082",
+      "bytes": 66641
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-grid-producer-qci-unswitch-r1/provider-targeted-review-r1/review-packet.txt": {
+      "sha256": "8eb0d289de7d5031dc8df36ff6b19e3b576b63377e8d7088d872c46f18f314fd",
+      "bytes": 23512
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-grid-producer-qci-unswitch-r1/native-gate-r3/producer_driver.f90": {
+      "sha256": "bc29f5e034439b1a65d9ca20ddb1e1aff5cb44a2a3f355f0ee5ebc5162fe94fe",
+      "bytes": 4561
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-grid-producer-qci-unswitch-r1/ROOT_TYPED_DIFF_SCRIPT.py": {
+      "sha256": "88c587f5e7fcb5b099dc0052c3da54b3c27f6ef2a95d8e96786d2af3c0eca0d3",
+      "bytes": 1615
+    },
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/myj-grid-producer-qci-unswitch-r1/BEFORE_19_CASE_AND_ANY_PATH_UPDATE/source-pins.json": {
+      "sha256": "12213d75bfaaa21bab08b055a64c7a31359741501722ae2b5d950b5073999d08",
+      "bytes": 2292
+    }
+  }
+}

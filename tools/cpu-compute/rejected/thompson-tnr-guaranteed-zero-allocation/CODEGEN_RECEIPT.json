@@ -1,0 +1,1072 @@
+{
+  "status": "PASS_CURRENT242C_TNR_ALLOCATION_CODEGEN_REPORT_ONLY_PENDING_LITERAL_REVIEW",
+  "invocation_id": "22c5331646ca4676816f98d9b6fd6a23",
+  "commands": [
+    {
+      "label": "compiler",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "--version"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "PP-parent-sed",
+      "argv": [
+        "/bin/sed",
+        "-e",
+        "s/^\\!.*'.*//",
+        "-e",
+        "s/^ *\\!.*'.*//",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-parent/module_mp_thompson.F"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "PP-parent-cpp",
+      "argv": [
+        "/usr/bin/cpp",
+        "-P",
+        "-traditional-cpp",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-DEM_CORE=1",
+        "-DNMM_CORE=0",
+        "-DNMM_MAX_DIM=2600",
+        "-DDA_CORE=0",
+        "-DWRFPLUS=0",
+        "-DIWORDSIZE=4",
+        "-DDWORDSIZE=8",
+        "-DRWORDSIZE=4",
+        "-DLWORDSIZE=4",
+        "-DNONSTANDARD_SYSTEM_SUBR",
+        "-DWRF_USE_CLM",
+        "-DUSE_NETCDF4_FEATURES",
+        "-DWRFIO_NCD_LARGE_FILE_SUPPORT",
+        "-DDM_PARALLEL",
+        "-DNETCDF",
+        "-DLANDREAD_STUB=1",
+        "-DUSE_ALLOCATABLES",
+        "-Dwrfmodel",
+        "-DGRIB1",
+        "-DINTIO",
+        "-DKEEP_INT_AROUND",
+        "-DLIMIT_ARGS",
+        "-DBUILD_RRTMG_FAST=0",
+        "-DBUILD_RRTMK=0",
+        "-DBUILD_SBM_FAST=1",
+        "-DSHOW_ALL_VARS_USED=0",
+        "-DCONFIG_BUF_LEN=65536",
+        "-DMAX_DOMAINS_F=21",
+        "-DMAX_HISTORY=25",
+        "-DNMM_NEST=0",
+        "-I.",
+        "-traditional-cpp",
+        "-DUSE_NETCDF4_FEATURES",
+        "-DWRFIO_NCD_LARGE_FILE_SUPPORT",
+        "-DWRF_EXPERIMENTAL_TPI_NUMA",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-parent/module_mp_thompson.G"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "PP-parent-standard",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/tools/standard.exe",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-parent/module_mp_thompson.bb"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "PP-parent-final-cpp",
+      "argv": [
+        "/usr/bin/cpp",
+        "-P",
+        "-traditional-cpp",
+        "-traditional-cpp",
+        "-DUSE_NETCDF4_FEATURES",
+        "-DWRFIO_NCD_LARGE_FILE_SUPPORT"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "compile-parent",
+      "argv": [
+        "time",
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-o",
+        "module_mp_thompson.o",
+        "-c",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-parent",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "module_mp_thompson.f90"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "ASM-parent",
+      "argv": [
+        "objdump",
+        "-d",
+        "-l",
+        "--start-address=205472",
+        "--stop-address=242958",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-parent/module_mp_thompson.o"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "PP-candidate-sed",
+      "argv": [
+        "/bin/sed",
+        "-e",
+        "s/^\\!.*'.*//",
+        "-e",
+        "s/^ *\\!.*'.*//",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.F"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "PP-candidate-cpp",
+      "argv": [
+        "/usr/bin/cpp",
+        "-P",
+        "-traditional-cpp",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-DEM_CORE=1",
+        "-DNMM_CORE=0",
+        "-DNMM_MAX_DIM=2600",
+        "-DDA_CORE=0",
+        "-DWRFPLUS=0",
+        "-DIWORDSIZE=4",
+        "-DDWORDSIZE=8",
+        "-DRWORDSIZE=4",
+        "-DLWORDSIZE=4",
+        "-DNONSTANDARD_SYSTEM_SUBR",
+        "-DWRF_USE_CLM",
+        "-DUSE_NETCDF4_FEATURES",
+        "-DWRFIO_NCD_LARGE_FILE_SUPPORT",
+        "-DDM_PARALLEL",
+        "-DNETCDF",
+        "-DLANDREAD_STUB=1",
+        "-DUSE_ALLOCATABLES",
+        "-Dwrfmodel",
+        "-DGRIB1",
+        "-DINTIO",
+        "-DKEEP_INT_AROUND",
+        "-DLIMIT_ARGS",
+        "-DBUILD_RRTMG_FAST=0",
+        "-DBUILD_RRTMK=0",
+        "-DBUILD_SBM_FAST=1",
+        "-DSHOW_ALL_VARS_USED=0",
+        "-DCONFIG_BUF_LEN=65536",
+        "-DMAX_DOMAINS_F=21",
+        "-DMAX_HISTORY=25",
+        "-DNMM_NEST=0",
+        "-I.",
+        "-traditional-cpp",
+        "-DUSE_NETCDF4_FEATURES",
+        "-DWRFIO_NCD_LARGE_FILE_SUPPORT",
+        "-DWRF_EXPERIMENTAL_TPI_NUMA",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.G"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "PP-candidate-standard",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/tools/standard.exe",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.bb"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "PP-candidate-final-cpp",
+      "argv": [
+        "/usr/bin/cpp",
+        "-P",
+        "-traditional-cpp",
+        "-traditional-cpp",
+        "-DUSE_NETCDF4_FEATURES",
+        "-DWRFIO_NCD_LARGE_FILE_SUPPORT"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "compile-candidate",
+      "argv": [
+        "time",
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-o",
+        "module_mp_thompson.o",
+        "-c",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "module_mp_thompson.f90"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "ASM-candidate",
+      "argv": [
+        "objdump",
+        "-d",
+        "-l",
+        "--start-address=205472",
+        "--stop-address=243246",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.o"
+      ],
+      "rc": 0
+    }
+  ],
+  "module_compiles": 2,
+  "scope": "CODEGEN_ONLY_NO_NATIVE_NO_MEMORY_CLAIM",
+  "source_commit": null,
+  "objects": {
+    "parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-parent/module_mp_thompson.o",
+      "sha256": "2546578b857473670fdf8f230ec4517e0f6081687d1d654dbbe3dba58522e1fa",
+      "PP_path": "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-parent/module_mp_thompson.f90",
+      "PP_sha256": "f55213b4cde5d8f8311989aefa6413f56faabb45a9937ef3755fa7b27c19e687",
+      "MOD_sha256": "2b20e2811653339ea7df9463b3c991491ba7b573eee9aa615ec15e8865511816"
+    },
+    "candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.o",
+      "sha256": "e7afbae21329843703a85da64699468618ce050243dfd4234bfce93ec576d100",
+      "PP_path": "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.f90",
+      "PP_sha256": "ae0399911425197c95c869c53fc53082a2d03b993d0a9b426b33a51eb592a645",
+      "MOD_sha256": "2b20e2811653339ea7df9463b3c991491ba7b573eee9aa615ec15e8865511816"
+    }
+  },
+  "genuine_parent_proof_sha256": "6e754deb7f7a8718b5f51afd4aff3ee8662c70b633978fa8dabb0c6533ec78aa",
+  "function_inventory_sha256": "0f803ddb2c4d01f42cdd23d646240441b5101896e28818bd790f5c3dc9a3189e",
+  "allocation_codegen": {
+    "parent": {
+      "function_base": 205472,
+      "function_size": 37486,
+      "actual_allocator_relocations": [
+        {
+          "offset": 21325,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 28660,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 28892,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 29145,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 29398,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 29781,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 30173,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 30308,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 30443,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 30578,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 30713,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 30848,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 31002,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 31148,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 31294,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 33608,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 33901,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 34153,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 34340,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 34511,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 34750,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 34986,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 35197,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 35368,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 35539,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 36386,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 36636,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 36850,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 37021,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 37234,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        }
+      ],
+      "tnr_PP_sites": [
+        {
+          "line": 467,
+          "source": "      REAL (KIND=R8SIZE), ALLOCATABLE, DIMENSION(:,:,:):: tnr_rev"
+        },
+        {
+          "line": 1910,
+          "source": "      if (.NOT. ALLOCATED(tnr_rev)) ALLOCATE(tnr_rev(nbr, ntb_r1, ntb_r))"
+        },
+        {
+          "line": 2263,
+          "source": "               tnr_rev(i,j,k) = 0.0d0"
+        }
+      ],
+      "tnr_source_joined_ASM_lines": [
+        "   3448d:\t00 ",
+        "   3448e:\t0f 84 e3 55 00 00    \tje     39a77 <__module_mp_thompson_MOD_thompson_init+0x77d7>",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-parent/module_mp_thompson.f90:1910",
+        "   34494:\t48 83 3d 00 00 00 00 \tcmpq   $0x0,0x0(%rip)        # 3449c <__module_mp_thompson_MOD_thompson_init+0x21fc>",
+        "   3449b:\t00 ",
+        "   3449c:\t0f 84 5c 56 00 00    \tje     39afe <__module_mp_thompson_MOD_thompson_init+0x785e>",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-parent/module_mp_thompson.f90:1911",
+        "   344a2:\t48 83 3d 00 00 00 00 \tcmpq   $0x0,0x0(%rip)        # 344aa <__module_mp_thompson_MOD_thompson_init+0x220a>",
+        "   344a9:\t00 ",
+        "   344aa:\t0f 84 e8 56 00 00    \tje     39b98 <__module_mp_thompson_MOD_thompson_init+0x78f8>",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-parent/module_mp_thompson.f90:1912",
+        "   344b0:\t48 83 3d 00 00 00 00 \tcmpq   $0x0,0x0(%rip)        # 344b8 <__module_mp_thompson_MOD_thompson_init+0x2218>",
+        "   365ae:\t75 9c                \tjne    3654c <__module_mp_thompson_MOD_thompson_init+0x42ac>",
+        "   365b0:\t48 8b 05 00 00 00 00 \tmov    0x0(%rip),%rax        # 365b7 <__module_mp_thompson_MOD_thompson_init+0x4317>",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-parent/module_mp_thompson.f90:2263",
+        "   365b7:\t4c 8b 1d 00 00 00 00 \tmov    0x0(%rip),%r11        # 365be <__module_mp_thompson_MOD_thompson_init+0x431e>",
+        "   365be:\t41 b8 25 00 00 00    \tmov    $0x25,%r8d",
+        "   365c4:\t4c 8b 0d 00 00 00 00 \tmov    0x0(%rip),%r9        # 365cb <__module_mp_thompson_MOD_thompson_init+0x432b>",
+        "   365cb:\t48 8d 34 c5 00 00 00 \tlea    0x0(,%rax,8),%rsi",
+        "   365d2:\t00 ",
+        "   365d3:\t48 8b 05 00 00 00 00 \tmov    0x0(%rip),%rax        # 365da <__module_mp_thompson_MOD_thompson_init+0x433a>",
+        "   365da:\t4d 01 d9             \tadd    %r11,%r9",
+        "   365dd:\t48 01 f0             \tadd    %rsi,%rax",
+        "   365e0:\t48 8d 58 08          \tlea    0x8(%rax),%rbx",
+        "   365e4:\t31 c0                \txor    %eax,%eax",
+        "   365e6:\t4a 8d 14 cb          \tlea    (%rbx,%r9,8),%rdx",
+        "   365ea:\t41 ba 25 00 00 00    \tmov    $0x25,%r10d",
+        "   365f0:\t48 8d 7a 08          \tlea    0x8(%rdx),%rdi",
+        "   365f4:\t48 89 d1             \tmov    %rdx,%rcx",
+        "   365f7:\t48 c7 02 00 00 00 00 \tmovq   $0x0,(%rdx)",
+        "   365fe:\t48 c7 82 18 03 00 00 \tmovq   $0x0,0x318(%rdx)",
+        "   36605:\t00 00 00 00 ",
+        "   36609:\t48 83 e7 f8          \tand    $0xfffffffffffffff8,%rdi",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-parent/module_mp_thompson.f90:2261 (discriminator 1)",
+        "   3660d:\t48 01 f2             \tadd    %rsi,%rdx",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-parent/module_mp_thompson.f90:2263",
+        "   36610:\t48 29 f9             \tsub    %rdi,%rcx",
+        "   36613:\t81 c1 20 03 00 00    \tadd    $0x320,%ecx",
+        "   36619:\tc1 e9 03             \tshr    $0x3,%ecx",
+        "   3661c:\tf3 48 ab             \trep stos %rax,%es:(%rdi)",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-parent/module_mp_thompson.f90:2261 (discriminator 1)",
+        "   3661f:\t41 83 ea 01          \tsub    $0x1,%r10d",
+        "   39aad:\t66 0f 6f 05 00 00 00 \tmovdqa 0x0(%rip),%xmm0        # 39ab5 <__module_mp_thompson_MOD_thompson_init+0x7815>",
+        "   39ab4:\t00 ",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-parent/module_mp_thompson.f90:1910",
+        "   39ab5:\t48 83 3d 00 00 00 00 \tcmpq   $0x0,0x0(%rip)        # 39abd <__module_mp_thompson_MOD_thompson_init+0x781d>",
+        "   39abc:\t00 ",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-parent/module_mp_thompson.f90:1908 (discriminator 7)",
+        "   39abd:\t48 c7 05 00 00 00 00 \tmovq   $0x64,0x0(%rip)        # 39ac8 <__module_mp_thompson_MOD_thompson_init+0x7828>",
+        "   39af0:\t00 ",
+        "   39af1:\t0f 29 05 00 00 00 00 \tmovaps %xmm0,0x0(%rip)        # 39af8 <__module_mp_thompson_MOD_thompson_init+0x7858>",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-parent/module_mp_thompson.f90:1910",
+        "   39af8:\t0f 85 a4 a9 ff ff    \tjne    344a2 <__module_mp_thompson_MOD_thompson_init+0x2202>",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-parent/module_mp_thompson.f90:1910 (discriminator 1)",
+        "   39afe:\t48 b8 00 00 00 00 03 \tmovabs $0x30300000000,%rax",
+        "   39b05:\t03 00 00 ",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-parent/module_mp_thompson.f90:1910 (discriminator 5)",
+        "   39b08:\tbf 20 b6 10 00       \tmov    $0x10b620,%edi",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-parent/module_mp_thompson.f90:1910 (discriminator 1)",
+        "   39b0d:\t48 c7 05 00 00 00 00 \tmovq   $0x8,0x0(%rip)        # 39b18 <__module_mp_thompson_MOD_thompson_init+0x7878>",
+        "   39b14:\t08 00 00 00 ",
+        "   39b18:\t48 89 05 00 00 00 00 \tmov    %rax,0x0(%rip)        # 39b1f <__module_mp_thompson_MOD_thompson_init+0x787f>",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-parent/module_mp_thompson.f90:1910 (discriminator 5)",
+        "   39b1f:\te8 00 00 00 00       \tcall   39b24 <__module_mp_thompson_MOD_thompson_init+0x7884>",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-parent/module_mp_thompson.f90:1910 (discriminator 1)",
+        "   39b24:\t48 89 05 00 00 00 00 \tmov    %rax,0x0(%rip)        # 39b2b <__module_mp_thompson_MOD_thompson_init+0x788b>",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-parent/module_mp_thompson.f90:1910 (discriminator 2)",
+        "   39b2b:\t48 85 c0             \ttest   %rax,%rax",
+        "   39b2e:\t0f 84 d2 13 00 00    \tje     3af06 <__module_mp_thompson_MOD_thompson_init+0x8c66>",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-parent/module_mp_thompson.f90:1910 (discriminator 7)",
+        "   39b34:\t66 0f 6f 05 00 00 00 \tmovdqa 0x0(%rip),%xmm0        # 39b3c <__module_mp_thompson_MOD_thompson_init+0x789c>",
+        "   39b3b:\t00 ",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-parent/module_mp_thompson.f90:1911",
+        "   39b3c:\t48 83 3d 00 00 00 00 \tcmpq   $0x0,0x0(%rip)        # 39b44 <__module_mp_thompson_MOD_thompson_init+0x78a4>",
+        "   39b43:\t00 ",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-parent/module_mp_thompson.f90:1910 (discriminator 7)",
+        "   39b44:\t48 c7 05 00 00 00 00 \tmovq   $0xfffffffffffff127,0x0(%rip)        # 39b4f <__module_mp_thompson_MOD_thompson_init+0x78af>",
+        "   39b4b:\t27 f1 ff ff ",
+        "   39b4f:\t0f 29 05 00 00 00 00 \tmovaps %xmm0,0x0(%rip)        # 39b56 <__module_mp_thompson_MOD_thompson_init+0x78b6>",
+        "   39b56:\t66 0f 6f 05 00 00 00 \tmovdqa 0x0(%rip),%xmm0        # 39b5e <__module_mp_thompson_MOD_thompson_init+0x78be>",
+        "   39b5d:\t00 ",
+        "   39b5e:\t0f 29 05 00 00 00 00 \tmovaps %xmm0,0x0(%rip)        # 39b65 <__module_mp_thompson_MOD_thompson_init+0x78c5>",
+        "   39b65:\t66 0f 6f 05 00 00 00 \tmovdqa 0x0(%rip),%xmm0        # 39b6d <__module_mp_thompson_MOD_thompson_init+0x78cd>",
+        "   39b6c:\t00 ",
+        "   39b6d:\t0f 29 05 00 00 00 00 \tmovaps %xmm0,0x0(%rip)        # 39b74 <__module_mp_thompson_MOD_thompson_init+0x78d4>",
+        "   39b74:\t66 0f 6f 05 00 00 00 \tmovdqa 0x0(%rip),%xmm0        # 39b7c <__module_mp_thompson_MOD_thompson_init+0x78dc>",
+        "   39b7b:\t00 ",
+        "   39b7c:\t0f 29 05 00 00 00 00 \tmovaps %xmm0,0x0(%rip)        # 39b83 <__module_mp_thompson_MOD_thompson_init+0x78e3>",
+        "   39b83:\t66 0f 6f 05 00 00 00 \tmovdqa 0x0(%rip),%xmm0        # 39b8b <__module_mp_thompson_MOD_thompson_init+0x78eb>",
+        "   39b8a:\t00 ",
+        "   39b8b:\t0f 29 05 00 00 00 00 \tmovaps %xmm0,0x0(%rip)        # 39b92 <__module_mp_thompson_MOD_thompson_init+0x78f2>",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-parent/module_mp_thompson.f90:1911",
+        "   39b92:\t0f 85 18 a9 ff ff    \tjne    344b0 <__module_mp_thompson_MOD_thompson_init+0x2210>",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-parent/module_mp_thompson.f90:1911 (discriminator 1)",
+        "   39b98:\t48 b8 00 00 00 00 03 \tmovabs $0x30300000000,%rax",
+        "   39b9f:\t03 00 00 ",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-parent/module_mp_thompson.f90:1911 (discriminator 5)",
+        "   39ba2:\tbf 80 2a 2d 00       \tmov    $0x2d2a80,%edi",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-parent/module_mp_thompson.f90:1911 (discriminator 1)",
+        "   39ba7:\t48 c7 05 00 00 00 00 \tmovq   $0x8,0x0(%rip)        # 39bb2 <__module_mp_thompson_MOD_thompson_init+0x7912>",
+        "   39bae:\t08 00 00 00 ",
+        "   39bb2:\t48 89 05 00 00 00 00 \tmov    %rax,0x0(%rip)        # 39bb9 <__module_mp_thompson_MOD_thompson_init+0x7919>",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-parent/module_mp_thompson.f90:1911 (discriminator 5)",
+        "   39bb9:\te8 00 00 00 00       \tcall   39bbe <__module_mp_thompson_MOD_thompson_init+0x791e>",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-parent/module_mp_thompson.f90:1911 (discriminator 1)",
+        "   39bbe:\t48 89 05 00 00 00 00 \tmov    %rax,0x0(%rip)        # 39bc5 <__module_mp_thompson_MOD_thompson_init+0x7925>",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-parent/module_mp_thompson.f90:1911 (discriminator 2)",
+        "   39bc5:\t48 85 c0             \ttest   %rax,%rax",
+        "   39bc8:\t0f 84 24 13 00 00    \tje     3aef2 <__module_mp_thompson_MOD_thompson_init+0x8c52>",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-parent/module_mp_thompson.f90:1911 (discriminator 7)",
+        "   39bce:\t66 0f 6f 05 00 00 00 \tmovdqa 0x0(%rip),%xmm0        # 39bd6 <__module_mp_thompson_MOD_thompson_init+0x7936>",
+        "   39bd5:\t00 ",
+        "   39bd6:\t66 0f 6f 0d 00 00 00 \tmovdqa 0x0(%rip),%xmm1        # 39bde <__module_mp_thompson_MOD_thompson_init+0x793e>",
+        "   39bdd:\t00 ",
+        "   39bde:\t48 c7 05 00 00 00 00 \tmovq   $0xfffffffffffff127,0x0(%rip)        # 39be9 <__module_mp_thompson_MOD_thompson_init+0x7949>",
+        "   39be5:\t27 f1 ff ff ",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-parent/module_mp_thompson.f90:1912",
+        "   39be9:\t48 83 3d 00 00 00 00 \tcmpq   $0x0,0x0(%rip)        # 39bf1 <__module_mp_thompson_MOD_thompson_init+0x7951>",
+        "   39bf0:\t00 ",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-parent/module_mp_thompson.f90:1911 (discriminator 7)",
+        "   39bf1:\t0f 29 05 00 00 00 00 \tmovaps %xmm0,0x0(%rip)        # 39bf8 <__module_mp_thompson_MOD_thompson_init+0x7958>",
+        "   39bf8:\t66 0f 6f 05 00 00 00 \tmovdqa 0x0(%rip),%xmm0        # 39c00 <__module_mp_thompson_MOD_thompson_init+0x7960>",
+        "   39bff:\t00 ",
+        "   39c00:\t0f 29 0d 00 00 00 00 \tmovaps %xmm1,0x0(%rip)        # 39c07 <__module_mp_thompson_MOD_thompson_init+0x7967>",
+        "   39c07:\t66 0f 6f 0d 00 00 00 \tmovdqa 0x0(%rip),%xmm1        # 39c0f <__module_mp_thompson_MOD_thompson_init+0x796f>",
+        "   39c0e:\t00 ",
+        "   39c0f:\t0f 29 05 00 00 00 00 \tmovaps %xmm0,0x0(%rip)        # 39c16 <__module_mp_thompson_MOD_thompson_init+0x7976>",
+        "   39c16:\t0f 29 0d 00 00 00 00 \tmovaps %xmm1,0x0(%rip)        # 39c1d <__module_mp_thompson_MOD_thompson_init+0x797d>",
+        "   39c1d:\t0f 29 05 00 00 00 00 \tmovaps %xmm0,0x0(%rip)        # 39c24 <__module_mp_thompson_MOD_thompson_init+0x7984>",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-parent/module_mp_thompson.f90:1912",
+        "   39c24:\t0f 85 94 a8 ff ff    \tjne    344be <__module_mp_thompson_MOD_thompson_init+0x221e>",
+        "   3aee8:\tbf 00 00 00 00       \tmov    $0x0,%edi",
+        "   3aeed:\te8 00 00 00 00       \tcall   3aef2 <__module_mp_thompson_MOD_thompson_init+0x8c52>",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-parent/module_mp_thompson.f90:1911 (discriminator 6)",
+        "   3aef2:\tba 80 2a 2d 00       \tmov    $0x2d2a80,%edx",
+        "   3aef7:\tbe 00 00 00 00       \tmov    $0x0,%esi",
+        "   3aefc:\tbf 00 00 00 00       \tmov    $0x0,%edi",
+        "   3af01:\te8 00 00 00 00       \tcall   3af06 <__module_mp_thompson_MOD_thompson_init+0x8c66>",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-parent/module_mp_thompson.f90:1910 (discriminator 6)",
+        "   3af06:\tba 20 b6 10 00       \tmov    $0x10b620,%edx",
+        "   3af0b:\tbe 00 00 00 00       \tmov    $0x0,%esi",
+        "   3af10:\tbf 00 00 00 00       \tmov    $0x0,%edi",
+        "   3af15:\te8 00 00 00 00       \tcall   3af1a <__module_mp_thompson_MOD_thompson_init+0x8c7a>",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-parent/module_mp_thompson.f90:1907 (discriminator 6)",
+        "   3af1a:\tba 80 38 01 00       \tmov    $0x13880,%edx"
+      ],
+      "full_ASM": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/parent-init-full-aligned.asm",
+        "sha256": "4611fecee8797262ea0739b4e838baa1d0f69e07992a7f0d2b1093eb69b5ac2f",
+        "bytes": 725644
+      },
+      "all_function_reference_count": 2369
+    },
+    "candidate": {
+      "function_base": 205472,
+      "function_size": 37774,
+      "actual_allocator_relocations": [
+        {
+          "offset": 21339,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 22534,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 28919,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 29154,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 29413,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 29672,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 30061,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 30465,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 30600,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 30735,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 30861,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 31007,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 31254,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 31441,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 31557,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 31684,
+          "type": 4,
+          "target": "memset",
+          "addend": -4
+        },
+        {
+          "offset": 33916,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 34103,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 34238,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 34441,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 34693,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 34904,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 35142,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 35313,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 35484,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 35655,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 35826,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 36674,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 36924,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 37138,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 37309,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        },
+        {
+          "offset": 37522,
+          "type": 4,
+          "target": "malloc",
+          "addend": -4
+        }
+      ],
+      "tnr_PP_sites": [
+        {
+          "line": 467,
+          "source": "      REAL (KIND=R8SIZE), ALLOCATABLE, DIMENSION(:,:,:):: tnr_rev"
+        },
+        {
+          "line": 1652,
+          "source": "      LOGICAL :: tnr_rev_fresh_zero"
+        },
+        {
+          "line": 1671,
+          "source": "      tnr_rev_fresh_zero = .FALSE."
+        },
+        {
+          "line": 1912,
+          "source": "      IF (.NOT.ALLOCATED(tnr_rev)) THEN"
+        },
+        {
+          "line": 1914,
+          "source": "            ALLOCATE(tnr_rev(nbr, ntb_r1, ntb_r), SOURCE=0.0_R8SIZE)"
+        },
+        {
+          "line": 1915,
+          "source": "            tnr_rev_fresh_zero = .TRUE."
+        },
+        {
+          "line": 1917,
+          "source": "            ALLOCATE(tnr_rev(nbr, ntb_r1, ntb_r))"
+        },
+        {
+          "line": 2269,
+          "source": "      IF (.NOT.tnr_rev_fresh_zero) THEN"
+        },
+        {
+          "line": 2273,
+          "source": "               tnr_rev(i,j,k) = 0.0d0"
+        }
+      ],
+      "tnr_source_joined_ASM_lines": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.f90:1807",
+        "   33511:\t8b 1d 00 00 00 00    \tmov    0x0(%rip),%ebx        # 33517 <__module_mp_thompson_MOD_thompson_init+0x1277>",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.f90:1670",
+        "   33517:\t31 ed                \txor    %ebp,%ebp",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.f90:1805",
+        "   33519:\t66 0f 6f 35 00 00 00 \tmovdqa 0x0(%rip),%xmm6        # 33521 <__module_mp_thompson_MOD_thompson_init+0x1281>",
+        "   34499:\t00 ",
+        "   3449a:\t0f 84 ed 55 00 00    \tje     39a8d <__module_mp_thompson_MOD_thompson_init+0x77ed>",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.f90:1912",
+        "   344a0:\t48 83 3d 00 00 00 00 \tcmpq   $0x0,0x0(%rip)        # 344a8 <__module_mp_thompson_MOD_thompson_init+0x2208>",
+        "   344a7:\t00 ",
+        "   344a8:\t0f 84 cd 35 00 00    \tje     37a7b <__module_mp_thompson_MOD_thompson_init+0x57db>",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.f90:1671",
+        "   344ae:\tc7 84 24 b0 00 00 00 \tmovl   $0x0,0xb0(%rsp)",
+        "   344b5:\t00 00 00 00 ",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.f90:1920",
+        "   344b9:\t48 83 3d 00 00 00 00 \tcmpq   $0x0,0x0(%rip)        # 344c1 <__module_mp_thompson_MOD_thompson_init+0x2221>",
+        "   365ed:\t41 83 e8 01          \tsub    $0x1,%r8d",
+        "   365f1:\t75 9c                \tjne    3658f <__module_mp_thompson_MOD_thompson_init+0x42ef>",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.f90:2269",
+        "   365f3:\t8b bc 24 b0 00 00 00 \tmov    0xb0(%rsp),%edi",
+        "   365fa:\t85 ff                \ttest   %edi,%edi",
+        "   365fc:\t75 7e                \tjne    3667c <__module_mp_thompson_MOD_thompson_init+0x43dc>",
+        "   365fe:\t48 8b 05 00 00 00 00 \tmov    0x0(%rip),%rax        # 36605 <__module_mp_thompson_MOD_thompson_init+0x4365>",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.f90:2273",
+        "   36605:\t4c 8b 1d 00 00 00 00 \tmov    0x0(%rip),%r11        # 3660c <__module_mp_thompson_MOD_thompson_init+0x436c>",
+        "   3660c:\t41 b8 25 00 00 00    \tmov    $0x25,%r8d",
+        "   36612:\t4c 8b 0d 00 00 00 00 \tmov    0x0(%rip),%r9        # 36619 <__module_mp_thompson_MOD_thompson_init+0x4379>",
+        "   36619:\t48 8d 34 c5 00 00 00 \tlea    0x0(,%rax,8),%rsi",
+        "   36620:\t00 ",
+        "   36621:\t48 8b 05 00 00 00 00 \tmov    0x0(%rip),%rax        # 36628 <__module_mp_thompson_MOD_thompson_init+0x4388>",
+        "   36628:\t4d 01 d9             \tadd    %r11,%r9",
+        "   3662b:\t48 01 f0             \tadd    %rsi,%rax",
+        "   3662e:\t48 8d 58 08          \tlea    0x8(%rax),%rbx",
+        "   36632:\t31 c0                \txor    %eax,%eax",
+        "   36634:\t4a 8d 14 cb          \tlea    (%rbx,%r9,8),%rdx",
+        "   36638:\t41 ba 25 00 00 00    \tmov    $0x25,%r10d",
+        "   3663e:\t48 8d 7a 08          \tlea    0x8(%rdx),%rdi",
+        "   36642:\t48 89 d1             \tmov    %rdx,%rcx",
+        "   36645:\t48 c7 02 00 00 00 00 \tmovq   $0x0,(%rdx)",
+        "   3664c:\t48 c7 82 18 03 00 00 \tmovq   $0x0,0x318(%rdx)",
+        "   36653:\t00 00 00 00 ",
+        "   36657:\t48 83 e7 f8          \tand    $0xfffffffffffffff8,%rdi",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.f90:2271 (discriminator 1)",
+        "   3665b:\t48 01 f2             \tadd    %rsi,%rdx",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.f90:2273",
+        "   3665e:\t48 29 f9             \tsub    %rdi,%rcx",
+        "   36661:\t81 c1 20 03 00 00    \tadd    $0x320,%ecx",
+        "   36667:\tc1 e9 03             \tshr    $0x3,%ecx",
+        "   3666a:\tf3 48 ab             \trep stos %rax,%es:(%rdi)",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.f90:2271 (discriminator 1)",
+        "   3666d:\t41 83 ea 01          \tsub    $0x1,%r10d",
+        "   36671:\t75 cb                \tjne    3663e <__module_mp_thompson_MOD_thompson_init+0x439e>",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.f90:2270 (discriminator 1)",
+        "   36673:\t4d 01 d9             \tadd    %r11,%r9",
+        "   36676:\t41 83 e8 01          \tsub    $0x1,%r8d",
+        "   3667a:\t75 b8                \tjne    36634 <__module_mp_thompson_MOD_thompson_init+0x4394>",
+        "   3667c:\t48 8b 05 00 00 00 00 \tmov    0x0(%rip),%rax        # 36683 <__module_mp_thompson_MOD_thompson_init+0x43e3>",
+        "   36683:\t48 8b 15 00 00 00 00 \tmov    0x0(%rip),%rdx        # 3668a <__module_mp_thompson_MOD_thompson_init+0x43ea>",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.f90:2282",
+        "   3668a:\t41 ba 64 00 00 00    \tmov    $0x64,%r10d",
+        "   37a70:\t0f 85 77 ba ff ff    \tjne    334ed <__module_mp_thompson_MOD_thompson_init+0x124d>",
+        "   37a76:\te9 36 24 00 00       \tjmp    39eb1 <__module_mp_thompson_MOD_thompson_init+0x7c11>",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.f90:1914",
+        "   37a7b:\t48 b8 00 00 00 00 03 \tmovabs $0x30300000000,%rax",
+        "   37a82:\t03 00 00 ",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.f90:1914 (discriminator 4)",
+        "   37a85:\tbf 20 b6 10 00       \tmov    $0x10b620,%edi",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.f90:1914",
+        "   37a8a:\t48 c7 05 00 00 00 00 \tmovq   $0x8,0x0(%rip)        # 37a95 <__module_mp_thompson_MOD_thompson_init+0x57f5>",
+        "   37a91:\t08 00 00 00 ",
+        "   37a95:\t48 89 05 00 00 00 00 \tmov    %rax,0x0(%rip)        # 37a9c <__module_mp_thompson_MOD_thompson_init+0x57fc>",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.f90:1913",
+        "   37a9c:\t83 fb 01             \tcmp    $0x1,%ebx",
+        "   37a9f:\t0f 84 3f 23 00 00    \tje     39de4 <__module_mp_thompson_MOD_thompson_init+0x7b44>",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.f90:1917 (discriminator 4)",
+        "   37aa5:\te8 00 00 00 00       \tcall   37aaa <__module_mp_thompson_MOD_thompson_init+0x580a>",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.f90:1917 (discriminator 1)",
+        "   37aaa:\t48 89 05 00 00 00 00 \tmov    %rax,0x0(%rip)        # 37ab1 <__module_mp_thompson_MOD_thompson_init+0x5811>",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.f90:1917 (discriminator 2)",
+        "   37ab1:\t48 85 c0             \ttest   %rax,%rax",
+        "   37ab4:\t0f 84 4f 36 00 00    \tje     3b109 <__module_mp_thompson_MOD_thompson_init+0x8e69>",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.f90:1917 (discriminator 6)",
+        "   37aba:\t66 0f 6f 05 00 00 00 \tmovdqa 0x0(%rip),%xmm0        # 37ac2 <__module_mp_thompson_MOD_thompson_init+0x5822>",
+        "   37ac1:\t00 ",
+        "   37ac2:\t48 c7 05 00 00 00 00 \tmovq   $0xfffffffffffff127,0x0(%rip)        # 37acd <__module_mp_thompson_MOD_thompson_init+0x582d>",
+        "   37ac9:\t27 f1 ff ff ",
+        "   37acd:\t0f 29 05 00 00 00 00 \tmovaps %xmm0,0x0(%rip)        # 37ad4 <__module_mp_thompson_MOD_thompson_init+0x5834>",
+        "   37ad4:\t66 0f 6f 05 00 00 00 \tmovdqa 0x0(%rip),%xmm0        # 37adc <__module_mp_thompson_MOD_thompson_init+0x583c>",
+        "   37adb:\t00 ",
+        "   37adc:\t0f 29 05 00 00 00 00 \tmovaps %xmm0,0x0(%rip)        # 37ae3 <__module_mp_thompson_MOD_thompson_init+0x5843>",
+        "   37ae3:\t66 0f 6f 05 00 00 00 \tmovdqa 0x0(%rip),%xmm0        # 37aeb <__module_mp_thompson_MOD_thompson_init+0x584b>",
+        "   37aea:\t00 ",
+        "   37aeb:\t0f 29 05 00 00 00 00 \tmovaps %xmm0,0x0(%rip)        # 37af2 <__module_mp_thompson_MOD_thompson_init+0x5852>",
+        "   37af2:\t66 0f 6f 05 00 00 00 \tmovdqa 0x0(%rip),%xmm0        # 37afa <__module_mp_thompson_MOD_thompson_init+0x585a>",
+        "   37af9:\t00 ",
+        "   37afa:\t0f 29 05 00 00 00 00 \tmovaps %xmm0,0x0(%rip)        # 37b01 <__module_mp_thompson_MOD_thompson_init+0x5861>",
+        "   37b01:\t66 0f 6f 05 00 00 00 \tmovdqa 0x0(%rip),%xmm0        # 37b09 <__module_mp_thompson_MOD_thompson_init+0x5869>",
+        "   37b08:\t00 ",
+        "   37b09:\t0f 29 05 00 00 00 00 \tmovaps %xmm0,0x0(%rip)        # 37b10 <__module_mp_thompson_MOD_thompson_init+0x5870>",
+        "   37b10:\te9 99 c9 ff ff       \tjmp    344ae <__module_mp_thompson_MOD_thompson_init+0x220e>",
+        "   37b15:\t0f 1f 00             \tnopl   (%rax)",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.f90:2349 (discriminator 1)",
+        "   37b18:\t48 8b b4 24 b8 01 00 \tmov    0x1b8(%rsp),%rsi",
+        "   39ddd:\t31 db                \txor    %ebx,%ebx",
+        "   39ddf:\te9 d1 fe ff ff       \tjmp    39cb5 <__module_mp_thompson_MOD_thompson_init+0x7a15>",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.f90:1914 (discriminator 4)",
+        "   39de4:\te8 00 00 00 00       \tcall   39de9 <__module_mp_thompson_MOD_thompson_init+0x7b49>",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.f90:1914 (discriminator 1)",
+        "   39de9:\t48 89 05 00 00 00 00 \tmov    %rax,0x0(%rip)        # 39df0 <__module_mp_thompson_MOD_thompson_init+0x7b50>",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.f90:1914 (discriminator 4)",
+        "   39df0:\t48 89 c1             \tmov    %rax,%rcx",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.f90:1914 (discriminator 2)",
+        "   39df3:\t48 85 c0             \ttest   %rax,%rax",
+        "   39df6:\t0f 84 f7 12 00 00    \tje     3b0f3 <__module_mp_thompson_MOD_thompson_init+0x8e53>",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.f90:1914 (discriminator 6)",
+        "   39dfc:\t66 0f 6f 05 00 00 00 \tmovdqa 0x0(%rip),%xmm0        # 39e04 <__module_mp_thompson_MOD_thompson_init+0x7b64>",
+        "   39e03:\t00 ",
+        "   39e04:\t4c 8d a0 20 b6 10 00 \tlea    0x10b620(%rax),%r12",
+        "   39e0b:\t48 c7 05 00 00 00 00 \tmovq   $0xfffffffffffff127,0x0(%rip)        # 39e16 <__module_mp_thompson_MOD_thompson_init+0x7b76>",
+        "   39e12:\t27 f1 ff ff ",
+        "   39e16:\t0f 29 05 00 00 00 00 \tmovaps %xmm0,0x0(%rip)        # 39e1d <__module_mp_thompson_MOD_thompson_init+0x7b7d>",
+        "   39e1d:\t66 0f 6f 05 00 00 00 \tmovdqa 0x0(%rip),%xmm0        # 39e25 <__module_mp_thompson_MOD_thompson_init+0x7b85>",
+        "   39e24:\t00 ",
+        "   39e25:\t0f 29 05 00 00 00 00 \tmovaps %xmm0,0x0(%rip)        # 39e2c <__module_mp_thompson_MOD_thompson_init+0x7b8c>",
+        "   39e2c:\t66 0f 6f 05 00 00 00 \tmovdqa 0x0(%rip),%xmm0        # 39e34 <__module_mp_thompson_MOD_thompson_init+0x7b94>",
+        "   39e33:\t00 ",
+        "   39e34:\t0f 29 05 00 00 00 00 \tmovaps %xmm0,0x0(%rip)        # 39e3b <__module_mp_thompson_MOD_thompson_init+0x7b9b>",
+        "   39e3b:\t66 0f 6f 05 00 00 00 \tmovdqa 0x0(%rip),%xmm0        # 39e43 <__module_mp_thompson_MOD_thompson_init+0x7ba3>",
+        "   39e42:\t00 ",
+        "   39e43:\t0f 29 05 00 00 00 00 \tmovaps %xmm0,0x0(%rip)        # 39e4a <__module_mp_thompson_MOD_thompson_init+0x7baa>",
+        "   39e4a:\t66 0f 6f 05 00 00 00 \tmovdqa 0x0(%rip),%xmm0        # 39e52 <__module_mp_thompson_MOD_thompson_init+0x7bb2>",
+        "   39e51:\t00 ",
+        "   39e52:\t0f 29 05 00 00 00 00 \tmovaps %xmm0,0x0(%rip)        # 39e59 <__module_mp_thompson_MOD_thompson_init+0x7bb9>",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.f90:1914 (discriminator 14)",
+        "   39e59:\t48 89 cf             \tmov    %rcx,%rdi",
+        "   39e5c:\tba a0 73 00 00       \tmov    $0x73a0,%edx",
+        "   39e61:\t31 f6                \txor    %esi,%esi",
+        "   39e63:\te8 00 00 00 00       \tcall   39e68 <__module_mp_thompson_MOD_thompson_init+0x7bc8>",
+        "   39e68:\t48 89 c1             \tmov    %rax,%rcx",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.f90:1914 (discriminator 17)",
+        "   39e6b:\t48 81 c1 a0 73 00 00 \tadd    $0x73a0,%rcx",
+        "   39e72:\t4c 39 e1             \tcmp    %r12,%rcx",
+        "   39e75:\t75 e2                \tjne    39e59 <__module_mp_thompson_MOD_thompson_init+0x7bb9>",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.f90:1915",
+        "   39e77:\tc7 84 24 b0 00 00 00 \tmovl   $0x1,0xb0(%rsp)",
+        "   39e7e:\t01 00 00 00 ",
+        "   39e82:\te9 32 a6 ff ff       \tjmp    344b9 <__module_mp_thompson_MOD_thompson_init+0x2219>",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.f90:1723 (discriminator 21)",
+        "   39e87:\tf3 0f 10 05 00 00 00 \tmovss  0x0(%rip),%xmm0        # 39e8f <__module_mp_thompson_MOD_thompson_init+0x7bef>",
+        "   3b038:\t66 0f 6f 2d 00 00 00 \tmovdqa 0x0(%rip),%xmm5        # 3b040 <__module_mp_thompson_MOD_thompson_init+0x8da0>",
+        "   3b03f:\t00 ",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.f90:1670",
+        "   3b040:\t31 ed                \txor    %ebp,%ebp",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.f90:1805",
+        "   3b042:\t66 0f 6f 35 00 00 00 \tmovdqa 0x0(%rip),%xmm6        # 3b04a <__module_mp_thompson_MOD_thompson_init+0x8daa>",
+        "   3b0ea:\t66 0f ef c0          \tpxor   %xmm0,%xmm0",
+        "   3b0ee:\te9 30 c9 ff ff       \tjmp    37a23 <__module_mp_thompson_MOD_thompson_init+0x5783>",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.f90:1914 (discriminator 5)",
+        "   3b0f3:\tba 20 b6 10 00       \tmov    $0x10b620,%edx",
+        "   3b0f8:\tbe 00 00 00 00       \tmov    $0x0,%esi",
+        "   3b0fd:\tbf 00 00 00 00       \tmov    $0x0,%edi",
+        "   3b102:\t31 c0                \txor    %eax,%eax",
+        "   3b104:\te8 00 00 00 00       \tcall   3b109 <__module_mp_thompson_MOD_thompson_init+0x8e69>",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.f90:1917 (discriminator 5)",
+        "   3b109:\tba 20 b6 10 00       \tmov    $0x10b620,%edx",
+        "   3b10e:\tbe 00 00 00 00       \tmov    $0x0,%esi",
+        "   3b113:\tbf 00 00 00 00       \tmov    $0x0,%edi",
+        "   3b118:\te8 00 00 00 00       \tcall   3b11d <__module_mp_thompson_MOD_thompson_init+0x8e7d>",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.f90:1920 (discriminator 6)",
+        "   3b11d:\tba 80 2a 2d 00       \tmov    $0x2d2a80,%edx"
+      ],
+      "full_ASM": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/candidate-init-full-aligned.asm",
+        "sha256": "50e00ed016387aee97cd2a9a8e150febd72408a97356e55b90487820c1c36f73",
+        "bytes": 733731
+      },
+      "all_function_reference_count": 2383
+    }
+  },
+  "allocation_codegen_sha256": "05c616fdeba7a32051441ddb5701e29bbf57dc7be9949323e94247d477180f71",
+  "public_MOD_exact": true,
+  "source_compiles": 2,
+  "native_qualified": false,
+  "lazy_zero_lowering_proven": false,
+  "residency_saving_proven": false,
+  "elapsed_seconds_context_only": 21.00647850940004
+}

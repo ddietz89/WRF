@@ -1,0 +1,100 @@
+{
+  "status": "CLOSE_FIXED_CANDIDATE_NO_LAZY_ZERO_ALLOCATION_MECHANISM",
+  "candidate_promoted": false,
+  "native_or_residency_continuation": false,
+  "sharing_owner_fallback": false,
+  "scope": "Actual successful source/canonical/compiler/codegen report; does not certify numerical fixtures, INIT state, physical memory savings or performance. No additional jobs, variants, source/default changes.",
+  "actual": {
+    "invocation_id": "22c5331646ca4676816f98d9b6fd6a23",
+    "worker_status": "PASS_CURRENT242C_TNR_ALLOCATION_CODEGEN_REPORT_ONLY_PENDING_LITERAL_REVIEW",
+    "module_compiles": 2,
+    "objects": {
+      "parent": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-parent/module_mp_thompson.o",
+        "sha256": "2546578b857473670fdf8f230ec4517e0f6081687d1d654dbbe3dba58522e1fa",
+        "PP_path": "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-parent/module_mp_thompson.f90",
+        "PP_sha256": "f55213b4cde5d8f8311989aefa6413f56faabb45a9937ef3755fa7b27c19e687",
+        "MOD_sha256": "2b20e2811653339ea7df9463b3c991491ba7b573eee9aa615ec15e8865511816"
+      },
+      "candidate": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.o",
+        "sha256": "e7afbae21329843703a85da64699468618ce050243dfd4234bfce93ec576d100",
+        "PP_path": "/pool/wrf-experiment/wrf-cpu/kernels/current-x5-thompson-tnr-zero-allocation-codegen-hpc02-r1/work/O2-candidate/module_mp_thompson.f90",
+        "PP_sha256": "ae0399911425197c95c869c53fc53082a2d03b993d0a9b426b33a51eb592a645",
+        "MOD_sha256": "2b20e2811653339ea7df9463b3c991491ba7b573eee9aa615ec15e8865511816"
+      }
+    },
+    "public_MOD_exact": true,
+    "genuine_parent_proof_sha256": "6e754deb7f7a8718b5f51afd4aff3ee8662c70b633978fa8dabb0c6533ec78aa"
+  },
+  "mechanism_proof": {
+    "mode1_branch": {
+      "compare": "0x37a9c cmp $1,%ebx",
+      "taken": "0x37a9f je 0x39de4"
+    },
+    "allocation": {
+      "call_instruction": "0x39de4",
+      "RELA_operand_byte": "0x39de5",
+      "resolved_symbol": "malloc",
+      "size_setup": "0x37a85 mov $0x10b620,%edi",
+      "bytes": 1095200
+    },
+    "eager_zero_loop": {
+      "range": [
+        "0x39e59",
+        "0x39e75"
+      ],
+      "call_instruction": "0x39e63",
+      "RELA_operand_byte": "0x39e64",
+      "resolved_symbol": "memset",
+      "destination": "returned malloc base; advanced by0x73a0 each iteration",
+      "fill_byte": 0,
+      "chunk_bytes": 29600,
+      "end_setup": "0x39e04 lea0x10b620(%rax),%r12",
+      "termination": "0x39e6b advance0x73a0;0x39e72 compareend;0x39e75 backedge",
+      "iterations": 37,
+      "total_bytes": 1095200
+    },
+    "fresh_marker_true_after_fill": "0x39e77 store1 at0xb0(%rsp)",
+    "calloc_relocation_count_in_actual_INIT": 0,
+    "conclusion": "SOURCE= was lowered to malloc followed by 37 memset calls, touching the entire payload eagerly. Suppression of later original zero loop does not produce lazy physical allocation. This closes the stated allocation feasibility mechanism, not a measured throughput regression."
+  },
+  "original_path_preservation": {
+    "mode0": "0x37a9f not taken routes0x37aa5 malloc (RELA0x37aa6), original descriptor initialization, then0x37b10 to0x344ae sets localfresh FALSE. Source original allocation operation preserved; no actual mode0 native claim.",
+    "already_allocated_reset": "0x344a8 allocated check not taken routes0x344ae localfreshFALSE; later0x365f3..0x365fc false marker permits original zero loop0x36605..0x3667a if micro_initTRUE. Source-level old reset retained; no native reentry result.",
+    "new_mode1_original_fill_skip": "After eager memset, markerTRUE;0x365fc jumps0x3667c past original fill. This removes duplicate stores in source but not initial payload touching.",
+    "second_INIT": "Source-derived micro_initFALSE in selected mode1 two-tile recipe, not directly logged local logical."
+  },
+  "limits": [
+    "Original23table/11caller native fixtures not executed for this candidate.",
+    "No first/second INIT errno or five-state observations made for candidate. Existing original INIT oracle remains four FP words plus diagnostic errno; publication five-state hard.",
+    "No RSS/PSS/cgroup peak/timing result; no inference that calloc would necessarily provide useful physical saving on this allocator/host.",
+    "No thirteenth owner, unused-allocation variant or local implementation repair proposed."
+  ],
+  "evidence": [
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-tnr-guaranteed-zero-allocation-r1/canonical-codegen-preparation-r1/actual-native-r1/receipt.json",
+      "sha256": "dcb7a319e9ccc92473402be2e13aaba866f8a1f180e3565246f48776e29a7327"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-tnr-guaranteed-zero-allocation-r1/canonical-codegen-preparation-r1/actual-native-r1/closure.json",
+      "sha256": "3ba602cd1f9c261ba8778b18919659404309286b25f236d9946bc62ddaabc4e9"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-tnr-guaranteed-zero-allocation-r1/canonical-codegen-preparation-r1/actual-native-r1/controller.json",
+      "sha256": "f188060f9b573fa079f8f765bb00c5302eff99efe475b407d730a3d8d3bd3d96"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-tnr-guaranteed-zero-allocation-r1/local-source-r1/SOURCE_PROJECTION.json",
+      "sha256": "bbe383e059f3bb41a6e7dc321740f41b83e1028bf531d9b32aa3ff4e6a167de3"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-tnr-guaranteed-zero-allocation-r1/local-source-r1/PROVIDER_ADJUDICATION.json",
+      "sha256": "c060c9754b1f68ed08220986e7c6f59060884c6298dfcaa38caf4ca9483ba395"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/thompson-tnr-guaranteed-zero-allocation-r1/local-source-r1/candidate_module_mp_thompson.F",
+      "sha256": "ca67841773e96380269553c8f33c50ad3392c34aa01fc45d62f2957d604225f7"
+    }
+  ]
+}

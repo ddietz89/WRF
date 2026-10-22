@@ -1,0 +1,193 @@
+--- current88650
++++ candidate
+@@ -1439,6 +1439,9 @@
+       INTEGER:: i, j, k, l, m, n
+       REAL:: h_01, niIN3, niCCN3, niBC3, max_test, z1
+       LOGICAL:: micro_init, has_CCN, has_IN
++#ifdef WRF_EXPERIMENTAL_TPI_NUMA
++      LOGICAL :: tnr_rev_fresh_zero
++#endif
+ 
+ !+---+
+ 
+@@ -1457,6 +1460,9 @@
+ 
+       is_aerosol_aware = .FALSE.
+       micro_init = .FALSE.
++#ifdef WRF_EXPERIMENTAL_TPI_NUMA
++      tnr_rev_fresh_zero = .FALSE.
++#endif
+       has_CCN    = .FALSE.
+       has_IN     = .FALSE.
+ 
+@@ -1804,7 +1810,18 @@
+       if (.NOT. ALLOCATED(t_Efrw)) ALLOCATE(t_Efrw(nbr,nbc))
+       if (.NOT. ALLOCATED(t_Efsw)) ALLOCATE(t_Efsw(nbs,nbc))
+ 
++#ifdef WRF_EXPERIMENTAL_TPI_NUMA
++      IF (.NOT.ALLOCATED(tnr_rev)) THEN
++         IF (tpi_mode==1) THEN
++            ALLOCATE(tnr_rev(nbr, ntb_r1, ntb_r), SOURCE=0.0_R8SIZE)
++            tnr_rev_fresh_zero = .TRUE.
++         ELSE
++            ALLOCATE(tnr_rev(nbr, ntb_r1, ntb_r))
++         ENDIF
++      ENDIF
++#else
+       if (.NOT. ALLOCATED(tnr_rev)) ALLOCATE(tnr_rev(nbr, ntb_r1, ntb_r))
++#endif
+       if (.NOT. ALLOCATED(tpc_wev)) ALLOCATE(tpc_wev(nbc,ntb_c,nbc))
+       if (.NOT. ALLOCATED(tnc_wev)) ALLOCATE(tnc_wev(nbc,ntb_c,nbc))
+ 
+@@ -2166,6 +2183,9 @@
+          enddo
+       enddo
+ 
++#ifdef WRF_EXPERIMENTAL_TPI_NUMA
++      IF (.NOT.tnr_rev_fresh_zero) THEN
++#endif
+       do k = 1, ntb_r
+          do j = 1, ntb_r1
+             do i = 1, nbr
+@@ -2173,7 +2193,9 @@
+             enddo
+          enddo
+       enddo
+-
++#ifdef WRF_EXPERIMENTAL_TPI_NUMA
++      ENDIF
++#endif
+       do k = 1, nbc
+          do j = 1, ntb_c
+             do i = 1, nbc
+@@ -2182,7 +2204,6 @@
+             enddo
+          enddo
+       enddo
+-
+       do m = 1, ntb_ark
+          do l = 1, ntb_arr
+             do k = 1, ntb_art
+@@ -2194,12 +2215,10 @@
+             enddo
+          enddo
+       enddo
+-
+       CALL wrf_debug(150, 'CREATING MICROPHYSICS LOOKUP TABLES ... ')
+       WRITE (wrf_err_message, '(a, f5.2, a, f5.2, a, f5.2, a, f5.2)') &
+           ' using: mu_c=',mu_c,' mu_i=',mu_i,' mu_r=',mu_r,' mu_g=',mu_g
+       CALL wrf_debug(150, wrf_err_message)
+-
+ !..Read a static file containing CCN activation of aerosols. The
+ !.. data were created from a parcel model by Feingold & Heymsfield with
+ !.. further changes by Eidhammer and Kriedenweis.
+@@ -2207,16 +2226,13 @@
+          CALL wrf_debug(200, '  calling table_ccnAct routine')
+          call table_ccnAct
+       endif
+-
+ !..Collision efficiency between rain/snow and cloud water.
+       CALL wrf_debug(200, '  creating qc collision eff tables')
+       call table_Efrw
+       call table_Efsw
+-
+ !..Drop evaporation.
+       CALL wrf_debug(200, '  creating rain evap table')
+       call table_dropEvap
+-
+ !..Initialize various constants for computing radar reflectivity.
+       xam_r = am_r
+       xbm_r = bm_r
+@@ -2228,12 +2244,9 @@
+       xbm_g = bm_g
+       xmu_g = mu_g
+       call radar_init
+-
+       if (.not. iiwarm) then
+-
+ !..Rain collecting graupel & graupel collecting rain.
+       CALL wrf_debug(200, '  creating rain collecting graupel table')
+-
+ #ifdef WRF_EXPERIMENTAL_TPI_NUMA
+       IF (tpi_mode==1) THEN
+ #ifdef WRF_EXPERIMENTAL_TPI_NUMA
+@@ -2269,7 +2282,6 @@
+ #else
+       if (.NOT. ALLOCATED(tnr_gacr)) ALLOCATE(tnr_gacr(ntb_g1,ntb_g,dimNRHG,ntb_r1,ntb_r))
+ #endif
+-
+       do m = 1, ntb_r
+          do k = 1, ntb_r1
+             do n = 1, dimNRHG
+@@ -2285,14 +2297,12 @@
+             enddo
+          enddo
+       enddo
+-
+       ENDIF
+ #endif
+          call qr_acr_qg(dimNRHG)
+ #ifdef WRF_EXPERIMENTAL_TPI_NUMA
+       IF (tpi_mode==1) CALL thompson_tpi_commit_group(1)
+ #endif
+-
+ !..Rain collecting snow & snow collecting rain.
+       CALL wrf_debug(200, '  creating rain collecting snow table')
+ #ifdef WRF_EXPERIMENTAL_TPI_NUMA
+@@ -2381,7 +2391,6 @@
+ #else
+       if (.NOT. ALLOCATED(tnr_sacr2)) ALLOCATE(tnr_sacr2(ntb_s,ntb_t,ntb_r1,ntb_r))
+ #endif
+-
+       do m = 1, ntb_r
+          do k = 1, ntb_r1
+             do j = 1, ntb_t
+@@ -2402,14 +2411,12 @@
+             enddo
+          enddo
+       enddo
+-
+       ENDIF
+ #endif
+       call qr_acr_qs
+ #ifdef WRF_EXPERIMENTAL_TPI_NUMA
+       IF (tpi_mode==1) CALL thompson_tpi_commit_group(2)
+ #endif
+-
+ !..Cloud water and rain freezing (Bigg, 1953).
+       CALL wrf_debug(200, '  creating freezing of water drops table')
+ #ifdef WRF_EXPERIMENTAL_TPI_NUMA
+@@ -2446,7 +2453,6 @@
+ #else
+       if (.NOT. ALLOCATED(tnr_qrfz)) ALLOCATE(tnr_qrfz(ntb_r,ntb_r1,45,ntb_IN))
+ #endif
+-
+       do m = 1, ntb_IN
+          do k = 1, 45
+             do j = 1, ntb_r1
+@@ -2459,7 +2465,6 @@
+             enddo
+          enddo
+       enddo
+-
+       ENDIF
+ #endif
+       call freezeH2O
+@@ -2473,17 +2478,12 @@
+          ENDIF
+       ENDIF
+ #endif
+-
+ !..Conversion of some ice mass into snow category.
+       CALL wrf_debug(200, '  creating ice converting to snow table')
+       call qi_aut_qs
+-
+       endif
+-
+       CALL wrf_debug(150, ' ... DONE microphysical lookup tables')
+-
+       endif
+-
+       END SUBROUTINE thompson_init
+ !+---+-----------------------------------------------------------------+
+ !ctrlL
