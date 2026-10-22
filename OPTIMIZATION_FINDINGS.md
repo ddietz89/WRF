@@ -4086,3 +4086,17 @@ Current image `7087` separately passed exact daytime science (two products/230 s
 Median host-local collective-entry dispersion was 65.11–65.75 ms, versus 44.90–54.21 microseconds at the preceding exit. No rank was consistently last. Three complete native captures joined to the intervening work show 49.99–51.02% MPI/UCX and 34.89–36.82% direct-WRF primary sample-period weight. One unusually long interval contributes heavily; these distributions are not wall-time or removable-cost estimates. Whole-capture stack context leads through HALO_EM_C and RSL X/Y completion waits. Partial recordings, a pre-start hash rejection and late parent-guard failures remain explicitly preserved.
 
 The distinct compact-Waitall candidate passed a first four-rank complete-caller exact gate (360 calls/arm, bytes/guards/cursors/request handles/FP state). A subsequent 480-rank screen measured 3.1802% shorter complete-caller batches at 64 KiB, but 0.5986% longer at 256 KiB. Bytes/requests/rounding passed; large-scale sticky exception-flag vectors differed, including variation introduced by the original MPI batch, and remain explicitly unqualified. This is one pair per size with no forecast-gain claim. The candidate is retained for investigation; WRF application checks are pending and selected source/transport defaults are unchanged. [Actual diagnostic evidence, limitations and next step](tools/cpu-compute/current7087-mpi-diagnostic/README.md).
+
+## October 22: MPI placement caller gain does not carry through to the first forecast pair
+
+An unchanged-code 480-rank X/Y exchange screen fell from 9.089072 to 0.445373 seconds (20.4078×) under a new contiguous Y-slab placement, with exact buffers/request state and 95.1130% less main-thread CPU. This synthetic screen used equal 64 KiB messages and omitted packing/unpacking; its sticky exception vectors remain unqualified. It is not a forecast gain.
+
+A fresh one-hour full-grid comparison used the same current 7087 build and all previous improvements, changing only physical placement. Y slabs ran first, current FABA second, with checked cache clears before each. Both passed two complete products, metadata/layout, 185 ordered timesteps, all 512 runtime/library/tile/writer checks and normal closures.
+
+| Measure | Current FABA | New Y slabs | Y-slab increase |
+|---|---:|---:|---:|
+| Model/MPI wall |274.276134 s|284.032136 s|**3.5570%**|
+| Integration-step elapsed sum |180.769480 s|196.587620 s|**8.7504%**|
+| Aggregate node CPU |124296.970125 CPU-s|129242.545810 CPU-s|**3.9788%**|
+
+This is one fixed-order placement pair, not a new original-versus-combined three-/nine-hour comparison. The corrected original remains the exact scientific reference. Variable server load is uncontrolled; main elapsed includes communication/backpressure and is not integration CPU. Current FABA stays default. The Y-slab candidate is retained experimentally while a complete genuine-RSL caller tests packing, unpacking and asymmetric messages. No cause for the slower forecast is established. A separate computation-partition oracle will test raw outputs and FP state before any MPI-overlap implementation. [Run identities, actual receipts, limitations and rollback scope](tools/cpu-compute/current7087-mpi-diagnostic/ONE_HOUR_PLACEMENT_COMPARISON.json).

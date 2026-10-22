@@ -1,0 +1,118 @@
+{
+  "status": "EXPERIMENTAL_PLACEMENT_NATIVE_GAIN_ONEHOUR_SCIENCE_PASS_NO_APPLICATION_GAIN_IN_PAIR",
+  "source_unchanged": true,
+  "selected_WRF_executable_sha256": "7087c69d8ef644c914bb31379b7d9e33fa1668ce12192965e1e459ed20697fdd",
+  "selected_WRF_defaults_changed": false,
+  "native": {
+    "status": "ACTUAL_SAME_ORIGINAL_MPI_CALLER_NEW_YSLAB_MAP_LARGE_KERNEL_GAIN_SCIENCE_PENDING",
+    "utc": "2026-10-22T22:35:08.231687+00:00",
+    "ranks": 480,
+    "nproc_x": 8,
+    "nproc_y": 60,
+    "message_bytes": 65536,
+    "XY_pairs_per_rank": 2000,
+    "same_original_exchange_executable_sha256": "a9e49f46ece63dbdc2a16e27e761cfafb6d3953ae8f0946d44cd4910b78deef6",
+    "metrics": {
+      "FABA_current_control": {
+        "batch_elapsed_seconds": 9.089072094,
+        "sum_main_thread_CPU_seconds": 4358.567645258
+      },
+      "Y_slab_candidate": {
+        "batch_elapsed_seconds": 0.44537345,
+        "sum_main_thread_CPU_seconds": 213.001959138
+      }
+    },
+    "speedup_ratio": 20.40775464725165,
+    "reductions_percent": {
+      "batch_elapsed_seconds": 95.0999018888407,
+      "sum_main_thread_CPU_seconds": 95.11302848839021
+    },
+    "all480_perrank_raw_buffer_hashes_exact": true,
+    "all_byte_guard_readonly_send_request_cursor_rounding_checks_passed": true,
+    "all8_arm_host_invocations_normal_closed": true,
+    "actual_cache_clear_before_each_arm_all4hosts": true,
+    "fenv_qualification": "FENV_UNQUALIFIED; runtime INEXACT flag vectors differ. Never masked; unchanged-parent repeat also varies.",
+    "control_reference": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current7087-mpi-yslab-placement-r1/actual-placement-r1/arm0-parent-ACTUAL_RESULT_AND_CLOSURES.json",
+      "sha256": "a89688129674fb70fc1c481f9706457edd96c8f1ddcdc34fe38099c9d36239b0",
+      "coordinator_invocation": "46e645efa59341c2b2e46912265cf11f",
+      "run_id": "current7087-mpi-yslab-placement-arm0-parent-r1"
+    },
+    "candidate_reference": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current7087-mpi-yslab-placement-r1/repair-r2/actual-placement-r2/arm1-candidate-ACTUAL_RESULT_AND_CLOSURES.json",
+      "sha256": "26d8885828b798257ac87f8a436262a8ecb790cd71113e93eae30f174293e4b9",
+      "coordinator_invocation": "bb36a8fdecc249789a625d80de3b1250",
+      "run_id": "current7087-mpi-yslab-placement-arm1-candidate-r2"
+    },
+    "geometry": {
+      "X": {
+        "total": 420,
+        "same_numa": 392,
+        "same_host_cross_numa": 28
+      },
+      "Y": {
+        "total": 472,
+        "same_numa": 224,
+        "same_host_cross_numa": 224,
+        "off_host": 24
+      }
+    },
+    "scope": [
+      "One fixed-order pair, actualcontrolR1 retained before failedcandidatepre-MPIguard+experimentalCbuild; freshcandidateR2 ran after allprecedingjobsclosed and another checked cacheclear. No fictionalR2control or broadrepeatabilityclaim.",
+      "Complete extracted X/Y posting/completion routines with synthetic already-packed data, including originalcursor resets. Packing/unpacking, physics, WRF stage andforecast costs are notmeasured.",
+      "Transport/runtime/CPUsets/rankIDs areunchanged; placementonly; no Waitallalgorithm inthispair. Per-host120computeCPUsets/8x15NUMAoccupancy/32quiltplacements preserved inreviewedfull512map.",
+      "This is not a 20xforecast or cumulativegain claim. No workingdefaults changed. Prior4x30blockmap is distinct andnotrepeated; its neutralolderforecast remainsretained."
+    ],
+    "next": "Source-unchangedcurrent7087 full512 onehour Yslab first/currentFABA second, original546b scientificreference, exactproducts/185steps/runtimechecks. Inactivepreparation only untilrootreview."
+  },
+  "references": {
+    "native_result": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current7087-mpi-yslab-placement-r1/ACTUAL_PLACEMENT_CALLER_RESULT.json",
+      "sha256": "cdf2c08e6816a81ee4da3012f0cb48a1d18c8171c0a484375e0b06541dbdef94"
+    },
+    "map_generator": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current7087-mpi-yslab-placement-r1/make_map.py",
+      "sha256": "37d869ece6fe74389d625d78dec69161d55d3c978a276090ac4e83fc5ab8dd80"
+    },
+    "full512_candidate_map": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current7087-mpi-yslab-placement-r1/candidate-full512-rank-map.json",
+      "sha256": "e003599c0fefc226055383019c09810b4aada079817531b604ba236a5e81c0d4"
+    },
+    "local_map_proof": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current7087-mpi-yslab-placement-r1/LOCAL_MAP_PROOF.json",
+      "sha256": "4aacd1dd960a1fc98f310321a8e556f0205930a9e9585ffc3948ff8bee9d8e12"
+    },
+    "actual_native_adjudication": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current7087-mpi-yslab-placement-r1/repair-r2/independent-actual-adjudication-r1/ADJUDICATION.json",
+      "sha256": "0ff6f88f673e1e2f98b6690c8a140eb6cb59ef468cfebbb3bc6f49103a7896c5"
+    },
+    "message_representativeness": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current7087-mpi-preceding-work-preparation-r1/haloc-schedule-source-proof-r1/MESSAGE_REPRESENTATIVENESS.json",
+      "sha256": "63cc3d8d6e49ea1661f7e43240cdcede72205e50a8e722d68f9b3e975250af85"
+    },
+    "exact_sample_callchain_join": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current7087-mpi-preceding-work-preparation-r1/actual-gap-work-join-r1/preceding-caller-stack-preparation-r1/STACK_JOIN_RESULT.json",
+      "sha256": "ee298f98f7393d2129e12b52d389dac53fb3ec527e88d4997857cd4d7db59390"
+    },
+    "exact_sample_caller_findings": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current7087-mpi-preceding-work-preparation-r1/actual-gap-work-join-r1/preceding-caller-stack-preparation-r1/CALLER_FINDINGS.json",
+      "sha256": "88218a78e9b68238c8312b7e95b1816381e90c400f402a346ed3afccf6f010d8"
+    }
+  },
+  "limitations": [
+    "Synthetic already-packed64KiB eachaxis; no packing/unpacking/physics/forecast timing orspeedup claim.",
+    "Source-derived typicalHALOCcounts areconditional untilactualpatch/K/iteratorbounds certified; equal64KiB screen overstates thoseXmessages by~12x.",
+    "Native FPexceptionflagvectors remainUNQUALIFIED, nevermasked; byte/request/rounding exact.",
+    "MappedDSO native samples wereempty; actualELF/build-library/env evidenceonly. Full WRF still requires unchanged mapped-library/runtime and original scientific checks.",
+    "One fixed-order pair; no broader repeatability/concurrentthroughput claim.",
+    "Full512 map preserves all32quilt placements, perhostCPUsets/NUMAoccupancy, rankIDs andscientificdecomposition."
+  ],
+  "onehour_application_comparison": {
+    "path": "tools/cpu-compute/current7087-mpi-diagnostic/ONE_HOUR_PLACEMENT_COMPARISON.json",
+    "sha256": "0e256fed4a3492cf6329589630ec0b4573a810f1bb65d64a4168aefa9239e8b7",
+    "each_placement_exact_products": 2,
+    "each_placement_ordered_steps": 185,
+    "default_FABA_retained": true,
+    "own_three_hour_or_nine_hour_layout_qualification": false
+  }
+}

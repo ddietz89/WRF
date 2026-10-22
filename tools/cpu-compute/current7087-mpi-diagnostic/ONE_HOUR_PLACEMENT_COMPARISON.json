@@ -1,0 +1,77 @@
+{
+  "status": "BOTH_EXACT_ONEHOUR_PLACEMENT_ARMS_PASS_YSLAB_SLOWER_IN_THIS_FIXED_ORDER_PAIR",
+  "utc": "2026-10-22T23:20:40.300585+00:00",
+  "run_order": [
+    "production512-current7087-yslab1h-candidate-r1",
+    "production512-current7087-faba1h-candidate-r1"
+  ],
+  "same_executable_sha256": "7087c69d8ef644c914bb31379b7d9e33fa1668ce12192965e1e459ed20697fdd",
+  "same_source_WRF_RSL_transport_scientific_inputs_NML_caps_and_writers": true,
+  "lease_difference_keys": [
+    "run_id",
+    "run_directory",
+    "nodes",
+    "rank_map",
+    "scope",
+    "rank_map_variant",
+    "client_cache_receipt",
+    "source_manifest_sha256"
+  ],
+  "metrics": {
+    "Y_slab_first": {
+      "wall_seconds": 284.03213648311794,
+      "main_step_elapsed_seconds": 196.58762,
+      "aggregate_node_CPU_seconds": 129242.54581
+    },
+    "current_FABA_second": {
+      "wall_seconds": 274.2761336872354,
+      "main_step_elapsed_seconds": 180.76948,
+      "aggregate_node_CPU_seconds": 124296.97012499999
+    }
+  },
+  "Y_slab_increase_percent_vs_current_FABA": {
+    "wall_seconds": 3.557000262737975,
+    "main_step_elapsed_seconds": 8.750448361083961,
+    "aggregate_node_CPU_seconds": 3.9788384865909965
+  },
+  "references": {
+    "Y_slab_first": {
+      "RESULT.json": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7087-yslab1h-runtime-r1/RESULT.json",
+        "sha256": "00984a0950c233e8fd30c2b73aaaf7501218c75f78c2cd5ecbe7691e741e46b2"
+      },
+      "science-receipt.json": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7087-yslab1h-runtime-r1/science-receipt.json",
+        "sha256": "66ec87c98c3fc3c847d9f322aaf6930c3511eed012c054dbafa364a4facccbee"
+      },
+      "reader-closure.json": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7087-yslab1h-runtime-r1/reader-closure.json",
+        "sha256": "aec5af56fa07afc2b5e83795764b4dc6d7a1d722f9e6a9880fae3b0e3e2f30fc"
+      }
+    },
+    "current_FABA_second": {
+      "RESULT.json": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7087-faba1h-runtime-r1/RESULT.json",
+        "sha256": "13ff2e8e20b2f6ef762332eb90ae28ac27e0fc216644d8df893dd6966e10d053"
+      },
+      "science-receipt.json": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7087-faba1h-runtime-r1/science-receipt.json",
+        "sha256": "1d8bc3429270d1c19aa9d17ca76bc0e3a283c43c30ff9b1f2b1023c98c45273e"
+      },
+      "reader-closure.json": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7087-faba1h-runtime-r1/reader-closure.json",
+        "sha256": "ac44174a581a2cf7fa9a2247fcdd4b3f7e9542b0b0d521aabbfdc321361d2209"
+      }
+    }
+  },
+  "science": "Each arm2completeproducts185orderedsteps againstretainedcorrectedoriginal546b reference; all512runtime/map/library/twoYtile/writer/closure acceptance required.",
+  "decision": "No default placement change. Retain experimental Y-slab and investigate complete genuine RSL packing/exchange caller before another forecast; large equal64KiB native gain does not qualify actualforecast benefit.",
+  "limits": [
+    "One Y-first/FABA-second pair; no broader repeatability/causal regression conclusion.",
+    "Clientfilesystemcaches cleared before each; file-serverload/cacheuncontrolled.",
+    "Main-step sum is elapsed time, not integration CPU; whole-minus-main is not pureIO.",
+    "NativeFENV vectorsUNQUALIFIED retained; sciencepass isnotFP-state waiver.",
+    "Onehour scope only; no new3h/9h/restart transfer."
+  ],
+  "raw_metadata_erratum": "Y-slab frozen lease legacyunusedmap_table_sha256 retainsFABA; authoritativee003array/table/runtimeobservations match. Preserve rawlease."
+}
