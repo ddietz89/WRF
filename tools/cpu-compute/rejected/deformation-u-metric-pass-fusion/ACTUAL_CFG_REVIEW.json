@@ -1,0 +1,158 @@
+{
+  "status": "ACK_REAL_CODEGEN_MECHANISM_WITH_CONCRETE_NAN_OPERAND_PRIORITY_HAZARD_STRICT_NATIVE_PENDING",
+  "codegen_mechanism_acknowledged": true,
+  "native_qualification": null,
+  "numeric_gain_or_application_claim": false,
+  "actual_objects": {
+    "parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/deformation-u-metric-pass-codegen-hpc02-r1/parent/module_diffusion_em.o",
+      "sha256": "2e6766f5cd582d93a6431c6d805c3169b2577f5adf08efa1a27e23a771669ebe"
+    },
+    "candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/deformation-u-metric-pass-codegen-hpc02-r1/candidate/module_diffusion_em.o",
+      "sha256": "647796533dbf8fdf1b252014dfbd515922225443d5e91987b9090db333824110"
+    },
+    "genuine_parent_equivalence_status": "PASS_ALLOCATED_BYTES_RELOCATIONS_NONFILE_SYMBOLS_EXACT",
+    "reference_accepted_object_sha256": "27ce93aadc38a7019ac666e94b80b9ada01b3a4788aca67e6d7d949c2547aad9",
+    "public_module_sha256": "fd13d7009ef4696ee884d3cf68d34c90fa91807b09bf90825b82af2bebf2a7f3"
+  },
+  "mechanism": {
+    "scope": "Only U metric producer+consumer sweeps in cal_deform_and_div. Laterdefor11 andotherU/V/Wpasses remain; notoneentirefunctionloop.",
+    "parent": {
+      "producer_I_body": [
+        "0x32dc0",
+        "0x32df8"
+      ],
+      "I_backedge": "0x32fe3\u21920x32fb8",
+      "K_backedge": "0x32ff5\u21920x32fa0",
+      "J_backedge": "0x3303c\u21920x32f08",
+      "intermediate_store": "0x32df8 movss%xmm0,(%r8,%rax,4)",
+      "consumer_I_body": [
+        "0x32fb8",
+        "0x32fd7"
+      ],
+      "intermediate_reload": "0x32fcd subss(%rdi,%rax,1),%xmm0"
+    },
+    "candidate": {
+      "single_I_body": [
+        "0x32e40",
+        "0x32e9c"
+      ],
+      "I_backedge": "0x32ea9\u21920x32e40",
+      "K_backedge": "0x32ec7\u21920x32e00",
+      "J_backedge": "0x32f14\u21920x32d60",
+      "producer_low_REAL32": "0x32e86 mulss%xmm0,%xmm10;0x32e8b mulss(%r9,%rax,4),%xmm10",
+      "consumer_subtract": "0x32e91 subss%xmm10,%xmm4",
+      "only_final_store": "0x32e9c movss%xmm4,(%r8,%rax,4)",
+      "removed": "OnefullJ/K/Iwalk +intermediatetmp1REAL32store/reload; sameproducerandconsumerSSoperationsremain, no fullcopy/arrayallocationremoved."
+    }
+  },
+  "FP_review": {
+    "same_scalar_operation_counts": true,
+    "same_target_two_assignment_ROUNDING": "MULSS/SUBSS operatinglow32bits retain bothassignmentarithmeticroundings; candidatekeepsroundedproducerinXMM10 insteadofmemory. No doubleprecisionextension orFMA inactualfunction. ThisdoesnotproveqNaNpayloadpriorityequivalent.",
+    "target_zx_sum": "Parent32dc0..32dea andcandidate32e40..32e81 retainleftassociatedfourcorneradds followedbyquartermultiply.",
+    "target_hatavg_difference": "Parent32dc9loadr11\u2192XMM4 then32dd2subtractr10; candidate32e62loadr11\u2192XMM10 then32e68subtractr10. Operandroles preservedhere.",
+    "concrete_operand_role_swap": {
+      "parent": "0x32dee mulss%xmm4,%xmm0: DESTtmpzx,SOURCEhatavg_difference",
+      "candidate": "0x32e86 mulss%xmm0,%xmm10: DESThatavg_difference,SOURCEtmpzx",
+      "risk": "BothpriorbranchescanalreadyproducequietNaNs. WithdifferentqNaNpayloads, reversalmayselectdifferentpayloadandpropagateviafinaltmp1/defor11. Thisisactualinstructionproof of a priorityhazard, NOTa numericalcounterexample orfailure. StrictwholecallerR3 mustdecideexactobservables; checkexistingpairedproducerrolescoversitbeforeanytiming. No source/flag/normalizationrepairproposed."
+    },
+    "remaining_arithmetic": "Consumerhatdifference/rdxmultiply/producer subtraction/finalmm multiply retainedSSinstructions; finalmm remainsmemorySOURCE. FullfunctionotherFPoperandprioritynotexhaustivelyproved; sourceoutsidefusionexact+strictwholecalleegateremains hard. Enabledtrapfirstfault/interleavingnotscientificallyqualified."
+  },
+  "guards_frame_allocations": {
+    "source_guards": "Canonicalj_start:j_end,kts:ktf,i_start:i_endunchanged, onlyEND/DOseparationremoved plusphysicalblankcompensation. No newtemp/array/API.",
+    "candidate_empty_bounds": "0x32d63/32d67 Ktriptestskips32ed5;0x32e09/32e0e Itriptestskips32eab beforetargetfloatingarrayloads. OuterJbackedge32f14 retainsboundcomparison. Integeraddresssetup/constantloads mayoccurbeforeinnerguards, noextraFPmath/loadstoexcludedcell identifiedintargetbody.",
+    "stack_frame": "Bothsame0x388(904)bytes, sixsameGPRpushes. FourFP-RSPoperandlinesboth; no FP stackspillinside reviewedfusedIloop. Doesnotprovewholefunctionregisterassignmentidentity.",
+    "calls": "Both4malloc/4free/1memcpyrelocations (onefreetailjump), noneinreviewedtargetIbody. No newhiddenpacking/librarycall seen.",
+    "ABI": "ActualpublicMODfd13exact. Inventoryonlytargettextchanged; other37functiontextSHAexact. Existingfunctionsignature/sourceoutsideprocedure unchanged; no concreteABIissuefound. RawRELAoffset/layoutchangeswithsmallerfunctionarenotwholeobjectequivalenceclaim."
+  },
+  "stats": {
+    "parent": {
+      "function_text": {
+        "value": 204352,
+        "size": 32502,
+        "text_sha256": "a088606bfe450e27bc620bdc28341c7b7f9896117a1868bbcbd61ed0a3753127"
+      },
+      "instruction_count_context_only": 6645,
+      "scalar_FP_counts": {
+        "addss": 90,
+        "subss": 30,
+        "mulss": 103,
+        "divss": 11
+      },
+      "FMA_instructions": [],
+      "frame_sub_rsp_bytes": 904,
+      "FP_rsp_operand_lines": 4,
+      "allocator_copy_external_reloc_counts": {
+        "malloc": 4,
+        "memcpy": 1,
+        "free": 4
+      }
+    },
+    "candidate": {
+      "function_text": {
+        "value": 204352,
+        "size": 32150,
+        "text_sha256": "98c24d85144b2d1a7f9e68eb4ae116cfb93c44cb5650e46886b8fae38a8e2ea5"
+      },
+      "instruction_count_context_only": 6572,
+      "scalar_FP_counts": {
+        "addss": 90,
+        "subss": 30,
+        "mulss": 103,
+        "divss": 11
+      },
+      "FMA_instructions": [],
+      "frame_sub_rsp_bytes": 904,
+      "FP_rsp_operand_lines": 4,
+      "allocator_copy_external_reloc_counts": {
+        "malloc": 4,
+        "memcpy": 1,
+        "free": 4
+      }
+    }
+  },
+  "source_bindings": {
+    "parent_canonical_sha256": "a7d4570c97e51c635e86a0dbd628c6846457ac5b93d5a7af798b118c7d8d2d54",
+    "candidate_canonical_sha256": "91e3855ab116deb8b79ac5035700aaa31b4cead92882e2b5225d06a5eaeeb0ab",
+    "source_adjudication_sha256": "4877d8cffc7374d5aac6504c4327d796fa309119628cbe4e4054fa0dba9b8e2e",
+    "literal_diff_sha256": "9cf20e317ebc264db49d16711d084029e1470dfc0573d2e1fe90e0ba14ef8b72",
+    "candidate_PP_sha256": "8e46541063f40bb7d783508c5aed09d6310f90b79a05b97fb48ad4a8216febe9",
+    "parent_PP_sha256": "3a7760dab0c836ab09a7ae207d29c745bccf5f52685af5968b35ee93bbd62208"
+  },
+  "actual_report_recovery": {
+    "invocation_id": "b0e84c36f39246df90d42ac3f8328ba4",
+    "receipt_sha256": "e7469d769e5d3995b2950590e895847d0acdca9bfcac1496110b5ef7d9f23f88",
+    "closure_sha256": "003fbed3371cb13d035c244de6ed251e33a74cc881e6280cf9c95e01f4a64949",
+    "module_compiles": 0,
+    "numerical_cases": 0,
+    "scope": "R3actualnormalclosedreport-onlyfromheldobjects. RetainR1reportboundfailureafter2compiles, R2duplicateUNITnojobfailure. No retroactiveR1PASS; no newnativejobhere."
+  },
+  "evidence": [
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/next-deformation-u-metric-pass-fusion-r1/canonical-codegen-report-recovery-r3/actual-native-r1/actual-codegen-files/deformation-codegen-parent.log",
+      "sha256": "dc980bd6309474889b73821fe9a18209ff691f57261fe45099ee1672d6a4ba4e"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/next-deformation-u-metric-pass-fusion-r1/canonical-codegen-report-recovery-r3/actual-native-r1/actual-codegen-files/deformation-codegen-candidate.log",
+      "sha256": "294f352f85c0c0cd5bc13ecbfcccce56f1d7db803e424372c34fbd3adf221c76"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/next-deformation-u-metric-pass-fusion-r1/canonical-codegen-report-recovery-r3/actual-native-r1/actual-codegen-files/function-inventory.json",
+      "sha256": "9bb1f5115564a9205514582effdedc962660a2a5d7af3c0fd2faf7ea7be86848"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/next-deformation-u-metric-pass-fusion-r1/canonical-codegen-report-recovery-r3/actual-native-r1/actual-codegen-files/genuine-parent-equivalence.json",
+      "sha256": "836622d7308d929cec51f847426058e03d4820e9f7acfdf7212601db05e5b1bd"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/next-deformation-u-metric-pass-fusion-r1/canonical-codegen-report-recovery-r3/actual-native-r1/receipt.json",
+      "sha256": "e7469d769e5d3995b2950590e895847d0acdca9bfcac1496110b5ef7d9f23f88"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/next-deformation-u-metric-pass-fusion-r1/canonical-codegen-report-recovery-r3/actual-native-r1/closure.json",
+      "sha256": "003fbed3371cb13d035c244de6ed251e33a74cc881e6280cf9c95e01f4a64949"
+    }
+  ],
+  "decision": "ACKmechanismonly; actualstrictwhole-calleeR3 hardbarpending beforetiming/integration/promotion. SpecificpairedNaNpriorityhazardreportedtoroot; no numerical/gainclaim, sourcepatch, API, remote, flags, runtime orselectionchanges."
+}

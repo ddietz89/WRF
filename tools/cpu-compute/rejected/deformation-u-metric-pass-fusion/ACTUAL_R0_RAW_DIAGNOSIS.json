@@ -1,0 +1,166 @@
+{
+  "status": "READ_ONLY_EXACT_HASH_BOUND_SYNTHETIC_RAW_DIAGNOSIS",
+  "bindings": {
+    "parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/deformation-u-metric-whole-callee-native-hpc02-r4/O2-parent/r0.raw",
+      "sha256": "5881daf40a9ee48e73acd432672dd7d02e904cad704020d8f2cebe859b9ecd2f",
+      "bytes": 8287760
+    },
+    "candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/deformation-u-metric-whole-callee-native-hpc02-r4/O2-candidate/r0.raw",
+      "sha256": "b87c334bdf3aba632fe5d404081a4b233187cee90ff2b94e4461aa75e5808a5a",
+      "bytes": 8287760
+    }
+  },
+  "layout": "EPYCnativeLittleEndian32bit;26cases;24header+11config+5state+9mapping;79690words/case",
+  "total_mismatched_words": 8,
+  "mismatched_cases": [
+    {
+      "case": 25,
+      "mismatched_words": 4,
+      "by_field": {
+        "div": 2,
+        "defor11": 2
+      }
+    },
+    {
+      "case": 26,
+      "mismatched_words": 4,
+      "by_field": {
+        "div": 2,
+        "defor11": 2
+      }
+    }
+  ],
+  "counts_by_category": {
+    "output": 8
+  },
+  "all_metadata_equal": true,
+  "all_five_state_words_equal": true,
+  "all_readonly_words_equal": true,
+  "first_mismatched_words": [
+    {
+      "case": 25,
+      "field": "div",
+      "category": "output",
+      "coordinates": {
+        "i": 2,
+        "k": 1,
+        "j": 3
+      },
+      "global_word_offset": 1914412,
+      "byte_offset": 7657648,
+      "field_word_offset": 1803,
+      "parent_word_hex": "7fc22222",
+      "candidate_word_hex": "7fc11111"
+    },
+    {
+      "case": 25,
+      "field": "div",
+      "category": "output",
+      "coordinates": {
+        "i": 3,
+        "k": 1,
+        "j": 3
+      },
+      "global_word_offset": 1914413,
+      "byte_offset": 7657652,
+      "field_word_offset": 1804,
+      "parent_word_hex": "7fc22222",
+      "candidate_word_hex": "7fc11111"
+    },
+    {
+      "case": 25,
+      "field": "defor11",
+      "category": "output",
+      "coordinates": {
+        "i": 2,
+        "k": 1,
+        "j": 3
+      },
+      "global_word_offset": 1922532,
+      "byte_offset": 7690128,
+      "field_word_offset": 1803,
+      "parent_word_hex": "7fc22222",
+      "candidate_word_hex": "7fc11111"
+    },
+    {
+      "case": 25,
+      "field": "defor11",
+      "category": "output",
+      "coordinates": {
+        "i": 3,
+        "k": 1,
+        "j": 3
+      },
+      "global_word_offset": 1922533,
+      "byte_offset": 7690132,
+      "field_word_offset": 1804,
+      "parent_word_hex": "7fc22222",
+      "candidate_word_hex": "7fc11111"
+    },
+    {
+      "case": 26,
+      "field": "div",
+      "category": "output",
+      "coordinates": {
+        "i": 2,
+        "k": 1,
+        "j": 3
+      },
+      "global_word_offset": 1994102,
+      "byte_offset": 7976408,
+      "field_word_offset": 1803,
+      "parent_word_hex": "7fc11111",
+      "candidate_word_hex": "7fc22222"
+    },
+    {
+      "case": 26,
+      "field": "div",
+      "category": "output",
+      "coordinates": {
+        "i": 3,
+        "k": 1,
+        "j": 3
+      },
+      "global_word_offset": 1994103,
+      "byte_offset": 7976412,
+      "field_word_offset": 1804,
+      "parent_word_hex": "7fc11111",
+      "candidate_word_hex": "7fc22222"
+    },
+    {
+      "case": 26,
+      "field": "defor11",
+      "category": "output",
+      "coordinates": {
+        "i": 2,
+        "k": 1,
+        "j": 3
+      },
+      "global_word_offset": 2002222,
+      "byte_offset": 8008888,
+      "field_word_offset": 1803,
+      "parent_word_hex": "7fc11111",
+      "candidate_word_hex": "7fc22222"
+    },
+    {
+      "case": 26,
+      "field": "defor11",
+      "category": "output",
+      "coordinates": {
+        "i": 3,
+        "k": 1,
+        "j": 3
+      },
+      "global_word_offset": 2002223,
+      "byte_offset": 8008892,
+      "field_word_offset": 1804,
+      "parent_word_hex": "7fc11111",
+      "candidate_word_hex": "7fc22222"
+    }
+  ],
+  "first_words_limit": 16,
+  "remaining_mismatched_words_omitted": 0,
+  "scope": "Syntheticretainednativeonly;noarrays/case-regeneration/timing/sourcechanges/gatewaivers;wordhexactualnotbigendianlabel"
+}
