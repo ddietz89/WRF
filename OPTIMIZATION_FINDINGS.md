@@ -4011,3 +4011,19 @@ An explicit optional-QCI branch split enabled packed arithmetic in both initial 
 A separate Thompson guaranteed-zero allocation proposal retained public table contents and reset behavior, but actual GNU13 code generation calls malloc followed by37 memset calls covering all1,095,200bytes. The intended lazy-zero mechanism is absent. Genuine-parent and public-module checks passed, and the codegen job closed normally; no numerical, residency or timing qualification was attempted. Close that fixed allocation version without a new sharing fallback. [Actual codegen disposition](tools/cpu-compute/rejected/thompson-tnr-guaranteed-zero-allocation/README.md).
 
 Neither experiment changes selected4adb/f911 or its accepted fresh three-hour result. The next investigations return to remaining measured MYJPBL and radiation work, using retained component profiles where the selected module bytes are unchanged.
+
+
+## VDIFH species-loop SIMD closed after exact native and caller screens (2026-10-22)
+
+The one-directive final-M backsolve candidate passed genuine-current/module-interface checks, the captured full MYJ replay, and all 64 whole-VDIFH observations at each same-optimization O2/O0 level. The separate cached-O2 two-case scalar-tail NaN replay passed all eight raw/five-state observations. Actual DeepSeek author returned `NO_CHANGE`; the tested directive was an explicitly authorized local completion, not externally authored or certified code.
+
+The complete MYJ caller (512 calls) was 0.618309%/1.413091% longer wall and 0.645716%/1.441418% more process CPU in opposite-order hpc01/hpc02 pairs. Direct whole VDIFH (393216 calls) was 0.071720% longer / 1.672185% shorter wall and 0.103091% more / 1.503394% less CPU. These sum per-call integer-clock brackets, include complete-callee allocations, and exclude restoration and exact output/state/read-only checks. All eight timing units closed normally; separately checked sync/drop3 preceded every arm.
+
+Close the fixed candidate unpromoted: full MYJ was slower in both pairs and the roughly half-second direct result was mixed. There is no demonstrated significant caller benefit, forecast-regression claim or application qualification. No rerun, variant or forecast follows; selected4adb/f911 and the compiled source/default selection remain unchanged. [Exact evidence, scope and provenance](tools/cpu-compute/myj-vdifh-backsolve-species-simd/README.md) retain the actual data.
+
+
+## Current-build daytime science qualification (2026-10-22)
+
+The selected `4adb/f911` build additionally passed the noon case: two outputs and 230 ordered steps through 13:15 matched the corrected original exactly. All 512 ranks, both tiles and the two active output-writer groups passed the unchanged runtime checks. All four model jobs and the original checker closed normally. The retained reference executable is `546b`; `595e` identifies its source manifest.
+
+The profile produced no native samples because its adapted launcher omitted the writer-identity records consumed by the readiness gate. Preserve that acquisition failure independently of the scientific pass. A separate retry restores the existing producer; its results remain pending. The current three-hour comparison remains the primary timing result. Noon wall/main-step/aggregate-CPU observations were 309.171707902/236.32924/151583.584556 seconds versus the historical reference's 444.666162994/262.59716/194209.614414 seconds. These are unpaired observations, with no matched speedup or repeatability claim. [Scoped qualification](tools/cpu-compute/ordinary-x5-consumer-simd/NOON_SCIENCE_QUALIFICATION.json).
