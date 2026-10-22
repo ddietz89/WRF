@@ -1,0 +1,185 @@
+{
+  "status": "RETAIN_WORTHWHILE_COMPLETE_PHY_CALLER_GAIN_PENDING_APPLICATION",
+  "recorded_utc": "2026-10-22T06:02:38.613956+00:00",
+  "native_qualification": {
+    "status": "PASS_CURRENT_GNU13_PRIVATE_ROW_55_FOUR_ROUND_SAMEOPT_RAW_IEEE_WITH_LITERAL_O2_CFG",
+    "utc": "2026-10-22T05:53:48.391537+00:00",
+    "native_invocation_id": "4237b2f4d0234967a13bb66d96199202",
+    "raw_receipt_sha256": "59d0ea2f50a3ef967fa1ac0459514c27f7ceda253a3527d1acfe5e8899b09594",
+    "closure_sha256": "e4bc45a519852fd561e5ac3e1b1051f268701d2f120caf5cadc71e6d8d65c0f6",
+    "actual_assembly_sha256": "f68aade7091bfb0cc8f798dd94837f67017a449db4b0d4ca5544f038971a216e",
+    "qualified_cases": 55,
+    "rounding_states": 4,
+    "optimized_and_bounds_debug_sameopt_pass": true,
+    "fresh_current_genuine_and_parent_oracles": true,
+    "source_sha256": "0086c6460c6c385e99320c41c3a54718c833e0c0ca0cf47454fdc7021ac4f91e",
+    "helper_source_sha256": "2ba5edb82fd6d8bd46e5b4602ff88888409e2f7a8070c68ad00db4bcd4731329",
+    "O2_helper_object_sha256": "3f36ea7f2fd5a9f88f26206fe638d0fab63a8a201b14f2704dfb7a2890c75fec",
+    "O2_object_identical_to_prior": "3f36ea7f2fd5a9f88f26206fe638d0fab63a8a201b14f2704dfb7a2890c75fec",
+    "O0_helper_object_sha256": "759f74116d8fadee9066ce223f540298cc93500e909357234736dccc5068720d",
+    "literal_CFG_review": {
+      "ABI": "rdiOUT,rsiPHB,rdxPH,rcxNbyref,r8Gbyref; no descriptors/restrict",
+      "empty": "0/2/4 readN,test,jleRET7d beforeGload6 orarrayloads",
+      "divisor": "6MOVSS initializedgtoXMM2;f/12copybroadcastalllanesXMM1",
+      "main": "20PHBtoXMM0,24PHtoXMM3,28ADDPS destinationPHB/sourcePH,2btrueDIVPSbyG;32+4boundedfullfourlanes",
+      "tail": "5cMOVSSPHB,60ADDSSPH,64trueDIVSSg; onlyactiveelements; shortn<=3 routes88\u21924c",
+      "side_effects": "No calls/allocations/FPclassification/FMA/reciprocal/FPstackroundtrips. Exactoriginal5state observed."
+    },
+    "public_module_signature_type_shape_intent_purity_exact": true,
+    "raw_public_module_identity_exact": false,
+    "permitted_module_delta": "Only original scoped PHY ARRAY_OUTER_DEPENDENCY compiler analysis token; actualreadback hard",
+    "previous_failures_preserved": true,
+    "timing_qualified": false,
+    "whole_module_qualified": false,
+    "application_qualified": false,
+    "selected": false,
+    "scope": "Complete synthetic PHY caller qualification only. No kernelpercentage transfers/fullforecastgain or integrationCPU claim."
+  },
+  "caller_scope": "Byteexact retained finite synthetic whole-PHY driver:188x19x32mass/33W,512fixedcalls,onewarm outside clock,no per-callrestore; assignedoutputs overwritteneachcall. Not capturedforecast or wholeapplication timing.",
+  "caller_pairs": {
+    "hpc01": {
+      "parent_wall_seconds": 3.415442828,
+      "candidate_wall_seconds": 3.358810381,
+      "wall_reduction_percent": 1.6581289704434177,
+      "parent_process_cpu_seconds": 3.415083565,
+      "candidate_process_cpu_seconds": 3.358367721,
+      "process_cpu_reduction_percent": 1.6607454230772256,
+      "order": "parent_then_candidate"
+    },
+    "hpc02": {
+      "parent_wall_seconds": 3.4197412770000004,
+      "candidate_wall_seconds": 3.366562569,
+      "wall_reduction_percent": 1.555050622035703,
+      "parent_process_cpu_seconds": 3.4188945790000003,
+      "candidate_process_cpu_seconds": 3.366038382,
+      "process_cpu_reduction_percent": 1.5460025390856003,
+      "order": "candidate_then_parent"
+    }
+  },
+  "caller_gold_sha256": "ba1355412115a1b800ad3108d879a5ddafac39b5787b433c484ed2bc14272dbe",
+  "all_arms_exact_raw_five_state_readonly_physical_cache_clear_normal_closed": true,
+  "caller_arms": [
+    {
+      "arm": 0,
+      "host": "hpc01",
+      "which": "parent",
+      "invocation_id": "d0372b4012f948b49ed29bf474d78068",
+      "wall_seconds": 3.415442828,
+      "process_cpu_seconds": 3.415083565,
+      "state": [
+        34,
+        0,
+        32,
+        8096,
+        895
+      ],
+      "gold_sha256": "ba1355412115a1b800ad3108d879a5ddafac39b5787b433c484ed2bc14272dbe",
+      "raw_refs": {
+        "receipt.json": "2b8aea904cb697ea7031b153ec96f08853208bf33cdbd7298b92e56b0fe6e7b7",
+        "closure.json": "0230c47052bf873fdb41bcf68559280711101880dafec65fefde2cf8d6acb9ca",
+        "cache-clear.json": "679c7e39e2f41bcf50ccce6980ce2df5c61ac1022e0ed3722e0477c7427d79be",
+        "controller.json": "26d04fc4276f4c11293eb76e111fab29b22ecab449e1ebfff186ea4aff6707ae"
+      }
+    },
+    {
+      "arm": 1,
+      "host": "hpc01",
+      "which": "candidate",
+      "invocation_id": "6becdef897ec46dbb28788e43463ac13",
+      "wall_seconds": 3.358810381,
+      "process_cpu_seconds": 3.358367721,
+      "state": [
+        34,
+        0,
+        32,
+        8096,
+        895
+      ],
+      "gold_sha256": "ba1355412115a1b800ad3108d879a5ddafac39b5787b433c484ed2bc14272dbe",
+      "raw_refs": {
+        "receipt.json": "e3c856ae5a4f0a488f936a6dae7f284c1f6d61e366eaadf9d1f9044f7b281149",
+        "closure.json": "3c2271a00d85813f5aba0e863eafe5743a331a0a1972a576b72c6639b9ad41d9",
+        "cache-clear.json": "2727d7d0fe3d8a503a0f9867f1b5ac2704f6f7b59f2d996c899254a92c47439a",
+        "controller.json": "5b4d1d517cc6cd820b3dc99642e999ca8c3a90d9f865369c81e948682f0bf955"
+      }
+    },
+    {
+      "arm": 2,
+      "host": "hpc02",
+      "which": "candidate",
+      "invocation_id": "3db798774647476eb97ba5dccbd3a76a",
+      "wall_seconds": 3.366562569,
+      "process_cpu_seconds": 3.366038382,
+      "state": [
+        34,
+        0,
+        32,
+        8096,
+        895
+      ],
+      "gold_sha256": "ba1355412115a1b800ad3108d879a5ddafac39b5787b433c484ed2bc14272dbe",
+      "raw_refs": {
+        "receipt.json": "9b25f8369988fec807c629b31abd7c7b144221419c6839fd3d90f7a6a7f9995f",
+        "closure.json": "59101116a092a546d509faddd78f7d6915703f7bb3914dbb9eb0b7c7dd30a6c5",
+        "cache-clear.json": "2a8802c4866826cfbeb7440a19cd65cca13c1c9bcc7b77753ebc7c84906e8d9b",
+        "controller.json": "a98848ca336bd5d3ae116425d7edf73324cba679e48893e36ef01655e5abbb46"
+      }
+    },
+    {
+      "arm": 3,
+      "host": "hpc02",
+      "which": "parent",
+      "invocation_id": "afab7532e87c430ead2f6d68707c2a42",
+      "wall_seconds": 3.4197412770000004,
+      "process_cpu_seconds": 3.4188945790000003,
+      "state": [
+        34,
+        0,
+        32,
+        8096,
+        895
+      ],
+      "gold_sha256": "ba1355412115a1b800ad3108d879a5ddafac39b5787b433c484ed2bc14272dbe",
+      "raw_refs": {
+        "receipt.json": "5dbb086cff08e1e29fba95db0d0e7c591cc89b92ff03ba08ab28e2da020c416f",
+        "closure.json": "4a41f5c6057a6b7cb99bba9f4c5bb07ab3d2453aa467cd28f8177e3f3b320b1a",
+        "cache-clear.json": "f077155b907f420ea294c6468aa31225b3ae065160deb9eab7bb6f64fd9ae1d5",
+        "controller.json": "cae6be7fa321b1ca87a7d1ae852532c28d6e6ebb7c5ba06812ce078ecd20f073"
+      }
+    }
+  ],
+  "compiled_non_PHY_text_changes": [],
+  "compiled_non_PHY_relocation_changes": [
+    "__module_big_step_utilities_em_MOD_calc_p_rho_phi",
+    "__module_big_step_utilities_em_MOD_calc_php",
+    "__module_big_step_utilities_em_MOD_couple",
+    "__module_big_step_utilities_em_MOD_curvature",
+    "__module_big_step_utilities_em_MOD_horizontal_diffusion",
+    "__module_big_step_utilities_em_MOD_horizontal_pressure_gradient",
+    "__module_big_step_utilities_em_MOD_rhs_ph",
+    "__module_big_step_utilities_em_MOD_vertical_diffusion",
+    "__module_big_step_utilities_em_MOD_vertical_diffusion_3dmp",
+    "__module_big_step_utilities_em_MOD_vertical_diffusion_mp",
+    "__module_big_step_utilities_em_MOD_vertical_diffusion_u",
+    "__module_big_step_utilities_em_MOD_vertical_diffusion_v",
+    "__module_big_step_utilities_em_MOD_w_damp"
+  ],
+  "non_PHY_source_and_physical_coordinates_exact": true,
+  "whole_module_or_application_qualification": false,
+  "selected": false,
+  "rollback": "No selected source/artifact has changed. Retain current fbcd/a49/8bee working configuration.",
+  "evidence_refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/phy-prep-z-at-w-producer-i-simd-r1/row-api-integration-preparation-r1/native-gate-r2/NATIVE_QUALIFICATION.json": "a9516b00be2d859f871a77500972502bb7fae01de3deb28516d5b8ea78cd7e0e",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/phy-prep-z-at-w-producer-i-simd-r1/row-api-integration-preparation-r1/native-gate-r2/actual-native-r1/receipt.json": "59d0ea2f50a3ef967fa1ac0459514c27f7ceda253a3527d1acfe5e8899b09594",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/phy-prep-z-at-w-producer-i-simd-r1/row-api-integration-preparation-r1/native-gate-r2/actual-native-r1/closure.json": "e4bc45a519852fd561e5ac3e1b1051f268701d2f120caf5cadc71e6d8d65c0f6",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/phy-prep-z-at-w-producer-i-simd-r1/row-api-integration-preparation-r1/whole-phy-caller-timing-preparation-r1/driver-build-r1/actual-native-r1/receipt.json": "a42ab190d2a81b30f61ff14b1b900f2fcd00b6cdce7132a5558923165a6f580b",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/phy-prep-z-at-w-producer-i-simd-r1/row-api-integration-preparation-r1/whole-phy-caller-timing-preparation-r1/driver-build-r1/actual-native-r1/closure.json": "54f7866655b8928d0d7861344054574aa0658f04340d1f3a00b7dcc4242f2cab",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/phy-prep-z-at-w-producer-i-simd-r1/row-api-integration-preparation-r1/whole-phy-caller-timing-preparation-r1/ACTUAL_WAVE.json": "c36b9505a095af9472ca4b98e48b5217ec75890527e4ddd962033a0d773daa4f"
+  },
+  "limits": [
+    "Oneopposite-orderpairperhost; no repeatability/component/forecastgain claim.",
+    "Originaloptimization-specificNaNfailurespreserved; explicitqualifiedGNU13O2/O0modes, no fastmath or tolerancechange.",
+    "Publicsignature/type/shape/intent/purity unchanged; rawMOD differs only scoped single compileranalysis token, not byteidentical.",
+    "No additivepercentage or transferfromisolatedrow screen."
+  ]
+}
