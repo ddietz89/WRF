@@ -5095,6 +5095,16 @@ END SUBROUTINE pole_point_bc
    REAL    :: w1, w2, z0, z1, z2
    REAL    :: qtot
    INTEGER :: n
+#ifdef WRF_EXPERIMENTAL_PHY_HEIGHT_ROW_SSE2
+   INTERFACE
+     PURE SUBROUTINE wrf_phy_height_row_ordered(out, phb_row, ph_row, nrow, grav)
+       INTEGER, INTENT(IN) :: nrow
+       REAL, INTENT(OUT) :: out(*)
+       REAL, INTENT(IN) :: phb_row(*), ph_row(*), grav
+     END SUBROUTINE wrf_phy_height_row_ordered
+   END INTERFACE
+#else
+#endif
 
 !-----------------------------------------------------------------------
 
@@ -5104,21 +5114,33 @@ END SUBROUTINE pole_point_bc
 !  the physics routines.  
 !
 !</DESCRIPTION>
+#ifdef WRF_EXPERIMENTAL_PHY_HEIGHT_ROW_SSE2
+#else
 
+#endif
     c1 = c1h
     c2 = c2h
 !  set up loop bounds for this grid's boundary conditions
+#ifdef WRF_EXPERIMENTAL_PHY_HEIGHT_ROW_SSE2
+#else
 
+#endif
     i_start = its
     i_end   = min( ite,ide-1 )
     j_start = jts
     j_end   = min( jte,jde-1 )
+#ifdef WRF_EXPERIMENTAL_PHY_HEIGHT_ROW_SSE2
+#else
 
+#endif
     k_start = kts
     k_end = min( kte, kde-1 )
 
 !  compute thermodynamics and velocities at pressure points (or half levels)
+#ifdef WRF_EXPERIMENTAL_PHY_HEIGHT_ROW_SSE2
+#else
 
+#endif
     IF ( ( config_flags%use_theta_m .EQ. 1 ) .AND. (P_Qv .GE. PARAM_FIRST_SCALAR) ) THEN
        do j = j_start,j_end
        do k = k_start, k_end
@@ -5141,7 +5163,10 @@ END SUBROUTINE pole_point_bc
     do j = j_start,j_end
     do k = k_start, k_end
     do i = i_start, i_end
+#ifdef WRF_EXPERIMENTAL_PHY_HEIGHT_ROW_SSE2
+#else
 
+#endif
       th_phy_m_t0(i,k,j) = th_phy(i,k,j)-t0
       p_phy(i,k,j) = p(i,k,j) + pb(i,k,j)
       pi_phy(i,k,j) = (p_phy(i,k,j)/p1000mb)**rcp
@@ -5158,9 +5183,15 @@ END SUBROUTINE pole_point_bc
 
     do j = j_start,j_end
     do k = k_start, kte
+#ifdef WRF_EXPERIMENTAL_PHY_HEIGHT_ROW_SSE2
+    IF (i_end >= i_start) THEN
+      CALL wrf_phy_height_row_ordered(z_at_w(i_start,k,j),phb(i_start,k,j),ph(i_start,k,j),i_end-i_start+1,g)
+    END IF
+#else
     do i = i_start, i_end
       z_at_w(i,k,j) = (phb(i,k,j)+ph(i,k,j))/g
     enddo
+#endif
     enddo
     enddo
 
@@ -5206,7 +5237,10 @@ END SUBROUTINE pole_point_bc
     do i = i_start, i_end
 
 ! bottom
+#ifdef WRF_EXPERIMENTAL_PHY_HEIGHT_ROW_SSE2
+#else
 
+#endif
       z0 = z_at_w(i,1,j)
       z1 = z(i,1,j)
       z2 = z(i,2,j)
@@ -5216,7 +5250,10 @@ END SUBROUTINE pole_point_bc
       t8w(i,1,j) = w1*t_phy(i,1,j)+w2*t_phy(i,2,j)
 
 ! top
+#ifdef WRF_EXPERIMENTAL_PHY_HEIGHT_ROW_SSE2
+#else
 
+#endif
       z0 = z_at_w(i,kte,j)
       z1 = z(i,k_end,j)
       z2 = z(i,k_end-1,j)

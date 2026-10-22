@@ -1,0 +1,65 @@
+{
+  "scope": "Qualified GNU13.3 REAL32/INTEGER32 EPYC working recipe, enabled by default in selected working configuration. Generic source macro OFF retains original Fortran. Actual guarded ON canonical CPP is byte-exact compiled/tested native input; reused26b/3f36 and one normal a377 link are qualified. No fresh full-source whole-image rebuild claim.",
+  "qualified_recipe_macro": {
+    "WRF_EXPERIMENTAL_PHY_HEIGHT_ROW_SSE2": 1,
+    "generic_source_default": 0,
+    "required_existing_WRF_EXPERIMENTAL_HPG_NHX_AVX2": 1
+  },
+  "BigStep_CPPFLAGS_append": [
+    "-DWRF_EXPERIMENTAL_PHY_HEIGHT_ROW_SSE2"
+  ],
+  "Fortran_flags": "UNCHANGED selected strict generic GNU13.3 module flags including existing module-local -fopenmp-simd. No global ISA or fastmath changes.",
+  "helper_source": "tools/cpu-compute/phy-height-ordered-row/phy_height_row_legacy.c",
+  "helper_source_sha256": "2ba5edb82fd6d8bd46e5b4602ff88888409e2f7a8070c68ad00db4bcd4731329",
+  "helper_C_flags": [
+    "-O2",
+    "-std=c11",
+    "-msse2",
+    "-mno-fma",
+    "-fno-fast-math",
+    "-ffp-contract=off",
+    "-frounding-math",
+    "-DWRF_PHY_HEIGHT_PARENT_O2=1"
+  ],
+  "debug_O0_scope": {
+    "flags": [
+      "-O0",
+      "-std=c11",
+      "-msse2",
+      "-mno-fma",
+      "-fno-fast-math",
+      "-ffp-contract=off",
+      "-frounding-math",
+      "-DWRF_PHY_HEIGHT_PARENT_O0=1"
+    ],
+    "rule": "Exactly one O2/O0 operand mode is mandatory; do not infer from __OPTIMIZE__. O0 is separate native/debug scope, not selected working recipe or cross-opt gold."
+  },
+  "explicit_link": "Keep existing ae13 HPG helper exactly once and append exactly one qualified3f36 PHY helper before libwrflib.a. Archive584members, BigStep slot55926b replacesdd46,583 unchanged; one ordinary full link.",
+  "canonical_CPP_actual": {
+    "receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/phy-prep-z-at-w-producer-i-simd-r1/row-api-integration-preparation-r1/integration-preparation-r1/portable-canonical-cpp-preparation-r1/actual-native-r1/receipt.json",
+      "sha256": "3a80166de083f30352bde868312d2ed8efa8354875afab874b0301dc58a16893"
+    },
+    "closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/phy-prep-z-at-w-producer-i-simd-r1/row-api-integration-preparation-r1/integration-preparation-r1/portable-canonical-cpp-preparation-r1/actual-native-r1/closure.json",
+      "sha256": "b13cd021a1076483a39eb5e2be588f3a817877a24c6f32c736dae2417ebf9a8b"
+    },
+    "OFF": "1b9b9f758c9f6aa081db5403e99530eebae8a4ec8ddfef22935e0f616b1f0b40",
+    "ON": "efa48e88287f4084f2a72e39c67fab7589910c7426e9842063850e5750b2ff92",
+    "module_compiles": 0,
+    "links": 0
+  },
+  "guarded_source_sha256": "bce9ff16a8d5e29960e2ccca9875d021d915c307aaccac30dedd56c765546974",
+  "native_module_sha256": "26b80189efc9b6f3290a137b8e44dd2025f3a81e7daa6f0073b77b01b81fedb0",
+  "helper_object_sha256": "3f36ea7f2fd5a9f88f26206fe638d0fab63a8a201b14f2704dfb7a2890c75fec",
+  "public_module_interface_exact": false,
+  "public_signature_type_shape_intent_purity_exact": true,
+  "permitted_module_delta": "Only reviewed PHY ARRAY_OUTER_DEPENDENCY analysis token; new caller compiler conservatism may differ. No fresh-caller code identity claim.",
+  "raw_build_producer_source_commit": null,
+  "posttest_source_commit": null,
+  "application_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/phy-height-ordered-row/APPLICATION_QUALIFICATION.json",
+    "sha256": "ca70f8874ebd8df2cf80af424d190aa00cc492b989cca820d6a1917a1f4d60c3"
+  },
+  "source_rebuilt_image_certified": false
+}
