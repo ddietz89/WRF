@@ -1,8 +1,8 @@
 {
-  "source_commit": "9712688c787e6b46664705562fb40f76c54b81a7",
+  "source_commit": "642a69388e430f079ba5ca043aa0ad4ea06c9280",
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/current19ad-rk1-w-copy-fusion-one-member-native-r1/wrf.exe",
-    "sha256": "526efaaa2424988dd9a6420d59beb94163e307af00b715e9e9ca1c05ad131502"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current526e-advance-mu-wdtn-row-pipeline-one-member-native-r1/wrf.exe",
+    "sha256": "eb5e10fbbccb34c936c8a0129a2e966209768720bc4b7d6904cb97e8c953ba66"
   },
   "artifacts": {
     "shim": {
@@ -90,8 +90,8 @@
   "read_affine_IO_object_sha256": "c9c4e5b7a0225523e7d85cfc188022d797204d3f4dd4494b54c416e3bec99320",
   "schema_version": 3,
   "status": "CURRENT526E_WCOPY_OWN_THREE_HOUR_SCIENCE",
-  "scope": "Own526e instrumented nine-hour exact science only: ten complete products/1625 ordered steps against retained corrected-original546b. Two optional native captures UNAVAILABLE_NO_DATA/never-started; no fresh matched original timing or nine-hour speedup.",
-  "includes": "All prior selectedf272 components plus RK1 PH snapshot/consumer fusion only; qualified Thompson bank and Tcopy retained. Also includes one U nonhydro dpxy correction SIMD directive; no prior component removed. Also includes exact RK1 U/V snapshot fusion into their existing save/coupling loops; all parent79be components/providers retained. Retains all19adcomponents/providers plus exactguardedRK1Wsnapshot fusion; MU and AKM clear trials excluded.",
+  "scope": "OwnWD eb5e/6875 short35/two-product exactscience only, retained546b scientificreference; no parent526e longhorizon transfer.",
+  "includes": "All prior selectedf272 components plus RK1 PH snapshot/consumer fusion only; qualified Thompson bank and Tcopy retained. Also includes one U nonhydro dpxy correction SIMD directive; no prior component removed. Also includes exact RK1 U/V snapshot fusion into their existing save/coupling loops; all parent79be components/providers retained. Retains all19adcomponents/providers plus exactguardedRK1Wsnapshot fusion; MU and AKM clear trials excluded. Retains526ecomponents/providers plus same-I WDTNrowpipeline; noMU/AKM changes.",
   "source_commit_scope": "Post-test canonical correspondence9712688c. Tested5e2c/6d0c artifact reused; real canonicalCPP strictO2 reproduces runtime/RELA/publicMOD. PP/debug-object bytes differ; no freshwholeimage build.",
   "input_implementation_commit": "614267f340a23ffc342962b3c64e323719fe4d06",
   "root_input": {
@@ -126,7 +126,6 @@
     "products": 2,
     "ordered_steps": 35,
     "last_step": "2026-10-12_06:10:00",
-    "all_exact": true,
     "world": 512,
     "compute": 480,
     "quilt": 32,
@@ -141,14 +140,15 @@
     ],
     "all32_FIELDVIEW1": true,
     "positive_field_markers": 16,
+    "all_exact": true,
     "original_checker_unchanged": true,
     "all4models_and_reader_normal_closed": true
   },
-  "qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-w-copy-fusion/NINE_HOUR_APPLICATION_QUALIFICATION.json",
-  "current_application_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-w-copy-fusion/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+  "qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/advance-mu-wdtn-row-pipeline/APPLICATION_QUALIFICATION.json",
+  "current_application_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/advance-mu-wdtn-row-pipeline/APPLICATION_QUALIFICATION.json",
   "source_build_binding_file": "CURRENT_SOURCE_BUILD_BINDING.json",
-  "current_three_hour_qualified": true,
-  "current_nine_hour_qualified": true,
+  "current_three_hour_qualified": false,
+  "current_nine_hour_qualified": false,
   "prior_nine_hour": {
     "evidence_file": "PREVIOUS_NINE_HOUR_RESULT_B1FB.json",
     "qualification_file": "PREVIOUS_NINE_HOUR_FINAL_QUALIFICATION_B1FB.json",
@@ -159,14 +159,14 @@
   "activation": "Selection record, not a launcher. Use a fresh bounded lease/run/log directory and the exact root-only input rank-exec binding, with all original runtime checks and cache-before-each-arm SOP. Never preload launchers/helpers.",
   "rollback": {
     "parent_executable": {
-      "path": "/pool/wrf-experiment/wrf-cpu/builds/current13fe-uv-u-nh-correction-simd-one-member-native-r1/wrf.exe",
-      "sha256": "79bebebbfb646a367a7e62b8befcbe2c672225d2efc5f8d4d4f0743476ab2bf2"
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current19ad-rk1-w-copy-fusion-one-member-native-r1/wrf.exe",
+      "sha256": "526efaaa2424988dd9a6420d59beb94163e307af00b715e9e9ca1c05ad131502"
     },
-    "parent_archive_sha256": "1ade2c8fa3df604d077cbbeb0815ef246b0ba32aa8c480c8f4aa150d8cef12b2",
-    "parent_source_commit": "1f03a73849d0149161120d6ae130a9a66e9e0116",
+    "parent_archive_sha256": "c252d521d35322201eeffdd89bb98e043bb250c0044258c7ca1f4f9fe20e16f5",
+    "parent_source_commit": "9712688c787e6b46664705562fb40f76c54b81a7",
     "selection_preimage": "PREVIOUS_selection_BEFORE_UV_COPY_FUSION.json",
     "binding_preimage": "PREVIOUS_CURRENT_SOURCE_BUILD_BINDING_BEFORE_UV_COPY_FUSION.json",
-    "action": "Restore parent79be artifacts and source/default/working records together; or WRF_SMALL_STEP_UV_COPY_FUSION=0 with regenerate/rebuild/rearchive/relink. Keep8bee/9371/privateHDF5/FABA.",
+    "action": "Restoreparent526e artifacts plusmatchingcommittedsource/default/workingrecords, orWDTNknob0+fullregenerate/rebuild/rearchive/relink; providersunchanged.",
     "W_COPY_FUSION": {
       "setting": "WRF_SMALL_STEP_W_COPY_FUSION=0",
       "rebuild": "Fullregenerate/rebuild/relink",
@@ -176,27 +176,45 @@
       },
       "prior_archive_sha256": "13f62bfffa5ea8c78fc7706b5624d5b973ea6ad04e9e22f36c6557403bc19295",
       "prior_source_commit": "87fab099b1e8f0f4647e2f9d343f2109c06ddc89"
+    },
+    "WDTN_ROW_PIPELINE": {
+      "setting": "WRF_ADVANCE_MU_WDTN_ROW_PIPELINE=0",
+      "rebuild": "Fullregenerate/rebuild/rearchive/relink",
+      "parent": {
+        "executable": {
+          "path": "/pool/wrf-experiment/wrf-cpu/builds/current19ad-rk1-w-copy-fusion-one-member-native-r1/wrf.exe",
+          "sha256": "526efaaa2424988dd9a6420d59beb94163e307af00b715e9e9ca1c05ad131502"
+        },
+        "archive_sha256": "c252d521d35322201eeffdd89bb98e043bb250c0044258c7ca1f4f9fe20e16f5",
+        "source_commit": "9712688c787e6b46664705562fb40f76c54b81a7",
+        "short_qualification": {
+          "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-w-copy-fusion/APPLICATION_QUALIFICATION.json",
+          "sha256": "ba5ad7d717332f3288a35761b5d14ec92bb7291238a112228e0af9c253e4791b"
+        },
+        "three_hour_qualification": {
+          "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-w-copy-fusion/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+          "sha256": "9ec50ac457a796773ac5f0d439afd0d0f91b3d859d6530ce1c1f072af275ed67"
+        },
+        "nine_hour_qualification": {
+          "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-w-copy-fusion/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+          "sha256": "e05c974e231a5535f1cabe1156d7819586a57059831d26ae28878ebf0f10f26f"
+        },
+        "applies_to_current_selection": false,
+        "scope": "Historicalparent526e ownqualifications; neverqualifyWDchild."
+      },
+      "action": "Restoreparent526e/c252 withmatchingcanonicalsource/default/workingrecords; providersunchanged."
     }
   },
   "claim_limits": [
-    "Candidate-only, observer/request-instrumented science against retained original outputs; no matched timing, nine-hour speedup, removable-wait or forecast-gain claim.",
-    "Both optional native captures are UNAVAILABLE_NO_DATA/raw0/NEVER_STARTED; no native-profile qualification or named114 prework attribution.",
-    "Original failed lifecycle attempt/hash-role repair and recorder constructor name mismatch remain preserved; independent exact science checker unchanged.",
-    "Immutable short ba5ad, own3h9ec50, all frozen N9 pins, prior-image qualification and historical19adABBA remain unchanged.",
-    "No unprofiled9h, restart or full144h qualification. A WDTN child must pass its own short science and cannot inherit this parent9h qualification."
+    "Ownshort only; own3h/9h/profile/restart/full144 false. Parent526e own3h/9h and19adABBA historical/appliesfalse.",
+    "Caller gains are historical450x342/16rank finitecaptured syntheticcaller, notcurrent512geometry orforecastgain.",
+    "Shortwall/CPU/main unpaired; no newmatchedoriginal orspeedupclaim.",
+    "Rawproducer sourceNULL; sourcecommit isposttestcanonicalcorrespondence with exactallocatedruntime/RELA/MOD, notfreshwholeimagebuild.",
+    "GNU13.3.0/emptyOMPCPP/SIMD1/Zen21 only; matchingserial unqualified."
   ],
-  "next_qualification": "Any changed child including WDTN needs own short science; parent9h is historical only. Restart/full144h remain unqualified.",
+  "next_qualification": "OwnWD3h/9h remains pending; parent526e qualification historical only.",
   "output_fusion_qualification_file": "tools/cpu-output/quilt512/padding-block32/NATIVE_QUALIFICATION.json",
-  "latest_nine_hour": {
-    "qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-w-copy-fusion/NINE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "e05c974e231a5535f1cabe1156d7819586a57059831d26ae28878ebf0f10f26f"
-    },
-    "science_qualified": true,
-    "capture_qualified": false,
-    "performance_qualified": false,
-    "comparison_design": "INSTRUMENTED_CANDIDATE_ONLY_RETAINED_ORIGINAL_SCIENCE"
-  },
+  "latest_nine_hour": null,
   "padding_only_fill_qualification_file": "tools/cpu-output/quilt512/padding-only-fill/NATIVE_QUALIFICATION.json",
   "padding_block32_qualification_file": "tools/cpu-output/quilt512/padding-block32/NATIVE_QUALIFICATION.json",
   "previous_output375_three_hour_benchmark": {
@@ -553,7 +571,7 @@
       "sha256": "040a1b4e2a32e640d3661d6f7a030053b0229a5cc7281a2f775cc2e4646a9b45"
     }
   },
-  "archive_sha256": "c252d521d35322201eeffdd89bb98e043bb250c0044258c7ca1f4f9fe20e16f5",
+  "archive_sha256": "68755e5690a38a9c139041086cf6eb952014890e97663a0d6ea8da23984eb40e",
   "previous_block_carry_short_science": {
     "status": "PASS_RETAINED_ORIGINAL_TWO_HISTORY_35_STEPS_512_OWNED_FIELD_VIEW",
     "receipt_sha256": "075e45506947752b3af936dba300740e854e8026b4e1c71beaaa1acfbe006ea2",
@@ -778,10 +796,7 @@
     "repeatability_established": false,
     "scope": "Historical RQVFTENee66/source31ca before RQVBLTEN. Actual4products545/full512 exact,660.3921359390952s MPIwall; candidate-only UNPAIRED descriptive metrics. Does not qualify child2bd1. Existing THREE_HOUR_RESULT/Q bytes and hashes unchanged."
   },
-  "current_three_hour_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-w-copy-fusion/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "9ec50ac457a796773ac5f0d439afd0d0f91b3d859d6530ce1c1f072af275ed67"
-  },
+  "current_three_hour_qualification": null,
   "previous_RTH_POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
     "source_commit": "c883c564a037422631b7c3dd8c69cf532fe391a6",
@@ -858,10 +873,7 @@
     "repeatability_established": false,
     "scope": "Exact4products545/full512/twoTiles/all32markers/fourpositivewriters; all8models+reader normally closed. Includes all current promotions; no isolated directive or concurrent-throughput claim."
   },
-  "current_nine_hour_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-w-copy-fusion/NINE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "e05c974e231a5535f1cabe1156d7819586a57059831d26ae28878ebf0f10f26f"
-  },
+  "current_nine_hour_qualification": null,
   "nine_hour_benchmark": null,
   "previous_nine_hour_before_UVB": {
     "evidence_file": "NINE_HOUR_RESULT.json",
@@ -1315,8 +1327,8 @@
     "qualification_file": "tools/cpu-output/quilt512/codec/private-fast-distance-range/APPLICATION_QUALIFICATION.json"
   },
   "current_application_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-w-copy-fusion/NINE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "e05c974e231a5535f1cabe1156d7819586a57059831d26ae28878ebf0f10f26f"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advance-mu-wdtn-row-pipeline/APPLICATION_QUALIFICATION.json",
+    "sha256": "bc6ed35c158cec2986689cf6659a6feab07cdbdd844fec6ed23be50027d8b134"
   },
   "last_three_hour_benchmark": {
     "qualification": {
@@ -1420,7 +1432,7 @@
   },
   "current_noon75m_qualified": false,
   "current_noon75m_qualification": null,
-  "comparison_design": "Candidate-onlyW526e3h vs retainedearlierA1original546b science, UNPAIRED",
+  "comparison_design": "CANDIDATE_ONLY_OWN_SHORT_RETAINED_ORIGINAL_SCIENCE",
   "theta_producer": {
     "pending": false,
     "source_commit": null,
@@ -2296,7 +2308,9 @@
       }
     },
     "science_qualified": true,
-    "performance_qualified": false
+    "performance_qualified": false,
+    "applies_to_current_selection": false,
+    "scope": "Historical parent526e own3h unpaired observation; currentWDchild3h pending."
   },
   "before_HPG_CONSUMER_own9h": {
     "working_records_commit": "3dc1509d12a1e7205a885cfef5acf452ab8ff88e",
@@ -3343,9 +3357,9 @@
   },
   "metrics": {
     "candidate_unpaired": {
-      "wall_seconds": 655.7392625361681,
-      "cpu_seconds": 319010.318735,
-      "main_step_sum_seconds": 557.65275
+      "wall_seconds": 139.83539383439347,
+      "cpu_seconds": 54423.153974,
+      "main_step_sum_seconds": 38.42178
     }
   },
   "order": [
@@ -3671,7 +3685,7 @@
       "sha256": "040a1b4e2a32e640d3661d6f7a030053b0229a5cc7281a2f775cc2e4646a9b45"
     }
   },
-  "archive_path": "/pool/wrf-experiment/wrf-cpu/builds/current19ad-rk1-w-copy-fusion-one-member-native-r1/libwrflib.a",
+  "archive_path": "/pool/wrf-experiment/wrf-cpu/builds/current526e-advance-mu-wdtn-row-pipeline-one-member-native-r1/libwrflib.a",
   "previous_current769_pd_final_xy_producer": {
     "source_commit": null,
     "canonical_source_sha256": "9955f77e4788288d09ab4f434c5f85a7930fcfe9ccd6060aaef5286052da40db",
@@ -3874,111 +3888,7 @@
       "metrics": "Currentcandidateonehourdescriptiveonly; previous769paired3h metrics arehistorical."
     }
   },
-  "performance_qualification": {
-    "applies_to_current_selection": false,
-    "reason": "No matched fullforecast timing for526e; localWcaller reduction9.00/9.51% hasseparatescope. Historical19adABBA remainsbelow.",
-    "current_artifact": "526efaaa2424988dd9a6420d59beb94163e307af00b715e9e9ca1c05ad131502",
-    "historical19ad": {
-      "qualification": {
-        "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-uv-copy-fusion/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-        "sha256": "93fa6085bcfdc244601b3e271b13934656959b9e4a3b839259f1785527db41f5"
-      },
-      "report": {
-        "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-uv-copy-fusion/ABBA_THREE_HOUR_RESULT.json",
-        "sha256": "da4e0c091a0122818aeab9421b109b407cb48bdbdf7eb43ad55973c0a5a02725"
-      },
-      "artifact_executable_sha256": "19add4c995a458db270afa11ac7306cda4430a6ba22739764a06e6028a5d3ba6",
-      "applies_to_current_selection": false,
-      "comparison_design": "Frozen19ad A1-B1-B2-A2, two observations per image; corrected-original546b; checked client-cache clears each arm, unprofiled exclusive model timing",
-      "two_observation_summary": {
-        "original": {
-          "wall_seconds": {
-            "n": 2,
-            "values": [
-              798.7989721219055,
-              799.9105636090972
-            ],
-            "mean": 799.3547678655013,
-            "min": 798.7989721219055,
-            "max": 799.9105636090972,
-            "spread": 1.1115914871916175
-          },
-          "main_step_sum_seconds": {
-            "n": 2,
-            "values": [
-              594.56533,
-              595.77161
-            ],
-            "mean": 595.1684700000001,
-            "min": 594.56533,
-            "max": 595.77161,
-            "spread": 1.2062799999999925
-          },
-          "cpu_seconds": {
-            "n": 2,
-            "values": [
-              358521.264108,
-              358912.87567199994
-            ],
-            "mean": 358717.0698899999,
-            "min": 358521.264108,
-            "max": 358912.87567199994,
-            "spread": 391.6115639999625
-          }
-        },
-        "candidate": {
-          "wall_seconds": {
-            "n": 2,
-            "values": [
-              659.818216972053,
-              658.9956991528161
-            ],
-            "mean": 659.4069580624346,
-            "min": 658.9956991528161,
-            "max": 659.818216972053,
-            "spread": 0.822517819236964
-          },
-          "main_step_sum_seconds": {
-            "n": 2,
-            "values": [
-              557.03243,
-              557.83078
-            ],
-            "mean": 557.431605,
-            "min": 557.03243,
-            "max": 557.83078,
-            "spread": 0.7983500000000276
-          },
-          "cpu_seconds": {
-            "n": 2,
-            "values": [
-              320138.809039,
-              319389.755302
-            ],
-            "mean": 319764.2821705,
-            "min": 319389.755302,
-            "max": 320138.809039,
-            "spread": 749.0537370000384
-          }
-        }
-      },
-      "difference_of_means_percent": {
-        "wall_seconds": 17.507596805454252,
-        "main_step_sum_seconds": 6.340534974912242,
-        "cpu_seconds": 10.858916675318717
-      },
-      "limits": [
-        "Two observations per image; no confidence interval or broad repeatability claim.",
-        "Main elapsed includes MPI and output backpressure; wall minus main is not pure I/O.",
-        "AggregateCPU includes spin; throttle counters do not establish causal lost wall time.",
-        "Historical component caller gains are not additive or isolated forecast attribution.",
-        "Output inventory/normal writer closure proves completion, not an independently measured drain duration.",
-        "Load/frequency context UNKNOWN where sampled values were not collected locally.",
-        "Raw RESULT inherited labels are retained in sources; actual leases identify546b/19ad.",
-        "Four supplemental actual job-bound snapshots available; differing sample phase/instantaneous representative-core frequencies cannot establish causal speedup/frequency normalization. External metadata_refresh job timestamps are context only, not WRF lifecycle proof."
-      ]
-    }
-  },
+  "performance_qualification": false,
   "previous_current4adb_before_VY_SW": {
     "snapshot": {
       "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/advect-v-y5-flux-producer-i-simd-r1/combined-publication-binding-preparation-r1/PRE_PUBLICATION_4ADB_SNAPSHOT/selection.json",
@@ -4377,8 +4287,8 @@
     "scope": "Exact historical7087 scopes/results/runtime/components retained; no transfer to new8400 own horizons/profile."
   },
   "current_short_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-w-copy-fusion/APPLICATION_QUALIFICATION.json",
-    "sha256": "ba5ad7d717332f3288a35761b5d14ec92bb7291238a112228e0af9c253e4791b"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advance-mu-wdtn-row-pipeline/APPLICATION_QUALIFICATION.json",
+    "sha256": "bc6ed35c158cec2986689cf6659a6feab07cdbdd844fec6ed23be50027d8b134"
   },
   "tcopy_producer": {
     "build": {
@@ -4485,14 +4395,14 @@
     "scope": "Exact historical parent13fe, including noon/native-profile and all prior component proof. No child horizon transfer."
   },
   "current_small_step_native": {
-    "object_sha256": "6d0c99251739526148bb1eca11c529555517aceda1ffab5c566dd9c6ee2c7207",
-    "qualified_PP_sha256": "5e2c952d435ec931f4792eeb000e1136254a6ffd6269a4269c9839ee899cf010",
+    "object_sha256": "0852ac0899af2ffba640ae12f1f17b36ea8c1fe64738f8f660e253fa1a5a85df",
+    "qualified_PP_sha256": "f3367243cc74d5c2400b11f293f36012c4d1029e0fe60e2ec07f4f6718ea1675",
     "public_MOD_sha256": "d50c501497b927ad56b9bb3b7cb9431c827b8092cedf23e83d8f573ccb884b94",
     "member": "module_small_step_em.o",
     "zero_based_index": 558,
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-w-copy-fusion/NINE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "e05c974e231a5535f1cabe1156d7819586a57059831d26ae28878ebf0f10f26f"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advance-mu-wdtn-row-pipeline/APPLICATION_QUALIFICATION.json",
+      "sha256": "bc6ed35c158cec2986689cf6659a6feab07cdbdd844fec6ed23be50027d8b134"
     }
   },
   "uv_u_nh_correction_producer": {
@@ -4802,8 +4712,8 @@
     },
     "scope": "Historical19ad ownshort+ABBA3h; retained image/source/proof, no horizon/timing transfer to526e"
   },
-  "science_sha256": "90950ffec8246fe4257acfb2e7220b8b669384403193b376832fbbb15c10acc1",
-  "reader_closure_sha256": "172faf4e8fabf2182c77958bda5284a6ca692822996d1b8b8d9882b0239f9199",
+  "science_sha256": "e13b3ebd6e3f83a940b1c0be6c0254c2ef1375dfeb734060f923409ba1aad185",
+  "reader_closure_sha256": "d4a27613a3390a284cafa69ca359cd7353e7807fea1029d97b377f6918126249",
   "wcopy_producer": {
     "build": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-w-copy-fusion/BUILD_QUALIFICATION.json",
@@ -4821,5 +4731,46 @@
     "qualified_PP_sha256": "5e2c952d435ec931f4792eeb000e1136254a6ffd6269a4269c9839ee899cf010",
     "posttest_source_commit": "9712688c787e6b46664705562fb40f76c54b81a7",
     "raw_producer_source_commit": null
-  }
+  },
+  "previous_current526e_before_WDTN": {
+    "executable": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current19ad-rk1-w-copy-fusion-one-member-native-r1/wrf.exe",
+      "sha256": "526efaaa2424988dd9a6420d59beb94163e307af00b715e9e9ca1c05ad131502"
+    },
+    "archive_sha256": "c252d521d35322201eeffdd89bb98e043bb250c0044258c7ca1f4f9fe20e16f5",
+    "source_commit": "9712688c787e6b46664705562fb40f76c54b81a7",
+    "short_qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-w-copy-fusion/APPLICATION_QUALIFICATION.json",
+      "sha256": "ba5ad7d717332f3288a35761b5d14ec92bb7291238a112228e0af9c253e4791b"
+    },
+    "three_hour_qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-w-copy-fusion/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "9ec50ac457a796773ac5f0d439afd0d0f91b3d859d6530ce1c1f072af275ed67"
+    },
+    "nine_hour_qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-w-copy-fusion/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "e05c974e231a5535f1cabe1156d7819586a57059831d26ae28878ebf0f10f26f"
+    },
+    "applies_to_current_selection": false,
+    "scope": "Historicalparent526e ownqualifications; neverqualifyWDchild."
+  },
+  "wdtn_row_pipeline_producer": {
+    "build": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advance-mu-wdtn-row-pipeline/BUILD_QUALIFICATION.json",
+      "sha256": "1565e91020f45bb17c75eb1beae3a0d951f89b2511fe2018ec8e610ffcb4f493"
+    },
+    "native_caller": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advance-mu-wdtn-row-pipeline/NATIVE_CALLER_QUALIFICATION.json",
+      "sha256": "50b866596ba6133991fd93ce6884e3da7dbd726ebe7d6f779d5032890ffcf5cd"
+    },
+    "application": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advance-mu-wdtn-row-pipeline/APPLICATION_QUALIFICATION.json",
+      "sha256": "bc6ed35c158cec2986689cf6659a6feab07cdbdd844fec6ed23be50027d8b134"
+    },
+    "object_sha256": "0852ac0899af2ffba640ae12f1f17b36ea8c1fe64738f8f660e253fa1a5a85df",
+    "qualified_PP_sha256": "f3367243cc74d5c2400b11f293f36012c4d1029e0fe60e2ec07f4f6718ea1675",
+    "posttest_source_commit": "642a69388e430f079ba5ca043aa0ad4ea06c9280",
+    "raw_producer_source_commit": null
+  },
+  "nine_hour_full_application": null
 }
