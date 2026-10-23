@@ -1,0 +1,72 @@
+{
+  "status": "RETAIN_UNPROMOTED_NO_MEASURED_COMPLETE_CALLER_GAIN",
+  "actual_comparison": {
+    "status": "PASS_CONDITIONAL_COMPLETE_CALLER_BYTES_ROUND_ENTRIES_CLOSURES_FENV_UNQUALIFIED",
+    "run_order": [
+      "parent",
+      "waitall"
+    ],
+    "same_actual_driver_object": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current7087-complete-haloc-genuine-archive-native-hpc02-r1/actual-output/driver.o",
+      "sha256": "1b2b18e2d50a6a0f0f0708e9b5ca1a38fa8bdde4e38b606e7f8967ae43277f9d"
+    },
+    "different_binaries": {
+      "parent": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current7087-complete-haloc-genuine-archive-native-hpc02-r1/actual-output/complete_haloc",
+        "sha256": "ebfd6586cee9a253c94a876059b1c7ee9dc3fda5d91af275bde85a372565ab77"
+      },
+      "waitall": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current7087-complete-haloc-waitall-link-hpc02-r1/complete_haloc_waitall",
+        "sha256": "af3d1ff34a86e1decaf2b2a66001ade69edbcb1ba491113fb511a110d152fa7f"
+      }
+    },
+    "same_FABA_map_sha256": "63fc6d578959f7a4067f7a2d654705629441eba806d86f3fc12d3cb4aa3f23cd",
+    "all480_raw_hashes_equal": true,
+    "round_unchanged_all480_both_arms": true,
+    "state_mismatches_observed_only": {
+      "before": {
+        "errno": [],
+        "round": [],
+        "flags": [],
+        "mxcsr": [],
+        "x87cw": [],
+        "x87sw": []
+      },
+      "after": {
+        "errno": [],
+        "round": [],
+        "flags": [],
+        "mxcsr": [],
+        "x87cw": [],
+        "x87sw": []
+      }
+    },
+    "FP_qualification": "UNQUALIFIED_RUNTIME_STATE_OBSERVED",
+    "performance_qualification": false,
+    "promotion_authorized": false,
+    "metrics": {
+      "parent": {
+        "max_wall_ns": 887617377,
+        "sum_thread_cpu_ns": 425692452570,
+        "max_thread_cpu_ns": 887581649
+      },
+      "waitall": {
+        "max_wall_ns": 889089860,
+        "sum_thread_cpu_ns": 426418539713,
+        "max_thread_cpu_ns": 889046686
+      }
+    },
+    "scope": "Single FABA original982d vs Waitall a8b5 complete publicRSL conditional8x60 YthenX packing caller, sameactuale16d/1b2b driverobject but DIFFERENT executables/archives. No generated iterator/domain wrapper or actualforecastgeometry binding. FPstateobservationsUNQUALIFIED; nofullWRF/scientific/promotionclaim.",
+    "limits": [
+      "One fixed-order pair only. Conditional synthetic8x60 patch bounds, not captured generated HALOC wrapper.",
+      "Clock/snapshot boundary overhead included; threadCPU and maximum rank-local wall interval have distinct meanings.",
+      "No scientific, forecast, default-placement or fullFP-state qualification; no fabricated request/cursor fields."
+    ]
+  },
+  "actual_comparison_reference": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current7087-mpi-yslab-placement-r1/complete-haloc-caller-feasibility-r1/waitall-production480-pair-preparation-r1/actual-waitall-complete-pair-r1/ACTUAL_PAIR_COMPARISON.json",
+    "sha256": "ceab6e729738e493951df90b48eb6da564e3b049dbdca4bf65efd5d8935ea7b6"
+  },
+  "decision": "New conditional5K/50K completecaller pair neutral: Waitall0.1659% longerelapsed/0.1706% moreCPU. No significance/attributableregression claimed. Earlier64KiB3.18%onepairgain didnot carryto thisfixture; retainexperimentalpatch/evidence, no WRF/default promotion.",
+  "root_actual_collection": "Both actual raw result files independently verify all480 entries/bytes/currentlibrary/map/caches/normal8closures; scientific/global FPqualification not transferred."
+}

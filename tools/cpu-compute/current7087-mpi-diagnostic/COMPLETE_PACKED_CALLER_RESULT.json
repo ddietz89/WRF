@@ -1,0 +1,236 @@
+{
+  "status": "PASS_ACTUAL480_CONDITIONAL_COMPLETE_GENUINE_RSL_CALLER_MAP_PAIR",
+  "review_utc": "2026-10-22T23:50:42.126361+00:00",
+  "run_order": [
+    "faba",
+    "yslab"
+  ],
+  "same_actual_binary": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current7087-complete-haloc-genuine-archive-native-hpc02-r1/actual-output/complete_haloc",
+    "sha256": "ebfd6586cee9a253c94a876059b1c7ee9dc3fda5d91af275bde85a372565ab77"
+  },
+  "driver_sha256": "e16d64f488ba1f78aed29bdf0f563d886aaf0dc56daf4660da03a1b08e39e225",
+  "unchanged_genuine_RSL_archive": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/rsl-narrow-integer-copy-r1/librsl_lite.a",
+    "sha256": "982d0c81abed9d9209ea955e63c0851ae7eaa51b6ade4748303176b51eaaa130"
+  },
+  "geometry": {
+    "global": [
+      1500,
+      1140,
+      33
+    ],
+    "Cartesian_dims_y_x": [
+      60,
+      8
+    ],
+    "calls_per_rank": 2000,
+    "fields": [
+      "U",
+      "V"
+    ],
+    "schedule": "INIT_Y/pack_both/exchange/unpack_both then INIT_X/pack_same_updated_fields/exchange/unpack_both",
+    "authority": "Conditional source-derived patch and iterator assumptions; not an observed generated HALOC wrapper or captured replay."
+  },
+  "arms": {
+    "faba": {
+      "run_id": "current7087-complete-haloc-placement-arm0-faba-r1",
+      "rank_map_sha256": "63fc6d578959f7a4067f7a2d654705629441eba806d86f3fc12d3cb4aa3f23cd",
+      "raw_metrics_ns": {
+        "max_wall_ns": 893553532,
+        "sum_thread_cpu_ns": 428351804734,
+        "max_thread_cpu_ns": 893500124
+      },
+      "maximum_rank_local_batch_elapsed_seconds": 0.893553532,
+      "aggregate_thread_CPU_seconds": 428.351804734,
+      "batch_normalized_maximum_rank_local_elapsed_microseconds_per_complete_call": 446.776766,
+      "all480_actual_rank_entries_accepted": true,
+      "warm_and_final_whole_U_V_global_oracles_and_prefix_suffix_guards": "PASS_by_pinned_caller_status_and_global_MPI_Allreduce",
+      "within_arm_before_after_mismatch_counts": {
+        "errno": 0,
+        "round": 0,
+        "flags": 0,
+        "mxcsr": 0,
+        "x87cw": 0,
+        "x87sw": 0
+      },
+      "normal_unit_invocations": {
+        "hpc01": "e8765c8d922c47b18d7fa3cefbeb17af",
+        "hpc02": "76ab69435e2540f3bbf8a1a12af89a02",
+        "hpc03": "8a253b5810434e86b00b282cecd10837",
+        "hpc04": "747426d82eee44e48492aa4a9a4fae3d"
+      }
+    },
+    "yslab": {
+      "run_id": "current7087-complete-haloc-placement-arm1-yslab-r1",
+      "rank_map_sha256": "41368d2cca5c3aa37131bbe8c398dee193df244412b9c287446b219384f63aa1",
+      "raw_metrics_ns": {
+        "max_wall_ns": 402880987,
+        "sum_thread_cpu_ns": 192720025214,
+        "max_thread_cpu_ns": 402811079
+      },
+      "maximum_rank_local_batch_elapsed_seconds": 0.402880987,
+      "aggregate_thread_CPU_seconds": 192.720025214,
+      "batch_normalized_maximum_rank_local_elapsed_microseconds_per_complete_call": 201.4404935,
+      "all480_actual_rank_entries_accepted": true,
+      "warm_and_final_whole_U_V_global_oracles_and_prefix_suffix_guards": "PASS_by_pinned_caller_status_and_global_MPI_Allreduce",
+      "within_arm_before_after_mismatch_counts": {
+        "errno": 0,
+        "round": 0,
+        "flags": 0,
+        "mxcsr": 0,
+        "x87cw": 0,
+        "x87sw": 0
+      },
+      "normal_unit_invocations": {
+        "hpc01": "91663eebb2394931901e21d399efdf9e",
+        "hpc02": "e5142b50cbac4fafb599b5923fc483a1",
+        "hpc03": "b078a5b9e12741c5940d0e182b4d909d",
+        "hpc04": "e1a3c1ff992741ef9015ce2ed981e2e7"
+      }
+    }
+  },
+  "yslab_lower_percent_vs_faba": {
+    "max_wall_ns": 54.91249571827556,
+    "sum_thread_cpu_ns": 55.008938194231206
+  },
+  "batch_normalized_elapsed_saving_microseconds_per_complete_call": 245.3362725,
+  "acceptance": {
+    "same_all480_raw_U_V_hashes": true,
+    "all960_rank_entries_accepted": true,
+    "eight_positive_normal_INV_journal_cgroup_closures": true,
+    "eight_per_host_per_arm_sync_drop3_receipts": true,
+    "per_host_same_boot_cache_before_unit_start": {
+      "faba": {
+        "hpc01": {
+          "same_boot_cache_finished_before_unit_started": true
+        },
+        "hpc02": {
+          "same_boot_cache_finished_before_unit_started": true
+        },
+        "hpc03": {
+          "same_boot_cache_finished_before_unit_started": true
+        },
+        "hpc04": {
+          "same_boot_cache_finished_before_unit_started": true
+        }
+      },
+      "yslab": {
+        "hpc01": {
+          "same_boot_cache_finished_before_unit_started": true
+        },
+        "hpc02": {
+          "same_boot_cache_finished_before_unit_started": true
+        },
+        "hpc03": {
+          "same_boot_cache_finished_before_unit_started": true
+        },
+        "hpc04": {
+          "same_boot_cache_finished_before_unit_started": true
+        }
+      }
+    },
+    "state_fields": [
+      "errno",
+      "round",
+      "flags",
+      "mxcsr",
+      "x87cw",
+      "x87sw"
+    ],
+    "across_maps_before_after_mismatch_counts": {
+      "before": {
+        "errno": 290,
+        "round": 0,
+        "flags": 0,
+        "mxcsr": 0,
+        "x87cw": 0,
+        "x87sw": 0
+      },
+      "after": {
+        "errno": 290,
+        "round": 0,
+        "flags": 0,
+        "mxcsr": 0,
+        "x87cw": 0,
+        "x87sw": 0
+      }
+    }
+  },
+  "FP_qualification": "UNQUALIFIED_RUNTIME_STATE_OBSERVED",
+  "forecast_performance_qualification": false,
+  "scientific_qualification": false,
+  "default_or_source_change_authorized_by_result": false,
+  "promotion_authorized": false,
+  "interpretation": "Y-slab is faster for this complete conditional genuine RSL caller pair. It does not establish a forecast gain or explain the measured one-hour forecast regression. The earlier equal64KiB screen overstates the conditional X message payload by about12x; this is a representativeness limitation, not a demonstrated forecast cause.",
+  "limits": [
+    "One FABA-first/Yslab-second pair; no repetition or order balance.",
+    "Maximum rank-local batch interval divided by2000 is batch-normalized elapsed, not directly measured individual-call latency or global network time.",
+    "Clock and six-field state snapshot boundary overhead remains included. Aggregate threadCPU is distinct from elapsed.",
+    "Unchanged source-bound genuine archive and fixed2000 complete caller calls; no measured generated-wrapper geometry/iterator binding, MPI traffic total or extrapolation.",
+    "Errno differs across maps on290ranks before and after; round/flags/MXCSR/x87 control and status observations agree. FullFP/runtime-state qualification remains unqualified.",
+    "No fullWRF integration, scientific, long-horizon or default-placement promotion from this native result."
+  ],
+  "references": {
+    "faba_launch": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current7087-mpi-yslab-placement-r1/complete-haloc-caller-feasibility-r1/production480-timing-r1/actual-complete-caller-r1/arm0-faba-ACTUAL_LAUNCH.json",
+      "sha256": "d456fef1c70646102e78e37c41f2e8791db4b249ddcecbe7a6e2859f327e5628"
+    },
+    "faba_result_and_closures": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current7087-mpi-yslab-placement-r1/complete-haloc-caller-feasibility-r1/production480-timing-r1/actual-complete-caller-r1/arm0-faba-ACTUAL_RESULT_AND_CLOSURES.json",
+      "sha256": "9bca3a072ee641646039897a15b32b74f3f2e91d9437c6810cace169d2f427ce"
+    },
+    "faba_cache_clear": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current7087-mpi-yslab-placement-r1/complete-haloc-caller-feasibility-r1/production480-timing-r1/actual-complete-caller-r1/arm0-faba-ACTUAL_CACHE_CLEAR.json",
+      "sha256": "22856e8bee6990214be54230a2a5f61ce41be218cb60f1d11d4c1bc12e3d54cf"
+    },
+    "faba_map": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current7087-mpi-yslab-placement-r1/complete-haloc-caller-feasibility-r1/production480-timing-r1/native-runtime-r1/control-rank-map.json",
+      "sha256": "63fc6d578959f7a4067f7a2d654705629441eba806d86f3fc12d3cb4aa3f23cd"
+    },
+    "yslab_launch": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current7087-mpi-yslab-placement-r1/complete-haloc-caller-feasibility-r1/production480-timing-r1/actual-complete-caller-r1/arm1-yslab-ACTUAL_LAUNCH.json",
+      "sha256": "5f60b60fc6539bd200484cce65ee90abdae1ec4d1aec5385e64d28ce399710cc"
+    },
+    "yslab_result_and_closures": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current7087-mpi-yslab-placement-r1/complete-haloc-caller-feasibility-r1/production480-timing-r1/actual-complete-caller-r1/arm1-yslab-ACTUAL_RESULT_AND_CLOSURES.json",
+      "sha256": "6395fedec587380af5aed1ef7110816cc337c0d7efe2eb202e80fba6d7fc7c96"
+    },
+    "yslab_cache_clear": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current7087-mpi-yslab-placement-r1/complete-haloc-caller-feasibility-r1/production480-timing-r1/actual-complete-caller-r1/arm1-yslab-ACTUAL_CACHE_CLEAR.json",
+      "sha256": "9df033b0d905cf20c9f33d84495d93ab2a1166d254bfe4edd577ba5e7cda6cec"
+    },
+    "yslab_map": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current7087-mpi-yslab-placement-r1/complete-haloc-caller-feasibility-r1/production480-timing-r1/native-runtime-r1/candidate-rank-map.json",
+      "sha256": "41368d2cca5c3aa37131bbe8c398dee193df244412b9c287446b219384f63aa1"
+    },
+    "pair": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current7087-mpi-yslab-placement-r1/complete-haloc-caller-feasibility-r1/production480-timing-r1/actual-complete-caller-r1/ACTUAL_PAIR_COMPARISON.json",
+      "sha256": "e572b34a13b9f08895e9dfc2901f9c08747b5ef5275f84c92c08cfe70337f4e3"
+    },
+    "source_manifest": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current7087-mpi-yslab-placement-r1/complete-haloc-caller-feasibility-r1/production480-timing-r1/native-runtime-r1/SOURCE_MANIFEST.json",
+      "sha256": "bf67e50d3cfd767b0031b21bde6da9b3f47c274d937c61b1caf21fd1348686c5"
+    },
+    "binding": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current7087-mpi-yslab-placement-r1/complete-haloc-caller-feasibility-r1/production480-timing-r1/native-runtime-r1/binding.json",
+      "sha256": "677534a965352a13a4583295da102b49d1b21f1e013fdcbf1e5519472f6836eb"
+    },
+    "controller": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current7087-mpi-yslab-placement-r1/complete-haloc-caller-feasibility-r1/production480-timing-r1/controller.py",
+      "sha256": "b1e24318f030833dfa4096451617617edb25b7ad0c23448d89853da1aa6d49c4"
+    },
+    "actual_native_build_and_smoke": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current7087-mpi-yslab-placement-r1/complete-haloc-caller-feasibility-r1/production480-timing-r1/native-runtime-r1/actual-native-RESULT.json",
+      "sha256": "e1debecf2f404c3edee05882c42614853a4e51dbd170c411732e0dabba7e79a0"
+    },
+    "actual_native_controller_and_closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current7087-mpi-yslab-placement-r1/complete-haloc-caller-feasibility-r1/production480-timing-r1/native-runtime-r1/actual-native-CONTROLLER.json",
+      "sha256": "2bf743d5083bae61f05ae85f75f2bd6338ac7c55f323ba2b56f1ec924be16fdb"
+    },
+    "stage": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current7087-mpi-yslab-placement-r1/complete-haloc-caller-feasibility-r1/production480-timing-r1/actual-complete-caller-r1/ACTUAL_STAGE.json",
+      "sha256": "94f45b1b747a1ce5ee3cb550f632cbc23249a931b84b3b7ee2e4755499f132ce"
+    }
+  }
+}

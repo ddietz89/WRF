@@ -4100,3 +4100,15 @@ A fresh one-hour full-grid comparison used the same current 7087 build and all p
 | Aggregate node CPU |124296.970125 CPU-s|129242.545810 CPU-s|**3.9788%**|
 
 This is one fixed-order placement pair, not a new original-versus-combined three-/nine-hour comparison. The corrected original remains the exact scientific reference. Variable server load is uncontrolled; main elapsed includes communication/backpressure and is not integration CPU. Current FABA stays default. The Y-slab candidate is retained experimentally while a complete genuine-RSL caller tests packing, unpacking and asymmetric messages. No cause for the slower forecast is established. A separate computation-partition oracle will test raw outputs and FP state before any MPI-overlap implementation. [Run identities, actual receipts, limitations and rollback scope](tools/cpu-compute/current7087-mpi-diagnostic/ONE_HOUR_PLACEMENT_COMPARISON.json).
+
+
+## October 22: complete MPI caller and genuine overlap correctness
+
+The complete packed RSL caller measured54.9125% lower batch elapsed and 55.0089% less thread CPU under Y-slab placement, with exact480-rank buffers and all cache/runtime/closure checks. The absolute batch-normalized saving is245.336µs per complete call. Its conditional asymmetric messages and packing narrow the earlier equal64KiB screen's scope; they do not establish a forecast benefit or explain the slower one-hour application pair. Current FABA remains default.
+
+The real computation partition is exact but adds 5.3–6.1% callee elapsed in two opposite-order captured-caller pairs. The separate deferred X API and a genuine-library/real-callee four-rank seven-case combined test now pass raw, readonly/canary and scoped strict floating-state checks against the original library. All payload data remain on the cluster. Net overlap timing and generated-HALOC/WRF acceptance are pending; no MPI source, transport or working default is promoted. [New complete-caller and overlap evidence](tools/cpu-compute/current7087-mpi-diagnostic/README.md). No new original-versus-combined three-/nine-hour timing pair was run for these checks.
+
+
+## October 23: Waitall is neutral in the complete asymmetric caller
+
+The retained Waitall patch was checked against the original library with fixed FABA placement and the same complete packing/corner-propagation driver. Original/Waitall batch elapsed was 0.887617377/0.889089860s (+0.1659%); aggregate thread CPU was 425.692452570/426.418539713CPU-s (+0.1706%). All 480 raw outputs and observed state vectors agree, caches were cleared before each arm and all eight scopes closed. One near-neutral pair establishes no useful speedup or significant regression. The earlier 64 KiB result is retained, but it did not carry into this conditional 5K/50K complete caller; the patch stays experimental. [Actual evidence and scope](tools/cpu-compute/current7087-mpi-diagnostic/WAITALL_COMPLETE_CALLER_RESULT.json). The separate deferred-X/real-computation prototype has passed its genuine original-library correctness gate; net timing remains pending.

@@ -1,0 +1,100 @@
+{
+  "status": "EXPERIMENTAL_GENUINE_RSL_MU_OVERLAP_CORRECTNESS_PASS_NET_PERFORMANCE_PENDING",
+  "date_utc": "2026-10-23T00:00:01.793608+00:00",
+  "selected_image_unchanged": "7087c69d8ef644c914bb31379b7d9e33fa1668ce12192965e1e459ed20697fdd",
+  "source_or_default_promoted": false,
+  "partition_only": {
+    "pairs": 21,
+    "MPI_calls": 0,
+    "source_object": "94fbcb5454ecf2666217303bde77a4249094833a2c1f6ab3a7eb0493d456b43b",
+    "scope": "Controlled retained capture; all40physical regions/guards/readonly and flags/round/MXCSR/x87CW. No productiontile/MPI/forecast qualification.",
+    "receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/haloc-x-mu-interior-overlap-feasibility-r1/partition-only-oracle-r1/actual-native-r1/receipt.json",
+      "sha256": "2aa13e644bd35088fcce4e3b921995befe52c1e5a7394e444ed8a385ab07281a"
+    }
+  },
+  "split_cost": {
+    "calls_per_arm": 256,
+    "comparison_scope": "One opposite-order full/split pair each on01/02, finite capturedcaller; integer callee intervals include matched timer boundaries, actual automatic workspace overhead. Restores/checks outside intervals.",
+    "comparisons": [
+      {
+        "host": "hpc01",
+        "full_wall_ns": 274153914,
+        "split_wall_ns": 291006150,
+        "full_cpu_ns": 273648529,
+        "split_cpu_ns": 290455537,
+        "split_wall_overhead_percent": 6.146998142072846,
+        "split_cpu_overhead_percent": 6.141822892824678
+      },
+      {
+        "host": "hpc02",
+        "full_wall_ns": 273230265,
+        "split_wall_ns": 287790712,
+        "full_cpu_ns": 272770700,
+        "split_cpu_ns": 287054793,
+        "split_wall_overhead_percent": 5.329002261151405,
+        "split_cpu_overhead_percent": 5.236666914738275
+      }
+    ],
+    "evidence": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/haloc-x-mu-interior-overlap-feasibility-r1/partition-cost-timing-r1/actual-timing-r1/RESULT.json",
+      "sha256": "bac8e494b99158609a432ac29a30705b382004a4b773b6283df982340f000497"
+    },
+    "decision": "Retain exact partition, record ~57-66us/call batch-normalized cost. Overlap must save more than this. No MPI gain inferred."
+  },
+  "extracted_X_API": {
+    "calls_per_rank": 90,
+    "ranks": 4,
+    "status": "PASS_EXTRACTED_XY_VS_SPLIT_XPOST_COMPLETE_360_CALLS_EXACT_PENDING_GUARDS_BYTES_CURSORS_HANDLES_FENV",
+    "scope": "Extracted originalXY vs XPOST/nonbuffer integerwork/XCOMPLETE; raw/guards/sendreadonly/8cursors/handles/exceptionflags/rounding+misuseguards and separateSTUB compile. Not fullRSL or futureFortran qualification.",
+    "receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/haloc-x-mu-interior-overlap-feasibility-r1/xpost-xcomplete-packets-r1/native-caller-preparation-r1/actual-native-r1/RESULT.json",
+      "sha256": "d2f78ed989e9e8155f542a24659640462fd6565010fc3df2ad06be78909692b0"
+    }
+  },
+  "genuine_archive_build": {
+    "status": "BUILT_EXPERIMENTAL_CURRENT7087_RSL_XPOST_XCOMPLETE_ARCHIVE_ONLY_PENDING_GENUINE_CALLER",
+    "actual_invocation": "8b867d262ddc4a0c855cdf61465c7964",
+    "archive": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current7087-rsl-xpost-xcomplete-experimental-hpc02-r1/librsl_lite.a",
+      "sha256": "5c9124b6e6bacbbba0516b296f8fd71d9bd41e8154db68b288b91384292ac3cb"
+    },
+    "C_compiles": 1,
+    "Fortran_compiles": 0,
+    "WRF_links": 0,
+    "members": 10,
+    "unchanged_members": 9,
+    "receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/haloc-x-mu-interior-overlap-feasibility-r1/xpost-xcomplete-packets-r1/archive-build-preparation-r1/actual-build-r1/BUILD_RESULT.json",
+      "sha256": "64359f0248218121ff393bb03332fba45f378044f0310ec2766aa9f34b578e88"
+    }
+  },
+  "genuine_combined_caller": {
+    "status": "PASS_GENUINE_CURRENT_RSL_AND_MU_4RANK_7CASE_SYNC_REPEAT_SPLIT_RAW_FENV",
+    "actual_invocation": "a3c573cd1da1497fbab163b9bdd605a4",
+    "cases": 7,
+    "ranks": 4,
+    "sequences_per_case_per_variant": 3,
+    "original_archive": "982d0c81abed9d9209ea955e63c0851ae7eaa51b6ade4748303176b51eaaa130",
+    "candidate_archive": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current7087-rsl-xpost-xcomplete-experimental-hpc02-r1/librsl_lite.a",
+      "sha256": "5c9124b6e6bacbbba0516b296f8fd71d9bd41e8154db68b288b91384292ac3cb"
+    },
+    "unchanged_callee": "94fbcb5454ecf2666217303bde77a4249094833a2c1f6ab3a7eb0493d456b43b",
+    "scope": "X-only, already-valid Y halo, replicated controlled113wide capture translated to four syntheticpatches; not productiongeometry/generatedHALOC wrapper. Literaloriginal982d vs new5c912, original/sync-repeat/split. SameU/V storage actualINIT/PACK and genuinecallee; rank-distinct receivedfaces; actualearly/edge sensors; consumedpairedqNaN/sNaN sensors; all40physicalregions/canaries/readonlyghostonly, raw crossarchive bytecmp and round/flags/MXCSR/x87CW exact. Errno diagnostic only.",
+    "raw_created_bytes": 1218424928,
+    "raw_files_cluster_only": true,
+    "timing_qualification": false,
+    "forecast_qualification": false,
+    "receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/haloc-x-mu-interior-overlap-feasibility-r1/combined-x-mu-caller-gate-r1/actual-native-r1/receipt.json",
+      "sha256": "e64054f50b03321a18bbaab58da7101f61c0f7e613fee641dbd5397f82dc559f"
+    },
+    "positive_closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/haloc-x-mu-interior-overlap-feasibility-r1/combined-x-mu-caller-gate-r1/actual-native-r1/closure.json",
+      "sha256": "1a07142802c3d1f0de8be3ff48d2368beb4fbc258c172087ccbc16fd6446c7ee"
+    }
+  },
+  "rollback": "Selectedsource/image/transport/mapdefaults unchanged. Use currentFABA/current982d and omit all experimental API/archives.",
+  "next": "Measure full synchronous vs deferred caller including actual split overhead across IB hosts before WRF integration; separately close representative complete-caller Waitall screen."
+}
