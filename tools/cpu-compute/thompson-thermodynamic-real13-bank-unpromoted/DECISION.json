@@ -1,0 +1,74 @@
+{
+  "decision": "HOLD_UNPROMOTED_NO_DEMONSTRATED_COMPLETE_CALLER_GAIN",
+  "scope": "Currenta93f REAL13 thermodynamic localbank replacing13 separate runtime alloc arrays; existing private/warmed enabled-mixed32level complete Thompson caller,20000restoredcalls perarm. Not forecast/capacity gain.",
+  "candidate_PP_sha256": "abe64238374c7d6289f8c1548ee0110e888cc5528311f0d9ceb5b2cfbe3792e4",
+  "candidate_object_sha256": "3616359508352c91d9d4afd1516d8df2abbf4e92c4d00c537a658b790c6beea0",
+  "parent_object_sha256": "ce0b8030803b016a35b5089e19cc2d1b85ea44152c4584a42f1e44e4c9c1c6c8",
+  "native": {
+    "cases_per_role": 11,
+    "roles": 5,
+    "raw_bytes_each": 202196,
+    "raw_same_optimization_exact": true,
+    "all_five_state_words_exact": true,
+    "readonly_guards_publicMOD_and_nontarget_exact": true,
+    "allocator_reference_counts_parent": 72,
+    "allocator_reference_counts_candidate": 60,
+    "malloc_free_pairs_removed": 12,
+    "receipt_sha256": "85109a2895a5c7250c78a8747c5aa5fdcd18704c491e6d9d3d2dcd44e80cc173",
+    "closure_sha256": "cbe3576541406360ebe5fc3deb7f43fac80a35bf50add7c5cc4960a17530d1e8",
+    "invocation_id": "b266363ed31f40088f01f0717ba49ad4"
+  },
+  "caller": {
+    "comparisons": [
+      {
+        "host": "hpc01",
+        "scope": "One complete synthetic enabled-mixed32level caller, samehost paired arms only; not forecast gain",
+        "calls": 20000,
+        "raw_exact": true,
+        "raw_sha256": "1f01732f5419c18e6ffae8d588ddc149d32546a3dbef3160e015726fc3256c0a",
+        "parent_caller_interval_seconds": 2.049931015,
+        "candidate_caller_interval_seconds": 2.05164305,
+        "candidate_caller_elapsed_reduction_percent": -0.08351671287827322
+      },
+      {
+        "host": "hpc04",
+        "scope": "One complete synthetic enabled-mixed32level caller, samehost paired arms only; not forecast gain",
+        "calls": 20000,
+        "raw_exact": true,
+        "raw_sha256": "1f01732f5419c18e6ffae8d588ddc149d32546a3dbef3160e015726fc3256c0a",
+        "parent_caller_interval_seconds": 2.071785079,
+        "candidate_caller_interval_seconds": 2.083436408,
+        "candidate_caller_elapsed_reduction_percent": -0.5623811619313024
+      }
+    ],
+    "actual_result_sha256": "ee6ad41d693c77c2f02972eede76dd1c8ba332fab3f223462eba4717843ebffc",
+    "four_normal_closures": true,
+    "checked_cache_clears_each_arm": true,
+    "original_automatic_allocation_free_inside_timed_call": true,
+    "init_warm_restore_and_checks_outside_timed_interval": true,
+    "CPU_scope": "Cgroup context only; no separate caller threadCPU measurement",
+    "calls_per_arm": 20000
+  },
+  "retained_setup_failures": [
+    {
+      "attempt": "R1",
+      "error": "32MiB worker FSIZE hit copying lookup table; zero native/links",
+      "invocation": "3295591023c34f50bcb2858ec9083277",
+      "receipt_sha256": "558363315780c406a63cee435f8e8f925c2500b4c03f72eb60b2d19139daa575"
+    },
+    {
+      "attempt": "R2",
+      "error": "32MiB worker FSIZE hit genuine executable link; zero native/completed links",
+      "invocation": "c8bd44cf724d41b39813eb469eb04f79",
+      "receipt_sha256": "5342b43aa041a2adc148ace5ffc2cff75031e009f3d8a4d715edebaae1d032c0"
+    }
+  ],
+  "interpretation": "Both small negative caller differences are unresolved as reproducible regressions; no measured benefit or capacity reduction is established. Fewer allocations alone does not justify default inclusion. No application run or further timing matrix. Exact candidate/evidence retained for a future distinct measured mechanism.",
+  "rollback": "No selected source/default/artifact changed; currenta93f remains selected.",
+  "evidence_paths": {
+    "native_receipt": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currenta93f-late-thompson-measured-pc-triage-r1/thermodynamic-real13-bank-preparation-r1/cached-native-fsize-r3/actual-native-r3/receipt.json",
+    "native_closure": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currenta93f-late-thompson-measured-pc-triage-r1/thermodynamic-real13-bank-preparation-r1/cached-native-fsize-r3/actual-native-r3/closure.json",
+    "caller_result": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currenta93f-late-thompson-measured-pc-triage-r1/thermodynamic-real13-bank-preparation-r1/caller-timing-preparation-r1/actual-caller-r1/ACTUAL_RESULT.json"
+  },
+  "created_utc": "2026-10-23T19:52:12.749486+00:00"
+}
