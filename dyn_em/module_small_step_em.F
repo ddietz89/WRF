@@ -1250,6 +1250,21 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
        MUTS(i,j) = MUT(i,j)+MU(i,j)
        MUAVE(i,j) =.5*((1.+epssm)*MU(i,j)+(1.-epssm)*MUAVE(i,j))
      ENDDO
+#ifdef WRF_ADVANCE_MU_WW_ROW_PIPELINE
+     DO kk=2,k_end
+     k=kk-1
+     DO i=i_start, i_end
+       ww(i,kk,j)=ww(i,kk-1,j)-dnw(kk-1)*((c1h(k)*dmdt(i))+dvdxi(i,kk-1)+(c1h(k)*mu_tend(i,j)))/msfty(i,j)
+       ww(i,kk-1,j)=ww(i,kk-1,j)-ww_1(i,kk-1,j)
+     ENDDO
+     END DO
+     IF (k_end>=1) THEN
+     DO i=i_start, i_end
+       ww(i,k_end,j)=ww(i,k_end,j)-ww_1(i,k_end,j)
+     END DO
+     END IF
+
+#else
      DO kk=2,k_end
      k=kk-1
      DO i=i_start, i_end
@@ -1263,6 +1278,7 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
        ww(i,k,j)=ww(i,k,j)-ww_1(i,k,j)
      END DO
      END DO
+#endif
    ENDDO
 ! CALCULATION OF THETA
 ! NOTE: theta'' is not coupled with the map-scale factor,

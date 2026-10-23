@@ -269,6 +269,29 @@ endif
 endif
 endif
 
+# WW recurrence / previous-row WW1 consumption, exact scalar operations retained.
+# Qualified GNU13.3.0 emptyOMP/OMPCPP SmallStepSIMD1/Zen21; matchingserial unqualified.
+# Explicit0 requires full regeneration/rebuild/rearchive/relink, restoring original schedule.
+WRF_ADVANCE_MU_WW_ROW_PIPELINE ?= 1
+ifeq ($(WRF_ADVANCE_MU_WW_ROW_PIPELINE),1)
+ifeq ($(WRF_SMALL_STEP_SIMD),1)
+ifeq ($(WRF_SMALL_STEP_ZEN2),1)
+ifeq ($(strip $(OMPCPP) $(OMP) $(PROMOTION) $(DOUBLE_PRECISION)),)
+ifeq ($(strip $(RWORDSIZE)),4)
+ifeq ($(strip $(IWORDSIZE)),4)
+ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+module_small_step_em.o: private override CPPFLAGS += -DWRF_ADVANCE_MU_WW_ROW_PIPELINE
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+
+
 cio.o :
 	$(CC) -c $(CFLAGS) cio.c
 
