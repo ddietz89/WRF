@@ -4300,3 +4300,22 @@ Three separately inspected hot W-equation locations all map to already qualified
 Current19ad (source87fab099, all previous improvements plus RK1 U/V snapshot fusion) passed its own corrected-original546b comparison: all four products and545 ordered steps exact, with all eight model scopes and the unchanged reader normally closed. The first A1–B1 pair measured **798.798972→659.818217s model/MPI wall (17.3987% lower)**, **594.565330→557.032430s integration-step elapsed (6.3127% lower)** and **358521.264108→320138.809039CPU-s (10.7058% less)**. These are one original-first pair, not isolated U/V benefit or completed repeatability evidence. The B2–A2 counterpart subsequently passed; the completed four-arm result is at the top of this document. Retained raw collector labels mention older Tcopy/REAL15/7087; actual immutable leases identify19ad and a derived report corrects labels without changing the original checker or raw observations.
 
 The separate mass-preparation fusion is **rejected** by its genuine current-object/O2 raw gate. The O0 bounds pair and retained88 O2 cases passed, but five of12 targeted MU cases changed384 quiet-NaN payload words in MUTS and downstream W2/T2. All five observed state words still agreed; that does not satisfy exact raw output acceptance. Its failed exit1 is positively drained and preserved. No timing, operand repair or promotion follows; selected19ad and the independent queued W candidate remain unchanged. [Decision, raw classification and failed closure](tools/cpu-compute/smallstep-rk1-mu-preparation-fusion/README.md).
+
+
+## October23 current526e nine-hour exact science and request-only evidence
+
+Run `production512-current526e-peer-prework9h-candidate-r2` completed on October23 and passed the unchanged comparison of all ten full products and1,625 ordered steps through15:00 against retained corrected-original546b. All four model invocations and reader48c5df67db124cc5b7931739e466abfe normally closed; separate own-image qualification is `tools/cpu-compute/smallstep-rk1-w-copy-fusion/NINE_HOUR_APPLICATION_QUALIFICATION.json` (e05c974e). The immutable short and three-hour qualifications remain unchanged.
+
+| Metric | Corrected original in this experiment | Current526e candidate |
+|---|---:|---:|
+| Model/MPI wall | No fresh timing arm |1,833.056727s (30.551min) |
+| Main-step elapsed | No fresh timing arm |1,732.275090s (28.871min) |
+| Aggregate nodeCPU | No fresh timing arm |921,618.481129CPU-s (256.005CPU-h) |
+
+These are candidate-only, request-observer-instrumented metrics, not a new speedup estimate or an unprofiled repeat. Main elapsed includes communication and output backpressure; wall minus main is not pure I/O or independent writer-drain time. The earlier19ad counterbalanced three-hour comparison remains separate historical performance evidence.
+
+Both optional native profiles failed before recorder launch because configured unit names did not match the collector constructor. Their raw files are empty and no recorder invocation exists. Capture/profile qualification remains false; no automatic model/profile repeat was made. An external lifecycle check positively established all model/collector/publisher closures and that both possible recorder names never started; it did not change the protected scientific checker or manufacture a normal recorder exit.
+
+A separate bounded read-only request/DT extraction then normally closed on hpc03 (fae4c1681c0e4da5ac6fb5a378a356e8), summary43879770. Its analysis retains handle ambiguities, conditional normal-D1 ordered-channel matching and unavailable samples. Named sender work and C2 stack identity remain unknown until actual evidence establishes them; API waits are not wire time or removable forecast headroom.
+
+The WDTN row pipeline remains an experimental child pending its own short application. Parent526e nine-hour science does not transfer to that child. Guarded MYJPBL surface-power reuse is a conditional source investigation, not a measured gain: actual assembly confirms the duplicate call, but no candidate or native/state qualification exists. Provider objections that a bit guard cannot restrict arbitrary caller inputs were rejected; actual library/caller state evidence remains a real open gate.
