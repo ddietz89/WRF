@@ -207,6 +207,26 @@ endif
 endif
 endif
 
+
+# Exact same-I WDTN producer / preceding theta-row consumer schedule.
+# Qualified GNU13.3 empty-OMPCPP SmallStep SIMD/Zen2 path only.
+# Set WRF_ADVANCE_MU_WDTN_ROW_PIPELINE=0 and regenerate/rebuild for original schedule.
+# No DM_PARALLEL assertion; matching serial builds remain unqualified.
+WRF_ADVANCE_MU_WDTN_ROW_PIPELINE ?= 1
+ifeq ($(WRF_ADVANCE_MU_WDTN_ROW_PIPELINE),1)
+ifeq ($(WRF_SMALL_STEP_SIMD),1)
+ifeq ($(WRF_SMALL_STEP_ZEN2),1)
+ifeq ($(strip $(OMPCPP)),)
+ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+ifneq (,$(findstring 13.3.0,$(shell $(SFC) --version 2>/dev/null)))
+module_small_step_em.o: private override CPPFLAGS += -DWRF_ADVANCE_MU_WDTN_ROW_PIPELINE
+endif
+endif
+endif
+endif
+endif
+endif
+
 cio.o :
 	$(CC) -c $(CFLAGS) cio.c
 

@@ -1281,6 +1281,31 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
        wdtn(i,1  )=0.
        wdtn(i,kde)=0.
      ENDDO
+#ifdef WRF_ADVANCE_MU_WDTN_ROW_PIPELINE
+     DO k=2,k_end
+     kk = k-1
+     DO i=i_start, i_end
+        wdtn(i,k)= ww(i,k,j)*(fnm(k)*t_1(i,k  ,j)+fnp(k)*t_1(i,k-1,j))
+       t(i,kk,j) = t(i,kk,j) - dts*msfty(i,j)*(              &
+                          
+                          msftx(i,j)*(                     &
+               .5*rdy*                                     &
+              ( v(i,kk,j+1)*(t_1(i,kk,j+1)+t_1(i,kk, j ))     &
+               -v(i,kk,j  )*(t_1(i,kk, j )+t_1(i,kk,j-1)) )   &
+             + .5*rdx*                                     &
+              ( u(i+1,kk,j)*(t_1(i+1,kk,j)+t_1(i  ,kk,j))     &
+               -u(i  ,kk,j)*(t_1(i  ,kk,j)+t_1(i-1,kk,j)) ) ) &
+             + rdnw(kk)*( wdtn(i,kk+1)-wdtn(i,kk) ) )       
+     ENDDO
+     ENDDO
+     IF(k_end>=1)THEN
+       k = k_end
+       DO i=i_start, i_end
+         t(i,k,j) = t(i,k,j) - dts*msfty(i,j)*( msftx(i,j)*( .5*rdy* ( v(i,k,j+1)*(t_1(i,k,j+1)+t_1(i,k, j )) -v(i,k,j  )*(t_1(i,k, j )+t_1(i,k,j-1)) ) + .5*rdx* ( u(i+1,k,j)*(t_1(i+1,k,j)+t_1(i  ,k,j)) -u(i  ,k,j)*(t_1(i  ,k,j)+t_1(i-1,k,j)) ) ) + rdnw(k)*( wdtn(i,k+1)-wdtn(i,k) ) )       
+       ENDDO
+     ENDIF
+
+#else
      DO k=2,k_end
      DO i=i_start, i_end
         ! for scalar eqn RHS term 3
@@ -1304,6 +1329,7 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
              + rdnw(k)*( wdtn(i,k+1)-wdtn(i,k) ) )       
      ENDDO
      ENDDO
+#endif
    ENDDO
 END SUBROUTINE advance_mu_t
           
