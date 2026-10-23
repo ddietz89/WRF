@@ -1,0 +1,44 @@
+{
+  "status": "PASS_CURRENT_PHCOPY_OWN_SHORT_35_STEP_TWO_PRODUCT_SCIENCE",
+  "science": {
+    "products": 2,
+    "ordered_steps": 35,
+    "last_step": "2026-10-12_06:10:00",
+    "world": 512,
+    "compute": 480,
+    "quilt": 32,
+    "tiles": 2,
+    "positive_writer_roots": [
+      487,
+      495
+    ]
+  },
+  "actual_science_receipt": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentf272-phcopy10m-runtime-r1/science-receipt.json",
+    "sha256": "a56d274f600f28ae2e067645ee48b0663008a333ed18db7d3e92ad8173a4dd35"
+  },
+  "reader_closure": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-ph-copy-fusion/reader-closure.json",
+    "sha256": "3d9b02921a2b65bc967a228c540353d473cd3284e3abe294422f179954643f7c",
+    "invocation_id": "6e2d74bc5c6b4d2db7b46160acda40e6"
+  },
+  "model_closures": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-ph-copy-fusion/model-closures.json",
+    "sha256": "1d9121d852c9bcacdfc05dd559d0e07085774c4645ebaa48456516c85d2123fe"
+  },
+  "metrics": {
+    "control": {
+      "wall_seconds": 267.5341711281799,
+      "cpu_seconds": 86843.488941,
+      "main_step_sum_seconds": 42.03197
+    },
+    "candidate": {
+      "wall_seconds": 137.59483380196616,
+      "cpu_seconds": 53325.135198,
+      "main_step_sum_seconds": 38.82712
+    }
+  },
+  "comparison_design": "Candidate-only science qualification versus frozen original ten-minute outputs; UNPAIRED descriptive metrics, no matched forecast timing or causal kernel claim",
+  "timing_scope": "Candidate-only short validation versus frozen original reference; UNPAIRED descriptive actual totals, no fresh forecast-speedup claim. Main-step sum is elapsed time including communication/backpressure; aggregateCPU includes MPI spin.",
+  "scope": "Complete original-checker inventory stays in experimental evidence archive; this compact summary does not replace it."
+}

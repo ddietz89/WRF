@@ -1,0 +1,47 @@
+{
+  "status": "QUALIFIED_GUARDED_CANONICAL_ONE_OBJECT_RUNTIME_EQUIVALENCE_AND_REUSED_PP_APPLICATION",
+  "source_commit": "85eb38440734d683d66d3bd1a82af422053ff584",
+  "sources": {
+    "dyn_em/module_small_step_em.F": "32c85d1e99afd980bc4763dc0d2697e225e6dfc7fd8f5eaed986b82def68927c",
+    "dyn_em/Makefile": "70cd122deb326d948ff6dca3e587cd1fc5c280d550b9bd790bc66fc0b4803ede"
+  },
+  "defaults": {
+    "WRF_SMALL_STEP_PH_COPY_FUSION": 1,
+    "WRF_SMALL_STEP_T_COPY_FUSION": 1,
+    "WRF_SMALL_STEP_SIMD": 1,
+    "WRF_SMALL_STEP_ZEN2": 1,
+    "OMPCPP": "",
+    "compiler": "GNU Fortran13.3.0"
+  },
+  "qualified_runtime_object_sha256": "40c50ae7c41f5c29ccd5d9248b0f3148e2fea211e7d5519fbe7391e382cc24f0",
+  "selected_qualified_PP_sha256": "7ecc8883272cbd28cdf1c683f15a8c04f78e313aed66a60105651a0dc96abcc3",
+  "actual_canonical_PP_sha256": "a98c743c315d5eff2893a1dd5822459176c1a3ef345357e0f7ad332270a3ec8b",
+  "actual_canonical_object_sha256": "1b4e0afea53604b197fc0002372620d98b4715bbb4a37f26e85a6d2f01591347",
+  "actual_runtime_equivalence": {
+    "status": "PASS_ALLOCATED_BYTES_RELOCATIONS_NONFILE_SYMBOLS_EXACT",
+    "sha256": "ea0be0bf018617a5bcd378ad1b35eaad07c8353f95019c206fd264ee0bcc5c15"
+  },
+  "actual_delivery_receipt": {
+    "path": "canonical-delivery-receipt.json",
+    "sha256": "ac36f0a4794d06d21fbc206d081ac29c1b6a090a08d0eb3c46ff6b4e4d7fa501"
+  },
+  "actual_delivery_closure": {
+    "path": "canonical-delivery-closure.json",
+    "sha256": "17efda68f6f91faea650334fb12b6226cfa05095ff93f51d16afdb0a64b9007c"
+  },
+  "reproduction_method": "Retained qualified configure/outer Make context; actual default guard expansion; WRF sed/cpp/standard/cpp pipeline; one strictO2compile, unchanged module dependencies, exact publicMOD/runtimeobject gate. See preserved delivery receipt for actual argv/tool/dependency hashes. No new compiler/ISA/globalflags.",
+  "scope": "MPI/defaultTcopy qualification. No DM_PARALLEL guard, serial or Tcopy0/PH1 proof. ActualPP and object-file byte identity false; oneobject runtime equality true. No fresh full-image source-build qualification. Rebuilt images require their own artifact/science binding.",
+  "rollback": {
+    "feature": "WRF_SMALL_STEP_PH_COPY_FUSION=0, regenerate/rebuild SmallStep/archive/image",
+    "parent_evidence_commit": "76806e62f6c7a95f53d4f9cd1efc82aff144d227",
+    "restore_together": [
+      "dyn_em/module_small_step_em.F",
+      "dyn_em/Makefile",
+      "tools/cpu-working/selection.json",
+      "tools/cpu-working/CURRENT_SOURCE_BUILD_BINDING.json",
+      "tools/cpu-working/LATEST_APPLICATION_RESULT.json"
+    ],
+    "parent_executable_sha256": "f2726b583688c824520d28c240f1bf962bad45f95b050c4b7ca0773d9ef1b567",
+    "parent_archive_sha256": "1f86cd2c13ef38df52ee47558c467ed203c93ab612de2d27194f4df832209bd7"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "status": "FAIL_RETAINED_NO_RETRY",
+  "invocation_id": "1d073e3ff65d4d868a5ea80804119693",
+  "commands": [
+    {
+      "label": "make-guard-only",
+      "argv": [
+        "/usr/bin/make",
+        "--no-print-directory",
+        "-r",
+        "-s",
+        "-f",
+        "emit.mk",
+        "module_small_step_em.o",
+        "EM_CORE=1",
+        "NMM_CORE=0",
+        "DA_CORE=0",
+        "WRFPLUS=0",
+        "NMM_NEST=0"
+      ],
+      "returncode": 0,
+      "stdout_bytes": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "source_compiles": 0,
+  "links": 0,
+  "cache_actions": 0,
+  "MPI_calls": 0,
+  "source_commit": null,
+  "scope": "Onecanonical32c8+actualnewMakeguard70cd\u2192realWRFsed/cpp/standard/cpp\u2192onequalifiedstrictO2compile, compareactual40c runtimeallocatedbytes/RELA/nonFILEsymbols and publicMOD. No link/model/cache/numericalcandidate/promotion or originalartifactreplacement; wholeobjectSHA/PPbyteidentity recordedseparately. MPIqualified/serialunqualified.",
+  "production_artifacts_modified": false,
+  "actual_make_values": {
+    "CPP": "/usr/bin/cpp -P -traditional-cpp",
+    "CPPFLAGS": "-DEM_CORE= -DNMM_CORE= -DNMM_MAX_DIM=2600 -DDA_CORE= -DWRFPLUS= -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR  -DWRF_USE_CLM -DUSE_NETCDF4_FEATURES -DWRFIO_NCD_LARGE_FILE_SUPPORT  -DDM_PARALLEL -DNETCDF -DLANDREAD_STUB=1 -DUSE_ALLOCATABLES -Dwrfmodel -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DBUILD_RRTMG_FAST=0 -DBUILD_RRTMK=0 -DBUILD_SBM_FAST=1 -DSHOW_ALL_VARS_USED=0 -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=  -I. -traditional-cpp -DUSE_NETCDF4_FEATURES -DWRFIO_NCD_LARGE_FILE_SUPPORT  -DWRF_SMALL_STEP_T_COPY_FUSION -DWRF_SMALL_STEP_PH_COPY_FUSION",
+    "OMPCPP": "",
+    "TRADFLAG": "-traditional-cpp -DUSE_NETCDF4_FEATURES -DWRFIO_NCD_LARGE_FILE_SUPPORT",
+    "SED_FTN": "/tools/standard.exe",
+    "FCFLAGS": "-O2 -fno-fast-math -ffp-contract=off -w -fno-fast-math -ffp-contract=off -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -fallow-argument-mismatch -fallow-invalid-boz -g -fopenmp-simd -march=znver2 -mno-fma",
+    "FC": "time /pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+    "SFC": "/pool/wrf-experiment/toolchains/gnu/13.3.0/wrappers/gfortran",
+    "MODULE_DIRS": "",
+    "PROMOTION": "",
+    "FCSUFFIX": "",
+    "OMP": ""
+  },
+  "error": "AssertionError(('MAKE_MODULE_DIRS_DIFFER', []))",
+  "traceback": "Traceback (most recent call last):\n  File \"/pool/wrf-experiment/wrf-cpu/source-discovery/currentf272-phcopy-canonical-delivery-one-object-r1/run_delivery.py\", line 54, in <module>\n    assert moduleflags==[x for x in cmd[4:]if x.startswith('-I')],('MAKE_MODULE_DIRS_DIFFER',moduleflags)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: ('MAKE_MODULE_DIRS_DIFFER', [])\n",
+  "elapsed_seconds_context_only": 1.0443824850954115,
+  "source_pins_after": {
+    "PLAN.json": "c3fbed375b8279dd84690c0d97e0b894e96fc7789415877c638b812ef7906587",
+    "ROOT_COMMANDS_AND_METHOD.txt": "d8a3b55e4b1d833e9bfec4edfad12264dbbaf969b13684dc310a4ca4fcb63b68",
+    "artifact-recipe.json": "2e4ed2ecf35d545b95a7f46331ad55c31be6498cbd4bf3ce13aa10256b7b0682",
+    "candidate_Makefile": "70cd122deb326d948ff6dca3e587cd1fc5c280d550b9bd790bc66fc0b4803ede",
+    "collect_build.py": "d99588ce982a74a5ec5290a4dec9d2d399692322d2b84e5eefac0fc78c01cd24",
+    "current-native-recipe.json": "f6b2db42ec6809b198224b491b569321369207821f24677239424af532007ec4",
+    "elf_semantics.py": "870dcfbc94e7e1627b08830f447a01a7bc495f227a892e578cc20dac0ca9afaa",
+    "expanded-CPP-donor.json": "0f6555ee1903543014b56d0c857976f0c57926fc329ba7a6a55f7845f53acf30",
+    "genuine-gate-closure.json": "142837bbced81c41e97d363a255dd76b8cc49e0059e2c58e133542c0e7450ea1",
+    "genuine-gate-receipt.json": "a677d3d0bf69e295122d8cbf4224821713144573cbc3271ad967de8850e0fb10",
+    "launch_build.py": "b21c6c089a3820ae244652a0dc12acf527a870178624f78d5f0a82ef9a6b328d",
+    "module_small_step_em.F": "32c85d1e99afd980bc4763dc0d2697e225e6dfc7fd8f5eaed986b82def68927c",
+    "qualified_module_small_step_em.f90": "7ecc8883272cbd28cdf1c683f15a8c04f78e313aed66a60105651a0dc96abcc3",
+    "run_delivery.py": "4c946fee68bc772656f730c53d0f8cd6939d7ca4fd20b9677e8cd5f47c36c1c9",
+    "source-default-inverse.json": "049ff9fc67e3f9110e1c81a4d229ee5533435713ccc23e948785f9535a635cbf"
+  }
+}

@@ -1,8 +1,8 @@
 {
-  "source_commit": "70ce108d61573ef1aa5ef7d60a846f83e1864639",
+  "source_commit": "85eb38440734d683d66d3bd1a82af422053ff584",
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/current7087-tcopy-real15-bank-two-member-native-r1/wrf.exe",
-    "sha256": "f2726b583688c824520d28c240f1bf962bad45f95b050c4b7ca0773d9ef1b567"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentf272-smallstep-rk1-ph-copy-fusion-one-member-native-r1/wrf.exe",
+    "sha256": "13fe77d645d6a3dbc74195e8482b6d1e6d9754ea269bfd28aebc645d0f1d0d35"
   },
   "artifacts": {
     "shim": {
@@ -32,7 +32,7 @@
     "thompson_build_scope": "GNU13.3 strict cold one-domain DIMNRHG1/OMP1:23fields/12fixedowners, lazyfixedgrouppublication and privateTCGINITsentinel; no-macro localCPPprojection literal, no genericwhole-object qualification.",
     "BC_module_local_flag": "-fopenmp-simd",
     "BC_flag_scope": "Required only for qualified module_bc.F recipe; no global fast math/flags change. Generic builds without this flag do not claim BC SIMD.",
-    "source_rebuild_recipe": "tools/cpu-compute/thompson-real15-bank/REBUILD_RECIPE.json",
+    "source_rebuild_recipe": "tools/cpu-compute/smallstep-rk1-ph-copy-fusion/REBUILD_RECIPE.json",
     "theta_SW_source_recipes": {
       "theta": "tools/cpu-compute/theta-sw-batch/theta/REBUILD_RECIPE.json",
       "SW": "tools/cpu-compute/theta-sw-batch/sw/REBUILD_RECIPE.json",
@@ -62,7 +62,10 @@
     "SMALLSTEP_T_COPY_FUSION_scope": "Actualguard GNU13.3+emptyOMPCPP+existingSmallStepSIMD1+Zen21. MPI qualified; matchingserialconfigurations unqualified. Explicit0 withobject/archive/image rebuild; nonmatchingguards originalschedule.",
     "parent_source_rebuild_recipe_before_TCOPY": "tools/cpu-compute/add-a2a-simd/REBUILD_RECIPE.json",
     "parent_source_rebuild_recipe_before_REAL15_BANK": "tools/cpu-compute/smallstep-rk1-t-copy-fusion/REBUILD_RECIPE.json",
-    "THOMPSON_REAL15_BANK_source_recipe": "tools/cpu-compute/thompson-real15-bank/REBUILD_RECIPE.json"
+    "THOMPSON_REAL15_BANK_source_recipe": "tools/cpu-compute/thompson-real15-bank/REBUILD_RECIPE.json",
+    "WRF_SMALL_STEP_PH_COPY_FUSION": 1,
+    "SMALLSTEP_PH_COPY_FUSION_scope": "GNU13.3.0/emptyOMPCPP with SmallStepSIMD1+Zen2=1; MPI/defaultTcopy is qualified. No DM_PARALLEL guard; matchingserial and Tcopy0/PH1 are unqualified. Explicit0 plusregenerate/rebuild/relink restoresPHschedule; nonmatchingguards keep originalPHpath.",
+    "parent_source_rebuild_recipe_before_PH_COPY_FUSION": "tools/cpu-compute/thompson-real15-bank/REBUILD_RECIPE.json"
   },
   "runtime": {
     "OMP_NUM_THREADS": 1,
@@ -80,10 +83,10 @@
   "read_affine_IO_archive_sha256": "651835f31089e16759177734198ece5b121d704355c73abddde483f4cae2c14c",
   "read_affine_IO_object_sha256": "c9c4e5b7a0225523e7d85cfc188022d797204d3f4dd4494b54c416e3bec99320",
   "schema_version": 3,
-  "status": "CURRENT_TCOPY_REAL15_BANK_OWN_FRESH_THREE_HOUR",
-  "scope": "Current f272/1f86 owns fresh3h only; short/noon9h/restart/profile evidence historical and not transferred.",
-  "includes": "All prior selected8400 components plus exact15REAL Thompson tendency bank; source flags/runtime unchanged.",
-  "source_commit_scope": "Actual combined f272 own fresh3h only. Bank source/commit tracks exact tested B59a/PP3ef/objectce0b after science; no new flags/fresh post-commit canonical fullbuild/raw producer commit claim. Tcopy GNU13.3 pure-MPI empty-OMPCPP default retained; serial unqualified.",
+  "status": "CURRENT_PHCOPY_OWN_SHORT_35_SCIENCE",
+  "scope": "Current13fe/1a8f owns short35 science only; parent3h/noon/profile evidence historical.",
+  "includes": "All prior selectedf272 components plus RK1 PH snapshot/consumer fusion only; qualified Thompson bank and Tcopy retained.",
+  "source_commit_scope": "Own short35/two-product original-science qualification only. Tested image reused qualifiedPP7ecc/object40c5; separate actual canonical guardedCPP/strictO2 oneobject delivery is mandatory, not fresh fullWRF build/link. Sourcecommit is posttesttracking, rawproducerNULL. One synthetic RK1 caller pair per host, not forecast gain.",
   "input_implementation_commit": "614267f340a23ffc342962b3c64e323719fe4d06",
   "root_input": {
     "enabled_in_working_configuration": true,
@@ -114,59 +117,22 @@
     "other_511_ranks": "OriginalNC8adc/output51a and selected9371 codec; inputadapter06d/privateNCa32 onlyrank0."
   },
   "science": {
-    "products": 4,
-    "ordered_steps": 545,
-    "last_step": "2026-10-12_09:00:00",
+    "products": 2,
+    "ordered_steps": 35,
+    "last_step": "2026-10-12_06:10:00",
     "world": 512,
     "compute": 480,
     "quilt": 32,
     "tiles": 2,
     "positive_writer_roots": [
       487,
-      495,
-      503,
-      511
-    ],
-    "actual_field_marker_ranks": [
-      480,
-      481,
-      482,
-      483,
-      484,
-      485,
-      486,
-      487,
-      488,
-      489,
-      490,
-      491,
-      492,
-      493,
-      494,
-      495,
-      496,
-      497,
-      498,
-      499,
-      500,
-      501,
-      502,
-      503,
-      504,
-      505,
-      506,
-      507,
-      508,
-      509,
-      510,
-      511
-    ],
-    "original_compare_one_AST_exact": true
+      495
+    ]
   },
-  "qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/thompson-real15-bank/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-  "current_application_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/thompson-real15-bank/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+  "qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-ph-copy-fusion/APPLICATION_QUALIFICATION.json",
+  "current_application_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-ph-copy-fusion/APPLICATION_QUALIFICATION.json",
   "source_build_binding_file": "CURRENT_SOURCE_BUILD_BINDING.json",
-  "current_three_hour_qualified": true,
+  "current_three_hour_qualified": false,
   "current_nine_hour_qualified": false,
   "prior_nine_hour": {
     "evidence_file": "PREVIOUS_NINE_HOUR_RESULT_B1FB.json",
@@ -177,29 +143,30 @@
   "memory_qualification_file": "tools/cpu-memory/thompson-table-sharing/lazy-group-init/QUALIFICATION.json",
   "activation": "Selection record, not a launcher. Use a fresh bounded lease/run/log directory and the exact root-only input rank-exec binding, with all original runtime checks and cache-before-each-arm SOP. Never preload launchers/helpers.",
   "rollback": {
-    "parent_posttest_source_commit": "0b810fdef48310d2264da60f72d864805e32f9dd",
     "parent_artifacts": {
       "executable": {
-        "path": "/pool/wrf-experiment/wrf-cpu/builds/current7087-smallstep-rk1-t-copy-fusion-one-member-native-r1/wrf.exe",
-        "sha256": "8400d7c5e3751233a8a22bd65d4bc4d79fd3e99fbc162e5fa00cf16dd51cce12"
+        "path": "/pool/wrf-experiment/wrf-cpu/builds/current7087-tcopy-real15-bank-two-member-native-r1/wrf.exe",
+        "sha256": "f2726b583688c824520d28c240f1bf962bad45f95b050c4b7ca0773d9ef1b567"
       },
-      "archive_path": "/pool/wrf-experiment/wrf-cpu/builds/current7087-smallstep-rk1-t-copy-fusion-one-member-native-r1/libwrflib.a",
-      "archive_sha256": "1019d50d614ee0dd75ef314a83cd2c1b52298f54e61a680bbffb5ffebc41dcda"
+      "archive_path": "/pool/wrf-experiment/wrf-cpu/builds/current7087-tcopy-real15-bank-two-member-native-r1/libwrflib.a",
+      "archive_sha256": "1f86cd2c13ef38df52ee47558c467ed203c93ab612de2d27194f4df832209bd7"
+    },
+    "parent_source_commit": "70ce108d61573ef1aa5ef7d60a846f83e1864639",
+    "snapshot_manifest": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-currentf272-ph-copy-feasibility-r1/promotion-evidence-preparation-r1/PRE_PUBLICATION_F272_SNAPSHOT/SNAPSHOT_MANIFEST.json",
+      "sha256": "0dc0d4c9eca975191b332fdeccb5eab7fc0cbee0a42422f5e52c1dba8520cb9a"
     },
     "restore_together": [
-      "phys/module_mp_thompson.F",
+      "dyn_em/module_small_step_em.F",
+      "dyn_em/Makefile",
       "tools/cpu-working/selection.json",
       "tools/cpu-working/CURRENT_SOURCE_BUILD_BINDING.json",
       "tools/cpu-working/LATEST_APPLICATION_RESULT.json"
     ],
-    "snapshot_manifest": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current7087-direct-wrf-triage-r1/smallstep-rk1-t-copy-fusion-preparation-r1/promotion-evidence-preparation-r1/combined-bank-threehour-publication-r1/PRE_PUBLICATION_8400_SNAPSHOT/SNAPSHOT_MANIFEST.json",
-      "sha256": "a324177ac181ae91da197b4197e3bce4923072f323837aba1d4cc0b675ffa8f5"
-    },
-    "rule": "Revert only dedicated bank source change and restore exact8400 records; preserve already promoted Tcopy source/Make guard,8bee/9371/privateHDF5/FABA/all preceding improvements. Rebuild Thompson/archive/image, or select retained8400 image."
+    "runtime": "Keep actual current8bee/9371/privateHDF5/FABA settings; restore parentf272 records together or optoutWRF_SMALL_STEP_PH_COPY_FUSION=0 and rebuild/relink."
   },
-  "claim_limits": "One fresh corrected-original-first/combined-candidate-second pair; no isolated/incremental/additive/repeatability claim. Main includes communication/backpressure; wall-minus-main is not pureIO. Essentiallyneutral bankcaller .253/.485percent; no capacity or peak-memory reduction claim.",
-  "next_qualification": "No automatic short,one-hour,noon,nine-hour,restart or profile transfer.",
+  "claim_limits": "Current13fe owns short35/two-product exact science versus a frozen original reference; UNPAIRED candidate-only observations. Two opposite-order synthetic RK1 caller pairs were7.93149/7.22981percent shorter; no isolated/additive forecast gain, fresh paired forecast, repeatability or concurrent-throughput claim. Parentf272 fresh3h pair remains historical.",
+  "next_qualification": "No automatic three-hour/one-hour/noon/nine-hour/restart/profile transfer.",
   "output_fusion_qualification_file": "tools/cpu-output/quilt512/padding-block32/NATIVE_QUALIFICATION.json",
   "latest_nine_hour": null,
   "padding_only_fill_qualification_file": "tools/cpu-output/quilt512/padding-only-fill/NATIVE_QUALIFICATION.json",
@@ -441,10 +408,10 @@
     },
     "scope": "Post-test source tracking only; raw actual producers/sourceposttestNULL preserved.",
     "provider_source_file": "tools/cpu-output/quilt512/root_chunk_provider.c",
-    "evidence_role": "INHERITED_COMPONENT_PROOF_NOT_CURRENT_F272_HORIZON",
+    "evidence_role": "INHERITED_COMPONENT_PROOF_NOT_CURRENT_13FE_QUALIFICATION",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/thompson-real15-bank/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "69ba0bb3ce4c7d8e50c48c10972f9bef93dbd600d52d11cefd8ad05bbb0d4a5a"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-ph-copy-fusion/APPLICATION_QUALIFICATION.json",
+      "sha256": "040a1b4e2a32e640d3661d6f7a030053b0229a5cc7281a2f775cc2e4646a9b45"
     }
   },
   "private_shuffle_scratch_qualification_file": "tools/cpu-output/quilt512/private-shuffle-scratch-reuse/QUALIFICATION.json",
@@ -552,13 +519,13 @@
       "private-fast-distance-range/parent-ordered-inputs.json": "23de2ef804927c8b6778047e7b8aaee0be57a9eb2a3ccd6edf68fe3458a1007b"
     },
     "semantics": "Post-test codec source/recipe tracking only; does not relabel native/build producer NULL or imply WRF relink.",
-    "evidence_role": "INHERITED_COMPONENT_PROOF_NOT_CURRENT_F272_HORIZON",
+    "evidence_role": "INHERITED_COMPONENT_PROOF_NOT_CURRENT_13FE_QUALIFICATION",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/thompson-real15-bank/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "69ba0bb3ce4c7d8e50c48c10972f9bef93dbd600d52d11cefd8ad05bbb0d4a5a"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-ph-copy-fusion/APPLICATION_QUALIFICATION.json",
+      "sha256": "040a1b4e2a32e640d3661d6f7a030053b0229a5cc7281a2f775cc2e4646a9b45"
     }
   },
-  "archive_sha256": "1f86cd2c13ef38df52ee47558c467ed203c93ab612de2d27194f4df832209bd7",
+  "archive_sha256": "1a8febcdf4ff841ca4b3c5e18a83a500127b81dca1b82bdb1320abe2ab8b94d4",
   "previous_block_carry_short_science": {
     "status": "PASS_RETAINED_ORIGINAL_TWO_HISTORY_35_STEPS_512_OWNED_FIELD_VIEW",
     "receipt_sha256": "075e45506947752b3af936dba300740e854e8026b4e1c71beaaa1acfbe006ea2",
@@ -647,28 +614,7 @@
     "archive_sha256": "42b0f78f03f76bd8b490a30cf8de22a3eda78bda6b1219d5a3f913d6034dc7eb",
     "scope": "Two loop-boundary insertion lines only, committed after native/caller/one-member overlay/original4-product545-step acceptance. RawproducerNULLunchanged; no isolatedforecastgain or own9hqualification."
   },
-  "candidate_memory_actual": {
-    "hpc01": {
-      "memory_peak_bytes": 63028219904,
-      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
-      "cpu_stat": "usage_usec 80304955302\nuser_usec 78516479546\nsystem_usec 1788475755\ncore_sched.force_idle_usec 0\nnr_periods 6640\nnr_throttled 4737\nthrottled_usec 11522287\nnr_bursts 0\nburst_usec 0\n"
-    },
-    "hpc02": {
-      "memory_peak_bytes": 60716294144,
-      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
-      "cpu_stat": "usage_usec 80281485554\nuser_usec 78400331111\nsystem_usec 1881154443\ncore_sched.force_idle_usec 0\nnr_periods 6586\nnr_throttled 5239\nthrottled_usec 7427643\nnr_bursts 0\nburst_usec 0\n"
-    },
-    "hpc03": {
-      "memory_peak_bytes": 60676239360,
-      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
-      "cpu_stat": "usage_usec 80314362752\nuser_usec 78423587751\nsystem_usec 1890775001\ncore_sched.force_idle_usec 0\nnr_periods 6587\nnr_throttled 5251\nthrottled_usec 5984568\nnr_bursts 0\nburst_usec 0\n"
-    },
-    "hpc04": {
-      "memory_peak_bytes": 60659134464,
-      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
-      "cpu_stat": "usage_usec 80255683686\nuser_usec 78340022907\nsystem_usec 1915660779\ncore_sched.force_idle_usec 0\nnr_periods 6587\nnr_throttled 3875\nthrottled_usec 27560343\nnr_bursts 0\nburst_usec 0\n"
-    }
-  },
+  "candidate_memory_actual": null,
   "previous_failed_PBL_R1_postgate": {
     "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-phy-prep-part2-pbl-simd-r1/application-preparation-r1/lifecycle-r1/ACTUAL_FAILED_POSTGATE_AND_STRONG_DRAIN.json",
     "sha256": "c568e32844a1c393e88b03890eca5da83eb6a6ce9fb40176362140ea5c63f0a7",
@@ -687,7 +633,7 @@
     "archive_sha256": "dd329f8d0aa126c8475dbb690d0d8571af34b63d20fac48da7c207a1001c934f",
     "scope": "One CU-loop directive only, committed after native/caller/canonical-preprocess/link/original3hSCI. Frozen rawproducerNULL unchanged; no isolated forecast or own9h claim."
   },
-  "current_short_qualified": false,
+  "current_short_qualified": true,
   "previous_PBL_PART2_POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
     "source_commit": "61c2b67e086360442b07a83090df5712b7905d8f",
@@ -804,10 +750,7 @@
     "repeatability_established": false,
     "scope": "Historical RQVFTENee66/source31ca before RQVBLTEN. Actual4products545/full512 exact,660.3921359390952s MPIwall; candidate-only UNPAIRED descriptive metrics. Does not qualify child2bd1. Existing THREE_HOUR_RESULT/Q bytes and hashes unchanged."
   },
-  "current_three_hour_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/thompson-real15-bank/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "69ba0bb3ce4c7d8e50c48c10972f9bef93dbd600d52d11cefd8ad05bbb0d4a5a"
-  },
+  "current_three_hour_qualification": null,
   "previous_RTH_POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
     "source_commit": "c883c564a037422631b7c3dd8c69cf532fe391a6",
@@ -1338,11 +1281,11 @@
     "qualification_file": "tools/cpu-output/quilt512/codec/private-fast-distance-range/APPLICATION_QUALIFICATION.json"
   },
   "current_application_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/thompson-real15-bank/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "69ba0bb3ce4c7d8e50c48c10972f9bef93dbd600d52d11cefd8ad05bbb0d4a5a"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-ph-copy-fusion/APPLICATION_QUALIFICATION.json",
+    "sha256": "040a1b4e2a32e640d3661d6f7a030053b0229a5cc7281a2f775cc2e4646a9b45"
   },
   "last_three_hour_benchmark": {
-    "applies_to_current_selection": true,
+    "applies_to_current_selection": false,
     "qualification": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/thompson-real15-bank/THREE_HOUR_APPLICATION_QUALIFICATION.json",
       "sha256": "69ba0bb3ce4c7d8e50c48c10972f9bef93dbd600d52d11cefd8ad05bbb0d4a5a"
@@ -1365,11 +1308,12 @@
       "main_step_sum_seconds": 6.927511879772874
     },
     "comparison_design": "Fresh original546b FIRST versus current7087+Tcopy+REAL15 child SECOND; one fixed-order pair, no isolated/helper/additive/repeatability claim",
-    "scope": "One fresh corrected-original-first/combined-candidate-second pair; no isolated/incremental/additive/repeatability claim. Main includes communication/backpressure; wall-minus-main is not pureIO. Essentiallyneutral bankcaller .253/.485percent; no capacity or peak-memory reduction claim."
+    "scope": "Historical parentf272 benchmark only; not new13fe performance.",
+    "artifact_executable_sha256": "f2726b583688c824520d28c240f1bf962bad45f95b050c4b7ca0773d9ef1b567"
   },
   "current_noon75m_qualified": false,
   "current_noon75m_qualification": null,
-  "comparison_design": "Fresh original546b FIRST versus current7087+Tcopy+REAL15 child SECOND; one fixed-order pair, no isolated/helper/additive/repeatability claim",
+  "comparison_design": "Candidate-only science qualification versus frozen original ten-minute outputs; UNPAIRED descriptive metrics, no matched forecast timing or causal kernel claim",
   "theta_producer": {
     "pending": false,
     "source_commit": null,
@@ -1391,10 +1335,10 @@
     "kernel_qualification_sha256": "522e18e1f217987437383d208e6f96c52d33bfc31e74e432315b4fe7bca8b6f6",
     "caller_qualification_sha256": "f64dad0d421a827e0574efaa22f62298e6821ede1ee82ff653039375c12b0d2d",
     "expected_worker_status": "BUILT_CURRENT_F4B_ONE_BIGSTEP_MOIST_THETA_SIMD_PENDING_APPLICATION",
-    "evidence_role": "INHERITED_COMPONENT_PROOF_NOT_CURRENT_F272_HORIZON",
+    "evidence_role": "INHERITED_COMPONENT_PROOF_NOT_CURRENT_13FE_QUALIFICATION",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/thompson-real15-bank/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "69ba0bb3ce4c7d8e50c48c10972f9bef93dbd600d52d11cefd8ad05bbb0d4a5a"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-ph-copy-fusion/APPLICATION_QUALIFICATION.json",
+      "sha256": "040a1b4e2a32e640d3661d6f7a030053b0229a5cc7281a2f775cc2e4646a9b45"
     }
   },
   "sw_producer": {
@@ -1418,10 +1362,10 @@
     "native_qualification_sha256": "b1cb8c117a668b58eba75e3594fc1d4053667b4e734e24b6d787390201de78af",
     "caller_qualification_sha256": "72f7f53b58e484289dacd05a29436a88b11c787a60d1ca61f43ce7de1f58dc1d",
     "expected_worker_status": "BUILT_CURRENT_FB43_ONE_SW_DIRECT_CDF_PENDING_THETA_COMBINED_APPLICATION",
-    "evidence_role": "INHERITED_COMPONENT_PROOF_NOT_CURRENT_F272_HORIZON",
+    "evidence_role": "INHERITED_COMPONENT_PROOF_NOT_CURRENT_13FE_QUALIFICATION",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/thompson-real15-bank/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "69ba0bb3ce4c7d8e50c48c10972f9bef93dbd600d52d11cefd8ad05bbb0d4a5a"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-ph-copy-fusion/APPLICATION_QUALIFICATION.json",
+      "sha256": "040a1b4e2a32e640d3661d6f7a030053b0229a5cc7281a2f775cc2e4646a9b45"
     }
   },
   "previous_F4B_before_THETA_SW": {
@@ -1492,7 +1436,7 @@
     },
     "applies_to_current_selection": false
   },
-  "current_application_retry_scope": "One fresh original-first/combined-second pair; all failures retained; original checker unchanged.",
+  "current_application_retry_scope": "Fresh PHcandidate short35 only; all prior failures/evidence retained without horizon transfer.",
   "previous_A50E_before_SPCVMC": {
     "paired_record": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_SELECTION_BEFORE_SPCVMC_OPTICAL.json",
@@ -1577,10 +1521,10 @@
     "module_interface_contract": "Originalparent32MODs retained for consumers; genuine62argSPCVMC/32argSETCOEF caller/publicGLOBALdataABI exact, targetMCICA rawMODexact. No all32rawMODchildidentity claim.",
     "all32_raw_MOD_bytes_certified": false,
     "target_MCICA_raw_MOD_sha256": "f1ce128004b7fe9265c995370dac4464bdf4d15f962d3ac3de00e0606cae35f3",
-    "evidence_role": "INHERITED_COMPONENT_PROOF_NOT_CURRENT_F272_HORIZON",
+    "evidence_role": "INHERITED_COMPONENT_PROOF_NOT_CURRENT_13FE_QUALIFICATION",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/thompson-real15-bank/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "69ba0bb3ce4c7d8e50c48c10972f9bef93dbd600d52d11cefd8ad05bbb0d4a5a"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-ph-copy-fusion/APPLICATION_QUALIFICATION.json",
+      "sha256": "040a1b4e2a32e640d3661d6f7a030053b0229a5cc7281a2f775cc2e4646a9b45"
     }
   },
   "before_SPCVMC_own9h_latest_nine_hour": {
@@ -1980,13 +1924,23 @@
       "hpg-build-ref-13.json": "bb279ba368d28075ce63db38ba2a5093d600608dd79a9b97c516181c6daba3fa",
       "hpg-build-ref-14.json": "be58b7a3fb05c10ce03ac846c48f485ca76b1089b234e0801129525cdbaf0e9d"
     },
-    "evidence_role": "INHERITED_COMPONENT_PROOF_NOT_CURRENT_F272_HORIZON",
+    "evidence_role": "INHERITED_COMPONENT_PROOF_NOT_CURRENT_13FE_QUALIFICATION",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/thompson-real15-bank/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "69ba0bb3ce4c7d8e50c48c10972f9bef93dbd600d52d11cefd8ad05bbb0d4a5a"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-ph-copy-fusion/APPLICATION_QUALIFICATION.json",
+      "sha256": "040a1b4e2a32e640d3661d6f7a030053b0229a5cc7281a2f775cc2e4646a9b45"
     }
   },
-  "raw_result_label_disclosure": null,
+  "raw_result_label_disclosure": {
+    "raw_order": [
+      "retained_frozen_corrected_original546b_control",
+      "actual_Tcopy_only_current7087_child_candidate"
+    ],
+    "corrected_order": [
+      "retained_corrected_original546b_short_reference",
+      "actual_PH_copy_child13fe_of_currentf272_candidate"
+    ],
+    "scope": "Raw collector retained a Tcopy-only candidate label. Exact candidate lease/executable/build/outputs/closures bind actual13fe; raw result/evidence remains immutable. Derived order labels corrected only."
+  },
   "separate_HPG_short_science_before_own3h": {
     "products": 2,
     "ordered_steps": 35,
@@ -2011,7 +1965,7 @@
     "source_commit": "97512cc69b4f144c399fb04bcebf8d146ddc78ff",
     "applies_to_current_selection": false
   },
-  "candidate_memory_actual_scope": "Actual own f272 three-hour per-node peaks/events/CPU only; no incremental/capacity/memory-saving claim.",
+  "candidate_memory_actual_scope": "No parentf272 memory peaks transferred; actual short-run memory remains in raw runtime proof.",
   "previous_HPG_NHX_before_CONSUMER": {
     "paired_snapshot": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_selection_BEFORE_HPG_NHX_CONSUMER.json",
@@ -2179,10 +2133,10 @@
       "run_build.py": "60134af6171e609b6c08bd2cf693894f76800318d31f51a7472a78b77f586eee"
     },
     "expected_worker_status": "BUILT_CURRENT_F703_ONE_BIGSTEP_HPG_NHX_CONSUMER_SIMD_PENDING_APPLICATION",
-    "evidence_role": "INHERITED_COMPONENT_PROOF_NOT_CURRENT_F272_HORIZON",
+    "evidence_role": "INHERITED_COMPONENT_PROOF_NOT_CURRENT_13FE_QUALIFICATION",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/thompson-real15-bank/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "69ba0bb3ce4c7d8e50c48c10972f9bef93dbd600d52d11cefd8ad05bbb0d4a5a"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-ph-copy-fusion/APPLICATION_QUALIFICATION.json",
+      "sha256": "040a1b4e2a32e640d3661d6f7a030053b0229a5cc7281a2f775cc2e4646a9b45"
     }
   },
   "separate_HPG_CONSUMER_short_science_before_own3h": {
@@ -2232,7 +2186,7 @@
     "sha256": "53e15d567f2bea93fd2984883696279976e171c5055ec48c6d7ad280f81b8c67"
   },
   "latest_three_hour_observation": {
-    "applies_to_current_selection": true,
+    "applies_to_current_selection": false,
     "qualification": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/thompson-real15-bank/THREE_HOUR_APPLICATION_QUALIFICATION.json",
       "sha256": "69ba0bb3ce4c7d8e50c48c10972f9bef93dbd600d52d11cefd8ad05bbb0d4a5a"
@@ -2255,7 +2209,8 @@
       "main_step_sum_seconds": 6.927511879772874
     },
     "comparison_design": "Fresh original546b FIRST versus current7087+Tcopy+REAL15 child SECOND; one fixed-order pair, no isolated/helper/additive/repeatability claim",
-    "scope": "One fresh corrected-original-first/combined-candidate-second pair; no isolated/incremental/additive/repeatability claim. Main includes communication/backpressure; wall-minus-main is not pureIO. Essentiallyneutral bankcaller .253/.485percent; no capacity or peak-memory reduction claim."
+    "scope": "Historical parentf272 benchmark only; not new13fe performance.",
+    "artifact_executable_sha256": "f2726b583688c824520d28c240f1bf962bad45f95b050c4b7ca0773d9ef1b567"
   },
   "before_HPG_CONSUMER_own9h": {
     "working_records_commit": "3dc1509d12a1e7205a885cfef5acf452ab8ff88e",
@@ -2366,10 +2321,10 @@
       "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/hpg-nhx-isolated-avx2-consumer-r1/complete-caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/cache-clear.json": "isolated-caller-arm3-cache-clear.json",
       "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/hpg-nhx-isolated-avx2-consumer-r1/complete-caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/controller.json": "isolated-caller-arm3-controller.json"
     },
-    "evidence_role": "INHERITED_COMPONENT_PROOF_NOT_CURRENT_F272_HORIZON",
+    "evidence_role": "INHERITED_COMPONENT_PROOF_NOT_CURRENT_13FE_QUALIFICATION",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/thompson-real15-bank/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "69ba0bb3ce4c7d8e50c48c10972f9bef93dbd600d52d11cefd8ad05bbb0d4a5a"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-ph-copy-fusion/APPLICATION_QUALIFICATION.json",
+      "sha256": "040a1b4e2a32e640d3661d6f7a030053b0229a5cc7281a2f775cc2e4646a9b45"
     }
   },
   "before_ISOLATED_HPG_own3h": {
@@ -2573,10 +2528,10 @@
       "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/hpg-nhy-consumer-i-simd-r1/complete-caller-timing-preparation-r1/timing-r1/arm3/actual-native-r1/controller.json": "nhy-caller-arm3-controller.json"
     },
     "parent_directory": "/pool/wrf-experiment/wrf-cpu/builds/current1749-one-isolated-hpg-avx2-helper-hpc02-r1",
-    "evidence_role": "INHERITED_COMPONENT_PROOF_NOT_CURRENT_F272_HORIZON",
+    "evidence_role": "INHERITED_COMPONENT_PROOF_NOT_CURRENT_13FE_QUALIFICATION",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/thompson-real15-bank/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "69ba0bb3ce4c7d8e50c48c10972f9bef93dbd600d52d11cefd8ad05bbb0d4a5a"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-ph-copy-fusion/APPLICATION_QUALIFICATION.json",
+      "sha256": "040a1b4e2a32e640d3661d6f7a030053b0229a5cc7281a2f775cc2e4646a9b45"
     }
   },
   "before_ORDINARY_CONSUMERS": {
@@ -2641,19 +2596,20 @@
   },
   "POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_TRACKING_ONLY",
-    "source_commit": "70ce108d61573ef1aa5ef7d60a846f83e1864639",
+    "source_commit": "85eb38440734d683d66d3bd1a82af422053ff584",
     "raw_producer_source_commit": null,
     "canonical_sources": {
-      "phys/module_mp_thompson.F": "b59a95c95ecf79dc844cbe1168f6075eac629a918c3f9531d15261e668ba3628"
+      "dyn_em/module_small_step_em.F": "32c85d1e99afd980bc4763dc0d2697e225e6dfc7fd8f5eaed986b82def68927c",
+      "dyn_em/Makefile": "70cd122deb326d948ff6dca3e587cd1fc5c280d550b9bd790bc66fc0b4803ede"
     },
-    "executable_sha256": "f2726b583688c824520d28c240f1bf962bad45f95b050c4b7ca0773d9ef1b567",
-    "archive_sha256": "1f86cd2c13ef38df52ee47558c467ed203c93ab612de2d27194f4df832209bd7",
+    "executable_sha256": "13fe77d645d6a3dbc74195e8482b6d1e6d9754ea269bfd28aebc645d0f1d0d35",
+    "archive_sha256": "1a8febcdf4ff841ca4b3c5e18a83a500127b81dca1b82bdb1320abe2ab8b94d4",
     "application_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/thompson-real15-bank/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "69ba0bb3ce4c7d8e50c48c10972f9bef93dbd600d52d11cefd8ad05bbb0d4a5a"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-ph-copy-fusion/APPLICATION_QUALIFICATION.json",
+      "sha256": "040a1b4e2a32e640d3661d6f7a030053b0229a5cc7281a2f775cc2e4646a9b45"
     },
-    "scope": "Actual combined f272 own fresh3h only. Bank source/commit tracks exact tested B59a/PP3ef/objectce0b after science; no new flags/fresh post-commit canonical fullbuild/raw producer commit claim. Tcopy GNU13.3 pure-MPI empty-OMPCPP default retained; serial unqualified.",
-    "publication_commit_semantics": "Dedicated bank source commit supplied by root; later record-tracking commit not self-referenced."
+    "scope": "Own short35/two-product original-science qualification only. Tested image reused qualifiedPP7ecc/object40c5; separate actual canonical guardedCPP/strictO2 oneobject delivery is mandatory, not fresh fullWRF build/link. Sourcecommit is posttesttracking, rawproducerNULL. One synthetic RK1 caller pair per host, not forecast gain.",
+    "publication_commit_semantics": "Dedicated source/default commit supplied by root; subsequent evidence-tracking commit is intentionally not self-referenced."
   },
   "before_PD_RESULT_CAPACITY": {
     "git_commit": "69f3e9a06fa0e9ca07eb27e82d21b08d79e018cc",
@@ -2715,10 +2671,10 @@
       "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/pd-result-capacity-combined/APPLICATION_QUALIFICATION.json",
       "sha256": "d843ebe334a96db16b4fe7fc8ae066b5fccd0374d0660401b10605c4a9817d11"
     },
-    "evidence_role": "INHERITED_COMPONENT_PROOF_NOT_CURRENT_F272_HORIZON",
+    "evidence_role": "INHERITED_COMPONENT_PROOF_NOT_CURRENT_13FE_QUALIFICATION",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/thompson-real15-bank/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "69ba0bb3ce4c7d8e50c48c10972f9bef93dbd600d52d11cefd8ad05bbb0d4a5a"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-ph-copy-fusion/APPLICATION_QUALIFICATION.json",
+      "sha256": "040a1b4e2a32e640d3661d6f7a030053b0229a5cc7281a2f775cc2e4646a9b45"
     }
   },
   "historical_51a_output_post_test_source_identity": {
@@ -3300,32 +3256,32 @@
       "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/phy-prep-z-at-w-producer-i-simd-r1/row-api-integration-preparation-r1/integration-preparation-r1/overlay-build-r1/caller-arm3-controller.json": "phy-build-ref-27.json"
     }
   },
-  "science_sha256": "6040f91d1eba64746184b2adffc18721f0068502a1aec9852adad6e0b37e5a7d",
-  "reader_closure_sha256": "ffd07051601947a4632c03719364b80c372c3cfbe7b4d4e24fc95656f49720d9",
+  "science_sha256": "a56d274f600f28ae2e067645ee48b0663008a333ed18db7d3e92ad8173a4dd35",
+  "reader_closure_sha256": "3d9b02921a2b65bc967a228c540353d473cd3284e3abe294422f179954643f7c",
   "metrics": {
     "control": {
-      "wall_seconds": 819.2921702358872,
-      "cpu_seconds": 367680.356847,
-      "main_step_sum_seconds": 596.58548
+      "wall_seconds": 267.5341711281799,
+      "cpu_seconds": 86843.488941,
+      "main_step_sum_seconds": 42.03197
     },
     "candidate": {
-      "wall_seconds": 662.5712857269682,
-      "cpu_seconds": 321156.487294,
-      "main_step_sum_seconds": 555.25695
+      "wall_seconds": 137.59483380196616,
+      "cpu_seconds": 53325.135198,
+      "main_step_sum_seconds": 38.82712
     }
   },
   "order": [
-    "fresh_corrected_original546b_control",
-    "fresh_Tcopy_REAL15_bank_child_candidate"
+    "retained_corrected_original546b_short_reference",
+    "actual_PH_copy_child13fe_of_currentf272_candidate"
   ],
-  "reductions_percent": {
-    "wall_seconds": 19.128815116565377,
-    "cpu_seconds": 12.653346496930117,
-    "main_step_sum_seconds": 6.927511879772874
+  "reductions_percent": null,
+  "limits": "Candidate-only short science versus retained original. Metrics are UNPAIRED descriptive actual short totals; no matched forecast/isolated/additive/repeatability claim.",
+  "raw_result_status": "PASS_RETAINED_ORIGINAL_TWO_HISTORY_35_STEPS_512_OWNED_FIELD_VIEW",
+  "descriptive_difference_vs_retained_original_percent": {
+    "wall_seconds": 48.56924884707819,
+    "cpu_seconds": 38.59627722438904,
+    "main_step_sum_seconds": 7.624791319559854
   },
-  "limits": "One fresh corrected-original-first/combined-candidate-second pair; no isolated/incremental/additive/repeatability claim. Main includes communication/backpressure; wall-minus-main is not pureIO. Essentiallyneutral bankcaller .253/.485percent; no capacity or peak-memory reduction claim.",
-  "raw_result_status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
-  "descriptive_difference_vs_retained_original_percent": null,
   "previous_current769_before_X5": {
     "source_commit": "014ab2e074c0a604cc2beea06680028b7e691492",
     "executable": {
@@ -3630,13 +3586,13 @@
     "canonical_sha256": "42ab7004b0d45582d853861da480caf9e589ecc8f2e669b56444fbc39ce72e28",
     "preprocessed_sha256": "1e45650c7e1a8c88ac6f2031072836b2572755f58803b56418ddc330a03d20df",
     "artifact_sha256": "4adb20e0f0c565e7146d637703b7144c1009a5a19db7c0fa7352b8c772ac44f2",
-    "evidence_role": "INHERITED_COMPONENT_PROOF_NOT_CURRENT_F272_HORIZON",
+    "evidence_role": "INHERITED_COMPONENT_PROOF_NOT_CURRENT_13FE_QUALIFICATION",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/thompson-real15-bank/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "69ba0bb3ce4c7d8e50c48c10972f9bef93dbd600d52d11cefd8ad05bbb0d4a5a"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-ph-copy-fusion/APPLICATION_QUALIFICATION.json",
+      "sha256": "040a1b4e2a32e640d3661d6f7a030053b0229a5cc7281a2f775cc2e4646a9b45"
     }
   },
-  "archive_path": "/pool/wrf-experiment/wrf-cpu/builds/current7087-tcopy-real15-bank-two-member-native-r1/libwrflib.a",
+  "archive_path": "/pool/wrf-experiment/wrf-cpu/builds/currentf272-smallstep-rk1-ph-copy-fusion-one-member-native-r1/libwrflib.a",
   "previous_current769_pd_final_xy_producer": {
     "source_commit": null,
     "canonical_source_sha256": "9955f77e4788288d09ab4f434c5f85a7930fcfe9ccd6060aaef5286052da40db",
@@ -3747,10 +3703,10 @@
     "module_interface_sha256": "88e9fcbf27d28de7f12c22df0aac07aef26d4463f303e5a51b135a6a7e454750",
     "build_receipt_sha256": "ff606477639d1c8bdd2938848c695ff0b9f38ac5b1bfc6e7e4d7591bd99843c8",
     "scope": "Exactcurrent4adb/f911/99da one-memberproducer; previous2419/769wholeimageproducerfacts explicitlyhistorical.",
-    "evidence_role": "INHERITED_COMPONENT_PROOF_NOT_CURRENT_F272_HORIZON",
+    "evidence_role": "INHERITED_COMPONENT_PROOF_NOT_CURRENT_13FE_QUALIFICATION",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/thompson-real15-bank/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "69ba0bb3ce4c7d8e50c48c10972f9bef93dbd600d52d11cefd8ad05bbb0d4a5a"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-ph-copy-fusion/APPLICATION_QUALIFICATION.json",
+      "sha256": "040a1b4e2a32e640d3661d6f7a030053b0229a5cc7281a2f775cc2e4646a9b45"
     }
   },
   "previous_X5_onehour_current_context": {
@@ -3839,7 +3795,7 @@
       "metrics": "Currentcandidateonehourdescriptiveonly; previous769paired3h metrics arehistorical."
     }
   },
-  "performance_qualification": "ONE_FRESH_FIXED_ORDER_ORIGINAL_TO_COMBINED_THREE_HOUR_PAIR_NO_ISOLATED_OR_REPEATABILITY_CLAIM",
+  "performance_qualification": false,
   "previous_current4adb_before_VY_SW": {
     "snapshot": {
       "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/advect-v-y5-flux-producer-i-simd-r1/combined-publication-binding-preparation-r1/PRE_PUBLICATION_4ADB_SNAPSHOT/selection.json",
@@ -4015,10 +3971,10 @@
     ],
     "raw_source_producer_commit": null,
     "posttest_source_commit": "d5d09385eb3a4ce641af3c5b5ef35eadb97593ac",
-    "evidence_role": "INHERITED_COMPONENT_PROOF_NOT_CURRENT_F272_HORIZON",
+    "evidence_role": "INHERITED_COMPONENT_PROOF_NOT_CURRENT_13FE_QUALIFICATION",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/thompson-real15-bank/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "69ba0bb3ce4c7d8e50c48c10972f9bef93dbd600d52d11cefd8ad05bbb0d4a5a"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-ph-copy-fusion/APPLICATION_QUALIFICATION.json",
+      "sha256": "040a1b4e2a32e640d3661d6f7a030053b0229a5cc7281a2f775cc2e4646a9b45"
     }
   },
   "current_noon75m_science": null,
@@ -4224,10 +4180,10 @@
       ],
       "numerical_scope": "Complete add_a2a native24 cases plus this actual representative original-exact fullgrid3h; no claim for every alternative physics configuration."
     },
-    "evidence_role": "INHERITED_COMPONENT_PROOF_NOT_CURRENT_F272_HORIZON",
+    "evidence_role": "INHERITED_COMPONENT_PROOF_NOT_CURRENT_13FE_QUALIFICATION",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/thompson-real15-bank/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "69ba0bb3ce4c7d8e50c48c10972f9bef93dbd600d52d11cefd8ad05bbb0d4a5a"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-ph-copy-fusion/APPLICATION_QUALIFICATION.json",
+      "sha256": "040a1b4e2a32e640d3661d6f7a030053b0229a5cc7281a2f775cc2e4646a9b45"
     }
   },
   "previous_current7087_before_TCOPY": {
@@ -4237,7 +4193,10 @@
     },
     "scope": "Exact historical7087 scopes/results/runtime/components retained; no transfer to new8400 own horizons/profile."
   },
-  "current_short_qualification": null,
+  "current_short_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-ph-copy-fusion/APPLICATION_QUALIFICATION.json",
+    "sha256": "040a1b4e2a32e640d3661d6f7a030053b0229a5cc7281a2f775cc2e4646a9b45"
+  },
   "tcopy_producer": {
     "build": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-t-copy-fusion/BUILD_QUALIFICATION.json",
@@ -4252,10 +4211,10 @@
     "raw_producer_source_commit": null,
     "posttest_source_commit": "0b810fdef48310d2264da60f72d864805e32f9dd",
     "scope": "Own short35/two-product original-science qualification only. Reused qualifiedPP9ad0/objectbd2; canonical/default commit tracks source AFTER tests, not raw producer/fresh canonical CPP/fullbuild reproduction. One synthetic RK1 caller pair per host, not forecast gain.",
-    "evidence_role": "INHERITED_COMPONENT_PROOF_NOT_CURRENT_F272_HORIZON",
+    "evidence_role": "INHERITED_COMPONENT_PROOF_NOT_CURRENT_13FE_QUALIFICATION",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/thompson-real15-bank/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "69ba0bb3ce4c7d8e50c48c10972f9bef93dbd600d52d11cefd8ad05bbb0d4a5a"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-ph-copy-fusion/APPLICATION_QUALIFICATION.json",
+      "sha256": "040a1b4e2a32e640d3661d6f7a030053b0229a5cc7281a2f775cc2e4646a9b45"
     }
   },
   "previous_current8400_before_REAL15_BANK": {
@@ -4299,6 +4258,33 @@
       "not_fresh_postcommit_canonical_fullbuild": true
     },
     "raw_producer_source_commit": null,
-    "posttest_source_commit": "70ce108d61573ef1aa5ef7d60a846f83e1864639"
+    "posttest_source_commit": "70ce108d61573ef1aa5ef7d60a846f83e1864639",
+    "evidence_role": "INHERITED_COMPONENT_PROOF_NOT_CURRENT_13FE_QUALIFICATION",
+    "current_image_qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-ph-copy-fusion/APPLICATION_QUALIFICATION.json",
+      "sha256": "040a1b4e2a32e640d3661d6f7a030053b0229a5cc7281a2f775cc2e4646a9b45"
+    }
+  },
+  "previous_currentf272_before_PHCOPY": {
+    "snapshot": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-currentf272-ph-copy-feasibility-r1/promotion-evidence-preparation-r1/PRE_PUBLICATION_F272_SNAPSHOT/selection.json",
+      "sha256": "3731328d4734422e978037ec27b5f7033b031bc2dd45d252a3375d81955d309f"
+    },
+    "scope": "Exact historicalf272 scopes/results/runtime/components retained; no transfer to new13fe own horizons/profile."
+  },
+  "phcopy_producer": {
+    "build": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-ph-copy-fusion/BUILD_QUALIFICATION.json",
+      "sha256": "650e5d0af65d1683540a00a429cc5ff1b9b70709654678e60c87f6c611408f90"
+    },
+    "application": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-ph-copy-fusion/APPLICATION_QUALIFICATION.json",
+      "sha256": "040a1b4e2a32e640d3661d6f7a030053b0229a5cc7281a2f775cc2e4646a9b45"
+    },
+    "object_sha256": "40c50ae7c41f5c29ccd5d9248b0f3148e2fea211e7d5519fbe7391e382cc24f0",
+    "PP_sha256": "7ecc8883272cbd28cdf1c683f15a8c04f78e313aed66a60105651a0dc96abcc3",
+    "raw_producer_source_commit": null,
+    "posttest_source_commit": "85eb38440734d683d66d3bd1a82af422053ff584",
+    "scope": "Own short35/two-product original-science qualification only. Tested image reused qualifiedPP7ecc/object40c5; separate actual canonical guardedCPP/strictO2 oneobject delivery is mandatory, not fresh fullWRF build/link. Sourcecommit is posttesttracking, rawproducerNULL. One synthetic RK1 caller pair per host, not forecast gain."
   }
 }

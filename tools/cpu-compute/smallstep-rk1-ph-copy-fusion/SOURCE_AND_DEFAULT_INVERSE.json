@@ -1,0 +1,29 @@
+{
+  "status": "UNAPPLIED_DRAFT_PENDING_APPLICATION_AND_ROOT_REVIEW",
+  "parent_canonical_sha256": "2dcf3e5e89ebc0ea2b6cd6bcebd7587b6fc4f504e2c9fbafca085c4ee0caf89e",
+  "candidate_canonical_sha256": "32c85d1e99afd980bc4763dc0d2697e225e6dfc7fd8f5eaed986b82def68927c",
+  "parent_make_sha256": "22bae1f810ad840de36f853f53dd99dbce63d10dd64b04f9b8ecf7c1da0c0c7e",
+  "candidate_make_sha256": "70cd122deb326d948ff6dca3e587cd1fc5c280d550b9bd790bc66fc0b4803ede",
+  "source_full_inverse_exact": true,
+  "source_literal_edits": [
+    {
+      "old": "      DO j=j_start, j_end\n      DO k=k_start, min(kde,kte)\n      DO i=i_start, i_end\n        w_1(i,k,j)  = w_2(i,k,j)\n        ph_1(i,k,j) = ph_2(i,k,j)\n      ENDDO\n      ENDDO\n      ENDDO",
+      "new": "      DO j=j_start, j_end\n      DO k=k_start, min(kde,kte)\n      DO i=i_start, i_end\n        w_1(i,k,j)  = w_2(i,k,j)\n#ifndef WRF_SMALL_STEP_PH_COPY_FUSION\n        ph_1(i,k,j) = ph_2(i,k,j)\n#endif\n      ENDDO\n      ENDDO\n      ENDDO"
+    },
+    {
+      "old": "    !$omp simd\n    DO i=i_start, i_end\n      w_save(i,k,j) = w_2(i,k,j)\n      ! w coupled with my\n      w_2(i,k,j)  = ((c1f(k)*muts(i,j)+c2f(k))* w_1(i,k,j)-(c1f(k)*mut(i,j)+c2f(k))* w_2(i,k,j))/msfty(i,j)\n      ph_save(i,k,j) = ph_2(i,k,j)\n      ph_2(i,k,j) = ph_1(i,k,j)-ph_2(i,k,j)\n    ENDDO\n",
+      "new": "#ifdef WRF_SMALL_STEP_PH_COPY_FUSION\n    IF (rk_step == 1 .AND. k<=min(kde,kte)) THEN\n    !$omp simd\n    DO i=i_start, i_end\n      ph_1(i,k,j) = ph_2(i,k,j)\n      w_save(i,k,j) = w_2(i,k,j)\n      ! w coupled with my\n      w_2(i,k,j)  = ((c1f(k)*muts(i,j)+c2f(k))* w_1(i,k,j)-(c1f(k)*mut(i,j)+c2f(k))* w_2(i,k,j))/msfty(i,j)\n      ph_save(i,k,j) = ph_2(i,k,j)\n      ph_2(i,k,j) = ph_1(i,k,j)-ph_2(i,k,j)\n    ENDDO\n    ELSE\n    !$omp simd\n    DO i=i_start, i_end\n      w_save(i,k,j) = w_2(i,k,j)\n      ! w coupled with my\n      w_2(i,k,j)  = ((c1f(k)*muts(i,j)+c2f(k))* w_1(i,k,j)-(c1f(k)*mut(i,j)+c2f(k))* w_2(i,k,j))/msfty(i,j)\n      ph_save(i,k,j) = ph_2(i,k,j)\n      ph_2(i,k,j) = ph_1(i,k,j)-ph_2(i,k,j)\n    ENDDO\n    ENDIF\n#else\n    !$omp simd\n    DO i=i_start, i_end\n      w_save(i,k,j) = w_2(i,k,j)\n      ! w coupled with my\n      w_2(i,k,j)  = ((c1f(k)*muts(i,j)+c2f(k))* w_1(i,k,j)-(c1f(k)*mut(i,j)+c2f(k))* w_2(i,k,j))/msfty(i,j)\n      ph_save(i,k,j) = ph_2(i,k,j)\n      ph_2(i,k,j) = ph_1(i,k,j)-ph_2(i,k,j)\n    ENDDO\n#endif\n"
+    }
+  ],
+  "make_insert_exact": "# Exact RK1 PH snapshot/consumer fusion: qualified GNU13.3 pure-MPI SmallStep path.\n# Use WRF_SMALL_STEP_PH_COPY_FUSION=0 and rebuild for the original copy schedule.\nWRF_SMALL_STEP_PH_COPY_FUSION ?= 1\nifeq ($(WRF_SMALL_STEP_PH_COPY_FUSION),1)\nifeq ($(WRF_SMALL_STEP_SIMD),1)\nifeq ($(WRF_SMALL_STEP_ZEN2),1)\nifeq ($(strip $(OMPCPP)),)\nifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))\nifneq (,$(findstring 13.3.0,$(shell $(SFC) --version 2>/dev/null)))\nmodule_small_step_em.o: private override CPPFLAGS += -DWRF_SMALL_STEP_PH_COPY_FUSION\nendif\nendif\nendif\nendif\nendif\nendif\n",
+  "make_full_inverse_exact": true,
+  "new_guard_disabled_current_canonical_bytes_exact": true,
+  "enabled_full_module_normalized_matches_qualified_PP": true,
+  "disabled_full_module_normalized_matches_current_PP": true,
+  "qualified_candidate_PP_sha256": "7ecc8883272cbd28cdf1c683f15a8c04f78e313aed66a60105651a0dc96abcc3",
+  "qualified_parent_PP_sha256": "9ad0002c2528f174aea69190e32afe96d166fdedadfdc46235108bcd824c9d2c",
+  "normalization": "Finite known conditional projection (Tcopyon,PHon/off,WRFPLUSoff), whitespace/ordinarycomments removed; activeOMP/quotedstrings retained. No new actual CPP/native/fullbuild proof.",
+  "guard_scope": "Exactly Tcopy: GNU Fortran13.3.0+SmallStepSIMD1+Zen2=1+OMPCPPempty; NO DM_PARALLEL check. Serial unqualified though not excluded. PHoptiondefaults1 only effective with guards; unsupported conditions original PHschedule.",
+  "new_flags": "TargetCPP definition only, no newFCFLAGS/ISA/threadteams/globalflags.",
+  "canonical_modified": false
+}

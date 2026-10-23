@@ -1,0 +1,18 @@
+--- parent
++++ candidate
+@@ -186,6 +186,7 @@
+             ENDDO
+           CASE DEFAULT
+           DO k = ks, ke
++!$OMP SIMD LINEAR(p:1)
+             DO i = is, ie
+               outbuf(p) = inbuf(i,k,j)
+               p = p + 1
+@@ -282,6 +283,7 @@
+             ENDDO
+           CASE DEFAULT
+           DO k = ks, ke
++!$OMP SIMD LINEAR(p:1)
+             DO i = is, ie
+               outbuf(i,k,j) = inbuf(p)
+               p = p + 1

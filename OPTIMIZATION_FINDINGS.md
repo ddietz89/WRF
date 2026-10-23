@@ -1,6 +1,18 @@
 # WRF CPU optimization findings
 
-## Current selection: copy fusion and Thompson tendency bank (October 23, 2026, UTC)
+## Current selection: RK1 geopotential-copy fusion (October 23, 2026, UTC)
+
+Selected **13fe77d6 / archive1a8febcd**, post-test source **85eb3844**, retains all previous improvements and fuses the RK1 PH snapshot into the existing save/coupling loop. The per-K guard preserves the original copied vertical range. The W snapshot, required PH stores, literal subtraction and packed W arithmetic remain. One separate PH copy call is removed.
+
+Two opposite-order complete synthetic RK1 caller pairs were **7.93% and7.23% shorter**, with identical full output bytes, readonly/guard checks, five observed state words and normal closures. All four arms had checked client-cache clearing; restores/checks were outside the measured call intervals. Seventy genuine/same-opt O0-bounds/O2 cases passed, including copied and uncopied vertical levels, payloads and inherited Tcopy controls. These are caller gains; no isolated/additive forecast gain is claimed.
+
+The original scientific checker passed **both complete products and35 ordered steps**, all512 ranks/two tiles, expected writer controls,16 positive admission markers and FIELDVIEW on all32 quilt ranks. All four models and the reader closed normally. This image owns short science; separate own3h/noon/9h/restart/profile scopes remain false. The latest fresh matched full three-hour comparison is the historical f272 pair below and predates this PH addition.
+
+Actual canonical preprocessing plus one strict O2 compile reproduced the tested object's allocated code/data, relocations, non-file symbols and public MOD exactly. PP/debug object bytes differ; no fresh full-image build is claimed. The initial harness stopped before preprocessing/compilation because outer Make context was missing; its failure is preserved separately. The guarded default follows GNU13.3/emptyOMPCPP/SmallStepSIMD/Zen2, with `WRF_SMALL_STEP_PH_COPY_FUSION=0` rebuild rollback. MPI/defaultTcopy is qualified; the actual guard has no DM_PARALLEL condition. [Exact evidence, build scope and rollback](tools/cpu-compute/smallstep-rk1-ph-copy-fusion/README.md).
+
+A distinct wide-RSL two-directive copy trial is **closed unpromoted**: both DEFAULT row loops retained their `memcpy` calls, so the requested mechanism was absent. The outside-function gate initially stopped the worker; a finite read-only diagnosis accounted for wrapper layout differences but did not manufacture a native pass. No numerical or timing run followed and no flag/helper/ISA ladder is planned. [Retained closeout](tools/cpu-compute/rsl-wide-copy-no-mechanism/README.md). The next investigation reuses the native-only daytime profile route on the selected build. Production/master remain unchanged; AWS remains suspended.
+
+## Historical f272 selection: copy fusion and Thompson tendency bank (October 23, 2026, UTC)
 
 Selected **f2726b58 / archive1f86cd2c**, post-test source **70ce108d**, retains every prior improvement and adds the exact-qualified RK1 copy fusion and15-array Thompson REAL bank. The copy-fusion complete caller was **8.16–8.62% shorter**; the bank complete driver was **0.25–0.49% shorter**, essentially neutral/slightly positive. The bank removes14 static allocation/free sites without changing arithmetic or claiming memory-capacity savings. Component percentages are not added or attributed to the forecast.
 

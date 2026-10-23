@@ -1,0 +1,55 @@
+diff --git a/dyn_em/Makefile b/dyn_em/Makefile
+index e6ada207..832335c7 100644
+--- a/dyn_em/Makefile
++++ b/dyn_em/Makefile
+@@ -137,0 +138,16 @@ endif
++# Exact RK1 PH snapshot/consumer fusion: qualified GNU13.3 pure-MPI SmallStep path.
++# Use WRF_SMALL_STEP_PH_COPY_FUSION=0 and rebuild for the original copy schedule.
++WRF_SMALL_STEP_PH_COPY_FUSION ?= 1
++ifeq ($(WRF_SMALL_STEP_PH_COPY_FUSION),1)
++ifeq ($(WRF_SMALL_STEP_SIMD),1)
++ifeq ($(WRF_SMALL_STEP_ZEN2),1)
++ifeq ($(strip $(OMPCPP)),)
++ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
++ifneq (,$(findstring 13.3.0,$(shell $(SFC) --version 2>/dev/null)))
++module_small_step_em.o: private override CPPFLAGS += -DWRF_SMALL_STEP_PH_COPY_FUSION
++endif
++endif
++endif
++endif
++endif
++endif
+diff --git a/dyn_em/module_small_step_em.F b/dyn_em/module_small_step_em.F
+index e9e16d9d..bb5d154f 100644
+--- a/dyn_em/module_small_step_em.F
++++ b/dyn_em/module_small_step_em.F
+@@ -168,0 +169 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
++#ifndef WRF_SMALL_STEP_PH_COPY_FUSION
+@@ -169,0 +171 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
++#endif
+@@ -297,0 +300,2 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
++#ifdef WRF_SMALL_STEP_PH_COPY_FUSION
++    IF (rk_step == 1 .AND. k<=min(kde,kte)) THEN
+@@ -299,0 +304 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
++      ph_1(i,k,j) = ph_2(i,k,j)
+@@ -305,0 +311,20 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
++    ELSE
++    !$omp simd
++    DO i=i_start, i_end
++      w_save(i,k,j) = w_2(i,k,j)
++      ! w coupled with my
++      w_2(i,k,j)  = ((c1f(k)*muts(i,j)+c2f(k))* w_1(i,k,j)-(c1f(k)*mut(i,j)+c2f(k))* w_2(i,k,j))/msfty(i,j)
++      ph_save(i,k,j) = ph_2(i,k,j)
++      ph_2(i,k,j) = ph_1(i,k,j)-ph_2(i,k,j)
++    ENDDO
++    ENDIF
++#else
++    !$omp simd
++    DO i=i_start, i_end
++      w_save(i,k,j) = w_2(i,k,j)
++      ! w coupled with my
++      w_2(i,k,j)  = ((c1f(k)*muts(i,j)+c2f(k))* w_1(i,k,j)-(c1f(k)*mut(i,j)+c2f(k))* w_2(i,k,j))/msfty(i,j)
++      ph_save(i,k,j) = ph_2(i,k,j)
++      ph_2(i,k,j) = ph_1(i,k,j)-ph_2(i,k,j)
++    ENDDO
++#endif

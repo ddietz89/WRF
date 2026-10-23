@@ -1,0 +1,46 @@
+{
+  "status": "PASS_BOUNDED_PH_COPY_REMOVAL_PACKED_W_PH_NATIVE_REVIEW_WITH_70CASE_GATE",
+  "qualified": true,
+  "native_receipt_sha256": "a677d3d0bf69e295122d8cbf4224821713144573cbc3271ad967de8850e0fb10",
+  "native_closure_sha256": "142837bbced81c41e97d363a255dd76b8cc49e0059e2c58e133542c0e7450ea1",
+  "assembly_sha256": {
+    "parent": "d563fb29d75674b4ebc5bf894bf5be7e8e5e3b24b5fa9fbe6ec8d0e47658ef61",
+    "candidate": "4cf2bae5a5d28cb4a9d5411e2a996bc31c44922dbfa82720a3e9d6a2edba4a27"
+  },
+  "copy_mechanism": {
+    "parent_memcpy_relocations": 8,
+    "candidate_memcpy_relocations": 7,
+    "parent_PH_snapshot": "PP181 callf719/relocf71a, separate from Wsnapshot f706; candidate Wsnapshot PP180 callf965 remains, PHsnapshot memcpy gone.",
+    "candidate_PH_copy": "PP300 f0df loads PH2\u2192ymm7; f0eb stores samebits PH1; f0f1 stores samebits PH_SAVE. Scalar/XMM tails retain corresponding copy stores.",
+    "not_entire_shared_loop_removed": true
+  },
+  "packed_W_PH": {
+    "parent_YMM": "eac0..eb0d: c1*muts/c1*mut, ADDc2, respective W1/W2 multiply, numerator SUB, DIVmsfty, PH1-PH2 SUB.",
+    "candidate_RK1_YMM": "f0d0..f11c: same coefficient/ADD/multiply/subtract/divide roles and order; PH2 same loaded bits for both PHoperands, real VSUBPS ymm7,ymm7 retained (not zero-folded).",
+    "candidate_other_YMM": "ea00..ea4d original PH1/P H2 distinction preserved: PH1loadedymm6 minus PH2loadedymm7; packed W arithmetic retains original operand roles.",
+    "tails": "XMM/scalar paths retain arithmetic; RK1PH self-sub f236(VSUBPS xmm2,xmm2), f2a1(VSUBSS xmm1,xmm1), not XOR/foldedzero.",
+    "no_FMA": true,
+    "scope": "Source-bound operand/dataflow inspection of target loops plus actual70case fullcaller/raw/state; no universal all-input proof."
+  },
+  "other_functions": {
+    "__module_small_step_em_MOD_advance_mu_t": true,
+    "__module_small_step_em_MOD_advance_uv": true,
+    "__module_small_step_em_MOD_advance_w": true,
+    "__module_small_step_em_MOD_calc_coef_w": true,
+    "__module_small_step_em_MOD_calc_p_rho": true,
+    "__module_small_step_em_MOD_init_module_small_step": true,
+    "__module_small_step_em_MOD_small_step_finish": true,
+    "__module_small_step_em_MOD_sumflux": true
+  },
+  "readonly_data_constants_exact": true,
+  "code_bytes": {
+    "parent": 11152,
+    "candidate": 11770,
+    "growth": 618
+  },
+  "limits": [
+    "Duplicate branch increases code size; gain remains unmeasured.",
+    "W/PH numerical tokens unchanged; machine scheduling may differ. Active-trap equivalence is not claimed beyond actual observer scope.",
+    "Old7087 sampled PC historical only; current object40c5 proven by actual gate."
+  ]
+}

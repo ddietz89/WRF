@@ -1,0 +1,84 @@
+{
+  "expected_invocation_id": "1d073e3ff65d4d868a5ea80804119693",
+  "properties": {
+    "RuntimeMaxUSec": "2min",
+    "MainPID": "0",
+    "Result": "exit-code",
+    "ExecMainStatus": "1",
+    "ControlGroup": "",
+    "MemoryPeak": "9363456",
+    "CPUQuotaPerSecUSec": "2s",
+    "AllowedCPUs": "24-25",
+    "MemoryMax": "4294967296",
+    "MemorySwapMax": "0",
+    "LimitSTACK": "infinity",
+    "LimitMEMLOCK": "infinity",
+    "CPUAffinity": "24-25",
+    "User": "ddietz",
+    "KillMode": "control-group",
+    "LoadState": "loaded",
+    "ActiveState": "failed",
+    "InvocationID": "1d073e3ff65d4d868a5ea80804119693"
+  },
+  "cgroup_children": [],
+  "cgroup_path_absent": true,
+  "manager_events": [
+    {
+      "MESSAGE": "Started wrf-cpu-currentf272-phcopy-canonical-delivery-one-object-hpc02-r1.service - /usr/bin/taskset -c 24-25 /usr/bin/python3 /pool/wrf-experiment/wrf-cpu/source-discovery/currentf272-phcopy-canonical-delivery-one-object-r1/run_delivery.py --execute-approved.",
+      "INVOCATION_ID": "1d073e3ff65d4d868a5ea80804119693",
+      "_SYSTEMD_INVOCATION_ID": null,
+      "EXIT_CODE": null,
+      "EXIT_STATUS": null,
+      "UNIT_RESULT": null,
+      "__REALTIME_TIMESTAMP": "1792731278563461"
+    },
+    {
+      "MESSAGE": "wrf-cpu-currentf272-phcopy-canonical-delivery-one-object-hpc02-r1.service: Main process exited, code=exited, status=1/FAILURE",
+      "INVOCATION_ID": "1d073e3ff65d4d868a5ea80804119693",
+      "_SYSTEMD_INVOCATION_ID": null,
+      "EXIT_CODE": "exited",
+      "EXIT_STATUS": "1",
+      "UNIT_RESULT": null,
+      "__REALTIME_TIMESTAMP": "1792731279708048"
+    },
+    {
+      "MESSAGE": "wrf-cpu-currentf272-phcopy-canonical-delivery-one-object-hpc02-r1.service: Failed with result 'exit-code'.",
+      "INVOCATION_ID": "1d073e3ff65d4d868a5ea80804119693",
+      "_SYSTEMD_INVOCATION_ID": null,
+      "EXIT_CODE": null,
+      "EXIT_STATUS": null,
+      "UNIT_RESULT": "exit-code",
+      "__REALTIME_TIMESTAMP": "1792731279708609"
+    }
+  ],
+  "logs": {
+    "/pool/wrf-experiment/wrf-cpu/source-discovery/currentf272-phcopy-canonical-delivery-one-object-r1/build.stdout": {
+      "bytes": 97,
+      "tail": "{\"status\": \"FAIL_RETAINED_NO_RETRY\", \"error\": \"AssertionError(('MAKE_MODULE_DIRS_DIFFER', []))\"}\n"
+    },
+    "/pool/wrf-experiment/wrf-cpu/source-discovery/currentf272-phcopy-canonical-delivery-one-object-r1/build.stderr": {
+      "bytes": 313,
+      "tail": "Running as unit: wrf-cpu-currentf272-phcopy-canonical-delivery-one-object-hpc02-r1.service; invocation ID: 1d073e3ff65d4d868a5ea80804119693\nFinished with result: exit-code\nMain processes terminated with: code=exited/status=1\nService runtime: 1.145s\nCPU time consumed: 261ms\nMemory peak: 8.9M\nMemory swap peak: 0B\n"
+    }
+  },
+  "launcher_state": null,
+  "files_present": [
+    "make.FC",
+    "module_small_step_em.F",
+    "make-guard-only.stdout",
+    "make.SFC",
+    "make.FCSUFFIX",
+    "make.MODULE_DIRS",
+    "make.CPPFLAGS",
+    "make.PROMOTION",
+    "make-guard-only.stderr",
+    "make.CPP",
+    "make.OMP",
+    "make.FCFLAGS",
+    "make.TRADFLAG",
+    "make.SED_FTN",
+    "make.OMPCPP",
+    "receipt.json",
+    "emit.mk"
+  ]
+}
