@@ -1,0 +1,150 @@
+{
+  "status": "ACTUAL_RETAINED_3H_SAME_HOST_PAIR_PHASE_REVERSAL_NOT_CAUSAL",
+  "query": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-a93f-threehour-identity-profile-preparation-r1/retained457385-phase-delta-query-r1/actual-root-readonly-r1/stdout.json",
+    "sha256": "36a2f0b65d7a576aa289e89891747e56750dbfb30029b064e041dcecd58d008a"
+  },
+  "retained_SCI_sha256": "7639058849c5b4c31850f615af0fe5641ec2e3a358e76190d039bd2a8766815e",
+  "groups": {
+    "first185_forecast_steps_stable_q3_185": {
+      "q_begin": 3,
+      "q_end": 185,
+      "cohorts": 183,
+      "457_later": 12,
+      "385_later": 171,
+      "tie": 0,
+      "entry457_minus385_ns": {
+        "min": -265008442,
+        "median": -23531332,
+        "max": 94210110
+      },
+      "previous_exit457_minus385_ns": {
+        "min": -3177212,
+        "median": 2280,
+        "max": 53202
+      },
+      "preceding_wall_ns": {
+        "457": {
+          "median": 879566338
+        },
+        "385": {
+          "median": 904306468
+        }
+      },
+      "preceding_thread_CPU_ns": {
+        "457": {
+          "median": 878397110
+        },
+        "385": {
+          "median": 902169122
+        }
+      }
+    },
+    "remaining360_steps_q186_545": {
+      "q_begin": 186,
+      "q_end": 545,
+      "cohorts": 360,
+      "457_later": 296,
+      "385_later": 64,
+      "tie": 0,
+      "entry457_minus385_ns": {
+        "min": -53663493,
+        "median": 52956257.5,
+        "max": 436138452
+      },
+      "previous_exit457_minus385_ns": {
+        "min": -44361,
+        "median": 1555.5,
+        "max": 3334465
+      },
+      "preceding_wall_ns": {
+        "457": {
+          "median": 1026487405.0
+        },
+        "385": {
+          "median": 942399783.5
+        }
+      },
+      "preceding_thread_CPU_ns": {
+        "457": {
+          "median": 1025575311.0
+        },
+        "385": {
+          "median": 942123642.0
+        }
+      }
+    },
+    "same_ordinal_q40_54_as_new_capture_fullgaps": {
+      "q_begin": 40,
+      "q_end": 54,
+      "cohorts": 15,
+      "457_later": 2,
+      "385_later": 13,
+      "tie": 0,
+      "entry457_minus385_ns": {
+        "min": -53430898,
+        "median": -31106493,
+        "max": 520742
+      },
+      "previous_exit457_minus385_ns": {
+        "min": -35851,
+        "median": 760,
+        "max": 34231
+      },
+      "preceding_wall_ns": {
+        "457": {
+          "median": 956123039
+        },
+        "385": {
+          "median": 984855789
+        }
+      },
+      "preceding_thread_CPU_ns": {
+        "457": {
+          "median": 955155369
+        },
+        "385": {
+          "median": 944601279
+        }
+      }
+    },
+    "all_stable_q3_545": {
+      "q_begin": 3,
+      "q_end": 545,
+      "cohorts": 543,
+      "457_later": 308,
+      "385_later": 235,
+      "tie": 0,
+      "entry457_minus385_ns": {
+        "min": -265008442,
+        "median": 14661202,
+        "max": 436138452
+      },
+      "previous_exit457_minus385_ns": {
+        "min": -3177212,
+        "median": 1730,
+        "max": 3334465
+      },
+      "preceding_wall_ns": {
+        "457": {
+          "median": 977750848
+        },
+        "385": {
+          "median": 928467514
+        }
+      },
+      "preceding_thread_CPU_ns": {
+        "457": {
+          "median": 974130406
+        },
+        "385": {
+          "median": 925702793
+        }
+      }
+    }
+  },
+  "distinction": "Full3h most-often-LAST457 within120rankcohort is182/543 (priorall480analysis); pairwise457laterthan385 is308/543, a different statistic.",
+  "interpretation": "The same retained3h run has early385later171/183 (median457minus385 -23.531332ms) andlater457later296/360 (+52.9562575ms), establishing pairwisephase reversal withoutanotherforecast. Newonehour9/174 andoldfirsthour12/171 are descriptivelyconsistent; differingepoch/requesttargets/nativeprofileoverhead remainconfounds, not causality.",
+  "crossrun_absolute_clock_subtraction": false,
+  "performance_or_global_headroom_claim": false
+}
