@@ -1,0 +1,112 @@
+{
+  "status": "REJECT_STRICT_RAW_NAN_PAYLOAD_CHANGE",
+  "closed": true,
+  "candidate_promoted": false,
+  "candidate_pp_sha256": "d2c017d2cf7697aed00bc5313ec7b77fc9ed5e62e910ee7732b447df0e05c1a2",
+  "failed_invocation": "b5f0e3231f434ce09673887ad455a814",
+  "native_status": "FAIL_RETAINED_NO_RETRY",
+  "checks": {
+    "genuine_current_equals_fresh_O2_parent": true,
+    "O0_same_optimization_bounds_all_suites_pass": true,
+    "O2_candidate_retained_88_cases_pass": true,
+    "O2_candidate_new_MU_suite_raw_comparison_pass": false,
+    "all_12_MU_five_state_vectors_equal": true
+  },
+  "failure": {
+    "mismatched_words": 384,
+    "mismatched_bytes": 1152,
+    "cases": [
+      43,
+      44,
+      45,
+      46,
+      53
+    ],
+    "fields_word_counts": {
+      "W2": 210,
+      "T2": 144,
+      "MUTS": 30
+    },
+    "observed_change": "Quiet-NaN payload bits differ in MUTS and downstream W2/T2; raw equality fails despite equal observed state. No instruction-level cause claimed.",
+    "examples": [
+      {
+        "case": 43,
+        "field": "MUTS",
+        "coordinate": [
+          1,
+          1
+        ],
+        "file_byte_offset": 265808,
+        "genuine_u32_hex": "7fc54321",
+        "candidate_u32_hex": "7fc12345"
+      },
+      {
+        "case": 44,
+        "field": "MUTS",
+        "coordinate": [
+          1,
+          1
+        ],
+        "file_byte_offset": 552348,
+        "genuine_u32_hex": "7fc12345",
+        "candidate_u32_hex": "7fc54321"
+      },
+      {
+        "case": 45,
+        "field": "MUTS",
+        "coordinate": [
+          1,
+          1
+        ],
+        "file_byte_offset": 838888,
+        "genuine_u32_hex": "7fc54321",
+        "candidate_u32_hex": "7fc00001"
+      },
+      {
+        "case": 46,
+        "field": "MUTS",
+        "coordinate": [
+          1,
+          1
+        ],
+        "file_byte_offset": 1125428,
+        "genuine_u32_hex": "7fc00001",
+        "candidate_u32_hex": "7fc54321"
+      },
+      {
+        "case": 53,
+        "field": "MUTS",
+        "coordinate": [
+          1,
+          1
+        ],
+        "file_byte_offset": 3107728,
+        "genuine_u32_hex": "7fc54321",
+        "candidate_u32_hex": "7fc12345"
+      }
+    ]
+  },
+  "closure": {
+    "disposition": "FAILED_EXECUTION_POSITIVELY_DRAINED_NOT_SUCCESS",
+    "exit_status": 1,
+    "main_pid": 0,
+    "cgroup_processes": [],
+    "cgroup_paths_absent": true,
+    "manager_result": "exit-code",
+    "active_state": "failed"
+  },
+  "scope_limits": [
+    "Equal five-state vectors do not establish raw scientific-output equivalence.",
+    "Synthetic complete-caller strict gate failed; no application/science qualification or timing.",
+    "No operand repair, assembly query, rerun, timing, new variant or promotion follows this exact candidate.",
+    "Frozen current19ad selection and queued independent W candidate are unchanged."
+  ],
+  "evidence": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current19ad-rk1-mu-preparation-fusion-r1/actual-native-r1/receipt.json": "e7bd517d8f6063a23a66a122d8c716912115516f1eb334db9fcabded3549088a",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current19ad-rk1-mu-preparation-fusion-r1/actual-native-r1/closure.json": "78d6e1d65f82f7c369c14ffa0ea282218ab2f7067591ced96e25eb7a901013c6",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current19ad-rk1-mu-preparation-fusion-r1/actual-native-r1/controller.json": "0394e41f77456a3e81001b39888f486c2e7fb215ba3bb3fca623afb5f34aa9dd",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current19ad-rk1-mu-preparation-fusion-r1/failed-native-readonly-diagnosis-r1/ACTUAL_READONLY_DIAG.json": "6538fd83ef157150be3a9ccf6d5997ea726cc6860e78c90c97edd829f390e9fe",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current19ad-rk1-mu-preparation-fusion-r1/ACTUAL_LITERAL_ADJUDICATION.json": "1917f3cb666f4f0d419418f57070c2d12243684c68776fee8b0e4d96460bf4c7",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current19ad-rk1-mu-preparation-fusion-r1/native-gate-preparation-r1/SOURCE_INVERSE_candidate.json": "3642900d3aff5a0bb1ec1716e5ad75957b7be809a6a186c9c6d68284a8427d7d"
+  }
+}
