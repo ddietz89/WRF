@@ -1,5 +1,36 @@
 # WRF CPU optimization findings
 
+## October23: coefficient row pipeline promoted; full-grid tables restored
+
+Current working executable **a93fa7fb**, archive **02f9c20c**, source correspondence **eb8351dd**, retains all prior eb5e components/providers and adds the `calc_coef_w` A(k+1)/B(k) row pipeline. It removes a separate interior traversal and shares the original denominator register while retaining every coefficient store, endpoint and serial K recurrence. Strict arithmetic is unchanged.
+
+Genuine-parent O0-bounds/O2 gates passed80 complete observations per optimization, including raw IEEE values, five-part floating state, readonly/guards, publicMOD and unchanged non-target routines/constants. Complete finite synthetic callers were **6.6369% and4.0337% shorter** in opposite-order hpc01/hpc04 pairs, with checked caches and normal closures. These are complete-caller gains, not forecast gains. The actual compile-free relink changes one of584 archive members;583 members and all direct-link inputs remain exact. Actual canonical CPP/O2 produces the tested runtime sections/relocations/publicMOD; wholePP/debug-object bytes differ.
+
+The unchanged original546b scientific checker passed both complete06:00/06:10 products and35 ordered steps, full512/twoY,32 FIELDVIEW environments,16 positive field markers and the expected writer activity. All four models and reader82c07053 closed normally. Own short science is qualified; own3h/onehour/noon/9h/profile/restart/full144 remain unqualified. [Qualification, rebuild scope and rollback](tools/cpu-compute/calc-coef-w-ahead-row-pipeline/README.md). Set `WRF_CALC_COEF_W_AHEAD_ROW_PIPELINE=0` and fully regenerate/rebuild/rearchive/relink, or restore eb5e with matching source/default records. GNU13.3/emptyOMPCPP/SmallStepSIMD1/Zen21 is the qualified default; matching serial remains unqualified.
+
+Latest matched three-hour performance evidence remains the frozen19ad A1–B1–B2–A2 comparison, two observations per image:
+
+| Metric | Corrected original546b mean | Combined19ad mean | Reduction |
+|---|---:|---:|---:|
+|Model/MPI wall (min)|13.323|10.990|17.51%|
+|Main-step elapsed (min)|9.919|9.291|6.34%|
+|Aggregate CPU (CPU-h)|99.644|88.823|10.86%|
+
+More recent full-grid observations are separately qualified, **unpaired** results:
+
+| Build / simulated forecast | Wall (min) | Main-step elapsed (min) | Aggregate CPU (CPU-h) | Exact science |
+|---|---:|---:|---:|---|
+|526e /3h|10.929|9.294|88.614|4products/545steps PASS|
+|526e /9h, request-instrumented|30.551|28.871|256.005|10products/1625steps PASS|
+|eb5e /3h|10.922|9.289|88.669|4products/545steps PASS|
+|eb5e /1h, request-instrumented|4.701|3.025|35.358|2products/185steps PASS|
+|**Currenta93f /10min**|**2.256**|**0.639**|**14.954**|**2products/35steps PASS**|
+
+Main-step elapsed includes communication/waiting/backpressure and is not integration CPU. Historical matched percentages do not independently qualify newer images. No new matched forecast reduction or isolated coefficient forecast gain is inferred. The original short collector's stale WDTN label and49.41% descriptive difference remain in immutable raw evidence; the derived qualification corrects the identity and makes no matched-speedup claim. Earlier dated entries describe their state at that time.
+
+The separate eb5e one-hour MPI diagnostic passed two products/185 ordered steps and all model/reader closures. Both optional profiles never started before their phase deadline; source classification remains UNKNOWN. Bounded request readers validated four selected streams (25,792 records each), then recovered their actual local order:62 X-send records in each of52 selected steps, with recurrent148,800-byte sends at positions18 and31 on both producers113/121. No cross-host clock subtraction or FIFO pairing is performed. A possible two-stage D2_5 caller identity is a source hypothesis requiring branch/geometry/cardinality proof. Independent DeepSeek interpretation/review returned; literal count/role errors were corrected. This supports a focused caller investigation, not a demonstrated removable MPI cost or new halo implementation. AWS is suspended; production/master are unchanged.
+
+
 ## October23: current WDTN build passes its own three-hour full-grid gate
 
 Current executable `eb5e10fb` (source correspondence `642a6938`, archive `68755e56`) retains all prior selected improvements and the WDTN row pipeline. Its unprofiled three-hour run passed the unchanged exact comparison of all four complete outputs and545 ordered steps against retained corrected-original546b. All four model scopes and readerd4505200 normally closed. [Separate qualification](tools/cpu-compute/advance-mu-wdtn-row-pipeline/THREE_HOUR_APPLICATION_QUALIFICATION.json).

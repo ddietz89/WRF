@@ -1,0 +1,37 @@
+{
+  "status": "PASS_CURRENT_EB5E_WDTN_OWN_THREE_HOUR_FOUR_PRODUCT_545_STEP_SCIENCE",
+  "artifact_executable_sha256": "eb5e10fbbccb34c936c8a0129a2e966209768720bc4b7d6904cb97e8c953ba66",
+  "archive_sha256": "68755e5690a38a9c139041086cf6eb952014890e97663a0d6ea8da23984eb40e",
+  "posttest_source_commit": "642a69388e430f079ba5ca043aa0ad4ea06c9280",
+  "qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advance-mu-wdtn-row-pipeline/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "f5e3148a46056e711ccb1afe3d536e4e44e01e63fecec96a7bfb294d28b05efd"
+  },
+  "science_receipt": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current526e-wdtn3h-runtime-r1/science-receipt.json",
+    "sha256": "172fac59ada7f7ff86caea4a0ace8b0cfd0d5a996a0d26d6cec412cbe153814c"
+  },
+  "reader_closure": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current526e-wdtn3h-runtime-r1/reader-closure.json",
+    "sha256": "a2fd1d174707e1ac80a5699d13aea86b442c3dc302242f0607fdcdb9838a855a"
+  },
+  "raw_result": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current526e-wdtn3h-runtime-r1/RESULT.json",
+    "sha256": "95128acff415401fce589d523e6abe2da6042c91c56d48ef900f1d8e1cd70b62"
+  },
+  "metrics": {
+    "candidate_unpaired": {
+      "wall_seconds": 655.3156078369357,
+      "cpu_seconds": 319209.312917,
+      "main_step_sum_seconds": 557.32157
+    }
+  },
+  "comparison_design": "Candidate-only WD eb5e three-hour vs retained earlier original546b A1 science, UNPAIRED",
+  "limits": [
+    "Candidate-only unpaired wall/CPU/main absolute metrics; no new reduction, matched-original timing, isolated/additive or forecastgain claim.",
+    "Parent526e own3h/9h and19adABBA remain historical/appliesfalse, never qualify this WDchild.",
+    "Own3h andshort science only; ownnoon/onehour/9h/profile/restart/full144 false.",
+    "ShortQbc6e and frozen60 runtimepins remain immutable; publish separate3hQ.",
+    "Mainelapsed includes MPI/outputbackpressure; wall-minus-main is not pureIO or independentdrain."
+  ]
+}

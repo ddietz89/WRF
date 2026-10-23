@@ -1,0 +1,13 @@
+# calc_coef_w ahead-row pipeline
+
+Own short35/two-product exact application science passed for a93fa7fb/02f9c20c, with all four models and the reader normally closed. Post-test canonical source commit: eb8351dd9ada2ddf63decb8277feada3a418ff02.
+
+The candidate produces A(k+1) while consuming B(k) in the same I traversal. Original expressions, coefficient stores, serial K recurrence and final-K guard remain. Actual codegen shares the exact denominator register and removes the separate A interior traversal.
+
+Genuine-parent/O0-bounds/O2 gates passed80 complete observations per optimization, exact raw/read-only/guards/five-state, publicMOD, non-target code and constants. Complete restored1024-call screens at finite synthetic I188/J19/massK33 were6.636902% and4.033654% shorter in opposite hpc01/hpc04 orders, with cache clear each arm and all four normal closures. These are caller results, not captured forecast state or forecast percentages.
+
+The compile-free a93fa7fb/02f9c20c artifact replaces only SmallStep member558 (0852 to a381), preserving583 others and every original direct-link input. One actual canonical CPP/strict-O2 compile matches allocated runtime bytes, relocations, non-file symbols and publicMOD. WholePP/debug-object bytes differ. Raw producer source commit remainsNULL; the source commit documents post-test canonical correspondence. No fresh canonical whole-image build is claimed.
+
+The unchanged protected original546b checker passed both06:00/06:10 complete products and35 ordered steps. Full512/twoY, all32 quilt FIELDVIEW=1,16 positive admission markers, positive roots487/495 and inactive503/511 were verified. Own3h/onehour/noon/9h/profile/restart/full144 remain unqualified. Short wall135.346293s, main elapsed38.349370s and aggregateCPU53836.083861s are UNPAIRED descriptive metrics. The raw collector's stale WDTN order label is preserved and corrected explicitly in derived qualification; its descriptive49.41% difference is not a forecast speedup claim. Parent eb5e own3h and526e own9h remain historical; no child horizon/profile/restart transfer.
+
+Eligibility is GNU13.3.0, empty OMPCPP, SmallStepSIMD=1 and Zen2=1. Matching serial remains unqualified. Set WRF_CALC_COEF_W_AHEAD_ROW_PIPELINE=0, fully regenerate the translation unit's preprocessed files, rebuild object/publicMOD, rearchive and relink to restore the prior coefficient schedule. Immediate artifact rollback restores eb5e/6875/0852 plus matching source/default/working records. Preserve all prior components and providers8bee/9371, root input, privateHDF5, FABA, twoY, TPI and IB settings. The rebuild recipe preserves the exact prior UVcopy recipe string and separately references the WDTN build/source qualification; all earlier rebuild history remains.

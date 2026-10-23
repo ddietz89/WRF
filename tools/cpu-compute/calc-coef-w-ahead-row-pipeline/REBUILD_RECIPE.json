@@ -1,0 +1,103 @@
+{
+  "status": "ACTUAL_POSTTEST_CANONICAL_RUNTIME_CORRESPONDENCE_NOT_WHOLE_IMAGE_BUILD",
+  "posttest_source_commit": "eb8351dd9ada2ddf63decb8277feada3a418ff02",
+  "raw_producer_source_commit": null,
+  "canonical_sources": {
+    "dyn_em/module_small_step_em.F": "bbb48364dd527df2b993a342dd71536f6828c7a93cc119ab7fdc91db9ba56a3d",
+    "dyn_em/Makefile": "619fca3cf0710ebe9dc770c9f5b421c681dea6272c4b71bbcb4f4d710046bc71"
+  },
+  "target": "dyn_em/module_small_step_em.F:calc_coef_w",
+  "feature": "WRF_CALC_COEF_W_AHEAD_ROW_PIPELINE",
+  "default": 1,
+  "guard": "WRF_CALC_COEF_W_AHEAD_ROW_PIPELINE default1 under GNU13.3.0/emptyOMPCPP/WRF_SMALL_STEP_SIMD=1/WRF_SMALL_STEP_ZEN2=1. No DM_PARALLEL assertion; matching serial unqualified. Optout0 plus fullregenerate/rebuild/rearchive/relink.",
+  "optout": {
+    "setting": "WRF_CALC_COEF_W_AHEAD_ROW_PIPELINE=0",
+    "required_steps": [
+      "Regenerate the translation unit preprocessed files under the established WRFCPP pipeline",
+      "Rebuild module_small_step_em.o and publicMOD with the qualified strictGNU13.3 flags",
+      "Rearchive libwrflib.a and relink wrf.exe",
+      "Restore matching source/default/workingselection records and requalify any newlybuilt image"
+    ]
+  },
+  "parent_source_rebuild_recipe": {
+    "value_preserved_exact": "tools/cpu-compute/smallstep-rk1-uv-copy-fusion/REBUILD_RECIPE.json",
+    "file": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-uv-copy-fusion/REBUILD_RECIPE.json",
+      "sha256": "1b4aa0688c0b83c41a2c78d697b7e1a60eaad201a69a72420c8f57dd59719809"
+    }
+  },
+  "parent_WDTN_delivery": {
+    "source_commit": "642a69388e430f079ba5ca043aa0ad4ea06c9280",
+    "build_qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advance-mu-wdtn-row-pipeline/BUILD_QUALIFICATION.json",
+      "sha256": "1565e91020f45bb17c75eb1beae3a0d951f89b2511fe2018ec8e610ffcb4f493"
+    },
+    "scope": "WDTN layer recorded by actual build/source qualification; the selected inherited recipe string above still pointed to UVcopy and is preserved truthfully."
+  },
+  "actual_artifact_build": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/focused-continuation-20261023-incremental-r1/calc-coef-w-ahead-row-pipeline-r1/one-member-artifact-preparation-r1/actual/receipt.json",
+    "sha256": "129f08825e2eabb418f025a58eaf48537d974dc80ed2dad9e0f5454e2227c4df"
+  },
+  "actual_canonical_delivery": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/focused-continuation-20261023-incremental-r1/calc-coef-w-ahead-row-pipeline-r1/canonical-delivery-one-object-r1/actual/receipt.json",
+    "sha256": "340856c597b08f2f559eae72cdc27909e2045b03a892ef62c34204e69b1fd26c"
+  },
+  "actual_runtime_equivalence": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/focused-continuation-20261023-incremental-r1/calc-coef-w-ahead-row-pipeline-r1/canonical-delivery-one-object-r1/actual/runtime-equivalence.json",
+    "sha256": "560fad13b91873f882089bc97d5cc89f90ae7e0781bf02060148616bf1eb8dea"
+  },
+  "compile_recipe": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/focused-continuation-20261023-incremental-r1/calc-coef-w-ahead-row-pipeline-r1/canonical-delivery-one-object-r1/current-native-recipe.json",
+    "sha256": "f6b2db42ec6809b198224b491b569321369207821f24677239424af532007ec4"
+  },
+  "expanded_CPP_donor": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/focused-continuation-20261023-incremental-r1/calc-coef-w-ahead-row-pipeline-r1/canonical-delivery-one-object-r1/expanded-CPP-donor.json",
+    "sha256": "0f6555ee1903543014b56d0c857976f0c57926fc329ba7a6a55f7845f53acf30"
+  },
+  "qualified_configure": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/focused-continuation-20261023-incremental-r1/calc-coef-w-ahead-row-pipeline-r1/canonical-delivery-one-object-r1/configure.wrf.qualified",
+    "sha256": "6d2d788bd02677e6b3603cf9f011b5d51ad19cc418accc773da5a713c1fb7c5c"
+  },
+  "outer_Makefile": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/focused-continuation-20261023-incremental-r1/calc-coef-w-ahead-row-pipeline-r1/canonical-delivery-one-object-r1/outer-Makefile.reference",
+    "sha256": "2e4e33170b5e4eee54f9f6e43e3799b0d3253ca16c20561d3d2b716701ef5f45"
+  },
+  "source_inverse": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/focused-continuation-20261023-incremental-r1/calc-coef-w-ahead-row-pipeline-r1/canonical-delivery-one-object-r1/source-default-inverse.json",
+    "sha256": "28cb53b82fe99d5d29af6f48e28d67dc4e51e481f1a2eb91bbcdc6d9970d19aa"
+  },
+  "actual_tested_artifacts": {
+    "exe": "a93fa7fbab772d979dfb6c46a318944dc3a0faf6223fd5f82348e86fc4e9e84d",
+    "archive": "02f9c20c4517b90625e72a5f2a623235402610ed111e37f00e7ef4164887e866",
+    "member": "a3818127897d55c6018c67ea3bb7918eb35880ce3e9a29e82cb77a36996158eb",
+    "public_MOD": "d50c501497b927ad56b9bb3b7cb9431c827b8092cedf23e83d8f573ccb884b94",
+    "qualified_PP": "3b2adfc9ef9e85eab1d9d5d22a5ad89fc040bcb188661ac89b8b29237a5f1db4"
+  },
+  "scope": {
+    "module_compiles": 1,
+    "links": 0,
+    "allocated_runtime_bytes_relocations_nonfile_symbols_exact": true,
+    "public_MOD_exact": true,
+    "whole_PP_byte_exact": false,
+    "whole_object_byte_exact": false,
+    "canonical_PP_sha256": "ee2ced19f0b64d7d4dabc6c70a335c3921577713634af18fe7242783e10b606b",
+    "canonical_object_sha256": "d438dd10a3d4f69dcf8d38e7aa7b5b8d100ca9bc2f451ec8d242589df113b77a",
+    "not_a_fresh_whole_image_canonical_build": true
+  },
+  "rollback": {
+    "parent_executable": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current526e-advance-mu-wdtn-row-pipeline-one-member-native-r1/wrf.exe",
+      "sha256": "eb5e10fbbccb34c936c8a0129a2e966209768720bc4b7d6904cb97e8c953ba66"
+    },
+    "parent_archive_path": "/pool/wrf-experiment/wrf-cpu/builds/current526e-advance-mu-wdtn-row-pipeline-one-member-native-r1/libwrflib.a",
+    "parent_archive_sha256": "68755e5690a38a9c139041086cf6eb952014890e97663a0d6ea8da23984eb40e",
+    "parent_member_sha256": "0852ac0899af2ffba640ae12f1f17b36ea8c1fe64738f8f660e253fa1a5a85df",
+    "parent_source_commit": "642a69388e430f079ba5ca043aa0ad4ea06c9280",
+    "required": "Restoreeb5e/6875/0852 together with matching source/default/workingrecords. Preserve all earlier providers/components and rollback entries."
+  },
+  "limits": [
+    "Only MPI qualified; matching serial and untested compiler/ISA/OpenMP configurations unqualified.",
+    "Rawtestedartifact reuseda381; canonicaldelivery oneCPPpipeline+oneO2 compile0links proves allocatedruntime/RELA/publicMOD correspondence only. WholePP/debug-object bytes differ; no canonicalfullimagehash claim.",
+    "Changing the knob without regenerating/rebuilding/rearchiving/relinking does not change existing executable."
+  ]
+}
