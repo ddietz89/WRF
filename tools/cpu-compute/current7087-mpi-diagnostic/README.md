@@ -99,3 +99,8 @@ The fresh instrumented candidate recorded **280.349463s whole MPI wall,184.77054
 
 
 The first four-node TKE cost arm stopped in the **original-path admission gate before timing**. A separate untimed diagnostic preserved the failure and found zero raw/guard/corner differences on all four ranks. The first original exchange added only IEEE `INEXACT` (flags4→36, MXCSR8070→8102); the original repeat and deferred exchange both preserved the four checked state fields. This establishes a first-use effect of the original path, without identifying a particular MPI/UCX internal cause. No timing was accepted, no FP check was waived, and the other three arms were not launched. A separately scoped warmed-caller measurement can use one identical recorded original preconditioning call before the unchanged strict warm/per-call/post gates. [Actual state evidence and scope](TKE_FOURHOST_ADMISSION_DIAGNOSTIC.json).
+
+
+The retained noon request/profile captures have since passed a complete primary-key/observed-callchain interval join; see [stack evidence](REQUEST_EVENT_STACK_JOIN_RESULT.json). Source lines/libc function names remain unavailable and prior rendering failures stay explicit. No new capture or matched forecast was run.
+
+The TKE four-host cost screen closed unqualified after its final original-path admission failure. No remaining arms, check relaxation, further warmup variant or default promotion follows. [Closeout](TKE_FOURHOST_COST_CLOSEOUT.json) retains all actual failing receipts, cache clears and four-node closure proofs. The earlier exact synthetic protocol/typed compile remain separate positive evidence.

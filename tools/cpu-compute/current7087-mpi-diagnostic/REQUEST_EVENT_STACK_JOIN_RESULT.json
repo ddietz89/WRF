@@ -1,0 +1,86 @@
+{
+  "status": "PASS_EXACT_CLOSED_PRIMARY_KEY_REQUEST_INTERVAL_CALLCHAIN_JOIN",
+  "actual_result": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current7087-mpi-preceding-work-preparation-r1/x-postwait-observer-implementation-preparation-r1/application-onehour-preparation-r1/postclose-interpretation-r1/current-stack-join-r2/actual-native-r1/STACK_JOIN_RESULT.json",
+  "actual_result_sha256": "4a5dc4a0f915dbbc16198801df0f0bfb3fab0d49503645363eab737fe67cc0a3",
+  "scope": [
+    "Exact key is PID/TID/integer-ns/period/event; primary IP always comes from separately qualified primaryJSON, never the first unwind frame.",
+    "Unwind order is observed; nearest resolved WRF frame is not guaranteed nearest actual caller. Empty/unknown/truncated chains remain unresolved.",
+    "All interval counts/periods conserve the already accepted selected summary. Inclusive whole-capture percentages are not used as interval weights.",
+    "Numeric sample loss UNKNOWN. No global/peer/wire latency, removable cost, forecast gain or new science/FENV qualification. Raw native data and full rendered stacks stay on cluster; only bounded aggregates are copied."
+  ],
+  "libc_symbol_authority": "UNAVAILABLE: no current MMAP/load-bias/build-id-to-symbol authority supplied. libc internals stay unnamed; native whole-capture report offsets are not promoted to symbols.",
+  "original_failed_render_preserved": {
+    "manager_exit_code": 1,
+    "invocation_id": "0d4fa9c2546a40d6b30ecb92b5a3261f",
+    "rank122_original_perf_returncode": "UNKNOWN_NOT_RECORDED",
+    "rank122_acceptance_here": "Retained text completeness/identity/key/period proof only; no original command success claim"
+  },
+  "ranks": {
+    "122": {
+      "primary_count": 1391,
+      "exact_unique_keys": 1391,
+      "empty_callchains": 0,
+      "source_line_authority": "SOURCE_LINES_UNAVAILABLE_EXACT_ADDR2LINE_WARNING",
+      "between_API_libc_nearest_WRF_top5": [
+        {
+          "nearest_resolved_WRF": "__module_big_step_utilities_em_MOD_zero_tend",
+          "count": 49,
+          "period": 1439781184
+        },
+        {
+          "nearest_resolved_WRF": "__module_ieva_em_MOD_ww_split",
+          "count": 28,
+          "period": 836074648
+        },
+        {
+          "nearest_resolved_WRF": "__module_mp_thompson_MOD_mp_thompson",
+          "count": 28,
+          "period": 817894331
+        },
+        {
+          "nearest_resolved_WRF": "f_pack_int_ikj_",
+          "count": 17,
+          "period": 474817762
+        },
+        {
+          "nearest_resolved_WRF": "f_unpack_int_ikj_",
+          "count": 12,
+          "period": 322979995
+        }
+      ]
+    },
+    "386": {
+      "primary_count": 1395,
+      "exact_unique_keys": 1395,
+      "empty_callchains": 0,
+      "source_line_authority": "SOURCE_LINES_NOT_REQUESTED_OR_QUALIFIED",
+      "between_API_libc_nearest_WRF_top5": [
+        {
+          "nearest_resolved_WRF": "__module_mp_thompson_MOD_mp_thompson",
+          "count": 31,
+          "period": 876520959
+        },
+        {
+          "nearest_resolved_WRF": "__module_big_step_utilities_em_MOD_zero_tend",
+          "count": 25,
+          "period": 703371767
+        },
+        {
+          "nearest_resolved_WRF": "f_pack_int_ikj_",
+          "count": 24,
+          "period": 654146065
+        },
+        {
+          "nearest_resolved_WRF": "f_unpack_int_ikj_",
+          "count": 12,
+          "period": 294909280
+        },
+        {
+          "nearest_resolved_WRF": "__module_mp_thompson_MOD_calc_refl10cm",
+          "count": 9,
+          "period": 252682917
+        }
+      ]
+    }
+  }
+}
