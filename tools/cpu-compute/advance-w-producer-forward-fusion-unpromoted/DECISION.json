@@ -1,0 +1,87 @@
+{
+  "status": "CLOSED_UNPROMOTED_COMPLETE_CAPTURED_ADVANCE_W_CALLER_SLOWER_BOTH_OPPOSITE_ORDER_PAIRS",
+  "decision": "Do not promote this version; no one-memberbuild/application/defaultchange/additionalmatrix. Exactness and mechanism passed, but both actual wholecaller pairs are slower.",
+  "current_selection_unchanged": {
+    "executable_sha256": "a93fa7fbab772d979dfb6c46a318944dc3a0faf6223fd5f82348e86fc4e9e84d",
+    "module_object_sha256": "a3818127897d55c6018c67ea3bb7918eb35880ce3e9a29e82cb77a36996158eb"
+  },
+  "private_candidate": {
+    "PP_sha256": "f8b9a5c39183d6869543d50500e351e013450655b09c23ac717eafdce5f886b8",
+    "O2_object_sha256": "ad538a3326e489dc976cd2fb3f209f45550b3dfb4458ebb1943858bf733d4db7"
+  },
+  "actual_caller": {
+    "status": "PASS_TWO_OPPOSITE_ORDER_FULLCALLER_PAIRS",
+    "calls_per_arm": 1024,
+    "measured_region": "Integer sum of completeadvance_w caller intervals; restores/fullraw/readonly/scalar/config/bounds/fivestate checks outsideeachinterval; historicalfull40rolecapturee4cf, not currentforecasttile ormatchedforecasttiming.",
+    "rows": [
+      {
+        "host": "hpc01",
+        "order": [
+          "parent",
+          "candidate"
+        ],
+        "parent_wall_ns": 1316215597,
+        "candidate_wall_ns": 1356137505,
+        "candidate_wall_cost_percent": 3.033082732873891,
+        "reported_reduction_percent": -3.033082732873891,
+        "parent_thread_cpu_ns": 1313635141,
+        "candidate_thread_cpu_ns": 1353512631,
+        "candidate_thread_cpu_cost_percent": 3.035659503569873,
+        "normal_invocations": [
+          "8dada1bc4fcf4b6c87b9df2a3a62db69",
+          "0f535267d25d485397510e16d463a5f8"
+        ]
+      },
+      {
+        "host": "hpc04",
+        "order": [
+          "candidate",
+          "parent"
+        ],
+        "parent_wall_ns": 1315130494,
+        "candidate_wall_ns": 1352612833,
+        "candidate_wall_cost_percent": 2.850085156644539,
+        "reported_reduction_percent": -2.850085156644539,
+        "parent_thread_cpu_ns": 1311775220,
+        "candidate_thread_cpu_ns": 1348874180,
+        "candidate_thread_cpu_cost_percent": 2.8281491702518973,
+        "normal_invocations": [
+          "4995734261534b57b62d210b1f840ffc",
+          "8a82ce0715be4721ad7f21b4e136ce32"
+        ]
+      }
+    ],
+    "all4_normal_closures": true,
+    "checked_cache_before_each_arm": true,
+    "raw_bytes": 4851020,
+    "raw_sha256": "c2bfa51616aeee61ec4d48fc603ad835b8db757e2f1751235d7fc37d4b4da885",
+    "all4_state5": "34 0 32 8096 895",
+    "interpretation": "Wall andthreadCPU longeronbothopposite-order hosts. This measuredcaller result supportsclosingthisversion; no claimaboutunmeasuredregressioncause, globalheadroom or forecastimpact."
+  },
+  "positive_evidence_retained": {
+    "R1": "Drivercompilefailedmissinggrid_config_rec_type beforefirstWcall; failedINV72fc33719d6c49808acb717d871b538a/exit1/PID0/emptyabsentCG retained. Activepreimagef4baa andlocaldriver-racefiles preserved, noR1nativecredit.",
+    "R2": "Normalclosedcfb874c79de7498fa526b4ba04916c2c; fivegenuine/sameoptO2/O0boundsroles,392completecases (384retained+8target) plusfull40rolecapture; rawfivestate/readonly/MOD/nontarget/freshparentexact. No O0\u2194O2 equalityclaim ornonemptykend0support.",
+    "codegen": "Separateinteriorforwardtraversal/reload removed, packedheavyIandserialK preserved; originalintermediateWstore remains, frame0x688\u21920x6c8(+64B),malloc/free8/8both. Thosefacts do NOT establishcausalspill/recurrenceexplanationfortiming."
+  },
+  "rollback": "None required: candidate neverselected and canonicalsource/default/runtimeartifact unchanged. Retainselecteda93f andprivatefailure/pass/costrecords; no new version or retest proposed.",
+  "next_finite_triage": {
+    "scope": "Onlyremaining currentmeasuredadvance_w/WW_SPLIT paths; no broadsearch ornewacquisition.",
+    "W": "Mapped dampingPP1548alreadyYMMVDIVPS withselectedheightcache/rowfission; WDWNPP1416 and initial/RHS/finalPH/forward/back SIMD/coefficientreuse alreadyselected. No new requiredwork removal identified; failed fusion nowclosed. No anotherpragma/cache/alternatefusionscheduled.",
+    "WW_SPLIT": "Currentallprimary nearestWRF contexts25samples(rank113)/27(rank121), notglobalcost. Normalcopy/zero semantics stillrequirebothindependentoutputs; exactsame fusedcopyzero pragma alreadyclosed for unchangednative memcpy/memset mechanism. No fieldlifetime/aliasproof allowsdroppingeitheroutput. CurrentcanonicalIEVA407164f3 matches exactpriorparent source; oldselectednative counts1memcpy/3memset bothparent/candidate unchanged. This is dedup evidence, not freshcurrentlibrary-implementation attribution.",
+    "next_action": "No concrete new sourcelead from this finite path. Await alreadyplanned actuallate/typical currentprofile before another sourcepacket; no dispatch/native/model/framework."
+  },
+  "raw_refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/focused-continuation-20261023-incremental-r1/advance-w-producer-forward-fusion-r1/actual-caller-timing-r1/RESULT.json": "40af78666c4b3f4a977f5abc079a6556613ac7dd2745855ad221928a7d958b14",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/focused-continuation-20261023-incremental-r1/advance-w-producer-forward-fusion-r1/actual-native-r1/receipt.json": "9a175464c12891e3b73a50479181225a37b7dfbbff5f0dbbb9e5d3007a77b415",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/focused-continuation-20261023-incremental-r1/advance-w-producer-forward-fusion-r1/actual-native-r1/closure.json": "8574ab199d49234ef830e707324e374ba23bf1da0d8de1cf7a0cad8206579a3a",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/focused-continuation-20261023-incremental-r1/advance-w-producer-forward-fusion-r1/actual-native-r2/receipt.json": "bb9269602457778f6e1284caf5048c9f85d77d9094768a401a33d1f8b0909eec",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/focused-continuation-20261023-incremental-r1/advance-w-producer-forward-fusion-r1/actual-native-r2/closure.json": "5c0e6d3ed097e8ea66f27b97c52ba40291c0104398733696ed6f04348306b373",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/focused-continuation-20261023-incremental-r1/advance-w-producer-forward-fusion-r1/ACTUAL_CODEGEN_REVIEW.json": "e908329803e7a45b84dc98ab46fcb7501703ddbff18b95df6370610baf6d6110",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/focused-continuation-20261023-incremental-r1/advance-w-producer-forward-fusion-r1/source-independent-review-r1/REVIEW.json": "0f68cc1060ec64e0560f25f68e76ddf9c8a977d608c7c535551d7a21baf2df45",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/focused-continuation-20261023-incremental-r1/advance-w-producer-forward-fusion-r1/actual-asm-r2/parent.asm": "ae20db41e0bb8d930e8649fe241d2d65b4fc630420aab834f2ffd0edc74e3d64",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/focused-continuation-20261023-incremental-r1/advance-w-producer-forward-fusion-r1/actual-asm-r2/candidate.asm": "8ec5755525d3a34306812bec7c11410244d03b5a9d6bc0767bc55d103aab837a",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-a93f-threehour-identity-profile-preparation-r1/postrun-identity-preparation-r1/all-primary-text-summary-r1/actual-r1/stdout.json": "d57465f474b71b7876bf068d53ff1ede1fff9e0acc89709f33e5f2aaca2cdc9a",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/ww-split-fused-copy-zero-r1/DISPOSITION.json": "64eb960765e9c6952fdea5308848fd2635cb23968f72c10436f43a0fcb5dd36b",
+    "/home/ddietz/wrf/WRF/dyn_em/module_ieva_em.F": "407164f39b91199867a13e5fac6b380d0b21a62ce7ef65605cb4c6069ea98799"
+  }
+}
