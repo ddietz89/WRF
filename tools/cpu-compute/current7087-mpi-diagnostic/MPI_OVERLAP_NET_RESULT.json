@@ -1,0 +1,59 @@
+{
+  "status": "EXACT_STRICT_NATIVE_PASS_SPLIT_SLOWER_RETAIN_UNPROMOTED",
+  "raw_pair": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/haloc-x-mu-interior-overlap-feasibility-r1/combined-x-mu-fourhost-net-runtime-r1/actual-net-fourhost-r1/ACTUAL_PAIR_COMPARISON.json",
+    "sha256": "f03d45b1dab36e1f3189c62eef3e6d92922a3f6ed65815c89c5999d4ecbbf849"
+  },
+  "comparison": {
+    "status": "PASS_FOURHOST_SYNC_SPLIT_NET_CALLER_RAW_STRICT_STATE_CACHES_CLOSURES",
+    "run_order": [
+      "sync",
+      "split"
+    ],
+    "same_binary": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/combined-x-mu-net-timing-r1/work/caller",
+      "sha256": "b4eb98d175e1329db28efb7960b500e7db81ad439d459c906b9c744e23ef567c"
+    },
+    "fixed_calls": 256,
+    "all4rank_all256strictstate_equal": true,
+    "all4rank_fullphysical_hashes_equal": true,
+    "metrics": {
+      "sync": {
+        "max_rank_summed_wall_ns": 357648845,
+        "sum_rank_summed_thread_cpu_ns": 1411051527
+      },
+      "split": {
+        "max_rank_summed_wall_ns": 406082932,
+        "sum_rank_summed_thread_cpu_ns": 1559132158
+      }
+    },
+    "scope": "FourHOST/fourrank controlled1x4 sameELF samecapture sync\u2192split fixed256finitecompletealgorithm calls. Per-rank SUMofpercallintervals, MAXrankSUM is notcontinuousbatch/globalcriticalpath. Testcopies/checks/restores outside intervals mayinfluencearrival; onefixedorderpair/noforecastclaim.",
+    "limits": [
+      "MAX rank summed per-call intervals is not continuous batch wall or globalcriticalpath.",
+      "Testcopies/restores/checks outside intervals may influence arrival; same policy both arms.",
+      "Controlled113I/J43/K33 finite fixture, not actualproductiontile or wholeforecast. Errno diagnostic only. One fixedorder pair."
+    ]
+  },
+  "relative_increase_percent": {
+    "wall": 13.542358007614986,
+    "thread_CPU": 10.494346107603203
+  },
+  "all8_normal_node_closures": true,
+  "all8_checked_client_cache_clears": true,
+  "gateway_delay": "Baseline retained; gateway outage before split pre-cache admission. After recovery candidate absence and all prior closures verified; only split retried. Fixed sync-first pair spans gateway delay, not a paired continuous forecast.",
+  "MPI_thread_scope": "MPI_INIT/SINGLE native caller; WRF requests MPI_THREAD_FUNNELED. No direct production-thread qualification.",
+  "build_history": {
+    "original_failed_manager": "aa94fb8d88d04ad6a1d264f69368499a: all4compile/linkcommands0, BUILT receipt then faulty PASS-only exit predicate returned1; preservedfailedmanager/noMPIexecution",
+    "original_receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/haloc-x-mu-interior-overlap-feasibility-r1/combined-x-mu-net-timing-r1/actual-build-r1/receipt.json",
+      "sha256": "f49413fb6edf1afe0643a67f5fea1834713b002248d5f2ab560456dd65c1c304"
+    },
+    "separate_readonly_artifact_check": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/haloc-x-mu-interior-overlap-feasibility-r1/combined-x-mu-net-timing-r1/artifact-recheck-r1/ACTUAL_ARTIFACT_CHECK_RESULT.json",
+      "sha256": "89bd9b4b69ded09c1364b099884a5efa80d20156cbf726b461e8ad665085784f"
+    }
+  },
+  "decision": "Hold generator/fullWRF integration and default/source promotion. Exact controlled correctness retained. Investigate bounded vector-tail split cost and actual current request-post timing. No established progress/late-peer/network/forecast regression cause.",
+  "selected_image_unchanged": "7087c69d8ef644c914bb31379b7d9e33fa1668ce12192965e1e459ed20697fdd",
+  "rollback": "No default/source changes. Continue selected original982d RSL and FABA."
+}
