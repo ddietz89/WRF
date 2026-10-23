@@ -52,6 +52,14 @@ The historical late-rank label does not describe this early-hour pair: rank385 e
 
 [Actual diagnostic, exact science, capture and closure evidence](tools/cpu-runtime/mpi-request-source-identity/A93F_ONE_HOUR_457_385_DIAGNOSTIC.json). [Separate retained phase supplement](tools/cpu-runtime/mpi-request-source-identity/A93F_RETAINED_TWO_RANK_PHASE_SUPPLEMENT.json). The original failed R1 capture/bootstrap/horizon attempt and failed R2 postreader remain preserved. R3 only repaired interpretation of the immutable scientific receipt's legacy four-file label: actual selected ranks and verified files are two,385/457. No model or capture was repeated for that reporting repair; selected source/defaults are unchanged.
 
+## October23: TKE deferred halo fails the prospective exact-state pair
+
+A new original→deferred four-host/four-rank caller pair completed256 calls per arm using one actual executable6aad7bea and the unchanged complete raw-array/guard/corner checks. All eight model-free MPI scopes closed normally, with a separately checked cache clear on every host before each arm. The prospective oracle compared corresponding actual entry and exit state, rather than requiring the original to leave its own state unchanged.
+
+Of10,480 scalar state comparisons, exactly two differed: rank2, first timed call, AFTER exception flags4 versus36 and MXCSR8070 versus8102. All entry vectors and all other state values matched, including rounding, x87 control and errno. Raw/corner/guard error counts were zero and final field hashes matched. This is an observed state difference; no array-value failure or underlying cause is inferred.
+
+The pair is **closed unqualified**. No timing gain is admitted, no opposite-order/retry/application follows, and selecteda93f remains unchanged. Earlier failed attempts and actual provider/local-completion provenance remain preserved. [Actual vector audit, all eight closures and cache receipts](tools/cpu-compute/current7087-mpi-diagnostic/TKE_SYMMETRIC_PAIR_CLOSEOUT.json).
+
 ## October23: current WDTN build passes its own three-hour full-grid gate
 
 Current executable `eb5e10fb` (source correspondence `642a6938`, archive `68755e56`) retains all prior selected improvements and the WDTN row pipeline. Its unprofiled three-hour run passed the unchanged exact comparison of all four complete outputs and545 ordered steps against retained corrected-original546b. All four model scopes and readerd4505200 normally closed. [Separate qualification](tools/cpu-compute/advance-mu-wdtn-row-pipeline/THREE_HOUR_APPLICATION_QUALIFICATION.json).

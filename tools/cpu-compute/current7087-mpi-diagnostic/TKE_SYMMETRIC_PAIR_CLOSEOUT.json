@@ -1,0 +1,343 @@
+{
+  "status": "CLOSE_TKE_DEFER_UNQUALIFIED_DIRECT_P_C_OBSERVABLE_DIVERGENCE",
+  "scope": "One original-then-defer fourhost/fourrank same-ELF 256-call prospective symmetric oracle; no forecast or gain qualification.",
+  "binary": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/currenta93f-tke-symmetric-oracle-driver-build-hpc02-r1/actual-output/caller",
+    "sha256": "6aad7bea5e90adc99b94cb1953f6ad09c533ea221388f7b1409e9d4c1cbcb009",
+    "bytes": 145976
+  },
+  "evidence_sha256": {
+    "first-pair-runtime-r2/actual-symmetric-firstpair-r2/arm0-original-ACTUAL_RESULT_AND_CLOSURES.json": "75e90ff9df1c204e130eee7b13793318b6e428a781f1865d8f2fc54542f30a82",
+    "first-pair-runtime-r2/actual-symmetric-firstpair-r2/arm0-original-ACTUAL_LAUNCH.json": "79b381690f2ba72c4d7d29d73a22f6435f98389b49f9f92ac1c607e5dc7edf27",
+    "first-pair-runtime-r2/actual-symmetric-firstpair-r2/arm0-original-ACTUAL_CACHE_CLEAR.json": "ba410841afcadb9360f323c2fdf864771547dce3dda449c006fbf1fb429e069f",
+    "first-pair-runtime-r2/actual-symmetric-firstpair-r2/arm1-defer-ACTUAL_RESULT_AND_CLOSURES.json": "b1be7b02891c7434a6c674eae061a457cf193709346bb6653ca8fdea735853b1",
+    "first-pair-runtime-r2/actual-symmetric-firstpair-r2/arm1-defer-ACTUAL_LAUNCH.json": "137602e9cef92b6435e57892be8f6ac62564f929faea811cbc85241340fc62bd",
+    "first-pair-runtime-r2/actual-symmetric-firstpair-r2/arm1-defer-ACTUAL_CACHE_CLEAR.json": "601398ee8a4de399e4af87d5f96305c80a47e46027249a4ecf1be32bf17f14fa",
+    "first-pair-runtime-r2/actual-symmetric-firstpair-r2/ACTUAL_PAIR_COMPARISON.json": "3d87c5a4f8a809891d93301909f9792a15833e34bdfc12a26ba03ce459c9cae9"
+  },
+  "observed_comparisons": {
+    "ranks": 4,
+    "vectors_per_rank": 524,
+    "five_word_vectors": 2096,
+    "scalar_words": 10480,
+    "differences": [
+      {
+        "stage": "timed",
+        "rank": 2,
+        "call_index": 0,
+        "which": "after",
+        "field": "flags",
+        "parent_value": 4,
+        "candidate_value": 36
+      },
+      {
+        "stage": "timed",
+        "rank": 2,
+        "call_index": 0,
+        "which": "after",
+        "field": "mxcsr",
+        "parent_value": 8070,
+        "candidate_value": 8102
+      }
+    ],
+    "difference_count": 2,
+    "counts_by_field": {
+      "flags": 1,
+      "mxcsr": 1
+    },
+    "counts_by_stage": {
+      "timed": 2
+    },
+    "counts_by_rank": {
+      "2": 2
+    },
+    "serialized_state_key_differences": [
+      {
+        "rank": 2,
+        "key": "per_call_state",
+        "word_index": 1,
+        "field": "flags",
+        "parent_value": 4,
+        "candidate_value": 36
+      },
+      {
+        "rank": 2,
+        "key": "per_call_state",
+        "word_index": 2,
+        "field": "mxcsr",
+        "parent_value": 8070,
+        "candidate_value": 8102
+      }
+    ],
+    "duplicate_alias_note": "Serialized cold_original and endpoint aliases checked too; canonical stage counts avoid counting those aliases twice."
+  },
+  "entry_vectors": [
+    {
+      "side": "original",
+      "rank": 0,
+      "host": "hpc01",
+      "cpu": [
+        24
+      ],
+      "pid": 4157710,
+      "startticks": "236272705",
+      "binary_sha256": "6aad7bea5e90adc99b94cb1953f6ad09c533ea221388f7b1409e9d4c1cbcb009",
+      "actual_cgroup": "0::/system.slice/wrf-cpu-cura93f-tke2-symmetric-arm0-original-r2-hpc01.service\n"
+    },
+    {
+      "side": "original",
+      "rank": 1,
+      "host": "hpc02",
+      "cpu": [
+        24
+      ],
+      "pid": 2224578,
+      "startticks": "236276099",
+      "binary_sha256": "6aad7bea5e90adc99b94cb1953f6ad09c533ea221388f7b1409e9d4c1cbcb009",
+      "actual_cgroup": "0::/system.slice/wrf-cpu-cura93f-tke2-symmetric-arm0-original-r2-hpc02.service\n"
+    },
+    {
+      "side": "original",
+      "rank": 2,
+      "host": "hpc03",
+      "cpu": [
+        24
+      ],
+      "pid": 2027532,
+      "startticks": "236251368",
+      "binary_sha256": "6aad7bea5e90adc99b94cb1953f6ad09c533ea221388f7b1409e9d4c1cbcb009",
+      "actual_cgroup": "0::/system.slice/wrf-cpu-cura93f-tke2-symmetric-arm0-original-r2-hpc03.service\n"
+    },
+    {
+      "side": "original",
+      "rank": 3,
+      "host": "hpc04",
+      "cpu": [
+        24
+      ],
+      "pid": 2559639,
+      "startticks": "236253579",
+      "binary_sha256": "6aad7bea5e90adc99b94cb1953f6ad09c533ea221388f7b1409e9d4c1cbcb009",
+      "actual_cgroup": "0::/system.slice/wrf-cpu-cura93f-tke2-symmetric-arm0-original-r2-hpc04.service\n"
+    },
+    {
+      "side": "defer",
+      "rank": 0,
+      "host": "hpc01",
+      "cpu": [
+        24
+      ],
+      "pid": 4158356,
+      "startticks": "236283108",
+      "binary_sha256": "6aad7bea5e90adc99b94cb1953f6ad09c533ea221388f7b1409e9d4c1cbcb009",
+      "actual_cgroup": "0::/system.slice/wrf-cpu-cura93f-tke2-symmetric-arm1-defer-r2-hpc01.service\n"
+    },
+    {
+      "side": "defer",
+      "rank": 1,
+      "host": "hpc02",
+      "cpu": [
+        24
+      ],
+      "pid": 2225295,
+      "startticks": "236286501",
+      "binary_sha256": "6aad7bea5e90adc99b94cb1953f6ad09c533ea221388f7b1409e9d4c1cbcb009",
+      "actual_cgroup": "0::/system.slice/wrf-cpu-cura93f-tke2-symmetric-arm1-defer-r2-hpc02.service\n"
+    },
+    {
+      "side": "defer",
+      "rank": 2,
+      "host": "hpc03",
+      "cpu": [
+        24
+      ],
+      "pid": 2027918,
+      "startticks": "236261771",
+      "binary_sha256": "6aad7bea5e90adc99b94cb1953f6ad09c533ea221388f7b1409e9d4c1cbcb009",
+      "actual_cgroup": "0::/system.slice/wrf-cpu-cura93f-tke2-symmetric-arm1-defer-r2-hpc03.service\n"
+    },
+    {
+      "side": "defer",
+      "rank": 3,
+      "host": "hpc04",
+      "cpu": [
+        24
+      ],
+      "pid": 2560066,
+      "startticks": "236263982",
+      "binary_sha256": "6aad7bea5e90adc99b94cb1953f6ad09c533ea221388f7b1409e9d4c1cbcb009",
+      "actual_cgroup": "0::/system.slice/wrf-cpu-cura93f-tke2-symmetric-arm1-defer-r2-hpc04.service\n"
+    }
+  ],
+  "all_entry_identity_checks_pass": true,
+  "raw_oracle": {
+    "all_8_rank_records_raw_bad_global_and_cold_raw_bad_zero": true,
+    "all_4_final_19_field_hash_vectors_equal": true,
+    "retained_scope": "Unchanged driver performs complete raw arrays/guards/corners/readsets; metadata audited here, raw arrays not retrieved.",
+    "array_science_failure_claim": false
+  },
+  "cache_operations": [
+    {
+      "side": "original",
+      "host": "hpc01",
+      "sync_returncode": 0,
+      "drop_bytes": 2,
+      "ordered_separate_operations": true
+    },
+    {
+      "side": "original",
+      "host": "hpc02",
+      "sync_returncode": 0,
+      "drop_bytes": 2,
+      "ordered_separate_operations": true
+    },
+    {
+      "side": "original",
+      "host": "hpc03",
+      "sync_returncode": 0,
+      "drop_bytes": 2,
+      "ordered_separate_operations": true
+    },
+    {
+      "side": "original",
+      "host": "hpc04",
+      "sync_returncode": 0,
+      "drop_bytes": 2,
+      "ordered_separate_operations": true
+    },
+    {
+      "side": "defer",
+      "host": "hpc01",
+      "sync_returncode": 0,
+      "drop_bytes": 2,
+      "ordered_separate_operations": true
+    },
+    {
+      "side": "defer",
+      "host": "hpc02",
+      "sync_returncode": 0,
+      "drop_bytes": 2,
+      "ordered_separate_operations": true
+    },
+    {
+      "side": "defer",
+      "host": "hpc03",
+      "sync_returncode": 0,
+      "drop_bytes": 2,
+      "ordered_separate_operations": true
+    },
+    {
+      "side": "defer",
+      "host": "hpc04",
+      "sync_returncode": 0,
+      "drop_bytes": 2,
+      "ordered_separate_operations": true
+    }
+  ],
+  "normal_closures": [
+    {
+      "side": "original",
+      "host": "hpc01",
+      "unit": "wrf-cpu-cura93f-tke2-symmetric-arm0-original-r2-hpc01.service",
+      "invocation_id": "e245e9c618b14f81aa44ea069247c0d7",
+      "exit_code": 0,
+      "main_pid": 0,
+      "active_state": "inactive",
+      "result": "success",
+      "cgroup_path_absent": true,
+      "manager_success_invocation_bound": true
+    },
+    {
+      "side": "original",
+      "host": "hpc02",
+      "unit": "wrf-cpu-cura93f-tke2-symmetric-arm0-original-r2-hpc02.service",
+      "invocation_id": "19d102226ca241458bfa12ffed938b22",
+      "exit_code": 0,
+      "main_pid": 0,
+      "active_state": "inactive",
+      "result": "success",
+      "cgroup_path_absent": true,
+      "manager_success_invocation_bound": true
+    },
+    {
+      "side": "original",
+      "host": "hpc03",
+      "unit": "wrf-cpu-cura93f-tke2-symmetric-arm0-original-r2-hpc03.service",
+      "invocation_id": "2d6d39d62a7d4b698560da90d3f4be1f",
+      "exit_code": 0,
+      "main_pid": 0,
+      "active_state": "inactive",
+      "result": "success",
+      "cgroup_path_absent": true,
+      "manager_success_invocation_bound": true
+    },
+    {
+      "side": "original",
+      "host": "hpc04",
+      "unit": "wrf-cpu-cura93f-tke2-symmetric-arm0-original-r2-hpc04.service",
+      "invocation_id": "12bf8a8c72dc4e2596d3735d431af170",
+      "exit_code": 0,
+      "main_pid": 0,
+      "active_state": "inactive",
+      "result": "success",
+      "cgroup_path_absent": true,
+      "manager_success_invocation_bound": true
+    },
+    {
+      "side": "defer",
+      "host": "hpc01",
+      "unit": "wrf-cpu-cura93f-tke2-symmetric-arm1-defer-r2-hpc01.service",
+      "invocation_id": "cb2c05fb03274e47be3466884350a11c",
+      "exit_code": 0,
+      "main_pid": 0,
+      "active_state": "inactive",
+      "result": "success",
+      "cgroup_path_absent": true,
+      "manager_success_invocation_bound": true
+    },
+    {
+      "side": "defer",
+      "host": "hpc02",
+      "unit": "wrf-cpu-cura93f-tke2-symmetric-arm1-defer-r2-hpc02.service",
+      "invocation_id": "098eb4f683594665a1fefad3722a7917",
+      "exit_code": 0,
+      "main_pid": 0,
+      "active_state": "inactive",
+      "result": "success",
+      "cgroup_path_absent": true,
+      "manager_success_invocation_bound": true
+    },
+    {
+      "side": "defer",
+      "host": "hpc03",
+      "unit": "wrf-cpu-cura93f-tke2-symmetric-arm1-defer-r2-hpc03.service",
+      "invocation_id": "80f5cfe7296041a7b57541887687eec7",
+      "exit_code": 0,
+      "main_pid": 0,
+      "active_state": "inactive",
+      "result": "success",
+      "cgroup_path_absent": true,
+      "manager_success_invocation_bound": true
+    },
+    {
+      "side": "defer",
+      "host": "hpc04",
+      "unit": "wrf-cpu-cura93f-tke2-symmetric-arm1-defer-r2-hpc04.service",
+      "invocation_id": "feb3e06237c541528555d5f06b848fad",
+      "exit_code": 0,
+      "main_pid": 0,
+      "active_state": "inactive",
+      "result": "success",
+      "cgroup_path_absent": true,
+      "manager_success_invocation_bound": true
+    }
+  ],
+  "admitted_gain": false,
+  "opposite_pair_or_retry": false,
+  "cause": "Not established. No backend/MPI exception, mask, or normalization is used to waive the actual mismatch.",
+  "prior_failures": "All retained prior failures remain unchanged; earlier original-invariance failures are not relabeled as this direct P/C counterexample.",
+  "method": "Prospective symmetric method was falsifiable and rejected actual observed vectors. No original BEFORE==AFTER requirement was imposed.",
+  "evidence_base": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-a93f-tke-symmetric-oracle-offload-preparation-r1",
+  "source_closeout_sha256": "29ce66916668028e18e3fe752711ca06be60aa8be037bf94c67afdb88dafad9a",
+  "root_reviewed_utc": "2026-10-23T19:31:32.040007+00:00"
+}
