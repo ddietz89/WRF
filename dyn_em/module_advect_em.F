@@ -6087,6 +6087,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
                                 ids, ide, jds, jde, kds, kde,  &
                                 ims, ime, jms, jme, kms, kme,  &
                                 its, ite, jts, jte, kts, kte  )
+#ifndef WRF_PD_FINAL_PASS_FUSION
 
 !  this is a first cut at a positive definite advection option
 !  for scalars in WRF.  This version is memory intensive ->
@@ -6099,6 +6100,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
 !  WCS, 3 December 2002, 24 February 2003
 
+#endif
    IMPLICIT NONE
    
    ! Input data
@@ -6142,6 +6144,10 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
    ! Local data
    
    INTEGER :: i, j, k, itf, jtf, ktf
+#ifdef WRF_PD_FINAL_PASS_FUSION
+   INTEGER :: pdf_x_is, pdf_x_ie, pdf_y_js, pdf_y_je
+   LOGICAL :: pdf_fuse
+#endif
    INTEGER :: i_start, i_end, j_start, j_end
    INTEGER :: i_start_f, i_end_f, j_start_f, j_end_f
    INTEGER :: jmin, jmax, jp, jm, imin, imax
@@ -6201,12 +6207,14 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
     REAL, DIMENSION(its-1:ite+2) :: dx_row
 
     LOGICAL, PARAMETER :: pd_limit = .true.
+#ifndef WRF_PD_FINAL_PASS_FUSION
 
 ! set order for the advection schemes
 
 !  write(6,*) ' in pd advection routine '
 
     ! Empty arrays just in case:
+#endif
     IF (config_flags%polar) THEN
        fqx(:,:,:)  = 0.
        fqy(:,:,:)  = 0.
@@ -6219,6 +6227,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
   ktf=MIN(kte,kde-1)
   horz_order = config_flags%h_sca_adv_order
   vert_order = config_flags%v_sca_adv_order
+#ifndef WRF_PD_FINAL_PASS_FUSION
 
 !  determine boundary mods for flux operators
 !  We degrade the flux operators from 3rd/4th order
@@ -6227,6 +6236,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 !   conditions have boundary zone data fill for correct application
 !   of the higher order flux stencils
 
+#endif
    degrade_xs = .true.
    degrade_xe = .true.
    degrade_ys = .true.
@@ -7284,7 +7294,9 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
       ENDIF
 
    ENDDO j_loop_y_flux_3
+#ifndef WRF_PD_FINAL_PASS_FUSION
 
+#endif
 !  next, x flux
 
 !--  these bounds are for periodic and sym conditions
@@ -7477,11 +7489,13 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 TRIM( wrf_err_message ) )
 
    ENDIF horizontal_order_test
+#ifndef WRF_PD_FINAL_PASS_FUSION
 
 !  pick up the rest of the horizontal radiation boundary conditions.
 !  (these are the computations that don't require 'cb'.
 !  first, set to index ranges
 
+#endif
       i_start = its
       i_end   = MIN(ite,ide-1)
       j_start = jts
@@ -7586,11 +7600,13 @@ TRIM( wrf_err_message ) )
        ENDDO
 
    ENDIF
+#ifndef WRF_PD_FINAL_PASS_FUSION
 
 !-------------------- vertical advection
 
 !-- loop bounds for periodic or sym conditions
 
+#endif
       i_start = its-1
       i_end   = MIN(ite,ide-1)+1
       j_start = jts-1
@@ -7941,6 +7957,7 @@ wrf_err_message )
    IF(config_flags%open_ye) THEN
      IF (degrade_ye) j_end   = MIN(jte+1,jde-2)
    END IF
+#ifndef WRF_PD_FINAL_PASS_FUSION
    ! ADT note:
    ! We don't want to change j_start and j_end
    ! for polar BC's since we want to calculate
@@ -7949,6 +7966,7 @@ wrf_err_message )
 
 !-- here is the limiter...
 
+#endif
    DO j=j_start, j_end
    DO k=kts, ktf
 #ifdef XEON_SIMD
@@ -8011,6 +8029,50 @@ wrf_err_message )
 
 ! add in the pd-limited flux divergence
 
+#ifdef WRF_PD_FINAL_PASS_FUSION
+  pdf_fuse = .FALSE.
+  IF (.NOT. tenddec) THEN
+     pdf_x_is = its
+     pdf_x_ie = MIN(ite,ide-1)
+     IF (degrade_xs) pdf_x_is = MAX(its,ids+1)
+     IF (degrade_xe) pdf_x_ie = MIN(ite,ide-2)
+     pdf_y_js = jts
+     pdf_y_je = MIN(jte,jde-1)
+     IF (degrade_ys) pdf_y_js = MAX(jts,jds+1)
+     IF (degrade_ye) pdf_y_je = MIN(jte,jde-2)
+     pdf_fuse = pdf_x_is == its .AND. pdf_x_ie == MIN(ite,ide-1) .AND. &
+                pdf_y_js == jts .AND. pdf_y_je == MIN(jte,jde-1) .AND. &
+                its <= MIN(ite,ide-1) .AND. jts <= MIN(jte,jde-1) .AND. kts <= ktf
+  ENDIF
+  IF (pdf_fuse) THEN
+  i_start = its
+  i_end   = MIN(ite,ide-1)
+  j_start = jts
+  j_end   = MIN(jte,jde-1)
+
+  DO j = j_start, j_end
+  DO k = kts, ktf
+!DEC$ vector always
+!$omp simd
+  DO i = i_start, i_end
+
+     tendency (i,k,j) = tendency(i,k,j)                           &
+                            -rdzw(k)*( fqz (i,k+1,j)-fqz (i,k,j)  &
+                                      +fqzl(i,k+1,j)-fqzl(i,k,j))
+
+     tendency (i,k,j) = tendency(i,k,j)                           &
+               - msftx(i,j)*( rdx*( fqx (i+1,k,j)-fqx (i,k,j)     &
+                                   +fqxl(i+1,k,j)-fqxl(i,k,j))   )
+
+     tendency (i,k,j) = tendency(i,k,j)                           &
+               - msftx(i,j)*( rdy*( fqy (i,k,j+1)-fqy (i,k,j)     &
+                                   +fqyl(i,k,j+1)-fqyl(i,k,j))   )
+
+  ENDDO
+  ENDDO
+  ENDDO
+  ELSE
+#endif
   i_start = its
   i_end   = MIN(ite,ide-1)
   j_start = jts
@@ -8112,6 +8174,9 @@ wrf_err_message )
   ENDDO
   ENDDO
   END IF
+#ifdef WRF_PD_FINAL_PASS_FUSION
+  ENDIF
+#endif
 END SUBROUTINE advect_scalar_pd
 
 !----------------------------------------------------------------
