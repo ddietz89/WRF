@@ -1,0 +1,18 @@
+{
+  "decision": "RETAIN_100MS_DEFAULT_CLOSE_REVERSE_SCREEN_NO_FURTHER_RUN",
+  "limits": [
+    "One reverse fixed-order pair, 1s FIRST / 100ms SECOND; no randomized repetition.",
+    "Only actual candidate metrics from both current79be runs enter this comparison; retained original546b outputs are science reference only.",
+    "Historical 13fe forward pair had intervening host maintenance and remains separate; no pooling or stock timing gain claim.",
+    "cpu.stat period/throttle counters are observations, not a causal accounting of lost wall time.",
+    "Configuration experiment only; no automatic default promotion, long-horizon/restart/profile qualification or isolated source speedup."
+  ],
+  "observed_wall_direction": "one_second_lower",
+  "reason": "The reverse same-current pair did not reproduce the earlier approximately 5% benefit. Observed wall/main differences are about 0.23%, while 1s CPU usage is higher; one fixed-order pair does not justify promotion.",
+  "selected_default_cpu_quota_period_us": 100000,
+  "status": "REVERSE_PAIR_SCIENCE_AND_PERIOD_PROOFS_PASS_DEFAULT_UNCHANGED",
+  "default_changed": false,
+  "further_run_planned": false,
+  "scope": "Experimental decision only; does not revoke owner standing campaign authorization.",
+  "raw_private_decision_sha256": "4f8834f93fd7334ba68d8200621f9c17297b9767d8b224b2f5742f521dab4aba"
+}
