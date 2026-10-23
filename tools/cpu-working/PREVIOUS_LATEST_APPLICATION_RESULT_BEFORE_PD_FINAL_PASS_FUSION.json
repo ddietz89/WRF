@@ -1,0 +1,37 @@
+{
+  "status": "PASS_CURRENT_A93F_CALC_COEF_AHEAD_ROW_PIPELINE_OWN_THREE_HOUR_FOUR_PRODUCT_545_STEP_SCIENCE",
+  "artifact_executable_sha256": "a93fa7fbab772d979dfb6c46a318944dc3a0faf6223fd5f82348e86fc4e9e84d",
+  "archive_sha256": "02f9c20c4517b90625e72a5f2a623235402610ed111e37f00e7ef4164887e866",
+  "posttest_source_commit": "eb8351dd9ada2ddf63decb8277feada3a418ff02",
+  "qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/calc-coef-w-ahead-row-pipeline/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "555aa48a99cf90923cc7d70a5a36456738bf84c64883adcb6cdae4cacdef7095"
+  },
+  "science_receipt": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currenta93f-3h-runtime-r1/science-receipt.json",
+    "sha256": "7639058849c5b4c31850f615af0fe5641ec2e3a358e76190d039bd2a8766815e"
+  },
+  "reader_closure": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currenta93f-3h-runtime-r1/reader-closure.json",
+    "sha256": "408e5cc84f46945faa319cc34f51a9cb2dc140ec27c60416bd3fc2d1cd0fec6f"
+  },
+  "raw_result": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currenta93f-3h-runtime-r1/RESULT.json",
+    "sha256": "fbc6d8e26ec3cc22d622685feb7a848c376df1890c6e38d9c1ff4ca434497af9"
+  },
+  "metrics": {
+    "candidate_instrumented_unpaired": {
+      "wall_seconds": 658.5020344927907,
+      "cpu_seconds": 320469.553859,
+      "main_step_sum_seconds": 559.73187
+    }
+  },
+  "comparison_design": "Candidate-only exact science against retained corrected-original546b four-product/545-step reference; no fresh matched original timing or per-patch attribution.",
+  "limits": [
+    "Own a93f 3h science only; parent526e ninehour and19ad ABBA remain historical/appliesfalse.",
+    "MixedIO request/two15s instrumentation prevents uninstrumented timing interpretation; no fresh matched percentage or forecast speedup claim.",
+    "Narrow postrun sourceidentity success does not set own_profile_qualified or own_native_profile_qualified here.",
+    "Rawproducer sourceNULL; posttest canonical source correspondence eb835 is not a fresh wholeimage production build.",
+    "Immutable shortQ stays unchanged; no9h/noon/restart/full144 qualification transfer."
+  ]
+}

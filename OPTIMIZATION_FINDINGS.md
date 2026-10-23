@@ -1,5 +1,18 @@
 # WRF CPU optimization findings
 
+
+## October23: guarded PD final-pass fusion promoted after exact short qualification
+
+Current working image **c277c505**, archive **10eb3dca**, source correspondence **d2cd5f34**, retains every a93f component and provider. For a nonempty, non-decremented PD box with matching effective bounds, the final Z, X and Y divergence assignments share one traversal. Their literal arithmetic and order remain; other cases execute the original final-pass body. The qualified GNU13.3 default has an explicit rebuild opt-out.
+
+All20 native oracle processes (five roles/four fixtures) passed genuine/O0-bounds/O2 raw IEEE and five-state checks, including competing-NaN vector/tail cases, readonly data, publicMOD and non-target code/constants/relocations. The two opposite-order complete synthetic interior-caller pairs measured **4.1552% and4.3041% lower wall**, with **4.0350% and4.3064% less processCPU**. The256-call wall totals were389.631→373.441ms and390.545→373.735ms. These are complete-caller gains; production eligibility and the isolated forecast contribution are not quantified.
+
+The real default/off preprocessing produced the tested complete PP bytes exactly; one canonical strictO2 compile matched the tested object's allocated runtime, relocations, symbols and publicMOD. The compile-free delivery replaced Advection member555 only:583 of584 members and all direct inputs remain exact. The unchanged original checker passed both complete06:00/06:10 products and35 ordered steps, full512/twoY, all32 FIELDVIEW environments,16 positive markers and expected writer activity. All four models and the reader closed normally. **Own short science is qualified; own1h/3h/9h/noon/profile/restart/full144 are pending.** Earlier a93f horizons remain historical. [Qualification, tested scope and rollback](tools/cpu-compute/pd-final-pass-fusion/README.md).
+
+Roll back with `WRF_PD_FINAL_PASS_FUSION=0` and full regeneration/recompilation/rearchive/relink; opt-out PP is exactly the a93f parent. Immediate artifact rollback is the a93f/02f9 pair with matching source/default records. Production and master are unchanged. The tables below retain the actual older long-horizon controls, candidate identities and reductions; no historical forecast percentage is transferred to c277.
+
+The separate W-damping/final-PH fusion remains unqualified. Two attempts stopped before candidate numerical oracles at the original constant-pool/relocation guard. Read-only diagnosis found all eight non-target function bodies exact; compiler-private pool placement changed. The simdlen8 trial had exactly the same allocated bytes/relocations/symbols as the first trial, so no further directive matrix follows. Both failures remain preserved; no numerical, caller or forecast gain is admitted. A prospective exact constant-access proof is only under review. Current parent-a93f writer profiling is queued separately to identify remaining output work.
+
 ## October23: coefficient row pipeline promoted; full-grid tables restored
 
 Current working executable **a93fa7fb**, archive **02f9c20c**, source correspondence **eb8351dd**, retains all prior eb5e components/providers and adds the `calc_coef_w` A(k+1)/B(k) row pipeline. It removes a separate interior traversal and shares the original denominator register while retaining every coefficient store, endpoint and serial K recurrence. Strict arithmetic is unchanged.

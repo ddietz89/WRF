@@ -1,0 +1,11 @@
+PD final completed-flux passes retain three exact Z, X, Y assignments while sharing the eligible traversal. The guard requires !tenddec, identical effective bounds and a nonempty box; otherwise the entire original final-pass body executes. No expression, public interface, helper, compiler flag or provider changes.
+
+Actual genuine/O0/O2 whole-callee native checks passed all20 oracle processes (five roles across four fixtures), including competing-NaN packed/tail coverage, full raw/readonly/five-state checks, unchanged publicMOD and exact non-target code/constants/relocations. Actual codegen confirms ordered Z/X/Y arithmetic and a single final tendency store. Two opposite-order complete-caller pairs were 4.15516%/4.30409% shorter (wall), 4.03503%/4.30642% shorter (processCPU), for the synthetic eligible interior fixture. This is not a forecast-speedup claim; the previously captured fixture may use fallback.
+
+Canonical default-on and explicit optout passed exact full preprocessed-source comparison to tested candidateccd1748 and parentc565. The single canonical O2 object has identical allocated runtime bytes, relocation roles/nonFILE symbols and publicMOD to qualified1f853; full object SHA differs due to provenance/debug details. The delivered childc277/archive10eb replaces only Advection slot555 of584, leaving583 occurrences and all direct helpers/providers unchanged.
+
+This child passed its own two-product/35-step full512 exact science, with all four models and the reader normally closed. Source correspondence commit: d2cd5f34923be6ad1abcd87ae3eb31567d6890de. Own1h/3h/9h/noon/profile/restart/full144 remain false. Parenta93f own3h/9h and historical19adABBA remain historical and do not apply to the child. Rawproducer source remains NULL; the later commit proves canonical correspondence, not a fresh whole-image build.
+
+Rollback: WRF_PD_FINAL_PASS_FUSION=0 followed by full regeneration, recompilation, rearchive and relink. Optout produces exact parentPPc565. Restore the a93f executable/02f9 archive and matching source/default pair. Qualified default is GNU13.3.0, REAL4/INTEGER4, empty OMP/OMPCPP, AdvectionSIMD1/Zen21 under the exact Make guard. Unsupported configurations keep the original source path.
+
+Matching serial configurations remain unqualified. Production and master are unchanged.
