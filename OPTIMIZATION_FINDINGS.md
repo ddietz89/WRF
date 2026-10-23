@@ -1,5 +1,20 @@
 # WRF CPU optimization findings
 
+## October23: current WDTN build passes its own three-hour full-grid gate
+
+Current executable `eb5e10fb` (source correspondence `642a6938`, archive `68755e56`) retains all prior selected improvements and the WDTN row pipeline. Its unprofiled three-hour run passed the unchanged exact comparison of all four complete outputs and545 ordered steps against retained corrected-original546b. All four model scopes and readerd4505200 normally closed. [Separate qualification](tools/cpu-compute/advance-mu-wdtn-row-pipeline/THREE_HOUR_APPLICATION_QUALIFICATION.json).
+
+| Latest full-grid run | Model/MPI wall (min) | Main-step elapsed (min) | Aggregate CPU (CPU-h) | Exact science |
+|---|---:|---:|---:|---|
+|Parent526e,3hours|10.929|9.294|88.614|4products/545steps PASS|
+|Parent526e,9hours (request-instrumented)|30.551|28.871|256.005|10products/1625steps PASS|
+|**Currenteb5e,3hours**|**10.922**|**9.289**|**88.669**|**4products/545steps PASS**|
+
+These are separately qualified unpaired observations; no new matched reduction is inferred. The historical19ad counterbalanced three-hour comparison below remains the matched evidence: two observations per image,17.5076% lower mean wall,6.3405% lower main elapsed and10.8589% less aggregate CPU. Those percentages do not independently qualify this newer image. Main elapsed includes communication/waiting/backpressure and is not integration CPU time.
+
+Currenteb5e owns short andthree-hour science only; ownnine-hour/profile/restart/full144 remain pending. Immutable shortQbc6e and original science/runtime pins remain unchanged. Current-build MPI producer attribution is a separate targeted investigation, not a new forecast speedup claim. Earlier dated entries below describe their state at the time.
+
+
 ## October 23: latest W-copy build passes its own three-hour qualification
 
 The next retained candidate pipelines the `advance_mu_t` WDTN producer with its preceding-row theta consumer. Native O0 bounds/O2 tests passed 83 observations per optimization level against the genuine current object, including raw outputs, five-part IEEE state, readonly data, bounds, unchanged routines and public interface. Assembly confirms direct register forwarding. Complete captured callers measured 1.85% and 5.66% shorter wall time in opposite-order pairs on hpc01/hpc04 (1,024 calls per arm, cache clear before each, all four jobs normally closed). These historical-geometry caller results do not quantify current full-grid gains. It is retained for application qualification, with source/default integration still pending; the selected nine-hour diagnostic remains image526e. One hpc04 wrapper attempt failed before cache clearing or execution because its inherited host allowlist omitted hpc04; the one-line repair used a fresh namespace, preserved the failure, and left benchmark/science/caps unchanged.
