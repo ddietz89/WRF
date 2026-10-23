@@ -1,6 +1,6 @@
 # Current working selection: U nonhydrostatic pressure-correction SIMD
 
-**79bebebb / archive1ade2c8f / post-test source1f03a738** retains all previous improvements and adds the exact-qualified U pressure-correction SIMD directive. The current image owns short35-step/two-product exact science; the fresh original-versus-combined three-hour comparison is starting. New3h/noon/9h/restart/profile qualification and a total runtime benefit remain pending.
+**79bebebb / archive1ade2c8f / post-test source1f03a738** retains all previous improvements and adds the exact-qualified U pressure-correction SIMD directive. The current image owns short35 and full3h exact science: all four products and545 ordered steps matched. The fresh original-first pair was798.430250→638.924674s wall (**19.9774% lower**),594.341810→554.727540s main-step elapsed (**6.6652% lower**) and358152.909794→310564.250629 aggregate CPU-s (**13.2872% lower**). This is one fixed-order full-package comparison; ownnoon/9h/restart/profile remain pending.
 
 Complete captured callers were10.36% and12.09% shorter in opposite-order pairs. These percentages are not forecast gains and are not added to earlier gains. [Current evidence, build guard and rollback](../cpu-compute/uv-u-nh-correction-simd/README.md). Use `WRF_SMALL_STEP_U_NH_CORRECTION_SIMD=0` and rebuild to omit the new directive. Production/master remain unchanged; AWS remains suspended.
 
@@ -18,7 +18,7 @@ New run IDs: `production512-current-add-a2a3h-{control,candidate}-r1`; raw resul
 
 [Evidence, support, recipe and atomic rollback](../cpu-compute/add-a2a-simd/README.md). Own3h is true; ownnoon/9h/restart are false until separate qualification. The eight changed calling routines are disclosed rather than claimed byte-exact. Source634f293d is post-test tracking; raw producer remains null. Production/master are unchanged; AWS is suspended.
 
-All following selection descriptions are historical. The generic older three-hour files do not override the qualification pointed to by `selection.json`.
+All following selection descriptions are historical. The generic three-hour result files now identify the current79be qualification; explicitly named previous files preserve older results. `selection.json` identifies current support and acceptance.
 
 ---
 

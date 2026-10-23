@@ -4,7 +4,15 @@
 
 Selected **79bebebb / archive1ade2c8f**, post-test source **1f03a738**, retains all prior improvements and adds one guarded SIMD directive to the U nonhydrostatic `dpxy` correction. Complete captured UV callers were **10.36% and12.09% shorter** in opposite-order pairs, with exact full output bytes/state and checked cache clearing before every arm. Genuine-parent O0-bounds/O2 finite, exceptional-IEEE, readonly and guard checks passed. The separate failed DPn interpolation remains rejected.
 
-The unchanged scientific checker passed **both complete products and35 ordered steps**, all512 ranks/twoY tiles, all32 quilt field views and expected admission/writer controls. All four models and the checker closed normally. These are short scientific qualification and caller results; the fresh three-hour original-first/combined-second comparison is starting. Own3h/noon/9h/restart/profile and a new total forecast speedup remain pending.
+The fresh original-first/combined-second **three-hour comparison passed all four complete products and545 ordered steps**, all512 ranks/twoY tiles, all32 quilt field views and all four positive writer roots. All eight models and the unchanged original checker closed normally. Checked client-cache clears preceded each arm. The current image owns short35 and3h science; ownnoon/9h/restart/profile remain pending.
+
+| Fresh three-hour measure | Corrected original546b | Combined79be | Reduction |
+|---|---:|---:|---:|
+|Whole model/MPI wall, including output/drain|798.430250s|638.924674s|**19.9774%**|
+|Main-step elapsed|594.341810s|554.727540s|**6.6652%**|
+|Aggregate node CPU|358152.909794 CPU-s|310564.250629 CPU-s|**13.2872%**|
+
+This is a1.24965× single-run speed ratio in one fixed-order pair. It measures the full combined configuration; no isolated UV gain, percentage addition, repeatability or concurrent-throughput claim follows. Main elapsed includes MPI/output backpressure; aggregate CPU includes spin. The1.5× throughput and2× speed targets remain unmet. Raw collector order strings retain older Tcopy/REAL15 names; actual leases/executable hashes identify this79be pair, and the interpreted qualification records disclose that label error without rewriting raw evidence.
 
 One archive member changed, with583 other occurrences retained. Canonical guarded preprocessing plus one strict O2 compile reproduced the tested object's runtime code/data, relocations and public MOD; full PP/debug object bytes differ. The default applies to GNU13.3 with SmallStepSIMD/Zen2 and emptyOMPCPP; rebuild with `WRF_SMALL_STEP_U_NH_CORRECTION_SIMD=0` to omit it. Matching serial execution remains unqualified. [Evidence and rollback](tools/cpu-compute/uv-u-nh-correction-simd/README.md). Production/master are unchanged; AWS remains suspended.
 

@@ -2,27 +2,27 @@
   "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
   "order": [
     "fresh_corrected_original546b_control",
-    "fresh_current_DF41b_pool51a_input06d_NCa32_3edf_candidate"
+    "fresh_Tcopy_REAL15_bank_child_candidate"
   ],
-  "comparison_design": "Fresh fixed-order corrected-original versus combined current candidate; no isolated outputpadding/SIMD/input or earlierkernel attribution",
+  "comparison_design": "Fresh original546b FIRST versus current7087+Tcopy+REAL15 child SECOND; one fixed-order pair, no isolated/helper/additive/repeatability claim",
   "metrics": {
     "control": {
-      "wall_seconds": 822.5876927680802,
-      "cpu_seconds": 368895.741336,
-      "main_step_sum_seconds": 597.12504
+      "wall_seconds": 798.4302501319908,
+      "cpu_seconds": 358152.909794,
+      "main_step_sum_seconds": 594.34181
     },
     "candidate": {
-      "wall_seconds": 662.4338167828973,
-      "cpu_seconds": 321352.54593699996,
-      "main_step_sum_seconds": 560.3518
+      "wall_seconds": 638.9246735577472,
+      "cpu_seconds": 310564.250629,
+      "main_step_sum_seconds": 554.72754
     }
   },
   "reductions_percent": {
-    "wall_seconds": 19.469520075877977,
-    "cpu_seconds": 12.887976214313746,
-    "main_step_sum_seconds": 6.158381835737448
+    "wall_seconds": 19.97739646611276,
+    "cpu_seconds": 13.287246274886243,
+    "main_step_sum_seconds": 6.665233596808551
   },
-  "science_sha256": "82b69d0d6454fa95cc5c9984c498f9dbde0d958315894e06a9eb6eb54bac76c1",
-  "reader_closure_sha256": "2bf74027e74539eb8ccd1750bc0db76fd017746526b09a19f43c20b74bcfd7a4",
+  "science_sha256": "ce05a770c444972e5cd73aaec130baecd27042488592a5cc18613c8e7721be54",
+  "reader_closure_sha256": "f87546fc9a3b52ab43ccc4b7e1bad2fab477adef757f9beb556ea21d99f1e399",
   "limits": "One fresh fixed-order pair, actual checkedcache before each arm; no repeatability or per-kernel causal claim. Main includes communication/backpressure; residual is not pureIO."
 }
