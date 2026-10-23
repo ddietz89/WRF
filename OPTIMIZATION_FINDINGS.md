@@ -1,12 +1,26 @@
 # WRF CPU optimization findings
 
-## Current selection: RK1 temperature-copy fusion (October 23, 2026, UTC)
+## Current selection: copy fusion and Thompson tendency bank (October 23, 2026, UTC)
+
+Selected **f2726b58 / archive1f86cd2c**, post-test source **70ce108d**, retains every prior improvement and adds the exact-qualified RK1 copy fusion and15-array Thompson REAL bank. The copy-fusion complete caller was **8.16–8.62% shorter**; the bank complete driver was **0.25–0.49% shorter**, essentially neutral/slightly positive. The bank removes14 static allocation/free sites without changing arithmetic or claiming memory-capacity savings. Component percentages are not added or attributed to the forecast.
+
+The fresh original-first/combined-second pair passed **all four products and545 ordered steps**, all512 ranks/two tiles, all32 quilt environments and admission markers, and all four positive writers. All eight models and the unchanged original checker closed normally. Own3h science is true; separate short/daytime/9h/restart/profile scopes are false.
+
+| Fresh three-hour measure | Corrected original546b | Combinedf272 | Reduction |
+|---|---:|---:|---:|
+|Whole model/MPI wall, including output/drain|819.292170s|662.571286s|19.1288%|
+|Integration-step elapsed, including communication/backpressure|596.585480s|555.256950s|6.9275%|
+|Aggregate four-node CPU|367680.356847 CPU-s|321156.487294 CPU-s|12.6533%|
+
+Both arms had checked compute-client cache clearing; file-server load/cache remains uncontrolled. This is one fixed-order pair, with no isolated/incremental/additive or repeatability claim. Main-step elapsed is not integration CPU; aggregate CPU includes MPI spin and the wall-minus-main residual is not pure I/O. The single-forecast wall ratio is **1.23653x**; concurrent throughput is unmeasured, and the1.5x throughput/2x targets are not established. [Exact evidence, qualified source scope and rollback](tools/cpu-compute/thompson-real15-bank/README.md). Production/master remain unchanged; AWS remains suspended. The batch is closed for promotion; subsequent investigations start from this combined build.
+
+## Historical8400 selection: RK1 temperature-copy fusion (October 23, 2026, UTC)
 
 Selected **8400d7c5 / archive1019d50d**, post-test source **0b810fde**, retains all previous 7087 improvements and fuses the RK1 temperature snapshot into the existing save/coupling loop. Both mandatory stores, arithmetic order, bounds and RK2/3 behavior remain. Complete synthetic RK1 caller wall was **8.16–8.62% shorter** in opposite-order pairs, with exact outputs, guards, immutable data and five observed state words; these are caller gains, not forecast gains.
 
 The unchanged original checker passed **two complete products and35 ordered steps**, all512 ranks, two tiles, expected writer controls, FIELDVIEW=1 on all32 quilt ranks and the expected16 admission markers. Every model and reader closed normally. The make guard enables GNU13.3/empty-OMPCPP SmallStep SIMD/Zen2, with `WRF_SMALL_STEP_T_COPY_FUSION=0` rebuild opt-out. MPI is the qualified scope; matching serial configurations are unqualified. The artifact reuses qualified preprocessed objectbd2; the canonical source is tracked after testing, without a fresh full-build reproduction claim. Own3h/noon/9h/restart flags are false. Short timing against a retained original reference is unpaired and is not a new forecast-speedup result. [Evidence and rollback](tools/cpu-compute/smallstep-rk1-t-copy-fusion/README.md).
 
-A separate Thompson change consolidates15 per-call REAL tendency arrays into one bank, reducing static allocation/free sites by14. Eleven complete O2/private-table cases passed exact raw/five-state checks. Two complete 20,000-call synthetic driver pairs were **0.25% and0.49% shorter**: essentially neutral/slightly positive, with no demonstrated memory-capacity saving or significant forecast gain. It remains unpromoted pending the fresh combined original-versus-candidate three-hour check, which also supplies its shared-table application qualification. The test image includes both additions and all prior fixes. AWS remains suspended; production and master are unchanged.
+A separate Thompson change consolidates15 per-call REAL tendency arrays into one bank, reducing static allocation/free sites by14. Eleven complete O2/private-table cases passed exact raw/five-state checks. Two complete 20,000-call synthetic driver pairs were **0.25% and0.49% shorter**: essentially neutral/slightly positive, with no demonstrated memory-capacity saving or significant forecast gain. At that checkpoint it was unpromoted pending the fresh combined original-versus-candidate three-hour check. That subsequent check passed and supplies its shared-table application qualification, as recorded above; both additions and all prior fixes are now selected. AWS remains suspended; production and master are unchanged.
 
 ## Historical fbcd selection: PD SIMD and output-buffer reuse (October 22, 2026, UTC)
 

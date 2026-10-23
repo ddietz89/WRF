@@ -1,0 +1,234 @@
+{
+  "status": "PASS_CURRENT_TCOPY_REAL15_BANK_OWN_FRESH_THREE_HOUR_FOUR_PRODUCT_545_STEP_SCIENCE",
+  "candidate_artifacts": {
+    "exe": "f2726b583688c824520d28c240f1bf962bad45f95b050c4b7ca0773d9ef1b567",
+    "archive": "1f86cd2c13ef38df52ee47558c467ed203c93ab612de2d27194f4df832209bd7",
+    "components": [
+      {
+        "name": "THOMPSON_REAL15_TENDENCY_BANK",
+        "member": "module_mp_thompson.o",
+        "expected_index": 239,
+        "parent_member_sha256": "242c4659e10a6bcf9773f77628a37bd498f96778154ded17d265ecb14558cf8f",
+        "qualified_object_sha256": "ce0b8030803b016a35b5089e19cc2d1b85ea44152c4584a42f1e44e4c9c1c6c8",
+        "module_interface_sha256": "2b20e2811653339ea7df9463b3c991491ba7b573eee9aa615ec15e8865511816",
+        "preprocessed_candidate_sha256": "3efafbf163b985fdfb6f1001ae73ad7f8ea7675255066674d926b61a04025d2b",
+        "raw_producer_source_commit": null,
+        "native_scope": "11_COMPLETE_CALLER_O2_PRIVATE_ONLY; shared23table/O0/application NOT transferred",
+        "source_neighbor_functions_byte_exact": false
+      }
+    ],
+    "inherited_Tcopy_object_sha256": "bd2cdc05e753c1c56dea9e2a6cc900104a92a5a3439f30541e5cac726a36586c"
+  },
+  "raw_producer_source_commit": null,
+  "posttest_source_commit": "70ce108d61573ef1aa5ef7d60a846f83e1864639",
+  "own_threehour_science_qualified": true,
+  "own_onehour_science_qualified": false,
+  "own_short_science_qualified": false,
+  "own_noon75m_science_qualified": false,
+  "own_ninehour_science_qualified": false,
+  "own_restart_science_qualified": false,
+  "own_profile_qualified": false,
+  "fresh_control_run": true,
+  "profiling": false,
+  "science": {
+    "products": 4,
+    "ordered_steps": 545,
+    "last_step": "2026-10-12_09:00:00",
+    "world": 512,
+    "compute": 480,
+    "quilt": 32,
+    "tiles": 2,
+    "positive_writer_roots": [
+      487,
+      495,
+      503,
+      511
+    ],
+    "actual_field_marker_ranks": [
+      480,
+      481,
+      482,
+      483,
+      484,
+      485,
+      486,
+      487,
+      488,
+      489,
+      490,
+      491,
+      492,
+      493,
+      494,
+      495,
+      496,
+      497,
+      498,
+      499,
+      500,
+      501,
+      502,
+      503,
+      504,
+      505,
+      506,
+      507,
+      508,
+      509,
+      510,
+      511
+    ],
+    "original_compare_one_AST_exact": true
+  },
+  "model_invocations": {
+    "control": {
+      "hpc01": "f48162dab6784d799805b1f7dc6e94f4",
+      "hpc02": "9ea27ae0f1954f799938df5397f1886e",
+      "hpc03": "9f4278a30dc34341bf7285d491546d90",
+      "hpc04": "9b20383f9d9b443891e6a22d49762c10"
+    },
+    "candidate": {
+      "hpc01": "e42af2a80cd746a09d5958e84f00ba0c",
+      "hpc02": "56dbe143bf654e8db4e920ac8293126d",
+      "hpc03": "b3d4e75b4b5a4ad2b781f280b6472aac",
+      "hpc04": "013d0f2f36aa49f488da4af8e8b4f1d4"
+    }
+  },
+  "reader_invocation_id": "3f1bce55be11451a962631b1e8b84399",
+  "reader_closure": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7087-tcopy-real15-bank3h-runtime-r1/reader-closure.json",
+    "sha256": "ffd07051601947a4632c03719364b80c372c3cfbe7b4d4e24fc95656f49720d9"
+  },
+  "science_receipt": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7087-tcopy-real15-bank3h-runtime-r1/science-receipt.json",
+    "sha256": "6040f91d1eba64746184b2adffc18721f0068502a1aec9852adad6e0b37e5a7d"
+  },
+  "result": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7087-tcopy-real15-bank3h-runtime-r1/RESULT.json",
+    "sha256": "b2aa247128a5da4e481a554d22cdb6d45b343fc74fa2be5e712fb8d42f29a003"
+  },
+  "metrics": {
+    "control": {
+      "wall_seconds": 819.2921702358872,
+      "cpu_seconds": 367680.356847,
+      "main_step_sum_seconds": 596.58548
+    },
+    "candidate": {
+      "wall_seconds": 662.5712857269682,
+      "cpu_seconds": 321156.487294,
+      "main_step_sum_seconds": 555.25695
+    }
+  },
+  "reductions_percent": {
+    "wall_seconds": 19.128815116565377,
+    "cpu_seconds": 12.653346496930117,
+    "main_step_sum_seconds": 6.927511879772874
+  },
+  "memory_actual": {
+    "control": {
+      "hpc01": {
+        "memory_peak_bytes": 98702499840,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "cpu_stat": "usage_usec 91877119995\nuser_usec 90088837663\nsystem_usec 1788282331\ncore_sched.force_idle_usec 0\nnr_periods 8211\nnr_throttled 4825\nthrottled_usec 25777582\nnr_bursts 0\nburst_usec 0\n"
+      },
+      "hpc02": {
+        "memory_peak_bytes": 101120053248,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "cpu_stat": "usage_usec 91919579553\nuser_usec 90013457593\nsystem_usec 1906121959\ncore_sched.force_idle_usec 0\nnr_periods 8162\nnr_throttled 5915\nthrottled_usec 8823323\nnr_bursts 0\nburst_usec 0\n"
+      },
+      "hpc03": {
+        "memory_peak_bytes": 100965679104,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "cpu_stat": "usage_usec 91955572960\nuser_usec 90084169723\nsystem_usec 1871403237\ncore_sched.force_idle_usec 0\nnr_periods 8162\nnr_throttled 5565\nthrottled_usec 17598055\nnr_bursts 0\nburst_usec 0\n"
+      },
+      "hpc04": {
+        "memory_peak_bytes": 107201175552,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "cpu_stat": "usage_usec 91928084339\nuser_usec 89960928412\nsystem_usec 1967155926\ncore_sched.force_idle_usec 0\nnr_periods 8162\nnr_throttled 5530\nthrottled_usec 17423205\nnr_bursts 0\nburst_usec 0\n"
+      }
+    },
+    "candidate": {
+      "hpc01": {
+        "memory_peak_bytes": 63028219904,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "cpu_stat": "usage_usec 80304955302\nuser_usec 78516479546\nsystem_usec 1788475755\ncore_sched.force_idle_usec 0\nnr_periods 6640\nnr_throttled 4737\nthrottled_usec 11522287\nnr_bursts 0\nburst_usec 0\n"
+      },
+      "hpc02": {
+        "memory_peak_bytes": 60716294144,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "cpu_stat": "usage_usec 80281485554\nuser_usec 78400331111\nsystem_usec 1881154443\ncore_sched.force_idle_usec 0\nnr_periods 6586\nnr_throttled 5239\nthrottled_usec 7427643\nnr_bursts 0\nburst_usec 0\n"
+      },
+      "hpc03": {
+        "memory_peak_bytes": 60676239360,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "cpu_stat": "usage_usec 80314362752\nuser_usec 78423587751\nsystem_usec 1890775001\ncore_sched.force_idle_usec 0\nnr_periods 6587\nnr_throttled 5251\nthrottled_usec 5984568\nnr_bursts 0\nburst_usec 0\n"
+      },
+      "hpc04": {
+        "memory_peak_bytes": 60659134464,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "cpu_stat": "usage_usec 80255683686\nuser_usec 78340022907\nsystem_usec 1915660779\ncore_sched.force_idle_usec 0\nnr_periods 6587\nnr_throttled 3875\nthrottled_usec 27560343\nnr_bursts 0\nburst_usec 0\n"
+      }
+    }
+  },
+  "comparison_design": "Fresh original546b FIRST versus current7087+Tcopy+REAL15 child SECOND; one fixed-order pair, no isolated/helper/additive/repeatability claim",
+  "order": [
+    "fresh_corrected_original546b_control",
+    "fresh_Tcopy_REAL15_bank_child_candidate"
+  ],
+  "raw_result_label_erratum": null,
+  "source_manifest_sha256": "6a76d33c01a5f475ceb1dd48f77a2c1170eb4c793936c1716ca075a9cbf46a15",
+  "source_pins_verified": true,
+  "bank_scope": {
+    "canonical_parent_sha256": "88650f32214e09ce65df53a7c2c08c0a30d22faa9142633aa63005dfbe45b24c",
+    "canonical_candidate_sha256": "b59a95c95ecf79dc844cbe1168f6075eac629a918c3f9531d15261e668ba3628",
+    "source_inverse_sha256": "c8764408c30d0bddf98c1a828f9d4ca570f270456543d3f40877a258e6755305",
+    "source_inverse_exact": true,
+    "new_flags": false,
+    "caller_result_sha256": "a8b5f8b848f63c9ba3b2e5faa8078f7cf7d118f959ff0ef6104439afc229487b",
+    "caller_interpretation": "Essentiallyneutral private/warmed wholecaller .253/.485percent reductions; no meaningful bank-onlygain/capacity/peakmemory claim. Actual fullgridSCI qualifies only current configuration/horizon.",
+    "raw_producer_source_commit": null,
+    "qualified_PP_reused": true,
+    "not_fresh_postcommit_canonical_fullbuild": true
+  },
+  "limits": [
+    "One fresh fixed-order originalFIRST/latestSECOND combined pair; no isolated/additive/repeatability claim.",
+    "Actual wall, summed nodeCPU and main-step sums are distinct; mainincludescommunication/backpressure, residualnotpureIO.",
+    "Bankcaller essentiallyneutral; no capacityclaim or causal incremental gain from f272/parent8400 differences.",
+    "Own3h only; parent8400short remainshistorical/inherited, no short/noon/ninehour/restart/profiletransfer.",
+    "RawproducercommitNULL; dedicatedsourcecommit isposttesttracking, laterpublicationcommitnotselfreferenced."
+  ],
+  "raw_refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7087-tcopy-real15-bank3h-runtime-r1/source-pins.json": "6a76d33c01a5f475ceb1dd48f77a2c1170eb4c793936c1716ca075a9cbf46a15",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7087-tcopy-real15-bank3h-runtime-r1/application-binding.json": "288f0e94673fa035a2257dda77fe0d27e22cdcd565e1ba380524d0d552858201",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7087-tcopy-real15-bank3h-runtime-r1/science-receipt.json": "6040f91d1eba64746184b2adffc18721f0068502a1aec9852adad6e0b37e5a7d",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7087-tcopy-real15-bank3h-runtime-r1/reader-closure.json": "ffd07051601947a4632c03719364b80c372c3cfbe7b4d4e24fc95656f49720d9",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7087-tcopy-real15-bank3h-runtime-r1/RESULT.json": "b2aa247128a5da4e481a554d22cdb6d45b343fc74fa2be5e712fb8d42f29a003",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7087-tcopy-real15-bank3h-runtime-r1/bank-native-receipt.json": "dabc4820f7f583009b9ebd5c307274e08dcd28bd74679f3b52cbbd048146fd6f",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7087-tcopy-real15-bank3h-runtime-r1/bank-native-closure.json": "e6e0cdf499620bde50fae9963337a5de6d4dee020a69b53211f2ee4994fd7b13",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7087-tcopy-real15-bank3h-runtime-r1/bank-source-proof.json": "c8764408c30d0bddf98c1a828f9d4ca570f270456543d3f40877a258e6755305",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7087-tcopy-real15-bank3h-runtime-r1/bank-build-receipt.json": "9858650c1eb1abbff78921eee978770c410f0198546adbcdc2a797d90260caf6",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7087-tcopy-real15-bank3h-runtime-r1/bank-adjudication.json": "66c85eda39687482dfdb6754a78e5c3d0d3199f9daecf76a39c7153af25e1418",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7087-tcopy-real15-bank3h-runtime-r1/bank-caller-timing.json": "a8b5f8b848f63c9ba3b2e5faa8078f7cf7d118f959ff0ef6104439afc229487b",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7087-tcopy-real15-bank3h-runtime-r1/real15-combined-build-receipt.json": "30380a1ce98833ed24f5d5c3e54941c21c5bbe5acc2572cffb93960284ecbf89",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7087-tcopy-real15-bank3h-runtime-r1/real15-combined-build-closure.json": "a904bf60030f29fdad02d41f1dedeea8dd7089e79014406560a6d892a97a87fa",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7087-tcopy-real15-bank3h-runtime-r1/real15-combined-ordered-proof.json": "872c3d98bea5f1a5e28b67b4b102392fb9d8948d8f647bbf3daee5aec8df4205",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7087-tcopy-real15-bank3h-runtime-r1/control-metadata/lease.json": "f119da52bc0e900ac3cd033b897b4a391d8bc656b081a982b0007964d349d611",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7087-tcopy-real15-bank3h-runtime-r1/control-metadata/completion.json": "6132b652632e61cee02667d277356a860811e84080a5bd53194085fcb442d471",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7087-tcopy-real15-bank3h-runtime-r1/control-metadata/model-closures.json": "4624c77f58e9efa495ffcef703089d7f5ba9562a83f6d7c3a2588ceaf6e57ccd",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7087-tcopy-real15-bank3h-runtime-r1/control-metadata/adaptive-steps.json": "656a3efcaf3bea3e3d43ddb1997959c493270a3946bf8981984bf3c4096db746",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7087-tcopy-real15-bank3h-runtime-r1/control-metadata/cache-start-context.json": "13a57ebd6831c07b60f33297fe41fdf255b42bcd9f2c8ef98a5df6795484cc34",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7087-tcopy-real15-bank3h-runtime-r1/control-metadata/mpi-launch.json": "6e505e7f504cc8d4b638f87719efc7eaaa95c8b0d0d5c20af7f5743715f30155",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7087-tcopy-real15-bank3h-runtime-r1/control-metadata/hpc02-node.json": "137ff82abe1eec2625d374aab0dcef1690965b4d20178f361b57affd33a82253",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7087-tcopy-real15-bank3h-runtime-r1/control-metadata/hpc03-node.json": "db96c4147a170e79e3f2f770bc58c5e2de53ec2d46ce4c7823b6024ac74b3cda",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7087-tcopy-real15-bank3h-runtime-r1/control-metadata/hpc04-node.json": "636d01a89ce1b336057392665a0282e4c9ee4db6cba4d2d2750966daa1cf7a1c",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7087-tcopy-real15-bank3h-runtime-r1/candidate-metadata/lease.json": "f578b1cc4eed1509f9bc5c9d91c4a21f15220849c7f14885542c14fc84dfd08c",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7087-tcopy-real15-bank3h-runtime-r1/candidate-metadata/completion.json": "23fabbe1dbb0298079a22565c5c8d9e8c706783956399ff0c9c185abd4304c90",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7087-tcopy-real15-bank3h-runtime-r1/candidate-metadata/model-closures.json": "2dd4fbe3d9839364e3db6c062257e599e4c6a6a21598aef0dba6211f215f008d",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7087-tcopy-real15-bank3h-runtime-r1/candidate-metadata/adaptive-steps.json": "c978d04f4700296c9d8730e1aaeb2c19f81e7f02c0ce1889472eba4e2b77efce",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7087-tcopy-real15-bank3h-runtime-r1/candidate-metadata/cache-start-context.json": "1b584f1d47d79d989c795d003dbc006611cc5c54ab70b5794a95de89f7b7a8f8",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7087-tcopy-real15-bank3h-runtime-r1/candidate-metadata/mpi-launch.json": "255e5a858f68368f5bbce878259880366fcedfa06bff467a14759d9882c88e18",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7087-tcopy-real15-bank3h-runtime-r1/candidate-metadata/hpc02-node.json": "fbd6bd640914536e52214635679143ab87513470e44d19c0871b450e908d34aa",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7087-tcopy-real15-bank3h-runtime-r1/candidate-metadata/hpc03-node.json": "72108c08f39ef4f0c71332eaa555b835ba3a173fcb28115a03fd1ca7fd3f4834",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7087-tcopy-real15-bank3h-runtime-r1/candidate-metadata/hpc04-node.json": "69b95701c69f45e0aad1ee18c57ba40532fb673ef408eb364716a15ef11098e3"
+  }
+}
