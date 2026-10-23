@@ -186,6 +186,27 @@ endif
 endif
 endif
 
+# Exact RK1 W snapshot fused into the existing guarded W/PH consumer.
+# Qualified GNU13.3 empty-OMPCPP SmallStep SIMD/Zen2 + PH fusion path.
+# WRF_SMALL_STEP_W_COPY_FUSION=0 restores the prior W schedule after full regeneration/rebuild.
+# These guards do not assert DM_PARALLEL; matching serial builds remain unqualified.
+WRF_SMALL_STEP_W_COPY_FUSION ?= 1
+ifeq ($(WRF_SMALL_STEP_W_COPY_FUSION),1)
+ifeq ($(WRF_SMALL_STEP_PH_COPY_FUSION),1)
+ifeq ($(WRF_SMALL_STEP_SIMD),1)
+ifeq ($(WRF_SMALL_STEP_ZEN2),1)
+ifeq ($(strip $(OMPCPP)),)
+ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+ifneq (,$(findstring 13.3.0,$(shell $(SFC) --version 2>/dev/null)))
+module_small_step_em.o: private override CPPFLAGS += -DWRF_SMALL_STEP_W_COPY_FUSION
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+
 cio.o :
 	$(CC) -c $(CFLAGS) cio.c
 

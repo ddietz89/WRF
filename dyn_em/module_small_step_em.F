@@ -166,6 +166,7 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
       ENDDO
 #endif
 
+#if !defined(WRF_SMALL_STEP_W_COPY_FUSION) || !defined(WRF_SMALL_STEP_PH_COPY_FUSION)
       DO j=j_start, j_end
       DO k=k_start, min(kde,kte)
       DO i=i_start, i_end
@@ -176,6 +177,7 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
       ENDDO
       ENDDO
       ENDDO
+#endif
 
     DO j=j_start, j_end
       DO i=i_start, i_end
@@ -353,6 +355,9 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
     IF (rk_step == 1 .AND. k<=min(kde,kte)) THEN
     !$omp simd
     DO i=i_start, i_end
+#ifdef WRF_SMALL_STEP_W_COPY_FUSION
+      w_1(i,k,j)  = w_2(i,k,j)
+#endif
       ph_1(i,k,j) = ph_2(i,k,j)
       w_save(i,k,j) = w_2(i,k,j)
       ! w coupled with my
