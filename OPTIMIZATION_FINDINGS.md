@@ -1,6 +1,16 @@
 # WRF CPU optimization findings
 
-## Current selection: RK1 U/V snapshot fusion (October 23, 2026, UTC)
+## Current selection: RK1 W snapshot fusion (October23, 2026, UTC)
+
+Selected **526efaaa / archivec252d521**, post-test source **9712688c**, retains every prior19ad compute/provider/runtime improvement and fuses the required RK1 W snapshot into the existing guarded W/PH traversal. Complete restored synthetic RK1 callers were **9.00% and9.51% shorter** in opposite-order node pairs, all four arms cache-cleared and normally closed with exact raw/five-state results. The genuine/same-opt O0-bounds/O2 native102-case gate and non-target/publicMOD checks passed. These are caller gains, not additive or measured forecast gains.
+
+The unchanged original checker passed both complete products and35 ordered steps, full512/twoY tiles, all32 FIELDVIEW environments,16 admission markers and positive writer roots487/495. All four models and the reader closed normally. Short wall137.365313s, integration-step elapsed38.463250s and aggregateCPU53540.863983CPU-s are **unpaired context**. Own3h/9h/noon/profile/restart/full144 remain pending. Historical19ad ABBA figures below do not transfer to this new image.
+
+Only archive member558 changed;583 others and all external runtime inputs remain exact. Actual canonical WRF preprocessing plus one strictO2 compile reproduced the tested runtime code/data, relocations and publicMOD; PP/debug-object bytes differ. The default is guarded to GNU13.3.0/emptyOMPCPP/SmallStepSIMD1/Zen21/PHfusion1, with `WRF_SMALL_STEP_W_COPY_FUSION=0` plus full regeneration/rebuild/relink as rollback. Matching serial remains unqualified. [Evidence and rollback](tools/cpu-compute/smallstep-rk1-w-copy-fusion/README.md). Production/master are unchanged; AWS remains suspended.
+
+The independent MYJPBL AKM overwritten-clear trial passed native/raw/state tests, but complete caller timing was0.3446% longer on01 and1.2368% shorter on04. Retain it unpromoted: consistent performance and capacity benefits are unproven, and mixed signs do not establish a regression. No further AKM runs or integration are planned. The rejected MU preparation fusion stays excluded.
+
+## Historical19ad selection: RK1 U/V snapshot fusion (October 23, 2026, UTC)
 
 Selected **19add4c9 / archive13f62bff**, post-test source **87fab099**, retains every prior79be improvement and fuses the RK1 U/V snapshots into their existing save/coupling loops. Required stores, bounds, arithmetic, RK2/3 behavior, T/PH fusions and U pressure correction remain. Complete restored RK1 callers were **16.51% and20.85% shorter** in opposite-order host pairs; all eight arms passed exact raw/five-state, cache and normal-closure checks. The native88-case genuine/same-opt O0-bounds/O2 module gate passed. These are caller gains, not additive or measured forecast gains.
 
