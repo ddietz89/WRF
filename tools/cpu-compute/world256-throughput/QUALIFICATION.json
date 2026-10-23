@@ -1,0 +1,68 @@
+{
+  "status": "PASS_FRESH_SAME256_ORIGINAL_TWO_HISTORY_35_STEP_SEQUENCE",
+  "scope": "Fresh same256 corrected-original/current ten-minute comparison, not512 decomposition equivalence or concurrent throughput",
+  "raw_science_receipt": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current13fe-lower-rank-throughput-dedup-r1/224compute-same-baseline-feasibility-r1/same256-wrf10m-pair-preparation-r1/runtime-r1/science-receipt.json",
+    "sha256": "9a888d0ba990b9cadf6ceab01bfaa443b82cb9508749789ddeaaeb0792ac2e1f"
+  },
+  "reader_invocation": "54d9ca9a4878491b83025f36b0ab11dd",
+  "comparisons": [
+    {
+      "status": "PASS",
+      "checker_identity": {
+        "path": "/pool/wrf-experiment/wrf-cpu/validation/protected_netcdf_exact_reference.py",
+        "sha256": "0382bcbabfbc16b76114ef552206c6c558ea15cd3c3552dfaed98b977deea2b4",
+        "verified": true
+      },
+      "coverage": {
+        "trajectory": "PENDING_UNAVAILABLE",
+        "physics": "PENDING_UNAVAILABLE",
+        "adaptive_dt": "PENDING_UNAVAILABLE",
+        "budgets": "PENDING_UNAVAILABLE",
+        "restart_resume": "PENDING_UNAVAILABLE",
+        "holdout": "PENDING_UNAVAILABLE"
+      }
+    },
+    {
+      "status": "PASS",
+      "checker_identity": {
+        "path": "/pool/wrf-experiment/wrf-cpu/validation/protected_netcdf_exact_reference.py",
+        "sha256": "0382bcbabfbc16b76114ef552206c6c558ea15cd3c3552dfaed98b977deea2b4",
+        "verified": true
+      },
+      "coverage": {
+        "trajectory": "PENDING_UNAVAILABLE",
+        "physics": "PENDING_UNAVAILABLE",
+        "adaptive_dt": "PENDING_UNAVAILABLE",
+        "budgets": "PENDING_UNAVAILABLE",
+        "restart_resume": "PENDING_UNAVAILABLE",
+        "holdout": "PENDING_UNAVAILABLE"
+      }
+    }
+  ],
+  "steps": 35,
+  "last_step": "2026-10-12_06:10:00",
+  "tile_summary": {
+    "status": "PASS_ACTUAL_224_DISJOINT_TILE_UNIONS_AND_ALL256_OBSERVED_ENVS",
+    "scope": "Each rank has two disjoint tiles; both arms have identical per-rank unions and all256 observed environments. This is not an independent cross-rank global coverage proof; no performance inference.",
+    "compute_ranks": 224,
+    "expected_environment": {
+      "WRF_NUM_TILES": "",
+      "WRF_NUM_TILES_X": "",
+      "WRF_NUM_TILES_Y": "",
+      "WRF_NUM_TILES_INC": "",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "OMP_DYNAMIC": "FALSE"
+    }
+  },
+  "result_sha256": "6549636799fab914304b0ab9d841cd94fc3d34819287b0785745a930a59d918a",
+  "own_same256_short_science_qualified": true,
+  "own_same256_three_hour_science_qualified": false,
+  "own_dual_job_science_qualified": false,
+  "long_horizon_memory_admission": false,
+  "default_512_selection_changed": false,
+  "experimental_output_DSO_sha256": "b756513ac40ccf7d94f5dd2cdffaf78af88c3928755a005d4046d847add06c3b",
+  "protected_checker_unchanged": true,
+  "prior_failures_preserved": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current13fe-lower-rank-throughput-dedup-r1/224compute-same-baseline-feasibility-r1/genuine256-native-authority-plan-r1"
+}

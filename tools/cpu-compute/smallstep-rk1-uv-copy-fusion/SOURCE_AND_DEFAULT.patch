@@ -1,0 +1,133 @@
+--- a/dyn_em/module_small_step_em.F
++++ b/dyn_em/module_small_step_em.F
+@@ -136,6 +136,7 @@
+       ENDDO
+       ENDDO
+ 
++#ifndef WRF_SMALL_STEP_UV_COPY_FUSION
+       DO j=j_start, j_end
+       DO k=k_start, k_end
+       DO i=i_start, i_endu
+@@ -143,7 +144,9 @@
+       ENDDO
+       ENDDO
+       ENDDO
+-
++#endif
++
++#ifndef WRF_SMALL_STEP_UV_COPY_FUSION
+       DO j=j_start, j_endv
+       DO k=k_start, k_end
+       DO i=i_start, i_end
+@@ -151,6 +154,7 @@
+       ENDDO
+       ENDDO
+       ENDDO
++#endif
+ 
+ #ifndef WRF_SMALL_STEP_T_COPY_FUSION
+       DO j=j_start, j_end
+@@ -240,6 +244,28 @@
+     ENDDO
+     ENDDO
+ 
++#ifdef WRF_SMALL_STEP_UV_COPY_FUSION
++    DO j=j_start, j_end
++    DO k=k_start, k_end
++    IF (rk_step == 1) THEN
++    !$omp simd
++    DO i=i_start, i_endu
++      u_1(i,k,j) = u_2(i,k,j)
++      u_save(i,k,j) = u_2(i,k,j)
++      ! u coupled with my
++      u_2(i,k,j) = ((c1h(k)*muus(i,j)+c2h(k))*u_1(i,k,j)-(c1h(k)*muu(i,j)+c2h(k))*u_2(i,k,j))/msfuy(i,j)
++    ENDDO
++    ELSE
++    !$omp simd
++    DO i=i_start, i_endu
++      u_save(i,k,j) = u_2(i,k,j)
++      ! u coupled with my
++      u_2(i,k,j) = ((c1h(k)*muus(i,j)+c2h(k))*u_1(i,k,j)-(c1h(k)*muu(i,j)+c2h(k))*u_2(i,k,j))/msfuy(i,j)
++    ENDDO
++    ENDIF
++    ENDDO
++    ENDDO
++#else
+     DO j=j_start, j_end
+     DO k=k_start, k_end
+     !$omp simd
+@@ -250,18 +276,44 @@
+     ENDDO
+     ENDDO
+     ENDDO
+-
++#endif
++
++#ifdef WRF_SMALL_STEP_UV_COPY_FUSION
+     DO j=j_start, j_endv
+     DO k=k_start, k_end
++    IF (rk_step == 1) THEN
+ !$OMP SIMD
+     DO i=i_start, i_end
++      v_1(i,k,j) = v_2(i,k,j)
+       v_save(i,k,j) = v_2(i,k,j)
+       ! v coupled with mx
+ !      v_2(i,k,j) = ((c1h(k)*muvs(i,j)+c2h(k))*v_1(i,k,j)-(c1h(k)*muv(i,j)+c2h(k))*v_2(i,k,j))/msfvx(i,j)
+       v_2(i,k,j) = ((c1h(k)*muvs(i,j)+c2h(k))*v_1(i,k,j)-(c1h(k)*muv(i,j)+c2h(k))*v_2(i,k,j))*msfvx_inv(i,j)
+     ENDDO
+-    ENDDO
+-    ENDDO
++    ELSE
++!$OMP SIMD
++    DO i=i_start, i_end
++      v_save(i,k,j) = v_2(i,k,j)
++      ! v coupled with mx
++!      v_2(i,k,j) = ((c1h(k)*muvs(i,j)+c2h(k))*v_1(i,k,j)-(c1h(k)*muv(i,j)+c2h(k))*v_2(i,k,j))/msfvx(i,j)
++      v_2(i,k,j) = ((c1h(k)*muvs(i,j)+c2h(k))*v_1(i,k,j)-(c1h(k)*muv(i,j)+c2h(k))*v_2(i,k,j))*msfvx_inv(i,j)
++    ENDDO
++    ENDIF
++    ENDDO
++    ENDDO
++#else
++    DO j=j_start, j_endv
++    DO k=k_start, k_end
++!$OMP SIMD
++    DO i=i_start, i_end
++      v_save(i,k,j) = v_2(i,k,j)
++      ! v coupled with mx
++!      v_2(i,k,j) = ((c1h(k)*muvs(i,j)+c2h(k))*v_1(i,k,j)-(c1h(k)*muv(i,j)+c2h(k))*v_2(i,k,j))/msfvx(i,j)
++      v_2(i,k,j) = ((c1h(k)*muvs(i,j)+c2h(k))*v_1(i,k,j)-(c1h(k)*muv(i,j)+c2h(k))*v_2(i,k,j))*msfvx_inv(i,j)
++    ENDDO
++    ENDDO
++    ENDDO
++#endif
+ 
+ #ifdef WRF_SMALL_STEP_T_COPY_FUSION
+     DO j=j_start, j_end
+--- a/dyn_em/Makefile
++++ b/dyn_em/Makefile
+@@ -168,6 +168,24 @@
+ endif
+ endif
+ 
++# Exact RK1 U/V snapshots fused into their coupling consumers.
++# Qualified GNU13.3 empty-OMPCPP SmallStep SIMD/Zen2 path; serial is not qualified.
++# Use WRF_SMALL_STEP_UV_COPY_FUSION=0 and rebuild for the prior U/V copy schedule.
++WRF_SMALL_STEP_UV_COPY_FUSION ?= 1
++ifeq ($(WRF_SMALL_STEP_UV_COPY_FUSION),1)
++ifeq ($(WRF_SMALL_STEP_SIMD),1)
++ifeq ($(WRF_SMALL_STEP_ZEN2),1)
++ifeq ($(strip $(OMPCPP)),)
++ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
++ifneq (,$(findstring 13.3.0,$(shell $(SFC) --version 2>/dev/null)))
++module_small_step_em.o: private override CPPFLAGS += -DWRF_SMALL_STEP_UV_COPY_FUSION
++endif
++endif
++endif
++endif
++endif
++endif
++
+ cio.o :
+ 	$(CC) -c $(CFLAGS) cio.c
+ 

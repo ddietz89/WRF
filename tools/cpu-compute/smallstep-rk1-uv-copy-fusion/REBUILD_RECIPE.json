@@ -1,0 +1,81 @@
+{
+  "status": "QUALIFIED_GUARDED_CANONICAL_UVCOPY_RUNTIME_CORRESPONDENCE_OWN_SHORT_SCIENCE",
+  "source_patch": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-uv-copy-fusion/SOURCE_AND_DEFAULT.patch",
+    "sha256": "4be180818691f71301f72cc9d4d57868d240c025749330f2ae81e79a1a42247f"
+  },
+  "inverse": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-uv-copy-fusion/SOURCE_AND_DEFAULT_INVERSE.json",
+    "sha256": "1a12127a25d52fbebc8ce50241e700859719a5d5a20758ac821b5fba7afbbcb2"
+  },
+  "canonical_parent_source": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current79be-rk1-uv-copy-fusion-r1/canonical-promotion-preparation-r1/parent_module_small_step_em.F",
+    "sha256": "479b02c074f71e304750a5ce8f77b74466d7fe744f05cdabac813b4d4beb4865"
+  },
+  "canonical_candidate_source": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current79be-rk1-uv-copy-fusion-r1/canonical-promotion-preparation-r1/candidate_module_small_step_em.F",
+    "sha256": "5718879937cd8a03ce9b4e453ea536b119d35ef41e2334be7d2fc357e3c4831c"
+  },
+  "canonical_parent_Makefile": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current79be-rk1-uv-copy-fusion-r1/canonical-promotion-preparation-r1/parent_Makefile",
+    "sha256": "f7bcd0c6d76e4201420575fe8c47cbf492981dfbbf0df6368dc87d2af082360c"
+  },
+  "canonical_candidate_Makefile": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current79be-rk1-uv-copy-fusion-r1/canonical-promotion-preparation-r1/candidate_Makefile",
+    "sha256": "8d1700eed539a65389e62d59d8fb0ff857c4c2f1eae2531a1fb123bf7c1f9403"
+  },
+  "default_guard": {
+    "WRF_SMALL_STEP_UV_COPY_FUSION": 1,
+    "WRF_SMALL_STEP_SIMD": 1,
+    "WRF_SMALL_STEP_ZEN2": 1,
+    "OMPCPP": "empty",
+    "compiler": "GNU Fortran13.3.0",
+    "MPI": "qualified runtime; matching serial unqualified; no DM_PARALLEL guard claimed"
+  },
+  "opt_out": "Set WRF_SMALL_STEP_UV_COPY_FUSION=0 and regenerate/recompile SmallStep, rearchive/relink for parent U/V schedule; retain T/PH/pressure corrections and provider settings.",
+  "tested_producer": {
+    "object": "ee83f15431c2ba7041daab446f2035c6357324c6245e0868733321c5cf8f0547",
+    "PP": "395654c958c46a3b44c97d1f24dad097d5e8e36c49882c76c92679003ddf9b5a",
+    "MOD": "d50c501497b927ad56b9bb3b7cb9431c827b8092cedf23e83d8f573ccb884b94",
+    "raw_producer_source_commit": null
+  },
+  "canonical_delivery": {
+    "receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current79be-rk1-uv-copy-fusion-r1/canonical-delivery-one-object-r1/actual/receipt.json",
+      "sha256": "bff98264de5eee34c0f9202bddf4a704f20a8051858a973525763f32a832f9d1"
+    },
+    "closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current79be-rk1-uv-copy-fusion-r1/canonical-delivery-one-object-r1/actual/STATUS.json",
+      "sha256": "c47a8d89f44d04fbe79e938bbfc1289eefe46f3f4868ab0832c577796146e7b3"
+    },
+    "preprocessed": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current79be-rk1-uv-copy-fusion-canonical-delivery-one-object-hpc02-r1/module_small_step_em.f90",
+      "sha256": "2b8e14121fa49f9db0ea54f72ed62cc039ef2319a594d24efd0026a4b05c1c6e",
+      "qualified_PP_sha256": "395654c958c46a3b44c97d1f24dad097d5e8e36c49882c76c92679003ddf9b5a",
+      "byte_exact": false,
+      "scope": "Real CPP output, not token projection. Byte difference is retained; actual runtime object and publicMOD must match."
+    },
+    "object": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current79be-rk1-uv-copy-fusion-canonical-delivery-one-object-hpc02-r1/module_small_step_em.o",
+      "sha256": "89e72700d99be0c4c6720bbf2a763872f6a336cbe6d00db16abdd3c3f4ae17c8",
+      "qualified_object_sha256": "ee83f15431c2ba7041daab446f2035c6357324c6245e0868733321c5cf8f0547",
+      "whole_file_exact": false
+    },
+    "runtime_equivalence": {
+      "status": "PASS_ALLOCATED_BYTES_RELOCATIONS_NONFILE_SYMBOLS_EXACT",
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current79be-rk1-uv-copy-fusion-canonical-delivery-one-object-hpc02-r1/runtime-equivalence.json",
+      "sha256": "d2b3fdb97a1c162505cd130e10cda179d6559ec9ceabdd3a33eff49295349c6c"
+    },
+    "public_MOD_sha256": "d50c501497b927ad56b9bb3b7cb9431c827b8092cedf23e83d8f573ccb884b94"
+  },
+  "new_flags": "No new math/ISA/threading flags",
+  "rollback": {
+    "source_commit": "1f03a73849d0149161120d6ae130a9a66e9e0116",
+    "executable": "/pool/wrf-experiment/wrf-cpu/builds/current13fe-uv-u-nh-correction-simd-one-member-native-r1/wrf.exe",
+    "executable_sha256": "79bebebbfb646a367a7e62b8befcbe2c672225d2efc5f8d4d4f0743476ab2bf2",
+    "archive": "/pool/wrf-experiment/wrf-cpu/builds/current13fe-uv-u-nh-correction-simd-one-member-native-r1/libwrflib.a",
+    "archive_sha256": "1ade2c8fa3df604d077cbbeb0815ef246b0ba32aa8c480c8f4aa150d8cef12b2",
+    "scope": "Restore exact parent selection and corresponding source/default records together; no mixed artifact hashes."
+  },
+  "posttest_source_commit": "87fab099b1e8f0f4647e2f9d343f2109c06ddc89"
+}

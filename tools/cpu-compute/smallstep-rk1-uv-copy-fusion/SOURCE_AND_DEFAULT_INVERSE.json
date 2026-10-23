@@ -1,0 +1,47 @@
+{
+  "whole_source_inverse_exact": true,
+  "whole_Makefile_inverse_exact": true,
+  "parent_source_sha256": "479b02c074f71e304750a5ce8f77b74466d7fe744f05cdabac813b4d4beb4865",
+  "candidate_source_sha256": "5718879937cd8a03ce9b4e453ea536b119d35ef41e2334be7d2fc357e3c4831c",
+  "parent_Makefile_sha256": "f7bcd0c6d76e4201420575fe8c47cbf492981dfbbf0df6368dc87d2af082360c",
+  "candidate_Makefile_sha256": "8d1700eed539a65389e62d59d8fb0ff857c4c2f1eae2531a1fb123bf7c1f9403",
+  "source_edits": [
+    {
+      "parent_start": 5596,
+      "parent_end": 5742,
+      "candidate_start": 5596,
+      "candidate_end": 5787,
+      "old": "      DO j=j_start, j_end\n      DO k=k_start, k_end\n      DO i=i_start, i_endu\n        u_1(i,k,j) = u_2(i,k,j)\n      ENDDO\n      ENDDO\n      ENDDO",
+      "new": "#ifndef WRF_SMALL_STEP_UV_COPY_FUSION\n      DO j=j_start, j_end\n      DO k=k_start, k_end\n      DO i=i_start, i_endu\n        u_1(i,k,j) = u_2(i,k,j)\n      ENDDO\n      ENDDO\n      ENDDO\n#endif"
+    },
+    {
+      "parent_start": 5744,
+      "parent_end": 5890,
+      "candidate_start": 5789,
+      "candidate_end": 5980,
+      "old": "      DO j=j_start, j_endv\n      DO k=k_start, k_end\n      DO i=i_start, i_end\n        v_1(i,k,j) = v_2(i,k,j)\n      ENDDO\n      ENDDO\n      ENDDO",
+      "new": "#ifndef WRF_SMALL_STEP_UV_COPY_FUSION\n      DO j=j_start, j_endv\n      DO k=k_start, k_end\n      DO i=i_start, i_end\n        v_1(i,k,j) = v_2(i,k,j)\n      ENDDO\n      ENDDO\n      ENDDO\n#endif"
+    },
+    {
+      "parent_start": 7587,
+      "parent_end": 7868,
+      "candidate_start": 7677,
+      "candidate_end": 8580,
+      "old": "    DO j=j_start, j_end\n    DO k=k_start, k_end\n    !$omp simd\n    DO i=i_start, i_endu\n      u_save(i,k,j) = u_2(i,k,j)\n      ! u coupled with my\n      u_2(i,k,j) = ((c1h(k)*muus(i,j)+c2h(k))*u_1(i,k,j)-(c1h(k)*muu(i,j)+c2h(k))*u_2(i,k,j))/msfuy(i,j)\n    ENDDO\n    ENDDO\n    ENDDO",
+      "new": "#ifdef WRF_SMALL_STEP_UV_COPY_FUSION\n    DO j=j_start, j_end\n    DO k=k_start, k_end\n    IF (rk_step == 1) THEN\n    !$omp simd\n    DO i=i_start, i_endu\n      u_1(i,k,j) = u_2(i,k,j)\n      u_save(i,k,j) = u_2(i,k,j)\n      ! u coupled with my\n      u_2(i,k,j) = ((c1h(k)*muus(i,j)+c2h(k))*u_1(i,k,j)-(c1h(k)*muu(i,j)+c2h(k))*u_2(i,k,j))/msfuy(i,j)\n    ENDDO\n    ELSE\n    !$omp simd\n    DO i=i_start, i_endu\n      u_save(i,k,j) = u_2(i,k,j)\n      ! u coupled with my\n      u_2(i,k,j) = ((c1h(k)*muus(i,j)+c2h(k))*u_1(i,k,j)-(c1h(k)*muu(i,j)+c2h(k))*u_2(i,k,j))/msfuy(i,j)\n    ENDDO\n    ENDIF\n    ENDDO\n    ENDDO\n#else\n    DO j=j_start, j_end\n    DO k=k_start, k_end\n    !$omp simd\n    DO i=i_start, i_endu\n      u_save(i,k,j) = u_2(i,k,j)\n      ! u coupled with my\n      u_2(i,k,j) = ((c1h(k)*muus(i,j)+c2h(k))*u_1(i,k,j)-(c1h(k)*muu(i,j)+c2h(k))*u_2(i,k,j))/msfuy(i,j)\n    ENDDO\n    ENDDO\n    ENDDO\n#endif"
+    },
+    {
+      "parent_start": 7870,
+      "parent_end": 8257,
+      "candidate_start": 8582,
+      "candidate_end": 9802,
+      "old": "    DO j=j_start, j_endv\n    DO k=k_start, k_end\n!$OMP SIMD\n    DO i=i_start, i_end\n      v_save(i,k,j) = v_2(i,k,j)\n      ! v coupled with mx\n!      v_2(i,k,j) = ((c1h(k)*muvs(i,j)+c2h(k))*v_1(i,k,j)-(c1h(k)*muv(i,j)+c2h(k))*v_2(i,k,j))/msfvx(i,j)\n      v_2(i,k,j) = ((c1h(k)*muvs(i,j)+c2h(k))*v_1(i,k,j)-(c1h(k)*muv(i,j)+c2h(k))*v_2(i,k,j))*msfvx_inv(i,j)\n    ENDDO\n    ENDDO\n    ENDDO",
+      "new": "#ifdef WRF_SMALL_STEP_UV_COPY_FUSION\n    DO j=j_start, j_endv\n    DO k=k_start, k_end\n    IF (rk_step == 1) THEN\n!$OMP SIMD\n    DO i=i_start, i_end\n      v_1(i,k,j) = v_2(i,k,j)\n      v_save(i,k,j) = v_2(i,k,j)\n      ! v coupled with mx\n!      v_2(i,k,j) = ((c1h(k)*muvs(i,j)+c2h(k))*v_1(i,k,j)-(c1h(k)*muv(i,j)+c2h(k))*v_2(i,k,j))/msfvx(i,j)\n      v_2(i,k,j) = ((c1h(k)*muvs(i,j)+c2h(k))*v_1(i,k,j)-(c1h(k)*muv(i,j)+c2h(k))*v_2(i,k,j))*msfvx_inv(i,j)\n    ENDDO\n    ELSE\n!$OMP SIMD\n    DO i=i_start, i_end\n      v_save(i,k,j) = v_2(i,k,j)\n      ! v coupled with mx\n!      v_2(i,k,j) = ((c1h(k)*muvs(i,j)+c2h(k))*v_1(i,k,j)-(c1h(k)*muv(i,j)+c2h(k))*v_2(i,k,j))/msfvx(i,j)\n      v_2(i,k,j) = ((c1h(k)*muvs(i,j)+c2h(k))*v_1(i,k,j)-(c1h(k)*muv(i,j)+c2h(k))*v_2(i,k,j))*msfvx_inv(i,j)\n    ENDDO\n    ENDIF\n    ENDDO\n    ENDDO\n#else\n    DO j=j_start, j_endv\n    DO k=k_start, k_end\n!$OMP SIMD\n    DO i=i_start, i_end\n      v_save(i,k,j) = v_2(i,k,j)\n      ! v coupled with mx\n!      v_2(i,k,j) = ((c1h(k)*muvs(i,j)+c2h(k))*v_1(i,k,j)-(c1h(k)*muv(i,j)+c2h(k))*v_2(i,k,j))/msfvx(i,j)\n      v_2(i,k,j) = ((c1h(k)*muvs(i,j)+c2h(k))*v_1(i,k,j)-(c1h(k)*muv(i,j)+c2h(k))*v_2(i,k,j))*msfvx_inv(i,j)\n    ENDDO\n    ENDDO\n    ENDDO\n#endif"
+    }
+  ],
+  "Makefile_insert": "# Exact RK1 U/V snapshots fused into their coupling consumers.\n# Qualified GNU13.3 empty-OMPCPP SmallStep SIMD/Zen2 path; serial is not qualified.\n# Use WRF_SMALL_STEP_UV_COPY_FUSION=0 and rebuild for the prior U/V copy schedule.\nWRF_SMALL_STEP_UV_COPY_FUSION ?= 1\nifeq ($(WRF_SMALL_STEP_UV_COPY_FUSION),1)\nifeq ($(WRF_SMALL_STEP_SIMD),1)\nifeq ($(WRF_SMALL_STEP_ZEN2),1)\nifeq ($(strip $(OMPCPP)),)\nifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))\nifneq (,$(findstring 13.3.0,$(shell $(SFC) --version 2>/dev/null)))\nmodule_small_step_em.o: private override CPPFLAGS += -DWRF_SMALL_STEP_UV_COPY_FUSION\nendif\nendif\nendif\nendif\nendif\nendif\n\n",
+  "qualified_PP_sha256": "395654c958c46a3b44c97d1f24dad097d5e8e36c49882c76c92679003ddf9b5a",
+  "qualified_object_sha256": "ee83f15431c2ba7041daab446f2035c6357324c6245e0868733321c5cf8f0547",
+  "actual_canonical_CPP_runtime_equivalence_pending": true,
+  "scope": "Only guarded U/V copy schedule; every original byte recovered by inverse; existing T/PH/Upressure/flags unchanged; no source or default promotion before ownshort35."
+}
