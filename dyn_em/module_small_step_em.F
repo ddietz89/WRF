@@ -152,6 +152,7 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
       ENDDO
       ENDDO
 
+#ifndef WRF_SMALL_STEP_T_COPY_FUSION
       DO j=j_start, j_end
       DO k=k_start, k_end
       DO i=i_start, i_end
@@ -159,6 +160,7 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
       ENDDO
       ENDDO
       ENDDO
+#endif
 
       DO j=j_start, j_end
       DO k=k_start, min(kde,kte)
@@ -259,6 +261,26 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
     ENDDO
     ENDDO
 
+#ifdef WRF_SMALL_STEP_T_COPY_FUSION
+    DO j=j_start, j_end
+    DO k=k_start, k_end
+    IF (rk_step == 1) THEN
+    !$omp simd
+    DO i=i_start, i_end
+      t_1(i,k,j) = t_2(i,k,j)
+      t_save(i,k,j) = t_2(i,k,j)
+      t_2(i,k,j) = (c1h(k)*muts(i,j)+c2h(k))*t_1(i,k,j)-(c1h(k)*mut(i,j)+c2h(k))*t_2(i,k,j)
+    ENDDO
+    ELSE
+    !$omp simd
+    DO i=i_start, i_end
+      t_save(i,k,j) = t_2(i,k,j)
+      t_2(i,k,j) = (c1h(k)*muts(i,j)+c2h(k))*t_1(i,k,j)-(c1h(k)*mut(i,j)+c2h(k))*t_2(i,k,j)
+    ENDDO
+    ENDIF
+    ENDDO
+    ENDDO
+#else
     DO j=j_start, j_end
     DO k=k_start, k_end
     !$omp simd
@@ -268,6 +290,7 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
     ENDDO
     ENDDO
     ENDDO
+#endif
 
     DO j=j_start, j_end
 !    DO k=k_start, min(kde,kte)

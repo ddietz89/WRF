@@ -119,6 +119,23 @@ module_small_step_em.o: private override FCFLAGS += -march=znver2 -mno-fma
 endif
 endif
 
+# Exact RK1 T snapshot/coupling fusion: qualified GNU13.3 pure-MPI SmallStep path.
+# Use WRF_SMALL_STEP_T_COPY_FUSION=0 and rebuild for the original copy schedule.
+WRF_SMALL_STEP_T_COPY_FUSION ?= 1
+ifeq ($(WRF_SMALL_STEP_T_COPY_FUSION),1)
+ifeq ($(WRF_SMALL_STEP_SIMD),1)
+ifeq ($(WRF_SMALL_STEP_ZEN2),1)
+ifeq ($(strip $(OMPCPP)),)
+ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+ifneq (,$(findstring 13.3.0,$(shell $(SFC) --version 2>/dev/null)))
+module_small_step_em.o: private override CPPFLAGS += -DWRF_SMALL_STEP_T_COPY_FUSION
+endif
+endif
+endif
+endif
+endif
+endif
+
 cio.o :
 	$(CC) -c $(CFLAGS) cio.c
 
