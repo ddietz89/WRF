@@ -1,0 +1,120 @@
+{
+  "status": "PASS_CURRENT7087_NOON_ONE_HOUR_MPI_DIAGNOSTIC_ORIGINAL_EXACT_SCIENCE_AND_SELECTED_REQUEST_PROFILE_JOINS",
+  "selected_WRF_unchanged": "7087c69d8ef644c914bb31379b7d9e33fa1668ce12192965e1e459ed20697fdd",
+  "selected_original_RSL_unchanged": "982d0c81abed9d9209ea955e63c0851ae7eaa51b6ade4748303176b51eaaa130",
+  "active_manifest": "59cea02cde2cafa588ae72b859eebcdda263758b131e532f1304f63102f2197c",
+  "science": {
+    "products": 2,
+    "ordered_steps": 185,
+    "ranks": 512,
+    "map": "FABA8x60compute+4x8writers",
+    "tiles": 2,
+    "reference": "Authentic corrected-original546b noon75m retained; first185steps/twooutputs at12and13 exactlychecked; retainedfull230stepreference unchanged.",
+    "protected_comparator": "Unchanged compare_one and numerical/metadata/layout gates",
+    "actual_refs": {
+      "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7087-request-authority1h-runtime-r1/science-receipt.json": "7eeb1551e77cdf04f2b775bf990f870475566dc6dd22bf890cd5595c26b5a667",
+      "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7087-request-authority1h-runtime-r1/reader-closure.json": "4b50a6a4ba84c43ba36c6050b45a14a72e5a629f0b3d93b4055d783afd0356aa",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current7087-mpi-preceding-work-preparation-r1/x-postwait-observer-implementation-preparation-r1/application-onehour-preparation-r1/postclose-interpretation-r1/native-selected-r3-r1/actual-native-r1/selected-summary.json": "88e71bbe57dd9a0f9c61667f733ffac837300904d3f105d3fadc2f4cfa7cc531",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current7087-mpi-preceding-work-preparation-r1/x-postwait-observer-implementation-preparation-r1/application-onehour-preparation-r1/postclose-interpretation-r1/native-selected-r3-r1/actual-native-r1/receipt.json": "ced3d755f9be7075490337acc040b26ab836698b90cb7578a1934c789e93f0fd",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current7087-mpi-preceding-work-preparation-r1/x-postwait-observer-implementation-preparation-r1/application-onehour-preparation-r1/postclose-interpretation-r1/native-selected-r3-r1/actual-native-r1/closure.json": "18ed55a9b3f5c0de1e395b19695ce55e44b041014f8d9d4e236d531a269e46a0"
+    }
+  },
+  "candidate_unpaired_observations": {
+    "whole_MPI_wall_seconds": 280.34946283791214,
+    "main_step_elapsed_seconds": 184.77054,
+    "aggregate_node_CPU_seconds": 126924.171103,
+    "scope": "Instrumentedonehour12to13. Retainedcontrolwall/CPUcovers75min andisnotmatchedtiming; no reduction computed. No new3h/9hbenchmark."
+  },
+  "cache_policy": "Checkedcompute-client sync/drop_caches3 all4beforecandidate, emptyownedcachehelpers. Fileservercaches/load uncontrolled.",
+  "early_acquisition": "Both actualcurrentthreadPID/startticks/CPU12or99/recorderINV/perfDSO/rawFDinode andtwodatagrowthtransitionsobservedwhilecaptureactive.",
+  "all512_events": {
+    "records": 25932224,
+    "source": "Closedscientific/runtimeproof; inheritedall512counts inselectedanalysis, notanotherfullrawdurationreplay."
+  },
+  "selected_request_records": {
+    "122": {
+      "records": 58144,
+      "classes_disjoint": {
+        "UNIQUE": 55784,
+        "AMBIGUOUS": 2360
+      },
+      "unique_fraction": 0.959411117226197
+    },
+    "386": {
+      "records": 58144,
+      "classes_disjoint": {
+        "UNIQUE": 55784,
+        "AMBIGUOUS": 2360
+      },
+      "unique_fraction": 0.959411117226197
+    }
+  },
+  "profiles": {
+    "386": {
+      "state": "QUALIFIED_SAME_HOST_JOIN",
+      "sample_count": 1395,
+      "q_ordinals": [
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91
+      ],
+      "X_receive_Wait_cycle_weight_percent": 16.0942282664603,
+      "Y_receive_Wait_cycle_weight_percent": 22.71404977198518,
+      "scope": "Primary cycleweights for one selected initializingthread/15scapture, not elapsedtime/globalwall/removablewait or cause."
+    },
+    "122": {
+      "state": "QUALIFIED_SAME_HOST_JOIN",
+      "sample_count": 1391,
+      "q_ordinals": [
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91
+      ],
+      "X_receive_Wait_cycle_weight_percent": 24.39954187335119,
+      "Y_receive_Wait_cycle_weight_percent": 13.192904877785052,
+      "scope": "Primary cycleweights for one selected initializingthread/15scapture, not elapsedtime/globalwall/removablewait or cause."
+    }
+  },
+  "interpretation": "BothaxesreceiveWait matter oncurrentselectedthreads andareCPUbusy. Post-to-Wait agescanincludeotherreceivesWaits peroriginalsourceorder, notfreecomputeoverlap. Samehostnext-DTarrivalorderdiffers; transportversuspeerprecedingworknotresolved. Ambiguousrecordsremainexcluded.",
+  "scope_limits": [
+    "Record denominators cover retained q3..120 events plus conservative drains; selected counters cover the whole run. No post-to-Wait age for UNKNOWN records.",
+    "Request q is completed/current first-DT ordinal: gap after DT q and before DT q+1; next-entry cohorts use q+1, never an assumed q match.",
+    "All durations are observer brackets on one initializing main thread. Wait wall/CPU are not transport-only time; post-to-Wait age includes arbitrary intervening work.",
+    "Half-open sample membership conserves all primary sample counts/periods. Sample envelope overlap is not continuous sample coverage. Numeric sample loss UNKNOWN.",
+    "Only host03 cohort clocks are compared. No crosshost ordering, peer latency, wire-time, global critical path, removable wait, full-runtime gain or FENV waiver.",
+    "Primary PCs/symbols are current capture observations. Inclusive reports remain whole-capture context; no transferred old PCs or caller-weight claim."
+  ],
+  "profiling_parent_label": "ParentUNAVAILABLEwasunchangedinitiallabel, notanacquisitionfailure. Existingchecker/nativeparse laterqualifiedbothREPORTS_RETAINED. Frozenparentlabelsandbadrootmetadatafilename retained, no rerun/recovery or acceptancewaiver.",
+  "performance_qualification": false,
+  "source_or_default_promotion": false,
+  "next": "EvaluateboundedTKE2fielddeferralcost andsource/callerqualification; pursuecurrentreceive/packing/precedingworkevidence withoutunrestrictedmap/transportmatrix.",
+  "rollback": "Omitdiagnosticobserver/preload; current7087/FABA/originalRSL unchanged."
+}
