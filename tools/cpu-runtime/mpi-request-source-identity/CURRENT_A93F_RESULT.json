@@ -1,0 +1,159 @@
+{
+  "status": "OBSERVED_CURRENT_D2_CALLER_CONTEXT_SPARSE_MIXED_IO_SAMPLES",
+  "executable_sha256": "a93fa7fbab772d979dfb6c46a318944dc3a0faf6223fd5f82348e86fc4e9e84d",
+  "source_identity_only": true,
+  "performance_qualified": false,
+  "pure_compute_qualified": false,
+  "sample_period_units": "cycles:u sampling event units, not nanoseconds",
+  "actual_reader_invocation": "ad2676da9fae4e35a9fb0a10931bacdd",
+  "references": {
+    "identity-summary.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-a93f-threehour-identity-profile-preparation-r1/postrun-identity-preparation-r1/local-adoption-r1/actual-native-r1/identity-summary.json",
+      "sha256": "bce49f9bbe6d7e76586de98b76fdbe9f84b41aac65f01025c0af2075b8245331"
+    },
+    "receipt.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-a93f-threehour-identity-profile-preparation-r1/postrun-identity-preparation-r1/local-adoption-r1/actual-native-r1/receipt.json",
+      "sha256": "9dc276cf9fcde14a9e28d0f53f18ebc640280555ac6a89e51e38956c0218ba8f"
+    },
+    "closure.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-a93f-threehour-identity-profile-preparation-r1/postrun-identity-preparation-r1/local-adoption-r1/actual-native-r1/closure.json",
+      "sha256": "b5678520de999aeaf18f3928a87e7a85af3d7d16e5a343238dff6fa67f4535ff"
+    }
+  },
+  "ranks": {
+    "113": {
+      "decision": "OBSERVED_CURRENT_D2_CALLER_CONTEXT",
+      "primary_count": 1452,
+      "primary_period": 37573027412,
+      "count_by_bucket": {
+        "OUTSIDE_BRACKETS": 1349,
+        "OUTSIDE_REQUEST_WINDOW": 96,
+        "ORDINAL_18": 1,
+        "ORDINAL_31": 6
+      },
+      "period_by_bucket": {
+        "OUTSIDE_BRACKETS": 34947319179,
+        "OUTSIDE_REQUEST_WINDOW": 2480043261,
+        "ORDINAL_18": 24816558,
+        "ORDINAL_31": 120848414
+      },
+      "current_WRF_nearest_frame_period_groups": [
+        {
+          "bucket": "ORDINAL_31",
+          "symbol": "f_pack_int_ikj_",
+          "period": 64501142
+        },
+        {
+          "bucket": "ORDINAL_31",
+          "symbol": "f_unpack_int_ikj_",
+          "period": 56347272
+        },
+        {
+          "bucket": "ORDINAL_18",
+          "symbol": "f_pack_int_ikj_",
+          "period": 24816558
+        }
+      ],
+      "observed_current_WRF_callchain_context_nonadditive": [
+        {
+          "bucket": "ORDINAL_31",
+          "symbol": "rsl_lite_pack_",
+          "period": 120848414
+        },
+        {
+          "bucket": "ORDINAL_31",
+          "symbol": "__module_comm_dm_1_MOD_halo_em_d2_5_sub",
+          "period": 120848414
+        },
+        {
+          "bucket": "ORDINAL_31",
+          "symbol": "solve_em_",
+          "period": 120848414
+        },
+        {
+          "bucket": "ORDINAL_31",
+          "symbol": "f_pack_int_ikj_",
+          "period": 64501142
+        },
+        {
+          "bucket": "ORDINAL_31",
+          "symbol": "f_unpack_int_ikj_",
+          "period": 56347272
+        },
+        {
+          "bucket": "ORDINAL_18",
+          "symbol": "f_pack_int_ikj_",
+          "period": 24816558
+        },
+        {
+          "bucket": "ORDINAL_18",
+          "symbol": "rsl_lite_pack_",
+          "period": 24816558
+        },
+        {
+          "bucket": "ORDINAL_18",
+          "symbol": "__module_comm_dm_1_MOD_halo_em_d2_5_sub",
+          "period": 24816558
+        },
+        {
+          "bucket": "ORDINAL_18",
+          "symbol": "solve_em_",
+          "period": 24816558
+        }
+      ],
+      "numeric_loss": "UNKNOWN"
+    },
+    "121": {
+      "decision": "OBSERVED_CURRENT_D2_CALLER_CONTEXT",
+      "primary_count": 1448,
+      "primary_period": 37568483407,
+      "count_by_bucket": {
+        "OUTSIDE_BRACKETS": 1360,
+        "OUTSIDE_REQUEST_WINDOW": 86,
+        "ORDINAL_18": 2
+      },
+      "period_by_bucket": {
+        "OUTSIDE_BRACKETS": 35297186052,
+        "OUTSIDE_REQUEST_WINDOW": 2228034312,
+        "ORDINAL_18": 43263043
+      },
+      "current_WRF_nearest_frame_period_groups": [
+        {
+          "bucket": "ORDINAL_18",
+          "symbol": "f_unpack_int_ikj_",
+          "period": 43263043
+        }
+      ],
+      "observed_current_WRF_callchain_context_nonadditive": [
+        {
+          "bucket": "ORDINAL_18",
+          "symbol": "f_unpack_int_ikj_",
+          "period": 43263043
+        },
+        {
+          "bucket": "ORDINAL_18",
+          "symbol": "rsl_lite_pack_",
+          "period": 43263043
+        },
+        {
+          "bucket": "ORDINAL_18",
+          "symbol": "__module_comm_dm_1_MOD_halo_em_d2_5_sub",
+          "period": 43263043
+        },
+        {
+          "bucket": "ORDINAL_18",
+          "symbol": "solve_em_",
+          "period": 43263043
+        }
+      ],
+      "numeric_loss": "UNKNOWN"
+    }
+  },
+  "limits": [
+    "Nine source-context hits across two selected main-thread captures; no whole-forecast or global critical-path fraction.",
+    "Current-ELF symbol ranges establish recorded function context, not source-line instruction or library implementation identity.",
+    "Same-host local request order only; no cross-host clock subtraction or FIFO peer matching.",
+    "Inclusive ancestors overlap; never add their period weights.",
+    "No recorded LOST lines does not establish a numeric zero-loss bound."
+  ]
+}

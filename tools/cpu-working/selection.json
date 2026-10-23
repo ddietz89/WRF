@@ -129,49 +129,36 @@
     "other_511_ranks": "OriginalNC8adc/output51a and selected9371 codec; inputadapter06d/privateNCa32 onlyrank0."
   },
   "science": {
-    "products": 2,
-    "ordered_steps": 35,
-    "last_step": "2026-10-12_06:10:00",
+    "products": 4,
+    "ordered_steps": 545,
+    "start": "2026-10-12_06:00:00",
+    "last_step": "2026-10-12_09:00:00",
     "world": 512,
     "compute": 480,
     "quilt": 32,
+    "decomposition": [
+      8,
+      60
+    ],
     "tiles": 2,
     "positive_writer_roots": [
       487,
-      495
-    ],
-    "inactive_writer_roots": [
+      495,
       503,
       511
     ],
-    "all32_FIELDVIEW1": true,
-    "positive_field_markers": 16,
-    "actual_field_marker_ranks": [
-      480,
-      481,
-      482,
-      483,
-      484,
-      485,
-      486,
-      487,
-      488,
-      489,
-      490,
-      491,
-      492,
-      493,
-      494,
-      495
-    ],
+    "FIELDVIEW_literal": "1",
+    "observed_FIELDVIEW_ranks": 512,
     "all_exact": true,
-    "original_checker_unchanged": true,
-    "all4models_and_reader_normal_closed": true
+    "all4models_and_reader_normal_closed": true,
+    "all_optional_parents_normally_closed": true,
+    "protected_checker_unchanged": true,
+    "original_checker_unchanged": true
   },
   "qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/calc-coef-w-ahead-row-pipeline/APPLICATION_QUALIFICATION.json",
-  "current_application_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/calc-coef-w-ahead-row-pipeline/APPLICATION_QUALIFICATION.json",
+  "current_application_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/calc-coef-w-ahead-row-pipeline/THREE_HOUR_APPLICATION_QUALIFICATION.json",
   "source_build_binding_file": "CURRENT_SOURCE_BUILD_BINDING.json",
-  "current_three_hour_qualified": false,
+  "current_three_hour_qualified": true,
   "current_nine_hour_qualified": false,
   "prior_nine_hour": {
     "evidence_file": "PREVIOUS_NINE_HOUR_RESULT_B1FB.json",
@@ -248,7 +235,7 @@
     "Rawproducer sourceNULL; later sourcecommit is posttest canonical correspondence, not a fresh whole-image build.",
     "All prior fixes/providers/input/HDF5/FABA/twoY/TPI/IB/flags remain; do not transfer oldimage horizons/profiles."
   ],
-  "next_qualification": "Own3h/short science passed; ownonehour/noon/9h/profile/restart/full144 remain pending. Targetednighttime MPI diagnostic is separate acquisition.",
+  "next_qualification": "Own short/three-hour science passed. Continue measured MPI/source opportunities; own one-hour/noon/nine-hour/profile/restart/full144 remain unqualified. Source-identity captures do not establish compute-only or matched timing qualification.",
   "output_fusion_qualification_file": "tools/cpu-output/quilt512/padding-block32/NATIVE_QUALIFICATION.json",
   "latest_nine_hour": null,
   "padding_only_fill_qualification_file": "tools/cpu-output/quilt512/padding-only-fill/NATIVE_QUALIFICATION.json",
@@ -832,7 +819,10 @@
     "repeatability_established": false,
     "scope": "Historical RQVFTENee66/source31ca before RQVBLTEN. Actual4products545/full512 exact,660.3921359390952s MPIwall; candidate-only UNPAIRED descriptive metrics. Does not qualify child2bd1. Existing THREE_HOUR_RESULT/Q bytes and hashes unchanged."
   },
-  "current_three_hour_qualification": null,
+  "current_three_hour_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/calc-coef-w-ahead-row-pipeline/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "555aa48a99cf90923cc7d70a5a36456738bf84c64883adcb6cdae4cacdef7095"
+  },
   "previous_RTH_POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
     "source_commit": "c883c564a037422631b7c3dd8c69cf532fe391a6",
@@ -4749,8 +4739,8 @@
     },
     "scope": "Historical19ad ownshort+ABBA3h; retained image/source/proof, no horizon/timing transfer to526e"
   },
-  "science_sha256": "172fac59ada7f7ff86caea4a0ace8b0cfd0d5a996a0d26d6cec412cbe153814c",
-  "reader_closure_sha256": "a2fd1d174707e1ac80a5699d13aea86b442c3dc302242f0607fdcdb9838a855a",
+  "science_sha256": "7639058849c5b4c31850f615af0fe5641ec2e3a358e76190d039bd2a8766815e",
+  "reader_closure_sha256": "408e5cc84f46945faa319cc34f51a9cb2dc140ec27c60416bd3fc2d1cd0fec6f",
   "wcopy_producer": {
     "build": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-w-copy-fusion/BUILD_QUALIFICATION.json",
@@ -4848,5 +4838,60 @@
     },
     "applies_to_current_selection": false,
     "working_records_commit": "8488d46dee9df49be7a0a1796600e71edae55a36"
+  },
+  "current_short_science": {
+    "products": 2,
+    "ordered_steps": 35,
+    "last_step": "2026-10-12_06:10:00",
+    "world": 512,
+    "compute": 480,
+    "quilt": 32,
+    "tiles": 2,
+    "positive_writer_roots": [
+      487,
+      495
+    ],
+    "inactive_writer_roots": [
+      503,
+      511
+    ],
+    "all32_FIELDVIEW1": true,
+    "positive_field_markers": 16,
+    "actual_field_marker_ranks": [
+      480,
+      481,
+      482,
+      483,
+      484,
+      485,
+      486,
+      487,
+      488,
+      489,
+      490,
+      491,
+      492,
+      493,
+      494,
+      495
+    ],
+    "all_exact": true,
+    "original_checker_unchanged": true,
+    "all4models_and_reader_normal_closed": true
+  },
+  "current_timing_observation": {
+    "qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/calc-coef-w-ahead-row-pipeline/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "555aa48a99cf90923cc7d70a5a36456738bf84c64883adcb6cdae4cacdef7095"
+    },
+    "metrics": {
+      "candidate_instrumented_unpaired": {
+        "wall_seconds": 658.5020344927907,
+        "cpu_seconds": 320469.553859,
+        "main_step_sum_seconds": 559.73187
+      }
+    },
+    "design": "Candidate-only exact science against retained corrected-original546b four-product/545-step reference; no fresh matched original timing or per-patch attribution.",
+    "matched_performance_qualified": false
   }
 }

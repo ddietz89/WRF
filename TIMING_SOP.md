@@ -18,6 +18,8 @@ Owner reporting rule, reaffirmed 2026-10-23: restore the full-grid summary table
 
 Keep matched original/combined comparisons in a separate table, reporting both observations or their stated mean, run order/count and reductions for each metric. List newer unpaired runs separately, identifying pending checks and instrumentation where relevant. Do not apply a historical matched percentage to a newer image or imply that an unpaired row establishes an incremental speedup. Update the tables when a run or scientific result changes; do not repeat unchanged results as new progress in every monitoring cycle.
 
+Owner clarification, 2026-10-23: include the original control values and percentage reductions for wall time, main-step elapsed and aggregate CPU. For newer unpaired observations, use an explicitly identified retained control of the same forecast horizon and label the percentages as descriptive comparisons to that control. Show the control row or control-to-candidate values; do not silently substitute the counterbalanced control mean for a single retained arm. Keep exact-check status and instrumentation visible.
+
 ## Campaign storage
 
 Keep large build, profile and model artifacts on the experimental cluster storage. Return compact summaries and selected receipt fields to the conversation; retain complete records in evidence files instead of repeatedly printing them. Check local free space before large copies. Reuse immutable fixtures and source archives where their contracts permit it, preserving required independent scientific-file copies. Reclaim only campaign-generated reproducible duplicates after verifying the retained counterpart and recording recovery instructions. Preserve unique evidence, scientific oracles and active application databases.

@@ -6,7 +6,7 @@ Current working executable **a93fa7fb**, archive **02f9c20c**, source correspond
 
 Genuine-parent O0-bounds/O2 gates passed80 complete observations per optimization, including raw IEEE values, five-part floating state, readonly/guards, publicMOD and unchanged non-target routines/constants. Complete finite synthetic callers were **6.6369% and4.0337% shorter** in opposite-order hpc01/hpc04 pairs, with checked caches and normal closures. These are complete-caller gains, not forecast gains. The actual compile-free relink changes one of584 archive members;583 members and all direct-link inputs remain exact. Actual canonical CPP/O2 produces the tested runtime sections/relocations/publicMOD; wholePP/debug-object bytes differ.
 
-The unchanged original546b scientific checker passed both complete06:00/06:10 products and35 ordered steps, full512/twoY,32 FIELDVIEW environments,16 positive field markers and the expected writer activity. All four models and reader82c07053 closed normally. Own short science is qualified; own3h/onehour/noon/9h/profile/restart/full144 remain unqualified. [Qualification, rebuild scope and rollback](tools/cpu-compute/calc-coef-w-ahead-row-pipeline/README.md). Set `WRF_CALC_COEF_W_AHEAD_ROW_PIPELINE=0` and fully regenerate/rebuild/rearchive/relink, or restore eb5e with matching source/default records. GNU13.3/emptyOMPCPP/SmallStepSIMD1/Zen21 is the qualified default; matching serial remains unqualified.
+The unchanged original546b scientific checker passed both complete06:00/06:10 products and35 ordered steps, full512/twoY,32 FIELDVIEW environments,16 positive field markers and the expected writer activity. All four models and reader82c07053 closed normally. Own short and three-hour exact science are qualified; ownonehour/noon/9h/compute-only-profile/restart/full144 remain unqualified. [Own three-hour qualification](tools/cpu-compute/calc-coef-w-ahead-row-pipeline/THREE_HOUR_APPLICATION_QUALIFICATION.json). [Qualification, rebuild scope and rollback](tools/cpu-compute/calc-coef-w-ahead-row-pipeline/README.md). Set `WRF_CALC_COEF_W_AHEAD_ROW_PIPELINE=0` and fully regenerate/rebuild/rearchive/relink, or restore eb5e with matching source/default records. GNU13.3/emptyOMPCPP/SmallStepSIMD1/Zen21 is the qualified default; matching serial remains unqualified.
 
 Latest matched three-hour performance evidence remains the frozen19ad A1–B1–B2–A2 comparison, two observations per image:
 
@@ -16,19 +16,27 @@ Latest matched three-hour performance evidence remains the frozen19ad A1–B1–
 |Main-step elapsed (min)|9.919|9.291|6.34%|
 |Aggregate CPU (CPU-h)|99.644|88.823|10.86%|
 
-More recent full-grid observations are separately qualified, **unpaired** results:
+More recent full-grid runs are compared below with the **retained original control of the same horizon**: three-hour546b A1 and the earlier nine-hour546b control. These percentages are descriptive; the controls were not rerun with these candidates. The matched two-observation means above use both A1/A2, so their denominator differs from the single retained A1 below.
 
-| Build / simulated forecast | Wall (min) | Main-step elapsed (min) | Aggregate CPU (CPU-h) | Exact science |
-|---|---:|---:|---:|---|
-|526e /3h|10.929|9.294|88.614|4products/545steps PASS|
-|526e /9h, request-instrumented|30.551|28.871|256.005|10products/1625steps PASS|
-|eb5e /3h|10.922|9.289|88.669|4products/545steps PASS|
-|eb5e /1h, request-instrumented|4.701|3.025|35.358|2products/185steps PASS|
-|**Currenta93f /10min**|**2.256**|**0.639**|**14.954**|**2products/35steps PASS**|
+| Forecast / build | Wall (min) | Reduction | Main-step elapsed (min) | Reduction | CPU-h | Reduction | Exact science |
+|---|---:|---:|---:|---:|---:|---:|---|
+|**3h original control**|13.313|—|9.909|—|99.589|—|Reference|
+|3h 526e|10.929|17.91%|9.294|6.21%|88.614|11.02%|PASS|
+|3h eb5e|10.922|17.96%|9.289|6.26%|88.669|10.97%|PASS|
+|3h a93f (instrumented)|10.975|17.56%|9.329|5.86%|89.019|10.61%|PASS|
+|**9h original control**|34.489|—|30.859|—|280.351|—|Reference|
+|9h 526e (instrumented)|30.551|11.42%|28.871|6.44%|256.005|8.68%|PASS|
+
+All listed candidate rows passed their original exact scientific comparisons: four products/545 steps for3h and ten products/1,625 steps for9h. Instrumented means request observation; a93f also includes two15-second source-identity captures with mixed I/O. [Exact metrics, control references and formulas](tools/cpu-working/FULL_GRID_SUMMARY.json). Separate short diagnostics remain a93f10min2.256/0.639min/14.954CPU-h (two products/35 steps) and eb5e1h instrumented4.701/3.025min/35.358CPU-h (two products/185 steps); their horizons are not compared with3h/9h controls.
 
 Main-step elapsed includes communication/waiting/backpressure and is not integration CPU. Historical matched percentages do not independently qualify newer images. No new matched forecast reduction or isolated coefficient forecast gain is inferred. The original short collector's stale WDTN label and49.41% descriptive difference remain in immutable raw evidence; the derived qualification corrects the identity and makes no matched-speedup claim. Earlier dated entries describe their state at that time.
 
 The separate eb5e one-hour MPI diagnostic passed two products/185 ordered steps and all model/reader closures. Both optional profiles never started before their phase deadline; source classification remains UNKNOWN. Bounded request readers validated four selected streams (25,792 records each), then recovered their actual local order:62 X-send records in each of52 selected steps, with recurrent148,800-byte sends at positions18 and31 on both producers113/121. No cross-host clock subtraction or FIFO pairing is performed. A possible two-stage D2_5 caller identity is a source hypothesis requiring branch/geometry/cardinality proof. Independent DeepSeek interpretation/review returned; literal count/role errors were corrected. This supports a focused caller investigation, not a demonstrated removable MPI cost or new halo implementation. AWS is suspended; production/master are unchanged.
+
+
+Own a93f three-hour qualification passed all four complete products and545 ordered steps; all four models, optional parents/publisher and original reader08945bff closed normally. The two15-second captures actually started (early target/perf identity, raw FD and two growth transitions verified), normally closed, then passed bounded postrun source-identity analysis. Nine local-bracket samples carry current D2_5 packing/unpacking context; this is sparse mixed-I/O evidence, not measured critical-path headroom. Existing width-three copies are already optimized, so that source audit adds no implementation. [Source identity and limits](tools/cpu-runtime/mpi-request-source-identity/README.md).
+
+A separate uniform-coefficient scalarization trial passed104 strict cases at each optimization and removed one private allocation/free, but complete-caller timings were0.169% shorter on hpc01 and1.380% longer on hpc04. No reproducible significant caller gain or causal regression is established; approximately0.8KiB of transient scratch does not establish capacity savings. The candidate is closed unpromoted, with raw positive/negative evidence retained at campaign `focused-continuation-20261023-incremental-r1/calc-coef-w-uniform-cof-scalar-r1/DECISION.json`. It is absent from a93f.
 
 
 ## October23: current WDTN build passes its own three-hour full-grid gate

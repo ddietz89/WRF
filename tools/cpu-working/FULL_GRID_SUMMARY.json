@@ -1,0 +1,153 @@
+{
+  "updated_utc": "2026-10-23T17:37:17.142237+00:00",
+  "metric_definitions": {
+    "wall_seconds": "Model/MPI including initialization/output/final drain",
+    "main_step_sum_seconds": "Sum of reported main-step elapsed; includes communication/waiting/backpressure, not integration CPU",
+    "cpu_seconds": "Aggregate cgroup usage across four nodes"
+  },
+  "matched_three_hour": {
+    "order": [
+      "A1",
+      "B1",
+      "B2",
+      "A2"
+    ],
+    "observations_per_image": 2,
+    "metrics_means": {
+      "control": {
+        "wall_seconds": 799.3547678655013,
+        "cpu_seconds": 358717.0698899999,
+        "main_step_sum_seconds": 595.1684700000001
+      },
+      "candidate": {
+        "wall_seconds": 659.4069580624346,
+        "cpu_seconds": 319764.2821705,
+        "main_step_sum_seconds": 557.431605
+      }
+    },
+    "reduction_percent": {
+      "wall_seconds": 17.507596805454252,
+      "cpu_seconds": 10.858916675318719,
+      "main_step_sum_seconds": 6.340534974912238
+    },
+    "references": [
+      {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current19ad-combined3h-runtime-r1/RESULT.json",
+        "sha256": "5c8eaa10eb93b1ff090e703e8872a5b1ad6c5503ded3da34e532ab9d0149850a"
+      },
+      {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current19ad-combined3h-runtime-r2/RESULT.json",
+        "sha256": "c845325b7a06d7f0a005d3581ef435b4559f5c77d5a163e783ac043866de25e9"
+      }
+    ]
+  },
+  "retained_controls": {
+    "3h": {
+      "label": "Corrected-original546b retained A1",
+      "metrics": {
+        "wall_seconds": 798.7989721219055,
+        "cpu_seconds": 358521.264108,
+        "main_step_sum_seconds": 594.56533
+      },
+      "reference": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current19ad-combined3h-runtime-r1/RESULT.json",
+        "sha256": "5c8eaa10eb93b1ff090e703e8872a5b1ad6c5503ded3da34e532ab9d0149850a"
+      }
+    },
+    "9h": {
+      "label": "Corrected-original546b retained nine-hour control",
+      "metrics": {
+        "wall_seconds": 2069.3122304237913,
+        "cpu_seconds": 1009264.484921,
+        "main_step_sum_seconds": 1851.54464
+      },
+      "reference": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-original-pd-nextcombined9h-runtime-r1/RESULT.json",
+        "sha256": "219d477fd04407796e87a8527d16a8b42c559da69e0678fad1678152c523eff7"
+      }
+    }
+  },
+  "recent_unpaired_runs": [
+    {
+      "build": "526e",
+      "horizon": "3h",
+      "metrics": {
+        "wall_seconds": 655.7392625361681,
+        "cpu_seconds": 319010.318735,
+        "main_step_sum_seconds": 557.65275
+      },
+      "reduction_vs_retained_control_percent": {
+        "wall_seconds": 17.90935073510648,
+        "cpu_seconds": 11.020530531516204,
+        "main_step_sum_seconds": 6.208330378093196
+      },
+      "instrumented": false,
+      "exact_science_status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+      "reference": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current19ad-wcopy3h-runtime-r1/RESULT.json",
+        "sha256": "230b3148ed3510c9b1b74fc5058338bf218d60c7ab5df197f1ea1cb20c4177e3"
+      }
+    },
+    {
+      "build": "eb5e",
+      "horizon": "3h",
+      "metrics": {
+        "wall_seconds": 655.3156078369357,
+        "cpu_seconds": 319209.312917,
+        "main_step_sum_seconds": 557.32157
+      },
+      "reduction_vs_retained_control_percent": {
+        "wall_seconds": 17.962387195344654,
+        "cpu_seconds": 10.965026381017607,
+        "main_step_sum_seconds": 6.264031574124928
+      },
+      "instrumented": false,
+      "exact_science_status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+      "reference": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current526e-wdtn3h-runtime-r1/RESULT.json",
+        "sha256": "95128acff415401fce589d523e6abe2da6042c91c56d48ef900f1d8e1cd70b62"
+      }
+    },
+    {
+      "build": "a93f",
+      "horizon": "3h",
+      "metrics": {
+        "wall_seconds": 658.5020344927907,
+        "cpu_seconds": 320469.553859,
+        "main_step_sum_seconds": 559.73187
+      },
+      "reduction_vs_retained_control_percent": {
+        "wall_seconds": 17.563484997537525,
+        "cpu_seconds": 10.613515587052436,
+        "main_step_sum_seconds": 5.858642985456298
+      },
+      "instrumented": true,
+      "exact_science_status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+      "reference": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currenta93f-3h-runtime-r1/RESULT.json",
+        "sha256": "fbc6d8e26ec3cc22d622685feb7a848c376df1890c6e38d9c1ff4ca434497af9"
+      }
+    },
+    {
+      "build": "526e",
+      "horizon": "9h",
+      "metrics": {
+        "wall_seconds": 1833.0567270191386,
+        "cpu_seconds": 921618.481129,
+        "main_step_sum_seconds": 1732.27509
+      },
+      "reduction_vs_retained_control_percent": {
+        "wall_seconds": 11.417102742212471,
+        "cpu_seconds": 8.68414623733248,
+        "main_step_sum_seconds": 6.441624329403151
+      },
+      "instrumented": true,
+      "exact_science_status": "PASS_ORIGINAL_TEN_HISTORY_AND_512_DIRECT_STOCK_LATEST_NINE_HOUR_SEQUENCE",
+      "reference": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current526e-peer-prework9h-runtime-r2/RESULT.json",
+        "sha256": "4d691f04805dc1e7a78668bf371d60792de9cd9c304ce340358d70a885bf30c5"
+      }
+    }
+  ],
+  "limits": "Recent rows compare descriptively with identified retained same-horizon controls. They are not fresh matched pairs, causal incremental gains, repeatability or additive percentages. Instrumented observations are labelled."
+}
