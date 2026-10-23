@@ -1,0 +1,254 @@
+{
+  "status": "CLOSE_UNPROMOTED_NO_REPRODUCIBLE_COMPLETE_CALLER_BENEFIT",
+  "candidate": "RK1 MU fixed-operand scalar row helper; distinct from original unguarded MU fusion whose qNaN payload failed.",
+  "decision": "Retain exactness/codegen evidence, discard candidate for integration. Initial2048 signal was not reproducible; longer8192confirmation is slower in wall/threadCPU on both hosts. No more timing, variant, one-member image, canonical/default edit or application qualification.",
+  "selected_unchanged": {
+    "executable_sha256": "a93fa7fbab772d979dfb6c46a318944dc3a0faf6223fd5f82348e86fc4e9e84d",
+    "archive_sha256": "02f9c20c4517b90625e72a5f2a623235402610ed111e37f00e7ef4164887e866",
+    "SmallStep_member_sha256": "a3818127897d55c6018c67ea3bb7918eb35880ce3e9a29e82cb77a36996158eb",
+    "rollback": "None needed: candidate source/helper were private experimental files; working source/default/selection never integrated."
+  },
+  "native": {
+    "status": "PASS_CURRENTA93F_RK1_MU_FIXED_OPERAND_HELPER_114_RAW_STATE_SINGLE_COMPILER_SUMMARY_COMPATIBILITY",
+    "invocation_id": "40716989d3c04a7091cc0f08cdb47e21",
+    "complete_cases_per_observation": 114,
+    "total_case_events": 570,
+    "retained_case_events": 228,
+    "new_case_events": 342,
+    "genuine_O2_and_sameopt_O0bounds_O2_raw_five_state_pass": true,
+    "source_inverse_exact": true,
+    "candidate_O2_object": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/currenta93f-rk1-mu-fixed-operand-helper-native-hpc02-r3/work/O2-candidate/module_small_step_em.o",
+      "sha256": "242742c798c4a5fd7eb67e9a6a805621791b4df3e75d992f25e15d771542b075"
+    },
+    "helper_O2_sha256": "3049f82fc8d1a63826291cabb5e8db489acfc1a9900fe73df13b54dc20bfcd14",
+    "helper_machine_gate": "FixedMUBfirstsource/MU2secondsource scalarVADDSS, integerbitcopytoMU_SAVE andzeroMU2; no other FP arithmetic/call inhelper. Not a speed claim.",
+    "normal_closed": true
+  },
+  "public_MOD_scope": {
+    "public_mod_byte_equal": false,
+    "parent_sha256": "d50c501497b927ad56b9bb3b7cb9431c827b8092cedf23e83d8f573ccb884b94",
+    "candidate_sha256": "f168d37fc119e072ac66e8e06b6291c5e0288946622b18473c7fadd9462d2816",
+    "accepted_prospective_method": "PASS_EXACT_WHOLE_MOD_TOKENS_EXCEPT_ONE_TARGET_COMPILER_DEPENDENCY_SUMMARY",
+    "only_extra_candidate_token": "ARRAY_OUTER_DEPENDENCY",
+    "target": "module_small_step_em/small_step_prep SUBROUTINE IMPLICIT_PURE",
+    "normalized_tokens_sha256": "1cebf40ff3d8d0c0c382a3a6b4fa0d08fffda63a4528488c885c81d52a99e649",
+    "all_public_calling_interface_tokens_exact": true,
+    "limitation": "One conservative compiler dependency-summary difference explicitly admitted prospectively inR3; no module rewrite/FPwaiver or universal freshlycompiledcaller code-identity claim. R1/R2 failures retained, not retroactively passed."
+  },
+  "separate_caller_batches": {
+    "2048": {
+      "status": "PASS_TWO_OPPOSITE_ORDER_FULLCALLER_PAIRS",
+      "observations": [
+        {
+          "pair": 1,
+          "order": [
+            "parent",
+            "candidate"
+          ],
+          "candidate_role": "candidate",
+          "parent_ns": 941982842,
+          "candidate_ns": 938862466,
+          "reduction_percent": 0.33125613980132346,
+          "parent_thread_cpu_ns": 934041619,
+          "candidate_thread_cpu_ns": 934216238,
+          "raw_sha256": "ee19daf632273d4861b94a46bfb32d9cb6cc2d2375cc12a714f121b32970445e",
+          "raw_bytes": 13807744,
+          "host": "hpc01",
+          "candidate_thread_CPU_reduction_percent": -0.018694991363120406
+        },
+        {
+          "pair": 1,
+          "order": [
+            "candidate",
+            "parent"
+          ],
+          "candidate_role": "candidate",
+          "parent_ns": 959058758,
+          "candidate_ns": 935710094,
+          "reduction_percent": 2.4345394695827385,
+          "parent_thread_cpu_ns": 951635261,
+          "candidate_thread_cpu_ns": 928738454,
+          "raw_sha256": "ee19daf632273d4861b94a46bfb32d9cb6cc2d2375cc12a714f121b32970445e",
+          "raw_bytes": 13807744,
+          "host": "hpc04",
+          "candidate_thread_CPU_reduction_percent": 2.4060486131986654
+        }
+      ],
+      "scope": "One opposite-order pair each01P-C/04C-P, exact completeRK1synthetic188I19J33caller. Restores/checks outside integerwall/threadCPU intervals;RK2untimedcontrol. This batch analyzed separately; no pooling or forecast claim."
+    },
+    "8192": {
+      "status": "PASS_TWO_OPPOSITE_ORDER_FULLCALLER_PAIRS",
+      "observations": [
+        {
+          "pair": 1,
+          "order": [
+            "parent",
+            "candidate"
+          ],
+          "candidate_role": "candidate",
+          "parent_ns": 3737177162,
+          "candidate_ns": 3800860822,
+          "reduction_percent": -1.7040578286612145,
+          "parent_thread_cpu_ns": 3715952609,
+          "candidate_thread_cpu_ns": 3781199269,
+          "raw_sha256": "ee19daf632273d4861b94a46bfb32d9cb6cc2d2375cc12a714f121b32970445e",
+          "raw_bytes": 13807744,
+          "host": "hpc01",
+          "candidate_thread_CPU_reduction_percent": -1.7558528556573418
+        },
+        {
+          "pair": 1,
+          "order": [
+            "candidate",
+            "parent"
+          ],
+          "candidate_role": "candidate",
+          "parent_ns": 3805970061,
+          "candidate_ns": 3843356532,
+          "reduction_percent": -0.9823112216015931,
+          "parent_thread_cpu_ns": 3780987581,
+          "candidate_thread_cpu_ns": 3818021217,
+          "raw_sha256": "ee19daf632273d4861b94a46bfb32d9cb6cc2d2375cc12a714f121b32970445e",
+          "raw_bytes": 13807744,
+          "host": "hpc04",
+          "candidate_thread_CPU_reduction_percent": -0.9794699190787953
+        }
+      ],
+      "scope": "One opposite-order pair each01P-C/04C-P, exact completeRK1synthetic188I19J33caller. Restores/checks outside integerwall/threadCPU intervals;RK2untimedcontrol. This batch analyzed separately; no pooling or forecast claim."
+    }
+  },
+  "actual_per_arm_proofs": {
+    "2048": [
+      {
+        "host": "hpc01",
+        "arm": "parent",
+        "invocation_id": "ee88a3a5924f44578646b075a8c446d7",
+        "cache_before_arm_checked": true,
+        "normal_terminal_then_stopped_inactive_empty_cgroup": true,
+        "raw_sha256": "ee19daf632273d4861b94a46bfb32d9cb6cc2d2375cc12a714f121b32970445e",
+        "raw_bytes": 13807744,
+        "state5": "STATE5 34 1024 36 16292 1919"
+      },
+      {
+        "host": "hpc01",
+        "arm": "candidate",
+        "invocation_id": "175419238e5448729940fe25190eac2a",
+        "cache_before_arm_checked": true,
+        "normal_terminal_then_stopped_inactive_empty_cgroup": true,
+        "raw_sha256": "ee19daf632273d4861b94a46bfb32d9cb6cc2d2375cc12a714f121b32970445e",
+        "raw_bytes": 13807744,
+        "state5": "STATE5 34 1024 36 16292 1919"
+      },
+      {
+        "host": "hpc04",
+        "arm": "candidate",
+        "invocation_id": "7b89fc49d8bd45dc8fc5b471fbd08ac8",
+        "cache_before_arm_checked": true,
+        "normal_terminal_then_stopped_inactive_empty_cgroup": true,
+        "raw_sha256": "ee19daf632273d4861b94a46bfb32d9cb6cc2d2375cc12a714f121b32970445e",
+        "raw_bytes": 13807744,
+        "state5": "STATE5 34 1024 36 16292 1919"
+      },
+      {
+        "host": "hpc04",
+        "arm": "parent",
+        "invocation_id": "1785a7297709443c9da5963c67cd2da6",
+        "cache_before_arm_checked": true,
+        "normal_terminal_then_stopped_inactive_empty_cgroup": true,
+        "raw_sha256": "ee19daf632273d4861b94a46bfb32d9cb6cc2d2375cc12a714f121b32970445e",
+        "raw_bytes": 13807744,
+        "state5": "STATE5 34 1024 36 16292 1919"
+      }
+    ],
+    "8192": [
+      {
+        "host": "hpc01",
+        "arm": "parent",
+        "invocation_id": "f3acaec64b6a442992775e024d49b799",
+        "cache_before_arm_checked": true,
+        "normal_terminal_then_stopped_inactive_empty_cgroup": true,
+        "raw_sha256": "ee19daf632273d4861b94a46bfb32d9cb6cc2d2375cc12a714f121b32970445e",
+        "raw_bytes": 13807744,
+        "state5": "STATE5 34 1024 36 16292 1919"
+      },
+      {
+        "host": "hpc01",
+        "arm": "candidate",
+        "invocation_id": "99533b900d1a4544ad6d4484707d80e6",
+        "cache_before_arm_checked": true,
+        "normal_terminal_then_stopped_inactive_empty_cgroup": true,
+        "raw_sha256": "ee19daf632273d4861b94a46bfb32d9cb6cc2d2375cc12a714f121b32970445e",
+        "raw_bytes": 13807744,
+        "state5": "STATE5 34 1024 36 16292 1919"
+      },
+      {
+        "host": "hpc04",
+        "arm": "candidate",
+        "invocation_id": "e785b7bc52e2467f960a5c1ebccf0534",
+        "cache_before_arm_checked": true,
+        "normal_terminal_then_stopped_inactive_empty_cgroup": true,
+        "raw_sha256": "ee19daf632273d4861b94a46bfb32d9cb6cc2d2375cc12a714f121b32970445e",
+        "raw_bytes": 13807744,
+        "state5": "STATE5 34 1024 36 16292 1919"
+      },
+      {
+        "host": "hpc04",
+        "arm": "parent",
+        "invocation_id": "2772d647f8a34b53b97056fad8d53295",
+        "cache_before_arm_checked": true,
+        "normal_terminal_then_stopped_inactive_empty_cgroup": true,
+        "raw_sha256": "ee19daf632273d4861b94a46bfb32d9cb6cc2d2375cc12a714f121b32970445e",
+        "raw_bytes": 13807744,
+        "state5": "STATE5 34 1024 36 16292 1919"
+      }
+    ]
+  },
+  "tooling_history": {
+    "caller_build_R1": "Bootstrap targeted absent run_gate.py; failurebeforeworker/links/native. FreshR2 bootstrapbuild_only repair; actualsuccess retained.",
+    "8192_driver": "Existingcap2048 was changed ONLYto8192, one drivercompile+two links. Same scientificmodule/helper/observer objects and raw/state/clock protocol.",
+    "8192_runner_R1": "Both firstarms childTimeoutExpired28s, secondarmsunlaunched. Whole restored/checking harness exceeds30s despite~4s caller interval; no numericalfailure or acceptedtiming fromfailedarms.",
+    "8192_runner_R2": "Same8192binaries andgolds; child85/systemd90/monitor100, freshunits/output, cachebeforeeach. Allfour completed withhardraw/five-state and normalclosures.",
+    "preservation": "All actual prior failures, original2048results, nativeproofs and sourcepreimages retained unchanged."
+  },
+  "claim_limits": [
+    "No pooling2048/8192, confidenceinterval, additivegain, forecast/singleforecastlatency/memory-capacity benefit.",
+    "Both8192wall andCPU slower are observations; no causal regression attribution to spills, helpercall, compiler metadata or any one instruction.",
+    "Strict numerical/state checks passed within actual fixture scope; performance nonretention does not mean scientific failure."
+  ],
+  "evidence_refs": {
+    "strict_native_R3": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current19ad-rk1-mu-preparation-fusion-r1/fixed-operand-helper-native-preparation-r3/actual-native-r1/receipt.json",
+      "sha256": "c5367c24a3b2be89e7475fee00ac90aa01e54c5a9081bdbfb092ca44fc92c2d1"
+    },
+    "strict_native_R3_closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current19ad-rk1-mu-preparation-fusion-r1/fixed-operand-helper-native-preparation-r3/actual-native-r1/closure.json",
+      "sha256": "e1303ebdb297e37a3cefec51aa236665a084e9784ba9c920ce3c09dcdc834d4a"
+    },
+    "caller_2048": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current19ad-rk1-mu-preparation-fusion-r1/fixed-operand-helper-caller-timing-preparation-r2/actual-caller-result-r1/ACTUAL_RESULT.json",
+      "sha256": "83e14fb73bd0e31a48fe4e36c7a4df78c6d7eaf54885fa160ca441c667f91e48"
+    },
+    "caller_8192": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current19ad-rk1-mu-preparation-fusion-r1/fixed-operand-helper-caller-confirm8192-timing-r2/actual-caller-result-r1/ACTUAL_RESULT.json",
+      "sha256": "06bc0ef8b339bcdcdcce1fc12f82cc84129b09d72d601fa9dc29b20585c8f6b7"
+    },
+    "8192_R1_failed_timeout_dispatch": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current19ad-rk1-mu-preparation-fusion-r1/fixed-operand-helper-caller-confirm8192-r1/ROOT_TIMING_DISPATCH.json",
+      "sha256": "f9106757104dd8b0bfa15413b298bbbf63c84148a8c1d0563b4468a591576961"
+    },
+    "8192_cap_only_driver_proof": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current19ad-rk1-mu-preparation-fusion-r1/fixed-operand-helper-caller-confirm8192-r1/LOCAL_CAP_ONLY_PROOF.json",
+      "sha256": "97f2176f54e3aa4bf6aa876d14c685e56cd1e939a98e0b338355702846177308"
+    },
+    "8192_actual_build": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current19ad-rk1-mu-preparation-fusion-r1/fixed-operand-helper-caller-confirm8192-r1/actual-build-r1/receipt.json",
+      "sha256": "814ca1741a162b9ddd68465ad74ebee014d426dfbf62c3e994c4129af3ad298f"
+    },
+    "8192_actual_build_closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current19ad-rk1-mu-preparation-fusion-r1/fixed-operand-helper-caller-confirm8192-r1/actual-build-r1/closure.json",
+      "sha256": "71e87e84b0801b93f7f9cc1f394a2abd64e99d6ae41cb3d46420f7c9ffa68267"
+    }
+  },
+  "next_actions": "Evidencepublicationonlybyroot; no furthercandidate integration or experiments authorized by this decision."
+}
