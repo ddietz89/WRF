@@ -2961,9 +2961,7 @@
 #endif
 
 !..Local variables
-      REAL, DIMENSION(kts:kte):: tten, qvten, qcten, qiten, qrten,            &
-           qsten, qgten, qbten, niten, nrten, ncten, ngten, nwfaten, nifaten, &
-                                                              nbcaten
+      REAL, DIMENSION(kts:kte,15):: tendency_bank
 
       DOUBLE PRECISION, DIMENSION(kts:kte,79):: scratch_bank
 
@@ -3065,21 +3063,21 @@
 !+---+-----------------------------------------------------------------+
 
       do k = kts, kte
-         tten(k) = 0.
-         qvten(k) = 0.
-         qcten(k) = 0.
-         qiten(k) = 0.
-         qrten(k) = 0.
-         qsten(k) = 0.
-         qgten(k) = 0.
-         ngten(k) = 0.
-         qbten(k) = 0.
-         niten(k) = 0.
-         nrten(k) = 0.
-         ncten(k) = 0.
-         nwfaten(k) = 0.
-         nifaten(k) = 0.
-         nbcaten(k) = 0.
+         tendency_bank(k,1) = 0.
+         tendency_bank(k,2) = 0.
+         tendency_bank(k,3) = 0.
+         tendency_bank(k,4) = 0.
+         tendency_bank(k,5) = 0.
+         tendency_bank(k,6) = 0.
+         tendency_bank(k,7) = 0.
+         tendency_bank(k,12) = 0.
+         tendency_bank(k,8) = 0.
+         tendency_bank(k,9) = 0.
+         tendency_bank(k,10) = 0.
+         tendency_bank(k,11) = 0.
+         tendency_bank(k,13) = 0.
+         tendency_bank(k,14) = 0.
+         tendency_bank(k,15) = 0.
 
 
 
@@ -4299,43 +4297,43 @@
 
 !..Aerosol number tendency
          if (is_aerosol_aware) then
-            nwfaten(k) = nwfaten(k) - (scratch_bank(k,7) + scratch_bank(k,8)          &
+            tendency_bank(k,13) = tendency_bank(k,13) - (scratch_bank(k,7) + scratch_bank(k,8)          &
                        + scratch_bank(k,9) + scratch_bank(k,48)) * orho
-            nifaten(k) = nifaten(k) - (scratch_bank(k,10) + scratch_bank(k,11)          &
+            tendency_bank(k,14) = tendency_bank(k,14) - (scratch_bank(k,10) + scratch_bank(k,11)          &
                        + scratch_bank(k,12)) * orho
             if (wif_input_opt .eq. 2) then
-               nbcaten(k) = nbcaten(k) - (scratch_bank(k,13) + scratch_bank(k,14)       &
+               tendency_bank(k,15) = tendency_bank(k,15) - (scratch_bank(k,13) + scratch_bank(k,14)       &
                           + scratch_bank(k,15)) * orho
             else
-               nbcaten(k) = 0.0
+               tendency_bank(k,15) = 0.0
             endif
             if (dustyIce) then
-               nifaten(k) = nifaten(k) - scratch_bank(k,34)*orho
+               tendency_bank(k,14) = tendency_bank(k,14) - scratch_bank(k,34)*orho
             else
-               nifaten(k) = 0.
+               tendency_bank(k,14) = 0.
             endif
          endif
 
 !..Water vapor tendency
-         qvten(k) = qvten(k) + (-scratch_bank(k,33) - scratch_bank(k,47) - scratch_bank(k,41)   &
+         tendency_bank(k,2) = tendency_bank(k,2) + (-scratch_bank(k,33) - scratch_bank(k,47) - scratch_bank(k,41)   &
                       - scratch_bank(k,55) - scratch_bank(k,53) - scratch_bank(k,58)) &
                       * orho
 
 !..Cloud water tendency
-         qcten(k) = qcten(k) + (-scratch_bank(k,16) - scratch_bank(k,37) &
+         tendency_bank(k,3) = tendency_bank(k,3) + (-scratch_bank(k,16) - scratch_bank(k,37) &
                       - scratch_bank(k,17) - scratch_bank(k,52) - scratch_bank(k,56) &
                       - scratch_bank(k,59)) &
                       * orho
 
 !..Cloud water number tendency
-         ncten(k) = ncten(k) + (-scratch_bank(k,3) - scratch_bank(k,4) &
+         tendency_bank(k,11) = tendency_bank(k,11) + (-scratch_bank(k,3) - scratch_bank(k,4) &
                       - scratch_bank(k,38) - scratch_bank(k,5) - scratch_bank(k,6)) &
                       * orho
 
 !..Cloud water mass/number balance; keep mass-wt mean size between
 !.. 1 and 50 microns.  Also no more than Nt_c_max drops total.
-         xrc=MAX(R1, (qc1d(k) + qcten(k)*dtsave)*rho(k))
-         xnc=MAX(2., (nc1d(k) + ncten(k)*dtsave)*rho(k))
+         xrc=MAX(R1, (qc1d(k) + tendency_bank(k,3)*dtsave)*rho(k))
+         xnc=MAX(2., (nc1d(k) + tendency_bank(k,11)*dtsave)*rho(k))
          if (xrc .gt. R1) then
           nu_c = MIN(15, NINT(1000.E6/xnc) + 2)
           lamc = (xnc*am_r*ccg(2,nu_c)*ocg1(nu_c)/rc(k))**obmr
@@ -4343,35 +4341,35 @@
           if (xDc.lt. D0c) then
            lamc = cce(2,nu_c)/D0c
            xnc = ccg(1,nu_c)*ocg2(nu_c)*xrc/am_r*lamc**bm_r
-           ncten(k) = (xnc-nc1d(k)*rho(k))*odts*orho
+           tendency_bank(k,11) = (xnc-nc1d(k)*rho(k))*odts*orho
           elseif (xDc.gt. D0r*2.) then
            lamc = cce(2,nu_c)/(D0r*2.)
            xnc = ccg(1,nu_c)*ocg2(nu_c)*xrc/am_r*lamc**bm_r
-           ncten(k) = (xnc-nc1d(k)*rho(k))*odts*orho
+           tendency_bank(k,11) = (xnc-nc1d(k)*rho(k))*odts*orho
           endif
          else
-          ncten(k) = -nc1d(k)*odts
+          tendency_bank(k,11) = -nc1d(k)*odts
          endif
-         xnc=MAX(0.,(nc1d(k) + ncten(k)*dtsave)*rho(k))
+         xnc=MAX(0.,(nc1d(k) + tendency_bank(k,11)*dtsave)*rho(k))
          if (xnc.gt.Nt_c_max) &
-                ncten(k) = (Nt_c_max-nc1d(k)*rho(k))*odts*orho
+                tendency_bank(k,11) = (Nt_c_max-nc1d(k)*rho(k))*odts*orho
 
 !..Cloud ice mixing ratio tendency
-         qiten(k) = qiten(k) + (scratch_bank(k,33) + scratch_bank(k,47) + scratch_bank(k,35)    &
+         tendency_bank(k,4) = tendency_bank(k,4) + (scratch_bank(k,33) + scratch_bank(k,47) + scratch_bank(k,35)    &
                       + scratch_bank(k,37) + scratch_bank(k,39) + scratch_bank(k,41) &
                       - scratch_bank(k,49) - scratch_bank(k,50) - scratch_bank(k,43)) &
                       * orho
 
 !..Cloud ice number tendency.
-         niten(k) = niten(k) + (scratch_bank(k,34) + scratch_bank(k,48) + scratch_bank(k,36)    &
+         tendency_bank(k,9) = tendency_bank(k,9) + (scratch_bank(k,34) + scratch_bank(k,48) + scratch_bank(k,36)    &
                       + scratch_bank(k,38) + scratch_bank(k,40) + scratch_bank(k,42) &
                       - scratch_bank(k,46) - scratch_bank(k,45) - scratch_bank(k,44)) &
                       * orho
 
 !..Cloud ice mass/number balance; keep mass-wt mean size between
 !.. 5 and 300 microns.  Also no more than 500 xtals per liter.
-         xri=MAX(R1,(qi1d(k) + qiten(k)*dtsave)*rho(k))
-         xni=MAX(R2,(ni1d(k) + niten(k)*dtsave)*rho(k))
+         xri=MAX(R1,(qi1d(k) + tendency_bank(k,4)*dtsave)*rho(k))
+         xni=MAX(R2,(ni1d(k) + tendency_bank(k,9)*dtsave)*rho(k))
          if (xri.gt. R1) then
            lami = (am_i*cig(2)*oig1*xni/xri)**obmi
            ilami = 1./lami
@@ -4379,36 +4377,36 @@
            if (xDi.lt. 5.E-6) then
             lami = cie(2)/5.E-6
             xni = MIN(999.D3, cig(1)*oig2*xri/am_i*lami**bm_i)
-            niten(k) = (xni-ni1d(k)*rho(k))*odts*orho
+            tendency_bank(k,9) = (xni-ni1d(k)*rho(k))*odts*orho
            elseif (xDi.gt. 300.E-6) then
             lami = cie(2)/300.E-6
             xni = cig(1)*oig2*xri/am_i*lami**bm_i
-            niten(k) = (xni-ni1d(k)*rho(k))*odts*orho
+            tendency_bank(k,9) = (xni-ni1d(k)*rho(k))*odts*orho
            endif
          else
-          niten(k) = -ni1d(k)*odts
+          tendency_bank(k,9) = -ni1d(k)*odts
          endif
-         xni=MAX(0.,(ni1d(k) + niten(k)*dtsave)*rho(k))
+         xni=MAX(0.,(ni1d(k) + tendency_bank(k,9)*dtsave)*rho(k))
          if (xni.gt.999.E3) &
-                niten(k) = (999.E3-ni1d(k)*rho(k))*odts*orho
+                tendency_bank(k,9) = (999.E3-ni1d(k)*rho(k))*odts*orho
 
 !..Rain tendency
-         qrten(k) = qrten(k) + (scratch_bank(k,16) + scratch_bank(k,17) &
+         tendency_bank(k,5) = tendency_bank(k,5) + (scratch_bank(k,16) + scratch_bank(k,17) &
                       + scratch_bank(k,20) + scratch_bank(k,21) + scratch_bank(k,18) &
                       + scratch_bank(k,19) - scratch_bank(k,57) &
                       - scratch_bank(k,39) - scratch_bank(k,22)) &
                       * orho
 
 !..Rain number tendency
-         nrten(k) = nrten(k) + (scratch_bank(k,24) + scratch_bank(k,28) + scratch_bank(k,29)    &
+         tendency_bank(k,10) = tendency_bank(k,10) + (scratch_bank(k,24) + scratch_bank(k,28) + scratch_bank(k,29)    &
                       - (scratch_bank(k,32) + scratch_bank(k,31) + scratch_bank(k,26)           &
                       + scratch_bank(k,25) + scratch_bank(k,27) + scratch_bank(k,40)) )         &
                       * orho
 
 !..Rain mass/number balance; keep median volume diameter between
 !.. 37 microns (D0r*0.75) and 2.5 mm.
-         xrr=MAX(R1,(qr1d(k) + qrten(k)*dtsave)*rho(k))
-         xnr=MAX(R2,(nr1d(k) + nrten(k)*dtsave)*rho(k))
+         xrr=MAX(R1,(qr1d(k) + tendency_bank(k,5)*dtsave)*rho(k))
+         xnr=MAX(R2,(nr1d(k) + tendency_bank(k,10)*dtsave)*rho(k))
          if (xrr.gt. R1) then
            lamr = (am_r*crg(3)*org2*xnr/xrr)**obmr
            mvd_r(k) = (3.0 + mu_r + 0.672) / lamr
@@ -4416,38 +4414,38 @@
               mvd_r(k) = 2.5E-3
               lamr = (3.0 + mu_r + 0.672) / mvd_r(k)
               xnr = crg(2)*org3*xrr*lamr**bm_r / am_r
-              nrten(k) = (xnr-nr1d(k)*rho(k))*odts*orho
+              tendency_bank(k,10) = (xnr-nr1d(k)*rho(k))*odts*orho
            elseif (mvd_r(k) .lt. D0r*0.75) then
               mvd_r(k) = D0r*0.75
               lamr = (3.0 + mu_r + 0.672) / mvd_r(k)
               xnr = crg(2)*org3*xrr*lamr**bm_r / am_r
-              nrten(k) = (xnr-nr1d(k)*rho(k))*odts*orho
+              tendency_bank(k,10) = (xnr-nr1d(k)*rho(k))*odts*orho
            endif
          else
-           qrten(k) = -qr1d(k)*odts
-           nrten(k) = -nr1d(k)*odts
+           tendency_bank(k,5) = -qr1d(k)*odts
+           tendency_bank(k,10) = -nr1d(k)*odts
          endif
 
 !..Snow tendency
-         qsten(k) = qsten(k) + (scratch_bank(k,49) + scratch_bank(k,53) + scratch_bank(k,50)    &
+         tendency_bank(k,6) = tendency_bank(k,6) + (scratch_bank(k,49) + scratch_bank(k,53) + scratch_bank(k,50)    &
                       + scratch_bank(k,52) + scratch_bank(k,51) + scratch_bank(k,55)            &
                       - scratch_bank(k,54) - scratch_bank(k,20))                        &
                       * orho
 
 !..Graupel tendency
-         qgten(k) = qgten(k) + (scratch_bank(k,56) + scratch_bank(k,57) &
+         tendency_bank(k,7) = tendency_bank(k,7) + (scratch_bank(k,56) + scratch_bank(k,57) &
                       + scratch_bank(k,58) + scratch_bank(k,62) + scratch_bank(k,59) &
                       + scratch_bank(k,60) + scratch_bank(k,61) - scratch_bank(k,63) &
                       - scratch_bank(k,21))                          &
                       * orho
 
 !..Graupel number tendency
-         ngten(k) = ngten(k) + (scratch_bank(k,66) + scratch_bank(k,32) - scratch_bank(k,65)    &
+         tendency_bank(k,12) = tendency_bank(k,12) + (scratch_bank(k,66) + scratch_bank(k,32) - scratch_bank(k,65)    &
                       + scratch_bank(k,27) + scratch_bank(k,64) + scratch_bank(k,67)            &
                       - scratch_bank(k,29)) * orho
 
 !..Graupel volume mixing ratio tendency
-         qbten(k) = qbten(k) + (scratch_bank(k,68) + scratch_bank(k,69)                 &
+         tendency_bank(k,8) = tendency_bank(k,8) + (scratch_bank(k,68) + scratch_bank(k,69)                 &
                       + scratch_bank(k,70) + scratch_bank(k,71) + scratch_bank(k,72)            &
                       + scratch_bank(k,73) + scratch_bank(k,74) - scratch_bank(k,75)            &
                       + (scratch_bank(k,58) - scratch_bank(k,63)) /rho_g(idx_bg(k)) )   &
@@ -4455,9 +4453,9 @@
 
 !..Graupel mass/number balance; keep its median volume diameter between
 !.. 3.0 times minimum size (D0g) and 25 mm.
-         xrg=MAX(R1,(qg1d(k) + qgten(k)*dtsave)*rho(k))
-         xng=MAX(R2,(ng1d(k) + ngten(k)*dtsave)*rho(k))
-         xrb=MAX(xrg/rho(k)/rho_g(NRHG),(qb1d(k) + qbten(k)*dtsave))
+         xrg=MAX(R1,(qg1d(k) + tendency_bank(k,7)*dtsave)*rho(k))
+         xng=MAX(R2,(ng1d(k) + tendency_bank(k,12)*dtsave)*rho(k))
+         xrb=MAX(xrg/rho(k)/rho_g(NRHG),(qb1d(k) + tendency_bank(k,8)*dtsave))
          xrb=MIN(xrg/rho(k)/rho_g(1), xrb)
 
          if (xrg .gt. R1) then
@@ -4472,11 +4470,11 @@
            vtg2 = rhof(k)*afall*cgg(7,idx_bg(k))/cgg(12,idx_bg(k)) / lamg**bfall
          write(mp_debug, *) 'DEBUG: xrg, xng, xrb, ns, idx_bg, rho_g, mvd, vtg: ', k, xrg, xng, xrb, ns(k), idx_bg(k), xrg/rho(k)/xrb, mvd_g(k)*1000., vtg1, vtg2
          CALL wrf_debug(0, mp_debug)
-         write(mp_debug, *) 'DEBUG: qgten: ', qgten(k), scratch_bank(k,56), scratch_bank(k,57), scratch_bank(k,58), scratch_bank(k,62), scratch_bank(k,59), scratch_bank(k,60), scratch_bank(k,61), scratch_bank(k,63), scratch_bank(k,21)
+         write(mp_debug, *) 'DEBUG: qgten: ', tendency_bank(k,7), scratch_bank(k,56), scratch_bank(k,57), scratch_bank(k,58), scratch_bank(k,62), scratch_bank(k,59), scratch_bank(k,60), scratch_bank(k,61), scratch_bank(k,63), scratch_bank(k,21)
          CALL wrf_debug(0, mp_debug)
-         write(mp_debug, *) 'DEBUG: ngten: ', ngten(k), scratch_bank(k,66), scratch_bank(k,32), scratch_bank(k,65), scratch_bank(k,27), scratch_bank(k,64), scratch_bank(k,29)
+         write(mp_debug, *) 'DEBUG: ngten: ', tendency_bank(k,12), scratch_bank(k,66), scratch_bank(k,32), scratch_bank(k,65), scratch_bank(k,27), scratch_bank(k,64), scratch_bank(k,29)
          CALL wrf_debug(0, mp_debug)
-         write(mp_debug, *) 'DEBUG: qbten: ', qbten(k), scratch_bank(k,68), scratch_bank(k,69), scratch_bank(k,70), scratch_bank(k,71), scratch_bank(k,72), scratch_bank(k,73), scratch_bank(k,74), scratch_bank(k,75)
+         write(mp_debug, *) 'DEBUG: qbten: ', tendency_bank(k,8), scratch_bank(k,68), scratch_bank(k,69), scratch_bank(k,70), scratch_bank(k,71), scratch_bank(k,72), scratch_bank(k,73), scratch_bank(k,74), scratch_bank(k,75)
          CALL wrf_debug(0, mp_debug)
       endif
 
@@ -4484,23 +4482,23 @@
                mvd_g(k) = 25.4E-3
                lamg = (3.0 + mu_g + 0.672) / mvd_g(k)
                xng = cgg(2,1)*ogg3*xrg*lamg**bm_g / am_g(idx_bg(k))
-               ngten(k) = (xng-ng1d(k)*rho(k))*odts*orho
+               tendency_bank(k,12) = (xng-ng1d(k)*rho(k))*odts*orho
             elseif (mvd_g(k) .lt. D0r) then
                mvd_g(k) = D0r
                lamg = (3.0 + mu_g + 0.672) / mvd_g(k)
                xng = cgg(2,1)*ogg3*xrg*lamg**bm_g / am_g(idx_bg(k))
-               ngten(k) = (xng-ng1d(k)*rho(k))*odts*orho
+               tendency_bank(k,12) = (xng-ng1d(k)*rho(k))*odts*orho
             endif
 
          else
-           qgten(k) = -qg1d(k)*odts
-           ngten(k) = -ng1d(k)*odts
-           qbten(k) = -qb1d(k)*odts
+           tendency_bank(k,7) = -qg1d(k)*odts
+           tendency_bank(k,12) = -ng1d(k)*odts
+           tendency_bank(k,8) = -qb1d(k)*odts
          endif
 
 !..Temperature tendency
          if (temp(k).lt.T_0) then
-          tten(k) = tten(k) &
+          tendency_bank(k,1) = tendency_bank(k,1) &
                     + ( lsub*ocp(k)*(scratch_bank(k,33) + scratch_bank(k,41) &
                                      + scratch_bank(k,55) + scratch_bank(k,53) &
                                      + scratch_bank(k,58) + scratch_bank(k,47)) &
@@ -4511,7 +4509,7 @@
                                      + scratch_bank(k,22) + scratch_bank(k,62)) &
                        )*orho * (1-IFDRY)
          else
-          tten(k) = tten(k) &
+          tendency_bank(k,1) = tendency_bank(k,1) &
                     + ( lfus*ocp(k)*(-scratch_bank(k,20) - scratch_bank(k,21) &
                                      - scratch_bank(k,19) - scratch_bank(k,18)) &
                       + lsub*ocp(k)*(scratch_bank(k,53) + scratch_bank(k,58)) &
@@ -4524,10 +4522,10 @@
 !..Update variables for TAU+1 before condensation & sedimention.
 !+---+-----------------------------------------------------------------+
       do k = kts, kte
-         temp(k) = t1d(k) + DT*tten(k)
+         temp(k) = t1d(k) + DT*tendency_bank(k,1)
          otemp = 1./temp(k)
          tempc = temp(k) - 273.15
-         qv(k) = MAX(1.E-10, qv1d(k) + DT*qvten(k))
+         qv(k) = MAX(1.E-10, qv1d(k) + DT*tendency_bank(k,2))
          rho(k) = 0.622*pres(k)/(R*temp(k)*(qv(k)+0.622))
          rhof(k) = SQRT(RHO_NOT/rho(k))
          rhof2(k) = SQRT(rhof(k))
@@ -4546,13 +4544,13 @@
          ocp(k) = 1./(Cp*(1.+0.887*qv(k)))
          lvt2(k)=lvap(k)*lvap(k)*ocp(k)*oRv*otemp*otemp
 
-         nwfa(k) = MAX(11.1E6, (nwfa1d(k) + nwfaten(k)*DT)*rho(k))
+         nwfa(k) = MAX(11.1E6, (nwfa1d(k) + tendency_bank(k,13)*DT)*rho(k))
       enddo
 
       do k = kts, kte
-         if ((qc1d(k) + qcten(k)*DT) .gt. R1) then
-            rc(k) = (qc1d(k) + qcten(k)*DT)*rho(k)
-            nc(k) = MAX(2., MIN((nc1d(k)+ncten(k)*DT)*rho(k), Nt_c_max))
+         if ((qc1d(k) + tendency_bank(k,3)*DT) .gt. R1) then
+            rc(k) = (qc1d(k) + tendency_bank(k,3)*DT)*rho(k)
+            nc(k) = MAX(2., MIN((nc1d(k)+tendency_bank(k,11)*DT)*rho(k), Nt_c_max))
             if (.NOT. is_aerosol_aware) nc(k) = Nt_c
             L_qc(k) = .true.
          else
@@ -4561,9 +4559,9 @@
             L_qc(k) = .false.
          endif
 
-         if ((qi1d(k) + qiten(k)*DT) .gt. R1) then
-            ri(k) = (qi1d(k) + qiten(k)*DT)*rho(k)
-            ni(k) = MAX(R2, (ni1d(k) + niten(k)*DT)*rho(k))
+         if ((qi1d(k) + tendency_bank(k,4)*DT) .gt. R1) then
+            ri(k) = (qi1d(k) + tendency_bank(k,4)*DT)*rho(k)
+            ni(k) = MAX(R2, (ni1d(k) + tendency_bank(k,9)*DT)*rho(k))
             L_qi(k) = .true. 
          else
             ri(k) = R1
@@ -4571,9 +4569,9 @@
             L_qi(k) = .false.
          endif
 
-         if ((qr1d(k) + qrten(k)*DT) .gt. R1) then
-            rr(k) = (qr1d(k) + qrten(k)*DT)*rho(k)
-            nr(k) = MAX(R2, (nr1d(k) + nrten(k)*DT)*rho(k))
+         if ((qr1d(k) + tendency_bank(k,5)*DT) .gt. R1) then
+            rr(k) = (qr1d(k) + tendency_bank(k,5)*DT)*rho(k)
+            nr(k) = MAX(R2, (nr1d(k) + tendency_bank(k,10)*DT)*rho(k))
             L_qr(k) = .true.
             lamr = (am_r*crg(3)*org2*nr(k)/rr(k))**obmr
             mvd_r(k) = (3.0 + mu_r + 0.672) / lamr
@@ -4592,8 +4590,8 @@
             L_qr(k) = .false.
          endif
                
-         if ((qs1d(k) + qsten(k)*DT) .gt. R1) then
-            rs(k) = (qs1d(k) + qsten(k)*DT)*rho(k)
+         if ((qs1d(k) + tendency_bank(k,6)*DT) .gt. R1) then
+            rs(k) = (qs1d(k) + tendency_bank(k,6)*DT)*rho(k)
             L_qs(k) = .true.
          else
             rs(k) = R1
@@ -4603,11 +4601,11 @@
 
       if (is_hail_aware) then
          do k = kts, kte
-            if ((qg1d(k) + qgten(k)*DT) .gt. R1) then
+            if ((qg1d(k) + tendency_bank(k,7)*DT) .gt. R1) then
                L_qg(k) = .true.
-               rg(k) = (qg1d(k) + qgten(k)*DT)*rho(k)
-               ng(k) = MAX(R2, (ng1d(k) + ngten(k)*DT)*rho(k))
-               rb(k) = MAX(rg(k)/rho(k)/rho_g(NRHG), qb1d(k) + qbten(k)*DT)
+               rg(k) = (qg1d(k) + tendency_bank(k,7)*DT)*rho(k)
+               ng(k) = MAX(R2, (ng1d(k) + tendency_bank(k,12)*DT)*rho(k))
+               rb(k) = MAX(rg(k)/rho(k)/rho_g(NRHG), qb1d(k) + tendency_bank(k,8)*DT)
                rb(k) = MIN(rg(k)/rho(k)/rho_g(1), rb(k))
                idx_bg(k) = MAX(1,MIN(NINT(rg(k)/rho(k)/rb(k) *0.01)+1,NRHG))
             else
@@ -4623,8 +4621,8 @@
             idx_bg(k) = idx_bg1
          enddo
          do k = kte, kts, -1
-         if ((qg1d(k) + qgten(k)*DT) .gt. R1) then
-            rg(k) = (qg1d(k) + qgten(k)*DT)*rho(k)
+         if ((qg1d(k) + tendency_bank(k,7)*DT) .gt. R1) then
+            rg(k) = (qg1d(k) + tendency_bank(k,7)*DT)*rho(k)
                ygra1 = alog10(max(1.E-9, rg(k)))
                zans1 = 3.0 + 2./7.*(ygra1+8.)
                zans1 = MAX(2., MIN(zans1, 6.))
@@ -4814,17 +4812,17 @@
 
 !+---+-----------------------------------------------------------------+
 
-          qvten(k) = qvten(k) - scratch_bank(k,1)
-          qcten(k) = qcten(k) + scratch_bank(k,1)
-          ncten(k) = ncten(k) + scratch_bank(k,2)
-          nwfaten(k) = nwfaten(k) - scratch_bank(k,2)
-          tten(k) = tten(k) + lvap(k)*ocp(k)*scratch_bank(k,1)*(1-IFDRY)
-          rc(k) = MAX(R1, (qc1d(k) + DT*qcten(k))*rho(k))
+          tendency_bank(k,2) = tendency_bank(k,2) - scratch_bank(k,1)
+          tendency_bank(k,3) = tendency_bank(k,3) + scratch_bank(k,1)
+          tendency_bank(k,11) = tendency_bank(k,11) + scratch_bank(k,2)
+          tendency_bank(k,13) = tendency_bank(k,13) - scratch_bank(k,2)
+          tendency_bank(k,1) = tendency_bank(k,1) + lvap(k)*ocp(k)*scratch_bank(k,1)*(1-IFDRY)
+          rc(k) = MAX(R1, (qc1d(k) + DT*tendency_bank(k,3))*rho(k))
           if (rc(k).eq.R1) L_qc(k) = .false.
-          nc(k) = MAX(2., MIN((nc1d(k)+ncten(k)*DT)*rho(k), Nt_c_max))
+          nc(k) = MAX(2., MIN((nc1d(k)+tendency_bank(k,11)*DT)*rho(k), Nt_c_max))
           if (.NOT. is_aerosol_aware) nc(k) = Nt_c
-          qv(k) = MAX(1.E-10, qv1d(k) + DT*qvten(k))
-          temp(k) = t1d(k) + DT*tten(k)
+          qv(k) = MAX(1.E-10, qv1d(k) + DT*tendency_bank(k,2))
+          temp(k) = t1d(k) + DT*tendency_bank(k,1)
           rho(k) = 0.622*pres(k)/(R*temp(k)*(qv(k)+0.622))
           qvs(k) = rslf(pres(k), temp(k))
           ssatw(k) = qv(k)/qvs(k) - 1.
@@ -4897,16 +4895,16 @@
           scratch_bank(k,30) = MIN(DBLE(nr(k)*0.99*orho*odts),                  &   ! RAIN2M
                        scratch_bank(k,23) * nr(k)/rr(k))
 
-          qrten(k) = qrten(k) - scratch_bank(k,23)
-          qvten(k) = qvten(k) + scratch_bank(k,23)
-          nrten(k) = nrten(k) - scratch_bank(k,30)
-          nwfaten(k) = nwfaten(k) + scratch_bank(k,30)
-          tten(k) = tten(k) - lvap(k)*ocp(k)*scratch_bank(k,23)*(1-IFDRY)
+          tendency_bank(k,5) = tendency_bank(k,5) - scratch_bank(k,23)
+          tendency_bank(k,2) = tendency_bank(k,2) + scratch_bank(k,23)
+          tendency_bank(k,10) = tendency_bank(k,10) - scratch_bank(k,30)
+          tendency_bank(k,13) = tendency_bank(k,13) + scratch_bank(k,30)
+          tendency_bank(k,1) = tendency_bank(k,1) - lvap(k)*ocp(k)*scratch_bank(k,23)*(1-IFDRY)
 
-          rr(k) = MAX(R1, (qr1d(k) + DT*qrten(k))*rho(k))
-          qv(k) = MAX(1.E-10, qv1d(k) + DT*qvten(k))
-          nr(k) = MAX(R2, (nr1d(k) + DT*nrten(k))*rho(k))
-          temp(k) = t1d(k) + DT*tten(k)
+          rr(k) = MAX(R1, (qr1d(k) + DT*tendency_bank(k,5))*rho(k))
+          qv(k) = MAX(1.E-10, qv1d(k) + DT*tendency_bank(k,2))
+          nr(k) = MAX(R2, (nr1d(k) + DT*tendency_bank(k,10))*rho(k))
+          temp(k) = t1d(k) + DT*tendency_bank(k,1)
           rho(k) = 0.622*pres(k)/(R*temp(k)*(qv(k)+0.622))
          endif
       enddo
@@ -5135,16 +5133,16 @@
          k = kte
          odzq = 1./dzq(k)
          orho = 1./rho(k)
-         qrten(k) = qrten(k) - sed_r(k)*odzq*onstep(1)*orho
-         nrten(k) = nrten(k) - sed_n(k)*odzq*onstep(1)*orho
+         tendency_bank(k,5) = tendency_bank(k,5) - sed_r(k)*odzq*onstep(1)*orho
+         tendency_bank(k,10) = tendency_bank(k,10) - sed_n(k)*odzq*onstep(1)*orho
          rr(k) = MAX(R1, rr(k) - sed_r(k)*odzq*DT*onstep(1))
          nr(k) = MAX(R2, nr(k) - sed_n(k)*odzq*DT*onstep(1))
          do k = ksed1(1), kts, -1
             odzq = 1./dzq(k)
             orho = 1./rho(k)
-            qrten(k) = qrten(k) + (sed_r(k+1)-sed_r(k))                 &
+            tendency_bank(k,5) = tendency_bank(k,5) + (sed_r(k+1)-sed_r(k))                 &
                                                *odzq*onstep(1)*orho
-            nrten(k) = nrten(k) + (sed_n(k+1)-sed_n(k))                 &
+            tendency_bank(k,10) = tendency_bank(k,10) + (sed_n(k+1)-sed_n(k))                 &
                                                *odzq*onstep(1)*orho
             rr(k) = MAX(R1, rr(k) + (sed_r(k+1)-sed_r(k)) &
                                            *odzq*DT*onstep(1))
@@ -5167,8 +5165,8 @@
       do k = ksed1(5), kts, -1
          odzq = 1./dzq(k)
          orho = 1./rho(k)
-         qcten(k) = qcten(k) + (sed_c(k+1)-sed_c(k)) *odzq*orho
-         ncten(k) = ncten(k) + (sed_n(k+1)-sed_n(k)) *odzq*orho
+         tendency_bank(k,3) = tendency_bank(k,3) + (sed_c(k+1)-sed_c(k)) *odzq*orho
+         tendency_bank(k,11) = tendency_bank(k,11) + (sed_n(k+1)-sed_n(k)) *odzq*orho
          rc(k) = MAX(R1, rc(k) + (sed_c(k+1)-sed_c(k)) *odzq*DT)
          nc(k) = MAX(10., nc(k) + (sed_n(k+1)-sed_n(k)) *odzq*DT)
       enddo
@@ -5186,16 +5184,16 @@
          k = kte
          odzq = 1./dzq(k)
          orho = 1./rho(k)
-         qiten(k) = qiten(k) - sed_i(k)*odzq*onstep(2)*orho
-         niten(k) = niten(k) - sed_n(k)*odzq*onstep(2)*orho
+         tendency_bank(k,4) = tendency_bank(k,4) - sed_i(k)*odzq*onstep(2)*orho
+         tendency_bank(k,9) = tendency_bank(k,9) - sed_n(k)*odzq*onstep(2)*orho
          ri(k) = MAX(R1, ri(k) - sed_i(k)*odzq*DT*onstep(2))
          ni(k) = MAX(R2, ni(k) - sed_n(k)*odzq*DT*onstep(2))
          do k = ksed1(2), kts, -1
             odzq = 1./dzq(k)
             orho = 1./rho(k)
-            qiten(k) = qiten(k) + (sed_i(k+1)-sed_i(k))                 &
+            tendency_bank(k,4) = tendency_bank(k,4) + (sed_i(k+1)-sed_i(k))                 &
                                                *odzq*onstep(2)*orho
-            niten(k) = niten(k) + (sed_n(k+1)-sed_n(k))                 &
+            tendency_bank(k,9) = tendency_bank(k,9) + (sed_n(k+1)-sed_n(k))                 &
                                                *odzq*onstep(2)*orho
             ri(k) = MAX(R1, ri(k) + (sed_i(k+1)-sed_i(k)) &
                                            *odzq*DT*onstep(2))
@@ -5219,12 +5217,12 @@
          k = kte
          odzq = 1./dzq(k)
          orho = 1./rho(k)
-         qsten(k) = qsten(k) - sed_s(k)*odzq*onstep(3)*orho
+         tendency_bank(k,6) = tendency_bank(k,6) - sed_s(k)*odzq*onstep(3)*orho
          rs(k) = MAX(R1, rs(k) - sed_s(k)*odzq*DT*onstep(3))
          do k = ksed1(3), kts, -1
             odzq = 1./dzq(k)
             orho = 1./rho(k)
-            qsten(k) = qsten(k) + (sed_s(k+1)-sed_s(k))                 &
+            tendency_bank(k,6) = tendency_bank(k,6) + (sed_s(k+1)-sed_s(k))                 &
                                                *odzq*onstep(3)*orho
             rs(k) = MAX(R1, rs(k) + (sed_s(k+1)-sed_s(k)) &
                                            *odzq*DT*onstep(3))
@@ -5248,20 +5246,20 @@
          k = kte
          odzq = 1./dzq(k)
          orho = 1./rho(k)
-         qgten(k) = qgten(k) - sed_g(k)*odzq*onstep(4)*orho
-         ngten(k) = ngten(k) - sed_n(k)*odzq*onstep(4)*orho
-         qbten(k) = qbten(k) - sed_b(k)*odzq*onstep(4)
+         tendency_bank(k,7) = tendency_bank(k,7) - sed_g(k)*odzq*onstep(4)*orho
+         tendency_bank(k,12) = tendency_bank(k,12) - sed_n(k)*odzq*onstep(4)*orho
+         tendency_bank(k,8) = tendency_bank(k,8) - sed_b(k)*odzq*onstep(4)
          rg(k) = MAX(R1, rg(k) - sed_g(k)*odzq*DT*onstep(4))
          ng(k) = MAX(R2, ng(k) - sed_n(k)*odzq*DT*onstep(4))
          rb(k) = MAX(R1/rho(k)/rho_g(NRHG), rb(k) - sed_b(k)*odzq*DT*onstep(4))
          do k = ksed1(4), kts, -1
             odzq = 1./dzq(k)
             orho = 1./rho(k)
-            qgten(k) = qgten(k) + (sed_g(k+1)-sed_g(k))                 &
+            tendency_bank(k,7) = tendency_bank(k,7) + (sed_g(k+1)-sed_g(k))                 &
                                                *odzq*onstep(4)*orho
-            ngten(k) = ngten(k) + (sed_n(k+1)-sed_n(k))                 &
+            tendency_bank(k,12) = tendency_bank(k,12) + (sed_n(k+1)-sed_n(k))                 &
                                                *odzq*onstep(4)*orho
-            qbten(k) = qbten(k) + (sed_b(k+1)-sed_b(k))                 &
+            tendency_bank(k,8) = tendency_bank(k,8) + (sed_b(k+1)-sed_b(k))                 &
                                                *odzq*onstep(4)
             rg(k) = MAX(R1, rg(k) + (sed_g(k+1)-sed_g(k)) &
                                            *odzq*DT*onstep(4))
@@ -5282,24 +5280,24 @@
 !+---+-----------------------------------------------------------------+
       if (.not. iiwarm) then
       do k = kts, kte
-         xri = MAX(0.0, qi1d(k) + qiten(k)*DT)
+         xri = MAX(0.0, qi1d(k) + tendency_bank(k,4)*DT)
          if ( (temp(k).gt. T_0) .and. (xri.gt. 0.0) ) then
-          qcten(k) = qcten(k) + xri*odt
-          ncten(k) = ncten(k) + ni1d(k)*odt
-          qiten(k) = qiten(k) - xri*odt
-          niten(k) = -ni1d(k)*odt
-          tten(k) = tten(k) - lfus*ocp(k)*xri*odt*(1-IFDRY)
+          tendency_bank(k,3) = tendency_bank(k,3) + xri*odt
+          tendency_bank(k,11) = tendency_bank(k,11) + ni1d(k)*odt
+          tendency_bank(k,4) = tendency_bank(k,4) - xri*odt
+          tendency_bank(k,9) = -ni1d(k)*odt
+          tendency_bank(k,1) = tendency_bank(k,1) - lfus*ocp(k)*xri*odt*(1-IFDRY)
          endif
 
-         xrc = MAX(0.0, qc1d(k) + qcten(k)*DT)
+         xrc = MAX(0.0, qc1d(k) + tendency_bank(k,3)*DT)
          if ( (temp(k).lt. HGFR) .and. (xrc.gt. 0.0) ) then
           lfus2 = lsub - lvap(k)
-          xnc = nc1d(k) + ncten(k)*DT
-          qiten(k) = qiten(k) + xrc*odt
-          niten(k) = niten(k) + xnc*odt
-          qcten(k) = qcten(k) - xrc*odt
-          ncten(k) = ncten(k) - xnc*odt
-          tten(k) = tten(k) + lfus2*ocp(k)*xrc*odt*(1-IFDRY)
+          xnc = nc1d(k) + tendency_bank(k,11)*DT
+          tendency_bank(k,4) = tendency_bank(k,4) + xrc*odt
+          tendency_bank(k,9) = tendency_bank(k,9) + xnc*odt
+          tendency_bank(k,3) = tendency_bank(k,3) - xrc*odt
+          tendency_bank(k,11) = tendency_bank(k,11) - xnc*odt
+          tendency_bank(k,1) = tendency_bank(k,1) + lfus2*ocp(k)*xrc*odt*(1-IFDRY)
          endif
       enddo
       endif
@@ -5308,38 +5306,38 @@
 !.. All tendencies computed, apply and pass back final values to parent.
 !+---+-----------------------------------------------------------------+
       do k = kts, kte
-         t1d(k)  = t1d(k) + tten(k)*DT
-         qv1d(k) = MAX(1.E-10, qv1d(k) + qvten(k)*DT)
-         qc1d(k) = qc1d(k) + qcten(k)*DT
-         nc1d(k) = MAX(2./rho(k), MIN(nc1d(k) + ncten(k)*DT, Nt_c_max))
+         t1d(k)  = t1d(k) + tendency_bank(k,1)*DT
+         qv1d(k) = MAX(1.E-10, qv1d(k) + tendency_bank(k,2)*DT)
+         qc1d(k) = qc1d(k) + tendency_bank(k,3)*DT
+         nc1d(k) = MAX(2./rho(k), MIN(nc1d(k) + tendency_bank(k,11)*DT, Nt_c_max))
          if (is_aerosol_aware) then
             if (aer_init_opt .lt. 2) then
                nwfa1d(k) = MAX(11.1E6, MIN(9999.E6,                           &
-                             (nwfa1d(k)+nwfaten(k)*DT)))
+                             (nwfa1d(k)+tendency_bank(k,13)*DT)))
                nifa1d(k) = MAX(naIN1*0.01, MIN(9999.E6,                       &
-                             (nifa1d(k)+nifaten(k)*DT)))
+                             (nifa1d(k)+tendency_bank(k,14)*DT)))
                if (wif_input_opt .eq. 2) then
                   nbca1d(k) = MAX(5.55E6, MIN(9999.E6,                        &
-                                (nbca1d(k)+nbcaten(k)*DT)))
+                                (nbca1d(k)+tendency_bank(k,15)*DT)))
                else
                   nbca1d(k) = 0.0
                endif
             else
-               nwfa1d(k) = MAX(0.0, (nwfa1d(k)+nwfaten(k)*DT))
-               nifa1d(k) = MAX(0.0, (nifa1d(k)+nifaten(k)*DT))
+               nwfa1d(k) = MAX(0.0, (nwfa1d(k)+tendency_bank(k,13)*DT))
+               nifa1d(k) = MAX(0.0, (nifa1d(k)+tendency_bank(k,14)*DT))
                if (wif_input_opt .eq. 2) then
-                  nbca1d(k) = MAX(0.0, (nbca1d(k)+nbcaten(k)*DT))
+                  nbca1d(k) = MAX(0.0, (nbca1d(k)+tendency_bank(k,15)*DT))
                else
                   nbca1d(k) = 0.0
                endif
             endif
          else
             nwfa1d(k) = MAX(11.1E6, MIN(9999.E6,                           &
-                          (nwfa1d(k)+nwfaten(k)*DT)))
+                          (nwfa1d(k)+tendency_bank(k,13)*DT)))
             nifa1d(k) = MAX(naIN1*0.01, MIN(9999.E6,                       &
-                          (nifa1d(k)+nifaten(k)*DT)))
+                          (nifa1d(k)+tendency_bank(k,14)*DT)))
             nbca1d(k) = MAX(5.55E6, MIN(9999.E6,                           &
-                          (nbca1d(k)+nbcaten(k)*DT)))
+                          (nbca1d(k)+tendency_bank(k,15)*DT)))
          endif
 
          if (qc1d(k) .le. R1) then
@@ -5358,8 +5356,8 @@
                          DBLE(Nt_c_max)/rho(k))
          endif
 
-         qi1d(k) = qi1d(k) + qiten(k)*DT
-         ni1d(k) = MAX(R2/rho(k), ni1d(k) + niten(k)*DT)
+         qi1d(k) = qi1d(k) + tendency_bank(k,4)*DT
+         ni1d(k) = MAX(R2/rho(k), ni1d(k) + tendency_bank(k,9)*DT)
          if (qi1d(k) .le. R1) then
            qi1d(k) = 0.0
            ni1d(k) = 0.0
@@ -5375,8 +5373,8 @@
            ni1d(k) = MIN(cig(1)*oig2*qi1d(k)/am_i*lami**bm_i,           &
                          999.D3/rho(k))
          endif
-         qr1d(k) = qr1d(k) + qrten(k)*DT
-         nr1d(k) = MAX(R2/rho(k), nr1d(k) + nrten(k)*DT)
+         qr1d(k) = qr1d(k) + tendency_bank(k,5)*DT
+         nr1d(k) = MAX(R2/rho(k), nr1d(k) + tendency_bank(k,10)*DT)
          if (qr1d(k) .le. R1) then
            qr1d(k) = 0.0
            nr1d(k) = 0.0
@@ -5391,16 +5389,16 @@
            lamr = (3.0 + mu_r + 0.672) / mvd_r(k)
            nr1d(k) = crg(2)*org3*qr1d(k)*lamr**bm_r / am_r
          endif
-         qs1d(k) = qs1d(k) + qsten(k)*DT
+         qs1d(k) = qs1d(k) + tendency_bank(k,6)*DT
          if (qs1d(k) .le. R1) qs1d(k) = 0.0
-         qg1d(k) = qg1d(k) + qgten(k)*DT
-         ng1d(k) = MAX(R2/rho(k), ng1d(k) + ngten(k)*DT)
+         qg1d(k) = qg1d(k) + tendency_bank(k,7)*DT
+         ng1d(k) = MAX(R2/rho(k), ng1d(k) + tendency_bank(k,12)*DT)
          if (qg1d(k) .le. R1) then
            qg1d(k) = 0.0
            ng1d(k) = 0.0
            qb1d(k) = 0.0
          else
-           qb1d(k) = MAX(qg1d(k)/rho_g(NRHG), qb1d(k) + qbten(k)*DT)
+           qb1d(k) = MAX(qg1d(k)/rho_g(NRHG), qb1d(k) + tendency_bank(k,8)*DT)
            qb1d(k) = MIN(qg1d(k)/rho_g(1), qb1d(k))
            idx_bg(k) = MAX(1,MIN(NINT(qg1d(k)/qb1d(k) *0.01)+1,NRHG))
            if (.not. is_hail_aware) idx_bg(k) = idx_bg1
