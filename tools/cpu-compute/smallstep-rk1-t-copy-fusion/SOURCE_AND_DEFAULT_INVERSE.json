@@ -1,0 +1,36 @@
+{
+  "status": "LOCAL_UNAPPLIED_DRAFT_PENDING_ACTUAL_APPLICATION_PASS_ROOT_REVIEW",
+  "canonical_original_path": "/home/ddietz/wrf/WRF/dyn_em/module_small_step_em.F",
+  "canonical_parent_sha256": "02355516086fa17a8bcc358042636308c9701fd9c38b2d53f9645802d41ec1d6",
+  "canonical_candidate_sha256": "2dcf3e5e89ebc0ea2b6cd6bcebd7587b6fc4f504e2c9fbafca085c4ee0caf89e",
+  "Makefile_original_path": "/home/ddietz/wrf/WRF/dyn_em/Makefile",
+  "Makefile_parent_sha256": "253fae4868254d1ff57d3f1759a9c1abcc22850d0b809bc0ebb04f04bed1df89",
+  "Makefile_candidate_sha256": "22bae1f810ad840de36f853f53dd99dbce63d10dd64b04f9b8ecf7c1da0c0c7e",
+  "source_full_inverse_exact": true,
+  "source_literal_edits": [
+    {
+      "old": "      DO j=j_start, j_end\n      DO k=k_start, k_end\n      DO i=i_start, i_end\n        t_1(i,k,j) = t_2(i,k,j)\n      ENDDO\n      ENDDO\n      ENDDO",
+      "new": "#ifndef WRF_SMALL_STEP_T_COPY_FUSION\n      DO j=j_start, j_end\n      DO k=k_start, k_end\n      DO i=i_start, i_end\n        t_1(i,k,j) = t_2(i,k,j)\n      ENDDO\n      ENDDO\n      ENDDO\n#endif"
+    },
+    {
+      "old": "    DO j=j_start, j_end\n    DO k=k_start, k_end\n    !$omp simd\n    DO i=i_start, i_end\n      t_save(i,k,j) = t_2(i,k,j)\n      t_2(i,k,j) = (c1h(k)*muts(i,j)+c2h(k))*t_1(i,k,j)-(c1h(k)*mut(i,j)+c2h(k))*t_2(i,k,j)\n    ENDDO\n    ENDDO\n    ENDDO",
+      "new": "#ifdef WRF_SMALL_STEP_T_COPY_FUSION\n    DO j=j_start, j_end\n    DO k=k_start, k_end\n    IF (rk_step == 1) THEN\n    !$omp simd\n    DO i=i_start, i_end\n      t_1(i,k,j) = t_2(i,k,j)\n      t_save(i,k,j) = t_2(i,k,j)\n      t_2(i,k,j) = (c1h(k)*muts(i,j)+c2h(k))*t_1(i,k,j)-(c1h(k)*mut(i,j)+c2h(k))*t_2(i,k,j)\n    ENDDO\n    ELSE\n    !$omp simd\n    DO i=i_start, i_end\n      t_save(i,k,j) = t_2(i,k,j)\n      t_2(i,k,j) = (c1h(k)*muts(i,j)+c2h(k))*t_1(i,k,j)-(c1h(k)*mut(i,j)+c2h(k))*t_2(i,k,j)\n    ENDDO\n    ENDIF\n    ENDDO\n    ENDDO\n#else\n    DO j=j_start, j_end\n    DO k=k_start, k_end\n    !$omp simd\n    DO i=i_start, i_end\n      t_save(i,k,j) = t_2(i,k,j)\n      t_2(i,k,j) = (c1h(k)*muts(i,j)+c2h(k))*t_1(i,k,j)-(c1h(k)*mut(i,j)+c2h(k))*t_2(i,k,j)\n    ENDDO\n    ENDDO\n    ENDDO\n#endif"
+    }
+  ],
+  "make_inverse_exact": true,
+  "disabled_source_equals_current_parent_byteexact": true,
+  "enabled_procedure_equals_qualified_candidate_normalized_tokens": true,
+  "disabled_procedure_equals_nativeparent_normalized_tokens": true,
+  "normalization_scope": "Only whitespace and ordinarycomments removed, activeOMP directives and quotedstrings preserved; mechanicaltwo-guardprojection, not actualnewCPP/nativecompile proof. WRFPLUS conditional/unrelatedsource bytes unchanged.",
+  "qualified_PP_sha256": "9ad0002c2528f174aea69190e32afe96d166fdedadfdc46235108bcd824c9d2c",
+  "qualified_O2_object": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current7087-smallstep-rk1-t-copy-fusion-full-caller-gate-r2/work/O2-candidate/module_small_step_em.o",
+    "sha256": "bd2cdc05e753c1c56dea9e2a6cc900104a92a5a3439f30541e5cac726a36586c"
+  },
+  "native_gate_receipt_sha256": "1281bdf3f94e887d981c17c216ba66639e86e098a0bc986ca3e9952c78f6f83e",
+  "native_gate_closure_sha256": "8c016348fa45ef58d334155d3e7acad0bcbef667179d13eeb8e378afcb4ea2b5",
+  "timing_stdout_sha256": "5ce731fbb1224edd99bdf6b9f8aeeb2e9d73ab5607c61ab53074040bf13a9906",
+  "compiler_path": "GNU13.3 pureMPI OMPCPPempty with existingWRF_SMALL_STEP_SIMD=1+ZEN2=1; allothermakeconfigurations originalschedule unlessmanuallyforcedCPPmacro (unqualified)",
+  "new_compile_flags": "Only target-specificCPPdefinition, no newFCFLAGS/ISA/threadteams/globalCPPflags",
+  "default_qualification_pending": true
+}

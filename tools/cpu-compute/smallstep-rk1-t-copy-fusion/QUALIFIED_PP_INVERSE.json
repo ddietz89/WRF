@@ -1,0 +1,29 @@
+{
+  "status": "LOCAL_EXACT_TWO_HUNK_COMPLETION_AFTER_ACTUAL_PROVIDER_REFUSAL",
+  "whole_module_inverse_exact": true,
+  "parent_sha256": "5a8533523e59b7adecb763562fd6e81f9acfae3af7b488418e7426b99bac5c4f",
+  "candidate_sha256": "9ad0002c2528f174aea69190e32afe96d166fdedadfdc46235108bcd824c9d2c",
+  "forward_literal_edits": [
+    {
+      "old": "      DO j=j_start, j_end\n      DO k=k_start, k_end\n      DO i=i_start, i_end\n        t_1(i,k,j) = t_2(i,k,j)\n      ENDDO\n      ENDDO\n      ENDDO\n\n      DO j=j_start, j_end\n      DO k=k_start, min(kde,kte)\n      DO i=i_start, i_end\n        w_1(i,k,j)  = w_2(i,k,j)\n        ph_1(i,k,j) = ph_2(i,k,j)\n      ENDDO\n      ENDDO\n      ENDDO",
+      "new": "      DO j=j_start, j_end\n      DO k=k_start, min(kde,kte)\n      DO i=i_start, i_end\n        w_1(i,k,j)  = w_2(i,k,j)\n        ph_1(i,k,j) = ph_2(i,k,j)\n      ENDDO\n      ENDDO\n      ENDDO"
+    },
+    {
+      "old": "    DO j=j_start, j_end\n    DO k=k_start, k_end\n    !$omp simd\n    DO i=i_start, i_end\n      t_save(i,k,j) = t_2(i,k,j)\n      t_2(i,k,j) = (c1h(k)*muts(i,j)+c2h(k))*t_1(i,k,j)-(c1h(k)*mut(i,j)+c2h(k))*t_2(i,k,j)\n    ENDDO\n    ENDDO\n    ENDDO",
+      "new": "    DO j=j_start, j_end\n    DO k=k_start, k_end\n    IF (rk_step == 1) THEN\n    !$omp simd\n    DO i=i_start, i_end\n      t_1(i,k,j) = t_2(i,k,j)\n      t_save(i,k,j) = t_2(i,k,j)\n      t_2(i,k,j) = (c1h(k)*muts(i,j)+c2h(k))*t_1(i,k,j)-(c1h(k)*mut(i,j)+c2h(k))*t_2(i,k,j)\n    ENDDO\n    ELSE\n    !$omp simd\n    DO i=i_start, i_end\n      t_save(i,k,j) = t_2(i,k,j)\n      t_2(i,k,j) = (c1h(k)*muts(i,j)+c2h(k))*t_1(i,k,j)-(c1h(k)*mut(i,j)+c2h(k))*t_2(i,k,j)\n    ENDDO\n    ENDIF\n    ENDDO\n    ENDDO"
+    }
+  ],
+  "unchanged_fullmodule_outside_procedure": true,
+  "between_copy_and_consumer_no_T1_T2_reference_or_call": true,
+  "original_Tcopy_and_Tconsumer_exact_same_i_j_k_bounds": true,
+  "RK2_original_body_byteexact": true,
+  "new_arrays_locals_flags": 0,
+  "provider_author_claim": "Returned shape only/refuseddiff allegingmissingbytes; fullprocedurebyteswereactuallysupplied. No actualproviderimplementation adopted. Localcompletion explicitlyrootauthorized, no exportretry.",
+  "provider_review_adjudication": "CONDITIONAL source strategy, no concrete counterexample. Bounds/storeorder/RK2/readset/FP concerns covered by exactsource and pendingnativegate. Requirement copy mustremainnonSIMD contradicts requestedfusion; rawcopy bits/state remainnativeobligations.",
+  "actual_provider_refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current7087-direct-wrf-triage-r1/smallstep-rk1-t-copy-fusion-preparation-r1/actual-provider-r1/author/response.txt": "3ce6562383146e6f7e804f082d9e4c9a2f8d4e311b2981dc2229032fd3531f00",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current7087-direct-wrf-triage-r1/smallstep-rk1-t-copy-fusion-preparation-r1/actual-provider-r1/author/receipt.json": "a63dd40dfe6d323f4a8b4126fdf3f2c94ce4a6d4564ddd8f614c6aed926d2e8d",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current7087-direct-wrf-triage-r1/smallstep-rk1-t-copy-fusion-preparation-r1/actual-provider-r1/review/response.txt": "f113e0882aa28c4646624fcfbd91135c69c5dcc8a1c2f558ced6e2130f76468c",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current7087-direct-wrf-triage-r1/smallstep-rk1-t-copy-fusion-preparation-r1/actual-provider-r1/review/receipt.json": "ce868ffe0186c03cc156298f2995b9cf2284df53c3af61525876368d88628660"
+  }
+}

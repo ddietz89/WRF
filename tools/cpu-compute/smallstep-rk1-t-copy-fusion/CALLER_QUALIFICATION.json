@@ -1,0 +1,366 @@
+{
+  "status": "PASS_TWO_OPPOSITE_ORDER_FULLCALLER_PAIRS",
+  "scope": "Completeactualsmall_step_prep syntheticRK1 I188K33J19,2048calls;allrestore/checksoutsidepercallintegerintervals;RK2untimedcontrolonly;no whole-model claim",
+  "hosts": [
+    {
+      "host": "hpc02",
+      "status": "PASS_ONE_OPPOSITE_ORDER_FULLCALLER_PAIR",
+      "arms": [
+        {
+          "pair": 1,
+          "arm": "parent",
+          "unit": "wrf-cpu-current7087-prep-Tcopy-hpc02-p1-parent-r1",
+          "launch": {
+            "cacheclear": {
+              "boot_id": "18b76778-11f2-4b21-ac43-564778b71e3b",
+              "node": "hpc02",
+              "before_utc": "2026-10-23T03:05:14.723838+00:00",
+              "before_kib": {
+                "MemAvailable": 125038696,
+                "Cached": 1049376,
+                "Dirty": 324,
+                "Writeback": 0
+              },
+              "previous_own_arm_closed": true,
+              "fileserver_cache": "UNKNOWN_NOT_CLEARED",
+              "sync_rc": 0,
+              "drop3_rc": 0,
+              "drop3_stdout": "3\n",
+              "after_utc": "2026-10-23T03:05:15.057863+00:00",
+              "after_kib": {
+                "MemAvailable": 125464928,
+                "Cached": 192132,
+                "Dirty": 132,
+                "Writeback": 0
+              }
+            },
+            "launch_rc": 0,
+            "launch_stdout": "",
+            "launch_stderr": "Running as unit: wrf-cpu-current7087-prep-Tcopy-hpc02-p1-parent-r1.service; invocation ID: 7ac65356dba94579885cf9b9cee19b3d\n",
+            "initial_state": "RuntimeMaxUSec=30s\nMainPID=2091113\nControlGroup=/system.slice/wrf-cpu-current7087-prep-Tcopy-hpc02-p1-parent-r1.service\nAllowedCPUs=24\nMemoryMax=4294967296\nActiveState=active\nInvocationID=7ac65356dba94579885cf9b9cee19b3d\n"
+          },
+          "completed_state": {
+            "MainPID": "0",
+            "Result": "success",
+            "ExecMainStatus": "0",
+            "ActiveState": "active",
+            "SubState": "exited",
+            "InvocationID": "7ac65356dba94579885cf9b9cee19b3d"
+          },
+          "closure": {
+            "stop_rc": 0,
+            "state": {
+              "MainPID": "0",
+              "Result": "success",
+              "ExecMainStatus": "0",
+              "ControlGroup": "",
+              "ActiveState": "inactive",
+              "InvocationID": ""
+            },
+            "cgroup_procs": []
+          },
+          "closed_exact": true,
+          "receipt": {
+            "status": "PASS_FULLCALLER_2048_RAW_READONLY_IEEE",
+            "arm": "parent",
+            "host": "hpc02",
+            "invocation": "7ac65356dba94579885cf9b9cee19b3d",
+            "affinity": [
+              24
+            ],
+            "binary_sha256": "1706dd0d62e6ce35cdbd1476a338e487e52391167d7445ba94ce0805b3bce810",
+            "child_rc": 0,
+            "iterations": 2048,
+            "complete_calls": 2048,
+            "rk_stages": [
+              1
+            ],
+            "elapsed_ns": 1527138498,
+            "thread_cpu_ns": 1522381004,
+            "raw_sha256": "ee19daf632273d4861b94a46bfb32d9cb6cc2d2375cc12a714f121b32970445e",
+            "raw_bytes": 13807744,
+            "raw_path": "/pool/wrf-experiment/wrf-cpu/kernels/current7087-smallstep-rk1-t-copy-fusion-caller-build-r1/timing-r1/hpc02-p1-parent.work/output.raw",
+            "fp_state_stdout": "STATE5 34 1024 36 16292 1919",
+            "child_initial_cpu_allowed": "24",
+            "scope": "SyntheticcompleteRK1prep;percallrestore/checksoutsideinterval;RK2untimedcontrolonly"
+          }
+        },
+        {
+          "pair": 1,
+          "arm": "candidate",
+          "unit": "wrf-cpu-current7087-prep-Tcopy-hpc02-p1-candidate-r1",
+          "launch": {
+            "cacheclear": {
+              "boot_id": "18b76778-11f2-4b21-ac43-564778b71e3b",
+              "node": "hpc02",
+              "before_utc": "2026-10-23T03:05:26.741495+00:00",
+              "before_kib": {
+                "MemAvailable": 125254220,
+                "Cached": 390868,
+                "Dirty": 444,
+                "Writeback": 0
+              },
+              "previous_own_arm_closed": true,
+              "fileserver_cache": "UNKNOWN_NOT_CLEARED",
+              "sync_rc": 0,
+              "drop3_rc": 0,
+              "drop3_stdout": "3\n",
+              "after_utc": "2026-10-23T03:05:26.880214+00:00",
+              "after_kib": {
+                "MemAvailable": 125351888,
+                "Cached": 193260,
+                "Dirty": 0,
+                "Writeback": 0
+              }
+            },
+            "launch_rc": 0,
+            "launch_stdout": "",
+            "launch_stderr": "Running as unit: wrf-cpu-current7087-prep-Tcopy-hpc02-p1-candidate-r1.service; invocation ID: c3068446310945caa48c9994644c6068\n",
+            "initial_state": "RuntimeMaxUSec=30s\nMainPID=2092228\nControlGroup=/system.slice/wrf-cpu-current7087-prep-Tcopy-hpc02-p1-candidate-r1.service\nAllowedCPUs=24\nMemoryMax=4294967296\nActiveState=active\nInvocationID=c3068446310945caa48c9994644c6068\n"
+          },
+          "completed_state": {
+            "MainPID": "0",
+            "Result": "success",
+            "ExecMainStatus": "0",
+            "ActiveState": "active",
+            "SubState": "exited",
+            "InvocationID": "c3068446310945caa48c9994644c6068"
+          },
+          "closure": {
+            "stop_rc": 0,
+            "state": {
+              "MainPID": "0",
+              "Result": "success",
+              "ExecMainStatus": "0",
+              "ControlGroup": "",
+              "ActiveState": "inactive",
+              "InvocationID": ""
+            },
+            "cgroup_procs": []
+          },
+          "closed_exact": true,
+          "receipt": {
+            "status": "PASS_FULLCALLER_2048_RAW_READONLY_IEEE",
+            "arm": "candidate",
+            "host": "hpc02",
+            "invocation": "c3068446310945caa48c9994644c6068",
+            "affinity": [
+              24
+            ],
+            "binary_sha256": "4db10c0dcd0af81a9317ff8dc473288d98be07c2afc0493a5eddb51d06209741",
+            "child_rc": 0,
+            "iterations": 2048,
+            "complete_calls": 2048,
+            "rk_stages": [
+              1
+            ],
+            "elapsed_ns": 1402546521,
+            "thread_cpu_ns": 1398610567,
+            "raw_sha256": "ee19daf632273d4861b94a46bfb32d9cb6cc2d2375cc12a714f121b32970445e",
+            "raw_bytes": 13807744,
+            "raw_path": "/pool/wrf-experiment/wrf-cpu/kernels/current7087-smallstep-rk1-t-copy-fusion-caller-build-r1/timing-r1/hpc02-p1-candidate.work/output.raw",
+            "fp_state_stdout": "STATE5 34 1024 36 16292 1919",
+            "child_initial_cpu_allowed": "24",
+            "scope": "SyntheticcompleteRK1prep;percallrestore/checksoutsideinterval;RK2untimedcontrolonly"
+          }
+        }
+      ],
+      "comparisons": [
+        {
+          "pair": 1,
+          "order": [
+            "parent",
+            "candidate"
+          ],
+          "parent_ns": 1527138498,
+          "candidate_ns": 1402546521,
+          "reduction_percent": 8.158525056055526,
+          "parent_thread_cpu_ns": 1522381004,
+          "candidate_thread_cpu_ns": 1398610567,
+          "raw_sha256": "ee19daf632273d4861b94a46bfb32d9cb6cc2d2375cc12a714f121b32970445e",
+          "raw_bytes": 13807744
+        }
+      ]
+    },
+    {
+      "host": "hpc03",
+      "status": "PASS_ONE_OPPOSITE_ORDER_FULLCALLER_PAIR",
+      "arms": [
+        {
+          "pair": 1,
+          "arm": "candidate",
+          "unit": "wrf-cpu-current7087-prep-Tcopy-hpc03-p1-candidate-r1",
+          "launch": {
+            "cacheclear": {
+              "boot_id": "ad105fdb-2b6c-40b2-a1ba-6b9997e08d4c",
+              "node": "hpc03",
+              "before_utc": "2026-10-23T03:05:14.791243+00:00",
+              "before_kib": {
+                "MemAvailable": 122082432,
+                "Cached": 1053160,
+                "Dirty": 0,
+                "Writeback": 0
+              },
+              "previous_own_arm_closed": true,
+              "fileserver_cache": "UNKNOWN_NOT_CLEARED",
+              "sync_rc": 0,
+              "drop3_rc": 0,
+              "drop3_stdout": "3\n",
+              "after_utc": "2026-10-23T03:05:15.193685+00:00",
+              "after_kib": {
+                "MemAvailable": 122507636,
+                "Cached": 208328,
+                "Dirty": 0,
+                "Writeback": 0
+              }
+            },
+            "launch_rc": 0,
+            "launch_stdout": "",
+            "launch_stderr": "Running as unit: wrf-cpu-current7087-prep-Tcopy-hpc03-p1-candidate-r1.service; invocation ID: e68db914900a4d548314a9565e350496\n",
+            "initial_state": "RuntimeMaxUSec=30s\nMainPID=1937067\nControlGroup=/system.slice/wrf-cpu-current7087-prep-Tcopy-hpc03-p1-candidate-r1.service\nAllowedCPUs=24\nMemoryMax=4294967296\nActiveState=active\nInvocationID=e68db914900a4d548314a9565e350496\n"
+          },
+          "completed_state": {
+            "MainPID": "0",
+            "Result": "success",
+            "ExecMainStatus": "0",
+            "ActiveState": "active",
+            "SubState": "exited",
+            "InvocationID": "e68db914900a4d548314a9565e350496"
+          },
+          "closure": {
+            "stop_rc": 0,
+            "state": {
+              "MainPID": "0",
+              "Result": "success",
+              "ExecMainStatus": "0",
+              "ControlGroup": "",
+              "ActiveState": "inactive",
+              "InvocationID": ""
+            },
+            "cgroup_procs": []
+          },
+          "closed_exact": true,
+          "receipt": {
+            "status": "PASS_FULLCALLER_2048_RAW_READONLY_IEEE",
+            "arm": "candidate",
+            "host": "hpc03",
+            "invocation": "e68db914900a4d548314a9565e350496",
+            "affinity": [
+              24
+            ],
+            "binary_sha256": "4db10c0dcd0af81a9317ff8dc473288d98be07c2afc0493a5eddb51d06209741",
+            "child_rc": 0,
+            "iterations": 2048,
+            "complete_calls": 2048,
+            "rk_stages": [
+              1
+            ],
+            "elapsed_ns": 1398724287,
+            "thread_cpu_ns": 1392721104,
+            "raw_sha256": "ee19daf632273d4861b94a46bfb32d9cb6cc2d2375cc12a714f121b32970445e",
+            "raw_bytes": 13807744,
+            "raw_path": "/pool/wrf-experiment/wrf-cpu/kernels/current7087-smallstep-rk1-t-copy-fusion-caller-build-r1/timing-r1/hpc03-p1-candidate.work/output.raw",
+            "fp_state_stdout": "STATE5 34 1024 36 16292 1919",
+            "child_initial_cpu_allowed": "24",
+            "scope": "SyntheticcompleteRK1prep;percallrestore/checksoutsideinterval;RK2untimedcontrolonly"
+          }
+        },
+        {
+          "pair": 1,
+          "arm": "parent",
+          "unit": "wrf-cpu-current7087-prep-Tcopy-hpc03-p1-parent-r1",
+          "launch": {
+            "cacheclear": {
+              "boot_id": "ad105fdb-2b6c-40b2-a1ba-6b9997e08d4c",
+              "node": "hpc03",
+              "before_utc": "2026-10-23T03:05:26.646650+00:00",
+              "before_kib": {
+                "MemAvailable": 122312904,
+                "Cached": 405504,
+                "Dirty": 760,
+                "Writeback": 0
+              },
+              "previous_own_arm_closed": true,
+              "fileserver_cache": "UNKNOWN_NOT_CLEARED",
+              "sync_rc": 0,
+              "drop3_rc": 0,
+              "drop3_stdout": "3\n",
+              "after_utc": "2026-10-23T03:05:26.799085+00:00",
+              "after_kib": {
+                "MemAvailable": 122394736,
+                "Cached": 208348,
+                "Dirty": 128,
+                "Writeback": 0
+              }
+            },
+            "launch_rc": 0,
+            "launch_stdout": "",
+            "launch_stderr": "Running as unit: wrf-cpu-current7087-prep-Tcopy-hpc03-p1-parent-r1.service; invocation ID: 50ded512685a4c3f84483e7694c61426\n",
+            "initial_state": "RuntimeMaxUSec=30s\nMainPID=1938125\nControlGroup=/system.slice/wrf-cpu-current7087-prep-Tcopy-hpc03-p1-parent-r1.service\nAllowedCPUs=24\nMemoryMax=4294967296\nActiveState=active\nInvocationID=50ded512685a4c3f84483e7694c61426\n"
+          },
+          "completed_state": {
+            "MainPID": "0",
+            "Result": "success",
+            "ExecMainStatus": "0",
+            "ActiveState": "active",
+            "SubState": "exited",
+            "InvocationID": "50ded512685a4c3f84483e7694c61426"
+          },
+          "closure": {
+            "stop_rc": 0,
+            "state": {
+              "MainPID": "0",
+              "Result": "success",
+              "ExecMainStatus": "0",
+              "ControlGroup": "",
+              "ActiveState": "inactive",
+              "InvocationID": ""
+            },
+            "cgroup_procs": []
+          },
+          "closed_exact": true,
+          "receipt": {
+            "status": "PASS_FULLCALLER_2048_RAW_READONLY_IEEE",
+            "arm": "parent",
+            "host": "hpc03",
+            "invocation": "50ded512685a4c3f84483e7694c61426",
+            "affinity": [
+              24
+            ],
+            "binary_sha256": "1706dd0d62e6ce35cdbd1476a338e487e52391167d7445ba94ce0805b3bce810",
+            "child_rc": 0,
+            "iterations": 2048,
+            "complete_calls": 2048,
+            "rk_stages": [
+              1
+            ],
+            "elapsed_ns": 1530642180,
+            "thread_cpu_ns": 1524343536,
+            "raw_sha256": "ee19daf632273d4861b94a46bfb32d9cb6cc2d2375cc12a714f121b32970445e",
+            "raw_bytes": 13807744,
+            "raw_path": "/pool/wrf-experiment/wrf-cpu/kernels/current7087-smallstep-rk1-t-copy-fusion-caller-build-r1/timing-r1/hpc03-p1-parent.work/output.raw",
+            "fp_state_stdout": "STATE5 34 1024 36 16292 1919",
+            "child_initial_cpu_allowed": "24",
+            "scope": "SyntheticcompleteRK1prep;percallrestore/checksoutsideinterval;RK2untimedcontrolonly"
+          }
+        }
+      ],
+      "comparisons": [
+        {
+          "pair": 1,
+          "order": [
+            "candidate",
+            "parent"
+          ],
+          "parent_ns": 1530642180,
+          "candidate_ns": 1398724287,
+          "reduction_percent": 8.618467119467464,
+          "parent_thread_cpu_ns": 1524343536,
+          "candidate_thread_cpu_ns": 1392721104,
+          "raw_sha256": "ee19daf632273d4861b94a46bfb32d9cb6cc2d2375cc12a714f121b32970445e",
+          "raw_bytes": 13807744
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "status": "PASS_BOUNDED_ACTUAL_T_COPY_ELISION_AND_PACKED_CONSUMER",
+  "actual_asm_refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current7087-direct-wrf-triage-r1/smallstep-rk1-t-copy-fusion-preparation-r1/actual-native-r2/asm-evidence/parent.asm": "180de3b15f84ead3f68f070c856221edc951836e80a9863d25be2c5f7ef15ecb",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current7087-direct-wrf-triage-r1/smallstep-rk1-t-copy-fusion-preparation-r1/actual-native-r2/asm-evidence/candidate.asm": "8f739c27e4e104fc5ad06634c125a2ba3d22234541e96f8c288193675a1c379b",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current7087-direct-wrf-triage-r1/smallstep-rk1-t-copy-fusion-preparation-r1/actual-native-r2/asm-evidence/COLLECTION.json": "10782a8cfaeb5d53c55b2b8fa6f1ab9ddacc127aec0bc39700e15bf4db3c8609"
+  },
+  "native_gate_invocation": "a26fe6ab0a7143da8bf9f2a504a252b4",
+  "parent_T_copy": "parentPP180 standalone memcpyCALLf4a5 relocatedsymbol24ba; sourceexactcopyblock removed",
+  "memcpy_relocations_in_full_prep": {
+    "parent": 9,
+    "candidate": 8
+  },
+  "RK1_packed_T_body": [
+    {
+      "PP_line": 283,
+      "instruction": "    ef40:\tc4 c1 54 59 44 05 00 \tvmulps 0x0(%r13,%rax,1),%ymm5,%ymm0"
+    },
+    {
+      "PP_line": 283,
+      "instruction": "    ef47:\tc5 d4 59 0c 03       \tvmulps (%rbx,%rax,1),%ymm5,%ymm1"
+    },
+    {
+      "PP_line": 281,
+      "instruction": "    ef4c:\tc5 fc 10 3c 01       \tvmovups (%rcx,%rax,1),%ymm7"
+    },
+    {
+      "PP_line": 281,
+      "instruction": "    ef51:\tc4 c1 7c 11 3c 06    \tvmovups %ymm7,(%r14,%rax,1)"
+    },
+    {
+      "PP_line": 282,
+      "instruction": "    ef57:\tc4 c1 7c 11 3c 03    \tvmovups %ymm7,(%r11,%rax,1)"
+    },
+    {
+      "PP_line": 283,
+      "instruction": "    ef5d:\tc5 fc 58 c4          \tvaddps %ymm4,%ymm0,%ymm0"
+    },
+    {
+      "PP_line": 283,
+      "instruction": "    ef61:\tc5 f4 58 cc          \tvaddps %ymm4,%ymm1,%ymm1"
+    },
+    {
+      "PP_line": 283,
+      "instruction": "    ef65:\tc5 fc 59 c7          \tvmulps %ymm7,%ymm0,%ymm0"
+    },
+    {
+      "PP_line": 283,
+      "instruction": "    ef69:\tc5 f4 59 cf          \tvmulps %ymm7,%ymm1,%ymm1"
+    },
+    {
+      "PP_line": 283,
+      "instruction": "    ef6d:\tc5 fc 5c c1          \tvsubps %ymm1,%ymm0,%ymm0"
+    },
+    {
+      "PP_line": 283,
+      "instruction": "    ef71:\tc5 fc 11 04 01       \tvmovups %ymm0,(%rcx,%rax,1)"
+    },
+    {
+      "PP_line": 281,
+      "instruction": "    efef:\tc4 c1 78 10 27       \tvmovups (%r15),%xmm4"
+    },
+    {
+      "PP_line": 281,
+      "instruction": "    eff4:\tc4 81 78 11 24 19    \tvmovups %xmm4,(%r9,%r11,1)"
+    },
+    {
+      "PP_line": 282,
+      "instruction": "    f001:\tc4 81 78 11 24 19    \tvmovups %xmm4,(%r9,%r11,1)"
+    },
+    {
+      "PP_line": 283,
+      "instruction": "    f00b:\tc4 c1 78 59 0c 8b    \tvmulps (%r11,%rcx,4),%xmm0,%xmm1"
+    },
+    {
+      "PP_line": 283,
+      "instruction": "    f015:\tc4 c1 78 59 04 8b    \tvmulps (%r11,%rcx,4),%xmm0,%xmm0"
+    },
+    {
+      "PP_line": 283,
+      "instruction": "    f01b:\tc5 f0 58 cd          \tvaddps %xmm5,%xmm1,%xmm1"
+    },
+    {
+      "PP_line": 283,
+      "instruction": "    f01f:\tc5 f0 59 cc          \tvmulps %xmm4,%xmm1,%xmm1"
+    },
+    {
+      "PP_line": 283,
+      "instruction": "    f023:\tc5 f8 58 c5          \tvaddps %xmm5,%xmm0,%xmm0"
+    },
+    {
+      "PP_line": 283,
+      "instruction": "    f027:\tc5 f8 59 c4          \tvmulps %xmm4,%xmm0,%xmm0"
+    },
+    {
+      "PP_line": 283,
+      "instruction": "    f02b:\tc5 f0 5c c0          \tvsubps %xmm0,%xmm1,%xmm0"
+    },
+    {
+      "PP_line": 283,
+      "instruction": "    f02f:\tc4 c1 78 11 07       \tvmovups %xmm0,(%r15)"
+    }
+  ],
+  "interpretation": "candidateef4c loadsoneYMMT2;ef51writesT1;ef57writesTsave;sameYMMfeedsbothliteralproducts,ef6dsubtract/ef71T2store. Bothmandatorycopies remain; separateTmemcpy/traversal gone, Tpacked8lanes preserved. NoFMA/sourcealgebra. Native56cases supply strictfullcallerraw/state proof; not universalNaN/trapordering certification.",
+  "timing_qualified": false
+}

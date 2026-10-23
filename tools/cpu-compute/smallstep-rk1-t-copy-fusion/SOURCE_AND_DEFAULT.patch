@@ -1,0 +1,79 @@
+--- a/dyn_em/module_small_step_em.F
++++ b/dyn_em/module_small_step_em.F
+@@ -152,6 +152,7 @@
+       ENDDO
+       ENDDO
+ 
++#ifndef WRF_SMALL_STEP_T_COPY_FUSION
+       DO j=j_start, j_end
+       DO k=k_start, k_end
+       DO i=i_start, i_end
+@@ -159,6 +160,7 @@
+       ENDDO
+       ENDDO
+       ENDDO
++#endif
+ 
+       DO j=j_start, j_end
+       DO k=k_start, min(kde,kte)
+@@ -259,6 +261,26 @@
+     ENDDO
+     ENDDO
+ 
++#ifdef WRF_SMALL_STEP_T_COPY_FUSION
++    DO j=j_start, j_end
++    DO k=k_start, k_end
++    IF (rk_step == 1) THEN
++    !$omp simd
++    DO i=i_start, i_end
++      t_1(i,k,j) = t_2(i,k,j)
++      t_save(i,k,j) = t_2(i,k,j)
++      t_2(i,k,j) = (c1h(k)*muts(i,j)+c2h(k))*t_1(i,k,j)-(c1h(k)*mut(i,j)+c2h(k))*t_2(i,k,j)
++    ENDDO
++    ELSE
++    !$omp simd
++    DO i=i_start, i_end
++      t_save(i,k,j) = t_2(i,k,j)
++      t_2(i,k,j) = (c1h(k)*muts(i,j)+c2h(k))*t_1(i,k,j)-(c1h(k)*mut(i,j)+c2h(k))*t_2(i,k,j)
++    ENDDO
++    ENDIF
++    ENDDO
++    ENDDO
++#else
+     DO j=j_start, j_end
+     DO k=k_start, k_end
+     !$omp simd
+@@ -268,6 +290,7 @@
+     ENDDO
+     ENDDO
+     ENDDO
++#endif
+ 
+     DO j=j_start, j_end
+ !    DO k=k_start, min(kde,kte)
+--- a/dyn_em/Makefile
++++ b/dyn_em/Makefile
+@@ -119,6 +119,23 @@
+ endif
+ endif
+ 
++# Exact RK1 T snapshot/coupling fusion: qualified GNU13.3 pure-MPI SmallStep path.
++# Use WRF_SMALL_STEP_T_COPY_FUSION=0 and rebuild for the original copy schedule.
++WRF_SMALL_STEP_T_COPY_FUSION ?= 1
++ifeq ($(WRF_SMALL_STEP_T_COPY_FUSION),1)
++ifeq ($(WRF_SMALL_STEP_SIMD),1)
++ifeq ($(WRF_SMALL_STEP_ZEN2),1)
++ifeq ($(strip $(OMPCPP)),)
++ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
++ifneq (,$(findstring 13.3.0,$(shell $(SFC) --version 2>/dev/null)))
++module_small_step_em.o: private override CPPFLAGS += -DWRF_SMALL_STEP_T_COPY_FUSION
++endif
++endif
++endif
++endif
++endif
++endif
++
+ cio.o :
+ 	$(CC) -c $(CFLAGS) cio.c
+ 
