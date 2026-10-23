@@ -921,6 +921,9 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
 !    since we want tendency to fit ADT eqn 44 (coupled) we need to
 !    multiply by (mx/my):
      DO k = k_start, k_end
+#ifdef WRF_SMALL_STEP_U_NH_CORRECTION_SIMD
+!$OMP SIMD
+#endif
        DO i = i_start_up, i_end_up
          dpxy(i,k)=dpxy(i,k) + (qrow(i))*rdx*(php(i,k,j)-php(i-1,k,j))*        &
            (rdnw(k)*(dpn(i,k+1)-dpn(i,k))-.5*((c1h(k)*mu(i-1,j))+(c1h(k)*mu(i,j))))

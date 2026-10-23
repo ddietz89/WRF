@@ -151,6 +151,22 @@ endif
 endif
 endif
 endif
+# U nonhydrostatic pressure correction SIMD: qualified GNU13.3 SmallStep path.
+# Use WRF_SMALL_STEP_U_NH_CORRECTION_SIMD=0 and rebuild to omit this directive.
+WRF_SMALL_STEP_U_NH_CORRECTION_SIMD ?= 1
+ifeq ($(WRF_SMALL_STEP_U_NH_CORRECTION_SIMD),1)
+ifeq ($(WRF_SMALL_STEP_SIMD),1)
+ifeq ($(WRF_SMALL_STEP_ZEN2),1)
+ifeq ($(strip $(OMPCPP)),)
+ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+ifneq (,$(findstring 13.3.0,$(shell $(SFC) --version 2>/dev/null)))
+module_small_step_em.o: private override CPPFLAGS += -DWRF_SMALL_STEP_U_NH_CORRECTION_SIMD
+endif
+endif
+endif
+endif
+endif
+endif
 
 cio.o :
 	$(CC) -c $(CFLAGS) cio.c
