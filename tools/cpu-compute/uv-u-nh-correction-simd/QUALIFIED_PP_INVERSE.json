@@ -1,0 +1,11 @@
+{
+  "only_one_directive_inverse_exact": true,
+  "parent_sha256": "7ecc8883272cbd28cdf1c683f15a8c04f78e313aed66a60105651a0dc96abcc3",
+  "candidate_sha256": "91c2b544e0edd9c07b385b8d0965292e6003c5cec9772af806c1b9078633784f",
+  "old_anchor": "     DO k = k_start, k_end\n       DO i = i_start_up, i_end_up\n         dpxy(i,k)=dpxy(i,k) + (qrow(i))*rdx*(php(i,k,j)-php(i-1,k,j))*        &\n           (rdnw(k)*(dpn(i,k+1)-dpn(i,k))-.5*((c1h(k)*mu(i-1,j))+(c1h(k)*mu(i,j))))\n",
+  "new_anchor": "     DO k = k_start, k_end\n!$OMP SIMD\n       DO i = i_start_up, i_end_up\n         dpxy(i,k)=dpxy(i,k) + (qrow(i))*rdx*(php(i,k,j)-php(i-1,k,j))*        &\n           (rdnw(k)*(dpn(i,k+1)-dpn(i,k))-.5*((c1h(k)*mu(i-1,j))+(c1h(k)*mu(i,j))))\n",
+  "outside_advance_uv_source_exact": true,
+  "provenance": "Actual DeepSeek exactonepragma proposal; malformed/non-applicable hunk line coordinates reconciled only against unique complete qualifiedPP body, no algorithm repair.",
+  "actual_author_response_sha256": "fc0313cfa44a16af4b0236016ad439bb9c095ff088d1c376ecaa3560e6946d4a",
+  "actual_review_response_sha256": "7130cd84be6df98823fd64baeadc9f587cdc360e3afa02555ffd03f1b196ad49"
+}

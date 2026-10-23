@@ -1,0 +1,6533 @@
+{
+  "status": "PASS_CURRENT13FE_FULL_UV_ONE_U_NH_CORRECTION_SIMD_17_FINITE_6_WIDTHS_CAPTURE_6_V_12_DPN_12_U_8_CORRECTION_IEEE",
+  "invocation_id": "51f4653e218a48a687c8533520c71270",
+  "commands": [
+    {
+      "label": "compile-state",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/region_observer.c",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/state.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "generate-original17-finite",
+      "argv": [
+        "/pool/wrf-experiment/tooling/m1/venv/bin/python",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/make_synthetic_packets.py",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "O0-parent",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-O0",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-fopenmp-simd",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-march=znver2",
+        "-mno-fma",
+        "-fcheck=bounds",
+        "-I.",
+        "-c",
+        "module_small_step_em.f90",
+        "-o",
+        "parent.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "O0-candidate",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-O0",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-fopenmp-simd",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-march=znver2",
+        "-mno-fma",
+        "-fcheck=bounds",
+        "-I.",
+        "-c",
+        "module_small_step_em.f90",
+        "-o",
+        "candidate.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "O0-candidate-symbols",
+      "argv": [
+        "/usr/bin/nm",
+        "--defined-only",
+        "candidate.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "c9e65702a0f79b15d7e39afcc29753b77d3e67ee3f9113b611a83f266056126f"
+    },
+    {
+      "label": "O0-harness-symbol-copy",
+      "argv": [
+        "/usr/bin/objcopy",
+        "--redefine-syms=harness-symbol-renames.txt",
+        "candidate.o",
+        "candidate-harness.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "O0-driver",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-O0",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-fopenmp-simd",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-march=znver2",
+        "-mno-fma",
+        "-fcheck=bounds",
+        "-I.",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/paired_kernel.f90",
+        "-o",
+        "driver.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "O0-link",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-O0",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-fopenmp-simd",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-march=znver2",
+        "-mno-fma",
+        "-fcheck=bounds",
+        "driver.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/parent.o",
+        "candidate-harness.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/state.o",
+        "-Wl,--start-group",
+        "/pool/wrf-experiment/wrf-cpu/builds/currentf272-smallstep-rk1-ph-copy-fusion-one-member-native-r1/libwrflib.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/hpg-nhx-isolated-avx2-consumer-native-r3/work/nhx-helper-O2.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/phy-height-private-avx2-fixed8-native-hpc04-r1/work/helper-O2.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-lesmf_time",
+        "/pool/wrf-experiment/wrf-cpu/builds/rsl-narrow-integer-copy-r1/librsl_lite.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2",
+        "-lwrfio_nf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-lnetcdf",
+        "-Wl,--end-group",
+        "-lm",
+        "-o",
+        "caller"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "O0-dpn_width1",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width1.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-dpn_width3",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width3.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-dpn_width4",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width4.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-dpn_width7",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width7.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-dpn_width8",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width8.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-dpn_width17",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-nonhydro",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/nonhydro.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-nonhydro_lid",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/nonhydro_lid.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-hydro",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/hydro.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-specified",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/specified.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-nested",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/nested.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-periodic_x",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/periodic_x.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-open_x",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/open_x.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-symmetric_x",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/symmetric_x.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-open_y",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/open_y.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-symmetric_y",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/symmetric_y.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-polar",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/polar.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-empty_i",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/empty_i.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-empty_j",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/empty_j.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-empty_k_hydro",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/empty_k_hydro.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-empty_k_specified",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/empty_k_specified.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-benchmark_nonhydro",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/benchmark_nonhydro.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-benchmark_hydro",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/benchmark_hydro.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-actual-IEEE0",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/runs/advance-uv-capture1min-16-hpc02-r1/native-uv-replay.bin",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-actual-IEEE1",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/runs/advance-uv-capture1min-16-hpc02-r1/native-uv-replay.bin",
+        "0",
+        "1"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-actual-IEEE2",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/runs/advance-uv-capture1min-16-hpc02-r1/native-uv-replay.bin",
+        "0",
+        "2"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-actual-IEEE3",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/runs/advance-uv-capture1min-16-hpc02-r1/native-uv-replay.bin",
+        "0",
+        "3"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-actual-IEEE4",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/runs/advance-uv-capture1min-16-hpc02-r1/native-uv-replay.bin",
+        "0",
+        "4"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-actual-IEEE5",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/runs/advance-uv-capture1min-16-hpc02-r1/native-uv-replay.bin",
+        "0",
+        "5"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-actual-IEEE6",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/runs/advance-uv-capture1min-16-hpc02-r1/native-uv-replay.bin",
+        "0",
+        "6"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-candidate-asm",
+      "argv": [
+        "/usr/bin/objdump",
+        "-dl",
+        "--disassemble=__module_small_step_em_MOD_advance_uv",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/candidate.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "1c8bb1780369f7044f74df3c42f4f10f3a43ba5e15b881129d5dc62ebd6a5e4f"
+    },
+    {
+      "label": "O0-DPn-IEEE7",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "7"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-DPn-IEEE8",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "8"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-DPn-IEEE9",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "9"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-DPn-IEEE10",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "10"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-DPn-IEEE11",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "11"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-DPn-IEEE12",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "12"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-DPn-IEEE13",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "13"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-DPn-IEEE14",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "14"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-DPn-IEEE15",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "15"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-DPn-IEEE16",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "16"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-DPn-IEEE17",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "17"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-DPn-IEEE18",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "18"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-finalU-IEEE19",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "19"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-finalU-IEEE20",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "20"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-finalU-IEEE21",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "21"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-finalU-IEEE22",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "22"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-finalU-IEEE23",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "23"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-finalU-IEEE24",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "24"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-finalU-IEEE25",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "25"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-finalU-IEEE26",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "26"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-finalU-IEEE27",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "27"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-finalU-IEEE28",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "28"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-finalU-IEEE29",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "29"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-finalU-IEEE30",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "30"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-Ucorrection-IEEE31",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "31"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-Ucorrection-IEEE32",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "32"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-Ucorrection-IEEE33",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "33"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-Ucorrection-IEEE34",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "34"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-Ucorrection-IEEE35",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "35"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-Ucorrection-IEEE36",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "36"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-Ucorrection-IEEE37",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "37"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O0-Ucorrection-IEEE38",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O0/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "38"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-parent",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-fopenmp-simd",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-march=znver2",
+        "-mno-fma",
+        "-I.",
+        "-c",
+        "module_small_step_em.f90",
+        "-o",
+        "parent.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "O2-candidate",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-fopenmp-simd",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-march=znver2",
+        "-mno-fma",
+        "-I.",
+        "-c",
+        "module_small_step_em.f90",
+        "-o",
+        "candidate.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "O2-candidate-symbols",
+      "argv": [
+        "/usr/bin/nm",
+        "--defined-only",
+        "candidate.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "330fdf78e628b3ae63da72b041ed64823769f6a703607610c73dd15a4de38eb6"
+    },
+    {
+      "label": "O2-harness-symbol-copy",
+      "argv": [
+        "/usr/bin/objcopy",
+        "--redefine-syms=harness-symbol-renames.txt",
+        "candidate.o",
+        "candidate-harness.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "O2-driver",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-fopenmp-simd",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-march=znver2",
+        "-mno-fma",
+        "-I.",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/paired_kernel.f90",
+        "-o",
+        "driver.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "O2-link",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-fopenmp-simd",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-march=znver2",
+        "-mno-fma",
+        "driver.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentf272-smallstep-rk1-ph-copy-fusion-full-caller-gate-r1/work/O2-candidate/module_small_step_em.o",
+        "candidate-harness.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/state.o",
+        "-Wl,--start-group",
+        "/pool/wrf-experiment/wrf-cpu/builds/currentf272-smallstep-rk1-ph-copy-fusion-one-member-native-r1/libwrflib.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/hpg-nhx-isolated-avx2-consumer-native-r3/work/nhx-helper-O2.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/phy-height-private-avx2-fixed8-native-hpc04-r1/work/helper-O2.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-lesmf_time",
+        "/pool/wrf-experiment/wrf-cpu/builds/rsl-narrow-integer-copy-r1/librsl_lite.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2",
+        "-lwrfio_nf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-lnetcdf",
+        "-Wl,--end-group",
+        "-lm",
+        "-o",
+        "caller"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "O2-dpn_width1",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width1.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-dpn_width3",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width3.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-dpn_width4",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width4.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-dpn_width7",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width7.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-dpn_width8",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width8.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-dpn_width17",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-nonhydro",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/nonhydro.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-nonhydro_lid",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/nonhydro_lid.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-hydro",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/hydro.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-specified",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/specified.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-nested",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/nested.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-periodic_x",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/periodic_x.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-open_x",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/open_x.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-symmetric_x",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/symmetric_x.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-open_y",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/open_y.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-symmetric_y",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/symmetric_y.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-polar",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/polar.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-empty_i",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/empty_i.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-empty_j",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/empty_j.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-empty_k_hydro",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/empty_k_hydro.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-empty_k_specified",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/empty_k_specified.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-benchmark_nonhydro",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/benchmark_nonhydro.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-benchmark_hydro",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/benchmark_hydro.uvk",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-actual-IEEE0",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/runs/advance-uv-capture1min-16-hpc02-r1/native-uv-replay.bin",
+        "0",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-actual-IEEE1",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/runs/advance-uv-capture1min-16-hpc02-r1/native-uv-replay.bin",
+        "0",
+        "1"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-actual-IEEE2",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/runs/advance-uv-capture1min-16-hpc02-r1/native-uv-replay.bin",
+        "0",
+        "2"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-actual-IEEE3",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/runs/advance-uv-capture1min-16-hpc02-r1/native-uv-replay.bin",
+        "0",
+        "3"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-actual-IEEE4",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/runs/advance-uv-capture1min-16-hpc02-r1/native-uv-replay.bin",
+        "0",
+        "4"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-actual-IEEE5",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/runs/advance-uv-capture1min-16-hpc02-r1/native-uv-replay.bin",
+        "0",
+        "5"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-actual-IEEE6",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/runs/advance-uv-capture1min-16-hpc02-r1/native-uv-replay.bin",
+        "0",
+        "6"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-candidate-asm",
+      "argv": [
+        "/usr/bin/objdump",
+        "-dl",
+        "--disassemble=__module_small_step_em_MOD_advance_uv",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/candidate.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "d995dd84f17de9fb7c76ac3a7001274b10f8913715528459bcb86ec09b743b20"
+    },
+    {
+      "label": "O2-DPn-IEEE7",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "7"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-DPn-IEEE8",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "8"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-DPn-IEEE9",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "9"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-DPn-IEEE10",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "10"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-DPn-IEEE11",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "11"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-DPn-IEEE12",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "12"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-DPn-IEEE13",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "13"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-DPn-IEEE14",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "14"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-DPn-IEEE15",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "15"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-DPn-IEEE16",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "16"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-DPn-IEEE17",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "17"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-DPn-IEEE18",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "18"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-finalU-IEEE19",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "19"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-finalU-IEEE20",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "20"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-finalU-IEEE21",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "21"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-finalU-IEEE22",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "22"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-finalU-IEEE23",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "23"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-finalU-IEEE24",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "24"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-finalU-IEEE25",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "25"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-finalU-IEEE26",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "26"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-finalU-IEEE27",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "27"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-finalU-IEEE28",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "28"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-finalU-IEEE29",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "29"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-finalU-IEEE30",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "30"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-Ucorrection-IEEE31",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "31"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-Ucorrection-IEEE32",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "32"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-Ucorrection-IEEE33",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "33"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-Ucorrection-IEEE34",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "34"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-Ucorrection-IEEE35",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "35"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-Ucorrection-IEEE36",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "36"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-Ucorrection-IEEE37",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "37"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    },
+    {
+      "label": "O2-Ucorrection-IEEE38",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/packets/dpn_width17.uvk",
+        "0",
+        "38"
+      ],
+      "returncode": 0,
+      "log_sha256": "4988014b7dc87a62b66cc03eed78c58bc210b4799f44f5b5b488ff1c25b1a7a9"
+    }
+  ],
+  "scope": "Current13fe completeadvance_uv oneU nonhydro dpxy correctionSIMD: historical808500wordcaller,original17finite6VIEEE,sixDPnwidths12DPnpressure/coefficientIEEEpatterns+12finalUinputIEEEpatterns; hardfullraw/readonly/32guards/5state. No timing/scienceclaim.",
+  "comparisons": [
+    {
+      "optimization": "O0",
+      "finite_cases": 23,
+      "actual_capture": true,
+      "original_V_ieee_cases": 6,
+      "target_DPn_ieee_cases": 12,
+      "target_final_U_ieee_cases": 12,
+      "target_correction_ieee_cases": 8,
+      "candidate_object_sha256": "8ea527698c4ce7646f94cec7b098b2f398746e571472052663f48b018a79036f"
+    },
+    {
+      "optimization": "O2",
+      "finite_cases": 23,
+      "actual_capture": true,
+      "original_V_ieee_cases": 6,
+      "target_DPn_ieee_cases": 12,
+      "target_final_U_ieee_cases": 12,
+      "target_correction_ieee_cases": 8,
+      "candidate_object_sha256": "7493fce18597de2acb7bcc65c01dbcb5ba131cdae4fa98b7c5dc9c8cbc8aa120"
+    }
+  ],
+  "fresh_parent_native_equivalence": {
+    "status": "PASS_ALLOCATED_BYTES_RELOCATIONS_NONFILE_SYMBOLS_EXACT",
+    "reference_sha256": "40c50ae7c41f5c29ccd5d9248b0f3148e2fea211e7d5519fbe7391e382cc24f0",
+    "rebuilt_sha256": "9b41d49fa642588231cbe2f73cba2655b5c879c2c1fa50e337ca55a9c469d584",
+    "comparison": {
+      "allocated_sections": {
+        ".text": {
+          "type": 1,
+          "flags": 6,
+          "size": 65002,
+          "align": 16,
+          "sha256": "b1d8fe963532ccef21ea07c47285bc3c41ed0c022c72936decc3f7fbe4895893"
+        },
+        ".data": {
+          "type": 1,
+          "flags": 3,
+          "size": 0,
+          "align": 1,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        ".bss": {
+          "type": 8,
+          "flags": 3,
+          "size": 0,
+          "align": 1,
+          "sha256": null
+        },
+        ".rodata.cst4": {
+          "type": 1,
+          "flags": 18,
+          "size": 16,
+          "align": 4,
+          "sha256": "a9f4886990bb8836aa41127f1496422cb57151f5e19f423610daa4a515e19d1a"
+        },
+        ".rodata.cst32": {
+          "type": 1,
+          "flags": 18,
+          "size": 64,
+          "align": 32,
+          "sha256": "a0b569e41fa925801a2a3caa4f462cfe861cc95cb354fd84289c13b85668b797"
+        },
+        ".rodata.cst16": {
+          "type": 1,
+          "flags": 18,
+          "size": 32,
+          "align": 16,
+          "sha256": "4cd9cbb1548bca014acce4b913886695660ace0736eea1cc077b7cc7fa5e70de"
+        },
+        ".eh_frame": {
+          "type": 1,
+          "flags": 2,
+          "size": 536,
+          "align": 8,
+          "sha256": "f46f2228f556972874e5c70979061d5d8af2799656b3ec27b3b656214d6b2e6d"
+        }
+      },
+      "allocated_relocations": {
+        ".text": [
+          [
+            2946,
+            4,
+            [
+              "memset",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            2959,
+            4,
+            [
+              "memset",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            2972,
+            4,
+            [
+              "memset",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            5349,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            5425,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            5440,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            5455,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            5470,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            5485,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            5533,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            5573,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            5867,
+            4,
+            [
+              "memset",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            7984,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32",
+              32,
+              0
+            ],
+            -4
+          ],
+          [
+            8091,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            8099,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32",
+              32,
+              0
+            ],
+            -4
+          ],
+          [
+            8325,
+            2,
+            [
+              ".LC2",
+              0,
+              0,
+              ".rodata.cst4",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            8752,
+            2,
+            [
+              ".LC5",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            9170,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            10920,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            11440,
+            2,
+            [
+              ".LC6",
+              0,
+              0,
+              ".rodata.cst4",
+              4,
+              0
+            ],
+            -4
+          ],
+          [
+            11448,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            11564,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32",
+              32,
+              0
+            ],
+            -4
+          ],
+          [
+            11929,
+            2,
+            [
+              ".LC7",
+              0,
+              0,
+              ".rodata.cst16",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            13106,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            13114,
+            2,
+            [
+              ".LC6",
+              0,
+              0,
+              ".rodata.cst4",
+              4,
+              0
+            ],
+            -4
+          ],
+          [
+            13140,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32",
+              32,
+              0
+            ],
+            -4
+          ],
+          [
+            13351,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            13370,
+            2,
+            [
+              ".LC6",
+              0,
+              0,
+              ".rodata.cst4",
+              4,
+              0
+            ],
+            -4
+          ],
+          [
+            14112,
+            4,
+            [
+              "free",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            14121,
+            4,
+            [
+              "free",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            14133,
+            4,
+            [
+              "free",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            14145,
+            4,
+            [
+              "free",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            14157,
+            4,
+            [
+              "free",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            14169,
+            4,
+            [
+              "free",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            14181,
+            4,
+            [
+              "free",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            14935,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            14982,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32",
+              32,
+              0
+            ],
+            -4
+          ],
+          [
+            14990,
+            2,
+            [
+              ".LC6",
+              0,
+              0,
+              ".rodata.cst4",
+              4,
+              0
+            ],
+            -4
+          ],
+          [
+            15035,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32",
+              32,
+              0
+            ],
+            -4
+          ],
+          [
+            15051,
+            2,
+            [
+              ".LC6",
+              0,
+              0,
+              ".rodata.cst4",
+              4,
+              0
+            ],
+            -4
+          ],
+          [
+            17701,
+            2,
+            [
+              ".LC6",
+              0,
+              0,
+              ".rodata.cst4",
+              4,
+              0
+            ],
+            -4
+          ],
+          [
+            17784,
+            2,
+            [
+              ".LC8",
+              0,
+              0,
+              ".rodata.cst4",
+              8,
+              0
+            ],
+            -4
+          ],
+          [
+            17800,
+            4,
+            [
+              "sinf",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            18070,
+            2,
+            [
+              ".LC9",
+              0,
+              0,
+              ".rodata.cst32",
+              32,
+              0
+            ],
+            -4
+          ],
+          [
+            18272,
+            2,
+            [
+              ".LC10",
+              0,
+              0,
+              ".rodata.cst32",
+              32,
+              0
+            ],
+            -4
+          ],
+          [
+            18354,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32",
+              32,
+              0
+            ],
+            -4
+          ],
+          [
+            18586,
+            2,
+            [
+              ".LC6",
+              0,
+              0,
+              ".rodata.cst4",
+              4,
+              0
+            ],
+            -4
+          ],
+          [
+            19650,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            19756,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            19835,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            21170,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            21314,
+            4,
+            [
+              "memset",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            21336,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            23729,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32",
+              32,
+              0
+            ],
+            -4
+          ],
+          [
+            23817,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32",
+              32,
+              0
+            ],
+            -4
+          ],
+          [
+            25183,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            26409,
+            4,
+            [
+              "free",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            26422,
+            4,
+            [
+              "free",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            27594,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            27662,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            27719,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            27740,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            28503,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32",
+              32,
+              0
+            ],
+            -4
+          ],
+          [
+            30215,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            30970,
+            2,
+            [
+              ".LC7",
+              0,
+              0,
+              ".rodata.cst16",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            32171,
+            2,
+            [
+              ".LC7",
+              0,
+              0,
+              ".rodata.cst16",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            32195,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            33021,
+            4,
+            [
+              "free",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            33034,
+            4,
+            [
+              "free",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            33047,
+            4,
+            [
+              "free",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            34049,
+            2,
+            [
+              ".LC3",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            34402,
+            2,
+            [
+              ".LC5",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            36288,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            36582,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            37056,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            39264,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            41210,
+            4,
+            [
+              "memset",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            41394,
+            4,
+            [
+              "memset",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            42285,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            42982,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            42994,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32",
+              32,
+              0
+            ],
+            -4
+          ],
+          [
+            43225,
+            2,
+            [
+              ".LC7",
+              0,
+              0,
+              ".rodata.cst16",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            43275,
+            4,
+            [
+              "memset",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            43531,
+            2,
+            [
+              ".LC7",
+              0,
+              0,
+              ".rodata.cst16",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            43643,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32",
+              32,
+              0
+            ],
+            -4
+          ],
+          [
+            44013,
+            2,
+            [
+              ".LC7",
+              0,
+              0,
+              ".rodata.cst16",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            44158,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32",
+              32,
+              0
+            ],
+            -4
+          ],
+          [
+            45359,
+            2,
+            [
+              ".LC7",
+              0,
+              0,
+              ".rodata.cst16",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            45367,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32",
+              32,
+              0
+            ],
+            -4
+          ],
+          [
+            45648,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32",
+              32,
+              0
+            ],
+            -4
+          ],
+          [
+            45675,
+            2,
+            [
+              ".LC14",
+              0,
+              0,
+              ".rodata.cst16",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            46255,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32",
+              32,
+              0
+            ],
+            -4
+          ],
+          [
+            46371,
+            2,
+            [
+              ".LC15",
+              0,
+              0,
+              ".rodata.cst16",
+              16,
+              0
+            ],
+            -4
+          ],
+          [
+            47073,
+            4,
+            [
+              "memcpy",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            53789,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            54170,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            54865,
+            2,
+            [
+              ".LC17",
+              0,
+              0,
+              ".rodata.cst4",
+              12,
+              0
+            ],
+            -4
+          ],
+          [
+            60854,
+            4,
+            [
+              "memcpy",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            62613,
+            4,
+            [
+              "memcpy",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            62680,
+            4,
+            [
+              "memset",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            63014,
+            4,
+            [
+              "memcpy",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            63414,
+            4,
+            [
+              "memcpy",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            63846,
+            4,
+            [
+              "memcpy",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            64205,
+            4,
+            [
+              "memcpy",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            64437,
+            4,
+            [
+              "memcpy",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            14216,
+            4,
+            [
+              "free",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            26449,
+            4,
+            [
+              "free",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            33074,
+            4,
+            [
+              "free",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ],
+          [
+            44465,
+            4,
+            [
+              "free",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ]
+        ],
+        ".eh_frame": [
+          [
+            32,
+            2,
+            [
+              "",
+              3,
+              0,
+              ".text",
+              0,
+              0
+            ],
+            0
+          ],
+          [
+            52,
+            2,
+            [
+              "",
+              3,
+              0,
+              ".text",
+              0,
+              0
+            ],
+            16
+          ],
+          [
+            132,
+            2,
+            [
+              "",
+              3,
+              0,
+              ".text",
+              0,
+              0
+            ],
+            4400
+          ],
+          [
+            208,
+            2,
+            [
+              "",
+              3,
+              0,
+              ".text",
+              0,
+              0
+            ],
+            18800
+          ],
+          [
+            256,
+            2,
+            [
+              "",
+              3,
+              0,
+              ".text",
+              0,
+              0
+            ],
+            26688
+          ],
+          [
+            304,
+            2,
+            [
+              "",
+              3,
+              0,
+              ".text",
+              0,
+              0
+            ],
+            41824
+          ],
+          [
+            384,
+            2,
+            [
+              "",
+              3,
+              0,
+              ".text",
+              0,
+              0
+            ],
+            44544
+          ],
+          [
+            440,
+            2,
+            [
+              "",
+              3,
+              0,
+              ".text",
+              0,
+              0
+            ],
+            48320
+          ],
+          [
+            488,
+            2,
+            [
+              "",
+              3,
+              0,
+              ".text",
+              0,
+              0
+            ],
+            53232
+          ]
+        ]
+      },
+      "symbols_except_STT_FILE": [
+        [
+          "",
+          0,
+          0,
+          "",
+          0,
+          0
+        ],
+        [
+          "",
+          3,
+          0,
+          ".debug_abbrev",
+          0,
+          0
+        ],
+        [
+          "",
+          3,
+          0,
+          ".debug_info",
+          0,
+          0
+        ],
+        [
+          "",
+          3,
+          0,
+          ".debug_line",
+          0,
+          0
+        ],
+        [
+          "",
+          3,
+          0,
+          ".debug_line_str",
+          0,
+          0
+        ],
+        [
+          "",
+          3,
+          0,
+          ".debug_loclists",
+          0,
+          0
+        ],
+        [
+          "",
+          3,
+          0,
+          ".debug_rnglists",
+          0,
+          0
+        ],
+        [
+          "",
+          3,
+          0,
+          ".debug_str",
+          0,
+          0
+        ],
+        [
+          "",
+          3,
+          0,
+          ".text",
+          0,
+          0
+        ],
+        [
+          ".LC1",
+          0,
+          0,
+          ".rodata.cst32",
+          32,
+          0
+        ],
+        [
+          ".LC10",
+          0,
+          0,
+          ".rodata.cst32",
+          32,
+          0
+        ],
+        [
+          ".LC14",
+          0,
+          0,
+          ".rodata.cst16",
+          0,
+          0
+        ],
+        [
+          ".LC15",
+          0,
+          0,
+          ".rodata.cst16",
+          16,
+          0
+        ],
+        [
+          ".LC17",
+          0,
+          0,
+          ".rodata.cst4",
+          12,
+          0
+        ],
+        [
+          ".LC2",
+          0,
+          0,
+          ".rodata.cst4",
+          0,
+          0
+        ],
+        [
+          ".LC3",
+          0,
+          0,
+          ".rodata.cst32",
+          0,
+          0
+        ],
+        [
+          ".LC4",
+          0,
+          0,
+          ".rodata.cst32",
+          0,
+          0
+        ],
+        [
+          ".LC5",
+          0,
+          0,
+          ".rodata.cst32",
+          0,
+          0
+        ],
+        [
+          ".LC6",
+          0,
+          0,
+          ".rodata.cst4",
+          4,
+          0
+        ],
+        [
+          ".LC7",
+          0,
+          0,
+          ".rodata.cst16",
+          0,
+          0
+        ],
+        [
+          ".LC8",
+          0,
+          0,
+          ".rodata.cst4",
+          8,
+          0
+        ],
+        [
+          ".LC9",
+          0,
+          0,
+          ".rodata.cst32",
+          32,
+          0
+        ],
+        [
+          "__module_small_step_em_MOD_advance_mu_t",
+          18,
+          0,
+          ".text",
+          18800,
+          7883
+        ],
+        [
+          "__module_small_step_em_MOD_advance_uv",
+          18,
+          0,
+          ".text",
+          26688,
+          15122
+        ],
+        [
+          "__module_small_step_em_MOD_advance_w",
+          18,
+          0,
+          ".text",
+          4400,
+          14392
+        ],
+        [
+          "__module_small_step_em_MOD_calc_coef_w",
+          18,
+          0,
+          ".text",
+          41824,
+          2717
+        ],
+        [
+          "__module_small_step_em_MOD_calc_p_rho",
+          18,
+          0,
+          ".text",
+          44544,
+          3764
+        ],
+        [
+          "__module_small_step_em_MOD_init_module_small_step",
+          18,
+          0,
+          ".text",
+          0,
+          1
+        ],
+        [
+          "__module_small_step_em_MOD_small_step_finish",
+          18,
+          0,
+          ".text",
+          48320,
+          4903
+        ],
+        [
+          "__module_small_step_em_MOD_small_step_prep",
+          18,
+          0,
+          ".text",
+          53232,
+          11770
+        ],
+        [
+          "__module_small_step_em_MOD_sumflux",
+          18,
+          0,
+          ".text",
+          16,
+          4377
+        ],
+        [
+          "free",
+          16,
+          0,
+          "",
+          0,
+          0
+        ],
+        [
+          "malloc",
+          16,
+          0,
+          "",
+          0,
+          0
+        ],
+        [
+          "memcpy",
+          16,
+          0,
+          "",
+          0,
+          0
+        ],
+        [
+          "memset",
+          16,
+          0,
+          "",
+          0,
+          0
+        ],
+        [
+          "sinf",
+          16,
+          0,
+          "",
+          0,
+          0
+        ]
+      ]
+    },
+    "excluded": "Only nonallocated sections (including debug paths), STT_FILE symbol. All allocated text/rodata/data/bss/unwind sections and their relocations exact."
+  },
+  "non_target_functions_and_constants": {
+    "status": "PASS_NON_TARGET_FUNCTION_BYTES_RELOCATION_ROLES_AND_RODATA_DATA_BSS_EXACT",
+    "target": "__module_small_step_em_MOD_advance_uv",
+    "non_target_functions": {
+      "__module_small_step_em_MOD_advance_mu_t": true,
+      "__module_small_step_em_MOD_advance_w": true,
+      "__module_small_step_em_MOD_calc_coef_w": true,
+      "__module_small_step_em_MOD_calc_p_rho": true,
+      "__module_small_step_em_MOD_init_module_small_step": true,
+      "__module_small_step_em_MOD_small_step_finish": true,
+      "__module_small_step_em_MOD_small_step_prep": true,
+      "__module_small_step_em_MOD_sumflux": true
+    },
+    "parent_function_inventory": {
+      "__module_small_step_em_MOD_advance_mu_t": {
+        "bytes": "6f3fcf07f7e7f7613f56e644e205254d4f083651f3fc93c8c41c314319ea0cf8",
+        "size": 7883,
+        "relocations": [
+          [
+            850,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            956,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            1035,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            2370,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            2514,
+            4,
+            [
+              "memset",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            2536,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            4929,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            5017,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            6383,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            7609,
+            4,
+            [
+              "free",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            7622,
+            4,
+            [
+              "free",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            7649,
+            4,
+            [
+              "free",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ]
+        ]
+      },
+      "__module_small_step_em_MOD_advance_uv": {
+        "bytes": "51bd3e2138f7bc2df3d273d31585cfafc9e8cefde538b90fc0b48baf67aa6f24",
+        "size": 15122,
+        "relocations": [
+          [
+            906,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            974,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            1031,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            1052,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            1815,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            3527,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            4282,
+            2,
+            [
+              ".LC7",
+              0,
+              0,
+              ".rodata.cst16"
+            ],
+            -4
+          ],
+          [
+            5483,
+            2,
+            [
+              ".LC7",
+              0,
+              0,
+              ".rodata.cst16"
+            ],
+            -4
+          ],
+          [
+            5507,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            6333,
+            4,
+            [
+              "free",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            6346,
+            4,
+            [
+              "free",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            6359,
+            4,
+            [
+              "free",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            7361,
+            2,
+            [
+              ".LC3",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            7714,
+            2,
+            [
+              ".LC5",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            9600,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            9894,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            10368,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            12576,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            14522,
+            4,
+            [
+              "memset",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            14706,
+            4,
+            [
+              "memset",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            6386,
+            4,
+            [
+              "free",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ]
+        ]
+      },
+      "__module_small_step_em_MOD_advance_w": {
+        "bytes": "8e8967cd74724d4456cdcaa11531a8b61a6fe8f383abb0b31872c06db1217996",
+        "size": 14392,
+        "relocations": [
+          [
+            949,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            1025,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            1040,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            1055,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            1070,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            1085,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            1133,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            1173,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            1467,
+            4,
+            [
+              "memset",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            3584,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            3691,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            3699,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            3925,
+            2,
+            [
+              ".LC2",
+              0,
+              0,
+              ".rodata.cst4"
+            ],
+            -4
+          ],
+          [
+            4352,
+            2,
+            [
+              ".LC5",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            4770,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            6520,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            7040,
+            2,
+            [
+              ".LC6",
+              0,
+              0,
+              ".rodata.cst4"
+            ],
+            -4
+          ],
+          [
+            7048,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            7164,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            7529,
+            2,
+            [
+              ".LC7",
+              0,
+              0,
+              ".rodata.cst16"
+            ],
+            -4
+          ],
+          [
+            8706,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            8714,
+            2,
+            [
+              ".LC6",
+              0,
+              0,
+              ".rodata.cst4"
+            ],
+            -4
+          ],
+          [
+            8740,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            8951,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            8970,
+            2,
+            [
+              ".LC6",
+              0,
+              0,
+              ".rodata.cst4"
+            ],
+            -4
+          ],
+          [
+            9712,
+            4,
+            [
+              "free",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            9721,
+            4,
+            [
+              "free",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            9733,
+            4,
+            [
+              "free",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            9745,
+            4,
+            [
+              "free",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            9757,
+            4,
+            [
+              "free",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            9769,
+            4,
+            [
+              "free",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            9781,
+            4,
+            [
+              "free",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            10535,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            10582,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            10590,
+            2,
+            [
+              ".LC6",
+              0,
+              0,
+              ".rodata.cst4"
+            ],
+            -4
+          ],
+          [
+            10635,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            10651,
+            2,
+            [
+              ".LC6",
+              0,
+              0,
+              ".rodata.cst4"
+            ],
+            -4
+          ],
+          [
+            13301,
+            2,
+            [
+              ".LC6",
+              0,
+              0,
+              ".rodata.cst4"
+            ],
+            -4
+          ],
+          [
+            13384,
+            2,
+            [
+              ".LC8",
+              0,
+              0,
+              ".rodata.cst4"
+            ],
+            -4
+          ],
+          [
+            13400,
+            4,
+            [
+              "sinf",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            13670,
+            2,
+            [
+              ".LC9",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            13872,
+            2,
+            [
+              ".LC10",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            13954,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            14186,
+            2,
+            [
+              ".LC6",
+              0,
+              0,
+              ".rodata.cst4"
+            ],
+            -4
+          ],
+          [
+            9816,
+            4,
+            [
+              "free",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ]
+        ]
+      },
+      "__module_small_step_em_MOD_calc_coef_w": {
+        "bytes": "c0a796dd45ff0e72509ee9b9ed2b5ab9659a14b4773803ebc26136b304b5ed8e",
+        "size": 2717,
+        "relocations": [
+          [
+            461,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            1158,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            1170,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            1401,
+            2,
+            [
+              ".LC7",
+              0,
+              0,
+              ".rodata.cst16"
+            ],
+            -4
+          ],
+          [
+            1451,
+            4,
+            [
+              "memset",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            1707,
+            2,
+            [
+              ".LC7",
+              0,
+              0,
+              ".rodata.cst16"
+            ],
+            -4
+          ],
+          [
+            1819,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            2189,
+            2,
+            [
+              ".LC7",
+              0,
+              0,
+              ".rodata.cst16"
+            ],
+            -4
+          ],
+          [
+            2334,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            2641,
+            4,
+            [
+              "free",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ]
+        ]
+      },
+      "__module_small_step_em_MOD_calc_p_rho": {
+        "bytes": "defe1a59264ab734ead5c645158d63be4fde08c3580e0c2df72a17d6d003462d",
+        "size": 3764,
+        "relocations": [
+          [
+            815,
+            2,
+            [
+              ".LC7",
+              0,
+              0,
+              ".rodata.cst16"
+            ],
+            -4
+          ],
+          [
+            823,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            1104,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            1131,
+            2,
+            [
+              ".LC14",
+              0,
+              0,
+              ".rodata.cst16"
+            ],
+            -4
+          ],
+          [
+            1711,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            1827,
+            2,
+            [
+              ".LC15",
+              0,
+              0,
+              ".rodata.cst16"
+            ],
+            -4
+          ],
+          [
+            2529,
+            4,
+            [
+              "memcpy",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ]
+        ]
+      },
+      "__module_small_step_em_MOD_init_module_small_step": {
+        "bytes": "ae3f4619b0413d70d3004b9131c3752153074e45725be13b9a148978895e359e",
+        "size": 1,
+        "relocations": []
+      },
+      "__module_small_step_em_MOD_small_step_finish": {
+        "bytes": "7744dcef6414f0e9125dda8364c7269192e3d216788020008cbabf8e6d447c63",
+        "size": 4903,
+        "relocations": []
+      },
+      "__module_small_step_em_MOD_small_step_prep": {
+        "bytes": "928f43198c9d79761d65b582f3e2ea91a6f229b7626eac9361ee88d56cc1c776",
+        "size": 11770,
+        "relocations": [
+          [
+            557,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            938,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            1633,
+            2,
+            [
+              ".LC17",
+              0,
+              0,
+              ".rodata.cst4"
+            ],
+            -4
+          ],
+          [
+            7622,
+            4,
+            [
+              "memcpy",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            9381,
+            4,
+            [
+              "memcpy",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            9448,
+            4,
+            [
+              "memset",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            9782,
+            4,
+            [
+              "memcpy",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            10182,
+            4,
+            [
+              "memcpy",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            10614,
+            4,
+            [
+              "memcpy",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            10973,
+            4,
+            [
+              "memcpy",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            11205,
+            4,
+            [
+              "memcpy",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ]
+        ]
+      },
+      "__module_small_step_em_MOD_sumflux": {
+        "bytes": "379e04a32cd16a86f5fd8a6bb342a1080cf6478b2884eb349cfd4b72fa3c6eff",
+        "size": 4377,
+        "relocations": [
+          [
+            2930,
+            4,
+            [
+              "memset",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            2943,
+            4,
+            [
+              "memset",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            2956,
+            4,
+            [
+              "memset",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ]
+        ]
+      }
+    },
+    "candidate_function_inventory": {
+      "__module_small_step_em_MOD_advance_mu_t": {
+        "bytes": "6f3fcf07f7e7f7613f56e644e205254d4f083651f3fc93c8c41c314319ea0cf8",
+        "size": 7883,
+        "relocations": [
+          [
+            850,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            956,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            1035,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            2370,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            2514,
+            4,
+            [
+              "memset",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            2536,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            4929,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            5017,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            6383,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            7609,
+            4,
+            [
+              "free",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            7622,
+            4,
+            [
+              "free",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            7649,
+            4,
+            [
+              "free",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ]
+        ]
+      },
+      "__module_small_step_em_MOD_advance_uv": {
+        "bytes": "3264e08adb739f33d953015c356fbb56e7324dfb90a2686d08c9b814a916e3bd",
+        "size": 15812,
+        "relocations": [
+          [
+            913,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            984,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            1041,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            1062,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            1792,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            3881,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            4426,
+            2,
+            [
+              ".LC7",
+              0,
+              0,
+              ".rodata.cst16"
+            ],
+            -4
+          ],
+          [
+            5584,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            5655,
+            2,
+            [
+              ".LC7",
+              0,
+              0,
+              ".rodata.cst16"
+            ],
+            -4
+          ],
+          [
+            6385,
+            4,
+            [
+              "free",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            6398,
+            4,
+            [
+              "free",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            6411,
+            4,
+            [
+              "free",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            7391,
+            2,
+            [
+              ".LC3",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            7733,
+            2,
+            [
+              ".LC5",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            9584,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            9878,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            10352,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            11717,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            11726,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            13265,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            15212,
+            4,
+            [
+              "memset",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            15396,
+            4,
+            [
+              "memset",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            6438,
+            4,
+            [
+              "free",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ]
+        ]
+      },
+      "__module_small_step_em_MOD_advance_w": {
+        "bytes": "8e8967cd74724d4456cdcaa11531a8b61a6fe8f383abb0b31872c06db1217996",
+        "size": 14392,
+        "relocations": [
+          [
+            949,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            1025,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            1040,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            1055,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            1070,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            1085,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            1133,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            1173,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            1467,
+            4,
+            [
+              "memset",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            3584,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            3691,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            3699,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            3925,
+            2,
+            [
+              ".LC2",
+              0,
+              0,
+              ".rodata.cst4"
+            ],
+            -4
+          ],
+          [
+            4352,
+            2,
+            [
+              ".LC5",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            4770,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            6520,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            7040,
+            2,
+            [
+              ".LC6",
+              0,
+              0,
+              ".rodata.cst4"
+            ],
+            -4
+          ],
+          [
+            7048,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            7164,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            7529,
+            2,
+            [
+              ".LC7",
+              0,
+              0,
+              ".rodata.cst16"
+            ],
+            -4
+          ],
+          [
+            8706,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            8714,
+            2,
+            [
+              ".LC6",
+              0,
+              0,
+              ".rodata.cst4"
+            ],
+            -4
+          ],
+          [
+            8740,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            8951,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            8970,
+            2,
+            [
+              ".LC6",
+              0,
+              0,
+              ".rodata.cst4"
+            ],
+            -4
+          ],
+          [
+            9712,
+            4,
+            [
+              "free",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            9721,
+            4,
+            [
+              "free",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            9733,
+            4,
+            [
+              "free",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            9745,
+            4,
+            [
+              "free",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            9757,
+            4,
+            [
+              "free",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            9769,
+            4,
+            [
+              "free",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            9781,
+            4,
+            [
+              "free",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            10535,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            10582,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            10590,
+            2,
+            [
+              ".LC6",
+              0,
+              0,
+              ".rodata.cst4"
+            ],
+            -4
+          ],
+          [
+            10635,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            10651,
+            2,
+            [
+              ".LC6",
+              0,
+              0,
+              ".rodata.cst4"
+            ],
+            -4
+          ],
+          [
+            13301,
+            2,
+            [
+              ".LC6",
+              0,
+              0,
+              ".rodata.cst4"
+            ],
+            -4
+          ],
+          [
+            13384,
+            2,
+            [
+              ".LC8",
+              0,
+              0,
+              ".rodata.cst4"
+            ],
+            -4
+          ],
+          [
+            13400,
+            4,
+            [
+              "sinf",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            13670,
+            2,
+            [
+              ".LC9",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            13872,
+            2,
+            [
+              ".LC10",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            13954,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            14186,
+            2,
+            [
+              ".LC6",
+              0,
+              0,
+              ".rodata.cst4"
+            ],
+            -4
+          ],
+          [
+            9816,
+            4,
+            [
+              "free",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ]
+        ]
+      },
+      "__module_small_step_em_MOD_calc_coef_w": {
+        "bytes": "c0a796dd45ff0e72509ee9b9ed2b5ab9659a14b4773803ebc26136b304b5ed8e",
+        "size": 2717,
+        "relocations": [
+          [
+            461,
+            4,
+            [
+              "malloc",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            1158,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            1170,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            1401,
+            2,
+            [
+              ".LC7",
+              0,
+              0,
+              ".rodata.cst16"
+            ],
+            -4
+          ],
+          [
+            1451,
+            4,
+            [
+              "memset",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            1707,
+            2,
+            [
+              ".LC7",
+              0,
+              0,
+              ".rodata.cst16"
+            ],
+            -4
+          ],
+          [
+            1819,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            2189,
+            2,
+            [
+              ".LC7",
+              0,
+              0,
+              ".rodata.cst16"
+            ],
+            -4
+          ],
+          [
+            2334,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            2641,
+            4,
+            [
+              "free",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ]
+        ]
+      },
+      "__module_small_step_em_MOD_calc_p_rho": {
+        "bytes": "defe1a59264ab734ead5c645158d63be4fde08c3580e0c2df72a17d6d003462d",
+        "size": 3764,
+        "relocations": [
+          [
+            815,
+            2,
+            [
+              ".LC7",
+              0,
+              0,
+              ".rodata.cst16"
+            ],
+            -4
+          ],
+          [
+            823,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            1104,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            1131,
+            2,
+            [
+              ".LC14",
+              0,
+              0,
+              ".rodata.cst16"
+            ],
+            -4
+          ],
+          [
+            1711,
+            2,
+            [
+              ".LC1",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            1827,
+            2,
+            [
+              ".LC15",
+              0,
+              0,
+              ".rodata.cst16"
+            ],
+            -4
+          ],
+          [
+            2529,
+            4,
+            [
+              "memcpy",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ]
+        ]
+      },
+      "__module_small_step_em_MOD_init_module_small_step": {
+        "bytes": "ae3f4619b0413d70d3004b9131c3752153074e45725be13b9a148978895e359e",
+        "size": 1,
+        "relocations": []
+      },
+      "__module_small_step_em_MOD_small_step_finish": {
+        "bytes": "7744dcef6414f0e9125dda8364c7269192e3d216788020008cbabf8e6d447c63",
+        "size": 4903,
+        "relocations": []
+      },
+      "__module_small_step_em_MOD_small_step_prep": {
+        "bytes": "928f43198c9d79761d65b582f3e2ea91a6f229b7626eac9361ee88d56cc1c776",
+        "size": 11770,
+        "relocations": [
+          [
+            557,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            938,
+            2,
+            [
+              ".LC4",
+              0,
+              0,
+              ".rodata.cst32"
+            ],
+            -4
+          ],
+          [
+            1633,
+            2,
+            [
+              ".LC17",
+              0,
+              0,
+              ".rodata.cst4"
+            ],
+            -4
+          ],
+          [
+            7622,
+            4,
+            [
+              "memcpy",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            9381,
+            4,
+            [
+              "memcpy",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            9448,
+            4,
+            [
+              "memset",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            9782,
+            4,
+            [
+              "memcpy",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            10182,
+            4,
+            [
+              "memcpy",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            10614,
+            4,
+            [
+              "memcpy",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            10973,
+            4,
+            [
+              "memcpy",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            11205,
+            4,
+            [
+              "memcpy",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ]
+        ]
+      },
+      "__module_small_step_em_MOD_sumflux": {
+        "bytes": "379e04a32cd16a86f5fd8a6bb342a1080cf6478b2884eb349cfd4b72fa3c6eff",
+        "size": 4377,
+        "relocations": [
+          [
+            2930,
+            4,
+            [
+              "memset",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            2943,
+            4,
+            [
+              "memset",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ],
+          [
+            2956,
+            4,
+            [
+              "memset",
+              16,
+              0,
+              ""
+            ],
+            -4
+          ]
+        ]
+      }
+    },
+    "scope": "Per-function instructions and normalized runtime relocation roles; excludes layout addresses and target function. Native wholecaller raw/state remains mandatory."
+  },
+  "target_codegen": {
+    "PP_line": 912,
+    "sourcejoined_instructions": [
+      "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/module_small_step_em.f90:913",
+      "    8946:\t48 8b 9c 24 c0 01 00 \tmov    0x1c0(%rsp),%rbx",
+      "    894d:\t00 ",
+      "    894e:\t4c 8b 94 24 48 02 00 \tmov    0x248(%rsp),%r10",
+      "    8955:\t00 ",
+      "    8956:\t4c 8b 84 24 40 02 00 \tmov    0x240(%rsp),%r8",
+      "    895d:\t00 ",
+      "    895e:\t48 8d 3c 06          \tlea    (%rsi,%rax,1),%rdi",
+      "    8962:\t4c 8b a4 24 a0 01 00 \tmov    0x1a0(%rsp),%r12",
+      "    8969:\t00 ",
+      "    896a:\t48 01 c2             \tadd    %rax,%rdx",
+      "    896d:\t48 8b 84 24 d0 02 00 \tmov    0x2d0(%rsp),%rax",
+      "    8974:\t00 ",
+      "    8975:\t49 29 c6             \tsub    %rax,%r14",
+      "    8978:\t4a 8d 34 b5 00 00 00 \tlea    0x0(,%r14,4),%rsi",
+      "    897f:\t00 ",
+      "    8980:\t4c 8b b4 24 38 02 00 \tmov    0x238(%rsp),%r14",
+      "    8987:\t00 ",
+      "    8988:\t48 89 b4 24 88 04 00 \tmov    %rsi,0x488(%rsp)",
+      "    898f:\t00 ",
+      "    8990:\t48 8b b4 24 20 02 00 \tmov    0x220(%rsp),%rsi",
+      "    8997:\t00 ",
+      "    8998:\t4c 89 b4 24 d0 04 00 \tmov    %r14,0x4d0(%rsp)",
+      "    899f:\t00 ",
+      "    89a0:\t49 89 de             \tmov    %rbx,%r14",
+      "    89a3:\t48 8b 9c 24 08 02 00 \tmov    0x208(%rsp),%rbx",
+      "    89aa:\t00 ",
+      "    89ab:\t48 29 c6             \tsub    %rax,%rsi",
+      "    89ae:\t8b 84 24 50 02 00 00 \tmov    0x250(%rsp),%eax",
+      "    89b5:\t48 89 b4 24 c0 04 00 \tmov    %rsi,0x4c0(%rsp)",
+      "    89bc:\t00 ",
+      "    89bd:\t83 e0 07             \tand    $0x7,%eax",
+      "    89c0:\t89 84 24 58 04 00 00 \tmov    %eax,0x458(%rsp)",
+      "    89c7:\t66 0f 1f 84 00 00 00 \tnopw   0x0(%rax,%rax,1)",
+      "    89ce:\t00 00 ",
+      "    89d0:\t8b 84 24 40 04 00 00 \tmov    0x440(%rsp),%eax",
+      "    89d7:\t41 39 c3             \tcmp    %eax,%r11d",
+      "    89da:\t0f 8c 7a 01 00 00    \tjl     8b5a <__module_small_step_em_MOD_advance_uv+0x231a>",
+      "    89e0:\t83 bc 24 80 04 00 00 \tcmpl   $0x6,0x480(%rsp)",
+      "    89e7:\t06 ",
+      "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/module_small_step_em.f90:913",
+      "    95f5:\tc4 c1 00 c6 ff 00    \tvshufps $0x0,%xmm15,%xmm15,%xmm7",
+      "    95fb:\tc4 c2 7d 18 f7       \tvbroadcastss %xmm15,%ymm6",
+      "    9600:\tc4 62 79 18 05 00 00 \tvbroadcastss 0x0(%rip),%xmm8        # 9609 <__module_small_step_em_MOD_advance_uv+0x2dc9>",
+      "    9607:\t00 00 ",
+      "    9609:\tc4 e2 7d 18 2d 00 00 \tvbroadcastss 0x0(%rip),%ymm5        # 9612 <__module_small_step_em_MOD_advance_uv+0x2dd2>",
+      "    9610:\t00 00 ",
+      "    9612:\t4c 89 ac 24 18 04 00 \tmov    %r13,0x418(%rsp)",
+      "    9619:\t00 ",
+      "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/module_small_step_em.f90:913",
+      "    96d0:\t48 8b 84 24 d0 04 00 \tmov    0x4d0(%rsp),%rax",
+      "    96d7:\t00 ",
+      "    96d8:\t83 bc 24 80 04 00 00 \tcmpl   $0x6,0x480(%rsp)",
+      "    96df:\t06 ",
+      "    96e0:\tc5 fa 10 18          \tvmovss (%rax),%xmm3",
+      "    96e4:\t48 8b 84 24 30 04 00 \tmov    0x430(%rsp),%rax",
+      "    96eb:\t00 ",
+      "    96ec:\tc5 fa 10 10          \tvmovss (%rax),%xmm2",
+      "    96f0:\t0f 86 25 03 00 00    \tjbe    9a1b <__module_small_step_em_MOD_advance_uv+0x31db>",
+      "    96f6:\t48 8b 84 24 c8 04 00 \tmov    0x4c8(%rsp),%rax",
+      "    96fd:\t00 ",
+      "    96fe:\t44 89 9c 24 a0 04 00 \tmov    %r11d,0x4a0(%rsp)",
+      "    9705:\t00 ",
+      "    9706:\t4c 8b a4 24 10 04 00 \tmov    0x410(%rsp),%r12",
+      "    970d:\t00 ",
+      "    970e:\t4c 8d 56 fc          \tlea    -0x4(%rsi),%r10",
+      "    9712:\t4c 8b 9c 24 b0 04 00 \tmov    0x4b0(%rsp),%r11",
+      "    9719:\t00 ",
+      "    971a:\tc4 62 7d 18 d3       \tvbroadcastss %xmm3,%ymm10",
+      "    971f:\tc4 62 7d 18 ca       \tvbroadcastss %xmm2,%ymm9",
+      "    9724:\t4c 8b ac 24 08 04 00 \tmov    0x408(%rsp),%r13",
+      "    972b:\t00 ",
+      "    972c:\t48 8d 3c 85 00 00 00 \tlea    0x0(,%rax,4),%rdi",
+      "    9733:\t00 ",
+      "    9734:\t48 8b 84 24 90 04 00 \tmov    0x490(%rsp),%rax",
+      "    973b:\t00 ",
+      "    973c:\t48 8d 14 38          \tlea    (%rax,%rdi,1),%rdx",
+      "    9740:\t48 8b 84 24 10 02 00 \tmov    0x210(%rsp),%rax",
+      "    9747:\t00 ",
+      "    9748:\t4c 8d 04 03          \tlea    (%rbx,%rax,1),%r8",
+      "    974c:\t48 8b 84 24 f8 02 00 \tmov    0x2f8(%rsp),%rax",
+      "    9753:\t00 ",
+      "    9754:\t48 01 c7             \tadd    %rax,%rdi",
+      "    9757:\t31 c0                \txor    %eax,%eax",
+      "    9759:\t0f 1f 80 00 00 00 00 \tnopl   0x0(%rax)",
+      "    9760:\tc4 41 34 59 5c 05 00 \tvmulps 0x0(%r13,%rax,1),%ymm9,%ymm11",
+      "    9767:\tc4 c1 34 59 04 04    \tvmulps (%r12,%rax,1),%ymm9,%ymm0",
+      "    976d:\tc4 c1 7c 10 0c 00    \tvmovups (%r8,%rax,1),%ymm1",
+      "    9773:\tc5 f4 5c 0c 07       \tvsubps (%rdi,%rax,1),%ymm1,%ymm1",
+      "    9778:\tc4 c1 7c 58 c3       \tvaddps %ymm11,%ymm0,%ymm0",
+      "    977d:\tc4 41 4c 59 1c 03    \tvmulps (%r11,%rax,1),%ymm6,%ymm11",
+      "    9783:\tc4 c1 74 59 ca       \tvmulps %ymm10,%ymm1,%ymm1",
+      "    9788:\tc5 fc 59 c5          \tvmulps %ymm5,%ymm0,%ymm0",
+      "    978c:\tc5 f4 5c c0          \tvsubps %ymm0,%ymm1,%ymm0",
+      "    9790:\tc5 fc 10 0c 06       \tvmovups (%rsi,%rax,1),%ymm1",
+      "    9795:\tc4 c1 74 5c 0c 02    \tvsubps (%r10,%rax,1),%ymm1,%ymm1",
+      "    979b:\tc4 c1 74 59 cb       \tvmulps %ymm11,%ymm1,%ymm1",
+      "    97a0:\tc5 fc 59 c1          \tvmulps %ymm1,%ymm0,%ymm0",
+      "    97a4:\tc5 fc 58 04 02       \tvaddps (%rdx,%rax,1),%ymm0,%ymm0",
+      "    97a9:\tc5 fc 11 04 02       \tvmovups %ymm0,(%rdx,%rax,1)",
+      "    97ae:\t48 83 c0 20          \tadd    $0x20,%rax",
+      "    97b2:\t4c 39 f8             \tcmp    %r15,%rax",
+      "    97b5:\t75 a9                \tjne    9760 <__module_small_step_em_MOD_advance_uv+0x2f20>",
+      "    97b7:\t8b 84 24 f8 03 00 00 \tmov    0x3f8(%rsp),%eax",
+      "    97be:\t44 8b 9c 24 a0 04 00 \tmov    0x4a0(%rsp),%r11d",
+      "    97c5:\t00 ",
+      "    97c6:\t85 c0                \ttest   %eax,%eax",
+      "    97c8:\t0f 84 d6 01 00 00    \tje     99a4 <__module_small_step_em_MOD_advance_uv+0x3164>",
+      "    97ce:\t8b 84 24 b8 03 00 00 \tmov    0x3b8(%rsp),%eax",
+      "    97d5:\t8b 94 24 c0 03 00 00 \tmov    0x3c0(%rsp),%edx",
+      "    97dc:\t89 84 24 88 04 00 00 \tmov    %eax,0x488(%rsp)",
+      "    97e3:\t8b bc 24 80 04 00 00 \tmov    0x480(%rsp),%edi",
+      "    97ea:\t29 d7                \tsub    %edx,%edi",
+      "    97ec:\t44 8d 57 01          \tlea    0x1(%rdi),%r10d",
+      "    97f0:\t44 89 94 24 58 04 00 \tmov    %r10d,0x458(%rsp)",
+      "    97f7:\t00 ",
+      "    97f8:\t83 ff 02             \tcmp    $0x2,%edi",
+      "    97fb:\t0f 86 f5 00 00 00    \tjbe    98f6 <__module_small_step_em_MOD_advance_uv+0x30b6>",
+      "    9801:\t48 8b 84 24 c8 04 00 \tmov    0x4c8(%rsp),%rax",
+      "    9808:\t00 ",
+      "    9809:\tc5 e0 c6 c3 00       \tvshufps $0x0,%xmm3,%xmm3,%xmm0",
+      "    980e:\tc5 e8 c6 ca 00       \tvshufps $0x0,%xmm2,%xmm2,%xmm1",
+      "    9813:\t4c 8b a4 24 e0 02 00 \tmov    0x2e0(%rsp),%r12",
+      "    981a:\t00 ",
+      "    981b:\t4c 8d 04 02          \tlea    (%rdx,%rax,1),%r8",
+      "    981f:\t48 8b 84 24 90 04 00 \tmov    0x490(%rsp),%rax",
+      "    9826:\t00 ",
+      "    9827:\t4e 8d 2c 85 00 00 00 \tlea    0x0(,%r8,4),%r13",
+      "    982e:\t00 ",
+      "    982f:\t4e 8d 14 28          \tlea    (%rax,%r13,1),%r10",
+      "    9833:\t48 8b 84 24 c0 04 00 \tmov    0x4c0(%rsp),%rax",
+      "    983a:\t00 ",
+      "    983b:\t4a 8d 3c 20          \tlea    (%rax,%r12,1),%rdi",
+      "    983f:\t48 8b 84 24 20 04 00 \tmov    0x420(%rsp),%rax",
+      "    9846:\t00 ",
+      "    9847:\t48 01 d7             \tadd    %rdx,%rdi",
+      "    984a:\t4c 8d 24 02          \tlea    (%rdx,%rax,1),%r12",
+      "    984e:\t48 8b 84 24 50 04 00 \tmov    0x450(%rsp),%rax",
+      "    9855:\t00 ",
+      "    9856:\t49 01 c0             \tadd    %rax,%r8",
+      "    9859:\t48 8b 84 24 f8 02 00 \tmov    0x2f8(%rsp),%rax",
+      "    9860:\t00 ",
+      "    9861:\tc4 21 78 10 0c 80    \tvmovups (%rax,%r8,4),%xmm9",
+      "    9867:\tc4 21 30 5c 0c 28    \tvsubps (%rax,%r13,1),%xmm9,%xmm9",
+      "    986d:\t48 8b 84 24 e8 02 00 \tmov    0x2e8(%rsp),%rax",
+      "    9874:\t00 ",
+      "    9875:\tc5 30 59 c8          \tvmulps %xmm0,%xmm9,%xmm9",
+      "    9879:\tc4 a1 70 59 44 a0 fc \tvmulps -0x4(%rax,%r12,4),%xmm1,%xmm0",
+      "    9880:\tc4 a1 70 59 0c a0    \tvmulps (%rax,%r12,4),%xmm1,%xmm1",
+      "    9886:\t48 8b 84 24 d8 02 00 \tmov    0x2d8(%rsp),%rax",
+      "    988d:\t00 ",
+      "    988e:\tc5 f8 58 c1          \tvaddps %xmm1,%xmm0,%xmm0",
+      "    9892:\tc5 f8 10 0c b8       \tvmovups (%rax,%rdi,4),%xmm1",
+      "    9897:\tc4 c1 78 59 c0       \tvmulps %xmm8,%xmm0,%xmm0",
+      "    989c:\tc5 b0 5c c0          \tvsubps %xmm0,%xmm9,%xmm0",
+      "    98a0:\tc5 f8 29 8c 24 a0 04 \tvmovaps %xmm1,0x4a0(%rsp)",
+      "    98a7:\t00 00 ",
+      "    98a9:\tc5 f0 5c 4c b8 fc    \tvsubps -0x4(%rax,%rdi,4),%xmm1,%xmm1",
+      "    98af:\t48 8b 84 24 60 04 00 \tmov    0x460(%rsp),%rax",
+      "    98b6:\t00 ",
+      "    98b7:\t8b bc 24 58 04 00 00 \tmov    0x458(%rsp),%edi",
+      "    98be:\t48 01 c2             \tadd    %rax,%rdx",
+      "    98c1:\t48 8b 84 24 28 04 00 \tmov    0x428(%rsp),%rax",
+      "    98c8:\t00 ",
+      "    98c9:\tc5 40 59 0c 90       \tvmulps (%rax,%rdx,4),%xmm7,%xmm9",
+      "    98ce:\t89 fa                \tmov    %edi,%edx",
+      "    98d0:\t83 e2 fc             \tand    $0xfffffffc,%edx",
+      "    98d3:\t01 94 24 88 04 00 00 \tadd    %edx,0x488(%rsp)",
+      "    98da:\t83 e7 03             \tand    $0x3,%edi",
+      "    98dd:\tc4 c1 70 59 c9       \tvmulps %xmm9,%xmm1,%xmm1",
+      "    98e2:\tc5 f8 59 c1          \tvmulps %xmm1,%xmm0,%xmm0",
+      "    98e6:\tc4 c1 78 58 02       \tvaddps (%r10),%xmm0,%xmm0",
+      "    98eb:\tc4 c1 78 11 02       \tvmovups %xmm0,(%r10)",
+      "    98f0:\t0f 84 ae 00 00 00    \tje     99a4 <__module_small_step_em_MOD_advance_uv+0x3164>",
+      "    98f6:\t48 63 84 24 88 04 00 \tmovslq 0x488(%rsp),%rax",
+      "    98fd:\t00 ",
+      "    98fe:\t48 8b bc 24 c0 04 00 \tmov    0x4c0(%rsp),%rdi",
+      "    9905:\t00 ",
+      "    9906:\t4c 8b 94 24 d8 02 00 \tmov    0x2d8(%rsp),%r10",
+      "    990d:\t00 ",
+      "    990e:\t48 8b 94 24 98 02 00 \tmov    0x298(%rsp),%rdx",
+      "    9915:\t00 ",
+      "    9916:\t48 01 c7             \tadd    %rax,%rdi",
+      "    9919:\tc4 c1 7a 10 4c ba fc \tvmovss -0x4(%r10,%rdi,4),%xmm1",
+      "    9920:\t48 8b bc 24 e8 02 00 \tmov    0x2e8(%rsp),%rdi",
+      "    9927:\t00 ",
+      "    9928:\t48 01 c2             \tadd    %rax,%rdx",
+      "    992b:\tc5 6a 59 4c 97 fc    \tvmulss -0x4(%rdi,%rdx,4),%xmm2,%xmm9",
+      "    9931:\t48 8b 94 24 28 03 00 \tmov    0x328(%rsp),%rdx",
+      "    9938:\t00 ",
+      "    9939:\t48 8b bc 24 a0 02 00 \tmov    0x2a0(%rsp),%rdi",
+      "    9940:\t00 ",
+      "    9941:\t66 66 2e 0f 1f 84 00 \tdata16 cs nopw 0x0(%rax,%rax,1)",
+      "    9948:\t00 00 00 00 ",
+      "    994c:\t0f 1f 40 00          \tnopl   0x0(%rax)",
+      "    9950:\tc5 78 29 c8          \tvmovaps %xmm9,%xmm0",
+      "    9954:\tc5 6a 59 0c 87       \tvmulss (%rdi,%rax,4),%xmm2,%xmm9",
+      "    9959:\tc4 41 7a 10 1c 81    \tvmovss (%r9,%rax,4),%xmm11",
+      "    995f:\tc5 78 28 d1          \tvmovaps %xmm1,%xmm10",
+      "    9963:\tc5 22 5c 1c 83       \tvsubss (%rbx,%rax,4),%xmm11,%xmm11",
+      "    9968:\tc4 c1 7a 10 0c 86    \tvmovss (%r14,%rax,4),%xmm1",
+      "    996e:\tc4 41 72 5c d2       \tvsubss %xmm10,%xmm1,%xmm10",
+      "    9973:\tc5 b2 58 c0          \tvaddss %xmm0,%xmm9,%xmm0",
+      "    9977:\tc5 22 59 db          \tvmulss %xmm3,%xmm11,%xmm11",
+      "    997b:\tc4 c1 7a 59 c4       \tvmulss %xmm12,%xmm0,%xmm0",
+      "    9980:\tc5 22 5c d8          \tvsubss %xmm0,%xmm11,%xmm11",
+      "    9984:\tc5 82 59 04 82       \tvmulss (%rdx,%rax,4),%xmm15,%xmm0",
+      "    9989:\tc4 c1 7a 59 c2       \tvmulss %xmm10,%xmm0,%xmm0",
+      "    998e:\tc5 22 59 d8          \tvmulss %xmm0,%xmm11,%xmm11",
+      "    9992:\tc5 22 58 1c 81       \tvaddss (%rcx,%rax,4),%xmm11,%xmm11",
+      "    9997:\tc5 7a 11 1c 81       \tvmovss %xmm11,(%rcx,%rax,4)",
+      "    999c:\t48 ff c0             \tinc    %rax",
+      "    999f:\t41 39 c3             \tcmp    %eax,%r11d",
+      "    99a2:\t7d ac                \tjge    9950 <__module_small_step_em_MOD_advance_uv+0x3110>",
+      "/pool/wrf-experiment/wrf-cpu/kernels/uv-u-nh-dpxy-correction-simd-current13fe-full-caller-gate-r1/O2/module_small_step_em.f90:913",
+      "    9a1b:\t8b 84 24 40 04 00 00 \tmov    0x440(%rsp),%eax",
+      "    9a22:\t31 d2                \txor    %edx,%edx",
+      "    9a24:\t89 84 24 88 04 00 00 \tmov    %eax,0x488(%rsp)",
+      "    9a2b:\te9 b3 fd ff ff       \tjmp    97e3 <__module_small_step_em_MOD_advance_uv+0x2fa3>"
+    ],
+    "raw_candidate_object_sha256": "7493fce18597de2acb7bcc65c01dbcb5ba131cdae4fa98b7c5dc9c8cbc8aa120",
+    "harness_copy_sha256": "2969bc0ea7fdc5b15ae0de0e9dacc02ddf2c98196bf3c19cacd9101b29da82df"
+  },
+  "elapsed_seconds_context_only": 34.84240788221359
+}

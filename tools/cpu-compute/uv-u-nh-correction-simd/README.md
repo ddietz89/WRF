@@ -1,0 +1,9 @@
+# U nonhydrostatic pressure-correction SIMD — private promotion draft
+
+Own short35 science passed both complete products against the unchanged original checker, with all four models and reader normally closed. Post-test source commit is `1f03a73849d0149161120d6ae130a9a66e9e0116`; selected-record publication remains root-owned. The candidate adds one guarded SIMD directive to the U nonhydrostatic dpxy correction. Existing arithmetic, bounds, PH/Tcopy fusions and other directives remain unchanged. The actual native gate passed same-optimization O0 bounds and genuine O2 full-caller raw/readonly/guard/five-state checks, including targeted exceptional operands. Non-target functions/constants remain exact.
+
+One opposite-order complete captured UV pair on each host measured 10.36% and 12.09% shorter callee time. These are fixed 1,024-call, roughly 1.1–1.3-second arms, with restores/checks outside each interval; all four raw/state comparisons and per-arm cache/normal closures passed. This is a caller result, not a forecast gain.
+
+The compile-free image is `79bebebb…`, archive `1ade2c8f…`, reusing tested object `7493fce1…` and PP `91c2b544…`. One archive occurrence changed; 583 remain exact. A separate real canonical CPP and O2 delivery produced different PP/debug-object bytes but exact runtime ELF/relocations/nonFILE symbols and public MOD. It does not establish a fresh canonical whole-image build.
+
+The proposed GNU13.3/SmallStepSIMD/Zen2/empty-OMPCPP default has a rebuild opt-out: `WRF_SMALL_STEP_U_NH_CORRECTION_SIMD=0`. There is no DM_PARALLEL guard; matching serial remains unqualified. Raw producer source commit stays null; the source commit above is post-test correspondence. All child 3h/noon/9h/restart/profile scopes remain false. Roll back to the exact parent13fe/1a8f artifact or rebuild with the opt-out, retaining current providers8bee/9371/privateHDF5/FABA.

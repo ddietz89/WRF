@@ -1,0 +1,41 @@
+{
+  "status": "ACTUAL_CANONICAL_DELIVERY_PASS_POSTTEST_SOURCE_CORRESPONDENCE",
+  "source_commit": "1f03a73849d0149161120d6ae130a9a66e9e0116",
+  "raw_producer_source_commit": null,
+  "candidate_source_sha256": "479b02c074f71e304750a5ce8f77b74466d7fe744f05cdabac813b4d4beb4865",
+  "candidate_Makefile_sha256": "f7bcd0c6d76e4201420575fe8c47cbf492981dfbbf0df6368dc87d2af082360c",
+  "source_default_inverse": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-u-nonhydro-dpxy-correction-simd-current13fe-r1/canonical-promotion-preparation-r1/SOURCE_AND_DEFAULT_INVERSE.json",
+    "sha256": "8d4b6c09f6233593828b8fd0905e7ec331eff665a3030da8e93736f9b2d0ad3f"
+  },
+  "qualified_runtime_object_sha256": "7493fce18597de2acb7bcc65c01dbcb5ba131cdae4fa98b7c5dc9c8cbc8aa120",
+  "selected_qualified_PP_sha256": "91c2b544e0edd9c07b385b8d0965292e6003c5cec9772af806c1b9078633784f",
+  "actual_canonical_PP_sha256": "a067b484892738a97e2ee80e89b4fcbb0b12a823477eb69aebe520ec534420f0",
+  "actual_canonical_PP_byte_exact": false,
+  "actual_canonical_object_sha256": "4bd4494e18c3fbd8bfa1a1dabad6a25d72ffb2f81e7d3d8408396857dfc8f5c7",
+  "actual_object_whole_file_exact": false,
+  "actual_runtime_equivalence": {
+    "status": "PASS_ALLOCATED_BYTES_RELOCATIONS_NONFILE_SYMBOLS_EXACT",
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current13fe-u-nh-correction-canonical-delivery-one-object-hpc02-r1/runtime-equivalence.json",
+    "sha256": "aceefd533b314379134b1ef9a8492d97fd8b16692333d501de56a30946a347e4"
+  },
+  "actual_public_MOD_sha256": "d50c501497b927ad56b9bb3b7cb9431c827b8092cedf23e83d8f573ccb884b94",
+  "actual_delivery_receipt": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-u-nonhydro-dpxy-correction-simd-current13fe-r1/canonical-delivery-one-object-r1/actual/receipt.json",
+    "sha256": "22a3c4639c04264adad064082e6c79a8dc84c1d86db8a8fd8eb5e580f213d499"
+  },
+  "actual_delivery_closure": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-u-nonhydro-dpxy-correction-simd-current13fe-r1/canonical-delivery-one-object-r1/actual/STATUS.json",
+    "sha256": "ffdb4c75c7c9a14aa4fbbf057ec50fbaa44ca185412d2001d8d39b41b97e7fde"
+  },
+  "reproduction_method": "Real WRF sed/CPP/standard/CPP and one strictO2 object compile with accepted outer Make core/MODULE_DIRS context. Hard allocated runtime bytes/RELA/nonFILE symbols and publicMOD exact versus tested7493; PP and whole debug object differ, recorded explicitly. No fresh whole-image source-build reproduction claim.",
+  "guard": "GNU13.3.0 / WRF_SMALL_STEP_SIMD=1 / WRF_SMALL_STEP_ZEN2=1 / empty OMPCPP; targetCPP macro only; no DM_PARALLEL predicate",
+  "opt_out": "WRF_SMALL_STEP_U_NH_CORRECTION_SIMD=0 and rebuild SmallStep object/archive/executable using same strict flags; all PH/Tcopy and other directives retained",
+  "rollback_parent": {
+    "exe": "13fe77d645d6a3dbc74195e8482b6d1e6d9754ea269bfd28aebc645d0f1d0d35",
+    "archive": "1a8febcdf4ff841ca4b3c5e18a83a500127b81dca1b82bdb1320abe2ab8b94d4",
+    "PH_proof_chain_retained": true,
+    "profile_scope": "Parent13fe sampled-IP lead only; child own profile remains false"
+  },
+  "posttest_source_commit": "1f03a73849d0149161120d6ae130a9a66e9e0116"
+}

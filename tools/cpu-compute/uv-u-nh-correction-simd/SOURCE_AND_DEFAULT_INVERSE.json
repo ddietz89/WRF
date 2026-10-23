@@ -1,0 +1,24 @@
+{
+  "status": "UNAPPLIED_DRAFT_PENDING_SHORT_APPLICATION_AND_ROOT_REVIEW",
+  "parent_canonical_sha256": "32c85d1e99afd980bc4763dc0d2697e225e6dfc7fd8f5eaed986b82def68927c",
+  "candidate_canonical_sha256": "479b02c074f71e304750a5ce8f77b74466d7fe744f05cdabac813b4d4beb4865",
+  "parent_make_sha256": "70cd122deb326d948ff6dca3e587cd1fc5c280d550b9bd790bc66fc0b4803ede",
+  "candidate_make_sha256": "f7bcd0c6d76e4201420575fe8c47cbf492981dfbbf0df6368dc87d2af082360c",
+  "source_full_inverse_exact": true,
+  "source_literal_edits": [
+    {
+      "old": "     DO k = k_start, k_end\n       DO i = i_start_up, i_end_up\n         dpxy(i,k)=dpxy(i,k) + (qrow(i))*rdx*(php(i,k,j)-php(i-1,k,j))*        &\n",
+      "new": "     DO k = k_start, k_end\n#ifdef WRF_SMALL_STEP_U_NH_CORRECTION_SIMD\n!$OMP SIMD\n#endif\n       DO i = i_start_up, i_end_up\n         dpxy(i,k)=dpxy(i,k) + (qrow(i))*rdx*(php(i,k,j)-php(i-1,k,j))*        &\n"
+    }
+  ],
+  "make_insert_exact": "# U nonhydrostatic pressure correction SIMD: qualified GNU13.3 SmallStep path.\n# Use WRF_SMALL_STEP_U_NH_CORRECTION_SIMD=0 and rebuild to omit this directive.\nWRF_SMALL_STEP_U_NH_CORRECTION_SIMD ?= 1\nifeq ($(WRF_SMALL_STEP_U_NH_CORRECTION_SIMD),1)\nifeq ($(WRF_SMALL_STEP_SIMD),1)\nifeq ($(WRF_SMALL_STEP_ZEN2),1)\nifeq ($(strip $(OMPCPP)),)\nifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))\nifneq (,$(findstring 13.3.0,$(shell $(SFC) --version 2>/dev/null)))\nmodule_small_step_em.o: private override CPPFLAGS += -DWRF_SMALL_STEP_U_NH_CORRECTION_SIMD\nendif\nendif\nendif\nendif\nendif\nendif\n",
+  "make_full_inverse_exact": true,
+  "guard_off_preserves_parent_numerical_source_and_other_directives": true,
+  "enabled_full_module_normalized_matches_qualified_PP": true,
+  "disabled_full_module_normalized_matches_current_PP": true,
+  "qualified_candidate_PP_sha256": "91c2b544e0edd9c07b385b8d0965292e6003c5cec9772af806c1b9078633784f",
+  "qualified_parent_PP_sha256": "7ecc8883272cbd28cdf1c683f15a8c04f78e313aed66a60105651a0dc96abcc3",
+  "normalization": "Pure known-conditional projection (Tcopy/PH enabled, WRFPLUS off, new guard enabled/disabled), whitespace and ordinary comments omitted; OMP directives/quoted strings retained. This is not actual CPP/compiler/full-build proof.",
+  "guard_scope": "GNU Fortran13.3.0, WRF_SMALL_STEP_SIMD1, WRF_SMALL_STEP_ZEN2=1, OMPCPPempty; NO DM_PARALLEL guard. Qualified pure-MPI runtime only; matching serial build is not excluded but serial remains UNQUALIFIED. No new FCFLAGS/ISA/thread teams/global flags.",
+  "canonical_modified": false
+}

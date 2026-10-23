@@ -1,4 +1,10 @@
-# Current working selection: physics tendency SIMD
+# Current working selection: U nonhydrostatic pressure-correction SIMD
+
+**79bebebb / archive1ade2c8f / post-test source1f03a738** retains all previous improvements and adds the exact-qualified U pressure-correction SIMD directive. The current image owns short35-step/two-product exact science; the fresh original-versus-combined three-hour comparison is starting. New3h/noon/9h/restart/profile qualification and a total runtime benefit remain pending.
+
+Complete captured callers were10.36% and12.09% shorter in opposite-order pairs. These percentages are not forecast gains and are not added to earlier gains. [Current evidence, build guard and rollback](../cpu-compute/uv-u-nh-correction-simd/README.md). Use `WRF_SMALL_STEP_U_NH_CORRECTION_SIMD=0` and rebuild to omit the new directive. Production/master remain unchanged; AWS remains suspended.
+
+## Historical7087 selection: physics tendency SIMD
 
 **7087c69d / archive a71d7b28 / post-test source634f293d** retains all previous selected improvements and adds one inner-I `add_a2a` SIMD directive with a GNU module-local flag. The selected bindings all identify this artifact set.
 

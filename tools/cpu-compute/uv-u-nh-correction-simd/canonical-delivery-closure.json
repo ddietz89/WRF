@@ -1,0 +1,103 @@
+{
+  "expected_invocation_id": "c5176da70b04484082629bfbff6e3d5b",
+  "properties": {
+    "RuntimeMaxUSec": "infinity",
+    "MainPID": "0",
+    "Result": "success",
+    "ExecMainStatus": "0",
+    "ControlGroup": "",
+    "MemoryPeak": "[not set]",
+    "CPUQuotaPerSecUSec": "infinity",
+    "AllowedCPUs": "",
+    "MemoryMax": "infinity",
+    "MemorySwapMax": "infinity",
+    "LimitSTACK": "infinity",
+    "LimitMEMLOCK": "16864145408",
+    "CPUAffinity": "",
+    "User": "",
+    "KillMode": "control-group",
+    "LoadState": "not-found",
+    "ActiveState": "inactive",
+    "InvocationID": ""
+  },
+  "cgroup_children": [],
+  "cgroup_path_absent": true,
+  "manager_events": [
+    {
+      "MESSAGE": "Started wrf-cpu-current13fe-u-nh-correction-canonical-delivery-one-object-hpc02-r1.service - /usr/bin/taskset -c 24-25 /usr/bin/python3 /pool/wrf-experiment/wrf-cpu/source-discovery/current13fe-u-nh-correction-canonical-delivery-one-object-r1/run_delivery.py --execute-approved.",
+      "INVOCATION_ID": "c5176da70b04484082629bfbff6e3d5b",
+      "_SYSTEMD_INVOCATION_ID": null,
+      "EXIT_CODE": null,
+      "EXIT_STATUS": null,
+      "UNIT_RESULT": null,
+      "__REALTIME_TIMESTAMP": "1792737836034576"
+    },
+    {
+      "MESSAGE": "wrf-cpu-current13fe-u-nh-correction-canonical-delivery-one-object-hpc02-r1.service: Deactivated successfully.",
+      "INVOCATION_ID": "c5176da70b04484082629bfbff6e3d5b",
+      "_SYSTEMD_INVOCATION_ID": null,
+      "EXIT_CODE": null,
+      "EXIT_STATUS": null,
+      "UNIT_RESULT": null,
+      "__REALTIME_TIMESTAMP": "1792737843286199"
+    },
+    {
+      "MESSAGE": "wrf-cpu-current13fe-u-nh-correction-canonical-delivery-one-object-hpc02-r1.service: Consumed 3.307s CPU time, 8.9M memory peak, 0B memory swap peak.",
+      "INVOCATION_ID": "c5176da70b04484082629bfbff6e3d5b",
+      "_SYSTEMD_INVOCATION_ID": null,
+      "EXIT_CODE": null,
+      "EXIT_STATUS": null,
+      "UNIT_RESULT": null,
+      "__REALTIME_TIMESTAMP": "1792737843287478"
+    }
+  ],
+  "logs": {
+    "/pool/wrf-experiment/wrf-cpu/source-discovery/current13fe-u-nh-correction-canonical-delivery-one-object-r1/build.stdout": {
+      "bytes": 108,
+      "tail": "{\"status\": \"PASS_CANONICAL_U_NH_CORRECTION_CPP_ONE_OBJECT_RUNTIME_EQUIVALENT_TO_ACTUAL7493\", \"error\": null}\n"
+    },
+    "/pool/wrf-experiment/wrf-cpu/source-discovery/current13fe-u-nh-correction-canonical-delivery-one-object-r1/build.stderr": {
+      "bytes": 272,
+      "tail": "Running as unit: wrf-cpu-current13fe-u-nh-correction-canonical-delivery-one-object-hpc02-r1.service\nFinished with result: success\nMain processes terminated with: code=exited/status=0\nService runtime: 7.251s\nCPU time consumed: 3.307s\nMemory peak: 8.9M\nMemory swap peak: 0B\n"
+    }
+  },
+  "launcher_state": null,
+  "files_present": [
+    "make.WRF_EM_CORE",
+    "emit.mk",
+    "make.OMPCPP",
+    "make.WRF_DA_CORE",
+    "runtime-equivalence.json",
+    "make.WRF_NMM_CORE",
+    "receipt.json",
+    "make.WRF_NMM_NEST",
+    "make.WRF_SRC_ROOT_DIR",
+    "make-guard-only.stdout",
+    "make.WRF_PLUS_CORE",
+    "make.CPP",
+    "WRF-CPP-stage1.stderr",
+    "make.CPPFLAGS",
+    "module_small_step_em.mod",
+    "module_small_step_em.standard",
+    "make.PROMOTION",
+    "strip-WRF-comments.stderr",
+    "make.SED_FTN",
+    "module_small_step_em.F",
+    "one-strict-O2-compile.stdout",
+    "make.FCSUFFIX",
+    "make.FCFLAGS",
+    "make.OMP",
+    "make.TRADFLAG",
+    "WRF-CPP-stage2.stderr",
+    "module_small_step_em.G",
+    "module_small_step_em.o",
+    "one-strict-O2-compile.stderr",
+    "module_small_step_em.bb",
+    "module_small_step_em.f90",
+    "make-guard-only.stderr",
+    "make.MODULE_DIRS",
+    "make.SFC",
+    "make.FC",
+    "WRF-standard.stderr"
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "status": "PASS_COMPLETE_CAPTURED_UV_TWO_OPPOSITE_ORDER_PAIRS",
+  "scope": "1024 complete historical captured advance_uv calls per arm; integer MONOTONIC/threadCPU sums around each callee. Restores/raw/readonly/guards/state checks outside measured intervals. One pair per host, no repeat or whole-model inference.",
+  "actual_result": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/uv-u-nonhydro-dpxy-correction-simd-current13fe-r1/CALLER_TIMING_RESULT.json",
+    "sha256": "76860d81cb4950b9324f24390522472a4cd11b3bacbb03c63e0733b0328cb282"
+  },
+  "raw_bytes": 3234184,
+  "raw_sha256": "0cdd78e1d10467592c714d64ac822cdbab154e200a7d078abe6158528ebd7374",
+  "all_four_arms_exact_raw_state_cache_normal_closed": true,
+  "hosts": [
+    {
+      "host": "hpc02",
+      "pair": 1,
+      "order": [
+        "parent",
+        "candidate"
+      ],
+      "parent_ns": 1286325376,
+      "candidate_ns": 1153027525,
+      "reduction_percent": 10.362685327293116,
+      "parent_thread_cpu_ns": 1283811597,
+      "candidate_thread_cpu_ns": 1149735775,
+      "raw_sha256": "0cdd78e1d10467592c714d64ac822cdbab154e200a7d078abe6158528ebd7374",
+      "raw_bytes": 3234184
+    },
+    {
+      "host": "hpc04",
+      "pair": 1,
+      "order": [
+        "candidate",
+        "parent"
+      ],
+      "parent_ns": 1302595309,
+      "candidate_ns": 1145059054,
+      "reduction_percent": 12.094029044288536,
+      "parent_thread_cpu_ns": 1299288940,
+      "candidate_thread_cpu_ns": 1141756566,
+      "raw_sha256": "0cdd78e1d10467592c714d64ac822cdbab154e200a7d078abe6158528ebd7374",
+      "raw_bytes": 3234184
+    }
+  ]
+}
