@@ -12,6 +12,12 @@ For an authorized DeepSeek dispatch, give the normal approval reviewer the owner
 
 A transient approval-service capacity error or review timeout is not a completed investigation. Keep the active turn open, retain the unexecuted action and retry through the normal review route at a paced cadence; use one coordinator to avoid parallel retry traffic. Never bypass approval controls. Check recovery while continuing independent work, and resume the existing test immediately when service returns. Do not ask the owner to repeat standing authorization for an infrastructure failure. If the active session reaches a hard execution limit, preserve exact pending job and action state without claiming background continuation. A persistent Codex Goal, when explicitly requested by the owner, supplies continuation across turns; an SOP entry does not activate that feature.
 
+## Full-grid summary tables
+
+Owner reporting rule, reaffirmed 2026-10-23: restore the full-grid summary tables in result updates. Show forecast horizon and build identity, model/MPI wall time, main-step elapsed time, aggregate CPU use across nodes, and exact scientific-check status. Use minutes for elapsed time and CPU-hours for aggregate CPU use, with clear column units. Main-step elapsed time includes communication and waiting; do not label it integration CPU time.
+
+Keep matched original/combined comparisons in a separate table, reporting both observations or their stated mean, run order/count and reductions for each metric. List newer unpaired runs separately, identifying pending checks and instrumentation where relevant. Do not apply a historical matched percentage to a newer image or imply that an unpaired row establishes an incremental speedup. Update the tables when a run or scientific result changes; do not repeat unchanged results as new progress in every monitoring cycle.
+
 ## Campaign storage
 
 Keep large build, profile and model artifacts on the experimental cluster storage. Return compact summaries and selected receipt fields to the conversation; retain complete records in evidence files instead of repeatedly printing them. Check local free space before large copies. Reuse immutable fixtures and source archives where their contracts permit it, preserving required independent scientific-file copies. Reclaim only campaign-generated reproducible duplicates after verifying the retained counterpart and recording recovery instructions. Preserve unique evidence, scientific oracles and active application databases.
