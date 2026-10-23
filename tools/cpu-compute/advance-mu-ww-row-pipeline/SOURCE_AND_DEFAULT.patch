@@ -1,0 +1,64 @@
+--- a/dyn_em/module_small_step_em.F
++++ b/dyn_em/module_small_step_em.F
+@@ -1250,6 +1250,21 @@
+        MUTS(i,j) = MUT(i,j)+MU(i,j)
+        MUAVE(i,j) =.5*((1.+epssm)*MU(i,j)+(1.-epssm)*MUAVE(i,j))
+      ENDDO
++#ifdef WRF_ADVANCE_MU_WW_ROW_PIPELINE
++     DO kk=2,k_end
++     k=kk-1
++     DO i=i_start, i_end
++       ww(i,kk,j)=ww(i,kk-1,j)-dnw(kk-1)*((c1h(k)*dmdt(i))+dvdxi(i,kk-1)+(c1h(k)*mu_tend(i,j)))/msfty(i,j)
++       ww(i,kk-1,j)=ww(i,kk-1,j)-ww_1(i,kk-1,j)
++     ENDDO
++     END DO
++     IF (k_end>=1) THEN
++     DO i=i_start, i_end
++       ww(i,k_end,j)=ww(i,k_end,j)-ww_1(i,k_end,j)
++     END DO
++     END IF
++
++#else
+      DO kk=2,k_end
+      k=kk-1
+      DO i=i_start, i_end
+@@ -1263,6 +1278,7 @@
+        ww(i,k,j)=ww(i,k,j)-ww_1(i,k,j)
+      END DO
+      END DO
++#endif
+    ENDDO
+ ! CALCULATION OF THETA
+ ! NOTE: theta'' is not coupled with the map-scale factor,
+--- a/dyn_em/Makefile
++++ b/dyn_em/Makefile
+@@ -269,6 +269,29 @@
+ endif
+ endif
+ 
++# WW recurrence / previous-row WW1 consumption, exact scalar operations retained.
++# Qualified GNU13.3.0 emptyOMP/OMPCPP SmallStepSIMD1/Zen21; matchingserial unqualified.
++# Explicit0 requires full regeneration/rebuild/rearchive/relink, restoring original schedule.
++WRF_ADVANCE_MU_WW_ROW_PIPELINE ?= 1
++ifeq ($(WRF_ADVANCE_MU_WW_ROW_PIPELINE),1)
++ifeq ($(WRF_SMALL_STEP_SIMD),1)
++ifeq ($(WRF_SMALL_STEP_ZEN2),1)
++ifeq ($(strip $(OMPCPP) $(OMP) $(PROMOTION) $(DOUBLE_PRECISION)),)
++ifeq ($(strip $(RWORDSIZE)),4)
++ifeq ($(strip $(IWORDSIZE)),4)
++ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
++ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
++module_small_step_em.o: private override CPPFLAGS += -DWRF_ADVANCE_MU_WW_ROW_PIPELINE
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++
++
+ cio.o :
+ 	$(CC) -c $(CFLAGS) cio.c
+ 

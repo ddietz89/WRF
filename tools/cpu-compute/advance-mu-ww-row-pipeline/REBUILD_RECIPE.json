@@ -1,0 +1,33 @@
+{
+  "status": "POSTTEST_CANONICAL_WW_OBJECT_RUNTIME_EXACT_TO_QUALIFIED_NATIVE_CHILD",
+  "source_commit": "6b689c8a897394acf5d1e5a6f245212ebb7e0e9d",
+  "canonical_sources": {
+    "dyn_em/module_small_step_em.F": "a68605b99acb337b92e5a5cee56567c6b5f03982190dc4b98eacba84cb27d108",
+    "dyn_em/Makefile": "3eb781969980a36adcdf465685c6d410a72ad349ce29d2a289b06bdd0247f490"
+  },
+  "native_PP_sha256": "6dde7fcdbe8bca20ece8b852af2b325602bbdaa25c09da69c3d5e72a6c8dd78a",
+  "canonical_default_PP_sha256": "93c21b49bdfe2daddd7b7ae1a64fbe1c1861db890953c532a6772778f3788e63",
+  "canonical_optout_PP_sha256": "ee2ced19f0b64d7d4dabc6c70a335c3921577713634af18fe7242783e10b606b",
+  "canonical_recipe_and_actual_argv": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentc277-advance-mu-ww-previous-row-pipeline-r1/canonical-delivery-one-object-r1/actual-native-r1/receipt.json",
+    "sha256": "01f784ca9a13d15af74ab343c3fc4e64081a04328a958c758ed9a7660fab6f9c"
+  },
+  "native_strict_recipe_and_actual_argv": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentc277-advance-mu-ww-previous-row-pipeline-r1/native-gate-preparation-r1/actual-native-r1/receipt.json",
+    "sha256": "ee42c8c1358f5e37618197ad1306f20356ba0fd52395957b53a3eaab093faaa0"
+  },
+  "one_member_delivery_recipe_and_actual_link_argv": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentc277-advance-mu-ww-previous-row-pipeline-r1/one-member-artifact-preparation-r1/actual-native-r1/receipt.json",
+    "sha256": "2bc953c105533c9aa247ce282870d7e4fe84183efe59d6f38efc4c1cf7bd289d"
+  },
+  "parent_recipe": "tools/cpu-compute/pd-final-pass-fusion/REBUILD_RECIPE.json",
+  "qualified_native_object_sha256": "2dd4f6cf63563654abcd979e975757cce9423beba600389d06e18fdd23e78db8",
+  "canonical_object_sha256": "a7c209a3cc05e764f4fab80ab3f8d24eb6388c9978ae6d8c31b16dac09bd4b8c",
+  "runtime_equivalence": "All allocated sections/RELA/nonFILEsymbols/publicMOD exact; debug paths may differ. No fullcanonical/nativePPidentity or freshwholeimagebuildclaim.",
+  "guard": "WRF_ADVANCE_MU_WW_ROW_PIPELINE=1 only GNU13.3.0/SmallStepSIMD1/Zen21/emptyOMP+OMPCPP+PROMOTION+DOUBLE_PRECISION/REAL4+INTEGER4. No new compiler flags or helpers. Matchingserial remains unqualified.",
+  "rollback": {
+    "knob": "WRF_ADVANCE_MU_WW_ROW_PIPELINE=0",
+    "requires": "Full regenerate/recompile/rearchive/relink; macrooff wholecanonical source exactbbb483 and knowncanonicalPPee2. Restore c277/10eb and matching d2cd source/default; retain PD finalpass guard and allpriorcomponents."
+  },
+  "raw_producer_source_commit": null
+}

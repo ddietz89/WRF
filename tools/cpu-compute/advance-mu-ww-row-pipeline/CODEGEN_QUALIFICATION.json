@@ -1,0 +1,25 @@
+{
+  "status": "PASS_ACTUAL_WW_PREVIOUS_ROW_PIPELINE_SOURCE_MAPPED",
+  "mechanism_established": true,
+  "native_invocation_id": "8d746e34783549af998f2ee4cd9c320c",
+  "parent_object_sha256": "a3818127897d55c6018c67ea3bb7918eb35880ce3e9a29e82cb77a36996158eb",
+  "candidate_object_sha256": "2dd4f6cf63563654abcd979e975757cce9423beba600389d06e18fdd23e78db8",
+  "candidate_source_sha256": "6dde7fcdbe8bca20ece8b852af2b325602bbdaa25c09da69c3d5e72a6c8dd78a",
+  "assembly_sha256": {
+    "parent": "2a004191d53035d49c16f18f16d6cf39cdefe3a19988b89b08e8b2530426edc8",
+    "candidate": "46407f35759fab6f1453be7240b155d0e10fbd69d5176b2c2f8b77a599917159"
+  },
+  "actual_query": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentc277-advance-mu-ww-previous-row-pipeline-r1/actual-codegen-query-preparation-r2/actual-root-readonly-r1/ACTUAL_RESULT.json",
+    "sha256": "571bf5894cb27fa23fc4e206c46f3146c888652366c21aef7894c6f059a4c7f8"
+  },
+  "witness": {
+    "sameI": "5df0..5e16 recurrence computes/stores currentWW;5e1b reloadpreviousWW;5e23 subtractWW1;5e2b storepreviousWW;5e33 backedge5df0.",
+    "outerK": "5e6f backedge5dc0 encloses sharedI; no second fullK subtraction sweep.",
+    "finalrow": "5ee0..5ef6 single finalrowI only, then J advances5ef8; sourceIFk_end>=1 and strictKend1/2/empty cases already passed.",
+    "noFMA": "Completeactualtarget noFMA as actualquery/complete108780Bcandidatebody, SHA46407f\u2026",
+    "limits": "PreviousWW reload retained, no registerforwarding/allocation/capacity claim. Exactinstruction/offsets apply onlynativeobject2dd4; no linkedPC transfer or loop-specific sample attribution."
+  },
+  "performance_qualified": false,
+  "application_qualified": false
+}

@@ -1,5 +1,16 @@
 # WRF CPU optimization findings
 
+## October23: WW recurrence pipeline promoted after own short science
+
+Working image `2340308c`/archive `f7870223` adds previous-row WW subtraction after its final recurrence read, eliminating a second vertical sweep. All c277/PD components and providers remain. Exact native/O0/O2 coverage passed87 observations per optimization; the complete captured caller was3.87% and3.48% shorter (process CPU3.84%/3.44% lower) in opposite-order pairs with checked cache boundaries. These are caller gains, not forecast percentages.
+
+Both full-grid short history products, all35 adaptive steps, metadata/layout and the complete512-rank writer contract passed unchanged checks. All four model jobs and reader closed normally. This image has own short qualification only; its three-hour/nine-hour/profile/restart/full144 checks remain pending. Canonical strictO2 runtime equivalence is actual; source commit6b689c8a records posttest correspondence, not a fresh whole-image rebuild. `WRF_ADVANCE_MU_WW_ROW_PIPELINE=0` plus full regeneration/rebuild/rearchive/relink restores the prior schedule; full rollback selects c277/10eb and matching source/default. See `tools/cpu-compute/advance-mu-ww-row-pipeline/APPLICATION_QUALIFICATION.json`.
+
+The separate W/geopotential fusion improved its captured caller by0.99%/2.36%. Its first combined-WW object stopped at strict non-target artifact isolation before numerical oracles; exact instruction/constant diagnosis is in progress, with the failure retained. It is not included in2340.
+
+A retained a93f writer07FD recording now has947 native samples with independently checked acquisition, thread roles and scientific closure. Analysis is scoped to writer495 main/observed future workers; primary-IP attribution is a separate parser step. No global removable-output or forecast-gain claim follows from sample shares.
+
+
 
 ## October23: guarded PD final-pass fusion promoted after exact short qualification
 

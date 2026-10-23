@@ -1,0 +1,9 @@
+The WW recurrence pipeline calculates each current row before subtracting WW1 from the previous row. A final-row loop completes the subtraction. This removes a full second vertical sweep while retaining the original arithmetic and destination stores.
+
+Two opposite-order complete-caller pairs were **3.87% and 3.48% shorter** (process CPU 3.84% and 3.44% lower). The genuine-module/O0/O2 gate passed 87 observations per optimization, including exact raw output, read-only inputs, guards and five floating-point state words. These are caller gains from the retained captured fixture, not forecast percentages.
+
+Selected image `2340308c` passed both original full-grid short outputs and all 35 ordered steps, metadata/layout and the 512-rank writer contract. All model and reader jobs closed normally. It retains PD final-pass fusion and every prior component/provider. It has **no own three-hour, nine-hour, profile, restart or full144-hour qualification** yet. W/geopotential fusion is separate and excluded from this image.
+
+Canonical strict O2 rebuilding produced runtime-equivalent allocated sections, relocations, non-file symbols and public module interface to the tested native object. The source commit records post-test correspondence, not a fresh whole-image build. Actual canonical and native preprocessed files are separately pinned; full byte identity between them is not claimed.
+
+The qualified GNU13.3.0/REAL4/INTEGER4/pure-MPI SmallStep SIMD/Zen2 recipe enables the guarded default. Matching serial builds remain unqualified. Set `WRF_ADVANCE_MU_WW_ROW_PIPELINE=0` and fully regenerate, rebuild, rearchive and relink to restore the previous WW schedule. Full rollback selects c277/10eb and its matching source/default while retaining PD. See APPLICATION_QUALIFICATION.json and REBUILD_RECIPE.json for actual artifact identities and evidence.
