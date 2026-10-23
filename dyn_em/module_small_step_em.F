@@ -136,6 +136,7 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
       ENDDO
       ENDDO
 
+#ifndef WRF_SMALL_STEP_UV_COPY_FUSION
       DO j=j_start, j_end
       DO k=k_start, k_end
       DO i=i_start, i_endu
@@ -143,7 +144,9 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
       ENDDO
       ENDDO
       ENDDO
+#endif
 
+#ifndef WRF_SMALL_STEP_UV_COPY_FUSION
       DO j=j_start, j_endv
       DO k=k_start, k_end
       DO i=i_start, i_end
@@ -151,6 +154,7 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
       ENDDO
       ENDDO
       ENDDO
+#endif
 
 #ifndef WRF_SMALL_STEP_T_COPY_FUSION
       DO j=j_start, j_end
@@ -240,6 +244,28 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
     ENDDO
     ENDDO
 
+#ifdef WRF_SMALL_STEP_UV_COPY_FUSION
+    DO j=j_start, j_end
+    DO k=k_start, k_end
+    IF (rk_step == 1) THEN
+    !$omp simd
+    DO i=i_start, i_endu
+      u_1(i,k,j) = u_2(i,k,j)
+      u_save(i,k,j) = u_2(i,k,j)
+      ! u coupled with my
+      u_2(i,k,j) = ((c1h(k)*muus(i,j)+c2h(k))*u_1(i,k,j)-(c1h(k)*muu(i,j)+c2h(k))*u_2(i,k,j))/msfuy(i,j)
+    ENDDO
+    ELSE
+    !$omp simd
+    DO i=i_start, i_endu
+      u_save(i,k,j) = u_2(i,k,j)
+      ! u coupled with my
+      u_2(i,k,j) = ((c1h(k)*muus(i,j)+c2h(k))*u_1(i,k,j)-(c1h(k)*muu(i,j)+c2h(k))*u_2(i,k,j))/msfuy(i,j)
+    ENDDO
+    ENDIF
+    ENDDO
+    ENDDO
+#else
     DO j=j_start, j_end
     DO k=k_start, k_end
     !$omp simd
@@ -250,7 +276,32 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
     ENDDO
     ENDDO
     ENDDO
+#endif
 
+#ifdef WRF_SMALL_STEP_UV_COPY_FUSION
+    DO j=j_start, j_endv
+    DO k=k_start, k_end
+    IF (rk_step == 1) THEN
+!$OMP SIMD
+    DO i=i_start, i_end
+      v_1(i,k,j) = v_2(i,k,j)
+      v_save(i,k,j) = v_2(i,k,j)
+      ! v coupled with mx
+!      v_2(i,k,j) = ((c1h(k)*muvs(i,j)+c2h(k))*v_1(i,k,j)-(c1h(k)*muv(i,j)+c2h(k))*v_2(i,k,j))/msfvx(i,j)
+      v_2(i,k,j) = ((c1h(k)*muvs(i,j)+c2h(k))*v_1(i,k,j)-(c1h(k)*muv(i,j)+c2h(k))*v_2(i,k,j))*msfvx_inv(i,j)
+    ENDDO
+    ELSE
+!$OMP SIMD
+    DO i=i_start, i_end
+      v_save(i,k,j) = v_2(i,k,j)
+      ! v coupled with mx
+!      v_2(i,k,j) = ((c1h(k)*muvs(i,j)+c2h(k))*v_1(i,k,j)-(c1h(k)*muv(i,j)+c2h(k))*v_2(i,k,j))/msfvx(i,j)
+      v_2(i,k,j) = ((c1h(k)*muvs(i,j)+c2h(k))*v_1(i,k,j)-(c1h(k)*muv(i,j)+c2h(k))*v_2(i,k,j))*msfvx_inv(i,j)
+    ENDDO
+    ENDIF
+    ENDDO
+    ENDDO
+#else
     DO j=j_start, j_endv
     DO k=k_start, k_end
 !$OMP SIMD
@@ -262,6 +313,7 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
     ENDDO
     ENDDO
     ENDDO
+#endif
 
 #ifdef WRF_SMALL_STEP_T_COPY_FUSION
     DO j=j_start, j_end
