@@ -739,6 +739,16 @@ SUBROUTINE calc_coef_w( a,alpha,gamma,              &
           a(i,kde,j) =-2.*cof(i)*rdnw(kde-1)**2*c2a(i,kde-1,j)*lid_flag/((c1h(k)*MUT(i,j)+c2h(k))*(c1f(k)*MUT(i,j)+c2f(k)))
           gamma(i,1 ,j) = 0.
         ENDDO
+#ifdef WRF_CALC_COEF_W_AHEAD_ROW_PIPELINE
+
+
+        DO k=2,kde-1
+        kk=k+1
+        DO i=i_start, i_end
+          IF(k<kde-1) THEN
+          a(i,kk,j) =   -cqw(i,kk,j)*cof(i)*rdn(kk)* rdnw(kk-1)*c2a(i,kk-1,j)/((c1h(k)*MUT(i,j)+c2h(k))*(c1f(k)*MUT(i,j)+c2f(k)))
+          ENDIF
+#else
         DO kk=3,kde-1
         k=kk-1
         DO i=i_start, i_end
@@ -747,6 +757,7 @@ SUBROUTINE calc_coef_w( a,alpha,gamma,              &
         ENDDO
         DO k=2,kde-1
         DO i=i_start, i_end
+#endif
           b = 1.+cqw(i,k,j)*cof(i)*rdn(k)*(rdnw(k  )*c2a(i,k,  j)/((c1h(k)*MUT(i,j)+c2h(k))*(c1f(k)*MUT(i,j)+c2f(k)))  &
                                           +rdnw(k-1)*c2a(i,k-1,j)/((c1h(k-1)*MUT(i,j)+c2h(k-1))*(c1f(k)*MUT(i,j)+c2f(k))) )
           c =   -cqw(i,k,j)*cof(i)*rdn(k)*rdnw(k  )*c2a(i,k,j  )/((c1h(k)*MUT(i,j)+c2h(k))*(c1f(k+1)*MUT(i,j)+c2f(k+1)))
