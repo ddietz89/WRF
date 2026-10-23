@@ -166,7 +166,9 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
       DO k=k_start, min(kde,kte)
       DO i=i_start, i_end
         w_1(i,k,j)  = w_2(i,k,j)
+#ifndef WRF_SMALL_STEP_PH_COPY_FUSION
         ph_1(i,k,j) = ph_2(i,k,j)
+#endif
       ENDDO
       ENDDO
       ENDDO
@@ -295,6 +297,18 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
     DO j=j_start, j_end
 !    DO k=k_start, min(kde,kte)
     DO k=k_start, kde
+#ifdef WRF_SMALL_STEP_PH_COPY_FUSION
+    IF (rk_step == 1 .AND. k<=min(kde,kte)) THEN
+    !$omp simd
+    DO i=i_start, i_end
+      ph_1(i,k,j) = ph_2(i,k,j)
+      w_save(i,k,j) = w_2(i,k,j)
+      ! w coupled with my
+      w_2(i,k,j)  = ((c1f(k)*muts(i,j)+c2f(k))* w_1(i,k,j)-(c1f(k)*mut(i,j)+c2f(k))* w_2(i,k,j))/msfty(i,j)
+      ph_save(i,k,j) = ph_2(i,k,j)
+      ph_2(i,k,j) = ph_1(i,k,j)-ph_2(i,k,j)
+    ENDDO
+    ELSE
     !$omp simd
     DO i=i_start, i_end
       w_save(i,k,j) = w_2(i,k,j)
@@ -303,6 +317,17 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
       ph_save(i,k,j) = ph_2(i,k,j)
       ph_2(i,k,j) = ph_1(i,k,j)-ph_2(i,k,j)
     ENDDO
+    ENDIF
+#else
+    !$omp simd
+    DO i=i_start, i_end
+      w_save(i,k,j) = w_2(i,k,j)
+      ! w coupled with my
+      w_2(i,k,j)  = ((c1f(k)*muts(i,j)+c2f(k))* w_1(i,k,j)-(c1f(k)*mut(i,j)+c2f(k))* w_2(i,k,j))/msfty(i,j)
+      ph_save(i,k,j) = ph_2(i,k,j)
+      ph_2(i,k,j) = ph_1(i,k,j)-ph_2(i,k,j)
+    ENDDO
+#endif
     ENDDO
     ENDDO
 
