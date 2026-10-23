@@ -1,28 +1,24 @@
 {
   "status": "PASS_ORIGINAL_TEN_HISTORY_AND_512_DIRECT_STOCK_LATEST_NINE_HOUR_SEQUENCE",
   "order": [
-    "fresh_corrected_original546b_control",
-    "fresh_selected_FBCD_PD_allprior_with_result_capacity8bee_codec9371_candidate"
+    "retained_freshPD_original546b_control",
+    "new_currenta93f_unprofiled_own9h_candidate"
   ],
-  "comparison_design": "Fresh fixed-order corrected-original versus combined current candidate; no isolated outputpadding/SIMD/input or earlierkernel attribution",
+  "comparison_design": "SCIENCE_ONLY candidate-only run vs retained original; descriptive timings only, no admitted performance comparison",
   "metrics": {
     "control": {
-      "wall_seconds": 2306.344228322152,
-      "cpu_seconds": 1132283.412013,
-      "main_step_sum_seconds": 2092.72855
+      "wall_seconds": 2069.3122304237913,
+      "cpu_seconds": 1009264.484921,
+      "main_step_sum_seconds": 1851.54464
     },
     "candidate": {
-      "wall_seconds": 1825.2293158732355,
-      "cpu_seconds": 919086.0741600001,
-      "main_step_sum_seconds": 1730.64904
+      "wall_seconds": 1803.6872946359217,
+      "cpu_seconds": 908127.5271500001,
+      "main_step_sum_seconds": 1722.23251
     }
   },
-  "reductions_percent": {
-    "wall_seconds": 20.860498903016055,
-    "cpu_seconds": 18.828972993075364,
-    "main_step_sum_seconds": 17.30179052605747
-  },
-  "science_sha256": "68aa7427941db82215dc0b5a26842a4bc3a48fc9d8e6be2b9847f3c59e875abd",
-  "reader_closure_sha256": "6ced782585b0c629f45fc437882c90c0e51e303d799c6a713023f547f733806d",
-  "limits": "One fresh fixed-order pair, actual checkedcache before each arm; no repeatability or per-kernel causal claim. Main includes communication/backpressure; residual is not pureIO."
+  "timing_gain_claim": false,
+  "science_sha256": "fa8a78da910ae3d807a3429acec317d35efeb9f973c38b32b08f0d0d54f9b8dd",
+  "reader_closure_sha256": "fa9a8626c57be377316eaaf73859e24cf1167e18328982de13575031498e810f",
+  "limits": "One later candidate versus retained actual546b control. Different order/time/cache/serverload; no freshpair/repeatability/perkernelcausalclaim. Main includes communication/backpressure; residual is not pureIO."
 }

@@ -1,0 +1,170 @@
+{
+  "status": "CLOSE_UNPROMOTED_NO_COMPLETE_CALLER_BENEFIT",
+  "candidate": "ZERO whole-box private GNU13.3 AVX2 integer store helper",
+  "decision": "Both opposite-order complete-caller pairs are slower in wall and PROCESS CPU. Do not integrate, rebuild an application image, run a forecast, or pursue further variants/matrices for this candidate.",
+  "selected_image_unchanged": "a93fa7fbab772d979dfb6c46a318944dc3a0faf6223fd5f82348e86fc4e9e84d",
+  "selected_archive_unchanged": "02f9c20c4517b90625e72a5f2a623235402610ed111e37f00e7ef4164887e866",
+  "source_scope": "Only private candidate zero_tend changed; canonical source/default/selected records were not changed by this candidate.",
+  "source_parent_selected_object_sha256": "926fe28f70514ded0a3412d1228fdbc9d772e63010dd465708b9719047c99421",
+  "candidate_artifacts": {
+    "object": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/currenta93f-zero-wholebox-native-hpc02-r1/work/O2-candidate/module_big_step_utilities_em.o",
+      "sha256": "369041290e012c417c3b2777048932168f50e557e1221746d268e38265a607ef"
+    },
+    "module": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/currenta93f-zero-wholebox-native-hpc02-r1/work/O2-candidate/module_big_step_utilities_em.mod",
+      "sha256": "2a403a95ddbdc61fcc339e79ca3bc2dd4f632d95916a650a7868163f897348ef"
+    },
+    "PP": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/currenta93f-zero-wholebox-native-hpc02-r1/work/O2-candidate/module_big_step_utilities_em.f90",
+      "sha256": "d8828eb817874574a6d7178d7db03bf665f431355f25fc9ab7a956785a7ea766"
+    },
+    "helper": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/currenta93f-zero-wholebox-native-hpc02-r1/work/O2-candidate/whole_zero_tend_i32.o",
+      "sha256": "8d702981c02bb1b57ecc9c0f1a3424eac1698e24c918396f382e17749c0769f9"
+    }
+  },
+  "strict_correctness": {
+    "complete_cases": 8,
+    "roles": 5,
+    "case_observations": 40,
+    "raw_and_all_five_state_exact": true,
+    "genuine_O2_sameopt_O0_bounds_O2_pairs": true,
+    "fresh_parent_allocated_sections_RELA_nonFILE_symbols_exact": true,
+    "non_target_functions_proved": true,
+    "public_module_scope": "Whole public MOD tokens exact except one ZERO-target-only ARRAY_OUTER_DEPENDENCY compiler summary under explicit prospective method; candidate MOD not byte equal. No universal freshcaller compiler-optimization identity claim."
+  },
+  "original_native_attempt": {
+    "status": "FAIL_RETAINED_NO_RETRY",
+    "invocation_id": "3997f76212e244a187de6e972c13a0cc",
+    "exit_status": 1,
+    "manager_result": "exit-code",
+    "MainPID": 0,
+    "cgroup_empty_and_absent": true,
+    "failure": "Prospective helper-instruction allowlist omitted two integer SETL instructions; no raw/state mismatch.",
+    "original_failed_attempt_preserved": true
+  },
+  "derived_postcheck": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currenta93f-zero-tend-whole-box-integer-helper-r1/retained-artifact-postcheck-r1/ACTUAL_POSTCHECK_R1.json",
+    "sha256": "9b65855f13372f0d428e97ac290267e3c79683a4f66086f09370edf85011cc5e",
+    "status": "PASS_RETAINED_ZERO_NATIVE40_RAW5STATE_AND_EXISTING_INTEGER_CODEGEN_POSTCHECK_ONLY",
+    "scope": "Read-only existing-artifact machine check; SETL +7CL/+28SIL implement integer emptybounds checks. Parent per-row memset versus candidate wholebox invocation outside local backedges confirmed. No recompile/link/native rerun; this is not a successful original invocation."
+  },
+  "timing": {
+    "calls_per_arm": 1024,
+    "arms": 4,
+    "orders": "hpc01 parent\u2192candidate; hpc04 candidate\u2192parent",
+    "resources": "One physical CPU24,4GiB,swap0,90s arm cap; checked sync/drop3 before every arm on affectedhost only.",
+    "interval": "Sum of original integer MONOTONIC wall/PROCESS CPU percall intervals; complete zero_tend call. Original restore/raw/state/guard checks outside intervals, clock boundaries included.",
+    "rows": [
+      {
+        "host": "hpc01",
+        "parent_ns": 11110595,
+        "candidate_ns": 11810873,
+        "wall_reduction_percent": -6.302794764816825,
+        "parent_process_CPU_ns": 11044011,
+        "candidate_process_CPU_ns": 11744833,
+        "CPU_reduction_percent": -6.34571986572632,
+        "raw_sha256": "e4b0bda9fefc9eb287fa20bc00b05fa880c65a01f5b7dc6e1bb176ecc7416fb4",
+        "raw_bytes": 972128,
+        "calls": 1024,
+        "order": [
+          "parent",
+          "candidate"
+        ]
+      },
+      {
+        "host": "hpc04",
+        "parent_ns": 10539697,
+        "candidate_ns": 11693926,
+        "wall_reduction_percent": -10.951254101517339,
+        "parent_process_CPU_ns": 10480920,
+        "candidate_process_CPU_ns": 11514400,
+        "CPU_reduction_percent": -9.860584757826603,
+        "raw_sha256": "e4b0bda9fefc9eb287fa20bc00b05fa880c65a01f5b7dc6e1bb176ecc7416fb4",
+        "raw_bytes": 972128,
+        "calls": 1024,
+        "order": [
+          "candidate",
+          "parent"
+        ]
+      }
+    ],
+    "raw_bytes": 972128,
+    "all_four_full_raw_state_bounds_streams_exact": true,
+    "all_four_checked_cache_and_invocation_bound_normal_closures": [
+      {
+        "host": "hpc01",
+        "index": 0,
+        "mode": "parent",
+        "unit": "wrf-cpu-currenta93f-zero-wholebox-1024-hpc01-arm0-parent-r1.service",
+        "invocation_id": "400c316e02794021b60f40793f1239c8",
+        "normal_closure_and_cgroup_absence": true,
+        "checked_sync_drop3_before_arm": true
+      },
+      {
+        "host": "hpc01",
+        "index": 1,
+        "mode": "candidate",
+        "unit": "wrf-cpu-currenta93f-zero-wholebox-1024-hpc01-arm1-candidate-r1.service",
+        "invocation_id": "3b3eac26082943ed9610b239e4882ce1",
+        "normal_closure_and_cgroup_absence": true,
+        "checked_sync_drop3_before_arm": true
+      },
+      {
+        "host": "hpc04",
+        "index": 2,
+        "mode": "candidate",
+        "unit": "wrf-cpu-currenta93f-zero-wholebox-1024-hpc04-arm2-candidate-r1.service",
+        "invocation_id": "8cd9d2dd50b84100b2d797a37b50da55",
+        "normal_closure_and_cgroup_absence": true,
+        "checked_sync_drop3_before_arm": true
+      },
+      {
+        "host": "hpc04",
+        "index": 3,
+        "mode": "parent",
+        "unit": "wrf-cpu-currenta93f-zero-wholebox-1024-hpc04-arm3-parent-r1.service",
+        "invocation_id": "39fe809d27a94ee8acc277eefa9401bf",
+        "normal_closure_and_cgroup_absence": true,
+        "checked_sync_drop3_before_arm": true
+      }
+    ],
+    "causal_limit": "Measured slowdown is retained without attribution to tailcalls, stores, guards, cache behavior, vector width, or any unmeasured mechanism. Not a forecast result."
+  },
+  "actual_transport": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currenta93f-zero-tend-whole-box-integer-helper-r1/caller-timing-runtime-r1/ROOT_TIMING_DISPATCH.json",
+    "sha256": "206c48df56ae2d97f3af522cac7e984b99f723adb08374e9528db4cf7d699b4e",
+    "returncode": 0
+  },
+  "remote_result_files": {
+    "status": "PASS_ROOT_BYTE_EXACT_COLLECTION",
+    "paths": [
+      "/pool/wrf-experiment/wrf-cpu/kernels/currenta93f-zero-wholebox-caller-timing-r1/timing-r1/hpc01-RESULT.json",
+      "/pool/wrf-experiment/wrf-cpu/kernels/currenta93f-zero-wholebox-caller-timing-r1/timing-r1/hpc04-RESULT.json",
+      "/pool/wrf-experiment/wrf-cpu/kernels/currenta93f-zero-wholebox-caller-timing-r1/timing-r1/RESULT.json"
+    ],
+    "local_paths": {
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currenta93f-zero-tend-whole-box-integer-helper-r1/caller-timing-runtime-r1/actual-caller-result-r1/RESULT.json": "b71ff323100e1b7d9ee7e6cecaa2706c2a2beece86bbe7f84995e6302e37977a",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currenta93f-zero-tend-whole-box-integer-helper-r1/caller-timing-runtime-r1/actual-caller-result-r1/hpc01-RESULT.json": "1cace68784cd9b5624f3726f93e4e35df6bd142d6ecf1fd3c5b3acdb9262ebe0",
+      "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currenta93f-zero-tend-whole-box-integer-helper-r1/caller-timing-runtime-r1/actual-caller-result-r1/hpc04-RESULT.json": "575640170757d1ed5b6620edc642e82970d2c9d9351c650b1de007a9ee9fdaff"
+    },
+    "qualification_already_supported_by_actual_transport_complete_JSON": true
+  },
+  "rollback": "None required: experimental source/helper were never applied to canonical source/defaults or selected image. Keep a93f unchanged; retain evidence.",
+  "further_tests_or_integration_planned": false,
+  "raw_refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currenta93f-zero-tend-whole-box-integer-helper-r1/caller-timing-runtime-r1/ROOT_TIMING_DISPATCH.json": "206c48df56ae2d97f3af522cac7e984b99f723adb08374e9528db4cf7d699b4e",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currenta93f-zero-tend-whole-box-integer-helper-r1/native-gate-preparation-r1/actual-native-r1/receipt.json": "7229b7edb40efc2a2cfb569fe1f2921c7719a0654f365d841de022c1d48ed0ec",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currenta93f-zero-tend-whole-box-integer-helper-r1/native-gate-preparation-r1/actual-native-r1/closure.json": "a8dca870f1058d951952c58958b3035474f3c7262553641117969fd3e9439542",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currenta93f-zero-tend-whole-box-integer-helper-r1/retained-artifact-postcheck-r1/ACTUAL_POSTCHECK_R1.json": "9b65855f13372f0d428e97ac290267e3c79683a4f66086f09370edf85011cc5e",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currenta93f-zero-tend-whole-box-integer-helper-r1/caller-timing-preparation-r1/actual-caller-build-r1/receipt.json": "cec46bb18a57372ea5ec07a9509ff9bef489180a7ce99e21eba095c4e2f3987c",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currenta93f-zero-tend-whole-box-integer-helper-r1/caller-timing-preparation-r1/actual-caller-build-r1/closure.json": "3fe11fb864f61819046a175f351278852de4b5e6db6604dc189d5d1ebdcc1bb2",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currenta93f-zero-tend-whole-box-integer-helper-r1/provider-preparation-r1/local-adoption-r1/SOURCE_INVERSE.json": "ccd3f6499c185523669fab281aab1ecceba55da396b4867ab05cc0d4597025e2",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currenta93f-zero-tend-whole-box-integer-helper-r1/provider-preparation-r1/local-adoption-r1/candidate_module_big_step_utilities_em.f90": "d8828eb817874574a6d7178d7db03bf665f431355f25fc9ab7a956785a7ea766",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currenta93f-zero-tend-whole-box-integer-helper-r1/provider-preparation-r1/local-adoption-r1/whole_zero_tend_i32.c": "c3a075440e13b8c77326248c9fb6a4685058614114b9b2faed6f7fa8d24d070a",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currenta93f-zero-tend-whole-box-integer-helper-r1/caller-timing-runtime-r1/actual-caller-result-r1/RESULT.json": "b71ff323100e1b7d9ee7e6cecaa2706c2a2beece86bbe7f84995e6302e37977a",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currenta93f-zero-tend-whole-box-integer-helper-r1/caller-timing-runtime-r1/actual-caller-result-r1/hpc01-RESULT.json": "1cace68784cd9b5624f3726f93e4e35df6bd142d6ecf1fd3c5b3acdb9262ebe0",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currenta93f-zero-tend-whole-box-integer-helper-r1/caller-timing-runtime-r1/actual-caller-result-r1/hpc04-RESULT.json": "575640170757d1ed5b6620edc642e82970d2c9d9351c650b1de007a9ee9fdaff"
+  }
+}
