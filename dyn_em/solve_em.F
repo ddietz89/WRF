@@ -174,7 +174,10 @@ SUBROUTINE solve_em ( grid , config_flags  &
 ! Benefit: save memory in nested runs, since only 1 domain is active at a
 ! time.  Potential problem on stack-limited architectures: increases
 ! amount of data on program stack by making these automatic arrays.
+#if !(defined(WRF_MOISTURE_HZ_ZERO_REUSE) && defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP))
 
+#endif
+#line 175
    INTEGER :: rc 
    INTEGER :: number_of_small_timesteps, rk_step
    INTEGER :: klevel,ijm,ijp,i,j,k,size1,size2    ! for prints/plots only
@@ -190,6 +193,10 @@ SUBROUTINE solve_em ( grid , config_flags  &
    LOGICAL :: leapfrog
 #if defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
    LOGICAL :: ww_split_ready
+#if defined(WRF_MOISTURE_HZ_ZERO_REUSE) && defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+   LOGICAL :: hz_zero_ready
+#endif
+#line 186
 #if defined(WRF_SCALAR_WW_SPLIT_REUSE) && defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
    LOGICAL :: scalar_ww_split_ready
 #endif
@@ -2256,9 +2263,16 @@ BENCH_END(small_step_finish_tim)
 #endif
 #endif
        moist_scalar_advance: IF (num_3d_m >= PARAM_FIRST_SCALAR )  THEN
+#if !(defined(WRF_MOISTURE_HZ_ZERO_REUSE) && defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP))
 
+#endif
+#line 2242
 #if defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
          ww_split_ready = .FALSE.
+#if defined(WRF_MOISTURE_HZ_ZERO_REUSE) && defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+         hz_zero_ready = .FALSE.
+#endif
+#line 2244
 #endif
 #line 2242
          moist_variable_loop: DO im = PARAM_FIRST_SCALAR, num_3d_m
@@ -2311,7 +2325,12 @@ BENCH_START(rk_scalar_tend_tim)
                            grid%j_start(ij), grid%j_end(ij), &
 #if defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
                            k_start    , k_end,              &
+#if defined(WRF_MOISTURE_HZ_ZERO_REUSE) && defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+                           ww_split_prepared=ww_split_ready, hz_zero_prepared=hz_zero_ready )
+#else
                            ww_split_prepared=ww_split_ready )
+#endif
+#line 2293
 #else
                            k_start    , k_end               )
 #endif
@@ -2372,12 +2391,19 @@ BENCH_START(rlx_bdy_scalar_tim)
                  ENDIF
                ENDIF
 BENCH_END(rlx_bdy_scalar_tim)
+#if !(defined(WRF_MOISTURE_HZ_ZERO_REUSE) && defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP))
 
+#endif
+#line 2348
              ENDDO moist_tile_loop_1
              !$OMP END PARALLEL DO
 #if defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
 #ifndef _OPENMP
              ww_split_ready = .TRUE.
+#if defined(WRF_MOISTURE_HZ_ZERO_REUSE) && defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+             hz_zero_ready = .TRUE.
+#endif
+#line 2353
 #endif
 #endif
 #if defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)

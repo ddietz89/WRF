@@ -329,6 +329,11 @@ ifeq ($(filter -fdefault-% -freal-% -finteger-% -r8 -i8,$(FCFLAGS) $(FCBASEOPTS)
 ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
 ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
 module_em.o solve_em.o: private override CPPFLAGS += -DWRF_MOISTURE_WW_SPLIT_REUSE
+# h/z zero reuse composes only with the qualified moisture WW interface.
+WRF_MOISTURE_HZ_ZERO_REUSE ?= 1
+ifeq ($(WRF_MOISTURE_HZ_ZERO_REUSE),1)
+module_em.o solve_em.o: private override CPPFLAGS += -DWRF_MOISTURE_HZ_ZERO_REUSE
+endif
 endif
 endif
 endif

@@ -1133,7 +1133,12 @@ SUBROUTINE rk_scalar_tend ( scs, sce, config_flags,          &
                             ims, ime, jms, jme, kms, kme,    &
 #if defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
                             its, ite, jts, jte, kts, kte,   &
+#if defined(WRF_MOISTURE_HZ_ZERO_REUSE) && defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+                            ww_split_prepared, hz_zero_prepared )
+#else
                             ww_split_prepared )
+#endif
+#line 1137
 #else
                             its, ite, jts, jte, kts, kte    )
 #endif
@@ -1191,7 +1196,12 @@ SUBROUTINE rk_scalar_tend ( scs, sce, config_flags,          &
 #endif
 #line 1157
    REAL, DIMENSION(ims:ime, kms:kme, jms:jme  ), INTENT(INOUT) :: advect_tend
+#if defined(WRF_MOISTURE_HZ_ZERO_REUSE) && defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+   REAL, DIMENSION(ims:ime, kms:kme, jms:jme  ), INTENT(INOUT) :: h_tendency, z_tendency
+#else
    REAL, DIMENSION(ims:ime, kms:kme, jms:jme  ), INTENT(  OUT) :: h_tendency, z_tendency
+#endif
+#line 1159
 #if !(defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP))
 
 #endif
@@ -1242,6 +1252,10 @@ SUBROUTINE rk_scalar_tend ( scs, sce, config_flags,          &
    LOGICAL, INTENT(IN   ) :: mix2_off, mix6_off
 #if defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
    LOGICAL, INTENT(IN), OPTIONAL :: ww_split_prepared
+#if defined(WRF_MOISTURE_HZ_ZERO_REUSE) && defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+   LOGICAL, INTENT(IN), OPTIONAL :: hz_zero_prepared
+#endif
+#line 1206
 #endif
 #line 1204
 
@@ -1260,6 +1274,10 @@ SUBROUTINE rk_scalar_tend ( scs, sce, config_flags,          &
    LOGICAL                                      :: ieva
 #if defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
    LOGICAL :: needs_ww_split
+#if defined(WRF_MOISTURE_HZ_ZERO_REUSE) && defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+   LOGICAL :: needs_hz_zero
+#endif
+#line 1220
 #endif
 #line 1218
 
@@ -1279,6 +1297,15 @@ SUBROUTINE rk_scalar_tend ( scs, sce, config_flags,          &
 ! IEVA
                          
    ieva = CHK_IEVA( config_flags, rk_step )
+#if defined(WRF_MOISTURE_HZ_ZERO_REUSE) && defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+   needs_hz_zero = .TRUE.
+   IF ( PRESENT(hz_zero_prepared) ) THEN
+     IF ( hz_zero_prepared ) THEN
+       IF ( moist_step .AND. (rk_step < rk_order) .AND. (.NOT. ieva) ) needs_hz_zero = .FALSE.
+     ENDIF
+   ENDIF
+#endif
+#line 1235
 #if defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
    needs_ww_split = .TRUE.
 #ifndef _OPENMP
@@ -1332,7 +1359,11 @@ SUBROUTINE rk_scalar_tend ( scs, sce, config_flags,          &
                       ims, ime, jms, jme, kms, kme, &
                       its, ite, jts, jte, kts, kte )
 
+#if defined(WRF_MOISTURE_HZ_ZERO_REUSE) && defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+     IF ( needs_hz_zero ) THEN
+#endif
      CALL zero_tend ( h_tendency(ims,kms,jms),      &
+#line 1270
                       ids, ide, jds, jde, kds, kde, &
                       ims, ime, jms, jme, kms, kme, &
                       its, ite, jts, jte, kts, kte )
@@ -1341,6 +1372,10 @@ SUBROUTINE rk_scalar_tend ( scs, sce, config_flags,          &
                       ids, ide, jds, jde, kds, kde, &
                       ims, ime, jms, jme, kms, kme, &
                       its, ite, jts, jte, kts, kte )
+#if defined(WRF_MOISTURE_HZ_ZERO_REUSE) && defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+     ENDIF
+#endif
+#line 1278
 
      CALL nl_get_time_step ( 1, time_step )
 
@@ -1483,9 +1518,15 @@ SUBROUTINE rk_scalar_tend ( scs, sce, config_flags,          &
                                            ids, ide, jds, jde, kds, kde, &
                                            ims, ime, jms, jme, kms, kme, &
                                            its, ite, jts, jte, kts, kte )
+#if !(defined(WRF_MOISTURE_HZ_ZERO_REUSE) && defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP))
 
+#endif
+#line 1421
            ELSE
+#if !(defined(WRF_MOISTURE_HZ_ZERO_REUSE) && defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP))
 
+#endif
+#line 1423
               CALL vertical_diffusion (  'm', scalar(ims,kms,jms,im),       &
                                               scalar_tends(ims,kms,jms,im), &
                                               config_flags, c1h, c2h,       &
@@ -1493,15 +1534,30 @@ SUBROUTINE rk_scalar_tend ( scs, sce, config_flags,          &
                                               ids, ide, jds, jde, kds, kde, &
                                               ims, ime, jms, jme, kms, kme, &
                                               its, ite, jts, jte, kts, kte )
+#if !(defined(WRF_MOISTURE_HZ_ZERO_REUSE) && defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP))
 
+#endif
+#line 1431
            END IF
+#if !(defined(WRF_MOISTURE_HZ_ZERO_REUSE) && defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP))
 
+#endif
+#line 1433
          ENDIF pbl_test
+#if !(defined(WRF_MOISTURE_HZ_ZERO_REUSE) && defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP))
 
+#endif
+#line 1435
        ENDIF diff_opt1
+#if !(defined(WRF_MOISTURE_HZ_ZERO_REUSE) && defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP))
 
+#endif
+#line 1437
        IF ( (diff_6th_opt .NE. 0) .and. (.not. mix6_off) ) THEN
+#if !(defined(WRF_MOISTURE_HZ_ZERO_REUSE) && defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP))
 
+#endif
+#line 1439
          CALL sixth_order_diffusion( 'm', scalar(ims,kms,jms,im),        &
                                           scalar_tends(ims,kms,jms,im),  &
                                           mut, dt_step,                  &
@@ -1516,11 +1572,20 @@ SUBROUTINE rk_scalar_tend ( scs, sce, config_flags,          &
                                           ims, ime, jms, jme, kms, kme,  &
                                           its, ite, jts, jte, kts, kte )
        ENDIF
+#if !(defined(WRF_MOISTURE_HZ_ZERO_REUSE) && defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP))
        
+#endif
+#line 1454
      ENDIF rk_step_1
+#if !(defined(WRF_MOISTURE_HZ_ZERO_REUSE) && defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP))
 
+#endif
+#line 1456
    END DO scalar_loop
+#if !(defined(WRF_MOISTURE_HZ_ZERO_REUSE) && defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP))
 
+#endif
+#line 1458
 END SUBROUTINE rk_scalar_tend
 
 !-------------------------------------------------------------------------------
