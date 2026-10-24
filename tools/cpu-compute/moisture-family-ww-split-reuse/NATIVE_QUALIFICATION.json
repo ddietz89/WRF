@@ -1,0 +1,178 @@
+{
+  "document_role": "OFF_REPOSITORY_NATIVE_QUALIFICATION_DRAFT_FOR_ROOT_REVIEW",
+  "status": "PASS_REAL_WHOLE_RK_SCALAR_TEND_7_SEQUENCES_22_CALLS_5_ROLES_GENUINE_CURRENT766_O0_BOUNDS_O2_RAW_STATE_WW_UNION",
+  "scope": "Finite whole-rk_scalar_tend correctness qualification only; no measured benefit, application qualification, integration qualification or promotion.",
+  "actual_authorities": {
+    "receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/whole-rk-tend-native-preparation-r1/actual-native-r3/receipt.json",
+      "sha256": "a7fc1131c96c55efc91d6e32663c01741b15a603f4ff1c788232cd7d4dc6d7e3"
+    },
+    "closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/whole-rk-tend-native-preparation-r1/actual-native-r3/closure.json",
+      "sha256": "ec2a95612753ae636f49780ad9222de6dc4334b84e39d352296d8eff7cbcd40b"
+    },
+    "invocation_id": "2a9493cfc7834d6689890b11c837a7ff",
+    "root_controller": 84469,
+    "normal_closed": true,
+    "MainPID": 0,
+    "ExecMainStatus": 0,
+    "manager_Result": "success",
+    "positive_deactivation_event": true,
+    "cgroup_processes": [],
+    "cgroup_paths_absent": true
+  },
+  "source": {
+    "frozen_source_pins": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/local-adoption-r1/FROZEN_SOURCE_PINS.json",
+      "sha256": "17bc23221f24bc35efa7be4581595a6853b56cd608e2ff8eb5f7a7d0e891df8f"
+    },
+    "candidate_module_em": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/local-adoption-r1/candidate_module_em.F",
+      "sha256": "ab16fe2a3c233d8bd6f9e5256b6b722acde97c1314eaeeab510f1a7dbb67305d"
+    },
+    "candidate_solve_em": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/local-adoption-r1/candidate_solve_em.F",
+      "sha256": "0d659b042f601b45fbf3b78aba6b366e7be541e4e5f764f3823d2efdef1d97f4"
+    },
+    "adoption_receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/local-adoption-r1/LOCAL_ADOPTION_RECEIPT.json",
+      "sha256": "547132235e979fbe183bd75da32d848044710dab0ad0836084a9b618ca8eb47f"
+    },
+    "source_inverse": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/local-adoption-r1/SOURCE_INVERSE.json",
+      "sha256": "44496d35b0285ed63fb502ba97661db62d83ed62ba7f7f1b3a0c8b9724144f54"
+    },
+    "mechanism": "Reuse WW_SPLIT scratch only across admitted moisture species in one RK-stage moisture loop after the first admitted species completes both tiles. Absent/false optional flag, IEVA and _OPENMP retain the original call path. No arithmetic/order change is claimed outside this guarded reuse.",
+    "provider_provenance": "Initial provider implementation rejected; authorized local completion is the tested source. Later malformed/contradictory external review is retained and is not an external PASS."
+  },
+  "current_native_bindings": {
+    "genuine_module_em_sha256": "7663289122a635f4d2f25573a8728ee1cb381e5e1008212a0b4072231d1152a5",
+    "parent_qualified_PP_sha256": "26709bf4113abbae4ad5c41c67a3472c07c000e35ee0b872e57e68b0f110b4ab",
+    "fresh_O2_parent_sha256": "1a34b663a2c734d17b86e1f2d9c47441242a2bfe464d8c8e6f25c1e85f16f84e",
+    "genuine_reproduction_status": "PASS_ALLOCATED_BYTES_RELOCATIONS_NONFILE_SYMBOLS_EXACT",
+    "actual_dependency_module_files": {
+      "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_configure.mod": "a16f88b79a658620f0cf53f558e993eb91b6d79c01073d55cf4cc457a7fde9e3",
+      "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em/module_ieva_em.mod": "0622bcce78a4bcbaefeac540f961e3b453df30b3a41ed5e52bb349c8c9053364"
+    },
+    "actual_helpers": [
+      "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o",
+      "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o",
+      "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o",
+      "/pool/wrf-experiment/wrf-cpu/kernels/hpg-nhx-isolated-avx2-consumer-native-r3/work/nhx-helper-O2.o",
+      "/pool/wrf-experiment/wrf-cpu/kernels/phy-height-private-avx2-fixed8-native-hpc04-r1/work/helper-O2.o"
+    ],
+    "objects": {
+      "O0-parent": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current962b-ww-moisture-reuse-whole-tend-native-hpc02-r3/work/O0-parent/module_em.o",
+        "sha256": "891c54edf865c37750ade8f3fb32dddb3762abd849822717a0bbe7b58d0a20d1",
+        "PP_sha256": "26709bf4113abbae4ad5c41c67a3472c07c000e35ee0b872e57e68b0f110b4ab",
+        "MOD_sha256": "4840016e1c851c096330b66ea56eded9b11e5c371ac90260736a7b68cd3c66a7"
+      },
+      "O0-candidate": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current962b-ww-moisture-reuse-whole-tend-native-hpc02-r3/work/O0-candidate/module_em.o",
+        "sha256": "cd019374a4bbd8667b56bca8d5dd700f9f83efb0fcb2e6a0da8c01b62bc9fc41",
+        "PP_sha256": "dca845c3bfa768ce627e989cee327d76dd37a52d980483a81b545ccf3f623882",
+        "MOD_sha256": "54523e6a0c337229039faded0433c5aa062636bcffef470aff32be6f8fb149ad"
+      },
+      "O2-candidate": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current962b-ww-moisture-reuse-whole-tend-native-hpc02-r3/work/O2-candidate/module_em.o",
+        "sha256": "0266f19e0334a9a7a3e99dce6f8cbb9c9d14c923ccd95dddbe6201cfdc51f63b",
+        "PP_sha256": "dca845c3bfa768ce627e989cee327d76dd37a52d980483a81b545ccf3f623882",
+        "MOD_sha256": "54523e6a0c337229039faded0433c5aa062636bcffef470aff32be6f8fb149ad"
+      }
+    },
+    "parent_public_MOD_sha256": "4840016e1c851c096330b66ea56eded9b11e5c371ac90260736a7b68cd3c66a7",
+    "candidate_new_public_MOD": {
+      "O0": "54523e6a0c337229039faded0433c5aa062636bcffef470aff32be6f8fb149ad",
+      "O2": "54523e6a0c337229039faded0433c5aa062636bcffef470aff32be6f8fb149ad"
+    },
+    "compile_and_link_commands_authority": "Exact commands and flags retained in hash-bound actual receipt; current dependencies are not inferred from a historical recipe."
+  },
+  "finite_observations": {
+    "roles": [
+      "genuine-current",
+      "O2-parent",
+      "O0-parent",
+      "O0-candidate",
+      "O2-candidate"
+    ],
+    "role_count": 5,
+    "sequences_per_role": 7,
+    "complete_calls_per_role": 22,
+    "sequence_names": [
+      "explicitRK1",
+      "explicitRK3",
+      "oneeligible",
+      "zeroeligible",
+      "IEVAtrue",
+      "absentflag",
+      "alwaysfalse"
+    ],
+    "common_raw_sha256": "6c4dc8074c114805a756752d6bddebc05146aafd8600661ec7f4dde36d64685b",
+    "bytes_per_role": 10683212,
+    "all_five_role_streams_byte_exact": true,
+    "oracle": "Genuine current object and fresh same-optimization parent/candidate complete real-routine streams, including per-call five-state observations, full physical output bytes, guards, read-only inputs and WW_E/WW_I tile union. O0 bounds and O2 exercised. Partial INTENT(OUT) storage observed through the C physical observer, not undefined Fortran value reads.",
+    "configuration": "Actual generated configuration type and initial_config/model_to_grid_config_rec initialization, genuine IEVA and algorithm routines; this synthetic fixture does NOT yet prove activated P_QV, production runtime scalar indices or the production moisture-family configuration."
+  },
+  "non_target_code": {
+    "status": "PASS_NON_TARGET_FUNCTION_BYTES_RELOCATION_ROLES_AND_RODATA_DATA_BSS_EXACT",
+    "target": "__module_em_MOD_rk_scalar_tend",
+    "non_target_function_count": 16,
+    "scope": "Per-function instructions and normalized runtime relocation roles; excludes layout addresses and target function. Native wholecaller raw/state remains mandatory.",
+    "details_authority": "Hash-bound native receipt, including function inventory/constant and relocation-role comparisons."
+  },
+  "intentional_ABI_change": {
+    "new_optional_argument": "ww_split_prepared",
+    "old_public_MOD_byte_identity_claimed": false,
+    "new_MOD_is_intentional": true,
+    "canonical_solve_em_source_call_sites": 5,
+    "current_selected_active_solve_em_call_owners": 4,
+    "selected_solve_em_rebuild_qualified": false,
+    "integration_requirement": "Rebuild current module_em and all four selected active solve_em call owners against the new interface; five canonical source sites remain accounted for. No old compiled caller compatibility or one-member delivery assumption. Other configurations/callers require their own rebuild/support proof.",
+    "production_indices_and_family_proof_pending": true
+  },
+  "preserved_failures": [
+    {
+      "attempt": "R1",
+      "classification": "Fixture compile failure before numerical execution: TRANSFER SIZE used rank-one [n] rather than scalar n. No candidate scientific failure inferred.",
+      "authority_directory": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/whole-rk-tend-native-preparation-r1/actual-native-r1"
+    },
+    {
+      "attempt": "R2",
+      "classification": "Original-path fixture out-of-bounds: kte=7 with kde=8 allowed advect_scalar divergence at mass K7 to read local vflux(K8) outside its allocated K1:7 extent. Genuine and machine-exact parent differed at 768 advect_tend words only, K7 only; no five-state mismatch; candidate not tested.",
+      "invocation_id": "390fa031c1b94dad98156ac68fb5c8bf",
+      "frame_map": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/whole-rk-tend-native-preparation-r1/R2_GENUINE_PARENT_BASELINE_DIAGNOSIS/ACTUAL_FRAME_MAP.json",
+        "sha256": "77d481caca95df34b9e9910fc2f041b7dcb921c2b3933ea3fe0ee2bf82a04e7e"
+      },
+      "diagnosis": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/independent-r2-original-path-diagnosis-r1/ACTUAL_FRAME_MAP_AND_R3_SCOPE.json",
+        "sha256": "9e3fc54885d7aee79b33b7c3a5ac4d2486eacb81556d35b0173d1249217f0e52"
+      }
+    }
+  ],
+  "R3_fixture_correction": {
+    "change": "Only fixture kte=7 to kte=kde=8; mass loop still clamps to kde-1. Candidate source unchanged.",
+    "native_source_pins": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/whole-rk-tend-native-preparation-r1/native-gate-preparation-r3/source-pins.json",
+      "sha256": "d911c524febeb55295d1c1cf2236da3dd24e93bbf214099dcb79272a41a6a063"
+    },
+    "prior_review_scope_corrected": "Earlier source/driver ACK missed this original-path vertical endpoint; preserved diagnosis explicitly corrects that scope without rewriting failures."
+  },
+  "pending_and_limits": {
+    "performance_qualified": false,
+    "application_qualified": false,
+    "promoted": false,
+    "production_family_qualified": false,
+    "solve_em_ABI_rebuild_qualified": false,
+    "own_short_or_3h_or_9h_science_transferred": false,
+    "universal_IEEE_claim": false,
+    "OpenMP_execution_qualified": false,
+    "limits": "Finite tested states and cases only; no future-horizon, MPI critical-path, global headroom or forecast gain claim. Current production scalar-index/package activation, complete rebuilt caller, measured caller benefit and own application science remain separate required gates."
+  },
+  "rollback": {
+    "selected_image_changed": false,
+    "selected_image": "962bdf2953282798d002c1f3da7a48b858a3e3b1c5c05b407b051f309da24470",
+    "action": "Discard off-repository candidate artifacts and drafts; selected 962b and its existing qualifications remain unchanged. No selected-record/source/default rollback is necessary for this native-only work."
+  }
+}
