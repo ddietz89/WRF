@@ -1,0 +1,170 @@
+{
+  "status": "PASS_FOUR_ARMS_RAW_STATE_CACHE_CLOSURES_BUT_CLOSE_UNPROMOTED_BOTH_PAIRS_SLOWER",
+  "calls_per_arm": 9216,
+  "families_per_arm": 256,
+  "complete_calls_per_family": 36,
+  "geometry": "188\u00d719\u00d733, six moisture species, two Y tiles, RK1:3; synthetic complete rk_scalar_tend caller, not a full forecast",
+  "orders": [
+    {
+      "host": "hpc01",
+      "order": "parent\u2192candidate",
+      "parent_arm": 0,
+      "candidate_arm": 1,
+      "parent_wall_ns": 2939374501,
+      "candidate_wall_ns": 3058048583,
+      "wall_reduction_percent": -4.037392375814177,
+      "parent_process_cpu_ns": 2920856384,
+      "candidate_process_cpu_ns": 3039391747,
+      "process_cpu_reduction_percent": -4.058240030195199
+    },
+    {
+      "host": "hpc04",
+      "order": "candidate\u2192parent",
+      "parent_arm": 3,
+      "candidate_arm": 2,
+      "parent_wall_ns": 2979108442,
+      "candidate_wall_ns": 3105995779,
+      "wall_reduction_percent": -4.259238610153286,
+      "parent_process_cpu_ns": 2940419264,
+      "candidate_process_cpu_ns": 3062684745,
+      "process_cpu_reduction_percent": -4.158096857033787
+    }
+  ],
+  "arms": [
+    {
+      "host": "hpc01",
+      "which": 1,
+      "invocation_id": "3e4014dfa3274ad9ab260d757c0f7064",
+      "families": 256,
+      "calls": 9216,
+      "wall_ns": 2939374501,
+      "cpu_ns": 2920856384,
+      "elapsed_seconds_context_only": 60.23441477492452,
+      "gold_sha256": "ddf8ed9f81e8b0776de64958d29402280656512334ca12662c66870c605602b2",
+      "gold_bytes": 380123136,
+      "memory_peak_bytes": 936259584,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "cpu_stat": "usage_usec 57490628\nuser_usec 48314198\nsystem_usec 9176429\ncore_sched.force_idle_usec 0\nnr_periods 604\nnr_throttled 14\nthrottled_usec 2336\nnr_bursts 0\nburst_usec 0\n"
+    },
+    {
+      "host": "hpc01",
+      "which": 2,
+      "invocation_id": "d279dd127bf04cbcbb79205433bcd7a0",
+      "families": 256,
+      "calls": 9216,
+      "wall_ns": 3058048583,
+      "cpu_ns": 3039391747,
+      "elapsed_seconds_context_only": 64.14772900007665,
+      "gold_sha256": "ddf8ed9f81e8b0776de64958d29402280656512334ca12662c66870c605602b2",
+      "gold_bytes": 380123136,
+      "memory_peak_bytes": 936300544,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "cpu_stat": "usage_usec 57257791\nuser_usec 47728155\nsystem_usec 9529636\ncore_sched.force_idle_usec 0\nnr_periods 642\nnr_throttled 10\nthrottled_usec 572\nnr_bursts 0\nburst_usec 0\n"
+    },
+    {
+      "host": "hpc04",
+      "which": 2,
+      "invocation_id": "b1ee30e2a1774fa19cedaf2b235e274d",
+      "families": 256,
+      "calls": 9216,
+      "wall_ns": 3105995779,
+      "cpu_ns": 3062684745,
+      "elapsed_seconds_context_only": 59.8661554409191,
+      "gold_sha256": "ddf8ed9f81e8b0776de64958d29402280656512334ca12662c66870c605602b2",
+      "gold_bytes": 380123136,
+      "memory_peak_bytes": 935182336,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "cpu_stat": "usage_usec 57571310\nuser_usec 48200189\nsystem_usec 9371120\ncore_sched.force_idle_usec 0\nnr_periods 599\nnr_throttled 11\nthrottled_usec 736\nnr_bursts 0\nburst_usec 0\n"
+    },
+    {
+      "host": "hpc04",
+      "which": 1,
+      "invocation_id": "dddd548b488d469f9f50b0c1e4058886",
+      "families": 256,
+      "calls": 9216,
+      "wall_ns": 2979108442,
+      "cpu_ns": 2940419264,
+      "elapsed_seconds_context_only": 66.69174021901563,
+      "gold_sha256": "ddf8ed9f81e8b0776de64958d29402280656512334ca12662c66870c605602b2",
+      "gold_bytes": 380123136,
+      "memory_peak_bytes": 935190528,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "cpu_stat": "usage_usec 58724939\nuser_usec 49026417\nsystem_usec 9698521\ncore_sched.force_idle_usec 0\nnr_periods 665\nnr_throttled 10\nthrottled_usec 978\nnr_bursts 0\nburst_usec 0\n"
+    }
+  ],
+  "resources": "CPU24 quota1/4GiB/0swap,180s whole-arm/175s child cap; checked drop_caches3 before EVERY own01/04 arm, no02/03 clear",
+  "clock_scope": "wall_ns=sum of per-callee CLOCK_MONOTONIC intervals; cpu_ns=sum of per-callee CLOCK_PROCESS_CPUTIME_ID intervals. elapsed_seconds_context_only is whole arm including setup/restore/raw/read-only/state checks outside intervals. Do not equate, subtract for pure residual, or claim forecast time.",
+  "raw_gold_sha256": "ddf8ed9f81e8b0776de64958d29402280656512334ca12662c66870c605602b2",
+  "raw_gold_bytes": 380123136,
+  "all_four_raw_readonly_guards_five_state_pass": true,
+  "all_four_checked_cache_pass": true,
+  "all_four_positive_manager_and_absent_empty_cgroup_closures": true,
+  "statistical_scope": "One opposite-order pair per node, two observations. Both measured candidate call sums were slower. This is sufficient for owner closeout; not a universal regression or proven hardware/causal explanation. No rescreen/pooling/matrix.",
+  "evidence_refs": {
+    "arm0_receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/current90f5-ordinary-top33-boundary-clear-fusion-r1/complete-family-caller256-four-arm180-preparation-r1/arm0/actual-native-r1/receipt.json",
+      "sha256": "3839c1b1cb2369223ff7390267f797e04849b89f9d63f17931e71eb770aec3f8",
+      "bytes": 1665
+    },
+    "arm0_closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/current90f5-ordinary-top33-boundary-clear-fusion-r1/complete-family-caller256-four-arm180-preparation-r1/arm0/actual-native-r1/closure.json",
+      "sha256": "5cc6c0dc51a6d62f93e3550385c089c034ada30c3cfd681ebeb1138d89098227",
+      "bytes": 1117
+    },
+    "arm0_cache_clear": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/current90f5-ordinary-top33-boundary-clear-fusion-r1/complete-family-caller256-four-arm180-preparation-r1/arm0/actual-native-r1/cache-clear.json",
+      "sha256": "835ce67067dc6e742efeb5844abb216383e4dd37dc9645f2bc5abb44df66d59f",
+      "bytes": 467
+    },
+    "arm1_receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/current90f5-ordinary-top33-boundary-clear-fusion-r1/complete-family-caller256-four-arm180-preparation-r1/arm1/actual-native-r1/receipt.json",
+      "sha256": "fe932ba53405fa42d49931581fc288b9169489ff15f5a1367e76b5fb1fba88f7",
+      "bytes": 1664
+    },
+    "arm1_closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/current90f5-ordinary-top33-boundary-clear-fusion-r1/complete-family-caller256-four-arm180-preparation-r1/arm1/actual-native-r1/closure.json",
+      "sha256": "8eb4f4e5f53ece5e61c30cdba0e6ccab83fdd0bf908ba6d40df82e420f6c52e6",
+      "bytes": 1117
+    },
+    "arm1_cache_clear": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/current90f5-ordinary-top33-boundary-clear-fusion-r1/complete-family-caller256-four-arm180-preparation-r1/arm1/actual-native-r1/cache-clear.json",
+      "sha256": "f2ec515a59515f2df4b83f23fc5f615844620ed0f0f3c1505297cf4355dfab74",
+      "bytes": 467
+    },
+    "arm2_receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/current90f5-ordinary-top33-boundary-clear-fusion-r1/complete-family-caller256-four-arm180-preparation-r1/arm2/actual-native-r1/receipt.json",
+      "sha256": "3213d853455f47384ba59aa006a353aae6d9b4606ce05392dd7178ef0b56ad90",
+      "bytes": 1663
+    },
+    "arm2_closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/current90f5-ordinary-top33-boundary-clear-fusion-r1/complete-family-caller256-four-arm180-preparation-r1/arm2/actual-native-r1/closure.json",
+      "sha256": "55d9e48d4fed170bfea73cc55e0004bffc5980ba0c78279ec26e604984047dda",
+      "bytes": 1117
+    },
+    "arm2_cache_clear": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/current90f5-ordinary-top33-boundary-clear-fusion-r1/complete-family-caller256-four-arm180-preparation-r1/arm2/actual-native-r1/cache-clear.json",
+      "sha256": "35bfcf8ae2035177a7bce831ad5e72f815624212b19ca0a2c82a6aa1d9f2fced",
+      "bytes": 467
+    },
+    "arm3_receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/current90f5-ordinary-top33-boundary-clear-fusion-r1/complete-family-caller256-four-arm180-preparation-r1/arm3/actual-native-r1/receipt.json",
+      "sha256": "44868c5a7e7b10a6d45aa55340a48ea08a845c01966cbb59841650ab9a539cac",
+      "bytes": 1664
+    },
+    "arm3_closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/current90f5-ordinary-top33-boundary-clear-fusion-r1/complete-family-caller256-four-arm180-preparation-r1/arm3/actual-native-r1/closure.json",
+      "sha256": "20b960bfe27a8fbde83fc550fda397534fb8306e0d1e47b9aeb0bcf537289bb3",
+      "bytes": 1117
+    },
+    "arm3_cache_clear": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/current90f5-ordinary-top33-boundary-clear-fusion-r1/complete-family-caller256-four-arm180-preparation-r1/arm3/actual-native-r1/cache-clear.json",
+      "sha256": "24e73440920be46e882f9f501f2c8350e196328dd759357f3468051530ed0531",
+      "bytes": 467
+    },
+    "timed_repeat_only_diff": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/current90f5-ordinary-top33-boundary-clear-fusion-r1/complete-family-caller256-build-preparation-r1/TIMED_REPEAT_ONLY.diff",
+      "sha256": "504b118dd325fc8299b1455a3e7faf98f4ad60078420c71373ca27cde69b75ab",
+      "bytes": 522
+    }
+  }
+}

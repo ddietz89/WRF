@@ -1,0 +1,175 @@
+{
+  "status": "CLOSE_UNPROMOTED_NO_DEMONSTRATED_WHOLE_CALLER_BENEFIT",
+  "candidate": "ordinary-top33-boundary-clear-fusion",
+  "proposed_repository_directory": "tools/cpu-compute/ordinary-top33-boundary-clear-fusion-unpromoted",
+  "parent_image_sha256": "90f5473062922c82d26aaeb68fc95c512a3e0e328d5dab1a365dc5e14ed7b64b",
+  "candidate_Em_object_sha256": "fb16d4fa934cba890f56dc7c154a5f1cd240b5d4f286264449c94faceb3d5d7c",
+  "candidate_Advect_object_sha256": "99a339447bdf9ad64eda3b20dbf3a94af8b89866f3dfb027c2ffe1f187479bd9",
+  "source_sha256": {
+    "candidate_module_em.f90": "fc57546ec3b490ff86f8bd3113f42876be8536a2e9bdef755fb8e4dba5c3522c",
+    "candidate_module_advect_em.f90": "d9869b1de9428569d67b86b1147c73981dc470b5404b9dcd6ef3e85b921a10b7"
+  },
+  "reason": "Bounded correctness and intended codegen mechanism passed, but complete family wall/process CPU sums were higher on both node orders. No demonstrated benefit; no hardware/causal slowdown explanation established.",
+  "pairs": [
+    {
+      "host": "hpc01",
+      "order": "parent\u2192candidate",
+      "parent_arm": 0,
+      "candidate_arm": 1,
+      "parent_wall_ns": 2939374501,
+      "candidate_wall_ns": 3058048583,
+      "wall_reduction_percent": -4.037392375814177,
+      "parent_process_cpu_ns": 2920856384,
+      "candidate_process_cpu_ns": 3039391747,
+      "process_cpu_reduction_percent": -4.058240030195199
+    },
+    {
+      "host": "hpc04",
+      "order": "candidate\u2192parent",
+      "parent_arm": 3,
+      "candidate_arm": 2,
+      "parent_wall_ns": 2979108442,
+      "candidate_wall_ns": 3105995779,
+      "wall_reduction_percent": -4.259238610153286,
+      "parent_process_cpu_ns": 2940419264,
+      "candidate_process_cpu_ns": 3062684745,
+      "process_cpu_reduction_percent": -4.158096857033787
+    }
+  ],
+  "mechanism_scope": "Caller TOP traversal/static memset call removed; guarded +0 store joins existing callee boundary-I loop. Same42,864TOP word stores retained/family. 228memset invocations/family is literal geometry-derived count, not a sampled/instrumented counter or performance metric.",
+  "native_pass": true,
+  "codegen_mechanism_pass": true,
+  "caller_benefit_demonstrated": false,
+  "application_qualified": false,
+  "canonical_or_owner_integration_performed": false,
+  "archive_or_application_image_built": false,
+  "selected_current_changed_by_candidate": false,
+  "candidate_in_parent_ABBA": false,
+  "all_own_application_horizons_qualified": false,
+  "rollback": "None required: no TOP33 canonical/default/source/owner/archive/image/selected-record change was applied. Keep selected90f5; retain private failed/pass evidence.",
+  "next_action": "Close this variant. No repair/rescreen/repeat matrix without a new measured mechanism.",
+  "evidence_refs": {
+    "arm0_receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/current90f5-ordinary-top33-boundary-clear-fusion-r1/complete-family-caller256-four-arm180-preparation-r1/arm0/actual-native-r1/receipt.json",
+      "sha256": "3839c1b1cb2369223ff7390267f797e04849b89f9d63f17931e71eb770aec3f8",
+      "bytes": 1665
+    },
+    "arm0_closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/current90f5-ordinary-top33-boundary-clear-fusion-r1/complete-family-caller256-four-arm180-preparation-r1/arm0/actual-native-r1/closure.json",
+      "sha256": "5cc6c0dc51a6d62f93e3550385c089c034ada30c3cfd681ebeb1138d89098227",
+      "bytes": 1117
+    },
+    "arm0_cache_clear": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/current90f5-ordinary-top33-boundary-clear-fusion-r1/complete-family-caller256-four-arm180-preparation-r1/arm0/actual-native-r1/cache-clear.json",
+      "sha256": "835ce67067dc6e742efeb5844abb216383e4dd37dc9645f2bc5abb44df66d59f",
+      "bytes": 467
+    },
+    "arm1_receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/current90f5-ordinary-top33-boundary-clear-fusion-r1/complete-family-caller256-four-arm180-preparation-r1/arm1/actual-native-r1/receipt.json",
+      "sha256": "fe932ba53405fa42d49931581fc288b9169489ff15f5a1367e76b5fb1fba88f7",
+      "bytes": 1664
+    },
+    "arm1_closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/current90f5-ordinary-top33-boundary-clear-fusion-r1/complete-family-caller256-four-arm180-preparation-r1/arm1/actual-native-r1/closure.json",
+      "sha256": "8eb4f4e5f53ece5e61c30cdba0e6ccab83fdd0bf908ba6d40df82e420f6c52e6",
+      "bytes": 1117
+    },
+    "arm1_cache_clear": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/current90f5-ordinary-top33-boundary-clear-fusion-r1/complete-family-caller256-four-arm180-preparation-r1/arm1/actual-native-r1/cache-clear.json",
+      "sha256": "f2ec515a59515f2df4b83f23fc5f615844620ed0f0f3c1505297cf4355dfab74",
+      "bytes": 467
+    },
+    "arm2_receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/current90f5-ordinary-top33-boundary-clear-fusion-r1/complete-family-caller256-four-arm180-preparation-r1/arm2/actual-native-r1/receipt.json",
+      "sha256": "3213d853455f47384ba59aa006a353aae6d9b4606ce05392dd7178ef0b56ad90",
+      "bytes": 1663
+    },
+    "arm2_closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/current90f5-ordinary-top33-boundary-clear-fusion-r1/complete-family-caller256-four-arm180-preparation-r1/arm2/actual-native-r1/closure.json",
+      "sha256": "55d9e48d4fed170bfea73cc55e0004bffc5980ba0c78279ec26e604984047dda",
+      "bytes": 1117
+    },
+    "arm2_cache_clear": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/current90f5-ordinary-top33-boundary-clear-fusion-r1/complete-family-caller256-four-arm180-preparation-r1/arm2/actual-native-r1/cache-clear.json",
+      "sha256": "35bfcf8ae2035177a7bce831ad5e72f815624212b19ca0a2c82a6aa1d9f2fced",
+      "bytes": 467
+    },
+    "arm3_receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/current90f5-ordinary-top33-boundary-clear-fusion-r1/complete-family-caller256-four-arm180-preparation-r1/arm3/actual-native-r1/receipt.json",
+      "sha256": "44868c5a7e7b10a6d45aa55340a48ea08a845c01966cbb59841650ab9a539cac",
+      "bytes": 1664
+    },
+    "arm3_closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/current90f5-ordinary-top33-boundary-clear-fusion-r1/complete-family-caller256-four-arm180-preparation-r1/arm3/actual-native-r1/closure.json",
+      "sha256": "20b960bfe27a8fbde83fc550fda397534fb8306e0d1e47b9aeb0bcf537289bb3",
+      "bytes": 1117
+    },
+    "arm3_cache_clear": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/current90f5-ordinary-top33-boundary-clear-fusion-r1/complete-family-caller256-four-arm180-preparation-r1/arm3/actual-native-r1/cache-clear.json",
+      "sha256": "24e73440920be46e882f9f501f2c8350e196328dd759357f3468051530ed0531",
+      "bytes": 467
+    },
+    "native_R3_receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/current90f5-ordinary-top33-boundary-clear-fusion-r1/native-gate-preparation-r3-cached-hpc02/actual-native-r3/receipt.json",
+      "sha256": "b7a95fedacd03446da66e16fa3a5102f405c2026c6bc7570710692720549fc1e",
+      "bytes": 1681347
+    },
+    "native_R3_closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/current90f5-ordinary-top33-boundary-clear-fusion-r1/native-gate-preparation-r3-cached-hpc02/actual-native-r3/closure.json",
+      "sha256": "eb9b486673b740c3a315509b01faf26a0eea28a12aafc1a181e0625d00b3c37a",
+      "bytes": 1162
+    },
+    "fresh_exact_theta_ABI_proof": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/current90f5-ordinary-top33-boundary-clear-fusion-r1/actual-theta-abi-proof-r1/PROOF.json",
+      "sha256": "4e67def78ce510d765e70979010cae04c2e6a5c746bf82152bb08458df38c5ff",
+      "bytes": 1968
+    },
+    "prospective_exact_pair_root_decision": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/current90f5-ordinary-top33-boundary-clear-fusion-r1/native-gate-preparation-r3-cached-hpc02/ROOT_EXACT_PAIR_DECISION.json",
+      "sha256": "e0fb1214b7f3fb13106e2c4ed63e24d955aabc3d87538935743e2651e8a2d6a5",
+      "bytes": 436
+    },
+    "independent_exact_pair_ACK": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/current90f5-ordinary-top33-boundary-clear-fusion-r1/independent-top33-theta-cached-gate-review-r1/ACK.json",
+      "sha256": "c17b77ef5d0fca2b315458b93bfbbc1b6e66d70b38a990b7ab9102aeeaef14d9",
+      "bytes": 2661
+    },
+    "actual_codegen_ACK": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/current90f5-ordinary-top33-boundary-clear-fusion-r1/ACTUAL_TOP33_CODEGEN_ACK.json",
+      "sha256": "dc38db5014fed1d37def16bb8d33a442146742f86220520f679a3c2757360347",
+      "bytes": 7144
+    },
+    "state_coverage_scope": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/current90f5-ordinary-top33-boundary-clear-fusion-r1/SUPPLEMENTARY_STATE_COVERAGE_SCOPE.json",
+      "sha256": "5fce8d527660a1d359253d1b5f8277aa8907576df8b538c23102df9b9da315b5",
+      "bytes": 1296
+    },
+    "source_diff": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/current90f5-ordinary-top33-boundary-clear-fusion-r1/local-adoption-r1/TWO_MODULE_ONLY.diff",
+      "sha256": "fa5235cc5fd33913dc153cc66b6464d1a20e047b654f1b3d85bb62a9ca3eda53",
+      "bytes": 3331
+    },
+    "source_inverse": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/current90f5-ordinary-top33-boundary-clear-fusion-r1/local-adoption-r1/SOURCE_INVERSE.json",
+      "sha256": "74303fb1ba26f41ac174c4b3058149c81506ec13e329100d2b9c96efb6c9a51f",
+      "bytes": 111202
+    },
+    "timed_repeat_only_diff": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/current90f5-ordinary-top33-boundary-clear-fusion-r1/complete-family-caller256-build-preparation-r1/TIMED_REPEAT_ONLY.diff",
+      "sha256": "504b118dd325fc8299b1455a3e7faf98f4ad60078420c71373ca27cde69b75ab",
+      "bytes": 522
+    }
+  },
+  "local_record_refs": {
+    "NATIVE_QUALIFICATION.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/current90f5-ordinary-top33-boundary-clear-fusion-r1/closeout-private-proposal-r1/NATIVE_QUALIFICATION.json",
+      "sha256": "1d4644166616c3e217206feb5d54e8670e5d90e504ba668f2525214a8f1ee1af",
+      "bytes": 11548
+    },
+    "CALLER_TIMING_RESULT.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/current90f5-ordinary-top33-boundary-clear-fusion-r1/closeout-private-proposal-r1/CALLER_TIMING_RESULT.json",
+      "sha256": "bc394922a17a0460d5663f2031dbb4e4328b2efc04d7b574bda71685d87a2f2c",
+      "bytes": 10485
+    }
+  }
+}
