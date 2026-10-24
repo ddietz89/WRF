@@ -844,13 +844,23 @@ SUBROUTINE calc_cq ( moist, cqu, cqv, cqw, n_moist, &
         DO j=jts,jtf
           DO k=kts,ktf
             qtot = 0.
+#if defined(WRF_CQV_LAST_SPECIES_CONSUMER_FUSION) && defined(DM_PARALLEL) && !defined(_OPENMP)
+            DO ispe=PARAM_FIRST_SCALAR,n_moist-1
+#else
             DO ispe=PARAM_FIRST_SCALAR,n_moist
+#endif
+#line 848
               DO i=its,itf
                 qtot(i) = qtot(i) + moist(i,k,j,ispe) + moist(i,k,j-1,ispe)
               ENDDO
             ENDDO
             DO i = its,itf
+#if defined(WRF_CQV_LAST_SPECIES_CONSUMER_FUSION) && defined(DM_PARALLEL) && !defined(_OPENMP)
+               qtot(i) = qtot(i) + moist(i,k,j,n_moist) + moist(i,k,j-1,n_moist); cqv(i,k,j) = 1./(1.+0.5*qtot(i))
+#else
                cqv(i,k,j) = 1./(1.+0.5*qtot(i))
+#endif
+#line 854
             ENDDO
           ENDDO
         ENDDO
