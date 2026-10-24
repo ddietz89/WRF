@@ -1,0 +1,248 @@
+{
+  "status": "PASS_CURRENT90F5_OWN_THREE_HOUR_FRESH_ABBA_4PRODUCT_545_NORMAL_CLOSED",
+  "publication_state": "ROOT_REVIEWABLE_ACTUAL_COMPLETE_EVIDENCE",
+  "component": "advect-first-y-zero-seed",
+  "executable_sha256": "90f5473062922c82d26aaeb68fc95c512a3e0e328d5dab1a365dc5e14ed7b64b",
+  "archive_sha256": "0f4ccda13fbe197ca6ce4c175ee1b1fa3ad12e756765c8d05afcacba2c24dce4",
+  "post_test_source_commit": "3c1fdd330e7ceae1d5fce66a538a8022ee4aed5e",
+  "raw_producer_source_commit": null,
+  "source_scope": "Retained post-test source correspondence; no fresh whole-image source rebuild claim.",
+  "short_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advect-first-y-zero-seed/APPLICATION_QUALIFICATION.json",
+    "sha256": "08a34fa7d3f8f13b9a0fd2fe25fff7c4d1690692422b33b9e6a1ac067280cf0b",
+    "bytes": 12269
+  },
+  "own_three_hour": {
+    "products": 4,
+    "ordered_steps": 545,
+    "start": "2026-10-12_06:00:00",
+    "end": "2026-10-12_09:00:00",
+    "world": 512,
+    "compute": 480,
+    "quilt": 32,
+    "tiles": 2,
+    "positive_writer_roots": [
+      487,
+      495,
+      503,
+      511
+    ],
+    "field_view_markers": 32,
+    "all16_models_normal_closed": true,
+    "both_readers_normal_closed": true,
+    "original_numeric_metadata_layout_checker_unchanged": true
+  },
+  "qualification_scope": {
+    "own_short": true,
+    "own_three_hour": true,
+    "own_nine_hour": false,
+    "own_noon": false,
+    "own_profile": false,
+    "own_restart": false,
+    "full144": false
+  },
+  "matched_timing": {
+    "order": [
+      "A1",
+      "B1",
+      "B2",
+      "A2"
+    ],
+    "observations_per_image": 2,
+    "executable_sha256": "90f5473062922c82d26aaeb68fc95c512a3e0e328d5dab1a365dc5e14ed7b64b",
+    "metrics_means": {
+      "control": {
+        "wall_seconds": 799.0043781208806,
+        "main_step_sum_seconds": 594.26336,
+        "cpu_seconds": 358587.1384515
+      },
+      "candidate": {
+        "wall_seconds": 633.2243067168165,
+        "main_step_sum_seconds": 540.765395,
+        "cpu_seconds": 307221.437287
+      }
+    },
+    "metrics_ranges": {
+      "control": {
+        "wall_seconds": {
+          "min": 798.8793674847111,
+          "max": 799.12938875705,
+          "spread": 0.2500212723389268
+        },
+        "main_step_sum_seconds": {
+          "min": 594.02948,
+          "max": 594.49724,
+          "spread": 0.4677599999999984
+        },
+        "cpu_seconds": {
+          "min": 358464.522448,
+          "max": 358709.754455,
+          "spread": 245.23200700001325
+        }
+      },
+      "candidate": {
+        "wall_seconds": {
+          "min": 625.3859499492683,
+          "max": 641.0626634843647,
+          "spread": 15.676713535096496
+        },
+        "main_step_sum_seconds": {
+          "min": 540.25036,
+          "max": 541.28043,
+          "spread": 1.0300700000000234
+        },
+        "cpu_seconds": {
+          "min": 303948.213217,
+          "max": 310494.661357,
+          "spread": 6546.448139999993
+        }
+      }
+    },
+    "individual_arms": [
+      {
+        "arm": "A1",
+        "executable_sha256": "546b99156cbd809e1cae5e0ea8cebeea44dafd6331abf89e4daea00e0dd0a5e7",
+        "metrics": {
+          "wall_seconds": 799.12938875705,
+          "cpu_seconds": 358709.754455,
+          "main_step_sum_seconds": 594.49724
+        }
+      },
+      {
+        "arm": "B1",
+        "executable_sha256": "90f5473062922c82d26aaeb68fc95c512a3e0e328d5dab1a365dc5e14ed7b64b",
+        "metrics": {
+          "wall_seconds": 625.3859499492683,
+          "cpu_seconds": 303948.213217,
+          "main_step_sum_seconds": 541.28043
+        }
+      },
+      {
+        "arm": "A2",
+        "executable_sha256": "546b99156cbd809e1cae5e0ea8cebeea44dafd6331abf89e4daea00e0dd0a5e7",
+        "metrics": {
+          "wall_seconds": 798.8793674847111,
+          "cpu_seconds": 358464.522448,
+          "main_step_sum_seconds": 594.02948
+        }
+      },
+      {
+        "arm": "B2",
+        "executable_sha256": "90f5473062922c82d26aaeb68fc95c512a3e0e328d5dab1a365dc5e14ed7b64b",
+        "metrics": {
+          "wall_seconds": 641.0626634843647,
+          "cpu_seconds": 310494.661357,
+          "main_step_sum_seconds": 540.25036
+        }
+      }
+    ],
+    "reduction_percent": {
+      "wall_seconds": 20.748330790620948,
+      "main_step_sum_seconds": 9.002400047009465,
+      "cpu_seconds": 14.324468352745267
+    },
+    "references": [
+      {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/next-firsty-combined-threehour-abba-preparation-r1/FRESH_ACTUAL_ABBA_REPORT.json",
+        "sha256": "e0dd88d4c31bbafe18ce843c145005f8ac519613c5035017901f50fa41af09f1",
+        "bytes": 34428
+      }
+    ],
+    "limits": [
+      "Two observations per image; no confidence interval or broad repeatability claim.",
+      "Main elapsed includes MPI and output backpressure; wall minus main is not pure I/O.",
+      "AggregateCPU includes spin; throttle counters do not establish causal lost wall time.",
+      "Historical component caller gains are not additive or isolated forecast attribution.",
+      "Output inventory/normal writer closure proves completion, not an independently measured drain duration.",
+      "Load/frequency context UNKNOWN where sampled values were not collected locally.",
+      "Raw RESULT inherited labels are retained in sources; actual leases identify546b/frozenfirstY."
+    ]
+  },
+  "pair_evidence": [
+    {
+      "science": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-firsty-combined3h-abba-pair1-runtime-r1/science-receipt.json",
+        "sha256": "70025eeb631303cd5043aa1ffc24ec259e2875f2b4e95b80177f1c72cd034d35",
+        "bytes": 4708991
+      },
+      "reader": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-firsty-combined3h-abba-pair1-runtime-r1/reader-closure.json",
+        "sha256": "4f334cc2ab247f7eacdbeff3ed59035c0026f0b7b0980b7d5e285ce16f025ebf",
+        "bytes": 4013
+      },
+      "control_closures": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-firsty-combined3h-abba-pair1-runtime-r1/control-closures.json",
+        "sha256": "99653d0f81a518cfe5cd4b447e80a0d23f498dc3cdf91967c4c498c28054b308",
+        "bytes": 23756
+      },
+      "candidate_closures": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-firsty-combined3h-abba-pair1-runtime-r1/candidate-closures.json",
+        "sha256": "dfcff0ba3a9f8a97d2a71a35826ad5ea9d05862861ed7b554c77630ee7a79929",
+        "bytes": 23839
+      },
+      "result": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-firsty-combined3h-abba-pair1-runtime-r1/RESULT.json",
+        "sha256": "ee70f10c13794b7d2b9f1500345b59745353d0ad073dd8aba009ba2041a4a02a",
+        "bytes": 1109
+      }
+    },
+    {
+      "science": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-firsty-combined3h-abba-pair2-runtime-r1/science-receipt.json",
+        "sha256": "cef81e55cec9c10f7f22e48ff56650941f83826b583f02240a3bd4ddcbc16a4b",
+        "bytes": 4710467
+      },
+      "reader": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-firsty-combined3h-abba-pair2-runtime-r1/reader-closure.json",
+        "sha256": "43283d28a5f042c6dc65897ce456510bff30e257b9e58c3dce2a72eed4947939",
+        "bytes": 4014
+      },
+      "control_closures": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-firsty-combined3h-abba-pair2-runtime-r1/control-closures.json",
+        "sha256": "f79828b5cec7c01cc34a5abd1c3ba4b66c0e238dd835ae0dc4d72ecfac108a4a",
+        "bytes": 23757
+      },
+      "candidate_closures": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-firsty-combined3h-abba-pair2-runtime-r1/candidate-closures.json",
+        "sha256": "437c9391a72009ddfad04042eef1cab27731e5d24f5995a5e0596e7174cc1547",
+        "bytes": 23849
+      },
+      "result": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-firsty-combined3h-abba-pair2-runtime-r1/RESULT.json",
+        "sha256": "93f9b72c428828ad3b52943c509b49672dfc4e1ce0d936a6b824aecec04c050b",
+        "bytes": 1178
+      }
+    }
+  ],
+  "cache_each_arm": [
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-firsty-combined3h-abba-pair1-runtime-r1/cache-clear-control.json",
+      "sha256": "f38b43b0e75458135f25e0ac088f9e4c919bf424f1791c0be6ee45274e548385",
+      "bytes": 5761
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-firsty-combined3h-abba-pair1-runtime-r1/cache-clear-candidate.json",
+      "sha256": "976bd2999a4aa0ba8752b8c1ccedac74f1765971f99e98cab1882a59b8f20680",
+      "bytes": 5774
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-firsty-combined3h-abba-pair2-runtime-r1/cache-clear-control.json",
+      "sha256": "aa896e942919dd18e41692deda49b2b31bdbd18b77662327c5a8025e8cac8873",
+      "bytes": 5762
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-firsty-combined3h-abba-pair2-runtime-r1/cache-clear-candidate.json",
+      "sha256": "40a63dea35396d11f572b55ac95aa87c7d6149ad0e921185551e79d5236d471a",
+      "bytes": 5776
+    }
+  ],
+  "limits": [
+    "Two observations per image; no confidence interval or broad repeatability claim.",
+    "Main elapsed includes MPI and output backpressure; wall minus main is not pure I/O.",
+    "AggregateCPU includes spin; throttle counters do not establish causal lost wall time.",
+    "Historical component caller gains are not additive or isolated forecast attribution.",
+    "Output inventory/normal writer closure proves completion, not an independently measured drain duration.",
+    "Load/frequency context UNKNOWN where sampled values were not collected locally.",
+    "Raw RESULT inherited labels are retained in sources; actual leases identify546b/frozenfirstY."
+  ]
+}

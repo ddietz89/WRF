@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-10-24T08:39:08.703279+00:00",
+  "updated_utc": "2026-10-24T10:16:29.791742+00:00",
   "metric_definitions": {
     "wall_seconds": "Model/MPI including initialization/output/final drain",
     "main_step_sum_seconds": "Sum of reported main-step elapsed; includes communication/waiting/backpressure, not integration CPU",
@@ -13,32 +13,113 @@
       "A2"
     ],
     "observations_per_image": 2,
+    "executable_sha256": "90f5473062922c82d26aaeb68fc95c512a3e0e328d5dab1a365dc5e14ed7b64b",
     "metrics_means": {
       "control": {
-        "wall_seconds": 799.3547678655013,
-        "cpu_seconds": 358717.0698899999,
-        "main_step_sum_seconds": 595.1684700000001
+        "wall_seconds": 799.0043781208806,
+        "main_step_sum_seconds": 594.26336,
+        "cpu_seconds": 358587.1384515
       },
       "candidate": {
-        "wall_seconds": 659.4069580624346,
-        "cpu_seconds": 319764.2821705,
-        "main_step_sum_seconds": 557.431605
+        "wall_seconds": 633.2243067168165,
+        "main_step_sum_seconds": 540.765395,
+        "cpu_seconds": 307221.437287
       }
     },
+    "metrics_ranges": {
+      "control": {
+        "wall_seconds": {
+          "min": 798.8793674847111,
+          "max": 799.12938875705,
+          "spread": 0.2500212723389268
+        },
+        "main_step_sum_seconds": {
+          "min": 594.02948,
+          "max": 594.49724,
+          "spread": 0.4677599999999984
+        },
+        "cpu_seconds": {
+          "min": 358464.522448,
+          "max": 358709.754455,
+          "spread": 245.23200700001325
+        }
+      },
+      "candidate": {
+        "wall_seconds": {
+          "min": 625.3859499492683,
+          "max": 641.0626634843647,
+          "spread": 15.676713535096496
+        },
+        "main_step_sum_seconds": {
+          "min": 540.25036,
+          "max": 541.28043,
+          "spread": 1.0300700000000234
+        },
+        "cpu_seconds": {
+          "min": 303948.213217,
+          "max": 310494.661357,
+          "spread": 6546.448139999993
+        }
+      }
+    },
+    "individual_arms": [
+      {
+        "arm": "A1",
+        "executable_sha256": "546b99156cbd809e1cae5e0ea8cebeea44dafd6331abf89e4daea00e0dd0a5e7",
+        "metrics": {
+          "wall_seconds": 799.12938875705,
+          "cpu_seconds": 358709.754455,
+          "main_step_sum_seconds": 594.49724
+        }
+      },
+      {
+        "arm": "B1",
+        "executable_sha256": "90f5473062922c82d26aaeb68fc95c512a3e0e328d5dab1a365dc5e14ed7b64b",
+        "metrics": {
+          "wall_seconds": 625.3859499492683,
+          "cpu_seconds": 303948.213217,
+          "main_step_sum_seconds": 541.28043
+        }
+      },
+      {
+        "arm": "A2",
+        "executable_sha256": "546b99156cbd809e1cae5e0ea8cebeea44dafd6331abf89e4daea00e0dd0a5e7",
+        "metrics": {
+          "wall_seconds": 798.8793674847111,
+          "cpu_seconds": 358464.522448,
+          "main_step_sum_seconds": 594.02948
+        }
+      },
+      {
+        "arm": "B2",
+        "executable_sha256": "90f5473062922c82d26aaeb68fc95c512a3e0e328d5dab1a365dc5e14ed7b64b",
+        "metrics": {
+          "wall_seconds": 641.0626634843647,
+          "cpu_seconds": 310494.661357,
+          "main_step_sum_seconds": 540.25036
+        }
+      }
+    ],
     "reduction_percent": {
-      "wall_seconds": 17.507596805454252,
-      "cpu_seconds": 10.858916675318719,
-      "main_step_sum_seconds": 6.340534974912238
+      "wall_seconds": 20.748330790620948,
+      "main_step_sum_seconds": 9.002400047009465,
+      "cpu_seconds": 14.324468352745267
     },
     "references": [
       {
-        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current19ad-combined3h-runtime-r1/RESULT.json",
-        "sha256": "5c8eaa10eb93b1ff090e703e8872a5b1ad6c5503ded3da34e532ab9d0149850a"
-      },
-      {
-        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current19ad-combined3h-runtime-r2/RESULT.json",
-        "sha256": "c845325b7a06d7f0a005d3581ef435b4559f5c77d5a163e783ac043866de25e9"
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/next-firsty-combined-threehour-abba-preparation-r1/FRESH_ACTUAL_ABBA_REPORT.json",
+        "sha256": "e0dd88d4c31bbafe18ce843c145005f8ac519613c5035017901f50fa41af09f1",
+        "bytes": 34428
       }
+    ],
+    "limits": [
+      "Two observations per image; no confidence interval or broad repeatability claim.",
+      "Main elapsed includes MPI and output backpressure; wall minus main is not pure I/O.",
+      "AggregateCPU includes spin; throttle counters do not establish causal lost wall time.",
+      "Historical component caller gains are not additive or isolated forecast attribution.",
+      "Output inventory/normal writer closure proves completion, not an independently measured drain duration.",
+      "Load/frequency context UNKNOWN where sampled values were not collected locally.",
+      "Raw RESULT inherited labels are retained in sources; actual leases identify546b/frozenfirstY."
     ]
   },
   "retained_controls": {
@@ -369,23 +450,27 @@
     "executable_sha256": "90f5473062922c82d26aaeb68fc95c512a3e0e328d5dab1a365dc5e14ed7b64b",
     "archive_sha256": "0f4ccda13fbe197ca6ce4c175ee1b1fa3ad12e756765c8d05afcacba2c24dce4",
     "own_short_qualified": true,
-    "own_three_hour_qualified": false,
+    "own_three_hour_qualified": true,
     "own_nine_hour_qualified": false,
-    "latest_completed_3h_image": "89bd",
+    "latest_completed_3h_image": "90f5",
     "latest_completed_9h_image": "b21c",
-    "qualification_scope": "Current firstY own35/two-products only; prior completed3h/9h labels remain historical exact images, not current child scope.",
+    "qualification_scope": "Ownshort and fresh matched3h only; b21c9h remains historical to b21c.",
     "qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advect-first-y-zero-seed/APPLICATION_QUALIFICATION.json",
-      "sha256": "08a34fa7d3f8f13b9a0fd2fe25fff7c4d1690692422b33b9e6a1ac067280cf0b"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advect-first-y-zero-seed/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "5c68656a474b313e7a99f40666441cd09b9411b25110ec3e2388693327f8bc14"
     },
     "own_recovered_threehour_exact_science": false,
-    "latest_completed_horizon_labels_apply_to_current_selection": false,
+    "latest_completed_horizon_labels_apply_to_current_selection": {
+      "three_hour": true,
+      "nine_hour": false
+    },
     "executable": {
       "path": "/pool/wrf-experiment/wrf-cpu/builds/currentb21c-first-y-zero-seed-five-member-native-r1/wrf.exe",
       "sha256": "90f5473062922c82d26aaeb68fc95c512a3e0e328d5dab1a365dc5e14ed7b64b"
     },
     "noon_profile_restart_full144_qualified": false,
-    "scope": "CurrentfirstY35/2only; all retained rows describe their exact historical image."
+    "scope": "Current90f5 own35/2 and two normal545/4 arms; no9h/noon/profile/restart/full144 transfer.",
+    "latest_completed_9h_scope": "Historical parent b21c only; current90f5 own9h remains false"
   },
   "recovered_diagnostic_runs": [
     {
@@ -426,5 +511,41 @@
       "raw_metrics_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/hz-zero-reuse-threehour-postprocess-raw-metrics-r1/actual-r2.json",
       "original_failure_rewritten": false
     }
-  ]
+  ],
+  "historical_matched_three_hour_19ad": {
+    "order": [
+      "A1",
+      "B1",
+      "B2",
+      "A2"
+    ],
+    "observations_per_image": 2,
+    "metrics_means": {
+      "control": {
+        "wall_seconds": 799.3547678655013,
+        "cpu_seconds": 358717.0698899999,
+        "main_step_sum_seconds": 595.1684700000001
+      },
+      "candidate": {
+        "wall_seconds": 659.4069580624346,
+        "cpu_seconds": 319764.2821705,
+        "main_step_sum_seconds": 557.431605
+      }
+    },
+    "reduction_percent": {
+      "wall_seconds": 17.507596805454252,
+      "cpu_seconds": 10.858916675318719,
+      "main_step_sum_seconds": 6.340534974912238
+    },
+    "references": [
+      {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current19ad-combined3h-runtime-r1/RESULT.json",
+        "sha256": "5c8eaa10eb93b1ff090e703e8872a5b1ad6c5503ded3da34e532ab9d0149850a"
+      },
+      {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current19ad-combined3h-runtime-r2/RESULT.json",
+        "sha256": "c845325b7a06d7f0a005d3581ef435b4559f5c77d5a163e783ac043866de25e9"
+      }
+    ]
+  }
 }

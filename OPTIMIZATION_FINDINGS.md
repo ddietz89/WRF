@@ -1,6 +1,18 @@
 # WRF CPU optimization findings
 
-## October24: first-Y advection clear fusion promoted after own short science
+## October24: current90f5 passed fresh matched three-hour ABBA
+
+Current **90f54730 / archive0f4ccda1**, source correspondence **3c1fdd33**, passed the unchanged original full512 three-hour checker twice: four products and545 ordered steps per candidate arm, all16 model scopes and both readers normal closed. Fresh order was **A1–B1–B2–A2**, with checked caches before every arm. The immutable short qualification remains separate.
+
+|Metric|Original546b mean (range)|Current90f5 mean (range)|Reduction|
+|---|---:|---:|---:|
+|Model/MPI wall|13.317 (13.315–13.319) min|10.554 (10.423–10.684) min|20.75%|
+|Main-step elapsed|9.904 (9.900–9.908) min|9.013 (9.004–9.021) min|9.00%|
+|Aggregate node CPU|99.608 (99.573–99.642) core-hours|85.339 (84.430–86.249) core-hours|14.32%|
+
+These are two observations per image, not a confidence interval or broad repeatability claim. They measure the complete combined image; caller/component percentages are not additive and do not isolate a forecast contribution. Main elapsed includes communication/backpressure; aggregate CPU is summed whole-job consumption. Own9h/noon/profile/restart/full144 remain false; parent b21c9h and historical19ad matched results stay attached to their exact images. Raw producer remains NULL; no new whole-image source build is claimed.
+
+## Earlier October24 snapshot: first-Y advection clear fusion promoted after own short science
 
 Current **90f54730 / archive0f4ccda1**, source correspondence **3c1fdd33**, retains all b21c components/providers and fuses eligible scalar tendency clearing into the first Y assignment. The strict interior, nonpolar h5/v3/full33-level path uses literal zero-minus-original-flux and still clears top K33. Other shapes/orders, IEVA and absent/false routes retain the original clear. Qualified GNU13.3 pure-MPI defaults enable `WRF_ADVECT_FIRST_Y_ZERO_SEED=1`; explicit0 restores the coherent original closure after regeneration/rebuild/rearchive/relink. No new compiler/ISA/fast-math flags were added.
 

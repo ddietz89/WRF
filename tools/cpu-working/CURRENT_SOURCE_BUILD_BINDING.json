@@ -1,5 +1,5 @@
 {
-  "status": "SELECTED_FIRST_Y_ZERO_SEED_OWN_SHORT_ONLY",
+  "status": "SELECTED_FIRST_Y_ZERO_SEED_OWN_SHORT_AND_FRESH_ABBA_THREE_HOUR",
   "source_commit": "3c1fdd330e7ceae1d5fce66a538a8022ee4aed5e",
   "executable": {
     "path": "/pool/wrf-experiment/wrf-cpu/builds/currentb21c-first-y-zero-seed-five-member-native-r1/wrf.exe",
@@ -431,7 +431,7 @@
       "unchanged_other_members": 582
     }
   },
-  "qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/advect-first-y-zero-seed/APPLICATION_QUALIFICATION.json",
+  "qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/advect-first-y-zero-seed/THREE_HOUR_APPLICATION_QUALIFICATION.json",
   "build_scope": "Five archive members555/560/568/569/577;579other occurrences exact;owner6compiles/delivery0compiles1link.",
   "runtime": {
     "WRF_EXPERIMENTAL_TPI_NUMA": 1,
@@ -452,8 +452,11 @@
     "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_NINE_HOUR_FINAL_QUALIFICATION_B1FB.json",
     "sha256": "f38a865905d030be42ac0a965b4aa6afbc0eae280902a3839f20df176457f445"
   },
-  "full_application": null,
-  "current_three_hour_qualified": false,
+  "full_application": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advect-first-y-zero-seed/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "5c68656a474b313e7a99f40666441cd09b9411b25110ec3e2388693327f8bc14"
+  },
+  "current_three_hour_qualified": true,
   "prior_repaired_full_application": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/myj-mixlen-scratch-reuse/APPLICATION_QUALIFICATION.json",
     "sha256": "55e2170cfc4f695e2eb7124cb4dec541954a9db290979ed2423252a4b117eb2f"
@@ -878,7 +881,10 @@
     "repeatability_established": false,
     "scope": "Historical RQVFTENee66/source31ca before RQVBLTEN. Actual4products545/full512 exact,660.3921359390952s MPIwall; candidate-only UNPAIRED descriptive metrics. Does not qualify child2bd1. Existing THREE_HOUR_RESULT/Q bytes and hashes unchanged."
   },
-  "current_three_hour_qualification": null,
+  "current_three_hour_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advect-first-y-zero-seed/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "5c68656a474b313e7a99f40666441cd09b9411b25110ec3e2388693327f8bc14"
+  },
   "previous_RTH_short_full_application": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/phy-prep-part2-rthraten-simd/APPLICATION_QUALIFICATION.json",
     "sha256": "d5c058a57745ea1aa65df469cbbae0e2931a1f7b13c61ef130e47f051b53d117"
@@ -954,7 +960,7 @@
     "physical_memory_reduction_causally_qualified": false
   },
   "current_nine_hour_qualification": null,
-  "current_application_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/advect-first-y-zero-seed/APPLICATION_QUALIFICATION.json",
+  "current_application_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/advect-first-y-zero-seed/THREE_HOUR_APPLICATION_QUALIFICATION.json",
   "previous_E3_POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
     "source_commit": "1ae0c6ee9cd1b5c238a57cf25409c18d380faaed",
@@ -1091,7 +1097,7 @@
     "repeatability_established": false,
     "scope": "Exact4products545/full512/twoTiles/all4positivewriters/all32markers; main-step sum is elapsed not integrationCPU; no isolated/additive/pureIO/memorycausality claim."
   },
-  "scope": "Exact firstY child own35/two-products only; parent horizons historical.",
+  "scope": "Exact90f5 ownshort and two fresh normal3h observations; no inherited9h/noon/profile/restart/full144.",
   "previous_3582_e1d8_science": {
     "products": 4,
     "ordered_steps": 545,
@@ -1273,10 +1279,22 @@
     "qualification_file": "../cpu-output/quilt512/codec/private-fast-distance-range/APPLICATION_QUALIFICATION.json"
   },
   "current_application_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advect-first-y-zero-seed/APPLICATION_QUALIFICATION.json",
-    "sha256": "08a34fa7d3f8f13b9a0fd2fe25fff7c4d1690692422b33b9e6a1ac067280cf0b"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advect-first-y-zero-seed/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "5c68656a474b313e7a99f40666441cd09b9411b25110ec3e2388693327f8bc14"
   },
-  "last_three_hour_benchmark": null,
+  "last_three_hour_benchmark": {
+    "report": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/next-firsty-combined-threehour-abba-preparation-r1/FRESH_ACTUAL_ABBA_REPORT.json",
+      "sha256": "e0dd88d4c31bbafe18ce843c145005f8ac519613c5035017901f50fa41af09f1",
+      "bytes": 34428
+    },
+    "qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advect-first-y-zero-seed/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "5c68656a474b313e7a99f40666441cd09b9411b25110ec3e2388693327f8bc14"
+    },
+    "candidate_executable_sha256": "90f5473062922c82d26aaeb68fc95c512a3e0e328d5dab1a365dc5e14ed7b64b",
+    "design": "Fresh A1-B1-B2-A2; two observations per image; combined package only"
+  },
   "claim_limits": [
     "Own35/two-products exact science only.",
     "Finite synthetic completecaller gains are separate fromforecast; independentPARK andownerRETAIN preserved.",
@@ -1409,7 +1427,7 @@
     "applies_to_current_selection": false
   },
   "current_application_retry_scope": null,
-  "next_qualification": "Own3h/9h/noon/profile/restart/full144 pending; no inherited scope.",
+  "next_qualification": "Own9h/noon/profile/restart/full144 pending.",
   "previous_A50E_before_SPCVMC": {
     "paired_record": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_CURRENT_SOURCE_BUILD_BINDING_BEFORE_SPCVMC_OPTICAL.json",
@@ -2034,7 +2052,19 @@
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/hpg-nhx-consumer-simd/APPLICATION_QUALIFICATION.json",
     "sha256": "53e15d567f2bea93fd2984883696279976e171c5055ec48c6d7ad280f81b8c67"
   },
-  "latest_three_hour_observation": null,
+  "latest_three_hour_observation": {
+    "report": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/next-firsty-combined-threehour-abba-preparation-r1/FRESH_ACTUAL_ABBA_REPORT.json",
+      "sha256": "e0dd88d4c31bbafe18ce843c145005f8ac519613c5035017901f50fa41af09f1",
+      "bytes": 34428
+    },
+    "qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advect-first-y-zero-seed/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "5c68656a474b313e7a99f40666441cd09b9411b25110ec3e2388693327f8bc14"
+    },
+    "candidate_executable_sha256": "90f5473062922c82d26aaeb68fc95c512a3e0e328d5dab1a365dc5e14ed7b64b",
+    "scope": "Two own545-step/four-product candidate arms, all16model and2reader normal closures; no9h transfer"
+  },
   "before_HPG_CONSUMER_own9h": {
     "working_records_commit": "3dc1509d12a1e7205a885cfef5acf452ab8ff88e",
     "scope": "Exact complete prior working records remain at this Git commit; prior component evidence is unchanged. Historical nine-hour result applies to 3cdd, not the current artifact. Separate current short/three-hour fields are preserved in this record.",
@@ -3644,8 +3674,28 @@
     }
   },
   "performance_qualification": {
-    "current_matched_forecast_timing_qualified": false,
-    "applies_to_current_selection": false
+    "current_matched_forecast_timing_qualified": true,
+    "applies_to_current_selection": true,
+    "observations_per_image": 2,
+    "report": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/next-firsty-combined-threehour-abba-preparation-r1/FRESH_ACTUAL_ABBA_REPORT.json",
+      "sha256": "e0dd88d4c31bbafe18ce843c145005f8ac519613c5035017901f50fa41af09f1",
+      "bytes": 34428
+    },
+    "difference_of_means_percent": {
+      "wall_seconds": 20.748330790620948,
+      "main_step_sum_seconds": 9.002400047009465,
+      "cpu_seconds": 14.324468352745267
+    },
+    "limits": [
+      "Two observations per image; no confidence interval or broad repeatability claim.",
+      "Main elapsed includes MPI and output backpressure; wall minus main is not pure I/O.",
+      "AggregateCPU includes spin; throttle counters do not establish causal lost wall time.",
+      "Historical component caller gains are not additive or isolated forecast attribution.",
+      "Output inventory/normal writer closure proves completion, not an independently measured drain duration.",
+      "Load/frequency context UNKNOWN where sampled values were not collected locally.",
+      "Raw RESULT inherited labels are retained in sources; actual leases identify546b/frozenfirstY."
+    ]
   },
   "previous_current4adb_before_VY_SW": {
     "snapshot": {
@@ -4427,7 +4477,7 @@
     },
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification."
   },
-  "reductions_scope": "Current89bd ownshort descriptive context only, no matched forecast reduction; complete-caller percentages stay separate. Retained962b long comparisons historical.",
+  "reductions_scope": "Fresh four-arm original/current ABBA full-package difference of two means; not additive component attribution.",
   "current_profile_qualified": false,
   "current_full144_hour_qualified": false,
   "previous_current19ad_before_W_COPY_FUSION": {
@@ -4671,13 +4721,67 @@
     "original_checker_unchanged": true
   },
   "current_timing_observation": {
-    "candidate_descriptive_only": {
-      "wall_seconds": 136.01452554715797,
-      "cpu_seconds": 52573.895778,
-      "main_step_sum_seconds": 37.18595
+    "matched_three_hour": true,
+    "report": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/next-firsty-combined-threehour-abba-preparation-r1/FRESH_ACTUAL_ABBA_REPORT.json",
+      "sha256": "e0dd88d4c31bbafe18ce843c145005f8ac519613c5035017901f50fa41af09f1",
+      "bytes": 34428
     },
-    "unpaired": true,
-    "timing_gain_claim": false
+    "control_candidate_means": {
+      "control": {
+        "wall_seconds": 799.0043781208806,
+        "main_step_sum_seconds": 594.26336,
+        "cpu_seconds": 358587.1384515
+      },
+      "candidate": {
+        "wall_seconds": 633.2243067168165,
+        "main_step_sum_seconds": 540.765395,
+        "cpu_seconds": 307221.437287
+      }
+    },
+    "ranges": {
+      "control": {
+        "wall_seconds": {
+          "min": 798.8793674847111,
+          "max": 799.12938875705,
+          "spread": 0.2500212723389268
+        },
+        "main_step_sum_seconds": {
+          "min": 594.02948,
+          "max": 594.49724,
+          "spread": 0.4677599999999984
+        },
+        "cpu_seconds": {
+          "min": 358464.522448,
+          "max": 358709.754455,
+          "spread": 245.23200700001325
+        }
+      },
+      "candidate": {
+        "wall_seconds": {
+          "min": 625.3859499492683,
+          "max": 641.0626634843647,
+          "spread": 15.676713535096496
+        },
+        "main_step_sum_seconds": {
+          "min": 540.25036,
+          "max": 541.28043,
+          "spread": 1.0300700000000234
+        },
+        "cpu_seconds": {
+          "min": 303948.213217,
+          "max": 310494.661357,
+          "spread": 6546.448139999993
+        }
+      }
+    },
+    "difference_of_means_percent": {
+      "wall_seconds": 20.748330790620948,
+      "main_step_sum_seconds": 9.002400047009465,
+      "cpu_seconds": 14.324468352745267
+    },
+    "observations_per_image": 2,
+    "no_isolated_or_additive_claim": true
   },
   "before_own_A93F_ninehour": {
     "preimage_sha256": "36921e96cb819aba4df105b048d8f015597cfa91844f9e77cf80c828e370793e",
@@ -5272,8 +5376,8 @@
     }
   },
   "qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advect-first-y-zero-seed/APPLICATION_QUALIFICATION.json",
-    "sha256": "08a34fa7d3f8f13b9a0fd2fe25fff7c4d1690692422b33b9e6a1ac067280cf0b"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advect-first-y-zero-seed/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "5c68656a474b313e7a99f40666441cd09b9411b25110ec3e2388693327f8bc14"
   },
   "raw_RESULT_reference": {
     "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentb21c-first-y-zero-seed-child10m-runtime-r1/RESULT.json",
@@ -5342,5 +5446,27 @@
       "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advect-first-y-zero-seed/APPLICATION_QUALIFICATION.json",
       "sha256": "08a34fa7d3f8f13b9a0fd2fe25fff7c4d1690692422b33b9e6a1ac067280cf0b"
     }
+  },
+  "own_short_timing_observation": {
+    "candidate_descriptive_only": {
+      "wall_seconds": 136.01452554715797,
+      "cpu_seconds": 52573.895778,
+      "main_step_sum_seconds": 37.18595
+    },
+    "unpaired": true,
+    "timing_gain_claim": false
+  },
+  "current_three_hour_science": {
+    "products": 4,
+    "ordered_steps": 545,
+    "last_step": "2026-10-12_09:00:00",
+    "world": 512,
+    "compute": 480,
+    "quilt": 32,
+    "tiles": 2,
+    "candidate_observations": 2,
+    "all_exact": true,
+    "all16_models_and_both_readers_normal_closed": true,
+    "original_checker_unchanged": true
   }
 }

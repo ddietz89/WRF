@@ -1,3 +1,19 @@
+# Current90f5: own short and fresh matched three-hour science
+
+Current **90f54730 / archive0f4ccda1**, source correspondence **3c1fdd33**, passed the unchanged original full512 three-hour checker twice: four products and545 ordered steps per candidate arm, all16 model scopes and both readers normal closed. Fresh order was **A1–B1–B2–A2**, with checked caches before every arm. The immutable short qualification remains separate.
+
+|Metric|Original546b mean (range)|Current90f5 mean (range)|Reduction|
+|---|---:|---:|---:|
+|Model/MPI wall|13.317 (13.315–13.319) min|10.554 (10.423–10.684) min|20.75%|
+|Main-step elapsed|9.904 (9.900–9.908) min|9.013 (9.004–9.021) min|9.00%|
+|Aggregate node CPU|99.608 (99.573–99.642) core-hours|85.339 (84.430–86.249) core-hours|14.32%|
+
+These are two observations per image, not a confidence interval or broad repeatability claim. They measure the complete combined image; caller/component percentages are not additive and do not isolate a forecast contribution. Main elapsed includes communication/backpressure; aggregate CPU is summed whole-job consumption. Own9h/noon/profile/restart/full144 remain false; parent b21c9h and historical19ad matched results stay attached to their exact images. Raw producer remains NULL; no new whole-image source build is claimed.
+
+---
+
+# Earlier publication snapshots
+
 # Current first-Y zero-seed child — own short science only
 
 Selected 90f5473062922c82d26aaeb68fc95c512a3e0e328d5dab1a365dc5e14ed7b64b / archive 0f4ccda13fbe197ca6ce4c175ee1b1fa3ad12e756765c8d05afcacba2c24dce4. Original35steps/two-products512 science and model/reader closures passed. No current3h/9h/noon/profile/restart/full144 qualification or forecast gain transfers. Component evidence: `../cpu-compute/advect-first-y-zero-seed/APPLICATION_QUALIFICATION.json`.
