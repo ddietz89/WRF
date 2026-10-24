@@ -315,6 +315,29 @@ endif
 endif
 
 
+# Six-moisture-family WW_SPLIT reuse, exact existing WW arithmetic and stores retained.
+# Qualified GNU13.3.0 ModuleEM SIMD1, empty OMP/OMPCPP, default REAL/INTEGER4.
+# Source additionally requires DM_PARALLEL and !_OPENMP; serial keeps original ABI/calls.
+# Knob0: regenerate both PPs, rebuild module_em and ALL callers, rearchive and relink.
+WRF_MOISTURE_WW_SPLIT_REUSE ?= 1
+ifeq ($(WRF_MOISTURE_WW_SPLIT_REUSE),1)
+ifeq ($(WRF_RK_TENDENCY_SIMD),1)
+ifeq ($(strip $(OMPCPP) $(OMP) $(PROMOTION) $(DOUBLE_PRECISION)),)
+ifeq ($(strip $(RWORDSIZE)),4)
+ifeq ($(strip $(IWORDSIZE)),4)
+ifeq ($(filter -fdefault-% -freal-% -finteger-% -r8 -i8,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
+ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+module_em.o solve_em.o: private override CPPFLAGS += -DWRF_MOISTURE_WW_SPLIT_REUSE
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+
 cio.o :
 	$(CC) -c $(CFLAGS) cio.c
 

@@ -1,3 +1,6 @@
+#define WRF_MOISTURE_WW_STDIN_DECL #line 319
+#define WRF_MOISTURE_WW_STDIN_READY #line 2743
+#line 1
 !WRF:MEDIATION_LAYER:SOLVER
 
 SUBROUTINE solve_em ( grid , config_flags  &
@@ -181,6 +184,13 @@ SUBROUTINE solve_em ( grid , config_flags  &
    REAL :: dt_rk, dts_rk, dts, dtm, wmax
    REAL , ALLOCATABLE , DIMENSION(:)  :: max_vert_cfl_tmp, max_horiz_cfl_tmp
    LOGICAL :: leapfrog
+#if defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+   LOGICAL :: ww_split_ready
+#endif
+#if defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+WRF_MOISTURE_WW_STDIN_DECL
+#endif
+#line 184
    INTEGER :: l,kte,kk
    LOGICAL :: f_flux  ! flag for computing averaged fluxes in cu_gd
    REAL    :: curr_secs, curr_secs2, curr_mins2
@@ -2239,6 +2249,10 @@ BENCH_END(small_step_finish_tim)
 #endif
        moist_scalar_advance: IF (num_3d_m >= PARAM_FIRST_SCALAR )  THEN
 
+#if defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+         ww_split_ready = .FALSE.
+#endif
+#line 2242
          moist_variable_loop: DO im = PARAM_FIRST_SCALAR, num_3d_m
 
 ! adv_moist_cond is set in module_physics_init based on mp_physics choice
@@ -2287,7 +2301,13 @@ BENCH_START(rk_scalar_tend_tim)
                            ims, ime, jms, jme, kms, kme,     &
                            grid%i_start(ij), grid%i_end(ij), &
                            grid%j_start(ij), grid%j_end(ij), &
+#if defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+                           k_start    , k_end,              &
+                           ww_split_prepared=ww_split_ready )
+#else
                            k_start    , k_end               )
+#endif
+#line 2291
 
                IF( rk_step == 1 .AND. config_flags%use_q_diabatic == 1 )THEN
                IF( im.eq.p_qv .or. im.eq.p_qc )THEN
@@ -2347,6 +2367,15 @@ BENCH_END(rlx_bdy_scalar_tim)
 
              ENDDO moist_tile_loop_1
              !$OMP END PARALLEL DO
+#if defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+#ifndef _OPENMP
+             ww_split_ready = .TRUE.
+#endif
+#endif
+#if defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+WRF_MOISTURE_WW_STDIN_READY
+#endif
+#line 2350
 
              !$OMP PARALLEL DO   &
              !$OMP PRIVATE ( ij, tenddec )

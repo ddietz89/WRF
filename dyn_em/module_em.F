@@ -1131,32 +1131,71 @@ SUBROUTINE rk_scalar_tend ( scs, sce, config_flags,          &
                             mix2_off, mix6_off,              &
                             ids, ide, jds, jde, kds, kde,    &
                             ims, ime, jms, jme, kms, kme,    &
+#if defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+                            its, ite, jts, jte, kts, kte,   &
+                            ww_split_prepared )
+#else
                             its, ite, jts, jte, kts, kte    )
+#endif
+#line 1135
+#if !(defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP))
 
+#endif
+#line 1136
    IMPLICIT NONE
+#if !(defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP))
 
+#endif
+#line 1138
+#if !(defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP))
    !  Input data.
+#endif
+#line 1139
+#if !(defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP))
 
+#endif
+#line 1140
    TYPE(grid_config_rec_type   ) ,   INTENT(IN   ) :: config_flags
+#if !(defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP))
 
+#endif
+#line 1142
    LOGICAL ,                INTENT(IN   ) :: tenddec ! tendency term
+#if !(defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP))
 
+#endif
+#line 1144
    INTEGER ,                INTENT(IN   ) :: rk_step, scs, sce
    INTEGER ,                INTENT(IN   ) :: ids, ide, jds, jde, kds, kde, &
                                              ims, ime, jms, jme, kms, kme, &
                                              its, ite, jts, jte, kts, kte
+#if !(defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP))
 
+#endif
+#line 1149
    LOGICAL , INTENT(IN   ) :: moist_step
+#if !(defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP))
 
+#endif
+#line 1151
    REAL, DIMENSION(ims:ime, kms:kme, jms:jme , scs:sce ),                &
                                          INTENT(IN   )  :: scalar, scalar_old
+#if !(defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP))
 
+#endif
+#line 1154
    REAL, DIMENSION(ims:ime, kms:kme, jms:jme , scs:sce ),                      &
                                          INTENT(INOUT)  :: scalar_tends
+#if !(defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP))
                                                     
+#endif
+#line 1157
    REAL, DIMENSION(ims:ime, kms:kme, jms:jme  ), INTENT(INOUT) :: advect_tend
    REAL, DIMENSION(ims:ime, kms:kme, jms:jme  ), INTENT(  OUT) :: h_tendency, z_tendency
+#if !(defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP))
 
+#endif
+#line 1160
    REAL, DIMENSION(ims:ime, kms:kme, jms:jme  ), INTENT(OUT  ) :: RQVFTEN
 
    REAL, DIMENSION(ims:ime, kms:kme, jms:jme  ), INTENT(IN   ) ::     ru,     &
@@ -1201,6 +1240,10 @@ SUBROUTINE rk_scalar_tend ( scs, sce, config_flags,          &
 
    INTEGER, INTENT(IN   ) :: adv_opt          
    LOGICAL, INTENT(IN   ) :: mix2_off, mix6_off
+#if defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+   LOGICAL, INTENT(IN), OPTIONAL :: ww_split_prepared
+#endif
+#line 1204
 
    ! Local data
   
@@ -1215,6 +1258,10 @@ SUBROUTINE rk_scalar_tend ( scs, sce, config_flags,          &
    REAL, DIMENSION( ims:ime, kms:kme, jms:jme ) :: wwE, wwI  
    REAL, DIMENSION( ims:ime, jms:jme )          :: mut_old  
    LOGICAL                                      :: ieva
+#if defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+   LOGICAL :: needs_ww_split
+#endif
+#line 1218
 
 !<DESCRIPTION>
 !
@@ -1232,9 +1279,24 @@ SUBROUTINE rk_scalar_tend ( scs, sce, config_flags,          &
 ! IEVA
                          
    ieva = CHK_IEVA( config_flags, rk_step )
+#if defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+   needs_ww_split = .TRUE.
+#ifndef _OPENMP
+   IF ( PRESENT(ww_split_prepared) ) THEN
+     IF ( ww_split_prepared ) THEN
+       IF ( .NOT. ieva ) needs_ww_split = .FALSE.
+     ENDIF
+   ENDIF
+#endif
+#endif
+#line 1235
 
 ! Code for splitting vertical velocity into ex/im parts
 
+#if defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+   IF ( needs_ww_split ) THEN
+#endif
+#line 1238
    CALL WW_SPLIT(wwE, wwI,                         &
                  u_old,   v_old,    ww,            &
                  mut, rdnw, msfty,                 &
@@ -1245,6 +1307,10 @@ SUBROUTINE rk_scalar_tend ( scs, sce, config_flags,          &
                  ids, ide, jds, jde, kds, kde,     &
                  ims, ime, jms, jme, kms, kme,     &
                  its, ite, jts, jte, kts, kte )
+#if defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+   ENDIF
+#endif
+#line 1248
                  
                  
    IF( ieva ) THEN
