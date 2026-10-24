@@ -140,23 +140,34 @@
     "other_511_ranks": "OriginalNC8adc/output51a and selected9371 codec; inputadapter06d/privateNCa32 onlyrank0."
   },
   "science": {
-    "products": 2,
-    "ordered_steps": 35,
+    "products": 10,
+    "ordered_steps": 1625,
     "start": "2026-10-12_06:00:00",
-    "last_step": "2026-10-12_06:10:00",
+    "last_step": "2026-10-12_15:00:00",
     "world": 512,
     "compute": 480,
     "quilt": 32,
     "tiles": 2,
+    "decomposition": [
+      8,
+      60
+    ],
+    "positive_writer_roots": [
+      487,
+      495,
+      503,
+      511
+    ],
+    "positive_field_markers": 32,
     "all_exact": true,
     "all4models_and_reader_normal_closed": true,
     "original_checker_unchanged": true
   },
-  "qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
-  "current_application_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
+  "qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+  "current_application_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/NINE_HOUR_APPLICATION_QUALIFICATION.json",
   "source_build_binding_file": "CURRENT_SOURCE_BUILD_BINDING.json",
   "current_three_hour_qualified": false,
-  "current_nine_hour_qualified": false,
+  "current_nine_hour_qualified": true,
   "prior_nine_hour": {
     "evidence_file": "PREVIOUS_NINE_HOUR_RESULT_B1FB.json",
     "qualification_file": "PREVIOUS_NINE_HOUR_FINAL_QUALIFICATION_B1FB.json",
@@ -174,9 +185,33 @@
     "Finite synthetic completecaller gains are separate fromforecast; independentPARK andownerRETAIN preserved.",
     "No inherited long/noon/profile/restart qualification."
   ],
-  "next_qualification": "Ownthreehour/9h/noon/profile/restart/full144 pending; parent horizons do nottransfer.",
+  "next_qualification": "Own9h normal1625/10 passed; original3h postprocessorFAIL retained with recovered exactscience only. No ownnormal3h/noon/profile/restart/full144 transfer.",
   "output_fusion_qualification_file": "tools/cpu-output/quilt512/padding-block32/NATIVE_QUALIFICATION.json",
-  "latest_nine_hour": null,
+  "latest_nine_hour": {
+    "qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "65e4327cc016225b3832b4cd87513c6d7131afaaf3ba10fa3b81753fe76573f5"
+    },
+    "result": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentb21c-scalar-hz-ww-reuse-own9h-runtime-r3/RESULT.json",
+      "sha256": "44cdd52ed9836603af83e9b09b2c45ce173e969823d0f8c80fb48e9b066161c7"
+    },
+    "unprofiled": true,
+    "science_only": true,
+    "timing_gain_claim": false,
+    "metrics_descriptive": {
+      "control": {
+        "wall_seconds": 2069.3122304237913,
+        "cpu_seconds": 1009264.484921,
+        "main_step_sum_seconds": 1851.54464
+      },
+      "candidate": {
+        "wall_seconds": 1785.2476023361087,
+        "cpu_seconds": 897539.17148,
+        "main_step_sum_seconds": 1688.1065
+      }
+    }
+  },
   "padding_only_fill_qualification_file": "tools/cpu-output/quilt512/padding-only-fill/NATIVE_QUALIFICATION.json",
   "padding_block32_qualification_file": "tools/cpu-output/quilt512/padding-block32/NATIVE_QUALIFICATION.json",
   "previous_output375_three_hour_benchmark": {
@@ -670,7 +705,7 @@
     "scope": "One RQVFTEN-loop directive only, committed after native/caller/canonical-preprocess/link/original3hSCI. Frozen rawproducerNULL unchanged; no isolated forecast or own9h claim."
   },
   "current_profiled_nine_hour_science_qualified": false,
-  "current_unprofiled_nine_hour_science_qualified": false,
+  "current_unprofiled_nine_hour_science_qualified": true,
   "current_profiled_nine_hour_qualification": null,
   "previous_RQVBLTEN_PART2_POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
@@ -835,7 +870,10 @@
     "repeatability_established": false,
     "scope": "Exact4products545/full512/twoTiles/all32markers/fourpositivewriters; all8models+reader normally closed. Includes all current promotions; no isolated directive or concurrent-throughput claim."
   },
-  "current_nine_hour_qualification": null,
+  "current_nine_hour_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "65e4327cc016225b3832b4cd87513c6d7131afaaf3ba10fa3b81753fe76573f5"
+  },
   "nine_hour_benchmark": null,
   "previous_nine_hour_before_UVB": {
     "evidence_file": "NINE_HOUR_RESULT.json",
@@ -1289,8 +1327,8 @@
     "qualification_file": "tools/cpu-output/quilt512/codec/private-fast-distance-range/APPLICATION_QUALIFICATION.json"
   },
   "current_application_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
-    "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "65e4327cc016225b3832b4cd87513c6d7131afaaf3ba10fa3b81753fe76573f5"
   },
   "last_three_hour_benchmark": null,
   "current_noon75m_qualified": false,
@@ -4662,7 +4700,10 @@
     },
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification."
   },
-  "nine_hour_full_application": null,
+  "nine_hour_full_application": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "65e4327cc016225b3832b4cd87513c6d7131afaaf3ba10fa3b81753fe76573f5"
+  },
   "previous_POST_TEST_SOURCE_IDENTITY_before_WDTN": {
     "status": "POST_TEST_CANONICAL_CORRESPONDENCE_NOT_WHOLE_IMAGE_REBUILD",
     "source_commit": "9712688c787e6b46664705562fb40f76c54b81a7",
@@ -5062,7 +5103,10 @@
       "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
     }
   },
-  "full_application": null,
+  "full_application": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "65e4327cc016225b3832b4cd87513c6d7131afaaf3ba10fa3b81753fe76573f5"
+  },
   "latest_PD_build": {
     "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currenta93f-next-after-zero-finite-triage-r1/one-member-artifact-preparation-r1/actual-native-r1/receipt.json",
     "sha256": "9261cdbdeb613874ccf411f06a02850fbd8ad5575d2bb60391e995fb78176c45"
@@ -5159,8 +5203,8 @@
     }
   },
   "qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
-    "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "65e4327cc016225b3832b4cd87513c6d7131afaaf3ba10fa3b81753fe76573f5"
   },
   "raw_RESULT_reference": {
     "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current026c-hz-zero-reuse-child10m-runtime-r1/RESULT.json",

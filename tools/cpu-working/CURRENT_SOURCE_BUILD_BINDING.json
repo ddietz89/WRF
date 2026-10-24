@@ -1,5 +1,5 @@
 {
-  "status": "SELECTED_CURRENTB21C_HZ_ZERO_REUSE_OWN_SHORT_ONLY",
+  "status": "SELECTED_CURRENTB21C_HZ_ZERO_REUSE_OWN_SHORT_AND_NINE_HOUR",
   "source_commit": "4d55413fadcf748f326963437024d9c90c7998e3",
   "executable": {
     "path": "/pool/wrf-experiment/wrf-cpu/builds/current026c-hz-zero-reuse-two-member-native-r1/wrf.exe",
@@ -431,7 +431,7 @@
       "unchanged_other_members": 582
     }
   },
-  "qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
+  "qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/NINE_HOUR_APPLICATION_QUALIFICATION.json",
   "build_scope": "Exactly2members slots560Emdb80/577freshsolve80f73;582othersorderedbyteexact. Delivery0compiles/1link; canonicalEmPPexact/nativeobjectreuse +1freshsolvecompile against165d/fouractualcalls.",
   "runtime": {
     "WRF_EXPERIMENTAL_TPI_NUMA": 1,
@@ -447,12 +447,15 @@
       "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
     }
   },
-  "current_nine_hour_qualified": false,
+  "current_nine_hour_qualified": true,
   "previous_nine_hour_qualification": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_NINE_HOUR_FINAL_QUALIFICATION_B1FB.json",
     "sha256": "f38a865905d030be42ac0a965b4aa6afbc0eae280902a3839f20df176457f445"
   },
-  "full_application": null,
+  "full_application": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "65e4327cc016225b3832b4cd87513c6d7131afaaf3ba10fa3b81753fe76573f5"
+  },
   "current_three_hour_qualified": false,
   "prior_repaired_full_application": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/myj-mixlen-scratch-reuse/APPLICATION_QUALIFICATION.json",
@@ -548,7 +551,10 @@
     "output_postscience_source_commit": "6697020f800df164e3dee6d04d7c3639b297cca6",
     "scope": "Current86aa/8bee selectedoutput; fullshim component versus owncombinedapplication scopes distinct."
   },
-  "nine_hour_full_application": null,
+  "nine_hour_full_application": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "65e4327cc016225b3832b4cd87513c6d7131afaaf3ba10fa3b81753fe76573f5"
+  },
   "previous_noon75m_full_application": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-output/quilt512/padding-block32/APPLICATION_QUALIFICATION.json",
     "sha256": "fb3853a2dd3561319ec92a5ebf8bb66062b89e2ddbbec57bb591dc84eb023b8d"
@@ -818,7 +824,7 @@
     "scope": "One RQVFTEN-loop directive only, committed after native/caller/canonical-preprocess/link/original3hSCI. Frozen rawproducerNULL unchanged; no isolated forecast or own9h claim."
   },
   "current_profiled_nine_hour_science_qualified": false,
-  "current_unprofiled_nine_hour_science_qualified": false,
+  "current_unprofiled_nine_hour_science_qualified": true,
   "current_profiled_nine_hour_qualification": null,
   "previous_RQVBLTEN_PART2_POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
@@ -932,14 +938,25 @@
     "scope": "Exact4products545/full512/twoTiles/all32markers/fourpositivewriters; all8models+reader normally closed. Includes all current promotions; no isolated directive or concurrent-throughput claim."
   },
   "science": {
-    "products": 2,
-    "ordered_steps": 35,
+    "products": 10,
+    "ordered_steps": 1625,
     "start": "2026-10-12_06:00:00",
-    "last_step": "2026-10-12_06:10:00",
+    "last_step": "2026-10-12_15:00:00",
     "world": 512,
     "compute": 480,
     "quilt": 32,
     "tiles": 2,
+    "decomposition": [
+      8,
+      60
+    ],
+    "positive_writer_roots": [
+      487,
+      495,
+      503,
+      511
+    ],
+    "positive_field_markers": 32,
     "all_exact": true,
     "all4models_and_reader_normal_closed": true,
     "original_checker_unchanged": true
@@ -953,8 +970,11 @@
     "creator_libm_errno_preservation": false,
     "physical_memory_reduction_causally_qualified": false
   },
-  "current_nine_hour_qualification": null,
-  "current_application_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
+  "current_nine_hour_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "65e4327cc016225b3832b4cd87513c6d7131afaaf3ba10fa3b81753fe76573f5"
+  },
+  "current_application_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/NINE_HOUR_APPLICATION_QUALIFICATION.json",
   "previous_E3_POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
     "source_commit": "1ae0c6ee9cd1b5c238a57cf25409c18d380faaed",
@@ -1273,8 +1293,8 @@
     "qualification_file": "../cpu-output/quilt512/codec/private-fast-distance-range/APPLICATION_QUALIFICATION.json"
   },
   "current_application_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
-    "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "65e4327cc016225b3832b4cd87513c6d7131afaaf3ba10fa3b81753fe76573f5"
   },
   "last_three_hour_benchmark": null,
   "claim_limits": [
@@ -1409,7 +1429,7 @@
     "applies_to_current_selection": false
   },
   "current_application_retry_scope": null,
-  "next_qualification": "Ownthreehour/9h/noon/profile/restart/full144 pending; parent horizons do nottransfer.",
+  "next_qualification": "Own9h normal1625/10 passed; original3h postprocessorFAIL retained with recovered exactscience only. No ownnormal3h/noon/profile/restart/full144 transfer.",
   "previous_A50E_before_SPCVMC": {
     "paired_record": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_CURRENT_SOURCE_BUILD_BINDING_BEFORE_SPCVMC_OPTICAL.json",
@@ -1662,7 +1682,31 @@
   },
   "before_SPCVMC_own9h_claim_limits": "Actual unprofiled noon original science passed2products230steps. Candidate309.833275s wall/235.343340s main/151770.087473CPU-s is UNPAIRED against retained original; no isolated SPCVMC forecast gain, repeatability or horizon transfer. Whole-minus-main is not pureIO. Main elapsed includes communication/backpressure and is not integrationCPU.",
   "before_SPCVMC_own9h_comparison_design": "UNPAIRED candidate-only noon scientific reference; descriptive metrics only",
-  "latest_nine_hour": null,
+  "latest_nine_hour": {
+    "qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "65e4327cc016225b3832b4cd87513c6d7131afaaf3ba10fa3b81753fe76573f5"
+    },
+    "result": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentb21c-scalar-hz-ww-reuse-own9h-runtime-r3/RESULT.json",
+      "sha256": "44cdd52ed9836603af83e9b09b2c45ce173e969823d0f8c80fb48e9b066161c7"
+    },
+    "unprofiled": true,
+    "science_only": true,
+    "timing_gain_claim": false,
+    "metrics_descriptive": {
+      "control": {
+        "wall_seconds": 2069.3122304237913,
+        "cpu_seconds": 1009264.484921,
+        "main_step_sum_seconds": 1851.54464
+      },
+      "candidate": {
+        "wall_seconds": 1785.2476023361087,
+        "cpu_seconds": 897539.17148,
+        "main_step_sum_seconds": 1688.1065
+      }
+    }
+  },
   "previous_SPCVMC_before_HPG_NHX": {
     "paired_record": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_SOURCE_BUILD_BINDING_BEFORE_HPG_NHX.json",
@@ -5236,8 +5280,8 @@
     }
   },
   "qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
-    "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "65e4327cc016225b3832b4cd87513c6d7131afaaf3ba10fa3b81753fe76573f5"
   },
   "raw_RESULT_reference": {
     "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current026c-hz-zero-reuse-child10m-runtime-r1/RESULT.json",

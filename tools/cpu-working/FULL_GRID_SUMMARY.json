@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-10-24T06:44:08.839344+00:00",
+  "updated_utc": "2026-10-24T07:57:46.697820+00:00",
   "metric_definitions": {
     "wall_seconds": "Model/MPI including initialization/output/final drain",
     "main_step_sum_seconds": "Sum of reported main-step elapsed; includes communication/waiting/backpressure, not integration CPU",
@@ -298,6 +298,54 @@
         "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
       },
       "limits": "UNPAIRED descriptive comparison against retained original546b A1; no fresh matched timing pair"
+    },
+    {
+      "build": "b21c",
+      "horizon": "9h",
+      "run_id": "production512-currentb21c-scalar-hz-ww-reuse-own9h-candidate-r3",
+      "metrics": {
+        "wall_seconds": 1785.2476023361087,
+        "cpu_seconds": 897539.17148,
+        "main_step_sum_seconds": 1688.1065
+      },
+      "control_metrics": {
+        "wall_seconds": 2069.3122304237913,
+        "cpu_seconds": 1009264.484921,
+        "main_step_sum_seconds": 1851.54464
+      },
+      "aggregate_cpu_core_hours": {
+        "control": 280.3512458113889,
+        "candidate": 249.31643652222223
+      },
+      "reduction_vs_retained_control_percent": {
+        "wall_seconds": 13.727489931739626,
+        "main_step_sum_seconds": 8.827123930428163,
+        "cpu_seconds": 11.069973739316234
+      },
+      "instrumented": false,
+      "observer": false,
+      "exact_science_status": "PASS_ORIGINAL_TEN_HISTORY_AND_512_DIRECT_STOCK_LATEST_NINE_HOUR_SEQUENCE",
+      "reference": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentb21c-scalar-hz-ww-reuse-own9h-runtime-r3/RESULT.json",
+        "sha256": "44cdd52ed9836603af83e9b09b2c45ce173e969823d0f8c80fb48e9b066161c7"
+      },
+      "science_receipt": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentb21c-scalar-hz-ww-reuse-own9h-runtime-r3/science-receipt.json",
+        "sha256": "4e29ca9e53b7874f5627cca4baf485cfbce66ca32392f84015596eb5e8f82b92"
+      },
+      "reader_closure": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentb21c-scalar-hz-ww-reuse-own9h-runtime-r3/reader-closure.json",
+        "sha256": "a05bb272c7c4a9b7867307e992c187266a7e734268c2f8589d8d7c5ac67df68c"
+      },
+      "model_closures": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentb21c-scalar-hz-ww-reuse-own9h-runtime-r3/candidate-closures.json",
+        "sha256": "9ef3d475c800c818d99fbda0e449e5e3d78c846967e5e171c52413d17f3d6f44"
+      },
+      "qualification": {
+        "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+        "sha256": "65e4327cc016225b3832b4cd87513c6d7131afaaf3ba10fa3b81753fe76573f5"
+      },
+      "limits": "UNPAIRED descriptive versus retained original546b; no fresh matched timing claim."
     }
   ],
   "limits": "Recent rows compare descriptively with identified retained same-horizon controls. They are not fresh matched pairs, causal incremental gains, repeatability or additive percentages. Instrumented observations are labelled.",
@@ -306,13 +354,13 @@
     "archive_sha256": "0e4d54bfb885ee18a5e6654ef07d79727a23bbaeb8e13ebf0147a376bc95ec0e",
     "own_short_qualified": true,
     "own_three_hour_qualified": false,
-    "own_nine_hour_qualified": false,
+    "own_nine_hour_qualified": true,
     "latest_completed_3h_image": "89bd",
-    "latest_completed_9h_image": "962b",
-    "qualification_scope": "Current own2products35steps normal, plus recovered4products545steps exactscience/runtime with originalcoordinatorpostprocessorFAIL retained. No normal3h qualification. Own9hcurrentlyrunning; parentnormal3h89bd/9h962b remain namedhistoricalfacts.",
+    "latest_completed_9h_image": "b21c",
+    "qualification_scope": "Current ownshort35/2 and normalown9h1625/10 exactscience. Recovered3h545/4 retains originalfailed coordinator; no normal3h qualification. No profile/noon/restart/full144 or fresh matched timing claim.",
     "qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
-      "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "65e4327cc016225b3832b4cd87513c6d7131afaaf3ba10fa3b81753fe76573f5"
     },
     "own_recovered_threehour_exact_science": true
   },

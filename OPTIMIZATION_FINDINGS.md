@@ -1,5 +1,19 @@
 # WRF CPU optimization findings
 
+## October24: b21c own nine-hour exact science passed
+
+The unprofiled combined **b21c9c9f / archive0e4d54bf** completed all1,625 ordered steps through15:00; all ten complete products passed the unchanged original numerical, nonfinite, metadata and layout checker. All512 ranks,480 compute ranks/two tiles, qualified libraries/affinity, four positive writer roots and32 field-view markers passed. All four model scopes and reader048746e6 closed normally. The collector preserved the reader's unavailable post-GC numeric exit code as NULL; its exact invocation-bound manager success and absent cgroup establish normal closure.
+
+|Metric|Retained corrected-original546b control|Combined b21c|Reduction from control|
+|---|---:|---:|---:|
+|Model/MPI wall|34.489 min|29.754 min|13.73%|
+|Main-step elapsed|30.859 min|28.135 min|8.83%|
+|Aggregate node CPU|280.351 core-hours|249.316 core-hours|11.07%|
+
+These are **unpaired descriptive** observations against the retained same-horizon original, not a fresh matched timing comparison or isolated component effect. Main-step elapsed includes communication, waits and output backpressure; aggregate CPU is summed whole-job consumption. The latest selected image owns short and nine-hour exact science. Its original three-hour coordinator postprocessor failure and recovered exact science remain separately recorded; no normal three-hour, noon/profile, restart or full144-hour qualification is inferred. The R2 nine-hour maintenance interruption remains excluded. [Exact metrics](tools/cpu-working/FULL_GRID_SUMMARY.json). [Own nine-hour qualification](tools/cpu-compute/moisture-hz-zero-reuse/NINE_HOUR_APPLICATION_QUALIFICATION.json).
+
+The next first-Y advection scratch-clear fusion is still private and unpromoted. Its complete-caller wall reductions were1.44% and1.98%, with exact raw/state checks; canonical/default integration and its own application qualification remain pending. Those caller percentages are not forecast gains.
+
 ## October24: b21c three-hour exact science recovered; coordinator failure retained
 
 Combined **b21c9c9f** completed all545 ordered steps and all four complete products passed the unchanged original numerical, metadata and layout comparison. Separate recovery verified original input/namelist, all512 rank/library/affinity,480-tile and four-writer/32-marker predicates. Both recovery helpers closed normally. The actual MPI/orted workers exited0; the original coordinator manager exited1 after a short-horizon helper wrongly expected16 rather than32 writer markers. Its failed completion and manager records remain unchanged. This is recovered exact scientific evidence, **not a normal three-hour application completion**.
@@ -10,7 +24,7 @@ Combined **b21c9c9f** completed all545 ordered steps and all four complete produ
 |Main-step elapsed|9.909 min|9.053 min|8.64%|
 |Aggregate node CPU|99.589 core-hours|86.763 core-hours|12.88%|
 
-These are **unpaired descriptive** comparisons to the retained same-horizon control; they establish neither an isolated scratch-clear effect nor repeatability. Main-step time includes communication, waits and output backpressure; CPU is summed whole-job use. Own normal three-hour qualification remains false. A same-image nine-hour attempt was interrupted at11:38 simulated time when unattended package maintenance restarted the hpc02 service; its incomplete timing is excluded. A fresh retry preserves the ten-product/1,625-step and all-normal-closure requirements. Scheduled maintenance and selected dependencies were checked on all four nodes before preparing the retry. [Metrics, evidence identities and preserved limits](tools/cpu-compute/moisture-hz-zero-reuse/RECOVERED_THREE_HOUR_RESULT.json).
+These are **unpaired descriptive** comparisons to the retained same-horizon control; they establish neither an isolated scratch-clear effect nor repeatability. Main-step time includes communication, waits and output backpressure; CPU is summed whole-job use. Own normal three-hour qualification remains false. A same-image nine-hour attempt was interrupted at11:38 simulated time when unattended package maintenance restarted the hpc02 service; its incomplete timing is excluded. The fresh R3 retry passed the ten-product/1,625-step and all-normal-closure requirements, as recorded above. Scheduled maintenance and selected dependencies were checked on all four nodes before preparing it. [Metrics, evidence identities and preserved limits](tools/cpu-compute/moisture-hz-zero-reuse/RECOVERED_THREE_HOUR_RESULT.json).
 
 ## October24: moisture scratch-zero reuse promoted after exact short qualification
 
