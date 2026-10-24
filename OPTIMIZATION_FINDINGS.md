@@ -4738,3 +4738,18 @@ The default is enabled only within its documented GNU13.3 pure-MPI/REAL4/INTEGER
 The ordinary TOP33 boundary-clear fusion passed five-role raw/read-only/guard/five-state native checks, including eight new explicit-permission cases, and actual codegen removed the separate caller TOP memset traversal while retaining all TOP stores. In one opposite-order complete-family pair on each of hpc01 and hpc04 (9,216 calls/arm), candidate call wall sums were 4.03739% and 4.25924% higher; process CPU sums were 4.05824% and 4.15810% higher. All four cache/closure/raw-state checks passed. Close unpromoted: no demonstrated caller benefit and no established causal explanation. Earlier GLIBC and strict ABI-stop failures remain preserved; the later named ABI-only proof/R3 pass does not rewrite them. No TOP33 application or canonical/default integration occurred; selected90f5 and its separate ABBA evidence remain unchanged.
 
 [Retained native, complete-caller measurements and decision](tools/cpu-compute/ordinary-top33-boundary-clear-fusion-unpromoted/README.md).
+
+
+## 2026-10-24: RK scalar exact-coverage clear promoted (5aae)
+
+Current5aae passed original full512 three-hour science:545steps/four products, all models and reader normally closed. Own full512 three-hour exact science only:545 steps/four complete06–09 products; candidate-only versus retained original546b control, descriptive timing, no fresh paired or repeatability claim. Main elapsed includes communication/backpressure; CPU is summed node core time. No inherited short/1h/9h/noon/profile/restart/full144 qualification; no additive caller-to-forecast gain.
+
+metric | retained original | current5aae | descriptive reduction
+--- | ---: | ---: | ---:
+wall min | 13.695443 | 10.803541 | 21.1158%
+main elapsed min | 9.947620 | 9.058847 | 8.9345%
+summed CPU core-h | 102.400076 | 87.226008 | 14.8184%
+
+The default applies only to the recorded GNU 13.3, REAL/INTEGER4, SIMD and non-OpenMP support guards. Native genuine/O2/O0 bounds gates and complete synthetic RK callers passed; caller wall reductions were 8.73% and 8.88%, distinct from forecast results. The combined 5aae image retains CQV consumer fusion and all prior promoted components. Source correspondence is commit `9ffdb786c8181f80f4bf4f9f0038a4afe963c246`; raw producer commit remains unknown.
+
+Rollback: set `WRF_RK_SCALAR_EXACT_CLEAR=0`, fully regenerate/rebuild module_em, replace its archive member and relink, or restore qualified EFF2. Current own nine-hour/profile/restart/full144 qualification is pending. Full evidence: `tools/cpu-compute/rk-scalar-exact-clear/APPLICATION_QUALIFICATION.json`.

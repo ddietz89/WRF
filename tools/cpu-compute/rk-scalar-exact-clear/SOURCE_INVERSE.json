@@ -1,0 +1,44 @@
+{
+  "parent_source_sha256": "a8d1de3619ef4521ffd06a2dd0ac7ebaa5ccd088a8af18d31f5db30d77fb8d14",
+  "candidate_source_sha256": "7a0df8d13462a8b75e82a15ab14192a3d410f15534086f9e05ec364ea1ac6e41",
+  "parent_Makefile_sha256": "d34f1716e59268bde447bf4015b2761dbe8e57322164e31db1bc9cce5b25c212",
+  "candidate_Makefile_sha256": "8fbd51334df4a81fafcc1a7516cc3324c45b292b6e591c696a055ed0a98e61e5",
+  "only_six_existingblank_rows_guarded": true,
+  "postclip_guard": true,
+  "source_guard": "defined(WRF_RK_SCALAR_EXACT_CLEAR) && defined(DM_PARALLEL) && !defined(_OPENMP)",
+  "integer_no_filename_coordinates": true,
+  "old_public_ABI_retained": true,
+  "actual_CPP_pending": true,
+  "source_changes": [
+    {
+      "parent_line": 1901,
+      "old": "\n",
+      "new": "   LOGICAL :: skip_clear\n"
+    },
+    {
+      "parent_line": 1935,
+      "old": "\n",
+      "new": "    skip_clear = i_start==its .AND. i_end==MIN(ite,ide-1) .AND. j_start==jts .AND. j_end==MIN(jte,jde-1) .AND. k_start==kts .AND. k_end==MIN(kte,kde-1)\n"
+    },
+    {
+      "parent_line": 1942,
+      "old": "\n",
+      "new": "       IF ( .NOT. skip_clear ) THEN\n"
+    },
+    {
+      "parent_line": 1950,
+      "old": "   \n",
+      "new": "       ENDIF\n"
+    },
+    {
+      "parent_line": 2009,
+      "old": "\n",
+      "new": "       IF ( .NOT. skip_clear ) THEN\n"
+    },
+    {
+      "parent_line": 2017,
+      "old": "   \n",
+      "new": "       ENDIF\n"
+    }
+  ]
+}
