@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-10-24T06:00:12.094391+00:00",
+  "updated_utc": "2026-10-24T06:44:08.839344+00:00",
   "metric_definitions": {
     "wall_seconds": "Model/MPI including initialization/output/final drain",
     "main_step_sum_seconds": "Sum of reported main-step elapsed; includes communication/waiting/backpressure, not integration CPU",
@@ -309,10 +309,51 @@
     "own_nine_hour_qualified": false,
     "latest_completed_3h_image": "89bd",
     "latest_completed_9h_image": "962b",
-    "qualification_scope": "Current own2products35steps; retained3h/9h tables belong to named parentimages, no transfer.",
+    "qualification_scope": "Current own2products35steps normal, plus recovered4products545steps exactscience/runtime with originalcoordinatorpostprocessorFAIL retained. No normal3h qualification. Own9hcurrentlyrunning; parentnormal3h89bd/9h962b remain namedhistoricalfacts.",
     "qualification": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
       "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
+    },
+    "own_recovered_threehour_exact_science": true
+  },
+  "recovered_diagnostic_runs": [
+    {
+      "status": "PASS_EXACT_RECOVERED_THREEHOUR_SCIENCE_RUNTIME_DIAGNOSTIC_ORIGINAL_POSTPROCESSOR_FAILURE_RETAINED",
+      "created_utc": "2026-10-24T06:40:11.830371+00:00",
+      "run_id": "production512-currentb21c-scalar-hz-ww-reuse-own3h-candidate-r1",
+      "image_sha256": "b21c9c9f0273c5fdad77d207840bad25ed500e0a7e1c3ea1c853ecd43aa599e4",
+      "source_commit": "4d55413fadcf748f326963437024d9c90c7998e3",
+      "control_run_id": "production512-current19ad-combined3h-control-r1",
+      "control_image_sha256": "546b99156cbd809e1cae5e0ea8cebeea44dafd6331abf89e4daea00e0dd0a5e7",
+      "metrics": {
+        "control": {
+          "wall_seconds": 798.7989721219055,
+          "cpu_seconds": 358521.264108,
+          "main_step_sum_seconds": 594.56533
+        },
+        "candidate": {
+          "wall_seconds": 644.457603639923,
+          "main_step_sum_seconds": 543.1731500000002,
+          "cpu_seconds": 312348.535646
+        }
+      },
+      "reduction_from_retained_control_percent": {
+        "wall_seconds": 19.321678403265185,
+        "main_step_sum_seconds": 8.643655693815822,
+        "cpu_seconds": 12.878658278994305
+      },
+      "exact_products": 4,
+      "ordered_steps": 545,
+      "all4_models_normal_closed": false,
+      "original_coordinator_exit_code": 1,
+      "own_threehour_full_application_qualified": false,
+      "comparison_design": "UNPAIRED descriptive versus retained corrected-original A1; no fresh control, repeatability or isolated candidate gain",
+      "main_step_scope": "Elapsed includes MPI/waits/output backpressure; not integration CPU",
+      "aggregate_CPU_scope": "Whole model job CPU summed across four nodes",
+      "recovered_evidence_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/b21c-threehour-postprocessor-recovery-preparation-r1/joined-recovered-science-r1/RECOVERED_THREE_HOUR_SCIENCE.json",
+      "recovered_evidence_sha256": "d3b3f9744858850698fdb60a38bf117c9c6bec42ebc9eb08d535ebb9d3dfc88f",
+      "raw_metrics_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/hz-zero-reuse-threehour-postprocess-raw-metrics-r1/actual-r2.json",
+      "original_failure_rewritten": false
     }
-  }
+  ]
 }

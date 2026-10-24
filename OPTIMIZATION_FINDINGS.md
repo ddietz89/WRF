@@ -1,5 +1,17 @@
 # WRF CPU optimization findings
 
+## October24: b21c three-hour exact science recovered; coordinator failure retained
+
+Combined **b21c9c9f** completed all545 ordered steps and all four complete products passed the unchanged original numerical, metadata and layout comparison. Separate recovery verified original input/namelist, all512 rank/library/affinity,480-tile and four-writer/32-marker predicates. Both recovery helpers closed normally. The actual MPI/orted workers exited0; the original coordinator manager exited1 after a short-horizon helper wrongly expected16 rather than32 writer markers. Its failed completion and manager records remain unchanged. This is recovered exact scientific evidence, **not a normal three-hour application completion**.
+
+|Metric|Retained corrected-original546b A1|Combined b21c|Reduction from control|
+|---|---:|---:|---:|
+|Model/MPI wall|13.313 min|10.741 min|19.32%|
+|Main-step elapsed|9.909 min|9.053 min|8.64%|
+|Aggregate node CPU|99.589 core-hours|86.763 core-hours|12.88%|
+
+These are **unpaired descriptive** comparisons to the retained same-horizon control; they establish neither an isolated scratch-clear effect nor repeatability. Main-step time includes communication, waits and output backpressure; CPU is summed whole-job use. Own normal three-hour qualification remains false. A same-image nine-hour attempt was interrupted at11:38 simulated time when unattended package maintenance restarted the hpc02 service; its incomplete timing is excluded. A fresh retry preserves the ten-product/1,625-step and all-normal-closure requirements. Scheduled maintenance and selected dependencies were checked on all four nodes before preparing the retry. [Metrics, evidence identities and preserved limits](tools/cpu-compute/moisture-hz-zero-reuse/RECOVERED_THREE_HOUR_RESULT.json).
+
 ## October24: moisture scratch-zero reuse promoted after exact short qualification
 
 Combined **b21c9c9f / archive0e4d54bf** retains scalar-family WW reuse and all earlier code/providers. It skips repeated h/z scratch clears only after the first admitted moisture species completes every tile in that RK stage. The absent/false, final-stage, non-moisture and IEVA paths retain the original clears. The qualified GNU13.3 default has an explicit `WRF_MOISTURE_HZ_ZERO_REUSE=0` opt-out requiring regeneration, owner rebuild, rearchive and relink.
