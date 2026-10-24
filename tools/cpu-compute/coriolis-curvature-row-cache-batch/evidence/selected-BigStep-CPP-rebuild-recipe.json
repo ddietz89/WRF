@@ -1,0 +1,77 @@
+{
+  "status": "QUALIFIED_GNU13_CORI_U_PRIVATE_PHY_AVX2_WORKING_RECIPE",
+  "canonical_source": "dyn_em/module_big_step_utilities_em.F",
+  "canonical_source_sha256": "e77b979a9bad159dfe27595ccfbbfecd2abbbb9c29430a3c6e5124bd111397b5",
+  "BigStep_qualified_CPP_hash": "509d964f3d79067e42ef907b7e54e437ba6eabc0c20a9da20bf517c5fb57c9f3",
+  "Fortran_flags": [
+    "-O2",
+    "-fno-fast-math",
+    "-ffp-contract=off",
+    "-w",
+    "-fno-fast-math",
+    "-ffp-contract=off",
+    "-ffree-form",
+    "-ffree-line-length-none",
+    "-fconvert=big-endian",
+    "-frecord-marker=4",
+    "-fallow-argument-mismatch",
+    "-fallow-invalid-boz",
+    "-g",
+    "-fopenmp-simd",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+    "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include"
+  ],
+  "BigStep_CPPFLAGS_append": [
+    "-DWRF_EXPERIMENTAL_PHY_HEIGHT_ROW_SSE2"
+  ],
+  "existing_required_HPG_macro": "WRF_EXPERIMENTAL_HPG_NHX_AVX2",
+  "generic_PHY_macro_OFF": "Retain current guarded Fortran implementation; no private PHY C symbol required when macro is OFF. Existing SSE2 macro name denotes legacy row API selection, not the helper ISA. Do not rename it or claim prior whole-source OFF hash1b9b after Cori source changes.",
+  "Cori_source_scope": "Literal exact-order U ratio row cache in existing map_v_cache; no new array, V/W and all outside-Cori source coordinates byteexact. GNU13 strict native/caller proof, not universal trap-mode or compiler theorem.",
+  "helper_source": "tools/cpu-compute/phy-height-private-avx2-fixed8/phy_height_row_legacy.c",
+  "helper_source_sha256": "8804ccc05530880a9838c634e412029c2f778b8400c0dd2b5ce6caedf57f7051",
+  "helper_O2_flags": [
+    "-O2",
+    "-std=c11",
+    "-mavx2",
+    "-mno-fma",
+    "-fno-fast-math",
+    "-ffp-contract=off",
+    "-frounding-math",
+    "-DWRF_PHY_HEIGHT_PARENT_O2=1"
+  ],
+  "helper_O0_flags": [
+    "-O0",
+    "-std=c11",
+    "-mavx2",
+    "-mno-fma",
+    "-fno-fast-math",
+    "-ffp-contract=off",
+    "-frounding-math",
+    "-DWRF_PHY_HEIGHT_PARENT_O0=1"
+  ],
+  "helper_operand_modes": "Exactly one explicit O2/O0 parent mode; no __OPTIMIZE__ inference, no O0/O2 cross-gold. AVX2 only this private C TU, strict Fortran flags unchanged.",
+  "explicit_link": "Existing HPG ae13 helper exactly once; replace prior external PHY3f36 with actualb6a7 exactly once immediately before archive. No duplicate SSE2/AVX2 wrapper definition. Slot559926f,583 other archive occurrences exact.",
+  "public_MOD_scope": "f7bd exact versus current a377. Earlier PHY ARRAY_OUTER_DEPENDENCY analysis-token delta versus pre-PHY99bf remains disclosed; no claim exact to older99bf or fresh caller compiler-code identity.",
+  "support": "GNU13.3 x86-64 EPYC7742 AVX2/OS-admitted selected recipe, REAL32/INTEGER32 and tested masked exception recipe; no global -march, no FMA/fastmath, no unqualified architecture/compiler or enabled-trap claim.",
+  "actual_build_qualification": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/phy-height-private-avx2-fixed8-r1/integration-preparation-r1/coriolis-and-helper-combined-relink-r1/BUILD_QUALIFICATION.json",
+    "sha256": "bbb9a3d210e744175114ca26de377c5e7560b0cfb422a72b54989d41a1b96fe8"
+  },
+  "raw_build_producer_source_commit": null,
+  "posttest_source_commit": "014ab2e074c0a604cc2beea06680028b7e691492",
+  "application_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/coriolis-u-phy-fixed8-batch/APPLICATION_QUALIFICATION.json",
+    "sha256": "0ce16488e6b28050e699f65046cd18d950fa4bf5d16a7a3cdfc7464f7e602464"
+  },
+  "source_rebuilt_whole_image_certified": false
+}

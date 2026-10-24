@@ -492,39 +492,49 @@
       },
       "timing_gain_claim": false,
       "limits": "Instrumented candidate versus retained corrected-original546b; UNPAIRED descriptive values only."
+    },
+    {
+      "image": "169c",
+      "horizon": "onehour185/twoproducts",
+      "executable_sha256": "169c09affa71559a60e35520040fa82fd084bca7436896f3ca2559bb9666cd86",
+      "metrics": {
+        "candidate": {
+          "wall_seconds": 275.083214500919,
+          "cpu_seconds": 123131.704796,
+          "main_step_sum_seconds": 175.34468
+        }
+      },
+      "qualification": {
+        "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/coriolis-curvature-row-cache-batch/APPLICATION_QUALIFICATION.json",
+        "sha256": "38cff69f264abafc174b0ce8f43de7b0184fda21bfa731bc61af6ad9c323869a"
+      },
+      "actual_result": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current90f5-coriolis-batch-writer-onehour-runtime-r1/RESULT.json",
+        "sha256": "380045ada76cfb36291497d76bd78a6c9f367a475c19b1d6810902e41981f867"
+      },
+      "timing_gain_claim": false,
+      "limits": "Own169c original H185/two06/07 products, full512, all4models+reader normalclosed. Candidate-only unpaired timings; parent90f5 matched3h/own9h historical. No writer/profile/long/restart/full144 qualification or forecastspeedup transfer."
     }
   ],
   "limits": "Recent rows compare descriptively with identified retained same-horizon controls. They are not fresh matched pairs, causal incremental gains, repeatability or additive percentages. Instrumented observations are labelled.",
   "current_selection": {
-    "executable_sha256": "90f5473062922c82d26aaeb68fc95c512a3e0e328d5dab1a365dc5e14ed7b64b",
-    "archive_sha256": "0f4ccda13fbe197ca6ce4c175ee1b1fa3ad12e756765c8d05afcacba2c24dce4",
-    "own_short_qualified": true,
-    "own_three_hour_qualified": true,
-    "own_nine_hour_qualified": true,
+    "executable_sha256": "169c09affa71559a60e35520040fa82fd084bca7436896f3ca2559bb9666cd86",
+    "archive_sha256": "9ce6689d9ba4ef719068b0a57f711a934c70ec04e51452207a6d3886874dd241",
+    "own_one_hour_qualified": true,
+    "own_short_qualified": false,
+    "own_three_hour_qualified": false,
+    "own_nine_hour_qualified": false,
+    "noon_profile_restart_full144_qualified": false,
+    "qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/coriolis-curvature-row-cache-batch/APPLICATION_QUALIFICATION.json",
+      "sha256": "38cff69f264abafc174b0ce8f43de7b0184fda21bfa731bc61af6ad9c323869a"
+    },
+    "qualification_scope": "Own169c original H185/two06/07 products, full512, all4models+reader normalclosed. Candidate-only unpaired timings; parent90f5 matched3h/own9h historical. No writer/profile/long/restart/full144 qualification or forecastspeedup transfer.",
     "latest_completed_3h_image": "90f5",
     "latest_completed_9h_image": "90f5",
-    "qualification_scope": "Own short, fresh matched three-hour ABBA, and instrumented own nine-hour exact science. Full four-profile, restart and full144 remain pending.",
-    "qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advect-first-y-zero-seed/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "5c68656a474b313e7a99f40666441cd09b9411b25110ec3e2388693327f8bc14"
-    },
-    "own_recovered_threehour_exact_science": false,
     "latest_completed_horizon_labels_apply_to_current_selection": {
-      "three_hour": true,
-      "nine_hour": true
-    },
-    "executable": {
-      "path": "/pool/wrf-experiment/wrf-cpu/builds/currentb21c-first-y-zero-seed-five-member-native-r1/wrf.exe",
-      "sha256": "90f5473062922c82d26aaeb68fc95c512a3e0e328d5dab1a365dc5e14ed7b64b"
-    },
-    "noon_profile_restart_full144_qualified": false,
-    "scope": "Current90f5 own35/2, two normal545/4 arms and instrumented1625/10; no nine-hour matched performance claim.",
-    "latest_completed_9h_scope": "Current90f5 own instrumented science; descriptive timings versus retained same-horizon546b.",
-    "own_profiled_nine_hour_science_qualified": true,
-    "own_unprofiled_nine_hour_science_qualified": false,
-    "nine_hour_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advect-first-y-zero-seed/NINE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "941dd808e26e2b2f32d3ee332f6d8e20eee9fc3b5775daf94657e4f88059a609"
+      "three_hour": false,
+      "nine_hour": false
     }
   },
   "recovered_diagnostic_runs": [
@@ -602,5 +612,10 @@
         "sha256": "c845325b7a06d7f0a005d3581ef435b4559f5c77d5a163e783ac043866de25e9"
       }
     ]
+  },
+  "historical_qualified_matched_image": {
+    "executable_sha256": "90f5473062922c82d26aaeb68fc95c512a3e0e328d5dab1a365dc5e14ed7b64b",
+    "report_key": "matched_three_hour",
+    "applies_to_current_selection": false
   }
 }

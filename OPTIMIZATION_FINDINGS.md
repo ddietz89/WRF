@@ -1,5 +1,23 @@
 # WRF CPU optimization findings
 
+## October 24: invariant Coriolis and curvature rows promoted
+
+The qualified GNU 13.3 pure-MPI working defaults now cache Coriolis U horizontal coefficients and the normal-V curvature map quotient before their vertical loops. The combined executable `169c09af` passed the unchanged 512-rank one-hour scientific check: both products, metadata/layout, all 185 ordered steps, and runtime/rank/affinity/library/tile/writer acceptance were exact against corrected-original 546b. All four model jobs and the original reader closed normally. Post-test source correspondence is commit `afb8abb4`; the raw producer source commit remains unknown.
+
+| Complete caller | Parent time | Improved time | Reduction | Scope |
+| --- | ---: | ---: | ---: | --- |
+| Coriolis, hpc01 | 3.62144 s | 3.04689 s | 15.87% | 4,000 whole calls |
+| Coriolis, hpc04 | 3.64651 s | 3.09881 s | 15.02% | Opposite order, 4,000 whole calls |
+| Curvature, hpc01 | 0.562918 s | 0.538858 s | 4.27% | 500 whole calls |
+| Curvature, hpc04 | 0.554567 s | 0.546634 s | 1.43% | Opposite order, 500 whole calls |
+
+Each timing arm had an actual checked client-cache clear; full raw outputs, read-only inputs and floating-point state matched. These are separate routine measurements and their percentages are not added or projected onto forecast runtime. The new one-hour model wall time was 275.083 s, integration-loop elapsed 175.345 s and total CPU 123,131.705 s; no same-horizon control wall observation was collected, so no one-hour wall reduction is claimed. Its own three-hour/nine-hour/restart/full144-hour and profile qualifications remain pending. The earlier 90f5 matched three-hour and descriptive nine-hour tables remain evidence for that preceding image.
+
+An optional writer profiler failed before recording because its donor runtime proof incorrectly required an MPI observer that this model had disabled. No raw profile or recorder existed; the failure and normal helper closures are retained. This does not change the scientific pass.
+
+Independent opt-outs are `WRF_CORIOLIS_U_COEFFICIENT_CACHE=0` and `WRF_CURVATURE_V_METRIC_CACHE=0`, followed by regeneration, BigStep rebuild, archive replacement and relink. See [batch evidence and rebuild scope](tools/cpu-compute/coriolis-curvature-row-cache-batch/README.md) and [rollback](tools/cpu-compute/coriolis-curvature-row-cache-batch/ROLLBACK.md).
+
+
 ## October24: current90f5 nine-hour exact science passed; two caller candidates closed
 
 Current **90f54730 / archive0f4ccda1**, source correspondence **3c1fdd33**, completed all ten products and1,625 ordered steps through15:00 with the unchanged original numerical, nonfinite, metadata and layout checker. All four model services and the reader closed normally. The exact image now owns short, fresh matched three-hour ABBA and instrumented nine-hour science; the earlier snapshots below retain their publication-time scope.

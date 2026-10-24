@@ -1,54 +1,66 @@
 {
-  "status": "SELECTED_FIRST_Y_ZERO_SEED_OWN_SHORT_ONLY",
+  "status": "SELECTED_CORIOLIS_METRIC_BATCH_OWN_ONEHOUR185_TWO_PRODUCTS_ONLY",
   "order": [
-    "retained_original546b_science_reference",
-    "actual_firstY_child"
+    "retained_original546b_first_hour_science_prefix",
+    "coriolis_batch_writer_instrumented_onehour"
   ],
-  "comparison_design": "Candidate-only own35 science; unpaired descriptive metrics, no forecast gain.",
+  "comparison_design": "SCIENCE_ONLY one-hour candidate vs two retained original complete files; candidate observations only, no performance comparison",
   "metrics": {
-    "control": null,
     "candidate": {
-      "wall_seconds": 136.01452554715797,
-      "cpu_seconds": 52573.895778,
-      "main_step_sum_seconds": 37.18595
+      "wall_seconds": 275.083214500919,
+      "cpu_seconds": 123131.704796,
+      "main_step_sum_seconds": 175.34468
     }
   },
   "reductions_percent": null,
   "timing_gain_claim": false,
-  "science_sha256": "1cf3227e652a0dd492ba9ab5d18d6b5b75c7adec6317c86e05ce44c27b4c986c",
-  "reader_closure_sha256": "ad386d9f018e5a5651029af26e28d32a1d34bf40beb49746721ba5eea21b0fdd",
-  "limits": "Candidate-only run with original retained science reference; wall/CPU/main differences are UNPAIRED descriptive context. No new original forecast, matched timing, repeatability or per-kernel causal claim.",
+  "science_sha256": "c3699de428a46b416c4a1dd436dfd1d3e91b1f617e45816b5809ac49a8d7c718",
+  "reader_closure_sha256": "6060cf15d4d60b404163a549a2b5ace31c236face6f281cfc6e8bc1e3300258e",
+  "limits": "Own169c original H185/two06/07 products, full512, all4models+reader normalclosed. Candidate-only unpaired timings; parent90f5 matched3h/own9h historical. No writer/profile/long/restart/full144 qualification or forecastspeedup transfer.",
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentb21c-first-y-zero-seed-five-member-native-r1/wrf.exe",
-    "sha256": "90f5473062922c82d26aaeb68fc95c512a3e0e328d5dab1a365dc5e14ed7b64b"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current90f5-coriolis-metric-one-member-native-r1/wrf.exe",
+    "sha256": "169c09affa71559a60e35520040fa82fd084bca7436896f3ca2559bb9666cd86"
   },
-  "source_commit": "3c1fdd330e7ceae1d5fce66a538a8022ee4aed5e",
+  "source_commit": "afb8abb497af0bccccad0fae28310d90d21dc49a",
   "raw_producer_source_commit": null,
   "qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advect-first-y-zero-seed/APPLICATION_QUALIFICATION.json",
-    "sha256": "08a34fa7d3f8f13b9a0fd2fe25fff7c4d1690692422b33b9e6a1ac067280cf0b"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/coriolis-curvature-row-cache-batch/APPLICATION_QUALIFICATION.json",
+    "sha256": "38cff69f264abafc174b0ce8f43de7b0184fda21bfa731bc61af6ad9c323869a"
   },
   "science": {
-    "products": 2,
-    "ordered_steps": 35,
-    "start": "2026-10-12_06:00:00",
-    "last_step": "2026-10-12_06:10:00",
-    "world": 512,
-    "compute": 480,
-    "quilt": 32,
-    "tiles": 2,
-    "all_exact": true,
-    "all4models_and_reader_normal_closed": true,
-    "original_checker_unchanged": true
+    "status": "PASS",
+    "own_one_hour_185_two_products": true,
+    "actual_evidence": {
+      "science": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current90f5-coriolis-batch-writer-onehour-runtime-r1/science-receipt.json",
+        "sha256": "c3699de428a46b416c4a1dd436dfd1d3e91b1f617e45816b5809ac49a8d7c718"
+      },
+      "reader": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current90f5-coriolis-batch-writer-onehour-runtime-r1/reader-closure.json",
+        "sha256": "6060cf15d4d60b404163a549a2b5ace31c236face6f281cfc6e8bc1e3300258e"
+      },
+      "models": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current90f5-coriolis-batch-writer-onehour-runtime-r1/candidate-metadata/model-closures.json",
+        "sha256": "805213cff8ce02efcdce8290aaab6929840e85859ee3144f3e49d4ee6d7f9569"
+      },
+      "result": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current90f5-coriolis-batch-writer-onehour-runtime-r1/RESULT.json",
+        "sha256": "380045ada76cfb36291497d76bd78a6c9f367a475c19b1d6810902e41981f867"
+      },
+      "lease": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current90f5-coriolis-batch-writer-onehour-runtime-r1/candidate-metadata/lease.json",
+        "sha256": "bd090a47ea42515770f2aaed175b716ccdee9778d8d06d677614a6d1b8b51a50"
+      }
+    }
   },
-  "scope": "Exact firstY child own35/two-products only; parent horizons historical.",
-  "current_short_qualified": true,
+  "scope": "Own169c original H185/two06/07 products, full512, all4models+reader normalclosed. Candidate-only unpaired timings; parent90f5 matched3h/own9h historical. No writer/profile/long/restart/full144 qualification or forecastspeedup transfer.",
+  "current_short_qualified": false,
   "current_three_hour_qualified": false,
   "current_nine_hour_qualified": false,
   "reduction_vs_retained_control_percent": null,
   "raw_RESULT_reference": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentb21c-first-y-zero-seed-child10m-runtime-r1/RESULT.json",
-    "sha256": "6e3b5816fc384e009a1fd49acf68e52c50aa155cd4c866febb3a73a073a90026"
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current90f5-coriolis-batch-writer-onehour-runtime-r1/RESULT.json",
+    "sha256": "380045ada76cfb36291497d76bd78a6c9f367a475c19b1d6810902e41981f867"
   },
   "parent89bd_records": {
     "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/scalar-family-promotion-actual-r1/previous/LATEST_APPLICATION_RESULT.json",
@@ -57,53 +69,25 @@
     "applies_to_current_selection": false,
     "scope": "Historical parent89bd including own3h; earlier artifact identities preserved in referenced record."
   },
-  "archive_path": "/pool/wrf-experiment/wrf-cpu/builds/currentb21c-first-y-zero-seed-five-member-native-r1/libwrflib.a",
-  "archive_sha256": "0f4ccda13fbe197ca6ce4c175ee1b1fa3ad12e756765c8d05afcacba2c24dce4",
-  "current_short_science": {
-    "products": 2,
-    "ordered_steps": 35,
-    "start": "2026-10-12_06:00:00",
-    "last_step": "2026-10-12_06:10:00",
-    "world": 512,
-    "compute": 480,
-    "quilt": 32,
-    "tiles": 2,
-    "all_exact": true,
-    "all4models_and_reader_normal_closed": true,
-    "original_checker_unchanged": true
-  },
-  "current_short_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advect-first-y-zero-seed/APPLICATION_QUALIFICATION.json",
-    "sha256": "08a34fa7d3f8f13b9a0fd2fe25fff7c4d1690692422b33b9e6a1ac067280cf0b"
-  },
+  "archive_path": "/pool/wrf-experiment/wrf-cpu/builds/current90f5-coriolis-metric-one-member-native-r1/libwrflib.a",
+  "archive_sha256": "9ce6689d9ba4ef719068b0a57f711a934c70ec04e51452207a6d3886874dd241",
+  "current_short_science": null,
+  "current_short_qualification": null,
   "current_application_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advect-first-y-zero-seed/APPLICATION_QUALIFICATION.json",
-    "sha256": "08a34fa7d3f8f13b9a0fd2fe25fff7c4d1690692422b33b9e6a1ac067280cf0b"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/coriolis-curvature-row-cache-batch/APPLICATION_QUALIFICATION.json",
+    "sha256": "38cff69f264abafc174b0ce8f43de7b0184fda21bfa731bc61af6ad9c323869a"
   },
-  "current_application_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/advect-first-y-zero-seed/APPLICATION_QUALIFICATION.json",
-  "qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/advect-first-y-zero-seed/APPLICATION_QUALIFICATION.json",
+  "current_application_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/coriolis-curvature-row-cache-batch/APPLICATION_QUALIFICATION.json",
+  "qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/coriolis-curvature-row-cache-batch/APPLICATION_QUALIFICATION.json",
   "full_application": null,
   "POST_TEST_SOURCE_IDENTITY": {
-    "source_commit": "3c1fdd330e7ceae1d5fce66a538a8022ee4aed5e",
     "raw_producer_source_commit": null,
+    "post_test_source_commit": "afb8abb497af0bccccad0fae28310d90d21dc49a",
     "canonical_sources": {
-      "dyn_em/module_advect_em.F": "887728e6cd9b14e2a3a812f186a15c871929688d02b85ed7fe1fc545bb1c2953",
-      "dyn_em/module_em.F": "a8d1de3619ef4521ffd06a2dd0ac7ebaa5ccd088a8af18d31f5db30d77fb8d14",
-      "dyn_em/Makefile": "c36eb13953c8ddf214819ab93d208d61b88eb62c10beecf7ead0173cb7d14a9f"
+      "dyn_em/module_big_step_utilities_em.F": "4fe3963568d688c6a88fab391c57108c1b80f7ad09641ef1cd2e349e36cae613",
+      "dyn_em/Makefile": "4eb9d7d433af78503e73f2a2f5f0b8d8106a5adc67110e4f62bd7eef1289ed7c"
     },
-    "canonical": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentb21c-first-y-zero-seed-child10m-runtime-r1/firstY-canonical-receipt.json",
-      "sha256": "0795363fa7cc180b7bc2f7fb0ce1c7fd340f30ba36397a21d40760c968292ead"
-    },
-    "owners": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentb21c-first-y-zero-seed-child10m-runtime-r1/firstY-owner-receipt.json",
-      "sha256": "cecc195c9ee4addff3239a740827b853a8d6e83d45d944bfe2c2448372ea725a"
-    },
-    "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advect-first-y-zero-seed/APPLICATION_QUALIFICATION.json",
-      "sha256": "08a34fa7d3f8f13b9a0fd2fe25fff7c4d1690692422b33b9e6a1ac067280cf0b"
-    },
-    "scope": "Post-test correspondence; no raw producer commit inferred."
+    "candidate_executable_sha256": "169c09affa71559a60e35520040fa82fd084bca7436896f3ca2559bb9666cd86"
   },
   "scalar_ww_reuse_producer": {
     "build": {
@@ -125,23 +109,11 @@
       "sha256": "08a34fa7d3f8f13b9a0fd2fe25fff7c4d1690692422b33b9e6a1ac067280cf0b"
     }
   },
-  "current_timing_observation": {
-    "candidate_descriptive_only": {
-      "wall_seconds": 136.01452554715797,
-      "cpu_seconds": 52573.895778,
-      "main_step_sum_seconds": 37.18595
-    },
-    "unpaired": true,
-    "timing_gain_claim": false
-  },
+  "current_timing_observation": null,
   "raw_RESULT_label_disclosure": "Raw RESULT retains an inherited WW/WPH administrative order label. Actual90f5 executable/0f4c archive, lease and full typed firstY proof establish this newchild identity; no science or measurements were changed.",
   "raw_result_status": "PASS_RETAINED_ORIGINAL_TWO_HISTORY_35_STEPS_512_OWNED_FIELD_VIEW",
-  "next_qualification": "Own3h/9h/noon/profile/restart/full144 pending; no inherited scope.",
-  "claim_limits": [
-    "Own35/two-products exact science only.",
-    "Finite synthetic completecaller gains are separate fromforecast; independentPARK andownerRETAIN preserved.",
-    "No inherited long/noon/profile/restart qualification."
-  ],
+  "next_qualification": "Own3h/9h/noon/profile/restart/full144 remain pending for169c.",
+  "claim_limits": "Own169c original H185/two06/07 products, full512, all4models+reader normalclosed. Candidate-only unpaired timings; parent90f5 matched3h/own9h historical. No writer/profile/long/restart/full144 qualification or forecastspeedup transfer.",
   "parent026c_records": {
     "snapshot": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/hz-zero-reuse-promotion-preparation-r1/scalar-record-preimages/LATEST_APPLICATION_RESULT.json",
     "sha256": "7dbcee1cffedc7e6220c250eb03f2bc41860505cbd0ce30cf8fd3568a0baf552",
@@ -285,5 +257,35 @@
       "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advect-first-y-zero-seed/APPLICATION_QUALIFICATION.json",
       "sha256": "08a34fa7d3f8f13b9a0fd2fe25fff7c4d1690692422b33b9e6a1ac067280cf0b"
     }
+  },
+  "historical_parent90f5_record": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current90f5-r4-coriolis-u-coefficient-cache-source-question-r1/promotion-private-proposal-r1/record-preimages/LATEST_APPLICATION_RESULT.json",
+    "sha256": "1044f89ce5eec5285a409c170eacf71d25a4d7939e5c0edb545ddac666da7493",
+    "qualification_transfer": false
+  },
+  "current_one_hour_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/coriolis-curvature-row-cache-batch/APPLICATION_QUALIFICATION.json",
+    "sha256": "38cff69f264abafc174b0ce8f43de7b0184fda21bfa731bc61af6ad9c323869a"
+  },
+  "current_one_hour_qualified": true,
+  "daylight_application": null,
+  "performance_qualification": null,
+  "qualification_scope": "Own169c original H185/two06/07 products, full512, all4models+reader normalclosed. Candidate-only unpaired timings; parent90f5 matched3h/own9h historical. No writer/profile/long/restart/full144 qualification or forecastspeedup transfer.",
+  "source_commit_scope": "Post-testsourcecorrespondence; actualprivateproducercommitNULL",
+  "reductions_scope": null,
+  "coriolis_metric_batch_producer": {
+    "delivery": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current90f5-r4-coriolis-u-coefficient-cache-source-question-r1/promotion-private-proposal-r1/evidence/combined-native-canonical-delivery-receipt.json",
+      "sha256": "c23412c9e2ab5b3ebbed705224cf4c3af8b9f549b0061b643fdd8832f005a0ce"
+    },
+    "own_application": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/coriolis-curvature-row-cache-batch/APPLICATION_QUALIFICATION.json",
+      "sha256": "38cff69f264abafc174b0ce8f43de7b0184fda21bfa731bc61af6ad9c323869a"
+    },
+    "post_test_source_commit": "afb8abb497af0bccccad0fae28310d90d21dc49a",
+    "raw_producer_source_commit": null,
+    "member_sha256": "8603d91d58b0ec5243a9eef6d21a1b059306232d71eda8a59ca5e773e8b5931b",
+    "PP_sha256": "c6edb6c6cc4bdc7209d222d4d669257328fa30545b0b42cd640a21d5232f7dfd",
+    "MOD_sha256": "f7bd79ee7013b3f8039f5e22b193750024592039c8e74f65ccc783a2e3097958"
   }
 }

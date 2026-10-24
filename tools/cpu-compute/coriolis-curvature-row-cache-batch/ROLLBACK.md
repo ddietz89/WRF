@@ -1,0 +1,3 @@
+Selected parent rollback: executable90f5473062922c82d26aaeb68fc95c512a3e0e328d5dab1a365dc5e14ed7b64b/archive0f4ccda13fbe197ca6ce4c175ee1b1fa3ad12e756765c8d05afcacba2c24dce4; preserve current providers/direct helpers.
+
+Source opt-outs are independent: WRF_CORIOLIS_U_COEFFICIENT_CACHE=0 and WRF_CURVATURE_V_METRIC_CACHE=0. Setting both0 restores qualified parent PP509d; keep the EXISTING selected HPG_NHX_AVX2 and PHY_HEIGHT_ROW_SSE2 CPP selections. Regenerate PP, rebuild BigStep, replace its single archive occurrence and relink; never merely switch Make variables without rebuilding. Public MOD remains f7bd, no new consumer ABI. Revert canonical two-file patch if root wants source rollback. No rollback is needed now because this proposal made no repository/default change.

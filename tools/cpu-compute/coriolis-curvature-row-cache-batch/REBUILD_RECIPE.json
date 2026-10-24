@@ -1,0 +1,49 @@
+{
+  "status": "QUALIFIED_CORIOLIS_U_AND_NORMAL_V_METRIC_GNU13_3_SOURCE_RECIPE",
+  "raw_producer_source_commit": null,
+  "post_test_source_commit": "afb8abb497af0bccccad0fae28310d90d21dc49a",
+  "source_hashes": {
+    "dyn_em/module_big_step_utilities_em.F": "4fe3963568d688c6a88fab391c57108c1b80f7ad09641ef1cd2e349e36cae613",
+    "dyn_em/Makefile": "4eb9d7d433af78503e73f2a2f5f0b8d8106a5adc67110e4f62bd7eef1289ed7c"
+  },
+  "knobs": {
+    "WRF_CORIOLIS_U_COEFFICIENT_CACHE": 1,
+    "WRF_CURVATURE_V_METRIC_CACHE": 1
+  },
+  "eligibility": "GNU13.3/defaultREAL4INT4/WRF_DIFFUSION_SIMD1/emptyOMP+OMPCPP and source DM_PARALLEL&&!_OPENMP; existing strict generic BigStep flags unchanged.",
+  "existing_required_CPP_defines": [
+    "WRF_EXPERIMENTAL_HPG_NHX_AVX2",
+    "WRF_EXPERIMENTAL_PHY_HEIGHT_ROW_SSE2"
+  ],
+  "actual_four_PP": {
+    "off": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current90f5-coriolis-metric-canonical-batch-hpc02-r2/work/off/module_big_step_utilities_em.f90",
+      "sha256": "509d964f3d79067e42ef907b7e54e437ba6eabc0c20a9da20bf517c5fb57c9f3",
+      "byte_exact": true,
+      "expected_sha256": "509d964f3d79067e42ef907b7e54e437ba6eabc0c20a9da20bf517c5fb57c9f3"
+    },
+    "u-only": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current90f5-coriolis-metric-canonical-batch-hpc02-r2/work/u-only/module_big_step_utilities_em.f90",
+      "sha256": "c5b120e9cd008007d2bc2d55f048ab0be041439d4df3967c493fd5df29499e65",
+      "byte_exact": true,
+      "expected_sha256": "c5b120e9cd008007d2bc2d55f048ab0be041439d4df3967c493fd5df29499e65"
+    },
+    "v-only": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current90f5-coriolis-metric-canonical-batch-hpc02-r2/work/v-only/module_big_step_utilities_em.f90",
+      "sha256": "a666155162624bdadb1b3eea1a10e901e548c073d8d51b24f21bf8403c11f610",
+      "byte_exact": true,
+      "expected_sha256": "a666155162624bdadb1b3eea1a10e901e548c073d8d51b24f21bf8403c11f610"
+    },
+    "on": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current90f5-coriolis-metric-canonical-batch-hpc02-r2/work/on/module_big_step_utilities_em.f90",
+      "sha256": "c6edb6c6cc4bdc7209d222d4d669257328fa30545b0b42cd640a21d5232f7dfd",
+      "byte_exact": true,
+      "expected_sha256": "c6edb6c6cc4bdc7209d222d4d669257328fa30545b0b42cd640a21d5232f7dfd"
+    }
+  },
+  "actual_delivery_receipt": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current90f5-r4-coriolis-u-coefficient-cache-source-question-r1/promotion-private-proposal-r1/evidence/combined-native-canonical-delivery-receipt.json",
+    "sha256": "c23412c9e2ab5b3ebbed705224cf4c3af8b9f549b0061b643fdd8832f005a0ce"
+  },
+  "rollback": "Independentknob0; both0 restoreparent509d with existingHPG/PHYCPP selections; regenerate/rebuildBigStep/rearchive/relink. No otherowner/publicMOD change."
+}

@@ -1,0 +1,30 @@
+{
+  "status": "PASS_ACTUAL_CURVATURE_NORMAL_V_QUOTIENT_PRE_K_CODEGEN",
+  "parent_object_sha256": "170bfaf73213478ee9a31152a6b1d1f740ba346ea02d436b9a1fd87b9ce4d240",
+  "candidate_object_sha256": "d8178e6aaadae2b7a89df7662ece4aec04df5552d4b2751677e3d97ddb5b6673",
+  "native_receipt_sha256": "7384152cdeed5ac8bb887f3b648a781cbb3388e0a4aaab0590ecbfc364eff85e",
+  "asm": {
+    "parent": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current90f5-r4-curvature-normal-v-metric-question-r1/native-gate-preparation-r1-hpc03/actual-codegen-r1/parent.asm",
+      "sha256": "17513a177786c4b86bcf5d60abe594a9ad75d31b1cd83f92eecd9e06b2846344"
+    },
+    "candidate": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current90f5-r4-curvature-normal-v-metric-question-r1/native-gate-preparation-r1-hpc03/actual-codegen-r1/candidate.asm",
+      "sha256": "ae3f982b41ff2375a072ff4070c62e920860882e568281dae19c7de469fa051c"
+    }
+  },
+  "facts": {
+    "parent_normalV_divide": "c6be insideI/K",
+    "candidate_completed_quotient": "c582load/c587DIVSS/c58cstore, Ibackedgec599->c582 beforeK",
+    "candidate_consumer": "c72c MOVSS rowload; remainingliteral V arithmetic in Iloopc6f0..c76d, no division",
+    "candidate_K_backedge": "c7a3->c6c0, doesnotincludeproducer",
+    "selected_W_cache": "cebd remainsDIVSS produceroutsideW_K",
+    "source": "Onlyone completednormalVquotient substitution/perJproducer;U/polar/VXGM/Wexpression tokens untouched, exactinverse/rowcount",
+    "actual_numeric": "70completecases\u00d74rounds\u00d75roles passed; finite NaN/state equivalence only"
+  },
+  "limits": [
+    "No V primary-cost/forecastgain claim; sampledPC belongedW.",
+    "No blanket targetinstructionidentity/ISA/spill/timing gain claim; targetregisterallocation/scheduling maydiffer.",
+    "Actualcaller remains pending."
+  ]
+}

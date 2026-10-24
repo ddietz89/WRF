@@ -1,0 +1,151 @@
+--- a/dyn_em/module_big_step_utilities_em.F
++++ b/dyn_em/module_big_step_utilities_em.F
+@@ -3959,7 +3959,11 @@
+    INTEGER :: i_start, i_end, j_start, j_end
+    
+    LOGICAL :: specified
+-
++#if defined(WRF_CORIOLIS_U_COEFFICIENT_CACHE) && defined(DM_PARALLEL) && !defined(_OPENMP)
++   REAL :: coef_b(ims:ime)
++#else
++
++#endif
+ !<DESCRIPTION>
+ !
+ !  coriolis calculates the large timestep tendency terms in the
+@@ -3972,10 +3976,12 @@
+ 
+    ktf=MIN(kte,kde-1)
+ 
++#if !(defined(WRF_CORIOLIS_U_COEFFICIENT_CACHE) && defined(DM_PARALLEL) && !defined(_OPENMP))
+ ! coriolis for u-momentum equation
+ 
+ !  Notes on map scale factor
+ !  cosa, sina are related to rotating the coordinate frame if desired
++#endif
+ !  generally sina=0, cosa=1
+ !  ADT eqn 44, RHS terms 6 and 7: -2 mu w omega cos(lat)/my
+ !                                + 2 mu v omega sin(lat)/my
+@@ -3999,15 +4005,28 @@
+       DO i = i_start, i_end
+          map_v_cache(i)=msfux(i,j)/msfuy(i,j)
+       ENDDO
++#if defined(WRF_CORIOLIS_U_COEFFICIENT_CACHE) && defined(DM_PARALLEL) && !defined(_OPENMP)
++      DO i = i_start, i_end
++         map_v_cache(i)=((map_v_cache(i)*0.5)*(f(i,j)+f(i-1,j)))*0.25
++         coef_b(i)=(((0.5*(e(i,j)+e(i-1,j)))*0.5)*(cosa(i,j)+cosa(i-1,j)))*0.25
++      ENDDO
++#endif
+    ENDIF
+ 
+    DO k=kts,ktf
+    DO i = i_start, i_end
+    
++#if defined(WRF_CORIOLIS_U_COEFFICIENT_CACHE) && defined(DM_PARALLEL) && !defined(_OPENMP)
++     ru_tend(i,k,j)=ru_tend(i,k,j) + (map_v_cache(i)) &
++       *(rv(i-1,k,j+1)+rv(i,k,j+1)+rv(i-1,k,j)+rv(i,k,j)) &
++           - (coef_b(i)) &
++       *(rw(i-1,k+1,j)+rw(i-1,k,j)+rw(i,k+1,j)+rw(i,k,j))
++#else
+      ru_tend(i,k,j)=ru_tend(i,k,j) + (map_v_cache(i))*0.5*(f(i,j)+f(i-1,j)) &
+        *0.25*(rv(i-1,k,j+1)+rv(i,k,j+1)+rv(i-1,k,j)+rv(i,k,j)) &
+            - 0.5*(e(i,j)+e(i-1,j))*0.5*(cosa(i,j)+cosa(i-1,j)) &
+        *0.25*(rw(i-1,k+1,j)+rw(i-1,k,j)+rw(i,k+1,j)+rw(i,k,j))
++#endif
+ 
+    ENDDO
+    ENDDO
+@@ -4688,11 +4707,14 @@
+ !  terms are:
+ !  - (my/mx)*u ru tan(lat) / a - (my/mx)*v rw / a
+ !  = - [my/(mx*a)]*[u ru tan(lat) + v rw]
++#if !(defined(WRF_CURVATURE_V_METRIC_CACHE) && defined(DM_PARALLEL) && !defined(_OPENMP))
+ !  - (1/a)*[(my/mx)*u ru tan(lat) + w rv]
+ !  xlat defined with end points half grid space from pole, hence are on
+ !  u latitude points => av here
+ !
+ !  in original wrf, there was a sign error for the rw contribution
++#endif
++#line 4696
+ 
+    j_start = jts
+    IF ( config_flags%open_ys .or. specified .or. &
+@@ -4718,12 +4740,25 @@
+    ELSE  ! normal code
+ 
+       DO j=j_start,j_end
++#if defined(WRF_CURVATURE_V_METRIC_CACHE) && defined(DM_PARALLEL) && !defined(_OPENMP)
++      IF (kts<=ktf) THEN
++         DO i=its,MIN(ite,ide-1)
++            msftx_over_msfty_row(i)=msfvy(i,j)/msfvx(i,j)
++         ENDDO
++      ENDIF
++#endif
++#line 4721
+       DO k=kts,ktf
+       DO i=its,MIN(ite,ide-1)
+ 
+          rv_tend(i,k,j)=rv_tend(i,k,j) - 0.5*(vxgm(i,k,j)+vxgm(i,k,j-1)) &
+                  *0.25*(ru(i,k,j)+ru(i+1,k,j)+ru(i,k,j-1)+ru(i+1,k,j-1)) &
++#if defined(WRF_CURVATURE_V_METRIC_CACHE) && defined(DM_PARALLEL) && !defined(_OPENMP)
++                       - (msftx_over_msfty_row(i))*v(i,k,j)*reradius       &
++#else
+                        - (msfvy(i,j)/msfvx(i,j))*v(i,k,j)*reradius       &
++#endif
++#line 4727
+                  *0.25*(rw(i,k+1,j-1)+rw(i,k,j-1)+rw(i,k+1,j)+rw(i,k,j))
+ 
+       ENDDO
+--- a/dyn_em/Makefile
++++ b/dyn_em/Makefile
+@@ -89,6 +89,50 @@
+ endif
+ endif
+ 
++# Exact Coriolis U coefficient row cache: qualified GNU13.3 pure-MPI BigStep SIMD.
++# Opt out: WRF_CORIOLIS_U_COEFFICIENT_CACHE=0; regenerate PP, rebuild BigStep,
++# replace its archive member and relink. No additional FC/ISA flags.
++WRF_CORIOLIS_U_COEFFICIENT_CACHE ?= 1
++ifeq ($(WRF_CORIOLIS_U_COEFFICIENT_CACHE),1)
++ifeq ($(WRF_DIFFUSION_SIMD),1)
++ifeq ($(strip $(OMPCPP) $(OMP) $(PROMOTION) $(DOUBLE_PRECISION)),)
++ifeq ($(strip $(RWORDSIZE)),4)
++ifeq ($(strip $(IWORDSIZE)),4)
++ifeq ($(filter -fdefault-% -freal-% -finteger-% -r8 -i8,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
++ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
++ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
++module_big_step_utilities_em.o: private override CPPFLAGS += -DWRF_CORIOLIS_U_COEFFICIENT_CACHE
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++
++# Exact normal-V curvature completed quotient row cache: qualified GNU13.3 pure-MPI BigStep SIMD.
++# Opt out: WRF_CURVATURE_V_METRIC_CACHE=0; regenerate PP, rebuild BigStep,
++# replace its archive member and relink. No additional FC/ISA flags.
++WRF_CURVATURE_V_METRIC_CACHE ?= 1
++ifeq ($(WRF_CURVATURE_V_METRIC_CACHE),1)
++ifeq ($(WRF_DIFFUSION_SIMD),1)
++ifeq ($(strip $(OMPCPP) $(OMP) $(PROMOTION) $(DOUBLE_PRECISION)),)
++ifeq ($(strip $(RWORDSIZE)),4)
++ifeq ($(strip $(IWORDSIZE)),4)
++ifeq ($(filter -fdefault-% -freal-% -finteger-% -r8 -i8,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
++ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
++ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
++module_big_step_utilities_em.o: private override CPPFLAGS += -DWRF_CURVATURE_V_METRIC_CACHE
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++
+ # Enable GNU small-step SIMD without creating an OpenMP thread team.
+ # Use make WRF_SMALL_STEP_SIMD=0 to preserve the ordinary compiler path.
+ WRF_SMALL_STEP_SIMD ?= 1
