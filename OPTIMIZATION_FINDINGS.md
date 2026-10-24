@@ -16,6 +16,12 @@ The new cache evaluates `msfvx(i,j+1)-msfvx(i,j)` once per horizontal row before
 
 The qualified GNU 13.3 pure-MPI working default enables this path. Set `WRF_CURVATURE_VXGM_J_DIFF_CACHE=0`, regenerate preprocessing, rebuild BigStep, replace its archive member and relink to opt out. This exact image owns three-hour science; its own one-hour, nine-hour, profile, restart and full-144-hour scopes remain unqualified. [Application evidence](tools/cpu-compute/curvature-vxgm-j-difference-cache/APPLICATION_QUALIFICATION.json), [rebuild and rollback](tools/cpu-compute/curvature-vxgm-j-difference-cache/README.md).
 
+## October 24: separate Coriolis V coefficient cache parked
+
+A follow-up that hoisted both V coefficients failed exact NaN payload preservation in six of 111 native cases, across all four rounding modes. Two RV tendency words differed in each case; the five floating-point state observations matched. Actual assembly showed that a cached-coefficient multiply selected the RU NaN payload where the parent preserved the coefficient payload. This is a concrete raw-output failure, so no caller timing, application run or promotion followed.
+
+A single parentheses-only repair proposed by DeepSeek produced the same target bytes and full relocations in one O2 compile (11.2 seconds). The probe stopped without linking or repeating known-failing outputs. The failed evidence and independent review are retained; the checker and selected ECA4 image are unchanged. [Disposition](tools/cpu-compute/curvature-vxgm-j-difference-cache/FOLLOWUP_CORIOLIS_V_DECISION.json).
+
 ## October 24: invariant Coriolis and curvature rows promoted
 
 The qualified GNU 13.3 pure-MPI working defaults now cache Coriolis U horizontal coefficients and the normal-V curvature map quotient before their vertical loops. The combined executable `169c09af` passed the unchanged 512-rank one-hour scientific check: both products, metadata/layout, all 185 ordered steps, and runtime/rank/affinity/library/tile/writer acceptance were exact against corrected-original 546b. All four model jobs and the original reader closed normally. Post-test source correspondence is commit `afb8abb4`; the raw producer source commit remains unknown.

@@ -1,0 +1,32 @@
+{
+  "status": "PARK_UNPROMOTED_EXACT_NAN_PAYLOAD_REGRESSION_SINGLE_REPAIR_CODEGEN_IDENTICAL",
+  "candidate": "Coriolis V coefficient row cache (B first, A second)",
+  "parent_executable_sha256": "eca471293cbd8de389ac6f62a8a191e5c838789435a77dd9eb9e5513f8aff9c7",
+  "original_native_failure": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current169c-coriolis-v-coefficient-row-reuse-preparation-r1/native-gate-preparation-r1-hpc02/actual-native-r1/receipt.json",
+    "sha256": "9bc80a91c754300df8fde10d26b39d0e2833bb6d0b3b70a23d3512087a30fb51"
+  },
+  "original_native_closure": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current169c-coriolis-v-coefficient-row-reuse-preparation-r1/native-gate-preparation-r1-hpc02/actual-native-r1/closure.json",
+    "sha256": "eccb24fd5a0684e9571d0afe848aadcd8dc34385006c563d9ec36e0b07713939"
+  },
+  "actual_source_instruction_diagnosis": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current169c-coriolis-v-coefficient-row-reuse-preparation-r1/actual-native-failure-diagnosis-r1/LOCAL_RAW_PAYLOAD_DIAGNOSIS.json",
+    "sha256": "e3b83cce0b1069b21f6f3d1fa672bfcdb79266bc5c16e3b02c48d309963c1e19"
+  },
+  "literal_repair_probe": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current169c-coriolis-v-coefficient-row-reuse-preparation-r1/parentheses-repair-diagnostic-r1/actual-native-r1/receipt.json",
+    "sha256": "828a84745d327c02fb9dc3fca4c2b4d3a1ec4db9edf44f63ff7c31cf33dfc596"
+  },
+  "literal_repair_probe_closure": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current169c-coriolis-v-coefficient-row-reuse-preparation-r1/parentheses-repair-diagnostic-r1/actual-native-r1/closure.json",
+    "sha256": "92c15134cbcbf40fbc37f8fdcfd30b6deef3331c90f38dd6236dec021a0210b6"
+  },
+  "explanation": "Original111-case/four-round O2 candidate changed only two RV output NaN payloads in six old cases83-88. All five state words were exact, but raw payload preservation is mandatory. Actual parent MULSS multiplies into coefficient register; candidate into RU sum, selecting different NaN. Author parentheses-only repair yielded byte/full-RELA-identical failing target; no link or repeated raw runs needed. Independent review arithmetic/ADD claims contradicted actual source and instruction proof, so not adopted.",
+  "caller_timing_run": false,
+  "application_run": false,
+  "promoted": false,
+  "checker_or_tolerance_changed": false,
+  "selected_qualified_image_unchanged": true,
+  "future_reopen_condition": "A distinct exact-preserving coefficient multiply mechanism with concrete cost/support evidence, not another speculative parenthesis/flag sweep."
+}
