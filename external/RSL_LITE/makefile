@@ -9,6 +9,28 @@ CFLAGS = $(PLUSFLAG)
 CPPFLAGS =
 FFLAGS =
 
+# Qualified pure-MPI INTEGER32 width5/6 whole-block copy; independent opt-out.
+# Kind-changing flags are excluded here and the Fortran interface checks INTEGER32.
+WRF_RSL_WIDE_PRIVATE_VECTOR_COPY ?= 1
+WRF_RSL_FC_VERSION := $(shell $(lastword $(FC)) -dumpfullversion 2>/dev/null)
+WRF_RSL_CC_VERSION := $(shell $(firstword $(CC)) -dumpfullversion 2>/dev/null)
+WRF_RSL_COPY_ENABLED :=
+ifeq ($(WRF_RSL_WIDE_PRIVATE_VECTOR_COPY),1)
+ifeq ($(WRF_RSL_FC_VERSION),13.3.0)
+ifeq ($(WRF_RSL_CC_VERSION),13.3.0)
+ifeq ($(strip $(OMP)$(OMPCPP)$(OMPCC)),)
+ifeq ($(findstring -fopenmp,$(FFLAGS) $(CFLAGS) $(CPPFLAGS)),)
+ifeq ($(filter -fdefault-integer-8 -finteger-4-integer-8 -fdefault-real-8 -freal-4-real-8,$(FFLAGS)),)
+WRF_RSL_COPY_ENABLED := 1
+override CPPFLAGS += -DWRF_RSL_WIDE_PRIVATE_VECTOR_COPY=1
+OBJSL += wrf_rsl_pack_wide_i32.o
+endif
+endif
+endif
+endif
+endif
+endif
+
 # These .F files are compiled in frame but leave behind auto-gen files here
 F_FILES = \
  feedback_domain_em_part1.F \
@@ -68,3 +90,8 @@ clean :
 
 superclean : clean
 			@/bin/rm -f *.a
+
+
+wrf_rsl_pack_wide_i32.o: wrf_rsl_pack_wide_i32.c
+	$(CC) -O2 -std=c11 -Wall -Wextra -Werror -c $< -o $@
+
