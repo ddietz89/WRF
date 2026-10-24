@@ -1645,6 +1645,45 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
     ENDDO
     ENDDO
 
+#ifdef WRF_ADVANCE_W_DAMPING_PHI_FUSION
+    IF (config_flags%damp_opt .eq. 3) THEN
+      DO k=k_end+1,2,-1
+        IF (k .eq. k_end+1) THEN
+          IF (i_start .le. i_end) THEN
+            DO i=i_start, i_end
+              htop_i(i)=(ph_1(i,k_end+1,j)+phb(i,k_end+1,j))/g
+              hbot_i(i)=htop_i(i)-hdepth
+            ENDDO
+          ENDIF
+        ENDIF
+        DO i=i_start, i_end
+          htop=htop_i(i)
+          hk=(ph_1(i,k,j)+phb(i,k,j))/g
+          hbot=hbot_i(i)
+          dampwt(k) = 0.
+          if(hk .ge. hbot)then
+            dampwt(k) = dampmag*sin(0.5*pi*(hk-hbot)/hdepth)*sin(0.5*pi*(hk-hbot)/hdepth)
+          endif
+          dampwt_row(i) = dampwt(k)
+        ENDDO
+        !$omp simd
+        DO i=i_start, i_end
+          w(i,k,j) = (w(i,k,j) - dampwt_row(i)*(c1f(k)*mut(i,j)+c2f(k))*w_save(i,k,j))/(1.+dampwt_row(i))
+       ph(i,k,j) = rhs(i,k)+msfty(i,j)*.5*dts*g*(1.+epssm) &
+                      *w(i,k,j)/(c1f(k)*muts(i,j)+c2f(k))
+        ENDDO
+      ENDDO
+    ELSE
+    DO k=k_end+1,2,-1
+!$omp simd
+    DO i=i_start, i_end
+       ph(i,k,j) = rhs(i,k)+msfty(i,j)*.5*dts*g*(1.+epssm) &
+                      *w(i,k,j)/(c1f(k)*muts(i,j)+c2f(k))
+    ENDDO
+    ENDDO
+    ENDIF
+
+#else
     IF (config_flags%damp_opt .eq. 3) THEN
       DO k=k_end+1,2,-1
         IF (k .eq. k_end+1) THEN
@@ -1680,6 +1719,7 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
     ENDDO
     ENDDO
 
+#endif
   ENDDO j_loop_w
 
 END SUBROUTINE advance_w
