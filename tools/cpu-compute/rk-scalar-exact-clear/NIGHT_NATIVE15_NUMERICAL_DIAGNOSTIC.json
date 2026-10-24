@@ -1,0 +1,196 @@
+{
+  "status": "NUMERICAL_PASS_ONLY_RUNTIME_FAILED_LIMITED_SOURCE_DIAGNOSTIC",
+  "run_id": "production512-current5aae-night-native15-pair-onehour-r1-candidate",
+  "executable_sha256": "5aaec26c9d408cbdfcf4962d72266fa5665280db4ddf8b1218bc0367b2eee69c",
+  "source_commit": "9ffdb786c8181f80f4bf4f9f0038a4afe963c246",
+  "raw_producer_source_commit": null,
+  "parent_selected_own_three_hour_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/rk-scalar-exact-clear/APPLICATION_QUALIFICATION.json",
+    "sha256": "087f8a71bf10a0c4a3b5c29c99d9b13ecb3be47dfcca13c2f13b3246d743a1fb"
+  },
+  "qualification": false,
+  "full_application_qualified": false,
+  "full_runtime_qualified": false,
+  "qualified_profile": false,
+  "numerical_comparison": {
+    "status": "PASS_ORIGINAL_TWO_COMPLETE_PRODUCTS_185_ORDERED_STEPS",
+    "exact_complete_products": 2,
+    "ordered_steps": 185,
+    "end": "2026-10-12_07:00:00",
+    "control_run": "/pool/wrf-experiment/wrf-cpu/runs/production512-original-pd-nextcombined9h-control-r1",
+    "control_scope": "Retained original9h first185/two complete06/07 products, not a fresh1h reference arm",
+    "metadata_layout_nonfinite_tiles_input_stats": "PASS_AS_RECORDED_BY_UNCHANGED_NUMERICAL_DIAGNOSTIC",
+    "receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-selected-night-native15-pair-method-preparation-r1/pure-numerical-diagnostic-preparation-r1/actual-diagnostic-reader-r1/SCIENCE_NUMERICAL_DIAGNOSTIC.json",
+      "sha256": "e3f2dd536fed2d24a60a6e8542df26c360ed4dfc2aea05f24bf716ca9206a370"
+    },
+    "normal_reader_closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-selected-night-native15-pair-method-preparation-r1/pure-numerical-diagnostic-preparation-r1/actual-diagnostic-reader-r1/closure.json",
+      "sha256": "4121ea4ed10220126ffdfd6aa924a3ac9bffbfb6b173a73ba5b2bf636c31745d"
+    }
+  },
+  "failed_original_gates": {
+    "writer_root_callbacks": {
+      "487": 216,
+      "495": 216,
+      "503": 0,
+      "511": 0
+    },
+    "positive_callback_groups": 2,
+    "required_groups": 4,
+    "qualification": "FAILED_UNCHANGED_ALL4_ROOT_REQUIREMENT",
+    "coordinator_manager_exit_code": 1,
+    "all4_MPI_or_orted_exit_codes": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "parent_aggregate_owned_RSS_128MiB_guard": "FAILED",
+    "parent_final_phase_observation": "MISSING",
+    "original_parent_failure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-selected-night-native15-pair-method-preparation-r1/runtime-preparation-r1/ACTUAL_PARENT_FINAL_FAILURE.json",
+      "sha256": "ef73c4b9bdb30293f6a5803cb8fad62c1a5f267dbc17c54d0be47655825c5259"
+    },
+    "writer_and_MPI_postclose": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-selected-night-native15-pair-method-preparation-r1/runtime-preparation-r1/ACTUAL_WRITER_AND_MPI_POSTCLOSE.json",
+      "sha256": "0f0a7a432ebd30a1741214d29b5e791b93a627ecfa0ea77bdda6e6157d527218"
+    },
+    "original_completion": {
+      "path": "/pool/wrf-experiment/wrf-cpu/runs/production512-current5aae-night-native15-pair-onehour-r1-candidate/completion.json",
+      "sha256": "2bd091ad21b11d4d4b375dc568e73d0f0bf8f6b45f32fd1596c3c7401095b432",
+      "value": {
+        "status": "FAIL_RETAINED_NO_AUTOMATIC_RETRY",
+        "scope": "First own RKclear child three-hour original545/4SCI vs retained actual corrected-original546b; unprofiled/descriptive only, no fresh matched pair.",
+        "lease_sha256": "02e4a19bcc1f297be6e354db1c51d55a320fb226ace00387fd261e0a8a477ebe",
+        "error": "AssertionError()"
+      }
+    },
+    "original_parent_report": {
+      "path": "/pool/wrf-experiment/wrf-cpu/runs/production512-current5aae-night-native15-pair-onehour-r1-candidate/compute-profile-steady-rank4-r1/collector-final.json",
+      "sha256": "6aa2f2ebec85d3ef5ed79180d61d8eab62793e187ca24207bdecb30992704937",
+      "state": "UNAVAILABLE",
+      "error": "AssertionError()"
+    }
+  },
+  "candidate_instrumented_observation": {
+    "wall_seconds": 276.21310310903937,
+    "main_step_sum_seconds": 175.95545000000018,
+    "cpu_seconds": 123860.764432,
+    "control_one_hour_wall_seconds": null,
+    "control_one_hour_cpu_seconds": null,
+    "timing_gain_claim": false,
+    "reductions_percent": null,
+    "cpu_scope": "Sum of four MPI/orted node cgroup usage_usec; separately owned recorder sibling CPU is not added.",
+    "main_elapsed_evidence": {
+      "query": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-selected-night-native15-pair-method-preparation-r1/runtime-preparation-r1/ACTUAL_RSL_MAIN_SUM.json",
+        "sha256": "1e876990cd772823837935c21a41aa1176a4ffd17bc33c13cd1208d2d17988b0"
+      },
+      "rsl": {
+        "path": "/pool/wrf-experiment/wrf-cpu/runs/production512-current5aae-night-native15-pair-onehour-r1-candidate/rsl.error.0000",
+        "sha256": "34ff3dd27e187ad3e58ad3676012d1846bcc6204075ca66efd4d5e79cc85b210"
+      },
+      "observed_steps": 185,
+      "scope": "Observed main elapsed includes communication/waits/backpressure; no CPU or gain claim."
+    }
+  },
+  "native_source_diagnostics": {
+    "114": {
+      "rank": 114,
+      "cpu": 67,
+      "main_TID": 2140335,
+      "startticks": "244767782",
+      "raw": {
+        "path": "/pool/wrf-experiment/wrf-cpu/runs/production512-current5aae-night-native15-pair-onehour-r1-candidate/compute-profile-steady-rank4-r1/rank114.perf.data",
+        "sha256": "6e63dbc5f4c574c8e86c8fabd5fc891858a874d0ecaf00f703c2346a910f6892",
+        "bytes": 11825260
+      },
+      "context_sha256": "668144ef768e094df625a8b031dc384285f10f64dcab3315acfa98160f87779b",
+      "summary": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-selected-night-native15-pair-method-preparation-r1/postrun-native-pair-preliminary-preparation-r1/actual-preliminary-rank114-r1/result/summary.json",
+        "sha256": "e8537009ba9ec623d2837c6b8917372cd982e6a07c88b1c7a28e17c240927d2f"
+      },
+      "render_controller": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-selected-night-native15-pair-method-preparation-r1/postrun-native-pair-preliminary-preparation-r1/actual-preliminary-rank114-r1/controller.json",
+        "sha256": "5f82328c7bb61db1502280931616f9ee588c73360e1985f81875533344d918a6"
+      },
+      "render_closure": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-selected-night-native15-pair-method-preparation-r1/postrun-native-pair-preliminary-preparation-r1/actual-preliminary-rank114-r1/closure.json",
+        "sha256": "502d1dfa32b646a443cbcd13c66b351a9d7fb572baf0f510b8e0a30fb8503d43"
+      },
+      "binding": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-selected-night-native15-pair-method-preparation-r1/actual-input-retrieval-preparation-r1/actual-retrieval-r1/rank114-actual-profile-binding.json",
+        "sha256": "8dca1218acf5fa39e60aa3487ae72934ef6023dd0d56cc6d480a85260c3bef49"
+      },
+      "early_watch": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-selected-night-native15-pair-method-preparation-r1/actual-input-retrieval-preparation-r1/actual-retrieval-r1/ACTUAL_WATCH_RANK114.jsonl",
+        "sha256": "b216816dca55008c18c8aa09a0b286e1f69f258b52a28fa5de29ba6d6ca38139"
+      },
+      "primary_samples": 1382,
+      "primary_period_cycles": 39354316344,
+      "numeric_loss": "UNKNOWN",
+      "live_identity_and_bridge_verified": true,
+      "clock": {
+        "evlist_monotonic": true,
+        "sample_inside_actual_collector_interval": true,
+        "boot_id": "ad105fdb-2b6c-40b2-a1ba-6b9997e08d4c",
+        "time_namespace_inode": 4026531834,
+        "observer_header_association": "NOT_APPLICABLE_OBSERVER_OFF",
+        "timestamp_causal_join_qualified": false
+      },
+      "profile_qualified": false,
+      "scope": "Bounded night main-TID sampled source identity only; original preliminary status and guards remain immutable."
+    },
+    "122": {
+      "rank": 122,
+      "cpu": 99,
+      "main_TID": 2140337,
+      "startticks": "244767782",
+      "raw": {
+        "path": "/pool/wrf-experiment/wrf-cpu/runs/production512-current5aae-night-native15-pair-onehour-r1-candidate/compute-profile-steady-rank4-r1/rank122.perf.data",
+        "sha256": "c4a93f6b05c69462dc2f7b90e3906b024b6aaec3a15933f08b61167f4e67c644",
+        "bytes": 12154628
+      },
+      "context_sha256": "990038c4013ff8a15973b97e534a4e8eb7c0a89aa863999822ac8d2cef01ea3b",
+      "summary": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-selected-night-native15-pair-method-preparation-r1/postrun-native-pair-preliminary-preparation-r1/actual-preliminary-rank122-r1/result/summary.json",
+        "sha256": "5f0504f530bf9b0761f7155ae2a3cbdffcca9fdce21c19c0905d92bde9c4d14f"
+      },
+      "render_controller": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-selected-night-native15-pair-method-preparation-r1/postrun-native-pair-preliminary-preparation-r1/actual-preliminary-rank122-r1/controller.json",
+        "sha256": "029883af7c552a4ae908ce38e89b3162ef925e4ebe8a19eb9c87902e9472c51f"
+      },
+      "render_closure": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-selected-night-native15-pair-method-preparation-r1/postrun-native-pair-preliminary-preparation-r1/actual-preliminary-rank122-r1/closure.json",
+        "sha256": "edc4b011172c135991e0e78d2d24fbed251d8964701c7bc679657e8d4b1914dc"
+      },
+      "binding": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-selected-night-native15-pair-method-preparation-r1/actual-input-retrieval-preparation-r1/actual-retrieval-r1/rank122-actual-profile-binding.json",
+        "sha256": "be1271bdb2224bc5bb193fc15ea4d592fb5f8a2e003d54b172e8e31baa8343c5"
+      },
+      "early_watch": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-selected-night-native15-pair-method-preparation-r1/actual-input-retrieval-preparation-r1/actual-retrieval-r1/ACTUAL_WATCH_RANK122.jsonl",
+        "sha256": "8fe2dc3b5c8d687bb77f93f2ad938bcfe0dc393cfca2603094323cb1d77f4daf"
+      },
+      "primary_samples": 1421,
+      "primary_period_cycles": 40592926012,
+      "numeric_loss": "UNKNOWN",
+      "live_identity_and_bridge_verified": true,
+      "clock": {
+        "evlist_monotonic": true,
+        "sample_inside_actual_collector_interval": true,
+        "boot_id": "ad105fdb-2b6c-40b2-a1ba-6b9997e08d4c",
+        "time_namespace_inode": 4026531834,
+        "observer_header_association": "NOT_APPLICABLE_OBSERVER_OFF",
+        "timestamp_causal_join_qualified": false
+      },
+      "profile_qualified": false,
+      "scope": "Bounded night main-TID sampled source identity only; original preliminary status and guards remain immutable."
+    }
+  },
+  "all_scope_and_claim_limits": "Numerical pass only: two complete06/07 products and all185 ordered steps compared with the retained corrected-original546b nine-hour prefix, including nonfinite/metadata/layout, tiles and input-stat checks. Fullruntime/application qualification remains FALSE: original all4 positive writer-root callback requirement failed (2/4), coordinator manager exited1, and parent aggregate128MiB RSS guard FAILED with final phase observation missing. Both native captures/recorders and diagnostic renderers closed normally with actual live identity/FD-bridge proof, but neither is a qualified profile. No fresh gain, matched timing, own1h/9h, daylight, causal MPI, global sample-share/headroom, restart or full144 claim; no helper repair or reprofiling planned.",
+  "normal_one_hour_qualification": false,
+  "own_nine_hour_qualification": false,
+  "raw_completion_label_disclosure": "Original failedcompletion.scope retains inherited three-hour545/4 text. Actual run/lease/numericaldiagnostic is one-hour185/two06+07products; failed rawcompletion unchanged."
+}

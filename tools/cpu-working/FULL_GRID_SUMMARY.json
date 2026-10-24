@@ -588,6 +588,51 @@
       "recovered_evidence_sha256": "d3b3f9744858850698fdb60a38bf117c9c6bec42ebc9eb08d535ebb9d3dfc88f",
       "raw_metrics_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/hz-zero-reuse-threehour-postprocess-raw-metrics-r1/actual-r2.json",
       "original_failure_rewritten": false
+    },
+    {
+      "status": "NUMERICAL_PASS_ONLY_RUNTIME_FAILED_LIMITED_SOURCE_DIAGNOSTIC",
+      "run_id": "production512-current5aae-night-native15-pair-onehour-r1-candidate",
+      "image_sha256": "5aaec26c9d408cbdfcf4962d72266fa5665280db4ddf8b1218bc0367b2eee69c",
+      "source_commit": "9ffdb786c8181f80f4bf4f9f0038a4afe963c246",
+      "evidence": {
+        "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/rk-scalar-exact-clear/NIGHT_NATIVE15_NUMERICAL_DIAGNOSTIC.json",
+        "sha256": "e9bcf67951a4193b5f23cfff96d11d20451df8609525a600f55e723780ef297d"
+      },
+      "exact_products": 2,
+      "ordered_steps": 185,
+      "numerical_comparison_status": "PASS_ORIGINAL_TWO_COMPLETE_PRODUCTS_185_ORDERED_STEPS",
+      "all4_models_normal_closed": false,
+      "original_coordinator_exit_code": 1,
+      "full_application_qualified": false,
+      "full_runtime_qualified": false,
+      "profile_qualified": false,
+      "positive_callback_groups": 2,
+      "required_callback_groups": 4,
+      "parent_aggregate_RSS_128MiB_guard": "FAILED",
+      "instrumented_candidate_metrics": {
+        "wall_seconds": 276.21310310903937,
+        "main_step_sum_seconds": 175.95545000000018,
+        "cpu_seconds": 123860.764432,
+        "control_one_hour_wall_seconds": null,
+        "control_one_hour_cpu_seconds": null,
+        "timing_gain_claim": false,
+        "reductions_percent": null,
+        "cpu_scope": "Sum of four MPI/orted node cgroup usage_usec; separately owned recorder sibling CPU is not added.",
+        "main_elapsed_evidence": {
+          "query": {
+            "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-selected-night-native15-pair-method-preparation-r1/runtime-preparation-r1/ACTUAL_RSL_MAIN_SUM.json",
+            "sha256": "1e876990cd772823837935c21a41aa1176a4ffd17bc33c13cd1208d2d17988b0"
+          },
+          "rsl": {
+            "path": "/pool/wrf-experiment/wrf-cpu/runs/production512-current5aae-night-native15-pair-onehour-r1-candidate/rsl.error.0000",
+            "sha256": "34ff3dd27e187ad3e58ad3676012d1846bcc6204075ca66efd4d5e79cc85b210"
+          },
+          "observed_steps": 185,
+          "scope": "Observed main elapsed includes communication/waits/backpressure; no CPU or gain claim."
+        }
+      },
+      "comparison_design": "Retained original9h first185/two fullproducts for numerical diagnostic only; candidate instrumented observations, no timing comparison.",
+      "limits": "Numerical pass only: two complete06/07 products and all185 ordered steps compared with the retained corrected-original546b nine-hour prefix, including nonfinite/metadata/layout, tiles and input-stat checks. Fullruntime/application qualification remains FALSE: original all4 positive writer-root callback requirement failed (2/4), coordinator manager exited1, and parent aggregate128MiB RSS guard FAILED with final phase observation missing. Both native captures/recorders and diagnostic renderers closed normally with actual live identity/FD-bridge proof, but neither is a qualified profile. No fresh gain, matched timing, own1h/9h, daylight, causal MPI, global sample-share/headroom, restart or full144 claim; no helper repair or reprofiling planned."
     }
   ],
   "historical_matched_three_hour_19ad": {
