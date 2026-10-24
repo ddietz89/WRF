@@ -523,18 +523,22 @@
     "own_three_hour_qualified": true,
     "own_one_hour_qualified": false,
     "own_short_qualified": false,
-    "own_nine_hour_qualified": false,
+    "own_nine_hour_qualified": true,
     "noon_profile_restart_full144_qualified": false,
     "qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/curvature-vxgm-j-difference-cache/APPLICATION_QUALIFICATION.json",
-      "sha256": "f65de5ef8d3299c44ee1fa2e357fc34d73b1af8cd472a91b704cb665e8f21748"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/curvature-vxgm-j-difference-cache/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "9cb22d9c1d05d4b38c3d6139f72ddd6c5235aaff6570dfa76833bb9edb2bb05b"
     },
-    "qualification_scope": "One fresh fixed-order A→B pair, not repeatability or isolated/additive component evidence. Own ECA4 three-hour science only; historical 90f5 ABBA/nine-hour remain historical. Main is integration-loop elapsed including communication/backpressure; CPU is summed whole-job consumption. Raw producer commit unknown.",
+    "qualification_scope": "One candidate-only unprofiled nine-hour science run versus retained corrected-original546b; descriptive timing differences, not a fresh matched comparison, repeatability, isolated or additive gain. Main elapsed includes communication/backpressure; CPU is summed node-core consumption. No own profile/noon/restart/full144 qualification.",
     "latest_completed_3h_image": "eca4",
-    "latest_completed_9h_image": "90f5",
+    "latest_completed_9h_image": "eca4",
     "latest_completed_horizon_labels_apply_to_current_selection": {
       "three_hour": true,
-      "nine_hour": false
+      "nine_hour": true
+    },
+    "nine_hour_qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/curvature-vxgm-j-difference-cache/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "9cb22d9c1d05d4b38c3d6139f72ddd6c5235aaff6570dfa76833bb9edb2bb05b"
     }
   },
   "recovered_diagnostic_runs": [
@@ -819,5 +823,51 @@
       }
     ],
     "comparison_design": "Fresh single A→B corrected-original546b versus actualchosencombinedbatch; no historicalarmreuse/repeatability/isolated/additiveclaim"
+  },
+  "latest_unpaired_nine_hour": {
+    "status": "PASS_OWN_FULL512_NINE_HOUR_TEN_PRODUCTS_1625_STEPS",
+    "qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/curvature-vxgm-j-difference-cache/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "9cb22d9c1d05d4b38c3d6139f72ddd6c5235aaff6570dfa76833bb9edb2bb05b"
+    },
+    "result": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currenteca4-own9h-science-runtime-r1/RESULT.json",
+      "sha256": "375a9a77464dcf3a4e861967194958367af9c47d8804636405474bfa160573cc"
+    },
+    "executable_sha256": "eca471293cbd8de389ac6f62a8a191e5c838789435a77dd9eb9e5513f8aff9c7",
+    "metrics": {
+      "control": {
+        "wall_seconds": 2069.3122304237913,
+        "cpu_seconds": 1009264.484921,
+        "main_step_sum_seconds": 1851.54464
+      },
+      "candidate": {
+        "wall_seconds": 1791.5530953649431,
+        "cpu_seconds": 899855.0905719999,
+        "main_step_sum_seconds": 1689.6109
+      }
+    },
+    "display_metrics": {
+      "control": {
+        "wall_minutes": 34.48853717372985,
+        "main_elapsed_minutes": 30.859077333333335,
+        "CPU_summed_core_hours": 280.3512458113889
+      },
+      "candidate": {
+        "wall_minutes": 29.859218256082386,
+        "main_elapsed_minutes": 28.160181666666666,
+        "CPU_summed_core_hours": 249.95974738111107
+      }
+    },
+    "descriptive_reductions_percent": {
+      "wall_seconds": 13.422775498792838,
+      "main_step_sum_seconds": 8.745872851329162,
+      "cpu_seconds": 10.840507714641722
+    },
+    "comparison_design": "SCIENCE_ONLY candidate-only run vs retained original; descriptive timings only, no admitted performance comparison",
+    "timing_gain_claim": false,
+    "exact_products": 10,
+    "ordered_steps": 1625,
+    "limits": "One candidate-only unprofiled nine-hour science run versus retained corrected-original546b; descriptive timing differences, not a fresh matched comparison, repeatability, isolated or additive gain. Main elapsed includes communication/backpressure; CPU is summed node-core consumption. No own profile/noon/restart/full144 qualification."
   }
 }

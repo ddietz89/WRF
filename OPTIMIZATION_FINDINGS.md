@@ -1,5 +1,19 @@
 # WRF CPU optimization findings
 
+## October 24: selected ECA4 passed its own nine-hour scientific check
+
+The selected combined executable `eca47129` completed all 1,625 ordered timesteps through 15:00. All ten products passed the unchanged original numerical, nonfinite, metadata, output-layout and runtime checker. All four model scopes and the exact reader closed normally. The reader's unavailable post-GC numeric exit remains `null`; its invocation-bound manager success and absent cgroup prove normal closure.
+
+| Nine-hour metric | Retained corrected-original546b control | Latest combined ECA4 | Descriptive reduction from control |
+| --- | ---: | ---: | ---: |
+| Model/MPI wall time (min) | 34.489 | 29.859 | **13.42%** |
+| Integration-loop elapsed (min) | 30.859 | 28.160 | **8.75%** |
+| Aggregate CPU (core-hours) | 280.351 | 249.960 | **10.84%** |
+
+This is one later unprofiled candidate against a retained same-horizon original, **not a fresh matched timing comparison** or repeatability result. Integration-loop elapsed includes communication, waits and output backpressure; aggregate CPU is summed whole-job consumption across four nodes. The fresh three-hour comparison below remains separate. Component percentages are not added.
+
+This exact image now owns three-hour and nine-hour science. One-hour/short, profile, separate noon, restart and full144-hour qualifications remain false. All previous selected improvements and providers are retained; the newly tested CQV last-species fusion is a separate candidate and is not in ECA4. Source `3c5eaafc` records post-test correspondence, with raw producer commit unknown. [Nine-hour qualification and actual evidence](tools/cpu-compute/curvature-vxgm-j-difference-cache/NINE_HOUR_APPLICATION_QUALIFICATION.json).
+
 ## October 24: latest combined build passed a fresh three-hour full-grid comparison
 
 The combined executable `eca47129` passed all four complete products and all 545 ordered steps against corrected-original `546b9915`, using the unchanged numerical, metadata, layout and runtime checks. All eight model jobs and the original reader closed normally. This image retains every preceding `169c`/`90f5` improvement and adds the VXGM horizontal J-difference row cache. Source commit `3c5eaafc` records post-test correspondence; the raw producer commit remains unknown.

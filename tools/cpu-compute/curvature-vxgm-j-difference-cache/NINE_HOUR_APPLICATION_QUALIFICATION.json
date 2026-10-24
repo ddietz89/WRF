@@ -1,0 +1,94 @@
+{
+  "status": "PASS_OWN_FULL512_NINE_HOUR_TEN_PRODUCTS_1625_STEPS",
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current169c-vxgm-j-difference-one-member-native-r1/wrf.exe",
+    "sha256": "eca471293cbd8de389ac6f62a8a191e5c838789435a77dd9eb9e5513f8aff9c7"
+  },
+  "archive_sha256": "497209c11e1a39be3d67e50988ff725ef2b30a135d41a32547c8f6fff7384986",
+  "module_object_sha256": "b5ca5482f7e38707ea2bbbb804b8788b3f876c60908bb7c5c634d9230a876d82",
+  "module_PP_sha256": "3b043d8f375d55a787a4310f02caa98af92a36c055758c29f04a08f9d5cdda10",
+  "public_MOD_sha256": "f7bd79ee7013b3f8039f5e22b193750024592039c8e74f65ccc783a2e3097958",
+  "post_test_source_commit": "3c5eaafcb7ed0544d5cd6764c7ea8239b48b6e51",
+  "raw_producer_source_commit": null,
+  "own_nine_hour_qualified": true,
+  "own_three_hour_qualified": true,
+  "own_three_hour_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/curvature-vxgm-j-difference-cache/APPLICATION_QUALIFICATION.json",
+    "sha256": "f65de5ef8d3299c44ee1fa2e357fc34d73b1af8cd472a91b704cb665e8f21748"
+  },
+  "actual_evidence": {
+    "result": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currenteca4-own9h-science-runtime-r1/RESULT.json",
+      "sha256": "375a9a77464dcf3a4e861967194958367af9c47d8804636405474bfa160573cc"
+    },
+    "science": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currenteca4-own9h-science-runtime-r1/science-receipt.json",
+      "sha256": "6d641098621a991bb5f7f70dde1fe3186dc4a69504f4f8650c1473ebb0776cc5"
+    },
+    "models": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currenteca4-own9h-science-runtime-r1/candidate-metadata/model-closures.json",
+      "sha256": "187f5543069fc2727b8b7994cd023ba57f8a7268367e3c71d70cd14480a32754"
+    },
+    "reader": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currenteca4-own9h-science-runtime-r1/reader-closure.json",
+      "sha256": "022f3fd587b1cce14274ba2cf86b0278b5b801d908746f107d189ff7b1357897"
+    },
+    "control_lease": {
+      "path": "investigation/wrf-cpu/science-discovery/production512-currenteca4-own9h-science-runtime-r1/control-metadata/lease.json",
+      "sha256": "26f72c3126ed1b3bf5faff6db30707aa802753f5937915d53ba297f312d43b9a"
+    },
+    "control_completion": {
+      "path": "investigation/wrf-cpu/science-discovery/production512-currenteca4-own9h-science-runtime-r1/control-metadata/completion.json",
+      "sha256": "fe2b7b2ae5d3099e17fb9a28841a37a489a8868c785842b6f3292603f84a365a"
+    },
+    "candidate_lease": {
+      "path": "investigation/wrf-cpu/science-discovery/production512-currenteca4-own9h-science-runtime-r1/candidate-metadata/lease.json",
+      "sha256": "50a288e05dfc80c8b05280f79f242bc524b92661320d55ace9316b0e02b3aae6"
+    },
+    "candidate_completion": {
+      "path": "investigation/wrf-cpu/science-discovery/production512-currenteca4-own9h-science-runtime-r1/candidate-metadata/completion.json",
+      "sha256": "f3263975934e1453ec6298fe652dffaf2bf72067b069900cffae669ec50ac585"
+    }
+  },
+  "metrics": {
+    "control": {
+      "wall_seconds": 2069.3122304237913,
+      "cpu_seconds": 1009264.484921,
+      "main_step_sum_seconds": 1851.54464
+    },
+    "candidate": {
+      "wall_seconds": 1791.5530953649431,
+      "cpu_seconds": 899855.0905719999,
+      "main_step_sum_seconds": 1689.6109
+    }
+  },
+  "display_metrics": {
+    "control": {
+      "wall_minutes": 34.48853717372985,
+      "main_elapsed_minutes": 30.859077333333335,
+      "CPU_summed_core_hours": 280.3512458113889
+    },
+    "candidate": {
+      "wall_minutes": 29.859218256082386,
+      "main_elapsed_minutes": 28.160181666666666,
+      "CPU_summed_core_hours": 249.95974738111107
+    }
+  },
+  "descriptive_reductions_percent": {
+    "wall_seconds": 13.422775498792838,
+    "main_step_sum_seconds": 8.745872851329162,
+    "cpu_seconds": 10.840507714641722
+  },
+  "timing_gain_claim": false,
+  "comparison_design": "SCIENCE_ONLY candidate-only run vs retained original; descriptive timings only, no admitted performance comparison",
+  "ordered_steps": 1625,
+  "exact_products": 10,
+  "limits": "One candidate-only unprofiled nine-hour science run versus retained corrected-original546b; descriptive timing differences, not a fresh matched comparison, repeatability, isolated or additive gain. Main elapsed includes communication/backpressure; CPU is summed node-core consumption. No own profile/noon/restart/full144 qualification.",
+  "own_short_qualified": false,
+  "own_one_hour_qualified": false,
+  "own_profile_qualified": false,
+  "own_noon_qualified": false,
+  "own_noon75m_qualified": false,
+  "own_restart_qualified": false,
+  "own_full144_hour_qualified": false
+}
