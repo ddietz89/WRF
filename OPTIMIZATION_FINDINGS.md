@@ -70,6 +70,7 @@ More recent full-grid runs are compared below with the **retained original contr
 |3h 526e|10.929|17.91%|9.294|6.21%|88.614|11.02%|PASS|
 |3h eb5e|10.922|17.96%|9.289|6.26%|88.669|10.97%|PASS|
 |3h a93f (instrumented)|10.975|17.56%|9.329|5.86%|89.019|10.61%|PASS|
+|**3h 962b (unprofiled)**|**10.691**|**19.70%**|**9.276**|**6.39%**|**86.617**|**13.03%**|**PASS**|
 |**9h original control**|34.489|—|30.859|—|280.351|—|Reference|
 |9h 526e (instrumented)|30.551|11.42%|28.871|6.44%|256.005|8.68%|PASS|
 |**9h a93f (unprofiled)**|**30.061**|**12.84%**|**28.704**|**6.98%**|**252.258**|**10.02%**|**PASS**|
