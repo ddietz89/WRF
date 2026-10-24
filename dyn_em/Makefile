@@ -207,6 +207,27 @@ module_small_step_em.o: private override FCFLAGS += -march=znver2 -mno-fma
 endif
 endif
 
+# Exact W ELSE WDWN/RHS correction SIMD; qualified GNU13.3 pure-MPI SmallStep.
+# WRF_W_WDWN_ELSE_RHS_SIMD=0: regenerate PP, rebuild SmallStep, archive and relink.
+WRF_W_WDWN_ELSE_RHS_SIMD ?= 1
+ifeq ($(WRF_W_WDWN_ELSE_RHS_SIMD),1)
+ifeq ($(WRF_SMALL_STEP_SIMD),1)
+ifeq ($(WRF_SMALL_STEP_ZEN2),1)
+ifeq ($(strip $(OMPCPP) $(OMP) $(PROMOTION) $(DOUBLE_PRECISION)),)
+ifeq ($(strip $(RWORDSIZE)),4)
+ifeq ($(strip $(IWORDSIZE)),4)
+ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+ifneq (,$(findstring 13.3.0,$(shell $(SFC) --version 2>/dev/null)))
+module_small_step_em.o: private override CPPFLAGS += -DWRF_W_WDWN_ELSE_RHS_SIMD
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+
 # Exact RK1 T snapshot/coupling fusion: qualified GNU13.3 pure-MPI SmallStep path.
 # Use WRF_SMALL_STEP_T_COPY_FUSION=0 and rebuild for the original copy schedule.
 WRF_SMALL_STEP_T_COPY_FUSION ?= 1

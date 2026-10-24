@@ -1538,8 +1538,14 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
               *(ph_1(i,k+1,j)-ph_1(i,k,j)+phb(i,k+1,j)-phb(i,k,j))
       ENDDO
       ENDDO
+#if defined(WRF_W_WDWN_ELSE_RHS_SIMD) && defined(DM_PARALLEL) && !defined(_OPENMP)
+      DO k=2,k_end
+!$omp simd
+#else
 
       DO k=2,k_end
+#endif
+#line 1543
       DO i=i_start, i_end
          rhs(i,k) = rhs(i,k)-dts*( fnm(k)*wdwn(i,k+1)  &
                                   +fnp(k)*wdwn(i,k  ) )
