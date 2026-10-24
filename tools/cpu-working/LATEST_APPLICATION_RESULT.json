@@ -1,61 +1,64 @@
 {
-  "status": "PASS_RETAINED_ORIGINAL_TWO_HISTORY_35_STEPS_512_OWNED_FIELD_VIEW",
+  "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
   "order": [
     "retained_frozen_corrected_original546b_control",
-    "new_WW_WPH_combined_child_of_selected2340_candidate"
+    "combined_962b_unprofiled_own3h_candidate"
   ],
-  "comparison_design": "Candidate-only science qualification versus frozen original ten-minute outputs; UNPAIRED descriptive metrics, no matched forecast timing or causal kernel claim",
+  "comparison_design": "Candidate-only science qualification versus frozen original three-hour outputs; UNPAIRED descriptive metrics, no matched forecast timing or causal kernel claim",
   "metrics": {
     "control": {
-      "wall_seconds": 267.5341711281799,
-      "cpu_seconds": 86843.488941,
-      "main_step_sum_seconds": 42.03197
+      "wall_seconds": 798.7989721219055,
+      "cpu_seconds": 358521.264108,
+      "main_step_sum_seconds": 594.56533
     },
     "candidate": {
-      "wall_seconds": 119.85513478564098,
-      "cpu_seconds": 45626.627305,
-      "main_step_sum_seconds": 37.01169
+      "wall_seconds": 641.4690226400271,
+      "cpu_seconds": 311822.853358,
+      "main_step_sum_seconds": 556.58412
     }
   },
   "reductions_percent": null,
   "timing_gain_claim": false,
-  "science_sha256": "69c46ab7cc767c6251fa078b0cc97b332f2218bd4d71eb2a9cdc4ca195911330",
-  "reader_closure_sha256": "d97851275ddb17593404df6a99e9c8903b5b7990cddcefb46f3b1a49ae7edff7",
+  "science_sha256": "fdd8a5c7ecef1c4693aaa3d2969dcd967b749689b258c285c74bc458dd299a00",
+  "reader_closure_sha256": "5b7d17e66c3be59693451c9b687f8b27381034d6e80c7779333a926a9d65ea14",
   "limits": "Candidate-only run with original retained science reference; wall/CPU/main differences are UNPAIRED descriptive context. No new original forecast, matched timing, repeatability or per-kernel causal claim.",
   "executable": {
     "path": "/pool/wrf-experiment/wrf-cpu/builds/current2340-ww-wph-combined-one-member-native-r1/wrf.exe",
     "sha256": "962bdf2953282798d002c1f3da7a48b858a3e3b1c5c05b407b051f309da24470"
   },
-  "archive_sha256": "bd1ae1d4d6a570739c8c088f52da2e0b96ad19b5a4072baced338ba5c8d2670d",
   "source_commit": "a10e4cbe121809ec84602c6a585089ca9f688b72",
   "qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advance-w-damping-phi-consumer-fusion/APPLICATION_QUALIFICATION.json",
-    "sha256": "750bd003931b98dccdcd3cb316b80a5a1ec85880dd860d3b872594d592ce5397"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advance-w-damping-phi-consumer-fusion/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "609af4cfd16367649d97e9afee389641f8f15d5941558bac4de4cc109031f886"
   },
   "science": {
-    "products": 2,
-    "ordered_steps": 35,
-    "last_step": "2026-10-12_06:10:00",
+    "products": 4,
+    "ordered_steps": 545,
+    "last_step": "2026-10-12_09:00:00",
     "world": 512,
     "compute": 480,
     "quilt": 32,
     "tiles": 2,
     "positive_writer_roots": [
       487,
-      495
-    ],
-    "inactive_writer_roots": [
+      495,
       503,
       511
     ],
+    "inactive_writer_roots": [],
     "all32_FIELDVIEW1": true,
-    "positive_field_markers": 16,
+    "positive_field_markers": 32,
     "all_exact": true,
     "all4models_and_reader_normal_closed": true,
     "original_checker_unchanged": true
   },
-  "scope": "Combined962b/bd1a WW+WPH child of2340; own full512 two-output35step exact short qualification only. No own3h/9h/noon/profile/restart/full144 qualification.",
+  "scope": "Combined962b WW+WPH with all prior components/providers: own short and unprofiled three-hour4products545steps exact qualification. Own9h/noon/profile/restart/full144 remain pending.",
   "current_short_qualified": true,
-  "current_three_hour_qualified": false,
-  "current_nine_hour_qualified": false
+  "current_three_hour_qualified": true,
+  "current_nine_hour_qualified": false,
+  "reduction_vs_retained_control_percent": {
+    "wall_seconds": 19.69581271041848,
+    "cpu_seconds": 13.025283414133193,
+    "main_step_sum_seconds": 6.388063360505736
+  }
 }

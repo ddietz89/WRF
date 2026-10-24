@@ -1,95 +1,25 @@
 {
-  "status": "PASS_CURRENT79BE_MATCHED_THREE_HOUR_COMPARISON",
-  "executable_sha256": "79bebebbfb646a367a7e62b8befcbe2c672225d2efc5f8d4d4f0743476ab2bf2",
-  "source_commit": "1f03a73849d0149161120d6ae130a9a66e9e0116",
-  "qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/uv-u-nh-correction-simd/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "55ca976557f5bbe9931f4952e29815b98fb00476f6d6e4b9d9ede4e4b2f2bb76"
-  },
+  "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+  "order": [
+    "retained_frozen_corrected_original546b_control",
+    "combined_962b_unprofiled_own3h_candidate"
+  ],
+  "comparison_design": "Candidate-only science qualification versus frozen original three-hour outputs; UNPAIRED descriptive metrics, no matched forecast timing or causal kernel claim",
   "metrics": {
     "control": {
-      "wall_seconds": 798.4302501319908,
-      "cpu_seconds": 358152.909794,
-      "main_step_sum_seconds": 594.34181
+      "wall_seconds": 798.7989721219055,
+      "cpu_seconds": 358521.264108,
+      "main_step_sum_seconds": 594.56533
     },
     "candidate": {
-      "wall_seconds": 638.9246735577472,
-      "cpu_seconds": 310564.250629,
-      "main_step_sum_seconds": 554.72754
+      "wall_seconds": 641.4690226400271,
+      "cpu_seconds": 311822.853358,
+      "main_step_sum_seconds": 556.58412
     }
   },
-  "reductions_percent": {
-    "wall_seconds": 19.97739646611276,
-    "cpu_seconds": 13.287246274886243,
-    "main_step_sum_seconds": 6.665233596808551
-  },
-  "comparison_design": "Fresh corrected original546b FIRST versus combined current79be SECOND, normal100ms quota; one fixed-order pair. No isolated UV/additive/repeatability claim.",
-  "order": [
-    "fresh_corrected_original546b_control",
-    "fresh_current79be_UVcorrection_candidate"
-  ],
-  "science": {
-    "products": 4,
-    "ordered_steps": 545,
-    "last_step": "2026-10-12_09:00:00",
-    "world": 512,
-    "compute": 480,
-    "quilt": 32,
-    "tiles": 2,
-    "positive_writer_roots": [
-      487,
-      495,
-      503,
-      511
-    ],
-    "actual_field_marker_ranks": [
-      480,
-      481,
-      482,
-      483,
-      484,
-      485,
-      486,
-      487,
-      488,
-      489,
-      490,
-      491,
-      492,
-      493,
-      494,
-      495,
-      496,
-      497,
-      498,
-      499,
-      500,
-      501,
-      502,
-      503,
-      504,
-      505,
-      506,
-      507,
-      508,
-      509,
-      510,
-      511
-    ],
-    "all32_quilt_FIELDVIEW1": true,
-    "protected_original_checker_unchanged": true
-  },
-  "claim_limits": "One fresh original-first pair. Main elapsed includes MPI/output backpressure; aggregateCPU includes spin. No isolated component/additive/repeated/concurrent-throughput inference, no ownnoon9h/restart/profile transfer.",
-  "raw_result_label_erratum": {
-    "raw_order": [
-      "fresh_corrected_original546b_control",
-      "fresh_Tcopy_REAL15_bank_child_candidate"
-    ],
-    "raw_comparison_design": "Fresh original546b FIRST versus current7087+Tcopy+REAL15 child SECOND; one fixed-order pair, no isolated/helper/additive/repeatability claim",
-    "corrected_order": [
-      "fresh_corrected_original546b_control",
-      "fresh_current79be_UVcorrection_candidate"
-    ],
-    "scope": "Raw collector labels may inherit old Tcopy/REAL15 names. Raw RESULT is immutable; actual run leases79be/original546b own these metrics and scientific products."
-  }
+  "reductions_percent": null,
+  "timing_gain_claim": false,
+  "science_sha256": "fdd8a5c7ecef1c4693aaa3d2969dcd967b749689b258c285c74bc458dd299a00",
+  "reader_closure_sha256": "5b7d17e66c3be59693451c9b687f8b27381034d6e80c7779333a926a9d65ea14",
+  "limits": "Candidate-only run with original retained science reference; wall/CPU/main differences are UNPAIRED descriptive context. No new original forecast, matched timing, repeatability or per-kernel causal claim."
 }

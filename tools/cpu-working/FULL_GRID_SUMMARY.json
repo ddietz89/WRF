@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-10-23T21:28:19.048853+00:00",
+  "updated_utc": "2026-10-24T00:45:50.244255+00:00",
   "metric_definitions": {
     "wall_seconds": "Model/MPI including initialization/output/final drain",
     "main_step_sum_seconds": "Sum of reported main-step elapsed; includes communication/waiting/backpressure, not integration CPU",
@@ -176,6 +176,41 @@
         "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currenta93f-own9h-science-runtime-r3/reader-closure.json",
         "sha256": "fa9a8626c57be377316eaaf73859e24cf1167e18328982de13575031498e810f"
       }
+    },
+    {
+      "build": "962b",
+      "horizon": "3h",
+      "run_id": "production512-current962b-combined-own3h-candidate-r1",
+      "metrics": {
+        "wall_seconds": 641.4690226400271,
+        "cpu_seconds": 311822.853358,
+        "main_step_sum_seconds": 556.58412
+      },
+      "reduction_vs_retained_control_percent": {
+        "wall_seconds": 19.69581271041848,
+        "cpu_seconds": 13.025283414133193,
+        "main_step_sum_seconds": 6.388063360505736
+      },
+      "instrumented": false,
+      "observer": false,
+      "exact_science_status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+      "reference": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current962b-combined-own3h-science-runtime-r1/RESULT.json",
+        "sha256": "fb3d3efadd5d1b2733dbd8f05e27c9b8e6811f87bbb5bf5124a447fbf57d42db"
+      },
+      "science_receipt": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current962b-combined-own3h-science-runtime-r1/science-receipt.json",
+        "sha256": "fdd8a5c7ecef1c4693aaa3d2969dcd967b749689b258c285c74bc458dd299a00"
+      },
+      "reader_closure": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current962b-combined-own3h-science-runtime-r1/reader-closure.json",
+        "sha256": "5b7d17e66c3be59693451c9b687f8b27381034d6e80c7779333a926a9d65ea14"
+      },
+      "qualification": {
+        "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advance-w-damping-phi-consumer-fusion/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+        "sha256": "609af4cfd16367649d97e9afee389641f8f15d5941558bac4de4cc109031f886"
+      },
+      "limits": "Unpaired retained546bA1 control. External packaging-only closure repair preserved failed donor wrapper and original scientific checks; no model rerun."
     }
   ],
   "limits": "Recent rows compare descriptively with identified retained same-horizon controls. They are not fresh matched pairs, causal incremental gains, repeatability or additive percentages. Instrumented observations are labelled."

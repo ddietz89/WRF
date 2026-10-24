@@ -1,5 +1,19 @@
 # WRF CPU optimization findings
 
+## October24 combined962b three-hour full-grid result
+
+The unprofiled combined962b run passed all four complete products and545 ordered steps against retained corrected-original546b. All512 rank/library/affinity, FABA/twoY, metadata/layout and four-writer checks passed; models and reader6b7e6bd4 closed normally. This qualifies the exact selected image through three hours; own nine-hour/noon/profile/restart/full144 coverage remains pending.
+
+| Metric | Retained control | Combined962b | Reduction |
+|---|---:|---:|---:|
+| Model/MPI wall |13.313min|10.691min|19.70%|
+| Main-step elapsed |9.909min|9.276min|6.39%|
+| Aggregate CPU |99.589CPU-h|86.617CPU-h|13.03%|
+
+This is an unpaired descriptive comparison, not isolated patch attribution or a fresh matched repeat. Main-step elapsed includes communication/waiting. The model was unprofiled; a frozen post-run wrapper incorrectly expected donor profilers and failed. Its external repair required the declared no-observer state and independently verified actual normal closures. The failed wrapper and prelaunch reader attempt remain preserved; model data and the protected checker were unchanged.
+
+[Actual qualification, scope and repair evidence](tools/cpu-compute/advance-w-damping-phi-consumer-fusion/THREE_HOUR_APPLICATION_QUALIFICATION.json).
+
 ## October24 W damping/PH fusion retained in combined962b
 
 Own combined962b passed both full-grid short products and all35 ordered steps against corrected-original546b, including metadata/layout, all512 rank/library/affinity, FABA/twoY,32FIELDVIEW and16active writer markers. All four model invocations and reader280a9aa0 closed normally. The working selection now includes the previous WW recurrence pipeline and W damping/final-PH traversal fusion, retaining all prior components/providers. Own three-hour/nine-hour/profile/restart/full144 coverage remains pending for this exact image.
