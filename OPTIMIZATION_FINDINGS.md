@@ -1,5 +1,17 @@
 # WRF CPU optimization findings
 
+## October24: current89bd own three-hour science passed
+
+The unprofiled89bd moisture-family WW preparation-reuse image passed the unchanged original four-product/545-step three-hour scientific check. All512 ranks, two tiles, FABA placement, all four active writers,32 FIELDVIEW markers and metadata/layout checks passed; all four models and the reader closed normally. Its immutable own-short qualification remains intact. Post-test source correspondence is bb32066c; the raw producer commit remains NULL. Own nine-hour/noon/profile/restart/full144 scopes remain unqualified.
+
+|Forecast / image|Metric|Retained corrected-original546b A1|89bd|Reduction from control|
+|---|---|---:|---:|---:|
+|3h / 89bd|Model/MPI wall|13.313 min|10.775 min|19.07%|
+|3h / 89bd|Main-step elapsed|9.909 min|9.121 min|7.95%|
+|3h / 89bd|Aggregate node CPU|99.589 core-hours|87.048 core-hours|12.59%|
+
+These reductions use full-precision retained original546b A1 metrics and are **UNPAIRED descriptive** observations, not a fresh matched timing pair, isolated kernel effect or additive gain. Main-step elapsed includes communication/waits/output backpressure, not integration CPU; aggregate CPU is summed four-node cgroup CPU time. The failed frozen reconciler and external closure repair are preserved; model output and the protected scientific checker were unchanged and no model was rerun. The parent962b nine-hour result and separate19ad counterbalanced comparison below remain historical for their named images. [Own three-hour qualification](tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json). [Exact metrics](tools/cpu-working/FULL_GRID_SUMMARY.json).
+
 ## October24: C2A/T preparation fusion parked after caller timing
 
 The candidate preserved all 106 native cases across five comparison roles, including exact raw values, floating-point state and the unchanged module interface. In opposite-order timing pairs of 4,096 complete preparation calls, it was 0.78% slower on hpc01 and 3.13% slower on hpc04; thread CPU also increased. All four arms passed the raw/state checks and had caches cleared before launch. These short observations show no useful caller benefit; they do not establish a universal slowdown or its machine-level cause. Keep the prototype unpromoted without application tests or another timing matrix. Selected `962b` remains unchanged. [Measurements and disposition](tools/cpu-compute/smallstep-c2a-t-pass-fusion/DECISION.json).

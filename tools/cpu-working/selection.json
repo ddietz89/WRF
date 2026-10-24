@@ -162,10 +162,10 @@
     "all4models_and_reader_normal_closed": true,
     "original_checker_unchanged": true
   },
-  "qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/APPLICATION_QUALIFICATION.json",
-  "current_application_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/APPLICATION_QUALIFICATION.json",
+  "qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+  "current_application_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
   "source_build_binding_file": "CURRENT_SOURCE_BUILD_BINDING.json",
-  "current_three_hour_qualified": false,
+  "current_three_hour_qualified": true,
   "current_nine_hour_qualified": false,
   "prior_nine_hour": {
     "evidence_file": "PREVIOUS_NINE_HOUR_RESULT_B1FB.json",
@@ -185,7 +185,7 @@
     "Canonical line-only R1/R2 failures remain preserved; finalR3 actualall4PP and strictobject checks passed without normalization.",
     "Raw producer commit remainsNULL; source commit identifies post-test correspondence."
   ],
-  "next_qualification": "Own three-hour original scientific gate next; own nine-hour, restart/full144/profile remain pending. Retained962b timings in FULL_GRID_SUMMARY are historical for this child.",
+  "next_qualification": "Own short and three-hour science qualified; own nine-hour/noon/profile/restart/full144 remain unqualified. Retained962b nine-hour observations are parent-only; no fresh matched forecast timing claim.",
   "output_fusion_qualification_file": "tools/cpu-output/quilt512/padding-block32/NATIVE_QUALIFICATION.json",
   "latest_nine_hour": null,
   "padding_only_fill_qualification_file": "tools/cpu-output/quilt512/padding-only-fill/NATIVE_QUALIFICATION.json",
@@ -429,8 +429,8 @@
     "provider_source_file": "tools/cpu-output/quilt512/root_chunk_provider.c",
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification.",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/APPLICATION_QUALIFICATION.json",
-      "sha256": "b821e29aca11345511dcdf64519ba06e2ecab3464637872ed925f3a38071b34d"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
     }
   },
   "private_shuffle_scratch_qualification_file": "tools/cpu-output/quilt512/private-shuffle-scratch-reuse/QUALIFICATION.json",
@@ -540,8 +540,8 @@
     "semantics": "Post-test codec source/recipe tracking only; does not relabel native/build producer NULL or imply WRF relink.",
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification.",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/APPLICATION_QUALIFICATION.json",
-      "sha256": "b821e29aca11345511dcdf64519ba06e2ecab3464637872ed925f3a38071b34d"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
     }
   },
   "archive_sha256": "d2a6508b7d049b153a75d861bb8e4fc7043fbaff3d88c27611d29def824cdf16",
@@ -769,7 +769,10 @@
     "repeatability_established": false,
     "scope": "Historical RQVFTENee66/source31ca before RQVBLTEN. Actual4products545/full512 exact,660.3921359390952s MPIwall; candidate-only UNPAIRED descriptive metrics. Does not qualify child2bd1. Existing THREE_HOUR_RESULT/Q bytes and hashes unchanged."
   },
-  "current_three_hour_qualification": null,
+  "current_three_hour_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
+  },
   "previous_RTH_POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
     "source_commit": "c883c564a037422631b7c3dd8c69cf532fe391a6",
@@ -1300,8 +1303,8 @@
     "qualification_file": "tools/cpu-output/quilt512/codec/private-fast-distance-range/APPLICATION_QUALIFICATION.json"
   },
   "current_application_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/APPLICATION_QUALIFICATION.json",
-    "sha256": "b821e29aca11345511dcdf64519ba06e2ecab3464637872ed925f3a38071b34d"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
   },
   "last_three_hour_benchmark": null,
   "current_noon75m_qualified": false,
@@ -1330,8 +1333,8 @@
     "expected_worker_status": "BUILT_CURRENT_F4B_ONE_BIGSTEP_MOIST_THETA_SIMD_PENDING_APPLICATION",
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification.",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/APPLICATION_QUALIFICATION.json",
-      "sha256": "b821e29aca11345511dcdf64519ba06e2ecab3464637872ed925f3a38071b34d"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
     }
   },
   "sw_producer": {
@@ -1357,8 +1360,8 @@
     "expected_worker_status": "BUILT_CURRENT_FB43_ONE_SW_DIRECT_CDF_PENDING_THETA_COMBINED_APPLICATION",
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification.",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/APPLICATION_QUALIFICATION.json",
-      "sha256": "b821e29aca11345511dcdf64519ba06e2ecab3464637872ed925f3a38071b34d"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
     }
   },
   "previous_F4B_before_THETA_SW": {
@@ -1516,8 +1519,8 @@
     "target_MCICA_raw_MOD_sha256": "f1ce128004b7fe9265c995370dac4464bdf4d15f962d3ac3de00e0606cae35f3",
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification.",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/APPLICATION_QUALIFICATION.json",
-      "sha256": "b821e29aca11345511dcdf64519ba06e2ecab3464637872ed925f3a38071b34d"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
     }
   },
   "before_SPCVMC_own9h_latest_nine_hour": {
@@ -1919,8 +1922,8 @@
     },
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification.",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/APPLICATION_QUALIFICATION.json",
-      "sha256": "b821e29aca11345511dcdf64519ba06e2ecab3464637872ed925f3a38071b34d"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
     }
   },
   "raw_result_label_disclosure": null,
@@ -2124,8 +2127,8 @@
     "expected_worker_status": "BUILT_CURRENT_F703_ONE_BIGSTEP_HPG_NHX_CONSUMER_SIMD_PENDING_APPLICATION",
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification.",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/APPLICATION_QUALIFICATION.json",
-      "sha256": "b821e29aca11345511dcdf64519ba06e2ecab3464637872ed925f3a38071b34d"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
     }
   },
   "separate_HPG_CONSUMER_short_science_before_own3h": {
@@ -2286,8 +2289,8 @@
     },
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification.",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/APPLICATION_QUALIFICATION.json",
-      "sha256": "b821e29aca11345511dcdf64519ba06e2ecab3464637872ed925f3a38071b34d"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
     }
   },
   "before_ISOLATED_HPG_own3h": {
@@ -2493,8 +2496,8 @@
     "parent_directory": "/pool/wrf-experiment/wrf-cpu/builds/current1749-one-isolated-hpg-avx2-helper-hpc02-r1",
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification.",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/APPLICATION_QUALIFICATION.json",
-      "sha256": "b821e29aca11345511dcdf64519ba06e2ecab3464637872ed925f3a38071b34d"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
     }
   },
   "before_ORDINARY_CONSUMERS": {
@@ -2574,8 +2577,8 @@
       "sha256": "f9d7fd798cbda34de320504519446564e0f33efef681b1ecb9442a066dce09f0"
     },
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/APPLICATION_QUALIFICATION.json",
-      "sha256": "b821e29aca11345511dcdf64519ba06e2ecab3464637872ed925f3a38071b34d"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
     }
   },
   "before_PD_RESULT_CAPACITY": {
@@ -2640,8 +2643,8 @@
     },
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification.",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/APPLICATION_QUALIFICATION.json",
-      "sha256": "b821e29aca11345511dcdf64519ba06e2ecab3464637872ed925f3a38071b34d"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
     }
   },
   "historical_51a_output_post_test_source_identity": {
@@ -3551,8 +3554,8 @@
     "artifact_sha256": "4adb20e0f0c565e7146d637703b7144c1009a5a19db7c0fa7352b8c772ac44f2",
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification.",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/APPLICATION_QUALIFICATION.json",
-      "sha256": "b821e29aca11345511dcdf64519ba06e2ecab3464637872ed925f3a38071b34d"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
     }
   },
   "archive_path": "/pool/wrf-experiment/wrf-cpu/builds/current962b-moisture-ww-reuse-two-member-native-r1/libwrflib.a",
@@ -3668,8 +3671,8 @@
     "scope": "Exactcurrent4adb/f911/99da one-memberproducer; previous2419/769wholeimageproducerfacts explicitlyhistorical.",
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification.",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/APPLICATION_QUALIFICATION.json",
-      "sha256": "b821e29aca11345511dcdf64519ba06e2ecab3464637872ed925f3a38071b34d"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
     }
   },
   "previous_X5_onehour_current_context": {
@@ -3939,8 +3942,8 @@
     "posttest_source_commit": "d5d09385eb3a4ce641af3c5b5ef35eadb97593ac",
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification.",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/APPLICATION_QUALIFICATION.json",
-      "sha256": "b821e29aca11345511dcdf64519ba06e2ecab3464637872ed925f3a38071b34d"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
     }
   },
   "current_noon75m_science": null,
@@ -4148,8 +4151,8 @@
     },
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification.",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/APPLICATION_QUALIFICATION.json",
-      "sha256": "b821e29aca11345511dcdf64519ba06e2ecab3464637872ed925f3a38071b34d"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
     }
   },
   "previous_current7087_before_TCOPY": {
@@ -4179,8 +4182,8 @@
     "scope": "Own short35/two-product original-science qualification only. Reused qualifiedPP9ad0/objectbd2; canonical/default commit tracks source AFTER tests, not raw producer/fresh canonical CPP/fullbuild reproduction. One synthetic RK1 caller pair per host, not forecast gain.",
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification.",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/APPLICATION_QUALIFICATION.json",
-      "sha256": "b821e29aca11345511dcdf64519ba06e2ecab3464637872ed925f3a38071b34d"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
     }
   },
   "previous_current8400_before_REAL15_BANK": {
@@ -4227,8 +4230,8 @@
     "posttest_source_commit": "70ce108d61573ef1aa5ef7d60a846f83e1864639",
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification.",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/APPLICATION_QUALIFICATION.json",
-      "sha256": "b821e29aca11345511dcdf64519ba06e2ecab3464637872ed925f3a38071b34d"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
     }
   },
   "previous_currentf272_before_PHCOPY": {
@@ -4253,8 +4256,8 @@
     "posttest_source_commit": "85eb38440734d683d66d3bd1a82af422053ff584",
     "scope": "Own short35/two-product original-science qualification only. Tested image reused qualifiedPP7ecc/object40c5; separate actual canonical guardedCPP/strictO2 oneobject delivery is mandatory, not fresh fullWRF build/link. Sourcecommit is posttesttracking, rawproducerNULL. One synthetic RK1 caller pair per host, not forecast gain.",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/APPLICATION_QUALIFICATION.json",
-      "sha256": "b821e29aca11345511dcdf64519ba06e2ecab3464637872ed925f3a38071b34d"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
     },
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification."
   },
@@ -4280,8 +4283,8 @@
     "public_MOD_sha256": "d50c501497b927ad56b9bb3b7cb9431c827b8092cedf23e83d8f573ccb884b94",
     "scope": "Retained D431 WW+WPH component; prior a381 alias stale. Current image scope comes only from final89bd shortQ.",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/APPLICATION_QUALIFICATION.json",
-      "sha256": "b821e29aca11345511dcdf64519ba06e2ecab3464637872ed925f3a38071b34d"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
     },
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification."
   },
@@ -4300,8 +4303,8 @@
     "raw_producer_source_commit": null,
     "scope": "Own short35/two complete products exact original science. Native fullUV raw/readonly/guards/five-state passed. Complete historical captured UV caller10.362685/12.094029percent shorter, not forecast gain. Artifact reuses qualifiedPP91c2/object7493; separate real canonicalCPP/O2 delivery runtime ELF/RELA/MOD exact despite different PP/debug-object bytes. Sourcecommit is post-test correspondence only; raw producer null.",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/APPLICATION_QUALIFICATION.json",
-      "sha256": "b821e29aca11345511dcdf64519ba06e2ecab3464637872ed925f3a38071b34d"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
     },
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification."
   },
@@ -4476,8 +4479,8 @@
     "posttest_source_commit": "87fab099b1e8f0f4647e2f9d343f2109c06ddc89",
     "raw_producer_source_commit": null,
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/APPLICATION_QUALIFICATION.json",
-      "sha256": "b821e29aca11345511dcdf64519ba06e2ecab3464637872ed925f3a38071b34d"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
     },
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification."
   },
@@ -4622,8 +4625,8 @@
     "posttest_source_commit": "9712688c787e6b46664705562fb40f76c54b81a7",
     "raw_producer_source_commit": null,
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/APPLICATION_QUALIFICATION.json",
-      "sha256": "b821e29aca11345511dcdf64519ba06e2ecab3464637872ed925f3a38071b34d"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
     },
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification."
   },
@@ -4667,15 +4670,12 @@
     "posttest_source_commit": "642a69388e430f079ba5ca043aa0ad4ea06c9280",
     "raw_producer_source_commit": null,
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/APPLICATION_QUALIFICATION.json",
-      "sha256": "b821e29aca11345511dcdf64519ba06e2ecab3464637872ed925f3a38071b34d"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
     },
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification."
   },
-  "nine_hour_full_application": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advance-w-damping-phi-consumer-fusion/NINE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "5c0995866d5191aea01e74d0cd59dd61b2b67ac022765ded2de9c60415b04ad8"
-  },
+  "nine_hour_full_application": null,
   "previous_POST_TEST_SOURCE_IDENTITY_before_WDTN": {
     "status": "POST_TEST_CANONICAL_CORRESPONDENCE_NOT_WHOLE_IMAGE_REBUILD",
     "source_commit": "9712688c787e6b46664705562fb40f76c54b81a7",
@@ -5071,8 +5071,8 @@
       "sha256": "0609e908dac7c7e6199dbee649cbf641271df14ccfbdb1dae0da4a1cca7a8928"
     },
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/APPLICATION_QUALIFICATION.json",
-      "sha256": "b821e29aca11345511dcdf64519ba06e2ecab3464637872ed925f3a38071b34d"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
     },
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification."
   },
@@ -5082,8 +5082,8 @@
     "public_MOD_sha256": "88e9fcbf27d28de7f12c22df0aac07aef26d4463f303e5a51b135a6a7e454750"
   },
   "full_application": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advance-w-damping-phi-consumer-fusion/NINE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "5c0995866d5191aea01e74d0cd59dd61b2b67ac022765ded2de9c60415b04ad8"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
   },
   "latest_PD_build": {
     "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currenta93f-next-after-zero-finite-triage-r1/one-member-artifact-preparation-r1/actual-native-r1/receipt.json",
@@ -5123,5 +5123,24 @@
       "sha256": "fb14d10d5a40c071783b636297fc56780148987b6e005f7569f1e7a30146eb61"
     }
   },
-  "build_scope": "Two replaced members out of584: slot560module_em0266 and577solve_em46cc;582othercontents/order unchanged,0modulecompiles/1link duringdelivery; sourcecanonicalR3twoONstrictcompiles separately qualified."
+  "build_scope": "Two replaced members out of584: slot560module_em0266 and577solve_em46cc;582othercontents/order unchanged,0modulecompiles/1link duringdelivery; sourcecanonicalR3twoONstrictcompiles separately qualified.",
+  "historical_horizon_aliases_before_89bd_own3h": {
+    "applies_to_current_image": false,
+    "aliases": {
+      "full_application": {
+        "value": {
+          "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advance-w-damping-phi-consumer-fusion/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+          "sha256": "5c0995866d5191aea01e74d0cd59dd61b2b67ac022765ded2de9c60415b04ad8"
+        },
+        "applies_to_current_image": false
+      },
+      "nine_hour_full_application": {
+        "value": {
+          "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advance-w-damping-phi-consumer-fusion/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+          "sha256": "5c0995866d5191aea01e74d0cd59dd61b2b67ac022765ded2de9c60415b04ad8"
+        },
+        "applies_to_current_image": false
+      }
+    }
+  }
 }

@@ -1,8 +1,18 @@
-# Current working image89bd; latest long full-grid comparisons remain962b
+# Current working image89bd: own short and three-hour science qualified
 
-Current executable **89bdbe3d**, archive **d2a6508b**, post-test canonical source **bb32066c** retains all previous selected improvements and adds moisture-family WW preparation reuse. Its own two-product/35-step full512 exact check and guarded source rebuild correspondence passed. Its three-hour/nine-hour, profile, restart and full144-hour scopes remain pending. [Evidence and rollback](../cpu-compute/moisture-family-ww-split-reuse/README.md).
+Current executable **89bdbe3d**, archive **d2a6508b**, post-test canonical source **bb32066c** retains all previous selected improvements and adds moisture-family WW preparation reuse. Its own two-product/35-step and four-product/545-step full512 exact checks passed, with normal model/reader closure. Source correspondence remains post-test; raw producer commit is NULL. Own nine-hour/noon/profile/restart/full144-hour scopes remain unqualified. [Evidence and rollback](../cpu-compute/moisture-family-ww-split-reuse/README.md).
 
-The latest completed long full-grid comparisons below belong to **parent962bdf29 / archivebd1ae1d4**, not89bd. Parent962b passed four products/545 steps and ten products/1,625 steps exactly; those qualifications do not transfer to the new image.
+|Forecast / image|Metric|Retained corrected-original546b A1|89bd|Reduction from control|
+|---|---|---:|---:|---:|
+|3h / 89bd|Model/MPI wall|13.313 min|10.775 min|19.07%|
+|3h / 89bd|Main-step elapsed|9.909 min|9.121 min|7.95%|
+|3h / 89bd|Aggregate node CPU|99.589 core-hours|87.048 core-hours|12.59%|
+
+This is an **unpaired descriptive** comparison with retained original546b A1, not a fresh matched pair or isolated component gain. Main-step elapsed includes communication, waiting and output backpressure; it is not integration CPU. Aggregate CPU is four-node cgroup core-time. Client-cache checks were retained; server load/cache are uncontrolled. The failed reconciler and external reviewed closure repair are preserved without a model rerun or scientific-checker change.
+
+## Historical parent962b long-horizon observations
+
+The following retained rows belong to **parent962bdf29 / archivebd1ae1d4**, not89bd. In particular, the ten-product/1,625-step nine-hour qualification does not transfer to89bd.
 
 |Forecast|Metric|Retained corrected-original546b control|Combined962b|Reduction from control|
 |---|---|---:|---:|---:|
@@ -13,11 +23,11 @@ The latest completed long full-grid comparisons below belong to **parent962bdf29
 |9h|Main-step elapsed|30.859 min|28.932 min|6.24%|
 |9h|Aggregate node CPU|280.351 core-hours|254.284 core-hours|9.30%|
 
-These are later candidate observations versus identified retained same-horizon controls, **not fresh matched pairs**. No incremental or repeatability claim follows. Main-step elapsed includes communication, waiting and output backpressure; aggregate CPU is whole-job core-time, not integration-only CPU. The client-cache SOP was retained; file-server load/cache is uncontrolled.
+These parent observations are also unpaired and do not establish an incremental or repeatability claim.
 
-The separate counterbalanced **19ad** three-hour comparison used A–B–B–A, two observations per image. Mean wall was 13.323→10.990 minutes (**17.51% lower**); main-step elapsed 9.919→9.291 minutes (**6.34% lower**); CPU 99.644→88.823 core-hours (**10.86% lower**). That matched result applies to19ad, not to962b.
+The separate counterbalanced **19ad** three-hour comparison used A–B–B–A, two observations per image. Mean wall was 13.323→10.990 minutes (**17.51% lower**); main-step elapsed 9.919→9.291 minutes (**6.34% lower**); CPU 99.644→88.823 core-hours (**10.86% lower**). That matched result applies to19ad, not to962b or89bd.
 
-[Exact values, image identities and evidence](FULL_GRID_SUMMARY.json). [Current selection](selection.json) and [source/build binding](CURRENT_SOURCE_BUILD_BINDING.json) carry support and qualification scope. Working89bd moisture-family preparation reuse is promoted with own short two-product/35-step science; its longer qualification is pending. Production/master are unchanged; AWS remains suspended.
+[Exact values, image identities and evidence](FULL_GRID_SUMMARY.json). [Current selection](selection.json) and [source/build binding](CURRENT_SOURCE_BUILD_BINDING.json) carry support and qualification scope. The immutable short qualification is retained beside the separate own-three-hour qualification. Production/master are unchanged; AWS remains suspended.
 
 All selection narratives below are historical snapshots and do not override these current artifact and qualification bindings.
 

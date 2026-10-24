@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-10-24T01:45:16.601891+00:00",
+  "updated_utc": "2026-10-24T04:52:54.591433+00:00",
   "metric_definitions": {
     "wall_seconds": "Model/MPI including initialization/output/final drain",
     "main_step_sum_seconds": "Sum of reported main-step elapsed; includes communication/waiting/backpressure, not integration CPU",
@@ -250,6 +250,54 @@
         "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advance-w-damping-phi-consumer-fusion/NINE_HOUR_APPLICATION_QUALIFICATION.json",
         "sha256": "5c0995866d5191aea01e74d0cd59dd61b2b67ac022765ded2de9c60415b04ad8"
       }
+    },
+    {
+      "build": "89bd",
+      "horizon": "3h",
+      "run_id": "production512-current89bd-moisture-ww-reuse-own3h-candidate-r1",
+      "metrics": {
+        "wall_seconds": 646.5073929247446,
+        "cpu_seconds": 313374.018836,
+        "main_step_sum_seconds": 547.28531
+      },
+      "control_metrics": {
+        "wall_seconds": 798.7989721219055,
+        "cpu_seconds": 358521.264108,
+        "main_step_sum_seconds": 594.56533
+      },
+      "aggregate_cpu_core_hours": {
+        "control": 99.58924003,
+        "candidate": 87.04833856555555
+      },
+      "reduction_vs_retained_control_percent": {
+        "wall_seconds": 19.065069499603656,
+        "main_step_sum_seconds": 7.952031108171074,
+        "cpu_seconds": 12.59262693506513
+      },
+      "instrumented": false,
+      "observer": false,
+      "exact_science_status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+      "reference": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current89bd-moisture-ww-reuse-own3h-runtime-r1/RESULT.json",
+        "sha256": "fec4c1172746dbf6aaef55dee74a73dc8b0d8644190e93dad2d66e7ca8ee646f"
+      },
+      "science_receipt": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current89bd-moisture-ww-reuse-own3h-runtime-r1/science-receipt.json",
+        "sha256": "35a975d451a809e2478e9d20c093f74cc74de3ba1694b602f45bc66e331eacfa"
+      },
+      "reader_closure": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current89bd-moisture-ww-reuse-own3h-runtime-r1/reader-closure.json",
+        "sha256": "78094fee5099a3bd4ccbbe3064a26327a9946dcb2366aaba53282da85bb9e1f7"
+      },
+      "model_closures": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current89bd-moisture-ww-reuse-own3h-runtime-r1/candidate-metadata/model-closures.json",
+        "sha256": "e6f4e9b02ee17c188245b45c6bdcf5c852acad02c2b03f454d68fb40aefeb6c1"
+      },
+      "qualification": {
+        "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+        "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
+      },
+      "limits": "UNPAIRED descriptive comparison against retained original546b A1; no fresh matched timing pair"
     }
   ],
   "limits": "Recent rows compare descriptively with identified retained same-horizon controls. They are not fresh matched pairs, causal incremental gains, repeatability or additive percentages. Instrumented observations are labelled."
