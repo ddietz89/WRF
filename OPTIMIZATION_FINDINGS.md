@@ -1,5 +1,15 @@
 # WRF CPU optimization findings
 
+## October24: scalar-family WW reuse promoted after its own short check
+
+The combined026c build retains all previous selected code and providers, replaces only `solve_em` in the archive, and passed the unchanged original two-product/35-step full512 check. All four models and the reader closed normally. Its own longer horizons remain pending; the 89bd three-hour and 962b nine-hour results below remain attached to their respective images.
+
+The complete QNI/QNR synthetic caller improved elapsed time by **1.34% and 1.48%** and process CPU time by **1.43% and 1.90%** in opposite-order node pairs, with exact raw, read-only, guard and floating-point-state checks. This is a caller result. The short forecast is a scientific qualification against retained outputs and establishes no matched forecast speedup. [Qualification, source correspondence and rollback](tools/cpu-compute/scalar-family-ww-split-reuse/README.md).
+
+The independent h/z scratch-clear candidate also passed native and complete-family exact checks. Its two caller pairs reduced elapsed time by **1.57% and 0.26%**, and process CPU by **1.56% and 0.65%**. The independent recommendation to park its small benefit is preserved; the owner’s inclusion policy supports proceeding through bounded guarded integration. It remains unpromoted while source/caller qualification is completed. The original scientific checker and constant-preservation comparator are unchanged.
+
+A separate audit found that the sampled ordinary Y-flux formation loop already executes eight-lane SIMD with its loop invariants hoisted. No additional SIMD experiment is justified by that evidence. Fusing the initial tendency clear into first-Y accumulation remains a source-only hypothesis; deleting the entire clear would lose required top and boundary zeros.
+
 ## October24: current89bd own three-hour science passed
 
 The unprofiled89bd moisture-family WW preparation-reuse image passed the unchanged original four-product/545-step three-hour scientific check. All512 ranks, two tiles, FABA placement, all four active writers,32 FIELDVIEW markers and metadata/layout checks passed; all four models and the reader closed normally. Its immutable own-short qualification remains intact. Post-test source correspondence is bb32066c; the raw producer commit remains NULL. Own nine-hour/noon/profile/restart/full144 scopes remain unqualified.
