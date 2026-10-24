@@ -1,5 +1,5 @@
 {
-  "status": "PASS_CURRENT962B_WW_WPH_COMBINED_OWN_THREE_HOUR_FOUR_HISTORY_545_STEPS",
+  "status": "PASS_CURRENT962B_WW_WPH_COMBINED_OWN_NINE_HOUR_TEN_HISTORY_1625_STEPS",
   "source_commit": "a10e4cbe121809ec84602c6a585089ca9f688b72",
   "executable": {
     "path": "/pool/wrf-experiment/wrf-cpu/builds/current2340-ww-wph-combined-one-member-native-r1/wrf.exe",
@@ -401,7 +401,7 @@
       "sha256": "d7f05ecb68ab36342592eb2ac852a4beb16602bea6976cebd6e7e412a67d5023"
     }
   },
-  "qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/advance-w-damping-phi-consumer-fusion/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+  "qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/advance-w-damping-phi-consumer-fusion/NINE_HOUR_APPLICATION_QUALIFICATION.json",
   "build_scope": "0modulecompiles,1link,584archive members/583unchanged,index558WW2dd4\u2192combinedD431; all direct support/helpers/runtime providers retained.",
   "runtime": {
     "WRF_EXPERIMENTAL_TPI_NUMA": 1,
@@ -412,20 +412,21 @@
     "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currenta93f-advance-w-damping-phi-consumer-fusion-r1/combined-ww-wph-r1/actual-native-r2/receipt.json",
     "sha256": "40f5ffa5cc39a97ac2de44cda2afb1acef048862ee220b547d6ff0e26d96c132"
   },
-  "current_nine_hour_qualified": false,
+  "current_nine_hour_qualified": true,
   "previous_nine_hour_qualification": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_NINE_HOUR_FINAL_QUALIFICATION_B1FB.json",
     "sha256": "f38a865905d030be42ac0a965b4aa6afbc0eae280902a3839f20df176457f445"
   },
   "full_application": {
-    "qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/advance-w-damping-phi-consumer-fusion/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/advance-w-damping-phi-consumer-fusion/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "5c0995866d5191aea01e74d0cd59dd61b2b67ac022765ded2de9c60415b04ad8",
     "world": 512,
-    "products": 4,
-    "ordered_steps": 545,
+    "products": 10,
+    "ordered_steps": 1625,
     "all_exact": true,
     "all_models_and_reader_normal_closed": true,
     "own_three_hour": true,
-    "own_nine_hour": false
+    "own_nine_hour": true
   },
   "current_three_hour_qualified": true,
   "prior_repaired_full_application": {
@@ -522,7 +523,10 @@
     "output_postscience_source_commit": "6697020f800df164e3dee6d04d7c3639b297cca6",
     "scope": "Current86aa/8bee selectedoutput; fullshim component versus owncombinedapplication scopes distinct."
   },
-  "nine_hour_full_application": null,
+  "nine_hour_full_application": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advance-w-damping-phi-consumer-fusion/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "5c0995866d5191aea01e74d0cd59dd61b2b67ac022765ded2de9c60415b04ad8"
+  },
   "previous_noon75m_full_application": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-output/quilt512/padding-block32/APPLICATION_QUALIFICATION.json",
     "sha256": "fb3853a2dd3561319ec92a5ebf8bb66062b89e2ddbbec57bb591dc84eb023b8d"
@@ -792,7 +796,7 @@
     "scope": "One RQVFTEN-loop directive only, committed after native/caller/canonical-preprocess/link/original3hSCI. Frozen rawproducerNULL unchanged; no isolated forecast or own9h claim."
   },
   "current_profiled_nine_hour_science_qualified": false,
-  "current_unprofiled_nine_hour_science_qualified": false,
+  "current_unprofiled_nine_hour_science_qualified": true,
   "current_profiled_nine_hour_qualification": null,
   "previous_RQVBLTEN_PART2_POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
@@ -909,9 +913,9 @@
     "scope": "Exact4products545/full512/twoTiles/all32markers/fourpositivewriters; all8models+reader normally closed. Includes all current promotions; no isolated directive or concurrent-throughput claim."
   },
   "science": {
-    "products": 4,
-    "ordered_steps": 545,
-    "last_step": "2026-10-12_09:00:00",
+    "products": 10,
+    "ordered_steps": 1625,
+    "last_step": "2026-10-12_15:00:00",
     "world": 512,
     "compute": 480,
     "quilt": 32,
@@ -927,7 +931,47 @@
     "positive_field_markers": 32,
     "all_exact": true,
     "all4models_and_reader_normal_closed": true,
-    "original_checker_unchanged": true
+    "original_checker_unchanged": true,
+    "start": "2026-10-12_06:00:00",
+    "decomposition": [
+      8,
+      60
+    ],
+    "observed_FIELDVIEW_ranks": 512,
+    "actual_field_marker_ranks": [
+      480,
+      481,
+      482,
+      483,
+      484,
+      485,
+      486,
+      487,
+      488,
+      489,
+      490,
+      491,
+      492,
+      493,
+      494,
+      495,
+      496,
+      497,
+      498,
+      499,
+      500,
+      501,
+      502,
+      503,
+      504,
+      505,
+      506,
+      507,
+      508,
+      509,
+      510,
+      511
+    ]
   },
   "Thompson_freeze_split_contract": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/uvb-batch/evidence/B_PRODUCTION_ARTIFACT_CONTRACT.json",
@@ -938,8 +982,11 @@
     "creator_libm_errno_preservation": false,
     "physical_memory_reduction_causally_qualified": false
   },
-  "current_nine_hour_qualification": null,
-  "current_application_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/advance-w-damping-phi-consumer-fusion/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+  "current_nine_hour_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advance-w-damping-phi-consumer-fusion/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "5c0995866d5191aea01e74d0cd59dd61b2b67ac022765ded2de9c60415b04ad8"
+  },
+  "current_application_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/advance-w-damping-phi-consumer-fusion/NINE_HOUR_APPLICATION_QUALIFICATION.json",
   "previous_E3_POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
     "source_commit": "1ae0c6ee9cd1b5c238a57cf25409c18d380faaed",
@@ -1076,7 +1123,7 @@
     "repeatability_established": false,
     "scope": "Exact4products545/full512/twoTiles/all4positivewriters/all32markers; main-step sum is elapsed not integrationCPU; no isolated/additive/pureIO/memorycausality claim."
   },
-  "scope": "Combined962b WW+WPH with all prior components/providers: own short and unprofiled three-hour4products545steps exact qualification. Own9h/noon/profile/restart/full144 remain pending.",
+  "scope": "Combined962b WW+WPH retains all selected components/providers: own short, own3h and now unprofiled own9h ten products/1625 ordered steps exactscience. Onehour/noon/profile/restart/full144 remain unqualified. Unpaired descriptive timing only.",
   "previous_3582_e1d8_science": {
     "products": 4,
     "ordered_steps": 545,
@@ -1258,15 +1305,15 @@
     "qualification_file": "../cpu-output/quilt512/codec/private-fast-distance-range/APPLICATION_QUALIFICATION.json"
   },
   "current_application_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advance-w-damping-phi-consumer-fusion/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "609af4cfd16367649d97e9afee389641f8f15d5941558bac4de4cc109031f886"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advance-w-damping-phi-consumer-fusion/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "5c0995866d5191aea01e74d0cd59dd61b2b67ac022765ded2de9c60415b04ad8"
   },
   "last_three_hour_benchmark": null,
   "claim_limits": [
     "ParentWWshort and earliera93f3h9h/19adABBA are historical, not combined962bqualification.",
     "Original combinedR1hardconstantlayoutFAIL remainsimmutable; newR2exactnamedpair prospectiveapproval is explicit and no generalpolicychange.",
     "No synchronous-FPtrap ordering claim or addedtolerance/waiver.",
-    "Own short and three-hour passed for962b; own9h/noon/profile/restart/full144 remain false."
+    "Own short, three-hour and unprofiled nine-hour passed for962b; onehour/noon/profile/restart/full144 remain false. Nine-hour timing is unpaired descriptive, not a fresh matched gain."
   ],
   "source_commit_scope": "Post-test canonical strictO2 allocated-runtime/RELA/nonFILE/publicMOD correspondence to qualified D431; nativePP and canonicalPP differ. Not a fresh whole-image source build.",
   "current_noon75m_qualified": false,
@@ -1648,7 +1695,32 @@
   },
   "before_SPCVMC_own9h_claim_limits": "Actual unprofiled noon original science passed2products230steps. Candidate309.833275s wall/235.343340s main/151770.087473CPU-s is UNPAIRED against retained original; no isolated SPCVMC forecast gain, repeatability or horizon transfer. Whole-minus-main is not pureIO. Main elapsed includes communication/backpressure and is not integrationCPU.",
   "before_SPCVMC_own9h_comparison_design": "UNPAIRED candidate-only noon scientific reference; descriptive metrics only",
-  "latest_nine_hour": null,
+  "latest_nine_hour": {
+    "qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advance-w-damping-phi-consumer-fusion/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "5c0995866d5191aea01e74d0cd59dd61b2b67ac022765ded2de9c60415b04ad8"
+    },
+    "raw_result": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current962b-own9h-science-runtime-r1/RESULT.json",
+      "sha256": "c9281f41435d425757aa2eae7f41e18ca55127fa9f76a1e2062cab5ac986ceb9"
+    },
+    "artifact_executable_sha256": "962bdf2953282798d002c1f3da7a48b858a3e3b1c5c05b407b051f309da24470",
+    "unprofiled": true,
+    "science_only": true,
+    "timing_gain_claim": false,
+    "metrics_descriptive": {
+      "control": {
+        "wall_seconds": 2069.3122304237913,
+        "cpu_seconds": 1009264.484921,
+        "main_step_sum_seconds": 1851.54464
+      },
+      "candidate": {
+        "wall_seconds": 1818.302093561273,
+        "cpu_seconds": 915423.459331,
+        "main_step_sum_seconds": 1735.94714
+      }
+    }
+  },
   "previous_SPCVMC_before_HPG_NHX": {
     "paired_record": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_SOURCE_BUILD_BINDING_BEFORE_HPG_NHX.json",

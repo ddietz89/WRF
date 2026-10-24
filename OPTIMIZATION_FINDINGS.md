@@ -1,8 +1,26 @@
 # WRF CPU optimization findings
 
+## October24: alternative compression backend rejected in its first screen
+
+Installed libdeflate1.19 at level2 passed exact stock decoding, canaries and paired five-part state against selected zlib-ng9371 on one public synthetic56.43MB shuffled chunk. It took **7.64–7.65 times as long** with compressor allocation/free included in opposite-order hpc01/hpc04 pairs (eight encodes per cost scope). Its stream was **7.11% larger**, and stock decoding was slower too. Cache clears preceded every arm; all four jobs closed normally. This is a concrete rejection of the tested backend on this case, without a claim about every scientific field or other library versions.
+
+Keep zlib-ng9371 selected. The conditional provider prototype and prospective fixtures remain private, unpromoted and unqualified; no further provider/HDF/application tests are justified by this screen. Its smaller logical compression bound is not measured resident-memory savings. [Measurements, identities and decision](tools/cpu-output/libdeflate-screen/DECISION.json).
+
+## October24 combined962b nine-hour full-grid result
+
+The selected unprofiled962b image passed all ten complete outputs and1,625 ordered steps through15:00 against retained corrected-original546b. The unchanged checker accepted numerical values, metadata/layout and the complete512-rank/four-writer runtime contract. All four models and reader849c5a36 closed normally. This extends this exact image’s own science qualification from short/three-hour to nine-hour; noon/profile/restart/full144 remain pending.
+
+| Metric | Retained control | Combined962b | Reduction |
+|---|---:|---:|---:|
+| Model/MPI wall |34.489min|30.305min|12.13%|
+| Main-step elapsed |30.859min|28.932min|6.24%|
+| Aggregate CPU |280.351CPU-h|254.284CPU-h|9.30%|
+
+The control was retained, not rerun with this image; percentages are descriptive and establish neither a new matched gain nor an isolated patch effect. The prior a93f nine-hour observation was30.061min, so this later962b observation does not demonstrate an incremental nine-hour speedup. Main-step elapsed includes communication/waiting/backpressure. The protected science and original completion checks were unchanged. [Exact metrics and source references](tools/cpu-working/FULL_GRID_SUMMARY.json). [Own nine-hour qualification](tools/cpu-compute/advance-w-damping-phi-consumer-fusion/NINE_HOUR_APPLICATION_QUALIFICATION.json).
+
 ## October24 combined962b three-hour full-grid result
 
-The unprofiled combined962b run passed all four complete products and545 ordered steps against retained corrected-original546b. All512 rank/library/affinity, FABA/twoY, metadata/layout and four-writer checks passed; models and reader6b7e6bd4 closed normally. This qualifies the exact selected image through three hours; own nine-hour/noon/profile/restart/full144 coverage remains pending.
+The unprofiled combined962b run passed all four complete products and545 ordered steps against retained corrected-original546b. All512 rank/library/affinity, FABA/twoY, metadata/layout and four-writer checks passed; models and reader6b7e6bd4 closed normally. This qualified the exact selected image through three hours; its subsequent own nine-hour qualification is recorded above. Noon/profile/restart/full144 coverage remains pending.
 
 | Metric | Retained control | Combined962b | Reduction |
 |---|---:|---:|---:|
@@ -74,6 +92,7 @@ More recent full-grid runs are compared below with the **retained original contr
 |**9h original control**|34.489|—|30.859|—|280.351|—|Reference|
 |9h 526e (instrumented)|30.551|11.42%|28.871|6.44%|256.005|8.68%|PASS|
 |**9h a93f (unprofiled)**|**30.061**|**12.84%**|**28.704**|**6.98%**|**252.258**|**10.02%**|**PASS**|
+|**9h 962b (unprofiled)**|**30.305**|**12.13%**|**28.932**|**6.24%**|**254.284**|**9.30%**|**PASS**|
 
 All listed candidate rows passed their original exact scientific comparisons: four products/545 steps for3h and ten products/1,625 steps for9h. Instrumented means request observation; the a93f three-hour row also includes two15-second source-identity captures with mixed I/O. The new a93f nine-hour row has no request observer or profiles. Its percentages compare descriptively with the identified retained nine-hour control; this is not a fresh timing pair, incremental component attribution or repeatability evidence. [Exact metrics, control references and formulas](tools/cpu-working/FULL_GRID_SUMMARY.json). Separate short diagnostics remain a93f10min2.256/0.639min/14.954CPU-h (two products/35 steps) and eb5e1h instrumented4.701/3.025min/35.358CPU-h (two products/185 steps); their horizons are not compared with3h/9h controls.
 

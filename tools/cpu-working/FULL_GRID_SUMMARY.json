@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-10-24T00:45:50.244255+00:00",
+  "updated_utc": "2026-10-24T01:45:16.601891+00:00",
   "metric_definitions": {
     "wall_seconds": "Model/MPI including initialization/output/final drain",
     "main_step_sum_seconds": "Sum of reported main-step elapsed; includes communication/waiting/backpressure, not integration CPU",
@@ -211,6 +211,45 @@
         "sha256": "609af4cfd16367649d97e9afee389641f8f15d5941558bac4de4cc109031f886"
       },
       "limits": "Unpaired retained546bA1 control. External packaging-only closure repair preserved failed donor wrapper and original scientific checks; no model rerun."
+    },
+    {
+      "build": "962b",
+      "horizon": "9h",
+      "run_id": "production512-current962b-own9h-candidate-r1",
+      "metrics": {
+        "wall_seconds": 1818.302093561273,
+        "cpu_seconds": 915423.459331,
+        "main_step_sum_seconds": 1735.94714
+      },
+      "reduction_vs_retained_control_percent": {
+        "wall_seconds": 12.130123872660425,
+        "cpu_seconds": 9.297961732731075,
+        "main_step_sum_seconds": 6.243300728628398
+      },
+      "instrumented": false,
+      "observer": false,
+      "exact_science_status": "PASS_ORIGINAL_TEN_HISTORY_AND_512_DIRECT_STOCK_LATEST_NINE_HOUR_SEQUENCE",
+      "reference": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current962b-own9h-science-runtime-r1/RESULT.json",
+        "sha256": "c9281f41435d425757aa2eae7f41e18ca55127fa9f76a1e2062cab5ac986ceb9"
+      },
+      "science_receipt": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current962b-own9h-science-runtime-r1/science-receipt.json",
+        "sha256": "d5a13911155be76ec0df428ed622e6916ae1f17c8cd8238dd81d529b1ba1ac9c"
+      },
+      "reader_closure": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current962b-own9h-science-runtime-r1/reader-closure.json",
+        "sha256": "8a167a2a1db0a40df7bbe3f14b3e77b6a2b013bfcd0a2ef887b980b791d422d3"
+      },
+      "model_closures": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current962b-own9h-science-runtime-r1/candidate-closures.json",
+        "sha256": "815396a030f52f8bc68c3c49c3f5d2e4184aa92a129be25178ab84364cea2bbc"
+      },
+      "limits": "One later candidate versus retained actual546b control. Different order/time/cache/serverload; no freshpair/repeatability/perkernelcausalclaim. Main includes communication/backpressure; residual is not pureIO.",
+      "qualification": {
+        "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advance-w-damping-phi-consumer-fusion/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+        "sha256": "5c0995866d5191aea01e74d0cd59dd61b2b67ac022765ded2de9c60415b04ad8"
+      }
     }
   ],
   "limits": "Recent rows compare descriptively with identified retained same-horizon controls. They are not fresh matched pairs, causal incremental gains, repeatability or additive percentages. Instrumented observations are labelled."
