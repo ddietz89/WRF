@@ -1,5 +1,11 @@
 # WRF CPU optimization findings
 
+## October24: targeted sender profile and noon science passed
+
+The selected `962b` image passed the noon 12:00–13:00 scientific check: both products and all 185 ordered steps match the retained corrected original exactly. All four model jobs and the scientific reader closed normally. The selected executable, sources, defaults and providers are unchanged. [Qualification and retained failure history](tools/cpu-runtime/mpi-request-source-identity/CURRENT962B_NOON_ONE_HOUR_SENDER114_DIAGNOSTIC.json).
+
+A 15-second recording of rank 114 produced 1,391 usable sampled-IP records. Target and recorder identity, file growth, normal closure and native parsing were verified. This mixed-I/O recording identifies source work; it does not establish a pure-compute profile or a speedup. Sampled instructions and callers remain distinct. Unknown libc implementations and numeric sample loss remain unknown; exchange-specific attribution is recorded separately after its current-stream analysis.
+
 ## October24: alternative compression backend rejected in its first screen
 
 Installed libdeflate1.19 at level2 passed exact stock decoding, canaries and paired five-part state against selected zlib-ng9371 on one public synthetic56.43MB shuffled chunk. It took **7.64–7.65 times as long** with compressor allocation/free included in opposite-order hpc01/hpc04 pairs (eight encodes per cost scope). Its stream was **7.11% larger**, and stock decoding was slower too. Cache clears preceded every arm; all four jobs closed normally. This is a concrete rejection of the tested backend on this case, without a claim about every scientific field or other library versions.
