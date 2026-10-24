@@ -1,5 +1,28 @@
 # WRF CPU optimization findings
 
+## October24: same256 three-hour science passed; concurrency parked
+
+The fresh SAME256 three-hour comparison passed the unchanged original checker for all four complete products and the same 545 ordered steps through 09:00. Both arms used 224 compute ranks (8×28) plus 32 quilt ranks; original546b ran first and current90f5 second. All eight model scopes and the reader closed successfully with invocation-bound manager evidence and absent cgroups. This is one fixed-order pair, without a repeatability or per-kernel causal claim.
+
+| SAME256 metric | Corrected-original546b | Current90f5 | Reduction from control |
+|---|---:|---:|---:|
+| Model/MPI wall (min) | 25.522 | 19.907 | 22.00% |
+| Main-step elapsed (min) | 22.031 | 18.315 | 16.87% |
+| Aggregate CPU (core-hours) | 101.325 | 82.468 | 18.61% |
+
+Own cgroup lifetime memory peaks (GiB):
+
+| Arm | hpc01 | hpc02 | hpc03 | hpc04 |
+|---|---:|---:|---:|---:|
+| control | 58.895 | 57.328 | 57.140 | 60.090 |
+| candidate | 36.637 | 34.451 | 34.953 | 41.172 |
+
+All reported memory-event counters were zero. These are single-job lifetime cgroup peaks; they do not admit two simultaneous forecasts.
+
+The current256 wall of 1194.425896s is 1.8863× the separately measured current512 fresh mean of 633.2243s. This descriptive cross-decomposition comparison does not establish byte equality or a matched performance reduction. Even assuming two256 jobs could run concurrently without contention at the observed single-job speed, arithmetic throughput would be only 1.0603× sequential512; this is a projection, neither a bound nor an admission result. Park the secondary concurrency branch and retain512 as the primary single-forecast route. Own SAME256 science and memory evidence remain useful; selected source, runtime, providers and defaults remain unchanged.
+
+Main-step elapsed includes communication, waiting and output backpressure; aggregate CPU is whole-job consumption. [Exact result and decision](tools/cpu-compute/same256-current90f5-threehour-comparison/DECISION.json).
+
 ## October24: current90f5 passed fresh matched three-hour ABBA
 
 Current **90f54730 / archive0f4ccda1**, source correspondence **3c1fdd33**, passed the unchanged original full512 three-hour checker twice: four products and545 ordered steps per candidate arm, all16 model scopes and both readers normal closed. Fresh order was **A1–B1–B2–A2**, with checked caches before every arm. The immutable short qualification remains separate.
