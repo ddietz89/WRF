@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-10-24T10:16:29.791742+00:00",
+  "updated_utc": "2026-10-24T14:15:28.230122+00:00",
   "metric_definitions": {
     "wall_seconds": "Model/MPI including initialization/output/final drain",
     "main_step_sum_seconds": "Sum of reported main-step elapsed; includes communication/waiting/backpressure, not integration CPU",
@@ -443,6 +443,55 @@
         "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentb21c-first-y-zero-seed-child10m-runtime-r1/RESULT.json",
         "sha256": "6e3b5816fc384e009a1fd49acf68e52c50aa155cd4c866febb3a73a073a90026"
       }
+    },
+    {
+      "build": "90f5",
+      "horizon": "9h",
+      "run_id": "production512-current90f5-own9h-daytime-diagnostic-r4-candidate",
+      "metrics": {
+        "wall_seconds": 1793.1501692058519,
+        "cpu_seconds": 900891.152658,
+        "main_step_sum_seconds": 1691.4842
+      },
+      "control_metrics": {
+        "wall_seconds": 2069.3122304237913,
+        "cpu_seconds": 1009264.484921,
+        "main_step_sum_seconds": 1851.54464
+      },
+      "aggregate_cpu_core_hours": {
+        "control": 280.3512458113889,
+        "candidate": 250.247542405
+      },
+      "reduction_vs_retained_control_percent": {
+        "wall_seconds": 13.345596529982428,
+        "cpu_seconds": 10.737852553236614,
+        "main_step_sum_seconds": 8.64469786696582
+      },
+      "instrumented": true,
+      "observer": true,
+      "exact_science_status": "PASS_ORIGINAL_TEN_HISTORY_AND_512_DIRECT_STOCK_LATEST_NINE_HOUR_SEQUENCE",
+      "reference": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current90f5-own9h-daytime-diagnostic-runtime-r4/RESULT.json",
+        "sha256": "4f9bcbe243542c1dd2f2e1ca835351934a0056c586a995cda0ee4d5404747964"
+      },
+      "science_receipt": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current90f5-own9h-daytime-diagnostic-runtime-r4/science-receipt.json",
+        "sha256": "fa6724770d0e15d110eb1b3662486b465ba4955caa6d13d5cf9e949bf4a0e0ae"
+      },
+      "reader_closure": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current90f5-own9h-daytime-diagnostic-runtime-r4/reader-closure.json",
+        "sha256": "c814a1c518b0091e8be550600a2b21783336f0c746aa8b115afd3c2acfadde8a"
+      },
+      "model_closures": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current90f5-own9h-daytime-diagnostic-runtime-r4/candidate-closures.json",
+        "sha256": "b59be2d0fd9c9f6cb8518cc82b62813885c6b7869283647da6baa5d11892ed01"
+      },
+      "qualification": {
+        "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advect-first-y-zero-seed/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+        "sha256": "941dd808e26e2b2f32d3ee332f6d8e20eee9fc3b5775daf94657e4f88059a609"
+      },
+      "timing_gain_claim": false,
+      "limits": "Instrumented candidate versus retained corrected-original546b; UNPAIRED descriptive values only."
     }
   ],
   "limits": "Recent rows compare descriptively with identified retained same-horizon controls. They are not fresh matched pairs, causal incremental gains, repeatability or additive percentages. Instrumented observations are labelled.",
@@ -451,10 +500,10 @@
     "archive_sha256": "0f4ccda13fbe197ca6ce4c175ee1b1fa3ad12e756765c8d05afcacba2c24dce4",
     "own_short_qualified": true,
     "own_three_hour_qualified": true,
-    "own_nine_hour_qualified": false,
+    "own_nine_hour_qualified": true,
     "latest_completed_3h_image": "90f5",
-    "latest_completed_9h_image": "b21c",
-    "qualification_scope": "Ownshort and fresh matched3h only; b21c9h remains historical to b21c.",
+    "latest_completed_9h_image": "90f5",
+    "qualification_scope": "Own short, fresh matched three-hour ABBA, and instrumented own nine-hour exact science. Full four-profile, restart and full144 remain pending.",
     "qualification": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advect-first-y-zero-seed/THREE_HOUR_APPLICATION_QUALIFICATION.json",
       "sha256": "5c68656a474b313e7a99f40666441cd09b9411b25110ec3e2388693327f8bc14"
@@ -462,15 +511,21 @@
     "own_recovered_threehour_exact_science": false,
     "latest_completed_horizon_labels_apply_to_current_selection": {
       "three_hour": true,
-      "nine_hour": false
+      "nine_hour": true
     },
     "executable": {
       "path": "/pool/wrf-experiment/wrf-cpu/builds/currentb21c-first-y-zero-seed-five-member-native-r1/wrf.exe",
       "sha256": "90f5473062922c82d26aaeb68fc95c512a3e0e328d5dab1a365dc5e14ed7b64b"
     },
     "noon_profile_restart_full144_qualified": false,
-    "scope": "Current90f5 own35/2 and two normal545/4 arms; no9h/noon/profile/restart/full144 transfer.",
-    "latest_completed_9h_scope": "Historical parent b21c only; current90f5 own9h remains false"
+    "scope": "Current90f5 own35/2, two normal545/4 arms and instrumented1625/10; no nine-hour matched performance claim.",
+    "latest_completed_9h_scope": "Current90f5 own instrumented science; descriptive timings versus retained same-horizon546b.",
+    "own_profiled_nine_hour_science_qualified": true,
+    "own_unprofiled_nine_hour_science_qualified": false,
+    "nine_hour_qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advect-first-y-zero-seed/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "941dd808e26e2b2f32d3ee332f6d8e20eee9fc3b5775daf94657e4f88059a609"
+    }
   },
   "recovered_diagnostic_runs": [
     {

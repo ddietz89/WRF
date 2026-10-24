@@ -1,5 +1,28 @@
 # WRF CPU optimization findings
 
+## October24: current90f5 nine-hour exact science passed; two caller candidates closed
+
+Current **90f54730 / archive0f4ccda1**, source correspondence **3c1fdd33**, completed all ten products and1,625 ordered steps through15:00 with the unchanged original numerical, nonfinite, metadata and layout checker. All four model services and the reader closed normally. The exact image now owns short, fresh matched three-hour ABBA and instrumented nine-hour science; the earlier snapshots below retain their publication-time scope.
+
+|Nine-hour metric|Retained corrected-original546b control|Instrumented current90f5|Reduction from control|
+|---|---:|---:|---:|
+|Model/MPI wall (min)|34.489|29.886|13.35%|
+|Integration-loop elapsed (min)|30.859|28.191|8.64%|
+|Aggregate CPU (core-hours)|280.351|250.248|10.74%|
+
+These nine-hour percentages are **unpaired descriptive** observations against the retained same-horizon original. They are not a fresh matched timing or isolated component effect. Integration-loop elapsed includes communication, waits and output backpressure; aggregate CPU is whole-job consumption. The separate fresh three-hour ABBA table below remains the matched performance result. [Own nine-hour science and exact metrics](tools/cpu-compute/advect-first-y-zero-seed/NINE_HOUR_APPLICATION_QUALIFICATION.json).
+
+The early rank114 and noon rank122 30-second native recordings were decoded against the actual current ELF. Rank122 lacks positive external live-watch evidence; rank0 and writer collectors failed their startup guards before recording. No full four-role profile qualification is claimed. The same-run local-clock channel proof qualifies1,026 exchange pairs with90 unknowns; deduplicated preceding-send samples identify work before delayed initiation, without proving payload availability, wire delay or globally removable wait. Library implementation and numeric sample loss remain unknown. The two repeated current instructions in a delayed sender's Coriolis U loop motivate a distinct horizontal-coefficient cache test. [Diagnosis and evidence](tools/cpu-compute/current90f5-daytime-and-caller-closeout/DIAGNOSIS.json).
+
+Two private prototypes passed finite correctness but demonstrated no complete-caller benefit:
+
+|Candidate|hpc01 parent→candidate caller wall|Reduction|hpc04 parent→candidate caller wall|Reduction|Decision|
+|---|---:|---:|---:|---:|---|
+|Pressure-consumer fusion|2.105→2.147s|−1.99%|2.046→2.202s|−7.60%|Park unpromoted|
+|Neighboring U-flux reuse|1.0087→1.0128s|−0.41%|0.9997→1.0055s|−0.58%|Park unpromoted|
+
+These are opposite-order node pairs with checked cache clears before every arm, full caller/state checks and normal closures. They do not establish a universal slowdown or machine-level cause. Static division reduction alone did not demonstrate a gain. Retain the evidence and move to the next distinct measured mechanism; no application matrix, performance source/default change or production deployment follows. [Pressure decision](tools/cpu-compute/current90f5-daytime-and-caller-closeout/PRESSURE_DECISION.json), [U-flux decision](tools/cpu-compute/current90f5-daytime-and-caller-closeout/UF_DECISION.json).
+
 ## October24: same256 three-hour science passed; concurrency parked
 
 The fresh SAME256 three-hour comparison passed the unchanged original checker for all four complete products and the same 545 ordered steps through 09:00. Both arms used 224 compute ranks (8×28) plus 32 quilt ranks; original546b ran first and current90f5 second. All eight model scopes and the reader closed successfully with invocation-bound manager evidence and absent cgroups. This is one fixed-order pair, without a repeatability or per-kernel causal claim.

@@ -1,5 +1,5 @@
 {
-  "status": "SELECTED_FIRST_Y_ZERO_SEED_OWN_SHORT_AND_FRESH_ABBA_THREE_HOUR",
+  "status": "SELECTED_FIRST_Y_ZERO_SEED_OWN_SHORT_FRESH_ABBA_THREE_HOUR_AND_INSTRUMENTED_NINE_HOUR_SCIENCE",
   "source_commit": "3c1fdd330e7ceae1d5fce66a538a8022ee4aed5e",
   "executable": {
     "path": "/pool/wrf-experiment/wrf-cpu/builds/currentb21c-first-y-zero-seed-five-member-native-r1/wrf.exe",
@@ -447,7 +447,7 @@
       "sha256": "08a34fa7d3f8f13b9a0fd2fe25fff7c4d1690692422b33b9e6a1ac067280cf0b"
     }
   },
-  "current_nine_hour_qualified": false,
+  "current_nine_hour_qualified": true,
   "previous_nine_hour_qualification": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_NINE_HOUR_FINAL_QUALIFICATION_B1FB.json",
     "sha256": "f38a865905d030be42ac0a965b4aa6afbc0eae280902a3839f20df176457f445"
@@ -551,7 +551,10 @@
     "output_postscience_source_commit": "6697020f800df164e3dee6d04d7c3639b297cca6",
     "scope": "Current86aa/8bee selectedoutput; fullshim component versus owncombinedapplication scopes distinct."
   },
-  "nine_hour_full_application": null,
+  "nine_hour_full_application": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advect-first-y-zero-seed/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "941dd808e26e2b2f32d3ee332f6d8e20eee9fc3b5775daf94657e4f88059a609"
+  },
   "previous_noon75m_full_application": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-output/quilt512/padding-block32/APPLICATION_QUALIFICATION.json",
     "sha256": "fb3853a2dd3561319ec92a5ebf8bb66062b89e2ddbbec57bb591dc84eb023b8d"
@@ -820,9 +823,12 @@
     "archive_sha256": "068da5b1d14a274c0fe64834fb834615f8765f46cc8f57a616b3b7acaf94a371",
     "scope": "One RQVFTEN-loop directive only, committed after native/caller/canonical-preprocess/link/original3hSCI. Frozen rawproducerNULL unchanged; no isolated forecast or own9h claim."
   },
-  "current_profiled_nine_hour_science_qualified": false,
+  "current_profiled_nine_hour_science_qualified": true,
   "current_unprofiled_nine_hour_science_qualified": false,
-  "current_profiled_nine_hour_qualification": null,
+  "current_profiled_nine_hour_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advect-first-y-zero-seed/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "941dd808e26e2b2f32d3ee332f6d8e20eee9fc3b5775daf94657e4f88059a609"
+  },
   "previous_RQVBLTEN_PART2_POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
     "source_commit": "a01463f8481ce27456b0f2104faa1f0dd3980609",
@@ -959,7 +965,10 @@
     "creator_libm_errno_preservation": false,
     "physical_memory_reduction_causally_qualified": false
   },
-  "current_nine_hour_qualification": null,
+  "current_nine_hour_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advect-first-y-zero-seed/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "941dd808e26e2b2f32d3ee332f6d8e20eee9fc3b5775daf94657e4f88059a609"
+  },
   "current_application_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/advect-first-y-zero-seed/THREE_HOUR_APPLICATION_QUALIFICATION.json",
   "previous_E3_POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
@@ -1097,7 +1106,7 @@
     "repeatability_established": false,
     "scope": "Exact4products545/full512/twoTiles/all4positivewriters/all32markers; main-step sum is elapsed not integrationCPU; no isolated/additive/pureIO/memorycausality claim."
   },
-  "scope": "Exact90f5 ownshort and two fresh normal3h observations; no inherited9h/noon/profile/restart/full144.",
+  "scope": "Exact90f5 ownshort, two fresh normal3h observations, instrumented own9h exact science. Intended fullfourprofile/restart/full144 remain unqualified.",
   "previous_3582_e1d8_science": {
     "products": 4,
     "ordered_steps": 545,
@@ -1427,7 +1436,7 @@
     "applies_to_current_selection": false
   },
   "current_application_retry_scope": null,
-  "next_qualification": "Own9h/noon/profile/restart/full144 pending.",
+  "next_qualification": "Full intended profile coverage, restart and full144 remain pending; no rerun of nine-hour solely to repair auxiliary startup collectors.",
   "previous_A50E_before_SPCVMC": {
     "paired_record": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_CURRENT_SOURCE_BUILD_BINDING_BEFORE_SPCVMC_OPTICAL.json",
@@ -1680,7 +1689,55 @@
   },
   "before_SPCVMC_own9h_claim_limits": "Actual unprofiled noon original science passed2products230steps. Candidate309.833275s wall/235.343340s main/151770.087473CPU-s is UNPAIRED against retained original; no isolated SPCVMC forecast gain, repeatability or horizon transfer. Whole-minus-main is not pureIO. Main elapsed includes communication/backpressure and is not integrationCPU.",
   "before_SPCVMC_own9h_comparison_design": "UNPAIRED candidate-only noon scientific reference; descriptive metrics only",
-  "latest_nine_hour": null,
+  "latest_nine_hour": {
+    "build": "90f5",
+    "horizon": "9h",
+    "run_id": "production512-current90f5-own9h-daytime-diagnostic-r4-candidate",
+    "metrics": {
+      "wall_seconds": 1793.1501692058519,
+      "cpu_seconds": 900891.152658,
+      "main_step_sum_seconds": 1691.4842
+    },
+    "control_metrics": {
+      "wall_seconds": 2069.3122304237913,
+      "cpu_seconds": 1009264.484921,
+      "main_step_sum_seconds": 1851.54464
+    },
+    "aggregate_cpu_core_hours": {
+      "control": 280.3512458113889,
+      "candidate": 250.247542405
+    },
+    "reduction_vs_retained_control_percent": {
+      "wall_seconds": 13.345596529982428,
+      "cpu_seconds": 10.737852553236614,
+      "main_step_sum_seconds": 8.64469786696582
+    },
+    "instrumented": true,
+    "observer": true,
+    "exact_science_status": "PASS_ORIGINAL_TEN_HISTORY_AND_512_DIRECT_STOCK_LATEST_NINE_HOUR_SEQUENCE",
+    "reference": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current90f5-own9h-daytime-diagnostic-runtime-r4/RESULT.json",
+      "sha256": "4f9bcbe243542c1dd2f2e1ca835351934a0056c586a995cda0ee4d5404747964"
+    },
+    "science_receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current90f5-own9h-daytime-diagnostic-runtime-r4/science-receipt.json",
+      "sha256": "fa6724770d0e15d110eb1b3662486b465ba4955caa6d13d5cf9e949bf4a0e0ae"
+    },
+    "reader_closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current90f5-own9h-daytime-diagnostic-runtime-r4/reader-closure.json",
+      "sha256": "c814a1c518b0091e8be550600a2b21783336f0c746aa8b115afd3c2acfadde8a"
+    },
+    "model_closures": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current90f5-own9h-daytime-diagnostic-runtime-r4/candidate-closures.json",
+      "sha256": "b59be2d0fd9c9f6cb8518cc82b62813885c6b7869283647da6baa5d11892ed01"
+    },
+    "qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advect-first-y-zero-seed/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "941dd808e26e2b2f32d3ee332f6d8e20eee9fc3b5775daf94657e4f88059a609"
+    },
+    "timing_gain_claim": false,
+    "limits": "Instrumented candidate versus retained corrected-original546b; UNPAIRED descriptive values only."
+  },
   "previous_SPCVMC_before_HPG_NHX": {
     "paired_record": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_SOURCE_BUILD_BINDING_BEFORE_HPG_NHX.json",
@@ -5152,7 +5209,7 @@
     "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currenta93f-next-after-zero-finite-triage-r1/canonical-delivery-one-object-r1/actual-native-r1/receipt.json",
     "sha256": "b7b42ff985e454b62902997b7231d290d7c4f668346e5475fb54436cad02b115"
   },
-  "updated_utc": "2026-10-24T02:38:06.258852+00:00",
+  "updated_utc": "2026-10-24T14:15:28.230122+00:00",
   "ww_row_pipeline_producer": {
     "source_commit": "6b689c8a897394acf5d1e5a6f245212ebb7e0e9d",
     "native": {
@@ -5251,7 +5308,17 @@
     "sha256": "d7f05ecb68ab36342592eb2ac852a4beb16602bea6976cebd6e7e412a67d5023"
   },
   "current_noon_one_hour_qualification": null,
-  "current_source_identity_profile": null,
+  "current_source_identity_profile": {
+    "early114": "Native/source/live bridge qualified for 30-second mixed-I/O source identity.",
+    "noon122": "Native/source decoded; positive external live-watch interval missing.",
+    "rank0": "Failed startup, no recorder.",
+    "writer": "Failed startup, no recorder.",
+    "whole_four_role_profile_qualified": false,
+    "diagnosis": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/current90f5-daytime-and-caller-closeout/DIAGNOSIS.json",
+      "sha256": "0ea216da3b98ac9f3c38b18f9b133279b0ac226f58e751127b3c367b7090a080"
+    }
+  },
   "reduction_vs_retained_control_percent": null,
   "parent_working_records": {
     "git_commit": "58c569ff2add459295e149d5bc180563c99a4925",
@@ -5467,6 +5534,30 @@
     "candidate_observations": 2,
     "all_exact": true,
     "all16_models_and_both_readers_normal_closed": true,
+    "original_checker_unchanged": true
+  },
+  "current_nine_hour_science": {
+    "products": 10,
+    "ordered_steps": 1625,
+    "start": "2026-10-12_06:00:00",
+    "last_step": "2026-10-12_15:00:00",
+    "world": 512,
+    "compute": 480,
+    "quilt": 32,
+    "tiles": 2,
+    "decomposition": [
+      8,
+      60
+    ],
+    "positive_writer_roots": [
+      487,
+      495,
+      503,
+      511
+    ],
+    "positive_field_markers": 32,
+    "all_exact": true,
+    "all4models_and_reader_normal_closed": true,
     "original_checker_unchanged": true
   }
 }
