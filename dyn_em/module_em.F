@@ -1898,7 +1898,12 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
 
    INTEGER :: i_start,i_end,j_start,j_end,k_start,k_end
    INTEGER :: i_start_spc,i_end_spc,j_start_spc,j_end_spc,k_start_spc,k_end_spc
+#if defined(WRF_RK_SCALAR_EXACT_CLEAR) && defined(DM_PARALLEL) && !defined(_OPENMP)
+   LOGICAL :: skip_clear
+#else
 
+#endif
+#line 1902
 !<DESCRIPTION>
 !
 !  rk_scalar_update advances the scalar equation given the time t value
@@ -1932,14 +1937,24 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
       k_start = kts
       k_end   = min( kte, kde-1 )
     ENDIF
+#if defined(WRF_RK_SCALAR_EXACT_CLEAR) && defined(DM_PARALLEL) && !defined(_OPENMP)
+    skip_clear = i_start==its .AND. i_end==MIN(ite,ide-1) .AND. j_start==jts .AND. j_end==MIN(jte,jde-1) .AND. k_start==kts .AND. k_end==MIN(kte,kde-1)
+#else
 
+#endif
+#line 1936
     IF ( rk_step == 1 ) THEN
 
       !  replace t-dt values (in scalar_1) with t values scalar_2,
       !  then compute new values by adding tendency to values at t
 
       DO  im = scs,sce
+#if defined(WRF_RK_SCALAR_EXACT_CLEAR) && defined(DM_PARALLEL) && !defined(_OPENMP)
+       IF ( .NOT. skip_clear ) THEN
+#else
 
+#endif
+#line 1943
        DO  j = jts, min(jte,jde-1)
        DO  k = kts, min(kte,kde-1)
        DO  i = its, min(ite,ide-1)
@@ -1947,7 +1962,12 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
        ENDDO
        ENDDO
        ENDDO
+#if defined(WRF_RK_SCALAR_EXACT_CLEAR) && defined(DM_PARALLEL) && !defined(_OPENMP)
+       ENDIF
+#else
    
+#endif
+#line 1951
        IF (i_start == i_start_spc .AND. i_end == i_end_spc .AND. &
            j_start == j_start_spc .AND. j_end == j_end_spc .AND. &
            k_start == k_start_spc .AND. k_end == k_end_spc) THEN
@@ -2006,7 +2026,12 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
       !  just compute new values, scalar_1 already at time t.
 
       DO  im = scs, sce
+#if defined(WRF_RK_SCALAR_EXACT_CLEAR) && defined(DM_PARALLEL) && !defined(_OPENMP)
+       IF ( .NOT. skip_clear ) THEN
+#else
 
+#endif
+#line 2010
        DO  j = jts, min(jte,jde-1)
        DO  k = kts, min(kte,kde-1)
        DO  i = its, min(ite,ide-1)
@@ -2014,7 +2039,12 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
        ENDDO
        ENDDO
        ENDDO
+#if defined(WRF_RK_SCALAR_EXACT_CLEAR) && defined(DM_PARALLEL) && !defined(_OPENMP)
+       ENDIF
+#else
    
+#endif
+#line 2018
        IF (i_start == i_start_spc .AND. i_end == i_end_spc .AND. &
            j_start == j_start_spc .AND. j_end == j_end_spc .AND. &
            k_start == k_start_spc .AND. k_end == k_end_spc) THEN

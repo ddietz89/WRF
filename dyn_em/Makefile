@@ -480,6 +480,26 @@ endif
 endif
 endif
 
+# Exact private RK scalar clear elimination; optout regenerates Em, replaces slot560 and relinks.
+WRF_RK_SCALAR_EXACT_CLEAR ?= 1
+ifeq ($(WRF_RK_SCALAR_EXACT_CLEAR),1)
+ifeq ($(WRF_RK_TENDENCY_SIMD),1)
+ifeq ($(strip $(OMPCPP) $(OMP) $(PROMOTION) $(DOUBLE_PRECISION)),)
+ifeq ($(strip $(RWORDSIZE)),4)
+ifeq ($(strip $(IWORDSIZE)),4)
+ifeq ($(filter -fdefault-% -freal-% -finteger-% -r8 -i8,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
+ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+module_em.o: private override CPPFLAGS += -DWRF_RK_SCALAR_EXACT_CLEAR
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+
 cio.o :
 	$(CC) -c $(CFLAGS) cio.c
 
