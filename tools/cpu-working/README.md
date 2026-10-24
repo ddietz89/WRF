@@ -1,4 +1,29 @@
-# Current working selection: U nonhydrostatic pressure-correction SIMD
+# Current working image89bd; latest long full-grid comparisons remain962b
+
+Current executable **89bdbe3d**, archive **d2a6508b**, post-test canonical source **bb32066c** retains all previous selected improvements and adds moisture-family WW preparation reuse. Its own two-product/35-step full512 exact check and guarded source rebuild correspondence passed. Its three-hour/nine-hour, profile, restart and full144-hour scopes remain pending. [Evidence and rollback](../cpu-compute/moisture-family-ww-split-reuse/README.md).
+
+The latest completed long full-grid comparisons below belong to **parent962bdf29 / archivebd1ae1d4**, not89bd. Parent962b passed four products/545 steps and ten products/1,625 steps exactly; those qualifications do not transfer to the new image.
+
+|Forecast|Metric|Retained corrected-original546b control|Combined962b|Reduction from control|
+|---|---|---:|---:|---:|
+|3h|Model/MPI wall|13.313 min|10.691 min|19.70%|
+|3h|Main-step elapsed|9.909 min|9.276 min|6.39%|
+|3h|Aggregate node CPU|99.589 core-hours|86.617 core-hours|13.03%|
+|9h|Model/MPI wall|34.489 min|30.305 min|12.13%|
+|9h|Main-step elapsed|30.859 min|28.932 min|6.24%|
+|9h|Aggregate node CPU|280.351 core-hours|254.284 core-hours|9.30%|
+
+These are later candidate observations versus identified retained same-horizon controls, **not fresh matched pairs**. No incremental or repeatability claim follows. Main-step elapsed includes communication, waiting and output backpressure; aggregate CPU is whole-job core-time, not integration-only CPU. The client-cache SOP was retained; file-server load/cache is uncontrolled.
+
+The separate counterbalanced **19ad** three-hour comparison used A–B–B–A, two observations per image. Mean wall was 13.323→10.990 minutes (**17.51% lower**); main-step elapsed 9.919→9.291 minutes (**6.34% lower**); CPU 99.644→88.823 core-hours (**10.86% lower**). That matched result applies to19ad, not to962b.
+
+[Exact values, image identities and evidence](FULL_GRID_SUMMARY.json). [Current selection](selection.json) and [source/build binding](CURRENT_SOURCE_BUILD_BINDING.json) carry support and qualification scope. Working89bd moisture-family preparation reuse is promoted with own short two-product/35-step science; its longer qualification is pending. Production/master are unchanged; AWS remains suspended.
+
+All selection narratives below are historical snapshots and do not override these current artifact and qualification bindings.
+
+---
+
+# Historical79be selection: U nonhydrostatic pressure-correction SIMD
 
 **79bebebb / archive1ade2c8f / post-test source1f03a738** retains all previous improvements and adds the exact-qualified U pressure-correction SIMD directive. The current image owns short35 and full3h exact science: all four products and545 ordered steps matched. The fresh original-first pair was798.430250→638.924674s wall (**19.9774% lower**),594.341810→554.727540s main-step elapsed (**6.6652% lower**) and358152.909794→310564.250629 aggregate CPU-s (**13.2872% lower**). This is one fixed-order full-package comparison; ownnoon/9h/restart/profile remain pending.
 

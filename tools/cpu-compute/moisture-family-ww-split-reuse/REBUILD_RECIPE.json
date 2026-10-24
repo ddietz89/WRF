@@ -1,0 +1,36 @@
+{
+  "status": "ACTUAL_CANONICAL_ON_OFF_QUALIFIED_SOURCE_REBUILD_RECIPE",
+  "source_commit": "bb32066c63b5edfa3545d8d2d073da838c9d5ff9",
+  "raw_producer_source_commit": null,
+  "canonical_sources": {
+    "dyn_em/module_em.F": "c3b7f307a1a0d4647a2637ea5ae2cd2e71b2d74acdb98f5ccc060c70fa9f03d3",
+    "dyn_em/solve_em.F": "3406b711dfe4c714b9a3c92ca84935876e2ac12628b5194d78fbaa083369549d",
+    "dyn_em/Makefile": "bb69d46300d4059f08cdac6c54aa5304d753383a482e277bd7585faa0dec4562"
+  },
+  "knob": "WRF_MOISTURE_WW_SPLIT_REUSE",
+  "qualified_default": 1,
+  "support": "GNU13.3.0, WRF_RK_TENDENCY_SIMD=1, pure DM_PARALLEL normalEM, empty OMP/OMPCPP/PROMOTION/DOUBLE_PRECISION, native REAL4/INTEGER4 and no type-changing flags. Source guards retain original interface for unsupported builds; no serial/OpenMP/TL/AD qualification.",
+  "compiler_scope": "Existing strict generic O2; existing module_em-only -fopenmp-simd; solve_em generic strict O2. No new flags, ISA, precision, FMA or fast math.",
+  "steps": [
+    "Use the existing qualified configure.wrf/generated headers/dependency MODs/runtime helpers and unchanged WRF sed\u2192CPP\u2192standard.exe\u2192CPP pipeline.",
+    "Regenerate both module_em.f90 and solve_em.f90; compile module_em first and every built rk_scalar_tend caller against its matching module_em.mod. The selected archive audit has only solve_em.o as calling owner, with four active callsites.",
+    "Replace the two archive members at their original positions, preserving all582 other occurrences/order and existing direct helpers, then relink wrf.exe. A partial old-ABI caller reuse is invalid.",
+    "The actual canonical R3 receipt records flags, include/MOD pins, four exact PP hashes and runtime comparisons. Rebuilt object whole hashes differ through debug paths; allocated bytes/constants/relocations/non-file symbols and public MOD match the qualified native objects."
+  ],
+  "canonical": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/whole-rk-tend-native-preparation-r1/actual-canonical-cpp-r3/receipt.json",
+    "sha256": "fabce24856a8a2bcf31b0314cb563880e0b5236706b8877b47efd5222cfe5cdf"
+  },
+  "canonical_closure": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/whole-rk-tend-native-preparation-r1/actual-canonical-cpp-r3/closure.json",
+    "sha256": "f9d7fd798cbda34de320504519446564e0f33efef681b1ecb9442a066dce09f0"
+  },
+  "guard_coordinate_note": "Scoped logical line directives preserve both stages of WRF source diagnostics; eleven enabled-path blank/comment rows preserve the tested module-em output line budget. Unsupported paths retain original preprocessing. These directives do not change scientific statements.",
+  "rollback": {
+    "knob": "WRF_MOISTURE_WW_SPLIT_REUSE=0",
+    "requires": "Regenerate/recompile BOTH modules and all built callers; rearchive and relink. OFF preprocessed files exactly match the authenticated selected962b parents.",
+    "qualified_parent_exe": "962bdf2953282798d002c1f3da7a48b858a3e3b1c5c05b407b051f309da24470",
+    "qualified_parent_archive": "bd1ae1d4d6a570739c8c088f52da2e0b96ad19b5a4072baced338ba5c8d2670d",
+    "parent_posttest_source": "a10e4cbe121809ec84602c6a585089ca9f688b72"
+  }
+}
