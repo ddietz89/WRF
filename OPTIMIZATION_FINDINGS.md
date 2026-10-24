@@ -1,12 +1,22 @@
 # WRF CPU optimization findings
 
+## October24: moisture scratch-zero reuse promoted after exact short qualification
+
+Combined **b21c9c9f / archive0e4d54bf** retains scalar-family WW reuse and all earlier code/providers. It skips repeated h/z scratch clears only after the first admitted moisture species completes every tile in that RK stage. The absent/false, final-stage, non-moisture and IEVA paths retain the original clears. The qualified GNU13.3 default has an explicit `WRF_MOISTURE_HZ_ZERO_REUSE=0` opt-out requiring regeneration, owner rebuild, rearchive and relink.
+
+Both complete products and all35 ordered steps passed the unchanged original full512 scientific checker, including metadata/layout, two tiles, all512 observed environments and the required active writer contract. Actual short-window acquisition markers cover ranks480–495 and positive roots487/495; no all32-marker claim is made. All four models and reader9320ea73 closed normally. Own three-hour/nine-hour/noon/profile/restart/full144 remain pending for this exact image; the parent results below do not transfer.
+
+Native bounds/O2 complete-call tests and five-state checks passed. The two opposite-order full-family caller pairs reduced elapsed time by **1.57% and0.26%**, and process CPU by **1.56% and0.65%**. The independent recommendation to park the small second-node gain is retained alongside the owner's decision to integrate exact local improvements. These are short caller observations, not statistical significance or forecast percentages. No fresh original forecast was run for the short qualification.
+
+Actual canonical ON/OFF preprocessing and strict unrelated-code/constants correspondence passed. NewMOD165d is consumed by a fresh solve object with all four actual call sites; the archive replaces exactly two entries and preserves the other582. Source4d55413f records post-test correspondence, not a fresh whole-image rebuild. The two earlier canonical fixture/source-coordinate failures and the publication marker-count correction are preserved; neither changed the scientific checker. [Evidence and rollback](tools/cpu-compute/moisture-hz-zero-reuse/README.md).
+
 ## October24: scalar-family WW reuse promoted after its own short check
 
 The combined026c build retains all previous selected code and providers, replaces only `solve_em` in the archive, and passed the unchanged original two-product/35-step full512 check. All four models and the reader closed normally. Its own longer horizons remain pending; the 89bd three-hour and 962b nine-hour results below remain attached to their respective images.
 
 The complete QNI/QNR synthetic caller improved elapsed time by **1.34% and 1.48%** and process CPU time by **1.43% and 1.90%** in opposite-order node pairs, with exact raw, read-only, guard and floating-point-state checks. This is a caller result. The short forecast is a scientific qualification against retained outputs and establishes no matched forecast speedup. [Qualification, source correspondence and rollback](tools/cpu-compute/scalar-family-ww-split-reuse/README.md).
 
-The independent h/z scratch-clear candidate also passed native and complete-family exact checks. Its two caller pairs reduced elapsed time by **1.57% and 0.26%**, and process CPU by **1.56% and 0.65%**. The independent recommendation to park its small benefit is preserved; the owner’s inclusion policy supports proceeding through bounded guarded integration. It remains unpromoted while source/caller qualification is completed. The original scientific checker and constant-preservation comparator are unchanged.
+The independent h/z scratch-clear candidate also passed native and complete-family exact checks. Its two caller pairs reduced elapsed time by **1.57% and 0.26%**, and process CPU by **1.56% and 0.65%**. The independent recommendation to park its small benefit is preserved; the owner’s inclusion policy supports proceeding through bounded guarded integration. It subsequently passed canonical/source and own-short application qualification and was promoted in b21c, as recorded above. The original scientific checker and constant-preservation comparator are unchanged.
 
 A separate audit found that the sampled ordinary Y-flux formation loop already executes eight-lane SIMD with its loop invariants hoisted. No additional SIMD experiment is justified by that evidence. Fusing the initial tendency clear into first-Y accumulation remains a source-only hypothesis; deleting the entire clear would lose required top and boundary zeros.
 

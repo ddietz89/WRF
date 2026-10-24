@@ -1,8 +1,8 @@
-# Current working image026c; latest completed three-hour result89bd
+# Current working imageb21c; latest completed three-hour result89bd
 
-Current executable **026c330b**, archive **a5060103**, retains all previous selected improvements and adds scalar-family WW preparation reuse. Its own two-product/35-step full512 scientific check passed with normal model/reader closure. Canonical source correspondence is post-test commit **6fdcb52d**; the raw producer commit remains unknown. Its own longer horizons, profiles, restart and full144-hour scopes remain unqualified. [Evidence and rollback](../cpu-compute/scalar-family-ww-split-reuse/README.md).
+Current executable **b21c9c9f**, archive **0e4d54bf**, retains all previous selected improvements, including scalar-family WW reuse, and adds reuse of already-zero moisture scratch tendencies within each eligible RK stage. Its own two-product/35-step full512 scientific check passed; all four models and reader closed normally. Source correspondence is post-test commit **4d55413f**; the raw producer commit remains unknown. Its own three-hour test is being prepared; longer/profile/restart/full144 scopes remain unqualified. [Evidence, build guard and rollback](../cpu-compute/moisture-hz-zero-reuse/README.md).
 
-The following is the latest completed three-hour result, for **parent89bdbe3d**. Its four products and 545 steps matched exactly; that qualification does not transfer to026c.
+The following is the latest completed three-hour result, for **parent89bdbe3d**. Its four products and 545 steps matched exactly; that qualification does not transfer to026c or b21c.
 
 |Forecast / image|Metric|Retained corrected-original546b A1|89bd|Reduction from control|
 |---|---|---:|---:|---:|
@@ -14,7 +14,7 @@ This is an **unpaired descriptive** comparison with retained original546b A1, no
 
 ## Historical parent962b long-horizon observations
 
-The following retained rows belong to **parent962bdf29 / archivebd1ae1d4**, not89bd or026c. In particular, the ten-product/1,625-step nine-hour qualification does not transfer to either child.
+The following retained rows belong to **parent962bdf29 / archivebd1ae1d4**, not89bd,026c or b21c. In particular, the ten-product/1,625-step nine-hour qualification does not transfer to these children.
 
 |Forecast|Metric|Retained corrected-original546b control|Combined962b|Reduction from control|
 |---|---|---:|---:|---:|
@@ -27,9 +27,9 @@ The following retained rows belong to **parent962bdf29 / archivebd1ae1d4**, not8
 
 These parent observations are also unpaired and do not establish an incremental or repeatability claim.
 
-The separate counterbalanced **19ad** three-hour comparison used A–B–B–A, two observations per image. Mean wall was 13.323→10.990 minutes (**17.51% lower**); main-step elapsed 9.919→9.291 minutes (**6.34% lower**); CPU 99.644→88.823 core-hours (**10.86% lower**). That matched result applies to19ad, not to962b,89bd or026c.
+The separate counterbalanced **19ad** three-hour comparison used A–B–B–A, two observations per image. Mean wall was 13.323→10.990 minutes (**17.51% lower**); main-step elapsed 9.919→9.291 minutes (**6.34% lower**); CPU 99.644→88.823 core-hours (**10.86% lower**). That matched result applies to19ad, not to962b,89bd,026c or b21c.
 
-[Exact values, image identities and evidence](FULL_GRID_SUMMARY.json). [Current selection](selection.json) and [source/build binding](CURRENT_SOURCE_BUILD_BINDING.json) carry support and qualification scope. The current026c short qualification and historical89bd three-hour qualification remain separate. Production/master are unchanged; AWS remains suspended.
+[Exact values, image identities and evidence](FULL_GRID_SUMMARY.json). [Current selection](selection.json) and [source/build binding](CURRENT_SOURCE_BUILD_BINDING.json) carry support and qualification scope. The currentb21c short qualification and historical89bd three-hour qualification remain separate. Production/master are unchanged; AWS remains suspended.
 
 All selection narratives below are historical snapshots and do not override these current artifact and qualification bindings.
 

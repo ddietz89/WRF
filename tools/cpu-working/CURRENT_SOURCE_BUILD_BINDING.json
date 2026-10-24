@@ -1,11 +1,11 @@
 {
-  "status": "SELECTED_CURRENT026C_SCALAR_WW_REUSE_OWN_SHORT_ONLY",
-  "source_commit": "6fdcb52daeabe75f89088ec74cfd1532d936ec71",
+  "status": "SELECTED_CURRENTB21C_HZ_ZERO_REUSE_OWN_SHORT_ONLY",
+  "source_commit": "4d55413fadcf748f326963437024d9c90c7998e3",
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/current89bd-scalar-ww-reuse-one-member-native-r1/wrf.exe",
-    "sha256": "026c330b053a5ae3469383ae4f8ff4fa358f2c1839a6e5c8c34d1e3185ce2a07"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current026c-hz-zero-reuse-two-member-native-r1/wrf.exe",
+    "sha256": "b21c9c9f0273c5fdad77d207840bad25ed500e0a7e1c3ea1c853ecd43aa599e4"
   },
-  "archive_sha256": "a50601039b6216bbb0f66db4864e13970edf2ba349045048305f30c6c8ad23cd",
+  "archive_sha256": "0e4d54bfb885ee18a5e6654ef07d79727a23bbaeb8e13ebf0147a376bc95ec0e",
   "sources": {
     "dyn_em/start_em.F": "ba19b902eb43c9baa2f59d3ffef0dec7c6a0ccbf0a9ceb062b72e55cff5366fc",
     "phys/module_mp_thompson.F": "b59a95c95ecf79dc844cbe1168f6075eac629a918c3f9531d15261e668ba3628",
@@ -17,7 +17,7 @@
     "dyn_em/module_advect_em.F": "2f547efb3508c6bff5aa93bfba4bb38b146ef10b260a42927b1431172b2bfa07",
     "share/module_bc.F": "053f90bf4c0220b8bfde1397304fa7b5512678361132159e34bc9515a49c802f",
     "dyn_em/module_big_step_utilities_em.F": "e77b979a9bad159dfe27595ccfbbfecd2abbbb9c29430a3c6e5124bd111397b5",
-    "dyn_em/module_em.F": "c3b7f307a1a0d4647a2637ea5ae2cd2e71b2d74acdb98f5ccc060c70fa9f03d3",
+    "dyn_em/module_em.F": "49d89badc324acfba01a8e26d47b2fb26503cb96162a9c1e6b9ab76f6ef4d8cc",
     "dyn_em/module_small_step_em.F": "dca3706b240bedc04ec4e5091a4763c310082ef67be8340c8c75563468e78f5b",
     "phys/module_bl_myjpbl.F": "795e00134d47f98f512d61ffc45f93b3599202499ee8d8429009611d21c4b11f",
     "external/io_netcdf/transpose_integer_forward.code": "ca8d136ebf9c54f913337802f60fe7d3d0accbb7ef3bb32318a026d6c4f056d9",
@@ -29,8 +29,8 @@
     "tools/cpu-compute/phy-height-private-avx2-fixed8/phy_height_row_legacy.c": "8804ccc05530880a9838c634e412029c2f778b8400c0dd2b5ce6caedf57f7051",
     "phys/module_physics_addtendc.F": "0ced757c776c6e67d7c61a7ac9b152501ccd394d066ddfaed2dd2d19d16502c7",
     "phys/Makefile": "ea7346e07ff4ddc7c6c9f43c32dbd51813659028e1f0dd0407538f596f356e8f",
-    "dyn_em/Makefile": "bad8e89ffe196e6ace0f1185b56c919942590a0ff3c4bbcd71ce1d913b919d3d",
-    "dyn_em/solve_em.F": "a522f41c037dd563bca5f12b05c37a6354c62bbf79e5bceaf86afed36488773c"
+    "dyn_em/Makefile": "4c5421f6693c499c894d15d88777cdc9fdd48bfb49f4dffcf90b153a7bb382fd",
+    "dyn_em/solve_em.F": "25d5f6f8fc87ca007534d9e2ae8b627160c32eee9710fa83336e58f6bb088bc1"
   },
   "build": {
     "CQU_canonical": {
@@ -408,10 +408,31 @@
     "scalar_one_member_delivery": {
       "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/scalar-family-one-member-artifact-preparation-r1/actual-native-r1/receipt.json",
       "sha256": "85fbb602b325de27385671f404240aec6a1b42449adb6d2dbe795b41fa131cc9"
+    },
+    "moisture_hz_zero_reuse": {
+      "receipt": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/hz-zero-reuse-two-member-artifact-preparation-r1/actual-native-r1/receipt.json",
+        "sha256": "0dd8d11256735087a00d6ecc5bf766ff827e8dcedf2f19c293a23d66d988ead1"
+      },
+      "closure": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/hz-zero-reuse-two-member-artifact-preparation-r1/actual-native-r1/closure.json",
+        "sha256": "3cace509f988326a310cb9fd603eeee65778f891a4258763d26493aceacd6ed4"
+      },
+      "canonical": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/hz-zero-reuse-canonical-cpp-preparation-r3/actual-native-r1/receipt.json",
+        "sha256": "51c6a53b0cd486737aac5e2e9c6c643ea89b8a65e2101e8542aed1baef15fa2f"
+      },
+      "source_compiles": 0,
+      "links": 1,
+      "replaced_indices": [
+        560,
+        577
+      ],
+      "unchanged_other_members": 582
     }
   },
-  "qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/scalar-family-ww-split-reuse/APPLICATION_QUALIFICATION.json",
-  "build_scope": "Two replaced members out of584: slot560module_em0266 and577solve_em46cc;582othercontents/order unchanged,0modulecompiles/1link duringdelivery; sourcecanonicalR3twoONstrictcompiles separately qualified.",
+  "qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
+  "build_scope": "Exactly2members slots560Emdb80/577freshsolve80f73;582othersorderedbyteexact. Delivery0compiles/1link; canonicalEmPPexact/nativeobjectreuse +1freshsolvecompile against165d/fouractualcalls.",
   "runtime": {
     "WRF_EXPERIMENTAL_TPI_NUMA": 1,
     "other_settings": "Current79be/1ade UVcorrection image, all actual runtime/provider settings unchanged. Historical parent note: Current13fe/1a8f PHcopy image; all prior selected512/FABA/twoTiles/singleIB/OMP1/8bee/9371/privateHDF5/input settings unchanged. Selected026c scalar-family WW child; runtime/provider settings preserved."
@@ -422,8 +443,8 @@
     "sha256": "40f5ffa5cc39a97ac2de44cda2afb1acef048862ee220b547d6ff0e26d96c132",
     "inherited_proof": true,
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/scalar-family-ww-split-reuse/APPLICATION_QUALIFICATION.json",
-      "sha256": "d3017c2538f089d2f7dfa90c86db3f8d06f5cdba727394e2dd22df6a983fcba6"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
+      "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
     }
   },
   "current_nine_hour_qualified": false,
@@ -612,8 +633,8 @@
     "provider_source_file": "tools/cpu-output/quilt512/root_chunk_provider.c",
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification.",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/scalar-family-ww-split-reuse/APPLICATION_QUALIFICATION.json",
-      "sha256": "d3017c2538f089d2f7dfa90c86db3f8d06f5cdba727394e2dd22df6a983fcba6"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
+      "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
     }
   },
   "previous_DF_pool_short_full_application": {
@@ -671,8 +692,8 @@
     "semantics": "Post-test codec source/recipe tracking only; does not relabel native/build producer NULL or imply WRF relink.",
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification.",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/scalar-family-ww-split-reuse/APPLICATION_QUALIFICATION.json",
-      "sha256": "d3017c2538f089d2f7dfa90c86db3f8d06f5cdba727394e2dd22df6a983fcba6"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
+      "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
     }
   },
   "previous_3edf_full_application": {
@@ -933,7 +954,7 @@
     "physical_memory_reduction_causally_qualified": false
   },
   "current_nine_hour_qualification": null,
-  "current_application_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/scalar-family-ww-split-reuse/APPLICATION_QUALIFICATION.json",
+  "current_application_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
   "previous_E3_POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
     "source_commit": "1ae0c6ee9cd1b5c238a57cf25409c18d380faaed",
@@ -1070,7 +1091,7 @@
     "repeatability_established": false,
     "scope": "Exact4products545/full512/twoTiles/all4positivewriters/all32markers; main-step sum is elapsed not integrationCPU; no isolated/additive/pureIO/memorycausality claim."
   },
-  "scope": "Current026c scalar-family WW reuse; own35step/two-product science only. Parent89bd3h historical. No matched forecast gain or current longer/profile qualification.",
+  "scope": "Currentb21c h/z zero reuse; own35step/two-product exact science only. Parent026cshort/earlier89bd3h/962b9h remain historical. No matchedforecastgain/currentlongerprofile qualification.",
   "previous_3582_e1d8_science": {
     "products": 4,
     "ordered_steps": 545,
@@ -1252,20 +1273,19 @@
     "qualification_file": "../cpu-output/quilt512/codec/private-fast-distance-range/APPLICATION_QUALIFICATION.json"
   },
   "current_application_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/scalar-family-ww-split-reuse/APPLICATION_QUALIFICATION.json",
-    "sha256": "d3017c2538f089d2f7dfa90c86db3f8d06f5cdba727394e2dd22df6a983fcba6"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
+    "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
   },
   "last_three_hour_benchmark": null,
   "claim_limits": [
-    "Only own35/2 exact application science currently qualifies89bd; retained962b3h/9h,19adABBA and old source-identity profile do not transfer.",
-    "The complete synthetic tendency-family caller improvement is not a forecast percentage; no addition of component percentages.",
-    "Canonical line-only R1/R2 failures remain preserved; finalR3 actualall4PP and strictobject checks passed without normalization.",
-    "Raw producer commit remainsNULL; source commit identifies post-test correspondence."
+    "Own35/two-products exact science only.",
+    "Finite synthetic completecaller gains are separate fromforecast; independentPARK andownerRETAIN preserved.",
+    "No inherited long/noon/profile/restart qualification."
   ],
   "source_commit_scope": "Post-test canonical ON/OFF exact preprocessed files and strict allocated-runtime/RELA/non-file/publicMOD correspondence for both module_em and solve_em. Native reused objects were not produced by this post-test commit; no fresh whole-image source build claimed.",
   "current_noon75m_qualified": false,
   "current_noon75m_qualification": null,
-  "comparison_design": "Candidate-only science qualification versus frozen original ten-minute outputs; UNPAIRED descriptive metrics, no matched forecast timing or causal kernel claim",
+  "comparison_design": "Candidate-only ownshort science versus retained original546b; UNPAIRED descriptive metrics only.",
   "theta_producer": {
     "pending": false,
     "source_commit": null,
@@ -1289,8 +1309,8 @@
     "expected_worker_status": "BUILT_CURRENT_F4B_ONE_BIGSTEP_MOIST_THETA_SIMD_PENDING_APPLICATION",
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification.",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
+      "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
     }
   },
   "sw_producer": {
@@ -1316,8 +1336,8 @@
     "expected_worker_status": "BUILT_CURRENT_FB43_ONE_SW_DIRECT_CDF_PENDING_THETA_COMBINED_APPLICATION",
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification.",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
+      "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
     }
   },
   "previous_F4B_before_THETA_SW": {
@@ -1389,7 +1409,7 @@
     "applies_to_current_selection": false
   },
   "current_application_retry_scope": null,
-  "next_qualification": "Own short and three-hour science qualified; own nine-hour/noon/profile/restart/full144 remain unqualified. Retained962b nine-hour observations are parent-only; no fresh matched forecast timing claim.",
+  "next_qualification": "Ownthreehour/9h/noon/profile/restart/full144 pending; parent horizons do nottransfer.",
   "previous_A50E_before_SPCVMC": {
     "paired_record": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_CURRENT_SOURCE_BUILD_BINDING_BEFORE_SPCVMC_OPTICAL.json",
@@ -1476,8 +1496,8 @@
     "target_MCICA_raw_MOD_sha256": "f1ce128004b7fe9265c995370dac4464bdf4d15f962d3ac3de00e0606cae35f3",
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification.",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
+      "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
     }
   },
   "before_SPCVMC_own9h_nine_hour_benchmark": {
@@ -1747,8 +1767,8 @@
     },
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification.",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
+      "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
     }
   },
   "raw_result_label_disclosure": null,
@@ -1952,8 +1972,8 @@
     "expected_worker_status": "BUILT_CURRENT_F703_ONE_BIGSTEP_HPG_NHX_CONSUMER_SIMD_PENDING_APPLICATION",
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification.",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
+      "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
     }
   },
   "rollback": {
@@ -2126,8 +2146,8 @@
     },
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification.",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
+      "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
     }
   },
   "before_ISOLATED_HPG_own3h": {
@@ -2333,8 +2353,8 @@
     "parent_directory": "/pool/wrf-experiment/wrf-cpu/builds/current1749-one-isolated-hpg-avx2-helper-hpc02-r1",
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification.",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
+      "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
     }
   },
   "before_ORDINARY_CONSUMERS": {
@@ -2398,26 +2418,26 @@
     "applies_to_current_image": false
   },
   "POST_TEST_SOURCE_IDENTITY": {
-    "source_commit": "6fdcb52daeabe75f89088ec74cfd1532d936ec71",
+    "source_commit": "4d55413fadcf748f326963437024d9c90c7998e3",
     "raw_producer_source_commit": null,
     "canonical_sources": {
-      "dyn_em/module_em.F": "c3b7f307a1a0d4647a2637ea5ae2cd2e71b2d74acdb98f5ccc060c70fa9f03d3",
-      "dyn_em/solve_em.F": "a522f41c037dd563bca5f12b05c37a6354c62bbf79e5bceaf86afed36488773c",
-      "dyn_em/Makefile": "bad8e89ffe196e6ace0f1185b56c919942590a0ff3c4bbcd71ce1d913b919d3d"
+      "dyn_em/module_em.F": "49d89badc324acfba01a8e26d47b2fb26503cb96162a9c1e6b9ab76f6ef4d8cc",
+      "dyn_em/solve_em.F": "25d5f6f8fc87ca007534d9e2ae8b627160c32eee9710fa83336e58f6bb088bc1",
+      "dyn_em/Makefile": "4c5421f6693c499c894d15d88777cdc9fdd48bfb49f4dffcf90b153a7bb382fd"
     },
     "canonical": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/scalar-family-one-member-artifact-preparation-r1/canonical-receipt.json",
-      "sha256": "0a7fa85954b9bf34d94e4532cac2aa34af58d23fabcb0b5f300b6c1433d8fb72"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/hz-zero-reuse-canonical-cpp-preparation-r3/actual-native-r1/receipt.json",
+      "sha256": "51c6a53b0cd486737aac5e2e9c6c643ea89b8a65e2101e8542aed1baef15fa2f"
     },
     "canonical_closure": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/scalar-family-one-member-artifact-preparation-r1/canonical-closure.json",
-      "sha256": "74c49b56458b66f5d6fcef578b1304b378c5254cb887f5941c8eb01f02793751"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/hz-zero-reuse-canonical-cpp-preparation-r3/actual-native-r1/closure.json",
+      "sha256": "a50fa61407852122220d2a117479475e8f890a6de88e06ea3936d13b9ed745cf"
     },
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/scalar-family-ww-split-reuse/APPLICATION_QUALIFICATION.json",
-      "sha256": "d3017c2538f089d2f7dfa90c86db3f8d06f5cdba727394e2dd22df6a983fcba6"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
+      "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
     },
-    "scope": "Post-test canonical correspondence; raw member producer commit remains NULL."
+    "scope": "Post-test actual canonicalR3 fourPPexact/newMOD/all4caller correspondence. Raw producer commit unknown."
   },
   "previous_NHY_native": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/hpg-nhy-consumer-i-simd/NATIVE_QUALIFICATION.json",
@@ -2489,8 +2509,8 @@
     },
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification.",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
+      "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
     }
   },
   "historical_51a_output_post_test_source_identity": {
@@ -3077,20 +3097,16 @@
     }
   },
   "metrics": {
-    "control": {
-      "wall_seconds": 267.5341711281799,
-      "cpu_seconds": 86843.488941,
-      "main_step_sum_seconds": 42.03197
-    },
+    "control": null,
     "candidate": {
-      "wall_seconds": 136.88966680830345,
-      "cpu_seconds": 52904.823124999995,
-      "main_step_sum_seconds": 37.5397
+      "wall_seconds": 135.64705151272938,
+      "cpu_seconds": 52458.808266,
+      "main_step_sum_seconds": 37.45774
     }
   },
   "order": [
-    "retained_frozen_corrected_original546b_control",
-    "new_WW_child_of_currentc277_candidate"
+    "retained_frozen_original546b_science_reference",
+    "new_b21c_HZ_reuse_candidate"
   ],
   "reductions_percent": null,
   "limits": [
@@ -3420,11 +3436,11 @@
     "artifact_sha256": "4adb20e0f0c565e7146d637703b7144c1009a5a19db7c0fa7352b8c772ac44f2",
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification.",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/scalar-family-ww-split-reuse/APPLICATION_QUALIFICATION.json",
-      "sha256": "d3017c2538f089d2f7dfa90c86db3f8d06f5cdba727394e2dd22df6a983fcba6"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
+      "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
     }
   },
-  "archive_path": "/pool/wrf-experiment/wrf-cpu/builds/current89bd-scalar-ww-reuse-one-member-native-r1/libwrflib.a",
+  "archive_path": "/pool/wrf-experiment/wrf-cpu/builds/current026c-hz-zero-reuse-two-member-native-r1/libwrflib.a",
   "previous_current769_pd_final_xy_producer": {
     "source_commit": null,
     "canonical_source_sha256": "9955f77e4788288d09ab4f434c5f85a7930fcfe9ccd6060aaef5286052da40db",
@@ -3537,8 +3553,8 @@
     "scope": "Exactcurrent4adb/f911/99da one-memberproducer; previous2419/769wholeimageproducerfacts explicitlyhistorical.",
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification.",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
+      "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
     }
   },
   "previous_X5_onehour_current_context": {
@@ -3808,8 +3824,8 @@
     "posttest_source_commit": "d5d09385eb3a4ce641af3c5b5ef35eadb97593ac",
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification.",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
+      "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
     }
   },
   "current_noon75m_science": null,
@@ -4017,8 +4033,8 @@
     },
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification.",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
+      "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
     }
   },
   "previous_a437_caller_evidence": {
@@ -4034,8 +4050,8 @@
     "scope": "Exact historical7087 scopes/results/runtime/components retained; no transfer to new8400 own horizons/profile."
   },
   "current_short_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/scalar-family-ww-split-reuse/APPLICATION_QUALIFICATION.json",
-    "sha256": "d3017c2538f089d2f7dfa90c86db3f8d06f5cdba727394e2dd22df6a983fcba6"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
+    "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
   },
   "tcopy_producer": {
     "build": {
@@ -4053,8 +4069,8 @@
     "scope": "Own short35/two-product original-science qualification only. Reused qualifiedPP9ad0/objectbd2; canonical/default commit tracks source AFTER tests, not raw producer/fresh canonical CPP/fullbuild reproduction. One synthetic RK1 caller pair per host, not forecast gain.",
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification.",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
+      "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
     }
   },
   "previous_7087_caller_evidence": {
@@ -4113,8 +4129,8 @@
     "posttest_source_commit": "70ce108d61573ef1aa5ef7d60a846f83e1864639",
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification.",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
+      "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
     }
   },
   "previous_8400_caller_evidence": {
@@ -4157,8 +4173,8 @@
     "posttest_source_commit": "85eb38440734d683d66d3bd1a82af422053ff584",
     "scope": "Own short35/two-product original-science qualification only. Tested image reused qualifiedPP7ecc/object40c5; separate actual canonical guardedCPP/strictO2 oneobject delivery is mandatory, not fresh fullWRF build/link. Sourcecommit is posttesttracking, rawproducerNULL. One synthetic RK1 caller pair per host, not forecast gain.",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
+      "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
     },
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification."
   },
@@ -4208,8 +4224,8 @@
     "public_MOD_sha256": "d50c501497b927ad56b9bb3b7cb9431c827b8092cedf23e83d8f573ccb884b94",
     "scope": "Retained D431 WW+WPH component; prior a381 alias stale. Current image scope comes only from final89bd shortQ.",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/scalar-family-ww-split-reuse/APPLICATION_QUALIFICATION.json",
-      "sha256": "d3017c2538f089d2f7dfa90c86db3f8d06f5cdba727394e2dd22df6a983fcba6"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
+      "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
     },
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification.",
     "inherited_proof": true
@@ -4229,8 +4245,8 @@
     "raw_producer_source_commit": null,
     "scope": "Own short35/two complete products exact original science. Native fullUV raw/readonly/guards/five-state passed. Complete historical captured UV caller10.362685/12.094029percent shorter, not forecast gain. Artifact reuses qualifiedPP91c2/object7493; separate real canonicalCPP/O2 delivery runtime ELF/RELA/MOD exact despite different PP/debug-object bytes. Sourcecommit is post-test correspondence only; raw producer null.",
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
+      "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
     },
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification."
   },
@@ -4406,8 +4422,8 @@
     "posttest_source_commit": "87fab099b1e8f0f4647e2f9d343f2109c06ddc89",
     "raw_producer_source_commit": null,
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
+      "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
     },
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification."
   },
@@ -4532,8 +4548,8 @@
     },
     "scope": "Historical19ad ownshort+ABBA3h; retained image/source/proof, no horizon/timing transfer to526e"
   },
-  "science_sha256": "0fefdb2ed683755504c3d50dbe908dedc024fb2adf197c252b4f2b694e292587",
-  "reader_closure_sha256": "791e62e34b1caf6a1884c57c818644979be0133d9fd9947f2d3e097f791c7eb8",
+  "science_sha256": "fd52d896291e6d49c717d40e640492ed144683b3cf33f7e08a1834109f30b2d9",
+  "reader_closure_sha256": "e89759dc5d1e48926c3892d7833bbe4f2e6005943bbcf667c86c8cd90ccd8c8a",
   "wcopy_producer": {
     "build": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/smallstep-rk1-w-copy-fusion/BUILD_QUALIFICATION.json",
@@ -4552,8 +4568,8 @@
     "posttest_source_commit": "9712688c787e6b46664705562fb40f76c54b81a7",
     "raw_producer_source_commit": null,
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
+      "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
     },
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification."
   },
@@ -4597,8 +4613,8 @@
     "posttest_source_commit": "642a69388e430f079ba5ca043aa0ad4ea06c9280",
     "raw_producer_source_commit": null,
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
+      "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
     },
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification."
   },
@@ -4656,9 +4672,9 @@
   },
   "current_timing_observation": {
     "candidate_descriptive_only": {
-      "wall_seconds": 136.88966680830345,
-      "cpu_seconds": 52904.823124999995,
-      "main_step_sum_seconds": 37.5397
+      "wall_seconds": 135.64705151272938,
+      "cpu_seconds": 52458.808266,
+      "main_step_sum_seconds": 37.45774
     },
     "unpaired": true,
     "timing_gain_claim": false
@@ -5006,8 +5022,8 @@
       "sha256": "0609e908dac7c7e6199dbee649cbf641271df14ccfbdb1dae0da4a1cca7a8928"
     },
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
+      "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
     },
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification."
   },
@@ -5017,8 +5033,8 @@
     "public_MOD_sha256": "88e9fcbf27d28de7f12c22df0aac07aef26d4463f303e5a51b135a6a7e454750",
     "inherited_proof": true,
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/scalar-family-ww-split-reuse/APPLICATION_QUALIFICATION.json",
-      "sha256": "d3017c2538f089d2f7dfa90c86db3f8d06f5cdba727394e2dd22df6a983fcba6"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
+      "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
     }
   },
   "latest_PD_build": {
@@ -5057,8 +5073,8 @@
       "sha256": "650a9bcf6efe040dde8ec9dfc3849a4e1510ee622cb0e8e2a94c464c841ad95f"
     },
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
+      "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
     },
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification."
   },
@@ -5114,8 +5130,8 @@
       "sha256": "750bd003931b98dccdcd3cb316b80a5a1ec85880dd860d3b872594d592ce5397"
     },
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "0e9e4e24b92f8a1b4bc7648ed07478288f8083f29656b05fa8e37dff71aac04b"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
+      "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
     },
     "evidence_role": "Inherited qualified component; current whole-image scope comes only from current89bd application qualification."
   },
@@ -5138,31 +5154,31 @@
     "actual_parent_archive": "bd1ae1d4d6a570739c8c088f52da2e0b96ad19b5a4072baced338ba5c8d2670d"
   },
   "current_module_em_native": {
-    "object_sha256": "0266f19e0334a9a7a3e99dce6f8cbb9c9d14c923ccd95dddbe6201cfdc51f63b",
-    "qualified_PP_sha256": "dca845c3bfa768ce627e989cee327d76dd37a52d980483a81b545ccf3f623882",
-    "public_MOD_sha256": "54523e6a0c337229039faded0433c5aa062636bcffef470aff32be6f8fb149ad",
+    "object_sha256": "db80d97bc331c4c81b00a988fa22fd71b90b058a3bb9093b8c41d0144448f58f",
+    "qualified_PP_sha256": "b47fc3fe34e8f145f475e1d506748a4731d0b573f5fff58cf7944a843ff314d0",
+    "public_MOD_sha256": "165d03a17f8fdffe5ba3b32e682e1a143c50ab858b4a134005440e6faefe4495",
     "qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-family-ww-split-reuse/NATIVE_QUALIFICATION.json",
-      "sha256": "065c109cea830f18ce15902202723fcbb02b27d61fddd48d680b9211a98bb599"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/NATIVE_AND_CALLER_QUALIFICATION.json",
+      "sha256": "d13a6607745f0a0c3edeeb90d6e583080acafec784a2cc716a655e157b13e574"
     },
-    "inherited_proof": true,
+    "inherited_proof": false,
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/scalar-family-ww-split-reuse/APPLICATION_QUALIFICATION.json",
-      "sha256": "d3017c2538f089d2f7dfa90c86db3f8d06f5cdba727394e2dd22df6a983fcba6"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
+      "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
     }
   },
   "current_solve_em_ABI": {
-    "object_sha256": "b6d7ae4ddd517b6735416844d2b19019b2d3fde2b83609de0f1ca3c6ad804609",
-    "qualified_PP_sha256": "c12e4572fcb8d848c1e05291adb096203ff53ed81693d40b14ebd98d4c66f945",
-    "module_em_MOD_sha256": "54523e6a0c337229039faded0433c5aa062636bcffef470aff32be6f8fb149ad",
+    "object_sha256": "80f73f870a0ce3a01961717f51be5661632d8dac9a47484796b5d70c2285a274",
+    "qualified_PP_sha256": "5bbd3948f0429e4f6ff4bc79408907457f2e93f137b77de057e10393d0ef0b42",
+    "module_em_MOD_sha256": "165d03a17f8fdffe5ba3b32e682e1a143c50ab858b4a134005440e6faefe4495",
     "selected_callsite_count": 4,
     "qualification": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/scalar-family-one-member-artifact-preparation-r1/scalar-abi-receipt.json",
-      "sha256": "07df3e482fc815ba629854da4bc76086c71855a4c031961b188a2f41522787d3"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/hz-zero-reuse-canonical-cpp-preparation-r3/actual-native-r1/receipt.json",
+      "sha256": "51c6a53b0cd486737aac5e2e9c6c643ea89b8a65e2101e8542aed1baef15fa2f"
     },
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/scalar-family-ww-split-reuse/APPLICATION_QUALIFICATION.json",
-      "sha256": "d3017c2538f089d2f7dfa90c86db3f8d06f5cdba727394e2dd22df6a983fcba6"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
+      "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
     }
   },
   "historical_horizon_aliases_before_89bd_own3h": {
@@ -5215,8 +5231,43 @@
     "post_test_source_commit": "6fdcb52daeabe75f89088ec74cfd1532d936ec71",
     "raw_producer_source_commit": null,
     "current_image_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/scalar-family-ww-split-reuse/APPLICATION_QUALIFICATION.json",
-      "sha256": "d3017c2538f089d2f7dfa90c86db3f8d06f5cdba727394e2dd22df6a983fcba6"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
+      "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
+    }
+  },
+  "qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
+    "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
+  },
+  "raw_RESULT_reference": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current026c-hz-zero-reuse-child10m-runtime-r1/RESULT.json",
+    "sha256": "48663aa0e8cce73857ca30961bb821619d299489bd6c3dead8e5f96ac47a22ec"
+  },
+  "raw_RESULT_label_disclosure": "Raw RESULT preserved unchanged; derived report names the actual b21c h/z child. No numerical/science/measurement correction.",
+  "parent026c_records": {
+    "snapshot": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/hz-zero-reuse-promotion-preparation-r1/scalar-record-preimages/CURRENT_SOURCE_BUILD_BINDING.json",
+    "sha256": "7cbb017231b3c2311c95893153b93a02834da0c3a03639da9a77c7f178739a44",
+    "applies_to_current_selection": false,
+    "scope": "Complete frozen parent record; no nestedhistory copy."
+  },
+  "hz_zero_reuse_producer": {
+    "native_caller": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/NATIVE_AND_CALLER_QUALIFICATION.json",
+      "sha256": "d13a6607745f0a0c3edeeb90d6e583080acafec784a2cc716a655e157b13e574"
+    },
+    "canonical": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/hz-zero-reuse-canonical-cpp-preparation-r3/actual-native-r1/receipt.json",
+      "sha256": "51c6a53b0cd486737aac5e2e9c6c643ea89b8a65e2101e8542aed1baef15fa2f"
+    },
+    "application": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
+      "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
+    },
+    "raw_producer_source_commit": null,
+    "posttest_source_commit": "4d55413fadcf748f326963437024d9c90c7998e3",
+    "current_image_qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/APPLICATION_QUALIFICATION.json",
+      "sha256": "65bde813d0aa46c1c63074ec9d0d0badd54f1db41a2d9374985c0fc7f9d914d6"
     }
   }
 }
