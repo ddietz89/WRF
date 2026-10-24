@@ -16,6 +16,17 @@ The new cache evaluates `msfvx(i,j+1)-msfvx(i,j)` once per horizontal row before
 
 The qualified GNU 13.3 pure-MPI working default enables this path. Set `WRF_CURVATURE_VXGM_J_DIFF_CACHE=0`, regenerate preprocessing, rebuild BigStep, replace its archive member and relink to opt out. This exact image owns three-hour science; its own one-hour, nine-hour, profile, restart and full-144-hour scopes remain unqualified. [Application evidence](tools/cpu-compute/curvature-vxgm-j-difference-cache/APPLICATION_QUALIFICATION.json), [rebuild and rollback](tools/cpu-compute/curvature-vxgm-j-difference-cache/README.md).
 
+## October 24: MYJPBL momentum-writeback SIMD passed science, showed no caller gain
+
+The separate post-VDIFV momentum-tendency loop was scalar in retained daytime samples and is distinct from the already promoted thermodynamic/moisture writeback and velocity input-copy directives. Adding one `SIMD PRIVATE(KFLIP,DUDT,DVDT)` directive generated packed subtraction/multiplication. Genuine-object reproduction, full captured MYJPBL checks, and 32 source-exact exceptional/tail/empty cases across four rounding modes passed raw/read-only/guard/five-state equality. The public MOD, constants and all non-target function bytes/relocations remained exact.
+
+| Complete captured MYJPBL caller | Parent (s) | Candidate (s) | Wall reduction | CPU reduction |
+| --- | ---: | ---: | ---: | ---: |
+| hpc01, parent then candidate | 3.260748 | 3.293196 | −1.00% | −1.03% |
+| hpc04, candidate then parent | 3.293823 | 3.310097 | −0.49% | −0.49% |
+
+Each observation sums 512 complete calls, with restore/checks outside the clocks and actual cache clearing before every arm. All four arms passed the original caller oracle and closed normally. Packed instructions alone did not demonstrate a performance gain; both caller observations were slower. Park the candidate without an application run or default change. No isolated kernel gain was measured or discarded, and these bounded pairs do not establish a universal slowdown or hardware cause. [Decision and actual evidence](tools/cpu-compute/myj-final-momentum-writeback-screen/DECISION.json).
+
 ## October 24: separate Coriolis V coefficient cache parked
 
 A follow-up that hoisted both V coefficients failed exact NaN payload preservation in six of 111 native cases, across all four rounding modes. Two RV tendency words differed in each case; the five floating-point state observations matched. Actual assembly showed that a cached-coefficient multiply selected the RU NaN payload where the parent preserved the coefficient payload. This is a concrete raw-output failure, so no caller timing, application run or promotion followed.

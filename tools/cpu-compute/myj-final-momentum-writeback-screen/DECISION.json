@@ -1,0 +1,59 @@
+{
+  "status": "PARK_UNPROMOTED_NO_MEASURED_COMPLETE_CALLER_GAIN",
+  "candidate": "MYJPBL final momentum-tendency writeback SIMD",
+  "source_delta": "One !$OMP SIMD PRIVATE(KFLIP,DUDT,DVDT) afterVDIFV; earlier acceptedTH/QV/inputcopy paths unchanged",
+  "native_receipt": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currenteca4-myj-momentum-writeback-simd-r1/native-gate-preparation-r1-hpc02/actual-native-r1/receipt.json",
+    "sha256": "6c975e3b8297a731632370bbc51bbe339879a84d5e95691d00462bb71c07cd92"
+  },
+  "caller_result": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currenteca4-myj-momentum-writeback-simd-r1/complete-myj-caller-preparation-r1/ACTUAL_CALLER_RESULT.json",
+    "sha256": "4ed798042d12b1d0b97a0e00a22d62e66280715624b8123599ae3440aaee335c"
+  },
+  "observations": [
+    {
+      "host": "hpc01",
+      "measurements": {
+        "myj": {
+          "parent": {
+            "wall_seconds": 3.2607482940000003,
+            "cpu_seconds": 3.2531900850000004,
+            "repeats": 512
+          },
+          "candidate": {
+            "wall_seconds": 3.293196442,
+            "cpu_seconds": 3.286801463,
+            "repeats": 512
+          },
+          "wall_reduction_percent": -0.9951135467802574,
+          "cpu_reduction_percent": -1.0331821111522865
+        }
+      }
+    },
+    {
+      "host": "hpc04",
+      "measurements": {
+        "myj": {
+          "parent": {
+            "wall_seconds": 3.293823413,
+            "cpu_seconds": 3.284902475,
+            "repeats": 512
+          },
+          "candidate": {
+            "wall_seconds": 3.3100970430000003,
+            "cpu_seconds": 3.3009386910000003,
+            "repeats": 512
+          },
+          "wall_reduction_percent": -0.49406504112430305,
+          "cpu_reduction_percent": -0.48817936368110715
+        }
+      }
+    }
+  ],
+  "science": "FullgenuinecapturedMYJPBL/freshO0O2 and32targetIEEE/tail/emptycasesx4rounds raw/read-only/guard/fivestate exact. MOD/constants/non-targetbody/fullRELA exact. Callerraw/stateexact all4armswithactualcacheEACH.",
+  "decision_reason": "PackedSUBPS/MULPS was generated, but no positive runtime gain was measured: complete512-call pairs took0.9951% and0.4941% longer, CPU1.0332% and0.4882% longer. This is no demonstrated significant kernel gain to promote; packed instructions alone are insufficient. These bounded pairs do not prove universal slowdown or hardware cause. No additional matrix/application/default promotion justified without a distinct measured opportunity.",
+  "isolated_kernel_timing_available": false,
+  "application_tested": false,
+  "default_promoted": false,
+  "selected_ECA4_image_unchanged": true
+}
