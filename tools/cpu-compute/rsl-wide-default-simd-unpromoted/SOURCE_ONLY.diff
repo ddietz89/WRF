@@ -1,0 +1,12 @@
+--- parent/f_pack.F90
++++ candidate/f_pack.F90
+@@ -186,6 +186,9 @@
+             ENDDO
+           CASE DEFAULT
+           DO k = ks, ke
++#ifndef _OPENMP
++!$OMP SIMD LINEAR(p:1)
++#endif
+             DO i = is, ie
+               outbuf(p) = inbuf(i,k,j)
+               p = p + 1

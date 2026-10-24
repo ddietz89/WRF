@@ -4766,3 +4766,10 @@ Captured whole-MYJPBL agreement does not override this direct counterexample. No
 
 The 5aae night one-hour run passed the separate numerical diagnostic: both complete06:00/07:00 products and all185 ordered steps matched the retained corrected-original546b prefix, including metadata/layout, nonfinite, tile and input-stat checks. This is numerical pass only. The unchanged writer coverage requirement failed (2/4 callback groups), the coordinator wrapper exited1, and the parent aggregate128MiB RSS guard failed; full application/runtime and profile qualification remain false. Normally closed main-TID captures retained1382 samples on rank114 and1421 on rank122 with finite period accounting and live identity/FD-bridge proof; numeric loss remains UNKNOWN. The instrumented run observed276.21310310903937s wall and123860.764432 summed CPU seconds; observed main elapsed was175.95545000000018s, including communication/waits/backpressure. No forecast gain or causal/global-share claim follows, and the selected image’s existing three-hour qualification and benchmark records remain unchanged. No helper repair or reprofiling is planned.
 Evidence: `tools/cpu-compute/rk-scalar-exact-clear/NIGHT_NATIVE15_NUMERICAL_DIAGNOSTIC.json`.
+
+
+## 2026-10-24: wide RSL SIMD trial stopped at code-generation gate
+
+The private RSL wide-DEFAULT SIMD trial is closed unpromoted: actual GNU 13.3 compilation retained a normal-path per-K memcpy call, so the mechanism gate stopped before any full translation-unit reproduction, original 25-case gate or caller timing. INTEGER32/_OPENMP checks and ten geometries × four masked states × four roles passed raw/cursor/read-only/guard/five-state checks (40 calls per role, 160 total; ten geometries). The attempt exited 1 with MainPID 0 and cgroup absent. The malformed provider NO_GO and unsupported generic LINEAR objections remain separate from the actual native semantics PASS. No performance gain is claimed; RSL source, flags, layout and defaults remain unchanged.
+
+[Native decision and source-only proposal](tools/cpu-compute/rsl-wide-default-simd-unpromoted/README.md).

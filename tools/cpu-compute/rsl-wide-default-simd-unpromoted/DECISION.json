@@ -1,0 +1,92 @@
+{
+  "status": "CLOSED_NO_GO_REQUESTED_DISPATCH_ELIMINATION_NOT_EMITTED",
+  "decision": "Stop this one SIMD-directive experiment; no retry, alternate implementation, flag sweep or caller timing.",
+  "actual_invocation": "dbf7069135964f38be886e4d3122cfb7",
+  "actual_receipt": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current5aae-rsl-wide-row-simd-source-question-r1/native-gate-preparation-r1-hpc01/actual-native-r1/receipt.json",
+    "sha256": "e7982c44d24a6e66e03fac26e687d66176f9847f9d4e9a3ba9a6c9abbf229520"
+  },
+  "actual_failed_closure": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current5aae-rsl-wide-row-simd-source-question-r1/native-gate-preparation-r1-hpc01/actual-native-r1/closure.json",
+    "sha256": "bf4f90dc7b86c7fe29a935d81eab9f1724e7c6bac6b051ed82c0f2583487811d"
+  },
+  "actual_codegen_retrieval": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current5aae-rsl-wide-row-simd-source-question-r1/native-gate-preparation-r1-hpc01/actual-native-r1/ACTUAL_MINI_CODEGEN_READONLY.json",
+    "sha256": "f56b882a333826e3b25b95fb0c749eb0d595918d0c61d98bb67c90154d9b1627"
+  },
+  "candidate_assembly_sha256": "d29e31aaa70fe7120bf3aecc2a56ced7092ba91bbc1d442a7b9c0e286beb6ff3",
+  "parent_assembly_sha256": "9188f06e68e9b06243802c6aca82555c4f2193bd4f806554b235b94e2a616a41",
+  "machine_proof": {
+    "wide_default_entry": "Width >3 reaches 0x258; cmp width,4 at 0x258 and jne 0x2a0 at 0x25c route width>4 to DEFAULT.",
+    "positive_K": "0x2a0/0x2a3 skips only empty K.",
+    "positive_I": "0x2dc/0x2e0 skips the call only for empty I.",
+    "retained_copy": "CALL at 0x2f5 with R_X86_64_PLT32 memcpy-4 at relocation 0x2f6.",
+    "K_backedge": "0x2fe increments K; 0x306 branches to 0x2d8. Thus every positive wide DEFAULT row executes memcpy once per K, with no inline wide-row fast path.",
+    "classification": "Normal requested path, not a cold fallback. The early gate is supported by actual CFG."
+  },
+  "actual_passed": {
+    "SIMD_flag_OPENMP_absent_INTEGER32": true,
+    "integer_linear_p_carry_empty_tails": true,
+    "mini_roles": {
+      "genuine": {
+        "raw_sha256": "79b4a63d2203b79bced587ecb0782623910bff980b447e446614c80efb45a74a",
+        "raw_bytes": 3202080
+      },
+      "parent-old": {
+        "raw_sha256": "79b4a63d2203b79bced587ecb0782623910bff980b447e446614c80efb45a74a",
+        "raw_bytes": 3202080
+      },
+      "parent-simd": {
+        "raw_sha256": "79b4a63d2203b79bced587ecb0782623910bff980b447e446614c80efb45a74a",
+        "raw_bytes": 3202080
+      },
+      "candidate-simd": {
+        "raw_sha256": "79b4a63d2203b79bced587ecb0782623910bff980b447e446614c80efb45a74a",
+        "raw_bytes": 3202080
+      }
+    },
+    "calls_per_role": 40,
+    "raw_cursor_readonly_guards_five_state_exact": true
+  },
+  "not_executed": [
+    "Full translation-unit old-flag genuine reproduction",
+    "Full translation-unit no-directive extra-flag equivalence",
+    "Full translation-unit candidate non-target/constants checks",
+    "Original full 25-case gate",
+    "Complete caller timing",
+    "Application SCI"
+  ],
+  "performance_claim": null,
+  "review_scope": "Actual mini tests support LINEAR cursor semantics for these cases. This result does not validate the malformed reviewer generic LINEAR objections. The candidate stops because the requested code-generation mechanism was not emitted.",
+  "preservation": "Original failed attempt, source/provider responses and all frozen package files retained. Working source/default and selected5aae unchanged.",
+  "further_action": null,
+  "intended_publication": "tools/cpu-compute/rsl-wide-default-simd-unpromoted",
+  "test_count_scope": {
+    "distinct_geometries": 10,
+    "masked_states_per_geometry": 4,
+    "roles": [
+      "genuine",
+      "parent-old",
+      "parent-simd",
+      "candidate-simd"
+    ],
+    "calls_per_role": 40,
+    "total_calls_across_roles": 160,
+    "original_full_25_case_fixture_executed": false
+  },
+  "actual_failed_closure_facts": {
+    "MainPID": 0,
+    "ExecMainStatus": 1,
+    "Result": "exit-code",
+    "ActiveState": "failed",
+    "cgroup_processes": [],
+    "cgroup_paths_absent": true
+  },
+  "unsupported_provider_verdict": {
+    "raw_response": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current5aae-rsl-wide-row-simd-source-question-r1/packet-preparation-r1/actual-provider-r1/review/response.txt",
+    "response_sha256": "a0c4483116a17f0bb71dbcc0823c63ffb38ab20c8935629fbf5730329b8805c7",
+    "status": "MALFORMED_JSON_NO_GO_NOT_ADOPTED_AS_SEMANTIC_COUNTEREXAMPLE",
+    "adjudication": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current5aae-rsl-wide-row-simd-source-question-r1/local-adoption-r1/ADJUDICATION.json",
+    "actual_evidence": "LINEAR cursor semantics passed the bounded native mini tests; closure follows emitted memcpy, not the generic reviewer objections."
+  }
+}
