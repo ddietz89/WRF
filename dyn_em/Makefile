@@ -338,6 +338,30 @@ endif
 endif
 endif
 
+# Independent scalar-family WW_SPLIT reuse, same qualified optional interface.
+# Requires moisture WW reuse eligibility; no ModuleEM or ABI change.
+# Knob0: regenerate/rebuild solve_em, replace archive member and relink.
+WRF_SCALAR_WW_SPLIT_REUSE ?= 1
+ifeq ($(WRF_SCALAR_WW_SPLIT_REUSE),1)
+ifeq ($(WRF_MOISTURE_WW_SPLIT_REUSE),1)
+ifeq ($(WRF_RK_TENDENCY_SIMD),1)
+ifeq ($(strip $(OMPCPP) $(OMP) $(PROMOTION) $(DOUBLE_PRECISION)),)
+ifeq ($(strip $(RWORDSIZE)),4)
+ifeq ($(strip $(IWORDSIZE)),4)
+ifeq ($(filter -fdefault-% -freal-% -finteger-% -r8 -i8,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
+ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+solve_em.o: private override CPPFLAGS += -DWRF_SCALAR_WW_SPLIT_REUSE
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+
 cio.o :
 	$(CC) -c $(CFLAGS) cio.c
 

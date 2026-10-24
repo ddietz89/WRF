@@ -179,13 +179,21 @@ SUBROUTINE solve_em ( grid , config_flags  &
    INTEGER :: number_of_small_timesteps, rk_step
    INTEGER :: klevel,ijm,ijp,i,j,k,size1,size2    ! for prints/plots only
    INTEGER :: idum1, idum2, dynamics_option
+#if defined(WRF_SCALAR_WW_SPLIT_REUSE) && defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+#else
 
+#endif
+#line 180
    INTEGER :: rk_order, iwmax, jwmax, kwmax
    REAL :: dt_rk, dts_rk, dts, dtm, wmax
    REAL , ALLOCATABLE , DIMENSION(:)  :: max_vert_cfl_tmp, max_horiz_cfl_tmp
    LOGICAL :: leapfrog
 #if defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
    LOGICAL :: ww_split_ready
+#if defined(WRF_SCALAR_WW_SPLIT_REUSE) && defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+   LOGICAL :: scalar_ww_split_ready
+#endif
+#line 186
 #endif
 #if defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
 WRF_MOISTURE_WW_STDIN_DECL
@@ -2952,9 +2960,17 @@ BENCH_START(tracer_adv_tim)
        ENDDO tracer_variable_loop
      ENDIF tracer_advance
 BENCH_END(tracer_adv_tim)
+#if defined(WRF_SCALAR_WW_SPLIT_REUSE) && defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+#else
 
+#endif
+#line 2927
 !  next the other scalar species
      other_scalar_advance: IF (num_3d_s >= PARAM_FIRST_SCALAR)  THEN
+#if defined(WRF_SCALAR_WW_SPLIT_REUSE) && defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+       scalar_ww_split_ready = .FALSE.
+#endif
+#line 2929
 
        scalar_variable_loop: do is = PARAM_FIRST_SCALAR, num_3d_s
          !$OMP PARALLEL DO   &
@@ -2988,8 +3004,14 @@ BENCH_END(tracer_adv_tim)
                                  ims, ime, jms, jme, kms, kme,     &
                                  grid%i_start(ij), grid%i_end(ij), &
                                  grid%j_start(ij), grid%j_end(ij), &
+#if defined(WRF_SCALAR_WW_SPLIT_REUSE) && defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+                                 k_start    , k_end,              &
+                                 ww_split_prepared = scalar_ww_split_ready )
+#else
                                  k_start    , k_end               )
 
+#endif
+#line 2964
            IF( rk_step == 1 ) THEN
              IF ( config_flags%nested .OR. &
                 ( config_flags%specified .AND. config_flags%have_bcs_scalar ) .OR. &
@@ -3031,7 +3053,12 @@ BENCH_END(tracer_adv_tim)
 
          ENDDO scalar_tile_loop_1
          !$OMP END PARALLEL DO
+#if defined(WRF_SCALAR_WW_SPLIT_REUSE) && defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+         scalar_ww_split_ready = .TRUE.
+#else
 
+#endif
+#line 3006
          !$OMP PARALLEL DO   &
          !$OMP PRIVATE ( ij, tenddec )
          scalar_tile_loop_2: DO ij = 1 , grid%num_tiles
