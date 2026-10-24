@@ -89,6 +89,50 @@ module_big_step_utilities_em.o: private override FCFLAGS += -fopenmp-simd
 endif
 endif
 
+# Exact Coriolis U coefficient row cache: qualified GNU13.3 pure-MPI BigStep SIMD.
+# Opt out: WRF_CORIOLIS_U_COEFFICIENT_CACHE=0; regenerate PP, rebuild BigStep,
+# replace its archive member and relink. No additional FC/ISA flags.
+WRF_CORIOLIS_U_COEFFICIENT_CACHE ?= 1
+ifeq ($(WRF_CORIOLIS_U_COEFFICIENT_CACHE),1)
+ifeq ($(WRF_DIFFUSION_SIMD),1)
+ifeq ($(strip $(OMPCPP) $(OMP) $(PROMOTION) $(DOUBLE_PRECISION)),)
+ifeq ($(strip $(RWORDSIZE)),4)
+ifeq ($(strip $(IWORDSIZE)),4)
+ifeq ($(filter -fdefault-% -freal-% -finteger-% -r8 -i8,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
+ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+module_big_step_utilities_em.o: private override CPPFLAGS += -DWRF_CORIOLIS_U_COEFFICIENT_CACHE
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+
+# Exact normal-V curvature completed quotient row cache: qualified GNU13.3 pure-MPI BigStep SIMD.
+# Opt out: WRF_CURVATURE_V_METRIC_CACHE=0; regenerate PP, rebuild BigStep,
+# replace its archive member and relink. No additional FC/ISA flags.
+WRF_CURVATURE_V_METRIC_CACHE ?= 1
+ifeq ($(WRF_CURVATURE_V_METRIC_CACHE),1)
+ifeq ($(WRF_DIFFUSION_SIMD),1)
+ifeq ($(strip $(OMPCPP) $(OMP) $(PROMOTION) $(DOUBLE_PRECISION)),)
+ifeq ($(strip $(RWORDSIZE)),4)
+ifeq ($(strip $(IWORDSIZE)),4)
+ifeq ($(filter -fdefault-% -freal-% -finteger-% -r8 -i8,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
+ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+module_big_step_utilities_em.o: private override CPPFLAGS += -DWRF_CURVATURE_V_METRIC_CACHE
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+
 # Enable GNU small-step SIMD without creating an OpenMP thread team.
 # Use make WRF_SMALL_STEP_SIMD=0 to preserve the ordinary compiler path.
 WRF_SMALL_STEP_SIMD ?= 1
