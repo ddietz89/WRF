@@ -3036,103 +3036,207 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
                              rdx, rdy, rdzw,                &
                              ids, ide, jds, jde, kds, kde,  &
                              ims, ime, jms, jme, kms, kme,  &
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+                             its, ite, jts, jte, kts, kte, &
+                             tendency_zero_entry )
+#else
                              its, ite, jts, jte, kts, kte  )
 
+#endif
+#line 3041
    IMPLICIT NONE
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+#else
    
    ! Input data
    
+#endif
+#line 3045
    TYPE(grid_config_rec_type), INTENT(IN   ) :: config_flags
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+#else
 
+#endif
+#line 3047
    INTEGER ,                 INTENT(IN   ) :: ids, ide, jds, jde, kds, kde, &
                                               ims, ime, jms, jme, kms, kme, &
                                               its, ite, jts, jte, kts, kte
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+#else
 
+#endif
+#line 3051
    REAL , DIMENSION( ims:ime , kms:kme , jms:jme ) , INTENT(IN   ) :: field,     &
                                                                       field_old, &
                                                                       ru,    &
                                                                       rv,    &
                                                                       rom
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+#else
 
+#endif
+#line 3057
    REAL , DIMENSION( ims:ime , jms:jme ) , INTENT(IN   ) :: mut
    REAL , DIMENSION( ims:ime , kms:kme , jms:jme ) , INTENT(INOUT) :: tendency
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+#else
 
+#endif
+#line 3060
    REAL , DIMENSION( ims:ime , jms:jme ) ,         INTENT(IN   ) :: msfux,  &
                                                                     msfuy,  &
                                                                     msfvx,  &
                                                                     msfvy,  &
                                                                     msftx,  &
                                                                     msfty
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+#else
 
+#endif
+#line 3067
    REAL , DIMENSION( kms:kme ) ,                 INTENT(IN   ) :: fzm,  &
                                                                   fzp,  &
                                                                   rdzw, &
                                                                   c1,   &
                                                                   c2
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+#else
 
+#endif
+#line 3073
    REAL ,                                        INTENT(IN   ) :: rdx,  &
                                                                   rdy
    INTEGER ,                                     INTENT(IN   ) :: time_step
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+#else
 
 
    ! Local data
    
+#endif
+#line 3080
    INTEGER :: i, j, k, itf, jtf, ktf
    INTEGER :: i_start, i_end, j_start, j_end
    INTEGER :: i_start_f, i_end_f, j_start_f, j_end_f
    INTEGER :: jmin, jmax, jp, jm, imin, imax
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+#else
 
+#endif
+#line 3085
    REAL    :: mrdx, mrdy, ub, vb, uw, vw
    REAL , DIMENSION(its:ite, kts:kte) :: vflux
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+#else
 
 
+#endif
+#line 3089
    REAL,  DIMENSION( its:ite+1, kts:kte  ) :: fqx
    REAL,  DIMENSION( its:ite, kts:kte, 2 ) :: fqy
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+#else
 
+#endif
+#line 3092
    INTEGER :: horz_order, vert_order
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+#else
    
+#endif
+#line 3094
    LOGICAL :: degrade_xs, degrade_ys
    LOGICAL :: degrade_xe, degrade_ye
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+#else
 
+#endif
+#line 3097
    INTEGER :: jp1, jp0, jtmp
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+#else
 
 
 ! definition of flux operators, 3rd, 4th, 5th or 6th order
 
+#endif
+#line 3102
    REAL    :: flux3, flux4, flux5, flux6
    REAL    :: q_im3, q_im2, q_im1, q_i, q_ip1, q_ip2, ua, vel
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+#else
 
+#endif
+#line 3105
       flux4(q_im2, q_im1, q_i, q_ip1, ua) =                     &
           ( 7.*(q_i + q_im1) - (q_ip1 + q_im2) )/12.0
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+#else
 
+#endif
+#line 3108
       flux3(q_im2, q_im1, q_i, q_ip1, ua) =                     &
            flux4(q_im2, q_im1, q_i, q_ip1, ua) +                &
            sign(1,time_step)*sign(1.,ua)*((q_ip1 - q_im2)-3.*(q_i-q_im1))/12.0
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+#else
 
+#endif
+#line 3112
       flux6(q_im3, q_im2, q_im1, q_i, q_ip1, q_ip2, ua) =       &
           ( 37.*(q_i+q_im1) - 8.*(q_ip1+q_im2)                  &
             +(q_ip2+q_im3) )/60.0
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+#else
 
+#endif
+#line 3116
       flux5(q_im3, q_im2, q_im1, q_i, q_ip1, q_ip2, ua) =       &
            flux6(q_im3, q_im2, q_im1, q_i, q_ip1, q_ip2, ua)    &
             -sign(1,time_step)*sign(1.,ua)*(                    &
               (q_ip2-q_im3)-5.*(q_ip1-q_im2)+10.*(q_i-q_im1) )/60.0
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+#else
 
 
+#endif
+#line 3122
    LOGICAL :: specified
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+   LOGICAL, INTENT(IN), OPTIONAL :: tendency_zero_entry
+   LOGICAL :: seed_zero
+#else
 
+#endif
+#line 3124
    specified = .false.
    if(config_flags%specified .or. config_flags%nested) specified = .true.
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+   seed_zero = .FALSE.
+   IF ( PRESENT(tendency_zero_entry) ) THEN
+     IF ( tendency_zero_entry ) THEN
+       seed_zero = advect_scalar_zero_seed_eligible( config_flags, &
+                       ids, ide, jds, jde, kds, kde, &
+                       its, ite, jts, jte, kts, kte )
+     ENDIF
+   ENDIF
+#else
 
 ! set order for the advection schemes
 
+#endif
+#line 3129
   ktf=MIN(kte,kde-1)
   horz_order = config_flags%h_sca_adv_order
   vert_order = config_flags%v_sca_adv_order
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+#else
 
 !  begin with horizontal flux divergence
 !  here is the choice of flux operators
 
+#endif
+#line 3136
 
   horizontal_order_test : IF( horz_order == 6 ) THEN
 
@@ -3530,6 +3634,19 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
         IF(j > j_start) THEN
 
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+          IF ( seed_zero ) THEN
+          DO k=kts,ktf
+!$omp simd private(mrdy)
+          DO i = i_start, i_end
+            mrdy=msftx(i,j-1)*rdy    
+            tendency(i,k,j-1) = 0.0 - mrdy*(fqy(i,k,jp1)-fqy(i,k,jp0))
+          ENDDO
+          ENDDO
+          ELSE
+#else
+#endif
+#line 3533
           DO k=kts,ktf
 !$omp simd private(mrdy)
           DO i = i_start, i_end
@@ -3537,6 +3654,11 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
             tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*(fqy(i,k,jp1)-fqy(i,k,jp0))
           ENDDO
           ENDDO
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+          ENDIF
+#else
+#endif
+#line 3540
         ENDIF
 
         END IF
@@ -4362,6 +4484,27 @@ wrf_err_message )
    ENDIF vert_order_test
 
 END SUBROUTINE advect_scalar
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+
+PURE LOGICAL FUNCTION advect_scalar_zero_seed_eligible( config_flags, &
+                       ids, ide, jds, jde, kds, kde, &
+                       its, ite, jts, jte, kts, kte )
+   IMPLICIT NONE
+   TYPE(grid_config_rec_type), INTENT(IN) :: config_flags
+   INTEGER, INTENT(IN) :: ids, ide, jds, jde, kds, kde
+   INTEGER, INTENT(IN) :: its, ite, jts, jte, kts, kte
+   advect_scalar_zero_seed_eligible = &
+       ( config_flags%h_sca_adv_order == 5 ) .AND. &
+       ( config_flags%v_sca_adv_order == 3 ) .AND. (.NOT. config_flags%polar) .AND. &
+       ( ids == 1 ) .AND. ( jds == 1 ) .AND. ( kds == 1 ) .AND. ( kts == 1 ) .AND. &
+       ( kte == 33 ) .AND. ( kde == 33 ) .AND. &
+       ( its <= ite ) .AND. ( jts <= jte ) .AND. &
+       ( its > ids+3 ) .AND. ( ite < ide-3 ) .AND. &
+       ( jts > jds+3 ) .AND. ( jte < jde-4 )
+END FUNCTION advect_scalar_zero_seed_eligible
+#else
+#endif
+#line 4365
 #ifndef ADVECT_KERNEL
 
 !---------------------------------------------------------------------------------

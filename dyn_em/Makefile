@@ -367,6 +367,31 @@ endif
 endif
 endif
 
+# First-Y exact zero-entry seed, current qualified two-module path only.
+# Knob0: regenerate/rebuild Advect+Em and ALL publicMOD consumers; rearchive/relink.
+WRF_ADVECT_FIRST_Y_ZERO_SEED ?= 1
+ifeq ($(WRF_ADVECT_FIRST_Y_ZERO_SEED),1)
+ifeq ($(WRF_ADVECTION_SIMD),1)
+ifeq ($(WRF_ADVECTION_ZEN2),1)
+ifeq ($(WRF_RK_TENDENCY_SIMD),1)
+ifeq ($(strip $(OMPCPP) $(OMP) $(PROMOTION) $(DOUBLE_PRECISION)),)
+ifeq ($(strip $(RWORDSIZE)),4)
+ifeq ($(strip $(IWORDSIZE)),4)
+ifeq ($(filter -fdefault-% -freal-% -finteger-% -r8 -i8,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
+ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+module_advect_em.o module_em.o: private override CPPFLAGS += -DWRF_ADVECT_FIRST_Y_ZERO_SEED
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+
 cio.o :
 	$(CC) -c $(CFLAGS) cio.c
 

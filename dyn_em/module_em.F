@@ -7,7 +7,12 @@ MODULE module_em
    USE module_model_constants
    
    USE module_advect_em, only: advect_u, advect_v, advect_w, advect_scalar, advect_scalar_pd, advect_scalar_mono, &
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+        advect_weno_u, advect_weno_v, advect_weno_w, advect_scalar_weno,  advect_scalar_wenopd, advect_scalar_zero_seed_eligible
+#else
         advect_weno_u, advect_weno_v, advect_weno_w, advect_scalar_weno,  advect_scalar_wenopd
+#endif
+#line 11
    
    USE module_big_step_utilities_em, only: grid_config_rec_type, calculate_full, couple_momentum, calc_mu_uv, calc_mu_uv_1, &
         calc_ww_cp, calc_cq, calc_alt, calc_php, set_tend, rhs_ph, horizontal_pressure_gradient, pg_buoy_w, w_damp, &
@@ -1207,7 +1212,11 @@ SUBROUTINE rk_scalar_tend ( scs, sce, config_flags,          &
 #endif
 #line 1160
    REAL, DIMENSION(ims:ime, kms:kme, jms:jme  ), INTENT(OUT  ) :: RQVFTEN
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+#else
 
+#endif
+#line 1211
    REAL, DIMENSION(ims:ime, kms:kme, jms:jme  ), INTENT(IN   ) ::     ru,     &
                                                                       rv,     &
                                                                       ww,     &
@@ -1217,16 +1226,28 @@ SUBROUTINE rk_scalar_tend ( scs, sce, config_flags,          &
                                                                       alt,    &
                                                                       phb,    &
                                                                       ph
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+#else
 
+#endif
+#line 1221
    REAL , DIMENSION( kms:kme ) ,                 INTENT(IN   ) :: fnm,  &
                                                                   fnp,  &
                                                                   rdn,  &
                                                                   rdnw, &
                                                                   base
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+#else
 
+#endif
+#line 1227
    REAL , DIMENSION( kms:kme ) ,                 INTENT(IN   ) :: c1h, c2h
    REAL , DIMENSION( kms:kme ) ,                 INTENT(IN   ) :: c1f, c2f
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+#else
 
+#endif
+#line 1230
    REAL , DIMENSION( ims:ime , jms:jme ) ,       INTENT(IN   ) :: msfux,    &
                                                                   msfuy,    &
                                                                   msfvx,    &
@@ -1237,17 +1258,33 @@ SUBROUTINE rk_scalar_tend ( scs, sce, config_flags,          &
                                                                   mub,     &
                                                                   mut,     &
                                                                   mu_old
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+#else
 
+#endif
+#line 1241
    REAL ,                                        INTENT(IN   ) :: rdx,     &
                                                                   rdy,     &
                                                                   khdif,   &
                                                                   kvdif
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+#else
 
+#endif
+#line 1246
    INTEGER, INTENT( IN ) :: diff_6th_opt
    REAL,    INTENT( IN ) :: diff_6th_factor
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+#else
 
+#endif
+#line 1249
    REAL,    INTENT(IN   ) :: dt_step    ! This is the local dt for each RK sub-step
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+#else
 
+#endif
+#line 1251
    INTEGER, INTENT(IN   ) :: adv_opt          
    LOGICAL, INTENT(IN   ) :: mix2_off, mix6_off
 #if defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
@@ -1258,33 +1295,73 @@ SUBROUTINE rk_scalar_tend ( scs, sce, config_flags,          &
 #line 1206
 #endif
 #line 1204
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+#else
 
    ! Local data
   
+#endif
+#line 1264
    INTEGER :: im, i,j,k
    INTEGER :: time_step
    INTEGER :: rk_order
    REAL    :: dt         ! This is the large time step computed below
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+#else
 
+#endif
+#line 1269
    REAL    :: khdq, kvdq, tendency
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+#else
 
 ! IEVA variables
+#endif
+#line 1272
    REAL, DIMENSION( ims:ime, kms:kme, jms:jme ) :: wwE, wwI  
    REAL, DIMENSION( ims:ime, jms:jme )          :: mut_old  
+#if (defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)) && !(defined(WRF_MOISTURE_HZ_ZERO_REUSE) && defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP))
+   LOGICAL :: seed_zero
+#endif
    LOGICAL                                      :: ieva
 #if defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
    LOGICAL :: needs_ww_split
 #if defined(WRF_MOISTURE_HZ_ZERO_REUSE) && defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+   LOGICAL :: needs_hz_zero, seed_zero
+#else
    LOGICAL :: needs_hz_zero
+#endif
+#line 1279
 #endif
 #line 1220
 #endif
 #line 1218
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+#else
 
+#endif
+#line 1284
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+#else
 !<DESCRIPTION>
+#endif
+#line 1285
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+#else
 !
+#endif
+#line 1286
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+#else
 ! rk_scalar_tend calls routines that computes scalar tendency from advection
+#endif
+#line 1287
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+#else
 ! and 3D mixing (TKE or fixed eddy viscosities).
+#endif
+#line 1288
 !
 !</DESCRIPTION>
 
@@ -1354,10 +1431,36 @@ SUBROUTINE rk_scalar_tend ( scs, sce, config_flags,          &
 
    scalar_loop : DO im = scs, sce
 
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+     seed_zero = .FALSE.
+     IF ( .NOT. ieva ) THEN
+       IF ( .NOT. ( (rk_step == rk_order) .AND. &
+                    ( (adv_opt == POSITIVEDEF) .OR. (adv_opt == MONOTONIC) .OR. &
+                      (adv_opt == WENO_SCALAR) .OR. (adv_opt == WENOPD_SCALAR) ) ) ) THEN
+         seed_zero = advect_scalar_zero_seed_eligible( config_flags, &
+                         ids, ide, jds, jde, kds, kde, &
+                         its, ite, jts, jte, kts, kte )
+       ENDIF
+     ENDIF
+     IF ( seed_zero ) THEN
+       DO j=jts,jte
+       DO i=its,ite
+         advect_tend(i,kte,j) = 0.0
+       ENDDO
+       ENDDO
+     ELSE
+#else
+#endif
+#line 1357
      CALL zero_tend ( advect_tend(ims,kms,jms),     &
                       ids, ide, jds, jde, kds, kde, &
                       ims, ime, jms, jme, kms, kme, &
                       its, ite, jts, jte, kts, kte )
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+     ENDIF
+#else
+#endif
+#line 1361
 
 #if defined(WRF_MOISTURE_HZ_ZERO_REUSE) && defined(WRF_MOISTURE_WW_SPLIT_REUSE) && defined(DM_PARALLEL) && !defined(_OPENMP)
      IF ( needs_hz_zero ) THEN
@@ -1456,7 +1559,13 @@ SUBROUTINE rk_scalar_tend ( scs, sce, config_flags,          &
                                  rdx, rdy, rdnw,                &
                                  ids, ide, jds, jde, kds, kde,  &
                                  ims, ime, jms, jme, kms, kme,  &
+#if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
+                                 its, ite, jts, jte, kts, kte, &
+                                 tendency_zero_entry=seed_zero )
+#else
                                  its, ite, jts, jte, kts, kte  )
+#endif
+#line 1460
 
       END IF
 
