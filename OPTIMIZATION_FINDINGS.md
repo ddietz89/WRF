@@ -1,5 +1,13 @@
 # WRF CPU optimization findings
 
+## October24 W damping/PH fusion retained in combined962b
+
+Own combined962b passed both full-grid short products and all35 ordered steps against corrected-original546b, including metadata/layout, all512 rank/library/affinity, FABA/twoY,32FIELDVIEW and16active writer markers. All four model invocations and reader280a9aa0 closed normally. The working selection now includes the previous WW recurrence pipeline and W damping/final-PH traversal fusion, retaining all prior components/providers. Own three-hour/nine-hour/profile/restart/full144 coverage remains pending for this exact image.
+
+The W machine body is identical to the qualified captured caller that saved0.99% and2.36% wall time (THREAD CPU1.00%/2.36%). Those are historical450x342/16rank complete-caller results, not current forecast gains or additive percentages. Candidate-only short observations were119.855135s model/MPI wall,37.011690s main elapsed and45,626.627305aggregateCPU-s; the retained original is unpaired, so no matched speedup is claimed.
+
+Sourcea10e4cbe is post-test canonical strictO2 runtime/RELA/nonFILE/publicMOD correspondence to D431, with rawproducer commitNULL; full canonical/native PP bytes differ. The original failed hard-private-pool R1 remains preserved, and the exact named-pair R2 decision is explicit. Optout0 plus full regeneration/rebuild/rearchive/relink restores the prior W schedule while retaining WW, or use WW2340/f787/source6b. Production/master are unchanged. [Qualification, caller evidence and rollback](tools/cpu-compute/advance-w-damping-phi-consumer-fusion/APPLICATION_QUALIFICATION.json).
+
 ## October23: WW recurrence pipeline promoted after own short science
 
 Working image `2340308c`/archive `f7870223` adds previous-row WW subtraction after its final recurrence read, eliminating a second vertical sweep. All c277/PD components and providers remain. Exact native/O0/O2 coverage passed87 observations per optimization; the complete captured caller was3.87% and3.48% shorter (process CPU3.84%/3.44% lower) in opposite-order pairs with checked cache boundaries. These are caller gains, not forecast percentages.

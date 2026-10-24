@@ -1,0 +1,88 @@
+--- a/dyn_em/module_small_step_em.F
++++ b/dyn_em/module_small_step_em.F
+@@ -1645,6 +1645,45 @@
+     ENDDO
+     ENDDO
+ 
++#ifdef WRF_ADVANCE_W_DAMPING_PHI_FUSION
++    IF (config_flags%damp_opt .eq. 3) THEN
++      DO k=k_end+1,2,-1
++        IF (k .eq. k_end+1) THEN
++          IF (i_start .le. i_end) THEN
++            DO i=i_start, i_end
++              htop_i(i)=(ph_1(i,k_end+1,j)+phb(i,k_end+1,j))/g
++              hbot_i(i)=htop_i(i)-hdepth
++            ENDDO
++          ENDIF
++        ENDIF
++        DO i=i_start, i_end
++          htop=htop_i(i)
++          hk=(ph_1(i,k,j)+phb(i,k,j))/g
++          hbot=hbot_i(i)
++          dampwt(k) = 0.
++          if(hk .ge. hbot)then
++            dampwt(k) = dampmag*sin(0.5*pi*(hk-hbot)/hdepth)*sin(0.5*pi*(hk-hbot)/hdepth)
++          endif
++          dampwt_row(i) = dampwt(k)
++        ENDDO
++        !$omp simd
++        DO i=i_start, i_end
++          w(i,k,j) = (w(i,k,j) - dampwt_row(i)*(c1f(k)*mut(i,j)+c2f(k))*w_save(i,k,j))/(1.+dampwt_row(i))
++       ph(i,k,j) = rhs(i,k)+msfty(i,j)*.5*dts*g*(1.+epssm) &
++                      *w(i,k,j)/(c1f(k)*muts(i,j)+c2f(k))
++        ENDDO
++      ENDDO
++    ELSE
++    DO k=k_end+1,2,-1
++!$omp simd
++    DO i=i_start, i_end
++       ph(i,k,j) = rhs(i,k)+msfty(i,j)*.5*dts*g*(1.+epssm) &
++                      *w(i,k,j)/(c1f(k)*muts(i,j)+c2f(k))
++    ENDDO
++    ENDDO
++    ENDIF
++
++#else
+     IF (config_flags%damp_opt .eq. 3) THEN
+       DO k=k_end+1,2,-1
+         IF (k .eq. k_end+1) THEN
+@@ -1680,6 +1719,7 @@
+     ENDDO
+     ENDDO
+ 
++#endif
+   ENDDO j_loop_w
+ 
+ END SUBROUTINE advance_w
+--- a/dyn_em/Makefile
++++ b/dyn_em/Makefile
+@@ -292,6 +292,29 @@
+ endif
+ 
+ 
++# Damping3 W / finalPH shared traversal; all original scalar and final stores retained.
++# Qualified GNU13.3.0 emptyOMP/OMPCPP SmallStepSIMD1/Zen21; matchingserial unqualified.
++# Explicit0 requires full regeneration/rebuild/rearchive/relink, restoring original schedule.
++WRF_ADVANCE_W_DAMPING_PHI_FUSION ?= 1
++ifeq ($(WRF_ADVANCE_W_DAMPING_PHI_FUSION),1)
++ifeq ($(WRF_SMALL_STEP_SIMD),1)
++ifeq ($(WRF_SMALL_STEP_ZEN2),1)
++ifeq ($(strip $(OMPCPP) $(OMP) $(PROMOTION) $(DOUBLE_PRECISION)),)
++ifeq ($(strip $(RWORDSIZE)),4)
++ifeq ($(strip $(IWORDSIZE)),4)
++ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
++ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
++module_small_step_em.o: private override CPPFLAGS += -DWRF_ADVANCE_W_DAMPING_PHI_FUSION
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++
++
+ cio.o :
+ 	$(CC) -c $(CFLAGS) cio.c
+ 

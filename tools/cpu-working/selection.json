@@ -1,8 +1,8 @@
 {
-  "source_commit": "6b689c8a897394acf5d1e5a6f245212ebb7e0e9d",
+  "source_commit": "a10e4cbe121809ec84602c6a585089ca9f688b72",
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentc277-advance-mu-ww-row-pipeline-one-member-native-r1/wrf.exe",
-    "sha256": "2340308cf80d3a4ae29071beddfb5b2f8444a3c9b56ed08137fc63dbf8ba36dd"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current2340-ww-wph-combined-one-member-native-r1/wrf.exe",
+    "sha256": "962bdf2953282798d002c1f3da7a48b858a3e3b1c5c05b407b051f309da24470"
   },
   "artifacts": {
     "shim": {
@@ -32,14 +32,14 @@
     "thompson_build_scope": "GNU13.3 strict cold one-domain DIMNRHG1/OMP1:23fields/12fixedowners, lazyfixedgrouppublication and privateTCGINITsentinel; no-macro localCPPprojection literal, no genericwhole-object qualification.",
     "BC_module_local_flag": "-fopenmp-simd",
     "BC_flag_scope": "Required only for qualified module_bc.F recipe; no global fast math/flags change. Generic builds without this flag do not claim BC SIMD.",
-    "source_rebuild_recipe": "tools/cpu-compute/advance-mu-ww-row-pipeline/REBUILD_RECIPE.json",
+    "source_rebuild_recipe": "tools/cpu-compute/advance-w-damping-phi-consumer-fusion/REBUILD_RECIPE.json",
     "theta_SW_source_recipes": {
       "theta": "tools/cpu-compute/theta-sw-batch/theta/REBUILD_RECIPE.json",
       "SW": "tools/cpu-compute/theta-sw-batch/sw/REBUILD_RECIPE.json",
       "scope": "Frozen actual overlay recipes over f4b; canonical sources equal posttestcommit. PriorcalcBCrebuild is parent-only evidence; no wholea50e source-reproduction claim."
     },
     "parent_calc_BC_source_rebuild_recipe": "tools/cpu-compute/calc-php-bc-simd/source-rebuild/README.md",
-    "source_rebuild_scope": "Actualcanonicaldefault/offCPP plus one strictO2runtime-equivalent to qualified2dd4; no fresh whole-image build.",
+    "source_rebuild_scope": "Post-test canonical strictO2 allocated-runtime/RELA/nonFILE/publicMOD correspondence to qualified D431; nativePP and canonicalPP differ. Not a fresh whole-image source build.",
     "SPCVMC_module_local_flag": "-fopenmp-simd",
     "SPCVMC_source_recipe": "tools/cpu-compute/spcvmc-optical-producer/REBUILD_RECIPE.json",
     "HPG_NHX_CONSUMER_source_recipe": "tools/cpu-compute/hpg-nhx-consumer-simd/REBUILD_RECIPE.json",
@@ -76,13 +76,15 @@
     "ADVANCE_MU_WDTN_ROW_PIPELINE_scope": "GNU13.3.0/emptyOMPCPP/SmallStepSIMD1/Zen21; matchingserial unqualified; explicit0 plusfullregenerate/rebuild/rearchive/relink.",
     "WRF_CALC_COEF_W_AHEAD_ROW_PIPELINE": 1,
     "CALC_COEF_W_AHEAD_ROW_PIPELINE_scope": "WRF_CALC_COEF_W_AHEAD_ROW_PIPELINE default1 under GNU13.3.0/emptyOMPCPP/WRF_SMALL_STEP_SIMD=1/WRF_SMALL_STEP_ZEN2=1. No DM_PARALLEL assertion; matching serial unqualified. Optout0 plus fullregenerate/rebuild/rearchive/relink.",
-    "source_rebuild_recipe_sha256": "d58bbf3ae7abaf981193368b9eeb2f39b6c454c87d3321a414ccfdf5490d7a44",
+    "source_rebuild_recipe_sha256": "9fe2d35dea036d50c81eba21e5a91e8a1328e90085f3df4c99603fd254d11315",
     "parent_source_rebuild_recipe_before_CALC_COEF_W_AHEAD_ROW_PIPELINE": "tools/cpu-compute/smallstep-rk1-uv-copy-fusion/REBUILD_RECIPE.json",
     "WRF_PD_FINAL_PASS_FUSION": 1,
     "PD_FINAL_PASS_FUSION_scope": "WRF_PD_FINAL_PASS_FUSION=1 under qualified GNU13.3.0/default REAL4 INTEGER4/emptyOMP+OMPCPP/ADVECTION_SIMD=1/ADVECTION_ZEN2=1. Unsupported builds strip interface-free CPP branch and retain original. No new compiler flags/helper.",
     "parent_PD_source_rebuild_recipe_before_WW": "tools/cpu-compute/pd-final-pass-fusion/REBUILD_RECIPE.json",
     "WRF_ADVANCE_MU_WW_ROW_PIPELINE": 1,
-    "ADVANCE_MU_WW_ROW_PIPELINE_scope": "WRF_ADVANCE_MU_WW_ROW_PIPELINE=1 only GNU13.3.0/SmallStepSIMD1/Zen21/emptyOMP+OMPCPP+PROMOTION+DOUBLE_PRECISION/REAL4+INTEGER4. No new compiler flags or helpers. Matchingserial remains unqualified."
+    "ADVANCE_MU_WW_ROW_PIPELINE_scope": "WRF_ADVANCE_MU_WW_ROW_PIPELINE=1 only GNU13.3.0/SmallStepSIMD1/Zen21/emptyOMP+OMPCPP+PROMOTION+DOUBLE_PRECISION/REAL4+INTEGER4. No new compiler flags or helpers. Matchingserial remains unqualified.",
+    "WRF_ADVANCE_W_DAMPING_PHI_FUSION": 1,
+    "ADVANCE_W_DAMPING_PHI_FUSION_scope": "WRF_ADVANCE_W_DAMPING_PHI_FUSION=1 withinGNU13.3.0/SmallStepSIMD1/Zen21/emptyOMP+OMPCPP+PROMOTION+DOUBLE_PRECISION/REAL4+INTEGER4. No newcompilerflags/helpers. Serial matchingguard remains unqualified; noDM_PARALLEL guard implied."
   },
   "runtime": {
     "OMP_NUM_THREADS": 1,
@@ -100,10 +102,10 @@
   "read_affine_IO_archive_sha256": "651835f31089e16759177734198ece5b121d704355c73abddde483f4cae2c14c",
   "read_affine_IO_object_sha256": "c9c4e5b7a0225523e7d85cfc188022d797204d3f4dd4494b54c416e3bec99320",
   "schema_version": 3,
-  "status": "PASS_CURRENT2340_WW_ROW_PIPELINE_OWN_SHORT35_TWO_HISTORY_SCIENCE",
-  "scope": "WW-only child2340/f787 over c277/PD; own two-output35-step world512 short scientific qualification. WPH not included. No own3h/9h/profile/restart/full144 qualification.",
-  "includes": "All prior selectedf272 components plus RK1 PH snapshot/consumer fusion only; qualified Thompson bank and Tcopy retained. Also includes one U nonhydro dpxy correction SIMD directive; no prior component removed. Also includes exact RK1 U/V snapshot fusion into their existing save/coupling loops; all parent79be components/providers retained. Retains all19adcomponents/providers plus exactguardedRK1Wsnapshot fusion; MU and AKM clear trials excluded. Retains526ecomponents/providers plus same-I WDTNrowpipeline; noMU/AKM changes. Retains all prior components and providers plus calc_coef_w A(k+1)/B(k) ahead-row pipeline. Adds guarded PD final Z/X/Y traversal fusion; all parent components/providers retained. Adds WW recurrence/previous-row subtraction pipeline only; all prior c277 components/providers retained. WPH remains excluded.",
-  "source_commit_scope": "Posttest canonical strictO2 allocated-runtime/RELA/nonFILE/publicMOD correspondence to qualified native2dd4; not a fresh whole-image canonical build.",
+  "status": "PASS_CURRENT962B_WW_WPH_COMBINED_OWN_SHORT35_TWO_HISTORY_SCIENCE",
+  "scope": "Combined962b/bd1a WW+WPH child of2340; own full512 two-output35step exact short qualification only. No own3h/9h/noon/profile/restart/full144 qualification.",
+  "includes": "All prior selectedf272 components plus RK1 PH snapshot/consumer fusion only; qualified Thompson bank and Tcopy retained. Also includes one U nonhydro dpxy correction SIMD directive; no prior component removed. Also includes exact RK1 U/V snapshot fusion into their existing save/coupling loops; all parent79be components/providers retained. Retains all19adcomponents/providers plus exactguardedRK1Wsnapshot fusion; MU and AKM clear trials excluded. Retains526ecomponents/providers plus same-I WDTNrowpipeline; noMU/AKM changes. Retains all prior components and providers plus calc_coef_w A(k+1)/B(k) ahead-row pipeline. Adds guarded PD final Z/X/Y traversal fusion; all parent components/providers retained. Adds WW recurrence/previous-row subtraction pipeline only; all prior c277 components/providers retained. Adds guarded W damping/final PH consumer fusion; all WW/PD and earlier components/providers retained.",
+  "source_commit_scope": "Post-test canonical strictO2 allocated-runtime/RELA/nonFILE/publicMOD correspondence to qualified D431; nativePP and canonicalPP differ. Not a fresh whole-image source build.",
   "input_implementation_commit": "614267f340a23ffc342962b3c64e323719fe4d06",
   "root_input": {
     "enabled_in_working_configuration": true,
@@ -155,8 +157,8 @@
     "all4models_and_reader_normal_closed": true,
     "original_checker_unchanged": true
   },
-  "qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/advance-mu-ww-row-pipeline/APPLICATION_QUALIFICATION.json",
-  "current_application_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/advance-mu-ww-row-pipeline/APPLICATION_QUALIFICATION.json",
+  "qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/advance-w-damping-phi-consumer-fusion/APPLICATION_QUALIFICATION.json",
+  "current_application_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/advance-w-damping-phi-consumer-fusion/APPLICATION_QUALIFICATION.json",
   "source_build_binding_file": "CURRENT_SOURCE_BUILD_BINDING.json",
   "current_three_hour_qualified": false,
   "current_nine_hour_qualified": false,
@@ -169,17 +171,16 @@
   "memory_qualification_file": "tools/cpu-memory/thompson-table-sharing/lazy-group-init/QUALIFICATION.json",
   "activation": "Selection record, not a launcher. Use a fresh bounded lease/run/log directory and the exact root-only input rank-exec binding, with all original runtime checks and cache-before-each-arm SOP. Never preload launchers/helpers.",
   "rollback": {
-    "knob": "WRF_ADVANCE_MU_WW_ROW_PIPELINE=0",
-    "requires": "Full regenerate/recompile/rearchive/relink; macrooff wholecanonical source exactbbb483 and knowncanonicalPPee2. Restore c277/10eb and matching d2cd source/default; retain PD finalpass guard and allpriorcomponents."
+    "knob": "WRF_ADVANCE_W_DAMPING_PHI_FUSION=0",
+    "requires": "Full regenerate/recompile/rearchive/relink; restores WWparentWschedule/currentWWdefault retained. For exact priorartifact use WW2340/f787/2dd4 and source6b689c8a. No rawproducer identity invented."
   },
   "claim_limits": [
-    "Synthetic historicalcaptured completecaller savings are notforecastgain/globalheadroom or current512geometry proof.",
-    "Currentc277 parent ownshort remains historical for newchild; a93f/19ad/earlier3h9h/ABBA cannottransfer.",
-    "ExactmaskedIEEE/state preserved in finite87case/O0O2 coverage; no synchronous-trap schedule equivalence claim.",
-    "If WPH/Wfusion later qualifies, a subsequentcombined image has distinctidentity and mustbindownscience; thisWW-only proof doesnotqualifythatimage.",
-    "Rawproducer sourceNULL; laterposttest commit meanscanonicalcorrespondence to reusednativeobject, notfreshwholeimage."
+    "ParentWWshort and earliera93f3h9h/19adABBA are historical, not combined962bqualification.",
+    "Original combinedR1hardconstantlayoutFAIL remainsimmutable; newR2exactnamedpair prospectiveapproval is explicit and no generalpolicychange.",
+    "No synchronous-FPtrap ordering claim or addedtolerance/waiver.",
+    "Ownshort passed; own1h/3h/9h/noon75m/restart/full144/profile/nativeprofile remain false."
   ],
-  "next_qualification": "Stable combined own3h and selected9h separately required; no inherited horizons or forecast timing gain.",
+  "next_qualification": "Own unprofiled three-hour4products545steps, then selected ownnine-hour; no parenthorizon transfer.",
   "output_fusion_qualification_file": "tools/cpu-output/quilt512/padding-block32/NATIVE_QUALIFICATION.json",
   "latest_nine_hour": null,
   "padding_only_fill_qualification_file": "tools/cpu-output/quilt512/padding-only-fill/NATIVE_QUALIFICATION.json",
@@ -646,7 +647,7 @@
     "archive_sha256": "dd329f8d0aa126c8475dbb690d0d8571af34b63d20fac48da7c207a1001c934f",
     "scope": "One CU-loop directive only, committed after native/caller/canonical-preprocess/link/original3hSCI. Frozen rawproducerNULL unchanged; no isolated forecast or own9h claim."
   },
-  "current_short_qualified": true,
+  "current_short_qualified": false,
   "previous_PBL_PART2_POST_TEST_SOURCE_IDENTITY": {
     "status": "POST_TEST_SOURCE_IDENTITY",
     "source_commit": "61c2b67e086360442b07a83090df5712b7905d8f",
