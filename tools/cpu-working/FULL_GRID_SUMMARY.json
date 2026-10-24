@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-10-24T14:15:28.230122+00:00",
+  "updated_utc": "2026-10-24T16:27:46.549403+00:00",
   "metric_definitions": {
     "wall_seconds": "Model/MPI including initialization/output/final drain",
     "main_step_sum_seconds": "Sum of reported main-step elapsed; includes communication/waiting/backpressure, not integration CPU",
@@ -518,22 +518,22 @@
   ],
   "limits": "Recent rows compare descriptively with identified retained same-horizon controls. They are not fresh matched pairs, causal incremental gains, repeatability or additive percentages. Instrumented observations are labelled.",
   "current_selection": {
-    "executable_sha256": "169c09affa71559a60e35520040fa82fd084bca7436896f3ca2559bb9666cd86",
-    "archive_sha256": "9ce6689d9ba4ef719068b0a57f711a934c70ec04e51452207a6d3886874dd241",
-    "own_one_hour_qualified": true,
+    "executable_sha256": "eca471293cbd8de389ac6f62a8a191e5c838789435a77dd9eb9e5513f8aff9c7",
+    "archive_sha256": "497209c11e1a39be3d67e50988ff725ef2b30a135d41a32547c8f6fff7384986",
+    "own_three_hour_qualified": true,
+    "own_one_hour_qualified": false,
     "own_short_qualified": false,
-    "own_three_hour_qualified": false,
     "own_nine_hour_qualified": false,
     "noon_profile_restart_full144_qualified": false,
     "qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/coriolis-curvature-row-cache-batch/APPLICATION_QUALIFICATION.json",
-      "sha256": "38cff69f264abafc174b0ce8f43de7b0184fda21bfa731bc61af6ad9c323869a"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/curvature-vxgm-j-difference-cache/APPLICATION_QUALIFICATION.json",
+      "sha256": "f65de5ef8d3299c44ee1fa2e357fc34d73b1af8cd472a91b704cb665e8f21748"
     },
-    "qualification_scope": "Own169c original H185/two06/07 products, full512, all4models+reader normalclosed. Candidate-only unpaired timings; parent90f5 matched3h/own9h historical. No writer/profile/long/restart/full144 qualification or forecastspeedup transfer.",
-    "latest_completed_3h_image": "90f5",
+    "qualification_scope": "One fresh fixed-order A→B pair, not repeatability or isolated/additive component evidence. Own ECA4 three-hour science only; historical 90f5 ABBA/nine-hour remain historical. Main is integration-loop elapsed including communication/backpressure; CPU is summed whole-job consumption. Raw producer commit unknown.",
+    "latest_completed_3h_image": "eca4",
     "latest_completed_9h_image": "90f5",
     "latest_completed_horizon_labels_apply_to_current_selection": {
-      "three_hour": false,
+      "three_hour": true,
       "nine_hour": false
     }
   },
@@ -617,5 +617,207 @@
     "executable_sha256": "90f5473062922c82d26aaeb68fc95c512a3e0e328d5dab1a365dc5e14ed7b64b",
     "report_key": "matched_three_hour",
     "applies_to_current_selection": false
+  },
+  "historical_matched_three_hour_90f5_ABBA": {
+    "order": [
+      "A1",
+      "B1",
+      "B2",
+      "A2"
+    ],
+    "observations_per_image": 2,
+    "executable_sha256": "90f5473062922c82d26aaeb68fc95c512a3e0e328d5dab1a365dc5e14ed7b64b",
+    "metrics_means": {
+      "control": {
+        "wall_seconds": 799.0043781208806,
+        "main_step_sum_seconds": 594.26336,
+        "cpu_seconds": 358587.1384515
+      },
+      "candidate": {
+        "wall_seconds": 633.2243067168165,
+        "main_step_sum_seconds": 540.765395,
+        "cpu_seconds": 307221.437287
+      }
+    },
+    "metrics_ranges": {
+      "control": {
+        "wall_seconds": {
+          "min": 798.8793674847111,
+          "max": 799.12938875705,
+          "spread": 0.2500212723389268
+        },
+        "main_step_sum_seconds": {
+          "min": 594.02948,
+          "max": 594.49724,
+          "spread": 0.4677599999999984
+        },
+        "cpu_seconds": {
+          "min": 358464.522448,
+          "max": 358709.754455,
+          "spread": 245.23200700001325
+        }
+      },
+      "candidate": {
+        "wall_seconds": {
+          "min": 625.3859499492683,
+          "max": 641.0626634843647,
+          "spread": 15.676713535096496
+        },
+        "main_step_sum_seconds": {
+          "min": 540.25036,
+          "max": 541.28043,
+          "spread": 1.0300700000000234
+        },
+        "cpu_seconds": {
+          "min": 303948.213217,
+          "max": 310494.661357,
+          "spread": 6546.448139999993
+        }
+      }
+    },
+    "individual_arms": [
+      {
+        "arm": "A1",
+        "executable_sha256": "546b99156cbd809e1cae5e0ea8cebeea44dafd6331abf89e4daea00e0dd0a5e7",
+        "metrics": {
+          "wall_seconds": 799.12938875705,
+          "cpu_seconds": 358709.754455,
+          "main_step_sum_seconds": 594.49724
+        }
+      },
+      {
+        "arm": "B1",
+        "executable_sha256": "90f5473062922c82d26aaeb68fc95c512a3e0e328d5dab1a365dc5e14ed7b64b",
+        "metrics": {
+          "wall_seconds": 625.3859499492683,
+          "cpu_seconds": 303948.213217,
+          "main_step_sum_seconds": 541.28043
+        }
+      },
+      {
+        "arm": "A2",
+        "executable_sha256": "546b99156cbd809e1cae5e0ea8cebeea44dafd6331abf89e4daea00e0dd0a5e7",
+        "metrics": {
+          "wall_seconds": 798.8793674847111,
+          "cpu_seconds": 358464.522448,
+          "main_step_sum_seconds": 594.02948
+        }
+      },
+      {
+        "arm": "B2",
+        "executable_sha256": "90f5473062922c82d26aaeb68fc95c512a3e0e328d5dab1a365dc5e14ed7b64b",
+        "metrics": {
+          "wall_seconds": 641.0626634843647,
+          "cpu_seconds": 310494.661357,
+          "main_step_sum_seconds": 540.25036
+        }
+      }
+    ],
+    "reduction_percent": {
+      "wall_seconds": 20.748330790620948,
+      "main_step_sum_seconds": 9.002400047009465,
+      "cpu_seconds": 14.324468352745267
+    },
+    "references": [
+      {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/next-firsty-combined-threehour-abba-preparation-r1/FRESH_ACTUAL_ABBA_REPORT.json",
+        "sha256": "e0dd88d4c31bbafe18ce843c145005f8ac519613c5035017901f50fa41af09f1",
+        "bytes": 34428
+      }
+    ],
+    "limits": [
+      "Two observations per image; no confidence interval or broad repeatability claim.",
+      "Main elapsed includes MPI and output backpressure; wall minus main is not pure I/O.",
+      "AggregateCPU includes spin; throttle counters do not establish causal lost wall time.",
+      "Historical component caller gains are not additive or isolated forecast attribution.",
+      "Output inventory/normal writer closure proves completion, not an independently measured drain duration.",
+      "Load/frequency context UNKNOWN where sampled values were not collected locally.",
+      "Raw RESULT inherited labels are retained in sources; actual leases identify546b/frozenfirstY."
+    ]
+  },
+  "latest_fixed_order_three_hour": {
+    "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+    "executable_sha256": "eca471293cbd8de389ac6f62a8a191e5c838789435a77dd9eb9e5513f8aff9c7",
+    "qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/curvature-vxgm-j-difference-cache/APPLICATION_QUALIFICATION.json",
+      "sha256": "f65de5ef8d3299c44ee1fa2e357fc34d73b1af8cd472a91b704cb665e8f21748"
+    },
+    "result": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current90f5-periodic-coriolis-batch-threehour-pair-runtime-r1/RESULT.json",
+      "sha256": "2068c102eef08c66002711a09b4a7b812aae90bd3a3f77b5b0c7656cb765a629"
+    },
+    "metrics": {
+      "control": {
+        "wall_seconds": 821.7265532561578,
+        "cpu_seconds": 368640.275284,
+        "main_step_sum_seconds": 596.85718
+      },
+      "candidate": {
+        "wall_seconds": 643.2468203250319,
+        "cpu_seconds": 311583.185499,
+        "main_step_sum_seconds": 540.67158
+      }
+    },
+    "reductions_percent": {
+      "wall_seconds": 21.72008829748602,
+      "cpu_seconds": 15.477714620585948,
+      "main_step_sum_seconds": 9.413575287810062
+    },
+    "order": [
+      "A",
+      "B"
+    ],
+    "observations_per_image": 1,
+    "exact_products": 4,
+    "ordered_steps": 545,
+    "limits": "One fresh fixed-order A→B pair, not repeatability or isolated/additive component evidence. Own ECA4 three-hour science only; historical 90f5 ABBA/nine-hour remain historical. Main is integration-loop elapsed including communication/backpressure; CPU is summed whole-job consumption. Raw producer commit unknown.",
+    "metrics_means": {
+      "control": {
+        "wall_seconds": 821.7265532561578,
+        "cpu_seconds": 368640.275284,
+        "main_step_sum_seconds": 596.85718
+      },
+      "candidate": {
+        "wall_seconds": 643.2468203250319,
+        "cpu_seconds": 311583.185499,
+        "main_step_sum_seconds": 540.67158
+      }
+    },
+    "metrics_ranges": null,
+    "ranges_available": false,
+    "individual_arms": [
+      {
+        "arm": "A",
+        "metrics": {
+          "wall_seconds": 821.7265532561578,
+          "cpu_seconds": 368640.275284,
+          "main_step_sum_seconds": 596.85718
+        }
+      },
+      {
+        "arm": "B",
+        "metrics": {
+          "wall_seconds": 643.2468203250319,
+          "cpu_seconds": 311583.185499,
+          "main_step_sum_seconds": 540.67158
+        }
+      }
+    ],
+    "reduction_percent": {
+      "wall_seconds": 21.72008829748602,
+      "cpu_seconds": 15.477714620585948,
+      "main_step_sum_seconds": 9.413575287810062
+    },
+    "references": [
+      {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current90f5-periodic-coriolis-batch-threehour-pair-runtime-r1/RESULT.json",
+        "sha256": "2068c102eef08c66002711a09b4a7b812aae90bd3a3f77b5b0c7656cb765a629"
+      },
+      {
+        "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/curvature-vxgm-j-difference-cache/APPLICATION_QUALIFICATION.json",
+        "sha256": "f65de5ef8d3299c44ee1fa2e357fc34d73b1af8cd472a91b704cb665e8f21748"
+      }
+    ],
+    "comparison_design": "Fresh single A→B corrected-original546b versus actualchosencombinedbatch; no historicalarmreuse/repeatability/isolated/additiveclaim"
   }
 }

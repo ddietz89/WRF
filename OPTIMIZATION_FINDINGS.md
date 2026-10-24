@@ -1,5 +1,21 @@
 # WRF CPU optimization findings
 
+## October 24: latest combined build passed a fresh three-hour full-grid comparison
+
+The combined executable `eca47129` passed all four complete products and all 545 ordered steps against corrected-original `546b9915`, using the unchanged numerical, metadata, layout and runtime checks. All eight model jobs and the original reader closed normally. This image retains every preceding `169c`/`90f5` improvement and adds the VXGM horizontal J-difference row cache. Source commit `3c5eaafc` records post-test correspondence; the raw producer commit remains unknown.
+
+| Three-hour metric | Corrected-original control | Latest combined ECA4 | Reduction from control |
+| --- | ---: | ---: | ---: |
+| Model/MPI wall time (min) | 13.695 | 10.721 | **21.72%** |
+| Integration-loop elapsed (min) | 9.948 | 9.011 | **9.41%** |
+| Aggregate CPU (core-hours) | 102.400 | 86.551 | **15.48%** |
+
+This is one fresh **control then candidate** pair, with actual client-cache clears before each arm and no profilers or MPI observer. It measures the whole configuration; it does not establish repeatability or isolate the contributions of the three newest row caches. Integration-loop elapsed includes communication, waits and output backpressure. Aggregate CPU is whole-job consumption across all four nodes. The earlier counterbalanced `90f5` results below remain separate historical evidence.
+
+The new cache evaluates `msfvx(i,j+1)-msfvx(i,j)` once per horizontal row before K, reusing an existing row with no allocation, new ISA or changed arithmetic order. Native checks covered 70 complete cases in four rounding modes. Opposite-order 500-call complete-curvature pairs reduced caller wall time by 3.69% on hpc01 and 0.53% on hpc04, with exact raw outputs and state. These are bounded caller observations, not individual forecast percentages.
+
+The qualified GNU 13.3 pure-MPI working default enables this path. Set `WRF_CURVATURE_VXGM_J_DIFF_CACHE=0`, regenerate preprocessing, rebuild BigStep, replace its archive member and relink to opt out. This exact image owns three-hour science; its own one-hour, nine-hour, profile, restart and full-144-hour scopes remain unqualified. [Application evidence](tools/cpu-compute/curvature-vxgm-j-difference-cache/APPLICATION_QUALIFICATION.json), [rebuild and rollback](tools/cpu-compute/curvature-vxgm-j-difference-cache/README.md).
+
 ## October 24: invariant Coriolis and curvature rows promoted
 
 The qualified GNU 13.3 pure-MPI working defaults now cache Coriolis U horizontal coefficients and the normal-V curvature map quotient before their vertical loops. The combined executable `169c09af` passed the unchanged 512-rank one-hour scientific check: both products, metadata/layout, all 185 ordered steps, and runtime/rank/affinity/library/tile/writer acceptance were exact against corrected-original 546b. All four model jobs and the original reader closed normally. Post-test source correspondence is commit `afb8abb4`; the raw producer source commit remains unknown.
