@@ -518,27 +518,35 @@
   ],
   "limits": "Recent rows compare descriptively with identified retained same-horizon controls. They are not fresh matched pairs, causal incremental gains, repeatability or additive percentages. Instrumented observations are labelled.",
   "current_selection": {
-    "executable_sha256": "eca471293cbd8de389ac6f62a8a191e5c838789435a77dd9eb9e5513f8aff9c7",
-    "archive_sha256": "497209c11e1a39be3d67e50988ff725ef2b30a135d41a32547c8f6fff7384986",
-    "own_three_hour_qualified": true,
+    "executable_sha256": "eff22fb6c81da79b57476915f11417c595016689b1d144b58e88060d7f97799c",
+    "archive_sha256": "37b7fc1205ee4ad3a5b14f5d5663aa92292cf5ec852d515a6913442b5fdb08b5",
+    "own_three_hour_qualified": false,
     "own_one_hour_qualified": false,
-    "own_short_qualified": false,
-    "own_nine_hour_qualified": true,
+    "own_short_qualified": true,
+    "own_nine_hour_qualified": false,
     "noon_profile_restart_full144_qualified": false,
     "qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/curvature-vxgm-j-difference-cache/NINE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "9cb22d9c1d05d4b38c3d6139f72ddd6c5235aaff6570dfa76833bb9edb2bb05b"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/cqv-last-species-consumer-fusion/APPLICATION_QUALIFICATION.json",
+      "sha256": "3c650db4cb19a5ec4e6d63ea3082ef13abef8c11c68ae9c5f9235428f6a7e5fa"
     },
-    "qualification_scope": "One candidate-only unprofiled nine-hour science run versus retained corrected-original546b; descriptive timing differences, not a fresh matched comparison, repeatability, isolated or additive gain. Main elapsed includes communication/backpressure; CPU is summed node-core consumption. No own profile/noon/restart/full144 qualification.",
+    "qualification_scope": "Own EFF2 full512 original ten-minute shortSCI only:35steps/two06+06:10products. No own1h/3h/9h/noon/profile/restart/full144 transfer. Complete synthetic calcCQ caller gains are not forecast gains; short timings are observed/unpaired only. ParentECA4 longer qualifications remain historical parent evidence.",
     "latest_completed_3h_image": "eca4",
     "latest_completed_9h_image": "eca4",
     "latest_completed_horizon_labels_apply_to_current_selection": {
-      "three_hour": true,
-      "nine_hour": true
+      "three_hour": false,
+      "nine_hour": false
     },
-    "nine_hour_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/curvature-vxgm-j-difference-cache/NINE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "9cb22d9c1d05d4b38c3d6139f72ddd6c5235aaff6570dfa76833bb9edb2bb05b"
+    "previous_parent": {
+      "executable_sha256": "eca471293cbd8de389ac6f62a8a191e5c838789435a77dd9eb9e5513f8aff9c7",
+      "three_hour": {
+        "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/curvature-vxgm-j-difference-cache/APPLICATION_QUALIFICATION.json",
+        "sha256": "f65de5ef8d3299c44ee1fa2e357fc34d73b1af8cd472a91b704cb665e8f21748"
+      },
+      "nine_hour": {
+        "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/curvature-vxgm-j-difference-cache/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+        "sha256": "9cb22d9c1d05d4b38c3d6139f72ddd6c5235aaff6570dfa76833bb9edb2bb05b"
+      },
+      "applies_to_current_image": false
     }
   },
   "recovered_diagnostic_runs": [
@@ -868,6 +876,34 @@
     "timing_gain_claim": false,
     "exact_products": 10,
     "ordered_steps": 1625,
-    "limits": "One candidate-only unprofiled nine-hour science run versus retained corrected-original546b; descriptive timing differences, not a fresh matched comparison, repeatability, isolated or additive gain. Main elapsed includes communication/backpressure; CPU is summed node-core consumption. No own profile/noon/restart/full144 qualification."
+    "limits": "One candidate-only unprofiled nine-hour science run versus retained corrected-original546b; descriptive timing differences, not a fresh matched comparison, repeatability, isolated or additive gain. Main elapsed includes communication/backpressure; CPU is summed node-core consumption. No own profile/noon/restart/full144 qualification.",
+    "applies_to_current_image": false
+  },
+  "latest_short_science": {
+    "status": "PASS_OWN_FULL512_SHORT35_TWO_PRODUCTS",
+    "qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/cqv-last-species-consumer-fusion/APPLICATION_QUALIFICATION.json",
+      "sha256": "3c650db4cb19a5ec4e6d63ea3082ef13abef8c11c68ae9c5f9235428f6a7e5fa"
+    },
+    "result": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currenteca4-cqv-child10m-runtime-r1/RESULT.json",
+      "sha256": "8b81cb5471e94d24324794759e415037b22c8b598df5e3a3ded9b4bfe25e9e30"
+    },
+    "executable_sha256": "eff22fb6c81da79b57476915f11417c595016689b1d144b58e88060d7f97799c",
+    "metrics": {
+      "control": {
+        "wall_seconds": 267.5341711281799,
+        "cpu_seconds": 86843.488941,
+        "main_step_sum_seconds": 42.03197
+      },
+      "candidate": {
+        "wall_seconds": 138.16921566287056,
+        "cpu_seconds": 53375.546748,
+        "main_step_sum_seconds": 36.99583
+      }
+    },
+    "timing_gain_claim": false,
+    "comparison_design": "Candidate-only science qualification versus frozen original ten-minute outputs; UNPAIRED descriptive metrics, no matched forecast timing or causal kernel claim",
+    "limits": "Own EFF2 full512 original ten-minute shortSCI only:35steps/two06+06:10products. No own1h/3h/9h/noon/profile/restart/full144 transfer. Complete synthetic calcCQ caller gains are not forecast gains; short timings are observed/unpaired only. ParentECA4 longer qualifications remain historical parent evidence."
   }
 }

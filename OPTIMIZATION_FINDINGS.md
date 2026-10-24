@@ -1,5 +1,20 @@
 # WRF CPU optimization findings
 
+## October 24: CQV last-species consumer fusion promoted after exact short science
+
+The qualified GNU13.3 pure-MPI working default now accumulates the last CQV moisture species in the existing coefficient loop. It retains the whole-row zero, addition order, literal division, bounds, CQU/CQW and dry paths. Native genuine-parent/same-opt O2/O0-bounds comparisons passed the original19 complete cases and8 supplemental cases across four rounding modes. Raw values, read-only inputs, guards, five-state checks and public MOD were exact.
+
+| Complete synthetic calc_cq batch | Parent (s) | Improved (s) | Wall reduction | CPU reduction |
+| --- | ---: | ---: | ---: | ---: |
+| hpc01, parent then candidate | 1.692636 | 1.550674 | **8.39%** | 8.38% |
+| hpc04, candidate then parent | 1.700744 | 1.583184 | **6.91%** | 6.88% |
+
+Each batch contains1,024 complete synthetic calls; its clocks include identical restore/poison/state handling. Every arm had a checked cache clear, exact terminal output/state and normal closure. These bounded caller observations are not forecast percentages.
+
+Combined executable `eff22fb6` retained all ECA4 components/providers and passed both complete original ten-minute products, all35 ordered timesteps, metadata/layout and full512 runtime/writer acceptance. All four models and the reader closed normally. Actual canonical OFF/ON preprocessing and flags matched the tested native recipe, allowing reuse of the qualified object with zero module compiles; only one of584 archive members changed, followed by one image link.
+
+This image owns **short science only**. The ECA4 three-hour and nine-hour results below remain parent evidence and are not transferred. The raw short RESULT retains an inherited WW/WPH order label; the actual lease and build prove EFF2 CQV. Source97b8da04 is post-test correspondence; raw producer commit remains unknown. Set `WRF_CQV_LAST_SPECIES_CONSUMER_FUSION=0`, regenerate, rebuild BigStep, replace its archive member and relink to opt out. [Qualification, evidence and rollback](tools/cpu-compute/cqv-last-species-consumer-fusion/README.md).
+
 ## October 24: selected ECA4 passed its own nine-hour scientific check
 
 The selected combined executable `eca47129` completed all 1,625 ordered timesteps through 15:00. All ten products passed the unchanged original numerical, nonfinite, metadata, output-layout and runtime checker. All four model scopes and the exact reader closed normally. The reader's unavailable post-GC numeric exit remains `null`; its invocation-bound manager success and absent cgroup prove normal closure.

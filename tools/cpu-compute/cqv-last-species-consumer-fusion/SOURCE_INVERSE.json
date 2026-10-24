@@ -1,0 +1,16 @@
+{
+  "original_full_F_sha256": "35d0178fb87630f33f9a86763e74995bf8ae218ca62c0ec9503493bf11d75ad0",
+  "new_full_F_sha256": "24be6a80cd8b74e5e94dbfc034cb88b567b2ad60cb41a02289387268e987db49",
+  "old": "        itf=MIN(ite,ide-1)\n        jtf=jte\n        DO j=jts,jtf\n          DO k=kts,ktf\n            qtot = 0.\n            DO ispe=PARAM_FIRST_SCALAR,n_moist\n              DO i=its,itf\n                qtot(i) = qtot(i) + moist(i,k,j,ispe) + moist(i,k,j-1,ispe)\n              ENDDO\n            ENDDO\n            DO i = its,itf\n               cqv(i,k,j) = 1./(1.+0.5*qtot(i))\n            ENDDO\n          ENDDO\n        ENDDO",
+  "new": "        itf=MIN(ite,ide-1)\n        jtf=jte\n        DO j=jts,jtf\n          DO k=kts,ktf\n            qtot = 0.\n#if defined(WRF_CQV_LAST_SPECIES_CONSUMER_FUSION) && defined(DM_PARALLEL) && !defined(_OPENMP)\n            DO ispe=PARAM_FIRST_SCALAR,n_moist-1\n#else\n            DO ispe=PARAM_FIRST_SCALAR,n_moist\n#endif\n#line 848\n              DO i=its,itf\n                qtot(i) = qtot(i) + moist(i,k,j,ispe) + moist(i,k,j-1,ispe)\n              ENDDO\n            ENDDO\n            DO i = its,itf\n#if defined(WRF_CQV_LAST_SPECIES_CONSUMER_FUSION) && defined(DM_PARALLEL) && !defined(_OPENMP)\n               qtot(i) = qtot(i) + moist(i,k,j,n_moist) + moist(i,k,j-1,n_moist); cqv(i,k,j) = 1./(1.+0.5*qtot(i))\n#else\n               cqv(i,k,j) = 1./(1.+0.5*qtot(i))\n#endif\n#line 854\n            ENDDO\n          ENDDO\n        ENDDO",
+  "full_F_inverse_exact": true,
+  "original_Make_sha256": "9caf37ab3a493f429bc9898d931e7467f0f3a15a3351db3ef04a626bf13b3ae3",
+  "new_Make_sha256": "d34f1716e59268bde447bf4015b2761dbe8e57322164e31db1bc9cce5b25c212",
+  "added_Make_literal": "# Exact CQV last-species accumulation/consumer fusion: qualified GNU13.3 pure-MPI BigStep SIMD.\n# Opt out: WRF_CQV_LAST_SPECIES_CONSUMER_FUSION=0; regenerate PP, rebuild BigStep,\n# replace its archive member and relink. No additional FC/ISA flags.\nWRF_CQV_LAST_SPECIES_CONSUMER_FUSION ?= 1\nifeq ($(WRF_CQV_LAST_SPECIES_CONSUMER_FUSION),1)\nifeq ($(WRF_DIFFUSION_SIMD),1)\nifeq ($(strip $(OMPCPP) $(OMP) $(PROMOTION) $(DOUBLE_PRECISION)),)\nifeq ($(strip $(RWORDSIZE)),4)\nifeq ($(strip $(IWORDSIZE)),4)\nifeq ($(filter -fdefault-% -freal-% -finteger-% -r8 -i8,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)\nifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))\nifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)\nmodule_big_step_utilities_em.o: private override CPPFLAGS += -DWRF_CQV_LAST_SPECIES_CONSUMER_FUSION\nendif\nendif\nendif\nendif\nendif\nendif\nendif\nendif\n\n",
+  "new_Make_inverse_exact": true,
+  "OFF_semantic_projection": "Two guarded statements restore original exactF after directiveremoval; actualfullPPbyteexact remains hard, not claimed.",
+  "ON_semantic_projection": "Actualauthor n-1bound +lastupdate/literaldivision semicolon, alloutsideCQVexact; actualPPe06b expectedhard.",
+  "no_filename_line_resets": true,
+  "raw_producer_commit": null,
+  "post_test_source_commit": null
+}
