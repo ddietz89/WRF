@@ -4753,3 +4753,10 @@ summed CPU core-h | 102.400076 | 87.226008 | 14.8184%
 The default applies only to the recorded GNU 13.3, REAL/INTEGER4, SIMD and non-OpenMP support guards. Native genuine/O2/O0 bounds gates and complete synthetic RK callers passed; caller wall reductions were 8.73% and 8.88%, distinct from forecast results. The combined 5aae image retains CQV consumer fusion and all prior promoted components. Source correspondence is commit `9ffdb786c8181f80f4bf4f9f0038a4afe963c246`; raw producer commit remains unknown.
 
 Rollback: set `WRF_RK_SCALAR_EXACT_CLEAR=0`, fully regenerate/rebuild module_em, replace its archive member and relink, or restore qualified EFF2. Current own nine-hour/profile/restart/full144 qualification is pending. Full evidence: `tools/cpu-compute/rk-scalar-exact-clear/APPLICATION_QUALIFICATION.json`.
+
+
+## 2026-10-24: literal MYJPBL MIXLEN fusion closed unpromoted
+
+The prototype failed the exact numerical gate: 11 finite EL outputs in the negative-Q2/NaN stress case changed under each of four masked rounding modes (44 word differences). GM/GH, read-only inputs and all five observed state words matched. Instruction analysis attributes the differing finite outputs (about 1 versus 40.6) to changed NaN operand priority in the downstream MINSS clamp, despite unchanged MIN/MAX source text.
+
+Captured whole-MYJPBL agreement does not override this direct counterexample. No caller timing, performance gain, default change or application qualification is claimed. The original strict object-check failure and the later narrowly proved relocation/literal equivalence are preserved separately from the numerical failure. A guarded fallback is a possible future design with added scan, duplication and validation costs; it is not implemented this round. Selected build 5aae remains unchanged. Evidence: `tools/cpu-compute/myj-mixlen-producer-consumer-fusion-unpromoted/DECISION.json`.

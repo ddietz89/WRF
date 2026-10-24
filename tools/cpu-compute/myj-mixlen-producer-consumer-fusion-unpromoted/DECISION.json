@@ -1,0 +1,189 @@
+{
+  "status": "PARK_UNPROMOTED_NATIVE_IEEE_COUNTEREXAMPLE",
+  "root_decision": "Owner explicitly closed this literal implementation after actual finite EL divergence; no retry/caller/canonical/integration this round.",
+  "candidate": "MIXLEN adjacentGM/GHproducer\u2192ELMconsumerfusion;LMXLinitrelocated;allsourcearithmetic/storesretained",
+  "parent_scope": {
+    "current_selected_unchanged_prefix": "5aae",
+    "actual_MYJ_member_sha256": "13c85052f3eae63ff61f3d0658c2217e7db36a06d2d9ebf6139251f968adb49e",
+    "parent_PP_sha256": "2b91deecfe5e853e1352fe5321c5406b14d3a5a50b5d11fd4e7e2be289c340dc",
+    "candidate_PP_sha256": "7a965d4aaabf27acfae95c4d63f59fa184511cc58e8826d315f72cb2bcde1d14"
+  },
+  "source_provenance": "ActualDeepSeekauthorliteralproposaladoptedwithmechanicalfourrowbudget;actualindependentreviewsourceGOonly. Reviewmetadatawrongrank1/1430scorrectedtoactualrank114selected30s.",
+  "observed_counterexample": {
+    "case": 6,
+    "input": "negativeQ2(19),sNaNQ2(20),qNaNQ2(21)",
+    "modes": 4,
+    "EL_indices": [
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32
+    ],
+    "finite_output_word_differences": 44,
+    "nearest_first": {
+      "word": 102,
+      "field": "EL",
+      "k": 22,
+      "parent_hex": "3f7fdac9",
+      "candidate_hex": "4222633a",
+      "parent_class": "finite",
+      "candidate_class": "finite",
+      "parent_value": 0.9994321465492249,
+      "candidate_value": 40.596900939941406
+    },
+    "GM_GH_all_other_outputs_readonly_indices_state_exact": true,
+    "observed_direct_state": [
+      {
+        "case": 6,
+        "mode": 0,
+        "parent_state": [
+          34,
+          0,
+          37,
+          8101,
+          895
+        ],
+        "candidate_state": [
+          34,
+          0,
+          37,
+          8101,
+          895
+        ]
+      },
+      {
+        "case": 6,
+        "mode": 1,
+        "parent_state": [
+          34,
+          1024,
+          37,
+          16293,
+          1919
+        ],
+        "candidate_state": [
+          34,
+          1024,
+          37,
+          16293,
+          1919
+        ]
+      },
+      {
+        "case": 6,
+        "mode": 2,
+        "parent_state": [
+          34,
+          2048,
+          37,
+          24485,
+          2943
+        ],
+        "candidate_state": [
+          34,
+          2048,
+          37,
+          24485,
+          2943
+        ]
+      },
+      {
+        "case": 6,
+        "mode": 3,
+        "parent_state": [
+          34,
+          3072,
+          37,
+          32677,
+          3967
+        ],
+        "candidate_state": [
+          34,
+          3072,
+          37,
+          32677,
+          3967
+        ]
+      }
+    ]
+  },
+  "causal_explanation": "ActualdownstreamMINSSsource/destinationprioritychanged: parentMIN(EL0MAX1000,NaNratio)loweringreturnsNaNthenMAX1gives1;candidateMIN(NaNratio,EL0MAX1000)loweringreturns1000thenMAX1retains1000. SourceMIN/MAXtextunchanged. Exactinstructionsretained; internalEL0notseparatelyinstrumented.",
+  "earlier_artifact_gate": "R2failedbeforeanynumericcases:MYJPBL22717bytesexactbuttwofullRELAtuplesand164Bprivateconstantpooldiffered. ProspectivefreshnamedpairproofinR3accountedintendedMIXLENsize2618\u21922532andonescalarconstantlabelswapplusall120scalar4Bpoolreads;all36nontargetreadsfetchedbitsexact. Poolbytesnotclaimedidentical. Originalstrictfailurepreserved.",
+  "actual_R3": {
+    "worker_status": "FAIL_RETAINED_NO_RETRY",
+    "invocation_id": "5b4b352fb2ca41f59d4f7fd359694cbe",
+    "module_compiles": 0,
+    "elapsed_seconds_context_only": 23.098568874876946,
+    "captured_full_MYJ_states": {
+      "genuine": [
+        34,
+        0,
+        48,
+        8114,
+        895
+      ],
+      "O2-parent": [
+        34,
+        0,
+        48,
+        8114,
+        895
+      ],
+      "O2-candidate": [
+        34,
+        0,
+        48,
+        8114,
+        895
+      ]
+    },
+    "numeric_scope": "genuineandO2parent/candidatecapturedwholeMYJpassedtheirinternalrawreadonlydefinedOUTguardsandstate;direct12x4O2P/Cfailed. O0objectsretainedcompiledbutO0numericnotreached. No nativePASS.",
+    "terminal_closure": {
+      "invocation_id": "5b4b352fb2ca41f59d4f7fd359694cbe",
+      "properties": {
+        "MainPID": "0",
+        "Result": "exit-code",
+        "ExecMainStatus": "1",
+        "ControlGroup": "",
+        "LoadState": "loaded",
+        "ActiveState": "failed",
+        "InvocationID": "5b4b352fb2ca41f59d4f7fd359694cbe"
+      },
+      "cgroup_paths_absent": true,
+      "cgroup_processes": [],
+      "manager_events": [
+        {
+          "invocation_id": "5b4b352fb2ca41f59d4f7fd359694cbe",
+          "message": "Started wrf-cpu-currenteff2-mixlen-producer-consumer-native-cached-hpc02-r3.service - /usr/bin/python3 -u -c \"import os,runpy; p='/pool/wrf-experiment/wrf-cpu/kernels/currenteff2-mixlen-producer-consumer-native-cached-hpc02-r3'; fd=os.open(p+\\\"/service.log\\\",os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600); os.dup2(fd,1); os.dup2(fd,2); os.close(fd); os.chdir(p); runpy.run_path(p+\\\"/run_gate.py\\\",run_name=\\\"__main__\\\")\"."
+        },
+        {
+          "invocation_id": "5b4b352fb2ca41f59d4f7fd359694cbe",
+          "message": "wrf-cpu-currenteff2-mixlen-producer-consumer-native-cached-hpc02-r3.service: Main process exited, code=exited, status=1/FAILURE"
+        },
+        {
+          "invocation_id": "5b4b352fb2ca41f59d4f7fd359694cbe",
+          "message": "wrf-cpu-currenteff2-mixlen-producer-consumer-native-cached-hpc02-r3.service: Failed with result 'exit-code'."
+        }
+      ]
+    }
+  },
+  "measured_performance": null,
+  "qualification": {
+    "native": false,
+    "caller_timing": false,
+    "canonical_correspondence": false,
+    "application": false,
+    "promoted": false
+  },
+  "future_design_scope": "An explicitguard/fallbackcouldbeafutureperformance-onlydesign;notforbiddenbyowner/sciencepermission. It addsinputscan/duplicatedpath/codegen/correctnesscostandrequiresnewboundeddesign+actualbenefitevidence. No suchvariantisimplementedorretestedthisround.",
+  "rollback": "No selectedsource/default/archive/executablewaschanged. Retainqualifiedselected5aae;discardprivatecandidatefromintegration. Existinginactivecaller/canonicalproposalsmustnotactivate.",
+  "evidence_refs": "EVIDENCE_REFS.json",
+  "limits": "One selectedrank30sMIXLENwindow9samples/0.35293%period,onlyoneGMreloadsample;notglobalheadroom. No measuredcorrectcandidatekernel/caller/forecastgain."
+}

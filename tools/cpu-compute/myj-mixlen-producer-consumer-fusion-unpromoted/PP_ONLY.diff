@@ -1,0 +1,36 @@
+--- parent_module_bl_myjpbl.f90
++++ candidate_module_bl_myjpbl.f90
+@@ -892,7 +892,7 @@
+       ENDDO
+ 
+       CT=0.
+-
++      LMXL=LMH
+       DO K=KTS,LMH-1
+         RDZ=2./(Z(K)-Z(K+2))
+         GML=((U(K)-U(K+1))**2+(V(K)-V(K+1))**2)*RDZ*RDZ
+@@ -911,15 +911,15 @@
+         IF(ABS(GHL)<=EPSGH)GHL=EPSGH
+ 
+         GH(K)=GHL
+-      ENDDO
+-
+-
+-
+-
+-
+-      LMXL=LMH
+-
+-      DO K=KTS,LMH-1
++
++
++
++
++
++
++
++
++
+         GML=GM(K)
+         GHL=GH(K)
+ 

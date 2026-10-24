@@ -1,0 +1,92 @@
+{
+  "status": "FINITE_RAW_IEEE_COUNTEREXAMPLE_RECOMMEND_PARK_PENDING_ROOT_DECISION",
+  "actual_refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currenteff2-mixlen-producer-consumer-readonly-query-r1/actual-direct-raw-failure-diagnosis-r1/actual-r1/stdout.json": "5b863b01bd91ccd75ebc1dc3cb743281564d7fe63ef5f9a489e29ccd68bfa479",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currenteff2-mixlen-producer-consumer-readonly-query-r1/failed-myjpbl-nontarget-readonly-diagnosis-r1/actual-r1/stdout.json": "7f54e5518164a3f1136c744507ce1f53bc9cdc580916f14a8d03be63ecf681e4",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currenteff2-mixlen-producer-consumer-readonly-query-r1/failed-myjpbl-nontarget-readonly-diagnosis-r1/literal-pool-supplement-r1/actual-r1/stdout.json": "1b153b8e0fc40d0747449eb038b43dfb247258de3eb2a221dd3b66d5fc904477"
+  },
+  "native_failure_invocation": "5b4b352fb2ca41f59d4f7fd359694cbe",
+  "observed": {
+    "changed_cases": [
+      6
+    ],
+    "rounds": [
+      "NEAREST",
+      "DOWNWARD",
+      "UPWARD",
+      "TOWARDZERO"
+    ],
+    "changed_field": "EL",
+    "K22_through32_per_mode": 11,
+    "total_changed_finite_words": 44,
+    "all_GM_GH_exact": true,
+    "all_other_output_and_input_words_exact": true,
+    "all_five_state_exact": true,
+    "all_header_indices_exact": true,
+    "captured_full_MYJ_genuine_parent_candidate_states": {
+      "genuine": [
+        34,
+        0,
+        48,
+        8114,
+        895
+      ],
+      "O2-parent": [
+        34,
+        0,
+        48,
+        8114,
+        895
+      ],
+      "O2-candidate": [
+        34,
+        0,
+        48,
+        8114,
+        895
+      ]
+    },
+    "nearest_first_difference": {
+      "word": 102,
+      "field": "EL",
+      "k": 22,
+      "parent_hex": "3f7fdac9",
+      "candidate_hex": "4222633a",
+      "parent_class": "finite",
+      "candidate_class": "finite",
+      "parent_value": 0.9994321465492249,
+      "candidate_value": 40.596900939941406
+    }
+  },
+  "case6_inputs": "Q2(19)=-1;Q2(20)=sNaN7f800001;Q2(21)=qNaN7fc54321. Originalretainedcase,notnewscope.",
+  "instruction_source_causal_explanation": {
+    "original_unchanged_source": [
+      "EL0=MIN(ALPH*SZQ*0.5/SQ,EL0MAX)",
+      "EL0=MAX(EL0,EL0MIN)"
+    ],
+    "source_and_machine_inference": "Case6sqrt/reductionsmakeEL0ratioNaN;internalratio/EL0notinstrumentedseparately. ActualMINSSsource/destinationprioritychangeexplainsfiniteoutputdelta withoutanymaskedstatechange.",
+    "parent": [
+      "0x2aec DIVSS %xmm2,%xmm4 [ratio]",
+      "0x2af0 MOVSS .LC76,%xmm1 [EL0MAX1000]",
+      "0x2b1a MINSS %xmm4,%xmm1 [NaNsourcewins]",
+      "0x2b1e MOVSS .LC6,%xmm4 [EL0MIN1]",
+      "0x2b26 MAXSS %xmm4,%xmm1 [finite1sourcewins]"
+    ],
+    "candidate": [
+      "0x2aa2 DIVSS %xmm2,%xmm4 [ratio]",
+      "0x2ad1 MINSS .LC76,%xmm4 [finite1000sourcewins]",
+      "0x2aac MOVSS .LC6,%xmm9 [EL0MIN1]",
+      "0x2ad9 MAXSS %xmm9,%xmm4 [1000remains]"
+    ],
+    "literal_EL0MAX": {
+      "section": ".rodata.cst4",
+      "offset": 120,
+      "hex_little_endian": "00007a44",
+      "float": 1000.0
+    },
+    "limit": "Source-levelfusionpreservesliteralMIN/MAXtreebutnotactualselectedNaNoperandpriorityinunrelateddownstreamblock. No scientificnormalization or statewaiver."
+  },
+  "recommendation": "PARK_UNPROMOTED literalimplementation;no timing/canonical/delivery/application orretrieswithoutnewmechanism. No guaranteedrepairwithinunchangeddownstreamcontract;barrier/explicitNaNguard/newoperandpolicywouldexpandit.",
+  "prior_gates": "R2strictartifacthaltretained;freshspecificpair/literalidentitymethodpassedliveinR3beforetests. Thatartifactqualificationdoesnotestablishnumericalequivalence. O0objectscompiledbutO0numericalrolesnotreached;no nativePASS.",
+  "no_actions": "Localmetadata/source/asmreviewonly;noHPC/API/compiler/rerun/checker/source/defaultchange."
+}

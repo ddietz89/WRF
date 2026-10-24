@@ -1,0 +1,11 @@
+MIXLEN producer/consumer fusion is closed unpromoted after an exact-output counterexample. The literal four-row change merged the GM/GH producer with the ELM consumer, preserving stores, post-MAX reloads, arithmetic and ascending LMXL updates. Actual source author/review responses supported source testing, not correctness.
+
+The cached native continuation compared12 valid-parent whole-MIXLEN cases under four masked rounding modes. Original case6, with negative and signaling/quiet-NaN Q2 inputs, changed11 finite EL outputs atK22–32 in every mode:44 output words. The first nearest-mode word changed from3f7fdac9 (about0.9994) to4222633a (about40.5969). GM/GH, all remaining output/input words, indices and five observed state words matched. Captured complete-MYJPBL checks also passed, but do not override this direct counterexample. O0 numerical roles were not reached.
+
+Actual instructions explain the downstream difference: the parent EL0 clamp MINSS selects a NaN ratio, then MAXSS selects1; the candidate MINSS selects1000, which MAXSS retains. The source MIN/MAX statements were unchanged. This is a finite-value IEEE failure, not a timing regression or a state-only difference. Internal EL0 was not separately instrumented.
+
+The earlier strict artifact stop remains preserved. R3 used a root-reviewed exact-object proof for two MYJPBL relocation effects and a two-DWORD readonly-pool swap; all36 non-target constant reads retained exact fetched bits. That prospective artifact proof did not qualify numerical results. Both failed jobs and actual terminal closures remain evidence.
+
+No caller screen, canonical/default delivery or application follows. No correct-candidate kernel/caller gain was measured. The selected5aae source, providers, archive and executable remain unchanged; there is no selected-artifact rollback to perform. The prepared caller and canonical leaves remain inactive.
+
+A guarded original fallback remains a possible future performance-only design, with additional scan, duplication and correctness costs; it is not forbidden by owner or scientific permission. No guard, barrier or variant is implemented or retried in this round. See DECISION.json and EVIDENCE_REFS.json for exact scope and hashes.
