@@ -1,0 +1,78 @@
+{
+  "status": "PARK_UNPROMOTED_NO_WHOLECALLER_BENEFIT_DEMONSTRATED",
+  "candidate": "Independent C2A production/T preparation traversal fusion",
+  "decision": "Retain source/native/timing evidence only; no integration, canonical producer, application, promotion, or further timing matrix.",
+  "source": {
+    "parent_PP_sha256": "80eb607ce472b1eefce56c527e42e4b5f8117009d05b0ddf3d7003b7370d75ef",
+    "candidate_PP_sha256": "1a6ba2f7d1ab0ee92118e97694c6af57cb586797a287f935fe721a936df20878",
+    "candidate_object_sha256": "cfe415ace367f62e1490613c58be41623fdb8e4c206d2f28f3187ec1f679c92f",
+    "whole_inverse_and_1742_lines_preserved": true
+  },
+  "native": {
+    "receipt_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-smallstep-independent-c2a-prep-source-triage-r1/actual-native-r1/receipt.json",
+    "receipt_sha256": "5704b92c1db129afcc78d019c4d6d9a65c3109012b86eca70b1ddd5d7b5b0ec1",
+    "closure_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-smallstep-independent-c2a-prep-source-triage-r1/actual-native-r1/closure.json",
+    "closure_sha256": "fafd6f44fdda2b4138bc03b441c3adc049bdef8b1301ecae43e88359c9cab149",
+    "invocation_id": "cd05db5835e743f78402824698d4dd99",
+    "complete_cases_per_role": 106,
+    "roles": 5,
+    "sameopt_O0_bounds_O2_genuine_raw_five_state_publicMOD_nontarget_pool_pass": true
+  },
+  "caller": {
+    "result_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-smallstep-independent-c2a-prep-source-triage-r1/caller-timing-preparation-r1/ACTUAL_TIMING_RESULT.json",
+    "result_sha256": "48c45f7f91d1112aec020bc849b33e543506867e1ee744403e75a86aff8c3244",
+    "status": "PASS_TWO_OPPOSITE_ORDER_FULLCALLER_PAIRS",
+    "calls_per_arm": 4096,
+    "geometry": "I188 K33 J19 completeSmallStep RK1 restoredcalls; RK2untimedgoldcontrol",
+    "clock": "SUM of percall integer wall and THREAD CPU intervals; restores/physical/readonly/guards/five-state checks outside intervals",
+    "observations": [
+      {
+        "host": "hpc01",
+        "order": [
+          "parent",
+          "candidate"
+        ],
+        "parent_wall_ns": 1900936190,
+        "candidate_wall_ns": 1915685632,
+        "wall_reduction_percent": -0.7759041085960913,
+        "parent_thread_cpu_ns": 1890084380,
+        "candidate_thread_cpu_ns": 1905203583,
+        "thread_cpu_reduction_percent": -0.7999221177628059
+      },
+      {
+        "host": "hpc04",
+        "order": [
+          "candidate",
+          "parent"
+        ],
+        "parent_wall_ns": 1896298078,
+        "candidate_wall_ns": 1955683828,
+        "wall_reduction_percent": -3.1316674677344687,
+        "parent_thread_cpu_ns": 1883155198,
+        "candidate_thread_cpu_ns": 1942250126,
+        "thread_cpu_reduction_percent": -3.1380806033810495
+      }
+    ],
+    "raw_bytes": 13807744,
+    "raw_sha256": "ee19daf632273d4861b94a46bfb32d9cb6cc2d2375cc12a714f121b32970445e",
+    "all_four_raw_and_five_state_equal": true,
+    "cache_cleared_before_every_arm": true,
+    "all_four_normal_closed_and_cgroup_absent": true,
+    "invocations": [
+      "bd889226079a442dae51ee36f9d7f872",
+      "65d3745369e344beb58355b109994a7f",
+      "1552e7bc016b46a18f67dc844d20b6ce",
+      "bf948fd2f7a343e1ab95cbf9bd87ae07"
+    ]
+  },
+  "limits": [
+    "One opposite-order pair per node, not a universal slowdown proof.",
+    "No arithmetic or required physical byte traffic is removed; one traversal is fused. Exact machine cause of slower completecaller is unmeasured; no spill/recurrence attribution.",
+    "No application SCI or forecast performance result for this candidate."
+  ],
+  "rollback": {
+    "required": false,
+    "reason": "Selected source/defaults/artifact never changed; current962b remains selected."
+  },
+  "execution_scope": "Closeout derived from existing actual evidence only; no new jobs, API, remote, Git, selected/repo edits, or tests."
+}

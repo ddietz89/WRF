@@ -1,5 +1,9 @@
 # WRF CPU optimization findings
 
+## October24: C2A/T preparation fusion parked after caller timing
+
+The candidate preserved all 106 native cases across five comparison roles, including exact raw values, floating-point state and the unchanged module interface. In opposite-order timing pairs of 4,096 complete preparation calls, it was 0.78% slower on hpc01 and 3.13% slower on hpc04; thread CPU also increased. All four arms passed the raw/state checks and had caches cleared before launch. These short observations show no useful caller benefit; they do not establish a universal slowdown or its machine-level cause. Keep the prototype unpromoted without application tests or another timing matrix. Selected `962b` remains unchanged. [Measurements and disposition](tools/cpu-compute/smallstep-c2a-t-pass-fusion/DECISION.json).
+
 ## October24: targeted sender profile and noon science passed
 
 The selected `962b` image passed the noon 12:00–13:00 scientific check: both products and all 185 ordered steps match the retained corrected original exactly. All four model jobs and the scientific reader closed normally. The selected executable, sources, defaults and providers are unchanged. [Qualification and retained failure history](tools/cpu-runtime/mpi-request-source-identity/CURRENT962B_NOON_ONE_HOUR_SENDER114_DIAGNOSTIC.json).
