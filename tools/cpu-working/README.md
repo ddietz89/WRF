@@ -1,3 +1,9 @@
+# Current first-Y zero-seed child — own short science only
+
+Selected 90f5473062922c82d26aaeb68fc95c512a3e0e328d5dab1a365dc5e14ed7b64b / archive 0f4ccda13fbe197ca6ce4c175ee1b1fa3ad12e756765c8d05afcacba2c24dce4. Original35steps/two-products512 science and model/reader closures passed. No current3h/9h/noon/profile/restart/full144 qualification or forecast gain transfers. Component evidence: `../cpu-compute/advect-first-y-zero-seed/APPLICATION_QUALIFICATION.json`.
+
+The following retained material is historical to its named image, including parentb21c own9h and recovered3h with coordinator postprocessor failure preserved.
+
 # Current working imageb21c; latest completed three-hour result89bd
 
 Current executable **b21c9c9f**, archive **0e4d54bf**, retains all previous selected improvements, including scalar-family WW reuse, and adds reuse of already-zero moisture scratch tendencies within each eligible RK stage. Its own two-product/35-step full512 scientific check passed; all four models and reader closed normally. Source correspondence is post-test commit **4d55413f**; the raw producer commit remains unknown. Its own three-hour test is being prepared; longer/profile/restart/full144 scopes remain unqualified. [Evidence, build guard and rollback](../cpu-compute/moisture-hz-zero-reuse/README.md).

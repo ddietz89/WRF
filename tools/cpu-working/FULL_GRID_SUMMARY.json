@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-10-24T07:57:46.697820+00:00",
+  "updated_utc": "2026-10-24T08:39:08.703279+00:00",
   "metric_definitions": {
     "wall_seconds": "Model/MPI including initialization/output/final drain",
     "main_step_sum_seconds": "Sum of reported main-step elapsed; includes communication/waiting/backpressure, not integration CPU",
@@ -346,23 +346,46 @@
         "sha256": "65e4327cc016225b3832b4cd87513c6d7131afaaf3ba10fa3b81753fe76573f5"
       },
       "limits": "UNPAIRED descriptive versus retained original546b; no fresh matched timing claim."
+    },
+    {
+      "build": "90f5",
+      "horizon": "10min",
+      "metrics": {
+        "wall_seconds": 136.01452554715797,
+        "cpu_seconds": 52573.895778,
+        "main_step_sum_seconds": 37.18595
+      },
+      "reduction_vs_retained_control_percent": null,
+      "instrumented": false,
+      "exact_science_status": "PASS_RETAINED_ORIGINAL_TWO_HISTORY_35_STEPS_512_OWNED_FIELD_VIEW",
+      "reference": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentb21c-first-y-zero-seed-child10m-runtime-r1/RESULT.json",
+        "sha256": "6e3b5816fc384e009a1fd49acf68e52c50aa155cd4c866febb3a73a073a90026"
+      }
     }
   ],
   "limits": "Recent rows compare descriptively with identified retained same-horizon controls. They are not fresh matched pairs, causal incremental gains, repeatability or additive percentages. Instrumented observations are labelled.",
   "current_selection": {
-    "executable_sha256": "b21c9c9f0273c5fdad77d207840bad25ed500e0a7e1c3ea1c853ecd43aa599e4",
-    "archive_sha256": "0e4d54bfb885ee18a5e6654ef07d79727a23bbaeb8e13ebf0147a376bc95ec0e",
+    "executable_sha256": "90f5473062922c82d26aaeb68fc95c512a3e0e328d5dab1a365dc5e14ed7b64b",
+    "archive_sha256": "0f4ccda13fbe197ca6ce4c175ee1b1fa3ad12e756765c8d05afcacba2c24dce4",
     "own_short_qualified": true,
     "own_three_hour_qualified": false,
-    "own_nine_hour_qualified": true,
+    "own_nine_hour_qualified": false,
     "latest_completed_3h_image": "89bd",
     "latest_completed_9h_image": "b21c",
-    "qualification_scope": "Current ownshort35/2 and normalown9h1625/10 exactscience. Recovered3h545/4 retains originalfailed coordinator; no normal3h qualification. No profile/noon/restart/full144 or fresh matched timing claim.",
+    "qualification_scope": "Current firstY own35/two-products only; prior completed3h/9h labels remain historical exact images, not current child scope.",
     "qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moisture-hz-zero-reuse/NINE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "65e4327cc016225b3832b4cd87513c6d7131afaaf3ba10fa3b81753fe76573f5"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advect-first-y-zero-seed/APPLICATION_QUALIFICATION.json",
+      "sha256": "08a34fa7d3f8f13b9a0fd2fe25fff7c4d1690692422b33b9e6a1ac067280cf0b"
     },
-    "own_recovered_threehour_exact_science": true
+    "own_recovered_threehour_exact_science": false,
+    "latest_completed_horizon_labels_apply_to_current_selection": false,
+    "executable": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/currentb21c-first-y-zero-seed-five-member-native-r1/wrf.exe",
+      "sha256": "90f5473062922c82d26aaeb68fc95c512a3e0e328d5dab1a365dc5e14ed7b64b"
+    },
+    "noon_profile_restart_full144_qualified": false,
+    "scope": "CurrentfirstY35/2only; all retained rows describe their exact historical image."
   },
   "recovered_diagnostic_runs": [
     {

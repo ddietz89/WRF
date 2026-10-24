@@ -1,5 +1,15 @@
 # WRF CPU optimization findings
 
+## October24: first-Y advection clear fusion promoted after own short science
+
+Current **90f54730 / archive0f4ccda1**, source correspondence **3c1fdd33**, retains all b21c components/providers and fuses eligible scalar tendency clearing into the first Y assignment. The strict interior, nonpolar h5/v3/full33-level path uses literal zero-minus-original-flux and still clears top K33. Other shapes/orders, IEVA and absent/false routes retain the original clear. Qualified GNU13.3 pure-MPI defaults enable `WRF_ADVECT_FIRST_Y_ZERO_SEED=1`; explicit0 restores the coherent original closure after regeneration/rebuild/rearchive/relink. No new compiler/ISA/fast-math flags were added.
+
+Five-role native/raw/read-only/guard/five-state comparisons and actual caller code generation passed. Opposite-order node pairs of1,152 complete synthetic family calls reduced wall time **1.44% and1.98%**, and process CPU **1.22% and2.15%**. Each timed sum is about0.37 seconds. These are caller observations, not a resolved forecast contribution or statistical-significance claim.
+
+Actual canonical OFF/ON preprocessing matched all four respective parent/native files byte-for-byte before either compile. Two canonical objects matched the tested native runtime/relocations/non-file symbols/new publicMODs. Three genuine parent consumer reproductions and three fresh new-MOD consumer compiles passed strict correspondence; both FirstRK publicMODs stayed exact. The delivery changes five of584 ordered archive members, preserves579 and performs one unchanged link. Only the scalar ordinary call passes the new optional flag; theta and the three other module callers retain their proven NULL-optional paths. No standalone theta numerical qualification is claimed.
+
+Both complete products and all35 ordered steps passed the unchanged original full512 checker, including metadata/layout, FABA/two tiles, all32 quilt environments and the short-window16 acquisition markers with roots487/495. All four models and reader1ec5ec37 closed normally. **This exact image owns short science only**; parent b21c nine-hour and recovered three-hour evidence below remain attached to b21c. The raw short RESULT's inherited WW/WPH order label is disclosed; actual artifact/lease/runtime proof identifies90f5. A fresh A1–B1–B2–A2 original/current three-hour comparison is prepared but not launched at publication. [Qualification and rollback](tools/cpu-compute/advect-first-y-zero-seed/README.md).
+
 ## October24: b21c own nine-hour exact science passed
 
 The unprofiled combined **b21c9c9f / archive0e4d54bf** completed all1,625 ordered steps through15:00; all ten complete products passed the unchanged original numerical, nonfinite, metadata and layout checker. All512 ranks,480 compute ranks/two tiles, qualified libraries/affinity, four positive writer roots and32 field-view markers passed. All four model scopes and reader048746e6 closed normally. The collector preserved the reader's unavailable post-GC numeric exit code as NULL; its exact invocation-bound manager success and absent cgroup establish normal closure.
@@ -12,7 +22,7 @@ The unprofiled combined **b21c9c9f / archive0e4d54bf** completed all1,625 ordere
 
 These are **unpaired descriptive** observations against the retained same-horizon original, not a fresh matched timing comparison or isolated component effect. Main-step elapsed includes communication, waits and output backpressure; aggregate CPU is summed whole-job consumption. The latest selected image owns short and nine-hour exact science. Its original three-hour coordinator postprocessor failure and recovered exact science remain separately recorded; no normal three-hour, noon/profile, restart or full144-hour qualification is inferred. The R2 nine-hour maintenance interruption remains excluded. [Exact metrics](tools/cpu-working/FULL_GRID_SUMMARY.json). [Own nine-hour qualification](tools/cpu-compute/moisture-hz-zero-reuse/NINE_HOUR_APPLICATION_QUALIFICATION.json).
 
-The next first-Y advection scratch-clear fusion is still private and unpromoted. Its complete-caller wall reductions were1.44% and1.98%, with exact raw/state checks; canonical/default integration and its own application qualification remain pending. Those caller percentages are not forecast gains.
+The first-Y advection fusion was subsequently promoted in90f5 after its own short application check, as recorded above. Its caller percentages remain separate from this b21c nine-hour observation.
 
 ## October24: b21c three-hour exact science recovered; coordinator failure retained
 

@@ -1,0 +1,72 @@
+{
+  "status": "ACTUAL_NATIVE_CANONICAL_THREE_OWNER_DELIVERY_OWN_SHORT_QUALIFIED_POSTTEST_SOURCE_CORRESPONDENCE",
+  "source_correspondence": {
+    "dyn_em/module_advect_em.F": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/ordinary-first-y-zero-seed-provider-preparation-r1/canonical-source-default-preparation-r1/candidate_module_advect_em.F",
+      "sha256": "887728e6cd9b14e2a3a812f186a15c871929688d02b85ed7fe1fc545bb1c2953"
+    },
+    "dyn_em/module_em.F": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/ordinary-first-y-zero-seed-provider-preparation-r1/canonical-source-default-preparation-r1/candidate_module_em.F",
+      "sha256": "a8d1de3619ef4521ffd06a2dd0ac7ebaa5ccd088a8af18d31f5db30d77fb8d14"
+    },
+    "dyn_em/Makefile": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/ordinary-first-y-zero-seed-provider-preparation-r1/canonical-source-default-preparation-r1/candidate_Makefile",
+      "sha256": "c36eb13953c8ddf214819ab93d208d61b88eb62c10beecf7ead0173cb7d14a9f"
+    }
+  },
+  "raw_producer_source_commit": null,
+  "post_test_source_commit": "3c1fdd330e7ceae1d5fce66a538a8022ee4aed5e",
+  "knob": "WRF_ADVECT_FIRST_Y_ZERO_SEED",
+  "qualified_default": 1,
+  "optout": "WRF_ADVECT_FIRST_Y_ZERO_SEED=0",
+  "eligibility": "GNUFortran13.3.0;ADVECTION_SIMD=1/ADVECTION_ZEN2=1/RK_TENDENCY_SIMD=1;emptyOMP/OMPCPP/PROMOTION/DOUBLE_PRECISION;REAL/INTEGER4;rejectdefaultkindoverrides. Source feature+DM_PARALLEL&&!_OPENMP; no new compiler/ISA/FP flags.",
+  "actual_canonical": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current962b-moisture-family-ww-split-reuse-source-preparation-r1/ordinary-first-y-zero-seed-provider-preparation-r1/canonical-cpp-correspondence-preparation-r1/actual-native-r1/receipt.json",
+    "sha256": "0795363fa7cc180b7bc2f7fb0ce1c7fd340f30ba36397a21d40760c968292ead"
+  },
+  "module_interface": "ON newAdvectMODf72c/EmMOD1333; OFF old88e9/165d. Only ordinary scalar entry passes optional; theta+same-module omittedoptional NULL retain original semantics.",
+  "rebuild_closure": [
+    "module_advect_em.o",
+    "module_em.o",
+    "solve_em.o",
+    "module_first_rk_step_part1.o",
+    "module_first_rk_step_part2.o"
+  ],
+  "owner_requirements": "Strict fresh parent correspondence to selected three owners then fresh child compilation consuming actual newMOD; FirstRK unchanged code/MOD strict, exact selected archive owner inventory/ordering preserved. HistoricalFirstRKargvunknown; explicit retained-rule/DWARF reconstruction qualifies only after genuine correspondence.",
+  "archive_plan": {
+    "members": 584,
+    "changed_members_at_most": 5,
+    "unchanged_members_if_allfive_replaced": 579,
+    "actual_ordered_proof": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentb21c-first-y-zero-seed-child10m-runtime-r1/firstY-ordered-proof.json",
+      "sha256": "8967a6e3408edbde297ef9b4e436230850721fbeed369b4d8880e7dd90bc7566"
+    },
+    "actual_unchanged_members": 579,
+    "actual_replaced_indices": [
+      555,
+      560,
+      568,
+      569,
+      577
+    ]
+  },
+  "link": "Actualisolated0compile/1unchangedlink; exactly5members replaced and579unchanged. Newcanonical2module objects plus3freshMODconsumerobjects. Actualchild image/archive are bound in the application qualification.",
+  "support": "Generic/serial/OpenMP and knob0 keep original interface/fullclear; TL/AD remain unsupportedOFF, never infer qualified MOD closure.",
+  "rollback": "Regenerate both Em+Advect and all three selected forward consumers with knob0, rearchive/relink coherent closure. Never mix newMOD and old callers. Exact parent binary/three records can be restored coherently from one immutable prepublication snapshot.",
+  "actual_owner": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentb21c-first-y-zero-seed-child10m-runtime-r1/firstY-owner-receipt.json",
+    "sha256": "cecc195c9ee4addff3239a740827b853a8d6e83d45d944bfe2c2448372ea725a"
+  },
+  "actual_build": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentb21c-first-y-zero-seed-child10m-runtime-r1/firstY-build-receipt.json",
+    "sha256": "05a9fbbffe8585856e76054ca8c48deb719652fb6544c6fb755878b37d41ff38"
+  },
+  "actual_ordered_archive": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentb21c-first-y-zero-seed-child10m-runtime-r1/firstY-ordered-proof.json",
+    "sha256": "8967a6e3408edbde297ef9b4e436230850721fbeed369b4d8880e7dd90bc7566"
+  },
+  "actual_application": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advect-first-y-zero-seed/APPLICATION_QUALIFICATION.json",
+    "sha256": "08a34fa7d3f8f13b9a0fd2fe25fff7c4d1690692422b33b9e6a1ac067280cf0b"
+  }
+}
