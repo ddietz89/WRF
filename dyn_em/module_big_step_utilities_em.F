@@ -4577,15 +4577,31 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
       IF ( config_flags%periodic_x ) i_end = ite
 
    DO j=j_start, j_end
+#if defined(WRF_CURVATURE_VXGM_J_DIFF_CACHE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+   IF (kts<=ktf) THEN
+      DO i=i_start, i_end
+         msftx_over_msfty_row(i)=msfvx(i,j+1)-msfvx(i,j)
+      ENDDO
+   ENDIF
+#endif
+#line 4580
    DO k=kts,ktf
    DO i=i_start, i_end
+#if !(defined(WRF_CURVATURE_VXGM_J_DIFF_CACHE) && defined(DM_PARALLEL) && !defined(_OPENMP))
 !     Map scale factor notes:
 !     msf...y is constant everywhere for cylindrical map projection
 !     msf...x varies with y only
 !     But we know that this is not = 0 for cylindrical,
 !     therefore use msfvX in 1st line
+#endif
+#line 4587
 !     which => by symmetry use msfuY in 2nd line - ???  
+#if defined(WRF_CURVATURE_VXGM_J_DIFF_CACHE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+      vxgm(i,k,j)=0.5*(u(i,k,j)+u(i+1,k,j))*(msftx_over_msfty_row(i))*rdy - &
+#else
       vxgm(i,k,j)=0.5*(u(i,k,j)+u(i+1,k,j))*(msfvx(i,j+1)-msfvx(i,j))*rdy - &
+#endif
+#line 4589
                   0.5*(v(i,k,j)+v(i,k,j+1))*(msfuy(i+1,j)-msfuy(i,j))*rdx
    ENDDO
    ENDDO
