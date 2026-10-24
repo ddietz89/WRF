@@ -1,4 +1,18 @@
-# Current90f5: own short and fresh matched three-hour science
+# Current working selection: 50d6, own three-hour science
+
+Selected executable **50d67c6a**, archive **6c705230**, source correspondence **952c9dac**, retains all previously selected improvements and adds the W ELSE RHS consumer SIMD path. Its own full 512 three-hour check passed all four products and 545 ordered steps; all models and the unchanged reader closed normally. The qualification is [recorded with build and rollback evidence](../cpu-compute/w-else-rhs-consumer-simd/README.md).
+
+| Metric | Retained original 546b control | Current 50d6 | Descriptive reduction |
+| --- | ---: | ---: | ---: |
+| Model/MPI wall | 13.695 min | 10.744 min | **21.55%** |
+| Integration-loop elapsed | 9.948 min | 9.028 min | **9.25%** |
+| Aggregate CPU | 102.400 core-hours | 86.591 core-hours | **15.44%** |
+
+This is a later candidate against a retained control, not a fresh matched pair or isolated W-loop forecast gain. Own short, one-hour, nine-hour, noon/profile, restart and full 144-hour qualifications remain false. Raw producer commit is unknown; source 952c9dac records post-test correspondence. Source defaults can be rolled back with `WRF_W_WDWN_ELSE_RHS_SIMD=0` and a full regenerate/rebuild/rearchive/relink, or by restoring qualified 5aae.
+
+The following publication snapshots are historical to their named images; they do not describe the current selection.
+
+## Historical 90f5: own short and fresh matched three-hour science
 
 Current **90f54730 / archive0f4ccda1**, source correspondence **3c1fdd33**, passed the unchanged original full512 three-hour checker twice: four products and545 ordered steps per candidate arm, all16 model scopes and both readers normal closed. Fresh order was **A1–B1–B2–A2**, with checked caches before every arm. The immutable short qualification remains separate.
 

@@ -1,0 +1,7 @@
+The proposed WRF_W_WDWN_ELSE_RHS_SIMD default is restricted to GNU13.3, existing SmallStep SIMD/Zen2, four-byte real/integer, empty OpenMP settings and the source DM_PARALLEL route. No compiler/ISA flags are added. Unqualified or disabled routes retain the original scalar consumer.
+
+After actual own three-hour science passes, root may verify the two parent file hashes in SOURCE_BUILD_CORRESPONDENCE.json and apply SOURCE_DEFAULT.patch. Record the real resulting source commit as post-test correspondence; keep raw producer commit null. Actual source/default installation and Git publication remain root-only.
+
+For a reproducible image, use the established configured sed→CPP→standard→CPP recipe, require both complete projections and strict allocated/full-RELA/non-FILE/MOD object equivalence, replace only module_small_step_em.o at archive index558, preserve every other archive occurrence and direct link input, then relink. No old private-pool exemption applies. Existing actual build evidence permits reuse of qualified bf360 after those correspondence checks.
+
+Rollback: select retained qualified 5aae executable/archive69fbc, or set WRF_W_WDWN_ELSE_RHS_SIMD=0 and regenerate/preprocess, rebuild SmallStep, rearchive and relink. Earlier accepted W, CQV, RKclear, providers, I/O/RSL/codec and runtime settings remain retained. Parent horizons stay historical; future child qualification records must state only actual child scope.

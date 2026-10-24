@@ -1,5 +1,22 @@
 # WRF CPU optimization findings
 
+## October 24: W ELSE RHS consumer SIMD promoted after exact three-hour science
+
+The qualified GNU13.3 pure-MPI working default now adds one inner-I SIMD directive to W's ELSE WDWN/RHS correction. It preserves arithmetic order, the WDWN producer, K/J traversal, bounds and the public interface. The complete captured W caller was **3.86–5.08% shorter** in two opposite-order, cache-cleared pairs, with exact raw values and IEEE state. Canonical OFF/ON object correspondence passed; one of 584 archive members changed and all previous selected improvements/providers were retained.
+
+Combined executable `50d67c6a` passed all four complete products and all 545 ordered steps against the unchanged corrected-original checker. Numerical/nonfinite, metadata/layout, full 512 ranks/libraries/tiles and four writer-root acceptance passed. All four model jobs and the reader closed normally. The first attempt was interrupted when hpc04 became unreachable; its evidence remains a failure, and the fresh R2 namespace completed after recovery.
+
+| Three-hour metric | Retained corrected-original 546b | Latest combined 50d6 | Descriptive reduction |
+| --- | ---: | ---: | ---: |
+| Model/MPI wall (min) | 13.695 | 10.744 | **21.55%** |
+| Integration-loop elapsed (min) | 9.948 | 9.028 | **9.25%** |
+| Aggregate CPU (core-hours) | 102.400 | 86.591 | **15.44%** |
+
+This is one later candidate against a retained control, not a fresh matched pair, repeatability result or isolated W forecast gain. Integration-loop elapsed includes communication/waits/output backpressure; CPU is summed node-core consumption. Kernel, caller and forecast percentages are not added. A fresh original-versus-final-combined pair is planned after the remaining packing/advection candidates close.
+
+Source `952c9dac` records post-test correspondence; raw producer commit remains unknown. This image owns three-hour science only. Short/one-hour/nine-hour/noon/profile/restart/full 144 qualifications are not inherited. Set `WRF_W_WDWN_ELSE_RHS_SIMD=0` and regenerate/rebuild/rearchive/relink to opt out, or restore qualified 5aae. [Qualification, measured evidence and rollback](tools/cpu-compute/w-else-rhs-consumer-simd/README.md).
+
+
 ## October 24: CQV last-species consumer fusion promoted after exact short science
 
 The qualified GNU13.3 pure-MPI working default now accumulates the last CQV moisture species in the existing coefficient loop. It retains the whole-row zero, addition order, literal division, bounds, CQU/CQW and dry paths. Native genuine-parent/same-opt O2/O0-bounds comparisons passed the original19 complete cases and8 supplemental cases across four rounding modes. Raw values, read-only inputs, guards, five-state checks and public MOD were exact.
