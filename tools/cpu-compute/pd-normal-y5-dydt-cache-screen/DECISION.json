@@ -1,0 +1,100 @@
+{
+  "status": "HOLD_RETAIN_PENDING_UNPROMOTED_NOT_IN_NEXT_BATCH",
+  "candidate": "PDnormalinteriorY5 dy/dt rowreuse",
+  "promotion": false,
+  "include_in_next_W_RSL_batch": false,
+  "discard_hypothetical_benefit": false,
+  "native_full_PD_qualified": true,
+  "standalone_helper_validation_qualified": true,
+  "actual_codegen_mechanism_confirmed": true,
+  "consistent_significant_gain_demonstrated": false,
+  "whole_caller": {
+    "calls_per_arm": 256,
+    "clock_scope": "IntegerMONOTONIC+PROCESSCPU outer256batch; tendencyrestore/fullinvokeallocationINSIDE; five-state arm+read/freshrawgold equality, parse/warm/readonly outside clocks",
+    "pairs": {
+      "hpc01": {
+        "parent_ns": 2206088985,
+        "candidate_ns": 2240707887,
+        "wall_reduction_percent": -1.5692432279652582,
+        "parent_process_CPU_ns": 2205691290,
+        "candidate_process_CPU_ns": 2240275655,
+        "CPU_reduction_percent": -1.567960355866482,
+        "raw_sha256": "1a54d8d27fcce602a8f84c9f1ddb5904865b064f4e53afe28a3a9192c3b96fae",
+        "raw_bytes": 7840820,
+        "calls": 256,
+        "order": [
+          "parent",
+          "candidate"
+        ]
+      },
+      "hpc02": {
+        "parent_ns": 2247875076,
+        "candidate_ns": 2210323478,
+        "wall_reduction_percent": 1.6705375846250987,
+        "parent_process_CPU_ns": 2247396657,
+        "candidate_process_CPU_ns": 2209863004,
+        "CPU_reduction_percent": 1.670094724182016,
+        "raw_sha256": "1a54d8d27fcce602a8f84c9f1ddb5904865b064f4e53afe28a3a9192c3b96fae",
+        "raw_bytes": 7840820,
+        "calls": 256,
+        "order": [
+          "candidate",
+          "parent"
+        ]
+      }
+    },
+    "raw_bytes": 7840820,
+    "raw_sha256": "1a54d8d27fcce602a8f84c9f1ddb5904865b064f4e53afe28a3a9192c3b96fae"
+  },
+  "complete_normal_Y5_region": {
+    "calls_per_arm": 1024,
+    "clock_scope": "IntegerMONOTONIC+PROCESSCPU outer1024completeNORMAL-Y5regions; fullJ/dyfill/cachefill/KI/upwind/flux5/subtractionINSIDE; nooutputrestore(allactiveoverwritten); allocation/init/warm/guards/inputRO/raw+five-stateoutside",
+    "pairs": {
+      "hpc01": {
+        "parent_ns": 1173140204,
+        "candidate_ns": 1149075931,
+        "wall_reduction_percent": 2.0512699946646786,
+        "parent_process_CPU_ns": 1172810281,
+        "candidate_process_CPU_ns": 1148624960,
+        "CPU_reduction_percent": 2.0621682288953265,
+        "raw_sha256": "1ca13a70de938159c34b07e38558f628db34980965dfab764e222fad57a9a0a4",
+        "raw_bytes": 7361924,
+        "calls": 1024,
+        "order": [
+          "parent",
+          "candidate"
+        ]
+      },
+      "hpc02": {
+        "parent_ns": 1149045681,
+        "candidate_ns": 1149047081,
+        "wall_reduction_percent": -0.00012184023865627324,
+        "parent_process_CPU_ns": 1148843981,
+        "candidate_process_CPU_ns": 1148916051,
+        "CPU_reduction_percent": -0.006273262618068241,
+        "raw_sha256": "1ca13a70de938159c34b07e38558f628db34980965dfab764e222fad57a9a0a4",
+        "raw_bytes": 7361924,
+        "calls": 1024,
+        "order": [
+          "candidate",
+          "parent"
+        ]
+      }
+    },
+    "raw_bytes": 7361924,
+    "raw_sha256": "1ca13a70de938159c34b07e38558f628db34980965dfab764e222fad57a9a0a4"
+  },
+  "interpretation": "Actualfullregion includingdyfill/cachefill/KI/upwind/flux5/subtraction has +2.0513%wall on01 and essentiallyzero on02, following mixedwholecaller. Twoopposite-orderpairs are insufficient to infer significantrepeatablegain. No forecastnoise attribution or causalbottleneck measured. Saveddivisions alone do not establishbenefit.",
+  "causal_limits": "Extra cachememoryoperations and otherregionwork can limitbenefit, but this is a possible explanation only, not a measuredcause. No claimthatmemoryboundness ordivisionthroughput is established.",
+  "next_action": "Retainactualsource/native/codegen/raw/state/evidence. ExcludefromcurrentW+restrictedRSLbatch; no promotion/rerun/variant until a newmeasuredmechanism or explicitnextdecision. No concrete moreefficienttwo-rowalternative proven.",
+  "application_scope": {
+    "PD_own_application_qualified": false,
+    "source_or_default_changed": false,
+    "WRF_image_delivery": null,
+    "raw_producer_source_commit": null,
+    "post_test_source_commit": null,
+    "selected_image_changed_by_PD": false,
+    "parent_or_W_horizon_transferred": false
+  },
+  "evidence_manifest_sha256": "8f92134f8baddc738b98db613b125675e7051d22df29d210474d87e0724a8d70"
+}

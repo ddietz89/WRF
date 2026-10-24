@@ -1,0 +1,63 @@
+{
+  "status": "ACTUAL_CANONICAL_RSL_AND_FIRST_FRESH_PAIR_OWN_THREE_HOUR_QUALIFIED",
+  "sources": {
+    "external/RSL_LITE/f_pack.F90": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current5aae-rsl-whole-default-private-vector-copy-source-question-r1/canonical-rsl-delivery-preparation-r1-hpc02/f_pack.F90",
+      "sha256": "3ef1296d545b970dfc4c45903feb1819353238df2182ec03e65988561d73da35"
+    },
+    "external/RSL_LITE/makefile": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current5aae-rsl-whole-default-private-vector-copy-source-question-r1/canonical-rsl-delivery-preparation-r1-hpc02/candidate_makefile",
+      "sha256": "875de0ed6ca307e77f1a8ecc79208d262d63d21e1198696867fb11d7e4761af6"
+    },
+    "external/RSL_LITE/wrf_rsl_pack_wide_i32.c": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current5aae-rsl-whole-default-private-vector-copy-source-question-r1/canonical-rsl-delivery-preparation-r1-hpc02/wrf_rsl_pack_wide_i32.c",
+      "sha256": "d3098b2ae3c2861c9fab7a5bfefa2d8362b67510f23273fa384247b4478f851e"
+    }
+  },
+  "make_knob": "WRF_RSL_WIDE_PRIVATE_VECTOR_COPY",
+  "qualified_default": "1 onlyGNU13.3 FC+CC/noOpenMP/no kind-changingflags; interface additionallyhardchecksdefaultINTEGER=c_int32",
+  "optout": "WRF_RSL_WIDE_PRIVATE_VECTOR_COPY=0",
+  "base_executable_sha256": "50d67c6ad7c9f41406cb79f72ce038870291e17fe2099d8d022122c539c57501",
+  "base_WRF_archive": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current5aae-w-else-rhs-consumer-one-member-native-r1/libwrflib.a",
+    "sha256": "6c705230f859054e2dde7a869c001a8d4672b0ea6e8af354c6ad2909be3157b4",
+    "all_584_members_unchanged": true
+  },
+  "base_RSL_archive_sha256": "982d0c81abed9d9209ea955e63c0851ae7eaa51b6ade4748303176b51eaaa130",
+  "build_counts": {
+    "WRF_compiles": 0,
+    "f_pack_correspondence_compiles": 2,
+    "private_C_compiles": 1,
+    "cached_caller_invocations": 1,
+    "image_links": 1
+  },
+  "archive_contract": {
+    "original_RSL_members": 10,
+    "unchanged_RSL_members": 9,
+    "replace_zero_based_index": 8,
+    "replaced_member": "f_pack.o",
+    "append_private_member": "wrf_rsl_pack_wide_i32.o",
+    "candidate_RSL_members": 11,
+    "WRF_members_unchanged": 584
+  },
+  "actual_build": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current5aae-rsl-whole-default-private-vector-copy-source-question-r1/canonical-rsl-delivery-preparation-r1-hpc02/actual-native-r1/receipt.json",
+    "sha256": "3fc8207f780f0270e288be535b467cc23500c072db49c54385331980d0c7fdfc"
+  },
+  "actual_build_closure": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current5aae-rsl-whole-default-private-vector-copy-source-question-r1/canonical-rsl-delivery-preparation-r1-hpc02/actual-native-r1/closure.json",
+    "sha256": "5d81446dbd9768c3e9f58844688f19a123bd1a70b5f22dcc35ecd99e188857e7"
+  },
+  "actual_application": "tools/cpu-compute/rsl-width56-private-vector-copy/APPLICATION_QUALIFICATION.json",
+  "actual_application_pending": false,
+  "post_test_source_commit": "a46f6f48ffb7be89fd59b8e681f88939f8dc6cc3",
+  "rollback": {
+    "action": "Disable knob; recompile originalf_pack recipe and rebuildRSL WITHOUTprivatehelper, thenrelinkoriginalW50dcommand. OrselectimmutableparentW50dimage/RSL982d. Do notleave helperunresolved orselect mixed archives.",
+    "parent_executable_sha256": "50d67c6ad7c9f41406cb79f72ce038870291e17fe2099d8d022122c539c57501",
+    "parent_RSL_sha256": "982d0c81abed9d9209ea955e63c0851ae7eaa51b6ade4748303176b51eaaa130"
+  },
+  "own_three_hour_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/rsl-width56-private-vector-copy/APPLICATION_QUALIFICATION.json",
+    "sha256": "ee9f5900d04559922cb6dff92c1e93e3b5adbe4912163db566f16db28d295514"
+  }
+}

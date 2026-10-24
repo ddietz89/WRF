@@ -1,4 +1,18 @@
-# Current working selection: 50d6, own three-hour science
+# Current working selection: 971c, own fresh three-hour science
+
+Selected executable **971cba3f**, unchanged WRF archive **6c705230**, new RSL archive **29e42be3**, and post-test source **a46f6f48** retain every previous improvement and add restricted width-5/6 packing. All four products, 545 ordered steps, full 512-rank runtime acceptance and all model/reader closures passed the unchanged checker. [Build, qualification and rollback](../cpu-compute/rsl-width56-private-vector-copy/README.md).
+
+| Three-hour metric | Fresh corrected-original 546b | Combined 971c | Reduction |
+| --- | ---: | ---: | ---: |
+| Model/MPI wall (min) | 13.679 | 10.733 | **21.54%** |
+| Main-step elapsed (min) | 9.966 | 9.013 | **9.56%** |
+| Aggregate CPU (core-hours) | 102.272 | 86.525 | **15.40%** |
+
+One fresh corrected-original A then combined B pair; client caches cleared before each arm, no profilers. Main elapsed includes communication/waiting; CPU is summed node-core consumption. These are whole-configuration observations, not repeatability or individual packing gains. Own short/one-hour/nine-hour/noon/profile/restart/full-144-hour qualifications remain false. Raw producer commit is unknown. Set `WRF_RSL_WIDE_PRIVATE_VECTOR_COPY=0` and rebuild/recreate RSL and relink to opt out, or restore qualified W50d6.
+
+The following snapshots remain historical to their named images.
+
+# Historical W50d6 selection: own three-hour science
 
 Selected executable **50d67c6a**, archive **6c705230**, source correspondence **952c9dac**, retains all previously selected improvements and adds the W ELSE RHS consumer SIMD path. Its own full 512 three-hour check passed all four products and 545 ordered steps; all models and the unchanged reader closed normally. The qualification is [recorded with build and rollback evidence](../cpu-compute/w-else-rhs-consumer-simd/README.md).
 

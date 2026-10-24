@@ -1,5 +1,27 @@
 # WRF CPU optimization findings
 
+## October 24: restricted RSL packing promoted after a fresh three-hour comparison
+
+The qualified working configuration now batches DEFAULT INTEGER32 width-5/6 halo packing into one private C call per block. Complete packing calls were about **59% shorter at width 5** and **53% shorter at width 6**, with exact raw values and floating-point state. Other widths retain the original route. The broad helper was parked after a demonstrated width-189 regression; the restricted fallback measured about 1.0–1.36% slower in its bounded caller pairs.
+
+Combined executable `971cba3f` retains every previous selected improvement, including W50d6, and passed all four products and 545 ordered steps against the unchanged corrected-original checker. Numerical/nonfinite, metadata/layout, 512-rank/library/tile and four-writer acceptance passed; all eight models and the reader closed normally.
+
+| Three-hour metric | Fresh corrected-original 546b | Combined 971c | Reduction |
+| --- | ---: | ---: | ---: |
+| Model/MPI wall (min) | 13.679 | 10.733 | **21.54%** |
+| Main-step elapsed (min) | 9.966 | 9.013 | **9.56%** |
+| Aggregate CPU (core-hours) | 102.272 | 86.525 | **15.40%** |
+
+This is one fresh **control then candidate** pair, with checked client-cache clearing before each arm and no profiler or MPI observer. It measures the whole configuration, not repeatability or an isolated packing contribution. Main-step elapsed includes communication/waits/output backpressure; aggregate CPU is summed whole-job consumption. Kernel, caller and forecast percentages are not added.
+
+Source `a46f6f48` records post-test correspondence; raw producer commit remains unknown. The WRF archive is unchanged; only RSL packing and its private helper changed. Own three-hour science is qualified. Short/one-hour/nine-hour/noon/profile/restart/full-144-hour scopes are not inherited. Set `WRF_RSL_WIDE_PRIVATE_VECTOR_COPY=0`, fully rebuild/recreate the RSL archive and relink to opt out, or restore W50d6. [Qualification, evidence and rollback](tools/cpu-compute/rsl-width56-private-vector-copy/README.md).
+
+## October 24: PD normal-Y5 quotient reuse closed without promotion
+
+PD normal-Y5 dy/dt row reuse is retained on HOLD and excluded from the current batch. Genuine whole-PD raw/five-state qualification and actual codegen confirm the quotient hoist, but whole-caller results were −1.5692%/+1.6705% wall on opposite-order nodes 01/02. A separate complete normal-Y5 region measurement, including added row stores/loads and all upwind/flux5 work, gave +2.0513%/−0.00012% wall. All eight arms had exact raw/state gold, cache clearing before each arm, and normal closure. One pair per node does not demonstrate a consistent significant gain. Extra memory operations or other work may limit benefit; no causal bottleneck or forecast effect was measured. No source/default/image promotion occurred, and no further experiment is scheduled without a new measured mechanism.
+
+[Retained decision and evidence](tools/cpu-compute/pd-normal-y5-dydt-cache-screen/README.md).
+
 ## October 24: W ELSE RHS consumer SIMD promoted after exact three-hour science
 
 The qualified GNU13.3 pure-MPI working default now adds one inner-I SIMD directive to W's ELSE WDWN/RHS correction. It preserves arithmetic order, the WDWN producer, K/J traversal, bounds and the public interface. The complete captured W caller was **3.86–5.08% shorter** in two opposite-order, cache-cleared pairs, with exact raw values and IEEE state. Canonical OFF/ON object correspondence passed; one of 584 archive members changed and all previous selected improvements/providers were retained.

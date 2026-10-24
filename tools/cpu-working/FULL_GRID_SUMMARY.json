@@ -518,7 +518,7 @@
   ],
   "limits": "Recent rows compare descriptively with identified retained same-horizon controls. They are not fresh matched pairs, causal incremental gains, repeatability or additive percentages. Instrumented observations are labelled.",
   "current_selection": {
-    "executable_sha256": "50d67c6ad7c9f41406cb79f72ce038870291e17fe2099d8d022122c539c57501",
+    "executable_sha256": "971cba3fd565a713b9e35daf7ca24800fd566a26e0ed97f604951b4226b0a79b",
     "archive_sha256": "6c705230f859054e2dde7a869c001a8d4672b0ea6e8af354c6ad2909be3157b4",
     "own_three_hour_qualified": true,
     "own_one_hour_qualified": false,
@@ -526,11 +526,11 @@
     "own_nine_hour_qualified": false,
     "noon_profile_restart_full144_qualified": false,
     "qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/w-else-rhs-consumer-simd/APPLICATION_QUALIFICATION.json",
-      "sha256": "d899419ba0c9f41d18baf530aaed02859502a48043a11a59b83dd6a2fd4f119b"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/rsl-width56-private-vector-copy/APPLICATION_QUALIFICATION.json",
+      "sha256": "ee9f5900d04559922cb6dff92c1e93e3b5adbe4912163db566f16db28d295514"
     },
-    "qualification_scope": "Own full512 three-hour exact science only:545 steps/four complete06–09 products; candidate-only versus retained original546b control, descriptive timing, no fresh paired or repeatability claim. Main elapsed includes communication/backpressure; CPU is summed node core time. No inherited short/1h/9h/noon/profile/restart/full144 qualification; no additive caller-to-forecast gain.",
-    "latest_completed_3h_image": "50d6",
+    "qualification_scope": "One fresh fixed-order original546b A then971c B full512 three-hour pair, one observation per image;545 orderedsteps/four completeproducts. Wholeconfiguration observation only, no repeatability/ABBA/isolated or additive component gain. Main elapsed includes communication/backpressure; CPU is summed node-core consumption. Short/1h/9h/noon/profile/restart/full144 remain unqualified; rawproducerunknown.",
+    "latest_completed_3h_image": "971c",
     "latest_completed_9h_image": "eca4",
     "latest_completed_horizon_labels_apply_to_current_selection": {
       "three_hour": true,
@@ -538,16 +538,25 @@
     },
     "previous_parent": {
       "qualification": {
-        "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/rk-scalar-exact-clear/APPLICATION_QUALIFICATION.json",
-        "sha256": "087f8a71bf10a0c4a3b5c29c99d9b13ecb3be47dfcca13c2f13b3246d743a1fb"
+        "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/w-else-rhs-consumer-simd/APPLICATION_QUALIFICATION.json",
+        "sha256": "d899419ba0c9f41d18baf530aaed02859502a48043a11a59b83dd6a2fd4f119b"
       },
-      "source_commit": "9ffdb786c8181f80f4bf4f9f0038a4afe963c246",
-      "scope": "Historical qualified5aae own3h parent only; no ownhorizon transfer.",
-      "applies_to_current_image": false
+      "source_commit": "952c9dace232e8c075e812056a89a524424669de",
+      "applies_to_current_image": false,
+      "scope": "Historical50d own3hparent only; current971own3h is actualnewfreshpair."
     },
     "three_hour_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/w-else-rhs-consumer-simd/APPLICATION_QUALIFICATION.json",
-      "sha256": "d899419ba0c9f41d18baf530aaed02859502a48043a11a59b83dd6a2fd4f119b"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/rsl-width56-private-vector-copy/APPLICATION_QUALIFICATION.json",
+      "sha256": "ee9f5900d04559922cb6dff92c1e93e3b5adbe4912163db566f16db28d295514"
+    },
+    "WRF_archive": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current5aae-w-else-rhs-consumer-one-member-native-r1/libwrflib.a",
+      "sha256": "6c705230f859054e2dde7a869c001a8d4672b0ea6e8af354c6ad2909be3157b4",
+      "all_584_members_unchanged": true
+    },
+    "RSL_archive": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current50d6-rsl-width56-private-copy-native-r1/librsl_lite.a",
+      "sha256": "29e42be3093b8be8bd6135bc4af80a0e77401588b65f41c04b3a4c3ac5dd54e7"
     }
   },
   "recovered_diagnostic_runs": [
@@ -794,6 +803,128 @@
     ]
   },
   "latest_fixed_order_three_hour": {
+    "status": "PASS_OWN_FULL512_FRESH_FIXED_ORDER_THREE_HOUR545_FOUR_PRODUCTS",
+    "qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/rsl-width56-private-vector-copy/APPLICATION_QUALIFICATION.json",
+      "sha256": "ee9f5900d04559922cb6dff92c1e93e3b5adbe4912163db566f16db28d295514"
+    },
+    "executable_sha256": "971cba3fd565a713b9e35daf7ca24800fd566a26e0ed97f604951b4226b0a79b",
+    "result": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current50d6-rsl-width56-threehour-pair-runtime-r1/RESULT.json",
+      "sha256": "1852d547927543b905c40388bb5d04b827e98bf4e677aa790fb541cacbf7030e"
+    },
+    "science": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current50d6-rsl-width56-threehour-pair-runtime-r1/science-receipt.json",
+      "sha256": "19890b045e7ed3dc416a21ea17ba816a6206a349c59b3f069f1d9358e040c6f3"
+    },
+    "reader_closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current50d6-rsl-width56-threehour-pair-runtime-r1/reader-closure.json",
+      "sha256": "2e07e3d0752201215532042196fee6afaf8598f0cbf0bf45573934ba37fe93f1"
+    },
+    "metrics": {
+      "control": {
+        "wall_seconds": 820.7258240692317,
+        "cpu_seconds": 368180.39649199997,
+        "main_step_sum_seconds": 597.97855
+      },
+      "candidate": {
+        "wall_seconds": 643.98138044402,
+        "cpu_seconds": 311489.24929300003,
+        "main_step_sum_seconds": 540.80956
+      }
+    },
+    "reductions_percent": {
+      "wall_seconds": 21.535138586098945,
+      "main_step_sum_seconds": 9.560374699059027,
+      "cpu_seconds": 15.397654991724075
+    },
+    "comparison_design": "Fresh single A→B corrected-original546b versus actualchosencombinedbatch; no historicalarmreuse/repeatability/isolated/additiveclaim",
+    "order": [
+      "A",
+      "B"
+    ],
+    "observations_per_image": 1,
+    "all8_models_and_reader_normal_closed": true,
+    "applies_to_current_image": true,
+    "limits": "One fresh fixed-order original546b A then971c B full512 three-hour pair, one observation per image;545 orderedsteps/four completeproducts. Wholeconfiguration observation only, no repeatability/ABBA/isolated or additive component gain. Main elapsed includes communication/backpressure; CPU is summed node-core consumption. Short/1h/9h/noon/profile/restart/full144 remain unqualified; rawproducerunknown."
+  },
+  "latest_unpaired_nine_hour": {
+    "status": "PASS_OWN_FULL512_NINE_HOUR_TEN_PRODUCTS_1625_STEPS",
+    "qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/curvature-vxgm-j-difference-cache/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "9cb22d9c1d05d4b38c3d6139f72ddd6c5235aaff6570dfa76833bb9edb2bb05b"
+    },
+    "result": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currenteca4-own9h-science-runtime-r1/RESULT.json",
+      "sha256": "375a9a77464dcf3a4e861967194958367af9c47d8804636405474bfa160573cc"
+    },
+    "executable_sha256": "eca471293cbd8de389ac6f62a8a191e5c838789435a77dd9eb9e5513f8aff9c7",
+    "metrics": {
+      "control": {
+        "wall_seconds": 2069.3122304237913,
+        "cpu_seconds": 1009264.484921,
+        "main_step_sum_seconds": 1851.54464
+      },
+      "candidate": {
+        "wall_seconds": 1791.5530953649431,
+        "cpu_seconds": 899855.0905719999,
+        "main_step_sum_seconds": 1689.6109
+      }
+    },
+    "display_metrics": {
+      "control": {
+        "wall_minutes": 34.48853717372985,
+        "main_elapsed_minutes": 30.859077333333335,
+        "CPU_summed_core_hours": 280.3512458113889
+      },
+      "candidate": {
+        "wall_minutes": 29.859218256082386,
+        "main_elapsed_minutes": 28.160181666666666,
+        "CPU_summed_core_hours": 249.95974738111107
+      }
+    },
+    "descriptive_reductions_percent": {
+      "wall_seconds": 13.422775498792838,
+      "main_step_sum_seconds": 8.745872851329162,
+      "cpu_seconds": 10.840507714641722
+    },
+    "comparison_design": "SCIENCE_ONLY candidate-only run vs retained original; descriptive timings only, no admitted performance comparison",
+    "timing_gain_claim": false,
+    "exact_products": 10,
+    "ordered_steps": 1625,
+    "limits": "One candidate-only unprofiled nine-hour science run versus retained corrected-original546b; descriptive timing differences, not a fresh matched comparison, repeatability, isolated or additive gain. Main elapsed includes communication/backpressure; CPU is summed node-core consumption. No own profile/noon/restart/full144 qualification.",
+    "applies_to_current_image": false
+  },
+  "latest_short_science": {
+    "status": "PASS_OWN_FULL512_SHORT35_TWO_PRODUCTS",
+    "qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/cqv-last-species-consumer-fusion/APPLICATION_QUALIFICATION.json",
+      "sha256": "3c650db4cb19a5ec4e6d63ea3082ef13abef8c11c68ae9c5f9235428f6a7e5fa"
+    },
+    "result": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currenteca4-cqv-child10m-runtime-r1/RESULT.json",
+      "sha256": "8b81cb5471e94d24324794759e415037b22c8b598df5e3a3ded9b4bfe25e9e30"
+    },
+    "executable_sha256": "eff22fb6c81da79b57476915f11417c595016689b1d144b58e88060d7f97799c",
+    "metrics": {
+      "control": {
+        "wall_seconds": 267.5341711281799,
+        "cpu_seconds": 86843.488941,
+        "main_step_sum_seconds": 42.03197
+      },
+      "candidate": {
+        "wall_seconds": 138.16921566287056,
+        "cpu_seconds": 53375.546748,
+        "main_step_sum_seconds": 36.99583
+      }
+    },
+    "timing_gain_claim": false,
+    "comparison_design": "Candidate-only science qualification versus frozen original ten-minute outputs; UNPAIRED descriptive metrics, no matched forecast timing or causal kernel claim",
+    "limits": "Own EFF2 full512 original ten-minute shortSCI only:35steps/two06+06:10products. No own1h/3h/9h/noon/profile/restart/full144 transfer. Complete synthetic calcCQ caller gains are not forecast gains; short timings are observed/unpaired only. ParentECA4 longer qualifications remain historical parent evidence.",
+    "applies_to_current_image": false
+  },
+  "latest_unpaired_three_hour": null,
+  "historical_fixed_order_three_hour_ECA4": {
     "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
     "executable_sha256": "eca471293cbd8de389ac6f62a8a191e5c838789435a77dd9eb9e5513f8aff9c7",
     "qualification": {
@@ -878,82 +1009,7 @@
     ],
     "comparison_design": "Fresh single A→B corrected-original546b versus actualchosencombinedbatch; no historicalarmreuse/repeatability/isolated/additiveclaim"
   },
-  "latest_unpaired_nine_hour": {
-    "status": "PASS_OWN_FULL512_NINE_HOUR_TEN_PRODUCTS_1625_STEPS",
-    "qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/curvature-vxgm-j-difference-cache/NINE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "9cb22d9c1d05d4b38c3d6139f72ddd6c5235aaff6570dfa76833bb9edb2bb05b"
-    },
-    "result": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currenteca4-own9h-science-runtime-r1/RESULT.json",
-      "sha256": "375a9a77464dcf3a4e861967194958367af9c47d8804636405474bfa160573cc"
-    },
-    "executable_sha256": "eca471293cbd8de389ac6f62a8a191e5c838789435a77dd9eb9e5513f8aff9c7",
-    "metrics": {
-      "control": {
-        "wall_seconds": 2069.3122304237913,
-        "cpu_seconds": 1009264.484921,
-        "main_step_sum_seconds": 1851.54464
-      },
-      "candidate": {
-        "wall_seconds": 1791.5530953649431,
-        "cpu_seconds": 899855.0905719999,
-        "main_step_sum_seconds": 1689.6109
-      }
-    },
-    "display_metrics": {
-      "control": {
-        "wall_minutes": 34.48853717372985,
-        "main_elapsed_minutes": 30.859077333333335,
-        "CPU_summed_core_hours": 280.3512458113889
-      },
-      "candidate": {
-        "wall_minutes": 29.859218256082386,
-        "main_elapsed_minutes": 28.160181666666666,
-        "CPU_summed_core_hours": 249.95974738111107
-      }
-    },
-    "descriptive_reductions_percent": {
-      "wall_seconds": 13.422775498792838,
-      "main_step_sum_seconds": 8.745872851329162,
-      "cpu_seconds": 10.840507714641722
-    },
-    "comparison_design": "SCIENCE_ONLY candidate-only run vs retained original; descriptive timings only, no admitted performance comparison",
-    "timing_gain_claim": false,
-    "exact_products": 10,
-    "ordered_steps": 1625,
-    "limits": "One candidate-only unprofiled nine-hour science run versus retained corrected-original546b; descriptive timing differences, not a fresh matched comparison, repeatability, isolated or additive gain. Main elapsed includes communication/backpressure; CPU is summed node-core consumption. No own profile/noon/restart/full144 qualification.",
-    "applies_to_current_image": false
-  },
-  "latest_short_science": {
-    "status": "PASS_OWN_FULL512_SHORT35_TWO_PRODUCTS",
-    "qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/cqv-last-species-consumer-fusion/APPLICATION_QUALIFICATION.json",
-      "sha256": "3c650db4cb19a5ec4e6d63ea3082ef13abef8c11c68ae9c5f9235428f6a7e5fa"
-    },
-    "result": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currenteca4-cqv-child10m-runtime-r1/RESULT.json",
-      "sha256": "8b81cb5471e94d24324794759e415037b22c8b598df5e3a3ded9b4bfe25e9e30"
-    },
-    "executable_sha256": "eff22fb6c81da79b57476915f11417c595016689b1d144b58e88060d7f97799c",
-    "metrics": {
-      "control": {
-        "wall_seconds": 267.5341711281799,
-        "cpu_seconds": 86843.488941,
-        "main_step_sum_seconds": 42.03197
-      },
-      "candidate": {
-        "wall_seconds": 138.16921566287056,
-        "cpu_seconds": 53375.546748,
-        "main_step_sum_seconds": 36.99583
-      }
-    },
-    "timing_gain_claim": false,
-    "comparison_design": "Candidate-only science qualification versus frozen original ten-minute outputs; UNPAIRED descriptive metrics, no matched forecast timing or causal kernel claim",
-    "limits": "Own EFF2 full512 original ten-minute shortSCI only:35steps/two06+06:10products. No own1h/3h/9h/noon/profile/restart/full144 transfer. Complete synthetic calcCQ caller gains are not forecast gains; short timings are observed/unpaired only. ParentECA4 longer qualifications remain historical parent evidence.",
-    "applies_to_current_image": false
-  },
-  "latest_unpaired_three_hour": {
+  "historical_unpaired_three_hour_50d6": {
     "status": "PASS_OWN_FULL512_THREE_HOUR545_FOUR_PRODUCTS",
     "qualification": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/w-else-rhs-consumer-simd/APPLICATION_QUALIFICATION.json",
