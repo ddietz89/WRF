@@ -1,0 +1,80 @@
+{
+  "status": "BASELINE_MEASUREMENT_FIXTURE_DIFFERENT_CALLCOUNT_ERRNO_ORACLE_FAILURE_NOT_CANDIDATE_FAILURE",
+  "actual_failure_readback": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-b4bc-same256-mpi-critical-path-finite-audit-r1/current871-halo-c-y-interior-compute-source-feasibility-r1/complete-fourhost-caller-cost-r1/actual-cost-fourhost-r1/arm0-failure-readback-r1.json",
+  "actual_failure_readback_sha256": "2f34a8f9fb523dc3155fa64aff035080c10a223d0f731395dfebf5469ea9137d",
+  "observed_states": {
+    "rank1.state.txt": {
+      "LOOP_STATE": [
+        34,
+        0,
+        32,
+        8096,
+        895
+      ],
+      "POST_STATE": [
+        34,
+        0,
+        32,
+        8096,
+        895
+      ]
+    },
+    "rank0.state.txt": {
+      "LOOP_STATE": [
+        11,
+        0,
+        32,
+        8096,
+        895
+      ],
+      "POST_STATE": [
+        34,
+        0,
+        32,
+        8096,
+        895
+      ]
+    },
+    "rank3.state.txt": {
+      "LOOP_STATE": [
+        11,
+        0,
+        32,
+        8096,
+        895
+      ],
+      "POST_STATE": [
+        34,
+        0,
+        32,
+        8096,
+        895
+      ]
+    },
+    "rank2.state.txt": {
+      "LOOP_STATE": [
+        34,
+        0,
+        32,
+        8096,
+        895
+      ],
+      "POST_STATE": [
+        34,
+        0,
+        32,
+        8096,
+        895
+      ]
+    }
+  },
+  "raw_R1_service_failure_preserved": true,
+  "R1_timing_accepted": false,
+  "changed_predicate": "warm1call vs2048loop compares4FPwords only; errno retainedobserved, no normalization. Warm1vsPost1 ALL5 unchanged; crossarm warm/warm+loop2048/loop2048+post/post ALL5 LITERAL comparator unchanged.",
+  "why": "Successful library calls can leave errno set by earlier internal attempts; no source contract makes2048MPIcalls errno equaloneMPIcall. A same2048call sync-vs-split errno mismatch STILL FAILS.",
+  "scope_correction": "Controlled capturedinputs with finiteUVintegerseed; actualwarmcase0NaNoutputcounts0/42/112/153. Historicalliteral FINITE status is provenance, not all-input-finite certification. No payload/input/source math altered.",
+  "candidate_oracle_weakened": false,
+  "new_algorithm_variant": false,
+  "source_public_default_changes": false,
+  "future_native_or_cost_result": null
+}

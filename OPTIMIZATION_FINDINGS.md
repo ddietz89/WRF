@@ -5124,3 +5124,12 @@ The private direct eight-neighbor HALO_EM_C prototype passed its bounded nine-ra
 The independent later-stage RK scalar SIMD trial was rejected at its first decisive O2 counterexample: width-two case 42 changed a quiet-NaN payload from `7fc12345` to `ffc54321`. No timing or application test followed, and no tolerance or payload normalization was introduced.
 
 [Direct halo evidence](tools/cpu-compute/haloc-direct8-screen-20261025/README.md); [scalar SIMD rejection](tools/cpu-rejected/rk-scalar-later-stage-simd-20261025/README.md).
+
+
+### October 25: Y-halo/interior mass-update overlap rejected
+
+A private source replay split HALO_EM_C Y posting/completion around independent interior `advance_mu_t` work. It retained Y-unpack before corner-dependent X packing and used one outer scratch lifetime. The actual O2 native test passed seven cases, four rounding modes, three sequences and four ranks with full physical buffers, read-only guards and all five recorded state fields exact. This qualifies the bounded replay, not generated-wrapper integration, a production API, O0 or a forecast.
+
+The same executable completed a four-host sync/split/split/sync cost wave, one rank per node with separately checked cache clears and all 16 node scopes normally closed. Complete Y+X+mass-update batches, including identical mutable restores, were **15.7929% and 14.4328% slower** in the two opposite-order comparisons; summed rank thread CPU was **15.7896% and 14.4417% higher**. Full raw outputs and matching-call-count five-state comparisons passed. The first runtime's baseline failure is retained: it incorrectly required errno after 2,048 calls to equal errno after one warm call. The narrow repair records both values and keeps all five state fields strict across matching sync/split batches.
+
+Close this fixed candidate unpromoted, with no further variant or repeat. The measured regression belongs to the combined overlap/compute schedule; allocation cost, wire progress and the specific cause were not isolated. The selected `5c75` image and defaults remain unchanged. [Actual native, complete-caller, repair and source-scope evidence](tools/cpu-rejected/haloc-y-interior-mu-overlap-20261025/README.md).

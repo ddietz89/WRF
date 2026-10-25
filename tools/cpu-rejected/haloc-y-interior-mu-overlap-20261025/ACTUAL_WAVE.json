@@ -1,0 +1,61 @@
+{
+  "status": "PASS_FOURHOST_PCCP_COMPLETE_YX_MU_RAW_FIVE_STATE_CACHE_CLOSURES",
+  "schedule": [
+    "sync",
+    "split",
+    "split",
+    "sync"
+  ],
+  "same_binary": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-y-mu-complete-cost-build-hpc04-r2/work/caller",
+    "sha256": "b8eea5214c489ae1e624b1b904c03556ea38b3e924513847fd18782a8f9ccd44"
+  },
+  "fixed_calls": 2048,
+  "dims": [
+    2,
+    2
+  ],
+  "comparisons": [
+    {
+      "status": "PASS_FOURHOST_COMPLETE_YX_MU_PAIR_RAW_FIVE_STATE_CACHE_CLOSURES",
+      "sync_arm": 0,
+      "split_arm": 1,
+      "metrics": {
+        "sync": {
+          "max_rank_wall_ns": 6399587752,
+          "sum_rank_thread_cpu_ns": 25547756375
+        },
+        "split": {
+          "max_rank_wall_ns": 7410268025,
+          "sum_rank_thread_cpu_ns": 29581645825
+        }
+      },
+      "wall_fraction_lower": -0.15792896545314838,
+      "CPU_fraction_lower": -0.1578960355965897
+    },
+    {
+      "status": "PASS_FOURHOST_COMPLETE_YX_MU_PAIR_RAW_FIVE_STATE_CACHE_CLOSURES",
+      "sync_arm": 3,
+      "split_arm": 2,
+      "metrics": {
+        "sync": {
+          "max_rank_wall_ns": 6582787694,
+          "sum_rank_thread_cpu_ns": 26280497535
+        },
+        "split": {
+          "max_rank_wall_ns": 7532865567,
+          "sum_rank_thread_cpu_ns": 30075849997
+        }
+      },
+      "wall_fraction_lower": -0.14432758842670346,
+      "CPU_fraction_lower": -0.1444170703749197
+    }
+  ],
+  "scope": "Current871cachedactualsource Ypost\u2192interiorMU\u2192Ycomplete/unpack\u2192Xfull\u2192boundaryMU, oneouter scratch. COMPLETE controlledcaptured113x43x33/twoJtilecaller+identicalmutablerestores; rootownsactualPCCP/nodecache/telemetry. No application/globalgainclaim.",
+  "limits": [
+    "Controlled113I/J43/K33 twoJtilegeometry, not a measuredproductiondecomposition.",
+    "MAXrankcontinuousbatchwall is the fourrankcaller scope, not globalforecastcriticalpath.",
+    "MutableUV+scientificrestoresinsidebothclocks;readonly/warm/finalguard/statechecksoutside.",
+    "MPIprogressortransportcause notisolated; onePCCPwave/no calibration/repeatmatrix."
+  ]
+}
