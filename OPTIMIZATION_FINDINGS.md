@@ -4858,3 +4858,18 @@ PART2 PBL/QV traversal fusion remains unpromoted after exact five-role native ch
 
 
 [Native, caller and generated-code evidence](tools/cpu-compute/part2-pbl-qv-traversal-fusion-unpromoted/README.md).
+
+
+## October 25: three-host full-grid short pilot passed
+
+Following the owner’s exclusion of hpc04, the SAME256 configuration (224 compute8×28 +32 quilt) ran on hpc01–03 with the unchanged original546b/BACF images. Fresh placement-specific I/O and Thompson-sharing checks passed. Both complete ten-minute forecast products and35 ordered steps passed the unchanged exact checker; all six workers and the reader closed normally, with checked caches before each arm and zero memory events.
+
+| Metric | Corrected original546b | BACF combined | Reduction |
+|---|---:|---:|---:|
+| Model/MPI wall (min) |4.622|2.728|40.97%|
+| Main-step elapsed (s) |80.384|71.747|10.75%|
+| Aggregate CPU (core-hours) |12.794|9.248|27.72%|
+
+One original-first ten-minute pair, with a large startup/output share: this is not a sustained three-hour estimate or a comparison to the different four-host512-rank configuration. Per-node original/BACF lifetime peaks were84.57/54.47,75.85/49.23 and63.31/44.69GiB; they are not simultaneous totals. A fresh three-hour same-map comparison is the next qualification. No scientific source/default or selected image changed.
+
+[Exact short-run results and limits](tools/cpu-compute/threehost-same256-short-qualification/README.md).
