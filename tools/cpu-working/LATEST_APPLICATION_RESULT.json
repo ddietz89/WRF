@@ -1,54 +1,48 @@
 {
-  "status": "PASS_OWN_UNPROFILED_FOURHOST_SAME512_HEIGHT_THREEHOUR545_FOUR_PRODUCTS_FRESH_FIXED_ORDER_PAIR",
+  "status": "PASS_OWN_UNPROFILED_FOURHOST_SAME512_NOON185_TWO_FULL_PRODUCTS",
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/current871-moist-height-one-bigstep-member-experimental-r1/wrf.exe",
-    "sha256": "5c758822e12965742be2e10669a1e9fd8b3e8e9eee66b4a8eb74d98340e35339"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current5c75-mu-theta-firstpass-one-smallstep-member-experimental-r1/wrf.exe",
+    "sha256": "ab43742acf708336857595b76849b2afcbb4a9431b48225a784749a1e0745662"
   },
   "archive": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/current871-moist-height-one-bigstep-member-experimental-r1/libwrflib.a",
-    "sha256": "d0c5b00e4ea952de117253dbe01366487186b296523fcaab15819e58d54b7e27"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current5c75-mu-theta-firstpass-one-smallstep-member-experimental-r1/libwrflib.a",
+    "sha256": "acbd4ba184cc865e1baea226a60be83c417a3172481821c01bfc203fe171f773"
   },
-  "source_commit": "445e5532bf9a82fa5bfdd4898a03b153eb0a9451",
-  "guard_post_test_source_commit": "2da3c200cff40d233bb2cd7d70cef5ce73fe8815",
+  "source_commit": "172db14001702e00588d570c72fe09191b1d343d",
+  "raw_producer_source_commit": null,
   "qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-output/quilt512/fp-entry-guard-20261025/SAME512_THREE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "b083ff1999d4069cc4162bed61f6331140851ed76c88d9429a48d11780f93f65"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/mu-theta-firstpass-fusion-20261025/OWN_NOON_APPLICATION_QUALIFICATION.json",
+    "sha256": "3e584eef622e225aedf74931dd5f645e091136e57de387accf9fb54a4ed9bb50"
   },
   "science": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current5c75-fourhost-threehour-pair1-runtime-r1/science-receipt.json",
-    "sha256": "20b8fbef80df192a01ba2ce34e14b5b0a0fc85e180732eb47a04ccf9d6855674"
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current5c75-mu-theta-noon1h-runtime-r1/science-receipt.json",
+    "sha256": "90d76a2e78e23a30f4c26e7f113ff6f19c47e64793ab5b44f8909f1f429e86d2",
+    "bytes": 3633971
   },
   "reader_closure": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-output/quilt512/fp-entry-guard-20261025/READER_CLOSURE.json",
-    "sha256": "91cde74054bc2a8801df58d3f07227846ce716b6f3dcb1897f001644080dc5a9"
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current5c75-mu-theta-noon1h-runtime-r1/reader-closure.json",
+    "sha256": "bb2c9db8fc830bb33189d9860365a45f45f652d0a22fd4d5cb240f6aef3a0549",
+    "bytes": 4111
   },
   "raw_RESULT": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-output/quilt512/fp-entry-guard-20261025/RAW_RESULT.json",
-    "sha256": "1c32696fcbe80d5128288907822fda2274989ede7888592250b9afea5cd4dff3"
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current5c75-mu-theta-noon1h-runtime-r1/RESULT.json",
+    "sha256": "0b89edeb938d86072cb8200de1b06af6aee73824370879b2edb68ca1f676acce",
+    "bytes": 1170
   },
   "metrics": {
-    "control": {
-      "wall_seconds": 800.0241208570078,
-      "cpu_seconds": 359327.346984,
-      "main_step_sum_seconds": 596.59354
-    },
     "candidate": {
-      "wall_seconds": 624.3915967778303,
-      "cpu_seconds": 303178.476221,
-      "main_step_sum_seconds": 540.03642
+      "wall_seconds": 258.5140823479742,
+      "cpu_seconds": 116484.632747,
+      "main_step_sum_seconds": 175.90178
     }
   },
   "order": [
-    "fresh_original546b_A",
-    "selected_height5c75_B"
+    "retained_original546b_noon_science_reference",
+    "fresh_mu_theta_ab437_unprofiled_noon_candidate"
   ],
-  "comparison_design": "Fresh SAME512 pair1 A-B original546b versus selectedheight5c75; no historicalarmreuse/repeatability/isolated/additiveclaim",
-  "reductions_percent": {
-    "wall_seconds": 21.95340359126111,
-    "cpu_seconds": 15.6261056204832,
-    "main_step_sum_seconds": 9.480008784540296
-  },
-  "timing_gain_claim": true,
+  "comparison_design": "Candidate-only exact science against retained original prefix; no fresh matched timing control.",
+  "reductions_percent": null,
+  "timing_gain_claim": false,
   "world_size": 512,
   "compute_ranks": 480,
   "hosts": [
@@ -57,7 +51,22 @@
     "hpc03",
     "hpc04"
   ],
-  "observed_step_count": 545,
-  "products": 4,
-  "limits": "Own unprofiled SAME512480compute+32quilt, four hosts,545 ordered steps/four FULL06\u201309 products. One fresh fixed-order original546b A\u2192selectedheight5c75 B observation with checked cache before each arm and all eight models+reader normal closed. No repeatability, isolated/additive component gain, noon/9h/profile/restart/384/full144 or clean whole-image source-rebuild claim. Earlier SAME256 own3h qualification remains separate and immutable."
+  "observed_step_count": 185,
+  "products": 2,
+  "limits": "Own unprofiled SAME512 noon12\u201313,185 ordered steps/two FULL outputs against retained corrected-original546b scientific prefix; candidate-only, no forecast timing gain. No own3h/9h/profile/restart/144/384/SAME256 qualification.",
+  "legacy_label_adjudication": {
+    "raw_science_status": "PASS_CURRENT5C75_NATIVE_NOON_ONE_HOUR_TWO_HISTORY_185_STEP_PREFIX",
+    "raw_result_order": [
+      "retained_original546b_noon_science_reference",
+      "fresh_current5c75_three_target_native_onehour_candidate"
+    ],
+    "raw_lease_expected_history_times": [
+      "2026-10-12_06:00:00",
+      "2026-10-12_07:00:00",
+      "2026-10-12_08:00:00",
+      "2026-10-12_09:00:00"
+    ],
+    "actual_forecast_end_time": "2026-10-12_13:00:00",
+    "disposition": "Frozen donor labels are retained provenance, not profile or horizon authority. Actual lease/build binds ab437/acbd, optional_profiles.candidate is empty, observer is false, completion and exact checker identify noon12/13 two FULL outputs and185 steps. Pre-run prerequisite application-false fields remain unchanged historical inputs."
+  }
 }

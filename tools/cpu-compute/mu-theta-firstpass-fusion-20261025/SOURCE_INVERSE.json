@@ -1,0 +1,19 @@
+{
+  "provenance": "ACTUAL_DEEPSEEK_AUTHOR_PLUS_ROOT_AUTHORIZED_LOCAL_CODEX_CONTRACT_COMPLETION",
+  "author_literal_defect": "Original author omitted final k_end producer; concrete k_end=1 gives no T_AVE/T+FT producer. Raw response and raw candidate preserved, not certified by design-only review.",
+  "local_completion": "Insert exactly original T_AVE=T and T=T+MSFTY*DTS*FT statements before final k_end subtraction inside existing IF/DO.",
+  "old": "   DO j=j_start, j_end\n     DO k=1,k_end\n     DO i=i_start, i_end\n       t_ave(i,k,j) = t(i,k,j)\n       t   (i,k,j) = t(i,k,j) + msfty(i,j)*dts*ft(i,k,j)\n     END DO\n     END DO\n   ENDDO   \n   DO j=j_start, j_end\n     DO i=i_start, i_end\n       wdtn(i,1  )=0.\n       wdtn(i,kde)=0.\n     ENDDO\n     DO k=2,k_end\n     kk = k-1\n     DO i=i_start, i_end\n        wdtn(i,k)= ww(i,k,j)*(fnm(k)*t_1(i,k  ,j)+fnp(k)*t_1(i,k-1,j))\n       t(i,kk,j) = t(i,kk,j) - dts*msfty(i,j)*(              &",
+  "provider_new": "   DO j=j_start, j_end\n     DO i=i_start, i_end\n       wdtn(i,1  )=0.\n       wdtn(i,kde)=0.\n     ENDDO\n     DO k=2,k_end\n     kk = k-1\n     DO i=i_start, i_end\n        wdtn(i,k)= ww(i,k,j)*(fnm(k)*t_1(i,k  ,j)+fnp(k)*t_1(i,k-1,j))\n       t_ave(i,kk,j) = t(i,kk,j)\n       t   (i,kk,j) = t(i,kk,j) + msfty(i,j)*dts*ft(i,kk,j)\n       t(i,kk,j) = t(i,kk,j) - dts*msfty(i,j)*(              &",
+  "final_anchor": "       DO i=i_start, i_end\n         t(i,k,j) = t(i,k,j) - dts*msfty(i,j)*",
+  "final_corrected": "       DO i=i_start, i_end\n       t_ave(i,k,j) = t(i,k,j)\n       t   (i,k,j) = t(i,k,j) + msfty(i,j)*dts*ft(i,k,j)\n         t(i,k,j) = t(i,k,j) - dts*msfty(i,j)*",
+  "blank_padding_before_provider_new": 4,
+  "parent_sha256": "dd6e3db9a312d3e3d4ae581305e42f6f775318937a2d55d60e4e380639d106b3",
+  "raw_author_sha256": "445379a563bda293c75fd28a014bfaf43ebbbfea4262b2eb27b1e17ba0666f5c",
+  "candidate_sha256": "ff0ec4830aaf6708837cc3d4f95f2f9d3a33aebf5512e411d43dea723a1b48cd",
+  "inverse_exact": true,
+  "outside_procedure_bytes_exact": true,
+  "whole_physical_line_count_equal": true,
+  "source_commit": null,
+  "future_native_qualified": false,
+  "future_caller_qualified": false
+}

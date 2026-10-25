@@ -1,0 +1,68 @@
+--- a/dyn_em/module_small_step_em.F
++++ b/dyn_em/module_small_step_em.F
+@@ -1310,6 +1310,7 @@
+ ! adding previous tendency contribution which was map scale factor coupled
+ ! (had been divided by msfty)
+ ! need to uncouple before updating uncoupled Theta (by adding)
++#if !(defined(WRF_ADVANCE_MU_THETA_FIRSTPASS_REUSE) && defined(WRF_ADVANCE_MU_WDTN_ROW_PIPELINE))
+    DO j=j_start, j_end
+      DO k=1,k_end
+      DO i=i_start, i_end
+@@ -1318,6 +1319,7 @@
+      END DO
+      END DO
+    ENDDO   
++#endif
+    DO j=j_start, j_end
+      DO i=i_start, i_end
+        wdtn(i,1  )=0.
+@@ -1328,6 +1330,10 @@
+      kk = k-1
+      DO i=i_start, i_end
+         wdtn(i,k)= ww(i,k,j)*(fnm(k)*t_1(i,k  ,j)+fnp(k)*t_1(i,k-1,j))
++#if defined(WRF_ADVANCE_MU_THETA_FIRSTPASS_REUSE) && defined(WRF_ADVANCE_MU_WDTN_ROW_PIPELINE)
++       t_ave(i,kk,j) = t(i,kk,j)
++       t   (i,kk,j) = t(i,kk,j) + msfty(i,j)*dts*ft(i,kk,j)
++#endif
+        t(i,kk,j) = t(i,kk,j) - dts*msfty(i,j)*(              &
+                           
+                           msftx(i,j)*(                     &
+@@ -1343,6 +1349,10 @@
+      IF(k_end>=1)THEN
+        k = k_end
+        DO i=i_start, i_end
++#if defined(WRF_ADVANCE_MU_THETA_FIRSTPASS_REUSE) && defined(WRF_ADVANCE_MU_WDTN_ROW_PIPELINE)
++       t_ave(i,k,j) = t(i,k,j)
++       t   (i,k,j) = t(i,k,j) + msfty(i,j)*dts*ft(i,k,j)
++#endif
+          t(i,k,j) = t(i,k,j) - dts*msfty(i,j)*( msftx(i,j)*( .5*rdy* ( v(i,k,j+1)*(t_1(i,k,j+1)+t_1(i,k, j )) -v(i,k,j  )*(t_1(i,k, j )+t_1(i,k,j-1)) ) + .5*rdx* ( u(i+1,k,j)*(t_1(i+1,k,j)+t_1(i  ,k,j)) -u(i  ,k,j)*(t_1(i  ,k,j)+t_1(i-1,k,j)) ) ) + rdnw(k)*( wdtn(i,k+1)-wdtn(i,k) ) )       
+        ENDDO
+      ENDIF
+--- a/dyn_em/Makefile
++++ b/dyn_em/Makefile
+@@ -336,6 +336,25 @@
+ endif
+ endif
+ 
++# Retained theta producer relocation into the qualified WDTN row pipeline.
++# WRF_ADVANCE_MU_THETA_FIRSTPASS_REUSE=0 restores the original producer pass.
++WRF_ADVANCE_MU_THETA_FIRSTPASS_REUSE ?= 1
++ifeq ($(WRF_ADVANCE_MU_THETA_FIRSTPASS_REUSE),1)
++ifeq ($(WRF_ADVANCE_MU_WDTN_ROW_PIPELINE),1)
++ifeq ($(WRF_SMALL_STEP_SIMD),1)
++ifeq ($(WRF_SMALL_STEP_ZEN2),1)
++ifeq ($(strip $(OMPCPP)),)
++ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
++ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
++module_small_step_em.o: private override CPPFLAGS += -DWRF_ADVANCE_MU_THETA_FIRSTPASS_REUSE
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++
+ # Exact calc_coef_w A(k+1)/B(k) row pipeline; all arithmetic/stores retained.
+ # Qualified GNU13.3 empty-OMPCPP SmallStep SIMD/Zen2 path; matching serial unqualified.
+ # Set WRF_CALC_COEF_W_AHEAD_ROW_PIPELINE=0 and fully regenerate/rebuild to restore original schedule.

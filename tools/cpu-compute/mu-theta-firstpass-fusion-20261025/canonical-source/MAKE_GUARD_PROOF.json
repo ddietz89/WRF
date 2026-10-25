@@ -1,0 +1,90 @@
+{
+  "scope": "Local make evaluation with compiler-identity stub, no compiler invocation/build or hardware qualification. Exact proposed block evaluated.",
+  "cases": [
+    {
+      "case": "qualified",
+      "arguments": {
+        "TEST_VENDOR": "GNU Fortran",
+        "TEST_VERSION": "13.3.0"
+      },
+      "CPPFLAGS": "-DWRF_ADVANCE_MU_THETA_FIRSTPASS_REUSE",
+      "macro_enabled": true,
+      "expected": true
+    },
+    {
+      "case": "optout",
+      "arguments": {
+        "TEST_VENDOR": "GNU Fortran",
+        "TEST_VERSION": "13.3.0",
+        "WRF_ADVANCE_MU_THETA_FIRSTPASS_REUSE": "0"
+      },
+      "CPPFLAGS": "",
+      "macro_enabled": false,
+      "expected": false
+    },
+    {
+      "case": "dependency-off",
+      "arguments": {
+        "TEST_VENDOR": "GNU Fortran",
+        "TEST_VERSION": "13.3.0",
+        "WRF_ADVANCE_MU_WDTN_ROW_PIPELINE": "0"
+      },
+      "CPPFLAGS": "",
+      "macro_enabled": false,
+      "expected": false
+    },
+    {
+      "case": "simd-off",
+      "arguments": {
+        "TEST_VENDOR": "GNU Fortran",
+        "TEST_VERSION": "13.3.0",
+        "WRF_SMALL_STEP_SIMD": "0"
+      },
+      "CPPFLAGS": "",
+      "macro_enabled": false,
+      "expected": false
+    },
+    {
+      "case": "zen2-off",
+      "arguments": {
+        "TEST_VENDOR": "GNU Fortran",
+        "TEST_VERSION": "13.3.0",
+        "WRF_SMALL_STEP_ZEN2": "0"
+      },
+      "CPPFLAGS": "",
+      "macro_enabled": false,
+      "expected": false
+    },
+    {
+      "case": "omp-cpp",
+      "arguments": {
+        "TEST_VENDOR": "GNU Fortran",
+        "TEST_VERSION": "13.3.0",
+        "OMPCPP": "-D_OPENMP"
+      },
+      "CPPFLAGS": "",
+      "macro_enabled": false,
+      "expected": false
+    },
+    {
+      "case": "other-version",
+      "arguments": {
+        "TEST_VENDOR": "GNU Fortran",
+        "TEST_VERSION": "14.1.0"
+      },
+      "CPPFLAGS": "",
+      "macro_enabled": false,
+      "expected": false
+    },
+    {
+      "case": "other-vendor",
+      "arguments": {
+        "TEST_VENDOR": "other compiler",
+        "TEST_VERSION": "13.3.0"
+      },
+      "CPPFLAGS": "",
+      "macro_enabled": false,
+      "expected": false
+    }
+  ]
+}

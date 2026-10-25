@@ -1,0 +1,79 @@
+{
+  "status": "PASS_CURRENT5C75_MU_THETA_COMPLETE_CALLER_FOUR_ARMS",
+  "arms": [
+    {
+      "arm": 0,
+      "host": "hpc01",
+      "which": 1,
+      "wall_seconds": 1.28850035,
+      "cpu_seconds": 1.288413632,
+      "state_sha256": "5a25072e552515ffbafa05d134a4ee1824f92d2848dceb70b4af5671b1a5141e",
+      "receipt_sha256": "19d57075de8bc8a46266e51fcb3ba8a284733a66b7421db580dcec529ff1bc7e",
+      "closure_sha256": "d20c7f6ff83aa791f1b4acabaf0a60ee5016e773aa3d585453cc88d52cb9727b",
+      "cache_sha256": "03bdd7d0c25b876e34815f6e431d5e7e08f13b6b2d37f530b21c05f80e827ccb",
+      "invocation_id": "fcb893ef76c34006b3207fa271af9f4b"
+    },
+    {
+      "arm": 1,
+      "host": "hpc04",
+      "which": 2,
+      "wall_seconds": 1.218911548,
+      "cpu_seconds": 1.218836174,
+      "state_sha256": "5a25072e552515ffbafa05d134a4ee1824f92d2848dceb70b4af5671b1a5141e",
+      "receipt_sha256": "61846eff840e7e9060ef31e8485ce8fc84f927f7bcf626d87be611832ee8103c",
+      "closure_sha256": "297a8d0ec72735a55977d807e0d29aa69da55a6b5e37b4928995bad703de1c5a",
+      "cache_sha256": "cd592e5018b020bbeec0d949de94cd590e7bf3ad85287ec2fdcd9101555db5cf",
+      "invocation_id": "55f41307575142b4bb63deb10d20dac4"
+    },
+    {
+      "arm": 2,
+      "host": "hpc01",
+      "which": 2,
+      "wall_seconds": 1.259908912,
+      "cpu_seconds": 1.259775349,
+      "state_sha256": "5a25072e552515ffbafa05d134a4ee1824f92d2848dceb70b4af5671b1a5141e",
+      "receipt_sha256": "66a9b833968536195f5008652c76d6b668e95e00a8ef2473c6125cfb38ba8b71",
+      "closure_sha256": "e584df45aade3a85924bb4f2ae50890ddceb80f4704f72575adc4041986312ae",
+      "cache_sha256": "01e00f5502177ce75ee0dec9f48ba7040a85b9a95df3fe38d274d77002739527",
+      "invocation_id": "27b81d2cee03441ab24502fa6649df3c"
+    },
+    {
+      "arm": 3,
+      "host": "hpc04",
+      "which": 1,
+      "wall_seconds": 1.235436851,
+      "cpu_seconds": 1.235232887,
+      "state_sha256": "5a25072e552515ffbafa05d134a4ee1824f92d2848dceb70b4af5671b1a5141e",
+      "receipt_sha256": "65c8c6238e74402181220dae8b3400b02488e9b6fc0517a8bf3597a033918fcc",
+      "closure_sha256": "c5e2428086fa50a2cb3553dd1ef5ddea7769caf46351bb77b614f5e52d5d1d2c",
+      "cache_sha256": "12c42e526f1857f779b1a56e7cafd4296f784d6967e8965d2b198a4aa3876cfc",
+      "invocation_id": "7f8f8d06ffed449ea669f889a7f50329"
+    }
+  ],
+  "comparisons": [
+    {
+      "host": "hpc01",
+      "parent_arm": 0,
+      "candidate_arm": 2,
+      "parent_wall_seconds": 1.28850035,
+      "candidate_wall_seconds": 1.259908912,
+      "wall_reduction_percent": 2.218970138424881,
+      "parent_cpu_seconds": 1.288413632,
+      "candidate_cpu_seconds": 1.259775349,
+      "cpu_reduction_percent": 2.2227553550131813
+    },
+    {
+      "host": "hpc04",
+      "parent_arm": 3,
+      "candidate_arm": 1,
+      "parent_wall_seconds": 1.235436851,
+      "candidate_wall_seconds": 1.218911548,
+      "wall_reduction_percent": 1.3376080684839553,
+      "parent_cpu_seconds": 1.235232887,
+      "candidate_cpu_seconds": 1.218836174,
+      "cpu_reduction_percent": 1.3274187541931926
+    }
+  ],
+  "scope": "512completeadvance_mu_t calls+mutable restores inside one CLOCK_MONOTONIC/THREAD_CPUTIME batch; full originalcapture gold/state/readonly/bounds pre/post. Original450x342/16rank capture; neither isolatedtail nor currentforecast gain. Oppositeorders01P-C/04C-P; checkedcachebefore each executable,4normalclosures.",
+  "performance_gain_qualification": "Interpret actual signs/magnitudes; no acceptance based solelyon opcodes."
+}
