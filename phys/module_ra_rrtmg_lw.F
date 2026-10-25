@@ -2394,6 +2394,10 @@ contains
 
 ! Indices
       integer(kind=im) :: ilev, isubcol, i, n         ! indices
+#if defined(WRF_LW_MCICA_WHOLE_DRAW_SEED_CARRY_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_LW_MCICA_WHOLE_DRAW_SEED_CARRY_DISABLE)
+      integer(kind=im) :: k1_s, k2_s, k3_s, k4_s, kkiss_s
+      logical :: kiss_scalar
+#endif
 
 !------------------------------------------------------------------------------------------ 
 
@@ -2473,11 +2477,44 @@ contains
 !    - if the layer above is clear, we use a new random number 
 
          if (irng.eq.0) then 
+#if defined(WRF_LW_MCICA_WHOLE_DRAW_SEED_CARRY_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_LW_MCICA_WHOLE_DRAW_SEED_CARRY_DISABLE)
+            kiss_scalar = (ncol .eq. 1) .and. (nlay .gt. 0) .and. (nsubcol .gt. 0)
+            if (kiss_scalar) then
+               k1_s = seed1(1)
+               k2_s = seed2(1)
+               k3_s = seed3(1)
+               k4_s = seed4(1)
+               do isubcol = 1,nsubcol
+                  do ilev = 1,nlay
+                     k1_s = 69069_im * k1_s + 1327217885_im
+                     k2_s = ieor(ieor(ieor(k2_s,ishft(k2_s,13_im)), &
+                                 ishft(ieor(k2_s,ishft(k2_s,13_im)),-17_im)), &
+                                 ishft(ieor(ieor(k2_s,ishft(k2_s,13_im)), &
+                                 ishft(ieor(k2_s,ishft(k2_s,13_im)),-17_im)),5_im))
+                     k3_s = 18000_im * iand(k3_s,65535_im) + ishft(k3_s,-16_im)
+                     k4_s = 30903_im * iand(k4_s,65535_im) + ishft(k4_s,-16_im)
+                     kkiss_s = k1_s + k2_s + ishft(k3_s,16_im) + k4_s
+                     CDF(isubcol,1,ilev) = kkiss_s*2.328306e-10_rb + 0.5_rb
+                  enddo
+               enddo
+               seed1(1) = k1_s
+               seed2(1) = k2_s
+               seed3(1) = k3_s
+               seed4(1) = k4_s
+            else
+               do isubcol = 1,nsubcol
+                  do ilev = 1,nlay
+                     call kissvec_host_seeds(CDF(isubcol,:,ilev))
+                  enddo
+               enddo
+            endif
+#else
             do isubcol = 1,nsubcol
                do ilev = 1,nlay
                   call kissvec_host_seeds(CDF(isubcol,:,ilev))
                enddo
             enddo
+#endif
          elseif (irng.eq.1) then
             do isubcol = 1, nsubcol
                do i = 1, ncol
