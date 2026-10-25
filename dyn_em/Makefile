@@ -336,6 +336,25 @@ endif
 endif
 endif
 
+# Retained theta producer relocation into the qualified WDTN row pipeline.
+# WRF_ADVANCE_MU_THETA_FIRSTPASS_REUSE=0 restores the original producer pass.
+WRF_ADVANCE_MU_THETA_FIRSTPASS_REUSE ?= 1
+ifeq ($(WRF_ADVANCE_MU_THETA_FIRSTPASS_REUSE),1)
+ifeq ($(WRF_ADVANCE_MU_WDTN_ROW_PIPELINE),1)
+ifeq ($(WRF_SMALL_STEP_SIMD),1)
+ifeq ($(WRF_SMALL_STEP_ZEN2),1)
+ifeq ($(strip $(OMPCPP)),)
+ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+module_small_step_em.o: private override CPPFLAGS += -DWRF_ADVANCE_MU_THETA_FIRSTPASS_REUSE
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+
 # Exact calc_coef_w A(k+1)/B(k) row pipeline; all arithmetic/stores retained.
 # Qualified GNU13.3 empty-OMPCPP SmallStep SIMD/Zen2 path; matching serial unqualified.
 # Set WRF_CALC_COEF_W_AHEAD_ROW_PIPELINE=0 and fully regenerate/rebuild to restore original schedule.
