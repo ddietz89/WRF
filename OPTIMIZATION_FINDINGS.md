@@ -1,5 +1,9 @@
 # WRF CPU optimization findings
 
+## October25: current-build direct-noon source profile completed
+
+The unchanged BACF image passed two full12:00–13:00 products and185 ordered steps against a fresh same256 corrected-original reference on hpc01–03. Both15-second main-thread recordings passed actual acquisition/source-identity checks and normal read-only rendering. Shortwave SPCVMC, paired VRTQDR and REFTRA are prominent direct sampled routines; halo-exchange ancestry contains substantial MPI progress. Selected-thread mixed-I/O shares establish source questions, not global removable cost or MPI causality. Two bounded radiation implementations and a separate MPI-call alternative are in private testing; none is promoted yet. [Science, profile scope and report-only counter repair](tools/cpu-compute/threehost-same256-noon-source-profile/README.md).
+
 ## October25: fresh three-host three-hour comparison
 
 After hpc04 was excluded, the unchanged latest combined BACF image passed its own fresh corrected-original546b comparison on hpc01–03: all four complete06–09 products and545 ordered steps exact, all six model scopes and reader normally closed. Both arms used the same256-rank map (224 compute8×28 plus32 quilt4×8), explicit physical affinity,100GiB/node, zero swap and checked client-cache clearing before each arm.
@@ -10,7 +14,7 @@ After hpc04 was excluded, the unchanged latest combined BACF image passed its ow
 | Main-step elapsed (min) |17.989|16.727|7.02%|
 | Aggregate CPU (core-hours) |83.861|75.730|9.70%|
 
-This is one original-first pair in a separate threehost configuration. It does not supersede the earlier fourhost512-rank configuration's observations or establish repeatability. Main elapsed includes communication/backpressure; residual wall is not pure I/O. Per-node lifetime memory peaks were84.58/76.18/85.22GiB original and54.50/50.74/54.20GiB BACF; all event counters were zero. Read-only Voltage/Temperature/Fan samples covered all three nodes before/during/after both arms, with no sampled numeric BMC voltage alarm. No new scientific code or default change follows; own threehost9h/daytime/restart/full144 coverage remains pending. [Exact evidence and rollback](tools/cpu-compute/threehost-same256-threehour-qualification/README.md).
+This is one original-first pair in a separate threehost configuration. It does not supersede the earlier fourhost512-rank configuration's observations or establish repeatability. Main elapsed includes communication/backpressure; residual wall is not pure I/O. Per-node lifetime memory peaks were84.58/76.18/85.22GiB original and54.50/50.74/54.20GiB BACF; all event counters were zero. Read-only Voltage/Temperature/Fan samples covered all three nodes before/during/after both arms, with no sampled numeric BMC voltage alarm. No new scientific code or default change follows; the separate direct-noon diagnostic above adds its own scope, while threehost9h/restart/full144 coverage remains pending. [Exact evidence and rollback](tools/cpu-compute/threehost-same256-threehour-qualification/README.md).
 
 The current operating configuration uses hpc01–03; hpc04 is excluded. Earlier four-host results below retain their original configuration and qualification scope.
 
