@@ -1,0 +1,212 @@
+{
+  "status": "PROMOTED_QUALIFIED_WORKING_TWO_RADIATION_BATCH_AFTER_OWN_NOON256",
+  "source_publication_authorized": true,
+  "source_default_promoted": true,
+  "post_test_source_commit": "dcb885b99655a64e52fc9f9ff13fddc0f39fe569",
+  "raw_producer_source_commit": null,
+  "application_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/clear-sky-radiation-batch-20261025/APPLICATION_QUALIFICATION.json",
+    "sha256": "d2dc9bfb51126ff3dae362f4461425af4047ba8cde0feca9dd0c3ae4c0e048ce"
+  },
+  "own_noon_qualified": true,
+  "own_three_hour_qualified": false,
+  "own_nine_hour_qualified": false,
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentbacf-two-radiation-members-experimental-r2/wrf.exe",
+    "sha256": "b4bce63243fb128ac813965c37a735d6e07d6ed49dd66a82f1ead542615476d2"
+  },
+  "WRF_archive": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentbacf-two-radiation-members-experimental-r2/libwrflib.a",
+    "sha256": "882a7630422ced8766c4a1a38c54d6629c3542f53c842224fa0d3618d9649ed9"
+  },
+  "SW_native": {
+    "status": "PASS_CURRENT_BACF_CLEAR_ACTIVE_GENERAL128_DIRECT72_FULLSPC12_O2_O0_RAW_FIVE_STATE",
+    "general_calls": 128,
+    "newentry_direct_calls": 72,
+    "whole_SPC_calls": 12,
+    "optimizations": [
+      "O2",
+      "O0-fcheck=all"
+    ],
+    "limits": "General128includesinactiveNaN; direct72source-validactive/-0/subnormal/+Inf+overwrittenqNaNoutputseeds; fullSPC12finite2existingseedmodes, not4maskedrounds or arbitraryactiveNaNcertificate.",
+    "source_abi": "Oldgeneralreftra andcloudycall exact; additivePUBLICmasklessentry;maskstore/readremovedclearonly."
+  },
+  "LW_native": {
+    "status": "PASS_LW_PREFIX_MIRROR_NUMERICAL_DIAGNOSTIC_STRUCTURAL_PENDING",
+    "finite_calls": 36,
+    "safe_source_exceptional_calls": 6,
+    "optimizations": [
+      "O2",
+      "O0bounds"
+    ],
+    "limits": "Actualsourcevalidcases/readonly/guard/fivestate; no enabledtrapcertificate. StructuralfullRELApending.",
+    "source_abi": "Samepublicentries/arguments; prefixmirrordeferredtobandcopy;radclrdseed/allrecurrenceexpressionsunchanged."
+  },
+  "caller_evidence": {
+    "SW": {
+      "executions": 8,
+      "status": "PASS_CLEAR_ACTIVE_TWO_CONTEXTS_PCCP_EIGHT_ARMS_CLOSED",
+      "comparisons": {
+        "reftra": [
+          {
+            "parent_arm": 0,
+            "candidate_arm": 1,
+            "parent_wall_seconds": 0.908430562,
+            "candidate_wall_seconds": 0.855474028,
+            "wall_reduction_percent": 5.829453148671149,
+            "parent_process_cpu_seconds": 0.908461694,
+            "candidate_process_cpu_seconds": 0.85547458,
+            "process_cpu_reduction_percent": 5.832619509436354
+          },
+          {
+            "parent_arm": 3,
+            "candidate_arm": 2,
+            "parent_wall_seconds": 0.90108675,
+            "candidate_wall_seconds": 0.895691617,
+            "wall_reduction_percent": 0.5987362482025249,
+            "parent_process_cpu_seconds": 0.90111408,
+            "candidate_process_cpu_seconds": 0.89570833,
+            "process_cpu_reduction_percent": 0.5998962972590505
+          }
+        ],
+        "spcvmc": [
+          {
+            "parent_arm": 4,
+            "candidate_arm": 5,
+            "parent_wall_seconds": 1.484823088,
+            "candidate_wall_seconds": 1.464629568,
+            "wall_reduction_percent": 1.3599950164567942,
+            "parent_process_cpu_seconds": 1.48464601,
+            "candidate_process_cpu_seconds": 1.464384192,
+            "process_cpu_reduction_percent": 1.3647575154969172
+          },
+          {
+            "parent_arm": 7,
+            "candidate_arm": 6,
+            "parent_wall_seconds": 1.479953836,
+            "candidate_wall_seconds": 1.48846561,
+            "wall_reduction_percent": -0.5751378045010913,
+            "parent_process_cpu_seconds": 1.479713847,
+            "candidate_process_cpu_seconds": 1.488084711,
+            "process_cpu_reduction_percent": -0.5657082967069016
+          }
+        ]
+      },
+      "scope": "One host hpc01, P,C,C,P per complete caller. Eight planned executable launches, cache EACH and prior normal closure. Fixed finite representative work; no calibration, production-frequency, repeatability, forecast or global-headroom claim."
+    },
+    "LW": {
+      "executions": 12,
+      "status": "PASS_TWELVE_LW_MIRROR_COMPLETE_CALLER_EACH_EXEC_CACHE_OPPOSITE_ORDER_CLOSED",
+      "comparisons": {
+        "hpc02": {
+          "clear": {
+            "parent_wall_seconds": 0.909072176,
+            "candidate_wall_seconds": 0.882006794,
+            "wall_reduction_percent": 2.9772533704738535,
+            "parent_thread_cpu_seconds": 0.908694478,
+            "candidate_thread_cpu_seconds": 0.881970755,
+            "thread_cpu_reduction_percent": 2.940891977116211
+          },
+          "mixed": {
+            "parent_wall_seconds": 1.835453102,
+            "candidate_wall_seconds": 1.835112365,
+            "wall_reduction_percent": 0.0185641899337341,
+            "parent_thread_cpu_seconds": 1.835240461,
+            "candidate_thread_cpu_seconds": 1.83481391,
+            "thread_cpu_reduction_percent": 0.02324224040741729
+          },
+          "partial": {
+            "parent_wall_seconds": 1.015949202,
+            "candidate_wall_seconds": 1.003947251,
+            "wall_reduction_percent": 1.1813534551110338,
+            "parent_thread_cpu_seconds": 1.015756673,
+            "candidate_thread_cpu_seconds": 1.003904242,
+            "thread_cpu_reduction_percent": 1.166857310914271
+          }
+        },
+        "hpc03": {
+          "clear": {
+            "parent_wall_seconds": 0.908682476,
+            "candidate_wall_seconds": 0.916439803,
+            "wall_reduction_percent": -0.853689512550937,
+            "parent_thread_cpu_seconds": 0.908608704,
+            "candidate_thread_cpu_seconds": 0.916402348,
+            "thread_cpu_reduction_percent": -0.8577558156431575
+          },
+          "mixed": {
+            "parent_wall_seconds": 1.864967749,
+            "candidate_wall_seconds": 1.83677418,
+            "wall_reduction_percent": 1.5117456596832612,
+            "parent_thread_cpu_seconds": 1.864844668,
+            "candidate_thread_cpu_seconds": 1.836374986,
+            "thread_cpu_reduction_percent": 1.5266516556863063
+          },
+          "partial": {
+            "parent_wall_seconds": 1.014957786,
+            "candidate_wall_seconds": 1.002917082,
+            "wall_reduction_percent": 1.1863255956144902,
+            "parent_thread_cpu_seconds": 1.014819141,
+            "candidate_thread_cpu_seconds": 1.002885766,
+            "thread_cpu_reduction_percent": 1.1759115016534927
+          }
+        }
+      },
+      "scope": "Exactlysame12plannedexecutions:4oppositeorderP/Cobservationsx3existingregimes. Nowone-regime/exe perownservice/cache/closure. 02P/C+03C/P perregime;noadditionalcases/repeats/calibration. Rootmustcloseallaffectednodescopesbeforecache. No04;structurepending, noapplication/globalclaim."
+    }
+  },
+  "selection_basis": "Ownerexplicitlyretainsmeasuredkernelopportunities: directREFTRA5.829/0.599%shorter; fullSPCmixed+1.360/-0.575%. LWpartial1.181/1.186%shorter; clear+2.977/-0.854,mixed+0.019/+1.512 disclosed. No additive/globalforecast/repeatabilityclaim.",
+  "build": {
+    "status": "BUILT_ISOLATED_CURRENT_BACF_TWO_RADIATION_MEMBERS_EXPERIMENTAL_PENDING_OWN_DAYTIME_APPLICATION",
+    "archive_members": 584,
+    "unchanged_members": 582,
+    "replaced_zero_based_indices": [
+      275,
+      274
+    ],
+    "changed_members": [
+      "module_ra_rrtmg_sw.o",
+      "module_ra_rrtmg_lw.o"
+    ],
+    "source_compiles": 0,
+    "module_compiles": 0,
+    "proof_links": 0,
+    "link_count": 1,
+    "unchanged_RSL": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current971c-uv-final-v-unpack-outline-combined-native-r1/librsl_lite.a",
+      "sha256": "6eb125cca1196db3d917b17313852b17f2121accb5bb9fc2ad99dd49580154db"
+    }
+  },
+  "structural_scope_pending": true,
+  "canonical_F_only_rebuild_qualified": false,
+  "science_gain_claim": false,
+  "root_required_before_any_apply": [
+    "Satisfied: actual ownNoon256science/185steps/twoFULLproducts and all6models+reader normalclosed",
+    "Satisfied: posttesttargetsourcecommit dcb885b99655a64e52fc9f9ff13fddc0f39fe569",
+    "Qualified wholePP replay scope retained; general canonicalF-only rebuild/otherhorizons remain unqualified"
+  ],
+  "rollback": {
+    "restore_only_source_preimages": [
+      "phys/module_ra_rrtmg_sw.F",
+      "phys/module_ra_rrtmg_lw.F"
+    ],
+    "source_reverse_patch": "ROLLBACK_SOURCE_ONLY.diff",
+    "parent_executable": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current971c-uv-final-v-unpack-outline-combined-native-r1/wrf.exe",
+      "sha256": "bacf12b8b354256c29be002b07fe30d5dceca7001c9da35a65c0c12b97b05878"
+    },
+    "parent_archive": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current971c-uv-final-v-update-one-member-archive-r1/libwrflib.a",
+      "sha256": "1d2e1851c2d276482397f822c047371a64aeadea94909b82c4c48130f8b87622"
+    },
+    "RSL_unchanged": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current971c-uv-final-v-unpack-outline-combined-native-r1/librsl_lite.a",
+      "sha256": "6eb125cca1196db3d917b17313852b17f2121accb5bb9fc2ad99dd49580154db"
+    },
+    "instruction": "Rootrestoreonlythese2canonicalpreimages +parentselectionmetadatafromsavedbeforeimage. Neverreplaceother582archiveoccurrences or unrelateddefaults/currentQ. Currentcandidateoutputsshouldremainpreservedforaudit."
+  },
+  "preserved_negative_attempts": [
+    "SWnativeoutercontroller staleallowlist failure withactualworker/normalclosure reconciliation retained.",
+    "Two-memberR1packageguardfailure beforelink retained; R2onlyknown-L/-l repair.",
+    "Failed384modelmemoryadmission remainsclosed/separate, no384qualificationtransfer."
+  ]
+}

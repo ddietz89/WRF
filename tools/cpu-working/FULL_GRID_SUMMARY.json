@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-10-25T03:03:05.743812+00:00",
+  "updated_utc": "2026-10-25T05:44:05.127525+00:00",
   "metric_definitions": {
     "wall_seconds": "Model/MPI including initialization/output/final drain",
     "main_step_sum_seconds": "Sum of reported main-step elapsed; includes communication/waiting/backpressure, not integration CPU",
@@ -495,55 +495,8 @@
   ],
   "limits": "Recent rows compare descriptively with identified retained same-horizon controls. They are not fresh matched pairs, causal incremental gains, repeatability or additive percentages. Instrumented observations are labelled.",
   "current_selection": {
-    "executable_sha256": "bacf12b8b354256c29be002b07fe30d5dceca7001c9da35a65c0c12b97b05878",
-    "archive_sha256": "1d2e1851c2d276482397f822c047371a64aeadea94909b82c4c48130f8b87622",
-    "own_three_hour_qualified": true,
-    "own_one_hour_qualified": false,
-    "own_short_qualified": false,
-    "own_nine_hour_qualified": false,
-    "noon_profile_restart_full144_qualified": false,
-    "qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/rsl-width56-receive-original-fallback-outline/APPLICATION_QUALIFICATION.json",
-      "sha256": "afb382fd1b9204a2c4641f6abd867392d1e76e767d55bca02c8652c25db30643"
-    },
-    "qualification_scope": "One fresh fixed-order original\u2192BACF pair, one observation per image;545 ordered steps/four products. External BMC monitoring, no native profiler. Planned counterbalanced second pair was interrupted by hpc04 failure and is not a timing/science comparison. No repeatability, isolated component, additive gain or other-horizon claim. Main-step elapsed includes MPI/wait/output backpressure; aggregate CPU is summed core consumption.",
-    "latest_completed_3h_image": "bacf",
-    "latest_completed_9h_image": "eca4",
-    "latest_completed_horizon_labels_apply_to_current_selection": {
-      "three_hour": true,
-      "nine_hour": false
-    },
-    "previous_parent": {
-      "qualification": {
-        "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/rsl-width56-private-vector-copy/APPLICATION_QUALIFICATION.json",
-        "sha256": "ee9f5900d04559922cb6dff92c1e93e3b5adbe4912163db566f16db28d295514"
-      },
-      "source_commit": "a46f6f48ffb7be89fd59b8e681f88939f8dc6cc3",
-      "scope": "Qualified971c fresh3h historicalparent only; no b362 application qualification or horizon transfer.",
-      "applies_to_current_image": false,
-      "complete_parent_selection_backup": {
-        "path": "/home/ddietz/wrf/WRF/tools/cpu-working/PREVIOUS_SELECTED_971C_BEFORE_UV_OUTLINE.json",
-        "sha256": "a5eedde5ab10e4bebfb3a000f4290851c82b05cf8d4429ada62d0d6fcaf9aa68"
-      }
-    },
-    "three_hour_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/rsl-width56-receive-original-fallback-outline/APPLICATION_QUALIFICATION.json",
-      "sha256": "afb382fd1b9204a2c4641f6abd867392d1e76e767d55bca02c8652c25db30643"
-    },
-    "WRF_archive": {
-      "path": "/pool/wrf-experiment/wrf-cpu/builds/current971c-uv-final-v-update-one-member-archive-r1/libwrflib.a",
-      "sha256": "1d2e1851c2d276482397f822c047371a64aeadea94909b82c4c48130f8b87622",
-      "only_entry558_changed_from_parent": true,
-      "members": 584
-    },
-    "RSL_archive": {
-      "path": "/pool/wrf-experiment/wrf-cpu/builds/current971c-uv-final-v-unpack-outline-combined-native-r1/librsl_lite.a",
-      "sha256": "6eb125cca1196db3d917b17313852b17f2121accb5bb9fc2ad99dd49580154db"
-    },
-    "latest_completed_three_hour_pair": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/rsl-width56-receive-original-fallback-outline/FRESH_FIXED_ORDER_THREE_HOUR_COMPARISON.json",
-      "sha256": "df922c9869c55fcbee4cd36b0506b1a2f877e1fe1793048d22331c7e52f73bcf"
-    }
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-working/selection.json",
+    "sha256": "d1c997fd702e028d233616102d723fc4f6d28631e2c853d0f622bfc3799f29d4"
   },
   "recovered_diagnostic_runs": [
     {
@@ -1444,6 +1397,40 @@
     "qualification_reference": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/threehost-same256-threehour-qualification/APPLICATION_QUALIFICATION.json",
       "sha256": "88bed1a5d4cbbf9b50bb89b6972a9275f979635326366a97ee26d8a8b25233c4"
+    }
+  },
+  "latest_unpaired_noon_one_hour": {
+    "status": "PASS_OWN_UNPROFILED_THREEHOST_SAME256_NOON185_TWO_PRODUCTS",
+    "executable_sha256": "b4bce63243fb128ac813965c37a735d6e07d6ed49dd66a82f1ead542615476d2",
+    "horizon": "12:00to13:00 directnoon",
+    "world": 256,
+    "hosts": [
+      "hpc01",
+      "hpc02",
+      "hpc03"
+    ],
+    "metrics": {
+      "control": {
+        "wall_seconds": 567.731608052738,
+        "main_step_sum_seconds": 371.7737,
+        "cpu_seconds": 119604.730289
+      },
+      "candidate": {
+        "wall_seconds": 435.4456122862175,
+        "main_step_sum_seconds": 345.49672,
+        "cpu_seconds": 103019.567225
+      }
+    },
+    "descriptive_reductions_percent": {
+      "wall_seconds": 23.300798104274676,
+      "main_step_sum_seconds": 7.068004003510753,
+      "cpu_seconds": 13.866644758886537
+    },
+    "comparison_design": "Later unprofiled candidate versus retained same-horizon unprofiled corrected-original546b; descriptive only, not freshmatched/incremental/two-change/causal/repeatability evidence",
+    "timing_gain_claim": false,
+    "science": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/clear-sky-radiation-batch-20261025/APPLICATION_QUALIFICATION.json",
+      "sha256": "d2dc9bfb51126ff3dae362f4461425af4047ba8cde0feca9dd0c3ae4c0e048ce"
     }
   }
 }

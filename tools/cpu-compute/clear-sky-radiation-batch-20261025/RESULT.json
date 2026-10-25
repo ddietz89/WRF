@@ -1,0 +1,61 @@
+{
+  "status": "PASS_FRESH_THREEHOST_SAME256_NOON_ONE_HOUR_TWO_HISTORY_CLOSED_SEQUENCE",
+  "order": [
+    "fresh_same256_noon_original_science_reference",
+    "experimental_two_radiation_unprofiled_noon_candidate"
+  ],
+  "comparison_design": "Originalreference for exactscience only; candidate-only experimental science, no timinggain claim",
+  "candidate_metrics": {
+    "wall_seconds": 435.4456122862175,
+    "cpu_seconds": 103019.56722499999,
+    "main_step_sum_seconds": 345.49672
+  },
+  "control_timing_comparison": null,
+  "reductions_percent": null,
+  "timing_gain_claim": false,
+  "memory": {
+    "control": {
+      "hpc01": {
+        "lifetime_cgroup_peak_bytes": 90787098624,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "invocation_id": "c39173bb098f4a19b5130c4ae568fc58",
+        "scope": "Own one-hour noon SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+      },
+      "hpc02": {
+        "lifetime_cgroup_peak_bytes": 81834336256,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "invocation_id": "5bbdc5c166b04d399830723d494ad009",
+        "scope": "Own one-hour noon SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+      },
+      "hpc03": {
+        "lifetime_cgroup_peak_bytes": 68059533312,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "invocation_id": "29bee29bdf2840ac91ba067d365c4b0d",
+        "scope": "Own one-hour noon SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+      }
+    },
+    "candidate": {
+      "hpc01": {
+        "lifetime_cgroup_peak_bytes": 58239201280,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "invocation_id": "4759663f869a4b348f724a1fc8b269c9",
+        "scope": "Own one-hour noon SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+      },
+      "hpc02": {
+        "lifetime_cgroup_peak_bytes": 54309896192,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "invocation_id": "54433090ce0a41d0bda308eff2940669",
+        "scope": "Own one-hour noon SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+      },
+      "hpc03": {
+        "lifetime_cgroup_peak_bytes": 47980707840,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "invocation_id": "2ebe5b241a6d414ba5987e98992c5b2f",
+        "scope": "Own one-hour noon SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+      }
+    }
+  },
+  "science_sha256": "3b584dd899c2ecd1ee7e023ece70d1402be9e4471c36ca2a2d10f5eccc5f5c04",
+  "reader_closure_sha256": "093b1b758913b8864689c157ef705833cb2ad14a8d897fbca9649ed1fbcb9305",
+  "limits": "One direct12\u201313initialization, two fullproducts and actualsame-mapcontrolsequence. No longtrajectory/restart/globalheadroom/MPIcausal/performanceclaim."
+}

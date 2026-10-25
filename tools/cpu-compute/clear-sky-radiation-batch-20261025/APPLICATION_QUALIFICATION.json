@@ -1,0 +1,49 @@
+{
+  "status": "PASS_OWN_UNPROFILED_THREEHOST_SAME256_NOON185_TWO_PRODUCTS",
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentbacf-two-radiation-members-experimental-r2/wrf.exe",
+    "sha256": "b4bce63243fb128ac813965c37a735d6e07d6ed49dd66a82f1ead542615476d2"
+  },
+  "post_test_source_commit": "dcb885b99655a64e52fc9f9ff13fddc0f39fe569",
+  "raw_producer_source_commit": null,
+  "own_noon_one_hour_qualified": true,
+  "own_three_hour_qualified": false,
+  "own_nine_hour_qualified": false,
+  "own_fourhost512_qualified": false,
+  "own_384_qualified": false,
+  "profile_qualified": false,
+  "restart_qualified": false,
+  "full144_qualified": false,
+  "scientific_status": "PASS_FRESH_THREEHOST_SAME256_NOON_ONE_HOUR_TWO_HISTORY_CLOSED_SEQUENCE",
+  "observed_step_count": 185,
+  "products": 2,
+  "retained_original_reference": {
+    "executable_sha256": "546b99156cbd809e1cae5e0ea8cebeea44dafd6331abf89e4daea00e0dd0a5e7",
+    "context": "/pool/wrf-experiment/wrf-cpu/science-prep/production256-currentbacf-threehost-noon1h-native15-r1",
+    "role": "Exactscienceonly; nofreshmatchedtimingclaim"
+  },
+  "evidence": {
+    "RESULT.json": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/clear-sky-radiation-batch-20261025/RESULT.json",
+      "sha256": "ab3e566638cccee2745f86edb80ec062c26fe6554463886135613ab4df5853a1"
+    },
+    "science-receipt.json": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/clear-sky-radiation-batch-20261025/science-receipt.json",
+      "sha256": "3b584dd899c2ecd1ee7e023ece70d1402be9e4471c36ca2a2d10f5eccc5f5c04"
+    },
+    "reader-closure.json": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/clear-sky-radiation-batch-20261025/reader-closure.json",
+      "sha256": "093b1b758913b8864689c157ef705833cb2ad14a8d897fbca9649ed1fbcb9305"
+    }
+  },
+  "candidate_metrics": {
+    "wall_seconds": 435.4456122862175,
+    "cpu_seconds": 103019.56722499999,
+    "main_step_sum_seconds": 345.49672
+  },
+  "timing_gain_claim": false,
+  "runtime": "256ranks224compute8x28+32quilt/01-03/2tiles/OMP1/qualifiedrc,sm,self and ibp1s0f0:1/100GiB0swap",
+  "science_scope": "Exact globalfields, metadata/layout, ordered185steps, both12/13FULLproducts, source-input guards and own256 runtime/writer/tile proof; all6modelsandreader normalclosed. NativeIEEE/ABI scopes remain separately stated.",
+  "support": "Qualified GNU13.3 strict exactpreprocessed-source replay8ae/3cac. Canonical targetpatches correspond; generalF-onlyCPP/native reproducibility unproven. Structural nontarget changes retained/scoped, no blanketwholemoduleIEEE claim.",
+  "hardware_monitor": "root-external-execution-r1 before-load+14underload samples on01-03, readonlyvoltage/temperature/fan; no samplednumericvoltagealarm, no excluded04contact; samplednormal doesnotexcludetransients."
+}

@@ -1,0 +1,19 @@
+{
+  "status": "PASS_PRIVATE_TWO_FILE_CANONICAL_PATCH_REVERSE_RESTORES_EXACT_PARENT_BYTES",
+  "command": "patch --batch -p1 -R -i SOURCE_ONLY.diff inprivatecopy ONLY",
+  "returncode": 0,
+  "stdout": "patching file phys/module_ra_rrtmg_sw.F\npatching file phys/module_ra_rrtmg_lw.F\n",
+  "canonical_fresh_CPP_equivalence_claimed": false,
+  "files": {
+    "SW": {
+      "parent_sha256": "ae12c3fdd14440de40fe8e474835b18f6f1a08bd2e09fc0fb343155a0ddc56c2",
+      "candidate_sha256": "247a7c932326d1de32958fd58e1d054dd76c2bc5edeccc8bc79b47b926c0650a",
+      "tested_PP_sha256": "8ae5c450c7803b09ae7c4aa013d28213c8047fc2c8c802fdbea41892a85cfbf2"
+    },
+    "LW": {
+      "parent_sha256": "bd74a574e1c01eb23c049b859442cb0c64c75fc788e4c03b6c8277ed7a98fec8",
+      "candidate_sha256": "8cc88bbeb9bc123795d8693aa2495cee7ba55d3639948587b8b4b712103d4c41",
+      "tested_PP_sha256": "3cac1ff1fd7f7444d1de190195bdcf1b85660364227405e99307b2f312c96c69"
+    }
+  }
+}

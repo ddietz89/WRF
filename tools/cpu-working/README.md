@@ -1,3 +1,11 @@
+# Current working selection: B4BC, October25
+
+The qualified working configuration now includes both clear-sky radiation changes, retaining all previous BACF improvements. Own acceptance is direct12–13 noon,256 ranks on hpc01–03, two full products and185 ordered steps. Other horizons/configurations are pending; historical BACF timings do not qualify this new image.
+
+[Current selection](selection.json), [source/build binding](CURRENT_SOURCE_BUILD_BINDING.json), [evidence and rollback](../cpu-compute/clear-sky-radiation-batch-20261025/README.md). Source correspondence commit `dcb885b9`; whole tested PP replay only.
+
+The material below is retained campaign history.
+
 # Current working selection: BACF, exact three-hour science
 
 Selected **bacf12b8** / WRF archive **1d2e1851** / RSL archive **6eb125cc**, source **526e562c**, retains all previous improvements and adds the two V-loop SIMD paths, receive width-5/6 helper and exact original outlined fallback. The unchanged checker passed all four full-grid products and 545 ordered steps in the fresh original-first pair; every model and reader closed normally.
