@@ -1068,12 +1068,20 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
                           +fnp(k)*(p(i,k-1,j)+p(i,k-1,j-1)) )
          ENDDO
        ENDDO
+#if !(defined(WRF_SMALL_STEP_V_NH_CORRECTION_SIMD) && defined(DM_PARALLEL) && !defined(_OPENMP))
 !      Comments on map scale factors:
+#endif
+#if !(defined(WRF_SMALL_STEP_V_FINAL_UPDATE_SIMD) && defined(DM_PARALLEL) && !defined(_OPENMP))
 !      4th term:
+#endif
 !      php, dpn, mu not coupled
 !      since we want tendency to fit ADT eqn 45 (coupled) we need to
 !      multiply by (my/mx):
        DO k = k_start, k_end
+#if defined(WRF_SMALL_STEP_V_NH_CORRECTION_SIMD) && defined(DM_PARALLEL) && !defined(_OPENMP)
+!$OMP SIMD
+#endif
+#line 1077
          DO i = i_start, i_end
            dpxy(i,k)=dpxy(i,k) + (qrow(i))*rdy*(php(i,k,j)-php(i,k,j-1))*    &
              (rdnw(k)*(dpn(i,k+1)-dpn(i,k))-.5*((c1h(k)*mu(i,j-1))+(c1h(k)*mu(i,j))))
@@ -1081,6 +1089,10 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
        ENDDO
      END IF
      DO k = k_start, k_end
+#if defined(WRF_SMALL_STEP_V_FINAL_UPDATE_SIMD) && defined(DM_PARALLEL) && !defined(_OPENMP)
+!$OMP SIMD
+#endif
+#line 1084
        DO i = i_start, i_end
          v(i,k,j)=v(i,k,j)-dts*cqv(i,k,j)*dpxy(i,k)+(c1h(k)*mudf_xy(i))
        ENDDO

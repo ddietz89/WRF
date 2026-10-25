@@ -262,12 +262,47 @@
      
       SUBROUTINE f_unpack_int_ikj ( inbuf, outbuf, js, je, ks, ke,            &
      &                is, ie, jms, jme, kms, kme, ims, ime, curs ) 
+#if defined(WRF_RSL_UNPACK_WIDTH56_PRIVATE_VECTOR_COPY) && WRF_RSL_UNPACK_WIDTH56_PRIVATE_VECTOR_COPY && !defined(_OPENMP)
+        USE ISO_C_BINDING, ONLY : c_int, c_int64_t
+#endif
+#line 235
         IMPLICIT NONE
         INTEGER jms, jme, kms, kme, ims, ime
         INTEGER outbuf(ims:ime,kms:kme,jms:jme), inbuf(*)
         INTEGER js, je, ks, ke, is, ie, curs
         ! Local
         INTEGER i,j,k,p
+#if defined(WRF_RSL_UNPACK_WIDTH56_PRIVATE_VECTOR_COPY) && WRF_RSL_UNPACK_WIDTH56_PRIVATE_VECTOR_COPY && !defined(_OPENMP)
+        INTEGER, PARAMETER :: wrf_unpack56_kind_check = 1 / MERGE(1,0, &
+     &       KIND(0)==c_int .AND. STORAGE_SIZE(0)==32)
+        INTERFACE
+          INTEGER(c_int) FUNCTION wrf_rsl_unpack_width56_i32(src,dst, &
+     &        js,je,ks,ke,is,ie,jms,jme,kms,kme,ims,ime) BIND(C)
+            IMPORT :: c_int
+            INTEGER(c_int), INTENT(IN) :: src(*)
+            INTEGER(c_int), INTENT(INOUT) :: dst(*)
+            INTEGER(c_int), VALUE :: js,je,ks,ke,is,ie
+            INTEGER(c_int), VALUE :: jms,jme,kms,kme,ims,ime
+          END FUNCTION wrf_rsl_unpack_width56_i32
+        END INTERFACE
+#endif
+#if defined(WRF_RSL_UNPACK_WIDTH56_PRIVATE_VECTOR_COPY) && WRF_RSL_UNPACK_WIDTH56_PRIVATE_VECTOR_COPY && !defined(_OPENMP)
+        IF (js<=je .AND. ks<=ke .AND. is<=ie) THEN
+          IF ((INT(ie,c_int64_t)-INT(is,c_int64_t)+1_c_int64_t==5_c_int64_t) .OR. (INT(ie,c_int64_t)-INT(is,c_int64_t)+1_c_int64_t==6_c_int64_t)) THEN
+            IF (wrf_rsl_unpack_width56_i32(inbuf,outbuf,js,je,ks,ke, &
+     &          is,ie,jms,jme,kms,kme,ims,ime)==1_c_int) THEN
+              curs = (ie-is+1)*(je-js+1)*(ke-ks+1)
+              RETURN
+            END IF
+          END IF
+        END IF
+#endif
+#if defined(WRF_RSL_UNPACK_WIDTH56_PRIVATE_VECTOR_COPY) && WRF_RSL_UNPACK_WIDTH56_PRIVATE_VECTOR_COPY && !defined(_OPENMP) && defined(WRF_RSL_UNPACK_ORIGINAL_FALLBACK_OUTLINE) && WRF_RSL_UNPACK_ORIGINAL_FALLBACK_OUTLINE
+        CALL wrf_rsl_unpack_ikj_original ( inbuf, outbuf, js, je, ks, ke, &
+     &                is, ie, jms, jme, kms, kme, ims, ime, curs )
+        RETURN
+#else
+#line 241
 !$OMP PARALLEL PRIVATE (i,j,k,p) 
 #ifndef _OPENMP
         p = 1
@@ -323,6 +358,7 @@
 !$OMP END PARALLEL
         curs = (ie-is+1)*(je-js+1)*(ke-ks+1)
         RETURN
+#endif
       END SUBROUTINE f_unpack_int_ikj
      
       SUBROUTINE f_unpack_lint_ikj ( inbuf, outbuf, js, je, ks, ke,            &

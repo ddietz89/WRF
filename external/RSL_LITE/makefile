@@ -31,6 +31,34 @@ endif
 endif
 endif
 
+# Independent receive-only width5/6 helper; SEND guard/body/member are unchanged.
+WRF_RSL_UNPACK_WIDTH56_PRIVATE_VECTOR_COPY ?= 1
+WRF_RSL_UNPACK_COPY_ENABLED :=
+ifeq ($(WRF_RSL_UNPACK_WIDTH56_PRIVATE_VECTOR_COPY),1)
+ifeq ($(WRF_RSL_FC_VERSION),13.3.0)
+ifeq ($(WRF_RSL_CC_VERSION),13.3.0)
+ifeq ($(strip $(OMP)$(OMPCPP)$(OMPCC)),)
+ifeq ($(findstring -fopenmp,$(FFLAGS) $(CFLAGS) $(CPPFLAGS)),)
+ifeq ($(filter -fdefault-integer-8 -finteger-4-integer-8 -fdefault-real-8 -freal-4-real-8,$(FFLAGS)),)
+WRF_RSL_UNPACK_COPY_ENABLED := 1
+override CPPFLAGS += -DWRF_RSL_UNPACK_WIDTH56_PRIVATE_VECTOR_COPY=1
+OBJSL += wrf_rsl_unpack_width56_i32.o
+endif
+endif
+endif
+endif
+endif
+endif
+
+# Independent opt-out for the exact original receive fallback outline.
+WRF_RSL_UNPACK_ORIGINAL_FALLBACK_OUTLINE ?= 1
+ifeq ($(WRF_RSL_UNPACK_COPY_ENABLED),1)
+ifeq ($(WRF_RSL_UNPACK_ORIGINAL_FALLBACK_OUTLINE),1)
+override CPPFLAGS += -DWRF_RSL_UNPACK_ORIGINAL_FALLBACK_OUTLINE=1
+OBJSL += wrf_rsl_unpack_ikj_original.o
+endif
+endif
+
 # These .F files are compiled in frame but leave behind auto-gen files here
 F_FILES = \
  feedback_domain_em_part1.F \
@@ -95,3 +123,10 @@ superclean : clean
 wrf_rsl_pack_wide_i32.o: wrf_rsl_pack_wide_i32.c
 	$(CC) -O2 -std=c11 -Wall -Wextra -Werror -c $< -o $@
 
+
+wrf_rsl_unpack_width56_i32.o: wrf_rsl_unpack_width56_i32.c
+	$(CC) -O2 -std=c11 -Wall -Wextra -Werror -c $< -o $@
+
+wrf_rsl_unpack_ikj_original.o: wrf_rsl_unpack_ikj_original.F90
+	$(CPP) $(CPPFLAGS) $< > wrf_rsl_unpack_ikj_original.f
+	$(FC) -o $@ $(FFLAGS) -c wrf_rsl_unpack_ikj_original.f
