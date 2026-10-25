@@ -646,3 +646,32 @@ clean:
 include depend.dyn_em
 
 # DO NOT DELETE
+
+# RK scalar first-stage row pipeline; qualified native, caller and noon application.
+# Uses existing module_em SIMD flags only; unsupported/optout retains original source path.
+WRF_RK_SCALAR_FIRSTSTAGE_ROW_PIPELINE ?= 1
+WRF_DISABLE_RK_SCALAR_FIRSTSTAGE_ROW_PIPELINE ?= 0
+ifneq ($(WRF_DISABLE_RK_SCALAR_FIRSTSTAGE_ROW_PIPELINE),0)
+module_em.o: private override CPPFLAGS += -DWRF_DISABLE_RK_SCALAR_FIRSTSTAGE_ROW_PIPELINE
+endif
+ifeq ($(WRF_RK_SCALAR_FIRSTSTAGE_ROW_PIPELINE),1)
+ifeq ($(WRF_DISABLE_RK_SCALAR_FIRSTSTAGE_ROW_PIPELINE),0)
+ifeq ($(WRF_RK_SCALAR_EXACT_CLEAR),1)
+ifeq ($(WRF_RK_TENDENCY_SIMD),1)
+ifeq ($(strip $(OMPCPP) $(OMP) $(PROMOTION) $(DOUBLE_PRECISION)),)
+ifeq ($(strip $(RWORDSIZE)),4)
+ifeq ($(strip $(IWORDSIZE)),4)
+ifeq ($(filter -fdefault-% -freal-% -finteger-% -r8 -i8,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
+ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+module_em.o: private override CPPFLAGS += -DWRF_RK_SCALAR_FIRSTSTAGE_ROW_PIPELINE
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif

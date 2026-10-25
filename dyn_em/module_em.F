@@ -1968,6 +1968,37 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
    
 #endif
 #line 1951
+#if defined(WRF_RK_SCALAR_FIRSTSTAGE_ROW_PIPELINE) && !defined(WRF_DISABLE_RK_SCALAR_FIRSTSTAGE_ROW_PIPELINE) && defined(WRF_RK_SCALAR_EXACT_CLEAR) && defined(DM_PARALLEL) && !defined(_OPENMP)
+       IF ( skip_clear .AND.                                              &
+            i_start == i_start_spc .AND. i_end == i_end_spc .AND.         &
+            j_start == j_start_spc .AND. j_end == j_end_spc .AND.         &
+            k_start == k_start_spc .AND. k_end == k_end_spc ) THEN
+       DO  j = j_start,j_end
+
+      DO  i = its, min(ite,ide-1)
+        MUOLD(i) = MU_OLD(i,j) + MU_BASE(i,j)
+        MUNEW(i) = MU_NEW(i,j) + MU_BASE(i,j)
+      ENDDO
+
+       DO  k = k_start,k_end
+       DO  i = i_start,i_end
+
+           tendency(i,k,j) = advect_tend(i,k,j) * msfty(i,j)
+           tendency(i,k,j) = tendency(i,k,j) + sc_tend(i,k,j,im)
+       ENDDO
+
+      !$omp simd
+      DO  i = its, min(ite,ide-1)
+
+        scalar_1(i,k,j,im) = scalar_2(i,k,j,im)
+        scalar_2(i,k,j,im) = ((c1(k)*muold(i)+c2(k))*scalar_1(i,k,j,im)   &
+                             + dt*tendency(i,k,j))/(c1(k)*munew(i)+c2(k))
+
+      ENDDO
+       ENDDO
+       ENDDO
+       ELSE
+#endif
        IF (i_start == i_start_spc .AND. i_end == i_end_spc .AND. &
            j_start == j_start_spc .AND. j_end == j_end_spc .AND. &
            k_start == k_start_spc .AND. k_end == k_end_spc) THEN
@@ -2018,6 +2049,9 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
       ENDDO
       ENDDO
       ENDDO
+#if defined(WRF_RK_SCALAR_FIRSTSTAGE_ROW_PIPELINE) && !defined(WRF_DISABLE_RK_SCALAR_FIRSTSTAGE_ROW_PIPELINE) && defined(WRF_RK_SCALAR_EXACT_CLEAR) && defined(DM_PARALLEL) && !defined(_OPENMP)
+       ENDIF
+#endif
 
       ENDDO
 
