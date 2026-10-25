@@ -1,64 +1,102 @@
 {
-  "updated_utc": "2026-10-25T01:37:12.645811+00:00",
+  "updated_utc": "2026-10-25T03:03:05.743812+00:00",
   "metric_definitions": {
     "wall_seconds": "Model/MPI including initialization/output/final drain",
     "main_step_sum_seconds": "Sum of reported main-step elapsed; includes communication/waiting/backpressure, not integration CPU",
-    "cpu_seconds": "Aggregate cgroup usage across four nodes"
+    "cpu_seconds": "Aggregate cgroup core-time across the explicitly listed participating nodes"
   },
   "matched_three_hour": {
-    "status": "PASS_FRESH_FIXED_ORDER_ORIGINAL546B_BACF_THREE_HOUR_EXACT545_FOUR_PRODUCTS",
-    "executable_sha256": "bacf12b8b354256c29be002b07fe30d5dceca7001c9da35a65c0c12b97b05878",
-    "control_executable_sha256": "546b99156cbd809e1cae5e0ea8cebeea44dafd6331abf89e4daea00e0dd0a5e7",
+    "status": "PASS_FRESH_SAME256_ORIGINAL_FOUR_HISTORY_THREE_HOUR_CLOSED_SEQUENCE",
     "order": [
-      "A1_original",
-      "B1_BACF"
+      "fresh_corrected_original546b_control",
+      "fresh_currentBACF_same256_candidate"
     ],
-    "observations_per_image": 1,
-    "comparison_design": "Fresh single fixed-order A1\u2192B1; no reused timing arm",
+    "comparison_design": "Fresh same256 original546b FIRST versus currentBACF SECOND, identical224compute8x28+32quilt; own four products/control-derivedorderedsteps, not old512 science; one fixed-order pair, no isolated/helper/additive/repeatability claim",
     "metrics": {
       "control": {
-        "wall_seconds": 822.6712370221503,
-        "cpu_seconds": 369348.944326,
-        "main_step_sum_seconds": 596.97373
+        "wall_seconds": 1279.2019189130515,
+        "cpu_seconds": 301900.754842,
+        "main_step_sum_seconds": 1079.33043
       },
       "candidate": {
-        "wall_seconds": 644.0482044680975,
-        "cpu_seconds": 312129.958345,
-        "main_step_sum_seconds": 540.66069
+        "wall_seconds": 1099.348274521064,
+        "cpu_seconds": 272628.577805,
+        "main_step_sum_seconds": 1003.61043
+      }
+    },
+    "memory": {
+      "control": {
+        "hpc01": {
+          "lifetime_cgroup_peak_bytes": 90821541888,
+          "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+          "invocation_id": "14a7ebed2471430c9495511f85f05535",
+          "scope": "Own three-hour SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+        },
+        "hpc02": {
+          "lifetime_cgroup_peak_bytes": 81800134656,
+          "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+          "invocation_id": "0db304fcee31437994fafc7ab120d066",
+          "scope": "Own three-hour SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+        },
+        "hpc03": {
+          "lifetime_cgroup_peak_bytes": 91502788608,
+          "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+          "invocation_id": "71e38a5d0c614413bd8f575093f1a4b0",
+          "scope": "Own three-hour SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+        }
+      },
+      "candidate": {
+        "hpc01": {
+          "lifetime_cgroup_peak_bytes": 58515382272,
+          "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+          "invocation_id": "4fb5eef4eba840d08edc55015c36e52a",
+          "scope": "Own three-hour SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+        },
+        "hpc02": {
+          "lifetime_cgroup_peak_bytes": 54481907712,
+          "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+          "invocation_id": "f194deb0e7f249e4a8d423d0a9dcdefe",
+          "scope": "Own three-hour SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+        },
+        "hpc03": {
+          "lifetime_cgroup_peak_bytes": 58201587712,
+          "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+          "invocation_id": "ea213c8ab0304107a3d76bc56580bc53",
+          "scope": "Own three-hour SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+        }
       }
     },
     "reductions_percent": {
-      "wall_seconds": 21.71256566603937,
-      "cpu_seconds": 15.491850419503725,
-      "main_step_sum_seconds": 9.433085104096623
+      "wall_seconds": 14.059832285493334,
+      "cpu_seconds": 9.6959602013316,
+      "main_step_sum_seconds": 7.015460501748294
     },
+    "science_sha256": "140b1860e33acf9083a84f75128a4cd3cb231ad879ea56b15588f623dd88087a",
+    "reader_closure_sha256": "97fadb11af2487abc7651dc0cf67fe10dc060515703c670b5ccc0a8cf0816735",
+    "limits": "One fresh fixed-order pair, actual checkedcache before each arm; no repeatability or per-kernel causal claim. Main includes communication/backpressure; residual is not pureIO.",
+    "executable_sha256": "bacf12b8b354256c29be002b07fe30d5dceca7001c9da35a65c0c12b97b05878",
+    "control_executable_sha256": "546b99156cbd809e1cae5e0ea8cebeea44dafd6331abf89e4daea00e0dd0a5e7",
+    "hosts": [
+      "hpc01",
+      "hpc02",
+      "hpc03"
+    ],
+    "world_size": 256,
+    "compute_ranks": 224,
+    "decomposition": [
+      8,
+      28
+    ],
+    "quilt_ranks": 32,
+    "observations_per_image": 1,
     "timing_gain_claim": true,
-    "limits": "One fresh fixed-order original\u2192BACF pair, one observation per image;545 ordered steps/four products. External BMC monitoring, no native profiler. Planned counterbalanced second pair was interrupted by hpc04 failure and is not a timing/science comparison. No repeatability, isolated component, additive gain or other-horizon claim. Main-step elapsed includes MPI/wait/output backpressure; aggregate CPU is summed core consumption.",
     "comparison_reference": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/rsl-width56-receive-original-fallback-outline/FRESH_FIXED_ORDER_THREE_HOUR_COMPARISON.json",
-      "sha256": "df922c9869c55fcbee4cd36b0506b1a2f877e1fe1793048d22331c7e52f73bcf"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/threehost-same256-threehour-qualification/RESULT.json",
+      "sha256": "23f395352f10bde625dd56b48597829164d04f129b8744ce30107abb071adf4b"
     },
-    "evidence": {
-      "RESULT.json": {
-        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-bacf-threehour-abba-pair1-runtime-r1/RESULT.json",
-        "sha256": "67b40873a7f076210d70ba8bd317a15af14217104bb2549c6de1523b59821d55"
-      },
-      "science-receipt.json": {
-        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-bacf-threehour-abba-pair1-runtime-r1/science-receipt.json",
-        "sha256": "ea6479ccc49a212ff0a52f2d160b5845856b878731330ad310b12b0c63f8c856"
-      },
-      "reader-closure.json": {
-        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-bacf-threehour-abba-pair1-runtime-r1/reader-closure.json",
-        "sha256": "4794146f6dc2c2290939ddf976846aad55877868728d3a8cafa925bdd6c7b85f"
-      },
-      "control-closures.json": {
-        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-bacf-threehour-abba-pair1-runtime-r1/control-closures.json",
-        "sha256": "11d4c8f75c7d97062d5a33e5311769edd9b7113eb2ee8951b1c33e42542cc6a7"
-      },
-      "candidate-closures.json": {
-        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-bacf-threehour-abba-pair1-runtime-r1/candidate-closures.json",
-        "sha256": "e2c31ef396bb3e90f90ebd9323852d133aa0122d31a47daa4be3d137c0a6ce57"
-      }
+    "qualification_reference": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/threehost-same256-threehour-qualification/APPLICATION_QUALIFICATION.json",
+      "sha256": "88bed1a5d4cbbf9b50bb89b6972a9275f979635326366a97ee26d8a8b25233c4"
     }
   },
   "retained_controls": {
@@ -751,59 +789,97 @@
     ]
   },
   "latest_fixed_order_three_hour": {
-    "status": "PASS_FRESH_FIXED_ORDER_ORIGINAL546B_BACF_THREE_HOUR_EXACT545_FOUR_PRODUCTS",
-    "executable_sha256": "bacf12b8b354256c29be002b07fe30d5dceca7001c9da35a65c0c12b97b05878",
-    "control_executable_sha256": "546b99156cbd809e1cae5e0ea8cebeea44dafd6331abf89e4daea00e0dd0a5e7",
+    "status": "PASS_FRESH_SAME256_ORIGINAL_FOUR_HISTORY_THREE_HOUR_CLOSED_SEQUENCE",
     "order": [
-      "A1_original",
-      "B1_BACF"
+      "fresh_corrected_original546b_control",
+      "fresh_currentBACF_same256_candidate"
     ],
-    "observations_per_image": 1,
-    "comparison_design": "Fresh single fixed-order A1\u2192B1; no reused timing arm",
+    "comparison_design": "Fresh same256 original546b FIRST versus currentBACF SECOND, identical224compute8x28+32quilt; own four products/control-derivedorderedsteps, not old512 science; one fixed-order pair, no isolated/helper/additive/repeatability claim",
     "metrics": {
       "control": {
-        "wall_seconds": 822.6712370221503,
-        "cpu_seconds": 369348.944326,
-        "main_step_sum_seconds": 596.97373
+        "wall_seconds": 1279.2019189130515,
+        "cpu_seconds": 301900.754842,
+        "main_step_sum_seconds": 1079.33043
       },
       "candidate": {
-        "wall_seconds": 644.0482044680975,
-        "cpu_seconds": 312129.958345,
-        "main_step_sum_seconds": 540.66069
+        "wall_seconds": 1099.348274521064,
+        "cpu_seconds": 272628.577805,
+        "main_step_sum_seconds": 1003.61043
+      }
+    },
+    "memory": {
+      "control": {
+        "hpc01": {
+          "lifetime_cgroup_peak_bytes": 90821541888,
+          "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+          "invocation_id": "14a7ebed2471430c9495511f85f05535",
+          "scope": "Own three-hour SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+        },
+        "hpc02": {
+          "lifetime_cgroup_peak_bytes": 81800134656,
+          "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+          "invocation_id": "0db304fcee31437994fafc7ab120d066",
+          "scope": "Own three-hour SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+        },
+        "hpc03": {
+          "lifetime_cgroup_peak_bytes": 91502788608,
+          "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+          "invocation_id": "71e38a5d0c614413bd8f575093f1a4b0",
+          "scope": "Own three-hour SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+        }
+      },
+      "candidate": {
+        "hpc01": {
+          "lifetime_cgroup_peak_bytes": 58515382272,
+          "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+          "invocation_id": "4fb5eef4eba840d08edc55015c36e52a",
+          "scope": "Own three-hour SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+        },
+        "hpc02": {
+          "lifetime_cgroup_peak_bytes": 54481907712,
+          "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+          "invocation_id": "f194deb0e7f249e4a8d423d0a9dcdefe",
+          "scope": "Own three-hour SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+        },
+        "hpc03": {
+          "lifetime_cgroup_peak_bytes": 58201587712,
+          "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+          "invocation_id": "ea213c8ab0304107a3d76bc56580bc53",
+          "scope": "Own three-hour SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+        }
       }
     },
     "reductions_percent": {
-      "wall_seconds": 21.71256566603937,
-      "cpu_seconds": 15.491850419503725,
-      "main_step_sum_seconds": 9.433085104096623
+      "wall_seconds": 14.059832285493334,
+      "cpu_seconds": 9.6959602013316,
+      "main_step_sum_seconds": 7.015460501748294
     },
+    "science_sha256": "140b1860e33acf9083a84f75128a4cd3cb231ad879ea56b15588f623dd88087a",
+    "reader_closure_sha256": "97fadb11af2487abc7651dc0cf67fe10dc060515703c670b5ccc0a8cf0816735",
+    "limits": "One fresh fixed-order pair, actual checkedcache before each arm; no repeatability or per-kernel causal claim. Main includes communication/backpressure; residual is not pureIO.",
+    "executable_sha256": "bacf12b8b354256c29be002b07fe30d5dceca7001c9da35a65c0c12b97b05878",
+    "control_executable_sha256": "546b99156cbd809e1cae5e0ea8cebeea44dafd6331abf89e4daea00e0dd0a5e7",
+    "hosts": [
+      "hpc01",
+      "hpc02",
+      "hpc03"
+    ],
+    "world_size": 256,
+    "compute_ranks": 224,
+    "decomposition": [
+      8,
+      28
+    ],
+    "quilt_ranks": 32,
+    "observations_per_image": 1,
     "timing_gain_claim": true,
-    "limits": "One fresh fixed-order original\u2192BACF pair, one observation per image;545 ordered steps/four products. External BMC monitoring, no native profiler. Planned counterbalanced second pair was interrupted by hpc04 failure and is not a timing/science comparison. No repeatability, isolated component, additive gain or other-horizon claim. Main-step elapsed includes MPI/wait/output backpressure; aggregate CPU is summed core consumption.",
     "comparison_reference": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/rsl-width56-receive-original-fallback-outline/FRESH_FIXED_ORDER_THREE_HOUR_COMPARISON.json",
-      "sha256": "df922c9869c55fcbee4cd36b0506b1a2f877e1fe1793048d22331c7e52f73bcf"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/threehost-same256-threehour-qualification/RESULT.json",
+      "sha256": "23f395352f10bde625dd56b48597829164d04f129b8744ce30107abb071adf4b"
     },
-    "evidence": {
-      "RESULT.json": {
-        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-bacf-threehour-abba-pair1-runtime-r1/RESULT.json",
-        "sha256": "67b40873a7f076210d70ba8bd317a15af14217104bb2549c6de1523b59821d55"
-      },
-      "science-receipt.json": {
-        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-bacf-threehour-abba-pair1-runtime-r1/science-receipt.json",
-        "sha256": "ea6479ccc49a212ff0a52f2d160b5845856b878731330ad310b12b0c63f8c856"
-      },
-      "reader-closure.json": {
-        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-bacf-threehour-abba-pair1-runtime-r1/reader-closure.json",
-        "sha256": "4794146f6dc2c2290939ddf976846aad55877868728d3a8cafa925bdd6c7b85f"
-      },
-      "control-closures.json": {
-        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-bacf-threehour-abba-pair1-runtime-r1/control-closures.json",
-        "sha256": "11d4c8f75c7d97062d5a33e5311769edd9b7113eb2ee8951b1c33e42542cc6a7"
-      },
-      "candidate-closures.json": {
-        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-bacf-threehour-abba-pair1-runtime-r1/candidate-closures.json",
-        "sha256": "e2c31ef396bb3e90f90ebd9323852d133aa0122d31a47daa4be3d137c0a6ce57"
-      }
+    "qualification_reference": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/threehost-same256-threehour-qualification/APPLICATION_QUALIFICATION.json",
+      "sha256": "88bed1a5d4cbbf9b50bb89b6972a9275f979635326366a97ee26d8a8b25233c4"
     }
   },
   "latest_unpaired_nine_hour": {
@@ -1219,5 +1295,155 @@
     "all8_models_and_reader_normal_closed": true,
     "applies_to_current_image": true,
     "limits": "One fresh fixed-order original546b A then971c B full512 three-hour pair, one observation per image;545 orderedsteps/four completeproducts. Wholeconfiguration observation only, no repeatability/ABBA/isolated or additive component gain. Main elapsed includes communication/backpressure; CPU is summed node-core consumption. Short/1h/9h/noon/profile/restart/full144 remain unqualified; rawproducerunknown."
+  },
+  "historical_fixed_order_three_hour_BACF512": {
+    "status": "PASS_FRESH_FIXED_ORDER_ORIGINAL546B_BACF_THREE_HOUR_EXACT545_FOUR_PRODUCTS",
+    "executable_sha256": "bacf12b8b354256c29be002b07fe30d5dceca7001c9da35a65c0c12b97b05878",
+    "control_executable_sha256": "546b99156cbd809e1cae5e0ea8cebeea44dafd6331abf89e4daea00e0dd0a5e7",
+    "order": [
+      "A1_original",
+      "B1_BACF"
+    ],
+    "observations_per_image": 1,
+    "comparison_design": "Fresh single fixed-order A1\u2192B1; no reused timing arm",
+    "metrics": {
+      "control": {
+        "wall_seconds": 822.6712370221503,
+        "cpu_seconds": 369348.944326,
+        "main_step_sum_seconds": 596.97373
+      },
+      "candidate": {
+        "wall_seconds": 644.0482044680975,
+        "cpu_seconds": 312129.958345,
+        "main_step_sum_seconds": 540.66069
+      }
+    },
+    "reductions_percent": {
+      "wall_seconds": 21.71256566603937,
+      "cpu_seconds": 15.491850419503725,
+      "main_step_sum_seconds": 9.433085104096623
+    },
+    "timing_gain_claim": true,
+    "limits": "One fresh fixed-order original\u2192BACF pair, one observation per image;545 ordered steps/four products. External BMC monitoring, no native profiler. Planned counterbalanced second pair was interrupted by hpc04 failure and is not a timing/science comparison. No repeatability, isolated component, additive gain or other-horizon claim. Main-step elapsed includes MPI/wait/output backpressure; aggregate CPU is summed core consumption.",
+    "comparison_reference": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/rsl-width56-receive-original-fallback-outline/FRESH_FIXED_ORDER_THREE_HOUR_COMPARISON.json",
+      "sha256": "df922c9869c55fcbee4cd36b0506b1a2f877e1fe1793048d22331c7e52f73bcf"
+    },
+    "evidence": {
+      "RESULT.json": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-bacf-threehour-abba-pair1-runtime-r1/RESULT.json",
+        "sha256": "67b40873a7f076210d70ba8bd317a15af14217104bb2549c6de1523b59821d55"
+      },
+      "science-receipt.json": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-bacf-threehour-abba-pair1-runtime-r1/science-receipt.json",
+        "sha256": "ea6479ccc49a212ff0a52f2d160b5845856b878731330ad310b12b0c63f8c856"
+      },
+      "reader-closure.json": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-bacf-threehour-abba-pair1-runtime-r1/reader-closure.json",
+        "sha256": "4794146f6dc2c2290939ddf976846aad55877868728d3a8cafa925bdd6c7b85f"
+      },
+      "control-closures.json": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-bacf-threehour-abba-pair1-runtime-r1/control-closures.json",
+        "sha256": "11d4c8f75c7d97062d5a33e5311769edd9b7113eb2ee8951b1c33e42542cc6a7"
+      },
+      "candidate-closures.json": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-bacf-threehour-abba-pair1-runtime-r1/candidate-closures.json",
+        "sha256": "e2c31ef396bb3e90f90ebd9323852d133aa0122d31a47daa4be3d137c0a6ce57"
+      }
+    }
+  },
+  "latest_threehost_threehour": {
+    "status": "PASS_FRESH_SAME256_ORIGINAL_FOUR_HISTORY_THREE_HOUR_CLOSED_SEQUENCE",
+    "order": [
+      "fresh_corrected_original546b_control",
+      "fresh_currentBACF_same256_candidate"
+    ],
+    "comparison_design": "Fresh same256 original546b FIRST versus currentBACF SECOND, identical224compute8x28+32quilt; own four products/control-derivedorderedsteps, not old512 science; one fixed-order pair, no isolated/helper/additive/repeatability claim",
+    "metrics": {
+      "control": {
+        "wall_seconds": 1279.2019189130515,
+        "cpu_seconds": 301900.754842,
+        "main_step_sum_seconds": 1079.33043
+      },
+      "candidate": {
+        "wall_seconds": 1099.348274521064,
+        "cpu_seconds": 272628.577805,
+        "main_step_sum_seconds": 1003.61043
+      }
+    },
+    "memory": {
+      "control": {
+        "hpc01": {
+          "lifetime_cgroup_peak_bytes": 90821541888,
+          "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+          "invocation_id": "14a7ebed2471430c9495511f85f05535",
+          "scope": "Own three-hour SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+        },
+        "hpc02": {
+          "lifetime_cgroup_peak_bytes": 81800134656,
+          "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+          "invocation_id": "0db304fcee31437994fafc7ab120d066",
+          "scope": "Own three-hour SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+        },
+        "hpc03": {
+          "lifetime_cgroup_peak_bytes": 91502788608,
+          "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+          "invocation_id": "71e38a5d0c614413bd8f575093f1a4b0",
+          "scope": "Own three-hour SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+        }
+      },
+      "candidate": {
+        "hpc01": {
+          "lifetime_cgroup_peak_bytes": 58515382272,
+          "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+          "invocation_id": "4fb5eef4eba840d08edc55015c36e52a",
+          "scope": "Own three-hour SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+        },
+        "hpc02": {
+          "lifetime_cgroup_peak_bytes": 54481907712,
+          "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+          "invocation_id": "f194deb0e7f249e4a8d423d0a9dcdefe",
+          "scope": "Own three-hour SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+        },
+        "hpc03": {
+          "lifetime_cgroup_peak_bytes": 58201587712,
+          "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+          "invocation_id": "ea213c8ab0304107a3d76bc56580bc53",
+          "scope": "Own three-hour SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+        }
+      }
+    },
+    "reductions_percent": {
+      "wall_seconds": 14.059832285493334,
+      "cpu_seconds": 9.6959602013316,
+      "main_step_sum_seconds": 7.015460501748294
+    },
+    "science_sha256": "140b1860e33acf9083a84f75128a4cd3cb231ad879ea56b15588f623dd88087a",
+    "reader_closure_sha256": "97fadb11af2487abc7651dc0cf67fe10dc060515703c670b5ccc0a8cf0816735",
+    "limits": "One fresh fixed-order pair, actual checkedcache before each arm; no repeatability or per-kernel causal claim. Main includes communication/backpressure; residual is not pureIO.",
+    "executable_sha256": "bacf12b8b354256c29be002b07fe30d5dceca7001c9da35a65c0c12b97b05878",
+    "control_executable_sha256": "546b99156cbd809e1cae5e0ea8cebeea44dafd6331abf89e4daea00e0dd0a5e7",
+    "hosts": [
+      "hpc01",
+      "hpc02",
+      "hpc03"
+    ],
+    "world_size": 256,
+    "compute_ranks": 224,
+    "decomposition": [
+      8,
+      28
+    ],
+    "quilt_ranks": 32,
+    "observations_per_image": 1,
+    "timing_gain_claim": true,
+    "comparison_reference": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/threehost-same256-threehour-qualification/RESULT.json",
+      "sha256": "23f395352f10bde625dd56b48597829164d04f129b8744ce30107abb071adf4b"
+    },
+    "qualification_reference": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/threehost-same256-threehour-qualification/APPLICATION_QUALIFICATION.json",
+      "sha256": "88bed1a5d4cbbf9b50bb89b6972a9275f979635326366a97ee26d8a8b25233c4"
+    }
   }
 }

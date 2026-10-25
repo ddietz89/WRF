@@ -4873,3 +4873,22 @@ Following the owner’s exclusion of hpc04, the SAME256 configuration (224 compu
 One original-first ten-minute pair, with a large startup/output share: this is not a sustained three-hour estimate or a comparison to the different four-host512-rank configuration. Per-node original/BACF lifetime peaks were84.57/54.47,75.85/49.23 and63.31/44.69GiB; they are not simultaneous totals. A fresh three-hour same-map comparison is the next qualification. No scientific source/default or selected image changed.
 
 [Exact short-run results and limits](tools/cpu-compute/threehost-same256-short-qualification/README.md).
+
+
+## October25: fresh three-host three-hour comparison
+
+After hpc04 was excluded, the unchanged latest combined BACF image passed its own fresh corrected-original546b comparison on hpc01–03: all four complete06–09 products and545 ordered steps exact, all six model scopes and reader normally closed. Both arms used the same256-rank map (224 compute8×28 plus32 quilt4×8), explicit physical affinity,100GiB/node, zero swap and checked client-cache clearing before each arm.
+
+| Metric | Original control | BACF | Reduction |
+|---|---:|---:|---:|
+| Model/MPI wall (min) |21.320|18.322|14.06%|
+| Main-step elapsed (min) |17.989|16.727|7.02%|
+| Aggregate CPU (core-hours) |83.861|75.730|9.70%|
+
+This is one original-first pair in a separate threehost configuration. It does not supersede the earlier fourhost512-rank configuration's observations or establish repeatability. Main elapsed includes communication/backpressure; residual wall is not pure I/O. Per-node lifetime memory peaks were84.58/76.18/85.22GiB original and54.50/50.74/54.20GiB BACF; all event counters were zero. Read-only Voltage/Temperature/Fan samples covered all three nodes before/during/after both arms, with no sampled numeric BMC voltage alarm. No new scientific code or default change follows; own threehost9h/daytime/restart/full144 coverage remains pending. [Exact evidence and rollback](tools/cpu-compute/threehost-same256-threehour-qualification/README.md).
+
+## October25: helicity scratch fusion closeout
+
+Helicity first-X tmp1 producer/rvort consumer fusion is closed unpromoted. Actual selected-object assembly proves the scratch store/reload and separate traversal were removed; all five native roles passed the retained46-case and decisive paired-NaN protocols. Complete1,000-call synthetic caller with INOUT restores/fullcallee allocation inside clocks gave hpc01 P→C +0.445768%wall/+0.423526%CPU and hpc02 C→P −0.273527%wall/−0.187197%CPU; all four exact records/cache clears/normal closures passed. No significant complete-caller gain, isolated kernel gain, causal regression or forecast benefit is established. The strict structural failure remains retained separately from its exact44named-call/six-pointer actual-linked-reference qualification; fullRELA equality stays false. Selected/default/source/application state is unchanged.
+
+[Caller, generated code, strict native evidence and retained failures](tools/cpu-compute/helicity-first-x-tmp1-fusion-unpromoted/README.md).

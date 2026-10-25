@@ -1,0 +1,41 @@
+{
+  "status": "PASS_FRESH_SAME256_ORIGINAL_FOUR_HISTORY_THREE_HOUR_CLOSED_SEQUENCE",
+  "executable_sha256": "bacf12b8b354256c29be002b07fe30d5dceca7001c9da35a65c0c12b97b05878",
+  "control_executable_sha256": "546b99156cbd809e1cae5e0ea8cebeea44dafd6331abf89e4daea00e0dd0a5e7",
+  "source_commit": "526e562c0009827e70825b652e0e2e2b52127ded",
+  "raw_producer_source_commit": null,
+  "hosts": [
+    "hpc01",
+    "hpc02",
+    "hpc03"
+  ],
+  "world_size": 256,
+  "compute_ranks": 224,
+  "decomposition": [
+    8,
+    28
+  ],
+  "quilt_groups": 4,
+  "quilt_ranks_per_group": 8,
+  "physical_cpus_per_node": 128,
+  "memory_max_GiB_per_node": 100,
+  "memory_swap_max": 0,
+  "observed_steps": 545,
+  "products": 4,
+  "all_six_models_and_reader_normal_closed": true,
+  "checked_cache_clear_each_arm": true,
+  "result_sha256": "23f395352f10bde625dd56b48597829164d04f129b8744ce30107abb071adf4b",
+  "science": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-currentbacf-threehost-threehour-runtime-r1/science-receipt.json",
+    "sha256": "140b1860e33acf9083a84f75128a4cd3cb231ad879ea56b15588f623dd88087a"
+  },
+  "reader_closure": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-currentbacf-threehost-threehour-runtime-r1/reader-closure.json",
+    "sha256": "97fadb11af2487abc7651dc0cf67fe10dc060515703c670b5ccc0a8cf0816735"
+  },
+  "rank_map": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-currentbacf-threehost-threehour-runtime-r1/candidate-rank-map.json",
+    "sha256": "d671d504f7a86673530ccdc111b68a67bc14bbcd46131277d8d7dc5decbf13eb"
+  },
+  "qualification_limits": "Own threehost threehour science/configuration only; no own threehost9h/restart/full144 profile qualification. Unchanged image retains all previous promoted improvements; no new code/default promotion. Newmap provider adaptations affect context guards only, not algorithms/ABI/science/layout."
+}

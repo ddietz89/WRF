@@ -1,0 +1,23 @@
+{
+  "status": "ACTUAL_MECHANISM_PROVEN_NOT_AN_ISOLATED_TIMING_RESULT",
+  "evidence": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentbacf-helicity-tmp1-consumer-fusion-source-triage-r1/actual-codegen-closeout-retrieval-preparation-r1/actual-r1/stdout.json",
+    "sha256": "aa0156b24bf12b77773c37b30744ac1b825cd00850c82a2fd43496d876392d07"
+  },
+  "parent_object_sha256": "139723bb5c09477e05b135a1714c575cc2917d2dc6e07a673b255adff8bed089",
+  "candidate_object_sha256": "7a52d1cce62be30088549b7c6e8fcb5c1b0e88d78de54279b1efdea6e64789b0",
+  "asm_sha256": {
+    "parent": "d5ab7d35611baa8398f96354f562e55507a467b689d48cb7905c15ebe25d8eef",
+    "candidate": "18fbaf5d00e6f52b57f5d37d45986681772175f1fd2f43d2005167fc1cfc721f"
+  },
+  "parent_producer": "    a550:\tf3 0f 59 c4          \tmulss  %xmm4,%xmm0\n    a554:\t0f 28 e5             \tmovaps %xmm5,%xmm4\n    a557:\tf3 0f 58 e6          \taddss  %xmm6,%xmm4\n    a55b:\tf3 41 0f 58 e1       \taddss  %xmm9,%xmm4\n    a560:\tf3 41 0f 58 e0       \taddss  %xmm8,%xmm4\n    a565:\tf3 0f 59 c4          \tmulss  %xmm4,%xmm0\n    a569:\tf3 0f 11 04 87       \tmovss  %xmm0,(%rdi,%rax,4)\n    a56e:\t48 83 c0 01          \tadd    $0x1,%rax\n    a572:\t4c 39 e2             \tcmp    %r12,%rdx\n    a575:\t75 99                \tjne    a510 <__module_diffusion_em_MOD_cal_helicity+0xfd0>",
+  "parent_consumer": "    a720:\t0f 28 ec             \tmovaps %xmm4,%xmm5\n    a723:\tf3 0f 10 24 06       \tmovss  (%rsi,%rax,1),%xmm4\n    a728:\t0f 28 c4             \tmovaps %xmm4,%xmm0\n    a72b:\tf3 0f 5c c5          \tsubss  %xmm5,%xmm0\n    a72f:\tf3 0f 59 c6          \tmulss  %xmm6,%xmm0\n    a733:\tf3 41 0f 5c 04 00    \tsubss  (%r8,%rax,1),%xmm0\n    a739:\tf3 0f 59 04 01       \tmulss  (%rcx,%rax,1),%xmm0\n    a73e:\tf3 0f 11 04 07       \tmovss  %xmm0,(%rdi,%rax,1)\n    a743:\t48 83 c0 04          \tadd    $0x4,%rax\n    a747:\t48 39 d0             \tcmp    %rdx,%rax",
+  "candidate_fused": "    a5ea:\tf3 44 0f 59 d6       \tmulss  %xmm6,%xmm10\n    a5ef:\tf3 41 0f 59 c8       \tmulss  %xmm8,%xmm1\n    a5f4:\tf3 0f 59 c6          \tmulss  %xmm6,%xmm0\n    a5f8:\tf3 41 0f 59 c2       \tmulss  %xmm10,%xmm0\n    a5fd:\t44 0f 28 d2          \tmovaps %xmm2,%xmm10\n    a601:\tf3 45 0f 58 d6       \taddss  %xmm14,%xmm10\n    a606:\tf3 45 0f 58 ca       \taddss  %xmm10,%xmm9\n    a60b:\tf3 41 0f 58 f9       \taddss  %xmm9,%xmm7\n    a610:\tf3 0f 59 c7          \tmulss  %xmm7,%xmm0\n    a614:\tf3 0f 5c c8          \tsubss  %xmm0,%xmm1\n    a618:\tf3 41 0f 59 4c 85 00 \tmulss  0x0(%r13,%rax,4),%xmm1\n    a61f:\tf3 41 0f 11 0c 80    \tmovss  %xmm1,(%r8,%rax,4)\n    a625:\t48 83 c0 01          \tadd    $0x1,%rax\n    a629:\t4d 39 f7             \tcmp    %r14,%r15\n    a62c:\t0f 85 6e ff ff ff    \tjne    a5a0 <__module_diffusion_em_MOD_cal_helicity+0x1060>",
+  "facts": [
+    "Parent scalar producer stores tmp1 at0xa569 and closes its iterationbackedge0xa575->0xa510. Separate consumer uses memorysubtraction at0xa733 and storesrvort0xa73e.",
+    "Candidate computes tmp1_cell in xmm0 at0xa610, consumes it directly with subss xmm0,xmm1 at0xa614, multipliesmm and storesrvort0xa61f, then closes onebackedge0xa62c->0xa5a0. FirstX scratchstore/reload and separate traversal are eliminated.",
+    "Arithmetic is still scalar; source expressions and all laterY/height/UH statements remain unchanged. No reciprocal/FMA/ISA/SIMD addition. Existing native payload/state tests passed, including known85UH control.",
+    "Potential4Bstore+4Bread percell is a source-level traffic opportunity, not measured cachetraffic or bandwidth savings. Wholeprocedure remains manyotherpasses/allocations, and caller includes restoring outputbuffers; no causal explanation for nearzero timing is established."
+  ],
+  "no_significant_isolated_kernel_gain_claim": true
+}
