@@ -1,5 +1,27 @@
 # WRF CPU optimization findings
 
+## October 25: four caller improvements promoted after exact three-hour science
+
+Working executable **bacf12b8**, WRF archive **1d2e1851** and RSL archive **6eb125cc** retain all previous selected improvements. They add V nonhydrostatic-correction SIMD, final V-update SIMD, receive width-5/6 copying and an outline of the exact original receive fallback. Source **526e562c** records post-test correspondence; this is a canonical correspondence and cached-object delivery, not a new clean whole-image build.
+
+The two V changes shortened separate complete captured callers by **13.39–15.80%** and **7.89–8.65%**. Receive width5/6 callers were **61–64% shorter** than the original receive route. The outline recovered **3.23–5.65%** at width189 relative to the monolithic receive candidate, with a **0.89–2.18% cost** at widths5/6. Small widths1/2 followed first-arm order regardless of binary; the cause remains unresolved. These are separate caller comparisons; percentages are not added and no production width mixture is inferred.
+
+All four complete products and **545 ordered steps** passed the unchanged corrected-original546b checker, including numerical/nonfinite, metadata/layout, 512-rank/library/tile and four-writer acceptance. Every model and the original reader closed normally in fresh R2. The interrupted b362 run and BACF R1's missing validation-helper failure remain failed. R2 added the exact qualified helper after a read-only full runtime-proof diagnostic, without changing the checker or scientific acceptance.
+
+| Three-hour metric | Retained corrected-original546b | Combined BACF | Descriptive reduction |
+| --- | ---: | ---: | ---: |
+| Model/MPI wall (min) | 13.679 | 10.733 | **21.53%** |
+| Main-step elapsed (min) | 9.966 | 9.030 | **9.40%** |
+| Aggregate CPU (core-hours) | 102.272 | 86.511 | **15.41%** |
+
+This is one later candidate against the retained control, with checked cache clearing before the arm. The model had no profiler or MPI observer; root recorded external hardware metadata. The total is essentially unchanged from prior971c's10.733 minutes; no incremental whole-forecast gain is established. Main elapsed includes communication/backpressure; CPU is summed whole-job consumption. Worthwhile exact caller improvements are retained under the standing inclusion rule. Fresh counterbalanced repeatability is next.
+
+Only own three-hour science is qualified. Short/one-hour/nine-hour/noon/profile/restart/full144 scopes are not inherited. [Combined qualification, rebuild and rollback](tools/cpu-compute/rsl-width56-receive-original-fallback-outline/README.md). [V-loop evidence and independent opt-outs](tools/cpu-compute/uv-v-correction-and-final-update-simd/README.md). Production/master remain unchanged; AWS is suspended.
+
+The separate MYJ AKMK SIMD candidate is strictly rejected: twelve raw output words differ in NaN payload/sign, although all five observed floating-state values match. It has no caller/application promotion. [Decision](tools/cpu-compute/myj-akmk-coefficient-simd-rejected/DECISION.json). The previous971c noon diagnostic passed230steps/two products and two15-second source-identity captures; those mixed-I/O samples are historical to971c, not BACF profile qualification or global removable headroom.
+
+hpc04's owner-approved FAN3/FAN6 lower thresholds are100/200/300RPM. Across the two model load cycles,44 periodic sensor observations reported no voltage/fan alarms. Current-boot post-load EDAC counters were zero; the earlier outage cause remains unconfirmed. Normal sampled voltages cannot exclude shorter transients.
+
 ## October 24: restricted RSL packing promoted after a fresh three-hour comparison
 
 The qualified working configuration now batches DEFAULT INTEGER32 width-5/6 halo packing into one private C call per block. Complete packing calls were about **59% shorter at width 5** and **53% shorter at width 6**, with exact raw values and floating-point state. Other widths retain the original route. The broad helper was parked after a demonstrated width-189 regression; the restricted fallback measured about 1.0–1.36% slower in its bounded caller pairs.

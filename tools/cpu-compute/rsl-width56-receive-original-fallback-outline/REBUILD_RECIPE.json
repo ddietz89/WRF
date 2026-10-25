@@ -1,0 +1,50 @@
+{
+  "status": "ACTUAL_COMBINED_UV_RECEIVE_OUTLINE_CANONICAL_DELIVERY_AND_OWN3H_QUALIFIED",
+  "post_test_source_commit": "526e562c0009827e70825b652e0e2e2b52127ded",
+  "actual_application": "WRF/tools/cpu-compute/rsl-width56-receive-original-fallback-outline/APPLICATION_QUALIFICATION.json",
+  "source_files": {
+    "WRF/external/RSL_LITE/f_pack.F90": "e9fb6ab3e47df14b5d12d38dba3f7d287bbfcfc51b7331c030f28cbfeb3be9da",
+    "WRF/external/RSL_LITE/makefile": "3e7c4d24a56825fcacae7446c6cdaa04dbc56c26996a7656f59f612b8ce546ba",
+    "WRF/external/RSL_LITE/wrf_rsl_unpack_width56_i32.c": "b86682c22264e1a1a851c9ce520bff72b87fc5906727101f88a4dfb6f9fca6c2",
+    "WRF/external/RSL_LITE/wrf_rsl_unpack_ikj_original.F90": "b5a5995ef1314934f8121b1f755b88df64ad11b3e1a6bc25860feee7fb98b0ff"
+  },
+  "qualified_toolchain": "GNU13.3.0 FC and CC; pureMPI; INTEGER32/kinds4; existing flags only, no OpenMP runtime/SIMD flag/LTO/ISA changes",
+  "independent_optouts": {
+    "WRF_RSL_WIDE_PRIVATE_VECTOR_COPY=0": "existingSEND optout; existingguard/bodyunchanged",
+    "WRF_RSL_UNPACK_WIDTH56_PRIVATE_VECTOR_COPY=0": "receivehelper+outline excluded, literal selectedSEND-onlyPP4fe7",
+    "WRF_RSL_UNPACK_ORIGINAL_FALLBACK_OUTLINE=0": "receivehelper remains, literal monolithicreceivePPa5c040; originalfallbackobject omitted"
+  },
+  "default_PP": {
+    "outline_off": "a5c0407f9a2953e6110dc15d7fa4f5c34c7822cb4815cd1def0577c9ab0304e2",
+    "outline_on": "91454f1777116a60fb2e381e1500f886a8cbaae4e3cf79371c1328e6fa09cf98",
+    "receive_off": "4fe7fe3277e6362c2d9aafb3508bf52913d53bb2098e40541bc9471850be486e"
+  },
+  "archive_contract": {
+    "RSL": "Selected11members→13: replacef_pack8, appendreceivehelper11+originalfallback12; preserveall10others/SENDhelper99e30/order/occurrences.",
+    "WRF": "ActualcombinedVNH+VfinalonlySmallStep558/584; preserveother583inclCQV/RK."
+  },
+  "image_link": "Exactlyone qualifiedselected971linkcommand; substituteoneactualfinalVWRFarchive andoneRSLarchive; retainallotherdirectlibrary/providerbytes.",
+  "mandatory_checks": "FullcanonicalCPP/Makeflags, allocatedbytes/fullRELA/nonFILEcorrespondence against actualnative, exact1002Boriginalfallbackbody+one memcpyRELA, publicMOD, orderedarchives, normalbuildclosure, originalown545/4science andnormalmodel+readerclosures. No inheritedb362science.",
+  "raw_producer_source_commit": null,
+  "own_three_hour_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/rsl-width56-receive-original-fallback-outline/APPLICATION_QUALIFICATION.json",
+    "sha256": "afb382fd1b9204a2c4641f6abd867392d1e76e767d55bca02c8652c25db30643"
+  },
+  "canonical_sources": {
+    "external/RSL_LITE/f_pack.F90": "e9fb6ab3e47df14b5d12d38dba3f7d287bbfcfc51b7331c030f28cbfeb3be9da",
+    "external/RSL_LITE/makefile": "3e7c4d24a56825fcacae7446c6cdaa04dbc56c26996a7656f59f612b8ce546ba",
+    "external/RSL_LITE/wrf_rsl_unpack_width56_i32.c": "b86682c22264e1a1a851c9ce520bff72b87fc5906727101f88a4dfb6f9fca6c2",
+    "external/RSL_LITE/wrf_rsl_unpack_ikj_original.F90": "b5a5995ef1314934f8121b1f755b88df64ad11b3e1a6bc25860feee7fb98b0ff",
+    "dyn_em/module_small_step_em.F": "9f7d07132663c2accc50e71be19648e07554d3348284caabbaf7edeff1b3c8b0",
+    "dyn_em/Makefile": "261556de1d38b2dfa8389dbfd22218a98246c11385f0d9bf5ce887fe2a74ceed"
+  },
+  "UV_rebuild_rollback": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current971c-uv-final-v-update-simd-source-question-r1/promotion-private-proposal-r1/tools/cpu-compute/uv-v-correction-and-final-update-simd/REBUILD_ROLLBACK.md",
+    "sha256": "c8efdd3220fa1c534c52099f21db75df18eda8a5cf9d7393d52ea868a0219734"
+  },
+  "RSL_rebuild_rollback": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current971c-rsl-width56-whole-unpack-source-question-r1/post-application-receive-outline-publication-private-proposal-r1/ROLLBACK.md",
+    "sha256": "d3562d0cf955b22d48b308d1a3292b5c3b75c0d4884e930532bc0f100173ba2c"
+  },
+  "scope": "Six exact tested canonical sourcefiles, sourcecommit supplied by root after test; no fresh clean rebuild claim."
+}

@@ -1,0 +1,113 @@
+{
+  "status": "REJECT_FIXED_MYJ_AKMK_DENSITY_SIMD_NATIVE_EXACT_NAN_PAYLOAD_FAILURE",
+  "decision": "Close unpromoted; no further native/caller timing, repair, intrinsic helper, finite-only fastpath, new matrix, application or default/source promotion for this fixed candidate.",
+  "actual_invocation_id": "54db42407d0a422494d8c421ab85d389",
+  "actual_receipt": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current971c-myj-momentum-density-coefficient-simd-source-question-r1/native-gate-preparation-r1-hpc01/actual-native-r1/receipt.json",
+    "sha256": "3936f02d3fe633b5c1974d967f14d25bc7e8c009a64920345fd9fba51be8fb55"
+  },
+  "actual_closure": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current971c-myj-momentum-density-coefficient-simd-source-question-r1/native-gate-preparation-r1-hpc01/actual-native-r1/closure.json",
+    "sha256": "34cb9a83ab2cc728d6e1a87c55d3564ada0a9a1dc8efc7135d5b216bf778777c"
+  },
+  "actual_raw_diagnosis": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current971c-myj-momentum-density-coefficient-simd-source-question-r1/actual-focused-failure-diagnosis-r1/ACTUAL_METADATA.json",
+    "sha256": "3cebe4ee78e51a24566a620cca1cd8f1306816a70c1babd7aaf3e4a621e7ed81"
+  },
+  "candidate_source": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current971c-myj-momentum-density-coefficient-simd-source-question-r1/native-gate-preparation-r1-hpc01/candidate_module_bl_myjpbl.F",
+    "sha256": "2ef10e6612cce2393161cc330e3b029d4961be6e6356b70c00b7fa87acdda141"
+  },
+  "scope": "One directive on currentMYJPBL AKMK density preparation before VDIFV. This is a fixed-candidate exactness failure, not a general SIMD illegality, loop-dependence finding, forecast regression, or NaN scientific-domain assertion.",
+  "failed_policy": "Exact raw output equality under the retained finite exceptional/four-round contract. Captured finite completeMYJPBL agreement cannot waive this gate.",
+  "first_difference": {
+    "case": 16,
+    "rounding_mode_index": 0,
+    "kts": 1,
+    "kte": 34,
+    "five_state_parent": [
+      34,
+      0,
+      36,
+      8100,
+      895
+    ],
+    "five_state_candidate": [
+      34,
+      0,
+      36,
+      8100,
+      895
+    ],
+    "diff_words": 1,
+    "first32diffs": [
+      {
+        "record_word": 430,
+        "field": "AKMK_output_K",
+        "field_index": 1,
+        "parent_hex": "0xffc54321",
+        "candidate_hex": "0x7fc12345",
+        "parent_class": "qNaN",
+        "candidate_class": "qNaN"
+      }
+    ]
+  },
+  "all_differences": {
+    "words": 12,
+    "records": 12,
+    "cases": [
+      16,
+      17,
+      18
+    ],
+    "rounds": [
+      "nearest",
+      "downward",
+      "upward",
+      "towardzero"
+    ],
+    "field": "AKMK output K1, recordword430",
+    "value_class": "qNaN payload/sign differ only",
+    "five_observed_state_words_exact": true,
+    "all_other_emitted_words_exact": true
+  },
+  "case_inputs_and_results": [
+    {
+      "case": 16,
+      "AKM_I1_K1_J1_hex": "0x7fc12345",
+      "RHOK_K1_I1_hex": "0xffc54321",
+      "parent_output": "0xffc54321",
+      "candidate_output": "0x7fc12345"
+    },
+    {
+      "case": 17,
+      "AKM_I1_K1_J1_hex": "0xffc54321",
+      "RHOK_K1_I1_hex": "0x7fc12345",
+      "parent_output": "0x7fc12345",
+      "candidate_output": "0xffc54321"
+    },
+    {
+      "case": 18,
+      "AKM_I1_K1_J1_hex": "0x7f812345",
+      "RHOK_K1_I1_hex": "0xff854321",
+      "parent_output": "0xffc54321",
+      "candidate_output": "0x7fc12345",
+      "note": "Both outputs quiet; same observed invalid/sticky state, different selected payload/sign."
+    }
+  ],
+  "actual_instruction_relation": "Retained focused parent addss RHOKsum then mulss AKM with RHOKsum as destination (projection offsets0x109/0x10d). Candidate packed addps produces RHOKsum in xmm1 then mulps xmm1,xmm0 with gathered AKM as destination (0x1aa/0x1ad). The opposite selected NaN payloads follow this scalar-versus-packed operand-priority difference; no FMA/reciprocal or changed source expression required.",
+  "passed_facts_not_overridden": [
+    "Packed arithmetic in actual candidate AKMK source region",
+    "Genuine-current allocated/RELA/nonfile-symbol reproduction and unchanged publicMOD",
+    "Non-target function/fullRELA/sharedconstant+constantRELA predicates passed",
+    "Actual captured fullMYJPBL genuine/O2parent/O2candidate raw/state checks passed",
+    "Readonly/physical guards passed in completed focused roles"
+  ],
+  "not_reached": [
+    "O0 numerical/captured replays (O0 objects were compiled)",
+    "Caller timing or performance benefit",
+    "Application or source/default promotion"
+  ],
+  "rollback": "Private candidate never applied to public source/default selection. Keep selected source and native/reference files unchanged; retain actual failed unit/closure/receipts and provider review/adjudication.",
+  "provider_scope": "Author GO_INVESTIGATE and locally adjudicated review independence claims were source-only. The actual exceptional numerical counterexample closes the candidate independently."
+}

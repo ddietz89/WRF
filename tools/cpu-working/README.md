@@ -1,4 +1,18 @@
-# Current working selection: 971c, own fresh three-hour science
+# Current working selection: BACF, exact three-hour science
+
+Selected **bacf12b8** / WRF archive **1d2e1851** / RSL archive **6eb125cc**, source **526e562c**, retains all previous improvements and adds the two V-loop SIMD paths, receive width5/6 helper and exact original outlined fallback. All four full-grid products and545ordered steps passed the unchanged checker; every model and reader closed normally.
+
+| Three-hour metric | Retained original546b | Combined BACF | Descriptive reduction |
+| --- | ---: | ---: | ---: |
+| Wall (min) | 13.679 | 10.733 | 21.53% |
+| Main-step elapsed (min) | 9.966 | 9.030 | 9.40% |
+| Aggregate CPU (core-hours) | 102.272 | 86.511 | 15.41% |
+
+Later candidate-only observation, not a fresh pair or isolated component gain. The previous971c total is essentially identical. Main elapsed includes waiting/backpressure. Own3h science only; other horizons/profile/restart scopes remain pending. External voltage/temp/fan monitoring was recorded; no in-model profiler/MPI observer. [Qualification, rebuild and rollback](../cpu-compute/rsl-width56-receive-original-fallback-outline/README.md).
+
+`THREE_HOUR_RESULT.json` retains the prior971c fresh fixed-order comparison; current BACF is the explicit latest unpaired observation in `FULL_GRID_SUMMARY.json` and `LATEST_APPLICATION_RESULT.json`. The historical snapshots below keep their original image identities.
+
+# Historical 971c selection: own fresh three-hour science
 
 Selected executable **971cba3f**, unchanged WRF archive **6c705230**, new RSL archive **29e42be3**, and post-test source **a46f6f48** retain every previous improvement and add restricted width-5/6 packing. All four products, 545 ordered steps, full 512-rank runtime acceptance and all model/reader closures passed the unchanged checker. [Build, qualification and rollback](../cpu-compute/rsl-width56-private-vector-copy/README.md).
 
