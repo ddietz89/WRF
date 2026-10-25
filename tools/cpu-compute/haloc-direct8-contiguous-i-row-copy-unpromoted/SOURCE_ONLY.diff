@@ -1,0 +1,34 @@
+--- original_private.c
++++ rowcopy_candidate.c
+@@ -90,18 +90,22 @@
+ }
+ static void copy_rect(context *c, rect r, unsigned char *packet, int unpack)
+ {
+-  int f,j,k,i; size_t at=0;
+-  /* Each field U then V; within field J then K then I. */
++  int f,j,k; size_t at=0;
++  size_t row_bytes;
++  /* Preserve the original I loop's empty range (r.ih < r.il) without
++   * forming a negative or wrapped width. */
++  if (r.ih < r.il) return;
++  row_bytes=4*((size_t)((int64_t)r.ih-(int64_t)r.il+1));
++  /* Each field U then V; within field J then K then one contiguous I row. */
+   for (f=0;f<2;++f) {
+     unsigned char *field=f?c->v:c->u;
+     for (j=r.jl;j<=r.jh;++j)
+-      for (k=c->m[KPS];k<=c->m[KPE];++k)
+-        for (i=r.il;i<=r.ih;++i) {
+-          unsigned char *word=field+offset(c,i,k,j);
+-          if (unpack) memcpy(word,packet+at,4);
+-          else memcpy(packet+at,word,4);
+-          at+=4;
+-        }
++      for (k=c->m[KPS];k<=c->m[KPE];++k) {
++        unsigned char *word=field+offset(c,r.il,k,j);
++        if (unpack) memcpy(word,packet+at,row_bytes);
++        else memcpy(packet+at,word,row_bytes);
++        at+=row_bytes;
++      }
+   }
+ }
+ 

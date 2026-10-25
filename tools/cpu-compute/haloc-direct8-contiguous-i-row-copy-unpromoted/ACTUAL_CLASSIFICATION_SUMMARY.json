@@ -1,0 +1,241 @@
+{
+  "status": "READONLY_CLASSIFIED_STATE_ONLY_STRICT_TIMING_WAVE_FAILED_UNCHANGED",
+  "actual_classification_sha256": "1da9dfe004752fd1365c9cc228fd307bacf4bec5998447db2a48d6d782f3d87d",
+  "all18_hashes_and_stats_verified": true,
+  "all9_warm_and_batch_UV_bytes_exact": true,
+  "all_headers_exact": true,
+  "state_components": [
+    "errno",
+    "round",
+    "flags",
+    "MXCSR",
+    "CW"
+  ],
+  "warm_errno_changed_ranks": [
+    0,
+    1,
+    7
+  ],
+  "batch_flags32_MXCSR0x20_changed_ranks": [
+    2,
+    3,
+    5
+  ],
+  "state_differences": [
+    {
+      "rank": 0,
+      "record": 0,
+      "phase": "warm",
+      "five_state_original": [
+        34,
+        0,
+        32,
+        8096,
+        895
+      ],
+      "five_state_candidate": [
+        14,
+        0,
+        32,
+        8096,
+        895
+      ],
+      "mismatching_words": 1,
+      "changed_words": [
+        {
+          "record_word": 3,
+          "file_byte": 12,
+          "class": "five_state:errno",
+          "original_hex": "00000022",
+          "candidate_hex": "0000000e",
+          "original_signed": 34,
+          "candidate_signed": 14
+        }
+      ]
+    },
+    {
+      "rank": 1,
+      "record": 0,
+      "phase": "warm",
+      "five_state_original": [
+        14,
+        0,
+        32,
+        8096,
+        895
+      ],
+      "five_state_candidate": [
+        34,
+        0,
+        32,
+        8096,
+        895
+      ],
+      "mismatching_words": 1,
+      "changed_words": [
+        {
+          "record_word": 3,
+          "file_byte": 12,
+          "class": "five_state:errno",
+          "original_hex": "0000000e",
+          "candidate_hex": "00000022",
+          "original_signed": 14,
+          "candidate_signed": 34
+        }
+      ]
+    },
+    {
+      "rank": 2,
+      "record": 1,
+      "phase": "batch",
+      "five_state_original": [
+        34,
+        0,
+        32,
+        8096,
+        895
+      ],
+      "five_state_candidate": [
+        34,
+        0,
+        0,
+        8064,
+        895
+      ],
+      "mismatching_words": 2,
+      "changed_words": [
+        {
+          "record_word": 5,
+          "file_byte": 2419252,
+          "class": "five_state:flags",
+          "original_hex": "00000020",
+          "candidate_hex": "00000000",
+          "original_signed": 32,
+          "candidate_signed": 0
+        },
+        {
+          "record_word": 6,
+          "file_byte": 2419256,
+          "class": "five_state:MXCSR",
+          "original_hex": "00001fa0",
+          "candidate_hex": "00001f80",
+          "original_signed": 8096,
+          "candidate_signed": 8064
+        }
+      ]
+    },
+    {
+      "rank": 3,
+      "record": 1,
+      "phase": "batch",
+      "five_state_original": [
+        34,
+        0,
+        32,
+        8096,
+        895
+      ],
+      "five_state_candidate": [
+        34,
+        0,
+        0,
+        8064,
+        895
+      ],
+      "mismatching_words": 2,
+      "changed_words": [
+        {
+          "record_word": 5,
+          "file_byte": 2365492,
+          "class": "five_state:flags",
+          "original_hex": "00000020",
+          "candidate_hex": "00000000",
+          "original_signed": 32,
+          "candidate_signed": 0
+        },
+        {
+          "record_word": 6,
+          "file_byte": 2365496,
+          "class": "five_state:MXCSR",
+          "original_hex": "00001fa0",
+          "candidate_hex": "00001f80",
+          "original_signed": 8096,
+          "candidate_signed": 8064
+        }
+      ]
+    },
+    {
+      "rank": 5,
+      "record": 1,
+      "phase": "batch",
+      "five_state_original": [
+        34,
+        0,
+        0,
+        8064,
+        895
+      ],
+      "five_state_candidate": [
+        34,
+        0,
+        32,
+        8096,
+        895
+      ],
+      "mismatching_words": 2,
+      "changed_words": [
+        {
+          "record_word": 5,
+          "file_byte": 2365492,
+          "class": "five_state:flags",
+          "original_hex": "00000000",
+          "candidate_hex": "00000020",
+          "original_signed": 0,
+          "candidate_signed": 32
+        },
+        {
+          "record_word": 6,
+          "file_byte": 2365496,
+          "class": "five_state:MXCSR",
+          "original_hex": "00001f80",
+          "candidate_hex": "00001fa0",
+          "original_signed": 8064,
+          "candidate_signed": 8096
+        }
+      ]
+    },
+    {
+      "rank": 7,
+      "record": 0,
+      "phase": "warm",
+      "five_state_original": [
+        34,
+        0,
+        32,
+        8096,
+        895
+      ],
+      "five_state_candidate": [
+        14,
+        0,
+        32,
+        8096,
+        895
+      ],
+      "mismatching_words": 1,
+      "changed_words": [
+        {
+          "record_word": 3,
+          "file_byte": 12,
+          "class": "five_state:errno",
+          "original_hex": "00000022",
+          "candidate_hex": "0000000e",
+          "original_signed": 34,
+          "candidate_signed": 14
+        }
+      ]
+    }
+  ],
+  "no_cause_attribution": "This byte classification does not identify MPI/libc cause. No errno/flags restoration or waiver.",
+  "science_scope": "Syntheticphysicalarrays; no actualforecast/application qualification."
+}

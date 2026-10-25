@@ -28,6 +28,8 @@ The private HALO_EM_C direct eight-neighbor exchange passed the genuine nine-ran
 
 This is a concrete reason to keep the current per-call setup/allocation design outside the defaults. The ownership/protocol proof remains useful for a distinct design. Next, attribute config copying, collective admission, allocation and packing costs before changing one of them. These are synthetic nine-rank caller observations, not an actual224-rank or forecast result. See tools/cpu-compute/haloc-direct8-screen-20261025/DECISION.json. No acceptance rule was relaxed.
 
+The subsequent instrumented diagnostic passed the original small native data/state/protocol gate and identified packing/unpacking as substantial costs. A distinct contiguous-row copy candidate then passed72 leaf cases and the genuine nine-rank16-record gate. Its larger complete caller nevertheless failed the first cross-arm state comparison: all synthetic U/V bytes and headers remained exact, but errno or floating-point status differed on six ranks. Original wall was0.290831s versus candidate0.484774s for4,096 complete calls per rank; summed threadCPU was2.615269s versus4.361393s. Both arms closed normally after separate checked cache clears. The opposite-order hpc02 arms did not run. Close this fixed candidate unpromoted, preserving the earlier failed prototype wave separately. No runtime-state normalization, repair, application gain, or universal conclusion about eight-neighbor exchanges follows. [Actual row-copy decision and classification](tools/cpu-compute/haloc-direct8-contiguous-i-row-copy-unpromoted/README.md).
+
 
 ### Later-stage RKscalar SIMD: rejected after strict payload counterexample
 

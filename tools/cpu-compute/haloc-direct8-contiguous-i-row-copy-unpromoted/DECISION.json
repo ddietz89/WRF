@@ -1,0 +1,117 @@
+{
+  "status": "REJECT_CURRENT_ROW_COPY_DIRECT8_COMPLETE_CALLER_UNPROMOTED",
+  "source_candidate": "e1f291698bb4d4c81895888fc91186f642da40c66260f18f2e2cd38bd9bd4d9d",
+  "native_scope": {
+    "leaf_transfer_pairs": 72,
+    "native_ranks": 9,
+    "records_per_rank": 16,
+    "fast_per_rank": 12,
+    "fallback_per_rank": 4,
+    "full_physical_five_state_and_requests_pass": true,
+    "invocation_id": "4926bfe417fa43108e7b66103458bafd"
+  },
+  "actual_caller_wave": "FAILED_STRICT_CROSSARM_FULL_RAW_OR_FIVE_STATE",
+  "executed_arms": [
+    {
+      "arm": 0,
+      "host": "hpc01",
+      "which": "parent",
+      "invocation_id": "64493cf082254217ad5eab54c9bf9b69",
+      "calls_per_rank": 4096,
+      "max_rank_wall_ns": 290831389,
+      "sum_rank_thread_cpu_ns": 2615268789,
+      "normal_closed": true,
+      "cache_before_arm": true
+    },
+    {
+      "arm": 1,
+      "host": "hpc01",
+      "which": "candidate",
+      "invocation_id": "697cee4abfff4ce38496a1b23cd87674",
+      "calls_per_rank": 4096,
+      "max_rank_wall_ns": 484773721,
+      "sum_rank_thread_cpu_ns": 4361392601,
+      "normal_closed": true,
+      "cache_before_arm": true
+    }
+  ],
+  "unexecuted_arms": [
+    2,
+    3
+  ],
+  "comparison": "genuineoriginalY/Xrole0 vsrowcopyprivatewholeHALOCrole1; local3x3syntheticfootprint563x122x33",
+  "first_pair_wall_ratio_candidate_over_parent": 1.6668548833977477,
+  "first_pair_sum_thread_cpu_ratio_candidate_over_parent": 1.6676651437681345,
+  "classification": {
+    "all18_hashes_and_stats_verified": true,
+    "all9_warm_batch_UV_bytes_exact": true,
+    "all_headers_exact": true,
+    "ONLY_differences": "five-state errno/flags/MXCSR",
+    "warm_errno_ranks": [
+      0,
+      1,
+      7
+    ],
+    "warm_errno_original_candidate": {
+      "0": [
+        34,
+        14
+      ],
+      "1": [
+        14,
+        34
+      ],
+      "7": [
+        34,
+        14
+      ]
+    },
+    "batch_flags_MXCSR_ranks": [
+      2,
+      3,
+      5
+    ],
+    "batch_original_candidate": {
+      "2": {
+        "flags": [
+          32,
+          0
+        ],
+        "MXCSR": [
+          8096,
+          8064
+        ]
+      },
+      "3": {
+        "flags": [
+          32,
+          0
+        ],
+        "MXCSR": [
+          8096,
+          8064
+        ]
+      },
+      "5": {
+        "flags": [
+          0,
+          32
+        ],
+        "MXCSR": [
+          8064,
+          8096
+        ]
+      }
+    },
+    "round_and_CW_exact": true,
+    "changed_words": 9,
+    "strict_gate": "FAILED_UNCHANGED; no state-normalization/repair/retry"
+  },
+  "performance_qualified": false,
+  "application_qualified": false,
+  "defaults_changed": false,
+  "retry_or_normalization": false,
+  "prior_wordcopy_failed_wave": "retainedunchanged; old925msvsnew485ms differentrun is NOT a paired gain claim",
+  "baseline_and_selected_image": "unchanged; no candidate model/application admission",
+  "followup": "CLOSED_CURRENTCANDIDATE; no repair/retiming/newexport/investigation authorized"
+}
