@@ -1,5 +1,9 @@
 # WRF CPU optimization findings
 
+## October25: three current-profile source candidates closed without promotion
+
+Thirteen cache-cleared diagnostic timing arms completed with unchanged raw/state caller checks and normal closures on hpc01–03. Two-phase MPI exchanges were−0.09%/+1.04% in complete shared-memory HALO_C callers; the original repeat varied by about1.05%, and a separate native original-repeat floating-state instability leaves native qualification unresolved. Aerosol product reuse was0.21%/0.18% faster in finite whole-SPCVMC callers but failed focused NaN payload equality. Spectral accumulation fusion was0.90% faster/0.44% slower and failed a decisive actual-module alternating-payload case. All positive observations are retained; exact IEEE failures prevent radiation promotion. No significant isolated kernel gain or new forecast gain is claimed. The selected BACF executable/defaults and all previous improvements remain. [Decisions, actual evidence and limits](tools/cpu-compute/noon-three-candidate-closeout-20261025/README.md).
+
 ## October25: current-build direct-noon source profile completed
 
 The unchanged BACF image passed two full12:00–13:00 products and185 ordered steps against a fresh same256 corrected-original reference on hpc01–03. Both15-second main-thread recordings passed actual acquisition/source-identity checks and normal read-only rendering. Shortwave SPCVMC, paired VRTQDR and REFTRA are prominent direct sampled routines; halo-exchange ancestry contains substantial MPI progress. Selected-thread mixed-I/O shares establish source questions, not global removable cost or MPI causality. Two bounded radiation implementations and a separate MPI-call alternative are in private testing; none is promoted yet. [Science, profile scope and report-only counter repair](tools/cpu-compute/threehost-same256-noon-source-profile/README.md).
