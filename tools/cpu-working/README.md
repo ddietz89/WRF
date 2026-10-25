@@ -1,4 +1,18 @@
-# Current height5c75: fresh SAME512 three-hour qualification
+# Current MU/theta ab437: own SAME512 three-hour science
+
+## MU/theta child ab437: own SAME512 three-hour science
+
+Own unprofiled SAME512 three-hour545/four FULL06–09 exact science; candidate-only versus retained fresh original546b A, UNPAIRED descriptive timing. No fresh matched, isolated/additive gain, repeatability, own9h/profile/restart/144/384/SAME256 qualification. Own noon Q remains immutable/separate. Qualified PP replay/cached object plus post-test target projection; no clean canonical rebuild certificate.
+
+| Metric | Retained original546b A | MU/theta child | UNPAIRED descriptive reduction |
+|---|---:|---:|---:|
+| Wall minutes | 13.333735 | 10.437549 | 21.7207% |
+| Main elapsed minutes | 9.943226 | 9.014494 | 9.3403% |
+| Aggregate CPU core-hours | 99.813152 | 84.589648 | 15.2520% |
+
+Qualification: `tools/cpu-compute/mu-theta-firstpass-fusion-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json`. Retained parent5c75 matched3h/8719h/profile observations remain historical and unchanged.
+
+## Retained prior record
 
 Fresh original546b A and unchanged selectedheight5c75 B passed all545 ordered steps and four FULL06–09 products on SAME512 (480compute+32quilt,8×60,two tiles). All eight model units and the reader closed normally. The candidate used the exact801e/db0d FP-entry guard; its source port preserves512 topology and the common engine. Failed nativeR1 launched no ranks and remains retained alongside all six context repairs and successful genuine512 nativeR2.
 

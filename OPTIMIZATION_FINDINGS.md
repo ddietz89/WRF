@@ -1,5 +1,19 @@
 # WRF CPU optimization findings
 
+## MU/theta child ab437: own SAME512 three-hour science
+
+Own unprofiled SAME512 three-hour545/four FULL06–09 exact science; candidate-only versus retained fresh original546b A, UNPAIRED descriptive timing. No fresh matched, isolated/additive gain, repeatability, own9h/profile/restart/144/384/SAME256 qualification. Own noon Q remains immutable/separate. Qualified PP replay/cached object plus post-test target projection; no clean canonical rebuild certificate.
+
+| Metric | Retained original546b A | MU/theta child | UNPAIRED descriptive reduction |
+|---|---:|---:|---:|
+| Wall minutes | 13.333735 | 10.437549 | 21.7207% |
+| Main elapsed minutes | 9.943226 | 9.014494 | 9.3403% |
+| Aggregate CPU core-hours | 99.813152 | 84.589648 | 15.2520% |
+
+Qualification: `tools/cpu-compute/mu-theta-firstpass-fusion-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json`. Retained parent5c75 matched3h/8719h/profile observations remain historical and unchanged.
+
+## Retained prior record
+
 ## October25: current four-host daytime profile and temperature caller candidate
 
 The selected5c75 12→13 forecast passed185 ordered steps and both FULL products. Three15-second main-TID captures were observed recording early, then source-identity parsed after all model/reader/recorder jobs closed. Compute ranks122/386 contain SW/LW direct samples; writer487 was sampled between hourly outputs and supplies no compressor-worker cost. Numeric loss/build IDs remain UNKNOWN; exact content hashes bind the current source. The writer snapshot admission was repaired only for its qualified borrowed packing cores, preserving the failed attempt and all live identity/scientific predicates. [Actual profile and limits](tools/cpu-profiles/current5c75-fourhost-noon-three-main-tid-20261025/README.md).

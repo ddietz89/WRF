@@ -1,5 +1,19 @@
 # Mass/theta first-pass fusion — own noon qualified
 
+## MU/theta child ab437: own SAME512 three-hour science
+
+Own unprofiled SAME512 three-hour545/four FULL06–09 exact science; candidate-only versus retained fresh original546b A, UNPAIRED descriptive timing. No fresh matched, isolated/additive gain, repeatability, own9h/profile/restart/144/384/SAME256 qualification. Own noon Q remains immutable/separate. Qualified PP replay/cached object plus post-test target projection; no clean canonical rebuild certificate.
+
+| Metric | Retained original546b A | MU/theta child | UNPAIRED descriptive reduction |
+|---|---:|---:|---:|
+| Wall minutes | 13.333735 | 10.437549 | 21.7207% |
+| Main elapsed minutes | 9.943226 | 9.014494 | 9.3403% |
+| Aggregate CPU core-hours | 99.813152 | 84.589648 | 15.2520% |
+
+Qualification: `tools/cpu-compute/mu-theta-firstpass-fusion-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json`. Retained parent5c75 matched3h/8719h/profile observations remain historical and unchanged.
+
+## Retained prior record
+
 `advance_mu_t` now places its original `T_AVE=T` and `T=T+MSFTY*DTS*FT` assignments immediately before each existing theta subtraction. Both original REAL assignment trees, required scratch writes, final-layer guard and earlier WW/WDTN improvements remain. No new SIMD directive, ISA setting, algebra or public API is introduced. The author’s omitted final-layer assignments were restored by an explicitly recorded local contract completion.
 
 The strict genuine whole-callee gate passed **83 same-opt observations at each of O2 and O0/bounds**, with exact production/named target instructions and relocation roles, public MOD and data ABI at both levels. All eight O2 non-target functions matched. Several O0 non-target comparisons did not match and remain **unclassified**; this is not whole-module IEEE or compiled-identity qualification. The separate extracted-tail 392 observations passed, but its worker failed after testing while collecting oversized assembly. The failed receipt remains unchanged; a read-only recovery verified the existing logs and artifacts without rerunning tests.
