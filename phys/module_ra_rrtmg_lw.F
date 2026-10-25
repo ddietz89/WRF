@@ -3365,7 +3365,6 @@ contains
                   radld = radld + (bbd-radld)*atrans(lev)
                   drad(lev-1) = drad(lev-1) + radld
                      radclrd = radld
-                     clrdrad(lev-1) = drad(lev-1)
          enddo
 
          do lev = top_cloud, 1, -1
@@ -3515,6 +3514,10 @@ contains
          igc = igc + 1
 ! Return to continue radiative transfer for all g-channels in present band
          if (igc .le. ngs(iband)) go to 1000
+
+         do lev = top_cloud, nlayers-1
+            clrdrad(lev) = drad(lev)
+         enddo
 
 ! Process longwave output from band for total and clear streams.
 ! Calculate upward, downward, and net flux.
