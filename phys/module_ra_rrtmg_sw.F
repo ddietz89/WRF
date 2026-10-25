@@ -1700,7 +1700,7 @@
       real(kind=rb) :: rand_num_mt                     ! random number (Mersenne Twister)
 
 ! Flag to identify cloud fraction in subcolumns
-      logical,  dimension(nsubcol, ncol, nlay) :: isCloudy   ! flag that says whether a gridbox is cloudy
+
 
 ! Indices
       integer(kind=im) :: ilev, isubcol, i, n, ngbm    ! indices
@@ -1938,9 +1938,9 @@
 
  
 ! -- generate subcolumns for homogeneous clouds -----
-      do ilev = 1, nlay
-         isCloudy(:,:,ilev) = (CDF(:,:,ilev) >= 1._rb - spread(cldf(:,ilev), dim=1, nCopies=nsubcol) )
-      enddo
+
+
+
 
 ! where the subcolumn is cloudy, the subcolumn cloud fraction is 1;
 ! where the subcolumn is not cloudy, the subcolumn cloud fraction is 0;
@@ -1951,7 +1951,7 @@
       do ilev = 1,nlay
          do i = 1, ncol
             do isubcol = 1, nsubcol
-               if ( iscloudy(isubcol,i,ilev) ) then
+               if ( CDF(isubcol,i,ilev) >= 1._rb - cldf(i,ilev) ) then
                   cld_stoch(isubcol,i,ilev) = 1._rb
                   clwp_stoch(isubcol,i,ilev) = clwp(i,ilev)
                   ciwp_stoch(isubcol,i,ilev) = ciwp(i,ilev)
