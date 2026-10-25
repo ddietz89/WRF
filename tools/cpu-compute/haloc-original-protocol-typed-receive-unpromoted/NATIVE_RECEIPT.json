@@ -1,0 +1,511 @@
+{
+  "status": "PASS_ORIGINAL_HALOC_TYPED_RECEIVE_9RANK_RAW5STATE_MIXED_FALLBACK_PENDING_CALLER",
+  "invocation_id": "d5b40b3e58a343cf8bfce930ee6bb111",
+  "commands": [
+    {
+      "argv": [
+        "ar",
+        "p",
+        "/pool/wrf-experiment/wrf-cpu/builds/current971c-uv-final-v-unpack-outline-combined-native-r1/librsl_lite.a",
+        "c_code.o"
+      ],
+      "cwd": "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work",
+      "returncode": 0,
+      "stdout_sha256": "ff016b8e807d485b1eebb97f7518d0306e401717fb033fdba4f554b18a417feb",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "ar",
+        "p",
+        "/pool/wrf-experiment/wrf-cpu/builds/currentd54-lw-whole-draw-seed-carry-one-member-experimental-r1/libwrflib.a",
+        "module_comm_dm_1.o"
+      ],
+      "cwd": "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work",
+      "returncode": 0,
+      "stdout_sha256": "61fd8f7d70c33bc889dcca287f870ab38dc4f94010f1c924cf50443daaf4c345",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/bin/bash",
+        "-c",
+        "source \"$1\"; /usr/bin/python3 -c \"$2\"",
+        "env",
+        "/pool/wrf-experiment/tooling/m6-parallel/mpi-ib-env.sh",
+        "import os,json;print(json.dumps({k:v for k,v in os.environ.items()if k in ['PATH', 'LD_LIBRARY_PATH', 'OPAL_PREFIX', 'OMPI_MCA_pml', 'OMPI_MCA_btl', 'UCX_TLS', 'UCX_NET_DEVICES', 'UCX_POSIX_DIR']}))"
+      ],
+      "cwd": "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work",
+      "returncode": 0,
+      "stdout_sha256": "765b65b6ddd1d102232a7d5e9850868aa760a3ae9485673333574537a2556b5c",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-O2",
+        "-g",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-fcheck=bounds",
+        "-fbacktrace",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/parent-mods",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-J/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/module_haloc_typed_recv_private.f90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/private-F.o"
+      ],
+      "cwd": "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work",
+      "returncode": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-O2",
+        "-g",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-fcheck=bounds",
+        "-fbacktrace",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/parent-mods",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/standalone_driver.f90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/driver.o"
+      ],
+      "cwd": "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work",
+      "returncode": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/oracle",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/driver.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/private-F.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/private-C.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/state.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/request.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/route.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/genuine-module_comm_dm_1.o",
+        "-Wl,--wrap=wrf_rsl_haloc_uv_recv",
+        "-Wl,--start-group",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-Wl,-rpath,/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/hpg-nhx-isolated-avx2-consumer-native-r3/work/nhx-helper-O2.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/phy-height-private-avx2-fixed8-native-hpc04-r1/work/helper-O2.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/currentd54-lw-whole-draw-seed-carry-one-member-experimental-r1/libwrflib.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-lesmf_time",
+        "/pool/wrf-experiment/wrf-cpu/builds/current971c-uv-final-v-unpack-outline-combined-native-r1/librsl_lite.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2",
+        "-lwrfio_nf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-lnetcdf",
+        "-Wl,--end-group",
+        "-lm"
+      ],
+      "cwd": "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work",
+      "returncode": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpirun",
+        "--prefix",
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem",
+        "--host",
+        "localhost:9",
+        "-np",
+        "9",
+        "--bind-to",
+        "none",
+        "--map-by",
+        "slot",
+        "--leave-session-attached",
+        "-x",
+        "LD_LIBRARY_PATH",
+        "-x",
+        "OPAL_PREFIX",
+        "-x",
+        "OMPI_MCA_pml",
+        "-x",
+        "OMPI_MCA_btl",
+        "-x",
+        "UCX_TLS",
+        "-x",
+        "UCX_NET_DEVICES",
+        "-x",
+        "UCX_POSIX_DIR",
+        "/usr/bin/python3",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/rank_entry.py",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current0ec3-haloc-direct8-native-hpc02-r1/work/oracle",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/genuine/entries",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/genuine/physical",
+        "0"
+      ],
+      "cwd": "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/genuine",
+      "returncode": 0,
+      "stdout_sha256": "499b200df15694185a7ec66004ad88e9341cf7c96ada1e7bd39b84fd6839d344",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpirun",
+        "--prefix",
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem",
+        "--host",
+        "localhost:9",
+        "-np",
+        "9",
+        "--bind-to",
+        "none",
+        "--map-by",
+        "slot",
+        "--leave-session-attached",
+        "-x",
+        "LD_LIBRARY_PATH",
+        "-x",
+        "OPAL_PREFIX",
+        "-x",
+        "OMPI_MCA_pml",
+        "-x",
+        "OMPI_MCA_btl",
+        "-x",
+        "UCX_TLS",
+        "-x",
+        "UCX_NET_DEVICES",
+        "-x",
+        "UCX_POSIX_DIR",
+        "/usr/bin/python3",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/rank_entry.py",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/oracle",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/candidate/entries",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/candidate/physical",
+        "1"
+      ],
+      "cwd": "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/candidate",
+      "returncode": 0,
+      "stdout_sha256": "0ee6cc963edf1e35569296933397c9fad93d269670f8e77dbed5ccdb8c0b74ea",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "WRF_module_compiles": 0,
+  "baseline_compiles": 0,
+  "native_executions": 2,
+  "application_qualified": false,
+  "performance_qualified": false,
+  "source_defaults_changed": false,
+  "actual_inputs_before": {
+    "/pool/wrf-experiment/wrf-cpu/builds/current971c-uv-final-v-unpack-outline-combined-native-r1/librsl_lite.a": "6eb125cca1196db3d917b17313852b17f2121accb5bb9fc2ad99dd49580154db",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/RSL_LITE/c_code.c": "2d55c68dc030009e223e37803a921a283b6ab3f7a30531e3cc5fc5ebc58e0baf",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/RSL_LITE/rsl_lite.h": "8f1a1b9296a31a21c66617b8be1e46e76f96981c57a1417eb87026422dea59a9",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_state_description.mod": "502b162905e54da0751d6e0e374f1474108c18f64c4cbf9920ff7be68d153030",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_driver_constants.mod": "b4c46a342c3b9d45c647d6742582b9605dd7e0edf601c7a45cec131c3cdf7fe1",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_dm.mod": "6a0ddfb8d2310409a14caa0f5c99a3692c294310924d421507dfa854a59bd85d",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_configure.mod": "a16f88b79a658620f0cf53f558e993eb91b6d79c01073d55cf4cc457a7fde9e3",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_domain.mod": "b4e4e22d87b8200a95b1f229b9d4e9e9b524905d8515820309464fa4e699c470",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o": "3a94b6864d7b3d2df4efc4f1afabe6dd519b6f73c9785738f219e6206727e4ec",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o": "54be5b6686914b8496b3d451205582b7bf854f23e52176c13ab34f66255946d4",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o": "4f037f15d1dc99ac826fccdfbf500221ae63132896e90a627446bc3fff8b8263",
+    "/pool/wrf-experiment/wrf-cpu/kernels/hpg-nhx-isolated-avx2-consumer-native-r3/work/nhx-helper-O2.o": "ae13adfa248c9613be20c56bd1f8e77a3ff8d79a985ffb163acc16be629d0f8c",
+    "/pool/wrf-experiment/wrf-cpu/kernels/phy-height-private-avx2-fixed8-native-hpc04-r1/work/helper-O2.o": "b6a707c4f00670eb6611e45513381d275b31c82fe7c6bf08d548de286b9a0467",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a": "43440c838a792ee55cdb93165c7996173df197d3e6afbd9c69e196b64b869a34",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a": "fa5423d57121eae7505cd464e0a9826c36eadf91a6a884aee96f6a7aa4279a29",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a": "93675f19d4c2d39ff9de6909f76e4ccddf0844440abe38fa37aea97bb42fb4f0",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a": "a06e4111dbb308bbe94c1cb2c0e21c608fde3e906dec74a10910b5842cac5ca0",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o": "175cbd87243a7ff3412f1850e76dac102eb4edc5db684bfdc97d419694d44a78",
+    "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o": "8ab87436bdb22d9d0ef3c1257e25f415727ede16be8535b8e037832a12fe9752",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90/libesmf_time.a": "4c1ebf810767e36db24471cac830970afb2c440eb241f4664b1d3398ecf0f84a",
+    "/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib/libnetcdff.so": "e271f9b96203b03c2e21f9e044b4cbe13534f309b100ae369dd0799fa7a2a6d6",
+    "/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib/libnetcdf.so": "7036a91b172b3f1171c1ebd86813a208a302cf9145013d58611570cfa12e2780",
+    "/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2/libwrfio_nf.a": "651835f31089e16759177734198ece5b121d704355c73abddde483f4cae2c14c",
+    "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib/libmpi.so.40.30.6": "239014e332e2a784c9b2e48ec7f440245a03e9d7bebe1de163a23929c9cdd9a7",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_comm_dm_1.mod": "3d0e08b845a0f8d5946e2a8715481dd55773bc11e86e1fc86a19c8ce2f4e5ed4",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_domain_type.mod": "5c367395e679d5942f239c4f9dc4cc5b2813b186c2fb9a9cf950f78a28514df1",
+    "/pool/wrf-experiment/wrf-cpu/builds/currentd54-lw-whole-draw-seed-carry-one-member-experimental-r1/libwrflib.a": "a30c8df77b7db01e7976284b3dccfaa185f9315932f28737036c000cf265ac8b",
+    "/pool/wrf-experiment/wrf-cpu/kernels/current0ec3-haloc-direct8-native-hpc02-r1/work/oracle": "22272021d6984da60847f8126ff04764a4ab4b8f1230498d5369a7679de1e22b",
+    "/pool/wrf-experiment/wrf-cpu/kernels/current0ec3-haloc-direct8-native-hpc02-r1/work/state.o": "e8b6d91c9165cefb68496b563e93146492295cccff6b9eca4fe25e5c7948c018",
+    "/pool/wrf-experiment/wrf-cpu/kernels/current0ec3-haloc-direct8-native-hpc02-r1/work/request.o": "f15273f395a80e6915673b39963700dc5ce8c6680ab52a2b9bff3724eacab02e",
+    "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r1/work/private-C.o": "ccca4fa913e8f78d5a2d5dc7d368ea9534c301033c8f749a8aeea672cc0bf6aa",
+    "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r1/work/route.o": "d0b1a1fbc89280f1a01ea2a4fd81b6da888d97bcc68acbd8aeb0dc58d7bcad81"
+  },
+  "cached_genuine_objects": {
+    "C": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/genuine-c_code.o",
+      "sha256": "ff016b8e807d485b1eebb97f7518d0306e401717fb033fdba4f554b18a417feb"
+    },
+    "HALOC": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/genuine-module_comm_dm_1.o",
+      "sha256": "61fd8f7d70c33bc889dcca287f870ab38dc4f94010f1c924cf50443daaf4c345"
+    }
+  },
+  "parent_MOD_clean_first": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/parent-mods",
+    "files": {
+      "module_state_description.mod": "502b162905e54da0751d6e0e374f1474108c18f64c4cbf9920ff7be68d153030",
+      "module_driver_constants.mod": "b4c46a342c3b9d45c647d6742582b9605dd7e0edf601c7a45cec131c3cdf7fe1",
+      "module_dm.mod": "6a0ddfb8d2310409a14caa0f5c99a3692c294310924d421507dfa854a59bd85d",
+      "module_configure.mod": "a16f88b79a658620f0cf53f558e993eb91b6d79c01073d55cf4cc457a7fde9e3",
+      "module_domain.mod": "b4e4e22d87b8200a95b1f229b9d4e9e9b524905d8515820309464fa4e699c470",
+      "module_comm_dm_1.mod": "3d0e08b845a0f8d5946e2a8715481dd55773bc11e86e1fc86a19c8ce2f4e5ed4",
+      "module_domain_type.mod": "5c367395e679d5942f239c4f9dc4cc5b2813b186c2fb9a9cf950f78a28514df1"
+    }
+  },
+  "compile_counts": {
+    "candidate_full_C_with_exact_original_prefix": 0,
+    "private_Fortran": 1,
+    "driver_Fortran": 1,
+    "support_C": 0,
+    "WRF_science_modules": 0,
+    "original_baseline_C": 0
+  },
+  "objects": {
+    "private-C.o": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/private-C.o",
+      "sha256": "ccca4fa913e8f78d5a2d5dc7d368ea9534c301033c8f749a8aeea672cc0bf6aa"
+    },
+    "private-F.o": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/private-F.o",
+      "sha256": "cee8c5ff2d90c2304a6d5112911e789443562eb120f5bd557abf43a7e882c560"
+    },
+    "driver.o": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/driver.o",
+      "sha256": "6bd27b9407170340aef9cdf7fbb0e66570403efb4fed6f418eef3c4ed26917a3"
+    },
+    "state.o": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/state.o",
+      "sha256": "e8b6d91c9165cefb68496b563e93146492295cccff6b9eca4fe25e5c7948c018"
+    },
+    "request.o": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/request.o",
+      "sha256": "f15273f395a80e6915673b39963700dc5ce8c6680ab52a2b9bff3724eacab02e"
+    },
+    "route.o": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/route.o",
+      "sha256": "d0b1a1fbc89280f1a01ea2a4fd81b6da888d97bcc68acbd8aeb0dc58d7bcad81"
+    },
+    "oracle": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/oracle",
+      "sha256": "225ac650376a397083c8433a85528888b1dc2370c572100093d8c0a9562f9fca"
+    }
+  },
+  "candidate_link_count": 1,
+  "roles": {
+    "0": {
+      "ranks": 9,
+      "records_each": 16,
+      "raw": {
+        "0": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/genuine/physical.rank0.bin",
+          "sha256": "60dda90e52d4e14b205b6c69c205fb7d5ca4fa5d87bf356f03b104b1632d2e02",
+          "bytes": 57856
+        },
+        "1": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/genuine/physical.rank1.bin",
+          "sha256": "d39d39943e3a91c09a2bb6f3fc9b5f562048261e56ed72a2fdbea2d379af49b9",
+          "bytes": 57856
+        },
+        "2": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/genuine/physical.rank2.bin",
+          "sha256": "735e9f6bfa0b2ec2604dbc2d9d772754db33447dea4b659406e74caf6978cae8",
+          "bytes": 65024
+        },
+        "3": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/genuine/physical.rank3.bin",
+          "sha256": "8af571ea478709d8b63c7240d1830f3e0f52df47d987c12e65970aa4046d8d09",
+          "bytes": 57856
+        },
+        "4": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/genuine/physical.rank4.bin",
+          "sha256": "2499cfc46796c07ca2250fa5a5b1d21310512e989f5eaae879fe729ac051383b",
+          "bytes": 57856
+        },
+        "5": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/genuine/physical.rank5.bin",
+          "sha256": "8e9b38b2f4df0b8ceecb6f5d60490f652bf0678b83ec478d9c7fabb0bab8c486",
+          "bytes": 65024
+        },
+        "6": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/genuine/physical.rank6.bin",
+          "sha256": "578bb68e0df72264a6f5b575895fc17fcca4abfee28f9c6b45ae34ca4717cee5",
+          "bytes": 65024
+        },
+        "7": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/genuine/physical.rank7.bin",
+          "sha256": "36182fd531feeb55777e2d589c5e9e6160a7d3e1d99ffc5149b09823c802b17d",
+          "bytes": 65024
+        },
+        "8": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/genuine/physical.rank8.bin",
+          "sha256": "910b843e4526ee4e54b1c3171e12dcd53bfdcbada2b0c8471113a27d25c659ab",
+          "bytes": 73088
+        }
+      },
+      "request_shapes_and_lifetimes_checked": true,
+      "mixed_rank4_fallback_case4": false,
+      "expected_fast_records_rank4": 0,
+      "expected_fast_records_other_ranks": 0
+    },
+    "1": {
+      "ranks": 9,
+      "records_each": 16,
+      "raw": {
+        "0": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/candidate/physical.rank0.bin",
+          "sha256": "60dda90e52d4e14b205b6c69c205fb7d5ca4fa5d87bf356f03b104b1632d2e02",
+          "bytes": 57856
+        },
+        "1": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/candidate/physical.rank1.bin",
+          "sha256": "d39d39943e3a91c09a2bb6f3fc9b5f562048261e56ed72a2fdbea2d379af49b9",
+          "bytes": 57856
+        },
+        "2": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/candidate/physical.rank2.bin",
+          "sha256": "735e9f6bfa0b2ec2604dbc2d9d772754db33447dea4b659406e74caf6978cae8",
+          "bytes": 65024
+        },
+        "3": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/candidate/physical.rank3.bin",
+          "sha256": "8af571ea478709d8b63c7240d1830f3e0f52df47d987c12e65970aa4046d8d09",
+          "bytes": 57856
+        },
+        "4": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/candidate/physical.rank4.bin",
+          "sha256": "2499cfc46796c07ca2250fa5a5b1d21310512e989f5eaae879fe729ac051383b",
+          "bytes": 57856
+        },
+        "5": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/candidate/physical.rank5.bin",
+          "sha256": "8e9b38b2f4df0b8ceecb6f5d60490f652bf0678b83ec478d9c7fabb0bab8c486",
+          "bytes": 65024
+        },
+        "6": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/candidate/physical.rank6.bin",
+          "sha256": "578bb68e0df72264a6f5b575895fc17fcca4abfee28f9c6b45ae34ca4717cee5",
+          "bytes": 65024
+        },
+        "7": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/candidate/physical.rank7.bin",
+          "sha256": "36182fd531feeb55777e2d589c5e9e6160a7d3e1d99ffc5149b09823c802b17d",
+          "bytes": 65024
+        },
+        "8": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r2/work/candidate/physical.rank8.bin",
+          "sha256": "910b843e4526ee4e54b1c3171e12dcd53bfdcbada2b0c8471113a27d25c659ab",
+          "bytes": 73088
+        }
+      },
+      "request_shapes_and_lifetimes_checked": true,
+      "mixed_rank4_fallback_case4": true,
+      "expected_fast_records_rank4": 8,
+      "expected_fast_records_other_ranks": 12
+    }
+  },
+  "full_physical_raw_AND_five_state_crossrole": {
+    "0": true,
+    "1": true,
+    "2": true,
+    "3": true,
+    "4": true,
+    "5": true,
+    "6": true,
+    "7": true,
+    "8": true
+  },
+  "actual_inputs_after": {
+    "/pool/wrf-experiment/wrf-cpu/builds/current971c-uv-final-v-unpack-outline-combined-native-r1/librsl_lite.a": "6eb125cca1196db3d917b17313852b17f2121accb5bb9fc2ad99dd49580154db",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/RSL_LITE/c_code.c": "2d55c68dc030009e223e37803a921a283b6ab3f7a30531e3cc5fc5ebc58e0baf",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/RSL_LITE/rsl_lite.h": "8f1a1b9296a31a21c66617b8be1e46e76f96981c57a1417eb87026422dea59a9",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_state_description.mod": "502b162905e54da0751d6e0e374f1474108c18f64c4cbf9920ff7be68d153030",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_driver_constants.mod": "b4c46a342c3b9d45c647d6742582b9605dd7e0edf601c7a45cec131c3cdf7fe1",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_dm.mod": "6a0ddfb8d2310409a14caa0f5c99a3692c294310924d421507dfa854a59bd85d",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_configure.mod": "a16f88b79a658620f0cf53f558e993eb91b6d79c01073d55cf4cc457a7fde9e3",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_domain.mod": "b4e4e22d87b8200a95b1f229b9d4e9e9b524905d8515820309464fa4e699c470",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o": "3a94b6864d7b3d2df4efc4f1afabe6dd519b6f73c9785738f219e6206727e4ec",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o": "54be5b6686914b8496b3d451205582b7bf854f23e52176c13ab34f66255946d4",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o": "4f037f15d1dc99ac826fccdfbf500221ae63132896e90a627446bc3fff8b8263",
+    "/pool/wrf-experiment/wrf-cpu/kernels/hpg-nhx-isolated-avx2-consumer-native-r3/work/nhx-helper-O2.o": "ae13adfa248c9613be20c56bd1f8e77a3ff8d79a985ffb163acc16be629d0f8c",
+    "/pool/wrf-experiment/wrf-cpu/kernels/phy-height-private-avx2-fixed8-native-hpc04-r1/work/helper-O2.o": "b6a707c4f00670eb6611e45513381d275b31c82fe7c6bf08d548de286b9a0467",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a": "43440c838a792ee55cdb93165c7996173df197d3e6afbd9c69e196b64b869a34",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a": "fa5423d57121eae7505cd464e0a9826c36eadf91a6a884aee96f6a7aa4279a29",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a": "93675f19d4c2d39ff9de6909f76e4ccddf0844440abe38fa37aea97bb42fb4f0",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a": "a06e4111dbb308bbe94c1cb2c0e21c608fde3e906dec74a10910b5842cac5ca0",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o": "175cbd87243a7ff3412f1850e76dac102eb4edc5db684bfdc97d419694d44a78",
+    "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o": "8ab87436bdb22d9d0ef3c1257e25f415727ede16be8535b8e037832a12fe9752",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90/libesmf_time.a": "4c1ebf810767e36db24471cac830970afb2c440eb241f4664b1d3398ecf0f84a",
+    "/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib/libnetcdff.so": "e271f9b96203b03c2e21f9e044b4cbe13534f309b100ae369dd0799fa7a2a6d6",
+    "/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib/libnetcdf.so": "7036a91b172b3f1171c1ebd86813a208a302cf9145013d58611570cfa12e2780",
+    "/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2/libwrfio_nf.a": "651835f31089e16759177734198ece5b121d704355c73abddde483f4cae2c14c",
+    "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib/libmpi.so.40.30.6": "239014e332e2a784c9b2e48ec7f440245a03e9d7bebe1de163a23929c9cdd9a7",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_comm_dm_1.mod": "3d0e08b845a0f8d5946e2a8715481dd55773bc11e86e1fc86a19c8ce2f4e5ed4",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_domain_type.mod": "5c367395e679d5942f239c4f9dc4cc5b2813b186c2fb9a9cf950f78a28514df1",
+    "/pool/wrf-experiment/wrf-cpu/builds/currentd54-lw-whole-draw-seed-carry-one-member-experimental-r1/libwrflib.a": "a30c8df77b7db01e7976284b3dccfaa185f9315932f28737036c000cf265ac8b",
+    "/pool/wrf-experiment/wrf-cpu/kernels/current0ec3-haloc-direct8-native-hpc02-r1/work/oracle": "22272021d6984da60847f8126ff04764a4ab4b8f1230498d5369a7679de1e22b",
+    "/pool/wrf-experiment/wrf-cpu/kernels/current0ec3-haloc-direct8-native-hpc02-r1/work/state.o": "e8b6d91c9165cefb68496b563e93146492295cccff6b9eca4fe25e5c7948c018",
+    "/pool/wrf-experiment/wrf-cpu/kernels/current0ec3-haloc-direct8-native-hpc02-r1/work/request.o": "f15273f395a80e6915673b39963700dc5ce8c6680ab52a2b9bff3724eacab02e",
+    "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r1/work/private-C.o": "ccca4fa913e8f78d5a2d5dc7d368ea9534c301033c8f749a8aeea672cc0bf6aa",
+    "/pool/wrf-experiment/wrf-cpu/kernels/current871-haloc-typed-receive-native-hpc03-r1/work/route.o": "d0b1a1fbc89280f1a01ea2a4fd81b6da888d97bcc68acbd8aeb0dc58d7bcad81"
+  },
+  "native_qualified": true,
+  "scope": "Fresh cached genuine current HALOC vs typed receive private prototype,16 records/rank including mixed local fallback; complete physical U/V + five-state + exact original send/order/tag/completion protocol. No caller/application/performance qualification",
+  "elapsed_seconds": 6.804276837967336,
+  "resource_end": {
+    "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+    "memory.peak": "322359296",
+    "memory.current": "116830208",
+    "memory.swap.current": "0"
+  }
+}

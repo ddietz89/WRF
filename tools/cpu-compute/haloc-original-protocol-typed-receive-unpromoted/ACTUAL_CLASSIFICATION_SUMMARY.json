@@ -1,0 +1,212 @@
+{
+  "status": "READONLY_CLASSIFICATION_ALL_PHYSICAL_U_V_AND_HEADERS_EXACT_STRICT_FIVE_STATE_MISMATCH_RETAINED",
+  "actual_classification_sha256": "50a4e90d740952139af13068b646dc4a094aeef0a4d335d846f947c51ffa6065",
+  "all18_files_hash_stat_stable": true,
+  "ranks": 9,
+  "records_per_rank": 2,
+  "physical_arrays_and_headers_all_exact": true,
+  "five_state_names": [
+    "errno",
+    "round",
+    "flags",
+    "MXCSR",
+    "CW"
+  ],
+  "state_differences": [
+    {
+      "rank": 3,
+      "record": "warm",
+      "original": [
+        14,
+        0,
+        32,
+        8096,
+        895
+      ],
+      "candidate": [
+        34,
+        0,
+        32,
+        8096,
+        895
+      ],
+      "differences": [
+        {
+          "record_word": 3,
+          "file_byte": 12,
+          "class": "five_state:errno",
+          "original_hex": "0000000e",
+          "candidate_hex": "00000022",
+          "original_signed": 14,
+          "candidate_signed": 34
+        }
+      ]
+    },
+    {
+      "rank": 5,
+      "record": "warm",
+      "original": [
+        34,
+        0,
+        32,
+        8096,
+        895
+      ],
+      "candidate": [
+        14,
+        0,
+        32,
+        8096,
+        895
+      ],
+      "differences": [
+        {
+          "record_word": 3,
+          "file_byte": 12,
+          "class": "five_state:errno",
+          "original_hex": "00000022",
+          "candidate_hex": "0000000e",
+          "original_signed": 34,
+          "candidate_signed": 14
+        }
+      ]
+    },
+    {
+      "rank": 5,
+      "record": "batch",
+      "original": [
+        34,
+        0,
+        32,
+        8096,
+        895
+      ],
+      "candidate": [
+        34,
+        0,
+        0,
+        8064,
+        895
+      ],
+      "differences": [
+        {
+          "record_word": 5,
+          "file_byte": 2365492,
+          "class": "five_state:flags",
+          "original_hex": "00000020",
+          "candidate_hex": "00000000",
+          "original_signed": 32,
+          "candidate_signed": 0
+        },
+        {
+          "record_word": 6,
+          "file_byte": 2365496,
+          "class": "five_state:MXCSR",
+          "original_hex": "00001fa0",
+          "candidate_hex": "00001f80",
+          "original_signed": 8096,
+          "candidate_signed": 8064
+        }
+      ]
+    },
+    {
+      "rank": 6,
+      "record": "batch",
+      "original": [
+        34,
+        0,
+        0,
+        8064,
+        895
+      ],
+      "candidate": [
+        34,
+        0,
+        32,
+        8096,
+        895
+      ],
+      "differences": [
+        {
+          "record_word": 5,
+          "file_byte": 2419252,
+          "class": "five_state:flags",
+          "original_hex": "00000000",
+          "candidate_hex": "00000020",
+          "original_signed": 0,
+          "candidate_signed": 32
+        },
+        {
+          "record_word": 6,
+          "file_byte": 2419256,
+          "class": "five_state:MXCSR",
+          "original_hex": "00001f80",
+          "candidate_hex": "00001fa0",
+          "original_signed": 8064,
+          "candidate_signed": 8096
+        }
+      ]
+    },
+    {
+      "rank": 7,
+      "record": "warm",
+      "original": [
+        34,
+        0,
+        32,
+        8096,
+        895
+      ],
+      "candidate": [
+        14,
+        0,
+        32,
+        8096,
+        895
+      ],
+      "differences": [
+        {
+          "record_word": 3,
+          "file_byte": 12,
+          "class": "five_state:errno",
+          "original_hex": "00000022",
+          "candidate_hex": "0000000e",
+          "original_signed": 34,
+          "candidate_signed": 14
+        }
+      ]
+    },
+    {
+      "rank": 8,
+      "record": "warm",
+      "original": [
+        14,
+        0,
+        32,
+        8096,
+        895
+      ],
+      "candidate": [
+        34,
+        0,
+        32,
+        8096,
+        895
+      ],
+      "differences": [
+        {
+          "record_word": 3,
+          "file_byte": 12,
+          "class": "five_state:errno",
+          "original_hex": "0000000e",
+          "candidate_hex": "00000022",
+          "original_signed": 14,
+          "candidate_signed": 34
+        }
+      ]
+    }
+  ],
+  "round_and_CW_all_exact": true,
+  "strict_wave_failed": true,
+  "no_normalization_restore_waiver_or_rerun": true
+}

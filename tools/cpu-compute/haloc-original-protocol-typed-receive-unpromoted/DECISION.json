@@ -1,0 +1,35 @@
+{
+  "status": "CLOSED_UNPROMOTED_FIXED_PERCALL_TYPED_RECEIVE_CANDIDATE",
+  "mechanism": "Original Y-to-X point-to-point HALOC send staging/order retained; MPI_CHAR subarray/struct direct receives into U/V ghosts instead of receive scratch plus numeric unpack. Types created/committed/freed each call; no cache.",
+  "native_scope": {
+    "status": "PASS_ORIGINAL_HALOC_TYPED_RECEIVE_9RANK_RAW5STATE_MIXED_FALLBACK_PENDING_CALLER",
+    "invocation_id": "d5b40b3e58a343cf8bfce930ee6bb111",
+    "ranks": 9,
+    "records_per_rank": 16,
+    "all_physical_raw_and_five_state_exact": true,
+    "mixed_local_fallback": true,
+    "protocol_and_liveness_checked": true,
+    "application_qualified": false
+  },
+  "caller_scope": "Same-node9rank local3x3 synthetic563x122x33 footprint,4096 fullHALOC calls/rank; datatype construction/free included. Not actual224-rank forecast topology.",
+  "timing_wave_status": "FAIL_RETAINED_NO_RETRY",
+  "parent_max_wall_ns": 292787959,
+  "candidate_max_wall_ns": 336731781,
+  "candidate_wall_longer_percent": 15.008753143431019,
+  "parent_sum_thread_cpu_ns": 2633961938,
+  "candidate_sum_thread_cpu_ns": 3027352584,
+  "candidate_CPU_longer_percent": 14.935320071432256,
+  "timing_interpretation": "Diagnostic first pair only; strict crossarm state failure prevents performance qualification. Both arms individually normal closed; opposite-order arms2/3 not run.",
+  "reasons": [
+    "First actual completecaller pair slower by about15percent",
+    "Strict crossarm five-state mismatch despite all physical U/V/header bytes exact"
+  ],
+  "state_scope": "Warm errno rank3/8 14->34 and rank5/7 34->14. Batch inexact flags/MXCSR bit0x20 rank5 clear andrank6 set. No backend cause established.",
+  "previous_failed_R1": "Private Fortran IF closure placement error before numerical executions; preserved separately, fixed only in fresh R2.",
+  "application_qualified": false,
+  "performance_qualified": false,
+  "default_changed": false,
+  "source_or_working_selection_changed": false,
+  "further_arms_repair_or_state_normalization": false,
+  "rollback": "No activation in model/public defaults occurred; retain selected original protocol, no source rollback required."
+}

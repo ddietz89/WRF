@@ -1,5 +1,16 @@
 # WRF CPU optimization findings
 
+## October25: current caller decisions and height application candidate
+
+Reusing the existing ordered height helper in `moist_physics_prep_em` shortened the complete synthetic caller by **1.7033% on hpc01 and1.2111% on hpc02**, with threadCPU reductions1.6117%/1.1959%. All four fixed512-call arms passed exact warm/final physical outputs, readonly and five-state checks after separate checked cache clears and normal closures. Complete moist-API O2/O0 and unchanged PHY_PREP regressions also passed. Scoped structural review preserves raw false comparisons while accounting for all non-target relocation and module-summary differences. This is a worthwhile caller improvement, with no forecast-speedup claim.
+
+Experimental image5c758822/archive d0c5b00e adds only that height change to871: one BigStep archive member replaced,583 other members and RSL unchanged, no scientific/helper recompilation and one link. Its own three-hour application qualification is being prepared; working defaults and selection remain871 until that passes. Canonical eligible/off source projections match the tested/original target statements, respectively; this is not a clean whole canonical-source build certificate.
+
+The distinct BigStep density-to-temperature row fusion passed all source-valid27×4 O2/O0 whole-callee cases but was **7.9467%/8.1494% slower** in complete callers on the two nodes, with CPU mirroring. Close this fixed candidate unpromoted. Both failed fixture attempts, corrected continuation and all passing prefixes remain preserved; no positive kernel gain or forecast regression is inferred. [Source, exact checks and caller evidence](tools/cpu-rejected/bigstep-pressure-row-fusion-20261025/README.md).
+
+The original-protocol typed-receive MPI candidate passed all nine ranks'16-case native raw/state, request-order and mixed-fallback checks. Its larger complete caller stopped after the first pair: all U/V values and headers remained exact, but errno or inexact status differed on six ranks. Candidate wall336.731781ms versus original292.787959ms was15.0088% longer; summed threadCPU was14.9353% longer. Both arms closed normally after separate cache clears; the opposite-order pair did not run. Keep this fixed per-call datatype design unpromoted, with no normalization, retry, forecast gain or universal claim about derived datatypes. [Actual decision and classification](tools/cpu-compute/haloc-original-protocol-typed-receive-unpromoted/README.md).
+
+
 ## October25: latest combined871 passes fresh nine-hour full-grid comparison
 
 The corrected original546b and latest combined871 each completed nine simulated hours on hpc01–03, with identical256 ranks (224 compute8×28 plus32 quilt4×8), two tiles, qualified InfiniBand transport and checked client-cache clearing before each arm. All ten complete06–15 products and all1,625 ordered timesteps passed the unchanged exact checker. All six model scopes and the reader closed normally. This includes all previously selected improvements plus SW whole-draw seed carry and FINISH V.
@@ -14,7 +25,7 @@ This original-first, latest-second pair gives an observed throughput ratio of1.1
 
 Lifetime cgroup memory peaks were89.34/81.25/90.26GiB for the original and61.58/54.51/62.92GiB for871, with zero memory events. These per-node peaks do not occur at a proven common instant. External before/during/after hardware samples reported no available BMC alarm. One candidate gateway observation interval failed and recovered with the same model PIDs; that interval remains unknown and sampling cannot exclude shorter transients.
 
-Own unprofiled SAME256 noon, three-hour and nine-hour science are now qualified. Four-host512,384-rank, current-profile, restart and full144-hour scopes remain unqualified. Tested-PP/cached-object delivery remains distinct from a clean whole canonical-source build. [Exact qualification, measurements and rollback](tools/cpu-compute/sw-whole-draw-finish-v-20261025/NINE_HOUR_APPLICATION_QUALIFICATION.json).
+Own unprofiled SAME256 noon, three-hour and nine-hour science are now qualified. The separate current source profile is qualified within the selected-thread scope below. Four-host512,384-rank, restart and full144-hour scopes remain unqualified. Tested-PP/cached-object delivery remains distinct from a clean whole canonical-source build. [Exact qualification, measurements and rollback](tools/cpu-compute/sw-whole-draw-finish-v-20261025/NINE_HOUR_APPLICATION_QUALIFICATION.json).
 
 The canonical SW and MYJPBL target recipes now explicitly carry the module-local `-fopenmp-simd` flag already used by the selected objects, under qualified GNU13.3/default-kind/pure-MPI guards. This fixes source build delivery without changing871. Actual canonical MYJ and SmallStep machine/data/module checks are exact; SW differs only in exhaustively classified I/O and fatal-error source-row diagnostics. Its strict-byte-false result remains preserved. [Three-owner evidence, opt-outs and rollback](tools/cpu-compute/canonical-selected-owner-flags-20261025/README.md).
 
