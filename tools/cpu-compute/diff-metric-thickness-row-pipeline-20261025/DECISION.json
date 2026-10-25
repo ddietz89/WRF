@@ -1,0 +1,58 @@
+{
+  "status": "CLOSED_FIXED_THICKNESS_ROW_PIPELINE_UNPROMOTED",
+  "reason": "No significant repeatable complete-caller gain demonstrated at the representative tile; host01 small improvement and host04 small regression.",
+  "native_status": "PASS_CURRENT0B40_DIFF_METRICS_THICKNESS_ROW_PIPELINE_WHOLE12_FOURROUND_O2_O0_RAW5STATE",
+  "native_invocation": "a15621afacee4f6a83560a3c43ce646b",
+  "native_scope": "12 whole-function cases x4 FP controls at each O2/O0; genuine/current cached-parent/candidate cross-oracles, full physical/read-only/config/guards/five-state.",
+  "caller_scope": {
+    "calls_per_arm": 8192,
+    "arms": 4,
+    "order": [
+      "01P",
+      "04C",
+      "01C",
+      "04P"
+    ],
+    "physical_geometry": "I188 x J10 x K33; physical197x19x34",
+    "full_raw_bytes": 3563480,
+    "all_arm_raw_sha256": "a08d25c33c755be74a87ff127c766d40f256dfdb01bb536500e45a5dae3c758c",
+    "cache_before_each": true,
+    "all_normal_closed": true,
+    "clock_scope": "Whole compute_diff_metrics plus five full physical output restores per call; integer monotonic wall and thread CPU. Checks outside clocks.",
+    "different_call_count_gold": "Warm1 vs batch8192 comparison excludes only retained batch5 bytes116:136; equal8192 cross-arm comparison is entire raw including all five state words."
+  },
+  "comparisons": [
+    {
+      "host": "hpc01",
+      "parent_arm": 0,
+      "candidate_arm": 2,
+      "parent_wall_seconds": 4.830712955,
+      "candidate_wall_seconds": 4.788827119,
+      "wall_reduction_percent": 0.8670735850004663,
+      "parent_thread_cpu_seconds": 4.830156686,
+      "candidate_thread_cpu_seconds": 4.788182268,
+      "thread_cpu_reduction_percent": 0.8690073786148722
+    },
+    {
+      "host": "hpc04",
+      "parent_arm": 3,
+      "candidate_arm": 1,
+      "parent_wall_seconds": 4.804434305,
+      "candidate_wall_seconds": 4.814378466,
+      "wall_reduction_percent": -0.20697881100488758,
+      "parent_thread_cpu_seconds": 4.803493111,
+      "candidate_thread_cpu_seconds": 4.814028887,
+      "thread_cpu_reduction_percent": -0.21933571583299116
+    }
+  ],
+  "mechanism": "Natural K-row scheduling of z_at_w producer then rdz/rdzw consumers retains every original scalar operation/tree, scratch store, mandatory load/divide/store, and allocation/free. Cache-locality hypothesis only.",
+  "structural_scope": "37 non-target function bodies/sizes raw exact; 44 named E8/E9 PLT32 referent placements and six ABS64 same-owner pointers classified. Strict full RELA false retained, pool bytes true, whole-TU identity not claimed.",
+  "preserved_failure": "R1 benchmark compile failed because warm_state lacked TARGET; no scientific/native failure. R2 adds only TARGET and uses fresh stage/unit; R1 immutable.",
+  "performance_qualified": false,
+  "application_qualified": false,
+  "allocation_or_memory_benefit_claimed": false,
+  "significant_kernel_gain_demonstrated": false,
+  "further_arms_or_application_planned": false,
+  "source_or_default_changes": false,
+  "rollback": "Selected source/image/defaults unchanged; do not adopt private candidate."
+}

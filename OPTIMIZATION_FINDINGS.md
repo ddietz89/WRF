@@ -5227,3 +5227,22 @@ Close this fixed candidate unpromoted, with no further variant or repeat. The me
 | hpc04 | 1.058792461 | 0.960317530 | 9.301% | 9.299% |
 
 All four fixed10000 complete-caller arms passed strict raw/five-state checks, cache EACH and normal closure. Scalar producer and unchanged packed consumer retain original per-output arithmetic; native O2/O0 four-mode proof passed. Own unprofiled noon185/twoFULL science and original reader passed with four normal model closures, with protected original checker, two positive writer roots/16 FIELDVIEW markers/32 environment records. No own3h/9h/profile or forecast speedup claim. Earlier strict compound-loop failure, short-timer failure and precompile packaging failure remain preserved. Canonical default is supported only by target statement/Make projection plus exact tested PP/cached-object delivery; raw producer NULL, post-test source commit399c39c; no clean-F producer claim.
+
+### RK scalar row pipeline — own three-hour qualified
+
+| Run | Wall s | Main-step s | Aggregate CPU core-s |
+|---|---:|---:|---:|
+| Control A2 | 800.214591 | 596.450450 | 359516.463363 |
+| Control A1 | 798.619809 | 595.327090 | 358644.885565 |
+| Control 5c75 | 800.024121 | 596.593540 | 359327.346984 |
+| Control median (n=3) | 800.024121 | 596.450450 | 359327.346984 |
+| Current4b87 (n=1) | 623.109726 | 539.541010 | 302909.056182 |
+| Descriptive reduction vs median | 22.114% | 9.541% | 15.701% |
+
+Control ranges (min–max): wall_seconds 798.619809–800.214591, main_step_sum_seconds 595.327090–596.593540, cpu_seconds 358644.885565–359516.463363.
+
+Candidate-only versus median3 retained distinct original546b invocations; UNPAIRED descriptive reductions, not matched causal/component/forecast gain or repeatability. Hardware/cache epoch matching remains unresolved. Existing parent0b40 matchedABBA n2 remains immutable and separate. Main step includes communication/backpressure; aggregate CPU is core-seconds.
+
+Own545/fourFULL science and original reader passed, all four models closed normally. Own9h/profile remainFALSE; raw producerNULL, post-test source399c39c.
+
+- **Thickness row pipeline — closed unpromoted.** Actual whole `compute_diff_metrics` passed 12 cases × four FP controls at O2/O0 with full raw/read-only/config/guards/five-state checks. Four cache-cleared 8192-call arms passed with identical full raw/state and normal closures. Complete-caller wall changes were +0.8671% on hpc01 and −0.2070% on hpc04 (CPU +0.8690%/−0.2193%): no significant repeatable gain demonstrated. Mandatory loads/divisions/stores and scratch allocation remain; no memory benefit or forecast claim. Strict full-RELA false fields remain explicitly classified rather than normalized. The initial benchmark-only missing-TARGET compile failure and minimal fresh R2 fix remain preserved. No source/default promotion; no further arms or application planned.
