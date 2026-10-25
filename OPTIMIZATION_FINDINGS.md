@@ -1,5 +1,9 @@
 # WRF CPU optimization findings
 
+## October25: 384-rank control exceeds its three-node memory cap
+
+The original 352-compute + 32-quilt model reached hpc01’s 100 GiB cgroup limit during initialization. Kernel evidence confirms a cgroup OOM kill; all owned processes closed and the candidate did not launch. The 384-rank input/output and 24-cohort shared-table fixtures passed separately. This configuration is closed without a timing comparison or scientific qualification; the qualified 256-rank setup remains selected. [Actual capacity result and evidence](tools/cpu-compute/threehost384-admission-20261025/README.md).
+
 ## October25: equal-sky quadrature closed after exact native tests and slower callers
 
 The fixed bit-identical-sky shortcut passed actual full paired-routine raw/state checks at O2 and bounds-checked O0, including the original32×4cases,256 additional exceptional/readset calls (619,520bytes), and12 complete-SPCVMC cases. It nevertheless increased whole-pair wall time by **14.62% on exact hits** and **20.13% on a late mismatch**; complete-SPCVMC mixed/clear callers were **1.82%/7.21% slower**. All eight cache-cleared timing arms closed normally. This is a numerical pass followed by a performance rejection, with no promotion or further repair. Structural adjudication preserves real generated-caller changes rather than calling all differences placement; production hit frequency remains unknown. BACF and all selected defaults remain unchanged. [Actual metrics, evidence and limits](tools/cpu-compute/equal-sky-quadrature-closeout-20261025/README.md).

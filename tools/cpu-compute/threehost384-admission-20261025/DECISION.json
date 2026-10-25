@@ -1,0 +1,112 @@
+{
+  "status": "ORIGINAL_MEMORY_ADMISSION_FAILED",
+  "closed": true,
+  "scope": {
+    "world": 384,
+    "compute": 352,
+    "decomposition": [
+      8,
+      44
+    ],
+    "quilt": 32,
+    "hosts": [
+      "hpc01",
+      "hpc02",
+      "hpc03"
+    ],
+    "memory_max_bytes_per_host": 107374182400,
+    "swap_max_bytes": 0,
+    "cpu_quota_cores_per_host": 128,
+    "purpose": "One original546b384\u2192selectedBACF384 shortsame-map science/memorypilot; no concurrency/SMT."
+  },
+  "actual_model_attempt": {
+    "arm": "original546b_control",
+    "launched": true,
+    "coordinator_invocation_id": "e4bbfd34f8d64ecebf865dfd53c221db",
+    "grant_sha256": "0cb9c5cf8325b16068d62937e2295556a5797c08a43d11776cc7bad08933b080",
+    "runtime_manifest_sha256": "da60f000e3b2572ea0a5a5085ae00e96d6bbe47e324aff72036a77e529591a89",
+    "failure": "hpc01 ownmodel CONSTRAINT_MEMCG OOM at fixed100GiB initialization before firststep; beforefirststep scope explicitlyreportedbyroot fromactualattempt.",
+    "own_kernel_oom_evidence_sha256": "e14aee91e6fce9ecc8db0b46f7f5b85f8e8113f1306b82379553c87765fb2324",
+    "kernel_oom_memcg": "/system.slice/wrf-cpu-production384-currentbacf-threehost-short-control-hpc01-r1.service",
+    "coordinator_actual_terminal_result": "oom-kill",
+    "candidate_BACF_launched": false,
+    "original_completed_science": false,
+    "reader_science_qualification": false,
+    "completion_caveat": "Retained remotecompletion.json says PREPARED_NOT_EXECUTED but is stale afteractualmodelstarted; it is not nonexecutionauthority. Actualgrant/launch/kernelOOM/cleanup prove attempt. Do not rewrite frozencompletion or infer normal modelclosure."
+  },
+  "resource_cleanup": {
+    "hpc01": {
+      "MainPID": "0",
+      "Result": "oom-kill",
+      "ActiveState": "failed",
+      "cgroup_paths_absent": true,
+      "cgroup_processes": [],
+      "scope": "Resourceclosureonly; no normalSCIqualification"
+    },
+    "hpc02": {
+      "MainPID": "0",
+      "Result": "success",
+      "ActiveState": "inactive",
+      "cgroup_paths_absent": true,
+      "cgroup_processes": [],
+      "scope": "Resourceclosureonly; no normalSCIqualification"
+    },
+    "hpc03": {
+      "MainPID": "0",
+      "Result": "success",
+      "ActiveState": "inactive",
+      "cgroup_paths_absent": true,
+      "cgroup_processes": [],
+      "scope": "Resourceclosureonly; no normalSCIqualification"
+    }
+  },
+  "positive_component_evidence": {
+    "NC384_R2": {
+      "status": "PASS_GENUINE384_NC_BYTE_STATE_AUTHORITY_LIFECYCLE_ALL3_NORMAL_CLOSED_PENDING_SEPARATE_TPI_AND_WRF",
+      "all384_entries": 384,
+      "all3_normal_closed": true,
+      "scope": "ExactpublicNCABI/raw/fivestate/guards/owner/allfouroutputroots+lifecycle; nativeonly."
+    },
+    "TPI352": {
+      "status": "PASS_GENUINE_MPI384_TPI352_BOTH_MODES_NATIVE_METADATA_PENDING_WRF_SCIENCE",
+      "modes": [
+        "0",
+        "1"
+      ],
+      "cohorts_eachmode": 24,
+      "strict_scope_records_eachmode": 4928,
+      "all3_normal_closed_eachmode": true,
+      "scope": "Actual352compute14strictscopes/bytecompare/lifetimes24exactNUMAcohorts modes0/1; nativeonly."
+    }
+  },
+  "retained_failures": "OriginalNC384R1 failedoldgatherbuffer all[256][4]; R2driver-onlyfix passed. Allattempts retained, not rewritten as successfulR1.",
+  "qualification": {
+    "384_original_memory_admitted": false,
+    "384_candidate_memory_fit": "UNKNOWN_NOT_LAUNCHED",
+    "384_own_science": false,
+    "384_performance_gain": false,
+    "384_default_promotion": false,
+    "current_selected256_changed": false
+  },
+  "decision": "Close thissingle384setup. No furthercontext/modelruns, capraise, retry, performancequalification, or source/defaultpromotion. Currentselected256 remainsunchanged. PositiveNC/TPIcomponentproofs do not waive originalmodelmemoryfailure or substitute evolvedSCI. No allocation-attribution/table-residency/linear-scaling inference from100GiB OOM.",
+  "actions": {
+    "extra_remote_queries": false,
+    "HPC_jobs": false,
+    "API": false,
+    "AWS": false,
+    "cap_raise": false,
+    "repo_or_Git_edits": false
+  },
+  "refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentbacf-three-node-single384-preparation-r1/pilot-execution-r1/ACTUAL_ORIGINAL384_OWN_KERNEL_OOM.json": "e14aee91e6fce9ecc8db0b46f7f5b85f8e8113f1306b82379553c87765fb2324",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentbacf-three-node-single384-preparation-r1/pilot-execution-r1/STATUS.json": "1440dbc3a028936bf6f9561bce6d4a686442efe3d539055577dad50703871804",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentbacf-three-node-single384-preparation-r1/threehost-native-preparation-r2-census/actual-native-r1/ACTUAL_RESULT_AND_CLOSURES.json": "5048702d3f6eb3bf38fc2d6eb69b34d3c766594fb68cddc53e029aeb88dfd39a",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentbacf-three-node-single384-preparation-r1/tpi-threehost-native-preparation-r1/actual-native-r1/ACTUAL_TWO_MODE_SUMMARY.json": "b219906ca15f2d043751b2f4524a8b11e348f74dbddc4d02a4c233b7bd0d61d6",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentbacf-three-node-single384-preparation-r1/candidate-rank-map.PROPOSED.json": "6e25843b794e90212b30ccadfe81bda6a0f55b24e87c796f56fec98feaa87f82",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentbacf-three-node-single384-preparation-r1/independent-design-resource-review-preparation-r1/ACTUAL_REVIEW_ADJUDICATION.json": "8ddbfe0cc37f8c7682e63b9403eb8a6e9ef9b43cd08e1a423f9a800e5bd9000f",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentbacf-three-node-single384-preparation-r1/provider-build-preparation-r1-hpc03/actual-native-r1/receipt.json": "e05ac34c730985e309d5b6ae170b12218989b6099a0ba60e7101daa9c9e66c17",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentbacf-three-node-single384-preparation-r1/provider-build-preparation-r1-hpc03/actual-native-r1/closure.json": "33364522f16cc52032dbe92ad0d018bea5e9f64b81432f15f65ccc8ce42b39ee",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentbacf-three-node-single384-preparation-r1/provider-driver-census-build-preparation-r2-hpc03/actual-native-r1/receipt.json": "fab7b2ca25ec56223f00a0f74f0f74a949f8eead7ff95f17f2f143f2d7d38f01",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentbacf-three-node-single384-preparation-r1/provider-driver-census-build-preparation-r2-hpc03/actual-native-r1/closure.json": "58b221c467a6ac2d4b05544282aba63d9418e5d931c2951e13a8813e111ceeb9"
+  }
+}
