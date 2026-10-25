@@ -5218,3 +5218,12 @@ A private source replay split HALO_EM_C Y posting/completion around independent 
 The same executable completed a four-host sync/split/split/sync cost wave, one rank per node with separately checked cache clears and all 16 node scopes normally closed. Complete Y+X+mass-update batches, including identical mutable restores, were **15.7929% and 14.4328% slower** in the two opposite-order comparisons; summed rank thread CPU was **15.7896% and 14.4417% higher**. Full raw outputs and matching-call-count five-state comparisons passed. The first runtime's baseline failure is retained: it incorrectly required errno after 2,048 calls to equal errno after one warm call. The narrow repair records both values and keeps all five state fields strict across matching sync/split batches.
 
 Close this fixed candidate unpromoted, with no further variant or repeat. The measured regression belongs to the combined overlap/compute schedule; allocation cost, wire progress and the specific cause were not isolated. The selected `5c75` image and defaults remain unchanged. [Actual native, complete-caller, repair and source-scope evidence](tools/cpu-rejected/haloc-y-interior-mu-overlap-20261025/README.md).
+
+### RK scalar firststage row pipeline — own unprofiled noon qualified
+
+| Host | Parent s | Candidate s | Wall lower | Thread CPU lower |
+|---|---:|---:|---:|---:|
+| hpc01 | 1.004592952 | 0.951696491 | 5.265% | 5.268% |
+| hpc04 | 1.058792461 | 0.960317530 | 9.301% | 9.299% |
+
+All four fixed10000 complete-caller arms passed strict raw/five-state checks, cache EACH and normal closure. Scalar producer and unchanged packed consumer retain original per-output arithmetic; native O2/O0 four-mode proof passed. Own unprofiled noon185/twoFULL science and original reader passed with four normal model closures, with protected original checker, two positive writer roots/16 FIELDVIEW markers/32 environment records. No own3h/9h/profile or forecast speedup claim. Earlier strict compound-loop failure, short-timer failure and precompile packaging failure remain preserved. Canonical default is supported only by target statement/Make projection plus exact tested PP/cached-object delivery; raw producer NULL, post-test source commit399c39c; no clean-F producer claim.

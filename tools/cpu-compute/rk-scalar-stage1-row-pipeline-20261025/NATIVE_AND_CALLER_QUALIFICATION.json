@@ -1,0 +1,123 @@
+{
+  "status": "PASS_SCOPED_NATIVE_COMPLETE_CALLER_AND_OWN_UNPROFILED_NOON",
+  "mechanism": "Firststage scalar producer-I pass followed by original packed consumer-I pass per K; requires both skip_clear and all six matching bounds; original full fallback, full scratch writes and laterstage preserved.",
+  "native": {
+    "receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current5c75-rk-scalar-firststage-consumer-source-question-r1/native-gate-preparation-r2-hpc02/actual-native-r1/receipt.json",
+      "sha256": "5c1b25b712101e3ae50675874c412f8aba52ebfb54d7ac4bf1a4d09bdd7b54a6",
+      "bytes": 163431
+    },
+    "closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current5c75-rk-scalar-firststage-consumer-source-question-r1/native-gate-preparation-r2-hpc02/actual-native-r1/closure.json",
+      "sha256": "8287b0aeab8cbf8d0e780f572ca31f8010651ad961270055b97d34b5b4717f8c",
+      "bytes": 1150
+    },
+    "invocation_id": "3e36d3c9e637484db5507de3be11759b",
+    "raw_proof_records": 32,
+    "rounding_modes": 4,
+    "optimizations": [
+      "O2",
+      "O0"
+    ],
+    "all_raw_readonly_physical_five_state_exact": true,
+    "candidate_O2_object_sha256": "8fdf9a7f2076f6fbc4bc0a02aa94ea145032ba29a881dc093206ef5cce71ab84",
+    "qualified_PP_sha256": "8deb8449613d2605666e4d7ed3110620d481adf3621b7b137203eaa37b8e3f2b",
+    "original_MOD_sha256": "13339f5903077d40d58d1578197068c9ab69dd2993aa8b17444ee1c8687823cc",
+    "whole_non_target_raw_and_full_RELA_exact": false,
+    "scoped_classification": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current5c75-rk-scalar-firststage-consumer-source-question-r1/row-pipeline-actual-scoped-classification-r2/CLASSIFICATION.json",
+      "sha256": "044770df37abc0ff4d3dec7bd1aeebde938aa8380e5eb393436abcc40368328f",
+      "bytes": 6439
+    },
+    "scope_note": "Only dump_data/trajectory diagnostic line constants +30 classified. No whole translation-unit identity claim."
+  },
+  "caller": {
+    "wave": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current5c75-rk-scalar-firststage-consumer-source-question-r1/complete-caller-cost-preparation-r2-fixed10000/ACTUAL_WAVE.json",
+      "sha256": "a232cdee3efe601c3f339221cbdd527253094747aa34cd73e4af0fb90797b050",
+      "bytes": 7584
+    },
+    "fixed_calls": 10000,
+    "complete_routine_and_required_restores_inside_clock": true,
+    "comparisons": [
+      {
+        "host": "hpc01",
+        "parent_arm": 0,
+        "candidate_arm": 2,
+        "parent_wall_seconds": 1.004592952,
+        "candidate_wall_seconds": 0.951696491,
+        "wall_reduction_percent": 5.265462085384021,
+        "parent_thread_cpu_seconds": 1.004552397,
+        "candidate_thread_cpu_seconds": 0.951631764,
+        "thread_cpu_reduction_percent": 5.268080904295536
+      },
+      {
+        "host": "hpc04",
+        "parent_arm": 3,
+        "candidate_arm": 1,
+        "parent_wall_seconds": 1.058792461,
+        "candidate_wall_seconds": 0.96031753,
+        "wall_reduction_percent": 9.300683054259107,
+        "parent_thread_cpu_seconds": 1.058716571,
+        "candidate_thread_cpu_seconds": 0.9602662,
+        "thread_cpu_reduction_percent": 9.299029947836711
+      }
+    ],
+    "all_four_raw_five_state_cache_normal_closure": true,
+    "limits": "Synthetic complete-caller observations only, two opposite-order pairs; no forecast, global, repeatability or retained-control gain claim."
+  },
+  "build": {
+    "receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current5c75-rk-scalar-firststage-consumer-source-question-r1/one-em-member-build-preparation-r1-hpc02/actual-native-r1/receipt.json",
+      "sha256": "2aa6e4ee87e5fbc9e05c334717dc7c9c2a6a95286aade3a0463537e835c8c80a",
+      "bytes": 13379
+    },
+    "closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current5c75-rk-scalar-firststage-consumer-source-question-r1/one-em-member-build-preparation-r1-hpc02/actual-native-r1/closure.json",
+      "sha256": "3eac1924196fbfafed19c477e8c5fb9fda0956af620bd157d7970cd70c901534",
+      "bytes": 1108
+    },
+    "invocation_id": "4c4de42acc6a4333ade4506f1fb50184",
+    "executable": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current0b40-rkscalar-row-one-em-member-experimental-r1/wrf.exe",
+      "sha256": "4b87b01053f074ae6381824309f6649b1b53efdf6161ae7fbb6df997ba2bd18b"
+    },
+    "archive": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current0b40-rkscalar-row-one-em-member-experimental-r1/libwrflib.a",
+      "sha256": "021af719497d01a66ddad2c835e3684132828e50b6f6375e80fc885f294e657e"
+    },
+    "changed_member": "module_em.o",
+    "unchanged_occurrences": 583,
+    "members": 584,
+    "source_compiles": 0,
+    "module_compiles": 0,
+    "full_WRF_links": 1
+  },
+  "source_default_projection": {
+    "reference": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current5c75-rk-scalar-firststage-consumer-source-question-r1/canonical-source-private-proposal-r1/PROJECTION.json",
+      "sha256": "476bf982684d2add5d423dfb0b883e9424db64b08364ff9932c05e78b8ae4be9",
+      "bytes": 1669
+    },
+    "Make_expansion": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current5c75-rk-scalar-firststage-consumer-source-question-r1/canonical-source-private-proposal-r1/MAKE_EXPANSION_CHECK.json",
+      "sha256": "004343471a4693a573c8163f925495cebdd56323243b9d637ffddcb4e02600d3",
+      "bytes": 13837
+    },
+    "Make_cases": 24,
+    "whole_clean_F_only_rebuild_certified": false,
+    "qualification_route": "Exact tested PP replay/cached native object; canonical target statement/directive correspondence only.",
+    "actual_module_em_F_sha256": "18dc36ebc9a82158f468edfe30d506af180da68eaa4428d6797f8db1b79a5aca",
+    "actual_Makefile_sha256": "01ac2905b9f6070dee5b1f45adf767a4940289ee7fb8f62afdd4eb5d577e737b",
+    "actual_vs_private": "Only one pure whitespace blank removed in actualF; Make comment private\u2192qualified. All nonblank source and noncomment Make lines exact."
+  },
+  "source_commit": "399c39c798515ec720f770dc95753d3413f69530",
+  "post_test_source_commit": "399c39c798515ec720f770dc95753d3413f69530",
+  "raw_producer_source_commit": null,
+  "own_application_qualified": true,
+  "own_unprofiled_noon_qualified": true,
+  "own_three_hour_qualified": false,
+  "own_nine_hour_qualified": false,
+  "own_profile_qualified": false,
+  "retained_parent_ABBA_results_transfer_to_child": false
+}

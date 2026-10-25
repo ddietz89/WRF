@@ -1,0 +1,133 @@
+{
+  "status": "PASS_SCOPED_NATIVE_AND_ROW_PIPELINE_CODEGEN_ELIGIBLE_COMPLETE_RKSCALAR_CALLER",
+  "eligible_for_complete_rk_scalar_caller": true,
+  "performance_qualified": false,
+  "application_qualified": false,
+  "native_receipt": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current5c75-rk-scalar-firststage-consumer-source-question-r1/native-gate-preparation-r2-hpc02/actual-native-r1/receipt.json",
+    "sha256": "5c1b25b712101e3ae50675874c412f8aba52ebfb54d7ac4bf1a4d09bdd7b54a6",
+    "invocation_id": "3e36d3c9e637484db5507de3be11759b"
+  },
+  "actual_query": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current5c75-rk-scalar-firststage-consumer-source-question-r1/row-pipeline-postnative-codegen-classification-query-r2/actual-r1/stdout.json",
+    "sha256": "c9f57350b902ba3ca6e989e31d9bc688b40d69c7f30b952a647b27368e352bd8"
+  },
+  "O2_candidate_object_sha256": "8fdf9a7f2076f6fbc4bc0a02aa94ea145032ba29a881dc093206ef5cce71ab84",
+  "native_scope": "O2/O0 strict sameopt original28+partialK/species3+retainedlatercase42+focused14,4maskedroundmodes.32family/round/opt rawproofs, not32individualgeometries; allfullphysical/read-only/guards/argumentstate/fivestate exact.",
+  "original_MOD_bytes_exact": true,
+  "public_global_ABI_exact": true,
+  "public_symbol_name_type_binding_visibility_section_exact": true,
+  "shared_pool_bytes_attrs_exact": true,
+  "shared_pool_full_RELA_exact": true,
+  "whole_non_target_raw_and_full_RELA_exact": false,
+  "strict_false_functions_explicit": [
+    "__module_em_MOD_dump_data",
+    "__module_em_MOD_trajectory"
+  ],
+  "non_target_scoped_classification": {
+    "dump_data": {
+      "bytes": 829,
+      "raw_bytes_exact": false,
+      "full_RELA_exact": true,
+      "only_changed_bytes": 2,
+      "differences": [
+        {
+          "changed_byte_offset": 306,
+          "instruction_offset": 299,
+          "opcode_and_stack_destination": "c78424d0000000",
+          "parent_line_immediate": 2142,
+          "candidate_line_immediate": 2172,
+          "exact_unchanged_source_statement": "write(io_unit) is,ie,ks,ke,js,je",
+          "following_exact_runtime_RELA": [
+            322,
+            4,
+            [
+              "_gfortran_st_write",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ]
+        },
+        {
+          "changed_byte_offset": 509,
+          "instruction_offset": 502,
+          "opcode_and_stack_destination": "c78424d0000000",
+          "parent_line_immediate": 2143,
+          "candidate_line_immediate": 2173,
+          "exact_unchanged_source_statement": "write(io_unit) a(is:ie, ks:ke, js:je)",
+          "following_exact_runtime_RELA": [
+            535,
+            4,
+            [
+              "_gfortran_st_write",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ]
+        }
+      ],
+      "classification": "Only source-line immediates in unchanged Fortran I/O descriptors shift+30. All other machine bytes and every full RELA tuple exact; diagnostic source locations intentionally differ, not wholefunction observable-byte identity."
+    },
+    "trajectory": {
+      "bytes": 5260,
+      "raw_bytes_exact": false,
+      "full_RELA_exact": true,
+      "only_changed_bytes": 1,
+      "differences": [
+        {
+          "changed_byte_offset": 817,
+          "instruction_offset": 810,
+          "opcode_and_stack_destination": "c7842430040000",
+          "parent_line_immediate": 2852,
+          "candidate_line_immediate": 2882,
+          "exact_unchanged_source_statement": "   write(dbg_mes,'(''trajectory('',i2.2,''): Entering trajectory'')') dm",
+          "following_exact_runtime_RELA": [
+            870,
+            4,
+            [
+              "_gfortran_st_write",
+              16,
+              0,
+              "",
+              0,
+              0
+            ],
+            -4
+          ]
+        }
+      ],
+      "classification": "Only source-line immediates in unchanged Fortran I/O descriptors shift+30. All other machine bytes and every full RELA tuple exact; diagnostic source locations intentionally differ, not wholefunction observable-byte identity."
+    }
+  },
+  "target": {
+    "name": "__module_em_MOD_rk_update_scalar",
+    "parent_bytes": 8828,
+    "candidate_bytes": 10861,
+    "size_increase_bytes": 2033,
+    "scalar_producer": "8fc0MOVSS advectload\u2192XMM0;8fc6MULSS msfty\u2192sameXMM0;8fcfADDSS sc_tendmemory\u2192productDESTXMM0;8fd4scratchstore.8fe0backedge\u21928fc0. Separate scalar producer preserves original product-destination operand priority; no compound two-lane producer.",
+    "packed_consumer": "9068..90a3 separate packed scalar-copy/update loop.908bMOVUPS scratchreload\u2192XMM3;908f dtMULPS\u2192XMM3;9092ADDPS\u2192numeratorXMM0;9095DIVPS;9098scalar2store.90a3backedge\u21929068. Two-lane and scalar-tail consumer paths retained.",
+    "per_K_schedule": "After producerIloop then consumerIloop/tails, K-state advances91e6..9230;9233branches\u21928f8e beforeproducerIloop. Thus currentK row is produced and consumed before nextK. AfterKcomplete Jadvances9239..92a9. Source rows1744/1737 corroborate K/J ownership.",
+    "mechanism": "NaturalwholeIrow pipeline survives actual machinecode: ORIGINALscalarproducerpriority plus separate packedconsumer and perKrow schedule.",
+    "not_claimed": "3Dtendencyallocation/stores/reloads remain. No elimination of FP work/allocation, instruction-equivalent fulltarget, timinggain or forecast contribution inferred."
+  },
+  "original_compound_failure": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current5c75-rk-scalar-firststage-consumer-source-question-r1/native-gate-preparation-r1-hpc02/actual-native-r1/receipt.json",
+    "invocation_id": "b04f1b1329dd4345927bb2cd7421d536",
+    "status": "FAILED_UNCHANGED",
+    "scope": "Earliercompound two-lane producerNaNpriorityfailure retained; this separateR2doesnotrelabelit."
+  },
+  "limits": [
+    "MaskedIEEEonly; trapsunqualified.",
+    "Guardfalse/laterstage/source-declaration inverse and originalMOD caller protocol retained.",
+    "Only diagnostic source-line immediates differ in namednon-targets; no rawnormalization or whole-TUidentityclaim.",
+    "Completecaller and ownapplicationpending; no default/promotion fromnative/codegen."
+  ]
+}
