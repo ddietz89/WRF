@@ -1,0 +1,679 @@
+{
+  "status": "PASS_THREE_SELECTED_MAIN_TID_SOURCE_IDENTITY_PROFILE_ONLY",
+  "publication_proposal_only": false,
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current0ec3-sw-whole-draw-finish-v-two-member-experimental-r1/wrf.exe",
+    "sha256": "871f2e3c196e2ecb4a91fa167cc055ab8b94c13fbabd91f72c5020d042f415f3",
+    "bytes": 111473384
+  },
+  "runtime_manifest_sha256": "5cbacc0453e1a41dd8be4141954f2fe0502cb01164a240e2b6ca129084f62a66",
+  "grant_sha256": "ce7976e03db55058fa557d2080a15fcb95f6f06cf798cbfe5b8ab42d2553aec6",
+  "scientific_receipt": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current871-radiation-noon1h-native15-runtime-r1/science-receipt.json",
+    "sha256": "4751b0feb73bc875868c643e976275fb0df8e8781102c25924d4d7466d9e218e"
+  },
+  "reader_closure": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current871-radiation-noon1h-native15-runtime-r1/reader-closure.json",
+    "sha256": "72e6a708a86015e154840035610c6bcdf04a82bf8fe3b563a140014a7512669f"
+  },
+  "raw_RESULT": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current871-radiation-noon1h-native15-runtime-r1/RESULT.json",
+    "sha256": "6d885834428177a01d8af30129b4bb547e9f4e8631c16ddcfd42c7fe5f99057d"
+  },
+  "binding_admission": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current871-radiation-noon1h-native15-preparation-r1/postrun-binding-collector-preparation-r1/actual-bindings-r1/ACTUAL_BINDING_ADMISSION.json",
+    "sha256": "62478bd18217978175a1a5f56813d6780e87d02d95f36aac7fe88223c687153a"
+  },
+  "scope": {
+    "world": 256,
+    "compute_ranks": 224,
+    "quilt_ranks": 32,
+    "hosts": [
+      "hpc01",
+      "hpc02",
+      "hpc03"
+    ],
+    "ordered_steps": 185,
+    "FULL_products": 2,
+    "simulation": "2026-10-12 12:00 to13:00",
+    "observer_OFF": true,
+    "selected_main_TIDs_only": true,
+    "mixed_IO": true,
+    "source_identity_qualified": true,
+    "radiation_coverage": "Uneven: meaningful direct RRTMG/MCICA on114; none on40/184. Not a representative radiation distribution across ranks or forecast.",
+    "numeric_loss": "UNKNOWN",
+    "causal_MPI_join": false,
+    "global_headroom": false,
+    "timing_gain_claim": false,
+    "new_ninehour_qualification": false,
+    "new_unprofiled_qualification": false
+  },
+  "planned_trigger_model_seconds": [
+    1780,
+    1840
+  ],
+  "actual_phase_evidence": {
+    "status": "ACTUAL_RETAINED_PHASE_OBSERVATIONS_HASH_JOINED",
+    "reference": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current871-radiation-noon1h-native15-preparation-r1/profile-publication-proposal-r1/ACTUAL_CAPTURE_PHASE.json",
+      "sha256": "993eea806814e7de91300793372f464b026ca000260d4a07dc425dcf9ed9c127"
+    },
+    "per_rank": {
+      "40": {
+        "admitted_last_completed_forecast_time": "2026-10-12_12:29:55",
+        "model_second": 1795.0,
+        "estimate_age_seconds": 0.000162525,
+        "aged_remaining_wall_seconds": 159.955507975,
+        "collector_monotonic_start_ns": 2523716490897316,
+        "collector_monotonic_end_ns": 2523734602238709,
+        "collector_elapsed_seconds_including_initialization_finalization": 18.111336543,
+        "last_parent_completed_forecast_time": "2026-10-12_12:32:55",
+        "source": "actual retained collector phase and final parent observation; no exact sample-to-step or cross-host clock alignment claimed"
+      },
+      "114": {
+        "admitted_last_completed_forecast_time": "2026-10-12_12:29:55",
+        "model_second": 1795.0,
+        "estimate_age_seconds": 0.000124843,
+        "aged_remaining_wall_seconds": 159.955545657,
+        "collector_monotonic_start_ns": 2523750668874355,
+        "collector_monotonic_end_ns": 2523768366731993,
+        "collector_elapsed_seconds_including_initialization_finalization": 17.697847667,
+        "last_parent_completed_forecast_time": "2026-10-12_12:32:35",
+        "source": "actual retained collector phase and final parent observation; no exact sample-to-step or cross-host clock alignment claimed"
+      },
+      "184": {
+        "admitted_last_completed_forecast_time": "2026-10-12_12:29:55",
+        "model_second": 1795.0,
+        "estimate_age_seconds": 0.000384181,
+        "aged_remaining_wall_seconds": 159.955286319,
+        "collector_monotonic_start_ns": 2523503717109875,
+        "collector_monotonic_end_ns": 2523522041361466,
+        "collector_elapsed_seconds_including_initialization_finalization": 18.32423016,
+        "last_parent_completed_forecast_time": "2026-10-12_12:32:55",
+        "source": "actual retained collector phase and final parent observation; no exact sample-to-step or cross-host clock alignment claimed"
+      }
+    },
+    "limitation": "Each admitted at last completed12:29:55; parent final observation12:32:35 or12:32:55. These are completed-RSL observations, not precise phase bounds for every sample or proof that all ranks executed radiation. Planned1780..1840 start band is not a15-second simulated-time window."
+  },
+  "ranks": {
+    "40": {
+      "host": "hpc01",
+      "cpu": 68,
+      "primary_count": 1442,
+      "primary_cycle_period": 42665956825,
+      "sample_monotonic_ns_range": [
+        2523717512899775,
+        2523732516638704
+      ],
+      "sample_span_seconds": 15.003738929,
+      "normal_parser_controller": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current871-radiation-noon1h-native15-preparation-r1/postrun-native-three-parser-preparation-r1/actual-native-rank40-r1/controller.json",
+        "sha256": "96d63f713626ecb9df6408b2a3beec818311724a44585b3bf92724dc11e290d0"
+      },
+      "summary": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current871-radiation-noon1h-native15-preparation-r1/postrun-native-three-parser-preparation-r1/actual-native-rank40-r1/result/summary.json",
+        "sha256": "d06a66d1feb50b2ade02dc5310f4eb55f3943e521efc146d7e0e6f959cce829c"
+      },
+      "primary_records": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current871-radiation-noon1h-native15-preparation-r1/postrun-native-three-parser-preparation-r1/actual-native-rank40-r1/result/primary-records.json",
+        "sha256": "9f76b95d78f87f037b52da55272012472481323f73f18ceb6085524bee0feb3a"
+      },
+      "top_direct": [
+        {
+          "rank": 40,
+          "routine": "NON_WRF",
+          "primary_count": 933,
+          "count_percent_of_selected_tid": 64.70180305131761,
+          "cycle_period": 27516350565,
+          "period_percent_of_selected_tid": 64.4925195932249
+        },
+        {
+          "rank": 40,
+          "routine": "__module_advect_em_MOD_advect_scalar_pd",
+          "primary_count": 50,
+          "count_percent_of_selected_tid": 3.467406380027739,
+          "cycle_period": 1498746379,
+          "period_percent_of_selected_tid": 3.512745267022381
+        },
+        {
+          "rank": 40,
+          "routine": "__module_small_step_em_MOD_advance_w",
+          "primary_count": 43,
+          "count_percent_of_selected_tid": 2.9819694868238558,
+          "cycle_period": 1273644801,
+          "period_percent_of_selected_tid": 2.985154666105393
+        },
+        {
+          "rank": 40,
+          "routine": "__module_small_step_em_MOD_advance_uv",
+          "primary_count": 30,
+          "count_percent_of_selected_tid": 2.0804438280166435,
+          "cycle_period": 875431179,
+          "period_percent_of_selected_tid": 2.051825961833448
+        },
+        {
+          "rank": 40,
+          "routine": "__module_small_step_em_MOD_advance_mu_t",
+          "primary_count": 27,
+          "count_percent_of_selected_tid": 1.8723994452149793,
+          "cycle_period": 799497268,
+          "period_percent_of_selected_tid": 1.8738528970046133
+        },
+        {
+          "rank": 40,
+          "routine": "__module_advect_em_MOD_advect_scalar",
+          "primary_count": 24,
+          "count_percent_of_selected_tid": 1.6643550624133148,
+          "cycle_period": 715294677,
+          "period_percent_of_selected_tid": 1.6764997910016988
+        },
+        {
+          "rank": 40,
+          "routine": "__module_em_MOD_rk_update_scalar",
+          "primary_count": 22,
+          "count_percent_of_selected_tid": 1.5256588072122053,
+          "cycle_period": 656875488,
+          "period_percent_of_selected_tid": 1.539577538819206
+        },
+        {
+          "rank": 40,
+          "routine": "__module_small_step_em_MOD_small_step_prep",
+          "primary_count": 22,
+          "count_percent_of_selected_tid": 1.5256588072122053,
+          "cycle_period": 658949895,
+          "period_percent_of_selected_tid": 1.544439511113671
+        },
+        {
+          "rank": 40,
+          "routine": "__module_big_step_utilities_em_MOD_calc_cq",
+          "primary_count": 14,
+          "count_percent_of_selected_tid": 0.970873786407767,
+          "cycle_period": 412089812,
+          "period_percent_of_selected_tid": 0.965851565664495
+        },
+        {
+          "rank": 40,
+          "routine": "__module_bl_myjpbl_MOD_myjpbl",
+          "primary_count": 13,
+          "count_percent_of_selected_tid": 0.9015256588072122,
+          "cycle_period": 388322152,
+          "period_percent_of_selected_tid": 0.9101451857572398
+        },
+        {
+          "rank": 40,
+          "routine": "__module_small_step_em_MOD_calc_p_rho",
+          "primary_count": 13,
+          "count_percent_of_selected_tid": 0.9015256588072122,
+          "cycle_period": 388265014,
+          "period_percent_of_selected_tid": 0.910011266341734
+        }
+      ],
+      "RRTMG_MCICA_direct_count": 0,
+      "RRTMG_MCICA_period_percent": 0.0,
+      "raw": {
+        "path": "/pool/wrf-experiment/wrf-cpu/runs/production256-current871-radiation-noon1h-native15-candidate-r1/compute-profile-hpc01/rank40.perf.data",
+        "sha256": "b649f8e2c0686bc73340e1301db1718ba3c958bcff6b3fec3ed0695a4793b5d3",
+        "bytes": 12349804
+      },
+      "collector": {
+        "path": "/pool/wrf-experiment/wrf-cpu/runs/production256-current871-radiation-noon1h-native15-candidate-r1/compute-profile-hpc01/rank40.collector.json",
+        "sha256": "0b40eceb5b9822a0f89c13539a0955b94c3ab4a4c60c625a56e19d371eb4db01",
+        "bytes": 71694
+      },
+      "parent": {
+        "path": "/pool/wrf-experiment/wrf-cpu/runs/production256-current871-radiation-noon1h-native15-candidate-r1/compute-profile-hpc01/collector-final.json",
+        "sha256": "7d5c8bcdd1df861997228dead77bd2efb39eed2f65c8e8bda7c26bdb9fa9d6ed",
+        "bytes": 55807
+      },
+      "watch": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current871-radiation-noon1h-native15-preparation-r1/root-execution-r1/live-watch-r1/watch-rank40.jsonl",
+        "sha256": "87196b03eff5f0d73a9fb673c0a56433c2d408bc17d41e01a2c7b40837b8fcc3"
+      },
+      "context_sha256": "9974317fdf5a8f22005682e3f26b4b112e29d934fa1707bede2a7ac634c11ef4",
+      "live_FD_growth": {
+        "schema": "CURRENT871_RADIATION_NATIVE15_LIVE_V3",
+        "active_rows": [
+          187,
+          188,
+          189,
+          190,
+          191,
+          192,
+          193,
+          194,
+          195,
+          196,
+          197,
+          198,
+          199,
+          200,
+          201,
+          202
+        ],
+        "growth_transitions": 15,
+        "first_bytes": 0,
+        "last_bytes": 12231524,
+        "boot_id": "034999ae-50d3-4c47-a288-c1cc0a7308c9",
+        "time_namespace_inode": 4026531834,
+        "perf_pid": 371959,
+        "perf_startticks": "252371636",
+        "bridge_pid": 371957,
+        "bridge_startticks": "252371629",
+        "raw_dev": 64512,
+        "raw_ino": 27525572,
+        "stage": "/tmp/wrf-cpu-quilt-profile-1000-6ea1xnd3",
+        "context_sha256": "9974317fdf5a8f22005682e3f26b4b112e29d934fa1707bede2a7ac634c11ef4",
+        "source_identity_and_bridge_verified": true,
+        "perf_stdout_same_inode_required": false
+      },
+      "capture_tool": {
+        "host": "hpc01",
+        "path": "/usr/lib/linux-tools-6.8.0-90/perf",
+        "sha256": "bfeb460764dc263c37c6b9a4d012991a2cd6eda71aad9258de413cda48eb8021",
+        "version": "perf version 6.8.12"
+      },
+      "render_tool": {
+        "host": "hpc03",
+        "path": "/usr/lib/linux-tools-6.8.0-88/perf",
+        "sha256": "ec1cd6211c8972093de6128929f7a156b51f0c460f85ce2985fb6487722cf4e2",
+        "version": "perf version 6.8.12"
+      },
+      "numeric_loss": "UNKNOWN",
+      "observed_LOST_line_counts": {
+        "primary": 0,
+        "stacks": 0
+      },
+      "current_ELF_buildID": "UNKNOWN"
+    },
+    "114": {
+      "host": "hpc02",
+      "cpu": 122,
+      "primary_count": 1451,
+      "primary_cycle_period": 43073213247,
+      "sample_monotonic_ns_range": [
+        2523751614509636,
+        2523766617013620
+      ],
+      "sample_span_seconds": 15.002503984,
+      "normal_parser_controller": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current871-radiation-noon1h-native15-preparation-r1/postrun-native-three-parser-preparation-r1/actual-native-rank114-r1/controller.json",
+        "sha256": "b6ae9f8b527f578326065f90c53e6fb06f46d4bb626373b921d34adb6116ea66"
+      },
+      "summary": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current871-radiation-noon1h-native15-preparation-r1/postrun-native-three-parser-preparation-r1/actual-native-rank114-r1/result/summary.json",
+        "sha256": "90afc00e50427bcfb3537e32a7a158a9c7ccefd436bc9c50cfc4aeefd6f24f4e"
+      },
+      "primary_records": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current871-radiation-noon1h-native15-preparation-r1/postrun-native-three-parser-preparation-r1/actual-native-rank114-r1/result/primary-records.json",
+        "sha256": "e7aa367b1fb64b52d55ec504a8c0ea1365fd707c563a12bdcd9ba1ea1d698a1e"
+      },
+      "top_direct": [
+        {
+          "rank": 114,
+          "routine": "NON_WRF",
+          "primary_count": 775,
+          "count_percent_of_selected_tid": 53.41144038594073,
+          "cycle_period": 22952668207,
+          "period_percent_of_selected_tid": 53.28756894773488
+        },
+        {
+          "rank": 114,
+          "routine": "__rrtmg_sw_reftra_MOD_reftra_sw_clear",
+          "primary_count": 70,
+          "count_percent_of_selected_tid": 4.824259131633356,
+          "cycle_period": 2090677652,
+          "period_percent_of_selected_tid": 4.853776847367229
+        },
+        {
+          "rank": 114,
+          "routine": "__rrtmg_sw_spcvmc_MOD_spcvmc_sw",
+          "primary_count": 68,
+          "count_percent_of_selected_tid": 4.686423156443832,
+          "cycle_period": 1981492526,
+          "period_percent_of_selected_tid": 4.600289545702767
+        },
+        {
+          "rank": 114,
+          "routine": "__rrtmg_sw_vrtqdr_MOD_vrtqdr_sw_pair",
+          "primary_count": 47,
+          "count_percent_of_selected_tid": 3.239145416953825,
+          "cycle_period": 1392282950,
+          "period_percent_of_selected_tid": 3.232363794212569
+        },
+        {
+          "rank": 114,
+          "routine": "__rrtmg_lw_rtrnmc_MOD_rtrnmc",
+          "primary_count": 25,
+          "count_percent_of_selected_tid": 1.7229496898690557,
+          "cycle_period": 756486730,
+          "period_percent_of_selected_tid": 1.7562811617094494
+        },
+        {
+          "rank": 114,
+          "routine": "__module_advect_em_MOD_advect_scalar_pd",
+          "primary_count": 22,
+          "count_percent_of_selected_tid": 1.516195727084769,
+          "cycle_period": 657834464,
+          "period_percent_of_selected_tid": 1.5272472481393466
+        },
+        {
+          "rank": 114,
+          "routine": "__module_small_step_em_MOD_advance_w",
+          "primary_count": 21,
+          "count_percent_of_selected_tid": 1.447277739490007,
+          "cycle_period": 622948484,
+          "period_percent_of_selected_tid": 1.4462549622842165
+        },
+        {
+          "rank": 114,
+          "routine": "__module_small_step_em_MOD_advance_uv",
+          "primary_count": 19,
+          "count_percent_of_selected_tid": 1.3094417643004825,
+          "cycle_period": 564355255,
+          "period_percent_of_selected_tid": 1.3102232511973244
+        },
+        {
+          "rank": 114,
+          "routine": "__module_small_step_em_MOD_advance_mu_t",
+          "primary_count": 18,
+          "count_percent_of_selected_tid": 1.2405237767057202,
+          "cycle_period": 535423700,
+          "period_percent_of_selected_tid": 1.2430549281978438
+        },
+        {
+          "rank": 114,
+          "routine": "__rrtmg_sw_rad_MOD_inatm_sw",
+          "primary_count": 16,
+          "count_percent_of_selected_tid": 1.1026878015161958,
+          "cycle_period": 480920064,
+          "period_percent_of_selected_tid": 1.1165177328243454
+        },
+        {
+          "rank": 114,
+          "routine": "__module_advect_em_MOD_advect_w",
+          "primary_count": 13,
+          "count_percent_of_selected_tid": 0.895933838731909,
+          "cycle_period": 386900122,
+          "period_percent_of_selected_tid": 0.8982383547318638
+        }
+      ],
+      "RRTMG_MCICA_direct_count": 302,
+      "RRTMG_MCICA_period_percent": 20.8159183471748,
+      "raw": {
+        "path": "/pool/wrf-experiment/wrf-cpu/runs/production256-current871-radiation-noon1h-native15-candidate-r1/compute-profile-hpc02/rank114.perf.data",
+        "sha256": "eee6fd412de7ca42d58260681572792f1cbf84c3cb98536e4eedc8d5fc58b820",
+        "bytes": 12424588
+      },
+      "collector": {
+        "path": "/pool/wrf-experiment/wrf-cpu/runs/production256-current871-radiation-noon1h-native15-candidate-r1/compute-profile-hpc02/rank114.collector.json",
+        "sha256": "a8cb4738cebd2d0e599592491c67e2a173915071d02c3c72adba280b505dd058",
+        "bytes": 73212
+      },
+      "parent": {
+        "path": "/pool/wrf-experiment/wrf-cpu/runs/production256-current871-radiation-noon1h-native15-candidate-r1/compute-profile-hpc02/collector-final.json",
+        "sha256": "96452aa46e23332e698cbed2c3d376761e5bbedcd609f531a8538b4086f2c528",
+        "bytes": 55829
+      },
+      "watch": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current871-radiation-noon1h-native15-preparation-r1/root-execution-r1/live-watch-r1/watch-rank114.jsonl",
+        "sha256": "5b514b9cbae41be35d93c9e572272aced6386ff153c5c4cf2375393356010ce8"
+      },
+      "context_sha256": "5167acb905666fdf54b62f54a24dae3f493dd3fc2dbd6f47a6f4709a6113ecd3",
+      "live_FD_growth": {
+        "schema": "CURRENT871_RADIATION_NATIVE15_LIVE_V3",
+        "active_rows": [
+          189,
+          190,
+          191,
+          192,
+          193,
+          194,
+          195,
+          196,
+          197,
+          198,
+          199,
+          200,
+          201,
+          202,
+          203,
+          204,
+          205
+        ],
+        "growth_transitions": 16,
+        "first_bytes": 0,
+        "last_bytes": 12424588,
+        "boot_id": "18b76778-11f2-4b21-ac43-564778b71e3b",
+        "time_namespace_inode": 4026531834,
+        "perf_pid": 2674725,
+        "perf_startticks": "252375052",
+        "bridge_pid": 2674723,
+        "bridge_startticks": "252375045",
+        "raw_dev": 64512,
+        "raw_ino": 10486615,
+        "stage": "/tmp/wrf-cpu-quilt-profile-1000-g1_4fcqo",
+        "context_sha256": "5167acb905666fdf54b62f54a24dae3f493dd3fc2dbd6f47a6f4709a6113ecd3",
+        "source_identity_and_bridge_verified": true,
+        "perf_stdout_same_inode_required": false
+      },
+      "capture_tool": {
+        "host": "hpc02",
+        "path": "/usr/lib/linux-tools-6.8.0-88/perf",
+        "sha256": "ec1cd6211c8972093de6128929f7a156b51f0c460f85ce2985fb6487722cf4e2",
+        "version": "perf version 6.8.12"
+      },
+      "render_tool": {
+        "host": "hpc03",
+        "path": "/usr/lib/linux-tools-6.8.0-88/perf",
+        "sha256": "ec1cd6211c8972093de6128929f7a156b51f0c460f85ce2985fb6487722cf4e2",
+        "version": "perf version 6.8.12"
+      },
+      "numeric_loss": "UNKNOWN",
+      "observed_LOST_line_counts": {
+        "primary": 0,
+        "stacks": 0
+      },
+      "current_ELF_buildID": "UNKNOWN"
+    },
+    "184": {
+      "host": "hpc03",
+      "cpu": 35,
+      "primary_count": 1414,
+      "primary_cycle_period": 43673187818,
+      "sample_monotonic_ns_range": [
+        2523504752862771,
+        2523519749626389
+      ],
+      "sample_span_seconds": 14.996763618,
+      "normal_parser_controller": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current871-radiation-noon1h-native15-preparation-r1/postrun-native-three-parser-preparation-r1/actual-native-rank184-r1/controller.json",
+        "sha256": "b30c9f5341385250f4b39d19cb69fe30f99db38b691b098eb26446d02e59dc46"
+      },
+      "summary": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current871-radiation-noon1h-native15-preparation-r1/postrun-native-three-parser-preparation-r1/actual-native-rank184-r1/result/summary.json",
+        "sha256": "a56cabfe720fa6f63d5d3ee682229b1cd2c5caa4d857159cd33a2054b15c021b"
+      },
+      "primary_records": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current871-radiation-noon1h-native15-preparation-r1/postrun-native-three-parser-preparation-r1/actual-native-rank184-r1/result/primary-records.json",
+        "sha256": "ff9da348382c646f9abce61fae6603c8ee56d8b26dbbf7b1afc80d07d2a068fa"
+      },
+      "top_direct": [
+        {
+          "rank": 184,
+          "routine": "NON_WRF",
+          "primary_count": 809,
+          "count_percent_of_selected_tid": 57.213578500707214,
+          "cycle_period": 24691928142,
+          "period_percent_of_selected_tid": 56.5379569838114
+        },
+        {
+          "rank": 184,
+          "routine": "__module_mp_thompson_MOD_mp_thompson",
+          "primary_count": 48,
+          "count_percent_of_selected_tid": 3.3946251768033946,
+          "cycle_period": 1495004057,
+          "period_percent_of_selected_tid": 3.423162200181391
+        },
+        {
+          "rank": 184,
+          "routine": "__module_small_step_em_MOD_advance_w",
+          "primary_count": 46,
+          "count_percent_of_selected_tid": 3.253182461103253,
+          "cycle_period": 1451172814,
+          "period_percent_of_selected_tid": 3.322800295795893
+        },
+        {
+          "rank": 184,
+          "routine": "__module_small_step_em_MOD_advance_uv",
+          "primary_count": 33,
+          "count_percent_of_selected_tid": 2.333804809052334,
+          "cycle_period": 1034245724,
+          "period_percent_of_selected_tid": 2.3681480003475572
+        },
+        {
+          "rank": 184,
+          "routine": "__module_small_step_em_MOD_advance_mu_t",
+          "primary_count": 32,
+          "count_percent_of_selected_tid": 2.263083451202263,
+          "cycle_period": 1000546392,
+          "period_percent_of_selected_tid": 2.2909854809994488
+        },
+        {
+          "rank": 184,
+          "routine": "__module_advect_em_MOD_advect_scalar_pd",
+          "primary_count": 29,
+          "count_percent_of_selected_tid": 2.050919377652051,
+          "cycle_period": 896270903,
+          "period_percent_of_selected_tid": 2.052222307963972
+        },
+        {
+          "rank": 184,
+          "routine": "__module_em_MOD_rk_update_scalar",
+          "primary_count": 26,
+          "count_percent_of_selected_tid": 1.8387553041018387,
+          "cycle_period": 822444277,
+          "period_percent_of_selected_tid": 1.8831789436287218
+        },
+        {
+          "rank": 184,
+          "routine": "__module_advect_em_MOD_advect_scalar",
+          "primary_count": 26,
+          "count_percent_of_selected_tid": 1.8387553041018387,
+          "cycle_period": 824079278,
+          "period_percent_of_selected_tid": 1.8869226616435677
+        },
+        {
+          "rank": 184,
+          "routine": "__module_small_step_em_MOD_calc_p_rho",
+          "primary_count": 22,
+          "count_percent_of_selected_tid": 1.5558698727015559,
+          "cycle_period": 700628812,
+          "period_percent_of_selected_tid": 1.604253884373502
+        },
+        {
+          "rank": 184,
+          "routine": "__module_big_step_utilities_em_MOD_calc_cq",
+          "primary_count": 19,
+          "count_percent_of_selected_tid": 1.3437057991513437,
+          "cycle_period": 570028860,
+          "period_percent_of_selected_tid": 1.3052146831495122
+        },
+        {
+          "rank": 184,
+          "routine": "__module_small_step_em_MOD_small_step_prep",
+          "primary_count": 16,
+          "count_percent_of_selected_tid": 1.1315417256011315,
+          "cycle_period": 519915335,
+          "period_percent_of_selected_tid": 1.1904680216306898
+        }
+      ],
+      "RRTMG_MCICA_direct_count": 0,
+      "RRTMG_MCICA_period_percent": 0.0,
+      "raw": {
+        "path": "/pool/wrf-experiment/wrf-cpu/runs/production256-current871-radiation-noon1h-native15-candidate-r1/compute-profile-hpc03/rank184.perf.data",
+        "sha256": "19b504b4e41dc2be1248e0d2ba8a26feb289675fefea2f1302013a94b0673893",
+        "bytes": 12113476
+      },
+      "collector": {
+        "path": "/pool/wrf-experiment/wrf-cpu/runs/production256-current871-radiation-noon1h-native15-candidate-r1/compute-profile-hpc03/rank184.collector.json",
+        "sha256": "ae036cc2ac1f9cdb4a1ff724c4eaf98959ba44e15aff65d702419039ab69d94d",
+        "bytes": 73067
+      },
+      "parent": {
+        "path": "/pool/wrf-experiment/wrf-cpu/runs/production256-current871-radiation-noon1h-native15-candidate-r1/compute-profile-hpc03/collector-final.json",
+        "sha256": "bc6b505c888f2a48eb84f9a98e4f34444f9bccd40b7000f9567e03f146603c2f",
+        "bytes": 57380
+      },
+      "watch": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current871-radiation-noon1h-native15-preparation-r1/root-execution-r1/live-watch-r1/watch-rank184.jsonl",
+        "sha256": "bd88a5e85b5b6634e34f73eb99ff660ba8468663ce646269dcabb3ab70c04a2d"
+      },
+      "context_sha256": "67e3f826c87d7f821bee481789c4c9500983b148a14c08203a73efce6cd9996c",
+      "live_FD_growth": {
+        "schema": "CURRENT871_RADIATION_NATIVE15_LIVE_V3",
+        "active_rows": [
+          190,
+          191,
+          192,
+          193,
+          194,
+          195,
+          196,
+          197,
+          198,
+          199,
+          200,
+          201,
+          202,
+          203,
+          204,
+          205,
+          206
+        ],
+        "growth_transitions": 16,
+        "first_bytes": 0,
+        "last_bytes": 12113476,
+        "boot_id": "ad105fdb-2b6c-40b2-a1ba-6b9997e08d4c",
+        "time_namespace_inode": 4026531834,
+        "perf_pid": 2316214,
+        "perf_startticks": "252350360",
+        "bridge_pid": 2316212,
+        "bridge_startticks": "252350353",
+        "raw_dev": 64512,
+        "raw_ino": 27394385,
+        "stage": "/tmp/wrf-cpu-quilt-profile-1000-yiy7ng3d",
+        "context_sha256": "67e3f826c87d7f821bee481789c4c9500983b148a14c08203a73efce6cd9996c",
+        "source_identity_and_bridge_verified": true,
+        "perf_stdout_same_inode_required": false
+      },
+      "capture_tool": {
+        "host": "hpc03",
+        "path": "/usr/lib/linux-tools-6.8.0-88/perf",
+        "sha256": "ec1cd6211c8972093de6128929f7a156b51f0c460f85ce2985fb6487722cf4e2",
+        "version": "perf version 6.8.12"
+      },
+      "render_tool": {
+        "host": "hpc03",
+        "path": "/usr/lib/linux-tools-6.8.0-88/perf",
+        "sha256": "ec1cd6211c8972093de6128929f7a156b51f0c460f85ce2985fb6487722cf4e2",
+        "version": "perf version 6.8.12"
+      },
+      "numeric_loss": "UNKNOWN",
+      "observed_LOST_line_counts": {
+        "primary": 0,
+        "stacks": 0
+      },
+      "current_ELF_buildID": "UNKNOWN"
+    }
+  },
+  "publication_destinations_proposed": [
+    "WRF/tools/cpu-profiles/current871-noon-three-main-tid-20261025/PROFILE_QUALIFICATION.json",
+    "WRF/tools/cpu-profiles/current871-noon-three-main-tid-20261025/README.md",
+    "WRF/tools/cpu-profiles/current871-noon-three-main-tid-20261025/DIRECT_ROUTINES.csv"
+  ],
+  "preservation": "Add a profile supplement only. Existing current ninehour qualification/timing and immutable noon/threehour Qs remain byte-exact; no selection or benchmark-table replacement.",
+  "root_adoption": {
+    "scope": "Existing actual source-identity/science observations adopted; no executable/default or nine-hour timing/Q change.",
+    "original_proposal_sha256": "cd03efc4d51b2db4b8e40ac1827986bd2b1612ed10ed5897b1d0dabb70dc7d8b"
+  }
+}
