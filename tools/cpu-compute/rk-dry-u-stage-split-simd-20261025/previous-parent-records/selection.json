@@ -1,0 +1,543 @@
+{
+  "schema_version": 3,
+  "status": "PASS_OWN_UNPROFILED_THREEHOST_SAME256_THREE_HOUR545_FOUR_PRODUCTS_CANDIDATE_ONLY",
+  "source_commit": "af4cabc0a51d8df3e0be54af995ab5d844bc805a",
+  "source_commit_scope": "Post-test canonical five-row source correspondence; exact tested-PP replay/cached qualified object. Raw producer unknown; clean F-only rebuild not certified.",
+  "raw_producer_source_commit": null,
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentb4bc-sw-mcica-mask-one-member-experimental-r1/wrf.exe",
+    "sha256": "51f1449ef36ebeda42a8adb74061616e6f83f5a7dd09c0e7dc1145d1a46e4552"
+  },
+  "archive_path": "/pool/wrf-experiment/wrf-cpu/builds/currentb4bc-sw-mcica-mask-one-member-experimental-r1/libwrflib.a",
+  "archive_sha256": "63d6a53350fc49703f6c6db666eee67e081e57bbd7365a5f0631b29653bb249e",
+  "RSL_archive": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current971c-uv-final-v-unpack-outline-combined-native-r1/librsl_lite.a",
+    "sha256": "6eb125cca1196db3d917b17313852b17f2121accb5bb9fc2ad99dd49580154db"
+  },
+  "rsl_archive_path": "/pool/wrf-experiment/wrf-cpu/builds/current971c-uv-final-v-unpack-outline-combined-native-r1/librsl_lite.a",
+  "rsl_archive_sha256": "6eb125cca1196db3d917b17313852b17f2121accb5bb9fc2ad99dd49580154db",
+  "build_defaults": {
+    "WRF_SMALL_STEP_ZEN2": 1,
+    "WRF_ADVECTION_ZEN2": 1,
+    "compiler_scope": "qualified GNU Fortran13.3.0; runtime CPU/OS feature admission required",
+    "WRF_EXPERIMENTAL_TPI_NUMA": 1,
+    "thompson_build_scope": "GNU13.3 strict cold one-domain DIMNRHG1/OMP1:23fields/12fixedowners, lazyfixedgrouppublication and privateTCGINITsentinel; no-macro localCPPprojection literal, no genericwhole-object qualification.",
+    "BC_module_local_flag": "-fopenmp-simd",
+    "BC_flag_scope": "Required only for qualified module_bc.F recipe; no global fast math/flags change. Generic builds without this flag do not claim BC SIMD.",
+    "source_rebuild_recipe": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/rsl-width56-receive-original-fallback-outline/REBUILD_RECIPE.json",
+      "sha256": "4cd8deecdf018eeb5c1fdbf777287b792d09d029946fcc33b6d14735cdb1f939"
+    },
+    "theta_SW_source_recipes": {
+      "theta": "tools/cpu-compute/theta-sw-batch/theta/REBUILD_RECIPE.json",
+      "SW": "tools/cpu-compute/theta-sw-batch/sw/REBUILD_RECIPE.json",
+      "scope": "Frozen actual overlay recipes over f4b; canonical sources equal posttestcommit. PriorcalcBCrebuild is parent-only evidence; no wholea50e source-reproduction claim."
+    },
+    "parent_calc_BC_source_rebuild_recipe": "tools/cpu-compute/calc-php-bc-simd/source-rebuild/README.md",
+    "source_rebuild_scope": "GNU13.3/defaultREAL4INT4/WRF_DIFFUSION_SIMD1/emptyOMP+OMPCPP and source DM_PARALLEL&&!_OPENMP; existing strict generic BigStep flags unchanged.",
+    "SPCVMC_module_local_flag": "-fopenmp-simd",
+    "SPCVMC_source_recipe": "tools/cpu-compute/spcvmc-optical-producer/REBUILD_RECIPE.json",
+    "HPG_NHX_CONSUMER_source_recipe": "tools/cpu-compute/hpg-nhx-consumer-simd/REBUILD_RECIPE.json",
+    "HPG_NHX_CONSUMER_flag_scope": "Existing module-local -fopenmp-simd; no new global/ISA/fastmath flag.",
+    "WRF_EXPERIMENTAL_HPG_NHX_AVX2": 1,
+    "generic_source_default": 0,
+    "isolated_HPG_flag_scope": "Qualified selected recipe enables only BigStep CPP macroON and explicit isolatedhelper; generic standard source remains macroOFF/no helper. Global Fortran flags unchanged.",
+    "isolated_HPG_explicit_recipe": "tools/cpu-compute/hpg-nhy-consumer-i-simd/REBUILD_RECIPE.json",
+    "NHY_CONSUMER_source_recipe": "tools/cpu-compute/hpg-nhy-consumer-i-simd/REBUILD_RECIPE.json",
+    "PD_RESULT_CAPACITY_source_recipe": "/home/ddietz/wrf/WRF/tools/cpu-compute/pd-result-capacity-combined/README.md",
+    "WRF_EXPERIMENTAL_PHY_HEIGHT_ROW_SSE2": 1,
+    "PHY_HEIGHT_explicit_recipe": "tools/cpu-compute/coriolis-u-phy-fixed8-batch/REBUILD_RECIPE.json",
+    "PHY_HEIGHT_flag_scope": "Qualified GNU13.3 matching explicitO2 privateAVX2 helper only; generic source macroOFF, strict global Fortran flags unchanged.",
+    "CORI_U_PHY_FIXED8_explicit_recipe": "tools/cpu-compute/coriolis-u-phy-fixed8-batch/REBUILD_RECIPE.json",
+    "parent_source_rebuild_recipe_before_X5": "tools/cpu-compute/coriolis-u-phy-fixed8-batch/REBUILD_RECIPE.json",
+    "WRF_ADDTENDC_SIMD": 1,
+    "ADDTENDC_module_local_flag": "-fopenmp-simd",
+    "ADDTENDC_flag_scope": "Qualified GNU13.3 pure-MPI/emptyOMP; explicit0 opt-out requires real object/archive/executable rebuild.",
+    "WRF_SMALL_STEP_T_COPY_FUSION": 1,
+    "SMALLSTEP_T_COPY_FUSION_scope": "Actualguard GNU13.3+emptyOMPCPP+existingSmallStepSIMD1+Zen21. MPI qualified; matchingserialconfigurations unqualified. Explicit0 withobject/archive/image rebuild; nonmatchingguards originalschedule.",
+    "parent_source_rebuild_recipe_before_TCOPY": "tools/cpu-compute/add-a2a-simd/REBUILD_RECIPE.json",
+    "parent_source_rebuild_recipe_before_REAL15_BANK": "tools/cpu-compute/smallstep-rk1-t-copy-fusion/REBUILD_RECIPE.json",
+    "THOMPSON_REAL15_BANK_source_recipe": "tools/cpu-compute/thompson-real15-bank/REBUILD_RECIPE.json",
+    "WRF_SMALL_STEP_PH_COPY_FUSION": 1,
+    "SMALLSTEP_PH_COPY_FUSION_scope": "GNU13.3.0/emptyOMPCPP with SmallStepSIMD1+Zen2=1; MPI/defaultTcopy is qualified. No DM_PARALLEL guard; matchingserial and Tcopy0/PH1 are unqualified. Explicit0 plusregenerate/rebuild/relink restoresPHschedule; nonmatchingguards keep originalPHpath.",
+    "parent_source_rebuild_recipe_before_PH_COPY_FUSION": "tools/cpu-compute/thompson-real15-bank/REBUILD_RECIPE.json",
+    "WRF_SMALL_STEP_U_NH_CORRECTION_SIMD": 1,
+    "SMALLSTEP_U_NH_CORRECTION_SIMD_scope": "GNU13.3.0/SmallStepSIMD1/Zen2=1/emptyOMPCPP; target CPP macro only. No DM_PARALLEL guard; matchingserial remains unqualified. Explicit0 plus rebuild/relink omits only this directive.",
+    "WRF_SMALL_STEP_UV_COPY_FUSION": 1,
+    "SMALLSTEP_UV_COPY_FUSION_scope": "GNU13.3/SmallStepSIMD1/Zen21/emptyOMPCPP; pureMPI qualified, matchingserial unqualified. Explicit0 plus actualrebuild restores parentUV schedule.",
+    "WRF_SMALL_STEP_W_COPY_FUSION": 1,
+    "SMALLSTEP_W_COPY_FUSION_scope": "GNU13.3.0/emptyOMPCPP/SmallStepSIMD1/Zen21/PHfusion1; explicit0+fullregeneration/rebuild/relink optout; matchingserialunqualified",
+    "WRF_ADVANCE_MU_WDTN_ROW_PIPELINE": 1,
+    "ADVANCE_MU_WDTN_ROW_PIPELINE_scope": "GNU13.3.0/emptyOMPCPP/SmallStepSIMD1/Zen21; matchingserial unqualified; explicit0 plusfullregenerate/rebuild/rearchive/relink.",
+    "WRF_CALC_COEF_W_AHEAD_ROW_PIPELINE": 1,
+    "CALC_COEF_W_AHEAD_ROW_PIPELINE_scope": "WRF_CALC_COEF_W_AHEAD_ROW_PIPELINE default1 under GNU13.3.0/emptyOMPCPP/WRF_SMALL_STEP_SIMD=1/WRF_SMALL_STEP_ZEN2=1. No DM_PARALLEL assertion; matching serial unqualified. Optout0 plus fullregenerate/rebuild/rearchive/relink.",
+    "source_rebuild_recipe_sha256": "b2dc12b92f12ba650c51679527bcedf7895dae37bcae163b8ffb18da0607a955",
+    "parent_source_rebuild_recipe_before_CALC_COEF_W_AHEAD_ROW_PIPELINE": "tools/cpu-compute/smallstep-rk1-uv-copy-fusion/REBUILD_RECIPE.json",
+    "WRF_PD_FINAL_PASS_FUSION": 1,
+    "PD_FINAL_PASS_FUSION_scope": "WRF_PD_FINAL_PASS_FUSION=1 under qualified GNU13.3.0/default REAL4 INTEGER4/emptyOMP+OMPCPP/ADVECTION_SIMD=1/ADVECTION_ZEN2=1. Unsupported builds strip interface-free CPP branch and retain original. No new compiler flags/helper.",
+    "parent_PD_source_rebuild_recipe_before_WW": "tools/cpu-compute/pd-final-pass-fusion/REBUILD_RECIPE.json",
+    "WRF_ADVANCE_MU_WW_ROW_PIPELINE": 1,
+    "ADVANCE_MU_WW_ROW_PIPELINE_scope": "WRF_ADVANCE_MU_WW_ROW_PIPELINE=1 only GNU13.3.0/SmallStepSIMD1/Zen21/emptyOMP+OMPCPP+PROMOTION+DOUBLE_PRECISION/REAL4+INTEGER4. No new compiler flags or helpers. Matchingserial remains unqualified.",
+    "WRF_ADVANCE_W_DAMPING_PHI_FUSION": 1,
+    "ADVANCE_W_DAMPING_PHI_FUSION_scope": "WRF_ADVANCE_W_DAMPING_PHI_FUSION=1 withinGNU13.3.0/SmallStepSIMD1/Zen21/emptyOMP+OMPCPP+PROMOTION+DOUBLE_PRECISION/REAL4+INTEGER4. No newcompilerflags/helpers. Serial matchingguard remains unqualified; noDM_PARALLEL guard implied.",
+    "parent_source_rebuild_recipe_before_MOISTURE_WW_REUSE": "tools/cpu-compute/advance-w-damping-phi-consumer-fusion/REBUILD_RECIPE.json",
+    "WRF_MOISTURE_WW_SPLIT_REUSE": 1,
+    "MOISTURE_WW_SPLIT_REUSE_scope": "GNU13.3.0, WRF_RK_TENDENCY_SIMD=1, pure DM_PARALLEL normalEM, empty OMP/OMPCPP/PROMOTION/DOUBLE_PRECISION, native REAL4/INTEGER4 and no type-changing flags. Source guards retain original interface for unsupported builds; no serial/OpenMP/TL/AD qualification.",
+    "WRF_MOISTURE_HZ_ZERO_REUSE": 1,
+    "WRF_ADVECT_FIRST_Y_ZERO_SEED": 1,
+    "WRF_ADVECT_FIRST_Y_ZERO_SEED_scope": "QualifiedGNU13.3.0/ADVECTION_SIMD1/Zen21/RK_SIMD1/defaultREAL4INTEGER4/emptyOMP+OMPCPP+PROMOTION+DOUBLE_PRECISION; sourceDM_PARALLEL&&!_OPENMP. Explicit0 requires regenerate/rebuild5ownerclosure/rearchive/relink; genericOFForiginalABI, matchingotherstacksunqualified.",
+    "WRF_CORIOLIS_U_COEFFICIENT_CACHE": 1,
+    "WRF_CURVATURE_V_METRIC_CACHE": 1,
+    "CORIOLIS_U_COEFFICIENT_CACHE_source_recipe": "tools/cpu-compute/coriolis-u-coefficient-row-cache/REBUILD_RECIPE.json",
+    "CURVATURE_V_METRIC_CACHE_source_recipe": "tools/cpu-compute/curvature-v-metric-row-cache/REBUILD_RECIPE.json",
+    "WRF_CURVATURE_VXGM_J_DIFF_CACHE": 1,
+    "CURVATURE_VXGM_J_DIFF_CACHE_scope": "QualifiedGNU13.3/defaultREAL4INT4/WRF_DIFFUSION_SIMD1/emptyOMP/DM_PARALLEL&&!_OPENMP; explicit0+regenerate/rebuild/rearchive/relink.",
+    "WRF_CQV_LAST_SPECIES_CONSUMER_FUSION": 1,
+    "WRF_RK_SCALAR_EXACT_CLEAR": 1,
+    "WRF_RSL_WIDE_PRIVATE_VECTOR_COPY": 1,
+    "RSL_WIDE_PRIVATE_VECTOR_COPY_scope": "Qualified GNU13.3 FC/CC, default INTEGER32, no OpenMP or kind-changing flags; only positive CASE DEFAULT width5/6 uses private whole-block helper. Other widths/empty loops fall back unchanged; pure-MPI is qualified runtime scope, not an explicit serial-exclusion predicate. Explicit0 requires full RSL rebuild and relink.",
+    "RSL_WIDE_PRIVATE_VECTOR_COPY_source_recipe": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/rsl-width56-private-vector-copy/REBUILD_RECIPE.json",
+      "sha256": "c407c575e7c796d7153fc6a8ca2eab8700b7dd850de6a6bfef7618d6f52c62e1"
+    },
+    "WRF_SMALL_STEP_V_NH_CORRECTION_SIMD": 1,
+    "WRF_SMALL_STEP_V_FINAL_UPDATE_SIMD": 1,
+    "WRF_RSL_UNPACK_WIDTH56_PRIVATE_VECTOR_COPY": 1,
+    "WRF_RSL_UNPACK_ORIGINAL_FALLBACK_OUTLINE": 1,
+    "UV_RECEIVE_OUTLINE_source_recipe": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/rsl-width56-receive-original-fallback-outline/REBUILD_RECIPE.json",
+      "sha256": "4cd8deecdf018eeb5c1fdbf777287b792d09d029946fcc33b6d14735cdb1f939"
+    },
+    "UV_RECEIVE_OUTLINE_scope": "Qualified actualGNU13.3/type4/pureMPI/emptyOpenMP guards; independent source-knob optouts require module/archive rebuild/relink. Existing flags/providers retained.",
+    "SW_MCICA_MASK_source_recipe": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-mcica-mask-consumer-20261025/REBUILD_RECIPE.json",
+      "sha256": "bc66b0f49feceb80ec0974ed88858eb1002b00ff6e30f1ea5622eccabccc835e"
+    },
+    "SW_MCICA_MASK_scope": "Exact testedPP replay/cachedqualifiedobject. Canonical five-row correspondence only; clean F-only rebuild not certified."
+  },
+  "runtime": {
+    "OMP_NUM_THREADS": 1,
+    "OMPI_MPI_THREAD_LEVEL": 1,
+    "OMPI_MCA_pml": "ucx",
+    "UCX_TLS": "rc,sm,self",
+    "UCX_NET_DEVICES": "ibp1s0f0:1",
+    "WRF_ROOT_SHIM_WORLD": 256,
+    "WRF_ROOT_SHIM_OPTIN": 1,
+    "WRF_ROOT_SHIM_OPTOUT": 0,
+    "WRF_ROOT_SHIM_CPUS": "0-127",
+    "WRF_QUILT_OWNED_FIELD_VIEW": 1,
+    "WRF_EXPERIMENTAL_TPI_NUMA": 1
+  },
+  "artifacts": {
+    "shim": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentbacf-threehost256-provider-build-hpc03-r1/work/liboutput_world256_fp.so",
+      "sha256": "dafbd572c72c8a5efe7f4d60451bd4bd1bcb44a84ec60eae71a582aa384c6c8d"
+    },
+    "owner": {
+      "path": "/pool/wrf/WPS_new/runtime/netcdf-owner/lib/libnetcdf.so.19",
+      "sha256": "8adc33059a98399cd8adea41de071598aaa2b09ff53eb3ae860cad0c6696b538"
+    },
+    "ng": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/private-fast-distance-range-native-hpc02-r1/output/build/libz.so.1.3.1.zlib-ng",
+      "sha256": "937130c2a2d53e1d11c978dce1b661400daca9da7b8ae99029333dbc1103d178"
+    }
+  },
+  "private_hdf5": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/hdf5-sse2-unshuffle4-private-r3/output/candidate/lib/libhdf5.so.310.3.0",
+    "sha256": "825e2f1f24bee6feaf537cb7a4b1207044fb90ec1afc2dd96571b33b1056ba19"
+  },
+  "rank_library_path": "/pool/wrf-experiment/wrf-cpu/builds/hdf5-sse2-unshuffle4-private-r3/output/candidate/lib:/pool/wrf/WPS_new/runtime/netcdf-owner/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib",
+  "rank_map_sha256": "d671d504f7a86673530ccdc111b68a67bc14bbcd46131277d8d7dc5decbf13eb",
+  "root_input": {
+    "pending_component": false,
+    "adapter_path": "/pool/wrf-experiment/wrf-cpu/kernels/currentbacf-threehost256-provider-build-hpc03-r1/work/libinput_world256.so",
+    "adapter_sha256": "00c80136ea3355ccbbf1d0a95c31e8c3cf3a290e5d067c12e9718ef86aab3f5f",
+    "owner_path": "/pool/wrf-experiment/wrf-cpu/kernels/ordinary-nc-predecoded-fp-admission-build-hpc02-r3/output/libnetcdf.so.19",
+    "owner_sha256": "a32aa6cdf5e7154b974afb699f6be8f0b0632cfb4bc00226b7b6a34e0b04f41d",
+    "rank": 0,
+    "host": "hpc01",
+    "root_cpu": 0,
+    "borrowed_occupied_cpus": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "input_source_sha256": "f8b5f847f54220d8b163c388d7e3e29c361d4ce62b06d23a9a4215412aad9940",
+    "component_receipt_sha256": "90070f7ce757ca6e571554779ce6624f5e179a4ed76653a30d4d8be9eb89a6e5",
+    "component_closure_sha256": "d77bf34ae3d4a30068ab5998908a3560bfb68eaa0b5ab8baa47dc8814758d590",
+    "inherited_component_receipt_scope": "Parent512 adapter lineage only; new world256 input port requires own named native_nc authority",
+    "enabled_in_working_configuration": true,
+    "own_world256_native_authority": {
+      "native_nc": {
+        "path": "actual-newmap-nc256-summary.json",
+        "sha256": "01c932a0e7d5ce6c7c6b3a1073cc9e6a17144323020982822bcb6f24ae795dbd",
+        "expected_status": "PASS_GENUINE256_NC_BYTE_STATE_AUTHORITY_LIFECYCLE_ALL3_NORMAL_CLOSED_PENDING_SEPARATE_TPI_AND_WRF"
+      },
+      "native_tpi": {
+        "path": "actual-newmap-tpi224-summary.json",
+        "sha256": "c77785a7bc9d8ec0afa62c34f1ba9b9a9a8ec21737eae102d4cf24daac4b6186",
+        "expected_status": "PASS_GENUINE_MPI256_TPI224_BOTH_MODES_NATIVE_METADATA_PENDING_WRF_SCIENCE"
+      }
+    }
+  },
+  "current_qualified_runtime": {
+    "world_size": 256,
+    "compute_ranks": 224,
+    "decomposition": [
+      8,
+      28
+    ],
+    "quilt_groups": 4,
+    "quilt_ranks_per_group": 8,
+    "numtiles": 2,
+    "hosts": [
+      "hpc01",
+      "hpc02",
+      "hpc03"
+    ],
+    "per_node_memory_bytes": 107374182400,
+    "swap_bytes": 0,
+    "per_node_physical_cores": 128,
+    "rank_map": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current51f-sw-mcica-child3h-runtime-r1/candidate-rank-map.json",
+      "sha256": "d671d504f7a86673530ccdc111b68a67bc14bbcd46131277d8d7dc5decbf13eb"
+    },
+    "rankfile_sha256": "758fa1e82a2ea51662ac26fa9622f4a5c8dc14226e8e1a5706a3f08afa0e0624",
+    "lease": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current51f-sw-mcica-child3h-runtime-r1/candidate-metadata/lease.json",
+      "sha256": "c0685ac61a18bfeb81b7e2e69ae3f792bc6d9dd7c6fd10102e7a6558fed08709"
+    },
+    "scope": "Own06\u201309 three-hour545/fourFULL, separate immutable12\u201313noon185/twoFULL; same256 only. No9h/512/384/profile/restart/full144 transfer."
+  },
+  "qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-mcica-mask-consumer-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+  "current_application_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-mcica-mask-consumer-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+  "qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-mcica-mask-consumer-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "f8792e3541d4bad1fa155a11f361e114dfe6fd0f2369f46ba39aec160dfd674a"
+  },
+  "science": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current51f-sw-mcica-child3h-runtime-r1/science-receipt.json",
+    "sha256": "7a8036cd7c9e1552b8985992562f1e96483091ab1469f50dc3f095e1f66f3701"
+  },
+  "current_three_hour_qualified": true,
+  "current_nine_hour_qualified": false,
+  "current_short_qualified": false,
+  "current_profiled_nine_hour_science_qualified": false,
+  "current_unprofiled_nine_hour_science_qualified": false,
+  "current_noon75m_qualified": false,
+  "current_one_hour_qualified": false,
+  "current_restart_qualified": false,
+  "current_noon_one_hour_qualified": true,
+  "current_native_profile_qualified": false,
+  "current_profile_qualified": false,
+  "current_full144_hour_qualified": false,
+  "timing_gain_claim": false,
+  "current_256_qualified": true,
+  "current_384_qualified": false,
+  "current_512_qualified": false,
+  "latest_completed_three_hour_pair": null,
+  "current_three_hour_science": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current51f-sw-mcica-child3h-runtime-r1/science-receipt.json",
+    "sha256": "7a8036cd7c9e1552b8985992562f1e96483091ab1469f50dc3f095e1f66f3701"
+  },
+  "current_nine_hour_science": null,
+  "descriptive_reductions_percent": {
+    "wall_seconds": 15.857275784004576,
+    "cpu_seconds": 11.774370578801829,
+    "main_step_sum_seconds": 7.8293401520008965
+  },
+  "reductions_percent": null,
+  "claim_limits": "One new unprofiled SW-MCICA51f candidate on01\u201303, same256/224compute8x28+32quilt; original546b A is retained from the completed B4BC fresh pair. Descriptive timing only, not a new matched pair, repeatability, isolated component or additive gain. Main elapsed includes MPI/output backpressure; aggregate CPU is summed consumption. Own noon remains separate and immutable. No own9h/512/384/profile/restart/full144 qualification.",
+  "source_rebuild_recipe": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-mcica-mask-consumer-20261025/REBUILD_RECIPE.json",
+    "sha256": "bc66b0f49feceb80ec0974ed88858eb1002b00ff6e30f1ea5622eccabccc835e"
+  },
+  "source_rebuild_scope": "Exact testedPP replay/cachedqualifiedobject. Canonical five-row correspondence only; clean F-only rebuild not certified.",
+  "previous_parent": {
+    "records": {
+      "selection.json": {
+        "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-mcica-mask-consumer-20261025/previous-parent-records/selection.json",
+        "sha256": "08ec4c7dc9bfaf2a3bf9a386cc1a45a4d56d0ec18deac19ea55f012e08f25a4e"
+      },
+      "CURRENT_SOURCE_BUILD_BINDING.json": {
+        "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-mcica-mask-consumer-20261025/previous-parent-records/CURRENT_SOURCE_BUILD_BINDING.json",
+        "sha256": "4b2b3f1b7c9652fb4a7136191ea858e951669248dc9dc549c440d39c63cba47c"
+      },
+      "LATEST_APPLICATION_RESULT.json": {
+        "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-mcica-mask-consumer-20261025/previous-parent-records/LATEST_APPLICATION_RESULT.json",
+        "sha256": "36ecee3fe13bec7d799d0cdf5b758ace0d22676e0d7e3755372d95c32f80d0c7"
+      },
+      "FULL_GRID_SUMMARY.json": {
+        "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-mcica-mask-consumer-20261025/previous-parent-records/FULL_GRID_SUMMARY.json",
+        "sha256": "4eaaaa52eebcd2658031c8c969fb65a357ceaa003dc33a90a767393e766a5a9d"
+      }
+    },
+    "own_three_hour_qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/clear-sky-radiation-batch-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "532ff2080fe4bd41a8106639713af945ad6c3dc52f279c284558bc2c219dbcf9"
+    },
+    "applies_to_current_image": false
+  },
+  "includes": {
+    "inherited": "Every selected BACF compute, codec, I/O and memory improvement retained; exactly SW and LW archive occurrences replaced, 582 others byte exact; RSL unchanged. Adds clear-active REFTRA dispatch and deferred LW clear-prefix mirror stores.",
+    "SW_MCICA_MASK": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-mcica-mask-consumer-20261025"
+  },
+  "activation": "Selection metadata only. Fresh bounded explicit256 lease/rank map/ported input+output providers and original runtime checks required; no production deployment.",
+  "rollback": {
+    "selection": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-mcica-mask-consumer-20261025/previous-parent-records/selection.json",
+      "sha256": "08ec4c7dc9bfaf2a3bf9a386cc1a45a4d56d0ec18deac19ea55f012e08f25a4e"
+    },
+    "source_reverse_patch": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-mcica-mask-consumer-20261025/ROLLBACK_SOURCE_ONLY.diff"
+  },
+  "current_application_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-mcica-mask-consumer-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "f8792e3541d4bad1fa155a11f361e114dfe6fd0f2369f46ba39aec160dfd674a"
+  },
+  "full_application": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-mcica-mask-consumer-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "f8792e3541d4bad1fa155a11f361e114dfe6fd0f2369f46ba39aec160dfd674a"
+  },
+  "current_three_hour_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-mcica-mask-consumer-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "f8792e3541d4bad1fa155a11f361e114dfe6fd0f2369f46ba39aec160dfd674a"
+  },
+  "science_sha256": "7a8036cd7c9e1552b8985992562f1e96483091ab1469f50dc3f095e1f66f3701",
+  "reader_closure_sha256": "da18b0bf32093e55e8334f01ba2e206bc1a38695861f8bd0549c78c63033ef27",
+  "raw_RESULT_reference": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current51f-sw-mcica-child3h-runtime-r1/RESULT.json",
+    "sha256": "cedaf27565eb0763b11b6e9061e570d71de24eebda931aa60ecdd70d5da7c568"
+  },
+  "metrics": {
+    "control": {
+      "wall_seconds": 1283.9712130948901,
+      "cpu_seconds": 303752.239881,
+      "main_step_sum_seconds": 1085.60017
+    },
+    "candidate": {
+      "wall_seconds": 1080.3683568472043,
+      "cpu_seconds": 267987.325516,
+      "main_step_sum_seconds": 1000.60484
+    }
+  },
+  "order": [
+    "retained_original546b_reference_from_B4BC_pair",
+    "current51f_SW_MCICA_candidate_only"
+  ],
+  "comparison_design": "Candidate-only same256 SW-MCICA own3h versus retained original546b A from completed B4BCpair; identical224compute8x28+32quilt/fourFULLproducts/exactorderedsteps; no freshmatchedpair timing claim",
+  "reductions_scope": "Candidate-only versus retained original same256 A; descriptive timing only, no fresh matched pair or isolated component claim.",
+  "limits": "One new unprofiled SW-MCICA51f candidate on01\u201303, same256/224compute8x28+32quilt; original546b A is retained from the completed B4BC fresh pair. Descriptive timing only, not a new matched pair, repeatability, isolated component or additive gain. Main elapsed includes MPI/output backpressure; aggregate CPU is summed consumption. Own noon remains separate and immutable. No own9h/512/384/profile/restart/full144 qualification.",
+  "latest_three_hour_observation": {
+    "status": "PASS_OWN_UNPROFILED_THREEHOST_SAME256_THREE_HOUR545_FOUR_PRODUCTS_CANDIDATE_ONLY",
+    "executable_sha256": "51f1449ef36ebeda42a8adb74061616e6f83f5a7dd09c0e7dc1145d1a46e4552",
+    "control_executable_sha256": "546b99156cbd809e1cae5e0ea8cebeea44dafd6331abf89e4daea00e0dd0a5e7",
+    "world_size": 256,
+    "compute_ranks": 224,
+    "hosts": [
+      "hpc01",
+      "hpc02",
+      "hpc03"
+    ],
+    "order": [
+      "retained_original546b_reference_from_B4BC_pair",
+      "current51f_SW_MCICA_candidate_only"
+    ],
+    "observations_per_image": 1,
+    "comparison_design": "Candidate-only same256 SW-MCICA own3h versus retained original546b A from completed B4BCpair; identical224compute8x28+32quilt/fourFULLproducts/exactorderedsteps; no freshmatchedpair timing claim",
+    "metrics": {
+      "control": {
+        "wall_seconds": 1283.9712130948901,
+        "cpu_seconds": 303752.239881,
+        "main_step_sum_seconds": 1085.60017
+      },
+      "candidate": {
+        "wall_seconds": 1080.3683568472043,
+        "cpu_seconds": 267987.325516,
+        "main_step_sum_seconds": 1000.60484
+      }
+    },
+    "reductions_percent": null,
+    "descriptive_reductions_percent": {
+      "wall_seconds": 15.857275784004576,
+      "cpu_seconds": 11.774370578801829,
+      "main_step_sum_seconds": 7.8293401520008965
+    },
+    "timing_gain_claim": false,
+    "qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-mcica-mask-consumer-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "f8792e3541d4bad1fa155a11f361e114dfe6fd0f2369f46ba39aec160dfd674a"
+    },
+    "science": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current51f-sw-mcica-child3h-runtime-r1/science-receipt.json",
+      "sha256": "7a8036cd7c9e1552b8985992562f1e96483091ab1469f50dc3f095e1f66f3701"
+    },
+    "raw_RESULT": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current51f-sw-mcica-child3h-runtime-r1/RESULT.json",
+      "sha256": "cedaf27565eb0763b11b6e9061e570d71de24eebda931aa60ecdd70d5da7c568"
+    },
+    "reference_context": {
+      "role": "Retained original A from previous B4BC fresh pair; no new original forecast",
+      "actual_coordinator_journal_times": {
+        "control": {
+          "start_utc": "2026-10-25T06:07:39.131175+00:00",
+          "end_utc": "2026-10-25T06:29:11.786907+00:00"
+        },
+        "candidate": {
+          "start_utc": "2026-10-25T08:05:23.091405+00:00",
+          "end_utc": "2026-10-25T08:23:37.812493+00:00"
+        }
+      }
+    },
+    "limits": "One new unprofiled SW-MCICA51f candidate on01\u201303, same256/224compute8x28+32quilt; original546b A is retained from the completed B4BC fresh pair. Descriptive timing only, not a new matched pair, repeatability, isolated component or additive gain. Main elapsed includes MPI/output backpressure; aggregate CPU is summed consumption. Own noon remains separate and immutable. No own9h/512/384/profile/restart/full144 qualification."
+  },
+  "last_three_hour_benchmark": {
+    "status": "PASS_OWN_UNPROFILED_THREEHOST_SAME256_THREE_HOUR545_FOUR_PRODUCTS_FRESH_FIXED_PAIR",
+    "executable_sha256": "b4bce63243fb128ac813965c37a735d6e07d6ed49dd66a82f1ead542615476d2",
+    "control_executable_sha256": "546b99156cbd809e1cae5e0ea8cebeea44dafd6331abf89e4daea00e0dd0a5e7",
+    "world_size": 256,
+    "compute_ranks": 224,
+    "hosts": [
+      "hpc01",
+      "hpc02",
+      "hpc03"
+    ],
+    "order": [
+      "A_original546b",
+      "B_B4BC"
+    ],
+    "observations_per_image": 1,
+    "comparison_design": "Fresh single fixed-order A(original546b) then B(B4BC), one observation per image; same256 configuration",
+    "metrics": {
+      "control": {
+        "wall_seconds": 1283.9712130948901,
+        "cpu_seconds": 303752.239881,
+        "main_step_sum_seconds": 1085.60017
+      },
+      "candidate": {
+        "wall_seconds": 1102.9387625660747,
+        "cpu_seconds": 273228.661807,
+        "main_step_sum_seconds": 1004.70303
+      }
+    },
+    "reductions_percent": {
+      "wall_seconds": 14.09941661327857,
+      "cpu_seconds": 10.04884049117074,
+      "main_step_sum_seconds": 7.451835605368407
+    },
+    "qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/clear-sky-radiation-batch-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "532ff2080fe4bd41a8106639713af945ad6c3dc52f279c284558bc2c219dbcf9"
+    },
+    "science": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-currentb4bc-threehost-threehour-pair-runtime-r1/science-receipt.json",
+      "sha256": "3adc877816937f67d0804c7449a3be594dc7e285a551b5b1b4942c15f266ef0d"
+    },
+    "raw_RESULT": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-currentb4bc-threehost-threehour-pair-runtime-r1/RESULT.json",
+      "sha256": "110f9892f1b7f24a07590add053f786992791b17e992f61584d95057e2331ebb"
+    },
+    "maintenance_context": {
+      "operator_documented_gap": "A ended around 06:29 UTC, B started around 06:51 UTC after scheduled maintenance",
+      "actual_coordinator_journal_times": {
+        "control": {
+          "start_utc": "2026-10-25T06:07:39.131175+00:00",
+          "end_utc": "2026-10-25T06:29:11.786907+00:00"
+        },
+        "candidate": {
+          "start_utc": "2026-10-25T06:51:05.992246+00:00",
+          "end_utc": "2026-10-25T07:09:42.676089+00:00"
+        }
+      }
+    },
+    "limits": "One fresh fixed-order original546b A then B4BC B on01\u201303, same256/224compute8x28+32quilt. A ended around 06:29 UTC; B began around 06:51 UTC after participating-host maintenance. Not counterbalanced, repeatability, isolated component or additive gains. Main elapsed includes MPI/output backpressure; aggregateCPU is summed consumption. No own9h/512/384/profile/restart/full144 qualification."
+  },
+  "current_noon_one_hour_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-mcica-mask-consumer-20261025/APPLICATION_QUALIFICATION.json",
+    "sha256": "7ae3a3c61b076846779dd022f342524d23c7a15ff34c3493dcedacf7db90a8e4"
+  },
+  "current_noon_one_hour_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-mcica-mask-consumer-20261025/APPLICATION_QUALIFICATION.json",
+  "nine_hour_benchmark": null,
+  "current_nine_hour_qualification": null,
+  "current_noon75m_qualification": null,
+  "current_profiled_nine_hour_qualification": null,
+  "current_restart_qualification": null,
+  "current_source_identity_profile": null,
+  "current_timing_observation": {
+    "status": "PASS_OWN_UNPROFILED_THREEHOST_SAME256_THREE_HOUR545_FOUR_PRODUCTS_CANDIDATE_ONLY",
+    "executable_sha256": "51f1449ef36ebeda42a8adb74061616e6f83f5a7dd09c0e7dc1145d1a46e4552",
+    "control_executable_sha256": "546b99156cbd809e1cae5e0ea8cebeea44dafd6331abf89e4daea00e0dd0a5e7",
+    "world_size": 256,
+    "compute_ranks": 224,
+    "hosts": [
+      "hpc01",
+      "hpc02",
+      "hpc03"
+    ],
+    "order": [
+      "retained_original546b_reference_from_B4BC_pair",
+      "current51f_SW_MCICA_candidate_only"
+    ],
+    "observations_per_image": 1,
+    "comparison_design": "Candidate-only same256 SW-MCICA own3h versus retained original546b A from completed B4BCpair; identical224compute8x28+32quilt/fourFULLproducts/exactorderedsteps; no freshmatchedpair timing claim",
+    "metrics": {
+      "control": {
+        "wall_seconds": 1283.9712130948901,
+        "cpu_seconds": 303752.239881,
+        "main_step_sum_seconds": 1085.60017
+      },
+      "candidate": {
+        "wall_seconds": 1080.3683568472043,
+        "cpu_seconds": 267987.325516,
+        "main_step_sum_seconds": 1000.60484
+      }
+    },
+    "reductions_percent": null,
+    "descriptive_reductions_percent": {
+      "wall_seconds": 15.857275784004576,
+      "cpu_seconds": 11.774370578801829,
+      "main_step_sum_seconds": 7.8293401520008965
+    },
+    "timing_gain_claim": false,
+    "qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-mcica-mask-consumer-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "f8792e3541d4bad1fa155a11f361e114dfe6fd0f2369f46ba39aec160dfd674a"
+    },
+    "science": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current51f-sw-mcica-child3h-runtime-r1/science-receipt.json",
+      "sha256": "7a8036cd7c9e1552b8985992562f1e96483091ab1469f50dc3f095e1f66f3701"
+    },
+    "raw_RESULT": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current51f-sw-mcica-child3h-runtime-r1/RESULT.json",
+      "sha256": "cedaf27565eb0763b11b6e9061e570d71de24eebda931aa60ecdd70d5da7c568"
+    },
+    "reference_context": {
+      "role": "Retained original A from previous B4BC fresh pair; no new original forecast",
+      "actual_coordinator_journal_times": {
+        "control": {
+          "start_utc": "2026-10-25T06:07:39.131175+00:00",
+          "end_utc": "2026-10-25T06:29:11.786907+00:00"
+        },
+        "candidate": {
+          "start_utc": "2026-10-25T08:05:23.091405+00:00",
+          "end_utc": "2026-10-25T08:23:37.812493+00:00"
+        }
+      }
+    },
+    "limits": "One new unprofiled SW-MCICA51f candidate on01\u201303, same256/224compute8x28+32quilt; original546b A is retained from the completed B4BC fresh pair. Descriptive timing only, not a new matched pair, repeatability, isolated component or additive gain. Main elapsed includes MPI/output backpressure; aggregate CPU is summed consumption. Own noon remains separate and immutable. No own9h/512/384/profile/restart/full144 qualification."
+  },
+  "qualification_scope": {
+    "world_size": 256,
+    "own_three_hour": true,
+    "separate_own_noon": true,
+    "own9h": false,
+    "own512": false,
+    "own384": false,
+    "profile": false,
+    "restart": false
+  },
+  "scope": "Own06\u201309 three-hour545/fourFULL, separate immutable12\u201313noon185/twoFULL; same256 only. No9h/512/384/profile/restart/full144 transfer.",
+  "nine_hour_full_application": null,
+  "nine_hour_comparison_scope": "Historical parent nine-hour evidence only; current51f own9h is FALSE.",
+  "last_three_hour_benchmark_applies_to_current": false
+}

@@ -1,0 +1,5 @@
+RK dry U stage split retains the two original per-element assignments and moves the integer RK1 choice around the complete U nest. Each path exposes independent I lanes. V/W/PH/theta/mu and public arguments are unchanged.
+
+Actual strict whole-routine native checks passed. The complete synthetic caller was neutral on hpc01 and 4.590% faster on hpc02; this supports bounded application testing, not a universal or forecast speedup. The child passed its own INSTRUMENTED same25612–13 noon185/twoFULL science and normal model/reader closures. This does not qualify unprofiled/3h/9h/512/384 or automatic profile-phase/restart/full144 scope.
+
+Rebuild support is exact tested-PP replay/cached qualified object. Canonical source is post-test statement correspondence; clean canonical-F-only regeneration is not certified. Raw producer commit remains unknown; actual8302003c72fae6163b5a74e05f9e224159217bd7 is post-test source correspondence only. Native/caller records retain both failed management/validator attempts without relabeling.

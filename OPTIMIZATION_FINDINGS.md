@@ -1,5 +1,13 @@
 # WRF CPU optimization findings
 
+## October 25: RK dry U stage split retained after exact noon qualification
+
+The selected `d54cb2b7` image retains all 51f improvements and moves the RK1 choice outside the complete U tendency loop, exposing strict SIMD while preserving both per-cell assignments and true division. The whole-routine native O2/O0 raw/five-state checks passed. Complete synthetic caller time was neutral on hpc01 and4.59% shorter on hpc02; the cause of this variation is unresolved. This is a retained local improvement, with no isolated forecast speedup claim.
+
+Its own **instrumented** same256 noon application passed both complete outputs and 185 ordered steps against the unchanged original checker, with all models and the reader normally closed. Wall was 7.047 min, main-step elapsed 5.759 min and aggregate CPU 27.774 core-h. These are profile-run observations, not a matched timing comparison. Its own unprofiled/three-hour/nine-hour/four-node/384-rank/restart/full144 qualification is pending; the51f three-hour result below remains specific to51f.
+
+[Evidence, exact tested-PP rebuild support and coupled rollback](tools/cpu-compute/rk-dry-u-stage-split-simd-20261025/README.md). Source8302003c records post-test statement/directive correspondence; the raw source-producing commit is unknown and a clean canonical-F-only rebuild is not certified. Profile source attribution is qualified separately.
+
 ## October 25: latest shortwave-mask build passes three-hour qualification
 
 SW-MCICA51f passed its own same256 three-hour545/four-full-product application with all three new candidate models and the reader normally closed; three retained original-reference closures are also verified. The original546b A is retained from the prior B4BC pair. Measurements below are descriptive, not a fresh matched pair or forecast-gain claim. Noon185 qualification remains immutable and separate. No own9h/512/384/profile/restart/full144 qualification transfers.
@@ -36,7 +44,7 @@ The B4BC candidate completed a ten-minute, 384-rank capacity test on hpc01–03 
 
 ## October25: clear-sky radiation batch promoted after own noon qualification
 
-The working B4BC image retains every BACF component and adds clear-active REFTRA dispatch plus deferred longwave clear-prefix mirror stores. Both full12/13 products and185 ordered steps passed the unchanged original checker with256 ranks on hpc01–03; all models and the reader closed normally.
+The working B4BC image retains every BACF component and adds clear-active REFTRA dispatch plus deferred longwave clear-prefix mirror stores. Both full12/13 products and 185 ordered steps passed the unchanged original checker with256 ranks on hpc01–03; all models and the reader closed normally.
 
 REFTRA caller reductions were5.83%/0.60%, while fullSPCVMC was mixed(+1.36%/−0.58%). Partial-prefix wholeRTRNMC improved1.18%/1.19%; other regimes were mixed. Exact O2/O0 raw/IEEE/state checks passed. These gains are not added or treated as forecast percentages.
 
@@ -68,7 +76,7 @@ Thirteen cache-cleared diagnostic timing arms completed with unchanged raw/state
 
 ## October25: current-build direct-noon source profile completed
 
-The unchanged BACF image passed two full12:00–13:00 products and185 ordered steps against a fresh same256 corrected-original reference on hpc01–03. Both15-second main-thread recordings passed actual acquisition/source-identity checks and normal read-only rendering. Shortwave SPCVMC, paired VRTQDR and REFTRA are prominent direct sampled routines; halo-exchange ancestry contains substantial MPI progress. Selected-thread mixed-I/O shares establish source questions, not global removable cost or MPI causality. Two bounded radiation implementations and a separate MPI-call alternative are in private testing; none is promoted yet. [Science, profile scope and report-only counter repair](tools/cpu-compute/threehost-same256-noon-source-profile/README.md).
+The unchanged BACF image passed two full12:00–13:00 products and 185 ordered steps against a fresh same256 corrected-original reference on hpc01–03. Both15-second main-thread recordings passed actual acquisition/source-identity checks and normal read-only rendering. Shortwave SPCVMC, paired VRTQDR and REFTRA are prominent direct sampled routines; halo-exchange ancestry contains substantial MPI progress. Selected-thread mixed-I/O shares establish source questions, not global removable cost or MPI causality. Two bounded radiation implementations and a separate MPI-call alternative are in private testing; none is promoted yet. [Science, profile scope and report-only counter repair](tools/cpu-compute/threehost-same256-noon-source-profile/README.md).
 
 ## October25: fresh three-host three-hour comparison
 
@@ -2742,7 +2750,7 @@ The large observed progress leaves primarily descend from MPI_Wait in compute RS
 
 A separate one-hour full-grid512 diagnostic used accepted default-diffusion-cache executabled4d45 with provider375/codecf85/faba. A measurement-only C MPI_Wait interposer calls PMPI_Wait exactly once and records only eight pinned native RSL X/Y return sites on main-thread ranks0/241/243. Actual bounded DeepSeek implementation, repair and independent integration reviews returned. Native two-node MPI/status/raw/errno/FP-state controls and positive/negative selector tests passed before model admission. This helper is not promoted or enabled by default.
 
-The forecast completed before the session crash. Recovery reused its saved successful four-node closures rather than rerunning it. The unchanged original checker subsequently passed both complete06/07 histories and185 ordered timesteps, exact raw/nonfinite/metadata/layout and all runtime predicates; the original reader closed successfully. Trace acquisition independently verified actual PID/TID, stable files, sequence and same-thread monotonic intervals, zero MPI errors and zero dropped/bad-clock records. Rank0 captured45632 calls and ranks241/243 each91264.
+The forecast completed before the session crash. Recovery reused its saved successful four-node closures rather than rerunning it. The unchanged original checker subsequently passed both complete06/07 histories and 185 ordered timesteps, exact raw/nonfinite/metadata/layout and all runtime predicates; the original reader closed successfully. Trace acquisition independently verified actual PID/TID, stable files, sequence and same-thread monotonic intervals, zero MPI errors and zero dropped/bad-clock records. Rank0 captured45632 calls and ranks241/243 each91264.
 
 | Selected rank | First-to-last trace span, s | Receive waits, s | Send waits, s |
 |---|---:|---:|---:|
@@ -3446,7 +3454,7 @@ Implementation provenance is local fallback after automatic review blocked the e
 
 ## Focused current compute profile: one independently usable stream (2026-10-16)
 
-One full512 one-hour observational run used current executable0d2150/provider375/Huffman881d, unchanged faba/IB/resources and actual checked sync/drop3 on all four clients. The original literal checker passed both complete06/07 histories and185 ordered steps against the retained same-executable/f85 reference. SCI `1bfe04ee97c9c762c3cf95bf04081f4c51fb5a4eee15ae1faa556e8de7d65bde`; reader closure `4e6d12764c5461e9618413e7a5113b2cc9e864c66a6e22ba8a94eaa931fd9afc`. All model, recorder and reader scopes closed.
+One full512 one-hour observational run used current executable0d2150/provider375/Huffman881d, unchanged faba/IB/resources and actual checked sync/drop3 on all four clients. The original literal checker passed both complete06/07 histories and 185 ordered steps against the retained same-executable/f85 reference. SCI `1bfe04ee97c9c762c3cf95bf04081f4c51fb5a4eee15ae1faa556e8de7d65bde`; reader closure `4e6d12764c5461e9618413e7a5113b2cc9e864c66a6e22ba8a94eaa931fd9afc`. All model, recorder and reader scopes closed.
 
 Ranks0–2 never admitted: the observed writer-closure marker was unavailable before their110-second remaining-window guard expired. Rank3 completed its requested90-second recording. Its producer remains UNAVAILABLE because the final remaining-time readiness test was false; that label was not upgraded. Separate independent review qualified4,108 actual PID=TID event records spanning89.980693697 seconds, with104 same-host identity/FD/window audits and actual recorder closure. Numeric loss remains UNKNOWN. This one selected main-thread stream supports bounded source attribution, not whole-model headroom or a timing gain. No automatic retry or second forecast followed. Evidence: `science-discovery/production512-ihprof-runtime-r1/` and `source-discovery/ihprof-independent-validation-r1/RESULT.json` (`5ffd108b4b18073437f07d3a8c9230f321e3c9a5a8cee7c6f7896ace93bd1784`).
 
@@ -4773,7 +4781,7 @@ These are protocol and compile results, not generated-wrapper, intervening bound
 
 ### Current-build MPI request/profile evidence, October 23
 
-The one-hour noon diagnostic passed the original exact comparison for **two products and185 ordered steps**, with all512 rank/library/affinity, two-tile, writer and output-layout gates intact. All four model scopes and the original reader closed normally. Actual early checks verified both15-second recorders, intended target threads and growing data files; the existing native report path subsequently qualified both captures.
+The one-hour noon diagnostic passed the original exact comparison for **two products and 185 ordered steps**, with all512 rank/library/affinity, two-tile, writer and output-layout gates intact. All four model scopes and the original reader closed normally. Actual early checks verified both15-second recorders, intended target threads and growing data files; the existing native report path subsequently qualified both captures.
 
 The all-rank proof retained25,932,224 request records. Each selected rank122/386 contributed58,144 records:55,784 uniquely attributable (95.9411%) and2,360 conservative ambiguous records, excluded from attribution. A separate short reader validated those two request streams and120 same-host DT traces; all-rank counts are explicitly inherited from the completed scientific proof. Both profile joins qualified.
 

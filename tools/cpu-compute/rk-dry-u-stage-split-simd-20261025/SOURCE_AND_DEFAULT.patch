@@ -1,0 +1,94 @@
+--- a/dyn_em/module_em.F
++++ b/dyn_em/module_em.F
+@@ -971,17 +971,13 @@
+                             ims,ime, jms,jme, kms,kme,                       &
+                             ips,ipe, jps,jpe, kps,kpe,                       &
+                             its,ite, jts,jte, kts,kte                       )
+-
+    IMPLICIT NONE
+-
+    !  Input data.
+-
+    INTEGER ,               INTENT(IN   ) :: ids, ide, jds, jde, kds, kde, &
+                                             ims, ime, jms, jme, kms, kme, &
+                                             ips, ipe, jps, jpe, kps, kpe, &
+                                             its, ite, jts, jte, kts, kte
+    INTEGER ,               INTENT(IN   ) :: rk_step
+-
+    REAL , DIMENSION( ims:ime , kms:kme, jms:jme  ) , INTENT(INOUT) :: ru_tend, &
+                                                                       rv_tend, &
+                                                                       rw_tend, &
+@@ -992,17 +988,14 @@
+                                                                       rw_tendf, &
+                                                                       ph_tendf, &
+                                                                       t_tendf
+-
+    REAL , DIMENSION( ims:ime , jms:jme  ) , INTENT(INOUT) :: mu_tend, &
+                                                              mu_tendf
+-
+    REAL , DIMENSION( ims:ime , kms:kme, jms:jme  ) , INTENT(IN   ) ::  u_save,  &
+                                                                        v_save,  &
+                                                                        w_save,  &
+                                                                       ph_save,  &
+                                                                        t_save,  &
+                                                                       h_diabatic
+-
+    REAL , DIMENSION( ims:ime , jms:jme ) ,         INTENT(IN   ) :: mut,       &
+                                                                     msftx,     &
+                                                                     msfty,     &
+@@ -1011,12 +1004,9 @@
+                                                                     msfvx,     &
+                                                                     msfvx_inv, &
+                                                                     msfvy
+-
+    REAL , DIMENSION( kms:kme ) ,         INTENT(IN   ) :: c1, c2
+-
+ ! Local
+    INTEGER :: i, j, k
+-
+ !<DESCRIPTION>
+ !
+ ! rk_addtend_dry constructs the full large-timestep tendency terms for
+@@ -1027,28 +1017,38 @@
+ ! these change each rk substep).  Output is in *tend.
+ !
+ !</DESCRIPTION>
+-
+ !  Finally, add the forward-step tendency to the rk_tendency
+-
+ ! u/v/w/save contain bc tendency that needs to be multiplied by msf
+ ! (u by msfuy, v by msfvx)
+ !  before adding it to physics tendency (*tendf)
+ ! For momentum we need the final tendency to include an inverse msf
+ ! physics/bc tendency needs to be divided, advection tendency already has it
+-
+ ! For scalars we need the final tendency to include an inverse msf (msfty)
+ ! advection tendency is OK, physics/bc tendency needs to be divided by msf
+ 
++   IF(rk_step == 1) THEN
+    DO j = jts,MIN(jte,jde-1)
+    DO k = kts,kte-1
++   !$omp simd
+    DO i = its,ite
+      ! multiply by my to uncouple u
+-     IF(rk_step == 1)ru_tendf(i,k,j) = ru_tendf(i,k,j) +  u_save(i,k,j)*msfuy(i,j)
++     ru_tendf(i,k,j) = ru_tendf(i,k,j) +  u_save(i,k,j)*msfuy(i,j)
+      ! divide by my to couple u
+      ru_tend(i,k,j) = ru_tend(i,k,j) + ru_tendf(i,k,j)/msfuy(i,j)
+    ENDDO
+    ENDDO
+    ENDDO
++   ELSE
++   DO j = jts,MIN(jte,jde-1)
++   DO k = kts,kte-1
++   !$omp simd
++   DO i = its,ite
++     ! divide by my to couple u
++     ru_tend(i,k,j) = ru_tend(i,k,j) + ru_tendf(i,k,j)/msfuy(i,j)
++   ENDDO
++   ENDDO
++   ENDDO
++   ENDIF
+ 
+    DO j = jts,jte
+    DO k = kts,kte-1

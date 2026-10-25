@@ -1,3 +1,11 @@
+# Current working selection: d54 RK dry U stage split
+
+Selected **d54cb2b7 / archivedeb86e8b**, source correspondence **8302003c**, retains every 51f improvement. Strict native/caller checks and its own INSTRUMENTED same256 noon two-product/185-step application passed. Whole-caller timing was neutral on 01 and 4.59% lower on02; no forecast gain is claimed. Unprofiled/three-hour/nine-hour/four-host/384/restart/full144 scope remains pending. Profile decoding is separate.
+
+[Current selection](selection.json), [binding](CURRENT_SOURCE_BUILD_BINDING.json), [qualification and rollback](../cpu-compute/rk-dry-u-stage-split-simd-20261025/README.md).
+
+The following sections retain image-specific historical results.
+
 # Latest three-hour qualification: 51f combined configuration
 
 All four full products and545 ordered steps matched exactly. Wall was18.006min versus retained original21.400min (15.86% descriptive reduction); main-step elapsed7.83% lower, totalCPU11.77% lower. One later candidate, no new matched pair or isolated mask-gain claim. [Qualification](../cpu-compute/sw-mcica-mask-consumer-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json).
@@ -12,7 +20,7 @@ The following material preserves prior image-specific results.
 
 # Current working selection: B4BC, October25
 
-The qualified working configuration now includes both clear-sky radiation changes, retaining all previous BACF improvements. Own acceptance is direct12–13 noon,256 ranks on hpc01–03, two full products and185 ordered steps. Other horizons/configurations are pending; historical BACF timings do not qualify this new image.
+The qualified working configuration now includes both clear-sky radiation changes, retaining all previous BACF improvements. Own acceptance is direct12–13 noon,256 ranks on hpc01–03, two full products and 185 ordered steps. Other horizons/configurations are pending; historical BACF timings do not qualify this new image.
 
 [Current selection](selection.json), [source/build binding](CURRENT_SOURCE_BUILD_BINDING.json), [evidence and rollback](../cpu-compute/clear-sky-radiation-batch-20261025/README.md). Source correspondence commit `dcb885b9`; whole tested PP replay only.
 
