@@ -1,0 +1,59 @@
+{
+  "status": "FAIL_RETAINED_NO_RETRY",
+  "scope": "Samehost02nine-rank3x3 completeHALOC representativepatch; not actual224/global/forecast/wire",
+  "arms": [
+    {
+      "index": 0,
+      "which": "parent",
+      "receipt_sha256": "8531c750a60f681e76b91855618e57bc8fc968c6bab1dfd8ca734e0f00bb45e2",
+      "closure_sha256": "2b7daf2d4529445233ac000b674ac1b5a5473b0c5c00566c818321fce121d71d",
+      "cache_sha256": "4244bb7f28959d3c02d000b0ec1412885201955ebc3f9f6fa591f7723027023f",
+      "invocation_id": "3358655d19b9426d96d1f9af0de2e301",
+      "max_rank_wall_ns": 297425121,
+      "sum_rank_thread_cpu_ns": 2674934389,
+      "rank_times": {
+        "4": {
+          "wall_ns": 297419191,
+          "thread_cpu_ns": 297406075
+        },
+        "8": {
+          "wall_ns": 297080451,
+          "thread_cpu_ns": 297060543
+        },
+        "1": {
+          "wall_ns": 297422041,
+          "thread_cpu_ns": 297402644
+        },
+        "3": {
+          "wall_ns": 297423301,
+          "thread_cpu_ns": 296976254
+        },
+        "0": {
+          "wall_ns": 297085421,
+          "thread_cpu_ns": 296931364
+        },
+        "5": {
+          "wall_ns": 297425121,
+          "thread_cpu_ns": 296981874
+        },
+        "2": {
+          "wall_ns": 297410801,
+          "thread_cpu_ns": 297397264
+        },
+        "7": {
+          "wall_ns": 297415841,
+          "thread_cpu_ns": 297383976
+        },
+        "6": {
+          "wall_ns": 297403151,
+          "thread_cpu_ns": 297394395
+        }
+      },
+      "raw_equal": true
+    }
+  ],
+  "performance_qualified": false,
+  "application_qualified": false,
+  "error": "AssertionError('STRICT_CROSSARM_FULLPHYSICAL_OR_FIVE_STATE_MISMATCH')",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-b4bc-same256-mpi-critical-path-finite-audit-r1/direct8-current-rsl-retained-audit-r1/actual-haloc-source-feasibility-r1/complete-haloc-caller-preparation-r1/run_four_arms.py\", line 17, in <module>\n    assert signature==gold,'STRICT_CROSSARM_FULLPHYSICAL_OR_FIVE_STATE_MISMATCH'\n           ^^^^^^^^^^^^^^^\nAssertionError: STRICT_CROSSARM_FULLPHYSICAL_OR_FIVE_STATE_MISMATCH\n"
+}

@@ -1,0 +1,5 @@
+### Direct-corner MPI prototype: protocol passed, complete caller remains unpromoted
+
+The private HALO_EM_C direct eight-neighbor exchange passed the genuine nine-rank raw-data, five-state, fallback and request-lifetime gate. A larger local-footprint complete caller then stopped after its first original/candidate pair: all halo values remained exact, but errno and floating-point status differed on some ranks. Its recorded candidate time was about 3.11 times the original time. The strict failed wave and both normal process closures are retained; the second pair did not run.
+
+This is a concrete reason to keep the current per-call setup/allocation design outside the defaults. The ownership/protocol proof remains useful for a distinct design. Next, attribute config copying, collective admission, allocation and packing costs before changing one of them. These are synthetic nine-rank caller observations, not an actual224-rank or forecast result. See tools/cpu-compute/haloc-direct8-screen-20261025/DECISION.json. No acceptance rule was relaxed.
