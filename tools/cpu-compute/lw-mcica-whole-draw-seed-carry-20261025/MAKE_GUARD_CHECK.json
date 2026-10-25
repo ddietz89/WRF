@@ -1,0 +1,78 @@
+{
+  "status": "PASS_LOCAL_GNU_MAKE_EVALUATION_NO_BUILD_NO_COMPILER",
+  "tested_block_byte_exact_R2": true,
+  "configuration_variables_defined_by_include_only": true,
+  "cases": [
+    {
+      "case": "eligible_after_include",
+      "returncode": 0,
+      "stdout": "-DFIXTURE_BASE -DWRF_LW_MCICA_WHOLE_DRAW_SEED_CARRY_ENABLE\n",
+      "stderr": "",
+      "ENABLE": true,
+      "DISABLE": false,
+      "makefile_sha256": "828dce0a6053d85eb26657b188b124ac9d8a29c7e21daeb8775ff5c22e050584",
+      "configure_sha256": "bd82db5b174d4d765f59a6401be5cd395fc8b8ae032f21258ae2aa3e9bc459c5"
+    },
+    {
+      "case": "optout_zero",
+      "returncode": 0,
+      "stdout": "-DFIXTURE_BASE -DWRF_LW_MCICA_WHOLE_DRAW_SEED_CARRY_DISABLE\n",
+      "stderr": "",
+      "ENABLE": false,
+      "DISABLE": true,
+      "makefile_sha256": "828dce0a6053d85eb26657b188b124ac9d8a29c7e21daeb8775ff5c22e050584",
+      "configure_sha256": "bd82db5b174d4d765f59a6401be5cd395fc8b8ae032f21258ae2aa3e9bc459c5"
+    },
+    {
+      "case": "unsupported_vendor",
+      "returncode": 0,
+      "stdout": "-DFIXTURE_BASE\n",
+      "stderr": "",
+      "ENABLE": false,
+      "DISABLE": false,
+      "makefile_sha256": "828dce0a6053d85eb26657b188b124ac9d8a29c7e21daeb8775ff5c22e050584",
+      "configure_sha256": "bd82db5b174d4d765f59a6401be5cd395fc8b8ae032f21258ae2aa3e9bc459c5"
+    },
+    {
+      "case": "unsupported_GNU_version",
+      "returncode": 0,
+      "stdout": "-DFIXTURE_BASE\n",
+      "stderr": "",
+      "ENABLE": false,
+      "DISABLE": false,
+      "makefile_sha256": "828dce0a6053d85eb26657b188b124ac9d8a29c7e21daeb8775ff5c22e050584",
+      "configure_sha256": "bd82db5b174d4d765f59a6401be5cd395fc8b8ae032f21258ae2aa3e9bc459c5"
+    },
+    {
+      "case": "OMP_config",
+      "returncode": 0,
+      "stdout": "-DFIXTURE_BASE\n",
+      "stderr": "",
+      "ENABLE": false,
+      "DISABLE": false,
+      "makefile_sha256": "828dce0a6053d85eb26657b188b124ac9d8a29c7e21daeb8775ff5c22e050584",
+      "configure_sha256": "21cad43051f44dcf2fe6394bf20a256e71a5271147b186abd06bb7a5c1a18e0e"
+    },
+    {
+      "case": "default_kind_promotion",
+      "returncode": 0,
+      "stdout": "-DFIXTURE_BASE\n",
+      "stderr": "",
+      "ENABLE": false,
+      "DISABLE": false,
+      "makefile_sha256": "828dce0a6053d85eb26657b188b124ac9d8a29c7e21daeb8775ff5c22e050584",
+      "configure_sha256": "d9f43dd2d69b51a18e24d894aeea63ac799bdd0c3b48bda3f17dfd27cbbd117c"
+    }
+  ],
+  "R2_before_include_negative_control": {
+    "returncode": 0,
+    "stdout": "-DFIXTURE_BASE\n",
+    "stderr": "",
+    "ENABLE": false
+  },
+  "compiler_or_scientific_builds": 0,
+  "remote_calls": 0,
+  "stub_sfc_sha256": "ae5b5a0a73e454cf2d8e9ac3eff01d9927a642ddb61d2adc94396cff408e97e5",
+  "actual_candidate_include_line": 435,
+  "actual_candidate_guard_start_line": 437
+}

@@ -1,0 +1,126 @@
+{
+  "status": "EXACT_TESTED_PP_REPLAY_AND_CACHED_NATIVE_DELIVERY",
+  "post_test_source_commit": "2791f903a42fb3cdb767aea010f3b54971785109",
+  "raw_producer_source_commit": null,
+  "canonical_F": {
+    "path": "/home/ddietz/wrf/WRF/phys/module_ra_rrtmg_lw.F",
+    "sha256": "e877f3cd95ed7b53edf8e13e6ba19f144304732569571db7d0618cbd0625ea28"
+  },
+  "canonical_Make": {
+    "path": "/home/ddietz/wrf/WRF/phys/Makefile",
+    "sha256": "698c35d9c70c432ee344248375d14690a2637c5ad7c31787e64aa5f6e741f8f4"
+  },
+  "canonical_default_support": {
+    "knob": "WRF_LW_MCICA_WHOLE_DRAW_SEED_CARRY",
+    "default_value": 1,
+    "effective_only": "GNU Fortran13.3.0, empty OMP/OMPCPP/PROMOTION/DOUBLE_PRECISION, RWORDSIZE/IWORDSIZE4, no default-kind promotion flags, plus source DM_PARALLEL&&!_OPENMP",
+    "enable_macro": "WRF_LW_MCICA_WHOLE_DRAW_SEED_CARRY_ENABLE",
+    "optout_macro": "WRF_LW_MCICA_WHOLE_DRAW_SEED_CARRY_DISABLE",
+    "all_other_default_stacks": "Exact original source projection",
+    "non_GNU_explicit_ENABLE": "Experimental candidate only; no qualification transfer"
+  },
+  "tested_PP": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/lw-mcica-whole-draw-seed-carry-20261025/qualified-pp/module_ra_rrtmg_lw.f90",
+    "sha256": "c258ef870d7a1a45f8b6803086c957bc331b0cf0cdd34b3957a51518f9642c0f"
+  },
+  "actual_native_compile_command": [
+    "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+    "-O2",
+    "-fno-fast-math",
+    "-ffp-contract=off",
+    "-w",
+    "-fno-fast-math",
+    "-ffp-contract=off",
+    "-ffree-form",
+    "-ffree-line-length-none",
+    "-fconvert=big-endian",
+    "-frecord-marker=4",
+    "-fallow-argument-mismatch",
+    "-fallow-invalid-boz",
+    "-g",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+    "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+    "-c",
+    "module_ra_rrtmg_lw.f90",
+    "-o",
+    "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-lw-whole-draw-seed-carry-native-hpc01-r2/work/O2-candidate/module_ra_rrtmg_lw.o"
+  ],
+  "actual_native_object": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-lw-whole-draw-seed-carry-native-hpc01-r2/work/O2-candidate/module_ra_rrtmg_lw.o",
+    "sha256": "79033518aeca1ce4532c4c693ae0fb5495019df34a0f2474321f53325171a74c",
+    "PP_sha256": "c258ef870d7a1a45f8b6803086c957bc331b0cf0cdd34b3957a51518f9642c0f",
+    "MOD": {
+      "rrtmg_lw_init.mod": "a59b085cda1966c5289cb8d8224b42d8e7db5473f11da06c64962326bfd3399b",
+      "rrlw_kg08.mod": "7d5a96114cf55aaddd559d6e32bb9ac82f5cfa1a7b139a862cbf9140fecd3339",
+      "rrlw_kg06.mod": "2dd17cebb76aa7a205dba62cc6340e572183ec31641614fd7eb522e1c4d76b3c",
+      "rrlw_kg01.mod": "b3ffadb47a94969b1c13d16a10ade38af24889435a9a019c6a443665f6e096e0",
+      "rrlw_wvn.mod": "41ad4b9023572243dfcbc1acee6b59078d4724fccd886cf929784be4468a15e1",
+      "rrlw_ref.mod": "c6b509c7619fbd253cba24af0a8480bc8d7676ea73ad25714f1f80b1607c04f3",
+      "mersennetwister.mod": "c0140fdc06902b8673b35f1f6702ea8455cbf038e792b22316243b2a05a7c9c5",
+      "rrlw_con.mod": "dc009504ce64de2cabcef473d4edc167acc42c41033be786c4e37790de1add4b",
+      "rrlw_kg10.mod": "0653a29e88e7f75d8e6a79e7dadfa6428b99f5fab0694f79add7e73522c86558",
+      "rrtmg_lw_cldprmc.mod": "27ca221be60568ffb76cf731b72aeb40bf08aa5b4b02b9c22a4ac75dc0d203f5",
+      "rrlw_kg07.mod": "48cf0ef8fcf811311e0e00ae783adfc7525350f88da1bd34bc87a0b55ab6db87",
+      "module_ra_rrtmg_lw.mod": "6b9ceba9f03af71e23c822af53c8e8de17b81713a4267a9545b7f217a58c98ce",
+      "rrlw_kg09.mod": "b5065092edd35cfc833d91d2b9fa87d9a74163f1ca37e57cedc188341a8c1c00",
+      "parrrtm.mod": "7e3ede4ccdfe57d584650d2cb9c0f587b30095809093e9dddac408435196a706",
+      "rrtmg_lw_rad.mod": "8c3752c5ad800afcd8cae35a9f27c1d43779baf4fbdf4952aab762a57031cd27",
+      "rrlw_cld.mod": "1ca04cd2fc2b292f0adab67b30d2ca64d6a19f1c251e14ad647e36e2f8b9433b",
+      "rrlw_kg16.mod": "a6a2591d85d157c6b577d669f4e4c161c1a5b11c02a4399335b749a3ae94bd5c",
+      "rrlw_kg11.mod": "7fbdf628e47dc5d265d84b2f04d4da6d224dde4d31ac9718c2dbb6020051cab2",
+      "rrlw_vsn.mod": "2135ab9c18ba72926725b0fb04ace137bdbb20ddd8ac9f84d93fa5722d17ce7a",
+      "parkind.mod": "c5d6c7af1cae17b53c1d9f78233694169654d1472dafdc7f040427da695dcfa3",
+      "rrlw_kg12.mod": "0ed0a0920b48b744582d52f942c84eba6d8fb4b9a606c666c8a9fac7b0f405f3",
+      "rrlw_kg15.mod": "17dfd53adf0101f435ad11cc1bea47bd038967e09efccaab8109ab99a293204b",
+      "rrtmg_lw_rtrnmc.mod": "9cdf8c316beeebb4c68aebd5739017220fbaa525aca4758aad2bf50bb04b4009",
+      "rrlw_kg04.mod": "d758da6df0b6002e26a882e59951988e31f6452db869662a7f55eaf6151ac861",
+      "rrlw_kg03.mod": "f82be761728f812c36ac2a6a03304765d893b0ddb4ed876354525c3c9ca88a44",
+      "mcica_subcol_gen_lw.mod": "2b8dd03c57353e12817f061f553f9e780f8c87305698a646552ec080d1f12f1e",
+      "rrlw_tbl.mod": "412cec7ab4f501a8d4c9653130fb63fbb9f75d600038dd4e427b3a653f59e3b4",
+      "rrtmg_lw_setcoef.mod": "05b5bfe6fc69ab4c2315de7487d100bbfe30843be6b70af5e9a8ba8b4f876636",
+      "rrlw_kg14.mod": "45e2fec8ef39e1c778d58f8dfaa48c43c4a0dd834b6ce17438aa8053b75318d9",
+      "mcica_random_numbers.mod": "f51fd6d809ec4765f467394634b6a61b26f8fc9e8eec2a273292703440664c15",
+      "rrlw_kg13.mod": "e93870746df5ffc6ee3709ca806d3417cea44bbc86b2f9ef6ef3041ee1a6376f",
+      "rrlw_kg02.mod": "26713a06981e7767f3a7ccc8ec8e6bed15ed0dd46b0e664cc4feb25f65b171f2",
+      "rrlw_kg05.mod": "8c8c0487dec2a15cf20dc9f50430a9150a0a0d099b600b1ee7d4370a6e7a51d1",
+      "rrtmg_lw_taumol.mod": "43e8a837415a979cf7fb7e3752a8a681311863e39239922091f195fbef548d3b"
+    }
+  },
+  "qualified_delivery": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentd54-lw-whole-draw-seed-carry-one-member-experimental-r1/wrf.exe",
+    "sha256": "0ec34714e17c94b83692f9a1f4e753bad2ee2b869ef17930640a4498b8322ed3"
+  },
+  "qualified_archive": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentd54-lw-whole-draw-seed-carry-one-member-experimental-r1/libwrflib.a",
+    "sha256": "a30c8df77b7db01e7976284b3dccfaa185f9315932f28737036c000cf265ac8b"
+  },
+  "native_receipt": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentd54-lw-mcica-whole-draw-seed-carry-source-question-r1/native-gate-preparation-r2-row-preserved-hpc01/actual-native-r1/receipt.json",
+    "sha256": "171bf5c67258b2af737ec96c3e2ed3f666c886d8aad1b01a27173a53087153d6"
+  },
+  "scoped_generated_layout": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentd54-lw-mcica-whole-draw-seed-carry-source-question-r1/r2-finite-structural-classification-r1/SCOPED_QUALIFICATION.json",
+    "sha256": "7f697dacbcf69d299c222a5a6a653e4cd187853998edb3fc35d2bff2b391209e"
+  },
+  "build_receipt": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentd54-lw-mcica-whole-draw-seed-carry-source-question-r1/one-lw-member-experimental-build-preparation-r1-hpc03/actual-native-r1/receipt.json",
+    "sha256": "531f6ac4daeb4f8ef7c7dbbb855e6808593fca6ec79ca5191e1e5f7747238737"
+  },
+  "build_closure": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentd54-lw-mcica-whole-draw-seed-carry-source-question-r1/one-lw-member-experimental-build-preparation-r1-hpc03/actual-native-r1/closure.json",
+    "sha256": "b50c0e236fe5bc51449e149a2eaae2f5e4dc72cb582754ec49956a68cc4068a1"
+  },
+  "delivery_scope": "Retain qualified cached O2 object and exact one-member archive/link receipt. For replay use a fresh project directory and matching pinned dependency inputs; replace output paths rather than overwriting retained artifacts. Debug paths can change object bytes; this record certifies the retained delivery, not arbitrary new builds.",
+  "clean_canonical_F_CPP_reproduction_certified": false,
+  "opt_out": "WRF_LW_MCICA_WHOLE_DRAW_SEED_CARRY=0 with actual regeneration/rebuild/relink; source-disabled projection is original. Restore retained D54 image/archive/three selection records for immediate measured rollback."
+}

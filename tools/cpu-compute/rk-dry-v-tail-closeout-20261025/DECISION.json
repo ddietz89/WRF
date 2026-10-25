@@ -1,0 +1,118 @@
+{
+  "status": "CLOSED_TWO_BOUNDED_V_VARIANTS_UNPROMOTED_NO_THIRD_VARIANT_OR_MORE_RUNS",
+  "selected_parent": {
+    "image_sha256": "d54cb2b7f21dcabee676bc3633c06e655a6ea1c7db7eca1936154e2ea216d4ff",
+    "ModuleEM_sha256": "647bb2687c9f30e937601c0e38afe2d3503f8a8748847a1d013f9be415891bd0",
+    "PP_sha256": "c78a95aba1122a90a5b37a2a70522e1df11d382c0cece00bc7939588eb41fc5e",
+    "selected_source_changed": false
+  },
+  "variant1": {
+    "object_sha256": "31ccc5993fd04eae073439315952f14b4830096f21420d160d487f1c48eaf88e",
+    "disposition": "REJECT_STRICT_TWO_LANE_TAIL_RAW_IEEE_MISMATCH",
+    "retained_original_native": "Original40+8V cases/fourround O2/O0 passed as bounded historical evidence; no relabel.",
+    "actual_counterexample": "Width3 existing41/42 driver: round0case41 rv_tend(1,1,1),byte89396,parent ffc54321 versuscandidate7fc12345; emittedtwo-lane ADDPS operands reverse parent/main roles.",
+    "actual_synthetic_wholecaller_comparisons": [
+      {
+        "host": "hpc01",
+        "measurements": {
+          "rk": {
+            "parent": {
+              "wall_seconds": 2.56393862,
+              "cpu_seconds": 2.561448136,
+              "wall_nanoseconds": 2563938620,
+              "cpu_nanoseconds": 2561448136,
+              "repeats": 1536
+            },
+            "candidate": {
+              "wall_seconds": 2.3347302080000003,
+              "cpu_seconds": 2.332281544,
+              "wall_nanoseconds": 2334730208,
+              "cpu_nanoseconds": 2332281544,
+              "repeats": 1536
+            },
+            "wall_reduction_percent": 8.939699656304557,
+            "cpu_reduction_percent": 8.946759014136052
+          }
+        }
+      },
+      {
+        "host": "hpc02",
+        "measurements": {
+          "rk": {
+            "parent": {
+              "wall_seconds": 2.430491646,
+              "cpu_seconds": 2.428014617,
+              "wall_nanoseconds": 2430491646,
+              "cpu_nanoseconds": 2428014617,
+              "repeats": 1536
+            },
+            "candidate": {
+              "wall_seconds": 2.337966154,
+              "cpu_seconds": 2.3349796460000003,
+              "wall_nanoseconds": 2337966154,
+              "cpu_nanoseconds": 2334979646,
+              "repeats": 1536
+            },
+            "wall_reduction_percent": 3.8068631979161327,
+            "cpu_reduction_percent": 3.8317302683684717
+          }
+        }
+      }
+    ],
+    "performance_scope": "Positive1536-call completeRK restoreinsideclock/oppositeorder/cacheEACH is retained useful but unqualified kernel potential; does not override rawfailure or establish forecast gain."
+  },
+  "variant2": {
+    "PP_sha256": "e0f1777903ac32293251f1502d15b717b3625c00190f4976108833dd07c0a680",
+    "object_sha256": "d16fc1903b6869c051cd10094679764613c913a5dba62c2f6a5a15a0460ad801",
+    "disposition": "CLOSE_MISSING_INTENDED_PACKED_BULK_MECHANISM_NOT_NUMERICAL_FAILURE",
+    "invocation_id": "fab26e7b745448ffb41f47fb96677055",
+    "known_counterexample_O2": "Both width3 existing41/42 cases fullraw/readonly/physical/five-state matched cachedcurrent in all4rounds. This narrow pass is retained.",
+    "actual_bulk_loop": "b4d0 stageCMP/JNE;b4e0 MULSS/b4e5 ADDSS/b4ec store; b4f8 MULSS/b4fe ADDSS/b503 store;4byteadvance b508 andbackedgeb50f->b4d0. Entire recorded sourcejoined bulk loop remains scalar.",
+    "actual_tail": "ScalarMULSS/ADDSS as intended, no packedtail observed.",
+    "mechanism_gate": "packed_bulk_observedFALSE,scalar_tail_onlyTRUE,noFMAorreciprocalTRUE. No useful4-lane bulk realized under actualgenericGNU13recipe.",
+    "not_run": [
+      "full48cases",
+      "candidateO0compile/tests",
+      "caller timing",
+      "application"
+    ],
+    "module_compiles": 1,
+    "cached_parent_compiles": 0,
+    "closure": "Failed mechanismassert/Exec1;PID0/cgroupabsent;all priorcommands normal0"
+  },
+  "scope_limits": "No universal impossibility or permanent exclusion of every future V mechanism. These two fixed proposals are closed; no further variant/run is authorized by this closeout. No candidate source or selected/default promotion.",
+  "evidence": [
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-b4bc-same256-mpi-critical-path-finite-audit-r1/current-d54-rk-dry-v-four-bulk-original-tail-native-r1-hpc01/actual-native-r1/receipt.json",
+      "sha256": "9cd5c1f40ae2dc6605bb010b50d091e94bb0e79522782959a0e07a5bde9dbf3d"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-b4bc-same256-mpi-critical-path-finite-audit-r1/current-d54-rk-dry-v-four-bulk-original-tail-native-r1-hpc01/actual-native-r1/closure.json",
+      "sha256": "b620e2bce8beff1f29e7dbaa696c8cf792117be59476e3ab5d7e56b384741335"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-b4bc-same256-mpi-critical-path-finite-audit-r1/current-d54-rk-dry-v-two-lane-tail-supplement-r1-hpc02/actual-native-r1/receipt.json",
+      "sha256": "d9218e587349f53f2d395d7b477882bc4e00853f7365dd2af4f03e3ca42fd263"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-b4bc-same256-mpi-critical-path-finite-audit-r1/current-d54-rk-dry-v-two-lane-tail-supplement-r1-hpc02/actual-native-r1/closure.json",
+      "sha256": "0c930cffb36ab093787f4dfe92532e54914646c4dec52b364d628101594ef314"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-b4bc-same256-mpi-critical-path-finite-audit-r1/current-d54-rk-dry-v-native-preparation-r2-hpc02/actual-native-r1/receipt.json",
+      "sha256": "539e54513d8256ef0e8610bafad4d3426b12d8c3f70360e25388b54b39d6f82f"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-b4bc-same256-mpi-critical-path-finite-audit-r1/current-d54-rk-dry-v-complete-caller-cost-preparation-r1/ACTUAL_WAVE.json",
+      "sha256": "d176a02e314f599d0c5c1ec36b4848dca4b6de40008909635cb433d8fb8abc0d"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-b4bc-same256-mpi-critical-path-finite-audit-r1/current-d54-rk-dry-v-codegen-readback-preparation-r1/ACTUAL_CFG_REVIEW.json",
+      "sha256": "d4b5f5f847acb3346f612f58b58143623fc53c80689fa379e4330cfb0b050e64"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-b4bc-same256-mpi-critical-path-finite-audit-r1/current-d54-rk-dry-v-four-bulk-original-tail-local-source-r1/SOURCE_INVERSE.json",
+      "sha256": "056e8001ea7e018c3b8f16c2c1946a9b4ab5e9dd698813d9a01d89c7fdea8704"
+    }
+  ]
+}

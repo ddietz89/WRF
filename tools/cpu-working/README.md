@@ -1,4 +1,12 @@
-# Current working selection: d54 RK dry U stage split
+# Current working selection: longwave whole-draw seed carry
+
+Selected **0ec34714 / archive a30c8df7**, source correspondence **2791f903**, retains all D54 and earlier improvements. Its own unprofiled same256 noon test passed both full products and all 185 ordered timesteps. Complete synthetic MCICA caller wall time fell 18.27%/17.58% on the two nodes; no isolated forecast gain is claimed. The fresh corrected-original/combined three-hour pair is pending. Longer-horizon, profile, restart and other-rank qualification remain image-specific.
+
+[Current selection](selection.json), [binding](CURRENT_SOURCE_BUILD_BINDING.json), [qualification, replay recipe and rollback](../cpu-compute/lw-mcica-whole-draw-seed-carry-20261025/README.md).
+
+The following sections preserve historical image-specific evidence.
+
+# Historical working selection: d54 RK dry U stage split
 
 Selected **d54cb2b7 / archivedeb86e8b**, source correspondence **8302003c**, retains every 51f improvement. Strict native/caller checks and its own INSTRUMENTED same256 noon two-product/185-step application passed. Whole-caller timing was neutral on 01 and 4.59% lower on02; no forecast gain is claimed. Unprofiled/three-hour/nine-hour/four-host/384/restart/full144 scope remains pending. Profile decoding is separate.
 
@@ -10,7 +18,7 @@ The following sections retain image-specific historical results.
 
 All four full products and545 ordered steps matched exactly. Wall was18.006min versus retained original21.400min (15.86% descriptive reduction); main-step elapsed7.83% lower, totalCPU11.77% lower. One later candidate, no new matched pair or isolated mask-gain claim. [Qualification](../cpu-compute/sw-mcica-mask-consumer-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json).
 
-# Current working selection: 51f shortwave MCICA mask fusion
+# Historical working selection: 51f shortwave MCICA mask fusion
 
 Selected **51f1449e / archive63d6a533**, source correspondence **af4cabc0**, retains all B4BC improvements and removes the temporary SW cloud-mask pass. Own noon science passed two complete products and 185 ordered steps on hpc01–03 at256 ranks. Its three-hour check also passed all four full products and 545 steps; parent three-hour results below remain specific to B4BC. No isolated forecast speedup is claimed.
 
@@ -18,7 +26,7 @@ Selected **51f1449e / archive63d6a533**, source correspondence **af4cabc0**, ret
 
 The following material preserves prior image-specific results.
 
-# Current working selection: B4BC, October25
+# Historical working selection: B4BC, October25
 
 The qualified working configuration now includes both clear-sky radiation changes, retaining all previous BACF improvements. Own acceptance is direct12–13 noon,256 ranks on hpc01–03, two full products and 185 ordered steps. Other horizons/configurations are pending; historical BACF timings do not qualify this new image.
 
@@ -26,7 +34,7 @@ The qualified working configuration now includes both clear-sky radiation change
 
 The material below is retained campaign history.
 
-# Current working selection: BACF, exact three-hour science
+# Historical working selection: BACF, exact three-hour science
 
 Selected **bacf12b8** / WRF archive **1d2e1851** / RSL archive **6eb125cc**, source **526e562c**, retains all previous improvements and adds the two V-loop SIMD paths, receive width-5/6 helper and exact original outlined fallback. The unchanged checker passed all four full-grid products and 545 ordered steps in the fresh original-first pair; every model and reader closed normally.
 

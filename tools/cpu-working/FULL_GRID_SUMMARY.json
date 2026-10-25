@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-10-25T09:18:57.341303+00:00",
+  "updated_utc": "2026-10-25T10:52:48.139191+00:00",
   "metric_definitions": {
     "wall_seconds": "Model/MPI including initialization/output/final drain",
     "main_step_sum_seconds": "Sum of reported main-step elapsed; includes communication/waiting/backpressure, not integration CPU",
@@ -462,18 +462,20 @@
   ],
   "limits": "Historical rows retain their recorded image, horizon and comparison scope. Current51f has an own three-hour candidate-only result versus retained originalA; descriptive reductions only. The last B4BC256 fresh fixed-order pair remains separately identified with its maintenance gap. No counterbalance, repeatability, isolated-component or additive gain claim.",
   "current_selection": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-working/selection.json",
-    "sha256": "20819eb2844cb67febeb70966b656b2224b46ebc7a5b42ed3fe983071d773318",
-    "current_three_hour_qualified": false,
-    "current_unprofiled_three_hour_qualified": false,
-    "current_noon_one_hour_qualified": true,
-    "current_instrumented_noon_one_hour_qualified": true,
-    "current_unprofiled_noon_one_hour_qualified": false,
-    "historical_three_hour_observations_apply_to_current": false,
-    "current_qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/rk-dry-u-stage-split-simd-20261025/APPLICATION_QUALIFICATION.json",
-      "sha256": "989999583d5454bc62ae9ca99e56e88d4919727e8d73060a012a217c450339ce"
-    }
+    "executable": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/currentd54-lw-whole-draw-seed-carry-one-member-experimental-r1/wrf.exe",
+      "sha256": "0ec34714e17c94b83692f9a1f4e753bad2ee2b869ef17930640a4498b8322ed3"
+    },
+    "archive_sha256": "a30c8df77b7db01e7976284b3dccfaa185f9315932f28737036c000cf265ac8b",
+    "source_commit": "2791f903a42fb3cdb767aea010f3b54971785109",
+    "qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/lw-mcica-whole-draw-seed-carry-20261025/APPLICATION_QUALIFICATION.json",
+      "sha256": "51b481b72d98a62b21ec5623c783504bba4536232bcb92b94e66557d7a94b65d"
+    },
+    "scope": "Own unprofiled SAME256 noon185/two FULL12:00/13:00 science only; no fresh control timing or forecast gain. No current3h/9h/384/512/profile/restart/full144 qualification. Exact tested-PP/cached-object replay; canonical source default has qualified GNU13.3/kind4/emptyOMP and sourceDM guards, but clean canonical CPP/rebuild remains uncertified.",
+    "own_three_hour_qualified": false,
+    "own_nine_hour_qualified": false,
+    "forecast_gain_claim": false
   },
   "recovered_diagnostic_runs": [
     {
@@ -1333,46 +1335,48 @@
     "limits": "One fresh fixed-order original546b A then B4BC B on01\u201303, same256/224compute8x28+32quilt. A ended around 06:29 UTC; B began around 06:51 UTC after participating-host maintenance. Not counterbalanced, repeatability, isolated component or additive gains. Main elapsed includes MPI/output backpressure; aggregateCPU is summed consumption. No own9h/512/384/profile/restart/full144 qualification."
   },
   "latest_unpaired_noon_one_hour": {
-    "status": "PASS_OWN_UNPROFILED_THREEHOST_SAME256_NOON185_TWO_PRODUCTS",
-    "executable_sha256": "51f1449ef36ebeda42a8adb74061616e6f83f5a7dd09c0e7dc1145d1a46e4552",
-    "horizon": "12:00\u201313:00 direct noon",
-    "world": 256,
+    "status": "UNPROFILED_CANDIDATE_ONLY_NOON_DESCRIPTIVE_NOT_MATCHED_TIMING",
+    "executable_sha256": "0ec34714e17c94b83692f9a1f4e753bad2ee2b869ef17930640a4498b8322ed3",
+    "world_size": 256,
+    "compute_ranks": 224,
     "hosts": [
       "hpc01",
       "hpc02",
       "hpc03"
     ],
-    "observed_steps": 185,
-    "products": 2,
-    "qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-mcica-mask-consumer-20261025/APPLICATION_QUALIFICATION.json",
-      "sha256": "7ae3a3c61b076846779dd022f342524d23c7a15ff34c3493dcedacf7db90a8e4"
-    },
-    "science": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-currentb4bc-sw-mcica-noon1h-runtime-r1/science-receipt.json",
-      "sha256": "7eb758cc2259b5d780e45a025d3fd6505b2bcb3d208e85b1d52ca77ba3668194"
-    },
-    "reader_closure": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-currentb4bc-sw-mcica-noon1h-runtime-r1/reader-closure.json",
-      "sha256": "d2e51212c97cebb5ab4f4b21889741f9cdd4bbdb89cf2103207053f33df2a7a2"
-    },
-    "raw_RESULT_reference": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-currentb4bc-sw-mcica-noon1h-runtime-r1/RESULT.json",
-      "sha256": "be0a955797dae06e458a03455750803ad9964c32f57705508bb49f816d7a21ab"
-    },
+    "order": [
+      "candidate"
+    ],
+    "raw_RESULT_order_retained": [
+      "fresh_same256_noon_original_science_reference",
+      "isolated_lw_whole_draw_seed_carry_unprofiled_noon_candidate"
+    ],
+    "raw_RESULT_order_label_scope": "Retained raw result label only; actual lease is unprofiled candidate-only. No new control timing.",
     "metrics": {
       "control": null,
       "candidate": {
-        "wall_seconds": 422.57670424319804,
-        "cpu_seconds": 99916.82081399999,
-        "main_step_sum_seconds": 345.49972
+        "wall_seconds": 421.0995933348313,
+        "cpu_seconds": 99705.997668,
+        "main_step_sum_seconds": 344.94088
       }
     },
     "reductions_percent": null,
     "descriptive_reductions_percent": null,
     "timing_gain_claim": false,
-    "comparison_design": "Candidate-only own noon SCI against retained original same-map scientific reference; no fresh timing control",
-    "limits": "Own same256 noon185/two FULL products only. Candidate metrics are unpaired observations; no forecast timing gain, incremental/isolated/additive gain or repeatability claim. Parent B4BC three-hour comparisons remain historical and do not qualify this image. Exact tested-PP replay/cached object; canonical five-row correspondence only, clean F-only rebuild not certified."
+    "comparison_design": "Candidate-only exact science against retained original noon reference; no matched timing or isolated forecast gain",
+    "qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/lw-mcica-whole-draw-seed-carry-20261025/APPLICATION_QUALIFICATION.json",
+      "sha256": "51b481b72d98a62b21ec5623c783504bba4536232bcb92b94e66557d7a94b65d"
+    },
+    "science": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-currentd54-lw-seed-carry-noon1h-runtime-r1/science-receipt.json",
+      "sha256": "436c1bbfe4049c17b7ffda343e8e9a5ca59b5c3fd299a4646a405efec6968608"
+    },
+    "raw_RESULT": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-currentd54-lw-seed-carry-noon1h-runtime-r1/RESULT.json",
+      "sha256": "aed10962a28fc4d377d799375b89911622b9034dac7ca5f8b9fadc45d6ddfc05"
+    },
+    "limits": "Own unprofiled SAME256 noon185/two FULL12:00/13:00 science only; no fresh control timing or forecast gain. No current3h/9h/384/512/profile/restart/full144 qualification. Exact tested-PP/cached-object replay; canonical source default has qualified GNU13.3/kind4/emptyOMP and sourceDM guards, but clean canonical CPP/rebuild remains uncertified."
   },
   "historical_fixed_order_three_hour_BACF256": {
     "status": "PASS_FRESH_SAME256_ORIGINAL_FOUR_HISTORY_THREE_HOUR_CLOSED_SEQUENCE",
@@ -1608,5 +1612,6 @@
     ],
     "raw_RESULT_order_label_scope": "Frozen inherited historical label only; does not imply current unprofiled qualification. Actual d54/deb86 lease/build and profile_authorized=True define this instrumented run.",
     "limits": "OwninstrumentednoonSCI only; no own3h/9h/512/384/unprofiled/profile-phase/restart/full144 inheritance. Three clocks separate and descriptive."
-  }
+  },
+  "current_selection_does_not_inherit_historical_timing": true
 }

@@ -4979,3 +4979,13 @@ Helicity first-X tmp1 producer/rvort consumer fusion is closed unpromoted. Actua
 D54 source identity was confirmed by three actual nominal 15-second native captures on ranks 40/114/184 (1442/1451/1416 primary samples), with source-identity phase admission and normal R3 parser closures. The windows were mixed with I/O and do not qualify compute-only timing, global headroom, MPI causality or zero numeric loss; instrumented-noon science remains separate from unprofiled forecast performance. The W WDWN/RHS fusion was separately rejected by the strict O2 stage gate: case 8/mode 0 changed qNaN payload 7fc22222 to 7fc11111. Its failed unit was positively drained. No W performance or whole-procedure qualification and no source/default change follows from that attempt.
 
 [Source-profile evidence](tools/cpu-compute/d54-noon-source-identity-profile-20261025/README.md); [rejected W fusion](tools/cpu-compute/w-wdwn-rhs-pipeline-unpromoted-20261025/README.md).
+
+
+### October 25: RK remainder checks and V closeout
+
+The selected U-loop implementation passed an additional width-three test using the existing competing-NaN cases in all four rounding modes, with exact complete output and recorded state. The V stage-split candidate retained its 8.94%/3.81% complete-caller gains, but failed the corresponding strict tail test because the NaN payload changed. Its single bounded bulk/scalar-tail alternative passed that tail case but emitted no packed bulk instructions, so it stopped without further testing or promotion. [Decisions and evidence](tools/cpu-compute/rk-dry-v-tail-closeout-20261025/README.md).
+
+
+### October 25: longwave whole-draw seed carry selected
+
+The qualified working configuration now carries four scalar KISS states across the full one-column longwave MCICA draw nest. Complete-caller wall reductions were 18.27% and 17.58% on the two tested nodes; thread CPU fell 18.65% and 17.99%. Its own unprofiled noon forecast matched both full products and all 185 ordered timesteps against the unchanged original checker. The source and default guards are committed with an explicit rebuild opt-out; all previous components remain in the selected image. These caller gains are separate from forecast performance, and the fresh combined three-hour comparison is pending. [Qualification, exact replay recipe and rollback](tools/cpu-compute/lw-mcica-whole-draw-seed-carry-20261025/README.md).
