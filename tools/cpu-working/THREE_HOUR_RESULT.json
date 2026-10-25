@@ -1,25 +1,109 @@
 {
-  "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
-  "order": [
-    "retained_frozen_corrected_original546b_control",
-    "combined_962b_unprofiled_own3h_candidate"
+  "status": "PASS_OWN_UNPROFILED_THREEHOST_SAME256_LW_SEED_CARRY_FRESH_THREEHOUR545_FOUR_PRODUCTS",
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentd54-lw-whole-draw-seed-carry-one-member-experimental-r1/wrf.exe",
+    "sha256": "0ec34714e17c94b83692f9a1f4e753bad2ee2b869ef17930640a4498b8322ed3"
+  },
+  "archive_sha256": "a30c8df77b7db01e7976284b3dccfaa185f9315932f28737036c000cf265ac8b",
+  "source_commit": "2791f903a42fb3cdb767aea010f3b54971785109",
+  "world_size": 256,
+  "compute_ranks": 224,
+  "hosts": [
+    "hpc01",
+    "hpc02",
+    "hpc03"
   ],
-  "comparison_design": "Candidate-only science qualification versus frozen original three-hour outputs; UNPAIRED descriptive metrics, no matched forecast timing or causal kernel claim",
+  "observed_step_count": 545,
+  "products": 4,
+  "order": [
+    "fresh_corrected_original546b_control",
+    "fresh_selected_combined_LW0ec3_candidate"
+  ],
+  "comparison_design": "One fresh corrected-original546b A then selected combinedLW0ec3 B; SAME256/224compute8x28+32quilt on hpc01\u201303/two tiles, checkedcache before eacharm. One fixed-order observation perimage; no counterbalance/repeatability/isolatedcomponent/additivegain claim.",
   "metrics": {
     "control": {
-      "wall_seconds": 798.7989721219055,
-      "cpu_seconds": 358521.264108,
-      "main_step_sum_seconds": 594.56533
+      "wall_seconds": 1286.20290737506,
+      "cpu_seconds": 304447.209591,
+      "main_step_sum_seconds": 1087.82599
     },
     "candidate": {
-      "wall_seconds": 641.4690226400271,
-      "cpu_seconds": 311822.853358,
-      "main_step_sum_seconds": 556.58412
+      "wall_seconds": 1080.0518453386612,
+      "cpu_seconds": 268334.218994,
+      "main_step_sum_seconds": 1002.29861
     }
   },
-  "reductions_percent": null,
-  "timing_gain_claim": false,
-  "science_sha256": "fdd8a5c7ecef1c4693aaa3d2969dcd967b749689b258c285c74bc458dd299a00",
-  "reader_closure_sha256": "5b7d17e66c3be59693451c9b687f8b27381034d6e80c7779333a926a9d65ea14",
-  "limits": "Candidate-only run with original retained science reference; wall/CPU/main differences are UNPAIRED descriptive context. No new original forecast, matched timing, repeatability or per-kernel causal claim."
+  "reductions_percent": {
+    "wall_seconds": 16.027880271015793,
+    "cpu_seconds": 11.86182348181639,
+    "main_step_sum_seconds": 7.862229877408977
+  },
+  "descriptive_reductions_percent": null,
+  "timing_gain_claim": true,
+  "science": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current-latest-threehost-threehour-pair-runtime-r1/science-receipt.json",
+    "sha256": "ebc1b055044e346b2281f2fd364f9e96187715ce249165784c7592696a02da65"
+  },
+  "reader_closure": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current-latest-threehost-threehour-pair-runtime-r1/reader-closure.json",
+    "sha256": "f80fd1c616f6c3f51693fb797f611070308e54078dce34006dacab8d03ce12ea"
+  },
+  "qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/lw-mcica-whole-draw-seed-carry-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "2be5efe9c03bcae89146b12623190d8d0f3b089880ad6c19c43288b1a306c31f"
+  },
+  "raw_RESULT": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/lw-mcica-whole-draw-seed-carry-20261025/THREE_HOUR_RAW_RESULT.json",
+    "sha256": "b2427cf5ab41f7a3f0746ba14930cbb85e92d3e3c58b1089cb244057e699445e"
+  },
+  "raw_RESULT_label_annotation": {
+    "raw_order": [
+      "fresh_corrected_original546b_control",
+      "fresh_currentB4BC_same256_candidate"
+    ],
+    "raw_comparison_design": "Fresh same256 original546b FIRST versus currentB4BC SECOND, identical224compute8x28+32quilt; own four products/control-derivedorderedsteps, not old512 science; one fixed-order pair, no isolated/helper/additive/repeatability claim",
+    "correction": "Frozen collector inherited currentB4BC labels; actualcandidate lease/build/executable is selectedLW0ec3, archivea30c, source2791. RawRESULT retained byte-for-byte; only this humanlabel annotation corrects the description."
+  },
+  "memory": {
+    "control": {
+      "hpc01": {
+        "lifetime_cgroup_peak_bytes": 90573078528,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "invocation_id": "b079c5ee18ff475e917c616b55dc767e",
+        "scope": "Own three-hour SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+      },
+      "hpc02": {
+        "lifetime_cgroup_peak_bytes": 81894612992,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "invocation_id": "82f2c2ea7585466eabf0e97ffa64462b",
+        "scope": "Own three-hour SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+      },
+      "hpc03": {
+        "lifetime_cgroup_peak_bytes": 91477204992,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "invocation_id": "5bbb581993e1494fb2ab69c9581a1c74",
+        "scope": "Own three-hour SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+      }
+    },
+    "candidate": {
+      "hpc01": {
+        "lifetime_cgroup_peak_bytes": 58596904960,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "invocation_id": "359babafcf7a4822859e603a552c07b8",
+        "scope": "Own three-hour SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+      },
+      "hpc02": {
+        "lifetime_cgroup_peak_bytes": 54466564096,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "invocation_id": "1125447e16c34543952be31ad1b3e1a5",
+        "scope": "Own three-hour SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+      },
+      "hpc03": {
+        "lifetime_cgroup_peak_bytes": 58248380416,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "invocation_id": "83ebc36e4f99440899321331f7f429e2",
+        "scope": "Own three-hour SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+      }
+    }
+  },
+  "limits": "Own unprofiled SAME256 noon185/twoFULL and fresh three-hour545/fourFULL science qualified. Fresh original-first pair supports the observed combined-configuration timing reduction only; no isolatedLW/FINISH/SW/MPI attribution or repeatability. Own9h/384/512/profile/restart/full144 remain false. Exact tested-PP/cached-object replay with guarded canonical post-test correspondence; clean canonical-F-only CPP/rebuild not certified."
 }

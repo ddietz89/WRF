@@ -1,0 +1,146 @@
+{
+  "status": "PASS_OWN_UNPROFILED_THREEHOST_SAME256_LW_SEED_CARRY_FRESH_THREEHOUR545_FOUR_PRODUCTS",
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentd54-lw-whole-draw-seed-carry-one-member-experimental-r1/wrf.exe",
+    "sha256": "0ec34714e17c94b83692f9a1f4e753bad2ee2b869ef17930640a4498b8322ed3"
+  },
+  "archive": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentd54-lw-whole-draw-seed-carry-one-member-experimental-r1/libwrflib.a",
+    "sha256": "a30c8df77b7db01e7976284b3dccfaa185f9315932f28737036c000cf265ac8b"
+  },
+  "RSL_archive": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current971c-uv-final-v-unpack-outline-combined-native-r1/librsl_lite.a",
+    "sha256": "6eb125cca1196db3d917b17313852b17f2121accb5bb9fc2ad99dd49580154db"
+  },
+  "post_test_source_commit": "2791f903a42fb3cdb767aea010f3b54971785109",
+  "raw_producer_source_commit": null,
+  "own_noon_one_hour_qualified": true,
+  "own_unprofiled_noon_one_hour_qualified": true,
+  "immutable_noon_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/lw-mcica-whole-draw-seed-carry-20261025/APPLICATION_QUALIFICATION.json",
+    "sha256": "51b481b72d98a62b21ec5623c783504bba4536232bcb92b94e66557d7a94b65d"
+  },
+  "own_three_hour_qualified": true,
+  "own_unprofiled_three_hour_qualified": true,
+  "own_nine_hour_qualified": false,
+  "own_fourhost512_qualified": false,
+  "own_384_qualified": false,
+  "profile_qualified": false,
+  "native_profile_qualified": false,
+  "restart_qualified": false,
+  "full144_qualified": false,
+  "science_status": "PASS_FRESH_SAME256_ORIGINAL_FOUR_HISTORY_THREE_HOUR_CLOSED_SEQUENCE",
+  "observed_step_count": 545,
+  "products": 4,
+  "history_times": [
+    "2026-10-12_06:00:00",
+    "2026-10-12_07:00:00",
+    "2026-10-12_08:00:00",
+    "2026-10-12_09:00:00"
+  ],
+  "runtime": {
+    "world": 256,
+    "compute": 224,
+    "quilt": 32,
+    "hosts": [
+      "hpc01",
+      "hpc02",
+      "hpc03"
+    ],
+    "CART": [
+      28,
+      8
+    ],
+    "tiles": 2,
+    "required_positive_writer_roots": [
+      231,
+      239,
+      247,
+      255
+    ],
+    "observed_FV_markers": 32,
+    "memory_bytes_perhost": 107374182400,
+    "swap_bytes": 0,
+    "model_cap_seconds": 3600,
+    "profile_and_observer": false
+  },
+  "comparison_design": "One fresh corrected-original546b A then selected combinedLW0ec3 B; SAME256/224compute8x28+32quilt on hpc01\u201303/two tiles, checkedcache before eacharm. One fixed-order observation perimage; no counterbalance/repeatability/isolatedcomponent/additivegain claim.",
+  "metrics": {
+    "control": {
+      "wall_seconds": 1286.20290737506,
+      "cpu_seconds": 304447.209591,
+      "main_step_sum_seconds": 1087.82599
+    },
+    "candidate": {
+      "wall_seconds": 1080.0518453386612,
+      "cpu_seconds": 268334.218994,
+      "main_step_sum_seconds": 1002.29861
+    }
+  },
+  "reductions_percent": {
+    "wall_seconds": 16.027880271015793,
+    "cpu_seconds": 11.86182348181639,
+    "main_step_sum_seconds": 7.862229877408977
+  },
+  "timing_gain_claim": true,
+  "timing_gain_scope": "Observed combined configuration in one fresh fixed-order pair only; no isolatedkernel or causalcomponentclaim.",
+  "raw_RESULT_label_annotation": {
+    "raw_order": [
+      "fresh_corrected_original546b_control",
+      "fresh_currentB4BC_same256_candidate"
+    ],
+    "raw_comparison_design": "Fresh same256 original546b FIRST versus currentB4BC SECOND, identical224compute8x28+32quilt; own four products/control-derivedorderedsteps, not old512 science; one fixed-order pair, no isolated/helper/additive/repeatability claim",
+    "correction": "Frozen collector inherited currentB4BC labels; actualcandidate lease/build/executable is selectedLW0ec3, archivea30c, source2791. RawRESULT retained byte-for-byte; only this humanlabel annotation corrects the description."
+  },
+  "evidence": {
+    "RESULT": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current-latest-threehost-threehour-pair-runtime-r1/RESULT.json",
+      "sha256": "b2427cf5ab41f7a3f0746ba14930cbb85e92d3e3c58b1089cb244057e699445e"
+    },
+    "raw_RESULT_byte_exact_copy": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/lw-mcica-whole-draw-seed-carry-20261025/THREE_HOUR_RAW_RESULT.json",
+      "sha256": "b2427cf5ab41f7a3f0746ba14930cbb85e92d3e3c58b1089cb244057e699445e"
+    },
+    "science": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current-latest-threehost-threehour-pair-runtime-r1/science-receipt.json",
+      "sha256": "ebc1b055044e346b2281f2fd364f9e96187715ce249165784c7592696a02da65"
+    },
+    "reader_closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current-latest-threehost-threehour-pair-runtime-r1/reader-closure.json",
+      "sha256": "f80fd1c616f6c3f51693fb797f611070308e54078dce34006dacab8d03ce12ea"
+    },
+    "control_models": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current-latest-threehost-threehour-pair-runtime-r1/control-metadata/model-closures.json",
+      "sha256": "85cd0400a165d78a989b0ca163b1749b462daccce04d55e702c0d433721c1abc"
+    },
+    "candidate_models": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current-latest-threehost-threehour-pair-runtime-r1/candidate-metadata/model-closures.json",
+      "sha256": "625872c68326d6e9e4013fbfd8fa65452b0969b95ecd84a578ed8be5437dcbe4"
+    },
+    "control_lease": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current-latest-threehost-threehour-pair-runtime-r1/control-metadata/lease.json",
+      "sha256": "23e234d49f1639182bf291d430896006382409084b37425116a78175090869b8"
+    },
+    "candidate_lease": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current-latest-threehost-threehour-pair-runtime-r1/candidate-metadata/lease.json",
+      "sha256": "4c53ffc4d9d5bede95fff38a740ee743ea20788682f66d2ebc27ba33740ac125"
+    },
+    "frozen_source_pins": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current-latest-threehost-threehour-pair-runtime-r1/source-pins.json",
+      "sha256": "f357e9b800bb4de8c46793ff946470d501a7737c02de48c3d796207a37e20fab"
+    },
+    "protected_check_pair": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current-latest-threehost-threehour-pair-runtime-r1/check_pair.py",
+      "sha256": "965877daaf97a2d255dcff8fc1a1811ce2f2381bbcbc6c5a990b749c9445690b"
+    },
+    "build_receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentd54-lw-mcica-whole-draw-seed-carry-source-question-r1/one-lw-member-experimental-build-preparation-r1-hpc03/actual-native-r1/receipt.json",
+      "sha256": "531f6ac4daeb4f8ef7c7dbbb855e6808593fca6ec79ca5191e1e5f7747238737"
+    },
+    "build_closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentd54-lw-mcica-whole-draw-seed-carry-source-question-r1/one-lw-member-experimental-build-preparation-r1-hpc03/actual-native-r1/closure.json",
+      "sha256": "b50c0e236fe5bc51449e149a2eaae2f5e4dc72cb582754ec49956a68cc4068a1"
+    }
+  },
+  "limits": "Own unprofiled SAME256 noon185/twoFULL and fresh three-hour545/fourFULL science qualified. Fresh original-first pair supports the observed combined-configuration timing reduction only; no isolatedLW/FINISH/SW/MPI attribution or repeatability. Own9h/384/512/profile/restart/full144 remain false. Exact tested-PP/cached-object replay with guarded canonical post-test correspondence; clean canonical-F-only CPP/rebuild not certified."
+}

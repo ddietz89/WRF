@@ -1,5 +1,21 @@
 # WRF CPU optimization findings
 
+## October25: selected LW0ec3 passes fresh same256 three-hour comparison
+
+Selected **0ec34714 / archivea30c8df7**, source correspondence **2791f903**, passed all four full06/07/08/09 products and all545 ordered steps against a fresh corrected-original546b same256 run. All six models and the reader closed normally. The immutable own-noon185/two-product qualification remains separate.
+
+| Metric | Fresh original546b | Combined LW0ec3 | Reduction |
+|---|---:|---:|---:|
+| Wall (min) | 21.436715 | 18.000864 | 16.0279% |
+| Main elapsed (min) | 18.130433 | 16.704977 | 7.8622% |
+| Summed CPU (core-h) | 84.568669 | 74.537283 | 11.8618% |
+
+One original-first fixed-order pair with checkedcache before eacharm; this is an observed combined-configuration improvement, not a counterbalanced/repeatability result or isolatedLW gain. Main elapsed includes communication/backpressure; CPU is summed threehostcgroup CPU, not threadCPU. Own9h/384/512/profile/restart/full144 remain false. TestedPP/cachedobjectreplay is qualified; a clean canonical-source-only rebuild is not certified.
+
+Pending candidates are separate: FINISHV passed native and completecaller screens (about11–15% local caller reductions) but is not in0ec3; SWwhole-draw passed strictnative/scopedlayout review with caller work pending; MPIexperimental work is not part of this selectedimage. No gain from these candidates is included or added.
+
+[Actual three-hour qualification and raw-label disclosure](tools/cpu-compute/lw-mcica-whole-draw-seed-carry-20261025/FRESH_FIXED_ORDER_THREE_HOUR_COMPARISON.json). Frozen collector text inherited a B4BC label; actual lease/build/executable bind0ec3. Its rawRESULT is published byte-for-byte with a separate annotation. All older findings below retain their originalimage/date scope.
+
 ## October 25: RK dry U stage split retained after exact noon qualification
 
 The selected `d54cb2b7` image retains all 51f improvements and moves the RK1 choice outside the complete U tendency loop, exposing strict SIMD while preserving both per-cell assignments and true division. The whole-routine native O2/O0 raw/five-state checks passed. Complete synthetic caller time was neutral on hpc01 and4.59% shorter on hpc02; the cause of this variation is unresolved. This is a retained local improvement, with no isolated forecast speedup claim.
@@ -4989,3 +5005,8 @@ The selected U-loop implementation passed an additional width-three test using t
 ### October 25: longwave whole-draw seed carry selected
 
 The qualified working configuration now carries four scalar KISS states across the full one-column longwave MCICA draw nest. Complete-caller wall reductions were 18.27% and 17.58% on the two tested nodes; thread CPU fell 18.65% and 17.99%. Its own unprofiled noon forecast matched both full products and all 185 ordered timesteps against the unchanged original checker. The source and default guards are committed with an explicit rebuild opt-out; all previous components remain in the selected image. These caller gains are separate from forecast performance, and the fresh combined three-hour comparison is pending. [Qualification, exact replay recipe and rollback](tools/cpu-compute/lw-mcica-whole-draw-seed-carry-20261025/README.md).
+
+
+### October 25: unprofiled noon observations
+
+Three cache-cleared, exact-qualified noon observations ran in order: MPI X-overlap 421.823 s, longwave seed carry 421.100 s, then D54 parent 421.661 s. The observed longwave wall delta was 0.133% lower; MPI was 0.038% higher. Each is a single observation, with no repeatability or isolated-gain claim. The significant longwave complete-caller gain remains separate. The MPI candidate stays unpromoted, preserving its native errno-state failure and lack of demonstrated application benefit. [Observations and MPI decision](tools/cpu-comm/mpi-x-microphysics-overlap-unpromoted-20261025/README.md).

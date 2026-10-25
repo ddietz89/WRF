@@ -1,3 +1,21 @@
+# Current working selection: LW0ec3, fresh three-hour comparison
+
+Selected **0ec34714 / archivea30c8df7**, source correspondence **2791f903**, passed all four full06/07/08/09 products and all545 ordered steps against a fresh corrected-original546b same256 run. All six models and the reader closed normally. The immutable own-noon185/two-product qualification remains separate.
+
+| Metric | Fresh original546b | Combined LW0ec3 | Reduction |
+|---|---:|---:|---:|
+| Wall (min) | 21.436715 | 18.000864 | 16.0279% |
+| Main elapsed (min) | 18.130433 | 16.704977 | 7.8622% |
+| Summed CPU (core-h) | 84.568669 | 74.537283 | 11.8618% |
+
+One original-first fixed-order pair with checkedcache before eacharm; this is an observed combined-configuration improvement, not a counterbalanced/repeatability result or isolatedLW gain. Main elapsed includes communication/backpressure; CPU is summed threehostcgroup CPU, not threadCPU. Own9h/384/512/profile/restart/full144 remain false. TestedPP/cachedobjectreplay is qualified; a clean canonical-source-only rebuild is not certified.
+
+Pending candidates are separate: FINISHV passed native and completecaller screens (about11–15% local caller reductions) but is not in0ec3; SWwhole-draw passed strictnative/scopedlayout review with caller work pending; MPIexperimental work is not part of this selectedimage. No gain from these candidates is included or added.
+
+[Three-hour qualification](../cpu-compute/lw-mcica-whole-draw-seed-carry-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json), [raw result and annotation](../cpu-compute/lw-mcica-whole-draw-seed-carry-20261025/FRESH_FIXED_ORDER_THREE_HOUR_COMPARISON.json). `THREE_HOUR_RESULT.json` and `THREE_HOUR_FINAL_QUALIFICATION.json` now identify this run. Existing ninehourrecords below are historicalimage-specificevidence, not current0ec3qualification.
+
+The following sections are retained historical records; their former current/latest labels apply to their original publication dates.
+
 # Current working selection: longwave whole-draw seed carry
 
 Selected **0ec34714 / archive a30c8df7**, source correspondence **2791f903**, retains all D54 and earlier improvements. Its own unprofiled same256 noon test passed both full products and all 185 ordered timesteps. Complete synthetic MCICA caller wall time fell 18.27%/17.58% on the two nodes; no isolated forecast gain is claimed. The fresh corrected-original/combined three-hour pair is pending. Longer-horizon, profile, restart and other-rank qualification remain image-specific.

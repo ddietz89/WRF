@@ -1,0 +1,61 @@
+{
+  "status": "THREE_EXACT_UNPROFILED_NOON_OBSERVATIONS_NOT_REPEATABILITY_OR_ISOLATED_GAIN_PROOF",
+  "order": [
+    "MPI_X_7cba",
+    "LW_0ec3",
+    "D54_parent"
+  ],
+  "world": 256,
+  "hosts": [
+    "hpc01",
+    "hpc02",
+    "hpc03"
+  ],
+  "parent_metrics": {
+    "wall_seconds": 421.66088404273614,
+    "cpu_seconds": 99811.981497,
+    "main_step_sum_seconds": 345.22351
+  },
+  "parent_result": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-currentd54-unprofiled-noon1h-runtime-r1/RESULT.json",
+    "sha256": "063a39a0d5d2ec3a10da6c59e5002c3a64a19053009e714d4e8a0377bcd4bf3a"
+  },
+  "rows": {
+    "MPI_X": {
+      "metrics": {
+        "wall_seconds": 421.82286651805043,
+        "cpu_seconds": 99848.44957900001,
+        "main_step_sum_seconds": 345.1784
+      },
+      "observed_reduction_percent_vs_D54_parent": {
+        "wall_seconds": -0.03841534309781319,
+        "cpu_seconds": -0.03653677790286409,
+        "main_step_sum_seconds": 0.013066896863416274
+      },
+      "result": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-currentd54-sbm-x-whole-microdriver-noon1h-runtime-r1/RESULT.json",
+        "sha256": "0ad28442f6ae4320f11e30c8a0c564626e2e15a5014f537ab7937eebb67ca416"
+      },
+      "exactscience": "PASS_FRESH_THREEHOST_SAME256_NOON_ONE_HOUR_TWO_HISTORY_CLOSED_SEQUENCE"
+    },
+    "LW_seed_carry": {
+      "metrics": {
+        "wall_seconds": 421.0995933348313,
+        "cpu_seconds": 99705.997668,
+        "main_step_sum_seconds": 344.94088
+      },
+      "observed_reduction_percent_vs_D54_parent": {
+        "wall_seconds": 0.133114246340184,
+        "cpu_seconds": 0.10618347357745807,
+        "main_step_sum_seconds": 0.08186870007780853
+      },
+      "result": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-currentd54-lw-seed-carry-noon1h-runtime-r1/RESULT.json",
+        "sha256": "aed10962a28fc4d377d799375b89911622b9034dac7ca5f8b9fadc45d6ddfc05"
+      },
+      "exactscience": "PASS_FRESH_THREEHOST_SAME256_NOON_ONE_HOUR_TWO_HISTORY_CLOSED_SEQUENCE"
+    }
+  },
+  "cache_each": true,
+  "limits": "Oneobservationperimage, parentlast withLWbetweenMPIandparent. No repeatability/variance or causalcode-onlyspeedup claim. Existing significant exact LWcaller gainretainedseparately. MPIstrictnativeerrnoFAIL retained, no defaultpromotion."
+}
