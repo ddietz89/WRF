@@ -4972,3 +4972,10 @@ One original-first ten-minute pair, with a large startup/output share: this is n
 Helicity first-X tmp1 producer/rvort consumer fusion is closed unpromoted. Actual selected-object assembly proves the scratch store/reload and separate traversal were removed; all five native roles passed the retained46-case and decisive paired-NaN protocols. Complete1,000-call synthetic caller with INOUT restores/fullcallee allocation inside clocks gave hpc01 P→C +0.445768%wall/+0.423526%CPU and hpc02 C→P −0.273527%wall/−0.187197%CPU; all four exact records/cache clears/normal closures passed. No significant complete-caller gain, isolated kernel gain, causal regression or forecast benefit is established. The strict structural failure remains retained separately from its exact44named-call/six-pointer actual-linked-reference qualification; fullRELA equality stays false. Selected/default/source/application state is unchanged.
 
 [Caller, generated code, strict native evidence and retained failures](tools/cpu-compute/helicity-first-x-tmp1-fusion-unpromoted/README.md).
+
+
+## October 25: D54 source profiling and W fusion decision
+
+D54 source identity was confirmed by three actual nominal 15-second native captures on ranks 40/114/184 (1442/1451/1416 primary samples), with source-identity phase admission and normal R3 parser closures. The windows were mixed with I/O and do not qualify compute-only timing, global headroom, MPI causality or zero numeric loss; instrumented-noon science remains separate from unprofiled forecast performance. The W WDWN/RHS fusion was separately rejected by the strict O2 stage gate: case 8/mode 0 changed qNaN payload 7fc22222 to 7fc11111. Its failed unit was positively drained. No W performance or whole-procedure qualification and no source/default change follows from that attempt.
+
+[Source-profile evidence](tools/cpu-compute/d54-noon-source-identity-profile-20261025/README.md); [rejected W fusion](tools/cpu-compute/w-wdwn-rhs-pipeline-unpromoted-20261025/README.md).

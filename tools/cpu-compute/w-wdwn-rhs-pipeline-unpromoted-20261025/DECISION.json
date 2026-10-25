@@ -1,0 +1,43 @@
+{
+  "status": "REJECTED_UNPROMOTED_STRICT_O2_QNAN_PAYLOAD_COUNTEREXAMPLE",
+  "candidate": "W ELSE WDWN/RHS producer-consumer fusion",
+  "decision": "Do not promote, time, or apply this fixed candidate",
+  "invocation_id": "ac5960dd83404b40be6f14129b923b4f",
+  "actual_worker_status": "FAIL_RETAINED_NO_RETRY",
+  "first_mismatch": {
+    "byte_offset": 10921,
+    "word_offset": 2730,
+    "round": 0,
+    "case": 8,
+    "record_word": 34,
+    "parent_word_bytes": "7fc22222",
+    "candidate_word_bytes": "7fc11111",
+    "record_layout": "10 int header,161 RHS words,161 WDWN words,5 state ints; big-endian Fortran conversion actual bytes retained"
+  },
+  "raw_proofs": {
+    "O2-parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-w-wdwn-rhs-pipeline-stage-native-hpc02-r1/stage-work/O2-parent.raw",
+      "sha256": "8d77bcec188a5cb206f528b2c6a73391188448641c677b74d754e7b7e94ef00c",
+      "bytes": 172544
+    },
+    "O2-candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-w-wdwn-rhs-pipeline-stage-native-hpc02-r1/stage-work/O2-candidate.raw",
+      "sha256": "e568081a76fcc3f74a5dded912c6d009d15396182a8f269e0ff534a621996eaa",
+      "bytes": 172544
+    }
+  },
+  "whole_W_qualified": false,
+  "application_qualified": false,
+  "performance_qualified": false,
+  "strict_five_state_or_raw_gate_passed": false,
+  "scope": "First-stage exact actual-source expression fixture failed O2 at case 8/mode 0 before full-W qualification. Both executables returned0; exact raw comparison failed. This is a qNaN payload distinction, not a tolerance result. No O0/full-module/caller/application qualification or gain is claimed.",
+  "resource_closure": {
+    "unit_result": "exit-code",
+    "unit_status": "1",
+    "main_pid": "0",
+    "active_state": "failed",
+    "cgroup_paths_absent": true,
+    "processes": []
+  },
+  "rollback": "Public source, selected image and defaults are unchanged. Retain the private rejected patch and actual failed attempt; no rollback command is needed."
+}

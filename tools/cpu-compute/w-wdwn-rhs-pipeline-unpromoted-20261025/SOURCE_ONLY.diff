@@ -1,0 +1,29 @@
+--- parent
++++ candidate
+@@ -1407,18 +1407,18 @@
+       ENDDO
+       ENDDO
+     ELSE
+-      
+-
+-      DO k=1, k_end
++      IF (k_end .GE. 1) THEN
++!$omp simd
++      DO i=i_start, i_end
++         wdwn(i,2)=.5*(ww(i,2,j)+ww(i,1,j))*rdnw(1)    &
++              *(ph_1(i,2,j)-ph_1(i,1,j)+phb(i,2,j)-phb(i,1,j))
++      ENDDO
++      ENDIF
++      DO k=2,k_end
+ !$omp simd
+       DO i=i_start, i_end
+          wdwn(i,k+1)=.5*(ww(i,k+1,j)+ww(i,k,j))*rdnw(k)    &
+               *(ph_1(i,k+1,j)-ph_1(i,k,j)+phb(i,k+1,j)-phb(i,k,j))
+-      ENDDO
+-      ENDDO
+-      DO k=2,k_end
+-!$omp simd
+-      DO i=i_start, i_end
+          rhs(i,k) = rhs(i,k)-dts*( fnm(k)*wdwn(i,k+1)  &
+                                   +fnp(k)*wdwn(i,k  ) )
+       ENDDO
