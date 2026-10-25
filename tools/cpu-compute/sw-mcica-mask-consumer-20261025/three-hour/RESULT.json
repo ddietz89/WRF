@@ -1,0 +1,72 @@
+{
+  "status": "PASS_FRESH_SAME256_ORIGINAL_FOUR_HISTORY_THREE_HOUR_CLOSED_SEQUENCE",
+  "order": [
+    "retained_original546b_reference_from_B4BC_pair",
+    "current51f_SW_MCICA_candidate_only"
+  ],
+  "comparison_design": "Candidate-only same256 SW-MCICA own3h versus retained original546b A from completed B4BCpair; identical224compute8x28+32quilt/fourFULLproducts/exactorderedsteps; no freshmatchedpair timing claim",
+  "metrics": {
+    "control": {
+      "wall_seconds": 1283.9712130948901,
+      "cpu_seconds": 303752.239881,
+      "main_step_sum_seconds": 1085.60017
+    },
+    "candidate": {
+      "wall_seconds": 1080.3683568472043,
+      "cpu_seconds": 267987.325516,
+      "main_step_sum_seconds": 1000.60484
+    }
+  },
+  "memory": {
+    "control": {
+      "hpc01": {
+        "lifetime_cgroup_peak_bytes": 90793709568,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "invocation_id": "5c44cc81e2d245cd93174b85b3a3cb98",
+        "scope": "Own three-hour SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+      },
+      "hpc02": {
+        "lifetime_cgroup_peak_bytes": 81900572672,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "invocation_id": "157618ac2dfd4957866b3dc062de89df",
+        "scope": "Own three-hour SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+      },
+      "hpc03": {
+        "lifetime_cgroup_peak_bytes": 91510697984,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "invocation_id": "0df56eec56f44f96a62892447ba08b2a",
+        "scope": "Own three-hour SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+      }
+    },
+    "candidate": {
+      "hpc01": {
+        "lifetime_cgroup_peak_bytes": 58611482624,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "invocation_id": "cc71c5ed45ed44fca117c57677df474c",
+        "scope": "Own three-hour SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+      },
+      "hpc02": {
+        "lifetime_cgroup_peak_bytes": 54439235584,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "invocation_id": "f1d570a2eea64f00ac834508d0976fd3",
+        "scope": "Own three-hour SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+      },
+      "hpc03": {
+        "lifetime_cgroup_peak_bytes": 58199101440,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "invocation_id": "34cd4690f6bc46beb14047022edbf08b",
+        "scope": "Own three-hour SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+      }
+    }
+  },
+  "reductions_percent": null,
+  "descriptive_reductions_percent": {
+    "wall_seconds": 15.857275784004576,
+    "cpu_seconds": 11.774370578801829,
+    "main_step_sum_seconds": 7.8293401520008965
+  },
+  "timing_gain_claim": false,
+  "science_sha256": "7a8036cd7c9e1552b8985992562f1e96483091ab1469f50dc3f095e1f66f3701",
+  "reader_closure_sha256": "da18b0bf32093e55e8334f01ba2e206bc1a38695861f8bd0549c78c63033ef27",
+  "limits": "One new unprofiled candidate run; original A is retained from prior B4BCpair. Descriptive timing only, no freshpair/repeatability/per-kernel causal claim. Main includes communication/backpressure; residual is not pureIO."
+}

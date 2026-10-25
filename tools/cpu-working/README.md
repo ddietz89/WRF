@@ -1,6 +1,10 @@
+# Latest three-hour qualification: 51f combined configuration
+
+All four full products and545 ordered steps matched exactly. Wall was18.006min versus retained original21.400min (15.86% descriptive reduction); main-step elapsed7.83% lower, totalCPU11.77% lower. One later candidate, no new matched pair or isolated mask-gain claim. [Qualification](../cpu-compute/sw-mcica-mask-consumer-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json).
+
 # Current working selection: 51f shortwave MCICA mask fusion
 
-Selected **51f1449e / archive63d6a533**, source correspondence **af4cabc0**, retains all B4BC improvements and removes the temporary SW cloud-mask pass. Own noon science passed two complete products and 185 ordered steps on hpc01–03 at256 ranks. Its three-hour check is running; parent three-hour results below remain specific to B4BC. No isolated forecast speedup is claimed.
+Selected **51f1449e / archive63d6a533**, source correspondence **af4cabc0**, retains all B4BC improvements and removes the temporary SW cloud-mask pass. Own noon science passed two complete products and 185 ordered steps on hpc01–03 at256 ranks. Its three-hour check also passed all four full products and 545 steps; parent three-hour results below remain specific to B4BC. No isolated forecast speedup is claimed.
 
 [Current selection](selection.json), [binding](CURRENT_SOURCE_BUILD_BINDING.json), [evidence and rollback](../cpu-compute/sw-mcica-mask-consumer-20261025/README.md).
 

@@ -1,10 +1,22 @@
 # WRF CPU optimization findings
 
-## October 25: shortwave MCICA mask fusion promoted; three-hour check running
+## October 25: latest shortwave-mask build passes three-hour qualification
+
+SW-MCICA51f passed its own same256 three-hour545/four-full-product application with all three new candidate models and the reader normally closed; three retained original-reference closures are also verified. The original546b A is retained from the prior B4BC pair. Measurements below are descriptive, not a fresh matched pair or forecast-gain claim. Noon185 qualification remains immutable and separate. No own9h/512/384/profile/restart/full144 qualification transfers.
+
+| Metric | Original546b | SW-MCICA51f | Descriptive reduction |
+|---|---:|---:|---:|
+| Wall (min) | 21.399520 | 18.006139 | +15.8573% |
+| Main elapsed (min) | 18.093336 | 16.676747 | +7.8293% |
+| Summed CPU (core-h) | 84.375622 | 74.440924 | +11.7744% |
+
+[Actual qualification and rollback](tools/cpu-compute/sw-mcica-mask-consumer-20261025/README.md). All prior B4BC improvements remain included.31 external hardware samples reported no alarm on available voltage/temperature/fan readings or query failures; unavailable sensors are recorded separately. Sampling does not exclude shorter transients.
+
+## October 25: shortwave MCICA mask fusion promotion
 
 The selected `51f1449e` image retains every B4BC improvement and removes a temporary cloud-mask allocation/population pass. The complete generator caller was 19.32% and 22.79% faster in one short P-C-C-P screen, with exact raw/state checks. Its own noon one-hour application passed both complete outputs and all 185 ordered steps against the unchanged original checker; all models and the reader closed normally. These results establish no forecast timing gain for this isolated addition.
 
-Source correspondence is committed as `af4cabc0`. Support is exact tested preprocessed-source replay/cached qualified object; a clean canonical-F-only rebuild is not certified. Its own three-hour candidate-only check is running on hpc01–03, with a retained original scientific reference. Parent B4BC three-hour timing remains a separate observation. [Evidence, rebuild and rollback](tools/cpu-compute/sw-mcica-mask-consumer-20261025/README.md).
+Source correspondence is committed as `af4cabc0`. Support is exact tested preprocessed-source replay/cached qualified object; a clean canonical-F-only rebuild is not certified. Its subsequent three-hour candidate-only check passed on hpc01–03, with a retained original scientific reference. Parent B4BC three-hour timing remains a separate observation. [Evidence, rebuild and rollback](tools/cpu-compute/sw-mcica-mask-consumer-20261025/README.md).
 
 ## October 25: latest B4BC passes a fresh three-hour comparison on three nodes
 
