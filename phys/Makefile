@@ -460,6 +460,28 @@ endif
 endif
 
 
+# Qualified GNU13.3.0/default REAL4 INTEGER4/empty OMP and OMPCPP; source DM&&!_OPENMP.
+# Opt out: make WRF_SW_MCICA_WHOLE_DRAW_SEED_CARRY=0 and rebuild module/archive/executable.
+WRF_SW_MCICA_WHOLE_DRAW_SEED_CARRY ?= 1
+ifeq ($(WRF_SW_MCICA_WHOLE_DRAW_SEED_CARRY),0)
+module_ra_rrtmg_sw.o: private override CPPFLAGS += -DWRF_SW_MCICA_WHOLE_DRAW_SEED_CARRY_DISABLE
+endif
+ifeq ($(WRF_SW_MCICA_WHOLE_DRAW_SEED_CARRY),1)
+ifeq ($(strip $(OMPCPP) $(OMP) $(PROMOTION) $(DOUBLE_PRECISION)),)
+ifeq ($(strip $(RWORDSIZE)),4)
+ifeq ($(strip $(IWORDSIZE)),4)
+ifeq ($(filter -fdefault-% -freal-% -finteger-% -r8 -i8,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
+ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+module_ra_rrtmg_sw.o: private override CPPFLAGS += -DWRF_SW_MCICA_WHOLE_DRAW_SEED_CARRY_ENABLE
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+
 # Enable GNU add_a2a SIMD in the qualified pure-MPI configuration; no thread team.
 # Use make WRF_ADDTENDC_SIMD=0 and rebuild this object/archive/executable to opt out.
 WRF_ADDTENDC_SIMD ?= 1

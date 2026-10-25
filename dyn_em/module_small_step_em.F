@@ -488,6 +488,9 @@ SUBROUTINE small_step_finish( u_2, u_1, v_2, v_1, w_2, w_1,    &
 
   DO j = j_start, j_endv
   DO k = kds, kde-1
+#if defined(WRF_SMALL_STEP_FINISH_V_SIMD_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_SMALL_STEP_FINISH_V_SIMD_DISABLE)
+!$OMP SIMD
+#endif
   DO i = i_start, i_end
     ! v coupled with mx
     v_2(i,k,j) = (msfvx(i,j)*v_2(i,k,j) + v_save(i,k,j)*(c1h(k)*muv(i,j)+c2h(k)))/(c1h(k)*muvs(i,j)+c2h(k))

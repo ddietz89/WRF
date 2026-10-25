@@ -1704,7 +1704,11 @@
 
 ! Indices
       integer(kind=im) :: ilev, isubcol, i, n, ngbm    ! indices
+#if defined(WRF_SW_MCICA_WHOLE_DRAW_SEED_CARRY_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_SW_MCICA_WHOLE_DRAW_SEED_CARRY_DISABLE)
+      integer(kind=im) :: s1c,s2c,s3c,s4c,kiss
+#else
 
+#endif
 !------------------------------------------------------------------------------------------ 
 
 ! Check that irng is in bounds; if not, set to default
@@ -1782,12 +1786,39 @@
 !    - if the layer above is cloudy, we use the same random number than in the layer above
 !    - if the layer above is clear, we use a new random number 
 
+#if defined(WRF_SW_MCICA_WHOLE_DRAW_SEED_CARRY_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_SW_MCICA_WHOLE_DRAW_SEED_CARRY_DISABLE)
+         if (irng.eq.0) then
+            if (ncol.eq.1.and.nlay.gt.0.and.nsubcol.gt.0.and. &
+                storage_size(0_im).eq.32.and.storage_size(0._rb).eq.32) then
+               s1c=seed1(1); s2c=seed2(1); s3c=seed3(1); s4c=seed4(1)
+               do isubcol=1,nsubcol
+                  do ilev=1,nlay
+                     s1c=69069_im*s1c+1327217885_im
+                     s2c=ieor(s2c,ishft(s2c,13_im))
+                     s2c=ieor(s2c,ishft(s2c,-17_im))
+                     s2c=ieor(s2c,ishft(s2c,5_im))
+                     s3c=18000_im*iand(s3c,65535_im)+ishft(s3c,-16_im)
+                     s4c=30903_im*iand(s4c,65535_im)+ishft(s4c,-16_im)
+                     kiss=s1c+s2c+ishft(s3c,16_im)+s4c
+                     CDF(isubcol,1,ilev)=kiss*2.328306e-10_rb+0.5_rb
+                  enddo
+               enddo
+               seed1(1)=s1c; seed2(1)=s2c; seed3(1)=s3c; seed4(1)=s4c
+            else
+            do isubcol = 1,nsubcol
+               do ilev = 1,nlay
+                  call kissvec_case2_cdf(isubcol,ilev)
+               enddo
+            enddo
+            endif
+#else
          if (irng.eq.0) then 
             do isubcol = 1,nsubcol
                do ilev = 1,nlay
                   call kissvec_case2_cdf(isubcol,ilev)
                enddo
             enddo
+#endif
          elseif (irng.eq.1) then
             do isubcol = 1, nsubcol
                do i = 1, ncol
