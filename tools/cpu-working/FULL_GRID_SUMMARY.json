@@ -508,9 +508,9 @@
       "limits": "Own169c original H185/two06/07 products, full512, all4models+reader normalclosed. Candidate-only unpaired timings; parent90f5 matched3h/own9h historical. No writer/profile/long/restart/full144 qualification or forecastspeedup transfer."
     }
   ],
-  "limits": "Own unprofiled SAME256 noon185/two FULL12:00/13:00 only. No current three-hour/nine-hour/384/512/profile/restart/full144 qualification or forecast timing gain. Parent0ec3 fresh three-hour comparison remains historical and image-specific. Tested-PP/cached-object delivery plus post-test canonical correspondence; no clean canonical-F-only rebuild certification.",
+  "limits": "Own unprofiled SAME256 noon185/two FULL and three-hour545/four FULL science. Three-hour candidate-only run against retained original546b A; UNPAIRED descriptive percentages only, no new matched timing gain, repeatability, isolated or additive component claim. Own9h/384/512/profile/restart/full144 false. Qualified-PP replay/cached-object delivery and actual post-test canonical correspondence; no clean canonical-source-only rebuild certificate.",
   "current_selection": {
-    "status": "PASS_OWN_UNPROFILED_THREEHOST_SAME256_SW_WHOLE_DRAW_FINISH_V_NOON185_TWO_PRODUCTS",
+    "status": "PASS_OWN_UNPROFILED_THREEHOST_SAME256_SW_WHOLE_DRAW_FINISH_V_THREEHOUR545_FOUR_PRODUCTS",
     "executable": {
       "path": "/pool/wrf-experiment/wrf-cpu/builds/current0ec3-sw-whole-draw-finish-v-two-member-experimental-r1/wrf.exe",
       "sha256": "871f2e3c196e2ecb4a91fa167cc055ab8b94c13fbabd91f72c5020d042f415f3"
@@ -518,12 +518,12 @@
     "archive_sha256": "33399456c410e37ac7368affb589b3c70d4479086673a5563048a94fbc1fdb5b",
     "source_commit": "9cf704d18cf47dc8e04f9f1b58f678e917d76442",
     "qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-whole-draw-finish-v-20261025/APPLICATION_QUALIFICATION.json",
-      "sha256": "eaeabe4a3861962e22c61d8151852ff697f2d95aa2a8a4099f48e4464f6e3464"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-whole-draw-finish-v-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "5a409eeac8dfa74bcd51231afc9471499d6d0da18c128e781db5030fca95ebf7"
     },
     "own_noon_one_hour_qualified": true,
     "own_unprofiled_noon_one_hour_qualified": true,
-    "own_three_hour_qualified": false,
+    "own_three_hour_qualified": true,
     "own_nine_hour_qualified": false,
     "own_384_qualified": false,
     "own_fourhost512_qualified": false,
@@ -532,9 +532,14 @@
     "restart_qualified": false,
     "full144_qualified": false,
     "forecast_gain_claim": false,
-    "latest_completed_3h_image": "0ec3",
+    "latest_completed_3h_image": "871f",
     "historical_three_hour_applies_to_current": false,
-    "scope": "Own unprofiled SAME256 noon185/two FULL12:00/13:00 only. No current three-hour/nine-hour/384/512/profile/restart/full144 qualification or forecast timing gain. Parent0ec3 fresh three-hour comparison remains historical and image-specific. Tested-PP/cached-object delivery plus post-test canonical correspondence; no clean canonical-F-only rebuild certification."
+    "scope": "Own unprofiled SAME256 noon185/two FULL and three-hour545/four FULL science. Three-hour candidate-only run against retained original546b A; UNPAIRED descriptive percentages only, no new matched timing gain, repeatability, isolated or additive component claim. Own9h/384/512/profile/restart/full144 false. Qualified-PP replay/cached-object delivery and actual post-test canonical correspondence; no clean canonical-source-only rebuild certificate.",
+    "own_unprofiled_three_hour_qualified": true,
+    "latest_three_hour_science": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current871-sw-finish-child3h-runtime-r1/science-receipt.json",
+      "sha256": "161456ed65dc4de12d9835e93da49e89d14aa821f9b812c14071510402f29f5b"
+    }
   },
   "recovered_diagnostic_runs": [
     {
@@ -964,67 +969,57 @@
     "applies_to_current_image": false
   },
   "latest_unpaired_three_hour": {
-    "status": "PASS_OWN_UNPROFILED_THREEHOST_SAME256_THREE_HOUR545_FOUR_PRODUCTS_CANDIDATE_ONLY",
-    "executable_sha256": "51f1449ef36ebeda42a8adb74061616e6f83f5a7dd09c0e7dc1145d1a46e4552",
-    "control_executable_sha256": "546b99156cbd809e1cae5e0ea8cebeea44dafd6331abf89e4daea00e0dd0a5e7",
-    "world_size": 256,
-    "compute_ranks": 224,
-    "hosts": [
-      "hpc01",
-      "hpc02",
-      "hpc03"
-    ],
-    "order": [
-      "retained_original546b_reference_from_B4BC_pair",
-      "current51f_SW_MCICA_candidate_only"
-    ],
-    "observations_per_image": 1,
-    "comparison_design": "Candidate-only same256 SW-MCICA own3h versus retained original546b A from completed B4BCpair; identical224compute8x28+32quilt/fourFULLproducts/exactorderedsteps; no freshmatchedpair timing claim",
-    "metrics": {
-      "control": {
-        "wall_seconds": 1283.9712130948901,
-        "cpu_seconds": 303752.239881,
-        "main_step_sum_seconds": 1085.60017
-      },
-      "candidate": {
-        "wall_seconds": 1080.3683568472043,
-        "cpu_seconds": 267987.325516,
-        "main_step_sum_seconds": 1000.60484
-      }
+    "status": "PASS_OWN_UNPROFILED_THREEHOST_SAME256_SW_WHOLE_DRAW_FINISH_V_THREEHOUR545_FOUR_PRODUCTS",
+    "executable": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current0ec3-sw-whole-draw-finish-v-two-member-experimental-r1/wrf.exe",
+      "sha256": "871f2e3c196e2ecb4a91fa167cc055ab8b94c13fbabd91f72c5020d042f415f3"
     },
-    "reductions_percent": null,
-    "descriptive_reductions_percent": {
-      "wall_seconds": 15.857275784004576,
-      "cpu_seconds": 11.774370578801829,
-      "main_step_sum_seconds": 7.8293401520008965
+    "archive": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current0ec3-sw-whole-draw-finish-v-two-member-experimental-r1/libwrflib.a",
+      "sha256": "33399456c410e37ac7368affb589b3c70d4479086673a5563048a94fbc1fdb5b"
     },
-    "timing_gain_claim": false,
+    "source_commit": "9cf704d18cf47dc8e04f9f1b58f678e917d76442",
     "qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-mcica-mask-consumer-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "f8792e3541d4bad1fa155a11f361e114dfe6fd0f2369f46ba39aec160dfd674a"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-whole-draw-finish-v-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "5a409eeac8dfa74bcd51231afc9471499d6d0da18c128e781db5030fca95ebf7"
     },
     "science": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current51f-sw-mcica-child3h-runtime-r1/science-receipt.json",
-      "sha256": "7a8036cd7c9e1552b8985992562f1e96483091ab1469f50dc3f095e1f66f3701"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current871-sw-finish-child3h-runtime-r1/science-receipt.json",
+      "sha256": "161456ed65dc4de12d9835e93da49e89d14aa821f9b812c14071510402f29f5b"
+    },
+    "reader_closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current871-sw-finish-child3h-runtime-r1/reader-closure.json",
+      "sha256": "6825a97e5105900ff357a7ad259207e33f08376be581072e032c58ca03721795"
     },
     "raw_RESULT": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current51f-sw-mcica-child3h-runtime-r1/RESULT.json",
-      "sha256": "cedaf27565eb0763b11b6e9061e570d71de24eebda931aa60ecdd70d5da7c568"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-whole-draw-finish-v-20261025/THREE_HOUR_RAW_RESULT.json",
+      "sha256": "93aeb4dc71b0733a043c67b6edbd64f8110bfc2e0d8a754f5b551f2e426b86cc"
     },
-    "reference_context": {
-      "role": "Retained original A from previous B4BC fresh pair; no new original forecast",
-      "actual_coordinator_journal_times": {
-        "control": {
-          "start_utc": "2026-10-25T06:07:39.131175+00:00",
-          "end_utc": "2026-10-25T06:29:11.786907+00:00"
-        },
-        "candidate": {
-          "start_utc": "2026-10-25T08:05:23.091405+00:00",
-          "end_utc": "2026-10-25T08:23:37.812493+00:00"
-        }
+    "metrics": {
+      "control": {
+        "wall_seconds": 1286.20290737506,
+        "cpu_seconds": 304447.209591,
+        "main_step_sum_seconds": 1087.82599
+      },
+      "candidate": {
+        "wall_seconds": 1081.4708710140549,
+        "cpu_seconds": 268446.92809,
+        "main_step_sum_seconds": 1002.45924
       }
     },
-    "limits": "One new unprofiled SW-MCICA51f candidate on01\u201303, same256/224compute8x28+32quilt; original546b A is retained from the completed B4BC fresh pair. Descriptive timing only, not a new matched pair, repeatability, isolated component or additive gain. Main elapsed includes MPI/output backpressure; aggregate CPU is summed consumption. Own noon remains separate and immutable. No own9h/512/384/profile/restart/full144 qualification."
+    "order": [
+      "retained_original546b_reference_from_latest0ec3_pair",
+      "current871_SW_whole_draw_FINISH_V_candidate_only"
+    ],
+    "comparison_design": "Candidate-only same256 SW whole-draw+FINISH V own3h versus retained original546b A from completed fresh0ec3 pair; identical224compute8x28+32quilt/fourFULLproducts/exactorderedsteps; no freshmatchedpair timing claim",
+    "reductions_percent": null,
+    "descriptive_reductions_percent": {
+      "wall_seconds": 15.917553535843842,
+      "cpu_seconds": 11.824802582149928,
+      "main_step_sum_seconds": 7.8474637290105616
+    },
+    "timing_gain_claim": false,
+    "limits": "Own unprofiled SAME256 noon185/two FULL and three-hour545/four FULL science. Three-hour candidate-only run against retained original546b A; UNPAIRED descriptive percentages only, no new matched timing gain, repeatability, isolated or additive component claim. Own9h/384/512/profile/restart/full144 false. Qualified-PP replay/cached-object delivery and actual post-test canonical correspondence; no clean canonical-source-only rebuild certificate."
   },
   "historical_fixed_order_three_hour_ECA4": {
     "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
@@ -1988,5 +1983,68 @@
     "reductions_percent": null,
     "timing_gain_claim": false,
     "limits": "Own unprofiled SAME256 noon185/two FULL12:00/13:00 only. No current three-hour/nine-hour/384/512/profile/restart/full144 qualification or forecast timing gain. Parent0ec3 fresh three-hour comparison remains historical and image-specific. Tested-PP/cached-object delivery plus post-test canonical correspondence; no clean canonical-F-only rebuild certification."
+  },
+  "historical_latest_unpaired_three_hour_before_871": {
+    "status": "PASS_OWN_UNPROFILED_THREEHOST_SAME256_THREE_HOUR545_FOUR_PRODUCTS_CANDIDATE_ONLY",
+    "executable_sha256": "51f1449ef36ebeda42a8adb74061616e6f83f5a7dd09c0e7dc1145d1a46e4552",
+    "control_executable_sha256": "546b99156cbd809e1cae5e0ea8cebeea44dafd6331abf89e4daea00e0dd0a5e7",
+    "world_size": 256,
+    "compute_ranks": 224,
+    "hosts": [
+      "hpc01",
+      "hpc02",
+      "hpc03"
+    ],
+    "order": [
+      "retained_original546b_reference_from_B4BC_pair",
+      "current51f_SW_MCICA_candidate_only"
+    ],
+    "observations_per_image": 1,
+    "comparison_design": "Candidate-only same256 SW-MCICA own3h versus retained original546b A from completed B4BCpair; identical224compute8x28+32quilt/fourFULLproducts/exactorderedsteps; no freshmatchedpair timing claim",
+    "metrics": {
+      "control": {
+        "wall_seconds": 1283.9712130948901,
+        "cpu_seconds": 303752.239881,
+        "main_step_sum_seconds": 1085.60017
+      },
+      "candidate": {
+        "wall_seconds": 1080.3683568472043,
+        "cpu_seconds": 267987.325516,
+        "main_step_sum_seconds": 1000.60484
+      }
+    },
+    "reductions_percent": null,
+    "descriptive_reductions_percent": {
+      "wall_seconds": 15.857275784004576,
+      "cpu_seconds": 11.774370578801829,
+      "main_step_sum_seconds": 7.8293401520008965
+    },
+    "timing_gain_claim": false,
+    "qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-mcica-mask-consumer-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "f8792e3541d4bad1fa155a11f361e114dfe6fd0f2369f46ba39aec160dfd674a"
+    },
+    "science": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current51f-sw-mcica-child3h-runtime-r1/science-receipt.json",
+      "sha256": "7a8036cd7c9e1552b8985992562f1e96483091ab1469f50dc3f095e1f66f3701"
+    },
+    "raw_RESULT": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current51f-sw-mcica-child3h-runtime-r1/RESULT.json",
+      "sha256": "cedaf27565eb0763b11b6e9061e570d71de24eebda931aa60ecdd70d5da7c568"
+    },
+    "reference_context": {
+      "role": "Retained original A from previous B4BC fresh pair; no new original forecast",
+      "actual_coordinator_journal_times": {
+        "control": {
+          "start_utc": "2026-10-25T06:07:39.131175+00:00",
+          "end_utc": "2026-10-25T06:29:11.786907+00:00"
+        },
+        "candidate": {
+          "start_utc": "2026-10-25T08:05:23.091405+00:00",
+          "end_utc": "2026-10-25T08:23:37.812493+00:00"
+        }
+      }
+    },
+    "limits": "One new unprofiled SW-MCICA51f candidate on01\u201303, same256/224compute8x28+32quilt; original546b A is retained from the completed B4BC fresh pair. Descriptive timing only, not a new matched pair, repeatability, isolated component or additive gain. Main elapsed includes MPI/output backpressure; aggregate CPU is summed consumption. Own noon remains separate and immutable. No own9h/512/384/profile/restart/full144 qualification."
   }
 }

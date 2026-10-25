@@ -1,0 +1,53 @@
+{
+  "status": "PASS_OWN_UNPROFILED_THREEHOST_SAME256_SW_WHOLE_DRAW_FINISH_V_THREEHOUR545_FOUR_PRODUCTS",
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current0ec3-sw-whole-draw-finish-v-two-member-experimental-r1/wrf.exe",
+    "sha256": "871f2e3c196e2ecb4a91fa167cc055ab8b94c13fbabd91f72c5020d042f415f3"
+  },
+  "archive": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current0ec3-sw-whole-draw-finish-v-two-member-experimental-r1/libwrflib.a",
+    "sha256": "33399456c410e37ac7368affb589b3c70d4479086673a5563048a94fbc1fdb5b"
+  },
+  "source_commit": "9cf704d18cf47dc8e04f9f1b58f678e917d76442",
+  "qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-whole-draw-finish-v-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "5a409eeac8dfa74bcd51231afc9471499d6d0da18c128e781db5030fca95ebf7"
+  },
+  "science": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current871-sw-finish-child3h-runtime-r1/science-receipt.json",
+    "sha256": "161456ed65dc4de12d9835e93da49e89d14aa821f9b812c14071510402f29f5b"
+  },
+  "reader_closure": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current871-sw-finish-child3h-runtime-r1/reader-closure.json",
+    "sha256": "6825a97e5105900ff357a7ad259207e33f08376be581072e032c58ca03721795"
+  },
+  "raw_RESULT": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-whole-draw-finish-v-20261025/THREE_HOUR_RAW_RESULT.json",
+    "sha256": "93aeb4dc71b0733a043c67b6edbd64f8110bfc2e0d8a754f5b551f2e426b86cc"
+  },
+  "metrics": {
+    "control": {
+      "wall_seconds": 1286.20290737506,
+      "cpu_seconds": 304447.209591,
+      "main_step_sum_seconds": 1087.82599
+    },
+    "candidate": {
+      "wall_seconds": 1081.4708710140549,
+      "cpu_seconds": 268446.92809,
+      "main_step_sum_seconds": 1002.45924
+    }
+  },
+  "order": [
+    "retained_original546b_reference_from_latest0ec3_pair",
+    "current871_SW_whole_draw_FINISH_V_candidate_only"
+  ],
+  "comparison_design": "Candidate-only same256 SW whole-draw+FINISH V own3h versus retained original546b A from completed fresh0ec3 pair; identical224compute8x28+32quilt/fourFULLproducts/exactorderedsteps; no freshmatchedpair timing claim",
+  "reductions_percent": null,
+  "descriptive_reductions_percent": {
+    "wall_seconds": 15.917553535843842,
+    "cpu_seconds": 11.824802582149928,
+    "main_step_sum_seconds": 7.8474637290105616
+  },
+  "timing_gain_claim": false,
+  "limits": "Own unprofiled SAME256 noon185/two FULL and three-hour545/four FULL science. Three-hour candidate-only run against retained original546b A; UNPAIRED descriptive percentages only, no new matched timing gain, repeatability, isolated or additive component claim. Own9h/384/512/profile/restart/full144 false. Qualified-PP replay/cached-object delivery and actual post-test canonical correspondence; no clean canonical-source-only rebuild certificate."
+}

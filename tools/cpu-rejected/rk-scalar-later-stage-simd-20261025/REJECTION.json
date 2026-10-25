@@ -1,0 +1,107 @@
+{
+  "status": "REJECTED_UNPROMOTED_STRICT_QUIET_NAN_PAYLOAD_COUNTEREXAMPLE",
+  "candidate": "one later-stage RKscalar reconstruction SIMD directive over current647bb/c78; no arithmetic-source change",
+  "invocation_id": "3dde98f5e066475c9ae97ece24975576",
+  "actual_worker_status": "FAIL_RETAINED_NO_RETRY",
+  "actual_worker_error": "AssertionError('SAMEOPT_FULL_RAW_READONLY_OR_FIVE_STATE_MISMATCH')",
+  "actual_closure": {
+    "MainPID": "0",
+    "Result": "exit-code",
+    "ExecMainStatus": "1",
+    "ControlGroup": "",
+    "LoadState": "loaded",
+    "ActiveState": "failed",
+    "InvocationID": "3dde98f5e066475c9ae97ece24975576"
+  },
+  "cgroup_paths_absent": true,
+  "cgroup_processes": [],
+  "first_raw_mismatch": {
+    "byte": 791984,
+    "word": 197996,
+    "parent_hex": "7fc12345",
+    "candidate_hex": "ffc54321",
+    "opt": "O2",
+    "test": "focused",
+    "round": 0
+  },
+  "local_layout_derivation": {
+    "record_bytes": 77920,
+    "record_schema": "INT32 case; REAL32 scalar_1,scalar_2,advh,advz full physical arrays; readonly INT32 array; selected scalar/config/bounds INT32 state; five-state INT32 observation. Stream big-endian per exact recorded gfortran -fconvert=big-endian flags, no record markers.",
+    "physical_shape": [
+      19,
+      11,
+      11
+    ],
+    "physical_lower_bounds": [
+      -2,
+      -1,
+      -2
+    ],
+    "case": 42,
+    "case_zero_based_record_index": 10,
+    "record_byte_offset": 12784,
+    "field": "scalar_2",
+    "species": 2,
+    "coordinate": {
+      "i": 1,
+      "k": 2,
+      "j": 2
+    },
+    "field_zero_based_word": 896,
+    "width": 2,
+    "active_bounds": {
+      "I": [
+        1,
+        2
+      ],
+      "J": [
+        2,
+        2
+      ],
+      "K": [
+        2,
+        3
+      ]
+    },
+    "rk_step": 2,
+    "pattern": 0,
+    "inputs": "q(i,2,1)=quietNaN7fc12345 sets MU_OLD; scalar_1(i,2,2,2)=quietNaNffc54321, at every active I; MU_BASE/MU_NEW/c1/c2/dt/tendency otherwise deterministic finite.",
+    "source_expression": "scalar_2(i,k,j,im)=((c1(k)*muold(i)+c2(k))*scalar_1(i,k,j,im)+dt*tendency(i,k,j))/(c1(k)*munew(i)+c2(k))",
+    "parent_output_bits": "7fc12345",
+    "candidate_output_bits": "ffc54321"
+  },
+  "scope": {
+    "executed": "1 candidateO2 module compile; twoChelpers, twofocuseddrivers/twolinks; parent/candidatefocusedround0 bothreturn0; strict raw comparator failed.",
+    "not_executed": [
+      "Other rounding modes",
+      "Original28fixture",
+      "PartialK/species3fixture",
+      "CandidateO0 modulecompile",
+      "AllO0 numericaltests",
+      "Caller timing",
+      "Application forecast"
+    ],
+    "guards": "Both executed focused drivers returned0 after their internal readonly/physical/config checks; complete cross-arm five-state equality is NOT separately established by first-mismatch metadata.",
+    "codegen": {
+      "O2": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-rk-scalar-later-stage-native-hpc01-r1/actual-rk-scalar-asm-O2.log",
+        "sha256": "6ec76c0f62e05a23605f1aaec0463efee399550ada0e707ef3a51e82f66091ac",
+        "bytes": 151835,
+        "mechanism_review_pending": true
+      }
+    },
+    "codegen_limit": "Actual target codegen log exists and is hashbound; full literal operand-priority review not performed/required to establish this concrete raw failure. Do not claim exact offending machine opcode or new packed gain.",
+    "earlier_prefix": "First mismatch location means full records32..41 (10 width1 patterns) precede it byteexact in this O2round0 stream; this is no wider native qualification."
+  },
+  "cause_assessment": "The source-identical arithmetic now selects a different competing quietNaN payload. This is consistent with SIMD-generated operand priority changes; exact responsible instruction is not asserted. Strict fullraw contract is violated regardless of numeric NaN classification.",
+  "decision": "Close this fixed candidate without repair, tolerance, normalization, caller/performance test, or promotion. Preserve actual originalfailure; selected871 unchanged.",
+  "references_sha256": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-b4bc-same256-mpi-critical-path-finite-audit-r1/rk-scalar-later-stage-native-preparation-r1-hpc01/actual-native-r1/receipt.json": "9075909e494e62701a899345a7283486e9f71e06b30ade4338a8ed3485d746a9",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-b4bc-same256-mpi-critical-path-finite-audit-r1/rk-scalar-later-stage-native-preparation-r1-hpc01/actual-native-r1/closure.json": "a8b64b055c019ec2c792f458a58151059ed58f381fd8e75095e02f054493d1d4",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-b4bc-same256-mpi-critical-path-finite-audit-r1/rk-scalar-later-stage-native-preparation-r1-hpc01/focused_later_stage_driver.f90": "c54eee0716a5f8281a5aa38ec8424b6983777303864ca8fc01c9bda77d830b40",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-b4bc-same256-mpi-critical-path-finite-audit-r1/rk-scalar-later-stage-native-preparation-r1-hpc01/SOURCE_INVERSE.json": "764ecb7e1217ea5786972d7d48b5345f6f189d59b967770e2c5a74c1f56bf61e",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-b4bc-same256-mpi-critical-path-finite-audit-r1/rk-scalar-later-stage-native-preparation-r1-hpc01/LITERAL_CANDIDATE.diff": "a2b7b439d3330028764c9a2295c87179a65f117b55c42f655dcec9b26441c4db",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-b4bc-same256-mpi-critical-path-finite-audit-r1/rk-scalar-later-stage-native-preparation-r1-hpc01/candidate_module_em.f90": "37a3f10897e06c468714219bf5842781f214fa479d6e25db16982a5241a93c3f",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-b4bc-same256-mpi-critical-path-finite-audit-r1/current-d54-rk-scalar-three-site-source-query-r1/actual-r1/stdout.json": "519f3fe8cc58da78372185b1c24753da7c5550fafb165e15077683128f5609b3"
+  }
+}
