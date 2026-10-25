@@ -1,0 +1,836 @@
+{
+  "status": "FAIL_RETAINED_NO_RETRY",
+  "invocation_id": "00d73613eab54721ad3fee75b44325be",
+  "commands": [
+    {
+      "argv": [
+        "/bin/bash",
+        "-c",
+        "source \"$1\"; /usr/bin/python3 -c \"$2\"",
+        "env",
+        "/pool/wrf-experiment/tooling/m6-parallel/mpi-ib-env.sh",
+        "import os,json;print(json.dumps({k:v for k,v in os.environ.items()if k in ['PATH', 'LD_LIBRARY_PATH', 'OPAL_PREFIX', 'OMPI_MCA_pml', 'OMPI_MCA_btl', 'UCX_TLS', 'UCX_NET_DEVICES', 'UCX_POSIX_DIR']}))"
+      ],
+      "cwd": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work",
+      "returncode": 0,
+      "stdout_sha256": "765b65b6ddd1d102232a7d5e9850868aa760a3ae9485673333574537a2556b5c",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/usr/bin/ar",
+        "p",
+        "/pool/wrf-experiment/wrf-cpu/builds/current5c75-mu-theta-firstpass-one-smallstep-member-experimental-r1/libwrflib.a",
+        "module_comm_dm_3.o"
+      ],
+      "cwd": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work",
+      "returncode": 0,
+      "stdout_sha256": "b8dfc5d327aeb60775a121cccef8e5e1e80f8e1691e023c151b5a5896b071000",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/usr/bin/ar",
+        "p",
+        "/pool/wrf-experiment/wrf-cpu/builds/current5c75-mu-theta-firstpass-one-smallstep-member-experimental-r1/libwrflib.a",
+        "module_comm_dm_1.o"
+      ],
+      "cwd": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work",
+      "returncode": 0,
+      "stdout_sha256": "61fd8f7d70c33bc889dcca287f870ab38dc4f94010f1c924cf50443daaf4c345",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpicc",
+        "-O2",
+        "-g",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-std=gnu99",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/region_observer.c",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/region_observer.o"
+      ],
+      "cwd": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work",
+      "returncode": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpicc",
+        "-O2",
+        "-g",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-std=gnu99",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/request_shape.c",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/request_shape.o"
+      ],
+      "cwd": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work",
+      "returncode": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-O2",
+        "-g",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-fcheck=bounds",
+        "-fbacktrace",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/original-mods",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-J/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/pwp_driver.f90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/driver.o"
+      ],
+      "cwd": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work",
+      "returncode": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/oracle",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/driver.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/region_observer.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/request_shape.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/module_comm_dm_3.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/module_comm_dm_1.o",
+        "-Wl,--start-group",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-Wl,-rpath,/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/hpg-nhx-isolated-avx2-consumer-native-r3/work/nhx-helper-O2.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/phy-height-private-avx2-fixed8-native-hpc04-r1/work/helper-O2.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/current5c75-mu-theta-firstpass-one-smallstep-member-experimental-r1/libwrflib.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-lesmf_time",
+        "/pool/wrf-experiment/wrf-cpu/builds/current971c-uv-final-v-unpack-outline-combined-native-r1/librsl_lite.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2",
+        "-lwrfio_nf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-lnetcdf",
+        "-Wl,--end-group",
+        "-lm"
+      ],
+      "cwd": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work",
+      "returncode": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpirun",
+        "--prefix",
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem",
+        "--host",
+        "localhost:9",
+        "-np",
+        "9",
+        "--bind-to",
+        "none",
+        "--map-by",
+        "slot",
+        "--leave-session-attached",
+        "-x",
+        "LD_LIBRARY_PATH",
+        "-x",
+        "OPAL_PREFIX",
+        "-x",
+        "OMPI_MCA_pml",
+        "-x",
+        "OMPI_MCA_btl",
+        "-x",
+        "UCX_TLS",
+        "-x",
+        "UCX_NET_DEVICES",
+        "-x",
+        "UCX_POSIX_DIR",
+        "/usr/bin/python3",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/rank_entry.py",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/oracle",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/parent/entries",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/parent/physical",
+        "0"
+      ],
+      "cwd": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/parent",
+      "returncode": 0,
+      "stdout_sha256": "287cf9829601bc99484f48d3a2c422db150149dddc57c4219acac6b9f243580c",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpirun",
+        "--prefix",
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem",
+        "--host",
+        "localhost:9",
+        "-np",
+        "9",
+        "--bind-to",
+        "none",
+        "--map-by",
+        "slot",
+        "--leave-session-attached",
+        "-x",
+        "LD_LIBRARY_PATH",
+        "-x",
+        "OPAL_PREFIX",
+        "-x",
+        "OMPI_MCA_pml",
+        "-x",
+        "OMPI_MCA_btl",
+        "-x",
+        "UCX_TLS",
+        "-x",
+        "UCX_NET_DEVICES",
+        "-x",
+        "UCX_POSIX_DIR",
+        "/usr/bin/python3",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/rank_entry.py",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/oracle",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/guarded/entries",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/guarded/physical",
+        "1"
+      ],
+      "cwd": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/guarded",
+      "returncode": 0,
+      "stdout_sha256": "a94334935d2df96f5c1d472b7ae15d29bdc80c4c9ddb815ff3a8b581e37e8c0f",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-O0",
+        "-g",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-fcheck=bounds",
+        "-fbacktrace",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/original-mods",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-J/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O0",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/pwp_driver.f90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O0/driver.o"
+      ],
+      "cwd": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work",
+      "returncode": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O0/oracle",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O0/driver.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/region_observer.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/request_shape.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/module_comm_dm_3.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/module_comm_dm_1.o",
+        "-Wl,--start-group",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-Wl,-rpath,/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/hpg-nhx-isolated-avx2-consumer-native-r3/work/nhx-helper-O2.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/phy-height-private-avx2-fixed8-native-hpc04-r1/work/helper-O2.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/current5c75-mu-theta-firstpass-one-smallstep-member-experimental-r1/libwrflib.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-lesmf_time",
+        "/pool/wrf-experiment/wrf-cpu/builds/current971c-uv-final-v-unpack-outline-combined-native-r1/librsl_lite.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2",
+        "-lwrfio_nf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-lnetcdf",
+        "-Wl,--end-group",
+        "-lm"
+      ],
+      "cwd": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work",
+      "returncode": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpirun",
+        "--prefix",
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem",
+        "--host",
+        "localhost:9",
+        "-np",
+        "9",
+        "--bind-to",
+        "none",
+        "--map-by",
+        "slot",
+        "--leave-session-attached",
+        "-x",
+        "LD_LIBRARY_PATH",
+        "-x",
+        "OPAL_PREFIX",
+        "-x",
+        "OMPI_MCA_pml",
+        "-x",
+        "OMPI_MCA_btl",
+        "-x",
+        "UCX_TLS",
+        "-x",
+        "UCX_NET_DEVICES",
+        "-x",
+        "UCX_POSIX_DIR",
+        "/usr/bin/python3",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/rank_entry.py",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O0/oracle",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O0/parent/entries",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O0/parent/physical",
+        "0"
+      ],
+      "cwd": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O0/parent",
+      "returncode": 0,
+      "stdout_sha256": "86b5a67e8b5a8a0ed2d433df94fefd326350897f0e11ed56c2c9941f40e0bf3c",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpirun",
+        "--prefix",
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem",
+        "--host",
+        "localhost:9",
+        "-np",
+        "9",
+        "--bind-to",
+        "none",
+        "--map-by",
+        "slot",
+        "--leave-session-attached",
+        "-x",
+        "LD_LIBRARY_PATH",
+        "-x",
+        "OPAL_PREFIX",
+        "-x",
+        "OMPI_MCA_pml",
+        "-x",
+        "OMPI_MCA_btl",
+        "-x",
+        "UCX_TLS",
+        "-x",
+        "UCX_NET_DEVICES",
+        "-x",
+        "UCX_POSIX_DIR",
+        "/usr/bin/python3",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/rank_entry.py",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O0/oracle",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O0/guarded/entries",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O0/guarded/physical",
+        "1"
+      ],
+      "cwd": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O0/guarded",
+      "returncode": 0,
+      "stdout_sha256": "0a78d91afa02d326da6dfdbe9ff16d19d8f5d028a5a455a26e8675f68d330505",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "WRF_science_module_compiles": 0,
+  "scope": "DIAGNOSTIC warmed steadycaller only: real productionO2 PWP/domain/RSL, O2/O0-bounds CALLER. Fixed sentinels initialized after INTENTOUT model_to_grid. Same original HALOC/PWP/HALOC warm-up bothroles outside snapshots, all original60phase fullphysical/config/five-state/request checks unchanged. No cold-entry/fullFirstRK/helperO0/application qualification.",
+  "native_qualified": false,
+  "application_qualified": false,
+  "performance_qualified": false,
+  "original_MODs": {
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_state_description.mod": "502b162905e54da0751d6e0e374f1474108c18f64c4cbf9920ff7be68d153030",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_driver_constants.mod": "b4c46a342c3b9d45c647d6742582b9605dd7e0edf601c7a45cec131c3cdf7fe1",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_dm.mod": "6a0ddfb8d2310409a14caa0f5c99a3692c294310924d421507dfa854a59bd85d",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_configure.mod": "a16f88b79a658620f0cf53f558e993eb91b6d79c01073d55cf4cc457a7fde9e3",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_domain.mod": "b4e4e22d87b8200a95b1f229b9d4e9e9b524905d8515820309464fa4e699c470",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_domain_type.mod": "5c367395e679d5942f239c4f9dc4cc5b2813b186c2fb9a9cf950f78a28514df1",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_comm_dm_1.mod": "3d0e08b845a0f8d5946e2a8715481dd55773bc11e86e1fc86a19c8ce2f4e5ed4",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_comm_dm_3.mod": "886e310cfada839292f7af362ef11eb72acfa79d08f77662d0ae7dca1bae19cd"
+  },
+  "additional_MOD_scope": "Raw original cleanhead module_comm_dm_3.MOD readback; unchanged real compiled module ABI/call, no prospective hash or newMOD identity claim.",
+  "ELFs": {
+    "O2": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/oracle",
+      "sha256": "000ada79f008038a16fed83db3675850e5e3038d7e21eea30520d3785b6d353b"
+    },
+    "O0": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O0/oracle",
+      "sha256": "967f139a773b432ef65a4a6a08c052c19f771d570155a3fdf6e4d90f6b42467e"
+    }
+  },
+  "common_original_warm_protocol": {
+    "O2": {
+      "0-rank0": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/parent/physical.rank0.warmtrace",
+        "sha256": "f79193ab4903f9cfdda996cda587b5a2e5921e2dcc4aad2f1095e8de3c3002d7",
+        "all_completed": true,
+        "post_count": 12
+      },
+      "0-rank1": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/parent/physical.rank1.warmtrace",
+        "sha256": "0df49be5ee48ae1c06f3b2701c930a9eb47fb38ac8ca10bb5867b51750445974",
+        "all_completed": true,
+        "post_count": 18
+      },
+      "0-rank2": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/parent/physical.rank2.warmtrace",
+        "sha256": "2a3ef81928527f200387c67a53d963cb61f7dc4fe8b3547ff777f0eb51f70584",
+        "all_completed": true,
+        "post_count": 12
+      },
+      "0-rank3": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/parent/physical.rank3.warmtrace",
+        "sha256": "96990efe73a841cd5cc98cda225f965a794768b9d519c985f867262d45fe4f10",
+        "all_completed": true,
+        "post_count": 18
+      },
+      "0-rank4": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/parent/physical.rank4.warmtrace",
+        "sha256": "85f4a494f01db8cbae4dbda0d5dc1e03fe83f3d62d61727c8bb4077648c81bed",
+        "all_completed": true,
+        "post_count": 24
+      },
+      "0-rank5": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/parent/physical.rank5.warmtrace",
+        "sha256": "4ec093474e92738631e7fe7b6f7c277c55fcff94b5479c0132a641e5a9c0e3e4",
+        "all_completed": true,
+        "post_count": 18
+      },
+      "0-rank6": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/parent/physical.rank6.warmtrace",
+        "sha256": "4ae43626f88dd98b52c81d4616ea3eb559fa8d668e30eb85ba8adbba36bc01fe",
+        "all_completed": true,
+        "post_count": 12
+      },
+      "0-rank7": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/parent/physical.rank7.warmtrace",
+        "sha256": "199f5c3494d5567f220ea7c0a2df42cecd43a3a9111af7d95cb0037805c9f181",
+        "all_completed": true,
+        "post_count": 18
+      },
+      "0-rank8": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/parent/physical.rank8.warmtrace",
+        "sha256": "03f4694ef623d81f037a4c1f4ceb00bbdfdc99ce0f2484d299ba5fe20937a75e",
+        "all_completed": true,
+        "post_count": 12
+      },
+      "1-rank0": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/guarded/physical.rank0.warmtrace",
+        "sha256": "f79193ab4903f9cfdda996cda587b5a2e5921e2dcc4aad2f1095e8de3c3002d7",
+        "all_completed": true,
+        "post_count": 12
+      },
+      "1-rank1": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/guarded/physical.rank1.warmtrace",
+        "sha256": "0df49be5ee48ae1c06f3b2701c930a9eb47fb38ac8ca10bb5867b51750445974",
+        "all_completed": true,
+        "post_count": 18
+      },
+      "1-rank2": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/guarded/physical.rank2.warmtrace",
+        "sha256": "2a3ef81928527f200387c67a53d963cb61f7dc4fe8b3547ff777f0eb51f70584",
+        "all_completed": true,
+        "post_count": 12
+      },
+      "1-rank3": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/guarded/physical.rank3.warmtrace",
+        "sha256": "96990efe73a841cd5cc98cda225f965a794768b9d519c985f867262d45fe4f10",
+        "all_completed": true,
+        "post_count": 18
+      },
+      "1-rank4": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/guarded/physical.rank4.warmtrace",
+        "sha256": "85f4a494f01db8cbae4dbda0d5dc1e03fe83f3d62d61727c8bb4077648c81bed",
+        "all_completed": true,
+        "post_count": 24
+      },
+      "1-rank5": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/guarded/physical.rank5.warmtrace",
+        "sha256": "4ec093474e92738631e7fe7b6f7c277c55fcff94b5479c0132a641e5a9c0e3e4",
+        "all_completed": true,
+        "post_count": 18
+      },
+      "1-rank6": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/guarded/physical.rank6.warmtrace",
+        "sha256": "4ae43626f88dd98b52c81d4616ea3eb559fa8d668e30eb85ba8adbba36bc01fe",
+        "all_completed": true,
+        "post_count": 12
+      },
+      "1-rank7": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/guarded/physical.rank7.warmtrace",
+        "sha256": "199f5c3494d5567f220ea7c0a2df42cecd43a3a9111af7d95cb0037805c9f181",
+        "all_completed": true,
+        "post_count": 18
+      },
+      "1-rank8": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/guarded/physical.rank8.warmtrace",
+        "sha256": "03f4694ef623d81f037a4c1f4ceb00bbdfdc99ce0f2484d299ba5fe20937a75e",
+        "all_completed": true,
+        "post_count": 12
+      }
+    },
+    "O0": {
+      "0-rank0": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O0/parent/physical.rank0.warmtrace",
+        "sha256": "f79193ab4903f9cfdda996cda587b5a2e5921e2dcc4aad2f1095e8de3c3002d7",
+        "all_completed": true,
+        "post_count": 12
+      },
+      "0-rank1": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O0/parent/physical.rank1.warmtrace",
+        "sha256": "0df49be5ee48ae1c06f3b2701c930a9eb47fb38ac8ca10bb5867b51750445974",
+        "all_completed": true,
+        "post_count": 18
+      },
+      "0-rank2": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O0/parent/physical.rank2.warmtrace",
+        "sha256": "2a3ef81928527f200387c67a53d963cb61f7dc4fe8b3547ff777f0eb51f70584",
+        "all_completed": true,
+        "post_count": 12
+      },
+      "0-rank3": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O0/parent/physical.rank3.warmtrace",
+        "sha256": "96990efe73a841cd5cc98cda225f965a794768b9d519c985f867262d45fe4f10",
+        "all_completed": true,
+        "post_count": 18
+      },
+      "0-rank4": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O0/parent/physical.rank4.warmtrace",
+        "sha256": "85f4a494f01db8cbae4dbda0d5dc1e03fe83f3d62d61727c8bb4077648c81bed",
+        "all_completed": true,
+        "post_count": 24
+      },
+      "0-rank5": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O0/parent/physical.rank5.warmtrace",
+        "sha256": "4ec093474e92738631e7fe7b6f7c277c55fcff94b5479c0132a641e5a9c0e3e4",
+        "all_completed": true,
+        "post_count": 18
+      },
+      "0-rank6": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O0/parent/physical.rank6.warmtrace",
+        "sha256": "4ae43626f88dd98b52c81d4616ea3eb559fa8d668e30eb85ba8adbba36bc01fe",
+        "all_completed": true,
+        "post_count": 12
+      },
+      "0-rank7": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O0/parent/physical.rank7.warmtrace",
+        "sha256": "199f5c3494d5567f220ea7c0a2df42cecd43a3a9111af7d95cb0037805c9f181",
+        "all_completed": true,
+        "post_count": 18
+      },
+      "0-rank8": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O0/parent/physical.rank8.warmtrace",
+        "sha256": "03f4694ef623d81f037a4c1f4ceb00bbdfdc99ce0f2484d299ba5fe20937a75e",
+        "all_completed": true,
+        "post_count": 12
+      },
+      "1-rank0": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O0/guarded/physical.rank0.warmtrace",
+        "sha256": "f79193ab4903f9cfdda996cda587b5a2e5921e2dcc4aad2f1095e8de3c3002d7",
+        "all_completed": true,
+        "post_count": 12
+      },
+      "1-rank1": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O0/guarded/physical.rank1.warmtrace",
+        "sha256": "0df49be5ee48ae1c06f3b2701c930a9eb47fb38ac8ca10bb5867b51750445974",
+        "all_completed": true,
+        "post_count": 18
+      },
+      "1-rank2": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O0/guarded/physical.rank2.warmtrace",
+        "sha256": "2a3ef81928527f200387c67a53d963cb61f7dc4fe8b3547ff777f0eb51f70584",
+        "all_completed": true,
+        "post_count": 12
+      },
+      "1-rank3": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O0/guarded/physical.rank3.warmtrace",
+        "sha256": "96990efe73a841cd5cc98cda225f965a794768b9d519c985f867262d45fe4f10",
+        "all_completed": true,
+        "post_count": 18
+      },
+      "1-rank4": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O0/guarded/physical.rank4.warmtrace",
+        "sha256": "85f4a494f01db8cbae4dbda0d5dc1e03fe83f3d62d61727c8bb4077648c81bed",
+        "all_completed": true,
+        "post_count": 24
+      },
+      "1-rank5": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O0/guarded/physical.rank5.warmtrace",
+        "sha256": "4ec093474e92738631e7fe7b6f7c277c55fcff94b5479c0132a641e5a9c0e3e4",
+        "all_completed": true,
+        "post_count": 18
+      },
+      "1-rank6": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O0/guarded/physical.rank6.warmtrace",
+        "sha256": "4ae43626f88dd98b52c81d4616ea3eb559fa8d668e30eb85ba8adbba36bc01fe",
+        "all_completed": true,
+        "post_count": 12
+      },
+      "1-rank7": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O0/guarded/physical.rank7.warmtrace",
+        "sha256": "199f5c3494d5567f220ea7c0a2df42cecd43a3a9111af7d95cb0037805c9f181",
+        "all_completed": true,
+        "post_count": 18
+      },
+      "1-rank8": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O0/guarded/physical.rank8.warmtrace",
+        "sha256": "03f4694ef623d81f037a4c1f4ceb00bbdfdc99ce0f2484d299ba5fe20937a75e",
+        "all_completed": true,
+        "post_count": 12
+      }
+    }
+  },
+  "fullphysical_fivestate_comparisons": {
+    "O2-rank0": {
+      "parent": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/parent/physical.rank0.bin",
+        "sha256": "795ef75b21f4540e988382d12a3a0af9506f8f5e5991a96d95ed9afea1299b50",
+        "bytes": 2600592
+      },
+      "guarded": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/guarded/physical.rank0.bin",
+        "sha256": "795ef75b21f4540e988382d12a3a0af9506f8f5e5991a96d95ed9afea1299b50",
+        "bytes": 2600592
+      },
+      "exact": true
+    },
+    "O2-rank1": {
+      "parent": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/parent/physical.rank1.bin",
+        "sha256": "bcfe70aa093736db0b3ddbfa3006ec0ebc016064d3ce73310c7ce7b03518b7fd",
+        "bytes": 2600592
+      },
+      "guarded": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/guarded/physical.rank1.bin",
+        "sha256": "bcfe70aa093736db0b3ddbfa3006ec0ebc016064d3ce73310c7ce7b03518b7fd",
+        "bytes": 2600592
+      },
+      "exact": true
+    },
+    "O2-rank2": {
+      "parent": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/parent/physical.rank2.bin",
+        "sha256": "c019d5d3d16ed647c34bc0ccbc0bbf3a9f2ae8ac60571c992c07121a77d2f708",
+        "bytes": 2643600
+      },
+      "guarded": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/guarded/physical.rank2.bin",
+        "sha256": "c019d5d3d16ed647c34bc0ccbc0bbf3a9f2ae8ac60571c992c07121a77d2f708",
+        "bytes": 2643600
+      },
+      "exact": true
+    },
+    "O2-rank3": {
+      "parent": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/parent/physical.rank3.bin",
+        "sha256": "fce32773356021f0d4aa8705fbbec0ea267f75e75bf589e1418d289d633271ae",
+        "bytes": 2600592
+      },
+      "guarded": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/guarded/physical.rank3.bin",
+        "sha256": "fce32773356021f0d4aa8705fbbec0ea267f75e75bf589e1418d289d633271ae",
+        "bytes": 2600592
+      },
+      "exact": true
+    },
+    "O2-rank4": {
+      "parent": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/parent/physical.rank4.bin",
+        "sha256": "d0fc91ec3a7eac749a26a9092fd43f6b970c1a91043aad4e7a1a17b28e6d12cc",
+        "bytes": 2600592
+      },
+      "guarded": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/guarded/physical.rank4.bin",
+        "sha256": "d0fc91ec3a7eac749a26a9092fd43f6b970c1a91043aad4e7a1a17b28e6d12cc",
+        "bytes": 2600592
+      },
+      "exact": true
+    },
+    "O2-rank5": {
+      "parent": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/parent/physical.rank5.bin",
+        "sha256": "bf387f70a2bca26afe9e5f47a85a0a1b60ae40b64f38024aa63664b1261da417",
+        "bytes": 2643600
+      },
+      "guarded": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/guarded/physical.rank5.bin",
+        "sha256": "bf387f70a2bca26afe9e5f47a85a0a1b60ae40b64f38024aa63664b1261da417",
+        "bytes": 2643600
+      },
+      "exact": true
+    },
+    "O2-rank6": {
+      "parent": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/parent/physical.rank6.bin",
+        "sha256": "9f152e2e0fc82d9fd4056444e736ed8338f098afc3cb971c65269d422d4845d5",
+        "bytes": 2643600
+      },
+      "guarded": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/guarded/physical.rank6.bin",
+        "sha256": "9f152e2e0fc82d9fd4056444e736ed8338f098afc3cb971c65269d422d4845d5",
+        "bytes": 2643600
+      },
+      "exact": true
+    },
+    "O2-rank7": {
+      "parent": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/parent/physical.rank7.bin",
+        "sha256": "653c23154e54301c60152dda82ac27518594b9b15f1e4d263e0e642f3eee60c3",
+        "bytes": 2643600
+      },
+      "guarded": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/guarded/physical.rank7.bin",
+        "sha256": "653c23154e54301c60152dda82ac27518594b9b15f1e4d263e0e642f3eee60c3",
+        "bytes": 2643600
+      },
+      "exact": true
+    },
+    "O2-rank8": {
+      "parent": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/parent/physical.rank8.bin",
+        "sha256": "c2f0ce0315da9409a18a1c8e8c930bca8c5db67bfb4c3a04591bcf1f966fbc6f",
+        "bytes": 2691984
+      },
+      "guarded": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O2/guarded/physical.rank8.bin",
+        "sha256": "c2f0ce0315da9409a18a1c8e8c930bca8c5db67bfb4c3a04591bcf1f966fbc6f",
+        "bytes": 2691984
+      },
+      "exact": true
+    },
+    "O0-rank0": {
+      "parent": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O0/parent/physical.rank0.bin",
+        "sha256": "795ef75b21f4540e988382d12a3a0af9506f8f5e5991a96d95ed9afea1299b50",
+        "bytes": 2600592
+      },
+      "guarded": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O0/guarded/physical.rank0.bin",
+        "sha256": "795ef75b21f4540e988382d12a3a0af9506f8f5e5991a96d95ed9afea1299b50",
+        "bytes": 2600592
+      },
+      "exact": true
+    },
+    "O0-rank1": {
+      "parent": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O0/parent/physical.rank1.bin",
+        "sha256": "bcfe70aa093736db0b3ddbfa3006ec0ebc016064d3ce73310c7ce7b03518b7fd",
+        "bytes": 2600592
+      },
+      "guarded": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O0/guarded/physical.rank1.bin",
+        "sha256": "bcfe70aa093736db0b3ddbfa3006ec0ebc016064d3ce73310c7ce7b03518b7fd",
+        "bytes": 2600592
+      },
+      "exact": true
+    },
+    "O0-rank2": {
+      "parent": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O0/parent/physical.rank2.bin",
+        "sha256": "ecff925dbd706c21d8e084f603d059d37bd214ee2014be6593588c5ccc41c3b4",
+        "bytes": 2643600
+      },
+      "guarded": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/work/O0/guarded/physical.rank2.bin",
+        "sha256": "c019d5d3d16ed647c34bc0ccbc0bbf3a9f2ae8ac60571c992c07121a77d2f708",
+        "bytes": 2643600
+      },
+      "exact": false
+    }
+  },
+  "passed_optimization_scopes": [
+    "O2"
+  ],
+  "error": "AssertionError(('STRICT_FULL_PHYSICAL_OR_FIVE_STATE_MISMATCH', 'O0', 2))",
+  "traceback": "Traceback (most recent call last):\n  File \"/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-steady-diagnostic-hpc02-r2/run_gate.py\", line 73, in main\n    assert a['sha256']==c['sha256'] and a['bytes']==c['bytes'],('STRICT_FULL_PHYSICAL_OR_FIVE_STATE_MISMATCH',opt,rank)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: ('STRICT_FULL_PHYSICAL_OR_FIVE_STATE_MISMATCH', 'O0', 2)\n",
+  "elapsed_seconds": 12.151998648885638,
+  "resource_end": {
+    "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+    "memory.peak": "777240576",
+    "memory.current": "570892288",
+    "memory.swap.current": "0"
+  }
+}

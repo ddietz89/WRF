@@ -1,0 +1,64 @@
+--- retained-R1/pwp_driver.f90
++++ steady-R2/pwp_driver.f90
+@@ -13,7 +13,7 @@
+  implicit none
+  type(domain),target::g
+  type(grid_config_rec_type)::cfg
+- integer::phase,rep,ocn,before_id
++ integer::phase,rep,ocn,before_id,warmunit
+  integer(int32),allocatable::cfg_before(:)
+  integer::provided,np,rank,cart,ierr,dims(2),coords(2),i,j,k,f,px,py,role,cid,mode,unit,traceunit
+  integer::ips,ipe,jps,jpe,ims,ime,jms,jme,owner,sx,sy,cc(2),rte,tcnt,trace(8,128),before_cursor
+@@ -87,6 +87,9 @@
+  allocate(g%u_2(ims:ime,kms:kme,jms:jme),g%v_2(ims:ime,kms:kme,jms:jme))
+  allocate(before_u(ims:ime,kms:kme,jms:jme),before_v(ims:ime,kms:kme,jms:jme))
+  call model_to_grid_config_rec(1,model_config_rec,cfg)
++ ! Model-to-grid leaves generated bookend sentinels undefined; initialize fixture storage.
++ cfg%first_item_in_struct=0
++ cfg%last_item_in_struct=0
+  cfg%ocean_levels=3
+  allocate(cfg_before(size(transfer(cfg,[0_int32]))))
+  write(rs,'(i0)')rank
+@@ -94,6 +97,42 @@
+  open(newunit=traceunit,file=trim(dest)//'.rank'//trim(rs)//'.trace',access='stream',form='unformatted',status='new')
+  call nl_set_periodic_x(1,.false.);call nl_set_periodic_y(1,.false.)
+  call nl_set_nested(1,.false.);call nl_set_polar(1,.false.)
++ ! Common actual original protocol warm-up; outside all observed snapshots.
++ ! Both roles execute identical calls. No production fenv changes/admission.
++ cfg%sf_ocean_physics=0
++ g%u_2=transfer(int(z'3f012345',int32),0.)
++ g%v_2=transfer(int(z'bf012345',int32),0.)
++ allocate(g%om_tmp(1,1,1));g%om_tmp=transfer(int(z'7fc12345',int32),0.)
++ allocate(g%om_s(1,1,1));g%om_s=transfer(int(z'7fc12345',int32),0.)
++ allocate(g%om_u(1,1,1));g%om_u=transfer(int(z'7fc12345',int32),0.)
++ allocate(g%om_v(1,1,1));g%om_v=transfer(int(z'7fc12345',int32),0.)
++ allocate(g%om_depth(1,1,1));g%om_depth=transfer(int(z'7fc12345',int32),0.)
++ allocate(g%om_tini(1,1,1));g%om_tini=transfer(int(z'7fc12345',int32),0.)
++ allocate(g%om_sini(1,1,1));g%om_sini=transfer(int(z'7fc12345',int32),0.)
++ before_cursor=communicator_stack_cursor;before_id=current_id
++ call trace_begin()
++ call HALO_EM_C_sub(g,cart,rank,np,3,3,ds,de,ds,de,1,kpe, &
++  ims,ime,jms,jme,kms,kme,ips,ipe,jps,jpe,kps,kpe)
++ call HALO_PWP_sub(g,cfg,cart,rank,np,3,3,ds,de,ds,de,1,kpe, &
++  ims,ime,jms,jme,kms,kme,ips,ipe,jps,jpe,kps,kpe)
++ call HALO_EM_C_sub(g,cart,rank,np,3,3,ds,de,ds,de,1,kpe, &
++  ims,ime,jms,jme,kms,kme,ips,ipe,jps,jpe,kps,kpe)
++ call trace_stop();call trace_export(trace,tcnt)
++ if(communicator_stack_cursor/=before_cursor.or.current_id/=before_id)error stop 'warm communicator leak'
++ if(tcnt<0.or.tcnt>128)error stop 'warm trace limit'
++ if(any(trace(8,1:tcnt)/=0))error stop 'warm MPI rc'
++ if(count(trace(1,1:tcnt)==1)+count(trace(1,1:tcnt)==2)/=count(trace(1,1:tcnt)==3))error stop 'warm request lifetime'
++ open(newunit=warmunit,file=trim(dest)//'.rank'//trim(rs)//'.warmtrace',access='stream',form='unformatted',status='new')
++ write(warmunit)-1,-1,0,tcnt,trace
++ close(warmunit)
++ deallocate(g%om_tmp)
++ deallocate(g%om_s)
++ deallocate(g%om_u)
++ deallocate(g%om_v)
++ deallocate(g%om_depth)
++ deallocate(g%om_tini)
++ deallocate(g%om_sini)
++ ! Existing complete physical/config/state case initialization and checks follow unchanged.
+  do mode=0,3
+  do cid=1,5
+   ocn=0

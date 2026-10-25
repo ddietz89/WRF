@@ -1,0 +1,308 @@
+{
+  "status": "FAIL_RETAINED_NO_RETRY",
+  "invocation_id": "3c03049155d94a6d9965717fd8b38c7f",
+  "commands": [
+    {
+      "argv": [
+        "/bin/bash",
+        "-c",
+        "source \"$1\"; /usr/bin/python3 -c \"$2\"",
+        "env",
+        "/pool/wrf-experiment/tooling/m6-parallel/mpi-ib-env.sh",
+        "import os,json;print(json.dumps({k:v for k,v in os.environ.items()if k in ['PATH', 'LD_LIBRARY_PATH', 'OPAL_PREFIX', 'OMPI_MCA_pml', 'OMPI_MCA_btl', 'UCX_TLS', 'UCX_NET_DEVICES', 'UCX_POSIX_DIR']}))"
+      ],
+      "cwd": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-native-hpc02-r1/work",
+      "returncode": 0,
+      "stdout_sha256": "765b65b6ddd1d102232a7d5e9850868aa760a3ae9485673333574537a2556b5c",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/usr/bin/ar",
+        "p",
+        "/pool/wrf-experiment/wrf-cpu/builds/current5c75-mu-theta-firstpass-one-smallstep-member-experimental-r1/libwrflib.a",
+        "module_comm_dm_3.o"
+      ],
+      "cwd": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-native-hpc02-r1/work",
+      "returncode": 0,
+      "stdout_sha256": "b8dfc5d327aeb60775a121cccef8e5e1e80f8e1691e023c151b5a5896b071000",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/usr/bin/ar",
+        "p",
+        "/pool/wrf-experiment/wrf-cpu/builds/current5c75-mu-theta-firstpass-one-smallstep-member-experimental-r1/libwrflib.a",
+        "module_comm_dm_1.o"
+      ],
+      "cwd": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-native-hpc02-r1/work",
+      "returncode": 0,
+      "stdout_sha256": "61fd8f7d70c33bc889dcca287f870ab38dc4f94010f1c924cf50443daaf4c345",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpicc",
+        "-O2",
+        "-g",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-std=gnu99",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-native-hpc02-r1/region_observer.c",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-native-hpc02-r1/work/region_observer.o"
+      ],
+      "cwd": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-native-hpc02-r1/work",
+      "returncode": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpicc",
+        "-O2",
+        "-g",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-std=gnu99",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-native-hpc02-r1/request_shape.c",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-native-hpc02-r1/work/request_shape.o"
+      ],
+      "cwd": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-native-hpc02-r1/work",
+      "returncode": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-O2",
+        "-g",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-fcheck=bounds",
+        "-fbacktrace",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-native-hpc02-r1/work/original-mods",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-J/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-native-hpc02-r1/work/O2",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-native-hpc02-r1/pwp_driver.f90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-native-hpc02-r1/work/O2/driver.o"
+      ],
+      "cwd": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-native-hpc02-r1/work",
+      "returncode": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-native-hpc02-r1/work/O2/oracle",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-native-hpc02-r1/work/O2/driver.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-native-hpc02-r1/work/region_observer.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-native-hpc02-r1/work/request_shape.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-native-hpc02-r1/work/module_comm_dm_3.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-native-hpc02-r1/work/module_comm_dm_1.o",
+        "-Wl,--start-group",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-Wl,-rpath,/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/hpg-nhx-isolated-avx2-consumer-native-r3/work/nhx-helper-O2.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/phy-height-private-avx2-fixed8-native-hpc04-r1/work/helper-O2.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/current5c75-mu-theta-firstpass-one-smallstep-member-experimental-r1/libwrflib.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-lesmf_time",
+        "/pool/wrf-experiment/wrf-cpu/builds/current971c-uv-final-v-unpack-outline-combined-native-r1/librsl_lite.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2",
+        "-lwrfio_nf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-lnetcdf",
+        "-Wl,--end-group",
+        "-lm"
+      ],
+      "cwd": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-native-hpc02-r1/work",
+      "returncode": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpirun",
+        "--prefix",
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem",
+        "--host",
+        "localhost:9",
+        "-np",
+        "9",
+        "--bind-to",
+        "none",
+        "--map-by",
+        "slot",
+        "--leave-session-attached",
+        "-x",
+        "LD_LIBRARY_PATH",
+        "-x",
+        "OPAL_PREFIX",
+        "-x",
+        "OMPI_MCA_pml",
+        "-x",
+        "OMPI_MCA_btl",
+        "-x",
+        "UCX_TLS",
+        "-x",
+        "UCX_NET_DEVICES",
+        "-x",
+        "UCX_POSIX_DIR",
+        "/usr/bin/python3",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-native-hpc02-r1/rank_entry.py",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-native-hpc02-r1/work/O2/oracle",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-native-hpc02-r1/work/O2/parent/entries",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-native-hpc02-r1/work/O2/parent/physical",
+        "0"
+      ],
+      "cwd": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-native-hpc02-r1/work/O2/parent",
+      "returncode": 0,
+      "stdout_sha256": "28475f22e5b8f729f7791a3a5428647060484b6b22651e849034f7c6fbaf456e",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpirun",
+        "--prefix",
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem",
+        "--host",
+        "localhost:9",
+        "-np",
+        "9",
+        "--bind-to",
+        "none",
+        "--map-by",
+        "slot",
+        "--leave-session-attached",
+        "-x",
+        "LD_LIBRARY_PATH",
+        "-x",
+        "OPAL_PREFIX",
+        "-x",
+        "OMPI_MCA_pml",
+        "-x",
+        "OMPI_MCA_btl",
+        "-x",
+        "UCX_TLS",
+        "-x",
+        "UCX_NET_DEVICES",
+        "-x",
+        "UCX_POSIX_DIR",
+        "/usr/bin/python3",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-native-hpc02-r1/rank_entry.py",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-native-hpc02-r1/work/O2/oracle",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-native-hpc02-r1/work/O2/guarded/entries",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-native-hpc02-r1/work/O2/guarded/physical",
+        "1"
+      ],
+      "cwd": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-native-hpc02-r1/work/O2/guarded",
+      "returncode": 0,
+      "stdout_sha256": "b70e0e5c906192903cf74d548a5bc94c3ea585a8aee4ffcec320b7767db5a296",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "WRF_science_module_compiles": 0,
+  "scope": "Real current compiled O2 PWP/real domain/config/RSL; caller O2 then O0bounds only. No O0helper/body recompilation or FirstRK/application qualification. Five uniformcases x4rounds x3phases x9ranks, prior/following current HALOC. Originalhelper and linked selectedarchive remain exact.",
+  "native_qualified": false,
+  "application_qualified": false,
+  "performance_qualified": false,
+  "original_MODs": {
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_state_description.mod": "502b162905e54da0751d6e0e374f1474108c18f64c4cbf9920ff7be68d153030",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_driver_constants.mod": "b4c46a342c3b9d45c647d6742582b9605dd7e0edf601c7a45cec131c3cdf7fe1",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_dm.mod": "6a0ddfb8d2310409a14caa0f5c99a3692c294310924d421507dfa854a59bd85d",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_configure.mod": "a16f88b79a658620f0cf53f558e993eb91b6d79c01073d55cf4cc457a7fde9e3",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_domain.mod": "b4e4e22d87b8200a95b1f229b9d4e9e9b524905d8515820309464fa4e699c470",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_domain_type.mod": "5c367395e679d5942f239c4f9dc4cc5b2813b186c2fb9a9cf950f78a28514df1",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_comm_dm_1.mod": "3d0e08b845a0f8d5946e2a8715481dd55773bc11e86e1fc86a19c8ce2f4e5ed4",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_comm_dm_3.mod": "886e310cfada839292f7af362ef11eb72acfa79d08f77662d0ae7dca1bae19cd"
+  },
+  "additional_MOD_scope": "Raw original cleanhead module_comm_dm_3.MOD readback; unchanged real compiled module ABI/call, no prospective hash or newMOD identity claim.",
+  "ELFs": {
+    "O2": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-native-hpc02-r1/work/O2/oracle",
+      "sha256": "041305f3060591fa3ab12b901d7f98fc3459ded0aaf2ec002d85557ec2f681cd"
+    }
+  },
+  "fullphysical_fivestate_comparisons": {
+    "O2-rank0": {
+      "parent": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-native-hpc02-r1/work/O2/parent/physical.rank0.bin",
+        "sha256": "f2c3dd1c6a94a0df2cc3d34a6a0f21788ea90f9c0acacc96810d3a35b0b2998e",
+        "bytes": 2600592
+      },
+      "guarded": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-native-hpc02-r1/work/O2/guarded/physical.rank0.bin",
+        "sha256": "f2c3dd1c6a94a0df2cc3d34a6a0f21788ea90f9c0acacc96810d3a35b0b2998e",
+        "bytes": 2600592
+      },
+      "exact": true
+    },
+    "O2-rank1": {
+      "parent": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-native-hpc02-r1/work/O2/parent/physical.rank1.bin",
+        "sha256": "78cb0b2449a7115f55cc889bba8777e420cda7c00e832c630da5467d7c938479",
+        "bytes": 2600592
+      },
+      "guarded": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-native-hpc02-r1/work/O2/guarded/physical.rank1.bin",
+        "sha256": "c8c34f700763b5d0124a2b11da7ad339a30c53b2e5920773a38b2648c371bdb7",
+        "bytes": 2600592
+      },
+      "exact": false
+    }
+  },
+  "error": "AssertionError(('STRICT_FULL_PHYSICAL_OR_FIVE_STATE_MISMATCH', 'O2', 1))",
+  "traceback": "Traceback (most recent call last):\n  File \"/pool/wrf-experiment/wrf-cpu/kernels/current-ab437-inactive-pwp-native-hpc02-r1/run_gate.py\", line 67, in main\n    assert a['sha256']==c['sha256'] and a['bytes']==c['bytes'],('STRICT_FULL_PHYSICAL_OR_FIVE_STATE_MISMATCH',opt,rank)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: ('STRICT_FULL_PHYSICAL_OR_FIVE_STATE_MISMATCH', 'O2', 1)\n",
+  "elapsed_seconds": 8.818064535968006,
+  "resource_end": {
+    "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+    "memory.peak": "563875840",
+    "memory.current": "357457920",
+    "memory.swap.current": "0"
+  }
+}

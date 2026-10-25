@@ -1,0 +1,144 @@
+{
+  "status": "CLOSED_UNPROMOTED_STRICT_NATIVE_IEEE_STATE_MISMATCH",
+  "component": "Simple uniform sf_ocean_physics==2 guard around existing HALO_PWP call",
+  "reason": "Warmed O0 caller strict snapshot mismatch at inactive PWP phase: original raises FE_INEXACT/MXCSR precision sticky bit while guarded path leaves them clear. Scientific field corruption was NOT observed. Protected five-state contract rejects the fixed guard.",
+  "current_parent_executable_sha256": "ab43742acf708336857595b76849b2afcbb4a9431b48225a784749a1e0745662",
+  "parent_archive_sha256": "acbd4ba184cc865e1baea226a60be83c417a3172481821c01bfc203fe171f773",
+  "current_FirstRK_object_sha256": "92e4c783e0d28dbd6f37be82985d20e061e6b584f77367ccfa176d316a5d36bc",
+  "current_Comm3_object_sha256": "b8dfc5d327aeb60775a121cccef8e5e1e80f8e1691e023c151b5a5896b071000",
+  "RSL_sha256": "6eb125cca1196db3d917b17313852b17f2121accb5bb9fc2ad99dd49580154db",
+  "actual_ocean_physics": 0,
+  "cold_run": {
+    "invocation_id": "3c03049155d94a6d9965717fd8b38c7f",
+    "status": "FAIL_RETAINED_NO_RETRY",
+    "scope": "O2 caller only, before O0. All field data/protocol exact on retained diagnosis;300uninitialized lastcfgsentinel words and7exception/MXCSR pairs differ, including2priorHALOC records beforeguard.",
+    "fixture_defect": "last_item_in_struct offset37548/size37552 undefined by model_to_grid config assignments; not padding. Actual DWARF/generator proof retained."
+  },
+  "warm_run": {
+    "invocation_id": "00d73613eab54721ad3fee75b44325be",
+    "status": "FAIL_RETAINED_NO_RETRY",
+    "fixture_changes": "Initialize first/last config sentinels after model_to_grid INTENTOUT; identical actual original HALOC/PWP/HALOC warm-up bothroles outside snapshots, then original input reseed and all original physical/config/state/request checks unchanged. No production state normalization.",
+    "O2_caller_all9_pass": true,
+    "O0_caller_pass": false,
+    "helper_scope": "Actual production O2 compiled PWP/domain/config/RSL at BOTH caller modes. O0 label is caller/bounds mode, not an O0 helper or FirstRK science build.",
+    "all9_physical_and_configuration_words_exact": true,
+    "all9_active_prior_next_request_and_common_warm_tuples_exact": true,
+    "all_request_lifetimes_complete": true,
+    "different_words": {
+      "state.exceptions": 3,
+      "state.MXCSR": 3
+    },
+    "counterexamples": [
+      {
+        "rank": 2,
+        "case": 1,
+        "mode": 0,
+        "phase": 2,
+        "diff_words": {
+          "state.exceptions": 1,
+          "state.MXCSR": 1
+        },
+        "parent_state5": [
+          34,
+          0,
+          32,
+          8096,
+          895
+        ],
+        "guarded_state5": [
+          34,
+          0,
+          0,
+          8064,
+          895
+        ]
+      },
+      {
+        "rank": 6,
+        "case": 2,
+        "mode": 0,
+        "phase": 2,
+        "diff_words": {
+          "state.exceptions": 1,
+          "state.MXCSR": 1
+        },
+        "parent_state5": [
+          34,
+          0,
+          32,
+          8096,
+          895
+        ],
+        "guarded_state5": [
+          34,
+          0,
+          0,
+          8064,
+          895
+        ]
+      },
+      {
+        "rank": 8,
+        "case": 1,
+        "mode": 0,
+        "phase": 2,
+        "diff_words": {
+          "state.exceptions": 1,
+          "state.MXCSR": 1
+        },
+        "parent_state5": [
+          34,
+          0,
+          32,
+          8096,
+          895
+        ],
+        "guarded_state5": [
+          34,
+          0,
+          0,
+          8064,
+          895
+        ]
+      }
+    ]
+  },
+  "state_interpretation": {
+    "parent_state5": [
+      34,
+      0,
+      32,
+      8096,
+      895
+    ],
+    "guarded_state5": [
+      34,
+      0,
+      0,
+      8064,
+      895
+    ],
+    "order": [
+      "errno",
+      "rounding",
+      "exceptions",
+      "MXCSR",
+      "x87_control"
+    ],
+    "actual_difference": "FE_INEXACT32, MXCSR0x1fa0 vs0x1f80. errno34, roundingnearest andx87control unchanged. No claim identifying an internal MPI instruction as cause."
+  },
+  "qualification": {
+    "native_qualified": false,
+    "FirstRK_candidate_compiled": false,
+    "O0_helper_compiled": false,
+    "caller_timing_run": false,
+    "application_run": false,
+    "source_default_changed": false,
+    "selected_build_changed": false,
+    "raw_producer_source_commit": null,
+    "post_test_source_commit": null
+  },
+  "discarded_rank_local_FE_admission": "Not implemented/offloaded: per-rank sticky flags need not agree; selective skipping can deadlock peer-matched MPI. No flag-normalization, collective admission, further replay or repair ladder.",
+  "measured_context": "Prior selected512profile halo_pwp_sub shares ~0.32/6.74% on two selected compute threads. These include waits/arrival effects and are not removable global headroom or forecast gain.",
+  "decision": "Close this fixed simple guard. Preserve favorable field/protocol/O2 observations, both actual failures and exact reason; no canonical/alias/Git changes."
+}

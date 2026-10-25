@@ -1,0 +1,45 @@
+--- parent_module_big_step_utilities_em.f90
++++ candidate_module_big_step_utilities_em.f90
+@@ -843,14 +843,21 @@
+             DO i=its,itf
+               qtot(i) = 0. + moist(i,k,j,PARAM_FIRST_SCALAR) + moist(i-1,k,j,PARAM_FIRST_SCALAR)
+             ENDDO
+-            DO ispe=PARAM_FIRST_SCALAR+1,n_moist
++            IF( n_moist > PARAM_FIRST_SCALAR ) THEN
++              DO ispe=PARAM_FIRST_SCALAR+1,n_moist-1
++                DO i=its,itf
++                  qtot(i) = qtot(i) + moist(i,k,j,ispe) + moist(i-1,k,j,ispe)
++                ENDDO
++              ENDDO
+               DO i=its,itf
+-                qtot(i) = qtot(i) + moist(i,k,j,ispe) + moist(i-1,k,j,ispe)
++                qtot(i) = qtot(i) + moist(i,k,j,n_moist) + moist(i-1,k,j,n_moist)
++                cqu(i,k,j) = 1./(1.+0.5*qtot(i))
+               ENDDO
+-            ENDDO
+-            DO i=its,itf
+-              cqu(i,k,j) = 1./(1.+0.5*qtot(i))
+-            ENDDO
++            ELSE
++              DO i=its,itf
++                cqu(i,k,j) = 1./(1.+0.5*qtot(i))
++              ENDDO
++            END IF
+         ENDDO
+         ENDDO
+ 
+@@ -875,12 +882,13 @@
+         DO j=jts,jtf
+           DO k=kts+1,ktf
+             qtot = 0.
+-            DO ispe=PARAM_FIRST_SCALAR,n_moist
++            DO ispe=PARAM_FIRST_SCALAR,n_moist-1
+               DO i=its,itf
+                 qtot(i) = qtot(i) + moist(i,k,j,ispe) + moist(i,k-1,j,ispe)
+               ENDDO
+             ENDDO
+             DO i = its,itf
++              qtot(i) = qtot(i) + moist(i,k,j,n_moist) + moist(i,k-1,j,n_moist)
+               cqw(i,k,j) = 0.5*qtot(i)
+             ENDDO
+         ENDDO

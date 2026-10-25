@@ -1,5 +1,18 @@
 # WRF CPU optimization findings
 
+## Current CQU/CQW child0b40: own unprofiled SAME512 noon science
+
+Source1770d469/executable0b40b961/archive14c102fe passed185 ordered steps and two FULL12:00/13:00 products against the retained original546b SAME512 scientific prefix, with all four models and reader normal closed. Current own3h/9h/profile/restart/full144 remain false. Parentab437 three-hour descriptive observation and older5c75 matched3h/8719h/profile records remain image-specific history; none is a currentchild forecast gain. The retained75-minute control's full-arm timing is not a one-hour timing comparator.
+
+CompletecalcCQ1024 restore-inclusive caller wall reductions were7.7723% on01 and8.0139% on04 (threadCPU7.7651%/8.0138%). These are caller observations, not forecast improvements. Native O2/O0 fullCQ raw/five-state checks passed; the two non-target deltas retain scoped classification and rawwholeTU equality remains false.
+
+`WRF_CQU_CQW_LAST_SPECIES_CONSUMER_FUSION=1` is scoped to GNU13.3.0/defaultREAL4INT4/BigStepSIMD/emptyOMP and sourceDM&&!OPENMP. Set0 and regenerate/rebuildBigStep/rearchive/relink for rollback. Source authority is qualifiedPP110e/cached48f49 plus post-test target projection, not a clean canonical build certificate. Own qualification: `tools/cpu-compute/cqu-cqw-last-species-consumer-fusion-20261025/OWN_NOON_APPLICATION_QUALIFICATION.json`.
+
+
+Inactive PWP halo uniform guard: **closed unpromoted**. Actual seven package-disabled fields and empty-send MPI work justified a real nine-rank experiment, but warmed O0-caller snapshots retained three FE_INEXACT/MXCSR mismatches at inactive PWP despite exact physical/configuration data and request lifetimes/protocol. Warmed O2 caller passed; cold fixture sentinel defect and both failures remain retained. No FirstRK compile, timing, forecast, flag normalization or further repair. See `tools/cpu-rejected/inactive-pwp-halo-uniform-guard-20261025/DECISION.json` once adopted.
+
+## Retained prior record
+
 ## MU/theta child ab437: own SAME512 three-hour science
 
 Own unprofiled SAME512 three-hour545/four FULL06–09 exact science; candidate-only versus retained fresh original546b A, UNPAIRED descriptive timing. No fresh matched, isolated/additive gain, repeatability, own9h/profile/restart/144/384/SAME256 qualification. Own noon Q remains immutable/separate. Qualified PP replay/cached object plus post-test target projection; no clean canonical rebuild certificate.

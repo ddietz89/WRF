@@ -1,0 +1,92 @@
+--- b/dyn_em/module_big_step_utilities_em.F
++++ a/dyn_em/module_big_step_utilities_em.F
+@@ -828,23 +828,6 @@
+             DO i=its,itf
+               qtot(i) = 0. + moist(i,k,j,PARAM_FIRST_SCALAR) + moist(i-1,k,j,PARAM_FIRST_SCALAR)
+             ENDDO
+-#if defined(WRF_CQU_CQW_LAST_SPECIES_CONSUMER_FUSION) && defined(DM_PARALLEL) && !defined(_OPENMP)
+-            IF( n_moist > PARAM_FIRST_SCALAR ) THEN
+-              DO ispe=PARAM_FIRST_SCALAR+1,n_moist-1
+-                DO i=its,itf
+-                  qtot(i) = qtot(i) + moist(i,k,j,ispe) + moist(i-1,k,j,ispe)
+-                ENDDO
+-              ENDDO
+-              DO i=its,itf
+-                qtot(i) = qtot(i) + moist(i,k,j,n_moist) + moist(i-1,k,j,n_moist)
+-                cqu(i,k,j) = 1./(1.+0.5*qtot(i))
+-              ENDDO
+-            ELSE
+-              DO i=its,itf
+-                cqu(i,k,j) = 1./(1.+0.5*qtot(i))
+-              ENDDO
+-            END IF
+-#else
+             DO ispe=PARAM_FIRST_SCALAR+1,n_moist
+               DO i=its,itf
+                 qtot(i) = qtot(i) + moist(i,k,j,ispe) + moist(i-1,k,j,ispe)
+@@ -853,7 +836,6 @@
+             DO i=its,itf
+               cqu(i,k,j) = 1./(1.+0.5*qtot(i))
+             ENDDO
+-#endif
+         ENDDO
+         ENDDO
+ 
+@@ -888,17 +870,6 @@
+         DO j=jts,jtf
+           DO k=kts+1,ktf
+             qtot = 0.
+-#if defined(WRF_CQU_CQW_LAST_SPECIES_CONSUMER_FUSION) && defined(DM_PARALLEL) && !defined(_OPENMP)
+-            DO ispe=PARAM_FIRST_SCALAR,n_moist-1
+-              DO i=its,itf
+-                qtot(i) = qtot(i) + moist(i,k,j,ispe) + moist(i,k-1,j,ispe)
+-              ENDDO
+-            ENDDO
+-            DO i = its,itf
+-              qtot(i) = qtot(i) + moist(i,k,j,n_moist) + moist(i,k-1,j,n_moist)
+-              cqw(i,k,j) = 0.5*qtot(i)
+-            ENDDO
+-#else
+             DO ispe=PARAM_FIRST_SCALAR,n_moist
+               DO i=its,itf
+                 qtot(i) = qtot(i) + moist(i,k,j,ispe) + moist(i,k-1,j,ispe)
+@@ -907,7 +878,6 @@
+             DO i = its,itf
+               cqw(i,k,j) = 0.5*qtot(i)
+             ENDDO
+-#endif
+         ENDDO
+         ENDDO
+ 
+--- b/dyn_em/Makefile
++++ a/dyn_em/Makefile
+@@ -177,29 +177,6 @@
+ endif
+ 
+ 
+-# Exact CQU_CQW last-species accumulation/consumer fusion: qualified GNU13.3 pure-MPI BigStep SIMD.
+-# Opt out: WRF_CQU_CQW_LAST_SPECIES_CONSUMER_FUSION=0; regenerate PP, rebuild BigStep,
+-# replace its archive member and relink. No additional FC/ISA flags.
+-WRF_CQU_CQW_LAST_SPECIES_CONSUMER_FUSION ?= 1
+-ifeq ($(WRF_CQU_CQW_LAST_SPECIES_CONSUMER_FUSION),1)
+-ifeq ($(WRF_DIFFUSION_SIMD),1)
+-ifeq ($(strip $(OMPCPP) $(OMP) $(PROMOTION) $(DOUBLE_PRECISION)),)
+-ifeq ($(strip $(RWORDSIZE)),4)
+-ifeq ($(strip $(IWORDSIZE)),4)
+-ifeq ($(filter -fdefault-% -freal-% -finteger-% -r8 -i8,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
+-ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+-ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+-module_big_step_utilities_em.o: private override CPPFLAGS += -DWRF_CQU_CQW_LAST_SPECIES_CONSUMER_FUSION
+-endif
+-endif
+-endif
+-endif
+-endif
+-endif
+-endif
+-endif
+-
+-
+ # Enable GNU small-step SIMD without creating an OpenMP thread team.
+ # Use make WRF_SMALL_STEP_SIMD=0 to preserve the ordinary compiler path.
+ WRF_SMALL_STEP_SIMD ?= 1

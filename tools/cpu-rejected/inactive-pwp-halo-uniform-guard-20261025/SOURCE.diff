@@ -1,0 +1,12 @@
+--- parent/module_first_rk_step_part1.F
++++ candidate/module_first_rk_step_part1.F
+@@ -567,7 +567,9 @@
+       call nl_get_mminlu(grid%id, mminlu)
+ 
+ #ifdef DM_PARALLEL
++  IF ( config_flags%sf_ocean_physics .EQ. 2 ) THEN
+ #     include "HALO_PWP.inc"
++  ENDIF
+ #endif
+ 
+       CALL wrf_debug ( 200 , ' call surface_driver' )

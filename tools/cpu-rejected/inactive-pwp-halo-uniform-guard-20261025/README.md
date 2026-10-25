@@ -1,0 +1,11 @@
+# Inactive PWP halo guard — unpromoted
+
+The proposed change uniformly guarded only the existing `HALO_PWP` include with `sf_ocean_physics==2`. Actual production namelist value was0; seven package-disabled OM arrays use generated1×1×1 placeholders. Actual compiled helper skips their pack/unpack sites yet still executes Y/X exchanges. The active2 path stayed literal. This was a source experiment, not a forecast optimization already qualified.
+
+The real nine-rank3×3 test used current compiled PWP, domain/configuration types, HALOC and RSL. The first run failed with an uninitialized configuration sentinel and state differences, including two preceding HALOC observations before the guard. A separate actual DWARF proof identified the sentinel. One fixture-only diagnostic initialized both sentinels after `model_to_grid_config_rec` and ran an identical original HALOC→PWP→HALOC warm-up in both roles outside captured snapshots. All original full-configuration, field, five-state and request checks remained strict.
+
+The warmed O2 caller passed all nine ranks. The warmed O0/bounds caller failed: rank2/case1, rank6/case2 and rank8/case1, nearest rounding, inactive PWP phase2. Original state `[34,0,32,8096,895]` differed from guarded `[34,0,0,8064,895]`: FE_INEXACT and MXCSR precision sticky bit. **Every physical field and configuration word matched**, and active/prior/next/warm request tuples and lifetimes matched. This is a protected state-contract rejection, not observed scientific field corruption. Both caller modes invoked the unchanged productionO2 helper; no O0-helper qualification is claimed.
+
+Both failed units closed with PID0 and absent cgroups. No FirstRK science candidate compile, caller timing or application followed. No tolerance, flag clearing/setting/restoration waiver or further replay was used. A rank-local inexact-entry guard was discarded without implementation because divergent rank flags could cause unmatched MPI and deadlock. The selected source/build remains unchanged.
+
+[Decision](DECISION.json) and [evidence index](EVIDENCE_INDEX.json) preserve exact raw receipts, closures, provider provenance, source diff, state diagnosis and fixture-only changes. No scientific arrays, executables or credentials are included.

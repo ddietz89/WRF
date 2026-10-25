@@ -1,0 +1,238 @@
+{
+  "status": "ELIGIBLE_FOR_COMPLETE_CALC_CQ_CALLER_SCOPED_NATIVE_AND_CODEGEN_NOT_APPLICATION",
+  "eligible_for_complete_calc_cq_caller": true,
+  "application_qualified": false,
+  "performance_qualified": false,
+  "native_receipt": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current5c75-cqu-cqw-last-species-consumer-fusion-source-question-r1/native-gate-preparation-r1-hpc02/actual-native-r1/receipt.json",
+    "sha256": "ce83216e91fd3f3d3597f78b7240cee7ad18cd0395a1ecafe47e830681ea661e",
+    "invocation_id": "7d1102b42b2a4a5aa076145881dbfeaf"
+  },
+  "query": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current5c75-cqu-cqw-last-species-consumer-fusion-source-question-r1/postnative-codegen-classification-query-r1/actual-r1/stdout.json",
+    "sha256": "ea6b24f1e49ba8e2af39baccc606a356807434d3c7660b41cce0a3ea5de8d5a4"
+  },
+  "candidate_O2_object_sha256": "48f49ecffdc219b51e0cedbe034474b0ce8630d1be41cfd40a6904f19ae871af",
+  "original_MOD_bytes_exact": true,
+  "public_symbol_name_type_binding_visibility_section_exact": true,
+  "shared_pools_bytes_attrs_exact": true,
+  "shared_pool_full_RELA_exact": true,
+  "whole_non_target_raw_and_full_RELA_exact": false,
+  "couple": {
+    "raw_bytes_exact": true,
+    "size": 2950,
+    "full_RELA_exact": false,
+    "only_differences": [
+      {
+        "offset": 1654,
+        "parent": [
+          1654,
+          4,
+          [
+            "__module_big_step_utilities_em_MOD_calc_mu_staggered",
+            18,
+            0,
+            ".text",
+            185920,
+            2591
+          ],
+          -4
+        ],
+        "candidate": [
+          1654,
+          4,
+          [
+            "__module_big_step_utilities_em_MOD_calc_mu_staggered",
+            18,
+            0,
+            ".text",
+            186400,
+            2591
+          ],
+          -4
+        ]
+      },
+      {
+        "offset": 2172,
+        "parent": [
+          2172,
+          4,
+          [
+            "__module_big_step_utilities_em_MOD_calc_mu_staggered",
+            18,
+            0,
+            ".text",
+            185920,
+            2591
+          ],
+          -4
+        ],
+        "candidate": [
+          2172,
+          4,
+          [
+            "__module_big_step_utilities_em_MOD_calc_mu_staggered",
+            18,
+            0,
+            ".text",
+            186400,
+            2591
+          ],
+          -4
+        ]
+      }
+    ],
+    "same_actual_E8_call_sites": true,
+    "unchanged_callee_full_raw_full_RELA_native_inventory": "__module_big_step_utilities_em_MOD_calc_mu_staggered",
+    "classification": "Only actual named same-callee symbol st_value +480 from layout; 4 other full tuples and all2950 code bytes exact. No field dropping/normalization."
+  },
+  "w_damp": {
+    "raw_bytes_exact": false,
+    "size": 3669,
+    "full_RELA_exact": true,
+    "different_byte_count": 6,
+    "only_differences": [
+      {
+        "changed_byte_offset": 1568,
+        "instruction_relative_offset": 1561,
+        "opcode_and_destination": "C7 84 24 70 05 00 00; movl immediate,0x570(%rsp)",
+        "parent_source_line_immediate": 2688,
+        "candidate_source_line_immediate": 2696,
+        "same_source_statement": "                                         i,j,k,vert_cfl,w(i,k,j),-1./rdnw(k)",
+        "following_runtime_call_RELA": [
+          1621,
+          4,
+          [
+            "_gfortran_st_write",
+            16,
+            0,
+            "",
+            0,
+            0
+          ],
+          -4
+        ]
+      },
+      {
+        "changed_byte_offset": 2383,
+        "instruction_relative_offset": 2376,
+        "opcode_and_destination": "C7 84 24 70 05 00 00; movl immediate,0x570(%rsp)",
+        "parent_source_line_immediate": 2708,
+        "candidate_source_line_immediate": 2716,
+        "same_source_statement": "            ' points exceeded v_cfl = 2 in domain '//TRIM(grid_str)//' at time '//TRIM(time_str)//' hours'",
+        "following_runtime_call_RELA": [
+          2428,
+          4,
+          [
+            "_gfortran_st_write",
+            16,
+            0,
+            "",
+            0,
+            0
+          ],
+          -4
+        ]
+      },
+      {
+        "changed_byte_offset": 2870,
+        "instruction_relative_offset": 2863,
+        "opcode_and_destination": "C7 84 24 70 05 00 00; movl immediate,0x570(%rsp)",
+        "parent_source_line_immediate": 2711,
+        "candidate_source_line_immediate": 2719,
+        "same_source_statement": "                            maxi, maxj, maxk, maxdub, max_vert_cfl, maxdeta",
+        "following_runtime_call_RELA": [
+          2931,
+          4,
+          [
+            "_gfortran_st_write",
+            16,
+            0,
+            "",
+            0,
+            0
+          ],
+          -4
+        ]
+      },
+      {
+        "changed_byte_offset": 3198,
+        "instruction_relative_offset": 3191,
+        "opcode_and_destination": "C7 84 24 70 05 00 00; movl immediate,0x570(%rsp)",
+        "parent_source_line_immediate": 2638,
+        "candidate_source_line_immediate": 2646,
+        "same_source_statement": "     write(wrf_err_message,*) '----------------------------------------'",
+        "following_runtime_call_RELA": [
+          3247,
+          4,
+          [
+            "_gfortran_st_write",
+            16,
+            0,
+            "",
+            0,
+            0
+          ],
+          -4
+        ]
+      },
+      {
+        "changed_byte_offset": 3327,
+        "instruction_relative_offset": 3320,
+        "opcode_and_destination": "C7 84 24 70 05 00 00; movl immediate,0x570(%rsp)",
+        "parent_source_line_immediate": 2640,
+        "candidate_source_line_immediate": 2648,
+        "same_source_statement": "     WRITE(temp,*) 'W-DAMPING  BEGINS AT W-COURANT NUMBER = ',w_damp_on",
+        "following_runtime_call_RELA": [
+          3364,
+          4,
+          [
+            "_gfortran_st_write",
+            16,
+            0,
+            "",
+            0,
+            0
+          ],
+          -4
+        ]
+      },
+      {
+        "changed_byte_offset": 3522,
+        "instruction_relative_offset": 3515,
+        "opcode_and_destination": "C7 84 24 70 05 00 00; movl immediate,0x570(%rsp)",
+        "parent_source_line_immediate": 2642,
+        "candidate_source_line_immediate": 2650,
+        "same_source_statement": "     write(wrf_err_message,*) '----------------------------------------'",
+        "following_runtime_call_RELA": [
+          3571,
+          4,
+          [
+            "_gfortran_st_write",
+            16,
+            0,
+            "",
+            0,
+            0
+          ],
+          -4
+        ]
+      }
+    ],
+    "classification": "Six diagnostic I/O descriptor source-line immediates +8 from exact unchanged WRITE statements; every other code byte and complete RELA exact. Diagnostic source locations intentionally differ; no blanket observational/whole-TU identity claim."
+  },
+  "calc_cq": {
+    "parent_size": 3477,
+    "candidate_size": 3960,
+    "CQU_final_loop": "2c0a0 qtot load,2c0a8 moist load;2c0b1/2c0b5 original ordered additions;2c0bc qtot store retained; same xmm0 feeds2c0c1 mulss,2c0c5 addss,2c0c9 divss,2c0cd outputstore;2c0da backedge to2c0a0. No intervening qtot reload/separate consumer pass. FIRST-only distinct old consumer remains2c708..2c71f as required.",
+    "CQW_final_loop": "2c670 qtot load;2c675/2c67e ordered moist additions;2c683 qtot store retained; same xmm0 feeds2c688 mulss and2c68c outputstore;2c69a backedge to2c670. No intervening qtot reload/separate consumer pass.",
+    "mechanism_proven": "Final consumer forwards last-species register result, eliminating separate scratch RELOAD and standalone consumer traversal for CQU multi-species/CQW.",
+    "mechanism_not_proven_or_not_present": "Both final qtot stores remain; no claim all scratch memory traffic eliminated, no cycle/gain/forecast claim from assembly. Function grows483bytes."
+  },
+  "scope_limits": [
+    "Native O2/O0 original19+8x4+4x4 raw/readonly/fullphysical/five-state PASS retained.",
+    "Masked IEEE scope only; traps remain unqualified.",
+    "Current source declaration/inverse and originalMOD caller protocol exact.",
+    "Caller cost and own application science pending; no promotion/default change."
+  ]
+}
