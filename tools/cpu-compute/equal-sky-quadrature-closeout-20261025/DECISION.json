@@ -1,0 +1,93 @@
+{
+  "status": "CLOSED_FIXED_CANDIDATE_UNPROMOTED_SLOWER_DESPITE_NUMERICAL_PASS",
+  "date": "2026-10-25",
+  "mechanism": "Guard exact consumed input bit equality, compute original A recurrence once, copy only original B writes; full paired fallback for misses/unsupported context.",
+  "selected_executable_sha256": "bacf12b8b354256c29be002b07fe30d5dceca7001c9da35a65c0c12b97b05878",
+  "selected_source_commit": "526e562c0009827e70825b652e0e2e2b52127ded",
+  "source_defaults_changed": false,
+  "promoted": false,
+  "application_qualified": false,
+  "further_candidate_repairs_or_application_planned": false,
+  "source": {
+    "parent_PP_sha256": "9ee5188cbb7af08869e87e45d6c59955dcdded4874d7ac77a17f6fee13eb5bf9",
+    "candidate_PP_sha256": "a753924fa6d9a112803901fd62aa5acead13368b167c9e9ea6a6f37b79d4852b",
+    "candidate_canonical_F_sha256": "0cea63f650deb351522b34796cdfe0ebd333cf2315665764114ef446cae28127",
+    "actual_O2_candidate_sha256": "4b178dcab0cfe192b66108f45d8d6369c3c56ede81a402d5918fe1075ffb7d6a"
+  },
+  "numerical_evidence": {
+    "native_invocation_id": "9c847ed4d2e04fca8261e13a47a0fe6b",
+    "native_worker_status": "PASS_EQUAL_SKY_FULL_PAIR_AND_SPCVMC_NUMERICAL_DIAGNOSTIC_STRUCTURAL_PENDING",
+    "original_full_pair_cases": 32,
+    "original_full_pair_rounds": 4,
+    "additional_actual_full_pair_calls": 256,
+    "additional_full_pair_raw_bytes": 619520,
+    "additional_full_pair_raw_sha256": "74a91597491cdcfd111b782523af8c25eb1cf9410617075f62239a7ac75c9441",
+    "O2_genuine_parent_candidate_exact": true,
+    "O0_parent_candidate_exact": true,
+    "whole_SPCVMC_cases": 12,
+    "whole_SPCVMC_raw_bytes": 11360,
+    "whole_SPCVMC_raw_sha256": "be746561c7b9bd85a72b069f90ebf78c238b7db4c8c5e87908f3f5d7eef7dfea",
+    "scope": "Physical outputs/padding/read-only inputs/errno/finalfive-state; equal finite/zero/qNaN operandroles/sNaN/infinity/subnormal, mismatch eachconsumedfield/seed andunused-slotpoison,1/2/32/33levels,allfourrounds. OriginalSPCVMC12finite/twomodes. No whole-wrapper/application IEEE claim."
+  },
+  "structural_adjudication": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentbacf-shortwave-equal-sky-recurrence-question-r1/readonly-nontarget-layout-adjudication-r1/ACTUAL_STRUCTURAL_ADJUDICATION.json",
+    "sha256": "6466ad4298db5acb9e1cf6686e731f93722fe24ee104551a4e032bc71d81d196",
+    "status": "ACTUAL_STRUCTURAL_ADJUDICATION_MIXED_LAYOUT_AND_REAL_GENERATED_CALLER_CHANGES",
+    "source_outside_target_exact": true,
+    "shared_pools_and_RELA_exact": true,
+    "target_public_MOD_raw_exact": true,
+    "all_non_target_generated_code_exact": false,
+    "limit": "Tiny namedtailcall placement proved. Two generated callers genuinely change (SPCVMC17681\u219218161B; rrtmg_sw28298\u219229010B); no blanketrelocationnormalization. ThreeotherrawMODdifferences retained. FullSPCVMC fixtureexecutes changedSPCVMC, not completeRRtmg wrappers."
+  },
+  "actual_cost_observations": {
+    "pair_hit": {
+      "parent_wall_seconds": 0.910183294,
+      "candidate_wall_seconds": 1.043274607,
+      "wall_reduction_percent": -14.622473723408081,
+      "parent_process_cpu_seconds": 0.910194814,
+      "candidate_process_cpu_seconds": 1.043272692,
+      "process_cpu_reduction_percent": -14.620812594522192
+    },
+    "pair_miss": {
+      "parent_wall_seconds": 0.90307716,
+      "candidate_wall_seconds": 1.084910657,
+      "wall_reduction_percent": -20.13487939391578,
+      "parent_process_cpu_seconds": 0.903013852,
+      "candidate_process_cpu_seconds": 1.084904012,
+      "process_cpu_reduction_percent": -20.14256587505814
+    },
+    "spcvmc_mixed": {
+      "parent_wall_seconds": 1.472283402,
+      "candidate_wall_seconds": 1.499054884,
+      "wall_reduction_percent": -1.8183647226908128,
+      "parent_process_cpu_seconds": 1.472159664,
+      "candidate_process_cpu_seconds": 1.498936265,
+      "process_cpu_reduction_percent": -1.8188652803626804
+    },
+    "spcvmc_clear": {
+      "parent_wall_seconds": 1.273144897,
+      "candidate_wall_seconds": 1.364935911,
+      "wall_reduction_percent": -7.209785328935725,
+      "parent_process_cpu_seconds": 1.273127586,
+      "candidate_process_cpu_seconds": 1.364820296,
+      "process_cpu_reduction_percent": -7.2021619049263075
+    }
+  },
+  "timing_scope": {
+    "host": "hpc01",
+    "cpu": 24,
+    "quota_cores": 1,
+    "memory_GiB": 4,
+    "swap_bytes": 0,
+    "arms": 8,
+    "normal_closed_arms": 8,
+    "cache_clear_before_each_arm": true,
+    "pair_calls_per_arm": 1048576,
+    "SPCVMC_calls_per_arm": 4096,
+    "design": "One fixed-order parent\u2192candidate observation for eachoffourquestions; no repeats/counterbalanceclaim.",
+    "timed_work": "Completepairedroutine includesguard/copy. CompleteSPCVMC includes originaloutputrestore+fullcall; nativewarm/checks outsideintegerclocks. ProcessCPU interval is not isolatedrecurrenceCPU."
+  },
+  "production_equal_sky_hit_frequency": "UNKNOWN",
+  "conclusion": "Candidate is slower even on synthetic exact hits, slower on a late mismatch, and slower in both completeSPCVMC workloads. Close this fixed candidate without source/default/application promotion; this is not a numerical rejection.",
+  "explanation_inference_only": "The six-vector bit guard and extra B copies add work; choosing one serial A recurrence also removes the original pair of independent arithmetic chains available to instruction scheduling. Either overhead and changedgeneratedcaller/inlining/registerallocation may contribute. Source and timing do not establish eachcause quantitatively; no additionalquery orrepair is needed for this fixedcandidate."
+}
