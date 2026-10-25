@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-10-25T12:01:49.210606+00:00",
+  "updated_utc": "2026-10-25T12:31:14.045809+00:00",
   "metric_definitions": {
     "wall_seconds": "Model/MPI including initialization/output/final drain",
     "main_step_sum_seconds": "Sum of reported main-step elapsed; includes communication/waiting/backpressure, not integration CPU",
@@ -508,35 +508,33 @@
       "limits": "Own169c original H185/two06/07 products, full512, all4models+reader normalclosed. Candidate-only unpaired timings; parent90f5 matched3h/own9h historical. No writer/profile/long/restart/full144 qualification or forecastspeedup transfer."
     }
   ],
-  "limits": "Own unprofiled SAME256 noon185/twoFULL and fresh three-hour545/fourFULL science qualified. Fresh original-first pair supports the observed combined-configuration timing reduction only; no isolatedLW/FINISH/SW/MPI attribution or repeatability. Own9h/384/512/profile/restart/full144 remain false. Exact tested-PP/cached-object replay with guarded canonical post-test correspondence; clean canonical-F-only CPP/rebuild not certified.",
+  "limits": "Own unprofiled SAME256 noon185/two FULL12:00/13:00 only. No current three-hour/nine-hour/384/512/profile/restart/full144 qualification or forecast timing gain. Parent0ec3 fresh three-hour comparison remains historical and image-specific. Tested-PP/cached-object delivery plus post-test canonical correspondence; no clean canonical-F-only rebuild certification.",
   "current_selection": {
+    "status": "PASS_OWN_UNPROFILED_THREEHOST_SAME256_SW_WHOLE_DRAW_FINISH_V_NOON185_TWO_PRODUCTS",
     "executable": {
-      "path": "/pool/wrf-experiment/wrf-cpu/builds/currentd54-lw-whole-draw-seed-carry-one-member-experimental-r1/wrf.exe",
-      "sha256": "0ec34714e17c94b83692f9a1f4e753bad2ee2b869ef17930640a4498b8322ed3"
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current0ec3-sw-whole-draw-finish-v-two-member-experimental-r1/wrf.exe",
+      "sha256": "871f2e3c196e2ecb4a91fa167cc055ab8b94c13fbabd91f72c5020d042f415f3"
     },
-    "archive_sha256": "a30c8df77b7db01e7976284b3dccfaa185f9315932f28737036c000cf265ac8b",
-    "source_commit": "2791f903a42fb3cdb767aea010f3b54971785109",
+    "archive_sha256": "33399456c410e37ac7368affb589b3c70d4479086673a5563048a94fbc1fdb5b",
+    "source_commit": "9cf704d18cf47dc8e04f9f1b58f678e917d76442",
     "qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/lw-mcica-whole-draw-seed-carry-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "2be5efe9c03bcae89146b12623190d8d0f3b089880ad6c19c43288b1a306c31f"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-whole-draw-finish-v-20261025/APPLICATION_QUALIFICATION.json",
+      "sha256": "eaeabe4a3861962e22c61d8151852ff697f2d95aa2a8a4099f48e4464f6e3464"
     },
-    "scope": "Own unprofiled SAME256 noon185/twoFULL and fresh three-hour545/fourFULL science qualified. Fresh original-first pair supports the observed combined-configuration timing reduction only; no isolatedLW/FINISH/SW/MPI attribution or repeatability. Own9h/384/512/profile/restart/full144 remain false. Exact tested-PP/cached-object replay with guarded canonical post-test correspondence; clean canonical-F-only CPP/rebuild not certified.",
-    "own_three_hour_qualified": true,
-    "own_nine_hour_qualified": false,
-    "forecast_gain_claim": true,
-    "status": "PASS_OWN_UNPROFILED_THREEHOST_SAME256_LW_SEED_CARRY_FRESH_THREEHOUR545_FOUR_PRODUCTS",
     "own_noon_one_hour_qualified": true,
+    "own_unprofiled_noon_one_hour_qualified": true,
+    "own_three_hour_qualified": false,
+    "own_nine_hour_qualified": false,
     "own_384_qualified": false,
     "own_fourhost512_qualified": false,
     "profile_qualified": false,
+    "native_profile_qualified": false,
     "restart_qualified": false,
     "full144_qualified": false,
-    "forecast_gain_scope": "Observedcombinedconfiguration16.02788percentwall inonefreshfixedpair; noisolated/additive/causalcomponentclaim.",
+    "forecast_gain_claim": false,
     "latest_completed_3h_image": "0ec3",
-    "latest_three_hour_science": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current-latest-threehost-threehour-pair-runtime-r1/science-receipt.json",
-      "sha256": "ebc1b055044e346b2281f2fd364f9e96187715ce249165784c7592696a02da65"
-    }
+    "historical_three_hour_applies_to_current": false,
+    "scope": "Own unprofiled SAME256 noon185/two FULL12:00/13:00 only. No current three-hour/nine-hour/384/512/profile/restart/full144 qualification or forecast timing gain. Parent0ec3 fresh three-hour comparison remains historical and image-specific. Tested-PP/cached-object delivery plus post-test canonical correspondence; no clean canonical-F-only rebuild certification."
   },
   "recovered_diagnostic_runs": [
     {
@@ -1770,7 +1768,7 @@
     "raw_RESULT_order_label_scope": "Frozen inherited historical label only; does not imply current unprofiled qualification. Actual d54/deb86 lease/build and profile_authorized=True define this instrumented run.",
     "limits": "OwninstrumentednoonSCI only; no own3h/9h/512/384/unprofiled/profile-phase/restart/full144 inheritance. Three clocks separate and descriptive."
   },
-  "current_selection_does_not_inherit_historical_timing": false,
+  "current_selection_does_not_inherit_historical_timing": true,
   "historical_matched_three_hour_before_0ec3_fresh_pair": {
     "status": "PASS_OWN_UNPROFILED_THREEHOST_SAME256_THREE_HOUR545_FOUR_PRODUCTS_FRESH_FIXED_PAIR",
     "executable_sha256": "b4bce63243fb128ac813965c37a735d6e07d6ed49dd66a82f1ead542615476d2",
@@ -1953,5 +1951,42 @@
       }
     },
     "limits": "One fresh fixed-order original546b A then B4BC B on01\u201303, same256/224compute8x28+32quilt. A ended around 06:29 UTC; B began around 06:51 UTC after participating-host maintenance. Not counterbalanced, repeatability, isolated component or additive gains. Main elapsed includes MPI/output backpressure; aggregateCPU is summed consumption. No own9h/512/384/profile/restart/full144 qualification."
+  },
+  "latest_own_noon": {
+    "status": "PASS_OWN_UNPROFILED_THREEHOST_SAME256_SW_WHOLE_DRAW_FINISH_V_NOON185_TWO_PRODUCTS",
+    "executable": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current0ec3-sw-whole-draw-finish-v-two-member-experimental-r1/wrf.exe",
+      "sha256": "871f2e3c196e2ecb4a91fa167cc055ab8b94c13fbabd91f72c5020d042f415f3"
+    },
+    "archive": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current0ec3-sw-whole-draw-finish-v-two-member-experimental-r1/libwrflib.a",
+      "sha256": "33399456c410e37ac7368affb589b3c70d4479086673a5563048a94fbc1fdb5b"
+    },
+    "source_commit": "9cf704d18cf47dc8e04f9f1b58f678e917d76442",
+    "qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-whole-draw-finish-v-20261025/APPLICATION_QUALIFICATION.json",
+      "sha256": "eaeabe4a3861962e22c61d8151852ff697f2d95aa2a8a4099f48e4464f6e3464"
+    },
+    "science": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current0ec3-sw-whole-draw-finish-v-noon1h-runtime-r1/science-receipt.json",
+      "sha256": "1713590680a2dda3df380f93a51742593e8a7617f3c70dc523b33303a68282ac"
+    },
+    "reader_closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current0ec3-sw-whole-draw-finish-v-noon1h-runtime-r1/reader-closure.json",
+      "sha256": "e2778d14ab4244dd08f90a2aca95ac9339ec8f949c6df35379af28a99158dd80"
+    },
+    "raw_RESULT": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-whole-draw-finish-v-20261025/RAW_RESULT.json",
+      "sha256": "fec0ec994e0ddf11c658432366ec778bc6c182ceb1f6f853222e6a6f618903ec"
+    },
+    "candidate_metrics": {
+      "wall_seconds": 420.9530965979211,
+      "cpu_seconds": 99641.06590300001,
+      "main_step_sum_seconds": 344.59016
+    },
+    "control_timing_comparison": null,
+    "reductions_percent": null,
+    "timing_gain_claim": false,
+    "limits": "Own unprofiled SAME256 noon185/two FULL12:00/13:00 only. No current three-hour/nine-hour/384/512/profile/restart/full144 qualification or forecast timing gain. Parent0ec3 fresh three-hour comparison remains historical and image-specific. Tested-PP/cached-object delivery plus post-test canonical correspondence; no clean canonical-F-only rebuild certification."
   }
 }

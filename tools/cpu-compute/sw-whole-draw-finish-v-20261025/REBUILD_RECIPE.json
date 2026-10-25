@@ -1,0 +1,68 @@
+{
+  "status": "QUALIFIED_TESTED_PP_REPLAY_AND_CACHED_OBJECT_DELIVERY_POSTTEST_SOURCE_CORRESPONDENCE",
+  "post_test_source_commit": "9cf704d18cf47dc8e04f9f1b58f678e917d76442",
+  "raw_producer_source_commit": null,
+  "clean_canonical_F_only_rebuild_certified": false,
+  "tested_preprocessed_sources": {
+    "module_ra_rrtmg_sw.f90": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-whole-draw-finish-v-20261025/qualified-pp/module_ra_rrtmg_sw.f90",
+      "sha256": "4c1964eebdb81b9e9f6857282c5425351ac3b36197e53428711e1e85450a651e"
+    },
+    "module_ra_rrtmg_lw.f90": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/lw-mcica-whole-draw-seed-carry-20261025/qualified-pp/module_ra_rrtmg_lw.f90",
+      "sha256": "c258ef870d7a1a45f8b6803086c957bc331b0cf0cdd34b3957a51518f9642c0f"
+    },
+    "module_em.f90": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/rk-dry-u-stage-split-simd-20261025/qualified-pp/module_em.f90",
+      "sha256": "c78a95aba1122a90a5b37a2a70522e1df11d382c0cece00bc7939588eb41fc5e"
+    },
+    "module_small_step_em.f90": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-whole-draw-finish-v-20261025/qualified-pp/module_small_step_em.f90",
+      "sha256": "dd6e3db9a312d3e3d4ae581305e42f6f775318937a2d55d60e4e380639d106b3"
+    }
+  },
+  "sources": {
+    "module_ra_rrtmg_sw.F": {
+      "path": "/home/ddietz/wrf/WRF/phys/module_ra_rrtmg_sw.F",
+      "sha256": "0f9153804cdbb9e5b92c661479d6fff682743ddf977abf2d5ce6855804997361"
+    },
+    "module_ra_rrtmg_lw.F": {
+      "path": "/home/ddietz/wrf/WRF/phys/module_ra_rrtmg_lw.F",
+      "sha256": "e877f3cd95ed7b53edf8e13e6ba19f144304732569571db7d0618cbd0625ea28"
+    },
+    "module_em.F": {
+      "path": "/home/ddietz/wrf/WRF/dyn_em/module_em.F",
+      "sha256": "589d9590921b59b4b62e41d92761c93a58b8c24d33e2fb5e4ce4cc9549ec7387"
+    },
+    "module_small_step_em.F": {
+      "path": "/home/ddietz/wrf/WRF/dyn_em/module_small_step_em.F",
+      "sha256": "7d5d60c9ad47e2a477e379cf3d7d1320bc24bd2ff645bd7fd846a58af1f95c80"
+    },
+    "phys/Makefile": {
+      "path": "/home/ddietz/wrf/WRF/phys/Makefile",
+      "sha256": "6756adce2f2ab1e5f142bcbcd913a852cde9cc91defb664b5d23fc9044c6c6d8"
+    },
+    "dyn_em/Makefile": {
+      "path": "/home/ddietz/wrf/WRF/dyn_em/Makefile",
+      "sha256": "2ff93874a9db814992eb592f2dc4922d84bcd321ff507abbb2ada3568f895070"
+    }
+  },
+  "build_receipt": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current0ec3-sw-mcica-whole-draw-seed-carry-source-question-r1/combined-sw-finish-v-cached-build-preparation-r1-hpc02/actual-native-r1/receipt.json",
+    "sha256": "4098975b773e8b47986b2d2568da4edf44c217069a65b16813406f89449d9639"
+  },
+  "build_closure": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current0ec3-sw-mcica-whole-draw-seed-carry-source-question-r1/combined-sw-finish-v-cached-build-preparation-r1-hpc02/actual-native-r1/closure.json",
+    "sha256": "c46d02901b7cc955d4eaa2aa476cfafb2621490c9db4d6fa038a491104376e7a"
+  },
+  "cached_SW_object_sha256": "bf9d6cf6fbfd1a746c5b8cd1279aa7a369812490cfb832d09d0809f09838e886",
+  "cached_FINISH_object_sha256": "29ee69a6d384dbf4ccb3f63421cd2bebdc0a7dd2dbfa2a1e6b427d7d56c8c1d5",
+  "build_mechanism": "Replace only SW and SmallStep members in qualified0ec3 archive;582 othermembers/RSL6eb unchanged;zero compiles/one recorded link. Native replay uses exact PP and literal flags in native receipts; no broad compiler qualification.",
+  "defaults": {
+    "WRF_SW_MCICA_WHOLE_DRAW_SEED_CARRY": 1,
+    "WRF_SMALL_STEP_FINISH_V_SIMD": 1
+  },
+  "support": "GNU Fortran13.3.0/defaultREAL4 INTEGER4/emptyOMP OMPCPP PROMOTION DOUBLE_PRECISION/no kind-promotion flags, sourceDM_PARALLEL&&!_OPENMP; FINISH requires existing SmallStepSIMD1 andZen21. No added flags/ISA/fastmath/FMA/reciprocal. Otherdefaultstacks select original paths.",
+  "source_correspondence": "SW2guards enabledcanonical rows+18, FINISH1guard rows+1; targetstatement/directivestream exacttestedPP, originaloffprojection literalexact. One newSWline trailingblank removed, originaloffbranch unchanged. No generatedobject-byteidentity or cleanF-only certificate.",
+  "rollback": "Restore four source/Make files from aec67b0b71bf45849c53c7e7147dbe065ea6a39e and restore previous-parent-working-aliases.json + actual0ec3/a30c/Q as a coupled artifact/selection set. Independent optout make WRF_SW_MCICA_WHOLE_DRAW_SEED_CARRY=0 and/or WRF_SMALL_STEP_FINISH_V_SIMD=0 requires complete affectedobject/archive/executable rebuild and its validation; DISABLE wins manual ENABLE."
+}
