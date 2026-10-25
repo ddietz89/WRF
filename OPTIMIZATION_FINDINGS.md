@@ -1,15 +1,16 @@
 # WRF CPU optimization findings
 
-## Current CQU/CQW child0b40: own unprofiled SAME512 noon science
+## Current CQU/CQW coefficient fusion: qualified daytime application
 
-Source1770d469/executable0b40b961/archive14c102fe passed185 ordered steps and two FULL12:00/13:00 products against the retained original546b SAME512 scientific prefix, with all four models and reader normal closed. Current own3h/9h/profile/restart/full144 remain false. Parentab437 three-hour descriptive observation and older5c75 matched3h/8719h/profile records remain image-specific history; none is a currentchild forecast gain. The retained75-minute control's full-arm timing is not a one-hour timing comparator.
+The selected executable `0b40b961` / archive `14c102fe`, with source commit `1770d469`, passed both complete 12:00/13:00 products and all 185 ordered timesteps against the retained corrected-original 546b scientific reference. All four model jobs and the reader closed normally. This build has its own unprofiled one-hour SAME512 qualification; three-hour, nine-hour, profile, restart and full 144-hour qualification remain pending.
 
-CompletecalcCQ1024 restore-inclusive caller wall reductions were7.7723% on01 and8.0139% on04 (threadCPU7.7651%/8.0138%). These are caller observations, not forecast improvements. Native O2/O0 fullCQ raw/five-state checks passed; the two non-target deltas retain scoped classification and rawwholeTU equality remains false.
+The complete coefficient caller, including input restoration and 1,024 calls, took **7.77% less wall time on hpc01 and 8.01% less on hpc04**. Thread CPU fell 7.77% and 8.01%. These are caller results, not forecast gains. O2/O0 native raw-value and five-state checks passed. The two non-target object differences are explicitly classified; whole-object byte equality remains false.
 
-`WRF_CQU_CQW_LAST_SPECIES_CONSUMER_FUSION=1` is scoped to GNU13.3.0/defaultREAL4INT4/BigStepSIMD/emptyOMP and sourceDM&&!OPENMP. Set0 and regenerate/rebuildBigStep/rearchive/relink for rollback. Source authority is qualifiedPP110e/cached48f49 plus post-test target projection, not a clean canonical build certificate. Own qualification: `tools/cpu-compute/cqu-cqw-last-species-consumer-fusion-20261025/OWN_NOON_APPLICATION_QUALIFICATION.json`.
+The default `WRF_CQU_CQW_LAST_SPECIES_CONSUMER_FUSION=1` applies to qualified GNU 13.3.0, REAL4/INTEGER4, BigStep SIMD and pure-MPI builds. To roll back, set it to 0, regenerate preprocessing, rebuild BigStep, replace its archive member and relink. Delivery uses qualified preprocessed source and cached objects, with canonical target correspondence; this is not a clean whole-source rebuild certificate. [Qualification and rollback](tools/cpu-compute/cqu-cqw-last-species-consumer-fusion-20261025/README.md).
 
+Parent ab437's three-hour observation and older matched comparisons below remain specific to those images. The retained 75-minute control supplies the scientific prefix for this one-hour test; its full-run timing is not a one-hour comparator.
 
-Inactive PWP halo uniform guard: **closed unpromoted**. Actual seven package-disabled fields and empty-send MPI work justified a real nine-rank experiment, but warmed O0-caller snapshots retained three FE_INEXACT/MXCSR mismatches at inactive PWP despite exact physical/configuration data and request lifetimes/protocol. Warmed O2 caller passed; cold fixture sentinel defect and both failures remain retained. No FirstRK compile, timing, forecast, flag normalization or further repair. See `tools/cpu-rejected/inactive-pwp-halo-uniform-guard-20261025/DECISION.json` once adopted.
+The inactive PWP halo guard is **closed unpromoted**. Physical fields, configuration and request protocols matched, but three warmed O0-caller observations differed in protected FE_INEXACT/MXCSR status. The warmed O2 caller passed. The initial fixture's undefined sentinel and both failed attempts remain preserved. No timing or forecast followed, and no state check was relaxed. [Decision and evidence](tools/cpu-rejected/inactive-pwp-halo-uniform-guard-20261025/DECISION.json).
 
 ## Retained prior record
 

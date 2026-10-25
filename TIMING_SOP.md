@@ -104,6 +104,8 @@ For native MPI/InfiniBand jobs, retain the established transient service setting
 
 ## Matching output checks to the forecast horizon
 
+When adapting a controller to another host, verify the actual nested SSH arguments against the binding and cache-helper host. Function names and comments do not establish the destination. A local stub can inspect the constructed arguments before any remote call. Preserve a failed attempt and continue only the unexecuted arms after correcting the route.
+
 When adapting a retained forecast to another horizon, carry its worker-activity and field-view admission helpers together. The qualified two-output/35-step case uses positive writer roots487/495 and inactive roots503/511: all32 quilt ranks retain FIELDVIEW1, while the16 active-group processes emit acquisition markers. The four-/ten-output cases require all four positive roots and32 markers. Verify this agreement before activation. Preserve any failed frozen run; a corrected wrapper retry must have its own run identity and normal model/reader closures, without reconstructing a successful original completion.
 
 ## Historical lease horizon routing
