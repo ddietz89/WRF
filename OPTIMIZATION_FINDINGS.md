@@ -1,5 +1,17 @@
 # WRF CPU optimization findings
 
+## October 25: latest B4BC passes a fresh three-hour comparison on three nodes
+
+B4BC passed its own same256 three-hour 545-step/four-full-product application with all six models and the reader normally closed. One fresh original546b→B4BC fixed-order pair produced the measurements below. The arms were separated by scheduled maintenance (A ended around 06:29 UTC, B began around 06:51 UTC); this is not a counterbalanced or repeatability result. The earlier noon 185-step qualification remains immutable and separate. No own 9h, 512, 384, profile, restart or full144 qualification transfers.
+
+| Metric | Original546b | B4BC | Reduction |
+|---|---:|---:|---:|
+| Wall (min) | 21.399520 | 18.382313 | +14.0994% |
+| Main elapsed (min) | 18.093336 | 16.745051 | +7.4518% |
+| Summed CPU (core-h) | 84.375622 | 75.896851 | +10.0488% |
+
+Exact [qualification](tools/cpu-compute/clear-sky-radiation-batch-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json) and [raw comparison](tools/cpu-compute/clear-sky-radiation-batch-20261025/three-hour/RESULT.json). All previous selected improvements are retained. Hardware sampling on all three participating nodes reported no sensor query failures or non-OK voltage/temperature/fan statuses; samples do not exclude shorter transients.
+
 ## October25: 384-rank candidate fits, but strict cross-decomposition comparison is not qualified
 
 The B4BC candidate completed a ten-minute, 384-rank capacity test on hpc01–03 within the existing 100 GiB/node limit. Lifetime peaks were 63.28/63.50/57.88 GiB, with zero memory events and all three models normally closed. The initial output’s 275 variables and layout had no reported differences; the unchanged checker failed on `NTASKS_TOTAL` and `NTASKS_Y`, which record the different decomposition. The first strict assertion prevented an admitted 06:10 result, so no full-trajectory equality or 384-rank qualification is claimed. Both failed readers and the earlier original384 initialization OOM are preserved. The default remains 256 ranks; no oracle exception or resource-cap change was made. [Evidence and limits](tools/cpu-compute/threehost384-candidate-capacity-20261025/README.md).
