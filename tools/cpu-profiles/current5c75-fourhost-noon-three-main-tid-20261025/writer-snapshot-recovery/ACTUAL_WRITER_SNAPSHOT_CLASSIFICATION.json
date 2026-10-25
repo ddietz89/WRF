@@ -1,0 +1,119 @@
+{
+  "status": "PASS_EXACT_ACTUAL_V3_WATCH_WITH_WRITER_ONLY_QUALIFIED_SNAPSHOT_MASK",
+  "failed_R1_metadata_retained": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current5c75-fourhost-noon1h-native15-preparation-r1/postrun-binding-collector-preparation-r1/actual-bindings-hpc04-r1/transport.json",
+  "actual_watch": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current5c75-fourhost-noon1h-native15-preparation-r1/actual-live-watch-r1/watch-rank487.jsonl",
+    "sha256": "72b8853e90b23b1a153345a6966ca8a5e9c2ada0f3d7528f7f7cfe97c5c6cb25"
+  },
+  "watch_proof": {
+    "schema": "CURRENT5C75_FOURHOST_NOON_NATIVE15_LIVE_V3",
+    "active_rows": [
+      113,
+      114,
+      115,
+      116,
+      117,
+      118,
+      119,
+      120,
+      121,
+      122,
+      123,
+      124,
+      125,
+      126,
+      127,
+      128,
+      129
+    ],
+    "growth_transitions": 16,
+    "first_bytes": 0,
+    "last_bytes": 12253708,
+    "boot_id": "5408fdf6-1999-4b61-89f8-9552cdc6b305",
+    "time_namespace_inode": 4026531834,
+    "perf_pid": 23078,
+    "perf_startticks": "1011627",
+    "bridge_pid": 23076,
+    "bridge_startticks": "1011619",
+    "raw_dev": 64512,
+    "raw_ino": 20578332,
+    "stage": "/tmp/wrf-cpu-quilt-profile-1000-45ardsar",
+    "context_sha256": "e1bdcd4559f72bf9dfc0cad8c8980f49325d21e81ea7a5275fb4389f142cd0d8",
+    "source_identity_and_bridge_verified": true,
+    "perf_stdout_same_inode_required": false,
+    "target_sampler_snapshot_main_mask": [
+      28,
+      29,
+      30,
+      31
+    ],
+    "thread_scope": "MainTID only; historical writer snapshot may include exactly qualified borrowed pack cores28\u201331; live observed target remains31. No continuous31 affinity or helper/compressor attribution claim."
+  },
+  "current_source": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-output/quilt512/wrf_quilt_thread_shim.c",
+    "sha256": "801e29cc8406d0200dee1557e4263d3ce4db46d750b63b9371083b633c952150",
+    "qualified_root487_cpu_table": [
+      31,
+      28,
+      29,
+      30
+    ],
+    "scope": "Source declares exact writer table and scope-widens into these four; this classifies sampler snapshot only, not continuous live affinity."
+  },
+  "lease": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current5c75-fourhost-noon1h-native15-runtime-r1/lease-candidate-proposed.json",
+    "sha256": "47b7270024b58bff508710b7bc00ffd6477dced5f82f8d1a7451a5736b9beee2",
+    "actual_map_variant": "control",
+    "map_sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac",
+    "actual_rows": [
+      {
+        "global_rank": 391,
+        "host": "hpc04",
+        "cpu": 28,
+        "numa_node": 1,
+        "role": "compute",
+        "quilt_group": null,
+        "quilt_group_root": false
+      },
+      {
+        "global_rank": 423,
+        "host": "hpc04",
+        "cpu": 29,
+        "numa_node": 1,
+        "role": "compute",
+        "quilt_group": null,
+        "quilt_group_root": false
+      },
+      {
+        "global_rank": 455,
+        "host": "hpc04",
+        "cpu": 30,
+        "numa_node": 1,
+        "role": "compute",
+        "quilt_group": null,
+        "quilt_group_root": false
+      },
+      {
+        "global_rank": 487,
+        "host": "hpc04",
+        "cpu": 31,
+        "numa_node": 1,
+        "role": "quilt",
+        "quilt_group": 1,
+        "quilt_group_root": true
+      }
+    ]
+  },
+  "native_guard_result": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current5c75-fourhost512-threehour-preparation-r1/output-fp-guard-native-preparation-r2/actual-native-r2/ACTUAL_RESULT_AND_CLOSURES.json",
+    "sha256": "e8469bbb973d5aa99e50fd1270cd4106b93f792a1fdebfeb05a43015e0cf304b"
+  },
+  "unchanged_gates": [
+    "Fresh actualmainTID affinity[31], samePID/startticks/exe/cgroup",
+    "Exact recorder INV/PID/CPU31/argv",
+    "Monoclock/time namespace",
+    "FDbridge/rawgrowth/inode",
+    "ProtectedSCI/model/reader/source/raw/normalparent+recorder closures"
+  ],
+  "source_qualification_pending_actual_render": true
+}

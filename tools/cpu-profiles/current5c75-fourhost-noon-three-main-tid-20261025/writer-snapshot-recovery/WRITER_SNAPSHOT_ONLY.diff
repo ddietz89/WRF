@@ -1,0 +1,19 @@
+--- R1/watch_v3.py
++++ R2/watch_v3.py
+@@ -13,7 +13,9 @@
+   t=s['target'];actual=s['target_actual'];perf=s['perf_actual'];data=s['data_file']
+   assert t['global_rank']==target['global_rank']==rank and t['pid']==target['pid']and str(t['pid_starttime_ticks'])==str(target['pid_starttime_ticks'])and t['host']==host and t['cpu']==cpu and t['executable']==target['executable']and t['world_size']==512
+   assert actual['pid']==t['pid']and str(actual['startticks'])==str(t['pid_starttime_ticks'])and actual['exe']==t['executable']and actual['affinity']==[cpu]and actual['cgroup']=='0::/system.slice/'+model_unit+'\n'
+-  assert t['threads'][str(t['pid'])]==[cpu]and str(t['thread_starttime_ticks'][str(t['pid'])])==str(t['pid_starttime_ticks'])
++  snapshot_mask=t['threads'][str(t['pid'])]
++  assert snapshot_mask==[cpu]or(rank==487 and snapshot_mask==[28,29,30,31])
++  assert str(t['thread_starttime_ticks'][str(t['pid'])])==str(t['pid_starttime_ticks'])
+   assert perf['pid']==int(rec['MainPID'])and perf['exe']==perf_path and perf['affinity']==[cpu]and perf['cgroup']=='0::/system.slice/'+recorder_unit+'\n'and s['perf_argv']==argv
+   assert row['boot_id']and actual['time_namespace_inode']==perf['time_namespace_inode']==row['time_namespace_inode']
+   assert data['regular']is True and data['bytes']>=0 and s['directory'].startswith('/tmp/wrf-cpu-quilt-profile-1000-')
+@@ -27,4 +29,4 @@
+  assert len(accepted)>=3 and len(identities)==1 and all(x<y for x,y in zip(times,times[1:]))and all(x<=y for x,y in zip(sizes,sizes[1:]))
+  growth=sum(y>x for x,y in zip(sizes,sizes[1:]));assert growth>=2
+  identity=next(iter(identities))
+- return {'schema':'CURRENT5C75_FOURHOST_NOON_NATIVE15_LIVE_V3','active_rows':accepted,'growth_transitions':growth,'first_bytes':sizes[0],'last_bytes':sizes[-1],'boot_id':identity[0],'time_namespace_inode':identity[1],'perf_pid':identity[2],'perf_startticks':identity[3],'bridge_pid':identity[4],'bridge_startticks':identity[5],'raw_dev':identity[6],'raw_ino':identity[7],'stage':identity[8],'context_sha256':identity[9],'source_identity_and_bridge_verified':True,'perf_stdout_same_inode_required':False}
++ return {'schema':'CURRENT5C75_FOURHOST_NOON_NATIVE15_LIVE_V3','active_rows':accepted,'growth_transitions':growth,'first_bytes':sizes[0],'last_bytes':sizes[-1],'boot_id':identity[0],'time_namespace_inode':identity[1],'perf_pid':identity[2],'perf_startticks':identity[3],'bridge_pid':identity[4],'bridge_startticks':identity[5],'raw_dev':identity[6],'raw_ino':identity[7],'stage':identity[8],'context_sha256':identity[9],'source_identity_and_bridge_verified':True,'perf_stdout_same_inode_required':False,'target_sampler_snapshot_main_mask':target['threads'][str(target['pid'])],'thread_scope':'MainTID only; historical writer snapshot may include exactly qualified borrowed pack cores28–31; live observed target remains31. No continuous31 affinity or helper/compressor attribution claim.'}

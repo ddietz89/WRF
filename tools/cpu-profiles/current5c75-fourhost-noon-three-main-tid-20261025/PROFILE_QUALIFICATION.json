@@ -1,0 +1,1736 @@
+{
+  "archive_sha256": "d0c5b00e4ea952de117253dbe01366487186b296523fcaab15819e58d54b7e27",
+  "causal_MPI_timing_qualified": false,
+  "compressor_worker_attribution": false,
+  "compute_grid": [
+    8,
+    60
+  ],
+  "compute_ranks": 480,
+  "executable_sha256": "5c758822e12965742be2e10669a1e9fd8b3e8e9eee66b4a8eb74d98340e35339",
+  "global_headroom_qualified": false,
+  "new_nine_hour_restart_or_clean_build_qualification": false,
+  "numeric_loss": "UNKNOWN",
+  "output_guard_source_commit": "2da3c200cff40d233bb2cd7d70cef5ce73fe8815",
+  "performance_qualified": false,
+  "profile_source_identity_qualified": true,
+  "quilt_ranks": 32,
+  "ranks": [
+    {
+      "actual_capture_phase": {
+        "admission": {
+          "aged_remaining_wall_seconds": 91.826845397,
+          "compute_only_window_qualified": false,
+          "estimate_age_seconds": 9.9103e-05,
+          "identity_phase_qualified": true,
+          "mixed_io_context": true,
+          "model_second": 1515.0,
+          "profile_capture_purpose": "SOURCE_IDENTITY_ONLY",
+          "ready": true,
+          "status": "SOURCE_IDENTITY_PHASE_ADMITTED",
+          "window_valid": false
+        },
+        "collector_end_monotonic_ns": 2535863323908648,
+        "collector_start_monotonic_ns": 2535845227149124,
+        "parent_observed_phase": {
+          "complete_steps_in_bounded_tail": 80,
+          "mean_last5_dt": 20.0,
+          "mean_last5_step_wall": 0.8808339999999999,
+          "observed_at_monotonic_ns": 2535839788436164,
+          "observed_forecast_time": "2026-10-12_12:25:15",
+          "predicted_remaining_wall_seconds": 91.8269445,
+          "remaining_simulated_seconds": 2085.0,
+          "rsl_tail_sha256": "299fadf4bef4b44eddd48bb23fb0eef8e7262508a74e94119cc00d99aa4fb398",
+          "scope": "actual completed-RSL-step estimate for SOURCE_IDENTITY_ONLY; writer overlap allowed and observed; prediction not a guarantee of request/sample overlap or pure-compute timing"
+        },
+        "radiation_overlap": "POSTHOC_SOURCE_SAMPLES_ONLY_NO_TRIGGER_GUARANTEE"
+      },
+      "clock": {
+        "boot_id": "ad105fdb-2b6c-40b2-a1ba-6b9997e08d4c",
+        "evlist_monotonic": true,
+        "observer_header_association": "NOT_APPLICABLE_OBSERVER_OFF",
+        "sample_inside_actual_collector_interval": true,
+        "time_namespace_inode": 4026531834,
+        "timestamp_causal_join_qualified": false
+      },
+      "collector_interval_seconds": 18.096759524,
+      "cpu": 99,
+      "current_ELF_buildID": "UNKNOWN",
+      "direct_routines": [
+        {
+          "period": 18394475292,
+          "primary_records": 649,
+          "routine": "NON_WRF",
+          "selected_main_tid_period_percent": 45.94813645424963
+        },
+        {
+          "period": 1530716083,
+          "primary_records": 52,
+          "routine": "__rrtmg_sw_vrtqdr_MOD_vrtqdr_sw_pair",
+          "selected_main_tid_period_percent": 3.823623687976981
+        },
+        {
+          "period": 1120944798,
+          "primary_records": 38,
+          "routine": "__rrtmg_sw_spcvmc_MOD_spcvmc_sw",
+          "selected_main_tid_period_percent": 2.8000431498356266
+        },
+        {
+          "period": 1092393920,
+          "primary_records": 37,
+          "routine": "__rrtmg_sw_reftra_MOD_reftra_sw_clear",
+          "selected_main_tid_period_percent": 2.7287250166783745
+        },
+        {
+          "period": 994793586,
+          "primary_records": 38,
+          "routine": "__module_small_step_em_MOD_advance_w",
+          "selected_main_tid_period_percent": 2.484926082845088
+        },
+        {
+          "period": 875638150,
+          "primary_records": 30,
+          "routine": "__module_advect_em_MOD_advect_scalar_pd",
+          "selected_main_tid_period_percent": 2.187283984025626
+        },
+        {
+          "period": 832205638,
+          "primary_records": 29,
+          "routine": "__rrtmg_lw_rtrnmc_MOD_rtrnmc",
+          "selected_main_tid_period_percent": 2.0787925507965
+        },
+        {
+          "period": 691776717,
+          "primary_records": 24,
+          "routine": "__module_advect_em_MOD_advect_scalar",
+          "selected_main_tid_period_percent": 1.7280107469231762
+        },
+        {
+          "period": 597936162,
+          "primary_records": 21,
+          "routine": "__module_small_step_em_MOD_advance_mu_t",
+          "selected_main_tid_period_percent": 1.493603482913978
+        },
+        {
+          "period": 522878615,
+          "primary_records": 17,
+          "routine": "__module_bl_myjpbl_MOD_myjpbl",
+          "selected_main_tid_period_percent": 1.3061148833899043
+        },
+        {
+          "period": 503661268,
+          "primary_records": 16,
+          "routine": "__module_big_step_utilities_em_MOD_phy_prep",
+          "selected_main_tid_period_percent": 1.2581112699012014
+        },
+        {
+          "period": 482479623,
+          "primary_records": 17,
+          "routine": "__module_small_step_em_MOD_advance_uv",
+          "selected_main_tid_period_percent": 1.2052009748623014
+        },
+        {
+          "period": 472071479,
+          "primary_records": 16,
+          "routine": "__module_em_MOD_rk_update_scalar",
+          "selected_main_tid_period_percent": 1.1792021456945312
+        },
+        {
+          "period": 438422576,
+          "primary_records": 14,
+          "routine": "__module_small_step_em_MOD_small_step_prep",
+          "selected_main_tid_period_percent": 1.0951494960790116
+        },
+        {
+          "period": 386358909,
+          "primary_records": 13,
+          "routine": "__module_small_step_em_MOD_calc_p_rho",
+          "selected_main_tid_period_percent": 0.965098030209527
+        },
+        {
+          "period": 383064909,
+          "primary_records": 13,
+          "routine": "__module_mp_thompson_MOD_mp_thompson",
+          "selected_main_tid_period_percent": 0.9568698443505848
+        },
+        {
+          "period": 345906492,
+          "primary_records": 12,
+          "routine": "__mcica_subcol_gen_lw_MOD_generate_stochastic_clouds",
+          "selected_main_tid_period_percent": 0.8640506696996795
+        },
+        {
+          "period": 344400400,
+          "primary_records": 12,
+          "routine": "__module_advect_em_MOD_advect_u",
+          "selected_main_tid_period_percent": 0.8602885552805337
+        },
+        {
+          "period": 328881807,
+          "primary_records": 11,
+          "routine": "__module_advect_em_MOD_advect_w",
+          "selected_main_tid_period_percent": 0.8215241753554332
+        },
+        {
+          "period": 326287318,
+          "primary_records": 11,
+          "routine": "__mcica_subcol_gen_sw_MOD_generate_stochastic_clouds_sw",
+          "selected_main_tid_period_percent": 0.8150433199513708
+        },
+        {
+          "period": 273709734,
+          "primary_records": 9,
+          "routine": "__module_em_MOD_rk_addtend_dry",
+          "selected_main_tid_period_percent": 0.68370812469753
+        },
+        {
+          "period": 268500037,
+          "primary_records": 10,
+          "routine": "__module_big_step_utilities_em_MOD_calc_cq",
+          "selected_main_tid_period_percent": 0.6706946592498146
+        },
+        {
+          "period": 264427534,
+          "primary_records": 9,
+          "routine": "__module_diag_afwa_MOD_afwa_diagnostics_driver",
+          "selected_main_tid_period_percent": 0.660521826342984
+        },
+        {
+          "period": 250769832,
+          "primary_records": 9,
+          "routine": "__module_physics_addtendc_MOD_add_a2a",
+          "selected_main_tid_period_percent": 0.6264058243812207
+        },
+        {
+          "period": 249597802,
+          "primary_records": 9,
+          "routine": "__module_big_step_utilities_em_MOD_couple_momentum",
+          "selected_main_tid_period_percent": 0.6234781739039116
+        },
+        {
+          "period": 234735480,
+          "primary_records": 8,
+          "routine": "__module_mp_thompson_MOD_compt_fr_the",
+          "selected_main_tid_period_percent": 0.5863531138822214
+        },
+        {
+          "period": 233410042,
+          "primary_records": 8,
+          "routine": "__module_mp_thompson_MOD_mp_gt_driver",
+          "selected_main_tid_period_percent": 0.5830422607527421
+        },
+        {
+          "period": 233363305,
+          "primary_records": 8,
+          "routine": "__module_small_step_em_MOD_small_step_finish",
+          "selected_main_tid_period_percent": 0.5829255149353502
+        },
+        {
+          "period": 225312760,
+          "primary_records": 8,
+          "routine": "__module_diffusion_em_MOD_cal_deform_and_div",
+          "selected_main_tid_period_percent": 0.5628158062147129
+        },
+        {
+          "period": 216085442,
+          "primary_records": 8,
+          "routine": "f_pack_int_ikj_",
+          "selected_main_tid_period_percent": 0.5397665993283851
+        },
+        {
+          "period": 213117986,
+          "primary_records": 7,
+          "routine": "__module_big_step_utilities_em_MOD_horizontal_diffusion",
+          "selected_main_tid_period_percent": 0.5323540979634083
+        },
+        {
+          "period": 211747684,
+          "primary_records": 7,
+          "routine": "__module_big_step_utilities_em_MOD_coriolis",
+          "selected_main_tid_period_percent": 0.528931177641951
+        },
+        {
+          "period": 207559784,
+          "primary_records": 7,
+          "routine": "__rrtmg_sw_taumol_MOD_taumol_sw",
+          "selected_main_tid_period_percent": 0.5184700909514032
+        },
+        {
+          "period": 206094509,
+          "primary_records": 7,
+          "routine": "__module_big_step_utilities_em_MOD_rhs_ph",
+          "selected_main_tid_period_percent": 0.5148099345960717
+        },
+        {
+          "period": 179275379,
+          "primary_records": 8,
+          "routine": "__module_small_step_em_MOD_sumflux",
+          "selected_main_tid_period_percent": 0.4478175890541362
+        },
+        {
+          "period": 177669913,
+          "primary_records": 6,
+          "routine": "__module_cu_tiedtke_MOD_cuadjtq",
+          "selected_main_tid_period_percent": 0.4438072452052556
+        },
+        {
+          "period": 175267066,
+          "primary_records": 6,
+          "routine": "__rrtmg_lw_rad_MOD_inatm",
+          "selected_main_tid_period_percent": 0.437805098360507
+        },
+        {
+          "period": 174231722,
+          "primary_records": 6,
+          "routine": "__module_advect_em_MOD_advect_v",
+          "selected_main_tid_period_percent": 0.4352188801273738
+        },
+        {
+          "period": 173051509,
+          "primary_records": 6,
+          "routine": "__module_mp_thompson_MOD_calc_refl10cm",
+          "selected_main_tid_period_percent": 0.4322707890778474
+        },
+        {
+          "period": 171337426,
+          "primary_records": 6,
+          "routine": "__rrtmg_lw_taumol_MOD_taumol",
+          "selected_main_tid_period_percent": 0.4279891274197863
+        },
+        {
+          "period": 166984155,
+          "primary_records": 6,
+          "routine": "__module_em_MOD_calculate_phy_tend",
+          "selected_main_tid_period_percent": 0.4171149553243571
+        },
+        {
+          "period": 162632407,
+          "primary_records": 6,
+          "routine": "__module_diffusion_em_MOD_cal_helicity",
+          "selected_main_tid_period_percent": 0.4062445875783703
+        },
+        {
+          "period": 162477761,
+          "primary_records": 5,
+          "routine": "__module_bc_em_MOD_mass_weight",
+          "selected_main_tid_period_percent": 0.4058582924871918
+        },
+        {
+          "period": 155367970,
+          "primary_records": 5,
+          "routine": "__bl_gwdo_MOD_bl_gwdo_run",
+          "selected_main_tid_period_percent": 0.38809852267351985
+        },
+        {
+          "period": 148780296,
+          "primary_records": 5,
+          "routine": "__module_small_step_em_MOD_calc_coef_w",
+          "selected_main_tid_period_percent": 0.3716429652812545
+        },
+        {
+          "period": 148678068,
+          "primary_records": 5,
+          "routine": "__rrtmg_sw_rad_MOD_inatm_sw",
+          "selected_main_tid_period_percent": 0.3713876067554537
+        },
+        {
+          "period": 147344392,
+          "primary_records": 5,
+          "routine": "__module_big_step_utilities_em_MOD_horizontal_pressure_gradient",
+          "selected_main_tid_period_percent": 0.368056175667533
+        },
+        {
+          "period": 146795774,
+          "primary_records": 5,
+          "routine": "__module_ra_rrtmg_lw_MOD_o3data",
+          "selected_main_tid_period_percent": 0.36668576556748406
+        },
+        {
+          "period": 139483155,
+          "primary_records": 5,
+          "routine": "wrf_rsl_unpack_ikj_original_",
+          "selected_main_tid_period_percent": 0.3484193453344443
+        },
+        {
+          "period": 133163969,
+          "primary_records": 5,
+          "routine": "__module_big_step_utilities_em_MOD_calc_ww_cp",
+          "selected_main_tid_period_percent": 0.3326344525338292
+        },
+        {
+          "period": 126281867,
+          "primary_records": 4,
+          "routine": "__module_sf_myjsfc_MOD_myjsfc",
+          "selected_main_tid_period_percent": 0.3154434342107573
+        },
+        {
+          "period": 118381064,
+          "primary_records": 4,
+          "routine": "__rrtmg_sw_cldprmc_MOD_cldprmc_sw",
+          "selected_main_tid_period_percent": 0.2957077707259701
+        },
+        {
+          "period": 116109722,
+          "primary_records": 4,
+          "routine": "__module_diffusion_em_MOD_compute_diff_metrics",
+          "selected_main_tid_period_percent": 0.29003411434308557
+        },
+        {
+          "period": 115061346,
+          "primary_records": 4,
+          "routine": "__rrtmg_lw_rad_MOD_rrtmg_lw",
+          "selected_main_tid_period_percent": 0.28741534306863065
+        },
+        {
+          "period": 113097094,
+          "primary_records": 4,
+          "routine": "__module_big_step_utilities_em_MOD_pg_buoy_w",
+          "selected_main_tid_period_percent": 0.2825087764232757
+        },
+        {
+          "period": 95273848,
+          "primary_records": 3,
+          "routine": "__module_pbl_driver_MOD_pbl_driver",
+          "selected_main_tid_period_percent": 0.23798753152417118
+        },
+        {
+          "period": 92591867,
+          "primary_records": 3,
+          "routine": "__module_bl_myjpbl_MOD_mixlen",
+          "selected_main_tid_period_percent": 0.231288127110646
+        },
+        {
+          "period": 91442985,
+          "primary_records": 3,
+          "routine": "__module_big_step_utilities_em_MOD_phy_prep_part2",
+          "selected_main_tid_period_percent": 0.22841829874817077
+        },
+        {
+          "period": 88871131,
+          "primary_records": 3,
+          "routine": "__rrtmg_sw_rad_MOD_rrtmg_sw",
+          "selected_main_tid_period_percent": 0.221993984020161
+        },
+        {
+          "period": 88815905,
+          "primary_records": 3,
+          "routine": "__module_mp_thompson_MOD_rslf",
+          "selected_main_tid_period_percent": 0.22185603326355932
+        },
+        {
+          "period": 87884628,
+          "primary_records": 3,
+          "routine": "taugb13.4",
+          "selected_main_tid_period_percent": 0.21952976725197515
+        },
+        {
+          "period": 87754174,
+          "primary_records": 3,
+          "routine": "__module_big_step_utilities_em_MOD_calc_p_rho_phi",
+          "selected_main_tid_period_percent": 0.2192039021159574
+        },
+        {
+          "period": 87465388,
+          "primary_records": 3,
+          "routine": "taugb7.10",
+          "selected_main_tid_period_percent": 0.21848253451381394
+        },
+        {
+          "period": 87403261,
+          "primary_records": 3,
+          "routine": "__diag_functions_MOD_calc_rh",
+          "selected_main_tid_period_percent": 0.21832734553298258
+        },
+        {
+          "period": 87121162,
+          "primary_records": 3,
+          "routine": "__module_physics_addtendc_MOD_add_a2c_v",
+          "selected_main_tid_period_percent": 0.21762268159776044
+        },
+        {
+          "period": 86545534,
+          "primary_records": 3,
+          "routine": "__module_em_MOD_rk_update_scalar_pd",
+          "selected_main_tid_period_percent": 0.21618480237201324
+        },
+        {
+          "period": 85503644,
+          "primary_records": 3,
+          "routine": "__rrtmg_lw_setcoef_MOD_setcoef",
+          "selected_main_tid_period_percent": 0.21358223268027876
+        },
+        {
+          "period": 82543346,
+          "primary_records": 3,
+          "routine": "__module_big_step_utilities_em_MOD_calc_php",
+          "selected_main_tid_period_percent": 0.20618761150788797
+        },
+        {
+          "period": 64690513,
+          "primary_records": 2,
+          "routine": "__module_big_step_utilities_em_MOD_horizontal_diffusion_3dmp",
+          "selected_main_tid_period_percent": 0.16159246031400248
+        },
+        {
+          "period": 64618863,
+          "primary_records": 2,
+          "routine": "__module_sf_myjsfc_MOD_sfcdif",
+          "selected_main_tid_period_percent": 0.1614134835329481
+        },
+        {
+          "period": 64198516,
+          "primary_records": 2,
+          "routine": "__module_big_step_utilities_em_MOD_curvature",
+          "selected_main_tid_period_percent": 0.1603634855847851
+        },
+        {
+          "period": 63975881,
+          "primary_records": 2,
+          "routine": "__module_sf_noahdrv_MOD_lsm",
+          "selected_main_tid_period_percent": 0.15980735863921572
+        },
+        {
+          "period": 62070012,
+          "primary_records": 2,
+          "routine": "__module_bl_myjpbl_MOD_vdifq",
+          "selected_main_tid_period_percent": 0.15504662871972677
+        },
+        {
+          "period": 61288372,
+          "primary_records": 2,
+          "routine": "__module_bl_myjpbl_MOD_vdifh",
+          "selected_main_tid_period_percent": 0.15309414566120108
+        },
+        {
+          "period": 60973217,
+          "primary_records": 2,
+          "routine": "wrf_hpg_nhx_consume_avx2",
+          "selected_main_tid_period_percent": 0.15230691010735317
+        },
+        {
+          "period": 60102709,
+          "primary_records": 2,
+          "routine": "__module_cu_tiedtke_MOD_cu_tiedtke",
+          "selected_main_tid_period_percent": 0.15013244088583036
+        },
+        {
+          "period": 59629507,
+          "primary_records": 2,
+          "routine": "taumol21.9",
+          "selected_main_tid_period_percent": 0.14895041477629084
+        },
+        {
+          "period": 59600891,
+          "primary_records": 2,
+          "routine": "__module_big_step_utilities_em_MOD_moist_physics_prep_em",
+          "selected_main_tid_period_percent": 0.14887893397284835
+        },
+        {
+          "period": 59578549,
+          "primary_records": 2,
+          "routine": "__module_cu_tiedtke_MOD_cuini",
+          "selected_main_tid_period_percent": 0.14882312519068064
+        },
+        {
+          "period": 59536834,
+          "primary_records": 2,
+          "routine": "__module_cu_tiedtke_MOD_tiecnv",
+          "selected_main_tid_period_percent": 0.14871892398451617
+        },
+        {
+          "period": 59153933,
+          "primary_records": 2,
+          "routine": "__module_mp_thompson_MOD_rsif",
+          "selected_main_tid_period_percent": 0.14776246357359482
+        },
+        {
+          "period": 59143675,
+          "primary_records": 2,
+          "routine": "__module_diag_afwa_MOD_precip_type_diagnostics",
+          "selected_main_tid_period_percent": 0.14773683979383131
+        },
+        {
+          "period": 58609265,
+          "primary_records": 2,
+          "routine": "UNVERIFIED_CURRENT_WRF",
+          "selected_main_tid_period_percent": 0.14640192030236884
+        },
+        {
+          "period": 58468168,
+          "primary_records": 2,
+          "routine": "__module_big_step_utilities_em_MOD_w_damp",
+          "selected_main_tid_period_percent": 0.14604946968301877
+        },
+        {
+          "period": 58183947,
+          "primary_records": 2,
+          "routine": "vspow_",
+          "selected_main_tid_period_percent": 0.14533950513747704
+        },
+        {
+          "period": 57532340,
+          "primary_records": 2,
+          "routine": "__module_ra_rrtmg_lw_MOD_rrtmg_lwrad",
+          "selected_main_tid_period_percent": 0.14371183558587175
+        },
+        {
+          "period": 56537233,
+          "primary_records": 2,
+          "routine": "taugb5.12",
+          "selected_main_tid_period_percent": 0.14122612661637127
+        },
+        {
+          "period": 55349037,
+          "primary_records": 2,
+          "routine": "__module_diffusion_em_MOD_smag2d_km",
+          "selected_main_tid_period_percent": 0.13825809458089713
+        },
+        {
+          "period": 55023630,
+          "primary_records": 2,
+          "routine": "__module_diag_nwp_MOD_diagnostic_output_nwp",
+          "selected_main_tid_period_percent": 0.1374452502348738
+        },
+        {
+          "period": 54748073,
+          "primary_records": 2,
+          "routine": "__module_diffusion_em_MOD_calculate_n2",
+          "selected_main_tid_period_percent": 0.13675692776652756
+        },
+        {
+          "period": 53378614,
+          "primary_records": 2,
+          "routine": "__module_big_step_utilities_em_MOD_calc_alt",
+          "selected_main_tid_period_percent": 0.13333611320119626
+        },
+        {
+          "period": 31743822,
+          "primary_records": 1,
+          "routine": "__module_big_step_utilities_em_MOD_zero_tend",
+          "selected_main_tid_period_percent": 0.07929388806593263
+        },
+        {
+          "period": 31570376,
+          "primary_records": 1,
+          "routine": "__module_sf_noahlsm_MOD_smflx",
+          "selected_main_tid_period_percent": 0.07886063186541954
+        },
+        {
+          "period": 30678052,
+          "primary_records": 1,
+          "routine": "wrf_phy_height_row_ordered_",
+          "selected_main_tid_period_percent": 0.07663166777361782
+        },
+        {
+          "period": 30011040,
+          "primary_records": 1,
+          "routine": "taumol28.2",
+          "selected_main_tid_period_percent": 0.074965517589603
+        },
+        {
+          "period": 29688304,
+          "primary_records": 1,
+          "routine": "taumol27.3",
+          "selected_main_tid_period_percent": 0.07415934521820906
+        },
+        {
+          "period": 29504426,
+          "primary_records": 1,
+          "routine": "__module_cu_tiedtke_MOD_cubase",
+          "selected_main_tid_period_percent": 0.07370003059787798
+        },
+        {
+          "period": 29466497,
+          "primary_records": 1,
+          "routine": "__module_mp_thompson_MOD_theta_e",
+          "selected_main_tid_period_percent": 0.07360528655979547
+        },
+        {
+          "period": 29369315,
+          "primary_records": 1,
+          "routine": "__rrtmg_sw_reftra_MOD_reftra_sw",
+          "selected_main_tid_period_percent": 0.07336253259557454
+        },
+        {
+          "period": 29237281,
+          "primary_records": 1,
+          "routine": "__module_mp_thompson_MOD_calc_effectrad",
+          "selected_main_tid_period_percent": 0.0730327207280276
+        },
+        {
+          "period": 29143346,
+          "primary_records": 1,
+          "routine": "__module_bl_myjpbl_MOD_difcof",
+          "selected_main_tid_period_percent": 0.07279807754689228
+        },
+        {
+          "period": 28990719,
+          "primary_records": 1,
+          "routine": "__module_ra_rrtmg_lw_MOD_reicalc",
+          "selected_main_tid_period_percent": 0.07241682577910455
+        },
+        {
+          "period": 28794295,
+          "primary_records": 1,
+          "routine": "taumol29.1",
+          "selected_main_tid_period_percent": 0.07192617211208667
+        },
+        {
+          "period": 27527279,
+          "primary_records": 1,
+          "routine": "__module_cu_tiedtke_MOD_cumastr_new",
+          "selected_main_tid_period_percent": 0.06876125312779595
+        },
+        {
+          "period": 26594717,
+          "primary_records": 1,
+          "routine": "__module_physics_addtendc_MOD_add_a2c_u",
+          "selected_main_tid_period_percent": 0.06643177727443014
+        }
+      ],
+      "early_watch": {
+        "active_rows": [
+          112,
+          113,
+          114,
+          115,
+          116,
+          117,
+          118,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          126,
+          127,
+          128
+        ],
+        "boot_id": "ad105fdb-2b6c-40b2-a1ba-6b9997e08d4c",
+        "bridge_pid": 2338511,
+        "bridge_startticks": "253584391",
+        "context_sha256": "c9a77e7809910c4f66617fce810e44f55d28b856ba03cc50dd672fe0c9e60889",
+        "first_bytes": 0,
+        "growth_transitions": 16,
+        "last_bytes": 11918092,
+        "perf_pid": 2338515,
+        "perf_startticks": "253584400",
+        "perf_stdout_same_inode_required": false,
+        "raw_dev": 64512,
+        "raw_ino": 27394393,
+        "schema": "CURRENT5C75_FOURHOST_NOON_NATIVE15_LIVE_V3",
+        "source_identity_and_bridge_verified": true,
+        "stage": "/tmp/wrf-cpu-quilt-profile-1000-p0crn2s3",
+        "time_namespace_inode": 4026531834
+      },
+      "host": "hpc03",
+      "non_WRF_selected_main_tid_period_percent": 45.94813645424963,
+      "numeric_loss": "UNKNOWN",
+      "primary_lost_lines": [],
+      "primary_period_cycles": 40033125849,
+      "primary_records": 1393,
+      "radiation_family_membership": [
+        "__mcica_subcol_gen_lw_MOD_generate_stochastic_clouds",
+        "__mcica_subcol_gen_sw_MOD_generate_stochastic_clouds_sw",
+        "__rrtmg_lw_rad_MOD_inatm",
+        "__rrtmg_lw_rad_MOD_rrtmg_lw",
+        "__rrtmg_lw_rtrnmc_MOD_rtrnmc",
+        "__rrtmg_lw_setcoef_MOD_setcoef",
+        "__rrtmg_lw_taumol_MOD_taumol",
+        "__rrtmg_sw_cldprmc_MOD_cldprmc_sw",
+        "__rrtmg_sw_rad_MOD_inatm_sw",
+        "__rrtmg_sw_rad_MOD_rrtmg_sw",
+        "__rrtmg_sw_reftra_MOD_reftra_sw",
+        "__rrtmg_sw_reftra_MOD_reftra_sw_clear",
+        "__rrtmg_sw_spcvmc_MOD_spcvmc_sw",
+        "__rrtmg_sw_taumol_MOD_taumol_sw",
+        "__rrtmg_sw_vrtqdr_MOD_vrtqdr_sw_pair"
+      ],
+      "radiation_primary_records": 218,
+      "radiation_selected_main_tid_period_percent": 15.957992181516298,
+      "rank": 122,
+      "raw_and_input_hashes": {
+        "/pool/wrf-experiment/wrf-cpu/builds/current871-moist-height-one-bigstep-member-experimental-r1/wrf.exe": "5c758822e12965742be2e10669a1e9fd8b3e8e9eee66b4a8eb74d98340e35339",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current5c75-noon1h-native15-postrun-hpc03-r1/rank122-binding.json": "cf8ffcc466fc04d1af2816545b4b07c2ea5fa6faa3a50fc05b004b1f97e14915",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current5c75-noon1h-native15-postrun-hpc03-r1/watch-rank122.jsonl": "a34474f4c0cb55e537500e7872b75a6435cbb48535844843e6959d2a092f17ab",
+        "/pool/wrf-experiment/wrf-cpu/runs/production512-current5c75-fourhost-noon1h-native15-candidate-r1/adaptive-steps.json": "c68c5560e5447f623d886de2a334733e5358ed156e9175cd04c18c96280f57ed",
+        "/pool/wrf-experiment/wrf-cpu/runs/production512-current5c75-fourhost-noon1h-native15-candidate-r1/model-closures.json": "a274cde36c51986dc19566b1b0c2b66ca33b2f4429eab2ad58d80a634d3d0668",
+        "/pool/wrf-experiment/wrf-cpu/runs/production512-current5c75-fourhost-noon1h-native15-candidate-r1/native-profile-rank122/collector-final.json": "a5d150aaa9a34c0f6979b65f0d6b51304a8a7d331a21006b7e82aacfe5bb1e41",
+        "/pool/wrf-experiment/wrf-cpu/runs/production512-current5c75-fourhost-noon1h-native15-candidate-r1/native-profile-rank122/rank122.collector.json": "c29041b592a3a532fb1d4cb6f7b50a257f87d3e11fa2fb92e3343f981c1761da",
+        "/pool/wrf-experiment/wrf-cpu/runs/production512-current5c75-fourhost-noon1h-native15-candidate-r1/native-profile-rank122/rank122.perf.data": "d691a89127d5227467a19c5e43610c8828c59b1801ed16c22c773c00199d4fb0",
+        "/pool/wrf-experiment/wrf-cpu/runs/production512-current5c75-fourhost-noon1h-native15-candidate-r1/native-profile-rank122/rank122.root-final.json": "daf57654e24859554f71988585dbebb47cb5fbb69ab5c9aa78212c127a9bacc7",
+        "/pool/wrf-experiment/wrf-cpu/science-prep/production512-current5c75-fourhost-noon1h-native15-r1/lease-candidate-granted.json": "610b34f582afc2e71348a50a13a87fb9e7bea9d144237f98b93d8f60648d5ce9",
+        "/pool/wrf-experiment/wrf-cpu/science-prep/production512-current5c75-fourhost-noon1h-native15-r1/reader-closure.json": "1fdc3d91102164e720cf88a5b85f79b8f40eaa5b22b78e56fc5805264cf7263a",
+        "/pool/wrf-experiment/wrf-cpu/science-prep/production512-current5c75-fourhost-noon1h-native15-r1/science-receipt.json": "6fefe55ab8893a25d94dc26c336fd29e3486ed28f52ab44b37f51914d471d9cd",
+        "/pool/wrf-experiment/wrf-cpu/science-prep/production512-current5c75-fourhost-noon1h-native15-r1/source-pins.json": "c65f07a1644435e8b2147e0f9f920be38a727868b754ecb41c8e03393c77aa9e",
+        "/usr/lib/linux-tools-6.8.0-88/perf": "ec1cd6211c8972093de6128929f7a156b51f0c460f85ce2985fb6487722cf4e2"
+      },
+      "record_perf": {
+        "host": "hpc03",
+        "path": "/usr/lib/linux-tools-6.8.0-88/perf",
+        "sha256": "ec1cd6211c8972093de6128929f7a156b51f0c460f85ce2985fb6487722cf4e2",
+        "version": "perf version 6.8.12"
+      },
+      "recorded_buildID": "UNKNOWN",
+      "recorded_buildID_note": "Raw compute summary tokens are executable pathnames, not valid hexadecimal build IDs; no ID inferred.",
+      "render_perf": {
+        "host": "hpc03",
+        "path": "/usr/lib/linux-tools-6.8.0-88/perf",
+        "sha256": "ec1cd6211c8972093de6128929f7a156b51f0c460f85ce2985fb6487722cf4e2",
+        "version": "perf version 6.8.12"
+      },
+      "requested_record_seconds": 15,
+      "role": "compute_mainTID",
+      "stack_lost_lines": []
+    },
+    {
+      "actual_capture_phase": {
+        "admission": {
+          "aged_remaining_wall_seconds": 91.82682962599999,
+          "compute_only_window_qualified": false,
+          "estimate_age_seconds": 0.000114874,
+          "identity_phase_qualified": true,
+          "mixed_io_context": true,
+          "model_second": 1515.0,
+          "profile_capture_purpose": "SOURCE_IDENTITY_ONLY",
+          "ready": true,
+          "status": "SOURCE_IDENTITY_PHASE_ADMITTED",
+          "window_valid": false
+        },
+        "collector_end_monotonic_ns": 2535863258840618,
+        "collector_start_monotonic_ns": 2535845243711120,
+        "parent_observed_phase": {
+          "complete_steps_in_bounded_tail": 80,
+          "mean_last5_dt": 20.0,
+          "mean_last5_step_wall": 0.8808339999999999,
+          "observed_at_monotonic_ns": 2535839797508260,
+          "observed_forecast_time": "2026-10-12_12:25:15",
+          "predicted_remaining_wall_seconds": 91.8269445,
+          "remaining_simulated_seconds": 2085.0,
+          "rsl_tail_sha256": "299fadf4bef4b44eddd48bb23fb0eef8e7262508a74e94119cc00d99aa4fb398",
+          "scope": "actual completed-RSL-step estimate for SOURCE_IDENTITY_ONLY; writer overlap allowed and observed; prediction not a guarantee of request/sample overlap or pure-compute timing"
+        },
+        "radiation_overlap": "POSTHOC_SOURCE_SAMPLES_ONLY_NO_TRIGGER_GUARANTEE"
+      },
+      "clock": {
+        "boot_id": "ad105fdb-2b6c-40b2-a1ba-6b9997e08d4c",
+        "evlist_monotonic": true,
+        "observer_header_association": "NOT_APPLICABLE_OBSERVER_OFF",
+        "sample_inside_actual_collector_interval": true,
+        "time_namespace_inode": 4026531834,
+        "timestamp_causal_join_qualified": false
+      },
+      "collector_interval_seconds": 18.015129498,
+      "cpu": 12,
+      "current_ELF_buildID": "UNKNOWN",
+      "direct_routines": [
+        {
+          "period": 21767829393,
+          "primary_records": 793,
+          "routine": "NON_WRF",
+          "selected_main_tid_period_percent": 56.54864841716848
+        },
+        {
+          "period": 906494557,
+          "primary_records": 32,
+          "routine": "__module_mp_thompson_MOD_mp_thompson",
+          "selected_main_tid_period_percent": 2.354899106860613
+        },
+        {
+          "period": 812768139,
+          "primary_records": 29,
+          "routine": "__rrtmg_lw_rtrnmc_MOD_rtrnmc",
+          "selected_main_tid_period_percent": 2.111415837895497
+        },
+        {
+          "period": 678441225,
+          "primary_records": 25,
+          "routine": "__module_small_step_em_MOD_advance_uv",
+          "selected_main_tid_period_percent": 1.76246026241713
+        },
+        {
+          "period": 616677905,
+          "primary_records": 22,
+          "routine": "__rrtmg_sw_vrtqdr_MOD_vrtqdr_sw_pair",
+          "selected_main_tid_period_percent": 1.6020109955333948
+        },
+        {
+          "period": 614139766,
+          "primary_records": 24,
+          "routine": "__module_small_step_em_MOD_advance_mu_t",
+          "selected_main_tid_period_percent": 1.595417396908855
+        },
+        {
+          "period": 534540696,
+          "primary_records": 19,
+          "routine": "__rrtmg_sw_spcvmc_MOD_spcvmc_sw",
+          "selected_main_tid_period_percent": 1.3886342701901633
+        },
+        {
+          "period": 510209904,
+          "primary_records": 19,
+          "routine": "__module_small_step_em_MOD_advance_w",
+          "selected_main_tid_period_percent": 1.3254275361755306
+        },
+        {
+          "period": 485491497,
+          "primary_records": 18,
+          "routine": "__module_advect_em_MOD_advect_scalar_pd",
+          "selected_main_tid_period_percent": 1.261213852686952
+        },
+        {
+          "period": 475535379,
+          "primary_records": 17,
+          "routine": "__rrtmg_sw_reftra_MOD_reftra_sw_clear",
+          "selected_main_tid_period_percent": 1.2353497664605646
+        },
+        {
+          "period": 428128332,
+          "primary_records": 14,
+          "routine": "__module_big_step_utilities_em_MOD_phy_prep",
+          "selected_main_tid_period_percent": 1.112195345094084
+        },
+        {
+          "period": 421695636,
+          "primary_records": 14,
+          "routine": "__module_bl_myjpbl_MOD_myjpbl",
+          "selected_main_tid_period_percent": 1.0954844338722467
+        },
+        {
+          "period": 359268536,
+          "primary_records": 12,
+          "routine": "__module_small_step_em_MOD_small_step_prep",
+          "selected_main_tid_period_percent": 0.933310793778456
+        },
+        {
+          "period": 349465119,
+          "primary_records": 13,
+          "routine": "__module_em_MOD_rk_update_scalar",
+          "selected_main_tid_period_percent": 0.9078433954811245
+        },
+        {
+          "period": 339802661,
+          "primary_records": 13,
+          "routine": "__module_big_step_utilities_em_MOD_calc_cq",
+          "selected_main_tid_period_percent": 0.8827421816474951
+        },
+        {
+          "period": 332940402,
+          "primary_records": 12,
+          "routine": "__mcica_subcol_gen_lw_MOD_generate_stochastic_clouds",
+          "selected_main_tid_period_percent": 0.8649153480880893
+        },
+        {
+          "period": 308454532,
+          "primary_records": 11,
+          "routine": "__module_mp_thompson_MOD_mp_gt_driver",
+          "selected_main_tid_period_percent": 0.8013057511540119
+        },
+        {
+          "period": 299488833,
+          "primary_records": 11,
+          "routine": "__module_advect_em_MOD_advect_scalar",
+          "selected_main_tid_period_percent": 0.7780145836511925
+        },
+        {
+          "period": 267825968,
+          "primary_records": 10,
+          "routine": "__module_advect_em_MOD_advect_u",
+          "selected_main_tid_period_percent": 0.695760529356691
+        },
+        {
+          "period": 243987851,
+          "primary_records": 9,
+          "routine": "__module_small_step_em_MOD_sumflux",
+          "selected_main_tid_period_percent": 0.6338336705586421
+        },
+        {
+          "period": 240822726,
+          "primary_records": 8,
+          "routine": "__module_em_MOD_rk_addtend_dry",
+          "selected_main_tid_period_percent": 0.6256112824835616
+        },
+        {
+          "period": 230883410,
+          "primary_records": 8,
+          "routine": "__module_big_step_utilities_em_MOD_horizontal_diffusion",
+          "selected_main_tid_period_percent": 0.5997908446326531
+        },
+        {
+          "period": 225838315,
+          "primary_records": 8,
+          "routine": "__module_cu_tiedtke_MOD_cuadjtq",
+          "selected_main_tid_period_percent": 0.5866846548405759
+        },
+        {
+          "period": 223318846,
+          "primary_records": 8,
+          "routine": "__module_mp_thompson_MOD_compt_fr_the",
+          "selected_main_tid_period_percent": 0.5801395572974661
+        },
+        {
+          "period": 219968058,
+          "primary_records": 9,
+          "routine": "f_pack_int_ikj_",
+          "selected_main_tid_period_percent": 0.5714348523353169
+        },
+        {
+          "period": 199309307,
+          "primary_records": 7,
+          "routine": "__module_big_step_utilities_em_MOD_rhs_ph",
+          "selected_main_tid_period_percent": 0.5177673770007067
+        },
+        {
+          "period": 198519558,
+          "primary_records": 7,
+          "routine": "__module_big_step_utilities_em_MOD_horizontal_pressure_gradient",
+          "selected_main_tid_period_percent": 0.5157157604737428
+        },
+        {
+          "period": 196827149,
+          "primary_records": 7,
+          "routine": "__module_small_step_em_MOD_small_step_finish",
+          "selected_main_tid_period_percent": 0.5113192062840161
+        },
+        {
+          "period": 195654697,
+          "primary_records": 7,
+          "routine": "__rrtmg_lw_rad_MOD_inatm",
+          "selected_main_tid_period_percent": 0.5082734007175994
+        },
+        {
+          "period": 194543377,
+          "primary_records": 7,
+          "routine": "__module_big_step_utilities_em_MOD_coriolis",
+          "selected_main_tid_period_percent": 0.5053864043697148
+        },
+        {
+          "period": 181071984,
+          "primary_records": 7,
+          "routine": "__module_diffusion_em_MOD_cal_helicity",
+          "selected_main_tid_period_percent": 0.4703903074832022
+        },
+        {
+          "period": 173841497,
+          "primary_records": 7,
+          "routine": "__module_small_step_em_MOD_calc_p_rho",
+          "selected_main_tid_period_percent": 0.4516068881598501
+        },
+        {
+          "period": 167790637,
+          "primary_records": 6,
+          "routine": "__module_mp_thompson_MOD_rslf",
+          "selected_main_tid_period_percent": 0.43588791367764745
+        },
+        {
+          "period": 166954136,
+          "primary_records": 6,
+          "routine": "taugb8.9",
+          "selected_main_tid_period_percent": 0.433714844415867
+        },
+        {
+          "period": 166495916,
+          "primary_records": 6,
+          "routine": "__diag_functions_MOD_calc_rh",
+          "selected_main_tid_period_percent": 0.4325244766851254
+        },
+        {
+          "period": 161047814,
+          "primary_records": 6,
+          "routine": "__module_advect_em_MOD_advect_v",
+          "selected_main_tid_period_percent": 0.4183713519533621
+        },
+        {
+          "period": 158481310,
+          "primary_records": 5,
+          "routine": "__module_sf_myjsfc_MOD_myjsfc",
+          "selected_main_tid_period_percent": 0.41170406649567987
+        },
+        {
+          "period": 151596586,
+          "primary_records": 5,
+          "routine": "__module_big_step_utilities_em_MOD_horizontal_diffusion_3dmp",
+          "selected_main_tid_period_percent": 0.3938188731722501
+        },
+        {
+          "period": 147017615,
+          "primary_records": 5,
+          "routine": "__bl_gwdo_MOD_bl_gwdo_run",
+          "selected_main_tid_period_percent": 0.38192358418791633
+        },
+        {
+          "period": 142479544,
+          "primary_records": 5,
+          "routine": "__module_big_step_utilities_em_MOD_curvature",
+          "selected_main_tid_period_percent": 0.3701345455640804
+        },
+        {
+          "period": 137455873,
+          "primary_records": 5,
+          "routine": "__module_diffusion_em_MOD_cal_deform_and_div",
+          "selected_main_tid_period_percent": 0.3570840112175608
+        },
+        {
+          "period": 135520284,
+          "primary_records": 5,
+          "routine": "__module_em_MOD_calculate_phy_tend",
+          "selected_main_tid_period_percent": 0.35205572199932866
+        },
+        {
+          "period": 133777625,
+          "primary_records": 5,
+          "routine": "__module_advect_em_MOD_advect_w",
+          "selected_main_tid_period_percent": 0.34752862794126405
+        },
+        {
+          "period": 118348178,
+          "primary_records": 4,
+          "routine": "__module_bl_myjpbl_MOD_vdifh",
+          "selected_main_tid_period_percent": 0.30744588207249524
+        },
+        {
+          "period": 118200353,
+          "primary_records": 4,
+          "routine": "__module_bc_em_MOD_mass_weight",
+          "selected_main_tid_period_percent": 0.30706186105683275
+        },
+        {
+          "period": 112964510,
+          "primary_records": 4,
+          "routine": "__mcica_subcol_gen_sw_MOD_generate_stochastic_clouds_sw",
+          "selected_main_tid_period_percent": 0.2934601445223534
+        },
+        {
+          "period": 112237972,
+          "primary_records": 4,
+          "routine": "__module_ra_rrtmg_lw_MOD_o3data",
+          "selected_main_tid_period_percent": 0.29157273805742934
+        },
+        {
+          "period": 112112844,
+          "primary_records": 4,
+          "routine": "__rrtmg_lw_cldprmc_MOD_cldprmc",
+          "selected_main_tid_period_percent": 0.29124767949732233
+        },
+        {
+          "period": 111891836,
+          "primary_records": 4,
+          "routine": "__rrtmg_lw_taumol_MOD_taumol",
+          "selected_main_tid_period_percent": 0.29067354307500176
+        },
+        {
+          "period": 109748213,
+          "primary_records": 4,
+          "routine": "__module_small_step_em_MOD_calc_coef_w",
+          "selected_main_tid_period_percent": 0.2851048213996593
+        },
+        {
+          "period": 107123325,
+          "primary_records": 4,
+          "routine": "__module_em_MOD_rk_update_scalar_pd",
+          "selected_main_tid_period_percent": 0.27828586550072265
+        },
+        {
+          "period": 103538951,
+          "primary_records": 4,
+          "routine": "__module_physics_addtendc_MOD_add_a2a",
+          "selected_main_tid_period_percent": 0.2689743488831392
+        },
+        {
+          "period": 94886425,
+          "primary_records": 3,
+          "routine": "__module_sf_myjsfc_MOD_sfcdif",
+          "selected_main_tid_period_percent": 0.24649674480692607
+        },
+        {
+          "period": 91172879,
+          "primary_records": 3,
+          "routine": "__module_sf_noahdrv_MOD_lsm",
+          "selected_main_tid_period_percent": 0.23684966409236885
+        },
+        {
+          "period": 85648499,
+          "primary_records": 3,
+          "routine": "__module_bl_myjpbl_MOD_vdifq",
+          "selected_main_tid_period_percent": 0.2224983837371812
+        },
+        {
+          "period": 84623809,
+          "primary_records": 3,
+          "routine": "__rrtmg_sw_reftra_MOD_reftra_sw",
+          "selected_main_tid_period_percent": 0.21983643552450263
+        },
+        {
+          "period": 83844931,
+          "primary_records": 3,
+          "routine": "__module_diag_afwa_MOD_afwa_diagnostics_driver",
+          "selected_main_tid_period_percent": 0.21781305977184118
+        },
+        {
+          "period": 83538086,
+          "primary_records": 3,
+          "routine": "taugb5.12",
+          "selected_main_tid_period_percent": 0.21701593527631635
+        },
+        {
+          "period": 83304746,
+          "primary_records": 3,
+          "routine": "__module_diffusion_em_MOD_compute_diff_metrics",
+          "selected_main_tid_period_percent": 0.21640976268173026
+        },
+        {
+          "period": 80854164,
+          "primary_records": 3,
+          "routine": "__module_diag_nwp_MOD_diagnostic_output_nwp",
+          "selected_main_tid_period_percent": 0.21004362036071386
+        },
+        {
+          "period": 74994063,
+          "primary_records": 3,
+          "routine": "__module_big_step_utilities_em_MOD_couple_momentum",
+          "selected_main_tid_period_percent": 0.1948202011968049
+        },
+        {
+          "period": 61652384,
+          "primary_records": 2,
+          "routine": "wrf_phy_height_row_ordered_",
+          "selected_main_tid_period_percent": 0.16016107641937835
+        },
+        {
+          "period": 58757845,
+          "primary_records": 2,
+          "routine": "__module_big_step_utilities_em_MOD_w_damp",
+          "selected_main_tid_period_percent": 0.15264161890776176
+        },
+        {
+          "period": 58503893,
+          "primary_records": 2,
+          "routine": "__module_bl_myjpbl_MOD_prodq2",
+          "selected_main_tid_period_percent": 0.15198190028797806
+        },
+        {
+          "period": 58323128,
+          "primary_records": 2,
+          "routine": "__module_big_step_utilities_em_MOD_calc_p_rho_phi",
+          "selected_main_tid_period_percent": 0.15151230746608574
+        },
+        {
+          "period": 56985719,
+          "primary_records": 2,
+          "routine": "__module_mp_thompson_MOD_calc_refl10cm",
+          "selected_main_tid_period_percent": 0.1480379752317805
+        },
+        {
+          "period": 56573666,
+          "primary_records": 2,
+          "routine": "__module_cu_tiedtke_MOD_tiecnv",
+          "selected_main_tid_period_percent": 0.14696754051798527
+        },
+        {
+          "period": 56560783,
+          "primary_records": 2,
+          "routine": "taugb7.10",
+          "selected_main_tid_period_percent": 0.1469340729533326
+        },
+        {
+          "period": 56134744,
+          "primary_records": 2,
+          "routine": "taumol21.9",
+          "selected_main_tid_period_percent": 0.1458273052923021
+        },
+        {
+          "period": 55968236,
+          "primary_records": 2,
+          "routine": "__rrtmg_sw_rad_MOD_rrtmg_sw",
+          "selected_main_tid_period_percent": 0.14539474942370118
+        },
+        {
+          "period": 55723642,
+          "primary_records": 2,
+          "routine": "__rrtmg_sw_rad_MOD_inatm_sw",
+          "selected_main_tid_period_percent": 0.14475934109422406
+        },
+        {
+          "period": 55557012,
+          "primary_records": 2,
+          "routine": "__module_mp_thompson_MOD_calc_effectrad",
+          "selected_main_tid_period_percent": 0.14432646829300746
+        },
+        {
+          "period": 55473172,
+          "primary_records": 2,
+          "routine": "__rrtmg_lw_setcoef_MOD_setcoef",
+          "selected_main_tid_period_percent": 0.14410866804302847
+        },
+        {
+          "period": 55447784,
+          "primary_records": 2,
+          "routine": "__module_big_step_utilities_em_MOD_phy_prep_part2",
+          "selected_main_tid_period_percent": 0.14404271488527004
+        },
+        {
+          "period": 54400497,
+          "primary_records": 2,
+          "routine": "taugb4.13",
+          "selected_main_tid_period_percent": 0.14132206399786848
+        },
+        {
+          "period": 54005638,
+          "primary_records": 2,
+          "routine": "__module_big_step_utilities_em_MOD_calc_alt",
+          "selected_main_tid_period_percent": 0.14029629600041554
+        },
+        {
+          "period": 53610298,
+          "primary_records": 2,
+          "routine": "wrf_rsl_unpack_ikj_original_",
+          "selected_main_tid_period_percent": 0.13926927845715822
+        },
+        {
+          "period": 47501004,
+          "primary_records": 2,
+          "routine": "__module_big_step_utilities_em_MOD_calc_ww_cp",
+          "selected_main_tid_period_percent": 0.12339850364328485
+        },
+        {
+          "period": 32387486,
+          "primary_records": 1,
+          "routine": "__module_radiation_driver_MOD_radiation_driver",
+          "selected_main_tid_period_percent": 0.08413648076086638
+        },
+        {
+          "period": 32258994,
+          "primary_records": 1,
+          "routine": "__module_surface_driver_MOD_surface_driver",
+          "selected_main_tid_period_percent": 0.08380268317355365
+        },
+        {
+          "period": 31277959,
+          "primary_records": 1,
+          "routine": "__module_sf_noahlsm_MOD_wdfcnd",
+          "selected_main_tid_period_percent": 0.08125414228330867
+        },
+        {
+          "period": 30744305,
+          "primary_records": 1,
+          "routine": "__module_pbl_driver_MOD_pbl_driver",
+          "selected_main_tid_period_percent": 0.07986781147936917
+        },
+        {
+          "period": 30573876,
+          "primary_records": 1,
+          "routine": "__module_bl_myjpbl_MOD_vdifv",
+          "selected_main_tid_period_percent": 0.07942506960432541
+        },
+        {
+          "period": 30503127,
+          "primary_records": 1,
+          "routine": "__module_sf_noahlsm_MOD_evapo",
+          "selected_main_tid_period_percent": 0.07924127726313071
+        },
+        {
+          "period": 29773413,
+          "primary_records": 1,
+          "routine": "__module_comm_dm_1_MOD_halo_em_b_sub",
+          "selected_main_tid_period_percent": 0.077345620158966
+        },
+        {
+          "period": 29286480,
+          "primary_records": 1,
+          "routine": "__module_mp_thompson_MOD_theta_e",
+          "selected_main_tid_period_percent": 0.07608066155778495
+        },
+        {
+          "period": 29017211,
+          "primary_records": 1,
+          "routine": "__module_cu_tiedtke_MOD_cuentr_new",
+          "selected_main_tid_period_percent": 0.07538115230788522
+        },
+        {
+          "period": 28957535,
+          "primary_records": 1,
+          "routine": "__module_cu_tiedtke_MOD_cuini",
+          "selected_main_tid_period_percent": 0.0752261254982747
+        },
+        {
+          "period": 28757964,
+          "primary_records": 1,
+          "routine": "taugb11.6",
+          "selected_main_tid_period_percent": 0.07470767829301997
+        },
+        {
+          "period": 28633480,
+          "primary_records": 1,
+          "routine": "__module_cu_tiedtke_MOD_cubasmc",
+          "selected_main_tid_period_percent": 0.07438429272147436
+        },
+        {
+          "period": 28501004,
+          "primary_records": 1,
+          "routine": "__module_cu_tiedtke_MOD_cumastr_new",
+          "selected_main_tid_period_percent": 0.07404014546579428
+        },
+        {
+          "period": 28313739,
+          "primary_records": 1,
+          "routine": "wrf_hpg_nhx_consume_avx2",
+          "selected_main_tid_period_percent": 0.07355366688978861
+        },
+        {
+          "period": 28278720,
+          "primary_records": 1,
+          "routine": "__module_big_step_utilities_em_MOD_moist_physics_finish_em",
+          "selected_main_tid_period_percent": 0.07346269424005085
+        },
+        {
+          "period": 28199880,
+          "primary_records": 1,
+          "routine": "taugb10.7",
+          "selected_main_tid_period_percent": 0.07325788303169752
+        },
+        {
+          "period": 28098912,
+          "primary_records": 1,
+          "routine": "taugb15.2",
+          "selected_main_tid_period_percent": 0.07299558752072567
+        },
+        {
+          "period": 28091734,
+          "primary_records": 1,
+          "routine": "taumol25.5",
+          "selected_main_tid_period_percent": 0.07297694045256789
+        },
+        {
+          "period": 28039496,
+          "primary_records": 1,
+          "routine": "__rrtmg_sw_cldprmc_MOD_cldprmc_sw",
+          "selected_main_tid_period_percent": 0.07284123614127969
+        },
+        {
+          "period": 27949330,
+          "primary_records": 1,
+          "routine": "__rrtmg_sw_taumol_MOD_taumol_sw",
+          "selected_main_tid_period_percent": 0.07260700215583592
+        },
+        {
+          "period": 27835277,
+          "primary_records": 1,
+          "routine": "__rrtmg_lw_rad_MOD_rrtmg_lw",
+          "selected_main_tid_period_percent": 0.07231071432292975
+        },
+        {
+          "period": 27812251,
+          "primary_records": 1,
+          "routine": "__module_cu_tiedtke_MOD_cu_tiedtke",
+          "selected_main_tid_period_percent": 0.07225089718843528
+        },
+        {
+          "period": 27665596,
+          "primary_records": 1,
+          "routine": "set_scalar_indices_from_config_",
+          "selected_main_tid_period_percent": 0.07186991560851318
+        },
+        {
+          "period": 27613497,
+          "primary_records": 1,
+          "routine": "__module_diagnostics_driver_MOD_update_phys_fields",
+          "selected_main_tid_period_percent": 0.07173457239258217
+        },
+        {
+          "period": 27251932,
+          "primary_records": 1,
+          "routine": "__module_physics_addtendc_MOD_add_a2c_v",
+          "selected_main_tid_period_percent": 0.07079529582550616
+        },
+        {
+          "period": 26497910,
+          "primary_records": 1,
+          "routine": "__module_diffusion_em_MOD_smag2d_km",
+          "selected_main_tid_period_percent": 0.06883649119657416
+        },
+        {
+          "period": 26096983,
+          "primary_records": 1,
+          "routine": "__module_diffusion_em_MOD_calculate_n2",
+          "selected_main_tid_period_percent": 0.06779495969820433
+        },
+        {
+          "period": 25951404,
+          "primary_records": 1,
+          "routine": "__module_big_step_utilities_em_MOD_conv_t_tendf_to_moist",
+          "selected_main_tid_period_percent": 0.06741677336004008
+        },
+        {
+          "period": 24475434,
+          "primary_records": 1,
+          "routine": "__module_big_step_utilities_em_MOD_pg_buoy_w",
+          "selected_main_tid_period_percent": 0.06358248620639635
+        },
+        {
+          "period": 23955505,
+          "primary_records": 1,
+          "routine": "__module_big_step_utilities_em_MOD_calc_php",
+          "selected_main_tid_period_percent": 0.062231810321719275
+        },
+        {
+          "period": 18570780,
+          "primary_records": 1,
+          "routine": "__module_big_step_utilities_em_MOD_set_tend",
+          "selected_main_tid_period_percent": 0.048243326888177805
+        },
+        {
+          "period": 2,
+          "primary_records": 2,
+          "routine": "__module_bc_MOD_spec_bdyupdate",
+          "selected_main_tid_period_percent": 5.195616650262165e-09
+        }
+      ],
+      "early_watch": {
+        "active_rows": [
+          113,
+          114,
+          115,
+          116,
+          117,
+          118,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          126,
+          127,
+          128
+        ],
+        "boot_id": "ad105fdb-2b6c-40b2-a1ba-6b9997e08d4c",
+        "bridge_pid": 2338512,
+        "bridge_startticks": "253584393",
+        "context_sha256": "875dabf11e6065404d187f2f96887c69095648a665d384854b9f2e0169089d9a",
+        "first_bytes": 18916,
+        "growth_transitions": 15,
+        "last_bytes": 11943596,
+        "perf_pid": 2338520,
+        "perf_startticks": "253584406",
+        "perf_stdout_same_inode_required": false,
+        "raw_dev": 64512,
+        "raw_ino": 27394395,
+        "schema": "CURRENT5C75_FOURHOST_NOON_NATIVE15_LIVE_V3",
+        "source_identity_and_bridge_verified": true,
+        "stage": "/tmp/wrf-cpu-quilt-profile-1000-zcfsebk9",
+        "time_namespace_inode": 4026531834
+      },
+      "host": "hpc03",
+      "non_WRF_selected_main_tid_period_percent": 56.54864841716848,
+      "numeric_loss": "UNKNOWN",
+      "primary_lost_lines": [],
+      "primary_period_cycles": 38493987040,
+      "primary_records": 1396,
+      "radiation_family_membership": [
+        "__mcica_subcol_gen_lw_MOD_generate_stochastic_clouds",
+        "__mcica_subcol_gen_sw_MOD_generate_stochastic_clouds_sw",
+        "__rrtmg_lw_cldprmc_MOD_cldprmc",
+        "__rrtmg_lw_rad_MOD_inatm",
+        "__rrtmg_lw_rad_MOD_rrtmg_lw",
+        "__rrtmg_lw_rtrnmc_MOD_rtrnmc",
+        "__rrtmg_lw_setcoef_MOD_setcoef",
+        "__rrtmg_lw_taumol_MOD_taumol",
+        "__rrtmg_sw_cldprmc_MOD_cldprmc_sw",
+        "__rrtmg_sw_rad_MOD_inatm_sw",
+        "__rrtmg_sw_rad_MOD_rrtmg_sw",
+        "__rrtmg_sw_reftra_MOD_reftra_sw",
+        "__rrtmg_sw_reftra_MOD_reftra_sw_clear",
+        "__rrtmg_sw_spcvmc_MOD_spcvmc_sw",
+        "__rrtmg_sw_taumol_MOD_taumol_sw",
+        "__rrtmg_sw_vrtqdr_MOD_vrtqdr_sw_pair"
+      ],
+      "radiation_primary_records": 130,
+      "radiation_selected_main_tid_period_percent": 9.457839132685487,
+      "rank": 386,
+      "raw_and_input_hashes": {
+        "/pool/wrf-experiment/wrf-cpu/builds/current871-moist-height-one-bigstep-member-experimental-r1/wrf.exe": "5c758822e12965742be2e10669a1e9fd8b3e8e9eee66b4a8eb74d98340e35339",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current5c75-noon1h-native15-postrun-hpc03-r1/rank386-binding.json": "f7f7da5915bed2e216b42243d74b9f6eef4058ca4accd4f3e81f262981fea44a",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current5c75-noon1h-native15-postrun-hpc03-r1/watch-rank386.jsonl": "51bc8e578dd92ef006bfc47a93ae9c6469f22fd80ea8ebf0047308ff2662b721",
+        "/pool/wrf-experiment/wrf-cpu/runs/production512-current5c75-fourhost-noon1h-native15-candidate-r1/adaptive-steps.json": "c68c5560e5447f623d886de2a334733e5358ed156e9175cd04c18c96280f57ed",
+        "/pool/wrf-experiment/wrf-cpu/runs/production512-current5c75-fourhost-noon1h-native15-candidate-r1/model-closures.json": "a274cde36c51986dc19566b1b0c2b66ca33b2f4429eab2ad58d80a634d3d0668",
+        "/pool/wrf-experiment/wrf-cpu/runs/production512-current5c75-fourhost-noon1h-native15-candidate-r1/native-profile-rank386/collector-final.json": "133f395e8a8e4953c723c25c19e1c16d927146fe222179811b625cba60f98bf6",
+        "/pool/wrf-experiment/wrf-cpu/runs/production512-current5c75-fourhost-noon1h-native15-candidate-r1/native-profile-rank386/rank386.collector.json": "a000decf37bd5c204e7527515f9fc2aca5133ab4f5004c4374f49849590fc6d8",
+        "/pool/wrf-experiment/wrf-cpu/runs/production512-current5c75-fourhost-noon1h-native15-candidate-r1/native-profile-rank386/rank386.perf.data": "6f4f35e91957b7a3ce1c048220b5057d749b1f83d9a750b5bf01224b124e756c",
+        "/pool/wrf-experiment/wrf-cpu/runs/production512-current5c75-fourhost-noon1h-native15-candidate-r1/native-profile-rank386/rank386.root-final.json": "5219b8f2e65da7663e6010677c43ffca30b63c42624bbf60eccb79559358bc1f",
+        "/pool/wrf-experiment/wrf-cpu/science-prep/production512-current5c75-fourhost-noon1h-native15-r1/lease-candidate-granted.json": "610b34f582afc2e71348a50a13a87fb9e7bea9d144237f98b93d8f60648d5ce9",
+        "/pool/wrf-experiment/wrf-cpu/science-prep/production512-current5c75-fourhost-noon1h-native15-r1/reader-closure.json": "1fdc3d91102164e720cf88a5b85f79b8f40eaa5b22b78e56fc5805264cf7263a",
+        "/pool/wrf-experiment/wrf-cpu/science-prep/production512-current5c75-fourhost-noon1h-native15-r1/science-receipt.json": "6fefe55ab8893a25d94dc26c336fd29e3486ed28f52ab44b37f51914d471d9cd",
+        "/pool/wrf-experiment/wrf-cpu/science-prep/production512-current5c75-fourhost-noon1h-native15-r1/source-pins.json": "c65f07a1644435e8b2147e0f9f920be38a727868b754ecb41c8e03393c77aa9e",
+        "/usr/lib/linux-tools-6.8.0-88/perf": "ec1cd6211c8972093de6128929f7a156b51f0c460f85ce2985fb6487722cf4e2"
+      },
+      "record_perf": {
+        "host": "hpc03",
+        "path": "/usr/lib/linux-tools-6.8.0-88/perf",
+        "sha256": "ec1cd6211c8972093de6128929f7a156b51f0c460f85ce2985fb6487722cf4e2",
+        "version": "perf version 6.8.12"
+      },
+      "recorded_buildID": "UNKNOWN",
+      "recorded_buildID_note": "Raw compute summary tokens are executable pathnames, not valid hexadecimal build IDs; no ID inferred.",
+      "render_perf": {
+        "host": "hpc03",
+        "path": "/usr/lib/linux-tools-6.8.0-88/perf",
+        "sha256": "ec1cd6211c8972093de6128929f7a156b51f0c460f85ce2985fb6487722cf4e2",
+        "version": "perf version 6.8.12"
+      },
+      "requested_record_seconds": 15,
+      "role": "compute_mainTID",
+      "stack_lost_lines": []
+    },
+    {
+      "actual_capture_phase": {
+        "admission": {
+          "aged_remaining_wall_seconds": 91.826851326,
+          "compute_only_window_qualified": false,
+          "estimate_age_seconds": 9.3174e-05,
+          "identity_phase_qualified": true,
+          "mixed_io_context": true,
+          "model_second": 1515.0,
+          "profile_capture_purpose": "SOURCE_IDENTITY_ONLY",
+          "ready": true,
+          "status": "SOURCE_IDENTITY_PHASE_ADMITTED",
+          "window_valid": false
+        },
+        "collector_end_monotonic_ns": 10135254444039,
+        "collector_start_monotonic_ns": 10116354964824,
+        "parent_observed_phase": {
+          "complete_steps_in_bounded_tail": 80,
+          "mean_last5_dt": 20.0,
+          "mean_last5_step_wall": 0.8808339999999999,
+          "observed_at_monotonic_ns": 10112192871534,
+          "observed_forecast_time": "2026-10-12_12:25:15",
+          "predicted_remaining_wall_seconds": 91.8269445,
+          "remaining_simulated_seconds": 2085.0,
+          "rsl_tail_sha256": "299fadf4bef4b44eddd48bb23fb0eef8e7262508a74e94119cc00d99aa4fb398",
+          "scope": "actual completed-RSL-step estimate for SOURCE_IDENTITY_ONLY; writer overlap allowed and observed; prediction not a guarantee of request/sample overlap or pure-compute timing"
+        },
+        "radiation_overlap": "POSTHOC_SOURCE_SAMPLES_ONLY_NO_TRIGGER_GUARANTEE"
+      },
+      "clock": {
+        "boot_id": "5408fdf6-1999-4b61-89f8-9552cdc6b305",
+        "evlist_monotonic": true,
+        "observer_header_association": "NOT_APPLICABLE_OBSERVER_OFF",
+        "sample_inside_actual_collector_interval": true,
+        "time_namespace_inode": 4026531834,
+        "timestamp_causal_join_qualified": false
+      },
+      "collector_interval_seconds": 18.899479215,
+      "cpu": 31,
+      "current_ELF_buildID": "UNKNOWN",
+      "direct_routines": [
+        {
+          "period": 40428086597,
+          "primary_records": 1432,
+          "routine": "NON_WRF",
+          "selected_main_tid_period_percent": 100.0
+        }
+      ],
+      "early_watch": {
+        "active_rows": [
+          113,
+          114,
+          115,
+          116,
+          117,
+          118,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          126,
+          127,
+          128,
+          129
+        ],
+        "boot_id": "5408fdf6-1999-4b61-89f8-9552cdc6b305",
+        "bridge_pid": 23076,
+        "bridge_startticks": "1011619",
+        "context_sha256": "e1bdcd4559f72bf9dfc0cad8c8980f49325d21e81ea7a5275fb4389f142cd0d8",
+        "first_bytes": 0,
+        "growth_transitions": 16,
+        "last_bytes": 12253708,
+        "perf_pid": 23078,
+        "perf_startticks": "1011627",
+        "perf_stdout_same_inode_required": false,
+        "raw_dev": 64512,
+        "raw_ino": 20578332,
+        "schema": "CURRENT5C75_FOURHOST_NOON_NATIVE15_LIVE_V3",
+        "source_identity_and_bridge_verified": true,
+        "stage": "/tmp/wrf-cpu-quilt-profile-1000-45ardsar",
+        "target_sampler_snapshot_main_mask": [
+          28,
+          29,
+          30,
+          31
+        ],
+        "thread_scope": "MainTID only; historical writer snapshot may include exactly qualified borrowed pack cores28\u201331; live observed target remains31. No continuous31 affinity or helper/compressor attribution claim.",
+        "time_namespace_inode": 4026531834
+      },
+      "host": "hpc04",
+      "non_WRF_selected_main_tid_period_percent": 100.0,
+      "numeric_loss": "UNKNOWN",
+      "primary_lost_lines": [],
+      "primary_period_cycles": 40428086597,
+      "primary_records": 1432,
+      "radiation_family_membership": [],
+      "radiation_primary_records": 0,
+      "radiation_selected_main_tid_period_percent": 0.0,
+      "rank": 487,
+      "raw_and_input_hashes": {
+        "/pool/wrf-experiment/wrf-cpu/builds/current871-moist-height-one-bigstep-member-experimental-r1/wrf.exe": "5c758822e12965742be2e10669a1e9fd8b3e8e9eee66b4a8eb74d98340e35339",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current5c75-noon1h-native15-postrun-hpc04-r2/rank487-binding.json": "5175d0313640de38b0e32aefe86e44b62c2b0c5ac5187154cb83939b8734bcdf",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current5c75-noon1h-native15-postrun-hpc04-r2/watch-rank487.jsonl": "72b8853e90b23b1a153345a6966ca8a5e9c2ada0f3d7528f7f7cfe97c5c6cb25",
+        "/pool/wrf-experiment/wrf-cpu/runs/production512-current5c75-fourhost-noon1h-native15-candidate-r1/adaptive-steps.json": "c68c5560e5447f623d886de2a334733e5358ed156e9175cd04c18c96280f57ed",
+        "/pool/wrf-experiment/wrf-cpu/runs/production512-current5c75-fourhost-noon1h-native15-candidate-r1/model-closures.json": "a274cde36c51986dc19566b1b0c2b66ca33b2f4429eab2ad58d80a634d3d0668",
+        "/pool/wrf-experiment/wrf-cpu/runs/production512-current5c75-fourhost-noon1h-native15-candidate-r1/native-profile-rank487/collector-final.json": "4b90e94d300a45c9496ab0d1216a6cacaf4376fa440ed6cbbdc090a200757594",
+        "/pool/wrf-experiment/wrf-cpu/runs/production512-current5c75-fourhost-noon1h-native15-candidate-r1/native-profile-rank487/rank487.collector.json": "d42ad29601ba8c450c71e5b71f0a402b94fac8693612bc2be6d4d028779d10be",
+        "/pool/wrf-experiment/wrf-cpu/runs/production512-current5c75-fourhost-noon1h-native15-candidate-r1/native-profile-rank487/rank487.perf.data": "ce3bf800b598824efabe93dcf52844efd9bd22383ddb47dd640dcc4de2498c79",
+        "/pool/wrf-experiment/wrf-cpu/runs/production512-current5c75-fourhost-noon1h-native15-candidate-r1/native-profile-rank487/rank487.root-final.json": "6487e8b4a1e62bb175675f07a3c89714a654cdaff947e8bb807b6664accf9ee2",
+        "/pool/wrf-experiment/wrf-cpu/science-prep/production512-current5c75-fourhost-noon1h-native15-r1/lease-candidate-granted.json": "610b34f582afc2e71348a50a13a87fb9e7bea9d144237f98b93d8f60648d5ce9",
+        "/pool/wrf-experiment/wrf-cpu/science-prep/production512-current5c75-fourhost-noon1h-native15-r1/reader-closure.json": "1fdc3d91102164e720cf88a5b85f79b8f40eaa5b22b78e56fc5805264cf7263a",
+        "/pool/wrf-experiment/wrf-cpu/science-prep/production512-current5c75-fourhost-noon1h-native15-r1/science-receipt.json": "6fefe55ab8893a25d94dc26c336fd29e3486ed28f52ab44b37f51914d471d9cd",
+        "/pool/wrf-experiment/wrf-cpu/science-prep/production512-current5c75-fourhost-noon1h-native15-r1/source-pins.json": "c65f07a1644435e8b2147e0f9f920be38a727868b754ecb41c8e03393c77aa9e",
+        "/usr/lib/linux-tools-6.8.0-147/perf": "2927eb0973fd937bdd417622531c95f1e6e19307a29c3e05a2c6198e12af6e56"
+      },
+      "record_perf": {
+        "host": "hpc04",
+        "path": "/usr/lib/linux-tools-6.8.0-147/perf",
+        "sha256": "2927eb0973fd937bdd417622531c95f1e6e19307a29c3e05a2c6198e12af6e56",
+        "version": "perf version 6.8.12"
+      },
+      "recorded_buildID": "UNKNOWN",
+      "recorded_buildID_note": "Not established.",
+      "render_perf": {
+        "host": "hpc04",
+        "path": "/usr/lib/linux-tools-6.8.0-147/perf",
+        "sha256": "2927eb0973fd937bdd417622531c95f1e6e19307a29c3e05a2c6198e12af6e56",
+        "version": "perf version 6.8.12"
+      },
+      "requested_record_seconds": 15,
+      "role": "writer_mainTID",
+      "stack_lost_lines": []
+    }
+  ],
+  "science": {
+    "bytes": 3632879,
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current5c75-fourhost-noon1h-native15-runtime-r1/science-receipt.json",
+    "sha256": "6fefe55ab8893a25d94dc26c336fd29e3486ed28f52ab44b37f51914d471d9cd"
+  },
+  "science_status": "PASS_CURRENT5C75_NATIVE_NOON_ONE_HOUR_TWO_HISTORY_185_STEP_PREFIX",
+  "scientific_scope": "Own instrumented SAME512 noon 12\u201313,185 ordered steps/two FULL products against retained original546b 75m prefix; all four model scopes and reader normal closed. Two active writer groups/16 positive FIELDView markers, all32 environment markers; not all4 positive short writers.",
+  "scientific_source_commit": "445e5532bf9a82fa5bfdd4898a03b153eb0a9451",
+  "scope": "Mixed IO; three selected main TIDs only; current ELF SHA/source identity; no cross-host causal join.",
+  "status": "PASS_SOURCE_IDENTITY_ONLY_THREE_MAIN_TIDS",
+  "tiles": 2,
+  "world_size": 512
+}

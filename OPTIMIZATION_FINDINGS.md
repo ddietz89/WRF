@@ -1,5 +1,11 @@
 # WRF CPU optimization findings
 
+## October25: current four-host daytime profile and temperature caller candidate
+
+The selected5c75 12→13 forecast passed185 ordered steps and both FULL products. Three15-second main-TID captures were observed recording early, then source-identity parsed after all model/reader/recorder jobs closed. Compute ranks122/386 contain SW/LW direct samples; writer487 was sampled between hourly outputs and supplies no compressor-worker cost. Numeric loss/build IDs remain UNKNOWN; exact content hashes bind the current source. The writer snapshot admission was repaired only for its qualified borrowed packing cores, preserving the failed attempt and all live identity/scientific predicates. [Actual profile and limits](tools/cpu-profiles/current5c75-fourhost-noon-three-main-tid-20261025/README.md).
+
+A separate advance_mu_t producer relocation passed strict O2/O0 complete-callee checks and four cache-cleared complete-caller arms. Whole-caller wall fell2.219%/1.338% on hpc01/04; threadCPU fell2.223%/1.327%. These use the original450×342/16-rank capture with512 whole calls plus required restores inside each batch. This supports retaining the candidate for its own application check, with no forecast-gain claim. Its one-member experimental link is built; selection remains5c75 until application qualification.
+
 ## October25: currentheight passes fresh four-host SAME512 comparison
 
 Fresh original546b A and unchanged selectedheight5c75 B passed all545 ordered steps and four FULL06–09 products on SAME512 (480compute+32quilt,8×60,two tiles). All eight model units and the reader closed normally. The candidate used the exact801e/db0d FP-entry guard; its source port preserves512 topology and the common engine. Failed nativeR1 launched no ranks and remains retained alongside all six context repairs and successful genuine512 nativeR2.
