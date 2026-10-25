@@ -1,0 +1,16 @@
+--- parent
++++ candidate
+@@ -2309,12 +2309,12 @@
+ 
+       DO J=jts,jtf
+       DO K=kts,ktf
++!$OMP SIMD
+       DO I=its,itf
+          RTHRATEN(I,K,J)=(c1(k)*mut(I,J)+c2(k))*RTHRATEN(I,K,J)
+       ENDDO
+       ENDDO
+       ENDDO
+-
+    ENDIF
+ 
+ 

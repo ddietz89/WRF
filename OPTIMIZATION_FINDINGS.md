@@ -1,5 +1,27 @@
 # WRF CPU optimization findings
 
+## October25: latest combined871 passes fresh nine-hour full-grid comparison
+
+The corrected original546b and latest combined871 each completed nine simulated hours on hpc01–03, with identical256 ranks (224 compute8×28 plus32 quilt4×8), two tiles, qualified InfiniBand transport and checked client-cache clearing before each arm. All ten complete06–15 products and all1,625 ordered timesteps passed the unchanged exact checker. All six model scopes and the reader closed normally. This includes all previously selected improvements plus SW whole-draw seed carry and FINISH V.
+
+| Metric | Fresh original546b | Latest871 | Reduction |
+|---|---:|---:|---:|
+| Total model/MPI wall (min) | 58.222918 | 52.007592 | **10.6751%** |
+| Main integration elapsed (min) | 55.213950 | 50.730136 | **8.1208%** |
+| Aggregate CPU (core-h) | 241.617963 | 219.751473 | **9.0500%** |
+
+This original-first, latest-second pair gives an observed throughput ratio of1.1195×. It does not establish repeatability, isolated component gains, or1.5×/2× achievement. Main elapsed includes communication and output backpressure; aggregate CPU is whole-job cgroup CPU, not integration-only CPU. The shorter three-hour comparison below has a different horizon and an unpaired retained control; its percentage is not an incremental change from this result.
+
+Lifetime cgroup memory peaks were89.34/81.25/90.26GiB for the original and61.58/54.51/62.92GiB for871, with zero memory events. These per-node peaks do not occur at a proven common instant. External before/during/after hardware samples reported no available BMC alarm. One candidate gateway observation interval failed and recovered with the same model PIDs; that interval remains unknown and sampling cannot exclude shorter transients.
+
+Own unprofiled SAME256 noon, three-hour and nine-hour science are now qualified. Four-host512,384-rank, current-profile, restart and full144-hour scopes remain unqualified. Tested-PP/cached-object delivery remains distinct from a clean whole canonical-source build. [Exact qualification, measurements and rollback](tools/cpu-compute/sw-whole-draw-finish-v-20261025/NINE_HOUR_APPLICATION_QUALIFICATION.json).
+
+The canonical SW and MYJPBL target recipes now explicitly carry the module-local `-fopenmp-simd` flag already used by the selected objects, under qualified GNU13.3/default-kind/pure-MPI guards. This fixes source build delivery without changing871. Actual canonical MYJ and SmallStep machine/data/module checks are exact; SW differs only in exhaustively classified I/O and fatal-error source-row diagnostics. Its strict-byte-false result remains preserved. [Three-owner evidence, opt-outs and rollback](tools/cpu-compute/canonical-selected-owner-flags-20261025/README.md).
+
+### Physics radiation-tendency SIMD: exact payload failure retained
+
+The separate one-directive radiation-tendency candidate failed its first O2 comparison at width1: competing quiet-NaN coefficients yielded parent`ffc54321` versus candidate`7fc12345` in RTHRATEN(1,1,1). Individual guards passed, but exact raw equality failed. The job closed normally after its failed gate; no O0, whole-module caller, timing or forecast followed. It remains rejected and871 is unchanged. [Counterexample and actual evidence](tools/cpu-rejected/physics-radiation-tendency-simd-20261025/README.md).
+
 ### Direct-corner MPI prototype: protocol passed, complete caller remains unpromoted
 
 The private HALO_EM_C direct eight-neighbor exchange passed the genuine nine-rank raw-data, five-state, fallback and request-lifetime gate. A larger local-footprint complete caller then stopped after its first original/candidate pair: all halo values remained exact, but errno and floating-point status differed on some ranks. Its recorded candidate time was about 3.11 times the original time. The strict failed wave and both normal process closures are retained; the second pair did not run.

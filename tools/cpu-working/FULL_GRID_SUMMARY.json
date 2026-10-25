@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-10-25T12:31:14.045809+00:00",
+  "updated_utc": "2026-10-25T15:20:59.838573+00:00",
   "metric_definitions": {
     "wall_seconds": "Model/MPI including initialization/output/final drain",
     "main_step_sum_seconds": "Sum of reported main-step elapsed; includes communication/waiting/backpressure, not integration CPU",
@@ -508,7 +508,7 @@
       "limits": "Own169c original H185/two06/07 products, full512, all4models+reader normalclosed. Candidate-only unpaired timings; parent90f5 matched3h/own9h historical. No writer/profile/long/restart/full144 qualification or forecastspeedup transfer."
     }
   ],
-  "limits": "Own unprofiled SAME256 noon185/two FULL and three-hour545/four FULL science. Three-hour candidate-only run against retained original546b A; UNPAIRED descriptive percentages only, no new matched timing gain, repeatability, isolated or additive component claim. Own9h/384/512/profile/restart/full144 false. Qualified-PP replay/cached-object delivery and actual post-test canonical correspondence; no clean canonical-source-only rebuild certificate.",
+  "limits": "Own unprofiled SAME256 noon185/two FULL, three-hour545/four FULL and fresh nine-hour1625/ten FULL science. Nine-hour corrected original546b first versus combined871 second: one fixed-order pair with checked caches before each arm; no repeatability, isolated or additive component claim. Own384/512/profile/restart/full144 false. Tested-PP replay/cached-object delivery and post-test canonical correspondence; no clean whole canonical-source rebuild certificate.",
   "current_selection": {
     "status": "PASS_OWN_UNPROFILED_THREEHOST_SAME256_SW_WHOLE_DRAW_FINISH_V_THREEHOUR545_FOUR_PRODUCTS",
     "executable": {
@@ -518,27 +518,32 @@
     "archive_sha256": "33399456c410e37ac7368affb589b3c70d4479086673a5563048a94fbc1fdb5b",
     "source_commit": "9cf704d18cf47dc8e04f9f1b58f678e917d76442",
     "qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-whole-draw-finish-v-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "5a409eeac8dfa74bcd51231afc9471499d6d0da18c128e781db5030fca95ebf7"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-whole-draw-finish-v-20261025/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "049c4a6b8c04e110987c71aa0173cfd2d62e393d03c94aedf63eb3930b78236a"
     },
     "own_noon_one_hour_qualified": true,
     "own_unprofiled_noon_one_hour_qualified": true,
     "own_three_hour_qualified": true,
-    "own_nine_hour_qualified": false,
+    "own_nine_hour_qualified": true,
     "own_384_qualified": false,
     "own_fourhost512_qualified": false,
     "profile_qualified": false,
     "native_profile_qualified": false,
     "restart_qualified": false,
     "full144_qualified": false,
-    "forecast_gain_claim": false,
+    "forecast_gain_claim": true,
     "latest_completed_3h_image": "871f",
     "historical_three_hour_applies_to_current": false,
-    "scope": "Own unprofiled SAME256 noon185/two FULL and three-hour545/four FULL science. Three-hour candidate-only run against retained original546b A; UNPAIRED descriptive percentages only, no new matched timing gain, repeatability, isolated or additive component claim. Own9h/384/512/profile/restart/full144 false. Qualified-PP replay/cached-object delivery and actual post-test canonical correspondence; no clean canonical-source-only rebuild certificate.",
+    "scope": "Own unprofiled SAME256 noon185/two FULL, three-hour545/four FULL and fresh nine-hour1625/ten FULL science. Nine-hour corrected original546b first versus combined871 second: one fixed-order pair with checked caches before each arm; no repeatability, isolated or additive component claim. Own384/512/profile/restart/full144 false. Tested-PP replay/cached-object delivery and post-test canonical correspondence; no clean whole canonical-source rebuild certificate.",
     "own_unprofiled_three_hour_qualified": true,
     "latest_three_hour_science": {
       "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current871-sw-finish-child3h-runtime-r1/science-receipt.json",
       "sha256": "161456ed65dc4de12d9835e93da49e89d14aa821f9b812c14071510402f29f5b"
+    },
+    "own_unprofiled_nine_hour_qualified": true,
+    "latest_nine_hour_science": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current-latest-threehost-ninehour-pair-runtime-r1/science-receipt.json",
+      "sha256": "1ecf16f1aefd310f53e158b13b42e23e49271b644ebeaf34d5afc928b68f8f4f"
     }
   },
   "recovered_diagnostic_runs": [
@@ -2046,5 +2051,108 @@
       }
     },
     "limits": "One new unprofiled SW-MCICA51f candidate on01\u201303, same256/224compute8x28+32quilt; original546b A is retained from the completed B4BC fresh pair. Descriptive timing only, not a new matched pair, repeatability, isolated component or additive gain. Main elapsed includes MPI/output backpressure; aggregate CPU is summed consumption. Own noon remains separate and immutable. No own9h/512/384/profile/restart/full144 qualification."
+  },
+  "latest_fixed_order_nine_hour": {
+    "status": "PASS_OWN_UNPROFILED_THREEHOST_SAME256_CURRENT871_NINEHOUR1625_TEN_PRODUCTS",
+    "executable": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current0ec3-sw-whole-draw-finish-v-two-member-experimental-r1/wrf.exe",
+      "sha256": "871f2e3c196e2ecb4a91fa167cc055ab8b94c13fbabd91f72c5020d042f415f3"
+    },
+    "archive": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current0ec3-sw-whole-draw-finish-v-two-member-experimental-r1/libwrflib.a",
+      "sha256": "33399456c410e37ac7368affb589b3c70d4479086673a5563048a94fbc1fdb5b"
+    },
+    "metrics": {
+      "control": {
+        "wall_seconds": 3493.375080734957,
+        "cpu_seconds": 869824.6652520001,
+        "main_step_sum_seconds": 3312.83698
+      },
+      "candidate": {
+        "wall_seconds": 3120.455533010885,
+        "cpu_seconds": 791105.304002,
+        "main_step_sum_seconds": 3043.80814
+      }
+    },
+    "order": [
+      "fresh_corrected_original546b_control",
+      "fresh_selected_combined_same256_candidate"
+    ],
+    "comparison_design": "Fresh same256 original546b FIRST versus actual_final_selected_combined SECOND, identical224compute8x28+32quilt; own ten products/control-derivedorderedsteps, not old512 science; one fixed-order pair, no isolated/helper/additive/repeatability claim",
+    "reductions_percent": {
+      "wall_seconds": 10.67505031969298,
+      "cpu_seconds": 9.05002633228319,
+      "main_step_sum_seconds": 8.120799231117005
+    },
+    "timing_gain_claim": true,
+    "memory": {
+      "control": {
+        "hpc01": {
+          "lifetime_cgroup_peak_bytes": 95930474496,
+          "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+          "invocation_id": "29459a9bcc9546549e0051b418d35392",
+          "scope": "Own nine-hour SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+        },
+        "hpc02": {
+          "lifetime_cgroup_peak_bytes": 87242829824,
+          "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+          "invocation_id": "99fb1bf08dcf4957a56b340604420abe",
+          "scope": "Own nine-hour SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+        },
+        "hpc03": {
+          "lifetime_cgroup_peak_bytes": 96914952192,
+          "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+          "invocation_id": "bfab89adde5546d2bdf03d061d504277",
+          "scope": "Own nine-hour SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+        }
+      },
+      "candidate": {
+        "hpc01": {
+          "lifetime_cgroup_peak_bytes": 66124251136,
+          "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+          "invocation_id": "490abc042b04426398941d78f689aae5",
+          "scope": "Own nine-hour SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+        },
+        "hpc02": {
+          "lifetime_cgroup_peak_bytes": 58526007296,
+          "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+          "invocation_id": "3769b962da9c4f5088950d5d9648b124",
+          "scope": "Own nine-hour SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+        },
+        "hpc03": {
+          "lifetime_cgroup_peak_bytes": 67560251392,
+          "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+          "invocation_id": "9b4afafa5f3e41ccbfdeacf37cd278a7",
+          "scope": "Own nine-hour SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+        }
+      }
+    },
+    "limits": "Own unprofiled SAME256 noon185/two FULL, three-hour545/four FULL and fresh nine-hour1625/ten FULL science. Nine-hour corrected original546b first versus combined871 second: one fixed-order pair with checked caches before each arm; no repeatability, isolated or additive component claim. Own384/512/profile/restart/full144 false. Tested-PP replay/cached-object delivery and post-test canonical correspondence; no clean whole canonical-source rebuild certificate.",
+    "source_commit": "9cf704d18cf47dc8e04f9f1b58f678e917d76442",
+    "qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-whole-draw-finish-v-20261025/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "049c4a6b8c04e110987c71aa0173cfd2d62e393d03c94aedf63eb3930b78236a"
+    },
+    "science": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current-latest-threehost-ninehour-pair-runtime-r1/science-receipt.json",
+      "sha256": "1ecf16f1aefd310f53e158b13b42e23e49271b644ebeaf34d5afc928b68f8f4f"
+    },
+    "reader_closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current-latest-threehost-ninehour-pair-runtime-r1/reader-closure.json",
+      "sha256": "680a4242a28b42ea85dcd1bb43f3096a23bca1977c4b7f2d36f3aa9468175b30"
+    },
+    "raw_RESULT": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-whole-draw-finish-v-20261025/NINE_HOUR_RAW_RESULT.json",
+      "sha256": "50967668a013e4d0382e371d31cc97b33f779a5077ee7ae9ae7d1344c9dce6cd"
+    },
+    "world_size": 256,
+    "compute_ranks": 224,
+    "hosts": [
+      "hpc01",
+      "hpc02",
+      "hpc03"
+    ],
+    "observed_step_count": 1625,
+    "products": 10
   }
 }

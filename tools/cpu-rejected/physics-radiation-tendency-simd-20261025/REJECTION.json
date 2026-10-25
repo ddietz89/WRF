@@ -1,0 +1,140 @@
+{
+  "status": "REJECTED_UNPROMOTED_REQUIRED_EXTRACTED_IEEE_GATE_FAILED",
+  "invocation_id": "05be844ecf3f4a04b1b084c1b3c2aa21",
+  "worker_status_retained": "FAIL_RETAINED_NO_RETRY",
+  "worker_error": "AssertionError('EXTRACTED_STAGE_FULL_RAW_OR_FIVE_STATE_MISMATCH')",
+  "actual_elapsed_seconds_context_only": 4.207283638883382,
+  "actual_receipt_sha256": "537c798324cd4d33904b58279fd578b33379578938bda6c88fd098bccb6ebc77",
+  "closure": {
+    "properties": {
+      "MainPID": "0",
+      "Result": "exit-code",
+      "ExecMainStatus": "1",
+      "ControlGroup": "",
+      "LoadState": "loaded",
+      "ActiveState": "failed",
+      "InvocationID": "05be844ecf3f4a04b1b084c1b3c2aa21"
+    },
+    "cgroup_processes": [],
+    "receipt_sha256": "537c798324cd4d33904b58279fd578b33379578938bda6c88fd098bccb6ebc77",
+    "cgroup_paths_absent": true,
+    "invocation_id": "05be844ecf3f4a04b1b084c1b3c2aa21",
+    "manager_events": [
+      {
+        "invocation_id": "05be844ecf3f4a04b1b084c1b3c2aa21",
+        "message": "Started wrf-cpu-currentd54-physics-radiation-extracted-stage-native-hpc01-r1.service - /usr/bin/python3 -u -c \"import os,runpy,sys; p='/pool/wrf-experiment/wrf-cpu/kernels/currentd54-physics-radiation-extracted-stage-native-hpc01-r1'; fd=os.open(p+\\\"/service.log\\\",os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600); os.dup2(fd,1); os.dup2(fd,2); os.close(fd); os.chdir(p); sys.path.insert(0,p); runpy.run_path(p+\\\"/run_gate.py\\\",run_name=\\\"__main__\\\")\"."
+      },
+      {
+        "invocation_id": "05be844ecf3f4a04b1b084c1b3c2aa21",
+        "message": "wrf-cpu-currentd54-physics-radiation-extracted-stage-native-hpc01-r1.service: Main process exited, code=exited, status=1/FAILURE"
+      },
+      {
+        "invocation_id": "05be844ecf3f4a04b1b084c1b3c2aa21",
+        "message": "wrf-cpu-currentd54-physics-radiation-extracted-stage-native-hpc01-r1.service: Failed with result 'exit-code'."
+      }
+    ]
+  },
+  "first_raw_mismatch": {
+    "byte": 8388,
+    "word": 2097,
+    "parent_hex": "ffc54321",
+    "candidate_hex": "7fc12345",
+    "record_bytes": 3492,
+    "case": 3,
+    "opt": "O2",
+    "round": 0
+  },
+  "fixture_layout_derivation": {
+    "record_bytes": 3492,
+    "record_schema": "INT32 case,width,pattern; fullREAL32 RTHRATEN(15,7,7); INT32readonlybits119; INT32bounds/readconfig11; INT32five-state5. ExactbigendianFortranstream flags; zero recordmarkers.",
+    "case": 3,
+    "width": 1,
+    "pattern": 2,
+    "guard": {
+      "ra_lw_physics": 1,
+      "ra_sw_physics": 0
+    },
+    "physical_lower_bounds": [
+      -2,
+      -1,
+      -2
+    ],
+    "physical_shape": [
+      15,
+      7,
+      7
+    ],
+    "record_offset_bytes": 1404,
+    "RTHRATEN_word_zero_based": 348,
+    "field": "RTHRATEN",
+    "coordinate": {
+      "i": 1,
+      "k": 1,
+      "j": 1
+    },
+    "input_roles": {
+      "c1(k)": "quietNaN7fc12345",
+      "mut(i,j)": "distinctquietNaNffc54321",
+      "c2(k)": "finite0.25",
+      "old_RTHRATEN(i,k,j)": "finite42/128"
+    },
+    "literal_expression": "RTHRATEN(I,K,J)=(c1(k)*mut(I,J)+c2(k))*RTHRATEN(I,K,J)",
+    "parent_result_bits": "ffc54321",
+    "candidate_result_bits": "7fc12345"
+  },
+  "reason": "Required strictREAL32 outputpayload differs for competing quietNaNs in c1 versus mut. Sourceunchangedarithmetic doesnotguarantee emittedoperandpriority. Consistentwith generatedoperandselection; no exact responsibleopcode or universalcompilerclaim is asserted.",
+  "actual_scope": {
+    "executed": "TwoO2extractedstagewrappers/twodrivers/twolinks/twohelpers; bothprogramsreturned0andinternalphysical/readonly/readconfigchecks passed individually; onecrossarmrawcomparison failed.",
+    "not_executed": [
+      "Otherroundmodes",
+      "O0stagecompile/numerics",
+      "FullModuleEMcompile",
+      "Genuine83argumentwholecalculate_phy_tendcaller",
+      "Caller/performance/applicationtests"
+    ],
+    "all_state_exact": null,
+    "state_scope": "Crossarmfullfive-state equality isnotseparatelyestablishedbyfirstmismatchmetadata; donotclaimstatefailureorstateequalitywithoutthatcomparison.",
+    "prefix_scope": "No separateperrecordrawproofwascollected; doNOTclaimcase1/2passedfromfirstbyteposition. Whole331740Bstreamsarehashboundbelow.",
+    "whole83_API_wiring": "Preparedprivate83argdriver remainsunexecuted/conditional; nocompletecallerqualification. Extractedcounterexampledoesnotclaimactual83argfunctionwascompiledorfailed.",
+    "codegen": {
+      "O2": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-physics-radiation-extracted-stage-native-hpc01-r1/actual-stage-asm-O2.log",
+        "sha256": "4fce1db8959ce9b92714d42eff26efc03967fce698cd8ed2dabb68e02d805121",
+        "bytes": 18011,
+        "literal_mechanism_review_pending": true
+      }
+    },
+    "codegen_review": "ActualO2targetASMisretained/hashbound; literalinstructioncause/packingreviewremainsunperformedandnotneededtoestablishstrictgatefailure."
+  },
+  "raw_streams": [
+    {
+      "opt": "O2",
+      "round": 0,
+      "parent": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-physics-radiation-extracted-stage-native-hpc01-r1/work/O2-parent/round0.bin",
+        "sha256": "e4bcfada3b44461453b028ca9c5ea6859b9fb852b2a0c2f82a8f78fdb3677bdb",
+        "bytes": 331740
+      },
+      "candidate": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-physics-radiation-extracted-stage-native-hpc01-r1/work/O2-candidate/round0.bin",
+        "sha256": "487981885a949341b6838b228599423068c67cc2625c6be04d07c89852776970",
+        "bytes": 331740
+      },
+      "full_raw_readonly_physical_five_state_exact": false
+    }
+  ],
+  "decision": "Closefixedone-directivecandidate. No repairladder, payloadnormalization, tolerance, finiteonlypromotion, O0/fullmodule/caller/perf/applicationfollowup. Selected871unchanged.",
+  "references_sha256": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-b4bc-same256-mpi-critical-path-finite-audit-r1/physics-tendency-radiation-extracted-stage-native-r1-hpc01/actual-native-r1/receipt.json": "537c798324cd4d33904b58279fd578b33379578938bda6c88fd098bccb6ebc77",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-b4bc-same256-mpi-critical-path-finite-audit-r1/physics-tendency-radiation-extracted-stage-native-r1-hpc01/actual-native-r1/closure.json": "12cbc4edd26b2817cb90404b7806571680f97fbac7397f6e15ba65073113d1bf",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-b4bc-same256-mpi-critical-path-finite-audit-r1/physics-tendency-radiation-extracted-stage-native-r1-hpc01/radiation_stage_driver.f90": "532fad0d54e51d7eb1a69882b8d503ed8fe4ed6a2a3fd329d7879035dffb58cd",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-b4bc-same256-mpi-critical-path-finite-audit-r1/physics-tendency-radiation-extracted-stage-native-r1-hpc01/parent_radiation_stage.f90": "c8db0eca715ed55d7c17bd1f6d9f14ed4365a2e8f1ce009667b3078d9692cbb7",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-b4bc-same256-mpi-critical-path-finite-audit-r1/physics-tendency-radiation-extracted-stage-native-r1-hpc01/candidate_radiation_stage.f90": "96bb7703839f212c61726cb3e5436db4ccffcd2c3c760416165e250337bed4af",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-b4bc-same256-mpi-critical-path-finite-audit-r1/physics-tendency-radiation-extracted-stage-native-r1-hpc01/SOURCE_INVERSE.json": "8880ee85c038ca06781567ad9983c4aaa4c9b1c9998de2c1b38441d1aeec37b2",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-b4bc-same256-mpi-critical-path-finite-audit-r1/physics-tendency-radiation-extracted-stage-native-r1-hpc01/LITERAL_CANDIDATE.diff": "8a02752b5b0d5a16cf20c23035b478845fc64939aac3b51f889c7549961a60d5",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-b4bc-same256-mpi-critical-path-finite-audit-r1/physics-tendency-radiation-i-simd-provider-r1/actual-provider-r1/author/response.txt": "e9ef826a6567da8e1cf6aab4609ab631788c2ee2bfe9f4c33fe9d0340d866387",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-b4bc-same256-mpi-critical-path-finite-audit-r1/physics-tendency-radiation-i-simd-provider-r1/actual-provider-r1/author/receipt.json": "694a9ebf1417d754f2b7f7a412e2c25d08ab8de509025d9967472dbc9356d3e7",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-b4bc-same256-mpi-critical-path-finite-audit-r1/physics-tendency-radiation-i-simd-provider-r1/actual-provider-r1/review/response.txt": "fd03257d8e31e3b1d82516877f76c9f07d4c619a116832b3ab5c73cde8fe9df4",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current-b4bc-same256-mpi-critical-path-finite-audit-r1/physics-tendency-radiation-i-simd-provider-r1/actual-provider-r1/review/receipt.json": "d6abab15335f5e04a7d43e7039c6e5c0edb7d0d58d719a87f13a4a0a317983c3"
+  }
+}

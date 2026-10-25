@@ -1,0 +1,9 @@
+{
+  "old": "   IF (config_flags%ra_lw_physics .gt. 0 .or. config_flags%ra_sw_physics .gt. 0) THEN\n\n      DO J=jts,jtf\n      DO K=kts,ktf\n      DO I=its,itf\n         RTHRATEN(I,K,J)=(c1(k)*mut(I,J)+c2(k))*RTHRATEN(I,K,J)\n      ENDDO\n      ENDDO\n      ENDDO\n\n   ENDIF",
+  "new": "   IF (config_flags%ra_lw_physics .gt. 0 .or. config_flags%ra_sw_physics .gt. 0) THEN\n\n      DO J=jts,jtf\n      DO K=kts,ktf\n!$OMP SIMD\n      DO I=its,itf\n         RTHRATEN(I,K,J)=(c1(k)*mut(I,J)+c2(k))*RTHRATEN(I,K,J)\n      ENDDO\n      ENDDO\n      ENDDO\n   ENDIF",
+  "full_inverse_exact": true,
+  "parent_sha256": "c78a95aba1122a90a5b37a2a70522e1df11d382c0cece00bc7939588eb41fc5e",
+  "candidate_sha256": "66935412aa59d86b148da4ee1c096a7e6f4a72685ebff7e4c537436a85bd0ae4",
+  "whole_PP_rows_equal": true,
+  "other_procedures_and_public_declarations_exact": true
+}

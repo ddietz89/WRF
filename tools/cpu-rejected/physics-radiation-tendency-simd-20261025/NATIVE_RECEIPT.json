@@ -1,0 +1,348 @@
+{
+  "status": "FAIL_RETAINED_NO_RETRY",
+  "invocation_id": "05be844ecf3f4a04b1b084c1b3c2aa21",
+  "commands": [
+    {
+      "name": "helper-state.o",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-physics-radiation-extracted-stage-native-hpc01-r1/region_observer.c",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-physics-radiation-extracted-stage-native-hpc01-r1/work/state.o"
+      ],
+      "returncode": 0
+    },
+    {
+      "name": "helper-physical.o",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-physics-radiation-extracted-stage-native-hpc01-r1/physical_guard.c",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-physics-radiation-extracted-stage-native-hpc01-r1/work/physical.o"
+      ],
+      "returncode": 0
+    },
+    {
+      "name": "stage-O2-parent",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-fopenmp-simd",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/currentb21c-first-y-canonical-cpp-hpc02-r1/work/on-module_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-physics-radiation-extracted-stage-native-hpc01-r1/parent_radiation_stage.f90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-physics-radiation-extracted-stage-native-hpc01-r1/work/O2-parent/stage.o"
+      ],
+      "returncode": 0
+    },
+    {
+      "name": "driver-O2-parent",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/currentd54-physics-radiation-extracted-stage-native-hpc01-r1/work/O2-parent",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-fopenmp-simd",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/currentb21c-first-y-canonical-cpp-hpc02-r1/work/on-module_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-physics-radiation-extracted-stage-native-hpc01-r1/radiation_stage_driver.f90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-physics-radiation-extracted-stage-native-hpc01-r1/work/O2-parent/driver.o"
+      ],
+      "returncode": 0
+    },
+    {
+      "name": "link-O2-parent",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-fopenmp-simd",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/currentb21c-first-y-canonical-cpp-hpc02-r1/work/on-module_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-physics-radiation-extracted-stage-native-hpc01-r1/work/O2-parent/driver.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-physics-radiation-extracted-stage-native-hpc01-r1/work/O2-parent/stage.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-physics-radiation-extracted-stage-native-hpc01-r1/work/state.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-physics-radiation-extracted-stage-native-hpc01-r1/work/physical.o",
+        "-lm",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-physics-radiation-extracted-stage-native-hpc01-r1/work/O2-parent/caller"
+      ],
+      "returncode": 0
+    },
+    {
+      "name": "stage-O2-candidate",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-fopenmp-simd",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/currentb21c-first-y-canonical-cpp-hpc02-r1/work/on-module_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-physics-radiation-extracted-stage-native-hpc01-r1/candidate_radiation_stage.f90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-physics-radiation-extracted-stage-native-hpc01-r1/work/O2-candidate/stage.o"
+      ],
+      "returncode": 0
+    },
+    {
+      "name": "driver-O2-candidate",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/currentd54-physics-radiation-extracted-stage-native-hpc01-r1/work/O2-candidate",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-fopenmp-simd",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/currentb21c-first-y-canonical-cpp-hpc02-r1/work/on-module_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-physics-radiation-extracted-stage-native-hpc01-r1/radiation_stage_driver.f90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-physics-radiation-extracted-stage-native-hpc01-r1/work/O2-candidate/driver.o"
+      ],
+      "returncode": 0
+    },
+    {
+      "name": "link-O2-candidate",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-fopenmp-simd",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/currentb21c-first-y-canonical-cpp-hpc02-r1/work/on-module_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-physics-radiation-extracted-stage-native-hpc01-r1/work/O2-candidate/driver.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-physics-radiation-extracted-stage-native-hpc01-r1/work/O2-candidate/stage.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-physics-radiation-extracted-stage-native-hpc01-r1/work/state.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-physics-radiation-extracted-stage-native-hpc01-r1/work/physical.o",
+        "-lm",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-physics-radiation-extracted-stage-native-hpc01-r1/work/O2-candidate/caller"
+      ],
+      "returncode": 0
+    },
+    {
+      "name": "actual-stage-asm-O2",
+      "argv": [
+        "/usr/bin/objdump",
+        "-dw",
+        "-l",
+        "--disassemble=__radiation_fixture_MOD_radiation_stage",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-physics-radiation-extracted-stage-native-hpc01-r1/work/O2-candidate/stage.o"
+      ],
+      "returncode": 0
+    },
+    {
+      "name": "run-O2-parent-r0",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-physics-radiation-extracted-stage-native-hpc01-r1/work/O2-parent/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-physics-radiation-extracted-stage-native-hpc01-r1/work/O2-parent/round0.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "name": "run-O2-candidate-r0",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-physics-radiation-extracted-stage-native-hpc01-r1/work/O2-candidate/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-physics-radiation-extracted-stage-native-hpc01-r1/work/O2-candidate/round0.bin"
+      ],
+      "returncode": 0
+    }
+  ],
+  "objects": {
+    "O2-parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-physics-radiation-extracted-stage-native-hpc01-r1/work/O2-parent/stage.o",
+      "sha256": "a9a43a7cdaa4f45ae7e54e348d6c6a2084495d5a229242237111f7eeadc805fb",
+      "stage_source_sha256": "c8db0eca715ed55d7c17bd1f6d9f14ed4365a2e8f1ce009667b3078d9692cbb7"
+    },
+    "O2-candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-physics-radiation-extracted-stage-native-hpc01-r1/work/O2-candidate/stage.o",
+      "sha256": "de82a0eb8c4b216a2be4dbba0ae88764e76613ca523c5100095a26f69289de09",
+      "stage_source_sha256": "96bb7703839f212c61726cb3e5436db4ccffcd2c3c760416165e250337bed4af"
+    }
+  },
+  "raw_proofs": [
+    {
+      "opt": "O2",
+      "round": 0,
+      "parent": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-physics-radiation-extracted-stage-native-hpc01-r1/work/O2-parent/round0.bin",
+        "sha256": "e4bcfada3b44461453b028ca9c5ea6859b9fb852b2a0c2f82a8f78fdb3677bdb",
+        "bytes": 331740
+      },
+      "candidate": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-physics-radiation-extracted-stage-native-hpc01-r1/work/O2-candidate/round0.bin",
+        "sha256": "487981885a949341b6838b228599423068c67cc2625c6be04d07c89852776970",
+        "bytes": 331740
+      },
+      "full_raw_readonly_physical_five_state_exact": false
+    }
+  ],
+  "scope": "Exact extracted radiation block with actual grid_config_rec_type, not genuine completecalculate_phy_tend. No ModuleEM compile/caller/application/performance qualification.",
+  "codegen": {
+    "O2": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-physics-radiation-extracted-stage-native-hpc01-r1/actual-stage-asm-O2.log",
+      "sha256": "4fce1db8959ce9b92714d42eff26efc03967fce698cd8ed2dabb68e02d805121",
+      "bytes": 18011,
+      "literal_mechanism_review_pending": true
+    }
+  },
+  "first_raw_mismatch": {
+    "byte": 8388,
+    "word": 2097,
+    "parent_hex": "ffc54321",
+    "candidate_hex": "7fc12345",
+    "record_bytes": 3492,
+    "case": 3,
+    "opt": "O2",
+    "round": 0
+  },
+  "error": "AssertionError('EXTRACTED_STAGE_FULL_RAW_OR_FIVE_STATE_MISMATCH')",
+  "traceback": "Traceback (most recent call last):\n  File \"/pool/wrf-experiment/wrf-cpu/kernels/currentd54-physics-radiation-extracted-stage-native-hpc01-r1/run_gate.py\", line 42, in <module>\n    a=raw['parent'].read_bytes();c=raw['candidate'].read_bytes();at=next(i for i,(x,y)in enumerate(zip(a,c))if x!=y);r['first_raw_mismatch']={'byte':at,'word':at//4,'parent_hex':a[at//4*4:at//4*4+4].hex(),'candidate_hex':c[at//4*4:at//4*4+4].hex(),'record_bytes':3492,'case':at//3492+1,'opt':opt,'round':mode};raise AssertionError('EXTRACTED_STAGE_FULL_RAW_OR_FIVE_STATE_MISMATCH')\n                                                                                                                                                                                                                                                                                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: EXTRACTED_STAGE_FULL_RAW_OR_FIVE_STATE_MISMATCH\n",
+  "elapsed_seconds_context_only": 4.207283638883382
+}

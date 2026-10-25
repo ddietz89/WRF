@@ -1,3 +1,15 @@
+# Fresh nine-hour qualification
+
+Selected871 passed all ten FULL06–15 products and1,625 ordered timesteps against fresh corrected-original546b with the unchanged exact checker. Both arms used256 ranks on hpc01–03,224 compute8×28+32 quilt4×8, two tiles and checked client-cache clearing. All model scopes and reader closed normally.
+
+| Metric | Original | Latest871 | Reduction |
+|---|---:|---:|---:|
+| Model/MPI wall (min) |58.222918|52.007592|10.6751%|
+| Main elapsed (min) |55.213950|50.730136|8.1208%|
+| Summed CPU (core-h) |241.617963|219.751473|9.0500%|
+
+One original-first fixed-order pair; no repeatability, isolated or additive gain claim. Main elapsed includes communication/backpressure. Own SAME256 noon/3h/9h science is qualified;384/512/profile/restart/full144 remain unqualified. See NINE_HOUR_APPLICATION_QUALIFICATION.json and byte-exact NINE_HOUR_RAW_RESULT.json. Earlier records below retain their original date, image and qualification scope. Rollback remains the coupled source/selected-parent recipe in REBUILD_RECIPE.json and PROMOTED_SOURCES.json.
+
 # Own three-hour qualification
 
 Image871f2e3c / archive33399456, source9cf704d1, passed all545 ordered steps and all four FULL06–09 products against retained original546b SAME256 A. Three new models and reader closed normally; retained control closure was independently checked. The original A comes from the earlier0ec3 pair, so these percentages are UNPAIRED and descriptive. CPU is summed cgroup CPU, not threadCPU. Immutable own-noonQ remains separate.

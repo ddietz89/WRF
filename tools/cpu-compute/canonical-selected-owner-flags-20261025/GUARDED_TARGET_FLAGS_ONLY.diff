@@ -1,0 +1,33 @@
+--- actual9cf/phys/Makefile
++++ proposed/phys/Makefile
+@@ -474,6 +474,30 @@
+ ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+ ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+ module_ra_rrtmg_sw.o: private override CPPFLAGS += -DWRF_SW_MCICA_WHOLE_DRAW_SEED_CARRY_ENABLE
++ifneq (,$(filter -DDM_PARALLEL,$(CPPFLAGS)))
++module_ra_rrtmg_sw.o: private override FCFLAGS += -fopenmp-simd
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++
++# Existing qualified MYJ module recipe: SIMD directives only, no thread team.
++# Opt out with WRF_MYJ_SIMD=0 and rebuild this module/archive/executable.
++WRF_MYJ_SIMD ?= 1
++ifeq ($(WRF_MYJ_SIMD),1)
++ifeq ($(strip $(OMPCPP) $(OMP) $(PROMOTION) $(DOUBLE_PRECISION)),)
++ifeq ($(strip $(RWORDSIZE)),4)
++ifeq ($(strip $(IWORDSIZE)),4)
++ifeq ($(filter -fdefault-% -freal-% -finteger-% -r8 -i8,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
++ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
++ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
++ifneq (,$(filter -DDM_PARALLEL,$(CPPFLAGS)))
++module_bl_myjpbl.o: private override FCFLAGS += -fopenmp-simd
++endif
+ endif
+ endif
+ endif
