@@ -12,6 +12,8 @@ For an authorized DeepSeek dispatch, give the normal approval reviewer the owner
 
 A transient approval-service capacity error or review timeout is not a completed investigation. Keep the active turn open, retain the unexecuted action and retry through the normal review route at a paced cadence; use one coordinator to avoid parallel retry traffic. Never bypass approval controls. Check recovery while continuing independent work, and resume the existing test immediately when service returns. Do not ask the owner to repeat standing authorization for an infrastructure failure. If the active session reaches a hard execution limit, preserve exact pending job and action state without claiming background continuation. A persistent Codex Goal, when explicitly requested by the owner, supplies continuation across turns; an SOP entry does not activate that feature.
 
+Owner update, October25: hpc04 is repaired and authorized again for experiments beginning with the next round. Preserve the current in-flight three-node forecast unchanged. Resume bounded work on hpc04 under the existing affinity, cgroup, memory/swap, cache and hardware-monitoring rules. Keep prior three-node and four-node qualifications distinct; historical exclusion records remain unchanged.
+
 ## Full-grid summary tables
 
 Owner reporting rule, reaffirmed 2026-10-23: restore the full-grid summary tables in result updates. Show forecast horizon and build identity, model/MPI wall time, main-step elapsed time, aggregate CPU use across nodes, and exact scientific-check status. Use minutes for elapsed time and CPU-hours for aggregate CPU use, with clear column units. Main-step elapsed time includes communication and waiting; do not label it integration CPU time.

@@ -5850,6 +5850,15 @@ END SUBROUTINE phy_prep_part2
 
    INTEGER :: i_start, i_end, j_start, j_end, k_start, k_end
    INTEGER :: i, j, k
+#if defined(WRF_EXPERIMENTAL_PHY_HEIGHT_ROW_SSE2) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_MOIST_HEIGHT_ROW_OPTOUT)
+   INTERFACE
+     PURE SUBROUTINE wrf_phy_height_row_ordered(out, first_row, second_row, nrow, grav)
+       INTEGER, INTENT(IN) :: nrow
+       REAL, INTENT(OUT) :: out(*)
+       REAL, INTENT(IN) :: first_row(*), second_row(*), grav
+     END SUBROUTINE wrf_phy_height_row_ordered
+   END INTERFACE
+#endif
 
 !--------------------------------------------------------------------
 
@@ -5872,9 +5881,15 @@ END SUBROUTINE phy_prep_part2
 
      DO j = j_start, j_end
      DO k = k_start, kte
+#if defined(WRF_EXPERIMENTAL_PHY_HEIGHT_ROW_SSE2) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_MOIST_HEIGHT_ROW_OPTOUT)
+     IF (i_end >= i_start) THEN
+       CALL wrf_phy_height_row_ordered(z_at_w(i_start,k,j),ph(i_start,k,j),phb(i_start,k,j),i_end-i_start+1,g)
+     END IF
+#else
      DO i = i_start, i_end
        z_at_w(i,k,j) = (ph(i,k,j)+phb(i,k,j))/g
      ENDDO
+#endif
      ENDDO
      ENDDO
 
@@ -5891,13 +5906,10 @@ END SUBROUTINE phy_prep_part2
       dz8w(i,kte,j) = 0.
     enddo
     enddo
-
-
            !  compute full pii, rho, and z at the new time-level
            !  (needed for physics).
            !  convert perturbation theta to full theta (th_phy)
            !  use h_diabatic to temporarily save pre-microphysics full theta
-
      IF ( ( config_flags%use_theta_m .EQ. 1 ) .AND. (P_Qv .GE. PARAM_FIRST_SCALAR) ) THEN
        DO j = j_start, j_end
        DO k = k_start, k_end
@@ -5915,7 +5927,6 @@ END SUBROUTINE phy_prep_part2
        ENDDO
        ENDDO
      END IF
-
      DO j = j_start, j_end
      DO k = k_start, k_end
      DO i = i_start, i_end
@@ -5939,13 +5950,10 @@ END SUBROUTINE phy_prep_part2
        pii(i,k,j) = ((p(i,k,j)+pb(i,k,j))/p0)**rcp
        z(i,k,j) = 0.5*(z_at_w(i,k,j) +z_at_w(i,k+1,j) )
        pf(i,k,j) = p(i,k,j)+pb(i,k,j)
-
      ENDDO
      ENDDO
      ENDDO
-
 !  interp p at w points
-
     do j = j_start,j_end
     do k = 2, k_end
     do i = i_start, i_end
@@ -5953,24 +5961,18 @@ END SUBROUTINE phy_prep_part2
     enddo
     enddo
     enddo
-
 !  extrapolate p to surface and top.
 !  we'll use an extrapolation in z for now
-
     do j = j_start,j_end
     do i = i_start, i_end
-
 ! bottom
-
       z0 = z_at_w(i,1,j)
       z1 = z(i,1,j)
       z2 = z(i,2,j)
       w1 = (z0 - z2)/(z1 - z2)
       w2 = 1. - w1
       p8w(i,1,j) = w1*pf(i,1,j)+w2*pf(i,2,j)
-
 ! top
-
       z0 = z_at_w(i,kte,j)
       z1 = z(i,k_end,j)
       z2 = z(i,k_end-1,j)
@@ -5978,10 +5980,8 @@ END SUBROUTINE phy_prep_part2
       w2 = 1. - w1
 !      p8w(i,kde,j) = w1*pf(i,kde-1,j)+w2*pf(i,kde-2,j)
       p8w(i,kde,j) = exp(w1*log(pf(i,kde-1,j))+w2*log(pf(i,kde-2,j)))
-
     enddo
     enddo
-
    END SUBROUTINE moist_physics_prep_em
 
 !------------------------------------------------------------------------------
