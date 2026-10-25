@@ -5046,3 +5046,27 @@ The qualified working configuration now carries four scalar KISS states across t
 ### October 25: unprofiled noon observations
 
 Three cache-cleared, exact-qualified noon observations ran in order: MPI X-overlap 421.823 s, longwave seed carry 421.100 s, then D54 parent 421.661 s. The observed longwave wall delta was 0.133% lower; MPI was 0.038% higher. Each is a single observation, with no repeatability or isolated-gain claim. The significant longwave complete-caller gain remains separate. The MPI candidate stays unpromoted, preserving its native errno-state failure and lack of demonstrated application benefit. [Observations and MPI decision](tools/cpu-comm/mpi-x-microphysics-overlap-unpromoted-20261025/README.md).
+
+
+### October 25: current combined build and completed three-hour comparisons
+
+Working image `871f2e3c` retains the previous promoted components and adds shortwave whole-draw KISS seed carry and FINISH V SIMD. The complete shortwave generator caller, including its internal allocations and input restores, was 11.12% / 12.67% shorter on the two tested nodes. Complete FINISH callers were 11.18–15.06% shorter across the tested RK1/RK3 cases. Exact native raw, read-only, physical-guard and recorded IEEE-state gates passed. These are separate caller measurements, not percentages to add to each other or to forecast gains.
+
+The current image passed its own unprofiled SAME256 noon test (two FULL products / 185 ordered steps) and three-hour test (four FULL products / 545 ordered steps), with normal model and reader closures. The qualified configuration uses hpc01–03, 224 compute ranks in 8×28 plus 32 quilt ranks in 4×8, two tiles and the qualified InfiniBand transport. hpc04 remains excluded.
+
+| Comparison | Original wall (min) | Combined wall (min) | Wall reduction | Main elapsed reduction | Summed CPU reduction |
+|---|---:|---:|---:|---:|---:|
+| Fresh original-first pair, previous `0ec3` image |21.436715|18.000864|16.0279%|7.8622%|11.8618%|
+| New `871` image versus that retained original |21.436715|18.024515|15.9176%|7.8475%|11.8248%|
+
+The `871` comparison is unpaired and descriptive. It does not establish a regression or isolate the two new changes. Its main-step elapsed was 16.707654 min and summed node CPU was 74.568591 core-hours, versus 18.130433 min and 84.568669 core-hours for the retained original. Main-step elapsed includes communication and output backpressure; summed CPU is cgroup CPU consumption, not integration-only CPU. A fresh original `546b` → `871` nine-hour comparison is now running with the same three-node placement and checked cache clears before each arm. No current-image nine-hour result is yet claimed. Qualified preprocessed-source replay and actual canonical-source correspondence are recorded; a clean canonical-source-only rebuild is not yet certified.
+
+[Current component, application and rollback evidence](tools/cpu-compute/sw-whole-draw-finish-v-20261025/README.md).
+
+### October 25: direct halo prototype and later-stage scalar SIMD decisions
+
+The private direct eight-neighbor HALO_EM_C prototype passed its bounded nine-rank native test: full physical U/V bytes, read-only guards, recorded state, routing and request lifetimes matched across 16 records per rank, including fallback transitions. A subsequent larger complete-caller comparison stopped after its first pair. U/V bytes matched on all nine ranks before and after the batch, but errno and the MXCSR inexact flag differed on specific ranks. The failed strict state gate remains failed. The first candidate interval was about 3.11× the original interval; these stopped-wave timings are context only, not a qualified performance comparison. Remaining timing arms were not run. Per-call setup, allocation, packing and collective costs are being investigated before another design is considered; no MPI default was changed.
+
+The independent later-stage RK scalar SIMD trial was rejected at its first decisive O2 counterexample: width-two case 42 changed a quiet-NaN payload from `7fc12345` to `ffc54321`. No timing or application test followed, and no tolerance or payload normalization was introduced.
+
+[Direct halo evidence](tools/cpu-compute/haloc-direct8-screen-20261025/README.md); [scalar SIMD rejection](tools/cpu-rejected/rk-scalar-later-stage-simd-20261025/README.md).
