@@ -136,11 +136,11 @@
     "sha256": "825e2f1f24bee6feaf537cb7a4b1207044fb90ec1afc2dd96571b33b1056ba19"
   },
   "rank_library_path": "/pool/wrf-experiment/wrf-cpu/builds/hdf5-sse2-unshuffle4-private-r3/output/candidate/lib:/pool/wrf/WPS_new/runtime/netcdf-owner/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib",
-  "rank_map_sha256": "d671d504f7a86673530ccdc111b68a67bc14bbcd46131277d8d7dc5decbf13eb",
+  "rank_map_sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac",
   "root_input": {
     "pending_component": false,
-    "adapter_path": "/pool/wrf-experiment/wrf-cpu/kernels/currentbacf-threehost256-provider-build-hpc03-r1/work/libinput_world256.so",
-    "adapter_sha256": "00c80136ea3355ccbbf1d0a95c31e8c3cf3a290e5d067c12e9718ef86aab3f5f",
+    "adapter_path": "/pool/wrf-experiment/wrf-cpu/kernels/root-input-predecoded-production-adapter-abi-hpc02-r1/output/libinput_root.so",
+    "adapter_sha256": "06d0232dbeb53e3e0cc4a8ac5c431a307e0bd3506183f70b5a558f2c70b19553",
     "owner_path": "/pool/wrf-experiment/wrf-cpu/kernels/ordinary-nc-predecoded-fp-admission-build-hpc02-r3/output/libnetcdf.so.19",
     "owner_sha256": "a32aa6cdf5e7154b974afb699f6be8f0b0632cfb4bc00226b7b6a34e0b04f41d",
     "rank": 0,
@@ -152,26 +152,12 @@
       2,
       3
     ],
-    "input_source_sha256": "f8b5f847f54220d8b163c388d7e3e29c361d4ce62b06d23a9a4215412aad9940",
+    "input_source_sha256": "4febd6cabc22d8fd5caf0efe89087b97a5871cd269e9777be7c8b8166c5d3ddf",
     "component_receipt_sha256": "90070f7ce757ca6e571554779ce6624f5e179a4ed76653a30d4d8be9eb89a6e5",
-    "component_closure_sha256": "d77bf34ae3d4a30068ab5998908a3560bfb68eaa0b5ab8baa47dc8814758d590",
-    "inherited_component_receipt_scope": "Parent512 adapter lineage only; new world256 input port requires own named native_nc authority",
-    "enabled_in_working_configuration": true,
-    "own_world256_native_authority": {
-      "native_nc": {
-        "path": "actual-newmap-nc256-summary.json",
-        "sha256": "01c932a0e7d5ce6c7c6b3a1073cc9e6a17144323020982822bcb6f24ae795dbd",
-        "expected_status": "PASS_GENUINE256_NC_BYTE_STATE_AUTHORITY_LIFECYCLE_ALL3_NORMAL_CLOSED_PENDING_SEPARATE_TPI_AND_WRF"
-      },
-      "native_tpi": {
-        "path": "actual-newmap-tpi224-summary.json",
-        "sha256": "c77785a7bc9d8ec0afa62c34f1ba9b9a9a8ec21737eae102d4cf24daac4b6186",
-        "expected_status": "PASS_GENUINE_MPI256_TPI224_BOTH_MODES_NATIVE_METADATA_PENDING_WRF_SCIENCE"
-      }
-    }
+    "component_closure_sha256": "d77bf34ae3d4a30068ab5998908a3560bfb68eaa0b5ab8baa47dc8814758d590"
   },
-  "activation": "Selection metadata only. Fresh bounded explicit256 lease/rank map/ported input+output providers and original runtime checks required; no production deployment.",
-  "status": "PASS_OWN_UNPROFILED_THREEHOST_SAME256_MOIST_HEIGHT_THREEHOUR545_FOUR_PRODUCTS",
+  "activation": "Working qualification metadata only; fresh root-authorized SAME512 lease/map/current guard, resources and exact runtime checks required. No production deployment.",
+  "status": "PASS_OWN_UNPROFILED_FOURHOST_SAME512_HEIGHT_THREEHOUR545_FOUR_PRODUCTS_FRESH_FIXED_ORDER_PAIR",
   "source_commit": "445e5532bf9a82fa5bfdd4898a03b153eb0a9451",
   "source_commit_scope": "Actual root post-test canonical target statement correspondence with guarded ON/OFF local projection and qualifiedPP replay; no clean canonical-only object reproduction claim",
   "raw_producer_source_commit": null,
@@ -237,79 +223,143 @@
   },
   "source_rebuild_scope": "Actual root post-test canonical target statement correspondence with guarded ON/OFF local projection and qualifiedPP replay; no clean canonical-only object reproduction claim",
   "runtime": {
-    "scope": "Own unprofiled three-hour SAME256545/four FULL science only. Candidate-only versus retained original546b A: UNPAIRED descriptive timing, no fresh matched gain, repeatability, isolated or additive component claim. Own noon/9h/384/512/profile/restart/full144 false. Qualified-PP replay/cached-object delivery plus post-test canonical target correspondence, not a clean canonical-source rebuild certificate.",
-    "world": 256,
-    "compute": 224,
+    "scope": "Own unprofiled SAME512480compute+32quilt, four hosts,545 ordered steps/four FULL06\u201309 products. One fresh fixed-order original546b A\u2192selectedheight5c75 B observation with checked cache before each arm and all eight models+reader normal closed. No repeatability, isolated/additive component gain, noon/9h/profile/restart/384/full144 or clean whole-image source-rebuild claim. Earlier SAME256 own3h qualification remains separate and immutable.",
+    "world": 512,
+    "compute": 480,
     "quilt": 32,
     "CART": [
-      28,
+      60,
       8
     ],
     "hosts": [
       "hpc01",
       "hpc02",
-      "hpc03"
+      "hpc03",
+      "hpc04"
     ],
     "tiles": 2,
+    "rank_map_variant": "control",
     "rank_map": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current871-moist-height-child3h-runtime-r1/candidate-rank-map.json",
-      "sha256": "d671d504f7a86673530ccdc111b68a67bc14bbcd46131277d8d7dc5decbf13eb"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current5c75-fourhost-threehour-pair1-runtime-r1/control-rank-map.json",
+      "sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac"
     },
     "lease": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current871-moist-height-child3h-runtime-r1/candidate-metadata/lease.json",
-      "sha256": "350d0b78c94edca7be2823ad00770ae251500a961c383547dbd573e9ae08b551"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current5c75-fourhost-threehour-pair1-runtime-r1/candidate-metadata/lease.json",
+      "sha256": "6b357a040a5addb190ef81e4f40bad8fc4ce0bb45849d1680aee6bb5ac502cf4"
     },
     "observed_step_count": 545,
     "products": 4,
-    "model_cap_seconds": 3600,
-    "memory_perhost_bytes": 107374182400,
+    "model_cap_seconds": 1200,
+    "memory_perhost_bytes": {
+      "hpc01": 107374182400,
+      "hpc02": 107374182400,
+      "hpc03": 107374182400,
+      "hpc04": 111669149696
+    },
     "swap_bytes": 0,
     "observer_profile": false,
-    "qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moist-height-ordered-helper-reuse-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "3953246bb9536451284de64b15ace27e10a1c9d5b034da4bfdf5fed36d3ec669"
+    "output_shim": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current5c75-world512-fp-guard-build-hpc02-r1/work/liboutput_world512_fp.so",
+      "sha256": "db0d0268806c88616365e5ced5f17778c42cc1110206c434f207a2a01830083c",
+      "source_sha256": "801e29cc8406d0200dee1557e4263d3ce4db46d750b63b9371083b633c952150",
+      "post_test_source_commit": "2da3c200cff40d233bb2cd7d70cef5ce73fe8815"
+    },
+    "input_adapter": {
+      "pending_component": false,
+      "adapter_path": "/pool/wrf-experiment/wrf-cpu/kernels/root-input-predecoded-production-adapter-abi-hpc02-r1/output/libinput_root.so",
+      "adapter_sha256": "06d0232dbeb53e3e0cc4a8ac5c431a307e0bd3506183f70b5a558f2c70b19553",
+      "owner_path": "/pool/wrf-experiment/wrf-cpu/kernels/ordinary-nc-predecoded-fp-admission-build-hpc02-r3/output/libnetcdf.so.19",
+      "owner_sha256": "a32aa6cdf5e7154b974afb699f6be8f0b0632cfb4bc00226b7b6a34e0b04f41d",
+      "rank": 0,
+      "host": "hpc01",
+      "root_cpu": 0,
+      "borrowed_occupied_cpus": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "input_source_sha256": "4febd6cabc22d8fd5caf0efe89087b97a5871cd269e9777be7c8b8166c5d3ddf",
+      "component_receipt_sha256": "90070f7ce757ca6e571554779ce6624f5e179a4ed76653a30d4d8be9eb89a6e5",
+      "component_closure_sha256": "d77bf34ae3d4a30068ab5998908a3560bfb68eaa0b5ab8baa47dc8814758d590"
     },
     "science": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current871-moist-height-child3h-runtime-r1/science-receipt.json",
-      "sha256": "33098b8b2d76eb66b1ded8e7294b6c1257e06cf336aa96a5e8066bb5ab1ef506"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current5c75-fourhost-threehour-pair1-runtime-r1/science-receipt.json",
+      "sha256": "20b8fbef80df192a01ba2ce34e14b5b0a0fc85e180732eb47a04ccf9d6855674"
+    },
+    "qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-output/quilt512/fp-entry-guard-20261025/SAME512_THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "b083ff1999d4069cc4162bed61f6331140851ed76c88d9429a48d11780f93f65"
     }
   },
   "current_qualified_runtime": {
-    "scope": "Own unprofiled three-hour SAME256545/four FULL science only. Candidate-only versus retained original546b A: UNPAIRED descriptive timing, no fresh matched gain, repeatability, isolated or additive component claim. Own noon/9h/384/512/profile/restart/full144 false. Qualified-PP replay/cached-object delivery plus post-test canonical target correspondence, not a clean canonical-source rebuild certificate.",
-    "world": 256,
-    "compute": 224,
+    "scope": "Own unprofiled SAME512480compute+32quilt, four hosts,545 ordered steps/four FULL06\u201309 products. One fresh fixed-order original546b A\u2192selectedheight5c75 B observation with checked cache before each arm and all eight models+reader normal closed. No repeatability, isolated/additive component gain, noon/9h/profile/restart/384/full144 or clean whole-image source-rebuild claim. Earlier SAME256 own3h qualification remains separate and immutable.",
+    "world": 512,
+    "compute": 480,
     "quilt": 32,
     "CART": [
-      28,
+      60,
       8
     ],
     "hosts": [
       "hpc01",
       "hpc02",
-      "hpc03"
+      "hpc03",
+      "hpc04"
     ],
     "tiles": 2,
+    "rank_map_variant": "control",
     "rank_map": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current871-moist-height-child3h-runtime-r1/candidate-rank-map.json",
-      "sha256": "d671d504f7a86673530ccdc111b68a67bc14bbcd46131277d8d7dc5decbf13eb"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current5c75-fourhost-threehour-pair1-runtime-r1/control-rank-map.json",
+      "sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac"
     },
     "lease": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current871-moist-height-child3h-runtime-r1/candidate-metadata/lease.json",
-      "sha256": "350d0b78c94edca7be2823ad00770ae251500a961c383547dbd573e9ae08b551"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current5c75-fourhost-threehour-pair1-runtime-r1/candidate-metadata/lease.json",
+      "sha256": "6b357a040a5addb190ef81e4f40bad8fc4ce0bb45849d1680aee6bb5ac502cf4"
     },
     "observed_step_count": 545,
     "products": 4,
-    "model_cap_seconds": 3600,
-    "memory_perhost_bytes": 107374182400,
+    "model_cap_seconds": 1200,
+    "memory_perhost_bytes": {
+      "hpc01": 107374182400,
+      "hpc02": 107374182400,
+      "hpc03": 107374182400,
+      "hpc04": 111669149696
+    },
     "swap_bytes": 0,
     "observer_profile": false,
-    "qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moist-height-ordered-helper-reuse-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "3953246bb9536451284de64b15ace27e10a1c9d5b034da4bfdf5fed36d3ec669"
+    "output_shim": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current5c75-world512-fp-guard-build-hpc02-r1/work/liboutput_world512_fp.so",
+      "sha256": "db0d0268806c88616365e5ced5f17778c42cc1110206c434f207a2a01830083c",
+      "source_sha256": "801e29cc8406d0200dee1557e4263d3ce4db46d750b63b9371083b633c952150",
+      "post_test_source_commit": "2da3c200cff40d233bb2cd7d70cef5ce73fe8815"
+    },
+    "input_adapter": {
+      "pending_component": false,
+      "adapter_path": "/pool/wrf-experiment/wrf-cpu/kernels/root-input-predecoded-production-adapter-abi-hpc02-r1/output/libinput_root.so",
+      "adapter_sha256": "06d0232dbeb53e3e0cc4a8ac5c431a307e0bd3506183f70b5a558f2c70b19553",
+      "owner_path": "/pool/wrf-experiment/wrf-cpu/kernels/ordinary-nc-predecoded-fp-admission-build-hpc02-r3/output/libnetcdf.so.19",
+      "owner_sha256": "a32aa6cdf5e7154b974afb699f6be8f0b0632cfb4bc00226b7b6a34e0b04f41d",
+      "rank": 0,
+      "host": "hpc01",
+      "root_cpu": 0,
+      "borrowed_occupied_cpus": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "input_source_sha256": "4febd6cabc22d8fd5caf0efe89087b97a5871cd269e9777be7c8b8166c5d3ddf",
+      "component_receipt_sha256": "90070f7ce757ca6e571554779ce6624f5e179a4ed76653a30d4d8be9eb89a6e5",
+      "component_closure_sha256": "d77bf34ae3d4a30068ab5998908a3560bfb68eaa0b5ab8baa47dc8814758d590"
     },
     "science": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current871-moist-height-child3h-runtime-r1/science-receipt.json",
-      "sha256": "33098b8b2d76eb66b1ded8e7294b6c1257e06cf336aa96a5e8066bb5ab1ef506"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current5c75-fourhost-threehour-pair1-runtime-r1/science-receipt.json",
+      "sha256": "20b8fbef80df192a01ba2ce34e14b5b0a0fc85e180732eb47a04ccf9d6855674"
+    },
+    "qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-output/quilt512/fp-entry-guard-20261025/SAME512_THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "b083ff1999d4069cc4162bed61f6331140851ed76c88d9429a48d11780f93f65"
     }
   },
   "qualification_scope": {
@@ -318,79 +368,80 @@
     "own_three_hour_qualified": true,
     "own_nine_hour_qualified": false,
     "own_384_qualified": false,
-    "own_fourhost512_qualified": false,
+    "own_fourhost512_qualified": true,
     "profile_qualified": false,
     "native_profile_qualified": false,
     "restart_qualified": false,
     "full144_qualified": false,
     "own_unprofiled_three_hour_qualified": true,
     "own_unprofiled_nine_hour_qualified": false,
-    "own_instrumented_noon_one_hour_qualified": false
+    "own_instrumented_noon_one_hour_qualified": false,
+    "own_threehost256_threehour_qualified": true
   },
   "qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moist-height-ordered-helper-reuse-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "3953246bb9536451284de64b15ace27e10a1c9d5b034da4bfdf5fed36d3ec669"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-output/quilt512/fp-entry-guard-20261025/SAME512_THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "b083ff1999d4069cc4162bed61f6331140851ed76c88d9429a48d11780f93f65"
   },
-  "qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/moist-height-ordered-helper-reuse-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+  "qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-output/quilt512/fp-entry-guard-20261025/SAME512_THREE_HOUR_APPLICATION_QUALIFICATION.json",
   "current_application_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moist-height-ordered-helper-reuse-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "3953246bb9536451284de64b15ace27e10a1c9d5b034da4bfdf5fed36d3ec669"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-output/quilt512/fp-entry-guard-20261025/SAME512_THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "b083ff1999d4069cc4162bed61f6331140851ed76c88d9429a48d11780f93f65"
   },
-  "current_application_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/moist-height-ordered-helper-reuse-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+  "current_application_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-output/quilt512/fp-entry-guard-20261025/SAME512_THREE_HOUR_APPLICATION_QUALIFICATION.json",
   "full_application": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moist-height-ordered-helper-reuse-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "3953246bb9536451284de64b15ace27e10a1c9d5b034da4bfdf5fed36d3ec669"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-output/quilt512/fp-entry-guard-20261025/SAME512_THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "b083ff1999d4069cc4162bed61f6331140851ed76c88d9429a48d11780f93f65"
   },
   "current_three_hour_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moist-height-ordered-helper-reuse-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "3953246bb9536451284de64b15ace27e10a1c9d5b034da4bfdf5fed36d3ec669"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-output/quilt512/fp-entry-guard-20261025/SAME512_THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "b083ff1999d4069cc4162bed61f6331140851ed76c88d9429a48d11780f93f65"
   },
-  "current_three_hour_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/moist-height-ordered-helper-reuse-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+  "current_three_hour_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-output/quilt512/fp-entry-guard-20261025/SAME512_THREE_HOUR_APPLICATION_QUALIFICATION.json",
   "current_three_hour_qualified": true,
   "current_unprofiled_three_hour_qualified": true,
   "current_noon_one_hour_qualified": false,
   "current_nine_hour_qualified": false,
-  "profile_source_identity_acquisition_pending": false,
+  "profile_source_identity_acquisition_pending": true,
   "current_profile_qualification": null,
-  "current_profile_scope": "No own child profile",
+  "current_profile_scope": "No own5c75 profile qualification; separate instrumentednoon acquisition pending.",
   "science": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current871-moist-height-child3h-runtime-r1/science-receipt.json",
-    "sha256": "33098b8b2d76eb66b1ded8e7294b6c1257e06cf336aa96a5e8066bb5ab1ef506"
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current5c75-fourhost-threehour-pair1-runtime-r1/science-receipt.json",
+    "sha256": "20b8fbef80df192a01ba2ce34e14b5b0a0fc85e180732eb47a04ccf9d6855674"
   },
-  "science_sha256": "33098b8b2d76eb66b1ded8e7294b6c1257e06cf336aa96a5e8066bb5ab1ef506",
-  "reader_closure_sha256": "b429f050eaf10c571d25982c4fc5fdd68d3265a5d90def98d3242bb64dae1d69",
+  "science_sha256": "20b8fbef80df192a01ba2ce34e14b5b0a0fc85e180732eb47a04ccf9d6855674",
+  "reader_closure_sha256": "91cde74054bc2a8801df58d3f07227846ce716b6f3dcb1897f001644080dc5a9",
   "metrics": {
     "control": {
-      "wall_seconds": 1286.20290737506,
-      "cpu_seconds": 304447.209591,
-      "main_step_sum_seconds": 1087.82599
+      "wall_seconds": 800.0241208570078,
+      "cpu_seconds": 359327.346984,
+      "main_step_sum_seconds": 596.59354
     },
     "candidate": {
-      "wall_seconds": 1077.4935948438942,
-      "cpu_seconds": 267595.985423,
-      "main_step_sum_seconds": 999.41409
+      "wall_seconds": 624.3915967778303,
+      "cpu_seconds": 303178.476221,
+      "main_step_sum_seconds": 540.03642
     }
   },
   "raw_RESULT_reference": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moist-height-ordered-helper-reuse-20261025/THREE_HOUR_RAW_RESULT.json",
-    "sha256": "4a8495897321359a4e44e56e9536bd26ff4204f3353e31c86033053efde8f50c"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-output/quilt512/fp-entry-guard-20261025/RAW_RESULT.json",
+    "sha256": "1c32696fcbe80d5128288907822fda2274989ede7888592250b9afea5cd4dff3"
   },
-  "raw_result_status": "PASS_FRESH_SAME256_ORIGINAL_FOUR_HISTORY_THREE_HOUR_CLOSED_SEQUENCE",
+  "raw_result_status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
   "order": [
-    "retained_original546b_reference_from_latest0ec3_pair",
-    "current871_moist_height_only_candidate_threehour"
+    "fresh_original546b_A",
+    "selected_height5c75_B"
   ],
-  "comparison_design": "Candidate-only same256 HEIGHT-only child own3h versus retained original546b A from completed fresh0ec3 pair; identical224compute8x28+32quilt/fourFULLproducts/exactorderedsteps; no freshmatchedpair timing claim",
-  "timing_gain_claim": false,
-  "reductions_percent": null,
-  "descriptive_reductions_percent": {
-    "wall_seconds": 16.22677971993618,
-    "cpu_seconds": 12.104306758963768,
-    "main_step_sum_seconds": 8.127393610075451
+  "comparison_design": "Fresh SAME512 pair1 A-B original546b versus selectedheight5c75; no historicalarmreuse/repeatability/isolated/additiveclaim",
+  "timing_gain_claim": true,
+  "reductions_percent": {
+    "wall_seconds": 21.95340359126111,
+    "cpu_seconds": 15.6261056204832,
+    "main_step_sum_seconds": 9.480008784540296
   },
-  "reductions_scope": "UNPAIRED descriptive versus retained original546b A",
+  "descriptive_reductions_percent": null,
+  "reductions_scope": "One fresh fixed-order SAME512 pair observation; not isolated/additive/repeatability.",
   "current_timing_observation": {
-    "status": "PASS_OWN_UNPROFILED_THREEHOST_SAME256_MOIST_HEIGHT_THREEHOUR545_FOUR_PRODUCTS",
+    "status": "PASS_OWN_UNPROFILED_FOURHOST_SAME512_HEIGHT_THREEHOUR545_FOUR_PRODUCTS_FRESH_FIXED_ORDER_PAIR",
     "executable": {
       "path": "/pool/wrf-experiment/wrf-cpu/builds/current871-moist-height-one-bigstep-member-experimental-r1/wrf.exe",
       "sha256": "5c758822e12965742be2e10669a1e9fd8b3e8e9eee66b4a8eb74d98340e35339"
@@ -400,52 +451,62 @@
       "sha256": "d0c5b00e4ea952de117253dbe01366487186b296523fcaab15819e58d54b7e27"
     },
     "source_commit": "445e5532bf9a82fa5bfdd4898a03b153eb0a9451",
+    "guard_post_test_source_commit": "2da3c200cff40d233bb2cd7d70cef5ce73fe8815",
     "qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moist-height-ordered-helper-reuse-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "3953246bb9536451284de64b15ace27e10a1c9d5b034da4bfdf5fed36d3ec669"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-output/quilt512/fp-entry-guard-20261025/SAME512_THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "b083ff1999d4069cc4162bed61f6331140851ed76c88d9429a48d11780f93f65"
     },
     "science": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current871-moist-height-child3h-runtime-r1/science-receipt.json",
-      "sha256": "33098b8b2d76eb66b1ded8e7294b6c1257e06cf336aa96a5e8066bb5ab1ef506"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current5c75-fourhost-threehour-pair1-runtime-r1/science-receipt.json",
+      "sha256": "20b8fbef80df192a01ba2ce34e14b5b0a0fc85e180732eb47a04ccf9d6855674"
     },
     "reader_closure": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current871-moist-height-child3h-runtime-r1/reader-closure.json",
-      "sha256": "b429f050eaf10c571d25982c4fc5fdd68d3265a5d90def98d3242bb64dae1d69"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-output/quilt512/fp-entry-guard-20261025/READER_CLOSURE.json",
+      "sha256": "91cde74054bc2a8801df58d3f07227846ce716b6f3dcb1897f001644080dc5a9"
     },
     "raw_RESULT": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moist-height-ordered-helper-reuse-20261025/THREE_HOUR_RAW_RESULT.json",
-      "sha256": "4a8495897321359a4e44e56e9536bd26ff4204f3353e31c86033053efde8f50c"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-output/quilt512/fp-entry-guard-20261025/RAW_RESULT.json",
+      "sha256": "1c32696fcbe80d5128288907822fda2274989ede7888592250b9afea5cd4dff3"
     },
     "metrics": {
       "control": {
-        "wall_seconds": 1286.20290737506,
-        "cpu_seconds": 304447.209591,
-        "main_step_sum_seconds": 1087.82599
+        "wall_seconds": 800.0241208570078,
+        "cpu_seconds": 359327.346984,
+        "main_step_sum_seconds": 596.59354
       },
       "candidate": {
-        "wall_seconds": 1077.4935948438942,
-        "cpu_seconds": 267595.985423,
-        "main_step_sum_seconds": 999.41409
+        "wall_seconds": 624.3915967778303,
+        "cpu_seconds": 303178.476221,
+        "main_step_sum_seconds": 540.03642
       }
     },
     "order": [
-      "retained_original546b_reference_from_latest0ec3_pair",
-      "current871_moist_height_only_candidate_threehour"
+      "fresh_original546b_A",
+      "selected_height5c75_B"
     ],
-    "comparison_design": "Candidate-only same256 HEIGHT-only child own3h versus retained original546b A from completed fresh0ec3 pair; identical224compute8x28+32quilt/fourFULLproducts/exactorderedsteps; no freshmatchedpair timing claim",
-    "reductions_percent": null,
-    "descriptive_reductions_percent": {
-      "wall_seconds": 16.22677971993618,
-      "cpu_seconds": 12.104306758963768,
-      "main_step_sum_seconds": 8.127393610075451
+    "comparison_design": "Fresh SAME512 pair1 A-B original546b versus selectedheight5c75; no historicalarmreuse/repeatability/isolated/additiveclaim",
+    "reductions_percent": {
+      "wall_seconds": 21.95340359126111,
+      "cpu_seconds": 15.6261056204832,
+      "main_step_sum_seconds": 9.480008784540296
     },
-    "timing_gain_claim": false,
-    "limits": "Own unprofiled three-hour SAME256545/four FULL science only. Candidate-only versus retained original546b A: UNPAIRED descriptive timing, no fresh matched gain, repeatability, isolated or additive component claim. Own noon/9h/384/512/profile/restart/full144 false. Qualified-PP replay/cached-object delivery plus post-test canonical target correspondence, not a clean canonical-source rebuild certificate."
+    "timing_gain_claim": true,
+    "world_size": 512,
+    "compute_ranks": 480,
+    "hosts": [
+      "hpc01",
+      "hpc02",
+      "hpc03",
+      "hpc04"
+    ],
+    "observed_step_count": 545,
+    "products": 4,
+    "limits": "Own unprofiled SAME512480compute+32quilt, four hosts,545 ordered steps/four FULL06\u201309 products. One fresh fixed-order original546b A\u2192selectedheight5c75 B observation with checked cache before each arm and all eight models+reader normal closed. No repeatability, isolated/additive component gain, noon/9h/profile/restart/384/full144 or clean whole-image source-rebuild claim. Earlier SAME256 own3h qualification remains separate and immutable."
   },
-  "last_three_hour_benchmark_applies_to_current": false,
-  "scope": "Own unprofiled three-hour SAME256545/four FULL science only. Candidate-only versus retained original546b A: UNPAIRED descriptive timing, no fresh matched gain, repeatability, isolated or additive component claim. Own noon/9h/384/512/profile/restart/full144 false. Qualified-PP replay/cached-object delivery plus post-test canonical target correspondence, not a clean canonical-source rebuild certificate.",
-  "limits": "Own unprofiled three-hour SAME256545/four FULL science only. Candidate-only versus retained original546b A: UNPAIRED descriptive timing, no fresh matched gain, repeatability, isolated or additive component claim. Own noon/9h/384/512/profile/restart/full144 false. Qualified-PP replay/cached-object delivery plus post-test canonical target correspondence, not a clean canonical-source rebuild certificate.",
-  "claim_limits": "Own unprofiled three-hour SAME256545/four FULL science only. Candidate-only versus retained original546b A: UNPAIRED descriptive timing, no fresh matched gain, repeatability, isolated or additive component claim. Own noon/9h/384/512/profile/restart/full144 false. Qualified-PP replay/cached-object delivery plus post-test canonical target correspondence, not a clean canonical-source rebuild certificate.",
+  "last_three_hour_benchmark_applies_to_current": true,
+  "scope": "Own unprofiled SAME512480compute+32quilt, four hosts,545 ordered steps/four FULL06\u201309 products. One fresh fixed-order original546b A\u2192selectedheight5c75 B observation with checked cache before each arm and all eight models+reader normal closed. No repeatability, isolated/additive component gain, noon/9h/profile/restart/384/full144 or clean whole-image source-rebuild claim. Earlier SAME256 own3h qualification remains separate and immutable.",
+  "limits": "Own unprofiled SAME512480compute+32quilt, four hosts,545 ordered steps/four FULL06\u201309 products. One fresh fixed-order original546b A\u2192selectedheight5c75 B observation with checked cache before each arm and all eight models+reader normal closed. No repeatability, isolated/additive component gain, noon/9h/profile/restart/384/full144 or clean whole-image source-rebuild claim. Earlier SAME256 own3h qualification remains separate and immutable.",
+  "claim_limits": "Own unprofiled SAME512480compute+32quilt, four hosts,545 ordered steps/four FULL06\u201309 products. One fresh fixed-order original546b A\u2192selectedheight5c75 B observation with checked cache before each arm and all eight models+reader normal closed. No repeatability, isolated/additive component gain, noon/9h/profile/restart/384/full144 or clean whole-image source-rebuild claim. Earlier SAME256 own3h qualification remains separate and immutable.",
   "previous_parent": {
     "component": "/home/ddietz/wrf/WRF/tools/cpu-compute/moist-height-ordered-helper-reuse-20261025/PREVIOUS_PARENT871_RECORDS.json",
     "executable": {
@@ -453,5 +514,26 @@
       "sha256": "871f2e3c196e2ecb4a91fa167cc055ab8b94c13fbabd91f72c5020d042f415f3"
     },
     "scope": "Historical image-specific qualifications and timings; no transfer to child"
+  },
+  "current_fourhost512_qualified": true,
+  "additional_own_SAME256_threehour_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moist-height-ordered-helper-reuse-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "3953246bb9536451284de64b15ace27e10a1c9d5b034da4bfdf5fed36d3ec669"
+  },
+  "output_guard": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-output/quilt512/wrf_quilt_thread_shim.c",
+    "source_sha256": "801e29cc8406d0200dee1557e4263d3ce4db46d750b63b9371083b633c952150",
+    "DSO": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current5c75-world512-fp-guard-build-hpc02-r1/work/liboutput_world512_fp.so",
+      "sha256": "db0d0268806c88616365e5ced5f17778c42cc1110206c434f207a2a01830083c",
+      "source_sha256": "801e29cc8406d0200dee1557e4263d3ce4db46d750b63b9371083b633c952150",
+      "post_test_source_commit": "2da3c200cff40d233bb2cd7d70cef5ce73fe8815"
+    },
+    "native_qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-output/quilt512/fp-entry-guard-20261025/NATIVE_QUALIFICATION.json",
+      "sha256": "adc754d9f47d1da013fb1dd76d82230c9c74c9112b55315402bf3401a6b71855"
+    },
+    "post_test_source_commit": "2da3c200cff40d233bb2cd7d70cef5ce73fe8815",
+    "scope": "Actual source801e wrapper compiled/tested and freshSAME512 science passed; guard commit pending root, no clean whole-image rebuild certificate."
   }
 }

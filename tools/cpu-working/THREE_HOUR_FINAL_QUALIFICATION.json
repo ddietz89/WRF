@@ -1,5 +1,5 @@
 {
-  "status": "PASS_OWN_UNPROFILED_THREEHOST_SAME256_MOIST_HEIGHT_THREEHOUR545_FOUR_PRODUCTS",
+  "status": "PASS_OWN_UNPROFILED_FOURHOST_SAME512_HEIGHT_THREEHOUR545_FOUR_PRODUCTS_FRESH_FIXED_ORDER_PAIR",
   "executable": {
     "path": "/pool/wrf-experiment/wrf-cpu/builds/current871-moist-height-one-bigstep-member-experimental-r1/wrf.exe",
     "sha256": "5c758822e12965742be2e10669a1e9fd8b3e8e9eee66b4a8eb74d98340e35339"
@@ -13,6 +13,8 @@
     "sha256": "6eb125cca1196db3d917b17313852b17f2121accb5bb9fc2ad99dd49580154db"
   },
   "post_test_source_commit": "445e5532bf9a82fa5bfdd4898a03b153eb0a9451",
+  "guard_post_test_source_commit": "2da3c200cff40d233bb2cd7d70cef5ce73fe8815",
+  "guard_source_sha256": "801e29cc8406d0200dee1557e4263d3ce4db46d750b63b9371083b633c952150",
   "raw_producer_source_commit": null,
   "source_correspondence": {
     "scope": "Actual root post-test canonical target statement correspondence with guarded ON/OFF local projection and qualifiedPP replay; no clean canonical-only object reproduction claim",
@@ -33,7 +35,7 @@
   "own_three_hour_qualified": true,
   "own_nine_hour_qualified": false,
   "own_384_qualified": false,
-  "own_fourhost512_qualified": false,
+  "own_fourhost512_qualified": true,
   "profile_qualified": false,
   "native_profile_qualified": false,
   "restart_qualified": false,
@@ -41,131 +43,132 @@
   "own_unprofiled_three_hour_qualified": true,
   "own_unprofiled_nine_hour_qualified": false,
   "own_instrumented_noon_one_hour_qualified": false,
+  "own_threehost256_threehour_qualified": true,
   "observed_step_count": 545,
   "products": 4,
   "runtime": {
-    "scope": "Own unprofiled three-hour SAME256545/four FULL science only. Candidate-only versus retained original546b A: UNPAIRED descriptive timing, no fresh matched gain, repeatability, isolated or additive component claim. Own noon/9h/384/512/profile/restart/full144 false. Qualified-PP replay/cached-object delivery plus post-test canonical target correspondence, not a clean canonical-source rebuild certificate.",
-    "world": 256,
-    "compute": 224,
+    "scope": "Own unprofiled SAME512480compute+32quilt, four hosts,545 ordered steps/four FULL06\u201309 products. One fresh fixed-order original546b A\u2192selectedheight5c75 B observation with checked cache before each arm and all eight models+reader normal closed. No repeatability, isolated/additive component gain, noon/9h/profile/restart/384/full144 or clean whole-image source-rebuild claim. Earlier SAME256 own3h qualification remains separate and immutable.",
+    "world": 512,
+    "compute": 480,
     "quilt": 32,
     "CART": [
-      28,
+      60,
       8
     ],
     "hosts": [
       "hpc01",
       "hpc02",
-      "hpc03"
+      "hpc03",
+      "hpc04"
     ],
     "tiles": 2,
+    "rank_map_variant": "control",
     "rank_map": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current871-moist-height-child3h-runtime-r1/candidate-rank-map.json",
-      "sha256": "d671d504f7a86673530ccdc111b68a67bc14bbcd46131277d8d7dc5decbf13eb"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current5c75-fourhost-threehour-pair1-runtime-r1/control-rank-map.json",
+      "sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac"
     },
     "lease": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current871-moist-height-child3h-runtime-r1/candidate-metadata/lease.json",
-      "sha256": "350d0b78c94edca7be2823ad00770ae251500a961c383547dbd573e9ae08b551"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current5c75-fourhost-threehour-pair1-runtime-r1/candidate-metadata/lease.json",
+      "sha256": "6b357a040a5addb190ef81e4f40bad8fc4ce0bb45849d1680aee6bb5ac502cf4"
     },
     "observed_step_count": 545,
     "products": 4,
-    "model_cap_seconds": 3600,
-    "memory_perhost_bytes": 107374182400,
+    "model_cap_seconds": 1200,
+    "memory_perhost_bytes": {
+      "hpc01": 107374182400,
+      "hpc02": 107374182400,
+      "hpc03": 107374182400,
+      "hpc04": 111669149696
+    },
     "swap_bytes": 0,
     "observer_profile": false,
-    "qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moist-height-ordered-helper-reuse-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "3953246bb9536451284de64b15ace27e10a1c9d5b034da4bfdf5fed36d3ec669"
+    "output_shim": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current5c75-world512-fp-guard-build-hpc02-r1/work/liboutput_world512_fp.so",
+      "sha256": "db0d0268806c88616365e5ced5f17778c42cc1110206c434f207a2a01830083c",
+      "source_sha256": "801e29cc8406d0200dee1557e4263d3ce4db46d750b63b9371083b633c952150",
+      "post_test_source_commit": "2da3c200cff40d233bb2cd7d70cef5ce73fe8815"
+    },
+    "input_adapter": {
+      "pending_component": false,
+      "adapter_path": "/pool/wrf-experiment/wrf-cpu/kernels/root-input-predecoded-production-adapter-abi-hpc02-r1/output/libinput_root.so",
+      "adapter_sha256": "06d0232dbeb53e3e0cc4a8ac5c431a307e0bd3506183f70b5a558f2c70b19553",
+      "owner_path": "/pool/wrf-experiment/wrf-cpu/kernels/ordinary-nc-predecoded-fp-admission-build-hpc02-r3/output/libnetcdf.so.19",
+      "owner_sha256": "a32aa6cdf5e7154b974afb699f6be8f0b0632cfb4bc00226b7b6a34e0b04f41d",
+      "rank": 0,
+      "host": "hpc01",
+      "root_cpu": 0,
+      "borrowed_occupied_cpus": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "input_source_sha256": "4febd6cabc22d8fd5caf0efe89087b97a5871cd269e9777be7c8b8166c5d3ddf",
+      "component_receipt_sha256": "90070f7ce757ca6e571554779ce6624f5e179a4ed76653a30d4d8be9eb89a6e5",
+      "component_closure_sha256": "d77bf34ae3d4a30068ab5998908a3560bfb68eaa0b5ab8baa47dc8814758d590"
     },
     "science": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current871-moist-height-child3h-runtime-r1/science-receipt.json",
-      "sha256": "33098b8b2d76eb66b1ded8e7294b6c1257e06cf336aa96a5e8066bb5ab1ef506"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current5c75-fourhost-threehour-pair1-runtime-r1/science-receipt.json",
+      "sha256": "20b8fbef80df192a01ba2ce34e14b5b0a0fc85e180732eb47a04ccf9d6855674"
     }
   },
   "metrics": {
     "control": {
-      "wall_seconds": 1286.20290737506,
-      "cpu_seconds": 304447.209591,
-      "main_step_sum_seconds": 1087.82599
+      "wall_seconds": 800.0241208570078,
+      "cpu_seconds": 359327.346984,
+      "main_step_sum_seconds": 596.59354
     },
     "candidate": {
-      "wall_seconds": 1077.4935948438942,
-      "cpu_seconds": 267595.985423,
-      "main_step_sum_seconds": 999.41409
+      "wall_seconds": 624.3915967778303,
+      "cpu_seconds": 303178.476221,
+      "main_step_sum_seconds": 540.03642
     }
   },
-  "comparison_design": "Candidate-only same256 HEIGHT-only child own3h versus retained original546b A from completed fresh0ec3 pair; identical224compute8x28+32quilt/fourFULLproducts/exactorderedsteps; no freshmatchedpair timing claim",
+  "comparison_design": "Fresh SAME512 pair1 A-B original546b versus selectedheight5c75; no historicalarmreuse/repeatability/isolated/additiveclaim",
   "order": [
-    "retained_original546b_reference_from_latest0ec3_pair",
-    "current871_moist_height_only_candidate_threehour"
+    "fresh_original546b_A",
+    "selected_height5c75_B"
   ],
-  "reductions_percent": null,
-  "descriptive_reductions_percent": {
-    "wall_seconds": 16.22677971993618,
-    "cpu_seconds": 12.104306758963768,
-    "main_step_sum_seconds": 8.127393610075451
+  "reductions_percent": {
+    "wall_seconds": 21.95340359126111,
+    "cpu_seconds": 15.6261056204832,
+    "main_step_sum_seconds": 9.480008784540296
   },
-  "timing_gain_claim": false,
+  "timing_gain_claim": true,
+  "timing_claim_scope": "Observed complete-system reduction in this one fresh fixed-order pair only; not isolated height or guard causality, repeatability, forecast guarantee or additive gain.",
   "evidence": {
-    "RESULT": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current871-moist-height-child3h-runtime-r1/RESULT.json",
-      "sha256": "4a8495897321359a4e44e56e9536bd26ff4204f3353e31c86033053efde8f50c"
+    "raw_RESULT": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-output/quilt512/fp-entry-guard-20261025/RAW_RESULT.json",
+      "sha256": "1c32696fcbe80d5128288907822fda2274989ede7888592250b9afea5cd4dff3"
     },
     "science": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current871-moist-height-child3h-runtime-r1/science-receipt.json",
-      "sha256": "33098b8b2d76eb66b1ded8e7294b6c1257e06cf336aa96a5e8066bb5ab1ef506"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current5c75-fourhost-threehour-pair1-runtime-r1/science-receipt.json",
+      "sha256": "20b8fbef80df192a01ba2ce34e14b5b0a0fc85e180732eb47a04ccf9d6855674"
     },
     "reader_closure": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current871-moist-height-child3h-runtime-r1/reader-closure.json",
-      "sha256": "b429f050eaf10c571d25982c4fc5fdd68d3265a5d90def98d3242bb64dae1d69"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-output/quilt512/fp-entry-guard-20261025/READER_CLOSURE.json",
+      "sha256": "91cde74054bc2a8801df58d3f07227846ce716b6f3dcb1897f001644080dc5a9"
+    },
+    "native_guard": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-output/quilt512/fp-entry-guard-20261025/NATIVE_QUALIFICATION.json",
+      "sha256": "adc754d9f47d1da013fb1dd76d82230c9c74c9112b55315402bf3401a6b71855"
+    },
+    "control_models": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current5c75-fourhost-threehour-pair1-runtime-r1/control-metadata/model-closures.json",
+      "sha256": "c0a771f8482e6883259c29b1a321e03ce21965b8cf718667d61c321a1eb8548e"
     },
     "candidate_models": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current871-moist-height-child3h-runtime-r1/candidate-metadata/model-closures.json",
-      "sha256": "c7d9a3b5be03341609e5082a316536d0aad5697af3fe9e36f05ff6fa7fe01a3c"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current5c75-fourhost-threehour-pair1-runtime-r1/candidate-metadata/model-closures.json",
+      "sha256": "3682ec3c158a552587834f209766a116746003c681465f3a0f9268cd57b50f1d"
     },
-    "retained_original_models": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current871-moist-height-child3h-runtime-r1/control-metadata/model-closures.json",
-      "sha256": "85cd0400a165d78a989b0ca163b1749b462daccce04d55e702c0d433721c1abc"
-    },
-    "candidate_lease": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current871-moist-height-child3h-runtime-r1/candidate-metadata/lease.json",
-      "sha256": "350d0b78c94edca7be2823ad00770ae251500a961c383547dbd573e9ae08b551"
-    },
-    "retained_original_lease": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current871-moist-height-child3h-runtime-r1/control-metadata/lease.json",
-      "sha256": "23e234d49f1639182bf291d430896006382409084b37425116a78175090869b8"
-    },
-    "protected_checker": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current871-moist-height-child3h-runtime-r1/check_pair.py",
-      "sha256": "285bfd9fe38f82226af2316abc1e3a006504f646d2bdc62355ef24011fb27d7e"
-    },
-    "source_pins": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current871-moist-height-child3h-runtime-r1/source-pins.json",
-      "sha256": "2a6ac587e4e42a9df15617b05e1943fd120d7c48eaba2442c5061b0d62dfe0ff"
-    },
-    "build": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current871-moist-height-child3h-runtime-r1/actual-experimental-build-receipt.json",
-      "sha256": "9598b216862f20d4a10a35c69063050a8204810984e21f27e2dc03135e9c785c"
-    },
-    "build_closure": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current871-moist-height-child3h-runtime-r1/actual-experimental-build-closure.json",
-      "sha256": "5eea6308b4880d4c45736bca1b30b5ef8677204d9c61948c990e2f4949b18918"
-    },
-    "native": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current871-moist-height-child3h-runtime-r1/height-native-receipt.json",
-      "sha256": "f757c396d491d969c791cc14f53d5952945ae73ccc1b6aa214ce848629581402"
-    },
-    "scoped_classification": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current871-moist-height-child3h-runtime-r1/HEIGHT_SCOPED_CLASSIFICATION.json",
-      "sha256": "c6c0e3a35849796e841c9a56a632f76c5ddab07019dc702f45c8fe626330e305"
-    },
-    "caller": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current871-moist-height-child3h-runtime-r1/HEIGHT_ACTUAL_CALLER_WAVE.json",
-      "sha256": "2e6f56c0d1a8973697d399dc663bcbfaa6d7eba482947620c12eed1c97566ef0"
-    },
-    "guard_projection": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current871-moist-prep-ordered-height-helper-source-question-r1/canonical-target-guard-projection-r1/GUARD_PROJECTION.json",
-      "sha256": "2b49d8b43db9bce01dae37cb3138f207cb006b3e9b8eac4519b7bd89b26ddd0b"
+    "source_patch": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-output/quilt512/fp-entry-guard-20261025/SOURCE_ONLY.diff",
+      "sha256": "934717b66430f8150d78d3f18a0cb93aedd7d57c1bed2751c3bb5c17c2fc286a"
     }
   },
-  "limits": "Own unprofiled three-hour SAME256545/four FULL science only. Candidate-only versus retained original546b A: UNPAIRED descriptive timing, no fresh matched gain, repeatability, isolated or additive component claim. Own noon/9h/384/512/profile/restart/full144 false. Qualified-PP replay/cached-object delivery plus post-test canonical target correspondence, not a clean canonical-source rebuild certificate."
+  "additional_own_SAME256_threehour_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/moist-height-ordered-helper-reuse-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "3953246bb9536451284de64b15ace27e10a1c9d5b034da4bfdf5fed36d3ec669"
+  },
+  "limits": "Own unprofiled SAME512480compute+32quilt, four hosts,545 ordered steps/four FULL06\u201309 products. One fresh fixed-order original546b A\u2192selectedheight5c75 B observation with checked cache before each arm and all eight models+reader normal closed. No repeatability, isolated/additive component gain, noon/9h/profile/restart/384/full144 or clean whole-image source-rebuild claim. Earlier SAME256 own3h qualification remains separate and immutable."
 }

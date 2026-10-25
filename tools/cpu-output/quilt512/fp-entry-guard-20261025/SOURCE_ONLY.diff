@@ -1,0 +1,44 @@
+--- actual512-parent313e
++++ 512-guard-only-port
+@@ -15,6 +15,7 @@
+ #include <stdint.h>
+ #include <stdatomic.h>
+ #include <fenv.h>
++#include <xmmintrin.h>
+ #include <zlib.h>
+ #include <time.h>
+ #include "root_chunk_provider.h"
+@@ -25,6 +26,7 @@
+ static int enabled,closure_ok,root_cpu=-1,constructor_rank=-1,actual_rank=-1,mpi_level=-1;
+ static root_chunk_options opt;static cpu_set_t expected_cgroup;
+ static char owner_path[PATH_MAX];static FILE *logfile;static _Thread_local int busy;
++static unsigned long fp_declines;
+ static unsigned long scopes,callbacks,supplied,declines,releases,pending,errors,widens,restores,guard_declines,terminal_guards;
+ static _Atomic unsigned long calls,foreign_calls;
+ static const int writer_ranks[4]={487,495,503,511};
+@@ -169,13 +171,18 @@
+  if(!enabled||!closure_ok||syscall(SYS_gettid)!=getpid())return 0;
+  if(MPI_Initialized(&initialized)!=MPI_SUCCESS||!initialized||MPI_Finalized(&finalized)!=MPI_SUCCESS||finalized||MPI_Is_thread_main(&is_main)!=MPI_SUCCESS||!is_main||MPI_Query_thread(&mpi_level)!=MPI_SUCCESS||mpi_level<MPI_THREAD_FUNNELED||MPI_Comm_rank(MPI_COMM_WORLD,&actual_rank)!=MPI_SUCCESS||MPI_Comm_size(MPI_COMM_WORLD,&size)!=MPI_SUCCESS||size!=512||actual_rank!=constructor_rank||writer_slot(actual_rank)<0)return 0;
+  cpu_set_t mask;if(!singleton(&mask)||!cg_ok()||!logfile)return 0;
+- if(!scopes){fprintf(logfile,"{\"event\":\"activation\",\"rank\":%d,\"size\":512,\"mpi_thread\":%d,\"root_cpu\":%d,\"cgroup_cpu_count\":128,\"owner\":\"%s\"}\n",actual_rank,mpi_level,root_cpu,owner_path);fflush(logfile);}return 1;
++ if(!scopes&&!fp_declines){fprintf(logfile,"{\"event\":\"activation\",\"rank\":%d,\"size\":512,\"mpi_thread\":%d,\"root_cpu\":%d,\"cgroup_cpu_count\":128,\"owner\":\"%s\"}\n",actual_rank,mpi_level,root_cpu,owner_path);fflush(logfile);}return 1;
+ }
+ int nc_put_vara_float(int id,int var,const size_t*s,const size_t*c,const float*p){
+  atomic_fetch_add(&calls,1);if(!put_real)return NC_EINVAL;
+  if(!enabled||!pthread_equal(pthread_self(),main_thread)||busy){if(!pthread_equal(pthread_self(),main_thread))atomic_fetch_add(&foreign_calls,1);return put_real(id,var,s,c,p);}
+  int before_errno=errno;fenv_t before;if(fegetenv(&before))fatal("put_fenv_get");
++ int caller_flags=fetestexcept(FE_INEXACT);unsigned caller_mxcsr=_mm_getcsr();
+  if(!activate()){if(fesetenv(&before))fatal("decline_fenv_restore");errno=before_errno;return put_real(id,var,s,c,p);}
++ /* Exact caller-entry admission: x87-only sticky INEXACT is insufficient for
++  * the observed ordinary SSE sizing side effect. No begin/end/provider/workers
++  * execute on this path; the original public put runs exactly once. */
++ if(!caller_flags||!(caller_mxcsr&(1u<<5))){fp_declines++;if(logfile){fprintf(logfile,"{\"event\":\"fp_decline\",\"rank\":%d,\"ncid\":%d,\"varid\":%d,\"caller_flags\":%d,\"FE_INEXACT\":%d,\"caller_mxcsr\":%u,\"before_begin\":true}\n",actual_rank,id,var,caller_flags,FE_INEXACT,caller_mxcsr);fflush(logfile);}if(fesetenv(&before))fatal("fp_decline_fenv_restore");errno=before_errno;return put_real(id,var,s,c,p);}
+  memset(&envelope,0,sizeof envelope);public_id=id;public_var=var;public_start=s;public_count=c;public_raw=p;
+  int begin=begin_real(provider,NULL);if(begin!=NC_NOERR){errors++;if(fesetenv(&before))fatal("begin_fenv_restore");errno=before_errno;return begin;}
+  busy=1;scopes++;if(fesetenv(&before))fatal("entry_fenv_restore");errno=before_errno;
+@@ -198,4 +205,4 @@
+  closure_ok=same_owner((void*)put_real)&&same_owner((void*)begin_real)&&same_owner((void*)end_real);if(!closure_ok)return;
+  enabled=1;
+ }
+-__attribute__((destructor))static void finish(void){if(logfile){fprintf(logfile,"{\"event\":\"final\",\"rank\":%d,\"scopes\":%lu,\"callbacks\":%lu,\"supplied\":%lu,\"declines\":%lu,\"guard_declines\":%lu,\"terminal_guards\":%lu,\"releases\":%lu,\"pending\":%lu,\"errors\":%lu,\"widens\":%lu,\"restores\":%lu,\"calls\":%lu,\"foreign_calls\":%lu}\n",actual_rank,scopes,callbacks,supplied,declines,guard_declines,terminal_guards,releases,pending,errors,widens,restores,atomic_load(&calls),atomic_load(&foreign_calls));fclose(logfile);}}
++__attribute__((destructor))static void finish(void){if(logfile){fprintf(logfile,"{\"event\":\"final\",\"rank\":%d,\"fp_declines\":%lu,\"scopes\":%lu,\"callbacks\":%lu,\"supplied\":%lu,\"declines\":%lu,\"guard_declines\":%lu,\"terminal_guards\":%lu,\"releases\":%lu,\"pending\":%lu,\"errors\":%lu,\"widens\":%lu,\"restores\":%lu,\"calls\":%lu,\"foreign_calls\":%lu}\n",actual_rank,fp_declines,scopes,callbacks,supplied,declines,guard_declines,terminal_guards,releases,pending,errors,widens,restores,atomic_load(&calls),atomic_load(&foreign_calls));fclose(logfile);}}
