@@ -1,5 +1,19 @@
 # WRF CPU optimization findings
 
+## October25: fresh three-host three-hour comparison
+
+After hpc04 was excluded, the unchanged latest combined BACF image passed its own fresh corrected-original546b comparison on hpc01–03: all four complete06–09 products and545 ordered steps exact, all six model scopes and reader normally closed. Both arms used the same256-rank map (224 compute8×28 plus32 quilt4×8), explicit physical affinity,100GiB/node, zero swap and checked client-cache clearing before each arm.
+
+| Metric | Original control | BACF | Reduction |
+|---|---:|---:|---:|
+| Model/MPI wall (min) |21.320|18.322|14.06%|
+| Main-step elapsed (min) |17.989|16.727|7.02%|
+| Aggregate CPU (core-hours) |83.861|75.730|9.70%|
+
+This is one original-first pair in a separate threehost configuration. It does not supersede the earlier fourhost512-rank configuration's observations or establish repeatability. Main elapsed includes communication/backpressure; residual wall is not pure I/O. Per-node lifetime memory peaks were84.58/76.18/85.22GiB original and54.50/50.74/54.20GiB BACF; all event counters were zero. Read-only Voltage/Temperature/Fan samples covered all three nodes before/during/after both arms, with no sampled numeric BMC voltage alarm. No new scientific code or default change follows; own threehost9h/daytime/restart/full144 coverage remains pending. [Exact evidence and rollback](tools/cpu-compute/threehost-same256-threehour-qualification/README.md).
+
+The current operating configuration uses hpc01–03; hpc04 is excluded. Earlier four-host results below retain their original configuration and qualification scope.
+
 ## October 25: four caller improvements promoted after exact three-hour science
 
 Working executable **bacf12b8**, WRF archive **1d2e1851** and RSL archive **6eb125cc** retain all previous selected improvements. They add V nonhydrostatic-correction SIMD, final V-update SIMD, receive width-5/6 copying and an outline of the exact original receive fallback. Source **526e562c** records post-test correspondence; this is a canonical correspondence and cached-object delivery, not a new clean whole-image build.
@@ -4874,18 +4888,6 @@ One original-first ten-minute pair, with a large startup/output share: this is n
 
 [Exact short-run results and limits](tools/cpu-compute/threehost-same256-short-qualification/README.md).
 
-
-## October25: fresh three-host three-hour comparison
-
-After hpc04 was excluded, the unchanged latest combined BACF image passed its own fresh corrected-original546b comparison on hpc01–03: all four complete06–09 products and545 ordered steps exact, all six model scopes and reader normally closed. Both arms used the same256-rank map (224 compute8×28 plus32 quilt4×8), explicit physical affinity,100GiB/node, zero swap and checked client-cache clearing before each arm.
-
-| Metric | Original control | BACF | Reduction |
-|---|---:|---:|---:|
-| Model/MPI wall (min) |21.320|18.322|14.06%|
-| Main-step elapsed (min) |17.989|16.727|7.02%|
-| Aggregate CPU (core-hours) |83.861|75.730|9.70%|
-
-This is one original-first pair in a separate threehost configuration. It does not supersede the earlier fourhost512-rank configuration's observations or establish repeatability. Main elapsed includes communication/backpressure; residual wall is not pure I/O. Per-node lifetime memory peaks were84.58/76.18/85.22GiB original and54.50/50.74/54.20GiB BACF; all event counters were zero. Read-only Voltage/Temperature/Fan samples covered all three nodes before/during/after both arms, with no sampled numeric BMC voltage alarm. No new scientific code or default change follows; own threehost9h/daytime/restart/full144 coverage remains pending. [Exact evidence and rollback](tools/cpu-compute/threehost-same256-threehour-qualification/README.md).
 
 ## October25: helicity scratch fusion closeout
 
