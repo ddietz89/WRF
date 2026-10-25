@@ -1,0 +1,100 @@
+{
+  "status": "PASS_LOCAL_CANONICAL_TARGET_ON_OFF_STATEMENT_CORRESPONDENCE",
+  "canonical_F": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current871-moist-prep-ordered-height-helper-source-question-r1/canonical-source-private-proposal-r1/module_big_step_utilities_em.F",
+    "sha256": "b3797bb7aa587c8a9fc3d4eddb51932d2033dc59ea105c13127b20d8d9061213"
+  },
+  "native_target_sources": {
+    "parent_PP_sha256": "e06b7e60d9a1a3cd20c4be92e062cb6b7196639c9037d9103b2c49734a5e5137",
+    "candidate_PP_sha256": "7d9dd5996e55abe7f01fc6255ea9bcfcc0925be278c4c817f5a596341e931f32"
+  },
+  "local_cpp": {
+    "path": "/usr/bin/cpp",
+    "sha256": "c48f8b1b5ab757134970d17bc2ecd889df0d1245463036e834ab9be9d5e40765",
+    "version": "cpp (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n"
+  },
+  "variants": {
+    "eligible": {
+      "argv": [
+        "/usr/bin/cpp",
+        "-traditional-cpp",
+        "-P",
+        "-undef",
+        "-DWRFPLUS=0",
+        "-DWRF_EXPERIMENTAL_PHY_HEIGHT_ROW_SSE2=1",
+        "-DDM_PARALLEL=1",
+        "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current871-moist-prep-ordered-height-helper-source-question-r1/canonical-target-guard-projection-r1/proposed_target.F"
+      ],
+      "returncode": 0,
+      "expected_target": "eligible",
+      "statements_equal": true,
+      "output_sha256": "65da7210b4e6a55091c278bb52951d2c24d19aec99c786ca06c62c696b411d11"
+    },
+    "explicit_optout": {
+      "argv": [
+        "/usr/bin/cpp",
+        "-traditional-cpp",
+        "-P",
+        "-undef",
+        "-DWRFPLUS=0",
+        "-DWRF_EXPERIMENTAL_PHY_HEIGHT_ROW_SSE2=1",
+        "-DDM_PARALLEL=1",
+        "-DWRF_MOIST_HEIGHT_ROW_OPTOUT=1",
+        "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current871-moist-prep-ordered-height-helper-source-question-r1/canonical-target-guard-projection-r1/proposed_target.F"
+      ],
+      "returncode": 0,
+      "expected_target": "fallback",
+      "statements_equal": true,
+      "output_sha256": "876d0d2088c1b3dd04b9080a02f2f21bef22c292627db39ee9b06940944bd6d0"
+    },
+    "helper_macro_absent": {
+      "argv": [
+        "/usr/bin/cpp",
+        "-traditional-cpp",
+        "-P",
+        "-undef",
+        "-DWRFPLUS=0",
+        "-DDM_PARALLEL=1",
+        "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current871-moist-prep-ordered-height-helper-source-question-r1/canonical-target-guard-projection-r1/proposed_target.F"
+      ],
+      "returncode": 0,
+      "expected_target": "fallback",
+      "statements_equal": true,
+      "output_sha256": "876d0d2088c1b3dd04b9080a02f2f21bef22c292627db39ee9b06940944bd6d0"
+    },
+    "nonDM": {
+      "argv": [
+        "/usr/bin/cpp",
+        "-traditional-cpp",
+        "-P",
+        "-undef",
+        "-DWRFPLUS=0",
+        "-DWRF_EXPERIMENTAL_PHY_HEIGHT_ROW_SSE2=1",
+        "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current871-moist-prep-ordered-height-helper-source-question-r1/canonical-target-guard-projection-r1/proposed_target.F"
+      ],
+      "returncode": 0,
+      "expected_target": "fallback",
+      "statements_equal": true,
+      "output_sha256": "876d0d2088c1b3dd04b9080a02f2f21bef22c292627db39ee9b06940944bd6d0"
+    },
+    "OpenMP": {
+      "argv": [
+        "/usr/bin/cpp",
+        "-traditional-cpp",
+        "-P",
+        "-undef",
+        "-DWRFPLUS=0",
+        "-DWRF_EXPERIMENTAL_PHY_HEIGHT_ROW_SSE2=1",
+        "-DDM_PARALLEL=1",
+        "-D_OPENMP=201511",
+        "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current871-moist-prep-ordered-height-helper-source-question-r1/canonical-target-guard-projection-r1/proposed_target.F"
+      ],
+      "returncode": 0,
+      "expected_target": "fallback",
+      "statements_equal": true,
+      "output_sha256": "876d0d2088c1b3dd04b9080a02f2f21bef22c292627db39ee9b06940944bd6d0"
+    }
+  },
+  "normalization": "Only sourceFortrancomments,insignificantwhitespace/case; exactstatementsequence/operands/subscripts/declarations retained. WholePPbyteidentity and compilerobjectidentity NOTclaimed.",
+  "scope": "Source-only targetprojection withWRFPLUS0 fromactualselectedpipeline. NoFortrancompiler/link/model/cache/remoteaction. Existinghelpermacrobuildadmission remainsGNU13.3/defaultREALINT4/noOMP, notautomaticallyinferredfromcppversion."
+}

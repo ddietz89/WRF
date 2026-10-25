@@ -1,5 +1,16 @@
 # WRF CPU optimization findings
 
+## October25: ordered moist height helper, own3h
+
+Height-only image5c758822/archive d0c5b00e passed545 ordered steps and four FULL06–09 products against retained original546b SAME256 A. Three model units and the reader closed normally. Timing is UNPAIRED descriptive; no isolated height forecast gain is established. Own unprofiled three-hour SAME256545/four FULL science only. Candidate-only versus retained original546b A: UNPAIRED descriptive timing, no fresh matched gain, repeatability, isolated or additive component claim. Own noon/9h/384/512/profile/restart/full144 false. Qualified-PP replay/cached-object delivery plus post-test canonical target correspondence, not a clean canonical-source rebuild certificate.
+
+| Metric | Retained original546b | Height child | Unpaired descriptive reduction |
+|---|---:|---:|---:|
+| Wall minutes | 21.436715 | 17.958227 | 16.2268% |
+| Main elapsed minutes | 18.130433 | 16.656902 | 8.1274% |
+| Summed CPU core-hours | 84.568669 | 74.332218 | 12.1043% |
+
+
 ## October25: current caller decisions and height application candidate
 
 Reusing the existing ordered height helper in `moist_physics_prep_em` shortened the complete synthetic caller by **1.7033% on hpc01 and1.2111% on hpc02**, with threadCPU reductions1.6117%/1.1959%. All four fixed512-call arms passed exact warm/final physical outputs, readonly and five-state checks after separate checked cache clears and normal closures. Complete moist-API O2/O0 and unchanged PHY_PREP regressions also passed. Scoped structural review preserves raw false comparisons while accounting for all non-target relocation and module-summary differences. This is a worthwhile caller improvement, with no forecast-speedup claim.

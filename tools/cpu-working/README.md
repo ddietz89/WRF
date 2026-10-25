@@ -1,3 +1,15 @@
+# Current height-only child: own three-hour science
+
+Height-only image5c758822/archive d0c5b00e passed545 ordered steps and four FULL06–09 products against retained original546b SAME256 A. Three model units and the reader closed normally. Timing is UNPAIRED descriptive; no isolated height forecast gain is established. Own unprofiled three-hour SAME256545/four FULL science only. Candidate-only versus retained original546b A: UNPAIRED descriptive timing, no fresh matched gain, repeatability, isolated or additive component claim. Own noon/9h/384/512/profile/restart/full144 false. Qualified-PP replay/cached-object delivery plus post-test canonical target correspondence, not a clean canonical-source rebuild certificate.
+
+| Metric | Retained original546b | Height child | Unpaired descriptive reduction |
+|---|---:|---:|---:|
+| Wall minutes | 21.436715 | 17.958227 | 16.2268% |
+| Main elapsed minutes | 18.130433 | 16.656902 | 8.1274% |
+| Summed CPU core-hours | 84.568669 | 74.332218 | 12.1043% |
+
+Earlier image-specific history follows.
+
 # Current871: own noon and three-hour science
 
 Image871f2e3c / archive33399456, source9cf704d1, passed all545 ordered steps and all four FULL06–09 products against retained original546b SAME256 A. Three new models and reader closed normally; retained control closure was independently checked. The original A comes from the earlier0ec3 pair, so these percentages are UNPAIRED and descriptive. CPU is summed cgroup CPU, not threadCPU. Immutable own-noonQ remains separate.
