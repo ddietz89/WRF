@@ -1,0 +1,69 @@
+{
+  "status": "CLOSE_FIXED_ABAB_UNPROMOTED",
+  "reason": "Complete paired caller is consistently slower on both hosts despite actual packed arithmetic; this fixed candidate is rejected.",
+  "native_O2_O0_raw_five_state_supported_scope_pass": true,
+  "caller_checks_passed": true,
+  "caller_performance_accepted": false,
+  "application_qualified": false,
+  "forecast_gain_claim": false,
+  "default_or_source_changed": false,
+  "selected_height_5c75_unchanged": true,
+  "metrics": {
+    "complete_pair": {
+      "hpc01": {
+        "parent_wall_seconds": 5.144099823,
+        "candidate_wall_seconds": 7.125522248,
+        "candidate_wall_longer_percent": 38.518350988073344,
+        "candidate_process_CPU_longer_percent": 38.50462979488587
+      },
+      "hpc04": {
+        "parent_wall_seconds": 5.153078604,
+        "candidate_wall_seconds": 7.115157708,
+        "candidate_wall_longer_percent": 38.0758621162302,
+        "candidate_process_CPU_longer_percent": 38.0763644042166
+      }
+    },
+    "complete_SPCVMC": {
+      "hpc01": {
+        "parent_wall_seconds": 5.880212794,
+        "candidate_wall_seconds": 6.741815954,
+        "candidate_wall_longer_percent": 14.652584696920412,
+        "candidate_process_CPU_longer_percent": 14.64584102675297
+      },
+      "hpc04": {
+        "parent_wall_seconds": 5.891979751,
+        "candidate_wall_seconds": 6.741684,
+        "candidate_wall_longer_percent": 14.421370827959601,
+        "candidate_process_CPU_longer_percent": 14.40690135130489
+      }
+    }
+  },
+  "actual_packed_mnemonic_counts": {
+    "divps": 4,
+    "mulps": 31,
+    "addps": 12,
+    "subps": 8,
+    "vdivps": 0,
+    "vmulps": 0,
+    "vaddps": 0,
+    "vsubps": 0
+  },
+  "whole_module_raw_full_RELA_identity": false,
+  "scope_notes": [
+    "O2/O0 actual256 pair roles,8 strided cases,original32 cases x4rounds,fullSPC12 passed through original parent MOD interfaces.",
+    "Caller scope:4,194,304 complete paired calls or16,384 complete SPC calls,33levels,identical restores inside clocks; warm/terminal raw/state/read-only/guard checks outside clocks.",
+    "01 parent-candidate and04 candidate-parent orders; each arm own checked cache clear and normal empty-cgroup closure.",
+    "Defined duplicate high lanes and serial vertical loops confirmed; unmasked trap behavior unqualified.",
+    "Shared pools raw attributes and full relocations exact.34 diagnostic line immediates shift+311;2 same-callee E9 placements;295 changed relocation tuples explicitly classified;three dependent MOD byte changes disclosed.",
+    "Packed arithmetic is a mechanism,not a demonstrated speedup. No cycle-level cause assigned to packing,spills,register allocation or instructions without measurements.",
+    "No application run,no new variant or additional forecast matrix.",
+    "No isolated positive kernel measurement exists; actual complete pair and complete SPC are both slower, so significant-kernel-gain policy is not triggered."
+  ],
+  "significant_kernel_gain_policy_triggered": false,
+  "source_guard": {
+    "kind_branch": "rb==4 .and. im==4",
+    "otherwise": "Literal original scalar paired body",
+    "native_stack": "Actual GNU13.3 x86_64 pureMPI worker checks; no canonical/default source promotion",
+    "source_reference": "EVIDENCE_REFS.json paired_source_and_guard"
+  }
+}

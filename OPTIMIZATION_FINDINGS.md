@@ -1,5 +1,9 @@
 # WRF CPU optimization findings
 
+## October25: packed two-sky radiation candidate closed after complete-caller regressions
+
+The isolated four-lane ABAB VRTQDR candidate passed all retained O2/O0 raw/five-state fixtures and eight cache-cleared complete-caller arms on hpc01/04. Despite actual packed arithmetic, the whole paired routine was **38.52%/38.08% slower**, and complete SPCVMC was **14.65%/14.42% slower**, with CPU agreeing. This is concrete evidence to leave this fixed design unpromoted; no positive isolated kernel gain was measured. The measurements do not identify a cycle-level cause or a forecast effect. Selected height5c75 is unchanged. [Decision, source delta and exact evidence](tools/cpu-rejected/paired-vrtqdr-ABAB-lanes-20261025/README.md).
+
 ## October25: ordered moist height helper, own3h
 
 Height-only image5c758822/archive d0c5b00e passed545 ordered steps and four FULL06–09 products against retained original546b SAME256 A. Three model units and the reader closed normally. Timing is UNPAIRED descriptive; no isolated height forecast gain is established. Own unprofiled three-hour SAME256545/four FULL science only. Candidate-only versus retained original546b A: UNPAIRED descriptive timing, no fresh matched gain, repeatability, isolated or additive component claim. Own noon/9h/384/512/profile/restart/full144 false. Qualified-PP replay/cached-object delivery plus post-test canonical target correspondence, not a clean canonical-source rebuild certificate.

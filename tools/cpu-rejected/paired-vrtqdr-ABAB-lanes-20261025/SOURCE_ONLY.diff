@@ -1,0 +1,326 @@
+--- current871_vrtqdr_sw_pair
++++ private_ABAB_lanes_vrtqdr_sw_pair
+@@ -28,6 +28,317 @@
+  real(rb),intent(out)::pfu_b(:,:)
+  real(rb)::zreflect_b,ztdn_b(klev+1)
+ 
++ integer :: lane
++ real(rb) :: q(4,7),lane_result(4)
++! Private qualified-stack experiment; caller worker hard-binds GNU13.3/x86_64/pureMPI.
++if (rb==4 .and. im==4) then
++! Two semantic skies, four physical lanes A,B,A,B; high lanes copy local inputs only.
++q(1,1) = prefd_a(klev+1)
++q(2,1) = prefd_b(klev+1)
++q(3,1) = q(1,1)
++q(4,1) = q(2,1)
++q(1,2) = prefd_a(klev)
++q(2,2) = prefd_b(klev)
++q(3,2) = q(1,2)
++q(4,2) = q(2,2)
++!$OMP SIMD SIMDLEN(4)
++do lane = 1,4
++  lane_result(lane) = 1._rb / (1._rb - q(lane,1) * q(lane,2))
++enddo
++zreflect_a = lane_result(1)
++zreflect_b = lane_result(2)
++! Two semantic skies, four physical lanes A,B,A,B; high lanes copy local inputs only.
++q(1,1) = pref_a(klev)
++q(2,1) = pref_b(klev)
++q(3,1) = q(1,1)
++q(4,1) = q(2,1)
++q(1,2) = ptrad_a(klev)
++q(2,2) = ptrad_b(klev)
++q(3,2) = q(1,2)
++q(4,2) = q(2,2)
++q(1,3) = ptra_a(klev)
++q(2,3) = ptra_b(klev)
++q(3,3) = q(1,3)
++q(4,3) = q(2,3)
++q(1,4) = pdbt_a(klev)
++q(2,4) = pdbt_b(klev)
++q(3,4) = q(1,4)
++q(4,4) = q(2,4)
++q(1,5) = prefd_a(klev+1)
++q(2,5) = prefd_b(klev+1)
++q(3,5) = q(1,5)
++q(4,5) = q(2,5)
++q(1,6) = pref_a(klev+1)
++q(2,6) = pref_b(klev+1)
++q(3,6) = q(1,6)
++q(4,6) = q(2,6)
++q(1,7) = zreflect_a
++q(2,7) = zreflect_b
++q(3,7) = q(1,7)
++q(4,7) = q(2,7)
++!$OMP SIMD SIMDLEN(4)
++do lane = 1,4
++  lane_result(lane) = q(lane,1) + (q(lane,2) * ((q(lane,3) - q(lane,4)) * q(lane,5) + q(lane,4) * q(lane,6))) * q(lane,7)
++enddo
++prup_a(klev) = lane_result(1)
++prup_b(klev) = lane_result(2)
++! Two semantic skies, four physical lanes A,B,A,B; high lanes copy local inputs only.
++q(1,1) = prefd_a(klev)
++q(2,1) = prefd_b(klev)
++q(3,1) = q(1,1)
++q(4,1) = q(2,1)
++q(1,2) = ptrad_a(klev)
++q(2,2) = ptrad_b(klev)
++q(3,2) = q(1,2)
++q(4,2) = q(2,2)
++q(1,3) = prefd_a(klev+1)
++q(2,3) = prefd_b(klev+1)
++q(3,3) = q(1,3)
++q(4,3) = q(2,3)
++q(1,4) = zreflect_a
++q(2,4) = zreflect_b
++q(3,4) = q(1,4)
++q(4,4) = q(2,4)
++!$OMP SIMD SIMDLEN(4)
++do lane = 1,4
++  lane_result(lane) = q(lane,1) + q(lane,2) * q(lane,2) * q(lane,3) * q(lane,4)
++enddo
++prupd_a(klev) = lane_result(1)
++prupd_b(klev) = lane_result(2)
++do jk = 1,klev-1
++ikp = klev+1-jk
++ikx = ikp-1
++! Two semantic skies, four physical lanes A,B,A,B; high lanes copy local inputs only.
++q(1,1) = prupd_a(ikp)
++q(2,1) = prupd_b(ikp)
++q(3,1) = q(1,1)
++q(4,1) = q(2,1)
++q(1,2) = prefd_a(ikx)
++q(2,2) = prefd_b(ikx)
++q(3,2) = q(1,2)
++q(4,2) = q(2,2)
++!$OMP SIMD SIMDLEN(4)
++do lane = 1,4
++  lane_result(lane) = 1._rb / (1._rb -q(lane,1) * q(lane,2))
++enddo
++zreflect_a = lane_result(1)
++zreflect_b = lane_result(2)
++! Two semantic skies, four physical lanes A,B,A,B; high lanes copy local inputs only.
++q(1,1) = pref_a(ikx)
++q(2,1) = pref_b(ikx)
++q(3,1) = q(1,1)
++q(4,1) = q(2,1)
++q(1,2) = ptrad_a(ikx)
++q(2,2) = ptrad_b(ikx)
++q(3,2) = q(1,2)
++q(4,2) = q(2,2)
++q(1,3) = ptra_a(ikx)
++q(2,3) = ptra_b(ikx)
++q(3,3) = q(1,3)
++q(4,3) = q(2,3)
++q(1,4) = pdbt_a(ikx)
++q(2,4) = pdbt_b(ikx)
++q(3,4) = q(1,4)
++q(4,4) = q(2,4)
++q(1,5) = prupd_a(ikp)
++q(2,5) = prupd_b(ikp)
++q(3,5) = q(1,5)
++q(4,5) = q(2,5)
++q(1,6) = prup_a(ikp)
++q(2,6) = prup_b(ikp)
++q(3,6) = q(1,6)
++q(4,6) = q(2,6)
++q(1,7) = zreflect_a
++q(2,7) = zreflect_b
++q(3,7) = q(1,7)
++q(4,7) = q(2,7)
++!$OMP SIMD SIMDLEN(4)
++do lane = 1,4
++  lane_result(lane) = q(lane,1) + (q(lane,2) * ((q(lane,3) - q(lane,4)) * q(lane,5) + q(lane,4) * q(lane,6))) * q(lane,7)
++enddo
++prup_a(ikx) = lane_result(1)
++prup_b(ikx) = lane_result(2)
++! Two semantic skies, four physical lanes A,B,A,B; high lanes copy local inputs only.
++q(1,1) = prefd_a(ikx)
++q(2,1) = prefd_b(ikx)
++q(3,1) = q(1,1)
++q(4,1) = q(2,1)
++q(1,2) = ptrad_a(ikx)
++q(2,2) = ptrad_b(ikx)
++q(3,2) = q(1,2)
++q(4,2) = q(2,2)
++q(1,3) = prupd_a(ikp)
++q(2,3) = prupd_b(ikp)
++q(3,3) = q(1,3)
++q(4,3) = q(2,3)
++q(1,4) = zreflect_a
++q(2,4) = zreflect_b
++q(3,4) = q(1,4)
++q(4,4) = q(2,4)
++!$OMP SIMD SIMDLEN(4)
++do lane = 1,4
++  lane_result(lane) = q(lane,1) + q(lane,2) * q(lane,2) * q(lane,3) * q(lane,4)
++enddo
++prupd_a(ikx) = lane_result(1)
++prupd_b(ikx) = lane_result(2)
++enddo
++ztdn_a(1) = 1._rb
++ztdn_b(1) = 1._rb
++prdnd_a(1) = 0._rb
++prdnd_b(1) = 0._rb
++ztdn_a(2) = ptra_a(1)
++ztdn_b(2) = ptra_b(1)
++prdnd_a(2) = prefd_a(1)
++prdnd_b(2) = prefd_b(1)
++do jk = 2,klev
++ikp = jk+1
++! Two semantic skies, four physical lanes A,B,A,B; high lanes copy local inputs only.
++q(1,1) = prefd_a(jk)
++q(2,1) = prefd_b(jk)
++q(3,1) = q(1,1)
++q(4,1) = q(2,1)
++q(1,2) = prdnd_a(jk)
++q(2,2) = prdnd_b(jk)
++q(3,2) = q(1,2)
++q(4,2) = q(2,2)
++!$OMP SIMD SIMDLEN(4)
++do lane = 1,4
++  lane_result(lane) = 1._rb / (1._rb - q(lane,1) * q(lane,2))
++enddo
++zreflect_a = lane_result(1)
++zreflect_b = lane_result(2)
++! Two semantic skies, four physical lanes A,B,A,B; high lanes copy local inputs only.
++q(1,1) = ptdbt_a(jk)
++q(2,1) = ptdbt_b(jk)
++q(3,1) = q(1,1)
++q(4,1) = q(2,1)
++q(1,2) = ptra_a(jk)
++q(2,2) = ptra_b(jk)
++q(3,2) = q(1,2)
++q(4,2) = q(2,2)
++q(1,3) = ptrad_a(jk)
++q(2,3) = ptrad_b(jk)
++q(3,3) = q(1,3)
++q(4,3) = q(2,3)
++q(1,4) = ztdn_a(jk)
++q(2,4) = ztdn_b(jk)
++q(3,4) = q(1,4)
++q(4,4) = q(2,4)
++q(1,5) = pref_a(jk)
++q(2,5) = pref_b(jk)
++q(3,5) = q(1,5)
++q(4,5) = q(2,5)
++q(1,6) = prdnd_a(jk)
++q(2,6) = prdnd_b(jk)
++q(3,6) = q(1,6)
++q(4,6) = q(2,6)
++q(1,7) = zreflect_a
++q(2,7) = zreflect_b
++q(3,7) = q(1,7)
++q(4,7) = q(2,7)
++!$OMP SIMD SIMDLEN(4)
++do lane = 1,4
++  lane_result(lane) = q(lane,1) * q(lane,2) + (q(lane,3) * ((q(lane,4) - q(lane,1)) + q(lane,1) * q(lane,5) * q(lane,6))) * q(lane,7)
++enddo
++ztdn_a(ikp) = lane_result(1)
++ztdn_b(ikp) = lane_result(2)
++! Two semantic skies, four physical lanes A,B,A,B; high lanes copy local inputs only.
++q(1,1) = prefd_a(jk)
++q(2,1) = prefd_b(jk)
++q(3,1) = q(1,1)
++q(4,1) = q(2,1)
++q(1,2) = ptrad_a(jk)
++q(2,2) = ptrad_b(jk)
++q(3,2) = q(1,2)
++q(4,2) = q(2,2)
++q(1,3) = prdnd_a(jk)
++q(2,3) = prdnd_b(jk)
++q(3,3) = q(1,3)
++q(4,3) = q(2,3)
++q(1,4) = zreflect_a
++q(2,4) = zreflect_b
++q(3,4) = q(1,4)
++q(4,4) = q(2,4)
++!$OMP SIMD SIMDLEN(4)
++do lane = 1,4
++  lane_result(lane) = q(lane,1) + q(lane,2) * q(lane,2) * q(lane,3) * q(lane,4)
++enddo
++prdnd_a(ikp) = lane_result(1)
++prdnd_b(ikp) = lane_result(2)
++enddo
++do jk = 1,klev+1
++! Two semantic skies, four physical lanes A,B,A,B; high lanes copy local inputs only.
++q(1,1) = prdnd_a(jk)
++q(2,1) = prdnd_b(jk)
++q(3,1) = q(1,1)
++q(4,1) = q(2,1)
++q(1,2) = prupd_a(jk)
++q(2,2) = prupd_b(jk)
++q(3,2) = q(1,2)
++q(4,2) = q(2,2)
++!$OMP SIMD SIMDLEN(4)
++do lane = 1,4
++  lane_result(lane) = 1._rb / (1._rb - q(lane,1) * q(lane,2))
++enddo
++zreflect_a = lane_result(1)
++zreflect_b = lane_result(2)
++! Two semantic skies, four physical lanes A,B,A,B; high lanes copy local inputs only.
++q(1,1) = ptdbt_a(jk)
++q(2,1) = ptdbt_b(jk)
++q(3,1) = q(1,1)
++q(4,1) = q(2,1)
++q(1,2) = prup_a(jk)
++q(2,2) = prup_b(jk)
++q(3,2) = q(1,2)
++q(4,2) = q(2,2)
++q(1,3) = ztdn_a(jk)
++q(2,3) = ztdn_b(jk)
++q(3,3) = q(1,3)
++q(4,3) = q(2,3)
++q(1,4) = prupd_a(jk)
++q(2,4) = prupd_b(jk)
++q(3,4) = q(1,4)
++q(4,4) = q(2,4)
++q(1,5) = zreflect_a
++q(2,5) = zreflect_b
++q(3,5) = q(1,5)
++q(4,5) = q(2,5)
++!$OMP SIMD SIMDLEN(4)
++do lane = 1,4
++  lane_result(lane) = (q(lane,1) * q(lane,2) + (q(lane,3) - q(lane,1)) * q(lane,4)) * q(lane,5)
++enddo
++pfu_a(jk,kw) = lane_result(1)
++pfu_b(jk,kw) = lane_result(2)
++! Two semantic skies, four physical lanes A,B,A,B; high lanes copy local inputs only.
++q(1,1) = ptdbt_a(jk)
++q(2,1) = ptdbt_b(jk)
++q(3,1) = q(1,1)
++q(4,1) = q(2,1)
++q(1,2) = ztdn_a(jk)
++q(2,2) = ztdn_b(jk)
++q(3,2) = q(1,2)
++q(4,2) = q(2,2)
++q(1,3) = prup_a(jk)
++q(2,3) = prup_b(jk)
++q(3,3) = q(1,3)
++q(4,3) = q(2,3)
++q(1,4) = prdnd_a(jk)
++q(2,4) = prdnd_b(jk)
++q(3,4) = q(1,4)
++q(4,4) = q(2,4)
++q(1,5) = zreflect_a
++q(2,5) = zreflect_b
++q(3,5) = q(1,5)
++q(4,5) = q(2,5)
++!$OMP SIMD SIMDLEN(4)
++do lane = 1,4
++  lane_result(lane) = q(lane,1) + (q(lane,2) - q(lane,1)+ q(lane,1) * q(lane,3) * q(lane,4)) * q(lane,5)
++enddo
++pfd_a(jk,kw) = lane_result(1)
++pfd_b(jk,kw) = lane_result(2)
++enddo
++else
++! Literal original scalar fallback: original math/read/write order retained.
+ zreflect_a = 1._rb / (1._rb - prefd_a(klev+1) * prefd_a(klev))
+ zreflect_b = 1._rb / (1._rb - prefd_b(klev+1) * prefd_b(klev))
+ prup_a(klev) = pref_a(klev) + (ptrad_a(klev) * ((ptra_a(klev) - pdbt_a(klev)) * prefd_a(klev+1) + pdbt_a(klev) * pref_a(klev+1))) * zreflect_a
+@@ -69,4 +380,5 @@
+ pfd_a(jk,kw) = ptdbt_a(jk) + (ztdn_a(jk) - ptdbt_a(jk)+ ptdbt_a(jk) * prup_a(jk) * prdnd_a(jk)) * zreflect_a
+ pfd_b(jk,kw) = ptdbt_b(jk) + (ztdn_b(jk) - ptdbt_b(jk)+ ptdbt_b(jk) * prup_b(jk) * prdnd_b(jk)) * zreflect_b
+ enddo
++endif
+ end subroutine
