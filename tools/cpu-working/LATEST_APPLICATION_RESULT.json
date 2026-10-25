@@ -1,5 +1,5 @@
 {
-  "status": "PASS_OWN_UNPROFILED_FOURHOST_SAME512_CQU_CQW_NOON185_TWO_FULL_PRODUCTS",
+  "status": "PASS_OWN_UNPROFILED_FOURHOST_SAME512_CQU_CQW_FRESH_PAIR1_THREEHOUR545_FOUR_FULL",
   "executable": {
     "path": "/pool/wrf-experiment/wrf-cpu/builds/currentab437-cqu-cqw-one-bigstep-member-experimental-r1/wrf.exe",
     "sha256": "0b40b9614521536dae2bfd668571db36d9013535feae6fae3a2d73210c20ef3e"
@@ -9,37 +9,46 @@
     "sha256": "14c102fe1cc1762f2b2458e934f220436c1608c0b52b520304d3084d45586c95"
   },
   "source_commit": "1770d46988d08e896cd5b15d1c76e49d468b46d0",
-  "raw_producer_source_commit": null,
   "qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/cqu-cqw-last-species-consumer-fusion-20261025/OWN_NOON_APPLICATION_QUALIFICATION.json",
-    "sha256": "d5a4fef1cd29b11aa0544f0a4213a728f5b709e8d421900c1f4f8d44c4388ab3"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/cqu-cqw-last-species-consumer-fusion-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "0e108e2388cdc1b1043b04b0a7760151c93bd9ea391ae48324eeac33b37fd09c"
   },
   "science": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentab437-cqu-cqw-noon1h-runtime-r1/science-receipt.json",
-    "sha256": "bc027b359c71c2f9129ceb94cb1145ab5af59cb466b650e7f9af172dfff5f45d"
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current0b40-fourhost-threehour-pair1-runtime-r1/science-receipt.json",
+    "sha256": "36bc4261a33ce006e32869e2441da54a3640671be85c3d9b2034702ee2b8132a"
   },
   "reader_closure": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentab437-cqu-cqw-noon1h-runtime-r1/reader-closure.json",
-    "sha256": "a3471976a9f5a8f8cf7578216764590f0b9d73298da263db46e6036ce3808879"
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current0b40-fourhost-threehour-pair1-runtime-r1/reader-closure.json",
+    "sha256": "4c1a30f66f60177ffa37ec0d4704267f6652508fbbf855882c4bb3d77662de13"
   },
   "raw_RESULT": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentab437-cqu-cqw-noon1h-runtime-r1/RESULT.json",
-    "sha256": "c0ad0533a794c219d1407126c36f019d3969a504b58c4339b78b6c01e3d68c3a"
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current0b40-fourhost-threehour-pair1-runtime-r1/RESULT.json",
+    "sha256": "555bbdf1bab10988c04aa80ba0f2383fdf5f22e258e2e6bd24ea3995c0b0de3a"
   },
   "metrics": {
+    "control": {
+      "wall_seconds": 798.6198086068034,
+      "cpu_seconds": 358644.885565,
+      "main_step_sum_seconds": 595.32709
+    },
     "candidate": {
-      "wall_seconds": 266.5345952580683,
-      "cpu_seconds": 120521.298173,
-      "main_step_sum_seconds": 176.06787
+      "wall_seconds": 625.2601152546704,
+      "cpu_seconds": 302736.240279,
+      "main_step_sum_seconds": 539.578
     }
   },
   "order": [
-    "retained_original546b_noon_science_reference",
-    "fresh_CQU_CQW_0b40_unprofiled_noon_candidate"
+    "fresh_original546b_A1",
+    "selected0b40_B1"
   ],
-  "comparison_design": "Candidate-only exact science against retained original prefix; no fresh matched timing control.",
-  "reductions_percent": null,
-  "timing_gain_claim": false,
+  "comparison_design": "Fresh SAME512 pair1 A-B original546b versus selected0b40; no historicalarmreuse/repeatability/isolated/additiveclaim",
+  "reductions_percent": {
+    "wall_seconds": 21.707412148286174,
+    "main_step_sum_seconds": 9.36444703028717,
+    "cpu_seconds": 15.588858934353112
+  },
+  "descriptive_reductions_percent": null,
+  "timing_gain_claim": true,
   "world_size": 512,
   "compute_ranks": 480,
   "hosts": [
@@ -48,15 +57,7 @@
     "hpc03",
     "hpc04"
   ],
-  "observed_step_count": 185,
-  "products": 2,
-  "limits": "Own unprofiled SAME512 noon12\u201313,185 ordered steps/two FULL outputs against retained corrected-original546b scientific prefix; candidate-only, no forecast timing gain. No own3h/9h/profile/restart/144/384/SAME256 qualification.",
-  "legacy_label_adjudication": {
-    "raw_result_order": [
-      "retained_original546b_noon_science_reference",
-      "fresh_experimental_CQ_unprofiled_onehour_candidate"
-    ],
-    "raw_science_status": "PASS_CURRENT5C75_NATIVE_NOON_ONE_HOUR_TWO_HISTORY_185_STEP_PREFIX",
-    "actual_role": "CQ child unprofiled noon candidate-only, no parent profile/horizon inheritance."
-  }
+  "observed_step_count": 545,
+  "products": 4,
+  "limits": "Own unprofiled SAME512 fresh pair1 original546b A1\u2192current0b40 B1,545 ordered steps/four FULL06\u201309 exact science; one fixed-order timing observation within ONGOING A1-B1-B2-A2 study. No completedABBA/repeatability/isolated/additive gain or own9h/profile/restart/144/384/SAME256 qualification. OwnnoonQ remains immutable/separate. QualifiedPP replay/cachedobject+post-testtargetprojection; no clean canonical rebuild certificate."
 }

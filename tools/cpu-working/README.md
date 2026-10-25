@@ -1,8 +1,22 @@
-# Current CQU/CQW child0b40: own SAME512 noon qualification
+# Current CQU/CQW child0b40: fresh SAME512 pair1 three-hour science
 
-## Current CQU/CQW child0b40: own unprofiled SAME512 noon science
+## CQU/CQW child0b40: fresh SAME512 pair1 three-hour science
 
-Source1770d469/executable0b40b961/archive14c102fe passed185 ordered steps and two FULL12:00/13:00 products against the retained original546b SAME512 scientific prefix, with all four models and reader normal closed. Current own3h/9h/profile/restart/full144 remain false. Parentab437 three-hour descriptive observation and older5c75 matched3h/8719h/profile records remain image-specific history; none is a currentchild forecast gain. The retained75-minute control's full-arm timing is not a one-hour timing comparator.
+Own unprofiled SAME512 fresh pair1 original546b A1→current0b40 B1,545 ordered steps/four FULL06–09 exact science; one fixed-order timing observation within ONGOING A1-B1-B2-A2 study. No completedABBA/repeatability/isolated/additive gain or own9h/profile/restart/144/384/SAME256 qualification. OwnnoonQ remains immutable/separate. QualifiedPP replay/cachedobject+post-testtargetprojection; no clean canonical rebuild certificate.
+
+| Metric | Fresh original546b A1 | Current0b40 B1 | Reduction in this one pair |
+|---|---:|---:|---:|
+| Wall minutes | 13.310330 | 10.421002 | 21.7074% |
+| Main elapsed minutes | 9.922118 | 8.992967 | 9.3644% |
+| Aggregate CPU core-hours | 99.623579 | 84.093400 | 15.5889% |
+
+Qualification: `tools/cpu-compute/cqu-cqw-last-species-consumer-fusion-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json`. Parentab437 unpaired3h and5c75 matched3h/8719h/profile observations remain historical and unchanged. Study A1-B1-B2-A2 remains ongoing; firstpair is not a completedABBA or repeatability result.
+
+## Historical record before pair1
+
+## CQU/CQW child0b40: prior unprofiled SAME512 noon science
+
+Source1770d469/executable0b40b961/archive14c102fe passed185 ordered steps and two FULL12:00/13:00 products against the retained original546b SAME512 scientific prefix, with all four models and reader normal closed. Before pair1, own3h/9h/profile/restart/full144 were false. Parentab437 three-hour descriptive observation and older5c75 matched3h/8719h/profile records remain image-specific history; none is a currentchild forecast gain. The retained75-minute control's full-arm timing is not a one-hour timing comparator.
 
 CompletecalcCQ1024 restore-inclusive caller wall reductions were7.7723% on01 and8.0139% on04 (threadCPU7.7651%/8.0138%). These are caller observations, not forecast improvements. Native O2/O0 fullCQ raw/five-state checks passed; the two non-target deltas retain scoped classification and rawwholeTU equality remains false.
 

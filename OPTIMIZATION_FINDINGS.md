@@ -1,8 +1,22 @@
 # WRF CPU optimization findings
 
-## Current CQU/CQW coefficient fusion: qualified daytime application
+## CQU/CQW child0b40: fresh SAME512 pair1 three-hour science
 
-The selected executable `0b40b961` / archive `14c102fe`, with source commit `1770d469`, passed both complete 12:00/13:00 products and all 185 ordered timesteps against the retained corrected-original 546b scientific reference. All four model jobs and the reader closed normally. This build has its own unprofiled one-hour SAME512 qualification; three-hour, nine-hour, profile, restart and full 144-hour qualification remain pending.
+Own unprofiled SAME512 fresh pair1 original546b A1→current0b40 B1,545 ordered steps/four FULL06–09 exact science; one fixed-order timing observation within ONGOING A1-B1-B2-A2 study. No completedABBA/repeatability/isolated/additive gain or own9h/profile/restart/144/384/SAME256 qualification. OwnnoonQ remains immutable/separate. QualifiedPP replay/cachedobject+post-testtargetprojection; no clean canonical rebuild certificate.
+
+| Metric | Fresh original546b A1 | Current0b40 B1 | Reduction in this one pair |
+|---|---:|---:|---:|
+| Wall minutes | 13.310330 | 10.421002 | 21.7074% |
+| Main elapsed minutes | 9.922118 | 8.992967 | 9.3644% |
+| Aggregate CPU core-hours | 99.623579 | 84.093400 | 15.5889% |
+
+Qualification: `tools/cpu-compute/cqu-cqw-last-species-consumer-fusion-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json`. Parentab437 unpaired3h and5c75 matched3h/8719h/profile observations remain historical and unchanged. Study A1-B1-B2-A2 remains ongoing; firstpair is not a completedABBA or repeatability result.
+
+## Historical record before pair1
+
+## CQU/CQW coefficient fusion: prior daytime qualification
+
+The selected executable `0b40b961` / archive `14c102fe`, with source commit `1770d469`, passed both complete 12:00/13:00 products and all 185 ordered timesteps against the retained corrected-original 546b scientific reference. All four model jobs and the reader closed normally. At that milestone, this build had its own unprofiled one-hour SAME512 qualification; three-hour, nine-hour, profile, restart and full 144-hour qualification were pending.
 
 The complete coefficient caller, including input restoration and 1,024 calls, took **7.77% less wall time on hpc01 and 8.01% less on hpc04**. Thread CPU fell 7.77% and 8.01%. These are caller results, not forecast gains. O2/O0 native raw-value and five-state checks passed. The two non-target object differences are explicitly classified; whole-object byte equality remains false.
 
