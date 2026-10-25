@@ -828,6 +828,23 @@ SUBROUTINE calc_cq ( moist, cqu, cqv, cqw, n_moist, &
             DO i=its,itf
               qtot(i) = 0. + moist(i,k,j,PARAM_FIRST_SCALAR) + moist(i-1,k,j,PARAM_FIRST_SCALAR)
             ENDDO
+#if defined(WRF_CQU_CQW_LAST_SPECIES_CONSUMER_FUSION) && defined(DM_PARALLEL) && !defined(_OPENMP)
+            IF( n_moist > PARAM_FIRST_SCALAR ) THEN
+              DO ispe=PARAM_FIRST_SCALAR+1,n_moist-1
+                DO i=its,itf
+                  qtot(i) = qtot(i) + moist(i,k,j,ispe) + moist(i-1,k,j,ispe)
+                ENDDO
+              ENDDO
+              DO i=its,itf
+                qtot(i) = qtot(i) + moist(i,k,j,n_moist) + moist(i-1,k,j,n_moist)
+                cqu(i,k,j) = 1./(1.+0.5*qtot(i))
+              ENDDO
+            ELSE
+              DO i=its,itf
+                cqu(i,k,j) = 1./(1.+0.5*qtot(i))
+              ENDDO
+            END IF
+#else
             DO ispe=PARAM_FIRST_SCALAR+1,n_moist
               DO i=its,itf
                 qtot(i) = qtot(i) + moist(i,k,j,ispe) + moist(i-1,k,j,ispe)
@@ -836,6 +853,7 @@ SUBROUTINE calc_cq ( moist, cqu, cqv, cqw, n_moist, &
             DO i=its,itf
               cqu(i,k,j) = 1./(1.+0.5*qtot(i))
             ENDDO
+#endif
         ENDDO
         ENDDO
 
@@ -870,6 +888,17 @@ SUBROUTINE calc_cq ( moist, cqu, cqv, cqw, n_moist, &
         DO j=jts,jtf
           DO k=kts+1,ktf
             qtot = 0.
+#if defined(WRF_CQU_CQW_LAST_SPECIES_CONSUMER_FUSION) && defined(DM_PARALLEL) && !defined(_OPENMP)
+            DO ispe=PARAM_FIRST_SCALAR,n_moist-1
+              DO i=its,itf
+                qtot(i) = qtot(i) + moist(i,k,j,ispe) + moist(i,k-1,j,ispe)
+              ENDDO
+            ENDDO
+            DO i = its,itf
+              qtot(i) = qtot(i) + moist(i,k,j,n_moist) + moist(i,k-1,j,n_moist)
+              cqw(i,k,j) = 0.5*qtot(i)
+            ENDDO
+#else
             DO ispe=PARAM_FIRST_SCALAR,n_moist
               DO i=its,itf
                 qtot(i) = qtot(i) + moist(i,k,j,ispe) + moist(i,k-1,j,ispe)
@@ -878,6 +907,7 @@ SUBROUTINE calc_cq ( moist, cqu, cqv, cqw, n_moist, &
             DO i = its,itf
               cqw(i,k,j) = 0.5*qtot(i)
             ENDDO
+#endif
         ENDDO
         ENDDO
 
