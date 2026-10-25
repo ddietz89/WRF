@@ -1,0 +1,146 @@
+{
+  "status": "CLOSED_CAPACITY_OBSERVED_STRICT_CROSS_DECOMPOSITION_COMPARISON_FAILED_UNQUALIFIED",
+  "candidate_executable_sha256": "b4bce63243fb128ac813965c37a735d6e07d6ed49dd66a82f1ead542615476d2",
+  "scope": {
+    "hosts": [
+      "hpc01",
+      "hpc02",
+      "hpc03"
+    ],
+    "world": 384,
+    "compute": 352,
+    "decomposition": [
+      8,
+      44
+    ],
+    "quilt": 32,
+    "forecast_minutes": 10,
+    "actual_ordered_steps": 35,
+    "last_model_step": "2026-10-12_06:10:00",
+    "produced_outputs": 2,
+    "memory_max_bytes_per_host": 107374182400,
+    "swap_bytes": 0,
+    "new_original384_run": false
+  },
+  "model_capacity_observation": {
+    "status": "MODEL_COMPLETE_CAPACITY_OBSERVATION_NOT_APPLICATION_QUALIFICATION",
+    "metrics": {
+      "model_mpi_wall_seconds": 145.5974058038555,
+      "main_step_elapsed_seconds": 53.7304,
+      "aggregate_cpu_seconds": 43733.032022
+    },
+    "memory": {
+      "hpc01": {
+        "memory_peak_bytes": 67950804992,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "invocation_id": "13f242019f534bfca943ad5dd6bc9430"
+      },
+      "hpc02": {
+        "memory_peak_bytes": 68185931776,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "invocation_id": "4998a73df3e84bea9977cfae75d22d4f"
+      },
+      "hpc03": {
+        "memory_peak_bytes": 62143852544,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "invocation_id": "833d644d29ce4e2fa61875b8a6d80d53"
+      }
+    },
+    "all_three_models_normal_closed": true,
+    "closure_summary": {
+      "hpc01": {
+        "unit": "wrf-cpu-production384-currentbacf-two-radiation-candidate-capacity-candidate-hpc01-r1.service",
+        "invocation_id": "13f242019f534bfca943ad5dd6bc9430",
+        "exit_code": 0,
+        "result": "success",
+        "main_pid": 0,
+        "cgroup_path_absent": true,
+        "manager_success_invocation_bound": true
+      },
+      "hpc02": {
+        "unit": "wrf-cpu-production384-currentbacf-two-radiation-candidate-capacity-candidate-hpc02-r1.service",
+        "invocation_id": "4998a73df3e84bea9977cfae75d22d4f",
+        "exit_code": 0,
+        "result": "success",
+        "main_pid": 0,
+        "cgroup_path_absent": true,
+        "manager_success_invocation_bound": true
+      },
+      "hpc03": {
+        "unit": "wrf-cpu-production384-currentbacf-two-radiation-candidate-capacity-candidate-hpc03-r1.service",
+        "invocation_id": "833d644d29ce4e2fa61875b8a6d80d53",
+        "exit_code": 0,
+        "result": "success",
+        "main_pid": 0,
+        "cgroup_path_absent": true,
+        "manager_success_invocation_bound": true
+      }
+    },
+    "limits": "One short candidate384 workload completed under fixedcaps. This does not establish longer-horizon capacity, science acceptance, or a speedup versus256. No capincrease or modelrerun."
+  },
+  "strict_comparison": {
+    "status": "FAIL_RETAINED_NO_EXEMPTIONS",
+    "reference": "Retained corrected-original546b world256/224compute8x28 +32quilt short run; never a384control grant.",
+    "completed_protected_product_comparisons": 1,
+    "observed_comparison_time": "2026-10-12_06:00:00",
+    "return_status": "FAIL",
+    "errors": [
+      "global: attribute NTASKS_TOTAL differs",
+      "global: attribute NTASKS_Y differs"
+    ],
+    "first_mismatches": [],
+    "variables_in_each_initial_file": 275,
+    "initial_file_variable_checks": "Protected comparator calls _compare_variables after _compare_attrs without early return; all275 initial-file variables were checked, with no variable-value/mask/nonfinite/layout errors reported. This initial-output observation is not a trajectory qualification.",
+    "second_product": "06:10 strictcomparison result NOTretained/notadmitted. Unchanged assertion stops at first FAIL; do not infer evolved-field equality from modelcompletion or initialoutput.",
+    "ordered_steps_vs_original": "35 complete ordered time/dt/domain records matched before first protected file comparison.",
+    "tile_proof": {
+      "status": "PASS_INDEPENDENT224_352_TWO_TILE_PROOFS_EQUAL_GLOBAL_UNION_ALL256_384_ENVS",
+      "control_compute_ranks": 224,
+      "candidate_compute_ranks": 352,
+      "global_tile_cells": 1710000,
+      "scope": "Each actual map has two disjoint per-rank tiles and all world-rank environments. Actual global tile-cell unions equal; no identical per-rank ownership or independent cross-rank nonoverlap claim."
+    },
+    "original_failed_reader": {
+      "unit": "wrf-cpu-production384-currentbacf-two-radiation-candidate-capacity-exact-check-hpc03-r1.service",
+      "invocation_id": "5bdf3c1a4ee74e0392fb312d6a447e55",
+      "status": "FAILED_ASSERTION_RETAINED_RESULT_NOT_PERSISTED"
+    },
+    "separate_eager_diagnostic": {
+      "invocation_id": "35a76901284945fcb13a44b1e5d806c1",
+      "actual_terminal_properties": {
+        "MainPID": "0",
+        "Result": "exit-code",
+        "ExecMainStatus": "1",
+        "ControlGroup": "",
+        "ActiveState": "failed",
+        "InvocationID": "35a76901284945fcb13a44b1e5d806c1"
+      },
+      "status": "FAILED1_STRICT_RESULT_PRESERVED",
+      "alterations": "External source-context routing and eager persistence before unchanged protectedstatus assertion only; comparator/predicate/originalfailedSCI unchanged."
+    }
+  },
+  "retained_prior_original384_failure": "Original546b384 attempt previouslyOOMed at initialization100GiB; remainsFAILED. Candidate fit does not rehabilitate that control or manufacture a same-map pair.",
+  "qualification": {
+    "own384_application_qualified": false,
+    "cross_decomposition_science_qualified": false,
+    "06_10_field_equality_admitted": false,
+    "long_horizon_memory_qualified": false,
+    "speedup_claim": false,
+    "default_world256_retained": true,
+    "oracle_exemptions": false,
+    "future_model_or_reader_requested": false
+  },
+  "decision": "Retain shortcapacity and exact initial-output findings; close this384 attempt unqualified. Preserve both strict reader failures, default256, originalprotectedoracle and allcaps. No additional384 forecast/reader/attributeexception/tolerance/capraise proposed.",
+  "evidence_refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentbacf-candidate384-capacity-proposal-r1/eager-comparison-reader-diagnostic-r1/actual-diagnostic-r1/EAGER_COMPARISON_DIAGNOSTIC.json": "3406e2ed129cc9ad2d82d66d7565e5553380847735a06c63f22a062326376dfb",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentbacf-candidate384-capacity-proposal-r1/eager-comparison-reader-diagnostic-r1/actual-diagnostic-r1/terminal.json": "d698f59483cec92d4fd647a8a9c472c7f488cbf62ade2b84a11af56056a56e72",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentbacf-candidate384-capacity-proposal-r1/eager-comparison-reader-diagnostic-r1/actual-diagnostic-r1/launch.json": "4b9b6af9508288c5bcc0c009dfd81b8ecbddbc100d5210eafd46261d900d1635",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentbacf-candidate384-capacity-proposal-r1/root-execution-r1/ACTUAL_CANDIDATE384_CLOSED_MODEL_OBSERVATIONS.json": "b08c4388e016c6d02f926eef1e39577fdf43e30b290a7873879b2d45b0dcd897",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentbacf-candidate384-capacity-proposal-r1/root-execution-r1/READER_FAILURE_MESSAGES.json": "8444e1352637adce01d0b069403b490ff34ef0deac6b2f8f9689960f7fb55808",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentbacf-candidate384-capacity-proposal-r1/root-execution-r1/launch-reader.stdout": "45a9f7029c48caf78a5ea8b829da36515d170851a9ec77aea94685fc53077b55",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentbacf-candidate384-capacity-proposal-r1/RUNTIME_MATERIALIZATION.json": "70a93ebaecd5f11a9b3c95ccf88ab841caf16af2dd7dfd71ad6c7a68f2fb654a",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentbacf-three-node-single384-preparation-r1/DECISION.json": "c19d09bece92a6e9d8b0646c540cecfb7251e4fdd3a0856baedabcac69dcc40c",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentbacf-three-node-single384-preparation-r1/pilot-execution-r1/ACTUAL_ORIGINAL384_OWN_KERNEL_OOM.json": "e14aee91e6fce9ecc8db0b46f7f5b85f8e8113f1306b82379553c87765fb2324",
+    "/home/ddietz/wrf/investigation/wrf-cpu/validation/protected_netcdf_exact_reference.py": "0382bcbabfbc16b76114ef552206c6c558ea15cd3c3552dfaed98b977deea2b4"
+  }
+}

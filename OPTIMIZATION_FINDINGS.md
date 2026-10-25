@@ -1,5 +1,29 @@
 # WRF CPU optimization findings
 
+## October25: 384-rank candidate fits, but strict cross-decomposition comparison is not qualified
+
+The B4BC candidate completed a ten-minute, 384-rank capacity test on hpc01–03 within the existing 100 GiB/node limit. Lifetime peaks were 63.28/63.50/57.88 GiB, with zero memory events and all three models normally closed. The initial output’s 275 variables and layout had no reported differences; the unchanged checker failed on `NTASKS_TOTAL` and `NTASKS_Y`, which record the different decomposition. The first strict assertion prevented an admitted 06:10 result, so no full-trajectory equality or 384-rank qualification is claimed. Both failed readers and the earlier original384 initialization OOM are preserved. The default remains 256 ranks; no oracle exception or resource-cap change was made. [Evidence and limits](tools/cpu-compute/threehost384-candidate-capacity-20261025/README.md).
+
+## October25: clear-sky radiation batch promoted after own noon qualification
+
+The working B4BC image retains every BACF component and adds clear-active REFTRA dispatch plus deferred longwave clear-prefix mirror stores. Both full12/13 products and185 ordered steps passed the unchanged original checker with256 ranks on hpc01–03; all models and the reader closed normally.
+
+REFTRA caller reductions were5.83%/0.60%, while fullSPCVMC was mixed(+1.36%/−0.58%). Partial-prefix wholeRTRNMC improved1.18%/1.19%; other regimes were mixed. Exact O2/O0 raw/IEEE/state checks passed. These gains are not added or treated as forecast percentages.
+
+| Metric | Retained original546b | B4BC combined | Descriptive reduction |
+|---|---:|---:|---:|
+| Model/MPI wall (min) | 9.462 | 7.257 | 23.30% |
+| Main-step elapsed (min) | 6.196 | 5.758 | 7.07% |
+| Aggregate CPU (core-hours) | 33.224 | 28.617 | 13.87% |
+
+This later unprofiled candidate is compared descriptively with the retained unprofiled original of the same noon horizon. It does not establish a fresh matched or isolated two-change gain. Main-step elapsed includes MPI waits and output backpressure; CPU is summed node use. Own3h/9h/fourhost512/384/profile/restart/full144 qualification is pending.
+
+Support remains GNU13.3 strict exact whole-preprocessed-source replay; canonical target patches correspond, but general canonical-F-only reproduction is unproven. [Evidence, rebuild and rollback](tools/cpu-compute/clear-sky-radiation-batch-20261025/README.md). Production and master remain unchanged.
+
+## October25: delta/cloud fusion retained without promotion
+
+SPCVMC delta/cloud neighboring-pass fusion passed strict native general128/clear72/fullSPC12 and32 focused stage records at O2/O0, and actual codegen removes three second-pass clear-array reloads. Complete-SPC wall was2.0151% lower/4.5298% higher; a separate exact-source33-layer stage was3.6985% lower/2.0250% higher, with CPU mirroring. All eight cache-cleared single-executable arms closed normally with exact raw/state and zero memory events/throttling. Retain the positive observations and load-removal evidence, but close this fixed candidate unpromoted: neither bounded screen demonstrates a reproducible meaningful saving. The short stage arms do not prove a universal no-benefit result. No scientific rejection, forecast regression or new selected-source change is claimed. [Evidence and limits](tools/cpu-compute/spcvmc-delta-cloud-fusion-unpromoted/README.md).
+
 ## October25: 384-rank control exceeds its three-node memory cap
 
 The original 352-compute + 32-quilt model reached hpc01’s 100 GiB cgroup limit during initialization. Kernel evidence confirms a cgroup OOM kill; all owned processes closed and the candidate did not launch. The 384-rank input/output and 24-cohort shared-table fixtures passed separately. This configuration is closed without a timing comparison or scientific qualification; the qualified 256-rank setup remains selected. [Actual capacity result and evidence](tools/cpu-compute/threehost384-admission-20261025/README.md).
@@ -4910,20 +4934,3 @@ One original-first ten-minute pair, with a large startup/output share: this is n
 Helicity first-X tmp1 producer/rvort consumer fusion is closed unpromoted. Actual selected-object assembly proves the scratch store/reload and separate traversal were removed; all five native roles passed the retained46-case and decisive paired-NaN protocols. Complete1,000-call synthetic caller with INOUT restores/fullcallee allocation inside clocks gave hpc01 P→C +0.445768%wall/+0.423526%CPU and hpc02 C→P −0.273527%wall/−0.187197%CPU; all four exact records/cache clears/normal closures passed. No significant complete-caller gain, isolated kernel gain, causal regression or forecast benefit is established. The strict structural failure remains retained separately from its exact44named-call/six-pointer actual-linked-reference qualification; fullRELA equality stays false. Selected/default/source/application state is unchanged.
 
 [Caller, generated code, strict native evidence and retained failures](tools/cpu-compute/helicity-first-x-tmp1-fusion-unpromoted/README.md).
-
-
-## October25: clear-sky radiation batch promoted after own noon qualification
-
-The working B4BC image retains every BACF component and adds clear-active REFTRA dispatch plus deferred longwave clear-prefix mirror stores. Both full12/13 products and185 ordered steps passed the unchanged original checker with256 ranks on hpc01–03; all models and the reader closed normally.
-
-REFTRA caller reductions were5.83%/0.60%, while fullSPCVMC was mixed(+1.36%/−0.58%). Partial-prefix wholeRTRNMC improved1.18%/1.19%; other regimes were mixed. Exact O2/O0 raw/IEEE/state checks passed. These gains are not added or treated as forecast percentages.
-
-| Metric | Retained original546b | B4BC combined | Descriptive reduction |
-|---|---:|---:|---:|
-| Model/MPI wall (min) | 9.462 | 7.257 | 23.30% |
-| Main-step elapsed (min) | 6.196 | 5.758 | 7.07% |
-| Aggregate CPU (core-hours) | 33.224 | 28.617 | 13.87% |
-
-This later unprofiled candidate is compared descriptively with the retained unprofiled original of the same noon horizon. It does not establish a fresh matched or isolated two-change gain. Main-step elapsed includes MPI waits and output backpressure; CPU is summed node use. Own3h/9h/fourhost512/384/profile/restart/full144 qualification is pending.
-
-Support remains GNU13.3 strict exact whole-preprocessed-source replay; canonical target patches correspond, but general canonical-F-only reproduction is unproven. [Evidence, rebuild and rollback](tools/cpu-compute/clear-sky-radiation-batch-20261025/README.md). Production and master remain unchanged.

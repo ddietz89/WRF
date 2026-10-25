@@ -1,0 +1,67 @@
+--- tested8ae
++++ author-delta-cloud
+@@ -8865,20 +8865,14 @@
+             enddo
+ 
+ 
+-            do jk=1, klev
+-
+-               zf = zgcc(jk) * zgcc(jk)
+-               zwf = zomcc(jk) * zf
+-               ztauc(jk) = (1.0_rb - zwf) * ztauc(jk)
+-               zomcc(jk) = (zomcc(jk) - zwf) / (1.0_rb - zwf)
+-               zgcc (jk) = (zgcc(jk) - zf) / (1.0_rb - zf)
+-            enddo
+-
+-
+-
+-
+                if (icpr .ge. 1) then
+             do jk=1,klev
++                  zf = zgcc(jk) * zgcc(jk)
++                  zwf = zomcc(jk) * zf
++                  ztauc(jk) = (1.0_rb - zwf) * ztauc(jk)
++                  zomcc(jk) = (zomcc(jk) - zwf) / (1.0_rb - zwf)
++                  zgcc (jk) = (zgcc(jk) - zf) / (1.0_rb - zf)
++
+                   ikl=klev+1-jk
+                   ztauo(jk) = ztauc(jk) + ptaucmc(ikl,iw)
+                   zomco(jk) = ztauc(jk) * zomcc(jk) + ptaucmc(ikl,iw) * pomgcmc(ikl,iw) 
+@@ -8887,9 +8881,16 @@
+                   zomco(jk) = zomco(jk) / ztauo(jk)
+             enddo
+ 
+-
+-
+-               elseif (icpr .eq. 0) then
++               else
++            do jk=1, klev
++               zf = zgcc(jk) * zgcc(jk)
++               zwf = zomcc(jk) * zf
++               ztauc(jk) = (1.0_rb - zwf) * ztauc(jk)
++               zomcc(jk) = (zomcc(jk) - zwf) / (1.0_rb - zwf)
++               zgcc (jk) = (zgcc(jk) - zf) / (1.0_rb - zf)
++            enddo
++
++               if (icpr .eq. 0) then
+             do jk=1,klev
+                   ikl=klev+1-jk
+                   ztauo(jk) = ztaur(ikl,iw) + ztaug(ikl,iw) + ptaua(ikl,ibm) + ptaucmc(ikl,iw)
+@@ -8899,15 +8900,14 @@
+                               ptaua(ikl,ibm)*pomga(ikl,ibm)*pasya(ikl,ibm)) / zomco(jk)
+                   zomco(jk) = zomco(jk) / ztauo(jk)
+ 
+-
+-
+                   zf = zgco(jk) * zgco(jk)
+                   zwf = zomco(jk) * zf
+                   ztauo(jk) = (1._rb - zwf) * ztauo(jk)
+                   zomco(jk) = (zomco(jk) - zwf) / (1.0_rb - zwf)
+                   zgco (jk) = (zgco(jk) - zf) / (1.0_rb - zf)
+             enddo
+-               endif 
++               endif
++               endif
+ 
+ 
+ 
