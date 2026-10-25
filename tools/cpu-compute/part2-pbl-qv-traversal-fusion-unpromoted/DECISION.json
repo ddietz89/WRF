@@ -1,0 +1,84 @@
+{
+  "status": "RETAIN_EVIDENCE_UNPROMOTED_NO_DEMONSTRATED_SIGNIFICANT_CALLER_GAIN",
+  "source_candidate": "Fuse admitted P_QV division into PBL U/V/theta traversal; preserve true division/tree and inactive QV original trio fallback",
+  "native_numerical_qualified": true,
+  "isolated_region_gain_measured": false,
+  "forecast_gain_measured": false,
+  "promoted": false,
+  "canonical_or_default_changed": false,
+  "metrics": [
+    {
+      "host": "hpc01",
+      "order": "P-C",
+      "regime": "PBL_ONLY",
+      "parent": {
+        "wall_seconds": 2.952679778,
+        "process_cpu_seconds": 2.952080722,
+        "calls": 1024
+      },
+      "candidate": {
+        "wall_seconds": 2.927753636,
+        "process_cpu_seconds": 2.92731941,
+        "calls": 1024
+      },
+      "wall_reduction_percent": 0.8441871071059297,
+      "process_CPU_reduction_percent": 0.8387748958038103
+    },
+    {
+      "host": "hpc01",
+      "order": "P-C",
+      "regime": "COMBINED_FORCING",
+      "parent": {
+        "wall_seconds": 4.73776692,
+        "process_cpu_seconds": 4.736005485,
+        "calls": 1024
+      },
+      "candidate": {
+        "wall_seconds": 4.784668621,
+        "process_cpu_seconds": 4.782650144,
+        "calls": 1024
+      },
+      "wall_reduction_percent": -0.9899537438620863,
+      "process_CPU_reduction_percent": -0.9848945307967699
+    },
+    {
+      "host": "hpc02",
+      "order": "C-P",
+      "regime": "PBL_ONLY",
+      "parent": {
+        "wall_seconds": 2.942281496,
+        "process_cpu_seconds": 2.941776415,
+        "calls": 1024
+      },
+      "candidate": {
+        "wall_seconds": 2.940509736,
+        "process_cpu_seconds": 2.940372642,
+        "calls": 1024
+      },
+      "wall_reduction_percent": 0.060217215871720624,
+      "process_CPU_reduction_percent": 0.04771854831803302
+    },
+    {
+      "host": "hpc02",
+      "order": "C-P",
+      "regime": "COMBINED_FORCING",
+      "parent": {
+        "wall_seconds": 4.769665874,
+        "process_cpu_seconds": 4.767252645,
+        "calls": 1024
+      },
+      "candidate": {
+        "wall_seconds": 4.729408098,
+        "process_cpu_seconds": 4.727910111,
+        "calls": 1024
+      },
+      "wall_reduction_percent": 0.8440376551206572,
+      "process_CPU_reduction_percent": 0.8252663940784327
+    }
+  ],
+  "interpretation": "Near-zero PBL-only reductions and order-sensitive combined results do not demonstrate a consistent significant complete-caller gain. This does not establish a regression or reject a measured isolated-kernel gain: none was measured.",
+  "codegen_review": "Actual separate trio/QV backedges versus fused four-division backedge proven. Repeated denominator formation and traversal removed; four true divisions and four tendencies load/store remain. No causal bottleneck or isolated-kernel gain established.",
+  "raw_full_RELA_tuples_all_exact": false,
+  "specific_unlinked_GLOBAL_named_callee_identity_and_four_actual_linked_E8_target_proofs_passed": true,
+  "future_work": "No further timing/application matrix in this round; revisit only on a distinct measured mechanism."
+}

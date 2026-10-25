@@ -1,0 +1,30 @@
+{
+  "status": "ACTUAL_GENERATED_CODE_REVIEW_NO_CAUSAL_PERFORMANCE_CLAIM",
+  "evidence": {
+    "query": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentbacf-part2-pbl-qv-traversal-fusion-source-question-r1/generated-code-readonly-closeout-r1/QUERY_RECEIPT.json",
+      "sha256": "8c2845d767fdf5670bd332b9a3144880468b915016ce671f508b800892b70440"
+    },
+    "O2-parent": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentbacf-part2-pbl-qv-traversal-fusion-source-question-r1/generated-code-readonly-closeout-r1/O2-parent.asm",
+      "sha256": "b6fe7f036a0902ab08bced0d0c6d1b5758f7788f4aef66442c6c9d3a1dd1de81"
+    },
+    "O2-candidate": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentbacf-part2-pbl-qv-traversal-fusion-source-question-r1/generated-code-readonly-closeout-r1/O2-candidate.asm",
+      "sha256": "87170102a9e806c5adb1927ccb539bca95131c29668082681d1e46bf75e84144"
+    }
+  },
+  "actual_blocks": {
+    "parent_PBL_trio": "    6590:\t0f 10 04 13          \tmovups (%rbx,%rdx,1),%xmm0\n    6594:\t0f 10 4c 15 00       \tmovups 0x0(%rbp,%rdx,1),%xmm1\n    6599:\t0f 59 c5             \tmulps  %xmm5,%xmm0\n    659c:\t0f 58 c3             \taddps  %xmm3,%xmm0\n    659f:\t0f 5e c8             \tdivps  %xmm0,%xmm1\n    65a2:\t0f 11 4c 15 00       \tmovups %xmm1,0x0(%rbp,%rdx,1)\n    65a7:\t41 0f 10 0c 12       \tmovups (%r10,%rdx,1),%xmm1\n    65ac:\t0f 5e c8             \tdivps  %xmm0,%xmm1\n    65af:\t41 0f 11 0c 12       \tmovups %xmm1,(%r10,%rdx,1)\n    65b4:\t0f 10 0c 16          \tmovups (%rsi,%rdx,1),%xmm1\n    65b8:\t0f 5e c8             \tdivps  %xmm0,%xmm1\n    65bb:\t0f 11 0c 16          \tmovups %xmm1,(%rsi,%rdx,1)\n    65bf:\t48 83 c2 10          \tadd    $0x10,%rdx\n    65c3:\t48 39 ca             \tcmp    %rcx,%rdx\n    65c6:\t75 c8                \tjne    6590 <__module_big_step_utilities_em_MOD_phy_prep_part2+0x16a0>",
+    "parent_PBL_QV": "    69b0:\t41 0f 10 04 01       \tmovups (%r9,%rax,1),%xmm0\n    69b5:\t0f 10 0c 06          \tmovups (%rsi,%rax,1),%xmm1\n    69b9:\t0f 59 c5             \tmulps  %xmm5,%xmm0\n    69bc:\t0f 58 c2             \taddps  %xmm2,%xmm0\n    69bf:\t0f 5e c8             \tdivps  %xmm0,%xmm1\n    69c2:\t0f 11 0c 06          \tmovups %xmm1,(%rsi,%rax,1)\n    69c6:\t48 83 c0 10          \tadd    $0x10,%rax\n    69ca:\t48 39 f8             \tcmp    %rdi,%rax\n    69cd:\t75 e1                \tjne    69b0 <__module_big_step_utilities_em_MOD_phy_prep_part2+0x1ac0>",
+    "candidate_PBL_trio_QV": "    6ff0:\t0f 10 04 13          \tmovups (%rbx,%rdx,1),%xmm0\n    6ff4:\t41 0f 10 0c 14       \tmovups (%r12,%rdx,1),%xmm1\n    6ff9:\t0f 59 c5             \tmulps  %xmm5,%xmm0\n    6ffc:\t0f 58 c3             \taddps  %xmm3,%xmm0\n    6fff:\t0f 5e c8             \tdivps  %xmm0,%xmm1\n    7002:\t41 0f 11 0c 14       \tmovups %xmm1,(%r12,%rdx,1)\n    7007:\t0f 10 4c 15 00       \tmovups 0x0(%rbp,%rdx,1),%xmm1\n    700c:\t0f 5e c8             \tdivps  %xmm0,%xmm1\n    700f:\t0f 11 4c 15 00       \tmovups %xmm1,0x0(%rbp,%rdx,1)\n    7014:\t41 0f 10 0c 13       \tmovups (%r11,%rdx,1),%xmm1\n    7019:\t0f 5e c8             \tdivps  %xmm0,%xmm1\n    701c:\t41 0f 11 0c 13       \tmovups %xmm1,(%r11,%rdx,1)\n    7021:\t0f 10 0c 11          \tmovups (%rcx,%rdx,1),%xmm1\n    7025:\t0f 5e c8             \tdivps  %xmm0,%xmm1\n    7028:\t0f 11 0c 11          \tmovups %xmm1,(%rcx,%rdx,1)\n    702c:\t48 83 c2 10          \tadd    $0x10,%rdx\n    7030:\t4c 39 c2             \tcmp    %r8,%rdx\n    7033:\t75 bb                \tjne    6ff0 <__module_big_step_utilities_em_MOD_phy_prep_part2+0x2100>"
+  },
+  "facts": [
+    "Parent PBL trio vector block 0x6590..0x65c6 computes one MUT*c1+c2 denominator and executes three divps; separate QV vector block 0x69b0..0x69cd recomputes that denominator and executes one divps.",
+    "Candidate admitted PBL block 0x6ff0..0x7033 loads MUT once, performs mulps/addps once into xmm0, then uses this denominator for four divps and four tendency stores before its single backedge.",
+    "One repeated denominator load/multiply/add and one vector traversal backedge are removed per four-cell chunk on this path. All four true divisions, tendency loads and tendency stores remain.",
+    "A separate trio fallback remains, so whole-function static division counts are not dynamic work estimates. Both versions use 128-bit packed divps with remainder code; no reciprocal approximation or FMA appears.",
+    "Both objects contain stack-based pointer/control bookkeeping. No newly introduced floating spill cost or hardware bottleneck is established."
+  ],
+  "limits": "No isolated-region measurement, hardware-counter attribution, causal explanation of timing, or kernel gain was established."
+}

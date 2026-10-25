@@ -1,0 +1,71 @@
+{
+  "status": "PASS_FRESH_FIXED_ORDER_ORIGINAL546B_BACF_THREE_HOUR_EXACT545_FOUR_PRODUCTS",
+  "updated_utc": "2026-10-25T01:37:12.645811+00:00",
+  "executable_sha256": "bacf12b8b354256c29be002b07fe30d5dceca7001c9da35a65c0c12b97b05878",
+  "control_executable_sha256": "546b99156cbd809e1cae5e0ea8cebeea44dafd6331abf89e4daea00e0dd0a5e7",
+  "order": [
+    "A1_original",
+    "B1_BACF"
+  ],
+  "observations_per_image": 1,
+  "comparison_design": "Fresh single fixed-order A1\u2192B1; no reused timing arm",
+  "metrics": {
+    "control": {
+      "wall_seconds": 822.6712370221503,
+      "cpu_seconds": 369348.944326,
+      "main_step_sum_seconds": 596.97373
+    },
+    "candidate": {
+      "wall_seconds": 644.0482044680975,
+      "cpu_seconds": 312129.958345,
+      "main_step_sum_seconds": 540.66069
+    }
+  },
+  "reductions_percent": {
+    "wall_seconds": 21.71256566603937,
+    "cpu_seconds": 15.491850419503725,
+    "main_step_sum_seconds": 9.433085104096623
+  },
+  "timing_gain_claim": true,
+  "qualification_scope": "One fresh fixed-order original\u2192BACF pair, one observation per image;545 ordered steps/four products. External BMC monitoring, no native profiler. Planned counterbalanced second pair was interrupted by hpc04 failure and is not a timing/science comparison. No repeatability, isolated component, additive gain or other-horizon claim. Main-step elapsed includes MPI/wait/output backpressure; aggregate CPU is summed core consumption.",
+  "limits": "One fresh fixed-order original\u2192BACF pair, one observation per image;545 ordered steps/four products. External BMC monitoring, no native profiler. Planned counterbalanced second pair was interrupted by hpc04 failure and is not a timing/science comparison. No repeatability, isolated component, additive gain or other-horizon claim. Main-step elapsed includes MPI/wait/output backpressure; aggregate CPU is summed core consumption.",
+  "evidence": {
+    "RESULT.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-bacf-threehour-abba-pair1-runtime-r1/RESULT.json",
+      "sha256": "67b40873a7f076210d70ba8bd317a15af14217104bb2549c6de1523b59821d55"
+    },
+    "science-receipt.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-bacf-threehour-abba-pair1-runtime-r1/science-receipt.json",
+      "sha256": "ea6479ccc49a212ff0a52f2d160b5845856b878731330ad310b12b0c63f8c856"
+    },
+    "reader-closure.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-bacf-threehour-abba-pair1-runtime-r1/reader-closure.json",
+      "sha256": "4794146f6dc2c2290939ddf976846aad55877868728d3a8cafa925bdd6c7b85f"
+    },
+    "control-closures.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-bacf-threehour-abba-pair1-runtime-r1/control-closures.json",
+      "sha256": "11d4c8f75c7d97062d5a33e5311769edd9b7113eb2ee8951b1c33e42542cc6a7"
+    },
+    "candidate-closures.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-bacf-threehour-abba-pair1-runtime-r1/candidate-closures.json",
+      "sha256": "e2c31ef396bb3e90f90ebd9323852d133aa0122d31a47daa4be3d137c0a6ce57"
+    }
+  },
+  "base_application_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/rsl-width56-receive-original-fallback-outline/APPLICATION_QUALIFICATION.json",
+    "sha256": "afb382fd1b9204a2c4641f6abd867392d1e76e767d55bca02c8652c25db30643"
+  },
+  "source_commit": "526e562c0009827e70825b652e0e2e2b52127ded",
+  "raw_producer_source_commit": null,
+  "qualification_scope_flags": {
+    "own_three_hour": true,
+    "own_short": false,
+    "own_one_hour": false,
+    "own_nine_hour": false,
+    "own_noon": false,
+    "own_profile": false,
+    "own_restart": false,
+    "full144": false
+  },
+  "counterbalanced_attempt": "B2 closed; A2 losthpc04 before integration. No completed ABBA report. Owner excludes04; successor three-host case is separately unqualified."
+}

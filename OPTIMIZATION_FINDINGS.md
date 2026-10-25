@@ -4834,3 +4834,27 @@ Evidence: `tools/cpu-compute/rk-scalar-exact-clear/NIGHT_NATIVE15_NUMERICAL_DIAG
 The private RSL wide-DEFAULT SIMD trial is closed unpromoted: actual GNU 13.3 compilation retained a normal-path per-K memcpy call, so the mechanism gate stopped before any full translation-unit reproduction, original 25-case gate or caller timing. INTEGER32/_OPENMP checks and ten geometries × four masked states × four roles passed raw/cursor/read-only/guard/five-state checks (40 calls per role, 160 total; ten geometries). The attempt exited 1 with MainPID 0 and cgroup absent. The malformed provider NO_GO and unsupported generic LINEAR objections remain separate from the actual native semantics PASS. No performance gain is claimed; RSL source, flags, layout and defaults remain unchanged.
 
 [Native decision and source-only proposal](tools/cpu-compute/rsl-wide-default-simd-unpromoted/README.md).
+
+
+## October 25: fresh four-node comparison and voltage monitoring
+
+The frozen BACF working configuration passed a fresh original-first three-hour pair with 512 ranks. The unchanged checker accepted all four complete products and 545 ordered steps, and both models and the reader closed normally.
+
+| Metric | Corrected original 546b | BACF combined | Reduction |
+|---|---:|---:|---:|
+| Model/MPI wall (min) | 13.711 | 10.734 | 21.71% |
+| Main-step elapsed (min) | 9.950 | 9.011 | 9.43% |
+| Aggregate CPU (core-hours) | 102.597 | 86.703 | 15.49% |
+
+This is one fixed-order observation per image, with the same external hardware monitoring schedule. Main-step elapsed includes communication and output backpressure. The planned reverse-order pair remains incomplete: B2 closed, but hpc04 became unreachable during A2 before integration. Its failed control is excluded; no completed counterbalanced or repeatability claim is made. The owner excluded hpc04 from future jobs and queries. A three-host configuration requires its own placement, memory and scientific qualification.
+
+The 80 recorded hardware samples include the unavailable reading at failure. Numeric 12V/5VCC/3.3VCC readings ranged over 12.04–12.31 / 5.05–5.08 / 3.27–3.29 V and all reported OK. These samples do not identify a crash cause or exclude a transient. Raw readings, timestamps, command failures and gaps remain in the campaign voltage CSV and summary. The original scientific qualification and selected executable/providers are unchanged; the new fixed-order comparison is separate supplementary evidence.
+
+[Fresh pair evidence](tools/cpu-compute/rsl-width56-receive-original-fallback-outline/FRESH_FIXED_ORDER_THREE_HOUR_COMPARISON.json).
+
+## October 25: PBL/QV traversal fusion retained without promotion
+
+PART2 PBL/QV traversal fusion remains unpromoted after exact five-role native checks and four normal-closed, cache-cleared complete-caller arms. PBL-only wall reductions were 0.84419% / 0.06022%; combined forcing was −0.98995% / +0.84404% for hpc01 P→C / hpc02 C→P. Restore work is included in the interval. These results do not demonstrate consistent significant caller gain, an isolated-region gain or forecast improvement; no regression is established. The original strict relocation stop and its exact named-symbol plus actual linked-call qualification are retained separately. No defaults or application qualifications changed.
+
+
+[Native, caller and generated-code evidence](tools/cpu-compute/part2-pbl-qv-traversal-fusion-unpromoted/README.md).

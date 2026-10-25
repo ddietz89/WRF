@@ -1,16 +1,20 @@
 # Current working selection: BACF, exact three-hour science
 
-Selected **bacf12b8** / WRF archive **1d2e1851** / RSL archive **6eb125cc**, source **526e562c**, retains all previous improvements and adds the two V-loop SIMD paths, receive width5/6 helper and exact original outlined fallback. All four full-grid products and545ordered steps passed the unchanged checker; every model and reader closed normally.
+Selected **bacf12b8** / WRF archive **1d2e1851** / RSL archive **6eb125cc**, source **526e562c**, retains all previous improvements and adds the two V-loop SIMD paths, receive width-5/6 helper and exact original outlined fallback. The unchanged checker passed all four full-grid products and 545 ordered steps in the fresh original-first pair; every model and reader closed normally.
 
-| Three-hour metric | Retained original546b | Combined BACF | Descriptive reduction |
-| --- | ---: | ---: | ---: |
-| Wall (min) | 13.679 | 10.733 | 21.53% |
-| Main-step elapsed (min) | 9.966 | 9.030 | 9.40% |
-| Aggregate CPU (core-hours) | 102.272 | 86.511 | 15.41% |
+| Three-hour metric | Fresh corrected original 546b | Combined BACF | Reduction |
+|---|---:|---:|---:|
+| Model/MPI wall (min) | 13.711 | 10.734 | 21.71% |
+| Main-step elapsed (min) | 9.950 | 9.011 | 9.43% |
+| Aggregate CPU (core-hours) | 102.597 | 86.703 | 15.49% |
 
-Later candidate-only observation, not a fresh pair or isolated component gain. The previous971c total is essentially identical. Main elapsed includes waiting/backpressure. Own3h science only; other horizons/profile/restart scopes remain pending. External voltage/temp/fan monitoring was recorded; no in-model profiler/MPI observer. [Qualification, rebuild and rollback](../cpu-compute/rsl-width56-receive-original-fallback-outline/README.md).
+One fresh fixed-order pair, one observation per image, with client caches cleared before each arm and symmetric external voltage/temperature/fan monitoring. Main elapsed includes communication and output backpressure. Component caller gains are separate and are not added to these percentages. Own short, one-hour, nine-hour, noon/profile, restart and full-144-hour qualification remain false. Raw producer commit remains unknown; source 526e records post-test correspondence.
 
-`THREE_HOUR_RESULT.json` retains the prior971c fresh fixed-order comparison; current BACF is the explicit latest unpaired observation in `FULL_GRID_SUMMARY.json` and `LATEST_APPLICATION_RESULT.json`. The historical snapshots below keep their original image identities.
+The planned reverse-order pair is incomplete: B2 closed, but hpc04 became unreachable during A2 before integration. The failed control is excluded. No completed BACF counterbalanced or repeatability claim is made. The owner excluded hpc04 from future jobs and queries; the next three-host layout needs separate memory and scientific admission.
+
+[Fresh comparison](../cpu-compute/rsl-width56-receive-original-fallback-outline/FRESH_FIXED_ORDER_THREE_HOUR_COMPARISON.json), [scientific qualification, rebuild and rollback](../cpu-compute/rsl-width56-receive-original-fallback-outline/README.md). `FULL_GRID_SUMMARY.json` and `LATEST_APPLICATION_RESULT.json` carry the current fresh-pair observation. `THREE_HOUR_RESULT.json` retains the prior 971c comparison; the previous BACF unpaired observation and historical snapshots below remain identified by their original images.
+
+The PBL/QV traversal-fusion experiment passed native and caller correctness but showed no consistent significant caller gain. It remains [unpromoted with its evidence](../cpu-compute/part2-pbl-qv-traversal-fusion-unpromoted/README.md).
 
 # Historical 971c selection: own fresh three-hour science
 
