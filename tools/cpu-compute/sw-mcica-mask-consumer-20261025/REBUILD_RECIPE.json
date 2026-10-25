@@ -1,0 +1,108 @@
+{
+  "status": "EXACT_TESTED_PP_REPLAY_AND_CACHED_ONE_SW_MEMBER_DELIVERY_NOT_GENERAL_F_ONLY_REBUILD",
+  "tested_PP": {
+    "path": "qualified-pp/module_ra_rrtmg_sw.f90",
+    "sha256": "6ce1c7638af93bc99c889da9dfcd826c189778f7883a54ba260b6534cd3563ec"
+  },
+  "canonical_source": {
+    "path": "source/phys/module_ra_rrtmg_sw.F",
+    "sha256": "5033e2630823c4e31c347387d444b6dddbcbe75fcb703d57820b519740eec0c3",
+    "parent_sha256": "247a7c932326d1de32958fd58e1d054dd76c2bc5edeccc8bc79b47b926c0650a",
+    "five_rows_1based": [
+      1703,
+      1941,
+      1942,
+      1943,
+      1954
+    ],
+    "full_inverse_exact": true,
+    "whole_canonical_CPP_equivalence_proven": false
+  },
+  "actual_O2_compile_argv": [
+    "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+    "-o",
+    "/pool/wrf-experiment/wrf-cpu/kernels/currentb4bc-sw-mcica-mask-native-hpc02-r1/work/O2-candidate/module_ra_rrtmg_sw.o",
+    "-c",
+    "-O2",
+    "-fno-fast-math",
+    "-ffp-contract=off",
+    "-w",
+    "-fno-fast-math",
+    "-ffp-contract=off",
+    "-ffree-form",
+    "-ffree-line-length-none",
+    "-fconvert=big-endian",
+    "-frecord-marker=4",
+    "-fallow-argument-mismatch",
+    "-fallow-invalid-boz",
+    "-g",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+    "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+    "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+    "-fopenmp-simd",
+    "module_ra_rrtmg_sw.f90"
+  ],
+  "source_basename": "module_ra_rrtmg_sw.f90",
+  "actual_tested_object": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentb4bc-sw-mcica-mask-native-hpc02-r1/work/O2-candidate/module_ra_rrtmg_sw.o",
+    "sha256": "c2cda3d2d552fe002063e23e7ad3c87c192f214336b0e9f69f0930b2eb633a29"
+  },
+  "delivery": {
+    "worker_status": "BUILT_ISOLATED_CURRENT_B4BC_SW_MCICA_MASK_ONE_MEMBER_PENDING_OWN_NOON_APPLICATION",
+    "receipt_sha256": "a47083272074594bc1e547ac86a1f7f85b73693364b79b3d3ca52d222d4e4875",
+    "invocation_id": "0dc4a21687bc43e18353bb710af103a2",
+    "source_compiles": 0,
+    "module_compiles": 0,
+    "proof_links": 0,
+    "model_links": 1,
+    "archive_members": 584,
+    "unchanged_members": 583,
+    "changed_members": [
+      "module_ra_rrtmg_sw.o"
+    ],
+    "replaced_zero_based_indices": [
+      275
+    ],
+    "artifacts": {
+      "/pool/wrf-experiment/wrf-cpu/builds/currentb4bc-sw-mcica-mask-one-member-experimental-r1/wrf.exe": "51f1449ef36ebeda42a8adb74061616e6f83f5a7dd09c0e7dc1145d1a46e4552",
+      "/pool/wrf-experiment/wrf-cpu/builds/currentb4bc-sw-mcica-mask-one-member-experimental-r1/libwrflib.a": "63d6a53350fc49703f6c6db666eee67e081e57bbd7365a5f0631b29653bb249e",
+      "/pool/wrf-experiment/wrf-cpu/builds/currentb4bc-sw-mcica-mask-one-member-experimental-r1/module_ra_rrtmg_sw.o": "c2cda3d2d552fe002063e23e7ad3c87c192f214336b0e9f69f0930b2eb633a29",
+      "/pool/wrf-experiment/wrf-cpu/builds/currentb4bc-sw-mcica-mask-one-member-experimental-r1/ORDERED_ONE_MEMBER_ARCHIVE_PROOF.json": "705cd8ce1292f25ebf74f547bb58506a1df0971c0a0b9d0deab942fbb31ad413",
+      "/pool/wrf-experiment/wrf-cpu/builds/currentb4bc-sw-mcica-mask-one-member-experimental-r1/qualified_module_ra_rrtmg_sw.f90": "6ce1c7638af93bc99c889da9dfcd826c189778f7883a54ba260b6534cd3563ec"
+    },
+    "unchanged_RSL": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current971c-uv-final-v-unpack-outline-combined-native-r1/librsl_lite.a",
+      "sha256": "6eb125cca1196db3d917b17313852b17f2121accb5bb9fc2ad99dd49580154db"
+    },
+    "parent_executable": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/currentbacf-two-radiation-members-experimental-r2/wrf.exe",
+      "sha256": "b4bce63243fb128ac813965c37a735d6e07d6ed49dd66a82f1ead542615476d2"
+    },
+    "parent_archive": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/currentbacf-two-radiation-members-experimental-r2/libwrflib.a",
+      "sha256": "882a7630422ced8766c4a1a38c54d6629c3542f53c842224fa0d3618d9649ed9"
+    },
+    "structural_qualification_pending": false,
+    "all_MOD_byte_exact_claimed": false,
+    "scoped_structural_review": {
+      "path": "ACTUAL_CODEGEN_REVIEW.json",
+      "sha256": "0f296f04ac8a366a551b7502720b30e648dad6d4f475add965c126180998480b",
+      "scope": "Target mask pass removed, ABI/caller checks and bounded non-target relocation review; no whole MOD, raw object or universal IEEE/unwind identity."
+    }
+  },
+  "replay_steps": [
+    "Root alone stages exact qualifiedPP into a private build directory under basename module_ra_rrtmg_sw.f90 and verifies SHA before any compile.",
+    "Reuse recorded compiler argv/flags/includes exactly; change only private output/work paths as needed. Different debug paths can change raw object bytes: no unobserved object/codegen equivalence claimed.",
+    "Accepted actual delivery reused the exact tested c2cda object, replaced one SW member, retained all583 others/LW8c90/RSL6eb, then linked once. Do not install private analysisMOD files.",
+    "Retain selected strict flags and all other components. No fresh canonicalF\u2192wholePP\u2192native correspondence is claimed by the five-row source port."
+  ],
+  "rollback": "Restore the five source rows from exact247a parent, select B4BC b4bce632/882a archive for tested image rollback; preserve LW mirror and all prior components. No runtime knob or Make flag introduced.",
+  "raw_producer_source_commit": null,
+  "post_test_source_commit": "af4cabc0a51d8df3e0be54af995ab5d844bc805a"
+}

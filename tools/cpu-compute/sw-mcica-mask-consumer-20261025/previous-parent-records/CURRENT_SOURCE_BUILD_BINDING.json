@@ -1,0 +1,411 @@
+{
+  "status": "PASS_OWN_UNPROFILED_THREEHOST_SAME256_THREE_HOUR545_FOUR_PRODUCTS_FRESH_FIXED_PAIR",
+  "source_commit": "dcb885b99655a64e52fc9f9ff13fddc0f39fe569",
+  "raw_producer_source_commit": null,
+  "source_commit_scope": "Post-test canonical target patches; qualified tested whole preprocessed-source replay only; raw producer unknown",
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentbacf-two-radiation-members-experimental-r2/wrf.exe",
+    "sha256": "b4bce63243fb128ac813965c37a735d6e07d6ed49dd66a82f1ead542615476d2"
+  },
+  "archive_sha256": "882a7630422ced8766c4a1a38c54d6629c3542f53c842224fa0d3618d9649ed9",
+  "sources": {
+    "module_ra_rrtmg_sw.F": {
+      "path": "/home/ddietz/wrf/WRF/phys/module_ra_rrtmg_sw.F",
+      "sha256": "247a7c932326d1de32958fd58e1d054dd76c2bc5edeccc8bc79b47b926c0650a"
+    },
+    "module_ra_rrtmg_lw.F": {
+      "path": "/home/ddietz/wrf/WRF/phys/module_ra_rrtmg_lw.F",
+      "sha256": "8cc88bbeb9bc123795d8693aa2495cee7ba55d3639948587b8b4b712103d4c41"
+    }
+  },
+  "tested_preprocessed_sources": {
+    "module_ra_rrtmg_sw.f90": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/clear-sky-radiation-batch-20261025/qualified-pp/module_ra_rrtmg_sw.f90",
+      "sha256": "8ae5c450c7803b09ae7c4aa013d28213c8047fc2c8c802fdbea41892a85cfbf2"
+    },
+    "module_ra_rrtmg_lw.f90": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/clear-sky-radiation-batch-20261025/qualified-pp/module_ra_rrtmg_lw.f90",
+      "sha256": "3cac1ff1fd7f7444d1de190195bdcf1b85660364227405e99307b2f312c96c69"
+    }
+  },
+  "build": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentbacf-two-radiation-member-experimental-build-preparation-r2-hpc02/actual-native-r1/receipt.json",
+    "sha256": "5826a44d2bd1042442469c83f29f72fed5c34fd2b3788e9263e607cf8727124d"
+  },
+  "build_closure": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentbacf-two-radiation-member-experimental-build-preparation-r2-hpc02/actual-native-r1/closure.json",
+    "sha256": "10083f52c93b2274b99de9a7d1813a59f43dc0f7c04d08414adbc17aeba23836"
+  },
+  "build_scope": "Two cached exact-qualified module objects, one ordered584-member archive with582 other entries byte exact, one image link; RSL/direct inputs unchanged. General canonicalCPP equivalence remains unproven; qualified PP replay only.",
+  "qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/clear-sky-radiation-batch-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+  "full_application": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/clear-sky-radiation-batch-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "532ff2080fe4bd41a8106639713af945ad6c3dc52f279c284558bc2c219dbcf9"
+  },
+  "current_noon_one_hour_qualified": true,
+  "current_three_hour_qualified": true,
+  "current_nine_hour_qualified": false,
+  "current_512_qualified": false,
+  "current_384_qualified": false,
+  "runtime": {
+    "world_size": 256,
+    "compute_ranks": 224,
+    "decomposition": [
+      8,
+      28
+    ],
+    "quilt_groups": 4,
+    "quilt_ranks_per_group": 8,
+    "numtiles": 2,
+    "hosts": [
+      "hpc01",
+      "hpc02",
+      "hpc03"
+    ],
+    "per_node_memory_bytes": 107374182400,
+    "swap_bytes": 0,
+    "per_node_physical_cores": 128,
+    "rank_map": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-currentb4bc-threehost-threehour-pair-runtime-r1/candidate-rank-map.json",
+      "sha256": "d671d504f7a86673530ccdc111b68a67bc14bbcd46131277d8d7dc5decbf13eb"
+    },
+    "rankfile_sha256": "758fa1e82a2ea51662ac26fa9622f4a5c8dc14226e8e1a5706a3f08afa0e0624",
+    "lease": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-currentb4bc-threehost-threehour-pair-runtime-r1/candidate-metadata/lease.json",
+      "sha256": "924ceda25f021a8a1c9c4ba04eefda69cabaaa8370a72e132c13daf4bd0d0ddf"
+    },
+    "scope": "Own06\u201309 three-hour545/fourFULL, separate immutable12\u201313noon185/twoFULL; same256 only. No9h/512/384/profile/restart/full144 transfer."
+  },
+  "previous_binding": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/clear-sky-radiation-batch-20261025/PARENT_SOURCE_BUILD_BINDING.json",
+    "sha256": "d31a0d1a4b4440f642afacca9114c844d17e97ba72cd838e1a610741d3f98ba0"
+  },
+  "rebuild_recipe": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/clear-sky-radiation-batch-20261025/REBUILD_RECIPE.json",
+    "sha256": "f146204eb2a73718893913ebcf2365099d6d3eedc4234d8e1e09fc2a4c970fe6"
+  },
+  "qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/clear-sky-radiation-batch-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "532ff2080fe4bd41a8106639713af945ad6c3dc52f279c284558bc2c219dbcf9"
+  },
+  "current_application_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/clear-sky-radiation-batch-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "532ff2080fe4bd41a8106639713af945ad6c3dc52f279c284558bc2c219dbcf9"
+  },
+  "current_application_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/clear-sky-radiation-batch-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+  "current_256_qualified": true,
+  "timing_gain_claim": true,
+  "current_three_hour_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/clear-sky-radiation-batch-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "532ff2080fe4bd41a8106639713af945ad6c3dc52f279c284558bc2c219dbcf9"
+  },
+  "current_three_hour_science": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-currentb4bc-threehost-threehour-pair-runtime-r1/science-receipt.json",
+    "sha256": "3adc877816937f67d0804c7449a3be594dc7e285a551b5b1b4942c15f266ef0d"
+  },
+  "science": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-currentb4bc-threehost-threehour-pair-runtime-r1/science-receipt.json",
+    "sha256": "3adc877816937f67d0804c7449a3be594dc7e285a551b5b1b4942c15f266ef0d"
+  },
+  "science_sha256": "3adc877816937f67d0804c7449a3be594dc7e285a551b5b1b4942c15f266ef0d",
+  "reader_closure_sha256": "61eda0cedd753e7cb3673bccd9547f0e4a4fc1eadbfbcc9e91f0cdbeecb0ed44",
+  "raw_RESULT_reference": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-currentb4bc-threehost-threehour-pair-runtime-r1/RESULT.json",
+    "sha256": "110f9892f1b7f24a07590add053f786992791b17e992f61584d95057e2331ebb"
+  },
+  "metrics": {
+    "control": {
+      "wall_seconds": 1283.9712130948901,
+      "cpu_seconds": 303752.239881,
+      "main_step_sum_seconds": 1085.60017
+    },
+    "candidate": {
+      "wall_seconds": 1102.9387625660747,
+      "cpu_seconds": 273228.661807,
+      "main_step_sum_seconds": 1004.70303
+    }
+  },
+  "order": [
+    "A_original546b",
+    "B_B4BC"
+  ],
+  "comparison_design": "Fresh single fixed-order A(original546b) then B(B4BC), one observation per image; same256 configuration",
+  "reductions_percent": {
+    "wall_seconds": 14.09941661327857,
+    "cpu_seconds": 10.04884049117074,
+    "main_step_sum_seconds": 7.451835605368407
+  },
+  "descriptive_reductions_percent": null,
+  "reductions_scope": "Fresh same256 fixed-order original546b then B4BC pair; maintenancegap disclosed; no ABBA or isolated component claim.",
+  "limits": "One fresh fixed-order original546b A then B4BC B on01\u201303, same256/224compute8x28+32quilt. A ended around 06:29 UTC; B began around 06:51 UTC after participating-host maintenance. Not counterbalanced, repeatability, isolated component or additive gains. Main elapsed includes MPI/output backpressure; aggregateCPU is summed consumption. No own9h/512/384/profile/restart/full144 qualification.",
+  "claim_limits": "One fresh fixed-order original546b A then B4BC B on01\u201303, same256/224compute8x28+32quilt. A ended around 06:29 UTC; B began around 06:51 UTC after participating-host maintenance. Not counterbalanced, repeatability, isolated component or additive gains. Main elapsed includes MPI/output backpressure; aggregateCPU is summed consumption. No own9h/512/384/profile/restart/full144 qualification.",
+  "latest_completed_three_hour_pair": {
+    "status": "PASS_OWN_UNPROFILED_THREEHOST_SAME256_THREE_HOUR545_FOUR_PRODUCTS_FRESH_FIXED_PAIR",
+    "executable_sha256": "b4bce63243fb128ac813965c37a735d6e07d6ed49dd66a82f1ead542615476d2",
+    "control_executable_sha256": "546b99156cbd809e1cae5e0ea8cebeea44dafd6331abf89e4daea00e0dd0a5e7",
+    "world_size": 256,
+    "compute_ranks": 224,
+    "hosts": [
+      "hpc01",
+      "hpc02",
+      "hpc03"
+    ],
+    "order": [
+      "A_original546b",
+      "B_B4BC"
+    ],
+    "observations_per_image": 1,
+    "comparison_design": "Fresh single fixed-order A(original546b) then B(B4BC), one observation per image; same256 configuration",
+    "metrics": {
+      "control": {
+        "wall_seconds": 1283.9712130948901,
+        "cpu_seconds": 303752.239881,
+        "main_step_sum_seconds": 1085.60017
+      },
+      "candidate": {
+        "wall_seconds": 1102.9387625660747,
+        "cpu_seconds": 273228.661807,
+        "main_step_sum_seconds": 1004.70303
+      }
+    },
+    "reductions_percent": {
+      "wall_seconds": 14.09941661327857,
+      "cpu_seconds": 10.04884049117074,
+      "main_step_sum_seconds": 7.451835605368407
+    },
+    "qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/clear-sky-radiation-batch-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "532ff2080fe4bd41a8106639713af945ad6c3dc52f279c284558bc2c219dbcf9"
+    },
+    "science": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-currentb4bc-threehost-threehour-pair-runtime-r1/science-receipt.json",
+      "sha256": "3adc877816937f67d0804c7449a3be594dc7e285a551b5b1b4942c15f266ef0d"
+    },
+    "raw_RESULT": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-currentb4bc-threehost-threehour-pair-runtime-r1/RESULT.json",
+      "sha256": "110f9892f1b7f24a07590add053f786992791b17e992f61584d95057e2331ebb"
+    },
+    "maintenance_context": {
+      "operator_documented_gap": "A ended around 06:29 UTC, B started around 06:51 UTC after scheduled maintenance",
+      "actual_coordinator_journal_times": {
+        "control": {
+          "start_utc": "2026-10-25T06:07:39.131175+00:00",
+          "end_utc": "2026-10-25T06:29:11.786907+00:00"
+        },
+        "candidate": {
+          "start_utc": "2026-10-25T06:51:05.992246+00:00",
+          "end_utc": "2026-10-25T07:09:42.676089+00:00"
+        }
+      }
+    },
+    "limits": "One fresh fixed-order original546b A then B4BC B on01\u201303, same256/224compute8x28+32quilt. A ended around 06:29 UTC; B began around 06:51 UTC after participating-host maintenance. Not counterbalanced, repeatability, isolated component or additive gains. Main elapsed includes MPI/output backpressure; aggregateCPU is summed consumption. No own9h/512/384/profile/restart/full144 qualification."
+  },
+  "latest_three_hour_observation": {
+    "status": "PASS_OWN_UNPROFILED_THREEHOST_SAME256_THREE_HOUR545_FOUR_PRODUCTS_FRESH_FIXED_PAIR",
+    "executable_sha256": "b4bce63243fb128ac813965c37a735d6e07d6ed49dd66a82f1ead542615476d2",
+    "control_executable_sha256": "546b99156cbd809e1cae5e0ea8cebeea44dafd6331abf89e4daea00e0dd0a5e7",
+    "world_size": 256,
+    "compute_ranks": 224,
+    "hosts": [
+      "hpc01",
+      "hpc02",
+      "hpc03"
+    ],
+    "order": [
+      "A_original546b",
+      "B_B4BC"
+    ],
+    "observations_per_image": 1,
+    "comparison_design": "Fresh single fixed-order A(original546b) then B(B4BC), one observation per image; same256 configuration",
+    "metrics": {
+      "control": {
+        "wall_seconds": 1283.9712130948901,
+        "cpu_seconds": 303752.239881,
+        "main_step_sum_seconds": 1085.60017
+      },
+      "candidate": {
+        "wall_seconds": 1102.9387625660747,
+        "cpu_seconds": 273228.661807,
+        "main_step_sum_seconds": 1004.70303
+      }
+    },
+    "reductions_percent": {
+      "wall_seconds": 14.09941661327857,
+      "cpu_seconds": 10.04884049117074,
+      "main_step_sum_seconds": 7.451835605368407
+    },
+    "qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/clear-sky-radiation-batch-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "532ff2080fe4bd41a8106639713af945ad6c3dc52f279c284558bc2c219dbcf9"
+    },
+    "science": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-currentb4bc-threehost-threehour-pair-runtime-r1/science-receipt.json",
+      "sha256": "3adc877816937f67d0804c7449a3be594dc7e285a551b5b1b4942c15f266ef0d"
+    },
+    "raw_RESULT": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-currentb4bc-threehost-threehour-pair-runtime-r1/RESULT.json",
+      "sha256": "110f9892f1b7f24a07590add053f786992791b17e992f61584d95057e2331ebb"
+    },
+    "maintenance_context": {
+      "operator_documented_gap": "A ended around 06:29 UTC, B started around 06:51 UTC after scheduled maintenance",
+      "actual_coordinator_journal_times": {
+        "control": {
+          "start_utc": "2026-10-25T06:07:39.131175+00:00",
+          "end_utc": "2026-10-25T06:29:11.786907+00:00"
+        },
+        "candidate": {
+          "start_utc": "2026-10-25T06:51:05.992246+00:00",
+          "end_utc": "2026-10-25T07:09:42.676089+00:00"
+        }
+      }
+    },
+    "limits": "One fresh fixed-order original546b A then B4BC B on01\u201303, same256/224compute8x28+32quilt. A ended around 06:29 UTC; B began around 06:51 UTC after participating-host maintenance. Not counterbalanced, repeatability, isolated component or additive gains. Main elapsed includes MPI/output backpressure; aggregateCPU is summed consumption. No own9h/512/384/profile/restart/full144 qualification."
+  },
+  "last_three_hour_benchmark": {
+    "status": "PASS_OWN_UNPROFILED_THREEHOST_SAME256_THREE_HOUR545_FOUR_PRODUCTS_FRESH_FIXED_PAIR",
+    "executable_sha256": "b4bce63243fb128ac813965c37a735d6e07d6ed49dd66a82f1ead542615476d2",
+    "control_executable_sha256": "546b99156cbd809e1cae5e0ea8cebeea44dafd6331abf89e4daea00e0dd0a5e7",
+    "world_size": 256,
+    "compute_ranks": 224,
+    "hosts": [
+      "hpc01",
+      "hpc02",
+      "hpc03"
+    ],
+    "order": [
+      "A_original546b",
+      "B_B4BC"
+    ],
+    "observations_per_image": 1,
+    "comparison_design": "Fresh single fixed-order A(original546b) then B(B4BC), one observation per image; same256 configuration",
+    "metrics": {
+      "control": {
+        "wall_seconds": 1283.9712130948901,
+        "cpu_seconds": 303752.239881,
+        "main_step_sum_seconds": 1085.60017
+      },
+      "candidate": {
+        "wall_seconds": 1102.9387625660747,
+        "cpu_seconds": 273228.661807,
+        "main_step_sum_seconds": 1004.70303
+      }
+    },
+    "reductions_percent": {
+      "wall_seconds": 14.09941661327857,
+      "cpu_seconds": 10.04884049117074,
+      "main_step_sum_seconds": 7.451835605368407
+    },
+    "qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/clear-sky-radiation-batch-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "532ff2080fe4bd41a8106639713af945ad6c3dc52f279c284558bc2c219dbcf9"
+    },
+    "science": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-currentb4bc-threehost-threehour-pair-runtime-r1/science-receipt.json",
+      "sha256": "3adc877816937f67d0804c7449a3be594dc7e285a551b5b1b4942c15f266ef0d"
+    },
+    "raw_RESULT": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-currentb4bc-threehost-threehour-pair-runtime-r1/RESULT.json",
+      "sha256": "110f9892f1b7f24a07590add053f786992791b17e992f61584d95057e2331ebb"
+    },
+    "maintenance_context": {
+      "operator_documented_gap": "A ended around 06:29 UTC, B started around 06:51 UTC after scheduled maintenance",
+      "actual_coordinator_journal_times": {
+        "control": {
+          "start_utc": "2026-10-25T06:07:39.131175+00:00",
+          "end_utc": "2026-10-25T06:29:11.786907+00:00"
+        },
+        "candidate": {
+          "start_utc": "2026-10-25T06:51:05.992246+00:00",
+          "end_utc": "2026-10-25T07:09:42.676089+00:00"
+        }
+      }
+    },
+    "limits": "One fresh fixed-order original546b A then B4BC B on01\u201303, same256/224compute8x28+32quilt. A ended around 06:29 UTC; B began around 06:51 UTC after participating-host maintenance. Not counterbalanced, repeatability, isolated component or additive gains. Main elapsed includes MPI/output backpressure; aggregateCPU is summed consumption. No own9h/512/384/profile/restart/full144 qualification."
+  },
+  "current_noon_one_hour_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/clear-sky-radiation-batch-20261025/APPLICATION_QUALIFICATION.json",
+    "sha256": "d2dc9bfb51126ff3dae362f4461425af4047ba8cde0feca9dd0c3ae4c0e048ce"
+  },
+  "current_noon_one_hour_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/clear-sky-radiation-batch-20261025/APPLICATION_QUALIFICATION.json",
+  "nine_hour_benchmark": null,
+  "current_nine_hour_science": null,
+  "current_nine_hour_qualification": null,
+  "current_noon75m_qualification": null,
+  "current_profiled_nine_hour_qualification": null,
+  "current_restart_qualification": null,
+  "current_source_identity_profile": null,
+  "current_timing_observation": {
+    "status": "PASS_OWN_UNPROFILED_THREEHOST_SAME256_THREE_HOUR545_FOUR_PRODUCTS_FRESH_FIXED_PAIR",
+    "executable_sha256": "b4bce63243fb128ac813965c37a735d6e07d6ed49dd66a82f1ead542615476d2",
+    "control_executable_sha256": "546b99156cbd809e1cae5e0ea8cebeea44dafd6331abf89e4daea00e0dd0a5e7",
+    "world_size": 256,
+    "compute_ranks": 224,
+    "hosts": [
+      "hpc01",
+      "hpc02",
+      "hpc03"
+    ],
+    "order": [
+      "A_original546b",
+      "B_B4BC"
+    ],
+    "observations_per_image": 1,
+    "comparison_design": "Fresh single fixed-order A(original546b) then B(B4BC), one observation per image; same256 configuration",
+    "metrics": {
+      "control": {
+        "wall_seconds": 1283.9712130948901,
+        "cpu_seconds": 303752.239881,
+        "main_step_sum_seconds": 1085.60017
+      },
+      "candidate": {
+        "wall_seconds": 1102.9387625660747,
+        "cpu_seconds": 273228.661807,
+        "main_step_sum_seconds": 1004.70303
+      }
+    },
+    "reductions_percent": {
+      "wall_seconds": 14.09941661327857,
+      "cpu_seconds": 10.04884049117074,
+      "main_step_sum_seconds": 7.451835605368407
+    },
+    "qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/clear-sky-radiation-batch-20261025/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "532ff2080fe4bd41a8106639713af945ad6c3dc52f279c284558bc2c219dbcf9"
+    },
+    "science": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-currentb4bc-threehost-threehour-pair-runtime-r1/science-receipt.json",
+      "sha256": "3adc877816937f67d0804c7449a3be594dc7e285a551b5b1b4942c15f266ef0d"
+    },
+    "raw_RESULT": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-currentb4bc-threehost-threehour-pair-runtime-r1/RESULT.json",
+      "sha256": "110f9892f1b7f24a07590add053f786992791b17e992f61584d95057e2331ebb"
+    },
+    "maintenance_context": {
+      "operator_documented_gap": "A ended around 06:29 UTC, B started around 06:51 UTC after scheduled maintenance",
+      "actual_coordinator_journal_times": {
+        "control": {
+          "start_utc": "2026-10-25T06:07:39.131175+00:00",
+          "end_utc": "2026-10-25T06:29:11.786907+00:00"
+        },
+        "candidate": {
+          "start_utc": "2026-10-25T06:51:05.992246+00:00",
+          "end_utc": "2026-10-25T07:09:42.676089+00:00"
+        }
+      }
+    },
+    "limits": "One fresh fixed-order original546b A then B4BC B on01\u201303, same256/224compute8x28+32quilt. A ended around 06:29 UTC; B began around 06:51 UTC after participating-host maintenance. Not counterbalanced, repeatability, isolated component or additive gains. Main elapsed includes MPI/output backpressure; aggregateCPU is summed consumption. No own9h/512/384/profile/restart/full144 qualification."
+  },
+  "qualification_scope": {
+    "world_size": 256,
+    "own_three_hour": true,
+    "separate_own_noon": true,
+    "own9h": false,
+    "own512": false,
+    "own384": false,
+    "profile": false,
+    "restart": false
+  },
+  "scope": "Own06\u201309 three-hour545/fourFULL, separate immutable12\u201313noon185/twoFULL; same256 only. No9h/512/384/profile/restart/full144 transfer.",
+  "nine_hour_full_application": null,
+  "nine_hour_comparison_scope": "Historical parent nine-hour evidence only; current B4BC own9h is FALSE."
+}

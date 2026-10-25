@@ -1,5 +1,11 @@
 # WRF CPU optimization findings
 
+## October 25: shortwave MCICA mask fusion promoted; three-hour check running
+
+The selected `51f1449e` image retains every B4BC improvement and removes a temporary cloud-mask allocation/population pass. The complete generator caller was 19.32% and 22.79% faster in one short P-C-C-P screen, with exact raw/state checks. Its own noon one-hour application passed both complete outputs and all 185 ordered steps against the unchanged original checker; all models and the reader closed normally. These results establish no forecast timing gain for this isolated addition.
+
+Source correspondence is committed as `af4cabc0`. Support is exact tested preprocessed-source replay/cached qualified object; a clean canonical-F-only rebuild is not certified. Its own three-hour candidate-only check is running on hpc01–03, with a retained original scientific reference. Parent B4BC three-hour timing remains a separate observation. [Evidence, rebuild and rollback](tools/cpu-compute/sw-mcica-mask-consumer-20261025/README.md).
+
 ## October 25: latest B4BC passes a fresh three-hour comparison on three nodes
 
 B4BC passed its own same256 three-hour 545-step/four-full-product application with all six models and the reader normally closed. One fresh original546b→B4BC fixed-order pair produced the measurements below. The arms were separated by scheduled maintenance (A ended around 06:29 UTC, B began around 06:51 UTC); this is not a counterbalanced or repeatability result. The earlier noon 185-step qualification remains immutable and separate. No own 9h, 512, 384, profile, restart or full144 qualification transfers.

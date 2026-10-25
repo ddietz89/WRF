@@ -1,3 +1,11 @@
+# Current working selection: 51f shortwave MCICA mask fusion
+
+Selected **51f1449e / archive63d6a533**, source correspondence **af4cabc0**, retains all B4BC improvements and removes the temporary SW cloud-mask pass. Own noon science passed two complete products and 185 ordered steps on hpc01–03 at256 ranks. Its three-hour check is running; parent three-hour results below remain specific to B4BC. No isolated forecast speedup is claimed.
+
+[Current selection](selection.json), [binding](CURRENT_SOURCE_BUILD_BINDING.json), [evidence and rollback](../cpu-compute/sw-mcica-mask-consumer-20261025/README.md).
+
+The following material preserves prior image-specific results.
+
 # Current working selection: B4BC, October25
 
 The qualified working configuration now includes both clear-sky radiation changes, retaining all previous BACF improvements. Own acceptance is direct12–13 noon,256 ranks on hpc01–03, two full products and185 ordered steps. Other horizons/configurations are pending; historical BACF timings do not qualify this new image.

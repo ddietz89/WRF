@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-10-25T07:19:01.546534+00:00",
+  "updated_utc": "2026-10-25T08:04:37.515333+00:00",
   "metric_definitions": {
     "wall_seconds": "Model/MPI including initialization/output/final drain",
     "main_step_sum_seconds": "Sum of reported main-step elapsed; includes communication/waiting/backpressure, not integration CPU",
@@ -463,7 +463,11 @@
   "limits": "Historical rows retain their recorded image/horizon/comparison scope. Latest B4BC256 row is one fresh fixed-order A-to-B pair with documented maintenance gap; no counterbalance, repeatability, isolated component or additive gain claim.",
   "current_selection": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-working/selection.json",
-    "sha256": "08ec4c7dc9bfaf2a3bf9a386cc1a45a4d56d0ec18deac19ea55f012e08f25a4e"
+    "sha256": "9d2a0310b0b63d1af698625f56042a21d562d8fa13f141956ab6a9eaa6b2627f",
+    "executable_sha256": "51f1449ef36ebeda42a8adb74061616e6f83f5a7dd09c0e7dc1145d1a46e4552",
+    "current_noon_one_hour_qualified": true,
+    "current_three_hour_qualified": false,
+    "historical_three_hour_observations_apply_to_current": false
   },
   "recovered_diagnostic_runs": [
     {
@@ -1302,37 +1306,45 @@
   },
   "latest_unpaired_noon_one_hour": {
     "status": "PASS_OWN_UNPROFILED_THREEHOST_SAME256_NOON185_TWO_PRODUCTS",
-    "executable_sha256": "b4bce63243fb128ac813965c37a735d6e07d6ed49dd66a82f1ead542615476d2",
-    "horizon": "12:00to13:00 directnoon",
+    "executable_sha256": "51f1449ef36ebeda42a8adb74061616e6f83f5a7dd09c0e7dc1145d1a46e4552",
+    "horizon": "12:00\u201313:00 direct noon",
     "world": 256,
     "hosts": [
       "hpc01",
       "hpc02",
       "hpc03"
     ],
+    "observed_steps": 185,
+    "products": 2,
+    "qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-mcica-mask-consumer-20261025/APPLICATION_QUALIFICATION.json",
+      "sha256": "7ae3a3c61b076846779dd022f342524d23c7a15ff34c3493dcedacf7db90a8e4"
+    },
+    "science": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-currentb4bc-sw-mcica-noon1h-runtime-r1/science-receipt.json",
+      "sha256": "7eb758cc2259b5d780e45a025d3fd6505b2bcb3d208e85b1d52ca77ba3668194"
+    },
+    "reader_closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-currentb4bc-sw-mcica-noon1h-runtime-r1/reader-closure.json",
+      "sha256": "d2e51212c97cebb5ab4f4b21889741f9cdd4bbdb89cf2103207053f33df2a7a2"
+    },
+    "raw_RESULT_reference": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-currentb4bc-sw-mcica-noon1h-runtime-r1/RESULT.json",
+      "sha256": "be0a955797dae06e458a03455750803ad9964c32f57705508bb49f816d7a21ab"
+    },
     "metrics": {
-      "control": {
-        "wall_seconds": 567.731608052738,
-        "main_step_sum_seconds": 371.7737,
-        "cpu_seconds": 119604.730289
-      },
+      "control": null,
       "candidate": {
-        "wall_seconds": 435.4456122862175,
-        "main_step_sum_seconds": 345.49672,
-        "cpu_seconds": 103019.567225
+        "wall_seconds": 422.57670424319804,
+        "cpu_seconds": 99916.82081399999,
+        "main_step_sum_seconds": 345.49972
       }
     },
-    "descriptive_reductions_percent": {
-      "wall_seconds": 23.300798104274676,
-      "main_step_sum_seconds": 7.068004003510753,
-      "cpu_seconds": 13.866644758886537
-    },
-    "comparison_design": "Later unprofiled candidate versus retained same-horizon unprofiled corrected-original546b; descriptive only, not freshmatched/incremental/two-change/causal/repeatability evidence",
+    "reductions_percent": null,
+    "descriptive_reductions_percent": null,
     "timing_gain_claim": false,
-    "science": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/clear-sky-radiation-batch-20261025/APPLICATION_QUALIFICATION.json",
-      "sha256": "d2dc9bfb51126ff3dae362f4461425af4047ba8cde0feca9dd0c3ae4c0e048ce"
-    }
+    "comparison_design": "Candidate-only own noon SCI against retained original same-map scientific reference; no fresh timing control",
+    "limits": "Own same256 noon185/two FULL products only. Candidate metrics are unpaired observations; no forecast timing gain, incremental/isolated/additive gain or repeatability claim. Parent B4BC three-hour comparisons remain historical and do not qualify this image. Exact tested-PP replay/cached object; canonical five-row correspondence only, clean F-only rebuild not certified."
   },
   "historical_fixed_order_three_hour_BACF256": {
     "status": "PASS_FRESH_SAME256_ORIGINAL_FOUR_HISTORY_THREE_HOUR_CLOSED_SEQUENCE",
@@ -1426,6 +1438,40 @@
     "qualification_reference": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/threehost-same256-threehour-qualification/APPLICATION_QUALIFICATION.json",
       "sha256": "88bed1a5d4cbbf9b50bb89b6972a9275f979635326366a97ee26d8a8b25233c4"
+    }
+  },
+  "historical_unpaired_noon_one_hour_B4BC": {
+    "status": "PASS_OWN_UNPROFILED_THREEHOST_SAME256_NOON185_TWO_PRODUCTS",
+    "executable_sha256": "b4bce63243fb128ac813965c37a735d6e07d6ed49dd66a82f1ead542615476d2",
+    "horizon": "12:00to13:00 directnoon",
+    "world": 256,
+    "hosts": [
+      "hpc01",
+      "hpc02",
+      "hpc03"
+    ],
+    "metrics": {
+      "control": {
+        "wall_seconds": 567.731608052738,
+        "main_step_sum_seconds": 371.7737,
+        "cpu_seconds": 119604.730289
+      },
+      "candidate": {
+        "wall_seconds": 435.4456122862175,
+        "main_step_sum_seconds": 345.49672,
+        "cpu_seconds": 103019.567225
+      }
+    },
+    "descriptive_reductions_percent": {
+      "wall_seconds": 23.300798104274676,
+      "main_step_sum_seconds": 7.068004003510753,
+      "cpu_seconds": 13.866644758886537
+    },
+    "comparison_design": "Later unprofiled candidate versus retained same-horizon unprofiled corrected-original546b; descriptive only, not freshmatched/incremental/two-change/causal/repeatability evidence",
+    "timing_gain_claim": false,
+    "science": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/clear-sky-radiation-batch-20261025/APPLICATION_QUALIFICATION.json",
+      "sha256": "d2dc9bfb51126ff3dae362f4461425af4047ba8cde0feca9dd0c3ae4c0e048ce"
     }
   }
 }
