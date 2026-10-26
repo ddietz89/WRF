@@ -1,158 +1,109 @@
 {
-  "status": "PASS_OWN_SAME512_THREE_HOUR_COMPLETED_A1_B1_B2_A2_TWO_OBSERVATIONS",
-  "qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/cqu-cqw-last-species-consumer-fusion-20261025/ABBA_THREE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "f8ffb3f06b91ce3000d1f5fa880ecabd7009446fa5d6e7fdcd7cb347a948fa84"
-  },
+  "status": "PASS_OWN_UNPROFILED_SAME512_SW_COPY_SMALLSTEP_WWSAVE_THREE_HOUR_545_FOUR_FULL",
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentab437-cqu-cqw-one-bigstep-member-experimental-r1/wrf.exe",
-    "sha256": "0b40b9614521536dae2bfd668571db36d9013535feae6fae3a2d73210c20ef3e"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentc51b-inatm-copy-smallstep-wwsave-two-member-experimental-r1/wrf.exe",
+    "sha256": "4974f103affa05d6fef76b96d6dbe4a3917762846a15e6aab083b9b7c64b898d"
   },
   "archive": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentab437-cqu-cqw-one-bigstep-member-experimental-r1/libwrflib.a",
-    "sha256": "14c102fe1cc1762f2b2458e934f220436c1608c0b52b520304d3084d45586c95"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentc51b-inatm-copy-smallstep-wwsave-two-member-experimental-r1/libwrflib.a",
+    "sha256": "02848e307ad940c02571fe055433247d5d248bd52628abbb738635ac15a87b0a"
   },
-  "source_commit": "1770d46988d08e896cd5b15d1c76e49d468b46d0",
-  "order": [
-    "A1",
-    "B1",
-    "B2",
-    "A2"
-  ],
-  "comparison_design": "Completed same-identity counterbalanced A-B-B-A, n2 per arm",
-  "rows_in_execution_order": [
-    {
-      "label": "A1",
-      "pair": 1,
-      "arm": "control",
-      "metrics": {
-        "wall_seconds": 798.6198086068034,
-        "cpu_seconds": 358644.885565,
-        "main_step_sum_seconds": 595.32709
-      }
-    },
-    {
-      "label": "B1",
-      "pair": 1,
-      "arm": "candidate",
-      "metrics": {
-        "wall_seconds": 625.2601152546704,
-        "cpu_seconds": 302736.240279,
-        "main_step_sum_seconds": 539.578
-      }
-    },
-    {
-      "label": "B2",
-      "pair": 2,
-      "arm": "candidate",
-      "metrics": {
-        "wall_seconds": 623.4700769456103,
-        "cpu_seconds": 303235.095952,
-        "main_step_sum_seconds": 540.66681
-      }
-    },
-    {
-      "label": "A2",
-      "pair": 2,
-      "arm": "control",
-      "metrics": {
-        "wall_seconds": 800.2145909662358,
-        "cpu_seconds": 359516.46336299996,
-        "main_step_sum_seconds": 596.45045
-      }
-    }
-  ],
-  "metrics": {
-    "control": {
-      "wall_seconds": {
-        "n": 2,
-        "mean": 799.4171997865196,
-        "min": 798.6198086068034,
-        "max": 800.2145909662358,
-        "median": 799.4171997865196,
-        "range_width": 1.594782359432429,
-        "values": [
-          798.6198086068034,
-          800.2145909662358
-        ]
-      },
-      "main_step_sum_seconds": {
-        "n": 2,
-        "mean": 595.88877,
-        "min": 595.32709,
-        "max": 596.45045,
-        "median": 595.88877,
-        "range_width": 1.1233600000000479,
-        "values": [
-          595.32709,
-          596.45045
-        ]
-      },
-      "cpu_seconds": {
-        "n": 2,
-        "mean": 359080.674464,
-        "min": 358644.885565,
-        "max": 359516.46336299996,
-        "median": 359080.674464,
-        "range_width": 871.5777979999548,
-        "values": [
-          358644.885565,
-          359516.46336299996
-        ]
-      }
-    },
-    "candidate": {
-      "wall_seconds": {
-        "n": 2,
-        "mean": 624.3650961001404,
-        "min": 623.4700769456103,
-        "max": 625.2601152546704,
-        "median": 624.3650961001404,
-        "range_width": 1.7900383090600371,
-        "values": [
-          625.2601152546704,
-          623.4700769456103
-        ]
-      },
-      "main_step_sum_seconds": {
-        "n": 2,
-        "mean": 540.1224050000001,
-        "min": 539.578,
-        "max": 540.66681,
-        "median": 540.1224050000001,
-        "range_width": 1.0888100000000804,
-        "values": [
-          539.578,
-          540.66681
-        ]
-      },
-      "cpu_seconds": {
-        "n": 2,
-        "mean": 302985.6681155,
-        "min": 302736.240279,
-        "max": 303235.095952,
-        "median": 302985.6681155,
-        "range_width": 498.85567299998365,
-        "values": [
-          302736.240279,
-          303235.095952
-        ]
-      }
-    }
-  },
-  "reductions_percent": {
-    "wall_seconds": 21.897465270090024,
-    "main_step_sum_seconds": 9.35851920820725,
-    "cpu_seconds": 15.62183941874149
-  },
-  "mean_reductions_percent": {
-    "wall_seconds": 21.897465270090024,
-    "main_step_sum_seconds": 9.35851920820725,
-    "cpu_seconds": 15.62183941874149
-  },
-  "timing_gain_claim": true,
+  "post_test_source_commit": "214e7cf3c498e609933da7a6c4e3c39f5c6e04f7",
+  "source_commit": "214e7cf3c498e609933da7a6c4e3c39f5c6e04f7",
+  "raw_producer_source_commit": null,
+  "own_three_hour_qualified": true,
+  "own_unprofiled_three_hour_qualified": true,
+  "own_noon_qualified": false,
+  "own_nine_hour_qualified": false,
+  "profile_qualified": false,
   "observed_step_count": 545,
   "products": 4,
-  "own_nine_hour_qualified": false,
-  "limits": "One completed fixed-identity A1-B1-B2-A2 sequence, two observations per arm; means/medians/ranges are descriptive. No strong statistical significance, reproducibility, isolated/additive component gain, global headroom, or own9h/profile/restart/144 claim. Future rolling median of last3 eligible unique original invocations is a separate policy and is not substituted into this frozen ABBA study."
+  "science": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentc51b-sw-wwsave-threehour-runtime-r1/science-receipt.json",
+    "sha256": "57041d856231625e1f84c8bd5714910faf5aaff5d1f5a309f40d99f76afa073b"
+  },
+  "reader_closure": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentc51b-sw-wwsave-threehour-runtime-r1/reader-closure.json",
+    "sha256": "a338934e2365f6a283772ee876c6ca189312d60c0d8c368c9e8d43e735391e18"
+  },
+  "models": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentc51b-sw-wwsave-threehour-runtime-r1/candidate-metadata/model-closures.json",
+    "sha256": "cd40376f72e0f573c140f485b55cccc3ca2cdb285fc6fff0ec76a3f58045a15a"
+  },
+  "lease": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentc51b-sw-wwsave-threehour-runtime-r1/candidate-metadata/lease.json",
+    "sha256": "c1d13ea046de855a0dc3d6ce74be627fa5863090c33bcff3e751d744c0f50ae2"
+  },
+  "RESULT": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentc51b-sw-wwsave-threehour-runtime-r1/RESULT.json",
+    "sha256": "6eac2416eff28829c9a966fbc811bd1c7455aff78c5e7089a98759e32273b1f8"
+  },
+  "build": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentc51b-sw-wwsave-threehour-runtime-r1/combined-build-receipt.json",
+    "sha256": "e6e6ae635ff8ed4ac434fb1b6e421442846ca20283742c0354729a92b6e08a6c"
+  },
+  "build_closure": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentc51b-sw-wwsave-threehour-runtime-r1/combined-build-closure.json",
+    "sha256": "d43d1c8a3ed0bb1aaaaa82c6eee66f5e038b9d73ed0c4e0530235e672f5a0b6f"
+  },
+  "actual_candidate_metrics": {
+    "wall_seconds": 625.7471125102602,
+    "cpu_seconds": 303755.05975200003,
+    "main_step_sum_seconds": 541.10874
+  },
+  "rolling_control_baseline": {
+    "cohort_sha256": "a96d6b9ea566325641ad0b0766429c661e904c75b457419acbefdaa9953b0aa5",
+    "n": 3,
+    "median": {
+      "wall_seconds": 800.0241208570078,
+      "cpu_seconds": 359327.346984,
+      "main_step_sum_seconds": 596.45045
+    },
+    "members": [
+      {
+        "run_id": "production512-current0b40-fourhost-threehour-pair2-r1-control",
+        "coordinator_invocation_id": "2eeee20b4cf0457cb582710bce30dc0b",
+        "metrics": {
+          "wall_seconds": 800.2145909662358,
+          "cpu_seconds": 359516.46336299996,
+          "main_step_sum_seconds": 596.45045
+        }
+      },
+      {
+        "run_id": "production512-current0b40-fourhost-threehour-pair1-r1-control",
+        "coordinator_invocation_id": "81febf86a6734f4fa77d57fd1b467c30",
+        "metrics": {
+          "wall_seconds": 798.6198086068034,
+          "cpu_seconds": 358644.885565,
+          "main_step_sum_seconds": 595.32709
+        }
+      },
+      {
+        "run_id": "production512-current5c75-fourhost-threehour-pair1-r1-control",
+        "coordinator_invocation_id": "c9768c1474f648329ff3e41b664aac99",
+        "metrics": {
+          "wall_seconds": 800.0241208570078,
+          "cpu_seconds": 359327.346984,
+          "main_step_sum_seconds": 596.59354
+        }
+      }
+    ]
+  },
+  "descriptive_reductions_percent": {
+    "wall_seconds": 21.783969233334776,
+    "main_step_sum_seconds": 9.278509220673747,
+    "cpu_seconds": 15.4656437085693
+  },
+  "timing_gain_claim": false,
+  "comparison_design": "CANDIDATE_ONLY_UNPAIRED_RETAINED_ORIGINAL_A2_SCIENCE_MEDIAN3_DESCRIPTIVE_TIMING",
+  "raw_result_order": [
+    "retained_original546b_A2_science_reference",
+    "fresh_currentccbb_next_unprofiled_threehour_candidate"
+  ],
+  "limits": "Own unprofiled SAME512 three-hour545/four FULL only. Candidate-only strict science against retained corrected546b A2; descriptive timing against latest3 unique original controls, no fresh matched or causal/component-additive gain. No own noon/9h/profile/restart/384/256/full144 inheritance. Qualified PP/cached-object delivery plus post-test canonical target statement projection; no clean whole-source CPP/rebuild certificate. Original native raw structural false facts and scoped O0 non-target limits retained.",
+  "qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/inatm-sw-copy-smallstep-wwsave-20261026/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "a2082222cb46644ea61de2f1d69da70ed0f786e7470e03a028df260eb8dd8f59"
+  },
+  "reductions_percent": null
 }

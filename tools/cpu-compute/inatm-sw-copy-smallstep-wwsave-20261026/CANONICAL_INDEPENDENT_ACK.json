@@ -1,0 +1,78 @@
+{
+  "status": "PASS_FINITE_FOUR_DESTINATION_COMBINED_SOURCE_AND_MAKE_PROJECTIONS",
+  "final_proposal": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentc51b-smallstep-prep-ww-save-traversal-source-question-r1/combined-post-threehour-publication-preparation-r1/canonical-combined-proposal",
+  "final_PINS_sha256": "3f0c32d16420f0d73eacb8b9a760311a74acc4b4457a21bae68432e006a6a2a1",
+  "all_pins_and_source_destination_preimages_exact": true,
+  "two_Makefiles_are_distinct_destinations": true,
+  "source_projection_cases": [
+    {
+      "case": "both_ON",
+      "SW_target": "literal_e596_candidate",
+      "SS_target": "literal_daa410_candidate",
+      "PASS": true
+    },
+    {
+      "case": "SW_OFF",
+      "SW_target": "literal_original_under_same_config",
+      "SS_target": "literal_daa410_candidate",
+      "PASS": true
+    },
+    {
+      "case": "SS_OFF",
+      "SW_target": "literal_e596_candidate",
+      "SS_target": "literal_original_under_same_config",
+      "PASS": true
+    },
+    {
+      "case": "DM_OPENMP_fallback",
+      "SW_target": "literal_original_under_same_config",
+      "SS_target": "literal_original_under_same_config",
+      "PASS": true
+    },
+    {
+      "case": "PH_copy_OFF",
+      "SW_target": "literal_e596_candidate",
+      "SS_target": "literal_original_under_same_config",
+      "PASS": true
+    }
+  ],
+  "new_target_Make_eligibility_cases": [
+    {
+      "case": "both_ON",
+      "SW_new_feature_ENABLE_and_SIMD_flags": true,
+      "SS_new_feature_CPPmacro": true,
+      "SS_source_OPENMP_guard_still_original": false,
+      "no_new_ISA_or_relaxed_FP_flags": true
+    },
+    {
+      "case": "SW_OFF",
+      "SW_new_feature_ENABLE_and_SIMD_flags": false,
+      "SS_new_feature_CPPmacro": true,
+      "SS_source_OPENMP_guard_still_original": false,
+      "no_new_ISA_or_relaxed_FP_flags": true
+    },
+    {
+      "case": "SS_OFF",
+      "SW_new_feature_ENABLE_and_SIMD_flags": true,
+      "SS_new_feature_CPPmacro": false,
+      "SS_source_OPENMP_guard_still_original": false,
+      "no_new_ISA_or_relaxed_FP_flags": true
+    },
+    {
+      "case": "DM_OPENMP_fallback",
+      "SW_new_feature_ENABLE_and_SIMD_flags": false,
+      "SS_new_feature_CPPmacro": true,
+      "SS_source_OPENMP_guard_still_original": true,
+      "no_new_ISA_or_relaxed_FP_flags": true
+    },
+    {
+      "case": "PH_copy_OFF",
+      "SW_new_feature_ENABLE_and_SIMD_flags": true,
+      "SS_new_feature_CPPmacro": false,
+      "SS_source_OPENMP_guard_still_original": false,
+      "no_new_ISA_or_relaxed_FP_flags": true
+    }
+  ],
+  "scope": "LocalexistingCPP+Makeexpansion only. ActualtestedPPtargetliteralstatement/directivestreams e596/daa410; no fullCPProw/byteidentity, no sourcecompiler/native/MPI/modelrun, no cleanF-onlyproducer certificate. Newfeatureflags only, otherexistingowners preservedbyteexact. Private source/apply remains rootpostSCI.",
+  "source_or_public_or_remote_or_Git_edits": false
+}

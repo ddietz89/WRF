@@ -5284,3 +5284,18 @@ Promoted the map-factor reciprocal row cache after exact O2/O0 native checks, a 
 This candidate-only timing comparison is unpaired; unresolved hardware/operational-epoch differences prevent a fresh matched or isolated-gain claim. Kernel/caller gains are separate and are not added to forecast gains. The previous 4b87 three-hour run was 623.11 seconds; the new 626.79-second observation is 0.59% longer and does not isolate either small addition. Inclusion rests on significant complete-caller benefit and exact application acceptance, under the owner's standing inclusion policy. No current-child noon, nine-hour or profile qualification is inherited.
 
 Source commit 72ce38a0d115c8fb5ac9d536dcb915bdbe5b6f4b. The qualified PP/native object and scoped machine limits are recorded in tools/cpu-compute/pg-buoy-map-reciprocal-row/. Instruction/trap chronology and whole-object identity are not claimed; masked final-state checks are exact. Rollback restores the BigStep source and coupled working metadata from b86ff36e and selects retained ccbb77e7, preserving Thompson. Production and master remain unchanged.
+
+
+### October 26: SW cloud copies and SmallStep saved-w traversal promoted
+
+Both changes passed their own combined three-hour forecast: four complete products and all 545 ordered timesteps matched the corrected original exactly, with all model/reader jobs normally closed. The SW complete caller improved by 13.97%/13.36%; SmallStep improved by 3.82%/7.66%, including identical input restores. These caller gains are not added to forecast gains.
+
+| Measure | Retained original median (n=3) | Combined 4974f103 (n=1) | Descriptive reduction |
+|---|---:|---:|---:|
+| Wall time | 800.02 s | 625.75 s | 21.78% |
+| Integration elapsed | 596.45 s | 541.11 s | 9.28% |
+| Aggregate CPU | 99.81 CPU-hours | 84.38 CPU-hours | 15.47% |
+
+Control ranges: wall 798.620–800.215 s, integration 595.327–596.594 s, CPU 99.624–99.866 CPU-hours. This is a candidate-only comparison with the preselected median of three distinct retained controls; unresolved operational-epoch differences prevent a fresh matched or isolated-gain claim. The current child owns no nine-hour/noon/profile/restart qualification.
+
+The qualified GNU 13.3 configuration enables both guarded changes by default, with explicit opt-outs. Source commit 214e7cf3 records target/guard correspondence to the tested preprocessed sources and cached O2 objects; it is not a fresh whole-source build producer. [Evidence and rollback](tools/cpu-compute/inatm-sw-copy-smallstep-wwsave-20261026/README.md) retain the exact scope and earlier failures. Production and master remain untouched.

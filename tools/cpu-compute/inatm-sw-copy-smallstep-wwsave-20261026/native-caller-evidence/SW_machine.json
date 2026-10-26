@@ -1,0 +1,595 @@
+{
+  "status": "PASS_FINITE_CURRENTC51B_SW_COPY_O2_DELIVERY_AND_TYPED_WRAPPER_CLASSIFICATION",
+  "eligible_for_one_member_experimental_delivery": true,
+  "native_receipt_sha256": "5d37ac3b4ca9a3e1364d15112853b97533d2a2f78734c8261fecfa618bf6ba5d",
+  "candidate_O2_object_sha256": "5cf09bd70149d39c421b0a1f4e0c144df61c5e2dda0f0cc786af18bdda4f4c56",
+  "candidate_PP_sha256": "e596cf1d16714031d4136e24b5cf59a45d7d35ddcb86181640a160b33cbfbc7b",
+  "raw_whole_TU_identity_claimed": false,
+  "O2_scope": {
+    "raw_differing_non_target_procedures": 17,
+    "other_raw_exact_procedure_with_symbol_metadata_delta": "__rrtmg_sw_rad_MOD_rrtmg_sw",
+    "all_non_target_raw_byte_differences_covered_by_actual_decoded_instructions": true,
+    "same_unchanged_IO_statement_diagnostic_rows_plus12": [
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_rrtmg_swlookuptable",
+        "instruction_offset": 49,
+        "parent_line": 11618,
+        "candidate_line": 11630,
+        "same_literal_IO_statement": "INQUIRE ( i , OPENED = opened )"
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_rrtmg_swlookuptable",
+        "instruction_offset": 180,
+        "parent_line": 11636,
+        "candidate_line": 11648,
+        "same_literal_IO_statement": "OPEN(rrtmg_unit,FILE='RRTMG_SW_DATA',                  &              FORM='UNFORMATTED',STATUS='OLD',ERR=9009)"
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_rrtmg_swlookuptable",
+        "instruction_offset": 466,
+        "parent_line": 11654,
+        "candidate_line": 11666,
+        "same_literal_IO_statement": "IF ( wrf_dm_on_monitor() ) CLOSE (rrtmg_unit)"
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_rrtmg_swlookuptable",
+        "instruction_offset": 583,
+        "parent_line": 11658,
+        "candidate_line": 11670,
+        "same_literal_IO_statement": "WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_sw: error opening RRTMG_SW_DATA on unit ',rrtmg_unit"
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_rrtmg_swrad",
+        "instruction_offset": 35843,
+        "parent_line": 10730,
+        "candidate_line": 10742,
+        "same_literal_IO_statement": "WRITE(message,*)'RRTMG SW CLWRF interpolated GHG values year:',yr,' julian day:',julian"
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_rrtmg_swrad",
+        "instruction_offset": 36052,
+        "parent_line": 10732,
+        "candidate_line": 10744,
+        "same_literal_IO_statement": "WRITE(message,*)'  co2vmr: ',co2,' n2ovmr:',n2o,' ch4vmr:',ch4,' cfc11vmr:',cfc11,' cfc12vmr:',cfc12"
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_sw_kgb16",
+        "instruction_offset": 59,
+        "parent_line": 11744,
+        "candidate_line": 11756,
+        "same_literal_IO_statement": "IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &          rayl, strrat1, layreffr, kao, kbo, selfrefo, forrefo, sfluxrefo"
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_sw_kgb16",
+        "instruction_offset": 931,
+        "parent_line": 11756,
+        "candidate_line": 11768,
+        "same_literal_IO_statement": "WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_sw: error reading RRTMG_SW_DATA on unit ',rrtmg_unit"
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_sw_kgb17",
+        "instruction_offset": 60,
+        "parent_line": 11825,
+        "candidate_line": 11837,
+        "same_literal_IO_statement": "IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &          rayl, strrat, layreffr, kao, kbo, selfrefo, forrefo, sfluxrefo"
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_sw_kgb17",
+        "instruction_offset": 955,
+        "parent_line": 11837,
+        "candidate_line": 11849,
+        "same_literal_IO_statement": "WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_sw: error reading RRTMG_SW_DATA on unit ',rrtmg_unit"
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_sw_kgb18",
+        "instruction_offset": 59,
+        "parent_line": 11906,
+        "candidate_line": 11918,
+        "same_literal_IO_statement": "IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &          rayl, strrat, layreffr, kao, kbo, selfrefo, forrefo, sfluxrefo"
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_sw_kgb18",
+        "instruction_offset": 939,
+        "parent_line": 11918,
+        "candidate_line": 11930,
+        "same_literal_IO_statement": "WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_sw: error reading RRTMG_SW_DATA on unit ',rrtmg_unit"
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_sw_kgb19",
+        "instruction_offset": 59,
+        "parent_line": 11987,
+        "candidate_line": 11999,
+        "same_literal_IO_statement": "IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &          rayl, strrat, layreffr, kao, kbo, selfrefo, forrefo, sfluxrefo"
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_sw_kgb19",
+        "instruction_offset": 939,
+        "parent_line": 11999,
+        "candidate_line": 12011,
+        "same_literal_IO_statement": "WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_sw: error reading RRTMG_SW_DATA on unit ',rrtmg_unit"
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_sw_kgb20",
+        "instruction_offset": 55,
+        "parent_line": 12070,
+        "candidate_line": 12082,
+        "same_literal_IO_statement": "IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &          rayl, layreffr, absch4o, kao, kbo, selfrefo, forrefo, sfluxrefo"
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_sw_kgb20",
+        "instruction_offset": 901,
+        "parent_line": 12082,
+        "candidate_line": 12094,
+        "same_literal_IO_statement": "WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_sw: error reading RRTMG_SW_DATA on unit ',rrtmg_unit"
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_sw_kgb21",
+        "instruction_offset": 60,
+        "parent_line": 12151,
+        "candidate_line": 12163,
+        "same_literal_IO_statement": "IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &          rayl, strrat, layreffr, kao, kbo, selfrefo, forrefo, sfluxrefo"
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_sw_kgb21",
+        "instruction_offset": 955,
+        "parent_line": 12163,
+        "candidate_line": 12175,
+        "same_literal_IO_statement": "WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_sw: error reading RRTMG_SW_DATA on unit ',rrtmg_unit"
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_sw_kgb22",
+        "instruction_offset": 59,
+        "parent_line": 12232,
+        "candidate_line": 12244,
+        "same_literal_IO_statement": "IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &          rayl, strrat, layreffr, kao, kbo, selfrefo, forrefo, sfluxrefo"
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_sw_kgb22",
+        "instruction_offset": 939,
+        "parent_line": 12244,
+        "candidate_line": 12256,
+        "same_literal_IO_statement": "WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_sw: error reading RRTMG_SW_DATA on unit ',rrtmg_unit"
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_sw_kgb23",
+        "instruction_offset": 55,
+        "parent_line": 12303,
+        "candidate_line": 12315,
+        "same_literal_IO_statement": "IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &          raylo, givfac, layreffr, kao, selfrefo, forrefo, sfluxrefo"
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_sw_kgb23",
+        "instruction_offset": 773,
+        "parent_line": 12314,
+        "candidate_line": 12326,
+        "same_literal_IO_statement": "WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_sw: error reading RRTMG_SW_DATA on unit ',rrtmg_unit"
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_sw_kgb24",
+        "instruction_offset": 63,
+        "parent_line": 12388,
+        "candidate_line": 12400,
+        "same_literal_IO_statement": "IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &          raylao, raylbo, strrat, layreffr, abso3ao, abso3bo, kao, kbo, selfrefo, &          forrefo, sfluxrefo"
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_sw_kgb24",
+        "instruction_offset": 1323,
+        "parent_line": 12403,
+        "candidate_line": 12415,
+        "same_literal_IO_statement": "WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_sw: error reading RRTMG_SW_DATA on unit ',rrtmg_unit"
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_sw_kgb25",
+        "instruction_offset": 53,
+        "parent_line": 12451,
+        "candidate_line": 12463,
+        "same_literal_IO_statement": "IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &          raylo, layreffr, abso3ao, abso3bo, kao, sfluxrefo"
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_sw_kgb25",
+        "instruction_offset": 677,
+        "parent_line": 12461,
+        "candidate_line": 12473,
+        "same_literal_IO_statement": "WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_sw: error reading RRTMG_SW_DATA on unit ',rrtmg_unit"
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_sw_kgb26",
+        "instruction_offset": 53,
+        "parent_line": 12489,
+        "candidate_line": 12501,
+        "same_literal_IO_statement": "IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &          raylo, sfluxrefo"
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_sw_kgb26",
+        "instruction_offset": 317,
+        "parent_line": 12495,
+        "candidate_line": 12507,
+        "same_literal_IO_statement": "WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_sw: error reading RRTMG_SW_DATA on unit ',rrtmg_unit"
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_sw_kgb27",
+        "instruction_offset": 55,
+        "parent_line": 12557,
+        "candidate_line": 12569,
+        "same_literal_IO_statement": "IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &          raylo, scalekur, layreffr, kao, kbo, sfluxrefo"
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_sw_kgb27",
+        "instruction_offset": 669,
+        "parent_line": 12567,
+        "candidate_line": 12579,
+        "same_literal_IO_statement": "WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_sw: error reading RRTMG_SW_DATA on unit ',rrtmg_unit"
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_sw_kgb28",
+        "instruction_offset": 59,
+        "parent_line": 12624,
+        "candidate_line": 12636,
+        "same_literal_IO_statement": "IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &          rayl, strrat, layreffr, kao, kbo, sfluxrefo"
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_sw_kgb28",
+        "instruction_offset": 723,
+        "parent_line": 12634,
+        "candidate_line": 12646,
+        "same_literal_IO_statement": "WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_sw: error reading RRTMG_SW_DATA on unit ',rrtmg_unit"
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_sw_kgb29",
+        "instruction_offset": 56,
+        "parent_line": 12707,
+        "candidate_line": 12719,
+        "same_literal_IO_statement": "IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &          rayl, layreffr, absh2oo, absco2o, kao, kbo, selfrefo, forrefo, sfluxrefo"
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_sw_kgb29",
+        "instruction_offset": 997,
+        "parent_line": 12720,
+        "candidate_line": 12732,
+        "same_literal_IO_statement": "WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_sw: error reading RRTMG_SW_DATA on unit ',rrtmg_unit"
+      }
+    ],
+    "E9_same_named_callee_displacements": [
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_rrtmg_swinit",
+        "offset": 11,
+        "same_named_absolute_target": "1dac0 <__rrtmg_sw_init_MOD_rrtmg_sw_ini>"
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_rrtmg_swinit",
+        "offset": 34,
+        "same_named_absolute_target": "1dac0 <__rrtmg_sw_init_MOD_rrtmg_sw_ini>"
+      }
+    ],
+    "full_RELA_exact_site_type_name_info_visibility_section_addend_named_target": [
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_rrtmg_swinit",
+        "offset": 21,
+        "type": 4,
+        "same_named_target": [
+          "__module_ra_rrtmg_sw_MOD_rrtmg_swlookuptable",
+          0
+        ],
+        "changed_symbol_fields": [
+          "ST_VALUE"
+        ]
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_rrtmg_swlookuptable",
+        "offset": 290,
+        "type": 4,
+        "same_named_target": [
+          "__module_ra_rrtmg_sw_MOD_sw_kgb16",
+          0
+        ],
+        "changed_symbol_fields": [
+          "ST_VALUE"
+        ]
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_rrtmg_swlookuptable",
+        "offset": 300,
+        "type": 4,
+        "same_named_target": [
+          "__module_ra_rrtmg_sw_MOD_sw_kgb17",
+          0
+        ],
+        "changed_symbol_fields": [
+          "ST_VALUE"
+        ]
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_rrtmg_swlookuptable",
+        "offset": 310,
+        "type": 4,
+        "same_named_target": [
+          "__module_ra_rrtmg_sw_MOD_sw_kgb18",
+          0
+        ],
+        "changed_symbol_fields": [
+          "ST_VALUE"
+        ]
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_rrtmg_swlookuptable",
+        "offset": 320,
+        "type": 4,
+        "same_named_target": [
+          "__module_ra_rrtmg_sw_MOD_sw_kgb19",
+          0
+        ],
+        "changed_symbol_fields": [
+          "ST_VALUE"
+        ]
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_rrtmg_swlookuptable",
+        "offset": 330,
+        "type": 4,
+        "same_named_target": [
+          "__module_ra_rrtmg_sw_MOD_sw_kgb20",
+          0
+        ],
+        "changed_symbol_fields": [
+          "ST_VALUE"
+        ]
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_rrtmg_swlookuptable",
+        "offset": 340,
+        "type": 4,
+        "same_named_target": [
+          "__module_ra_rrtmg_sw_MOD_sw_kgb21",
+          0
+        ],
+        "changed_symbol_fields": [
+          "ST_VALUE"
+        ]
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_rrtmg_swlookuptable",
+        "offset": 350,
+        "type": 4,
+        "same_named_target": [
+          "__module_ra_rrtmg_sw_MOD_sw_kgb22",
+          0
+        ],
+        "changed_symbol_fields": [
+          "ST_VALUE"
+        ]
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_rrtmg_swlookuptable",
+        "offset": 360,
+        "type": 4,
+        "same_named_target": [
+          "__module_ra_rrtmg_sw_MOD_sw_kgb23",
+          0
+        ],
+        "changed_symbol_fields": [
+          "ST_VALUE"
+        ]
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_rrtmg_swlookuptable",
+        "offset": 370,
+        "type": 4,
+        "same_named_target": [
+          "__module_ra_rrtmg_sw_MOD_sw_kgb24",
+          0
+        ],
+        "changed_symbol_fields": [
+          "ST_VALUE"
+        ]
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_rrtmg_swlookuptable",
+        "offset": 380,
+        "type": 4,
+        "same_named_target": [
+          "__module_ra_rrtmg_sw_MOD_sw_kgb25",
+          0
+        ],
+        "changed_symbol_fields": [
+          "ST_VALUE"
+        ]
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_rrtmg_swlookuptable",
+        "offset": 390,
+        "type": 4,
+        "same_named_target": [
+          "__module_ra_rrtmg_sw_MOD_sw_kgb26",
+          0
+        ],
+        "changed_symbol_fields": [
+          "ST_VALUE"
+        ]
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_rrtmg_swlookuptable",
+        "offset": 400,
+        "type": 4,
+        "same_named_target": [
+          "__module_ra_rrtmg_sw_MOD_sw_kgb27",
+          0
+        ],
+        "changed_symbol_fields": [
+          "ST_VALUE"
+        ]
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_rrtmg_swlookuptable",
+        "offset": 410,
+        "type": 4,
+        "same_named_target": [
+          "__module_ra_rrtmg_sw_MOD_sw_kgb28",
+          0
+        ],
+        "changed_symbol_fields": [
+          "ST_VALUE"
+        ]
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_rrtmg_swlookuptable",
+        "offset": 420,
+        "type": 4,
+        "same_named_target": [
+          "__module_ra_rrtmg_sw_MOD_sw_kgb29",
+          0
+        ],
+        "changed_symbol_fields": [
+          "ST_VALUE"
+        ]
+      },
+      {
+        "procedure": "__module_ra_rrtmg_sw_MOD_rrtmg_swrad",
+        "offset": 22624,
+        "type": 4,
+        "same_named_target": [
+          "__rrtmg_sw_rad_MOD_rrtmg_sw",
+          0
+        ],
+        "changed_symbol_fields": [
+          "ST_VALUE"
+        ]
+      },
+      {
+        "procedure": "__rrtmg_sw_rad_MOD_rrtmg_sw",
+        "offset": 15226,
+        "type": 4,
+        "same_named_target": [
+          "__rrtmg_sw_rad_MOD_inatm_sw",
+          0
+        ],
+        "changed_symbol_fields": [
+          "ST_VALUE",
+          "ST_SIZE"
+        ]
+      }
+    ],
+    "shared_constant_data_sections_all_raw_exact": true,
+    "unwind": {
+      "records": 60,
+      "only_changed_record": "INATM_SW targetownedFDE",
+      "record_bytes": 80,
+      "target_range_before_after": [
+        15234,
+        17162
+      ],
+      "changed_record_byte_offsets": [
+        12,
+        13,
+        52,
+        53,
+        75
+      ],
+      "all59_other_records_raw_exact": true,
+      "target_CFI_and_range_changes_recorded_no_blanket_normalization": true
+    }
+  },
+  "typed_wrapper_MOD": {
+    "raw_byte_identity": false,
+    "31_other_MODs_including_rrtmg_sw_rad_raw_exact_both_opts": true,
+    "actual_complete_proof": {
+      "status": "PASS_ACTUAL_ONE_WRAPPER_NAMESPACE_AND_SYMBOL_ID_PERMUTATION_ONLY",
+      "proofs": {
+        "O2": {
+          "status": "PASS_EXACT394_TYPED_DEFINITIONS_AND_OWNER_RESOLVED_REFERENCE_GRAPH",
+          "parent_sha256": "44444b523d338b2fc8b5b3a7d2b91fc5d8c6a49ea758338a4de11484e30461ab",
+          "candidate_sha256": "f75e08fbfef37a0bdf21e256c80bffed3435425b5623ef9f9e4a2e84ab5f7180",
+          "raw_MOD_equal": false,
+          "definitions": 394,
+          "public_aliases": 53,
+          "symbol_edges": 1002,
+          "namespace_edges": 788,
+          "counts": {
+            "symbols": 394,
+            "typespecs": 1262,
+            "expressions": 868
+          },
+          "changed_namespace_IDs": [
+            {
+              "parent_namespace_id": 19,
+              "candidate_namespace_id": 17,
+              "owner": [
+                [
+                  "Q",
+                  "wrf_at_debug_level"
+                ],
+                [
+                  "Q",
+                  "module_wrf_error"
+                ],
+                [
+                  "Q",
+                  ""
+                ],
+                "ROOT"
+              ]
+            }
+          ],
+          "all_literal_nonreference_tokens_exact": true,
+          "all_typed_symbol_and_namespace_references_resolve_same_owners": true,
+          "graph_sha256": "27e46346b1375aab7aa76bb9531caef93e8be2089159f897a24672daebdc154e",
+          "scope": "OnlyactualtwoMODpairs. Existingtypedparserrejectsunknownforms. NamespaceIDs changed onlyspecificowner19->17; symbolIDs resolvedbyfulldefinitionkey+namespaceowner. No globalnumericreplacement or omittedliteralbodyfield."
+        },
+        "O0": {
+          "status": "PASS_EXACT394_TYPED_DEFINITIONS_AND_OWNER_RESOLVED_REFERENCE_GRAPH",
+          "parent_sha256": "44444b523d338b2fc8b5b3a7d2b91fc5d8c6a49ea758338a4de11484e30461ab",
+          "candidate_sha256": "f75e08fbfef37a0bdf21e256c80bffed3435425b5623ef9f9e4a2e84ab5f7180",
+          "raw_MOD_equal": false,
+          "definitions": 394,
+          "public_aliases": 53,
+          "symbol_edges": 1002,
+          "namespace_edges": 788,
+          "counts": {
+            "symbols": 394,
+            "typespecs": 1262,
+            "expressions": 868
+          },
+          "changed_namespace_IDs": [
+            {
+              "parent_namespace_id": 19,
+              "candidate_namespace_id": 17,
+              "owner": [
+                [
+                  "Q",
+                  "wrf_at_debug_level"
+                ],
+                [
+                  "Q",
+                  "module_wrf_error"
+                ],
+                [
+                  "Q",
+                  ""
+                ],
+                "ROOT"
+              ]
+            }
+          ],
+          "all_literal_nonreference_tokens_exact": true,
+          "all_typed_symbol_and_namespace_references_resolve_same_owners": true,
+          "graph_sha256": "27e46346b1375aab7aa76bb9531caef93e8be2089159f897a24672daebdc154e",
+          "scope": "OnlyactualtwoMODpairs. Existingtypedparserrejectsunknownforms. NamespaceIDs changed onlyspecificowner19->17; symbolIDs resolvedbyfulldefinitionkey+namespaceowner. No globalnumericreplacement or omittedliteralbodyfield."
+        }
+      }
+    },
+    "scope": "Specific19->17 importedprocedure namespace/symbolID permutation only,394literaldefinitions/53aliases/1002symbol/788namespaceedges. No attributes/type/rank/kind/intent/publicAPI change."
+  },
+  "O0_scope": "Target18x4raw/five-state/bounds originalMODcallers passed. Full O0non-target code/rodata differences remain UNCLASSIFIED; no O0wholeTU or O0productiondelivery equivalence claimed. Experimental executable links ONLY actualO2 object.",
+  "numerical_scope": "18wholeINATM cases, fourmaskedrounds, sameopt O2/O0 actualcachedgenuine parents; exact884356B/read-only/physical/all5state. Not downstream fullforecast qualification.",
+  "mechanism": "Loopinvariant CMP5 removed fromg; fourelement scalarunroll only. No packedSIMD claim.",
+  "caller_scope": "WholeINATM33layer112x34,262144calls03/04 oppositeorder, raw/all5/cache/normalclosures;13.96955/13.35717%wall lower. No global/forecastgain.",
+  "source_scope": "Actualauthorpatch/strictsourceinverse; qualifiedPP4c1964->e596cf; privatecanonicalcorrespondence only, no cleanF-onlyproducer certification.",
+  "application_qualified": false,
+  "source_commit": null,
+  "raw_producer_source_commit": null,
+  "actual_evidence": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentc51b-inatm-sw-active-copy-two-pc-source-question-r1/whole-module-native-preparation-r1-hpc02/actual-native-r1/receipt.json": "5d37ac3b4ca9a3e1364d15112853b97533d2a2f78734c8261fecfa618bf6ba5d",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentc51b-inatm-sw-active-copy-two-pc-source-question-r1/actual-structure-readonly-preparation-r2/actual-readonly-r1.json": "34c8644ba06b94997deeefd70aebcd170a9bb285883a5140037fc138af55f40d",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentc51b-inatm-sw-active-copy-two-pc-source-question-r1/typed-wrapper-namespace-readonly-preparation-r1/actual-readonly-r1.json": "074fe0f758f316fc963ee95cf95dc893b0a5bf11d9900a0e47ef8ab18fa318c0",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentc51b-inatm-sw-active-copy-two-pc-source-question-r1/complete-caller-preparation-r1/ACTUAL_WAVE.json": "a793ccc747d5e6048ce97839abb6d32b1d5ad86ec6ef683178dacc9a7b7b799c"
+  }
+}

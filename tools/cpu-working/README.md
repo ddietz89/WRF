@@ -1,7 +1,11 @@
-The selected working image is c51b5f78, combining the buoyancy map-factor row cache, Thompson prefix reuse and all earlier qualified changes. It passed its own unprofiled 512-rank three-hour comparison: four complete products and all 545 ordered steps matched the corrected original exactly. All model jobs and the scientific reader closed normally.
+SW INATM copy + SmallStep WW-save traversal: own unprofiled SAME512 three-hour qualification
 
-Wall time was 626.79 seconds versus a retained three-control median of 800.02 seconds (21.65% lower). Integration elapsed was 543.27 versus 596.45 seconds (8.92% lower); total CPU was 84.65 versus 99.81 CPU-hours (15.20% lower). These are descriptive, unpaired comparisons with unresolved operational-epoch differences. The previous image's noon and nine-hour results do not qualify this child. Its new daytime profile is pending.
+| Metric | Latest3 original median | Child | Descriptive reduction |
+|---|---:|---:|---:|
+| Wall minutes | 13.33374 | 10.42912 | 21.7840% |
+| Main-step minutes | 9.94084 | 9.01848 | 9.2785% |
+| Aggregate core-hours | 99.81315 | 84.37641 | 15.4656% |
 
-The row cache reduced a synthetic complete 33-level caller by 6.10% and 5.85% on two nodes, including allocation/free and full restores. This is separate from forecast timing. The earlier shallow mixed result remains in the component evidence. Strict masked final-state checks passed; instruction/trap chronology and strict whole-object identity are not claimed. See the component rebuild recipe for qualified preprocessed-source replay and canonical-source correspondence.
+Own unprofiled SAME512 three-hour545/four FULL only. Candidate-only strict science against retained corrected546b A2; descriptive timing against latest3 unique original controls, no fresh matched or causal/component-additive gain. No own noon/9h/profile/restart/384/256/full144 inheritance. Qualified PP/cached-object delivery plus post-test canonical target statement projection; no clean whole-source CPP/rebuild certificate. Original native raw structural false facts and scoped O0 non-target limits retained.
 
-Rollback: restore dyn_em/module_big_step_utilities_em.F and tools/cpu-working/ from b86ff36ed65f3733c4336eee186dccd35da8397d, and select the retained ccbb77e7 executable/archive. This preserves Thompson and all prior improvements. Production and master are unchanged.
+Whole-caller SS restore-inclusive2048 calls: 3.8183%/7.6583% lower wall on01/02; SW complete caller13.97%/13.36% lower on03/04. These are synthetic kernel observations, not additive forecast gains. All four model scopes and reader closed normally. Parent profile and historical9h remain image-specific. Rollback: explicit canonical opt-outs with rebuild/relink, or retained c51b/5575 image. Output db0d/input06 unchanged.

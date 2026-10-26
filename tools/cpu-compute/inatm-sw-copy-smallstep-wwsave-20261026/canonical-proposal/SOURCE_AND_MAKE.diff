@@ -1,0 +1,159 @@
+--- phys/module_ra_rrtmg_sw.F.parent
++++ phys/module_ra_rrtmg_sw.F.proposed
+@@ -10253,6 +10253,39 @@
+          liqflag = liqflgsw
+ ! Move incoming GCM cloud arrays to RRTMG cloud arrays.
+ ! For GCM input, incoming reicmcl is defined based on selected ice parameterization (inflgsw)
++#if defined(WRF_SW_INATM_COPY_UNSWITCH_ENABLE) && !defined(WRF_SW_INATM_COPY_UNSWITCH_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
++         do l = 1, nlayers
++            if (iceflag.eq.5) then
++!$OMP SIMD
++               do ig = 1, ngptsw
++                  cldfmc(ig,l) = cldfmcl(ig,iplon,l)
++                  taucmc(ig,l) = taucmcl(ig,iplon,l)
++                  ssacmc(ig,l) = ssacmcl(ig,iplon,l)
++                  asmcmc(ig,l) = asmcmcl(ig,iplon,l)
++                  fsfcmc(ig,l) = fsfcmcl(ig,iplon,l)
++                  ciwpmc(ig,l) = ciwpmcl(ig,iplon,l)
++                  clwpmc(ig,l) = clwpmcl(ig,iplon,l)
++                  cswpmc(ig,l)=cswpmcl(ig,iplon,l)
++               enddo
++            else
++!$OMP SIMD
++               do ig = 1, ngptsw
++                  cldfmc(ig,l) = cldfmcl(ig,iplon,l)
++                  taucmc(ig,l) = taucmcl(ig,iplon,l)
++                  ssacmc(ig,l) = ssacmcl(ig,iplon,l)
++                  asmcmc(ig,l) = asmcmcl(ig,iplon,l)
++                  fsfcmc(ig,l) = fsfcmcl(ig,iplon,l)
++                  ciwpmc(ig,l) = ciwpmcl(ig,iplon,l)
++                  clwpmc(ig,l) = clwpmcl(ig,iplon,l)
++               enddo
++            endif
++            reicmc(l) = reicmcl(iplon,l)
++            relqmc(l) = relqmcl(iplon,l)
++            if (iceflag.eq.5) then
++               resnmc(l) = resnmcl(iplon,l)
++            endif
++         enddo
++#else
+          do l = 1, nlayers
+             do ig = 1, ngptsw
+                cldfmc(ig,l) = cldfmcl(ig,iplon,l)
+@@ -10272,6 +10305,7 @@
+                resnmc(l) = resnmcl(iplon,l)
+             endif 
+          enddo
++#endif
+ ! If an extra layer is being used in RRTMG, set all cloud properties to zero in the extra layer.
+ !         cldfmc(:,nlayers) = 0.0_rb
+ !         taucmc(:,nlayers) = 0.0_rb
+--- phys/Makefile.parent
++++ phys/Makefile.proposed
+@@ -599,3 +599,32 @@
+ # DO NOT DELETE
+ 
+ include ../main/depend.common
++
++# SW INATM cloud-copy branch unswitch; qualified build scope is guarded below.: SW INATM copy branch unswitch.
++# Qualified recipe GNU13.3/default REAL4 INTEGER4/empty OMP/OMPCPP, source DM&&!_OPENMP.
++# Opt out with WRF_SW_INATM_COPY_UNSWITCH=0; DISABLE wins over ENABLE.
++WRF_SW_INATM_COPY_UNSWITCH ?= 1
++ifeq ($(WRF_SW_INATM_COPY_UNSWITCH),0)
++module_ra_rrtmg_sw.o: private override CPPFLAGS += -DWRF_SW_INATM_COPY_UNSWITCH_DISABLE
++endif
++ifeq ($(WRF_SW_INATM_COPY_UNSWITCH),1)
++ifeq ($(strip $(OMPCPP) $(OMP) $(PROMOTION) $(DOUBLE_PRECISION)),)
++# Explicit CPP macro injection must also preserve the original source path.
++ifeq ($(filter -D_OPENMP% _OPENMP%,$(CPPFLAGS)),)
++ifeq ($(strip $(RWORDSIZE)),4)
++ifeq ($(strip $(IWORDSIZE)),4)
++ifeq ($(filter -fdefault-% -freal-% -finteger-% -r8 -i8,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
++ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
++ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
++module_ra_rrtmg_sw.o: private override CPPFLAGS += -DWRF_SW_INATM_COPY_UNSWITCH_ENABLE
++ifneq (,$(filter -DDM_PARALLEL,$(CPPFLAGS)))
++module_ra_rrtmg_sw.o: private override FCFLAGS += -fopenmp-simd
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
+--- dyn_em/module_small_step_em.F.parent
++++ dyn_em/module_small_step_em.F.proposed
+@@ -364,6 +364,9 @@
+       w_2(i,k,j)  = ((c1f(k)*muts(i,j)+c2f(k))* w_1(i,k,j)-(c1f(k)*mut(i,j)+c2f(k))* w_2(i,k,j))/msfty(i,j)
+       ph_save(i,k,j) = ph_2(i,k,j)
+       ph_2(i,k,j) = ph_1(i,k,j)-ph_2(i,k,j)
++#if defined(WRF_SMALL_STEP_WWSAVE_TRAVERSAL_FUSION) && defined(DM_PARALLEL) && !defined(_OPENMP)
++      ww_save(i,k,j) = ww(i,k,j)
++#endif
+     ENDDO
+     ELSE
+     !$omp simd
+@@ -373,6 +376,9 @@
+       w_2(i,k,j)  = ((c1f(k)*muts(i,j)+c2f(k))* w_1(i,k,j)-(c1f(k)*mut(i,j)+c2f(k))* w_2(i,k,j))/msfty(i,j)
+       ph_save(i,k,j) = ph_2(i,k,j)
+       ph_2(i,k,j) = ph_1(i,k,j)-ph_2(i,k,j)
++#if defined(WRF_SMALL_STEP_WWSAVE_TRAVERSAL_FUSION) && defined(DM_PARALLEL) && !defined(_OPENMP)
++      ww_save(i,k,j) = ww(i,k,j)
++#endif
+     ENDDO
+     ENDIF
+ #else
+@@ -388,6 +394,7 @@
+     ENDDO
+     ENDDO
+ 
++#if !defined(WRF_SMALL_STEP_WWSAVE_TRAVERSAL_FUSION) || !defined(WRF_SMALL_STEP_PH_COPY_FUSION) || !defined(DM_PARALLEL) || defined(_OPENMP)
+       DO j=j_start, j_end
+ !      DO k=k_start, min(kde,kte)
+       DO k=k_start, kde
+@@ -396,6 +403,8 @@
+       ENDDO
+       ENDDO
+       ENDDO
++
++#endif
+ 
+ END SUBROUTINE small_step_prep
+ 
+--- dyn_em/Makefile.parent
++++ dyn_em/Makefile.proposed
+@@ -563,6 +563,32 @@
+ endif
+ endif
+ 
++# Final ww_save copy shares the existing W/PH K traversal; original copy remains off-path.
++# Qualified GNU13.3 pureMPI REAL4/INTEGER4 SmallStepSIMD1/Zen21/PHfusion1 only.
++# WRF_SMALL_STEP_WWSAVE_TRAVERSAL_FUSION=0: regeneratePP, rebuildSmallStep, rearchive+relink.
++WRF_SMALL_STEP_WWSAVE_TRAVERSAL_FUSION ?= 1
++ifeq ($(WRF_SMALL_STEP_WWSAVE_TRAVERSAL_FUSION),1)
++ifeq ($(WRF_SMALL_STEP_PH_COPY_FUSION),1)
++ifeq ($(WRF_SMALL_STEP_SIMD),1)
++ifeq ($(WRF_SMALL_STEP_ZEN2),1)
++ifeq ($(strip $(OMPCPP) $(OMP) $(PROMOTION) $(DOUBLE_PRECISION)),)
++ifeq ($(strip $(RWORDSIZE)),4)
++ifeq ($(strip $(IWORDSIZE)),4)
++ifeq ($(filter -fdefault-% -freal-% -finteger-% -r8 -i8,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
++ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
++ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
++module_small_step_em.o: private override CPPFLAGS += -DWRF_SMALL_STEP_WWSAVE_TRAVERSAL_FUSION
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++
+ # Independent V nonhydrostatic pressure correction SIMD; optout0 rebuilds SmallStep/archive/image.
+ # Qualified GNU13.3/SmallStepSIMD1/Zen21/defaultREAL4INTEGER4/emptyOMP; source DM&&!_OPENMP.
+ WRF_SMALL_STEP_V_NH_CORRECTION_SIMD ?= 1
