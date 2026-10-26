@@ -1,28 +1,67 @@
 {
   "order": [
-    "fresh_original546b_A",
-    "selected_height5c75_B"
+    "retained_original546b_A2_science_reference",
+    "fresh_current4974_calcWW_GWDO_unprofiled_threehour_candidate"
   ],
-  "comparison_design": "Fresh SAME512 pair1 A-B original546b versus selectedheight5c75; no historicalarmreuse/repeatability/isolated/additiveclaim",
+  "comparison_design": "Candidate-only exactscience vs retainedA2; timings DESCRIPTIVE and UNPAIRED against median latest3 unique original controls A2/A1/5c75; hardwareepoch unresolved.",
   "status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
   "metrics": {
     "control": {
-      "wall_seconds": 800.0241208570078,
-      "cpu_seconds": 359327.346984,
-      "main_step_sum_seconds": 596.59354
+      "wall_seconds": 800.2145909662358,
+      "cpu_seconds": 359516.46336299996,
+      "main_step_sum_seconds": 596.45045
     },
     "candidate": {
-      "wall_seconds": 624.3915967778303,
-      "cpu_seconds": 303178.476221,
-      "main_step_sum_seconds": 540.03642
+      "wall_seconds": 624.8356027398258,
+      "cpu_seconds": 303565.619321,
+      "main_step_sum_seconds": 541.21011
     }
   },
-  "reductions_percent": {
-    "wall_seconds": 21.95340359126111,
-    "cpu_seconds": 15.6261056204832,
-    "main_step_sum_seconds": 9.480008784540296
+  "science_sha256": "5ab89865550d6978dc1bea500baa1c4d822f64080ee047dadb69486fc5f7c55b",
+  "reader_closure_sha256": "d8d5f1bafbd89e9153b30d5e98a4e34ab18e46897c29aced66e3e416905216ff",
+  "limits": "Candidate-only UNPAIRED descriptive comparison against retainedoriginalA; no freshmatchedspeedup/repeatability/per-kernelcausalclaim. Actualchildcache mandatory; originalA own priorcache proof retained.",
+  "timing_gain_claim": false,
+  "rolling_control_baseline": {
+    "cohort_sha256": "a96d6b9ea566325641ad0b0766429c661e904c75b457419acbefdaa9953b0aa5",
+    "n": 3,
+    "median": {
+      "wall_seconds": 800.0241208570078,
+      "cpu_seconds": 359327.346984,
+      "main_step_sum_seconds": 596.45045
+    },
+    "members": [
+      {
+        "run_id": "production512-current0b40-fourhost-threehour-pair2-r1-control",
+        "coordinator_invocation_id": "2eeee20b4cf0457cb582710bce30dc0b",
+        "metrics": {
+          "wall_seconds": 800.2145909662358,
+          "cpu_seconds": 359516.46336299996,
+          "main_step_sum_seconds": 596.45045
+        }
+      },
+      {
+        "run_id": "production512-current0b40-fourhost-threehour-pair1-r1-control",
+        "coordinator_invocation_id": "81febf86a6734f4fa77d57fd1b467c30",
+        "metrics": {
+          "wall_seconds": 798.6198086068034,
+          "cpu_seconds": 358644.885565,
+          "main_step_sum_seconds": 595.32709
+        }
+      },
+      {
+        "run_id": "production512-current5c75-fourhost-threehour-pair1-r1-control",
+        "coordinator_invocation_id": "c9768c1474f648329ff3e41b664aac99",
+        "metrics": {
+          "wall_seconds": 800.0241208570078,
+          "cpu_seconds": 359327.346984,
+          "main_step_sum_seconds": 596.59354
+        }
+      }
+    ]
   },
-  "science_sha256": "20b8fbef80df192a01ba2ce34e14b5b0a0fc85e180732eb47a04ccf9d6855674",
-  "reader_closure_sha256": "91cde74054bc2a8801df58d3f07227846ce716b6f3dcb1897f001644080dc5a9",
-  "limits": "One fresh fixed-order pair, actual checkedcache before each arm; no repeatability or per-kernel causal claim. Main includes communication/backpressure; residual is not pureIO."
+  "descriptive_reductions_percent": {
+    "wall_seconds": 21.89790451936814,
+    "cpu_seconds": 15.51836455839888,
+    "main_step_sum_seconds": 9.261513676450416
+  }
 }

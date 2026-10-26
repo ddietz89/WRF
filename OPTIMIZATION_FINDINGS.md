@@ -5372,3 +5372,18 @@ The fresh corrected original matches all ten complete products and all1,625 orde
 | 9h, fresh original n=1 | Aggregate CPU, CPU-h |278.16|249.39|10.34%|
 
 The3h denominator is a per-metric median of three distinct invocations. The9h original ran after the selected build; this single candidate-first/original-later observation is descriptive and unpaired, with no bracket, repeatability or component-causal claim. Main-step elapsed includes communication/waiting. Historical median3 nine-hour records remain separate. Selected source214e/image4974 and its own qualifications remain unchanged. [Exact metrics, baseline membership and retained limits](tools/cpu-working/control-horizon-comparability-20261026/README.md).
+
+
+### October 26: adjacent U-flux reuse and guarded GWDO searches promoted
+
+The combined0adb build passed all four complete products and all545 ordered timesteps against the corrected original. All model and reader jobs closed normally. Adjacent U-flux reuse reduced complete-caller wall time by15.42% and12.92% on two hosts; guarded GWDO first-hit searches reduced its complete caller by6.46%. These separate caller gains are not added together or to forecast gains.
+
+| Three-hour measure | Retained original median (n=3) | Combined0adb (n=1) | Descriptive reduction |
+|---|---:|---:|---:|
+| Model/MPI wall, minutes |13.33374|10.41393|21.8979%|
+| Main-step elapsed, minutes |9.94084|9.02017|9.2615%|
+| Aggregate CPU, CPU-hours |99.81315|84.32378|15.5184%|
+
+This candidate-only comparison is unpaired, using three distinct retained controls selected before interpreting the result. Compared with parent4974, whole wall is0.15% shorter and main-step elapsed0.02% longer: effectively neutral, without an isolated whole-forecast speedup claim. Promotion retains significant exact-qualified complete-caller gains under the standing inclusion policy. Main-step elapsed includes communication and waiting. Control membership, individual values and ranges are retained with the evidence.
+
+Defaults apply to the qualified GNU13.3 strictO2/pure-MPI configuration. Set WRF_CALC_WW_UFLUX_REUSE=0 and/or WRF_GWDO_FIRSTHIT_O2=0, rebuild the affected owner objects, rearchive and relink to opt out; retained4974 is the immediate executable rollback. Unsupported configurations use original paths. Source f5d3407 records target correspondence and a source/kind-checked parent-owned GWDO preprocessed-source hook; it does not claim a clean whole-source producer. The upstream physics submodule is unchanged. Own3h qualification applies to0adb; parent4974 nine-hour evidence stays historical, with no child noon/profile/restart/9h inheritance. [Evidence, exact scope and rollback](tools/cpu-compute/calcww-uflux-gwdo-firsthit-20261026/README.md).

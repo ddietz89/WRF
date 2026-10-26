@@ -1,0 +1,41 @@
+{
+  "status": "PASS_SCOPED_O2_WHOLECORE_NATIVE_AND_UNCHANGED_HELPERS_POOLS",
+  "native_receipt_sha256": "aa7820ff9caa95e1727ea245590e72cffb79557c31f089fe6f5ad2216fc5d318",
+  "native_closure_sha256": "cf8e153e61c4b9a7de9a8cc208e01d1be862706db7883feeee0360a547d5b575",
+  "native_invocation_id": "96e53fb327274c5eaa41ebb3818f6d11",
+  "candidate_O2_object": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current4974-gwdo-explicit-O2guard-wholecore-native-hpc02-r2/work/O2/candidate.o",
+    "sha256": "c49d35e3ad8d9b1ae4a8e88df9eeba57584ee426653935d6e1659df8ba9ed7de"
+  },
+  "parent_O2_object": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys/physics_mmm/bl_gwdo.o",
+    "sha256": "06576a6e2f17d602ce5c65b6ed6c20fe32b80e0cc05b7d1c2dc43ad1676f0c66"
+  },
+  "public_MOD_byte_exact": true,
+  "original_MOD_callers": true,
+  "O2_non_target_functions": {
+    "__bl_gwdo_MOD_bl_gwdo_finalize": true,
+    "__bl_gwdo_MOD_bl_gwdo_init": true
+  },
+  "O2_actual_structural_verdict": "PASS_NON_TARGET_FUNCTION_BYTES_RELOCATION_ROLES_AND_RODATA_DATA_BSS_EXACT",
+  "O2_structural_scope": "Per-function instructions and normalized runtime relocation roles; excludes layout addresses and target function. Native wholecaller raw/state remains mandatory.",
+  "O2_native_cases_rounds": {
+    "cases": 24,
+    "rounds": 4,
+    "raw_all_public_outputs_readonly_physical_five_state_exact": true
+  },
+  "O0_supported_OFF_fallback": {
+    "sameopt24x4_native_PASS": true,
+    "reference_scope": "freshsamePPparentnotcachedoriginalO0",
+    "raw_pool_or_non_target_verdict": {
+      "raw_strict_nontarget_or_pool_identity": false,
+      "error": "AssertionError('READONLY_OR_DATA_CONSTANTS_CHANGED')",
+      "scoped_classification_pending": true
+    },
+    "whole_TU_qualified": false
+  },
+  "eligible_for_complete_whole_GWDO_caller": true,
+  "original_unguarded_O0_failure_waived": false,
+  "performance_qualified": false,
+  "application_qualified": false
+}

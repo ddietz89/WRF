@@ -1,0 +1,217 @@
+{
+  "status": "PASS_ACTUAL_CURRENT4974_CALC_WW_GWDO_TWO_MEMBER_BUILD_CLOSED",
+  "namespace": "/pool/wrf-experiment/wrf-cpu/kernels/current4974-calcww-gwdo-two-member-build-hpc02-r1",
+  "unit": "wrf-cpu-current4974-calcww-gwdo-two-member-build-hpc02-r1.service",
+  "expected_pins_sha256": "42c5d3cfd418134c00fafe89ee4e13c681172cc3ab5e7885984a04096f3103bf",
+  "model_exclusion_before_stage": {
+    "hpc01": {
+      "properties": {
+        "MainPID": "0",
+        "Result": "success",
+        "ExecMainStatus": "0",
+        "ControlGroup": "",
+        "ActiveState": "inactive",
+        "InvocationID": ""
+      },
+      "expected_invocation_id": "038e76055d2b4842a9c6dd9503348c14",
+      "cgroup_paths_absent": true,
+      "manager_events": [
+        {
+          "invocation_id": "038e76055d2b4842a9c6dd9503348c14",
+          "message": "Started wrf-cpu-production512-original546b-currentepoch-ninehour-r1-control-hpc01.service - /usr/bin/taskset -c 0-127 /pool/wrf-experiment/tooling/m1/venv/bin/python /pool/wrf-experiment/wrf-cpu/science-prep/production512-original546b-currentepoch-ninehour-r1/run_model.py /pool/wrf-experiment/wrf-cpu/science-prep/production512-original546b-currentepoch-ninehour-r1/lease-control-granted.json eccc45920adf30414e6a3ca9ff596ac89f883c67a5d404f89ab8591b9d498d9f."
+        },
+        {
+          "invocation_id": "038e76055d2b4842a9c6dd9503348c14",
+          "message": "wrf-cpu-production512-original546b-currentepoch-ninehour-r1-control-hpc01.service: Deactivated successfully."
+        }
+      ]
+    },
+    "hpc02": {
+      "properties": {
+        "MainPID": "0",
+        "Result": "success",
+        "ExecMainStatus": "0",
+        "ControlGroup": "",
+        "ActiveState": "inactive",
+        "InvocationID": ""
+      },
+      "expected_invocation_id": "fd93800a9e414c3d8924e75ba77391fe",
+      "cgroup_paths_absent": true,
+      "manager_events": [
+        {
+          "invocation_id": "fd93800a9e414c3d8924e75ba77391fe",
+          "message": "Started wrf-cpu-production512-original546b-currentepoch-ninehour-r1-control-hpc02.service - /usr/bin/taskset -c 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127 /usr/bin/python3 /pool/wrf-experiment/wrf-cpu/science-prep/production512-original546b-currentepoch-ninehour-r1/adapter/node_scope_entry.py /pool/wrf-experiment/wrf-cpu/runs/production512-original546b-currentepoch-ninehour-r1-control/lease.json eccc45920adf30414e6a3ca9ff596ac89f883c67a5d404f89ab8591b9d498d9f ICAgT1BBTF9QUkVGSVg9L3Bvb2wvd3JmLWV4cGVyaW1lbnQvdG9vbGNoYWlucy9nbnUvMTMuMy4wL21waS11Y3gteHBtZW0gOyBleHBvcnQgT1BBTF9QUkVGSVg7ICAgIFBBVEg9L3Bvb2wvd3JmLWV4cGVyaW1lbnQvdG9vbGNoYWlucy9nbnUvMTMuMy4wL21waS11Y3gteHBtZW0vYmluOiRQQVRIIDsgZXhwb3J0IFBBVEggOyBMRF9MSUJSQVJZX1BBVEg9L3Bvb2wvd3JmLWV4cGVyaW1lbnQvdG9vbGNoYWlucy9nbnUvMTMuMy4wL21waS11Y3gteHBtZW0vbGliOiR7TERfTElCUkFSWV9QQVRIOi19IDsgZXhwb3J0IExEX0xJQlJBUllfUEFUSCA7IERZTERfTElCUkFSWV9QQVRIPS9wb29sL3dyZi1leHBlcmltZW50L3Rvb2xjaGFpbnMvZ251LzEzLjMuMC9tcGktdWN4LXhwbWVtL2xpYjoke0RZTERfTElCUkFSWV9QQVRIOi19IDsgZXhwb3J0IERZTERfTElCUkFSWV9QQVRIIDsgICAvcG9vbC93cmYtZXhwZXJpbWVudC90b29sY2hhaW5zL2dudS8xMy4zLjAvbXBpLXVjeC14cG1lbS9iaW4vb3J0ZWQgLW1jYSBvcnRlX2xlYXZlX3Nlc3Npb25fYXR0YWNoZWQgIjEiIC1tY2Egb3J0ZV9yZXBvcnRfYmluZGluZ3MgIjEiIC1tY2EgZXNzICJlbnYiIC1tY2EgZXNzX2Jhc2Vfam9iaWQgIjI1NTM4MDY4NDgiIC1tY2EgZXNzX2Jhc2VfdnBpZCAxIC1tY2EgZXNzX2Jhc2VfbnVtX3Byb2NzICI0IiAtbWNhIG9ydGVfbm9kZV9yZWdleCAiaHBjWzI6MS00XUAwKDQpIiAtbWNhIG9ydGVfaG5wX3VyaSAiMjU1MzgwNjg0OC4wO3RjcDovLzEwLjEuMS4yMTo1NjY1OSIgLS1tY2EgcGxtX3JzaF9ub190cmVlX3NwYXduICIxIiAtLW1jYSBwbG1fcnNoX2Fzc3VtZV9zYW1lX3NoZWxsICIxIiAtbWNhIHBsbSAicnNoIiAtbWNhIGJ0bF92YWRlcl9zaW5nbGVfY29weV9tZWNoYW5pc20gIm5vbmUiIC1tY2EgYnRsICJzZWxmLHZhZGVyIiAtbWNhIG9vYl90Y3BfaWZfaW5jbHVkZSAiaWJwMXMwZjAiIC1tY2EgcG1sICJ1Y3giIC1tY2EgYnRsX3ZhZGVyX2JhY2tpbmdfZGlyZWN0b3J5ICIvZGV2L3NobSIgLW1jYSBvcnRlX3RtcGRpcl9iYXNlICIvcG9vbC93cmYtZXhwZXJpbWVudC93cmYtY3B1L3J1bnMvcHJvZHVjdGlvbjUxMi1vcmlnaW5hbDU0NmItY3VycmVudGVwb2NoLW5pbmVob3VyLXIxLWNvbnRyb2wvbXBpLXRtcCIgLW1jYSBwbG1fcnNoX2FnZW50ICIvdXNyL2Jpbi9weXRob24zIC9wb29sL3dyZi1leHBlcmltZW50L3dyZi1jcHUvc2NpZW5jZS1wcmVwL3Byb2R1Y3Rpb241MTItb3JpZ2luYWw1NDZiLWN1cnJlbnRlcG9jaC1uaW5laG91ci1yMS9hZGFwdGVyL21waV9zY29wZV9icmlkZ2UucHkgL3Bvb2wvd3JmLWV4cGVyaW1lbnQvd3JmLWNwdS9ydW5zL3Byb2R1Y3Rpb241MTItb3JpZ2luYWw1NDZiLWN1cnJlbnRlcG9jaC1uaW5laG91ci1yMS1jb250cm9sL2xlYXNlLmpzb24gZWNjYzQ1OTIwYWRmMzA0MTRlNmEzY2E5ZmY1OTZhYzg5Zjg4M2M2N2E1ZDQwNGY4OWFiODU5MWI5ZDQ5OGQ5ZiIgLW1jYSBvcnRlX3JhbmtmaWxlICIvcG9vbC93cmYtZXhwZXJpbWVudC93cmYtY3B1L3J1bnMvcHJvZHVjdGlvbjUxMi1vcmlnaW5hbDU0NmItY3VycmVudGVwb2NoLW5pbmVob3VyLXIxLWNvbnRyb2wvcmFua2ZpbGUiIC1tY2EgaHdsb2NfYmFzZV9iaW5kaW5nX3BvbGljeSAiY29yZSIgLW1jYSBod2xvY19iYXNlX3JlcG9ydF9iaW5kaW5ncyAiMSIgLW1jYSBwbWl4ICJeczEsczIsY3JheSxpc29sYXRlZCI=."
+        },
+        {
+          "invocation_id": "fd93800a9e414c3d8924e75ba77391fe",
+          "message": "wrf-cpu-production512-original546b-currentepoch-ninehour-r1-control-hpc02.service: Deactivated successfully."
+        }
+      ]
+    },
+    "hpc03": {
+      "properties": {
+        "MainPID": "0",
+        "Result": "success",
+        "ExecMainStatus": "0",
+        "ControlGroup": "",
+        "ActiveState": "inactive",
+        "InvocationID": ""
+      },
+      "expected_invocation_id": "992727b3a44e47d2bd6ca14fd2ff7e27",
+      "cgroup_paths_absent": true,
+      "manager_events": [
+        {
+          "invocation_id": "992727b3a44e47d2bd6ca14fd2ff7e27",
+          "message": "Started wrf-cpu-production512-original546b-currentepoch-ninehour-r1-control-hpc03.service - /usr/bin/taskset -c 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127 /usr/bin/python3 /pool/wrf-experiment/wrf-cpu/science-prep/production512-original546b-currentepoch-ninehour-r1/adapter/node_scope_entry.py /pool/wrf-experiment/wrf-cpu/runs/production512-original546b-currentepoch-ninehour-r1-control/lease.json eccc45920adf30414e6a3ca9ff596ac89f883c67a5d404f89ab8591b9d498d9f ICAgT1BBTF9QUkVGSVg9L3Bvb2wvd3JmLWV4cGVyaW1lbnQvdG9vbGNoYWlucy9nbnUvMTMuMy4wL21waS11Y3gteHBtZW0gOyBleHBvcnQgT1BBTF9QUkVGSVg7ICAgIFBBVEg9L3Bvb2wvd3JmLWV4cGVyaW1lbnQvdG9vbGNoYWlucy9nbnUvMTMuMy4wL21waS11Y3gteHBtZW0vYmluOiRQQVRIIDsgZXhwb3J0IFBBVEggOyBMRF9MSUJSQVJZX1BBVEg9L3Bvb2wvd3JmLWV4cGVyaW1lbnQvdG9vbGNoYWlucy9nbnUvMTMuMy4wL21waS11Y3gteHBtZW0vbGliOiR7TERfTElCUkFSWV9QQVRIOi19IDsgZXhwb3J0IExEX0xJQlJBUllfUEFUSCA7IERZTERfTElCUkFSWV9QQVRIPS9wb29sL3dyZi1leHBlcmltZW50L3Rvb2xjaGFpbnMvZ251LzEzLjMuMC9tcGktdWN4LXhwbWVtL2xpYjoke0RZTERfTElCUkFSWV9QQVRIOi19IDsgZXhwb3J0IERZTERfTElCUkFSWV9QQVRIIDsgICAvcG9vbC93cmYtZXhwZXJpbWVudC90b29sY2hhaW5zL2dudS8xMy4zLjAvbXBpLXVjeC14cG1lbS9iaW4vb3J0ZWQgLW1jYSBvcnRlX2xlYXZlX3Nlc3Npb25fYXR0YWNoZWQgIjEiIC1tY2Egb3J0ZV9yZXBvcnRfYmluZGluZ3MgIjEiIC1tY2EgZXNzICJlbnYiIC1tY2EgZXNzX2Jhc2Vfam9iaWQgIjI1NTM4MDY4NDgiIC1tY2EgZXNzX2Jhc2VfdnBpZCAyIC1tY2EgZXNzX2Jhc2VfbnVtX3Byb2NzICI0IiAtbWNhIG9ydGVfbm9kZV9yZWdleCAiaHBjWzI6MS00XUAwKDQpIiAtbWNhIG9ydGVfaG5wX3VyaSAiMjU1MzgwNjg0OC4wO3RjcDovLzEwLjEuMS4yMTo1NjY1OSIgLS1tY2EgcGxtX3JzaF9ub190cmVlX3NwYXduICIxIiAtLW1jYSBwbG1fcnNoX2Fzc3VtZV9zYW1lX3NoZWxsICIxIiAtbWNhIHBsbSAicnNoIiAtbWNhIGJ0bF92YWRlcl9zaW5nbGVfY29weV9tZWNoYW5pc20gIm5vbmUiIC1tY2EgYnRsICJzZWxmLHZhZGVyIiAtbWNhIG9vYl90Y3BfaWZfaW5jbHVkZSAiaWJwMXMwZjAiIC1tY2EgcG1sICJ1Y3giIC1tY2EgYnRsX3ZhZGVyX2JhY2tpbmdfZGlyZWN0b3J5ICIvZGV2L3NobSIgLW1jYSBvcnRlX3RtcGRpcl9iYXNlICIvcG9vbC93cmYtZXhwZXJpbWVudC93cmYtY3B1L3J1bnMvcHJvZHVjdGlvbjUxMi1vcmlnaW5hbDU0NmItY3VycmVudGVwb2NoLW5pbmVob3VyLXIxLWNvbnRyb2wvbXBpLXRtcCIgLW1jYSBwbG1fcnNoX2FnZW50ICIvdXNyL2Jpbi9weXRob24zIC9wb29sL3dyZi1leHBlcmltZW50L3dyZi1jcHUvc2NpZW5jZS1wcmVwL3Byb2R1Y3Rpb241MTItb3JpZ2luYWw1NDZiLWN1cnJlbnRlcG9jaC1uaW5laG91ci1yMS9hZGFwdGVyL21waV9zY29wZV9icmlkZ2UucHkgL3Bvb2wvd3JmLWV4cGVyaW1lbnQvd3JmLWNwdS9ydW5zL3Byb2R1Y3Rpb241MTItb3JpZ2luYWw1NDZiLWN1cnJlbnRlcG9jaC1uaW5laG91ci1yMS1jb250cm9sL2xlYXNlLmpzb24gZWNjYzQ1OTIwYWRmMzA0MTRlNmEzY2E5ZmY1OTZhYzg5Zjg4M2M2N2E1ZDQwNGY4OWFiODU5MWI5ZDQ5OGQ5ZiIgLW1jYSBvcnRlX3JhbmtmaWxlICIvcG9vbC93cmYtZXhwZXJpbWVudC93cmYtY3B1L3J1bnMvcHJvZHVjdGlvbjUxMi1vcmlnaW5hbDU0NmItY3VycmVudGVwb2NoLW5pbmVob3VyLXIxLWNvbnRyb2wvcmFua2ZpbGUiIC1tY2EgaHdsb2NfYmFzZV9iaW5kaW5nX3BvbGljeSAiY29yZSIgLW1jYSBod2xvY19iYXNlX3JlcG9ydF9iaW5kaW5ncyAiMSIgLW1jYSBwbWl4ICJeczEsczIsY3JheSxpc29sYXRlZCI=."
+        },
+        {
+          "invocation_id": "992727b3a44e47d2bd6ca14fd2ff7e27",
+          "message": "wrf-cpu-production512-original546b-currentepoch-ninehour-r1-control-hpc03.service: Deactivated successfully."
+        }
+      ]
+    },
+    "hpc04": {
+      "properties": {
+        "MainPID": "0",
+        "Result": "success",
+        "ExecMainStatus": "0",
+        "ControlGroup": "",
+        "ActiveState": "inactive",
+        "InvocationID": ""
+      },
+      "expected_invocation_id": "dcd69c083d754ee0a3d51a304f2c4a53",
+      "cgroup_paths_absent": true,
+      "manager_events": [
+        {
+          "invocation_id": "dcd69c083d754ee0a3d51a304f2c4a53",
+          "message": "Started wrf-cpu-production512-original546b-currentepoch-ninehour-r1-control-hpc04.service - /usr/bin/taskset -c 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127 /usr/bin/python3 /pool/wrf-experiment/wrf-cpu/science-prep/production512-original546b-currentepoch-ninehour-r1/adapter/node_scope_entry.py /pool/wrf-experiment/wrf-cpu/runs/production512-original546b-currentepoch-ninehour-r1-control/lease.json eccc45920adf30414e6a3ca9ff596ac89f883c67a5d404f89ab8591b9d498d9f ICAgT1BBTF9QUkVGSVg9L3Bvb2wvd3JmLWV4cGVyaW1lbnQvdG9vbGNoYWlucy9nbnUvMTMuMy4wL21waS11Y3gteHBtZW0gOyBleHBvcnQgT1BBTF9QUkVGSVg7ICAgIFBBVEg9L3Bvb2wvd3JmLWV4cGVyaW1lbnQvdG9vbGNoYWlucy9nbnUvMTMuMy4wL21waS11Y3gteHBtZW0vYmluOiRQQVRIIDsgZXhwb3J0IFBBVEggOyBMRF9MSUJSQVJZX1BBVEg9L3Bvb2wvd3JmLWV4cGVyaW1lbnQvdG9vbGNoYWlucy9nbnUvMTMuMy4wL21waS11Y3gteHBtZW0vbGliOiR7TERfTElCUkFSWV9QQVRIOi19IDsgZXhwb3J0IExEX0xJQlJBUllfUEFUSCA7IERZTERfTElCUkFSWV9QQVRIPS9wb29sL3dyZi1leHBlcmltZW50L3Rvb2xjaGFpbnMvZ251LzEzLjMuMC9tcGktdWN4LXhwbWVtL2xpYjoke0RZTERfTElCUkFSWV9QQVRIOi19IDsgZXhwb3J0IERZTERfTElCUkFSWV9QQVRIIDsgICAvcG9vbC93cmYtZXhwZXJpbWVudC90b29sY2hhaW5zL2dudS8xMy4zLjAvbXBpLXVjeC14cG1lbS9iaW4vb3J0ZWQgLW1jYSBvcnRlX2xlYXZlX3Nlc3Npb25fYXR0YWNoZWQgIjEiIC1tY2Egb3J0ZV9yZXBvcnRfYmluZGluZ3MgIjEiIC1tY2EgZXNzICJlbnYiIC1tY2EgZXNzX2Jhc2Vfam9iaWQgIjI1NTM4MDY4NDgiIC1tY2EgZXNzX2Jhc2VfdnBpZCAzIC1tY2EgZXNzX2Jhc2VfbnVtX3Byb2NzICI0IiAtbWNhIG9ydGVfbm9kZV9yZWdleCAiaHBjWzI6MS00XUAwKDQpIiAtbWNhIG9ydGVfaG5wX3VyaSAiMjU1MzgwNjg0OC4wO3RjcDovLzEwLjEuMS4yMTo1NjY1OSIgLS1tY2EgcGxtX3JzaF9ub190cmVlX3NwYXduICIxIiAtLW1jYSBwbG1fcnNoX2Fzc3VtZV9zYW1lX3NoZWxsICIxIiAtbWNhIHBsbSAicnNoIiAtbWNhIGJ0bF92YWRlcl9zaW5nbGVfY29weV9tZWNoYW5pc20gIm5vbmUiIC1tY2EgYnRsICJzZWxmLHZhZGVyIiAtbWNhIG9vYl90Y3BfaWZfaW5jbHVkZSAiaWJwMXMwZjAiIC1tY2EgcG1sICJ1Y3giIC1tY2EgYnRsX3ZhZGVyX2JhY2tpbmdfZGlyZWN0b3J5ICIvZGV2L3NobSIgLW1jYSBvcnRlX3RtcGRpcl9iYXNlICIvcG9vbC93cmYtZXhwZXJpbWVudC93cmYtY3B1L3J1bnMvcHJvZHVjdGlvbjUxMi1vcmlnaW5hbDU0NmItY3VycmVudGVwb2NoLW5pbmVob3VyLXIxLWNvbnRyb2wvbXBpLXRtcCIgLW1jYSBwbG1fcnNoX2FnZW50ICIvdXNyL2Jpbi9weXRob24zIC9wb29sL3dyZi1leHBlcmltZW50L3dyZi1jcHUvc2NpZW5jZS1wcmVwL3Byb2R1Y3Rpb241MTItb3JpZ2luYWw1NDZiLWN1cnJlbnRlcG9jaC1uaW5laG91ci1yMS9hZGFwdGVyL21waV9zY29wZV9icmlkZ2UucHkgL3Bvb2wvd3JmLWV4cGVyaW1lbnQvd3JmLWNwdS9ydW5zL3Byb2R1Y3Rpb241MTItb3JpZ2luYWw1NDZiLWN1cnJlbnRlcG9jaC1uaW5laG91ci1yMS1jb250cm9sL2xlYXNlLmpzb24gZWNjYzQ1OTIwYWRmMzA0MTRlNmEzY2E5ZmY1OTZhYzg5Zjg4M2M2N2E1ZDQwNGY4OWFiODU5MWI5ZDQ5OGQ5ZiIgLW1jYSBvcnRlX3JhbmtmaWxlICIvcG9vbC93cmYtZXhwZXJpbWVudC93cmYtY3B1L3J1bnMvcHJvZHVjdGlvbjUxMi1vcmlnaW5hbDU0NmItY3VycmVudGVwb2NoLW5pbmVob3VyLXIxLWNvbnRyb2wvcmFua2ZpbGUiIC1tY2EgaHdsb2NfYmFzZV9iaW5kaW5nX3BvbGljeSAiY29yZSIgLW1jYSBod2xvY19iYXNlX3JlcG9ydF9iaW5kaW5ncyAiMSIgLW1jYSBwbWl4ICJeczEsczIsY3JheSxpc29sYXRlZCI=."
+        },
+        {
+          "invocation_id": "dcd69c083d754ee0a3d51a304f2c4a53",
+          "message": "wrf-cpu-production512-original546b-currentepoch-ninehour-r1-control-hpc04.service: Deactivated successfully."
+        }
+      ]
+    },
+    "execution_host02_idle": {
+      "status": "PASS_EXECUTION_HOST02_NO_ACTIVE_WRF_OR_SCOPED_PROCESSES",
+      "bad": [],
+      "reader03_allowed": true
+    }
+  },
+  "staging": {
+    "status": "PASS_EXACT_REVIEWED_INPUTS_STAGED"
+  },
+  "model_exclusion_before_launch": {
+    "hpc01": {
+      "properties": {
+        "MainPID": "0",
+        "Result": "success",
+        "ExecMainStatus": "0",
+        "ControlGroup": "",
+        "ActiveState": "inactive",
+        "InvocationID": ""
+      },
+      "expected_invocation_id": "038e76055d2b4842a9c6dd9503348c14",
+      "cgroup_paths_absent": true,
+      "manager_events": [
+        {
+          "invocation_id": "038e76055d2b4842a9c6dd9503348c14",
+          "message": "Started wrf-cpu-production512-original546b-currentepoch-ninehour-r1-control-hpc01.service - /usr/bin/taskset -c 0-127 /pool/wrf-experiment/tooling/m1/venv/bin/python /pool/wrf-experiment/wrf-cpu/science-prep/production512-original546b-currentepoch-ninehour-r1/run_model.py /pool/wrf-experiment/wrf-cpu/science-prep/production512-original546b-currentepoch-ninehour-r1/lease-control-granted.json eccc45920adf30414e6a3ca9ff596ac89f883c67a5d404f89ab8591b9d498d9f."
+        },
+        {
+          "invocation_id": "038e76055d2b4842a9c6dd9503348c14",
+          "message": "wrf-cpu-production512-original546b-currentepoch-ninehour-r1-control-hpc01.service: Deactivated successfully."
+        }
+      ]
+    },
+    "hpc02": {
+      "properties": {
+        "MainPID": "0",
+        "Result": "success",
+        "ExecMainStatus": "0",
+        "ControlGroup": "",
+        "ActiveState": "inactive",
+        "InvocationID": ""
+      },
+      "expected_invocation_id": "fd93800a9e414c3d8924e75ba77391fe",
+      "cgroup_paths_absent": true,
+      "manager_events": [
+        {
+          "invocation_id": "fd93800a9e414c3d8924e75ba77391fe",
+          "message": "Started wrf-cpu-production512-original546b-currentepoch-ninehour-r1-control-hpc02.service - /usr/bin/taskset -c 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127 /usr/bin/python3 /pool/wrf-experiment/wrf-cpu/science-prep/production512-original546b-currentepoch-ninehour-r1/adapter/node_scope_entry.py /pool/wrf-experiment/wrf-cpu/runs/production512-original546b-currentepoch-ninehour-r1-control/lease.json eccc45920adf30414e6a3ca9ff596ac89f883c67a5d404f89ab8591b9d498d9f ICAgT1BBTF9QUkVGSVg9L3Bvb2wvd3JmLWV4cGVyaW1lbnQvdG9vbGNoYWlucy9nbnUvMTMuMy4wL21waS11Y3gteHBtZW0gOyBleHBvcnQgT1BBTF9QUkVGSVg7ICAgIFBBVEg9L3Bvb2wvd3JmLWV4cGVyaW1lbnQvdG9vbGNoYWlucy9nbnUvMTMuMy4wL21waS11Y3gteHBtZW0vYmluOiRQQVRIIDsgZXhwb3J0IFBBVEggOyBMRF9MSUJSQVJZX1BBVEg9L3Bvb2wvd3JmLWV4cGVyaW1lbnQvdG9vbGNoYWlucy9nbnUvMTMuMy4wL21waS11Y3gteHBtZW0vbGliOiR7TERfTElCUkFSWV9QQVRIOi19IDsgZXhwb3J0IExEX0xJQlJBUllfUEFUSCA7IERZTERfTElCUkFSWV9QQVRIPS9wb29sL3dyZi1leHBlcmltZW50L3Rvb2xjaGFpbnMvZ251LzEzLjMuMC9tcGktdWN4LXhwbWVtL2xpYjoke0RZTERfTElCUkFSWV9QQVRIOi19IDsgZXhwb3J0IERZTERfTElCUkFSWV9QQVRIIDsgICAvcG9vbC93cmYtZXhwZXJpbWVudC90b29sY2hhaW5zL2dudS8xMy4zLjAvbXBpLXVjeC14cG1lbS9iaW4vb3J0ZWQgLW1jYSBvcnRlX2xlYXZlX3Nlc3Npb25fYXR0YWNoZWQgIjEiIC1tY2Egb3J0ZV9yZXBvcnRfYmluZGluZ3MgIjEiIC1tY2EgZXNzICJlbnYiIC1tY2EgZXNzX2Jhc2Vfam9iaWQgIjI1NTM4MDY4NDgiIC1tY2EgZXNzX2Jhc2VfdnBpZCAxIC1tY2EgZXNzX2Jhc2VfbnVtX3Byb2NzICI0IiAtbWNhIG9ydGVfbm9kZV9yZWdleCAiaHBjWzI6MS00XUAwKDQpIiAtbWNhIG9ydGVfaG5wX3VyaSAiMjU1MzgwNjg0OC4wO3RjcDovLzEwLjEuMS4yMTo1NjY1OSIgLS1tY2EgcGxtX3JzaF9ub190cmVlX3NwYXduICIxIiAtLW1jYSBwbG1fcnNoX2Fzc3VtZV9zYW1lX3NoZWxsICIxIiAtbWNhIHBsbSAicnNoIiAtbWNhIGJ0bF92YWRlcl9zaW5nbGVfY29weV9tZWNoYW5pc20gIm5vbmUiIC1tY2EgYnRsICJzZWxmLHZhZGVyIiAtbWNhIG9vYl90Y3BfaWZfaW5jbHVkZSAiaWJwMXMwZjAiIC1tY2EgcG1sICJ1Y3giIC1tY2EgYnRsX3ZhZGVyX2JhY2tpbmdfZGlyZWN0b3J5ICIvZGV2L3NobSIgLW1jYSBvcnRlX3RtcGRpcl9iYXNlICIvcG9vbC93cmYtZXhwZXJpbWVudC93cmYtY3B1L3J1bnMvcHJvZHVjdGlvbjUxMi1vcmlnaW5hbDU0NmItY3VycmVudGVwb2NoLW5pbmVob3VyLXIxLWNvbnRyb2wvbXBpLXRtcCIgLW1jYSBwbG1fcnNoX2FnZW50ICIvdXNyL2Jpbi9weXRob24zIC9wb29sL3dyZi1leHBlcmltZW50L3dyZi1jcHUvc2NpZW5jZS1wcmVwL3Byb2R1Y3Rpb241MTItb3JpZ2luYWw1NDZiLWN1cnJlbnRlcG9jaC1uaW5laG91ci1yMS9hZGFwdGVyL21waV9zY29wZV9icmlkZ2UucHkgL3Bvb2wvd3JmLWV4cGVyaW1lbnQvd3JmLWNwdS9ydW5zL3Byb2R1Y3Rpb241MTItb3JpZ2luYWw1NDZiLWN1cnJlbnRlcG9jaC1uaW5laG91ci1yMS1jb250cm9sL2xlYXNlLmpzb24gZWNjYzQ1OTIwYWRmMzA0MTRlNmEzY2E5ZmY1OTZhYzg5Zjg4M2M2N2E1ZDQwNGY4OWFiODU5MWI5ZDQ5OGQ5ZiIgLW1jYSBvcnRlX3JhbmtmaWxlICIvcG9vbC93cmYtZXhwZXJpbWVudC93cmYtY3B1L3J1bnMvcHJvZHVjdGlvbjUxMi1vcmlnaW5hbDU0NmItY3VycmVudGVwb2NoLW5pbmVob3VyLXIxLWNvbnRyb2wvcmFua2ZpbGUiIC1tY2EgaHdsb2NfYmFzZV9iaW5kaW5nX3BvbGljeSAiY29yZSIgLW1jYSBod2xvY19iYXNlX3JlcG9ydF9iaW5kaW5ncyAiMSIgLW1jYSBwbWl4ICJeczEsczIsY3JheSxpc29sYXRlZCI=."
+        },
+        {
+          "invocation_id": "fd93800a9e414c3d8924e75ba77391fe",
+          "message": "wrf-cpu-production512-original546b-currentepoch-ninehour-r1-control-hpc02.service: Deactivated successfully."
+        }
+      ]
+    },
+    "hpc03": {
+      "properties": {
+        "MainPID": "0",
+        "Result": "success",
+        "ExecMainStatus": "0",
+        "ControlGroup": "",
+        "ActiveState": "inactive",
+        "InvocationID": ""
+      },
+      "expected_invocation_id": "992727b3a44e47d2bd6ca14fd2ff7e27",
+      "cgroup_paths_absent": true,
+      "manager_events": [
+        {
+          "invocation_id": "992727b3a44e47d2bd6ca14fd2ff7e27",
+          "message": "Started wrf-cpu-production512-original546b-currentepoch-ninehour-r1-control-hpc03.service - /usr/bin/taskset -c 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127 /usr/bin/python3 /pool/wrf-experiment/wrf-cpu/science-prep/production512-original546b-currentepoch-ninehour-r1/adapter/node_scope_entry.py /pool/wrf-experiment/wrf-cpu/runs/production512-original546b-currentepoch-ninehour-r1-control/lease.json eccc45920adf30414e6a3ca9ff596ac89f883c67a5d404f89ab8591b9d498d9f ICAgT1BBTF9QUkVGSVg9L3Bvb2wvd3JmLWV4cGVyaW1lbnQvdG9vbGNoYWlucy9nbnUvMTMuMy4wL21waS11Y3gteHBtZW0gOyBleHBvcnQgT1BBTF9QUkVGSVg7ICAgIFBBVEg9L3Bvb2wvd3JmLWV4cGVyaW1lbnQvdG9vbGNoYWlucy9nbnUvMTMuMy4wL21waS11Y3gteHBtZW0vYmluOiRQQVRIIDsgZXhwb3J0IFBBVEggOyBMRF9MSUJSQVJZX1BBVEg9L3Bvb2wvd3JmLWV4cGVyaW1lbnQvdG9vbGNoYWlucy9nbnUvMTMuMy4wL21waS11Y3gteHBtZW0vbGliOiR7TERfTElCUkFSWV9QQVRIOi19IDsgZXhwb3J0IExEX0xJQlJBUllfUEFUSCA7IERZTERfTElCUkFSWV9QQVRIPS9wb29sL3dyZi1leHBlcmltZW50L3Rvb2xjaGFpbnMvZ251LzEzLjMuMC9tcGktdWN4LXhwbWVtL2xpYjoke0RZTERfTElCUkFSWV9QQVRIOi19IDsgZXhwb3J0IERZTERfTElCUkFSWV9QQVRIIDsgICAvcG9vbC93cmYtZXhwZXJpbWVudC90b29sY2hhaW5zL2dudS8xMy4zLjAvbXBpLXVjeC14cG1lbS9iaW4vb3J0ZWQgLW1jYSBvcnRlX2xlYXZlX3Nlc3Npb25fYXR0YWNoZWQgIjEiIC1tY2Egb3J0ZV9yZXBvcnRfYmluZGluZ3MgIjEiIC1tY2EgZXNzICJlbnYiIC1tY2EgZXNzX2Jhc2Vfam9iaWQgIjI1NTM4MDY4NDgiIC1tY2EgZXNzX2Jhc2VfdnBpZCAyIC1tY2EgZXNzX2Jhc2VfbnVtX3Byb2NzICI0IiAtbWNhIG9ydGVfbm9kZV9yZWdleCAiaHBjWzI6MS00XUAwKDQpIiAtbWNhIG9ydGVfaG5wX3VyaSAiMjU1MzgwNjg0OC4wO3RjcDovLzEwLjEuMS4yMTo1NjY1OSIgLS1tY2EgcGxtX3JzaF9ub190cmVlX3NwYXduICIxIiAtLW1jYSBwbG1fcnNoX2Fzc3VtZV9zYW1lX3NoZWxsICIxIiAtbWNhIHBsbSAicnNoIiAtbWNhIGJ0bF92YWRlcl9zaW5nbGVfY29weV9tZWNoYW5pc20gIm5vbmUiIC1tY2EgYnRsICJzZWxmLHZhZGVyIiAtbWNhIG9vYl90Y3BfaWZfaW5jbHVkZSAiaWJwMXMwZjAiIC1tY2EgcG1sICJ1Y3giIC1tY2EgYnRsX3ZhZGVyX2JhY2tpbmdfZGlyZWN0b3J5ICIvZGV2L3NobSIgLW1jYSBvcnRlX3RtcGRpcl9iYXNlICIvcG9vbC93cmYtZXhwZXJpbWVudC93cmYtY3B1L3J1bnMvcHJvZHVjdGlvbjUxMi1vcmlnaW5hbDU0NmItY3VycmVudGVwb2NoLW5pbmVob3VyLXIxLWNvbnRyb2wvbXBpLXRtcCIgLW1jYSBwbG1fcnNoX2FnZW50ICIvdXNyL2Jpbi9weXRob24zIC9wb29sL3dyZi1leHBlcmltZW50L3dyZi1jcHUvc2NpZW5jZS1wcmVwL3Byb2R1Y3Rpb241MTItb3JpZ2luYWw1NDZiLWN1cnJlbnRlcG9jaC1uaW5laG91ci1yMS9hZGFwdGVyL21waV9zY29wZV9icmlkZ2UucHkgL3Bvb2wvd3JmLWV4cGVyaW1lbnQvd3JmLWNwdS9ydW5zL3Byb2R1Y3Rpb241MTItb3JpZ2luYWw1NDZiLWN1cnJlbnRlcG9jaC1uaW5laG91ci1yMS1jb250cm9sL2xlYXNlLmpzb24gZWNjYzQ1OTIwYWRmMzA0MTRlNmEzY2E5ZmY1OTZhYzg5Zjg4M2M2N2E1ZDQwNGY4OWFiODU5MWI5ZDQ5OGQ5ZiIgLW1jYSBvcnRlX3JhbmtmaWxlICIvcG9vbC93cmYtZXhwZXJpbWVudC93cmYtY3B1L3J1bnMvcHJvZHVjdGlvbjUxMi1vcmlnaW5hbDU0NmItY3VycmVudGVwb2NoLW5pbmVob3VyLXIxLWNvbnRyb2wvcmFua2ZpbGUiIC1tY2EgaHdsb2NfYmFzZV9iaW5kaW5nX3BvbGljeSAiY29yZSIgLW1jYSBod2xvY19iYXNlX3JlcG9ydF9iaW5kaW5ncyAiMSIgLW1jYSBwbWl4ICJeczEsczIsY3JheSxpc29sYXRlZCI=."
+        },
+        {
+          "invocation_id": "992727b3a44e47d2bd6ca14fd2ff7e27",
+          "message": "wrf-cpu-production512-original546b-currentepoch-ninehour-r1-control-hpc03.service: Deactivated successfully."
+        }
+      ]
+    },
+    "hpc04": {
+      "properties": {
+        "MainPID": "0",
+        "Result": "success",
+        "ExecMainStatus": "0",
+        "ControlGroup": "",
+        "ActiveState": "inactive",
+        "InvocationID": ""
+      },
+      "expected_invocation_id": "dcd69c083d754ee0a3d51a304f2c4a53",
+      "cgroup_paths_absent": true,
+      "manager_events": [
+        {
+          "invocation_id": "dcd69c083d754ee0a3d51a304f2c4a53",
+          "message": "Started wrf-cpu-production512-original546b-currentepoch-ninehour-r1-control-hpc04.service - /usr/bin/taskset -c 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127 /usr/bin/python3 /pool/wrf-experiment/wrf-cpu/science-prep/production512-original546b-currentepoch-ninehour-r1/adapter/node_scope_entry.py /pool/wrf-experiment/wrf-cpu/runs/production512-original546b-currentepoch-ninehour-r1-control/lease.json eccc45920adf30414e6a3ca9ff596ac89f883c67a5d404f89ab8591b9d498d9f ICAgT1BBTF9QUkVGSVg9L3Bvb2wvd3JmLWV4cGVyaW1lbnQvdG9vbGNoYWlucy9nbnUvMTMuMy4wL21waS11Y3gteHBtZW0gOyBleHBvcnQgT1BBTF9QUkVGSVg7ICAgIFBBVEg9L3Bvb2wvd3JmLWV4cGVyaW1lbnQvdG9vbGNoYWlucy9nbnUvMTMuMy4wL21waS11Y3gteHBtZW0vYmluOiRQQVRIIDsgZXhwb3J0IFBBVEggOyBMRF9MSUJSQVJZX1BBVEg9L3Bvb2wvd3JmLWV4cGVyaW1lbnQvdG9vbGNoYWlucy9nbnUvMTMuMy4wL21waS11Y3gteHBtZW0vbGliOiR7TERfTElCUkFSWV9QQVRIOi19IDsgZXhwb3J0IExEX0xJQlJBUllfUEFUSCA7IERZTERfTElCUkFSWV9QQVRIPS9wb29sL3dyZi1leHBlcmltZW50L3Rvb2xjaGFpbnMvZ251LzEzLjMuMC9tcGktdWN4LXhwbWVtL2xpYjoke0RZTERfTElCUkFSWV9QQVRIOi19IDsgZXhwb3J0IERZTERfTElCUkFSWV9QQVRIIDsgICAvcG9vbC93cmYtZXhwZXJpbWVudC90b29sY2hhaW5zL2dudS8xMy4zLjAvbXBpLXVjeC14cG1lbS9iaW4vb3J0ZWQgLW1jYSBvcnRlX2xlYXZlX3Nlc3Npb25fYXR0YWNoZWQgIjEiIC1tY2Egb3J0ZV9yZXBvcnRfYmluZGluZ3MgIjEiIC1tY2EgZXNzICJlbnYiIC1tY2EgZXNzX2Jhc2Vfam9iaWQgIjI1NTM4MDY4NDgiIC1tY2EgZXNzX2Jhc2VfdnBpZCAzIC1tY2EgZXNzX2Jhc2VfbnVtX3Byb2NzICI0IiAtbWNhIG9ydGVfbm9kZV9yZWdleCAiaHBjWzI6MS00XUAwKDQpIiAtbWNhIG9ydGVfaG5wX3VyaSAiMjU1MzgwNjg0OC4wO3RjcDovLzEwLjEuMS4yMTo1NjY1OSIgLS1tY2EgcGxtX3JzaF9ub190cmVlX3NwYXduICIxIiAtLW1jYSBwbG1fcnNoX2Fzc3VtZV9zYW1lX3NoZWxsICIxIiAtbWNhIHBsbSAicnNoIiAtbWNhIGJ0bF92YWRlcl9zaW5nbGVfY29weV9tZWNoYW5pc20gIm5vbmUiIC1tY2EgYnRsICJzZWxmLHZhZGVyIiAtbWNhIG9vYl90Y3BfaWZfaW5jbHVkZSAiaWJwMXMwZjAiIC1tY2EgcG1sICJ1Y3giIC1tY2EgYnRsX3ZhZGVyX2JhY2tpbmdfZGlyZWN0b3J5ICIvZGV2L3NobSIgLW1jYSBvcnRlX3RtcGRpcl9iYXNlICIvcG9vbC93cmYtZXhwZXJpbWVudC93cmYtY3B1L3J1bnMvcHJvZHVjdGlvbjUxMi1vcmlnaW5hbDU0NmItY3VycmVudGVwb2NoLW5pbmVob3VyLXIxLWNvbnRyb2wvbXBpLXRtcCIgLW1jYSBwbG1fcnNoX2FnZW50ICIvdXNyL2Jpbi9weXRob24zIC9wb29sL3dyZi1leHBlcmltZW50L3dyZi1jcHUvc2NpZW5jZS1wcmVwL3Byb2R1Y3Rpb241MTItb3JpZ2luYWw1NDZiLWN1cnJlbnRlcG9jaC1uaW5laG91ci1yMS9hZGFwdGVyL21waV9zY29wZV9icmlkZ2UucHkgL3Bvb2wvd3JmLWV4cGVyaW1lbnQvd3JmLWNwdS9ydW5zL3Byb2R1Y3Rpb241MTItb3JpZ2luYWw1NDZiLWN1cnJlbnRlcG9jaC1uaW5laG91ci1yMS1jb250cm9sL2xlYXNlLmpzb24gZWNjYzQ1OTIwYWRmMzA0MTRlNmEzY2E5ZmY1OTZhYzg5Zjg4M2M2N2E1ZDQwNGY4OWFiODU5MWI5ZDQ5OGQ5ZiIgLW1jYSBvcnRlX3JhbmtmaWxlICIvcG9vbC93cmYtZXhwZXJpbWVudC93cmYtY3B1L3J1bnMvcHJvZHVjdGlvbjUxMi1vcmlnaW5hbDU0NmItY3VycmVudGVwb2NoLW5pbmVob3VyLXIxLWNvbnRyb2wvcmFua2ZpbGUiIC1tY2EgaHdsb2NfYmFzZV9iaW5kaW5nX3BvbGljeSAiY29yZSIgLW1jYSBod2xvY19iYXNlX3JlcG9ydF9iaW5kaW5ncyAiMSIgLW1jYSBwbWl4ICJeczEsczIsY3JheSxpc29sYXRlZCI=."
+        },
+        {
+          "invocation_id": "dcd69c083d754ee0a3d51a304f2c4a53",
+          "message": "wrf-cpu-production512-original546b-currentepoch-ninehour-r1-control-hpc04.service: Deactivated successfully."
+        }
+      ]
+    },
+    "execution_host02_idle": {
+      "status": "PASS_EXECUTION_HOST02_NO_ACTIVE_WRF_OR_SCOPED_PROCESSES",
+      "bad": [],
+      "reader03_allowed": true
+    }
+  },
+  "launch": {
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "initial_properties": {
+    "MainPID": "2823478",
+    "Result": "success",
+    "ExecMainStatus": "0",
+    "ControlGroup": "/system.slice/wrf-cpu-current4974-calcww-gwdo-two-member-build-hpc02-r1.service",
+    "LoadState": "loaded",
+    "ActiveState": "active",
+    "InvocationID": "18c77a60e9b54e748acbf7041dedba6d"
+  },
+  "closure": "closure.json",
+  "worker_receipt": "receipt.json",
+  "invocation_id": "18c77a60e9b54e748acbf7041dedba6d",
+  "worker_status": "BUILT_ISOLATED_CURRENT4974_CALC_WW_GWDO_TWO_MEMBERS_PENDING_OWN_APPLICATION"
+}
