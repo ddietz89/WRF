@@ -1,11 +1,11 @@
-SW INATM copy + SmallStep WW-save traversal: own unprofiled SAME512 three-hour qualification
+Selected4974: own unprofiled SAME512 nine-hour1625/tenFULL plus retained three-hour545/fourFULL. All four models and original reader closed normally; reader GC exit_code null is preserved with invocation-bound manager success and empty/absent cgroup.
 
-| Metric | Latest3 original median | Child | Descriptive reduction |
+| Metric | Original median3 (range) | Selected4974 | Descriptive reduction |
 |---|---:|---:|---:|
-| Wall minutes | 13.33374 | 10.42912 | 21.7840% |
-| Main-step minutes | 9.94084 | 9.01848 | 9.2785% |
-| Aggregate core-hours | 99.81315 | 84.37641 | 15.4656% |
+| Wall seconds | 2375.176475 (2306.344228–2434.052311) | 1786.827180 | 24.770761% |
+| Main-step seconds | 2157.669640 (2092.728550–2217.654070) | 1686.369150 | 21.843033% |
+| Aggregate CPU seconds | 1166063.791005 (1132283.412013–1196242.042695) | 897799.454589 | 23.005974% |
 
-Own unprofiled SAME512 three-hour545/four FULL only. Candidate-only strict science against retained corrected546b A2; descriptive timing against latest3 unique original controls, no fresh matched or causal/component-additive gain. No own noon/9h/profile/restart/384/256/full144 inheritance. Qualified PP/cached-object delivery plus post-test canonical target statement projection; no clean whole-source CPP/rebuild certificate. Original native raw structural false facts and scoped O0 non-target limits retained.
+Own unprofiled selected4974 SAME512 nine-hour1625/tenFULL strict science PASS against retained corrected original546b. UNPAIRED descriptive comparison with median latest3 eligible DISTINCT original nine-hour invocations; hardware/cache epoch comparability unresolved, no matched/causal/component-additive or repeatability claim. Own three-hour545/fourFULL Q a208 retained separately. Own noon/profile/restart/384/256/full144 remainFALSE. QualifiedPP/cached-object replay + post-test canonical target correspondence only; rawproducerNULL/no clean whole-source CPP/rebuild certificate. Original native raw/scoped structural limitations retained.
 
-Whole-caller SS restore-inclusive2048 calls: 3.8183%/7.6583% lower wall on01/02; SW complete caller13.97%/13.36% lower on03/04. These are synthetic kernel observations, not additive forecast gains. All four model scopes and reader closed normally. Parent profile and historical9h remain image-specific. Rollback: explicit canonical opt-outs with rebuild/relink, or retained c51b/5575 image. Output db0d/input06 unchanged.
+Actual map follows granted FABA lease rows; copied e003 staged file is unused legacy. Raw SCI inherited Current0b40 label is retained, actual4974 proven by runtime/grant. Source214e/image4974/archive02848/NG9371 and all build defaults/components are unchanged. No new deployment/source/build. Rollback is metadata preimages only; existing source opt-outs/retained c51b image remain as documented.

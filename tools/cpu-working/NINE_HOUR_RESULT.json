@@ -1,70 +1,72 @@
 {
-  "status": "PASS_FRESH_SAME256_ORIGINAL_TEN_HISTORY_NINE_HOUR_CLOSED_SEQUENCE",
+  "status": "PASS_ORIGINAL_TEN_HISTORY_AND_512_DIRECT_STOCK_LATEST_NINE_HOUR_SEQUENCE",
   "order": [
-    "fresh_corrected_original546b_control",
-    "fresh_selected_combined_same256_candidate"
+    "retained_original546b_ninehour_science_reference",
+    "fresh_selected4974_own_ninehour_candidate"
   ],
-  "comparison_design": "Fresh same256 original546b FIRST versus actual_final_selected_combined SECOND, identical224compute8x28+32quilt; own ten products/control-derivedorderedsteps, not old512 science; one fixed-order pair, no isolated/helper/additive/repeatability claim",
+  "comparison_design": "Candidate-only nine-hour exactscience. Retained original is science authority; no fresh matched control.",
   "metrics": {
     "control": {
-      "wall_seconds": 3493.375080734957,
-      "cpu_seconds": 869824.6652520001,
-      "main_step_sum_seconds": 3312.83698
+      "wall_seconds": 2069.3122304237913,
+      "cpu_seconds": 1009264.484921,
+      "main_step_sum_seconds": 1851.54464
     },
     "candidate": {
-      "wall_seconds": 3120.455533010885,
-      "cpu_seconds": 791105.304002,
-      "main_step_sum_seconds": 3043.80814
+      "wall_seconds": 1786.8271802468225,
+      "cpu_seconds": 897799.454589,
+      "main_step_sum_seconds": 1686.36915
     }
   },
-  "memory": {
-    "control": {
-      "hpc01": {
-        "lifetime_cgroup_peak_bytes": 95930474496,
-        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
-        "invocation_id": "29459a9bcc9546549e0051b418d35392",
-        "scope": "Own nine-hour SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
-      },
-      "hpc02": {
-        "lifetime_cgroup_peak_bytes": 87242829824,
-        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
-        "invocation_id": "99fb1bf08dcf4957a56b340604420abe",
-        "scope": "Own nine-hour SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
-      },
-      "hpc03": {
-        "lifetime_cgroup_peak_bytes": 96914952192,
-        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
-        "invocation_id": "bfab89adde5546d2bdf03d061d504277",
-        "scope": "Own nine-hour SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
-      }
+  "timing_gain_claim": false,
+  "baseline_policy": "MEDIAN last3 eligible UNIQUE original invocations, show individual values/range/n; cohort pending, historical epoch unresolved is DESCRIPTIVE.",
+  "science_sha256": "ce6cb2f3bec5c61b24e6d56eeea0b50ec648e38f709bb5e2ef0d4d6164f5109d",
+  "reader_closure_sha256": "cef248375b4f9c11eec5a053669c9e616e088714e1db70c56beea33dbbd6303a",
+  "limits": "Candidate-only9h exactscience vs retainedoriginal; performance onlyDESCRIPTIVE/unpaired against rollingmedian3eligibleunique originals, hardwareepoch unresolved. No freshcontrol or causal codegain/repeatability claim.",
+  "rolling_control_baseline": {
+    "audit_source": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current0b40-fourhost-ninehour-pair-preparation-r1/baseline-cohort-audit-r1/BASELINE_COHORT_PROPOSAL.json",
+      "sha256": "8e62c6f4b9544923d77176ff53b8ec94d797f4b8c05c1d7cd4f984c3e079dc0a"
     },
-    "candidate": {
-      "hpc01": {
-        "lifetime_cgroup_peak_bytes": 66124251136,
-        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
-        "invocation_id": "490abc042b04426398941d78f689aae5",
-        "scope": "Own nine-hour SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+    "cohort_sha256": "29969be0e52ea4de685cb6be2c0c3e19ed200209c59fd705611b35dd2003702d",
+    "n": 3,
+    "median": {
+      "wall_seconds": 2375.1764749530703,
+      "cpu_seconds": 1166063.791005,
+      "main_step_sum_seconds": 2157.66964
+    },
+    "members": [
+      {
+        "run_id": "production512-original-fbcd-selected9h-control-r1",
+        "coordinator_invocation_id": "dddb957f16aa4a0d93dda4b7b36f551f",
+        "metrics": {
+          "wall_seconds": 2306.344228322152,
+          "cpu_seconds": 1132283.412013,
+          "main_step_sum_seconds": 2092.72855
+        }
       },
-      "hpc02": {
-        "lifetime_cgroup_peak_bytes": 58526007296,
-        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
-        "invocation_id": "3769b962da9c4f5088950d5d9648b124",
-        "scope": "Own nine-hour SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+      {
+        "run_id": "production512-original-hpg-nhx-consumer9h-control-r2",
+        "coordinator_invocation_id": "c09956dd38e240aa87d5d12be614b2fe",
+        "metrics": {
+          "wall_seconds": 2434.0523107456975,
+          "cpu_seconds": 1196242.0426949998,
+          "main_step_sum_seconds": 2217.65407
+        }
       },
-      "hpc03": {
-        "lifetime_cgroup_peak_bytes": 67560251392,
-        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
-        "invocation_id": "9b4afafa5f3e41ccbfdeacf37cd278a7",
-        "scope": "Own nine-hour SAME256 cgroup lifetime peak; 30s memory.current/stat telemetry retained on cluster; no dual-job admission"
+      {
+        "run_id": "production512-original-spcvmc9h-control-r1",
+        "coordinator_invocation_id": "5373f8cf0abf42d18d7d956279ca9851",
+        "metrics": {
+          "wall_seconds": 2375.1764749530703,
+          "cpu_seconds": 1166063.791005,
+          "main_step_sum_seconds": 2157.66964
+        }
       }
-    }
+    ]
   },
-  "reductions_percent": {
-    "wall_seconds": 10.67505031969298,
-    "cpu_seconds": 9.05002633228319,
-    "main_step_sum_seconds": 8.120799231117005
-  },
-  "science_sha256": "1ecf16f1aefd310f53e158b13b42e23e49271b644ebeaf34d5afc928b68f8f4f",
-  "reader_closure_sha256": "680a4242a28b42ea85dcd1bb43f3096a23bca1977c4b7f2d36f3aa9468175b30",
-  "limits": "One fresh fixed-order pair, actual checkedcache before each arm; no repeatability or per-kernel causal claim. Main includes communication/backpressure; residual is not pureIO."
+  "descriptive_reductions_percent": {
+    "wall_seconds": 24.770761284921893,
+    "cpu_seconds": 23.005974328796363,
+    "main_step_sum_seconds": 21.843032930657547
+  }
 }

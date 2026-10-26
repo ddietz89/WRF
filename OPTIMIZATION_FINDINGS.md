@@ -5305,3 +5305,18 @@ The qualified GNU 13.3 configuration enables both guarded changes by default, wi
 The isolated child-selection/exit rewrite passed native tree/codec/stream/provider raw and five-state checks, but complete constructor cost increased 9.3343%/9.5607% wall and 9.3191%/9.5811% thread CPU on hpc01/02. The unchanged complete-provider fixture increased 0.3970%/1.4727% wall and 0.0693%/0.1920% process CPU. All eight cache-cleared arms closed normally with exact checks. Constructor calls include identical full-state restoration inside the clocks; the synthetic histogram does not establish production frequency. Actual generated code has more static branch sites, with no causal cycle attribution claimed.
 
 Close the fixed candidate unpromoted, with no forecast/default/source change or extra variant. Selected NG codec remains `937130c2a2d53e1d11c978dce1b661400daca9da7b8ae99029333dbc1103d178`. Preserve native R1's two-versus-four-CPU fixture failure and the initial access-time metadata-query assertion separately from the later passing evidence. [Decision and evidence](tools/cpu-compute/codec/rejected-pqdownheap-child-control/README.md) preserve the exact scope and earlier failures.
+
+
+### Selected4974 own nine-hour qualification
+
+Selected4974: own unprofiled SAME512 nine-hour1625/tenFULL plus retained three-hour545/fourFULL. All four models and original reader closed normally; reader GC exit_code null is preserved with invocation-bound manager success and empty/absent cgroup.
+
+| Metric | Original median3 (range) | Selected4974 | Descriptive reduction |
+|---|---:|---:|---:|
+| Wall seconds | 2375.176475 (2306.344228–2434.052311) | 1786.827180 | 24.770761% |
+| Main-step seconds | 2157.669640 (2092.728550–2217.654070) | 1686.369150 | 21.843033% |
+| Aggregate CPU seconds | 1166063.791005 (1132283.412013–1196242.042695) | 897799.454589 | 23.005974% |
+
+Own unprofiled selected4974 SAME512 nine-hour1625/tenFULL strict science PASS against retained corrected original546b. UNPAIRED descriptive comparison with median latest3 eligible DISTINCT original nine-hour invocations; hardware/cache epoch comparability unresolved, no matched/causal/component-additive or repeatability claim. Own three-hour545/fourFULL Q a208 retained separately. Own noon/profile/restart/384/256/full144 remainFALSE. QualifiedPP/cached-object replay + post-test canonical target correspondence only; rawproducerNULL/no clean whole-source CPP/rebuild certificate. Original native raw/scoped structural limitations retained.
+
+Actual map follows granted FABA lease rows; copied e003 staged file is unused legacy. Raw SCI inherited Current0b40 label is retained, actual4974 proven by runtime/grant. Source214e/image4974/archive02848/NG9371 and all build defaults/components are unchanged. No new deployment/source/build. Rollback is metadata preimages only; existing source opt-outs/retained c51b image remain as documented.
