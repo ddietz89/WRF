@@ -1277,6 +1277,9 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
 #ifdef WRF_ADVANCE_MU_WW_ROW_PIPELINE
      DO kk=2,k_end
      k=kk-1
+#ifdef WRF_ADVANCE_MU_WW_ROW_SIMD
+!$OMP SIMD
+#endif
      DO i=i_start, i_end
        ww(i,kk,j)=ww(i,kk-1,j)-dnw(kk-1)*((c1h(k)*dmdt(i))+dvdxi(i,kk-1)+(c1h(k)*mu_tend(i,j)))/msfty(i,j)
        ww(i,kk-1,j)=ww(i,kk-1,j)-ww_1(i,kk-1,j)

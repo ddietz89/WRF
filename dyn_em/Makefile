@@ -466,6 +466,8 @@ endif
 # Qualified GNU13.3.0 emptyOMP/OMPCPP SmallStepSIMD1/Zen21; matchingserial unqualified.
 # Explicit0 requires full regeneration/rebuild/rearchive/relink, restoring original schedule.
 WRF_ADVANCE_MU_WW_ROW_PIPELINE ?= 1
+# Inner-I SIMD only within the selected WW row pipeline; explicit 0 keeps its scalar loop.
+WRF_ADVANCE_MU_WW_ROW_SIMD ?= 1
 ifeq ($(WRF_ADVANCE_MU_WW_ROW_PIPELINE),1)
 ifeq ($(WRF_SMALL_STEP_SIMD),1)
 ifeq ($(WRF_SMALL_STEP_ZEN2),1)
@@ -475,6 +477,9 @@ ifeq ($(strip $(IWORDSIZE)),4)
 ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
 ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
 module_small_step_em.o: private override CPPFLAGS += -DWRF_ADVANCE_MU_WW_ROW_PIPELINE
+ifeq ($(WRF_ADVANCE_MU_WW_ROW_SIMD),1)
+module_small_step_em.o: private override CPPFLAGS += -DWRF_ADVANCE_MU_WW_ROW_SIMD
+endif
 endif
 endif
 endif
