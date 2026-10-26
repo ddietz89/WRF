@@ -1,153 +1,50 @@
 {
-  "status": "PASS_OWN_UNPROFILED_SAME512_NINE_HOUR_1625_TEN_FULL",
+  "status": "PASS_OWN_UNPROFILED_SAME512_THOMPSON_PREFIX_NOON185_TWO_FULL",
   "qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/rk-scalar-stage1-row-pipeline-20261025/OWN_NINE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "a72b3cc510d6c9fdc2fc6734e5d4e44c407ce5e4030b2eeb990643f697e259f9"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/thompson-fixed273-prefix-20261026/OWN_NOON_APPLICATION_QUALIFICATION.json",
+    "sha256": "53eb8df9afacca2761a9470c4c7bd2e359f01e1af190bb5f03814fde87f960a5"
   },
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/current0b40-rkscalar-row-one-em-member-experimental-r1/wrf.exe",
-    "sha256": "4b87b01053f074ae6381824309f6649b1b53efdf6161ae7fbb6df997ba2bd18b"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current4b87-thompson-fixed273-one-member-experimental-r1/wrf.exe",
+    "sha256": "ccbb77e76159ab95e70ccfb1c6a6a1495969e7fdc57ba5e6090cf3eae17ced97"
   },
   "archive": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/current0b40-rkscalar-row-one-em-member-experimental-r1/libwrflib.a",
-    "sha256": "021af719497d01a66ddad2c835e3684132828e50b6f6375e80fc885f294e657e"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current4b87-thompson-fixed273-one-member-experimental-r1/libwrflib.a",
+    "sha256": "b0b927ff23d974622cc4c81c4374c60f34bf8a18582f2357fc225bde728dfd99"
   },
-  "source_commit": "399c39c798515ec720f770dc95753d3413f69530",
-  "post_test_source_commit": "399c39c798515ec720f770dc95753d3413f69530",
+  "source_commit": "8b28a688d5505aa63a9a7bda16702cc562d86a5d",
+  "post_test_source_commit": "8b28a688d5505aa63a9a7bda16702cc562d86a5d",
   "raw_producer_source_commit": null,
-  "order": [
-    "retained_original546b_ninehour_science_reference",
-    "fresh_selected4b87_own_ninehour_candidate"
-  ],
-  "comparison_design": "Candidate-only UNPAIRED descriptive versus median latest3 DISTINCT original546b controls fbcd/HPG-NHX/SPCVMC",
-  "metrics": {
-    "candidate": {
-      "wall_seconds": 1766.094083265867,
-      "main_step_sum_seconds": 1685.97933,
-      "cpu_seconds": 889376.092808
-    }
-  },
-  "reductions_percent": null,
-  "timing_gain_claim": false,
-  "observed_step_count": 1625,
-  "products": 10,
-  "own_three_hour_qualified": true,
-  "own_nine_hour_qualified": true,
-  "profile_qualified": false,
   "science": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current4b87-fourhost-own-ninehour-runtime-r1/science-receipt.json",
-    "sha256": "105073dfdf94bcc1c20916c44a416fc91f22c14d24e8bb41be7881965d774095"
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current4b87-thompson-prefix-noon1h-runtime-r1/science-receipt.json",
+    "sha256": "6ad1ed9e59448f005b9e78aefd86bcb0807ed84bda65273f4ac43c88cb7427f7"
   },
   "reader_closure": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current4b87-fourhost-own-ninehour-runtime-r1/reader-closure.json",
-    "sha256": "873a1ae896f8136caf5c09c660403f70304f8adb1829aa1b4e781df3117314fa"
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current4b87-thompson-prefix-noon1h-runtime-r1/reader-closure.json",
+    "sha256": "e9fa65a976cd68bf88d33801d4ead79a4891c7f3ff3ac761465bee7f7fcafc91"
   },
   "raw_RESULT": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current4b87-fourhost-own-ninehour-runtime-r1/RESULT.json",
-    "sha256": "649442bcdb15750844a39b0d7edd69dcfae0a6f55b98898860369b54e0699294"
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current4b87-thompson-prefix-noon1h-runtime-r1/RESULT.json",
+    "sha256": "61ab0867ba12c2814dc0e811db287453ccf7540062c6f529de9993841446fbe4"
   },
-  "limits": "Candidate-only versus median3 retained distinct original546b invocations; UNPAIRED descriptive reductions, not matched causal/component/forecast gain or repeatability. Hardware/cache epoch matching remains unresolved. Existing parent0b40 matchedABBA n2 remains immutable and separate. Main step includes communication/backpressure; aggregate CPU is core-seconds. Own unprofiled SAME5121625/tenFULL; prior own3h/noon retained; ownprofile/restart/384/256/full144FALSE. Exact testedPP/cachedobject delivery plus post-test source399c39c correspondence; rawproducerNULL, no cleanF-only rebuild.",
-  "descriptive_reductions_percent": {
-    "wall_seconds": 25.643668927768314,
-    "main_step_sum_seconds": 21.861099644522053,
-    "cpu_seconds": 23.728350055234117
+  "observed_step_count": 185,
+  "products": 2,
+  "metrics": {
+    "candidate": {
+      "wall_seconds": 258.354542133864,
+      "cpu_seconds": 116515.240788,
+      "main_step_sum_seconds": 176.24088
+    }
   },
-  "rolling_control_baseline": {
-    "n": 3,
-    "controls": [
-      {
-        "run_id": "production512-original-fbcd-selected9h-control-r1",
-        "coordinator_invocation_id": "dddb957f16aa4a0d93dda4b7b36f551f",
-        "actual_closure_utc": "2026-10-22T03:49:28.813701+00:00",
-        "metrics": {
-          "wall_seconds": 2306.344228322152,
-          "cpu_seconds": 1132283.412013,
-          "main_step_sum_seconds": 2092.72855
-        },
-        "RESULT": {
-          "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-fbcd-selected9h-runtime-r1/RESULT.json",
-          "sha256": "5640e5561e29455a120839e8185773e075668d08aaf2b50d82da5733360729d5"
-        },
-        "closures": {
-          "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-fbcd-selected9h-runtime-r1/control-metadata/model-closures.json",
-          "sha256": "766b63b479b989b1a2b91588aa79c4a96113071674c50f83d5042490719f3140"
-        }
-      },
-      {
-        "run_id": "production512-original-hpg-nhx-consumer9h-control-r2",
-        "coordinator_invocation_id": "c09956dd38e240aa87d5d12be614b2fe",
-        "actual_closure_utc": "2026-10-21T18:22:22.391630+00:00",
-        "metrics": {
-          "wall_seconds": 2434.0523107456975,
-          "cpu_seconds": 1196242.0426949998,
-          "main_step_sum_seconds": 2217.65407
-        },
-        "RESULT": {
-          "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-hpg-nhx-consumer9h-runtime-r2/RESULT.json",
-          "sha256": "268f23d47ec011b97ab7f6c46aca23ae3c4e98ba25d1e4657da42c55d653ceff"
-        },
-        "closures": {
-          "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-hpg-nhx-consumer9h-runtime-r2/control-metadata/model-closures.json",
-          "sha256": "56465dbd1610d669eb22502afadb1e643d453697aaa307a26ac5dac80fa9f132"
-        }
-      },
-      {
-        "run_id": "production512-original-spcvmc9h-control-r1",
-        "coordinator_invocation_id": "5373f8cf0abf42d18d7d956279ca9851",
-        "actual_closure_utc": "2026-10-21T12:05:30.111537+00:00",
-        "metrics": {
-          "wall_seconds": 2375.1764749530703,
-          "cpu_seconds": 1166063.791005,
-          "main_step_sum_seconds": 2157.66964
-        },
-        "RESULT": {
-          "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-spcvmc9h-runtime-r1/RESULT.json",
-          "sha256": "13b805e8bca35cf86e76fcfe7ef10c34291d4e25f52f67c669181952dae1805d"
-        },
-        "closures": {
-          "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-spcvmc9h-runtime-r1/control-metadata/model-closures.json",
-          "sha256": "5dcaf25ee3709f8ecfb07a5d9447c55ce53bdc2bfa7aad4c73a42dc1def9febe"
-        }
-      }
-    ],
-    "statistics": {
-      "wall_seconds": {
-        "n": 3,
-        "median": 2375.1764749530703,
-        "mean": 2371.8576713403068,
-        "min": 2306.344228322152,
-        "max": 2434.0523107456975,
-        "values_newest_first": [
-          2306.344228322152,
-          2434.0523107456975,
-          2375.1764749530703
-        ]
-      },
-      "main_step_sum_seconds": {
-        "n": 3,
-        "median": 2157.66964,
-        "mean": 2156.01742,
-        "min": 2092.72855,
-        "max": 2217.65407,
-        "values_newest_first": [
-          2092.72855,
-          2217.65407,
-          2157.66964
-        ]
-      },
-      "cpu_seconds": {
-        "n": 3,
-        "median": 1166063.791005,
-        "mean": 1164863.0819043333,
-        "min": 1132283.412013,
-        "max": 1196242.0426949998,
-        "values_newest_first": [
-          1132283.412013,
-          1196242.0426949998,
-          1166063.791005
-        ]
-      }
-    },
-    "scope": "UNPAIRED descriptive; parent0b40 matchedABBA n2 separate immutable."
-  }
+  "order": [
+    "retained_original546b_noon_science_reference",
+    "fresh_experimental_THOMPSON_PREFIX_unprofiled_onehour_candidate"
+  ],
+  "comparison_design": "Candidate-only UNPAIRED noon versus retained original science reference",
+  "timing_gain_claim": false,
+  "reductions_percent": null,
+  "own_three_hour_qualified": false,
+  "own_nine_hour_qualified": false,
+  "profile_qualified": false,
+  "limits": "Own unprofiled SAME512 noon12-13/185orderedsteps/twoFULL exact against retained original546b science prefix; candidate-only UNPAIRED descriptive, no matched forecast gain. Child owns no3h/9h/profile/restart/384/256/full144. Parent4b87 own3h/9h and parent0b40 matchedABBA remain historical/separate. QualifiedPPfff243/cached37ecc plus post-test source correspondence, no cleanF-only producer; finite source-valid fullMP scope, intermediateMIN operandorder difference retained."
 }

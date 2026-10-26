@@ -5263,3 +5263,9 @@ Control ranges (min–max): wall_seconds 2306.344228–2434.052311, main_step_su
 Candidate-only versus median3 retained distinct original546b invocations; UNPAIRED descriptive reductions, not matched causal/component/forecast gain or repeatability. Hardware/cache epoch matching remains unresolved. Existing parent0b40 matchedABBA n2 remains immutable and separate. Main step includes communication/backpressure; aggregate CPU is core-seconds.
 
 Own1625/tenFULL science and original reader passed, all four models closed normally. Own9h nowTRUE; profile remainsFALSE; prior own3h/noon retained; raw producerNULL, post-test source399c39c.
+
+### October 26: Thompson fixed-temperature saturation prefix promoted
+
+The fixed-temperature polynomial now runs once at first use per column. Exact native O2/O0 checks covered 11 cases and four rounding modes; the unchanged application checker passed both full output files and 185 noon steps, with all model/reader jobs normally closed. Source commit 8b28a688; selected child ccbb/archive b0b9. Own three-/nine-hour and profile qualification remain pending for this child; parent results stay separate.
+
+Two opposite-order host pairs showed **73.596% / 73.578% less isolated-kernel wall time**, with corresponding thread CPU reductions. Complete Thompson caller wall changes were **0.312% / 0.012% lower**, CPU **0.897% / 0.110% lower**. Both include equal restores inside clocks and strict raw/five-state checks. The substantial local gain is retained despite the small whole-caller signal; no forecast gain or additive percentage is inferred. Runtime first-use evaluation preserves the current rounding mode. Intermediate MIN operand-priority differences and the finite-input/qualified-PP delivery limits remain explicit in [the evidence](tools/cpu-compute/thompson-fixed273-prefix-20261026/README.md).
