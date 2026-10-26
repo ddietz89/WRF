@@ -1,0 +1,116 @@
+{
+  "status": "CLOSED_FIXED_CANDIDATE_UNPROMOTED",
+  "decision": "Retain evidence; do not integrate or promote this fixed pretranspose-regroup provider. No further variants, repeats, matrix or forecast are authorized by this closeout.",
+  "candidate": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current4974-shuffle-pretranspose-native-hpc04-r1/output/liboutput_world512_shuffle.so",
+    "sha256": "a77aff3d344cbf3c4bcd0b63808586213d9859a35f47cd751bedf9b71196efe3"
+  },
+  "candidate_source_sha256": "683ea70bbde81f2caced55402b7be99a4432db0e0a20f12ead88defdaebdc471",
+  "selected_parent_unchanged": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current5c75-world512-fp-guard-build-hpc02-r1/work/liboutput_world512_fp.so",
+    "sha256": "db0d0268806c88616365e5ced5f17778c42cc1110206c434f207a2a01830083c"
+  },
+  "codec_unchanged": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/private-fast-distance-range-native-hpc02-r1/output/build/libz.so.1.3.1.zlib-ng",
+    "sha256": "937130c2a2d53e1d11c978dce1b661400daca9da7b8ae99029333dbc1103d178"
+  },
+  "native_invocation_id": "53052e34c29a4b50ab944575d70c9447",
+  "correctness": "PASS: tokenmapping + originalwholeprovider32/fullencodedgold/stockdecode/readonly/options/layout/allfive state;136realcreates/joins eachrole. Native and bothcost units normalclosed, cachebeforeeachcostexecutable. No numerical/test failure.",
+  "measurements": {
+    "host": "hpc04",
+    "order": "parent_then_candidate",
+    "observations_per_role": 1,
+    "calls_per_observation": 32,
+    "parent_wall_seconds": 1.624104389,
+    "candidate_wall_seconds": 1.66452674,
+    "wall_slower_percent": 2.488901038244773,
+    "parent_PROCESS_CPU_seconds": 6.116909827,
+    "candidate_PROCESS_CPU_seconds": 6.204628272,
+    "PROCESS_CPU_slower_percent": 1.4340320109479388,
+    "parent_maxrss_kib": 721028,
+    "candidate_maxrss_kib": 720120,
+    "parent_scoped_memory_peak_bytes": 755625984,
+    "candidate_scoped_memory_peak_bytes": 755453952
+  },
+  "machine_facts": "FourfinalvariableVPERMD/indexvectorload removed, fourearlyimmediateVPERM2I128 instead,4VPSHUFB+8unpacks/no spills. Same16shuffleops. GCCfolded C/D into BOTHpermutes:6vector memoryoperands/192operandbytes vs4/128parent, sameunique128Breadset andsourcebounds/tails.",
+  "cause": "UNKNOWN. Repeatedoperandtraffic is observed, but no measuredcyclecausality claim. No demonstrated physicalresourcegain.",
+  "kernel_timing": "NOT_MEASURED_ISOLATED: existingtimer coverscompleteprovider pack/shuffle/compression/workercreatejoin. It does not establish isolatedshuffle slowdown or absenceofkernelgain.",
+  "clock_scope": "Integerwall andPROCESS_CPU (includesworkerCPU),32samewholeprovider calls. Release/outputchecks/stockdecodeoutsidecallclock. NoTHREAD_CPU/modeledforecastgain.",
+  "performance_interpretation": "OnefixedPthenCpairobservedwholeprovider regression2.488901%wall/1.434032%PROCESS_CPU. Not a repeatability/statistical/globalwritercriticalpathclaim. Root closesfixedcandidatebasedonobservedcallerregressionandnodemonstratedpositivekernel/resourcegain.",
+  "failures": {
+    "native_or_timing_failures": [],
+    "provider_response_format_note": "Author ancillarystate JSON malformed; validliteralpatch decodedandverifiedonly, rawresponse retained. Independentreview GO for nativeexperiment. No failure manufactured."
+  },
+  "publication_scope": {
+    "proposal_only": false,
+    "public_writes": true,
+    "source_default_changes": false,
+    "Git_or_remote_actions": false,
+    "own_WRF_application_qualification": false,
+    "source_commit": null,
+    "raw_producer_source_commit": null,
+    "applied_from_private_decision_sha256": "c3e7724b70afe4f2b8e0a696c7f00225cba7f0883707b768b3bb1a3e2ad073e5"
+  },
+  "evidence": {
+    "native_receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current4974-output-shuffle-surviving-copy-source-triage-r1/pretranspose-lane-regroup-r1/native-gate-preparation-r1-hpc04/actual-native-r1/receipt.json",
+      "sha256": "aed0063ca5e0bc00bfc2cfabf1da0e999d2c103c9014e199961c69afe7a01613"
+    },
+    "native_closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current4974-output-shuffle-surviving-copy-source-triage-r1/pretranspose-lane-regroup-r1/native-gate-preparation-r1-hpc04/actual-native-r1/closure.json",
+      "sha256": "820019c513b1c30cdb917c5915d120992bff3eef155a754ac3bb998c46ec8d30"
+    },
+    "machine_classification": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current4974-output-shuffle-surviving-copy-source-triage-r1/pretranspose-lane-regroup-r1/actual-machine-classification-r1/CLASSIFICATION.json",
+      "sha256": "db6603a3e96347d0a62aa3c60d94be3e989ee1651a40561cdef96dad50398292"
+    },
+    "actual_wave": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current4974-output-shuffle-surviving-copy-source-triage-r1/pretranspose-lane-regroup-r1/complete-provider-one-pair-cost-preparation-r1/ACTUAL_WAVE.json",
+      "sha256": "352f46874bdeeeed46a5d78f047114ac3706ebf10483b2918963fb1611cefc62"
+    },
+    "source_inverse": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current4974-output-shuffle-surviving-copy-source-triage-r1/pretranspose-lane-regroup-r1/SOURCE_INVERSE.json",
+      "sha256": "2df0983f85213fa684bbec83475f771166b9fe52da04287ad956b4cf83eb03d8"
+    },
+    "token_proof": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current4974-output-shuffle-surviving-copy-source-triage-r1/pretranspose-lane-regroup-r1/TOKEN_PROOF.json",
+      "sha256": "e8af74137c0cc57da43402eae2aee794b229ebede983299270db53ce8c035835"
+    },
+    "source_diff": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current4974-output-shuffle-surviving-copy-source-triage-r1/pretranspose-lane-regroup-r1/SOURCE.diff",
+      "sha256": "851e8352079de8c607954c051c969e8bc5e34135787d9cb0b019bfef0e9a8911"
+    },
+    "actual_author_response": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current4974-output-shuffle-surviving-copy-source-triage-r1/pretranspose-lane-regroup-r1/provider-preparation-r1/actual-provider-r1/author/response.txt",
+      "sha256": "d0afbe5583300d17658f636753e0cd8d8e8e50868693ad5b1b3b75fc897a6d62"
+    },
+    "actual_review_response": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current4974-output-shuffle-surviving-copy-source-triage-r1/pretranspose-lane-regroup-r1/provider-preparation-r1/actual-provider-r1/review/response.txt",
+      "sha256": "5e906bab7361f5cb7aff74d3574d9cdfea4692351af913da230edf3cf278d4f4"
+    },
+    "provider_adjudication": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current4974-output-shuffle-surviving-copy-source-triage-r1/pretranspose-lane-regroup-r1/native-gate-preparation-r1-hpc04/ACTUAL_PROVIDER_ADJUDICATION.json",
+      "sha256": "86782bd20c9c0f909e60b7a9b5e00c46cf603a830885bf1dbec121560fdd5dc4"
+    },
+    "independent_native_review_pins": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current4974-output-shuffle-surviving-copy-source-triage-r1/pretranspose-lane-regroup-r1/independent-native-package-review-r1/PINS.json",
+      "sha256": "db042f60af7eb09d32ef7a9cb94c45eb6f1f0353481b99e618d2d5ec61336eae"
+    },
+    "cost_arm0_receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current4974-output-shuffle-surviving-copy-source-triage-r1/pretranspose-lane-regroup-r1/complete-provider-one-pair-cost-preparation-r1/arm0/actual-native-r1/receipt.json",
+      "sha256": "972db29e2054e3efc23e08814fcaceac5abacfb6f8c46963d63ee0ae4863ba65"
+    },
+    "cost_arm0_closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current4974-output-shuffle-surviving-copy-source-triage-r1/pretranspose-lane-regroup-r1/complete-provider-one-pair-cost-preparation-r1/arm0/actual-native-r1/closure.json",
+      "sha256": "3386939828e8c3d539d5e55ed4a1678b9e66fcddf1418c06573508db55573d09"
+    },
+    "cost_arm1_receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current4974-output-shuffle-surviving-copy-source-triage-r1/pretranspose-lane-regroup-r1/complete-provider-one-pair-cost-preparation-r1/arm1/actual-native-r1/receipt.json",
+      "sha256": "f4b9d17eb69c61b78951b638ad6659b6d92cf034061bf1fc4ff7a92bf4da905d"
+    },
+    "cost_arm1_closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current4974-output-shuffle-surviving-copy-source-triage-r1/pretranspose-lane-regroup-r1/complete-provider-one-pair-cost-preparation-r1/arm1/actual-native-r1/closure.json",
+      "sha256": "c8e3793ec386421490e38d55d70ec49ca652bf1bc52cacba9c5356f31b181673"
+    }
+  }
+}

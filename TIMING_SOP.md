@@ -2,6 +2,8 @@
 
 ## Autonomous continuation
 
+Owner amendment, October 26: **DeepSeek dispatch is suspended.** Do not send new payloads, start provider calls, prepare further dispatches, or retry exports unless the owner explicitly resumes DeepSeek. This supersedes earlier standing dispatch approval and the DeepSeek offloading requirements below. Preserve existing returned evidence. Continue the optimization campaign locally with Codex agents and the authorized cluster; AWS remains suspended and all existing scientific, resource, production and master boundaries remain in force.
+
 Standing owner rule, reaffirmed 2026-10-18: **DO NOT STOP after answering a question, giving a status update, completing a test or reaching a milestone.** Treat questions as steering within the active campaign. Answer briefly, then continue the next authorized implementation, test, review or promotion in the same active session. A report is not a stopping point.
 
 Recoverable SSH, gateway or tool failures are recovery work, not campaign closeout. Keep bounded retries at a reasonable cadence, investigate existing authorized access paths, and continue independent local work. An unsuccessful retry is not sufficient reason to end the turn. Preserve existing job identities and recover their actual state before any retry of a model, cache clear or dependent launch; never duplicate an uncertain remote job. Report a persistent access problem while continuing recovery within the active session, unless the execution limit or a truly exhausted external dependency prevents further work.
