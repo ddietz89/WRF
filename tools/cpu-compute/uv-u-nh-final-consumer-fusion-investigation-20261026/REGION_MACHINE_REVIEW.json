@@ -1,0 +1,42 @@
+{
+  "status": "GO_ONE_FIXED_EXTRACTED_REGION_COST_SCREEN",
+  "eligible_for_extracted_region_timing": true,
+  "machine_review_pending_can_clear": true,
+  "native_receipt_sha256": "f421a1db6357a9f5c68be8ced464214dbbcbae1edc7167716e78479d5d9414be",
+  "native_closure_sha256": "743d0b0df0d87172c49e510e70fec21bda7ed7e7ebc061491c2a2fb593dd7104",
+  "native_invocation_id": "3c24b98c25d14c37b2e499cc37d7bf6b",
+  "actual_machine": {
+    "parent": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current828-advance-uv-u-nh-final-consumer-source-question-r1/u-nh-final-region-screen-preparation-r1/actual-machine-review-r1/parent.asm",
+      "sha256": "36f44ac07f78f298336bfd316ce16035680d403ca828866c3f1eb1a304da25d9",
+      "object_sha256": "3b914485536b7e5951333781a37a69f6cab2df4321889270f3badf5928c50d3a",
+      "lines": 529,
+      "YMM_operand_mentions": 53,
+      "helper_calls": 0
+    },
+    "candidate": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current828-advance-uv-u-nh-final-consumer-source-question-r1/u-nh-final-region-screen-preparation-r1/actual-machine-review-r1/candidate.asm",
+      "sha256": "4e1bb6d6926b67e96507933e0219d90bd042ec1fe8ae2fe922e872c493400379",
+      "object_sha256": "bd0d333cfdb12715fe7bcdf94a235644c773b8947ddfc23c6d1c0b9cd66bf8de",
+      "lines": 420,
+      "YMM_operand_mentions": 53,
+      "helper_calls": 0
+    }
+  },
+  "findings": {
+    "parent": "Two actual SIMD schedules remain: correction YMM3f0..446 storesDPXY43a; separate final-U YMM790..7ba reloadsDPXYat7a0 andstoresU7ae. Each retains four-wide/scalar remainder paths and runtime K/I bounds.",
+    "candidate": "One fused schedule YMM3a0..41b retainsDPXYstore3f7, registerforwards correctedvalue into product3fd, oldUminusproduct406/add40a andUstore40f. XMM4wide DPXYstore55b\u2192consume560\u2192Ustore56c; scalar DPXYstore67f\u2192consume684\u2192Ustore69b. No eliminated DPXY/U output owner or hidden helper substitutes region.",
+    "runtime_scope": "Both routines remain generic runtime-bound array kernels, not a compile-time constant-result or absent-loop stub; emptybounds branches remain. Same external extracted ABI, no calls, YMM/XMM/scalar arithmetic present inboth. No radical ABI elision is evident for the intended schedule screen.",
+    "arithmetic": "Original source statement trees retained by literal source projection; actual packed/sub/add/mul paths remain. No FMA/reciprocal/rsqrt introduced. Region intentionallyhasnoDIV: unchangedqrow/DPn/setup precomputedoutside, not a claim division was removed from wholeUV.",
+    "native": "Actual18fixedcases\u00d74modes=72perO2/O0 rawall10physicalroles/guards/warm+terminalall5 passed, O2hardbeforeO0. This supplements, neverreplaces, existing94wholeUVnativeproof."
+  },
+  "scope_limits": [
+    "One extracted synthetic precomputed-operand region, oneJ/189I\u00d732K timing shape. Regioncodegen identity to fulladvance_uv is FALSE; different ABI/registerpressure and no completeDPn/initialpressure setup.",
+    "FullDPXY andUstores plus identical fullphysicalU/DPXYrestores remain inside32768-call batch; clocks/checks/state resets outside. Arrayrestore cost is included and can dilute region gain.",
+    "WholeUVcaller mixed01\u22120.63926%/02+2.05280% remains unchanged and inconclusive; screen cannot create forecast or wholecaller speedup.",
+    "Only root mayclear timingmachine_review_pending after thisGO and release affected-host cache/job barriers; no binding/ready/public/source mutations made byreview."
+  ],
+  "timing_gain_claim": false,
+  "full_UV_machine_identity": false,
+  "source_or_default_promotion": false
+}

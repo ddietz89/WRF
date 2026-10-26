@@ -1,0 +1,53 @@
+{
+  "status": "HOLD_UNPROMOTED_NO_CONSISTENT_SIGNIFICANT_TWO_CACHE_SEQUENCE_GAIN",
+  "original_owner_decision": "HOLD_NO_WHOLE_PD_IMPLEMENTATION",
+  "fixed_prototype": "Two lazy per-sequence REAL4 3D mu/cr caches, first actually eligible normal-Y5 fill and later species reuse. No within-call dy/dt cache, global persistent cache or scientific reassociation.",
+  "actual_adequate_duration_R2_comparisons": [
+    {
+      "host": "hpc03",
+      "parent_wall_seconds": 1.425142146,
+      "candidate_wall_seconds": 1.426253789,
+      "wall_reduction_percent": -0.0780022542397063,
+      "parent_cpu_seconds": 1.424919174,
+      "candidate_cpu_seconds": 1.426173863,
+      "cpu_reduction_percent": -0.08805334526293951
+    },
+    {
+      "host": "hpc04",
+      "parent_wall_seconds": 1.395004256,
+      "candidate_wall_seconds": 1.369900189,
+      "wall_reduction_percent": 1.7995692050419065,
+      "parent_cpu_seconds": 1.39491976,
+      "candidate_cpu_seconds": 1.369860826,
+      "cpu_reduction_percent": 1.7964426857068894
+    }
+  ],
+  "R1": "All raw5/cache/closures passed,64sequence arms87\u201389ms were below100ms floor and retained. R2 changes only fixed count to1024, reuses compiled kernel/support, creates actualnewcountterminalfive in eacharm. No borrowed64batchstate.",
+  "machine_evidence": "Actual ready-loop YMM/XMM/scalar removes mu coefficient/mass calculation and the two cr trueDIVs, replacing with cachedloads; dy/dt trueDIV remains (3\u21921). Lazy firstfill retains original work and cachestores and is charged by the whole sequence. This is extracted branch code, not wholePD.",
+  "interpretation": "R2 no consistent significant sequence gain demonstrated: hpc03slightlyslower,hpc04modestlyfaster. HOLD this fixed two-cache prototype; no universal rejection of inter-species reuse or global/performance causal bandwidth/spill claim. Cause unknown.",
+  "correctness_scope": "Original LOCAL32controlledsyntheticrecords only (8sequences\u00d74maskedmodes) plus EPYC188\u00d719\u00d732fourmodewarmfullraw5 before cost. Genuine wholePD/ModuleEM/Solve native remains untested; fullproductioncachelifetime/frequency unproved. No wholePDimplementation/app.",
+  "timing_scope": "Fixed1024 complete synthetic6species stage sequences; first-use/candidatecacheallocation/reset/fill/reuse/free and identicalfullphysicaloutputrestores/allnormalY5fluxwork insideintegerwall/THREADCPU. New188x19x32active shape fourmode warmfullraw5 proven beforetiming. Warm1 andbatch1024state are separate; FULL7722060B same1024raw acrossallarms hard. No calibration/repeats/within-call dy/dt cache. Extractedbranch only, no genuinewholePD/native/application/productionfrequency or globalgain claim.",
+  "new_app_or_source_promotion": false,
+  "whole_PD_implemented": false,
+  "genuine_PD_native_qualified": false,
+  "application_qualified": false,
+  "selected_source_defaults_unchanged": true,
+  "unchanged_selected_identity": {
+    "executable": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current0adb-mu-wwrow-inner-simd-one-smallstep-experimental-r1/wrf.exe",
+      "sha256": "8280933debe8c652372bc7d3d0ebcf19f488daa4beb6a1220eec9fdfbafa4bc3"
+    },
+    "archive": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current0adb-mu-wwrow-inner-simd-one-smallstep-experimental-r1/libwrflib.a",
+      "sha256": "5771a3eb3b3ff130987678a6f30ea6900870bf5bed62d7969834b11f5ec03998"
+    },
+    "source_commit": "82e476cedf74e9cd5d3799326efd4cc5f6fa4ccf",
+    "qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/mu-wwrow-inner-simd-20261026/OWN_NINE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "d0f53fc070db6bcb5962c17c6d0e143700e2afcf366504e9b7f9f9588d3ec93b"
+    }
+  },
+  "historical_pending_field": "Originalfixedcloseout codegen_confirmation:PENDING is retained historically. Actuallater78b55c...classification now proves only the scoped ready-branch mechanism; no wholePDqualification is added.",
+  "reopen_condition": "Only a distinct measured cache/storage mechanism or materially new supported workload evidence; no replay/wholePDimplementation justified by this fixed two-3Dcache result.",
+  "evidence_refs": "EVIDENCE_REFS.json"
+}

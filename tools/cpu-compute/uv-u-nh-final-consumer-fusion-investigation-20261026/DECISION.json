@@ -1,0 +1,83 @@
+{
+  "status": "HOLD_UNPROMOTED_NO_CONSISTENT_KERNEL_OR_CALLER_BENEFIT",
+  "decision_by": "Root owner after both actual opposite-order screens",
+  "mechanism": "Under nonhydrostatic U only, fuse DPXY correction and finalU traversal while retaining both statement trees/stores; original hydrostatic finalpass retained. No DPn/qrow/MUDF/V changes.",
+  "source_parent_PP_sha256": "3327d7358eca48e44238a0e24bd1a2ebad38a1738aacd4a023294d067e4a902e",
+  "source_candidate_PP_sha256": "6f0099e67dacff90ac9efefc20ccad61d60f9a9ce0e11be3875ff0f152a5d5b2",
+  "candidate_O2_object_sha256": "b85b0f7a7bde5813ff7982352aa57208c5fa8eb999e219720308f92820a560fb",
+  "candidate_O0_object_sha256": "ce4a0fac50a848578a9dbaef48e6fe6681e643a4b57473818457837a53642b3b",
+  "whole_caller_comparisons": [
+    {
+      "host": "hpc01",
+      "parent_arm": 0,
+      "candidate_arm": 2,
+      "parent_wall_seconds": 0.555987819,
+      "candidate_wall_seconds": 0.559542015,
+      "wall_reduction_percent": -0.6392578899286917,
+      "parent_cpu_seconds": 0.555968497,
+      "candidate_cpu_seconds": 0.559523549,
+      "cpu_reduction_percent": -0.6394340721071573
+    },
+    {
+      "host": "hpc02",
+      "parent_arm": 3,
+      "candidate_arm": 1,
+      "parent_wall_seconds": 0.565386154,
+      "candidate_wall_seconds": 0.553779912,
+      "wall_reduction_percent": 2.052799121076468,
+      "parent_cpu_seconds": 0.565372522,
+      "candidate_cpu_seconds": 0.553766692,
+      "cpu_reduction_percent": 2.0527757449096615
+    }
+  ],
+  "extracted_region_comparisons": [
+    {
+      "host": "hpc01",
+      "parent_arm": 0,
+      "candidate_arm": 2,
+      "parent_wall_seconds": 0.46354211,
+      "candidate_wall_seconds": 0.450460502,
+      "wall_reduction_percent": 2.8220970043045326,
+      "parent_cpu_seconds": 0.463526076,
+      "candidate_cpu_seconds": 0.45043841,
+      "cpu_reduction_percent": 2.8235015628333273
+    },
+    {
+      "host": "hpc02",
+      "parent_arm": 3,
+      "candidate_arm": 1,
+      "parent_wall_seconds": 0.462711873,
+      "candidate_wall_seconds": 0.47818222,
+      "wall_reduction_percent": -3.343408263915457,
+      "parent_cpu_seconds": 0.462700581,
+      "candidate_cpu_seconds": 0.478164014,
+      "cpu_reduction_percent": -3.3419955874228795
+    }
+  ],
+  "hard_gates": "Actual wholeUV94/O2O0 and extracted72/O2O0 pass raw/fullphysical/read-only/five-state; both performancewaves4cacheEACH+normalclosures+samecount exactraw/state pass. No scientific failure or relaxed predicate.",
+  "interpretation": "Neither screen demonstrates a consistent significant benefit across the two opposite-order hostpairs. No universal regression claim; cause remains unknown. Extracted kernel lacks fullUV ABI/registerpressure/setup; completecaller includes otherUV work and restores. Neither implies global/forecast gain.",
+  "clocks": "One integer CLOCK_MONOTONIC plus CLOCK_THREAD_CPUTIME_ID batch perarm; complete512 or extracted32768 calls and identicalmutable fullphysicalrestores INSIDE. Warm/terminal states and alloracles outside; differentcount warmproof never requires terminalstate equality. Allsamecount states/raw remain hard.",
+  "selected_source_or_default_changed": false,
+  "selected_image_remains": "8280933debe8c652372bc7d3d0ebcf19f488daa4beb6a1220eec9fdfbafa4bc3",
+  "own_application_run_for_this_UV_fusion": false,
+  "own_application_qualified": false,
+  "public_source_promotion": false,
+  "reopen_condition": "Only a new independently measured source/machine mechanism or materially new supported workload evidence; no repeats, extra variants, flag/ISA tuning or fullapplication run justified by this fixed fusion.",
+  "retained_reporting_and_prelaunch_issues": "Two metadata-onlyquery attempts exceeded unchanged2MiB cap before stdout; all prior identity/structural assertions passed. Facts and existingASM were then fetched separately with unchanged exacthash gates. A Fortran coefficient/clock name collision was caught beforecompile and fixed by clock-only rename; preimage/diff retained. Neither is a native scientific failure or timing retry.",
+  "evidence_refs": "EVIDENCE_REFS.json",
+  "unchanged_selected_identity": {
+    "executable": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current0adb-mu-wwrow-inner-simd-one-smallstep-experimental-r1/wrf.exe",
+      "sha256": "8280933debe8c652372bc7d3d0ebcf19f488daa4beb6a1220eec9fdfbafa4bc3"
+    },
+    "archive": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current0adb-mu-wwrow-inner-simd-one-smallstep-experimental-r1/libwrflib.a",
+      "sha256": "5771a3eb3b3ff130987678a6f30ea6900870bf5bed62d7969834b11f5ec03998"
+    },
+    "source_commit": "82e476cedf74e9cd5d3799326efd4cc5f6fa4ccf",
+    "qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/mu-wwrow-inner-simd-20261026/OWN_NINE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "d0f53fc070db6bcb5962c17c6d0e143700e2afcf366504e9b7f9f9588d3ec93b"
+    }
+  }
+}

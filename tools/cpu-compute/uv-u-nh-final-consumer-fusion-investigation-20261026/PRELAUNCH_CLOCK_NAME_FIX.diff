@@ -1,0 +1,32 @@
+--- before/driver.f90
++++ after/driver.f90
+@@ -31,7 +31,7 @@
+  integer,parameter::ims=-2,ime=190,kms=0,kme=34,jms=-1,jme=1
+  integer::n,il,ih,kl,kh,jl,jh,cnt,z,case_id,rounding,calls,rep,width,kstart,kend,j,ios,unit
+  integer(c_int)::warm(5),terminal(5)
+- integer(c_int64_t)::w0,w1,c0,c1
++ integer(c_int64_t)::w0,w1,c0,cpu_end
+  integer(c_int32_t),allocatable::goldU(:),goldD(:)
+  real::rdx,dts
+  logical::execute_J
+@@ -111,9 +111,9 @@
+    call restore()
+    call invoke()
+   enddo
+-  call timing_stamp(w1,c1)
++  call timing_stamp(w1,cpu_end)
+   call read_observation(terminal)
+-  if(w1<=w0.or.c1<=c0)stop 3
++  if(w1<=w0.or.cpu_end<=c0)stop 3
+   call check_readonly()
+   if(any(r(1)%bits/=goldU).or.any(r(2)%bits/=goldD))stop 4
+  endif
+@@ -124,7 +124,7 @@
+   write(unit)r(n)%allbits
+  enddo
+  close(unit)
+- if(calls>0)write(*,'(A,3(1X,I0))')'TIMING_NS',w1-w0,c1-c0,calls
++ if(calls>0)write(*,'(A,3(1X,I0))')'TIMING_NS',w1-w0,cpu_end-c0,calls
+  write(*,'(A)')'PASS_EXTRACTED_U_NH_FINAL_REGION_RAW_READONLY_FIVE_STATE'
+ contains
+  subroutine restore()

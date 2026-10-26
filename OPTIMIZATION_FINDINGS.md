@@ -1,5 +1,28 @@
 # WRF CPU optimization findings
 
+### U correction/final-update fusion: held unpromoted
+
+Exact whole-UV94-per-opt and extracted-region72-per-opt O2/O0 gates passed, including full physical/read-only bytes and five-state checks. Both restore-inclusive integer wall/thread-CPU screens passed all four raw/state/cache/normal-closure gates, but signs differed across hosts:
+
+| Scope | Host / order | Parent wall(s) | Candidate wall(s) | Wall reduction | Thread CPU reduction |
+|---|---|---:|---:|---:|---:|
+| Whole UV,512calls | hpc01 / P→C | 0.555987819 | 0.559542015 | -0.6393% | -0.6394% |
+| Whole UV,512calls | hpc02 / C→P | 0.565386154 | 0.553779912 | +2.0528% | +2.0528% |
+| Extracted region,32768calls | hpc01 / P→C | 0.463542110 | 0.450460502 | +2.8221% | +2.8235% |
+| Extracted region,32768calls | hpc02 / C→P | 0.462711873 | 0.478182220 | -3.3434% | -3.3420% |
+
+No consistent significant kernel or caller benefit was demonstrated. This is not a universal regression claim; no cause or forecast saving is established. The standalone synthetic region differs from the fullUV ABI/setup, and both timings include required restores. The fixed fusion is held unpromoted with no application run; selected828/source/defaults remain unchanged. Reopen only for a new measured mechanism or materially new supported workload evidence. [Decision and bounded evidence](tools/cpu-compute/uv-u-nh-final-consumer-fusion-investigation-20261026/README.md).
+### PD cross-species mu/cr cache prototype: held
+
+Two lazy3D REAL4 caches remove repeated mu/cr work in the extracted normal-Y5 ready branch. Actual machine readback proves three true divides become one, with the original dy/dt divide and both flux stores retained. This did not produce a consistent significant sequence gain:
+
+| Screen | Host / order | Parent wall(s) | Candidate wall(s) | Wall reduction | Thread CPU reduction |
+|---|---|---:|---:|---:|---:|
+| R2,1024sequences | hpc03 / P→C | 1.425142146 | 1.426253789 | -0.0780% | -0.0881% |
+| R2,1024sequences | hpc04 / C→P | 1.395004256 | 1.369900189 | +1.7996% | +1.7964% |
+
+The adequate-duration1024-sequence screen passed full7,722,060-byte same-count raw/five-state, cache-before-each and all four normal closures. The earlier64-sequence87–89ms mixed screen is retained; the duration repair reused compiled kernels and observed new1024 terminal states. Correctness is local32 synthetic records plus EPYC four-mode warm new-shape proof, not genuine whole-PD qualification or production lifetime proof. No global bandwidth/spill/cost causality or universal regression is claimed. Fixed prototype held, with no whole-PD implementation/app or selected828 source/default change. [Decision and evidence](tools/cpu-compute/pd-cross-species-mu-cr-cache-investigation-20261026/README.md).
+
 ### Selected828 MUWW — own nine-hour qualification
 
 Selected828 MUWW row SIMD now owns unprofiled SAME512 nine-hour1625/tenFULL science. Four models and original reader closed normally. Prior own3h545/fourFULL proof remains unchanged.

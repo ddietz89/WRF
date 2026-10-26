@@ -1,0 +1,79 @@
+{
+  "status": "PASS_EXTRACTED_U_NH_REGION_ONE_FIXED_FOUR_ARM_SCREEN",
+  "arms": [
+    {
+      "arm": 0,
+      "host": "hpc01",
+      "which": 1,
+      "wall_seconds": 0.46354211,
+      "cpu_seconds": 0.463526076,
+      "raw_sha256": "f49c60c4461b4bbf0b7ae21b70534bd1f58ca41c06d275ea07b2d6dc9d577c64",
+      "receipt_sha256": "b44ee48a52a7b068d6527da4cb946f5b5e4ea246884eddb85d5f7950a99f7ae1",
+      "closure_sha256": "9fa9c25a5543775c8d3842ff532c1252eab8b797598d295a8e56b27a45e3d98d",
+      "cache_sha256": "85bec7bdd19f739e59d4813a21d3cb21fba6ee08cf1b27b0f4bdc6c933d1f425",
+      "invocation_id": "edf1fc37768d482381ec3cb34b72e0ea"
+    },
+    {
+      "arm": 1,
+      "host": "hpc02",
+      "which": 2,
+      "wall_seconds": 0.47818222,
+      "cpu_seconds": 0.478164014,
+      "raw_sha256": "f49c60c4461b4bbf0b7ae21b70534bd1f58ca41c06d275ea07b2d6dc9d577c64",
+      "receipt_sha256": "0655b508db1eade5be5893e0db8b0e090b9e230d5477e989b312cf5ac33feb3d",
+      "closure_sha256": "d836cbf76da595a49bbea63f00cd7ad55c4ff0eacd50fdf1109122fe1cee4438",
+      "cache_sha256": "843c4f775c57cfd275af6c5f070a352bd9b3b37c19fdcf101ab95b022ae5df1a",
+      "invocation_id": "3c602f8d502b4abd96390e12f21aab37"
+    },
+    {
+      "arm": 2,
+      "host": "hpc01",
+      "which": 2,
+      "wall_seconds": 0.450460502,
+      "cpu_seconds": 0.45043841,
+      "raw_sha256": "f49c60c4461b4bbf0b7ae21b70534bd1f58ca41c06d275ea07b2d6dc9d577c64",
+      "receipt_sha256": "4caac908ab4f4fedc3b228615922ffd02c787e5b4966f48be87b80496be6499a",
+      "closure_sha256": "ef0e7d52eb17cb2a970a128ac58fc03e701f1a38d15e7ff078a0f4fc375fc390",
+      "cache_sha256": "b4ad8ecf32651f260a9b4c865ca72c3a8319106f95e2cef21805d78d75e009fd",
+      "invocation_id": "7f1ac83182b047cd9a7cf829626047fe"
+    },
+    {
+      "arm": 3,
+      "host": "hpc02",
+      "which": 1,
+      "wall_seconds": 0.462711873,
+      "cpu_seconds": 0.462700581,
+      "raw_sha256": "f49c60c4461b4bbf0b7ae21b70534bd1f58ca41c06d275ea07b2d6dc9d577c64",
+      "receipt_sha256": "b481681edc5696e1fe5b1271ddc7c604078662f47545f8685cbc0464877bff00",
+      "closure_sha256": "a3e7fc7911d75623fed0a4fbfa12b3d0a9abb6b4729687aa0c3fc482d3622597",
+      "cache_sha256": "d95077e9264c55a7e3c51817aa0a22616ff9db4a6c71058a32be89b33fbfa758",
+      "invocation_id": "f79326f430e1478d93a7fbb75c11836f"
+    }
+  ],
+  "comparisons": [
+    {
+      "host": "hpc01",
+      "parent_arm": 0,
+      "candidate_arm": 2,
+      "parent_wall_seconds": 0.46354211,
+      "candidate_wall_seconds": 0.450460502,
+      "wall_reduction_percent": 2.8220970043045326,
+      "parent_cpu_seconds": 0.463526076,
+      "candidate_cpu_seconds": 0.45043841,
+      "cpu_reduction_percent": 2.8235015628333273
+    },
+    {
+      "host": "hpc02",
+      "parent_arm": 3,
+      "candidate_arm": 1,
+      "parent_wall_seconds": 0.462711873,
+      "candidate_wall_seconds": 0.47818222,
+      "wall_reduction_percent": -3.343408263915457,
+      "parent_cpu_seconds": 0.462700581,
+      "candidate_cpu_seconds": 0.478164014,
+      "cpu_reduction_percent": -3.3419955874228795
+    }
+  ],
+  "scope": "Extracted synthetic one-J U nonhydrostatic correction plus final-U region only; original2D DPXY/DPn scratch and exacttwo statementtrees/stores, vs fusedregion. Precomputed finite synthetic unchanged operands, fixed189I x32K, native18cases x4modes O2/O0 separately.32768 whole-region calls+fullU/DPXYphysicalrestores inside one integerwall/THREADCPU batch. ActualwholeUVnative94 and mixedwholecaller observations separate; extractedABI/registerallocation is not actualwholemodule machine identity or forecast evidence.",
+  "performance_gain_qualification": "Interpret actual signs/magnitudes; no acceptance based solelyon opcodes."
+}

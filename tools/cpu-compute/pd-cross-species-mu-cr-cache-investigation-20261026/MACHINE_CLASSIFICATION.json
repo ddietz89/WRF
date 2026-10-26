@@ -1,0 +1,44 @@
+{
+  "status": "PASS_REMOVED_MU_CR_COMPUTATION_IN_ACTUAL_READY_BRANCH_ONLY",
+  "readback": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current828-pd-cross-species-courant-feasibility-r1/existing-kernel-asm-log-readback-r1/actual-r1/stdout.json",
+    "sha256": "fb1f5a5bb50698853839add6330db6fe6a63ff4fc08e9c6ebef28ed15e0482a4"
+  },
+  "kernel_object_sha256": "72a54f29949e203ba8f20ffb71a2dbee308a7767ad4d442a873513e22269524c",
+  "existing_logs": [
+    {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current828-pd-y5-species64-driver-build-r1/actual-original-kernel-asm.log",
+      "sha256": "96aac639a54eb5934a2074ab58c54c36d5acf56c05b4ed6d44c22d0db8e135b3",
+      "bytes": 35561
+    },
+    {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current828-pd-y5-species64-driver-build-r1/actual-cached-kernel-asm.log",
+      "sha256": "1b1819a17052a9b4d38589f297ad60e6ed7ad212182e05c26acd83df68770ee4",
+      "bytes": 60117
+    }
+  ],
+  "actual_control": "cached_y5+0xba reads ready through argslot0x80(%rbp), +0xc4 test, +0xc6 JE+0xa37 enters firstfill on readyFALSE. ReadyTRUE falls through +0xcc into reused branch.",
+  "original_8wide": {
+    "range": "original_y5+0x5a0 at object0x1ae0 \u21921c10 backedge",
+    "cr": "1ae8 vel*dt;1aef trueVDIVPS /dy;1b1b trueVDIVPS /mu",
+    "mu": "1af5/1b03 two c1*mut MULPS;1b09/1b0e ADDPS c2;1b13 ADDPS and1b17 MULPS0.5",
+    "retained_other_division": "1b53 trueVDIVPS dy/dt"
+  },
+  "ready_8wide": {
+    "range": "cached_y5 object0x440\u21920x544 backedge",
+    "cr_load": "0x361 reads cr_cache argslot0x78(%rbp),0x3e7 adjusts;0x440 VMOVUPS cr_cache toymm3 then0x447/45b/468upwind ABS/arithmetic",
+    "mu_load": "0x341 reads mu_cache argslot0x70(%rbp),0x387 adjusts/0x3a9 r12;0x4af VMULPS cachedmu into dy/dt result",
+    "removed": "Original cr two trueDIVPS andmu coefficient/mass tree absent from reuse loop, replaced by cachedloads.",
+    "remaining_division": "0x495 trueVDIVPS dy/dt, not cr; source dy/dt unchanged.",
+    "other_widths": "XMM ready loop has one trueVDIVPS0x671; scalarready tail oneVDIVSS0x89e. Original corresponding XMM has0x1d3f/1d49cr and1d9bdy/dt; scalartail0x1fac/1fba cr and1fb6dy/dt."
+  },
+  "firstfill": "cached FALSE path retainsmu/cr original arithmetic:8wide0xe35 and0xe5a trueDIVPS cr plus0xebe dy/dt, and cachesstores. This is charged by complete sequence timing.",
+  "not_claimed": [
+    "No source-tree normalization/wholefunctionbinaryequality",
+    "No runtime-path frequency derived from staticcode",
+    "No bandwidth/spill/costcausality attribution",
+    "No new codegen or timing executed",
+    "No wholePD/native/application qualification"
+  ],
+  "decision_unchanged": "HOLD_NO_WHOLE_PD_IMPLEMENTATION; mixed observed1024sequence costs despite real removal of duplicate mu/cr work."
+}

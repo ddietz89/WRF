@@ -1,0 +1,79 @@
+{
+  "status": "PASS_PD_Y5_SYNTHETIC_SIX_SPECIES64_FOUR_ARMS_RAW_FIVE_STATE",
+  "arms": [
+    {
+      "arm": 0,
+      "host": "hpc03",
+      "which": 1,
+      "wall_seconds": 0.087496108,
+      "cpu_seconds": 0.087492109,
+      "raw_sha256": "8dd54e449cf4095601dd17390620d90b7d5f365c13f922eb0af895f9fa003ba6",
+      "duration_at_least_100ms": false,
+      "receipt_sha256": "49bd374676415c2d372fc581545f72592ae628e7f989595eed651ec47485a93f",
+      "closure_sha256": "e5f0daf93d123bce42cc2d3391920f4fde24b7156199d13c2b0b307f187190e3",
+      "cache_sha256": "166db8b403172a3ec2b8fba4f6e46f4622318f2fbb6998f6ca565ee3e9564d0f",
+      "invocation_id": "e7d5c30263514b82822a83636e08e6f4"
+    },
+    {
+      "arm": 1,
+      "host": "hpc04",
+      "which": 2,
+      "wall_seconds": 0.087346483,
+      "cpu_seconds": 0.087344666,
+      "raw_sha256": "8dd54e449cf4095601dd17390620d90b7d5f365c13f922eb0af895f9fa003ba6",
+      "duration_at_least_100ms": false,
+      "receipt_sha256": "cf1333d479e9c954b2a6b06aa6c446c7b69a505cb3a86d347925997e3a19ffde",
+      "closure_sha256": "45c09b1ecb29cca546a244d47287612435dfc9a0f0b4ab5e1794eefed89e80f5",
+      "cache_sha256": "93bad4bf4eb3595606e25b384549d3bd16d8a25a1b90686f2627e8f74fd7f8ac",
+      "invocation_id": "f194dcc5a76045feb5a7319b032276f6"
+    },
+    {
+      "arm": 2,
+      "host": "hpc03",
+      "which": 2,
+      "wall_seconds": 0.088632512,
+      "cpu_seconds": 0.088629079,
+      "raw_sha256": "8dd54e449cf4095601dd17390620d90b7d5f365c13f922eb0af895f9fa003ba6",
+      "duration_at_least_100ms": false,
+      "receipt_sha256": "adfdb023a54ee340c4ea45a60933c0113460fa9279490ee300e479e7dd0707b1",
+      "closure_sha256": "5ccb650d9198a92dd4c7856adbd260c82256a470c68ed24840736571489b8184",
+      "cache_sha256": "6c0275b10b3fa94958949ea531e73350524c4817a6506ce35e31c2a8e3fbcae1",
+      "invocation_id": "6e220ff5daea4ee380b3b59628496ce4"
+    },
+    {
+      "arm": 3,
+      "host": "hpc04",
+      "which": 1,
+      "wall_seconds": 0.088345022,
+      "cpu_seconds": 0.088342407,
+      "raw_sha256": "8dd54e449cf4095601dd17390620d90b7d5f365c13f922eb0af895f9fa003ba6",
+      "duration_at_least_100ms": false,
+      "receipt_sha256": "f5410b8adc7b553808160f52dda64489f874c5c5694b839959ffce1a1288ccbf",
+      "closure_sha256": "759bbb38cbf1daf8a8bcb487df434a1b12478ab51f40715f6747888ce9d519ec",
+      "cache_sha256": "f7eba632a5c42ab12cb7497ea94fb8e8c59cccbc8df5acdb384d01aba98f863f",
+      "invocation_id": "d67736c3e6ea46fa9652e317583d88ac"
+    }
+  ],
+  "comparisons": [
+    {
+      "host": "hpc03",
+      "parent_wall_seconds": 0.087496108,
+      "candidate_wall_seconds": 0.088632512,
+      "wall_reduction_percent": -1.2988051994266891,
+      "parent_cpu_seconds": 0.087492109,
+      "candidate_cpu_seconds": 0.088629079,
+      "cpu_reduction_percent": -1.299511479372395
+    },
+    {
+      "host": "hpc04",
+      "parent_wall_seconds": 0.088345022,
+      "candidate_wall_seconds": 0.087346483,
+      "wall_reduction_percent": 1.1302719467317535,
+      "parent_cpu_seconds": 0.088342407,
+      "candidate_cpu_seconds": 0.087344666,
+      "cpu_reduction_percent": 1.1294021001714394
+    }
+  ],
+  "all_arms_at_least_100ms": false,
+  "scope": "Fixed64 complete synthetic6species stage sequences; first-use/candidatecacheallocation/reset/fill/reuse/free and identicalfullphysicaloutputrestores/allnormalY5fluxwork insideintegerwall/THREADCPU. New188x19x32active shape fourmode warmfullraw5 proven beforetiming. Warm1 andbatch64state are separate; FULL7722060B same64raw acrossallarms hard. No calibration/repeats/within-call dy/dt cache. Extractedbranch only, no genuinewholePD/native/application/productionfrequency or globalgain claim."
+}

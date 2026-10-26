@@ -1,0 +1,11 @@
+{
+  "parent_sha256": "3327d7358eca48e44238a0e24bd1a2ebad38a1738aacd4a023294d067e4a902e",
+  "candidate_sha256": "6f0099e67dacff90ac9efefc20ccad61d60f9a9ce0e11be3875ff0f152a5d5b2",
+  "old": "\n     DO k = k_start, k_end\n!$OMP SIMD\n       DO i = i_start_up, i_end_up\n         dpxy(i,k)=dpxy(i,k) + (qrow(i))*rdx*(php(i,k,j)-php(i-1,k,j))*        &\n           (rdnw(k)*(dpn(i,k+1)-dpn(i,k))-.5*((c1h(k)*mu(i-1,j))+(c1h(k)*mu(i,j))))\n       ENDDO\n     ENDDO\n   END IF\n   DO k = k_start, k_end\n!$OMP SIMD\n     DO i = i_start_up, i_end_up\n       u(i,k,j)=u(i,k,j)-dts*cqu(i,k,j)*dpxy(i,k)+(c1h(k)*mudf_xy(i))\n     ENDDO\n   ENDDO\n   ENDDO u_outer_j_loop\n\n",
+  "new": "     DO k = k_start, k_end\n!$OMP SIMD\n       DO i = i_start_up, i_end_up\n         dpxy(i,k)=dpxy(i,k) + (qrow(i))*rdx*(php(i,k,j)-php(i-1,k,j))*        &\n           (rdnw(k)*(dpn(i,k+1)-dpn(i,k))-.5*((c1h(k)*mu(i-1,j))+(c1h(k)*mu(i,j))))\n         u(i,k,j)=u(i,k,j)-dts*cqu(i,k,j)*dpxy(i,k)+(c1h(k)*mudf_xy(i))\n       ENDDO\n     ENDDO\n   ELSE\n   DO k = k_start, k_end\n!$OMP SIMD\n     DO i = i_start_up, i_end_up\n       u(i,k,j)=u(i,k,j)-dts*cqu(i,k,j)*dpxy(i,k)+(c1h(k)*mudf_xy(i))\n     ENDDO\n   ENDDO\n   END IF\n   ENDDO u_outer_j_loop\n",
+  "full_inverse_exact": true,
+  "same_total_newlines": true,
+  "outside_anchor_exact": true,
+  "public_declarations_unchanged": true,
+  "scope": "Only U NH correction/final consumer fusion; hydro ELSE originalfinal; two blank rows within target anchor consumed, all later source coordinates retained. Both original assignments/store/expressiontrees retained; V/DPn/qrow/MUDF/initialtendency untouched."
+}

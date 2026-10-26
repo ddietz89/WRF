@@ -1,0 +1,79 @@
+{
+  "status": "PASS_CURRENT828_U_NH_FINAL_CONSUMER_COMPLETE_UV_FOUR_ARMS",
+  "arms": [
+    {
+      "arm": 0,
+      "host": "hpc01",
+      "which": 1,
+      "wall_seconds": 0.555987819,
+      "cpu_seconds": 0.555968497,
+      "state_sha256": "e7c2ace90ce960c8e1d63c159ee7605c14d9afa0c85c313c907c0f5dbf7a1d14",
+      "receipt_sha256": "4b2e295caefbaf2cdafb92da4db313581251d8e4d4db9b195493b7a48ffbb2aa",
+      "closure_sha256": "49f8cc0a4a6c31fdcf073aac3a0a98fa404a94aaebbecd5ca5f58cc90075e227",
+      "cache_sha256": "22d17b0fd6a951ebc00aab8d88299c621be4a050776f044bef9938159715b494",
+      "invocation_id": "e31d82b8e7854e6d85533c8a534991d7"
+    },
+    {
+      "arm": 1,
+      "host": "hpc02",
+      "which": 2,
+      "wall_seconds": 0.553779912,
+      "cpu_seconds": 0.553766692,
+      "state_sha256": "e7c2ace90ce960c8e1d63c159ee7605c14d9afa0c85c313c907c0f5dbf7a1d14",
+      "receipt_sha256": "1f866ceaaa332fc489d5284d45cf3f704591036c71d0e25dbd48e7f2fae30156",
+      "closure_sha256": "6d515dfc407cb292924699c88b4d6c6341dd5d2291fc00bca55d5b5615a50e47",
+      "cache_sha256": "fe89cf91f678caf29b00be5f3cd81359c30e02f5aa7b2474239a67e13f4520eb",
+      "invocation_id": "373a6a6c24b041268d5be1c3291f3308"
+    },
+    {
+      "arm": 2,
+      "host": "hpc01",
+      "which": 2,
+      "wall_seconds": 0.559542015,
+      "cpu_seconds": 0.559523549,
+      "state_sha256": "e7c2ace90ce960c8e1d63c159ee7605c14d9afa0c85c313c907c0f5dbf7a1d14",
+      "receipt_sha256": "56bf59a42923872b409e2f9a2e9129b691e91df35e6852f2968b08a578178f4d",
+      "closure_sha256": "027c30f7fd1e75b94f05b700adc1188a1e9ee77a78f5891acd7aea97ffe329ab",
+      "cache_sha256": "28a7de12783c8294692829e8019b791e367614d4e93d74f997823bbb48b44fb9",
+      "invocation_id": "92e09127f6ad479c82f5722cc56973f4"
+    },
+    {
+      "arm": 3,
+      "host": "hpc02",
+      "which": 1,
+      "wall_seconds": 0.565386154,
+      "cpu_seconds": 0.565372522,
+      "state_sha256": "e7c2ace90ce960c8e1d63c159ee7605c14d9afa0c85c313c907c0f5dbf7a1d14",
+      "receipt_sha256": "c6755621aef65e536000df5b1c5a32b9660a4bfd1893e07f55cc329b1765ec73",
+      "closure_sha256": "55fb43d4d7046cda15d70e4bcc7b46166cde7a358db32f6b4d1b39509159116a",
+      "cache_sha256": "217d7ce61cb3e6cf8ca4da3c716ff19bb1d989a705ba8c07204e657d509bc19f",
+      "invocation_id": "f445737d13984f9eab507cef472cddfa"
+    }
+  ],
+  "comparisons": [
+    {
+      "host": "hpc01",
+      "parent_arm": 0,
+      "candidate_arm": 2,
+      "parent_wall_seconds": 0.555987819,
+      "candidate_wall_seconds": 0.559542015,
+      "wall_reduction_percent": -0.6392578899286917,
+      "parent_cpu_seconds": 0.555968497,
+      "candidate_cpu_seconds": 0.559523549,
+      "cpu_reduction_percent": -0.6394340721071573
+    },
+    {
+      "host": "hpc02",
+      "parent_arm": 3,
+      "candidate_arm": 1,
+      "parent_wall_seconds": 0.565386154,
+      "candidate_wall_seconds": 0.553779912,
+      "wall_reduction_percent": 2.052799121076468,
+      "parent_cpu_seconds": 0.565372522,
+      "candidate_cpu_seconds": 0.553766692,
+      "cpu_reduction_percent": 2.0527757449096615
+    }
+  ],
+  "scope": "512 fixed complete advance_uv calls on original genuine captured public API; both full physical U/V restores INSIDE one integer CLOCK_MONOTONIC/THREAD_CPUTIME batch. Full U/V bytes vs original capture,30 readonly arrays/scalars/config/bounds/32guards and warm/final all5 hard outside clock. Warm1 vs batch512 state kept separate, never normalized; all same512 arms state40 bytes exact. Historical capture geometry, not current512 forecast or isolated-loop gain. 0 science/parent module compiles,1 driver+2 C support compiles/2cached links. Opposite01P-C/02C-P; cacheEACH, all4 normalclosures. Native94 publicAPI all5 proof separate; rawstructural booleans immutable.",
+  "performance_gain_qualification": "Interpret actual signs/magnitudes; no acceptance based solelyon opcodes."
+}
