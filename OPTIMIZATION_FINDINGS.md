@@ -5348,7 +5348,7 @@ Eliminated allocation requests equal8*Ni*Nk*Nj bytes/rank/call (1,154,912B for t
 
 The reported 21.84% nine-hour integration reduction and 9.28% three-hour reduction use different retained original cohorts. On their identical first 545 timesteps, older nine-hour originals take 716.21278 s (median of three), versus 596.45045 s in recent three-hour originals: **20.08% slower**. Selected 4974 takes 540.55227 s inside its nine-hour run versus 541.10874 s in its three-hour run. The larger historical nine-hour percentage therefore cannot be treated as a stronger current code speedup.
 
-The original executable/archive, actual rank-loaded project libraries, first 545 timestep sequence and FABA placement match. The slower originals were already slow before their later hpc04 memory reclamation; their UCX intra-node TAG configurations also match the recent control. The physical cause remains unresolved. The owner reports a power-supply replacement with no settings changes; no causal PSU claim follows. A fresh original nine-hour control is running, with unchanged science acceptance. [Audit and retained limits](tools/cpu-working/control-horizon-comparability-20261026/README.md). No source/default change.
+The original executable/archive, actual rank-loaded project libraries, first 545 timestep sequence and FABA placement match. The slower originals were already slow before their later hpc04 memory reclamation; their UCX intra-node TAG configurations also match the recent control. The physical cause remains unresolved. The owner reports a power-supply replacement with no settings changes; no causal PSU claim follows. The fresh original nine-hour control has now passed the unchanged ten-product/1,625-step checker; its separate current-epoch comparison is recorded below. [Audit and retained limits](tools/cpu-working/control-horizon-comparability-20261026/README.md). No source/default change.
 
 
 ### October 26: output-shuffle lane regroup closed unpromoted
@@ -5356,3 +5356,19 @@ The original executable/archive, actual rank-loaded project libraries, first 545
 The fixed pretranspose lane-regroup candidate passed full encoded-byte, stock-decode, read-only, layout and five-state checks. In one cache-cleared parent-then-candidate pair of 32 complete-provider calls on hpc04, wall time increased from 1.624104 to 1.664527 s (**2.4889% slower**); aggregate process CPU increased from 6.116910 to 6.204628 s (**1.4340% more**). Native and both timing jobs closed normally.
 
 The actual code removes four final variable permutations and their index load, but reads some input operands twice. The repeated operand traffic is observed, not a proven cause of the regression. Isolated shuffle timing is unavailable; no positive kernel or resource gain has been demonstrated. Close this fixed candidate without further variants or application integration. The selected provider and codec remain unchanged. [Evidence and limits](tools/cpu-rejected/output-shuffle-pretranspose-regroup-20261026/README.md).
+
+
+### October 26: fresh nine-hour control resolves the comparison denominator
+
+The fresh corrected original matches all ten complete products and all1,625 ordered steps against selected4974. Its identical first545 steps take598.32s, within0.314% of the recent3h original median596.45s; older9h originals took716.21s. The underlying historical slowdown remains unresolved.
+
+| Horizon / original comparator | Measure | Original | Selected4974 (n=1) | Descriptive reduction |
+|---|---|---:|---:|---:|
+| 3h, median3 distinct originals | Model/MPI wall, min |13.33|10.43|21.78%|
+| 3h, median3 distinct originals | Main-step elapsed, min |9.94|9.02|9.28%|
+| 3h, median3 distinct originals | Aggregate CPU, CPU-h |99.81|84.38|15.47%|
+| 9h, fresh original n=1 | Model/MPI wall, min |34.16|29.78|12.81%|
+| 9h, fresh original n=1 | Main-step elapsed, min |30.85|28.11|8.88%|
+| 9h, fresh original n=1 | Aggregate CPU, CPU-h |278.16|249.39|10.34%|
+
+The3h denominator is a per-metric median of three distinct invocations. The9h original ran after the selected build; this single candidate-first/original-later observation is descriptive and unpaired, with no bracket, repeatability or component-causal claim. Main-step elapsed includes communication/waiting. Historical median3 nine-hour records remain separate. Selected source214e/image4974 and its own qualifications remain unchanged. [Exact metrics, baseline membership and retained limits](tools/cpu-working/control-horizon-comparability-20261026/README.md).

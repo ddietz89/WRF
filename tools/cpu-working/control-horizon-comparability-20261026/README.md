@@ -18,4 +18,15 @@ The audit establishes:
 
 The retained UCX logs also rule out an observed intra-node TAG transport switch: all three older nine-hour originals and recent A2 report the same 512 configurations—508 cfg0 and 4 cfg1—with `tag(sysv/memory cma/memory)`. They do not report active XPMEM for those configurations. This does not establish historical module/device state or rule out performance differences under an unchanged configuration. `MAX_RNDV_RAILS=2` is an environment allowance, not proof that two inter-node rails were active. No further log acquisition is proposed for this lead.
 
-The owner reports that **the power supply was replaced**, with nothing else/settings changed and no intentional BIOS/configuration changes. That is a repair report, not evidence that the PSU caused a performance change. The underlying slowdown remains unresolved. A fresh corrected-original nine-hour control started on October 26 at 11:21 UTC to test the current operational epoch against the already completed selected 4974 run. The result and original ten-product checker are pending. This single reverse-order observation cannot create a repeated or bracketed comparison. No source, default or science check changes are proposed.
+The owner reports that **the power supply was replaced**, with nothing else/settings changed and no intentional BIOS/configuration changes. That is a repair report, not evidence that the PSU caused a performance change. The underlying slowdown remains unresolved. A fresh corrected-original nine-hour control started on October 26 at 11:21 UTC to test the current operational epoch against the already completed selected 4974 run. The run and unchanged exact checker have now completed: all ten full products and all 1,625 ordered timesteps match selected 4974 exactly. This single reverse-order observation cannot create a repeated or bracketed comparison. No source, default or science check changes are proposed.
+
+
+The fresh original first545 takes598.32161s, within0.314% of the recent3h original median596.45045s; the older9h median was716.21278s. The fresh full9h comparison is below. It is one selected-first/original-later observation, not a repeated or bracketed pair. Historical medians and qualification receipts remain unchanged.
+
+| Nine-hour measure | Fresh original (n=1) | Selected4974 (n=1) | Descriptive reduction |
+|---|---:|---:|---:|
+| Model/MPI wall, minutes |34.16|29.78|12.81%|
+| Main-step elapsed, minutes |30.85|28.11|8.88%|
+| Aggregate CPU, CPU-hours |278.16|249.39|10.34%|
+
+Main-step elapsed includes communication and waiting. No I/O decomposition, isolated component gain or causal PSU explanation follows. Original models and reader closed normally; the garbage-collected reader retains numeric exit_code null with invocation-bound manager success and an absent cgroup. The new evidence adds no qualification for an unrelated child executable.
