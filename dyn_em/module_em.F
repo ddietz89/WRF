@@ -1091,6 +1091,29 @@ SUBROUTINE rk_addtend_dry ( ru_tend, rv_tend, rw_tend, ph_tend, t_tend,      &
    ENDDO
    ENDIF
 
+#if defined(WRF_RK_DRY_THETA_LATER_STAGE_SIMD_ENABLE) && !defined(WRF_RK_DRY_THETA_LATER_STAGE_SIMD_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+   IF (rk_step /= 1) THEN
+   DO j = jts,MIN(jte,jde-1)
+   DO k = kts,kte-1
+   !$omp simd
+   DO i = its,MIN(ite,ide-1)
+      t_tend(i,k,j) =  t_tend(i,k,j) +  t_tendf(i,k,j)/msfty(i,j)  &
+                                     +  (c1(k)*mut(i,j)+c2(k))*h_diabatic(i,k,j)/msfty(i,j)
+   ENDDO
+   ENDDO
+   ENDDO
+   ELSE
+   DO j = jts,MIN(jte,jde-1)
+   DO k = kts,kte-1
+   DO i = its,MIN(ite,ide-1)
+     IF(rk_step == 1)t_tendf(i,k,j) = t_tendf(i,k,j) +  t_save(i,k,j)
+      t_tend(i,k,j) =  t_tend(i,k,j) +  t_tendf(i,k,j)/msfty(i,j)  &
+                                     +  (c1(k)*mut(i,j)+c2(k))*h_diabatic(i,k,j)/msfty(i,j)
+   ENDDO
+   ENDDO
+   ENDDO
+   ENDIF
+#else
    DO j = jts,MIN(jte,jde-1)
    DO k = kts,kte-1
    DO i = its,MIN(ite,ide-1)
@@ -1102,6 +1125,7 @@ SUBROUTINE rk_addtend_dry ( ru_tend, rv_tend, rw_tend, ph_tend, t_tend,      &
    ENDDO
    ENDDO
    ENDDO
+#endif
 
    DO j = jts,MIN(jte,jde-1)
    DO i = its,MIN(ite,ide-1)

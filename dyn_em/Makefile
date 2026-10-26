@@ -834,3 +834,45 @@ endif
 endif
 endif
 endif
+
+# RK dry theta later-stage SIMD; first-stage literal scalar priority is preserved.
+# Explicit0 selects the original path; no new arithmetic or ISA flags.
+WRF_RK_DRY_THETA_LATER_STAGE_SIMD ?= 1
+ifeq ($(WRF_RK_DRY_THETA_LATER_STAGE_SIMD),0)
+module_em.o: private override CPPFLAGS += -DWRF_RK_DRY_THETA_LATER_STAGE_SIMD_DISABLE
+endif
+ifeq ($(WRF_RK_DRY_THETA_LATER_STAGE_SIMD),1)
+ifeq ($(WRF_RK_TENDENCY_SIMD),1)
+ifeq ($(strip $(OMPCPP) $(OMP) $(PROMOTION) $(DOUBLE_PRECISION)),)
+ifeq ($(filter -fopenmp -fopenmp=%,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
+ifeq ($(strip $(RWORDSIZE)),4)
+ifeq ($(strip $(IWORDSIZE)),4)
+ifeq ($(filter -fdefault-% -freal-% -finteger-% -r8 -i8,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
+ifeq ($(sort $(filter -O%,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC))),-O2)
+ifeq ($(filter -ffast-math -Ofast -ffinite-math-only -funsafe-math-optimizations -freciprocal-math -fno-signed-zeros -fassociative-math -fno-trapping-math,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
+ifneq (,$(filter -fno-fast-math,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG)))
+ifneq (,$(filter -ffp-contract=off,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG)))
+ifeq ($(filter-out -ffp-contract=off,$(filter -ffp-contract=%,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC))),)
+ifeq ($(filter -D_OPENMP -D_OPENMP=%,$(CPPFLAGS)),)
+ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+ifneq (,$(findstring GNU Fortran,$(shell $(FC) --version 2>/dev/null)))
+ifeq ($(shell $(FC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+module_em.o: private override CPPFLAGS += -DWRF_RK_DRY_THETA_LATER_STAGE_SIMD_ENABLE
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
