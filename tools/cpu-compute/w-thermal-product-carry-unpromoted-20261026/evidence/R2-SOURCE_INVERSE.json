@@ -1,0 +1,32 @@
+{
+  "parent_sha256": "3327d7358eca48e44238a0e24bd1a2ebad38a1738aacd4a023294d067e4a902e",
+  "candidate_sha256": "97d6d1bf545f53f53d4788df9866b87a6ca80def3568dd219723b575e2a7b234",
+  "blocks": [
+    {
+      "old": "      REAL :: coefficient_cur\n",
+      "new": "      REAL :: coefficient_cur\n      REAL, DIMENSION(its:ite) :: thermal_prev\n      REAL :: thermal_cur\n"
+    },
+    {
+      "old": "        coefficient_prev(i)=c2a(i,1,j)*rdnw(1)/(c1h(1)*MUT(i,j)+c2h(1))\n",
+      "new": "        coefficient_prev(i)=c2a(i,1,j)*rdnw(1)/(c1h(1)*MUT(i,j)+c2h(1))\n        thermal_prev(i)=(c2a(i,1,j)*alt(i,1,j))*t_2ave(i,1,j)\n"
+    },
+    {
+      "old": "!$omp simd private(coefficient_cur)\n",
+      "new": "!$omp simd private(coefficient_cur,thermal_cur)\n"
+    },
+    {
+      "old": "        coefficient_cur=c2a(i,k  ,j)*rdnw(k  )/(c1h(k)*MUT(i,j)+c2h(k))\n",
+      "new": "        coefficient_cur=c2a(i,k  ,j)*rdnw(k  )/(c1h(k)*MUT(i,j)+c2h(k))\n        thermal_cur=(c2a(i,k,j)*alt(i,k,j))*t_2ave(i,k,j)\n"
+    },
+    {
+      "old": "             (c2a(i,k  ,j)*alt(i,k  ,j)*t_2ave(i,k  ,j)            &\n             -c2a(i,k-1,j)*alt(i,k-1,j)*t_2ave(i,k-1,j))           &",
+      "new": "             (thermal_cur                                          &\n             -thermal_prev(i))                                     &"
+    },
+    {
+      "old": "        coefficient_prev(i)=coefficient_cur\n",
+      "new": "        coefficient_prev(i)=coefficient_cur\n        thermal_prev(i)=thermal_cur\n"
+    }
+  ],
+  "inverse_full_module_exact": true,
+  "scope": "Sameoriginal1510/e9d17parents; R1nativepassimmutable. Seedthermalprevinsideexistingk_end>=2 coefficientseedIloop, noIFinSIMDbody; noWstore/solve/order/APIchange."
+}

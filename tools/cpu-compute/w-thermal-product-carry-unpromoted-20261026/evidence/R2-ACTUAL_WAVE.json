@@ -1,0 +1,79 @@
+{
+  "status": "PASS_CURRENT828_W_THERMAL_R2_COMPLETE_CALLER_FOUR_ARMS",
+  "arms": [
+    {
+      "arm": 0,
+      "host": "hpc03",
+      "which": 1,
+      "wall_seconds": 0.804558139,
+      "cpu_seconds": 0.804485728,
+      "state_sha256": "5373f55c435c11a637ea0c84ad4d919f5eaa2be0dce59038b7ea33c9eaebf33b",
+      "receipt_sha256": "afab98f80baef8c7787944d7efaea77cd0b41d9a11e90d133f6f71c58e1c18a5",
+      "closure_sha256": "67cbb60fb93328a22e25747c273193f83f5a791e539ea9761aef2d3e586c8dd1",
+      "cache_sha256": "f75ae5e7fd0bcec17d040069a9c4dfb0dcdf1fad004993011c26cd14bb9f019b",
+      "invocation_id": "b78abc4710bc43c2a7066f4c4d6eb441"
+    },
+    {
+      "arm": 1,
+      "host": "hpc04",
+      "which": 2,
+      "wall_seconds": 0.817900162,
+      "cpu_seconds": 0.817847939,
+      "state_sha256": "5373f55c435c11a637ea0c84ad4d919f5eaa2be0dce59038b7ea33c9eaebf33b",
+      "receipt_sha256": "d7729c212188fbbb8315137fd7ad2b64dfdfe8b3d9cb6061a5f74461a1654562",
+      "closure_sha256": "2608cb1037bfcca0668b5453ee598dbffc3c269e7ad4dd895f67a6c5f75afeab",
+      "cache_sha256": "c48ebf722fa6d3486ed6c367c66f28683111da73026dbeafb3e5b5ea492422a1",
+      "invocation_id": "9439c483ef8f45fc9df71853efc0e75a"
+    },
+    {
+      "arm": 2,
+      "host": "hpc03",
+      "which": 2,
+      "wall_seconds": 0.808869855,
+      "cpu_seconds": 0.808800659,
+      "state_sha256": "5373f55c435c11a637ea0c84ad4d919f5eaa2be0dce59038b7ea33c9eaebf33b",
+      "receipt_sha256": "a120a06ac33d300ceabba9285128dfde095970f5ec7b84b6da106395ec52972e",
+      "closure_sha256": "57e4c39baf5a2061ac10fdc289b1ea66ecad71bfc87d60dbf4a3da032cef5759",
+      "cache_sha256": "3168c73acb0b27f781edcca5f3c18b7bd25a0a22048be2b7e482bf162b54ed80",
+      "invocation_id": "26a8758524384ef5a25a216c8a9b5871"
+    },
+    {
+      "arm": 3,
+      "host": "hpc04",
+      "which": 1,
+      "wall_seconds": 0.806711719,
+      "cpu_seconds": 0.806657146,
+      "state_sha256": "5373f55c435c11a637ea0c84ad4d919f5eaa2be0dce59038b7ea33c9eaebf33b",
+      "receipt_sha256": "49ad7da42a2cce7492ecb8afc7e2b7281aa92989212df583fd8ba305ecdd43b7",
+      "closure_sha256": "14a463b67057ad22f67714e0d7fc5cd39a8c2f67be86eac22f1c30af7ec3a2a2",
+      "cache_sha256": "a2d340d56ccdfa85d8afd866e5891ea2289320decd37d8f996a9f4f5542225a4",
+      "invocation_id": "1f6b8dc4292a4e4d82f78d7ba3b90e27"
+    }
+  ],
+  "comparisons": [
+    {
+      "host": "hpc03",
+      "parent_arm": 0,
+      "candidate_arm": 2,
+      "parent_wall_seconds": 0.804558139,
+      "candidate_wall_seconds": 0.808869855,
+      "wall_reduction_percent": -0.5359110536572449,
+      "parent_cpu_seconds": 0.804485728,
+      "candidate_cpu_seconds": 0.808800659,
+      "cpu_reduction_percent": -0.5363589246918278
+    },
+    {
+      "host": "hpc04",
+      "parent_arm": 3,
+      "candidate_arm": 1,
+      "parent_wall_seconds": 0.806711719,
+      "candidate_wall_seconds": 0.817900162,
+      "wall_reduction_percent": -1.3869196066556697,
+      "parent_cpu_seconds": 0.806657146,
+      "candidate_cpu_seconds": 0.817847939,
+      "cpu_reduction_percent": -1.3873047620655332
+    }
+  ],
+  "scope": "512wholecapturedadvance_w calls plus all3fullmutablephysicalrestores and original scalar/configrestore inside one integerwall/THREADCPUbatch; complete40role readOnly/originalraworacle and warm/batch/postall5 hard outside. Historicalcapturedgeometry, not currentproductiontile/frequency/globalMPIclaim. Extra thermalrow allocation/setup included inactualwholecall. Oppositeorders03P-C/04C-P; checkedcachebeforeEACHarm.",
+  "performance_gain_qualification": "Interpret actual signs/magnitudes; no acceptance based solelyon opcodes."
+}

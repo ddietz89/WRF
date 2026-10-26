@@ -1,0 +1,28 @@
+{
+  "parent_sha256": "3327d7358eca48e44238a0e24bd1a2ebad38a1738aacd4a023294d067e4a902e",
+  "candidate_sha256": "735568f3a44cd215b417671f4d3fcfcd5ed4727173f7d8182084d98257bfd7b8",
+  "blocks": [
+    {
+      "old": "      REAL :: coefficient_cur\n",
+      "new": "      REAL :: coefficient_cur\n      REAL, DIMENSION(its:ite) :: thermal_prev\n      REAL :: thermal_cur, thermal_prior\n"
+    },
+    {
+      "old": "!$omp simd private(coefficient_cur)\n",
+      "new": "!$omp simd private(coefficient_cur,thermal_cur,thermal_prior)\n"
+    },
+    {
+      "old": "        coefficient_cur=c2a(i,k  ,j)*rdnw(k  )/(c1h(k)*MUT(i,j)+c2h(k))\n",
+      "new": "        coefficient_cur=c2a(i,k  ,j)*rdnw(k  )/(c1h(k)*MUT(i,j)+c2h(k))\n        thermal_cur=(c2a(i,k,j)*alt(i,k,j))*t_2ave(i,k,j)\n        IF (k .EQ. 2) THEN\n          thermal_prior=(c2a(i,k-1,j)*alt(i,k-1,j))*t_2ave(i,k-1,j)\n        ELSE\n          thermal_prior=thermal_prev(i)\n        ENDIF\n"
+    },
+    {
+      "old": "             (c2a(i,k  ,j)*alt(i,k  ,j)*t_2ave(i,k  ,j)            &\n             -c2a(i,k-1,j)*alt(i,k-1,j)*t_2ave(i,k-1,j))           &",
+      "new": "             (thermal_cur                                          &\n             -thermal_prior)                                       &"
+    },
+    {
+      "old": "        coefficient_prev(i)=coefficient_cur\n",
+      "new": "        coefficient_prev(i)=coefficient_cur\n        thermal_prev(i)=thermal_cur\n"
+    }
+  ],
+  "inverse_full_module_exact": true,
+  "scope": "Only W local product carry; allWstores/solve traversals/topboundary and other functions untouched."
+}

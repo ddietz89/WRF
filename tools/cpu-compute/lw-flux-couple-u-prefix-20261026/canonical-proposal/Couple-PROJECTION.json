@@ -1,0 +1,74 @@
+{
+  "scope": "Local CPP target active-statement projection only; not a clean canonical build or object certificate.",
+  "cases": [
+    {
+      "case": "eligibleON",
+      "defines": [
+        "DM_PARALLEL",
+        "WRF_COUPLE_MOMENTUM_U_SIMD_ENABLE"
+      ],
+      "target_active_statement_stream_exact": true,
+      "expected": "actualR3b4bb"
+    },
+    {
+      "case": "knobOFF",
+      "defines": [
+        "DM_PARALLEL",
+        "WRF_COUPLE_MOMENTUM_U_SIMD_DISABLE"
+      ],
+      "target_active_statement_stream_exact": true,
+      "expected": "original63d"
+    },
+    {
+      "case": "disableWins",
+      "defines": [
+        "DM_PARALLEL",
+        "WRF_COUPLE_MOMENTUM_U_SIMD_ENABLE",
+        "WRF_COUPLE_MOMENTUM_U_SIMD_DISABLE"
+      ],
+      "target_active_statement_stream_exact": true,
+      "expected": "original63d"
+    },
+    {
+      "case": "noEnable",
+      "defines": [
+        "DM_PARALLEL"
+      ],
+      "target_active_statement_stream_exact": true,
+      "expected": "original63d"
+    },
+    {
+      "case": "OpenMPfallback",
+      "defines": [
+        "DM_PARALLEL",
+        "WRF_COUPLE_MOMENTUM_U_SIMD_ENABLE",
+        "_OPENMP"
+      ],
+      "target_active_statement_stream_exact": true,
+      "expected": "original63d"
+    },
+    {
+      "case": "serialFallback",
+      "defines": [
+        "WRF_COUPLE_MOMENTUM_U_SIMD_ENABLE"
+      ],
+      "target_active_statement_stream_exact": true,
+      "expected": "original63d"
+    }
+  ],
+  "actual_candidate_PP_sha256": "b4bb1ec10b40bd4e3895ccc6b53acb0fc2c56b9ddd814fca424098a3c7f75846",
+  "actual_parent_PP_sha256": "63d11804d8aadbeb4d15ba84d9f24e7008ef6f731593587ce22a81396f47467c",
+  "native_candidate_O2_sha256": "af99228afe671329a528e185ce8c40b979d18e882ccfe726ea129be5e47bd09e",
+  "default_knob": 1,
+  "application_qualified": false,
+  "O0_nontarget_classification": "UNCLASSIFIED; guard requires strict O2 and unsupported builds retain literal original source.",
+  "apply_requires_actual_combined_own_threehour_science": true,
+  "R1_projection_bytes_preserved": true,
+  "R3_F_and_all_prior_CPP_projection_files_byteexact_R2": true,
+  "R3_guard_change_only": [
+    "-fno-signed-zeros",
+    "-fassociative-math",
+    "-fno-trapping-math",
+    "FC/SFCscannedinunsafeFPfilter"
+  ]
+}

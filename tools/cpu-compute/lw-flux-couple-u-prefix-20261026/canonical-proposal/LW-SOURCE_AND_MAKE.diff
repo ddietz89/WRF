@@ -1,0 +1,102 @@
+--- phys/module_ra_rrtmg_lw.F
++++ phys/module_ra_rrtmg_lw.F
+@@ -3222,12 +3222,22 @@
+       real(kind=rb) :: clrurad(0:nlayers)
+       real(kind=rb) :: clrdrad(0:nlayers)
+       real(kind=rb) :: efclfrac(nlayers,ngptlw)
++#if defined(WRF_LW_RTRNMC_FLUX_SCALARS_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_LW_RTRNMC_FLUX_SCALARS_DISABLE)
++      real(kind=rb) :: uflux
++      real(kind=rb) :: dflux
++#else
+       real(kind=rb) :: uflux(0:nlayers)
+       real(kind=rb) :: dflux(0:nlayers)
++#endif
+       real(kind=rb) :: urad(0:nlayers)
+       real(kind=rb) :: drad(0:nlayers)
++#if defined(WRF_LW_RTRNMC_FLUX_SCALARS_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_LW_RTRNMC_FLUX_SCALARS_DISABLE)
++      real(kind=rb) :: uclfl
++      real(kind=rb) :: dclfl
++#else
+       real(kind=rb) :: uclfl(0:nlayers)
+       real(kind=rb) :: dclfl(0:nlayers)
++#endif
+       real(kind=rb) :: odcld(nlayers,ngptlw)
+ 
+ 
+@@ -3558,6 +3568,22 @@
+ 
+ ! Process longwave output from band for total and clear streams.
+ ! Calculate upward, downward, and net flux.
++#if defined(WRF_LW_RTRNMC_FLUX_SCALARS_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_LW_RTRNMC_FLUX_SCALARS_DISABLE)
++         do lev = nlayers, 0, -1
++            uflux = urad(lev)*wtdiff
++            dflux = drad(lev)*wtdiff
++            urad(lev) = 0.0_rb
++            drad(lev) = 0.0_rb
++            totuflux(lev) = totuflux(lev) + uflux * delwave(iband)
++            totdflux(lev) = totdflux(lev) + dflux * delwave(iband)
++            uclfl = clrurad(lev)*wtdiff
++            dclfl = clrdrad(lev)*wtdiff
++            clrurad(lev) = 0.0_rb
++            clrdrad(lev) = 0.0_rb
++            totuclfl(lev) = totuclfl(lev) + uclfl * delwave(iband)
++            totdclfl(lev) = totdclfl(lev) + dclfl * delwave(iband)
++         enddo
++#else
+          do lev = nlayers, 0, -1
+             uflux(lev) = urad(lev)*wtdiff
+             dflux(lev) = drad(lev)*wtdiff
+@@ -3572,6 +3598,7 @@
+             totuclfl(lev) = totuclfl(lev) + uclfl(lev) * delwave(iband)
+             totdclfl(lev) = totdclfl(lev) + dclfl(lev) * delwave(iband)
+          enddo
++#endif
+ 
+ ! End spectral band loop
+       enddo
+--- phys/Makefile
++++ phys/Makefile
+@@ -643,3 +643,43 @@
+ endif
+ endif
+ endif
++
++# LW RTRNMC same-kind one-use flux temporaries; source retains literal original fallback.
++# Qualified selected GNU13.3 strict-O2 scope; original fallback remains available.
++# No compiler/ISA/FP flags are added. DISABLE wins over explicit ENABLE.
++WRF_LW_RTRNMC_FLUX_SCALARS ?= 1
++_LW_FLUX_FLAGS = $(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)
++ifeq ($(WRF_LW_RTRNMC_FLUX_SCALARS),0)
++module_ra_rrtmg_lw.o: private override CPPFLAGS += -DWRF_LW_RTRNMC_FLUX_SCALARS_DISABLE
++endif
++ifeq ($(WRF_LW_RTRNMC_FLUX_SCALARS),1)
++ifeq ($(strip $(OMPCPP) $(OMP) $(PROMOTION) $(DOUBLE_PRECISION)),)
++ifeq ($(filter -D_OPENMP% _OPENMP%,$(CPPFLAGS)),)
++ifeq ($(strip $(RWORDSIZE)),4)
++ifeq ($(strip $(IWORDSIZE)),4)
++ifeq ($(filter -fdefault-% -freal-% -finteger-% -r8 -i8 -fopenmp% -Ofast -ffast-math -fassociative-math -funsafe-math-optimizations -freciprocal-math -ffinite-math-only -fno-signed-zeros -fno-trapping-math,$(_LW_FLUX_FLAGS)),)
++ifeq ($(filter-out -O2,$(filter -O%,$(_LW_FLUX_FLAGS))),)
++ifneq (,$(filter -O2,$(_LW_FLUX_FLAGS)))
++ifeq ($(filter-out -ffp-contract=off,$(filter -ffp-contract=%,$(_LW_FLUX_FLAGS))),)
++ifneq (,$(filter -fno-fast-math,$(_LW_FLUX_FLAGS)))
++ifneq (,$(filter -ffp-contract=off,$(_LW_FLUX_FLAGS)))
++ifneq (,$(findstring GNU Fortran,$(shell $(FC) --version 2>/dev/null)))
++ifeq ($(shell $(FC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
++ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
++ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
++module_ra_rrtmg_lw.o: private override CPPFLAGS += -DWRF_LW_RTRNMC_FLUX_SCALARS_ENABLE
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif

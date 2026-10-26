@@ -1,0 +1,31 @@
+{
+  "status": "SCOPED_STRICT_O2_COUPLE_FULL4_PREFIX_ORIGINAL_SCALAR_TAIL_ADMITTED_FOR_COMPLETE_CALLER",
+  "eligible_for_complete_couple_momentum_caller": true,
+  "native_receipt_sha256": "682cc342a56fd0f52ecf389ef1eb30f57f0be8b9d88dd91d21eca60079d67d85",
+  "candidate_O2_object_sha256": "af99228afe671329a528e185ce8c40b979d18e882ccfe726ea129be5e47bd09e",
+  "actual_query_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current828-couple-momentum-u-row-source-question-r1/actual-prefix-machine-review-preparation-r2/ACTUAL.json",
+  "actual_query_sha256": "167da2e92bc2df106d4957ea6727f5a371499078c8ff0897b5a4f0858c4f4968",
+  "numerical_scope": "88 full physical/readonly/five-state records each O2/O0, four rounding modes; prior failing competing c1/muu NaN tail supplement retained and repaired variant passes.",
+  "machine": {
+    "parent_scalar": "2f048 load muu;2f050 MULSS c1 source;2f054 ADDSS c2;2f058 MULSS U;2f05d DIVSS map;2f063 store RU",
+    "candidate_full4_prefix": "2f150 load muu into xmm0;2f15f MULPS c1 xmm2 source;2f162 ADDPS c2 xmm1;2f165 MULPS U xmm3;2f168 true DIVPS map xmm4;2f16b RU store;16-byte stride. No two-wide remainder.",
+    "candidate_scalar_tail": "2f1a8 load muu into xmm0;2f1b2 MULSS c1 xmm2 source;2f1b6 ADDSS c2 xmm1;2f1ba MULSS U memory source;2f1c0 true DIVSS map;2f1c5 RU store. Same operand roles as original, including competing c1/muu payload priority.",
+    "bounds": "positive-I guard; prefix endpoint is its+4*floor(n/4)-1; remainder0..3 uses literal original scalar arithmetic, empty I no FP. V/W source unchanged."
+  },
+  "O2_containment": {
+    "non_target_functions": 41,
+    "all_sizes_and_full_RELA_exact": true,
+    "all_raw_except_w_damp_exact": true,
+    "w_damp": "Exactly six one-byte differences in 32-bit source-line immediates stored to IO descriptor stack offset0x570: a8a\u2192a91,a9e\u2192aa5,aa1\u2192aa8,a58\u2192a5f,a5a\u2192a61,a5c\u2192a63 (each +7). Same instruction lengths, all other bytes and full RELA exact; source-line metadata only.",
+    "all_allocated_data_pools_exact": true,
+    "public_MOD_exact": true,
+    "whole_TU_raw_identity": false
+  },
+  "O0_scope": {
+    "target_88_raw5_records_passed": true,
+    "public_MOD_exact": true,
+    "non_target_RELA_and_rodata_classification": "UNCLASSIFIED; actual counts/pool span retained in query. No O0 whole-module containment/default delivery claim."
+  },
+  "application_qualified": false,
+  "performance_qualified": false
+}

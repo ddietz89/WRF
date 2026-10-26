@@ -1,0 +1,42 @@
+--- current828-PP
++++ private-thermal-product-carry-PP
+@@ -1313,6 +1313,8 @@
+       REAL, DIMENSION( its:ite, kts:kte ) :: rhs, wdwn
+       REAL, DIMENSION( its:ite ) :: coefficient_prev
+       REAL :: coefficient_cur
++      REAL, DIMENSION(its:ite) :: thermal_prev
++      REAL :: thermal_cur, thermal_prior
+       INTEGER :: i,j,k, i_start, i_end, j_start, j_end, k_start, k_end
+       REAL, DIMENSION (kts:kte) :: dampwt
+       real :: htop,hbot,hdepth,hk
+@@ -1471,9 +1473,15 @@
+       ENDDO
+     ENDIF
+     DO k=2,k_end
+-!$omp simd private(coefficient_cur)
++!$omp simd private(coefficient_cur,thermal_cur,thermal_prior)
+       DO i=i_start, i_end
+         coefficient_cur=c2a(i,k  ,j)*rdnw(k  )/(c1h(k)*MUT(i,j)+c2h(k))
++        thermal_cur=(c2a(i,k,j)*alt(i,k,j))*t_2ave(i,k,j)
++        IF (k .EQ. 2) THEN
++          thermal_prior=(c2a(i,k-1,j)*alt(i,k-1,j))*t_2ave(i,k-1,j)
++        ELSE
++          thermal_prior=thermal_prev(i)
++        ENDIF
+         
+         w(i,k,j)=w(i,k,j)+dts*rw_tend(i,k,j)                       &
+                  + msft_inv(i)*cqw(i,k,j)*(                        &
+@@ -1485,10 +1493,11 @@
+         *((1.+epssm)*(rhs(i,k    )-rhs(i,k-1  ))                   &
+          +(1.-epssm)*(ph(i,k  ,j)-ph(i,k-1,j)))))                  &
+                 +dts*g*msft_inv(i)*(rdn(k)*                        &
+-             (c2a(i,k  ,j)*alt(i,k  ,j)*t_2ave(i,k  ,j)            &
+-             -c2a(i,k-1,j)*alt(i,k-1,j)*t_2ave(i,k-1,j))           &
++             (thermal_cur                                          &
++             -thermal_prior)                                       &
+               - (c1f(k)*muave(i,j)))
+         coefficient_prev(i)=coefficient_cur
++        thermal_prev(i)=thermal_cur
+       ENDDO
+     ENDDO
+     K=k_end+1

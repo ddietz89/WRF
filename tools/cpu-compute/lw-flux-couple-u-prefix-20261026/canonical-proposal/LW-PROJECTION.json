@@ -1,0 +1,32 @@
+{
+  "status": "PASS_FIVE_TARGET_STATEMENT_DIRECTIVE_PROJECTIONS",
+  "cases": [
+    {
+      "case": "on",
+      "expected": "tested_candidate_statement_stream",
+      "PASS": true
+    },
+    {
+      "case": "off",
+      "expected": "literal_original_statement_stream",
+      "PASS": true
+    },
+    {
+      "case": "disable_wins",
+      "expected": "literal_original_statement_stream",
+      "PASS": true
+    },
+    {
+      "case": "nonDM",
+      "expected": "literal_original_statement_stream",
+      "PASS": true
+    },
+    {
+      "case": "OMP",
+      "expected": "literal_original_statement_stream",
+      "PASS": true
+    }
+  ],
+  "statement_order": "All12 original assignments/reset placements same order; no algebra change.",
+  "limits": "Targetstatementstream only, canonicalrows shift/no fullCPPbyteproduceror cleanFbuildclaim."
+}

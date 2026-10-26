@@ -1,0 +1,3607 @@
+{
+  "status": "PASS_LW_FOUR_FLUX_SCALARS_NUMERICAL_DIAGNOSTIC_STRUCTURAL_PENDING",
+  "invocation_id": "fdb73ff165d44dd099bb9dcc486fecc6",
+  "commands": [
+    {
+      "label": "compile-unchanged-original-observer",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/region_observer.c",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/state.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "compile-O2-candidate",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-c",
+        "module_ra_rrtmg_lw.f90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O2-candidate/module_ra_rrtmg_lw.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "rtrnmc-codegen-parent",
+      "argv": [
+        "/usr/bin/objdump",
+        "-drl",
+        "--no-show-raw-insn",
+        "--disassemble=__rrtmg_lw_rtrnmc_MOD_rtrnmc",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-lw-whole-draw-seed-carry-native-hpc01-r2/work/O2-candidate/module_ra_rrtmg_lw.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "eaaedb22c8c341fbf1cda9bb3615d0de0afcad9889a2bbe76900e78d64ef57a3"
+    },
+    {
+      "label": "rtrnmc-codegen-candidate",
+      "argv": [
+        "/usr/bin/objdump",
+        "-drl",
+        "--no-show-raw-insn",
+        "--disassemble=__rrtmg_lw_rtrnmc_MOD_rtrnmc",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O2-candidate/module_ra_rrtmg_lw.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "bbdcc1d753b90f65034cfeb47683fb65e31bb67998199562ada3576660802fab"
+    },
+    {
+      "label": "compile-O2-finite-originalMOD-driver",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/currentd54-lw-whole-draw-seed-carry-native-hpc01-r2/work/O2-candidate",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/full_rtrnmc_driver.f90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O2-finite-driver.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "link-O2-finite-genuine",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O2-finite-genuine/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O2-finite-driver.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/state.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/actual-selected-lw.o",
+        "-Wl,--start-group",
+        "/pool/wrf-experiment/wrf-cpu/builds/current0adb-mu-wwrow-inner-simd-one-smallstep-experimental-r1/libwrflib.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-lesmf_time",
+        "/pool/wrf-experiment/wrf-cpu/builds/current971c-uv-final-v-unpack-outline-combined-native-r1/librsl_lite.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2",
+        "-lwrfio_nf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-lnetcdf",
+        "-Wl,--end-group",
+        "-lm"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "execute-O2-finite-genuine",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O2-finite-genuine/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O2-finite-genuine/output.raw"
+      ],
+      "returncode": 0,
+      "log_sha256": "6b44e80438956f83fa17c9e20c4e83e2ed8866cbd90baed32817a254eb9c467f"
+    },
+    {
+      "label": "link-O2-finite-parent",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O2-finite-parent/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O2-finite-driver.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/state.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-lw-whole-draw-seed-carry-native-hpc01-r2/work/O2-candidate/module_ra_rrtmg_lw.o",
+        "-Wl,--start-group",
+        "/pool/wrf-experiment/wrf-cpu/builds/current0adb-mu-wwrow-inner-simd-one-smallstep-experimental-r1/libwrflib.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-lesmf_time",
+        "/pool/wrf-experiment/wrf-cpu/builds/current971c-uv-final-v-unpack-outline-combined-native-r1/librsl_lite.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2",
+        "-lwrfio_nf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-lnetcdf",
+        "-Wl,--end-group",
+        "-lm"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "execute-O2-finite-parent",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O2-finite-parent/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O2-finite-parent/output.raw"
+      ],
+      "returncode": 0,
+      "log_sha256": "6b44e80438956f83fa17c9e20c4e83e2ed8866cbd90baed32817a254eb9c467f"
+    },
+    {
+      "label": "link-O2-finite-candidate",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O2-finite-candidate/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O2-finite-driver.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/state.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O2-candidate/module_ra_rrtmg_lw.o",
+        "-Wl,--start-group",
+        "/pool/wrf-experiment/wrf-cpu/builds/current0adb-mu-wwrow-inner-simd-one-smallstep-experimental-r1/libwrflib.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-lesmf_time",
+        "/pool/wrf-experiment/wrf-cpu/builds/current971c-uv-final-v-unpack-outline-combined-native-r1/librsl_lite.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2",
+        "-lwrfio_nf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-lnetcdf",
+        "-Wl,--end-group",
+        "-lm"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "execute-O2-finite-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O2-finite-candidate/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O2-finite-candidate/output.raw"
+      ],
+      "returncode": 0,
+      "log_sha256": "6b44e80438956f83fa17c9e20c4e83e2ed8866cbd90baed32817a254eb9c467f"
+    },
+    {
+      "label": "compile-O2-safe_source-originalMOD-driver",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/currentd54-lw-whole-draw-seed-carry-native-hpc01-r2/work/O2-candidate",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/source_exceptional_driver.f90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O2-safe_source-driver.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "link-O2-safe_source-genuine",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O2-safe_source-genuine/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O2-safe_source-driver.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/state.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/actual-selected-lw.o",
+        "-Wl,--start-group",
+        "/pool/wrf-experiment/wrf-cpu/builds/current0adb-mu-wwrow-inner-simd-one-smallstep-experimental-r1/libwrflib.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-lesmf_time",
+        "/pool/wrf-experiment/wrf-cpu/builds/current971c-uv-final-v-unpack-outline-combined-native-r1/librsl_lite.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2",
+        "-lwrfio_nf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-lnetcdf",
+        "-Wl,--end-group",
+        "-lm"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "execute-O2-safe_source-genuine",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O2-safe_source-genuine/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O2-safe_source-genuine/output.raw"
+      ],
+      "returncode": 0,
+      "log_sha256": "be7c75e61b3f0d68624dcb3578241949a69f5d97b974cf3736095910a3aeeedc"
+    },
+    {
+      "label": "link-O2-safe_source-parent",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O2-safe_source-parent/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O2-safe_source-driver.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/state.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-lw-whole-draw-seed-carry-native-hpc01-r2/work/O2-candidate/module_ra_rrtmg_lw.o",
+        "-Wl,--start-group",
+        "/pool/wrf-experiment/wrf-cpu/builds/current0adb-mu-wwrow-inner-simd-one-smallstep-experimental-r1/libwrflib.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-lesmf_time",
+        "/pool/wrf-experiment/wrf-cpu/builds/current971c-uv-final-v-unpack-outline-combined-native-r1/librsl_lite.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2",
+        "-lwrfio_nf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-lnetcdf",
+        "-Wl,--end-group",
+        "-lm"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "execute-O2-safe_source-parent",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O2-safe_source-parent/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O2-safe_source-parent/output.raw"
+      ],
+      "returncode": 0,
+      "log_sha256": "be7c75e61b3f0d68624dcb3578241949a69f5d97b974cf3736095910a3aeeedc"
+    },
+    {
+      "label": "link-O2-safe_source-candidate",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O2-safe_source-candidate/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O2-safe_source-driver.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/state.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O2-candidate/module_ra_rrtmg_lw.o",
+        "-Wl,--start-group",
+        "/pool/wrf-experiment/wrf-cpu/builds/current0adb-mu-wwrow-inner-simd-one-smallstep-experimental-r1/libwrflib.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-lesmf_time",
+        "/pool/wrf-experiment/wrf-cpu/builds/current971c-uv-final-v-unpack-outline-combined-native-r1/librsl_lite.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2",
+        "-lwrfio_nf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-lnetcdf",
+        "-Wl,--end-group",
+        "-lm"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "execute-O2-safe_source-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O2-safe_source-candidate/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O2-safe_source-candidate/output.raw"
+      ],
+      "returncode": 0,
+      "log_sha256": "be7c75e61b3f0d68624dcb3578241949a69f5d97b974cf3736095910a3aeeedc"
+    },
+    {
+      "label": "compile-O0-candidate",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-O0",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-fcheck=all",
+        "-fbacktrace",
+        "-c",
+        "module_ra_rrtmg_lw.f90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O0-candidate/module_ra_rrtmg_lw.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "compile-O0-finite-originalMOD-driver",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-O0",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-fcheck=all",
+        "-fbacktrace",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/currentd54-lw-whole-draw-seed-carry-native-hpc01-r2/work/O0-candidate",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/full_rtrnmc_driver.f90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O0-finite-driver.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "link-O0-finite-parent",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O0-finite-parent/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O0-finite-driver.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/state.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-lw-whole-draw-seed-carry-native-hpc01-r2/work/O0-candidate/module_ra_rrtmg_lw.o",
+        "-Wl,--start-group",
+        "/pool/wrf-experiment/wrf-cpu/builds/current0adb-mu-wwrow-inner-simd-one-smallstep-experimental-r1/libwrflib.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-lesmf_time",
+        "/pool/wrf-experiment/wrf-cpu/builds/current971c-uv-final-v-unpack-outline-combined-native-r1/librsl_lite.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2",
+        "-lwrfio_nf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-lnetcdf",
+        "-Wl,--end-group",
+        "-lm"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "execute-O0-finite-parent",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O0-finite-parent/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O0-finite-parent/output.raw"
+      ],
+      "returncode": 0,
+      "log_sha256": "6b44e80438956f83fa17c9e20c4e83e2ed8866cbd90baed32817a254eb9c467f"
+    },
+    {
+      "label": "link-O0-finite-candidate",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O0-finite-candidate/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O0-finite-driver.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/state.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O0-candidate/module_ra_rrtmg_lw.o",
+        "-Wl,--start-group",
+        "/pool/wrf-experiment/wrf-cpu/builds/current0adb-mu-wwrow-inner-simd-one-smallstep-experimental-r1/libwrflib.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-lesmf_time",
+        "/pool/wrf-experiment/wrf-cpu/builds/current971c-uv-final-v-unpack-outline-combined-native-r1/librsl_lite.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2",
+        "-lwrfio_nf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-lnetcdf",
+        "-Wl,--end-group",
+        "-lm"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "execute-O0-finite-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O0-finite-candidate/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O0-finite-candidate/output.raw"
+      ],
+      "returncode": 0,
+      "log_sha256": "6b44e80438956f83fa17c9e20c4e83e2ed8866cbd90baed32817a254eb9c467f"
+    },
+    {
+      "label": "compile-O0-safe_source-originalMOD-driver",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-O0",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-fcheck=all",
+        "-fbacktrace",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/currentd54-lw-whole-draw-seed-carry-native-hpc01-r2/work/O0-candidate",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/source_exceptional_driver.f90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O0-safe_source-driver.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "link-O0-safe_source-parent",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O0-safe_source-parent/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O0-safe_source-driver.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/state.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-lw-whole-draw-seed-carry-native-hpc01-r2/work/O0-candidate/module_ra_rrtmg_lw.o",
+        "-Wl,--start-group",
+        "/pool/wrf-experiment/wrf-cpu/builds/current0adb-mu-wwrow-inner-simd-one-smallstep-experimental-r1/libwrflib.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-lesmf_time",
+        "/pool/wrf-experiment/wrf-cpu/builds/current971c-uv-final-v-unpack-outline-combined-native-r1/librsl_lite.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2",
+        "-lwrfio_nf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-lnetcdf",
+        "-Wl,--end-group",
+        "-lm"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "execute-O0-safe_source-parent",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O0-safe_source-parent/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O0-safe_source-parent/output.raw"
+      ],
+      "returncode": 0,
+      "log_sha256": "be7c75e61b3f0d68624dcb3578241949a69f5d97b974cf3736095910a3aeeedc"
+    },
+    {
+      "label": "link-O0-safe_source-candidate",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O0-safe_source-candidate/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O0-safe_source-driver.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/state.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O0-candidate/module_ra_rrtmg_lw.o",
+        "-Wl,--start-group",
+        "/pool/wrf-experiment/wrf-cpu/builds/current0adb-mu-wwrow-inner-simd-one-smallstep-experimental-r1/libwrflib.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-lesmf_time",
+        "/pool/wrf-experiment/wrf-cpu/builds/current971c-uv-final-v-unpack-outline-combined-native-r1/librsl_lite.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2",
+        "-lwrfio_nf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-lnetcdf",
+        "-Wl,--end-group",
+        "-lm"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "execute-O0-safe_source-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O0-safe_source-candidate/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O0-safe_source-candidate/output.raw"
+      ],
+      "returncode": 0,
+      "log_sha256": "be7c75e61b3f0d68624dcb3578241949a69f5d97b974cf3736095910a3aeeedc"
+    }
+  ],
+  "source_pins_sha256": "158e06e0f006c1f17b6e2b7ec80175e87b59155947a0b01477f064fd90d1a0e3",
+  "objects": {
+    "O2-parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-lw-whole-draw-seed-carry-native-hpc01-r2/work/O2-candidate/module_ra_rrtmg_lw.o",
+      "sha256": "79033518aeca1ce4532c4c693ae0fb5495019df34a0f2474321f53325171a74c",
+      "PP_sha256": "c258ef870d7a1a45f8b6803086c957bc331b0cf0cdd34b3957a51518f9642c0f",
+      "MOD": {
+        "rrtmg_lw_init.mod": "a59b085cda1966c5289cb8d8224b42d8e7db5473f11da06c64962326bfd3399b",
+        "rrlw_kg08.mod": "7d5a96114cf55aaddd559d6e32bb9ac82f5cfa1a7b139a862cbf9140fecd3339",
+        "rrlw_kg06.mod": "2dd17cebb76aa7a205dba62cc6340e572183ec31641614fd7eb522e1c4d76b3c",
+        "rrlw_kg01.mod": "b3ffadb47a94969b1c13d16a10ade38af24889435a9a019c6a443665f6e096e0",
+        "rrlw_wvn.mod": "41ad4b9023572243dfcbc1acee6b59078d4724fccd886cf929784be4468a15e1",
+        "rrlw_ref.mod": "c6b509c7619fbd253cba24af0a8480bc8d7676ea73ad25714f1f80b1607c04f3",
+        "mersennetwister.mod": "c0140fdc06902b8673b35f1f6702ea8455cbf038e792b22316243b2a05a7c9c5",
+        "rrlw_con.mod": "dc009504ce64de2cabcef473d4edc167acc42c41033be786c4e37790de1add4b",
+        "rrlw_kg10.mod": "0653a29e88e7f75d8e6a79e7dadfa6428b99f5fab0694f79add7e73522c86558",
+        "rrtmg_lw_cldprmc.mod": "27ca221be60568ffb76cf731b72aeb40bf08aa5b4b02b9c22a4ac75dc0d203f5",
+        "rrlw_kg07.mod": "48cf0ef8fcf811311e0e00ae783adfc7525350f88da1bd34bc87a0b55ab6db87",
+        "module_ra_rrtmg_lw.mod": "6b9ceba9f03af71e23c822af53c8e8de17b81713a4267a9545b7f217a58c98ce",
+        "rrlw_kg09.mod": "b5065092edd35cfc833d91d2b9fa87d9a74163f1ca37e57cedc188341a8c1c00",
+        "parrrtm.mod": "7e3ede4ccdfe57d584650d2cb9c0f587b30095809093e9dddac408435196a706",
+        "rrtmg_lw_rad.mod": "8c3752c5ad800afcd8cae35a9f27c1d43779baf4fbdf4952aab762a57031cd27",
+        "rrlw_cld.mod": "1ca04cd2fc2b292f0adab67b30d2ca64d6a19f1c251e14ad647e36e2f8b9433b",
+        "rrlw_kg16.mod": "a6a2591d85d157c6b577d669f4e4c161c1a5b11c02a4399335b749a3ae94bd5c",
+        "rrlw_kg11.mod": "7fbdf628e47dc5d265d84b2f04d4da6d224dde4d31ac9718c2dbb6020051cab2",
+        "rrlw_vsn.mod": "2135ab9c18ba72926725b0fb04ace137bdbb20ddd8ac9f84d93fa5722d17ce7a",
+        "parkind.mod": "c5d6c7af1cae17b53c1d9f78233694169654d1472dafdc7f040427da695dcfa3",
+        "rrlw_kg12.mod": "0ed0a0920b48b744582d52f942c84eba6d8fb4b9a606c666c8a9fac7b0f405f3",
+        "rrlw_kg15.mod": "17dfd53adf0101f435ad11cc1bea47bd038967e09efccaab8109ab99a293204b",
+        "rrtmg_lw_rtrnmc.mod": "9cdf8c316beeebb4c68aebd5739017220fbaa525aca4758aad2bf50bb04b4009",
+        "rrlw_kg04.mod": "d758da6df0b6002e26a882e59951988e31f6452db869662a7f55eaf6151ac861",
+        "rrlw_kg03.mod": "f82be761728f812c36ac2a6a03304765d893b0ddb4ed876354525c3c9ca88a44",
+        "mcica_subcol_gen_lw.mod": "2b8dd03c57353e12817f061f553f9e780f8c87305698a646552ec080d1f12f1e",
+        "rrlw_tbl.mod": "412cec7ab4f501a8d4c9653130fb63fbb9f75d600038dd4e427b3a653f59e3b4",
+        "rrtmg_lw_setcoef.mod": "05b5bfe6fc69ab4c2315de7487d100bbfe30843be6b70af5e9a8ba8b4f876636",
+        "rrlw_kg14.mod": "45e2fec8ef39e1c778d58f8dfaa48c43c4a0dd834b6ce17438aa8053b75318d9",
+        "mcica_random_numbers.mod": "f51fd6d809ec4765f467394634b6a61b26f8fc9e8eec2a273292703440664c15",
+        "rrlw_kg13.mod": "e93870746df5ffc6ee3709ca806d3417cea44bbc86b2f9ef6ef3041ee1a6376f",
+        "rrlw_kg02.mod": "26713a06981e7767f3a7ccc8ec8e6bed15ed0dd46b0e664cc4feb25f65b171f2",
+        "rrlw_kg05.mod": "8c8c0487dec2a15cf20dc9f50430a9150a0a0d099b600b1ee7d4370a6e7a51d1",
+        "rrtmg_lw_taumol.mod": "43e8a837415a979cf7fb7e3752a8a681311863e39239922091f195fbef548d3b"
+      }
+    },
+    "O0-parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentd54-lw-whole-draw-seed-carry-native-hpc01-r2/work/O0-candidate/module_ra_rrtmg_lw.o",
+      "sha256": "ee2cf84f9c5ddbd1cadb73782e3cafdfc12d0654c8697825b5ee2350f63dcb80",
+      "PP_sha256": "c258ef870d7a1a45f8b6803086c957bc331b0cf0cdd34b3957a51518f9642c0f",
+      "MOD": {
+        "mersennetwister.mod": "c0140fdc06902b8673b35f1f6702ea8455cbf038e792b22316243b2a05a7c9c5",
+        "rrlw_kg15.mod": "17dfd53adf0101f435ad11cc1bea47bd038967e09efccaab8109ab99a293204b",
+        "rrlw_kg12.mod": "0ed0a0920b48b744582d52f942c84eba6d8fb4b9a606c666c8a9fac7b0f405f3",
+        "rrlw_kg03.mod": "f82be761728f812c36ac2a6a03304765d893b0ddb4ed876354525c3c9ca88a44",
+        "rrlw_kg04.mod": "d758da6df0b6002e26a882e59951988e31f6452db869662a7f55eaf6151ac861",
+        "rrtmg_lw_cldprmc.mod": "27ca221be60568ffb76cf731b72aeb40bf08aa5b4b02b9c22a4ac75dc0d203f5",
+        "rrlw_kg13.mod": "e93870746df5ffc6ee3709ca806d3417cea44bbc86b2f9ef6ef3041ee1a6376f",
+        "rrlw_kg14.mod": "45e2fec8ef39e1c778d58f8dfaa48c43c4a0dd834b6ce17438aa8053b75318d9",
+        "module_ra_rrtmg_lw.mod": "6b9ceba9f03af71e23c822af53c8e8de17b81713a4267a9545b7f217a58c98ce",
+        "mcica_subcol_gen_lw.mod": "2b8dd03c57353e12817f061f553f9e780f8c87305698a646552ec080d1f12f1e",
+        "rrtmg_lw_rad.mod": "d0cc83b0a38632adfb49adc619136e8424d5fc4e0c5889b955b37e3642447b9b",
+        "rrtmg_lw_init.mod": "f9776fefc5222547970bd7c843a9cdbb639895bb0e861f29013a6053d87c7cda",
+        "rrlw_tbl.mod": "412cec7ab4f501a8d4c9653130fb63fbb9f75d600038dd4e427b3a653f59e3b4",
+        "rrlw_kg05.mod": "8c8c0487dec2a15cf20dc9f50430a9150a0a0d099b600b1ee7d4370a6e7a51d1",
+        "rrlw_kg02.mod": "26713a06981e7767f3a7ccc8ec8e6bed15ed0dd46b0e664cc4feb25f65b171f2",
+        "rrtmg_lw_rtrnmc.mod": "cf39963eade92ee1f4ed7e1e4b1e578631028b52ed87ac8fc19d96cb97e3ddcb",
+        "parkind.mod": "c5d6c7af1cae17b53c1d9f78233694169654d1472dafdc7f040427da695dcfa3",
+        "rrlw_kg01.mod": "b3ffadb47a94969b1c13d16a10ade38af24889435a9a019c6a443665f6e096e0",
+        "rrlw_kg06.mod": "2dd17cebb76aa7a205dba62cc6340e572183ec31641614fd7eb522e1c4d76b3c",
+        "rrlw_kg08.mod": "7d5a96114cf55aaddd559d6e32bb9ac82f5cfa1a7b139a862cbf9140fecd3339",
+        "rrtmg_lw_setcoef.mod": "13c6a7614f84f0e2c2d2f4c965a115de103dd64656d57640f749b179366956fa",
+        "rrlw_vsn.mod": "2135ab9c18ba72926725b0fb04ace137bdbb20ddd8ac9f84d93fa5722d17ce7a",
+        "parrrtm.mod": "7e3ede4ccdfe57d584650d2cb9c0f587b30095809093e9dddac408435196a706",
+        "rrlw_kg10.mod": "0653a29e88e7f75d8e6a79e7dadfa6428b99f5fab0694f79add7e73522c86558",
+        "rrlw_cld.mod": "1ca04cd2fc2b292f0adab67b30d2ca64d6a19f1c251e14ad647e36e2f8b9433b",
+        "rrlw_kg09.mod": "b5065092edd35cfc833d91d2b9fa87d9a74163f1ca37e57cedc188341a8c1c00",
+        "rrlw_kg07.mod": "48cf0ef8fcf811311e0e00ae783adfc7525350f88da1bd34bc87a0b55ab6db87",
+        "rrtmg_lw_taumol.mod": "64b1c166380d418289969078f23b06a4f289ab41feb9e0544fd79a626348def3",
+        "mcica_random_numbers.mod": "f51fd6d809ec4765f467394634b6a61b26f8fc9e8eec2a273292703440664c15",
+        "rrlw_ref.mod": "c6b509c7619fbd253cba24af0a8480bc8d7676ea73ad25714f1f80b1607c04f3",
+        "rrlw_kg11.mod": "7fbdf628e47dc5d265d84b2f04d4da6d224dde4d31ac9718c2dbb6020051cab2",
+        "rrlw_kg16.mod": "a6a2591d85d157c6b577d669f4e4c161c1a5b11c02a4399335b749a3ae94bd5c",
+        "rrlw_con.mod": "dc009504ce64de2cabcef473d4edc167acc42c41033be786c4e37790de1add4b",
+        "rrlw_wvn.mod": "41ad4b9023572243dfcbc1acee6b59078d4724fccd886cf929784be4468a15e1"
+      }
+    },
+    "O2-candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O2-candidate/module_ra_rrtmg_lw.o",
+      "sha256": "1009632fc209d2930154d51746aec898317f834b944de922eb1d27ad1ee94b5f",
+      "PP_sha256": "f7af5b2b5d1dcbe39a5bf04acc5f9996c24808d9149b98a7ffac0ec596f2eb73",
+      "MOD": {
+        "rrlw_wvn.mod": "41ad4b9023572243dfcbc1acee6b59078d4724fccd886cf929784be4468a15e1",
+        "rrlw_con.mod": "dc009504ce64de2cabcef473d4edc167acc42c41033be786c4e37790de1add4b",
+        "rrlw_kg12.mod": "0ed0a0920b48b744582d52f942c84eba6d8fb4b9a606c666c8a9fac7b0f405f3",
+        "rrlw_kg15.mod": "17dfd53adf0101f435ad11cc1bea47bd038967e09efccaab8109ab99a293204b",
+        "rrlw_ref.mod": "c6b509c7619fbd253cba24af0a8480bc8d7676ea73ad25714f1f80b1607c04f3",
+        "mersennetwister.mod": "c0140fdc06902b8673b35f1f6702ea8455cbf038e792b22316243b2a05a7c9c5",
+        "parrrtm.mod": "7e3ede4ccdfe57d584650d2cb9c0f587b30095809093e9dddac408435196a706",
+        "rrtmg_lw_cldprmc.mod": "27ca221be60568ffb76cf731b72aeb40bf08aa5b4b02b9c22a4ac75dc0d203f5",
+        "mcica_subcol_gen_lw.mod": "2b8dd03c57353e12817f061f553f9e780f8c87305698a646552ec080d1f12f1e",
+        "parkind.mod": "c5d6c7af1cae17b53c1d9f78233694169654d1472dafdc7f040427da695dcfa3",
+        "rrlw_kg04.mod": "d758da6df0b6002e26a882e59951988e31f6452db869662a7f55eaf6151ac861",
+        "mcica_random_numbers.mod": "f51fd6d809ec4765f467394634b6a61b26f8fc9e8eec2a273292703440664c15",
+        "rrlw_kg03.mod": "f82be761728f812c36ac2a6a03304765d893b0ddb4ed876354525c3c9ca88a44",
+        "rrlw_cld.mod": "1ca04cd2fc2b292f0adab67b30d2ca64d6a19f1c251e14ad647e36e2f8b9433b",
+        "rrlw_kg14.mod": "45e2fec8ef39e1c778d58f8dfaa48c43c4a0dd834b6ce17438aa8053b75318d9",
+        "rrlw_kg13.mod": "e93870746df5ffc6ee3709ca806d3417cea44bbc86b2f9ef6ef3041ee1a6376f",
+        "rrlw_vsn.mod": "2135ab9c18ba72926725b0fb04ace137bdbb20ddd8ac9f84d93fa5722d17ce7a",
+        "rrlw_kg02.mod": "26713a06981e7767f3a7ccc8ec8e6bed15ed0dd46b0e664cc4feb25f65b171f2",
+        "rrlw_kg05.mod": "8c8c0487dec2a15cf20dc9f50430a9150a0a0d099b600b1ee7d4370a6e7a51d1",
+        "rrtmg_lw_rad.mod": "8c3752c5ad800afcd8cae35a9f27c1d43779baf4fbdf4952aab762a57031cd27",
+        "rrlw_kg08.mod": "7d5a96114cf55aaddd559d6e32bb9ac82f5cfa1a7b139a862cbf9140fecd3339",
+        "rrlw_kg06.mod": "2dd17cebb76aa7a205dba62cc6340e572183ec31641614fd7eb522e1c4d76b3c",
+        "rrtmg_lw_setcoef.mod": "05b5bfe6fc69ab4c2315de7487d100bbfe30843be6b70af5e9a8ba8b4f876636",
+        "rrtmg_lw_rtrnmc.mod": "9cdf8c316beeebb4c68aebd5739017220fbaa525aca4758aad2bf50bb04b4009",
+        "rrlw_kg01.mod": "b3ffadb47a94969b1c13d16a10ade38af24889435a9a019c6a443665f6e096e0",
+        "rrlw_tbl.mod": "412cec7ab4f501a8d4c9653130fb63fbb9f75d600038dd4e427b3a653f59e3b4",
+        "rrlw_kg10.mod": "0653a29e88e7f75d8e6a79e7dadfa6428b99f5fab0694f79add7e73522c86558",
+        "module_ra_rrtmg_lw.mod": "6b9ceba9f03af71e23c822af53c8e8de17b81713a4267a9545b7f217a58c98ce",
+        "rrlw_kg07.mod": "48cf0ef8fcf811311e0e00ae783adfc7525350f88da1bd34bc87a0b55ab6db87",
+        "rrlw_kg09.mod": "b5065092edd35cfc833d91d2b9fa87d9a74163f1ca37e57cedc188341a8c1c00",
+        "rrtmg_lw_taumol.mod": "43e8a837415a979cf7fb7e3752a8a681311863e39239922091f195fbef548d3b",
+        "rrlw_kg16.mod": "a6a2591d85d157c6b577d669f4e4c161c1a5b11c02a4399335b749a3ae94bd5c",
+        "rrlw_kg11.mod": "7fbdf628e47dc5d265d84b2f04d4da6d224dde4d31ac9718c2dbb6020051cab2",
+        "rrtmg_lw_init.mod": "a59b085cda1966c5289cb8d8224b42d8e7db5473f11da06c64962326bfd3399b"
+      }
+    },
+    "O0-candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O0-candidate/module_ra_rrtmg_lw.o",
+      "sha256": "428fff33ce35d1195479f55a0d8acf5b842699ff6315275d12c9b500cbd5f2a2",
+      "PP_sha256": "f7af5b2b5d1dcbe39a5bf04acc5f9996c24808d9149b98a7ffac0ec596f2eb73",
+      "MOD": {
+        "rrtmg_lw_setcoef.mod": "13c6a7614f84f0e2c2d2f4c965a115de103dd64656d57640f749b179366956fa",
+        "rrlw_kg12.mod": "0ed0a0920b48b744582d52f942c84eba6d8fb4b9a606c666c8a9fac7b0f405f3",
+        "rrlw_kg15.mod": "17dfd53adf0101f435ad11cc1bea47bd038967e09efccaab8109ab99a293204b",
+        "rrlw_kg04.mod": "d758da6df0b6002e26a882e59951988e31f6452db869662a7f55eaf6151ac861",
+        "rrtmg_lw_rtrnmc.mod": "cf39963eade92ee1f4ed7e1e4b1e578631028b52ed87ac8fc19d96cb97e3ddcb",
+        "rrlw_kg03.mod": "f82be761728f812c36ac2a6a03304765d893b0ddb4ed876354525c3c9ca88a44",
+        "rrlw_cld.mod": "1ca04cd2fc2b292f0adab67b30d2ca64d6a19f1c251e14ad647e36e2f8b9433b",
+        "rrlw_vsn.mod": "2135ab9c18ba72926725b0fb04ace137bdbb20ddd8ac9f84d93fa5722d17ce7a",
+        "rrlw_kg14.mod": "45e2fec8ef39e1c778d58f8dfaa48c43c4a0dd834b6ce17438aa8053b75318d9",
+        "rrlw_kg13.mod": "e93870746df5ffc6ee3709ca806d3417cea44bbc86b2f9ef6ef3041ee1a6376f",
+        "parrrtm.mod": "7e3ede4ccdfe57d584650d2cb9c0f587b30095809093e9dddac408435196a706",
+        "rrtmg_lw_init.mod": "f9776fefc5222547970bd7c843a9cdbb639895bb0e861f29013a6053d87c7cda",
+        "rrlw_wvn.mod": "41ad4b9023572243dfcbc1acee6b59078d4724fccd886cf929784be4468a15e1",
+        "parkind.mod": "c5d6c7af1cae17b53c1d9f78233694169654d1472dafdc7f040427da695dcfa3",
+        "rrtmg_lw_rad.mod": "d0cc83b0a38632adfb49adc619136e8424d5fc4e0c5889b955b37e3642447b9b",
+        "rrlw_con.mod": "dc009504ce64de2cabcef473d4edc167acc42c41033be786c4e37790de1add4b",
+        "rrlw_ref.mod": "c6b509c7619fbd253cba24af0a8480bc8d7676ea73ad25714f1f80b1607c04f3",
+        "rrtmg_lw_taumol.mod": "64b1c166380d418289969078f23b06a4f289ab41feb9e0544fd79a626348def3",
+        "rrlw_kg02.mod": "26713a06981e7767f3a7ccc8ec8e6bed15ed0dd46b0e664cc4feb25f65b171f2",
+        "rrlw_kg05.mod": "8c8c0487dec2a15cf20dc9f50430a9150a0a0d099b600b1ee7d4370a6e7a51d1",
+        "mcica_subcol_gen_lw.mod": "2b8dd03c57353e12817f061f553f9e780f8c87305698a646552ec080d1f12f1e",
+        "rrtmg_lw_cldprmc.mod": "27ca221be60568ffb76cf731b72aeb40bf08aa5b4b02b9c22a4ac75dc0d203f5",
+        "rrlw_kg08.mod": "7d5a96114cf55aaddd559d6e32bb9ac82f5cfa1a7b139a862cbf9140fecd3339",
+        "rrlw_kg06.mod": "2dd17cebb76aa7a205dba62cc6340e572183ec31641614fd7eb522e1c4d76b3c",
+        "rrlw_kg01.mod": "b3ffadb47a94969b1c13d16a10ade38af24889435a9a019c6a443665f6e096e0",
+        "mersennetwister.mod": "c0140fdc06902b8673b35f1f6702ea8455cbf038e792b22316243b2a05a7c9c5",
+        "rrlw_kg10.mod": "0653a29e88e7f75d8e6a79e7dadfa6428b99f5fab0694f79add7e73522c86558",
+        "rrlw_kg07.mod": "48cf0ef8fcf811311e0e00ae783adfc7525350f88da1bd34bc87a0b55ab6db87",
+        "module_ra_rrtmg_lw.mod": "6b9ceba9f03af71e23c822af53c8e8de17b81713a4267a9545b7f217a58c98ce",
+        "rrlw_kg09.mod": "b5065092edd35cfc833d91d2b9fa87d9a74163f1ca37e57cedc188341a8c1c00",
+        "mcica_random_numbers.mod": "f51fd6d809ec4765f467394634b6a61b26f8fc9e8eec2a273292703440664c15",
+        "rrlw_kg16.mod": "a6a2591d85d157c6b577d669f4e4c161c1a5b11c02a4399335b749a3ae94bd5c",
+        "rrlw_tbl.mod": "412cec7ab4f501a8d4c9653130fb63fbb9f75d600038dd4e427b3a653f59e3b4",
+        "rrlw_kg11.mod": "7fbdf628e47dc5d265d84b2f04d4da6d224dde4d31ac9718c2dbb6020051cab2"
+      }
+    }
+  },
+  "outputs": {
+    "O2": {
+      "finite": {
+        "genuine": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O2-finite-genuine/output.raw",
+          "sha256": "bab591517c47e21db8cb833a134d336a15c5abf393f15e0fb9cbb203c42a0812",
+          "bytes": 43056,
+          "cases": 36
+        },
+        "parent": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O2-finite-parent/output.raw",
+          "sha256": "bab591517c47e21db8cb833a134d336a15c5abf393f15e0fb9cbb203c42a0812",
+          "bytes": 43056,
+          "cases": 36
+        },
+        "candidate": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O2-finite-candidate/output.raw",
+          "sha256": "bab591517c47e21db8cb833a134d336a15c5abf393f15e0fb9cbb203c42a0812",
+          "bytes": 43056,
+          "cases": 36
+        }
+      },
+      "safe_source": {
+        "genuine": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O2-safe_source-genuine/output.raw",
+          "sha256": "fc51ab53d40be0b32f0aadf5185b2ff6589c472b34f45aacebd8c9197f91f87b",
+          "bytes": 7176,
+          "cases": 6
+        },
+        "parent": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O2-safe_source-parent/output.raw",
+          "sha256": "fc51ab53d40be0b32f0aadf5185b2ff6589c472b34f45aacebd8c9197f91f87b",
+          "bytes": 7176,
+          "cases": 6
+        },
+        "candidate": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O2-safe_source-candidate/output.raw",
+          "sha256": "fc51ab53d40be0b32f0aadf5185b2ff6589c472b34f45aacebd8c9197f91f87b",
+          "bytes": 7176,
+          "cases": 6
+        }
+      }
+    },
+    "O0": {
+      "finite": {
+        "parent": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O0-finite-parent/output.raw",
+          "sha256": "bab591517c47e21db8cb833a134d336a15c5abf393f15e0fb9cbb203c42a0812",
+          "bytes": 43056,
+          "cases": 36
+        },
+        "candidate": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O0-finite-candidate/output.raw",
+          "sha256": "bab591517c47e21db8cb833a134d336a15c5abf393f15e0fb9cbb203c42a0812",
+          "bytes": 43056,
+          "cases": 36
+        }
+      },
+      "safe_source": {
+        "parent": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O0-safe_source-parent/output.raw",
+          "sha256": "d850b54ac4fdee50e5b9922fcd706a268c399f6c5413a351b2643e4f9bf84473",
+          "bytes": 7176,
+          "cases": 6
+        },
+        "candidate": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/current828-lw-four-flux-scalars-wholemodule-hpc04-r1/work/O0-safe_source-candidate/output.raw",
+          "sha256": "d850b54ac4fdee50e5b9922fcd706a268c399f6c5413a351b2643e4f9bf84473",
+          "bytes": 7176,
+          "cases": 6
+        }
+      }
+    }
+  },
+  "current_parent_reproduction": {
+    "status": "PASS_ALLOCATED_BYTES_RELOCATIONS_NONFILE_SYMBOLS_EXACT",
+    "actual_selected_member_sha256": "79033518aeca1ce4532c4c693ae0fb5495019df34a0f2474321f53325171a74c",
+    "cached_current_parent_sha256": "79033518aeca1ce4532c4c693ae0fb5495019df34a0f2474321f53325171a74c",
+    "proof_sha256": "1fc31ad7f3f6f676e9d7415f8895c025bcf6b4c089818198cedc21f573dd26cf",
+    "fresh_parent_compiles": 0
+  },
+  "raw_other_MOD_byte_differences_NO_blanket_ABI": {
+    "O2": {},
+    "O0": {}
+  },
+  "non_target_functions_full_RELA": {
+    "__mcica_random_numbers_MOD___copy_mcica_random_numbers_Randomnumberstream": true,
+    "__mcica_random_numbers_MOD_getrandomnumber_1d": true,
+    "__mcica_random_numbers_MOD_getrandomnumber_2d": true,
+    "__mcica_random_numbers_MOD_getrandomnumber_scalar": true,
+    "__mcica_random_numbers_MOD_initializerandomnumberstream_s": true,
+    "__mcica_random_numbers_MOD_initializerandomnumberstream_v": true,
+    "__mcica_subcol_gen_lw_MOD_generate_stochastic_clouds": true,
+    "__mcica_subcol_gen_lw_MOD_kissvec": true,
+    "__mcica_subcol_gen_lw_MOD_mcica_subcol_lw": true,
+    "__mersennetwister_MOD___copy_mersennetwister_Randomnumbersequence": true,
+    "__mersennetwister_MOD_finalize_randomnumbersequence": true,
+    "__mersennetwister_MOD_getrandomint": true,
+    "__mersennetwister_MOD_getrandompositiveint": true,
+    "__mersennetwister_MOD_getrandomreal": true,
+    "__mersennetwister_MOD_initialize_scalar": true,
+    "__mersennetwister_MOD_initialize_vector": true,
+    "__module_ra_rrtmg_lw_MOD_inirad": true,
+    "__module_ra_rrtmg_lw_MOD_lw_kgb01": true,
+    "__module_ra_rrtmg_lw_MOD_lw_kgb02": true,
+    "__module_ra_rrtmg_lw_MOD_lw_kgb03": true,
+    "__module_ra_rrtmg_lw_MOD_lw_kgb04": true,
+    "__module_ra_rrtmg_lw_MOD_lw_kgb05": true,
+    "__module_ra_rrtmg_lw_MOD_lw_kgb06": true,
+    "__module_ra_rrtmg_lw_MOD_lw_kgb07": true,
+    "__module_ra_rrtmg_lw_MOD_lw_kgb08": true,
+    "__module_ra_rrtmg_lw_MOD_lw_kgb09": true,
+    "__module_ra_rrtmg_lw_MOD_lw_kgb10": true,
+    "__module_ra_rrtmg_lw_MOD_lw_kgb11": true,
+    "__module_ra_rrtmg_lw_MOD_lw_kgb12": true,
+    "__module_ra_rrtmg_lw_MOD_lw_kgb13": true,
+    "__module_ra_rrtmg_lw_MOD_lw_kgb14": true,
+    "__module_ra_rrtmg_lw_MOD_lw_kgb15": true,
+    "__module_ra_rrtmg_lw_MOD_lw_kgb16": true,
+    "__module_ra_rrtmg_lw_MOD_o3data": true,
+    "__module_ra_rrtmg_lw_MOD_reicalc": true,
+    "__module_ra_rrtmg_lw_MOD_relcalc": true,
+    "__module_ra_rrtmg_lw_MOD_rrtmg_lwinit": false,
+    "__module_ra_rrtmg_lw_MOD_rrtmg_lwlookuptable": false,
+    "__module_ra_rrtmg_lw_MOD_rrtmg_lwrad": false,
+    "__rrtmg_lw_cldprmc_MOD_cldprmc": true,
+    "__rrtmg_lw_init_MOD_cmbgb1": true,
+    "__rrtmg_lw_init_MOD_cmbgb10": true,
+    "__rrtmg_lw_init_MOD_cmbgb11": true,
+    "__rrtmg_lw_init_MOD_cmbgb12": true,
+    "__rrtmg_lw_init_MOD_cmbgb13": true,
+    "__rrtmg_lw_init_MOD_cmbgb14": true,
+    "__rrtmg_lw_init_MOD_cmbgb15": true,
+    "__rrtmg_lw_init_MOD_cmbgb16": true,
+    "__rrtmg_lw_init_MOD_cmbgb2": true,
+    "__rrtmg_lw_init_MOD_cmbgb3": true,
+    "__rrtmg_lw_init_MOD_cmbgb4": true,
+    "__rrtmg_lw_init_MOD_cmbgb5": true,
+    "__rrtmg_lw_init_MOD_cmbgb6": true,
+    "__rrtmg_lw_init_MOD_cmbgb7": true,
+    "__rrtmg_lw_init_MOD_cmbgb8": true,
+    "__rrtmg_lw_init_MOD_cmbgb9": true,
+    "__rrtmg_lw_init_MOD_lwcldpr": true,
+    "__rrtmg_lw_init_MOD_lwcmbdat": true,
+    "__rrtmg_lw_init_MOD_lwdatinit": true,
+    "__rrtmg_lw_init_MOD_rrtmg_lw_ini": false,
+    "__rrtmg_lw_rad_MOD_inatm": true,
+    "__rrtmg_lw_rad_MOD_rrtmg_lw": false,
+    "__rrtmg_lw_setcoef_MOD_lwatmref": true,
+    "__rrtmg_lw_setcoef_MOD_lwavplank": true,
+    "__rrtmg_lw_setcoef_MOD_setcoef": true,
+    "__rrtmg_lw_taumol_MOD_taumol": false,
+    "kissvec_host_seeds.0.constprop.0.isra.0": true,
+    "taugb10.7": true,
+    "taugb11.6": true,
+    "taugb12.5": true,
+    "taugb13.4": true,
+    "taugb14.3": true,
+    "taugb15.2": true,
+    "taugb16.1": true,
+    "taugb4.13": true,
+    "taugb5.12": true,
+    "taugb7.10": true,
+    "taugb8.9": true,
+    "taugb9.8": true
+  },
+  "structural_scope_pending": true,
+  "shared_pools_full_RELA_exact": true,
+  "public_global_ABI": {
+    "status": "PASS_DEFINED_GLOBAL_DATA_ABI_EXACT_LOCAL_INVENTORY_RECORDED",
+    "parent_all_LOCAL_functions": [
+      "kissvec_host_seeds.0.constprop.0.isra.0",
+      "taugb10.7",
+      "taugb11.6",
+      "taugb12.5",
+      "taugb13.4",
+      "taugb14.3",
+      "taugb15.2",
+      "taugb16.1",
+      "taugb4.13",
+      "taugb5.12",
+      "taugb7.10",
+      "taugb8.9",
+      "taugb9.8"
+    ],
+    "candidate_all_LOCAL_functions": [
+      "kissvec_host_seeds.0.constprop.0.isra.0",
+      "taugb10.7",
+      "taugb11.6",
+      "taugb12.5",
+      "taugb13.4",
+      "taugb14.3",
+      "taugb15.2",
+      "taugb16.1",
+      "taugb4.13",
+      "taugb5.12",
+      "taugb7.10",
+      "taugb8.9",
+      "taugb9.8"
+    ],
+    "defined_globals": {
+      "__mcica_random_numbers_MOD___copy_mcica_random_numbers_Randomnumberstream": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__mcica_random_numbers_MOD___def_init_mcica_random_numbers_Randomnumberstream": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 2500
+      },
+      "__mcica_random_numbers_MOD___vtab_mcica_random_numbers_Randomnumberstream": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 56
+      },
+      "__mcica_random_numbers_MOD_getrandomnumber_1d": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__mcica_random_numbers_MOD_getrandomnumber_2d": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__mcica_random_numbers_MOD_getrandomnumber_scalar": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__mcica_random_numbers_MOD_initializerandomnumberstream_s": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__mcica_random_numbers_MOD_initializerandomnumberstream_v": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__mcica_subcol_gen_lw_MOD_generate_stochastic_clouds": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__mcica_subcol_gen_lw_MOD_kissvec": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__mcica_subcol_gen_lw_MOD_mcica_subcol_lw": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__mersennetwister_MOD___copy_mersennetwister_Randomnumbersequence": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__mersennetwister_MOD___def_init_mersennetwister_Randomnumbersequence": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 2500
+      },
+      "__mersennetwister_MOD___vtab_mersennetwister_Randomnumbersequence": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 56
+      },
+      "__mersennetwister_MOD_finalize_randomnumbersequence": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__mersennetwister_MOD_getrandomint": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__mersennetwister_MOD_getrandompositiveint": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__mersennetwister_MOD_getrandomreal": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__mersennetwister_MOD_initialize_scalar": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__mersennetwister_MOD_initialize_vector": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__module_ra_clwrf_support_MOD_read_camgases": {
+        "binding": 1,
+        "type": 0,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__module_ra_rrtmg_lw_MOD_inirad": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__module_ra_rrtmg_lw_MOD_lw_kgb01": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__module_ra_rrtmg_lw_MOD_lw_kgb02": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__module_ra_rrtmg_lw_MOD_lw_kgb03": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__module_ra_rrtmg_lw_MOD_lw_kgb04": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__module_ra_rrtmg_lw_MOD_lw_kgb05": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__module_ra_rrtmg_lw_MOD_lw_kgb06": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__module_ra_rrtmg_lw_MOD_lw_kgb07": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__module_ra_rrtmg_lw_MOD_lw_kgb08": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__module_ra_rrtmg_lw_MOD_lw_kgb09": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__module_ra_rrtmg_lw_MOD_lw_kgb10": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__module_ra_rrtmg_lw_MOD_lw_kgb11": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__module_ra_rrtmg_lw_MOD_lw_kgb12": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__module_ra_rrtmg_lw_MOD_lw_kgb13": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__module_ra_rrtmg_lw_MOD_lw_kgb14": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__module_ra_rrtmg_lw_MOD_lw_kgb15": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__module_ra_rrtmg_lw_MOD_lw_kgb16": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__module_ra_rrtmg_lw_MOD_nlayers": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 4
+      },
+      "__module_ra_rrtmg_lw_MOD_o3data": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__module_ra_rrtmg_lw_MOD_reicalc": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__module_ra_rrtmg_lw_MOD_relcalc": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__module_ra_rrtmg_lw_MOD_retab": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 380
+      },
+      "__module_ra_rrtmg_lw_MOD_rrtmg_lwinit": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__module_ra_rrtmg_lw_MOD_rrtmg_lwlookuptable": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__module_ra_rrtmg_lw_MOD_rrtmg_lwrad": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__rrlw_cld_MOD_abscld1": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 4
+      },
+      "__rrlw_cld_MOD_absice0": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 8
+      },
+      "__rrlw_cld_MOD_absice1": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 40
+      },
+      "__rrlw_cld_MOD_absice2": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 2752
+      },
+      "__rrlw_cld_MOD_absice3": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 2944
+      },
+      "__rrlw_cld_MOD_absliq0": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 4
+      },
+      "__rrlw_cld_MOD_absliq1": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 3712
+      },
+      "__rrlw_con_MOD_alosmt": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 4
+      },
+      "__rrlw_con_MOD_avogad": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 4
+      },
+      "__rrlw_con_MOD_boltz": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 4
+      },
+      "__rrlw_con_MOD_clight": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 4
+      },
+      "__rrlw_con_MOD_fluxfac": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 4
+      },
+      "__rrlw_con_MOD_gascon": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 4
+      },
+      "__rrlw_con_MOD_grav": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 4
+      },
+      "__rrlw_con_MOD_heatfac": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 4
+      },
+      "__rrlw_con_MOD_oneminus": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 4
+      },
+      "__rrlw_con_MOD_pi": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 4
+      },
+      "__rrlw_con_MOD_planck": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 4
+      },
+      "__rrlw_con_MOD_radcn1": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 4
+      },
+      "__rrlw_con_MOD_radcn2": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 4
+      },
+      "__rrlw_con_MOD_sbcnst": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 4
+      },
+      "__rrlw_con_MOD_secdy": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 4
+      },
+      "__rrlw_kg01_MOD_forref": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 160
+      },
+      "__rrlw_kg01_MOD_forrefo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 256
+      },
+      "__rrlw_kg01_MOD_fracrefa": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 40
+      },
+      "__rrlw_kg01_MOD_fracrefao": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 64
+      },
+      "__rrlw_kg01_MOD_fracrefb": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 40
+      },
+      "__rrlw_kg01_MOD_fracrefbo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 64
+      },
+      "__rrlw_kg01_MOD_ka_mn2": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 760
+      },
+      "__rrlw_kg01_MOD_kao": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 4160
+      },
+      "__rrlw_kg01_MOD_kao_mn2": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 1216
+      },
+      "__rrlw_kg01_MOD_kb_mn2": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 760
+      },
+      "__rrlw_kg01_MOD_kbo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 15040
+      },
+      "__rrlw_kg01_MOD_kbo_mn2": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 1216
+      },
+      "__rrlw_kg01_MOD_selfref": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 400
+      },
+      "__rrlw_kg01_MOD_selfrefo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 640
+      },
+      "__rrlw_kg02_MOD_forref": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 192
+      },
+      "__rrlw_kg02_MOD_forrefo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 256
+      },
+      "__rrlw_kg02_MOD_fracrefa": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 48
+      },
+      "__rrlw_kg02_MOD_fracrefao": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 64
+      },
+      "__rrlw_kg02_MOD_fracrefb": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 48
+      },
+      "__rrlw_kg02_MOD_fracrefbo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 64
+      },
+      "__rrlw_kg02_MOD_kao": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 4160
+      },
+      "__rrlw_kg02_MOD_kbo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 15040
+      },
+      "__rrlw_kg02_MOD_refparam": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 52
+      },
+      "__rrlw_kg02_MOD_selfref": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 480
+      },
+      "__rrlw_kg02_MOD_selfrefo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 640
+      },
+      "__rrlw_kg03_MOD_forref": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 256
+      },
+      "__rrlw_kg03_MOD_forrefo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 256
+      },
+      "__rrlw_kg03_MOD_fracrefa": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 576
+      },
+      "__rrlw_kg03_MOD_fracrefao": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 576
+      },
+      "__rrlw_kg03_MOD_fracrefb": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 320
+      },
+      "__rrlw_kg03_MOD_fracrefbo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 320
+      },
+      "__rrlw_kg03_MOD_ka_mn2o": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 10944
+      },
+      "__rrlw_kg03_MOD_kao": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 37440
+      },
+      "__rrlw_kg03_MOD_kao_mn2o": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 10944
+      },
+      "__rrlw_kg03_MOD_kb_mn2o": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 6080
+      },
+      "__rrlw_kg03_MOD_kbo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 75200
+      },
+      "__rrlw_kg03_MOD_kbo_mn2o": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 6080
+      },
+      "__rrlw_kg03_MOD_selfref": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 640
+      },
+      "__rrlw_kg03_MOD_selfrefo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 640
+      },
+      "__rrlw_kg04_MOD_forref": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 224
+      },
+      "__rrlw_kg04_MOD_forrefo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 256
+      },
+      "__rrlw_kg04_MOD_fracrefa": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 504
+      },
+      "__rrlw_kg04_MOD_fracrefao": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 576
+      },
+      "__rrlw_kg04_MOD_fracrefb": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 280
+      },
+      "__rrlw_kg04_MOD_fracrefbo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 320
+      },
+      "__rrlw_kg04_MOD_kao": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 37440
+      },
+      "__rrlw_kg04_MOD_kbo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 75200
+      },
+      "__rrlw_kg04_MOD_selfref": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 560
+      },
+      "__rrlw_kg04_MOD_selfrefo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 640
+      },
+      "__rrlw_kg05_MOD_ccl4": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 64
+      },
+      "__rrlw_kg05_MOD_ccl4o": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 64
+      },
+      "__rrlw_kg05_MOD_forref": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 256
+      },
+      "__rrlw_kg05_MOD_forrefo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 256
+      },
+      "__rrlw_kg05_MOD_fracrefa": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 576
+      },
+      "__rrlw_kg05_MOD_fracrefao": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 576
+      },
+      "__rrlw_kg05_MOD_fracrefb": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 320
+      },
+      "__rrlw_kg05_MOD_fracrefbo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 320
+      },
+      "__rrlw_kg05_MOD_ka_mo3": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 10944
+      },
+      "__rrlw_kg05_MOD_kao": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 37440
+      },
+      "__rrlw_kg05_MOD_kao_mo3": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 10944
+      },
+      "__rrlw_kg05_MOD_kbo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 75200
+      },
+      "__rrlw_kg05_MOD_selfref": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 640
+      },
+      "__rrlw_kg05_MOD_selfrefo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 640
+      },
+      "__rrlw_kg06_MOD_cfc11adj": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 32
+      },
+      "__rrlw_kg06_MOD_cfc11adjo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 64
+      },
+      "__rrlw_kg06_MOD_cfc12": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 32
+      },
+      "__rrlw_kg06_MOD_cfc12o": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 64
+      },
+      "__rrlw_kg06_MOD_forref": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 128
+      },
+      "__rrlw_kg06_MOD_forrefo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 256
+      },
+      "__rrlw_kg06_MOD_fracrefa": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 32
+      },
+      "__rrlw_kg06_MOD_fracrefao": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 64
+      },
+      "__rrlw_kg06_MOD_ka_mco2": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 608
+      },
+      "__rrlw_kg06_MOD_kao": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 4160
+      },
+      "__rrlw_kg06_MOD_kao_mco2": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 1216
+      },
+      "__rrlw_kg06_MOD_selfref": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 320
+      },
+      "__rrlw_kg06_MOD_selfrefo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 640
+      },
+      "__rrlw_kg07_MOD_forref": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 192
+      },
+      "__rrlw_kg07_MOD_forrefo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 256
+      },
+      "__rrlw_kg07_MOD_fracrefa": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 432
+      },
+      "__rrlw_kg07_MOD_fracrefao": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 576
+      },
+      "__rrlw_kg07_MOD_fracrefb": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 48
+      },
+      "__rrlw_kg07_MOD_fracrefbo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 64
+      },
+      "__rrlw_kg07_MOD_ka_mco2": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 8208
+      },
+      "__rrlw_kg07_MOD_kao": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 37440
+      },
+      "__rrlw_kg07_MOD_kao_mco2": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 10944
+      },
+      "__rrlw_kg07_MOD_kb_mco2": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 912
+      },
+      "__rrlw_kg07_MOD_kbo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 15040
+      },
+      "__rrlw_kg07_MOD_kbo_mco2": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 1216
+      },
+      "__rrlw_kg07_MOD_selfref": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 480
+      },
+      "__rrlw_kg07_MOD_selfrefo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 640
+      },
+      "__rrlw_kg08_MOD_cfc12": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 32
+      },
+      "__rrlw_kg08_MOD_cfc12o": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 64
+      },
+      "__rrlw_kg08_MOD_cfc22adj": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 32
+      },
+      "__rrlw_kg08_MOD_cfc22adjo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 64
+      },
+      "__rrlw_kg08_MOD_forref": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 128
+      },
+      "__rrlw_kg08_MOD_forrefo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 256
+      },
+      "__rrlw_kg08_MOD_fracrefa": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 32
+      },
+      "__rrlw_kg08_MOD_fracrefao": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 64
+      },
+      "__rrlw_kg08_MOD_fracrefb": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 32
+      },
+      "__rrlw_kg08_MOD_fracrefbo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 64
+      },
+      "__rrlw_kg08_MOD_ka_mco2": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 608
+      },
+      "__rrlw_kg08_MOD_ka_mn2o": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 608
+      },
+      "__rrlw_kg08_MOD_ka_mo3": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 608
+      },
+      "__rrlw_kg08_MOD_kao": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 4160
+      },
+      "__rrlw_kg08_MOD_kao_mco2": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 1216
+      },
+      "__rrlw_kg08_MOD_kao_mn2o": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 1216
+      },
+      "__rrlw_kg08_MOD_kao_mo3": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 1216
+      },
+      "__rrlw_kg08_MOD_kb_mco2": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 608
+      },
+      "__rrlw_kg08_MOD_kb_mn2o": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 608
+      },
+      "__rrlw_kg08_MOD_kbo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 15040
+      },
+      "__rrlw_kg08_MOD_kbo_mco2": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 1216
+      },
+      "__rrlw_kg08_MOD_kbo_mn2o": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 1216
+      },
+      "__rrlw_kg08_MOD_selfref": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 320
+      },
+      "__rrlw_kg08_MOD_selfrefo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 640
+      },
+      "__rrlw_kg09_MOD_forref": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 192
+      },
+      "__rrlw_kg09_MOD_forrefo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 256
+      },
+      "__rrlw_kg09_MOD_fracrefa": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 432
+      },
+      "__rrlw_kg09_MOD_fracrefao": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 576
+      },
+      "__rrlw_kg09_MOD_fracrefb": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 48
+      },
+      "__rrlw_kg09_MOD_fracrefbo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 64
+      },
+      "__rrlw_kg09_MOD_ka_mn2o": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 8208
+      },
+      "__rrlw_kg09_MOD_kao": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 37440
+      },
+      "__rrlw_kg09_MOD_kao_mn2o": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 10944
+      },
+      "__rrlw_kg09_MOD_kb_mn2o": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 912
+      },
+      "__rrlw_kg09_MOD_kbo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 15040
+      },
+      "__rrlw_kg09_MOD_kbo_mn2o": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 1216
+      },
+      "__rrlw_kg09_MOD_selfref": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 480
+      },
+      "__rrlw_kg09_MOD_selfrefo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 640
+      },
+      "__rrlw_kg10_MOD_forref": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 96
+      },
+      "__rrlw_kg10_MOD_forrefo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 256
+      },
+      "__rrlw_kg10_MOD_fracrefa": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 24
+      },
+      "__rrlw_kg10_MOD_fracrefao": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 64
+      },
+      "__rrlw_kg10_MOD_fracrefb": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 24
+      },
+      "__rrlw_kg10_MOD_fracrefbo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 64
+      },
+      "__rrlw_kg10_MOD_kao": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 4160
+      },
+      "__rrlw_kg10_MOD_kbo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 15040
+      },
+      "__rrlw_kg10_MOD_selfref": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 240
+      },
+      "__rrlw_kg10_MOD_selfrefo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 640
+      },
+      "__rrlw_kg11_MOD_forref": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 128
+      },
+      "__rrlw_kg11_MOD_forrefo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 256
+      },
+      "__rrlw_kg11_MOD_fracrefa": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 32
+      },
+      "__rrlw_kg11_MOD_fracrefao": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 64
+      },
+      "__rrlw_kg11_MOD_fracrefb": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 32
+      },
+      "__rrlw_kg11_MOD_fracrefbo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 64
+      },
+      "__rrlw_kg11_MOD_ka_mo2": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 608
+      },
+      "__rrlw_kg11_MOD_kao": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 4160
+      },
+      "__rrlw_kg11_MOD_kao_mo2": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 1216
+      },
+      "__rrlw_kg11_MOD_kb_mo2": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 608
+      },
+      "__rrlw_kg11_MOD_kbo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 15040
+      },
+      "__rrlw_kg11_MOD_kbo_mo2": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 1216
+      },
+      "__rrlw_kg11_MOD_selfref": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 320
+      },
+      "__rrlw_kg11_MOD_selfrefo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 640
+      },
+      "__rrlw_kg12_MOD_forref": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 128
+      },
+      "__rrlw_kg12_MOD_forrefo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 256
+      },
+      "__rrlw_kg12_MOD_fracrefa": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 288
+      },
+      "__rrlw_kg12_MOD_fracrefao": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 576
+      },
+      "__rrlw_kg12_MOD_kao": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 37440
+      },
+      "__rrlw_kg12_MOD_selfref": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 320
+      },
+      "__rrlw_kg12_MOD_selfrefo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 640
+      },
+      "__rrlw_kg13_MOD_forref": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 64
+      },
+      "__rrlw_kg13_MOD_forrefo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 256
+      },
+      "__rrlw_kg13_MOD_fracrefa": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 144
+      },
+      "__rrlw_kg13_MOD_fracrefao": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 576
+      },
+      "__rrlw_kg13_MOD_fracrefb": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 16
+      },
+      "__rrlw_kg13_MOD_fracrefbo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 64
+      },
+      "__rrlw_kg13_MOD_ka_mco": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 2736
+      },
+      "__rrlw_kg13_MOD_ka_mco2": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 2736
+      },
+      "__rrlw_kg13_MOD_kao": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 37440
+      },
+      "__rrlw_kg13_MOD_kao_mco": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 10944
+      },
+      "__rrlw_kg13_MOD_kao_mco2": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 10944
+      },
+      "__rrlw_kg13_MOD_kb_mo3": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 304
+      },
+      "__rrlw_kg13_MOD_kbo_mo3": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 1216
+      },
+      "__rrlw_kg13_MOD_selfref": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 160
+      },
+      "__rrlw_kg13_MOD_selfrefo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 640
+      },
+      "__rrlw_kg14_MOD_forref": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 32
+      },
+      "__rrlw_kg14_MOD_forrefo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 256
+      },
+      "__rrlw_kg14_MOD_fracrefa": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 8
+      },
+      "__rrlw_kg14_MOD_fracrefao": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 64
+      },
+      "__rrlw_kg14_MOD_fracrefb": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 8
+      },
+      "__rrlw_kg14_MOD_fracrefbo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 64
+      },
+      "__rrlw_kg14_MOD_kao": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 4160
+      },
+      "__rrlw_kg14_MOD_kbo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 15040
+      },
+      "__rrlw_kg14_MOD_selfref": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 80
+      },
+      "__rrlw_kg14_MOD_selfrefo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 640
+      },
+      "__rrlw_kg15_MOD_forref": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 32
+      },
+      "__rrlw_kg15_MOD_forrefo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 256
+      },
+      "__rrlw_kg15_MOD_fracrefa": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 72
+      },
+      "__rrlw_kg15_MOD_fracrefao": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 576
+      },
+      "__rrlw_kg15_MOD_ka_mn2": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 1368
+      },
+      "__rrlw_kg15_MOD_kao": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 37440
+      },
+      "__rrlw_kg15_MOD_kao_mn2": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 10944
+      },
+      "__rrlw_kg15_MOD_selfref": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 80
+      },
+      "__rrlw_kg15_MOD_selfrefo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 640
+      },
+      "__rrlw_kg16_MOD_forref": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 32
+      },
+      "__rrlw_kg16_MOD_forrefo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 256
+      },
+      "__rrlw_kg16_MOD_fracrefa": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 72
+      },
+      "__rrlw_kg16_MOD_fracrefao": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 576
+      },
+      "__rrlw_kg16_MOD_fracrefb": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 8
+      },
+      "__rrlw_kg16_MOD_fracrefbo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 64
+      },
+      "__rrlw_kg16_MOD_kao": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 37440
+      },
+      "__rrlw_kg16_MOD_kbo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 15040
+      },
+      "__rrlw_kg16_MOD_selfref": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 80
+      },
+      "__rrlw_kg16_MOD_selfrefo": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 640
+      },
+      "__rrlw_ref_MOD_chi_mls": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 1652
+      },
+      "__rrlw_ref_MOD_pref": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 236
+      },
+      "__rrlw_ref_MOD_preflog": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 236
+      },
+      "__rrlw_ref_MOD_tref": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 236
+      },
+      "__rrlw_tbl_MOD_bpade": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 4
+      },
+      "__rrlw_tbl_MOD_exp_tbl": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 40004
+      },
+      "__rrlw_tbl_MOD_tau_tbl": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 40004
+      },
+      "__rrlw_tbl_MOD_tfn_tbl": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 40004
+      },
+      "__rrlw_vsn_MOD_hnamatm": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 20
+      },
+      "__rrlw_vsn_MOD_hnamclc": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 20
+      },
+      "__rrlw_vsn_MOD_hnamcld": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 20
+      },
+      "__rrlw_vsn_MOD_hnamext": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 20
+      },
+      "__rrlw_vsn_MOD_hnamini": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 20
+      },
+      "__rrlw_vsn_MOD_hnamkg": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 20
+      },
+      "__rrlw_vsn_MOD_hnamrtc": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 20
+      },
+      "__rrlw_vsn_MOD_hnamrtm": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 20
+      },
+      "__rrlw_vsn_MOD_hnamrtr": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 20
+      },
+      "__rrlw_vsn_MOD_hnamrtx": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 20
+      },
+      "__rrlw_vsn_MOD_hnamset": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 20
+      },
+      "__rrlw_vsn_MOD_hnamtau": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 20
+      },
+      "__rrlw_vsn_MOD_hnamutl": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 20
+      },
+      "__rrlw_vsn_MOD_hvratm": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 18
+      },
+      "__rrlw_vsn_MOD_hvrclc": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 18
+      },
+      "__rrlw_vsn_MOD_hvrcld": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 18
+      },
+      "__rrlw_vsn_MOD_hvrext": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 18
+      },
+      "__rrlw_vsn_MOD_hvrini": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 18
+      },
+      "__rrlw_vsn_MOD_hvrkg": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 18
+      },
+      "__rrlw_vsn_MOD_hvrrtc": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 18
+      },
+      "__rrlw_vsn_MOD_hvrrtm": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 18
+      },
+      "__rrlw_vsn_MOD_hvrrtr": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 18
+      },
+      "__rrlw_vsn_MOD_hvrrtx": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 18
+      },
+      "__rrlw_vsn_MOD_hvrset": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 18
+      },
+      "__rrlw_vsn_MOD_hvrtau": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 18
+      },
+      "__rrlw_vsn_MOD_hvrutl": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 18
+      },
+      "__rrlw_wvn_MOD_delwave": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 64
+      },
+      "__rrlw_wvn_MOD_ixindx": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 152
+      },
+      "__rrlw_wvn_MOD_ng": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 64
+      },
+      "__rrlw_wvn_MOD_ngb": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 560
+      },
+      "__rrlw_wvn_MOD_ngc": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 64
+      },
+      "__rrlw_wvn_MOD_ngm": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 1024
+      },
+      "__rrlw_wvn_MOD_ngn": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 560
+      },
+      "__rrlw_wvn_MOD_ngs": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 64
+      },
+      "__rrlw_wvn_MOD_nspa": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 64
+      },
+      "__rrlw_wvn_MOD_nspb": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 64
+      },
+      "__rrlw_wvn_MOD_nxmol": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 4
+      },
+      "__rrlw_wvn_MOD_rwgt": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 1024
+      },
+      "__rrlw_wvn_MOD_totplk16": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 724
+      },
+      "__rrlw_wvn_MOD_totplnk": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 11584
+      },
+      "__rrlw_wvn_MOD_wavenum1": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 64
+      },
+      "__rrlw_wvn_MOD_wavenum2": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 64
+      },
+      "__rrlw_wvn_MOD_wt": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 64
+      },
+      "__rrtmg_lw_cldprmc_MOD_cldprmc": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__rrtmg_lw_init_MOD_cmbgb1": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__rrtmg_lw_init_MOD_cmbgb10": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__rrtmg_lw_init_MOD_cmbgb11": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__rrtmg_lw_init_MOD_cmbgb12": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__rrtmg_lw_init_MOD_cmbgb13": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__rrtmg_lw_init_MOD_cmbgb14": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__rrtmg_lw_init_MOD_cmbgb15": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__rrtmg_lw_init_MOD_cmbgb16": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__rrtmg_lw_init_MOD_cmbgb2": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__rrtmg_lw_init_MOD_cmbgb3": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__rrtmg_lw_init_MOD_cmbgb4": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__rrtmg_lw_init_MOD_cmbgb5": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__rrtmg_lw_init_MOD_cmbgb6": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__rrtmg_lw_init_MOD_cmbgb7": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__rrtmg_lw_init_MOD_cmbgb8": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__rrtmg_lw_init_MOD_cmbgb9": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__rrtmg_lw_init_MOD_lwcldpr": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__rrtmg_lw_init_MOD_lwcmbdat": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__rrtmg_lw_init_MOD_lwdatinit": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__rrtmg_lw_init_MOD_nlayers": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 4
+      },
+      "__rrtmg_lw_init_MOD_rrtmg_lw_ini": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__rrtmg_lw_rad_MOD_inatm": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__rrtmg_lw_rad_MOD_rrtmg_lw": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__rrtmg_lw_rtrnmc_MOD_a0": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 64
+      },
+      "__rrtmg_lw_rtrnmc_MOD_a1": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 64
+      },
+      "__rrtmg_lw_rtrnmc_MOD_a2": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 64
+      },
+      "__rrtmg_lw_rtrnmc_MOD_rec_6": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 4
+      },
+      "__rrtmg_lw_rtrnmc_MOD_rtrnmc": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__rrtmg_lw_rtrnmc_MOD_wtdiff": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 4
+      },
+      "__rrtmg_lw_setcoef_MOD_lwatmref": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__rrtmg_lw_setcoef_MOD_lwavplank": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__rrtmg_lw_setcoef_MOD_setcoef": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "__rrtmg_lw_taumol_MOD_taumol": {
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "data_size": null
+      },
+      "_gfortran_spread": {
+        "binding": 1,
+        "type": 0,
+        "visibility": 0,
+        "data_size": null
+      },
+      "_gfortran_st_close": {
+        "binding": 1,
+        "type": 0,
+        "visibility": 0,
+        "data_size": null
+      },
+      "_gfortran_st_inquire": {
+        "binding": 1,
+        "type": 0,
+        "visibility": 0,
+        "data_size": null
+      },
+      "_gfortran_st_open": {
+        "binding": 1,
+        "type": 0,
+        "visibility": 0,
+        "data_size": null
+      },
+      "_gfortran_st_read": {
+        "binding": 1,
+        "type": 0,
+        "visibility": 0,
+        "data_size": null
+      },
+      "_gfortran_st_read_done": {
+        "binding": 1,
+        "type": 0,
+        "visibility": 0,
+        "data_size": null
+      },
+      "_gfortran_st_write": {
+        "binding": 1,
+        "type": 0,
+        "visibility": 0,
+        "data_size": null
+      },
+      "_gfortran_st_write_done": {
+        "binding": 1,
+        "type": 0,
+        "visibility": 0,
+        "data_size": null
+      },
+      "_gfortran_stop_string": {
+        "binding": 1,
+        "type": 0,
+        "visibility": 0,
+        "data_size": null
+      },
+      "_gfortran_transfer_array": {
+        "binding": 1,
+        "type": 0,
+        "visibility": 0,
+        "data_size": null
+      },
+      "_gfortran_transfer_character_write": {
+        "binding": 1,
+        "type": 0,
+        "visibility": 0,
+        "data_size": null
+      },
+      "_gfortran_transfer_integer_write": {
+        "binding": 1,
+        "type": 0,
+        "visibility": 0,
+        "data_size": null
+      },
+      "_gfortran_transfer_real_write": {
+        "binding": 1,
+        "type": 0,
+        "visibility": 0,
+        "data_size": null
+      },
+      "expf": {
+        "binding": 1,
+        "type": 0,
+        "visibility": 0,
+        "data_size": null
+      },
+      "free": {
+        "binding": 1,
+        "type": 0,
+        "visibility": 0,
+        "data_size": null
+      },
+      "logf": {
+        "binding": 1,
+        "type": 0,
+        "visibility": 0,
+        "data_size": null
+      },
+      "lroundf": {
+        "binding": 1,
+        "type": 0,
+        "visibility": 0,
+        "data_size": null
+      },
+      "malloc": {
+        "binding": 1,
+        "type": 0,
+        "visibility": 0,
+        "data_size": null
+      },
+      "memcpy": {
+        "binding": 1,
+        "type": 0,
+        "visibility": 0,
+        "data_size": null
+      },
+      "memset": {
+        "binding": 1,
+        "type": 0,
+        "visibility": 0,
+        "data_size": null
+      },
+      "powf": {
+        "binding": 1,
+        "type": 0,
+        "visibility": 0,
+        "data_size": null
+      },
+      "rrlw_kg01.eq.0_": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 9400
+      },
+      "rrlw_kg01.eq.1_": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 2600
+      },
+      "rrlw_kg02.eq.0_": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 11280
+      },
+      "rrlw_kg02.eq.1_": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 3120
+      },
+      "rrlw_kg03.eq.0_": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 75200
+      },
+      "rrlw_kg03.eq.1_": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 37440
+      },
+      "rrlw_kg04.eq.0_": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 65800
+      },
+      "rrlw_kg04.eq.1_": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 32760
+      },
+      "rrlw_kg05.eq.0_": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 75200
+      },
+      "rrlw_kg05.eq.1_": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 37440
+      },
+      "rrlw_kg06.eq.0_": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 2080
+      },
+      "rrlw_kg07.eq.0_": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 11280
+      },
+      "rrlw_kg07.eq.1_": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 28080
+      },
+      "rrlw_kg08.eq.0_": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 7520
+      },
+      "rrlw_kg08.eq.1_": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 2080
+      },
+      "rrlw_kg09.eq.0_": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 11280
+      },
+      "rrlw_kg09.eq.1_": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 28080
+      },
+      "rrlw_kg10.eq.0_": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 5640
+      },
+      "rrlw_kg10.eq.1_": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 1560
+      },
+      "rrlw_kg11.eq.0_": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 7520
+      },
+      "rrlw_kg11.eq.1_": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 2080
+      },
+      "rrlw_kg12.eq.0_": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 18720
+      },
+      "rrlw_kg13.eq.0_": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 9360
+      },
+      "rrlw_kg14.eq.0_": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 1880
+      },
+      "rrlw_kg14.eq.1_": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 520
+      },
+      "rrlw_kg15.eq.0_": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 4680
+      },
+      "rrlw_kg16.eq.0_": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 1880
+      },
+      "rrlw_kg16.eq.1_": {
+        "binding": 1,
+        "type": 1,
+        "visibility": 0,
+        "data_size": 4680
+      },
+      "wrf_debug_": {
+        "binding": 1,
+        "type": 0,
+        "visibility": 0,
+        "data_size": null
+      },
+      "wrf_dm_bcast_bytes_": {
+        "binding": 1,
+        "type": 0,
+        "visibility": 0,
+        "data_size": null
+      },
+      "wrf_dm_on_monitor_": {
+        "binding": 1,
+        "type": 0,
+        "visibility": 0,
+        "data_size": null
+      },
+      "wrf_error_fatal3_": {
+        "binding": 1,
+        "type": 0,
+        "visibility": 0,
+        "data_size": null
+      }
+    },
+    "candidate_added_LOCAL_functions": [],
+    "candidate_removed_LOCAL_functions": [],
+    "function_code_sizes_compared": false,
+    "MOD_bytes_normalized": false
+  },
+  "source_compiles": 2,
+  "cached_current_parent_compiles": 0,
+  "candidate_native_qualified": false,
+  "candidate_timing_qualified": false,
+  "candidate_application_qualified": false,
+  "source_commit": null,
+  "raw_producer_source_commit": null,
+  "scope": "Original36finite+6safesourceIEEE fixturebytesunchanged;O2genuine/P/C+O0currentP/C allraw/state/readonly/padding. Noaddedzero-layercaller/domainclaim. Targetonlysource; generatednontargetchangesexplicitpending ifany; no wholewrapper/applicationclaim.",
+  "elapsed_context_only_seconds": 27.24566733800748,
+  "cpu.stat": "usage_usec 23054321\nuser_usec 18632561\nsystem_usec 4421760\ncore_sched.force_idle_usec 0\nnr_periods 273\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+  "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+  "memory.peak": "485933056\n"
+}

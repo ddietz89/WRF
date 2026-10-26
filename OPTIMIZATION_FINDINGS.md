@@ -5454,3 +5454,31 @@ The guarded C helper reduced the mixed-active extracted kernel by 73.36% and 73.
 Its own three-hour SAME512 test passed all four complete products and 545 ordered timesteps, with all model/reader jobs closed. Wall time was 625.072 seconds, main-step elapsed 541.574 seconds and aggregate CPU 84.4323 CPU-hours. Against the preselected original median of three distinct controls, descriptive unpaired reductions were 21.8683%, 9.2006% and 15.4097%. Selected parent 828 previously took 624.405 seconds, 540.431 seconds and 84.2116 CPU-hours: effectively neutral single observations, without an isolated incremental gain or regression claim. Main-step elapsed includes communication and waiting.
 
 Retain the significant mixed-kernel gain, native tests, exact experimental build and application evidence. No further fixed-variant matrix is planned. Canonical source, defaults and selected 828 remain unchanged. [Evidence, decision and rollback](tools/cpu-compute/pd-masked-scale8-investigation-20261026/README.md).
+
+
+### W thermal-product carry: native exact, complete caller slower
+
+The adjacent-K carry of `(c2a*alt)*T_2AVE` is closed unpromoted. Both R1/R2 passed 424 complete W cases at O2/O0 plus the genuine 40-role replay, with raw physical, read-only and five-state equality. R1 scalarized the interior loop and its 512-call complete caller was 29.5595%/31.9068% slower on hpc03/04. The single R2 repair restored YMM8/XMM4 and removed repeated prior-product math, but the complete caller remained 0.5359%/1.3869% slower; CPU increased 0.5364%/1.3873%. Each four-arm wave had checked cache clears before every arm, identical full raw/state outputs and normal closures. Mandatory restores and allocation costs were included. No separate positive kernel/capacity gain was demonstrated; no application/default change, further arms or variant follows. O2 non-target code/RELA/pools were exact; O0 RELA/`.rodata` false scopes remain explicit. [Decision and evidence](tools/cpu-compute/w-thermal-product-carry-unpromoted-20261026/DECISION.json).
+
+
+### LW flux scalars + Couple U prefix — current own three-hour science
+
+LW flux temporaries + Couple U full4prefix: own unprofiled SAME512 three-hour qualification
+
+| Metric | Latest 3 original median | Child | Descriptive reduction |
+|---|---:|---:|---:|
+| Wall minutes | 13.33374 | 10.42412 | 21.8215% |
+| Main-step minutes | 9.94084 | 9.03440 | 9.1183% |
+| Aggregate core-hours | 99.81315 | 84.48677 | 15.3551% |
+
+Original controls (n3 distinct):
+
+- production512-current0b40-fourhost-threehour-pair2-r1-control, INV2eeee20b4cf0457cb582710bce30dc0b: wall800.214591s/main596.450450s/CPU359516.463363s
+- production512-current0b40-fourhost-threehour-pair1-r1-control, INV81febf86a6734f4fa77d57fd1b467c30: wall798.619809s/main595.327090s/CPU358644.885565s
+- production512-current5c75-fourhost-threehour-pair1-r1-control, INVc9768c1474f648329ff3e41b664aac99: wall800.024121s/main596.593540s/CPU359327.346984s
+
+Ranges(seconds): {"wall_seconds": [798.6198086068034, 800.2145909662358], "main_step_sum_seconds": [595.32709, 596.59354], "cpu_seconds": [358644.885565, 359516.46336299996]}
+
+Own unprofiled SAME512 three-hour545/fourFULL only. Candidate-only exactscience versus retained original546b A2; DESCRIPTIVE UNPAIRED timing versus median latest3 distinct original3h controls, hardwareepoch unresolved. No fresh matched, isolated/additive, statistical, repeatability or global causal claim. No childnoon/9h/profile/restart/144/384/256 inheritance. Selected828 priorfixes/RSL18deps/outputdb0d/input06/NG9371 unchanged; ONLY LW1009632/PPf7af and Coupleaf992/PPb4bb replaced2of584 members. O2scoped non-target classifications and originalMOD/targetsameoptO2O0 rawfive retained; O0non-target remains unclassified. Real post-test four-source targetstatement correspondence plus exactPP/cachedOO delivery, rawproducerNULL/no cleanF-only fullbuildcertificate. Wthermal and heldPD2b4e are excluded.
+
+Complete caller observations (not additive or forecast gains): LW20k mixed33layer calls, wall0.826952/0.876458percent and threadCPU0.837976/0.884288percent lower. Couple4096 completecalls, wall20.647719/22.004870percent and threadCPU20.707767/22.004957percent lower. Allsamecount raw/five/cache/normalclosures passed. ONLY LW+Couple2members changed over selected828; Wthermal/heldPD excluded. Rollback eitherknob0+regenerate/rebuild/relink or qualified828/5771. Ownnoon/9h/profile/restartFALSE.
