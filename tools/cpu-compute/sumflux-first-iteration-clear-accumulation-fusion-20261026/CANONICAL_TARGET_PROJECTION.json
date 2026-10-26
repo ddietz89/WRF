@@ -1,0 +1,68 @@
+{
+  "scope": "Local target-only CPP statement projection; no clean F/module build certificate.",
+  "cases": [
+    {
+      "case": "eligibleON",
+      "defines": [
+        "DM_PARALLEL",
+        "WRF_SUMFLUX_FIRST_INIT_FUSION_ENABLE"
+      ],
+      "target_active_statement_exact": true,
+      "expected_PP": "f5b90397"
+    },
+    {
+      "case": "knobOFF",
+      "defines": [
+        "DM_PARALLEL",
+        "WRF_SUMFLUX_FIRST_INIT_FUSION_DISABLE"
+      ],
+      "target_active_statement_exact": true,
+      "expected_PP": "3327d735"
+    },
+    {
+      "case": "disableWins",
+      "defines": [
+        "DM_PARALLEL",
+        "WRF_SUMFLUX_FIRST_INIT_FUSION_ENABLE",
+        "WRF_SUMFLUX_FIRST_INIT_FUSION_DISABLE"
+      ],
+      "target_active_statement_exact": true,
+      "expected_PP": "3327d735"
+    },
+    {
+      "case": "noEnable",
+      "defines": [
+        "DM_PARALLEL"
+      ],
+      "target_active_statement_exact": true,
+      "expected_PP": "3327d735"
+    },
+    {
+      "case": "OpenMPfallback",
+      "defines": [
+        "DM_PARALLEL",
+        "WRF_SUMFLUX_FIRST_INIT_FUSION_ENABLE",
+        "_OPENMP"
+      ],
+      "target_active_statement_exact": true,
+      "expected_PP": "3327d735"
+    },
+    {
+      "case": "serialFallback",
+      "defines": [
+        "WRF_SUMFLUX_FIRST_INIT_FUSION_ENABLE"
+      ],
+      "target_active_statement_exact": true,
+      "expected_PP": "3327d735"
+    }
+  ],
+  "qualified_candidate_PP_sha256": "f5b90397a09a53a822e3a989c2fe6a65e89fa2ee65bf508de135405bac159432",
+  "current_parent_PP_sha256": "3327d7358eca48e44238a0e24bd1a2ebad38a1738aacd4a023294d067e4a902e",
+  "tested_O2_object_sha256": "358b233bb292840b5cbb1dfc512f8740dd5b5a73da67a293081a88e49ec19c7d",
+  "default_knob": 1,
+  "own_application_qualified": false,
+  "current_selected_parent": "41f2/479b; SmallStep1510 unchanged from828; source3645b18f",
+  "raw_producer_source_commit": null,
+  "post_test_source_commit": null,
+  "apply_requires_actual_own_noon_science": true
+}

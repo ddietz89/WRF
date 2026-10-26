@@ -1,0 +1,48 @@
+{
+  "status": "SCOPED_ACTUAL_O2_SUMFLUX_FIRST_INIT_CLEAR_CONSUMER_ADMITTED_TO_COMPLETE_CALLER",
+  "eligible_for_complete_sumflux_caller": true,
+  "native_receipt_sha256": "815f10a40aa87fc17ee0d4c3842ac0757b058dd9dcf72a2ea6e05c08ab6ed739",
+  "candidate_O2_object_sha256": "358b233bb292840b5cbb1dfc512f8740dd5b5a73da67a293081a88e49ec19c7d",
+  "actual_native_released_source_pins_sha256": "311ca917700e9a72da21f6c3b69287df5722789c2aab9f512cce4bdd289345c1",
+  "qualified_PP_sha256": "f5b90397a09a53a822e3a989c2fe6a65e89fa2ee65bf508de135405bac159432",
+  "actual_machine_log_readback": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current828-sumflux-first-iteration-clear-consumer-source-question-r1/actual-O2-machine-review-r1/ACTUAL.json",
+    "sha256": "2a0e0388e7861320fb534afb238da2a61a42aaebad0f689185f5b52fabe0b11d",
+    "logs": {
+      "parent": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current828-sumflux-first-clear-consumer-full31x4-native-hpc02-r1/O2-parent-sumflux-asm.log",
+        "sha256": "3a75f9b6d43450522cf6169b2afe90608ee8c73fc3736c9f3de629f61a7b5e22",
+        "bytes": 86220
+      },
+      "candidate": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current828-sumflux-first-clear-consumer-full31x4-native-hpc02-r1/O2-candidate-sumflux-asm.log",
+        "sha256": "16ea311112b6501168596980d2540154f9159796f283c7fc3ccb940c101b1005",
+        "bytes": 104215
+      }
+    }
+  },
+  "numerical_scope": "Original23 full procedure cases plus8 first-init signedzero/subnormal/twoNaNswaps/sNaN/ignored-componentcorner/emptyIJK controls.124 records eachO2/O0/fourbase roundmodes; fullraw/read-only/physicalguard/five-state exact; genuine23 prefix exact. Successful masked controls only, no universal unmasked trap chronology claim.",
+  "actual_O2_machine": {
+    "parent": "Initialization sourcePP1621/22/23 has RU/RV/WW memset callsb81/b8e/b9b, then distinct scalar3stream accumulation280..2b3 and staggered passes.",
+    "candidate_guard": "Iteration1 compare1a6\u2192d12; numsteps1 checkd12/d17 routesoriginalfallback. Interiorbounds checks routefastinit1078..126f only on supported nonempty rectangles; sourceinverse/124native observations substantiate bounds.",
+    "fast_path": "10b9 VXORPS defines +0 in xmm1. RU11e9 VADDSS incoming memory,+0 \u219211ef single outputstore; RV11f9\u219211ff; WW1204\u219211d6. No old accumulator loads/intermediate zero stores on active component cells.",
+    "inactive_component": "RU11a5 immediatezero; RV1210 immediatezero; WW1217 immediatezero or11d2 zero\u219211d6. Conditionalbranches precede incomingVADDSS, preserving no extra FP reads for zero-only faces/corners in actual covered cases.",
+    "fast_exit": "126f jumps9b6, skipping original interior/fringe accumulation alreadyperformed.",
+    "fallback": "Three memsets remain at e31/e3e/e4b for first+final/unusual/empty original path. Otheriteration/finalnorm continues through original scalar arithmetic; actualsameopt raw5 gate is authority, not claimed whole-target instructionidentity.",
+    "cost_risk": "Fast initialization remains scalar with several component predicates; branch/call/cache effects are not measured yet. Static3memsetcount remains3 due fallback. No speed or globalmemory claim."
+  },
+  "production_O2_containment": {
+    "all8_nontarget_size_raw_full_RELA_exact": true,
+    "all_allocated_pool_bytes_attrs_and_RELA_exact": true,
+    "public_MOD_exact": true,
+    "functionset_exact": true,
+    "target_sizes": [
+      4377,
+      4952
+    ],
+    "whole_module_raw_identity": false
+  },
+  "O0_scope": "124target observations and MOD exact; non-target/pool rawfalse retained UNCLASSIFIED. No O0 wholemodule containment or defaultcertificate.",
+  "performance_qualified": false,
+  "application_qualified": false
+}
