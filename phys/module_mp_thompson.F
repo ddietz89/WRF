@@ -69,6 +69,7 @@
 
       INTEGER, PARAMETER, PRIVATE:: IFDRY = 0
       REAL, PARAMETER, PRIVATE:: T_0 = 273.15
+      PRIVATE :: rslf_pfxTT
       REAL, PARAMETER, PRIVATE:: PI = 3.1415926536
 
 !..Densities of rain, snow, graupel, and cloud ice.
@@ -3027,6 +3028,9 @@
       INTEGER, DIMENSION(kts:kte):: idx_bg
 
       LOGICAL:: melti, no_micro
+      LOGICAL:: rslf_pfx_ready
+      REAL:: rslf_pfx_val, rslf_esl_k, rslf_val_k
+      REAL, VOLATILE:: t_pfx_operand
       LOGICAL, DIMENSION(kts:kte):: L_qc, L_qi, L_qr, L_qs, L_qg
       LOGICAL:: debug_flag
       CHARACTER*256:: mp_debug
@@ -3046,6 +3050,7 @@
       odt = 1./dt
       odts = 1./dtsave
       iexfrq = 1
+      rslf_pfx_ready = .false.
 
 !+---+-----------------------------------------------------------------+
 !.. Source/sink terms.  First 2 chars: "pr" represents source/sink of
@@ -3299,7 +3304,14 @@
          rhof(k) = SQRT(RHO_NOT/rho(k))
          rhof2(k) = SQRT(rhof(k))
          qvs(k) = rslf(pres(k), temp(k))
-         delQvs(k) = MAX(0.0, rslf(pres(k), 273.15)-qv(k))
+         if (.not. rslf_pfx_ready) then
+            t_pfx_operand = 273.15
+            rslf_pfx_val = rslf_pfxTT(t_pfx_operand)
+            rslf_pfx_ready = .true.
+         endif
+         rslf_esl_k = MIN(rslf_pfx_val, pres(k)*0.15)
+         rslf_val_k = .622*rslf_esl_k/(pres(k)-rslf_esl_k)
+         delQvs(k) = MAX(0.0, rslf_val_k-qv(k))
          if (tempc .le. 0.0) then
           qvsi(k) = rsif(pres(k), temp(k))
          else
@@ -7188,6 +7200,26 @@
 ! THIS FUNCTION CALCULATES THE LIQUID SATURATION VAPOR MIXING RATIO AS
 ! A FUNCTION OF TEMPERATURE AND PRESSURE
 !
+      REAL FUNCTION rslf_pfxTT(T)
+      IMPLICIT NONE
+      REAL, INTENT(IN):: T
+      REAL:: X, ESL
+      REAL, PARAMETER:: C0= .611583699E03
+      REAL, PARAMETER:: C1= .444606896E02
+      REAL, PARAMETER:: C2= .143177157E01
+      REAL, PARAMETER:: C3= .264224321E-1
+      REAL, PARAMETER:: C4= .299291081E-3
+      REAL, PARAMETER:: C5= .203154182E-5
+      REAL, PARAMETER:: C6= .702620698E-8
+      REAL, PARAMETER:: C7= .379534310E-11
+      REAL, PARAMETER:: C8=-.321582393E-13
+
+      X=MAX(-80.,T-273.16)
+      ESL=C0+X*(C1+X*(C2+X*(C3+X*(C4+X*(C5+X*(C6+X*(C7+X*C8)))))))
+      rslf_pfxTT=ESL
+
+      END FUNCTION rslf_pfxTT
+
       REAL FUNCTION RSLF(P,T)
 
       IMPLICIT NONE
