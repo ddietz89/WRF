@@ -2752,6 +2752,7 @@ SUBROUTINE pg_buoy_w( rw_tend, p, cqw, muf, mubf,     &
 
    INTEGER :: itf, jtf, i, j, k
    REAL    :: cq1, cq2
+   REAL, DIMENSION(its:MIN(ite,ide-1)) :: rmsfty_row
 
 
 !<DESCRIPTION>
@@ -2782,7 +2783,8 @@ SUBROUTINE pg_buoy_w( rw_tend, p, cqw, muf, mubf,     &
      DO i=its,itf
        cq1 = 1./(1.+cqw(i,k-1,j))
        cq2 = cqw(i,k-1,j)*cq1
-       rw_tend(i,k,j) = rw_tend(i,k,j)+(1./msfty(i,j))*g*(      &
+       rmsfty_row(i) = 1./msfty(i,j)
+       rw_tend(i,k,j) = rw_tend(i,k,j)+rmsfty_row(i)*g*(      &
                         cq1*2.*rdnw(k-1)*(  -p(i,k-1,j))  &
                         -(c1f(k)*muf(i,j))-cq2*(c1f(k)*mubf(i,j)+c2f(k))            )
      END DO
@@ -2792,7 +2794,7 @@ SUBROUTINE pg_buoy_w( rw_tend, p, cqw, muf, mubf,     &
       cq1 = 1./(1.+cqw(i,k,j))
       cq2 = cqw(i,k,j)*cq1
       cqw(i,k,j) = cq1
-      rw_tend(i,k,j) = rw_tend(i,k,j)+(1./msfty(i,j))*g*(      &
+      rw_tend(i,k,j) = rw_tend(i,k,j)+rmsfty_row(i)*g*(      &
                        cq1*rdn(k)*(p(i,k,j)-p(i,k-1,j))  &
                        -(c1f(k)*muf(i,j))-cq2*(c1f(k)*mubf(i,j)+c2f(k))            )
      END DO
