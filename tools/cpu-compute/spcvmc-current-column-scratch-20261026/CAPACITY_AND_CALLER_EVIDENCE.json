@@ -1,0 +1,84 @@
+{
+  "scope": "Native and caller evidence only; actual application qualification is in separate own3h/daylight Q files.",
+  "source_commit": "d50193a573e13644f7dd24e05445db7fa0adefab",
+  "raw_producer_source_commit": null,
+  "native": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current3f86-spcvmc-single-column-scratch-source-question-r1/native-gate-preparation-r1-hpc04/actual-native-r1/receipt.json",
+    "sha256": "d64acfc2efaa2e87d0c3236f8d37f966b8e36842d7f44e8e970ef77f86ed945e"
+  },
+  "native_closure": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current3f86-spcvmc-single-column-scratch-source-question-r1/native-gate-preparation-r1-hpc04/actual-native-r1/closure.json",
+    "sha256": "c0e7347fac3858de2b891ba02732231b14d13de96937e7c8158ede436425f866"
+  },
+  "machine": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current3f86-spcvmc-single-column-scratch-source-question-r1/actual-O2-machine-classification-r1/CLASSIFICATION.json",
+    "sha256": "74adb2459ffb6f9f324d1350e876eb86ee9e02f5eba127f2848767c9679105d2"
+  },
+  "caller_waves": [
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current3f86-spcvmc-single-column-scratch-source-question-r1/complete-spc-caller-cost-preparation-r1/ACTUAL_WAVE.json",
+      "sha256": "77b0b60f6297b0fcc7ab14debf69864f6818bb1b41eff8e09c36c5a3e0bda390"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current3f86-spcvmc-single-column-scratch-source-question-r1/complete-spc-caller-cost-preparation-r2-reversed/ACTUAL_WAVE.json",
+      "sha256": "7db33471a55c61577fc76646a373eeea4a8c35af6c6ea38adc679a50a5ae3421"
+    }
+  ],
+  "individual_caller_results": [
+    {
+      "wave": "first",
+      "host": "hpc01",
+      "parent_wall_seconds": 1.505606178,
+      "candidate_wall_seconds": 1.464768269,
+      "wall_reduction_percent": 2.7123898398350055,
+      "parent_thread_cpu_seconds": 1.505259809,
+      "candidate_thread_cpu_seconds": 1.463860382,
+      "thread_cpu_reduction_percent": 2.750317702795979
+    },
+    {
+      "wave": "first",
+      "host": "hpc02",
+      "parent_wall_seconds": 1.471201084,
+      "candidate_wall_seconds": 1.475146577,
+      "wall_reduction_percent": -0.26818176270457794,
+      "parent_thread_cpu_seconds": 1.462309193,
+      "candidate_thread_cpu_seconds": 1.465055472,
+      "thread_cpu_reduction_percent": -0.18780426281570506
+    },
+    {
+      "wave": "reversed-start repeat",
+      "host": "hpc01",
+      "parent_wall_seconds": 1.473879523,
+      "candidate_wall_seconds": 1.465184239,
+      "wall_reduction_percent": 0.5899589392694082,
+      "parent_thread_cpu_seconds": 1.46458654,
+      "candidate_thread_cpu_seconds": 1.46393769,
+      "thread_cpu_reduction_percent": 0.0443026057033058
+    },
+    {
+      "wave": "reversed-start repeat",
+      "host": "hpc02",
+      "parent_wall_seconds": 1.474209926,
+      "candidate_wall_seconds": 1.463997377,
+      "wall_reduction_percent": 0.6927472688852188,
+      "parent_thread_cpu_seconds": 1.465018362,
+      "candidate_thread_cpu_seconds": 1.463700131,
+      "thread_cpu_reduction_percent": 0.0899805104285778
+    }
+  ],
+  "interpretation": "First wave mixed and order/transient variation unresolved; reversed-start repeat wall mildly positive onbothhosts, CPU nearneutral. No established significant CPU/kernel gain. Both waves retained; no further tests authorized.",
+  "four_scratch_arrays": {
+    "malloc_count_before": 4,
+    "malloc_count_after": 4,
+    "capacity_requested_bytes_at33_before": 60928,
+    "capacity_requested_bytes_at33_after": 544,
+    "source_capacity_only": true,
+    "RSS_or_memory_bandwidth_claim": false
+  },
+  "rollback": {
+    "source_preimage_commit": "b88f4a87e0019b39552a9c299ab65953e2eb8116",
+    "parent_member_sha256": "cd01db1c3e09b5ea120045015b626c95baf1f49850041ef144e9fbfdc9186fa2",
+    "candidate_member_sha256": "319e499a39758708fa9bc406bea958fd54820620cbaa07eb9311e01294516113",
+    "optout": "WRF_SW_SPC_SINGLE_COLUMN=0 or explicit DISABLE; original spectral scratch columns, existingVRTstack remains unchanged"
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "status": "POSTTEST_SPC_CURRENT_COLUMN_TARGET_PROJECTION_AND_CACHED_DELIVERY_ONLY",
+  "source_commit": "d50193a573e13644f7dd24e05445db7fa0adefab",
+  "post_test_source_commit": "d50193a573e13644f7dd24e05445db7fa0adefab",
+  "raw_producer_source_commit": null,
+  "canonical_files": {
+    "phys/module_ra_rrtmg_sw.F": {
+      "path": "/home/ddietz/wrf/WRF/phys/module_ra_rrtmg_sw.F",
+      "sha256": "c8d9fa29347f5137fe59c93907bbd7c26d2e16b1c325d54e0c5efb1440b1581c"
+    },
+    "phys/Makefile": {
+      "path": "/home/ddietz/wrf/WRF/phys/Makefile",
+      "sha256": "d1833efa3652368672ec30abac59e977efbd6864f6ae00d0252631368fd499d2"
+    }
+  },
+  "target": "spcvmc_sw four private current-gpoint scratch arrays",
+  "qualified_parent_PP_sha256": "e50f81c46198c1f9624ca773e8d87322f1379478d92ab9b6ac507e82d929f717",
+  "qualified_candidate_PP_sha256": "53982480917d4b5532090a34ab7d04727f94345156b66e872c05a6b6fe15a421",
+  "qualified_candidate_O2_object_sha256": "319e499a39758708fa9bc406bea958fd54820620cbaa07eb9311e01294516113",
+  "native_evidence": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current3f86-spcvmc-single-column-scratch-source-question-r1/native-gate-preparation-r1-hpc04/actual-native-r1/receipt.json",
+    "sha256": "d64acfc2efaa2e87d0c3236f8d37f966b8e36842d7f44e8e970ef77f86ed945e"
+  },
+  "target_projection": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current3f86-spcvmc-single-column-scratch-source-question-r1/canonical-private-proposal-r1/PROJECTION.json",
+    "sha256": "2a22f395d872290617d8ceb4ca8271870c19767e2435d3ccbdd78d1afaa1abaa"
+  },
+  "default_support": {
+    "knob": "WRF_SW_SPC_SINGLE_COLUMN",
+    "default_value": 1,
+    "effective_only": "Actual GNU Fortran13.3.0 FC and SFC, strict exactO2/defaultREAL4INT4, emptyOMP/OMPCPP/PROMOTION/DOUBLE_PRECISION, no unsafeFP/kind/OpenMP overrides; source DM_PARALLEL&&!_OPENMP and qualified VRTQDR stack ENABLE path",
+    "enable_macro": "WRF_SW_SPC_SINGLE_COLUMN_ENABLE",
+    "disable_macro": "WRF_SW_SPC_SINGLE_COLUMN_DISABLE",
+    "optout": "WRF_SW_SPC_SINGLE_COLUMN=0; regenerate/recompile SW module, rearchive and relink to change executable",
+    "all_other_builds": "Original SPC spectral scratch columns; existing stack feature retains its separate guard/optout",
+    "new_FP_ISA_flags": false
+  },
+  "rebuild_scope": "Reproduce qualified source target using existing phys owner pipeline/recipe and source macros; compare target projection and retain actual GNU13 raw/state checks. Cached exact testedPP/member is the qualified producer route. This record does not certify a clean canonical whole-source PP/object rebuild.",
+  "clean_F_only_producer_certified": false,
+  "rollback_source_commit": "b88f4a87e0019b39552a9c299ab65953e2eb8116",
+  "rollback_executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current3f86-radalt-cached-batch-experimental-r1/wrf.exe",
+    "sha256": "56d20c4ea2e7b1b14d1f969928ffb5fcd99c4bafd30f0419a0b1215b32767623"
+  },
+  "rollback_archive": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current3f86-radalt-cached-batch-experimental-r1/libwrflib.a",
+    "sha256": "e3e141eafcc56cd4c1cfdbb5a129e3f0d2f8f7f39378b352e2c422e95de741b0"
+  },
+  "retained_parent_calc_alt": {
+    "status": "RETAINED_PUBLIC_CALC_ALT_COMPONENT_SOURCE_CORRESPONDENCE_ONLY",
+    "standalone_SOURCE_REBUILD_RECIPE_exists": false,
+    "published_component_README": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-pair-stack-calc-alt-20261026/README.md",
+      "sha256": "c1a379cacf36a5a16c03132de9f4a6910fed44179a16cbca04304edb17deed93"
+    },
+    "published_parent_SOURCE_FILES": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-pair-stack-calc-alt-20261026/SOURCE_FILES.json",
+      "sha256": "be9e7ae84e86ca4e52f58c19ffa64ce1e94579410d940eeb9249c7d9919a3581"
+    },
+    "native_qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-pair-stack-calc-alt-20261026/CALC_ALT_NATIVE_QUALIFICATION.json",
+      "sha256": "ed210f2d1ae13980267d2d8b18267b0466140c1ae119be360947cec78fdd22b7"
+    },
+    "O2_machine_classification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-pair-stack-calc-alt-20261026/CALC_ALT_O2_MACHINE_CLASSIFICATION.json",
+      "sha256": "56f61a55b3fdecc71602816b3bbc01fa40226dfb2884bae40576192f43b59420"
+    },
+    "post_test_source_commit": "b88f4a87e0019b39552a9c299ab65953e2eb8116",
+    "raw_producer_source_commit": null,
+    "unchanged_canonical_destinations": {
+      "dyn_em/module_big_step_utilities_em.F": {
+        "path": "/home/ddietz/wrf/WRF/dyn_em/module_big_step_utilities_em.F",
+        "sha256": "5d092c1b01511354925e2d33e0a84f86d1332875ac52cae051750c541e306ff0"
+      },
+      "dyn_em/Makefile": {
+        "path": "/home/ddietz/wrf/WRF/dyn_em/Makefile",
+        "sha256": "01af99163dd97e95f0d53f4960da8ead4db10f781d989ffb3e78364f8582ae66"
+      }
+    },
+    "default_support": {
+      "knob": "WRF_CALC_ALT_SIMD",
+      "default_value": 1,
+      "effective_only": "Actual GNU Fortran13.3.0 FC/SFC; WRF_DIFFUSION_SIMD=1, exactO2/defaultREAL4INT4, emptyOMP/OMPCPP/PROMOTION/DOUBLE_PRECISION, strict no-fast-math and contractionoff/no unsafeFP/kind/OpenMP overrides; source DM_PARALLEL&&!_OPENMP",
+      "enable_macro": "WRF_CALC_ALT_SIMD_ENABLE",
+      "disable_macro": "WRF_CALC_ALT_SIMD_DISABLE",
+      "optout": "WRF_CALC_ALT_SIMD=0; regenerate/recompile BigStep module, rearchive and relink to restore the original scalar addition loop",
+      "all_other_builds": "Literal original scalar calc_alt loop; no qualification transfer to unsupported stacks",
+      "new_compiler_ISA_FP_flags": false,
+      "evidence_scope": "Retained selected56 parent component default/optout; no new build or cleanF producer certification"
+    },
+    "clean_F_only_producer_certified": false,
+    "parent_own_application_qualification_inherited_by_child": false
+  }
+}

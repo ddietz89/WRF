@@ -1,5 +1,19 @@
 # WRF CPU optimization findings
 
+## October 26: shortwave current-column scratch promoted
+
+Combined image `da1cb49c` includes all earlier improvements and now owns exact three-hour qualification (545 steps/four full products) and unprofiled daylight qualification (185 steps/two full products). Four private spectral scratch arrays reuse the current column, reducing their requested capacity from60,928 to544bytes at33layers. The spectral traversal and arithmetic are unchanged; all four allocations remain. This is a scratch-capacity result, with no measured RSS saving.
+
+| Three-hour metric | Original median (3 runs) | Latest combined | Descriptive reduction |
+|---|---:|---:|---:|
+| Model/MPI wall (min) | 13.33374 | 10.46069 | 21.5472% |
+| Main-step elapsed (min) | 9.94084 | 9.04669 | 8.9947% |
+| Aggregate CPU (core-hours) | 99.81315 | 84.58097 | 15.2607% |
+
+The timings are unpaired; they do not isolate this addition. Both caller waves remain preserved: the first was mixed; the reversed-order repeat saved0.59–0.69% wall with near-flat CPU. The small storage change is retained without a significant CPU or forecast-gain claim. The qualified GNU13.3 strict-O2 pure-MPI default has an original fallback and `WRF_SW_SPC_SINGLE_COLUMN=0` opt-out, requiring regenerate/rebuild/relink. Prior calc_alt and paired-stack defaults remain enabled in their separate guards.
+
+Source `d50193a5` records post-test target correspondence and cached-object delivery, not a clean full-source producer certificate. This child has no own nine-hour or profile qualification. [Evidence and rollback](tools/cpu-compute/spcvmc-current-column-scratch-20261026/README.md).
+
 ## October 26: paired shortwave scratch and calc_alt SIMD promoted
 
 All earlier improvements remain in the combined executable `56d20c4e`. It now owns exact three-hour qualification (four full products, 545 timesteps) and unprofiled daylight qualification (two full products, 185 timesteps).

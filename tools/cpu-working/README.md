@@ -1,3 +1,9 @@
+# Current working selection — SPC current-column scratch, October 26
+
+Qualified combined image `da1cb49c` / post-test source `d50193a5`: own unprofiled SAME512 three-hour545/four full products and daylight185/two full products exact. Nine-hour/profile/restart qualifications remain image-specific and pending for this child. [Current evidence and rollback](../cpu-compute/spcvmc-current-column-scratch-20261026/README.md).
+
+## Prior working-selection record
+
 Cached radiation/physics batch: own three-hour science
 
 | Metric | Original median (n=3) | Child | Descriptive reduction |
