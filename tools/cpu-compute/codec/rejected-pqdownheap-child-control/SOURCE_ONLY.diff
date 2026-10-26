@@ -1,0 +1,63 @@
+--- current4da/trees.c
++++ private-child-control/trees.c
+@@ -153,22 +153,49 @@
+     /* k: node to move down */
+     int j = k << 1;  /* left son of k */
+     const int v = heap[k];
++    const unsigned int vf = (unsigned int)tree[v].Freq;
++    const unsigned int vd = (unsigned int)depth[v];
+ 
+     while (j <= heap_len) {
+-        /* Set j to the smallest of the two sons: */
+-        if (j < heap_len && smaller(tree, heap[j+1], heap[j], depth)) {
+-            j++;
++        /* Set j to the smallest of the two sons.
++         * When j < heap_len both sons are active (initialized) heap nodes,
++         * so reading the right son eagerly is legal; the comparison result is
++         * exactly the macro's smaller(tree, heap[j+1], heap[j], depth), with
++         * the intentional <= tie rule that selects the right son when
++         * frequency AND depth are equal.
++         */
++        int lc = heap[j];
++        int jsel = j;
++        if (j < heap_len) {
++            const int rc = heap[j + 1];
++            const unsigned int lf = (unsigned int)tree[lc].Freq;
++            const unsigned int rf = (unsigned int)tree[rc].Freq;
++            /* rf <= lf means right is the smaller son: strictly smaller freq,
++             * or equal freq with depth[rc] <= depth[lc].  Written as one
++             * unsigned comparison pair to keep a single branch. */
++            if (rf < lf ||
++                (rf == lf && (unsigned int)depth[rc] <= (unsigned int)depth[lc])) {
++                jsel = j + 1;
++                lc = rc;
++            }
+         }
+-        /* Exit if v is smaller than both sons */
+-        if (smaller(tree, v, heap[j], depth))
+-            break;
+-
+-        /* Exchange v with the smallest son */
+-        heap[k] = heap[j];
+-        k = j;
++
++        /* Exit if v is smaller than the chosen son.  v < son strictly, or
++         * equal freq with depth[v] <= depth[son]; on full freq/depth tie v
++         * wins and we exit, matching the original smaller(tree, v, heap[j]). */
++        {
++            const unsigned int sf = (unsigned int)tree[lc].Freq;
++            const unsigned int sd = (unsigned int)depth[lc];
++            if (vf < sf || (vf == sf && vd <= sd))
++                break;
++        }
++
++        /* Exchange v with the chosen son */
++        heap[k] = lc;
++        k = jsel;
+ 
+         /* And continue down the tree, setting j to the left son of k */
+-        j <<= 1;
++        j = k << 1;
+     }
+     heap[k] = v;
+ }

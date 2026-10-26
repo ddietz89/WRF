@@ -1,0 +1,41 @@
+{
+  "status": "ACTUAL_CHANGED_HEAP_CODE_NO_CLAIMED_BRANCH_REDUCTION_ONE_COST_EXPERIMENT_ELIGIBLE_ONLY_AFTER_NATIVE",
+  "actual_query_sha256": "8a53ced8c238530238f541ea5fcc45bdb5976b8a234261cba1bb600e53bc6053",
+  "raw_assembly_refs": {
+    "current": {
+      "DSO_path": "/pool/wrf-experiment/wrf-cpu/kernels/private-fast-distance-range-native-hpc02-r1/output/build/libz.so.1.3.1.zlib-ng",
+      "DSO_sha256": "937130c2a2d53e1d11c978dce1b661400daca9da7b8ae99029333dbc1103d178",
+      "assembly_sha256": "f48d66672066bde0aa3105d312cda4b3676d9ee9c43491d1094245f3b97d3495"
+    },
+    "candidate": {
+      "DSO_path": "/pool/wrf-experiment/wrf-cpu/kernels/currentc51b-pqdownheap-child-control-native-hpc02-r1/output/build/libz.so.1.3.1.zlib-ng",
+      "DSO_sha256": "dcc7a5064232cfffd4334b7b4b8b097295e21ea10462b098757629dfde8c3276",
+      "assembly_sha256": "4912fb6f055c03505236fa6845fe198c310b074c0d5aae2b91c3620a518bbe8a"
+    }
+  },
+  "static_whole_function_counts": {
+    "current": {
+      "conditional_jump_sites": 54,
+      "cmov_sites": 1,
+      "movzbl_sites": 8,
+      "mov_sites": 206
+    },
+    "candidate": {
+      "conditional_jump_sites": 57,
+      "cmov_sites": 1,
+      "movzbl_sites": 17,
+      "mov_sites": 175
+    }
+  },
+  "literal_changes": [
+    "Candidate eager root-depth f85e and chosen-depth f890; original root-depth f91b/facc/fc21 only frequency-tie path.",
+    "Same compare semantics; actual branches remain; only cmov is still merge max.",
+    "Register allocation/load schedule/control placement differ."
+  ],
+  "limits": [
+    "Static whole-function sites not dynamic counts/branchmiss cost; no prediction of gain from counts.",
+    "No reduced-unpredictable-branch/zero-overhead claim.",
+    "No fullTU/otherprocedure equivalence claimed by this target-only readback.",
+    "Root permits one complete caller comparison even without branchcount reduction; actual native must PASS first."
+  ]
+}

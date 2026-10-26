@@ -1,0 +1,22 @@
+{
+  "status": "ACTUAL_AUTHOR_LITERAL_ADOPTED_PRIVATE_PENDING_NATIVE_AND_CODEGEN",
+  "author_receipt_sha256": "7951deb1a45e865c520b04e108859e28091b36ffd8e85cc9425db59e82d8d456",
+  "review_receipt_sha256": "d1a7f0d834503914567526e15868e77eda82fa35a9cdecad6b60248637e1b6e1",
+  "author_response_sha256": "254ae1a6ae197eb4378e554d37e7452069391d7d09b3bacd706f9c96f21707c3",
+  "review_scope": "Independent contract/source review, not literal author-code review. Local literal adjudication below.",
+  "literal_old_once": true,
+  "full_source_inverse_exact": true,
+  "parent_source_sha256": "4da0730290a0d161899d23eb282c1ff4eb0377ad049c9a015fc0a521de5350a3",
+  "candidate_source_sha256": "1262d23d8380123f586a758c7080647ba54b5e7899972474f081a0885a22f693",
+  "precise_ties": "RIGHT child on rf<lf OR (rf==lf AND depthR<=depthL); root wins/exits on rootFreq<sonFreq OR equalFreq AND rootDepth<=sonDepth. Equal pair picks rightchild then rootequal exits.",
+  "bounds_and_reads": "Left heap[j] under j<=heap_len. Right heap[j+1] ONLY under j<heap_len. Eager depth[v]/chosenDepth active initialized by literal complete constructor; tree/depth disjoint from heap writes; fixed v unchanged within sift.",
+  "writes": "Only heap[k] assigned identical chosen node, then identical k=chosenindex,j=k<<1; terminal heap[k]=v. No tree/depth writes or public changes.",
+  "types": "uint16 Freq and unsignedchar depth zeroextend to unsigned int. No arithmetic packing/overflow/alias assumptions/flags/ISA changes.",
+  "accepted_limitations": [
+    "Author predicates remain short-circuit in C; claims single branch/cmov speculative until actual GNU13 readback.",
+    "New depth preload can regress untied/empty paths. Frequency was already hoisted; no frequency-load-elimination claim.",
+    "No observed branchmiss or global/headroom inference."
+  ],
+  "local_code_changes_to_author": null,
+  "all_qualification_flags_false": true
+}

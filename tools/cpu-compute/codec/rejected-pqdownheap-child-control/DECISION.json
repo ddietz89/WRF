@@ -1,0 +1,167 @@
+{
+  "status": "CLOSED_FIXED_CHILD_CONTROL_CANDIDATE_UNPROMOTED_CORRECTNESS_PASS_CONSTRUCTOR_AND_PROVIDER_SLOWER",
+  "decision": "Reject this fixed literal child-control implementation for inclusion: both complete constructor pairs and both complete provider pairs slower. No forecast, default/source promotion, extra variants or repeated arms needed.",
+  "candidate": {
+    "source_sha256": "1262d23d8380123f586a758c7080647ba54b5e7899972474f081a0885a22f693",
+    "DSO_sha256": "dcc7a5064232cfffd4334b7b4b8b097295e21ea10462b098757629dfde8c3276",
+    "parent_source_sha256": "4da0730290a0d161899d23eb282c1ff4eb0377ad049c9a015fc0a521de5350a3",
+    "selected_parent_DSO_sha256_unchanged": "937130c2a2d53e1d11c978dce1b661400daca9da7b8ae99029333dbc1103d178",
+    "change": "Only original pqdownheap childpick/exit local representation. Right child wins equal freq/depth; root equal pair exits. No algorithm/format/FP/config/ISA change."
+  },
+  "correctness": {
+    "status": "PASS_SUPPORTED_NATIVE_AND_ALL8_COST_ARM_STRICT_RAW_FIVE_STATE",
+    "genuine_tree_constructor_cases": 12,
+    "codec_corpora": 13,
+    "stream_cases": 5,
+    "stock_decode": true,
+    "provider_calls_each_native_role": 32,
+    "native_R2_invocation_id": "64483dbc07954f28a3cef5157d5dcf2e",
+    "notes": "Whole physical state and guards/read-only/errno/fenv tested in genuine tree fixture; fullcodec bytes/streams/stockdecode and provider all5/136realjoins passed. This is no universal source/ABI/IEEE/trap claim."
+  },
+  "constructor_cost": {
+    "status": "PASS_FOUR_COMPLETE_TREE131072_CALLER_ARMS_STRICT_RAW5STATE_NORMAL_CLOSED",
+    "pairs": [
+      {
+        "host": "hpc01",
+        "parent_arm": 0,
+        "candidate_arm": 2,
+        "parent_wall_ns": 1719912531,
+        "candidate_wall_ns": 1880454625,
+        "parent_cpu_ns": 1719771014,
+        "candidate_cpu_ns": 1880037716,
+        "wall_reduction_percent": -9.334317362444988,
+        "cpu_reduction_percent": -9.31907217270962
+      },
+      {
+        "host": "hpc02",
+        "parent_arm": 3,
+        "candidate_arm": 1,
+        "parent_wall_ns": 1715128270,
+        "candidate_wall_ns": 1879107248,
+        "parent_cpu_ns": 1714560274,
+        "candidate_cpu_ns": 1878833950,
+        "wall_reduction_percent": -9.560741366591774,
+        "cpu_reduction_percent": -9.581096593166482
+      }
+    ],
+    "strict_all4_hard_contract": {
+      "calls": 131072,
+      "all5": [
+        7,
+        1024,
+        4,
+        16260,
+        1919
+      ],
+      "full_internal_physical_bytes": 6144,
+      "explicit_mutable_arrays_sha256": "399f0cf3fc374be8baab69a665196ed9e122bde813107278cf4061ceadbbe87d",
+      "explicit_mutable_arrays_bytes": 5625,
+      "readonly": true,
+      "guards": true,
+      "restores_inside": true
+    },
+    "invocations": [
+      "0173edea090a444a89a0d403615f7675",
+      "b7bb255d518948ae8f070691f77c77ea",
+      "0388e7d0a53b483b8e6d5a6424a64505",
+      "dc52b89305a3435ea6a354c3983d4c19"
+    ]
+  },
+  "complete_provider_cost": {
+    "status": "PASS_FOUR_COMPLETE_PROVIDER32_CALLER_ARMS_STRICT_RAW5STATE_NORMAL_CLOSED",
+    "pairs": [
+      {
+        "host": "hpc01",
+        "parent_arm": 0,
+        "candidate_arm": 2,
+        "parent_wall_ns": 2186126605,
+        "candidate_wall_ns": 2194805758,
+        "parent_cpu_ns": 6746891685,
+        "candidate_cpu_ns": 6751569847,
+        "wall_reduction_percent": -0.3970105381888356,
+        "cpu_reduction_percent": -0.06933803325168686
+      },
+      {
+        "host": "hpc02",
+        "parent_arm": 3,
+        "candidate_arm": 1,
+        "parent_wall_ns": 2181698930,
+        "candidate_wall_ns": 2213828997,
+        "parent_cpu_ns": 6748871868,
+        "candidate_cpu_ns": 6761828020,
+        "wall_reduction_percent": -1.4727085647880944,
+        "cpu_reduction_percent": -0.19197507751527176
+      }
+    ],
+    "strict_all4_hard_contract": {
+      "provider": "candidate",
+      "calls": 32,
+      "raw_bytes": 225371652,
+      "chunk_bytes": 56430000,
+      "chunks": 4,
+      "errno": 33,
+      "flags": 36,
+      "round": 2048,
+      "mxcsr": 24452,
+      "x87cw": 2943,
+      "exact_raw_readonly_gold": true,
+      "release_outside_clock": true,
+      "stock_decode_before_after": true,
+      "no_MPI512_activation": true
+    },
+    "invocations": [
+      "b35d918ed70849a1b367284cf3bb5891",
+      "d5989e9320524e289fb7949ef57c5d2d",
+      "34912307c81044d38e5657ede947f804",
+      "d04b0c72507e47f290e82a77838c5e43"
+    ]
+  },
+  "machine": {
+    "static_conditional_sites": {
+      "parent": 54,
+      "candidate": 57
+    },
+    "cmov_sites": {
+      "parent": 1,
+      "candidate": 1
+    },
+    "byte_depth_load_sites": {
+      "parent": 8,
+      "candidate": 17
+    },
+    "scope": "Generated control/load/register layout differs; no branch reduction achieved. Counts are static, not measured branchmiss/cycle attribution. Do not claim a causal reason for observed regression."
+  },
+  "preserved_failures": [
+    {
+      "case": "nativeR1",
+      "invocation_id": "4dbb945f8ef64999818e885282aa0cc0",
+      "status": "FAILED_AFFINITY_FIXTURE_CONTEXT",
+      "detail": "Gate allowed24\u201325 while unchanged original provider required24\u201327. Genuine12/13/5 passed before ORIGINAL/current provider mask CPU_EQUAL failed. R2fresh4core cachedresume preserved all checks, no source/byte/FP waiver."
+    },
+    {
+      "case": "two-wrapper-metadata-queryR1",
+      "status": "FAILED_STAT_EQUALITY_AFTER_READ_STDOUT_EMPTY",
+      "detail": "Exact stat_result comparison included atime, which reading could update; query exited1 with0stdout/88stderr. It did not report a file hash mismatch. FreshR2 compares dev/ino/mode/uid/gid/size/mtime/ctime plus exact SHA; succeeded. FailedR1 retained."
+    }
+  ],
+  "scope_limits": [
+    "Constructor synthetic literal286 dense histogram from existing fixture, not captured production histogram/frequency. Fixed131072 whole build_tree calls including gen_bitlen/gen_codes; identical complete state restores insideintegerwall/threadCPU; tableinit outside equally.",
+    "Complete provider original32call geometry, same releaseoutsideclock, warm/finalfullgold/stockdecode/read-only/all5; perhost oppositeorders/cacheEACH.",
+    "Same-process entireconstructor state compared at identical address; crossarm artifact explicitly serializes all mutable physical arrays/scalars, not ASLR pointer bytes. No normalization of scientific/data/state values.",
+    "One oppositeorder pair perhost perlayer; no broadmatrix or globalIO/forecast extrapolation.",
+    "Root-cache previous question remains closed separately; this child-control candidate has actual negative completeconstructor/provider measurements."
+  ],
+  "rollback": {
+    "selected_NG_unchanged": true,
+    "selected_DSO_sha256": "937130c2a2d53e1d11c978dce1b661400daca9da7b8ae99029333dbc1103d178",
+    "action": "Keep existing selected codec/source/build. Candidate remains isolated; no deployed/default/source change to undo."
+  },
+  "application_science": {
+    "candidate_forecast_run": false,
+    "qualification": false,
+    "reason": "No meaningful kernel or provider gain; no protected forecast needed for fixed rejected candidate."
+  },
+  "public_proposal_only": true,
+  "repository_or_Git_mutation": false,
+  "evidence_refs_file": "EVIDENCE_REFS.json"
+}
