@@ -643,3 +643,43 @@ endif
 endif
 endif
 endif
+
+# LW RTRNMC same-kind one-use flux temporaries; source retains literal original fallback.
+# Qualified selected GNU13.3 strict-O2 scope; original fallback remains available.
+# No compiler/ISA/FP flags are added. DISABLE wins over explicit ENABLE.
+WRF_LW_RTRNMC_FLUX_SCALARS ?= 1
+_LW_FLUX_FLAGS = $(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)
+ifeq ($(WRF_LW_RTRNMC_FLUX_SCALARS),0)
+module_ra_rrtmg_lw.o: private override CPPFLAGS += -DWRF_LW_RTRNMC_FLUX_SCALARS_DISABLE
+endif
+ifeq ($(WRF_LW_RTRNMC_FLUX_SCALARS),1)
+ifeq ($(strip $(OMPCPP) $(OMP) $(PROMOTION) $(DOUBLE_PRECISION)),)
+ifeq ($(filter -D_OPENMP% _OPENMP%,$(CPPFLAGS)),)
+ifeq ($(strip $(RWORDSIZE)),4)
+ifeq ($(strip $(IWORDSIZE)),4)
+ifeq ($(filter -fdefault-% -freal-% -finteger-% -r8 -i8 -fopenmp% -Ofast -ffast-math -fassociative-math -funsafe-math-optimizations -freciprocal-math -ffinite-math-only -fno-signed-zeros -fno-trapping-math,$(_LW_FLUX_FLAGS)),)
+ifeq ($(filter-out -O2,$(filter -O%,$(_LW_FLUX_FLAGS))),)
+ifneq (,$(filter -O2,$(_LW_FLUX_FLAGS)))
+ifeq ($(filter-out -ffp-contract=off,$(filter -ffp-contract=%,$(_LW_FLUX_FLAGS))),)
+ifneq (,$(filter -fno-fast-math,$(_LW_FLUX_FLAGS)))
+ifneq (,$(filter -ffp-contract=off,$(_LW_FLUX_FLAGS)))
+ifneq (,$(findstring GNU Fortran,$(shell $(FC) --version 2>/dev/null)))
+ifeq ($(shell $(FC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+module_ra_rrtmg_lw.o: private override CPPFLAGS += -DWRF_LW_RTRNMC_FLUX_SCALARS_ENABLE
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif

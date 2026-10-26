@@ -352,7 +352,11 @@ SUBROUTINE couple_momentum ( muu, ru, u, msfu,              &
    
    ! Local data
    
+#if defined(WRF_COUPLE_MOMENTUM_U_SIMD_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_COUPLE_MOMENTUM_U_SIMD_DISABLE)
+   INTEGER :: i, j, k, itf, jtf, ktf, u_simd_end
+#else
    INTEGER :: i, j, k, itf, jtf, ktf
+#endif
    
 !<DESCRIPTION>
 !
@@ -368,9 +372,22 @@ SUBROUTINE couple_momentum ( muu, ru, u, msfu,              &
 
       DO j=jts,jtf
       DO k=kts,ktf
+#if defined(WRF_COUPLE_MOMENTUM_U_SIMD_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_COUPLE_MOMENTUM_U_SIMD_DISABLE)
+      IF (its<=itf) THEN
+        u_simd_end=its+4*((itf-its+1)/4)-1
+!$OMP SIMD SIMDLEN(4)
+        DO i=its,u_simd_end
+         ru(i,k,j)=u(i,k,j)*(c1h(k)*muu(i,j)+c2h(k))/msfu(i,j)
+        ENDDO
+        DO i=u_simd_end+1,itf
+         ru(i,k,j)=u(i,k,j)*(c1h(k)*muu(i,j)+c2h(k))/msfu(i,j)
+        ENDDO
+      END IF
+#else
       DO i=its,itf
          ru(i,k,j)=u(i,k,j)*(c1h(k)*muu(i,j)+c2h(k))/msfu(i,j)
       ENDDO
+#endif
       ENDDO
       ENDDO
 

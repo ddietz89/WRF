@@ -3222,12 +3222,22 @@ contains
       real(kind=rb) :: clrurad(0:nlayers)
       real(kind=rb) :: clrdrad(0:nlayers)
       real(kind=rb) :: efclfrac(nlayers,ngptlw)
+#if defined(WRF_LW_RTRNMC_FLUX_SCALARS_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_LW_RTRNMC_FLUX_SCALARS_DISABLE)
+      real(kind=rb) :: uflux
+      real(kind=rb) :: dflux
+#else
       real(kind=rb) :: uflux(0:nlayers)
       real(kind=rb) :: dflux(0:nlayers)
+#endif
       real(kind=rb) :: urad(0:nlayers)
       real(kind=rb) :: drad(0:nlayers)
+#if defined(WRF_LW_RTRNMC_FLUX_SCALARS_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_LW_RTRNMC_FLUX_SCALARS_DISABLE)
+      real(kind=rb) :: uclfl
+      real(kind=rb) :: dclfl
+#else
       real(kind=rb) :: uclfl(0:nlayers)
       real(kind=rb) :: dclfl(0:nlayers)
+#endif
       real(kind=rb) :: odcld(nlayers,ngptlw)
 
 
@@ -3558,6 +3568,22 @@ contains
 
 ! Process longwave output from band for total and clear streams.
 ! Calculate upward, downward, and net flux.
+#if defined(WRF_LW_RTRNMC_FLUX_SCALARS_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_LW_RTRNMC_FLUX_SCALARS_DISABLE)
+         do lev = nlayers, 0, -1
+            uflux = urad(lev)*wtdiff
+            dflux = drad(lev)*wtdiff
+            urad(lev) = 0.0_rb
+            drad(lev) = 0.0_rb
+            totuflux(lev) = totuflux(lev) + uflux * delwave(iband)
+            totdflux(lev) = totdflux(lev) + dflux * delwave(iband)
+            uclfl = clrurad(lev)*wtdiff
+            dclfl = clrdrad(lev)*wtdiff
+            clrurad(lev) = 0.0_rb
+            clrdrad(lev) = 0.0_rb
+            totuclfl(lev) = totuclfl(lev) + uclfl * delwave(iband)
+            totdclfl(lev) = totdclfl(lev) + dclfl * delwave(iband)
+         enddo
+#else
          do lev = nlayers, 0, -1
             uflux(lev) = urad(lev)*wtdiff
             dflux(lev) = drad(lev)*wtdiff
@@ -3572,6 +3598,7 @@ contains
             totuclfl(lev) = totuclfl(lev) + uclfl(lev) * delwave(iband)
             totdclfl(lev) = totdclfl(lev) + dclfl(lev) * delwave(iband)
          enddo
+#endif
 
 ! End spectral band loop
       enddo
