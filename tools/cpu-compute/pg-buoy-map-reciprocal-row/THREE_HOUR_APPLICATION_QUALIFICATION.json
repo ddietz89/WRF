@@ -1,0 +1,109 @@
+{
+  "status": "PASS_OWN_UNPROFILED_SAME512_PG_COMBINED_THREE_HOUR_545_FOUR_FULL",
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentccbb-pg-buoy-one-bigstep-experimental-r1/wrf.exe",
+    "sha256": "c51b5f7897d23c4d33586c529365d581bea64b1c3cfacc8b206e5c6d55218d4b"
+  },
+  "archive": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentccbb-pg-buoy-one-bigstep-experimental-r1/libwrflib.a",
+    "sha256": "5575fb93cb108f6e6b19ce03037976ad7bc21b5238eedde2fbbb110cc2bba14b"
+  },
+  "own_three_hour_qualified": true,
+  "own_unprofiled_three_hour_qualified": true,
+  "own_noon_qualified": false,
+  "own_nine_hour_qualified": false,
+  "profile_qualified": false,
+  "observed_step_count": 545,
+  "products": 4,
+  "source_commit": "72ce38a0d115c8fb5ac9d536dcb915bdbe5b6f4b",
+  "post_test_source_commit": "72ce38a0d115c8fb5ac9d536dcb915bdbe5b6f4b",
+  "raw_producer_source_commit": null,
+  "science": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentccbb-next-threehour-runtime-r1/science-receipt.json",
+    "sha256": "544a32554b949aa3d5735037e774789726f0f230066d72c423c242397890d771"
+  },
+  "reader_closure": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentccbb-next-threehour-runtime-r1/reader-closure.json",
+    "sha256": "24a40e0876df0a0fa8647a9dc906086a75a020ef6c1402a43ec6726f83a8a366"
+  },
+  "models": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentccbb-next-threehour-runtime-r1/candidate-metadata/model-closures.json",
+    "sha256": "2c88e26be14e60ed553c77254dfb4724c5c0a7d82738587fdd0df6eac8e98806"
+  },
+  "lease": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentccbb-next-threehour-runtime-r1/candidate-metadata/lease.json",
+    "sha256": "f8e719d4a428d543bb43beef14138972ca4b1e908e3ee2871b5c5c85f6dae1aa"
+  },
+  "RESULT": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentccbb-next-threehour-runtime-r1/RESULT.json",
+    "sha256": "8cfb917958f8e4c5f9bc6642826fa4eda24f40e3aa497e3d563053b0ea578e7a"
+  },
+  "build": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentccbb-next-threehour-runtime-r1/pg-build-receipt.json",
+    "sha256": "5ce492879e7622dd0edbb2443450eed97f05a69535af84c1920b8c79b193600f"
+  },
+  "actual_candidate_metrics": {
+    "wall_seconds": 626.7905429089442,
+    "cpu_seconds": 304723.241872,
+    "main_step_sum_seconds": 543.26757
+  },
+  "rolling_control_baseline": {
+    "cohort_sha256": "a96d6b9ea566325641ad0b0766429c661e904c75b457419acbefdaa9953b0aa5",
+    "n": 3,
+    "median": {
+      "wall_seconds": 800.0241208570078,
+      "cpu_seconds": 359327.346984,
+      "main_step_sum_seconds": 596.45045
+    },
+    "members": [
+      {
+        "run_id": "production512-current0b40-fourhost-threehour-pair2-r1-control",
+        "coordinator_invocation_id": "2eeee20b4cf0457cb582710bce30dc0b",
+        "metrics": {
+          "wall_seconds": 800.2145909662358,
+          "cpu_seconds": 359516.46336299996,
+          "main_step_sum_seconds": 596.45045
+        }
+      },
+      {
+        "run_id": "production512-current0b40-fourhost-threehour-pair1-r1-control",
+        "coordinator_invocation_id": "81febf86a6734f4fa77d57fd1b467c30",
+        "metrics": {
+          "wall_seconds": 798.6198086068034,
+          "cpu_seconds": 358644.885565,
+          "main_step_sum_seconds": 595.32709
+        }
+      },
+      {
+        "run_id": "production512-current5c75-fourhost-threehour-pair1-r1-control",
+        "coordinator_invocation_id": "c9768c1474f648329ff3e41b664aac99",
+        "metrics": {
+          "wall_seconds": 800.0241208570078,
+          "cpu_seconds": 359327.346984,
+          "main_step_sum_seconds": 596.59354
+        }
+      }
+    ],
+    "range": {
+      "wall_seconds": {
+        "min": 798.6198086068034,
+        "max": 800.2145909662358
+      },
+      "cpu_seconds": {
+        "min": 358644.885565,
+        "max": 359516.46336299996
+      },
+      "main_step_sum_seconds": {
+        "min": 595.32709,
+        "max": 596.59354
+      }
+    }
+  },
+  "descriptive_reductions_percent": {
+    "wall_seconds": 21.65354436594875,
+    "cpu_seconds": 15.196200781910264,
+    "main_step_sum_seconds": 8.916562976857524
+  },
+  "timing_gain_claim": false,
+  "limits": "Own unprofiled SAME512 three-hour 545 ordered steps/four FULL exact only. Candidate-only retained-original science; rolling-median timing descriptive/unpaired, no matched forecast gain. No own noon/9h/profile/restart/384/256/full144 inheritance. Parent ccbb noon is historical. Qualified PP854aa/cached158dda plus post-test canonical target correspondence; clean F-only whole CPP uncertified. Masked tested final-state scope; PG DIV chronology/trap-order identity false; whole-TU/non-target raw false with scoped deltas retained. Thompson earlier MIN-order/support limits remain unchanged."
+}

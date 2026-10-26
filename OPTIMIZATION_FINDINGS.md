@@ -5269,3 +5269,18 @@ Own1625/tenFULL science and original reader passed, all four models closed norma
 The fixed-temperature polynomial now runs once at first use per column. Exact native O2/O0 checks covered 11 cases and four rounding modes; the unchanged application checker passed both full output files and 185 noon steps, with all model/reader jobs normally closed. Source commit 8b28a688; selected child ccbb/archive b0b9. Own three-/nine-hour and profile qualification remain pending for this child; parent results stay separate.
 
 Two opposite-order host pairs showed **73.596% / 73.578% less isolated-kernel wall time**, with corresponding thread CPU reductions. Complete Thompson caller wall changes were **0.312% / 0.012% lower**, CPU **0.897% / 0.110% lower**. Both include equal restores inside clocks and strict raw/five-state checks. The substantial local gain is retained despite the small whole-caller signal; no forecast gain or additive percentage is inferred. Runtime first-use evaluation preserves the current rounding mode. Intermediate MIN operand-priority differences and the finite-input/qualified-PP delivery limits remain explicit in [the evidence](tools/cpu-compute/thompson-fixed273-prefix-20261026/README.md).
+
+
+### October 26: buoyancy map-factor row reuse
+
+Promoted the map-factor reciprocal row cache after exact O2/O0 native checks, a complete 33-level caller screen (6.10% and 5.85% lower wall time on hpc01/hpc04) and the combined image's own unprofiled 512-rank three-hour qualification. All four complete products and all 545 ordered timesteps matched the corrected original. The earlier shallow mixed timings remain retained.
+
+| Measure | Latest three distinct original controls: median | Combined c51b5f78 | Descriptive reduction |
+|---|---:|---:|---:|
+| Model/MPI wall | 800.02 s | 626.79 s | 21.65% |
+| Integration elapsed | 596.45 s | 543.27 s | 8.92% |
+| Aggregate CPU | 99.81 CPU-hours | 84.65 CPU-hours | 15.20% |
+
+This candidate-only timing comparison is unpaired; unresolved hardware/operational-epoch differences prevent a fresh matched or isolated-gain claim. Kernel/caller gains are separate and are not added to forecast gains. The previous 4b87 three-hour run was 623.11 seconds; the new 626.79-second observation is 0.59% longer and does not isolate either small addition. Inclusion rests on significant complete-caller benefit and exact application acceptance, under the owner's standing inclusion policy. No current-child noon, nine-hour or profile qualification is inherited.
+
+Source commit 72ce38a0d115c8fb5ac9d536dcb915bdbe5b6f4b. The qualified PP/native object and scoped machine limits are recorded in tools/cpu-compute/pg-buoy-map-reciprocal-row/. Instruction/trap chronology and whole-object identity are not claimed; masked final-state checks are exact. Rollback restores the BigStep source and coupled working metadata from b86ff36e and selects retained ccbb77e7, preserving Thompson. Production and master remain unchanged.
