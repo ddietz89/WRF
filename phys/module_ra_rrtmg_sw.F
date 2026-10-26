@@ -10253,6 +10253,39 @@ end subroutine
          liqflag = liqflgsw
 ! Move incoming GCM cloud arrays to RRTMG cloud arrays.
 ! For GCM input, incoming reicmcl is defined based on selected ice parameterization (inflgsw)
+#if defined(WRF_SW_INATM_COPY_UNSWITCH_ENABLE) && !defined(WRF_SW_INATM_COPY_UNSWITCH_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+         do l = 1, nlayers
+            if (iceflag.eq.5) then
+!$OMP SIMD
+               do ig = 1, ngptsw
+                  cldfmc(ig,l) = cldfmcl(ig,iplon,l)
+                  taucmc(ig,l) = taucmcl(ig,iplon,l)
+                  ssacmc(ig,l) = ssacmcl(ig,iplon,l)
+                  asmcmc(ig,l) = asmcmcl(ig,iplon,l)
+                  fsfcmc(ig,l) = fsfcmcl(ig,iplon,l)
+                  ciwpmc(ig,l) = ciwpmcl(ig,iplon,l)
+                  clwpmc(ig,l) = clwpmcl(ig,iplon,l)
+                  cswpmc(ig,l)=cswpmcl(ig,iplon,l)
+               enddo
+            else
+!$OMP SIMD
+               do ig = 1, ngptsw
+                  cldfmc(ig,l) = cldfmcl(ig,iplon,l)
+                  taucmc(ig,l) = taucmcl(ig,iplon,l)
+                  ssacmc(ig,l) = ssacmcl(ig,iplon,l)
+                  asmcmc(ig,l) = asmcmcl(ig,iplon,l)
+                  fsfcmc(ig,l) = fsfcmcl(ig,iplon,l)
+                  ciwpmc(ig,l) = ciwpmcl(ig,iplon,l)
+                  clwpmc(ig,l) = clwpmcl(ig,iplon,l)
+               enddo
+            endif
+            reicmc(l) = reicmcl(iplon,l)
+            relqmc(l) = relqmcl(iplon,l)
+            if (iceflag.eq.5) then
+               resnmc(l) = resnmcl(iplon,l)
+            endif
+         enddo
+#else
          do l = 1, nlayers
             do ig = 1, ngptsw
                cldfmc(ig,l) = cldfmcl(ig,iplon,l)
@@ -10272,6 +10305,7 @@ end subroutine
                resnmc(l) = resnmcl(iplon,l)
             endif 
          enddo
+#endif
 ! If an extra layer is being used in RRTMG, set all cloud properties to zero in the extra layer.
 !         cldfmc(:,nlayers) = 0.0_rb
 !         taucmc(:,nlayers) = 0.0_rb

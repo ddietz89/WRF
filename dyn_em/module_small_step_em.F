@@ -364,6 +364,9 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
       w_2(i,k,j)  = ((c1f(k)*muts(i,j)+c2f(k))* w_1(i,k,j)-(c1f(k)*mut(i,j)+c2f(k))* w_2(i,k,j))/msfty(i,j)
       ph_save(i,k,j) = ph_2(i,k,j)
       ph_2(i,k,j) = ph_1(i,k,j)-ph_2(i,k,j)
+#if defined(WRF_SMALL_STEP_WWSAVE_TRAVERSAL_FUSION) && defined(DM_PARALLEL) && !defined(_OPENMP)
+      ww_save(i,k,j) = ww(i,k,j)
+#endif
     ENDDO
     ELSE
     !$omp simd
@@ -373,6 +376,9 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
       w_2(i,k,j)  = ((c1f(k)*muts(i,j)+c2f(k))* w_1(i,k,j)-(c1f(k)*mut(i,j)+c2f(k))* w_2(i,k,j))/msfty(i,j)
       ph_save(i,k,j) = ph_2(i,k,j)
       ph_2(i,k,j) = ph_1(i,k,j)-ph_2(i,k,j)
+#if defined(WRF_SMALL_STEP_WWSAVE_TRAVERSAL_FUSION) && defined(DM_PARALLEL) && !defined(_OPENMP)
+      ww_save(i,k,j) = ww(i,k,j)
+#endif
     ENDDO
     ENDIF
 #else
@@ -388,6 +394,7 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
     ENDDO
     ENDDO
 
+#if !defined(WRF_SMALL_STEP_WWSAVE_TRAVERSAL_FUSION) || !defined(WRF_SMALL_STEP_PH_COPY_FUSION) || !defined(DM_PARALLEL) || defined(_OPENMP)
       DO j=j_start, j_end
 !      DO k=k_start, min(kde,kte)
       DO k=k_start, kde
@@ -396,6 +403,8 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
       ENDDO
       ENDDO
       ENDDO
+
+#endif
 
 END SUBROUTINE small_step_prep
 

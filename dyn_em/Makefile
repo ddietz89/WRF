@@ -563,6 +563,32 @@ endif
 endif
 endif
 
+# Final ww_save copy shares the existing W/PH K traversal; original copy remains off-path.
+# Qualified GNU13.3 pureMPI REAL4/INTEGER4 SmallStepSIMD1/Zen21/PHfusion1 only.
+# WRF_SMALL_STEP_WWSAVE_TRAVERSAL_FUSION=0: regeneratePP, rebuildSmallStep, rearchive+relink.
+WRF_SMALL_STEP_WWSAVE_TRAVERSAL_FUSION ?= 1
+ifeq ($(WRF_SMALL_STEP_WWSAVE_TRAVERSAL_FUSION),1)
+ifeq ($(WRF_SMALL_STEP_PH_COPY_FUSION),1)
+ifeq ($(WRF_SMALL_STEP_SIMD),1)
+ifeq ($(WRF_SMALL_STEP_ZEN2),1)
+ifeq ($(strip $(OMPCPP) $(OMP) $(PROMOTION) $(DOUBLE_PRECISION)),)
+ifeq ($(strip $(RWORDSIZE)),4)
+ifeq ($(strip $(IWORDSIZE)),4)
+ifeq ($(filter -fdefault-% -freal-% -finteger-% -r8 -i8,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
+ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+module_small_step_em.o: private override CPPFLAGS += -DWRF_SMALL_STEP_WWSAVE_TRAVERSAL_FUSION
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+
 # Independent V nonhydrostatic pressure correction SIMD; optout0 rebuilds SmallStep/archive/image.
 # Qualified GNU13.3/SmallStepSIMD1/Zen21/defaultREAL4INTEGER4/emptyOMP; source DM&&!_OPENMP.
 WRF_SMALL_STEP_V_NH_CORRECTION_SIMD ?= 1

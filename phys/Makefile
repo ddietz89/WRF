@@ -599,3 +599,32 @@ clean:
 # DO NOT DELETE
 
 include ../main/depend.common
+
+# SW INATM cloud-copy branch unswitch; qualified build scope is guarded below.: SW INATM copy branch unswitch.
+# Qualified recipe GNU13.3/default REAL4 INTEGER4/empty OMP/OMPCPP, source DM&&!_OPENMP.
+# Opt out with WRF_SW_INATM_COPY_UNSWITCH=0; DISABLE wins over ENABLE.
+WRF_SW_INATM_COPY_UNSWITCH ?= 1
+ifeq ($(WRF_SW_INATM_COPY_UNSWITCH),0)
+module_ra_rrtmg_sw.o: private override CPPFLAGS += -DWRF_SW_INATM_COPY_UNSWITCH_DISABLE
+endif
+ifeq ($(WRF_SW_INATM_COPY_UNSWITCH),1)
+ifeq ($(strip $(OMPCPP) $(OMP) $(PROMOTION) $(DOUBLE_PRECISION)),)
+# Explicit CPP macro injection must also preserve the original source path.
+ifeq ($(filter -D_OPENMP% _OPENMP%,$(CPPFLAGS)),)
+ifeq ($(strip $(RWORDSIZE)),4)
+ifeq ($(strip $(IWORDSIZE)),4)
+ifeq ($(filter -fdefault-% -freal-% -finteger-% -r8 -i8,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
+ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+module_ra_rrtmg_sw.o: private override CPPFLAGS += -DWRF_SW_INATM_COPY_UNSWITCH_ENABLE
+ifneq (,$(filter -DDM_PARALLEL,$(CPPFLAGS)))
+module_ra_rrtmg_sw.o: private override FCFLAGS += -fopenmp-simd
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
