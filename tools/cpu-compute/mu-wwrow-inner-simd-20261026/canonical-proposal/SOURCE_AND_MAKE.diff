@@ -1,0 +1,33 @@
+--- a/dyn_em/module_small_step_em.F
++++ b/dyn_em/module_small_step_em.F
+@@ -1277,6 +1277,9 @@
+ #ifdef WRF_ADVANCE_MU_WW_ROW_PIPELINE
+      DO kk=2,k_end
+      k=kk-1
++#ifdef WRF_ADVANCE_MU_WW_ROW_SIMD
++!$OMP SIMD
++#endif
+      DO i=i_start, i_end
+        ww(i,kk,j)=ww(i,kk-1,j)-dnw(kk-1)*((c1h(k)*dmdt(i))+dvdxi(i,kk-1)+(c1h(k)*mu_tend(i,j)))/msfty(i,j)
+        ww(i,kk-1,j)=ww(i,kk-1,j)-ww_1(i,kk-1,j)
+--- a/dyn_em/Makefile
++++ b/dyn_em/Makefile
+@@ -466,6 +466,8 @@
+ # Qualified GNU13.3.0 emptyOMP/OMPCPP SmallStepSIMD1/Zen21; matchingserial unqualified.
+ # Explicit0 requires full regeneration/rebuild/rearchive/relink, restoring original schedule.
+ WRF_ADVANCE_MU_WW_ROW_PIPELINE ?= 1
++# Inner-I SIMD only within the selected WW row pipeline; explicit 0 keeps its scalar loop.
++WRF_ADVANCE_MU_WW_ROW_SIMD ?= 1
+ ifeq ($(WRF_ADVANCE_MU_WW_ROW_PIPELINE),1)
+ ifeq ($(WRF_SMALL_STEP_SIMD),1)
+ ifeq ($(WRF_SMALL_STEP_ZEN2),1)
+@@ -475,6 +477,9 @@
+ ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+ ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+ module_small_step_em.o: private override CPPFLAGS += -DWRF_ADVANCE_MU_WW_ROW_PIPELINE
++ifeq ($(WRF_ADVANCE_MU_WW_ROW_SIMD),1)
++module_small_step_em.o: private override CPPFLAGS += -DWRF_ADVANCE_MU_WW_ROW_SIMD
++endif
+ endif
+ endif
+ endif

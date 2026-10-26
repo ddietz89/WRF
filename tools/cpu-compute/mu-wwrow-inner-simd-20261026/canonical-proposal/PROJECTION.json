@@ -1,0 +1,104 @@
+{
+  "scope": "Target-procedureCPPactive token+directive stream only; no fullcanonicalCPP/compiler/object/clean-sourcecertificate. NativePPretained/OO1510cached delivery.",
+  "ON_matches_actual_PP3327": true,
+  "OFF_matches_parent_PPdaa410": true,
+  "WW_pipeline_OFF_matches_original_schedule": true,
+  "cases": {
+    "ON": {
+      "definitions": [
+        "WRF_ADVANCE_MU_WW_ROW_PIPELINE",
+        "WRF_ADVANCE_MU_WDTN_ROW_PIPELINE",
+        "WRF_ADVANCE_MU_THETA_FIRSTPASS_REUSE",
+        "WRF_ADVANCE_MU_WW_ROW_SIMD"
+      ],
+      "output_sha256": "ff6c95f6c5e5d47e81e95ba3e57bbd24070ff74453e597304b9d84f99d3c019e",
+      "matches_qualified_target": true
+    },
+    "SIMD_OFF": {
+      "definitions": [
+        "WRF_ADVANCE_MU_WW_ROW_PIPELINE",
+        "WRF_ADVANCE_MU_WDTN_ROW_PIPELINE",
+        "WRF_ADVANCE_MU_THETA_FIRSTPASS_REUSE"
+      ],
+      "output_sha256": "5e87ba0fc48542b4471cdfd5d4a732a31b63fce9dc89b8c574b3ca24fae039b5",
+      "matches_qualified_target": true
+    },
+    "PIPELINE_OFF": {
+      "definitions": [
+        "WRF_ADVANCE_MU_WDTN_ROW_PIPELINE",
+        "WRF_ADVANCE_MU_THETA_FIRSTPASS_REUSE",
+        "WRF_ADVANCE_MU_WW_ROW_SIMD"
+      ],
+      "output_sha256": "a54b74958cb2911bd1771abcb28c7555f6b406318709e4e3cf808cb55ec27059",
+      "matches_qualified_target": null
+    },
+    "PARENT_PIPELINE_OFF": {
+      "definitions": [
+        "WRF_ADVANCE_MU_WDTN_ROW_PIPELINE",
+        "WRF_ADVANCE_MU_THETA_FIRSTPASS_REUSE"
+      ],
+      "output_sha256": "a54b74958cb2911bd1771abcb28c7555f6b406318709e4e3cf808cb55ec27059",
+      "matches_qualified_target": null
+    }
+  },
+  "Make_block_only_cases": {
+    "eligible_ON": {
+      "overrides": {},
+      "CPPFLAGS_stdout": "CPP=-DWRF_ADVANCE_MU_WW_ROW_PIPELINE -DWRF_ADVANCE_MU_WW_ROW_SIMD",
+      "new_directive_macro": true
+    },
+    "SIMD_optout": {
+      "overrides": {
+        "WRF_ADVANCE_MU_WW_ROW_SIMD": "0"
+      },
+      "CPPFLAGS_stdout": "CPP=-DWRF_ADVANCE_MU_WW_ROW_PIPELINE",
+      "new_directive_macro": false
+    },
+    "pipeline_OFF": {
+      "overrides": {
+        "WRF_ADVANCE_MU_WW_ROW_PIPELINE": "0"
+      },
+      "CPPFLAGS_stdout": "CPP=",
+      "new_directive_macro": false
+    },
+    "SIMDmodule_OFF": {
+      "overrides": {
+        "WRF_SMALL_STEP_SIMD": "0"
+      },
+      "CPPFLAGS_stdout": "CPP=",
+      "new_directive_macro": false
+    },
+    "Zen2_OFF": {
+      "overrides": {
+        "WRF_SMALL_STEP_ZEN2": "0"
+      },
+      "CPPFLAGS_stdout": "CPP=",
+      "new_directive_macro": false
+    },
+    "OMP_nonempty": {
+      "overrides": {
+        "OMP": "-fopenmp"
+      },
+      "CPPFLAGS_stdout": "CPP=",
+      "new_directive_macro": false
+    },
+    "OMPCPP_nonempty": {
+      "overrides": {
+        "OMPCPP": "-D_OPENMP"
+      },
+      "CPPFLAGS_stdout": "CPP=",
+      "new_directive_macro": false
+    },
+    "REAL8": {
+      "overrides": {
+        "RWORDSIZE": "8"
+      },
+      "CPPFLAGS_stdout": "CPP=",
+      "new_directive_macro": false
+    }
+  },
+  "existing_eligibility_guard_unchanged": true,
+  "ISA_FP_compiler_flags_added": false,
+  "new_knob": "WRF_ADVANCE_MU_WW_ROW_SIMD ?= 1",
+  "optout": "Set0/regeneratePP/rebuildSmallStep/rearchive/relink. ExistingWW_ROW_PIPELINE0 keepsoriginaloldWWschedule."
+}

@@ -1,12 +1,25 @@
 # WRF CPU optimization findings
 
-## October 26: current combined build daytime diagnosis
+## October 26: WW row SIMD promoted after full-grid qualification
 
-Current 0adb completed an instrumented SAME512 noon hour (12:00–13:00): all four model scopes closed normally, and the unchanged original checker passed 185 steps and two full products. The retained original 75-minute run supplies the scientific prefix reference; its wall/main/aggregateCPU totals are not a matched performance comparison. This diagnostic grants no unprofiled-noon or nine-hour qualification.
+The combined image `8280933d` passed all four complete products and 545 ordered timesteps. Independent-column SIMD in the existing WW row pipeline shortened the complete mass-update caller by **10.03% on hpc01 and 6.72% on hpc02**, with matching CPU reductions and exact O2/O0 checks. The vertical recurrence, stores and true division remain unchanged.
+
+| Three-hour metric | Original median (3 runs) | Latest combined (1 run) | Descriptive reduction |
+|---|---:|---:|---:|
+| Model/MPI wall (min) | 13.33374 | 10.40674 | 21.9518% |
+| Main-step elapsed (min) | 9.94084 | 9.00719 | 9.3921% |
+| Aggregate CPU (core-hours) | 99.81315 | 84.21155 | 15.6308% |
+
+Timing is unpaired against the retained controls' median; it does not isolate this directive's forecast contribution. The caller improvement and exact application pass support inclusion under the owner's policy. This child has its own three-hour qualification; the preceding image's daytime profile and parent nine-hour results remain separate. Source `82e476ce` records post-test target correspondence and qualified preprocessed-source/cached-object delivery. Set `WRF_ADVANCE_MU_WW_ROW_SIMD=0` and regenerate/rebuild/relink to disable it, or select the qualified parent `0adb6f89`. [Evidence, scope and rollback](tools/cpu-compute/mu-wwrow-inner-simd-20261026/README.md).
+
+
+## Parent 0adb: daytime diagnosis before WW row SIMD
+
+Parent 0adb completed an instrumented SAME512 noon hour (12:00–13:00): all four model scopes closed normally, and the unchanged original checker passed 185 steps and two full products. The retained original 75-minute run supplies the scientific prefix reference; its wall/main/aggregateCPU totals are not a matched performance comparison. This diagnostic grants no unprofiled-noon or nine-hour qualification.
 
 Both existing 15-second,100Hz main-thread captures on hpc03 (ranks114/122) passed early context admission and live-FD acquisition. The frozen optional reporter retained its `KeyError('profile_directory')`; a separate normally closed decode of the same raw captures succeeded. The conditional normal-D1 channel proof matched 1026 pairs and retained 90unknowns. Of 180 source-signature producer gaps, 120 fit wholly inside both observed sample spans (60 boundary exclusions); 81 had sender API entry after receiver Wait entry and 39 did not. Sender samples in the late group named `advance_w` (38), `calc_p_rho` (26), `advance_mu_t` (19), and `sumflux` (9), plus one libc-path sample. These are weighted observations, not gap-time fractions or removable cost. Zero selected POST/WAIT time inside the 180 endpoint gaps does not imply purecompute; numeric sample loss remains unproved. No wire-latency, global-headroom or forecast-gain claim follows. [Qualification and diagnostic limits](tools/cpu-profiles/current0adb-producer-gap-noon-20261026/README.md).
 
-The selected combined image remains `0adb6f89`, with its own three-hour exact qualification and the previously reported unpaired three-hour timing. The tables below retain their original build identities; the older `0b40b961` study is historical.
+At that milestone, the selected combined image was `0adb6f89`, with its own three-hour exact qualification and the previously reported unpaired three-hour timing. The tables below retain their original build identities; the older `0b40b961` study is historical.
 
 ## Historical 0b40 combined build: completed three-hour comparison
 

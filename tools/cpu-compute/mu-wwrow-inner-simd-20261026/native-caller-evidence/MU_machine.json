@@ -1,0 +1,71 @@
+{
+  "status": "PASS_SCOPED_ACTUAL_MU_WWROW_SIMD_OPERAND_ROLE_REVIEW",
+  "eligible_for_complete_advance_mu_t_caller": true,
+  "native_receipt_sha256": "cf39615b948e62af85ceba2017a13c953f41ff70ae7994a6a3f4664fefdf4abe",
+  "native_closure_sha256": "f43bfd5bb8ba123d7162e01593762c7b79616ec3efb607828f18af243ddac27a",
+  "candidate_O2_object_sha256": "1510a95c4ac1dceb9363975e975151b484a3bd244366458b6d3dbf3429eb6163",
+  "candidate_O2_object_path": "/pool/wrf-experiment/wrf-cpu/kernels/current0adb-mu-wwrow-inner-i-simd-full87-native-hpc02-r1/work/O2/production-candidate.o",
+  "public_MOD_sha256": "d50c501497b927ad56b9bb3b7cb9431c827b8092cedf23e83d8f573ccb884b94",
+  "source_parent_PP_sha256": "daa4100071c1d73f841e35cb06c27695c6ccaf3a8102d87f52234e41edd07b9e",
+  "actual_logs": {
+    "parent": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current0adb-advance-mu-wwrow-inner-i-simd-source-question-r1/native-gate-preparation-r1-hpc02/actual-native-r1/O2-parent-bounded-asm.log",
+      "sha256": "762d3bbff957756204da3599a63027ba8c46d58a2d171fcf773b831bc03b0c8e"
+    },
+    "candidate": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current0adb-advance-mu-wwrow-inner-i-simd-source-question-r1/native-gate-preparation-r1-hpc02/actual-native-r1/O2-candidate-bounded-asm.log",
+      "sha256": "aa3b49fa83fbd69e43351a53dc011f009a5bcb055118ab65153a75c9dea03099"
+    }
+  },
+  "parent_target_bytes": 8034,
+  "candidate_target_bytes": 8734,
+  "body_growth_bytes": 700,
+  "paths": {
+    "parent_scalar": "6000..6044",
+    "new_8wide": "60e0..6125",
+    "new_4wide": "61a4..6244",
+    "new_scalar_tail": "6280..62c6",
+    "two_wide": "NONE in this target. Width2/3 fall directlytoscalartail; do notdescribeXMM4 as2wide."
+  },
+  "operand_roles": [
+    {
+      "operation": "C1H*DMDT then+DVDXI then+(C1H*MUTEND)",
+      "parent": "6000/6006 products;600d firstADD;6012 secondADD",
+      "YMM8": "60e0/60e6 products;60f1 firstADD;60f7 secondADD",
+      "XMM4": "61a4/61df products;61c9 firstADD;61ed secondADD",
+      "scalar": "6280/6285products;628f firstADD;6294 secondADD",
+      "comparison": "Samefirst/secondsource roles; no observedcommutativeNaN-priorityswap."
+    },
+    {
+      "operation": "DNW*partial, trueDIV byMSFTY",
+      "parent": "601a VMULSS;601e VDIVSS",
+      "YMM8": "60fb VMULPS;60ff VDIVPS",
+      "XMM4": "61f6 VMULPS;61fa VDIVPS",
+      "scalar": "629d VMULSS;62a1 VDIVSS",
+      "comparison": "Sameexpressionassociation/operandroles, no reciprocalapprox/FMA."
+    },
+    {
+      "operation": "newWW=oldWW\u2212quotient",
+      "parent": "6016 loadsoldWW;6023 SUBSS quotientfromoldWW;6027store newWW",
+      "YMM8": "60ec loadsoldWW\u2192ymm6;6104 VSUBPS quotientymm0 fromoldWWymm6;6108store newWW",
+      "XMM4": "61b8 loadsoldWW\u2192xmm5;621e VSUBPS quotientxmm0 fromoldWWxmm5;6222store",
+      "scalar": "6298oldWWload;62a7sameSUBSSroles;62abstore",
+      "comparison": "Sameleft/rightSUBroles; changeddestinationregisterdoesnotreverseoperandidentity."
+    },
+    {
+      "operation": "previousWW=oldWW\u2212WW1",
+      "parent": "602c reloadsoldWW;6034 SUBSS WW1memory;603cstore",
+      "YMM8": "610e reloadsoldWW\u2192ymm6;6113 VSUBPS WW1memory fromoldWWymm6;6119store",
+      "XMM4": "6228 reloadsoldWW\u2192xmm6;6230 VSUBPS WW1memory fromoldWWxmm6;6244store",
+      "scalar": "62b1oldWWload;62b6sameSUBSSroles;62bestore",
+      "comparison": "Requirednew-rowstore occursbeforeread/rewriteofoldrow withinlane. KKbackedge6320 remainsoutsideinnerpaths."
+    }
+  ],
+  "existing_target_controls": "Actualcase26width9/fourroundscompetingWWrole7row1 andWW1role8row1/2/kend atfirstpackedandlastscalarcellpassed; original83 finite/upstreamNaN/width/empty/clippedcases retained. O2andO0sameopt87/fullraw/readOnly/five-state passed; originalMODandproduction/namedtargetbody+RELAexact.",
+  "additional_blocking_case_required": false,
+  "reason": "Actualnewvector/scalartailarithmetic retainsparentsourceoperandroles; no specificuncoveredchangedNaNpatternwasidentified. Do notpreemptivelyexpandmatrix. Existingwidth4/remainderpaths have sameoproles; no two-widehazard here.",
+  "structural_scope": "Actualreceiptallnon-targetfunctioninventories true bothoptimizations (rootreports21). PublicMODrawsame. No claimwholeTUrawidentity/scalarpoolidentity/universalIEEE/arbitraryalias/unmaskedtrapcounts; rawreceiptlimitsimmutable.",
+  "application_qualified": false,
+  "performance_qualified": false,
+  "scope": "Eligible forboundedwholeadvance_mu_t same-workcaller; native/mechanismproof notforecastgain. DeepSeekoff/no remote/Git/source edits."
+}

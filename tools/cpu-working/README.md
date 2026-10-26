@@ -1,10 +1,10 @@
-CalcWW Uflux carry + guarded GWDO: own unprofiled SAME512 three-hour qualification
+MU WW-row inner-I SIMD: own unprofiled SAME512 three-hour qualification
 
-| Metric | Latest3 original median | Child | Descriptive reduction |
+| Metric | Latest 3 original median | Child | Descriptive reduction |
 |---|---:|---:|---:|
-| Wall minutes | 13.33374 | 10.41393 | 21.8979% |
-| Main-step minutes | 9.94084 | 9.02017 | 9.2615% |
-| Aggregate core-hours | 99.81315 | 84.32378 | 15.5184% |
+| Wall minutes | 13.33374 | 10.40674 | 21.9518% |
+| Main-step minutes | 9.94084 | 9.00719 | 9.3921% |
+| Aggregate core-hours | 99.81315 | 84.21155 | 15.6308% |
 
 Original controls (n3 distinct):
 
@@ -14,6 +14,6 @@ Original controls (n3 distinct):
 
 Ranges(seconds): {"wall_seconds": [798.6198086068034, 800.2145909662358], "main_step_sum_seconds": [595.32709, 596.59354], "cpu_seconds": [358644.885565, 359516.46336299996]}
 
-Own unprofiled SAME512 three-hour545/fourFULL only. Candidate-only exactscience vs retained corrected546b A2; DESCRIPTIVE UNPAIRED timing vs median latest3 unique original3h controls, epoch unresolved. No fresh matched, isolated/additive, statistical or repeatability gain claim. No own noon/9h/profile/restart/384/256/full144 inheritance. WW qualifiedPP/cachedobject+canonical targetprojection; GWDO exact parent-owned PP replay hook (supportedO2ON/O0OFF). RawproducerNULL/no clean full-source certificate. Earlier unguardedGWDOO0failure and original rawstructural/scopedlimits retained.
+Own unprofiled SAME512 three-hour545/fourFULL only. Candidate-only exactscience vs retained corrected546b A2; DESCRIPTIVE UNPAIRED timing vs median latest3 unique original3h controls, epoch unresolved. No fresh matched, isolated/additive, statistical or repeatability gain claim. No own noon/9h/profile/restart/384/256/full144 inheritance. MUWWROW qualifiedPP3327/cachedOO1510 + post-testconditionaltargetprojection; no clean full-source certificate. Currentnative87/O2O0/publicMOD/nontargetfunction+RELA scope retained; rawproducerNULL. Parentcomponent sourcebindings/defaults and historicalIEEE limitations preserved without claimingnewwholeimageauthority.
 
-WholecallerWWtwohosts15.4204%/12.9226% lowerwall; GWDOoneinitial04pair6.4604%. These separatefixtures are not additiveforecast gains. Allfourmodels+reader normalclosed. Rollbackbothknobs0/rebuildrelink or qualified4974/02848. db0d/input06/NG9371 unchanged.
+Complete whole-MU caller, 512 calls including restores: hpc01 wall 10.034554% / CPU 10.035150% lower; hpc02 wall 6.720250% / CPU 6.709852% lower. These are caller observations, not isolated-loop or forecast gains. All four models and the reader closed normally. Rollback: set WRF_ADVANCE_MU_WW_ROW_SIMD=0 and regenerate/rebuild/relink, or use qualified parent0adb/17d73. Output db0d, input06 and NG9371 remain unchanged.
