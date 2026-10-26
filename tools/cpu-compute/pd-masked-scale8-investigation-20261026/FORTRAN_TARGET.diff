@@ -1,0 +1,41 @@
+--- current-e810-parent
++++ private-mask8-candidate
+@@ -5999,6 +5999,7 @@
+                                 ids, ide, jds, jde, kds, kde,  &
+                                 ims, ime, jms, jme, kms, kme,  &
+                                 its, ite, jts, jte, kts, kte  )
++   USE ISO_C_BINDING, ONLY: c_int, c_float
+    IMPLICIT NONE
+    
+    
+@@ -6066,6 +6067,17 @@
+    REAL,DIMENSION( its-1:ite+2, kts:kte, jts-1:jte+2  ) :: pd_scale
+    REAL,DIMENSION( its-1:ite+2 ) :: ph_low_row, flux_out_row
+    REAL :: scale
++   INTEGER(c_int) :: pd_masked_done
++   INTEGER, PARAMETER :: pd_masked_kind_guard = 1 / MERGE(1,0,KIND(0.)==c_float .AND. STORAGE_SIZE(0.)==32 .AND. KIND(0)==c_int)
++   INTERFACE
++     INTEGER(c_int) FUNCTION pd_masked_scale8(n,flux,phlow,epsilon,out) BIND(C)
++       IMPORT c_int, c_float
++       INTEGER(c_int), VALUE :: n
++       REAL(c_float), INTENT(IN) :: flux(*), phlow(*)
++       REAL(c_float), VALUE :: epsilon
++       REAL(c_float), INTENT(INOUT) :: out(*)
++     END FUNCTION pd_masked_scale8
++   END INTERFACE
+    
+    REAL, PARAMETER :: eps=1.e-20
+    INTEGER, PARAMETER :: pd_scale_word_kind = SELECTED_INT_KIND(MERGE(18,9,STORAGE_SIZE(0.)==64))
+@@ -7841,7 +7853,11 @@
+ 
+    ENDDO
+ 
+-   DO i=i_start, i_end
++   pd_masked_done = 0
++   IF (i_start <= i_end) THEN
++     pd_masked_done = pd_masked_scale8(i_end-i_start+1,flux_out_row(i_start),ph_low_row(i_start),eps,pd_scale(i_start,k,j))
++   END IF
++   DO i=i_start+pd_masked_done, i_end
+      pd_scale(i,k,j) = -1.
+      IF( flux_out_row(i) .gt. ph_low_row(i) ) THEN
+        scale = max(0.,ph_low_row(i)/(flux_out_row(i)+eps))

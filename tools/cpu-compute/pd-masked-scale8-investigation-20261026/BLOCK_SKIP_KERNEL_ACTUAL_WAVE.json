@@ -1,0 +1,79 @@
+{
+  "status": "PASS_PD_MASKED_SCALE_STANDALONE_FOUR_ARMS_RAW_FIVE_STATE",
+  "arms": [
+    {
+      "arm": 0,
+      "host": "hpc03",
+      "which": 1,
+      "wall_seconds": 1.511901624,
+      "cpu_seconds": 1.511702232,
+      "raw_sha256": "43b7a3e57869a1f6c1c975860bb4dee446e7c92d301483eaf46b8f7f45b93e53",
+      "duration_at_least_100ms": true,
+      "receipt_sha256": "c9fef80fa7ec7e086929ebc0e8ed8953f91deec664d41bc439e7fa137a566ecd",
+      "closure_sha256": "e22a1f06da240eb56b8ca40e89faaeb05ff722ce70f67671b2490979a8e2f9a3",
+      "cache_sha256": "b6df522a9d33ff970ef0dde372a405f48d0dc51cb668099439682209b5c5328a",
+      "invocation_id": "6afd43a334944abf85289b5f887c694d"
+    },
+    {
+      "arm": 1,
+      "host": "hpc04",
+      "which": 2,
+      "wall_seconds": 0.401702611,
+      "cpu_seconds": 0.401690966,
+      "raw_sha256": "43b7a3e57869a1f6c1c975860bb4dee446e7c92d301483eaf46b8f7f45b93e53",
+      "duration_at_least_100ms": true,
+      "receipt_sha256": "b4a8892f17d8b4062a9daa161dc20a1df00266b4950e3c771495a2e30b5be547",
+      "closure_sha256": "903836d2ebbf97b282d2bf91ef0403dbc8ba9acd4eedafb635c6fdb2b818b30f",
+      "cache_sha256": "f82d2126e30a1265e041a5a4d89dadf3f9b89df2970e4cf63997ee2891908cf9",
+      "invocation_id": "01ffb1774e5b47758226ea66da85e41f"
+    },
+    {
+      "arm": 2,
+      "host": "hpc03",
+      "which": 2,
+      "wall_seconds": 0.402821126,
+      "cpu_seconds": 0.402807299,
+      "raw_sha256": "43b7a3e57869a1f6c1c975860bb4dee446e7c92d301483eaf46b8f7f45b93e53",
+      "duration_at_least_100ms": true,
+      "receipt_sha256": "caea680fd9c0711599d5e9464fa6dd89d6990424ead65004ec825f8b908db474",
+      "closure_sha256": "0c53369c8e61b56fab131107095fa4b199ed33c1c81b99ac6c2e052ca3d3d496",
+      "cache_sha256": "4995363100379c1ee7a2be88f66de9a56978104bfde6b71ee1c7ff8176ee8bf2",
+      "invocation_id": "5693848ece614e169bf1015d503fb517"
+    },
+    {
+      "arm": 3,
+      "host": "hpc04",
+      "which": 1,
+      "wall_seconds": 1.518126712,
+      "cpu_seconds": 1.518072023,
+      "raw_sha256": "43b7a3e57869a1f6c1c975860bb4dee446e7c92d301483eaf46b8f7f45b93e53",
+      "duration_at_least_100ms": true,
+      "receipt_sha256": "0e3e28050f7f79c2486765ec0727d6335d49094e6bc44929e5b2d90b70815a93",
+      "closure_sha256": "2997496425861556bce6d22cd15db90a8fb65207d9ea9161708645c0e2d173d7",
+      "cache_sha256": "afe53b66e9e3f622525cd1ef88efd5c3873c9456d9350cb95d0db222e5221584",
+      "invocation_id": "92164fbb849744448c2441f4b3455896"
+    }
+  ],
+  "comparisons": [
+    {
+      "host": "hpc03",
+      "parent_wall_seconds": 1.511901624,
+      "candidate_wall_seconds": 0.402821126,
+      "wall_reduction_percent": 73.35665762867121,
+      "parent_cpu_seconds": 1.511702232,
+      "candidate_cpu_seconds": 0.402807299,
+      "cpu_reduction_percent": 73.35405806293736
+    },
+    {
+      "host": "hpc04",
+      "parent_wall_seconds": 1.518126712,
+      "candidate_wall_seconds": 0.401702611,
+      "wall_reduction_percent": 73.53958613436215,
+      "parent_cpu_seconds": 1.518072023,
+      "candidate_cpu_seconds": 0.401690966,
+      "cpu_reduction_percent": 73.53939998141972
+    }
+  ],
+  "all_arms_at_least_100ms": true,
+  "scope": "Standalone synthetic188lane complete scaleproducer;8388608calls+identical204word outputrestores insideintegerwall/threadCPU, helper/fullvector+scalar tail andfallbacktest cost included; no wholePD/application/productiontile/frequency claim."
+}

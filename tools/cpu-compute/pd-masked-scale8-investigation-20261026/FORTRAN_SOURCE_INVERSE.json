@@ -1,0 +1,20 @@
+{
+  "parent_sha256": "e8102ef3ade72b5143b633fc7521ff0ee1fcb9dffc525145704efced8e526199",
+  "candidate_sha256": "632dac10a9fbf69940375d27e31bc0e652ab55898c155b4c667ebdc938dc363e",
+  "full_inverse_exact": true,
+  "edits": [
+    {
+      "old": "   IMPLICIT NONE",
+      "new": "   USE ISO_C_BINDING, ONLY: c_int, c_float\n   IMPLICIT NONE"
+    },
+    {
+      "old": "   REAL :: scale\n",
+      "new": "   REAL :: scale\n   INTEGER(c_int) :: pd_masked_done\n   INTEGER, PARAMETER :: pd_masked_kind_guard = 1 / MERGE(1,0,KIND(0.)==c_float .AND. STORAGE_SIZE(0.)==32 .AND. KIND(0)==c_int)\n   INTERFACE\n     INTEGER(c_int) FUNCTION pd_masked_scale8(n,flux,phlow,epsilon,out) BIND(C)\n       IMPORT c_int, c_float\n       INTEGER(c_int), VALUE :: n\n       REAL(c_float), INTENT(IN) :: flux(*), phlow(*)\n       REAL(c_float), VALUE :: epsilon\n       REAL(c_float), INTENT(INOUT) :: out(*)\n     END FUNCTION pd_masked_scale8\n   END INTERFACE\n"
+    },
+    {
+      "old": "   DO i=i_start, i_end\n     pd_scale(i,k,j) = -1.\n     IF( flux_out_row(i) .gt. ph_low_row(i) ) THEN\n       scale = max(0.,ph_low_row(i)/(flux_out_row(i)+eps))\n       pd_scale(i,k,j) = scale\n     END IF\n   ENDDO",
+      "new": "   pd_masked_done = 0\n   IF (i_start <= i_end) THEN\n     pd_masked_done = pd_masked_scale8(i_end-i_start+1,flux_out_row(i_start),ph_low_row(i_start),eps,pd_scale(i_start,k,j))\n   END IF\n   DO i=i_start+pd_masked_done, i_end\n     pd_scale(i,k,j) = -1.\n     IF( flux_out_row(i) .gt. ph_low_row(i) ) THEN\n       scale = max(0.,ph_low_row(i)/(flux_out_row(i)+eps))\n       pd_scale(i,k,j) = scale\n     END IF\n   ENDDO"
+    }
+  ],
+  "scope": "Only local interface/kind guard/privateprefix integer and producer prefixcall+originaltail; allothermoduletext unchanged. Public routine dummyargs/ABI unchanged; actualMOD pending."
+}

@@ -1,0 +1,13 @@
+--- original-mask8-helper
++++ private-all-inactive-skip-helper
+@@ -9,6 +9,10 @@
+     for(int i=0;i<end;i+=8){
+         __m256 f=_mm256_loadu_ps(flux+i),p=_mm256_loadu_ps(phlow+i);
+         __m256 active=_mm256_cmp_ps(f,p,_CMP_GT_OS);
++        if (_mm256_movemask_ps(active)==0) {
++            _mm256_storeu_ps(out+i,minusone);
++            continue;
++        }
+         __m256 numerator=_mm256_and_ps(active,p);
+         __m256 left=_mm256_and_ps(active,f);
+         __m256 right=_mm256_blendv_ps(one,e,active);

@@ -1,0 +1,79 @@
+{
+  "status": "PASS_CURRENT828_MASKED_SCALE_COMPLETE_PD_FOUR_ARMS",
+  "arms": [
+    {
+      "arm": 0,
+      "host": "hpc01",
+      "which": 1,
+      "wall_seconds": 2.316359747,
+      "cpu_seconds": 2.316086319,
+      "state_sha256": "96822c406da177de20d55f0e915874c39dbb759d8bd5ac8f8a6d5674aae03ecb",
+      "receipt_sha256": "c03bfa752cdf4092093752a93c76b5ea36516a4c9513832429416e3ead974328",
+      "closure_sha256": "20c56a8699a04192d0bec1079f34caad7b07b42e8685c6aa675a6a32b6e1bd74",
+      "cache_sha256": "18099af92aaad1d09091776e724edaba92f2d082597c22e12262349dc56f1996",
+      "invocation_id": "c2d70356a9334886ac2f3a2bbef3605d"
+    },
+    {
+      "arm": 1,
+      "host": "hpc02",
+      "which": 2,
+      "wall_seconds": 2.382549261,
+      "cpu_seconds": 2.382243815,
+      "state_sha256": "96822c406da177de20d55f0e915874c39dbb759d8bd5ac8f8a6d5674aae03ecb",
+      "receipt_sha256": "4639caeb0730d8c2ca26d2e9361fc102af46bbd7bcfdd7357f24335d6b47c9fa",
+      "closure_sha256": "13ccc846b777894d0a23ab34a59d3fbcad72bf6e7e2b674e63c349fc3f9a675f",
+      "cache_sha256": "0a966238a05d9eccd07ccdc0c1bce17eba8241b225f4bdcebd0e33beeb33cf70",
+      "invocation_id": "a33041cf14fa43df9ceedb33d5752328"
+    },
+    {
+      "arm": 2,
+      "host": "hpc01",
+      "which": 2,
+      "wall_seconds": 2.372326375,
+      "cpu_seconds": 2.371788216,
+      "state_sha256": "96822c406da177de20d55f0e915874c39dbb759d8bd5ac8f8a6d5674aae03ecb",
+      "receipt_sha256": "c952274c11fc669d40f79a73a660ce18e18ba1ab5885ceeb31078897efa73a87",
+      "closure_sha256": "02235e799a75249674605867c31b5f69a7d44ada89dbdafcd898c206b7ba937d",
+      "cache_sha256": "cbaa5455d514cb115a9edf727e5cdf540b1b06eaaee477b234ac285785472490",
+      "invocation_id": "22d096c52c0a4307bd9753dd9e74ae2d"
+    },
+    {
+      "arm": 3,
+      "host": "hpc02",
+      "which": 1,
+      "wall_seconds": 2.298854319,
+      "cpu_seconds": 2.298571152,
+      "state_sha256": "96822c406da177de20d55f0e915874c39dbb759d8bd5ac8f8a6d5674aae03ecb",
+      "receipt_sha256": "93439a1e6721658ffef6e9194b65ababdd03206cac9765887fec6f169ee29b4c",
+      "closure_sha256": "18172991e206dfffd172f7020678c8c8944f9685de614a145d1080522a341753",
+      "cache_sha256": "249f67fcf88b1c8591bab499d9bfa3b529e675bdd682fb658f2d0da53497011e",
+      "invocation_id": "306f3ad5a3294d40a4f9fd459e83544e"
+    }
+  ],
+  "comparisons": [
+    {
+      "host": "hpc01",
+      "parent_arm": 0,
+      "candidate_arm": 2,
+      "parent_wall_seconds": 2.316359747,
+      "candidate_wall_seconds": 2.372326375,
+      "wall_reduction_percent": -2.4161457680519858,
+      "parent_cpu_seconds": 2.316086319,
+      "candidate_cpu_seconds": 2.371788216,
+      "cpu_reduction_percent": -2.4050009079130548
+    },
+    {
+      "host": "hpc02",
+      "parent_arm": 3,
+      "candidate_arm": 1,
+      "parent_wall_seconds": 2.298854319,
+      "candidate_wall_seconds": 2.382549261,
+      "wall_reduction_percent": -3.640724047116085,
+      "parent_cpu_seconds": 2.298571152,
+      "candidate_cpu_seconds": 2.382243815,
+      "cpu_reduction_percent": -3.6402033031344576
+    }
+  ],
+  "scope": "256 complete captured advect_scalar_pd calls; full tendency restore and genuine fullcall allocations/math inside one integer MONOTONIC/THREADCPU batch. Full physical tendency plus original defined h/z footprints, readonly inputs/scalars/config, warm1 and batch256 five states outside clock. Same256 full raw hard across all4 arms; no warm-vs-batch state invariant. One ELF genuine CECA plus same-code symbol-only candidate+actualhelper, no science compile. Historical captured geometry, not current forecast/global headroom.",
+  "performance_gain_qualification": "Interpret actual signs/magnitudes; no acceptance based solelyon opcodes."
+}
