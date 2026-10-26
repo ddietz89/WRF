@@ -1,0 +1,434 @@
+--- parent/calc_refl10cm
++++ candidate/calc_refl10cm
+@@ -11,18 +11,11 @@
+ 
+ 
+ 
+-      REAL, DIMENSION(kts:kte):: temp, pres, qv, rho, rhof
+-      REAL, DIMENSION(kts:kte):: rc, rr, nr, rs, rg, ng, rb
+-
+-      DOUBLE PRECISION, DIMENSION(kts:kte):: ilamr, ilamg, N0_r, N0_g
+-      REAL, DIMENSION(kts:kte):: mvd_r
+-      REAL, DIMENSION(kts:kte):: smob, smo2, smoc, smoz
++
+       REAL:: oM3, M0, Mrat, slam1, slam2, xDs
+       REAL:: ils1, ils2, t1_vts, t2_vts, t3_vts, t4_vts
+       REAL:: vtr_dbz_wt, vts_dbz_wt, vtg_dbz_wt
+ 
+-      REAL, DIMENSION(kts:kte):: ze_rain, ze_snow, ze_graupel
+-      INTEGER, DIMENSION(kts:kte):: idx_bg
+ 
+       DOUBLE PRECISION:: N0_exp, N0_min, lam_exp, lamr, lamg
+       REAL:: a_, b_, loga_, tc0
+@@ -30,7 +23,6 @@
+ 
+       INTEGER:: i, k, k_0, kbot, n, ktop
+       LOGICAL:: melti
+-      LOGICAL, DIMENSION(kts:kte):: L_qr, L_qs, L_qg
+ 
+       DOUBLE PRECISION:: cback, x, eta, f_d
+       REAL:: xslw1, ygra1, zans1
+@@ -38,6 +30,92 @@
+ 
+ 
+ 
++      if (1<=kts .and. kts<=kte .and. kte<=33) then
++      block
++      REAL, TARGET :: fixed_temp(33)
++      REAL, CONTIGUOUS, POINTER :: temp(:)
++      REAL, TARGET :: fixed_pres(33)
++      REAL, CONTIGUOUS, POINTER :: pres(:)
++      REAL, TARGET :: fixed_qv(33)
++      REAL, CONTIGUOUS, POINTER :: qv(:)
++      REAL, TARGET :: fixed_rho(33)
++      REAL, CONTIGUOUS, POINTER :: rho(:)
++      REAL, TARGET :: fixed_rhof(33)
++      REAL, CONTIGUOUS, POINTER :: rhof(:)
++      REAL, TARGET :: fixed_rc(33)
++      REAL, CONTIGUOUS, POINTER :: rc(:)
++      REAL, TARGET :: fixed_rr(33)
++      REAL, CONTIGUOUS, POINTER :: rr(:)
++      REAL, TARGET :: fixed_nr(33)
++      REAL, CONTIGUOUS, POINTER :: nr(:)
++      REAL, TARGET :: fixed_rs(33)
++      REAL, CONTIGUOUS, POINTER :: rs(:)
++      REAL, TARGET :: fixed_rg(33)
++      REAL, CONTIGUOUS, POINTER :: rg(:)
++      REAL, TARGET :: fixed_ng(33)
++      REAL, CONTIGUOUS, POINTER :: ng(:)
++      REAL, TARGET :: fixed_rb(33)
++      REAL, CONTIGUOUS, POINTER :: rb(:)
++      DOUBLE PRECISION, TARGET :: fixed_ilamr(33)
++      DOUBLE PRECISION, CONTIGUOUS, POINTER :: ilamr(:)
++      DOUBLE PRECISION, TARGET :: fixed_ilamg(33)
++      DOUBLE PRECISION, CONTIGUOUS, POINTER :: ilamg(:)
++      DOUBLE PRECISION, TARGET :: fixed_N0_r(33)
++      DOUBLE PRECISION, CONTIGUOUS, POINTER :: N0_r(:)
++      DOUBLE PRECISION, TARGET :: fixed_N0_g(33)
++      DOUBLE PRECISION, CONTIGUOUS, POINTER :: N0_g(:)
++      REAL, TARGET :: fixed_mvd_r(33)
++      REAL, CONTIGUOUS, POINTER :: mvd_r(:)
++      REAL, TARGET :: fixed_smob(33)
++      REAL, CONTIGUOUS, POINTER :: smob(:)
++      REAL, TARGET :: fixed_smo2(33)
++      REAL, CONTIGUOUS, POINTER :: smo2(:)
++      REAL, TARGET :: fixed_smoc(33)
++      REAL, CONTIGUOUS, POINTER :: smoc(:)
++      REAL, TARGET :: fixed_smoz(33)
++      REAL, CONTIGUOUS, POINTER :: smoz(:)
++      REAL, TARGET :: fixed_ze_rain(33)
++      REAL, CONTIGUOUS, POINTER :: ze_rain(:)
++      REAL, TARGET :: fixed_ze_snow(33)
++      REAL, CONTIGUOUS, POINTER :: ze_snow(:)
++      REAL, TARGET :: fixed_ze_graupel(33)
++      REAL, CONTIGUOUS, POINTER :: ze_graupel(:)
++      INTEGER, TARGET :: fixed_idx_bg(33)
++      INTEGER, CONTIGUOUS, POINTER :: idx_bg(:)
++      LOGICAL, TARGET :: fixed_L_qr(33)
++      LOGICAL, CONTIGUOUS, POINTER :: L_qr(:)
++      LOGICAL, TARGET :: fixed_L_qs(33)
++      LOGICAL, CONTIGUOUS, POINTER :: L_qs(:)
++      LOGICAL, TARGET :: fixed_L_qg(33)
++      LOGICAL, CONTIGUOUS, POINTER :: L_qg(:)
++      temp(kts:kte) => fixed_temp(1:kte-kts+1)
++      pres(kts:kte) => fixed_pres(1:kte-kts+1)
++      qv(kts:kte) => fixed_qv(1:kte-kts+1)
++      rho(kts:kte) => fixed_rho(1:kte-kts+1)
++      rhof(kts:kte) => fixed_rhof(1:kte-kts+1)
++      rc(kts:kte) => fixed_rc(1:kte-kts+1)
++      rr(kts:kte) => fixed_rr(1:kte-kts+1)
++      nr(kts:kte) => fixed_nr(1:kte-kts+1)
++      rs(kts:kte) => fixed_rs(1:kte-kts+1)
++      rg(kts:kte) => fixed_rg(1:kte-kts+1)
++      ng(kts:kte) => fixed_ng(1:kte-kts+1)
++      rb(kts:kte) => fixed_rb(1:kte-kts+1)
++      ilamr(kts:kte) => fixed_ilamr(1:kte-kts+1)
++      ilamg(kts:kte) => fixed_ilamg(1:kte-kts+1)
++      N0_r(kts:kte) => fixed_N0_r(1:kte-kts+1)
++      N0_g(kts:kte) => fixed_N0_g(1:kte-kts+1)
++      mvd_r(kts:kte) => fixed_mvd_r(1:kte-kts+1)
++      smob(kts:kte) => fixed_smob(1:kte-kts+1)
++      smo2(kts:kte) => fixed_smo2(1:kte-kts+1)
++      smoc(kts:kte) => fixed_smoc(1:kte-kts+1)
++      smoz(kts:kte) => fixed_smoz(1:kte-kts+1)
++      ze_rain(kts:kte) => fixed_ze_rain(1:kte-kts+1)
++      ze_snow(kts:kte) => fixed_ze_snow(1:kte-kts+1)
++      ze_graupel(kts:kte) => fixed_ze_graupel(1:kte-kts+1)
++      idx_bg(kts:kte) => fixed_idx_bg(1:kte-kts+1)
++      L_qr(kts:kte) => fixed_L_qr(1:kte-kts+1)
++      L_qs(kts:kte) => fixed_L_qs(1:kte-kts+1)
++      L_qg(kts:kte) => fixed_L_qg(1:kte-kts+1)
+       do k = kts, kte
+          dBZ(k) = -35.0
+       enddo
+@@ -178,10 +256,10 @@
+      &                            .and. (L_qs(k+1).or.L_qg(k+1)) ) then
+             k_0 = MAX(k+1, k_0)
+             melti=.true.
+-            goto 195
+-         endif
+-      enddo
+- 195  continue
++            goto 295
++         endif
++      enddo
++ 295  continue
+ 
+ 
+       k_0loop = Min(k_0, ke_diag+1)
+@@ -316,4 +394,295 @@
+ 
+ 
+ 
++      end block
++      else
++      block
++      REAL, DIMENSION(kts:kte):: temp, pres, qv, rho, rhof
++      REAL, DIMENSION(kts:kte):: rc, rr, nr, rs, rg, ng, rb
++      DOUBLE PRECISION, DIMENSION(kts:kte):: ilamr, ilamg, N0_r, N0_g
++      REAL, DIMENSION(kts:kte):: mvd_r
++      REAL, DIMENSION(kts:kte):: smob, smo2, smoc, smoz
++      REAL, DIMENSION(kts:kte):: ze_rain, ze_snow, ze_graupel
++      INTEGER, DIMENSION(kts:kte):: idx_bg
++      LOGICAL, DIMENSION(kts:kte):: L_qr, L_qs, L_qg
++      do k = kts, kte
++         dBZ(k) = -35.0
++      enddo
++
++
++
++
++
++      do k = kts, kte
++         temp(k) = t1d(k)
++         qv(k) = MAX(1.E-10, qv1d(k))
++         pres(k) = p1d(k)
++         rho(k) = 0.622*pres(k)/(R*temp(k)*(qv(k)+0.622))
++         rhof(k) = SQRT(RHO_NOT/rho(k))
++         rc(k) = MAX(R1, qc1d(k)*rho(k))
++         if (qr1d(k) .gt. R1) then
++            rr(k) = qr1d(k)*rho(k)
++            nr(k) = MAX(R2, nr1d(k)*rho(k))
++            lamr = (am_r*crg(3)*org2*nr(k)/rr(k))**obmr
++            ilamr(k) = 1./lamr
++            N0_r(k) = nr(k)*org2*lamr**cre(2)
++            mvd_r(k) = (3.0 + mu_r + 0.672) * ilamr(k)
++            L_qr(k) = .true.
++         else
++            rr(k) = R1
++            nr(k) = R1
++            mvd_r(k) = 50.E-6
++            L_qr(k) = .false.
++         endif
++         if (qs1d(k) .gt. R2) then
++            rs(k) = qs1d(k)*rho(k)
++            L_qs(k) = .true.
++         else
++            rs(k) = R1
++            L_qs(k) = .false.
++         endif
++         if (qg1d(k) .gt. R2) then
++            rg(k) = qg1d(k)*rho(k)
++            ng(k) = MAX(R2, ng1d(k)*rho(k))
++            rb(k) = MAX(qg1d(k)/rho_g(NRHG), qb1d(k))
++            rb(k) = MIN(qg1d(k)/rho_g(1), rb(k))
++            idx_bg(k) = MAX(1,MIN(NINT(qg1d(k)/rb(k) *0.01)+1,NRHG))
++            if (.not. is_hail_aware) idx_bg(k) = idx_bg1
++            L_qg(k) = .true.
++         else
++            rg(k) = R1
++            ng(k) = R2
++            idx_bg(k) = idx_bg1
++            L_qg(k) = .false.
++         endif
++      enddo
++
++
++
++
++      do k = kts, kte
++         smo2(k) = 0.
++         smob(k) = 0.
++         smoc(k) = 0.
++         smoz(k) = 0.
++      enddo
++      if ( ( ke_diag > kts .and. ANY(L_qs .eqv. .true.) ) .or.  &
++            (ke_diag == kts .and. L_qs(kts) .eqv. .true. ) ) then
++      do k = kts, ke_diag 
++         if (.not. L_qs(k)) CYCLE
++         tc0 = MIN(-0.1, temp(k)-273.15)
++         smob(k) = rs(k)*oams
++
++
++
++         if (bm_s.gt.(2.0-1.e-3) .and. bm_s.lt.(2.0+1.e-3)) then
++            smo2(k) = smob(k)
++         else
++            loga_ = sa(1) + sa(2)*tc0 + sa(3)*bm_s &
++     &         + sa(4)*tc0*bm_s + sa(5)*tc0*tc0 &
++     &         + sa(6)*bm_s*bm_s + sa(7)*tc0*tc0*bm_s &
++     &         + sa(8)*tc0*bm_s*bm_s + sa(9)*tc0*tc0*tc0 &
++     &         + sa(10)*bm_s*bm_s*bm_s
++            a_ = 10.0**loga_
++            b_ = sb(1) + sb(2)*tc0 + sb(3)*bm_s &
++     &         + sb(4)*tc0*bm_s + sb(5)*tc0*tc0 &
++     &         + sb(6)*bm_s*bm_s + sb(7)*tc0*tc0*bm_s &
++     &         + sb(8)*tc0*bm_s*bm_s + sb(9)*tc0*tc0*tc0 &
++     &         + sb(10)*bm_s*bm_s*bm_s
++            smo2(k) = (smob(k)/a_)**(1./b_)
++         endif
++
++
++         loga_ = sa(1) + sa(2)*tc0 + sa(3)*cse(1) &
++     &         + sa(4)*tc0*cse(1) + sa(5)*tc0*tc0 &
++     &         + sa(6)*cse(1)*cse(1) + sa(7)*tc0*tc0*cse(1) &
++     &         + sa(8)*tc0*cse(1)*cse(1) + sa(9)*tc0*tc0*tc0 &
++     &         + sa(10)*cse(1)*cse(1)*cse(1)
++         a_ = 10.0**loga_
++         b_ = sb(1)+ sb(2)*tc0 + sb(3)*cse(1) + sb(4)*tc0*cse(1) &
++     &        + sb(5)*tc0*tc0 + sb(6)*cse(1)*cse(1) &
++     &        + sb(7)*tc0*tc0*cse(1) + sb(8)*tc0*cse(1)*cse(1) &
++     &        + sb(9)*tc0*tc0*tc0 + sb(10)*cse(1)*cse(1)*cse(1)
++         smoc(k) = a_ * smo2(k)**b_
++
++
++         loga_ = sa(1) + sa(2)*tc0 + sa(3)*cse(3) &
++     &         + sa(4)*tc0*cse(3) + sa(5)*tc0*tc0 &
++     &         + sa(6)*cse(3)*cse(3) + sa(7)*tc0*tc0*cse(3) &
++     &         + sa(8)*tc0*cse(3)*cse(3) + sa(9)*tc0*tc0*tc0 &
++     &         + sa(10)*cse(3)*cse(3)*cse(3)
++         a_ = 10.0**loga_
++         b_ = sb(1)+ sb(2)*tc0 + sb(3)*cse(3) + sb(4)*tc0*cse(3) &
++     &        + sb(5)*tc0*tc0 + sb(6)*cse(3)*cse(3) &
++     &        + sb(7)*tc0*tc0*cse(3) + sb(8)*tc0*cse(3)*cse(3) &
++     &        + sb(9)*tc0*tc0*tc0 + sb(10)*cse(3)*cse(3)*cse(3)
++         smoz(k) = a_ * smo2(k)**b_
++      enddo
++      endif
++
++
++
++
++
++      if (ANY(L_qg .eqv. .true.)) then
++      do k = kte, kts, -1
++         lamg = (am_g(idx_bg(k))*cgg(3,1)*ogg2*ng(k)/rg(k))**obmg
++         ilamg(k) = 1./lamg
++         N0_g(k) = ng(k)*ogg2*lamg**cge(2,1)
++      enddo
++      else
++         ilamg(:) = 0.
++         N0_g(:) = 0.
++      endif
++
++
++
++
++      melti = .false.
++      k_0 = kts
++      do k = kte-1, kts, -1
++         if ( (temp(k).gt.273.15) .and. L_qr(k)                         &
++     &                            .and. (L_qs(k+1).or.L_qg(k+1)) ) then
++            k_0 = MAX(k+1, k_0)
++            melti=.true.
++            goto 195
++         endif
++      enddo
++ 195  continue
++
++
++      k_0loop = Min(k_0, ke_diag+1)
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++      do k = kts, ke_diag 
++         ze_rain(k) = 1.e-22
++         ze_snow(k) = 1.e-22
++         ze_graupel(k) = 1.e-22
++         if (L_qr(k)) ze_rain(k) = N0_r(k)*crg(4)*ilamr(k)**cre(4)
++         if (L_qs(k)) ze_snow(k) = (0.176/0.93) * (6.0/PI)*(6.0/PI)     &
++     &                           * (am_s/900.0)*(am_s/900.0)*smoz(k)
++         if (L_qg(k)) ze_graupel(k) = (0.176/0.93) * (6.0/PI)*(6.0/PI)  &
++     &               * (am_g(idx_bg(k))/900.0)*(am_g(idx_bg(k))/900.0)  &
++     &               * N0_g(k)*cgg(4,1)*ilamg(k)**cge(4,1)
++      enddo
++
++
++
++
++
++
++
++
++
++      if (.not. iiwarm .and. melti .and. k_0.ge.2) then
++       do k = k_0loop-1, kts, -1
++
++
++          if (L_qs(k) .and. L_qs(k_0) ) then
++           fmelt_s = MAX(0.05d0, MIN(1.0d0-rs(k)/rs(k_0), 0.99d0))
++           eta = 0.d0
++           oM3 = 1./smoc(k)
++           M0 = (smob(k)*oM3)
++           Mrat = smob(k)*M0*M0*M0
++           slam1 = M0 * Lam0
++           slam2 = M0 * Lam1
++           do n = 1, nrbins
++              x = am_s * xxDs(n)**bm_s
++              call rayleigh_soak_wetgraupel (x, DBLE(ocms), DBLE(obms), &
++     &              fmelt_s, melt_outside_s, m_w_0, m_i_0, lamda_radar, &
++     &              CBACK, mixingrulestring_s, matrixstring_s,          &
++     &              inclusionstring_s, hoststring_s,                    &
++     &              hostmatrixstring_s, hostinclusionstring_s)
++              f_d = Mrat*(Kap0*DEXP(-slam1*xxDs(n))                     &
++     &              + Kap1*(M0*xxDs(n))**mu_s * DEXP(-slam2*xxDs(n)))
++              eta = eta + f_d * CBACK * simpson(n) * xdts(n)
++           enddo
++           ze_snow(k) = SNGL(lamda4 / (pi5 * K_w) * eta)
++          endif
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++       enddo
++      endif
++
++      do k = ke_diag, kts, -1
++         dBZ(k) = 10.*log10((ze_rain(k)+ze_snow(k)+ze_graupel(k))*1.d18)
++      enddo
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++      end block
++      endif
+       end subroutine calc_refl10cm

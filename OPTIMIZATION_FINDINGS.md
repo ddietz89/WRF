@@ -1,5 +1,14 @@
 # WRF CPU optimization findings
 
+## Reflectivity fixed-capacity R4 closed unpromoted
+
+R4 retained the original reflectivity arithmetic and runtime `rhof` division/square root while replacing 28 scratch heap owners with fixed 33-element backing on supported bounds. Genuine O2/O0 checks passed 112 records per role across four rounding modes, with exact physical/read-only/raw/five-state results and scoped O2 interface/code/referent proof.
+
+The complete restore-inclusive 2,048-call screen was 3.0103% slower on hpc01 and 0.6035% faster on hpc02; thread CPU agrees. All four arms passed cache, raw/state and normal-closure gates. No consistent significant caller or independent kernel benefit was established. Root closed the fixed candidate unpromoted: no reflectivity application, source/default update, RSS saving or forecast claim. The original exception-state failure, warm/batch fixture failure and oversized parent timing attempt remain preserved. The one fixture and count repair do not rewrite those failures.
+
+[Decision and evidence](tools/cpu-rejected/thompson-refl-fixed33-rhof-volatile-20261026/README.md). Private canonical/conditional three-component inventories remain unused. No further variant or benchmark arms are planned for this fixed mechanism.
+
+
 ### U correction/final-update fusion: held unpromoted
 
 Exact whole-UV94-per-opt and extracted-region72-per-opt O2/O0 gates passed, including full physical/read-only bytes and five-state checks. Both restore-inclusive integer wall/thread-CPU screens passed all four raw/state/cache/normal-closure gates, but signs differed across hosts:

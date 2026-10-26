@@ -1,0 +1,13 @@
+--- R1-fixed-capacity
++++ rhof-volatile-only
+@@ -40,8 +40,8 @@
+       REAL, CONTIGUOUS, POINTER :: qv(:)
+       REAL, TARGET :: fixed_rho(33)
+       REAL, CONTIGUOUS, POINTER :: rho(:)
+-      REAL, TARGET :: fixed_rhof(33)
+-      REAL, CONTIGUOUS, POINTER :: rhof(:)
++      REAL, TARGET, VOLATILE :: fixed_rhof(33)
++      REAL, CONTIGUOUS, POINTER, VOLATILE :: rhof(:)
+       REAL, TARGET :: fixed_rc(33)
+       REAL, CONTIGUOUS, POINTER :: rc(:)
+       REAL, TARGET :: fixed_rr(33)
