@@ -1,0 +1,119 @@
+{
+  "status": "PASS_OWN_UNPROFILED_SAME512_RADALT_THREE_HOUR_545_FOUR_FULL",
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current3f86-radalt-cached-batch-experimental-r1/wrf.exe",
+    "sha256": "56d20c4ea2e7b1b14d1f969928ffb5fcd99c4bafd30f0419a0b1215b32767623"
+  },
+  "archive": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current3f86-radalt-cached-batch-experimental-r1/libwrflib.a",
+    "sha256": "e3e141eafcc56cd4c1cfdbb5a129e3f0d2f8f7f39378b352e2c422e95de741b0"
+  },
+  "source_commit": "b88f4a87e0019b39552a9c299ab65953e2eb8116",
+  "post_test_source_commit": "b88f4a87e0019b39552a9c299ab65953e2eb8116",
+  "raw_producer_source_commit": null,
+  "own_three_hour_qualified": true,
+  "own_unprofiled_three_hour_qualified": true,
+  "own_noon_qualified": true,
+  "own_noon_one_hour_qualified": true,
+  "own_unprofiled_noon_one_hour_qualified": true,
+  "own_nine_hour_qualified": false,
+  "own_unprofiled_nine_hour_qualified": false,
+  "profile_qualified": false,
+  "restart_qualified": false,
+  "observed_step_count": 545,
+  "products": 4,
+  "science": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-3f86-radalt-3h-runtime-r1/science-receipt.json",
+    "sha256": "e02230e0047b32a0767f31382978abe68fff925cd5dda9a4fd54735382b5b7b6"
+  },
+  "reader_closure": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-3f86-radalt-3h-runtime-r1/reader-closure.json",
+    "sha256": "60455607d00e4e9244d7d97a5fce3021fdefcbce6ff91aa43fc6ee15beef3f85"
+  },
+  "models": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-3f86-radalt-3h-runtime-r1/candidate-metadata/model-closures.json",
+    "sha256": "dc93e0abb81958ebd61095c7ee1184c2c1a4586fc00720dc2237f70298cb9183"
+  },
+  "lease": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-3f86-radalt-3h-runtime-r1/candidate-metadata/lease.json",
+    "sha256": "2a24da2e6ec7a4e9876f4964142c22f3d68227258596805df0ec49a57a4551fe"
+  },
+  "RESULT": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-3f86-radalt-3h-runtime-r1/RESULT.json",
+    "sha256": "d036443fdee46aeaa57e9ede87755ac30a85fe384f27ec06f7db025bc09772d6"
+  },
+  "build": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-3f86-radalt-3h-runtime-r1/batch-build-receipt.json",
+    "sha256": "6a90ade9c5dd152c4b16b9ec2ea5c4425adb76a2cd678f66daffe7b346720ba2"
+  },
+  "build_closure": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-3f86-radalt-3h-runtime-r1/batch-build-closure.json",
+    "sha256": "67d3ed01decae3ffd09e7f14b2c8c60df12777921c4bda04e0fc9bc8dc362cd1"
+  },
+  "actual_candidate_metrics": {
+    "wall_seconds": 622.1924296342768,
+    "cpu_seconds": 302431.799313,
+    "main_step_sum_seconds": 538.68957
+  },
+  "rolling_control_baseline": {
+    "cohort_sha256": "a96d6b9ea566325641ad0b0766429c661e904c75b457419acbefdaa9953b0aa5",
+    "n": 3,
+    "median": {
+      "wall_seconds": 800.0241208570078,
+      "cpu_seconds": 359327.346984,
+      "main_step_sum_seconds": 596.45045
+    },
+    "members": [
+      {
+        "run_id": "production512-current0b40-fourhost-threehour-pair2-r1-control",
+        "coordinator_invocation_id": "2eeee20b4cf0457cb582710bce30dc0b",
+        "metrics": {
+          "wall_seconds": 800.2145909662358,
+          "cpu_seconds": 359516.46336299996,
+          "main_step_sum_seconds": 596.45045
+        }
+      },
+      {
+        "run_id": "production512-current0b40-fourhost-threehour-pair1-r1-control",
+        "coordinator_invocation_id": "81febf86a6734f4fa77d57fd1b467c30",
+        "metrics": {
+          "wall_seconds": 798.6198086068034,
+          "cpu_seconds": 358644.885565,
+          "main_step_sum_seconds": 595.32709
+        }
+      },
+      {
+        "run_id": "production512-current5c75-fourhost-threehour-pair1-r1-control",
+        "coordinator_invocation_id": "c9768c1474f648329ff3e41b664aac99",
+        "metrics": {
+          "wall_seconds": 800.0241208570078,
+          "cpu_seconds": 359327.346984,
+          "main_step_sum_seconds": 596.59354
+        }
+      }
+    ]
+  },
+  "descriptive_reductions_percent": {
+    "wall_seconds": 22.228291196049543,
+    "main_step_sum_seconds": 9.68410368371757,
+    "cpu_seconds": 15.833904140208244
+  },
+  "timing_gain_claim": false,
+  "comparison_design": "CANDIDATE_ONLY_UNPAIRED_RETAINED_ORIGINAL_A2_SCIENCE_MEDIAN3_DESCRIPTIVE_TIMING",
+  "components": [
+    "sw_stack_r2",
+    "calc_alt"
+  ],
+  "limits": "Own unprofiled SAME512 threehour545/fourFULL AND daylight12-13onehour185/twoFULL. Exact science versus retained original546bA2; timing descriptive/unpaired versus median3 distinct original controls, unresolved hardware epoch. No freshmatched/isolated/additive/statistical/globalheadroom claim. Own daylight SCI required before SW default promotion. Child9h/profile/restart FALSE. Noon retainedoriginal75m is scienceprefix only, no75m-to1h timingcomparison. Only actual listed cached members changed over selected3f86; RSL/18deps/othermembers exact. Qualified testedPP/cachedOO delivery plus posttest target source projection, raw producer NULL; no cleanF-only build or wholeTU certificate. SWR2 tiny genuinecaller0.1311/0.2663% shorter only, no significant gain established or standalone/BLOCKgain inheritance.",
+  "raw_result_order": [
+    "retained_original546b_A2_science_reference",
+    "fresh_current4974_calcWW_GWDO_unprofiled_threehour_candidate"
+  ],
+  "raw_result_label_annotation": "Frozen collector legacylabels retained; actual lease/build/components identify this child. Raw receipts are never rewritten.",
+  "own_daylight_qualified": true,
+  "daylight_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-pair-stack-calc-alt-20261026/OWN_NOON_APPLICATION_QUALIFICATION.json",
+    "sha256": "a805d0ae2808b33cc075428c55df7344f27472cb411d559f86fed62290892d49"
+  },
+  "daylight_before_SW_default_promotion_passed": true
+}

@@ -1,5 +1,20 @@
 # WRF CPU optimization findings
 
+## October 26: paired shortwave scratch and calc_alt SIMD promoted
+
+All earlier improvements remain in the combined executable `56d20c4e`. It now owns exact three-hour qualification (four full products, 545 timesteps) and unprofiled daylight qualification (two full products, 185 timesteps).
+
+| Metric | Original median (3 runs) | Latest combined | Descriptive reduction |
+|---|---:|---:|---:|
+| Model/MPI wall (min) | 13.33374 | 10.36987 | 22.2283% |
+| Main-step elapsed (min) | 9.94084 | 8.97816 | 9.6841% |
+| Aggregate CPU (core-hours) | 99.81315 | 84.00883 | 15.8339% |
+
+These timings are unpaired against retained controls; they do not isolate either addition. Calc_alt shortened its complete caller by 41.94–42.02%; paired shortwave scratch removed two allocations with near-flat 0.13–0.27% caller reductions. Both are defaults within the qualified GNU 13.3 strict-O2 pure-MPI scope, with original fallbacks and explicit opt-outs. No earlier BLOCK kernel gain is transferred. The single-column SPC experiment remains separate.
+
+Post-test source commit `b88f4a87` records target correspondence and cached-object delivery, with no clean full-source producer claim. This child has no own nine-hour or profile qualification. [Evidence and rollback](tools/cpu-compute/sw-pair-stack-calc-alt-20261026/README.md).
+
+
 ## Reflectivity fixed-capacity R4 closed unpromoted
 
 R4 retained the original reflectivity arithmetic and runtime `rhof` division/square root while replacing 28 scratch heap owners with fixed 33-element backing on supported bounds. Genuine O2/O0 checks passed 112 records per role across four rounding modes, with exact physical/read-only/raw/five-state results and scoped O2 interface/code/referent proof.

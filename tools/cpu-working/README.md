@@ -1,11 +1,17 @@
-Selected3f86 current combined source improvements now owns unprofiled SAME512 nine-hour1625/tenFULL science. Four models and original reader closed normally. Prior own3h545/fourFULL proof remains unchanged.
+Cached radiation/physics batch: own three-hour science
 
-| Metric | Fresh original546b (n=1) | Selected3f86 (n=1) | Unpaired descriptive reduction |
+| Metric | Original median (n=3) | Child | Descriptive reduction |
 |---|---:|---:|---:|
-| Wall minutes | 34.157236 | 29.445396 | 13.7946% |
-| Main-step minutes | 30.845967 | 28.104147 | 8.8887% |
-| Aggregate core-hours | 278.157466 | 247.068525 | 11.1767% |
+| Wall minutes | 13.33374 | 10.36987 | 22.2283% |
+| Main-step minutes | 9.94084 | 8.97816 | 9.6841% |
+| Aggregate core-hours | 99.81315 | 84.00883 | 15.8339% |
 
-Own unprofiled SAME512 nine-hour1625/tenFULL plus unchanged own3h545/fourFULL. SINGLE fresh currentepoch original546b n1; UNPAIRED descriptive wall/main/aggregateCPU reductions, no bracket/order-reversal/repeatability, isolated/additive codegain, matched forecast or global causal claim. No oldninehourmedian3. No ownnoon/profile/restart inheritance. Exact qualified cached objects including later-stage theta PP31b556/ModuleEM3a699 plus post-test source12473 target correspondence; rawproducerNULL/no cleanF-only build certificate.
+Controls:
 
-Fresh control run production512-original546b-currentepoch-ninehour-r1-control, coordinator INV038e76055d2b4842a9c6dd9503348c14. Main-step includes communication/backpressure; aggregate CPU is core-seconds. No new source commit or changed source/defaults for this qualification.
+- production512-current0b40-fourhost-threehour-pair2-r1-control, INV2eeee20b4cf0457cb582710bce30dc0b: wall 800.214591s, main 596.450450s, CPU 359516.463363s
+- production512-current0b40-fourhost-threehour-pair1-r1-control, INV81febf86a6734f4fa77d57fd1b467c30: wall 798.619809s, main 595.327090s, CPU 358644.885565s
+- production512-current5c75-fourhost-threehour-pair1-r1-control, INVc9768c1474f648329ff3e41b664aac99: wall 800.024121s, main 596.593540s, CPU 359327.346984s
+
+Ranges (seconds): {"wall_seconds": [798.6198086068034, 800.2145909662358], "main_step_sum_seconds": [595.32709, 596.59354], "cpu_seconds": [358644.885565, 359516.46336299996]}
+
+Own unprofiled SAME512 threehour545/fourFULL AND daylight12-13onehour185/twoFULL. Exact science versus retained original546bA2; timing descriptive/unpaired versus median3 distinct original controls, unresolved hardware epoch. No freshmatched/isolated/additive/statistical/globalheadroom claim. Own daylight SCI required before SW default promotion. Child9h/profile/restart FALSE. Noon retainedoriginal75m is scienceprefix only, no75m-to1h timingcomparison. Only actual listed cached members changed over selected3f86; RSL/18deps/othermembers exact. Qualified testedPP/cachedOO delivery plus posttest target source projection, raw producer NULL; no cleanF-only build or wholeTU certificate. SWR2 tiny genuinecaller0.1311/0.2663% shorter only, no significant gain established or standalone/BLOCKgain inheritance.
