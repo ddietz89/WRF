@@ -5525,3 +5525,17 @@ Complete caller observation (not additive or forecastgain): fixed512 stage1→2�
 The selected3f86 build passed its own instrumented noon one-hour gate: two complete products and185 ordered steps. Three simultaneous15-second main-thread captures on ranks114/122/386 were observed attaching and growing their actual data files while active, then parsed after normal model, recorder and reader closure. These are selected rank windows with radiation overlap; numeric sample loss remains UNKNOWN. They are not whole-forecast cost fractions or an MPI latency attribution.
 
 The fresh samples identify shortwave `spcvmc_sw`, paired `vrtqdr_sw` and clear `reftra_sw`, plus Thompson, advection and small-step routines. MPI progress occupies substantial selected-window sample time; existing callchains are being checked for a source-level opportunity. New bounded investigations target redundant Thompson warm-branch division and radiation scratch lifetime. Neither new candidate is performance-qualified or promoted. [Per-rank source evidence and limits](tools/cpu-compute/rk-dry-theta-later-stage-simd-20261026/DAYTIME_SOURCE_PROFILE.json).
+
+### Selected3f86 — own nine-hour qualification
+
+Selected3f86 current combined source improvements now owns unprofiled SAME512 nine-hour1625/tenFULL science. Four models and original reader closed normally. Prior own3h545/fourFULL proof remains unchanged.
+
+| Metric | Fresh original546b (n=1) | Selected3f86 (n=1) | Unpaired descriptive reduction |
+|---|---:|---:|---:|
+| Wall minutes | 34.157236 | 29.445396 | 13.7946% |
+| Main-step minutes | 30.845967 | 28.104147 | 8.8887% |
+| Aggregate core-hours | 278.157466 | 247.068525 | 11.1767% |
+
+Own unprofiled SAME512 nine-hour1625/tenFULL plus unchanged own3h545/fourFULL. SINGLE fresh currentepoch original546b n1; UNPAIRED descriptive wall/main/aggregateCPU reductions, no bracket/order-reversal/repeatability, isolated/additive codegain, matched forecast or global causal claim. No oldninehourmedian3. No ownnoon/profile/restart inheritance. Exact qualified cached objects including later-stage theta PP31b556/ModuleEM3a699 plus post-test source12473 target correspondence; rawproducerNULL/no cleanF-only build certificate.
+
+Fresh control run production512-original546b-currentepoch-ninehour-r1-control, coordinator INV038e76055d2b4842a9c6dd9503348c14. Main-step includes communication/backpressure; aggregate CPU is core-seconds. No new source commit or changed source/defaults for this qualification.
