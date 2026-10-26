@@ -790,3 +790,47 @@ endif
 endif
 endif
 endif
+
+# First non-final SUMFLUX initialization/accumulation fusion; no new arithmetic/ISA flags.
+# WRF_SUMFLUX_FIRST_INIT_FUSION=0 retains the literal original procedure path.
+WRF_SUMFLUX_FIRST_INIT_FUSION ?= 1
+ifeq ($(WRF_SUMFLUX_FIRST_INIT_FUSION),0)
+module_small_step_em.o: private override CPPFLAGS += -DWRF_SUMFLUX_FIRST_INIT_FUSION_DISABLE
+endif
+ifeq ($(WRF_SUMFLUX_FIRST_INIT_FUSION),1)
+ifeq ($(WRF_SMALL_STEP_SIMD),1)
+ifeq ($(WRF_SMALL_STEP_ZEN2),1)
+ifeq ($(strip $(OMPCPP) $(OMP) $(PROMOTION) $(DOUBLE_PRECISION)),)
+ifeq ($(filter -fopenmp -fopenmp=%,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
+ifeq ($(strip $(RWORDSIZE)),4)
+ifeq ($(strip $(IWORDSIZE)),4)
+ifeq ($(filter -fdefault-% -freal-% -finteger-% -r8 -i8,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
+ifeq ($(sort $(filter -O%,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC))),-O2)
+ifeq ($(filter -ffast-math -Ofast -ffinite-math-only -funsafe-math-optimizations -freciprocal-math -ffp-contract=fast -fno-signed-zeros -fassociative-math -fno-trapping-math,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
+ifneq (,$(filter -fno-fast-math,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG)))
+ifneq (,$(filter -ffp-contract=off,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG)))
+ifeq ($(filter-out -ffp-contract=off,$(filter -ffp-contract=%,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC))),)
+ifeq ($(filter -D_OPENMP -D_OPENMP=%,$(CPPFLAGS)),)
+ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+ifneq (,$(findstring GNU Fortran,$(shell $(FC) --version 2>/dev/null)))
+ifeq ($(shell $(FC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+module_small_step_em.o: private override CPPFLAGS += -DWRF_SUMFLUX_FIRST_INIT_FUSION_ENABLE
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif

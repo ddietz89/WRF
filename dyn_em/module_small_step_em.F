@@ -1815,6 +1815,9 @@ SUBROUTINE sumflux ( ru, rv, ww,                             &
 
   REAL, INTENT(IN   )  ::  epssm
   INTEGER   :: i,j,k
+#if defined(WRF_SUMFLUX_FIRST_INIT_FUSION_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_SUMFLUX_FIRST_INIT_FUSION_DISABLE)
+  LOGICAL :: first_sum_fused
+#endif
 
 
 !<DESCRIPTION>
@@ -1824,6 +1827,49 @@ SUBROUTINE sumflux ( ru, rv, ww,                             &
 !
 !</DESCRIPTION>
 
+#if defined(WRF_SUMFLUX_FIRST_INIT_FUSION_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_SUMFLUX_FIRST_INIT_FUSION_DISABLE)
+  mini = min(ide-1,ite)
+  minj = min(jde-1,jte)
+  mink = min(kde-1,kte)
+  first_sum_fused = iteration == 1 .AND. number_of_small_timesteps /= 1 .AND. &
+                    its <= mini .AND. jts <= minj .AND. kts <= mink
+
+    IF (iteration == 1 )THEN
+      IF (first_sum_fused) THEN
+      DO  j = jts, jte
+      DO  k = kts, kte
+      DO  i = its, ite
+        IF (j <= minj .AND. k <= mink) THEN
+          ru_m(i,k,j) = 0. + ru(i,k,j)
+        ELSE
+          ru_m(i,k,j) = 0.
+        ENDIF
+        IF (i <= mini .AND. k <= mink) THEN
+          rv_m(i,k,j) = 0. + rv(i,k,j)
+        ELSE
+          rv_m(i,k,j) = 0.
+        ENDIF
+        IF (i <= mini .AND. j <= minj) THEN
+          ww_m(i,k,j) = 0. + ww(i,k,j)
+        ELSE
+          ww_m(i,k,j) = 0.
+        ENDIF
+      ENDDO
+      ENDDO
+      ENDDO
+      ELSE
+      DO  j = jts, jte
+      DO  k = kts, kte
+      DO  i = its, ite
+        ru_m(i,k,j)  = 0.
+        rv_m(i,k,j)  = 0.
+        ww_m(i,k,j)  = 0.
+      ENDDO
+      ENDDO
+      ENDDO
+      ENDIF
+    ENDIF
+#else
     IF (iteration == 1 )THEN
       DO  j = jts, jte
       DO  k = kts, kte
@@ -1839,6 +1885,7 @@ SUBROUTINE sumflux ( ru, rv, ww,                             &
   mini = min(ide-1,ite)
   minj = min(jde-1,jte)
   mink = min(kde-1,kte)
+#endif
 
 
   IF (iteration == number_of_small_timesteps) THEN
@@ -1858,6 +1905,9 @@ SUBROUTINE sumflux ( ru, rv, ww,                             &
     ENDDO
     ENDDO
   ELSE
+#if defined(WRF_SUMFLUX_FIRST_INIT_FUSION_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_SUMFLUX_FIRST_INIT_FUSION_DISABLE)
+    IF (.NOT. first_sum_fused) THEN
+#endif
     DO  j = jts, minj
     DO  k = kts, mink
     DO  i = its, mini
@@ -1867,8 +1917,14 @@ SUBROUTINE sumflux ( ru, rv, ww,                             &
     ENDDO
     ENDDO
     ENDDO
+#if defined(WRF_SUMFLUX_FIRST_INIT_FUSION_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_SUMFLUX_FIRST_INIT_FUSION_DISABLE)
+    ENDIF
+#endif
   ENDIF
 
+#if defined(WRF_SUMFLUX_FIRST_INIT_FUSION_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_SUMFLUX_FIRST_INIT_FUSION_DISABLE)
+  IF (.NOT. first_sum_fused) THEN
+#endif
     IF (ite .GT. mini) THEN
       DO  j = jts, minj
       DO  k = kts, mink
@@ -1896,6 +1952,10 @@ SUBROUTINE sumflux ( ru, rv, ww,                             &
       ENDDO
       ENDDO
     END IF
+
+#if defined(WRF_SUMFLUX_FIRST_INIT_FUSION_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_SUMFLUX_FIRST_INIT_FUSION_DISABLE)
+  ENDIF
+#endif
 
   IF (iteration == number_of_small_timesteps) THEN
 
