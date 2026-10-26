@@ -1,0 +1,68 @@
+{
+  "decision": "CLOSE_CURRENT_FIXED_ALIAS_UNPROMOTED_NO_DEMONSTRATED_CALLER_GAIN",
+  "actual_wave_sha256": "61ebd1e407255d7cbbb0b4479072a4b1de7137d34682b43306072bc6a2a94260",
+  "comparisons": [
+    {
+      "host": "hpc01",
+      "parent_arm": 0,
+      "candidate_arm": 2,
+      "parent_wall_seconds": 1.696254588,
+      "candidate_wall_seconds": 1.715771265,
+      "wall_reduction_percent": -1.1505747508698942,
+      "parent_cpu_seconds": 6.755863332,
+      "candidate_cpu_seconds": 6.816543087,
+      "cpu_reduction_percent": -0.89817913741066
+    },
+    {
+      "host": "hpc02",
+      "parent_arm": 3,
+      "candidate_arm": 1,
+      "parent_wall_seconds": 1.704140763,
+      "candidate_wall_seconds": 1.698362692,
+      "wall_reduction_percent": 0.33906066479087926,
+      "parent_cpu_seconds": 6.794415274,
+      "candidate_cpu_seconds": 6.785611938,
+      "cpu_reduction_percent": 0.12956723492730987
+    }
+  ],
+  "correctness": "Samecount full323216B raw5 and60B INIT/controlledrelease lifecycle exact acrossall4timingarms/all4ranks. Warm6 separately matchedactualnative;no warm/batchstateequality waiver. All12 owners/readOnly/fulloriginalbaseafteraliasunmap/beforeWinfree/destroy hard. CacheEACH/normalclosure/cgroupabsent verified.",
+  "supported_capability": "BothactualTPI/TNI73,260,000B cloudtables consumedfullcongruentviews;all4aliasreaders percloud MADV_COLLAPSErc0/ShmemPmdMapped67584KiB vsbaseline0/noadvice. Remainingedges ordinary; not fullDATA/RSSclaim.",
+  "retained_history": {
+    "R1": "BothMPIjobs exit0/allrawandstatesmatched, but aggregateALIAS_CREATE interleaving made strictreportFAIL. No record reconstruction.",
+    "R2": "Sameexe per-ranklogs, strictlifecycleFAIL aliasrank1 releaseerrno11\u219214;allphysical/warm/init/other4statewords exact. Retained hardfailure.",
+    "R3": "Diagnostic-only observesall8entry\u2192exitidentity;aliasrank3 actualentry14\u219214,others11\u219211. Establishesnewinvocationpreservation,notretroactiveR2entryproof.",
+    "R4": "Freshfixturecontrolledsamecase0 beforeunmodifiedrelease, allentry/exit[34,0,0,8064,895] exact. Originalscientifictests/helperunchanged;qualifiessupportedexplicitpreconditiononly."
+  },
+  "scope": "Onefixed4096six-profile sequence perrank(24576wholeMPcalls),4ranks,oneoppositeorderpairperhost01/02;all3fullphysicalmutablerestoresinsidemonotonicwall/threadCPU. Syntheticretainedfiniteprofiles,notproductionfrequency/tilecapture.",
+  "why_closed": "No consistent significant gain acrosshosts:01slowerwall/CPU,02smallfasterwall/CPU; no separate demonstratedkernel/resourcebenefit. No additionalarms/appforecast/sourcepromotion/settingssweep.",
+  "claims_not_supported": [
+    "Hugepagesinherentlyuseless",
+    "Productionfrequency/globalforecastgain",
+    "RSSorphysicalcapacityreduction",
+    "GlobalTLBorhardwarecountercause",
+    "UniversalIEEE/ambientreleasequalification"
+  ],
+  "source_or_default_changes": false,
+  "application_qualified": false,
+  "references": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentda1c-shared-table-six-profile-reader-screen-preparation-r1/complete-six-profile-caller-cost-r1/timing-r1/arm0/actual-native-r1/receipt.json": "8070bd39ed83e090a7666e590c3a14bd737363b96b8c16e621f0a0f2872ea1e8",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentda1c-shared-table-six-profile-reader-screen-preparation-r1/complete-six-profile-caller-cost-r1/timing-r1/arm0/actual-native-r1/closure.json": "c8f31c5d17f4c671aa31c63a512e7dd217616da4054530c467c18a850221537d",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentda1c-shared-table-six-profile-reader-screen-preparation-r1/complete-six-profile-caller-cost-r1/timing-r1/arm0/actual-native-r1/cache-clear.json": "5577a2589de61a4b608e45c38b3fa44d9aee70d945b04632dbe927738fd7437c",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentda1c-shared-table-six-profile-reader-screen-preparation-r1/complete-six-profile-caller-cost-r1/timing-r1/arm1/actual-native-r1/receipt.json": "b510aab6c0fa7f2764358aa24d9d0def7051ffc6217788a02b296b44a96ee574",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentda1c-shared-table-six-profile-reader-screen-preparation-r1/complete-six-profile-caller-cost-r1/timing-r1/arm1/actual-native-r1/closure.json": "bc56cadfac5591f680b6ae386fbdc3b069e5e4c14e964ce8c9cf7f1d1b053806",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentda1c-shared-table-six-profile-reader-screen-preparation-r1/complete-six-profile-caller-cost-r1/timing-r1/arm1/actual-native-r1/cache-clear.json": "75a4be3cf1c66f1d7466a3aa620fcb82cf1eac90292a4d2bf52b30e3548ec747",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentda1c-shared-table-six-profile-reader-screen-preparation-r1/complete-six-profile-caller-cost-r1/timing-r1/arm2/actual-native-r1/receipt.json": "1356e9a349eec489ca2a0c6c3d68c00ca0594ff5b7fd76f51a780819518863c5",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentda1c-shared-table-six-profile-reader-screen-preparation-r1/complete-six-profile-caller-cost-r1/timing-r1/arm2/actual-native-r1/closure.json": "f20fe5864f7d1a41920183daaf33669d214688f51e9569fb2d2ccd4e41db37e9",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentda1c-shared-table-six-profile-reader-screen-preparation-r1/complete-six-profile-caller-cost-r1/timing-r1/arm2/actual-native-r1/cache-clear.json": "73ebf7a7b454039c84662d80ef5201479d7379c420c0aa843bd7c8795cd436ff",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentda1c-shared-table-six-profile-reader-screen-preparation-r1/complete-six-profile-caller-cost-r1/timing-r1/arm3/actual-native-r1/receipt.json": "c1dc7333d9b27eceba3fcaca9463871c6760eb3ada6e70086ec66bc200ff2285",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentda1c-shared-table-six-profile-reader-screen-preparation-r1/complete-six-profile-caller-cost-r1/timing-r1/arm3/actual-native-r1/closure.json": "3fcc0b42893354611f96e432d03b666910f09fa42c1fe60367091378e8aee2ef",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentda1c-shared-table-six-profile-reader-screen-preparation-r1/complete-six-profile-caller-cost-r1/timing-r1/arm3/actual-native-r1/cache-clear.json": "8f3f524ae40b69299af183be98c17f1634cc37d35929e87855c9cf50d2437f25",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentda1c-shared-table-six-profile-reader-screen-preparation-r1/complete-six-profile-caller-cost-r1/ACTUAL_WAVE.json": "61ebd1e407255d7cbbb0b4479072a4b1de7137d34682b43306072bc6a2a94260",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentda1c-shared-table-six-profile-reader-screen-preparation-r1/native-integration-r1/actual-native-r1/receipt.json": "e2c6d5a5776b0e2c19b7131bc70ec10a66a312ca5ba23a1dad1cf9370f4046b2",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentda1c-shared-table-six-profile-reader-screen-preparation-r1/native-integration-r2-cached-ranklogs/actual-native-r1/receipt.json": "596b4d75fee2c11d91b9ea9aa61faae01629c624234f342560f3797c10e7b430",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentda1c-shared-table-six-profile-reader-screen-preparation-r1/native-integration-r3-release-entry-diagnostic/actual-native-r1/receipt.json": "e739413039abfcad33b65c8bfae833401c9014b2361b71aebcc3d9d086c0400b",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentda1c-shared-table-six-profile-reader-screen-preparation-r1/native-integration-r4-controlled-release-input/actual-native-r1/receipt.json": "4b669ac7a61e4c9114adc4d1da61ceb76629b83d0825fc0c1982c5628b19aad3",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentda1c-shared-table-six-profile-reader-screen-preparation-r1/native-integration-r4-controlled-release-input/actual-native-r1/closure.json": "0a43ea3b1efc3f70742270c2d78a47b6698896d0d36d429b9175af662f1215b7",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentda1c-shared-table-six-profile-reader-screen-preparation-r1/native-r2-exact-mismatch-diagnosis-r1/DIAGNOSIS.json": "5a3057a5e97217558873d6022b1895feeb9d99a7d7a08f4e2aaee6515f9d1d20"
+  }
+}

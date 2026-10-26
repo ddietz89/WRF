@@ -1,0 +1,69 @@
+{
+  "status": "ACTUAL_FOUR_USER_EVENTS_100_PERCENT_NO_SCALE",
+  "rank_facts": {
+    "114": {
+      "host": "hpc03",
+      "cpu": 67,
+      "mainTID": 2470074,
+      "PID_startticks": "263485959",
+      "raw": {
+        "cycles": 39202678588,
+        "instructions": 90577722954,
+        "L1_DTLB_misses_or_reloads": 57821396,
+        "L2_data_requests_missed_all_types": 135008732
+      },
+      "normalizations": {
+        "cycles_per_instruction": 0.43280706678737246,
+        "instructions_per_cycle": 2.31049831839108,
+        "L1_DTLB_misses_or_reloads_per1000instructions": 0.6383622166055627,
+        "L2_data_requests_missed_per1000instructions": 1.4905291013836188
+      },
+      "counter_event_runtime_ns": 14203520763.0,
+      "counter_running_percent": 100.0,
+      "counter_scaled": false,
+      "counter_interval_enclosing_monotonic_ns": [
+        2635010261966147,
+        2635028256393327
+      ],
+      "exact_counter_start_end_unknown": true,
+      "sample_first_monotonic_ns": 2635011330027771,
+      "sample_last_monotonic_ns": 2635026336083564,
+      "scope": "Whole mainTID userspace, mixed model/library/MPI work; counters not assigned to MYJ instruction or loop."
+    },
+    "122": {
+      "host": "hpc03",
+      "cpu": 99,
+      "mainTID": 2470081,
+      "PID_startticks": "263485963",
+      "raw": {
+        "cycles": 39241590172,
+        "instructions": 92299172487,
+        "L1_DTLB_misses_or_reloads": 44765547,
+        "L2_data_requests_missed_all_types": 134534695
+      },
+      "normalizations": {
+        "cycles_per_instruction": 0.4251564679794614,
+        "instructions_per_cycle": 2.352075236565161,
+        "L1_DTLB_misses_or_reloads_per1000instructions": 0.4850048575062259,
+        "L2_data_requests_missed_per1000instructions": 1.4575937289031353
+      },
+      "counter_event_runtime_ns": 14165801800.0,
+      "counter_running_percent": 100.0,
+      "counter_scaled": false,
+      "counter_interval_enclosing_monotonic_ns": [
+        2635011349469282,
+        2635028696999531
+      ],
+      "exact_counter_start_end_unknown": true,
+      "sample_first_monotonic_ns": 2635011355776067,
+      "sample_last_monotonic_ns": 2635026348938141,
+      "scope": "Whole mainTID userspace, mixed model/library/MPI work; counters not assigned to MYJ instruction or loop."
+    }
+  },
+  "definitions": {
+    "CPI": "cycles/instructions, same count interval",
+    "TLB": "Event0x45/0xff allL1DTLB misses or reloads; not necessarily page walks",
+    "L2": "Event0x64/0x08 data-cache requests missed inL2(alltypes), excludesL2prefetch requests; not DRAM or LLC bandwidth/latency"
+  },
+  "scope": "Rank-window counts only; no cache/TLB-limited MYJ conclusion, memory-stalltime, typical-versus-slow classification or globalperformanceclaim."
+}

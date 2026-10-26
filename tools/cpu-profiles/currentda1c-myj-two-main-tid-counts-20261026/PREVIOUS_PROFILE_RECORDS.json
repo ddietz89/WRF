@@ -1,0 +1,72 @@
+{
+  "scope": "Onlyreplacedprofile summaryleaves; unchangedhistoricalrecords retained",
+  "records": {
+    "latest_current_source_identity_profile": {
+      "qualification": {
+        "path": "/home/ddietz/wrf/WRF/tools/cpu-profiles/current871-noon-three-main-tid-20261025/PROFILE_QUALIFICATION.json",
+        "sha256": "bd2a14d1fb855a00d86fca27e5e9cfed89229923b024a1cf14828972268d7307"
+      },
+      "scope": "Current871 SAME256 instrumentednoon185/twoFULL plus3selectedmainTID sourceidentity profiles; mixedIO, unevenradiationcoverage, numericloss/buildIDUNKNOWN, no causalMPI/globalheadroom/timinggain claim.",
+      "steps": 185,
+      "products": 2,
+      "ranks": [
+        40,
+        114,
+        184
+      ],
+      "sample_counts": [
+        1442,
+        1451,
+        1414
+      ],
+      "timing_gain_claim": false,
+      "applies_to_current": false
+    },
+    "latest_instrumented_noon_one_hour": {
+      "status": "PASS_OWN_INSTRUMENTED_THREEHOST_SAME256_NOON185_TWO_PRODUCTS",
+      "executable_sha256": "d54cb2b7f21dcabee676bc3633c06e655a6ea1c7db7eca1936154e2ea216d4ff",
+      "world_size": 256,
+      "hosts": [
+        "hpc01",
+        "hpc02",
+        "hpc03"
+      ],
+      "observed_steps": 185,
+      "products": 2,
+      "instrumented": true,
+      "unprofiled": false,
+      "qualification": {
+        "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/rk-dry-u-stage-split-simd-20261025/APPLICATION_QUALIFICATION.json",
+        "sha256": "989999583d5454bc62ae9ca99e56e88d4919727e8d73060a012a217c450339ce"
+      },
+      "science": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current51f-u-radiation-noon1h-native15-runtime-r1/science-receipt.json",
+        "sha256": "beb194aa7d22761e289847ef11e4f96174e263bc925915987863ea9e45ae5c9e"
+      },
+      "reader_closure": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current51f-u-radiation-noon1h-native15-runtime-r1/reader-closure.json",
+        "sha256": "0475ace1a44b8377234aaff46b702810c2fa3794b61612f056eaeac71d5c3fcb"
+      },
+      "raw_RESULT_reference": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current51f-u-radiation-noon1h-native15-runtime-r1/RESULT.json",
+        "sha256": "034328d7851e1220d90cebefd832b646a019277d343898c4cffaba65fa618b67"
+      },
+      "metrics": {
+        "wall_seconds": 422.80598167004064,
+        "cpu_seconds": 99986.76810700001,
+        "main_step_sum_seconds": 345.51404
+      },
+      "reductions_percent": null,
+      "timing_gain_claim": false,
+      "actual_candidate_role": "Experimental U child INSTRUMENTED same256 noon science plus three native15 source-identity captures; capture validity and phase coverage qualified separately",
+      "raw_RESULT_order_retained": [
+        "fresh_same256_noon_original_science_reference",
+        "isolated_sw_mcica_unprofiled_noon_candidate"
+      ],
+      "raw_RESULT_order_label_scope": "Frozen inherited historical label only; does not imply current unprofiled qualification. Actual d54/deb86 lease/build and profile_authorized=True define this instrumented run.",
+      "limits": "OwninstrumentednoonSCI only; no own3h/9h/512/384/unprofiled/profile-phase/restart/full144 inheritance. Three clocks separate and descriptive.",
+      "applies_to_current": false
+    }
+  },
+  "applies_to_current": false
+}

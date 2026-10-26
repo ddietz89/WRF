@@ -12,7 +12,7 @@ The authoritative selected executable, archive, source correspondence and applic
 
 Selected image `da1cb49c` / archive `a8d9ee01` / post-test source `d50193a5` retains all preceding improvements, including calc_alt SIMD and the paired-shortwave stack scratch path, and adds current-column SPC scratch reuse. The qualified parent56d2/sourceb88f was pushed through evidence832828d9; the child qualification and source correspondence are in `tools/cpu-compute/spcvmc-current-column-scratch-20261026/`.
 
-This child passed its own three-hour545/four-full and unprofiled daylight185/two-full checks. All model and reader scopes closed normally. It is promoted within the qualified GNU13.3/defaultREAL4INT4/strictO2/pure-MPI scope, with original fallbacks. Own nine-hour, profile, restart and full144-hour qualifications remain false.
+This child passed its own three-hour545/four-full and unprofiled daylight185/two-full checks. All model and reader scopes closed normally. It is promoted within the qualified GNU13.3/defaultREAL4INT4/strictO2/pure-MPI scope, with original fallbacks. Own nine-hour, restart and full144-hour qualifications remain false. A subsequent instrumented noon185/two-full experiment qualified two 15-second source/count acquisitions; this is diagnostic scope, not an additional unprofiled timing comparison.
 
 ## Recent full-grid evidence
 
@@ -63,3 +63,6 @@ Do not repeat these fixed candidates without new measured evidence. Retain signi
 4. Use fresh evidence to choose the next source change. Periodic original three-hour and selected nine-hour qualification remain required; do not run a long forecast for every small directive. Keep models, readers and independent native work parallel where their resource/cache contracts permit it.
 
 Private recovery root: `/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/`. Own child runtime root: `/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-56d2-spc-{3h,noon1h}-runtime-r1/`. Preserve exact invocation IDs and receipts in those directories before retrying uncertain jobs.
+
+
+Current-build follow-up: the two-main-thread MYJ source/count capture completed and its instrumented forecast passed185 ordered steps/two complete outputs. All model, recorder, reader and parser scopes closed normally. Four events ran at100% without scaling; the counts cover whole rank windows and cannot assign misses or stalls to MYJ loops. The observed MYJ locations revisit required species packing; no safe new removal was established. No further MYJ profile is planned from this result. See `tools/cpu-profiles/currentda1c-myj-two-main-tid-counts-20261026/README.md`. The separate Thompson congruent-alias genuine-caller wave completed four exact arms: hpc01 wall1.1506% slower/CPU0.8982% slower, hpc02 wall0.3391% shorter/CPU0.1296% shorter. It is closed unpromoted because no consistent caller or separate resource benefit was demonstrated. Actual huge-page eligibility/reader mapping capability remains proven within the tested scope. See `tools/cpu-rejected/thompson-returned-view-large-pages-20261026/README.md`.

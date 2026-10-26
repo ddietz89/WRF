@@ -1720,49 +1720,34 @@
     "applies_to_current": false
   },
   "latest_instrumented_noon_one_hour": {
-    "status": "PASS_OWN_INSTRUMENTED_THREEHOST_SAME256_NOON185_TWO_PRODUCTS",
-    "executable_sha256": "d54cb2b7f21dcabee676bc3633c06e655a6ea1c7db7eca1936154e2ea216d4ff",
-    "world_size": 256,
+    "status": "PASS_OWN_CURRENT_DA1C_SAME512_INSTRUMENTED_NOON185_TWO_FULL_TWO_MAIN_TID_SOURCE_IDENTITY_AND_RANKWIDE_COUNTS",
+    "executable_sha256": "da1cb49c21d29220428a049ae4cdd43b9c1988bd12f9fd6de8ac976d232429b4",
+    "world_size": 512,
     "hosts": [
       "hpc01",
       "hpc02",
-      "hpc03"
+      "hpc03",
+      "hpc04"
     ],
     "observed_steps": 185,
     "products": 2,
     "instrumented": true,
     "unprofiled": false,
     "qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/rk-dry-u-stage-split-simd-20261025/APPLICATION_QUALIFICATION.json",
-      "sha256": "989999583d5454bc62ae9ca99e56e88d4919727e8d73060a012a217c450339ce"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-profiles/currentda1c-myj-two-main-tid-counts-20261026/PROFILE_QUALIFICATION.json",
+      "sha256": "206a204425fa41ad273a72fb9a9cf3be5830a2e2cc76a6444827c1fb54c20e78"
     },
     "science": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current51f-u-radiation-noon1h-native15-runtime-r1/science-receipt.json",
-      "sha256": "beb194aa7d22761e289847ef11e4f96174e263bc925915987863ea9e45ae5c9e"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-da1c-myj-day15-runtime-r2/science-receipt.json",
+      "sha256": "639887f32845a03571a773e5de65667d21892457e413121ca1f665aa869433af"
     },
     "reader_closure": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current51f-u-radiation-noon1h-native15-runtime-r1/reader-closure.json",
-      "sha256": "0475ace1a44b8377234aaff46b702810c2fa3794b61612f056eaeac71d5c3fcb"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-da1c-myj-day15-runtime-r2/reader-closure.json",
+      "sha256": "28de3d0013b7fb841d52d43240edea65f00d143a7e06e49e6bdf57f666f6b452"
     },
-    "raw_RESULT_reference": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production256-current51f-u-radiation-noon1h-native15-runtime-r1/RESULT.json",
-      "sha256": "034328d7851e1220d90cebefd832b646a019277d343898c4cffaba65fa618b67"
-    },
-    "metrics": {
-      "wall_seconds": 422.80598167004064,
-      "cpu_seconds": 99986.76810700001,
-      "main_step_sum_seconds": 345.51404
-    },
-    "reductions_percent": null,
+    "scope": "Two selected compute-mainTIDs, requested15s cycles sourceidentity plus four rankwide usercounts; mixedIO and actualradiationcoverage. Unknown numericloss/buildIDs retained. No exactloopmiss/stallattribution, removableheadroom, timinggain or fullrank/globalperformance claim. No scientific/defaultsource change.",
     "timing_gain_claim": false,
-    "actual_candidate_role": "Experimental U child INSTRUMENTED same256 noon science plus three native15 source-identity captures; capture validity and phase coverage qualified separately",
-    "raw_RESULT_order_retained": [
-      "fresh_same256_noon_original_science_reference",
-      "isolated_sw_mcica_unprofiled_noon_candidate"
-    ],
-    "raw_RESULT_order_label_scope": "Frozen inherited historical label only; does not imply current unprofiled qualification. Actual d54/deb86 lease/build and profile_authorized=True define this instrumented run.",
-    "limits": "OwninstrumentednoonSCI only; no own3h/9h/512/384/unprofiled/profile-phase/restart/full144 inheritance. Three clocks separate and descriptive.",
-    "applies_to_current": false
+    "applies_to_current": true
   },
   "current_selection_does_not_inherit_historical_timing": true,
   "historical_matched_three_hour_before_0ec3_fresh_pair": {
@@ -2174,24 +2159,23 @@
   },
   "latest_current_source_identity_profile": {
     "qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-profiles/current871-noon-three-main-tid-20261025/PROFILE_QUALIFICATION.json",
-      "sha256": "bd2a14d1fb855a00d86fca27e5e9cfed89229923b024a1cf14828972268d7307"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-profiles/currentda1c-myj-two-main-tid-counts-20261026/PROFILE_QUALIFICATION.json",
+      "sha256": "206a204425fa41ad273a72fb9a9cf3be5830a2e2cc76a6444827c1fb54c20e78"
     },
-    "scope": "Current871 SAME256 instrumentednoon185/twoFULL plus3selectedmainTID sourceidentity profiles; mixedIO, unevenradiationcoverage, numericloss/buildIDUNKNOWN, no causalMPI/globalheadroom/timinggain claim.",
+    "scope": "Two selected compute-mainTIDs, requested15s cycles sourceidentity plus four rankwide usercounts; mixedIO and actualradiationcoverage. Unknown numericloss/buildIDs retained. No exactloopmiss/stallattribution, removableheadroom, timinggain or fullrank/globalperformance claim. No scientific/defaultsource change.",
     "steps": 185,
     "products": 2,
     "ranks": [
-      40,
       114,
-      184
+      122
     ],
     "sample_counts": [
-      1442,
-      1451,
-      1414
+      1395,
+      1391
     ],
     "timing_gain_claim": false,
-    "applies_to_current": false
+    "applies_to_current": true,
+    "counter_scope": "WholemainTID only; no exactloopmemorymiss/stallattribution"
   },
   "historical_unpaired_three_hour_871_before_height": {
     "status": "PASS_OWN_UNPROFILED_THREEHOST_SAME256_SW_WHOLE_DRAW_FINISH_V_THREEHOUR545_FOUR_PRODUCTS",
