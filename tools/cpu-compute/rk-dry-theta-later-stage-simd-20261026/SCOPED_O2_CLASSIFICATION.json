@@ -1,0 +1,180 @@
+{
+  "status": "PASS_SCOPED_R2_O2_THETA_STAGE1_SCALAR_PRIORITY_LATER_PACKED_TRUE_DIV_AND_DIAGNOSTIC_CLASSIFICATION",
+  "eligible_for_complete_rk_addtend_dry_caller": true,
+  "eligible_for_complete_caller": true,
+  "native_receipt_sha256": "da745175674e1149592a105f57853eb76562ffbbcf1cd6578e70bb94be4c773c",
+  "candidate_O2_object_sha256": "3a69955051aa624d8dbb5e52e76c11fe758fda835dce6ac60815b3900e908efe",
+  "candidate_O2_object_path": "/pool/wrf-experiment/wrf-cpu/kernels/current41f2-rkdry-theta-later-stage-full128-native-hpc02-r2/work/O2/candidate.o",
+  "candidate_PP_sha256": "31b5561818e59402b44eecfb725bb02edb7a20c0f11be371b273eda93d9280ae",
+  "native_invocation_id": "cdc4a6ec22a5435d9f8f4d2e79f7a3d0",
+  "actual_readback": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current41f2-rk-dry-stage-unswitch-source-question-r1/r2-existing-o2-machine-readback-r1/actual-r1/stdout.json",
+    "sha256": "25803f5b08f16f1cdfa94936192e99f32aafaa42968d235de133abbbcc806597"
+  },
+  "native_receipt": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current41f2-rk-dry-stage-unswitch-source-question-r1/native-gate-preparation-r2-hpc02/actual-native-r1/receipt.json",
+    "sha256": "da745175674e1149592a105f57853eb76562ffbbcf1cd6578e70bb94be4c773c"
+  },
+  "public_MOD_sha256": "13339f5903077d40d58d1578197068c9ab69dd2993aa8b17444ee1c8687823cc",
+  "native": {
+    "sameopt_O2_O0_all128_fullraw_five_state": true,
+    "original32_prefix_O2_sha256": "2c80522ac82575d2ccd487b8bd09e0932198875fc23967b636a7a07046fd1784",
+    "original_MOD_and_public_ABI_gate_passed": true
+  },
+  "actual_O2_machine": {
+    "stage1": {
+      "range": "cd88..cdce",
+      "producer": "cd8e MOVSS tendf\u2192XMM1;cd99 ADDSS save-memory\u2192XMM1;cda2 storesamecelltendf. Originaltendf-destination NaNpriority restored.",
+      "consumer": "cda7 quotientDIVSS\u2192XMM1;cdb5 heatingDIVSS\u2192XMM0;cdb9 incomingtend-memoryADDSS\u2192quotientXMM1;cdbe heatingXMM0+=partialXMM1;cdc2 storetend. Same parentoperandroles/tree.",
+      "stride": "cdc7 add4; no packedfirststagepath."
+    },
+    "later_stages": {
+      "source": "PP1114 RKstep/=1 branch; PP1118\u20131120 unchangedconsumeronly; noT_save/tendfwrite.",
+      "full4": "c280..c2b9; MULPS c28f/95;ADDPS c292;trueDIVPS c29e/c2a1;ADDPS c2a8/c2ab;storec2ae;16byteIstridec2b2.",
+      "two_lane_tail": "c2f1..c32e;trueDIVPS c322/c325; rawNaN/all4roundwidth2/3 casespass.",
+      "scalar_tail": "trueDIVSS c361/c372 with original literalconsumer tree.",
+      "no_reciprocal_or_FMA_in_target": true
+    }
+  },
+  "O2_non_target_diagnostic_classification": {
+    "__module_em_MOD_dump_data": {
+      "raw_body_exact": false,
+      "full_RELA_exact": true,
+      "all_changed_byte_offsets": [
+        306,
+        509
+      ],
+      "old_diagnostic_line_immediates": [
+        2172,
+        2173
+      ],
+      "new_diagnostic_line_immediates": [
+        2184,
+        2185
+      ],
+      "delta": 12,
+      "actual_instruction": "MOVL imm32 into gfortran I/O statement descriptor stackline field; adjoining filename/write machinery unchanged.",
+      "other_function_bytes_equal": true,
+      "source_outside_theta_byteexact_from_inverse": true
+    },
+    "__module_em_MOD_trajectory": {
+      "raw_body_exact": false,
+      "full_RELA_exact": true,
+      "all_changed_byte_offsets": [
+        817
+      ],
+      "old_diagnostic_line_immediates": [
+        2882
+      ],
+      "new_diagnostic_line_immediates": [
+        2894
+      ],
+      "delta": 12,
+      "actual_instruction": "MOVL imm32 into gfortran I/O statement descriptor stackline field; adjoining filename/write machinery unchanged.",
+      "other_function_bytes_equal": true,
+      "source_outside_theta_byteexact_from_inverse": true
+    }
+  },
+  "O2_raw_fields_preserved": {
+    "non_target_raw_body": {
+      "__module_em_MOD_bound_qna": true,
+      "__module_em_MOD_bound_tke": true,
+      "__module_em_MOD_calculate_phy_tend": true,
+      "__module_em_MOD_dump_data": false,
+      "__module_em_MOD_iau_coef": true,
+      "__module_em_MOD_init_zero_tendency": true,
+      "__module_em_MOD_positive_definite_filter": true,
+      "__module_em_MOD_q_diabatic_add": true,
+      "__module_em_MOD_q_diabatic_subtr": true,
+      "__module_em_MOD_rk_scalar_tend": true,
+      "__module_em_MOD_rk_step_prep": true,
+      "__module_em_MOD_rk_tendency": true,
+      "__module_em_MOD_rk_update_scalar": true,
+      "__module_em_MOD_rk_update_scalar_pd": true,
+      "__module_em_MOD_trajectory": false,
+      "__module_em_MOD_trajmapproj": true
+    },
+    "non_target_full_RELA": {
+      "__module_em_MOD_bound_qna": true,
+      "__module_em_MOD_bound_tke": true,
+      "__module_em_MOD_calculate_phy_tend": true,
+      "__module_em_MOD_dump_data": true,
+      "__module_em_MOD_iau_coef": true,
+      "__module_em_MOD_init_zero_tendency": true,
+      "__module_em_MOD_positive_definite_filter": true,
+      "__module_em_MOD_q_diabatic_add": true,
+      "__module_em_MOD_q_diabatic_subtr": true,
+      "__module_em_MOD_rk_scalar_tend": true,
+      "__module_em_MOD_rk_step_prep": true,
+      "__module_em_MOD_rk_tendency": true,
+      "__module_em_MOD_rk_update_scalar": true,
+      "__module_em_MOD_rk_update_scalar_pd": true,
+      "__module_em_MOD_trajectory": true,
+      "__module_em_MOD_trajmapproj": true
+    },
+    "shared_pool_sections_raw_exact": {
+      ".rodata": true,
+      ".rodata.cst4": true,
+      ".rodata.str1.8": true,
+      ".rodata.cst16": true,
+      ".data": true,
+      ".rodata.str1.1": true,
+      ".bss": true,
+      ".rodata.cst8": true
+    },
+    "full_module_raw_identity_claimed": false
+  },
+  "O0_raw_fields_preserved_not_fully_classified": {
+    "non_target_raw_body": {
+      "__module_em_MOD_bound_qna": true,
+      "__module_em_MOD_bound_tke": true,
+      "__module_em_MOD_calculate_phy_tend": true,
+      "__module_em_MOD_dump_data": false,
+      "__module_em_MOD_iau_coef": true,
+      "__module_em_MOD_init_zero_tendency": true,
+      "__module_em_MOD_positive_definite_filter": true,
+      "__module_em_MOD_q_diabatic_add": true,
+      "__module_em_MOD_q_diabatic_subtr": true,
+      "__module_em_MOD_rk_scalar_tend": true,
+      "__module_em_MOD_rk_step_prep": true,
+      "__module_em_MOD_rk_tendency": true,
+      "__module_em_MOD_rk_update_scalar": true,
+      "__module_em_MOD_rk_update_scalar_pd": true,
+      "__module_em_MOD_trajectory": false,
+      "__module_em_MOD_trajmapproj": true
+    },
+    "non_target_full_RELA": {
+      "__module_em_MOD_bound_qna": true,
+      "__module_em_MOD_bound_tke": true,
+      "__module_em_MOD_calculate_phy_tend": true,
+      "__module_em_MOD_dump_data": true,
+      "__module_em_MOD_iau_coef": false,
+      "__module_em_MOD_init_zero_tendency": true,
+      "__module_em_MOD_positive_definite_filter": false,
+      "__module_em_MOD_q_diabatic_add": true,
+      "__module_em_MOD_q_diabatic_subtr": true,
+      "__module_em_MOD_rk_scalar_tend": false,
+      "__module_em_MOD_rk_step_prep": true,
+      "__module_em_MOD_rk_tendency": false,
+      "__module_em_MOD_rk_update_scalar": true,
+      "__module_em_MOD_rk_update_scalar_pd": true,
+      "__module_em_MOD_trajectory": false,
+      "__module_em_MOD_trajmapproj": false
+    },
+    "shared_pool_sections_raw_exact": {
+      ".rodata": false,
+      ".bss": true,
+      ".data": true
+    },
+    "full_module_raw_identity_claimed": false
+  },
+  "claims": {
+    "whole_TU_byte_identity": false,
+    "diagnostic_error_path_byte_identity": false,
+    "O0_non_target_structural_qualification": false,
+    "unmasked_trap_chronology": false,
+    "performance_qualified": false,
+    "application_science_qualified": false
+  },
+  "scope": "ActualGNU13.3 originalgenericO2/-fopenmp-simd/no newISA/mathflags. Eligible ONE completewholeRKdrythree-stage caller screen. O2non-target differences classified solelyasactualI/Orowmetadata+12, notpredicate-normalized. O0sameopt numerical128passes but unrelatedRELA/pools remainexplicitunclassified. R1 numericalfailure retained; no furthernativevariant."
+}

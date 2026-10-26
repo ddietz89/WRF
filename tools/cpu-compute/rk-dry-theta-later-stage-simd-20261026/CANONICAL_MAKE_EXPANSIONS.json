@@ -1,0 +1,59 @@
+{
+  "scope": "Synthetic compileridentity scripts only, Makeguard expansion; no compiler/scienceexecution",
+  "cases": {
+    "DEFAULT_ON": {
+      "CPPFLAGS": "-DWRF_RK_DRY_THETA_LATER_STAGE_SIMD_ENABLE",
+      "expected_enable": true,
+      "expected_disable": false,
+      "passed": true
+    },
+    "OPT_OUT_FORCED_ENABLE": {
+      "CPPFLAGS": "-DWRF_RK_DRY_THETA_LATER_STAGE_SIMD_ENABLE -DWRF_RK_DRY_THETA_LATER_STAGE_SIMD_DISABLE",
+      "expected_enable": true,
+      "expected_disable": true,
+      "passed": true
+    },
+    "OMP_OFF": {
+      "CPPFLAGS": "",
+      "expected_enable": false,
+      "expected_disable": false,
+      "passed": true
+    },
+    "O0_OFF": {
+      "CPPFLAGS": "",
+      "expected_enable": false,
+      "expected_disable": false,
+      "passed": true
+    },
+    "SIGNEDZERO_OFF": {
+      "CPPFLAGS": "",
+      "expected_enable": false,
+      "expected_disable": false,
+      "passed": true
+    },
+    "CONTRACT_ON_OFF": {
+      "CPPFLAGS": "",
+      "expected_enable": false,
+      "expected_disable": false,
+      "passed": true
+    },
+    "FC11_OFF": {
+      "CPPFLAGS": "",
+      "expected_enable": false,
+      "expected_disable": false,
+      "passed": true
+    },
+    "CPP_OPENMP_OFF": {
+      "CPPFLAGS": "-D_OPENMP",
+      "expected_enable": false,
+      "expected_disable": false,
+      "passed": true
+    },
+    "RK_SIMD_OFF": {
+      "CPPFLAGS": "",
+      "expected_enable": false,
+      "expected_disable": false,
+      "passed": true
+    }
+  }
+}

@@ -1,0 +1,28 @@
+--- current/parent_module_em.f90
++++ privateR2/candidate_module_em.f90
+@@ -1111,6 +1111,17 @@
+    ENDDO
+    ENDDO
+    ENDIF
++   IF (rk_step /= 1) THEN
++   DO j = jts,MIN(jte,jde-1)
++   DO k = kts,kte-1
++   !$omp simd
++   DO i = its,MIN(ite,ide-1)
++      t_tend(i,k,j) =  t_tend(i,k,j) +  t_tendf(i,k,j)/msfty(i,j)  &
++                                     +  (c1(k)*mut(i,j)+c2(k))*h_diabatic(i,k,j)/msfty(i,j)
++   ENDDO
++   ENDDO
++   ENDDO
++   ELSE
+    DO j = jts,MIN(jte,jde-1)
+    DO k = kts,kte-1
+    DO i = its,MIN(ite,ide-1)
+@@ -1120,6 +1131,7 @@
+    ENDDO
+    ENDDO
+    ENDDO
++   ENDIF
+    DO j = jts,MIN(jte,jde-1)
+    DO i = its,MIN(ite,ide-1)
+ 
