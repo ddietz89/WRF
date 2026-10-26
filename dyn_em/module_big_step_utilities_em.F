@@ -670,6 +670,9 @@ SUBROUTINE calc_ww_cp ( u, v, mup, mub, c1h, c2h, ww,    &
    
    INTEGER :: i, j, k, itf, jtf, ktf
    REAL , DIMENSION( its:ite ) :: dmdt
+#if defined(WRF_CALC_WW_UFLUX_REUSE_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_CALC_WW_UFLUX_REUSE_DISABLE)
+   REAL :: uflux_left, uflux_right
+#endif
    REAL , DIMENSION( its:ite, kts:kte ) :: divv
    REAL , DIMENSION( its:ite+1, jts:jte+1 ) :: muu, muv
 
@@ -742,18 +745,34 @@ SUBROUTINE calc_ww_cp ( u, v, mup, mub, c1h, c2h, ww,    &
 !         divv=mx*[partial d/dx(mu u/my) + partial d/dy(mu v/mx)]*delta nu
 
         DO k=kts,ktf
+#if defined(WRF_CALC_WW_UFLUX_REUSE_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_CALC_WW_UFLUX_REUSE_DISABLE)
+        IF (its <= itf) THEN
+          uflux_left = (c1h(k)*muu(its,j)+c2h(k))*u(its,k,j)/msfuy(its,j)
+#endif
         DO i=its,itf
 
+#if defined(WRF_CALC_WW_UFLUX_REUSE_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_CALC_WW_UFLUX_REUSE_DISABLE)
+          uflux_right = (c1h(k)*muu(i+1,j)+c2h(k))*u(i+1,k,j)/msfuy(i+1,j)
+          divv(i,k) = msftx(i,j)*dnw(k)*( rdx*(uflux_right-uflux_left)  &
+                                        +rdy*((c1h(k)*muv(i,j+1)+c2h(k))*v(i,k,j+1)*msfvx_inv(i,j+1)-(c1h(k)*muv(i,j)+c2h(k))*v(i,k,j)*msfvx_inv(i,j))   )
+#else
           divv(i,k) = msftx(i,j)*dnw(k)*( rdx*((c1h(k)*muu(i+1,j)+c2h(k))*u(i+1,k,j)/msfuy(i+1,j)-(c1h(k)*muu(i,j)+c2h(k))*u(i,k,j)/msfuy(i,j))  &
                                         +rdy*((c1h(k)*muv(i,j+1)+c2h(k))*v(i,k,j+1)*msfvx_inv(i,j+1)-(c1h(k)*muv(i,j)+c2h(k))*v(i,k,j)*msfvx_inv(i,j))   )
+#endif
 
 !          dmdt(i) = dmdt(i) + dnw(k)* ( rdx*(ru(i+1,k,j)-ru(i,k,j))  &
 !                                       +rdy*(rv(i,k,j+1)-rv(i,k,j))   )
 
           dmdt(i) = dmdt(i) + divv(i,k)
+#if defined(WRF_CALC_WW_UFLUX_REUSE_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_CALC_WW_UFLUX_REUSE_DISABLE)
+          uflux_left = uflux_right
+#endif
 
 
         ENDDO
+#if defined(WRF_CALC_WW_UFLUX_REUSE_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_CALC_WW_UFLUX_REUSE_DISABLE)
+        ENDIF
+#endif
         ENDDO
 
 !       Further map scale factor notes:

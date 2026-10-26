@@ -434,6 +434,21 @@ $(LIBTARGET) :
 
 include ../configure.wrf
 
+# GWDO exact qualified PP replay; unsupported configurations retain the original suffix rule.
+# Qualified O2 owner hook; explicit 0 and unsupported configurations use the original rule.
+WRF_GWDO_FIRSTHIT_O2 ?= 1
+_GWDO_OWNER := $(WRF_SRC_ROOT_DIR)/tools/cpu-compute/gwdo-first-hit-o2
+_GWDO_ELIGIBLE := $(shell python3 $(_GWDO_OWNER)/select_pp.py probe --knob="$(WRF_GWDO_FIRSTHIT_O2)" --rword="$(RWORDSIZE)" --iword="$(IWORDSIZE)" --omp="$(OMP)" --ompcpp="$(OMPCPP)" --promotion="$(PROMOTION)" --double="$(DOUBLE_PRECISION)" --suffix="$(FCSUFFIX)" --cpp="$(CPPFLAGS)" --flags="$(FCFLAGS)" --modules="$(MODULE_DIRS)" --fc="$(FC)")
+ifeq ($(_GWDO_ELIGIBLE),1)
+physics_mmm/bl_gwdo.o: physics_mmm/bl_gwdo.F90 ccpp_kind_types.o $(_GWDO_OWNER)/qualified_bl_gwdo.f90 $(_GWDO_OWNER)/select_pp.py Makefile ../configure.wrf
+	$(RM) $@
+	sed -e "s/^\!.*'.*//" -e "s/^ *\!.*'.*//" physics_mmm/bl_gwdo.F90 > physics_mmm/bl_gwdo.G
+	$(CPP) -I$(WRF_SRC_ROOT_DIR)/inc $(CPPFLAGS) $(OMPCPP) physics_mmm/bl_gwdo.G > physics_mmm/bl_gwdo.bb
+	$(SED_FTN) physics_mmm/bl_gwdo.bb | $(CPP) $(TRADFLAG) > physics_mmm/bl_gwdo.tmp.f90
+	$(RM) physics_mmm/bl_gwdo.G physics_mmm/bl_gwdo.bb
+	@mode=$$(python3 $(_GWDO_OWNER)/select_pp.py select --dest=physics_mmm/bl_gwdo.tmp.f90 --modules="$(MODULE_DIRS)") && case "$$mode" in ON|ORIGINAL) $(FC) -o $@ -c $(FCFLAGS) $(OMP) $(MODULE_DIRS) $(PROMOTION) $(FCSUFFIX) physics_mmm/bl_gwdo.tmp.f90 ;; *) exit 1 ;; esac
+endif
+
 # Qualified GNU13.3.0, empty OMP/OMPCPP, default REAL/INTEGER4 only.
 # Source also requires DM_PARALLEL and !_OPENMP; every other default keeps original code.
 # Knob0 disables this mechanism even if ENABLE was explicitly supplied externally.
