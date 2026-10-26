@@ -8599,6 +8599,15 @@ end subroutine
       contains
 
 ! ---------------------------------------------------------------------------
+#if defined(WRF_SW_SPC_SINGLE_COLUMN_ENABLE) && !defined(WRF_SW_SPC_SINGLE_COLUMN_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && defined(WRF_SW_VRTQDR_PAIR_FIXED_STACK_ENABLE) && !defined(WRF_SW_VRTQDR_PAIR_FIXED_STACK_DISABLE)
+#define WRF_SW_SPC_COLUMN_COUNT 1
+#define WRF_SW_SPC_CURRENT_COLUMN 1
+#define WRF_SW_SPC_PAIR_COLUMN 1_im
+#else
+#define WRF_SW_SPC_COLUMN_COUNT ngptsw
+#define WRF_SW_SPC_CURRENT_COLUMN iw
+#define WRF_SW_SPC_PAIR_COLUMN iw
+#endif
       subroutine spcvmc_sw &
             (nlayers, istart, iend, icpr, iout, &
              pavel, tavel, pz, tz, tbound, palbd, palbp, &
@@ -8811,8 +8820,8 @@ end subroutine
 
 ! Arrays from rrtmg_sw_vrtqdr routine
 
-      real(kind=rb) :: zcd(nlayers+1,ngptsw), zcu(nlayers+1,ngptsw)
-      real(kind=rb) :: zfd(nlayers+1,ngptsw), zfu(nlayers+1,ngptsw)
+      real(kind=rb) :: zcd(nlayers+1,WRF_SW_SPC_COLUMN_COUNT), zcu(nlayers+1,WRF_SW_SPC_COLUMN_COUNT)
+      real(kind=rb) :: zfd(nlayers+1,WRF_SW_SPC_COLUMN_COUNT), zfu(nlayers+1,WRF_SW_SPC_COLUMN_COUNT)
 
 ! Inactive arrays
 !     real(kind=rb) :: zbbcd(nlayers+1), zbbcu(nlayers+1)
@@ -9119,7 +9128,7 @@ end subroutine
             enddo           
                  
 ! Vertical quadrature for independent clear-sky and total-sky columns.
-            call vrtqdr_sw_pair(klev, iw, &
+            call vrtqdr_sw_pair(klev, WRF_SW_SPC_PAIR_COLUMN, &
                            zrefc, zrefdc, ztrac, ztradc, &
                            zdbtc, zrdndc, zrupc, zrupdc, ztdbtc, zcd, zcu, &
                            zref, zrefd, ztra, ztrad, &
@@ -9141,10 +9150,10 @@ end subroutine
 !               zbbcddir(ikl) = zbbcddir(ikl) + zincflx(iw)*ztdbtc_nodel(jk)
 
 ! Accumulate spectral fluxes over whole spectrum  
-               pbbfu(ikl) = pbbfu(ikl) + zincflx(iw)*zfu(jk,iw)
-               pbbfd(ikl) = pbbfd(ikl) + zincflx(iw)*zfd(jk,iw)
-               pbbcu(ikl) = pbbcu(ikl) + zincflx(iw)*zcu(jk,iw)
-               pbbcd(ikl) = pbbcd(ikl) + zincflx(iw)*zcd(jk,iw)
+               pbbfu(ikl) = pbbfu(ikl) + zincflx(iw)*zfu(jk,WRF_SW_SPC_CURRENT_COLUMN)
+               pbbfd(ikl) = pbbfd(ikl) + zincflx(iw)*zfd(jk,WRF_SW_SPC_CURRENT_COLUMN)
+               pbbcu(ikl) = pbbcu(ikl) + zincflx(iw)*zcu(jk,WRF_SW_SPC_CURRENT_COLUMN)
+               pbbcd(ikl) = pbbcd(ikl) + zincflx(iw)*zcd(jk,WRF_SW_SPC_CURRENT_COLUMN)
                pbbfddir(ikl) = pbbfddir(ikl) + zincflx(iw)*ztdbt_nodel(jk)
                pbbcddir(ikl) = pbbcddir(ikl) + zincflx(iw)*ztdbtc_nodel(jk)
             enddo
@@ -9153,8 +9162,8 @@ end subroutine
                if (ibm >= 10 .and. ibm <= 13) then
             do jk=1,klev+1
                ikl=klev+2-jk
-                  puvcd(ikl) = puvcd(ikl) + zincflx(iw)*zcd(jk,iw)
-                  puvfd(ikl) = puvfd(ikl) + zincflx(iw)*zfd(jk,iw)
+                  puvcd(ikl) = puvcd(ikl) + zincflx(iw)*zcd(jk,WRF_SW_SPC_CURRENT_COLUMN)
+                  puvfd(ikl) = puvfd(ikl) + zincflx(iw)*zfd(jk,WRF_SW_SPC_CURRENT_COLUMN)
                   puvcddir(ikl) = puvcddir(ikl) + zincflx(iw)*ztdbtc_nodel(jk)
                   puvfddir(ikl) = puvfddir(ikl) + zincflx(iw)*ztdbt_nodel(jk)
             enddo
@@ -9162,8 +9171,8 @@ end subroutine
                else if (ibm == 14 .or. ibm <= 9) then  
             do jk=1,klev+1
                ikl=klev+2-jk
-                  pnicd(ikl) = pnicd(ikl) + zincflx(iw)*zcd(jk,iw)
-                  pnifd(ikl) = pnifd(ikl) + zincflx(iw)*zfd(jk,iw)
+                  pnicd(ikl) = pnicd(ikl) + zincflx(iw)*zcd(jk,WRF_SW_SPC_CURRENT_COLUMN)
+                  pnifd(ikl) = pnifd(ikl) + zincflx(iw)*zfd(jk,WRF_SW_SPC_CURRENT_COLUMN)
                   pnicddir(ikl) = pnicddir(ikl) + zincflx(iw)*ztdbtc_nodel(jk)
                   pnifddir(ikl) = pnifddir(ikl) + zincflx(iw)*ztdbt_nodel(jk)
             enddo
@@ -9176,6 +9185,10 @@ end subroutine
       enddo                    
 
       end subroutine spcvmc_sw
+#undef WRF_SW_SPC_COLUMN_COUNT
+#undef WRF_SW_SPC_CURRENT_COLUMN
+#undef WRF_SW_SPC_PAIR_COLUMN
+
 
       end module rrtmg_sw_spcvmc
 
