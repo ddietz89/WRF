@@ -1,0 +1,28 @@
+--- current86e7/match_tpl.h(private copy only)
++++ private_fast_initial_scan_reuse_tpl.h
+@@ -67,7 +67,14 @@
+     }
+ 
+     scan_start = zng_memread_8(scan);
++#if BYTE_ORDER == LITTLE_ENDIAN
++    if (best_len < sizeof(uint32_t))
++        scan_end = (uint64_t)(uint16_t)(scan_start >> (8 * offset));
++    else
++        scan_end = zng_memread_8(scan+offset);
++#else
+     scan_end = zng_memread_8(scan+offset);
++#endif
+     mbase_end  = (mbase_start+offset);
+ 
+     /* Do not waste too much time if we already have a good match */
+--- current9371/compare256_avx2.c
++++ private/candidate_compare256_avx2.c
+@@ -79,7 +79,7 @@
+ #undef LONGEST_MATCH_SLOW
+ #undef COMPARE256
+ #define COMPARE256 compare256_avx2_static
+-#include "match_tpl.h"
++#include "private_fast_initial_scan_reuse_tpl.h"
+ #pragma pop_macro("GOTO_NEXT_CHAIN")
+ #pragma pop_macro("COMPARE256")
+ #pragma pop_macro("LONGEST_MATCH_SLOW")

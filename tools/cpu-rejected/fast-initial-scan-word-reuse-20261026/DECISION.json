@@ -1,0 +1,44 @@
+{
+  "decision": "CLOSE_FIXED_INITIAL_SCAN_WORD_REUSE_UNPROMOTED",
+  "correctness": "PASS_GENUINE_MATCHER24_PREFIX_GUARDS6_CODEC13_STREAM5_PROVIDER32_RAW_FIVE_STATE",
+  "native_invocation_id": "c319f78852f04410bc5f3d5a64d1fcf7",
+  "parent_DSO_sha256": "937130c2a2d53e1d11c978dce1b661400daca9da7b8ae99029333dbc1103d178",
+  "candidate_DSO_sha256": "99495895055f112be3dbf7c786de09144d7b606b92a4910be47ea95e810a6a0d",
+  "changed_codec_objects": 1,
+  "unchanged_codec_objects": 51,
+  "actual_code_mechanism": "Initial best_len1..3 overlapping scan_end load removed; low16 derived from first saved scanword by shift. Widepath retains original load. Actual savedword spills remain; new SHRX/shiftcount dependency and register/layout changes. Static mechanism not measured cycle attribution.",
+  "whole_provider_cost_status": "PASS_FOUR_COMPLETE_PROVIDER32_CALLER_ARMS_STRICT_RAW5STATE_NORMAL_CLOSED",
+  "pairs": [
+    {
+      "host": "hpc01",
+      "parent_arm": 0,
+      "candidate_arm": 2,
+      "parent_wall_ns": 2218112384,
+      "candidate_wall_ns": 2224074946,
+      "parent_cpu_ns": 6753616264,
+      "candidate_cpu_ns": 6775828124,
+      "wall_reduction_percent": -0.2688124390364477,
+      "cpu_reduction_percent": -0.3288883929991604
+    },
+    {
+      "host": "hpc02",
+      "parent_arm": 3,
+      "candidate_arm": 1,
+      "parent_wall_ns": 2186202560,
+      "candidate_wall_ns": 2219709720,
+      "parent_cpu_ns": 6746709607,
+      "candidate_cpu_ns": 6786367161,
+      "wall_reduction_percent": -1.532664932932848,
+      "cpu_reduction_percent": -0.5878058536690878
+    }
+  ],
+  "reason": "Both hosts lose complete32call provider wall and processCPU despite exact output/state. No separately measured positive kernel gain or resource benefit established; owner significant-kernel-gain inclusion rule not triggered.",
+  "numerical_failure": false,
+  "performance_qualified": false,
+  "application_qualified": false,
+  "default_promoted": false,
+  "selected_NG_unchanged": "937130c2a2d53e1d11c978dce1b661400daca9da7b8ae99029333dbc1103d178",
+  "future_work": "No further arms, variants or forecast for this fixed candidate.",
+  "limits": "One oppositeorder pair perhost01/02; existing225MB/fourchunk provider32 synthetic geometry including allocation/packing/codec/threadlifecycle, releaseoutsideclock identically. Native internal correctness times are untimed and not gains/losses; no sampled/global/forecast/cycle-headroom claim.",
+  "rollback": "No selected code/default/source changed; retain NG9371. Private candidate remains evidence only."
+}

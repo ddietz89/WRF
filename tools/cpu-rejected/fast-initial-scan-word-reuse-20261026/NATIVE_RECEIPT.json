@@ -1,0 +1,1390 @@
+{
+  "status": "PASS_CURRENT9371_INITIAL_SCAN_REUSE_MATCHER24_CODEC13_STREAM5_PROVIDER32_RAW5STATE_PENDING_CODEGEN_COST",
+  "invocation_id": "c319f78852f04410bc5f3d5a64d1fcf7",
+  "commands": [
+    {
+      "label": "compiler-version",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "--version"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "compile-one-private-FAST-candidate",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-std=c11",
+        "-Wall",
+        "-fPIC",
+        "-DNDEBUG",
+        "-DHAVE_SYMVER",
+        "-D_LARGEFILE64_SOURCE=1",
+        "-DHAVE_CPUID_GNU",
+        "-DHAVE_SYS_AUXV_H",
+        "-DHAVE_LINUX_AUXVEC_H",
+        "-DZLIB_COMPAT",
+        "-DWITH_GZFILEOP",
+        "-fno-semantic-interposition",
+        "-DHAVE_VISIBILITY_HIDDEN",
+        "-DHAVE_VISIBILITY_INTERNAL",
+        "-DHAVE_ATTRIBUTE_ALIGNED",
+        "-DHAVE_BUILTIN_ASSUME_ALIGNED",
+        "-DHAVE_BUILTIN_CTZ",
+        "-DHAVE_BUILTIN_CTZLL",
+        "-DWITH_ALL_FALLBACKS",
+        "-DWITH_OPTIM",
+        "-DX86_FEATURES",
+        "-DX86_HAVE_XSAVE_INTRIN",
+        "-DX86_SSE2",
+        "-DX86_SSSE3",
+        "-DX86_SSE41",
+        "-DX86_SSE42",
+        "-DX86_PCLMULQDQ_CRC",
+        "-DX86_AVX2",
+        "-DX86_AVX512",
+        "-DX86_AVX512VNNI",
+        "-DX86_VPCLMULQDQ_CRC",
+        "-mavx2",
+        "-mbmi2",
+        "-fno-lto",
+        "-DPIC",
+        "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/build",
+        "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/source",
+        "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/source/arch/x86",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/candidate-source/compare256_avx2.c",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/compare256_avx2.lo"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "link-one-candidate-codec",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-std=c11",
+        "-Wall",
+        "-DNDEBUG",
+        "-DHAVE_SYMVER",
+        "-D_LARGEFILE64_SOURCE=1",
+        "-DHAVE_CPUID_GNU",
+        "-DHAVE_SYS_AUXV_H",
+        "-DHAVE_LINUX_AUXVEC_H",
+        "-DZLIB_COMPAT",
+        "-DWITH_GZFILEOP",
+        "-DHAVE_VISIBILITY_HIDDEN",
+        "-DHAVE_VISIBILITY_INTERNAL",
+        "-DHAVE_ATTRIBUTE_ALIGNED",
+        "-DHAVE_BUILTIN_ASSUME_ALIGNED",
+        "-DHAVE_BUILTIN_CTZ",
+        "-DHAVE_BUILTIN_CTZLL",
+        "-DWITH_ALL_FALLBACKS",
+        "-DWITH_OPTIM",
+        "-DX86_FEATURES",
+        "-DX86_HAVE_XSAVE_INTRIN",
+        "-DX86_SSE2",
+        "-DX86_SSSE3",
+        "-DX86_SSE41",
+        "-DX86_SSE42",
+        "-DX86_PCLMULQDQ_CRC",
+        "-DX86_AVX2",
+        "-DX86_AVX512",
+        "-DX86_AVX512VNNI",
+        "-DX86_VPCLMULQDQ_CRC",
+        "-shared",
+        "-Wl,-soname,libz.so.1",
+        "-Wl,--version-script,/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/build/zlib.map",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/libz.so.1.3.1.zlib-ng",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/arch/generic/adler32_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/arch/generic/adler32_fold_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/arch/generic/chunkset_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/arch/generic/compare256_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/arch/generic/crc32_braid_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/arch/generic/crc32_fold_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/arch/generic/slide_hash_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/adler32.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/compress.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/crc32.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/crc32_braid_comb.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/deflate.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/deflate_fast.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/deflate_huff.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/deflate_medium.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/deflate_quick.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/deflate_rle.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/deflate_slow.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/deflate_stored.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/functable.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/infback.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/inflate.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/inftrees.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/insert_string.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/insert_string_roll.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/trees.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/uncompr.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/zutil.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/arch/generic/crc32_chorba_c.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/cpu_features.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/x86_features.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/chunkset_sse2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/chorba_sse2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/compare256_sse2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/slide_hash_sse2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/adler32_ssse3.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/chunkset_ssse3.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/chorba_sse41.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/adler32_sse42.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/crc32_pclmulqdq.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/slide_hash_avx2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/chunkset_avx2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/compare256_avx2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/adler32_avx2.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/adler32_avx512.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/chunkset_avx512.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/compare256_avx512.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/adler32_avx512_vnni.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/crc32_vpclmulqdq.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/gzlib.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/gzread.lo",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/gzwrite.lo"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "parent-private-FAST-codegen",
+      "argv": [
+        "objdump",
+        "-d",
+        "--no-show-raw-insn",
+        "--disassemble=zng_private_deflate_fast_avx2",
+        "/pool/wrf-experiment/wrf-cpu/kernels/private-fast-distance-range-native-hpc02-r1/output/build/libz.so.1.3.1.zlib-ng"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "candidate-private-FAST-codegen",
+      "argv": [
+        "objdump",
+        "-d",
+        "--no-show-raw-insn",
+        "--disassemble=zng_private_deflate_fast_avx2",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/libz.so.1.3.1.zlib-ng"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "compile-parent-genuine-matcher",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-std=c11",
+        "-Wall",
+        "-fPIC",
+        "-DNDEBUG",
+        "-DHAVE_SYMVER",
+        "-D_LARGEFILE64_SOURCE=1",
+        "-DHAVE_CPUID_GNU",
+        "-DHAVE_SYS_AUXV_H",
+        "-DHAVE_LINUX_AUXVEC_H",
+        "-DZLIB_COMPAT",
+        "-DWITH_GZFILEOP",
+        "-fno-semantic-interposition",
+        "-DHAVE_VISIBILITY_HIDDEN",
+        "-DHAVE_VISIBILITY_INTERNAL",
+        "-DHAVE_ATTRIBUTE_ALIGNED",
+        "-DHAVE_BUILTIN_ASSUME_ALIGNED",
+        "-DHAVE_BUILTIN_CTZ",
+        "-DHAVE_BUILTIN_CTZLL",
+        "-DWITH_ALL_FALLBACKS",
+        "-DWITH_OPTIM",
+        "-DX86_FEATURES",
+        "-DX86_HAVE_XSAVE_INTRIN",
+        "-DX86_SSE2",
+        "-DX86_SSSE3",
+        "-DX86_SSE41",
+        "-DX86_SSE42",
+        "-DX86_PCLMULQDQ_CRC",
+        "-DX86_AVX2",
+        "-DX86_AVX512",
+        "-DX86_AVX512VNNI",
+        "-DX86_VPCLMULQDQ_CRC",
+        "-mavx2",
+        "-mbmi2",
+        "-fno-lto",
+        "-DPIC",
+        "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/build",
+        "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/source",
+        "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/source/arch/x86",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/parent_fixture.c",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/parent-matcher-fixture.o"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "compile-candidate-genuine-matcher",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-std=c11",
+        "-Wall",
+        "-fPIC",
+        "-DNDEBUG",
+        "-DHAVE_SYMVER",
+        "-D_LARGEFILE64_SOURCE=1",
+        "-DHAVE_CPUID_GNU",
+        "-DHAVE_SYS_AUXV_H",
+        "-DHAVE_LINUX_AUXVEC_H",
+        "-DZLIB_COMPAT",
+        "-DWITH_GZFILEOP",
+        "-fno-semantic-interposition",
+        "-DHAVE_VISIBILITY_HIDDEN",
+        "-DHAVE_VISIBILITY_INTERNAL",
+        "-DHAVE_ATTRIBUTE_ALIGNED",
+        "-DHAVE_BUILTIN_ASSUME_ALIGNED",
+        "-DHAVE_BUILTIN_CTZ",
+        "-DHAVE_BUILTIN_CTZLL",
+        "-DWITH_ALL_FALLBACKS",
+        "-DWITH_OPTIM",
+        "-DX86_FEATURES",
+        "-DX86_HAVE_XSAVE_INTRIN",
+        "-DX86_SSE2",
+        "-DX86_SSSE3",
+        "-DX86_SSE41",
+        "-DX86_SSE42",
+        "-DX86_PCLMULQDQ_CRC",
+        "-DX86_AVX2",
+        "-DX86_AVX512",
+        "-DX86_AVX512VNNI",
+        "-DX86_VPCLMULQDQ_CRC",
+        "-mavx2",
+        "-mbmi2",
+        "-fno-lto",
+        "-DPIC",
+        "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/build",
+        "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/source",
+        "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/source/arch/x86",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/candidate_fixture.c",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/candidate-matcher-fixture.o"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "compile-existing-matcher-driver-plus-best7",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-std=c11",
+        "-Wall",
+        "-fPIC",
+        "-DNDEBUG",
+        "-DHAVE_SYMVER",
+        "-D_LARGEFILE64_SOURCE=1",
+        "-DHAVE_CPUID_GNU",
+        "-DHAVE_SYS_AUXV_H",
+        "-DHAVE_LINUX_AUXVEC_H",
+        "-DZLIB_COMPAT",
+        "-DWITH_GZFILEOP",
+        "-fno-semantic-interposition",
+        "-DHAVE_VISIBILITY_HIDDEN",
+        "-DHAVE_VISIBILITY_INTERNAL",
+        "-DHAVE_ATTRIBUTE_ALIGNED",
+        "-DHAVE_BUILTIN_ASSUME_ALIGNED",
+        "-DHAVE_BUILTIN_CTZ",
+        "-DHAVE_BUILTIN_CTZLL",
+        "-DWITH_ALL_FALLBACKS",
+        "-DWITH_OPTIM",
+        "-DX86_FEATURES",
+        "-DX86_HAVE_XSAVE_INTRIN",
+        "-DX86_SSE2",
+        "-DX86_SSSE3",
+        "-DX86_SSE41",
+        "-DX86_SSE42",
+        "-DX86_PCLMULQDQ_CRC",
+        "-DX86_AVX2",
+        "-DX86_AVX512",
+        "-DX86_AVX512VNNI",
+        "-DX86_VPCLMULQDQ_CRC",
+        "-mavx2",
+        "-mbmi2",
+        "-fno-lto",
+        "-DPIC",
+        "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/build",
+        "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/source",
+        "-I/pool/wrf-experiment/builds/cpu-investigation/zlib-ng/source/arch/x86",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/fixture_driver.c",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/matcher-fixture-driver.o"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "link-genuine-matcher-fixture",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/matcher-fixture-driver.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/parent-matcher-fixture.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/candidate-matcher-fixture.o",
+        "-lm",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/matcher-fixture"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "run-genuine-matcher-fixture",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/matcher-fixture"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "compile-existing-codec_caller",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-std=c11",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/codec_caller.c",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-Wl,-rpath,/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lz",
+        "-ldl",
+        "-lm",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "compile-existing-stream_caller",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-std=c11",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/stream_caller.c",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-Wl,-rpath,/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lz",
+        "-ldl",
+        "-lm",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/stream_caller"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "actual-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/actual-shuffled.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/actual-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "actual-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/actual-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/actual-shuffled.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "actual-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/actual-shuffled.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/actual-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "actual-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/actual-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/actual-shuffled.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "zero-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/zero.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/zero-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "zero-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/zero-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/zero.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "zero-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/zero.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/zero-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "zero-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/zero-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/zero.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "structured-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/structured.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/structured-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "structured-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/structured-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/structured.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "structured-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/structured.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/structured-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "structured-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/structured-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/structured.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "ieee-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/ieee.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/ieee-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "ieee-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/ieee-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/ieee.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "ieee-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/ieee.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/ieee-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "ieee-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/ieee-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/ieee.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "random-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/random.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/random-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "random-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/random-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/random.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "random-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/random.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/random-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "random-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/random-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/random.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "empty-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/empty.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/empty-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "empty-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/empty-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/empty.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "empty-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/empty.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/empty-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "empty-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/empty-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/empty.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "tail257-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/tail257.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/tail257-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "tail257-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/tail257-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/tail257.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "tail257-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/tail257.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/tail257-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "tail257-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/tail257-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/tail257.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead261-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead261.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead261-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead261-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead261-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead261.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead261-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead261.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead261-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead261-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead261-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead261.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead262-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead262.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead262-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead262-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead262-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead262.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead262-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead262.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead262-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead262-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead262-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead262.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead263-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead263.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead263-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead263-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead263-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead263.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead263-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead263.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead263-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead263-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead263-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead263.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead264-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead264.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead264-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead264-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead264-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead264.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead264-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead264.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead264-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead264-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead264-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead264.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead32769-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead32769.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead32769-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead32769-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead32769-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead32769.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead32769-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead32769.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead32769-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead32769-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead32769-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead32769.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead65537-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead65537.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead65537-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead65537-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead65537-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead65537.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead65537-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "encode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead65537.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead65537-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "lookahead65537-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead65537-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/lookahead65537.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "empty-stream-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/stream_caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/empty-stream-input.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/empty-stream-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "empty-stream-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/empty-stream-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/empty-stream-input.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "empty-stream-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/stream_caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/empty-stream-input.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/empty-stream-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "empty-stream-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/empty-stream-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/empty-stream-input.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "tail257-stream-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/stream_caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/tail257-stream-input.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/tail257-stream-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "tail257-stream-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/tail257-stream-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/tail257-stream-input.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "tail257-stream-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/stream_caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/tail257-stream-input.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/tail257-stream-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "tail257-stream-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/tail257-stream-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/tail257-stream-input.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "structured-stream-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/stream_caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/structured-stream-input.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/structured-stream-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "structured-stream-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/structured-stream-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/structured-stream-input.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "structured-stream-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/stream_caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/structured-stream-input.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/structured-stream-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "structured-stream-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/structured-stream-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/structured-stream-input.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "ieee-stream-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/stream_caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/ieee-stream-input.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/ieee-stream-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "ieee-stream-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/ieee-stream-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/ieee-stream-input.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "ieee-stream-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/stream_caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/ieee-stream-input.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/ieee-stream-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "ieee-stream-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/ieee-stream-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/ieee-stream-input.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "random-stream-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/stream_caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/random-stream-input.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/random-stream-current.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "random-stream-current-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/random-stream-current.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/random-stream-input.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "random-stream-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/stream_caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/random-stream-input.bin",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/random-stream-candidate.z"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "random-stream-candidate-stockdecode",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/codec_caller",
+        "decode",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/random-stream-candidate.z",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/random-stream-input.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "run-full-provider-current",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentc51b-pqdownheap-child-control-native-hpc02-r1/output/provider-current",
+        "candidate",
+        "/pool/wrf-experiment/wrf-cpu/kernels/provider-padding-block32-w-caller-driver-r1/gold.bin"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "compile-only-new-candidate-provider-fixture",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-std=c11",
+        "-Wall",
+        "-Wextra",
+        "-Werror=implicit-function-declaration",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-rdynamic",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/provider-candidate.c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/libz.so.1.3.1.zlib-ng",
+        "-ldl",
+        "-lm",
+        "-pthread",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/provider-candidate"
+      ],
+      "returncode": 0
+    },
+    {
+      "label": "run-full-provider-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/provider-candidate",
+        "candidate",
+        "/pool/wrf-experiment/wrf-cpu/kernels/provider-padding-block32-w-caller-driver-r1/gold.bin"
+      ],
+      "returncode": 0
+    }
+  ],
+  "full_matcher_fixture": {
+    "whole_matcher_cases": 24,
+    "original_matcher_cases_preserved": 23,
+    "only_added_case": "best7 nonshortfallback",
+    "chain_trace_state_readonly_errno_fenv": true,
+    "unchanged_prefix_guardpage_cases": 6,
+    "prefix_scope": "Prefix-only guards confirm unchangedcandidateprobes, not substitute for wholematcher initialword proof."
+  },
+  "parent_library_sha256": "937130c2a2d53e1d11c978dce1b661400daca9da7b8ae99029333dbc1103d178",
+  "candidate_library_sha256": "99495895055f112be3dbf7c786de09144d7b606b92a4910be47ea95e810a6a0d",
+  "candidate_compare_sha256": "f329a8b5a1287d52e676a214fdf4fb7f0323ae7bdd62790abf2eb180fef7bcc9",
+  "ordered_shared_link_inputs": [
+    "arch/generic/adler32_c.lo",
+    "arch/generic/adler32_fold_c.lo",
+    "arch/generic/chunkset_c.lo",
+    "arch/generic/compare256_c.lo",
+    "arch/generic/crc32_braid_c.lo",
+    "arch/generic/crc32_fold_c.lo",
+    "arch/generic/slide_hash_c.lo",
+    "adler32.lo",
+    "compress.lo",
+    "crc32.lo",
+    "crc32_braid_comb.lo",
+    "deflate.lo",
+    "deflate_fast.lo",
+    "deflate_huff.lo",
+    "deflate_medium.lo",
+    "deflate_quick.lo",
+    "deflate_rle.lo",
+    "deflate_slow.lo",
+    "deflate_stored.lo",
+    "functable.lo",
+    "infback.lo",
+    "inflate.lo",
+    "inftrees.lo",
+    "insert_string.lo",
+    "insert_string_roll.lo",
+    "trees.lo",
+    "uncompr.lo",
+    "zutil.lo",
+    "arch/generic/crc32_chorba_c.lo",
+    "cpu_features.lo",
+    "x86_features.lo",
+    "chunkset_sse2.lo",
+    "chorba_sse2.lo",
+    "compare256_sse2.lo",
+    "slide_hash_sse2.lo",
+    "adler32_ssse3.lo",
+    "chunkset_ssse3.lo",
+    "chorba_sse41.lo",
+    "adler32_sse42.lo",
+    "crc32_pclmulqdq.lo",
+    "slide_hash_avx2.lo",
+    "chunkset_avx2.lo",
+    "compare256_avx2.lo",
+    "adler32_avx2.lo",
+    "adler32_avx512.lo",
+    "chunkset_avx512.lo",
+    "compare256_avx512.lo",
+    "adler32_avx512_vnni.lo",
+    "crc32_vpclmulqdq.lo",
+    "gzlib.lo",
+    "gzread.lo",
+    "gzwrite.lo"
+  ],
+  "shared_link_input_count": 52,
+  "unchanged_shared_link_inputs": 51,
+  "changed_shared_link_inputs": [
+    "compare256_avx2.lo"
+  ],
+  "parent_production_compiles": 0,
+  "candidate_production_compiles": 1,
+  "other_codec_object_compiles": 0,
+  "genuine_matcher_fixture_TU_compiles": 2,
+  "fixture_driver_compiles": 1,
+  "existing_codec_stream_fixture_compiles": 2,
+  "existing_provider_fixture_compiles": 1,
+  "correctness": [
+    {
+      "case": "actual",
+      "input_bytes": 56430000,
+      "encoded_bytes": 46123669,
+      "encoded_sha256": "de7a7f8b6a667cf4c5d2156b1c88881456a0eaf243c67a76777c29aebf41ee69",
+      "stock_decode": "PASS"
+    },
+    {
+      "case": "zero",
+      "input_bytes": 56430000,
+      "encoded_bytes": 54865,
+      "encoded_sha256": "31804c4937df26d308529e555c6e124b5b8e7a1defe8da7eb9143b4737dcf17b",
+      "stock_decode": "PASS"
+    },
+    {
+      "case": "structured",
+      "input_bytes": 56430000,
+      "encoded_bytes": 396165,
+      "encoded_sha256": "d0afcb7e2a0f7d3d0fe1dfd703bcb99ee3b20383e7b3fe447c0aca2092be3184",
+      "stock_decode": "PASS"
+    },
+    {
+      "case": "ieee",
+      "input_bytes": 1048576,
+      "encoded_bytes": 7770,
+      "encoded_sha256": "429a8bc6fb3332ca40507ba2cb15054d583e2b58e7d51ee35b39002e1d3bd901",
+      "stock_decode": "PASS"
+    },
+    {
+      "case": "random",
+      "input_bytes": 1048576,
+      "encoded_bytes": 1048907,
+      "encoded_sha256": "a306a313146a26795e14a81df2055e82b8d0c495c4a3d136700f7a36d409573f",
+      "stock_decode": "PASS"
+    },
+    {
+      "case": "empty",
+      "input_bytes": 0,
+      "encoded_bytes": 8,
+      "encoded_sha256": "4124a9b34347a1f878716df4f671e438e6eb308f70838b5e6c48c3eae46d1c23",
+      "stock_decode": "PASS"
+    },
+    {
+      "case": "tail257",
+      "input_bytes": 257,
+      "encoded_bytes": 268,
+      "encoded_sha256": "62b27837b5309c404805a51fabbf1b5e8f12119072cca7ab15a2bbd4a689ada4",
+      "stock_decode": "PASS"
+    },
+    {
+      "case": "lookahead261",
+      "input_bytes": 261,
+      "encoded_bytes": 272,
+      "encoded_sha256": "97a79e6c71b7eb811af4e69ba8534732f9623de92ab779a0cf29de82d52208dc",
+      "stock_decode": "PASS"
+    },
+    {
+      "case": "lookahead262",
+      "input_bytes": 262,
+      "encoded_bytes": 273,
+      "encoded_sha256": "ea2a7da7c9ccbacc8391f05dba2b371e8ce605073099f0016221c3326bd65eaa",
+      "stock_decode": "PASS"
+    },
+    {
+      "case": "lookahead263",
+      "input_bytes": 263,
+      "encoded_bytes": 274,
+      "encoded_sha256": "bd164a7388414d33aeb40b8f5f97cce080017b6fe16dc48ad5cbf524c5d108be",
+      "stock_decode": "PASS"
+    },
+    {
+      "case": "lookahead264",
+      "input_bytes": 264,
+      "encoded_bytes": 275,
+      "encoded_sha256": "7d268b317a48d59f8c648b48c3f366e44dfc42cff08e95604e4deb42d13d15b6",
+      "stock_decode": "PASS"
+    },
+    {
+      "case": "lookahead32769",
+      "input_bytes": 32769,
+      "encoded_bytes": 32787,
+      "encoded_sha256": "4e356e1545231d0d5a1b268c6ce23f9d4d110d7ff8b2acfdf9041b13ab6d9aa2",
+      "stock_decode": "PASS"
+    },
+    {
+      "case": "lookahead65537",
+      "input_bytes": 65537,
+      "encoded_bytes": 65565,
+      "encoded_sha256": "2cd676511ac68419ea96ed34f8bfe70072efbe257943a748eba85955528a398c",
+      "stock_decode": "PASS"
+    }
+  ],
+  "streaming": [
+    {
+      "case": "empty",
+      "trace_sha256": "07aa21d3cc2e28222fcfaa282cd5902009ecf0b82a95b764613076c4beebecfc",
+      "encoded_sha256": "af289448511a7b361de46b8902d2c15068b13ea2967f47b503f51b8c09a96dcf"
+    },
+    {
+      "case": "tail257",
+      "trace_sha256": "0165350c0240d946ee3404082c2e2d12b7250eadf1ba63beabab4490ba3dd3b9",
+      "encoded_sha256": "434d24ba532b0a60f684a50abddf6758f8e557f36e0de371d04e2abdd9f64295"
+    },
+    {
+      "case": "structured",
+      "trace_sha256": "6fd0c9daaa551d85afe8f2b40c418f04fbceb71a8ae5b9092ce1f1a56c7225d8",
+      "encoded_sha256": "bf80dbf45101fcf5a0f7b945dc58d3cb4996b1e2667b9e2c341b9b94f5eda1af"
+    },
+    {
+      "case": "ieee",
+      "trace_sha256": "5b4b4f624fd0888d010d7e664c11bad57669314147b954329f4dbe6601cb2457",
+      "encoded_sha256": "809fc9e91bdb530b1f82aa6d8d2e5742ad5d9b0b384d11578df1aaf69acb1c83"
+    },
+    {
+      "case": "random",
+      "trace_sha256": "a8d3d4f7e8c345e65fc343fc4f74a413299f67bb1e72f281d90801f868104500",
+      "encoded_sha256": "8fea9c5ffe635bd1600d6e41acb6da64bc9b4ea0105205d1982c7e8180019974"
+    }
+  ],
+  "provider_results": {
+    "current": {
+      "provider": "candidate",
+      "calls": 32,
+      "raw_bytes": 225371652,
+      "chunk_bytes": 56430000,
+      "chunks": 4,
+      "complete_provider_call_wall_ns": 2048988603,
+      "process_cpu_ns": 6582882790,
+      "errno": 33,
+      "flags": 36,
+      "round": 2048,
+      "mxcsr": 24452,
+      "x87cw": 2943,
+      "exact_raw_readonly_gold": true,
+      "release_outside_clock": true,
+      "stock_decode_before_after": true,
+      "maxrss_kib": 719296,
+      "no_MPI512_activation": true
+    },
+    "candidate": {
+      "provider": "candidate",
+      "calls": 32,
+      "raw_bytes": 225371652,
+      "chunk_bytes": 56430000,
+      "chunks": 4,
+      "complete_provider_call_wall_ns": 2198503897,
+      "process_cpu_ns": 6760069434,
+      "errno": 33,
+      "flags": 36,
+      "round": 2048,
+      "mxcsr": 24452,
+      "x87cw": 2943,
+      "exact_raw_readonly_gold": true,
+      "release_outside_clock": true,
+      "stock_decode_before_after": true,
+      "maxrss_kib": 718816,
+      "no_MPI512_activation": true
+    }
+  },
+  "exports_unchanged": true,
+  "dependencies_unchanged": true,
+  "artifacts": {
+    "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/libz.so.1.3.1.zlib-ng": "99495895055f112be3dbf7c786de09144d7b606b92a4910be47ea95e810a6a0d",
+    "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/build/compare256_avx2.lo": "f329a8b5a1287d52e676a214fdf4fb7f0323ae7bdd62790abf2eb180fef7bcc9",
+    "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/parent-private-FAST-codegen.stdout": "01d34c8304ed0ded0a0797aeaaef2ac9f0373ab91231f149ed75848662bbce5e",
+    "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/candidate-private-FAST-codegen.stdout": "7036488e0edf572d2b9bcffa6d130a1384f51a364b5f214a41e717b00880949f",
+    "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/matcher-fixture": "2c17eca068152d882f45196e3426985a5de0c1192f82d92a4eae04d3e627b55f",
+    "/pool/wrf-experiment/wrf-cpu/kernels/current4974-fast-initial-scan-reuse-native-hpc01-r1/output/provider-candidate": "b19e693911b4f76dee6d50263d3fa9932d6f931326df3615b1a46514eb246637"
+  },
+  "elapsed_seconds_context_only": 27.947900898288935,
+  "scope": "Correctness only: one private-normal initialSCANword reuse; publicnormal/SLOW template and bothcandidate2byteprobes literalunchanged. Genuine24fullmatcher cases+unchanged6prefixguards/chaintrace/fullstate/readonly/errno/fenv;13codec+5streams exactbytes/stockdecode;both32call provider fullraw/all5/136joins. OneFASTobject changed/51of52cachedlinkinputs unchanged;0trees/WRF/parentproduction compiles. No timing/ISA/global/default claim; actualtargetloadelimination/codegen pending."
+}

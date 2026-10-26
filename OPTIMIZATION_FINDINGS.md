@@ -5320,3 +5320,25 @@ Selected4974: own unprofiled SAME512 nine-hour1625/tenFULL plus retained three-h
 Own unprofiled selected4974 SAME512 nine-hour1625/tenFULL strict science PASS against retained corrected original546b. UNPAIRED descriptive comparison with median latest3 eligible DISTINCT original nine-hour invocations; hardware/cache epoch comparability unresolved, no matched/causal/component-additive or repeatability claim. Own three-hour545/fourFULL Q a208 retained separately. Own noon/profile/restart/384/256/full144 remainFALSE. QualifiedPP/cached-object replay + post-test canonical target correspondence only; rawproducerNULL/no clean whole-source CPP/rebuild certificate. Original native raw/scoped structural limitations retained.
 
 Actual map follows granted FABA lease rows; copied e003 staged file is unused legacy. Raw SCI inherited Current0b40 label is retained, actual4974 proven by runtime/grant. Source214e/image4974/archive02848/NG9371 and all build defaults/components are unchanged. No new deployment/source/build. Rollback is metadata preimages only; existing source opt-outs/retained c51b image remain as documented.
+
+
+### FAST initial scan-word reuse: correctness passes, complete provider loses
+
+FAST initial scan-word reuse — closed unpromoted
+
+Actual GNU13 native correctness passed:24 wholematcher cases,6 unchanged prefix guards,13 complete codec cases,5 stream cases and both32call providers; fullbytes/read-only/chaintrace/five-state exact. One private FAST object changed,51 other codec objects unchanged.
+
+The requested initial short-path overlapping load is removed in actual assembly. The replacement reads the firstword stackslot through SHRX and adds a shiftcount dependency; two savedword spills remain. No cycle-cause claim is made.
+
+Complete provider32calls, one oppositeorder pair perhost with checked cacheclear before EACH arm and all four normal closures: hpc01 wall0.268812%/CPU0.328888% slower; hpc02 wall1.532665%/CPU0.587806% slower. All raw/gold/stockdecode/read-only/five-state checks passed unchanged. These measured complete-provider regressions establish no benefit for this fixed candidate. Native internal untimed numbers are excluded from performance conclusions. No separately demonstrated positive kernel gain or resource benefit is discarded.
+
+No forecast, additional arms or spelling variants planned. Selected NG9371 and all WRF/default/source configuration remain unchanged. Rollback requires no action.
+
+
+### NWP write-only scratch storage candidate closed
+
+NWP write-only QR/NR scratch sinks: closed unpromoted. The actual GNU13 candidate removed exactly two 3D heap scratch owners and their frees, retaining the original scalar multiplications/MAX operand roles. Full twelve-case/four-round O2 and O0 raw/five-state tests passed; O2 non-target body/pools and public MOD were exact. Complete caller128-call batches with all12 output restores inside integer wall/threadCPU clocks were slower on both hosts: hpc01 5.801288→6.018608s (3.7461% slower), hpc02 5.999761→6.016085s (0.2721% slower); CPU agreed. All four raw/state/cache/closure gates passed.
+
+Eliminated allocation requests equal8*Ni*Nk*Nj bytes/rank/call (1,154,912B for the representative caller). The actual SAME512 tile inventory implies at least437,760,000B/417.48MiB logical reserved storage summed across480 compute ranks, about104.37MiB/host, before halo/stagger storage; exact production allocation bounds were not retained. This is not observed RSS saving: measured caller cgrouppeaks fell only24,576B and192,512B on01/02, with roughly495MB totalpeaks. No physical forecast peak benefit was tested. NWP diagnostics are enabled every timestep through the after-all-RK diagnostics driver, not merely at hourly output. The fixed scalar candidate is retained as a negative performance result, with no default/application promotion or follow-up variants. Slowdown cause is unknown; both inner loops have12 instructions, and no scalar-sink reload proves a loop-carried read dependency.
+
+[Finite caller, memory and native evidence](tools/cpu-rejected/nwp-writeonly-scratch-sinks-20261026/README.md).

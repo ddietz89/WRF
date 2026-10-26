@@ -1,0 +1,107 @@
+{
+  "status": "PASS_SCOPED_O2_NWP_SCRATCH_OWNER_AND_LITERAL_FP_REVIEW",
+  "eligible_for_complete_diagnostic_output_nwp_caller": true,
+  "eligible_for_complete_nwp_caller": true,
+  "native_receipt_sha256": "d06c01b3b6bc2cb80e340b72c072e79049a840391ef9a8278536c428eca3a9c5",
+  "candidate_O2_object_sha256": "b625941ee75834a629b7f960de2e88cf53a297e0ea14eff0f5cbe0259ecb5a2d",
+  "native_invocation_id": "3ba3e2e84e1343b9a58b19f5a2ed6c8e",
+  "target": "__module_diag_nwp_MOD_diagnostic_output_nwp",
+  "O2_allocation_owners": {
+    "parent": {
+      "idx_bg": {
+        "malloc_object_PC": "0x613",
+        "pointer_rsp": "0x130"
+      },
+      "temp_ng": {
+        "malloc_object_PC": "0x623",
+        "pointer_rsp": "0x90"
+      },
+      "temp_nr": {
+        "malloc_object_PC": "0x633",
+        "pointer_rsp": "0x1b8",
+        "free_object_PC": "0x1ec4"
+      },
+      "temp_qb": {
+        "malloc_object_PC": "0x643",
+        "pointer_rsp": "0x198"
+      },
+      "temp_qg": {
+        "malloc_object_PC": "0x653",
+        "pointer_rsp": "0xc8"
+      },
+      "temp_qr": {
+        "malloc_object_PC": "0x663",
+        "pointer_rsp": "0x1c0",
+        "free_object_PC": "0x1e9d"
+      }
+    },
+    "candidate": {
+      "idx_bg": {
+        "malloc_object_PC": "0x610",
+        "pointer_rsp": "0x130"
+      },
+      "temp_ng": {
+        "malloc_object_PC": "0x620",
+        "pointer_rsp": "0x90",
+        "free_object_PC": "0x1e97"
+      },
+      "temp_qb": {
+        "malloc_object_PC": "0x630",
+        "pointer_rsp": "0x198",
+        "free_object_PC": "0x1e8a"
+      },
+      "temp_qg": {
+        "malloc_object_PC": "0x640",
+        "pointer_rsp": "0xc8",
+        "free_object_PC": "0x1e7d"
+      }
+    },
+    "mapping_proof": "DWARF named location lists + CFA-relative slots, malloc returns to slots, epilogue loads from identical slots. idx_bg tail-free retained at 0x1eb5; parent 0x1eef. Other free calls are runtime temporary ownership, not additional removed scratcharrays.",
+    "removed_owners": [
+      "temp_qr",
+      "temp_nr"
+    ],
+    "malloc_calls": {
+      "parent": 6,
+      "candidate": 4
+    },
+    "free_relocations": {
+      "parent": 12,
+      "candidate": 10
+    }
+  },
+  "O2_literal_FP": {
+    "parent_loop_object_PC": "0x3460..0x3492",
+    "candidate_loop_object_PC": "0x33f0..0x3429",
+    "retained": "rho load; QR load; QR*rho MULSS; NR*rho MULSS; QR MAXSS and NR MAXSS with identical source/destination operand roles and caps; QR then NR stores. Both versions scalar. No packed-SIMD loss or removed FP calculation inferred.",
+    "parent_stores": {
+      "QR": "0x3480 heap temp_qr",
+      "NR": "0x3486 heap temp_nr"
+    },
+    "candidate_stores": {
+      "QR": "0x3414 rsp+0x2c4",
+      "NR": "0x341d rsp+0x2c0"
+    },
+    "limits": "Integer induction scheduling/register allocation differ; no universal trap chronology or unsupported compiler claim."
+  },
+  "O2_non_target_and_pools": "PASS_NON_TARGET_FUNCTION_BYTES_RELOCATION_ROLES_AND_RODATA_DATA_BSS_EXACT",
+  "public_MOD_byte_exact_both_opts": true,
+  "O0": {
+    "numerical_full12_four_round_raw5state": "PASS",
+    "parent": "fresh same-source O0, not cached genuine O0",
+    "non_target_raw_false_retained": {
+      "gammln": false,
+      "wgamma": true
+    },
+    "whole_O0_structural_qualification": false
+  },
+  "scope": "Eligible for isolated cached-O2 complete-caller measurement. No application/default promotion, full-image build certificate, universal NaN or allocation-failure equivalence. Supported allocation-success domain; successful-call errno/round/flags/MXCSR/x87 exact native gates remain hard.",
+  "artifacts_sha256": {
+    "actual-artifacts/actual-O2-candidate-fullroutine.log": "1d10af386c91e0c7d4725ddbcc8462b0d2786794e51fc8962ba993eebf85a178",
+    "actual-artifacts/actual-O2-candidate-relocations.log": "0d73cb32d0df970e878722f66407c219fac28f737d3806b062ab4da8085c0068",
+    "actual-artifacts/actual-O2-parent-fullroutine.log": "6bc7a1b9ed0c2857d0c766c853b1c61068080937f0eb57dcd8849fed5185963f",
+    "actual-artifacts/actual-O2-parent-relocations.log": "f0b975f29287ffdc04ea679f0aaefd7de640cf14226982adc3cae62b2957080e",
+    "actual-artifacts/candidate.o": "b625941ee75834a629b7f960de2e88cf53a297e0ea14eff0f5cbe0259ecb5a2d"
+  },
+  "native_raw_records_unchanged": true
+}

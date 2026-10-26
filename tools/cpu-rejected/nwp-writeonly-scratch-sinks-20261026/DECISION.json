@@ -1,0 +1,111 @@
+{
+  "status": "CLOSED_FIXED_CANDIDATE_UNPROMOTED",
+  "decision": "No significant complete-caller speed gain; both opposite-order host pairs slower. No demonstrated physical peak-memory benefit. Retain native and exact owner-removal proof; no row-sink variant, rerun or forecast for this candidate.",
+  "owner_decision": "Root explicit 2026-10-26 closeout",
+  "comparisons": {
+    "complete_diagnostic_output_nwp": [
+      {
+        "host": "hpc01",
+        "parent_arm": 0,
+        "candidate_arm": 2,
+        "parent_wall_seconds": 5.801287783,
+        "candidate_wall_seconds": 6.018607513,
+        "wall_reduction_percent": -3.7460601530030946,
+        "parent_thread_cpu_seconds": 5.800214178,
+        "candidate_thread_cpu_seconds": 6.016779495,
+        "thread_cpu_reduction_percent": -3.7337468988890787
+      },
+      {
+        "host": "hpc02",
+        "parent_arm": 3,
+        "candidate_arm": 1,
+        "parent_wall_seconds": 5.999760551,
+        "candidate_wall_seconds": 6.016085,
+        "wall_reduction_percent": -0.2720850084138693,
+        "parent_thread_cpu_seconds": 5.9985278,
+        "candidate_thread_cpu_seconds": 6.014540925,
+        "thread_cpu_reduction_percent": -0.26695091752346745
+      }
+    ]
+  },
+  "peaks": [
+    {
+      "arm": 0,
+      "host": "hpc01",
+      "which": "parent",
+      "memory_peak_bytes": 495435776,
+      "receipt_sha256": "0de659a69f2a030937b5c6d829a2f3bfc0ef2638b1580ef4491554168af63108"
+    },
+    {
+      "arm": 1,
+      "host": "hpc02",
+      "which": "candidate",
+      "memory_peak_bytes": 495165440,
+      "receipt_sha256": "e421117c059604032d8199440fc8c92ae52b69f32928b5281223e9b87b851c0e"
+    },
+    {
+      "arm": 2,
+      "host": "hpc01",
+      "which": "candidate",
+      "memory_peak_bytes": 495411200,
+      "receipt_sha256": "661e0a6d1e32b447c38965b2c63ba6ec08af7019f1fa2b86a43ab9f9afdb3113"
+    },
+    {
+      "arm": 3,
+      "host": "hpc02",
+      "which": "parent",
+      "memory_peak_bytes": 495357952,
+      "receipt_sha256": "019f19c83dda806cf299b85ff1f2cfbccc62e222ecce7b975a6287771468e8d3"
+    }
+  ],
+  "memory": {
+    "removed_requested_bytes_per_call_per_rank": "8*(IME-IMS+1)*(KME-KMS+1)*(JME-JMS+1)",
+    "benchmark_removed_requested_bytes": 1154912,
+    "production_exact_allocated_extent": "NOT retained in per-rank tile certificate; no exact halo/fullstorage claim",
+    "production_conservative_logical_lower_bound_bytes_per_compute_rank": [
+      909568,
+      914432
+    ],
+    "production_conservative_summed_logical_lower_bound_bytes": 437760000,
+    "per_host_conservative_summed_logical_lower_bound_bytes": 109440000,
+    "interpretation": "Logical simultaneously reserved scratch capacity if all480 compute ranks are in this routine; includes no halo/stagger extra. Not measured RSS/cgrouppeak reduction. About104.37MiB/host versus100/100/100/104GiB host limits."
+  },
+  "frequency": {
+    "nwp_diagnostics": 1,
+    "history_interval_minutes": 60,
+    "callsite": "module_after_all_rk_steps.F diagnostics_driver; module_diagnostics_driver.F NWPDIAGS config_flags%nwp_diagnostics==1 thenTHOMPSON branch",
+    "scope": "AfterallRK each model timestep, not only hourly output. No actual dynamic callcounter; completed1625-step trajectory is context, not a measured NWPcallcount."
+  },
+  "machine": {
+    "O2_native_full12_fourround_raw5state": "PASS",
+    "O0_native_full12_fourround_raw5state": "PASS",
+    "O2_other_body_and_pools_exact": true,
+    "removed_owners": [
+      "temp_qr",
+      "temp_nr"
+    ],
+    "retained_owners": [
+      "idx_bg",
+      "temp_ng",
+      "temp_qb",
+      "temp_qg"
+    ],
+    "inner_loop_instructions_each": 12,
+    "parent_loop_bytes": 52,
+    "candidate_loop_bytes": 59,
+    "cause": "UNKNOWN. Candidate has two longer stack-displacement stores versus two indexed heap stores, and changed integer scheduling. No sink reload or true loop-carried RAW dependency observed; no causal slowdown attribution."
+  },
+  "qualifications": {
+    "application": false,
+    "default": false,
+    "speed": false,
+    "observed_physical_peak_memory_benefit": false
+  },
+  "refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current4974-nwp-conditional-scratch-source-question-r1/complete-caller-cost-preparation-r1/ACTUAL_WAVE.json": "f7d2459135f0d2e8373aad7fe0a865d5a4ca4012956097785b699a8aa46fc670",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current4974-fourhost-own-ninehour-runtime-r1/science-receipt.json": "ce6cb2f3bec5c61b24e6d56eeea0b50ec648e38f709bb5e2ef0d4d6164f5109d",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current4974-nwp-conditional-scratch-source-question-r1/actual-gnu13-machine-review-r1/CLASSIFICATION.json": "c69561c3ca363bcfc458c34f62480427b1c00a92ca76548f4c7c82035c41a45c",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current4974-nwp-conditional-scratch-source-question-r1/native-gate-preparation-r1-hpc02/actual-native-r1/receipt.json": "d06c01b3b6bc2cb80e340b72c072e79049a840391ef9a8278536c428eca3a9c5",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current4974-nwp-conditional-scratch-source-question-r1/native-gate-preparation-r1-hpc02/actual-native-r1/closure.json": "3d70828023726f5949fb9f45ac0316a268ed7c3c60b27879195058cc2f247014"
+  }
+}

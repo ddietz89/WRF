@@ -1,0 +1,17 @@
+{
+  "status": "ACTUAL_SHORT_INITIAL_SCAN_SECOND_WINDOW_LOAD_ELIMINATED_COST_PENDING",
+  "native_receipt_sha256": "62bfa43e35bb2d94b754c24e2e436b78ee5c268ee44e935c5e5be782187ef446",
+  "native_invocation_id": "c319f78852f04410bc5f3d5a64d1fcf7",
+  "candidate_DSO_sha256": "99495895055f112be3dbf7c786de09144d7b606b92a4910be47ea95e810a6a0d",
+  "parent_assembly_sha256": "01d34c8304ed0ded0a0797aeaaef2ac9f0373ab91231f149ed75848662bbce5e",
+  "candidate_assembly_sha256": "7036488e0edf572d2b9bcffa6d130a1384f51a364b5f214a41e717b00880949f",
+  "evidence": {
+    "parent": "1b9f6 firstword load;1b9f9 spill20rsp;1b9fe overlapping indexed secondword load;1ba02 spill28rsp",
+    "candidate": "1b9dc firstword load;1b9ee spill28rsp; best1..3 1bc70/74 compute shiftcount;1ba71 SHRX saved firstword;1ba78 MOVZWL low16;1ba7f spill20rsp. prev_length0 default2 uses1ba60/66 shift8. best>=4 retains indexed load1ba12."
+  },
+  "limitations": [
+    "Second window load removed only initial shortpath; two savedword stackslots remain. SHRX consumes stack firstword, adding dependency/shiftcount; compiler also changed register allocation/layout.",
+    "Native internal provider timings are untimed correctness context only; not performance evidence.",
+    "No occupancy/cycle/wholeforecast/default benefit established."
+  ]
+}
