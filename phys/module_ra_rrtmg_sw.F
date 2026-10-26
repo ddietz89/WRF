@@ -8368,6 +8368,128 @@
       end subroutine vrtqdr_sw
 
 ! Private paired-caller optimization; each sky retains serial recurrence order.
+#if defined(WRF_SW_VRTQDR_PAIR_FIXED_STACK_ENABLE) && !defined(WRF_SW_VRTQDR_PAIR_FIXED_STACK_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+subroutine vrtqdr_sw_pair(klev,kw, &
+ pref_a, prefd_a, ptra_a, ptrad_a, pdbt_a, prdnd_a, prup_a, prupd_a, ptdbt_a, pfd_a, pfu_a, &
+  pref_b, prefd_b, ptra_b, ptrad_b, pdbt_b, prdnd_b, prup_b, prupd_b, ptdbt_b, pfd_b, pfu_b)
+ integer(im),intent(in)::klev,kw
+ integer(im)::ikp,ikx,jk
+ real(rb),intent(in)::pref_a(:)
+ real(rb),intent(in)::prefd_a(:)
+ real(rb),intent(in)::ptra_a(:)
+ real(rb),intent(in)::ptrad_a(:)
+ real(rb),intent(in)::pdbt_a(:)
+ real(rb),intent(inout)::prdnd_a(:)
+ real(rb),intent(inout)::prup_a(:)
+ real(rb),intent(inout)::prupd_a(:)
+ real(rb),intent(in)::ptdbt_a(:)
+ real(rb),intent(out)::pfd_a(:,:)
+ real(rb),intent(out)::pfu_a(:,:)
+ real(rb)::zreflect_a,ztdn_a(34)
+ real(rb),allocatable::ztdn_heap_a(:)
+ real(rb),intent(in)::pref_b(:)
+ real(rb),intent(in)::prefd_b(:)
+ real(rb),intent(in)::ptra_b(:)
+ real(rb),intent(in)::ptrad_b(:)
+ real(rb),intent(in)::pdbt_b(:)
+ real(rb),intent(inout)::prdnd_b(:)
+ real(rb),intent(inout)::prup_b(:)
+ real(rb),intent(inout)::prupd_b(:)
+ real(rb),intent(in)::ptdbt_b(:)
+ real(rb),intent(out)::pfd_b(:,:)
+ real(rb),intent(out)::pfu_b(:,:)
+ real(rb)::zreflect_b,ztdn_b(34)
+ real(rb),allocatable::ztdn_heap_b(:)
+
+if (klev >= 1 .and. klev <= 33) then
+zreflect_a = 1._rb / (1._rb - prefd_a(klev+1) * prefd_a(klev))
+zreflect_b = 1._rb / (1._rb - prefd_b(klev+1) * prefd_b(klev))
+prup_a(klev) = pref_a(klev) + (ptrad_a(klev) * ((ptra_a(klev) - pdbt_a(klev)) * prefd_a(klev+1) + pdbt_a(klev) * pref_a(klev+1))) * zreflect_a
+prup_b(klev) = pref_b(klev) + (ptrad_b(klev) * ((ptra_b(klev) - pdbt_b(klev)) * prefd_b(klev+1) + pdbt_b(klev) * pref_b(klev+1))) * zreflect_b
+prupd_a(klev) = prefd_a(klev) + ptrad_a(klev) * ptrad_a(klev) * prefd_a(klev+1) * zreflect_a
+prupd_b(klev) = prefd_b(klev) + ptrad_b(klev) * ptrad_b(klev) * prefd_b(klev+1) * zreflect_b
+do jk = 1,klev-1
+ikp = klev+1-jk
+ikx = ikp-1
+zreflect_a = 1._rb / (1._rb -prupd_a(ikp) * prefd_a(ikx))
+zreflect_b = 1._rb / (1._rb -prupd_b(ikp) * prefd_b(ikx))
+prup_a(ikx) = pref_a(ikx) + (ptrad_a(ikx) * ((ptra_a(ikx) - pdbt_a(ikx)) * prupd_a(ikp) + pdbt_a(ikx) * prup_a(ikp))) * zreflect_a
+prup_b(ikx) = pref_b(ikx) + (ptrad_b(ikx) * ((ptra_b(ikx) - pdbt_b(ikx)) * prupd_b(ikp) + pdbt_b(ikx) * prup_b(ikp))) * zreflect_b
+prupd_a(ikx) = prefd_a(ikx) + ptrad_a(ikx) * ptrad_a(ikx) * prupd_a(ikp) * zreflect_a
+prupd_b(ikx) = prefd_b(ikx) + ptrad_b(ikx) * ptrad_b(ikx) * prupd_b(ikp) * zreflect_b
+enddo
+ztdn_a(1) = 1._rb
+ztdn_b(1) = 1._rb
+prdnd_a(1) = 0._rb
+prdnd_b(1) = 0._rb
+ztdn_a(2) = ptra_a(1)
+ztdn_b(2) = ptra_b(1)
+prdnd_a(2) = prefd_a(1)
+prdnd_b(2) = prefd_b(1)
+do jk = 2,klev
+ikp = jk+1
+zreflect_a = 1._rb / (1._rb - prefd_a(jk) * prdnd_a(jk))
+zreflect_b = 1._rb / (1._rb - prefd_b(jk) * prdnd_b(jk))
+ztdn_a(ikp) = ptdbt_a(jk) * ptra_a(jk) + (ptrad_a(jk) * ((ztdn_a(jk) - ptdbt_a(jk)) + ptdbt_a(jk) * pref_a(jk) * prdnd_a(jk))) * zreflect_a
+ztdn_b(ikp) = ptdbt_b(jk) * ptra_b(jk) + (ptrad_b(jk) * ((ztdn_b(jk) - ptdbt_b(jk)) + ptdbt_b(jk) * pref_b(jk) * prdnd_b(jk))) * zreflect_b
+prdnd_a(ikp) = prefd_a(jk) + ptrad_a(jk) * ptrad_a(jk) * prdnd_a(jk) * zreflect_a
+prdnd_b(ikp) = prefd_b(jk) + ptrad_b(jk) * ptrad_b(jk) * prdnd_b(jk) * zreflect_b
+enddo
+do jk = 1,klev+1
+zreflect_a = 1._rb / (1._rb - prdnd_a(jk) * prupd_a(jk))
+zreflect_b = 1._rb / (1._rb - prdnd_b(jk) * prupd_b(jk))
+pfu_a(jk,kw) = (ptdbt_a(jk) * prup_a(jk) + (ztdn_a(jk) - ptdbt_a(jk)) * prupd_a(jk)) * zreflect_a
+pfu_b(jk,kw) = (ptdbt_b(jk) * prup_b(jk) + (ztdn_b(jk) - ptdbt_b(jk)) * prupd_b(jk)) * zreflect_b
+pfd_a(jk,kw) = ptdbt_a(jk) + (ztdn_a(jk) - ptdbt_a(jk)+ ptdbt_a(jk) * prup_a(jk) * prdnd_a(jk)) * zreflect_a
+pfd_b(jk,kw) = ptdbt_b(jk) + (ztdn_b(jk) - ptdbt_b(jk)+ ptdbt_b(jk) * prup_b(jk) * prdnd_b(jk)) * zreflect_b
+enddo
+else
+ allocate(ztdn_heap_a(klev+1),ztdn_heap_b(klev+1))
+zreflect_a = 1._rb / (1._rb - prefd_a(klev+1) * prefd_a(klev))
+zreflect_b = 1._rb / (1._rb - prefd_b(klev+1) * prefd_b(klev))
+prup_a(klev) = pref_a(klev) + (ptrad_a(klev) * ((ptra_a(klev) - pdbt_a(klev)) * prefd_a(klev+1) + pdbt_a(klev) * pref_a(klev+1))) * zreflect_a
+prup_b(klev) = pref_b(klev) + (ptrad_b(klev) * ((ptra_b(klev) - pdbt_b(klev)) * prefd_b(klev+1) + pdbt_b(klev) * pref_b(klev+1))) * zreflect_b
+prupd_a(klev) = prefd_a(klev) + ptrad_a(klev) * ptrad_a(klev) * prefd_a(klev+1) * zreflect_a
+prupd_b(klev) = prefd_b(klev) + ptrad_b(klev) * ptrad_b(klev) * prefd_b(klev+1) * zreflect_b
+do jk = 1,klev-1
+ikp = klev+1-jk
+ikx = ikp-1
+zreflect_a = 1._rb / (1._rb -prupd_a(ikp) * prefd_a(ikx))
+zreflect_b = 1._rb / (1._rb -prupd_b(ikp) * prefd_b(ikx))
+prup_a(ikx) = pref_a(ikx) + (ptrad_a(ikx) * ((ptra_a(ikx) - pdbt_a(ikx)) * prupd_a(ikp) + pdbt_a(ikx) * prup_a(ikp))) * zreflect_a
+prup_b(ikx) = pref_b(ikx) + (ptrad_b(ikx) * ((ptra_b(ikx) - pdbt_b(ikx)) * prupd_b(ikp) + pdbt_b(ikx) * prup_b(ikp))) * zreflect_b
+prupd_a(ikx) = prefd_a(ikx) + ptrad_a(ikx) * ptrad_a(ikx) * prupd_a(ikp) * zreflect_a
+prupd_b(ikx) = prefd_b(ikx) + ptrad_b(ikx) * ptrad_b(ikx) * prupd_b(ikp) * zreflect_b
+enddo
+ztdn_heap_a(1) = 1._rb
+ztdn_heap_b(1) = 1._rb
+prdnd_a(1) = 0._rb
+prdnd_b(1) = 0._rb
+ztdn_heap_a(2) = ptra_a(1)
+ztdn_heap_b(2) = ptra_b(1)
+prdnd_a(2) = prefd_a(1)
+prdnd_b(2) = prefd_b(1)
+do jk = 2,klev
+ikp = jk+1
+zreflect_a = 1._rb / (1._rb - prefd_a(jk) * prdnd_a(jk))
+zreflect_b = 1._rb / (1._rb - prefd_b(jk) * prdnd_b(jk))
+ztdn_heap_a(ikp) = ptdbt_a(jk) * ptra_a(jk) + (ptrad_a(jk) * ((ztdn_heap_a(jk) - ptdbt_a(jk)) + ptdbt_a(jk) * pref_a(jk) * prdnd_a(jk))) * zreflect_a
+ztdn_heap_b(ikp) = ptdbt_b(jk) * ptra_b(jk) + (ptrad_b(jk) * ((ztdn_heap_b(jk) - ptdbt_b(jk)) + ptdbt_b(jk) * pref_b(jk) * prdnd_b(jk))) * zreflect_b
+prdnd_a(ikp) = prefd_a(jk) + ptrad_a(jk) * ptrad_a(jk) * prdnd_a(jk) * zreflect_a
+prdnd_b(ikp) = prefd_b(jk) + ptrad_b(jk) * ptrad_b(jk) * prdnd_b(jk) * zreflect_b
+enddo
+do jk = 1,klev+1
+zreflect_a = 1._rb / (1._rb - prdnd_a(jk) * prupd_a(jk))
+zreflect_b = 1._rb / (1._rb - prdnd_b(jk) * prupd_b(jk))
+pfu_a(jk,kw) = (ptdbt_a(jk) * prup_a(jk) + (ztdn_heap_a(jk) - ptdbt_a(jk)) * prupd_a(jk)) * zreflect_a
+pfu_b(jk,kw) = (ptdbt_b(jk) * prup_b(jk) + (ztdn_heap_b(jk) - ptdbt_b(jk)) * prupd_b(jk)) * zreflect_b
+pfd_a(jk,kw) = ptdbt_a(jk) + (ztdn_heap_a(jk) - ptdbt_a(jk)+ ptdbt_a(jk) * prup_a(jk) * prdnd_a(jk)) * zreflect_a
+pfd_b(jk,kw) = ptdbt_b(jk) + (ztdn_heap_b(jk) - ptdbt_b(jk)+ ptdbt_b(jk) * prup_b(jk) * prdnd_b(jk)) * zreflect_b
+enddo
+ deallocate(ztdn_heap_a,ztdn_heap_b)
+endif
+end subroutine
+#else
 subroutine vrtqdr_sw_pair(klev,kw, &
  pref_a, prefd_a, ptra_a, ptrad_a, pdbt_a, prdnd_a, prup_a, prupd_a, ptdbt_a, pfd_a, pfu_a, &
   pref_b, prefd_b, ptra_b, ptrad_b, pdbt_b, prdnd_b, prup_b, prupd_b, ptdbt_b, pfd_b, pfu_b)
@@ -8441,6 +8563,7 @@ pfd_b(jk,kw) = ptdbt_b(jk) + (ztdn_b(jk) - ptdbt_b(jk)+ ptdbt_b(jk) * prup_b(jk)
 enddo
 end subroutine
 
+#endif
       end module rrtmg_sw_vrtqdr
 
 !     path:      $Source: /cvsroot/NWP/WRFV3/phys/module_ra_rrtmg_sw.F,v $

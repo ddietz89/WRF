@@ -1015,6 +1015,9 @@ SUBROUTINE calc_alt ( alt, al, alb,                  &
 
       DO j=jts,jtf
       DO k=kts,ktf
+#if defined(WRF_CALC_ALT_SIMD_ENABLE) && !defined(WRF_CALC_ALT_SIMD_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+      !$omp simd
+#endif
       DO i=its,itf
         alt(i,k,j) = al(i,k,j)+alb(i,k,j)
       ENDDO
