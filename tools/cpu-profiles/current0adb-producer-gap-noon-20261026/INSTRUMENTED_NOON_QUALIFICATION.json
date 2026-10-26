@@ -1,0 +1,344 @@
+{
+  "status": "PASS_ACTUAL_CURRENT0ADB_INSTRUMENTED_NOON_SCI_AND_SEPARATE_RETAINED_CAPTURE_DIAGNOSTICS",
+  "run_id": "production512-current0adb-producer-gap-noon1h-candidate-r2",
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current4974-calcww-gwdo-two-member-experimental-r1/wrf.exe",
+    "sha256": "0adb6f89488d453b7d54982faf7a6260c4f3a0ac319674b363c72eeaecf47aea"
+  },
+  "archive": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current4974-calcww-gwdo-two-member-experimental-r1/libwrflib.a",
+    "sha256": "17d73be66562645488045c66966813285976310e5993985caff090120078608f"
+  },
+  "source_commit": "f5d3407bf8286bff7fdda1a6a384140c3de8246a",
+  "post_test_source_commit": "f5d3407bf8286bff7fdda1a6a384140c3de8246a",
+  "raw_producer_source_commit": null,
+  "application": {
+    "own_instrumented_noon_one_hour_qualified": true,
+    "observed_step_count": 185,
+    "full_products": 2,
+    "start": "2026-10-12_12:00:00",
+    "end": "2026-10-12_13:00:00",
+    "same_world512_compute480_quilt32": true,
+    "two_J_tiles": true,
+    "four_models_normal_closed": true,
+    "original_protected_science_comparisons": "2 PASS; errors[]; no checker tolerance/normalization changes",
+    "original_control_horizon": "Retained original75min230steps; first185steps/twoproducts are scientific reference only",
+    "own_unprofiled_noon_qualified_by_this_run": false,
+    "own_ninehour_qualified_by_this_run": false,
+    "timing_gain_claim": false
+  },
+  "capture": {
+    "ranks": [
+      114,
+      122
+    ],
+    "host": "hpc03",
+    "CPUs": [
+      67,
+      99
+    ],
+    "seconds_each": 15,
+    "frequency_Hz": 100,
+    "event": "cycles:u",
+    "main_TID_only": true,
+    "clock": "CLOCK_MONOTONIC",
+    "no_inherit": true,
+    "early_BOTH_context_PASS": true,
+    "positive_live_FD_rows_each": 16,
+    "both_recorder_lifecycles_normal_closed": true,
+    "original_optional_report_failure_preserved": "Both UNAVAILABLE_REPORT_RETAINED: KeyError('profile_directory')",
+    "separate_renderer_status": "PASS_SEPARATE_BOTH_CURRENT0ADB_RETAINED_CAPTURE_RENDER",
+    "separate_renderer_invocation": "5e3fc9018dac41838c9c46a03d5df6c6",
+    "numeric_loss": "UNKNOWN_NOT_PROVED_ZERO",
+    "primary_counts": {
+      "114": 1381,
+      "122": 1384
+    },
+    "actual_first_last_sample_spans": {
+      "114": [
+        2598648201795120,
+        2598663194052246
+      ],
+      "122": [
+        2598648201675036,
+        2598663197894938
+      ]
+    }
+  },
+  "channel": {
+    "complete_pairs": 1026,
+    "unknown_pairs": 90,
+    "source_signature_anchors": 180,
+    "sender_entry_after_receiver_wait_entry": 114,
+    "q_range": [
+      73,
+      90
+    ],
+    "source_contract": {
+      "accepted": true,
+      "normal_uncoupled_D1": true,
+      "complete_selected_matching_envelope": true,
+      "no_unselected_matching_envelope": true,
+      "same_run": true
+    },
+    "same_host_clock_identity": {
+      "host": "hpc03",
+      "boot": "ad105fdb-2b6c-40b2-a1ba-6b9997e08d4c",
+      "time_namespace": "time:[4026531834]"
+    },
+    "source_signature": "Adjacent complete roles0..7 C Ycount49896/Xcount5544 then nextC2 Ycount77112; conditional generated-source/caller premise, not allMPI census",
+    "sender_gap_wall_median_ns": 6827825.0,
+    "sender_gap_thread_CPU_median_ns": 6252018.0,
+    "all180_sender_gap_selected_POST_WAIT_union_wall_ns": 0,
+    "outside_selected_API_interpretation": "Outside these selected request calls only, not purecompute; may include other MPI, packing/unpacking, allocation, scheduling and observer overhead."
+  },
+  "weighted_join": {
+    "both_sample_spans_fully_contained_gaps": 120,
+    "excluded_boundary_gaps": 60,
+    "late_vs_nonlate_gaps": [
+      81,
+      39
+    ],
+    "samples_are_weighted_observations_not_time_allocation": true,
+    "cohorts": {
+      "114": {
+        "sender_entry_late": {
+          "full_contained_gaps": 81,
+          "no_sample_gaps": 19,
+          "summed_gap_wall_ns": 995608813,
+          "summed_gap_thread_cpu_ns": 928295303,
+          "samples": 93,
+          "weighted_period": 2688068395,
+          "groups": [
+            {
+              "leaf": "__module_small_step_em_MOD_advance_w",
+              "weighted_period": 1097213317,
+              "samples": 38
+            },
+            {
+              "leaf": "__module_small_step_em_MOD_calc_p_rho",
+              "weighted_period": 763392109,
+              "samples": 26
+            },
+            {
+              "leaf": "__module_small_step_em_MOD_advance_mu_t",
+              "weighted_period": 538457765,
+              "samples": 19
+            },
+            {
+              "leaf": "__module_small_step_em_MOD_sumflux",
+              "weighted_period": 259392465,
+              "samples": 9
+            },
+            {
+              "leaf": "DSO_PATH_ONLY:/usr/lib/x86_64-linux-gnu/libc.so.6",
+              "weighted_period": 29612739,
+              "samples": 1
+            }
+          ]
+        },
+        "sender_entry_not_late": {
+          "full_contained_gaps": 39,
+          "no_sample_gaps": 14,
+          "summed_gap_wall_ns": 243897553,
+          "summed_gap_thread_cpu_ns": 225228619,
+          "samples": 27,
+          "weighted_period": 752404877,
+          "groups": [
+            {
+              "leaf": "__module_small_step_em_MOD_advance_w",
+              "weighted_period": 461398518,
+              "samples": 17
+            },
+            {
+              "leaf": "__module_small_step_em_MOD_advance_mu_t",
+              "weighted_period": 114952503,
+              "samples": 4
+            },
+            {
+              "leaf": "__module_small_step_em_MOD_calc_p_rho",
+              "weighted_period": 62410348,
+              "samples": 2
+            },
+            {
+              "leaf": "DSO_PATH_ONLY:/usr/lib/x86_64-linux-gnu/libc.so.6",
+              "weighted_period": 57124458,
+              "samples": 2
+            },
+            {
+              "leaf": "__module_small_step_em_MOD_sumflux",
+              "weighted_period": 56519050,
+              "samples": 2
+            }
+          ]
+        }
+      },
+      "122": {
+        "sender_entry_late": {
+          "full_contained_gaps": 81,
+          "no_sample_gaps": 48,
+          "summed_gap_wall_ns": 371980955,
+          "summed_gap_thread_cpu_ns": 353711247,
+          "samples": 34,
+          "weighted_period": 983462190,
+          "groups": [
+            {
+              "leaf": "__module_small_step_em_MOD_advance_w",
+              "weighted_period": 489827799,
+              "samples": 17
+            },
+            {
+              "leaf": "__module_small_step_em_MOD_advance_mu_t",
+              "weighted_period": 204934332,
+              "samples": 7
+            },
+            {
+              "leaf": "__module_small_step_em_MOD_calc_p_rho",
+              "weighted_period": 204056121,
+              "samples": 7
+            },
+            {
+              "leaf": "__module_small_step_em_MOD_sumflux",
+              "weighted_period": 56395327,
+              "samples": 2
+            },
+            {
+              "leaf": "solve_em_",
+              "weighted_period": 28248611,
+              "samples": 1
+            }
+          ]
+        },
+        "sender_entry_not_late": {
+          "full_contained_gaps": 39,
+          "no_sample_gaps": 15,
+          "summed_gap_wall_ns": 343280836,
+          "summed_gap_thread_cpu_ns": 310761296,
+          "samples": 28,
+          "weighted_period": 771292703,
+          "groups": [
+            {
+              "leaf": "__module_small_step_em_MOD_advance_w",
+              "weighted_period": 402090770,
+              "samples": 15
+            },
+            {
+              "leaf": "__module_small_step_em_MOD_advance_mu_t",
+              "weighted_period": 171478022,
+              "samples": 6
+            },
+            {
+              "leaf": "__module_small_step_em_MOD_calc_p_rho",
+              "weighted_period": 169879068,
+              "samples": 6
+            },
+            {
+              "leaf": "__module_small_step_em_MOD_sumflux",
+              "weighted_period": 27844843,
+              "samples": 1
+            }
+          ]
+        }
+      }
+    }
+  },
+  "limits": [
+    "No unprofilednoon, own9h, matched forecast timing, runtime reduction, wire-latency, global critical-path or removable-headroom claim.",
+    "75-minute retained original and actual one-hour instrumented wall/main/aggregateCPU totals are incomparable as a performance pair.",
+    "Conditional normal-D1 complete-source premise; 90unknown channel pairs retained, not forced into matching. Other peer maps/other MPI operations not a census.",
+    "Late denotes API entry order only, not causal slow sender or data availability.",
+    "120 refers to paired fully-contained gaps; sender has120primary samples and receiver62 across those gaps. Short gaps with no samples remain explicit.",
+    "Numeric loss not proved zero; no opcode attribution to unknown DSOs.",
+    "Failed prelaunch/cache/report/outputcap attempts remain retained; no model/recorder rerun was used to repair reporting.",
+    "Exact PP/cached delivery and post-test source correspondence scope retained; no cleanF-only producer claim."
+  ],
+  "references": {
+    "science": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current0adb-producer-gap-noon1h-runtime-r2/science-receipt.json",
+      "sha256": "ac05566445b5bb8a7f692cc4dea2c6f50f8f574a543ffaa83b3294c3b7844e4a"
+    },
+    "science_reader_closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current0adb-producer-gap-noon1h-runtime-r2/reader-closure.json",
+      "sha256": "e879246f37b7f67b83b772a6016fc09fe368f8d793ac78e755e657faad9aff0c"
+    },
+    "science_RESULT": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current0adb-producer-gap-noon1h-runtime-r2/RESULT.json",
+      "sha256": "36fd6d7a7d7ad6e887fa4152b2edaf187a2fc08dfa4b97c9fb238020877de8c3"
+    },
+    "model_closures": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current0adb-producer-gap-noon1h-runtime-r2/candidate-metadata/model-closures.json",
+      "sha256": "22c6729a851169247d433128f276eeda16176813fd95f6d623d3466f112f6fe6"
+    },
+    "actual_candidate_lease": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current0adb-producer-gap-noon1h-runtime-r2/candidate-metadata/lease.json",
+      "sha256": "894af246036b697f920a344051af20c360690a3acb874352e90fb213454e5795"
+    },
+    "actual_own3h_parent_Q": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current0adb-producer-gap-noon1h-runtime-r2/actual-own-threehour-Q.json",
+      "sha256": "d9a8e2f28a36a82a295025a4a2cba0b907082bd7575085d38a88bd55936fa8f5"
+    },
+    "component": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current0adb-producer-gap-noon1h-runtime-r2/channel-component-binding.json",
+      "sha256": "6ce281173f288568e6db85a6ffec076a326287479fb5cac7d4e202f5c059bd73"
+    },
+    "early_context": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current0adb-producer-gap-noon1h-preparation-r2/actual-early-context-attempt-001.stdout.json",
+      "sha256": "cdf3a4fde198531401361d62c5ebbd6662cca4d61e39241988ebe70c729ef573"
+    },
+    "early_acquisition": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current0adb-producer-gap-noon1h-preparation-r2/actual-live-native15-watch-r1/EARLY_ACQUISITION_SUMMARY.json",
+      "sha256": "3d53288ee110bfd41646ac472f515ed18bb982b70ee14fdd22730ad87e3eb92b"
+    },
+    "actual_watch_clock_binding": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current0adb-producer-gap-noon1h-preparation-r2/postcapture-weighted-leaf-join-r1/ACTUAL_WATCH_CLOCK_BINDING.json",
+      "sha256": "b9fd844ac519137d2c90a079e3a8ff08bbc79e151135c6aa1457ea50e7b2ab31"
+    },
+    "render_RESULT": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current0adb-producer-gap-noon1h-preparation-r2/postrun-render-repair-r1/actual-render-r1/RESULT.json",
+      "sha256": "1f6b155f87fae6612abe1daeead1c140b5a3a6497878a725c4bea54fd2de9329"
+    },
+    "render_normal_closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current0adb-producer-gap-noon1h-preparation-r2/postrun-render-repair-r1/actual-render-r1/closure.json",
+      "sha256": "92fe6f11f5531e95a4ebc323c56aec58936a4ada23df573e6b29f34a9dc15a46"
+    },
+    "final_conditional_channel_gaps": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current0adb-producer-gap-noon1h-preparation-r2/postcapture-causal-analysis-r2/actual-r1/stdout.json",
+      "sha256": "d8bca78ceaea99a0e4c95dfcf8a5d37181de76a2e2da6a3db5f8cac02d186214"
+    },
+    "weighted_leaf_join": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current0adb-producer-gap-noon1h-preparation-r2/postcapture-weighted-leaf-join-r1/actual-r1/stdout.json",
+      "sha256": "d357c5e84cbc99200aeb33cc570207db9ded0ebe3233a535aa297a8fcf974318"
+    },
+    "R1_label_only_wrapper_adjudication": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current0adb-producer-gap-noon1h-preparation-r2/protected-wrapper-label-adjudication-r1/CORRECTED_PROTECTED_PREFLIGHT.json",
+      "sha256": "c0d6e678a295fd3949ee02631113708c1e9e23c6da2aee4a372231b1174b2cb5"
+    },
+    "R2_cache_route_local_check": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current0adb-producer-gap-noon1h-preparation-r2/LOCAL_CACHE_ROUTE_CHECK.json",
+      "sha256": "ab7e1ab07f0dcb768ed100c5fc792873ca006159a89e0fb0ff8f74737c97fb51"
+    },
+    "root_transitive_manifest_repair": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current0adb-producer-gap-noon1h-preparation-r2/ROOT_EXACT_TRANSITIVE_MANIFEST_REPAIR.txt",
+      "sha256": "11552322ccca0b6e84fc9f9e6235d020f06a0791e41b0b903944376fa9994106"
+    },
+    "rank114_summary": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current0adb-producer-gap-noon1h-preparation-r2/postrun-render-repair-r1/actual-render-r1/rank114/summary.json",
+      "sha256": "389a6f2b95ff937d36503709afcf22d1e426e1e2134ec5ed021dc96a0c8fe428"
+    },
+    "rank114_primary_records": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current0adb-producer-gap-postrun-render-hpc03-r1/result/rank114/primary-records.json",
+      "sha256": "3d0207320821981f890fcda13a06c0f90e520ec5d9ddc940ef68ea8dba8bacf6",
+      "authority": "Actual normal renderer RESULT and successful weighted join; full primary records intentionally not copied locally."
+    },
+    "rank122_summary": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current0adb-producer-gap-noon1h-preparation-r2/postrun-render-repair-r1/actual-render-r1/rank122/summary.json",
+      "sha256": "2f33db5e6734905305fdcc58492c9e11f90564019855fce0112b5e95e1742b99"
+    },
+    "rank122_primary_records": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current0adb-producer-gap-postrun-render-hpc03-r1/result/rank122/primary-records.json",
+      "sha256": "cc59450f6221421e5cacc19d676adb1dfb9488400c33d05361b182f0d27c1018",
+      "authority": "Actual normal renderer RESULT and successful weighted join; full primary records intentionally not copied locally."
+    }
+  },
+  "publication": "Supplemental instrumented-noon science and retained-capture diagnostics; original full-grid qualifications remain immutable."
+}

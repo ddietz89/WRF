@@ -1,6 +1,14 @@
 # WRF CPU optimization findings
 
-## Latest combined build: completed three-hour comparison
+## October 26: current combined build daytime diagnosis
+
+Current 0adb completed an instrumented SAME512 noon hour (12:00–13:00): all four model scopes closed normally, and the unchanged original checker passed 185 steps and two full products. The retained original 75-minute run supplies the scientific prefix reference; its wall/main/aggregateCPU totals are not a matched performance comparison. This diagnostic grants no unprofiled-noon or nine-hour qualification.
+
+Both existing 15-second,100Hz main-thread captures on hpc03 (ranks114/122) passed early context admission and live-FD acquisition. The frozen optional reporter retained its `KeyError('profile_directory')`; a separate normally closed decode of the same raw captures succeeded. The conditional normal-D1 channel proof matched 1026 pairs and retained 90unknowns. Of 180 source-signature producer gaps, 120 fit wholly inside both observed sample spans (60 boundary exclusions); 81 had sender API entry after receiver Wait entry and 39 did not. Sender samples in the late group named `advance_w` (38), `calc_p_rho` (26), `advance_mu_t` (19), and `sumflux` (9), plus one libc-path sample. These are weighted observations, not gap-time fractions or removable cost. Zero selected POST/WAIT time inside the 180 endpoint gaps does not imply purecompute; numeric sample loss remains unproved. No wire-latency, global-headroom or forecast-gain claim follows. [Qualification and diagnostic limits](tools/cpu-profiles/current0adb-producer-gap-noon-20261026/README.md).
+
+The selected combined image remains `0adb6f89`, with its own three-hour exact qualification and the previously reported unpaired three-hour timing. The tables below retain their original build identities; the older `0b40b961` study is historical.
+
+## Historical 0b40 combined build: completed three-hour comparison
 
 The frozen combined build `0b40b961` (source `1770d469`) completed an original–optimized–optimized–original three-hour comparison on all four nodes. Both pairs passed all four complete products and 545 ordered steps; all model and checker jobs closed normally. Checked client-cache clears preceded every arm.
 

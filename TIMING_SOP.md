@@ -2,6 +2,8 @@
 
 ## Autonomous continuation
 
+Owner communication clarification, October 26: report only new results, decisions or blockers. Do not repeat answered questions, unchanged benchmark results, authorization status or the same caveats in successive updates. A brief acknowledgment of steering is sufficient; continue work.
+
 Owner amendment, October 26: **DeepSeek dispatch is suspended.** Do not send new payloads, start provider calls, prepare further dispatches, or retry exports unless the owner explicitly resumes DeepSeek. This supersedes earlier standing dispatch approval and the DeepSeek offloading requirements below. Preserve existing returned evidence. Continue the optimization campaign locally with Codex agents and the authorized cluster; AWS remains suspended and all existing scientific, resource, production and master boundaries remain in force.
 
 Standing owner rule, reaffirmed 2026-10-18: **DO NOT STOP after answering a question, giving a status update, completing a test or reaching a milestone.** Treat questions as steering within the active campaign. Answer briefly, then continue the next authorized implementation, test, review or promotion in the same active session. A report is not a stopping point.
