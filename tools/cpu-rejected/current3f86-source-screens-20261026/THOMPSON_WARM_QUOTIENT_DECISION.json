@@ -1,0 +1,40 @@
+{
+  "status": "HOLD_UNPROMOTED_NO_CONSISTENT_COMPLETE_CALLER_BENEFIT",
+  "wave": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current3f86-day15-compute-source-question-r1/complete-caller-cost-preparation-r1/ACTUAL_WAVE.json",
+    "sha256": "a8c9ce626e0c48d0528a7539dfbf308365e8f9682e47ebb2ad00be41ab85084b"
+  },
+  "comparisons": {
+    "complete_mp_thompson": [
+      {
+        "host": "hpc01",
+        "parent_arm": 0,
+        "candidate_arm": 2,
+        "parent_wall_seconds": 2.061729078,
+        "candidate_wall_seconds": 2.077110272,
+        "wall_reduction_percent": -0.7460337133587291,
+        "parent_thread_cpu_seconds": 2.061156359,
+        "candidate_thread_cpu_seconds": 2.076284003,
+        "thread_cpu_reduction_percent": -0.733939661294758
+      },
+      {
+        "host": "hpc02",
+        "parent_arm": 3,
+        "candidate_arm": 1,
+        "parent_wall_seconds": 2.085633329,
+        "candidate_wall_seconds": 2.081446804,
+        "wall_reduction_percent": 0.2007315927391451,
+        "parent_thread_cpu_seconds": 2.07168116,
+        "candidate_thread_cpu_seconds": 2.066439496,
+        "thread_cpu_reduction_percent": 0.253014995801748
+      }
+    ]
+  },
+  "native_science_passed": true,
+  "machine_mechanism_proved": true,
+  "isolated_kernel_benefit_measured": false,
+  "new_application_run": false,
+  "build_inactive": true,
+  "canonical_proposal_private_unpromoted": true,
+  "reason": "01 slower0.7460%wall/0.7339%CPU;02 shorter0.2007%wall/0.2530%CPU. No consistent significant benefit; not a scientific rejection or universal regression. Actualmaskedraw/five gates unchanged. No new tests or variants planned."
+}

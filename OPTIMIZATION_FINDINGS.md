@@ -5539,3 +5539,10 @@ Selected3f86 current combined source improvements now owns unprofiled SAME512 ni
 Own unprofiled SAME512 nine-hour1625/tenFULL plus unchanged own3h545/fourFULL. SINGLE fresh currentepoch original546b n1; UNPAIRED descriptive wall/main/aggregateCPU reductions, no bracket/order-reversal/repeatability, isolated/additive codegain, matched forecast or global causal claim. No oldninehourmedian3. No ownnoon/profile/restart inheritance. Exact qualified cached objects including later-stage theta PP31b556/ModuleEM3a699 plus post-test source12473 target correspondence; rawproducerNULL/no cleanF-only build certificate.
 
 Fresh control run production512-original546b-currentepoch-ninehour-r1-control, coordinator INV038e76055d2b4842a9c6dd9503348c14. Main-step includes communication/backpressure; aggregate CPU is core-seconds. No new source commit or changed source/defaults for this qualification.
+
+
+### Current3f86 source screens: quotient reuse and heating halo combination
+
+Thompson warm-branch quotient reuse passed genuine O2/O0 raw/five-state checks, but its complete caller was 0.7460% slower on hpc01 and 0.2007% shorter on hpc02. No significant isolated kernel gain was demonstrated. Close the fixed variant unpromoted.
+
+The guarded heating-halo combination matched all 144 physical records in its nine-rank gate, but strict floating-point state differed. An unchanged-original repeat explained only errno instability; identical warmups did not remove the floating-point-state failure. Hold the source prototype unqualified, without timing or forecast integration. The external state cause remains unresolved. Neither decision changes selected3f86. [Retained evidence and limits](tools/cpu-rejected/current3f86-source-screens-20261026/README.md).

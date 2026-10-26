@@ -1,0 +1,54 @@
+{
+  "decision": "HOLD_GUARDED_SOURCE_PROTOTYPE_UNQUALIFIED_STATE_FAILURE",
+  "application_permission": false,
+  "promotion_permission": false,
+  "performance_qualification": false,
+  "no_further_MPI_state_variants_or_normalization_tests": true,
+  "cold_R2": {
+    "invocation": "66dcf4a40d9d4da98d8dfb3d91a56522",
+    "strict_status": "FAIL",
+    "all144_headers_and_physical_records_exact": true,
+    "state_mismatch_records": 7,
+    "errno_mismatch_records": 3,
+    "FE_INEXACT_MXCSR_mismatch_records": 4,
+    "rounding_x87_control_exact": true
+  },
+  "original_repeat": {
+    "invocation": "59580ab11da942b7a9f9357baae99580",
+    "execution_normal_closed": true,
+    "comparison": "FAIL_ORIGINAL_REPEAT_RAW5_DIAGNOSTIC",
+    "all144_physical_and_FP4_exact": true,
+    "errno_mismatch_records": 3,
+    "what_it_proves": "Original protocol errno is not stable across these two executions; it does not prove FE_INEXACT instability or authorize candidate acceptance."
+  },
+  "warmed_diagnostic": {
+    "invocation": "688e39a4ae36476b99095f6d2eddb043",
+    "strict_status": "FAIL",
+    "first_mismatch": {
+      "rank": 2,
+      "byte_offset": 219831,
+      "record": 1,
+      "offset_in_record": 23,
+      "field_or_state": "five_state",
+      "original_word": "00000000",
+      "combined_word": "00000020"
+    },
+    "scope": "Identical unobserved original+combined warmups in both role processes, complete refills and unchanged observed reset/raw5 checks. Warmups did not remove observed FE_INEXACT mismatch. Worker stops comparison at firstdiff; do not claim complete144 warmed physical certificate from this receipt alone."
+  },
+  "cause": "UNPROVEN; wrapper-only machine audit prepared, no runtime attribution or observer introduced",
+  "retained_source": "heating-halo-combination-source-prototype-r1",
+  "source_feasibility": "Actual current pressure explicit readset and independent domain allocations support conservative guarded design; correctness/state admission failed independently of source feasibility. Preserve for later, not universal algorithm rejection.",
+  "refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current3f86-day15-mpi-source-question-r1/genuine-rsl-r2-retained-raw-classification-query-r1/actual-r1/stdout.json": "8fe2da038aefd8c86205b83cc4cd54cb85498d671b9cb22682b9f4d33273ffc3",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current3f86-day15-mpi-source-question-r1/original-repeat-state-diagnostic-preparation-r1-hpc01/actual-native-r1/receipt.json": "97385e7c6dbeb9e6b7b1270ec9bd4f89b9fe58be5c13381ba0c64380e06e2082",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current3f86-day15-mpi-source-question-r1/runtime-warmed-state-diagnostic-preparation-r1-hpc01/actual-native-r1/receipt.json": "8820d213206c7f80653545d41ef6e6072d020f43478d4a5e82184b2a5ed7700b",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current3f86-day15-mpi-source-question-r1/genuine-rsl-combination-native-preparation-r2-hpc01/actual-native-r1/receipt.json": "78a4813cec7fe328e51665ef34468bd820fab34988daec9c10ef3b94205f1ace",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current3f86-day15-mpi-source-question-r1/heating-pressure-allocation-ownership-query-r2/actual-r1/stdout.json": "79a620147de7d610ebbc8b1f1050225e81db7379f56cff7d868c5ff0a86aa7a1"
+  },
+  "machine_audit_sha256": "ebabce146cf22b74d037e97b677a18f463c9c1c916ba7e1e4cbf111933ea24c8",
+  "machine_facts_sha256": "8aa83058f680aaa3de7324060d178820a732f847e40d5eeb209e44654e16ed6b",
+  "machine_conclusion": "No direct FP arithmetic/conversion/x87/control opcode in all four audited functions; external runtime state cause unresolved.",
+  "cold_and_warm_failures_preserved": true,
+  "additional_state_experiments_permitted": false,
+  "source_prototype_retained": true
+}
