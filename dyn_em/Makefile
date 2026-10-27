@@ -1087,3 +1087,51 @@ endif
 endif
 endif
 endif
+
+# SW stochastic-cloud final consumer guard; literal original scalar fallback.
+# Qualified GNU13.3 strict-O2 REAL4/INT4 pureMPI scope; no SIMD gain claim.
+WRF_SW_CLOUD_CONSUMER ?= 1
+_SW_CLOUD_FLAGS = $(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)
+ifeq ($(WRF_SW_CLOUD_CONSUMER),1)
+ifeq ($(strip $(OMPCPP) $(OMP) $(PROMOTION) $(DOUBLE_PRECISION)),)
+ifeq ($(filter -D_OPENMP% _OPENMP%,$(CPPFLAGS)),)
+ifneq (,$(filter -DDM_PARALLEL -DDM_PARALLEL=%,$(CPPFLAGS)))
+ifeq ($(filter -U%,$(CPPFLAGS)),)
+ifeq ($(strip $(RWORDSIZE)),4)
+ifeq ($(strip $(IWORDSIZE)),4)
+ifeq ($(filter -fdefault-% -freal-% -finteger-% -r8 -i8 -fopenmp -fopenmp=% -Ofast -ffast-math -fassociative-math -funsafe-math-optimizations -freciprocal-math -ffinite-math-only -fno-signed-zeros -fno-trapping-math,$(_SW_CLOUD_FLAGS)),)
+ifeq ($(filter-out -O2,$(filter -O%,$(_SW_CLOUD_FLAGS))),)
+ifneq (,$(filter -O2,$(_SW_CLOUD_FLAGS)))
+ifeq ($(filter-out -ffp-contract=off,$(filter -ffp-contract=%,$(_SW_CLOUD_FLAGS))),)
+ifneq (,$(filter -fno-fast-math,$(_SW_CLOUD_FLAGS)))
+ifneq (,$(filter -ffp-contract=off,$(_SW_CLOUD_FLAGS)))
+ifneq (,$(findstring GNU Fortran,$(shell $(FC) --version 2>/dev/null)))
+ifeq ($(shell $(FC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+ifeq ($(shell $(CC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+# Reuse the one existing helper owner when PHY already selected it.
+ifeq (,$(filter wrf_phy_interp_mask.o,$(OBJS)))
+OBJS += wrf_phy_interp_mask.o
+$(LIBTARGET): wrf_phy_interp_mask.o
+wrf_phy_interp_mask.o: wrf_phy_interp_mask.c
+	$(CC) $(CFLAGS) -O2 -std=c11 -fno-fast-math -ffp-contract=off -fno-lto -fno-stack-protector -c $< -o $@
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif

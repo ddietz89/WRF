@@ -1609,6 +1609,9 @@
   !   without cloud condensate or the opposite).
   !---------------------------------------------------------------------------------------------------------------
 
+#if defined(WRF_SW_CLOUD_CONSUMER_ENABLE) && !defined(WRF_SW_CLOUD_CONSUMER_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+      use iso_c_binding, only: c_int
+#endif
       use mcica_random_numbers
 ! The Mersenne Twister random number engine
       use MersenneTwister, only: randomNumberSequence, &   
@@ -1712,6 +1715,13 @@
 !------------------------------------------------------------------------------------------ 
 
 ! Check that irng is in bounds; if not, set to default
+#if defined(WRF_SW_CLOUD_CONSUMER_ENABLE) && !defined(WRF_SW_CLOUD_CONSUMER_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+      interface
+        pure integer(c_int) function wrf_phy_interp_all_masked() bind(C)
+          import c_int
+        end function
+      end interface
+#endif
       if (irng .ne. 0) irng = 1
 
 ! Pass input cloud overlap setting to local variable
@@ -1978,6 +1988,37 @@
 ! where there is a cloud, define the subcolumn cloud properties,
 ! otherwise set these to zero
 
+#if defined(WRF_SW_CLOUD_CONSUMER_ENABLE) && !defined(WRF_SW_CLOUD_CONSUMER_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+      IF (wrf_phy_interp_all_masked() /= 0_c_int) THEN
+      ngbm = ngb(1) - 1
+      do ilev = 1,nlay
+         do i = 1, ncol
+!$OMP SIMD
+            do isubcol = 1, nsubcol
+               if ( CDF(isubcol,i,ilev) >= 1._rb - cldf(i,ilev) ) then
+                  cld_stoch(isubcol,i,ilev) = 1._rb
+                  clwp_stoch(isubcol,i,ilev) = clwp(i,ilev)
+                  ciwp_stoch(isubcol,i,ilev) = ciwp(i,ilev)
+                  cswp_stoch(isubcol,i,ilev) = cswp(i,ilev)
+                  n = ngb(isubcol) - ngbm
+                  tauc_stoch(isubcol,i,ilev) = tauc(n,i,ilev)
+                  ssac_stoch(isubcol,i,ilev) = ssac(n,i,ilev)
+                  asmc_stoch(isubcol,i,ilev) = asmc(n,i,ilev)
+                  fsfc_stoch(isubcol,i,ilev) = fsfc(n,i,ilev)
+               else
+                  cld_stoch(isubcol,i,ilev) = 0._rb
+                  clwp_stoch(isubcol,i,ilev) = 0._rb
+                  ciwp_stoch(isubcol,i,ilev) = 0._rb
+                  cswp_stoch(isubcol,i,ilev) = 0._rb
+                  tauc_stoch(isubcol,i,ilev) = 0._rb
+                  ssac_stoch(isubcol,i,ilev) = 1._rb
+                  asmc_stoch(isubcol,i,ilev) = 0._rb
+                  fsfc_stoch(isubcol,i,ilev) = 0._rb
+               endif
+            enddo
+         enddo
+      enddo
+      ELSE
       ngbm = ngb(1) - 1
       do ilev = 1,nlay
          do i = 1, ncol
@@ -2005,6 +2046,36 @@
             enddo
          enddo
       enddo
+      ENDIF
+#else
+      ngbm = ngb(1) - 1
+      do ilev = 1,nlay
+         do i = 1, ncol
+            do isubcol = 1, nsubcol
+               if ( CDF(isubcol,i,ilev) >= 1._rb - cldf(i,ilev) ) then
+                  cld_stoch(isubcol,i,ilev) = 1._rb
+                  clwp_stoch(isubcol,i,ilev) = clwp(i,ilev)
+                  ciwp_stoch(isubcol,i,ilev) = ciwp(i,ilev)
+                  cswp_stoch(isubcol,i,ilev) = cswp(i,ilev)
+                  n = ngb(isubcol) - ngbm
+                  tauc_stoch(isubcol,i,ilev) = tauc(n,i,ilev)
+                  ssac_stoch(isubcol,i,ilev) = ssac(n,i,ilev)
+                  asmc_stoch(isubcol,i,ilev) = asmc(n,i,ilev)
+                  fsfc_stoch(isubcol,i,ilev) = fsfc(n,i,ilev)
+               else
+                  cld_stoch(isubcol,i,ilev) = 0._rb
+                  clwp_stoch(isubcol,i,ilev) = 0._rb
+                  ciwp_stoch(isubcol,i,ilev) = 0._rb
+                  cswp_stoch(isubcol,i,ilev) = 0._rb
+                  tauc_stoch(isubcol,i,ilev) = 0._rb
+                  ssac_stoch(isubcol,i,ilev) = 1._rb
+                  asmc_stoch(isubcol,i,ilev) = 0._rb
+                  fsfc_stoch(isubcol,i,ilev) = 0._rb
+               endif
+            enddo
+         enddo
+      enddo
+#endif
 
 ! -- compute the means of the subcolumns ---
 !      mean_cld_stoch(:,:) = 0._rb
