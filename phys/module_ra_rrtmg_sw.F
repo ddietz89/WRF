@@ -8686,6 +8686,9 @@ end subroutine
 #define WRF_SW_SPC_NODEL_CLEAR(k) zdbtc_nodel(k)
 #define WRF_SW_SPC_NODEL_TOTAL(k) zdbt_nodel(k)
 #endif
+#if defined(WRF_SW_SPC_ORDERED_MIX4_ENABLE) && !defined(WRF_SW_SPC_ORDERED_MIX4_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+#define WRF_SW_SPC_ORDERED_MIX4_ACTIVE
+#endif
       subroutine spcvmc_sw &
             (nlayers, istart, iend, icpr, iout, &
              pavel, tavel, pz, tz, tbound, palbd, palbp, &
@@ -8733,6 +8736,24 @@ end subroutine
 
 ! ------- Input -------
 
+#if defined(WRF_SW_SPC_ORDERED_MIX4_ACTIVE)
+      USE ISO_C_BINDING, ONLY:c_int,c_float
+      LOGICAL :: spc_mix_all_masked
+      INTEGER :: mix_vec_end
+interface
+ PURE FUNCTION wrf_phy_interp_all_masked() BIND(C,NAME="wrf_phy_interp_all_masked") RESULT(masked)
+ IMPORT c_int
+ INTEGER(c_int)::masked
+ END FUNCTION
+ pure subroutine wrf_spc_mix_ordered4(klev,nvec,ct,co,ca,dt,domega,da,to,omega,asym) &
+   bind(C,name="wrf_spc_mix_ordered4")
+  import c_int,c_float
+  integer(c_int),value,intent(in)::klev,nvec
+  real(c_float),intent(in)::ct(*),co(*),ca(*),dt(*),domega(*),da(*)
+  real(c_float),intent(out)::to(*),omega(*),asym(*)
+ end subroutine
+end interface
+#endif
       integer(kind=im), intent(in) :: nlayers
       integer(kind=im), intent(in) :: istart
       integer(kind=im), intent(in) :: iend
@@ -8910,6 +8931,9 @@ end subroutine
 
 ! Initializations
 
+#if defined(WRF_SW_SPC_ORDERED_MIX4_ACTIVE)
+      spc_mix_all_masked=wrf_phy_interp_all_masked()/=0_c_int
+#endif
       ib1 = istart
       ib2 = iend
       klev = nlayers
@@ -9112,6 +9136,21 @@ end subroutine
 ! Total sky optical parameters (cloud properties already delta-scaled)
 !   Use this code if cloud properties are derived in rrtmg_sw_cldprop       
                if (icpr .ge. 1) then
+#if defined(WRF_SW_SPC_ORDERED_MIX4_ACTIVE)
+            IF (spc_mix_all_masked .AND. klev>=4) THEN
+              mix_vec_end=4*(klev/4)
+              CALL wrf_spc_mix_ordered4(klev,mix_vec_end, &
+                ztauc,zomcc,zgcc,ptaucmc(:,iw),pomgcmc(:,iw),pasycmc(:,iw), &
+                ztauo,zomco,zgco)
+            do jk=mix_vec_end+1,klev
+                  ikl=klev+1-jk
+                  ztauo(jk) = ztauc(jk) + ptaucmc(ikl,iw)
+                  zomco(jk) = ztauc(jk) * zomcc(jk) + ptaucmc(ikl,iw) * pomgcmc(ikl,iw)
+                  zgco (jk) = (ptaucmc(ikl,iw) * pomgcmc(ikl,iw) * pasycmc(ikl,iw) + &
+                              ztauc(jk) * zomcc(jk) * zgcc(jk)) / zomco(jk)
+                  zomco(jk) = zomco(jk) / ztauo(jk)
+            enddo
+            ELSE
             do jk=1,klev
                   ikl=klev+1-jk
                   ztauo(jk) = ztauc(jk) + ptaucmc(ikl,iw)
@@ -9120,6 +9159,17 @@ end subroutine
                               ztauc(jk) * zomcc(jk) * zgcc(jk)) / zomco(jk)
                   zomco(jk) = zomco(jk) / ztauo(jk)
             enddo
+            ENDIF
+#else
+            do jk=1,klev
+                  ikl=klev+1-jk
+                  ztauo(jk) = ztauc(jk) + ptaucmc(ikl,iw)
+                  zomco(jk) = ztauc(jk) * zomcc(jk) + ptaucmc(ikl,iw) * pomgcmc(ikl,iw)
+                  zgco (jk) = (ptaucmc(ikl,iw) * pomgcmc(ikl,iw) * pasycmc(ikl,iw) + &
+                              ztauc(jk) * zomcc(jk) * zgcc(jk)) / zomco(jk)
+                  zomco(jk) = zomco(jk) / ztauo(jk)
+            enddo
+#endif
 
 ! Total sky optical parameters (if cloud properties not delta scaled)
 !   Use this code if cloud properties are not derived in rrtmg_sw_cldprop       
@@ -9263,6 +9313,7 @@ end subroutine
       enddo                    
 
       end subroutine spcvmc_sw
+#undef WRF_SW_SPC_ORDERED_MIX4_ACTIVE
 #undef WRF_SW_SPC_NODEL_CLEAR
 #undef WRF_SW_SPC_NODEL_TOTAL
 #undef WRF_SW_SPC_COLUMN_COUNT

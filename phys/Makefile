@@ -861,3 +861,61 @@ endif
 endif
 endif
 endif
+
+WRF_PHY_INTERPOLATION_SIMD ?= 1
+WRF_DIFFUSION_SIMD ?= 1
+# Ordered four-lane SPC cloud mixing; original scalar tail and unmasked fallback.
+# GNU13.3 strict-O2 REAL4/INT4 pureMPI; one existing PHY mask-helper owner.
+WRF_SW_SPC_ORDERED_MIX4 ?= 1
+_SW_SPC_ORDERED_FLAGS = $(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)
+module_ra_rrtmg_sw.o: private override CPPFLAGS += -UWRF_SW_SPC_ORDERED_MIX4_ENABLE
+ifeq ($(WRF_SW_SPC_ORDERED_MIX4),0)
+module_ra_rrtmg_sw.o: private override CPPFLAGS += -DWRF_SW_SPC_ORDERED_MIX4_DISABLE
+endif
+ifeq ($(WRF_SW_SPC_ORDERED_MIX4),1)
+ifeq ($(strip $(OMPCPP) $(OMP) $(PROMOTION) $(DOUBLE_PRECISION)),)
+ifeq ($(filter -D_OPENMP% _OPENMP%,$(CPPFLAGS)),)
+ifneq (,$(filter -DDM_PARALLEL -DDM_PARALLEL=%,$(CPPFLAGS)))
+ifeq ($(filter -U%,$(CPPFLAGS)),)
+ifeq ($(strip $(RWORDSIZE)),4)
+ifeq ($(strip $(IWORDSIZE)),4)
+ifeq ($(filter -fdefault-% -freal-% -finteger-% -r8 -i8 -fopenmp -fopenmp=% -Ofast -ffast-math -fassociative-math -funsafe-math-optimizations -freciprocal-math -ffinite-math-only -fno-signed-zeros -fno-trapping-math,$(_SW_SPC_ORDERED_FLAGS)),)
+ifeq ($(filter-out -O2,$(filter -O%,$(_SW_SPC_ORDERED_FLAGS))),)
+ifneq (,$(filter -O2,$(_SW_SPC_ORDERED_FLAGS)))
+ifeq ($(filter-out -ffp-contract=off,$(filter -ffp-contract=%,$(_SW_SPC_ORDERED_FLAGS))),)
+ifneq (,$(filter -fno-fast-math,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG)))
+ifneq (,$(filter -ffp-contract=off,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG)))
+ifneq (,$(findstring GNU Fortran,$(shell $(FC) --version 2>/dev/null)))
+ifeq ($(shell $(FC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+ifeq ($(shell $(CC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+ifeq ($(WRF_PHY_INTERPOLATION_SIMD),1)
+ifeq ($(WRF_DIFFUSION_SIMD),1)
+ifneq (,$(filter x86_64%,$(shell $(CC) -dumpmachine 2>/dev/null)))
+module_ra_rrtmg_sw.o: private override CPPFLAGS += -DWRF_SW_SPC_ORDERED_MIX4_ENABLE
+OBJS += wrf_spc_mix_ordered4.o
+$(LIBTARGET): wrf_spc_mix_ordered4.o
+wrf_spc_mix_ordered4.o: wrf_spc_mix_ordered4.c
+	$(CC) -O2 -fno-fast-math -ffp-contract=off -msse2 -mno-avx -mno-fma -std=c11 -c $< -o $@
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
