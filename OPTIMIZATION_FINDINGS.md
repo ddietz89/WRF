@@ -1,8 +1,28 @@
 # WRF CPU optimization findings
 
-## October 27: ordered CQU — complete caller and own three-hour science
+## October 27: SPC ordered mixing — own unprofiled noon science
 
-Selected image `42740f03` / archive `9751c93a` / post-test source `90ca5672` retains Y5 and all previous fixes. It replaces one BigStep member and adds two cached C objects: 587 total members, with 584 parent members unchanged and the existing PHY helper preserved once. Exact unprofiled SAME512 science passed 545 ordered steps and four FULL products; all four models and the original reader closed normally. Child own noon, profile, nine-hour, restart and full144-hour qualifications remain false; parentY5/03fa evidence remains historical.
+Selected image `0dd6e982` / archive `021c3782` / post-test source `ac25cc57` retains ordered CQU, Y5 and all prior fixes. It replaces one shortwave member and adds one ordered-SSE helper: 588 archive members, with 586 parent members unchanged. Exact SAME512 noon science passed 185 ordered steps and two FULL products. All four models and the original reader closed normally.
+
+| Noon observation | Minutes / core-hours |
+|---|---:|
+| Model/MPI wall (minutes) | 4.51129428 |
+| Main-step elapsed (minutes) | 2.95294017 |
+| Aggregate CPU (core-hours) | 34.12104568 |
+
+This is one unpaired candidate observation. The retained original 75-minute run supplies only the exact one-hour science prefix; it supplies no matched one-hour wall/CPU comparison or percentage. Main-step elapsed includes waiting and communication. This child owns only unprofiled noon science, with no own three-hour, nine-hour, profile, restart or full144-hour qualification. Parent CQU's three-hour result remains historical.
+
+The complete restore-inclusive SPC caller was **1.575206% / 2.191411% shorter in wall time** across the two hosts, with **1.550431% / 1.673927% lower thread CPU**. The separate extracted mixing screen saved about **48–49%**. These scopes differ; the extracted result is not a full-SPC or forecast gain, and neither result is additive to historical whole-image reductions.
+
+Genuine full-SW O2/O0 fixtures and original-MOD callers retain exact physical, read-only and five-state checks. Raw equality of all 32 MOD files is false: 30 are raw exact and two re-export wrappers have complete typed-ID permutation proofs. Production O2 containment is scoped. The three-file post-test source commit binds target CPP and the tested C helper; raw producer source stays null and no clean full-source build is certified. The final delivery removes only two added trailing spaces; scientific tokens and the tested arithmetic are unchanged.
+
+Qualified default `WRF_SW_SPC_ORDERED_MIX4=1` uses the strict GNU13.3 O2, default REAL4/INTEGER4, pure-MPI/no-OpenMP envelope and existing owner guards. Original scalar remainder and unsupported/unmasked fallbacks remain. Opt out with `WRF_SW_SPC_ORDERED_MIX4=0`, rebuild shortwave, rearchive and relink while preserving other defaults. Retained parent `42740f03` / archive `9751c93a` is the whole-image rollback.
+
+[Application qualification, evidence and rollback](tools/cpu-compute/spc-ordered-mixing-20261027/README.md).
+
+## Historical parent CQU: complete caller and own three-hour science
+
+Previously selected image `42740f03` / archive `9751c93a` / post-test source `90ca5672` retains Y5 and all previous fixes. It replaces one BigStep member and adds two cached C objects: 587 total members, with 584 parent members unchanged and the existing PHY helper preserved once. Exact unprofiled SAME512 science passed 545 ordered steps and four FULL products; all four models and the original reader closed normally. Child own noon, profile, nine-hour, restart and full144-hour qualifications remain false; parentY5/03fa evidence remains historical.
 
 | Three-hour metric | Preselected original median (3 distinct runs) | Current CQU child | Descriptive reduction |
 |---|---:|---:|---:|
