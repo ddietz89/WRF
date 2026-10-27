@@ -10,9 +10,9 @@ DeepSeek and AWS are suspended. Use local Codex agents and hpc00–04. Run quali
 
 The authoritative selected executable, archive, source correspondence and application qualifications are in `tools/cpu-working/selection.json` and `CURRENT_SOURCE_BUILD_BINDING.json`; their bytes must agree. Source correspondence uses tested preprocessed source/cached objects plus post-test canonical target projection. No clean whole-source rebuild certificate is claimed.
 
-Selected image `da1cb49c` / archive `a8d9ee01` / post-test source `d50193a5` retains all preceding improvements, including calc_alt SIMD and the paired-shortwave stack scratch path, and adds current-column SPC scratch reuse. The qualified parent56d2/sourceb88f was pushed through evidence832828d9; the child qualification and source correspondence are in `tools/cpu-compute/spcvmc-current-column-scratch-20261026/`.
+Selected image `330db1c1` / archive `b3794efe` / post-test source `6311634d` retains all preceding improvements and replaces two pre-delta beam scratch arrays in SPCVMC with scalars. Complete-caller wall reductions were0.6276/0.9271% and threadCPU reductions1.1468/0.9513% on hpc01/02. Its own unprofiled noon185/two-full original science passed; all model and reader scopes closed. See `tools/cpu-compute/spcvmc-predelta-beam-scalars-20261026/` for scope and rollback.
 
-This child passed its own three-hour545/four-full and unprofiled daylight185/two-full checks. All model and reader scopes closed normally. It is promoted within the qualified GNU13.3/defaultREAL4INT4/strictO2/pure-MPI scope, with original fallbacks. Own nine-hour, restart and full144-hour qualifications remain false. A subsequent instrumented noon185/two-full experiment qualified two 15-second source/count acquisitions; this is diagnostic scope, not an additional unprofiled timing comparison.
+The child owns noon qualification only: its three-hour, nine-hour, profile, restart and full144-hour qualifications remain false. Historical da1c/source d501 owns its three-hour545/four-full, noon185/two-full and subsequent two15-second source/count captures. Those observations remain attributed to da1c. Both builds use qualified GNU13.3/defaultREAL4INT4/strictO2/pure-MPI support guards and original fallbacks.
 
 ## Recent full-grid evidence
 
@@ -20,7 +20,7 @@ This child passed its own three-hour545/four-full and unprofiled daylight185/two
 |---|---:|---:|---:|---|
 | Original three-hour median, three distinct controls | 13.33374 | 9.94084 | 99.81315 | Retained original references |
 | Prior parent56d2 three-hour | 10.36987 | 8.97816 | 84.00883 | Four full products /545 steps pass |
-| Selected SPC da1c three-hour | 10.46069 | 9.04669 | 84.58097 | Four full products /545 steps pass |
+| Historical parent da1c three-hour | 10.46069 | 9.04669 | 84.58097 | Four full products /545 steps pass |
 | Fresh original nine-hour, n=1 | 34.15724 | 30.84597 | 278.15747 | Ten full products /1625 steps pass |
 | Earlier parent3f86 nine-hour, n=1 | 29.44540 | 28.10415 | 247.06853 | Ten full products /1625 steps pass |
 
@@ -66,3 +66,6 @@ Private recovery root: `/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-
 
 
 Current-build follow-up: the two-main-thread MYJ source/count capture completed and its instrumented forecast passed185 ordered steps/two complete outputs. All model, recorder, reader and parser scopes closed normally. Four events ran at100% without scaling; the counts cover whole rank windows and cannot assign misses or stalls to MYJ loops. The observed MYJ locations revisit required species packing; no safe new removal was established. No further MYJ profile is planned from this result. See `tools/cpu-profiles/currentda1c-myj-two-main-tid-counts-20261026/README.md`. The separate Thompson congruent-alias genuine-caller wave completed four exact arms: hpc01 wall1.1506% slower/CPU0.8982% slower, hpc02 wall0.3391% shorter/CPU0.1296% shorter. It is closed unpromoted because no consistent caller or separate resource benefit was demonstrated. Actual huge-page eligibility/reader mapping capability remains proven within the tested scope. See `tools/cpu-rejected/thompson-returned-view-large-pages-20261026/README.md`.
+
+
+October27 continuation: selected working child is now330db1c1/archiveb3794efe, source6311634d. It adds only two pre-delta beam scratch scalars in SPCVMC; full-caller wall was0.6276/0.9271% lower and threadCPU1.1468/0.9513% lower on01/02. Its own unprofiled noon185/twoFULL original science passed and all scopes closed. It owns noon only: no child3h/9h/profile/restart inheritance. Previous da1c three-hour and profile evidence above remains historical. Rollback WRF_SW_SPC_NODEL_SCALARS=0 then regenerate/recompile/rearchive/relink, or use retained da1c. See `tools/cpu-compute/spcvmc-predelta-beam-scalars-20261026/README.md`. MPI U/V-only halo reuse passed its genuine nine-rank native test and is proceeding to complete-protocol caller measurement. Physics interpolation SIMD remains unpromoted after strict state and MOD failures; the read-only mask guard interface is being investigated, with all failures retained. DeepSeek and AWS remain suspended.

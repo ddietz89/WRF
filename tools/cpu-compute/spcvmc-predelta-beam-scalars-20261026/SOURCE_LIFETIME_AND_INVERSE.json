@@ -1,0 +1,54 @@
+{
+  "status": "PRIVATE_EXACT_LITERAL_SCALAR_SCRATCH_CANDIDATE_NATIVE_PENDING",
+  "parent_O2_object_sha256": "319e499a39758708fa9bc406bea958fd54820620cbaa07eb9311e01294516113",
+  "parent_PP_sha256": "53982480917d4b5532090a34ab7d04727f94345156b66e872c05a6b6fe15a421",
+  "candidate_PP_sha256": "d157f3e5d82552a7e57a74cf84033f2fb2bd52edf4307e97abd32998585ccc5c",
+  "source_refs": {
+    "zdbtc_nodel": [
+      {
+        "line": 199,
+        "text": "real(kind=rb) :: zincflx(ngptsw), zdbtc_nodel(nlayers+1)"
+      },
+      {
+        "line": 392,
+        "text": "zdbtc_nodel(jk) = zdbtmc"
+      },
+      {
+        "line": 393,
+        "text": "ztdbtc_nodel(jk+1) = zdbtc_nodel(jk) * ztdbtc_nodel(jk)"
+      }
+    ],
+    "zdbt_nodel": [
+      {
+        "line": 184,
+        "text": "real(kind=rb) :: zdbt(nlayers+1), zdbt_nodel(nlayers+1)"
+      },
+      {
+        "line": 410,
+        "text": "zdbt_nodel(jk) = zclear*zdbtmc + zcloud*zdbtmo"
+      },
+      {
+        "line": 411,
+        "text": "ztdbt_nodel(jk+1) = zdbt_nodel(jk) * ztdbt_nodel(jk)"
+      }
+    ]
+  },
+  "lifetime_proof": "Each variable has one declaration, one jk assignment and one immediate same-jk recurrence use; never passed to a procedure or read at another level. Both cumulative ztdb*t_nodel arrays remain. Original clear and cloudy statements stay in original loop/order, and all output/call/lookup traversal stays unchanged.",
+  "actual_sampled_machine": "Current319e +2ab2 MOVSS at22eb2 stores clear pre-delta scratch; +2b16 MOVSS at22f16 stores mixed pre-delta scratch. Cumulative multiplications use current scalar register; generated array stores remain. Arbitrary window prefixes are not interpreted until valid instruction boundaries.",
+  "source_change": "Only two declaration extents and four executable (jk) subscripts removed; same-kind scalar assignments/FP operand trees retained.",
+  "requested_storage": "Two REAL4*(nlayers+1) private array capacities disappear at source; at33 layers272B total replaced by8B scalars. Actual allocator/codegen effect pending native/structural readback; no RSS/gain claim.",
+  "dedup": [
+    "Promoted SPC current-column four-output capacity reduction differs.",
+    "Closed delta/cloud neighboring-pass fusion differs.",
+    "Closed aerosol product reuse and spectral accumulation fusion IEEE failures retained; neither mechanism repeated.",
+    "LW flux scalar change belongs a distinct routine and is not evidence for this candidate."
+  ],
+  "qualified_scope": "None yet. FullSPC finite/safe IEEE fixtures do not certify arbitrary active NaNs that can form invalid table indices; focused direct postlookup region witnesses may supplement after genuine native pass.",
+  "proofs": {
+    "local-source-r1/parent_spcvmc.f90": "e11e1977fce7a42ea6b45e50e542e364f4a5022d691718a2cf9e92c867c881ef",
+    "local-source-r1/candidate_spcvmc.f90": "7443c43589bbc3f91ecc6b1d1afde60a94ca185693ae0b2a925d977338cda3a4",
+    "local-source-r1/SOURCE_ONLY.diff": "88c24ed664285afa7bdb5d6e27123ef701eb7794378630a8d3c6078d428d47a8",
+    "actual-readonly-r1/stdout.json": "a6c007bfa3c32af57ef9fe8071ed6c5bc49b0dc6426284d40164d2ae78c8f7e3",
+    "actual-source-binding-r1/stdout.json": "b25d848779d4dc5d36452a833a69ff75858d3279059d9b2ae5ff15e1f01c90c5"
+  }
+}

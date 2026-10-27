@@ -1,0 +1,42 @@
+--- parent_spcvmc
++++ candidate_spcvmc
+@@ -181,7 +181,7 @@
+ 
+       real(kind=rb) :: tblind, ze1
+       real(kind=rb) :: zclear, zcloud
+-      real(kind=rb) :: zdbt(nlayers+1), zdbt_nodel(nlayers+1)
++      real(kind=rb) :: zdbt(nlayers+1), zdbt_nodel
+       real(kind=rb) :: zgc(nlayers), zgcc(nlayers), zgco(nlayers)
+       real(kind=rb) :: zomc(nlayers), zomcc(nlayers), zomco(nlayers)
+       real(kind=rb) :: zrdnd(nlayers+1), zrdndc(nlayers+1)
+@@ -196,7 +196,7 @@
+       real(kind=rb) :: ztra(nlayers+1), ztrac(nlayers+1), ztrao(nlayers+1)
+       real(kind=rb) :: ztrad(nlayers+1), ztradc(nlayers+1), ztrado(nlayers+1)
+       real(kind=rb) :: zdbtc(nlayers+1), ztdbtc(nlayers+1)
+-      real(kind=rb) :: zincflx(ngptsw), zdbtc_nodel(nlayers+1) 
++      real(kind=rb) :: zincflx(ngptsw), zdbtc_nodel 
+       real(kind=rb) :: ztdbt_nodel(nlayers+1), ztdbtc_nodel(nlayers+1)
+ 
+       real(kind=rb) :: zdbtmc, zdbtmo, zf, zgw, zreflect
+@@ -389,8 +389,8 @@
+                   zdbtmc = exp_tbl(itind)
+                endif
+ 
+-               zdbtc_nodel(jk) = zdbtmc
+-               ztdbtc_nodel(jk+1) = zdbtc_nodel(jk) * ztdbtc_nodel(jk)
++               zdbtc_nodel = zdbtmc
++               ztdbtc_nodel(jk+1) = zdbtc_nodel * ztdbtc_nodel(jk)
+ 
+ 
+                tauorig = ztauc(jk) + ptaormc(ikl,iw)
+@@ -407,8 +407,8 @@
+                   zdbtmo = exp_tbl(itind)
+                endif
+ 
+-               zdbt_nodel(jk) = zclear*zdbtmc + zcloud*zdbtmo
+-               ztdbt_nodel(jk+1) = zdbt_nodel(jk) * ztdbt_nodel(jk)
++               zdbt_nodel = zclear*zdbtmc + zcloud*zdbtmo
++               ztdbt_nodel(jk+1) = zdbt_nodel * ztdbt_nodel(jk)
+ 
+             enddo
+ 

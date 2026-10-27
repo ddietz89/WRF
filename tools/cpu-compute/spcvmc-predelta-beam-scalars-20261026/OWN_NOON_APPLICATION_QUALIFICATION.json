@@ -1,0 +1,81 @@
+{
+  "status": "PASS_OWN_UNPROFILED_SAME512_SPC_NODEL_NOON_ONE_HOUR_185_TWO_FULL",
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentda1c-spc-nodel-experimental-r1/wrf.exe",
+    "sha256": "330db1c18536928e28e3dc2257cf0d74e873324d6187ad2f3547ad90ddf513b7"
+  },
+  "archive": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentda1c-spc-nodel-experimental-r1/libwrflib.a",
+    "sha256": "b3794efe1d6dbde22cfad1698b3600963eb812d43bb231552d17f543ba5c9368"
+  },
+  "source_commit": "6311634d8af9ed980a657fdef0eb3a4405769529",
+  "post_test_source_commit": "6311634d8af9ed980a657fdef0eb3a4405769529",
+  "raw_producer_source_commit": null,
+  "own_noon_one_hour_qualified": true,
+  "own_noon_qualified": true,
+  "own_unprofiled_noon_one_hour_qualified": true,
+  "own_fourhost512_qualified": true,
+  "own_three_hour_qualified": false,
+  "own_unprofiled_three_hour_qualified": false,
+  "own_nine_hour_qualified": false,
+  "own_unprofiled_nine_hour_qualified": false,
+  "profile_qualified": false,
+  "restart_qualified": false,
+  "full144_qualified": false,
+  "observed_step_count": 185,
+  "products": 2,
+  "science": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-da1c-spcnodel-noon1h-runtime-r1/science-receipt.json",
+    "sha256": "dffe3a77a001c610766502cb0a65eec07c73f0f4c25e959e38d72b79c1e74a2a"
+  },
+  "reader_closure": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-da1c-spcnodel-noon1h-runtime-r1/reader-closure.json",
+    "sha256": "78e3ded46406c67adddb1a408952d03fcb80ab8e96ed2aafe407d63cb5005ba6"
+  },
+  "models": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-da1c-spcnodel-noon1h-runtime-r1/candidate-metadata/model-closures.json",
+    "sha256": "a955b7988b3c4316fcbc7f2646d5030369d725b95569adaedf5e72e748a4a17f"
+  },
+  "lease": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-da1c-spcnodel-noon1h-runtime-r1/candidate-metadata/lease.json",
+    "sha256": "f83b0b94c6c107bae9d66c298a35c37227c95d2f54c208b9e3a3d5e6c0e00216"
+  },
+  "RESULT": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-da1c-spcnodel-noon1h-runtime-r1/RESULT.json",
+    "sha256": "97bcf9819b9c3737873268f0a5b50c73f35708411c1c642d4a6456eb7058ebf1"
+  },
+  "build": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-da1c-spcnodel-noon1h-runtime-r1/spc-nodel-build-receipt.json",
+    "sha256": "4c5e670296b65978fc4f6a5bc40dd57a8d832240116c1b81769e5a13ebee8ee4"
+  },
+  "build_closure": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-da1c-spcnodel-noon1h-runtime-r1/spc-nodel-build-closure.json",
+    "sha256": "5a5674cba0bf83829c8ba6f3937722d988cc850bd54a1efeeaf4d8c5544ca7e2"
+  },
+  "build_controller": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-da1c-spcnodel-noon1h-runtime-r1/spc-nodel-build-controller.json",
+    "sha256": "0b679a57fdcdb295c4510b7018ba4993a5e75a46df123e277c3811036e022933"
+  },
+  "actual_candidate_metrics": {
+    "wall_seconds": 267.88621251517907,
+    "cpu_seconds": 121263.59773400001,
+    "main_step_sum_seconds": 176.64091
+  },
+  "timing_gain_claim": false,
+  "reductions_percent": null,
+  "comparison_design": "CANDIDATE_ONLY_OWN_NOON_SCIENCE_RETAINED_ORIGINAL75M_PREFIX_NO_TIMING_COMPARISON",
+  "raw_result_order": [
+    "retained_original546b_noon_science_reference",
+    "fresh_experimental_SUMFLUX_unprofiled_onehour_candidate"
+  ],
+  "published_order": [
+    "retained_original546b75minute_science_prefix_only",
+    "current330d_SPC_NODEL_unprofiled_onehour_candidate"
+  ],
+  "limits": "Own unprofiled SAME512 noon12\u201313 one-hour185/twoFULL only. Retained corrected-original546b75minute control is SCIENCE PREFIX ONLY; no wall/CPU percentage comparison, matched gain, isolated/additive or forecast gain. All selected da1c prior fixes/RSL/providers/input06/outputdb0d preserved; only SW319e\u2192a3aa, 583 other archive members exact. Genuine wholeSW same-opt O2/O0 raw-five/original32MOD/IEEE/trap tests passed. O2 scoped non-target containment retained; O0 non-target unclassified. Two private per-level arrays become two scalars with identical FP statements/order. Actual target malloc/free callsites39\u219237 each; target code grows192 bytes, not an instruction-count or RSS claim. Post-test two-file targetCPP correspondence plus qualifiedPP/cachedobject; raw producer commit NULL, no clean canonical fullbuild certificate. Child3h/9h/profile/restart/full144/384/256 false; parent results historical only.",
+  "actual_granted_rank_map": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/spcvmc-predelta-beam-scalars-20261026/ACTUAL_GRANTED_NOON_RANK_MAP.json",
+    "sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac"
+  },
+  "actual_map_table_sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac"
+}

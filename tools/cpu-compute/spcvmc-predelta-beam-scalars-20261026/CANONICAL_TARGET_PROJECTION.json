@@ -1,0 +1,86 @@
+{
+  "status": "PASS_LOCAL_TARGET_CPP_AND_FINITE_MAKE_EXPANSION_ONLY",
+  "cases": [
+    {
+      "case": "ON",
+      "target_statements_directives_exact": true
+    },
+    {
+      "case": "OFF",
+      "target_statements_directives_exact": true
+    },
+    {
+      "case": "DISABLE",
+      "target_statements_directives_exact": true
+    },
+    {
+      "case": "OPENMP",
+      "target_statements_directives_exact": true
+    },
+    {
+      "case": "SERIAL",
+      "target_statements_directives_exact": true
+    },
+    {
+      "case": "STACK_OFF",
+      "target_statements_directives_exact": true
+    },
+    {
+      "case": "SPC_OFF",
+      "target_statements_directives_exact": true
+    }
+  ],
+  "Make_cases": [
+    {
+      "case": "default",
+      "CPPFLAGS": "-DDM_PARALLEL -DWRF_SW_SPC_NODEL_SCALARS_ENABLE",
+      "eligible": true
+    },
+    {
+      "case": "optout",
+      "CPPFLAGS": "-DDM_PARALLEL -DWRF_SW_SPC_NODEL_SCALARS_DISABLE",
+      "eligible": false
+    },
+    {
+      "case": "O0",
+      "CPPFLAGS": "-DDM_PARALLEL",
+      "eligible": false
+    },
+    {
+      "case": "OPENMP",
+      "CPPFLAGS": "-DDM_PARALLEL -D_OPENMP",
+      "eligible": false
+    },
+    {
+      "case": "OMPCPP",
+      "CPPFLAGS": "-DDM_PARALLEL",
+      "eligible": false
+    },
+    {
+      "case": "kind8",
+      "CPPFLAGS": "-DDM_PARALLEL",
+      "eligible": false
+    },
+    {
+      "case": "unsafe",
+      "CPPFLAGS": "-DDM_PARALLEL",
+      "eligible": false
+    },
+    {
+      "case": "SPC_OFF",
+      "CPPFLAGS": "-DDM_PARALLEL",
+      "eligible": false
+    },
+    {
+      "case": "STACK_OFF",
+      "CPPFLAGS": "-DDM_PARALLEL",
+      "eligible": false
+    }
+  ],
+  "tested_PP_sha256": "d157f3e5d82552a7e57a74cf84033f2fb2bd52edf4307e97abd32998585ccc5c",
+  "parent_PP_sha256": "53982480917d4b5532090a34ab7d04727f94345156b66e872c05a6b6fe15a421",
+  "O2_object_sha256": "a3aa6b6c0cf4b666f05b4b8036e2fb21611f678ea13cf083b6b279900a9fe084",
+  "clean_F_build_claim": false,
+  "raw_producer_source_commit": null,
+  "default1_only_after_own_science_root_promotion": true
+}

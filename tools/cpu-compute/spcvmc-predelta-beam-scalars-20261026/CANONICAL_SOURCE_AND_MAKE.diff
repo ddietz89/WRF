@@ -1,0 +1,116 @@
+--- phys/module_ra_rrtmg_sw.F.before
++++ phys/module_ra_rrtmg_sw.F.after
+@@ -8608,6 +8608,13 @@
+ #define WRF_SW_SPC_CURRENT_COLUMN iw
+ #define WRF_SW_SPC_PAIR_COLUMN iw
+ #endif
++#if defined(WRF_SW_SPC_NODEL_SCALARS_ENABLE) && !defined(WRF_SW_SPC_NODEL_SCALARS_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && defined(WRF_SW_SPC_SINGLE_COLUMN_ENABLE) && !defined(WRF_SW_SPC_SINGLE_COLUMN_DISABLE) && defined(WRF_SW_VRTQDR_PAIR_FIXED_STACK_ENABLE) && !defined(WRF_SW_VRTQDR_PAIR_FIXED_STACK_DISABLE)
++#define WRF_SW_SPC_NODEL_CLEAR(k) zdbtc_nodel
++#define WRF_SW_SPC_NODEL_TOTAL(k) zdbt_nodel
++#else
++#define WRF_SW_SPC_NODEL_CLEAR(k) zdbtc_nodel(k)
++#define WRF_SW_SPC_NODEL_TOTAL(k) zdbt_nodel(k)
++#endif
+       subroutine spcvmc_sw &
+             (nlayers, istart, iend, icpr, iout, &
+              pavel, tavel, pz, tz, tbound, palbd, palbp, &
+@@ -8789,7 +8796,7 @@
+ 
+       real(kind=rb) :: tblind, ze1
+       real(kind=rb) :: zclear, zcloud
+-      real(kind=rb) :: zdbt(nlayers+1), zdbt_nodel(nlayers+1)
++      real(kind=rb) :: zdbt(nlayers+1), WRF_SW_SPC_NODEL_TOTAL(nlayers+1)
+       real(kind=rb) :: zgc(nlayers), zgcc(nlayers), zgco(nlayers)
+       real(kind=rb) :: zomc(nlayers), zomcc(nlayers), zomco(nlayers)
+       real(kind=rb) :: zrdnd(nlayers+1), zrdndc(nlayers+1)
+@@ -8804,7 +8811,7 @@
+       real(kind=rb) :: ztra(nlayers+1), ztrac(nlayers+1), ztrao(nlayers+1)
+       real(kind=rb) :: ztrad(nlayers+1), ztradc(nlayers+1), ztrado(nlayers+1)
+       real(kind=rb) :: zdbtc(nlayers+1), ztdbtc(nlayers+1)
+-      real(kind=rb) :: zincflx(ngptsw), zdbtc_nodel(nlayers+1) 
++      real(kind=rb) :: zincflx(ngptsw), WRF_SW_SPC_NODEL_CLEAR(nlayers+1)
+       real(kind=rb) :: ztdbt_nodel(nlayers+1), ztdbtc_nodel(nlayers+1)
+ 
+       real(kind=rb) :: zdbtmc, zdbtmo, zf, zgw, zreflect
+@@ -8997,8 +9004,8 @@
+                   zdbtmc = exp_tbl(itind)
+                endif
+ 
+-               zdbtc_nodel(jk) = zdbtmc
+-               ztdbtc_nodel(jk+1) = zdbtc_nodel(jk) * ztdbtc_nodel(jk)
++               WRF_SW_SPC_NODEL_CLEAR(jk) = zdbtmc
++               ztdbtc_nodel(jk+1) = WRF_SW_SPC_NODEL_CLEAR(jk) * ztdbtc_nodel(jk)
+ 
+ ! Clear + Cloud
+                tauorig = ztauc(jk) + ptaormc(ikl,iw)
+@@ -9015,8 +9022,8 @@
+                   zdbtmo = exp_tbl(itind)
+                endif
+ 
+-               zdbt_nodel(jk) = zclear*zdbtmc + zcloud*zdbtmo
+-               ztdbt_nodel(jk+1) = zdbt_nodel(jk) * ztdbt_nodel(jk)
++               WRF_SW_SPC_NODEL_TOTAL(jk) = zclear*zdbtmc + zcloud*zdbtmo
++               ztdbt_nodel(jk+1) = WRF_SW_SPC_NODEL_TOTAL(jk) * ztdbt_nodel(jk)
+ !   /\/\/\ Above code only needed for direct beam calculation
+             enddo
+ 
+@@ -9185,6 +9192,8 @@
+       enddo                    
+ 
+       end subroutine spcvmc_sw
++#undef WRF_SW_SPC_NODEL_CLEAR
++#undef WRF_SW_SPC_NODEL_TOTAL
+ #undef WRF_SW_SPC_COLUMN_COUNT
+ #undef WRF_SW_SPC_CURRENT_COLUMN
+ #undef WRF_SW_SPC_PAIR_COLUMN
+--- phys/Makefile.before
++++ phys/Makefile.after
+@@ -768,3 +768,48 @@
+ endif
+ 
+ endif
++
++# SPC pre-delta clear/total private beam scalars; original arrays remain available.
++# Qualified selected GNU13.3 strict-O2 scope; original fallback remains available.
++# No compiler/ISA/FP flags are added. DISABLE wins over explicit ENABLE.
++WRF_SW_SPC_NODEL_SCALARS ?= 1
++_SW_SPC_NODEL_FLAGS = $(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)
++ifeq ($(WRF_SW_SPC_NODEL_SCALARS),0)
++module_ra_rrtmg_sw.o: private override CPPFLAGS += -DWRF_SW_SPC_NODEL_SCALARS_DISABLE
++endif
++ifeq ($(WRF_SW_SPC_NODEL_SCALARS),1)
++ifeq ($(WRF_SW_VRTQDR_PAIR_FIXED_STACK),1)
++ifeq ($(WRF_SW_SPC_SINGLE_COLUMN),1)
++ifeq ($(strip $(OMPCPP) $(OMP) $(PROMOTION) $(DOUBLE_PRECISION)),)
++ifeq ($(filter -D_OPENMP% _OPENMP%,$(CPPFLAGS)),)
++ifeq ($(strip $(RWORDSIZE)),4)
++ifeq ($(strip $(IWORDSIZE)),4)
++ifeq ($(filter -fdefault-% -freal-% -finteger-% -r8 -i8 -fopenmp% -Ofast -ffast-math -fassociative-math -funsafe-math-optimizations -freciprocal-math -ffinite-math-only -fno-signed-zeros -fno-trapping-math,$(_SW_SPC_NODEL_FLAGS)),)
++ifeq ($(filter-out -O2,$(filter -O%,$(_SW_SPC_NODEL_FLAGS))),)
++ifneq (,$(filter -O2,$(_SW_SPC_NODEL_FLAGS)))
++ifeq ($(filter-out -ffp-contract=off,$(filter -ffp-contract=%,$(_SW_SPC_NODEL_FLAGS))),)
++ifneq (,$(filter -fno-fast-math,$(_SW_SPC_NODEL_FLAGS)))
++ifneq (,$(filter -ffp-contract=off,$(_SW_SPC_NODEL_FLAGS)))
++ifneq (,$(findstring GNU Fortran,$(shell $(FC) --version 2>/dev/null)))
++ifeq ($(shell $(FC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
++ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
++ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
++module_ra_rrtmg_sw.o: private override CPPFLAGS += -DWRF_SW_SPC_NODEL_SCALARS_ENABLE
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++
++endif
++endif

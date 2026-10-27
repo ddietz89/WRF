@@ -1,0 +1,38 @@
+{
+  "status": "PASS_SCOPED_O2_NON_TARGET_REFERENT_CONTAINMENT_NATIVE_RAW5_MOD32",
+  "eligible_for_complete_spc_caller": true,
+  "eligible_for_application": false,
+  "native_receipt_sha256": "cb33b44e24e3c4b0517b0b877dfaa4462f970a470a1bf4b65845d6af4e8543a4",
+  "candidate_O2_object_sha256": "a3aa6b6c0cf4b666f05b4b8036e2fb21611f678ea13cf083b6b279900a9fe084",
+  "parent_O2_object_sha256": "319e499a39758708fa9bc406bea958fd54820620cbaa07eb9311e01294516113",
+  "evidence": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentda1c-spc-remaining-source-question-r1/actual-O2-structure-readonly-r1/stdout.json",
+    "sha256": "125eb2cb278bc907e349588241e9058abca3a001d0c9f803a928c463544d6e4d"
+  },
+  "target_bytes": {
+    "parent": 17665,
+    "candidate": 17857,
+    "grows_bytes": 192
+  },
+  "mechanism": {
+    "actual_named_malloc_call_sites": 39,
+    "candidate_named_malloc_call_sites": 37,
+    "actual_named_free_call_sites": 39,
+    "candidate_named_free_call_sites": 37,
+    "scope": "Static target allocator/free call sites39to37, not measured dynamic count/RSS or totalinstruction saving. Literal two private array stores removed at source; register/stack substitutions remain compiler-chosen."
+  },
+  "non_target": {
+    "raw_differences": "Only two E9 displacements in39B init wrapper, both same unchanged initcallee1dac0.",
+    "other4_changed_RELA_functions_raw_exact": true,
+    "all_named_referents_same": true,
+    "named_RELA_difference_groups": 19,
+    "shared_rodata_data_bss_and_RELA_all_exact": true,
+    "O0_non_target_classification": false
+  },
+  "qualification": "Actual bothopts wholeSW raw/five/32rawMOD/ABI/allocator/trap passed; original controller stale expectedstatus failure retained and root reconciliation separate.",
+  "limitations": [
+    "Target grows192B; no shorterassembly/fewerinstruction claim.",
+    "No performance/application/default qualification.",
+    "Same selected da1c parent; caller remains strict and can fail errno/state without normalization."
+  ]
+}
