@@ -1713,6 +1713,62 @@ CONTAINS
 
 !------------------------------------------------------------------------
 
+#if defined(WRF_MASS_WEIGHT_SIMD_ENABLE) && !defined(WRF_MASS_WEIGHT_SIMD_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+   SUBROUTINE mass_weight  ( field , mut, rfield , c1 , c2 , &
+                             ids,ide, jds,jde, kds,kde,      &
+                             ims,ime, jms,jme, kms,kme,      &
+                             irs,ire, jrs,jre, krs,kre,      &
+                             its,ite, jts,jte, kts,kte )
+
+      USE, INTRINSIC :: iso_c_binding, ONLY: c_int
+      IMPLICIT NONE
+
+      INTEGER , INTENT(IN   ) :: ids,ide, jds,jde, kds,kde, &
+                                 ims,ime, jms,jme, kms,kme, &
+                                 irs,ire, jrs,jre, krs,kre, &
+                                 its,ite, jts,jte, kts,kte
+      REAL , DIMENSION(ims:ime, kms:kme, jms:jme) , INTENT(IN   ) :: field
+      REAL , DIMENSION(ims:ime,          jms:jme) , INTENT(IN   ) :: mut
+      REAL , DIMENSION(         kms:kme         ) , INTENT(IN   ) :: c1, c2
+      REAL , DIMENSION(irs:ire, krs:kre, jrs:jre) , INTENT(  OUT) :: rfield
+
+
+
+      INTEGER :: i , j , k, vector_last
+      INTERFACE
+        PURE FUNCTION wrf_phy_interp_all_masked() BIND(C, NAME="wrf_phy_interp_all_masked") RESULT(masked)
+          IMPORT c_int
+          INTEGER(c_int) :: masked
+        END FUNCTION wrf_phy_interp_all_masked
+      END INTERFACE
+
+
+      IF (wrf_phy_interp_all_masked() /= 0_c_int) THEN
+      vector_last = its - 1
+      IF (ite >= its) vector_last = ite - MOD(ite-its+1,4)
+      DO j = jts , jte
+         DO k = kts , kte
+!$OMP SIMD PRIVATE(i)
+            DO i = its , vector_last
+               rfield(i,k,j) = field(i,k,j) * (c1(k)*mut(i,j)+c2(k))
+            END DO
+            DO i = vector_last + 1 , ite
+               rfield(i,k,j) = field(i,k,j) * (c1(k)*mut(i,j)+c2(k))
+            END DO
+         END DO
+      END DO
+      ELSE
+      DO j = jts , jte
+         DO k = kts , kte
+            DO i = its , ite
+               rfield(i,k,j) = field(i,k,j) * (c1(k)*mut(i,j)+c2(k))
+            END DO
+         END DO
+      END DO
+      ENDIF
+
+   END SUBROUTINE mass_weight
+#else
    SUBROUTINE mass_weight  ( field , mut, rfield , c1 , c2 , &
                              ids,ide, jds,jde, kds,kde,      &       ! domain dims
                              ims,ime, jms,jme, kms,kme,      &       ! memory dims
@@ -1743,5 +1799,6 @@ CONTAINS
       END DO
 
    END SUBROUTINE mass_weight
+#endif
   
 END MODULE module_bc_em

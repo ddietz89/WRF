@@ -4521,7 +4521,20 @@ SUBROUTINE advect_w    ( w, w_old, tendency,            &
                          ims, ime, jms, jme, kms, kme,  &
                          its, ite, jts, jte, kts, kte  )
 
+#if defined(WRF_ADVECT_W_X5_SIMD_ENABLE) && !defined(WRF_ADVECT_W_X5_SIMD_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+   USE, INTRINSIC :: ISO_C_BINDING, ONLY: c_int
+#endif
    IMPLICIT NONE
+#if defined(WRF_ADVECT_W_X5_SIMD_ENABLE) && !defined(WRF_ADVECT_W_X5_SIMD_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+   LOGICAL :: w_x5_all_masked
+   INTEGER :: i_x5_vec_end
+   INTERFACE
+     PURE FUNCTION wrf_phy_interp_all_masked() BIND(C, NAME="wrf_phy_interp_all_masked") RESULT(masked)
+       IMPORT c_int
+       INTEGER(c_int) :: masked
+     END FUNCTION wrf_phy_interp_all_masked
+   END INTERFACE
+#endif
    
    ! Input data
    
@@ -4930,6 +4943,9 @@ SUBROUTINE advect_w    ( w, w_old, tendency,            &
       ENDDO
 
 ELSE IF (horz_order == 5 ) THEN
+#if defined(WRF_ADVECT_W_X5_SIMD_ENABLE) && !defined(WRF_ADVECT_W_X5_SIMD_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+  w_x5_all_masked=wrf_phy_interp_all_masked()/=0_c_int
+#endif
 
 !  determine boundary mods for flux operators
 !  We degrade the flux operators from 3rd/4th order
@@ -5148,6 +5164,26 @@ ELSE IF (horz_order == 5 ) THEN
 !  5th or 6th order flux
 
         DO k=kts+1,ktf
+#if defined(WRF_ADVECT_W_X5_SIMD_ENABLE) && !defined(WRF_ADVECT_W_X5_SIMD_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+        IF (w_x5_all_masked .AND. i_start_f <= i_end_f) THEN
+          i_x5_vec_end=i_start_f+8*((i_end_f-i_start_f+1)/8)-1
+!$OMP SIMD PRIVATE(vel)
+        DO i = i_start_f, i_x5_vec_end
+          vel = fzm(k)*ru(i,k,j)+fzp(k)*ru(i,k-1,j)
+          fqx( i,k ) = vel*flux5( w(i-3,k,j), w(i-2,k,j),  &
+                                  w(i-1,k,j), w(i  ,k,j),  &
+                                  w(i+1,k,j), w(i+2,k,j),  &
+                                  vel                     )
+        ENDDO
+        DO i = i_x5_vec_end+1, i_end_f
+          vel = fzm(k)*ru(i,k,j)+fzp(k)*ru(i,k-1,j)
+          fqx( i,k ) = vel*flux5( w(i-3,k,j), w(i-2,k,j),  &
+                                  w(i-1,k,j), w(i  ,k,j),  &
+                                  w(i+1,k,j), w(i+2,k,j),  &
+                                  vel                     )
+        ENDDO
+        ELSE
+#endif
         DO i = i_start_f, i_end_f
           vel = fzm(k)*ru(i,k,j)+fzp(k)*ru(i,k-1,j)
           fqx( i,k ) = vel*flux5( w(i-3,k,j), w(i-2,k,j),  &
@@ -5155,6 +5191,9 @@ ELSE IF (horz_order == 5 ) THEN
                                   w(i+1,k,j), w(i+2,k,j),  &
                                   vel                     )
         ENDDO
+#if defined(WRF_ADVECT_W_X5_SIMD_ENABLE) && !defined(WRF_ADVECT_W_X5_SIMD_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+        ENDIF
+#endif
         ENDDO
 
         k = ktf+1
