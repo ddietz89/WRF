@@ -1,0 +1,109 @@
+--- current/SOURCE_ONLY.diff
++++ private/SOURCE_ONLY.diff
+@@ -14,6 +14,9 @@
+ 
+ CONTAINS
+ 
++#if defined(WRF_AFWA_PWAT_ORDERED_COLUMN4_ENABLE) && !defined(WRF_AFWA_PWAT_ORDERED_COLUMN4_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
++#define WRF_AFWA_PWAT_ORDERED_COLUMN4_ACTIVE
++#endif
+   SUBROUTINE afwa_diagnostics_driver (   grid , config_flags     &
+                              , moist                             &
+                              , scalar                            &
+@@ -27,6 +30,9 @@
+                              , its, ite, jts, jte                &
+                              , k_start, k_end               )
+ 
++#if defined(WRF_AFWA_PWAT_ORDERED_COLUMN4_ACTIVE)
++    USE ISO_C_BINDING, ONLY:c_int,c_float,c_ptr,c_loc
++#endif
+     USE module_domain, ONLY : domain , domain_clock_get
+     USE module_configure, ONLY : grid_config_rec_type, model_config_rec
+     USE module_state_description
+@@ -73,6 +79,22 @@
+     CHARACTER*512 :: message
+     CHARACTER*256 :: timestr 
+     INTEGER :: i,j,k,nz,ostat
++#if defined(WRF_AFWA_PWAT_ORDERED_COLUMN4_ACTIVE)
++    INTERFACE
++      PURE FUNCTION wrf_phy_interp_all_masked() BIND(C,NAME="wrf_phy_interp_all_masked") RESULT(masked)
++        IMPORT c_int
++        INTEGER(c_int) :: masked
++      END FUNCTION
++      SUBROUTINE wrf_pwat_column4(ni,nj,nk,mi,mk,qv,dz,rho,out) BIND(C,NAME="wrf_pwat_column4")
++        IMPORT c_int,c_float,c_ptr
++        INTEGER(c_int),VALUE,INTENT(IN) :: ni,nj,nk,mi,mk
++        REAL(c_float),INTENT(IN) :: qv(*),dz(*),rho(*)
++        TYPE(c_ptr),VALUE,INTENT(IN) :: out
++      END SUBROUTINE
++    END INTERFACE
++    LOGICAL :: pwat_column4_eligible
++    INTEGER :: pwat_vec_end,pwat_ni,pwat_nj
++#endif
+     INTEGER :: k_pwat
+     REAL :: pwat_column
+     INTEGER :: icing_opt
+@@ -319,6 +341,36 @@
+     ! ----------------------------
+     IF ( F_QV .AND. F_QC ) THEN
+       nz=kme-kms+1
++#if defined(WRF_AFWA_PWAT_ORDERED_COLUMN4_ACTIVE)
++      pwat_column4_eligible=.false.
++      pwat_ni=ime-ims+1
++      pwat_nj=jme-jms+1
++      IF(pwat_ni>=4.AND.pwat_nj>0.AND.nz>0)THEN
++        IF(ASSOCIATED(grid%afwa_pwat))THEN
++          IF(IS_CONTIGUOUS(grid%afwa_pwat))THEN
++            IF(ALL(LBOUND(grid%afwa_pwat)==[ims,jms]).AND. &
++               ALL(UBOUND(grid%afwa_pwat)==[ime,jme]))THEN
++              pwat_column4_eligible=wrf_phy_interp_all_masked()/=0_c_int
++            ENDIF
++          ENDIF
++        ENDIF
++      ENDIF
++      IF(pwat_column4_eligible)THEN
++        pwat_vec_end=4*(pwat_ni/4)
++        ! Whole explicit-shape inputs; output is C_LOC of the WHOLE associated
++        ! contiguous pointer. No pointer-element sequence association or packing.
++        CALL wrf_pwat_column4(pwat_vec_end,pwat_nj,nz,pwat_ni,nz, &
++                             qvapr,dz8w,rho,C_LOC(grid%afwa_pwat))
++        DO i=ims+pwat_vec_end,ime
++          DO j=jms,jme
++            pwat_column = 0.0
++            DO k_pwat = kms, kme
++              pwat_column = pwat_column + qvapr(i,k_pwat,j)*dz8w(i,k_pwat,j)*rho(i,k_pwat,j)
++            ENDDO
++            grid % afwa_pwat ( i, j ) = pwat_column
++          ENDDO
++        ENDDO
++      ELSE
+       DO i=ims,ime
+         DO j=jms,jme
+           pwat_column = 0.0
+@@ -328,6 +380,18 @@
+           grid % afwa_pwat ( i, j ) = pwat_column
+         ENDDO
+       ENDDO
++      ENDIF
++#else
++      DO i=ims,ime
++        DO j=jms,jme
++          pwat_column = 0.0
++          DO k_pwat = kms, kme
++            pwat_column = pwat_column + qvapr(i,k_pwat,j)*dz8w(i,k_pwat,j)*rho(i,k_pwat,j)
++          ENDDO
++          grid % afwa_pwat ( i, j ) = pwat_column
++        ENDDO
++      ENDDO
++#endif
+     ELSE
+       CALL wrf_debug ( DEBUG_LEVEL, 'Option pwat requires: QV, QC' )
+     END IF
+@@ -968,6 +1032,7 @@
+     ENDIF  ! is_output_timestep
+ 
+   END SUBROUTINE afwa_diagnostics_driver
++#undef WRF_AFWA_PWAT_ORDERED_COLUMN4_ACTIVE
+ 
+ 
+ 

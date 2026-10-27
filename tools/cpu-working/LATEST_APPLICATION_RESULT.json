@@ -1,103 +1,160 @@
 {
-  "status": "PASS_OWN_UNPROFILED_SAME512_SPC_ORDERED_NOON_185_TWO_FULL",
+  "status": "PASS_OWN_UNPROFILED_SAME512_PWAT_THREE_HOUR_545_FOUR_FULL",
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentcqu-spc-ordered-one-SW-helper-experimental-r1/wrf.exe",
-    "sha256": "0dd6e982cdcd63bba5edb510224dacaab71f2408cc9346302831f71a57286e29"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current0dd6-afwa-pwat-one-AFWA-helper-experimental-r1/wrf.exe",
+    "sha256": "b92fce9cfa20a6d67ab5e2ba59b2a9f17b2f689e72f4667581a597710c19cd43"
   },
   "archive": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentcqu-spc-ordered-one-SW-helper-experimental-r1/libwrflib.a",
-    "sha256": "021c37829092cc66dc4f5350da80c2a573330b78b69e33fce38aa37f372a57b8"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current0dd6-afwa-pwat-one-AFWA-helper-experimental-r1/libwrflib.a",
+    "sha256": "b0e73d344d00de213cfd26ff23b954e20c340c83a312db032d83ec64dcfa5011"
   },
-  "source_commit": "ac25cc57629bd75d8a75e0f311703f516e345831",
-  "post_test_source_commit": "ac25cc57629bd75d8a75e0f311703f516e345831",
+  "source_commit": "0de65b499c50e547a392a41fb268daf3ffd847d6",
+  "post_test_source_commit": "0de65b499c50e547a392a41fb268daf3ffd847d6",
   "raw_producer_source_commit": null,
-  "own_noon_one_hour_qualified": true,
-  "own_unprofiled_noon_one_hour_qualified": true,
-  "own_instrumented_noon_one_hour_qualified": false,
+  "own_three_hour_qualified": true,
+  "own_unprofiled_three_hour_qualified": true,
   "own_fourhost512_qualified": true,
-  "own_three_hour_qualified": false,
-  "own_unprofiled_three_hour_qualified": false,
+  "own_noon_one_hour_qualified": false,
+  "own_instrumented_noon_one_hour_qualified": false,
+  "own_unprofiled_noon_one_hour_qualified": false,
   "own_nine_hour_qualified": false,
   "own_unprofiled_nine_hour_qualified": false,
   "profile_qualified": false,
   "restart_qualified": false,
   "full144_qualified": false,
+  "observed_step_count": 545,
+  "products": 4,
   "instrumented": false,
-  "observed_step_count": 185,
-  "products": 2,
-  "actual_candidate_metrics": {
-    "wall_seconds": 270.67765661375597,
-    "cpu_seconds": 122835.76444500001,
-    "main_step_sum_seconds": 177.17641
-  },
-  "timing_gain_claim": false,
-  "reductions_percent": null,
-  "comparison_design": "OWN_UNPROFILED_NOON_SCIENCE_RETAINED_ORIGINAL75M_PREFIX_NO_MATCHED_TIMING",
-  "raw_result_order": [
-    "retained_original546b_noon_science_reference",
-    "fresh_experimental_SUMFLUX_unprofiled_onehour_candidate"
-  ],
-  "limits": "Own unprofiled SAME512 noon12\u201313 only: 185 steps and two FULL products against the retained original546b science prefix. Parent CQU own3h is historical, not child qualification. No child own3h/9h/profile/restart/full144, no matched timing comparison or percentage against the75minute reference. One SW replacement plus one ordered-SSE helper:588 archive members,586 parent members unchanged; CQU/Y5/MW/PHY and RSL/direct dependencies retained. Full genuine SPC original-MOD numerical gates and strict five-state passed;32 raw MOD equality FALSE,30 raw exact plus two complete typed-ID wrapper proofs. O2 scoped containment; no clean full-source/raw-producer certificate. Complete SPC caller benefit is separate from this application observation; no additive or isolated forecast gain.",
+  "observer": false,
   "science": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-cqu-spc-noon1h-runtime-r1/science-receipt.json",
-    "sha256": "044c295b945722c8e6e03e164e92c0aba97b60552838bb8b744611d16d0176a2"
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-0dd6-pwat-3h-runtime-r2/science-receipt.json",
+    "sha256": "3df4fe05753cf7125afaa7e9a287668920f196f52a9d18360ea6d650201a130f"
   },
   "reader_closure": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-cqu-spc-noon1h-runtime-r1/reader-closure.json",
-    "sha256": "6261c7cda23c7d5d53a31a392fdc0a9d99834837ecd640aa3adc49799fbddcde"
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-0dd6-pwat-3h-runtime-r2/reader-closure.json",
+    "sha256": "9b1e25ebeae5fab8cfa4feab1830b82b55dfa17a4d57098f2315da34f8165fbe"
   },
   "models": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-cqu-spc-noon1h-runtime-r1/candidate-metadata/model-closures.json",
-    "sha256": "c6b467ab2abb393ecf29e1d261fd43d72a562d399784f804aa93169672c12bd1"
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-0dd6-pwat-3h-runtime-r2/candidate-metadata/model-closures.json",
+    "sha256": "41047f1aaf75fbc2f021603e379c5a7231cfcdf5e4d364cdf5e216e2d54fc459"
   },
   "lease": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-cqu-spc-noon1h-runtime-r1/candidate-metadata/lease.json",
-    "sha256": "e6345705f55badbfb964f4b0f77ba82df283a6799c360afb9cee18ac97f346a6"
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-0dd6-pwat-3h-runtime-r2/candidate-metadata/lease.json",
+    "sha256": "18f3ecd5f09af0b3822b104829138a2dd067b9d44821fef02fa2d45faf3c8805"
   },
   "RESULT": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-cqu-spc-noon1h-runtime-r1/RESULT.json",
-    "sha256": "d850d4088252239f85e6576c90f2721bc4878d53f1acc881762c3bb9105a65c8"
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-0dd6-pwat-3h-runtime-r2/RESULT.json",
+    "sha256": "520cacacc3819b715865fe7ff2881bb446dbed2aa404377879c88ac0bb2f7592"
+  },
+  "source_manifest": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-0dd6-pwat-3h-runtime-r2/source-pins.json",
+    "sha256": "6bfd72b16707bca9298c528e23a6920cd9823f9863b8b92f2df29f38112a7eb8"
   },
   "build": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-cqu-spc-noon1h-runtime-r1/spcmix-build-receipt.json",
-    "sha256": "603a93c028fe72f751b0dda0b92cbf99ef74ea5d3763df9c5f67352d27005a9b"
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-0dd6-pwat-3h-runtime-r2/pwat-build-receipt.json",
+    "sha256": "9291c378db25f5e49787aaa26a1333242e86ec54de755dbc53ce57604ab668dd"
   },
   "build_closure": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-cqu-spc-noon1h-runtime-r1/spcmix-build-closure.json",
-    "sha256": "a910fc6490b637b9197466c3482a04e05480e5a43495992ff2249d32770ac7a7"
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-0dd6-pwat-3h-runtime-r2/pwat-build-closure.json",
+    "sha256": "7f046930ae1a06b3716920579d247c869d54522d62adeea4b9421a0fcdcd8ffb"
   },
   "build_controller": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-cqu-spc-noon1h-runtime-r1/spcmix-build-controller.json",
-    "sha256": "7153bea50fc1386711111f5bfbf851f98d17efb59e91fd37fd2db43859102186"
-  },
-  "native": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-cqu-spc-noon1h-runtime-r1/spcmix-native-receipt.json",
-    "sha256": "163fd7aa0c93e356473926c33607cf9d77e442780323b7b537e25abcf7016713"
-  },
-  "machine": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-cqu-spc-noon1h-runtime-r1/spcmix-machine.json",
-    "sha256": "e183108391acf03c9c49a8b02c21837ba43d020d873e0d593d132039a4a33a4f"
-  },
-  "complete_caller": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-cqu-spc-noon1h-runtime-r1/spcmix-caller-wave.json",
-    "sha256": "03389f5e192f1f6786c71bf80cbf67419f04c806a6afaf17be081da7c9e09c48"
-  },
-  "root_application_admission": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-cqu-spc-noon1h-runtime-r1/spcmix-root-application-admission.json",
-    "sha256": "c45e6d3ea161be6f3ed3d1d4f55dee1233c20a4332018eb8645320f98414c1f9"
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-0dd6-pwat-3h-runtime-r2/pwat-build-controller.json",
+    "sha256": "8f470ac64213ca0a2dc6370f6d27c68e7bd53e2a98aa0a168026ffa11120ae50"
   },
   "actual_granted_rank_map": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-cqu-spc-noon1h-runtime-r1/control-rank-map.json",
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/afwa-pwat-ordered-column4-20261027/ACTUAL_GRANTED_THREE_HOUR_RANK_MAP.json",
     "sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac"
   },
   "actual_map_table_sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac",
-  "qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/spc-ordered-mixing-20261027/OWN_NOON_APPLICATION_QUALIFICATION.json",
-    "sha256": "8c47e81c152093c8b2dc0a2d24cf74241441834424a8857493c6752cad72d5da"
+  "actual_candidate_metrics": {
+    "wall_seconds": 642.846998421941,
+    "cpu_seconds": 312725.989666,
+    "main_step_sum_seconds": 542.89497
   },
-  "applies_to_current": true,
-  "instrumented_noon_profile_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/spc-ordered-mixing-20261027/INSTRUMENTED_NOON_PROFILE_QUALIFICATION.json",
-    "sha256": "be19a352411eec6e36b10e7481f924c4c20d823b0b6188be0ce5a989f4fde106"
-  }
+  "rolling_control_baseline": {
+    "cohort_sha256": "a96d6b9ea566325641ad0b0766429c661e904c75b457419acbefdaa9953b0aa5",
+    "n": 3,
+    "median": {
+      "wall_seconds": 800.0241208570078,
+      "cpu_seconds": 359327.346984,
+      "main_step_sum_seconds": 596.45045
+    },
+    "members": [
+      {
+        "run_id": "production512-current0b40-fourhost-threehour-pair2-r1-control",
+        "coordinator_invocation_id": "2eeee20b4cf0457cb582710bce30dc0b",
+        "metrics": {
+          "wall_seconds": 800.2145909662358,
+          "cpu_seconds": 359516.46336299996,
+          "main_step_sum_seconds": 596.45045
+        }
+      },
+      {
+        "run_id": "production512-current0b40-fourhost-threehour-pair1-r1-control",
+        "coordinator_invocation_id": "81febf86a6734f4fa77d57fd1b467c30",
+        "metrics": {
+          "wall_seconds": 798.6198086068034,
+          "cpu_seconds": 358644.885565,
+          "main_step_sum_seconds": 595.32709
+        }
+      },
+      {
+        "run_id": "production512-current5c75-fourhost-threehour-pair1-r1-control",
+        "coordinator_invocation_id": "c9768c1474f648329ff3e41b664aac99",
+        "metrics": {
+          "wall_seconds": 800.0241208570078,
+          "cpu_seconds": 359327.346984,
+          "main_step_sum_seconds": 596.59354
+        }
+      }
+    ]
+  },
+  "descriptive_reductions_percent": {
+    "wall_seconds": 19.646547939916413,
+    "cpu_seconds": 12.969053902840033,
+    "main_step_sum_seconds": 8.979032541596721
+  },
+  "timing_gain_claim": false,
+  "comparison_design": "CANDIDATE_ONLY_UNPAIRED_RETAINED_A2_SCIENCE_MEDIAN3_DESCRIPTIVE_TIMING",
+  "raw_result_order": [
+    "retained_original546b_A2_science_reference",
+    "fresh_currentY5_cqu_unprofiled_threehour_candidate"
+  ],
+  "published_order": [
+    "retained_original546b_A2_science_reference",
+    "currentPWAT_over0dd6_unprofiled_threehour_candidate"
+  ],
+  "raw_result_label_annotation": "Raw inherited result labels unchanged; actual child build/lease/science bind b92f PWAT over0dd6.",
+  "limits": "Own unprofiled SAME512 PWAT-over-current0dd6 three-hour545/fourFULL only. Child noon/profile/9h/restart/full144 false; parent0dd6 noon/profile remain historical. Candidate-only exact science against retained corrected original546b A2; timing descriptive UNPAIRED versus unchanged median3 distinct original controls, never isolated/additive kernel or matched forecast gain. All prior CQU/SPC/Y5/X5/MW/PHY/SW/providers preserved. One AFWA member replaced plus one cached ordered-column4 helper appended:589total/587unchanged,existingd376 once,0source/module/helper compiles1link. Standalone complete PWAT pass124raw5pairs/fourrounds and84.46\u201384.82%cost reductions are separate from wholeAFWA and forecast performance. Genuine wholeAFWA O2 compile rawpublicMODfe196 exact; scoped O2 non-target/pool/reference proof. No separate fullAFWA domain fixture or O0wholemodule qualification; actual application supplies integrated science. Posttest3file canonicaltarget/Csource correspondence only,rawproducerNULL/no clean fullsourcebuild. R1setup cacheNULL and prior basename-onlyMOD failure retained; no model or cache ran in failedR1setup. Project-only restart protection is operational and does not qualify checkpoint restart.",
+  "public_MOD_bytes_exact": true,
+  "helper_objects": {
+    "wrf_pwat_column4.o": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current0dd6-afwa-pwat-column4-native-hpc02-r1/work/pwat_column4.o",
+      "sha256": "b9e8abbc44e48a42c7e4dd67b6c83a42f2f121721accf107af3bf1106fab9c20",
+      "source_sha256": "04a39c8f305affb7ee6644179ad7862cad45b6f92541d11ebe50185f18dc54f8"
+    }
+  },
+  "native": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-0dd6-pwat-3h-runtime-r2/pwat-native-receipt.json",
+    "sha256": "1cf342aefe5717bf921cc07efb1897bae186a049c99d905c3a391f19fe966c88"
+  },
+  "native_scope": "Standalone completePWAT124raw5pairs; nofullAFWAdomainfixture",
+  "whole_module_compile": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-0dd6-pwat-3h-runtime-r2/pwat-compile-interface-receipt.json",
+    "sha256": "a3699ba6d650ce8dbe1f8bf2bca97575ce6fcfdc89772aaec3c1a7c6e9bfd2e2"
+  },
+  "machine": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-0dd6-pwat-3h-runtime-r2/pwat-machine.json",
+    "sha256": "5d78e4ad8628f611ea5c6a97aa12f98dfab54e6cc879068c9dbc2e764bf89860"
+  },
+  "complete_PWAT_pass_cost": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-0dd6-pwat-3h-runtime-r2/pwat-caller-wave.json",
+    "sha256": "6d4f20ee44b33b04e30cdfaa0a42ffb4b6460446989f3941c43c3b0281225fba"
+  },
+  "qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/afwa-pwat-ordered-column4-20261027/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "984f13ccabd9296d09ea2f63df71ffbcab75bd2e252bcc666ead6557450844a0"
+  },
+  "applies_to_current": true
 }

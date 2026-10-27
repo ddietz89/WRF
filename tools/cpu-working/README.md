@@ -1,19 +1,17 @@
-# SPC ordered mixing: qualified unprofiled noon application
+PWAT over 0dd6: own unprofiled SAME512 three-hour qualification
 
-Selected image `0dd6e982` / archive `021c3782` / post-test source `ac25cc57` retains ordered CQU, Y5 and all prior fixes. It replaces one shortwave member and adds one ordered-SSE helper: 588 archive members, with 586 parent members unchanged. Exact SAME512 noon science passed 185 ordered steps and two FULL products. All four models and the original reader closed normally.
+| Metric | Median3 original controls | Child | Descriptive reduction |
+|---|---:|---:|---:|
+| Wall minutes | 13.33374 | 10.71412 | 19.6465% |
+| Main-step minutes | 9.94084 | 9.04825 | 8.9790% |
+| Aggregate core-hours | 99.81315 | 86.86833 | 12.9691% |
 
-| Noon observation | Minutes / core-hours |
-|---|---:|
-| Model/MPI wall (minutes) | 4.51129428 |
-| Main-step elapsed (minutes) | 2.95294017 |
-| Aggregate CPU (core-hours) | 34.12104568 |
+Original controls (three distinct observations):
 
-This is one unpaired candidate observation. The retained original 75-minute run supplies only the exact one-hour science prefix; it supplies no matched one-hour wall/CPU comparison or percentage. Main-step elapsed includes waiting and communication. This child owns unprofiled noon science; its separate instrumented noon/profile scope is recorded below. It has no own three-hour, nine-hour, restart or full144-hour qualification. Parent CQU's three-hour result remains historical.
+- production512-current0b40-fourhost-threehour-pair2-r1-control, INV2eeee20b4cf0457cb582710bce30dc0b: wall 800.214591s / main 596.450450s / CPU 359516.463363s
+- production512-current0b40-fourhost-threehour-pair1-r1-control, INV81febf86a6734f4fa77d57fd1b467c30: wall 798.619809s / main 595.327090s / CPU 358644.885565s
+- production512-current5c75-fourhost-threehour-pair1-r1-control, INVc9768c1474f648329ff3e41b664aac99: wall 800.024121s / main 596.593540s / CPU 359327.346984s
 
-The complete restore-inclusive SPC caller was **1.575206% / 2.191411% shorter in wall time** across the two hosts, with **1.550431% / 1.673927% lower thread CPU**. The separate extracted mixing screen saved about **48–49%**. These scopes differ; the extracted result is not a full-SPC or forecast gain, and neither result is additive to historical whole-image reductions.
+Ranges(seconds): {"wall_seconds": [798.6198086068034, 800.2145909662358], "cpu_seconds": [358644.885565, 359516.46336299996], "main_step_sum_seconds": [595.32709, 596.59354]}
 
-Genuine full-SW O2/O0 fixtures and original-MOD callers retain exact physical, read-only and five-state checks. Raw equality of all 32 MOD files is false: 30 are raw exact and two re-export wrappers have complete typed-ID permutation proofs. Production O2 containment is scoped. The three-file post-test source commit binds target CPP and the tested C helper; raw producer source stays null and no clean full-source build is certified. The final delivery removes only two added trailing spaces; scientific tokens and the tested arithmetic are unchanged.
-
-Qualified default `WRF_SW_SPC_ORDERED_MIX4=1` uses the strict GNU13.3 O2, default REAL4/INTEGER4, pure-MPI/no-OpenMP envelope and existing owner guards. Original scalar remainder and unsupported/unmasked fallbacks remain. Opt out with `WRF_SW_SPC_ORDERED_MIX4=0`, rebuild shortwave, rearchive and relink while preserving other defaults. Retained parent `42740f03` / archive `9751c93a` is the whole-image rollback.
-
-The same exact image now also passed instrumented noon science (185 steps/two FULL products) and three15-second main-thread source-identity profiles on hpc03 ranks114/122/386. All four models, three recorders, the scientific reader and parser closed normally. The existing unprofiled noon metrics remain unchanged. Numeric loss and current ELF build-ID are UNKNOWN as reported; the recorded-buildID field contains a path list and proves no build-ID equality. Source identity uses the accepted actual ELF hash binding. These three local captures establish neither global shares nor a causal late peer, removable communication time or headroom. Own three-hour and nine-hour qualifications remain false. [Actual profile qualification](../cpu-compute/spc-ordered-mixing-20261027/INSTRUMENTED_NOON_PROFILE_QUALIFICATION.json).
+Own unprofiled SAME512 PWAT-over-current0dd6 three-hour545/fourFULL only. Child noon/profile/9h/restart/full144 false; parent0dd6 noon/profile remain historical. Candidate-only exact science against retained corrected original546b A2; timing descriptive UNPAIRED versus unchanged median3 distinct original controls, never isolated/additive kernel or matched forecast gain. All prior CQU/SPC/Y5/X5/MW/PHY/SW/providers preserved. One AFWA member replaced plus one cached ordered-column4 helper appended:589total/587unchanged,existingd376 once,0source/module/helper compiles1link. Standalone complete PWAT pass124raw5pairs/fourrounds and84.46–84.82%cost reductions are separate from wholeAFWA and forecast performance. Genuine wholeAFWA O2 compile rawpublicMODfe196 exact; scoped O2 non-target/pool/reference proof. No separate fullAFWA domain fixture or O0wholemodule qualification; actual application supplies integrated science. Posttest3file canonicaltarget/Csource correspondence only,rawproducerNULL/no clean fullsourcebuild. R1setup cacheNULL and prior basename-onlyMOD failure retained; no model or cache ran in failedR1setup. Project-only restart protection is operational and does not qualify checkpoint restart.
