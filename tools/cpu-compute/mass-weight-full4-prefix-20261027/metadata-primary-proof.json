@@ -1,0 +1,76 @@
+{
+  "status": "FIXED_GNU13_3_OPTIMIZATION_METADATA_CLASSIFICATION_ONLY",
+  "GNU_version": "releases/gcc-13.3.0",
+  "scope": "Only additions of ARRAY_OUTER_DEPENDENCY on mass_weight,relax_bdy_dry,relax_bdy_scalar; every other decoded MOD token/ID/signature/type/binding remains hard. Raw MOD equality FALSE, original R1 failure retained. No MOD mutation.",
+  "primary_sources": [
+    {
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-13.3.0/gcc/fortran/gfortran.h#L923",
+      "local_sha256": "e4fc24b1653a4e23a61b9ed3b38e7379e98687845bdc945ca2bbe0fa50b6982c",
+      "line_start": 923,
+      "line_end": 928,
+      "fact": "Conservative outer-array read dependency summary, used to protect array assignment via temporary"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-13.3.0/gcc/fortran/resolve.cc#L13897",
+      "local_sha256": "6f445ebb233f4d09ffb2890cb3da0c1a5f48e4c43f0dd5f4fa27df407966d45f",
+      "line_start": 13897,
+      "line_end": 13900,
+      "fact": "Unknown procedure body conservatively receives summary"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-13.3.0/gcc/fortran/resolve.cc#L3220",
+      "local_sha256": "6f445ebb233f4d09ffb2890cb3da0c1a5f48e4c43f0dd5f4fa27df407966d45f",
+      "line_start": 3220,
+      "line_end": 3242,
+      "fact": "Summary propagates through calling procedures"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-13.3.0/gcc/fortran/resolve.cc#L3877",
+      "local_sha256": "6f445ebb233f4d09ffb2890cb3da0c1a5f48e4c43f0dd5f4fa27df407966d45f",
+      "line_start": 3877,
+      "line_end": 3881,
+      "fact": "Direct subroutine calls propagate summary"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-13.3.0/gcc/fortran/trans-array.cc#L11847",
+      "local_sha256": "e21a64e2c0c72cdf9fee0a72fc24d6ee8a4f9f08134cf3b4e0caa61a0cb45562",
+      "line_start": 11847,
+      "line_end": 11867,
+      "fact": "Elemental-function argument scalarization consumes summary"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-13.3.0/gcc/fortran/trans-array.cc#L5151",
+      "local_sha256": "e21a64e2c0c72cdf9fee0a72fc24d6ee8a4f9f08134cf3b4e0caa61a0cb45562",
+      "line_start": 5151,
+      "line_end": 5160,
+      "fact": "Consumed scalarization dependency forces temporary"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-13.3.0/gcc/fortran/module.cc#L2379",
+      "local_sha256": "cdbf3cd3159cc8e630d3016f68c994781ccf95a9aa70827342a66f4e2a3729da",
+      "line_start": 2379,
+      "line_end": 2380,
+      "fact": "Summary serialized in module metadata"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-13.3.0/gcc/fortran/module.cc#L2640",
+      "local_sha256": "cdbf3cd3159cc8e630d3016f68c994781ccf95a9aa70827342a66f4e2a3729da",
+      "line_start": 2640,
+      "line_end": 2641,
+      "fact": "Summary deserialized into symbol attribute"
+    }
+  ],
+  "actual_source_topology": "module_bc_em.F mass_weight1716..1745,relax_bdy_dry161..346,relax_bdy_scalar348..410: ordinary non-elemental SUBROUTINEs. Four mass_weight directCALLs274/292/327/393; no elemental RHS invocation.",
+  "actual_helper": "Exact d376/c135 mask helper is FNSTCW/STMXCSR plus integer logic, no array loads or state/errno writes; unknown to Fortran frontend, so added summary conservatively overapproximates real dependency.",
+  "bounded_conclusion": "This exact summary delta alone does not change current argument/return descriptors, calling convention or storage layout and does not require whole-caller rebuild solely for ABI repair. Cached original-MOD caller binary route can be tested with all128 raw/five/native guards unchanged and mandatory O2 non-target containment. This does not certify all clients/compilers or regenerated code.",
+  "real_exclusion": "If a real elemental function gained outer-array reads aliasing assignment LHS, missing summary in cached callers could omit needed temporary; no blanket ignore rule allowed.",
+  "root_authorization_context": "Root specifically authorizes new R2 fixed3-bit static API check, not scientific acceptance change. Other MOD changes reject; raw equality remains false; no whole ABI/global assurance.",
+  "prior_review": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current330d-mass-weight-retained-source-triage-r1/independent-GNU13-array-outer-dependency-review-r1/REVIEW.json",
+    "sha256": "33bef082443b6f363dab81d6a473c1bf38b34a60006e1f84089be675ea3da8f8"
+  },
+  "actual_MOD_diagnosis": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current330d-mass-weight-retained-source-triage-r1/failed-R1-public-MOD-readonly-diagnosis-r2/stdout.json",
+    "sha256": "b22ead1d4a112428709dd050230b978a49a617c4d91369eb1e5d9e324d13df6a"
+  }
+}

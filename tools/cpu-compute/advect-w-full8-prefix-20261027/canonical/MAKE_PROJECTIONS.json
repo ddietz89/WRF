@@ -1,0 +1,63 @@
+{
+  "status": "PASS_LOCAL_MAKE_EXPANSIONS_NO_SCIENTIFIC_COMPILE",
+  "cases": [
+    {
+      "case": "SUPPORTED",
+      "enabled": true,
+      "stdout": "CPP=-DDM_PARALLEL -UWRF_ADVECT_W_X5_SIMD_ENABLE -DWRF_ADVECT_W_X5_SIMD_ENABLE\nFC=-O2 -fno-fast-math -ffp-contract=off\nOBJS=base.o wrf_phy_interp_mask.o\nPRE=wrf_phy_interp_mask.o\n"
+    },
+    {
+      "case": "EXPLICIT0_PREDEFINED_ENABLE",
+      "enabled": false,
+      "stdout": "CPP=-DDM_PARALLEL -DWRF_ADVECT_W_X5_SIMD_ENABLE -UWRF_ADVECT_W_X5_SIMD_ENABLE -DWRF_ADVECT_W_X5_SIMD_DISABLE\nFC=-O2 -fno-fast-math -ffp-contract=off\nOBJS=base.o wrf_phy_interp_mask.o\nPRE=\n"
+    },
+    {
+      "case": "PHY_OWNER_OFF",
+      "enabled": false,
+      "stdout": "CPP=-DDM_PARALLEL -UWRF_ADVECT_W_X5_SIMD_ENABLE\nFC=-O2 -fno-fast-math -ffp-contract=off\nOBJS=base.o wrf_phy_interp_mask.o\nPRE=\n"
+    },
+    {
+      "case": "ADVECTION_ZEN2_OFF",
+      "enabled": false,
+      "stdout": "CPP=-DDM_PARALLEL -UWRF_ADVECT_W_X5_SIMD_ENABLE\nFC=-O2 -fno-fast-math -ffp-contract=off\nOBJS=base.o wrf_phy_interp_mask.o\nPRE=\n"
+    },
+    {
+      "case": "OPENMP",
+      "enabled": false,
+      "stdout": "CPP=-DDM_PARALLEL -UWRF_ADVECT_W_X5_SIMD_ENABLE\nFC=-O2 -fno-fast-math -ffp-contract=off\nOBJS=base.o wrf_phy_interp_mask.o\nPRE=\n"
+    },
+    {
+      "case": "CPP_OPENMP",
+      "enabled": false,
+      "stdout": "CPP=-DDM_PARALLEL -D_OPENMP -UWRF_ADVECT_W_X5_SIMD_ENABLE\nFC=-O2 -fno-fast-math -ffp-contract=off\nOBJS=base.o wrf_phy_interp_mask.o\nPRE=\n"
+    },
+    {
+      "case": "NONMPI",
+      "enabled": false,
+      "stdout": "CPP=-UWRF_ADVECT_W_X5_SIMD_ENABLE\nFC=-O2 -fno-fast-math -ffp-contract=off\nOBJS=base.o wrf_phy_interp_mask.o\nPRE=\n"
+    },
+    {
+      "case": "TYPE8",
+      "enabled": false,
+      "stdout": "CPP=-DDM_PARALLEL -UWRF_ADVECT_W_X5_SIMD_ENABLE\nFC=-O2 -fno-fast-math -ffp-contract=off\nOBJS=base.o wrf_phy_interp_mask.o\nPRE=\n"
+    },
+    {
+      "case": "O0",
+      "enabled": false,
+      "stdout": "CPP=-DDM_PARALLEL -UWRF_ADVECT_W_X5_SIMD_ENABLE\nFC=-O0 -fno-fast-math -ffp-contract=off\nOBJS=base.o wrf_phy_interp_mask.o\nPRE=\n"
+    },
+    {
+      "case": "UNSAFE_FP",
+      "enabled": false,
+      "stdout": "CPP=-DDM_PARALLEL -UWRF_ADVECT_W_X5_SIMD_ENABLE\nFC=-O2 -fno-fast-math -ffp-contract=off -fno-signed-zeros\nOBJS=base.o wrf_phy_interp_mask.o\nPRE=\n"
+    },
+    {
+      "case": "CONTRACT_ON",
+      "enabled": false,
+      "stdout": "CPP=-DDM_PARALLEL -UWRF_ADVECT_W_X5_SIMD_ENABLE\nFC=-O2 -fno-fast-math -ffp-contract=off -ffp-contract=on\nOBJS=base.o wrf_phy_interp_mask.o\nPRE=\n"
+    }
+  ],
+  "MW_base_preserved_byte_exact": true,
+  "new_helper_object_or_recipe": false,
+  "no_new_ISA_FP_flags": true
+}

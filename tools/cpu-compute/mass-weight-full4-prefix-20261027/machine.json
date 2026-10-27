@@ -1,0 +1,296 @@
+{
+  "status": "PASS_SCOPED_ACTUAL_R3_O2_MASS_WEIGHT_MACHINE",
+  "eligible_for_complete_mass_weight_caller": true,
+  "eligible_for_application": false,
+  "native_receipt_sha256": "73b0529e3be48fc8795277aa49fe2848fb6985d5c910d92b79386f4d16a4cf69",
+  "native_closure_sha256": "dcb249adbeabc20162353ece3bdd044273993e0372ea72d742c0609ebcc0ba8c",
+  "native_invocation_id": "c57ab4d6f87c43108c571fae09d6b6d6",
+  "candidate_O2_object_sha256": "a01906d8592c819b9570de27620e00ce924f86c566f764a266e3a478afcc2926",
+  "candidate_PP_sha256": "8996b4c7f8c287527cf778ee5b0a66a859cf9a53536e6fa454b522c205038454",
+  "actual_machine_readback_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current330d-mass-weight-retained-source-triage-r1/R3-existing-O2-machine-readonly-r1/stdout.json",
+  "actual_machine_readback_sha256": "e60e624a480882537ae3f2c9c64069b933ca40526a43efdc59982d917509f31c",
+  "native_records_per_opt": 128,
+  "both_O2_O0_fullphysical_readonly_raw_five_exact": true,
+  "public_MOD_raw_bytes_exact": false,
+  "public_MOD_scoped_contract": "Exact same typed IDs/types/signatures/bindings/allotherattributes plus only ARRAY_OUTER_DEPENDENCY on mass_weight,relax_bdy_dry,relax_bdy_scalar; root-authorized GNU13.3 non-elemental/directCALL scope, artifacts unchanged.",
+  "static_interface_proofs": {
+    "O2": {
+      "status": "PASS_EXACT_THREE_ANALYSIS_BITS_ONLY",
+      "changes": [
+        {
+          "procedure": "mass_weight",
+          "symbol_id": "4704",
+          "added_only": "ARRAY_OUTER_DEPENDENCY"
+        },
+        {
+          "procedure": "relax_bdy_dry",
+          "symbol_id": "4743",
+          "added_only": "ARRAY_OUTER_DEPENDENCY"
+        },
+        {
+          "procedure": "relax_bdy_scalar",
+          "symbol_id": "4841",
+          "added_only": "ARRAY_OUTER_DEPENDENCY"
+        }
+      ],
+      "parent_raw_sha256": "b4b9faeb832414abacf4aa5699a43d7aa6fa4973ebb80f728aad6448147055b3",
+      "candidate_raw_sha256": "1836cbea1bf1e9ebd2ab09a75ee062f787dadbc36e99595cb8245840a52381f2",
+      "raw_bytes_exact": false,
+      "all_other_literal_typed_tokens_exact": true,
+      "parent_tokens": 294961,
+      "candidate_tokens": 294964,
+      "artifact_rewritten": false,
+      "scope": "Only current GNU13.3 non-elemental/direct-call binary route; no rebuilt-caller/global ABI assurance."
+    },
+    "O0": {
+      "status": "PASS_EXACT_THREE_ANALYSIS_BITS_ONLY",
+      "changes": [
+        {
+          "procedure": "mass_weight",
+          "symbol_id": "4704",
+          "added_only": "ARRAY_OUTER_DEPENDENCY"
+        },
+        {
+          "procedure": "relax_bdy_dry",
+          "symbol_id": "4743",
+          "added_only": "ARRAY_OUTER_DEPENDENCY"
+        },
+        {
+          "procedure": "relax_bdy_scalar",
+          "symbol_id": "4841",
+          "added_only": "ARRAY_OUTER_DEPENDENCY"
+        }
+      ],
+      "parent_raw_sha256": "b4b9faeb832414abacf4aa5699a43d7aa6fa4973ebb80f728aad6448147055b3",
+      "candidate_raw_sha256": "1836cbea1bf1e9ebd2ab09a75ee062f787dadbc36e99595cb8245840a52381f2",
+      "raw_bytes_exact": false,
+      "all_other_literal_typed_tokens_exact": true,
+      "parent_tokens": 294961,
+      "candidate_tokens": 294964,
+      "artifact_rewritten": false,
+      "scope": "Only current GNU13.3 non-elemental/direct-call binary route; no rebuilt-caller/global ABI assurance."
+    }
+  },
+  "actual_guard": {
+    "mask_helper_sha256": "d3769b702ccc0b3734b4167cc1704f6d98a1095c5c6cce56239c53f63ac3cfd8",
+    "one_call_offset": "0x18d",
+    "zero_branch": "0x1ac -> 0x63e original scalar fallback",
+    "controls": "Reads all6 x87/SSE exceptionmaskbits; no controlwrites/IEEEruntimeenvelope."
+  },
+  "actual_arithmetic": {
+    "full4_prefix": "0x4a8 loadmut;0x4ad loadfield;0x4b1 MULPS c1;0x4b4 ADDPS c2;0x4b7 MULPS field;0x4ba store. Original trees/operandroles.",
+    "reachable_scalar_remainder": "0x588 loadmut into xmm0;0x58d MULSS c1;0x591 ADDSS c2;0x595 MULSS field;0x59a store. Matches original priority incl failedR2witnesses.",
+    "unmasked_scalar_fallback": "0x7b0 loadmut;0x7b9 MULSS c1;0x7bd ADDSS c2;0x7c1 MULSS field;0x7c6 store.",
+    "unused_generic_prefix_tails": "Compiler retains2lane/scalar cleanup, but source full4prefix length divisible4 for positive rows and0 for emptyrows; cannot reach cleanup with validdimensions. No claim all generated scalar instructions removed."
+  },
+  "non_target_raw_bodies_exact": true,
+  "strict_non_target_raw_fields": {
+    "__module_bc_em_MOD_set_phys_bc_dry_1": {
+      "raw_bytes_exact": true,
+      "RELA_exact": true,
+      "size_exact": true
+    },
+    "__module_bc_em_MOD_lbc_fcx_gcx": {
+      "raw_bytes_exact": true,
+      "RELA_exact": true,
+      "size_exact": true
+    },
+    "__module_bc_em_MOD_relax_bdy_dry": {
+      "raw_bytes_exact": true,
+      "RELA_exact": false,
+      "size_exact": true
+    },
+    "__module_bc_em_MOD_spec_bdy_chem_perturb": {
+      "raw_bytes_exact": true,
+      "RELA_exact": true,
+      "size_exact": true
+    },
+    "__module_bc_em_MOD_theta_and_thetam_lbc_only": {
+      "raw_bytes_exact": true,
+      "RELA_exact": true,
+      "size_exact": true
+    },
+    "__module_bc_em_MOD_relax_bdy_scalar": {
+      "raw_bytes_exact": true,
+      "RELA_exact": false,
+      "size_exact": true
+    },
+    "__module_bc_em_MOD_spec_bdy_scalar": {
+      "raw_bytes_exact": true,
+      "RELA_exact": true,
+      "size_exact": true
+    },
+    "__module_bc_em_MOD_set_phys_bc_dry_2": {
+      "raw_bytes_exact": true,
+      "RELA_exact": true,
+      "size_exact": true
+    },
+    "__module_bc_em_MOD_spec_bdy_dry_perturb": {
+      "raw_bytes_exact": true,
+      "RELA_exact": true,
+      "size_exact": true
+    },
+    "__module_bc_em_MOD_rk_phys_bc_dry_2": {
+      "raw_bytes_exact": true,
+      "RELA_exact": true,
+      "size_exact": true
+    },
+    "__module_bc_em_MOD_zero_bdytend": {
+      "raw_bytes_exact": true,
+      "RELA_exact": true,
+      "size_exact": true
+    },
+    "__module_bc_em_MOD_set_phys_bc_smallstep_1": {
+      "raw_bytes_exact": true,
+      "RELA_exact": true,
+      "size_exact": true
+    },
+    "__module_bc_em_MOD_set_w_surface": {
+      "raw_bytes_exact": true,
+      "RELA_exact": true,
+      "size_exact": true
+    },
+    "__module_bc_em_MOD_spec_bdy_dry": {
+      "raw_bytes_exact": true,
+      "RELA_exact": true,
+      "size_exact": true
+    },
+    "__module_bc_em_MOD_spec_bdyupdate_ph": {
+      "raw_bytes_exact": true,
+      "RELA_exact": true,
+      "size_exact": true
+    },
+    "__module_bc_em_MOD_rk_phys_bc_dry_1": {
+      "raw_bytes_exact": true,
+      "RELA_exact": true,
+      "size_exact": true
+    }
+  },
+  "changed_RELA_exact_facts": [
+    {
+      "function": "__module_bc_em_MOD_relax_bdy_dry",
+      "parent": [
+        2570,
+        4,
+        [
+          "__module_bc_em_MOD_mass_weight",
+          18,
+          0,
+          ".text",
+          0,
+          746
+        ],
+        -4
+      ],
+      "candidate": [
+        2570,
+        4,
+        [
+          "__module_bc_em_MOD_mass_weight",
+          18,
+          0,
+          ".text",
+          0,
+          2123
+        ],
+        -4
+      ]
+    },
+    {
+      "function": "__module_bc_em_MOD_relax_bdy_dry",
+      "parent": [
+        3263,
+        4,
+        [
+          "__module_bc_em_MOD_mass_weight",
+          18,
+          0,
+          ".text",
+          0,
+          746
+        ],
+        -4
+      ],
+      "candidate": [
+        3263,
+        4,
+        [
+          "__module_bc_em_MOD_mass_weight",
+          18,
+          0,
+          ".text",
+          0,
+          2123
+        ],
+        -4
+      ]
+    },
+    {
+      "function": "__module_bc_em_MOD_relax_bdy_dry",
+      "parent": [
+        4356,
+        4,
+        [
+          "__module_bc_em_MOD_mass_weight",
+          18,
+          0,
+          ".text",
+          0,
+          746
+        ],
+        -4
+      ],
+      "candidate": [
+        4356,
+        4,
+        [
+          "__module_bc_em_MOD_mass_weight",
+          18,
+          0,
+          ".text",
+          0,
+          2123
+        ],
+        -4
+      ]
+    },
+    {
+      "function": "__module_bc_em_MOD_relax_bdy_scalar",
+      "parent": [
+        1016,
+        4,
+        [
+          "__module_bc_em_MOD_mass_weight",
+          18,
+          0,
+          ".text",
+          0,
+          746
+        ],
+        -4
+      ],
+      "candidate": [
+        1016,
+        4,
+        [
+          "__module_bc_em_MOD_mass_weight",
+          18,
+          0,
+          ".text",
+          0,
+          2123
+        ],
+        -4
+      ]
+    }
+  ],
+  "RELA_containment": "Only four unchanged direct mass_weight callsites target same name/info/visibility/section/value/addend; targetsize746->2123. Raw RELA false retained.",
+  "shared_pool_bytes_attrs_exact": true,
+  "shared_pool_RELA_exact": true,
+  "O0_nontarget_scope": "Numerical128/fulltypedMOD hard; production structuralclassification onlyO2, no O0 non-target equivalence claim.",
+  "limits": [
+    "R1 rawMOD failure and R2 scalar-tail qNaN failure retained.",
+    "No performance/app/publicdefault authority until measuredcaller and separate root decision/science.",
+    "No global rebuiltcaller/ABI certificate; fixed GNU13.3 binary-route metadata proof only."
+  ]
+}

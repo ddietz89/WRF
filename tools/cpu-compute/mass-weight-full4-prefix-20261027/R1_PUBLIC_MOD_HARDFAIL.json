@@ -1,0 +1,101 @@
+{
+  "status": "FAIL_RETAINED_NO_RETRY",
+  "invocation_id": "bdfb656310e34b75a811e1a2fe6d6d21",
+  "commands": [
+    {
+      "label": "qualified-env",
+      "argv": [
+        "/bin/bash",
+        "-c",
+        "source \"$1\"; /usr/bin/python3 -c \"$2\"",
+        "env",
+        "/pool/wrf-experiment/tooling/m6-parallel/mpi-ib-env.sh",
+        "import os,json;print(json.dumps({k:os.environ[k]for k in [\"PATH\",\"LD_LIBRARY_PATH\",\"OPAL_PREFIX\"]if k in os.environ}))"
+      ],
+      "returncode": 0,
+      "log_sha256": "4230894093042972073f6d4f7818ad4950ad509c403215a78ba7fb63c494d327"
+    },
+    {
+      "label": "compile-genuine-original-MOD-driver",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-O2",
+        "-g",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current330d-mass-weight-guarded-simd-native-hpc02-r1/whole_mass_weight_driver.f90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current330d-mass-weight-guarded-simd-native-hpc02-r1/work/driver.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "compile-fixture-only-input-control",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpicc",
+        "-O2",
+        "-std=c11",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current330d-mass-weight-guarded-simd-native-hpc02-r1/mask_fixture_control.c",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current330d-mass-weight-guarded-simd-native-hpc02-r1/work/mask_fixture_control.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "compile-O2-candidate",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-O2",
+        "-g",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-fopenmp-simd",
+        "-c",
+        "module_bc_em.f90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current330d-mass-weight-guarded-simd-native-hpc02-r1/work/O2-candidate/module_bc_em.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "objects": {},
+  "raw_proofs": {},
+  "parent_module_compiles": 0,
+  "candidate_module_compiles": 1,
+  "driver_compiles": 1,
+  "fixture_C_compiles": 1,
+  "scientific_C_compiles": 0,
+  "links": 0,
+  "application_qualified": false,
+  "performance_qualified": false,
+  "outside_target_source_bytes_exact": true,
+  "literal_scalar_fallback_source_exact": true,
+  "fixture_inputs_controlled_unmasked": "Identical zero incomingstickyflags and selectedsingleunmaskedbit set BEFOREcall; no mask/control write in callee or readonly d376 helper. Twelvefiniteexact cases; fourround modes; no output/state normalization.",
+  "error": "AssertionError('CANDIDATE_PUBLIC_MOD_CHANGED')",
+  "traceback": "Traceback (most recent call last):\n  File \"/pool/wrf-experiment/wrf-cpu/kernels/current330d-mass-weight-guarded-simd-native-hpc02-r1/run_gate.py\", line 33, in <module>\n    assert h(candidate.with_suffix('.mod'))==b['cached']['module_bc_em.mod']['sha256'],'CANDIDATE_PUBLIC_MOD_CHANGED'\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: CANDIDATE_PUBLIC_MOD_CHANGED\n",
+  "elapsed_seconds": 3.5223973258398473
+}

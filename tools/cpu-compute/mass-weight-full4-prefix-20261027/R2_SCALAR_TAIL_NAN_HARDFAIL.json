@@ -1,0 +1,383 @@
+{
+  "status": "FAIL_RETAINED_NO_RETRY",
+  "invocation_id": "0ee2b35465784329bd74eaa251c481fc",
+  "commands": [
+    {
+      "label": "qualified-env",
+      "argv": [
+        "/bin/bash",
+        "-c",
+        "source \"$1\"; /usr/bin/python3 -c \"$2\"",
+        "env",
+        "/pool/wrf-experiment/tooling/m6-parallel/mpi-ib-env.sh",
+        "import os,json;print(json.dumps({k:os.environ[k]for k in [\"PATH\",\"LD_LIBRARY_PATH\",\"OPAL_PREFIX\"]if k in os.environ}))"
+      ],
+      "returncode": 0,
+      "log_sha256": "4230894093042972073f6d4f7818ad4950ad509c403215a78ba7fb63c494d327"
+    },
+    {
+      "label": "O2-parent-mass-weight-asm",
+      "argv": [
+        "/usr/bin/objdump",
+        "-drl",
+        "--disassemble=__module_bc_em_MOD_mass_weight",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em/module_bc_em.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "1c8dc42d7f3688827809ca405101cb8cedd53c2ad6270681fa6a1ba6b7d64287"
+    },
+    {
+      "label": "O2-candidate-mass-weight-asm",
+      "argv": [
+        "/usr/bin/objdump",
+        "-drl",
+        "--disassemble=__module_bc_em_MOD_mass_weight",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current330d-mass-weight-guarded-simd-native-hpc02-r1/work/O2-candidate/module_bc_em.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "7d79866291facc265cfe1e7c4cad323632c43dc4b8f998209151b4d3b416f2e1"
+    },
+    {
+      "label": "link-O2-parent",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-O2",
+        "-g",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current330d-mass-weight-guarded-simd-native-hpc02-r1/work/driver.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current330d-mass-weight-guarded-simd-native-hpc02-r1/work/mask_fixture_control.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current0ec3-haloc-direct8-native-hpc02-r1/work/state.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/phy-zatw-private-ordered-row-currentfbcd-native-hpc01-r1/work/physical.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em/module_bc_em.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-phy-interior-p8w-t8w-simd-native-hpc03-r3/work/phy_interp_mask.o",
+        "-Wl,--start-group",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-Wl,-rpath,/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/hpg-nhx-isolated-avx2-consumer-native-r3/work/nhx-helper-O2.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/phy-height-private-avx2-fixed8-native-hpc04-r1/work/helper-O2.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/currentda1c-spc-nodel-experimental-r1/libwrflib.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-lesmf_time",
+        "/pool/wrf-experiment/wrf-cpu/builds/current971c-uv-final-v-unpack-outline-combined-native-r1/librsl_lite.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2",
+        "-lwrfio_nf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-lnetcdf",
+        "-Wl,--end-group",
+        "-lm",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current330d-mass-weight-cached-static-interface-native-hpc02-r2/work/O2-parent-fixture/caller"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "execute-O2-parent",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current330d-mass-weight-cached-static-interface-native-hpc02-r2/work/O2-parent-fixture/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current330d-mass-weight-cached-static-interface-native-hpc02-r2/work/O2-parent-fixture/raw.bin"
+      ],
+      "returncode": 0,
+      "log_sha256": "165fde6347261c665df4105f3c4b8ffaf81a847298ee35e4ec5f350d2c3cd572"
+    },
+    {
+      "label": "link-O2-candidate",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-O2",
+        "-g",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current330d-mass-weight-guarded-simd-native-hpc02-r1/work/driver.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current330d-mass-weight-guarded-simd-native-hpc02-r1/work/mask_fixture_control.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current0ec3-haloc-direct8-native-hpc02-r1/work/state.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/phy-zatw-private-ordered-row-currentfbcd-native-hpc01-r1/work/physical.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current330d-mass-weight-guarded-simd-native-hpc02-r1/work/O2-candidate/module_bc_em.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-phy-interior-p8w-t8w-simd-native-hpc03-r3/work/phy_interp_mask.o",
+        "-Wl,--start-group",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-Wl,-rpath,/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/hpg-nhx-isolated-avx2-consumer-native-r3/work/nhx-helper-O2.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/phy-height-private-avx2-fixed8-native-hpc04-r1/work/helper-O2.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/currentda1c-spc-nodel-experimental-r1/libwrflib.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-lesmf_time",
+        "/pool/wrf-experiment/wrf-cpu/builds/current971c-uv-final-v-unpack-outline-combined-native-r1/librsl_lite.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2",
+        "-lwrfio_nf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-lnetcdf",
+        "-Wl,--end-group",
+        "-lm",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current330d-mass-weight-cached-static-interface-native-hpc02-r2/work/O2-candidate-fixture/caller"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "execute-O2-candidate",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current330d-mass-weight-cached-static-interface-native-hpc02-r2/work/O2-candidate-fixture/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current330d-mass-weight-cached-static-interface-native-hpc02-r2/work/O2-candidate-fixture/raw.bin"
+      ],
+      "returncode": 0,
+      "log_sha256": "165fde6347261c665df4105f3c4b8ffaf81a847298ee35e4ec5f350d2c3cd572"
+    }
+  ],
+  "objects": {
+    "O2-parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em/module_bc_em.o",
+      "sha256": "273514d4dee69d23bbef1cc588c76453b4257a750501c9593899f59b4f2940c7",
+      "cached": true
+    },
+    "O2-candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current330d-mass-weight-guarded-simd-native-hpc02-r1/work/O2-candidate/module_bc_em.o",
+      "sha256": "bf6650ca4f6897cb9debe3941fc92b1447576a1f3841a4f65c5f744c5a359de8",
+      "PP_sha256": "c75d388722f088137425de0ed16685741de7454bc4ae8e6c9bee59887cae3620",
+      "MOD_sha256": "1836cbea1bf1e9ebd2ab09a75ee062f787dadbc36e99595cb8245840a52381f2"
+    }
+  },
+  "raw_proofs": {
+    "O2-parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current330d-mass-weight-cached-static-interface-native-hpc02-r2/work/O2-parent-fixture/raw.bin",
+      "sha256": "09f13a6806f0acefeebb27a726220c8c48497bd951651ea0532c1464d11d5bbe",
+      "bytes": 1435648,
+      "records": 128
+    },
+    "O2-candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current330d-mass-weight-cached-static-interface-native-hpc02-r2/work/O2-candidate-fixture/raw.bin",
+      "sha256": "cc83fbf811fbcca5b6fb632775981041112e145d62d5cfa6b118880b7b2a42df",
+      "bytes": 1435648,
+      "records": 128
+    }
+  },
+  "parent_module_compiles": 0,
+  "candidate_module_compiles": 0,
+  "driver_compiles": 0,
+  "fixture_C_compiles": 0,
+  "scientific_C_compiles": 0,
+  "links": 2,
+  "application_qualified": false,
+  "performance_qualified": false,
+  "outside_target_source_bytes_exact": true,
+  "literal_scalar_fallback_source_exact": true,
+  "cached_original_MOD_driver_reused": true,
+  "fixture_inputs_controlled_unmasked": "Identical zero incomingstickyflags and selectedsingleunmaskedbit set BEFOREcall; no mask/control write in callee or readonly d376 helper. Twelvefiniteexact cases; fourround modes; no output/state normalization.",
+  "cached_R1_candidate_O2_reused": true,
+  "static_interface_proofs": {
+    "O2": {
+      "status": "PASS_EXACT_THREE_ANALYSIS_BITS_ONLY",
+      "changes": [
+        {
+          "procedure": "mass_weight",
+          "symbol_id": "4704",
+          "added_only": "ARRAY_OUTER_DEPENDENCY"
+        },
+        {
+          "procedure": "relax_bdy_dry",
+          "symbol_id": "4743",
+          "added_only": "ARRAY_OUTER_DEPENDENCY"
+        },
+        {
+          "procedure": "relax_bdy_scalar",
+          "symbol_id": "4841",
+          "added_only": "ARRAY_OUTER_DEPENDENCY"
+        }
+      ],
+      "parent_raw_sha256": "b4b9faeb832414abacf4aa5699a43d7aa6fa4973ebb80f728aad6448147055b3",
+      "candidate_raw_sha256": "1836cbea1bf1e9ebd2ab09a75ee062f787dadbc36e99595cb8245840a52381f2",
+      "raw_bytes_exact": false,
+      "all_other_literal_typed_tokens_exact": true,
+      "parent_tokens": 294961,
+      "candidate_tokens": 294964,
+      "artifact_rewritten": false,
+      "scope": "Only current GNU13.3 non-elemental/direct-call binary route; no rebuilt-caller/global ABI assurance."
+    }
+  },
+  "O2_function_sets_exact": true,
+  "O2_strict_non_target": {
+    "__module_bc_em_MOD_spec_bdy_chem_perturb": {
+      "raw_bytes_exact": true,
+      "RELA_exact": true,
+      "size_exact": true
+    },
+    "__module_bc_em_MOD_theta_and_thetam_lbc_only": {
+      "raw_bytes_exact": true,
+      "RELA_exact": true,
+      "size_exact": true
+    },
+    "__module_bc_em_MOD_spec_bdy_dry_perturb": {
+      "raw_bytes_exact": true,
+      "RELA_exact": true,
+      "size_exact": true
+    },
+    "__module_bc_em_MOD_set_phys_bc_dry_1": {
+      "raw_bytes_exact": true,
+      "RELA_exact": true,
+      "size_exact": true
+    },
+    "__module_bc_em_MOD_relax_bdy_scalar": {
+      "raw_bytes_exact": true,
+      "RELA_exact": false,
+      "size_exact": true
+    },
+    "__module_bc_em_MOD_set_w_surface": {
+      "raw_bytes_exact": true,
+      "RELA_exact": true,
+      "size_exact": true
+    },
+    "__module_bc_em_MOD_set_phys_bc_dry_2": {
+      "raw_bytes_exact": true,
+      "RELA_exact": true,
+      "size_exact": true
+    },
+    "__module_bc_em_MOD_spec_bdy_dry": {
+      "raw_bytes_exact": true,
+      "RELA_exact": true,
+      "size_exact": true
+    },
+    "__module_bc_em_MOD_rk_phys_bc_dry_1": {
+      "raw_bytes_exact": true,
+      "RELA_exact": true,
+      "size_exact": true
+    },
+    "__module_bc_em_MOD_spec_bdyupdate_ph": {
+      "raw_bytes_exact": true,
+      "RELA_exact": true,
+      "size_exact": true
+    },
+    "__module_bc_em_MOD_set_phys_bc_smallstep_1": {
+      "raw_bytes_exact": true,
+      "RELA_exact": true,
+      "size_exact": true
+    },
+    "__module_bc_em_MOD_spec_bdy_scalar": {
+      "raw_bytes_exact": true,
+      "RELA_exact": true,
+      "size_exact": true
+    },
+    "__module_bc_em_MOD_rk_phys_bc_dry_2": {
+      "raw_bytes_exact": true,
+      "RELA_exact": true,
+      "size_exact": true
+    },
+    "__module_bc_em_MOD_zero_bdytend": {
+      "raw_bytes_exact": true,
+      "RELA_exact": true,
+      "size_exact": true
+    },
+    "__module_bc_em_MOD_lbc_fcx_gcx": {
+      "raw_bytes_exact": true,
+      "RELA_exact": true,
+      "size_exact": true
+    },
+    "__module_bc_em_MOD_relax_bdy_dry": {
+      "raw_bytes_exact": true,
+      "RELA_exact": false,
+      "size_exact": true
+    }
+  },
+  "O2_shared_pool_bytes_attrs_exact": true,
+  "O2_shared_pool_RELA_exact": true,
+  "O2_target_machine_logs": {
+    "parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current330d-mass-weight-cached-static-interface-native-hpc02-r2/O2-parent-mass-weight-asm.log",
+      "sha256": "1c8dc42d7f3688827809ca405101cb8cedd53c2ad6270681fa6a1ba6b7d64287"
+    },
+    "candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current330d-mass-weight-cached-static-interface-native-hpc02-r2/O2-candidate-mass-weight-asm.log",
+      "sha256": "7d79866291facc265cfe1e7c4cad323632c43dc4b8f998209151b4d3b416f2e1"
+    }
+  },
+  "first_mismatch": {
+    "opt": "O2",
+    "byte_offset": 115104,
+    "record": 10,
+    "offset_in_record": 2944,
+    "case": 11,
+    "round": 0,
+    "parent_word": "4523c17f",
+    "candidate_word": "2143c5ff"
+  },
+  "error": "AssertionError('HARD_WHOLE_MASS_WEIGHT_FULLPHYSICAL_OR_RAW5_MISMATCH')",
+  "traceback": "Traceback (most recent call last):\n  File \"/pool/wrf-experiment/wrf-cpu/kernels/current330d-mass-weight-cached-static-interface-native-hpc02-r2/run_gate.py\", line 57, in <module>\n    off=next(k for k,(a,z)in enumerate(zip(gold[opt],data))if a!=z);r['first_mismatch']={'opt':opt,'byte_offset':off,'record':off//b['record_bytes'],'offset_in_record':off%b['record_bytes'],'case':off//b['record_bytes']%32+1,'round':off//b['record_bytes']//32,'parent_word':gold[opt][off//4*4:off//4*4+4].hex(),'candidate_word':data[off//4*4:off//4*4+4].hex()};raise AssertionError('HARD_WHOLE_MASS_WEIGHT_FULLPHYSICAL_OR_RAW5_MISMATCH')\n                                                                                                                                                                                                                                                                                                                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: HARD_WHOLE_MASS_WEIGHT_FULLPHYSICAL_OR_RAW5_MISMATCH\n",
+  "elapsed_seconds": 2.6156105720438063
+}

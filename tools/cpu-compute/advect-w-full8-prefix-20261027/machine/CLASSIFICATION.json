@@ -1,0 +1,356 @@
+{
+  "status": "SCOPED_ACTUAL_O2_MACHINE_AND_ORIGINAL_MOD_NATIVE_GO",
+  "eligible_for_complete_advect_w_caller": true,
+  "eligible_for_application_trial": true,
+  "native_receipt_sha256": "d95158d1f249cdca9e1f49e6ad914e86b232d3b4e206929827e1ea1a41d7ff0b",
+  "native_closure_sha256": "908eee1d142aa41918602ccf2dd2be5d2a7731a63fe785f970b10ba71d331887",
+  "candidate_O2_object_sha256": "b2bb4720a7d6ed933472802b72d0e222884332fccac9c43ef7f5f9b6ce29e37a",
+  "candidate_PP_sha256": "a38ff73db8e312ec60ec1a5375e3267d1c6baff0318e14a630ae7719c09e212a",
+  "original_module_sha256": "f72c4d70001c094ce0b81c65eff04b359bc693380cccb144fcb0682352acd4a3",
+  "evidence_sha256": {
+    "actual_metadata": "fff84bec5cdd893cf1e2b792ba1c7754d4c3129f00facd636fe9bb0008a3d5b8",
+    "actual_guard_frames": "781c2a2a0f49109372102fefcd8f62d140845f212f5f566ceefe97f2c6a3900a"
+  },
+  "actual_native": {
+    "comparisons_per_opt": 80,
+    "opt_levels": [
+      "O2",
+      "O0"
+    ],
+    "full_raw_five_readonly_physical_exact": true,
+    "original_failed_R1_retained": true,
+    "model_or_forecast_qualified": false
+  },
+  "target": {
+    "parent_bytes": 57547,
+    "candidate_bytes": 63228,
+    "one_mask_helper_call": "32a9d call /32a9e wrf_phy_interp_all_masked;32ab5test/savedbool",
+    "guard_scope": "onceatH5branchentry/all6masksbothunits; unchangedcachedread-onlyhelperd376; originalscalarELSE andpositiveIintegerguard",
+    "full8_prefix_true_DIV": [
+      "39327 vdivps ymm3,ymm0,ymm0",
+      "39349 vdivps ymm3,ymm1,ymm1"
+    ],
+    "no_packed_XMM_epilogue_in_full8_prefix": true,
+    "scalar_remainder_true_DIV": [
+      "394e9",
+      "39508"
+    ],
+    "scalar_fallback_true_DIV": [
+      "399b5",
+      "399d0"
+    ],
+    "operand_priority_scope": "Literaloriginalvelocity/flux5trees retained. Actual competing W/RU payload swaps +sNaN/signedzero/short/exact8/full-tail allfourrounds now exact in genuinewholeAPI. No blanket arithmeticNaN-order theorem; actualcoverednativebits decisive.",
+    "unmasked_scope": "FiniteINVALID-unmaskedfallbackwitness nativeexact; no universalresumabletrap-prefix or globaltrapcount claim."
+  },
+  "non_target": {
+    "function_set_and_all11_sizes_exact": true,
+    "raw_body_exact_count": 9,
+    "raw_body_false_count": 2,
+    "raw_byte_changes_exactly_four_IO_row_immediates": [
+      {
+        "function": "__module_advect_em_MOD_advect_scalar_mono",
+        "instruction_offset": 19425,
+        "parent_source_line": 10150,
+        "candidate_source_line": 10179,
+        "literal_statement": "      WRITE ( wrf_err_message , * ) 'module_advect: advect_scalar_mono, h_order not known ',horz_order",
+        "parent_instruction": "   11d61:\tc7 84 24 90 04 00 00 a6 27 00 00                \tmovl   $0x27a6,0x490(%rsp)",
+        "candidate_instruction": "   11d61:\tc7 84 24 90 04 00 00 c3 27 00 00                \tmovl   $0x27c3,0x490(%rsp)"
+      },
+      {
+        "function": "__module_advect_em_MOD_advect_scalar_mono",
+        "instruction_offset": 23267,
+        "parent_source_line": 10427,
+        "candidate_source_line": 10456,
+        "literal_statement": "      WRITE (wrf_err_message,*) ' advect_scalar_mono, v_order not known ',vert_order",
+        "parent_instruction": "   12c63:\tc7 84 24 90 04 00 00 bb 28 00 00                \tmovl   $0x28bb,0x490(%rsp)",
+        "candidate_instruction": "   12c63:\tc7 84 24 90 04 00 00 d8 28 00 00                \tmovl   $0x28d8,0x490(%rsp)"
+      },
+      {
+        "function": "__module_advect_em_MOD_advect_scalar_pd",
+        "instruction_offset": 4173,
+        "parent_source_line": 7362,
+        "candidate_source_line": 7391,
+        "literal_statement": "      WRITE ( wrf_err_message , * ) 'module_advect: advect_scalar_pd, h_order not known ',horz_order",
+        "parent_instruction": "   1e0cd:\tc7 84 24 c0 05 00 00 c2 1c 00 00                \tmovl   $0x1cc2,0x5c0(%rsp)",
+        "candidate_instruction": "   1e0cd:\tc7 84 24 c0 05 00 00 df 1c 00 00                \tmovl   $0x1cdf,0x5c0(%rsp)"
+      },
+      {
+        "function": "__module_advect_em_MOD_advect_scalar_pd",
+        "instruction_offset": 36623,
+        "parent_source_line": 7780,
+        "candidate_source_line": 7809,
+        "literal_statement": "      WRITE (wrf_err_message,*) ' advect_scalar_pd, v_order not known ',vert_order",
+        "parent_instruction": "   25f8f:\tc7 84 24 c0 05 00 00 64 1e 00 00                \tmovl   $0x1e64,0x5c0(%rsp)",
+        "candidate_instruction": "   25f8f:\tc7 84 24 c0 05 00 00 81 1e 00 00                \tmovl   $0x1e81,0x5c0(%rsp)"
+      }
+    ],
+    "full_RELA_false_count": 5,
+    "all_changed_RELA_count": 31,
+    "same_resolved_referent_count": 21,
+    "different_referents_only_diagnostic_filename": [
+      {
+        "function": "__module_advect_em_MOD_advect_scalar",
+        "offset": 19517,
+        "parent": {
+          "kind": "cstring",
+          "bytes_hex": "6d6f64756c655f6164766563745f656d2e66393000",
+          "text": "module_advect_em.f90"
+        },
+        "candidate": {
+          "kind": "cstring",
+          "bytes_hex": "2f706f6f6c2f7772662d6578706572696d656e742f7772662d6370752f6b65726e656c732f63757272656e74333361322d616476656374772d66756c6c382d7072656669782d67656e75696e652d6e61746976652d68706330322d72322f776f726b2f4f322f6d6f64756c655f6164766563745f656d2e66393000",
+          "text": "/pool/wrf-experiment/wrf-cpu/kernels/current33a2-advectw-full8-prefix-genuine-native-hpc02-r2/work/O2/module_advect_em.f90"
+        }
+      },
+      {
+        "function": "__module_advect_em_MOD_advect_scalar",
+        "offset": 38946,
+        "parent": {
+          "kind": "cstring",
+          "bytes_hex": "6d6f64756c655f6164766563745f656d2e66393000",
+          "text": "module_advect_em.f90"
+        },
+        "candidate": {
+          "kind": "cstring",
+          "bytes_hex": "2f706f6f6c2f7772662d6578706572696d656e742f7772662d6370752f6b65726e656c732f63757272656e74333361322d616476656374772d66756c6c382d7072656669782d67656e75696e652d6e61746976652d68706330322d72322f776f726b2f4f322f6d6f64756c655f6164766563745f656d2e66393000",
+          "text": "/pool/wrf-experiment/wrf-cpu/kernels/current33a2-advectw-full8-prefix-genuine-native-hpc02-r2/work/O2/module_advect_em.f90"
+        }
+      },
+      {
+        "function": "__module_advect_em_MOD_advect_scalar_mono",
+        "offset": 19421,
+        "parent": {
+          "kind": "cstring",
+          "bytes_hex": "6d6f64756c655f6164766563745f656d2e66393000",
+          "text": "module_advect_em.f90"
+        },
+        "candidate": {
+          "kind": "cstring",
+          "bytes_hex": "2f706f6f6c2f7772662d6578706572696d656e742f7772662d6370752f6b65726e656c732f63757272656e74333361322d616476656374772d66756c6c382d7072656669782d67656e75696e652d6e61746976652d68706330322d72322f776f726b2f4f322f6d6f64756c655f6164766563745f656d2e66393000",
+          "text": "/pool/wrf-experiment/wrf-cpu/kernels/current33a2-advectw-full8-prefix-genuine-native-hpc02-r2/work/O2/module_advect_em.f90"
+        }
+      },
+      {
+        "function": "__module_advect_em_MOD_advect_scalar_mono",
+        "offset": 23263,
+        "parent": {
+          "kind": "cstring",
+          "bytes_hex": "6d6f64756c655f6164766563745f656d2e66393000",
+          "text": "module_advect_em.f90"
+        },
+        "candidate": {
+          "kind": "cstring",
+          "bytes_hex": "2f706f6f6c2f7772662d6578706572696d656e742f7772662d6370752f6b65726e656c732f63757272656e74333361322d616476656374772d66756c6c382d7072656669782d67656e75696e652d6e61746976652d68706330322d72322f776f726b2f4f322f6d6f64756c655f6164766563745f656d2e66393000",
+          "text": "/pool/wrf-experiment/wrf-cpu/kernels/current33a2-advectw-full8-prefix-genuine-native-hpc02-r2/work/O2/module_advect_em.f90"
+        }
+      },
+      {
+        "function": "__module_advect_em_MOD_advect_scalar_pd",
+        "offset": 4169,
+        "parent": {
+          "kind": "cstring",
+          "bytes_hex": "6d6f64756c655f6164766563745f656d2e66393000",
+          "text": "module_advect_em.f90"
+        },
+        "candidate": {
+          "kind": "cstring",
+          "bytes_hex": "2f706f6f6c2f7772662d6578706572696d656e742f7772662d6370752f6b65726e656c732f63757272656e74333361322d616476656374772d66756c6c382d7072656669782d67656e75696e652d6e61746976652d68706330322d72322f776f726b2f4f322f6d6f64756c655f6164766563745f656d2e66393000",
+          "text": "/pool/wrf-experiment/wrf-cpu/kernels/current33a2-advectw-full8-prefix-genuine-native-hpc02-r2/work/O2/module_advect_em.f90"
+        }
+      },
+      {
+        "function": "__module_advect_em_MOD_advect_scalar_pd",
+        "offset": 36619,
+        "parent": {
+          "kind": "cstring",
+          "bytes_hex": "6d6f64756c655f6164766563745f656d2e66393000",
+          "text": "module_advect_em.f90"
+        },
+        "candidate": {
+          "kind": "cstring",
+          "bytes_hex": "2f706f6f6c2f7772662d6578706572696d656e742f7772662d6370752f6b65726e656c732f63757272656e74333361322d616476656374772d66756c6c382d7072656669782d67656e75696e652d6e61746976652d68706330322d72322f776f726b2f4f322f6d6f64756c655f6164766563745f656d2e66393000",
+          "text": "/pool/wrf-experiment/wrf-cpu/kernels/current33a2-advectw-full8-prefix-genuine-native-hpc02-r2/work/O2/module_advect_em.f90"
+        }
+      },
+      {
+        "function": "__module_advect_em_MOD_advect_u",
+        "offset": 22601,
+        "parent": {
+          "kind": "cstring",
+          "bytes_hex": "6d6f64756c655f6164766563745f656d2e66393000",
+          "text": "module_advect_em.f90"
+        },
+        "candidate": {
+          "kind": "cstring",
+          "bytes_hex": "2f706f6f6c2f7772662d6578706572696d656e742f7772662d6370752f6b65726e656c732f63757272656e74333361322d616476656374772d66756c6c382d7072656669782d67656e75696e652d6e61746976652d68706330322d72322f776f726b2f4f322f6d6f64756c655f6164766563745f656d2e66393000",
+          "text": "/pool/wrf-experiment/wrf-cpu/kernels/current33a2-advectw-full8-prefix-genuine-native-hpc02-r2/work/O2/module_advect_em.f90"
+        }
+      },
+      {
+        "function": "__module_advect_em_MOD_advect_u",
+        "offset": 39357,
+        "parent": {
+          "kind": "cstring",
+          "bytes_hex": "6d6f64756c655f6164766563745f656d2e66393000",
+          "text": "module_advect_em.f90"
+        },
+        "candidate": {
+          "kind": "cstring",
+          "bytes_hex": "2f706f6f6c2f7772662d6578706572696d656e742f7772662d6370752f6b65726e656c732f63757272656e74333361322d616476656374772d66756c6c382d7072656669782d67656e75696e652d6e61746976652d68706330322d72322f776f726b2f4f322f6d6f64756c655f6164766563745f656d2e66393000",
+          "text": "/pool/wrf-experiment/wrf-cpu/kernels/current33a2-advectw-full8-prefix-genuine-native-hpc02-r2/work/O2/module_advect_em.f90"
+        }
+      },
+      {
+        "function": "__module_advect_em_MOD_advect_v",
+        "offset": 23975,
+        "parent": {
+          "kind": "cstring",
+          "bytes_hex": "6d6f64756c655f6164766563745f656d2e66393000",
+          "text": "module_advect_em.f90"
+        },
+        "candidate": {
+          "kind": "cstring",
+          "bytes_hex": "2f706f6f6c2f7772662d6578706572696d656e742f7772662d6370752f6b65726e656c732f63757272656e74333361322d616476656374772d66756c6c382d7072656669782d67656e75696e652d6e61746976652d68706330322d72322f776f726b2f4f322f6d6f64756c655f6164766563745f656d2e66393000",
+          "text": "/pool/wrf-experiment/wrf-cpu/kernels/current33a2-advectw-full8-prefix-genuine-native-hpc02-r2/work/O2/module_advect_em.f90"
+        }
+      },
+      {
+        "function": "__module_advect_em_MOD_advect_v",
+        "offset": 43291,
+        "parent": {
+          "kind": "cstring",
+          "bytes_hex": "6d6f64756c655f6164766563745f656d2e66393000",
+          "text": "module_advect_em.f90"
+        },
+        "candidate": {
+          "kind": "cstring",
+          "bytes_hex": "2f706f6f6c2f7772662d6578706572696d656e742f7772662d6370752f6b65726e656c732f63757272656e74333361322d616476656374772d66756c6c382d7072656669782d67656e75696e652d6e61746976652d68706330322d72322f776f726b2f4f322f6d6f64756c655f6164766563745f656d2e66393000",
+          "text": "/pool/wrf-experiment/wrf-cpu/kernels/current33a2-advectw-full8-prefix-genuine-native-hpc02-r2/work/O2/module_advect_em.f90"
+        }
+      }
+    ],
+    "scientific_FP_instructions_and_referenced_constants_unchanged": true,
+    "raw_false_booleans_preserved": true
+  },
+  "pools": {
+    "exact_allocated_sections": [
+      ".data",
+      ".bss",
+      ".rodata",
+      ".rodata.cst4",
+      ".rodata.cst8",
+      ".rodata.cst16"
+    ],
+    "different_strings": "Only compiler diagnostic filename basename\u2192actualabsolutePPpath moves fromstr1.1tostr1.8; allotherresolvedliteraltexts exact; numericalconstants wholebytes/attributes exact.",
+    "eh_frame_raw_equal": false,
+    "CIE_exact": true,
+    "decoded_FDE_records": [
+      {
+        "parent_start": 0,
+        "candidate_start": 0,
+        "parent_size": 22293,
+        "candidate_size": 22293,
+        "target_changed": false,
+        "decoded_CFI_function_relative_equal": true
+      },
+      {
+        "parent_start": 22304,
+        "candidate_start": 22304,
+        "parent_size": 15479,
+        "candidate_size": 15479,
+        "target_changed": false,
+        "decoded_CFI_function_relative_equal": true
+      },
+      {
+        "parent_start": 37792,
+        "candidate_start": 37792,
+        "parent_size": 15833,
+        "candidate_size": 15833,
+        "target_changed": false,
+        "decoded_CFI_function_relative_equal": true
+      },
+      {
+        "parent_start": 53632,
+        "candidate_start": 53632,
+        "parent_size": 26711,
+        "candidate_size": 26711,
+        "target_changed": false,
+        "decoded_CFI_function_relative_equal": true
+      },
+      {
+        "parent_start": 80352,
+        "candidate_start": 80352,
+        "parent_size": 25667,
+        "candidate_size": 25667,
+        "target_changed": false,
+        "decoded_CFI_function_relative_equal": true
+      },
+      {
+        "parent_start": 106032,
+        "candidate_start": 106032,
+        "parent_size": 12876,
+        "candidate_size": 12876,
+        "target_changed": false,
+        "decoded_CFI_function_relative_equal": true
+      },
+      {
+        "parent_start": 118912,
+        "candidate_start": 118912,
+        "parent_size": 78703,
+        "candidate_size": 78703,
+        "target_changed": false,
+        "decoded_CFI_function_relative_equal": true
+      },
+      {
+        "parent_start": 197616,
+        "candidate_start": 197616,
+        "parent_size": 57547,
+        "candidate_size": 63228,
+        "target_changed": true,
+        "decoded_CFI_function_relative_equal": false
+      },
+      {
+        "parent_start": 255168,
+        "candidate_start": 260848,
+        "parent_size": 199,
+        "candidate_size": 199,
+        "target_changed": false,
+        "decoded_CFI_function_relative_equal": true
+      },
+      {
+        "parent_start": 255376,
+        "candidate_start": 261056,
+        "parent_size": 42030,
+        "candidate_size": 42030,
+        "target_changed": false,
+        "decoded_CFI_function_relative_equal": true
+      },
+      {
+        "parent_start": 297408,
+        "candidate_start": 303088,
+        "parent_size": 47427,
+        "candidate_size": 47427,
+        "target_changed": false,
+        "decoded_CFI_function_relative_equal": true
+      },
+      {
+        "parent_start": 344848,
+        "candidate_start": 350528,
+        "parent_size": 41977,
+        "candidate_size": 41977,
+        "target_changed": false,
+        "decoded_CFI_function_relative_equal": true
+      }
+    ],
+    "unwind_scope": "All11nontargetsameCFIoperations/functionrelativePCs; absolutePC/headerrecordoffsets adjust toWsize/frame change. TargetWCFIchanged withactualnewstack/codebody, not claimedbyteequal."
+  },
+  "scope_limits": [
+    "O0fullraw/nativeoriginalMOD80casespass; O0nontargetmachineunclassified.",
+    "This is source/body/native-scopedO2eligibility, notwholeallocatedELFbyteequivalence.",
+    "Actualcompletecallerpositiveandexplicitrootretainstillrequiredforintegration; ownapplicationSCI/default/sourcepromotionpending.",
+    "No whole-sourcecleanrebuild/rawproducercommit certificate."
+  ],
+  "performance_qualified": false,
+  "application_qualified": false,
+  "default_eligible": false
+}

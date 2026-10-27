@@ -1,10 +1,10 @@
-PHY interior interpolation: own unprofiled SAME512 three-hour qualification
+Mass-weight and AdvectW: own joint unprofiled SAME512 three-hour qualification
 
 | Metric | Median3 original controls | Child | Descriptive reduction |
 |---|---:|---:|---:|
-| Wall minutes | 13.33374 | 10.67923 | 19.9082% |
-| Main-step minutes | 9.94084 | 9.03276 | 9.1349% |
-| Aggregate core-hours | 99.81315 | 86.64113 | 13.1967% |
+| Wall minutes | 13.33374 | 10.42766 | 21.7949% |
+| Main-step minutes | 9.94084 | 9.04823 | 8.9792% |
+| Aggregate core-hours | 99.81315 | 84.51915 | 15.3226% |
 
 Original controls (n3 distinct):
 
@@ -14,6 +14,6 @@ Original controls (n3 distinct):
 
 Ranges(seconds): {"wall_seconds": [798.6198086068034, 800.2145909662358], "main_step_sum_seconds": [595.32709, 596.59354], "cpu_seconds": [358644.885565, 359516.46336299996]}
 
-Own unprofiled SAME512 three-hour545/fourFULL only. Candidate-only science versus retained corrected original546b A2; descriptive UNPAIRED wall/main/aggregateCPU versus median3 distinct original controls, hardware epoch unresolved. No matched, isolated/additive, statistical or forecast causal gain. Selected330d previous fixes/RSL/18directdeps/input06/outputdb0d/NG9371 retained; BigStep27e9→9bde and cached maskhelperd376 appended (585members,583others exact). WholePHY55×fourrounds O2/O0 rawfive/originalMOD exact; O2 scoped CFG/pool/nontarget containment, O0 nontarget unclassified. Read-only all-six-both-unit mask guard, original scalar unmasked fallback; no universal trap-prefix matrix/asynchronous mask-change claim. Isolated interpolation48.306/46.981%wall lower; completePHY+restores flat/mixed +0.456/−0.150%wall, not established caller gain. Kernel result is not forecast gain. Post-test three-file targetCPP/source correspondence plus actual qualifiedPP/cachedOO/helper; rawproducerNULL/no cleanF-only fullbuildcertificate. Childnoon/9h/profile/restart/144/384/256 FALSE; parent330dnoon historical only. MPI prototypes excluded.
+Own unprofiled SAME512 joint-MW+AdvectW three-hour545/fourFULL only. Candidate-only science versus retained corrected original546b A2; allthree timing metrics descriptive UNPAIRED versus median3 distinct originalcontrols, not a matchedbracket/replication or additive isolated forecastgain. Current33a2 priorfixes/PHYhelperd376/RSL6eb/18directdeps/input06/outputdb0d/NG9371 retained; BC2735->a019 and AdvectCECA->b2bb only (585members,583others exact,0helperappend). MW128cases O2/O0 fullphysical/readOnly/rawfive passed after R1rawMOD rejection and R2scalar-tailNaN failure; R3full4prefix+literaloriginalscalarremainder preservespriority. Raw MW MOD equality FALSE: exactly3 conservative GNU13.3 ARRAY_OUTER_DEPENDENCY bits authorized in non-elemental/directCALL binaryroute, allothertypedtokens exact; no artifacts rewritten/global rebuiltcallerABI certificate. Actual MW O2 allnontargetbodies/pools exact;4callRELA differences targetsizeonly; O0nontarget unclassified. MWcomplete4096restore-inclusive188x19x33:31.924/32.141%wall lower. W genuinewhole20x4O2/O0 fullrawfive/originalMOD exact; onefull8prefixrepair preserves originalscalarremainder after firstnativeNaNfailure. Wcomplete128 caller20.676/20.464%wall lower; O2 scopeddiagnosticfilename/4IOline+29/ehframe differences retained, O0nontarget unclassified. Readonlyall6bothunit maskguard/d376 noFPcontrolwrites, originalscalarfallback underunmasked; only testedfiniteunmasked witnesses, no universaltrap-prefix/asynchronousmask claim. Posttest3filetargetCPP/sourcecorrespondence8996/a38f pluscachedOOa019/b2bb; rawproducerNULL/no cleanF-onlyfullbuild certificate. Childnoon/9h/profile/restart/144/384/256 FALSE; parent33a2 own3h historical, unusedBC-onlyc5d8 ownAPPFALSE.
 
-Default WRF_PHY_INTERPOLATION_SIMD=1 is effective only under qualified strict GNU13.3/O2/defaultREAL4INT4/pureMPI support. Runtime uses SIMD only with all six exceptions masked in both units; otherwise literal scalar loop. Explicit0 plus real rebuild/relink restores original path. Read-only helper performs no flag/errno normalization. Prior fixes retained.
+Both changes are now enabled by default in source commit `1872ec9a` within the qualified compiler/build scope. Set `WRF_MASS_WEIGHT_SIMD=0` or `WRF_ADVECT_W_X5_SIMD=0` and rebuild/relink to opt out. Original scalar fallbacks and all previous improvements remain. [Component and application evidence](tools/cpu-compute/mass-weight-advectw-batch-20261027/APPLICATION_README.md).

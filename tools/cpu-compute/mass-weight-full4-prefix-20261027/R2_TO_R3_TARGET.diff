@@ -1,0 +1,28 @@
+--- R2_failed_tail
++++ R3_explicit_scalar_remainder
+@@ -18,7 +18,7 @@
+ 
+       
+ 
+-      INTEGER :: i , j , k
++      INTEGER :: i , j , k, vector_last
+       INTERFACE
+         PURE FUNCTION wrf_phy_interp_all_masked() BIND(C, NAME="wrf_phy_interp_all_masked") RESULT(masked)
+           IMPORT c_int
+@@ -28,10 +28,15 @@
+ 
+ 
+       IF (wrf_phy_interp_all_masked() /= 0_c_int) THEN
++      vector_last = its - 1
++      IF (ite >= its) vector_last = ite - MOD(ite-its+1,4)
+       DO j = jts , jte
+          DO k = kts , kte
+ !$OMP SIMD PRIVATE(i)
+-            DO i = its , ite
++            DO i = its , vector_last
++               rfield(i,k,j) = field(i,k,j) * (c1(k)*mut(i,j)+c2(k))
++            END DO
++            DO i = vector_last + 1 , ite
+                rfield(i,k,j) = field(i,k,j) * (c1(k)*mut(i,j)+c2(k))
+             END DO
+          END DO

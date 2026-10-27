@@ -1,0 +1,60 @@
+--- current-e810
++++ candidate-full8-prefix-r2
+@@ -4291,7 +4291,16 @@
+                          ims, ime, jms, jme, kms, kme,  &
+                          its, ite, jts, jte, kts, kte  )
+ 
++   USE, INTRINSIC :: ISO_C_BINDING, ONLY: c_int
+    IMPLICIT NONE
++   LOGICAL :: w_x5_all_masked
++   INTEGER :: i_x5_vec_end
++   INTERFACE
++     PURE FUNCTION wrf_phy_interp_all_masked() BIND(C, NAME="wrf_phy_interp_all_masked") RESULT(masked)
++       IMPORT c_int
++       INTEGER(c_int) :: masked
++     END FUNCTION wrf_phy_interp_all_masked
++   END INTERFACE
+    
+    
+    
+@@ -4700,6 +4709,7 @@
+       ENDDO
+ 
+ ELSE IF (horz_order == 5 ) THEN
++  w_x5_all_masked=wrf_phy_interp_all_masked()/=0_c_int
+ 
+ 
+ 
+@@ -4918,6 +4928,24 @@
+ 
+ 
+         DO k=kts+1,ktf
++        IF (w_x5_all_masked .AND. i_start_f <= i_end_f) THEN
++          i_x5_vec_end=i_start_f+8*((i_end_f-i_start_f+1)/8)-1
++!$OMP SIMD PRIVATE(vel)
++        DO i = i_start_f, i_x5_vec_end
++          vel = fzm(k)*ru(i,k,j)+fzp(k)*ru(i,k-1,j)
++          fqx( i,k ) = vel*flux5( w(i-3,k,j), w(i-2,k,j),  &
++                                  w(i-1,k,j), w(i  ,k,j),  &
++                                  w(i+1,k,j), w(i+2,k,j),  &
++                                  vel                     )
++        ENDDO
++        DO i = i_x5_vec_end+1, i_end_f
++          vel = fzm(k)*ru(i,k,j)+fzp(k)*ru(i,k-1,j)
++          fqx( i,k ) = vel*flux5( w(i-3,k,j), w(i-2,k,j),  &
++                                  w(i-1,k,j), w(i  ,k,j),  &
++                                  w(i+1,k,j), w(i+2,k,j),  &
++                                  vel                     )
++        ENDDO
++        ELSE
+         DO i = i_start_f, i_end_f
+           vel = fzm(k)*ru(i,k,j)+fzp(k)*ru(i,k-1,j)
+           fqx( i,k ) = vel*flux5( w(i-3,k,j), w(i-2,k,j),  &
+@@ -4925,6 +4953,7 @@
+                                   w(i+1,k,j), w(i+2,k,j),  &
+                                   vel                     )
+         ENDDO
++        ENDIF
+         ENDDO
+ 
+         k = ktf+1

@@ -1,0 +1,54 @@
+{
+  "status": "PASS_LOCAL_TARGET_CPP_ONLY_NO_SCIENTIFIC_COMPILE",
+  "cases": [
+    {
+      "case": "ON",
+      "args": [
+        "-DDM_PARALLEL",
+        "-DWRF_ADVECT_W_X5_SIMD_ENABLE"
+      ],
+      "exact_whole_advect_w_statement_directive_literal_stream": true,
+      "stream_sha256": "4eec2cff713a599bcc8630efc240fc4bc026985abfa0fd7a4fa90330e0228cd5"
+    },
+    {
+      "case": "OFF",
+      "args": [
+        "-DDM_PARALLEL"
+      ],
+      "exact_whole_advect_w_statement_directive_literal_stream": true,
+      "stream_sha256": "7f58ed9931db33618572d5ef33b891d4d0dc0da26d110be88e44fa1aa340065e"
+    },
+    {
+      "case": "DISABLE_WINS",
+      "args": [
+        "-DDM_PARALLEL",
+        "-DWRF_ADVECT_W_X5_SIMD_ENABLE",
+        "-DWRF_ADVECT_W_X5_SIMD_DISABLE"
+      ],
+      "exact_whole_advect_w_statement_directive_literal_stream": true,
+      "stream_sha256": "7f58ed9931db33618572d5ef33b891d4d0dc0da26d110be88e44fa1aa340065e"
+    },
+    {
+      "case": "OPENMP_FALLBACK",
+      "args": [
+        "-DDM_PARALLEL",
+        "-D_OPENMP",
+        "-DWRF_ADVECT_W_X5_SIMD_ENABLE"
+      ],
+      "exact_whole_advect_w_statement_directive_literal_stream": true,
+      "stream_sha256": "7f58ed9931db33618572d5ef33b891d4d0dc0da26d110be88e44fa1aa340065e"
+    },
+    {
+      "case": "NONMPI_FALLBACK",
+      "args": [
+        "-DWRF_ADVECT_W_X5_SIMD_ENABLE"
+      ],
+      "exact_whole_advect_w_statement_directive_literal_stream": true,
+      "stream_sha256": "7f58ed9931db33618572d5ef33b891d4d0dc0da26d110be88e44fa1aa340065e"
+    }
+  ],
+  "native_parent_PP_sha256": "e8102ef3ade72b5143b633fc7521ff0ee1fcb9dffc525145704efced8e526199",
+  "native_candidate_PP_sha256": "a38ff73db8e312ec60ec1a5375e3267d1c6baff0318e14a630ae7719c09e212a",
+  "native_candidate_O2_sha256": "b2bb4720a7d6ed933472802b72d0e222884332fccac9c43ef7f5f9b6ce29e37a",
+  "scope": "WholeAdvectW typedstatement/directive/literalstream only; alloutside-targetcanonicalbytes unchanged; NO freshwholecanonicalPP/cleanbuild/rawproducer certificate."
+}

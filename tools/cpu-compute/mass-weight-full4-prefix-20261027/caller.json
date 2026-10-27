@@ -1,0 +1,134 @@
+{
+  "status": "PASS_CURRENT330D_COMPLETE_MASS_WEIGHT4096_FOUR_ARMS",
+  "arms": [
+    {
+      "arm": 0,
+      "host": "hpc01",
+      "which": 0,
+      "wall_seconds": 0.594474487,
+      "cpu_seconds": 0.594455154,
+      "raw_sha256": "9295b5b5b059bfe0468798631dccafb50b9d94463bfecc4b396461eaa8c44992",
+      "warm5": [
+        34,
+        0,
+        0,
+        8064,
+        895
+      ],
+      "batch5": [
+        34,
+        0,
+        0,
+        8064,
+        895
+      ],
+      "receipt_sha256": "0379a1ddcb279e7fa77cd848efc0c586c044be77e888f1e4e196c0c03d7d0506",
+      "closure_sha256": "621512c8a3f7e05e4cfd918a81baa61d32446da36ec7ad5e720fa345742fdf65",
+      "cache_sha256": "ffa08b81b463850cc2bbcd3b10fc27f50d294e94f31f6ee2d7106eaee8425f92",
+      "invocation_id": "2687c90dbf95480fb1d3ddc20f26b240"
+    },
+    {
+      "arm": 1,
+      "host": "hpc02",
+      "which": 1,
+      "wall_seconds": 0.408258261,
+      "cpu_seconds": 0.408248232,
+      "raw_sha256": "9295b5b5b059bfe0468798631dccafb50b9d94463bfecc4b396461eaa8c44992",
+      "warm5": [
+        34,
+        0,
+        0,
+        8064,
+        895
+      ],
+      "batch5": [
+        34,
+        0,
+        0,
+        8064,
+        895
+      ],
+      "receipt_sha256": "46faeb5fa6372003793df1cb721faa1e0e3f50274d276288600dadfede5915de",
+      "closure_sha256": "f1319d4eaf658dfdcca656547669ff605b6d676bcd8788d659ccceec2d98bf0d",
+      "cache_sha256": "ec9becb4eb039c04a0cda021f2e73ffde5497fd9f1a74e2ab8a7f06f197d1807",
+      "invocation_id": "204bc2ff100045cb9d03e77a24d55220"
+    },
+    {
+      "arm": 2,
+      "host": "hpc01",
+      "which": 1,
+      "wall_seconds": 0.40469651,
+      "cpu_seconds": 0.4046736,
+      "raw_sha256": "9295b5b5b059bfe0468798631dccafb50b9d94463bfecc4b396461eaa8c44992",
+      "warm5": [
+        34,
+        0,
+        0,
+        8064,
+        895
+      ],
+      "batch5": [
+        34,
+        0,
+        0,
+        8064,
+        895
+      ],
+      "receipt_sha256": "4deb30fb5d89b76daf599a0a3d9bf75ba2707eaa52caef971ff0e2d6d353ea0e",
+      "closure_sha256": "747559c7feb8e4f48c6cbd4f8f545c803eafab0a996de64b4b35714ed6267827",
+      "cache_sha256": "be7e003a843656934d7ae168ed0869030e7f010b3dd43266cfa773f78e0df337",
+      "invocation_id": "659e8edcfedb45718b3824af6655c5cb"
+    },
+    {
+      "arm": 3,
+      "host": "hpc02",
+      "which": 0,
+      "wall_seconds": 0.60162652,
+      "cpu_seconds": 0.601599724,
+      "raw_sha256": "9295b5b5b059bfe0468798631dccafb50b9d94463bfecc4b396461eaa8c44992",
+      "warm5": [
+        34,
+        0,
+        0,
+        8064,
+        895
+      ],
+      "batch5": [
+        34,
+        0,
+        0,
+        8064,
+        895
+      ],
+      "receipt_sha256": "82e62e9879542f27c3ee9eb0a8951c44ab7c2da974b634f420662fb2463f7017",
+      "closure_sha256": "57f0d7f53dff83701a7db05bdcc884e034af4b1a77637c68a30a994c4468f267",
+      "cache_sha256": "e30de6d6e38f0655419f2a0e36315ef8500413459757142db95dbb6f60cc3ecb",
+      "invocation_id": "ab501a1857cd407d82281ba5209a37c9"
+    }
+  ],
+  "comparisons": [
+    {
+      "host": "hpc01",
+      "parent_arm": 0,
+      "candidate_arm": 2,
+      "parent_wall_seconds": 0.594474487,
+      "candidate_wall_seconds": 0.40469651,
+      "wall_reduction_percent": 31.923653773219037,
+      "parent_cpu_seconds": 0.594455154,
+      "candidate_cpu_seconds": 0.4046736,
+      "cpu_reduction_percent": 31.92529372871751
+    },
+    {
+      "host": "hpc02",
+      "parent_arm": 3,
+      "candidate_arm": 1,
+      "parent_wall_seconds": 0.60162652,
+      "candidate_wall_seconds": 0.408258261,
+      "wall_reduction_percent": 32.14091343579735,
+      "parent_cpu_seconds": 0.601599724,
+      "candidate_cpu_seconds": 0.408248232,
+      "cpu_reduction_percent": 32.139557962962094
+    }
+  ],
+  "scope": "Synthetic188x19x33 complete mass_weight4096calls with fullmutableoutputrestore INSIDEintegerwall/threadCPU. Whole genuine procedure is the kernel; one maskquery percall included. Fullwarm/finalphysical,readonly,guards and separatewarm/samecountbatch5 hardcrossarms; no isolatedloop or MPIprogress test.01P02C01C02P cacheEACH/normalclosed. Native fourround/unmasked/NaN evidence separate. No forecast/global claim."
+}

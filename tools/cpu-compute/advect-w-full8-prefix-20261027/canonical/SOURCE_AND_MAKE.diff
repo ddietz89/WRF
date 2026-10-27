@@ -1,0 +1,192 @@
+--- dyn_em/module_advect_em.F
++++ dyn_em/module_advect_em.F
+@@ -4521,7 +4521,20 @@
+                          ims, ime, jms, jme, kms, kme,  &
+                          its, ite, jts, jte, kts, kte  )
+ 
++#if defined(WRF_ADVECT_W_X5_SIMD_ENABLE) && !defined(WRF_ADVECT_W_X5_SIMD_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
++   USE, INTRINSIC :: ISO_C_BINDING, ONLY: c_int
++#endif
+    IMPLICIT NONE
++#if defined(WRF_ADVECT_W_X5_SIMD_ENABLE) && !defined(WRF_ADVECT_W_X5_SIMD_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
++   LOGICAL :: w_x5_all_masked
++   INTEGER :: i_x5_vec_end
++   INTERFACE
++     PURE FUNCTION wrf_phy_interp_all_masked() BIND(C, NAME="wrf_phy_interp_all_masked") RESULT(masked)
++       IMPORT c_int
++       INTEGER(c_int) :: masked
++     END FUNCTION wrf_phy_interp_all_masked
++   END INTERFACE
++#endif
+    
+    ! Input data
+    
+@@ -4930,6 +4943,9 @@
+       ENDDO
+ 
+ ELSE IF (horz_order == 5 ) THEN
++#if defined(WRF_ADVECT_W_X5_SIMD_ENABLE) && !defined(WRF_ADVECT_W_X5_SIMD_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
++  w_x5_all_masked=wrf_phy_interp_all_masked()/=0_c_int
++#endif
+ 
+ !  determine boundary mods for flux operators
+ !  We degrade the flux operators from 3rd/4th order
+@@ -5148,6 +5164,26 @@
+ !  5th or 6th order flux
+ 
+         DO k=kts+1,ktf
++#if defined(WRF_ADVECT_W_X5_SIMD_ENABLE) && !defined(WRF_ADVECT_W_X5_SIMD_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
++        IF (w_x5_all_masked .AND. i_start_f <= i_end_f) THEN
++          i_x5_vec_end=i_start_f+8*((i_end_f-i_start_f+1)/8)-1
++!$OMP SIMD PRIVATE(vel)
++        DO i = i_start_f, i_x5_vec_end
++          vel = fzm(k)*ru(i,k,j)+fzp(k)*ru(i,k-1,j)
++          fqx( i,k ) = vel*flux5( w(i-3,k,j), w(i-2,k,j),  &
++                                  w(i-1,k,j), w(i  ,k,j),  &
++                                  w(i+1,k,j), w(i+2,k,j),  &
++                                  vel                     )
++        ENDDO
++        DO i = i_x5_vec_end+1, i_end_f
++          vel = fzm(k)*ru(i,k,j)+fzp(k)*ru(i,k-1,j)
++          fqx( i,k ) = vel*flux5( w(i-3,k,j), w(i-2,k,j),  &
++                                  w(i-1,k,j), w(i  ,k,j),  &
++                                  w(i+1,k,j), w(i+2,k,j),  &
++                                  vel                     )
++        ENDDO
++        ELSE
++#endif
+         DO i = i_start_f, i_end_f
+           vel = fzm(k)*ru(i,k,j)+fzp(k)*ru(i,k-1,j)
+           fqx( i,k ) = vel*flux5( w(i-3,k,j), w(i-2,k,j),  &
+@@ -5155,6 +5191,9 @@
+                                   w(i+1,k,j), w(i+2,k,j),  &
+                                   vel                     )
+         ENDDO
++#if defined(WRF_ADVECT_W_X5_SIMD_ENABLE) && !defined(WRF_ADVECT_W_X5_SIMD_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
++        ENDIF
++#endif
+         ENDDO
+ 
+         k = ktf+1
+
+--- dyn_em/Makefile
++++ dyn_em/Makefile
+@@ -972,3 +972,118 @@
+ endif
+ endif
+ 
++
++# Conditional mass_weight full4-prefix SIMD; original scalar remainder/fallback.
++# Default1 proposal only: installation requires own application science/root decision.
++# Reuses qualified PHY-owned wrf_phy_interp_mask.o; no second helper/archive member.
++WRF_MASS_WEIGHT_SIMD ?= 1
++module_bc_em.o: private override CPPFLAGS += -UWRF_MASS_WEIGHT_SIMD_ENABLE
++ifeq ($(WRF_MASS_WEIGHT_SIMD),0)
++module_bc_em.o: private override CPPFLAGS += -DWRF_MASS_WEIGHT_SIMD_DISABLE
++endif
++ifeq ($(WRF_MASS_WEIGHT_SIMD),1)
++ifeq ($(WRF_PHY_INTERPOLATION_SIMD),1)
++ifeq ($(filter -UDM_PARALLEL -U,$(CPPFLAGS)),)
++ifeq ($(WRF_DIFFUSION_SIMD),1)
++ifeq ($(strip $(OMPCPP) $(OMP) $(PROMOTION) $(DOUBLE_PRECISION)),)
++ifeq ($(filter -fopenmp -fopenmp=%,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
++ifeq ($(strip $(RWORDSIZE)),4)
++ifeq ($(strip $(IWORDSIZE)),4)
++ifeq ($(filter -fdefault-% -freal-% -finteger-% -r8 -i8,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
++ifeq ($(sort $(filter -O%,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC))),-O2)
++ifeq ($(filter -ffast-math -Ofast -ffinite-math-only -funsafe-math-optimizations -freciprocal-math -ffp-contract=fast -fno-signed-zeros -fassociative-math -fno-trapping-math,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
++ifneq (,$(filter -fno-fast-math,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG)))
++ifneq (,$(filter -ffp-contract=off,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG)))
++ifeq ($(filter-out -ffp-contract=off,$(filter -ffp-contract=%,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC))),)
++ifeq ($(filter -D_OPENMP -D_OPENMP=%,$(CPPFLAGS)),)
++ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
++ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
++ifneq (,$(findstring GNU Fortran,$(shell $(FC) --version 2>/dev/null)))
++ifeq ($(shell $(FC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
++ifneq (,$(filter -DDM_PARALLEL -DDM_PARALLEL=%,$(CPPFLAGS)))
++ifeq ($(shell $(CC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
++module_bc_em.o: private override CPPFLAGS += -DWRF_MASS_WEIGHT_SIMD_ENABLE
++module_bc_em.o: private override FCFLAGS += -fopenmp-simd
++module_bc_em.o: wrf_phy_interp_mask.o
++
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++
++endif
++endif
++
++# AdvectW X5 full8-prefix SIMD; original scalar remainder and hardware-mask fallback.
++# Strict qualified build scope is guarded below; explicit0 preserves the original path.
++# Reuses qualified PHY-owned wrf_phy_interp_mask.o; no second helper/archive member.
++WRF_ADVECT_W_X5_SIMD ?= 1
++module_advect_em.o: private override CPPFLAGS += -UWRF_ADVECT_W_X5_SIMD_ENABLE
++ifeq ($(WRF_ADVECT_W_X5_SIMD),0)
++module_advect_em.o: private override CPPFLAGS += -DWRF_ADVECT_W_X5_SIMD_DISABLE
++endif
++ifeq ($(WRF_ADVECT_W_X5_SIMD),1)
++ifeq ($(WRF_ADVECTION_SIMD),1)
++ifeq ($(WRF_ADVECTION_ZEN2),1)
++ifeq ($(WRF_PHY_INTERPOLATION_SIMD),1)
++ifeq ($(filter -UDM_PARALLEL -U,$(CPPFLAGS)),)
++ifeq ($(WRF_DIFFUSION_SIMD),1)
++ifeq ($(strip $(OMPCPP) $(OMP) $(PROMOTION) $(DOUBLE_PRECISION)),)
++ifeq ($(filter -fopenmp -fopenmp=%,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
++ifeq ($(strip $(RWORDSIZE)),4)
++ifeq ($(strip $(IWORDSIZE)),4)
++ifeq ($(filter -fdefault-% -freal-% -finteger-% -r8 -i8,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
++ifeq ($(sort $(filter -O%,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC))),-O2)
++ifeq ($(filter -ffast-math -Ofast -ffinite-math-only -funsafe-math-optimizations -freciprocal-math -ffp-contract=fast -fno-signed-zeros -fassociative-math -fno-trapping-math,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
++ifneq (,$(filter -fno-fast-math,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG)))
++ifneq (,$(filter -ffp-contract=off,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG)))
++ifeq ($(filter-out -ffp-contract=off,$(filter -ffp-contract=%,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC))),)
++ifeq ($(filter -D_OPENMP -D_OPENMP=%,$(CPPFLAGS)),)
++ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
++ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
++ifneq (,$(findstring GNU Fortran,$(shell $(FC) --version 2>/dev/null)))
++ifeq ($(shell $(FC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
++ifneq (,$(filter -DDM_PARALLEL -DDM_PARALLEL=%,$(CPPFLAGS)))
++ifeq ($(shell $(CC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
++module_advect_em.o: private override CPPFLAGS += -DWRF_ADVECT_W_X5_SIMD_ENABLE
++module_advect_em.o: wrf_phy_interp_mask.o
++
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++
++endif
++endif
++endif
++endif
