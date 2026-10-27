@@ -1,0 +1,40 @@
+{
+  "status": "PASS_BOUNDED_LOCAL_MAKE_EXPANSIONS_NO_COMPILE",
+  "cases": [
+    {
+      "case": "ON",
+      "enabled": true,
+      "stdout": "FLAGS=-DDM_PARALLEL -UWRF_PHY_INTERPOLATION_SIMD_ENABLE -DWRF_PHY_INTERPOLATION_SIMD_ENABLE\nOBJS=wrf_phy_interp_mask.o\n"
+    },
+    {
+      "case": "OFF",
+      "enabled": false,
+      "stdout": "FLAGS=-DDM_PARALLEL -UWRF_PHY_INTERPOLATION_SIMD_ENABLE -DWRF_PHY_INTERPOLATION_SIMD_DISABLE\nOBJS=\n"
+    },
+    {
+      "case": "OFF_PREEXISTING_ENABLE",
+      "enabled": false,
+      "stdout": "FLAGS=-DDM_PARALLEL -DWRF_PHY_INTERPOLATION_SIMD_ENABLE -UWRF_PHY_INTERPOLATION_SIMD_ENABLE -DWRF_PHY_INTERPOLATION_SIMD_DISABLE\nOBJS=\n"
+    },
+    {
+      "case": "O0",
+      "enabled": false,
+      "stdout": "FLAGS=-DDM_PARALLEL -UWRF_PHY_INTERPOLATION_SIMD_ENABLE\nOBJS=\n"
+    },
+    {
+      "case": "OPENMP",
+      "enabled": false,
+      "stdout": "FLAGS=-DDM_PARALLEL -UWRF_PHY_INTERPOLATION_SIMD_ENABLE\nOBJS=\n"
+    },
+    {
+      "case": "NON_MPI",
+      "enabled": false,
+      "stdout": "FLAGS=-UWRF_PHY_INTERPOLATION_SIMD_ENABLE\nOBJS=\n"
+    },
+    {
+      "case": "CC_NOT_QUALIFIED",
+      "enabled": false,
+      "stdout": "FLAGS=-DDM_PARALLEL -UWRF_PHY_INTERPOLATION_SIMD_ENABLE\nOBJS=\n"
+    }
+  ]
+}

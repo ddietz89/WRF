@@ -1,0 +1,137 @@
+--- dyn_em/module_big_step_utilities_em.F
++++ dyn_em/module_big_step_utilities_em.F
+@@ -5166,7 +5166,19 @@
+                          ims, ime, jms, jme, kms, kme,                &
+                          its, ite, jts, jte, kts, kte                )
+ !----------------------------------------------------------------------
++
++#if defined(WRF_PHY_INTERPOLATION_SIMD_ENABLE) && !defined(WRF_PHY_INTERPOLATION_SIMD_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
++    USE, INTRINSIC :: ISO_C_BINDING, ONLY: c_int
++#endif
+    IMPLICIT NONE
++#if defined(WRF_PHY_INTERPOLATION_SIMD_ENABLE) && !defined(WRF_PHY_INTERPOLATION_SIMD_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
++    INTERFACE
++      PURE FUNCTION wrf_phy_interp_all_masked() BIND(C, NAME="wrf_phy_interp_all_masked") RESULT(masked)
++        IMPORT c_int
++        INTEGER(c_int) :: masked
++      END FUNCTION wrf_phy_interp_all_masked
++    END INTERFACE
++#endif
+ !----------------------------------------------------------------------
+ 
+    TYPE(grid_config_rec_type) ,     INTENT(IN   ) :: config_flags
+@@ -5353,6 +5365,18 @@
+ 
+ !  interp t and p to full levels
+ 
++#if defined(WRF_PHY_INTERPOLATION_SIMD_ENABLE) && !defined(WRF_PHY_INTERPOLATION_SIMD_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
++    IF (wrf_phy_interp_all_masked() /= 0_c_int) THEN
++    do j = j_start,j_end
++    do k = 2, k_end
++!$OMP SIMD
++    do i = i_start, i_end
++      p8w(i,k,j) = fzm(k)*p_phy(i,k,j)+fzp(k)*p_phy(i,k-1,j)
++      t8w(i,k,j) = fzm(k)*t_phy(i,k,j)+fzp(k)*t_phy(i,k-1,j)
++    enddo
++    enddo
++    enddo
++    ELSE
+     do j = j_start,j_end
+     do k = 2, k_end
+     do i = i_start, i_end
+@@ -5361,6 +5385,17 @@
+     enddo
+     enddo
+     enddo
++    ENDIF
++#else
++    do j = j_start,j_end
++    do k = 2, k_end
++    do i = i_start, i_end
++      p8w(i,k,j) = fzm(k)*p_phy(i,k,j)+fzp(k)*p_phy(i,k-1,j)
++      t8w(i,k,j) = fzm(k)*t_phy(i,k,j)+fzp(k)*t_phy(i,k-1,j)
++    enddo
++    enddo
++    enddo
++#endif
+ 
+ !  extrapolate p and t to surface and top.
+ !  we'll use an extrapolation in z for now
+--- dyn_em/Makefile
++++ dyn_em/Makefile
+@@ -919,3 +919,56 @@
+ endif
+ endif
+ 
++
++# Interior p8w/t8w interpolation SIMD with read-only hardware-mask eligibility.
++# WRF_PHY_INTERPOLATION_SIMD=0 preserves the literal original interpolation loop.
++# Rebuild this member and helper when changing the knob.
++WRF_PHY_INTERPOLATION_SIMD ?= 1
++module_big_step_utilities_em.o: private override CPPFLAGS += -UWRF_PHY_INTERPOLATION_SIMD_ENABLE
++ifeq ($(WRF_PHY_INTERPOLATION_SIMD),0)
++module_big_step_utilities_em.o: private override CPPFLAGS += -DWRF_PHY_INTERPOLATION_SIMD_DISABLE
++endif
++ifeq ($(WRF_PHY_INTERPOLATION_SIMD),1)
++ifeq ($(WRF_DIFFUSION_SIMD),1)
++ifeq ($(strip $(OMPCPP) $(OMP) $(PROMOTION) $(DOUBLE_PRECISION)),)
++ifeq ($(filter -fopenmp -fopenmp=%,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
++ifeq ($(strip $(RWORDSIZE)),4)
++ifeq ($(strip $(IWORDSIZE)),4)
++ifeq ($(filter -fdefault-% -freal-% -finteger-% -r8 -i8,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
++ifeq ($(sort $(filter -O%,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC))),-O2)
++ifeq ($(filter -ffast-math -Ofast -ffinite-math-only -funsafe-math-optimizations -freciprocal-math -ffp-contract=fast -fno-signed-zeros -fassociative-math -fno-trapping-math,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
++ifneq (,$(filter -fno-fast-math,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG)))
++ifneq (,$(filter -ffp-contract=off,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG)))
++ifeq ($(filter-out -ffp-contract=off,$(filter -ffp-contract=%,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC))),)
++ifeq ($(filter -D_OPENMP -D_OPENMP=%,$(CPPFLAGS)),)
++ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
++ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
++ifneq (,$(findstring GNU Fortran,$(shell $(FC) --version 2>/dev/null)))
++ifeq ($(shell $(FC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
++ifneq (,$(filter -DDM_PARALLEL -DDM_PARALLEL=%,$(CPPFLAGS)))
++ifeq ($(shell $(CC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
++module_big_step_utilities_em.o: private override CPPFLAGS += -DWRF_PHY_INTERPOLATION_SIMD_ENABLE
++OBJS += wrf_phy_interp_mask.o
++$(LIBTARGET): wrf_phy_interp_mask.o
++wrf_phy_interp_mask.o: wrf_phy_interp_mask.c
++	$(CC) $(CFLAGS) -O2 -std=c11 -fno-fast-math -ffp-contract=off -fno-lto -fno-stack-protector -c $< -o $@
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++endif
++
+--- /dev/null
++++ dyn_em/wrf_phy_interp_mask.c
+@@ -0,0 +1,16 @@
++#include <stdint.h>
++static int32_t masks_set(uint16_t cw, uint32_t mxcsr) {
++  return (cw & UINT16_C(0x003f)) == UINT16_C(0x003f)
++      && (mxcsr & UINT32_C(0x00001f80)) == UINT32_C(0x00001f80);
++}
++int32_t wrf_phy_interp_all_masked(void) {
++#if defined(__i386__) || defined(__x86_64__)
++  uint16_t cw;
++  uint32_t mxcsr;
++  __asm__ volatile ("fnstcw %0" : "=m" (cw));
++  __asm__ volatile ("stmxcsr %0" : "=m" (mxcsr));
++  return masks_set(cw, mxcsr);
++#else
++  return 0;
++#endif
++}

@@ -1,0 +1,38 @@
+{
+  "failures": [
+    {
+      "receipt_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentda1c-phy-interior-p8w-t8w-simd-source-question-r1/native-gate-preparation-r1-hpc03/actual-native-r1/receipt.json",
+      "receipt_sha256": "efb524d3940cea3df1d5bf8e98950add171d424e4a31ea4f8ecd036db297fce7",
+      "invocation_id": "ed118df2d52242608c5abe39edc60f5e",
+      "status": "FAIL_RETAINED_NO_RETRY",
+      "error": "TypeError(\"inventory() missing 1 required positional argument: 'candidate'\")",
+      "scope": "Preservedfailedvariant; noacceptancetransfer"
+    },
+    {
+      "receipt_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentda1c-phy-interior-p8w-t8w-simd-source-question-r1/native-gate-preparation-r2-hpc03/actual-native-r1/receipt.json",
+      "receipt_sha256": "d2fdb007bc41c42c2c431d935f952f2ca838e9b9643cc8b126bee74269c85f28",
+      "invocation_id": "6c382835095f4506aeed1b93a488c465",
+      "status": "FAIL_RETAINED_NO_RETRY",
+      "error": "AssertionError(('COMPLETE_PHY_RAW_OR_FIVE_STATE_MISMATCH', 'O2-candidate-phy_prep_driver.f90-r0'))",
+      "scope": "Preservedfailedvariant; noacceptancetransfer"
+    },
+    {
+      "receipt_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentda1c-phy-interior-p8w-t8w-simd-source-question-r1/native-gate-preparation-r3-hpc03/actual-native-r1/receipt.json",
+      "receipt_sha256": "b5c1d250bea8b1eb425b6367e40ed412a8e9e45097c18d81b45ead3223518d87",
+      "invocation_id": "d05a236aa2684aabbf473e1bb641203e",
+      "status": "FAIL_RETAINED_NO_RETRY",
+      "error": "AssertionError('PUBLIC_MOD_CHANGED')",
+      "scope": "Preservedfailedvariant; noacceptancetransfer"
+    },
+    {
+      "receipt_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentda1c-phy-interior-p8w-t8w-simd-source-question-r1/complete-caller-cost-preparation-r1/driver-build-r1/actual-native-r1/receipt.json",
+      "receipt_sha256": "5b1435283fde9f0670cd9a6ce8b9b0b7d830b6aed93ab91684886d3612f32f8f",
+      "invocation_id": "a08aaa2d8cb04f9e8323380389781d2e",
+      "status": "FAIL_RETAINED_NO_RETRY",
+      "error": "AssertionError(('compile-one-complete-driver', b'', b'/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-phy-interpolation-complete512-driver-hpc03-r1/timing_driver.f90:212:57:\\n\\n  212 |  call emit_words(c_loc(header),13);call emit_words(c_loc(state_before),5);call emit_words(c_loc(state),5)\\n      |                                                         1\\nError: Argument X at (1) to C_LOC shall have either the POINTER or the TARGET attribute\\n'))",
+      "scope": "MissingTARGETinnewtimingobserverfixture; freshdriverR2onlyTARGETrepair, noWRFchange."
+    }
+  ],
+  "raw_or_gate_normalization": false,
+  "unmasked_limits": "R2IEEEimportinsertedwholeprocedurefenvwrappers; failretained. R4truthfulPUREread-onlygetterhasnosuchwrappers. No universalunmaskedtrapchronology/asyncmodechangescertificate."
+}

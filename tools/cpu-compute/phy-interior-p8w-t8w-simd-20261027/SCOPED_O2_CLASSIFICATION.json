@@ -1,0 +1,55 @@
+{
+  "status": "PASS_CURRENTDA1C_PHY_INTERIOR_SCOPED_O2_MACHINE_ADMISSION",
+  "eligible_for_complete_phy_prep_caller": true,
+  "native_receipt_sha256": "7c47af125b09709bb60255ce8e8745bac421135d4fdc5fbf280f04de23a9e8b4",
+  "candidate_O2_object_sha256": "9bde609eba3e29b75c000d0432142d3a2152704ad5c4a7c5cdf3cc32b4688061",
+  "candidate_PP_sha256": "cd4c4e8319a76845e56bbdf8f702471bd58531c8dbb5a4430036fec3c017c637",
+  "public_MOD_exact": true,
+  "native55_fourround_O2_O0_raw5_PASS": true,
+  "target": {
+    "guard_call": "0x9a2e actualcall, test9a3d, zero\u2192scalar9a45, nonzero\u2192packed setupa515",
+    "one_real_mask_call": true,
+    "no_IEEE_envelope": true,
+    "packed4": "a6d0..a704: originaltwoMUL+ADDperoutput, p8storea6ea then t8storea6f9",
+    "packed2_tail": "a735..a76e: MOVQ/MULPS/ADDPS/two-lane stores, currentK product remains ADD destination",
+    "scalar_tail": "a77d..a7b3 scalarMUL/ADD, same source terms/ADD priority, P/Twork caninterleave onlyallmasked",
+    "unmasked_scalar_fallback": "Zero mask result falls through9a45 to scalar-only interpolation region; literal original scalar source preserved; no universalunmaskedtrapmatrixclaim",
+    "source_scope": "Onlyinteriorp8w/t8w+read-onlyguard, height/dz/boundary/QTOTunchanged"
+  },
+  "nontarget": {
+    "raw_false_retained": [
+      "couple strictRELAfalse only"
+    ],
+    "couple_raw_body_and_size_exact": true,
+    "two_RELA_deltas": [
+      {
+        "relocation_offset": 1654,
+        "same_symbol": "__module_big_step_utilities_em_MOD_calc_mu_staggered",
+        "parent_st_value": 186752,
+        "candidate_st_value": 187712,
+        "same_size": 2591
+      },
+      {
+        "relocation_offset": 2172,
+        "same_symbol": "__module_big_step_utilities_em_MOD_calc_mu_staggered",
+        "parent_st_value": 186752,
+        "candidate_st_value": 187712,
+        "same_size": 2591
+      }
+    ],
+    "callee_calc_mu_staggered_raw_size_RELA_exact": true,
+    "all_other40_nontargets_exact": true,
+    "pool_bytes_attrs_exact": true,
+    "pool_RELA_exact": true,
+    "wholemodule_raw_RELA_identity": false,
+    "classification": "Same namedcallee at same2callsiteaddends; st_value+960 due PHYgrowth. No genericnormalization."
+  },
+  "O0_nontarget_unclassified": true,
+  "application_qualified": false,
+  "performance_qualified": false,
+  "evidence_sha256": {
+    "actual_machine_readback": "6f3b47d3e2b34a518778c3d436e9cc353ee655ca480c5a80a05b86b9e5a191fb",
+    "candidate_target_asm": "b2446357097c00b0e34bc368a757ed79f505d4d0a33ad44f6e8e56c31ce7fe7d",
+    "parent_target_asm": "944357a27c2aa4b28149602016f510a0e29ead7d93028ec223a9c08dfa2cf5cf"
+  }
+}

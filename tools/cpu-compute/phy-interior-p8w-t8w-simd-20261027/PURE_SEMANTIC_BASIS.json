@@ -1,0 +1,20 @@
+{
+  "status": "FINITE_PREFLIGHT_SUPPORTS_PURE_DECLARATION_PENDING_ROOT_DECISION",
+  "compiler": "GNU Fortran (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+  "explicit_PURE_restores_IMPLICIT_PURE": true,
+  "tiny_raw_MOD_exact": false,
+  "tiny_only_MOD_delta": "ARRAY_OUTER_DEPENDENCY added; actual current PHY already has this flag. No fullPHY rawMOD assertion made.",
+  "mask_helper_calls": 1,
+  "IEEE_entry_exit_wrappers": false,
+  "actual_helper_source_and_native_state_proof": "R3 Csource c1353a82256a1ff6ef9ba2a1093bf94be818c0a9d01d99fff1f3692977393fd1 unchanged; actual native R3 helper proof14cases passed before MOD stop. FNSTCW/STMXCSR+integer only, no state writes/libc calls/errno/math.",
+  "GNU_primary_source_precedent": "https://gnu.googlesource.com/gcc/+/refs/heads/devel/gfortran-caf/libgfortran/ieee/ieee_exceptions.F90 lines126-135: elemental getter wraps PURE INTEGER BIND(C) noarg hardware trap-mask reader. This fetched branch is precedent, not asserted exact13.3 source.",
+  "GNU13_3_frontend_semantics": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-13.3.0/gcc/fortran/trans-decl.cc lines2180-2191: PURE or implicit_pure scalar function gets DECL_PURE_P and no side effects; not TREE_READONLY/GCC const.",
+  "installed_GNU13_3_intrinsic_module": {
+    "path": "/usr/lib/gcc/x86_64-linux-gnu/13/finclude/ieee_exceptions.mod",
+    "sha256": "66769460cbb8d85bfb94435981abe17752fd2b702ff9f2fc3a31f3912d6edd33",
+    "get_halting_mode_excerpt": "55 'ieee_get_halting_mode' 'ieee_exceptions' '' 1 ((PROCEDURE\nUNKNOWN-INTENT MODULE-PROC DECL UNKNOWN 0 0 SUBROUTINE ELEMENTAL PURE\nALWAYS_EXPLICIT ARRAY_OUTER_DEPENDENCY) () (UNKNOWN 0 0 0 0 UNKNOWN ())\n56 0 (57 58) () 0 () () () 0 0)\n59 'ieee_get_modes' 'ieee_exceptions' '' 1 ((PROCEDURE UNKNOWN-INTENT\nMODULE-PROC DECL UNKNOWN 0 0 SUBROUTINE ARRAY_OUTER_DEPENDENCY) () (\nUNKNOWN 0 0 0 0 UNKNOWN ()) 60 0 (61) () 0 () () () 0 0)\n62 'ieee_get_status' 'ieee_exceptions' '' 1 ((PROCEDURE UNKNOWN-INTENT\nMODULE-PROC DECL UNKNOWN 0 0 SUBROUTINE ARRAY_OUTER_DEPENDENCY) () (\n"
+  },
+  "scope_and_optimizer_limits": "Fortran PURE permits reading nonlocal state; this function mutates no nonlocal state. It is not referentially transparent/GCC const. GNU may CSE/hoist memory-reading pure calls where no intervening effects exist. One consumed guard immediately after prior potentially effectful helper work and before interpolation must be verified in actual wholePHY assembly; asynchronous/signal-driven mask changes unsupported, unchanged campaign mode. No LLVM/other compiler claim.",
+  "no_project_source_or_native_kit_created": true,
+  "raw_MOD_gate_unchanged": true
+}

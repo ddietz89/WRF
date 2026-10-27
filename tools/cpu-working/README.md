@@ -1,14 +1,19 @@
-SPCVMC pre-delta beam scalars: current own unprofiled noon science
+PHY interior interpolation: own unprofiled SAME512 three-hour qualification
 
-Own unprofiled SAME512 noon12–13 one-hour185/twoFULL only. Retained corrected-original546b75minute control is SCIENCE PREFIX ONLY; no wall/CPU percentage comparison, matched gain, isolated/additive or forecast gain. All selected da1c prior fixes/RSL/providers/input06/outputdb0d preserved; only SW319e→a3aa, 583 other archive members exact. Genuine wholeSW same-opt O2/O0 raw-five/original32MOD/IEEE/trap tests passed. O2 scoped non-target containment retained; O0 non-target unclassified. Two private per-level arrays become two scalars with identical FP statements/order. Actual target malloc/free callsites39→37 each; target code grows192 bytes, not an instruction-count or RSS claim. Post-test two-file targetCPP correspondence plus qualifiedPP/cachedobject; raw producer commit NULL, no clean canonical fullbuild certificate. Child3h/9h/profile/restart/full144/384/256 false; parent results historical only.
+| Metric | Median3 original controls | Child | Descriptive reduction |
+|---|---:|---:|---:|
+| Wall minutes | 13.33374 | 10.67923 | 19.9082% |
+| Main-step minutes | 9.94084 | 9.03276 | 9.1349% |
+| Aggregate core-hours | 99.81315 | 86.64113 | 13.1967% |
 
-| Complete SPC caller | Wall reduction | Thread CPU reduction |
-|---|---:|---:|
-| hpc01 | 0.627617% | 1.146766% |
-| hpc02 | 0.927117% | 0.951338% |
+Original controls (n3 distinct):
 
-Fixed4096 genuine full-SPC calls include input/output restores inside clocks; all raw/five-state checks, cache clears and normal closures passed. These are caller measurements, not forecast gains.
+- production512-current0b40-fourhost-threehour-pair2-r1-control, INV2eeee20b4cf0457cb582710bce30dc0b: wall800.214591s/main596.450450s/CPU359516.463363s
+- production512-current0b40-fourhost-threehour-pair1-r1-control, INV81febf86a6734f4fa77d57fd1b467c30: wall798.619809s/main595.327090s/CPU358644.885565s
+- production512-current5c75-fourhost-threehour-pair1-r1-control, INVc9768c1474f648329ff3e41b664aac99: wall800.024121s/main596.593540s/CPU359327.346984s
 
-Observed child-only noon metrics: wall 267.886213s; main-step 176.640910s; aggregate CPU 121263.597734 core-seconds. No percentages versus the 75-minute science reference.
+Ranges(seconds): {"wall_seconds": [798.6198086068034, 800.2145909662358], "main_step_sum_seconds": [595.32709, 596.59354], "cpu_seconds": [358644.885565, 359516.46336299996]}
 
-Default WRF_SW_SPC_NODEL_SCALARS=1 is limited by the existing strict GNU13.3/O2/default-kind/pureMPI and SPC-column/paired-stack support guards. Explicit0 restores original per-level arrays after regeneration, SW recompilation, archive replacement and relink. Existing arithmetic and prior fixes stay unchanged. Cached qualified PP/object is the tested delivery route; the canonical projection is not a clean-source whole-build certificate.
+Own unprofiled SAME512 three-hour545/fourFULL only. Candidate-only science versus retained corrected original546b A2; descriptive UNPAIRED wall/main/aggregateCPU versus median3 distinct original controls, hardware epoch unresolved. No matched, isolated/additive, statistical or forecast causal gain. Selected330d previous fixes/RSL/18directdeps/input06/outputdb0d/NG9371 retained; BigStep27e9→9bde and cached maskhelperd376 appended (585members,583others exact). WholePHY55×fourrounds O2/O0 rawfive/originalMOD exact; O2 scoped CFG/pool/nontarget containment, O0 nontarget unclassified. Read-only all-six-both-unit mask guard, original scalar unmasked fallback; no universal trap-prefix matrix/asynchronous mask-change claim. Isolated interpolation48.306/46.981%wall lower; completePHY+restores flat/mixed +0.456/−0.150%wall, not established caller gain. Kernel result is not forecast gain. Post-test three-file targetCPP/source correspondence plus actual qualifiedPP/cachedOO/helper; rawproducerNULL/no cleanF-only fullbuildcertificate. Childnoon/9h/profile/restart/144/384/256 FALSE; parent330dnoon historical only. MPI prototypes excluded.
+
+Default WRF_PHY_INTERPOLATION_SIMD=1 is effective only under qualified strict GNU13.3/O2/defaultREAL4INT4/pureMPI support. Runtime uses SIMD only with all six exceptions masked in both units; otherwise literal scalar loop. Explicit0 plus real rebuild/relink restores original path. Read-only helper performs no flag/errno normalization. Prior fixes retained.

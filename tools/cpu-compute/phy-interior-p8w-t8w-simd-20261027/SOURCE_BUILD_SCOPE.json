@@ -1,0 +1,61 @@
+{
+  "component": "phy-interior-p8w-t8w-simd-20261027",
+  "source_commit": null,
+  "raw_producer_source_commit": null,
+  "post_test_source_commit": null,
+  "canonical_source_files": {
+    "dyn_em/module_big_step_utilities_em.F": {
+      "before_sha256": "5d092c1b01511354925e2d33e0a84f86d1332875ac52cae051750c541e306ff0",
+      "candidate_path": "candidate_module_big_step_utilities_em.F",
+      "candidate_sha256": "568543235ddc5e932023fbfae6e7c8f8dbb2fa20d4f43ea05a43bc04013723e6"
+    },
+    "dyn_em/Makefile": {
+      "before_sha256": "01af99163dd97e95f0d53f4960da8ead4db10f781d989ffb3e78364f8582ae66",
+      "candidate_path": "candidate_Makefile",
+      "candidate_sha256": "2d26c2bbf112a7db5fe1332da0c5a65b65078d83faa129623e97ef2bfd92970d"
+    },
+    "dyn_em/wrf_phy_interp_mask.c": {
+      "before_sha256": null,
+      "candidate_path": "wrf_phy_interp_mask.c",
+      "candidate_sha256": "c1353a82256a1ff6ef9ba2a1093bf94be818c0a9d01d99fff1f3692977393fd1"
+    }
+  },
+  "tested_PP_sha256": "cd4c4e8319a76845e56bbdf8f702471bd58531c8dbb5a4430036fec3c017c637",
+  "tested_O2_object": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-phy-interior-p8w-t8w-simd-native-hpc03-r4/work/O2-candidate/module_big_step_utilities_em.o",
+    "sha256": "9bde609eba3e29b75c000d0432142d3a2152704ad5c4a7c5cdf3cc32b4688061",
+    "PP_sha256": "cd4c4e8319a76845e56bbdf8f702471bd58531c8dbb5a4430036fec3c017c637",
+    "MOD_sha256": "ffb8cf9ac26dbdac20723d8fed27c2b8f9a3615aef11919676c72c26623ac115"
+  },
+  "read_only_mask_helper": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-phy-interior-p8w-t8w-simd-native-hpc03-r3/work/phy_interp_mask.o",
+    "sha256": "d3769b702ccc0b3734b4167cc1704f6d98a1095c5c6cce56239c53f63ac3cfd8",
+    "source_sha256": "c1353a82256a1ff6ef9ba2a1093bf94be818c0a9d01d99fff1f3692977393fd1"
+  },
+  "build": {
+    "status": "BUILT_ISOLATED_CURRENT330D_PHY_INTERIOR_BIGSTEP_PLUS_MASK_PENDING_OWN_APPLICATION",
+    "archive_members": 585,
+    "unchanged_members": 583,
+    "changed_members": [
+      "module_big_step_utilities_em.o"
+    ],
+    "added_members": [
+      "wrf_phy_interp_mask.o"
+    ],
+    "source_module_helper_compiles": 0,
+    "links": 1,
+    "artifacts": {
+      "/pool/wrf-experiment/wrf-cpu/builds/current330d-phy-interior-experimental-r1/module_big_step_utilities_em.o": "9bde609eba3e29b75c000d0432142d3a2152704ad5c4a7c5cdf3cc32b4688061",
+      "/pool/wrf-experiment/wrf-cpu/builds/current330d-phy-interior-experimental-r1/ORDERED_COMPONENT_ARCHIVE_PROOF.json": "0422994079de6963d8f8e96891ee4ef4016d82330955d9f56d56d5b08d0fa285",
+      "/pool/wrf-experiment/wrf-cpu/builds/current330d-phy-interior-experimental-r1/libwrflib.a": "5b482a499771741355977f7079aa61effefaf74215f66ceca6a281b3c160fb6b",
+      "/pool/wrf-experiment/wrf-cpu/builds/current330d-phy-interior-experimental-r1/wrf.exe": "33a2bf43d6b2656e02e61ad5fc8be3ef9e91b45a7e1b7805d95b5827753e9fae",
+      "/pool/wrf-experiment/wrf-cpu/builds/current330d-phy-interior-experimental-r1/analysis_module_big_step_utilities_em.mod": "ffb8cf9ac26dbdac20723d8fed27c2b8f9a3615aef11919676c72c26623ac115",
+      "/pool/wrf-experiment/wrf-cpu/builds/current330d-phy-interior-experimental-r1/wrf_phy_interp_mask.o": "d3769b702ccc0b3734b4167cc1704f6d98a1095c5c6cce56239c53f63ac3cfd8",
+      "/pool/wrf-experiment/wrf-cpu/builds/current330d-phy-interior-experimental-r1/qualified_module_big_step_utilities_em.f90": "cd4c4e8319a76845e56bbdf8f702471bd58531c8dbb5a4430036fec3c017c637"
+    }
+  },
+  "scope": "Target procedure CPP/statement correspondence and cached tested objects; no fresh whole-source CPP/object equivalence or clean full rebuild certificate. Exact original public MOD retained. O0 numerical only; unrelated O0 nontargets unclassified.",
+  "default_support": "Proposeddefault1 only strictGNU13.3 actualFC/SFC/CC,O2,REAL4/INT4,pureMPI,noOpenMP; explicit0wins/unsupportedoriginalfallback. Runtime all6x87/SSEmasks or literal scalar fallback.",
+  "rollback": "Immediate retainedparent330d/b379image; sourceknobWRF_PHY_INTERPOLATION_SIMD=0 plus member/archive/executable rebuild. Removeaddedhelper onlywhenno referencesremain.",
+  "record_scope": "As-tested source/cached-build correspondence before application; real post-test source commit is supplied in application records. Null source commit here preserves original experimental provenance."
+}

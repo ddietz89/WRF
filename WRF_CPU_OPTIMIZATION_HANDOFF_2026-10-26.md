@@ -10,9 +10,9 @@ DeepSeek and AWS are suspended. Use local Codex agents and hpc00–04. Run quali
 
 The authoritative selected executable, archive, source correspondence and application qualifications are in `tools/cpu-working/selection.json` and `CURRENT_SOURCE_BUILD_BINDING.json`; their bytes must agree. Source correspondence uses tested preprocessed source/cached objects plus post-test canonical target projection. No clean whole-source rebuild certificate is claimed.
 
-Selected image `330db1c1` / archive `b3794efe` / post-test source `6311634d` retains all preceding improvements and replaces two pre-delta beam scratch arrays in SPCVMC with scalars. Complete-caller wall reductions were0.6276/0.9271% and threadCPU reductions1.1468/0.9513% on hpc01/02. Its own unprofiled noon185/two-full original science passed; all model and reader scopes closed. See `tools/cpu-compute/spcvmc-predelta-beam-scalars-20261026/` for scope and rollback.
+Selected image `33a2bf43` / archive `5b482a49` / post-test source `4c9a3bd4` retains all prior improvements, including SPC pre-delta scalars, and adds guarded interior p8w/t8w SIMD. The isolated loop was48.31/46.98% faster on03/04; completePHY was flat/mixed (0.456% faster/0.150% slower). Own unprofiled three-hour545/four-full original science passed, with all model/reader scopes closed. See `tools/cpu-compute/phy-interior-p8w-t8w-simd-20261027/` for evidence and rollback.
 
-The child owns noon qualification only: its three-hour, nine-hour, profile, restart and full144-hour qualifications remain false. Historical da1c/source d501 owns its three-hour545/four-full, noon185/two-full and subsequent two15-second source/count captures. Those observations remain attributed to da1c. Both builds use qualified GNU13.3/defaultREAL4INT4/strictO2/pure-MPI support guards and original fallbacks.
+This child owns three-hour qualification only. Its noon, nine-hour, profile, restart and full144-hour qualifications remain false. Historical330d/source6311 owns its noon185/two-full check; da1c/source d501 owns its earlier three-hour/noon and source/count captures. Neither is inherited. The qualified strict GNU13.3/defaultREAL4INT4/pure-MPI default retains a literal scalar path whenever any hardware exception is unmasked; `WRF_PHY_INTERPOLATION_SIMD=0` plus rebuilding/relinking opts out.
 
 ## Recent full-grid evidence
 
@@ -21,12 +21,13 @@ The child owns noon qualification only: its three-hour, nine-hour, profile, rest
 | Original three-hour median, three distinct controls | 13.33374 | 9.94084 | 99.81315 | Retained original references |
 | Prior parent56d2 three-hour | 10.36987 | 8.97816 | 84.00883 | Four full products /545 steps pass |
 | Historical parent da1c three-hour | 10.46069 | 9.04669 | 84.58097 | Four full products /545 steps pass |
+| Latest33a2 three-hour | 10.67923 | 9.03276 | 86.64113 | Four full products /545 steps pass |
 | Fresh original nine-hour, n=1 | 34.15724 | 30.84597 | 278.15747 | Ten full products /1625 steps pass |
 | Earlier parent3f86 nine-hour, n=1 | 29.44540 | 28.10415 | 247.06853 | Ten full products /1625 steps pass |
 
-Historical parent da1c's descriptive reductions from the retained three-control median are21.5472% wall,8.9947% main-step elapsed and15.2607% aggregateCPU. These are unpaired comparisons; no incremental SPC forecast benefit follows. Main-step elapsed includes waiting and communication and is not integration CPU time. Nine-hour observations belong to their named images; they do not qualify the newer child. Historical matched A–B–B–A three-hour mean reductions were21.8975% wall/9.3585% main/15.6218% CPU for image0b40.
+Latest33a2 descriptive reductions from the retained three-control median are19.9082% wall,9.1349% main-step elapsed and13.1967% aggregateCPU. These are unpaired comparisons; they do not isolate either new kernel. Main-step elapsed includes waiting and communication. Nine-hour observations belong to their named images and do not qualify33a2. Historical matched A–B–B–A three-hour mean reductions were21.8975% wall/9.3585% main/15.6218% CPU for image0b40.
 
-Single-forecast goals remain1.5× and2×. Approximately1.27–1.29× observed three-hour wall speed does not meet either goal. Do not add kernel percentages or substitute concurrent throughput for latency.
+The single-forecast1.5× and2× goals remain unmet. This observation is about1.25× wall speed against the stated historical median. Never add kernel percentages or substitute concurrent throughput for latency.
 
 ## Retained improvements
 
@@ -57,10 +58,11 @@ Do not repeat these fixed candidates without new measured evidence. Retain signi
 
 ## Work in progress and next useful questions
 
-1. Guarded physics-preparation p8w/t8w interior SIMD passed full-module native raw/five-state, read-only and exact MOD gates at O2/O0 (55 cases in each of four rounding modes). The read-only mask guard takes the original scalar path whenever any hardware exception is unmasked. Its PURE interface follows the compiler's own mask-reader semantics; earlier IEEE-envelope/state and MOD failures are preserved. Generated-code containment passed. Complete-caller checks passed; wall was0.4561% lower on03 and0.1501% higher on04, with matching CPU signs. One isolated-loop screen is pending before inclusion under the significant-kernel policy. No default or application qualification yet.
-2. MPI U/V-only early/late halo reuse is closed unqualified. The nine-rank native gate passed, but the two larger complete-protocol attempts failed strict state equality: one cold warm-errno word, then one final FE_INEXACT/MXCSR pair after identical original warmup. Every physical/intermediate-readset byte matched. Both waves stopped before any valid same-host pair. No more fixed variants, integration or application is planned; see `tools/cpu-rejected/tke-helicity-uv-halo-reuse-20261027/`. Attribution remains unresolved.
-3. Prepare one periodic three-hour combined application after worthwhile current candidates pass caller acceptance. Current330d owns noon only. Keep the original exact checker and retained controls; use candidate-only descriptive timing against the eligible original median unless new evidence calls for a fresh control.
+1. `mass_weight` guarded SIMD: the direct-module prototype stopped before numerical execution because three conservative compiler dependency attributes changed in MOD metadata; public argument types/layouts remain unchanged. Preserve the failed gate. A separate private wrapper/native caller is being prepared with the original module/object/MOD untouched, to measure value before any integration. An independent GNU13.3 metadata review is pending; no MOD exception is granted.
+2. W-advection X5: sampled scalar body confirmed in the unchanged CECA member, with no alternate packed body. `vel` live-out proof supports PRIVATE. A bounded extracted three-dimensional kernel and strict raw/state screen is ready; genuine wholeAdvectW API qualification remains required if useful.
+3. Both MPI prototypes remain unqualified on strict saved-state differences despite exact field/corner records. Early/late U/V reuse and adjacent diagnostic-phase combination retain their failures and no gain claim. A narrow MPI-only errno/sticky-inexact policy question is pending owner review; no dependent qualification changes or tests until answered. Preserve all other exact numerical/control/state and original forecast checks. Continue periodic3h and selected9h qualification at meaningful combined milestones.
+
 4. MYJ source/count observation and Thompson congruent-alias caller work are closed. No safe new MYJ deletion was established. The alias capability worked, but its complete caller was mixed with no demonstrated resource gain; it remains unpromoted. See the existing profile and rejected-candidate components. Do not repeat either fixed investigation without new evidence.
 
-Private recovery root: `/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/`. Own selected-child runtime: `/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-da1c-spcnodel-noon1h-runtime-r1/`. Preserve exact invocation IDs and receipts in those directories before retrying uncertain jobs.
+Private recovery root: `/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/`. Own selected-child runtime: `/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-330d-batch-3h-runtime-r1/`. Preserve exact invocation IDs and receipts in those directories before retrying uncertain jobs.
 

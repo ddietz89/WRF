@@ -1,0 +1,122 @@
+{
+  "decision": "STRICT_NATIVE_FAIL_STOP_O0_AND_TIMING",
+  "failed_invocation_id": "6c382835095f4506aeed1b93a488c465",
+  "failed_stage": "O2 candidate original36-case driver round0; remaining candidate protocols/O0 unrun",
+  "total_changed_words": 2,
+  "different_cases": [
+    {
+      "case": 34,
+      "header": [
+        34,
+        1,
+        18,
+        1,
+        4,
+        1,
+        7,
+        18,
+        4,
+        7,
+        1,
+        2,
+        8
+      ],
+      "record_start_byte": 3909312,
+      "record_bytes": 122644,
+      "changed_words": 1,
+      "fields": {
+        "state.MXCSR": 1
+      },
+      "states": {
+        "parent": [
+          34,
+          0,
+          53,
+          8119,
+          895
+        ],
+        "candidate": [
+          34,
+          0,
+          53,
+          8101,
+          895
+        ]
+      }
+    },
+    {
+      "case": 36,
+      "header": [
+        36,
+        1,
+        18,
+        1,
+        4,
+        1,
+        7,
+        18,
+        4,
+        7,
+        1,
+        2,
+        8
+      ],
+      "record_start_byte": 4154600,
+      "record_bytes": 122644,
+      "changed_words": 1,
+      "fields": {
+        "state.MXCSR": 1
+      },
+      "states": {
+        "parent": [
+          34,
+          0,
+          52,
+          8118,
+          895
+        ],
+        "candidate": [
+          34,
+          0,
+          52,
+          8100,
+          895
+        ]
+      }
+    }
+  ],
+  "all_physical_output_input_and_coefficient_words_exact": true,
+  "errno_round_fetestexcept_union_x87CW_exact": true,
+  "MXCSR_lost_bits_hex": "0x12",
+  "lost_status_bits": [
+    "denormal operand bit1",
+    "underflow bit4"
+  ],
+  "specific_inputs": {
+    "34": "Existing competing qNaN payloads, sNaN, +/-infinity, signed zero and subnormals in moist species at i1..6,k2,j1.",
+    "36": "Existing c1h/c2h signed-zero and minimum/largest-subnormal inputs at k2..4; no new fixture."
+  },
+  "machine_facts": {
+    "parent_IEEE_calls": 0,
+    "candidate_new_runtime_calls": [
+      "_gfortran_ieee_procedure_entry",
+      "__ieee_exceptions_MOD_ieee_get_halting_mode (five iterations, once before J/K)",
+      "_gfortran_ieee_procedure_exit"
+    ],
+    "inference": "Compiler-added whole-procedure fenv wrappers are a concrete side effect of intrinsic IEEE import; likely explanation for changed split x87/SSE status despite unchanged aggregate flags. Do not claim isolated causal proof or array arithmetic failure."
+  },
+  "unmasked_scope": "The imported-IEEE wrapper also prevents claiming literal fallback preserves original entry trap behavior. No unmasked native witness executed.",
+  "one_proposed_repair_not_implemented": "Read-only tiny C STMXCSR/FNSTCW mask query, conservative all6 exceptions masked in both units; no FP arithmetic/fenv setter/errno normalization. Remove intrinsic IEEE import and compiler wrapper; preserve literal scalar fallback and existing expression trees. Root authorization and same hard native gates required.",
+  "O0_or_timing_allowed": false,
+  "native_failure_preserved": true,
+  "evidence_sha256": {
+    "ACTUAL_RECEIPT.json": "29cc05703bcfc647ae33dd1bd5c199e2621e3fcd483838fbe354ebc338ef856e",
+    "actual-IEEE-asm.json": "45fb9554f0cf3b5f3b954be3c7d7bdc9eac49f0deb68d893abaca94cced8bb6d",
+    "actual-IEEE-asm.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "actual-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "actual-stdout.json": "77aac89b3c5ff60f76efbe48c171ab880ae44b5608a5c5e3601868c6ebbb79ed",
+    "raw-bindings.json": "710786bf8c68a5046e0c2f07a210f83ed7230310be67424e058963b422e0137d",
+    "readonly_IEEE_asm_query.py": "68b482513d7253ffd299b9b80a89a4cb74db31531257b3dbc39a47c100ed7201",
+    "readonly_query.py": "6ab6c594fa41bc95994da1c4d2728a569cb1d25d436c3c851644fd404ca041a5"
+  }
+}
