@@ -1,8 +1,20 @@
 # WRF CPU optimization findings
 
-## October 27: SW cloud-consumer guard qualified for instrumented daylight
+## October 27: SW cloud consumer — own three-hour and instrumented daylight science
 
-Selected image `03fa935c` / archive `bd1ac8a4`, with post-test source `77ce9db9`, retains the earlier fixes and adds the guarded stochastic-cloud final consumer. The genuine complete generator caller, including all eight output restores, was 2.51% and 3.98% shorter on hpc01/02, with matching CPU reductions. Actual GNU13.3 O2 code remains scalar; no SIMD gain or forecast speedup is claimed. Own instrumented 12–13 daylight science passed exactly for 185 ordered steps and two full products, and three 15-second main-thread profiles on hpc03 ranks114/122/386 passed identity/parsing checks. These are selected-thread profiles, not an all-rank causal attribution. Current own unprofiled noon, three-hour and nine-hour qualifications remain false; ccbe’s three-hour result is historical parent evidence. The retained original75-minute reference supports the science prefix only, with no timing comparison. `WRF_SW_CLOUD_CONSUMER=0`, followed by regeneration, member compilation, rearchiving and relinking, restores the original consumer; unsupported configurations retain that fallback. See [the component evidence](tools/cpu-compute/sw-cloud-consumer-20261027/README.md) for exact IEEE, typed MOD-ID, source-projection and compiler limits. Historical raw checker labels are retained and annotated rather than rewritten.
+Selected image `03fa935c` / archive `bd1ac8a4` / post-test source `77ce9db9` retains all prior fixes, including MW/W, and adds the guarded stochastic-cloud final consumer. The same exact image now owns unprofiled SAME512 three-hour science (545 ordered steps, four full products), instrumented noon science (185 steps, two full products), and three 15-second main-thread source-identity profiles on hpc03 ranks114/122/386. All model and scientific reader scopes closed normally. Own nine-hour, unprofiled noon, restart and full144-hour qualifications remain false.
+
+| Three-hour metric | Preselected original median (3 distinct runs) | Current03fa | Descriptive reduction |
+|---|---:|---:|---:|
+| Model/MPI wall (s) | 800.024120857 | 623.537114511 | 22.060211% |
+| Main-step elapsed (s) | 596.45045 | 540.17589 | 9.434909% |
+| Aggregate CPU (core-s) | 359327.346984 | 303219.609902 | 15.614658% |
+
+This is one candidate-only, unpaired observation against the unchanged preselected median-three original cohort; exact science uses retained original A2. The qualification records all three control invocations and ranges. No isolated/additive code gain, matched comparison or repeatability is established. Main-step elapsed includes waiting and communication. The first premature reconciliation observed PREPARED after the final step and is retained; the second established normal closure. No forecast rerun or scientific acceptance exception was needed.
+
+The complete generator caller, including eight output restores, was 2.51% and 3.98% shorter with matching CPU reductions. Actual GNU13.3 O2 code remains scalar; no SIMD gain is claimed. Three selected-thread profiles establish source identity only, not global shares or a causal critical path. The retained75-minute noon reference supports exact science-prefix comparison only, with no timing percentage. `WRF_SW_CLOUD_CONSUMER=0` plus regeneration, member compilation, rearchiving and relinking restores the original consumer. Existing MW/W/PHY opt-outs remain available; parentccbe/archive8d1d is the whole-image rollback. Raw producer source is null and no clean full-source build is certified. All earlier failure and scoped MOD/machine evidence remains unchanged.
+
+[Own three-hour qualification](tools/cpu-compute/sw-cloud-consumer-20261027/THREE_HOUR_APPLICATION_QUALIFICATION.json) · [Native, noon, profile and source evidence](tools/cpu-compute/sw-cloud-consumer-20261027/README.md).
 
 ## October 26: shortwave current-column scratch promoted
 
