@@ -1,0 +1,64 @@
+--- current/module_advect_em.F
++++ candidate/module_advect_em.F
+@@ -4521,13 +4521,16 @@
+                          ims, ime, jms, jme, kms, kme,  &
+                          its, ite, jts, jte, kts, kte  )
+ 
+-#if defined(WRF_ADVECT_W_X5_SIMD_ENABLE) && !defined(WRF_ADVECT_W_X5_SIMD_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
++#if ((defined(WRF_ADVECT_W_X5_SIMD_ENABLE) && !defined(WRF_ADVECT_W_X5_SIMD_DISABLE)) || (defined(WRF_ADVECT_W_Y5_SIMD_ENABLE) && !defined(WRF_ADVECT_W_Y5_SIMD_DISABLE))) && defined(DM_PARALLEL) && !defined(_OPENMP)
+    USE, INTRINSIC :: ISO_C_BINDING, ONLY: c_int
+ #endif
+    IMPLICIT NONE
+-#if defined(WRF_ADVECT_W_X5_SIMD_ENABLE) && !defined(WRF_ADVECT_W_X5_SIMD_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
++#if ((defined(WRF_ADVECT_W_X5_SIMD_ENABLE) && !defined(WRF_ADVECT_W_X5_SIMD_DISABLE)) || (defined(WRF_ADVECT_W_Y5_SIMD_ENABLE) && !defined(WRF_ADVECT_W_Y5_SIMD_DISABLE))) && defined(DM_PARALLEL) && !defined(_OPENMP)
+    LOGICAL :: w_x5_all_masked
+    INTEGER :: i_x5_vec_end
++#if defined(WRF_ADVECT_W_Y5_SIMD_ENABLE) && !defined(WRF_ADVECT_W_Y5_SIMD_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
++   INTEGER :: i_y5_vec_end
++#endif
+    INTERFACE
+      PURE FUNCTION wrf_phy_interp_all_masked() BIND(C, NAME="wrf_phy_interp_all_masked") RESULT(masked)
+        IMPORT c_int
+@@ -4943,7 +4946,7 @@
+       ENDDO
+ 
+ ELSE IF (horz_order == 5 ) THEN
+-#if defined(WRF_ADVECT_W_X5_SIMD_ENABLE) && !defined(WRF_ADVECT_W_X5_SIMD_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
++#if ((defined(WRF_ADVECT_W_X5_SIMD_ENABLE) && !defined(WRF_ADVECT_W_X5_SIMD_DISABLE)) || (defined(WRF_ADVECT_W_Y5_SIMD_ENABLE) && !defined(WRF_ADVECT_W_Y5_SIMD_DISABLE))) && defined(DM_PARALLEL) && !defined(_OPENMP)
+   w_x5_all_masked=wrf_phy_interp_all_masked()/=0_c_int
+ #endif
+ 
+@@ -5007,12 +5010,33 @@
+       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN
+ 
+         DO k=kts+1,ktf
++#if defined(WRF_ADVECT_W_Y5_SIMD_ENABLE) && !defined(WRF_ADVECT_W_Y5_SIMD_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
++        IF (w_x5_all_masked .AND. i_start <= i_end) THEN
++          i_y5_vec_end=i_start+8*((i_end-i_start+1)/8)-1
++!$OMP SIMD PRIVATE(vel)
++        DO i = i_start, i_y5_vec_end
++          vel = fzm(k)*rv(i,k,j)+fzp(k)*rv(i,k-1,j)
++          fqy( i, k, jp1 ) = vel*flux5(                     &
++                  w(i,k,j-3), w(i,k,j-2), w(i,k,j-1),       &
++                  w(i,k,j  ), w(i,k,j+1), w(i,k,j+2),  vel )
++        ENDDO
++        DO i = i_y5_vec_end+1, i_end
++          vel = fzm(k)*rv(i,k,j)+fzp(k)*rv(i,k-1,j)
++          fqy( i, k, jp1 ) = vel*flux5(                     &
++                  w(i,k,j-3), w(i,k,j-2), w(i,k,j-1),       &
++                  w(i,k,j  ), w(i,k,j+1), w(i,k,j+2),  vel )
++        ENDDO
++        ELSE
++#endif
+         DO i = i_start, i_end
+           vel = fzm(k)*rv(i,k,j)+fzp(k)*rv(i,k-1,j)
+           fqy( i, k, jp1 ) = vel*flux5(                     &
+                   w(i,k,j-3), w(i,k,j-2), w(i,k,j-1),       &
+                   w(i,k,j  ), w(i,k,j+1), w(i,k,j+2),  vel )
+         ENDDO
++#if defined(WRF_ADVECT_W_Y5_SIMD_ENABLE) && !defined(WRF_ADVECT_W_Y5_SIMD_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
++        END IF
++#endif
+         ENDDO
+ 
+         k = ktf+1

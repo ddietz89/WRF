@@ -1,0 +1,1 @@
+Set `WRF_ADVECT_W_Y5_SIMD=0`, regenerate the affected preprocessed source, rebuild `module_advect_em.o`, and relink. This removes only the Y5 directive/prefix path and restores the selected X5-only target. Preserve X5 and the existing PHY mask-helper owner. A compile-time optout does not change an already-linked image.

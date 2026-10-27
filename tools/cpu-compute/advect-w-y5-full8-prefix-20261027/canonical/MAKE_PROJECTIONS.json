@@ -1,0 +1,72 @@
+{
+  "status": "PASS_LOCAL_TARGET_MAKE_EXPANSIONS_ONLY",
+  "cases": [
+    {
+      "case": "bothON",
+      "enabled_X_Y": [
+        true,
+        true
+      ],
+      "stdout": "CPP=-DDM_PARALLEL -UWRF_ADVECT_W_X5_SIMD_ENABLE -DWRF_ADVECT_W_X5_SIMD_ENABLE -UWRF_ADVECT_W_Y5_SIMD_ENABLE -DWRF_ADVECT_W_Y5_SIMD_ENABLE\nOBJS=base.o wrf_phy_interp_mask.o\nPRE=wrf_phy_interp_mask.o\n"
+    },
+    {
+      "case": "Y_OFF",
+      "enabled_X_Y": [
+        true,
+        false
+      ],
+      "stdout": "CPP=-DDM_PARALLEL -UWRF_ADVECT_W_X5_SIMD_ENABLE -DWRF_ADVECT_W_X5_SIMD_ENABLE -UWRF_ADVECT_W_Y5_SIMD_ENABLE -DWRF_ADVECT_W_Y5_SIMD_DISABLE\nOBJS=base.o wrf_phy_interp_mask.o\nPRE=wrf_phy_interp_mask.o\n"
+    },
+    {
+      "case": "X_OFF",
+      "enabled_X_Y": [
+        false,
+        true
+      ],
+      "stdout": "CPP=-DDM_PARALLEL -UWRF_ADVECT_W_X5_SIMD_ENABLE -DWRF_ADVECT_W_X5_SIMD_DISABLE -UWRF_ADVECT_W_Y5_SIMD_ENABLE -DWRF_ADVECT_W_Y5_SIMD_ENABLE\nOBJS=base.o wrf_phy_interp_mask.o\nPRE=wrf_phy_interp_mask.o\n"
+    },
+    {
+      "case": "bothOFF",
+      "enabled_X_Y": [
+        false,
+        false
+      ],
+      "stdout": "CPP=-DDM_PARALLEL -UWRF_ADVECT_W_X5_SIMD_ENABLE -DWRF_ADVECT_W_X5_SIMD_DISABLE -UWRF_ADVECT_W_Y5_SIMD_ENABLE -DWRF_ADVECT_W_Y5_SIMD_DISABLE\nOBJS=base.o wrf_phy_interp_mask.o\nPRE=\n"
+    },
+    {
+      "case": "Y_DISABLE_PREDEFINED",
+      "enabled_X_Y": [
+        true,
+        false
+      ],
+      "stdout": "CPP=-DDM_PARALLEL -DWRF_ADVECT_W_Y5_SIMD_ENABLE -UWRF_ADVECT_W_X5_SIMD_ENABLE -DWRF_ADVECT_W_X5_SIMD_ENABLE -UWRF_ADVECT_W_Y5_SIMD_ENABLE -DWRF_ADVECT_W_Y5_SIMD_DISABLE\nOBJS=base.o wrf_phy_interp_mask.o\nPRE=wrf_phy_interp_mask.o\n"
+    },
+    {
+      "case": "O0",
+      "enabled_X_Y": [
+        false,
+        false
+      ],
+      "stdout": "CPP=-DDM_PARALLEL -UWRF_ADVECT_W_X5_SIMD_ENABLE -UWRF_ADVECT_W_Y5_SIMD_ENABLE\nOBJS=base.o wrf_phy_interp_mask.o\nPRE=\n"
+    },
+    {
+      "case": "OpenMP",
+      "enabled_X_Y": [
+        false,
+        false
+      ],
+      "stdout": "CPP=-DDM_PARALLEL -UWRF_ADVECT_W_X5_SIMD_ENABLE -UWRF_ADVECT_W_Y5_SIMD_ENABLE\nOBJS=base.o wrf_phy_interp_mask.o\nPRE=\n"
+    },
+    {
+      "case": "UNSAFE",
+      "enabled_X_Y": [
+        false,
+        false
+      ],
+      "stdout": "CPP=-DDM_PARALLEL -UWRF_ADVECT_W_X5_SIMD_ENABLE -UWRF_ADVECT_W_Y5_SIMD_ENABLE\nOBJS=base.o wrf_phy_interp_mask.o\nPRE=\n"
+    }
+  ],
+  "no_new_ISA_FP_flags": true,
+  "one_existing_helper_owner": true,
+  "actual_scientific_compile": false
+}

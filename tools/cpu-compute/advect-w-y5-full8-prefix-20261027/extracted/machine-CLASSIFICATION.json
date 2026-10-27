@@ -1,0 +1,49 @@
+{
+  "status": "GO_ACTUAL_EXTRACTED_Y5_FULL3D_SCREEN_MACHINE_ONLY",
+  "eligible_for_extracted_y5_timing": true,
+  "native_receipt_sha256": "cae587fefebc44117b27cefe79bf85a548ae7148119243eb7ef65b663dabece7",
+  "native_closure_sha256": "4322b43c4691107fce527fb67028a036f2ec5e340e722c456e7c365d23424b69",
+  "native_invocation_id": "27b119857a8c42b5a5e48e92ed3d4756",
+  "parent_object_sha256": "c3d9768d86e99c1e15c3b01eb85027109a985abf0858e1f2be621021b32802b5",
+  "candidate_object_sha256": "081ed09da4c0adabd3b046a42b8f31482bb84221a095327ead7fa3e280f93814",
+  "actual_ASM_sha256": {
+    "parent": "3d2fc92701c5ce78df45c755e0e130f1ddeeb9245fc4ff241144f185ff194b64",
+    "candidate": "cf0b59f9e23f5a058c724179126ac277d5ec52151ec61c3836b2c8b56d3b73bd"
+  },
+  "machine": {
+    "one_real_mask_getter_call": "0xca,relocation0xcb; result0xd2..0xdc retained; combined positive-I predicate0x4a5..0x4c6",
+    "full8_bound": "0x147..0x165 rounds nI down viaAND0xfffffff8; 0x343 SHRx3 and0x898 adds32B per YMM iteration",
+    "packed_interior": "0x800..0x8a4; two trueYMM VDIVPS0x865/0x887, vel/finalFQYstore0x88b..0x893",
+    "scalar_remainder": "0x8aa->0x9a0..0xa46; VDIVSS0xa25/0xa32, no fourlane packed epilogue",
+    "literal_scalar_fallback": "combinedguard0x6d9->0xd50->0xe20..0xece; VDIVSS0xeac/0xeb9",
+    "top_face": "0xc10..0xca7 scalar, VDIVSS0xc85/0xc92",
+    "ring_consumer": "0xfd0..0xffb scalaroldTendency-minus-mrdy*(FQYnew-FQYold); Kloop0xfc0..0x100c; ringindexswap0xd26/0xd41 thenJloop0xd48->0x3e0",
+    "no_FMA_or_reciprocal_approximation": true,
+    "no_extra_helper_calls": true,
+    "parent_scalar_true_DIV_only": {
+      "divss": 4,
+      "divps": 0,
+      "mulss": 18,
+      "mulps": 0,
+      "addss": 11,
+      "addps": 0
+    },
+    "candidate_counts": {
+      "divss": 6,
+      "divps": 2,
+      "mulss": 26,
+      "mulps": 8,
+      "addss": 17,
+      "addps": 6
+    }
+  },
+  "limits": [
+    "Extracted complete normal-Y5 3D producer/top/ringconsumer only, synthetic inputs; guard/restores charged by driver.",
+    "Not wholeAdvectW API or wholemodule/codegen identity; conditional genuine22\u00d74 bothopts remains pending.",
+    "Finite masked40controls and finite INVALID-unmasked fallback only, no universal firsttrap/asynchronousmode or futuregenuine guarantee.",
+    "No measuredgain until root actualcache-cleared timing."
+  ],
+  "whole_module_machine_identity": false,
+  "whole_API_qualified": false,
+  "application_qualified": false
+}

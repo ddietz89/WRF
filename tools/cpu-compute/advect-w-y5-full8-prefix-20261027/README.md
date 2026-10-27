@@ -1,0 +1,11 @@
+# AdvectW Y5 full-eight-lane prefix
+
+This pre-application evidence snapshot retains the H5 normal-Y flux5 producer optimization for an own application trial. It adds a full-eight-lane SIMD prefix with private `vel`, the literal original scalar remainder, and the original complete scalar fallback when any of the six exceptions is unmasked in either hardware unit. The selected X5 implementation, Y ring, top face, subsequent consumer, arithmetic trees, and existing helper owner remain intact.
+
+The genuine complete AdvectW caller, including full physical tendency restores and the once-per-entry mask guard, was 29.900%/30.616% lower in wall time and 29.905%/30.617% lower in thread CPU on the two opposite-order hosts. All four cache-cleared arms passed full same-512-call physical/read-only data, warm and terminal five-state checks, and normal closure. Inputs are representative synthetic finite fields; these are procedure costs, not forecast speedups.
+
+A separate complete three-dimensional normal-Y producer/top-face/ring-consumer screen was 61.473%/61.451% lower in wall time. Its extracted API and machine identity are distinct from the genuine whole procedure. The genuine O2/O0 gate passed 22 cases × four rounding modes per optimization (176 comparisons total), including preserved original cases and targeted packed/scalar-tail competing RV NaNs, with raw original public MOD equality. The delivered O2 target and non-target diagnostic/reference changes are scoped in `machine/CLASSIFICATION.json`; O0 non-target equivalence is unclassified.
+
+Canonical two-file source/Make diffs, six target CPP projections, eight Make projections, and the independent XOFF/YON helper proof are retained. Default 1 is proposed only after own application science and a real source commit. Raw producer commit is null and no clean whole-source rebuild certificate is claimed. The parent image’s noon, profile, three-hour, or nine-hour evidence does not qualify this child.
+
+The first unexecuted H6 draft and the later screen compile-command construction failure remain distinct preparation failures. Neither is a numerical rejection. Own application science and publication are pending in this immutable pre-application snapshot; the runtime-owner publisher supplies final application records separately.

@@ -1,0 +1,38 @@
+{
+  "status": "PASS_LOCAL_STATEMENT_DIRECTIVE_LITERAL_STREAM_ONLY",
+  "cases": [
+    {
+      "case": "both_ON",
+      "statement_directive_literal_stream_exact": true,
+      "stream_sha256": "d1a70c8354d1fc5cc345627bcefab087b653cd859f968e4efc8e683cc598d789"
+    },
+    {
+      "case": "Y_OFF",
+      "statement_directive_literal_stream_exact": true,
+      "stream_sha256": "a480d5a88fd30223aeb85b7605c5644368eaf84d672ba4785669ddbb4b280fff"
+    },
+    {
+      "case": "Y_DISABLE_WINS",
+      "statement_directive_literal_stream_exact": true,
+      "stream_sha256": "a480d5a88fd30223aeb85b7605c5644368eaf84d672ba4785669ddbb4b280fff"
+    },
+    {
+      "case": "both_OFF",
+      "statement_directive_literal_stream_exact": true,
+      "stream_sha256": "b10b6d4e08ac4ccb3b66274fd123d86e6a7d345bd0a2febf9448c872b554c5b8"
+    },
+    {
+      "case": "OpenMP",
+      "statement_directive_literal_stream_exact": true,
+      "stream_sha256": "b10b6d4e08ac4ccb3b66274fd123d86e6a7d345bd0a2febf9448c872b554c5b8"
+    },
+    {
+      "case": "nonMPI",
+      "statement_directive_literal_stream_exact": true,
+      "stream_sha256": "b10b6d4e08ac4ccb3b66274fd123d86e6a7d345bd0a2febf9448c872b554c5b8"
+    }
+  ],
+  "initial_inline_comment_comparison_difference": "Retained both_ON-projection.diff; initial scanner included inline comments absent from compilerPP. Quote-aware Fortran lexical stream now excludes comments only and preserves directives/literals. No source changes.",
+  "whole_module_raw_identity": false,
+  "clean_rebuild_certificate": false
+}

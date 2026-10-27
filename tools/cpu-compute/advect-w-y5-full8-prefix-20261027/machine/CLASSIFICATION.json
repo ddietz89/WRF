@@ -1,0 +1,418 @@
+{
+  "status": "GO_ACTUAL_O2_GENUINE_Y5_FULL8_TARGET_AND_SCOPED_NONTARGET",
+  "eligible_for_complete_advect_w_caller": true,
+  "eligible_for_application_trial": true,
+  "native_receipt_sha256": "6bb17e1c1f1d31fbbbd74c9116b0f1ec39157b29ff3ab1993a45a570a9293fe9",
+  "native_closure_sha256": "9f4747a60cb96e90f48440da101591a05592f1853ad4cbca70955bcee1315a0a",
+  "candidate_O2_object_sha256": "0d3ad63e20c0d5504a3002d944be5a575f9aee2143aac59cc8a65d1111384dbf",
+  "candidate_PP_sha256": "f3aa277343f7bd1ed8a06a5722d1d1da041ae2778a40090cda6f5efe8b2a395e",
+  "original_public_MOD_sha256": "f72c4d70001c094ce0b81c65eff04b359bc693380cccb144fcb0682352acd4a3",
+  "native_invocation_id": "c2367f1406b64220a457b09d81dbbf16",
+  "native_scope": "22cases\u00d74rounds=88/opt O2/O0 rawphysical/readsets/five-state exact, publicMODf72hard; original20+two YRVpacked/tailpayload swaps. FiniteINVALIDunmaskedfallback only.",
+  "actual_O2": {
+    "target_parent_bytes": 63228,
+    "target_candidate_bytes": 64988,
+    "Y5_packed_true_division_sites": [
+      "   38801:\tc4 c1 7c 5e c0                                  \tvdivps %ymm8,%ymm0,%ymm0",
+      "   3882b:\tc4 c1 74 5e c8                                  \tvdivps %ymm8,%ymm1,%ymm1"
+    ],
+    "scalar_remainder_true_division_sites": [
+      "0x389ff",
+      "0x38a0c"
+    ],
+    "scalar_fallback_true_division_sites": [
+      "0x38fb8",
+      "0x38fc5"
+    ],
+    "full8_count_round_down_site": "0x37d53 AND0xfffffff8; YMMloop32Bstep0x3883d",
+    "no_fourlane_packed_division_in_target_Y5_prefix_tail": true,
+    "one_existing_readonly_entry_mask_call": true,
+    "X5_and_all_other_source_outside_target_exact": true,
+    "no_FMA_reciprocal_in_Y5": true,
+    "non_target_functions": 11,
+    "all_non_target_sizes_equal": true,
+    "raw_changed_4_instructions_source_IO_rows_only": [
+      {
+        "function": "__module_advect_em_MOD_advect_scalar_mono",
+        "function_offset": 19425,
+        "parent_source_row": 10179,
+        "candidate_source_row": 10197,
+        "literal_statement": "      WRITE ( wrf_err_message , * ) 'module_advect: advect_scalar_mono, h_order not known ',horz_order"
+      },
+      {
+        "function": "__module_advect_em_MOD_advect_scalar_mono",
+        "function_offset": 23267,
+        "parent_source_row": 10456,
+        "candidate_source_row": 10474,
+        "literal_statement": "      WRITE (wrf_err_message,*) ' advect_scalar_mono, v_order not known ',vert_order"
+      },
+      {
+        "function": "__module_advect_em_MOD_advect_scalar_pd",
+        "function_offset": 4173,
+        "parent_source_row": 7391,
+        "candidate_source_row": 7409,
+        "literal_statement": "      WRITE ( wrf_err_message , * ) 'module_advect: advect_scalar_pd, h_order not known ',horz_order"
+      },
+      {
+        "function": "__module_advect_em_MOD_advect_scalar_pd",
+        "function_offset": 36623,
+        "parent_source_row": 7809,
+        "candidate_source_row": 7827,
+        "literal_statement": "      WRITE (wrf_err_message,*) ' advect_scalar_pd, v_order not known ',vert_order"
+      }
+    ],
+    "all_11_changed_relocations_resolve_same_referents": [
+      {
+        "function": "__module_advect_em_MOD_advect_scalar",
+        "offset": 1167,
+        "meaning": {
+          "kind": "same_named_function_and_offset",
+          "matches": [
+            {
+              "name": "__module_advect_em_MOD_advect_scalar_zero_seed_eligible",
+              "offset": 0
+            }
+          ]
+        }
+      },
+      {
+        "function": "__module_advect_em_MOD_advect_scalar",
+        "offset": 19592,
+        "meaning": {
+          "kind": "same_literal_cstring",
+          "text": " advect_scalar_6a, v_order not known "
+        }
+      },
+      {
+        "function": "__module_advect_em_MOD_advect_scalar",
+        "offset": 39011,
+        "meaning": {
+          "kind": "same_literal_cstring",
+          "text": "module_advect: advect_scalar_6a, h_order not known "
+        }
+      },
+      {
+        "function": "__module_advect_em_MOD_advect_scalar_mono",
+        "offset": 19491,
+        "meaning": {
+          "kind": "same_literal_cstring",
+          "text": "module_advect: advect_scalar_mono, h_order not known "
+        }
+      },
+      {
+        "function": "__module_advect_em_MOD_advect_scalar_mono",
+        "offset": 23341,
+        "meaning": {
+          "kind": "same_literal_cstring",
+          "text": " advect_scalar_mono, v_order not known "
+        }
+      },
+      {
+        "function": "__module_advect_em_MOD_advect_scalar_pd",
+        "offset": 4239,
+        "meaning": {
+          "kind": "same_literal_cstring",
+          "text": "module_advect: advect_scalar_pd, h_order not known "
+        }
+      },
+      {
+        "function": "__module_advect_em_MOD_advect_scalar_pd",
+        "offset": 36700,
+        "meaning": {
+          "kind": "same_literal_cstring",
+          "text": " advect_scalar_pd, v_order not known "
+        }
+      },
+      {
+        "function": "__module_advect_em_MOD_advect_u",
+        "offset": 22671,
+        "meaning": {
+          "kind": "same_literal_cstring",
+          "text": "module_advect: advect_u_6a: v_order not known "
+        }
+      },
+      {
+        "function": "__module_advect_em_MOD_advect_u",
+        "offset": 39427,
+        "meaning": {
+          "kind": "same_literal_cstring",
+          "text": "module_advect: advect_u_6a:  h_order not known "
+        }
+      },
+      {
+        "function": "__module_advect_em_MOD_advect_v",
+        "offset": 24045,
+        "meaning": {
+          "kind": "same_literal_cstring",
+          "text": "module_advect: advect_v_6a: v_order not known "
+        }
+      },
+      {
+        "function": "__module_advect_em_MOD_advect_v",
+        "offset": 43361,
+        "meaning": {
+          "kind": "same_literal_cstring",
+          "text": "module_advect: advect_v_6a: h_order not known "
+        }
+      }
+    ],
+    "numeric_and_mutable_pools_exact": [
+      ".data",
+      ".bss",
+      ".rodata",
+      ".rodata.cst4",
+      ".rodata.cst8",
+      ".rodata.cst16"
+    ],
+    "string_pool_delta": {
+      "parent_filename": "/pool/wrf-experiment/wrf-cpu/kernels/current33a2-advectw-full8-prefix-genuine-native-hpc02-r2/work/O2/module_advect_em.f90",
+      "candidate_filename": "/pool/wrf-experiment/wrf-cpu/kernels/current03fa-advectw-y5-full8-genuine-native-hpc02-r2/work/O2/module_advect_em.f90",
+      "all_other_literal_strings_exact_in_order": true
+    },
+    "eh_frame_raw_equal": false,
+    "decoded_nontarget_function_relative_CFI": [
+      {
+        "name": "__module_advect_em_MOD_advect_weno_w",
+        "size": 22293,
+        "parent_range": [
+          0,
+          22293
+        ],
+        "candidate_range": [
+          0,
+          22293
+        ],
+        "decoded_function_relative_CFI_exact": true
+      },
+      {
+        "name": "__module_advect_em_MOD_advect_weno_v",
+        "size": 15479,
+        "parent_range": [
+          22304,
+          37783
+        ],
+        "candidate_range": [
+          22304,
+          37783
+        ],
+        "decoded_function_relative_CFI_exact": true
+      },
+      {
+        "name": "__module_advect_em_MOD_advect_weno_u",
+        "size": 15833,
+        "parent_range": [
+          37792,
+          53625
+        ],
+        "candidate_range": [
+          37792,
+          53625
+        ],
+        "decoded_function_relative_CFI_exact": true
+      },
+      {
+        "name": "__module_advect_em_MOD_advect_scalar_mono",
+        "size": 26711,
+        "parent_range": [
+          53632,
+          80343
+        ],
+        "candidate_range": [
+          53632,
+          80343
+        ],
+        "decoded_function_relative_CFI_exact": true
+      },
+      {
+        "name": "__module_advect_em_MOD_advect_scalar_wenopd",
+        "size": 25667,
+        "parent_range": [
+          80352,
+          106019
+        ],
+        "candidate_range": [
+          80352,
+          106019
+        ],
+        "decoded_function_relative_CFI_exact": true
+      },
+      {
+        "name": "__module_advect_em_MOD_advect_scalar_weno",
+        "size": 12876,
+        "parent_range": [
+          106032,
+          118908
+        ],
+        "candidate_range": [
+          106032,
+          118908
+        ],
+        "decoded_function_relative_CFI_exact": true
+      },
+      {
+        "name": "__module_advect_em_MOD_advect_scalar_pd",
+        "size": 78703,
+        "parent_range": [
+          118912,
+          197615
+        ],
+        "candidate_range": [
+          118912,
+          197615
+        ],
+        "decoded_function_relative_CFI_exact": true
+      },
+      {
+        "name": "__module_advect_em_MOD_advect_scalar_zero_seed_eligible",
+        "size": 199,
+        "parent_range": [
+          260848,
+          261047
+        ],
+        "candidate_range": [
+          262608,
+          262807
+        ],
+        "decoded_function_relative_CFI_exact": true
+      },
+      {
+        "name": "__module_advect_em_MOD_advect_scalar",
+        "size": 42030,
+        "parent_range": [
+          261056,
+          303086
+        ],
+        "candidate_range": [
+          262816,
+          304846
+        ],
+        "decoded_function_relative_CFI_exact": true
+      },
+      {
+        "name": "__module_advect_em_MOD_advect_v",
+        "size": 47427,
+        "parent_range": [
+          303088,
+          350515
+        ],
+        "candidate_range": [
+          304848,
+          352275
+        ],
+        "decoded_function_relative_CFI_exact": true
+      },
+      {
+        "name": "__module_advect_em_MOD_advect_u",
+        "size": 41977,
+        "parent_range": [
+          350528,
+          392505
+        ],
+        "candidate_range": [
+          352288,
+          394265
+        ],
+        "decoded_function_relative_CFI_exact": true
+      }
+    ]
+  },
+  "raw_false_truth": {
+    "all_non_target_raw_equal": false,
+    "all_non_target_full_RELA_equal": false,
+    "non_target": [
+      {
+        "name": "__module_advect_em_MOD_advect_scalar",
+        "raw_equal": true,
+        "size_equal": true,
+        "full_RELA_equal": false
+      },
+      {
+        "name": "__module_advect_em_MOD_advect_scalar_mono",
+        "raw_equal": false,
+        "size_equal": true,
+        "full_RELA_equal": false
+      },
+      {
+        "name": "__module_advect_em_MOD_advect_scalar_pd",
+        "raw_equal": false,
+        "size_equal": true,
+        "full_RELA_equal": false
+      },
+      {
+        "name": "__module_advect_em_MOD_advect_scalar_weno",
+        "raw_equal": true,
+        "size_equal": true,
+        "full_RELA_equal": true
+      },
+      {
+        "name": "__module_advect_em_MOD_advect_scalar_wenopd",
+        "raw_equal": true,
+        "size_equal": true,
+        "full_RELA_equal": true
+      },
+      {
+        "name": "__module_advect_em_MOD_advect_scalar_zero_seed_eligible",
+        "raw_equal": true,
+        "size_equal": true,
+        "full_RELA_equal": true
+      },
+      {
+        "name": "__module_advect_em_MOD_advect_u",
+        "raw_equal": true,
+        "size_equal": true,
+        "full_RELA_equal": false
+      },
+      {
+        "name": "__module_advect_em_MOD_advect_v",
+        "raw_equal": true,
+        "size_equal": true,
+        "full_RELA_equal": false
+      },
+      {
+        "name": "__module_advect_em_MOD_advect_weno_u",
+        "raw_equal": true,
+        "size_equal": true,
+        "full_RELA_equal": true
+      },
+      {
+        "name": "__module_advect_em_MOD_advect_weno_v",
+        "raw_equal": true,
+        "size_equal": true,
+        "full_RELA_equal": true
+      },
+      {
+        "name": "__module_advect_em_MOD_advect_weno_w",
+        "raw_equal": true,
+        "size_equal": true,
+        "full_RELA_equal": true
+      }
+    ],
+    "pool_equal": {
+      ".data": true,
+      ".bss": true,
+      ".rodata.str1.8": false,
+      ".rodata": true,
+      ".rodata.str1.1": true,
+      ".rodata.cst4": true,
+      ".rodata.cst8": true,
+      ".rodata.cst16": true,
+      ".eh_frame": false
+    },
+    "full_allocated_RELA_equal": false,
+    "target_parent_bytes": 63228,
+    "target_candidate_bytes": 64988,
+    "raw_false_retained_scope_pending": true
+  },
+  "O0_nontarget_classification": "UNCLASSIFIED; O0target/rawfive88 and MODexact do not imply unrelatedwholemodule equivalence.",
+  "ABI_scope": "OriginalpublicMODbyteexact,genuineoriginalinterface,unchangeddefinedfunctionset andnontargetsizes; no claim rawELFsymboltablebyteidentity or cleanwholecanonicalbuild.",
+  "scope_limits": [
+    "Caller eligibility only until actualwholecaller cost/rootretention. No measuredgenuinecaller or applicationgain yet.",
+    "Sourcefull8/queryfallback preserved; no universaltrap-prefix/asynchronousFPmode claim.",
+    "TargetdecodedCFI itself changes withnewcode/frame and is not claimed byteequal."
+  ],
+  "evidence_sha256": {
+    "actual-stdout.json": "5d4e9ebb6ae91988c46103efd3cbf284e1b362fa109ab92ed97890024f5af98d",
+    "actual-guard-frames.json": "9fbb2f2b11e6aebe176933fc5f2f4b16120a29e87bdf6de5b5fe2576eae87a36",
+    "actual-symbols.json": "e9fbc28016fc4568b403366284bfecbfc028992321e3e18e0828f6e7d789546e"
+  }
+}
