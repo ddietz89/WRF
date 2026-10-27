@@ -1,0 +1,27 @@
+{
+  "status": "PASS_FULL_DYN_MAKE_HELPER_OWNER_INDEPENDENCE_AND_DEDUP_LOCAL_PROJECTION",
+  "canonical_PINS_sha256": "d18c0775bb7b44db6fcc04b2c4298f3f47392f905bd5deaa03077e36f5f19fd4",
+  "candidate_dyn_Makefile_sha256": "a6c857b7de5ef1e9a3e1d53c59d6d0332d44f2a192b5104bb0feb1d8c0373f47",
+  "cases": [
+    {
+      "case": "ALL_THREE_OTHER_KNOBS_OFF",
+      "helper_occurrences": 1,
+      "expected": 1,
+      "full_Make_text_except_explicit_config_dependency_include_routes": true
+    },
+    {
+      "case": "SW_AND_ALL_THREE_OFF",
+      "helper_occurrences": 0,
+      "expected": 0,
+      "full_Make_text_except_explicit_config_dependency_include_routes": true
+    },
+    {
+      "case": "PHY_OWNER_ALREADY_ON",
+      "helper_occurrences": 1,
+      "expected": 1,
+      "full_Make_text_except_explicit_config_dependency_include_routes": true
+    }
+  ],
+  "scope": "GNUmake branch expansion using explicit compiler-response fixture and explicit selected typed variables. Missing local configure/depend includes routed to empty private fixture; no configuration/build certificate or compiler/scientific execution. Correct W knob WRF_ADVECT_W_X5_SIMD; prior isolated unused genericW spelling superseded by these proofs.",
+  "source_or_recipe_changes": false
+}

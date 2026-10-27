@@ -1,0 +1,224 @@
+{
+  "status": "PASS_CURRENT33A2_SW_CLOUD_CONSUMER_NATIVE413_O2_O0_BOUNDS_AND_FIXED16384_RAW40STATE_BUILT",
+  "invocation_id": "3fe560ea91bc42f695e55a12933ef438",
+  "WRF_module_compiles": 0,
+  "C_helper_compiles": 0,
+  "C_driver_compiles": 2,
+  "standalone_Fortran_compiles": 2,
+  "links": 3,
+  "application_qualified": false,
+  "performance_qualified": false,
+  "commands": [
+    {
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpicc",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current33a2-sw-cloud-consumer-build03-r1/correctness.c",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current33a2-sw-cloud-consumer-build03-r1/work/proof.o"
+      ],
+      "label": "compile-proof-driver",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpicc",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current33a2-sw-cloud-consumer-build03-r1/local_bench.c",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current33a2-sw-cloud-consumer-build03-r1/work/bench.o"
+      ],
+      "label": "compile-batch-driver",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-fopenmp-simd",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current33a2-sw-cloud-consumer-build03-r1/consumer_kernels.f90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current33a2-sw-cloud-consumer-build03-r1/work/O2/kernels.o"
+      ],
+      "label": "compile-O2",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current33a2-sw-cloud-consumer-build03-r1/work/proof.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current33a2-sw-cloud-consumer-build03-r1/work/O2/kernels.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-phy-interior-p8w-t8w-simd-native-hpc03-r3/work/phy_interp_mask.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/phy-zatw-private-ordered-row-currentfbcd-native-hpc01-r1/work/state.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/phy-zatw-private-ordered-row-currentfbcd-native-hpc01-r1/work/physical.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current3f86-spc-column-caller-build02-r1/work/clock.o",
+        "-lm",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current33a2-sw-cloud-consumer-build03-r1/work/O2/proof.exe"
+      ],
+      "label": "link-proof-O2",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current33a2-sw-cloud-consumer-build03-r1/work/O2/proof.exe"
+      ],
+      "label": "exact-proof-O2",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-O0",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-fopenmp-simd",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-fcheck=bounds",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current33a2-sw-cloud-consumer-build03-r1/consumer_kernels.f90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current33a2-sw-cloud-consumer-build03-r1/work/O0/kernels.o"
+      ],
+      "label": "compile-O0",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current33a2-sw-cloud-consumer-build03-r1/work/proof.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current33a2-sw-cloud-consumer-build03-r1/work/O0/kernels.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-phy-interior-p8w-t8w-simd-native-hpc03-r3/work/phy_interp_mask.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/phy-zatw-private-ordered-row-currentfbcd-native-hpc01-r1/work/state.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/phy-zatw-private-ordered-row-currentfbcd-native-hpc01-r1/work/physical.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current3f86-spc-column-caller-build02-r1/work/clock.o",
+        "-lm",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current33a2-sw-cloud-consumer-build03-r1/work/O0/proof.exe"
+      ],
+      "label": "link-proof-O0",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current33a2-sw-cloud-consumer-build03-r1/work/O0/proof.exe"
+      ],
+      "label": "exact-proof-O0",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/usr/bin/objdump",
+        "-dr",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current33a2-sw-cloud-consumer-build03-r1/work/O2/kernels.o"
+      ],
+      "label": "actual-O2-asm",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current33a2-sw-cloud-consumer-build03-r1/work/bench.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current33a2-sw-cloud-consumer-build03-r1/work/O2/kernels.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-phy-interior-p8w-t8w-simd-native-hpc03-r3/work/phy_interp_mask.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/phy-zatw-private-ordered-row-currentfbcd-native-hpc01-r1/work/state.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/phy-zatw-private-ordered-row-currentfbcd-native-hpc01-r1/work/physical.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current3f86-spc-column-caller-build02-r1/work/clock.o",
+        "-lm",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current33a2-sw-cloud-consumer-build03-r1/work/consumer-bench.exe"
+      ],
+      "label": "link-fixed-batch",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current33a2-sw-cloud-consumer-build03-r1/work/consumer-bench.exe",
+        "0",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current33a2-sw-cloud-consumer-build03-r1/work/proof-role0.bin"
+      ],
+      "label": "fixed16384-proof-role0",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current33a2-sw-cloud-consumer-build03-r1/work/consumer-bench.exe",
+        "1",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current33a2-sw-cloud-consumer-build03-r1/work/proof-role1.bin"
+      ],
+      "label": "fixed16384-proof-role1",
+      "returncode": 0
+    }
+  ],
+  "proofs": {
+    "O2": {
+      "status": "PASS_LOCAL413_TRANSFERRED_NATIVE_EXACT",
+      "kernel_object": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current33a2-sw-cloud-consumer-build03-r1/work/O2/kernels.o",
+        "sha256": "e4c0ea632b2fe55114eb6da8164c090934c98c504aeb344e42148caa92d62b77"
+      },
+      "stdout_sha256": "3a525593bb8d834785a3b6a24a52adf552fa8a1df46ee60b8fa178d6db0ec283",
+      "bounds_checking": false
+    },
+    "O0": {
+      "status": "PASS_LOCAL413_TRANSFERRED_NATIVE_EXACT",
+      "kernel_object": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current33a2-sw-cloud-consumer-build03-r1/work/O0/kernels.o",
+        "sha256": "580cf2945637544d471ae8694a17471bdbe672d644495ee7ed43ef5838038f47"
+      },
+      "stdout_sha256": "3a525593bb8d834785a3b6a24a52adf552fa8a1df46ee60b8fa178d6db0ec283",
+      "bounds_checking": true
+    }
+  },
+  "codegen": {
+    "ASM_sha256": "6d0d47135fafe84ec560273e64a1a2b487d118fed792ad7f464a0bcd0b72f473",
+    "has_comiss": true,
+    "packed_compare_seen": false,
+    "no_SIMD_gain_claim": true
+  },
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current33a2-sw-cloud-consumer-build03-r1/work/consumer-bench.exe",
+    "sha256": "9bd5b9a507f0bb02b8df8417bf949ca6ad58743545dc1bad7cfc1a9e08db0a84"
+  },
+  "raw_gold": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current33a2-sw-cloud-consumer-build03-r1/work/proof-role0.bin",
+    "sha256": "e716064f830c8d12e6d5a335ce259b77a119fcccc9d766c21103cceb3f34b2eb",
+    "bytes": 118840
+  },
+  "runtime_environment": {
+    "PATH": "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin:/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/bin:/pool/wrf-experiment/toolchains/gnu/13.3.0/wrappers:/pool/wrf-experiment/toolchains/bootstrap/bin:/pool/wrf-experiment/toolchains/bootstrap/usr/bin:/usr/bin:/bin",
+    "LD_LIBRARY_PATH": "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib",
+    "OPAL_PREFIX": "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem"
+  },
+  "actual_dependency_pins": {
+    "/pool/wrf-experiment/wrf-cpu/kernels/phy-zatw-private-ordered-row-currentfbcd-native-hpc01-r1/work/state.o": "72b31a7baf2ab791ba39f665cb80a0ed5babf7aa0d6f4c88da84f932428b4e3b",
+    "/pool/wrf-experiment/wrf-cpu/kernels/phy-zatw-private-ordered-row-currentfbcd-native-hpc01-r1/work/physical.o": "c537019929eb336845fce2f4aab0149f53486acc79aad00155281811bd16aeaf",
+    "/pool/wrf-experiment/wrf-cpu/kernels/current3f86-spc-column-caller-build02-r1/work/clock.o": "5ca85581635d9e12210d146af638f062d1832d0b846314110ba7716c9371d099",
+    "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-phy-interior-p8w-t8w-simd-native-hpc03-r3/work/phy_interp_mask.o": "d3769b702ccc0b3734b4167cc1704f6d98a1095c5c6cce56239c53f63ac3cfd8"
+  },
+  "fixed_repeats": 16384,
+  "clock_scope": "cachedqualifiedintegerMONOTONIC_RAW+THREADCPU;8fulloutputrestoresinside",
+  "scope": "Standalone literal final8field consumer, not full generator/module. PlainOMP emits scalar branches on localGNU13; actualEPYC codegen recorded, no SIMD claim."
+}

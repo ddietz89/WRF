@@ -1,5 +1,9 @@
 # WRF CPU optimization findings
 
+## October 27: SW cloud-consumer guard qualified for instrumented daylight
+
+Selected image `03fa935c` / archive `bd1ac8a4`, with post-test source `77ce9db9`, retains the earlier fixes and adds the guarded stochastic-cloud final consumer. The genuine complete generator caller, including all eight output restores, was 2.51% and 3.98% shorter on hpc01/02, with matching CPU reductions. Actual GNU13.3 O2 code remains scalar; no SIMD gain or forecast speedup is claimed. Own instrumented 12–13 daylight science passed exactly for 185 ordered steps and two full products, and three 15-second main-thread profiles on hpc03 ranks114/122/386 passed identity/parsing checks. These are selected-thread profiles, not an all-rank causal attribution. Current own unprofiled noon, three-hour and nine-hour qualifications remain false; ccbe’s three-hour result is historical parent evidence. The retained original75-minute reference supports the science prefix only, with no timing comparison. `WRF_SW_CLOUD_CONSUMER=0`, followed by regeneration, member compilation, rearchiving and relinking, restores the original consumer; unsupported configurations retain that fallback. See [the component evidence](tools/cpu-compute/sw-cloud-consumer-20261027/README.md) for exact IEEE, typed MOD-ID, source-projection and compiler limits. Historical raw checker labels are retained and annotated rather than rewritten.
+
 ## October 26: shortwave current-column scratch promoted
 
 Combined image `da1cb49c` includes all earlier improvements and now owns exact three-hour qualification (545 steps/four full products) and unprofiled daylight qualification (185 steps/two full products). Four private spectral scratch arrays reuse the current column, reducing their requested capacity from60,928 to544bytes at33layers. The spectral traversal and arithmetic are unchanged; all four allocations remain. This is a scratch-capacity result, with no measured RSS saving.
