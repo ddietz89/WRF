@@ -1,0 +1,334 @@
+{
+  "status": "PASS_GENUINE_CURRENTDA1C_TKE_HELICITY_UV_SUBSET_9RANK16_RAW5_PENDING_MACHINE",
+  "invocation_id": "993dce063af34f94850493b59901ffa1",
+  "commands": [
+    {
+      "argv": [
+        "/bin/bash",
+        "-c",
+        "source \"$1\"; /usr/bin/python3 -c \"$2\"",
+        "env",
+        "/pool/wrf-experiment/tooling/m6-parallel/mpi-ib-env.sh",
+        "import os,json;print(json.dumps({k:v for k,v in os.environ.items()if k in ['PATH', 'LD_LIBRARY_PATH', 'OPAL_PREFIX', 'OMPI_MCA_pml', 'OMPI_MCA_btl', 'UCX_TLS', 'UCX_NET_DEVICES', 'UCX_POSIX_DIR']}))"
+      ],
+      "cwd": "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-tke-helicity-uv-subset-native-hpc01-r1/work",
+      "returncode": 0,
+      "stdout_sha256": "765b65b6ddd1d102232a7d5e9850868aa760a3ae9485673333574537a2556b5c",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-O2",
+        "-g",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-tke-helicity-uv-subset-native-hpc01-r1/module_tke_helicity_uv_reuse.f90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-tke-helicity-uv-subset-native-hpc01-r1/work/combined.o"
+      ],
+      "cwd": "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-tke-helicity-uv-subset-native-hpc01-r1/work",
+      "returncode": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-O2",
+        "-g",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-tke-helicity-uv-subset-native-hpc01-r1/work",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-tke-helicity-uv-subset-native-hpc01-r1/tke_helicity_driver.f90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-tke-helicity-uv-subset-native-hpc01-r1/work/driver.o"
+      ],
+      "cwd": "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-tke-helicity-uv-subset-native-hpc01-r1/work",
+      "returncode": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-tke-helicity-uv-subset-native-hpc01-r1/work/oracle",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-tke-helicity-uv-subset-native-hpc01-r1/work/driver.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-tke-helicity-uv-subset-native-hpc01-r1/work/combined.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current0ec3-haloc-direct8-native-hpc02-r1/work/state.o",
+        "-Wl,--start-group",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-Wl,-rpath,/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/hpg-nhx-isolated-avx2-consumer-native-r3/work/nhx-helper-O2.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/phy-height-private-avx2-fixed8-native-hpc04-r1/work/helper-O2.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/current56d2-spc-column-experimental-r1/libwrflib.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-lesmf_time",
+        "/pool/wrf-experiment/wrf-cpu/builds/current971c-uv-final-v-unpack-outline-combined-native-r1/librsl_lite.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2",
+        "-lwrfio_nf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-lnetcdf",
+        "-Wl,--end-group",
+        "-lm"
+      ],
+      "cwd": "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-tke-helicity-uv-subset-native-hpc01-r1/work",
+      "returncode": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpirun",
+        "--prefix",
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem",
+        "--host",
+        "localhost:9",
+        "-np",
+        "9",
+        "--bind-to",
+        "none",
+        "--map-by",
+        "slot",
+        "--leave-session-attached",
+        "-x",
+        "LD_LIBRARY_PATH",
+        "-x",
+        "OPAL_PREFIX",
+        "-x",
+        "OMPI_MCA_pml",
+        "-x",
+        "OMPI_MCA_btl",
+        "-x",
+        "UCX_TLS",
+        "-x",
+        "UCX_NET_DEVICES",
+        "-x",
+        "UCX_POSIX_DIR",
+        "/usr/bin/python3",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-tke-helicity-uv-subset-native-hpc01-r1/rank_entry.py",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-tke-helicity-uv-subset-native-hpc01-r1/work/oracle",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-tke-helicity-uv-subset-native-hpc01-r1/work/original/entries",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-tke-helicity-uv-subset-native-hpc01-r1/work/original/physical",
+        "0"
+      ],
+      "cwd": "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-tke-helicity-uv-subset-native-hpc01-r1/work",
+      "returncode": 0,
+      "stdout_sha256": "d1878e2b53df96889c3a5d920d9fc51b7170e3c492664ab1f0555488383014cd",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpirun",
+        "--prefix",
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem",
+        "--host",
+        "localhost:9",
+        "-np",
+        "9",
+        "--bind-to",
+        "none",
+        "--map-by",
+        "slot",
+        "--leave-session-attached",
+        "-x",
+        "LD_LIBRARY_PATH",
+        "-x",
+        "OPAL_PREFIX",
+        "-x",
+        "OMPI_MCA_pml",
+        "-x",
+        "OMPI_MCA_btl",
+        "-x",
+        "UCX_TLS",
+        "-x",
+        "UCX_NET_DEVICES",
+        "-x",
+        "UCX_POSIX_DIR",
+        "/usr/bin/python3",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-tke-helicity-uv-subset-native-hpc01-r1/rank_entry.py",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-tke-helicity-uv-subset-native-hpc01-r1/work/oracle",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-tke-helicity-uv-subset-native-hpc01-r1/work/combined/entries",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-tke-helicity-uv-subset-native-hpc01-r1/work/combined/physical",
+        "1"
+      ],
+      "cwd": "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-tke-helicity-uv-subset-native-hpc01-r1/work",
+      "returncode": 0,
+      "stdout_sha256": "38bb0fa365cfeaa0e5e81cf00d53ad2ee24f76a59f2e5162f3470495a86267ef",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "WRF_science_module_compiles": 0,
+  "performance_qualified": false,
+  "application_qualified": false,
+  "actual_original_MODs": {
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_configure.mod": "a16f88b79a658620f0cf53f558e993eb91b6d79c01073d55cf4cc457a7fde9e3",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_domain.mod": "b4e4e22d87b8200a95b1f229b9d4e9e9b524905d8515820309464fa4e699c470",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share/module_bc.mod": "3bab4d814d238e5c79b7623dddee943341ccee88bb7e548afe12500128964336",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_comm_dm_1.mod": "3d0e08b845a0f8d5946e2a8715481dd55773bc11e86e1fc86a19c8ce2f4e5ed4",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_comm_dm_4_.mod": "b380d34d6d6e75a3a4bb95ee0f4ea101fda032c777381c7d9996660811fd23af",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_comm_dm_0.mod": "f36743eb544a137b346d5fa5afea65e000911eea33c4869a8c3fd09945f3cc93",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_dm.mod": "6a0ddfb8d2310409a14caa0f5c99a3692c294310924d421507dfa854a59bd85d"
+  },
+  "private_communication_module_compiles": 1,
+  "fixture_compiles": 1,
+  "C_compiles": 0,
+  "links": 1,
+  "raw": {
+    "0": {
+      "0": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-tke-helicity-uv-subset-native-hpc01-r1/work/original/physical.rank0.bin",
+        "sha256": "f947b436cebce628471069c5dc78217eac4d1adeb0d7ea0377f0ea5ae2338f9a",
+        "bytes": 1315328
+      },
+      "1": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-tke-helicity-uv-subset-native-hpc01-r1/work/original/physical.rank1.bin",
+        "sha256": "99dd4709af9deb357e8a492f45ea88cfbc66692fa669a1513877762043418531",
+        "bytes": 1315328
+      },
+      "2": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-tke-helicity-uv-subset-native-hpc01-r1/work/original/physical.rank2.bin",
+        "sha256": "1851f32b3cf060711e8ca5e0e64c07cd43833163273bc1b026402aca6231da99",
+        "bytes": 1401344
+      },
+      "3": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-tke-helicity-uv-subset-native-hpc01-r1/work/original/physical.rank3.bin",
+        "sha256": "f48505a4545d79752831b503e475a1892593bc879c37df02f41bdcca50917e04",
+        "bytes": 1315328
+      },
+      "4": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-tke-helicity-uv-subset-native-hpc01-r1/work/original/physical.rank4.bin",
+        "sha256": "ef2de73899abb1a588094ec6cdfa5b8da61e9d2233eb35d19679d9ee7f27a61d",
+        "bytes": 1315328
+      },
+      "5": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-tke-helicity-uv-subset-native-hpc01-r1/work/original/physical.rank5.bin",
+        "sha256": "18b7ce82acf6ca602896197bebf5367a8941b1b649cc7e509abab1dd1f337905",
+        "bytes": 1401344
+      },
+      "6": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-tke-helicity-uv-subset-native-hpc01-r1/work/original/physical.rank6.bin",
+        "sha256": "04f192ea637e22b917b336fbb7d96383d1fdbea081270d1d04168d965d3e428d",
+        "bytes": 1401344
+      },
+      "7": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-tke-helicity-uv-subset-native-hpc01-r1/work/original/physical.rank7.bin",
+        "sha256": "cc9e1d7a006946295451aa6c2fba89647ac1a066575d0358dd4a3ad311250f4e",
+        "bytes": 1401344
+      },
+      "8": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-tke-helicity-uv-subset-native-hpc01-r1/work/original/physical.rank8.bin",
+        "sha256": "eaa0267c9cfd0edd56ba089a94b95204339b11f06aa988a1a807b1aad51a33ea",
+        "bytes": 1493120
+      }
+    },
+    "1": {
+      "0": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-tke-helicity-uv-subset-native-hpc01-r1/work/combined/physical.rank0.bin",
+        "sha256": "f947b436cebce628471069c5dc78217eac4d1adeb0d7ea0377f0ea5ae2338f9a",
+        "bytes": 1315328
+      },
+      "1": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-tke-helicity-uv-subset-native-hpc01-r1/work/combined/physical.rank1.bin",
+        "sha256": "99dd4709af9deb357e8a492f45ea88cfbc66692fa669a1513877762043418531",
+        "bytes": 1315328
+      },
+      "2": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-tke-helicity-uv-subset-native-hpc01-r1/work/combined/physical.rank2.bin",
+        "sha256": "1851f32b3cf060711e8ca5e0e64c07cd43833163273bc1b026402aca6231da99",
+        "bytes": 1401344
+      },
+      "3": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-tke-helicity-uv-subset-native-hpc01-r1/work/combined/physical.rank3.bin",
+        "sha256": "f48505a4545d79752831b503e475a1892593bc879c37df02f41bdcca50917e04",
+        "bytes": 1315328
+      },
+      "4": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-tke-helicity-uv-subset-native-hpc01-r1/work/combined/physical.rank4.bin",
+        "sha256": "ef2de73899abb1a588094ec6cdfa5b8da61e9d2233eb35d19679d9ee7f27a61d",
+        "bytes": 1315328
+      },
+      "5": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-tke-helicity-uv-subset-native-hpc01-r1/work/combined/physical.rank5.bin",
+        "sha256": "18b7ce82acf6ca602896197bebf5367a8941b1b649cc7e509abab1dd1f337905",
+        "bytes": 1401344
+      },
+      "6": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-tke-helicity-uv-subset-native-hpc01-r1/work/combined/physical.rank6.bin",
+        "sha256": "04f192ea637e22b917b336fbb7d96383d1fdbea081270d1d04168d965d3e428d",
+        "bytes": 1401344
+      },
+      "7": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-tke-helicity-uv-subset-native-hpc01-r1/work/combined/physical.rank7.bin",
+        "sha256": "cc9e1d7a006946295451aa6c2fba89647ac1a066575d0358dd4a3ad311250f4e",
+        "bytes": 1401344
+      },
+      "8": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-tke-helicity-uv-subset-native-hpc01-r1/work/combined/physical.rank8.bin",
+        "sha256": "eaa0267c9cfd0edd56ba089a94b95204339b11f06aa988a1a807b1aad51a33ea",
+        "bytes": 1493120
+      }
+    }
+  },
+  "actual_inputs_before_after_exact": true,
+  "all9_ranks_16_records_raw_five_state_exact": true,
+  "K_readonly_guards": true,
+  "original_fallback_case3": true,
+  "scope": "Genuine originaldomain/currentRSL earlyU/Vmixedwidth and unchangedlate metric/W/PH exchange; allphysical/onehaloU/Vreadset/4round5 hard. No complete-deformation/math/SOLVE/application/performance claim",
+  "elapsed_seconds": 9.702305222861469,
+  "resource_end": {
+    "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+    "memory.peak": "308088832",
+    "memory.current": "101847040",
+    "memory.swap.current": "0"
+  }
+}

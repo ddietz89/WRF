@@ -1,0 +1,414 @@
+{
+  "status": "PASS_STEADY_UV_PROTOCOL_512_9RANK_RAW5_ARM",
+  "invocation_id": "cec875f06caa49e789f327b1d1014001",
+  "commands": [
+    {
+      "argv": [
+        "/bin/bash",
+        "-c",
+        "source \"$1\"; /usr/bin/python3 -c \"$2\"",
+        "env",
+        "/pool/wrf-experiment/tooling/m6-parallel/mpi-ib-env.sh",
+        "import os,json;print(json.dumps({k:v for k,v in os.environ.items()if k in ['PATH', 'LD_LIBRARY_PATH', 'OPAL_PREFIX', 'OMPI_MCA_pml', 'OMPI_MCA_btl', 'UCX_TLS', 'UCX_NET_DEVICES', 'UCX_POSIX_DIR']}))"
+      ],
+      "cwd": "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-uv-protocol512-steady-arm1-hpc02-r2/work",
+      "returncode": 0,
+      "stdout_sha256": "765b65b6ddd1d102232a7d5e9850868aa760a3ae9485673333574537a2556b5c",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpirun",
+        "--prefix",
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem",
+        "--host",
+        "localhost:9",
+        "-np",
+        "9",
+        "--bind-to",
+        "none",
+        "--map-by",
+        "slot",
+        "--leave-session-attached",
+        "--output-filename",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-uv-protocol512-steady-arm1-hpc02-r2/work/protocol/mpi-output",
+        "-x",
+        "LD_LIBRARY_PATH",
+        "-x",
+        "OPAL_PREFIX",
+        "-x",
+        "OMPI_MCA_pml",
+        "-x",
+        "OMPI_MCA_btl",
+        "-x",
+        "UCX_TLS",
+        "-x",
+        "UCX_NET_DEVICES",
+        "-x",
+        "UCX_POSIX_DIR",
+        "/usr/bin/python3",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-uv-protocol512-steady-arm1-hpc02-r2/rank_entry.py",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-uv-protocol512-steady-driver-build-hpc01-r2/work/complete_protocol_caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-uv-protocol512-steady-arm1-hpc02-r2/work/protocol/entries",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-uv-protocol512-steady-arm1-hpc02-r2/work/protocol/physical",
+        "1"
+      ],
+      "cwd": "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-uv-protocol512-steady-arm1-hpc02-r2/work",
+      "returncode": 0,
+      "stdout_sha256": "d1efe5b59dd6eaccbfd9ec72553b0ab64906e5946c3602af354b2a39f4d7ccb5",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "WRF_science_module_compiles": 0,
+  "performance_qualified": false,
+  "application_qualified": false,
+  "actual_original_MODs": {
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_configure.mod": "a16f88b79a658620f0cf53f558e993eb91b6d79c01073d55cf4cc457a7fde9e3",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_domain.mod": "b4e4e22d87b8200a95b1f229b9d4e9e9b524905d8515820309464fa4e699c470",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share/module_bc.mod": "3bab4d814d238e5c79b7623dddee943341ccee88bb7e548afe12500128964336",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_comm_dm_1.mod": "3d0e08b845a0f8d5946e2a8715481dd55773bc11e86e1fc86a19c8ce2f4e5ed4",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_comm_dm_4_.mod": "b380d34d6d6e75a3a4bb95ee0f4ea101fda032c777381c7d9996660811fd23af",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_comm_dm_0.mod": "f36743eb544a137b346d5fa5afea65e000911eea33c4869a8c3fd09945f3cc93",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_dm.mod": "6a0ddfb8d2310409a14caa0f5c99a3692c294310924d421507dfa854a59bd85d"
+  },
+  "host": "hpc02",
+  "which": 1,
+  "iterations": 512,
+  "raw": {
+    "0": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-uv-protocol512-steady-arm1-hpc02-r2/work/protocol/physical.rank0.bin",
+      "sha256": "78b6e81c399480124d1ae357f15c90c97801057dc2a6b13bdba3700b7011bdf0",
+      "bytes": 16099840,
+      "warm5": [
+        34,
+        0,
+        0,
+        8064,
+        895
+      ],
+      "batch5": [
+        34,
+        0,
+        0,
+        8064,
+        895
+      ]
+    },
+    "1": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-uv-protocol512-steady-arm1-hpc02-r2/work/protocol/physical.rank1.bin",
+      "sha256": "fd2fdf1ca606a9d7eb52715a1034e8a2eb39bded1737ac434fcdc23607fe744c",
+      "bytes": 16099840,
+      "warm5": [
+        34,
+        0,
+        0,
+        8064,
+        895
+      ],
+      "batch5": [
+        34,
+        0,
+        0,
+        8064,
+        895
+      ]
+    },
+    "2": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-uv-protocol512-steady-arm1-hpc02-r2/work/protocol/physical.rank2.bin",
+      "sha256": "33ba07973946ca3a4a7f9315acbbb4efa00f975a4ab5aa1fe3cb95b08923952d",
+      "bytes": 16099840,
+      "warm5": [
+        34,
+        0,
+        0,
+        8064,
+        895
+      ],
+      "batch5": [
+        34,
+        0,
+        0,
+        8064,
+        895
+      ]
+    },
+    "3": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-uv-protocol512-steady-arm1-hpc02-r2/work/protocol/physical.rank3.bin",
+      "sha256": "db32eb38393a03a80b11246c9583310f7a110bc261a2d1a89354fc1f134234f7",
+      "bytes": 16099840,
+      "warm5": [
+        34,
+        0,
+        0,
+        8064,
+        895
+      ],
+      "batch5": [
+        34,
+        0,
+        0,
+        8064,
+        895
+      ]
+    },
+    "4": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-uv-protocol512-steady-arm1-hpc02-r2/work/protocol/physical.rank4.bin",
+      "sha256": "5c3ec71ad031d9e0f23d16511432ce05a8f440bcbe540003b12ebfc04e35cafd",
+      "bytes": 16099840,
+      "warm5": [
+        34,
+        0,
+        0,
+        8064,
+        895
+      ],
+      "batch5": [
+        34,
+        0,
+        0,
+        8064,
+        895
+      ]
+    },
+    "5": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-uv-protocol512-steady-arm1-hpc02-r2/work/protocol/physical.rank5.bin",
+      "sha256": "bc43abe03052ec6b3d10ff162e121a152cae7e98282b259e98a8c3924ba88e25",
+      "bytes": 16099840,
+      "warm5": [
+        34,
+        0,
+        0,
+        8064,
+        895
+      ],
+      "batch5": [
+        34,
+        0,
+        0,
+        8064,
+        895
+      ]
+    },
+    "6": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-uv-protocol512-steady-arm1-hpc02-r2/work/protocol/physical.rank6.bin",
+      "sha256": "8e783c03c61ff80849ac3383c87581899ac0ade722f33e13464132da4d894d74",
+      "bytes": 16099840,
+      "warm5": [
+        34,
+        0,
+        0,
+        8064,
+        895
+      ],
+      "batch5": [
+        34,
+        0,
+        0,
+        8064,
+        895
+      ]
+    },
+    "7": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-uv-protocol512-steady-arm1-hpc02-r2/work/protocol/physical.rank7.bin",
+      "sha256": "73983620c101a463652467c88b8671d04f32c8293cebad7e194f53c82fedb24d",
+      "bytes": 16099840,
+      "warm5": [
+        34,
+        0,
+        0,
+        8064,
+        895
+      ],
+      "batch5": [
+        34,
+        0,
+        0,
+        8064,
+        895
+      ]
+    },
+    "8": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-uv-protocol512-steady-arm1-hpc02-r2/work/protocol/physical.rank8.bin",
+      "sha256": "7ea145a110ab82033c3a01beae2851d91b52870078746f66a750b0ac784e495d",
+      "bytes": 16099840,
+      "warm5": [
+        34,
+        0,
+        0,
+        8064,
+        895
+      ],
+      "batch5": [
+        34,
+        0,
+        32,
+        8096,
+        895
+      ]
+    }
+  },
+  "rank_raw_sha256": {
+    "0": "78b6e81c399480124d1ae357f15c90c97801057dc2a6b13bdba3700b7011bdf0",
+    "1": "fd2fdf1ca606a9d7eb52715a1034e8a2eb39bded1737ac434fcdc23607fe744c",
+    "2": "33ba07973946ca3a4a7f9315acbbb4efa00f975a4ab5aa1fe3cb95b08923952d",
+    "3": "db32eb38393a03a80b11246c9583310f7a110bc261a2d1a89354fc1f134234f7",
+    "4": "5c3ec71ad031d9e0f23d16511432ce05a8f440bcbe540003b12ebfc04e35cafd",
+    "5": "bc43abe03052ec6b3d10ff162e121a152cae7e98282b259e98a8c3924ba88e25",
+    "6": "8e783c03c61ff80849ac3383c87581899ac0ade722f33e13464132da4d894d74",
+    "7": "73983620c101a463652467c88b8671d04f32c8293cebad7e194f53c82fedb24d",
+    "8": "7ea145a110ab82033c3a01beae2851d91b52870078746f66a750b0ac784e495d"
+  },
+  "timings": [
+    {
+      "rank": 0,
+      "wall_ns": 4500521701,
+      "thread_cpu_ns": 4493723263,
+      "stdout_sha256": "f89890536de4d08f5117a3a4cdbc92bb8c7bc79d97446c1decdf84428a4f1a18"
+    },
+    {
+      "rank": 1,
+      "wall_ns": 4501120825,
+      "thread_cpu_ns": 4497482694,
+      "stdout_sha256": "2be72ad12a24bedc10481fc3da5e944a0a01a50987f234a684b70850817bf6ca"
+    },
+    {
+      "rank": 2,
+      "wall_ns": 4501142615,
+      "thread_cpu_ns": 4496356573,
+      "stdout_sha256": "6db5ec7b9a8e8961dce60aa3f4b1569f48c0410e11ac80e2a7bb6dbb4ca19081"
+    },
+    {
+      "rank": 3,
+      "wall_ns": 4501235207,
+      "thread_cpu_ns": 4491953801,
+      "stdout_sha256": "6fc59e58fd324410ff134daef85140d1e9e378917b5b250f6ef4bcf7ad9d9422"
+    },
+    {
+      "rank": 4,
+      "wall_ns": 4501256069,
+      "thread_cpu_ns": 4496737415,
+      "stdout_sha256": "d04beec2c3cdae68a13cb059769f4982ff49b5d91ae0d74ef277bd1942add65d"
+    },
+    {
+      "rank": 5,
+      "wall_ns": 4501263399,
+      "thread_cpu_ns": 4496795784,
+      "stdout_sha256": "d64e4661280fbc4aa93d05769c3d8aac3101498f1cad5b62436e74ae16d9702f"
+    },
+    {
+      "rank": 6,
+      "wall_ns": 4501189857,
+      "thread_cpu_ns": 4496474425,
+      "stdout_sha256": "6a1cb0bf19b11e841f4919489ce4c3ade252bc8fcb663e26b6efc1b7fc43de10"
+    },
+    {
+      "rank": 7,
+      "wall_ns": 4501164796,
+      "thread_cpu_ns": 4499239808,
+      "stdout_sha256": "3a49b8db215c22d1aa8c4f5b9b24849206c8ca0785c04007af1ec2732cfd645e"
+    },
+    {
+      "rank": 8,
+      "wall_ns": 4500608004,
+      "thread_cpu_ns": 4493346542,
+      "stdout_sha256": "d575573532029e6f22fdfcbe99bbc2f8316b5cd617a517d94e86ef2dde62e047"
+    }
+  ],
+  "unobserved_original_transport_warmup_exit5": {
+    "0": [
+      14,
+      0,
+      32,
+      8096,
+      895
+    ],
+    "1": [
+      14,
+      0,
+      32,
+      8096,
+      895
+    ],
+    "2": [
+      14,
+      0,
+      32,
+      8096,
+      895
+    ],
+    "3": [
+      14,
+      0,
+      32,
+      8096,
+      895
+    ],
+    "4": [
+      14,
+      0,
+      32,
+      8096,
+      895
+    ],
+    "5": [
+      14,
+      0,
+      32,
+      8096,
+      895
+    ],
+    "6": [
+      14,
+      0,
+      32,
+      8096,
+      895
+    ],
+    "7": [
+      34,
+      0,
+      32,
+      8096,
+      895
+    ],
+    "8": [
+      14,
+      0,
+      32,
+      8096,
+      895
+    ]
+  },
+  "cold_state_qualified": false,
+  "wall_seconds": 4.501263399,
+  "cpu_seconds": 40.462110305,
+  "driver_compiles": 0,
+  "C_compiles": 0,
+  "links": 0,
+  "warm_and_batch_state_separate": true,
+  "shape": {
+    "owned_i": 188,
+    "owned_j": 19,
+    "active_k": 33,
+    "ranks": 9,
+    "topology": [
+      3,
+      3
+    ],
+    "global_inclusive": [
+      564,
+      57
+    ]
+  },
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-uv-protocol512-steady-driver-build-hpc01-r2/work/complete_protocol_caller",
+    "sha256": "da99031734d0a57e82c00c9d4a6c8a542d9a2dff7ea060086b27df5a13a6793f"
+  },
+  "elapsed_seconds": 6.6444928902201355,
+  "resource_end": {
+    "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+    "memory.peak": "1081081856",
+    "memory.current": "505597952",
+    "memory.swap.current": "0"
+  }
+}

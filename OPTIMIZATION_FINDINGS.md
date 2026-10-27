@@ -5614,3 +5614,10 @@ Fixed4096 genuine full-SPC calls include input/output restores inside clocks; al
 Observed child-only noon metrics: wall 267.886213s; main-step 176.640910s; aggregate CPU 121263.597734 core-seconds. No percentages versus the 75-minute science reference.
 
 Default WRF_SW_SPC_NODEL_SCALARS=1 is limited by the existing strict GNU13.3/O2/default-kind/pureMPI and SPC-column/paired-stack support guards. Explicit0 restores original per-level arrays after regeneration, SW recompilation, archive replacement and relink. Existing arithmetic and prior fixes stay unchanged. Cached qualified PP/object is the tested delivery route; the canonical projection is not a clean-source whole-build certificate.
+
+
+### MPI U/V halo reuse: native pass, complete-protocol state failure
+
+The private early/late U/V reuse passed its genuine nine-rank native fixture. Two larger complete-protocol attempts then failed strict saved-state acceptance despite exact field and intermediate-readset bytes: the cold wave differed in one warm errno; an identical-original-warmup repeat differed in one final FE_INEXACT/MXCSR pair. Both stopped after two normal arms, before a same-host comparison. No speedup is established. The fixed candidate is closed unqualified, with no application/default change or further variant planned. Runtime attribution remains unresolved.
+
+[Retained native pass, failed waves and exact differences](tools/cpu-rejected/tke-helicity-uv-halo-reuse-20261027/README.md).

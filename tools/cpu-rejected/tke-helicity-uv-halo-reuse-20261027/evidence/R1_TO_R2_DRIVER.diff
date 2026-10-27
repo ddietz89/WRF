@@ -1,0 +1,31 @@
+--- frozen_R1_cold_driver
++++ R2_identical_original_warmup_driver
+@@ -20,8 +20,8 @@
+  integer::ips,ipe,jps,jpe,ims,ime,jms,jme
+  integer,parameter::kms=0,kme=35,kps=1,kpe=33,ds=1,de_x=564,de_y=57,ns=3,iterations=512
+  logical::periods(2),fallback
+- integer(c_int)::state(5)
+- integer::rep,phase
++ integer(c_int)::state(5),transport_warmup_exit5(5)
++ integer::rep,phase,requested_role
+  integer(int64)::wall0,wall1,cpu0,cpu1
+  real,allocatable::saved3(:,:,:,:),saved2(:,:,:)
+  integer(int32),allocatable::saved_bits(:),expected(:),got(:)
+@@ -117,7 +117,17 @@
+  saved3(:,:,:,7)=g%rdzw;saved3(:,:,:,8)=g%w_2;saved3(:,:,:,9)=g%ph_2
+  saved2(:,:,1)=g%ustm;saved2(:,:,2)=g%ust
+  saved_bits=[transfer(saved3,[0_int32]),transfer(saved2,[0_int32])]
++ ! Identical unobserved original transport/buffer warmup in BOTH roles.
++ ! This is outside recorded warm/batch and all clocks. No helper change or in-protocol normalization.
+  before_cursor=communicator_stack_cursor
++ requested_role=role;role=0
++ call observation_case(0_c_int);call reset_observation()
++ call protocol(.false.)
++ call read_observation(transport_warmup_exit5)
++ role=requested_role
++ call verify_guards()
++ call restore_fields()
++ write(*,'(a,5(1x,i0))')'ORIGINAL_TRANSPORT_WARMUP_EXIT5',transport_warmup_exit5
+  if(.not.TKE_HELICITY_UV_REUSE_SUPPORTED(g,cfg,ds,de_x,ds,de_y,kps,kpe,3,3))error stop 'uniform eligibility'
+  call observation_case(0_c_int);call reset_observation()
+  call protocol(.true.);call read_observation(state)
