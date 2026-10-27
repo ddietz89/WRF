@@ -5166,7 +5166,19 @@ END SUBROUTINE pole_point_bc
                          ims, ime, jms, jme, kms, kme,                &
                          its, ite, jts, jte, kts, kte                )
 !----------------------------------------------------------------------
+
+#if defined(WRF_PHY_INTERPOLATION_SIMD_ENABLE) && !defined(WRF_PHY_INTERPOLATION_SIMD_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+    USE, INTRINSIC :: ISO_C_BINDING, ONLY: c_int
+#endif
    IMPLICIT NONE
+#if defined(WRF_PHY_INTERPOLATION_SIMD_ENABLE) && !defined(WRF_PHY_INTERPOLATION_SIMD_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+    INTERFACE
+      PURE FUNCTION wrf_phy_interp_all_masked() BIND(C, NAME="wrf_phy_interp_all_masked") RESULT(masked)
+        IMPORT c_int
+        INTEGER(c_int) :: masked
+      END FUNCTION wrf_phy_interp_all_masked
+    END INTERFACE
+#endif
 !----------------------------------------------------------------------
 
    TYPE(grid_config_rec_type) ,     INTENT(IN   ) :: config_flags
@@ -5353,6 +5365,18 @@ END SUBROUTINE pole_point_bc
 
 !  interp t and p to full levels
 
+#if defined(WRF_PHY_INTERPOLATION_SIMD_ENABLE) && !defined(WRF_PHY_INTERPOLATION_SIMD_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+    IF (wrf_phy_interp_all_masked() /= 0_c_int) THEN
+    do j = j_start,j_end
+    do k = 2, k_end
+!$OMP SIMD
+    do i = i_start, i_end
+      p8w(i,k,j) = fzm(k)*p_phy(i,k,j)+fzp(k)*p_phy(i,k-1,j)
+      t8w(i,k,j) = fzm(k)*t_phy(i,k,j)+fzp(k)*t_phy(i,k-1,j)
+    enddo
+    enddo
+    enddo
+    ELSE
     do j = j_start,j_end
     do k = 2, k_end
     do i = i_start, i_end
@@ -5361,6 +5385,17 @@ END SUBROUTINE pole_point_bc
     enddo
     enddo
     enddo
+    ENDIF
+#else
+    do j = j_start,j_end
+    do k = 2, k_end
+    do i = i_start, i_end
+      p8w(i,k,j) = fzm(k)*p_phy(i,k,j)+fzp(k)*p_phy(i,k-1,j)
+      t8w(i,k,j) = fzm(k)*t_phy(i,k,j)+fzp(k)*t_phy(i,k-1,j)
+    enddo
+    enddo
+    enddo
+#endif
 
 !  extrapolate p and t to surface and top.
 !  we'll use an extrapolation in z for now
