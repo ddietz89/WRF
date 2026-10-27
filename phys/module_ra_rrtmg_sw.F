@@ -8608,6 +8608,13 @@ end subroutine
 #define WRF_SW_SPC_CURRENT_COLUMN iw
 #define WRF_SW_SPC_PAIR_COLUMN iw
 #endif
+#if defined(WRF_SW_SPC_NODEL_SCALARS_ENABLE) && !defined(WRF_SW_SPC_NODEL_SCALARS_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && defined(WRF_SW_SPC_SINGLE_COLUMN_ENABLE) && !defined(WRF_SW_SPC_SINGLE_COLUMN_DISABLE) && defined(WRF_SW_VRTQDR_PAIR_FIXED_STACK_ENABLE) && !defined(WRF_SW_VRTQDR_PAIR_FIXED_STACK_DISABLE)
+#define WRF_SW_SPC_NODEL_CLEAR(k) zdbtc_nodel
+#define WRF_SW_SPC_NODEL_TOTAL(k) zdbt_nodel
+#else
+#define WRF_SW_SPC_NODEL_CLEAR(k) zdbtc_nodel(k)
+#define WRF_SW_SPC_NODEL_TOTAL(k) zdbt_nodel(k)
+#endif
       subroutine spcvmc_sw &
             (nlayers, istart, iend, icpr, iout, &
              pavel, tavel, pz, tz, tbound, palbd, palbp, &
@@ -8789,7 +8796,7 @@ end subroutine
 
       real(kind=rb) :: tblind, ze1
       real(kind=rb) :: zclear, zcloud
-      real(kind=rb) :: zdbt(nlayers+1), zdbt_nodel(nlayers+1)
+      real(kind=rb) :: zdbt(nlayers+1), WRF_SW_SPC_NODEL_TOTAL(nlayers+1)
       real(kind=rb) :: zgc(nlayers), zgcc(nlayers), zgco(nlayers)
       real(kind=rb) :: zomc(nlayers), zomcc(nlayers), zomco(nlayers)
       real(kind=rb) :: zrdnd(nlayers+1), zrdndc(nlayers+1)
@@ -8804,7 +8811,7 @@ end subroutine
       real(kind=rb) :: ztra(nlayers+1), ztrac(nlayers+1), ztrao(nlayers+1)
       real(kind=rb) :: ztrad(nlayers+1), ztradc(nlayers+1), ztrado(nlayers+1)
       real(kind=rb) :: zdbtc(nlayers+1), ztdbtc(nlayers+1)
-      real(kind=rb) :: zincflx(ngptsw), zdbtc_nodel(nlayers+1) 
+      real(kind=rb) :: zincflx(ngptsw), WRF_SW_SPC_NODEL_CLEAR(nlayers+1)
       real(kind=rb) :: ztdbt_nodel(nlayers+1), ztdbtc_nodel(nlayers+1)
 
       real(kind=rb) :: zdbtmc, zdbtmo, zf, zgw, zreflect
@@ -8997,8 +9004,8 @@ end subroutine
                   zdbtmc = exp_tbl(itind)
                endif
 
-               zdbtc_nodel(jk) = zdbtmc
-               ztdbtc_nodel(jk+1) = zdbtc_nodel(jk) * ztdbtc_nodel(jk)
+               WRF_SW_SPC_NODEL_CLEAR(jk) = zdbtmc
+               ztdbtc_nodel(jk+1) = WRF_SW_SPC_NODEL_CLEAR(jk) * ztdbtc_nodel(jk)
 
 ! Clear + Cloud
                tauorig = ztauc(jk) + ptaormc(ikl,iw)
@@ -9015,8 +9022,8 @@ end subroutine
                   zdbtmo = exp_tbl(itind)
                endif
 
-               zdbt_nodel(jk) = zclear*zdbtmc + zcloud*zdbtmo
-               ztdbt_nodel(jk+1) = zdbt_nodel(jk) * ztdbt_nodel(jk)
+               WRF_SW_SPC_NODEL_TOTAL(jk) = zclear*zdbtmc + zcloud*zdbtmo
+               ztdbt_nodel(jk+1) = WRF_SW_SPC_NODEL_TOTAL(jk) * ztdbt_nodel(jk)
 !   /\/\/\ Above code only needed for direct beam calculation
             enddo
 
@@ -9185,6 +9192,8 @@ end subroutine
       enddo                    
 
       end subroutine spcvmc_sw
+#undef WRF_SW_SPC_NODEL_CLEAR
+#undef WRF_SW_SPC_NODEL_TOTAL
 #undef WRF_SW_SPC_COLUMN_COUNT
 #undef WRF_SW_SPC_CURRENT_COLUMN
 #undef WRF_SW_SPC_PAIR_COLUMN
