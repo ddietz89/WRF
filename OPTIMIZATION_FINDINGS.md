@@ -1,8 +1,24 @@
 # WRF CPU optimization findings
 
-## October 27: AdvectW normal-Y full-eight prefix — own three-hour science
+## October 27: ordered CQU — complete caller and own three-hour science
 
-Selected image `561e2f53` / archive `abf3295a` / post-test source `bf691f5d` retains all prior MW/W/SW/PHY fixes and adds the guarded normal-Y flux5 full-eight prefix with private `vel`, literal scalar remainder and original unmasked fallback. Own unprofiled SAME512 science passed 545 ordered steps and four FULL products; all four models and the original reader closed normally. This child has no own noon, profile, nine-hour, restart or full144-hour qualification. Parent03fa's actual noon/profile/three-hour evidence remains historical.
+Selected image `42740f03` / archive `9751c93a` / post-test source `90ca5672` retains Y5 and all previous fixes. It replaces one BigStep member and adds two cached C objects: 587 total members, with 584 parent members unchanged and the existing PHY helper preserved once. Exact unprofiled SAME512 science passed 545 ordered steps and four FULL products; all four models and the original reader closed normally. Child own noon, profile, nine-hour, restart and full144-hour qualifications remain false; parentY5/03fa evidence remains historical.
+
+| Three-hour metric | Preselected original median (3 distinct runs) | Current CQU child | Descriptive reduction |
+|---|---:|---:|---:|
+| Model/MPI wall (s) | 800.024120857 | 626.431098982 | 21.698474% |
+| Main-step elapsed (s) | 596.45045 | 542.81806 | 8.991927% |
+| Aggregate CPU (core-s) | 359327.346984 | 304564.247651 | 15.240449% |
+
+The complete genuine `calc_cq` caller, including all CQU/CQV/CQW work, internal scratch storage and three full output restores, was **31.02–32.04% shorter** with matching CPU reductions. The full-grid **21.698474% wall reduction** above compares this combined image with retained original controls and includes all prior changes. These are different scopes and baselines: the percentages are not additive and do not establish an incremental CQU forecast gain. The candidate-only three-hour observation is unpaired; exact science uses retained original A2. Main-step elapsed includes waiting/communication, and no repeatability is inferred.
+
+Genuine O2/O0 original-MOD fixtures passed all legacy, last-species and neighbor raw/five-state, physical and read-only gates. Public O2 MOD bytes remain unequal: exactly one conservative GNU13.3 `ARRAY_OUTER_DEPENDENCY` addition on ordinary non-elemental `calc_cq` ID4733 is admitted, with every other typed token/attribute/ID and `IMPLICIT_PURE` unchanged. Original-MOD compiled callers remain authoritative. Scoped O2 non-target/reference/data/CFI differences are classified; this is not a universal rebuilt-caller ABI or clean full-source certificate. Raw producer source stays null. The four installed files correspond to the tested target and exact two C sources.
+
+The earlier purity/MOD and numerical/helper failures remain retained. The uppercase R1 coordinator and external-health naming failures occurred before MPI/model work; only lowercase R2 supplies own science. A first publisher failed on Python compensated `sum` versus the collector's sequential CPU `+=`; R2 uses the exact original aggregation order without changing raw values, tolerance or science. Rollback: `WRF_CQU_ORDERED_AVX2=0`, regenerate/rebuild BigStep, rearchive/relink, preserving Y5 and all prior defaults; parentY5/archiveabf329 is the whole-image rollback. [Qualification, evidence and rollback](tools/cpu-compute/cqu-ordered-avx2-20261027/README.md).
+
+## Historical parentY5: AdvectW normal-Y full-eight prefix — own three-hour science
+
+Previously selected image `561e2f53` / archive `abf3295a` / post-test source `bf691f5d` retains all prior MW/W/SW/PHY fixes and adds the guarded normal-Y flux5 full-eight prefix with private `vel`, literal scalar remainder and original unmasked fallback. Own unprofiled SAME512 science passed 545 ordered steps and four FULL products; all four models and the original reader closed normally. This child has no own noon, profile, nine-hour, restart or full144-hour qualification. Parent03fa's actual noon/profile/three-hour evidence remains historical.
 
 | Three-hour metric | Preselected original median (3 distinct runs) | Current Y5 child | Descriptive reduction |
 |---|---:|---:|---:|

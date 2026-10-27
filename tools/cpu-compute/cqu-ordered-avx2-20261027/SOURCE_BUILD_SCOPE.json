@@ -1,0 +1,31 @@
+{
+  "status": "PRIVATE_SOURCE_PROPOSAL_PENDING_OWN_APPLICATION_AND_ROOT_COMMIT",
+  "canonical_source_inventory": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current03fa-cqu-ordered-add-feasibility-r1/canonical-source-proposal-r1/SOURCE_FILES.json",
+    "sha256": "5f2792e7cc7933ceff34884b74819922449cca7a80d14361c8e723ebc1d8e436"
+  },
+  "canonical_before_source_commit": "bf691f5d5167d6829ada654a47f7eec68e2f0f20",
+  "proposed_knob": "WRF_CQU_ORDERED_AVX2",
+  "proposed_qualified_default": 1,
+  "explicit_opt_out": 0,
+  "source_applied": false,
+  "post_test_source_commit": null,
+  "raw_producer_source_commit": null,
+  "actual_tested_PP_sha256": "1f428c98d66f9cb27b656777920581798119a77604e542f6f815ad663f904f02",
+  "actual_O2_member_sha256": "555e23b273156b5d79d413ce65bbb4bf716c471f8ae261a071e019426ca637d1",
+  "actual_core": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current03fa-cqu-ordered-prototype-hpc04-r5/work/ordered_cqu.o",
+    "sha256": "2f90975545c510a6ff309d85f5e8b5d1b6e28ebf1bc0db68f86b678fa2b1f551",
+    "source_sha256": "808be6b994094e17e6bd5b9137686480f4b8836b9c61f6e0d7adf2b8da5e51ef"
+  },
+  "actual_bridge": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current03fa-cqu-genuine-BigStep-native-hpc02-r3/work/ordered_cqu_sub_bridge.o",
+    "sha256": "0afede3f6765a65a92c89b144e9a6b3f9f564aa74581e4c47133e3ac43e78f25",
+    "source_sha256": "5a044e3552cfa422505c5fe861606b7176fe05b7d9c8a405608a3f116b88c1a6"
+  },
+  "correspondence_scope": "ExacttargetactiveCPPstatementsanddirectives+literalinverseonly; no cleanfullcanonicalF producer compilation claim. ExistingY5/PHY/currentfusionsandallothercanonicalbytespreserved.",
+  "rebuild_recipe": "Set qualified knob with strict Make owner; regenerate BigStep PP and compile BigStep plus wrf_cqu_ordered.c and wrf_cqu_ordered_sub_bridge.c; replace BigStep archive member, add/replace both C members exactly once, relink. Changing optout similarly regenerates/rebuilds BigStep and relinks.",
+  "rollback": "WRF_CQU_ORDERED_AVX2=0 selects literal prior CQU CPP and omits new helpers from fresh Make OBJS. For cachedimage rollback, restore selectedY5BigStep9bde and remove bothnewCmembers (or use original parent585member archive/executable); preserve Y5Advection/currentPHYhelper and allpriorcomponents.",
+  "compiler_hardware_scope": "GNU13.3strictO2REAL4INT4pureMPI/noOpenMP, currentbothspeciesfusionsanddiffusionowner enabled. BaselineC entry checksAVX/OSXSAVE/XCR0/AVX2andall6x87+MXCSRexceptionmaskbitsread-only. UnsupportedCPU, unmasked, narroworunsupportedsourcebuild usesliteraloriginalCQU. No globalISA/FPflags.",
+  "public_MOD_scope": "RawfalseO2exactoneconservativeanalysisbit; originalMODcallerfixturesmandatory, not generalABI/rebuiltcaller assurance."
+}

@@ -1,0 +1,65 @@
+# Ordered whole-CQU consumer; opt out with WRF_CQU_ORDERED_AVX2=0.
+# Rebuild BigStep and both C objects, replace/add their archive members and relink.
+# Requires current species fusions; unsupported/O0/unmasked/CPU cases retain original CQU.
+WRF_CQU_ORDERED_AVX2 ?= 1
+module_big_step_utilities_em.o: private override CPPFLAGS += -UWRF_CQU_ORDERED_AVX2_ENABLE
+ifeq ($(WRF_CQU_ORDERED_AVX2),0)
+module_big_step_utilities_em.o: private override CPPFLAGS += -DWRF_CQU_ORDERED_AVX2_DISABLE=1
+endif
+ifeq ($(WRF_CQU_CQW_LAST_SPECIES_CONSUMER_FUSION),1)
+ifeq ($(WRF_CQV_LAST_SPECIES_CONSUMER_FUSION),1)
+ifeq ($(filter -UDM_PARALLEL -UDM_PARALLEL=% -U -D,$(CPPFLAGS)),)
+ifneq (,$(findstring gcc,$(shell $(CC) --version 2>/dev/null)))
+ifeq ($(filter -ffast-math -Ofast -ffinite-math-only -funsafe-math-optimizations -freciprocal-math -fno-signed-zeros -fassociative-math -fno-trapping-math -ffp-contract=fast -fdefault-% -fopenmp -fopenmp=%,$(CFLAGS) $(CC)),)
+ifeq ($(WRF_CQU_ORDERED_AVX2),1)
+ifeq ($(WRF_DIFFUSION_SIMD),1)
+ifeq ($(strip $(OMPCPP) $(OMP) $(PROMOTION) $(DOUBLE_PRECISION)),)
+ifeq ($(filter -fopenmp -fopenmp=%,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
+ifeq ($(strip $(RWORDSIZE)),4)
+ifeq ($(strip $(IWORDSIZE)),4)
+ifeq ($(filter -fdefault-% -freal-% -finteger-% -r8 -i8,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
+ifeq ($(sort $(filter -O%,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC))),-O2)
+ifeq ($(filter -ffast-math -Ofast -ffinite-math-only -funsafe-math-optimizations -freciprocal-math -ffp-contract=fast -fno-signed-zeros -fassociative-math -fno-trapping-math,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
+ifneq (,$(filter -fno-fast-math,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG)))
+ifneq (,$(filter -ffp-contract=off,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG)))
+ifeq ($(filter-out -ffp-contract=off,$(filter -ffp-contract=%,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC))),)
+ifeq ($(filter -D_OPENMP -D_OPENMP=%,$(CPPFLAGS)),)
+ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+ifneq (,$(findstring GNU Fortran,$(shell $(FC) --version 2>/dev/null)))
+ifeq ($(shell $(FC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+ifneq (,$(filter -DDM_PARALLEL -DDM_PARALLEL=%,$(CPPFLAGS)))
+ifeq ($(shell $(CC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+module_big_step_utilities_em.o: private override CPPFLAGS += -DWRF_CQU_ORDERED_AVX2_ENABLE=1
+OBJS += wrf_cqu_ordered.o wrf_cqu_ordered_sub_bridge.o
+$(LIBTARGET): wrf_cqu_ordered.o wrf_cqu_ordered_sub_bridge.o
+wrf_cqu_ordered.o: wrf_cqu_ordered.c
+	$(CC) $(CFLAGS) -O2 -std=c11 -mno-avx -mno-avx2 -mno-fma -fno-fast-math -ffp-contract=off -frounding-math -c $< -o $@
+wrf_cqu_ordered_sub_bridge.o: wrf_cqu_ordered_sub_bridge.c
+	$(CC) $(CFLAGS) -O2 -std=c11 -mno-avx -mno-avx2 -mno-fma -fno-fast-math -ffp-contract=off -frounding-math -c $< -o $@
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+
+
+endif
+endif
+endif
+endif
+endif

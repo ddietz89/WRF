@@ -1,0 +1,254 @@
+{
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current03fa-advectw-y5-one-member-experimental-r1/wrf.exe",
+    "sha256": "561e2f53d21dbdc4e33bfe8e2412907570c0ffffe7acf585f93432577788a438"
+  },
+  "archive": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current03fa-advectw-y5-one-member-experimental-r1/libwrflib.a",
+    "sha256": "abf3295aa33df07fdcf4b7ab1b9e75011f0ad393a596f78179fe2e871da99d7a"
+  },
+  "source_commit": "bf691f5d5167d6829ada654a47f7eec68e2f0f20",
+  "qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/advect-w-y5-full8-prefix-20261027/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "5d62c71df0541f7276194502c939841ba5ba81f54020920c62c98dfeb35335e5"
+  },
+  "noon_qualification": null,
+  "profile_qualification": null,
+  "noon_runtime": null,
+  "profile_runtime": null,
+  "applies_to_current": false,
+  "previous_parent": {
+    "executable": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/currentccbe-sw-cloud-consumer-experimental-r1/wrf.exe",
+      "sha256": "03fa935c9d6206df54ad8f2671f2aa5709cfb724194e0cf3f90c7af286acde9e"
+    },
+    "archive": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/currentccbe-sw-cloud-consumer-experimental-r1/libwrflib.a",
+      "sha256": "bd1ac8a47f3caafac14d0a17ed7daff7b607d2c97f701fc9b512b72f54f1de63"
+    },
+    "source_commit": "77ce9db9102fdb0ae8d2077f0c60ed33ea464e34",
+    "qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-cloud-consumer-20261027/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "03025d1d3bc4f5127ebacf6b26017c8f4eb3dfb3d46420c21f1d24a93bd73d38"
+    },
+    "noon_qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-cloud-consumer-20261027/OWN_NOON_APPLICATION_QUALIFICATION.json",
+      "sha256": "1408b0d579870b974307f3ebf521b3c54390cf16ea820bf32beb3168a767e523"
+    },
+    "profile_qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-cloud-consumer-20261027/PROFILE_QUALIFICATION.json",
+      "sha256": "00db4ca25f8ed5e14400c8b493b679fb68b1966cb53a13d6f0db5e7901239a7b"
+    },
+    "noon_runtime": {
+      "world": 512,
+      "compute": 480,
+      "quilt": 32,
+      "CART": [
+        60,
+        8
+      ],
+      "hosts": [
+        "hpc01",
+        "hpc02",
+        "hpc03",
+        "hpc04"
+      ],
+      "tiles": 2,
+      "swap_bytes": 0,
+      "output_shim": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current5c75-world512-fp-guard-build-hpc02-r1/work/liboutput_world512_fp.so",
+        "sha256": "db0d0268806c88616365e5ced5f17778c42cc1110206c434f207a2a01830083c",
+        "source_sha256": "801e29cc8406d0200dee1557e4263d3ce4db46d750b63b9371083b633c952150",
+        "post_test_source_commit": "2da3c200cff40d233bb2cd7d70cef5ce73fe8815"
+      },
+      "input_adapter": {
+        "pending_component": false,
+        "adapter_path": "/pool/wrf-experiment/wrf-cpu/kernels/root-input-predecoded-production-adapter-abi-hpc02-r1/output/libinput_root.so",
+        "adapter_sha256": "06d0232dbeb53e3e0cc4a8ac5c431a307e0bd3506183f70b5a558f2c70b19553",
+        "owner_path": "/pool/wrf-experiment/wrf-cpu/kernels/ordinary-nc-predecoded-fp-admission-build-hpc02-r3/output/libnetcdf.so.19",
+        "owner_sha256": "a32aa6cdf5e7154b974afb699f6be8f0b0632cfb4bc00226b7b6a34e0b04f41d",
+        "rank": 0,
+        "host": "hpc01",
+        "root_cpu": 0,
+        "borrowed_occupied_cpus": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "input_source_sha256": "4febd6cabc22d8fd5caf0efe89087b97a5871cd269e9777be7c8b8166c5d3ddf",
+        "component_receipt_sha256": "90070f7ce757ca6e571554779ce6624f5e179a4ed76653a30d4d8be9eb89a6e5",
+        "component_closure_sha256": "d77bf34ae3d4a30068ab5998908a3560bfb68eaa0b5ab8baa47dc8814758d590"
+      },
+      "scope": "Own R3 instrumented SAME512 noon12\u201313 science185/twoFULL only; R1 short-harness proof/bootstrap failures remain historical harness failures, not candidate numerical failures or qualification; inactive R2 unused. selectedccbe prior3h is historical ancestry, not child qualification. Retained original546b75minute reference is SCIENCE PREFIX ONLY; no wholewall/CPU percentage, unprofiled timing, isolated/additive forecastgain. OneSWa3aa\u21928a2e member overccbe;585members/584others/RSL+18deps exact; existing read-onlyd376helper retained once. Genuine full40/mask32 O2/O0 physical/rawfive passed; raw32MODFALSE, exactly7complete typedID-only plus25raw includingtarget. O2 scoped containment, O0 non-target unclassified; no clean F-only/rawproducer certificate. Actual O2 scalar, targetsize/instructionrows grow,12malloc/free unchanged; no SIMD gain. Complete20000generator+8restores caller2.5126/3.9780%wall and2.5005/3.9789%CPU lower; separate extractedconsumer13.5% not additive. Childown3h/9h/unprofilednoon/restart/full144/384/256FALSE. Profile flags only from actual successful three-capture admission/parser, no numericzero-loss/global/causal claim.",
+      "lease": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-ccbe-sw-consumer-day15-runtime-r3/candidate-metadata/lease.json",
+        "sha256": "26266e67a4090193cd2603b78454521eaef71b83e3afa36f2f3899245b759b98"
+      },
+      "observed_step_count": 185,
+      "products": 2,
+      "model_cap_seconds": 1200,
+      "reader_cap_seconds": 1800,
+      "science": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-ccbe-sw-consumer-day15-runtime-r3/science-receipt.json",
+        "sha256": "189e69c7091fdd290e4ebe0ced31dc8c3161f609981b102990323156eb57d907"
+      },
+      "qualification": {
+        "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-cloud-consumer-20261027/OWN_NOON_APPLICATION_QUALIFICATION.json",
+        "sha256": "1408b0d579870b974307f3ebf521b3c54390cf16ea820bf32beb3168a767e523"
+      },
+      "rank_map": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-ccbe-sw-consumer-day15-runtime-r3/control-rank-map.json",
+        "sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac"
+      },
+      "actual_map_table_sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac",
+      "rank_map_variant": "control",
+      "memory_perhost_bytes": {
+        "hpc01": 107374182400,
+        "hpc02": 107374182400,
+        "hpc03": 107374182400,
+        "hpc04": 111669149696
+      },
+      "observer_profile": true,
+      "run_id": "production512-ccbe-sw-consumer-day15-r3-candidate",
+      "run_directory": "/pool/wrf-experiment/wrf-cpu/runs/production512-ccbe-sw-consumer-day15-r3-candidate",
+      "stage": "/pool/wrf-experiment/wrf-cpu/science-prep/production512-ccbe-sw-consumer-day15-r3",
+      "runtime_directory": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-ccbe-sw-consumer-day15-runtime-r3",
+      "source_manifest_sha256": "efe2bd62953517e88158d30212850fdb3bf7d98e7365142df8c4028d03ebb48d",
+      "granted_lease_sha256": "26266e67a4090193cd2603b78454521eaef71b83e3afa36f2f3899245b759b98",
+      "application_binding": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-ccbe-sw-consumer-day15-runtime-r3/application-binding.json",
+        "sha256": "ecb0fe618cef688fab1131ab1958dd3af8483588664eeea344bd5223c66392d0"
+      },
+      "model_closures": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-ccbe-sw-consumer-day15-runtime-r3/candidate-metadata/model-closures.json",
+        "sha256": "e1d1335e01b2fabb4796f32f3f137982f68f07cbc691809270c6ca191134dd2f"
+      },
+      "reader_closure": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-ccbe-sw-consumer-day15-runtime-r3/reader-closure.json",
+        "sha256": "78b82d7033719076b260f9c6e1427b6611b86594afcb0a2e674a31196aa3440e"
+      },
+      "model_units": {
+        "hpc01": "wrf-cpu-production512-ccbe-sw-consumer-day15-r3-candidate-hpc01.service",
+        "hpc02": "wrf-cpu-production512-ccbe-sw-consumer-day15-r3-candidate-hpc02.service",
+        "hpc03": "wrf-cpu-production512-ccbe-sw-consumer-day15-r3-candidate-hpc03.service",
+        "hpc04": "wrf-cpu-production512-ccbe-sw-consumer-day15-r3-candidate-hpc04.service"
+      },
+      "model_invocations": {
+        "hpc01": "23b75f1e4a9f4490a336a6367b2c55f9",
+        "hpc02": "bdfcf46b33584e4298d7e5f8c88ca07a",
+        "hpc03": "855425261227476b93fddef00ab437d5",
+        "hpc04": "2e5dffef0a25433888b42d099a01f6f5"
+      },
+      "reader_unit": "wrf-cpu-ccbe-sw-day15-exact-check-hpc03-r3",
+      "reader_invocation_id": "a1bc9f145152424fadc8f58ef2f9e0a1",
+      "profile_scope": "Three15s captures on hpc03 mainthreads114/122/386 only. Not allfourhosts/allranks/global cost, no causal attribution or numericzero-loss claim; numeric_loss values preserved exactly."
+    },
+    "profile_runtime": {
+      "world": 512,
+      "compute": 480,
+      "quilt": 32,
+      "CART": [
+        60,
+        8
+      ],
+      "hosts": [
+        "hpc01",
+        "hpc02",
+        "hpc03",
+        "hpc04"
+      ],
+      "tiles": 2,
+      "swap_bytes": 0,
+      "output_shim": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current5c75-world512-fp-guard-build-hpc02-r1/work/liboutput_world512_fp.so",
+        "sha256": "db0d0268806c88616365e5ced5f17778c42cc1110206c434f207a2a01830083c",
+        "source_sha256": "801e29cc8406d0200dee1557e4263d3ce4db46d750b63b9371083b633c952150",
+        "post_test_source_commit": "2da3c200cff40d233bb2cd7d70cef5ce73fe8815"
+      },
+      "input_adapter": {
+        "pending_component": false,
+        "adapter_path": "/pool/wrf-experiment/wrf-cpu/kernels/root-input-predecoded-production-adapter-abi-hpc02-r1/output/libinput_root.so",
+        "adapter_sha256": "06d0232dbeb53e3e0cc4a8ac5c431a307e0bd3506183f70b5a558f2c70b19553",
+        "owner_path": "/pool/wrf-experiment/wrf-cpu/kernels/ordinary-nc-predecoded-fp-admission-build-hpc02-r3/output/libnetcdf.so.19",
+        "owner_sha256": "a32aa6cdf5e7154b974afb699f6be8f0b0632cfb4bc00226b7b6a34e0b04f41d",
+        "rank": 0,
+        "host": "hpc01",
+        "root_cpu": 0,
+        "borrowed_occupied_cpus": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "input_source_sha256": "4febd6cabc22d8fd5caf0efe89087b97a5871cd269e9777be7c8b8166c5d3ddf",
+        "component_receipt_sha256": "90070f7ce757ca6e571554779ce6624f5e179a4ed76653a30d4d8be9eb89a6e5",
+        "component_closure_sha256": "d77bf34ae3d4a30068ab5998908a3560bfb68eaa0b5ab8baa47dc8814758d590"
+      },
+      "scope": "Own R3 instrumented SAME512 noon12\u201313 science185/twoFULL only; R1 short-harness proof/bootstrap failures remain historical harness failures, not candidate numerical failures or qualification; inactive R2 unused. selectedccbe prior3h is historical ancestry, not child qualification. Retained original546b75minute reference is SCIENCE PREFIX ONLY; no wholewall/CPU percentage, unprofiled timing, isolated/additive forecastgain. OneSWa3aa\u21928a2e member overccbe;585members/584others/RSL+18deps exact; existing read-onlyd376helper retained once. Genuine full40/mask32 O2/O0 physical/rawfive passed; raw32MODFALSE, exactly7complete typedID-only plus25raw includingtarget. O2 scoped containment, O0 non-target unclassified; no clean F-only/rawproducer certificate. Actual O2 scalar, targetsize/instructionrows grow,12malloc/free unchanged; no SIMD gain. Complete20000generator+8restores caller2.5126/3.9780%wall and2.5005/3.9789%CPU lower; separate extractedconsumer13.5% not additive. Childown3h/9h/unprofilednoon/restart/full144/384/256FALSE. Profile flags only from actual successful three-capture admission/parser, no numericzero-loss/global/causal claim.",
+      "lease": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-ccbe-sw-consumer-day15-runtime-r3/candidate-metadata/lease.json",
+        "sha256": "26266e67a4090193cd2603b78454521eaef71b83e3afa36f2f3899245b759b98"
+      },
+      "observed_step_count": 185,
+      "products": 2,
+      "model_cap_seconds": 1200,
+      "reader_cap_seconds": 1800,
+      "science": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-ccbe-sw-consumer-day15-runtime-r3/science-receipt.json",
+        "sha256": "189e69c7091fdd290e4ebe0ced31dc8c3161f609981b102990323156eb57d907"
+      },
+      "qualification": {
+        "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-cloud-consumer-20261027/OWN_NOON_APPLICATION_QUALIFICATION.json",
+        "sha256": "1408b0d579870b974307f3ebf521b3c54390cf16ea820bf32beb3168a767e523"
+      },
+      "rank_map": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-ccbe-sw-consumer-day15-runtime-r3/control-rank-map.json",
+        "sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac"
+      },
+      "actual_map_table_sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac",
+      "rank_map_variant": "control",
+      "memory_perhost_bytes": {
+        "hpc01": 107374182400,
+        "hpc02": 107374182400,
+        "hpc03": 107374182400,
+        "hpc04": 111669149696
+      },
+      "observer_profile": true,
+      "run_id": "production512-ccbe-sw-consumer-day15-r3-candidate",
+      "run_directory": "/pool/wrf-experiment/wrf-cpu/runs/production512-ccbe-sw-consumer-day15-r3-candidate",
+      "stage": "/pool/wrf-experiment/wrf-cpu/science-prep/production512-ccbe-sw-consumer-day15-r3",
+      "runtime_directory": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-ccbe-sw-consumer-day15-runtime-r3",
+      "source_manifest_sha256": "efe2bd62953517e88158d30212850fdb3bf7d98e7365142df8c4028d03ebb48d",
+      "granted_lease_sha256": "26266e67a4090193cd2603b78454521eaef71b83e3afa36f2f3899245b759b98",
+      "application_binding": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-ccbe-sw-consumer-day15-runtime-r3/application-binding.json",
+        "sha256": "ecb0fe618cef688fab1131ab1958dd3af8483588664eeea344bd5223c66392d0"
+      },
+      "model_closures": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-ccbe-sw-consumer-day15-runtime-r3/candidate-metadata/model-closures.json",
+        "sha256": "e1d1335e01b2fabb4796f32f3f137982f68f07cbc691809270c6ca191134dd2f"
+      },
+      "reader_closure": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-ccbe-sw-consumer-day15-runtime-r3/reader-closure.json",
+        "sha256": "78b82d7033719076b260f9c6e1427b6611b86594afcb0a2e674a31196aa3440e"
+      },
+      "model_units": {
+        "hpc01": "wrf-cpu-production512-ccbe-sw-consumer-day15-r3-candidate-hpc01.service",
+        "hpc02": "wrf-cpu-production512-ccbe-sw-consumer-day15-r3-candidate-hpc02.service",
+        "hpc03": "wrf-cpu-production512-ccbe-sw-consumer-day15-r3-candidate-hpc03.service",
+        "hpc04": "wrf-cpu-production512-ccbe-sw-consumer-day15-r3-candidate-hpc04.service"
+      },
+      "model_invocations": {
+        "hpc01": "23b75f1e4a9f4490a336a6367b2c55f9",
+        "hpc02": "bdfcf46b33584e4298d7e5f8c88ca07a",
+        "hpc03": "855425261227476b93fddef00ab437d5",
+        "hpc04": "2e5dffef0a25433888b42d099a01f6f5"
+      },
+      "reader_unit": "wrf-cpu-ccbe-sw-day15-exact-check-hpc03-r3",
+      "reader_invocation_id": "a1bc9f145152424fadc8f58ef2f9e0a1",
+      "profile_scope": "Three15s captures on hpc03 mainthreads114/122/386 only. Not allfourhosts/allranks/global cost, no causal attribution or numericzero-loss claim; numeric_loss values preserved exactly."
+    },
+    "applies_to_current": false
+  }
+}

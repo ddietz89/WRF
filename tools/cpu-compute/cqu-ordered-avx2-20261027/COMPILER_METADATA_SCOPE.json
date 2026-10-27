@@ -1,0 +1,98 @@
+{
+  "status": "PROPOSED_FIXED_GNU13_3_SINGLE_CONSERVATIVE_ATTRIBUTE_CLASSIFICATION_NOT_ADMISSION",
+  "primary_sources": [
+    {
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-13.3.0/gcc/fortran/gfortran.h#L923",
+      "local_sha256": "e4fc24b1653a4e23a61b9ed3b38e7379e98687845bdc945ca2bbe0fa50b6982c",
+      "line_start": 923,
+      "line_end": 928,
+      "fact": "Conservative outer-array read dependency summary, used to protect array assignment via temporary",
+      "retained_primary_file": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current330d-mass-weight-retained-source-triage-r1/independent-GNU13-array-outer-dependency-review-r1/gfortran.h",
+      "literal_excerpt": "  /* This is set for a procedure that contains expressions referencing\n     arrays coming from outside its namespace.\n     This is used to force the creation of a temporary when the LHS of\n     an array assignment may be used by an elemental procedure appearing\n     on the RHS.  */\n  unsigned array_outer_dependency:1;"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-13.3.0/gcc/fortran/resolve.cc#L13897",
+      "local_sha256": "6f445ebb233f4d09ffb2890cb3da0c1a5f48e4c43f0dd5f4fa27df407966d45f",
+      "line_start": 13897,
+      "line_end": 13900,
+      "fact": "Unknown procedure body conservatively receives summary",
+      "retained_primary_file": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current330d-mass-weight-retained-source-triage-r1/independent-GNU13-array-outer-dependency-review-r1/resolve.cc",
+      "literal_excerpt": "  /* Assume that a procedure whose body is not known has references\n     to external arrays.  */\n  if (sym->attr.if_source != IFSRC_DECL)\n    sym->attr.array_outer_dependency = 1;"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-13.3.0/gcc/fortran/resolve.cc#L3220",
+      "local_sha256": "6f445ebb233f4d09ffb2890cb3da0c1a5f48e4c43f0dd5f4fa27df407966d45f",
+      "line_start": 3220,
+      "line_end": 3242,
+      "fact": "Summary propagates through calling procedures",
+      "retained_primary_file": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current330d-mass-weight-retained-source-triage-r1/independent-GNU13-array-outer-dependency-review-r1/resolve.cc",
+      "literal_excerpt": "/* Update current procedure's array_outer_dependency flag, considering\n   a call to procedure SYM.  */\n\nstatic void\nupdate_current_proc_array_outer_dependency (gfc_symbol *sym)\n{\n  /* Check to see if this is a sibling function that has not yet\n     been resolved.  */\n  gfc_namespace *sibling = gfc_current_ns->sibling;\n  for (; sibling; sibling = sibling->sibling)\n    {\n      if (sibling->proc_name == sym)\n\t{\n\t  gfc_resolve (sibling);\n\t  break;\n\t}\n    }\n\n  /* If SYM has references to outer arrays, so has the procedure calling\n     SYM.  If SYM is a procedure pointer, we can assume the worst.  */\n  if ((sym->attr.array_outer_dependency || sym->attr.proc_pointer)\n      && gfc_current_ns->proc_name)\n    gfc_current_ns->proc_name->attr.array_outer_dependency = 1;"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-13.3.0/gcc/fortran/resolve.cc#L3877",
+      "local_sha256": "6f445ebb233f4d09ffb2890cb3da0c1a5f48e4c43f0dd5f4fa27df407966d45f",
+      "line_start": 3877,
+      "line_end": 3881,
+      "fact": "Direct subroutine calls propagate summary",
+      "retained_primary_file": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current330d-mass-weight-retained-source-triage-r1/independent-GNU13-array-outer-dependency-review-r1/resolve.cc",
+      "literal_excerpt": "  if (!c->expr1)\n    update_current_proc_array_outer_dependency (csym);\n  else\n    /* Typebound procedure: Assume the worst.  */\n    gfc_current_ns->proc_name->attr.array_outer_dependency = 1;"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-13.3.0/gcc/fortran/trans-array.cc#L11847",
+      "local_sha256": "e21a64e2c0c72cdf9fee0a72fc24d6ee8a4f9f08134cf3b4e0caa61a0cb45562",
+      "line_start": 11847,
+      "line_end": 11867,
+      "fact": "Elemental-function argument scalarization consumes summary",
+      "retained_primary_file": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current330d-mass-weight-retained-source-triage-r1/independent-GNU13-array-outer-dependency-review-r1/trans-array.cc",
+      "literal_excerpt": "  comp = gfc_get_proc_ptr_comp (expr);\n  if ((!comp && gfc_return_by_reference (sym) && sym->result->attr.dimension)\n      || (comp && comp->attr.dimension))\n    return gfc_get_array_ss (ss, expr, expr->rank, GFC_SS_FUNCTION);\n\n  /* Walk the parameters of an elemental function.  For now we always pass\n     by reference.  */\n  if (sym->attr.elemental || (comp && comp->attr.elemental))\n    {\n      gfc_ss *old_ss = ss;\n\n      ss = gfc_walk_elemental_function_args (old_ss,\n\t\t\t\t\t     expr->value.function.actual,\n\t\t\t\t\t     gfc_get_intrinsic_for_expr (expr),\n\t\t\t\t\t     GFC_SS_REFERENCE);\n      if (ss != old_ss\n\t  && (comp\n\t      || sym->attr.proc_pointer\n\t      || sym->attr.if_source != IFSRC_DECL\n\t      || sym->attr.array_outer_dependency))\n\tss->info->array_outer_dependency = 1;"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-13.3.0/gcc/fortran/trans-array.cc#L5151",
+      "local_sha256": "e21a64e2c0c72cdf9fee0a72fc24d6ee8a4f9f08134cf3b4e0caa61a0cb45562",
+      "line_start": 5151,
+      "line_end": 5160,
+      "fact": "Consumed scalarization dependency forces temporary",
+      "retained_primary_file": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current330d-mass-weight-retained-source-triage-r1/independent-GNU13-array-outer-dependency-review-r1/trans-array.cc",
+      "literal_excerpt": "  for (ss = rss; ss != gfc_ss_terminator; ss = ss->next)\n    {\n      ss_info = ss->info;\n      ss_expr = ss_info->expr;\n\n      if (ss_info->array_outer_dependency)\n\t{\n\t  nDepend = 1;\n\t  break;\n\t}"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-13.3.0/gcc/fortran/module.cc#L2379",
+      "local_sha256": "cdbf3cd3159cc8e630d3016f68c994781ccf95a9aa70827342a66f4e2a3729da",
+      "line_start": 2379,
+      "line_end": 2380,
+      "fact": "Summary serialized in module metadata",
+      "retained_primary_file": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current330d-mass-weight-retained-source-triage-r1/independent-GNU13-array-outer-dependency-review-r1/module.cc",
+      "literal_excerpt": "      if (attr->array_outer_dependency)\n\tMIO_NAME (ab_attribute) (AB_ARRAY_OUTER_DEPENDENCY, attr_bits);"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-13.3.0/gcc/fortran/module.cc#L2640",
+      "local_sha256": "cdbf3cd3159cc8e630d3016f68c994781ccf95a9aa70827342a66f4e2a3729da",
+      "line_start": 2640,
+      "line_end": 2641,
+      "fact": "Summary deserialized into symbol attribute",
+      "retained_primary_file": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current330d-mass-weight-retained-source-triage-r1/independent-GNU13-array-outer-dependency-review-r1/module.cc",
+      "literal_excerpt": "\t    case AB_ARRAY_OUTER_DEPENDENCY:\n\t      attr->array_outer_dependency =1;"
+    }
+  ],
+  "retained_prior_proof": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current330d-mass-weight-retained-source-triage-r1/cached-direct-static-interface-native-preparation-r2-hpc02/THREE_ANALYSIS_BITS_PROOF.json",
+    "sha256": "3a44a9c97ec8327c5045ef6e8178415a332468013b19ea27936e7402afcfa939"
+  },
+  "actual_named_definition": {
+    "id": 4733,
+    "name": "calc_cq",
+    "owner": "module_big_step_utilities_em",
+    "added_only": "ARRAY_OUTER_DEPENDENCY",
+    "IMPLICIT_PURE": "preserved"
+  },
+  "actual_fixed_proof": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current03fa-cqu-ordered-add-feasibility-r1/actual-fullBigStep-R3-MOD-diagnosis-r1/ACTUAL_FIXED_ONE_BIT_PROOF.json",
+    "sha256": "eac9fceccbcf18ea94c0901c9a6d20b64846cc80b9455cc2e683bd101be16abd"
+  },
+  "source_context": "Current module_big_step_utilities_em.F823 ordinary non-elemental SUBROUTINE calc_cq; module_em.F176 direct CALL. R3 retains inferred purity via effect-correct PURE BIND(C) subroutine. No elemental RHS function or hidden outer-array read introduced.",
+  "actual_read_write_scope": "Unchanged R5 core reads only explicit m data, dimensions and admission hardware state; writes only explicit o/q. C void wrapper adds admitted output only. All are dummy/local storage; no host/module/common array read. Unknown external body conservatively receives dependency summary in GNU13.3.",
+  "ABI_scope": "All original decoded typed tokens/IDs/attributes except this single conservative addition exact. No calling-convention/argument descriptor/type/shape/kind/intent/binding change. Original MOD fixture objects remain authority. Not a universal ABI guarantee or regenerated-clean-source certificate.",
+  "real_exclusion": "Do not generalize to elemental functions whose real nonlocal array reads alias assignment destinations, or to additional metadata changes. Such cases may require caller rebuild/temporaries.",
+  "source_route_assessment": "No demonstrated legitimate raw-MOD-preserving source route remains. R3 effect-correct PURE SUB restores original inferred purity but cannot expose the external body to GNU dependency analysis. No further source/flag purity guesses proposed.",
+  "proposed_continuation": "Only with explicit root admission and independent peer review: cached actual R3 O2 module/MOD/PP+bridge, unchanged R5 core and original-MOD fixture objects; exact-one checker hard for O2; O0 source-enable absent yields literal whole original PP, freshly compiled with raw MOD equality hard; all19/8x4/4x4 full calc_cq raw/five/physical/readonly checks unchanged. Raw MOD aggregate remains false; failures R2/R3 preserved."
+}
