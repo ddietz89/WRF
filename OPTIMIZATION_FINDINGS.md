@@ -1,8 +1,22 @@
 # WRF CPU optimization findings
 
-## October 27: SW cloud consumer — own three-hour and instrumented daylight science
+## October 27: AdvectW normal-Y full-eight prefix — own three-hour science
 
-Selected image `03fa935c` / archive `bd1ac8a4` / post-test source `77ce9db9` retains all prior fixes, including MW/W, and adds the guarded stochastic-cloud final consumer. The same exact image now owns unprofiled SAME512 three-hour science (545 ordered steps, four full products), instrumented noon science (185 steps, two full products), and three 15-second main-thread source-identity profiles on hpc03 ranks114/122/386. All model and scientific reader scopes closed normally. Own nine-hour, unprofiled noon, restart and full144-hour qualifications remain false.
+Selected image `561e2f53` / archive `abf3295a` / post-test source `bf691f5d` retains all prior MW/W/SW/PHY fixes and adds the guarded normal-Y flux5 full-eight prefix with private `vel`, literal scalar remainder and original unmasked fallback. Own unprofiled SAME512 science passed 545 ordered steps and four FULL products; all four models and the original reader closed normally. This child has no own noon, profile, nine-hour, restart or full144-hour qualification. Parent03fa's actual noon/profile/three-hour evidence remains historical.
+
+| Three-hour metric | Preselected original median (3 distinct runs) | Current Y5 child | Descriptive reduction |
+|---|---:|---:|---:|
+| Model/MPI wall (s) | 800.024120857 | 623.788581898 | 22.028778% |
+| Main-step elapsed (s) | 596.45045 | 540.61540 | 9.361222% |
+| Aggregate CPU (core-s) | 359327.346984 | 303308.199364 | 15.590004% |
+
+This is one candidate-only, unpaired observation versus the unchanged preselected original median-three cohort, with exact science against retained original A2. It does not isolate the Y5 addition or establish repeatability; main-step elapsed includes waiting and communication. The complete restore-inclusive AdvectW caller was 29.900%/30.616% shorter separately from the extracted three-dimensional screen; neither percentage transfers to forecast cost. Genuine original-MOD O2/O0 checks passed 176 comparisons with physical/read-only/raw/five-state equality. Scoped O2 diagnostic/reference changes and unclassified O0 non-target code remain explicit. Source correspondence is the post-test two-file target projection to the cached object, with raw producer commit null and no clean full-source build certificate.
+
+Rollback: `WRF_ADVECT_W_Y5_SIMD=0`, regenerate/rebuild `module_advect_em` and relink; preserve X5 and the existing mask-helper owner. Parent03fa/archivebd1a is the whole-image rollback. Earlier invalid unexecuted H6 and screen preparation failures remain retained. [Qualification and evidence](tools/cpu-compute/advect-w-y5-full8-prefix-20261027/README.md).
+
+## Historical parent03fa: SW cloud consumer — own three-hour and instrumented daylight science
+
+Previously selected image `03fa935c` / archive `bd1ac8a4` / post-test source `77ce9db9` retains all prior fixes, including MW/W, and adds the guarded stochastic-cloud final consumer. The same exact image now owns unprofiled SAME512 three-hour science (545 ordered steps, four full products), instrumented noon science (185 steps, two full products), and three 15-second main-thread source-identity profiles on hpc03 ranks114/122/386. All model and scientific reader scopes closed normally. Own nine-hour, unprofiled noon, restart and full144-hour qualifications remain false.
 
 | Three-hour metric | Preselected original median (3 distinct runs) | Current03fa | Descriptive reduction |
 |---|---:|---:|---:|
