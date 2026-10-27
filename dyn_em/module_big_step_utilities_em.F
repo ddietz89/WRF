@@ -825,6 +825,9 @@ SUBROUTINE calc_cq ( moist, cqu, cqv, cqw, n_moist, &
                      ims, ime, jms, jme, kms, kme,  &
                      its, ite, jts, jte, kts, kte  )
 
+#if defined(WRF_CQU_ORDERED_AVX2_ENABLE) && WRF_CQU_ORDERED_AVX2_ENABLE == 1 && !defined(WRF_CQU_ORDERED_AVX2_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && defined(WRF_CQU_CQW_LAST_SPECIES_CONSUMER_FUSION) && defined(WRF_CQV_LAST_SPECIES_CONSUMER_FUSION)
+   USE ISO_C_BINDING,ONLY:c_float,c_int,c_int64_t
+#endif
    IMPLICIT NONE
    
    ! Input data
@@ -846,6 +849,19 @@ SUBROUTINE calc_cq ( moist, cqu, cqv, cqw, n_moist, &
    REAL :: qtot(its:ite)
    
    INTEGER :: i, j, k, itf, jtf, ktf, ispe
+#if defined(WRF_CQU_ORDERED_AVX2_ENABLE) && WRF_CQU_ORDERED_AVX2_ENABLE == 1 && !defined(WRF_CQU_ORDERED_AVX2_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && defined(WRF_CQU_CQW_LAST_SPECIES_CONSUMER_FUSION) && defined(WRF_CQV_LAST_SPECIES_CONSUMER_FUSION)
+   INTEGER(c_int) :: cqu_handled
+   interface
+    pure subroutine wrf_cqu_ordered_sub(m,o,q,n,ns,nk,nj,sk,sj,ss,admitted) bind(C)
+     import c_float,c_int,c_int64_t
+     real(c_float),intent(in) :: m(*)
+     real(c_float),intent(inout) :: o(*),q(*)
+     integer(c_int),value,intent(in) :: n,ns,nk,nj
+     integer(c_int64_t),value,intent(in) :: sk,sj,ss
+     integer(c_int),intent(out) :: admitted
+    end subroutine
+   end interface
+#endif
 
 !<DESCRIPTION>
 !
@@ -859,6 +875,18 @@ SUBROUTINE calc_cq ( moist, cqu, cqv, cqw, n_moist, &
 
         itf=ite
         jtf=MIN(jte,jde-1)
+#if defined(WRF_CQU_ORDERED_AVX2_ENABLE) && WRF_CQU_ORDERED_AVX2_ENABLE == 1 && !defined(WRF_CQU_ORDERED_AVX2_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && defined(WRF_CQU_CQW_LAST_SPECIES_CONSUMER_FUSION) && defined(WRF_CQV_LAST_SPECIES_CONSUMER_FUSION)
+        cqu_handled=0
+        IF(its<=itf.and.kts<=ktf.and.jts<=jtf) THEN
+          CALL wrf_cqu_ordered_sub(moist(its,kts,jts,PARAM_FIRST_SCALAR), &
+             cqu(its,kts,jts),qtot(its),int(itf-its+1,c_int), &
+             int(n_moist-PARAM_FIRST_SCALAR+1,c_int),int(ktf-kts+1,c_int), &
+             int(jtf-jts+1,c_int),int(ime-ims+1,c_int64_t), &
+             int(ime-ims+1,c_int64_t)*int(kme-kms+1,c_int64_t), &
+             int(ime-ims+1,c_int64_t)*int(kme-kms+1,c_int64_t)*int(jme-jms+1,c_int64_t),cqu_handled)
+        ENDIF
+        IF(cqu_handled==0)THEN
+#endif
         DO j=jts,jtf
           DO k=kts,ktf
             DO i=its,itf
@@ -892,6 +920,10 @@ SUBROUTINE calc_cq ( moist, cqu, cqv, cqw, n_moist, &
 #endif
         ENDDO
         ENDDO
+
+#if defined(WRF_CQU_ORDERED_AVX2_ENABLE) && WRF_CQU_ORDERED_AVX2_ENABLE == 1 && !defined(WRF_CQU_ORDERED_AVX2_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && defined(WRF_CQU_CQW_LAST_SPECIES_CONSUMER_FUSION) && defined(WRF_CQV_LAST_SPECIES_CONSUMER_FUSION)
+        ENDIF
+#endif
 
         itf=MIN(ite,ide-1)
         jtf=jte
