@@ -59,6 +59,45 @@ OBJSL += wrf_rsl_unpack_ikj_original.o
 endif
 endif
 
+# Experimental Y-only INIT receive preposting; OFF until own full-grid review.
+# Explicit opt-in only: qualified GNU13.3 strictO2, Linux x86-64, pureMPI/kind4.
+# Runtime admission additionally requires nonperiodic8x60/480compute identity.
+WRF_RSL_EARLY_Y ?= 1
+WRF_RSL_EARLY_Y_ENABLED :=
+WRF_RSL_EARLY_Y_CPPFLAGS :=
+WRF_RSL_EARLY_Y_TARGET := $(shell $(firstword $(CC)) -dumpmachine 2>/dev/null)
+ifeq ($(WRF_RSL_EARLY_Y),1)
+ifeq ($(WRF_RSL_FC_VERSION),13.3.0)
+ifeq ($(WRF_RSL_CC_VERSION),13.3.0)
+ifeq ($(firstword $(subst -, ,$(WRF_RSL_EARLY_Y_TARGET))),x86_64)
+ifneq ($(findstring linux,$(WRF_RSL_EARLY_Y_TARGET)),)
+ifeq ($(strip $(OMP)$(OMPCPP)$(OMPCC)),)
+ifeq ($(filter -fopenmp%,$(FFLAGS) $(CFLAGS) $(CPPFLAGS)),)
+ifneq ($(filter -DDM_PARALLEL -DDM_PARALLEL=1,$(CFLAGS) $(CPPFLAGS)),)
+ifeq ($(filter -DSTUBMPI%,$(CFLAGS) $(CPPFLAGS)),)
+ifeq ($(filter -fdefault-integer-8 -finteger-4-integer-8 -fdefault-real-8 -freal-4-real-8,$(FFLAGS) $(CFLAGS) $(CPPFLAGS)),)
+ifeq ($(lastword $(filter -O%,$(CFLAGS))),-O2)
+ifneq ($(filter -fno-fast-math,$(CFLAGS)),)
+ifneq ($(filter -ffp-contract=off,$(CFLAGS)),)
+ifeq ($(filter -ffast-math -Ofast -funsafe-math-optimizations -fassociative-math -ffinite-math-only,$(CFLAGS)),)
+WRF_RSL_EARLY_Y_ENABLED := 1
+WRF_RSL_EARLY_Y_CPPFLAGS := -DWRF_RSL_EARLY_Y=1
+OBJSL += rsl_early_y_prepost.o
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+
 # These .F files are compiled in frame but leave behind auto-gen files here
 F_FILES = \
  feedback_domain_em_part1.F \
@@ -82,7 +121,7 @@ librsl_lite.a:          $(OBJS)
 			$(AR) cr librsl_lite.a $(OBJSL)
 
 c_code.o:	        c_code.c
-			$(CC) $(CFLAGS) -c c_code.c
+			$(CC) $(CFLAGS) $(WRF_RSL_EARLY_Y_CPPFLAGS) -c c_code.c
 
 period.o:	        period.c
 			$(CC) $(CFLAGS) -c period.c
@@ -130,3 +169,7 @@ wrf_rsl_unpack_width56_i32.o: wrf_rsl_unpack_width56_i32.c
 wrf_rsl_unpack_ikj_original.o: wrf_rsl_unpack_ikj_original.F90
 	$(CPP) $(CPPFLAGS) $< > wrf_rsl_unpack_ikj_original.f
 	$(FC) -o $@ $(FFLAGS) -c wrf_rsl_unpack_ikj_original.f
+
+# Same strict C recipe as the tested production helper; no native3x3 define.
+rsl_early_y_prepost.o: rsl_early_y_prepost.c rsl_lite.h
+	$(CC) $(CFLAGS) -I. -c $< -o $@

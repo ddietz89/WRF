@@ -32,6 +32,18 @@
 
 #define F_PACK
 
+/* Private opt-in Y-only receive preposting; generated serialized caller only. */
+#if defined(WRF_RSL_EARLY_Y) && WRF_RSL_EARLY_Y && !defined(STUBMPI) && !defined(_OPENMP)
+#define RSL_EARLY_Y_ACTIVE 1
+extern void rsl_early_y_before_init(void);
+extern void rsl_early_y_begin(int,MPI_Comm,int,int,int,int,int,int,int,int,int,int,int);
+extern int rsl_early_y_take(int,MPI_Comm,int,int,int,int,int,int,int,int,int,int,MPI_Request*,MPI_Request*);
+extern void rsl_early_y_finish(MPI_Request*,MPI_Request*);
+#else
+#define RSL_EARLY_Y_ACTIVE 0
+#endif
+
+#line 35
 #define ORIG_RSL_CUTOFF 10000
 
 void RSL_LITE_ERROR_DUP1 ( int *me , int *size )
@@ -332,6 +344,9 @@ RSL_LITE_INIT_EXCH (
 #ifndef STUBMPI
   MPI_Comm comm, *comm0, dummy_comm ;
 
+#if RSL_EARLY_Y_ACTIVE
+  rsl_early_y_before_init(); /* before cursor reset or possible allocation */
+#endif
   comm0 = &dummy_comm ;
   *comm0 = MPI_Comm_f2c( *Fcomm0 ) ;
 
@@ -399,8 +414,14 @@ RSL_LITE_INIT_EXCH (
   yp_curs = 0 ; ym_curs = 0 ; xp_curs = 0 ; xm_curs = 0 ;
   yp_curs_recv = nbytes_y_recv ; ym_curs_recv = nbytes_y_recv ; 
   xp_curs_recv = nbytes_x_recv ; xm_curs_recv = nbytes_x_recv ;
+#if RSL_EARLY_Y_ACTIVE
+  if (xy == 0 && np_y > 1)
+    rsl_early_y_begin(*Fcomm0,*comm0,me,np,np_x,np_y,recvwm,recvwp,
+                      ym_curs_recv,yp_curs_recv,ym,yp,xy);
+#endif
 }
 
+#line 404
 int
 RSL_LITE_PACK ( int * Fcomm0, char * buf , int * shw0 , 
            int * sendbegm0 , int * sendwm0 , int * sendbegp0 , int * sendwp0 ,
@@ -1003,6 +1024,9 @@ RSL_LITE_EXCH_Y ( int * Fcomm0, int *me0, int * np0 , int * np_x0 , int * np_y0 
 {
   int me, np, np_x, np_y ;
   int yp, ym, xp, xm, ierr ;
+#if RSL_EARLY_Y_ACTIVE
+  int early_y = 0;
+#endif
 #ifndef STUBMPI
   MPI_Status stat ;
   MPI_Comm comm, *comm0, dummy_comm ;
@@ -1012,10 +1036,20 @@ RSL_LITE_EXCH_Y ( int * Fcomm0, int *me0, int * np0 , int * np_x0 , int * np_y0 
   comm = *comm0 ; me = *me0 ; np = *np0 ; np_x = *np_x0 ; np_y = *np_y0 ;
   if ( np_y > 1 ) {
     MPI_Cart_shift( *comm0, 0, 1, &ym, &yp ) ;
+#if RSL_EARLY_Y_ACTIVE
+    early_y=rsl_early_y_take(*Fcomm0,comm,me,np,np_x,np_y,*recvw_m,*recvw_p,
+                            ym_curs_recv,yp_curs_recv,ym,yp,&ym_recv,&yp_recv);
+#endif
     if ( yp != MPI_PROC_NULL && *recvw_p > 0 ) {
+#if RSL_EARLY_Y_ACTIVE
+      if (!early_y)
+#endif
       ierr=MPI_Irecv ( buffer_for_proc( yp, yp_curs_recv, RSL_RECVBUF ), yp_curs_recv, MPI_CHAR, yp, me, comm, &yp_recv ) ;
     }
     if ( ym != MPI_PROC_NULL && *recvw_m > 0 ) {
+#if RSL_EARLY_Y_ACTIVE
+      if (!early_y)
+#endif
       ierr=MPI_Irecv ( buffer_for_proc( ym, ym_curs_recv, RSL_RECVBUF ), ym_curs_recv, MPI_CHAR, ym, me, comm, &ym_recv ) ;
     }
     if ( yp != MPI_PROC_NULL && *sendw_p > 0 ) {
@@ -1028,6 +1062,9 @@ RSL_LITE_EXCH_Y ( int * Fcomm0, int *me0, int * np0 , int * np_x0 , int * np_y0 
     if ( ym != MPI_PROC_NULL && *recvw_m > 0 ) {  MPI_Wait( &ym_recv, &stat ) ;  }
     if ( yp != MPI_PROC_NULL && *sendw_p > 0 ) {  MPI_Wait( &yp_send, &stat ) ;  }
     if ( ym != MPI_PROC_NULL && *sendw_m > 0 ) {  MPI_Wait( &ym_send, &stat ) ;  }
+#if RSL_EARLY_Y_ACTIVE
+    if (early_y) rsl_early_y_finish(&ym_recv,&yp_recv);
+#endif
   }
   yp_curs = 0 ; ym_curs = 0 ; xp_curs = 0 ; xm_curs = 0 ;
   yp_curs_recv = 0 ; ym_curs_recv = 0 ; 
@@ -1035,6 +1072,7 @@ RSL_LITE_EXCH_Y ( int * Fcomm0, int *me0, int * np0 , int * np_x0 , int * np_y0 
 #endif
 }
 
+#line 1038
 int
 RSL_LITE_EXCH_X ( int * Fcomm0, int *me0, int * np0 , int * np_x0 , int * np_y0 ,
                   int * sendw_m, int * sendw_p, int * recvw_m , int * recvw_p )

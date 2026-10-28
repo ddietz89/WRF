@@ -1198,7 +1198,14 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
   REAL, DIMENSION( kms:kme ),INTENT(IN   ) :: c1h, c2h, c1f, c2f, &
                                               c3h, c4h, c3f, c4f
 !  Local arrays from the stack (note tile size)
+#if defined(WRF_ADVANCE_MU_DISJOINT_SCRATCH_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_ADVANCE_MU_DISJOINT_SCRATCH_DISABLE) && defined(WRF_ADVANCE_MU_WW_ROW_PIPELINE) && defined(WRF_ADVANCE_MU_WW_ROW_SIMD) && defined(WRF_ADVANCE_MU_WDTN_ROW_PIPELINE) && defined(WRF_ADVANCE_MU_THETA_FIRSTPASS_REUSE)
+! DVDXI is dead before theta; both private arrays have identical tile bounds.
+  REAL, DIMENSION (its:ite, kts:kte) :: dvdxi
+#define WRF_ADVANCE_MU_DISJOINT_SCRATCH_ACTIVE
+#define wdtn dvdxi
+#else
   REAL, DIMENSION (its:ite, kts:kte) :: wdtn, dvdxi
+#endif
   REAL, DIMENSION (its:ite) :: dmdt
   INTEGER :: i, j, k, kk, i_start, i_end, j_start, j_end, k_start, k_end
   INTEGER :: i_endu, j_endv
@@ -1395,6 +1402,10 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
      ENDDO
 #endif
    ENDDO
+#ifdef WRF_ADVANCE_MU_DISJOINT_SCRATCH_ACTIVE
+#undef wdtn
+#undef WRF_ADVANCE_MU_DISJOINT_SCRATCH_ACTIVE
+#endif
 END SUBROUTINE advance_mu_t
           
 !------------------------------------------------------------

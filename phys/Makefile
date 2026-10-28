@@ -975,3 +975,61 @@ endif
 endif
 endif
 endif
+
+# Ordered four-subcolumn LW MCICA overlap; literal original unmasked/nonfinite fallback.
+# GNU13.3 strict-O2 REAL4/INT4 pureMPI; one existing PHY mask-helper owner.
+WRF_LW_MCICA_OVERLAP_ORDERED4 ?= 1
+_LW_OVERLAP_FLAGS = $(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)
+module_ra_rrtmg_lw.o: private override CPPFLAGS += -UWRF_LW_MCICA_OVERLAP_ORDERED4_ENABLE
+ifeq ($(WRF_LW_MCICA_OVERLAP_ORDERED4),0)
+module_ra_rrtmg_lw.o: private override CPPFLAGS += -DWRF_LW_MCICA_OVERLAP_ORDERED4_DISABLE
+endif
+ifeq ($(WRF_LW_MCICA_OVERLAP_ORDERED4),1)
+ifeq ($(strip $(OMPCPP) $(OMP) $(PROMOTION) $(DOUBLE_PRECISION)),)
+ifeq ($(filter -D_OPENMP% _OPENMP%,$(CPPFLAGS)),)
+ifneq (,$(filter -DDM_PARALLEL -DDM_PARALLEL=%,$(CPPFLAGS)))
+ifeq ($(filter -U%,$(CPPFLAGS)),)
+ifeq ($(strip $(RWORDSIZE)),4)
+ifeq ($(strip $(IWORDSIZE)),4)
+ifeq ($(filter -fdefault-% -freal-% -finteger-% -r8 -i8 -fopenmp -fopenmp=% -Ofast -ffast-math -fassociative-math -funsafe-math-optimizations -freciprocal-math -ffinite-math-only -fno-signed-zeros -fno-trapping-math,$(_LW_OVERLAP_FLAGS)),)
+ifeq ($(filter-out -O2,$(filter -O%,$(_LW_OVERLAP_FLAGS))),)
+ifneq (,$(filter -O2,$(_LW_OVERLAP_FLAGS)))
+ifeq ($(filter-out -ffp-contract=off,$(filter -ffp-contract=%,$(_LW_OVERLAP_FLAGS))),)
+ifneq (,$(filter -fno-fast-math,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG)))
+ifneq (,$(filter -ffp-contract=off,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG)))
+ifneq (,$(findstring GNU Fortran,$(shell $(FC) --version 2>/dev/null)))
+ifeq ($(shell $(FC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+ifeq ($(shell $(CC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+ifeq ($(WRF_PHY_INTERPOLATION_SIMD),1)
+ifeq ($(WRF_DIFFUSION_SIMD),1)
+ifeq ($(WRF_LW_MCICA_WHOLE_DRAW_SEED_CARRY),1)
+ifneq (,$(filter x86_64%,$(shell $(CC) -dumpmachine 2>/dev/null)))
+module_ra_rrtmg_lw.o: private override CPPFLAGS += -DWRF_LW_MCICA_OVERLAP_ORDERED4_ENABLE
+OBJS += wrf_lw_overlap_ordered4.o
+$(LIBTARGET): wrf_lw_overlap_ordered4.o
+wrf_lw_overlap_ordered4.o: wrf_lw_overlap_ordered4.c
+	$(CC) -O2 -fno-fast-math -ffp-contract=off -msse2 -mno-avx -mno-fma -std=c11 -c $< -o $@
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif

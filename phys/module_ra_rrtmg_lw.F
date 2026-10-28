@@ -2394,6 +2394,21 @@ contains
 
 ! Indices
       integer(kind=im) :: ilev, isubcol, i, n         ! indices
+#if defined(WRF_LW_MCICA_OVERLAP_ORDERED4_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_LW_MCICA_OVERLAP_ORDERED4_DISABLE)
+      integer(kind=im) :: lw_overlap_nvec,lw_overlap_start
+      real(kind=rb) :: lw_overlap_threshold
+      logical :: lw_overlap_masked
+      interface
+         pure integer function wrf_phy_interp_all_masked()bind(C)
+         end function
+         subroutine wrf_lw_overlap_ordered4(n,prev,cur,t)bind(C)
+            use iso_c_binding,only:c_int,c_float
+            integer(c_int),value::n
+            real(c_float),intent(in)::prev(*),t
+            real(c_float),intent(inout)::cur(*)
+         end subroutine
+      end interface
+#endif
 #if defined(WRF_LW_MCICA_WHOLE_DRAW_SEED_CARRY_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_LW_MCICA_WHOLE_DRAW_SEED_CARRY_DISABLE)
       integer(kind=im) :: k1_s, k2_s, k3_s, k4_s, kkiss_s
       logical :: kiss_scalar
@@ -2526,6 +2541,32 @@ contains
              enddo
          endif
 
+#if defined(WRF_LW_MCICA_OVERLAP_ORDERED4_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_LW_MCICA_OVERLAP_ORDERED4_DISABLE)
+         lw_overlap_masked=.false.
+         if(nsubcol>0.and.ncol>0.and.nlay>1)lw_overlap_masked=wrf_phy_interp_all_masked()/=0
+         if(lw_overlap_masked)then
+            lw_overlap_nvec=(nsubcol/4)*4
+            do ilev=2,nlay
+               do i=1,ncol
+                  lw_overlap_start=1
+                  if(lw_overlap_nvec>0)then
+                     if(iand(transfer(cldf(i,ilev-1),0_im),int(z'7F800000',im))/=int(z'7F800000',im))then
+                        lw_overlap_threshold=1._rb-cldf(i,ilev-1)
+                        call wrf_lw_overlap_ordered4(lw_overlap_nvec,CDF(1,i,ilev-1),CDF(1,i,ilev),lw_overlap_threshold)
+                        lw_overlap_start=lw_overlap_nvec+1
+                     endif
+                  endif
+                  do isubcol=lw_overlap_start,nsubcol
+                     if(CDF(isubcol,i,ilev-1)>1._rb-cldf(i,ilev-1))then
+                        CDF(isubcol,i,ilev)=CDF(isubcol,i,ilev-1)
+                     else
+                        CDF(isubcol,i,ilev)=CDF(isubcol,i,ilev)*(1._rb-cldf(i,ilev-1))
+                     endif
+                  enddo
+               enddo
+            enddo
+         else
+#endif
          do ilev = 2,nlay
             do i = 1, ncol
                do isubcol = 1, nsubcol
@@ -2538,6 +2579,9 @@ contains
             enddo
          enddo
        
+#if defined(WRF_LW_MCICA_OVERLAP_ORDERED4_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_LW_MCICA_OVERLAP_ORDERED4_DISABLE)
+         endif
+#endif
       case(3) 
 ! Maximum overlap
 ! i) pick the same random numebr at every level  
