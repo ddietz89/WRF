@@ -6026,3 +6026,10 @@ The same nine-hour main-step comparison remains lower in each fixed period: 11.3
 Adding only GNU 13.3 O2 `-fstack-arrays` to the identical advection source passed the retained native protocols and removed eleven allocation sites in PD. The complete captured 256-call PD screen, including its mutable-input restores inside both clocks, was **2.4803% / 0.1381% longer in wall time** on hpc01/hpc02; main-thread CPU was 2.4745% / 0.1856% higher. All four opposite-order arms passed full raw, read-only, guard and five-word state checks, individual cache clears and normal closure.
 
 Close the module-flag candidate unpromoted: no significant caller gain was demonstrated. This does not establish a regression in other advection callers or a forecast cause. The prepared application build was cancelled before staging; source, defaults and selected `efa608eb` remain unchanged. [Scope and retained evidence](tools/cpu-compute/advection-stack-arrays-screen-20261028/README.md).
+
+
+### October 28: remaining RTRNMC stack-storage screen closed unpromoted
+
+Adding only `-fstack-arrays` to the exact current longwave RTRNMC procedure removed its eleven allocation/free pairs. The original 36 finite and six safe IEEE cases passed with full outputs, read-only inputs, padding and all five state words exact against the retained genuine O2 gold.
+
+The complete synthetic 33-layer, 140-gpoint mixed caller, with all eight output restores and each entire call inside the clocks, was **1.4487% shorter / 0.1720% longer in wall time** on hpc01/hpc02. Thread CPU was 1.4573% lower / 0.1664% higher. All four 20,000-call arms passed raw/state, individual cache and normal-closure checks. This weak, mixed screen establishes no significant consistent caller gain; close the fixed candidate unpromoted. No whole-longwave module or forecast was built, and no capacity saving or application speedup is claimed. [Decision and evidence](tools/cpu-compute/rtrnmc-stack-arrays-screen-20261028/README.md).

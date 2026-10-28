@@ -1,0 +1,47 @@
+{
+  "decision": "CLOSE_RTRNMC_STACK_ARRAYS_UNPROMOTED_NO_SIGNIFICANT_CONSISTENT_CALLER_GAIN",
+  "date": "2026-10-28",
+  "change": "Exact current complete RTRNMC source at strict GNU13.3 O2 plus only -fstack-arrays; no arithmetic or source algorithm change.",
+  "native_pass": true,
+  "allocator_sites_each_malloc_and_free": {
+    "parent": 11,
+    "candidate": 0
+  },
+  "caller_scope": "Synthetic complete RTRNMC caller; not captured forecast input;33layers/140gpoints/mixed-mask4/20000calls/all8restores charged",
+  "host_comparisons": {
+    "hpc01": {
+      "wall_seconds": {
+        "parent": 1.858399124,
+        "candidate": 1.831476521,
+        "percent_lower": 1.4486986488700069
+      },
+      "thread_cpu_seconds": {
+        "parent": 1.858805588,
+        "candidate": 1.831717281,
+        "percent_lower": 1.4572964044693892
+      }
+    },
+    "hpc02": {
+      "wall_seconds": {
+        "parent": 1.829538837,
+        "candidate": 1.832685005,
+        "percent_lower": -0.1719650841169875
+      },
+      "thread_cpu_seconds": {
+        "parent": 1.829929209,
+        "candidate": 1.832974592,
+        "percent_lower": -0.16642080934181777
+      }
+    }
+  },
+  "reason": "Caller wall/thread CPU improved about1.45% on hpc01 but regressed about0.17% on hpc02. These opposite-order single pairs do not establish significant consistent caller gain. No measured peak or capacity benefit supports retention independently.",
+  "retention": "Retain all actual evidence; fixed candidate closed unpromoted. No further matrix, repeat, whole-LW build or application experiment.",
+  "source_or_default_applied": false,
+  "selected_executable_unchanged": true,
+  "selected_archive_unchanged": true,
+  "whole_LW_module_compiled": false,
+  "application_run": false,
+  "performance_qualified": false,
+  "evidence_file": "EVIDENCE.json",
+  "evidence_sha256": "32b3d7c18cedd8c80d0596e7b7e2f1b4b67f5237f01d3e19d5c716b70f83a231"
+}
