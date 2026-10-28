@@ -1,15 +1,19 @@
 {
-  "status": "PASS_OWN_UNPROFILED_SAME512_PWAT_THREE_HOUR_545_FOUR_FULL",
+  "status": "PASS_OWN_UNPROFILED_SAME512_PRESSURE_ROWCURSOR_THREE_HOUR_545_FOUR_FULL",
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/current0dd6-afwa-pwat-one-AFWA-helper-experimental-r1/wrf.exe",
-    "sha256": "b92fce9cfa20a6d67ab5e2ba59b2a9f17b2f689e72f4667581a597710c19cd43"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentb92f-postpow-one-BigStep-helper-experimental-r1/wrf.exe",
+    "sha256": "1d16f14b49676df3a514006fd01149832f867315989b8160128b123e4c92d87b"
   },
   "archive": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/current0dd6-afwa-pwat-one-AFWA-helper-experimental-r1/libwrflib.a",
-    "sha256": "b0e73d344d00de213cfd26ff23b954e20c340c83a312db032d83ec64dcfa5011"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentb92f-postpow-one-BigStep-helper-experimental-r1/libwrflib.a",
+    "sha256": "32de9f2d110661381b1d02f214605c91450e4612652ec5f79da51056b8e9c2c5"
   },
-  "source_commit": "0de65b499c50e547a392a41fb268daf3ffd847d6",
-  "post_test_source_commit": "0de65b499c50e547a392a41fb268daf3ffd847d6",
+  "output_provider": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current0dd6-rowcursor-native-hpc02-r1/output/liboutput_world512_rowcursor.so",
+    "sha256": "64bb4cf2744799056e25be48b166a7a4703f525b08acff1bf898cd7941e8a643"
+  },
+  "source_commit": "68ab210a55000509bab4dccf89aa929ddc97f94e",
+  "post_test_source_commit": "68ab210a55000509bab4dccf89aa929ddc97f94e",
   "raw_producer_source_commit": null,
   "own_three_hour_qualified": true,
   "own_unprofiled_three_hour_qualified": true,
@@ -27,50 +31,38 @@
   "instrumented": false,
   "observer": false,
   "science": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-0dd6-pwat-3h-runtime-r2/science-receipt.json",
-    "sha256": "3df4fe05753cf7125afaa7e9a287668920f196f52a9d18360ea6d650201a130f"
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-pwat-pressure-rowcursor-3h-runtime-r1/science-receipt.json",
+    "sha256": "4527aaa2105983b0a86c766cd0abc0fa3bc533a808997e2ae8ee8ac7a315bf00"
   },
   "reader_closure": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-0dd6-pwat-3h-runtime-r2/reader-closure.json",
-    "sha256": "9b1e25ebeae5fab8cfa4feab1830b82b55dfa17a4d57098f2315da34f8165fbe"
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-pwat-pressure-rowcursor-3h-runtime-r1/reader-closure.json",
+    "sha256": "c71a69e617f331690c17cccfd34cbdce238d61a14e8a8fb2a715c74a8fdac2be"
   },
   "models": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-0dd6-pwat-3h-runtime-r2/candidate-metadata/model-closures.json",
-    "sha256": "41047f1aaf75fbc2f021603e379c5a7231cfcdf5e4d364cdf5e216e2d54fc459"
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-pwat-pressure-rowcursor-3h-runtime-r1/candidate-metadata/model-closures.json",
+    "sha256": "d2d3301a4d6587db41c00d80c5cdf623eb789664f1efa088e974657a768322ed"
   },
   "lease": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-0dd6-pwat-3h-runtime-r2/candidate-metadata/lease.json",
-    "sha256": "18f3ecd5f09af0b3822b104829138a2dd067b9d44821fef02fa2d45faf3c8805"
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-pwat-pressure-rowcursor-3h-runtime-r1/candidate-metadata/lease.json",
+    "sha256": "58b10708bc7937cd035dc9cb1f3598f2789ad06066c8d995221dfa877d72b033"
   },
   "RESULT": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-0dd6-pwat-3h-runtime-r2/RESULT.json",
-    "sha256": "520cacacc3819b715865fe7ff2881bb446dbed2aa404377879c88ac0bb2f7592"
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-pwat-pressure-rowcursor-3h-runtime-r1/RESULT.json",
+    "sha256": "f845a794f3db2794417d30f10cda608143fca4be4e9c5d76de9037b8a1d3ab0f"
   },
   "source_manifest": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-0dd6-pwat-3h-runtime-r2/source-pins.json",
-    "sha256": "6bfd72b16707bca9298c528e23a6920cd9823f9863b8b92f2df29f38112a7eb8"
-  },
-  "build": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-0dd6-pwat-3h-runtime-r2/pwat-build-receipt.json",
-    "sha256": "9291c378db25f5e49787aaa26a1333242e86ec54de755dbc53ce57604ab668dd"
-  },
-  "build_closure": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-0dd6-pwat-3h-runtime-r2/pwat-build-closure.json",
-    "sha256": "7f046930ae1a06b3716920579d247c869d54522d62adeea4b9421a0fcdcd8ffb"
-  },
-  "build_controller": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-0dd6-pwat-3h-runtime-r2/pwat-build-controller.json",
-    "sha256": "8f470ac64213ca0a2dc6370f6d27c68e7bd53e2a98aa0a168026ffa11120ae50"
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-pwat-pressure-rowcursor-3h-runtime-r1/source-pins.json",
+    "sha256": "012a1cee6a3e9095c44de02f3c9c4444298cded1138054ef192ec97a5a0faa4f"
   },
   "actual_granted_rank_map": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/afwa-pwat-ordered-column4-20261027/ACTUAL_GRANTED_THREE_HOUR_RANK_MAP.json",
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/pressure-rowcursor-batch-20261028/ACTUAL_GRANTED_THREE_HOUR_RANK_MAP.json",
     "sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac"
   },
   "actual_map_table_sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac",
   "actual_candidate_metrics": {
-    "wall_seconds": 642.846998421941,
-    "cpu_seconds": 312725.989666,
-    "main_step_sum_seconds": 542.89497
+    "wall_seconds": 642.6625524777919,
+    "cpu_seconds": 311297.711114,
+    "main_step_sum_seconds": 540.64362
   },
   "rolling_control_baseline": {
     "cohort_sha256": "a96d6b9ea566325641ad0b0766429c661e904c75b457419acbefdaa9953b0aa5",
@@ -111,9 +103,9 @@
     ]
   },
   "descriptive_reductions_percent": {
-    "wall_seconds": 19.646547939916413,
-    "cpu_seconds": 12.969053902840033,
-    "main_step_sum_seconds": 8.979032541596721
+    "wall_seconds": 19.66960298780065,
+    "cpu_seconds": 13.366540641321867,
+    "main_step_sum_seconds": 9.356490551729824
   },
   "timing_gain_claim": false,
   "comparison_design": "CANDIDATE_ONLY_UNPAIRED_RETAINED_A2_SCIENCE_MEDIAN3_DESCRIPTIVE_TIMING",
@@ -123,38 +115,79 @@
   ],
   "published_order": [
     "retained_original546b_A2_science_reference",
-    "currentPWAT_over0dd6_unprofiled_threehour_candidate"
+    "current_pressure_rowcursor_unprofiled_threehour_candidate"
   ],
-  "raw_result_label_annotation": "Raw inherited result labels unchanged; actual child build/lease/science bind b92f PWAT over0dd6.",
-  "limits": "Own unprofiled SAME512 PWAT-over-current0dd6 three-hour545/fourFULL only. Child noon/profile/9h/restart/full144 false; parent0dd6 noon/profile remain historical. Candidate-only exact science against retained corrected original546b A2; timing descriptive UNPAIRED versus unchanged median3 distinct original controls, never isolated/additive kernel or matched forecast gain. All prior CQU/SPC/Y5/X5/MW/PHY/SW/providers preserved. One AFWA member replaced plus one cached ordered-column4 helper appended:589total/587unchanged,existingd376 once,0source/module/helper compiles1link. Standalone complete PWAT pass124raw5pairs/fourrounds and84.46\u201384.82%cost reductions are separate from wholeAFWA and forecast performance. Genuine wholeAFWA O2 compile rawpublicMODfe196 exact; scoped O2 non-target/pool/reference proof. No separate fullAFWA domain fixture or O0wholemodule qualification; actual application supplies integrated science. Posttest3file canonicaltarget/Csource correspondence only,rawproducerNULL/no clean fullsourcebuild. R1setup cacheNULL and prior basename-onlyMOD failure retained; no model or cache ran in failedR1setup. Project-only restart protection is operational and does not qualify checkpoint restart.",
-  "public_MOD_bytes_exact": true,
-  "helper_objects": {
-    "wrf_pwat_column4.o": {
-      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current0dd6-afwa-pwat-column4-native-hpc02-r1/work/pwat_column4.o",
-      "sha256": "b9e8abbc44e48a42c7e4dd67b6c83a42f2f121721accf107af3bf1106fab9c20",
-      "source_sha256": "04a39c8f305affb7ee6644179ad7862cad45b6f92541d11ebe50185f18dc54f8"
+  "raw_result_label_annotation": "Raw inherited collector labels are byte-preserved; actual lease/build/provider/science identify1d16/32de plus64bb.",
+  "evidence": {
+    "pressure-build-receipt.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-pwat-pressure-rowcursor-3h-runtime-r1/pressure-build-receipt.json",
+      "sha256": "70c41a9c58f5c77b5d53a2f97dc0d39e71a8e5a37e2396e79a4173da10c3b146"
+    },
+    "pressure-build-closure.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-pwat-pressure-rowcursor-3h-runtime-r1/pressure-build-closure.json",
+      "sha256": "08ca4217ec15a2cdf006a3e6d258bb6b0faab75f4dec4d6075ca4660c3e5f8f7"
+    },
+    "pressure-build-controller.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-pwat-pressure-rowcursor-3h-runtime-r1/pressure-build-controller.json",
+      "sha256": "0bb71d120823f05de689387e37223febf2e668240fd3952839e0d4ef3e3639d8"
+    },
+    "pressure-compile-interface-receipt.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-pwat-pressure-rowcursor-3h-runtime-r1/pressure-compile-interface-receipt.json",
+      "sha256": "3ee2ecbe0772996ab65eae1e67fddbf9d271507aa5e02b2db0a33043cf13dabc"
+    },
+    "pressure-compile-interface-closure.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-pwat-pressure-rowcursor-3h-runtime-r1/pressure-compile-interface-closure.json",
+      "sha256": "fa0948d6b737071a881a0d559e856f2c56cb5556de562b3473915e6d2c91ca2c"
+    },
+    "pressure-native-receipt.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-pwat-pressure-rowcursor-3h-runtime-r1/pressure-native-receipt.json",
+      "sha256": "dc70551224d5d1a187e64efee702048eed8229f105d9c3fa330ae794a9d837b6"
+    },
+    "pressure-native-closure.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-pwat-pressure-rowcursor-3h-runtime-r1/pressure-native-closure.json",
+      "sha256": "f06eb40c5245ff29463f04fe16dc242e4751115894745ad6466f8cbd714e1008"
+    },
+    "pressure-machine.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-pwat-pressure-rowcursor-3h-runtime-r1/pressure-machine.json",
+      "sha256": "49795b891dd1bde0536584553481b9dd2d159a80051870632be69df89e1c8963"
+    },
+    "pressure-caller-wave.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-pwat-pressure-rowcursor-3h-runtime-r1/pressure-caller-wave.json",
+      "sha256": "97ae162b1f04a844ac93446101c91fa1bfbb148f27f20536ed06ad972a78b6fb"
+    },
+    "pressure-linked-E8-proof.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-pwat-pressure-rowcursor-3h-runtime-r1/pressure-linked-E8-proof.json",
+      "sha256": "e814ca9b5dee993fa7df2081e2a21b401fdfdde766c1f92ccb35dcf338658ecc"
+    },
+    "rowcursor64-receipt.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-pwat-pressure-rowcursor-3h-runtime-r1/rowcursor64-receipt.json",
+      "sha256": "8c6985ab83bf74937bb2acf6fd15d73e762f138d06377ac540b19a992643bf88"
+    },
+    "rowcursor64-closure.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-pwat-pressure-rowcursor-3h-runtime-r1/rowcursor64-closure.json",
+      "sha256": "e8ccab194bb4412b88a5aa97e41d63a89529e6c6f2b3b6721dde88866b254ecf"
+    },
+    "rowcursor64-wave.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-pwat-pressure-rowcursor-3h-runtime-r1/rowcursor64-wave.json",
+      "sha256": "118ce393e963637c3fc380666085b15c150cccb6f58ff246ffb2509de09c2773"
+    },
+    "rowcursor8-wave.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-pwat-pressure-rowcursor-3h-runtime-r1/rowcursor8-wave.json",
+      "sha256": "532e020b20a8410031a909aaa3244ee484917fd60f2a36c68690d1fffdd4744a"
+    },
+    "rowcursor11-receipt.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-pwat-pressure-rowcursor-3h-runtime-r1/rowcursor11-receipt.json",
+      "sha256": "70010e60b298d0e0f41adacc973ed6e58978c826464030479a4ffc118f6d3781"
+    },
+    "rowcursor11-closure.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-pwat-pressure-rowcursor-3h-runtime-r1/rowcursor11-closure.json",
+      "sha256": "39b8c7e79fab1038d30587aa6d8221ff0dbd0442b649d08fe09e0cbbb4382be6"
     }
   },
-  "native": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-0dd6-pwat-3h-runtime-r2/pwat-native-receipt.json",
-    "sha256": "1cf342aefe5717bf921cc07efb1897bae186a049c99d905c3a391f19fe966c88"
-  },
-  "native_scope": "Standalone completePWAT124raw5pairs; nofullAFWAdomainfixture",
-  "whole_module_compile": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-0dd6-pwat-3h-runtime-r2/pwat-compile-interface-receipt.json",
-    "sha256": "a3699ba6d650ce8dbe1f8bf2bca97575ce6fcfdc89772aaec3c1a7c6e9bfd2e2"
-  },
-  "machine": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-0dd6-pwat-3h-runtime-r2/pwat-machine.json",
-    "sha256": "5d78e4ad8628f611ea5c6a97aa12f98dfab54e6cc879068c9dbc2e764bf89860"
-  },
-  "complete_PWAT_pass_cost": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-0dd6-pwat-3h-runtime-r2/pwat-caller-wave.json",
-    "sha256": "6d4f20ee44b33b04e30cdfaa0a42ffb4b6460446989f3941c43c3b0281225fba"
-  },
+  "limits": "Own unprofiled SAME512 pressure+rowcursor three-hour545/fourFULL only. Own noon/profile/9h/restart/full144 false; PWAT and earlier qualifications historical. Candidate-only exact science against retained corrected original546b A2; timing descriptive UNPAIRED against unchanged median3 distinct original controls, not isolated/additive/matched forecast gain. BigStep replacement+postpow4 append590total/588unchanged, existing d376 mask owner, RSL and18directdeps preserved,0compiles1link. Pressure original compile worker FAIL retained; finite scoped CFG/reference admission plus actual two linkedE8 targets qualified, fullRELAfalse and no wholecalc_p_rho_phi native/O0wholemodule claim. Extracted perrow124raw5 and42.6\u201344.5% pass costs separate from integrated science. Provider64bb uses d38df provider with unchanged801e guard/78fa object; historical db0d FP native authority transfers ONLY guard code/object, never whole64bb or9h. Completeprovider64 native/cost, earlier mixedcount8 and broader11R4 bounded100ms postjoin observer remain distinct. RawproducerNULL, posttest target/source correspondence only, no clean canonical fullbuild certificate.",
   "qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/afwa-pwat-ordered-column4-20261027/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "984f13ccabd9296d09ea2f63df71ffbcab75bd2e252bcc666ead6557450844a0"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/pressure-rowcursor-batch-20261028/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "c901e7b33ec8eb0218625e12adf32871c9527bc70be7030a96ec0e4c2ce8e673"
   },
   "applies_to_current": true
 }
