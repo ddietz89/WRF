@@ -1,0 +1,111 @@
+{
+  "candidate": "PD no-active consumer skip",
+  "status": "PROMOTED_STRICT_DEFAULT1_OWN3H_EXACT_PASS",
+  "mechanism": "Set one local Boolean in the unchanged limiter decision; skip the existing six-face consumer only when no cell triggered limiting. No added floating-point operation, allocation, helper or reassociation.",
+  "genuine_current_module": {
+    "parent_O2": "d14ffc95d14e925f63171a64c0f55f67e341507823f93b5478c040e936ff8a7e",
+    "candidate_O2": "607f4da1287fe664ccaebaea57114baab33cab3d500d19ec79fefc99cdd5412c",
+    "candidate_PP_O2": "872d55d1bcecc217c240031153db2263cc1aac80a2cf02949a93597f467a4d69",
+    "public_MOD_raw_exact": "f72c4d70001c094ce0b81c65eff04b359bc693380cccb144fcb0682352acd4a3",
+    "original_protocols_both_options": [
+      "captured QV",
+      "150 defined-output cases",
+      "boundary cases",
+      "28 IEEE groups"
+    ],
+    "supplemental_activity_comparisons": 32,
+    "supplemental_both_options": true,
+    "all_readonly_defined_outputs_and_five_states_exact": true
+  },
+  "cost_scope": "Complete captured advect_scalar_pd including allocations and tendency restore,256calls per invocation, one opposite-order pair on each host, cache cleared before each of4 arms. Same 7,840,840-byte raw output and warm/batch40state hard checks.",
+  "complete_caller_measurements": {
+    "hpc01": {
+      "wall_seconds": {
+        "parent": 2.215648123,
+        "candidate": 2.011072351,
+        "percent_lower": 9.233224801192842
+      },
+      "thread_cpu_seconds": {
+        "parent": 2.214970873,
+        "candidate": 2.010735813,
+        "percent_lower": 9.220665720239465
+      }
+    },
+    "hpc02": {
+      "wall_seconds": {
+        "parent": 2.167751135,
+        "candidate": 2.032389955,
+        "percent_lower": 6.244313649038863
+      },
+      "thread_cpu_seconds": {
+        "parent": 2.167492747,
+        "candidate": 2.031453255,
+        "percent_lower": 6.276352813096618
+      }
+    }
+  },
+  "extracted_limiter_findings": {
+    "zero_active_percent_lower": [
+      38.3911,
+      37.0761
+    ],
+    "mixed_percent_lower": 6.9162,
+    "all_active_percent_lower": -2.8498,
+    "all_active_cost_concern_retained": true,
+    "scope": "Separate complete extracted producer/decision/consumer plusthreefullfluxrestores; no kernel percentages become caller/forecast percentages."
+  },
+  "source_or_defaults_installed": true,
+  "application_qualified": true,
+  "forecast_speedup_claim": null,
+  "rollback": "Set WRF_PD_NOACTIVE_SKIP=0; regenerate/rebuild module_advect_em.o, rearchive and relink. Prior qualified fac7 remains available.",
+  "qualification_scope": "GNU13.3 strictO2 REAL4 INTEGER4 pureMPI, exactO0 diagnostic also passed; othercompiler/build defaults retainoriginalpath. No fastmath or tolerance change.",
+  "evidence": {
+    "native": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentfac7-pd-distinct-memory-source-question-r1/genuine-whole-PD-noactive-native-preparation-r1/actual-native-r1/receipt.json",
+      "sha256": "d875e9ab4db67b483f3fa86f0e28954e728e5a1a442a93ee892408c4c8374236"
+    },
+    "native_closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentfac7-pd-distinct-memory-source-question-r1/genuine-whole-PD-noactive-native-preparation-r1/actual-native-r1/closure.json",
+      "sha256": "1e965513ea24bfc475d7d9458604813c4bd783cfc5e4387c97139f23bbd0e4f2"
+    },
+    "activity": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentfac7-pd-distinct-memory-source-question-r1/whole-PD-activity-supplement-preparation-r2/actual-native-r1/receipt.json",
+      "sha256": "b6301764996c59b47dae76b6e23db4233129c456490e5e5c305097925c216eb4"
+    },
+    "activity_closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentfac7-pd-distinct-memory-source-question-r1/whole-PD-activity-supplement-preparation-r2/actual-native-r1/closure.json",
+      "sha256": "5c7188593f57ce8ee1fe148eae7df70049c33ca2cfce5b60d7fbaaf68686adae"
+    },
+    "machine": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentfac7-pd-distinct-memory-source-question-r1/genuine-whole-PD-noactive-native-preparation-r1/actual-machine-review-r1/SCOPED_MACHINE_ACK.json",
+      "sha256": "c0a356592de142e5ed9a422aa0c164d4667fb2b7e0e1d5aca5721a0e4077aede"
+    },
+    "zero_active": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentfac7-pd-distinct-memory-source-question-r1/complete-limiter2048-cost-preparation-r2/ACTUAL_WAVE.json",
+      "sha256": "a31215d069e51951b85c3014afe1abf40a77c29ba78a07e3d8d895473f7cd1d0"
+    },
+    "mixed_and_all_active": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentfac7-pd-distinct-memory-source-question-r1/complete-limiter2048-active-cost-preparation-r3/ACTUAL_WAVE.json",
+      "sha256": "f02d43f16fb2bf5e18769dc8747bd750f728f973bbed2ac4c7034175f94bc094"
+    },
+    "complete_captured_caller": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentfac7-pd-distinct-memory-source-question-r1/complete-captured-PD256-caller-cost-preparation-r1/ACTUAL_WAVE.json",
+      "sha256": "a3417ee7a88f5c001d4fac53cb9f35adac8f89e3e18c6e51710b52ebb6e39a9f"
+    },
+    "canonical_review": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentfac7-pd-distinct-memory-source-question-r1/independent-canonical-source-review-r1/ACK.json",
+      "sha256": "ffebaac2c35dc5faf91acb5bae5773d568c3315941e873bc164738ea1e45757b"
+    },
+    "source_files": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentfac7-pd-distinct-memory-source-question-r1/canonical-private-default1-proposal-r1/SOURCE_FILES.json",
+      "sha256": "8c220be9f0fcf7cf27f868e255c840432ac50e17500a0a51ac568d5b91a8670b"
+    }
+  },
+  "own_three_hour": {
+    "runtime": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentfac7-pd-noactive-3h-r1",
+    "science_sha256": "86578c817cc39aa2089ff330fdd0c69e0d058c7d1e979c16e59f078585b8720f",
+    "reader_closure_sha256": "b601f5eedf46b1ff5a7737eaf6c15e27f7572b949a6a40cc65bb1a46e57e425c",
+    "executable_sha256": "b8e2e92161ba369cb329e612973174f5b7ea0b1f09e14bc5b7be4d5afe633257",
+    "scope": "All545orderedsteps/fourcompleteproducts,unchangedoriginalchecker35bed,metadata/layout/rank/writer/resourceclosurehard. No inheritednoon/profile/ninehour/restart/full144qualification."
+  }
+}

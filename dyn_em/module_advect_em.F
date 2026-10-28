@@ -6417,6 +6417,9 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
    REAL,DIMENSION( its-1:ite+2, kts:kte, jts-1:jte+2  ) :: pd_scale
    REAL,DIMENSION( its-1:ite+2 ) :: ph_low_row, flux_out_row
    REAL :: scale
+#if defined(WRF_PD_NOACTIVE_SKIP_ENABLE) && !defined(WRF_PD_NOACTIVE_SKIP_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+   LOGICAL :: pd_any_active
+#endif
    !REAL :: flux_out, ph_low, scale
    REAL, PARAMETER :: eps=1.e-20
    INTEGER, PARAMETER :: pd_scale_word_kind = SELECTED_INT_KIND(MERGE(18,9,STORAGE_SIZE(0.)==64))
@@ -8214,6 +8217,9 @@ wrf_err_message )
 !-- here is the limiter...
 
 #endif
+#if defined(WRF_PD_NOACTIVE_SKIP_ENABLE) && !defined(WRF_PD_NOACTIVE_SKIP_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+   pd_any_active = .FALSE.
+#endif
    DO j=j_start, j_end
    DO k=kts, ktf
 #ifdef XEON_SIMD
@@ -8246,11 +8252,17 @@ wrf_err_message )
      IF( flux_out_row(i) .gt. ph_low_row(i) ) THEN
        scale = max(0.,ph_low_row(i)/(flux_out_row(i)+eps))
        pd_scale(i,k,j) = scale
+#if defined(WRF_PD_NOACTIVE_SKIP_ENABLE) && !defined(WRF_PD_NOACTIVE_SKIP_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+       pd_any_active = .TRUE.
+#endif
      END IF
    ENDDO
    ENDDO
    ENDDO
 
+#if defined(WRF_PD_NOACTIVE_SKIP_ENABLE) && !defined(WRF_PD_NOACTIVE_SKIP_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+   IF (pd_any_active) THEN
+#endif
    DO j=j_start, j_end
    DO k=kts, ktf
 !DIR$ vector always
@@ -8271,6 +8283,9 @@ wrf_err_message )
    ENDDO
    ENDDO
    ENDDO
+#if defined(WRF_PD_NOACTIVE_SKIP_ENABLE) && !defined(WRF_PD_NOACTIVE_SKIP_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+   END IF
+#endif
 
    END IF
 

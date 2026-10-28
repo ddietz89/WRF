@@ -5865,3 +5865,10 @@ The selected X-exchange nearest-frame periods range from 20.79% to 38.27%. This 
 ### CUADJTQ scratch coalescing: closed unpromoted
 
 Combining two scratch allocations into one passed 176 exact O2/O0 comparisons and reduced the actual allocation/free pairs from two to one, with unchanged storage capacity. Complete-caller timing was 0.132% slower on hpc01 and 1.219% slower on hpc02. No significant caller gain or separate memory benefit was established, so the fixed variant stays unpromoted. All four arms passed raw/state checks, cache boundaries and normal closure. [Decision and measurements](tools/cpu-rejected/cuadjtq-single-scratch-20261028/README.md).
+
+
+### PD no-active consumer skip: promoted after exact three-hour qualification
+
+The unchanged limiter decision now records whether any cell requires its six-face consumer. The complete captured caller was 9.23% shorter on hpc01 and 6.24% shorter on hpc02, including allocations and tendency restoration. Genuine O2/O0, active/mixed and IEEE checks passed; all four three-hour products and 545 ordered steps matched the unchanged original checker.
+
+The combined run took 641.036 seconds wall and 541.374 seconds main-step elapsed, using 86.627 CPU-hours. Relative to the fixed median of three original controls, these are descriptive **19.87% wall, 9.23% main-step and 13.21% CPU reductions**. The adjacent prior build took 639.456 seconds wall: this single run does not establish the new patch's incremental forecast gain or an attributable regression. The significant exact caller gain supports default inclusion under the standing kernel policy. [Evidence, scope and explicit rebuild rollback](tools/cpu-compute/pd-noactive-consumer-20261028/README.md).
