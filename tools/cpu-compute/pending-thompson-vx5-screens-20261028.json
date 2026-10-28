@@ -7,7 +7,11 @@
       "sha256": "c356083f1c336ce3518750843039a7f259021fc02e6ad1b1ac808e56a67994fb"
     },
     "own_three_hour_qualified": true,
-    "own_nine_hour_result": "RUNNING_NOT_YET_QUALIFIED"
+    "own_nine_hour_result": {
+      "status": "PASS_10_FULL_1625_STEPS",
+      "qualification": "/home/ddietz/wrf/WRF/tools/cpu-compute/mu-lw-y-batch-20261028/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "544871cf47a6625a6aaba6a3d8b1154d799c6694672bf77fc0326eaacd5a92cd"
+    }
   },
   "Thompson_main_pressure_copy": {
     "decision": "RETAIN_PENDING_GENUINE_APPLICATION",
@@ -80,7 +84,7 @@
     }
   },
   "V_normal_X5_complete_extracted_pass": {
-    "decision": "RETAIN_SIGNIFICANT_EXTRACTED_PASS_GAIN_PENDING_WHOLE_V_AND_APPLICATION",
+    "decision": "RETAIN_REPAIRED_FINITE_GAIN_AND_WHOLE_V_NATIVE_PENDING_COMBINED_FORECAST",
     "native_status": "PASS_CURRENT1D16_ADVECTV_COMPLETE_X5_20_FOUR_ROUND_O2_O0_RAW_FIVE_STRUCTURE_PENDING",
     "cases": 20,
     "rounds": 4,
@@ -115,7 +119,7 @@
     },
     "cost_scope": "Standalone complete VnormalX5 producer+degradedfaces+consumer+2restores+onceguard, fixed2048,03P04C03C04P; not fullAdvectV/forecast or actualmodulemachineidentity.",
     "admission": "Once-per-pass existing d376 mask guard, packed true divisions and original scalar remainder/fallback; no FMA/reciprocal route or IEEE envelope manipulation.",
-    "whole_AdvectV_API_qualified": false,
+    "whole_AdvectV_API_qualified": true,
     "whole_module_machine_identity": false,
     "application_qualified": false,
     "source_installed_or_default_enabled": false,
@@ -137,6 +141,152 @@
         "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current1d16-advect-v-remaining-source-question-r1/complete-Xpass2048-cost-preparation-r1/ACTUAL_WAVE.json",
         "sha256": "6e1b904c055aec7c794e4ca209d7f1ad7880c0a769e82abe3adace1f3e05a0b1"
       }
+    },
+    "whole_V_R1": {
+      "status": "FAILED_WHOLE_ADVECTV_R1_PAIRED_RU_QNAN_PAYLOAD_EXACTNESS_REPAIR_PENDING",
+      "invocation_id": "face4503749e4a8fa122d5a695a0f80c",
+      "worker_status": "FAIL_CURRENT5E21_ADVECTV_X5_GENUINE_NATIVE",
+      "error": "AssertionError(('FULL_V_SAMEOPT_RAW_READONLY_FIVE_STATE_MISMATCH', 'O2-candidate'))",
+      "failed_closed": true,
+      "manager_result": "exit-code",
+      "exit_code": 1,
+      "cgroup_absent": true,
+      "main_pid": 0,
+      "application_qualified": false,
+      "whole_AdvectV_API_qualified": false,
+      "whole_module_qualified": false,
+      "O2_original_controls": "Both captured continuous/resume prefixes and original9+20 cases in four roundings passed. Added21/22 were retained and caused hardfailure.",
+      "O2_new_controls": "Cases21/22 opposite RU qNaNs, allfour modes: only outputI6/I7,K3,J4 payload differs; state/readOnly/physical exact. Injectedscalar-tailI13 matches. Case21 parent7fc12345/candidateffc54321;case22 reverses.",
+      "O0_execution": "NOT_REACHED; no O0 wholeV qualification",
+      "actual_cause_scope": "Actual scalar versus packed RUavg ADD operand priority localized; no arithmeticnormalization or NaN case omission accepted. R2 prefix-only operand repair pending actual samehardchecks.",
+      "extracted_pass_gain_retained": "Prior160 raw/state comparisons and62.6815/62.7329% full-extracted-X5 cost gain remain valid for that extracted artifact only; they do not admit failed wholeV.",
+      "R2_repair_status": "PENDING_NOT_QUALIFIED",
+      "refs": {
+        "receipt": {
+          "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current1d16-advect-v-remaining-source-question-r1/genuine-whole-AdvectV-X5-native-r1-hpc02/actual-native-r1/receipt.json",
+          "sha256": "4e78f2af139be056c02e628d4c626922fb0c8e436652b181a537d58a20a517e6"
+        },
+        "closure": {
+          "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current1d16-advect-v-remaining-source-question-r1/genuine-whole-AdvectV-X5-native-r1-hpc02/actual-native-r1/closure.json",
+          "sha256": "b32750fed8576a63b747068e23f49cf8ae50e79c1d97229932d9c217b8676c1c"
+        },
+        "raw_difference": {
+          "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current1d16-advect-v-remaining-source-question-r1/genuine-whole-AdvectV-X5-native-r1-hpc02/actual-native-r1/QNAN_RAW_DIFFERENCE.json",
+          "sha256": "04746104ecfb74896d77ba63d6f99c265c2b7bc181d1b4235afc61d5409cf1f8"
+        },
+        "actual_instruction_diagnosis": {
+          "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current1d16-advect-v-remaining-source-question-r1/genuine-R1-failure-diagnosis-r1/ACTUAL.json",
+          "sha256": "2ca89af35a7db1b10fcc4316a99796782c0487bd31cfb6c399db485e466829be"
+        }
+      }
+    },
+    "whole_V_R2_explicit_result": {
+      "aggregate_status": "FAIL_RETAINED_O0_QNAN_PAYLOAD",
+      "invocation_id": "706bed6c7fa7441898e542c9ce9113d0",
+      "receipt": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current1d16-advect-v-remaining-source-question-r1/genuine-whole-AdvectV-X5-prefix-operand-repair-r2-hpc02/actual-native-r1/receipt.json",
+        "sha256": "ffe3f8a07ff566b5272c3dc7fe6ea45f1be14cb48f283f632225624b0e777599"
+      },
+      "closure": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current1d16-advect-v-remaining-source-question-r1/genuine-whole-AdvectV-X5-prefix-operand-repair-r2-hpc02/actual-native-r1/closure.json",
+        "sha256": "045158c834dbb56a17e8cdf2a875a1d150a5bb8926095b50603fa57a44783e75"
+      },
+      "O2_all126_raw_readonly_state_exact": true,
+      "O0_original29_and_captures_exact": true,
+      "O0_added_cases21_22_payload_mismatch": true,
+      "O0_state_readonly_physical_exact": true,
+      "later_compiler_scope_continuation": "IN_FLIGHT; explicit strictO2 operand order, original order for forcedO0 bounds prefix; all126 hard checks retained, ordinarycanonicalO0 fully opts out",
+      "application_qualified": false
+    },
+    "whole_V_native_qualification_scope": "Finite original9 +20 Y5 +2 competing RU-qNaN cases,4 roundings,2 captured calls:126 sameopt comparisons each. O2 actualcachedR2 reversed-prefix operands; forcedO0bounds diagnostic original-prefix operands. Ordinary canonicalO0 fully opts out. No arbitrary NaN/unmasked trap-prefix or whole-module rawidentity claim.",
+    "whole_V_R3_continuation": {
+      "status": "PASS_CURRENT5E21_ADVECTV_X5_GENUINE_CAPTURE_FOCUSED_O2_O0_RAW_FIVE_STRUCTURE_PENDING",
+      "invocation_id": "0d645b7ec1fb43e8b1bdc458511c03f9",
+      "receipt": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current1d16-advect-v-remaining-source-question-r1/genuine-whole-AdvectV-X5-explicit-O2-order-continuation-r3-hpc02/actual-native-r1/receipt.json",
+        "sha256": "402e3b56b13e57d0d5bdb812025619034d5f6ca408f37f9a83b5af3ad31f31f9"
+      },
+      "closure": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current1d16-advect-v-remaining-source-question-r1/genuine-whole-AdvectV-X5-explicit-O2-order-continuation-r3-hpc02/actual-native-r1/closure.json",
+        "sha256": "7c5be31307315176689d98a022591eb38b2274cd6586acb29273e9cedde1336e"
+      },
+      "O2_candidate": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current5e21-advectv-X5-prefix-operand-native-hpc02-r2/work/O2/module_advect_em.o",
+        "sha256": "d14ffc95d14e925f63171a64c0f55f67e341507823f93b5478c040e936ff8a7e",
+        "PP_path": "/pool/wrf-experiment/wrf-cpu/kernels/current5e21-advectv-X5-prefix-operand-native-hpc02-r2/work/O2/module_advect_em.f90",
+        "PP_sha256": "6222419841a4c3e23edb9c5920fadb1ff96fed102d33d98a8bda48ace5c6b802",
+        "MOD_path": "/pool/wrf-experiment/wrf-cpu/kernels/current5e21-advectv-X5-prefix-operand-native-hpc02-r2/work/O2/module_advect_em.mod",
+        "MOD_sha256": "f72c4d70001c094ce0b81c65eff04b359bc693380cccb144fcb0682352acd4a3"
+      },
+      "O0_candidate": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current5e21-advectv-X5-explicit-order-continuation-hpc02-r3/work/O0/module_advect_em.o",
+        "sha256": "3fbc6cc0207759dea7a67669ac420f3d3fe4de0835d90ce1b97ea1897e855b14",
+        "PP_path": "/pool/wrf-experiment/wrf-cpu/kernels/current5e21-advectv-X5-explicit-order-continuation-hpc02-r3/work/O0/module_advect_em.f90",
+        "PP_sha256": "909ee7f0a253291f8116dc99df305e869e521e1ae6f8900859567e69c6cb9b2c",
+        "MOD_path": "/pool/wrf-experiment/wrf-cpu/kernels/current5e21-advectv-X5-explicit-order-continuation-hpc02-r3/work/O0/module_advect_em.mod",
+        "MOD_sha256": "f72c4d70001c094ce0b81c65eff04b359bc693380cccb144fcb0682352acd4a3"
+      },
+      "source_compiler_scope": {
+        "O2": "6222419841a4c3e23edb9c5920fadb1ff96fed102d33d98a8bda48ace5c6b802",
+        "O0": "909ee7f0a253291f8116dc99df305e869e521e1ae6f8900859567e69c6cb9b2c"
+      },
+      "O2_cached_passed_segment": {
+        "failed_R2_receipt_sha256": "ffe3f8a07ff566b5272c3dc7fe6ea45f1be14cb48f283f632225624b0e777599",
+        "failed_R2_closure_sha256": "045158c834dbb56a17e8cdf2a875a1d150a5bb8926095b50603fa57a44783e75",
+        "invocation_id": "706bed6c7fa7441898e542c9ce9113d0",
+        "original_MOD_hard": true,
+        "comparisons": 126,
+        "raw_and_all9_state_and_readOnly_exact": true,
+        "recompiled": false,
+        "relinked": false,
+        "rerun": false,
+        "aggregate_R2_remains_failed": true
+      },
+      "new_candidate_module_compiles": 1,
+      "O2_reruns": 0,
+      "machine": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current1d16-advect-v-remaining-source-question-r1/actual-whole-V-O2-machine-review-preparation-r3/SCOPED_MACHINE_ACK.json",
+        "sha256": "ea0d86aecebbcdc4f302610498f52f53fd7002bb1607dd546db022caf0eb1d67"
+      },
+      "eligible_cached_link_scoped": true,
+      "application_qualified": false
+    },
+    "repaired_finite_complete_pass_cost": {
+      "review": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current1d16-advect-v-remaining-source-question-r1/complete-Xpass2048-prefix-operand-r2-cost-preparation-r1/ACTUAL_CALLER_REVIEW.json",
+        "sha256": "a28402f4719d862135290e2790c1adc87d404b8231d5383eade084e5a7ea8d8b"
+      },
+      "wave": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current1d16-advect-v-remaining-source-question-r1/complete-Xpass2048-prefix-operand-r2-cost-preparation-r1/ACTUAL_WAVE.json",
+        "sha256": "f28ecf6c05595f8f5d4b3b412b699736714e0c12c16a81bd3bb8cd6b47fa3392"
+      },
+      "comparisons": {
+        "hpc01": {
+          "wall_seconds": {
+            "parent": 0.915968097,
+            "candidate": 0.34113031200000005,
+            "percent_lower": 62.75740245568836
+          },
+          "thread_cpu_seconds": {
+            "parent": 0.9159357370000001,
+            "candidate": 0.341108942,
+            "percent_lower": 62.75841980822286
+          }
+        },
+        "hpc04": {
+          "wall_seconds": {
+            "parent": 0.915319462,
+            "candidate": 0.34081630700000004,
+            "percent_lower": 62.76531624758569
+          },
+          "thread_cpu_seconds": {
+            "parent": 0.91528721,
+            "candidate": 0.340789983,
+            "percent_lower": 62.7668802451637
+          }
+        }
+      },
+      "scope": "Finite case0 complete extracted Xpass incl restores+guard; corrected explicit fq ABI. No repaired all20 extracted exceptional-oracle, wholeV timing or forecast claim."
     }
   },
   "limits": "Only these two actual screens. Thompson small complete-caller reductions do not establish a significant repeatable forecast gain; its resource removal is independently demonstrated. V62.68\u201362.73% is the extracted complete X5 pass including producer/degraded faces/consumer/two restores/once guard, not full AdvectV/module/forecast. Neither candidate is in promoted5e21; no old or running9h qualification transfers. No extra experiments, source edits or active selection changes in this publication."

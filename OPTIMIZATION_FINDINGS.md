@@ -1,10 +1,23 @@
 # WRF CPU optimization findings
 
+## MU, LW and early Y receives: own nine-hour result — October 28
+
+The same combined 5e21 build, retaining all prior improvements and output provider64bb, passed the unchanged full-grid checker: ten FULL products and all1,625 ordered steps matched exactly. All four model jobs and the original checker closed normally; the early Y path emitted exactly one admission marker on480 compute ranks and none on32 quilt ranks.
+
+| Metric | Retained original nine-hour control (N1) | Combined run | Descriptive reduction |
+|---|---:|---:|---:|
+| Wall time (minutes) |34.15724|29.67507|13.1222%|
+| Main-step elapsed (minutes) |30.84597|28.08968|8.9356%|
+| Aggregate CPU (core-hours) |278.15747|248.97565|10.4911%|
+
+This candidate-only result is unpaired. Its nine-hour originalN1 is separate from the three-hour median3; no component effect or repeatability is inferred. Main-step elapsed includes communication and waiting. Own noon/profile/restart/full144 qualification remains false. [Exact qualification and actual runtime](tools/cpu-compute/mu-lw-y-batch-20261028/NINE_HOUR_APPLICATION_QUALIFICATION.json).
+
+
 ## Pending Thompson pressure-copy and V-X5 screens — October 28
 
-Two independent screens remain outside the promoted `5e21` bundle, whose own nine-hour run is still in progress. Thompson's main pressure-copy removal passed the complete 11-case, four-round O2/O0 raw/state and raw-MOD checks and removes one private buffer/allocation pair. Complete-caller wall reductions were 0.985%/0.151%, with CPU reductions 0.352%/0.161%; these small observations do not establish a repeatable forecast gain or measured peak-memory saving. The scoped O2 machine proof retains non-target raw/RELA differences and does not claim universal exceptional-operand or unmasked-trap-prefix identity. Genuine application integration is pending.
+Two independent screens remain outside the promoted `5e21` bundle, whose own nine-hour qualification passed as recorded above. Thompson's main pressure-copy removal passed the complete 11-case, four-round O2/O0 raw/state and raw-MOD checks and removes one private buffer/allocation pair. Complete-caller wall reductions were 0.985%/0.151%, with CPU reductions 0.352%/0.161%; these small observations do not establish a repeatable forecast gain or measured peak-memory saving. The scoped O2 machine proof retains non-target raw/RELA differences and does not claim universal exceptional-operand or unmasked-trap-prefix identity. Genuine application integration is pending.
 
-The V normal-X5 extracted complete pass passed 160 same-option O2/O0 comparisons with hard raw/state/read-only/physical guards. Its two opposite-order full-pass cost pairs were 62.6815%/62.7329% shorter in wall time, with matching CPU reductions. The measured scope includes the X producer, degraded faces, tendency consumer, two full restores and one admission check; it is not the whole V routine or forecast. Whole-V/module validation and application qualification remain pending. [Actual receipts, waves and machine limits](tools/cpu-compute/pending-thompson-vx5-screens-20261028.json). No active source/default/selection change follows from these records.
+The V normal-X5 extracted complete pass passed 160 same-option O2/O0 comparisons with hard raw/state/read-only/physical guards. Its two opposite-order full-pass cost pairs were 62.6815%/62.7329% shorter in wall time, with matching CPU reductions. The measured scope includes the X producer, degraded faces, tendency consumer, two full restores and one admission check; it is not the whole V routine or forecast. The first whole-V attempt failed the added competing-RU-NaN payload cases while preserving state and all original O2 cases. Reversing only the vector-prefix RU operands passed every O2 case but failed those payloads at O0. Both failures remain retained. The explicit compiler-scope continuation passed all126 comparisons per optimization mode, retaining every hard case and both earlier failures. Scoped O2 code review admitted cached linking; whole-module raw identity and universal exceptional-input behavior are not claimed. The repaired finite complete pass was62.7574%/62.7653% shorter in opposite-order pairs. Combined forecast qualification remains pending. [Actual receipts, waves and machine limits](tools/cpu-compute/pending-thompson-vx5-screens-20261028.json). No active source/default/selection change follows from these records.
 
 
 ## MU scratch reuse, LW overlap and early Y receives qualified — October 28
@@ -19,7 +32,7 @@ The combined 5e21 build passed the unchanged four-host512 checker: four FULL pro
 
 The candidate-only comparison is unpaired. Versus the immediate 1d16 parent, descriptive wall/main-step/CPU reductions are 0.6418%/0.0310%/0.1829%; neither comparison isolates component effects. MU removes one scratch allocation/free pair (three to two), with near-neutral caller timing. LW's 30.3–30.7% shorter complete overlap caller is distinct from whole radiation and forecast. Y's complete shared-memory HALO_C caller is mixedpositive/flat, with no measured isolated IB benefit; earlier baseline FE_INEXACT variability remains recorded. LW genuine O2/O0 raw/state checks passed; MOD raw equality is 30/34 and 29/34 respectively, with 34/34 exact typed identity. The scoped O2 non-target diagnostic-line/layout proof does not assert all raw bytes/RELA tuples equal or universal error-trace identity.
 
-The child owns only this unprofiled three-hour result. Previous 1d16 nine-hour/noon/profile evidence remains historical; own9h/profile/restart/full144 are false. Qualified GNU13.3/strict real4/pure-MPI defaults enable the three guarded changes with explicit0 rollback. The original checker, prior failures, source correspondence, exact cached overlay/direct18 dependencies and no-clean-full-rebuild limit are retained in [the component package](tools/cpu-compute/mu-lw-y-batch-20261028/README.md).
+The initial promotion used this unprofiled three-hour result. The same image subsequently passed its own nine-hour test above. Previous 1d16 noon/profile evidence remains historical; current profile/restart/full144 qualification remains false. Qualified GNU13.3/strict real4/pure-MPI defaults enable the three guarded changes with explicit0 rollback. The original checker, prior failures, source correspondence, exact cached overlay/direct18 dependencies and no-clean-full-rebuild limit are retained in [the component package](tools/cpu-compute/mu-lw-y-batch-20261028/README.md).
 
 
 ## Current daytime profile and output-kernel followups — October 28
