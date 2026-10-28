@@ -1123,3 +1123,49 @@ endif
 endif
 endif
 endif
+
+# MYJ automatic arrays: module-only GNU13.3 strictO2 recipe.
+# Exact native/captured-caller and own noon application checks passed.
+# Existing WRF_MYJ_SIMD=1 recipe is required; explicit0 restores ordinary allocation.
+# Runtime requires unlimited stack; no other member/compiler receives this flag.
+WRF_MYJ_STACK_ARRAYS ?= 1
+_MYJ_STACK_FLAGS = $(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)
+ifeq ($(WRF_MYJ_STACK_ARRAYS),1)
+ifeq ($(WRF_MYJ_SIMD),1)
+ifeq ($(strip $(OMPCPP) $(OMP) $(PROMOTION) $(DOUBLE_PRECISION)),)
+ifeq ($(filter -D_OPENMP% _OPENMP%,$(CPPFLAGS)),)
+ifneq (,$(filter -DDM_PARALLEL,$(CPPFLAGS)))
+ifeq ($(filter -DSTUBMPI -DSTUBMPI=% -DWRF_CHEM -DWRF_CHEM=1,$(CPPFLAGS)),)
+ifeq ($(filter -U%,$(CPPFLAGS)),)
+ifeq ($(strip $(RWORDSIZE)),4)
+ifeq ($(strip $(IWORDSIZE)),4)
+ifeq ($(filter -fdefault-% -freal-% -finteger-% -r8 -i8 -fopenmp -fopenmp=% -fno-stack-arrays -Ofast -ffast-math -fassociative-math -funsafe-math-optimizations -freciprocal-math -ffinite-math-only -fno-signed-zeros -fno-trapping-math -march=% -mtune=% -mavx% -mfma%,$(_MYJ_STACK_FLAGS)),)
+ifeq ($(filter-out -O2,$(filter -O%,$(_MYJ_STACK_FLAGS))),)
+ifneq (,$(filter -O2,$(_MYJ_STACK_FLAGS)))
+ifeq ($(filter-out -ffp-contract=off,$(filter -ffp-contract=%,$(_MYJ_STACK_FLAGS))),)
+ifneq (,$(filter -fno-fast-math,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG)))
+ifneq (,$(filter -ffp-contract=off,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG)))
+ifneq (,$(findstring GNU Fortran,$(shell $(FC) --version 2>/dev/null)))
+ifeq ($(shell $(FC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+module_bl_myjpbl.o: private override FCFLAGS += -fstack-arrays
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
