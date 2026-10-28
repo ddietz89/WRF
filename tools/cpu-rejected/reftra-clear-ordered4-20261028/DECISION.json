@@ -1,0 +1,35 @@
+{
+  "decision": "HOLD_UNPROMOTED_COMPLETE_CLEAR_COST_REGRESSION_BOTH_HOSTS",
+  "science": "O2/O0 extracted complete-body and directconsumer native exact; no science rejection",
+  "pairs": {
+    "hpc01": {
+      "parent_wall_seconds": 0.935380076,
+      "candidate_wall_seconds": 1.067566269,
+      "wall_reduction_percent": -14.131816188054035,
+      "parent_thread_cpu_seconds": 0.935377566,
+      "candidate_thread_cpu_seconds": 1.067540363,
+      "thread_cpu_reduction_percent": -14.129352873532564
+    },
+    "hpc02": {
+      "parent_wall_seconds": 0.933411491,
+      "candidate_wall_seconds": 1.072956293,
+      "wall_reduction_percent": -14.949976869311987,
+      "parent_thread_cpu_seconds": 0.933394609,
+      "candidate_thread_cpu_seconds": 1.072954273,
+      "thread_cpu_reduction_percent": -14.951839517213216
+    }
+  },
+  "wave_sha256": "328289b551dc9565ff18ec2e8d542ee6b892c829c3d5adac13c50937d2085c8f",
+  "all_four_receipt_cache_closure_refs_verified": true,
+  "samecount_fullraw45268_and_all40_state_bytes_exact": true,
+  "whole_SW_build_needed": false,
+  "application_or_default_qualified": false,
+  "context": "3 profiles\u00d759 layers per fixed262144 callset. Includes original scalar prelude/table branches, onceentrymask,17valuebuffering, full4 consumer dispatch/call/scatter and literal mixed/tail fallback. Output-only restore outside clocks; outputs not read as inputs.",
+  "concrete_added_work": [
+    "17 singleprecision saved values per ordinary layer plus later reads, including groups whose partial/mixed status selects scalar replay",
+    "one full4 helper call with scalar lane gathers/unpacks and output scatter for each eligible group",
+    "larger compiled candidate scalar/control body and additional group predicates; remaining scalar table/prelude retained"
+  ],
+  "causal_limit": "These costs are visible in source/assembly and are charged in the measurement. Their separate cycle shares are unmeasured; no bandwidth/spill dominance or helper-only gain claim.",
+  "reopen_condition": "Only a distinct independently justified mechanism; no blind buffering/width/source variant ladder."
+}

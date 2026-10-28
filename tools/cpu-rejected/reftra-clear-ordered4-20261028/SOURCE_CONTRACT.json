@@ -1,0 +1,65 @@
+{
+  "archive": "/pool/wrf-experiment/wrf-cpu/builds/currentb92f-postpow-one-BigStep-helper-experimental-r1/libwrflib.a",
+  "archive_sha256": "32de9f2d110661381b1d02f214605c91450e4612652ec5f79da51056b8e9c2c5",
+  "member_sha256": "dbb3116130b975e34fba46ede186fddfb5f99cc7473522aa3f7919a8adcdf525",
+  "ELF": "/pool/wrf-experiment/wrf-cpu/builds/currentb92f-postpow-one-BigStep-helper-experimental-r1/wrf.exe",
+  "ELF_sha256": "1d16f14b49676df3a514006fd01149832f867315989b8160128b123e4c92d87b",
+  "PP": "/pool/wrf-experiment/wrf-cpu/kernels/currentY5-spc-ordered-mixing-wholeSW-native-hpc04-r1/work/O2-candidate/module_ra_rrtmg_sw.f90",
+  "PP_sha256": "6a02ba2ba2472c93427263b485ed7fe9b30aea4723583e7c529b5ee510413dc6",
+  "symbol": "__rrtmg_sw_reftra_MOD_reftra_sw_clear",
+  "start": 27736080,
+  "size": 1684,
+  "sampled_offsets": [
+    "0x54f",
+    "0x559",
+    "0x638",
+    "0x3f3",
+    "0x633",
+    "0x566",
+    "0x56d",
+    "0x41b"
+  ],
+  "status": "SOURCE_FEASIBLE_NATIVE_AND_COST_UNMEASURED",
+  "new_mechanism": "four adjacent-layer post-table ordinary-denominator output consumers only",
+  "delayed_flags_not_observed": {
+    "calls_in_actual_target": 0,
+    "prelude_observers": [],
+    "table_indices": "computed in original scalar prelude; no inactive loads or speculative conversions"
+  },
+  "roles": {
+    "pref": [
+      "zr1*zep1 (dest zr1)",
+      "subtract zr2*zem1 (dest zr2)",
+      "subtract zr3*zem2 (dest zr3)",
+      "multiply zw with numerator destination",
+      "true divide zdenr"
+    ],
+    "ptra": [
+      "zep1*zt1 (dest zep1)",
+      "subtract zt2*zem1 (dest zt2)",
+      "subtract zep2*zt3 (dest zep2)",
+      "multiply numerator by zw*zem2 (dest zw)",
+      "true divide zdent",
+      "zem2 minus quotient"
+    ],
+    "prefd": [
+      "zemm=zem1*zem1",
+      "den=(1-zbeta*zemm)*zrkg",
+      "zdend=1/den",
+      "(1-zemm)*zgamma2 then *zdend"
+    ],
+    "ptrad": [
+      "zem1*zrk2 then *zdend"
+    ]
+  },
+  "dedup": {
+    "paired_clear_total": "21.59/38.50% slowdown; different sky-pair mechanism, retained closed",
+    "prior_clear_CSE": "same-denominator commoning already present; no quotient removal proposed",
+    "current_dispatch": "accepted clear-only dispatch preserved"
+  },
+  "limits": [
+    "masked exceptions only for packed buffering; all-six-mask false preserves complete original schedule",
+    "no unrestricted nonfinite-input/table-index validity claim",
+    "no wholeSW/MOD/application or speed claim"
+  ]
+}

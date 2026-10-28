@@ -1,0 +1,232 @@
+--- parent
++++ candidate
+@@ -37,11 +37,28 @@
+ 
+       real(kind=rb), parameter :: eps = 1.e-08_rb
+ 
++      integer :: ordered_first,ordered_lane
++      logical :: ordered_pending(4)
++      real(kind=rb) :: ordered_work(17,4),ordered_out(4,4)
++      interface
++         pure integer function wrf_phy_interp_all_masked() bind(C)
++         end function
++         subroutine wrf_reftra_clear_outputs4(w,o) bind(C)
++            use iso_c_binding, only:c_float
++            real(c_float),intent(in)::w(17,4)
++            real(c_float),intent(out)::o(4,4)
++         end subroutine
++      end interface
++
+       zsr3=sqrt(3._rb)
+       zwcrit=0.9999995_rb
+       kmodts=2
+ 
+-      do jk=1, nlayers
++      if (wrf_phy_interp_all_masked()/=0) then
++      do ordered_first=1,nlayers,4
++         ordered_pending=.false.
++         do jk=ordered_first, min(ordered_first+3,nlayers)
++            ordered_lane=jk-ordered_first+1
+          zto1=ptau(jk)
+          zw  =pw(jk)
+          zg  =pgg(jk)  
+@@ -149,8 +166,25 @@
+                pref(jk) = eps
+                ptra(jk) = zem2
+             else
+-               pref(jk) = zw * (zr1*zep1 - zr2*zem1 - zr3*zem2) / zdenr
+-               ptra(jk) = zem2 - zem2 * zw * (zt1*zep1 - zt2*zem1 - zt3*zep2) / zdent
++               ordered_work(1,ordered_lane) = zw
++               ordered_work(2,ordered_lane) = zr1
++               ordered_work(3,ordered_lane) = zr2
++               ordered_work(4,ordered_lane) = zr3
++               ordered_work(5,ordered_lane) = zt1
++               ordered_work(6,ordered_lane) = zt2
++               ordered_work(7,ordered_lane) = zt3
++               ordered_work(8,ordered_lane) = zem1
++               ordered_work(9,ordered_lane) = zem2
++               ordered_work(10,ordered_lane) = zep1
++               ordered_work(11,ordered_lane) = zep2
++               ordered_work(12,ordered_lane) = zdenr
++               ordered_work(13,ordered_lane) = zbeta
++               ordered_work(14,ordered_lane) = zrkg
++               ordered_work(15,ordered_lane) = zgamma2
++               ordered_work(16,ordered_lane) = zrk2
++               ordered_work(17,ordered_lane) = zdent
++               ordered_pending(ordered_lane) = .true.
++               cycle
+             endif
+ 
+             zemm = zem1*zem1
+@@ -160,6 +194,170 @@
+ 
+          endif
+ 
+-      enddo    
++      enddo
++         if (min(4,nlayers-ordered_first+1)==4 .and. all(ordered_pending)) then
++            call wrf_reftra_clear_outputs4(ordered_work,ordered_out)
++            do ordered_lane=1,4
++               jk=ordered_first+ordered_lane-1
++               ptra(jk)=ordered_out(2,ordered_lane)
++               pref(jk)=ordered_out(1,ordered_lane)
++               ptrad(jk)=ordered_out(4,ordered_lane)
++               prefd(jk)=ordered_out(3,ordered_lane)
++            enddo
++         else
++            do ordered_lane=1,min(4,nlayers-ordered_first+1)
++               if (.not.ordered_pending(ordered_lane)) cycle
++               jk=ordered_first+ordered_lane-1
++               zw=ordered_work(1,ordered_lane)
++               zr1=ordered_work(2,ordered_lane)
++               zr2=ordered_work(3,ordered_lane)
++               zr3=ordered_work(4,ordered_lane)
++               zt1=ordered_work(5,ordered_lane)
++               zt2=ordered_work(6,ordered_lane)
++               zt3=ordered_work(7,ordered_lane)
++               zem1=ordered_work(8,ordered_lane)
++               zem2=ordered_work(9,ordered_lane)
++               zep1=ordered_work(10,ordered_lane)
++               zep2=ordered_work(11,ordered_lane)
++               zdenr=ordered_work(12,ordered_lane)
++               zbeta=ordered_work(13,ordered_lane)
++               zrkg=ordered_work(14,ordered_lane)
++               zgamma2=ordered_work(15,ordered_lane)
++               zrk2=ordered_work(16,ordered_lane)
++               zdent=ordered_work(17,ordered_lane)
++               pref(jk) = zw * (zr1*zep1 - zr2*zem1 - zr3*zem2) / zdenr
++               ptra(jk) = zem2 - zem2 * zw * (zt1*zep1 - zt2*zem1 - zt3*zep2) / zdent
++
++
++            zemm = zem1*zem1
++            zdend = 1._rb / ( (1._rb - zbeta*zemm ) * zrkg)
++            prefd(jk) =  zgamma2 * (1._rb - zemm) * zdend
++            ptrad(jk) =  zrk2*zem1*zdend
++
++            enddo
++         endif
++      enddo
++      else
++      do jk=1, nlayers
++         zto1=ptau(jk)
++         zw  =pw(jk)
++         zg  =pgg(jk)  
++
++         zg3= 3._rb * zg
++         if (kmodts == 1) then
++            zgamma1= (7._rb - zw * (4._rb + zg3)) * 0.25_rb
++            zgamma2=-(1._rb - zw * (4._rb - zg3)) * 0.25_rb
++            zgamma3= (2._rb - zg3 * prmuz ) * 0.25_rb
++         else if (kmodts == 2) then  
++            zgamma1= (8._rb - zw * (5._rb + zg3)) * 0.25_rb
++            zgamma2=  3._rb *(zw * (1._rb - zg )) * 0.25_rb
++            zgamma3= (2._rb - zg3 * prmuz ) * 0.25_rb
++         else if (kmodts == 3) then  
++            zgamma1= zsr3 * (2._rb - zw * (1._rb + zg)) * 0.5_rb
++            zgamma2= zsr3 * zw * (1._rb - zg ) * 0.5_rb
++            zgamma3= (1._rb - zsr3 * zg * prmuz ) * 0.5_rb
++         end if
++         zgamma4= 1._rb - zgamma3
++
++         zwo = 0._rb
++         denom = 1._rb
++         if (zg .ne. 1._rb) denom = (1._rb - (1._rb - zw) * (zg / (1._rb - zg))**2)
++         if (zw .gt. 0._rb .and. denom .ne. 0._rb) zwo = zw / denom
++
++         if (zwo >= zwcrit) then
++
++            za  = zgamma1 * prmuz 
++            za1 = za - zgamma3
++            zgt = zgamma1 * zto1
++
++            ze1 = min ( zto1 / prmuz , 500._rb)
++
++            if (ze1 .le. od_lo) then 
++               ze2 = 1._rb - ze1 + 0.5_rb * ze1 * ze1
++            else
++               tblind = ze1 / (bpade + ze1)
++               itind = tblint * tblind + 0.5_rb
++               ze2 = exp_tbl(itind)
++            endif
++
++            pref(jk) = (zgt - za1 * (1._rb - ze2)) / (1._rb + zgt)
++            ptra(jk) = 1._rb - pref(jk)
++
++            prefd(jk) = zgt / (1._rb + zgt)
++            ptrad(jk) = 1._rb - prefd(jk)        
++
++            if (ze2 .eq. 1.0_rb) then 
++               pref(jk) = 0.0_rb
++               ptra(jk) = 1.0_rb
++               prefd(jk) = 0.0_rb
++               ptrad(jk) = 1.0_rb
++            endif
++
++         else
++
++            za1 = zgamma1 * zgamma4 + zgamma2 * zgamma3
++            za2 = zgamma1 * zgamma3 + zgamma2 * zgamma4
++            zrk = sqrt ( zgamma1**2 - zgamma2**2)
++            zrp = zrk * prmuz               
++            zrp1 = 1._rb + zrp
++            zrm1 = 1._rb - zrp
++            zrk2 = 2._rb * zrk
++            zrpp = 1._rb - zrp*zrp
++            zrkg = zrk + zgamma1
++            zr1  = zrm1 * (za2 + zrk * zgamma3)
++            zr2  = zrp1 * (za2 - zrk * zgamma3)
++            zr3  = zrk2 * (zgamma3 - za2 * prmuz )
++            zr4  = zrpp * zrkg
++            zr5  = zrpp * (zrk - zgamma1)
++            zt1  = zrp1 * (za1 + zrk * zgamma4)
++            zt2  = zrm1 * (za1 - zrk * zgamma4)
++            zt3  = zrk2 * (zgamma4 + za1 * prmuz )
++            zt4  = zr4
++            zt5  = zr5
++
++            zbeta = (zgamma1 - zrk) / zrkg
++
++            ze1 = min ( zrk * zto1, 500._rb)
++            ze2 = min ( zto1 / prmuz , 500._rb)
++
++            if (ze1 .le. od_lo) then 
++               zem1 = 1._rb - ze1 + 0.5_rb * ze1 * ze1
++               zep1 = 1._rb / zem1
++            else
++               tblind = ze1 / (bpade + ze1)
++               itind = tblint * tblind + 0.5_rb
++               zem1 = exp_tbl(itind)
++               zep1 = 1._rb / zem1
++            endif
++
++            if (ze2 .le. od_lo) then 
++               zem2 = 1._rb - ze2 + 0.5_rb * ze2 * ze2
++               zep2 = 1._rb / zem2
++            else
++               tblind = ze2 / (bpade + ze2)
++               itind = tblint * tblind + 0.5_rb
++               zem2 = exp_tbl(itind)
++               zep2 = 1._rb / zem2
++            endif
++
++            zdenr = zr4*zep1 + zr5*zem1
++            zdent = zt4*zep1 + zt5*zem1
++            if (zdenr .ge. -eps .and. zdenr .le. eps) then
++               pref(jk) = eps
++               ptra(jk) = zem2
++            else
++               pref(jk) = zw * (zr1*zep1 - zr2*zem1 - zr3*zem2) / zdenr
++               ptra(jk) = zem2 - zem2 * zw * (zt1*zep1 - zt2*zem1 - zt3*zep2) / zdent
++            endif
++
++            zemm = zem1*zem1
++            zdend = 1._rb / ( (1._rb - zbeta*zemm ) * zrkg)
++            prefd(jk) =  zgamma2 * (1._rb - zemm) * zdend
++            ptrad(jk) =  zrk2*zem1*zdend
++
++         endif
++
++      enddo
++      endif    
+ 
+       end subroutine reftra_sw_clear

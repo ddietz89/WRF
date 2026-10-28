@@ -1,0 +1,45 @@
+{
+  "status": "GO_ACTUAL_EXTRACTED_COMPLETE_CLEAR_COST_ONLY",
+  "eligible_for_complete_reftra_clear_cost": true,
+  "native_receipt_sha256": "83728c3cf17fa6c7888ed1aed3e330534c33708479e3e0233e31c136a238d673",
+  "native_invocation_id": "cbd735b0a84d4d4bacd56452d3be2d36",
+  "candidate_O2_object_sha256": "b30c741f2e4d179a235a5757ddc4b8c6df5e1ef28263b8c5cd59fbb697a9c7be",
+  "helper_object_sha256": "3da218c3b031d5cc9690328dbbd9df394c2303b0a1e65b26c279c12cbd0b67eb",
+  "actual_helper_counts": {
+    "DIVPS_REAL4": 3,
+    "MULPS_REAL4": 16,
+    "SUBPS_REAL4": 7,
+    "ADDPS_REAL4": 0
+  },
+  "actual_control": {
+    "O2_getter_once_offset": "0xe3",
+    "false_branch_original_scalar_entry": "0x748",
+    "packed_consumer_call_site": "0x1108",
+    "full4_and_all_pending_dispatch": "0x50a..0x546 integer four pending tests before branch to0x10f0",
+    "no_FP_arithmetic_before_getter": true,
+    "scalar_SQRT_table_and_INT_routes_retained": true,
+    "O2_call_targets": [
+      "wrf_phy_interp_all_masked",
+      "wrf_reftra_clear_outputs4"
+    ],
+    "O0_additional_call_target": "_gfortran_runtime_error_at bounds checks only",
+    "no_new_sqrt_exp_errno_ieee_library_calls": true
+  },
+  "operand_roles": "Legacy SSE register-register destination/source roles as SOURCE_CONTRACT and focused direct consumer80 tests/opt; unaligned gathers/stores, no reciprocal/FMA/reassociation. Masked-only buffering, full original scalar schedule when false. O0 numerical and bounds exact; no byteidentity claim.",
+  "native_per_opt": {
+    "whole_clear": 324,
+    "direct_consumer": 80,
+    "finite_unmasked": 6
+  },
+  "whole_SW_public_MOD_application_qualified": false,
+  "performance_qualified": false,
+  "evidence_sha256": {
+    "investigation/wrf-cpu/campaign/spot100-20261016/current1d16-reftra-clear-ordered4-source-question-r1/actual-standalone-machine-review-r1/O0-candidate_module-assembly.log": "b3609d94069a276b6ae909ef6ee6c452e4f7c625b959086e5997f571d3a6773f",
+    "investigation/wrf-cpu/campaign/spot100-20261016/current1d16-reftra-clear-ordered4-source-question-r1/actual-standalone-machine-review-r1/O0-parent_module-assembly.log": "d7cd2e8dd5950be2048bdaa291f39e225160f65e6708b7909884d8f498c23159",
+    "investigation/wrf-cpu/campaign/spot100-20261016/current1d16-reftra-clear-ordered4-source-question-r1/actual-standalone-machine-review-r1/O2-candidate_module-assembly.log": "f7fe9da349d0d3925b14cf552ee88efec9a97cdac59675f6b55729c7d4609cf1",
+    "investigation/wrf-cpu/campaign/spot100-20261016/current1d16-reftra-clear-ordered4-source-question-r1/actual-standalone-machine-review-r1/O2-parent_module-assembly.log": "be8e4adf29d15d4e77252293c34f61cb3c81199ea6804b6d5f2d3e52997e5d6e",
+    "investigation/wrf-cpu/campaign/spot100-20261016/current1d16-reftra-clear-ordered4-source-question-r1/actual-standalone-machine-review-r1/actual-C-compiler.log": "ce51fe890bff64282b12622e70df3c1ce282d42c214d9cb7375e01a18a38854b",
+    "investigation/wrf-cpu/campaign/spot100-20261016/current1d16-reftra-clear-ordered4-source-question-r1/actual-standalone-machine-review-r1/actual-Fortran-compiler.log": "72dbd31c12dfa85cb5e5c08e1eccb2214ce26dae424c40dc04f425a943f4969b",
+    "investigation/wrf-cpu/campaign/spot100-20261016/current1d16-reftra-clear-ordered4-source-question-r1/actual-standalone-machine-review-r1/actual-helper-assembly.log": "b54eef31b44d199b878406e7eac701a3c6e3d8789fa8df4286a22dce184c6557"
+  }
+}
