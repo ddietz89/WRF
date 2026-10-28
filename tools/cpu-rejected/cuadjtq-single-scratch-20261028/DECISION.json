@@ -1,0 +1,51 @@
+{
+  "decision": "CLOSE_UNPROMOTED_NO_COMPLETE_CALLER_BENEFIT_ESTABLISHED",
+  "native_numerically_qualified": true,
+  "actual_allocation_coalescing_achieved": true,
+  "native_comparisons": 176,
+  "native_proof_records": 352,
+  "cost_calls": 65536,
+  "cost_case": 1,
+  "cost_geometry": [
+    188,
+    33
+  ],
+  "host_comparisons": {
+    "hpc01": {
+      "wall_seconds": {
+        "parent": 0.39943462100000005,
+        "candidate": 0.399960861,
+        "percent_lower": -0.13174621636013759
+      },
+      "thread_cpu_seconds": {
+        "parent": 0.39941209800000005,
+        "candidate": 0.399938738,
+        "percent_lower": -0.1318537927711862
+      }
+    },
+    "hpc02": {
+      "wall_seconds": {
+        "parent": 0.39991592200000003,
+        "candidate": 0.40479012600000003,
+        "percent_lower": -1.2188071871767068
+      },
+      "thread_cpu_seconds": {
+        "parent": 0.399894385,
+        "candidate": 0.40478474000000003,
+        "percent_lower": -1.2229116445333466
+      }
+    }
+  },
+  "all_four_cache_raw40_normalclosures": true,
+  "evidence_sha256": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentfac7-cuadjtq-scratch-coalescing-source-question-r1/standalone-complete-cUadjtq-native-r1-hpc02/actual-native-r1/receipt.json": "e7ccfb96aeca25c9fda3e8a4d058bace819258dae2ab2e0ee3c013c37e66bc92",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentfac7-cuadjtq-scratch-coalescing-source-question-r1/standalone-complete-cUadjtq-native-r1-hpc02/actual-native-r1/closure.json": "d1b11fc86f1f260785711ef2ea2f9db946a2cf64bde0056a6661b740e378dc14",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentfac7-cuadjtq-scratch-coalescing-source-question-r1/actual-standalone-machine-review-r1/CLASSIFICATION.json": "5ca9325fbf86ff97994c6ca7803f7dd2152e1ec40e20b1fd3e74f95d650c8d28",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentfac7-cuadjtq-scratch-coalescing-source-question-r1/complete-CUADJTQ65536-cost-preparation-r1/ACTUAL_WAVE.json": "ea151dac0afd20c38dedbfcfe19de8a4a5be09124de54fcd42265a26ad7a6c68"
+  },
+  "whole_Tiedtke_module_qualified": false,
+  "application_qualified": false,
+  "performance_gain_established": false,
+  "public_or_selected_source_changed": false,
+  "scope": "Complete typed extracted CUADJTQ, same2*klon REALscratchcapacity. Two malloc/free sites become one, but two sequential passes and every TLUC/EXPf/arithmetic call remain. No isolated kernel gain was established. One four-arm screen is insufficient to attribute sub-percent noise or the slowdown to a particular machine effect. No further variants or repeats planned without new evidence."
+}

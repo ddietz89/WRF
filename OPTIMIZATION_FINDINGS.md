@@ -5860,3 +5860,8 @@ Both changes are now enabled by default in source commit `1872ec9a` within the q
 The combined Thompson pressure/V-flux build passed its own instrumented noon one-hour check: two complete output products and 185 ordered steps. All four selected main-thread recorders started and grew data during the run; model, recorder, watcher, scientific reader and parser jobs closed normally. [Current evidence](tools/cpu-compute/thompson-pressure-vx5-batch-20261028/INSTRUMENTED_NOON_PROFILE_QUALIFICATION.json).
 
 The selected X-exchange nearest-frame periods range from 20.79% to 38.27%. This motivates tracing the actual current MPI call paths and work before peer readiness; it does not establish removable wire time or a whole-forecast fraction. Independent source work is testing coalescing two CUADJTQ temporary allocations into one while retaining distinct contents and exact arithmetic. No new candidate is promoted by this profile. The run is instrumented and its retained 75-minute original reference is used for exact science only; no timing reduction is claimed from mismatched horizons.
+
+
+### CUADJTQ scratch coalescing: closed unpromoted
+
+Combining two scratch allocations into one passed 176 exact O2/O0 comparisons and reduced the actual allocation/free pairs from two to one, with unchanged storage capacity. Complete-caller timing was 0.132% slower on hpc01 and 1.219% slower on hpc02. No significant caller gain or separate memory benefit was established, so the fixed variant stays unpromoted. All four arms passed raw/state checks, cache boundaries and normal closure. [Decision and measurements](tools/cpu-rejected/cuadjtq-single-scratch-20261028/README.md).
