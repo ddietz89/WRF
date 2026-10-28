@@ -1,5 +1,5 @@
 {
-  "status": "RETAIN_PROMISING_ONE_APPLICATION_PAIR_PENDING_REVERSE_ORDER",
+  "status": "CLOSED_FIXED_CANDIDATE_UNPROMOTED_AFTER_TWO_COUNTERBALANCED_APPLICATION_PAIRS",
   "date": "2026-10-28",
   "mechanism": "Warm non-typed Xreceive prepost; typedX and topologycache variants excluded. Fixed8x60/480compute D1 lifecycle and originalfallback.",
   "parent_executable_sha256": "00c6bcb351bfb79b6de3c240429e630d70980d1f3ead6e7594d56fc2d447a1b5",
@@ -33,15 +33,139 @@
     "candidate": 82.32216116589606
   },
   "cautions": [
-    "Oneparentfirstpair doesnot establish repeatability or causalMPIwire gain.",
-    "Mostwall difference liesoutside mainsteps, including initialization/output/drain together; residualisnot pureI/O.",
-    "Earlieruniform480caller timings were slower1.377/0.349%; retained.",
-    "No source/default promotion;freshCthenPcounterbalancepending."
+    "Two application arms per variant, in opposite execution orders; no stable forecast gain established.",
+    "First R4 pair reductions remain preserved; about88% of its wall difference was outside main-step elapsed time. This residual includes initialization, output and draining and is not pure I/O or removable MPI wire time.",
+    "R5 candidate-first pair was0.421050%longer wall,0.349853%higher aggregate CPU and0.014816%longer main-step elapsed.",
+    "Two-arm means are descriptive: wall2.225225%,CPU2.677725%,main0.424650%lower, driven by the initially slower R4 parent; not a repeatable or attributable gain.",
+    "Earlier uniform480 caller timings were1.377/0.349%slower and remain retained.",
+    "All four application science checks passed unchanged original615d/twoFULL/185steps; all480 C admission markers and Pzero checks passed. Science/source-path acceptance does not establish performance benefit.",
+    "Fixed candidate closed unpromoted; selected00c6 image/source/defaults unchanged."
   ],
   "MPI_caller_state_rule": "Owner-approvedMPI-onlyerrno/inexactdiagnostic;allotherexceptions/control/rounding/fields/guards exact. No flagsmasked/restored. Allnumericalcomputecallerfivestate remainHARD.",
   "evidence": {
     "actual_pair": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current00c6-nontyped-x-noon1h-preparation-r4/ACTUAL_PAIR.json",
     "sha256": "5415483e764753b69d280316eab1d6c2f5aaff4930eb4bd79f88107a270c0640"
   },
-  "rollback": "Selected00c6image/source/defaults unchanged;useparent00c6/e418insteadexperimental5a366/fa2c."
+  "rollback": "Selected00c6image/source/defaults unchanged;useparent00c6/e418insteadexperimental5a366/fa2c.",
+  "order_scope": "The original order/metrics/reductions_percent/residual_seconds/evidence fields below retain the first R4 parent-then-candidate pair only.",
+  "counterbalance": {
+    "evidence": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current00c6-nontyped-x-noon1h-preparation-r5/ACTUAL_COUNTERBALANCE.json",
+      "sha256": "e0ee3aaf128c6d151baba107a06c1a0e596d394bb42a7f6c7363cd3515a8c88a"
+    },
+    "status": "PASS_FOUR_NORMAL_FULLGRID_ARMS_ORIGINAL_EXACT_CHECKERS",
+    "order": [
+      "R4-parent",
+      "R4-candidate",
+      "R5-candidate",
+      "R5-parent"
+    ],
+    "arms": [
+      {
+        "run": "R4-parent",
+        "variant": "parent",
+        "wall_seconds": 270.88802713062614,
+        "cpu_seconds": 122953.786788,
+        "main_step_sum_seconds": 177.23237
+      },
+      {
+        "run": "R4-candidate",
+        "variant": "candidate",
+        "wall_seconds": 258.02836116589606,
+        "cpu_seconds": 116142.014978,
+        "main_step_sum_seconds": 175.7062
+      },
+      {
+        "run": "R5-candidate",
+        "variant": "candidate",
+        "wall_seconds": 259.25359509373084,
+        "cpu_seconds": 116651.67232099999,
+        "main_step_sum_seconds": 176.04737
+      },
+      {
+        "run": "R5-parent",
+        "variant": "parent",
+        "wall_seconds": 258.16658464679495,
+        "cpu_seconds": 116244.985785,
+        "main_step_sum_seconds": 176.02129
+      }
+    ],
+    "means": {
+      "parent": {
+        "wall_seconds": 264.52730588871054,
+        "cpu_seconds": 119599.3862865,
+        "main_step_sum_seconds": 176.62682999999998
+      },
+      "candidate": {
+        "wall_seconds": 258.64097812981345,
+        "cpu_seconds": 116396.84364949999,
+        "main_step_sum_seconds": 175.87678499999998
+      }
+    },
+    "ranges": {
+      "parent": {
+        "wall_seconds": [
+          258.16658464679495,
+          270.88802713062614
+        ],
+        "cpu_seconds": [
+          116244.985785,
+          122953.786788
+        ],
+        "main_step_sum_seconds": [
+          176.02129,
+          177.23237
+        ]
+      },
+      "candidate": {
+        "wall_seconds": [
+          258.02836116589606,
+          259.25359509373084
+        ],
+        "cpu_seconds": [
+          116142.014978,
+          116651.67232099999
+        ],
+        "main_step_sum_seconds": [
+          175.7062,
+          176.04737
+        ]
+      }
+    },
+    "mean_reductions_percent": {
+      "wall_seconds": 2.225225006212983,
+      "cpu_seconds": 2.6777249753843435,
+      "main_step_sum_seconds": 0.42464952804734946
+    },
+    "per_pair_reductions_percent": {
+      "R4_P_then_C": {
+        "wall_seconds": 4.747225671413291,
+        "cpu_seconds": 5.540107375257197,
+        "main_step_sum_seconds": 0.8611124480251586
+      },
+      "R5_C_then_P": {
+        "wall_seconds": -0.4210500163772446,
+        "cpu_seconds": -0.3498529706495779,
+        "main_step_sum_seconds": -0.014816389540150965
+      }
+    },
+    "baseline": "Currentoptimized00c6,notoriginalWRF;eachsameonehour185/twoFULL;no75mtimingdenominator",
+    "scope": "Twoarmspervariant,counterbalanced;unprofiled/cacheeach/same512/limits/runtime;notglobalMPIwire attribution or sustained9hclaim",
+    "refs": {
+      "R4": "5415483e764753b69d280316eab1d6c2f5aaff4930eb4bd79f88107a270c0640",
+      "R5": "ad1392e914472699ef099a86d310c732a17557ededff281b5667714a1a5a7894"
+    }
+  },
+  "disposition": {
+    "promoted": false,
+    "significant_consistent_gain_established": false,
+    "reason": "R4 parent-first improvement did not repeat in R5 candidate-first order. R5 candidate wall/CPU/main were slightly higher. Mean reductions are descriptive and driven by the initially slower R4 parent; uniform480 caller screen was also slower. No further implementation/build investment for this fixed candidate.",
+    "source_default_selection_changed": false
+  },
+  "source_integration": {
+    "qualified": false,
+    "private_draft_closeout": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentfac7-haloc-cross-axis-x-prepost-source-question-r1/canonical-tracked-X-private-proposal-r1/CLOSEOUT.json",
+    "private_draft_closeout_sha256": "874bfba67ee8878359baa8847562e4ed09124ae7231d3263fd097bcd063c3fcf",
+    "limits": "Only minimal current U/V Registry generation and enabled HALO_C target-stream identity were locally shown. Full Registry generation timed out locally. Final whole-module ON/OFF preprocessed-source equivalence, Make scope and clean canonical rebuild were not qualified. Actual tested target was injected after preprocessing; normal canonical standard.exe removes comments. No invented canonical-source proof or source/default promotion."
+  }
 }
