@@ -1,0 +1,225 @@
+{
+  "status": "PASS_SCOPED_CORRECTNESS_COMPLETE_CALLER_COST_REGRESSION_NOT_PROMOTED",
+  "utc": "2026-10-28T14:10:26.350222+00:00",
+  "summary_sha256": "0cc86a68fac17ff8820edec4028e40c0f6667e7c64c24819d1ace7a13ba82dbe",
+  "owner_approval": "Explicit scoped MPI comparison approved; errno/inexact diagnostics only. All physical/Common/guard/control/otherflags exact. No saved record normalization. Historical strict failures retained.",
+  "arms": [
+    {
+      "key": "verify-parent",
+      "result_sha256": "58d4039e27428483760e34b55289d2b001300f45a6bcae737db82254cadc1b43",
+      "closures": [
+        {
+          "host": "hpc01",
+          "invocation_id": "4a03b0d960ce4eac9efcc7b46f78e9f6",
+          "closed_drained": true
+        },
+        {
+          "host": "hpc02",
+          "invocation_id": "4ffd8a833721440d8c1eeb8357661091",
+          "closed_drained": true
+        },
+        {
+          "host": "hpc03",
+          "invocation_id": "4fe70429c50a4083bc493a24338a1c03",
+          "closed_drained": true
+        },
+        {
+          "host": "hpc04",
+          "invocation_id": "c43a5bb2dd814fde8d854d8b02129b63",
+          "closed_drained": true
+        }
+      ],
+      "actual_state_delta_records": {
+        "allowed_warm_state_deltas": 0,
+        "allowed_post_state_deltas": 0
+      },
+      "wall_s": null,
+      "sum_main_thread_CPU_s": null
+    },
+    {
+      "key": "verify-candidate",
+      "result_sha256": "6f9277df22c0ad7f0a7305bda988f3e977ac89d41c3ea71bb0d372e838263681",
+      "closures": [
+        {
+          "host": "hpc01",
+          "invocation_id": "f30241f4fa9746258fb8c690ecf79065",
+          "closed_drained": true
+        },
+        {
+          "host": "hpc02",
+          "invocation_id": "3aed6e08b2204b7a8a140b6e9d612d90",
+          "closed_drained": true
+        },
+        {
+          "host": "hpc03",
+          "invocation_id": "4a75c869120a4d95b24df359196fcc61",
+          "closed_drained": true
+        },
+        {
+          "host": "hpc04",
+          "invocation_id": "59a925d1ec674faf9b4ff00334b54032",
+          "closed_drained": true
+        }
+      ],
+      "actual_state_delta_records": {
+        "allowed_warm_state_deltas": 22,
+        "allowed_post_state_deltas": 0
+      },
+      "wall_s": null,
+      "sum_main_thread_CPU_s": null
+    },
+    {
+      "key": "cost-0-parent",
+      "result_sha256": "2fdff66aeba14663462a959db0c38fa0d1ea219df0044efb8f816bdf018da1d3",
+      "closures": [
+        {
+          "host": "hpc01",
+          "invocation_id": "208f1fde7a32466d872e74ba0f2f6915",
+          "closed_drained": true
+        },
+        {
+          "host": "hpc02",
+          "invocation_id": "c5fc836eea63446abc7f3819183769ef",
+          "closed_drained": true
+        },
+        {
+          "host": "hpc03",
+          "invocation_id": "55c9d6b617dc42dd95a5da66f467c1f8",
+          "closed_drained": true
+        },
+        {
+          "host": "hpc04",
+          "invocation_id": "31708804a8b145c88f31bc131d935fdb",
+          "closed_drained": true
+        }
+      ],
+      "actual_state_delta_records": {
+        "allowed_warm_state_deltas": 32,
+        "allowed_post_state_deltas": 0
+      },
+      "wall_s": 1.791408915,
+      "sum_main_thread_CPU_s": 859.24648064,
+      "all4cache_PASS": true,
+      "cache_sha256": "441d675cb146f174bf2d3d134eeee476ba2ae45feec1595cbd35674157244ab4"
+    },
+    {
+      "key": "cost-1-candidate",
+      "result_sha256": "bcb366b8bd859e0989794b94d522b177cb57dee6859ff00d4178ae0c5cace156",
+      "closures": [
+        {
+          "host": "hpc01",
+          "invocation_id": "9556e50c3ab747c685b074c56c442e34",
+          "closed_drained": true
+        },
+        {
+          "host": "hpc02",
+          "invocation_id": "3d7183c0aca24f7f828ddb85a2141785",
+          "closed_drained": true
+        },
+        {
+          "host": "hpc03",
+          "invocation_id": "af0671452ed447a08db08ed0fc52d136",
+          "closed_drained": true
+        },
+        {
+          "host": "hpc04",
+          "invocation_id": "20d47005becb45159475fd9737ec98ec",
+          "closed_drained": true
+        }
+      ],
+      "actual_state_delta_records": {
+        "allowed_warm_state_deltas": 22,
+        "allowed_post_state_deltas": 14
+      },
+      "wall_s": 1.816084707,
+      "sum_main_thread_CPU_s": 871.255079246,
+      "all4cache_PASS": true,
+      "cache_sha256": "5576a96cc6b8fed5fe057ad3168edbb049f7d0a9a2e6cec8d057b2817927ee37"
+    },
+    {
+      "key": "cost-2-candidate",
+      "result_sha256": "085aecea8eaa5dd1c35953757c136b65e7b8fa2ae666439886fe6fe336a5d4f0",
+      "closures": [
+        {
+          "host": "hpc01",
+          "invocation_id": "3091397e86844dbeae41ed28194eebd6",
+          "closed_drained": true
+        },
+        {
+          "host": "hpc02",
+          "invocation_id": "c3b3a5dad25d4057b3a822dde46244cd",
+          "closed_drained": true
+        },
+        {
+          "host": "hpc03",
+          "invocation_id": "66696ca75c3148b1956a191929b5dc8b",
+          "closed_drained": true
+        },
+        {
+          "host": "hpc04",
+          "invocation_id": "47bb73cfae9d410fab46f975c5f584e5",
+          "closed_drained": true
+        }
+      ],
+      "actual_state_delta_records": {
+        "allowed_warm_state_deltas": 22,
+        "allowed_post_state_deltas": 2
+      },
+      "wall_s": 1.79682711,
+      "sum_main_thread_CPU_s": 861.992760273,
+      "all4cache_PASS": true,
+      "cache_sha256": "782ea675e427a1b6c60aeacf9f83f94a0edc1fd12b92579b30a1ae2710e56a7d"
+    },
+    {
+      "key": "cost-3-parent",
+      "result_sha256": "39452155993f2b64f8fae2285f7a41b2b8182838d5a0f295971d71170bdd6002",
+      "closures": [
+        {
+          "host": "hpc01",
+          "invocation_id": "e5ef86e843134d8dbfff7eb01fa56fb4",
+          "closed_drained": true
+        },
+        {
+          "host": "hpc02",
+          "invocation_id": "b807a32b452a47b6878e3f15c20f356c",
+          "closed_drained": true
+        },
+        {
+          "host": "hpc03",
+          "invocation_id": "f049387da981407aac266daf5f4bf4ff",
+          "closed_drained": true
+        },
+        {
+          "host": "hpc04",
+          "invocation_id": "20199f38d2ad450c8492c514ece45811",
+          "closed_drained": true
+        }
+      ],
+      "actual_state_delta_records": {
+        "allowed_warm_state_deltas": 34,
+        "allowed_post_state_deltas": 0
+      },
+      "wall_s": 1.790575525,
+      "sum_main_thread_CPU_s": 858.866687165,
+      "all4cache_PASS": true,
+      "cache_sha256": "8574c0caa114efb52bae7f98ff3f4fe9ef1d7dc9be7ce39b8a27868d2c9b6bf7"
+    }
+  ],
+  "wall_reduction_percent": [
+    -1.377451669095886,
+    -0.34913830289287073
+  ],
+  "main_thread_CPU_reduction_percent": [
+    -1.3975732082202486,
+    -0.36397652333202135
+  ],
+  "scope": "Complete real generated HALO_C caller, 480 ranks, fixed8x60 production rankmap/IB, 4096 calls per timed arm. Max rank elapsed and sum rank main-thread CPU only; no forecast or aggregate cgroupCPU claim. Coldprefix initialization-only unqualified.",
+  "decision": "Retain exact-qualified earlyX research; do not promote current form. Two opposite-order pairs slower. Investigate repeated topology-query overhead in a fresh helper-only candidate; cost mechanism causal attribution remains unproven.",
+  "application_qualified": false,
+  "source_or_defaults_promoted": false,
+  "private_root_review": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentfac7-haloc-cross-axis-x-prepost-source-question-r1/complete-real-haloc-480-owner-scoped-screen-preparation-r2/ROOT_ACTUAL_REVIEW.json",
+    "sha256": "62ac50b9c4017a7b37abb9d17aed013bdf56ba2f33373f86f07d3da82f860318"
+  },
+  "selected_forecast_image_unchanged": "00c6bcb351bfb79b6de3c240429e630d70980d1f3ead6e7594d56fc2d447a1b5"
+}

@@ -1,5 +1,13 @@
 # WRF CPU optimization findings
 
+## Early X receives: scoped MPI caller result — October 28
+
+Fresh correctness checks passed on the actual 480-rank, 8-by-60 production map over InfiniBand. Four cache-cleared complete-caller timing arms ran parent–candidate–candidate–parent, with 4,096 calls per arm. Parent/candidate maximum-rank elapsed times were 1.79141/1.81608 seconds and 1.79058/1.79683 seconds: the candidate was 1.38% and 0.35% slower. Sum of rank main-thread CPU was 1.40% and 0.36% higher; this is not aggregate cgroup CPU or a forecast result. All 24 node scopes closed normally and drained.
+
+The owner's explicit MPI-only comparison amendment records errno and inexact differences as diagnostics. Fields, guards, COMMON/store state, all other exception flags, rounding and control settings remained exact; all five actual state words were retained. The original forecast checker is unchanged, and prior full-state failures remain failures. Cold-prefix state is initialization-only, outside this qualification.
+
+Retain this candidate as an investigation and leave the working defaults unchanged. Repeated topology and iterator queries add concrete work; their contribution to the measured slowdown has not been isolated. A narrow helper-only topology-query cache is the next test. [Individual timings, cache receipts, closures and scope](tools/cpu-comm/haloc-early-x-scoped-20261028.json).
+
 ## Ordinary advection scratch reuse promoted — October 28
 
 The vertical scratch array now reuses a horizontal-flux buffer after its last use. This removes one allocation/free pair and one temporary array while retaining the original arithmetic. The combined build passed the unchanged scientific checker: four FULL products and all 545 ordered steps matched exactly.
