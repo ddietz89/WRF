@@ -1033,3 +1033,50 @@ endif
 endif
 endif
 endif
+
+
+# Thompson main pressure read-only view; original private-copy storage is the fallback.
+# Strict qualified GNU13.3 scope below; explicit0 restores the original copy.
+WRF_THOMPSON_MAIN_PRESSURE_VIEW ?= 1
+_THOMPSON_PRESSURE_FLAGS = $(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)
+module_mp_thompson.o: private override CPPFLAGS += -UWRF_THOMPSON_MAIN_PRESSURE_VIEW_ENABLE
+ifeq ($(WRF_THOMPSON_MAIN_PRESSURE_VIEW),0)
+module_mp_thompson.o: private override CPPFLAGS += -DWRF_THOMPSON_MAIN_PRESSURE_VIEW_DISABLE
+endif
+ifeq ($(WRF_THOMPSON_MAIN_PRESSURE_VIEW),1)
+ifeq ($(strip $(OMPCPP) $(OMP) $(PROMOTION) $(DOUBLE_PRECISION)),)
+ifeq ($(filter -D_OPENMP% _OPENMP%,$(CPPFLAGS)),)
+ifneq (,$(filter -DDM_PARALLEL -DDM_PARALLEL=%,$(CPPFLAGS)))
+ifeq ($(filter -DSTUBMPI -DSTUBMPI=% -DWRF_CHEM -DWRF_CHEM=1,$(CPPFLAGS)),)
+ifeq ($(filter -U%,$(CPPFLAGS)),)
+ifeq ($(strip $(RWORDSIZE)),4)
+ifeq ($(strip $(IWORDSIZE)),4)
+ifeq ($(filter -fdefault-% -freal-% -finteger-% -r8 -i8 -fopenmp -fopenmp=% -Ofast -ffast-math -fassociative-math -funsafe-math-optimizations -freciprocal-math -ffinite-math-only -fno-signed-zeros -fno-trapping-math -march=% -mtune=% -mavx% -mfma%,$(_THOMPSON_PRESSURE_FLAGS)),)
+ifeq ($(filter-out -O2,$(filter -O%,$(_THOMPSON_PRESSURE_FLAGS))),)
+ifneq (,$(filter -O2,$(_THOMPSON_PRESSURE_FLAGS)))
+ifeq ($(filter-out -ffp-contract=off,$(filter -ffp-contract=%,$(_THOMPSON_PRESSURE_FLAGS))),)
+ifneq (,$(filter -fno-fast-math,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG)))
+ifneq (,$(filter -ffp-contract=off,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG)))
+ifneq (,$(findstring GNU Fortran,$(shell $(FC) --version 2>/dev/null)))
+ifeq ($(shell $(FC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+module_mp_thompson.o: private override CPPFLAGS += -DWRF_THOMPSON_MAIN_PRESSURE_VIEW_ENABLE
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif

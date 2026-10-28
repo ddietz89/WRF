@@ -2934,6 +2934,11 @@
 !.. Thompson et al. (2004, 2008).
 !+---+-----------------------------------------------------------------+
 !
+#if defined(WRF_THOMPSON_MAIN_PRESSURE_VIEW_ENABLE) && !defined(WRF_THOMPSON_MAIN_PRESSURE_VIEW_DISABLE)
+#define WRF_THOMPSON_PRESSURE_VALUE(k) p1d(k)
+#else
+#define WRF_THOMPSON_PRESSURE_VALUE(k) pres(k)
+#endif
       subroutine mp_thompson (aer_init_opt, wif_input_opt, &
                           qv1d, qc1d, qi1d, qr1d, qs1d, qg1d, qb1d,       &
                           ni1d, nr1d, nc1d, ng1d, nwfa1d, nifa1d, nbca1d, &
@@ -2974,7 +2979,11 @@
 
       DOUBLE PRECISION, PARAMETER:: zeroD0 = 0.0d0
 
+#if defined(WRF_THOMPSON_MAIN_PRESSURE_VIEW_ENABLE) && !defined(WRF_THOMPSON_MAIN_PRESSURE_VIEW_DISABLE)
+      REAL, DIMENSION(kts:kte):: temp, twet, qv
+#else
       REAL, DIMENSION(kts:kte):: temp, twet, pres, qv
+#endif
       REAL, DIMENSION(kts:kte):: rc, ri, rr, rs, rg, rb
       REAL, DIMENSION(kts:kte):: ni, nr, nc, ns, ng, nwfa, nifa, nbca
       REAL, DIMENSION(kts:kte):: rho, rhof, rhof2
@@ -3128,8 +3137,12 @@
       do k = kts, kte
          temp(k) = t1d(k)
          qv(k) = MAX(1.E-10, qv1d(k))
+#if defined(WRF_THOMPSON_MAIN_PRESSURE_VIEW_ENABLE) && !defined(WRF_THOMPSON_MAIN_PRESSURE_VIEW_DISABLE)
+
+#else
          pres(k) = p1d(k)
-         rho(k) = 0.622*pres(k)/(R*temp(k)*(qv(k)+0.622))
+#endif
+         rho(k) = 0.622*WRF_THOMPSON_PRESSURE_VALUE(k)/(R*temp(k)*(qv(k)+0.622))
          if (is_aerosol_aware) then
             if (aer_init_opt .lt. 2) then  ! Constant or climatology (e.g., GOCART)
                nwfa(k) = MAX(11.1E6, MIN(9999.E6, nwfa1d(k)*rho(k)))
@@ -3303,17 +3316,17 @@
          tempc = temp(k) - 273.15
          rhof(k) = SQRT(RHO_NOT/rho(k))
          rhof2(k) = SQRT(rhof(k))
-         qvs(k) = rslf(pres(k), temp(k))
+         qvs(k) = rslf(WRF_THOMPSON_PRESSURE_VALUE(k), temp(k))
          if (.not. rslf_pfx_ready) then
             t_pfx_operand = 273.15
             rslf_pfx_val = rslf_pfxTT(t_pfx_operand)
             rslf_pfx_ready = .true.
          endif
-         rslf_esl_k = MIN(rslf_pfx_val, pres(k)*0.15)
-         rslf_val_k = .622*rslf_esl_k/(pres(k)-rslf_esl_k)
+         rslf_esl_k = MIN(rslf_pfx_val, WRF_THOMPSON_PRESSURE_VALUE(k)*0.15)
+         rslf_val_k = .622*rslf_esl_k/(WRF_THOMPSON_PRESSURE_VALUE(k)-rslf_esl_k)
          delQvs(k) = MAX(0.0, rslf_val_k-qv(k))
          if (tempc .le. 0.0) then
-          qvsi(k) = rsif(pres(k), temp(k))
+          qvsi(k) = rsif(WRF_THOMPSON_PRESSURE_VALUE(k), temp(k))
          else
           qvsi(k) = qvs(k)
           k_melting = MAX(k, k_melting)
@@ -3325,7 +3338,7 @@
          if (abs(ssatw(k)).lt. eps) ssatw(k) = 0.0
          if (abs(ssati(k)).lt. eps) ssati(k) = 0.0
          if (no_micro .and. ssati(k).gt. 0.0) no_micro = .false.
-         diffu(k) = 2.11E-5*(temp(k)/273.15)**1.94 * (101325./pres(k))
+         diffu(k) = 2.11E-5*(temp(k)/273.15)**1.94 * (101325./WRF_THOMPSON_PRESSURE_VALUE(k))
          if (tempc .ge. 0.0) then
             visco(k) = (1.718+0.0049*tempc)*1.0E-5
          else
@@ -3341,10 +3354,10 @@
       if (k_melting .gt. 0) then
          do k = kts, k_melting
             if (satw(k) .lt. 0.999) then
-               dew_t = MIN(temp(k)-0.001, t_dew(pres(k), qv(k))) 
+               dew_t = MIN(temp(k)-0.001, t_dew(WRF_THOMPSON_PRESSURE_VALUE(k), qv(k)))
                Tlcl = t_lcl(temp(k), dew_t)
-               The = theta_e(pres(k), temp(k), qv(k), Tlcl)
-               twet(k) = MIN(temp(k), compT_fr_The(The, pres(k)))
+               The = theta_e(WRF_THOMPSON_PRESSURE_VALUE(k), temp(k), qv(k), Tlcl)
+               twet(k) = MIN(temp(k), compT_fr_The(The, WRF_THOMPSON_PRESSURE_VALUE(k)))
             endif
       enddo
       endif
@@ -4538,13 +4551,13 @@
          otemp = 1./temp(k)
          tempc = temp(k) - 273.15
          qv(k) = MAX(1.E-10, qv1d(k) + DT*tendency_bank(k,2))
-         rho(k) = 0.622*pres(k)/(R*temp(k)*(qv(k)+0.622))
+         rho(k) = 0.622*WRF_THOMPSON_PRESSURE_VALUE(k)/(R*temp(k)*(qv(k)+0.622))
          rhof(k) = SQRT(RHO_NOT/rho(k))
          rhof2(k) = SQRT(rhof(k))
-         qvs(k) = rslf(pres(k), temp(k))
+         qvs(k) = rslf(WRF_THOMPSON_PRESSURE_VALUE(k), temp(k))
          ssatw(k) = qv(k)/qvs(k) - 1.
          if (abs(ssatw(k)).lt. eps) ssatw(k) = 0.0
-         diffu(k) = 2.11E-5*(temp(k)/273.15)**1.94 * (101325./pres(k))
+         diffu(k) = 2.11E-5*(temp(k)/273.15)**1.94 * (101325./WRF_THOMPSON_PRESSURE_VALUE(k))
          if (tempc .ge. 0.0) then
             visco(k) = (1.718+0.0049*tempc)*1.0E-5
          else
@@ -4835,8 +4848,8 @@
           if (.NOT. is_aerosol_aware) nc(k) = Nt_c
           qv(k) = MAX(1.E-10, qv1d(k) + DT*tendency_bank(k,2))
           temp(k) = t1d(k) + DT*tendency_bank(k,1)
-          rho(k) = 0.622*pres(k)/(R*temp(k)*(qv(k)+0.622))
-          qvs(k) = rslf(pres(k), temp(k))
+          rho(k) = 0.622*WRF_THOMPSON_PRESSURE_VALUE(k)/(R*temp(k)*(qv(k)+0.622))
+          qvs(k) = rslf(WRF_THOMPSON_PRESSURE_VALUE(k), temp(k))
           ssatw(k) = qv(k)/qvs(k) - 1.
          endif
       enddo
@@ -4853,7 +4866,7 @@
           orho = 1./rho(k)
           rhof(k) = SQRT(RHO_NOT*orho)
           rhof2(k) = SQRT(rhof(k))
-          diffu(k) = 2.11E-5*(temp(k)/273.15)**1.94 * (101325./pres(k))
+          diffu(k) = 2.11E-5*(temp(k)/273.15)**1.94 * (101325./WRF_THOMPSON_PRESSURE_VALUE(k))
           if (tempc .ge. 0.0) then
              visco(k) = (1.718+0.0049*tempc)*1.0E-5
           else
@@ -4917,7 +4930,7 @@
           qv(k) = MAX(1.E-10, qv1d(k) + DT*tendency_bank(k,2))
           nr(k) = MAX(R2, (nr1d(k) + DT*tendency_bank(k,10))*rho(k))
           temp(k) = t1d(k) + DT*tendency_bank(k,1)
-          rho(k) = 0.622*pres(k)/(R*temp(k)*(qv(k)+0.622))
+          rho(k) = 0.622*WRF_THOMPSON_PRESSURE_VALUE(k)/(R*temp(k)*(qv(k)+0.622))
          endif
       enddo
 #if ( WRF_CHEM == 1 )
@@ -5428,6 +5441,7 @@
       enddo
 
       end subroutine mp_thompson
+#undef WRF_THOMPSON_PRESSURE_VALUE
 !+---+-----------------------------------------------------------------+
 !ctrlL
 !+---+-----------------------------------------------------------------+

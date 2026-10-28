@@ -1584,6 +1584,14 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
    INTEGER :: jmin, jmax, jp, jm, imin, imax
 
    REAL    :: mrdx, mrdy, ub, vb, uw, vw, dup, dum
+#if defined(WRF_ADVECT_V_X5_SIMD_ENABLE) && !defined(WRF_ADVECT_V_X5_SIMD_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+   INTEGER :: v_x5_end
+   LOGICAL :: v_x5_masked
+   INTERFACE
+      PURE INTEGER FUNCTION wrf_phy_interp_all_masked()BIND(C)
+      END FUNCTION
+   END INTERFACE
+#endif
    REAL , DIMENSION(its:ite, kts:kte) :: vflux
 
 
@@ -2095,11 +2103,41 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
 !  compute fluxes
 
+#if defined(WRF_ADVECT_V_X5_SIMD_ENABLE) && !defined(WRF_ADVECT_V_X5_SIMD_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+      v_x5_masked=.false.
+      IF(i_start_f<=i_end_f.AND.kts<=ktf.AND.j_start<=j_end)THEN
+         v_x5_end=i_start_f+((i_end_f-i_start_f+1)/8)*8-1
+         v_x5_masked=wrf_phy_interp_all_masked()/=0
+      ENDIF
+#endif
       DO j = j_start, j_end
 
 !  5th or 6th order flux
 
         DO k=kts,ktf
+#if defined(WRF_ADVECT_V_X5_SIMD_ENABLE) && !defined(WRF_ADVECT_V_X5_SIMD_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+        IF(v_x5_masked)THEN
+!$omp simd private(vel)
+        DO i = i_start_f, v_x5_end
+#if defined(WRF_ADVECT_V_X5_O2_OPERAND_ORDER)
+          vel = 0.5*(ru(i,k,j-1)+ru(i,k,j))
+#else
+          vel = 0.5*(ru(i,k,j)+ru(i,k,j-1))
+#endif
+          fqx( i, k ) = vel*flux5( v(i-3,k,j), v(i-2,k,j),  &
+                                         v(i-1,k,j), v(i  ,k,j),  &
+                                         v(i+1,k,j), v(i+2,k,j),  &
+                                         vel                     )
+        ENDDO
+        DO i = v_x5_end+1, i_end_f
+          vel = 0.5*(ru(i,k,j)+ru(i,k,j-1))
+          fqx( i, k ) = vel*flux5( v(i-3,k,j), v(i-2,k,j),  &
+                                         v(i-1,k,j), v(i  ,k,j),  &
+                                         v(i+1,k,j), v(i+2,k,j),  &
+                                         vel                     )
+        ENDDO
+        ELSE
+#endif
         DO i = i_start_f, i_end_f
           vel = 0.5*(ru(i,k,j)+ru(i,k,j-1))
           fqx( i, k ) = vel*flux5( v(i-3,k,j), v(i-2,k,j),  &
@@ -2107,6 +2145,9 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
                                          v(i+1,k,j), v(i+2,k,j),  &
                                          vel                     )
         ENDDO
+#if defined(WRF_ADVECT_V_X5_SIMD_ENABLE) && !defined(WRF_ADVECT_V_X5_SIMD_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+        ENDIF
+#endif
         ENDDO
 
 !  lower order fluxes close to boundaries (if not periodic or symmetric)
