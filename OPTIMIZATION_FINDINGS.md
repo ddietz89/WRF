@@ -6,7 +6,7 @@ Fresh correctness checks passed on the actual 480-rank, 8-by-60 production map o
 
 The owner's explicit MPI-only comparison amendment records errno and inexact differences as diagnostics. Fields, guards, COMMON/store state, all other exception flags, rounding and control settings remained exact; all five actual state words were retained. The original forecast checker is unchanged, and prior full-state failures remain failures. Cold-prefix state is initialization-only, outside this qualification.
 
-Retain this candidate as an investigation and leave the working defaults unchanged. Repeated topology and iterator queries add concrete work; their contribution to the measured slowdown has not been isolated. A narrow helper-only topology-query cache is the next test. [Individual timings, cache receipts, closures and scope](tools/cpu-comm/haloc-early-x-scoped-20261028.json).
+A helper-only follow-up cached validated topology for an unchanged communicator and descriptor, retaining iterator discovery and all buffer/request checks. Fresh scoped correctness passed; its two pairs were 0.88% and 1.29% slower in elapsed time, with 0.88% and 1.29% more main-thread CPU. Both variants remain unpromoted. Removing repeated topology queries established no gain; attributing the slowdown to a particular added cost remains unsupported. Leave the working defaults unchanged and require a distinct measured mechanism before reopening this path. [Individual timings, cache receipts, closures and scope](tools/cpu-comm/haloc-early-x-scoped-20261028.json).
 
 ## Ordinary advection scratch reuse promoted — October 28
 
