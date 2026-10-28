@@ -1071,7 +1071,14 @@ SUBROUTINE calc_p_rho_phi ( moist, n_moist, hypsometric_opt,      &
                             ims, ime, jms, jme, kms, kme,         &
                             its, ite, jts, jte, kts, kte          )
 
+#if defined(WRF_POSTPOW_FINAL_CONSUMER_ENABLE) && !defined(WRF_POSTPOW_FINAL_CONSUMER_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(DOUBLE_PRECISION)
+  use iso_c_binding, only: c_int, c_float
   IMPLICIT NONE
+#else
+  IMPLICIT NONE
+#endif
+#line 1074
+
    
    ! Input data
 
@@ -1105,11 +1112,31 @@ SUBROUTINE calc_p_rho_phi ( moist, n_moist, hypsometric_opt,      &
 
   ! Local stuff
 
+#if defined(WRF_POSTPOW_FINAL_CONSUMER_ENABLE) && !defined(WRF_POSTPOW_FINAL_CONSUMER_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(DOUBLE_PRECISION)
+  INTEGER :: i, j, k, kk, itf, jtf, ktf, ispe, postpow_nvec
+#else
   INTEGER :: i, j, k, kk, itf, jtf, ktf, ispe
+#endif
+#line 1108
+
   REAL    :: qtot, qf1, qf2, qvf
   REAL, DIMENSION( its:ite) :: temp,cpovcv_v
   REAL    :: pfu, phm, pfd
 
+#if defined(WRF_POSTPOW_FINAL_CONSUMER_ENABLE) && !defined(WRF_POSTPOW_FINAL_CONSUMER_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(DOUBLE_PRECISION)
+  interface
+    pure function wrf_phy_interp_all_masked() bind(c) result(masked)
+      import c_int
+      integer(c_int) :: masked
+    end function
+    pure subroutine postpow4(ni,nj,nk,mi,mk,p,pb,p0) bind(c)
+      import c_int,c_float
+      integer(c_int),value :: ni,nj,nk,mi,mk
+      real(c_float),intent(inout) :: p(*)
+      real(c_float),intent(in) :: pb(*); real(c_float),value :: p0
+    end subroutine
+  end interface
+#else
 !<DESCRIPTION>
 !
 ! For the nonhydrostatic option, calc_p_rho_phi calculates the
@@ -1122,6 +1149,9 @@ SUBROUTINE calc_p_rho_phi ( moist, n_moist, hypsometric_opt,      &
 ! equation.
 !
 !</DESCRIPTION>
+#endif
+#line 1124
+
 
   itf=MIN(ite,ide-1)
   jtf=MIN(jte,jde-1)
@@ -1166,7 +1196,14 @@ SUBROUTINE calc_p_rho_phi ( moist, n_moist, hypsometric_opt,      &
 
 
 
+#if defined(WRF_POSTPOW_FINAL_CONSUMER_ENABLE) && !defined(WRF_POSTPOW_FINAL_CONSUMER_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(DOUBLE_PRECISION)
+      moist_nonhydro : IF (n_moist >= PARAM_FIRST_SCALAR ) THEN
+        postpow_nvec=0; if(itf-its+1>=4.and.jts<=jtf.and.kts<=ktf)then; if(wrf_phy_interp_all_masked()/=0_c_int)postpow_nvec=4*((itf-its+1)/4); endif
+#else
       moist_nonhydro : IF (n_moist >= PARAM_FIRST_SCALAR ) THEN  
+#endif
+#line 1169
+
 
         DO j=jts,jtf
         DO k=kts,ktf
@@ -1184,8 +1221,16 @@ SUBROUTINE calc_p_rho_phi ( moist, n_moist, hypsometric_opt,      &
 ! use vector version from libmassv or from compat lib in frame/libmassv.F
         CALL VPOW  ( p(its,k,j), temp(its), cpovcv_v(its), itf-its+1 )
 #endif
+#if defined(WRF_POSTPOW_FINAL_CONSUMER_ENABLE) && !defined(WRF_POSTPOW_FINAL_CONSUMER_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(DOUBLE_PRECISION)
+        if(postpow_nvec>0)call postpow4(postpow_nvec,1,1,ime-ims+1,kme-kms+1,p(its,k,j),pb(its,k,j),p0)
+        DO i=its+postpow_nvec,itf
+           p(i,k,j)= p(i,k,j)*p0-pb(i,k,j)
+#else
         DO i=its,itf
            p(i,k,j)= p(i,k,j)*p0-pb(i,k,j)
+#endif
+#line 1188
+
         ENDDO
         ENDDO
         ENDDO

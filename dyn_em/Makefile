@@ -1260,3 +1260,60 @@ endif
 endif
 endif
 endif
+
+# Requires the existing single d376 mask-helper owner.
+ifeq ($(WRF_PHY_INTERPOLATION_SIMD),1)
+# Post-VSPow row final-consumer full4 prefix; original scalar tails/fallback.
+# WRF_POSTPOW_FINAL_CONSUMER=0 preserves the literal original post-VSPow pressure consumer.
+# Rebuild this member and helper when changing the knob.
+WRF_POSTPOW_FINAL_CONSUMER ?= 1
+module_big_step_utilities_em.o: private override CPPFLAGS += -UWRF_POSTPOW_FINAL_CONSUMER_ENABLE
+ifeq ($(WRF_POSTPOW_FINAL_CONSUMER),0)
+module_big_step_utilities_em.o: private override CPPFLAGS += -DWRF_POSTPOW_FINAL_CONSUMER_DISABLE
+endif
+ifeq ($(WRF_POSTPOW_FINAL_CONSUMER),1)
+ifeq ($(WRF_DIFFUSION_SIMD),1)
+ifeq ($(strip $(OMPCPP) $(OMP) $(PROMOTION) $(DOUBLE_PRECISION)),)
+ifeq ($(filter -fopenmp -fopenmp=%,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
+ifeq ($(strip $(RWORDSIZE)),4)
+ifeq ($(strip $(IWORDSIZE)),4)
+ifeq ($(filter -fdefault-% -freal-% -finteger-% -r8 -i8,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
+ifeq ($(sort $(filter -O%,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC))),-O2)
+ifeq ($(filter -ffast-math -Ofast -ffinite-math-only -funsafe-math-optimizations -freciprocal-math -ffp-contract=fast -fno-signed-zeros -fassociative-math -fno-trapping-math,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
+ifneq (,$(filter -fno-fast-math,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG)))
+ifneq (,$(filter -ffp-contract=off,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG)))
+ifeq ($(filter-out -ffp-contract=off,$(filter -ffp-contract=%,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC))),)
+ifeq ($(filter -D_OPENMP -D_OPENMP=%,$(CPPFLAGS)),)
+ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+ifneq (,$(findstring GNU Fortran,$(shell $(FC) --version 2>/dev/null)))
+ifeq ($(shell $(FC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+ifneq (,$(filter -DDM_PARALLEL -DDM_PARALLEL=%,$(CPPFLAGS)))
+ifeq ($(shell $(CC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+module_big_step_utilities_em.o: private override CPPFLAGS += -DWRF_POSTPOW_FINAL_CONSUMER_ENABLE
+OBJS += postpow4.o
+$(LIBTARGET): postpow4.o
+postpow4.o: postpow4.c
+	$(CC) $(CFLAGS) -O2 -std=c11 -fno-fast-math -ffp-contract=off -msse2 -mno-avx -mno-fma -c $< -o $@
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+
+
+endif

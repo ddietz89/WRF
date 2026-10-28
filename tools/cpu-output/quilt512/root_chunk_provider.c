@@ -199,11 +199,19 @@ static void wps_pack_shuffle4(const nc_precompressed_float_layout*l,size_t c,
     }
     size_t row_off=lo-l->offsets[c][last];
     size_t act=hi-lo;
+    size_t row_relative[4]={0};
     for(size_t row=0;row<rows;row++){
-        size_t rem=row,index=0,pos[4]={0};int inside=1;
+        /* Advance only bounded relative coordinates; never form an overflowing
+         * one-past absolute offset. Keep the original row visitation order. */
+        if(row){
+            for(int d=last-1;d>=0;d--){
+                if(row_relative[d]<l->chunk_dims[d]-1){row_relative[d]++;break;}
+                row_relative[d]=0;
+            }
+        }
+        size_t index=0,pos[4]={0};int inside=1;
         for(int d=last-1;d>=0;d--){
-            pos[d]=l->offsets[c][d]+rem%l->chunk_dims[d];
-            rem/=l->chunk_dims[d];
+            pos[d]=l->offsets[c][d]+row_relative[d];
             if(pos[d]<l->request_start[d]||pos[d]>=l->request_start[d]+l->request_count[d])inside=0;
         }
         unsigned char*dst=out+row*width;

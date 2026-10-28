@@ -20,13 +20,17 @@ def main():
  ap=argparse.ArgumentParser();ap.add_argument('--provider',choices=['original','simd-pack','fused-pack'],default='fused-pack');ap.add_argument('--codec',choices=['private-distance','block-carry','slide-hash','huffman','guarded','inline','original'],default='private-distance');ap.add_argument('--codec-library',type=Path);ap.add_argument('--shared-dir',type=Path,default=HERE.parent);ap.add_argument('--output-dir',required=True,type=Path);a=ap.parse_args()
  codec_spec=json.loads((HERE/'codec/selection.json').read_text())['variants'][a.codec];codec_path=a.codec_library.absolute()if a.codec_library else Path(codec_spec['path']);assert sha(codec_path)==codec_spec['sha256'],'selected codec bytes differ'
  shared=a.shared_dir.resolve();pins=json.loads((HERE/'shared-source-pins.json').read_text());qualification=json.loads((HERE/'qualification.json').read_text())
- assert sha(HERE/'wrf_quilt_thread_shim.c')==qualification['variant_source_sha256']
- variant=qualification if a.provider=='original' else qualification['optional_build_variants'][a.provider]
+ current=json.loads((HERE/'row-cursor-current-build.json').read_text()) if a.provider=='fused-pack' else None
+ shim_sha=current['guard_source_sha256'] if current else qualification['variant_source_sha256']
+ assert sha(HERE/'wrf_quilt_thread_shim.c')==shim_sha
+ variant=current if current else (qualification if a.provider=='original' else qualification['optional_build_variants'][a.provider])
  provider=shared/'root_chunk_provider.c' if a.provider=='original' else HERE/variant.get('provider_source_file','root_chunk_provider.c')
  provider_sha=pins['root_chunk_provider.c'] if a.provider=='original' else variant['provider_source_sha256']
  assert sha(provider)==provider_sha
  for n,h in pins.items():assert sha(shared/n)==h,(n,'shared source changed')
- for n,h in DEPENDENCIES.items():assert sha(n)==h,(n,'dependency changed')
+ # Current fused route links MPI/z/dl/m only; old netCDF/HDF dependency receipts remain historical.
+ for n,h in (current['direct_dependency_pins'] if current else DEPENDENCIES).items():assert sha(n)==h,(n,'dependency changed')
+ if current:assert subprocess.check_output([str(GNU/'bin/gcc'),'-dumpfullversion'],text=True).strip()=='13.3.0'
  out=a.output_dir.absolute();assert not out.exists() and not out.is_symlink()
  assert all(not q.is_symlink()for q in out.parents);out.mkdir(parents=True,exist_ok=False)
  env=os.environ.copy();env.pop('LD_PRELOAD',None);env.update(PATH=str(GNU/'bin')+':'+str(MPI/'bin')+':'+env.get('PATH',''),OPAL_PREFIX=str(MPI),OMPI_CC=str(GNU/'bin/gcc'),LD_LIBRARY_PATH=str(MPI/'lib')+':'+str(GNU/'deps/lib')+':'+str(GNU/'lib64'))
@@ -34,8 +38,16 @@ def main():
  flags=['-O2','-I'+str(GNU/'deps/include'),'-I'+str(shared),'-L'+str(MPI/'lib'),'-L'+str(GNU/'deps/lib'),'-Wl,-rpath,'+str(GNU/'deps/lib'),'-std=c11','-Wall','-Wextra','-Werror=implicit-function-declaration','-pthread','-fPIC','-shared']
  if a.provider in ['simd-pack','fused-pack']:flags[1:1]=['-fno-fast-math','-ffp-contract=off']
  binary=out/'wrf_quilt_thread_shim.so';cmd=[str(MPI/'bin/mpicc'),*flags,str(HERE/'wrf_quilt_thread_shim.c'),str(provider),'-lz','-ldl','-lm','-o',str(binary)]
- r=subprocess.run(cmd,env=env,capture_output=True,text=True)
- receipt={'status':'BUILD_ONLY_PENDING_RUNTIME_QUALIFICATION'if r.returncode==0 else'BUILD_FAILED','command':cmd,'returncode':r.returncode,'stdout':r.stdout,'stderr':r.stderr,'source_sha256':qualification['variant_source_sha256'],'provider':a.provider,'provider_source_sha256':provider_sha,'shared_sha256':pins,'dependencies':DEPENDENCIES,'selected_codec':{'variant':a.codec,'path':str(codec_path),'sha256':codec_spec['sha256'],'scope':'rank-only preload; build does not activate or qualify a model'},'reproduces_native_binary_hash':False,'runtime_qualified':False}
+ commands=[cmd]
+ if current:
+  base=[x for x in flags if x!='-shared']
+  commands=[[str(MPI/'bin/mpicc'),*base,'-c',str(HERE/'wrf_quilt_thread_shim.c'),'-o',str(out/'output_fp_shim.o')],[str(MPI/'bin/mpicc'),*base,'-c',str(provider),'-o',str(out/'root_chunk_provider.o')],[str(MPI/'bin/mpicc'),*flags,str(out/'output_fp_shim.o'),str(out/'root_chunk_provider.o'),'-lz','-ldl','-lm','-o',str(binary)]]
+ command_records=[]
+ for cmd in commands:
+  r=subprocess.run(cmd,env=env,capture_output=True,text=True)
+  command_records.append({'argv':cmd,'returncode':r.returncode,'stdout':r.stdout,'stderr':r.stderr})
+  if r.returncode:break
+ receipt={'status':'BUILD_ONLY_PENDING_RUNTIME_QUALIFICATION'if r.returncode==0 else'BUILD_FAILED','command':cmd,'commands':command_records,'returncode':r.returncode,'stdout':r.stdout,'stderr':r.stderr,'source_sha256':shim_sha,'provider':a.provider,'provider_source_sha256':provider_sha,'shared_sha256':pins,'dependencies':current['direct_dependency_pins'] if current else DEPENDENCIES,'selected_codec':{'variant':a.codec,'path':str(codec_path),'sha256':codec_spec['sha256'],'scope':'rank-only preload; build does not activate or qualify a model'},'recipe_scope':'current strict GNU13.3 fused source; public recipe byte identity unproven' if current else 'historical variant recipe','reproduces_native_binary_hash':False,'runtime_qualified':False}
  if r.returncode==0:
   receipt['binary_sha256']=sha(binary);receipt['matches_retained_native_binary']=receipt['binary_sha256']==variant['native_artifact']['sha256']
   for name,args in [('dynamic',['readelf','-d',str(binary)]),('symbols',['nm','-D',str(binary)]),('closure',['ldd',str(binary)]),('compiler',[str(GNU/'bin/gcc'),'--version'])]:
