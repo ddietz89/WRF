@@ -3166,7 +3166,12 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 #endif
 #line 3085
    REAL    :: mrdx, mrdy, ub, vb, uw, vw
+#if defined(WRF_ORDINARY_VFLUX_REUSE_ENABLE) && !defined(WRF_ORDINARY_VFLUX_REUSE_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+#define WRF_ORDINARY_VFLUX(i,k) fqy(i,k,1)
+#else
+#define WRF_ORDINARY_VFLUX(i,k) vflux(i,k)
    REAL , DIMENSION(its:ite, kts:kte) :: vflux
+#endif
 #if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
 #else
 
@@ -4354,8 +4359,8 @@ TRIM( wrf_err_message ) )
       j_end   = MIN(jte,jde-1)
 
       DO i = i_start, i_end
-         vflux(i,kts)=0.
-         vflux(i,kte)=0.
+         WRF_ORDINARY_VFLUX(i,kts)=0.
+         WRF_ORDINARY_VFLUX(i,kte)=0.
       ENDDO
 
     vert_order_test : IF (vert_order == 6) THEN    
@@ -4365,7 +4370,7 @@ TRIM( wrf_err_message ) )
          DO k=kts+3,ktf-2
          DO i = i_start, i_end
            vel=rom(i,k,j)
-           vflux(i,k) = vel*flux6(                                 &
+           WRF_ORDINARY_VFLUX(i,k) = vel*flux6(                                 &
                    field(i,k-3,j), field(i,k-2,j), field(i,k-1,j),       &
                    field(i,k  ,j), field(i,k+1,j), field(i,k+2,j),  -vel )
          ENDDO
@@ -4374,26 +4379,26 @@ TRIM( wrf_err_message ) )
          DO i = i_start, i_end
 
            k=kts+1
-           vflux(i,k)=rom(i,k,j)*(fzm(k)*field(i,k,j)+fzp(k)*field(i,k-1,j))
+           WRF_ORDINARY_VFLUX(i,k)=rom(i,k,j)*(fzm(k)*field(i,k,j)+fzp(k)*field(i,k-1,j))
                                    
            k = kts+2
            vel=rom(i,k,j)
-           vflux(i,k) = vel*flux4(               &
+           WRF_ORDINARY_VFLUX(i,k) = vel*flux4(               &
                    field(i,k-2,j), field(i,k-1,j),   &
                    field(i,k  ,j), field(i,k+1,j), -vel )
            k = ktf-1
            vel=rom(i,k,j)
-           vflux(i,k) = vel*flux4(               &
+           WRF_ORDINARY_VFLUX(i,k) = vel*flux4(               &
                    field(i,k-2,j), field(i,k-1,j),   &
                    field(i,k  ,j), field(i,k+1,j), -vel )
 
            k=ktf
-           vflux(i,k)=rom(i,k,j)*(fzm(k)*field(i,k,j)+fzp(k)*field(i,k-1,j))
+           WRF_ORDINARY_VFLUX(i,k)=rom(i,k,j)*(fzm(k)*field(i,k,j)+fzp(k)*field(i,k-1,j))
          ENDDO
 
          DO k=kts,ktf
          DO i = i_start, i_end
-            tendency(i,k,j)=tendency(i,k,j)-rdzw(k)*(vflux(i,k+1)-vflux(i,k))
+            tendency(i,k,j)=tendency(i,k,j)-rdzw(k)*(WRF_ORDINARY_VFLUX(i,k+1)-WRF_ORDINARY_VFLUX(i,k))
          ENDDO
          ENDDO
 
@@ -4406,7 +4411,7 @@ TRIM( wrf_err_message ) )
          DO k=kts+3,ktf-2
          DO i = i_start, i_end
            vel=rom(i,k,j)
-           vflux(i,k) = vel*flux5(                                 &
+           WRF_ORDINARY_VFLUX(i,k) = vel*flux5(                                 &
                    field(i,k-3,j), field(i,k-2,j), field(i,k-1,j),       &
                    field(i,k  ,j), field(i,k+1,j), field(i,k+2,j),  -vel )
          ENDDO
@@ -4415,26 +4420,26 @@ TRIM( wrf_err_message ) )
          DO i = i_start, i_end
 
            k=kts+1
-           vflux(i,k)=rom(i,k,j)*(fzm(k)*field(i,k,j)+fzp(k)*field(i,k-1,j))
+           WRF_ORDINARY_VFLUX(i,k)=rom(i,k,j)*(fzm(k)*field(i,k,j)+fzp(k)*field(i,k-1,j))
                                    
            k = kts+2
            vel=rom(i,k,j)
-           vflux(i,k) = vel*flux3(               &
+           WRF_ORDINARY_VFLUX(i,k) = vel*flux3(               &
                    field(i,k-2,j), field(i,k-1,j),   &
                    field(i,k  ,j), field(i,k+1,j), -vel )
            k = ktf-1
            vel=rom(i,k,j)
-           vflux(i,k) = vel*flux3(               &
+           WRF_ORDINARY_VFLUX(i,k) = vel*flux3(               &
                    field(i,k-2,j), field(i,k-1,j),   &
                    field(i,k  ,j), field(i,k+1,j), -vel )
 
            k=ktf
-           vflux(i,k)=rom(i,k,j)*(fzm(k)*field(i,k,j)+fzp(k)*field(i,k-1,j))
+           WRF_ORDINARY_VFLUX(i,k)=rom(i,k,j)*(fzm(k)*field(i,k,j)+fzp(k)*field(i,k-1,j))
          ENDDO
 
          DO k=kts,ktf
          DO i = i_start, i_end
-            tendency(i,k,j)=tendency(i,k,j)-rdzw(k)*(vflux(i,k+1)-vflux(i,k))
+            tendency(i,k,j)=tendency(i,k,j)-rdzw(k)*(WRF_ORDINARY_VFLUX(i,k+1)-WRF_ORDINARY_VFLUX(i,k))
          ENDDO
          ENDDO
 
@@ -4447,7 +4452,7 @@ TRIM( wrf_err_message ) )
          DO k=kts+2,ktf-1
          DO i = i_start, i_end
            vel=rom(i,k,j)
-           vflux(i,k) = vel*flux4(                                 &
+           WRF_ORDINARY_VFLUX(i,k) = vel*flux4(                                 &
                    field(i,k-2,j), field(i,k-1,j),       &
                    field(i,k  ,j), field(i,k+1,j),  -vel )
          ENDDO
@@ -4456,14 +4461,14 @@ TRIM( wrf_err_message ) )
          DO i = i_start, i_end
 
            k=kts+1
-           vflux(i,k)=rom(i,k,j)*(fzm(k)*field(i,k,j)+fzp(k)*field(i,k-1,j))
+           WRF_ORDINARY_VFLUX(i,k)=rom(i,k,j)*(fzm(k)*field(i,k,j)+fzp(k)*field(i,k-1,j))
            k=ktf
-           vflux(i,k)=rom(i,k,j)*(fzm(k)*field(i,k,j)+fzp(k)*field(i,k-1,j))
+           WRF_ORDINARY_VFLUX(i,k)=rom(i,k,j)*(fzm(k)*field(i,k,j)+fzp(k)*field(i,k-1,j))
          ENDDO
 
          DO k=kts,ktf
          DO i = i_start, i_end
-            tendency(i,k,j)=tendency(i,k,j)-rdzw(k)*(vflux(i,k+1)-vflux(i,k))
+            tendency(i,k,j)=tendency(i,k,j)-rdzw(k)*(WRF_ORDINARY_VFLUX(i,k+1)-WRF_ORDINARY_VFLUX(i,k))
          ENDDO
          ENDDO
 
@@ -4477,7 +4482,7 @@ TRIM( wrf_err_message ) )
 !$omp simd private(vel)
          DO i = i_start, i_end
            vel=rom(i,k,j)
-           vflux(i,k) = vel*flux3(                      &
+           WRF_ORDINARY_VFLUX(i,k) = vel*flux3(                      &
                    field(i,k-2,j), field(i,k-1,j),      &
                    field(i,k  ,j), field(i,k+1,j),  -vel )
          ENDDO
@@ -4486,15 +4491,15 @@ TRIM( wrf_err_message ) )
          DO i = i_start, i_end
 
            k=kts+1
-           vflux(i,k)=rom(i,k,j)*(fzm(k)*field(i,k,j)+fzp(k)*field(i,k-1,j))
+           WRF_ORDINARY_VFLUX(i,k)=rom(i,k,j)*(fzm(k)*field(i,k,j)+fzp(k)*field(i,k-1,j))
            k=ktf
-           vflux(i,k)=rom(i,k,j)*(fzm(k)*field(i,k,j)+fzp(k)*field(i,k-1,j))
+           WRF_ORDINARY_VFLUX(i,k)=rom(i,k,j)*(fzm(k)*field(i,k,j)+fzp(k)*field(i,k-1,j))
          ENDDO
 
          DO k=kts,ktf
 !$omp simd
          DO i = i_start, i_end
-            tendency(i,k,j)=tendency(i,k,j)-rdzw(k)*(vflux(i,k+1)-vflux(i,k))
+            tendency(i,k,j)=tendency(i,k,j)-rdzw(k)*(WRF_ORDINARY_VFLUX(i,k+1)-WRF_ORDINARY_VFLUX(i,k))
          ENDDO
          ENDDO
       ENDDO
@@ -4504,13 +4509,13 @@ TRIM( wrf_err_message ) )
   DO j = j_start, j_end
      DO k = kts+1, ktf
      DO i = i_start, i_end
-            vflux(i,k)=rom(i,k,j)*(fzm(k)*field(i,k,j)+fzp(k)*field(i,k-1,j))
+            WRF_ORDINARY_VFLUX(i,k)=rom(i,k,j)*(fzm(k)*field(i,k,j)+fzp(k)*field(i,k-1,j))
      ENDDO
      ENDDO
 
      DO k = kts, ktf
      DO i = i_start, i_end
-       tendency(i,k,j)=tendency(i,k,j)-rdzw(k)*(vflux(i,k+1)-vflux(i,k))
+       tendency(i,k,j)=tendency(i,k,j)-rdzw(k)*(WRF_ORDINARY_VFLUX(i,k+1)-WRF_ORDINARY_VFLUX(i,k))
      ENDDO
      ENDDO
 
@@ -4524,6 +4529,7 @@ wrf_err_message )
 
    ENDIF vert_order_test
 
+#undef WRF_ORDINARY_VFLUX
 END SUBROUTINE advect_scalar
 #if defined(WRF_ADVECT_FIRST_Y_ZERO_SEED) && defined(DM_PARALLEL) && !defined(_OPENMP)
 

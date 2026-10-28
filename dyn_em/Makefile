@@ -1487,3 +1487,64 @@ endif
 endif
 endif
 endif
+
+# Reuse the completed ordinary horizontal flux plane for vertical scratch.
+# Strict qualified GNU13.3/O2/REAL4 INTEGER4/pureMPI scope; explicit0 rolls back.
+WRF_ORDINARY_VFLUX_REUSE ?= 1
+module_advect_em.o: private override CPPFLAGS += -UWRF_ORDINARY_VFLUX_REUSE_ENABLE
+ifeq ($(WRF_ORDINARY_VFLUX_REUSE),0)
+module_advect_em.o: private override CPPFLAGS += -DWRF_ORDINARY_VFLUX_REUSE_DISABLE
+endif
+ifeq ($(WRF_ORDINARY_VFLUX_REUSE),1)
+ifeq ($(WRF_PD_NOACTIVE_SKIP),1)
+ifeq ($(WRF_PD_FINAL_PASS_FUSION),1)
+ifeq ($(WRF_ADVECTION_SIMD),1)
+ifeq ($(WRF_ADVECTION_ZEN2),1)
+ifeq ($(WRF_PHY_INTERPOLATION_SIMD),1)
+ifeq ($(filter -UDM_PARALLEL -U,$(CPPFLAGS)),)
+ifeq ($(WRF_DIFFUSION_SIMD),1)
+ifeq ($(strip $(OMPCPP) $(OMP) $(PROMOTION) $(DOUBLE_PRECISION)),)
+ifeq ($(filter -fopenmp -fopenmp=%,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
+ifeq ($(strip $(RWORDSIZE)),4)
+ifeq ($(strip $(IWORDSIZE)),4)
+ifeq ($(filter -fdefault-% -freal-% -finteger-% -r8 -i8,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
+ifeq ($(sort $(filter -O%,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC))),-O2)
+ifeq ($(filter -ffast-math -Ofast -ffinite-math-only -funsafe-math-optimizations -freciprocal-math -ffp-contract=fast -fno-signed-zeros -fassociative-math -fno-trapping-math,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
+ifneq (,$(filter -fno-fast-math,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG)))
+ifneq (,$(filter -ffp-contract=off,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG)))
+ifeq ($(filter-out -ffp-contract=off,$(filter -ffp-contract=%,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC))),)
+ifeq ($(filter -D_OPENMP -D_OPENMP=%,$(CPPFLAGS)),)
+ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+ifneq (,$(findstring GNU Fortran,$(shell $(FC) --version 2>/dev/null)))
+ifeq ($(shell $(FC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+ifneq (,$(filter -DDM_PARALLEL -DDM_PARALLEL=%,$(CPPFLAGS)))
+ifeq ($(shell $(CC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+module_advect_em.o: private override CPPFLAGS += -DWRF_ORDINARY_VFLUX_REUSE_ENABLE
+
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+
+endif
+endif
+endif
+endif
+endif
+endif
