@@ -1,0 +1,50 @@
+{
+  "decision": "REJECT_WHOLE_SMALLSTEP_MODULE_STACK_ARRAYS_FOR_DEFAULT_NO_CALLER_GAIN",
+  "date": "2026-10-28",
+  "change": "Same strict O2 SmallStep preprocessed source plus only -fstack-arrays; automatic scratch placement changes in advance_w, advance_uv, advance_mu_t and calc_coef_w. No Fortran arithmetic/source algorithm change.",
+  "parent_O2_object_sha256": "14e173b2a5858dd91fc764e3e3e8b1dd33a0c4e3099af8e433fd28f53c65cd26",
+  "candidate_O2_object_sha256": "f3724bf7d79257efd803b1d926410df3a5ea6ca997dd5cc8404c1940c08b614a",
+  "PP_sha256": "5d644f2a68fa79c3cc43f1199a7a1b3ebb88efdb00559228d7d5bcab89a402dd",
+  "raw_public_MOD_sha256": "d50c501497b927ad56b9bb3b7cb9431c827b8092cedf23e83d8f573ccb884b94",
+  "native_pass": true,
+  "actual_total_malloc_and_free_sites_each": {
+    "parent": 15,
+    "candidate": 0
+  },
+  "comparisons": [
+    {
+      "host": "hpc01",
+      "parent_wall_seconds": 1.78635788,
+      "candidate_wall_seconds": 1.898369249,
+      "wall_cost_increase_percent": 6.270376739962095,
+      "parent_process_cpu_seconds": 1.785615441,
+      "candidate_process_cpu_seconds": 1.896267759,
+      "process_cpu_cost_increase_percent": 6.196872823749293
+    },
+    {
+      "host": "hpc02",
+      "parent_wall_seconds": 1.792176767,
+      "candidate_wall_seconds": 1.80660177,
+      "wall_cost_increase_percent": 0.8048872893351239,
+      "parent_process_cpu_seconds": 1.791433794,
+      "candidate_process_cpu_seconds": 1.806091535,
+      "process_cpu_cost_increase_percent": 0.8182128219916759
+    }
+  ],
+  "reason": "The selected complete captured W caller is slower in wall and process CPU time on both hosts. It establishes no significant caller gain, and no meaningful peak/capacity benefit was demonstrated. Root rejects the whole-module stack flag for default use under the significant-gain inclusion rule.",
+  "retention": "Evidence retained; candidate unpromoted. No further UV/MU performance sweep, repeat or layout variant without a new measured mechanism.",
+  "source_or_default_applied": false,
+  "application_qualification_run": false,
+  "cached_child_build_executed": false,
+  "future_cached_build_and_noon_context_remain_inactive": true,
+  "selected_executable_unchanged": true,
+  "selected_archive_unchanged": true,
+  "selected_parent_executable_sha256": "efa608eb1e612ff8385c5d79c667b72e42ef5907e81ce95462f3eaa11352e1a9",
+  "selected_parent_archive_sha256": "05cc9c6719fb24eced79f247436e6c8868f55633c01a300c60d60818528b43b2",
+  "rollback": "No stack flag or SmallStep candidate image was selected; current14e member remains in the selected image.",
+  "native_R1_operational_failure_preserved": true,
+  "O0_or_whole_model_regression_claim": false,
+  "wave_sha256": "b6b515b78eadab6d78172a4702dabdd1ac18c22b159d10b6610ff8fe367a3c83",
+  "evidence_file": "EVIDENCE.json",
+  "evidence_sha256": "b61a686b9afe19a3acea466d3481fd783a3b470c85c1c1c7183967fd0d458136"
+}

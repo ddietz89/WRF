@@ -1,5 +1,11 @@
 # WRF CPU optimization findings
 
+## SmallStep stack arrays: caller slower, unpromoted — October 28
+
+A flag-only strict O2 SmallStep build passed the retained W392/full capture, UV70, MU87 and coefficient80 checks with exact raw outputs, read-only inputs, physical guards, five state observations and public module-interface bytes. Actual scratch malloc/free sites fell from 15 to zero, but array capacity was unchanged and no peak-memory benefit was measured.
+
+The complete captured W caller, including all three mutable restores and the callee inside both clocks, was **6.27% slower on hpc01** and **0.80% slower on hpc02**; process CPU was **6.20%/0.82% higher**. All four cache-each arms passed the full raw/state checks and closed normally. This single historical 450-by-342, 16-rank capture does not establish a whole-model regression or UV/MU performance result. Reject the whole-module stack flag for default use: no significant gain was demonstrated. Keep the cached build and application preparation inactive, preserve the initial operational failure and successful continuation, and do not repeat performance sweeps without a new mechanism. [Evidence and decision](tools/cpu-compute/smallstep-stack-arrays-screen-20261028/README.md).
+
 ## Ordinary advection X/Y scratch reuse: retained unpromoted — October 28
 
 A distinct storage change lets the horizontal X and Y phases share one scratch bank. It passed 416 strict O2/O0 capture and edge comparisons, including raw outputs, read-only inputs, all five processor-state values and unchanged public module interfaces. Compiled scratch allocations and normal frees fall from two to one; an example 188-by-33 tile uses 24,684 fewer bytes. This is a per-call storage reduction, with no measured peak-memory or capacity benefit.

@@ -1,0 +1,518 @@
+{
+  "status": "COMPLETED_O2_NATIVE_MACHINE_AND_CAPTURED_W_CALLER_SCREEN_NO_APPLICATION",
+  "objects": {
+    "O2-parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current1d16-mu-disjoint-scratch-full87-native-hpc04-r1/work/O2/production-candidate.o",
+      "sha256": "14e173b2a5858dd91fc764e3e3e8b1dd33a0c4e3099af8e433fd28f53c65cd26",
+      "MOD_path": "/pool/wrf-experiment/wrf-cpu/kernels/current1d16-mu-disjoint-scratch-full87-native-hpc04-r1/work/O2/module_small_step_em.mod",
+      "MOD_sha256": "d50c501497b927ad56b9bb3b7cb9431c827b8092cedf23e83d8f573ccb884b94",
+      "PP_sha256": "5d644f2a68fa79c3cc43f1199a7a1b3ebb88efdb00559228d7d5bcab89a402dd"
+    },
+    "O2-candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current9010-smallstep-stack-complete-native-hpc02-r1/work/candidate/module_small_step_em.o",
+      "sha256": "f3724bf7d79257efd803b1d926410df3a5ea6ca997dd5cc8404c1940c08b614a",
+      "PP_sha256": "5d644f2a68fa79c3cc43f1199a7a1b3ebb88efdb00559228d7d5bcab89a402dd",
+      "MOD_sha256": "d50c501497b927ad56b9bb3b7cb9431c827b8092cedf23e83d8f573ccb884b94",
+      "FCFLAGS": [
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-fopenmp-simd",
+        "-march=znver2",
+        "-mno-fma",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-fstack-arrays"
+      ]
+    }
+  },
+  "native": {
+    "status": "PASS_CURRENT14E_SMALLSTEP_IDENTICAL_PP_O2_STACK_W392_CAPTURE_UV70_MU87_COEF80_RAW_FIVE_PENDING_MACHINE",
+    "invocation_id": "af50f8216cf0405ba327bed70d8195c7",
+    "normal_closed": true,
+    "source_PP_identical": true,
+    "raw_public_MOD_exact": true,
+    "W_cases": 392,
+    "W_full40role_capture_pass": true,
+    "UV_original_protocol_calls": 70,
+    "MU_sameopt_observations": 87,
+    "coefficient_calls": 80,
+    "original_physical_readOnly_guard_and_all_five_state_hard": true,
+    "public_cross_executable_raw": {
+      "W": {
+        "parent_sha256": "7ebb9bd9e044ca5ead0f8d34a678d0f6afeff083242591166cbbbabc3c86bee2",
+        "candidate_sha256": "7ebb9bd9e044ca5ead0f8d34a678d0f6afeff083242591166cbbbabc3c86bee2",
+        "bytes": 261032800,
+        "raw_exact": true
+      },
+      "coef": {
+        "parent_sha256": "65a593a0cb08b7e6202ce01e37cfc8fc832144ec94cb8669515305ed2e233a8f",
+        "candidate_sha256": "65a593a0cb08b7e6202ce01e37cfc8fc832144ec94cb8669515305ed2e233a8f",
+        "bytes": 45762560,
+        "raw_exact": true
+      }
+    },
+    "module_compiles_this_cached_continuation": 0,
+    "links": 8,
+    "native_executions": 77,
+    "O0_executed": false
+  },
+  "machine": {
+    "status": "GO_FINITE_CURRENT14E_SMALLSTEP_O2_STACK_NATIVE_AND_MACHINE_FOR_COMPLETE_CALLER_COST",
+    "allocator_sites": {
+      "advance_w": {
+        "parent": {
+          "malloc": 8,
+          "free": 8
+        },
+        "candidate": {
+          "malloc": 0,
+          "free": 0
+        }
+      },
+      "advance_uv": {
+        "parent": {
+          "malloc": 4,
+          "free": 4
+        },
+        "candidate": {
+          "malloc": 0,
+          "free": 0
+        }
+      },
+      "advance_mu_t": {
+        "parent": {
+          "malloc": 2,
+          "free": 2
+        },
+        "candidate": {
+          "malloc": 0,
+          "free": 0
+        }
+      },
+      "calc_coef_w": {
+        "parent": {
+          "malloc": 1,
+          "free": 1
+        },
+        "candidate": {
+          "malloc": 0,
+          "free": 0
+        }
+      }
+    },
+    "automatic_malloc_free_sites_total_each": {
+      "parent": 15,
+      "candidate": 0
+    },
+    "five_nontarget_bodies_and_full_RELA_exact": [
+      "__module_small_step_em_MOD_calc_p_rho",
+      "__module_small_step_em_MOD_init_module_small_step",
+      "__module_small_step_em_MOD_small_step_finish",
+      "__module_small_step_em_MOD_small_step_prep",
+      "__module_small_step_em_MOD_sumflux"
+    ],
+    "data_pools_bytes_and_attributes_exact": [
+      ".data",
+      ".bss",
+      ".rodata.cst4",
+      ".rodata.cst32",
+      ".rodata.cst16"
+    ],
+    "full_target_raw_or_RELA_identity_claim": false,
+    "unwind": {
+      "CIE_description_exact": true,
+      "FDEs_each": 9,
+      "FDE_ranges_and_RELA_bind_actual_function": true,
+      "nontarget_relative_PC_decoded_ops_exact": [
+        "__module_small_step_em_MOD_calc_p_rho",
+        "__module_small_step_em_MOD_init_module_small_step",
+        "__module_small_step_em_MOD_small_step_finish",
+        "__module_small_step_em_MOD_sumflux"
+      ],
+      "explicit_nontarget_trailing_padding_difference": {
+        "__module_small_step_em_MOD_small_step_prep": {
+          "raw_decoded_ops_exact": false,
+          "parent_trailing_DW_CFA_nop": 3,
+          "candidate_trailing_DW_CFA_nop": 7,
+          "all_preceding_decoded_relative_PC_operations_exact": true,
+          "scope": "Exact actual4extra trailing CFI NOP padding; original raw records preserved, no generic CFI rewrite or asynchronous-equivalence claim."
+        }
+      },
+      "target_raw_changed": [
+        "__module_small_step_em_MOD_advance_mu_t",
+        "__module_small_step_em_MOD_advance_uv",
+        "__module_small_step_em_MOD_advance_w",
+        "__module_small_step_em_MOD_calc_coef_w"
+      ],
+      "whole_eh_frame_raw_exact": false,
+      "no_target_unwind_or_async_equivalence_claim": true
+    },
+    "lifetime_capacity_limits": "Identical source lexical lifetime/disjoint scratch arrays; placement only, same element capacity. Stack infinity required. No peak saving/arbitrary domain stack capacity/trap/O0/universal NaN claim."
+  },
+  "caller": {
+    "status": "PASS_CURRENT14E_SMALLSTEP_FULL_CAPTURED_W1024_RESTORE_INCLUDED_FOUR_ARMS_CACHE_RAW_FIVE_NORMAL_CLOSED",
+    "actual_wave_sha256": "b6b515b78eadab6d78172a4702dabdd1ac18c22b159d10b6610ff8fe367a3c83",
+    "fixed_calls_per_arm": 1024,
+    "order": [
+      "hpc01-parent",
+      "hpc02-candidate",
+      "hpc01-candidate",
+      "hpc02-parent"
+    ],
+    "restores_and_complete_callee_inside_clocks": true,
+    "clock_kind": "CLOCK_MONOTONIC_AND_CLOCK_PROCESS_CPUTIME_ID",
+    "host_comparisons": {
+      "hpc01": {
+        "wall_seconds": {
+          "parent": 1.78635788,
+          "candidate": 1.898369249,
+          "percent_lower": -6.270376739962095
+        },
+        "process_cpu_seconds": {
+          "parent": 1.785615441,
+          "candidate": 1.896267759,
+          "percent_lower": -6.196872823749293
+        }
+      },
+      "hpc02": {
+        "wall_seconds": {
+          "parent": 1.792176767,
+          "candidate": 1.80660177,
+          "percent_lower": -0.8048872893351239
+        },
+        "process_cpu_seconds": {
+          "parent": 1.791433794,
+          "candidate": 1.806091535,
+          "percent_lower": -0.8182128219916759
+        }
+      }
+    },
+    "arms": [
+      {
+        "status": "PASS_CURRENT14E_SMALLSTEP_FULL_CAPTURED_W1024_RESTORE_INCLUDED_COST_ARM",
+        "invocation_id": "00ab45e2f2c94797bffd0ea91ccdce04",
+        "host": "hpc01",
+        "which": "parent",
+        "calls": 1024,
+        "wall_seconds": 1.78635788,
+        "process_cpu_seconds": 1.785615441,
+        "cpu_seconds": 1.785615441,
+        "capture_state": [
+          34,
+          0,
+          32,
+          8096,
+          895
+        ],
+        "all_five_compute_words_hard": true,
+        "original_full_raw_gold_readOnly_guards_checked_warm_and_everycall": true,
+        "post_full_raw_bytes": 4851020,
+        "post_full_raw_sha256": "c2bfa51616aeee61ec4d48fc603ad835b8db757e2f1751235d7fc37d4b4da885",
+        "stdout_sha256": "f0e7d8fc5c577121b54995d086da42bcd99156f7c614f51e214a1ee2bc224630",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "native_receipt_sha256": "22db42662680c230ba0127c2e6ed72fb76a530b767a7ed1503917a49e645be8c",
+        "build_receipt_sha256": "b183e6397f7bbb0a717e0b6211560b7b1952f4aa674609fd59b3d95c89c69cd7",
+        "scope": "Single retained genuine historical450x342/16rank completeadvance_w captured configuration (damp_opt3); full3mutablephysicalrestore+completecallee8allocation/free inside MONOTONIC/PROCESSCPU clocks. Original40roleinput/readOnly/fullphysicaloutput oracle everycall; five-state hard and rawP/C golden. No newscientificfixture or production512 tile claim. Fullnative W392/UV70/MU87/coefficient80 qualified separately; cost is W only, not all15allocations or all branch performance. No O0/enabledtrap/peakcapacity/application/globalfraction claim.",
+        "clock_kind": "CLOCK_MONOTONIC_AND_CLOCK_PROCESS_CPUTIME_ID",
+        "elapsed_seconds_context_only": 7.899131050799042,
+        "arm": 0,
+        "evidence_sha256": {
+          "receipt.json": "ed0cfd4d159d8213d685467a5cdf510d8ebeb5bf0ce6121f798a099b60dd0c75",
+          "closure.json": "7bab7dbac85a8e084b487f82ee1e813fd63e17de9185db9f338b1df4c5d0705f",
+          "cache-clear.json": "3fd9bc6ebae968fdcd2aa4ee45353d75022d12ab81611853bdf207430c39981b",
+          "controller.json": "596b7b120a19f381cb51791be85305ea62b542cd891efa90ad4ca5439fc12563"
+        }
+      },
+      {
+        "status": "PASS_CURRENT14E_SMALLSTEP_FULL_CAPTURED_W1024_RESTORE_INCLUDED_COST_ARM",
+        "invocation_id": "3919c8313d6c48cdbfe1baa17f915058",
+        "host": "hpc02",
+        "which": "candidate",
+        "calls": 1024,
+        "wall_seconds": 1.80660177,
+        "process_cpu_seconds": 1.806091535,
+        "cpu_seconds": 1.806091535,
+        "capture_state": [
+          34,
+          0,
+          32,
+          8096,
+          895
+        ],
+        "all_five_compute_words_hard": true,
+        "original_full_raw_gold_readOnly_guards_checked_warm_and_everycall": true,
+        "post_full_raw_bytes": 4851020,
+        "post_full_raw_sha256": "c2bfa51616aeee61ec4d48fc603ad835b8db757e2f1751235d7fc37d4b4da885",
+        "stdout_sha256": "c20c9a0c838a8b706f7871e88e7bc8cfd27aad87f3bb438778711061712729cc",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "native_receipt_sha256": "22db42662680c230ba0127c2e6ed72fb76a530b767a7ed1503917a49e645be8c",
+        "build_receipt_sha256": "b183e6397f7bbb0a717e0b6211560b7b1952f4aa674609fd59b3d95c89c69cd7",
+        "scope": "Single retained genuine historical450x342/16rank completeadvance_w captured configuration (damp_opt3); full3mutablephysicalrestore+completecallee8allocation/free inside MONOTONIC/PROCESSCPU clocks. Original40roleinput/readOnly/fullphysicaloutput oracle everycall; five-state hard and rawP/C golden. No newscientificfixture or production512 tile claim. Fullnative W392/UV70/MU87/coefficient80 qualified separately; cost is W only, not all15allocations or all branch performance. No O0/enabledtrap/peakcapacity/application/globalfraction claim.",
+        "clock_kind": "CLOCK_MONOTONIC_AND_CLOCK_PROCESS_CPUTIME_ID",
+        "elapsed_seconds_context_only": 7.837141385767609,
+        "arm": 1,
+        "evidence_sha256": {
+          "receipt.json": "4d7d321458f7437ff0666d85a51bce72fd6089eaef91da7575ec5221084f1905",
+          "closure.json": "84e99edb6c8d7cec04adb7588794346c959a0253aa06110cf7c5418ba79e1463",
+          "cache-clear.json": "fee663e29507840ce8bf4fcb75a0f9a56dcf8e0e86086d3c6da904a1b19c8504",
+          "controller.json": "edafde1dc150226a67db2a0db71d7890923dc7138dec5d3b714d92cac1f1bdcb"
+        }
+      },
+      {
+        "status": "PASS_CURRENT14E_SMALLSTEP_FULL_CAPTURED_W1024_RESTORE_INCLUDED_COST_ARM",
+        "invocation_id": "4f89331a024d4fd1950d4b96252081b9",
+        "host": "hpc01",
+        "which": "candidate",
+        "calls": 1024,
+        "wall_seconds": 1.898369249,
+        "process_cpu_seconds": 1.896267759,
+        "cpu_seconds": 1.896267759,
+        "capture_state": [
+          34,
+          0,
+          32,
+          8096,
+          895
+        ],
+        "all_five_compute_words_hard": true,
+        "original_full_raw_gold_readOnly_guards_checked_warm_and_everycall": true,
+        "post_full_raw_bytes": 4851020,
+        "post_full_raw_sha256": "c2bfa51616aeee61ec4d48fc603ad835b8db757e2f1751235d7fc37d4b4da885",
+        "stdout_sha256": "4c67b6a61a6d97d570b43bdff2ca7f8e2b70f4837cf5dabc1d098f5e9b8c5c34",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "native_receipt_sha256": "22db42662680c230ba0127c2e6ed72fb76a530b767a7ed1503917a49e645be8c",
+        "build_receipt_sha256": "b183e6397f7bbb0a717e0b6211560b7b1952f4aa674609fd59b3d95c89c69cd7",
+        "scope": "Single retained genuine historical450x342/16rank completeadvance_w captured configuration (damp_opt3); full3mutablephysicalrestore+completecallee8allocation/free inside MONOTONIC/PROCESSCPU clocks. Original40roleinput/readOnly/fullphysicaloutput oracle everycall; five-state hard and rawP/C golden. No newscientificfixture or production512 tile claim. Fullnative W392/UV70/MU87/coefficient80 qualified separately; cost is W only, not all15allocations or all branch performance. No O0/enabledtrap/peakcapacity/application/globalfraction claim.",
+        "clock_kind": "CLOCK_MONOTONIC_AND_CLOCK_PROCESS_CPUTIME_ID",
+        "elapsed_seconds_context_only": 8.074901926331222,
+        "arm": 2,
+        "evidence_sha256": {
+          "receipt.json": "60ae4773fbded3f35994c42bd93702c606ad0d323a343855f53a281bb76b1f4f",
+          "closure.json": "4d19d5d2bc88e5b59ed0e6b32f1fe3d010704d5f9d5950c1f964655aa9c26aac",
+          "cache-clear.json": "89d7bfcbeca4d0d8b6a03b24520a491c99e37f02873c4fbf84a8ad4a3f4b678c",
+          "controller.json": "fd19d81c767b0fb603c5aa20bb39b1f221fad39081e9d2fa46a5ff79f08dd6c4"
+        }
+      },
+      {
+        "status": "PASS_CURRENT14E_SMALLSTEP_FULL_CAPTURED_W1024_RESTORE_INCLUDED_COST_ARM",
+        "invocation_id": "5e77bbf618cd4d789d6c7a5a8b558651",
+        "host": "hpc02",
+        "which": "parent",
+        "calls": 1024,
+        "wall_seconds": 1.792176767,
+        "process_cpu_seconds": 1.791433794,
+        "cpu_seconds": 1.791433794,
+        "capture_state": [
+          34,
+          0,
+          32,
+          8096,
+          895
+        ],
+        "all_five_compute_words_hard": true,
+        "original_full_raw_gold_readOnly_guards_checked_warm_and_everycall": true,
+        "post_full_raw_bytes": 4851020,
+        "post_full_raw_sha256": "c2bfa51616aeee61ec4d48fc603ad835b8db757e2f1751235d7fc37d4b4da885",
+        "stdout_sha256": "8e5422bf2924ceed1afc7894ce57235069d09dcd297344a78a484b768b06b957",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "native_receipt_sha256": "22db42662680c230ba0127c2e6ed72fb76a530b767a7ed1503917a49e645be8c",
+        "build_receipt_sha256": "b183e6397f7bbb0a717e0b6211560b7b1952f4aa674609fd59b3d95c89c69cd7",
+        "scope": "Single retained genuine historical450x342/16rank completeadvance_w captured configuration (damp_opt3); full3mutablephysicalrestore+completecallee8allocation/free inside MONOTONIC/PROCESSCPU clocks. Original40roleinput/readOnly/fullphysicaloutput oracle everycall; five-state hard and rawP/C golden. No newscientificfixture or production512 tile claim. Fullnative W392/UV70/MU87/coefficient80 qualified separately; cost is W only, not all15allocations or all branch performance. No O0/enabledtrap/peakcapacity/application/globalfraction claim.",
+        "clock_kind": "CLOCK_MONOTONIC_AND_CLOCK_PROCESS_CPUTIME_ID",
+        "elapsed_seconds_context_only": 7.814692586660385,
+        "arm": 3,
+        "evidence_sha256": {
+          "receipt.json": "d60d7a0d32a1bd3af7898c41d6aa6d0adf019d78f8d3cf48da2a2fc64dd88f7a",
+          "closure.json": "99d04fa5041b421f96abc6fef1b15cd3fb7f477050013e17e2d3f5379fdd1aa1",
+          "cache-clear.json": "b8862c329a8673f48932e8b8667126f4fc3d1a992f29fc85da85eec1a2279673",
+          "controller.json": "6b8a6e38b36091a4df08e76a2760a083ce76cbd2c3a8014450f5ed301d89641e"
+        }
+      }
+    ],
+    "capture_scope": "One genuine historical450x342/16rank complete advance_w captured configuration, damp_opt3. It is not a current production512 tile or a full model run. All three full mutable restores and the complete callee are inside both clocks; original40role/readOnly/fullphysical checks warm and every call.",
+    "compile_link_scope": {
+      "module_compiles": 0,
+      "C_compiles": 0,
+      "driver_compiles": 1,
+      "links": 2
+    },
+    "cache_each_and_invocation_bound_normal_closures": true
+  },
+  "retained_failed_history": {
+    "R1": {
+      "status": "FAIL_RETAINED_NO_RETRY",
+      "invocation_id": "241997d8164c492ba3ed9fa28bf054f4",
+      "cause": "FileExistsError: output candidate directory collided with compiler candidate directory. Three parent checks passed; candidate numerical checks were not reached.",
+      "module_compiles": 1,
+      "driver_compiles": 5,
+      "C_observer_compiles": 4,
+      "failed_receipt_preserved": true,
+      "actual_failed_and_drained_closure_preserved": true
+    },
+    "R2": "Fresh cached continuation used distinct exec-parent/exec-candidate directories and reran all original gates without changing scientific acceptance."
+  },
+  "references": {
+    "native_R1_failed_receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current9010-smallstep-remaining-allocation-source-question-r1/native-O2-complete-WUV-MU-coef-preparation-r1-hpc02/actual-native-r1/receipt.json",
+      "sha256": "a9ddee6836a96e113df54693e89940d9702eae68fe8e041684eca0cb40607f10",
+      "bytes": 33409
+    },
+    "native_R1_failed_closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current9010-smallstep-remaining-allocation-source-question-r1/native-O2-complete-WUV-MU-coef-preparation-r1-hpc02/actual-native-r1/closure.json",
+      "sha256": "bb422faec721e5d7c7bbd168dafb614035cadaab16b37b9481a76b07ac49c2aa",
+      "bytes": 1373
+    },
+    "native_R1_failed_controller": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current9010-smallstep-remaining-allocation-source-question-r1/native-O2-complete-WUV-MU-coef-preparation-r1-hpc02/actual-native-r1/controller.json",
+      "sha256": "eb7634171796a74439d6785bd0ce55ec2eebaeda9399c29829e1aeddb1027345",
+      "bytes": 892
+    },
+    "native_R2_receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current9010-smallstep-remaining-allocation-source-question-r1/native-O2-cached-WUV-MU-coef-continuation-r2-hpc02/actual-native-r1/receipt.json",
+      "sha256": "22db42662680c230ba0127c2e6ed72fb76a530b767a7ed1503917a49e645be8c",
+      "bytes": 83074
+    },
+    "native_R2_closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current9010-smallstep-remaining-allocation-source-question-r1/native-O2-cached-WUV-MU-coef-continuation-r2-hpc02/actual-native-r1/closure.json",
+      "sha256": "c98f0e23e770dd1c827e10dfff9b430bab406ed1b2414577ec9abc30746302e0",
+      "bytes": 1147
+    },
+    "native_R2_controller": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current9010-smallstep-remaining-allocation-source-question-r1/native-O2-cached-WUV-MU-coef-continuation-r2-hpc02/actual-native-r1/controller.json",
+      "sha256": "37a7893acd4d9db1f5de8db405edc21b027f8ec9d275f9b1ae3b12d80df3c637",
+      "bytes": 1120
+    },
+    "finite_machine_ACK": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current9010-smallstep-remaining-allocation-source-question-r1/independent-actual-native-machine-review-r2/SCOPED_MACHINE_ACK.json",
+      "sha256": "e1e02351baa4278738970c0552955c1f2d4cdcb36c02fda21c8752860eeca2b2",
+      "bytes": 11607
+    },
+    "caller_build_receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current9010-smallstep-remaining-allocation-source-question-r1/complete-captured-W1024-restore-included-cost-preparation-r1/driver-build-r1-hpc02/actual-native-r1/receipt.json",
+      "sha256": "b183e6397f7bbb0a717e0b6211560b7b1952f4aa674609fd59b3d95c89c69cd7",
+      "bytes": 18308
+    },
+    "caller_build_closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current9010-smallstep-remaining-allocation-source-question-r1/complete-captured-W1024-restore-included-cost-preparation-r1/driver-build-r1-hpc02/actual-native-r1/closure.json",
+      "sha256": "c24262db31387e3a9f35eec1c3e00940446245a3f86a095c52b15db29cd7aae1",
+      "bytes": 1159
+    },
+    "caller_build_controller": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current9010-smallstep-remaining-allocation-source-question-r1/complete-captured-W1024-restore-included-cost-preparation-r1/driver-build-r1-hpc02/actual-native-r1/controller.json",
+      "sha256": "10ff4c08a0ace441f989fb64d317bf11b013fee5f48d4ee7c2d4ab7d0f7c555a",
+      "bytes": 1106
+    },
+    "actual_caller_wave": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current9010-smallstep-remaining-allocation-source-question-r1/complete-captured-W1024-restore-included-cost-preparation-r1/ACTUAL_WAVE.json",
+      "sha256": "b6b515b78eadab6d78172a4702dabdd1ac18c22b159d10b6610ff8fe367a3c83",
+      "bytes": 9758
+    },
+    "caller_arm0_receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current9010-smallstep-remaining-allocation-source-question-r1/complete-captured-W1024-restore-included-cost-preparation-r1/timing-r1/arm0/actual-native-r1/receipt.json",
+      "sha256": "ed0cfd4d159d8213d685467a5cdf510d8ebeb5bf0ce6121f798a099b60dd0c75",
+      "bytes": 1648
+    },
+    "caller_arm0_closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current9010-smallstep-remaining-allocation-source-question-r1/complete-captured-W1024-restore-included-cost-preparation-r1/timing-r1/arm0/actual-native-r1/closure.json",
+      "sha256": "7bab7dbac85a8e084b487f82ee1e813fd63e17de9185db9f338b1df4c5d0705f",
+      "bytes": 1087
+    },
+    "caller_arm0_controller": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current9010-smallstep-remaining-allocation-source-question-r1/complete-captured-W1024-restore-included-cost-preparation-r1/timing-r1/arm0/actual-native-r1/controller.json",
+      "sha256": "596b7b120a19f381cb51791be85305ea62b542cd891efa90ad4ca5439fc12563",
+      "bytes": 2185
+    },
+    "caller_arm0_cache-clear": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current9010-smallstep-remaining-allocation-source-question-r1/complete-captured-W1024-restore-included-cost-preparation-r1/timing-r1/arm0/actual-native-r1/cache-clear.json",
+      "sha256": "3fd9bc6ebae968fdcd2aa4ee45353d75022d12ab81611853bdf207430c39981b",
+      "bytes": 1141
+    },
+    "caller_arm1_receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current9010-smallstep-remaining-allocation-source-question-r1/complete-captured-W1024-restore-included-cost-preparation-r1/timing-r1/arm1/actual-native-r1/receipt.json",
+      "sha256": "4d7d321458f7437ff0666d85a51bce72fd6089eaef91da7575ec5221084f1905",
+      "bytes": 1651
+    },
+    "caller_arm1_closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current9010-smallstep-remaining-allocation-source-question-r1/complete-captured-W1024-restore-included-cost-preparation-r1/timing-r1/arm1/actual-native-r1/closure.json",
+      "sha256": "84e99edb6c8d7cec04adb7588794346c959a0253aa06110cf7c5418ba79e1463",
+      "bytes": 1087
+    },
+    "caller_arm1_controller": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current9010-smallstep-remaining-allocation-source-question-r1/complete-captured-W1024-restore-included-cost-preparation-r1/timing-r1/arm1/actual-native-r1/controller.json",
+      "sha256": "edafde1dc150226a67db2a0db71d7890923dc7138dec5d3b714d92cac1f1bdcb",
+      "bytes": 2188
+    },
+    "caller_arm1_cache-clear": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current9010-smallstep-remaining-allocation-source-question-r1/complete-captured-W1024-restore-included-cost-preparation-r1/timing-r1/arm1/actual-native-r1/cache-clear.json",
+      "sha256": "fee663e29507840ce8bf4fcb75a0f9a56dcf8e0e86086d3c6da904a1b19c8504",
+      "bytes": 1143
+    },
+    "caller_arm2_receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current9010-smallstep-remaining-allocation-source-question-r1/complete-captured-W1024-restore-included-cost-preparation-r1/timing-r1/arm2/actual-native-r1/receipt.json",
+      "sha256": "60ae4773fbded3f35994c42bd93702c606ad0d323a343855f53a281bb76b1f4f",
+      "bytes": 1652
+    },
+    "caller_arm2_closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current9010-smallstep-remaining-allocation-source-question-r1/complete-captured-W1024-restore-included-cost-preparation-r1/timing-r1/arm2/actual-native-r1/closure.json",
+      "sha256": "4d19d5d2bc88e5b59ed0e6b32f1fe3d010704d5f9d5950c1f964655aa9c26aac",
+      "bytes": 1087
+    },
+    "caller_arm2_controller": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current9010-smallstep-remaining-allocation-source-question-r1/complete-captured-W1024-restore-included-cost-preparation-r1/timing-r1/arm2/actual-native-r1/controller.json",
+      "sha256": "fd19d81c767b0fb603c5aa20bb39b1f221fad39081e9d2fa46a5ff79f08dd6c4",
+      "bytes": 2183
+    },
+    "caller_arm2_cache-clear": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current9010-smallstep-remaining-allocation-source-question-r1/complete-captured-W1024-restore-included-cost-preparation-r1/timing-r1/arm2/actual-native-r1/cache-clear.json",
+      "sha256": "89d7bfcbeca4d0d8b6a03b24520a491c99e37f02873c4fbf84a8ad4a3f4b678c",
+      "bytes": 1139
+    },
+    "caller_arm3_receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current9010-smallstep-remaining-allocation-source-question-r1/complete-captured-W1024-restore-included-cost-preparation-r1/timing-r1/arm3/actual-native-r1/receipt.json",
+      "sha256": "d60d7a0d32a1bd3af7898c41d6aa6d0adf019d78f8d3cf48da2a2fc64dd88f7a",
+      "bytes": 1649
+    },
+    "caller_arm3_closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current9010-smallstep-remaining-allocation-source-question-r1/complete-captured-W1024-restore-included-cost-preparation-r1/timing-r1/arm3/actual-native-r1/closure.json",
+      "sha256": "99d04fa5041b421f96abc6fef1b15cd3fb7f477050013e17e2d3f5379fdd1aa1",
+      "bytes": 1087
+    },
+    "caller_arm3_controller": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current9010-smallstep-remaining-allocation-source-question-r1/complete-captured-W1024-restore-included-cost-preparation-r1/timing-r1/arm3/actual-native-r1/controller.json",
+      "sha256": "6b8a6e38b36091a4df08e76a2760a083ce76cbd2c3a8014450f5ed301d89641e",
+      "bytes": 2187
+    },
+    "caller_arm3_cache-clear": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current9010-smallstep-remaining-allocation-source-question-r1/complete-captured-W1024-restore-included-cost-preparation-r1/timing-r1/arm3/actual-native-r1/cache-clear.json",
+      "sha256": "b8862c329a8673f48932e8b8667126f4fc3d1a992f29fc85da85eec1a2279673",
+      "bytes": 1142
+    }
+  },
+  "limits": [
+    "Native O2 scope only; no O0/enabled-trap/universal exceptional-input certificate.",
+    "Cost is one historical captured W configuration, not UV/MU/coefficient timing or a whole-model regression.",
+    "Allocation placement changes; same logical array capacity. No peak-memory or capacity benefit measured.",
+    "No new forecast, source/default promotion, or global allocator fraction claim."
+  ]
+}
