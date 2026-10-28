@@ -8,9 +8,9 @@ Two short opposite-order waves produced eight complete-caller measurements, with
 
 The fresh noon profile also led to finite W/UV/pressure, RSL packing and zero-tendency audits. Their current instruction/caller checks found existing optimized paths or earlier closed mechanisms, without a distinct safe patch supported by these samples. Those audit records remain in the campaign; this is not a claim that those routines have no remaining headroom.
 
-## Current build: noon science and peer profile — October 28
+## Historical 00c6 build: noon science and peer profile — October 28
 
-The selected `00c6` build passed its own four-node, 512-rank noon forecast: both complete products and all 185 ordered steps matched the unchanged original checker. Model/MPI wall time was **4.55669 minutes**, main-step elapsed **2.94982 minutes**, and aggregate CPU **34.28209 CPU-hours**. This was an instrumented one-hour diagnostic; the retained 75-minute original is a scientific prefix reference, so these totals establish no new speedup percentage. The existing unprofiled three-hour result remains separate.
+The then-selected `00c6` build passed its own four-node, 512-rank noon forecast: both complete products and all 185 ordered steps matched the unchanged original checker. Model/MPI wall time was **4.55669 minutes**, main-step elapsed **2.94982 minutes**, and aggregate CPU **34.28209 CPU-hours**. This was an instrumented one-hour diagnostic; the retained 75-minute original is a scientific prefix reference, so these totals establish no new speedup percentage. The existing unprofiled three-hour result remains separate.
 
 Both selected main-thread recorders were observed live on ranks 114 and 122, with growing raw files, and closed normally. The original optional reporting step retained its `profile_directory` error. A separate decode using the retained parsers passed against the actual executable and captured 1,380/1,384 primary samples. Numerical sample loss is unknown. These samples identify current source work; they do not measure a global compute share.
 
@@ -5999,3 +5999,12 @@ Selected image `9010be04` / archive `47c3847f` passed its own unchanged original
 Actual child totals are 629.636238079 s wall, 530.499120 s main-step elapsed and 306042.973311 core-s. The fixed original cohort is A2/A1/5c75 (three distinct invocations); raw collector `control` remains the single A2 scientific reference, not the median. This is an unpaired descriptive comparison, with no isolated per-patch or repeatability claim. Main-step elapsed includes communication and waiting. Relative to the previous selected `00c6` run, the new wall time is 9.998 seconds lower; this single observation does not isolate Thompson's contribution.
 
 The descriptive wall ratio is about 1.27× original throughput, short of both the 1.5× throughput and 2× speedup goals. No kernel percentages are added to that ratio. Own nine-hour/profile/restart/full-144-hour qualification remains pending. [Exact component and application evidence](tools/cpu-compute/thompson-stack-arrays-20261028/README.md).
+
+
+### October 28: MYJ stack storage promoted after own noon science
+
+The module-only strict GNU 13.3 O2 MYJ stack recipe is enabled within its qualified guards. Complete captured 512-call wall time was 12.98% / 12.81% lower on hpc01/hpc02 with original raw/read-only/guard/all-five-state checks exact. Fifty allocation/free pairs disappear; storage moves to stack, with no capacity-saving claim.
+
+Own image `efa608eb` / archive `05cc9c67` passed unchanged original noon science: two FULL outputs and 185 ordered steps, all four models and reader normally closed. It took 255.301387 seconds wall, 172.129630 seconds main-step elapsed and 114827.291325 core-seconds. Against the predeclared single 9010 own-noon observation, these are 4.8691% / 1.0960% / 4.9327% lower. The comparison is descriptive and unpaired; no isolated forecast effect or repeatability is established. The original 75-minute reference is science-only.
+
+The child retains Thompson 9a255 and all other 590 archive members, e418 RSL, 64bb provider and all 18 direct inputs. Own 3h/9h/profile/restart/full144 remain false; previous 9010 longer evidence remains historical. Source `dcf1f61c` is post-test correspondence; raw producer and clean rebuild certification remain unknown. Unlimited stack is required; `WRF_MYJ_STACK_ARRAYS=0` plus rebuild/relink opts out, and retained 9010 is the full rollback. [Evidence and recipe](tools/cpu-compute/myj-stack-arrays-20261028/README.md).
