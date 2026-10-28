@@ -1,0 +1,184 @@
+{
+  "decision": "RETAIN_EXACT_RESOURCE_CANDIDATE_UNPROMOTED_NO_CONSISTENT_CALLER_GAIN",
+  "application_qualified": false,
+  "source_promoted": false,
+  "native": {
+    "status": "PASS_416_SAME_OPTION_CAPTURE51_COMPARISONS_RAW_PHYSICAL_READONLY_FIVE_STATE",
+    "O2_O0_raw_MOD_exact": true,
+    "normal_scratch_alloc_free_pairs_parent": 2,
+    "normal_scratch_alloc_free_pairs_candidate": 1,
+    "scratch_bytes_saved_ni188_nk33": 24684,
+    "peak_or_capacity_benefit_measured": false
+  },
+  "two_wave_scope": {
+    "waves": 2,
+    "arms": 8,
+    "calls_per_arm": 2048,
+    "per_node_parent_candidate_counts": [
+      2,
+      2
+    ],
+    "orders": [
+      "01P02C then01C02P",
+      "01C02P then01P02C"
+    ],
+    "clock": "complete captured ordinary routine plus full tendency restore, all routine allocation/free included; wall and main-thread CPU",
+    "all_eight_cache_each_positive_PID_normal_drained": true,
+    "all_eight_raw_bytes": 1617040,
+    "all_eight_raw_sha256": "6409255e8e4224540b7e3c7a1678d66428be40885613c540fe6a165262995149",
+    "warm_and_batch_all_five_state_exact": true
+  },
+  "per_host_summary": {
+    "hpc01": {
+      "wall_seconds": {
+        "parent_mean_two": 0.956939255,
+        "candidate_mean_two": 0.9699856885,
+        "percent_lower_ratio_of_sums": -1.3633502264467152
+      },
+      "thread_cpu_seconds": {
+        "parent_mean_two": 0.95690177,
+        "candidate_mean_two": 0.9699466059999999,
+        "percent_lower_ratio_of_sums": -1.3632366883384435
+      }
+    },
+    "hpc02": {
+      "wall_seconds": {
+        "parent_mean_two": 0.965690755,
+        "candidate_mean_two": 0.9538529275000001,
+        "percent_lower_ratio_of_sums": 1.2258404089205506
+      },
+      "thread_cpu_seconds": {
+        "parent_mean_two": 0.965567968,
+        "candidate_mean_two": 0.953368832,
+        "percent_lower_ratio_of_sums": 1.263415565169204
+      }
+    }
+  },
+  "observations": [
+    {
+      "wave": 1,
+      "arm": 0,
+      "host": "hpc01",
+      "which": "parent",
+      "wall_seconds": 0.957738336,
+      "thread_cpu_seconds": 0.957695405,
+      "invocation_id": "9d2acdbf074f4a238f6835d5e86114be",
+      "evidence_sha256": {
+        "receipt.json": "c815af86e384184c9a2cd5b77e49fea16abe8a1ca9e78c2ed03beedcd36f3f37",
+        "closure.json": "25ecef66e9e666a6c19c011d2654fffcb5a76a492d09ff0b45eb70fcba6a7a51",
+        "controller.json": "31344b0c83bc669c95411f3f221d4e35975576dddf5f6c7ab80e50bfdd81e9c0",
+        "cache-clear.json": "d81c46209a2d3bfe311e336f3518e3dfbad475878c2da55d9b8cb758d08a3d7a"
+      }
+    },
+    {
+      "wave": 1,
+      "arm": 1,
+      "host": "hpc02",
+      "which": "candidate",
+      "wall_seconds": 0.953687264,
+      "thread_cpu_seconds": 0.953664667,
+      "invocation_id": "8152cf3564ed43869031dda4efb90b0a",
+      "evidence_sha256": {
+        "receipt.json": "fc20c5e81a3736ed51c756d1d4e8e370d0d99c10af9584c100db5dc48c3b1fca",
+        "closure.json": "45c6774dda097c1a3cc0f67cc9f635168cd529c68390286f76bf2286c8898ff3",
+        "controller.json": "b043d0490d3e0cfb763b1510b8b848f86e35782d09a23aac940eb3414a431411",
+        "cache-clear.json": "18e8b36dbac9384a07aeebf56a950f0e2bf0762d51ca4344836329b6a16be45a"
+      }
+    },
+    {
+      "wave": 1,
+      "arm": 2,
+      "host": "hpc01",
+      "which": "candidate",
+      "wall_seconds": 0.977259102,
+      "thread_cpu_seconds": 0.977226394,
+      "invocation_id": "629cd605f6d24023aa85851038a89b73",
+      "evidence_sha256": {
+        "receipt.json": "191778e4789429e9308f47c5620e69e12b7f98e2f7d87aba3e9bdf1a626ad062",
+        "closure.json": "aa7b59a41e5265212d15a9c34ad3b630efc9920b9264bd4c9ab9b2e3f4f6e469",
+        "controller.json": "9993b22c3cfbde829db56e63b4da9f1b1cfc46e4658d6955f40643817942be1a",
+        "cache-clear.json": "2fa50f71a03d389f6fd503f8791bbbadad1b5ffc402ad0e7a8fcdaedc4cb2719"
+      }
+    },
+    {
+      "wave": 1,
+      "arm": 3,
+      "host": "hpc02",
+      "which": "parent",
+      "wall_seconds": 0.95618691,
+      "thread_cpu_seconds": 0.95614015,
+      "invocation_id": "faf36d429a3f4fffb67f9bf2adf58c5e",
+      "evidence_sha256": {
+        "receipt.json": "470902c55ee152f5762aba258a0fc4ae4d886172644bbd10f416902ef01413d8",
+        "closure.json": "4661ebc85bb17682c01543a243c3045699bbf636f1af3abb97ffb011f424ebb7",
+        "controller.json": "b392bc69ed2b180c18b100a0d8e24590daabc2e53e24da612d05f978ca3c3044",
+        "cache-clear.json": "47c784190e537034b6aeeea2807c0c4cffc3b7f818050301af8133a9a6b7980b"
+      }
+    },
+    {
+      "wave": 2,
+      "arm": 0,
+      "host": "hpc01",
+      "which": "candidate",
+      "wall_seconds": 0.962712275,
+      "thread_cpu_seconds": 0.962666818,
+      "invocation_id": "38ce00c757fa42a79766ccdebed7608c",
+      "evidence_sha256": {
+        "receipt.json": "566f1dd2bd04c96e90fe63f59a88276d83c348a10a92d33d5b1d3dfe8c2ebc29",
+        "closure.json": "63e7f5ac301f8f55218df0bb3ebd76a31d2a51eb265c30305fa45d8cfaba2a2f",
+        "controller.json": "ae38e21cdb7d5e703dd80b2c8365a43c99ec05a03c03c7706bfa1fdd955b0690",
+        "cache-clear.json": "758d0cbc3fb9e1cc3cccbcbfe4c633c19532432fa4081e1a46175c9674ab32ed"
+      }
+    },
+    {
+      "wave": 2,
+      "arm": 1,
+      "host": "hpc02",
+      "which": "parent",
+      "wall_seconds": 0.9751946,
+      "thread_cpu_seconds": 0.974995786,
+      "invocation_id": "a31c583a06f940ea926a56878e0c988e",
+      "evidence_sha256": {
+        "receipt.json": "c5a111a1cb94a0c695880ad1dd7bbb5cd6eaad0356687dd7ba289620e591f122",
+        "closure.json": "724792b6a768edb77d6cf72825f3c7793db0970848b2fc0f053639004ef189f3",
+        "controller.json": "6fb0c49eaac4ac7d575e59c5b37958ae696f750967e07a43f1cdc03317fb5222",
+        "cache-clear.json": "49422ee4d1985da4f64505d6974bc2d2b70736cdd1bb5d461630c0418fe0279e"
+      }
+    },
+    {
+      "wave": 2,
+      "arm": 2,
+      "host": "hpc01",
+      "which": "parent",
+      "wall_seconds": 0.956140174,
+      "thread_cpu_seconds": 0.956108135,
+      "invocation_id": "e7181cef21aa433689f70127049f3fde",
+      "evidence_sha256": {
+        "receipt.json": "03bab1910d62fce7ba1c38a40309b76f881f965355f5ff70d4c80ea4b950e10f",
+        "closure.json": "6027aa597151b0f8630fa74e775a9dc4ac0926dae4429d887c99f6d12756840e",
+        "controller.json": "ac621644d71ed8d2c7a237284ed2c06a8f064e80b8e9ff54af908ed43c156335",
+        "cache-clear.json": "a3e5c9e1d7603a055b7f6dc16d01d91fc454b404d0c3694dbfbc15fd0c7d169e"
+      }
+    },
+    {
+      "wave": 2,
+      "arm": 3,
+      "host": "hpc02",
+      "which": "candidate",
+      "wall_seconds": 0.954018591,
+      "thread_cpu_seconds": 0.953072997,
+      "invocation_id": "95e6917073b745be873d63a32e863416",
+      "evidence_sha256": {
+        "receipt.json": "1567f8a655128eb04c8a180e7cc3388460eb02260465324a2add6cc7f9ab83b3",
+        "closure.json": "c96d24d5424680469ede25d8acfe4caeb870ec8dbf2cd8ca630d34443db889f6",
+        "controller.json": "6beb90520f936d8521156863ffbd8cd2c8ae0e97d5a447a7fee5886f7b5ec295",
+        "cache-clear.json": "b952709c264a5a53b014750a98b016c1ddd05d83770ec489a475e9742e62b2aa"
+      }
+    }
+  ],
+  "interpretation": "Candidate is slower in both hpc01 comparisons and faster in both hpc02 comparisons. Across-node inconsistency remains after reversed order; no consistent significant complete-caller gain. Frequency, alignment/locality and Y-plane stride effects are possible but not causally established. Do not infer a persistent universal regression or a forecast benefit from these short caller arms. No further repeats/variants planned absent new measured mechanism.",
+  "source_caveat": "Y-plane stride grows ni to ni+1; lifetime/source/native correctness is established within defined fixtures, performance effects remain contextual.",
+  "machine_truth": "All11 non-target instruction bodies/fullRELA exact eachopt; physical pool bytes exact; physical poolRELA and EHraw false retained with finite named-owner/CFI classification. Linked P/C target bodies exact outside actualRELA words.",
+  "scope_limit": "Selected noon ordinary samples motivated the lead only; no global headroom claim, no actual forecast/application test, no measured peak-memory benefit.",
+  "evidence_refs": "EVIDENCE_REFS.json"
+}

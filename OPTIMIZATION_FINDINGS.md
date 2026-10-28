@@ -1,5 +1,13 @@
 # WRF CPU optimization findings
 
+## Ordinary advection X/Y scratch reuse: retained unpromoted — October 28
+
+A distinct storage change lets the horizontal X and Y phases share one scratch bank. It passed 416 strict O2/O0 capture and edge comparisons, including raw outputs, read-only inputs, all five processor-state values and unchanged public module interfaces. Compiled scratch allocations and normal frees fall from two to one; an example 188-by-33 tile uses 24,684 fewer bytes. This is a per-call storage reduction, with no measured peak-memory or capacity benefit.
+
+Two short opposite-order waves produced eight complete-caller measurements, with actual cache clearing before every arm. Averaging both observations per variant on each node, the change was **1.36% slower on hpc01** and **1.23% faster on hpc02**. All output/state and closure checks passed, and both linked target bodies were verified. These mixed observations establish no consistent speed gain or universal regression; their cause is unmeasured. Retain the exact resource candidate unpromoted, with no further repeat or layout variant planned without a new measured mechanism. [All observations and decision](tools/cpu-compute/ordinary-xy-scratch-screen-20261028/README.md).
+
+The fresh noon profile also led to finite W/UV/pressure, RSL packing and zero-tendency audits. Their current instruction/caller checks found existing optimized paths or earlier closed mechanisms, without a distinct safe patch supported by these samples. Those audit records remain in the campaign; this is not a claim that those routines have no remaining headroom.
+
 ## Current build: noon science and peer profile — October 28
 
 The selected `00c6` build passed its own four-node, 512-rank noon forecast: both complete products and all 185 ordered steps matched the unchanged original checker. Model/MPI wall time was **4.55669 minutes**, main-step elapsed **2.94982 minutes**, and aggregate CPU **34.28209 CPU-hours**. This was an instrumented one-hour diagnostic; the retained 75-minute original is a scientific prefix reference, so these totals establish no new speedup percentage. The existing unprofiled three-hour result remains separate.
