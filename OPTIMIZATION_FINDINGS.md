@@ -1,5 +1,12 @@
 # WRF CPU optimization findings
 
+## Pending Thompson pressure-copy and V-X5 screens — October 28
+
+Two independent screens remain outside the promoted `5e21` bundle, whose own nine-hour run is still in progress. Thompson's main pressure-copy removal passed the complete 11-case, four-round O2/O0 raw/state and raw-MOD checks and removes one private buffer/allocation pair. Complete-caller wall reductions were 0.985%/0.151%, with CPU reductions 0.352%/0.161%; these small observations do not establish a repeatable forecast gain or measured peak-memory saving. The scoped O2 machine proof retains non-target raw/RELA differences and does not claim universal exceptional-operand or unmasked-trap-prefix identity. Genuine application integration is pending.
+
+The V normal-X5 extracted complete pass passed 160 same-option O2/O0 comparisons with hard raw/state/read-only/physical guards. Its two opposite-order full-pass cost pairs were 62.6815%/62.7329% shorter in wall time, with matching CPU reductions. The measured scope includes the X producer, degraded faces, tendency consumer, two full restores and one admission check; it is not the whole V routine or forecast. Whole-V/module validation and application qualification remain pending. [Actual receipts, waves and machine limits](tools/cpu-compute/pending-thompson-vx5-screens-20261028.json). No active source/default/selection change follows from these records.
+
+
 ## MU scratch reuse, LW overlap and early Y receives qualified — October 28
 
 The combined 5e21 build passed the unchanged four-host512 checker: four FULL products and all 545 ordered steps matched, with normal model/checker closures. The experimental Y path emitted one successful-post marker on each of the 480 compute ranks and none on 32 quilt ranks. Provider64bb and all prior improvements remain included.
