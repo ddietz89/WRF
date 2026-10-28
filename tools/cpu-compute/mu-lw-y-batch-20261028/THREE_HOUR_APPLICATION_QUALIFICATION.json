@@ -1,0 +1,146 @@
+{
+  "status": "PASS_OWN_UNPROFILED_SAME512_MU_LW_Y_THREE_HOUR_545_FOUR_FULL",
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current1d16-mu-lw-y-source-batch-r1/wrf.exe",
+    "sha256": "5e21df5ff33f4ce7a0f3a49aede3a83e8b0236953e4748866574356e1706b584"
+  },
+  "archive": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current1d16-mu-lw-y-source-batch-r1/libwrflib.a",
+    "sha256": "883905833bebe10bc4ab228daf460637675a493db2e22c570da42e2c877c591b"
+  },
+  "RSL_archive": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current1d16-rsl-early-y-production-archive-r1/librsl_lite.a",
+    "sha256": "e418b187e8c88f5dc436ca44ce32ff23f75ac11a45ce3db214ff4fc40bb1fddc"
+  },
+  "output_provider": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current0dd6-rowcursor-native-hpc02-r1/output/liboutput_world512_rowcursor.so",
+    "sha256": "64bb4cf2744799056e25be48b166a7a4703f525b08acff1bf898cd7941e8a643"
+  },
+  "source_commit": "b1b2e04ce382bfbb12ec7cf5161ca9b3a5f2d773",
+  "post_test_source_commit": "b1b2e04ce382bfbb12ec7cf5161ca9b3a5f2d773",
+  "raw_producer_source_commit": null,
+  "own_three_hour_qualified": true,
+  "own_unprofiled_three_hour_qualified": true,
+  "own_fourhost512_qualified": true,
+  "own_nine_hour_qualified": false,
+  "own_unprofiled_nine_hour_qualified": false,
+  "own_noon_one_hour_qualified": false,
+  "own_instrumented_noon_one_hour_qualified": false,
+  "own_unprofiled_noon_one_hour_qualified": false,
+  "profile_qualified": false,
+  "restart_qualified": false,
+  "full144_qualified": false,
+  "observed_step_count": 545,
+  "products": 4,
+  "instrumented": false,
+  "observer": false,
+  "science": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-source-batch3h-r1/science-receipt.json",
+    "sha256": "21d567e7736d372a5da1a7a094d2378ecea442e7d87e01cd212e3ebd7755c70d"
+  },
+  "reader_closure": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/mu-lw-y-batch-20261028/READER_CLOSURE.json",
+    "sha256": "02394568b1810951b7157429d6ed28059229349690ea8a60147a74bbd418ec58"
+  },
+  "models": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/mu-lw-y-batch-20261028/MODEL_CLOSURES.json",
+    "sha256": "b87b0ea581fdba2d32c287699d5e2e1eee0c3b105b88a159485b740c05c4177b"
+  },
+  "lease": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/mu-lw-y-batch-20261028/GRANTED_LEASE.json",
+    "sha256": "de98f1a3fd27c2f9c3f076142c21e4579b9a7c6091b5ae1138b0a55865879b1a"
+  },
+  "RESULT": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/mu-lw-y-batch-20261028/THREE_HOUR_RESULT.json",
+    "sha256": "74f7d67555f91fbbeedf8d42460130149ad61dedcf681c4b03e75c1c99ebc825"
+  },
+  "source_manifest": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-source-batch3h-r1/source-pins.json",
+    "sha256": "a86d1dc5edd3d6adda32539e17ae2842b23c33474980e9ff6d0cfe9df543e287"
+  },
+  "actual_granted_rank_map": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/mu-lw-y-batch-20261028/RANK_MAP.json",
+    "sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac"
+  },
+  "actual_map_table_sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac",
+  "Y_marker_admission": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/mu-lw-y-batch-20261028/Y_MARKER_RESULT.json",
+    "sha256": "dee6619d4ad2a37973878bd5e16c38fac88d1eefca492f8032659b4efa0deec3"
+  },
+  "actual_candidate_metrics": {
+    "wall_seconds": 638.5378965428099,
+    "cpu_seconds": 310728.238527,
+    "main_step_sum_seconds": 540.47579
+  },
+  "rolling_control_baseline": {
+    "cohort_sha256": "a96d6b9ea566325641ad0b0766429c661e904c75b457419acbefdaa9953b0aa5",
+    "n": 3,
+    "median": {
+      "wall_seconds": 800.0241208570078,
+      "cpu_seconds": 359327.346984,
+      "main_step_sum_seconds": 596.45045
+    },
+    "members": [
+      {
+        "run_id": "production512-current0b40-fourhost-threehour-pair2-r1-control",
+        "coordinator_invocation_id": "2eeee20b4cf0457cb582710bce30dc0b",
+        "metrics": {
+          "wall_seconds": 800.2145909662358,
+          "cpu_seconds": 359516.46336299996,
+          "main_step_sum_seconds": 596.45045
+        }
+      },
+      {
+        "run_id": "production512-current0b40-fourhost-threehour-pair1-r1-control",
+        "coordinator_invocation_id": "81febf86a6734f4fa77d57fd1b467c30",
+        "metrics": {
+          "wall_seconds": 798.6198086068034,
+          "cpu_seconds": 358644.885565,
+          "main_step_sum_seconds": 595.32709
+        }
+      },
+      {
+        "run_id": "production512-current5c75-fourhost-threehour-pair1-r1-control",
+        "coordinator_invocation_id": "c9768c1474f648329ff3e41b664aac99",
+        "metrics": {
+          "wall_seconds": 800.0241208570078,
+          "cpu_seconds": 359327.346984,
+          "main_step_sum_seconds": 596.59354
+        }
+      }
+    ]
+  },
+  "descriptive_reductions_percent": {
+    "wall_seconds": 20.185169434792716,
+    "cpu_seconds": 13.525023593365415,
+    "main_step_sum_seconds": 9.38462868122576
+  },
+  "comparison_design": "Candidate-only exactscience vs retainedA2; timings DESCRIPTIVE and UNPAIRED against median latest3 unique original controls A2/A1/5c75; hardwareepoch unresolved.",
+  "timing_gain_claim": false,
+  "immediate_parent_descriptive_reductions_percent": {
+    "wall_seconds": 0.641807418073348,
+    "cpu_seconds": 0.18293503828283875,
+    "main_step_sum_seconds": 0.031042630263555804
+  },
+  "public_MOD": {
+    "MU_raw_exact": true,
+    "LW_raw_exact_counts": {
+      "O2": 30,
+      "O0": 29
+    },
+    "LW_total": 34,
+    "LW_typed_graph_exact_both_opts": true,
+    "LW_five_original_driver_imports_raw_exact_both_opts": true
+  },
+  "evidence": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/mu-lw-y-batch-20261028/EVIDENCE_REFS.json",
+    "sha256": "d4f13c6c9416223d3f8d1481652429c36a2d78c0d90c4615bff1322ffdfe294f"
+  },
+  "limits": "Own unprofiled four-host512 three-hour545/fourFULL exact application only. Candidate-only descriptive UNPAIRED timing versus retained median3 originals; no isolated/additive/causal forecast gain or repeatability claim. Previous1d16 own9h/noon/profile historical only; child own9h/noon/profile/restart/full144 false. MU three-to-two scratch allocation reuse is resource reduction with near-neutral complete-caller timing; LW30.3\u201330.7% cost reduction is complete overlap140x33 helper scope, not whole radiation/forecast. Y shared-memory completeHALO_C cost mixed4.861% lower/0.045% longer; no isolated IB performance gain. Actual production build includes bounded one-time Y markers,480compute/zero32quilt. Genuine LW native O2/O0 raw5state passed; public MOD raw30/34(O2),29/34(O0), exact typed graph34/34 both; diagnostic source-line observables differ and24/79 O2 non-target strict raw/fullRELA flags remain false under finite source-line/local-callee/target-table proof. O0 non-target machine unclassified. Raw producer commit NULL; actual post-test source commit b1b2e04ce382bfbb12ec7cf5161ca9b3a5f2d773; cached overlay is not clean full-source byte reproduction.",
+  "immediate_parent_metrics": {
+    "wall_seconds": 642.6625524777919,
+    "cpu_seconds": 311297.711114,
+    "main_step_sum_seconds": 540.64362
+  },
+  "source_commit_scope": "Post-test canonical eight-file/default1 correspondence. Actual cached artifacts predate this commit; raw producer remains NULL."
+}

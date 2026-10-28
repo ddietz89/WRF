@@ -1,0 +1,216 @@
+{
+  "status": "ACTUAL_CACHED_TWO_MEMBER_PLUS_HELPER_OVERLAY_ONE_LINK_POSTTEST_SOURCE_CORRESPONDENCE",
+  "raw_producer_source_commit": null,
+  "post_test_source_commit": "b1b2e04ce382bfbb12ec7cf5161ca9b3a5f2d773",
+  "source_inventory": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/mu-lw-y-batch-20261028/SOURCE_FILES.json",
+    "sha256": "ab4f296ea610f6b9f62fd820d4b2801bdf6be213ab74d48b5c2bbf31ddf6e374"
+  },
+  "build_receipt": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/mu-lw-y-batch-20261028/BUILD_RECEIPT.json",
+    "sha256": "8d207bb5bcb3dbc22cabef5b52941c6be0cc597dc28a77c943a05425e826e22e"
+  },
+  "build_closure": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/mu-lw-y-batch-20261028/BUILD_CLOSURE.json",
+    "sha256": "fedf7c19d7b18acc2ef507b0cd764d175d8844ddcfc37cfb1a05f8d85ebdc3d6"
+  },
+  "ordered_archive_proof": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/mu-lw-y-batch-20261028/ORDERED_ARCHIVE_PROOF.json",
+    "sha256": "ebaf90f4c856f2e704c9102c1331401670e27dd04f76af7098e2e53168bdd168"
+  },
+  "parent_executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentb92f-postpow-one-BigStep-helper-experimental-r1/wrf.exe",
+    "sha256": "1d16f14b49676df3a514006fd01149832f867315989b8160128b123e4c92d87b"
+  },
+  "parent_archive": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentb92f-postpow-one-BigStep-helper-experimental-r1/libwrflib.a",
+    "sha256": "32de9f2d110661381b1d02f214605c91450e4612652ec5f79da51056b8e9c2c5"
+  },
+  "selected_executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current1d16-mu-lw-y-source-batch-r1/wrf.exe",
+    "sha256": "5e21df5ff33f4ce7a0f3a49aede3a83e8b0236953e4748866574356e1706b584"
+  },
+  "selected_archive": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current1d16-mu-lw-y-source-batch-r1/libwrflib.a",
+    "sha256": "883905833bebe10bc4ab228daf460637675a493db2e22c570da42e2c877c591b"
+  },
+  "selected_RSL": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current1d16-rsl-early-y-production-archive-r1/librsl_lite.a",
+    "sha256": "e418b187e8c88f5dc436ca44ce32ff23f75ac11a45ce3db214ff4fc40bb1fddc"
+  },
+  "module_compiles": 0,
+  "source_compiles": 0,
+  "helper_compiles": 0,
+  "link_count": 1,
+  "archive_members": 591,
+  "unchanged_members": 588,
+  "replaced_zero_based_indices": {
+    "module_small_step_em.o": 558,
+    "module_ra_rrtmg_lw.o": 274
+  },
+  "changed_member_pins": {
+    "module_small_step_em.o": "14e173b2a5858dd91fc764e3e3e8b1dd33a0c4e3099af8e433fd28f53c65cd26",
+    "module_ra_rrtmg_lw.o": "cb45f00d94952af68ac53fc0d6be989cf73bdb5986686f2fbbe8de7b8ac60c54"
+  },
+  "added_members": [
+    "wrf_lw_overlap_ordered4.o"
+  ],
+  "helper_objects": {
+    "wrf_lw_overlap_ordered4.o": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current1d16-lw-complete-overlap-ordered4-native-hpc02-r1/work/ordered_lw_overlap4.o",
+      "sha256": "74fa444ff8317fbe2caee4683004cd3562af4676ec7ccea53d96bb385301f3bb",
+      "source_sha256": "8ccc0c9071c5d64838403157aec10feccc3e8788e3b68d10712b64979ed25db8",
+      "ASM_path": "/pool/wrf-experiment/wrf-cpu/kernels/current1d16-lw-overlap-finite-cldf-native-hpc02-r2/actual-helper-assembly.log",
+      "ASM_sha256": "1a739dee6426b5b67fb24b4a0b9e20082826d6c359a6fee3896946d36eae79b9",
+      "symbol": "wrf_lw_overlap_ordered4"
+    }
+  },
+  "direct_link_input_pins": {
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tcg-twelve-owner-canonical-current-r1/candidate/wrf.o": "33251ef3f1810d6dfbd5571943b80cc15f92c16f9cc03bb661b2ca945a48769d",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tcg-twelve-owner-canonical-current-r1/candidate/module_wrf_top.o": "65001523868ea86923d536b595270eb74ae85d4d8aab722975e6cd5e72b493f1",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o": "3a94b6864d7b3d2df4efc4f1afabe6dd519b6f73c9785738f219e6206727e4ec",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o": "54be5b6686914b8496b3d451205582b7bf854f23e52176c13ab34f66255946d4",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o": "4f037f15d1dc99ac826fccdfbf500221ae63132896e90a627446bc3fff8b8263",
+    "/pool/wrf-experiment/wrf-cpu/kernels/hpg-nhx-isolated-avx2-consumer-native-r3/work/nhx-helper-O2.o": "ae13adfa248c9613be20c56bd1f8e77a3ff8d79a985ffb163acc16be629d0f8c",
+    "/pool/wrf-experiment/wrf-cpu/kernels/phy-height-private-avx2-fixed8-native-hpc04-r1/work/helper-O2.o": "b6a707c4f00670eb6611e45513381d275b31c82fe7c6bf08d548de286b9a0467",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a": "43440c838a792ee55cdb93165c7996173df197d3e6afbd9c69e196b64b869a34",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a": "fa5423d57121eae7505cd464e0a9826c36eadf91a6a884aee96f6a7aa4279a29",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a": "93675f19d4c2d39ff9de6909f76e4ccddf0844440abe38fa37aea97bb42fb4f0",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a": "a06e4111dbb308bbe94c1cb2c0e21c608fde3e906dec74a10910b5842cac5ca0",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o": "175cbd87243a7ff3412f1850e76dac102eb4edc5db684bfdc97d419694d44a78",
+    "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o": "8ab87436bdb22d9d0ef3c1257e25f415727ede16be8535b8e037832a12fe9752",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90/libesmf_time.a": "4c1ebf810767e36db24471cac830970afb2c440eb241f4664b1d3398ecf0f84a",
+    "/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib/libnetcdff.so": "e271f9b96203b03c2e21f9e044b4cbe13534f309b100ae369dd0799fa7a2a6d6",
+    "/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib/libnetcdf.so": "7036a91b172b3f1171c1ebd86813a208a302cf9145013d58611570cfa12e2780",
+    "/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2/libwrfio_nf.a": "651835f31089e16759177734198ece5b121d704355c73abddde483f4cae2c14c",
+    "/pool/wrf-experiment/wrf-cpu/builds/current1d16-rsl-early-y-production-archive-r1/librsl_lite.a": "e418b187e8c88f5dc436ca44ce32ff23f75ac11a45ce3db214ff4fc40bb1fddc"
+  },
+  "unchanged_direct_link_input_pins": {
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tcg-twelve-owner-canonical-current-r1/candidate/wrf.o": "33251ef3f1810d6dfbd5571943b80cc15f92c16f9cc03bb661b2ca945a48769d",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tcg-twelve-owner-canonical-current-r1/candidate/module_wrf_top.o": "65001523868ea86923d536b595270eb74ae85d4d8aab722975e6cd5e72b493f1",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o": "3a94b6864d7b3d2df4efc4f1afabe6dd519b6f73c9785738f219e6206727e4ec",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o": "54be5b6686914b8496b3d451205582b7bf854f23e52176c13ab34f66255946d4",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o": "4f037f15d1dc99ac826fccdfbf500221ae63132896e90a627446bc3fff8b8263",
+    "/pool/wrf-experiment/wrf-cpu/kernels/hpg-nhx-isolated-avx2-consumer-native-r3/work/nhx-helper-O2.o": "ae13adfa248c9613be20c56bd1f8e77a3ff8d79a985ffb163acc16be629d0f8c",
+    "/pool/wrf-experiment/wrf-cpu/kernels/phy-height-private-avx2-fixed8-native-hpc04-r1/work/helper-O2.o": "b6a707c4f00670eb6611e45513381d275b31c82fe7c6bf08d548de286b9a0467",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a": "43440c838a792ee55cdb93165c7996173df197d3e6afbd9c69e196b64b869a34",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a": "fa5423d57121eae7505cd464e0a9826c36eadf91a6a884aee96f6a7aa4279a29",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a": "93675f19d4c2d39ff9de6909f76e4ccddf0844440abe38fa37aea97bb42fb4f0",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a": "a06e4111dbb308bbe94c1cb2c0e21c608fde3e906dec74a10910b5842cac5ca0",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o": "175cbd87243a7ff3412f1850e76dac102eb4edc5db684bfdc97d419694d44a78",
+    "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o": "8ab87436bdb22d9d0ef3c1257e25f415727ede16be8535b8e037832a12fe9752",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90/libesmf_time.a": "4c1ebf810767e36db24471cac830970afb2c440eb241f4664b1d3398ecf0f84a",
+    "/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib/libnetcdff.so": "e271f9b96203b03c2e21f9e044b4cbe13534f309b100ae369dd0799fa7a2a6d6",
+    "/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib/libnetcdf.so": "7036a91b172b3f1171c1ebd86813a208a302cf9145013d58611570cfa12e2780",
+    "/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2/libwrfio_nf.a": "651835f31089e16759177734198ece5b121d704355c73abddde483f4cae2c14c"
+  },
+  "actual_link_command": [
+    "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+    "-o",
+    "/pool/wrf-experiment/wrf-cpu/builds/current1d16-mu-lw-y-source-batch-r1/wrf.exe",
+    "-O2",
+    "-fno-fast-math",
+    "-ffp-contract=off",
+    "-w",
+    "-fno-fast-math",
+    "-ffp-contract=off",
+    "-ffree-form",
+    "-ffree-line-length-none",
+    "-fconvert=big-endian",
+    "-frecord-marker=4",
+    "-fallow-argument-mismatch",
+    "-fallow-invalid-boz",
+    "-g",
+    "-Wl,-rpath,/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib",
+    "-fno-fast-math",
+    "-ffp-contract=off",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tcg-twelve-owner-canonical-current-r1/candidate/wrf.o",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tcg-twelve-owner-canonical-current-r1/candidate/module_wrf_top.o",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o",
+    "/pool/wrf-experiment/wrf-cpu/kernels/hpg-nhx-isolated-avx2-consumer-native-r3/work/nhx-helper-O2.o",
+    "/pool/wrf-experiment/wrf-cpu/kernels/phy-height-private-avx2-fixed8-native-hpc04-r1/work/helper-O2.o",
+    "/pool/wrf-experiment/wrf-cpu/builds/current1d16-mu-lw-y-source-batch-r1/libwrflib.a",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a",
+    "-L/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+    "-lesmf_time",
+    "/pool/wrf-experiment/wrf-cpu/builds/current1d16-rsl-early-y-production-archive-r1/librsl_lite.a",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o",
+    "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o",
+    "-L/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2",
+    "-lwrfio_nf",
+    "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+    "-lnetcdff",
+    "-lnetcdf",
+    "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+    "-lnetcdf",
+    "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+    "-lnetcdff",
+    "-lnetcdf",
+    "-lnetcdf"
+  ],
+  "actual_linked_E8_proof": {
+    "status": "PASS_ACTUAL_LINKED_TWO_E8_SITES_DIRECT_TO_UNIQUE_UNCHANGED_CALLEE",
+    "roles": {
+      "parent": {
+        "path": "/pool/wrf-experiment/wrf-cpu/builds/currentb92f-postpow-one-BigStep-helper-experimental-r1/wrf.exe",
+        "sha256": "1d16f14b49676df3a514006fd01149832f867315989b8160128b123e4c92d87b",
+        "couple_start": 19789600,
+        "callee_start": 19787008,
+        "actual_E8_sites": [
+          {
+            "instruction_relative_offset": 1653,
+            "pc": 19791253,
+            "bytes": "e866efffff",
+            "actual_direct_target": 19787008,
+            "expected_unique_CALC_MU_STAGGERED": 19787008
+          },
+          {
+            "instruction_relative_offset": 2171,
+            "pc": 19791771,
+            "bytes": "e860edffff",
+            "actual_direct_target": 19787008,
+            "expected_unique_CALC_MU_STAGGERED": 19787008
+          }
+        ]
+      },
+      "candidate": {
+        "path": "/pool/wrf-experiment/wrf-cpu/builds/current1d16-mu-lw-y-source-batch-r1/wrf.exe",
+        "sha256": "5e21df5ff33f4ce7a0f3a49aede3a83e8b0236953e4748866574356e1706b584",
+        "couple_start": 19793696,
+        "callee_start": 19791104,
+        "actual_E8_sites": [
+          {
+            "instruction_relative_offset": 1653,
+            "pc": 19795349,
+            "bytes": "e866efffff",
+            "actual_direct_target": 19791104,
+            "expected_unique_CALC_MU_STAGGERED": 19791104
+          },
+          {
+            "instruction_relative_offset": 2171,
+            "pc": 19795867,
+            "bytes": "e860edffff",
+            "actual_direct_target": 19791104,
+            "expected_unique_CALC_MU_STAGGERED": 19791104
+          }
+        ]
+      }
+    },
+    "no_unlinked_PLT32_numeric_target_inference": true
+  },
+  "RSL_recipe": "Copy selected13-member6eb archive, replace index0 c_code.o with cached74154a, append production helperb7535947 atindex13; other12 members exact. Production helper is compiled without native3x3 testing macro, with one bounded successful-post marker per compute process. Actual receipt is retained independently.",
+  "defaults": {
+    "WRF_ADVANCE_MU_DISJOINT_SCRATCH": 1,
+    "WRF_LW_MCICA_OVERLAP_ORDERED4": 1,
+    "WRF_RSL_EARLY_Y": 1
+  },
+  "support_scope": "Qualified GNU13.3 strict real4 pureMPI; helper ISA/mask admission and complete original fallback as canonical guarded source specifies. Y only generated serial MPI Cartesian nonperiodic8x60/480; unsupported admission falls back before posting. No pending Cancel+Wait recovery.",
+  "rebuild": "Use recorded actual cached objects/dependencies and ordered overlay/link command to recreate the qualified delivery. Canonical files/default1 correspond post-test to tested enabled bodies; no claim that a clean full canonical rebuild reproduces these artifact bytes. Retain all earlier helper members and direct dependencies, including provider64bb, codecs, HDF5/input adapters.",
+  "rollback": "Set each new knob explicitly0; clean/rebuild affected SmallStep/LW/RSL/helper owners and relink consistently, or restore retained matching1d16/32de/6eb delivery. Never remove a referenced helper from an enabled archive.",
+  "source_commit": "b1b2e04ce382bfbb12ec7cf5161ca9b3a5f2d773"
+}

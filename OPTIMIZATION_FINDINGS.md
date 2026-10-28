@@ -1,5 +1,20 @@
 # WRF CPU optimization findings
 
+## MU scratch reuse, LW overlap and early Y receives qualified — October 28
+
+The combined 5e21 build passed the unchanged four-host512 checker: four FULL products and all 545 ordered steps matched, with normal model/checker closures. The experimental Y path emitted one successful-post marker on each of the 480 compute ranks and none on 32 quilt ranks. Provider64bb and all prior improvements remain included.
+
+| Metric | Retained original median3 | Combined run | Descriptive reduction |
+|---|---:|---:|---:|
+| Wall seconds | 800.024121 | 638.537897 | 20.1852% |
+| Main-step elapsed seconds | 596.450450 | 540.475790 | 9.3846% |
+| Aggregate CPU seconds | 359327.346984 | 310728.238527 | 13.5250% |
+
+The candidate-only comparison is unpaired. Versus the immediate 1d16 parent, descriptive wall/main-step/CPU reductions are 0.6418%/0.0310%/0.1829%; neither comparison isolates component effects. MU removes one scratch allocation/free pair (three to two), with near-neutral caller timing. LW's 30.3–30.7% shorter complete overlap caller is distinct from whole radiation and forecast. Y's complete shared-memory HALO_C caller is mixedpositive/flat, with no measured isolated IB benefit; earlier baseline FE_INEXACT variability remains recorded. LW genuine O2/O0 raw/state checks passed; MOD raw equality is 30/34 and 29/34 respectively, with 34/34 exact typed identity. The scoped O2 non-target diagnostic-line/layout proof does not assert all raw bytes/RELA tuples equal or universal error-trace identity.
+
+The child owns only this unprofiled three-hour result. Previous 1d16 nine-hour/noon/profile evidence remains historical; own9h/profile/restart/full144 are false. Qualified GNU13.3/strict real4/pure-MPI defaults enable the three guarded changes with explicit0 rollback. The original checker, prior failures, source correspondence, exact cached overlay/direct18 dependencies and no-clean-full-rebuild limit are retained in [the component package](tools/cpu-compute/mu-lw-y-batch-20261028/README.md).
+
+
 ## Current daytime profile and output-kernel followups — October 28
 
 The pressure/row-cursor build passed its instrumented one-hour noon check: two full products and all 185 steps matched exactly. Four compute main threads, one per node, each completed a fifteen-second capture; all model, recorder, checker and parser jobs closed normally. Startup and data growth were checked during the run. The first acquisition attempt failed on a stale output-library filename; its failure is retained, and the corrected retry passed.
@@ -303,7 +318,7 @@ The advance_mu_t producer relocation is now promoted into the qualified working 
 
 ## October25: currentheight passes fresh four-host SAME512 comparison
 
-Fresh original546b A and unchanged selectedheight5c75 B passed all545 ordered steps and four FULL06–09 products on SAME512 (480compute+32quilt,8×60,two tiles). All eight model units and the reader closed normally. The candidate used the exact801e/db0d FP-entry guard; its source port preserves512 topology and the common engine. Failed nativeR1 launched no ranks and remains retained alongside all six context repairs and successful genuine512 nativeR2.
+Fresh original546b A and unchanged selectedheight5c75 B passed all 545 ordered steps and four FULL06–09 products on SAME512 (480 compute+32 quilt,8×60,two tiles). All eight model units and the reader closed normally. The candidate used the exact801e/db0d FP-entry guard; its source port preserves512 topology and the common engine. Failed nativeR1 launched no ranks and remains retained alongside all six context repairs and successful genuine512 nativeR2.
 
 | Metric | Fresh original546b A | Selectedheight5c75 B | Reduction in this pair |
 |---|---:|---:|---:|
@@ -389,7 +404,7 @@ Reject this fixed candidate, retain all source/provider/codegen/native evidence,
 
 ## October25: combined871 own three-hour science, unpaired timing
 
-Image871f2e3c / archive33399456, source9cf704d1, passed all545 ordered steps and all four FULL06–09 products against retained original546b SAME256 A. Three new models and reader closed normally; retained control closure was independently checked. The original A comes from the earlier0ec3 pair, so these percentages are UNPAIRED and descriptive. CPU is summed cgroup CPU, not threadCPU. Immutable own-noonQ remains separate.
+Image871f2e3c / archive33399456, source9cf704d1, passed all 545 ordered steps and all four FULL06–09 products against retained original546b SAME256 A. Three new models and reader closed normally; retained control closure was independently checked. The original A comes from the earlier0ec3 pair, so these percentages are UNPAIRED and descriptive. CPU is summed cgroup CPU, not threadCPU. Immutable own-noonQ remains separate.
 
 | Metric | Retained original546b A | New871 candidate | Unpaired descriptive reduction |
 |---|---:|---:|---:|
@@ -397,7 +412,7 @@ Image871f2e3c / archive33399456, source9cf704d1, passed all545 ordered steps and
 | Main elapsed (min) | 18.130433 | 16.707654 | 7.8475% |
 | Summed CPU (core-h) | 84.568669 | 74.568591 | 11.8248% |
 
-Own unprofiled SAME256 noon185/two FULL and three-hour545/four FULL science. Three-hour candidate-only run against retained original546b A; UNPAIRED descriptive percentages only, no new matched timing gain, repeatability, isolated or additive component claim. Own9h/384/512/profile/restart/full144 false. Qualified-PP replay/cached-object delivery and actual post-test canonical correspondence; no clean canonical-source-only rebuild certificate.
+Own unprofiled SAME256 noon185/two FULL and three-hour545/four FULL science. Three-hour candidate-only run against retained original546b A; UNPAIRED descriptive percentages only, no new matched timing gain, repeatability, isolated or additive component claim. Own 9h/384/512/profile/restart/full144 false. Qualified-PP replay/cached-object delivery and actual post-test canonical correspondence; no clean canonical-source-only rebuild certificate.
 
 
 ## October25: combined SW whole-draw + FINISH V own-noon science
@@ -407,7 +422,7 @@ Combined SW whole-draw + FINISH V image871f2e3c passed its own unprofiled SAME25
 
 ## October25: selected LW0ec3 passes fresh same256 three-hour comparison
 
-Selected **0ec34714 / archivea30c8df7**, source correspondence **2791f903**, passed all four full06/07/08/09 products and all545 ordered steps against a fresh corrected-original546b same256 run. All six models and the reader closed normally. The immutable own-noon185/two-product qualification remains separate.
+Selected **0ec34714 / archivea30c8df7**, source correspondence **2791f903**, passed all four full06/07/08/09 products and all 545 ordered steps against a fresh corrected-original546b same256 run. All six models and the reader closed normally. The immutable own-noon185/two-product qualification remains separate.
 
 | Metric | Fresh original546b | Combined LW0ec3 | Reduction |
 |---|---:|---:|---:|
@@ -415,7 +430,7 @@ Selected **0ec34714 / archivea30c8df7**, source correspondence **2791f903**, pas
 | Main elapsed (min) | 18.130433 | 16.704977 | 7.8622% |
 | Summed CPU (core-h) | 84.568669 | 74.537283 | 11.8618% |
 
-One original-first fixed-order pair with checkedcache before eacharm; this is an observed combined-configuration improvement, not a counterbalanced/repeatability result or isolatedLW gain. Main elapsed includes communication/backpressure; CPU is summed threehostcgroup CPU, not threadCPU. Own9h/384/512/profile/restart/full144 remain false. TestedPP/cachedobjectreplay is qualified; a clean canonical-source-only rebuild is not certified.
+One original-first fixed-order pair with checkedcache before eacharm; this is an observed combined-configuration improvement, not a counterbalanced/repeatability result or isolatedLW gain. Main elapsed includes communication/backpressure; CPU is summed threehostcgroup CPU, not threadCPU. Own 9h/384/512/profile/restart/full144 remain false. TestedPP/cachedobjectreplay is qualified; a clean canonical-source-only rebuild is not certified.
 
 Pending candidates are separate: FINISHV passed native and completecaller screens (about11–15% local caller reductions) but is not in0ec3; SWwhole-draw passed strictnative/scopedlayout review with caller work pending; MPIexperimental work is not part of this selectedimage. No gain from these candidates is included or added.
 
@@ -710,7 +725,7 @@ Current **90f54730 / archive0f4ccda1**, source correspondence **3c1fdd33**, pass
 |Main-step elapsed|9.904 (9.900–9.908) min|9.013 (9.004–9.021) min|9.00%|
 |Aggregate node CPU|99.608 (99.573–99.642) core-hours|85.339 (84.430–86.249) core-hours|14.32%|
 
-These are two observations per image, not a confidence interval or broad repeatability claim. They measure the complete combined image; caller/component percentages are not additive and do not isolate a forecast contribution. Main elapsed includes communication/backpressure; aggregate CPU is summed whole-job consumption. Own9h/noon/profile/restart/full144 remain false; parent b21c9h and historical19ad matched results stay attached to their exact images. Raw producer remains NULL; no new whole-image source build is claimed.
+These are two observations per image, not a confidence interval or broad repeatability claim. They measure the complete combined image; caller/component percentages are not additive and do not isolate a forecast contribution. Main elapsed includes communication/backpressure; aggregate CPU is summed whole-job consumption. Own 9h/noon/profile/restart/full144 remain false; parent b21c9h and historical19ad matched results stay attached to their exact images. Raw producer remains NULL; no new whole-image source build is claimed.
 
 ## Earlier October24 snapshot: first-Y advection clear fusion promoted after own short science
 
@@ -738,7 +753,7 @@ The first-Y advection fusion was subsequently promoted in90f5 after its own shor
 
 ## October24: b21c three-hour exact science recovered; coordinator failure retained
 
-Combined **b21c9c9f** completed all545 ordered steps and all four complete products passed the unchanged original numerical, metadata and layout comparison. Separate recovery verified original input/namelist, all512 rank/library/affinity,480-tile and four-writer/32-marker predicates. Both recovery helpers closed normally. The actual MPI/orted workers exited0; the original coordinator manager exited1 after a short-horizon helper wrongly expected16 rather than32 writer markers. Its failed completion and manager records remain unchanged. This is recovered exact scientific evidence, **not a normal three-hour application completion**.
+Combined **b21c9c9f** completed all 545 ordered steps and all four complete products passed the unchanged original numerical, metadata and layout comparison. Separate recovery verified original input/namelist, all512 rank/library/affinity,480-tile and four-writer/32-marker predicates. Both recovery helpers closed normally. The actual MPI/orted workers exited0; the original coordinator manager exited1 after a short-horizon helper wrongly expected16 rather than32 writer markers. Its failed completion and manager records remain unchanged. This is recovered exact scientific evidence, **not a normal three-hour application completion**.
 
 |Metric|Retained corrected-original546b A1|Combined b21c|Reduction from control|
 |---|---:|---:|---:|
@@ -1111,7 +1126,7 @@ A source-identical BigStep Zen2 screen produced a **7.19% / 5.21% complete HPG c
 
 Selected **f703115b / archivefe72cb2e / post-test sourcec3d2de5d** retains every3cdd improvement and reuses the existing row scratch for one map-factor quotient per I/J, outside the vertical loop. The true division and remaining expression order are preserved; there is no new array, allocation or compiler flag. Complete500-call synthetic HPG timings were **1.34–3.04% shorter** in opposite-order host pairs, with raw output and five return-state fields exact. Process CPU time was unavailable.
 
-The full100-case genuine/O0-bounds/O2 native gate, separate short2-product/35-step check and fresh three-hour4-product/545-step original comparison all passed exactly. All512 ranks, two tiles, four positive output writers,32 active markers and all32quiltFIELDVIEW1 passed in the three-hour case. Every model and reader job closed normally. Own short, three-hour and noon75m science are qualified; own nine-hour remains false.
+The full100-case genuine/O0-bounds/O2 native gate, separate short2-product/35-step check and fresh three-hour4-product/545-step original comparison all passed exactly. All512 ranks, two tiles, four positive output writers,32 active markers and all32 quiltFIELDVIEW1 passed in the three-hour case. Every model and reader job closed normally. Own short, three-hour and noon75m science are qualified; own nine-hour remains false.
 
 | Fresh three-hour reverse-order pair | Corrected original | Latest combined | Reduction |
 |---|---:|---:|---:|
@@ -2799,7 +2814,7 @@ Next is RSL-only 6eb77 versus 7022 with f85/provider 375 retained in both arms. 
 
 Two valid three-hour/world-512 comparisons changed only the RSL narrow integer copies, holding provider375, guarded codec f85, compute/I/O archives, current map, inputs, physics, IB and resources fixed. Current6eb ran first then prior7022: whole wall1083.474764→1141.540235 seconds and summed model-cgroup CPU534988.036225→564735.085051 seconds. With A=current and B=prior, B/A−1 was +5.3592% wall/+5.5603% CPU. The one reverse confirmation ran prior7022 first then current6eb: whole wall1167.754467→911.455774 seconds and CPU577130.850359→447582.397975 seconds; the same code-identity B/A−1 was +28.1197% wall/+28.9440% CPU. Prior7022 was slower in both orders, so retain the qualified narrow RSL copies; no regression was reproduced in these comparisons.
 
-Both original readers passed all four complete06–09 histories, all545 ordered steps and the unchanged scientific/nonfinite, metadata/layout and512-rank runtime/lifetime predicates. All model and reader scopes closed with invocation-bound success evidence; collected reader exit statuses remain honestly null. Scoped main sums were current935.442790/prior992.928650 seconds in the first order, and prior1016.070370/current762.893720 seconds in the reverse order. These stay separate from whole wall; output drain is included, and main-step sums can include synchronization/backpressure. Whole-minus-main is not pure I/O.
+Both original readers passed all four complete06–09 histories, all 545 ordered steps and the unchanged scientific/nonfinite, metadata/layout and512-rank runtime/lifetime predicates. All model and reader scopes closed with invocation-bound success evidence; collected reader exit statuses remain honestly null. Scoped main sums were current935.442790/prior992.928650 seconds in the first order, and prior1016.070370/current762.893720 seconds in the reverse order. These stay separate from whole wall; output drain is included, and main-step sums can include synchronization/backpressure. Whole-minus-main is not pure I/O.
 
 Unchanged current6eb/f85/provider375 whole wall varied906.067103,919.430374,1083.474764 and911.455774 seconds across retained runs. The differing audit magnitudes do not establish an isolated or repeatable RSL speedup, nor a storage/MPI/cache cause. Kernel50.19% narrow-caller gain is separate and is not added to these application figures. Evidence: `investigation/wrf-cpu/science-discovery/production512-rsl-copy-rollback3h-runtime-r1/RESULT.json` (SCI d1c86c0b, closure c8329998, frozen18d40f7a); `production512-rsl-copy-reverse3h-runtime-r1/RESULT.json` (SCI89da882d, closure176b8262, frozen9690ba6b). No additional RSL repeat or optimization probe was launched.
 
@@ -2935,7 +2950,7 @@ Applied source patchd645 changes only the frame routine's guarded C-pointer path
 
 The fresh, unprofiled full-grid pair compared corrected stock546 first with the accepted combined65aaf executable/provider375/f85 second. Both used the same 1500 × 1140 × 33 full25 fixture, current512-rank map, physics, InfiniBand transport and budgets. All four compute-client caches were cleared before each arm; file-server caches were untouched. The baseline is corrected stock, not pristine upstream. The configured higher-order production path does not exercise the latest-only nonpolar order-2 correction.
 
-The unchanged original gate passed all four complete06/07/08/09 products, all545 ordered steps, exact metadata/layout/raw/nonfinite and runtime/writer-lifetime predicates. All model and reader scopes closed. SCI9824012b and invocation-bound reader closuref4097476 are retained with the final RESULT in `science-discovery/production512-original-bulk-combined3h-client-cache-runtime-r3`.
+The unchanged original gate passed all four complete06/07/08/09 products, all 545 ordered steps, exact metadata/layout/raw/nonfinite and runtime/writer-lifetime predicates. All model and reader scopes closed. SCI9824012b and invocation-bound reader closuref4097476 are retained with the final RESULT in `science-discovery/production512-original-bulk-combined3h-client-cache-runtime-r3`.
 
 | Observation | Corrected stock546 | Latest combined65aaf | Lower in this pair |
 |---|---:|---:|---:|
@@ -3188,7 +3203,7 @@ Evidence: science-discovery/production512-halo-wait-observation1h-runtime-r1/RES
 
 ### All accepted improvements including diffusion cache: three-hour exact comparison
 
-One fresh full-grid512 corrected-stock-first546b versus accepted d4d45/provider375/codecf85/faba pair used the unchanged full25 1500x1140x33 case,06:00–09:00 horizon,480compute8x60 plus32quilts, the same literal namelist, IB transport, affinity and100/104GiB node limits. Both arms had actual four-node sync/drop_caches3 before launch. No diagnostic observer, competing project experiment, reader or kernel/device/runtime change ran between the timed arms. This is the first three-hour paired comparison including the promoted default horizontal-diffusion row cache; all earlier accepted improvements remain included.
+One fresh full-grid512 corrected-stock-first546b versus accepted d4d45/provider375/codecf85/faba pair used the unchanged full25 1500x1140x33 case,06:00–09:00 horizon,480 compute8x60 plus32 quilts, the same literal namelist, IB transport, affinity and100/104GiB node limits. Both arms had actual four-node sync/drop_caches3 before launch. No diagnostic observer, competing project experiment, reader or kernel/device/runtime change ran between the timed arms. This is the first three-hour paired comparison including the promoted default horizontal-diffusion row cache; all earlier accepted improvements remain included.
 
 | Observation | Corrected stock | All accepted improvements | Reduction in this pair |
 |---|---:|---:|---:|
@@ -4613,7 +4628,7 @@ Those measurements motivate one bounded standalone provider placement screen. Cu
 
 ## 2026-10-20: fresh original/latest three-hour qualification and input promotion
 
-The fresh unprofiled corrected-original546b → combined1d6e plus root-only input06d/NCa32 comparison passed the unchanged original checker: **four complete hourly products, all 545 ordered steps through09:00, all512 ranks,480compute in8×60,two tiles and all four positive quilt roots487/495/503/511**. Every model and reader scope closed. ActualSCI `bf17d028`, reader closure `106fe5e3`, full qualification `fed6f9ab`; root verified all24 qualification references plus the collected receipt/closure hashes. Production's four groups of eight I/O quilt ranks and hourly NetCDF2 history are exercised; whole model/MPI wall includes final writer drain.
+The fresh unprofiled corrected-original546b → combined1d6e plus root-only input06d/NCa32 comparison passed the unchanged original checker: **four complete hourly products, all 545 ordered steps through09:00, all512 ranks,480 compute in8×60,two tiles and all four positive quilt roots487/495/503/511**. Every model and reader scope closed. ActualSCI `bf17d028`, reader closure `106fe5e3`, full qualification `fed6f9ab`; root verified all24 qualification references plus the collected receipt/closure hashes. Production's four groups of eight I/O quilt ranks and hourly NetCDF2 history are exercised; whole model/MPI wall includes final writer drain.
 
 | Measurement | Fresh corrected original | Combined current configuration | Reduction |
 |---|---:|---:|---:|
@@ -4658,7 +4673,7 @@ The whole eight-rank co-location question was audited without another model: a p
 
 ## 2026-10-20: current combined nine-hour production-quilting comparison
 
-The selected WRF1d6e/source495f, root-input06d/privateNCa32 and fused-output172/providerb938 combination completed06–15 with **all ten complete original products and1625ordered timesteps exact**. Scientific, metadata/layout, all512 ranks, two serial tiles, library/affinity/input and writer checks passed. The production settings remain480compute8×60 plus4groups×8quilt, history/restart format2, hourly history and one frame/file. All four roots487/495/503/511 actually supplied/released648/648/432/432 callbacks with no pending/errors and all affinity restores. The literal inherited field-view checker required-list remains487/495; supplemental unchanged-receipt evidence verifies all32 identity-bound admission markers and all four positive roots. No raw checker or receipt was rewritten.
+The selected WRF1d6e/source495f, root-input06d/privateNCa32 and fused-output172/providerb938 combination completed06–15 with **all ten complete original products and1625ordered timesteps exact**. Scientific, metadata/layout, all512 ranks, two serial tiles, library/affinity/input and writer checks passed. The production settings remain480 compute8×60 plus4groups×8quilt, history/restart format2, hourly history and one frame/file. All four roots487/495/503/511 actually supplied/released648/648/432/432 callbacks with no pending/errors and all affinity restores. The literal inherited field-view checker required-list remains487/495; supplemental unchanged-receipt evidence verifies all32 identity-bound admission markers and all four positive roots. No raw checker or receipt was rewritten.
 
 | Measurement | Retained corrected original | Current combined | Reduction |
 |---|---:|---:|---:|
@@ -4686,7 +4701,7 @@ Promote under the standing significant-exact-kernel inclusion rule. The precedin
 
 Promote the two ordered DIFCOF SIMD directive lines in sourceb37e02ce, executable41bfb335/archiveCF22, retaining CEC/MCICA and all earlier compute, shared-table, input06d/NCa32, outputde5b and codec3edf improvements. Complete captured MYJPBL caller wall fell2.3759%/1.1750% and processCPU2.4409%/1.2001% in opposite-order hpc01/02 pairs. Genuine canonical preprocessing, raw IEEE/five-state, bounds, read-only inputs and full captured caller checks passed. Existing qualified MYJ flags include-fopenmp-simd; no new global flags or generic-Make packed-lowering claim. R1/R2 preparation failures remain preserved; R3 linked once with583/584 archive members unchanged.
 
-The actual full512 short application passed both complete original products and35orderedsteps,480compute8x60+4x8quilt/twoTiles, input/rank/library/worker acceptance and all model/reader closures. SCI27d3c90b, reader2cfe6752, APPdfeb8996 bind30 root-verified references. Active roots487/495 each completed216 balanced callbacks; roots503/511 had requiredzero callbacks, with16 positive field-view rankmarkers. Producer commits remainNULL; sourceb37e records the literal tested patch after acceptance. This instrumented short application is not own3h/9h or a forecast speedup. The prior CEC+3edf fresh3h19.30009%wholewall/12.78753%aggregateCPU remains separate and no longer applies to the selectedDF executable. Rollback restores pairedBEFORE_MYJ_DIFCOF records toCEC and removes only these two directives if rebuilding. Production/master remain unchanged.
+The actual full512 short application passed both complete original products and35orderedsteps,480 compute8x60+4x8quilt/twoTiles, input/rank/library/worker acceptance and all model/reader closures. SCI27d3c90b, reader2cfe6752, APPdfeb8996 bind30 root-verified references. Active roots487/495 each completed216 balanced callbacks; roots503/511 had requiredzero callbacks, with16 positive field-view rankmarkers. Producer commits remainNULL; sourceb37e records the literal tested patch after acceptance. This instrumented short application is not own3h/9h or a forecast speedup. The prior CEC+3edf fresh3h19.30009%wholewall/12.78753%aggregateCPU remains separate and no longer applies to the selectedDF executable. Rollback restores pairedBEFORE_MYJ_DIFCOF records toCEC and removes only these two directives if rebuilding. Production/master remain unchanged.
 
 The qualified067e observer captured complete identity-bound logs with zero drops/overflow/invalid clocks/foreign calls. Perwriter487: outerput23.425117s, callback21.069411s(89.9437%), chunkwrite2.110895s(9.0112%), unattributedremainder.244811s(1.0451%). Writer495: outerput12.883831s, callback11.136823s(86.4403%), chunkwrite1.527835s(11.8585%), remainder.219173s(1.7011%). Actual callback/chunk overlap waszero. Public close/flush calls are nested and not added. These are samePID monotonic elapsed envelopes, not CPU, pure disk, MPI/gather, full finaldrain or global removable headroom; callback includes team setup/join, pack/shuffle, codec, affinity/logging and scheduling. A live487 singleton-affinity probe was inconclusive during legitimate borrowing; unchanged final lifetime/runtime proof passed. Logs buffer until destructor, so liveemptyfiles were expected.
 
@@ -5473,7 +5488,7 @@ Control ranges (min–max): wall_seconds 798.619809–800.214591, main_step_sum_
 
 Candidate-only versus median3 retained distinct original546b invocations; UNPAIRED descriptive reductions, not matched causal/component/forecast gain or repeatability. Hardware/cache epoch matching remains unresolved. Existing parent0b40 matchedABBA n2 remains immutable and separate. Main step includes communication/backpressure; aggregate CPU is core-seconds.
 
-Own545/fourFULL science and original reader passed, all four models closed normally. Own9h/profile remainFALSE; raw producerNULL, post-test source399c39c.
+Own545/fourFULL science and original reader passed, all four models closed normally. Own 9h/profile remainFALSE; raw producerNULL, post-test source399c39c.
 
 - **Thickness row pipeline — closed unpromoted.** Actual whole `compute_diff_metrics` passed 12 cases × four FP controls at O2/O0 with full raw/read-only/config/guards/five-state checks. Four cache-cleared 8192-call arms passed with identical full raw/state and normal closures. Complete-caller wall changes were +0.8671% on hpc01 and −0.2070% on hpc04 (CPU +0.8690%/−0.2193%): no significant repeatable gain demonstrated. Mandatory loads/divisions/stores and scratch allocation remain; no memory benefit or forecast claim. Strict full-RELA false fields remain explicitly classified rather than normalized. The initial benchmark-only missing-TARGET compile failure and minimal fresh R2 fix remain preserved. No source/default promotion; no further arms or application planned.
 
@@ -5492,7 +5507,7 @@ Control ranges (min–max): wall_seconds 2306.344228–2434.052311, main_step_su
 
 Candidate-only versus median3 retained distinct original546b invocations; UNPAIRED descriptive reductions, not matched causal/component/forecast gain or repeatability. Hardware/cache epoch matching remains unresolved. Existing parent0b40 matchedABBA n2 remains immutable and separate. Main step includes communication/backpressure; aggregate CPU is core-seconds.
 
-Own1625/tenFULL science and original reader passed, all four models closed normally. Own9h nowTRUE; profile remainsFALSE; prior own3h/noon retained; raw producerNULL, post-test source399c39c.
+Own1625/tenFULL science and original reader passed, all four models closed normally. Own 9h nowTRUE; profile remainsFALSE; prior own3h/noon retained; raw producerNULL, post-test source399c39c.
 
 ### October 26: Thompson fixed-temperature saturation prefix promoted
 
@@ -5606,7 +5621,7 @@ The3h denominator is a per-metric median of three distinct invocations. The9h or
 
 ### October 26: adjacent U-flux reuse and guarded GWDO searches promoted
 
-The combined0adb build passed all four complete products and all545 ordered timesteps against the corrected original. All model and reader jobs closed normally. Adjacent U-flux reuse reduced complete-caller wall time by15.42% and12.92% on two hosts; guarded GWDO first-hit searches reduced its complete caller by6.46%. These separate caller gains are not added together or to forecast gains.
+The combined0adb build passed all four complete products and all 545 ordered timesteps against the corrected original. All model and reader jobs closed normally. Adjacent U-flux reuse reduced complete-caller wall time by15.42% and12.92% on two hosts; guarded GWDO first-hit searches reduced its complete caller by6.46%. These separate caller gains are not added together or to forecast gains.
 
 | Three-hour measure | Retained original median (n=3) | Combined0adb (n=1) | Descriptive reduction |
 |---|---:|---:|---:|
