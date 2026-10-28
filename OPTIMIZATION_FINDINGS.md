@@ -1,5 +1,14 @@
 # WRF CPU optimization findings
 
+## Cached X typed receives: state gate failed — October 28
+
+Caching the receive layout avoided per-call datatype construction and preserved the qualified Y exchange. The actual 480-rank check produced exact fields, guards, COMMON/store data and non-state headers, but its first typed exchange added underflow and denormal status on every rank. Those bits remain hard requirements under the approved MPI comparison rule; only incidental errno and inexact are diagnostic.
+
+One diagnostic run recorded 4,200 matched MPI before/after pairs. The new status appeared within `MPI_Irecv` on 184 ranks and `MPI_Wait` on 296; controls and x87 state stayed unchanged. This locates the MPI API boundary, not a specific internal library instruction. All 480 physical outputs remained exact, the original abort-12 failure was preserved, and all four node jobs drained with invocation-bound closure evidence.
+
+Close this version unpromoted. No timing, warm-up workaround, state restoration or forecast qualification was performed, and no benefit is claimed. The selected working image remains unchanged. [Evidence and scope](tools/cpu-comm/cached-x-typed-receive-20261028.json).
+
+
 ## Runge–Kutta row scheduling: exact gate failed — October 28
 
 Producing each later-stage row immediately before its original scalar consumer failed the strict extracted-procedure gate. A competing-NaN case changed the output payload from `7fc12345` to `ffc54321`; actual O2 instructions showed reversed multiplication operand priority in the scalar remainder. A narrowed version admitted only widths divisible by four, but the same width-three case still failed in its literal original fallback. Source-level fallback alone did not preserve compiled NaN selection in this context.

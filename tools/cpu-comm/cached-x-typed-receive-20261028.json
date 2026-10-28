@@ -1,0 +1,85 @@
+{
+  "date": "2026-10-28",
+  "decision": "CLOSED_UNPROMOTED_CURRENT_CACHED_X_TYPED_RECEIVE_VERSION",
+  "mechanism": "Cache X receive datatypes by live field/layout/communicator ownership; preserve qualified early-Y exchange and Y-unpack before X-pack. This is distinct from the older per-call datatype setup screen.",
+  "original_source_unchanged": true,
+  "selected_forecast_executable_sha256": "00c6bcb351bfb79b6de3c240429e630d70980d1f3ead6e7594d56fc2d447a1b5",
+  "prior_uninstrumented_failure": {
+    "all480_fields_guards_Common_nonstate_headers": "exact",
+    "hard_difference": "First observed typed call added MXCSR underflow and denormal status on all480 ranks",
+    "other11_calls_hard_exact": true,
+    "cache_positive_checks": "One construction and12hits passed before unchanged abort12",
+    "finalizer_executed": false,
+    "timing_executed": false
+  },
+  "one_shot_writer_diagnostic": {
+    "matched_pairs": 4200,
+    "API_pair_counts": {
+      "MPI_Irecv": 840,
+      "MPI_Isend": 840,
+      "MPI_Wait": 1680,
+      "MPI_Get_count": 840
+    },
+    "state_changing_pairs": 480,
+    "changing_API_counts": {
+      "MPI_Wait": 296,
+      "MPI_Irecv": 184
+    },
+    "MXCSR_transition_counts": {
+      "8064_to_8114": 479,
+      "8096_to_8114": 1
+    },
+    "control_invariants": "All4200 pairs x87CW895/x87SW0 unchanged; MXCSR control bits outside low6 status bits unchanged",
+    "unapproved_status_bits": "MXCSR underflow0x10 and denormaloperand0x2; inexact0x20 does not excuse these",
+    "full_physical_exact_ranks": 480,
+    "closure": {
+      "hpc01": {
+        "invocation_id": "0f628e9297524e51ad06024ab9148ed5",
+        "manager_invocation_bound_exit_status": 1,
+        "retained_MPI_exit_code": 12,
+        "cgroup_absent": true
+      },
+      "hpc02": {
+        "invocation_id": "2228c86d250d4e51a42e8d687bd33341",
+        "retained_node_exit_code": 0,
+        "manager_invocation_bound_deactivated_successfully": true,
+        "cgroup_absent": true
+      },
+      "hpc03": {
+        "invocation_id": "a85c5fe2bbfa4812af916fb657beadc8",
+        "retained_node_exit_code": 0,
+        "manager_invocation_bound_deactivated_successfully": true,
+        "cgroup_absent": true
+      },
+      "hpc04": {
+        "invocation_id": "4397e34c2e7049c987a31c26cfe8efd0",
+        "retained_node_exit_code": 0,
+        "manager_invocation_bound_deactivated_successfully": true,
+        "cgroup_absent": true
+      }
+    },
+    "GC_defaults_used_as_invocation_proof": false,
+    "interpretation": "Transition localized across instrumented MPI_Irecv or MPI_Wait boundary, not attributed to a particular internal library instruction. Original MPI exit12/hard failure remains. No normalization, warmup, waiver or timing."
+  },
+  "comparison_scope": "Owner approval permits recording incidental errno and only IEEE inexact as diagnostics for MPI callers. All other exception bits and controls remain exact; original forecast checker unchanged. This diagnostic does not expand acceptance.",
+  "limits": [
+    "No cost, forecast or cold-start qualification",
+    "MPI API boundaries identified; specific internal MPI/UCX instruction not established",
+    "No state masking/restoration, record normalization, skipped first call, added warmup or gate waiver",
+    "No performance or memory benefit established; no production, master or working-default change"
+  ],
+  "evidence": {
+    "prior_failure_classification": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentfac7-haloc-cross-axis-x-prepost-source-question-r1/x-typed-cache-verify-failure-diagnosis-r1/CLASSIFICATION.json",
+      "sha256": "8ef0d9955cd786212a60e89abdf5cc2f4229bc29aaedff4cce21a5db47feeaa1"
+    },
+    "diagnostic": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentfac7-haloc-cross-axis-x-prepost-source-question-r1/x-typed-first-hit-writer-diagnostic-preparation-r1/actual-diagnostic-collection-r1/stdout.json",
+      "sha256": "82e16b20a3accb012db215285979df7ffc41e0a705625dad18fc0cd6fd1fdcea"
+    },
+    "independent_actual_ACK": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentfac7-haloc-cross-axis-x-prepost-source-question-r1/independent-x-only-typed-cache-source-review-r1/FIRST_HIT_ACTUAL_CLASSIFICATION_AND_CLOSURE_ACK.json",
+      "sha256": "cce249eef495d2297d6b99e0298b97d6ac4e6e90a8874b8a83d419620d6190c0"
+    }
+  }
+}
