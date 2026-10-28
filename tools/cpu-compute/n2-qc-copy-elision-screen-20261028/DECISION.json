@@ -1,0 +1,99 @@
+{
+  "status": "HOLD_UNPROMOTED_NO_DEMONSTRATED_COMPLETE_CALLER_GAIN",
+  "source_installed": false,
+  "application_qualified": false,
+  "selection_changed": false,
+  "further_variants_authorized": false,
+  "native": {
+    "R1": "PASS all5roles16cases4maskedrounds320completecalls",
+    "R2": "PASS sameunchangedoracle; once-onlyvalidQCdispatch/directbody plus literaloriginalsameoptfallback",
+    "each_role_raw_bytes": 36950016,
+    "all_five_compute_state_words_hard_exact": true,
+    "genuine_captured_fixture": false,
+    "whole_WRF_module_compiles": 0
+  },
+  "cost": {
+    "R1": {
+      "hpc01": {
+        "wall_seconds": {
+          "parent": 4.398795697,
+          "candidate": 4.541897256,
+          "percent_lower": -3.2531985765466813
+        },
+        "thread_cpu_seconds": {
+          "parent": 4.398206074,
+          "candidate": 4.541116848,
+          "percent_lower": -3.249296908683223
+        }
+      },
+      "hpc02": {
+        "wall_seconds": {
+          "parent": 4.398836407,
+          "candidate": 4.5392931,
+          "percent_lower": -3.1930419775667724
+        },
+        "thread_cpu_seconds": {
+          "parent": 4.398501069,
+          "candidate": 4.538178132,
+          "percent_lower": -3.1755605104753406
+        }
+      }
+    },
+    "R2": {
+      "hpc01": {
+        "wall_seconds": {
+          "parent": 4.401328689,
+          "candidate": 4.543262957,
+          "percent_lower": -3.22480500842231
+        },
+        "thread_cpu_seconds": {
+          "parent": 4.401224347,
+          "candidate": 4.542884079,
+          "percent_lower": -3.218643741634285
+        }
+      },
+      "hpc02": {
+        "wall_seconds": {
+          "parent": 4.397154296,
+          "candidate": 4.541528333,
+          "percent_lower": -3.2833516242842236
+        },
+        "thread_cpu_seconds": {
+          "parent": 4.396950617,
+          "candidate": 4.540804735,
+          "percent_lower": -3.271679182472841
+        }
+      }
+    }
+  },
+  "cost_scope": "2048 complete synthetic188x19x33calculate_N2 calls perarm including identicalfullphysicalBN2restore and routinealloc/free inwall/main-threadCPUclocks. CheckedcacheEVERYarm, oppositeorder01P-C/02C-P. Pre/postgenuinegold8236344B/rawreadonlyguardsall5statehardexactoutsideclock; no per-iteration timedstatecomparison claim.",
+  "mechanism": {
+    "R1": "QCarraymaterializationremoved: original5malloc/free1memcpy4memset becomes4malloc/free0memcpy3memset. ActualR1 retains per-I QCvaliditycmp/branch.",
+    "R2": "Actualscratch-freewrapperoneQCdispatch, directvalidbodybothper-I QCchecksremoved; same4allocationpairs/no memcpy. AbsentQC usesliteraloriginalsameopt.",
+    "interpretation": "R2didnotrecoverwholecallercost. RepeatedQCguardsarenotsupportedastheprimaryexplanationofthemeasured3.2%slowdown;remainingcauseunmeasured. No furtherlayouts/guards/variantswithoutnewmeasuredevidence."
+  },
+  "static_saving": {
+    "active_geometry": [
+      188,
+      33,
+      19
+    ],
+    "array_bytes": 471504,
+    "one_allocation_free_pair_removed_on_valid_QC_route": true,
+    "measured_peak_or_capacity_benefit": false
+  },
+  "linked_R2_selection_proof_pending": false,
+  "limits": "Sparsehistoricalselected-mainTIDprocedureperiods0.139\u20130.344%areselectionevidenceonly,noglobalheadroom/forecastbenefit. No application,canonical/default,unmaskedforall-input,peakmemoryorisolatedkernelgainclaim. Originalsourceandselected00c6/ff31remainunchanged.",
+  "linked_R2_selection": {
+    "candidate_executable_sha256": "1b01921e210808e9d69c70d11c2dbe76f8eb4750a5aa8f28b173c523db796f9f",
+    "actual_private_object_sha256": "6a97b341c666171f416ba70dfdbfecc5646d9c01454c8d10abb5527a065c524c",
+    "wrapper_bytes": 973,
+    "direct_body_bytes": 7092,
+    "same_sizes_and_bytes_outside_each_actual_RELA_word": true,
+    "actual_wrapper_hot_destination": "0x40db70 __private_n2_candidate_MOD_calculate_n2_qc_valid",
+    "actual_wrapper_absent_destination": "0x43e5f0 __module_diffusion_em_MOD_calculate_n2",
+    "prior_R1_8152_not_in_actual_R2_link_argv": true,
+    "inputs_stable": true,
+    "method_limit": "Exactselectionproof, not claimthatdifferentlinkedrelocationwordsarerawbyteequal or independent proof ofeveryexternalresolver."
+  }
+}

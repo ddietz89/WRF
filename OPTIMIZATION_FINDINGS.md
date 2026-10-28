@@ -1,5 +1,12 @@
 # WRF CPU optimization findings
 
+## N2 copy removal: complete routine slower — October 28
+
+Removing the cloud-water temporary passed exact native checks but made the complete synthetic N2 caller about 3.2% slower on both nodes. One revised version moved the validity decision outside the computation; it passed the same checks and remained about 3.2% slower. Its linked code was verified to use the revised body. The repeated condition does not explain the slowdown as a primary cause; the remaining cause is unmeasured.
+
+Each arm included 2,048 complete calls and identical output restoration, with cache clearing before every arm. Both versions passed five-role, 16-case, four-round raw-output, read-only, guard and processor-state checks. They remove a 471,504-byte array on the valid-cloud-water route for this geometry, but no peak-memory, capacity or forecast benefit was measured. Keep both versions unpromoted and retain their evidence; the working build is unchanged. [Timings, scope and decision](tools/cpu-compute/n2-qc-copy-elision-screen-20261028/README.md).
+
+
 ## MU/theta row scheduling: exact gate failed — October 28
 
 Completing each MU/WW row immediately before its original theta consumer preserved the source expressions but failed the strict whole-procedure O2 check. In case 7, round 0, `T(2,2,2)` changed from `ffc54321` to `7fc12345`. Actual scalar ADD instructions reversed the priority of the two competing `T_1` NaNs in the horizontal theta term. The named test routine and production candidate had identical target bodies and relocations, so this is a compiled candidate failure.
