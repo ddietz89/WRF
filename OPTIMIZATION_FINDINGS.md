@@ -1,5 +1,11 @@
 # WRF CPU optimization findings
 
+## MU/theta row scheduling: exact gate failed — October 28
+
+Completing each MU/WW row immediately before its original theta consumer preserved the source expressions but failed the strict whole-procedure O2 check. In case 7, round 0, `T(2,2,2)` changed from `ffc54321` to `7fc12345`. Actual scalar ADD instructions reversed the priority of the two competing `T_1` NaNs in the horizontal theta term. The named test routine and production candidate had identical target bodies and relocations, so this is a compiled candidate failure.
+
+The first attempt had stopped earlier on a raw module-interface difference. A fresh continuation proved that its only token change was the conservative `ARRAY_OUTER_DEPENDENCY` attribute on `advance_mu_t`, while retaining that raw inequality and the original failure. The unchanged original-MOD caller and finite capture passed before the NaN case failed. Both jobs closed and drained; O0 and cost tests were not reached. Close this version unpromoted, with no measured gain or application claim. The selected source and working image remain unchanged. [Actual failures and decision](tools/cpu-rejected/advance-mu-outerj-phase-20261028.json).
+
 ## Cached X typed receives: state gate failed — October 28
 
 Caching the receive layout avoided per-call datatype construction and preserved the qualified Y exchange. The actual 480-rank check produced exact fields, guards, COMMON/store data and non-state headers, but its first typed exchange added underflow and denormal status on every rank. Those bits remain hard requirements under the approved MPI comparison rule; only incidental errno and inexact are diagnostic.

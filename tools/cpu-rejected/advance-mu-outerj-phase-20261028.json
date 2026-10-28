@@ -1,0 +1,107 @@
+{
+  "status": "CLOSED_UNPROMOTED_STRICT_O2_NAN_PAYLOAD_FAILURE",
+  "scope": "Current advance_mu_t whole-procedure outer-J scheduling proposal. Original inner expressions, loops, scratch overlay and arithmetic were retained; no source or working-default change was installed.",
+  "mechanism": "Complete the original MU/WW producer and theta consumer for one J row before advancing to the next row, admitted only for nonempty full-column calls with all six exceptions masked in both FP units.",
+  "actual_parent": {
+    "selected_image_sha256": "00c6bcb351bfb79b6de3c240429e630d70980d1f3ead6e7594d56fc2d447a1b5",
+    "SmallStep_member_sha256": "14e173b2a5858dd91fc764e3e3e8b1dd33a0c4e3099af8e433fd28f53c65cd26"
+  },
+  "attempts": [
+    {
+      "attempt": "R1",
+      "invocation_id": "d550c8b2a6da4fa08e01fdf1c1d77d21",
+      "receipt_sha256": "b1cfb205c7361ed39dc0cba9f2aec47e2dce3c7560a153f4fafd1092d678064f",
+      "closure_sha256": "be657fca7462975e79a79237fba1c18db6cfa9b0998621d703ff0241afee7341",
+      "failed_closed_drained": true,
+      "failure": "Compiled O2 public MOD differed by one ARRAY_OUTER_DEPENDENCY attribute on advance_mu_t. Raw-MOD failure remains retained; numerical tests were not reached."
+    },
+    {
+      "attempt": "R2_finite_interface_continuation",
+      "invocation_id": "34226962d38744cba90e51cbe68e8aa0",
+      "receipt_sha256": "118656c0ed75cef09a0b9fdbd081461ad49bd4852462196732b86f1da9b30f20",
+      "closure_sha256": "ee77830e90699cd98471b9c60d8885a194475e17002ea3eb51f8a9934614d623",
+      "failed_closed_drained": true,
+      "interface_proof": "Exact whole token stream except the single conservative ARRAY_OUTER_DEPENDENCY addition on advance_mu_t; known existing d376/c135 mask getter has no external-array/global accesses. No MOD artifact was stripped or rewritten.",
+      "raw_MOD_exact": false,
+      "cached_O2_production_sha256": "90b8958206726d5318ab1c76a959e2057afbee46fff3c6a3739a01bff2e4cef1",
+      "original_MOD_caller": true,
+      "named_production_target_body_and_full_relocations_exact": true,
+      "finite_capture_raw_and_five_state_passed": true,
+      "first_raw_mismatch": {
+        "optimization": "O2",
+        "caseid": 7,
+        "roundid": 0,
+        "width": 8,
+        "route": "full-column/nonempty/all-masked fast row schedule",
+        "output_role": 9,
+        "output_array": "T",
+        "word_1_based": 24882,
+        "physical_IKJ": [
+          2,
+          2,
+          2
+        ],
+        "parent_hex": "ffc54321",
+        "candidate_hex": "7fc12345",
+        "seeds": [
+          {
+            "array": "T_1",
+            "IKJ": [
+              2,
+              2,
+              2
+            ],
+            "hex": "7fc12345"
+          },
+          {
+            "array": "T_1",
+            "IKJ": [
+              3,
+              2,
+              2
+            ],
+            "hex": "ffc54321"
+          }
+        ]
+      },
+      "O0_or_cost_reached": false
+    }
+  ],
+  "actual_instruction_seam": {
+    "source_expression": "t_1(i+1,kk,j)+t_1(i,kk,j), horizontal theta transport",
+    "parent": {
+      "object_sha256": "14e173b2a5858dd91fc764e3e3e8b1dd33a0c4e3099af8e433fd28f53c65cd26",
+      "right_load_PC": "0x6a92",
+      "ADD_PC": "0x6aff",
+      "instruction": "vaddss %xmm3(center),%xmm4(right),%xmm1",
+      "first_source": "right",
+      "result_payload": "ffc54321"
+    },
+    "candidate": {
+      "named_object_sha256": "5f833bea0c5b7942e06128a0a41ab8a141b9d7a5d480f931ce2208ccf8da76a5",
+      "production_object_sha256": "90b8958206726d5318ab1c76a959e2057afbee46fff3c6a3739a01bff2e4cef1",
+      "right_load_PC": "0x86b7",
+      "ADD_PC": "0x86cb",
+      "instruction": "vaddss %xmm4(right),%xmm3(center),%xmm4",
+      "first_source": "center",
+      "result_payload": "7fc12345"
+    },
+    "interpretation": "The unchanged Fortran expression was compiled with reversed scalar ADD source priority in the row schedule. This matches the observed competing qNaN result. Named/production target body and full relocations were hard-equal before this call, so the named fixture does not isolate the defect from the production object."
+  },
+  "processor_state_policy": "All five numerical state words and exact outputs remained hard requirements. The case7 output mismatch stops before its final paired-state comparison; no case7 state pass is claimed.",
+  "decision": "Close unpromoted. No operand edit, additional guard variant, rerun or cost was performed after the failure. No gain was measured, and no native/application qualification or promotion is claimed.",
+  "qualification": {
+    "native": false,
+    "performance": false,
+    "application": false,
+    "promotion": false
+  },
+  "private_closeout": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current00c6-advance-mu-remaining-source-question-r1/CLOSE_UNPROMOTED.json",
+    "sha256": "2001ab355a619da2d945d29781df079bb9a0f566a804de5ae5d64b20d9315044"
+  },
+  "independent_actual_ACK": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current00c6-advance-mu-remaining-source-question-r1/independent-outerJ-source-review-r1/ACTUAL_NUMERIC_FAILURE_ACK.json",
+    "sha256": "3ef1acf492c0accdff3c00e1113c23f366516e6f0a5de5fe501213725b92adbc"
+  }
+}
