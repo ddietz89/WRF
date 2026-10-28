@@ -14,6 +14,22 @@ Compared with the preceding PWAT configuration, whole-run wall time was essentia
 
 The extracted pressure row-consumer screen was 42.6–44.5% shorter, preserving raw results and IEEE state; it excludes the original power operation and the rest of the procedure. Output packing passed encoded-byte, decoded-field, layout, ownership and IEEE checks. Its longer complete-provider pairs were 1.0% and 10.0% shorter; shorter pairs were mixed. These kernel/caller results support retaining both changes and are separate from forecast performance.
 
-The pressure path defaults on within its qualified strict GNU 13.3 configuration; `WRF_POSTPOW_FINAL_CONSUMER=0` plus regeneration/rebuild/relink restores its scalar path. The output build remains `fused-pack`; its current selector now identifies the qualified guard and row-cursor source. The repaired recipe compiled and linked successfully, while byte-identical reproduction of the selected provider remains unqualified. Exact artifacts, support limits, retained failures and rollback are recorded in `tools/cpu-compute/pressure-rowcursor-batch-20261028/`. Nine-hour daylight qualification is next; this bundle has not inherited an earlier build's longer-run qualification.
+The pressure path defaults on within its qualified strict GNU 13.3 configuration; `WRF_POSTPOW_FINAL_CONSUMER=0` plus regeneration/rebuild/relink restores its scalar path. The output build remains `fused-pack`; its current selector now identifies the qualified guard and row-cursor source. The repaired recipe compiled and linked successfully, while byte-identical reproduction of the selected provider remains unqualified. Exact artifacts, support limits, retained failures and rollback are recorded in `tools/cpu-compute/pressure-rowcursor-batch-20261028/`. The same bundle subsequently passed its own nine-hour daylight qualification.
 
 See THREE_HOUR_APPLICATION_QUALIFICATION.json, PRESSURE_COMPONENT.json, ROWCURSOR_COMPONENT.json and SOURCE_REBUILD_RECIPE.json for the exact evidence and rollback.
+
+## Pressure and output packing: nine-hour qualification — October 28
+
+The same combined build passed the unchanged nine-hour full-grid checker: all ten complete outputs and 1,625 ordered steps matched exactly. All four model jobs and the checker closed normally. All prior improvements remain included.
+
+| Metric | Retained original nine-hour control | Latest combined run | Reduction |
+|---|---:|---:|---:|
+| Whole-run wall time | 34.15724 min | 29.64722 min | 13.2037% |
+| Main-step elapsed time | 30.84597 min | 28.04913 min | 9.0671% |
+| Aggregate CPU | 278.15747 core-hours | 248.76513 core-hours | 10.5668% |
+
+This is an unpaired comparison with one separate current-epoch original control. The three-hour comparison below retains its own three-control median; the cohorts are kept separate. Main-step elapsed includes communication and waiting, and is separate from CPU consumption.
+
+The wall-time reduction is smaller at nine hours while the main-step reduction stays near 9%. The measured wall-minus-main gap between control and candidate is about 102 seconds at either horizon. That similar absolute gap contributes a smaller percentage of the longer run. This remainder includes initialization, output, drain and other overhead; it does not identify I/O time alone. See `HORIZON_DECOMPOSITION.md` in the evidence package for normalized values.
+
+Exact qualification: `tools/cpu-compute/pressure-rowcursor-batch-20261028/NINE_HOUR_APPLICATION_QUALIFICATION.json`. The executable, archive and output provider are unchanged from the qualified three-hour run. Daytime profiling is now in progress; restart and full 144-hour qualification remain outside this result.

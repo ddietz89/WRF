@@ -1,351 +1,137 @@
 {
-  "status": "PASS_OWN_UNPROFILED_SAME512_NINE_HOUR_1625_TEN_FULL",
+  "status": "PASS_OWN_UNPROFILED_SAME512_PRESSURE_ROWCURSOR_NINE_HOUR_1625_TEN_FULL",
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentb92f-postpow-one-BigStep-helper-experimental-r1/wrf.exe",
+    "sha256": "1d16f14b49676df3a514006fd01149832f867315989b8160128b123e4c92d87b"
+  },
+  "archive": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentb92f-postpow-one-BigStep-helper-experimental-r1/libwrflib.a",
+    "sha256": "32de9f2d110661381b1d02f214605c91450e4612652ec5f79da51056b8e9c2c5"
+  },
+  "output_provider": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current0dd6-rowcursor-native-hpc02-r1/output/liboutput_world512_rowcursor.so",
+    "sha256": "64bb4cf2744799056e25be48b166a7a4703f525b08acff1bf898cd7941e8a643"
+  },
+  "source_commit": "68ab210a55000509bab4dccf89aa929ddc97f94e",
+  "post_test_source_commit": "68ab210a55000509bab4dccf89aa929ddc97f94e",
+  "raw_producer_source_commit": null,
   "own_three_hour_qualified": true,
   "own_unprofiled_three_hour_qualified": true,
   "own_nine_hour_qualified": true,
   "own_unprofiled_nine_hour_qualified": true,
-  "own_profile_qualified": false,
-  "source_commit": "214e7cf3c498e609933da7a6c4e3c39f5c6e04f7",
-  "post_test_source_commit": "214e7cf3c498e609933da7a6c4e3c39f5c6e04f7",
-  "raw_producer_source_commit": null,
-  "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentc51b-inatm-copy-smallstep-wwsave-two-member-experimental-r1/wrf.exe",
-    "sha256": "4974f103affa05d6fef76b96d6dbe4a3917762846a15e6aab083b9b7c64b898d"
-  },
-  "archive": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentc51b-inatm-copy-smallstep-wwsave-two-member-experimental-r1/libwrflib.a",
-    "sha256": "02848e307ad940c02571fe055433247d5d248bd52628abbb738635ac15a87b0a"
-  },
-  "science": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current4974-fourhost-own-ninehour-runtime-r1/science-receipt.json",
-    "sha256": "ce6cb2f3bec5c61b24e6d56eeea0b50ec648e38f709bb5e2ef0d4d6164f5109d"
-  },
-  "reader_closure": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current4974-fourhost-own-ninehour-runtime-r1/reader-closure.json",
-    "sha256": "cef248375b4f9c11eec5a053669c9e616e088714e1db70c56beea33dbbd6303a"
-  },
-  "model_closures": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current4974-fourhost-own-ninehour-runtime-r1/candidate-closures.json",
-    "sha256": "cb4d8d2fb92ecb97188421370d279ed8a925c37c2d4a941b6aa075324d46e751"
-  },
-  "lease": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current4974-fourhost-own-ninehour-runtime-r1/candidate-metadata/lease.json",
-    "sha256": "61d6a3fb5eda5c702acee2c33d8c1aebb9c4c279a7a18cc39656fad50ee1ce06"
-  },
-  "RESULT": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current4974-fourhost-own-ninehour-runtime-r1/RESULT.json",
-    "sha256": "746021bab6a5f2a7cc1d17d39142a52f1e365c9559e2d5ba458dab173ab022b4"
-  },
+  "own_fourhost512_qualified": true,
+  "own_noon_one_hour_qualified": false,
+  "own_instrumented_noon_one_hour_qualified": false,
+  "own_unprofiled_noon_one_hour_qualified": false,
+  "profile_qualified": false,
+  "restart_qualified": false,
+  "full144_qualified": false,
   "observed_step_count": 1625,
   "products": 10,
-  "writer_positive_roots": [
-    487,
-    495,
-    503,
-    511
-  ],
-  "FIELDVIEW_markers": 32,
-  "protected_writer_policy": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current4974-fourhost-own-ninehour-runtime-r1/field_view_admission.py",
-    "sha256": "512f971e3d6b463d728ea0ed8b46f3b0154917178220423f2d689033219d07ee"
+  "instrumented": false,
+  "observer": false,
+  "immutable_three_hour_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/pressure-rowcursor-batch-20261028/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "c901e7b33ec8eb0218625e12adf32871c9527bc70be7030a96ec0e4c2ce8e673"
   },
-  "protected_writer_admission_status": "PASS_REQUIRED_ACTIVE_ROOTS_ACTUAL_FIELD_VIEW_ADMISSION",
-  "candidate_metrics": {
-    "wall_seconds": 1786.8271802468225,
-    "cpu_seconds": 897799.454589,
-    "main_step_sum_seconds": 1686.36915
+  "actual_candidate_metrics": {
+    "wall_seconds": 1778.8332640998997,
+    "cpu_seconds": 895554.478168,
+    "main_step_sum_seconds": 1682.94795
   },
-  "controls_newest_first": [
-    {
-      "run_id": "production512-original-fbcd-selected9h-control-r1",
-      "coordinator_invocation_id": "dddb957f16aa4a0d93dda4b7b36f551f",
-      "actual_closure_utc": "2026-10-22T03:49:28.813701+00:00",
-      "metrics": {
-        "wall_seconds": 2306.344228322152,
-        "cpu_seconds": 1132283.412013,
-        "main_step_sum_seconds": 2092.72855
-      },
-      "RESULT": {
-        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-fbcd-selected9h-runtime-r1/RESULT.json",
-        "sha256": "5640e5561e29455a120839e8185773e075668d08aaf2b50d82da5733360729d5"
-      },
-      "closures": {
-        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-fbcd-selected9h-runtime-r1/control-metadata/model-closures.json",
-        "sha256": "766b63b479b989b1a2b91588aa79c4a96113071674c50f83d5042490719f3140"
-      }
+  "fresh_original_reference": {
+    "n": 1,
+    "RESULT": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-pressure-rowcursor-9h-runtime-r1/fresh-original-ninehour-RESULT.json",
+      "sha256": "d616d96bea934af86dce8e3ffea511b0f2014f6053d3e5271a5ea19d19dd5dfd"
     },
-    {
-      "run_id": "production512-original-hpg-nhx-consumer9h-control-r2",
-      "coordinator_invocation_id": "c09956dd38e240aa87d5d12be614b2fe",
-      "actual_closure_utc": "2026-10-21T18:22:22.391630+00:00",
-      "metrics": {
-        "wall_seconds": 2434.0523107456975,
-        "cpu_seconds": 1196242.0426949998,
-        "main_step_sum_seconds": 2217.65407
-      },
-      "RESULT": {
-        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-hpg-nhx-consumer9h-runtime-r2/RESULT.json",
-        "sha256": "268f23d47ec011b97ab7f6c46aca23ae3c4e98ba25d1e4657da42c55d653ceff"
-      },
-      "closures": {
-        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-hpg-nhx-consumer9h-runtime-r2/control-metadata/model-closures.json",
-        "sha256": "56465dbd1610d669eb22502afadb1e643d453697aaa307a26ac5dac80fa9f132"
-      }
-    },
-    {
-      "run_id": "production512-original-spcvmc9h-control-r1",
-      "coordinator_invocation_id": "5373f8cf0abf42d18d7d956279ca9851",
-      "actual_closure_utc": "2026-10-21T12:05:30.111537+00:00",
-      "metrics": {
-        "wall_seconds": 2375.1764749530703,
-        "cpu_seconds": 1166063.791005,
-        "main_step_sum_seconds": 2157.66964
-      },
-      "RESULT": {
-        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-spcvmc9h-runtime-r1/RESULT.json",
-        "sha256": "13b805e8bca35cf86e76fcfe7ef10c34291d4e25f52f67c669181952dae1805d"
-      },
-      "closures": {
-        "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current-spcvmc9h-runtime-r1/control-metadata/model-closures.json",
-        "sha256": "5dcaf25ee3709f8ecfb07a5d9447c55ce53bdc2bfa7aad4c73a42dc1def9febe"
-      }
-    }
-  ],
-  "control_statistics": {
-    "wall_seconds": {
-      "n": 3,
-      "median": 2375.1764749530703,
-      "mean": 2371.8576713403068,
-      "min": 2306.344228322152,
-      "max": 2434.0523107456975,
-      "values_newest_first": [
-        2306.344228322152,
-        2434.0523107456975,
-        2375.1764749530703
-      ]
-    },
-    "main_step_sum_seconds": {
-      "n": 3,
-      "median": 2157.66964,
-      "mean": 2156.01742,
-      "min": 2092.72855,
-      "max": 2217.65407,
-      "values_newest_first": [
-        2092.72855,
-        2217.65407,
-        2157.66964
-      ]
-    },
-    "cpu_seconds": {
-      "n": 3,
-      "median": 1166063.791005,
-      "mean": 1164863.0819043333,
-      "min": 1132283.412013,
-      "max": 1196242.0426949998,
-      "values_newest_first": [
-        1132283.412013,
-        1196242.0426949998,
-        1166063.791005
-      ]
+    "metrics": {
+      "wall_seconds": 2049.434141888749,
+      "cpu_seconds": 1001366.8760190001,
+      "main_step_sum_seconds": 1850.75802
     }
   },
   "descriptive_reductions_percent": {
-    "wall_seconds": 24.770761284921893,
-    "cpu_seconds": 23.005974328796363,
-    "main_step_sum_seconds": 21.843032930657547
+    "wall_seconds": 13.20368741097797,
+    "main_step_sum_seconds": 9.067099436370397,
+    "cpu_seconds": 10.566796284660851
   },
   "timing_gain_claim": false,
-  "limits": "Own unprofiled selected4974 SAME512 nine-hour1625/tenFULL strict science PASS against retained corrected original546b. UNPAIRED descriptive comparison with median latest3 eligible DISTINCT original nine-hour invocations; hardware/cache epoch comparability unresolved, no matched/causal/component-additive or repeatability claim. Own three-hour545/fourFULL Q a208 retained separately. Own noon/profile/restart/384/256/full144 remainFALSE. QualifiedPP/cached-object replay + post-test canonical target correspondence only; rawproducerNULL/no clean whole-source CPP/rebuild certificate. Original native raw/scoped structural limitations retained.",
-  "own_noon_one_hour_qualified": false,
-  "profile_qualified": false,
-  "restart_qualified": false,
-  "immutable_three_hour_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/inatm-sw-copy-smallstep-wwsave-20261026/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "a2082222cb46644ea61de2f1d69da70ed0f786e7470e03a028df260eb8dd8f59"
-  },
-  "raw_science_scope": "Current0b40 UNPROFILED own nine-hour ten-product qualification vs retained corrected-original546b; UNPAIRED/no isolated component gain/no future transfer",
-  "raw_science_scope_interpretation": "Inherited protected checker text Current0b40 retained verbatim. Actual selected4974 identity is established by current runtime/granted lease/executable SHA, not that historical label.",
-  "actual_map_authority": {
+  "actual_evidence": {
+    "result": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-pressure-rowcursor-9h-runtime-r1/RESULT.json",
+      "sha256": "45848fd41cd07f2a6d031652895c5f06fca3c0c157e89006846809e74a979c4a"
+    },
+    "science": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-pressure-rowcursor-9h-runtime-r1/science-receipt.json",
+      "sha256": "c3c335acd13cf74dc3faf28d78caf3d040bc0495ef5df90d0c6a4b48ba39e880"
+    },
+    "reader": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-pressure-rowcursor-9h-runtime-r1/reader-closure.json",
+      "sha256": "4554bc50e2932a1a3aacf972af8b48330c8197eb8e5d7b57330d1962e60f5a5e"
+    },
+    "models": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-pressure-rowcursor-9h-runtime-r1/candidate-metadata/model-closures.json",
+      "sha256": "cbcf47eae8d1a5d62a7d9d8a1bad49baf9c6b03ab64a2f5a2be2c09b8b8d0b0a"
+    },
     "lease": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current4974-fourhost-own-ninehour-runtime-r1/candidate-metadata/lease.json",
-      "sha256": "61d6a3fb5eda5c702acee2c33d8c1aebb9c4c279a7a18cc39656fad50ee1ce06"
-    },
-    "map_table_sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac",
-    "exact_rows_snapshot": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/inatm-sw-copy-smallstep-wwsave-20261026/ACTUAL_GRANTED_NINE_HOUR_RANK_MAP.json",
-      "sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac"
-    },
-    "unused_legacy_staged_map": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current4974-fourhost-own-ninehour-runtime-r1/candidate-rank-map.json",
-      "sha256": "e003599c0fefc226055383019c09810b4aada079817531b604ba236a5e81c0d4"
-    },
-    "scope": "Granted FABA512 rows authoritative; copied e003 candidate file unused, no e003 actualplacement claim."
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-pressure-rowcursor-9h-runtime-r1/candidate-metadata/lease.json",
+      "sha256": "0b820ad13db4e181586fc09560cdc9cf6443b67d2e7c9120b1a5caa03c50a8f7"
+    }
   },
-  "runtime_manifest": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current4974-fourhost-own-ninehour-runtime-r1/source-pins.json",
-    "sha256": "e4a78e6ff158e2c90a5e54eaab69d71749f79e0bbd815ae52624ad453dee1256"
-  },
-  "cache_clear": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current4974-fourhost-own-ninehour-runtime-r1/cache-clear-candidate.json",
-    "sha256": "b934404cb7d94b91db40e889ca67e2c0c23ca46e5132e73d8681a1f1d40756c9"
-  },
-  "RSL_archive": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/current971c-uv-final-v-unpack-outline-combined-native-r1/librsl_lite.a",
-    "sha256": "6eb125cca1196db3d917b17313852b17f2121accb5bb9fc2ad99dd49580154db"
-  },
-  "source_correspondence": {
-    "scope": "Own unprofiled SAME512 three-hour545/four FULL only. Candidate-only strict science against retained corrected546b A2; descriptive timing against latest3 unique original controls, no fresh matched or causal/component-additive gain. No own noon/9h/profile/restart/384/256/full144 inheritance. Qualified PP/cached-object delivery plus post-test canonical target statement projection; no clean whole-source CPP/rebuild certificate. Original native raw structural false facts and scoped O0 non-target limits retained.",
-    "post_test_source_commit": "214e7cf3c498e609933da7a6c4e3c39f5c6e04f7",
-    "raw_producer_source_commit": null,
-    "canonical_files": {
-      "phys/module_ra_rrtmg_sw.F": {
-        "path": "/home/ddietz/wrf/WRF/phys/module_ra_rrtmg_sw.F",
-        "sha256": "c11bef88ba38148f21686914f87d442ddb8dd78505fbea39e0f929867c40819d"
-      },
-      "phys/Makefile": {
-        "path": "/home/ddietz/wrf/WRF/phys/Makefile",
-        "sha256": "9b64ba49070c21854f35d241faad9b0b7f25cdd4dac68034a82a2d6c1ee5c1cc"
-      },
-      "dyn_em/module_small_step_em.F": {
-        "path": "/home/ddietz/wrf/WRF/dyn_em/module_small_step_em.F",
-        "sha256": "95a58e213a4fa1333f95226a7fb0d611ab3a8993989ef663727ed07d1b561dbb"
-      },
-      "dyn_em/Makefile": {
-        "path": "/home/ddietz/wrf/WRF/dyn_em/Makefile",
-        "sha256": "647c2aa9da77588745e6a98a70303d2ba5ef869d7b2a58193101874936f56d2b"
+  "horizon_decomposition": {
+    "3h_candidate": {
+      "forecast_hours": 3,
+      "wall_seconds": 642.6625524777919,
+      "cpu_seconds": 311297.711114,
+      "main_step_sum_seconds": 540.64362,
+      "residual_wall_minus_main_seconds": 102.01893247779185,
+      "per_forecast_hour": {
+        "wall_seconds": 214.22085082593063,
+        "cpu_seconds": 103765.90370466666,
+        "main_step_sum_seconds": 180.21454000000003,
+        "residual_wall_minus_main_seconds": 34.00631082593062
       }
     },
-    "qualified_member_artifact_sha256": {
-      "module_ra_rrtmg_sw.o": "5cf09bd70149d39c421b0a1f4e0c144df61c5e2dda0f0cc786af18bdda4f4c56",
-      "module_small_step_em.o": "9d68790cfeab6adb2ee2e991a6b3c7210609bd0c12aecf7e840fc78516b44a4a",
-      "qualified_module_ra_rrtmg_sw.f90": "e596cf1d16714031d4136e24b5cf59a45d7d35ddcb86181640a160b33cbfbc7b",
-      "qualified_module_small_step_em.f90": "daa4100071c1d73f841e35cb06c27695c6ccaf3a8102d87f52234e41edd07b9e",
-      "analysis_rrtmg_sw_rad.mod": "e2890eca057e09cb872eb9d6b0c55cfcb2311d57a2aff0d2e269080c5da471df",
-      "analysis_module_small_step_em.mod": "d50c501497b927ad56b9bb3b7cb9431c827b8092cedf23e83d8f573ccb884b94"
+    "3h_own_control_median3": {
+      "forecast_hours": 3,
+      "wall_seconds": 800.0241208570078,
+      "cpu_seconds": 359327.346984,
+      "main_step_sum_seconds": 596.45045,
+      "residual_wall_minus_main_seconds": 203.57367085700776,
+      "per_forecast_hour": {
+        "wall_seconds": 266.67470695233595,
+        "cpu_seconds": 119775.782328,
+        "main_step_sum_seconds": 198.81681666666668,
+        "residual_wall_minus_main_seconds": 67.85789028566926
+      }
     },
-    "clean_canonical_full_build_certified": false,
-    "canonical_projection_inventory": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/inatm-sw-copy-smallstep-wwsave-20261026/canonical-proposal/PINS.json",
-      "sha256": "d7498071b62cef5dfcce670855dc0138f3973e2baab78d3aae91ca5e31871179"
+    "9h_candidate": {
+      "forecast_hours": 9,
+      "wall_seconds": 1778.8332640998997,
+      "cpu_seconds": 895554.478168,
+      "main_step_sum_seconds": 1682.94795,
+      "residual_wall_minus_main_seconds": 95.88531409989969,
+      "per_forecast_hour": {
+        "wall_seconds": 197.64814045554442,
+        "cpu_seconds": 99506.05312977778,
+        "main_step_sum_seconds": 186.99421666666666,
+        "residual_wall_minus_main_seconds": 10.653923788877742
+      }
+    },
+    "9h_own_control_N1": {
+      "forecast_hours": 9,
+      "wall_seconds": 2049.434141888749,
+      "cpu_seconds": 1001366.8760190001,
+      "main_step_sum_seconds": 1850.75802,
+      "residual_wall_minus_main_seconds": 198.67612188874887,
+      "per_forecast_hour": {
+        "wall_seconds": 227.71490465430543,
+        "cpu_seconds": 111262.98622433335,
+        "main_step_sum_seconds": 205.63978,
+        "residual_wall_minus_main_seconds": 22.07512465430543
+      }
     }
   },
-  "runtime": {
-    "scope": "Own unprofiled selected4974 SAME512 nine-hour1625/tenFULL strict science PASS against retained corrected original546b. UNPAIRED descriptive comparison with median latest3 eligible DISTINCT original nine-hour invocations; hardware/cache epoch comparability unresolved, no matched/causal/component-additive or repeatability claim. Own three-hour545/fourFULL Q a208 retained separately. Own noon/profile/restart/384/256/full144 remainFALSE. QualifiedPP/cached-object replay + post-test canonical target correspondence only; rawproducerNULL/no clean whole-source CPP/rebuild certificate. Original native raw/scoped structural limitations retained. Own unprofiled SAME512 three-hour545/fourFULL and nine-hour1625/tenFULL. Ownnoon/profile/restart/384/256/full144 remainFALSE. QualifiedPP/cachedobject replay and post-test214e targetsourcecorrespondence; rawproducerNULL, no cleanwholeF-only rebuild.",
-    "world": 512,
-    "compute": 480,
-    "quilt": 32,
-    "CART": [
-      60,
-      8
-    ],
-    "hosts": [
-      "hpc01",
-      "hpc02",
-      "hpc03",
-      "hpc04"
-    ],
-    "tiles": 2,
-    "rank_map_variant": "control",
-    "rank_map": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/inatm-sw-copy-smallstep-wwsave-20261026/ACTUAL_GRANTED_NINE_HOUR_RANK_MAP.json",
-      "sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac"
-    },
-    "lease": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current4974-fourhost-own-ninehour-runtime-r1/candidate-metadata/lease.json",
-      "sha256": "61d6a3fb5eda5c702acee2c33d8c1aebb9c4c279a7a18cc39656fad50ee1ce06"
-    },
-    "observed_step_count": 1625,
-    "products": 10,
-    "model_cap_seconds": 3600,
-    "memory_perhost_bytes": {
-      "hpc01": 107374182400,
-      "hpc02": 107374182400,
-      "hpc03": 107374182400,
-      "hpc04": 111669149696
-    },
-    "swap_bytes": 0,
-    "observer_profile": false,
-    "output_shim": {
-      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current5c75-world512-fp-guard-build-hpc02-r1/work/liboutput_world512_fp.so",
-      "sha256": "db0d0268806c88616365e5ced5f17778c42cc1110206c434f207a2a01830083c",
-      "source_sha256": "801e29cc8406d0200dee1557e4263d3ce4db46d750b63b9371083b633c952150",
-      "post_test_source_commit": "2da3c200cff40d233bb2cd7d70cef5ce73fe8815"
-    },
-    "input_adapter": {
-      "pending_component": false,
-      "adapter_path": "/pool/wrf-experiment/wrf-cpu/kernels/root-input-predecoded-production-adapter-abi-hpc02-r1/output/libinput_root.so",
-      "adapter_sha256": "06d0232dbeb53e3e0cc4a8ac5c431a307e0bd3506183f70b5a558f2c70b19553",
-      "owner_path": "/pool/wrf-experiment/wrf-cpu/kernels/ordinary-nc-predecoded-fp-admission-build-hpc02-r3/output/libnetcdf.so.19",
-      "owner_sha256": "a32aa6cdf5e7154b974afb699f6be8f0b0632cfb4bc00226b7b6a34e0b04f41d",
-      "rank": 0,
-      "host": "hpc01",
-      "root_cpu": 0,
-      "borrowed_occupied_cpus": [
-        0,
-        1,
-        2,
-        3
-      ],
-      "input_source_sha256": "4febd6cabc22d8fd5caf0efe89087b97a5871cd269e9777be7c8b8166c5d3ddf",
-      "component_receipt_sha256": "90070f7ce757ca6e571554779ce6624f5e179a4ed76653a30d4d8be9eb89a6e5",
-      "component_closure_sha256": "d77bf34ae3d4a30068ab5998908a3560bfb68eaa0b5ab8baa47dc8814758d590"
-    },
-    "science": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current4974-fourhost-own-ninehour-runtime-r1/science-receipt.json",
-      "sha256": "ce6cb2f3bec5c61b24e6d56eeea0b50ec648e38f709bb5e2ef0d4d6164f5109d"
-    },
-    "qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/inatm-sw-copy-smallstep-wwsave-20261026/OWN_NINE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "d05bd77dfbe4f05fe5e5c2ff3ed37fb3c40fb1456661f533c8b1fcdf4c24398a"
-    },
-    "actual_map_table_sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac"
-  },
-  "metrics": {
-    "candidate": {
-      "wall_seconds": 1786.8271802468225,
-      "cpu_seconds": 897799.454589,
-      "main_step_sum_seconds": 1686.36915
-    }
-  },
-  "comparison_design": "Candidate-only UNPAIRED descriptive against median latest3 DISTINCT original546b SAME512 nine-hour controls",
-  "order": [
-    "retained_original546b_ninehour_science_reference",
-    "fresh_selected4974_own_ninehour_candidate"
-  ],
-  "reductions_percent": null,
-  "evidence": {
-    "RESULT": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current4974-fourhost-own-ninehour-runtime-r1/RESULT.json",
-      "sha256": "746021bab6a5f2a7cc1d17d39142a52f1e365c9559e2d5ba458dab173ab022b4"
-    },
-    "science": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current4974-fourhost-own-ninehour-runtime-r1/science-receipt.json",
-      "sha256": "ce6cb2f3bec5c61b24e6d56eeea0b50ec648e38f709bb5e2ef0d4d6164f5109d"
-    },
-    "reader_closure": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current4974-fourhost-own-ninehour-runtime-r1/reader-closure.json",
-      "sha256": "cef248375b4f9c11eec5a053669c9e616e088714e1db70c56beea33dbbd6303a"
-    },
-    "candidate_models": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current4974-fourhost-own-ninehour-runtime-r1/candidate-closures.json",
-      "sha256": "cb4d8d2fb92ecb97188421370d279ed8a925c37c2d4a941b6aa075324d46e751"
-    },
-    "candidate_lease": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current4974-fourhost-own-ninehour-runtime-r1/candidate-metadata/lease.json",
-      "sha256": "61d6a3fb5eda5c702acee2c33d8c1aebb9c4c279a7a18cc39656fad50ee1ce06"
-    },
-    "candidate_cache": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current4974-fourhost-own-ninehour-runtime-r1/cache-clear-candidate.json",
-      "sha256": "b934404cb7d94b91db40e889ca67e2c0c23ca46e5132e73d8681a1f1d40756c9"
-    },
-    "runtime_source_pins": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current4974-fourhost-own-ninehour-runtime-r1/source-pins.json",
-      "sha256": "e4a78e6ff158e2c90a5e54eaab69d71749f79e0bbd815ae52624ad453dee1256"
-    }
-  },
-  "own_384_qualified": false,
-  "own_fourhost512_qualified": true,
-  "native_profile_qualified": false,
-  "full144_qualified": false,
-  "scope": "Own unprofiled selected4974 SAME512 nine-hour1625/tenFULL strict science PASS against retained corrected original546b. UNPAIRED descriptive comparison with median latest3 eligible DISTINCT original nine-hour invocations; hardware/cache epoch comparability unresolved, no matched/causal/component-additive or repeatability claim. Own three-hour545/fourFULL Q a208 retained separately. Own noon/profile/restart/384/256/full144 remainFALSE. QualifiedPP/cached-object replay + post-test canonical target correspondence only; rawproducerNULL/no clean whole-source CPP/rebuild certificate. Original native raw/scoped structural limitations retained."
+  "limits": "Same1d16/32de+64bb own unprofiled SAME512 nine-hour1625/tenFULL and retained own3h545/fourFULL. Nine-hour timing DESCRIPTIVE UNPAIRED versus separate currentepoch originalN1; three-hour timing DESCRIPTIVE versus its own median3. No cohort pooling, extrapolated speedup, causal/additive or repeatability claim. Wall-minus-main includes initialization/output/drain/other overhead and is not an I/O-only measure. Noon/profile/restart/full144 remain false. Existing scoped compiler/reference limitations and rawproducerNULL remain unchanged."
 }
