@@ -1,0 +1,67 @@
+{
+  "status": "DESCRIPTIVE_FIXED_THREE_HOUR_WINDOWS_AFTER_ORIGINAL_SCIENCE_PASS",
+  "rows": [
+    {
+      "forecast_window": "06:00\u201309:00",
+      "ordered_steps": 545,
+      "main_step_elapsed_seconds": {
+        "control": 598.32161,
+        "candidate": 530.43873
+      },
+      "descriptive_reduction_percent": 11.34555043064549
+    },
+    {
+      "forecast_window": "09:00\u201312:00",
+      "ordered_steps": 540,
+      "main_step_elapsed_seconds": {
+        "control": 627.59993,
+        "candidate": 560.61502
+      },
+      "descriptive_reduction_percent": 10.673186340221552
+    },
+    {
+      "forecast_window": "12:00\u201315:00",
+      "ordered_steps": 540,
+      "main_step_elapsed_seconds": {
+        "control": 624.83648,
+        "candidate": 560.38142
+      },
+      "descriptive_reduction_percent": 10.315508467111268
+    }
+  ],
+  "whole_run_metrics": {
+    "control": {
+      "wall_seconds": 2049.434141888749,
+      "cpu_seconds": 1001366.8760190001,
+      "main_step_sum_seconds": 1850.75802
+    },
+    "candidate": {
+      "wall_seconds": 1745.5893468293361,
+      "cpu_seconds": 878946.01513,
+      "main_step_sum_seconds": 1651.43517
+    }
+  },
+  "evidence": {
+    "RESULT.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current9010-myj-stack-ninehour-runtime-r1/RESULT.json",
+      "sha256": "428bda1c01d5d309a30854ac8a2462eb4ceec76b934abf050129f7cfda980b07"
+    },
+    "science-receipt.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current9010-myj-stack-ninehour-runtime-r1/science-receipt.json",
+      "sha256": "b48e82848f48e9649ec8b060e49896136ef145f66f5d48fbb7b7932d22613cea"
+    },
+    "reader-closure.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current9010-myj-stack-ninehour-runtime-r1/reader-closure.json",
+      "sha256": "4d07f4c0ba4a25cba3dbf2b9c9b76a4e02ebd0239c91b0b08a13fc3410febfb0"
+    },
+    "control-metadata/adaptive-steps.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current9010-myj-stack-ninehour-runtime-r1/control-metadata/adaptive-steps.json",
+      "sha256": "ef728c13a54092d4c06dabafaa470161d633a9555e3ed50688a9f54106802aa7"
+    },
+    "candidate-metadata/adaptive-steps.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current9010-myj-stack-ninehour-runtime-r1/candidate-metadata/adaptive-steps.json",
+      "sha256": "2a7822cf4c5d9385eb6479ebc15224fec09ee253449be1c50b9060148ed6a436"
+    }
+  },
+  "limits": "One unpaired candidate versus retained currentepoch original N1. Main-step elapsed includes communication and output backpressure. Phase CPU and phase whole-wall are unavailable. No causal, isolated kernel, I/O-only, additive or repeatability claim."
+}

@@ -8,4 +8,19 @@ The original replay counts **471200 / 428640 are 32-bit words**, corresponding t
 
 The selected cached image `efa608eb` / archive `05cc9c67` passed its own unchanged original noon check: two FULL outputs and 185 ordered steps, with normal closure of all four model units and the reader. It took 255.301387 seconds wall, 172.129630 seconds main-step elapsed and 114827.291325 aggregate core-seconds. Against the predeclared single current-parent 9010 noon run, these are 4.8691%, 1.0960% and 4.9327% lower. This unpaired observation does not isolate MYJ's contribution or establish repeatability. The retained original 75-minute run is science-only. [Own noon evidence](NOON_APPLICATION_QUALIFICATION.json).
 
-The module-only strict GNU 13.3 recipe now enables `WRF_MYJ_STACK_ARRAYS=1` when the existing MYJ SIMD guard is qualified. Set it to 0, rebuild MYJ, rearchive and relink to opt out; the retained 9010/47c3 image is the complete rollback. Unlimited process stack is required. No total stack-peak or capacity saving is claimed. Child three-hour, nine-hour, profile, restart, full-144-hour, O0 and clean-source-build qualification remain false. Source correspondence commit `dcf1f61c` is post-test; raw producer remains unknown. [Source recipe](SOURCE_REBUILD_RECIPE.json).
+The module-only strict GNU 13.3 recipe now enables `WRF_MYJ_STACK_ARRAYS=1` when the existing MYJ SIMD guard is qualified. Set it to 0, rebuild MYJ, rearchive and relink to opt out; the retained 9010/47c3 image is the complete rollback. Unlimited process stack is required. No total stack-peak or capacity saving is claimed. Child three-hour, profile, restart, full-144-hour, O0 and clean-source-build qualification remain false. Own noon and nine-hour are qualified. Source correspondence commit `dcf1f61c` is post-test; raw producer remains unknown. [Source recipe](SOURCE_REBUILD_RECIPE.json).
+
+
+Own unprofiled nine-hour science passed: **ten FULL outputs / 1,625 ordered steps**, unchanged original checker; four model units and reader closed normally. The existing own noon qualification remains valid.
+
+| Metric | Fresh original nine-hour N1 | MYJ child | Descriptive reduction |
+|---|---:|---:|---:|
+| Wall minutes | 34.157236 | 29.093156 | 14.8258% |
+| Main-step elapsed minutes | 30.845967 | 27.523919 | 10.7698% |
+| Aggregate CPU core-hours | 278.157466 | 244.151671 | 12.2254% |
+
+This is **UNPAIRED descriptive N1** evidence, with no pooled or rolling median, isolated MYJ forecast gain, matched timing or repeatability claim. Main-step time includes communication and waiting. Own three-hour/profile/restart/full-144-hour remain unqualified; the prior 9010 three-hour result is historical. Source/Make/recipe and all image/provider identities are unchanged. [Own nine-hour evidence](NINE_HOUR_APPLICATION_QUALIFICATION.json).
+
+Across the same nine-hour observation, main-step elapsed reductions were **11.35% from 06–09, 10.67% from 09–12, and 10.32% from 12–15** against the retained original N1. These phase totals include communication and waiting; phase CPU and whole-wall measurements are unavailable. [Phase records](PHASE_ELAPSED_OBSERVATIONS.json).
+
+The observed single-forecast speed ratio is **1.174×**, below both the 1.5× and 2× goals. Reaching those targets from this measured configuration would require approximately 21.73% and 41.30% additional wall-time reduction respectively; this is arithmetic, not identified headroom or a promise. [Goal accounting](GOAL_PROGRESS.json).

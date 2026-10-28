@@ -1,5 +1,5 @@
 {
-  "status": "DEFAULT_SELECTED_AFTER_SIGNIFICANT_CAPTURED_CALLER_AND_OWN_NOON_EXACT_SCIENCE",
+  "status": "MODULE_FLAG_DEFAULT_ENABLED_OWN_NOON_AND_NINEHOUR_EXACT_QUALIFIED",
   "scope": "GNU13.3 strictO2/defaultREAL4INTEGER4 pureMPI compiler recipe, originalPP+existing-fopenmp-simd with module-only-fstack-arrays. No scientificFortranexpression/source change.",
   "raw_producer_source_commit": null,
   "post_test_source_commit": "dcf1f61cd3b505c3257f4c5d384147202f1346cf",
@@ -189,20 +189,34 @@
     "own_science_required": false,
     "own_noon_one_hour_qualified": true,
     "own_three_hour_qualified": false,
-    "own_nine_hour_qualified": false,
+    "own_nine_hour_qualified": true,
     "profile_qualified": false,
     "restart_qualified": false,
     "full144_qualified": false,
     "qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/myj-stack-arrays-20261028/NOON_APPLICATION_QUALIFICATION.json",
-      "sha256": "b3194b604e4cd2c434a3a0870e3b1d7b8ce9fdc2083091dd2fdf6684bfdde861"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/myj-stack-arrays-20261028/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "0201cb8b41589a794ef311be8e824877b29a173b49e7eeffb62ca2b9354d9609"
     },
     "descriptive_current_parent_N1_reductions_percent": {
       "wall_seconds": 4.869052225911286,
       "cpu_seconds": 4.932684075622495,
       "main_step_sum_seconds": 1.095990704508576
     },
-    "timing_gain_claim": false
+    "timing_gain_claim": false,
+    "own_noon": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/myj-stack-arrays-20261028/NOON_APPLICATION_QUALIFICATION.json",
+      "sha256": "b3194b604e4cd2c434a3a0870e3b1d7b8ce9fdc2083091dd2fdf6684bfdde861"
+    },
+    "own_nine_hour": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/myj-stack-arrays-20261028/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "0201cb8b41589a794ef311be8e824877b29a173b49e7eeffb62ca2b9354d9609"
+    },
+    "scope": "Own efa608/05cc unprofiled SAME512 nine-hour06–15:1625 ordered steps and ten FULL products passed the unchanged original checker; four models and reader closed normally. Own noon185/twoFULL remains qualified. Source correspondence dcf1f61c, MYJ24926 and Thompson9a25 plus all retained members/RSL e418/provider64bb/direct18 unchanged. Timing is one candidate-only UNPAIRED descriptive observation versus ONLY fresh original nine-hour N1; no median3, pooled controls, matched/repeatable/isolated/additive forecast gain claim. Own three-hour/profile/restart/full144/O0-stack/clean-source-rebuild remain unqualified; historical9010 three-hour does not apply. Unlimited stack; no capacity saving claim.",
+    "descriptive_own_nine_hour_fresh_original_N1_reductions_percent": {
+      "wall_seconds": 14.825789658182956,
+      "cpu_seconds": 12.225375516283533,
+      "main_step_sum_seconds": 10.769795286365964
+    }
   },
   "prior_negative_banks": "BotholderVDIFVbank/carrynegativecallerevidence retainedbyreference; they changedbanks/layoutandaredistinctfromthiscompilerstorageplacement. No closednegative is relabelled.",
   "evidence": {
@@ -254,5 +268,9 @@
   "own_noon_qualification": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/myj-stack-arrays-20261028/NOON_APPLICATION_QUALIFICATION.json",
     "sha256": "b3194b604e4cd2c434a3a0870e3b1d7b8ce9fdc2083091dd2fdf6684bfdde861"
+  },
+  "own_nine_hour_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/myj-stack-arrays-20261028/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "0201cb8b41589a794ef311be8e824877b29a173b49e7eeffb62ca2b9354d9609"
   }
 }
