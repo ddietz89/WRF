@@ -1,5 +1,20 @@
 # WRF CPU optimization findings
 
+## Thompson pressure copy and V normal-X5 SIMD promoted — October 28
+
+The combined fac7 build passed all four FULL products and 545 ordered steps exactly, with normal model/checker closures. It retains all previous improvements. Both guarded changes are defaults in the qualified GNU 13.3/O2 working configuration, with explicit 0 opt-outs.
+
+| Metric | Retained original median (3 runs) | New combined run | Descriptive reduction |
+|---|---:|---:|---:|
+| Wall time (minutes) |13.33374|10.65760|20.0704%|
+| Main-step elapsed (minutes) |9.94084|9.02758|9.1869%|
+| Aggregate CPU (core-hours) |99.81315|86.43942|13.3988%|
+
+This candidate-only comparison is unpaired. Relative to the immediately preceding build, wall/main/CPU increased by 0.918391s/1.179270s/453.659369 core-s; these observations establish no incremental forecast speedup or attributable regression. Thompson removes one temporary allocation/free pair with small positive caller observations. The repaired V complete extracted pass was 62.76% shorter on both hosts, distinct from whole-V and forecast performance. Its whole-routine raw/state gate passed with an explicit per-compiler operand-order choice; both earlier NaN-payload failures are retained. Scientific checks and tolerances are unchanged.
+
+The selected fac7 image has own three-hour qualification only. The 5e21 nine-hour result below excludes these latest two changes and remains historical. [Evidence, scope and rollback](tools/cpu-compute/thompson-pressure-vx5-batch-20261028/README.md).
+
+
 ## MU, LW and early Y receives: own nine-hour result — October 28
 
 The same combined 5e21 build, retaining all prior improvements and output provider64bb, passed the unchanged full-grid checker: ten FULL products and all1,625 ordered steps matched exactly. All four model jobs and the original checker closed normally; the early Y path emitted exactly one admission marker on480 compute ranks and none on32 quilt ranks.

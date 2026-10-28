@@ -1,0 +1,109 @@
+{
+  "status": "RETAIN_FINITE_COMPLETE_XPASS_GAIN_PENDING_APPLICATION",
+  "decision": "RETAIN",
+  "scope": "Measured finite case0 complete normal-X5 pass, geometry188x19x33,2048 calls with two full physical restores and once mask admission charged;01P04C01C04P. Scope does not extend timing to whole AdvectV or forecast.",
+  "wall_percent_lower_range": [
+    62.75740245568836,
+    62.76531624758569
+  ],
+  "thread_cpu_percent_lower_range": [
+    62.75841980822286,
+    62.7668802451637
+  ],
+  "host_comparisons": {
+    "hpc01": {
+      "wall_seconds": {
+        "parent": 0.915968097,
+        "candidate": 0.34113031200000005,
+        "percent_lower": 62.75740245568836
+      },
+      "thread_cpu_seconds": {
+        "parent": 0.9159357370000001,
+        "candidate": 0.341108942,
+        "percent_lower": 62.75841980822286
+      }
+    },
+    "hpc04": {
+      "wall_seconds": {
+        "parent": 0.915319462,
+        "candidate": 0.34081630700000004,
+        "percent_lower": 62.76531624758569
+      },
+      "thread_cpu_seconds": {
+        "parent": 0.91528721,
+        "candidate": 0.340789983,
+        "percent_lower": 62.7668802451637
+      }
+    }
+  },
+  "wave": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current1d16-advect-v-remaining-source-question-r1/complete-Xpass2048-prefix-operand-r2-cost-preparation-r1/ACTUAL_WAVE.json",
+    "sha256": "f28ecf6c05595f8f5d4b3b412b699736714e0c12c16a81bd3bb8cd6b47fa3392"
+  },
+  "finite_build": {
+    "receipt_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current1d16-advect-v-remaining-source-question-r1/complete-Xpass2048-prefix-operand-r2-cost-preparation-r1/candidate-build-r1-hpc04/actual-native-r1/receipt.json",
+    "receipt_sha256": "dea00feee37d836d82b46e940b4e6444a5dfde364814d2360acfbe265706bc4e",
+    "closure_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current1d16-advect-v-remaining-source-question-r1/complete-Xpass2048-prefix-operand-r2-cost-preparation-r1/candidate-build-r1-hpc04/actual-native-r1/closure.json",
+    "closure_sha256": "9e1e303cceb228ba25354b474abbe4e820d53ddc60b21bd98369e38a892a074c",
+    "invocation_id": "e07383ffd1594d2f9de10b061ab25fc8",
+    "candidate_source_sha256": "79bb0b4d42982551bff5eb482e3d4dd25c7004c0875eea8455d836925cfcc235",
+    "candidate_object_sha256": "f6523dbd2ecfd62c0affe5dd76565d21f0ddf9fae514aed7334cdc2814ee437d",
+    "candidate_binary_sha256": "aae026039a8b6064de8e0c1e5ef73d3c8e4249884a5d82e1e604f9cca52441d6",
+    "cached_driver": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current1d16-advectv-complete-X5-native-hpc02-r2/work/O2/driver.o",
+      "sha256": "9b104f43c0ea6a3af7b054aee73832c75704712bb9025eb754e25a73601b9acd",
+      "bytes": 38016,
+      "provenance": "FIRST_OBSERVED_ROOT_READ_ONLY_BINDING; no historical object certification; finite raw/state ABI oracle mandatory",
+      "source_sha256": "54f6254f383e619b0a7afdcdee6defe5230fcbae2f6156e5478897257f9ffae4"
+    },
+    "candidate_compiles": 1,
+    "links": 1,
+    "parent_driver_C_WRF_compiles": 0
+  },
+  "whole_V_native_admission": {
+    "receipt_path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current1d16-advect-v-remaining-source-question-r1/genuine-whole-AdvectV-X5-explicit-O2-order-continuation-r3-hpc02/actual-native-r1/receipt.json",
+    "receipt_sha256": "402e3b56b13e57d0d5bdb812025619034d5f6ca408f37f9a83b5af3ad31f31f9",
+    "closure_sha256": "7c5be31307315176689d98a022591eb38b2274cd6586acb29273e9cedde1336e",
+    "invocation_id": "0d645b7ec1fb43e8b1bdc458511c03f9",
+    "status": "PASS_CURRENT5E21_ADVECTV_X5_GENUINE_CAPTURE_FOCUSED_O2_O0_RAW_FIVE_STRUCTURE_PENDING",
+    "O2_object_sha256": "d14ffc95d14e925f63171a64c0f55f67e341507823f93b5478c040e936ff8a7e",
+    "per_opt_PP_sha256": {
+      "O2": "6222419841a4c3e23edb9c5920fadb1ff96fed102d33d98a8bda48ace5c6b802",
+      "O0": "909ee7f0a253291f8116dc99df305e869e521e1ae6f8900859567e69c6cb9b2c"
+    },
+    "cached_O2_126_proof_prefix_reused": true,
+    "fresh_O0_126_proofs": true,
+    "separate_from_finite_cost_oracle": true
+  },
+  "actual_checks": {
+    "all4_normal_closed_and_invocations_join": true,
+    "cache_each_host_and_helper_drain": true,
+    "before_after_onecall_full_raw_2305308_exact": true,
+    "same2048_full_raw_and_all40_state_bytes_hard_exact_all4": true,
+    "raw_sha256": "346c514a60d9a78a3543a7544c6b3e4c95082dac2096c56e1c431fe77e41816f",
+    "warm_five_state": [
+      34,
+      0,
+      32,
+      8096,
+      895
+    ],
+    "batch_five_state": [
+      34,
+      0,
+      32,
+      8096,
+      895
+    ],
+    "actual_finite_build_parent_candidate_before_after_full_raw40_exact": true
+  },
+  "limits": {
+    "R2_all20_extracted_NaN_oracle_qualified": false,
+    "whole_AdvectV_timing_qualified": false,
+    "application_qualified": false,
+    "forecast_performance_qualified": false,
+    "global_share_or_MPI_headroom_claim": false,
+    "universal_unmasked_trap_prefix_qualified": false,
+    "note": "Failed R1/R2 whole-V evidence retained. R3 finite whole-V native admission is a separate oracle. The repaired extracted79bb source preserves cached explicit-fqx ABI and differs by one prefix RU operand reversal; earlier bd82 automatic-fqx source was not used."
+  }
+}

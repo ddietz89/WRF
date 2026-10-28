@@ -1,0 +1,50 @@
+{
+  "status": "POST_TEST_SOURCE_CORRESPONDENCE_NOT_CLEAN_FULL_BUILD_CERTIFICATE",
+  "source_commit": "47b8f7be2fcf4c75fcef32af316e1d2169138678",
+  "raw_producer_source_commit": null,
+  "source_files": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/thompson-pressure-vx5-batch-20261028/SOURCE_FILES.json",
+    "sha256": "260748f55027006dd9e4871620c2deb8cd0b4fc3f574b7d2333b518e25bf6e31"
+  },
+  "defaults": {
+    "WRF_THOMPSON_MAIN_PRESSURE_VIEW": 1,
+    "WRF_ADVECT_V_X5_SIMD": 1,
+    "THOMPSON_PRESSURE_VX5_delivery": {
+      "scope": "Strict qualified GNU13.3/O2/REAL4 INTEGER4/pureMPI only; explicit O2 prefix operand order, ordinaryO0 featureOFF; forcedO0 bounds diagnostic exact. All prior components retained.",
+      "rollback": "Set WRF_THOMPSON_MAIN_PRESSURE_VIEW=0 and/or WRF_ADVECT_V_X5_SIMD=0, regenerate PP, rebuild affected module, rearchive and relink; retained5e21 has its own3h/9h qualification."
+    }
+  },
+  "qualified_scope": "Strict GNU Fortran13.3.0/O2/real4/integer4/pureMPI; explicit O2 RU operand-order macro. OrdinaryO0 featureOFF; forcedO0 prefix diagnostic original operand order separately qualified.",
+  "rebuild_steps": [
+    "Use the qualified compiler/dependency configuration and regenerate preprocessed sources.",
+    "Rebuild module_mp_thompson.o and module_advect_em.o from their guarded canonical files.",
+    "Replace those two archive members and relink using the qualified same18 direct dependencies and unchanged e418 RSL.",
+    "Run the unchanged original scientific checker before selecting a newly rebuilt image; byte-identical clean full-source reproduction was not tested."
+  ],
+  "qualified_cached_image": {
+    "executable": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current5e21-thompson-pressure-vx5-source-batch-r1/wrf.exe",
+      "sha256": "fac72d07725ecbdb49c9fe6ae6b2033237b9963c034ffb65efaae8d9a41ce26f"
+    },
+    "archive": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current5e21-thompson-pressure-vx5-source-batch-r1/libwrflib.a",
+      "sha256": "75238680d9f0441a5325a7a5f5a6fafd94ef4000396f69b46f7cacef6e5afabb"
+    },
+    "build_receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current5e21-thompson-pressure-vx5-cached-build-r1-hpc04/actual-native-r1/receipt.json",
+      "sha256": "dec768b2ab4d7441909ebb6836d9b35f5b130b9e4ed01476bf80da4e105a0d9f"
+    },
+    "build_closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current5e21-thompson-pressure-vx5-cached-build-r1-hpc04/actual-native-r1/closure.json",
+      "sha256": "ebb9081dd167bb035a3c4f58d6e9efcbe88a648355934ac859d3ce34542b758b"
+    },
+    "ordered_archive_proof": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current5e21-thompson-pressure-vx5-cached-build-r1-hpc04/actual-native-r1/source-batch-ordered-archive-proof.json",
+      "sha256": "186654638b73570768d913fbd962578ee2c750100d09081a8954ab45e33181c7"
+    },
+    "archive_members": 591,
+    "unchanged_members": 589,
+    "new_helpers": 0
+  },
+  "rollback": "Set WRF_THOMPSON_MAIN_PRESSURE_VIEW=0 and/or WRF_ADVECT_V_X5_SIMD=0; regenerate PP, rebuild the affected member, rearchive and relink. Retained5e21/8839/e418+64bb remains separately three-/nine-hour qualified."
+}

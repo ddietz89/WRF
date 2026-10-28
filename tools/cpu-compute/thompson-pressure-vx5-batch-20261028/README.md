@@ -1,0 +1,15 @@
+# Thompson pressure view and V normal-X5 SIMD
+
+The working configuration enables two guarded changes: Thompson reads its immutable input pressure directly, removing one temporary buffer/allocation pair; V normal-X5 flux production uses a full-eight SIMD prefix with the original scalar remainder and fallback. Both default on only in their qualified strict GNU 13.3 / O2 / REAL4 / INTEGER4 / pure MPI scope, with explicit 0 opt-outs.
+
+Thompson passed 11 cases in four roundings at O2/O0, with exact raw outputs, state and public MOD. Its main allocation/free count fell from 72 to 71; complete-caller wall observations were 0.985%/0.151% shorter. No peak-RSS saving or isolated forecast gain is claimed.
+
+The repaired V path passed 126 same-option whole-routine comparisons at each optimization mode, including captured calls and competing RU quiet-NaN payloads. The R3 continuation reuses the actual passed R2 O2 segment and separately verifies the original-order forced O0 bounds diagnostic. Ordinary canonical O0 fully opts out. Earlier R1 and aggregateR2 failures remain recorded. Scoped O2 machine admission retains diagnostic path/line and relocation/unwind differences; it does not assert whole-module raw identity, O0 structural identity or universal exceptional/trap behavior.
+
+The repaired finite complete-Xpass was 62.7574%/62.7653% shorter in opposite-order pairs. Its measured scope includes producer, boundary branches, tendency consumer, two physical restores and one mask check. Case 0 is finite; neither the earlier extracted exceptional oracle nor whole-V/forecast timing is inferred from it. All four runs passed raw/state checks, cache clears and normal closures.
+
+The combined unprofiled test with 512 ranks three-hour test passed all four FULL products and 545 ordered steps against the unchanged original checker. All model/checker jobs closed normally; Y admission was exactly 480 compute ranks and zero on 32 quilt ranks. Wall 639.456287s, main elapsed 541.655060s and aggregate CPU 311181.897896 core-s were 20.0704%/9.1869%/13.3988% lower than the retained original median3. The comparison is descriptive and unpaired. Adjacent parent 5e21 observations were 638.537897/540.475790/310728.238527; these runs establish no additional forecast speedup attributable to this batch.
+
+Actual executable fac72d / archive 75238680 replace only two members: 591 total, 589 unchanged, no new helper. Provider 64bb, RSL e418 and all 18 direct dependencies remain unchanged. Source commit 47b8f7be is post-test canonical correspondence; raw producer commit is NULL and a clean full-source build is unqualified. The child owns only this three-hour result; parent 5e21 nine-hour qualification remains historical. Own noon/profile/restart/full144 qualification is pending.
+
+`THREE_HOUR_APPLICATION_QUALIFICATION.json` joins the actual science, reader, models, lease, Y markers and fixed control cohort. Caller/machine reviews and `SOURCE_FILES.json` record exact scope. `SOURCE_REBUILD_RECIPE.json` gives rebuilding limits and rollback. Production and master were not modified.
