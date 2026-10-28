@@ -1,5 +1,13 @@
 # WRF CPU optimization findings
 
+## Current build: noon science and peer profile — October 28
+
+The selected `00c6` build passed its own four-node, 512-rank noon forecast: both complete products and all 185 ordered steps matched the unchanged original checker. Model/MPI wall time was **4.55669 minutes**, main-step elapsed **2.94982 minutes**, and aggregate CPU **34.28209 CPU-hours**. This was an instrumented one-hour diagnostic; the retained 75-minute original is a scientific prefix reference, so these totals establish no new speedup percentage. The existing unprofiled three-hour result remains separate.
+
+Both selected main-thread recorders were observed live on ranks 114 and 122, with growing raw files, and closed normally. The original optional reporting step retained its `profile_directory` error. A separate decode using the retained parsers passed against the actual executable and captured 1,380/1,384 primary samples. Numerical sample loss is unknown. These samples identify current source work; they do not measure a global compute share.
+
+Final channel checks joined 1,026 complete selected peer exchanges to the same scientifically checked run; 90 ambiguous exchanges remain excluded. Early Y receives can precede packing, so the earlier interpretation of the gap before the exchange cannot be carried forward unchanged. Communication/library calls, the W solver and scalar advection are being investigated from the new instruction samples. No source/default change or additional performance promotion comes from this diagnostic. [Qualification and evidence](tools/cpu-compute/ordinary-vflux-scratch-20261028/NOON_APPLICATION_QUALIFICATION.json).
+
 ## N2 copy removal: complete routine slower — October 28
 
 Removing the cloud-water temporary passed exact native checks but made the complete synthetic N2 caller about 3.2% slower on both nodes. One revised version moved the validity decision outside the computation; it passed the same checks and remained about 3.2% slower. Its linked code was verified to use the revised body. The repeated condition does not explain the slowdown as a primary cause; the remaining cause is unmeasured.
@@ -50,7 +58,7 @@ These candidate-only timings are unpaired comparisons with the retained A2/A1/5c
 
 Native O2/O0 checks passed exact raw-output, read-only, processor-state and public-interface checks. The change removes 24,816 bytes of scratch for an example 188-by-33 tile; this is a static per-call saving, not a measured whole-forecast memory reduction. Earlier package/fixture failures and diagnostic line/unwind differences remain recorded.
 
-The selected executable is `00c6bcb3`, archive `ff31e972`, with post-test source correspondence at `ee073e32`. The cached build replaces one of 591 archive members and retains PD, all previous improvements, RSL `e418b187`, and output provider `64bb4cf2`. This image has its own unprofiled three-hour qualification only. Parent noon/profile/nine-hour results remain historical; no clean full-source rebuild, restart or full 144-hour qualification is claimed.
+The selected executable is `00c6bcb3`, archive `ff31e972`, with post-test source correspondence at `ee073e32`. The cached build replaces one of 591 archive members and retains PD, all previous improvements, RSL `e418b187`, and output provider `64bb4cf2`. This image has its own unprofiled three-hour qualification and a separate instrumented one-hour noon qualification with two FULL products and 185 steps. Both selected recordings also passed acquisition and separate retained decode; the original optional report failures remain preserved. Unprofiled noon and own nine-hour qualification remain absent; no clean full-source rebuild, restart or full 144-hour qualification is claimed.
 
 The change defaults on in the qualified strict GNU 13.3/O2, REAL4/INTEGER4, pure-MPI configuration. Set `WRF_ORDINARY_VFLUX_REUSE=0`, regenerate and rebuild advection, rearchive and relink to opt out. Retained executable `b8e2e921` is the whole-image rollback. [Exact qualification](tools/cpu-compute/ordinary-vflux-scratch-20261028/THREE_HOUR_APPLICATION_QUALIFICATION.json) and [source/rebuild scope](tools/cpu-compute/ordinary-vflux-scratch-20261028/SOURCE_REBUILD_RECIPE.json).
 
