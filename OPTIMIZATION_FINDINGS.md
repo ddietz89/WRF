@@ -5942,3 +5942,10 @@ Combining two scratch allocations into one passed 176 exact O2/O0 comparisons an
 The unchanged limiter decision now records whether any cell requires its six-face consumer. The complete captured caller was 9.23% shorter on hpc01 and 6.24% shorter on hpc02, including allocations and tendency restoration. Genuine O2/O0, active/mixed and IEEE checks passed; all four three-hour products and 545 ordered steps matched the unchanged original checker.
 
 The combined run took 641.036 seconds wall and 541.374 seconds main-step elapsed, using 86.627 CPU-hours. Relative to the fixed median of three original controls, these are descriptive **19.87% wall, 9.23% main-step and 13.21% CPU reductions**. The adjacent prior build took 639.456 seconds wall: this single run does not establish the new patch's incremental forecast gain or an attributable regression. The significant exact caller gain supports default inclusion under the standing kernel policy. [Evidence, scope and explicit rebuild rollback](tools/cpu-compute/pd-noactive-consumer-20261028/README.md).
+
+
+### Thompson sati temporary: closed unpromoted
+
+Scalarizing only the same-iteration `sati` temporary passed the complete 11-case O2/O0, four-round raw/five-state and original-MOD checks. Actual allocation/free sites fell from 71 to 70, saving a static 128 bytes in the 32-level fixture; no peak-memory or capacity benefit was measured. `satw` remains an array because a later loop consumes it.
+
+The complete synthetic 20,000-call screen, with restores and allocations inside clocks, was 1.1504% / 0.0638% shorter in wall time on hpc01/hpc02; thread CPU was 1.1331% lower / 0.6066% higher. All four raw/state, cache and normal-closure checks passed. The weak, mixed result does not establish a significant consistent caller gain. Keep the fixed candidate and evidence unpromoted; no source/default change, application run or further matrix. [Decision and exact scope](tools/cpu-compute/thompson-sati-screen-20261028/README.md).

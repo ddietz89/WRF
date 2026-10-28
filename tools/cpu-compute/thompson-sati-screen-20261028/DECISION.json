@@ -1,0 +1,58 @@
+{
+  "decision": "RETAIN_EVIDENCE_UNPROMOTED_WEAK_MIXED_COMPLETE_CALLER_RESULT",
+  "date": "2026-10-28",
+  "procedure": "mp_thompson",
+  "change": "Only local automatic REAL sati(kts:kte) becomes scalar sati; its division and sole subtraction consumer remain in the original same-K order. satw remains an array because it is consumed in a separate later K loop.",
+  "parent_O2_object_sha256": "c30d9a6cd8230307fd6b61245459924d655eedd1b0589bf4199997b79a336230",
+  "candidate_O2_object_sha256": "2b820c1dd1f6c44bdca26a33a3eaefed706e8192968c847d47b6cd8b4c01c623",
+  "candidate_PP_sha256": "90286cf54a4fb9b76e1b891d086dcbf6a3b171c95ee11d842d3399f5ed5b0c9a",
+  "native_pass": true,
+  "raw_public_MOD_exact_both_opts": true,
+  "actual_malloc_free_sites_each_opt": {
+    "parent": 71,
+    "candidate": 70
+  },
+  "static_payload_saved_per_call": "4*max(0,kte-kts+1) bytes;128B in the32-level fixture. Not a measured peak/capacity benefit.",
+  "comparisons": [
+    {
+      "host": "hpc01",
+      "parent_arm": 0,
+      "candidate_arm": 2,
+      "parent_wall_seconds": 2.094229712,
+      "candidate_wall_seconds": 2.070138048,
+      "wall_reduction_percent": 1.1503830674330584,
+      "parent_thread_cpu_seconds": 2.093360577,
+      "candidate_thread_cpu_seconds": 2.069640682,
+      "thread_cpu_reduction_percent": 1.1331012564492204
+    },
+    {
+      "host": "hpc02",
+      "parent_arm": 3,
+      "candidate_arm": 1,
+      "parent_wall_seconds": 2.073675968,
+      "candidate_wall_seconds": 2.072352848,
+      "wall_reduction_percent": 0.06380553280347367,
+      "parent_thread_cpu_seconds": 2.059256531,
+      "candidate_thread_cpu_seconds": 2.071747892,
+      "thread_cpu_reduction_percent": -0.6065956723679378
+    }
+  ],
+  "reason": "The full synthetic caller has a small wall reduction on both hosts, but hpc02 is effectively flat in wall time and worse in thread CPU. No significant consistent caller gain or meaningful measured capacity/peak benefit is established. Keep the fixed implementation and evidence unpromoted; no additional test or timing matrix.",
+  "source_or_default_applied": false,
+  "application_qualification_run": false,
+  "selected_executable_unchanged": true,
+  "selected_archive_unchanged": true,
+  "selected_parent_executable_sha256": "00c6bcb351bfb79b6de3c240429e630d70980d1f3ead6e7594d56fc2d447a1b5",
+  "selected_parent_archive_sha256": "ff31e972834e70682edd65dcef5d8cde5a57b5b2541cd0299dbe93495ca81f5b",
+  "rollback": "No candidate source/default/artifact was selected; no rollback action is needed.",
+  "preimplementation_two_scalar_premise_rejected": true,
+  "unsafe_satw_scalar_implementation_created": false,
+  "evidence_file": "EVIDENCE.json",
+  "evidence_sha256": "c50939ecd686f355e81c919a4b7091081beac791833ffa184e39024a51d3385d",
+  "limits": [
+    "The complete caller input is synthetic fixed column4, not captured forecast input.",
+    "No whole-forecast, repeatability, production-frequency, global-headroom or peak-RSS claim.",
+    "Raw non-target/RELA/CFI inequalities and O0 bounds-diagnostic removal remain explicit in the finite machine review; no universal NaN/trap-prefix certificate.",
+    "Prior REAL13 bank results are separate and were not rerun or borrowed."
+  ]
+}
