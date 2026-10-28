@@ -32,4 +32,6 @@ This is an unpaired comparison with one separate current-epoch original control.
 
 The wall-time reduction is smaller at nine hours while the main-step reduction stays near 9%. The measured wall-minus-main gap between control and candidate is about 102 seconds at either horizon. That similar absolute gap contributes a smaller percentage of the longer run. This remainder includes initialization, output, drain and other overhead; it does not identify I/O time alone. See `HORIZON_DECOMPOSITION.md` in the evidence package for normalized values.
 
-Exact qualification: `tools/cpu-compute/pressure-rowcursor-batch-20261028/NINE_HOUR_APPLICATION_QUALIFICATION.json`. The executable, archive and output provider are unchanged from the qualified three-hour run. Daytime profiling is now in progress; restart and full 144-hour qualification remain outside this result.
+Exact qualification: `tools/cpu-compute/pressure-rowcursor-batch-20261028/NINE_HOUR_APPLICATION_QUALIFICATION.json`. The executable, archive and output provider are unchanged from the qualified three-hour run. The same build subsequently passed instrumented daytime/source-identity qualification; restart and full 144-hour qualification remain outside this result.
+
+Four-host daytime source identity is qualified in INSTRUMENTED_NOON_PROFILE_QUALIFICATION.json. FOURHOST_PROFILE_REPORT.md records the selected-thread counts and limits. The unprofiled three-hour and nine-hour timing results remain unchanged.

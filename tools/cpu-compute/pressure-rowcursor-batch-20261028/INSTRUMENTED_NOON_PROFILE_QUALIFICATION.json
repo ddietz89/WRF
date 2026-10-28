@@ -1,0 +1,479 @@
+{
+  "status": "PASS_OWN_INSTRUMENTED_NOON_185_TWO_FULL_AND_FOURHOST_NATIVE15_SOURCE_IDENTITY",
+  "source_commit": "68ab210a55000509bab4dccf89aa929ddc97f94e",
+  "raw_producer_source_commit": null,
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentb92f-postpow-one-BigStep-helper-experimental-r1/wrf.exe",
+    "sha256": "1d16f14b49676df3a514006fd01149832f867315989b8160128b123e4c92d87b"
+  },
+  "archive": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentb92f-postpow-one-BigStep-helper-experimental-r1/libwrflib.a",
+    "sha256": "32de9f2d110661381b1d02f214605c91450e4612652ec5f79da51056b8e9c2c5"
+  },
+  "output_provider": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current0dd6-rowcursor-native-hpc02-r1/output/liboutput_world512_rowcursor.so",
+    "sha256": "64bb4cf2744799056e25be48b166a7a4703f525b08acff1bf898cd7941e8a643"
+  },
+  "own_instrumented_noon_one_hour_qualified": true,
+  "own_unprofiled_noon_one_hour_qualified": false,
+  "profile_qualified": true,
+  "profile_scope": "Four selected compute main threads, fifteen-second source-identity captures; mixed I/O context. No global sampled share, wire-wait, causal critical-path, forecast-speedup or removable headroom claim.",
+  "observed_step_count": 185,
+  "products": 2,
+  "ranks": {
+    "120": {
+      "host": "hpc01",
+      "cpu": 99,
+      "primary_count": 1430,
+      "parser_receipt": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentpressure-rowcursor-fourhost-day15-preparation-r2/postrun-preparation-r1/compute-parser-r1/actual-native-hpc01-r1/receipt.json",
+        "sha256": "b7af824d510324e420356ae62f0efc01cba9dae615fc90996572fbbfdf0a96dd"
+      },
+      "parser_closure": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentpressure-rowcursor-fourhost-day15-preparation-r2/postrun-preparation-r1/compute-parser-r1/actual-native-hpc01-r1/closure.json",
+        "sha256": "a05c89518244cc6ccc099b3dbbba624b836fbf3ab0a03a0fc86954645604124d"
+      },
+      "summary": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentpressure-rowcursor-fourhost-day15-preparation-r2/postrun-preparation-r1/compute-parser-r1/actual-native-hpc01-r1/result-rank120/summary.json",
+        "sha256": "098023ea6adf5ed458aa960c020015195e42cff380a6a4de33f80b5e05aedc17"
+      },
+      "actual_binding": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentpressure-rowcursor-fourhost-day15-preparation-r2/postrun-preparation-r1/actual-bindings-hpc01-r1/rank120-binding.json",
+        "sha256": "85ec024b2533688a08c280e2408b9c388743fad5c8d0db752f158ace1df0109b"
+      },
+      "record_perf": {
+        "host": "hpc01",
+        "path": "/usr/lib/linux-tools-6.8.0-90/perf",
+        "sha256": "bfeb460764dc263c37c6b9a4d012991a2cd6eda71aad9258de413cda48eb8021",
+        "version": "perf version 6.8.12"
+      },
+      "render_perf": {
+        "host": "hpc01",
+        "path": "/usr/lib/linux-tools-6.8.0-90/perf",
+        "sha256": "bfeb460764dc263c37c6b9a4d012991a2cd6eda71aad9258de413cda48eb8021",
+        "version": "perf version 6.8.12"
+      },
+      "numeric_loss": "UNKNOWN",
+      "scope": "SOURCE_IDENTITY_ONLY/mixedIO/mainTIDonly; writer487 helpers/compressorworkers unobserved; sampleIP distinct from unwindcaller, no timing/globalheadroom/libraryimplementation/source-line claim",
+      "actual_capture_phase": {
+        "admission": {
+          "ready": true,
+          "status": "SOURCE_IDENTITY_PHASE_ADMITTED",
+          "profile_capture_purpose": "SOURCE_IDENTITY_ONLY",
+          "compute_only_window_qualified": false,
+          "mixed_io_context": true,
+          "identity_phase_qualified": true,
+          "window_valid": false,
+          "model_second": 1515.0,
+          "estimate_age_seconds": 0.000204207,
+          "aged_remaining_wall_seconds": 91.970813793
+        },
+        "parent_observed_phase": {
+          "observed_at_monotonic_ns": 2732695640581520,
+          "complete_steps_in_bounded_tail": 80,
+          "observed_forecast_time": "2026-10-12_12:25:15",
+          "remaining_simulated_seconds": 2085.0,
+          "predicted_remaining_wall_seconds": 91.971018,
+          "mean_last5_dt": 20.0,
+          "mean_last5_step_wall": 0.882216,
+          "rsl_tail_sha256": "9c7b948f711f4628f3735168be8eb287d3ae2c486d4a585020be8f5ec3ecd26d",
+          "scope": "actual completed-RSL-step estimate for SOURCE_IDENTITY_ONLY; writer overlap allowed and observed; prediction not a guarantee of request/sample overlap or pure-compute timing"
+        },
+        "collector_start_monotonic_ns": 2732699988699293,
+        "collector_end_monotonic_ns": 2732718507789804,
+        "radiation_overlap": "POSTHOC_SOURCE_SAMPLES_ONLY_NO_TRIGGER_GUARANTEE"
+      },
+      "early_watch": {
+        "schema": "CURRENT5C75_FOURHOST_NOON_NATIVE15_LIVE_V3",
+        "active_rows": [
+          134,
+          135,
+          136,
+          137,
+          138,
+          139,
+          140,
+          141,
+          142,
+          143,
+          144,
+          145,
+          146,
+          147,
+          148,
+          149
+        ],
+        "growth_transitions": 15,
+        "first_bytes": 0,
+        "last_bytes": 11951708,
+        "boot_id": "034999ae-50d3-4c47-a288-c1cc0a7308c9",
+        "time_namespace_inode": 4026531834,
+        "perf_pid": 703033,
+        "perf_startticks": "273269972",
+        "bridge_pid": 703030,
+        "bridge_startticks": "273269960",
+        "raw_dev": 64512,
+        "raw_ino": 27525152,
+        "stage": "/tmp/wrf-cpu-quilt-profile-1000-1uyxmi5b",
+        "context_sha256": "6922c63e6a585ec66aa8e27ac26d41a9575203898e22f89d000050454394592c",
+        "source_identity_and_bridge_verified": true,
+        "perf_stdout_same_inode_required": false
+      }
+    },
+    "121": {
+      "host": "hpc02",
+      "cpu": 99,
+      "primary_count": 1427,
+      "parser_receipt": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentpressure-rowcursor-fourhost-day15-preparation-r2/postrun-preparation-r1/compute-parser-r1/actual-native-hpc02-r1/receipt.json",
+        "sha256": "137f08fcfe73d339a1f641df5bc5f6d834a81a98335e6f01f46bdc0708cd332c"
+      },
+      "parser_closure": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentpressure-rowcursor-fourhost-day15-preparation-r2/postrun-preparation-r1/compute-parser-r1/actual-native-hpc02-r1/closure.json",
+        "sha256": "6a8c8b672abf842bea03b3027dcc7796b726fb2699398d743cad16863fffe028"
+      },
+      "summary": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentpressure-rowcursor-fourhost-day15-preparation-r2/postrun-preparation-r1/compute-parser-r1/actual-native-hpc02-r1/result-rank121/summary.json",
+        "sha256": "b27e8e78c5d1bd6581b0d2bc0e8c87b9abc9322aef0bcf585fa4b3a7a1dcaea7"
+      },
+      "actual_binding": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentpressure-rowcursor-fourhost-day15-preparation-r2/postrun-preparation-r1/actual-bindings-hpc02-r1/rank121-binding.json",
+        "sha256": "bae30637498b162e70418e6cf9282bf1fc2168faabf7eea5acfafd7820a3bedf"
+      },
+      "record_perf": {
+        "host": "hpc02",
+        "path": "/usr/lib/linux-tools-6.8.0-88/perf",
+        "sha256": "ec1cd6211c8972093de6128929f7a156b51f0c460f85ce2985fb6487722cf4e2",
+        "version": "perf version 6.8.12"
+      },
+      "render_perf": {
+        "host": "hpc02",
+        "path": "/usr/lib/linux-tools-6.8.0-88/perf",
+        "sha256": "ec1cd6211c8972093de6128929f7a156b51f0c460f85ce2985fb6487722cf4e2",
+        "version": "perf version 6.8.12"
+      },
+      "numeric_loss": "UNKNOWN",
+      "scope": "SOURCE_IDENTITY_ONLY/mixedIO/mainTIDonly; writer487 helpers/compressorworkers unobserved; sampleIP distinct from unwindcaller, no timing/globalheadroom/libraryimplementation/source-line claim",
+      "actual_capture_phase": {
+        "admission": {
+          "ready": true,
+          "status": "SOURCE_IDENTITY_PHASE_ADMITTED",
+          "profile_capture_purpose": "SOURCE_IDENTITY_ONLY",
+          "compute_only_window_qualified": false,
+          "mixed_io_context": true,
+          "identity_phase_qualified": true,
+          "window_valid": false,
+          "model_second": 1515.0,
+          "estimate_age_seconds": 9.6742e-05,
+          "aged_remaining_wall_seconds": 91.970921258
+        },
+        "parent_observed_phase": {
+          "observed_at_monotonic_ns": 2732729973333740,
+          "complete_steps_in_bounded_tail": 80,
+          "observed_forecast_time": "2026-10-12_12:25:15",
+          "remaining_simulated_seconds": 2085.0,
+          "predicted_remaining_wall_seconds": 91.971018,
+          "mean_last5_dt": 20.0,
+          "mean_last5_step_wall": 0.882216,
+          "rsl_tail_sha256": "9c7b948f711f4628f3735168be8eb287d3ae2c486d4a585020be8f5ec3ecd26d",
+          "scope": "actual completed-RSL-step estimate for SOURCE_IDENTITY_ONLY; writer overlap allowed and observed; prediction not a guarantee of request/sample overlap or pure-compute timing"
+        },
+        "collector_start_monotonic_ns": 2732734925414332,
+        "collector_end_monotonic_ns": 2732753659761967,
+        "radiation_overlap": "POSTHOC_SOURCE_SAMPLES_ONLY_NO_TRIGGER_GUARANTEE"
+      },
+      "early_watch": {
+        "schema": "CURRENT5C75_FOURHOST_NOON_NATIVE15_LIVE_V3",
+        "active_rows": [
+          134,
+          135,
+          136,
+          137,
+          138,
+          139,
+          140,
+          141,
+          142,
+          143,
+          144,
+          145,
+          146,
+          147,
+          148,
+          149,
+          150
+        ],
+        "growth_transitions": 16,
+        "first_bytes": 0,
+        "last_bytes": 12205340,
+        "boot_id": "18b76778-11f2-4b21-ac43-564778b71e3b",
+        "time_namespace_inode": 4026531834,
+        "perf_pid": 3084216,
+        "perf_startticks": "273273475",
+        "bridge_pid": 3084214,
+        "bridge_startticks": "273273467",
+        "raw_dev": 64512,
+        "raw_ino": 10486615,
+        "stage": "/tmp/wrf-cpu-quilt-profile-1000-xw_1qgxn",
+        "context_sha256": "1c5c16c80a04706ff36cbb133b419701a00efbfe5ef3e7ccfc15b897873a5523",
+        "source_identity_and_bridge_verified": true,
+        "perf_stdout_same_inode_required": false
+      }
+    },
+    "122": {
+      "host": "hpc03",
+      "cpu": 99,
+      "primary_count": 1391,
+      "parser_receipt": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentpressure-rowcursor-fourhost-day15-preparation-r2/postrun-preparation-r1/compute-parser-r1/actual-native-hpc03-r1/receipt.json",
+        "sha256": "ea14f0df1acfa22c4583a6f9d69b9ad032584bc82912d72356fc348e8065f928"
+      },
+      "parser_closure": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentpressure-rowcursor-fourhost-day15-preparation-r2/postrun-preparation-r1/compute-parser-r1/actual-native-hpc03-r1/closure.json",
+        "sha256": "77748cf4eff8b7b41b781fdb180bf9b755a35bd890ab6a1c9d53edf0d6e9302c"
+      },
+      "summary": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentpressure-rowcursor-fourhost-day15-preparation-r2/postrun-preparation-r1/compute-parser-r1/actual-native-hpc03-r1/result-rank122/summary.json",
+        "sha256": "9fd722278885276dd5bc59ba7f16a11b20679a5aa975188661476e421fd49cad"
+      },
+      "actual_binding": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentpressure-rowcursor-fourhost-day15-preparation-r2/postrun-preparation-r1/actual-bindings-hpc03-r1/rank122-binding.json",
+        "sha256": "91a92349b57d54a32cea4f45e4d578f8886c3881e0af3a6117914bbbe1e59d71"
+      },
+      "record_perf": {
+        "host": "hpc03",
+        "path": "/usr/lib/linux-tools-6.8.0-88/perf",
+        "sha256": "ec1cd6211c8972093de6128929f7a156b51f0c460f85ce2985fb6487722cf4e2",
+        "version": "perf version 6.8.12"
+      },
+      "render_perf": {
+        "host": "hpc03",
+        "path": "/usr/lib/linux-tools-6.8.0-88/perf",
+        "sha256": "ec1cd6211c8972093de6128929f7a156b51f0c460f85ce2985fb6487722cf4e2",
+        "version": "perf version 6.8.12"
+      },
+      "numeric_loss": "UNKNOWN",
+      "scope": "SOURCE_IDENTITY_ONLY/mixedIO/mainTIDonly; writer487 helpers/compressorworkers unobserved; sampleIP distinct from unwindcaller, no timing/globalheadroom/libraryimplementation/source-line claim",
+      "actual_capture_phase": {
+        "admission": {
+          "ready": true,
+          "status": "SOURCE_IDENTITY_PHASE_ADMITTED",
+          "profile_capture_purpose": "SOURCE_IDENTITY_ONLY",
+          "compute_only_window_qualified": false,
+          "mixed_io_context": true,
+          "identity_phase_qualified": true,
+          "window_valid": false,
+          "model_second": 1515.0,
+          "estimate_age_seconds": 9.5023e-05,
+          "aged_remaining_wall_seconds": 91.970922977
+        },
+        "parent_observed_phase": {
+          "observed_at_monotonic_ns": 2732482781619239,
+          "complete_steps_in_bounded_tail": 80,
+          "observed_forecast_time": "2026-10-12_12:25:15",
+          "remaining_simulated_seconds": 2085.0,
+          "predicted_remaining_wall_seconds": 91.971018,
+          "mean_last5_dt": 20.0,
+          "mean_last5_step_wall": 0.882216,
+          "rsl_tail_sha256": "9c7b948f711f4628f3735168be8eb287d3ae2c486d4a585020be8f5ec3ecd26d",
+          "scope": "actual completed-RSL-step estimate for SOURCE_IDENTITY_ONLY; writer overlap allowed and observed; prediction not a guarantee of request/sample overlap or pure-compute timing"
+        },
+        "collector_start_monotonic_ns": 2732487373068017,
+        "collector_end_monotonic_ns": 2732505736473299,
+        "radiation_overlap": "POSTHOC_SOURCE_SAMPLES_ONLY_NO_TRIGGER_GUARANTEE"
+      },
+      "early_watch": {
+        "schema": "CURRENT5C75_FOURHOST_NOON_NATIVE15_LIVE_V3",
+        "active_rows": [
+          134,
+          135,
+          136,
+          137,
+          138,
+          139,
+          140,
+          141,
+          142,
+          143,
+          144,
+          145,
+          146,
+          147,
+          148,
+          149,
+          150
+        ],
+        "growth_transitions": 16,
+        "first_bytes": 0,
+        "last_bytes": 11901388,
+        "boot_id": "ad105fdb-2b6c-40b2-a1ba-6b9997e08d4c",
+        "time_namespace_inode": 4026531834,
+        "perf_pid": 2556507,
+        "perf_startticks": "273248729",
+        "bridge_pid": 2556505,
+        "bridge_startticks": "273248722",
+        "raw_dev": 64512,
+        "raw_ino": 27394409,
+        "stage": "/tmp/wrf-cpu-quilt-profile-1000-5ftjqwbb",
+        "context_sha256": "3767325c7a751aa04d6734cd102d9d0e5864ceab3b05c34784b25ec80700361d",
+        "source_identity_and_bridge_verified": true,
+        "perf_stdout_same_inode_required": false
+      }
+    },
+    "123": {
+      "host": "hpc04",
+      "cpu": 99,
+      "primary_count": 1424,
+      "parser_receipt": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentpressure-rowcursor-fourhost-day15-preparation-r2/postrun-preparation-r1/compute-parser-r1/actual-native-hpc04-r1/receipt.json",
+        "sha256": "9940fcabb4e7345988b3e80e3a5b59b8fa141291d6874ef2e1b205d938c4443b"
+      },
+      "parser_closure": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentpressure-rowcursor-fourhost-day15-preparation-r2/postrun-preparation-r1/compute-parser-r1/actual-native-hpc04-r1/closure.json",
+        "sha256": "6c973ab1925a77f8ba063fd0dc778017659629662d633b1910eb7ee096daac3e"
+      },
+      "summary": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentpressure-rowcursor-fourhost-day15-preparation-r2/postrun-preparation-r1/compute-parser-r1/actual-native-hpc04-r1/result-rank123/summary.json",
+        "sha256": "954d3c17f63e660fb6b4d1aac6254c80d949a123d8fc43ed77249f2908390d89"
+      },
+      "actual_binding": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentpressure-rowcursor-fourhost-day15-preparation-r2/postrun-preparation-r1/actual-bindings-hpc04-r1/rank123-binding.json",
+        "sha256": "219bcbbd9ae0ea01549baedb561c7a043b3e6ee13c35b70d207dd127bc188ce2"
+      },
+      "record_perf": {
+        "host": "hpc04",
+        "path": "/usr/lib/linux-tools-6.8.0-90/perf",
+        "sha256": "bfeb460764dc263c37c6b9a4d012991a2cd6eda71aad9258de413cda48eb8021",
+        "version": "perf version 6.8.12"
+      },
+      "render_perf": {
+        "host": "hpc04",
+        "path": "/usr/lib/linux-tools-6.8.0-90/perf",
+        "sha256": "bfeb460764dc263c37c6b9a4d012991a2cd6eda71aad9258de413cda48eb8021",
+        "version": "perf version 6.8.12"
+      },
+      "numeric_loss": "UNKNOWN",
+      "scope": "SOURCE_IDENTITY_ONLY/mixedIO/mainTIDonly; writer487 helpers/compressorworkers unobserved; sampleIP distinct from unwindcaller, no timing/globalheadroom/libraryimplementation/source-line claim",
+      "actual_capture_phase": {
+        "admission": {
+          "ready": true,
+          "status": "SOURCE_IDENTITY_PHASE_ADMITTED",
+          "profile_capture_purpose": "SOURCE_IDENTITY_ONLY",
+          "compute_only_window_qualified": false,
+          "mixed_io_context": true,
+          "identity_phase_qualified": true,
+          "window_valid": false,
+          "model_second": 1515.0,
+          "estimate_age_seconds": 0.000126004,
+          "aged_remaining_wall_seconds": 91.970891996
+        },
+        "parent_observed_phase": {
+          "observed_at_monotonic_ns": 206755103379350,
+          "complete_steps_in_bounded_tail": 80,
+          "observed_forecast_time": "2026-10-12_12:25:15",
+          "remaining_simulated_seconds": 2085.0,
+          "predicted_remaining_wall_seconds": 91.971018,
+          "mean_last5_dt": 20.0,
+          "mean_last5_step_wall": 0.882216,
+          "rsl_tail_sha256": "9c7b948f711f4628f3735168be8eb287d3ae2c486d4a585020be8f5ec3ecd26d",
+          "scope": "actual completed-RSL-step estimate for SOURCE_IDENTITY_ONLY; writer overlap allowed and observed; prediction not a guarantee of request/sample overlap or pure-compute timing"
+        },
+        "collector_start_monotonic_ns": 206759762564166,
+        "collector_end_monotonic_ns": 206778243914712,
+        "radiation_overlap": "POSTHOC_SOURCE_SAMPLES_ONLY_NO_TRIGGER_GUARANTEE"
+      },
+      "early_watch": {
+        "schema": "CURRENT5C75_FOURHOST_NOON_NATIVE15_LIVE_V3",
+        "active_rows": [
+          135,
+          136,
+          137,
+          138,
+          139,
+          140,
+          141,
+          142,
+          143,
+          144,
+          145,
+          146,
+          147,
+          148,
+          149,
+          150
+        ],
+        "growth_transitions": 15,
+        "first_bytes": 0,
+        "last_bytes": 11951740,
+        "boot_id": "5408fdf6-1999-4b61-89f8-9552cdc6b305",
+        "time_namespace_inode": 4026531834,
+        "perf_pid": 381561,
+        "perf_startticks": "20675969",
+        "bridge_pid": 381559,
+        "bridge_startticks": "20675962",
+        "raw_dev": 64512,
+        "raw_ino": 20578332,
+        "stage": "/tmp/wrf-cpu-quilt-profile-1000-gersctup",
+        "context_sha256": "b3580e0601460e5643bf23a0c3652299b6c2f048a2377ca9e044d63acce99326",
+        "source_identity_and_bridge_verified": true,
+        "perf_stdout_same_inode_required": false
+      }
+    }
+  },
+  "science": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-pressure-rowcursor-fourhost-day15-runtime-r2/science-receipt.json",
+    "sha256": "e6bc04dc81e354876101c2d35f601e1760784aba13d8d0e18405876955f283b5"
+  },
+  "reader": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-pressure-rowcursor-fourhost-day15-runtime-r2/reader-closure.json",
+    "sha256": "8b93386df2895a5bc8b514fcb37851b8ee9bdaa67315d9538c28a5cb34484ce4"
+  },
+  "models": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-pressure-rowcursor-fourhost-day15-runtime-r2/candidate-metadata/model-closures.json",
+    "sha256": "1b5a208ede36f4011996f508fa72baea69888dc9f8738f39590e78155633ffce"
+  },
+  "lease": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-pressure-rowcursor-fourhost-day15-runtime-r2/candidate-metadata/lease.json",
+    "sha256": "8c949ad8ac18c4a4e94938b5d8d6e6925de23069f8bfd11b2f045de6383dea3e"
+  },
+  "source_manifest": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-pressure-rowcursor-fourhost-day15-runtime-r2/source-pins.json",
+    "sha256": "a97686e140758efb0609f8fa3e41b62206ff12ec5317be7e81b0e29640cf3877"
+  },
+  "actual_instrumented_candidate_metrics": {
+    "wall_seconds": 273.2856642701663,
+    "cpu_seconds": 124005.57311,
+    "main_step_sum_seconds": 178.99102
+  },
+  "performance_qualified": false,
+  "causal_join_qualified": false,
+  "build_ID_identity_proven": false,
+  "build_ID_scope": "Recorded field contains paths; source identity uses the accepted actual executable hash binding. Numeric loss remains UNKNOWN.",
+  "all4_aggregate_report": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentpressure-rowcursor-fourhost-day15-preparation-r2/postrun-preparation-r1/ACTUAL_ALL4_HOTSPOTS.json",
+    "sha256": "0328518452dc841e30cbf0ea8e03ea70e64732065765ba09312c96edef472c5f"
+  },
+  "retained_R1_capture_failure": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentpressure-rowcursor-fourhost-day15-preparation-r1/actual-early-parent-dispatch-r1/FAILURE_CLASSIFICATION.json",
+    "sha256": "12bc0e793cfddfeab788561e99cc3bb791e0bdef20da132e9211898ccf2e64e1"
+  },
+  "R2_acquisition_repair": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentpressure-rowcursor-fourhost-day15-preparation-r2/PROVIDER_FAMILY_FIX_PROOF.json",
+    "sha256": "c26344e694649993d5630f26bc2dc0f6eedbbebefc7a4321ed410d3aa6fc8667"
+  },
+  "runtime": {
+    "run_id": "production512-pressure-rowcursor-fourhost-day15-r2-candidate",
+    "run_directory": "/pool/wrf-experiment/wrf-cpu/runs/production512-pressure-rowcursor-fourhost-day15-r2-candidate",
+    "stage": "/pool/wrf-experiment/wrf-cpu/science-prep/production512-pressure-rowcursor-fourhost-day15-r2",
+    "runtime_directory": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-pressure-rowcursor-fourhost-day15-runtime-r2",
+    "world": 512,
+    "compute": 480,
+    "quilt": 32,
+    "CART": [
+      60,
+      8
+    ],
+    "tiles": 2
+  },
+  "limits": "Separate from immutable own unprofiled three-hour and nine-hour qualifications. No unprofiled-noon, restart or full144 qualification. Literal sleep15 command; 18-second wrapper intervals include startup/finalization. Raw inherited CURRENT5C75/THOMPSON/PASS_THREE labels remain unchanged and are scoped by actual lease/artifact/rank/host evidence."
+}

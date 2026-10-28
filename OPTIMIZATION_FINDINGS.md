@@ -1,5 +1,13 @@
 # WRF CPU optimization findings
 
+## Current daytime profile and output-kernel followups — October 28
+
+The pressure/row-cursor build passed its instrumented one-hour noon check: two full products and all 185 steps matched exactly. Four compute main threads, one per node, each completed a fifteen-second capture; all model, recorder, checker and parser jobs closed normally. Startup and data growth were checked during the run. The first acquisition attempt failed on a stale output-library filename; its failure is retained, and the corrected retry passed.
+
+The selected profiles show radiation work, advection and W updates alongside MPI progress activity. All four shared W instruction sites map to previously improved loops, so they do not justify repeating those experiments. The next distinct source question is ordered vector arithmetic across independent clear-sky reflection layers. MPI samples are being joined to their WRF callers. These captures identify source targets; they do not measure global runtime shares or removable network time. [Profile evidence](tools/cpu-compute/pressure-rowcursor-batch-20261028/INSTRUMENTED_NOON_PROFILE_QUALIFICATION.json).
+
+A separate output-shuffle investigation remains unpromoted. The isolated eight-item block was 12.8–13.3% faster, with exact bytes and IEEE state. Typical 749/750-item rows were flat to slower, and complete-provider results were mixed (1.91% slower on one host, 0.17% faster on the other). Separating the tail constant restored the bulk loop byte-for-byte but produced no row gain. A two-block unroll also produced mixed row results (+0.63% / −0.50%). All correctness checks passed. The isolated gain is retained for future applicable callers; current evidence does not establish a benefit in the working provider. The qualified provider remains unchanged. These observations establish neither a persistent regression nor a forecast gain.
+
 ## Pressure and output packing: nine-hour qualification — October 28
 
 The same combined build passed the unchanged nine-hour full-grid checker: all ten complete outputs and 1,625 ordered steps matched exactly. All four model jobs and the checker closed normally. All prior improvements remain included.
@@ -14,7 +22,7 @@ This is an unpaired comparison with one separate current-epoch original control.
 
 The wall-time reduction is smaller at nine hours while the main-step reduction stays near 9%. The measured wall-minus-main gap between control and candidate is about 102 seconds at either horizon. That similar absolute gap contributes a smaller percentage of the longer run. This remainder includes initialization, output, drain and other overhead; it does not identify I/O time alone. See `HORIZON_DECOMPOSITION.md` in the evidence package for normalized values.
 
-Exact qualification: `tools/cpu-compute/pressure-rowcursor-batch-20261028/NINE_HOUR_APPLICATION_QUALIFICATION.json`. The executable, archive and output provider are unchanged from the qualified three-hour run. Daytime profiling is now in progress; restart and full 144-hour qualification remain outside this result.
+Exact qualification: `tools/cpu-compute/pressure-rowcursor-batch-20261028/NINE_HOUR_APPLICATION_QUALIFICATION.json`. The executable, archive and output provider are unchanged from the qualified three-hour run. The same build subsequently passed the instrumented daytime/source-identity qualification recorded above; restart and full 144-hour qualification remain outside this result.
 
 ## Pressure + rowcursor own3h
 
