@@ -1,0 +1,76 @@
+{
+  "status": "PASS_CURRENT0DD6_FIXED_W4_COMPONENT_PHASE_ATTRIBUTION",
+  "actual_result": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current0dd6-provider-phase-cost-preparation-r3-hostroute/ACTUAL_PHASE_RESULT.json",
+    "sha256": "587cab417150c8d44aeada0f85a0bdaed8fbcabb72337e63e73d9b3bb62a9b39"
+  },
+  "native_invocation": "e48ba220e124401eb6b5bd8e6128b75f",
+  "arms": [
+    {
+      "role": "parent",
+      "invocation_id": "837eeb04dc864410ab6797d3825e9944",
+      "metrics": {
+        "provider": "parent",
+        "calls": 8,
+        "raw_bytes": 225371652,
+        "chunk_bytes": 56430000,
+        "chunks": 4,
+        "complete_provider_call_wall_ns": 499805241,
+        "process_cpu_ns": 1604745394,
+        "errno": 33,
+        "flags": 36,
+        "round": 2048,
+        "mxcsr": 24452,
+        "x87cw": 2943,
+        "exact_raw_readonly_gold": true,
+        "release_outside_clock": true,
+        "stock_decode_before_after": true,
+        "maxrss_kib": 721036,
+        "no_MPI512_activation": true
+      }
+    },
+    {
+      "role": "candidate",
+      "invocation_id": "af75f422b2af4f2295387092a99c2206",
+      "metrics": {
+        "provider": "candidate",
+        "calls": 8,
+        "raw_bytes": 225371652,
+        "chunk_bytes": 56430000,
+        "chunks": 4,
+        "complete_provider_call_wall_ns": 516937894,
+        "process_cpu_ns": 1577156852,
+        "errno": 33,
+        "flags": 36,
+        "round": 2048,
+        "mxcsr": 24452,
+        "x87cw": 2943,
+        "exact_raw_readonly_gold": true,
+        "release_outside_clock": true,
+        "stock_decode_before_after": true,
+        "maxrss_kib": 720120,
+        "no_MPI512_activation": true
+      }
+    }
+  ],
+  "worker_cpu_ns": {
+    "body_thread_cpu_ns": 1572725691,
+    "fused_pack_shuffle_thread_cpu_ns": 687303968,
+    "codec_thread_cpu_ns": 884260562,
+    "remaining_body_thread_cpu_ns": 1161161
+  },
+  "worker_body_cpu_percent": {
+    "body_thread_cpu_ns": 100.0,
+    "fused_pack_shuffle_thread_cpu_ns": 43.70145232147797,
+    "codec_thread_cpu_ns": 56.22471655802563,
+    "remaining_body_thread_cpu_ns": 0.07383112049639685
+  },
+  "limits": [
+    "Synthetic W-shape integer fixture, not actual scientific payload or forecast fraction.",
+    "Fused packing/shuffle phase cannot separate its two mechanisms. Codec includes init/deflate/end. Clock/save-restore overhead included; no overhead subtraction or removable-cost ceiling.",
+    "Worker wall sums overlap. Do not add them or nested phase times to callback wall. Worker CPU is distinct from process CPU/owner CPU.",
+    "Original callback/release and raw/state proof preserved; release and all oracles remain outside measured callback clocks.",
+    "One baseline then observed arm is diagnostic overhead context only, not a matched optimization gain."
+  ],
+  "decision": "Retain attribution; pursue one relative row-coordinate cursor in existing packing loop. No selected provider change or optimization gain from these diagnostic arms."
+}
