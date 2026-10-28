@@ -5984,3 +5984,18 @@ Close this fixed non-typed X candidate **unpromoted**. All 480 compute-rank admi
 The module-only GNU 13.3 strict-O2 `-fstack-arrays` recipe is now enabled within the qualified pure-MPI, default-kind build guards. Set `WRF_THOMPSON_STACK_ARRAYS=0` and rebuild/relink to opt out; the qualified runtime uses unlimited process stack. The main routine's allocation/free sites fell from 71 to zero. Complete-caller wall time was 5.09% / 4.24% lower on two hosts, with exact original full-caller, reflectivity and complete generated-table checks. Storage moves from heap to stack; no whole-model capacity saving is claimed.
 
 Own cached image `9010be04` also passed the unchanged original noon checker: two complete products and all 185 ordered steps. It took 268.368384 s wall, 174.037060 s main-step elapsed and 120785.245916 core-s. Against the predeclared median of two distinct current-parent one-hour arms, wall and CPU were 1.4521% / 0.9915% higher, and main-step elapsed was 1.4662% lower. Wall lies within the parent range; this descriptive unpaired result establishes no isolated forecast gain or reproducible application regression. Significant exact caller gains support inclusion under the standing policy. Periodic original three-hour qualification is in flight; parent three-hour/nine-hour/profile evidence does not qualify this child. [Qualification and rollback](tools/cpu-compute/thompson-stack-arrays-20261028/README.md).
+
+
+### October 28: combined Thompson stack build passed periodic three-hour qualification
+
+Selected image `9010be04` / archive `47c3847f` passed its own unchanged original scientific checker: all four FULL products and 545 ordered steps matched. All four model jobs and the original reader closed normally. This build retains every previous selected improvement and adds only the Thompson stack-array module recipe; the non-typed X-prepost experiment is excluded.
+
+| Metric | Retained corrected-original median, 3 runs | Latest combined | Descriptive reduction |
+|---|---:|---:|---:|
+| Wall minutes | 13.33374 | 10.49394 | 21.2978% |
+| Main-step elapsed minutes | 9.94084 | 8.84165 | 11.0573% |
+| Aggregate CPU core-hours | 99.81315 | 85.01194 | 14.8289% |
+
+Actual child totals are 629.636238079 s wall, 530.499120 s main-step elapsed and 306042.973311 core-s. The fixed original cohort is A2/A1/5c75 (three distinct invocations); raw collector `control` remains the single A2 scientific reference, not the median. This is an unpaired descriptive comparison, with no isolated per-patch or repeatability claim. Main-step elapsed includes communication and waiting. Relative to the previous selected `00c6` run, the new wall time is 9.998 seconds lower; this single observation does not isolate Thompson's contribution.
+
+The descriptive wall ratio is about 1.27× original throughput, short of both the 1.5× throughput and 2× speedup goals. No kernel percentages are added to that ratio. Own nine-hour/profile/restart/full-144-hour qualification remains pending. [Exact component and application evidence](tools/cpu-compute/thompson-stack-arrays-20261028/README.md).
