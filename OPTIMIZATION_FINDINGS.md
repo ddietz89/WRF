@@ -1,5 +1,11 @@
 # WRF CPU optimization findings
 
+## Runge–Kutta row scheduling: exact gate failed — October 28
+
+Producing each later-stage row immediately before its original scalar consumer failed the strict extracted-procedure gate. A competing-NaN case changed the output payload from `7fc12345` to `ffc54321`; actual O2 instructions showed reversed multiplication operand priority in the scalar remainder. A narrowed version admitted only widths divisible by four, but the same width-three case still failed in its literal original fallback. Source-level fallback alone did not preserve compiled NaN selection in this context.
+
+Both attempts passed 16 earlier raw protocol comparisons before failing; O0, complete-caller proofs and timing were not reached. The five new width-four cases in the second attempt were also not reached. Preserve both failures and close these versions unpromoted. No performance gain or full-module/application qualification is claimed. The numerical gate retained all five state words and exact outputs throughout. [Actual failures and decision](tools/cpu-rejected/rk-laterstage-row-20261028.json).
+
 ## Early X receives: scoped MPI caller result — October 28
 
 Fresh correctness checks passed on the actual 480-rank, 8-by-60 production map over InfiniBand. Four cache-cleared complete-caller timing arms ran parent–candidate–candidate–parent, with 4,096 calls per arm. Parent/candidate maximum-rank elapsed times were 1.79141/1.81608 seconds and 1.79058/1.79683 seconds: the candidate was 1.38% and 0.35% slower. Sum of rank main-thread CPU was 1.40% and 0.36% higher; this is not aggregate cgroup CPU or a forecast result. All 24 node scopes closed normally and drained.
