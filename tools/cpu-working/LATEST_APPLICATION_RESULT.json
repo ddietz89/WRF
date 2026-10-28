@@ -1,312 +1,159 @@
 {
-  "status": "PASS_OWN_UNPROFILED_SAME512_ORDINARY_VFLUX_THREE_HOUR_545_FOUR_FULL",
+  "status": "PASS_OWN_UNPROFILED_SAME512_NOON185_TWO_FULL",
+  "date": "2026-10-28",
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentb8e2-ordinary-vflux-scratch-experimental-r1/wrf.exe",
-    "sha256": "00c6bcb351bfb79b6de3c240429e630d70980d1f3ead6e7594d56fc2d447a1b5"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current00c6-thompson-stack-experimental-r1/wrf.exe",
+    "sha256": "9010be049d793f2632a8bab4f3c4d80e3267c8336466df97dfd2a184b7dbbc46"
   },
   "archive": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentb8e2-ordinary-vflux-scratch-experimental-r1/libwrflib.a",
-    "sha256": "ff31e972834e70682edd65dcef5d8cde5a57b5b2541cd0299dbe93495ca81f5b"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current00c6-thompson-stack-experimental-r1/libwrflib.a",
+    "sha256": "47c3847f1894a44e295019586c1553abe88822775e820ba942791c2bdcb21b42"
   },
+  "parent_executable_sha256": "00c6bcb351bfb79b6de3c240429e630d70980d1f3ead6e7594d56fc2d447a1b5",
+  "science": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current00c6-thompson-stack-noon1h-runtime-r1/science-receipt.json",
+    "sha256": "bceffac62740c2918ba5b033349bfa34e619bd5997be1d259bdf178f17f052e1"
+  },
+  "metrics": {
+    "wall_seconds": 268.3683838150464,
+    "cpu_seconds": 120785.245916,
+    "main_step_sum_seconds": 174.03706
+  },
+  "descriptive_current_parent_cohort": {
+    "n": 2,
+    "statistic": "median equals mean for n2; predeclared R4/R5 distinct current00c6 unprofiled parents only",
+    "members": [
+      {
+        "run_id": "production512-current00c6-nontyped-x-noon1h-pair-r4-parent",
+        "metrics": {
+          "wall_seconds": 270.88802713062614,
+          "main_step_sum_seconds": 177.23237,
+          "cpu_seconds": 122953.786788
+        }
+      },
+      {
+        "run_id": "production512-current00c6-nontyped-x-noon1h-pair-r5-parent",
+        "metrics": {
+          "wall_seconds": 258.16658464679495,
+          "main_step_sum_seconds": 176.02129,
+          "cpu_seconds": 116244.985785
+        }
+      }
+    ],
+    "median": {
+      "wall_seconds": 264.52730588871054,
+      "main_step_sum_seconds": 176.62682999999998,
+      "cpu_seconds": 119599.3862865
+    },
+    "ranges": {
+      "wall_seconds": [
+        258.16658464679495,
+        270.88802713062614
+      ],
+      "main_step_sum_seconds": [
+        176.02129,
+        177.23237
+      ],
+      "cpu_seconds": [
+        116244.985785,
+        122953.786788
+      ]
+    }
+  },
+  "descriptive_reductions_percent": {
+    "wall_seconds": -1.4520534707868071,
+    "main_step_sum_seconds": 1.4662381700447091,
+    "cpu_seconds": -0.991526517250918
+  },
+  "comparison_design": "UNPAIRED candidate vs predeclared latest two eligible SAME512 current-parent onehour noon arms; individual cache clears. No original3h or original75m wall/CPU pooling. One child run does not establish an isolated forecast effect or repeatability.",
+  "scope": {
+    "unprofiled_noon_one_hour": true,
+    "three_hour": false,
+    "nine_hour": false,
+    "profile": false,
+    "O0_stackarrays": false,
+    "cold_init_processor_state": false,
+    "clean_full_source_build": false
+  },
+  "promotion_basis": "Significant exact complete-caller gains on two hosts, original full11/reflectivity/all5regeneratedtable native qualification, and own unchanged-original forecast science. Wall observation within parent range; no reproducible application regression established. Storage moves heap to stack with unlimited runtime stack; no capacity saving claimed.",
+  "models_normal_closed": true,
+  "reader_normal_closed": true,
+  "processor_state_rule": "All five words remain hard in every numerical compute native gate; MPI-only errno/inexact diagnostic rule never applied to Thompson.",
+  "evidence": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current00c6-thompson-stack-noon1h-runtime-r1/RESULT.json": "6a1cfa7538e18dbb2b3056421a5c100bff67f5a7e79f41681fc12bf17753f826",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current00c6-thompson-stack-noon1h-runtime-r1/science-receipt.json": "bceffac62740c2918ba5b033349bfa34e619bd5997be1d259bdf178f17f052e1",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current00c6-thompson-stack-noon1h-runtime-r1/reader-closure.json": "9c57cf4abd5b8176beb9a47fb4f6113e298e9b1200105d828b7f500617e62711",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current00c6-thompson-stack-noon1h-runtime-r1/source-pins.json": "e218f2120465ce0ffd82a5b1954d38c95ce5d457347377bfbcce9001530022e4",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current00c6-thompson-stack-noon1h-runtime-r1/candidate-metadata/model-closures.json": "0b4939d254736589e026a66cada81965b1551b3dda7339b17c351bac95605ba8",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current00c6-thompson-stack-noon1h-runtime-r1/candidate-metadata/lease.json": "f0bca0dcf16fb9d0e8d75c74b43e7dee91f5625a1aca4775e6509164359e804a",
+    "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current00c6-thompson-stack-noon1h-runtime-r1/candidate-metadata/mpi-launch.json": "9b9fa54edd813e1f7933b0bc1c49bc6709e79a29de2b4fbbf5d0d1626f846207",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current00c6-nontyped-x-noon1h-preparation-r4/ACTUAL_PAIR.json": "5415483e764753b69d280316eab1d6c2f5aaff4930eb4bd79f88107a270c0640",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current00c6-nontyped-x-noon1h-preparation-r5/ACTUAL_PAIR.json": "ad1392e914472699ef099a86d310c732a17557ededff281b5667714a1a5a7894"
+  },
+  "qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/thompson-stack-arrays-20261028/NOON_APPLICATION_QUALIFICATION.json",
+    "sha256": "6288e37a99b965963f69ed1a751643fba95c0f9d198234281f2d8cf4a4618b28"
+  },
+  "source_commit": "1edd43ea4c8cbf37137f248d5bf0ef0072c1192b",
+  "post_test_source_commit": "1edd43ea4c8cbf37137f248d5bf0ef0072c1192b",
+  "raw_producer_source_commit": null,
   "RSL_archive": {
     "path": "/pool/wrf-experiment/wrf-cpu/builds/current1d16-rsl-early-y-production-archive-r1/librsl_lite.a",
     "sha256": "e418b187e8c88f5dc436ca44ce32ff23f75ac11a45ce3db214ff4fc40bb1fddc"
   },
   "output_provider": {
     "path": "/pool/wrf-experiment/wrf-cpu/kernels/current0dd6-rowcursor-native-hpc02-r1/output/liboutput_world512_rowcursor.so",
-    "sha256": "64bb4cf2744799056e25be48b166a7a4703f525b08acff1bf898cd7941e8a643"
+    "sha256": "64bb4cf2744799056e25be48b166a7a4703f525b08acff1bf898cd7941e8a643",
+    "provider_source_sha256": "d38dfa0c9d75b04f28bab346be8182fae6d32c89960f727bf8c06f24ce5aee58",
+    "guard_source_sha256": "801e29cc8406d0200dee1557e4263d3ce4db46d750b63b9371083b633c952150"
   },
-  "source_commit": "ee073e321f74fd8460496928fd52fda77ec7adbe",
-  "post_test_source_commit": "ee073e321f74fd8460496928fd52fda77ec7adbe",
-  "raw_producer_source_commit": null,
-  "own_three_hour_qualified": true,
-  "own_unprofiled_three_hour_qualified": true,
+  "qualification_scope": {
+    "full144_qualified": false,
+    "native_profile_qualified": false,
+    "own_384_qualified": false,
+    "own_fourhost512_qualified": true,
+    "own_instrumented_noon_one_hour_qualified": false,
+    "own_nine_hour_qualified": false,
+    "own_noon_one_hour_qualified": true,
+    "own_three_hour_qualified": false,
+    "own_threehost256_threehour_qualified": false,
+    "own_unprofiled_nine_hour_qualified": false,
+    "own_unprofiled_noon_one_hour_qualified": true,
+    "own_unprofiled_three_hour_qualified": false,
+    "profile_qualified": false,
+    "restart_qualified": false
+  },
+  "applies_to_current": true,
   "own_fourhost512_qualified": true,
+  "own_noon_one_hour_qualified": true,
+  "own_unprofiled_noon_one_hour_qualified": true,
+  "own_instrumented_noon_one_hour_qualified": false,
+  "own_three_hour_qualified": false,
+  "own_unprofiled_three_hour_qualified": false,
   "own_nine_hour_qualified": false,
   "own_unprofiled_nine_hour_qualified": false,
-  "own_noon_one_hour_qualified": false,
-  "own_instrumented_noon_one_hour_qualified": false,
-  "own_unprofiled_noon_one_hour_qualified": false,
   "profile_qualified": false,
+  "native_profile_qualified": false,
   "restart_qualified": false,
   "full144_qualified": false,
-  "observed_step_count": 545,
-  "products": 4,
-  "science": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentb8e2-ordinary-vflux-3h-r1/science-receipt.json",
-    "sha256": "023133c350e7e929ac73585d01deefb4cd0555b7e09decf90f6935099fcfb10b"
-  },
+  "observed_step_count": 185,
+  "products": 2,
   "reader_closure": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentb8e2-ordinary-vflux-3h-r1/reader-closure.json",
-    "sha256": "4d5d40fd989228e6fb47057c96fa672ca275ecf5f0dc93966b646046fe96955e"
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current00c6-thompson-stack-noon1h-runtime-r1/reader-closure.json",
+    "sha256": "9c57cf4abd5b8176beb9a47fb4f6113e298e9b1200105d828b7f500617e62711"
   },
   "models": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentb8e2-ordinary-vflux-3h-r1/candidate-metadata/model-closures.json",
-    "sha256": "459f395e170d38b012998d1753b307ec69b1394e9950c6e98c98b825c3c4b9db"
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current00c6-thompson-stack-noon1h-runtime-r1/candidate-metadata/model-closures.json",
+    "sha256": "0b4939d254736589e026a66cada81965b1551b3dda7339b17c351bac95605ba8"
   },
-  "lease": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentb8e2-ordinary-vflux-3h-r1/candidate-metadata/lease.json",
-    "sha256": "099807608aa3f4afeeab90fade1712a5bc25b45fe1a6ef6c9ece86aa1bf3ff08"
-  },
-  "RESULT": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentb8e2-ordinary-vflux-3h-r1/RESULT.json",
-    "sha256": "3ca7ce773faaf389b8799d2f7db5224e69675a691b1b172ae68eac7d6f2441be"
-  },
-  "source_manifest": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentb8e2-ordinary-vflux-3h-r1/source-pins.json",
-    "sha256": "c9aca7bc601757eb0444556ad593703bd479d9a2990254ad64576cfc034f1ab2"
-  },
-  "actual_map_table_sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac",
-  "actual_candidate_metrics": {
-    "wall_seconds": 639.634079716634,
-    "cpu_seconds": 310949.380661,
-    "main_step_sum_seconds": 540.38569
-  },
-  "rolling_control_baseline": {
-    "cohort_sha256": "a96d6b9ea566325641ad0b0766429c661e904c75b457419acbefdaa9953b0aa5",
-    "n": 3,
-    "median": {
-      "wall_seconds": 800.0241208570078,
-      "cpu_seconds": 359327.346984,
-      "main_step_sum_seconds": 596.45045
-    },
-    "members": [
-      {
-        "run_id": "production512-current0b40-fourhost-threehour-pair2-r1-control",
-        "coordinator_invocation_id": "2eeee20b4cf0457cb582710bce30dc0b",
-        "metrics": {
-          "wall_seconds": 800.2145909662358,
-          "cpu_seconds": 359516.46336299996,
-          "main_step_sum_seconds": 596.45045
-        }
-      },
-      {
-        "run_id": "production512-current0b40-fourhost-threehour-pair1-r1-control",
-        "coordinator_invocation_id": "81febf86a6734f4fa77d57fd1b467c30",
-        "metrics": {
-          "wall_seconds": 798.6198086068034,
-          "cpu_seconds": 358644.885565,
-          "main_step_sum_seconds": 595.32709
-        }
-      },
-      {
-        "run_id": "production512-current5c75-fourhost-threehour-pair1-r1-control",
-        "coordinator_invocation_id": "c9768c1474f648329ff3e41b664aac99",
-        "metrics": {
-          "wall_seconds": 800.0241208570078,
-          "cpu_seconds": 359327.346984,
-          "main_step_sum_seconds": 596.59354
-        }
-      }
-    ]
-  },
-  "descriptive_reductions_percent": {
-    "wall_seconds": 20.04815066932727,
-    "cpu_seconds": 13.463480230229784,
-    "main_step_sum_seconds": 9.399734713923024
-  },
-  "metrics_control_role": "RAW_RETAINED_A2_SCIENTIFIC_CHECKER_REFERENCE_NOT_MEDIAN",
-  "comparison_design": "Candidate-only exactscience vs retainedA2; timings DESCRIPTIVE and UNPAIRED against median latest3 unique original controls A2/A1/5c75; hardwareepoch unresolved.",
   "timing_gain_claim": false,
-  "build": {
-    "expected_status": "BUILT_ISOLATED_CURRENTB8E2_ORDINARY_VFLUX_ONE_ADVECT_MEMBER_PENDING_OWN_APPLICATION",
-    "files_sha256": {
-      "ordinary-build-receipt.json": "02c81e64566e2db66ebfd0aa6f1bae6f6891536e1268bde1f0cb5d61b6515c94",
-      "ordinary-build-closure.json": "70ace1567e9a8742594346b7f2851d08cb0695b5026e1e1346571df5ca621831",
-      "ordinary-build-controller.json": "1f3cc4698e9d18e79d796ba4d09c60cc43b5f0efee25ca2030f649856171f3d3",
-      "ordinary-ordered-archive-proof.json": "9d4dbbd0b022cee9b2908f4f77a77ac20cba52e239fbbe24aab130c5ecf29555",
-      "ordinary-native-receipt.json": "28662e559ca77c7ea4626c4e573f2afc195e289a8e0837e6f46cfb7b8617ee5b",
-      "ordinary-native-closure.json": "e3857ec35d40a6b07572c89247e752291f0485cc1a471dc6c18c5f6b5a6a7146",
-      "ordinary-machine-ACK.json": "ddc58349e1154fb18c115e865e3790c80f4d97fb26efdfed5956a2fcc24af704",
-      "ordinary-caller-wave.json": "38c41f679da02ea46f4294790501706f05ae5e29719c9f5d751332a8b2fd5473",
-      "ordinary-caller-arm0-receipt.json": "f7e2bed23e1e7049531caf01eb69bb5da27fe0d357cf0e3399199a16ea6bf949",
-      "ordinary-caller-arm0-closure.json": "224043da98f9341f70708badf76394c8f646bc4102dceb88844fd7acb94bbf4d",
-      "ordinary-caller-arm0-cache-clear.json": "7b9d00e100be283d740a6ad647b490c0b5f8bef2d6df0274b2dbbb3a34382cff",
-      "ordinary-caller-arm1-receipt.json": "af4c72eed5086b15eef33648a02145049d2e4ec9992701eaf78f11fd7e689f92",
-      "ordinary-caller-arm1-closure.json": "6b7966afd02c9b97f093ad817f27495171a0fb2f87392bbaf3c219ae281598c9",
-      "ordinary-caller-arm1-cache-clear.json": "5aee03135fc25307842854c0aa6fa91843f15c87c05916d012335b85029c2b6e",
-      "ordinary-caller-arm2-receipt.json": "418df38a7d8114e0f81a802ac5c83204469b5abe3f3aee84a977e9ed66386861",
-      "ordinary-caller-arm2-closure.json": "e7959ed825ca9086f75829086ffb4494259bb8cd0e09d1bc06e0b34919996177",
-      "ordinary-caller-arm2-cache-clear.json": "41c3f2717c4f7372fdd0d48b0441313750019d4c7b7b1e5035291d37df12a328",
-      "ordinary-caller-arm3-receipt.json": "09d727771866bf4fa80468ce7aeafcfd521a7eac282b12406be61e81ca0e940a",
-      "ordinary-caller-arm3-closure.json": "dbb7622aa471af2c0803a207df6a124bb634ab7d46a66b1d3a070679d8dea2fc",
-      "ordinary-caller-arm3-cache-clear.json": "4cc1d090682fd4d6e81bd359869154fa1e75ea4b425c2edffa05f9e41cba8ff6"
-    },
-    "receipt_sha256": "02c81e64566e2db66ebfd0aa6f1bae6f6891536e1268bde1f0cb5d61b6515c94",
-    "closure_sha256": "70ace1567e9a8742594346b7f2851d08cb0695b5026e1e1346571df5ca621831",
-    "controller_sha256": "1f3cc4698e9d18e79d796ba4d09c60cc43b5f0efee25ca2030f649856171f3d3",
-    "executable": {
-      "path": "/pool/wrf-experiment/wrf-cpu/builds/currentb8e2-ordinary-vflux-scratch-experimental-r1/wrf.exe",
-      "sha256": "00c6bcb351bfb79b6de3c240429e630d70980d1f3ead6e7594d56fc2d447a1b5"
-    },
-    "archive": {
-      "path": "/pool/wrf-experiment/wrf-cpu/builds/currentb8e2-ordinary-vflux-scratch-experimental-r1/libwrflib.a",
-      "sha256": "ff31e972834e70682edd65dcef5d8cde5a57b5b2541cd0299dbe93495ca81f5b"
-    },
-    "RSL": {
-      "path": "/pool/wrf-experiment/wrf-cpu/builds/current1d16-rsl-early-y-production-archive-r1/librsl_lite.a",
-      "sha256": "e418b187e8c88f5dc436ca44ce32ff23f75ac11a45ce3db214ff4fc40bb1fddc"
-    },
-    "changed_member_pins": {
-      "module_advect_em.o": "ff6161cbec9c9cf1d2aeec801c0bd5332b5675978f65385beab8c947c9919330"
-    },
-    "selected_direct_link_input_pins": {
-      "/pool/wrf-experiment/wrf-cpu/builds/thompson-tcg-twelve-owner-canonical-current-r1/candidate/wrf.o": "33251ef3f1810d6dfbd5571943b80cc15f92c16f9cc03bb661b2ca945a48769d",
-      "/pool/wrf-experiment/wrf-cpu/builds/thompson-tcg-twelve-owner-canonical-current-r1/candidate/module_wrf_top.o": "65001523868ea86923d536b595270eb74ae85d4d8aab722975e6cd5e72b493f1",
-      "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o": "3a94b6864d7b3d2df4efc4f1afabe6dd519b6f73c9785738f219e6206727e4ec",
-      "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o": "54be5b6686914b8496b3d451205582b7bf854f23e52176c13ab34f66255946d4",
-      "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o": "4f037f15d1dc99ac826fccdfbf500221ae63132896e90a627446bc3fff8b8263",
-      "/pool/wrf-experiment/wrf-cpu/kernels/hpg-nhx-isolated-avx2-consumer-native-r3/work/nhx-helper-O2.o": "ae13adfa248c9613be20c56bd1f8e77a3ff8d79a985ffb163acc16be629d0f8c",
-      "/pool/wrf-experiment/wrf-cpu/kernels/phy-height-private-avx2-fixed8-native-hpc04-r1/work/helper-O2.o": "b6a707c4f00670eb6611e45513381d275b31c82fe7c6bf08d548de286b9a0467",
-      "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a": "43440c838a792ee55cdb93165c7996173df197d3e6afbd9c69e196b64b869a34",
-      "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a": "fa5423d57121eae7505cd464e0a9826c36eadf91a6a884aee96f6a7aa4279a29",
-      "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a": "93675f19d4c2d39ff9de6909f76e4ccddf0844440abe38fa37aea97bb42fb4f0",
-      "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a": "a06e4111dbb308bbe94c1cb2c0e21c608fde3e906dec74a10910b5842cac5ca0",
-      "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o": "175cbd87243a7ff3412f1850e76dac102eb4edc5db684bfdc97d419694d44a78",
-      "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o": "8ab87436bdb22d9d0ef3c1257e25f415727ede16be8535b8e037832a12fe9752",
-      "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90/libesmf_time.a": "4c1ebf810767e36db24471cac830970afb2c440eb241f4664b1d3398ecf0f84a",
-      "/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib/libnetcdff.so": "e271f9b96203b03c2e21f9e044b4cbe13534f309b100ae369dd0799fa7a2a6d6",
-      "/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib/libnetcdf.so": "7036a91b172b3f1171c1ebd86813a208a302cf9145013d58611570cfa12e2780",
-      "/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2/libwrfio_nf.a": "651835f31089e16759177734198ece5b121d704355c73abddde483f4cae2c14c",
-      "/pool/wrf-experiment/wrf-cpu/builds/current1d16-rsl-early-y-production-archive-r1/librsl_lite.a": "e418b187e8c88f5dc436ca44ce32ff23f75ac11a45ce3db214ff4fc40bb1fddc"
-    },
-    "retained_components": {
-      "MU": {
-        "decision": "RETAIN_RESOURCE_REDUCTION_NEAR_NEUTRAL_TIMING",
-        "object_sha256": "14e173b2a5858dd91fc764e3e3e8b1dd33a0c4e3099af8e433fd28f53c65cd26",
-        "member": "module_small_step_em.o",
-        "native_receipt_sha256": "e0a0b267b706b9bd9ac13da00c9714a602c76283710f134198228b939953c0ad",
-        "wave_review_sha256": "009e762a598cbf5a9201deef74e9a7ae0443bec1eeaa890d199ffe51ed1eb34c"
-      },
-      "LW": {
-        "decision": "RETAIN_FOR_BOUNDED_COMBINED_APPLICATION",
-        "object_sha256": "cb45f00d94952af68ac53fc0d6be989cf73bdb5986686f2fbbe8de7b8ac60c54",
-        "native_receipt_sha256": "14dd1b1276aa1181ced01708a5d2a32ae4cdf5dac936802e363fee6b57f3f1fe",
-        "machine_sha256": "998f0b129fcb617c5e45b546678a4033f7fe33cf8a58452fb1ef851aba54575e",
-        "raw_MOD34_exact": false,
-        "raw_MOD_exact_counts": {
-          "O2": 30,
-          "O0": 29
-        },
-        "MOD34_exact_typed_graph_both_opts": true,
-        "five_original_driver_imports_raw_exact_both_opts": true,
-        "typed_graph_peer_ACK_sha256": {
-          "lw-peer-fixed-four-MOD-ACK.json": "3dc876b39701618c1809fd4c11bfddfb9f410a4bdc9856573160b903a6cbce27",
-          "lw-peer-fixed-five-O0-MOD-ACK.json": "5e1d928820db4d2894b9517d5bf75e2ba440e0dfada33f0bce7cbdc771c7c43d"
-        },
-        "target_helper_classification_sha256": "230da3179e708862d29f92c50dceee1992f6c912edffceb4d1d1ee690e5583db",
-        "non_target_pool_ACK_sha256": "6be184673b43be4ac148c592f395d93aca8cb2c99c4afd9c007b035c66546358",
-        "O2_non_target_strict_raw_full_RELA_flags": {
-          "non_target_total": 79,
-          "exact": 55,
-          "raw_or_full_RELA_false_preserved": 24,
-          "all_raw_bytes_equal": false,
-          "all_full_RELA_tuples_equal": false
-        },
-        "O0_non_target_machine_unclassified": true,
-        "diagnostic_error_report_line_observables_differ": true,
-        "public_MOD_bytes_exact": false,
-        "public_MOD_semantic_identity": true
-      },
-      "RSL": {
-        "decision": "RETAIN_EXPERIMENTAL_FOR_BOUNDED_COMBINED_APPLICATION",
-        "archive": {
-          "path": "/pool/wrf-experiment/wrf-cpu/builds/current1d16-rsl-early-y-production-archive-r1/librsl_lite.a",
-          "sha256": "e418b187e8c88f5dc436ca44ce32ff23f75ac11a45ce3db214ff4fc40bb1fddc"
-        },
-        "build_receipt_sha256": "d637c2cf86cd919934406a85672cc5c971a4d87c12a0a82d3f237a25442b430e",
-        "own_full_model_qualified": false,
-        "marker": {
-          "marker": "WRF_RSL_EARLY_Y_8X60_ADMITTED",
-          "maximum_per_process": 1,
-          "required_future_compute_ranks": 480,
-          "expected_per_rank": 1,
-          "no_payload_or_timestamps": true,
-          "native_component3x3_test_not_production8x60_proof": true
-        }
-      },
-      "Thompson_pressure": {
-        "decision": "RETAIN_RESOURCE_REDUCTION_WITH_SMALL_POSITIVE_FINITE_CALLER_TIMING",
-        "member": "module_mp_thompson.o",
-        "object_sha256": "c30d9a6cd8230307fd6b61245459924d655eedd1b0589bf4199997b79a336230",
-        "native_receipt_sha256": "b6f8742cfb4bcb223afa8c735bad5cd965ac0aa124baf1330b0f46bc2b478046",
-        "native_closure_sha256": "e781f693b2c0f2fce1912ca38ae30d191bccbeb9db5974f6ebda3bd06877625b",
-        "machine_sha256": "2a767459983ba53105a0faf63458f0d1af7cf220b0abfcb57fae6cbb1c77e156",
-        "caller_review_sha256": "87bcfb521a49a1487b450237aec89d32a7f22603b4adcadd263af90b7a8b9532",
-        "application_qualified": false,
-        "same_FP_operand_order_or_exceptional_NaN_payload_claim": false
-      },
-      "V_X5": {
-        "decision": "RETAIN_FOR_BOUNDED_COMBINED_APPLICATION",
-        "member": "module_advect_em.o",
-        "object_sha256": "d14ffc95d14e925f63171a64c0f55f67e341507823f93b5478c040e936ff8a7e",
-        "native_receipt_sha256": "402e3b56b13e57d0d5bdb812025619034d5f6ca408f37f9a83b5af3ad31f31f9",
-        "native_closure_sha256": "7c5be31307315176689d98a022591eb38b2274cd6586acb29273e9cedde1336e",
-        "machine_sha256": "ea0d86aecebbcdc4f302610498f52f53fd7002bb1607dd546db022caf0eb1d67",
-        "application_qualified": false,
-        "cost": {
-          "wave": {
-            "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current1d16-advect-v-remaining-source-question-r1/complete-Xpass2048-prefix-operand-r2-cost-preparation-r1/ACTUAL_WAVE.json",
-            "sha256": "f28ecf6c05595f8f5d4b3b412b699736714e0c12c16a81bd3bb8cd6b47fa3392"
-          },
-          "scope": "Standalone complete VnormalX5 producer+degradedfaces+consumer+2restores+onceguard, fixed2048,01P04C01C04P; not fullAdvectV/forecast or actualmodulemachineidentity.",
-          "finite_case": 0,
-          "host_comparisons": {
-            "hpc01": {
-              "wall_seconds": {
-                "parent": 0.915968097,
-                "candidate": 0.34113031200000005,
-                "percent_lower": 62.75740245568836
-              },
-              "thread_cpu_seconds": {
-                "parent": 0.9159357370000001,
-                "candidate": 0.341108942,
-                "percent_lower": 62.75841980822286
-              }
-            },
-            "hpc04": {
-              "wall_seconds": {
-                "parent": 0.915319462,
-                "candidate": 0.34081630700000004,
-                "percent_lower": 62.76531624758569
-              },
-              "thread_cpu_seconds": {
-                "parent": 0.91528721,
-                "candidate": 0.340789983,
-                "percent_lower": 62.7668802451637
-              }
-            }
-          },
-          "extracted_artifact_distinct_from_whole_module_object": true,
-          "whole_AdvectV_or_forecast_gain_claim": false,
-          "historical_R1_extracted_cost": {
-            "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current1d16-advect-v-remaining-source-question-r1/complete-Xpass2048-cost-preparation-r1/ACTUAL_WAVE.json",
-            "sha256": "6e1b904c055aec7c794e4ca209d7f1ad7880c0a769e82abe3adace1f3e05a0b1"
-          },
-          "R1_whole_V_failed_receipt_preserved": {
-            "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current1d16-advect-v-remaining-source-question-r1/genuine-whole-AdvectV-X5-native-r1-hpc02/actual-native-r1/receipt.json",
-            "sha256": "4e78f2af139be056c02e628d4c626922fb0c8e436652b181a537d58a20a517e6"
-          }
-        }
-      }
-    },
-    "retained_parent_PD": {
-      "PD_native_receipt_sha256": "d875e9ab4db67b483f3fa86f0e28954e728e5a1a442a93ee892408c4c8374236",
-      "PD_machine_sha256": "c0a356592de142e5ed9a422aa0c164d4667fb2b7e0e1d5aca5721a0e4077aede",
-      "PD_caller_wave_sha256": "a3417ee7a88f5c001d4fac53cb9f35adac8f89e3e18c6e51710b52ebb6e39a9f",
-      "PD_public_MOD_raw_exact": true,
-      "parent_member_sha256": "607f4da1287fe664ccaebaea57114baab33cab3d500d19ec79fefc99cdd5412c",
-      "parent_PP_sha256": "872d55d1bcecc217c240031153db2263cc1aac80a2cf02949a93597f467a4d69",
-      "outside_ordinary_entire_parent_module_source_byteexact": true,
-      "member_embeds_prior_PD_guard": true
-    },
-    "application_qualified": false
-  },
-  "source_correspondence_pending": false,
-  "limits": "Own00c6/ff31 unprofiled fourhost512 threehour545/fourFULL only. CandidateonlyUNPAIRED descriptive timing against retainedmedian3 originals;rawmetrics.control isA2scientificreference,notthemedian. Parentb8e2own3h andhistoricalfac7noon/profile/older5e21own9h donotqualifythischild. Ownnoon/profile/9h/restart/full144false. OrdinarysameoptO2/O0:51validwholeprocedurecases/fourmaskedrounds plusactualcapture/fullphysical/readonly/fivestate exact. O2captureonlycompletedR2protocolinherited;R1dependency/R2unsupportedparentV0failurespreserved. Actual3\u21922scratchallocations/normalcleanup;diagnosticIOtempfreecountseparate;example188x33saves24816B/call,notglobalRSS. Completecapturedcalleronewave0.251864/1.296017%lowerwall(01/02),smallpositive;notforecastgain/attribution. Cachedone-member591/590 preservesPDandallprior/provider64bb/RSLe418/18inputs. No cleanfullsource rebuild. RawproducerNULL;sourcecommitposttestcorrespondenceonly. Diagnosticsline\u22121/targetCFIrawdifferencesexplicitlyretained.",
-  "qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/ordinary-vflux-scratch-20261028/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "31e75a9aac7f82e9af1ba40b331dc3fe0163cc901cb6006f5720b106c1fff5e2"
-  },
-  "applies_to_current": true
+  "original_science_acceptance": {
+    "checker_sha256": "615d5329ba4d4de8d1a1f4f7003948ba9b53a6bbbfcb665df624d1676835a2ab",
+    "status": "PASS_CURRENT5C75_NATIVE_NOON_ONE_HOUR_TWO_HISTORY_185_STEP_PREFIX",
+    "products": 2,
+    "ordered_steps": 185,
+    "endpoint": "2026-10-12_13:00:00",
+    "all_exact": true,
+    "original_75minute_reference_role": "Science prefix only; never a wall/CPU denominator"
+  }
 }

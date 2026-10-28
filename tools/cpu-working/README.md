@@ -1,17 +1,19 @@
 # Selected working configuration — October 28
 
-The vertical scratch array now reuses a horizontal-flux buffer after its last use. This removes one allocation/free pair and one temporary array while retaining the original arithmetic. The combined build passed the unchanged scientific checker: four FULL products and all 545 ordered steps matched exactly.
+The Thompson module now uses `-fstack-arrays` within the qualified GNU 13.3 strict-O2, default-kind, pure-MPI recipe. Its numerical source is unchanged. Complete-caller wall time was 5.09% / 4.24% lower on hpc01/hpc04, with exact raw output, read-only inputs, guards and all five protected state words. Reflectivity and all five regenerated table records also passed exact checks.
 
-| Metric | Original median, 3 runs | Latest combined | Descriptive reduction |
+The selected cached image is `9010be04`, archive `47c3847f`. It retains all prior improvements, RSL `e418b187`, output provider `64bb4cf2` and all 18 direct inputs; only the Thompson member changed. Raw producer commit is unknown; `1edd43ea` records post-test source/recipe correspondence. No clean full-source rebuild or byte-identical recipe rebuild is claimed.
+
+Own unprofiled noon qualification passed: two FULL outputs and 185 ordered steps matched the unchanged original checker.
+
+| Metric | Current-parent median, 2 one-hour runs | Thompson child | Descriptive reduction |
 |---|---:|---:|---:|
-| Wall time (minutes) | 13.33374 | 10.66057 | 20.0482% |
-| Main-step elapsed (minutes) | 9.94084 | 9.00643 | 9.3997% |
-| Aggregate CPU (core-hours) | 99.81315 | 86.37483 | 13.4635% |
+| Wall time (seconds) | 264.5273 | 268.3684 | −1.4521% |
+| Main-step elapsed (seconds) | 176.6268 | 174.0371 | 1.4662% |
+| Aggregate CPU (core-seconds) | 119599.3863 | 120785.2459 | −0.9915% |
 
-These candidate-only timings are unpaired comparisons with the retained A2/A1/5c75 control median. Main-step elapsed includes communication and waiting. The complete captured caller was 0.25% and 1.30% shorter on hpc01/02; these small observations are distinct from the combined forecast result and establish no isolated forecast gain.
+Negative reductions mean higher cost. This unpaired comparison uses the two predeclared eligible current-parent runs, each once. Wall time is within their observed range; no isolated forecast gain or reproducible regression is established. The significant exact caller gains support default inclusion. Main-step elapsed includes communication and waiting. The retained original 75-minute run is a scientific reference only, never a one-hour timing denominator.
 
-Native O2/O0 checks passed exact raw-output, read-only, processor-state and public-interface checks. The change removes 24,816 bytes of scratch for an example 188-by-33 tile; this is a static per-call saving, not a measured whole-forecast memory reduction. Earlier package/fixture failures and diagnostic line/unwind differences remain recorded.
+The periodic combined three-hour model has closed normally and its unchanged original scientific checker is running. Own three-hour, nine-hour, profile, restart and full-144-hour qualifications remain pending until their actual checks pass; parent results remain historical.
 
-The selected executable is `00c6bcb3`, archive `ff31e972`, with post-test source correspondence at `ee073e32`. The cached build replaces one of 591 archive members and retains PD, all previous improvements, RSL `e418b187`, and output provider `64bb4cf2`. This image has its own unprofiled three-hour qualification only. Parent noon/profile/nine-hour results remain historical; no clean full-source rebuild, restart or full 144-hour qualification is claimed.
-
-The change defaults on in the qualified strict GNU 13.3/O2, REAL4/INTEGER4, pure-MPI configuration. Set `WRF_ORDINARY_VFLUX_REUSE=0`, regenerate and rebuild advection, rearchive and relink to opt out. Retained executable `b8e2e921` is the whole-image rollback. [Exact qualification](../cpu-compute/ordinary-vflux-scratch-20261028/THREE_HOUR_APPLICATION_QUALIFICATION.json) and [source/rebuild scope](../cpu-compute/ordinary-vflux-scratch-20261028/SOURCE_REBUILD_RECIPE.json).
+The qualified runtime uses unlimited process stack. Heap-to-stack movement establishes no capacity saving. Set `WRF_THOMPSON_STACK_ARRAYS=0`, rebuild the Thompson object, rearchive and relink to opt out. Retained `00c6bcb3` / `ff31e972` is the whole-image rollback. [Exact evidence and recipe](../cpu-compute/thompson-stack-arrays-20261028/README.md).
