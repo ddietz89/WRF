@@ -6019,3 +6019,10 @@ The child retains Thompson 9a255 and all other 590 archive members, e418 RSL, 64
 MYJ stack-array child `efa608eb` / archive `05cc9c67` now passed its own unprofiled nine-hour original check: ten FULL products and 1,625 ordered steps, all four model and reader closures normal. Wall/main elapsed 29.093156/27.523919 minutes; aggregate CPU 244.151671 core-hours. Against ONLY the fresh original N1, descriptive reductions are 14.8258% wall, 10.7698% main and 12.2254% CPU. UNPAIRED, no pooling/median3/isolated component gain or repeatability claim. Own noon remains qualified; own three-hour/profile/restart/full144 remain false. Source `dcf1f61c`, MYJ24926/Thompson9a25, RSL/provider/direct18 unchanged.
 
 The same nine-hour main-step comparison remains lower in each fixed period: 11.35% (06–09), 10.67% (09–12), and 10.32% (12–15), all descriptive against N1. The observed single-forecast speed ratio of 1.174× remains below the 1.5× and 2× targets; these phase gains are not added together. [Phase and goal evidence](tools/cpu-compute/myj-stack-arrays-20261028/GOAL_PROGRESS.json).
+
+
+### October 28: advection stack-array screen closed unpromoted
+
+Adding only GNU 13.3 O2 `-fstack-arrays` to the identical advection source passed the retained native protocols and removed eleven allocation sites in PD. The complete captured 256-call PD screen, including its mutable-input restores inside both clocks, was **2.4803% / 0.1381% longer in wall time** on hpc01/hpc02; main-thread CPU was 2.4745% / 0.1856% higher. All four opposite-order arms passed full raw, read-only, guard and five-word state checks, individual cache clears and normal closure.
+
+Close the module-flag candidate unpromoted: no significant caller gain was demonstrated. This does not establish a regression in other advection callers or a forecast cause. The prepared application build was cancelled before staging; source, defaults and selected `efa608eb` remain unchanged. [Scope and retained evidence](tools/cpu-compute/advection-stack-arrays-screen-20261028/README.md).
