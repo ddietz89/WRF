@@ -5949,3 +5949,10 @@ The combined run took 641.036 seconds wall and 541.374 seconds main-step elapsed
 Scalarizing only the same-iteration `sati` temporary passed the complete 11-case O2/O0, four-round raw/five-state and original-MOD checks. Actual allocation/free sites fell from 71 to 70, saving a static 128 bytes in the 32-level fixture; no peak-memory or capacity benefit was measured. `satw` remains an array because a later loop consumes it.
 
 The complete synthetic 20,000-call screen, with restores and allocations inside clocks, was 1.1504% / 0.0638% shorter in wall time on hpc01/hpc02; thread CPU was 1.1331% lower / 0.6066% higher. All four raw/state, cache and normal-closure checks passed. The weak, mixed result does not establish a significant consistent caller gain. Keep the fixed candidate and evidence unpromoted; no source/default change, application run or further matrix. [Decision and exact scope](tools/cpu-compute/thompson-sati-screen-20261028/README.md).
+
+
+### Thompson stack arrays: significant caller gain retained for integration
+
+Using GNU 13.3 `-fstack-arrays` with identical preprocessed source removed all 71 allocation/free sites from the main Thompson routine. The original 11-case caller passed at O2 across four rounding modes with exact raw, read-only, guard and five-word machine state.
+
+The complete synthetic 20,000-call screen was **5.09% / 4.24% shorter in wall time**, with **5.17% / 4.86% less thread CPU** on hpc01/hpc04. All four arms passed exact checks, individual cache clears and normal closure. Retain this significant gain for integration; radar-reflectivity, table-regeneration, other changed-procedure and application checks remain pending. No forecast or capacity benefit is claimed, and the selected configuration is unchanged. [Evidence and remaining qualification](tools/cpu-compute/thompson-stack-arrays-20261028/README.md).

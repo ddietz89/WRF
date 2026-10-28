@@ -1,0 +1,73 @@
+{
+  "status": "RETAIN_SIGNIFICANT_EXACT_CALLER_GAIN_PENDING_OTHER_PATH_AND_APPLICATION_QUALIFICATION",
+  "date": "2026-10-28",
+  "mechanism": "Compile the current GNU13.3 Thompson module with -fstack-arrays; same preprocessed Fortran and strict arithmetic flags. -fstack-usage emits diagnostic stack metadata.",
+  "parent_object": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current1d16-thompson-main-pressure-copy-full11-native-hpc04-r1/work/O2-candidate/module_mp_thompson.o",
+    "sha256": "c30d9a6cd8230307fd6b61245459924d655eedd1b0589bf4199997b79a336230",
+    "PP_path": "/pool/wrf-experiment/wrf-cpu/kernels/current1d16-thompson-main-pressure-copy-full11-native-hpc04-r1/work/O2-candidate/module_mp_thompson.f90",
+    "PP_sha256": "92a1e747611d9b1f1c65c0bc42eea4e0332b8460550c334d5f07b4cb01fc86f4",
+    "MOD_path": "/pool/wrf-experiment/wrf-cpu/kernels/current1d16-thompson-main-pressure-copy-full11-native-hpc04-r1/work/O2-candidate/module_mp_thompson.mod",
+    "MOD_sha256": "2b20e2811653339ea7df9463b3c991491ba7b573eee9aa615ec15e8865511816",
+    "raw_public_MOD_equal": true,
+    "FCFLAGS": "-O2 -fno-fast-math -ffp-contract=off -w -fno-fast-math -ffp-contract=off -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -fallow-argument-mismatch -fallow-invalid-boz -g"
+  },
+  "candidate_object": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current00c6-thompson-stack-arrays-O2-full11-native-hpc04-r1/work/O2-candidate/module_mp_thompson.o",
+    "sha256": "9a255bfd5c18ff228eba2f0b0d00e0385499f9045a5ad891d04e964efeede9a0",
+    "PP_path": "/pool/wrf-experiment/wrf-cpu/kernels/current00c6-thompson-stack-arrays-O2-full11-native-hpc04-r1/work/O2-candidate/module_mp_thompson.f90",
+    "PP_sha256": "92a1e747611d9b1f1c65c0bc42eea4e0332b8460550c334d5f07b4cb01fc86f4",
+    "MOD_path": "/pool/wrf-experiment/wrf-cpu/kernels/current00c6-thompson-stack-arrays-O2-full11-native-hpc04-r1/work/O2-candidate/module_mp_thompson.mod",
+    "MOD_sha256": "2b20e2811653339ea7df9463b3c991491ba7b573eee9aa615ec15e8865511816",
+    "raw_public_MOD_equal": true,
+    "FCFLAGS": "-O2 -fno-fast-math -ffp-contract=off -w -fno-fast-math -ffp-contract=off -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -fallow-argument-mismatch -fallow-invalid-boz -g -fstack-arrays -fstack-usage"
+  },
+  "native_scope": "Original11-case complete module caller, four rounding modes, raw/read-only/guards/allfive machine-state words exact atO2. Radar-reflectivity path disabled; noO0 or general wholemodule qualification.",
+  "main_static_malloc_free_sites": {
+    "parent": 71,
+    "candidate": 0
+  },
+  "caller_scope": "Synthetic mixed column4,32levels,20000completecalls with mutable restores and callee work inside clocks. Not captured forecast inputs or measured production frequency.",
+  "comparisons": [
+    {
+      "host": "hpc01",
+      "parent_arm": 0,
+      "candidate_arm": 2,
+      "parent_wall_seconds": 2.0947709,
+      "candidate_wall_seconds": 1.988223056,
+      "wall_reduction_percent": 5.0863721660444945,
+      "parent_thread_cpu_seconds": 2.081168314,
+      "candidate_thread_cpu_seconds": 1.973610056,
+      "thread_cpu_reduction_percent": 5.168167191305795
+    },
+    {
+      "host": "hpc04",
+      "parent_arm": 3,
+      "candidate_arm": 1,
+      "parent_wall_seconds": 2.060458272,
+      "candidate_wall_seconds": 1.973053775,
+      "wall_reduction_percent": 4.241993064735072,
+      "parent_thread_cpu_seconds": 2.060081145,
+      "candidate_thread_cpu_seconds": 1.959914154,
+      "thread_cpu_reduction_percent": 4.862283762128206
+    }
+  ],
+  "all_four_arms_cache_each_raw_five_state_normal_closed": true,
+  "same_full_raw_sha256": "929a62f3ef14c579444892f00cffadeacad4803a8b0dc8c8c7330f1dbd253df2",
+  "limits": [
+    "Heap-to-stack moves the same payload; no peak-memory or capacity saving measured.",
+    "Compiler .su dynamic base-frame figures are not total stack upper bounds. Current native runtime uses unlimited stack and an explicit4GiB cgroup.",
+    "calc_refl10cm and the qr_acr_qg table-regeneration path need separate coverage; other changed procedures require finite codegen/lifetime review.",
+    "No stage/forecast speedup, global headroom, default promotion or selected-image qualification is claimed."
+  ],
+  "source_or_defaults_promoted": false,
+  "selected_executable_unchanged_sha256": "00c6bcb351bfb79b6de3c240429e630d70980d1f3ead6e7594d56fc2d447a1b5",
+  "next": "Finish uncovered-path exact checks and finite stack/codegen review, then integrate worthwhile candidate and use unchanged original forecast checker. Do not repeat this timing matrix merely to recover a stage signal.",
+  "rollback": "No selected source, executable or build default changed. The experimental module can be replaced with the pinned c30d parent object.",
+  "evidence_refs": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current00c6-thompson-stack-arrays-source-question-r1/native-O2-full11-preparation-r1-hpc04/actual-native-r1/receipt.json": "6537be803548699e2dc277c13ad58485a295995744353bfd3728beb3a930d081",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current00c6-thompson-stack-arrays-source-question-r1/native-O2-full11-preparation-r1-hpc04/actual-native-r1/closure.json": "7e335213418d1f72e67ef2471c7ba1b4637f52385eb2dd61fe47e7ba8dc77852",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current00c6-thompson-stack-arrays-source-question-r1/complete-caller-cost-preparation-r1/ACTUAL_WAVE.json": "eab8453cd5af820e5216ea925c45fa6f7d508c82bcd5424220d0f18bbc99361b",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current00c6-thompson-stack-arrays-source-question-r1/independent-actual-stack-caller-review-r1/ACK.json": "1e749c23599e85c918a4623f1b3183326ce7aa8a71c51a4591eb81b045022eed"
+  }
+}
