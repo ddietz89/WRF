@@ -1,0 +1,404 @@
+{
+  "schema_version": 1,
+  "status": "PASS_OWN_CURRENT_EFA6_FOURHOST512_INSTRUMENTED_NOON_SOURCE_IDENTITY_ONLY",
+  "scope": "Own current efa608 four-host source profile: one compute main TID per host, ranks120/121/122/123 on CPU99, 15-second cycles:u samples in a mixed-I/O context. Exact executable SHA and current symbol ranges identify source work; numeric build ID and sample loss remain UNKNOWN. No timing gain, causal join, global share, MPI headroom, source-line or library-implementation qualification.",
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current9010-myj-stack-experimental-r1/wrf.exe",
+    "sha256": "efa608eb1e612ff8385c5d79c667b72e42ef5907e81ce95462f3eaa11352e1a9"
+  },
+  "archive": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current9010-myj-stack-experimental-r1/libwrflib.a",
+    "sha256": "05cc9c6719fb24eced79f247436e6c8868f55633c01a300c60d60818528b43b2"
+  },
+  "source_correspondence_commit": "dcf1f61cd3b505c3257f4c5d384147202f1346cf",
+  "raw_producer_source_commit": null,
+  "RSL_archive": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current1d16-rsl-early-y-production-archive-r1/librsl_lite.a",
+    "sha256": "e418b187e8c88f5dc436ca44ce32ff23f75ac11a45ce3db214ff4fc40bb1fddc"
+  },
+  "provider_sha256": "64bb4cf2744799056e25be48b166a7a4703f525b08acff1bf898cd7941e8a643",
+  "runtime": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentefa6-fourhost-noon1h-native15-runtime-r1",
+    "source_manifest": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentefa6-fourhost-noon1h-native15-runtime-r1/source-pins.json",
+      "sha256": "9d0ffcacc9241b279b29fbde6153ee1e13694395e3b62d4efa1699b8af75e452"
+    },
+    "granted_lease": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentefa6-fourhost-noon1h-native15-runtime-r1/candidate-metadata/lease.json",
+      "sha256": "e596c21b296a419659372a7e6d589bf7b35d75cf5e354379e4a1e889cbf46bdc"
+    },
+    "world_size": 512,
+    "compute_ranks": 480,
+    "quilt_ranks": 32,
+    "CART": [
+      60,
+      8
+    ],
+    "tiles": 2,
+    "mpi_observer_enabled": false,
+    "native_sampling_enabled": true,
+    "requested_seconds_per_thread": 15,
+    "event": "cycles:u",
+    "frequency_Hz": 100,
+    "record_clock": "mono",
+    "call_graph": "dwarf,8192",
+    "declared_model_second_window": [
+      1500,
+      2100
+    ],
+    "actual_admission_model_second": 1515,
+    "compute_only_window_qualified": false,
+    "mixed_io_context": true
+  },
+  "science": {
+    "original_checker_sha256": "615d5329ba4d4de8d1a1f4f7003948ba9b53a6bbbfcb665df624d1676835a2ab",
+    "receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentefa6-fourhost-noon1h-native15-runtime-r1/science-receipt.json",
+      "sha256": "ae2fc5e4d9199fef14fcccc489a6e923a2e4fa8eb92a07380705b7e8969785e7"
+    },
+    "reader_closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentefa6-fourhost-noon1h-native15-runtime-r1/reader-closure.json",
+      "sha256": "97bb68c99f0bdd360270919b41e9f92cacfdbcfe15ebc5b00336b34466aaa023"
+    },
+    "reader_invocation_id": "6759941145f54d82a7bff03ed0d9797f",
+    "model_closures": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentefa6-fourhost-noon1h-native15-runtime-r1/candidate-metadata/model-closures.json",
+      "sha256": "fb49015bcc70ca7ffb2a582a385333f710f5d7917df61cc98e751a65c71f5010"
+    },
+    "ordered_steps": 185,
+    "adaptive_steps": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentefa6-fourhost-noon1h-native15-runtime-r1/candidate-metadata/adaptive-steps.json",
+      "sha256": "ff58739a94654d771de7e7f741df01520ea19e8089341c78bba357e237facdec"
+    },
+    "start": "2026-10-12_12:00:00",
+    "end": "2026-10-12_13:00:00",
+    "FULL_products": 2,
+    "all_four_models_and_reader_normally_closed": true,
+    "reference_role": "Genuine retained original75-minute230-step reference, used verbatim for the exact185-step/twoFULL prefix; no timing denominator."
+  },
+  "raw_acquisition_and_separate_parsing_passed": true,
+  "early_live_growth": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentefa6-fourhost-noon1h-native15-preparation-r1/ACTUAL_EARLY_RECORDER_GROWTH.json",
+    "sha256": "9500aede7f63c716508bd73b3f4ea044fdd42c7898d8f2cd802b965d53b01da8"
+  },
+  "ranks": [
+    {
+      "rank": 120,
+      "host": "hpc01",
+      "CPU": 99,
+      "main_PID": 826130,
+      "primary_samples": 1426,
+      "primary_period_cycles": 36896423984,
+      "raw": {
+        "path": "/pool/wrf-experiment/wrf-cpu/runs/production512-currentefa6-fourhost-noon1h-native15-candidate-r1/native-profile-rank120/rank120.perf.data",
+        "sha256": "e9887e1e0132890dd7a851380e7a2816aed0fc091317449d59c5d2582094e005",
+        "bytes": 12197172
+      },
+      "collector": {
+        "path": "/pool/wrf-experiment/wrf-cpu/runs/production512-currentefa6-fourhost-noon1h-native15-candidate-r1/native-profile-rank120/rank120.collector.json",
+        "sha256": "97e7952ebb8bebcb8b2996bdf2916193128491e69f94d39ad56c977886457baa",
+        "bytes": 66268
+      },
+      "collector_parent": {
+        "path": "/pool/wrf-experiment/wrf-cpu/runs/production512-currentefa6-fourhost-noon1h-native15-candidate-r1/native-profile-rank120/collector-final.json",
+        "sha256": "a8f940a35c441086a34804f00de55e162e5e1ffddb0cfff1de4e0b20de3642f3",
+        "bytes": 52944
+      },
+      "root_final_and_recorder_closure": {
+        "path": "/pool/wrf-experiment/wrf-cpu/runs/production512-currentefa6-fourhost-noon1h-native15-candidate-r1/native-profile-rank120/rank120.root-final.json",
+        "sha256": "cabf3ccdcbd0fb85bda0793a3c7e57156e3210a88d79d375b496e4e7119ecacd",
+        "bytes": 69480
+      },
+      "recorder_invocation_id": "283edb1c918645e087bbd4bafe972d7a",
+      "early_watch": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentefa6-fourhost-noon1h-native15-preparation-r1/actual-live-watch-r1/watch-rank120.jsonl",
+        "sha256": "de0fb76e4b003e5d28d32484caf16825cbfc2e887a247dd6cf1ffc9150ec9d01"
+      },
+      "metadata_admission": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentefa6-fourhost-noon1h-native15-preparation-r1/postrun-preparation-r1/actual-bindings-hpc01-r1/ACTUAL_BINDING_ADMISSION.json",
+        "sha256": "a435a4d860d90ee521dabb2612400c425facfd492fc4276625c9e9c45ceadfec"
+      },
+      "parser_receipt": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentefa6-fourhost-noon1h-native15-preparation-r1/postrun-preparation-r1/compute-parser-r1/actual-native-hpc01-r1/receipt.json",
+        "sha256": "a594c4f8802b20da6de8451af32aced760b3d666636ba4b9f915c60983830d3f"
+      },
+      "parser_closure": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentefa6-fourhost-noon1h-native15-preparation-r1/postrun-preparation-r1/compute-parser-r1/actual-native-hpc01-r1/closure.json",
+        "sha256": "92c17255daad7a473f048d4ba9d1f821bf072a93da9058f5b9dd3b116c45917d"
+      },
+      "parser_controller": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentefa6-fourhost-noon1h-native15-preparation-r1/postrun-preparation-r1/compute-parser-r1/actual-native-hpc01-r1/controller.json",
+        "sha256": "9e26b795f0aac32d99dda1c28fd59cd2e499c6e7002530330ee0855b014a2d12"
+      },
+      "summary": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentefa6-fourhost-noon1h-native15-preparation-r1/postrun-preparation-r1/compute-parser-r1/actual-native-hpc01-r1/result-rank120/summary.json",
+        "sha256": "a7a03dc9e196e8333f2c1d1c628a5890a4802e1b9a9dfe5936cc9713f02e5669"
+      },
+      "primary_records": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentefa6-fourhost-noon1h-native15-preparation-r1/postrun-preparation-r1/compute-parser-r1/actual-native-hpc01-r1/result-rank120/primary-records.json",
+        "sha256": "0085518832a1d2c1ee66c8066750282d886de8026b5e1bcff78876e3e1a0aedc"
+      },
+      "current_symbol_range_facts": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentefa6-fourhost-noon1h-native15-preparation-r1/postrun-preparation-r1/compute-parser-r1/actual-native-hpc01-r1/result-rank120/render/symbols.facts.json",
+        "sha256": "e98ef1be68dab32c7d4a639ca08aa87a83edd8abdf66ce2fc26f7793b1dd7ec5"
+      },
+      "current_ELF_facts": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentefa6-fourhost-noon1h-native15-preparation-r1/postrun-preparation-r1/compute-parser-r1/actual-native-hpc01-r1/result-rank120/render/elf.facts.json",
+        "sha256": "db6c3d4482703205d9da315128bc3dad34efdd8d2fed03c1beb429ca0b37db96"
+      }
+    },
+    {
+      "rank": 121,
+      "host": "hpc02",
+      "CPU": 99,
+      "main_PID": 3245001,
+      "primary_samples": 1428,
+      "primary_period_cycles": 37323572906,
+      "raw": {
+        "path": "/pool/wrf-experiment/wrf-cpu/runs/production512-currentefa6-fourhost-noon1h-native15-candidate-r1/native-profile-rank121/rank121.perf.data",
+        "sha256": "905ff76a861e596ca4e3703d52712bd6307f7a96ab2a4eb45db5b5a5010360ff",
+        "bytes": 12214572
+      },
+      "collector": {
+        "path": "/pool/wrf-experiment/wrf-cpu/runs/production512-currentefa6-fourhost-noon1h-native15-candidate-r1/native-profile-rank121/rank121.collector.json",
+        "sha256": "933532d03afc7340144cb322d270655bbf6dc885f7e2e76fb3d1164f47d8e1a7",
+        "bytes": 66642
+      },
+      "collector_parent": {
+        "path": "/pool/wrf-experiment/wrf-cpu/runs/production512-currentefa6-fourhost-noon1h-native15-candidate-r1/native-profile-rank121/collector-final.json",
+        "sha256": "60035cba25c719c07d0faf4c864d47f5ecb28240f10922095ce6d976a18fe3ff",
+        "bytes": 55948
+      },
+      "root_final_and_recorder_closure": {
+        "path": "/pool/wrf-experiment/wrf-cpu/runs/production512-currentefa6-fourhost-noon1h-native15-candidate-r1/native-profile-rank121/rank121.root-final.json",
+        "sha256": "95f39a035abf330fa346ba0a3ce837b5944196165754e0baccf3184a3ff42510",
+        "bytes": 69870
+      },
+      "recorder_invocation_id": "c4261a4dfe3549399074d3e489e6e4be",
+      "early_watch": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentefa6-fourhost-noon1h-native15-preparation-r1/actual-live-watch-r1/watch-rank121.jsonl",
+        "sha256": "cdf3031c39dc5bef9e09402bf43bcbe4bd52df6fbedee453dee2fc816fa78e16"
+      },
+      "metadata_admission": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentefa6-fourhost-noon1h-native15-preparation-r1/postrun-preparation-r1/actual-bindings-hpc02-r1/ACTUAL_BINDING_ADMISSION.json",
+        "sha256": "dcfab54dfdbcaff8136e5890c0fa7f67eadbf44019647b5caa63a33ddb510061"
+      },
+      "parser_receipt": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentefa6-fourhost-noon1h-native15-preparation-r1/postrun-preparation-r1/compute-parser-r1/actual-native-hpc02-r1/receipt.json",
+        "sha256": "0b4f02a1973196e03bb208fb6c4096d43ccefdbbb459d8dee8b648badae39717"
+      },
+      "parser_closure": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentefa6-fourhost-noon1h-native15-preparation-r1/postrun-preparation-r1/compute-parser-r1/actual-native-hpc02-r1/closure.json",
+        "sha256": "9d76db9e7531b54d7b7be575d34b49f83ec768224bcb9b683c9fa7444cbfedfe"
+      },
+      "parser_controller": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentefa6-fourhost-noon1h-native15-preparation-r1/postrun-preparation-r1/compute-parser-r1/actual-native-hpc02-r1/controller.json",
+        "sha256": "9555e0d5241281d99ad6ab76d6e8d321e0cacd3f23b1282fa3f6fd362cfcf8be"
+      },
+      "summary": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentefa6-fourhost-noon1h-native15-preparation-r1/postrun-preparation-r1/compute-parser-r1/actual-native-hpc02-r1/result-rank121/summary.json",
+        "sha256": "9e680010460d2c04d6b475bf174821b72270ed145c8e01b38f1b2b064b79f699"
+      },
+      "primary_records": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentefa6-fourhost-noon1h-native15-preparation-r1/postrun-preparation-r1/compute-parser-r1/actual-native-hpc02-r1/result-rank121/primary-records.json",
+        "sha256": "8825f964568904931004d7a5ef7ba52dc5699e9546ed651e4d1b60af4c917813"
+      },
+      "current_symbol_range_facts": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentefa6-fourhost-noon1h-native15-preparation-r1/postrun-preparation-r1/compute-parser-r1/actual-native-hpc02-r1/result-rank121/render/symbols.facts.json",
+        "sha256": "e98ef1be68dab32c7d4a639ca08aa87a83edd8abdf66ce2fc26f7793b1dd7ec5"
+      },
+      "current_ELF_facts": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentefa6-fourhost-noon1h-native15-preparation-r1/postrun-preparation-r1/compute-parser-r1/actual-native-hpc02-r1/result-rank121/render/elf.facts.json",
+        "sha256": "db6c3d4482703205d9da315128bc3dad34efdd8d2fed03c1beb429ca0b37db96"
+      }
+    },
+    {
+      "rank": 122,
+      "host": "hpc03",
+      "CPU": 99,
+      "main_PID": 2634534,
+      "primary_samples": 1392,
+      "primary_period_cycles": 39754254146,
+      "raw": {
+        "path": "/pool/wrf-experiment/wrf-cpu/runs/production512-currentefa6-fourhost-noon1h-native15-candidate-r1/native-profile-rank122/rank122.perf.data",
+        "sha256": "8a245bec185b6602ba4d5fe5d9325f175fec488b1eab86d36630af0a6c1913d4",
+        "bytes": 11910388
+      },
+      "collector": {
+        "path": "/pool/wrf-experiment/wrf-cpu/runs/production512-currentefa6-fourhost-noon1h-native15-candidate-r1/native-profile-rank122/rank122.collector.json",
+        "sha256": "2e5cac5d02c8cace24e1e3068012d810c1628ded36c64fa7959d5dbdf10176cd",
+        "bytes": 69858
+      },
+      "collector_parent": {
+        "path": "/pool/wrf-experiment/wrf-cpu/runs/production512-currentefa6-fourhost-noon1h-native15-candidate-r1/native-profile-rank122/collector-final.json",
+        "sha256": "898ad1295e50255304ecfdf20f21f34aaeaae6512b798c9c81cccfbde76cf38d",
+        "bytes": 58951
+      },
+      "root_final_and_recorder_closure": {
+        "path": "/pool/wrf-experiment/wrf-cpu/runs/production512-currentefa6-fourhost-noon1h-native15-candidate-r1/native-profile-rank122/rank122.root-final.json",
+        "sha256": "a7fa11452195a4bfff313aff876580737fb9b9c3320714e26e1db09643135c5a",
+        "bytes": 73266
+      },
+      "recorder_invocation_id": "8c025544934346a486c6b75c57e3bb2c",
+      "early_watch": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentefa6-fourhost-noon1h-native15-preparation-r1/actual-live-watch-r1/watch-rank122.jsonl",
+        "sha256": "5ed073947816540aeed79bb60a0526df1d34531daf7f3490b1bf46ad5f0715a6"
+      },
+      "metadata_admission": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentefa6-fourhost-noon1h-native15-preparation-r1/postrun-preparation-r1/actual-bindings-hpc03-r1/ACTUAL_BINDING_ADMISSION.json",
+        "sha256": "1ccbd798a49bd48ee5c7421c6c9590d12f67e61cd76536b858500993c667be53"
+      },
+      "parser_receipt": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentefa6-fourhost-noon1h-native15-preparation-r1/postrun-preparation-r1/compute-parser-r1/actual-native-hpc03-r1/receipt.json",
+        "sha256": "a1fa80272a568cafb635bce358601ea94af89c7b6787e1cd424227cb7286b18d"
+      },
+      "parser_closure": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentefa6-fourhost-noon1h-native15-preparation-r1/postrun-preparation-r1/compute-parser-r1/actual-native-hpc03-r1/closure.json",
+        "sha256": "73d714256371beef7e23e3634639d4960bf1f62dc4e79dbed050b329b0837f64"
+      },
+      "parser_controller": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentefa6-fourhost-noon1h-native15-preparation-r1/postrun-preparation-r1/compute-parser-r1/actual-native-hpc03-r1/controller.json",
+        "sha256": "4be1e5735d390f231aa3233e10643c8515a31da1b47e2abe98cc770ee12987c3"
+      },
+      "summary": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentefa6-fourhost-noon1h-native15-preparation-r1/postrun-preparation-r1/compute-parser-r1/actual-native-hpc03-r1/result-rank122/summary.json",
+        "sha256": "e7adddcb15426736d6925fc78bc73f96d6c030157101d9381044487be7193d73"
+      },
+      "primary_records": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentefa6-fourhost-noon1h-native15-preparation-r1/postrun-preparation-r1/compute-parser-r1/actual-native-hpc03-r1/result-rank122/primary-records.json",
+        "sha256": "311729ff66f0c9bb25091167784bde91fcc5f1502a26a8ff12c9c025e2736380"
+      },
+      "current_symbol_range_facts": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentefa6-fourhost-noon1h-native15-preparation-r1/postrun-preparation-r1/compute-parser-r1/actual-native-hpc03-r1/result-rank122/render/symbols.facts.json",
+        "sha256": "e98ef1be68dab32c7d4a639ca08aa87a83edd8abdf66ce2fc26f7793b1dd7ec5"
+      },
+      "current_ELF_facts": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentefa6-fourhost-noon1h-native15-preparation-r1/postrun-preparation-r1/compute-parser-r1/actual-native-hpc03-r1/result-rank122/render/elf.facts.json",
+        "sha256": "db6c3d4482703205d9da315128bc3dad34efdd8d2fed03c1beb429ca0b37db96"
+      }
+    },
+    {
+      "rank": 123,
+      "host": "hpc04",
+      "CPU": 99,
+      "main_PID": 517252,
+      "primary_samples": 1426,
+      "primary_period_cycles": 40394278725,
+      "raw": {
+        "path": "/pool/wrf-experiment/wrf-cpu/runs/production512-currentefa6-fourhost-noon1h-native15-candidate-r1/native-profile-rank123/rank123.perf.data",
+        "sha256": "7b737c12f775339782789739a342b3fd8b079f21edd7213d0ec7397e4177aa71",
+        "bytes": 12196988
+      },
+      "collector": {
+        "path": "/pool/wrf-experiment/wrf-cpu/runs/production512-currentefa6-fourhost-noon1h-native15-candidate-r1/native-profile-rank123/rank123.collector.json",
+        "sha256": "e16d61d77ffa9171238b2b751600d2a9111f6fd775f03678567d89391ee4f477",
+        "bytes": 67351
+      },
+      "collector_parent": {
+        "path": "/pool/wrf-experiment/wrf-cpu/runs/production512-currentefa6-fourhost-noon1h-native15-candidate-r1/native-profile-rank123/collector-final.json",
+        "sha256": "67f95e917eac593b30676ba0eaaa98b172d1c6e717658f5bd96fa6be9aef8b08",
+        "bytes": 57369
+      },
+      "root_final_and_recorder_closure": {
+        "path": "/pool/wrf-experiment/wrf-cpu/runs/production512-currentefa6-fourhost-noon1h-native15-candidate-r1/native-profile-rank123/rank123.root-final.json",
+        "sha256": "5688d2d005cf99b83bb8ad1161766a39668522a8a90ea34ad7b79b3aa135041d",
+        "bytes": 70643
+      },
+      "recorder_invocation_id": "c0a8907e4a17467c867ec74f19ba3bca",
+      "early_watch": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentefa6-fourhost-noon1h-native15-preparation-r1/actual-live-watch-r1/watch-rank123.jsonl",
+        "sha256": "5b24f293bfc865b22ee293452e039c4487247ee30c8b6b308513700e6c43e216"
+      },
+      "metadata_admission": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentefa6-fourhost-noon1h-native15-preparation-r1/postrun-preparation-r1/actual-bindings-hpc04-r1/ACTUAL_BINDING_ADMISSION.json",
+        "sha256": "b7e721295c0e78e23725ae27ad70397b0dfd7eb03d38a8c7e93dc072d6401436"
+      },
+      "parser_receipt": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentefa6-fourhost-noon1h-native15-preparation-r1/postrun-preparation-r1/compute-parser-r1/actual-native-hpc04-r1/receipt.json",
+        "sha256": "dd02284ac785117c7f8aa8008d2b1a95e8fa9dd0a36d4fa01f3a423a1343765e"
+      },
+      "parser_closure": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentefa6-fourhost-noon1h-native15-preparation-r1/postrun-preparation-r1/compute-parser-r1/actual-native-hpc04-r1/closure.json",
+        "sha256": "e8415212aafe22cfe43c4fc1c1e1118ea9c15135a8ba314fb38fe12abbf9be1b"
+      },
+      "parser_controller": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentefa6-fourhost-noon1h-native15-preparation-r1/postrun-preparation-r1/compute-parser-r1/actual-native-hpc04-r1/controller.json",
+        "sha256": "f425559f659f3d6b776e35da355a4c94b49c51cef03291381cfba05a7567ab06"
+      },
+      "summary": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentefa6-fourhost-noon1h-native15-preparation-r1/postrun-preparation-r1/compute-parser-r1/actual-native-hpc04-r1/result-rank123/summary.json",
+        "sha256": "30311a741c06ce151e3468b488c48f9853500e77b202ebf0d6b6699bf2fa8295"
+      },
+      "primary_records": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentefa6-fourhost-noon1h-native15-preparation-r1/postrun-preparation-r1/compute-parser-r1/actual-native-hpc04-r1/result-rank123/primary-records.json",
+        "sha256": "3b36c52bb14ebe65f331e63f62e79edd1a8b4fcf93c9dd1ea2b4f4a9d46d7319"
+      },
+      "current_symbol_range_facts": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentefa6-fourhost-noon1h-native15-preparation-r1/postrun-preparation-r1/compute-parser-r1/actual-native-hpc04-r1/result-rank123/render/symbols.facts.json",
+        "sha256": "e98ef1be68dab32c7d4a639ca08aa87a83edd8abdf66ce2fc26f7793b1dd7ec5"
+      },
+      "current_ELF_facts": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentefa6-fourhost-noon1h-native15-preparation-r1/postrun-preparation-r1/compute-parser-r1/actual-native-hpc04-r1/result-rank123/render/elf.facts.json",
+        "sha256": "db6c3d4482703205d9da315128bc3dad34efdd8d2fed03c1beb429ca0b37db96"
+      }
+    }
+  ],
+  "total_primary_samples": 5672,
+  "independent_actual_ACK": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentefa6-fourhost-noon1h-native15-preparation-r1/independent-postrun-actual-review-r1/ACK.json",
+    "sha256": "f6a8d25f745c3b8fa7bdd7bdd6071b4a312fb43499b1ce8880c413273212dc72"
+  },
+  "original_optional_reports": {
+    "reports": {
+      "native-rank120": {
+        "optional": true,
+        "status": "UNAVAILABLE_REPORT_RETAINED",
+        "error": "KeyError('profile_directory')"
+      },
+      "native-rank121": {
+        "optional": true,
+        "status": "UNAVAILABLE_REPORT_RETAINED",
+        "error": "KeyError('profile_directory')"
+      },
+      "native-rank122": {
+        "optional": true,
+        "status": "UNAVAILABLE_REPORT_RETAINED",
+        "error": "KeyError('profile_directory')"
+      },
+      "native-rank123": {
+        "optional": true,
+        "status": "UNAVAILABLE_REPORT_RETAINED",
+        "error": "KeyError('profile_directory')"
+      }
+    },
+    "passed": false,
+    "unchanged": true,
+    "separate_actual_parser_acceptance": true
+  },
+  "identity_authority": {
+    "executable_SHA256": "efa608eb1e612ff8385c5d79c667b72e42ef5907e81ce95462f3eaa11352e1a9",
+    "current_symbol_ranges_verified": true,
+    "numeric_ELF_build_ID": "UNKNOWN",
+    "recorded_build_ID_field": "Executable path only; not a verified numeric build ID.",
+    "numeric_sample_loss": "UNKNOWN",
+    "explicit_primary_and_stack_lost_lines": []
+  },
+  "qualification": {
+    "own_instrumented_noon_one_hour_science": true,
+    "own_native_source_identity_profile": true,
+    "performance_qualified": false,
+    "timestamp_causal_join_qualified": false,
+    "DT_request_decode_or_pairing": false,
+    "pure_compute_window_qualified": false,
+    "source_lines_qualified": false,
+    "global_share_or_MPI_headroom_qualified": false,
+    "default_runtime_observer_enabled": false
+  },
+  "limits": [
+    "Selected main threads only; writer helpers and compressor workers unobserved.",
+    "Unwind ancestors are nonadditive and distinct from sampled leaf instructions.",
+    "The instrumented run is diagnostic source evidence, not an unprofiled or matched timing comparison.",
+    "Existing own unprofiled noon and nine-hour results remain separate and unchanged; own three-hour/restart/full144/O0-stack/clean-rebuild qualification remains false.",
+    "No scientific source, compiler default, executable/archive or selected runtime change."
+  ]
+}

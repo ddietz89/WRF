@@ -12,7 +12,7 @@ Own unprofiled noon science passed: two FULL products and 185 ordered steps matc
 
 This unpaired observation does not establish an isolated MYJ forecast gain or repeatability. Main-step elapsed includes communication and waiting. The original 75-minute reference is science-only; no old 00c6 parent mean or original three-hour median is pooled into this comparison.
 
-The current child owns no three-hour, profile, restart or full-144-hour qualification; own noon and nine-hour are qualified. The previous 9010 image's exact 545-step/four-FULL three-hour result remains historical and does not qualify this child. Source commit `dcf1f61c` records post-test Make/recipe correspondence; raw producer is unknown. No clean or byte-identical source rebuild is claimed.
+The current child owns no three-hour, restart or full-144-hour qualification; own noon and nine-hour are qualified. The previous 9010 image's exact 545-step/four-FULL three-hour result remains historical and does not qualify this child. Source commit `dcf1f61c` records post-test Make/recipe correspondence; raw producer is unknown. No clean or byte-identical source rebuild is claimed.
 
 Unlimited process stack is required. Set `WRF_MYJ_STACK_ARRAYS=0`, rebuild MYJ, rearchive and relink to opt out; retain `WRF_MYJ_SIMD=1` and all other features. Whole-image rollback is 9010/47c3. [Exact evidence, support and recipe](../cpu-compute/myj-stack-arrays-20261028/README.md).
 
@@ -25,4 +25,6 @@ Own unprofiled nine-hour science passed: **ten FULL outputs / 1,625 ordered step
 | Main-step elapsed minutes | 30.845967 | 27.523919 | 10.7698% |
 | Aggregate CPU core-hours | 278.157466 | 244.151671 | 12.2254% |
 
-This is **UNPAIRED descriptive N1** evidence, with no pooled or rolling median, isolated MYJ forecast gain, matched timing or repeatability claim. Main-step time includes communication and waiting. Own three-hour/profile/restart/full-144-hour remain unqualified; the prior 9010 three-hour result is historical. Source/Make/recipe and all image/provider identities are unchanged. [Own nine-hour evidence](../cpu-compute/myj-stack-arrays-20261028/NINE_HOUR_APPLICATION_QUALIFICATION.json).
+This is **UNPAIRED descriptive N1** evidence, with no pooled or rolling median, isolated MYJ forecast gain, matched timing or repeatability claim. Main-step time includes communication and waiting. Own three-hour/restart/full-144-hour remain unqualified; the prior 9010 three-hour result is historical. Source/Make/recipe and all image/provider identities are unchanged. [Own nine-hour evidence](../cpu-compute/myj-stack-arrays-20261028/NINE_HOUR_APPLICATION_QUALIFICATION.json).
+
+Own mixed-I/O source-profile acceptance covers four selected main threads only, with exact executable SHA and current symbol ranges; build ID/loss remain unknown and no timing gain is claimed. [Own profile qualification](../cpu-compute/myj-stack-arrays-20261028/INSTRUMENTED_NOON_PROFILE_QUALIFICATION.json).

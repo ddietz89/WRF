@@ -1,5 +1,9 @@
 # WRF CPU optimization findings
 
+## Current MYJ image: four-host source profile accepted — October 28
+
+The selected efa608eb / 05cc9c67 image passed its own instrumented noon science: two FULL products and all 185 ordered steps, with normal model, reader, recorder and parser closures. Four 15-second compute-main-thread captures on ranks 120–123 produced 1,426 / 1,428 / 1,392 / 1,426 records (5,672 total). Exact executable SHA and current symbol ranges identify source work; numeric build ID and sample loss remain unknown. Original optional unavailable reports are retained, with separate actual parser acceptance. This mixed-I/O diagnostic establishes no timing gain, global share or causal headroom. The selected image, source/defaults, observer-off runtime and separate unprofiled noon/nine-hour results are unchanged. [Profile evidence](tools/cpu-compute/myj-stack-arrays-20261028/INSTRUMENTED_NOON_PROFILE_QUALIFICATION.json).
+
 ## SmallStep stack arrays: caller slower, unpromoted — October 28
 
 A flag-only strict O2 SmallStep build passed the retained W392/full capture, UV70, MU87 and coefficient80 checks with exact raw outputs, read-only inputs, physical guards, five state observations and public module-interface bytes. Actual scratch malloc/free sites fell from 15 to zero, but array capacity was unchanged and no peak-memory benefit was measured.
