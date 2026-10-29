@@ -1689,14 +1689,20 @@
                                                       ! 3 = maximum overlap, 4 = exponential,
                                                       ! 5 = exponential-random
       real(kind=rb)                   :: Zo_inv(ncol) ! inverse of decorrelation length scale (m)
+#if !(defined(WRF_SW_SPC_ORDERED_MIX4_ENABLE) && !defined(WRF_SW_SPC_ORDERED_MIX4_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_SW_MCICA_CONDITIONAL_STORAGE_DISABLE))
       real(kind=rb), dimension(ncol,nlay) :: alpha    ! overlap parameter
+#endif
 
 ! Constants (min value for cloud fraction and cloud water and ice)
       real(kind=rb), parameter :: cldmin = 1.0e-20_rb ! min cloud fraction
 !      real(kind=rb), parameter :: qmin   = 1.0e-10_rb   ! min cloud water and cloud ice (not used)
 
 ! Variables related to random number and seed 
+#if defined(WRF_SW_SPC_ORDERED_MIX4_ENABLE) && !defined(WRF_SW_SPC_ORDERED_MIX4_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_SW_MCICA_CONDITIONAL_STORAGE_DISABLE)
+      real(kind=rb), dimension(nsubcol, ncol, nlay) :: CDF       ! random numbers
+#else
       real(kind=rb), dimension(nsubcol, ncol, nlay) :: CDF, CDF2       ! random numbers
+#endif
       integer(kind=im), dimension(ncol) :: seed1, seed2, seed3, seed4  ! seed to create random number
       real(kind=rb), dimension(ncol) :: rand_num       ! random number (kissvec)
       integer(kind=im) :: iseed                        ! seed to create random number (Mersenne Twister)
@@ -1876,6 +1882,11 @@
 
 ! mji - Activate exponential cloud overlap option
          case(4)
+#if defined(WRF_SW_SPC_ORDERED_MIX4_ENABLE) && !defined(WRF_SW_SPC_ORDERED_MIX4_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_SW_MCICA_CONDITIONAL_STORAGE_DISABLE)
+           block
+             real(kind=rb) :: CDF2(nsubcol,ncol,nlay)
+             real(kind=rb) :: alpha(ncol,nlay)
+#endif
             ! Exponential overlap: transition from maximum to random cloud overlap increases 
             ! exponentially with layer thickness and distance through layers
             ! j=1   RAN(j)=RND1
@@ -1924,7 +1935,15 @@
          end do
 
 ! mji - Exponential-random cloud overlap option
+#if defined(WRF_SW_SPC_ORDERED_MIX4_ENABLE) && !defined(WRF_SW_SPC_ORDERED_MIX4_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_SW_MCICA_CONDITIONAL_STORAGE_DISABLE)
+           end block
+#endif
          case(5)
+#if defined(WRF_SW_SPC_ORDERED_MIX4_ENABLE) && !defined(WRF_SW_SPC_ORDERED_MIX4_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_SW_MCICA_CONDITIONAL_STORAGE_DISABLE)
+           block
+             real(kind=rb) :: CDF2(nsubcol,ncol,nlay)
+             real(kind=rb) :: alpha(ncol,nlay)
+#endif
        ! Exponential_Random overlap: transition from maximum to random cloud overlap increases 
        ! exponentially with layer thickness and with distance through adjacent cloudy layers. 
        ! Non-adjacent blocks of clouds are treated randomly, and each block begins a new 
@@ -1975,6 +1994,9 @@
           end where
        end do
 
+#if defined(WRF_SW_SPC_ORDERED_MIX4_ENABLE) && !defined(WRF_SW_SPC_ORDERED_MIX4_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_SW_MCICA_CONDITIONAL_STORAGE_DISABLE)
+           end block
+#endif
       end select
 
  

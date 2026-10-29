@@ -1271,3 +1271,10 @@ WRF_LW_MCICA_CDF2_SCOPE ?= 1
 ifeq ($(WRF_LW_MCICA_CDF2_SCOPE),0)
 module_ra_rrtmg_lw.o: private override CPPFLAGS += -DWRF_LW_MCICA_CDF2_SCOPE_DISABLE
 endif
+
+# CDF2 and alpha storage is local to exponential-overlap branches on the qualified SW path.
+# Rebuild with WRF_SW_MCICA_CONDITIONAL_STORAGE=0 to restore original outer storage.
+WRF_SW_MCICA_CONDITIONAL_STORAGE ?= 1
+ifeq ($(WRF_SW_MCICA_CONDITIONAL_STORAGE),0)
+module_ra_rrtmg_sw.o: private override CPPFLAGS += -DWRF_SW_MCICA_CONDITIONAL_STORAGE_DISABLE
+endif
