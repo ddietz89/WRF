@@ -6133,3 +6133,18 @@ This is a single candidate-only UNPAIRED descriptive observation against only th
 The explicit SSE2 row helper passed 64 complete-routine comparisons with exact outputs, untouched inputs/halos and all five processor-state words. In the complete synthetic caller, with both output restores and all admission/helper work timed, it was **7.00% slower on hpc02 and 6.95% slower on hpc04**. All four opposite-order arms passed cache, output/state and normal-closure checks. The row helper remains unpromoted.
 
 Actual assembly shows repeated range checks, call setup and pointer spills for every row. These plausibly offset the fused loop; the executed libc copy width is unresolved, so no sole-cause claim is made. A separate whole-box helper could move admission outside those rows, but has no timing or qualification yet. [Decision and receipts](tools/cpu-compute/ww-split-row-copyzero-rejected-20261029/DECISION.json).
+
+
+## Final-RK theta SIMD — October 29
+
+The `604cfb52` child passed its own three-hour science check: 545 steps and four full outputs, normal model and reader closures.
+
+| Metric | Original control, median of three | Child | Descriptive reduction |
+|---|---:|---:|---:|
+| Wall minutes | 13.333735 | 10.501492 | 21.2412% |
+| Main-step elapsed minutes | 9.940841 | 8.861294 | 10.8597% |
+| Aggregate CPU core-hours | 99.813152 | 85.046994 | 14.7938% |
+
+This image is qualified only for its own unprofiled three-hour run on the same 512-rank configuration: 545 steps and four full outputs passed the unchanged checker, with all four models and the reader normally closed. Its noon, nine-hour, profile, restart, full 144-hour and clean full-source rebuild scopes remain false. The parent own nine-hour qualification remains historical. Only module_small_step_em.o changed; the other 592 archive members, RSL, provider and all 18 direct inputs are unchanged. Native same-option O2/O0 tests passed 544 complete raw comparisons, including all five processor-state words. The final-RK complete synthetic FINISH caller was 15.3% and 16.8% faster; the nonfinal control showed no consistent gain. These measurements are not a forecast speedup. The source commit records correspondence after testing; raw producer commit remains NULL. Three-hour timing is one unpaired descriptive observation against the fixed median of three original controls; raw A2 remains separate.
+
+The complete final-RK FINISH caller improved 15.3–16.8% in the opposite-order two-host screen, with restores included. No consistent nonfinal gain is claimed. Only one directive changes; [evidence](tools/cpu-compute/finish-final-theta-simd-20261029/README.md).

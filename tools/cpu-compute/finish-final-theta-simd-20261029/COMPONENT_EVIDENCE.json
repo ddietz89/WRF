@@ -1,0 +1,138 @@
+{
+  "status": "COMPONENT_NATIVE_COST_CACHED_CHILD_PLUS_OWN_THREE_HOUR_EXACT_SCIENCE",
+  "mechanism": "One SIMD directive on the original final-RK FINISH T I loop. Arithmetic and other procedure sources are unchanged.",
+  "native": {
+    "receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current6bc4-finish-final-theta-finite-attribution-r1/native-O2-O0-whole-FINISH-preparation-r1-hpc04/actual-native-r1/receipt.json",
+      "sha256": "b9d2f0899bc6c73df2d8483f89f54db1adee83a51aee1d60d424e21159aa1926"
+    },
+    "closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current6bc4-finish-final-theta-finite-attribution-r1/native-O2-O0-whole-FINISH-preparation-r1-hpc04/actual-native-r1/closure.json",
+      "sha256": "aed1f4a779f1e388e752666f082c96df9d50af049debb7caea3372c8a74cc909"
+    },
+    "same_option_raw_comparisons": 544,
+    "cases_per_option": 272,
+    "options": [
+      "O2",
+      "O0-bounds"
+    ],
+    "families": {
+      "retained_FINISH": 144,
+      "retained_PREP": 72,
+      "focused_final_T": 56
+    },
+    "all_five_compute_words_hard": true,
+    "full_physical_readOnly_guards_hard": true,
+    "raw_public_MOD_exact": true
+  },
+  "machine": {
+    "finite_ACK": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current6bc4-finish-final-theta-finite-attribution-r1/actual-machine-review-r1/OWNER_FINITE_ACK.json",
+      "sha256": "c1423e030a9de6d4abd0bfe4a473e928d102330b58ebbdc067a91f116950493b"
+    },
+    "all_eight_nontarget_raw_FULLRELA_exact": true,
+    "O2_all_five_pools_exact": true,
+    "O0_diagnostic_rodata_raw_exact": false,
+    "EH_raw_exact": false,
+    "new_final_T_lowering": "YMM eight-lane and XMM four-lane packed divisions plus scalar tail; original final-T divisions scalar. No reciprocal/FMA."
+  },
+  "caller": {
+    "wave": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current6bc4-finish-final-theta-finite-attribution-r1/complete-FINISH-two-regime-cost-r1/ACTUAL_WAVE.json",
+      "sha256": "cdb9ef7f5d97ce20d7ef7dcb77cf94db6be45971785dc28836b62dec7acb4216"
+    },
+    "scope": "Complete synthetic FINISH at 188 \u00d7 19 \u00d7 32; 512 calls in each final and nonfinal RK regime, in opposite host orders, with cache clear before every arm. Six written 3D arrays and MU2 restores are inside wall/process-CPU clocks; complete raw, read-only, guard and five-state checks are outside.",
+    "pairs": {
+      "hpc01": {
+        "RK1_nonfinal": {
+          "parent_wall_seconds": 0.323127504,
+          "candidate_wall_seconds": 0.319011932,
+          "wall_reduction_percent": 1.273668118328919,
+          "parent_cpu_seconds": 0.323110733,
+          "candidate_cpu_seconds": 0.319007642,
+          "cpu_reduction_percent": 1.269871465396355
+        },
+        "RK3_final": {
+          "parent_wall_seconds": 0.386089634,
+          "candidate_wall_seconds": 0.326943816,
+          "wall_reduction_percent": 15.319193469980608,
+          "parent_cpu_seconds": 0.386085991,
+          "candidate_cpu_seconds": 0.326906335,
+          "cpu_reduction_percent": 15.328102386392995
+        }
+      },
+      "hpc03": {
+        "RK1_nonfinal": {
+          "parent_wall_seconds": 0.326335026,
+          "candidate_wall_seconds": 0.327526896,
+          "wall_reduction_percent": -0.3652289533885522,
+          "parent_cpu_seconds": 0.326327365,
+          "candidate_cpu_seconds": 0.327518576,
+          "cpu_reduction_percent": -0.36503558320952756
+        },
+        "RK3_final": {
+          "parent_wall_seconds": 0.383332513,
+          "candidate_wall_seconds": 0.318798252,
+          "wall_reduction_percent": 16.83506063572541,
+          "parent_cpu_seconds": 0.383306171,
+          "candidate_cpu_seconds": 0.318789582,
+          "cpu_reduction_percent": 16.831607180151543
+        }
+      }
+    },
+    "interpretation": "The complete final-RK caller used 15.3192% and 16.8351% less wall time. The nonfinal control used 1.2737% less on host 01 and 0.3652% more on host 03; no nonfinal gain is claimed. This is not an isolated theta-kernel or forecast speedup."
+  },
+  "cached_child": {
+    "descriptor": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current6bc4-finish-final-theta-finite-attribution-r1/cached-one-SmallStep-finalT-member-build-r1-hpc02/application-proof-r1/finalT-build-expected.json",
+      "sha256": "7b9bd781338d52eef8ea08c6c5b93b8edb34e2b96f32e0310fff0ee8de0c70f2"
+    },
+    "receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current6bc4-finish-final-theta-finite-attribution-r1/cached-one-SmallStep-finalT-member-build-r1-hpc02/actual-native-r1/receipt.json",
+      "sha256": "a277cd1a50198326ded68a4f31658709ac8b74deffdd27abb0a1802e9ff32459"
+    },
+    "closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current6bc4-finish-final-theta-finite-attribution-r1/cached-one-SmallStep-finalT-member-build-r1-hpc02/actual-native-r1/closure.json",
+      "sha256": "bf44755c0cfee80a336d69a1acbcc9952e19a27e4db12e53eb68d595fd88c891"
+    },
+    "executable": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current6bc4-finish-finalT-experimental-r1/wrf.exe",
+      "sha256": "604cfb52216a48ebc290bcde396fc2516244faef5f15d0b1df1271a7ae19a7eb"
+    },
+    "archive": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current6bc4-finish-finalT-experimental-r1/libwrflib.a",
+      "sha256": "21643e0c920f917e6c0cd71aae2a3a3a1e2f66276e937476746ad1632c1ae5c0"
+    },
+    "changed_members": [
+      "module_small_step_em.o"
+    ],
+    "unchanged_members": 592,
+    "total_members": 593,
+    "compiles": 0,
+    "links": 1
+  },
+  "own_application": {
+    "science": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current6bc4-finalT-batch3h-runtime-r1/science-receipt.json",
+      "sha256": "aef558da35dcc9c4fcf83ba0588e0d434a989eac829e4e9b11db38a7efd6ea5b"
+    },
+    "reader_closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current6bc4-finalT-batch3h-runtime-r1/reader-closure.json",
+      "sha256": "2db7a9ba704338b3ab95040585d8277ae4badce88086046746cad8faf98014de"
+    },
+    "models": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current6bc4-finalT-batch3h-runtime-r1/candidate-metadata/model-closures.json",
+      "sha256": "b8e7c8dad9f08e8181f49feb71d8e5c3629ac91bbbb2165b969f8df04b7104be"
+    },
+    "RESULT": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current6bc4-finalT-batch3h-runtime-r1/RESULT.json",
+      "sha256": "9b896f571861400098f20785624cdc7648e99c0a6e5ad0b36d1f8a94831bc7bf"
+    }
+  },
+  "application_qualified": false,
+  "forecast_gain_claim": false,
+  "canonical_proposal": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current6bc4-finish-final-theta-finite-attribution-r1/canonical-private-one-directive-r1/SOURCE_PROOF.json",
+    "sha256": "7b57f586057239064b3ed91382e29054f92de1b619f1f8428c920c975a300b26"
+  }
+}
