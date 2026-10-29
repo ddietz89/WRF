@@ -9,8 +9,8 @@
     "BC_module_local_flag": "-fopenmp-simd",
     "BC_flag_scope": "Required only for qualified module_bc.F recipe; no global fast math/flags change. Generic builds without this flag do not claim BC SIMD.",
     "source_rebuild_recipe": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/pbl-simd-cu-fusion-20261029/SOURCE_REBUILD_RECIPE.json",
-      "sha256": "fd140ed9a575b3518598bb331f2bf21949786cf4a3e0bfd476c963385f54e7c4"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/cu-fourcolumn-simd-20261029/SOURCE_REBUILD_RECIPE.json",
+      "sha256": "c2c0ca94640b56e4f9e1e3902a80bb57979d8c72f7813ed07220d3cda71404cd"
     },
     "theta_SW_source_recipes": {
       "theta": "tools/cpu-compute/theta-sw-batch/theta/REBUILD_RECIPE.json",
@@ -18,7 +18,7 @@
       "scope": "Frozen actual overlay recipes over f4b; canonical sources equal posttestcommit. PriorcalcBCrebuild is parent-only evidence; no wholea50e source-reproduction claim."
     },
     "parent_calc_BC_source_rebuild_recipe": "tools/cpu-compute/calc-php-bc-simd/source-rebuild/README.md",
-    "source_rebuild_scope": "This PBL four-column SSE2 and scalar CU-fusion child passed its own unprofiled SAME512 three-hour run, 06:00\u201309:00: 545 ordered steps and four FULL products passed the unchanged original checker; all four models and the reader closed normally. The child owns only this three-hour application qualification. Own noon, nine-hour, profile/native-profile, restart, full-144-hour, O0 and clean full-source rebuild remain false. Parent fb13 profiles and application results, and older nine-hour evidence, are historical and do not transfer. Timings compare one candidate run with the fixed median of three eligible original controls A2/A1/5c75, as UNPAIRED descriptive evidence. Raw A2 science-control metrics remain separate. Main-step elapsed includes communication/waiting; component percentages are separate, never additive or isolated/repeatable forecast gain claims. The cached archive has 593 members: 590 prior payloads unchanged, two replacements and one helper appended. No source/module/driver/helper compilation occurred: one application link and one cached original-MOD native link were performed, with all 320 combined checks hard. RSL e418, output provider 64bb and all 18 direct inputs remain unchanged. Source commit records post-test correspondence only; raw producer commit is NULL. Future CU four-column vector followup is excluded.",
+    "source_rebuild_scope": "Only this image's unprofiled three-hour run on the same 512-rank configuration is qualified: 545 steps and four full outputs passed the unchanged checker, and all four model processes and the reader closed normally. Its noon, nine-hour, profile, restart, full 144-hour, O0, and clean source rebuild qualifications remain false. One CU helper changed; the other 592 archive members, including the module and PBL helper, are unchanged, as are RSL, the output provider, and all 18 direct link inputs. The failed R1 producer retains two successful links. The normally closed R2 continuation reused those exact artifacts, performed zero compiles or links, and passed all 320 complete-procedure comparisons for physical outputs, read-only inputs, and all five processor-state words. The source commit records correspondence after testing; the raw producer commit remains NULL. Timing is one unpaired descriptive observation against the fixed median of three original controls. The raw A2 scientific control remains separate. These timings do not isolate a forecast speedup caused by this helper.",
     "SPCVMC_module_local_flag": "-fopenmp-simd",
     "SPCVMC_source_recipe": "tools/cpu-compute/spcvmc-optical-producer/REBUILD_RECIPE.json",
     "HPG_NHX_CONSUMER_source_recipe": "tools/cpu-compute/hpg-nhx-consumer-simd/REBUILD_RECIPE.json",
@@ -443,6 +443,18 @@
       },
       "scope": "This PBL four-column SSE2 and scalar CU-fusion child passed its own unprofiled SAME512 three-hour run, 06:00\u201309:00: 545 ordered steps and four FULL products passed the unchanged original checker; all four models and the reader closed normally. The child owns only this three-hour application qualification. Own noon, nine-hour, profile/native-profile, restart, full-144-hour, O0 and clean full-source rebuild remain false. Parent fb13 profiles and application results, and older nine-hour evidence, are historical and do not transfer. Timings compare one candidate run with the fixed median of three eligible original controls A2/A1/5c75, as UNPAIRED descriptive evidence. Raw A2 science-control metrics remain separate. Main-step elapsed includes communication/waiting; component percentages are separate, never additive or isolated/repeatable forecast gain claims. The cached archive has 593 members: 590 prior payloads unchanged, two replacements and one helper appended. No source/module/driver/helper compilation occurred: one application link and one cached original-MOD native link were performed, with all 320 combined checks hard. RSL e418, output provider 64bb and all 18 direct inputs remain unchanged. Source commit records post-test correspondence only; raw producer commit is NULL. Future CU four-column vector followup is excluded.",
       "optout": "WRF_CU_FACTOR_FUSION=0 restores originaldeepCU while retaining qualifiedPBL. WRF_PBL_FACTOR_FUSION=0 restores originalPBL and disables nestedCU admission; regenerate/recompile corresponding module/helper/archive and relink. No flags change alreadycachedimage. Immediate image rollback selects retained fb13/184d with e418/provider64bb/all18."
+    },
+    "CU_FOURCOLUMN_delivery": {
+      "qualification": {
+        "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/cu-fourcolumn-simd-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+        "sha256": "c7f88f79f0130abdd5a3b73072a819c900cb3f3c9d9aab10241d7161d87ee633"
+      },
+      "recipe": {
+        "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/cu-fourcolumn-simd-20261029/SOURCE_REBUILD_RECIPE.json",
+        "sha256": "c2c0ca94640b56e4f9e1e3902a80bb57979d8c72f7813ed07220d3cda71404cd"
+      },
+      "scope": "Only this image's unprofiled three-hour run on the same 512-rank configuration is qualified: 545 steps and four full outputs passed the unchanged checker, and all four model processes and the reader closed normally. Its noon, nine-hour, profile, restart, full 144-hour, O0, and clean source rebuild qualifications remain false. One CU helper changed; the other 592 archive members, including the module and PBL helper, are unchanged, as are RSL, the output provider, and all 18 direct link inputs. The failed R1 producer retains two successful links. The normally closed R2 continuation reused those exact artifacts, performed zero compiles or links, and passed all 320 complete-procedure comparisons for physical outputs, read-only inputs, and all five processor-state words. The source commit records correspondence after testing; the raw producer commit remains NULL. Timing is one unpaired descriptive observation against the fixed median of three original controls. The raw A2 scientific control remains separate. These timings do not isolate a forecast speedup caused by this helper.",
+      "rollback": "Select retained qualified image 3c3a and archive da52 to restore scalar fused CU while retaining PBL SSE2. WRF_CU_FACTOR_FUSION=0 rebuilds original unfused CU; WRF_PBL_FACTOR_FUSION=0 disables both nested features. This source promotion changes no Make rule or global flag."
     }
   },
   "private_hdf5": {
@@ -471,20 +483,20 @@
     "component_closure_sha256": "d77bf34ae3d4a30068ab5998908a3560bfb68eaa0b5ab8baa47dc8814758d590"
   },
   "activation": "Working qualification metadata only; fresh root-authorized SAME512 lease/map/current guard, resources and exact runtime checks required. No production deployment.",
-  "status": "PASS_OWN_UNPROFILED_SAME512_PBL_SSE2_CU_THREE_HOUR_545_FOUR_FULL",
-  "source_commit": "86c5c831a9f04ea2730b1742e4033619bb5f0f2e",
-  "source_commit_scope": "This PBL four-column SSE2 and scalar CU-fusion child passed its own unprofiled SAME512 three-hour run, 06:00\u201309:00: 545 ordered steps and four FULL products passed the unchanged original checker; all four models and the reader closed normally. The child owns only this three-hour application qualification. Own noon, nine-hour, profile/native-profile, restart, full-144-hour, O0 and clean full-source rebuild remain false. Parent fb13 profiles and application results, and older nine-hour evidence, are historical and do not transfer. Timings compare one candidate run with the fixed median of three eligible original controls A2/A1/5c75, as UNPAIRED descriptive evidence. Raw A2 science-control metrics remain separate. Main-step elapsed includes communication/waiting; component percentages are separate, never additive or isolated/repeatable forecast gain claims. The cached archive has 593 members: 590 prior payloads unchanged, two replacements and one helper appended. No source/module/driver/helper compilation occurred: one application link and one cached original-MOD native link were performed, with all 320 combined checks hard. RSL e418, output provider 64bb and all 18 direct inputs remain unchanged. Source commit records post-test correspondence only; raw producer commit is NULL. Future CU four-column vector followup is excluded.",
+  "status": "PASS_OWN_UNPROFILED_SAME512_CU_FOURCOLUMN_THREE_HOUR_545_FOUR_FULL",
+  "source_commit": "8d2aa02cdc5883e21640f5fb08830896e0312c1a",
+  "source_commit_scope": "Only this image's unprofiled three-hour run on the same 512-rank configuration is qualified: 545 steps and four full outputs passed the unchanged checker, and all four model processes and the reader closed normally. Its noon, nine-hour, profile, restart, full 144-hour, O0, and clean source rebuild qualifications remain false. One CU helper changed; the other 592 archive members, including the module and PBL helper, are unchanged, as are RSL, the output provider, and all 18 direct link inputs. The failed R1 producer retains two successful links. The normally closed R2 continuation reused those exact artifacts, performed zero compiles or links, and passed all 320 complete-procedure comparisons for physical outputs, read-only inputs, and all five processor-state words. The source commit records correspondence after testing; the raw producer commit remains NULL. Timing is one unpaired descriptive observation against the fixed median of three original controls. The raw A2 scientific control remains separate. These timings do not isolate a forecast speedup caused by this helper.",
   "raw_producer_source_commit": null,
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentfb13-cu-pbl-sse2-experimental-r1/wrf.exe",
-    "sha256": "3c3a0b54289171508eb7ae3b3a084769a69495ba6e0b46e4603f4ca50e242dbf"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current3c3a-cu-simd-experimental-r1/wrf.exe",
+    "sha256": "6bc47f889fe608db76c0c397e3a6b617f0a62fcceea14f228502fe6e334a2ccd"
   },
   "archive": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/currentfb13-cu-pbl-sse2-experimental-r1/libwrflib.a",
-    "sha256": "da52db9affd13d3992fa344a8e1d8db70bccaabf0359533e6c4c65cf59761415"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current3c3a-cu-simd-experimental-r1/libwrflib.a",
+    "sha256": "aeb4f38ffa25cd26fa9b0c390149766d4dafd9a2cf8fe3f5a72bd5e508b1e05f"
   },
-  "archive_path": "/pool/wrf-experiment/wrf-cpu/builds/currentfb13-cu-pbl-sse2-experimental-r1/libwrflib.a",
-  "archive_sha256": "da52db9affd13d3992fa344a8e1d8db70bccaabf0359533e6c4c65cf59761415",
+  "archive_path": "/pool/wrf-experiment/wrf-cpu/builds/current3c3a-cu-simd-experimental-r1/libwrflib.a",
+  "archive_sha256": "aeb4f38ffa25cd26fa9b0c390149766d4dafd9a2cf8fe3f5a72bd5e508b1e05f",
   "RSL_archive": {
     "path": "/pool/wrf-experiment/wrf-cpu/builds/current1d16-rsl-early-y-production-archive-r1/librsl_lite.a",
     "sha256": "e418b187e8c88f5dc436ca44ce32ff23f75ac11a45ce3db214ff4fc40bb1fddc"
@@ -614,11 +626,11 @@
     },
     "dyn_em/cu_fused_row.c": {
       "path": "/home/ddietz/wrf/WRF/dyn_em/cu_fused_row.c",
-      "sha256": "d9d4786112ba1cb3149c538d5a3fefdb34ead86f2d1c770d01203fb681caa49a"
+      "sha256": "ff347a76f07c7aff31fabd5968d54c7c65298f8e97ac497682a7662234e4bebc"
     }
   },
   "source_correspondence": {
-    "post_test_source_commit": "86c5c831a9f04ea2730b1742e4033619bb5f0f2e",
+    "post_test_source_commit": "8d2aa02cdc5883e21640f5fb08830896e0312c1a",
     "raw_producer_source_commit": null,
     "canonical_files": {
       "phys/module_ra_rrtmg_sw.F": {
@@ -703,7 +715,7 @@
       },
       "dyn_em/cu_fused_row.c": {
         "path": "/home/ddietz/wrf/WRF/dyn_em/cu_fused_row.c",
-        "sha256": "d9d4786112ba1cb3149c538d5a3fefdb34ead86f2d1c770d01203fb681caa49a"
+        "sha256": "ff347a76f07c7aff31fabd5968d54c7c65298f8e97ac497682a7662234e4bebc"
       }
     },
     "qualified_member_artifact_sha256": {
@@ -719,7 +731,7 @@
       "module_bl_myjpbl.o": "24926bfdfbd90872f13aac09046addc509c9ab15be0a801fd61539521eb4a15f",
       "module_em.o": "feb8ca9efdbef4f93e9bbc797260d54daf10a7eddbc0740c3df0bbc651a726f7",
       "pbl_fused_row.o": "08f4b94d75a3da7a4842768ae7a45b6313fe6a02ad72565d0ac57073d53c8a8e",
-      "cu_fused_row.o": "2e858dc51f80aab92101151ae8d497bbc6103d824b09866c5a52bcb31179b45c"
+      "cu_fused_row.o": "3db624f675b8bc633b5c6f4610e2f03fcafff7f3ef9e9e21d88baca4f3644726"
     },
     "helper_objects": {
       "wrf_spc_mix_ordered4.o": {
@@ -741,15 +753,15 @@
         "source_sha256": "1d3c3f806a3920f750451528b577c05fb65fd621d502e64dbd6552c336494274"
       },
       "cu_fused_row.o": {
-        "path": "/pool/wrf-experiment/wrf-cpu/builds/currentfb13-cu-pbl-sse2-experimental-r1/cu_fused_row.o",
-        "sha256": "2e858dc51f80aab92101151ae8d497bbc6103d824b09866c5a52bcb31179b45c",
-        "source_sha256": "d9d4786112ba1cb3149c538d5a3fefdb34ead86f2d1c770d01203fb681caa49a"
+        "path": "/pool/wrf-experiment/wrf-cpu/builds/current3c3a-cu-simd-experimental-r1/cu_fused_row.o",
+        "sha256": "3db624f675b8bc633b5c6f4610e2f03fcafff7f3ef9e9e21d88baca4f3644726",
+        "source_sha256": "ff347a76f07c7aff31fabd5968d54c7c65298f8e97ac497682a7662234e4bebc"
       }
     },
     "clean_canonical_full_build_certified": false,
-    "scope": "This PBL four-column SSE2 and scalar CU-fusion child passed its own unprofiled SAME512 three-hour run, 06:00\u201309:00: 545 ordered steps and four FULL products passed the unchanged original checker; all four models and the reader closed normally. The child owns only this three-hour application qualification. Own noon, nine-hour, profile/native-profile, restart, full-144-hour, O0 and clean full-source rebuild remain false. Parent fb13 profiles and application results, and older nine-hour evidence, are historical and do not transfer. Timings compare one candidate run with the fixed median of three eligible original controls A2/A1/5c75, as UNPAIRED descriptive evidence. Raw A2 science-control metrics remain separate. Main-step elapsed includes communication/waiting; component percentages are separate, never additive or isolated/repeatable forecast gain claims. The cached archive has 593 members: 590 prior payloads unchanged, two replacements and one helper appended. No source/module/driver/helper compilation occurred: one application link and one cached original-MOD native link were performed, with all 320 combined checks hard. RSL e418, output provider 64bb and all 18 direct inputs remain unchanged. Source commit records post-test correspondence only; raw producer commit is NULL. Future CU four-column vector followup is excluded."
+    "scope": "Only this image's unprofiled three-hour run on the same 512-rank configuration is qualified: 545 steps and four full outputs passed the unchanged checker, and all four model processes and the reader closed normally. Its noon, nine-hour, profile, restart, full 144-hour, O0, and clean source rebuild qualifications remain false. One CU helper changed; the other 592 archive members, including the module and PBL helper, are unchanged, as are RSL, the output provider, and all 18 direct link inputs. The failed R1 producer retains two successful links. The normally closed R2 continuation reused those exact artifacts, performed zero compiles or links, and passed all 320 complete-procedure comparisons for physical outputs, read-only inputs, and all five processor-state words. The source commit records correspondence after testing; the raw producer commit remains NULL. Timing is one unpaired descriptive observation against the fixed median of three original controls. The raw A2 scientific control remains separate. These timings do not isolate a forecast speedup caused by this helper."
   },
-  "source_rebuild_scope": "This PBL four-column SSE2 and scalar CU-fusion child passed its own unprofiled SAME512 three-hour run, 06:00\u201309:00: 545 ordered steps and four FULL products passed the unchanged original checker; all four models and the reader closed normally. The child owns only this three-hour application qualification. Own noon, nine-hour, profile/native-profile, restart, full-144-hour, O0 and clean full-source rebuild remain false. Parent fb13 profiles and application results, and older nine-hour evidence, are historical and do not transfer. Timings compare one candidate run with the fixed median of three eligible original controls A2/A1/5c75, as UNPAIRED descriptive evidence. Raw A2 science-control metrics remain separate. Main-step elapsed includes communication/waiting; component percentages are separate, never additive or isolated/repeatable forecast gain claims. The cached archive has 593 members: 590 prior payloads unchanged, two replacements and one helper appended. No source/module/driver/helper compilation occurred: one application link and one cached original-MOD native link were performed, with all 320 combined checks hard. RSL e418, output provider 64bb and all 18 direct inputs remain unchanged. Source commit records post-test correspondence only; raw producer commit is NULL. Future CU four-column vector followup is excluded.",
+  "source_rebuild_scope": "Only this image's unprofiled three-hour run on the same 512-rank configuration is qualified: 545 steps and four full outputs passed the unchanged checker, and all four model processes and the reader closed normally. Its noon, nine-hour, profile, restart, full 144-hour, O0, and clean source rebuild qualifications remain false. One CU helper changed; the other 592 archive members, including the module and PBL helper, are unchanged, as are RSL, the output provider, and all 18 direct link inputs. The failed R1 producer retains two successful links. The normally closed R2 continuation reused those exact artifacts, performed zero compiles or links, and passed all 320 complete-procedure comparisons for physical outputs, read-only inputs, and all five processor-state words. The source commit records correspondence after testing; the raw producer commit remains NULL. Timing is one unpaired descriptive observation against the fixed median of three original controls. The raw A2 scientific control remains separate. These timings do not isolate a forecast speedup caused by this helper.",
   "runtime": {
     "world": 512,
     "compute": 480,
@@ -791,20 +803,20 @@
       "provider_source_sha256": "d38dfa0c9d75b04f28bab346be8182fae6d32c89960f727bf8c06f24ce5aee58",
       "guard_source_sha256": "801e29cc8406d0200dee1557e4263d3ce4db46d750b63b9371083b633c952150"
     },
-    "scope": "This PBL four-column SSE2 and scalar CU-fusion child passed its own unprofiled SAME512 three-hour run, 06:00\u201309:00: 545 ordered steps and four FULL products passed the unchanged original checker; all four models and the reader closed normally. The child owns only this three-hour application qualification. Own noon, nine-hour, profile/native-profile, restart, full-144-hour, O0 and clean full-source rebuild remain false. Parent fb13 profiles and application results, and older nine-hour evidence, are historical and do not transfer. Timings compare one candidate run with the fixed median of three eligible original controls A2/A1/5c75, as UNPAIRED descriptive evidence. Raw A2 science-control metrics remain separate. Main-step elapsed includes communication/waiting; component percentages are separate, never additive or isolated/repeatable forecast gain claims. The cached archive has 593 members: 590 prior payloads unchanged, two replacements and one helper appended. No source/module/driver/helper compilation occurred: one application link and one cached original-MOD native link were performed, with all 320 combined checks hard. RSL e418, output provider 64bb and all 18 direct inputs remain unchanged. Source commit records post-test correspondence only; raw producer commit is NULL. Future CU four-column vector followup is excluded.",
+    "scope": "Only this image's unprofiled three-hour run on the same 512-rank configuration is qualified: 545 steps and four full outputs passed the unchanged checker, and all four model processes and the reader closed normally. Its noon, nine-hour, profile, restart, full 144-hour, O0, and clean source rebuild qualifications remain false. One CU helper changed; the other 592 archive members, including the module and PBL helper, are unchanged, as are RSL, the output provider, and all 18 direct link inputs. The failed R1 producer retains two successful links. The normally closed R2 continuation reused those exact artifacts, performed zero compiles or links, and passed all 320 complete-procedure comparisons for physical outputs, read-only inputs, and all five processor-state words. The source commit records correspondence after testing; the raw producer commit remains NULL. Timing is one unpaired descriptive observation against the fixed median of three original controls. The raw A2 scientific control remains separate. These timings do not isolate a forecast speedup caused by this helper.",
     "lease": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentfb13-pbl-sse2-cu-batch3h-runtime-r1/candidate-metadata/lease.json",
-      "sha256": "ec15aa5ba392fdc034efff7a4a3b00b95d4ac1271ab2d538ae208c82ee52adbf"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current3c3a-cu-simd-batch3h-runtime-r1/candidate-metadata/lease.json",
+      "sha256": "e789960433fb3ac1b95da30388c9d0abaea41172b0429eb126391ab7a60c38b2"
     },
     "observed_step_count": 545,
     "products": 4,
     "science": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentfb13-pbl-sse2-cu-batch3h-runtime-r1/science-receipt.json",
-      "sha256": "d5e7492cdd489ecbd070142a03712397dfb88e7656ed1425f05f20787f09d112"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current3c3a-cu-simd-batch3h-runtime-r1/science-receipt.json",
+      "sha256": "fd119ef19952c210b171a384c4179fad01ca74c891553a57aedd318e558f5c76"
     },
     "qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/pbl-simd-cu-fusion-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "573209bddf596d15366374bdd4c7c4e5ebbde538a3b5ccbc64987a80f592939a"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/cu-fourcolumn-simd-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "c7f88f79f0130abdd5a3b73072a819c900cb3f3c9d9aab10241d7161d87ee633"
     },
     "rank_map": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/mu-lw-y-batch-20261028/RANK_MAP.json",
@@ -813,38 +825,38 @@
     "actual_map_table_sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac",
     "rank_map_variant": "control",
     "observer_profile": false,
-    "run_id": "production512-currentfb13-pbl-sse2-cu-batch3h-r1",
-    "run_directory": "/pool/wrf-experiment/wrf-cpu/runs/production512-currentfb13-pbl-sse2-cu-batch3h-r1",
-    "stage": "/pool/wrf-experiment/wrf-cpu/science-prep/production512-currentfb13-pbl-sse2-cu-batch3h-r1",
-    "runtime_directory": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentfb13-pbl-sse2-cu-batch3h-runtime-r1",
-    "source_manifest_sha256": "722b8230310f82705cf7784667097635f3ddff94bedc296c7d5ac94e90162c1c",
-    "granted_lease_sha256": "ec15aa5ba392fdc034efff7a4a3b00b95d4ac1271ab2d538ae208c82ee52adbf",
+    "run_id": "production512-current3c3a-cu-simd-batch3h-r1",
+    "run_directory": "/pool/wrf-experiment/wrf-cpu/runs/production512-current3c3a-cu-simd-batch3h-r1",
+    "stage": "/pool/wrf-experiment/wrf-cpu/science-prep/production512-current3c3a-cu-simd-batch3h-r1",
+    "runtime_directory": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current3c3a-cu-simd-batch3h-runtime-r1",
+    "source_manifest_sha256": "d2c9f4f2af6e60170efdf91967eab4ce3f22c42d23afed124aa717ba22256343",
+    "granted_lease_sha256": "e789960433fb3ac1b95da30388c9d0abaea41172b0429eb126391ab7a60c38b2",
     "application_binding": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentfb13-pbl-sse2-cu-batch3h-runtime-r1/application-binding.json",
-      "sha256": "3811d99df3c8619d5389667c14e7c918852bad8262adeb40458cdbedebf5ee8f"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current3c3a-cu-simd-batch3h-runtime-r1/application-binding.json",
+      "sha256": "94e4410a055b8b7096b990e32b8b0a065c6806ea8ce85dce39714d6e4a23e8a5"
     },
     "model_closures": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentfb13-pbl-sse2-cu-batch3h-runtime-r1/candidate-metadata/model-closures.json",
-      "sha256": "4aadf567a793a17f3dd0b5b1d65281cff4f41a98984ce22c73605e9d30b30f1b"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current3c3a-cu-simd-batch3h-runtime-r1/candidate-metadata/model-closures.json",
+      "sha256": "2b7bf310fa255e99ed4f7b489ca57e7b4ab7d9f645653f5bc7fdd390ca8933fb"
     },
     "reader_closure": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentfb13-pbl-sse2-cu-batch3h-runtime-r1/reader-closure.json",
-      "sha256": "64de0c44d676b80fb28a318ff71f4b4e0923538e2a9724db3b6274798338df8f"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current3c3a-cu-simd-batch3h-runtime-r1/reader-closure.json",
+      "sha256": "bf4d8e6839dbf38c23fa166983c8d9492e1e4f04b03fc045e04af33a34cbb1a2"
     },
     "model_units": {
-      "hpc01": "wrf-cpu-production512-currentfb13-pbl-sse2-cu-batch3h-r1-hpc01.service",
-      "hpc02": "wrf-cpu-production512-currentfb13-pbl-sse2-cu-batch3h-r1-hpc02.service",
-      "hpc03": "wrf-cpu-production512-currentfb13-pbl-sse2-cu-batch3h-r1-hpc03.service",
-      "hpc04": "wrf-cpu-production512-currentfb13-pbl-sse2-cu-batch3h-r1-hpc04.service"
+      "hpc01": "wrf-cpu-production512-current3c3a-cu-simd-batch3h-r1-hpc01.service",
+      "hpc02": "wrf-cpu-production512-current3c3a-cu-simd-batch3h-r1-hpc02.service",
+      "hpc03": "wrf-cpu-production512-current3c3a-cu-simd-batch3h-r1-hpc03.service",
+      "hpc04": "wrf-cpu-production512-current3c3a-cu-simd-batch3h-r1-hpc04.service"
     },
     "model_invocations": {
-      "hpc01": "30af12a2fb6f4e05bfbdf724d7445479",
-      "hpc02": "dc63b8ea67e44040b5503e19b7aa77da",
-      "hpc03": "2459094077144023ae34b8b355705307",
-      "hpc04": "e7850941a619492b839cfa40c83a21d8"
+      "hpc01": "d3cba1040c624d048144d966fc996a48",
+      "hpc02": "3c51dcbbaf3a48348523e16f069e557f",
+      "hpc03": "8a0482c4e3834df381968173ff8400c2",
+      "hpc04": "e5fd5e2a95d543f980a6fc033873ca59"
     },
-    "reader_unit": "wrf-cpu-production512-currentfb13-pbl-sse2-cu-batch3h-r1-exact-check-hpc03.service",
-    "reader_invocation_id": "a86155339dc04e8c88bda3cb7f37ff7a",
+    "reader_unit": "wrf-cpu-production512-current3c3a-cu-simd-batch3h-r1-exact-check-hpc03.service",
+    "reader_invocation_id": "fbd54f2b7d624f0f8e630bebe512a076",
     "model_cap_seconds": 1200,
     "reader_cap_seconds": 1800,
     "memory_perhost_bytes": {
@@ -873,21 +885,21 @@
     "clean_full_source_build_qualified": false
   },
   "qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/pbl-simd-cu-fusion-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "573209bddf596d15366374bdd4c7c4e5ebbde538a3b5ccbc64987a80f592939a"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/cu-fourcolumn-simd-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "c7f88f79f0130abdd5a3b73072a819c900cb3f3c9d9aab10241d7161d87ee633"
   },
-  "qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/pbl-simd-cu-fusion-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+  "qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/cu-fourcolumn-simd-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
   "full_application": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/pbl-simd-cu-fusion-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "573209bddf596d15366374bdd4c7c4e5ebbde538a3b5ccbc64987a80f592939a"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/cu-fourcolumn-simd-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "c7f88f79f0130abdd5a3b73072a819c900cb3f3c9d9aab10241d7161d87ee633"
   },
   "profile_source_identity_acquisition_pending": true,
   "science": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentfb13-pbl-sse2-cu-batch3h-runtime-r1/science-receipt.json",
-    "sha256": "d5e7492cdd489ecbd070142a03712397dfb88e7656ed1425f05f20787f09d112"
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current3c3a-cu-simd-batch3h-runtime-r1/science-receipt.json",
+    "sha256": "fd119ef19952c210b171a384c4179fad01ca74c891553a57aedd318e558f5c76"
   },
-  "science_sha256": "d5e7492cdd489ecbd070142a03712397dfb88e7656ed1425f05f20787f09d112",
-  "reader_closure_sha256": "64de0c44d676b80fb28a318ff71f4b4e0923538e2a9724db3b6274798338df8f",
+  "science_sha256": "fd119ef19952c210b171a384c4179fad01ca74c891553a57aedd318e558f5c76",
+  "reader_closure_sha256": "bf4d8e6839dbf38c23fa166983c8d9492e1e4f04b03fc045e04af33a34cbb1a2",
   "metrics": {
     "control": {
       "wall_seconds": 800.0241208570078,
@@ -895,44 +907,42 @@
       "main_step_sum_seconds": 596.45045
     },
     "candidate": {
-      "wall_seconds": 629.8811428160407,
-      "cpu_seconds": 306303.13401599997,
-      "main_step_sum_seconds": 531.78783
+      "wall_seconds": 629.7695123408921,
+      "cpu_seconds": 306184.812148,
+      "main_step_sum_seconds": 530.74647
     }
   },
   "raw_result_status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
   "order": [
     "retained_original546b_A2_science_reference",
-    "fresh_currentfb13_pbl_sse2_cu_unprofiled_threehour_candidate"
+    "fresh_current3c3a_cu_simd_unprofiled_threehour_candidate"
   ],
   "comparison_design": "Candidate-only exactscience vs retainedA2; timings DESCRIPTIVE and UNPAIRED against median latest3 unique original controls A2/A1/5c75; hardwareepoch unresolved.",
   "timing_gain_claim": false,
   "reductions_percent": {
-    "wall_seconds": 21.26723102532275,
-    "cpu_seconds": 14.756520318605496,
-    "main_step_sum_seconds": 10.841239201009918
+    "wall_seconds": 21.281184414006702,
+    "cpu_seconds": 14.789449030821002,
+    "main_step_sum_seconds": 11.015832077920303
   },
   "last_three_hour_benchmark_applies_to_current": true,
-  "scope": "This PBL four-column SSE2 and scalar CU-fusion child passed its own unprofiled SAME512 three-hour run, 06:00\u201309:00: 545 ordered steps and four FULL products passed the unchanged original checker; all four models and the reader closed normally. The child owns only this three-hour application qualification. Own noon, nine-hour, profile/native-profile, restart, full-144-hour, O0 and clean full-source rebuild remain false. Parent fb13 profiles and application results, and older nine-hour evidence, are historical and do not transfer. Timings compare one candidate run with the fixed median of three eligible original controls A2/A1/5c75, as UNPAIRED descriptive evidence. Raw A2 science-control metrics remain separate. Main-step elapsed includes communication/waiting; component percentages are separate, never additive or isolated/repeatable forecast gain claims. The cached archive has 593 members: 590 prior payloads unchanged, two replacements and one helper appended. No source/module/driver/helper compilation occurred: one application link and one cached original-MOD native link were performed, with all 320 combined checks hard. RSL e418, output provider 64bb and all 18 direct inputs remain unchanged. Source commit records post-test correspondence only; raw producer commit is NULL. Future CU four-column vector followup is excluded.",
-  "limits": "This PBL four-column SSE2 and scalar CU-fusion child passed its own unprofiled SAME512 three-hour run, 06:00\u201309:00: 545 ordered steps and four FULL products passed the unchanged original checker; all four models and the reader closed normally. The child owns only this three-hour application qualification. Own noon, nine-hour, profile/native-profile, restart, full-144-hour, O0 and clean full-source rebuild remain false. Parent fb13 profiles and application results, and older nine-hour evidence, are historical and do not transfer. Timings compare one candidate run with the fixed median of three eligible original controls A2/A1/5c75, as UNPAIRED descriptive evidence. Raw A2 science-control metrics remain separate. Main-step elapsed includes communication/waiting; component percentages are separate, never additive or isolated/repeatable forecast gain claims. The cached archive has 593 members: 590 prior payloads unchanged, two replacements and one helper appended. No source/module/driver/helper compilation occurred: one application link and one cached original-MOD native link were performed, with all 320 combined checks hard. RSL e418, output provider 64bb and all 18 direct inputs remain unchanged. Source commit records post-test correspondence only; raw producer commit is NULL. Future CU four-column vector followup is excluded.",
-  "claim_limits": "This PBL four-column SSE2 and scalar CU-fusion child passed its own unprofiled SAME512 three-hour run, 06:00\u201309:00: 545 ordered steps and four FULL products passed the unchanged original checker; all four models and the reader closed normally. The child owns only this three-hour application qualification. Own noon, nine-hour, profile/native-profile, restart, full-144-hour, O0 and clean full-source rebuild remain false. Parent fb13 profiles and application results, and older nine-hour evidence, are historical and do not transfer. Timings compare one candidate run with the fixed median of three eligible original controls A2/A1/5c75, as UNPAIRED descriptive evidence. Raw A2 science-control metrics remain separate. Main-step elapsed includes communication/waiting; component percentages are separate, never additive or isolated/repeatable forecast gain claims. The cached archive has 593 members: 590 prior payloads unchanged, two replacements and one helper appended. No source/module/driver/helper compilation occurred: one application link and one cached original-MOD native link were performed, with all 320 combined checks hard. RSL e418, output provider 64bb and all 18 direct inputs remain unchanged. Source commit records post-test correspondence only; raw producer commit is NULL. Future CU four-column vector followup is excluded.",
+  "scope": "Only this image's unprofiled three-hour run on the same 512-rank configuration is qualified: 545 steps and four full outputs passed the unchanged checker, and all four model processes and the reader closed normally. Its noon, nine-hour, profile, restart, full 144-hour, O0, and clean source rebuild qualifications remain false. One CU helper changed; the other 592 archive members, including the module and PBL helper, are unchanged, as are RSL, the output provider, and all 18 direct link inputs. The failed R1 producer retains two successful links. The normally closed R2 continuation reused those exact artifacts, performed zero compiles or links, and passed all 320 complete-procedure comparisons for physical outputs, read-only inputs, and all five processor-state words. The source commit records correspondence after testing; the raw producer commit remains NULL. Timing is one unpaired descriptive observation against the fixed median of three original controls. The raw A2 scientific control remains separate. These timings do not isolate a forecast speedup caused by this helper.",
+  "limits": "Only this image's unprofiled three-hour run on the same 512-rank configuration is qualified: 545 steps and four full outputs passed the unchanged checker, and all four model processes and the reader closed normally. Its noon, nine-hour, profile, restart, full 144-hour, O0, and clean source rebuild qualifications remain false. One CU helper changed; the other 592 archive members, including the module and PBL helper, are unchanged, as are RSL, the output provider, and all 18 direct link inputs. The failed R1 producer retains two successful links. The normally closed R2 continuation reused those exact artifacts, performed zero compiles or links, and passed all 320 complete-procedure comparisons for physical outputs, read-only inputs, and all five processor-state words. The source commit records correspondence after testing; the raw producer commit remains NULL. Timing is one unpaired descriptive observation against the fixed median of three original controls. The raw A2 scientific control remains separate. These timings do not isolate a forecast speedup caused by this helper.",
+  "claim_limits": "Only this image's unprofiled three-hour run on the same 512-rank configuration is qualified: 545 steps and four full outputs passed the unchanged checker, and all four model processes and the reader closed normally. Its noon, nine-hour, profile, restart, full 144-hour, O0, and clean source rebuild qualifications remain false. One CU helper changed; the other 592 archive members, including the module and PBL helper, are unchanged, as are RSL, the output provider, and all 18 direct link inputs. The failed R1 producer retains two successful links. The normally closed R2 continuation reused those exact artifacts, performed zero compiles or links, and passed all 320 complete-procedure comparisons for physical outputs, read-only inputs, and all five processor-state words. The source commit records correspondence after testing; the raw producer commit remains NULL. Timing is one unpaired descriptive observation against the fixed median of three original controls. The raw A2 scientific control remains separate. These timings do not isolate a forecast speedup caused by this helper.",
   "previous_parent": {
-    "snapshot": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/pbl-simd-cu-fusion-20261029/HISTORICAL_PARENT_FB13_SELECTION.json",
-      "sha256": "8898bfe9c41bf4cb23376e8dbd126b79734f365eea752036fd681559c9ac88ca"
-    },
     "executable": {
-      "path": "/pool/wrf-experiment/wrf-cpu/builds/currentefa6-pbl-lw-experimental-r1/wrf.exe",
-      "sha256": "fb13c7be89ec8feef501ebf184f73ebb50241244bc080181d758706a83ac5c7f"
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/currentfb13-cu-pbl-sse2-experimental-r1/wrf.exe",
+      "sha256": "3c3a0b54289171508eb7ae3b3a084769a69495ba6e0b46e4603f4ca50e242dbf"
     },
     "archive": {
-      "path": "/pool/wrf-experiment/wrf-cpu/builds/currentefa6-pbl-lw-experimental-r1/libwrflib.a",
-      "sha256": "184db5bb213d725b614bc31f396f6aea8b2f6d54791b50fcff3ec3965c2415a3"
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/currentfb13-cu-pbl-sse2-experimental-r1/libwrflib.a",
+      "sha256": "da52db9affd13d3992fa344a8e1d8db70bccaabf0359533e6c4c65cf59761415"
     },
     "qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/pbl-lw-guarded-batch-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "a1f9be57b8fac6d49a808af304240c6095de9a0f6ee45d592c17760769b0ea7a"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/pbl-simd-cu-fusion-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "573209bddf596d15366374bdd4c7c4e5ebbde538a3b5ccbc64987a80f592939a"
     },
+    "source_commit": "86c5c831a9f04ea2730b1742e4033619bb5f0f2e",
+    "public_metadata_commit": "1412cb60",
     "applies_to_current": false
   },
   "output_guard": {
@@ -975,7 +985,7 @@
       "sha256": "c901e7b33ec8eb0218625e12adf32871c9527bc70be7030a96ec0e4c2ce8e673"
     }
   },
-  "post_test_source_commit": "86c5c831a9f04ea2730b1742e4033619bb5f0f2e",
+  "post_test_source_commit": "8d2aa02cdc5883e21640f5fb08830896e0312c1a",
   "last_nine_hour_benchmark_applies_to_current": false,
   "component_source_correspondence": {
     "historical_thompson": {
@@ -2279,19 +2289,38 @@
         "cu_fused_row.o": "2e858dc51f80aab92101151ae8d497bbc6103d824b09866c5a52bcb31179b45c"
       },
       "prior_component_horizons_do_not_transfer_to_child_image": true,
-      "future_CU_vector_excluded": true
+      "future_CU_vector_excluded": true,
+      "applies_to_current_image": false,
+      "application_scope": "Historical3c3aparentapplication; retainedobject/sourcefacts only."
+    },
+    "cu_fourcolumn_helper": {
+      "source_commit": "8d2aa02cdc5883e21640f5fb08830896e0312c1a",
+      "raw_producer_source_commit": null,
+      "own_three_hour": {
+        "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/cu-fourcolumn-simd-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+        "sha256": "c7f88f79f0130abdd5a3b73072a819c900cb3f3c9d9aab10241d7161d87ee633"
+      },
+      "native_and_cost": {
+        "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/cu-fourcolumn-simd-20261029/COMPONENT_EVIDENCE.json",
+        "sha256": "62da4a75788acf96034776f0457f48300eb79cbb3b217556c632d49602276200"
+      },
+      "changed_members": {
+        "cu_fused_row.o": "3db624f675b8bc633b5c6f4610e2f03fcafff7f3ef9e9e21d88baca4f3644726"
+      },
+      "only_source_change": "dyn_em/cu_fused_row.c",
+      "parent_horizons_do_not_transfer": true
     }
   },
   "actual_rank_map_table_sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac",
   "raw_result_order": [
     "retained_original546b_A2_science_reference",
-    "fresh_currentfb13_pbl_sse2_cu_unprofiled_threehour_candidate"
+    "fresh_current3c3a_cu_simd_unprofiled_threehour_candidate"
   ],
-  "raw_result_label_annotation": "Original checker labels/raw A2 metrics retained; current descriptive display separately uses fixed eligible original median3.",
+  "raw_result_label_annotation": "Original checker labels/rawA2 unchanged; descriptive median3 reported separately.",
   "descriptive_reductions_percent": {
-    "wall_seconds": 21.26723102532275,
-    "cpu_seconds": 14.756520318605496,
-    "main_step_sum_seconds": 10.841239201009918
+    "wall_seconds": 21.281184414006702,
+    "cpu_seconds": 14.789449030821002,
+    "main_step_sum_seconds": 11.015832077920303
   },
   "historical_parent1d16_before_MU_LW_Y": {
     "working_snapshot": {
@@ -2427,12 +2456,12 @@
       "main_step_sum_seconds": 596.45045
     },
     "candidate": {
-      "wall_seconds": 629.8811428160407,
-      "cpu_seconds": 306303.13401599997,
-      "main_step_sum_seconds": 531.78783
+      "wall_seconds": 629.7695123408921,
+      "cpu_seconds": 306184.812148,
+      "main_step_sum_seconds": 530.74647
     }
   },
-  "raw_metrics_control_role": "Actual retained original A2 scientific reference only; never replaced by median3 in raw science/RESULT.",
+  "raw_metrics_control_role": "Retained original A2 science control; never replaced by median3 in raw RESULT/science.",
   "current_qualified_runtime": {
     "world": 512,
     "compute": 480,
@@ -2474,20 +2503,20 @@
       "provider_source_sha256": "d38dfa0c9d75b04f28bab346be8182fae6d32c89960f727bf8c06f24ce5aee58",
       "guard_source_sha256": "801e29cc8406d0200dee1557e4263d3ce4db46d750b63b9371083b633c952150"
     },
-    "scope": "This PBL four-column SSE2 and scalar CU-fusion child passed its own unprofiled SAME512 three-hour run, 06:00\u201309:00: 545 ordered steps and four FULL products passed the unchanged original checker; all four models and the reader closed normally. The child owns only this three-hour application qualification. Own noon, nine-hour, profile/native-profile, restart, full-144-hour, O0 and clean full-source rebuild remain false. Parent fb13 profiles and application results, and older nine-hour evidence, are historical and do not transfer. Timings compare one candidate run with the fixed median of three eligible original controls A2/A1/5c75, as UNPAIRED descriptive evidence. Raw A2 science-control metrics remain separate. Main-step elapsed includes communication/waiting; component percentages are separate, never additive or isolated/repeatable forecast gain claims. The cached archive has 593 members: 590 prior payloads unchanged, two replacements and one helper appended. No source/module/driver/helper compilation occurred: one application link and one cached original-MOD native link were performed, with all 320 combined checks hard. RSL e418, output provider 64bb and all 18 direct inputs remain unchanged. Source commit records post-test correspondence only; raw producer commit is NULL. Future CU four-column vector followup is excluded.",
+    "scope": "Only this image's unprofiled three-hour run on the same 512-rank configuration is qualified: 545 steps and four full outputs passed the unchanged checker, and all four model processes and the reader closed normally. Its noon, nine-hour, profile, restart, full 144-hour, O0, and clean source rebuild qualifications remain false. One CU helper changed; the other 592 archive members, including the module and PBL helper, are unchanged, as are RSL, the output provider, and all 18 direct link inputs. The failed R1 producer retains two successful links. The normally closed R2 continuation reused those exact artifacts, performed zero compiles or links, and passed all 320 complete-procedure comparisons for physical outputs, read-only inputs, and all five processor-state words. The source commit records correspondence after testing; the raw producer commit remains NULL. Timing is one unpaired descriptive observation against the fixed median of three original controls. The raw A2 scientific control remains separate. These timings do not isolate a forecast speedup caused by this helper.",
     "lease": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentfb13-pbl-sse2-cu-batch3h-runtime-r1/candidate-metadata/lease.json",
-      "sha256": "ec15aa5ba392fdc034efff7a4a3b00b95d4ac1271ab2d538ae208c82ee52adbf"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current3c3a-cu-simd-batch3h-runtime-r1/candidate-metadata/lease.json",
+      "sha256": "e789960433fb3ac1b95da30388c9d0abaea41172b0429eb126391ab7a60c38b2"
     },
     "observed_step_count": 545,
     "products": 4,
     "science": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentfb13-pbl-sse2-cu-batch3h-runtime-r1/science-receipt.json",
-      "sha256": "d5e7492cdd489ecbd070142a03712397dfb88e7656ed1425f05f20787f09d112"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current3c3a-cu-simd-batch3h-runtime-r1/science-receipt.json",
+      "sha256": "fd119ef19952c210b171a384c4179fad01ca74c891553a57aedd318e558f5c76"
     },
     "qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/pbl-simd-cu-fusion-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "573209bddf596d15366374bdd4c7c4e5ebbde538a3b5ccbc64987a80f592939a"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/cu-fourcolumn-simd-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "c7f88f79f0130abdd5a3b73072a819c900cb3f3c9d9aab10241d7161d87ee633"
     },
     "rank_map": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/mu-lw-y-batch-20261028/RANK_MAP.json",
@@ -2496,38 +2525,38 @@
     "actual_map_table_sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac",
     "rank_map_variant": "control",
     "observer_profile": false,
-    "run_id": "production512-currentfb13-pbl-sse2-cu-batch3h-r1",
-    "run_directory": "/pool/wrf-experiment/wrf-cpu/runs/production512-currentfb13-pbl-sse2-cu-batch3h-r1",
-    "stage": "/pool/wrf-experiment/wrf-cpu/science-prep/production512-currentfb13-pbl-sse2-cu-batch3h-r1",
-    "runtime_directory": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentfb13-pbl-sse2-cu-batch3h-runtime-r1",
-    "source_manifest_sha256": "722b8230310f82705cf7784667097635f3ddff94bedc296c7d5ac94e90162c1c",
-    "granted_lease_sha256": "ec15aa5ba392fdc034efff7a4a3b00b95d4ac1271ab2d538ae208c82ee52adbf",
+    "run_id": "production512-current3c3a-cu-simd-batch3h-r1",
+    "run_directory": "/pool/wrf-experiment/wrf-cpu/runs/production512-current3c3a-cu-simd-batch3h-r1",
+    "stage": "/pool/wrf-experiment/wrf-cpu/science-prep/production512-current3c3a-cu-simd-batch3h-r1",
+    "runtime_directory": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current3c3a-cu-simd-batch3h-runtime-r1",
+    "source_manifest_sha256": "d2c9f4f2af6e60170efdf91967eab4ce3f22c42d23afed124aa717ba22256343",
+    "granted_lease_sha256": "e789960433fb3ac1b95da30388c9d0abaea41172b0429eb126391ab7a60c38b2",
     "application_binding": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentfb13-pbl-sse2-cu-batch3h-runtime-r1/application-binding.json",
-      "sha256": "3811d99df3c8619d5389667c14e7c918852bad8262adeb40458cdbedebf5ee8f"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current3c3a-cu-simd-batch3h-runtime-r1/application-binding.json",
+      "sha256": "94e4410a055b8b7096b990e32b8b0a065c6806ea8ce85dce39714d6e4a23e8a5"
     },
     "model_closures": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentfb13-pbl-sse2-cu-batch3h-runtime-r1/candidate-metadata/model-closures.json",
-      "sha256": "4aadf567a793a17f3dd0b5b1d65281cff4f41a98984ce22c73605e9d30b30f1b"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current3c3a-cu-simd-batch3h-runtime-r1/candidate-metadata/model-closures.json",
+      "sha256": "2b7bf310fa255e99ed4f7b489ca57e7b4ab7d9f645653f5bc7fdd390ca8933fb"
     },
     "reader_closure": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentfb13-pbl-sse2-cu-batch3h-runtime-r1/reader-closure.json",
-      "sha256": "64de0c44d676b80fb28a318ff71f4b4e0923538e2a9724db3b6274798338df8f"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current3c3a-cu-simd-batch3h-runtime-r1/reader-closure.json",
+      "sha256": "bf4d8e6839dbf38c23fa166983c8d9492e1e4f04b03fc045e04af33a34cbb1a2"
     },
     "model_units": {
-      "hpc01": "wrf-cpu-production512-currentfb13-pbl-sse2-cu-batch3h-r1-hpc01.service",
-      "hpc02": "wrf-cpu-production512-currentfb13-pbl-sse2-cu-batch3h-r1-hpc02.service",
-      "hpc03": "wrf-cpu-production512-currentfb13-pbl-sse2-cu-batch3h-r1-hpc03.service",
-      "hpc04": "wrf-cpu-production512-currentfb13-pbl-sse2-cu-batch3h-r1-hpc04.service"
+      "hpc01": "wrf-cpu-production512-current3c3a-cu-simd-batch3h-r1-hpc01.service",
+      "hpc02": "wrf-cpu-production512-current3c3a-cu-simd-batch3h-r1-hpc02.service",
+      "hpc03": "wrf-cpu-production512-current3c3a-cu-simd-batch3h-r1-hpc03.service",
+      "hpc04": "wrf-cpu-production512-current3c3a-cu-simd-batch3h-r1-hpc04.service"
     },
     "model_invocations": {
-      "hpc01": "30af12a2fb6f4e05bfbdf724d7445479",
-      "hpc02": "dc63b8ea67e44040b5503e19b7aa77da",
-      "hpc03": "2459094077144023ae34b8b355705307",
-      "hpc04": "e7850941a619492b839cfa40c83a21d8"
+      "hpc01": "d3cba1040c624d048144d966fc996a48",
+      "hpc02": "3c51dcbbaf3a48348523e16f069e557f",
+      "hpc03": "8a0482c4e3834df381968173ff8400c2",
+      "hpc04": "e5fd5e2a95d543f980a6fc033873ca59"
     },
-    "reader_unit": "wrf-cpu-production512-currentfb13-pbl-sse2-cu-batch3h-r1-exact-check-hpc03.service",
-    "reader_invocation_id": "a86155339dc04e8c88bda3cb7f37ff7a",
+    "reader_unit": "wrf-cpu-production512-current3c3a-cu-simd-batch3h-r1-exact-check-hpc03.service",
+    "reader_invocation_id": "fbd54f2b7d624f0f8e630bebe512a076",
     "model_cap_seconds": 1200,
     "reader_cap_seconds": 1800,
     "memory_perhost_bytes": {
@@ -2579,20 +2608,20 @@
       "provider_source_sha256": "d38dfa0c9d75b04f28bab346be8182fae6d32c89960f727bf8c06f24ce5aee58",
       "guard_source_sha256": "801e29cc8406d0200dee1557e4263d3ce4db46d750b63b9371083b633c952150"
     },
-    "scope": "This PBL four-column SSE2 and scalar CU-fusion child passed its own unprofiled SAME512 three-hour run, 06:00\u201309:00: 545 ordered steps and four FULL products passed the unchanged original checker; all four models and the reader closed normally. The child owns only this three-hour application qualification. Own noon, nine-hour, profile/native-profile, restart, full-144-hour, O0 and clean full-source rebuild remain false. Parent fb13 profiles and application results, and older nine-hour evidence, are historical and do not transfer. Timings compare one candidate run with the fixed median of three eligible original controls A2/A1/5c75, as UNPAIRED descriptive evidence. Raw A2 science-control metrics remain separate. Main-step elapsed includes communication/waiting; component percentages are separate, never additive or isolated/repeatable forecast gain claims. The cached archive has 593 members: 590 prior payloads unchanged, two replacements and one helper appended. No source/module/driver/helper compilation occurred: one application link and one cached original-MOD native link were performed, with all 320 combined checks hard. RSL e418, output provider 64bb and all 18 direct inputs remain unchanged. Source commit records post-test correspondence only; raw producer commit is NULL. Future CU four-column vector followup is excluded.",
+    "scope": "Only this image's unprofiled three-hour run on the same 512-rank configuration is qualified: 545 steps and four full outputs passed the unchanged checker, and all four model processes and the reader closed normally. Its noon, nine-hour, profile, restart, full 144-hour, O0, and clean source rebuild qualifications remain false. One CU helper changed; the other 592 archive members, including the module and PBL helper, are unchanged, as are RSL, the output provider, and all 18 direct link inputs. The failed R1 producer retains two successful links. The normally closed R2 continuation reused those exact artifacts, performed zero compiles or links, and passed all 320 complete-procedure comparisons for physical outputs, read-only inputs, and all five processor-state words. The source commit records correspondence after testing; the raw producer commit remains NULL. Timing is one unpaired descriptive observation against the fixed median of three original controls. The raw A2 scientific control remains separate. These timings do not isolate a forecast speedup caused by this helper.",
     "lease": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentfb13-pbl-sse2-cu-batch3h-runtime-r1/candidate-metadata/lease.json",
-      "sha256": "ec15aa5ba392fdc034efff7a4a3b00b95d4ac1271ab2d538ae208c82ee52adbf"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current3c3a-cu-simd-batch3h-runtime-r1/candidate-metadata/lease.json",
+      "sha256": "e789960433fb3ac1b95da30388c9d0abaea41172b0429eb126391ab7a60c38b2"
     },
     "observed_step_count": 545,
     "products": 4,
     "science": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentfb13-pbl-sse2-cu-batch3h-runtime-r1/science-receipt.json",
-      "sha256": "d5e7492cdd489ecbd070142a03712397dfb88e7656ed1425f05f20787f09d112"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current3c3a-cu-simd-batch3h-runtime-r1/science-receipt.json",
+      "sha256": "fd119ef19952c210b171a384c4179fad01ca74c891553a57aedd318e558f5c76"
     },
     "qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/pbl-simd-cu-fusion-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "573209bddf596d15366374bdd4c7c4e5ebbde538a3b5ccbc64987a80f592939a"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/cu-fourcolumn-simd-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "c7f88f79f0130abdd5a3b73072a819c900cb3f3c9d9aab10241d7161d87ee633"
     },
     "rank_map": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/mu-lw-y-batch-20261028/RANK_MAP.json",
@@ -2601,38 +2630,38 @@
     "actual_map_table_sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac",
     "rank_map_variant": "control",
     "observer_profile": false,
-    "run_id": "production512-currentfb13-pbl-sse2-cu-batch3h-r1",
-    "run_directory": "/pool/wrf-experiment/wrf-cpu/runs/production512-currentfb13-pbl-sse2-cu-batch3h-r1",
-    "stage": "/pool/wrf-experiment/wrf-cpu/science-prep/production512-currentfb13-pbl-sse2-cu-batch3h-r1",
-    "runtime_directory": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentfb13-pbl-sse2-cu-batch3h-runtime-r1",
-    "source_manifest_sha256": "722b8230310f82705cf7784667097635f3ddff94bedc296c7d5ac94e90162c1c",
-    "granted_lease_sha256": "ec15aa5ba392fdc034efff7a4a3b00b95d4ac1271ab2d538ae208c82ee52adbf",
+    "run_id": "production512-current3c3a-cu-simd-batch3h-r1",
+    "run_directory": "/pool/wrf-experiment/wrf-cpu/runs/production512-current3c3a-cu-simd-batch3h-r1",
+    "stage": "/pool/wrf-experiment/wrf-cpu/science-prep/production512-current3c3a-cu-simd-batch3h-r1",
+    "runtime_directory": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current3c3a-cu-simd-batch3h-runtime-r1",
+    "source_manifest_sha256": "d2c9f4f2af6e60170efdf91967eab4ce3f22c42d23afed124aa717ba22256343",
+    "granted_lease_sha256": "e789960433fb3ac1b95da30388c9d0abaea41172b0429eb126391ab7a60c38b2",
     "application_binding": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentfb13-pbl-sse2-cu-batch3h-runtime-r1/application-binding.json",
-      "sha256": "3811d99df3c8619d5389667c14e7c918852bad8262adeb40458cdbedebf5ee8f"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current3c3a-cu-simd-batch3h-runtime-r1/application-binding.json",
+      "sha256": "94e4410a055b8b7096b990e32b8b0a065c6806ea8ce85dce39714d6e4a23e8a5"
     },
     "model_closures": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentfb13-pbl-sse2-cu-batch3h-runtime-r1/candidate-metadata/model-closures.json",
-      "sha256": "4aadf567a793a17f3dd0b5b1d65281cff4f41a98984ce22c73605e9d30b30f1b"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current3c3a-cu-simd-batch3h-runtime-r1/candidate-metadata/model-closures.json",
+      "sha256": "2b7bf310fa255e99ed4f7b489ca57e7b4ab7d9f645653f5bc7fdd390ca8933fb"
     },
     "reader_closure": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-currentfb13-pbl-sse2-cu-batch3h-runtime-r1/reader-closure.json",
-      "sha256": "64de0c44d676b80fb28a318ff71f4b4e0923538e2a9724db3b6274798338df8f"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current3c3a-cu-simd-batch3h-runtime-r1/reader-closure.json",
+      "sha256": "bf4d8e6839dbf38c23fa166983c8d9492e1e4f04b03fc045e04af33a34cbb1a2"
     },
     "model_units": {
-      "hpc01": "wrf-cpu-production512-currentfb13-pbl-sse2-cu-batch3h-r1-hpc01.service",
-      "hpc02": "wrf-cpu-production512-currentfb13-pbl-sse2-cu-batch3h-r1-hpc02.service",
-      "hpc03": "wrf-cpu-production512-currentfb13-pbl-sse2-cu-batch3h-r1-hpc03.service",
-      "hpc04": "wrf-cpu-production512-currentfb13-pbl-sse2-cu-batch3h-r1-hpc04.service"
+      "hpc01": "wrf-cpu-production512-current3c3a-cu-simd-batch3h-r1-hpc01.service",
+      "hpc02": "wrf-cpu-production512-current3c3a-cu-simd-batch3h-r1-hpc02.service",
+      "hpc03": "wrf-cpu-production512-current3c3a-cu-simd-batch3h-r1-hpc03.service",
+      "hpc04": "wrf-cpu-production512-current3c3a-cu-simd-batch3h-r1-hpc04.service"
     },
     "model_invocations": {
-      "hpc01": "30af12a2fb6f4e05bfbdf724d7445479",
-      "hpc02": "dc63b8ea67e44040b5503e19b7aa77da",
-      "hpc03": "2459094077144023ae34b8b355705307",
-      "hpc04": "e7850941a619492b839cfa40c83a21d8"
+      "hpc01": "d3cba1040c624d048144d966fc996a48",
+      "hpc02": "3c51dcbbaf3a48348523e16f069e557f",
+      "hpc03": "8a0482c4e3834df381968173ff8400c2",
+      "hpc04": "e5fd5e2a95d543f980a6fc033873ca59"
     },
-    "reader_unit": "wrf-cpu-production512-currentfb13-pbl-sse2-cu-batch3h-r1-exact-check-hpc03.service",
-    "reader_invocation_id": "a86155339dc04e8c88bda3cb7f37ff7a",
+    "reader_unit": "wrf-cpu-production512-current3c3a-cu-simd-batch3h-r1-exact-check-hpc03.service",
+    "reader_invocation_id": "fbd54f2b7d624f0f8e630bebe512a076",
     "model_cap_seconds": 1200,
     "reader_cap_seconds": 1800,
     "memory_perhost_bytes": {
@@ -2644,15 +2673,15 @@
     "forecast_end_time": "2026-10-12_09:00:00"
   },
   "current_application_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/pbl-simd-cu-fusion-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "573209bddf596d15366374bdd4c7c4e5ebbde538a3b5ccbc64987a80f592939a"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/cu-fourcolumn-simd-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "c7f88f79f0130abdd5a3b73072a819c900cb3f3c9d9aab10241d7161d87ee633"
   },
-  "current_application_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/pbl-simd-cu-fusion-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+  "current_application_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/cu-fourcolumn-simd-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
   "current_three_hour_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/pbl-simd-cu-fusion-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "573209bddf596d15366374bdd4c7c4e5ebbde538a3b5ccbc64987a80f592939a"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/cu-fourcolumn-simd-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "c7f88f79f0130abdd5a3b73072a819c900cb3f3c9d9aab10241d7161d87ee633"
   },
-  "current_three_hour_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/pbl-simd-cu-fusion-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+  "current_three_hour_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/cu-fourcolumn-simd-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
   "current_three_hour_qualified": true,
   "current_unprofiled_three_hour_qualified": true,
   "current_fourhost512_qualified": true,
@@ -2664,5 +2693,5 @@
   "current_daylight_qualified": false,
   "current_profile_qualified": false,
   "current_native_profile_qualified": false,
-  "current_profile_scope": "No own child profile; fb13 profiles and older profiles are historical, without current-image source-PC or causal transfer."
+  "current_profile_scope": "No own child source profile; all predecessor profiles historical/noncurrent."
 }

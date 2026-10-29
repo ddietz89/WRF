@@ -1,23 +1,13 @@
-# Selected working configuration — October 29
+# Selected working configuration
 
-The selected image is `3c3a0b54`, archive `da52db9a`. It retains LW `2325b160`, MYJ `24926bfd`, Thompson `9a255bfd`, RSL `e418b187`, provider `64bb4cf2`, all 18 direct inputs and the other 590 archive payloads. Two members were replaced and one helper appended.
+Image `6bc47f88` and archive `aeb4f38f` change only the CU helper. The other 592 archive members are unchanged, including the module and PBL, LW, MYJ, and Thompson code. RSL, the output provider, and all 18 direct link inputs are preserved.
 
-Own three-hour science passed the unchanged original checker: **545 ordered steps and four FULL products**, with normal model and reader closures.
-
-| Metric | Corrected-original control, median of 3 | Combined child | Descriptive reduction |
+| Metric | Original control, median of three | Child | Descriptive reduction |
 |---|---:|---:|---:|
-| Wall minutes | 13.333735 | 10.498019 | 21.2672% |
-| Main-step elapsed minutes | 9.940841 | 8.863131 | 10.8412% |
-| Aggregate CPU core-hours | 99.813152 | 85.084204 | 14.7565% |
+| Wall minutes | 13.333735 | 10.496159 | 21.2812% |
+| Main-step elapsed minutes | 9.940841 | 8.845775 | 11.0158% |
+| Aggregate CPU core-hours | 99.813152 | 85.051337 | 14.7894% |
 
-This image owns only its unprofiled three-hour qualification. Own noon, nine-hour, profile, restart, full-144-hour, O0 and clean rebuild remain false. Parent fb13 profile/application records and older long-run records are historical. Main-step elapsed includes communication/waiting. Timing is one UNPAIRED descriptive observation versus fixed original median3; raw A2 scientific reference metrics stay separate.
+Only this image's unprofiled three-hour run on the same 512-rank configuration is qualified: 545 steps and four full outputs passed the unchanged checker, and all four model processes and the reader closed normally. Its noon, nine-hour, profile, restart, full 144-hour, O0, and clean source rebuild qualifications remain false. One CU helper changed; the other 592 archive members, including the module and PBL helper, are unchanged, as are RSL, the output provider, and all 18 direct link inputs. The failed R1 producer retains two successful links. The normally closed R2 continuation reused those exact artifacts, performed zero compiles or links, and passed all 320 complete-procedure comparisons for physical outputs, read-only inputs, and all five processor-state words. The source commit records correspondence after testing; the raw producer commit remains NULL. Timing is one unpaired descriptive observation against the fixed median of three original controls. The raw A2 scientific control remains separate. These timings do not isolate a forecast speedup caused by this helper.
 
-The finite complete PBL-region screen was 15.34% / 27.79% shorter in wall time versus the selected scalar-fused helper; the scalar CU-region screen was 10.11% / 15.89% shorter versus its original schedule. All restores, admission guards and full regions were charged. These are separate initialized region fixtures, not captured forecast inputs, whole49 timings or additive application gains.
-
-PBL SSE2 and scalar CU fusion use the existing qualified GNU Fortran/GCC 13.3 strict-O2 pure-MPI x86-64/default-kind envelope. Unlimited stack remains required.
-
-Rollback: WRF_CU_FACTOR_FUSION=0 restores originaldeepCU while retaining qualifiedPBL. WRF_PBL_FACTOR_FUSION=0 restores originalPBL and disables nestedCU admission; regenerate/recompile corresponding module/helper/archive and relink. No flags change alreadycachedimage. Immediate image rollback selects retained fb13/184d with e418/provider64bb/all18.
-
-Source commit `86c5c831` records post-test correspondence; raw producer commit stays NULL.
-
-[Component evidence and rollback](../cpu-compute/pbl-simd-cu-fusion-20261029/README.md) · [Own three-hour qualification](../cpu-compute/pbl-simd-cu-fusion-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json) · [Selected artifact binding](CURRENT_SOURCE_BUILD_BINDING.json)
+[Evidence](../cpu-compute/cu-fourcolumn-simd-20261029/README.md) · [Selected binding](CURRENT_SOURCE_BUILD_BINDING.json)

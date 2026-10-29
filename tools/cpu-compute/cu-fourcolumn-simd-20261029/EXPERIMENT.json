@@ -1,0 +1,16 @@
+{
+  "status": "OWN_UNPROFILED_THREE_HOUR_EXACT_SCIENCE_QUALIFIED",
+  "qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/cu-fourcolumn-simd-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "c7f88f79f0130abdd5a3b73072a819c900cb3f3c9d9aab10241d7161d87ee633"
+  },
+  "components": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/cu-fourcolumn-simd-20261029/COMPONENT_EVIDENCE.json",
+    "sha256": "62da4a75788acf96034776f0457f48300eb79cbb3b217556c632d49602276200"
+  },
+  "source_commit": "8d2aa02cdc5883e21640f5fb08830896e0312c1a",
+  "raw_producer_source_commit": null,
+  "forecast_gain": null,
+  "timing_gain_claim": false,
+  "scope": "Only this image's unprofiled three-hour run on the same 512-rank configuration is qualified: 545 steps and four full outputs passed the unchanged checker, and all four model processes and the reader closed normally. Its noon, nine-hour, profile, restart, full 144-hour, O0, and clean source rebuild qualifications remain false. One CU helper changed; the other 592 archive members, including the module and PBL helper, are unchanged, as are RSL, the output provider, and all 18 direct link inputs. The failed R1 producer retains two successful links. The normally closed R2 continuation reused those exact artifacts, performed zero compiles or links, and passed all 320 complete-procedure comparisons for physical outputs, read-only inputs, and all five processor-state words. The source commit records correspondence after testing; the raw producer commit remains NULL. Timing is one unpaired descriptive observation against the fixed median of three original controls. The raw A2 scientific control remains separate. These timings do not isolate a forecast speedup caused by this helper."
+}

@@ -1,0 +1,112 @@
+{
+  "status": "COMPONENT_NATIVE_COST_CACHED_CHILD_PLUS_OWN_THREE_HOUR_EXACT_SCIENCE",
+  "native": {
+    "receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentfb13-CU-fused-fourcolumn-followup-r1/genuine-whole80-same-module-native-r1-hpc02/actual-native-r1/receipt.json",
+      "sha256": "bdb32a1f4f5b9c47209c27cc17efb962ad8709f1ef8e7dc78da61e25280504d7"
+    },
+    "closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentfb13-CU-fused-fourcolumn-followup-r1/genuine-whole80-same-module-native-r1-hpc02/actual-native-r1/closure.json",
+      "sha256": "1689fc628b9fa3f4bcebc36d87617183ff24d16136c17282d0d539efc143263a"
+    },
+    "comparisons": 320,
+    "all_full49_physical_readOnly_raw_five_hard": true
+  },
+  "machine": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentfb13-CU-fused-fourcolumn-followup-r1/SCOPED_ACTUAL_NATIVE_MACHINE_ACK.json",
+    "sha256": "ab7c3415385413f21a6a90915679ea4950a771b97a681cf1347672592bf720b6"
+  },
+  "cost": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentfb13-CU-fused-fourcolumn-followup-r1/complete-fused-CU-region2048-cost-preparation-r1/ACTUAL_WAVE_R2.json",
+    "sha256": "f5e406bf7c097976489a95e736a6b0afb086e9a04f0a6530156c62ae6d86c032",
+    "scope": "The same fused CU region and role argument were used on both sides. All eight restores, the admission check, and the full region were timed for 2,048 nearest-rounding calls. Hosts 02 and 04 used opposite orders with a checked cache clear before every arm. This does not measure the whole procedure or forecast gain.",
+    "host_comparisons": {
+      "hpc02": {
+        "wall_seconds": {
+          "parent": 0.836074733,
+          "candidate": 0.650074858,
+          "percent_lower": 22.24680015536363
+        },
+        "process_cpu_seconds": {
+          "parent": 0.832469385,
+          "candidate": 0.649411372,
+          "percent_lower": 21.989759178951672
+        }
+      },
+      "hpc04": {
+        "wall_seconds": {
+          "parent": 0.75903442,
+          "candidate": 0.569049646,
+          "percent_lower": 25.0297969359545
+        },
+        "process_cpu_seconds": {
+          "parent": 0.756566446,
+          "candidate": 0.568557187,
+          "percent_lower": 24.850330066052123
+        }
+      }
+    }
+  },
+  "child": {
+    "receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentfb13-CU-fused-fourcolumn-followup-r1/current3c3a-cu-SIMD-cached-continuation-r2-hpc02/actual-native-r1/receipt.json",
+      "sha256": "e38e48eee9e326ca2399847bdb6c01ff0ec8cc3df8d1ef5575d516e48388532d"
+    },
+    "closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentfb13-CU-fused-fourcolumn-followup-r1/current3c3a-cu-SIMD-cached-continuation-r2-hpc02/actual-native-r1/closure.json",
+      "sha256": "38be10b20f01d2f8139903090e00e6393f83fd05869f3935482575a5bf907295"
+    },
+    "current_attempt_compiles": 0,
+    "current_attempt_links": 0,
+    "retained_successful_links": {
+      "application": 1,
+      "cached_native": 1
+    },
+    "cached_original_MOD_native_comparisons": 320,
+    "archive_members": 593,
+    "unchanged_members": 592,
+    "changed_members": [
+      "cu_fused_row.o"
+    ]
+  },
+  "failure_history": {
+    "cost_R1_pretiming_binding_failure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentfb13-CU-fused-fourcolumn-followup-r1/complete-fused-CU-region2048-cost-preparation-r1/R1_PRE_TIMING_BINDING_FAILURE.json",
+      "sha256": "dfc2be8e3f5120ea2c229b1dd1f77d4f3efc5c8b5eeafc1eea003855dae43ca8"
+    },
+    "failed_link_producer": {
+      "receipt": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentfb13-CU-fused-fourcolumn-followup-r1/current3c3a-cu-SIMD-cached-continuation-r2-hpc02/failed-prefix-receipt.json",
+        "sha256": "3539df6e3dd6baa133b8311d890af2a8d87ebde31bce1e7e2b576be7a4119e7b"
+      },
+      "closure": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentfb13-CU-fused-fourcolumn-followup-r1/current3c3a-cu-SIMD-cached-continuation-r2-hpc02/failed-prefix-closure.json",
+        "sha256": "73be599039043a92f83e8b0171fcbf102d0112c2cee028d51bdc88efddf93457"
+      },
+      "status": "FAIL_RETAINED_NO_RETRY",
+      "reason": "The borrowed run function returned None after two successful links and the first native call exited successfully. No R1 raw-result qualification is claimed. The normally closed R2 continuation reused the exact images and performed all four original checks."
+    }
+  },
+  "own_application": {
+    "science": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current3c3a-cu-simd-batch3h-runtime-r1/science-receipt.json",
+      "sha256": "fd119ef19952c210b171a384c4179fad01ca74c891553a57aedd318e558f5c76"
+    },
+    "reader_closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current3c3a-cu-simd-batch3h-runtime-r1/reader-closure.json",
+      "sha256": "bf4d8e6839dbf38c23fa166983c8d9492e1e4f04b03fc045e04af33a34cbb1a2"
+    },
+    "models": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current3c3a-cu-simd-batch3h-runtime-r1/candidate-metadata/model-closures.json",
+      "sha256": "2b7bf310fa255e99ed4f7b489ca57e7b4ab7d9f645653f5bc7fdd390ca8933fb"
+    },
+    "RESULT": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current3c3a-cu-simd-batch3h-runtime-r1/RESULT.json",
+      "sha256": "fe0644d8804fbc4b77c683453d4917c715ba8801669e64d82b97f6452e037b60"
+    }
+  },
+  "forecast_gain": null,
+  "canonical_source_change_only": "dyn_em/cu_fused_row.c",
+  "Make_changed": false,
+  "raw_producer_source_commit": null
+}
