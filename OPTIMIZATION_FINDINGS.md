@@ -6271,3 +6271,10 @@ This LW-copy child owns only its unprofiled SAME512 three-hour qualification: 54
 A single `OMP SIMD` directive in `add_a2c_v` generated packed instructions but failed exact numerical acceptance. In the focused center/neighbor quiet-NaN witness (case 25), `left(1,1,1)` changed from raw `ffc54321` to `7fc12345`: vector addition selected a different NaN payload. The first 24 original cases in that candidate round were exact; this does not override the failing witness. The candidate was rejected without timing or application integration, and the selected longwave-copy build is unchanged.
 
 The initial link-order failure and subsequent cached numerical failure are preserved separately; all processes closed. Evidence: campaign `current8b49-add-a2c-v-inner-i-simd-source-question-r1/finite-native-rejection-r1/DECISION.json`, SHA256 `1109369969209315d557c178b452e19e1470fcffb5c9c0c0107478345083fa09`. No tolerance or processor-state comparison was relaxed.
+
+
+## Rejected V-advection vertical-three SIMD — October 29
+
+A single SIMD directive in the third-order vertical flux producer failed exact output acceptance. The current parent passed all 134 records. The candidate passed the 126 retained comparisons, then failed the first new competing-NaN witness: `tendency(13,2,4)` changed from `ffc54321` to `7fc12345`. This witness isolates the ROM velocity inputs; state words, read-only inputs and unwritten physical storage remained exact. The remaining seven new comparisons were not executed. The receipt's 134-record counter describes the completed parent, not a candidate pass.
+
+Reject this version without timing or application integration. The earlier missing-schema packaging failure and the subsequent numerical failure remain preserved, and both jobs closed with drained cgroups. The selected longwave-copy configuration is unchanged. Evidence: campaign `current0dae-advect-v-scalar-stencil-remaining-source-question-r1/finite-native-rejection-r1/DECISION.json`, SHA256 `b2cee6f5f087f550fdb67a34cd7e83cf4a84785a0bf8dd661f8c69ff96bcb25c`. No scientific or state comparison was relaxed.
