@@ -6056,3 +6056,9 @@ The complete PBL region reductions of 21.77% and 22.05%, and guarded LW caller r
 The first reader failed before comparisons on missing original A2 metadata. Its failed receipt remains retained; exact pinned metadata was added create-only and a fresh R2 invocation passed the unchanged checker, with no model repeat or numerical gate change.
 
 Source commit `fd2d641d` records post-test correspondence only; the raw producer source commit is NULL. [Application and component evidence](tools/cpu-compute/pbl-lw-guarded-batch-20261029/README.md).
+
+## 2026-10-29: current fb13 selected-thread noon source profile
+
+The selected PBL/LW image passed the unchanged original noon checker: 185 ordered steps and two FULL products. Four selected main threads (ranks 120–123, CPU99) each recorded 15 seconds; all four retained parsers passed after normal model, recorder, watcher and reader closure. The 5,672 primary samples identify current source work only; numeric sample loss remains UNKNOWN. No timing reduction, global efficiency, wire-time or causal claim follows.
+
+The first attempt completed model/science but recorded nothing because stale nested identity checks rejected fb13. It remains preserved. A fresh run corrected only those identities, bootstrap hashes and fresh routes. Original optional report KeyErrors remain unchanged; separate parsing accepted the actual data. Existing own unprofiled three-hour results remain unchanged; own unprofiled noon and nine-hour qualification remain false. [Qualification](tools/cpu-compute/pbl-lw-guarded-batch-20261029/INSTRUMENTED_NOON_PROFILE_QUALIFICATION.json).

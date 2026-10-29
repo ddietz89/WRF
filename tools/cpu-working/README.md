@@ -14,7 +14,7 @@ Own three-hour qualification passed the unchanged original checker: **four FULL 
 
 The table compares one candidate run with three retained controls and is **unpaired descriptive evidence**. Main-step elapsed includes communication and waiting. Kernel percentages are not added to forecast results.
 
-This image owns only its three-hour application qualification. Its own noon, nine-hour, profile, restart and full-144-hour qualification remain pending. Parent `efa608eb` evidence is retained in the historical snapshot. Source commit `fd2d641d` records post-test correspondence; no clean or byte-identical rebuild is claimed.
+This image also passed its own instrumented noon check and four 15-second source-identity profiles. Its own unprofiled noon, nine-hour, restart and full-144-hour qualification remain pending. Parent `efa608eb` evidence is retained in the historical snapshot. Source commit `fd2d641d` records post-test correspondence; no clean or byte-identical rebuild is claimed.
 
 Unlimited process stack remains required. Set `WRF_PBL_FACTOR_FUSION=0` or `WRF_LW_RTRNMC_TWO_G_CHANNEL=0` and rebuild the relevant module/helper/archive and relink to opt out. The longwave path uses the existing `WRF_PHY_INTERPOLATION_SIMD=1` helper owner. Whole-image rollback selects the retained efa6/05cc configuration.
 
