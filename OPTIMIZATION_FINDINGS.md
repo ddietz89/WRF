@@ -6037,3 +6037,22 @@ Close the module-flag candidate unpromoted: no significant caller gain was demon
 Adding only `-fstack-arrays` to the exact current longwave RTRNMC procedure removed its eleven allocation/free pairs. The original 36 finite and six safe IEEE cases passed with full outputs, read-only inputs, padding and all five state words exact against the retained genuine O2 gold.
 
 The complete synthetic 33-layer, 140-gpoint mixed caller, with all eight output restores and each entire call inside the clocks, was **1.4487% shorter / 0.1720% longer in wall time** on hpc01/hpc02. Thread CPU was 1.4573% lower / 0.1664% higher. All four 20,000-call arms passed raw/state, individual cache and normal-closure checks. This weak, mixed screen establishes no significant consistent caller gain; close the fixed candidate unpromoted. No whole-longwave module or forecast was built, and no capacity saving or application speedup is claimed. [Decision and evidence](tools/cpu-compute/rtrnmc-stack-arrays-screen-20261028/README.md).
+
+
+## 2026-10-29 — PBL factor fusion and guarded two-channel LW
+
+The combined child `fb13c7be` passed its own unprofiled SAME512 three-hour original science check: 545 ordered steps and four FULL products. All four model units and the reader closed normally.
+
+| Metric | Fixed original median3 | Combined child | Descriptive reduction |
+|---|---:|---:|---:|
+| Wall minutes | 13.333735 | 10.490535 | 21.3234% |
+| Main elapsed minutes | 9.940841 | 8.857374 | 10.8991% |
+| Aggregate CPU core-hours | 99.813152 | 85.010204 | 14.8307% |
+
+The table compares one candidate run with the fixed median of three eligible original controls. It is UNPAIRED descriptive evidence; main elapsed includes communication and waiting. Raw original A2 science-control metrics remain separate.
+
+The complete PBL region reductions of 21.77% and 22.05%, and guarded LW caller reductions of 9.09% and 8.91%, are separate component measurements and are never added into an application claim. The child owns only this three-hour qualification. Its own noon, nine-hour, profile, restart, full-144-hour, and clean rebuild qualifications remain false; parent efa6 evidence is historical. MYJ dead-prestore remains unpromoted after neutral caller results.
+
+The first reader failed before comparisons on missing original A2 metadata. Its failed receipt remains retained; exact pinned metadata was added create-only and a fresh R2 invocation passed the unchanged checker, with no model repeat or numerical gate change.
+
+Source commit `fd2d641d` records post-test correspondence only; the raw producer source commit is NULL. [Application and component evidence](tools/cpu-compute/pbl-lw-guarded-batch-20261029/README.md).

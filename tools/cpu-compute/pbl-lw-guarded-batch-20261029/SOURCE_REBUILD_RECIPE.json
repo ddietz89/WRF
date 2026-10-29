@@ -1,0 +1,79 @@
+{
+  "status": "POST_TEST_SOURCE_CORRESPONDENCE_CACHED_OVERLAY_NOT_CLEAN_SOURCE_BUILD",
+  "post_test_source_commit": "fd2d641d7700ec5f59f662a1d6b846e5f595cbfe",
+  "raw_producer_source_commit": null,
+  "canonical_sources": {
+    "dyn_em/module_em.F": {
+      "path": "/home/ddietz/wrf/WRF/dyn_em/module_em.F",
+      "sha256": "c89578c54ab9c5c0871d1be62f4d94d47da93a95d413615b8894a1b72d7154ed"
+    },
+    "dyn_em/pbl_fused_row.c": {
+      "path": "/home/ddietz/wrf/WRF/dyn_em/pbl_fused_row.c",
+      "sha256": "7eab272eeaa5c4e48a7a150ef49b94646d16c06c68d01a6b05b4c34cb6d2bb53"
+    },
+    "dyn_em/Makefile": {
+      "path": "/home/ddietz/wrf/WRF/dyn_em/Makefile",
+      "sha256": "36ffaf01e1523134cbb4ed339914723ed0f31e2a4c160de0a57b3de31812f968"
+    },
+    "phys/module_ra_rrtmg_lw.F": {
+      "path": "/home/ddietz/wrf/WRF/phys/module_ra_rrtmg_lw.F",
+      "sha256": "f39e0854531c581d26b2b82dfd3dc71e69414184cbd33f75ff38cdfe3b696e9d"
+    },
+    "phys/Makefile": {
+      "path": "/home/ddietz/wrf/WRF/phys/Makefile",
+      "sha256": "80f8da2d3068856b919e517d8e3f4617459b077d09d0c04e8b02d0e9f834cb41"
+    }
+  },
+  "build_receipt": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentefa6-PBL-cross-pass-factor-fusion-source-question-r1/combined-PBL-LW-cached-build-preparation-r1-hpc03/actual-native-r1/receipt.json",
+    "sha256": "6165043e5caf1e47ba7fc4d6e87b333ef2129e878967c6306c03478da0e4600e"
+  },
+  "build_closure": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentefa6-PBL-cross-pass-factor-fusion-source-question-r1/combined-PBL-LW-cached-build-preparation-r1-hpc03/actual-native-r1/closure.json",
+    "sha256": "0e1ae3bf468025a14df7cc925393f48ac35483d80f8427730f4b7e516c1edf06"
+  },
+  "changed_member_pins": {
+    "module_em.o": "1281736c7779978650b1f4dda548483d0db2f720a32fa1f3f2f65d3bff9f36be",
+    "module_ra_rrtmg_lw.o": "2325b160d2efdfaff6c4b9a2e494c34705b0ed73da9c34d116db005c2cc152bf"
+  },
+  "added_member_pins": {
+    "pbl_fused_row.o": "3571340fc9292b5169609c7da7f0503b6ef70259e39860c467ff1c0a531fe1bf"
+  },
+  "original_archive_members": 591,
+  "new_archive_members": 592,
+  "unchanged_original_members": 589,
+  "selected_direct_link_input_pins": {
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tcg-twelve-owner-canonical-current-r1/candidate/wrf.o": "33251ef3f1810d6dfbd5571943b80cc15f92c16f9cc03bb661b2ca945a48769d",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tcg-twelve-owner-canonical-current-r1/candidate/module_wrf_top.o": "65001523868ea86923d536b595270eb74ae85d4d8aab722975e6cd5e72b493f1",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o": "3a94b6864d7b3d2df4efc4f1afabe6dd519b6f73c9785738f219e6206727e4ec",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o": "54be5b6686914b8496b3d451205582b7bf854f23e52176c13ab34f66255946d4",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o": "4f037f15d1dc99ac826fccdfbf500221ae63132896e90a627446bc3fff8b8263",
+    "/pool/wrf-experiment/wrf-cpu/kernels/hpg-nhx-isolated-avx2-consumer-native-r3/work/nhx-helper-O2.o": "ae13adfa248c9613be20c56bd1f8e77a3ff8d79a985ffb163acc16be629d0f8c",
+    "/pool/wrf-experiment/wrf-cpu/kernels/phy-height-private-avx2-fixed8-native-hpc04-r1/work/helper-O2.o": "b6a707c4f00670eb6611e45513381d275b31c82fe7c6bf08d548de286b9a0467",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a": "43440c838a792ee55cdb93165c7996173df197d3e6afbd9c69e196b64b869a34",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a": "fa5423d57121eae7505cd464e0a9826c36eadf91a6a884aee96f6a7aa4279a29",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a": "93675f19d4c2d39ff9de6909f76e4ccddf0844440abe38fa37aea97bb42fb4f0",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a": "a06e4111dbb308bbe94c1cb2c0e21c608fde3e906dec74a10910b5842cac5ca0",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o": "175cbd87243a7ff3412f1850e76dac102eb4edc5db684bfdc97d419694d44a78",
+    "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o": "8ab87436bdb22d9d0ef3c1257e25f415727ede16be8535b8e037832a12fe9752",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90/libesmf_time.a": "4c1ebf810767e36db24471cac830970afb2c440eb241f4664b1d3398ecf0f84a",
+    "/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib/libnetcdff.so": "e271f9b96203b03c2e21f9e044b4cbe13534f309b100ae369dd0799fa7a2a6d6",
+    "/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib/libnetcdf.so": "7036a91b172b3f1171c1ebd86813a208a302cf9145013d58611570cfa12e2780",
+    "/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2/libwrfio_nf.a": "651835f31089e16759177734198ece5b121d704355c73abddde483f4cae2c14c",
+    "/pool/wrf-experiment/wrf-cpu/builds/current1d16-rsl-early-y-production-archive-r1/librsl_lite.a": "e418b187e8c88f5dc436ca44ce32ff23f75ac11a45ce3db214ff4fc40bb1fddc"
+  },
+  "RSL_archive": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current1d16-rsl-early-y-production-archive-r1/librsl_lite.a",
+    "sha256": "e418b187e8c88f5dc436ca44ce32ff23f75ac11a45ce3db214ff4fc40bb1fddc"
+  },
+  "runtime_output_provider": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current0dd6-rowcursor-native-hpc02-r1/output/liboutput_world512_rowcursor.so",
+    "sha256": "64bb4cf2744799056e25be48b166a7a4703f525b08acff1bf898cd7941e8a643",
+    "provider_source_sha256": "d38dfa0c9d75b04f28bab346be8182fae6d32c89960f727bf8c06f24ce5aee58",
+    "guard_source_sha256": "801e29cc8406d0200dee1557e4263d3ce4db46d750b63b9371083b633c952150"
+  },
+  "native_failures_preserved": true,
+  "raw_public_MOD_identity_not_globally_claimed": true,
+  "rollback": "Set WRF_PBL_FACTOR_FUSION=0 and WRF_LW_RTRNMC_TWO_G_CHANNEL=0; regenerate/recompile corresponding module/helper ownership/archive/relink real image. Immediate image rollback selects retained efa6/05cc with unchanged e418/provider64bb; cached old image is not changed by Make optout.",
+  "scope": "The combined PBL/LW child passed its own unprofiled SAME512 three-hour run from 06:00 to 09:00: 545 ordered steps and four FULL outputs passed the unchanged original checker. All models and the reader closed normally. Parent efa6 own noon/nine-hour/profile evidence is historical, never inherited. The child has no own noon, nine-hour, profile, native-profile, restart, full-144-hour, O0, or clean source rebuild qualification. Timing is one UNPAIRED descriptive candidate versus fixed median of three eligible original controls (A2, A1, and 5c75). Raw A2 science-control metrics remain separate. Main elapsed includes communication/waiting; no per-kernel/additive/isolated/repeatable forecast gain claim. The cached overlay uses 592 members: 589 original members unchanged, two replaced, and one helper added. It used zero compiles and one link. RSL e418, provider 64bb, and all 18 direct inputs remain unchanged. Canonical source correspondence was established after testing; the raw producer source commit is NULL. Integer-mask/descriptor guards retain original fallbacks; unmasked-trap dynamic qualification false."
+}

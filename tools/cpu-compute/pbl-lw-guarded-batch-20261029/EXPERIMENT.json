@@ -1,0 +1,32 @@
+{
+  "status": "OWN_UNPROFILED_THREE_HOUR_EXACT_SCIENCE_QUALIFIED",
+  "qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/pbl-lw-guarded-batch-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "a1f9be57b8fac6d49a808af304240c6095de9a0f6ee45d592c17760769b0ea7a"
+  },
+  "components": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/pbl-lw-guarded-batch-20261029/COMPONENT_EVIDENCE.json",
+    "sha256": "f78e8ada4e3805bc82cfacb50fba37b680aabd1dad3f5fa8670a2ee4447d0227"
+  },
+  "qualification_scope": {
+    "full144_qualified": false,
+    "native_profile_qualified": false,
+    "own_384_qualified": false,
+    "own_fourhost512_qualified": true,
+    "own_instrumented_noon_one_hour_qualified": false,
+    "own_nine_hour_qualified": false,
+    "own_noon_one_hour_qualified": false,
+    "own_three_hour_qualified": true,
+    "own_threehost256_threehour_qualified": false,
+    "own_unprofiled_nine_hour_qualified": false,
+    "own_unprofiled_noon_one_hour_qualified": false,
+    "own_unprofiled_three_hour_qualified": true,
+    "profile_qualified": false,
+    "restart_qualified": false,
+    "clean_full_source_build_qualified": false
+  },
+  "source_commit": "fd2d641d7700ec5f59f662a1d6b846e5f595cbfe",
+  "raw_producer_source_commit": null,
+  "timing_gain_claim": false,
+  "scope": "The combined PBL/LW child passed its own unprofiled SAME512 three-hour run from 06:00 to 09:00: 545 ordered steps and four FULL outputs passed the unchanged original checker. All models and the reader closed normally. Parent efa6 own noon/nine-hour/profile evidence is historical, never inherited. The child has no own noon, nine-hour, profile, native-profile, restart, full-144-hour, O0, or clean source rebuild qualification. Timing is one UNPAIRED descriptive candidate versus fixed median of three eligible original controls (A2, A1, and 5c75). Raw A2 science-control metrics remain separate. Main elapsed includes communication/waiting; no per-kernel/additive/isolated/repeatable forecast gain claim. The cached overlay uses 592 members: 589 original members unchanged, two replaced, and one helper added. It used zero compiles and one link. RSL e418, provider 64bb, and all 18 direct inputs remain unchanged. Canonical source correspondence was established after testing; the raw producer source commit is NULL. Integer-mask/descriptor guards retain original fallbacks; unmasked-trap dynamic qualification false."
+}
