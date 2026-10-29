@@ -1222,3 +1222,10 @@ endif
 endif
 endif
 endif
+
+# Two sampled TAUMOL fs1 sites: enabled only under the existing qualified LW build.
+# Fortran also checks binary32 REAL and 32-bit INTEGER; unsupported precision uses literal MOD.
+WRF_LW_TAUMOL_FS1_REUSE ?= 1
+ifeq ($(WRF_LW_TAUMOL_FS1_REUSE),0)
+module_ra_rrtmg_lw.o: private override CPPFLAGS += -DWRF_LW_TAUMOL_FS1_REUSE_DISABLE
+endif

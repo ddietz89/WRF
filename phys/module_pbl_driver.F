@@ -1057,12 +1057,12 @@ CONTAINS
                ENDDO
             ENDDO
          ENDIF
-
+         IF (bl_pbl_physics .NE. MYJPBLSCHEME) THEN
          DO i=i_start(ij),i_end(ij)
 ! PSFC : in Pa
             PSFC(I,J)=p8w(I,kms,J)
          ENDDO
-
+         ENDIF
          IF ( kts .LE. min(kte+1,kde) ) THEN
             DO k=kts,min(kte+1,kde)
                DO i=i_start(ij),i_end(ij)

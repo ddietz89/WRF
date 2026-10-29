@@ -5778,6 +5778,9 @@ contains
 ! Local 
       integer(kind=im) :: lay, ind0, ind1, inds, indf, indm, ig
       integer(kind=im) :: js, js1, jmn2o, jpl
+#if defined(WRF_LW_RTRNMC_TWO_G_CHANNEL_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_LW_TAUMOL_FS1_REUSE_DISABLE)
+      integer(kind=im) :: fraction_bits, fraction_exponent
+#endif
       real(kind=rb) :: speccomb, specparm, specmult, fs
       real(kind=rb) :: speccomb1, specparm1, specmult1, fs1
       real(kind=rb) :: speccomb_mn2o, specparm_mn2o, specmult_mn2o, &
@@ -5827,7 +5830,29 @@ contains
          if (specparm1 .ge. oneminus) specparm1 = oneminus
          specmult1 = 8._rb*(specparm1)
          js1 = 1 + int(specmult1)
+#if defined(WRF_LW_RTRNMC_TWO_G_CHANNEL_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_LW_TAUMOL_FS1_REUSE_DISABLE)
+         if(storage_size(specmult1)==32 .and. bit_size(fraction_bits)==32 .and. &
+            radix(specmult1)==2 .and. digits(specmult1)==24 .and. maxexponent(specmult1)==128) then
+            fraction_bits = transfer(specmult1,fraction_bits)
+            fraction_exponent = iand(fraction_bits,int(z'7f800000',im))
+            if (fraction_bits>=0 .and. (fraction_bits==0 .or. &
+                (fraction_exponent/=0 .and. fraction_exponent/=int(z'7f800000',im))) &
+                .and. js1>=1 .and. js1<=9) then
+               if (js1==1) then
+                  fs1=specmult1
+               else
+                  fs1=specmult1-real(js1-1,rb)
+                  if(fs1==0._rb) fs1=0._rb
+               endif
+            else
+               fs1=mod(specmult1,1.0_rb)
+            endif
+         else
+            fs1=mod(specmult1,1.0_rb)
+         endif
+#else
          fs1 = mod(specmult1,1.0_rb)
+#endif
 
          speccomb_mn2o = colh2o(lay) + refrat_m_a*colco2(lay)
          specparm_mn2o = colh2o(lay)/speccomb_mn2o
@@ -6004,7 +6029,29 @@ contains
          if (specparm1 .ge. oneminus) specparm1 = oneminus
          specmult1 = 4._rb*(specparm1)
          js1 = 1 + int(specmult1)
+#if defined(WRF_LW_RTRNMC_TWO_G_CHANNEL_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_LW_TAUMOL_FS1_REUSE_DISABLE)
+         if(storage_size(specmult1)==32 .and. bit_size(fraction_bits)==32 .and. &
+            radix(specmult1)==2 .and. digits(specmult1)==24 .and. maxexponent(specmult1)==128) then
+            fraction_bits = transfer(specmult1,fraction_bits)
+            fraction_exponent = iand(fraction_bits,int(z'7f800000',im))
+            if (fraction_bits>=0 .and. (fraction_bits==0 .or. &
+                (fraction_exponent/=0 .and. fraction_exponent/=int(z'7f800000',im))) &
+                .and. js1>=1 .and. js1<=9) then
+               if (js1==1) then
+                  fs1=specmult1
+               else
+                  fs1=specmult1-real(js1-1,rb)
+                  if(fs1==0._rb) fs1=0._rb
+               endif
+            else
+               fs1=mod(specmult1,1.0_rb)
+            endif
+         else
+            fs1=mod(specmult1,1.0_rb)
+         endif
+#else
          fs1 = mod(specmult1,1.0_rb)
+#endif
 
          fac000 = (1._rb - fs) * fac00(lay)
          fac010 = (1._rb - fs) * fac10(lay)
