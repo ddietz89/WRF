@@ -1,19 +1,13 @@
 # Selected working configuration
 
-Image `31a40b14` changes only the LW member; 592 other members and all direct inputs remain unchanged.
-
-Own unprofiled three-hour timing remains unchanged:
+Image `8b49ecdc` changes only BigStep and SW members; 591 other members and all direct inputs remain unchanged.
 
 | Metric | Original control, median of three | Child | Descriptive reduction |
 |---|---:|---:|---:|
-| Wall minutes | 13.333735 | 10.515430 | 21.1367% |
-| Main-step elapsed minutes | 9.940841 | 8.861602 | 10.8566% |
-| Aggregate CPU core-hours | 99.813152 | 85.187000 | 14.6535% |
+| Wall minutes | 13.333735 | 10.484125 | 21.3714% |
+| Main-step elapsed minutes | 9.940841 | 8.841737 | 11.0564% |
+| Aggregate CPU core-hours | 99.813152 | 84.971871 | 14.8691% |
 
-This image owns its unprofiled three-hour qualification (545 steps and four full outputs) and separate instrumented noon source-identity evidence (185 steps, two full outputs and four selected-thread recordings). All original scientific checks passed and all scopes closed. Own unprofiled noon, nine-hour, restart, full 144-hour and clean full-source rebuild scopes remain false. Direct parent 7f26 owns its exact nine-hour science, which remains historical. Only module_ra_rrtmg_lw.o changed; 592 archive members, RSL, provider and all 18 direct inputs remain unchanged. Exactly five sampled lower fractions across bands 5, 13, 15 and 16 reuse their original integer conversions under binary32/int32 admission with literal fallback. Sixteen genuine-table complete TAUMOL calls passed full outputs, read-only inputs, guards and all five processor state words, with 44 positive-normal admission witnesses at each new site in both roles. One fixed 20,000-call comparison per host measured 1.24% and 2.82% lower complete caller wall time and 1.17%/2.74% lower process CPU, including full output restores and all callee work. These bounded observations establish no forecast gain or repeatability. Earlier 50–54% primitive gain is separate formula evidence. Three-hour application timing is one unpaired descriptive observation versus the fixed median of three original controls; raw A2 stays separate. Source correspondence is post-test; raw producer commit remains NULL.
+This child owns only its unprofiled SAME512 three-hour qualification: 545 steps and four full outputs passed the unchanged original checker, with all four models and the reader normally closed. Own nine-hour, noon, profile, restart, full 144-hour and clean full-source rebuild qualifications remain false. Direct parent 31a4 three-hour and instrumented-noon/source-profile evidence remains historical. Only the BigStep and shortwave members changed; 591 other archive members, RSL, the provider and all 18 direct inputs remain unchanged. W computes a four-column prefix with the original scalar tail. All 128 complete-couple native observations preserve full physical outputs, read-only inputs, guards and five processor state words. Actual packed division and original scalar operand directions are verified. Its fixed 4,096-call complete synthetic comparison, including all three output restores, took 28.47% and 31.03% less wall time, with matching thread CPU reductions. CSW skips only a cloud-snow initialization rectangle overwritten by the original downstream copy. All 64 complete-INATM observations preserve full outputs, read-only inputs, guards and five state words. The target and 30 other module files are byte-exact; the top wrapper retains its raw difference and strict typed-reference equivalence proof. Its complete 33-layer ice5 caller with output reuse took 11.21% and 11.46% less wall time. These separate bounded caller observations are not additive and establish no isolated or global forecast gain or repeatability. Application timing is one unpaired descriptive observation against the fixed median of three original controls; raw A2 remains separate. Source correspondence is post-test; the raw producer commit remains NULL.
 
-[Evidence](../cpu-compute/taumol-final-five-fractions-20261029/README.md) · [Selected binding](CURRENT_SOURCE_BUILD_BINDING.json)
-
-### Instrumented noon source profile
-
-The instrumented noon run qualifies source identity for four selected main threads only. Its 5,667 primary records have unknown numeric sample loss and numeric ELF build ID. Original optional-report KeyErrors are retained; separate parsers passed. Existing unprofiled three-hour timing and qualification are unchanged. No global efficiency, timing gain, pure-compute or causal claim follows. See [qualification](../cpu-compute/taumol-final-five-fractions-20261029/INSTRUMENTED_NOON_PROFILE_QUALIFICATION.json).
+[Evidence](../cpu-compute/couple-w-csw-batch-20261029/README.md) · [Selected binding](CURRENT_SOURCE_BUILD_BINDING.json)

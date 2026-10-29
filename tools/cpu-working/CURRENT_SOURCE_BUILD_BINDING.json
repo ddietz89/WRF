@@ -9,8 +9,8 @@
     "BC_module_local_flag": "-fopenmp-simd",
     "BC_flag_scope": "Required only for qualified module_bc.F recipe; no global fast math/flags change. Generic builds without this flag do not claim BC SIMD.",
     "source_rebuild_recipe": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/taumol-final-five-fractions-20261029/SOURCE_REBUILD_RECIPE.json",
-      "sha256": "ad8e132e13fdb1e24c219abe6e0e23e9b437e535a9aba861831f3ac158af0866"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/couple-w-csw-batch-20261029/SOURCE_REBUILD_RECIPE.json",
+      "sha256": "fbbdf0ce6e35fa1351e339a4f632c710f9a3f6ee5aaa657fa65150bfee948145"
     },
     "theta_SW_source_recipes": {
       "theta": "tools/cpu-compute/theta-sw-batch/theta/REBUILD_RECIPE.json",
@@ -18,7 +18,7 @@
       "scope": "Frozen actual overlay recipes over f4b; canonical sources equal posttestcommit. PriorcalcBCrebuild is parent-only evidence; no wholea50e source-reproduction claim."
     },
     "parent_calc_BC_source_rebuild_recipe": "tools/cpu-compute/calc-php-bc-simd/source-rebuild/README.md",
-    "source_rebuild_scope": "This image is qualified only for its own unprofiled three-hour run on the same 512-rank configuration: 545 steps and four full outputs passed the unchanged original checker, with all four models and reader normally closed. Own nine-hour, noon, profile, restart, full 144-hour and clean full-source rebuild scopes remain false. Direct parent 7f26 owns its exact nine-hour science, which remains historical. Only module_ra_rrtmg_lw.o changed; 592 archive members, RSL, provider and all 18 direct inputs remain unchanged. Exactly five sampled lower fractions across bands 5, 13, 15 and 16 reuse their original integer conversions under binary32/int32 admission with literal fallback. Sixteen genuine-table complete TAUMOL calls passed full outputs, read-only inputs, guards and all five processor state words, with 44 positive-normal admission witnesses at each new site in both roles. One fixed 20,000-call comparison per host measured 1.24% and 2.82% lower complete caller wall time and 1.17%/2.74% lower process CPU, including full output restores and all callee work. These bounded observations establish no forecast gain or repeatability. Earlier 50\u201354% primitive gain is separate formula evidence. Three-hour application timing is one unpaired descriptive observation versus the fixed median of three original controls; raw A2 stays separate. Source correspondence is post-test; raw producer commit remains NULL.",
+    "source_rebuild_scope": "This child owns only its unprofiled SAME512 three-hour qualification: 545 steps and four full outputs passed the unchanged original checker, with all four models and the reader normally closed. Own nine-hour, noon, profile, restart, full 144-hour and clean full-source rebuild qualifications remain false. Direct parent 31a4 three-hour and instrumented-noon/source-profile evidence remains historical. Only the BigStep and shortwave members changed; 591 other archive members, RSL, the provider and all 18 direct inputs remain unchanged. W computes a four-column prefix with the original scalar tail. All 128 complete-couple native observations preserve full physical outputs, read-only inputs, guards and five processor state words. Actual packed division and original scalar operand directions are verified. Its fixed 4,096-call complete synthetic comparison, including all three output restores, took 28.47% and 31.03% less wall time, with matching thread CPU reductions. CSW skips only a cloud-snow initialization rectangle overwritten by the original downstream copy. All 64 complete-INATM observations preserve full outputs, read-only inputs, guards and five state words. The target and 30 other module files are byte-exact; the top wrapper retains its raw difference and strict typed-reference equivalence proof. Its complete 33-layer ice5 caller with output reuse took 11.21% and 11.46% less wall time. These separate bounded caller observations are not additive and establish no isolated or global forecast gain or repeatability. Application timing is one unpaired descriptive observation against the fixed median of three original controls; raw A2 remains separate. Source correspondence is post-test; the raw producer commit remains NULL.",
     "SPCVMC_module_local_flag": "-fopenmp-simd",
     "SPCVMC_source_recipe": "tools/cpu-compute/spcvmc-optical-producer/REBUILD_RECIPE.json",
     "HPG_NHX_CONSUMER_source_recipe": "tools/cpu-compute/hpg-nhx-consumer-simd/REBUILD_RECIPE.json",
@@ -297,7 +297,7 @@
       "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/spcvmc-current-column-scratch-20261026/SOURCE_REBUILD_RECIPE.json",
       "sha256": "8655637d20fb5f3a84a3c608f871868f37bf081af5d4d037bffdc68a220d2713"
     },
-    "source_rebuild_recipe_sha256": "ad8e132e13fdb1e24c219abe6e0e23e9b437e535a9aba861831f3ac158af0866",
+    "source_rebuild_recipe_sha256": "fbbdf0ce6e35fa1351e339a4f632c710f9a3f6ee5aaa657fa65150bfee948145",
     "WRF_PHY_INTERPOLATION_SIMD": 1,
     "PHY_INTERPOLATION_SIMD_delivery": {
       "WRF_PHY_INTERPOLATION_SIMD": 1,
@@ -515,6 +515,18 @@
       },
       "scope": "This image is qualified only for its own unprofiled three-hour run on the same 512-rank configuration: 545 steps and four full outputs passed the unchanged original checker, with all four models and reader normally closed. Own nine-hour, noon, profile, restart, full 144-hour and clean full-source rebuild scopes remain false. Direct parent 7f26 owns its exact nine-hour science, which remains historical. Only module_ra_rrtmg_lw.o changed; 592 archive members, RSL, provider and all 18 direct inputs remain unchanged. Exactly five sampled lower fractions across bands 5, 13, 15 and 16 reuse their original integer conversions under binary32/int32 admission with literal fallback. Sixteen genuine-table complete TAUMOL calls passed full outputs, read-only inputs, guards and all five processor state words, with 44 positive-normal admission witnesses at each new site in both roles. One fixed 20,000-call comparison per host measured 1.24% and 2.82% lower complete caller wall time and 1.17%/2.74% lower process CPU, including full output restores and all callee work. These bounded observations establish no forecast gain or repeatability. Earlier 50\u201354% primitive gain is separate formula evidence. Three-hour application timing is one unpaired descriptive observation versus the fixed median of three original controls; raw A2 stays separate. Source correspondence is post-test; raw producer commit remains NULL.",
       "rollback": "Reselect retained 7f268b11/e20d77b3. For source rollback set WRF_LW_TAUMOL_FIVE_SAMPLED_FRACTIONS_REUSE=0, rebuild only module_ra_rrtmg_lw.o and relink; retain every other component."
+    },
+    "W_CSW_delivery": {
+      "qualification": {
+        "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/couple-w-csw-batch-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+        "sha256": "ee070d131b9bcc0d5cb6a3d6d4e3824c4816146eb02f89d487a0d56bc72497f8"
+      },
+      "recipe": {
+        "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/couple-w-csw-batch-20261029/SOURCE_REBUILD_RECIPE.json",
+        "sha256": "fbbdf0ce6e35fa1351e339a4f632c710f9a3f6ee5aaa657fa65150bfee948145"
+      },
+      "scope": "This child owns only its unprofiled SAME512 three-hour qualification: 545 steps and four full outputs passed the unchanged original checker, with all four models and the reader normally closed. Own nine-hour, noon, profile, restart, full 144-hour and clean full-source rebuild qualifications remain false. Direct parent 31a4 three-hour and instrumented-noon/source-profile evidence remains historical. Only the BigStep and shortwave members changed; 591 other archive members, RSL, the provider and all 18 direct inputs remain unchanged. W computes a four-column prefix with the original scalar tail. All 128 complete-couple native observations preserve full physical outputs, read-only inputs, guards and five processor state words. Actual packed division and original scalar operand directions are verified. Its fixed 4,096-call complete synthetic comparison, including all three output restores, took 28.47% and 31.03% less wall time, with matching thread CPU reductions. CSW skips only a cloud-snow initialization rectangle overwritten by the original downstream copy. All 64 complete-INATM observations preserve full outputs, read-only inputs, guards and five state words. The target and 30 other module files are byte-exact; the top wrapper retains its raw difference and strict typed-reference equivalence proof. Its complete 33-layer ice5 caller with output reuse took 11.21% and 11.46% less wall time. These separate bounded caller observations are not additive and establish no isolated or global forecast gain or repeatability. Application timing is one unpaired descriptive observation against the fixed median of three original controls; raw A2 remains separate. Source correspondence is post-test; the raw producer commit remains NULL.",
+      "rollback": "Reselect retained 31a4/7a94; or set WRF_COUPLE_MOMENTUM_W_SIMD=0 and WRF_SW_INATM_CSW_INIT_SKIP=0, regenerate and rebuild only the BigStep and SW members, then relink. Preserve all prior components."
     }
   },
   "private_hdf5": {
@@ -543,20 +555,20 @@
     "component_closure_sha256": "d77bf34ae3d4a30068ab5998908a3560bfb68eaa0b5ab8baa47dc8814758d590"
   },
   "activation": "Working qualification metadata only; fresh root-authorized SAME512 lease/map/current guard, resources and exact runtime checks required. No production deployment.",
-  "status": "PASS_OWN_UNPROFILED_SAME512_TAUMOL_FINAL_FIVE_THREE_HOUR_545_FOUR_FULL",
-  "source_commit": "c3c21c54205a463de3bcc6cf5dcb0bab6514c6ed",
-  "source_commit_scope": "This image is qualified only for its own unprofiled three-hour run on the same 512-rank configuration: 545 steps and four full outputs passed the unchanged original checker, with all four models and reader normally closed. Own nine-hour, noon, profile, restart, full 144-hour and clean full-source rebuild scopes remain false. Direct parent 7f26 owns its exact nine-hour science, which remains historical. Only module_ra_rrtmg_lw.o changed; 592 archive members, RSL, provider and all 18 direct inputs remain unchanged. Exactly five sampled lower fractions across bands 5, 13, 15 and 16 reuse their original integer conversions under binary32/int32 admission with literal fallback. Sixteen genuine-table complete TAUMOL calls passed full outputs, read-only inputs, guards and all five processor state words, with 44 positive-normal admission witnesses at each new site in both roles. One fixed 20,000-call comparison per host measured 1.24% and 2.82% lower complete caller wall time and 1.17%/2.74% lower process CPU, including full output restores and all callee work. These bounded observations establish no forecast gain or repeatability. Earlier 50\u201354% primitive gain is separate formula evidence. Three-hour application timing is one unpaired descriptive observation versus the fixed median of three original controls; raw A2 stays separate. Source correspondence is post-test; raw producer commit remains NULL.",
+  "status": "PASS_OWN_UNPROFILED_SAME512_W_CSW_BATCH_THREE_HOUR_545_FOUR_FULL",
+  "source_commit": "2f66ec72373ef928e1643ca8f8c0905a2243e232",
+  "source_commit_scope": "This child owns only its unprofiled SAME512 three-hour qualification: 545 steps and four full outputs passed the unchanged original checker, with all four models and the reader normally closed. Own nine-hour, noon, profile, restart, full 144-hour and clean full-source rebuild qualifications remain false. Direct parent 31a4 three-hour and instrumented-noon/source-profile evidence remains historical. Only the BigStep and shortwave members changed; 591 other archive members, RSL, the provider and all 18 direct inputs remain unchanged. W computes a four-column prefix with the original scalar tail. All 128 complete-couple native observations preserve full physical outputs, read-only inputs, guards and five processor state words. Actual packed division and original scalar operand directions are verified. Its fixed 4,096-call complete synthetic comparison, including all three output restores, took 28.47% and 31.03% less wall time, with matching thread CPU reductions. CSW skips only a cloud-snow initialization rectangle overwritten by the original downstream copy. All 64 complete-INATM observations preserve full outputs, read-only inputs, guards and five state words. The target and 30 other module files are byte-exact; the top wrapper retains its raw difference and strict typed-reference equivalence proof. Its complete 33-layer ice5 caller with output reuse took 11.21% and 11.46% less wall time. These separate bounded caller observations are not additive and establish no isolated or global forecast gain or repeatability. Application timing is one unpaired descriptive observation against the fixed median of three original controls; raw A2 remains separate. Source correspondence is post-test; the raw producer commit remains NULL.",
   "raw_producer_source_commit": null,
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/current7f26-taumol-final-five-experimental-r1/wrf.exe",
-    "sha256": "31a40b14dcc86876c779e65e7765d0a29d6da8c296abd17b0aaa8941ddae6a75"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current31a4-W-CSW-experimental-r1/wrf.exe",
+    "sha256": "8b49ecdc687dc8f4f4870016dfac6e0e7da7988ef0957902e819dceb1966bc16"
   },
   "archive": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/current7f26-taumol-final-five-experimental-r1/libwrflib.a",
-    "sha256": "7a947696fd1e17fff8adaf2f45c90efc7b1c231394b9fab6290a2834a4d2ed62"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current31a4-W-CSW-experimental-r1/libwrflib.a",
+    "sha256": "651f21ce7ad405183d5db700015d2eeb7d42bb8fd46c8de194c2e6e673c0c05e"
   },
-  "archive_path": "/pool/wrf-experiment/wrf-cpu/builds/current7f26-taumol-final-five-experimental-r1/libwrflib.a",
-  "archive_sha256": "7a947696fd1e17fff8adaf2f45c90efc7b1c231394b9fab6290a2834a4d2ed62",
+  "archive_path": "/pool/wrf-experiment/wrf-cpu/builds/current31a4-W-CSW-experimental-r1/libwrflib.a",
+  "archive_sha256": "651f21ce7ad405183d5db700015d2eeb7d42bb8fd46c8de194c2e6e673c0c05e",
   "RSL_archive": {
     "path": "/pool/wrf-experiment/wrf-cpu/builds/current1d16-rsl-early-y-production-archive-r1/librsl_lite.a",
     "sha256": "e418b187e8c88f5dc436ca44ce32ff23f75ac11a45ce3db214ff4fc40bb1fddc"
@@ -566,7 +578,7 @@
   "sources": {
     "module_ra_rrtmg_sw.F": {
       "path": "/home/ddietz/wrf/WRF/phys/module_ra_rrtmg_sw.F",
-      "sha256": "8e81a7c29c2480db51aa61f7643550d34f8649d3f2e9b1bb98168b0066e3d456"
+      "sha256": "54b8c0cf2853b1602dcc22d8518440f1e909da7f61b5737235aa66f5c90c512e"
     },
     "module_ra_rrtmg_lw.F": {
       "path": "/home/ddietz/wrf/WRF/phys/module_ra_rrtmg_lw.F",
@@ -582,15 +594,15 @@
     },
     "phys/Makefile": {
       "path": "/home/ddietz/wrf/WRF/phys/Makefile",
-      "sha256": "5fc30ef5e4452ba729c1ddcff271f42735961f6a438b6a95af9d90f89f33a112"
+      "sha256": "9a927e69873f07e7bb9d96567465d6f5f3c200c448a778872866af7c88ecff7d"
     },
     "dyn_em/Makefile": {
       "path": "/home/ddietz/wrf/WRF/dyn_em/Makefile",
-      "sha256": "2018afb37b204147eedc8ac68dfe308bb63e7787d22f498fffa21cf96ffc0f26"
+      "sha256": "b1e5a2670fc6022c0b267fa7ac0d626affece1d7d251ac791376f585ed8a1acf"
     },
     "dyn_em/module_big_step_utilities_em.F": {
       "path": "/home/ddietz/wrf/WRF/dyn_em/module_big_step_utilities_em.F",
-      "sha256": "750fbdbe4f8bde363b0059d5b8497ddfe2db42242549a6f5513957e53f28a88d"
+      "sha256": "21aaf97d4c13397b0cea9f46137222b0334647171e313da6cdec4abd84f876c6"
     },
     "phys/module_mp_thompson.F": {
       "path": "/home/ddietz/wrf/WRF/phys/module_mp_thompson.F",
@@ -695,19 +707,27 @@
     "module_pbl_driver.F": {
       "path": "/home/ddietz/wrf/WRF/phys/module_pbl_driver.F",
       "sha256": "1d36b9b1fc9a3353f5324126643917791d9f6cf0a79ceee6f9cf89b611aa18e5"
+    },
+    "module_big_step_utilities_em.F": {
+      "path": "/home/ddietz/wrf/WRF/dyn_em/module_big_step_utilities_em.F",
+      "sha256": "21aaf97d4c13397b0cea9f46137222b0334647171e313da6cdec4abd84f876c6"
+    },
+    "phys/module_ra_rrtmg_sw.F": {
+      "path": "/home/ddietz/wrf/WRF/phys/module_ra_rrtmg_sw.F",
+      "sha256": "54b8c0cf2853b1602dcc22d8518440f1e909da7f61b5737235aa66f5c90c512e"
     }
   },
   "source_correspondence": {
-    "post_test_source_commit": "c3c21c54205a463de3bcc6cf5dcb0bab6514c6ed",
+    "post_test_source_commit": "2f66ec72373ef928e1643ca8f8c0905a2243e232",
     "raw_producer_source_commit": null,
     "canonical_files": {
       "phys/module_ra_rrtmg_sw.F": {
         "path": "/home/ddietz/wrf/WRF/phys/module_ra_rrtmg_sw.F",
-        "sha256": "8e81a7c29c2480db51aa61f7643550d34f8649d3f2e9b1bb98168b0066e3d456"
+        "sha256": "54b8c0cf2853b1602dcc22d8518440f1e909da7f61b5737235aa66f5c90c512e"
       },
       "phys/Makefile": {
         "path": "/home/ddietz/wrf/WRF/phys/Makefile",
-        "sha256": "5fc30ef5e4452ba729c1ddcff271f42735961f6a438b6a95af9d90f89f33a112"
+        "sha256": "9a927e69873f07e7bb9d96567465d6f5f3c200c448a778872866af7c88ecff7d"
       },
       "phys/wrf_spc_mix_ordered4.c": {
         "path": "/home/ddietz/wrf/WRF/phys/wrf_spc_mix_ordered4.c",
@@ -723,11 +743,11 @@
       },
       "dyn_em/module_big_step_utilities_em.F": {
         "path": "/home/ddietz/wrf/WRF/dyn_em/module_big_step_utilities_em.F",
-        "sha256": "750fbdbe4f8bde363b0059d5b8497ddfe2db42242549a6f5513957e53f28a88d"
+        "sha256": "21aaf97d4c13397b0cea9f46137222b0334647171e313da6cdec4abd84f876c6"
       },
       "dyn_em/Makefile": {
         "path": "/home/ddietz/wrf/WRF/dyn_em/Makefile",
-        "sha256": "2018afb37b204147eedc8ac68dfe308bb63e7787d22f498fffa21cf96ffc0f26"
+        "sha256": "b1e5a2670fc6022c0b267fa7ac0d626affece1d7d251ac791376f585ed8a1acf"
       },
       "dyn_em/postpow4.c": {
         "path": "/home/ddietz/wrf/WRF/dyn_em/postpow4.c",
@@ -791,10 +811,10 @@
       }
     },
     "qualified_member_artifact_sha256": {
-      "module_ra_rrtmg_sw.o": "dbb3116130b975e34fba46ede186fddfb5f99cc7473522aa3f7919a8adcdf525",
+      "module_ra_rrtmg_sw.o": "8eff33ed65035f2a5ebd80814fbdce606c7c99f89772ba30412611b96516eb5b",
       "module_diag_afwa.o": "a045bcbd22b5c121f5ef44042d740de09f22d124acb9f4e165f30f073ce69ff5",
       "wrf_pwat_column4.o": "b9e8abbc44e48a42c7e4dd67b6c83a42f2f121721accf107af3bf1106fab9c20",
-      "module_big_step_utilities_em.o": "84108366d3f9bc0b3c90e30a8c511fdebc34bb2ab21a4989209ff35ba6238615",
+      "module_big_step_utilities_em.o": "264a2840782d62fe3e4dcca1c079e3a39b1192848e54bde2df2e5db559caecb6",
       "postpow4.o": "c9f4ee878df545fc173af2b1fa1f39ac256ee77e65a861fb319f05a0a6f4aa9b",
       "module_small_step_em.o": "67d5cff31a7669625721f975c7cf161db2a06a47fa895faa5adad428f0f59bef",
       "module_ra_rrtmg_lw.o": "648a6a887d7257de1c71360b80a2bc7ea042ef2688cdf0e37b150db5ca943312",
@@ -832,9 +852,9 @@
       }
     },
     "clean_canonical_full_build_certified": false,
-    "scope": "This image is qualified only for its own unprofiled three-hour run on the same 512-rank configuration: 545 steps and four full outputs passed the unchanged original checker, with all four models and reader normally closed. Own nine-hour, noon, profile, restart, full 144-hour and clean full-source rebuild scopes remain false. Direct parent 7f26 owns its exact nine-hour science, which remains historical. Only module_ra_rrtmg_lw.o changed; 592 archive members, RSL, provider and all 18 direct inputs remain unchanged. Exactly five sampled lower fractions across bands 5, 13, 15 and 16 reuse their original integer conversions under binary32/int32 admission with literal fallback. Sixteen genuine-table complete TAUMOL calls passed full outputs, read-only inputs, guards and all five processor state words, with 44 positive-normal admission witnesses at each new site in both roles. One fixed 20,000-call comparison per host measured 1.24% and 2.82% lower complete caller wall time and 1.17%/2.74% lower process CPU, including full output restores and all callee work. These bounded observations establish no forecast gain or repeatability. Earlier 50\u201354% primitive gain is separate formula evidence. Three-hour application timing is one unpaired descriptive observation versus the fixed median of three original controls; raw A2 stays separate. Source correspondence is post-test; raw producer commit remains NULL."
+    "scope": "This child owns only its unprofiled SAME512 three-hour qualification: 545 steps and four full outputs passed the unchanged original checker, with all four models and the reader normally closed. Own nine-hour, noon, profile, restart, full 144-hour and clean full-source rebuild qualifications remain false. Direct parent 31a4 three-hour and instrumented-noon/source-profile evidence remains historical. Only the BigStep and shortwave members changed; 591 other archive members, RSL, the provider and all 18 direct inputs remain unchanged. W computes a four-column prefix with the original scalar tail. All 128 complete-couple native observations preserve full physical outputs, read-only inputs, guards and five processor state words. Actual packed division and original scalar operand directions are verified. Its fixed 4,096-call complete synthetic comparison, including all three output restores, took 28.47% and 31.03% less wall time, with matching thread CPU reductions. CSW skips only a cloud-snow initialization rectangle overwritten by the original downstream copy. All 64 complete-INATM observations preserve full outputs, read-only inputs, guards and five state words. The target and 30 other module files are byte-exact; the top wrapper retains its raw difference and strict typed-reference equivalence proof. Its complete 33-layer ice5 caller with output reuse took 11.21% and 11.46% less wall time. These separate bounded caller observations are not additive and establish no isolated or global forecast gain or repeatability. Application timing is one unpaired descriptive observation against the fixed median of three original controls; raw A2 remains separate. Source correspondence is post-test; the raw producer commit remains NULL."
   },
-  "source_rebuild_scope": "This image is qualified only for its own unprofiled three-hour run on the same 512-rank configuration: 545 steps and four full outputs passed the unchanged original checker, with all four models and reader normally closed. Own nine-hour, noon, profile, restart, full 144-hour and clean full-source rebuild scopes remain false. Direct parent 7f26 owns its exact nine-hour science, which remains historical. Only module_ra_rrtmg_lw.o changed; 592 archive members, RSL, provider and all 18 direct inputs remain unchanged. Exactly five sampled lower fractions across bands 5, 13, 15 and 16 reuse their original integer conversions under binary32/int32 admission with literal fallback. Sixteen genuine-table complete TAUMOL calls passed full outputs, read-only inputs, guards and all five processor state words, with 44 positive-normal admission witnesses at each new site in both roles. One fixed 20,000-call comparison per host measured 1.24% and 2.82% lower complete caller wall time and 1.17%/2.74% lower process CPU, including full output restores and all callee work. These bounded observations establish no forecast gain or repeatability. Earlier 50\u201354% primitive gain is separate formula evidence. Three-hour application timing is one unpaired descriptive observation versus the fixed median of three original controls; raw A2 stays separate. Source correspondence is post-test; raw producer commit remains NULL.",
+  "source_rebuild_scope": "This child owns only its unprofiled SAME512 three-hour qualification: 545 steps and four full outputs passed the unchanged original checker, with all four models and the reader normally closed. Own nine-hour, noon, profile, restart, full 144-hour and clean full-source rebuild qualifications remain false. Direct parent 31a4 three-hour and instrumented-noon/source-profile evidence remains historical. Only the BigStep and shortwave members changed; 591 other archive members, RSL, the provider and all 18 direct inputs remain unchanged. W computes a four-column prefix with the original scalar tail. All 128 complete-couple native observations preserve full physical outputs, read-only inputs, guards and five processor state words. Actual packed division and original scalar operand directions are verified. Its fixed 4,096-call complete synthetic comparison, including all three output restores, took 28.47% and 31.03% less wall time, with matching thread CPU reductions. CSW skips only a cloud-snow initialization rectangle overwritten by the original downstream copy. All 64 complete-INATM observations preserve full outputs, read-only inputs, guards and five state words. The target and 30 other module files are byte-exact; the top wrapper retains its raw difference and strict typed-reference equivalence proof. Its complete 33-layer ice5 caller with output reuse took 11.21% and 11.46% less wall time. These separate bounded caller observations are not additive and establish no isolated or global forecast gain or repeatability. Application timing is one unpaired descriptive observation against the fixed median of three original controls; raw A2 remains separate. Source correspondence is post-test; the raw producer commit remains NULL.",
   "runtime": {
     "world": 512,
     "compute": 480,
@@ -876,20 +896,20 @@
       "provider_source_sha256": "d38dfa0c9d75b04f28bab346be8182fae6d32c89960f727bf8c06f24ce5aee58",
       "guard_source_sha256": "801e29cc8406d0200dee1557e4263d3ce4db46d750b63b9371083b633c952150"
     },
-    "scope": "This image is qualified only for its own unprofiled three-hour run on the same 512-rank configuration: 545 steps and four full outputs passed the unchanged original checker, with all four models and reader normally closed. Own nine-hour, noon, profile, restart, full 144-hour and clean full-source rebuild scopes remain false. Direct parent 7f26 owns its exact nine-hour science, which remains historical. Only module_ra_rrtmg_lw.o changed; 592 archive members, RSL, provider and all 18 direct inputs remain unchanged. Exactly five sampled lower fractions across bands 5, 13, 15 and 16 reuse their original integer conversions under binary32/int32 admission with literal fallback. Sixteen genuine-table complete TAUMOL calls passed full outputs, read-only inputs, guards and all five processor state words, with 44 positive-normal admission witnesses at each new site in both roles. One fixed 20,000-call comparison per host measured 1.24% and 2.82% lower complete caller wall time and 1.17%/2.74% lower process CPU, including full output restores and all callee work. These bounded observations establish no forecast gain or repeatability. Earlier 50\u201354% primitive gain is separate formula evidence. Three-hour application timing is one unpaired descriptive observation versus the fixed median of three original controls; raw A2 stays separate. Source correspondence is post-test; raw producer commit remains NULL.",
+    "scope": "This child owns only its unprofiled SAME512 three-hour qualification: 545 steps and four full outputs passed the unchanged original checker, with all four models and the reader normally closed. Own nine-hour, noon, profile, restart, full 144-hour and clean full-source rebuild qualifications remain false. Direct parent 31a4 three-hour and instrumented-noon/source-profile evidence remains historical. Only the BigStep and shortwave members changed; 591 other archive members, RSL, the provider and all 18 direct inputs remain unchanged. W computes a four-column prefix with the original scalar tail. All 128 complete-couple native observations preserve full physical outputs, read-only inputs, guards and five processor state words. Actual packed division and original scalar operand directions are verified. Its fixed 4,096-call complete synthetic comparison, including all three output restores, took 28.47% and 31.03% less wall time, with matching thread CPU reductions. CSW skips only a cloud-snow initialization rectangle overwritten by the original downstream copy. All 64 complete-INATM observations preserve full outputs, read-only inputs, guards and five state words. The target and 30 other module files are byte-exact; the top wrapper retains its raw difference and strict typed-reference equivalence proof. Its complete 33-layer ice5 caller with output reuse took 11.21% and 11.46% less wall time. These separate bounded caller observations are not additive and establish no isolated or global forecast gain or repeatability. Application timing is one unpaired descriptive observation against the fixed median of three original controls; raw A2 remains separate. Source correspondence is post-test; the raw producer commit remains NULL.",
     "lease": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7f26-final-five-batch3h-runtime-r1/candidate-metadata/lease.json",
-      "sha256": "34a14cd021fa54fdc9e6087d78814d6b19a1cadf4f7a11fb3e31f51108470048"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current31a4-w-csw-batch3h-runtime-r2/candidate-metadata/lease.json",
+      "sha256": "5b6bddaf2172790c63b5081612e286fa044e7ccd81ced256382411a831320330"
     },
     "observed_step_count": 545,
     "products": 4,
     "science": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7f26-final-five-batch3h-runtime-r1/science-receipt.json",
-      "sha256": "1602386a9f5b2628f36898fb347268a533ad097244870c69a054b22f00905ae8"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current31a4-w-csw-batch3h-runtime-r2/science-receipt.json",
+      "sha256": "fc76291538f0366cebf00dbb711b306660039319851ce5b3d04523e761e24102"
     },
     "qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/taumol-final-five-fractions-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "78491ba8ac1a1f9e71835dd5027159985df5331b7c4787c5f759c5d554423779"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/couple-w-csw-batch-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "ee070d131b9bcc0d5cb6a3d6d4e3824c4816146eb02f89d487a0d56bc72497f8"
     },
     "rank_map": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/mu-lw-y-batch-20261028/RANK_MAP.json",
@@ -898,38 +918,38 @@
     "actual_map_table_sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac",
     "rank_map_variant": "control",
     "observer_profile": false,
-    "run_id": "production512-current7f26-final-five-batch3h-r1",
-    "run_directory": "/pool/wrf-experiment/wrf-cpu/runs/production512-current7f26-final-five-batch3h-r1",
-    "stage": "/pool/wrf-experiment/wrf-cpu/science-prep/production512-current7f26-final-five-batch3h-r1",
-    "runtime_directory": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7f26-final-five-batch3h-runtime-r1",
-    "source_manifest_sha256": "d9c83d516c0f92240cc92826dc9ec73f2f91f348c2a513fd9078e1f613cb6e1d",
-    "granted_lease_sha256": "34a14cd021fa54fdc9e6087d78814d6b19a1cadf4f7a11fb3e31f51108470048",
+    "run_id": "production512-current31a4-w-csw-batch3h-r2",
+    "run_directory": "/pool/wrf-experiment/wrf-cpu/runs/production512-current31a4-w-csw-batch3h-r2",
+    "stage": "/pool/wrf-experiment/wrf-cpu/science-prep/production512-current31a4-w-csw-batch3h-r2",
+    "runtime_directory": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current31a4-w-csw-batch3h-runtime-r2",
+    "source_manifest_sha256": "c823928e14b4807f45728a3817c584256b0a720316616df32830965b51d1c2c0",
+    "granted_lease_sha256": "5b6bddaf2172790c63b5081612e286fa044e7ccd81ced256382411a831320330",
     "application_binding": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7f26-final-five-batch3h-runtime-r1/application-binding.json",
-      "sha256": "2526f2ff6dcfe629bccaf938a5ca52640a00f1af73bf768c917a936d2901fe26"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current31a4-w-csw-batch3h-runtime-r2/application-binding.json",
+      "sha256": "de8ccd8be73027bfaf1f77a63bdf71df2bc453f3ea9c607e6c050bf23ceb94a7"
     },
     "model_closures": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7f26-final-five-batch3h-runtime-r1/candidate-metadata/model-closures.json",
-      "sha256": "7a985175f97d697b00b267174d22992ad376a28fff596fe7b0112df1d3027e52"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current31a4-w-csw-batch3h-runtime-r2/candidate-metadata/model-closures.json",
+      "sha256": "8715a3dc145d364b5c0f27e204e84cd26517b4af8c94e88995e1442972a84b74"
     },
     "reader_closure": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7f26-final-five-batch3h-runtime-r1/reader-closure.json",
-      "sha256": "91fbea64a53009dba7310b6f51b894d33eddf56d82f177d5e05fa38b41844588"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current31a4-w-csw-batch3h-runtime-r2/reader-closure.json",
+      "sha256": "b497f88b2fdc78654d70f955ecd524c5d769d36d3cc0c9505489c053933da112"
     },
     "model_units": {
-      "hpc01": "wrf-cpu-production512-current7f26-final-five-batch3h-r1-hpc01.service",
-      "hpc02": "wrf-cpu-production512-current7f26-final-five-batch3h-r1-hpc02.service",
-      "hpc03": "wrf-cpu-production512-current7f26-final-five-batch3h-r1-hpc03.service",
-      "hpc04": "wrf-cpu-production512-current7f26-final-five-batch3h-r1-hpc04.service"
+      "hpc01": "wrf-cpu-production512-current31a4-w-csw-batch3h-r2-hpc01.service",
+      "hpc02": "wrf-cpu-production512-current31a4-w-csw-batch3h-r2-hpc02.service",
+      "hpc03": "wrf-cpu-production512-current31a4-w-csw-batch3h-r2-hpc03.service",
+      "hpc04": "wrf-cpu-production512-current31a4-w-csw-batch3h-r2-hpc04.service"
     },
     "model_invocations": {
-      "hpc01": "7a3f6a50fcf344a5b56c56aad905e381",
-      "hpc02": "e835e92a87f24b3ab28d17e526eb896c",
-      "hpc03": "e22050dc042f45ed8f048aa20ed6d364",
-      "hpc04": "c4a4eecb06854f4b8e01bb840477a006"
+      "hpc01": "3a19eff4a2aa4b63b6dcbe1b3d3defbf",
+      "hpc02": "662b00c4faa744f4bf453c407b2d22b5",
+      "hpc03": "5f8056f69a554b189d8ac215c5d8d14b",
+      "hpc04": "b735e4166586471bb0fdbeb8321b57e0"
     },
-    "reader_unit": "wrf-cpu-production512-current7f26-final-five-batch3h-r1-exact-check-hpc03.service",
-    "reader_invocation_id": "a276743994d54b9fb723580183cc45bc",
+    "reader_unit": "wrf-cpu-production512-current31a4-w-csw-batch3h-r2-exact-check-hpc03.service",
+    "reader_invocation_id": "6fa50a15dd0043c08eed707dbd965e6d",
     "model_cap_seconds": 1200,
     "reader_cap_seconds": 1800,
     "memory_perhost_bytes": {
@@ -942,38 +962,38 @@
   },
   "qualification_scope": {
     "full144_qualified": false,
-    "native_profile_qualified": true,
+    "native_profile_qualified": false,
     "own_384_qualified": false,
     "own_fourhost512_qualified": true,
-    "own_instrumented_noon_one_hour_qualified": true,
+    "own_instrumented_noon_one_hour_qualified": false,
     "own_nine_hour_qualified": false,
-    "own_noon_one_hour_qualified": true,
+    "own_noon_one_hour_qualified": false,
     "own_three_hour_qualified": true,
     "own_threehost256_threehour_qualified": false,
     "own_unprofiled_nine_hour_qualified": false,
     "own_unprofiled_noon_one_hour_qualified": false,
     "own_unprofiled_three_hour_qualified": true,
-    "profile_qualified": true,
+    "profile_qualified": false,
     "restart_qualified": false,
     "clean_full_source_build_qualified": false,
     "no_parent_horizon_inheritance": true
   },
   "qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/taumol-final-five-fractions-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "78491ba8ac1a1f9e71835dd5027159985df5331b7c4787c5f759c5d554423779"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/couple-w-csw-batch-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "ee070d131b9bcc0d5cb6a3d6d4e3824c4816146eb02f89d487a0d56bc72497f8"
   },
-  "qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/taumol-final-five-fractions-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+  "qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/couple-w-csw-batch-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
   "full_application": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/taumol-final-five-fractions-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "78491ba8ac1a1f9e71835dd5027159985df5331b7c4787c5f759c5d554423779"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/couple-w-csw-batch-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "ee070d131b9bcc0d5cb6a3d6d4e3824c4816146eb02f89d487a0d56bc72497f8"
   },
-  "profile_source_identity_acquisition_pending": false,
+  "profile_source_identity_acquisition_pending": true,
   "science": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7f26-final-five-batch3h-runtime-r1/science-receipt.json",
-    "sha256": "1602386a9f5b2628f36898fb347268a533ad097244870c69a054b22f00905ae8"
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current31a4-w-csw-batch3h-runtime-r2/science-receipt.json",
+    "sha256": "fc76291538f0366cebf00dbb711b306660039319851ce5b3d04523e761e24102"
   },
-  "science_sha256": "1602386a9f5b2628f36898fb347268a533ad097244870c69a054b22f00905ae8",
-  "reader_closure_sha256": "91fbea64a53009dba7310b6f51b894d33eddf56d82f177d5e05fa38b41844588",
+  "science_sha256": "fc76291538f0366cebf00dbb711b306660039319851ce5b3d04523e761e24102",
+  "reader_closure_sha256": "b497f88b2fdc78654d70f955ecd524c5d769d36d3cc0c9505489c053933da112",
   "metrics": {
     "control": {
       "wall_seconds": 800.0241208570078,
@@ -981,65 +1001,67 @@
       "main_step_sum_seconds": 596.45045
     },
     "candidate": {
-      "wall_seconds": 630.9257936221547,
-      "cpu_seconds": 306673.198997,
-      "main_step_sum_seconds": 531.69609
+      "wall_seconds": 629.0475227483548,
+      "cpu_seconds": 305898.734556,
+      "main_step_sum_seconds": 530.50425
     }
   },
   "raw_result_status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
   "order": [
     "retained_original_three_hour_science_control",
-    "fresh_current7f26_finalfive_unprofiled_threehour_candidate"
+    "fresh_current31a4_w_csw_unprofiled_threehour_candidate_r2"
   ],
   "comparison_design": "Candidate-only exactscience vs retainedA2; timings DESCRIPTIVE and UNPAIRED against median latest3 unique original controls A2/A1/5c75; hardwareepoch unresolved.",
   "timing_gain_claim": false,
   "reductions_percent": {
-    "wall_seconds": 21.136653611607397,
-    "cpu_seconds": 14.653532058984803,
-    "main_step_sum_seconds": 10.8566201936808
+    "wall_seconds": 21.371430392060947,
+    "cpu_seconds": 14.869063787226601,
+    "main_step_sum_seconds": 11.056442324756413
   },
   "last_three_hour_benchmark_applies_to_current": true,
-  "scope": "This image owns its unprofiled three-hour qualification (545 steps and four full outputs) and separate instrumented noon source-identity evidence (185 steps, two full outputs and four selected-thread recordings). All original scientific checks passed and all scopes closed. Own unprofiled noon, nine-hour, restart, full 144-hour and clean full-source rebuild scopes remain false. Direct parent 7f26 owns its exact nine-hour science, which remains historical. Only module_ra_rrtmg_lw.o changed; 592 archive members, RSL, provider and all 18 direct inputs remain unchanged. Exactly five sampled lower fractions across bands 5, 13, 15 and 16 reuse their original integer conversions under binary32/int32 admission with literal fallback. Sixteen genuine-table complete TAUMOL calls passed full outputs, read-only inputs, guards and all five processor state words, with 44 positive-normal admission witnesses at each new site in both roles. One fixed 20,000-call comparison per host measured 1.24% and 2.82% lower complete caller wall time and 1.17%/2.74% lower process CPU, including full output restores and all callee work. These bounded observations establish no forecast gain or repeatability. Earlier 50\u201354% primitive gain is separate formula evidence. Three-hour application timing is one unpaired descriptive observation versus the fixed median of three original controls; raw A2 stays separate. Source correspondence is post-test; raw producer commit remains NULL.",
-  "limits": "This image is qualified only for its own unprofiled three-hour run on the same 512-rank configuration: 545 steps and four full outputs passed the unchanged original checker, with all four models and reader normally closed. Own nine-hour, noon, profile, restart, full 144-hour and clean full-source rebuild scopes remain false. Direct parent 7f26 owns its exact nine-hour science, which remains historical. Only module_ra_rrtmg_lw.o changed; 592 archive members, RSL, provider and all 18 direct inputs remain unchanged. Exactly five sampled lower fractions across bands 5, 13, 15 and 16 reuse their original integer conversions under binary32/int32 admission with literal fallback. Sixteen genuine-table complete TAUMOL calls passed full outputs, read-only inputs, guards and all five processor state words, with 44 positive-normal admission witnesses at each new site in both roles. One fixed 20,000-call comparison per host measured 1.24% and 2.82% lower complete caller wall time and 1.17%/2.74% lower process CPU, including full output restores and all callee work. These bounded observations establish no forecast gain or repeatability. Earlier 50\u201354% primitive gain is separate formula evidence. Three-hour application timing is one unpaired descriptive observation versus the fixed median of three original controls; raw A2 stays separate. Source correspondence is post-test; raw producer commit remains NULL.",
-  "claim_limits": "This image is qualified only for its own unprofiled three-hour run on the same 512-rank configuration: 545 steps and four full outputs passed the unchanged original checker, with all four models and reader normally closed. Own nine-hour, noon, profile, restart, full 144-hour and clean full-source rebuild scopes remain false. Direct parent 7f26 owns its exact nine-hour science, which remains historical. Only module_ra_rrtmg_lw.o changed; 592 archive members, RSL, provider and all 18 direct inputs remain unchanged. Exactly five sampled lower fractions across bands 5, 13, 15 and 16 reuse their original integer conversions under binary32/int32 admission with literal fallback. Sixteen genuine-table complete TAUMOL calls passed full outputs, read-only inputs, guards and all five processor state words, with 44 positive-normal admission witnesses at each new site in both roles. One fixed 20,000-call comparison per host measured 1.24% and 2.82% lower complete caller wall time and 1.17%/2.74% lower process CPU, including full output restores and all callee work. These bounded observations establish no forecast gain or repeatability. Earlier 50\u201354% primitive gain is separate formula evidence. Three-hour application timing is one unpaired descriptive observation versus the fixed median of three original controls; raw A2 stays separate. Source correspondence is post-test; raw producer commit remains NULL.",
+  "scope": "This child owns only its unprofiled SAME512 three-hour qualification: 545 steps and four full outputs passed the unchanged original checker, with all four models and the reader normally closed. Own nine-hour, noon, profile, restart, full 144-hour and clean full-source rebuild qualifications remain false. Direct parent 31a4 three-hour and instrumented-noon/source-profile evidence remains historical. Only the BigStep and shortwave members changed; 591 other archive members, RSL, the provider and all 18 direct inputs remain unchanged. W computes a four-column prefix with the original scalar tail. All 128 complete-couple native observations preserve full physical outputs, read-only inputs, guards and five processor state words. Actual packed division and original scalar operand directions are verified. Its fixed 4,096-call complete synthetic comparison, including all three output restores, took 28.47% and 31.03% less wall time, with matching thread CPU reductions. CSW skips only a cloud-snow initialization rectangle overwritten by the original downstream copy. All 64 complete-INATM observations preserve full outputs, read-only inputs, guards and five state words. The target and 30 other module files are byte-exact; the top wrapper retains its raw difference and strict typed-reference equivalence proof. Its complete 33-layer ice5 caller with output reuse took 11.21% and 11.46% less wall time. These separate bounded caller observations are not additive and establish no isolated or global forecast gain or repeatability. Application timing is one unpaired descriptive observation against the fixed median of three original controls; raw A2 remains separate. Source correspondence is post-test; the raw producer commit remains NULL.",
+  "limits": "This child owns only its unprofiled SAME512 three-hour qualification: 545 steps and four full outputs passed the unchanged original checker, with all four models and the reader normally closed. Own nine-hour, noon, profile, restart, full 144-hour and clean full-source rebuild qualifications remain false. Direct parent 31a4 three-hour and instrumented-noon/source-profile evidence remains historical. Only the BigStep and shortwave members changed; 591 other archive members, RSL, the provider and all 18 direct inputs remain unchanged. W computes a four-column prefix with the original scalar tail. All 128 complete-couple native observations preserve full physical outputs, read-only inputs, guards and five processor state words. Actual packed division and original scalar operand directions are verified. Its fixed 4,096-call complete synthetic comparison, including all three output restores, took 28.47% and 31.03% less wall time, with matching thread CPU reductions. CSW skips only a cloud-snow initialization rectangle overwritten by the original downstream copy. All 64 complete-INATM observations preserve full outputs, read-only inputs, guards and five state words. The target and 30 other module files are byte-exact; the top wrapper retains its raw difference and strict typed-reference equivalence proof. Its complete 33-layer ice5 caller with output reuse took 11.21% and 11.46% less wall time. These separate bounded caller observations are not additive and establish no isolated or global forecast gain or repeatability. Application timing is one unpaired descriptive observation against the fixed median of three original controls; raw A2 remains separate. Source correspondence is post-test; the raw producer commit remains NULL.",
+  "claim_limits": "This child owns only its unprofiled SAME512 three-hour qualification: 545 steps and four full outputs passed the unchanged original checker, with all four models and the reader normally closed. Own nine-hour, noon, profile, restart, full 144-hour and clean full-source rebuild qualifications remain false. Direct parent 31a4 three-hour and instrumented-noon/source-profile evidence remains historical. Only the BigStep and shortwave members changed; 591 other archive members, RSL, the provider and all 18 direct inputs remain unchanged. W computes a four-column prefix with the original scalar tail. All 128 complete-couple native observations preserve full physical outputs, read-only inputs, guards and five processor state words. Actual packed division and original scalar operand directions are verified. Its fixed 4,096-call complete synthetic comparison, including all three output restores, took 28.47% and 31.03% less wall time, with matching thread CPU reductions. CSW skips only a cloud-snow initialization rectangle overwritten by the original downstream copy. All 64 complete-INATM observations preserve full outputs, read-only inputs, guards and five state words. The target and 30 other module files are byte-exact; the top wrapper retains its raw difference and strict typed-reference equivalence proof. Its complete 33-layer ice5 caller with output reuse took 11.21% and 11.46% less wall time. These separate bounded caller observations are not additive and establish no isolated or global forecast gain or repeatability. Application timing is one unpaired descriptive observation against the fixed median of three original controls; raw A2 remains separate. Source correspondence is post-test; the raw producer commit remains NULL.",
   "previous_parent": {
     "executable": {
-      "path": "/pool/wrf-experiment/wrf-cpu/builds/current4d25-taumol-band12-experimental-r1/wrf.exe",
-      "sha256": "7f268b116cdb0a8aa65c26f66d30a646e8a068d10debdeebcb73c71c1500f561"
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current7f26-taumol-final-five-experimental-r1/wrf.exe",
+      "sha256": "31a40b14dcc86876c779e65e7765d0a29d6da8c296abd17b0aaa8941ddae6a75"
     },
     "archive": {
-      "path": "/pool/wrf-experiment/wrf-cpu/builds/current4d25-taumol-band12-experimental-r1/libwrflib.a",
-      "sha256": "e20d77b3043008cac0fb6ed40a591c2bd6ff04ebb4967f6ab2116c2fcb694836"
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current7f26-taumol-final-five-experimental-r1/libwrflib.a",
+      "sha256": "7a947696fd1e17fff8adaf2f45c90efc7b1c231394b9fab6290a2834a4d2ed62"
     },
     "qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/taumol-band12-fraction-20261029/NINE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "d0f3e4b8f35edef353fb9f28c3c9eedf5272825c9fa59336439b6589b8f49c58"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/taumol-final-five-fractions-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "78491ba8ac1a1f9e71835dd5027159985df5331b7c4787c5f759c5d554423779"
     },
-    "source_commit": "b61a87b5e7d0717732d16e403260e02fda98a375",
+    "source_commit": "c3c21c54205a463de3bcc6cf5dcb0bab6514c6ed",
     "qualification_scope": {
       "full144_qualified": false,
-      "native_profile_qualified": false,
+      "native_profile_qualified": true,
       "own_384_qualified": false,
       "own_fourhost512_qualified": true,
-      "own_instrumented_noon_one_hour_qualified": false,
-      "own_nine_hour_qualified": true,
-      "own_noon_one_hour_qualified": false,
-      "own_three_hour_qualified": false,
+      "own_instrumented_noon_one_hour_qualified": true,
+      "own_nine_hour_qualified": false,
+      "own_noon_one_hour_qualified": true,
+      "own_three_hour_qualified": true,
       "own_threehost256_threehour_qualified": false,
-      "own_unprofiled_nine_hour_qualified": true,
+      "own_unprofiled_nine_hour_qualified": false,
       "own_unprofiled_noon_one_hour_qualified": false,
-      "own_unprofiled_three_hour_qualified": false,
-      "profile_qualified": false,
+      "own_unprofiled_three_hour_qualified": true,
+      "profile_qualified": true,
       "restart_qualified": false,
       "clean_full_source_build_qualified": false,
       "no_parent_horizon_inheritance": true
     },
-    "own_three_hour": null,
-    "own_nine_hour": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/taumol-band12-fraction-20261029/NINE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "d0f3e4b8f35edef353fb9f28c3c9eedf5272825c9fa59336439b6589b8f49c58"
+    "own_three_hour": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/taumol-final-five-fractions-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "78491ba8ac1a1f9e71835dd5027159985df5331b7c4787c5f759c5d554423779"
     },
-    "scope": "Retained 7f26 parent owns its exact nine-hour qualification. It remains historical; no parent three-hour/noon/profile/nine-hour qualification or timing transfers to the new child.",
+    "own_nine_hour": null,
+    "own_instrumented_noon": null,
+    "historical_profile_scope": "Image 31a4 passed instrumented noon science from 12:00 to 13:00 (185 steps and two full outputs), plus four requested 15-second source-identity captures of selected main threads of ranks 120\u2013123 on CPU 99. Mixed-I/O context; no timing gain, global share, critical-path, wire-time or causal qualification.",
+    "scope": "Retained 31a4 owns its exact three-hour and instrumented-noon/source-profile records. They remain historical; no parent qualification or timing transfers to the W+CSW child.",
     "applies_to_current": false
   },
   "output_guard": {
@@ -1082,7 +1104,7 @@
       "sha256": "c901e7b33ec8eb0218625e12adf32871c9527bc70be7030a96ec0e4c2ce8e673"
     }
   },
-  "post_test_source_commit": "c3c21c54205a463de3bcc6cf5dcb0bab6514c6ed",
+  "post_test_source_commit": "2f66ec72373ef928e1643ca8f8c0905a2243e232",
   "last_nine_hour_benchmark_applies_to_current": false,
   "component_source_correspondence": {
     "historical_thompson": {
@@ -2505,6 +2527,29 @@
         "phys/Makefile"
       ],
       "parent_horizons_do_not_transfer": true
+    },
+    "W_CSW_batch": {
+      "source_commit": "2f66ec72373ef928e1643ca8f8c0905a2243e232",
+      "raw_producer_source_commit": null,
+      "own_three_hour": {
+        "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/couple-w-csw-batch-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+        "sha256": "ee070d131b9bcc0d5cb6a3d6d4e3824c4816146eb02f89d487a0d56bc72497f8"
+      },
+      "native_and_cost": {
+        "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/couple-w-csw-batch-20261029/COMPONENT_EVIDENCE.json",
+        "sha256": "5e8568ff40cbba27e458c72797ad165dc8cfecfe91b1ffb86bd6daab232efc6c"
+      },
+      "changed_members": {
+        "module_big_step_utilities_em.o": "264a2840782d62fe3e4dcca1c079e3a39b1192848e54bde2df2e5db559caecb6",
+        "module_ra_rrtmg_sw.o": "8eff33ed65035f2a5ebd80814fbdce606c7c99f89772ba30412611b96516eb5b"
+      },
+      "source_changes": [
+        "dyn_em/module_big_step_utilities_em.F",
+        "dyn_em/Makefile",
+        "phys/module_ra_rrtmg_sw.F",
+        "phys/Makefile"
+      ],
+      "parent_horizons_do_not_transfer": true
     }
   },
   "actual_rank_map_table_sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac",
@@ -2512,11 +2557,11 @@
     "retained_original546b_A2_science_reference",
     "fresh_current3c3a_cu_simd_unprofiled_threehour_candidate"
   ],
-  "raw_result_label_annotation": "Raw collector donor label is retained only in raw_result_order/RESULT; current candidate is current final-five child. Raw A2 and descriptive median3 remain separate.",
+  "raw_result_label_annotation": "Raw collector donor label is retained only in raw_result_order/RESULT; current candidate is current W+CSW child. Raw A2 and descriptive median3 remain separate.",
   "descriptive_reductions_percent": {
-    "wall_seconds": 21.136653611607397,
-    "cpu_seconds": 14.653532058984803,
-    "main_step_sum_seconds": 10.8566201936808
+    "wall_seconds": 21.371430392060947,
+    "cpu_seconds": 14.869063787226601,
+    "main_step_sum_seconds": 11.056442324756413
   },
   "historical_parent1d16_before_MU_LW_Y": {
     "working_snapshot": {
@@ -2652,9 +2697,9 @@
       "main_step_sum_seconds": 596.45045
     },
     "candidate": {
-      "wall_seconds": 630.9257936221547,
-      "cpu_seconds": 306673.198997,
-      "main_step_sum_seconds": 531.69609
+      "wall_seconds": 629.0475227483548,
+      "cpu_seconds": 305898.734556,
+      "main_step_sum_seconds": 530.50425
     }
   },
   "raw_metrics_control_role": "Retained original A2 science control; never replaced by median3 in raw RESULT/science.",
@@ -2699,20 +2744,20 @@
       "provider_source_sha256": "d38dfa0c9d75b04f28bab346be8182fae6d32c89960f727bf8c06f24ce5aee58",
       "guard_source_sha256": "801e29cc8406d0200dee1557e4263d3ce4db46d750b63b9371083b633c952150"
     },
-    "scope": "This image is qualified only for its own unprofiled three-hour run on the same 512-rank configuration: 545 steps and four full outputs passed the unchanged original checker, with all four models and reader normally closed. Own nine-hour, noon, profile, restart, full 144-hour and clean full-source rebuild scopes remain false. Direct parent 7f26 owns its exact nine-hour science, which remains historical. Only module_ra_rrtmg_lw.o changed; 592 archive members, RSL, provider and all 18 direct inputs remain unchanged. Exactly five sampled lower fractions across bands 5, 13, 15 and 16 reuse their original integer conversions under binary32/int32 admission with literal fallback. Sixteen genuine-table complete TAUMOL calls passed full outputs, read-only inputs, guards and all five processor state words, with 44 positive-normal admission witnesses at each new site in both roles. One fixed 20,000-call comparison per host measured 1.24% and 2.82% lower complete caller wall time and 1.17%/2.74% lower process CPU, including full output restores and all callee work. These bounded observations establish no forecast gain or repeatability. Earlier 50\u201354% primitive gain is separate formula evidence. Three-hour application timing is one unpaired descriptive observation versus the fixed median of three original controls; raw A2 stays separate. Source correspondence is post-test; raw producer commit remains NULL.",
+    "scope": "This child owns only its unprofiled SAME512 three-hour qualification: 545 steps and four full outputs passed the unchanged original checker, with all four models and the reader normally closed. Own nine-hour, noon, profile, restart, full 144-hour and clean full-source rebuild qualifications remain false. Direct parent 31a4 three-hour and instrumented-noon/source-profile evidence remains historical. Only the BigStep and shortwave members changed; 591 other archive members, RSL, the provider and all 18 direct inputs remain unchanged. W computes a four-column prefix with the original scalar tail. All 128 complete-couple native observations preserve full physical outputs, read-only inputs, guards and five processor state words. Actual packed division and original scalar operand directions are verified. Its fixed 4,096-call complete synthetic comparison, including all three output restores, took 28.47% and 31.03% less wall time, with matching thread CPU reductions. CSW skips only a cloud-snow initialization rectangle overwritten by the original downstream copy. All 64 complete-INATM observations preserve full outputs, read-only inputs, guards and five state words. The target and 30 other module files are byte-exact; the top wrapper retains its raw difference and strict typed-reference equivalence proof. Its complete 33-layer ice5 caller with output reuse took 11.21% and 11.46% less wall time. These separate bounded caller observations are not additive and establish no isolated or global forecast gain or repeatability. Application timing is one unpaired descriptive observation against the fixed median of three original controls; raw A2 remains separate. Source correspondence is post-test; the raw producer commit remains NULL.",
     "lease": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7f26-final-five-batch3h-runtime-r1/candidate-metadata/lease.json",
-      "sha256": "34a14cd021fa54fdc9e6087d78814d6b19a1cadf4f7a11fb3e31f51108470048"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current31a4-w-csw-batch3h-runtime-r2/candidate-metadata/lease.json",
+      "sha256": "5b6bddaf2172790c63b5081612e286fa044e7ccd81ced256382411a831320330"
     },
     "observed_step_count": 545,
     "products": 4,
     "science": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7f26-final-five-batch3h-runtime-r1/science-receipt.json",
-      "sha256": "1602386a9f5b2628f36898fb347268a533ad097244870c69a054b22f00905ae8"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current31a4-w-csw-batch3h-runtime-r2/science-receipt.json",
+      "sha256": "fc76291538f0366cebf00dbb711b306660039319851ce5b3d04523e761e24102"
     },
     "qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/taumol-final-five-fractions-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "78491ba8ac1a1f9e71835dd5027159985df5331b7c4787c5f759c5d554423779"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/couple-w-csw-batch-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "ee070d131b9bcc0d5cb6a3d6d4e3824c4816146eb02f89d487a0d56bc72497f8"
     },
     "rank_map": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/mu-lw-y-batch-20261028/RANK_MAP.json",
@@ -2721,38 +2766,38 @@
     "actual_map_table_sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac",
     "rank_map_variant": "control",
     "observer_profile": false,
-    "run_id": "production512-current7f26-final-five-batch3h-r1",
-    "run_directory": "/pool/wrf-experiment/wrf-cpu/runs/production512-current7f26-final-five-batch3h-r1",
-    "stage": "/pool/wrf-experiment/wrf-cpu/science-prep/production512-current7f26-final-five-batch3h-r1",
-    "runtime_directory": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7f26-final-five-batch3h-runtime-r1",
-    "source_manifest_sha256": "d9c83d516c0f92240cc92826dc9ec73f2f91f348c2a513fd9078e1f613cb6e1d",
-    "granted_lease_sha256": "34a14cd021fa54fdc9e6087d78814d6b19a1cadf4f7a11fb3e31f51108470048",
+    "run_id": "production512-current31a4-w-csw-batch3h-r2",
+    "run_directory": "/pool/wrf-experiment/wrf-cpu/runs/production512-current31a4-w-csw-batch3h-r2",
+    "stage": "/pool/wrf-experiment/wrf-cpu/science-prep/production512-current31a4-w-csw-batch3h-r2",
+    "runtime_directory": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current31a4-w-csw-batch3h-runtime-r2",
+    "source_manifest_sha256": "c823928e14b4807f45728a3817c584256b0a720316616df32830965b51d1c2c0",
+    "granted_lease_sha256": "5b6bddaf2172790c63b5081612e286fa044e7ccd81ced256382411a831320330",
     "application_binding": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7f26-final-five-batch3h-runtime-r1/application-binding.json",
-      "sha256": "2526f2ff6dcfe629bccaf938a5ca52640a00f1af73bf768c917a936d2901fe26"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current31a4-w-csw-batch3h-runtime-r2/application-binding.json",
+      "sha256": "de8ccd8be73027bfaf1f77a63bdf71df2bc453f3ea9c607e6c050bf23ceb94a7"
     },
     "model_closures": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7f26-final-five-batch3h-runtime-r1/candidate-metadata/model-closures.json",
-      "sha256": "7a985175f97d697b00b267174d22992ad376a28fff596fe7b0112df1d3027e52"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current31a4-w-csw-batch3h-runtime-r2/candidate-metadata/model-closures.json",
+      "sha256": "8715a3dc145d364b5c0f27e204e84cd26517b4af8c94e88995e1442972a84b74"
     },
     "reader_closure": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7f26-final-five-batch3h-runtime-r1/reader-closure.json",
-      "sha256": "91fbea64a53009dba7310b6f51b894d33eddf56d82f177d5e05fa38b41844588"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current31a4-w-csw-batch3h-runtime-r2/reader-closure.json",
+      "sha256": "b497f88b2fdc78654d70f955ecd524c5d769d36d3cc0c9505489c053933da112"
     },
     "model_units": {
-      "hpc01": "wrf-cpu-production512-current7f26-final-five-batch3h-r1-hpc01.service",
-      "hpc02": "wrf-cpu-production512-current7f26-final-five-batch3h-r1-hpc02.service",
-      "hpc03": "wrf-cpu-production512-current7f26-final-five-batch3h-r1-hpc03.service",
-      "hpc04": "wrf-cpu-production512-current7f26-final-five-batch3h-r1-hpc04.service"
+      "hpc01": "wrf-cpu-production512-current31a4-w-csw-batch3h-r2-hpc01.service",
+      "hpc02": "wrf-cpu-production512-current31a4-w-csw-batch3h-r2-hpc02.service",
+      "hpc03": "wrf-cpu-production512-current31a4-w-csw-batch3h-r2-hpc03.service",
+      "hpc04": "wrf-cpu-production512-current31a4-w-csw-batch3h-r2-hpc04.service"
     },
     "model_invocations": {
-      "hpc01": "7a3f6a50fcf344a5b56c56aad905e381",
-      "hpc02": "e835e92a87f24b3ab28d17e526eb896c",
-      "hpc03": "e22050dc042f45ed8f048aa20ed6d364",
-      "hpc04": "c4a4eecb06854f4b8e01bb840477a006"
+      "hpc01": "3a19eff4a2aa4b63b6dcbe1b3d3defbf",
+      "hpc02": "662b00c4faa744f4bf453c407b2d22b5",
+      "hpc03": "5f8056f69a554b189d8ac215c5d8d14b",
+      "hpc04": "b735e4166586471bb0fdbeb8321b57e0"
     },
-    "reader_unit": "wrf-cpu-production512-current7f26-final-five-batch3h-r1-exact-check-hpc03.service",
-    "reader_invocation_id": "a276743994d54b9fb723580183cc45bc",
+    "reader_unit": "wrf-cpu-production512-current31a4-w-csw-batch3h-r2-exact-check-hpc03.service",
+    "reader_invocation_id": "6fa50a15dd0043c08eed707dbd965e6d",
     "model_cap_seconds": 1200,
     "reader_cap_seconds": 1800,
     "memory_perhost_bytes": {
@@ -2804,20 +2849,20 @@
       "provider_source_sha256": "d38dfa0c9d75b04f28bab346be8182fae6d32c89960f727bf8c06f24ce5aee58",
       "guard_source_sha256": "801e29cc8406d0200dee1557e4263d3ce4db46d750b63b9371083b633c952150"
     },
-    "scope": "This image is qualified only for its own unprofiled three-hour run on the same 512-rank configuration: 545 steps and four full outputs passed the unchanged original checker, with all four models and reader normally closed. Own nine-hour, noon, profile, restart, full 144-hour and clean full-source rebuild scopes remain false. Direct parent 7f26 owns its exact nine-hour science, which remains historical. Only module_ra_rrtmg_lw.o changed; 592 archive members, RSL, provider and all 18 direct inputs remain unchanged. Exactly five sampled lower fractions across bands 5, 13, 15 and 16 reuse their original integer conversions under binary32/int32 admission with literal fallback. Sixteen genuine-table complete TAUMOL calls passed full outputs, read-only inputs, guards and all five processor state words, with 44 positive-normal admission witnesses at each new site in both roles. One fixed 20,000-call comparison per host measured 1.24% and 2.82% lower complete caller wall time and 1.17%/2.74% lower process CPU, including full output restores and all callee work. These bounded observations establish no forecast gain or repeatability. Earlier 50\u201354% primitive gain is separate formula evidence. Three-hour application timing is one unpaired descriptive observation versus the fixed median of three original controls; raw A2 stays separate. Source correspondence is post-test; raw producer commit remains NULL.",
+    "scope": "This child owns only its unprofiled SAME512 three-hour qualification: 545 steps and four full outputs passed the unchanged original checker, with all four models and the reader normally closed. Own nine-hour, noon, profile, restart, full 144-hour and clean full-source rebuild qualifications remain false. Direct parent 31a4 three-hour and instrumented-noon/source-profile evidence remains historical. Only the BigStep and shortwave members changed; 591 other archive members, RSL, the provider and all 18 direct inputs remain unchanged. W computes a four-column prefix with the original scalar tail. All 128 complete-couple native observations preserve full physical outputs, read-only inputs, guards and five processor state words. Actual packed division and original scalar operand directions are verified. Its fixed 4,096-call complete synthetic comparison, including all three output restores, took 28.47% and 31.03% less wall time, with matching thread CPU reductions. CSW skips only a cloud-snow initialization rectangle overwritten by the original downstream copy. All 64 complete-INATM observations preserve full outputs, read-only inputs, guards and five state words. The target and 30 other module files are byte-exact; the top wrapper retains its raw difference and strict typed-reference equivalence proof. Its complete 33-layer ice5 caller with output reuse took 11.21% and 11.46% less wall time. These separate bounded caller observations are not additive and establish no isolated or global forecast gain or repeatability. Application timing is one unpaired descriptive observation against the fixed median of three original controls; raw A2 remains separate. Source correspondence is post-test; the raw producer commit remains NULL.",
     "lease": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7f26-final-five-batch3h-runtime-r1/candidate-metadata/lease.json",
-      "sha256": "34a14cd021fa54fdc9e6087d78814d6b19a1cadf4f7a11fb3e31f51108470048"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current31a4-w-csw-batch3h-runtime-r2/candidate-metadata/lease.json",
+      "sha256": "5b6bddaf2172790c63b5081612e286fa044e7ccd81ced256382411a831320330"
     },
     "observed_step_count": 545,
     "products": 4,
     "science": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7f26-final-five-batch3h-runtime-r1/science-receipt.json",
-      "sha256": "1602386a9f5b2628f36898fb347268a533ad097244870c69a054b22f00905ae8"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current31a4-w-csw-batch3h-runtime-r2/science-receipt.json",
+      "sha256": "fc76291538f0366cebf00dbb711b306660039319851ce5b3d04523e761e24102"
     },
     "qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/taumol-final-five-fractions-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "78491ba8ac1a1f9e71835dd5027159985df5331b7c4787c5f759c5d554423779"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/couple-w-csw-batch-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "ee070d131b9bcc0d5cb6a3d6d4e3824c4816146eb02f89d487a0d56bc72497f8"
     },
     "rank_map": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/mu-lw-y-batch-20261028/RANK_MAP.json",
@@ -2826,38 +2871,38 @@
     "actual_map_table_sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac",
     "rank_map_variant": "control",
     "observer_profile": false,
-    "run_id": "production512-current7f26-final-five-batch3h-r1",
-    "run_directory": "/pool/wrf-experiment/wrf-cpu/runs/production512-current7f26-final-five-batch3h-r1",
-    "stage": "/pool/wrf-experiment/wrf-cpu/science-prep/production512-current7f26-final-five-batch3h-r1",
-    "runtime_directory": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7f26-final-five-batch3h-runtime-r1",
-    "source_manifest_sha256": "d9c83d516c0f92240cc92826dc9ec73f2f91f348c2a513fd9078e1f613cb6e1d",
-    "granted_lease_sha256": "34a14cd021fa54fdc9e6087d78814d6b19a1cadf4f7a11fb3e31f51108470048",
+    "run_id": "production512-current31a4-w-csw-batch3h-r2",
+    "run_directory": "/pool/wrf-experiment/wrf-cpu/runs/production512-current31a4-w-csw-batch3h-r2",
+    "stage": "/pool/wrf-experiment/wrf-cpu/science-prep/production512-current31a4-w-csw-batch3h-r2",
+    "runtime_directory": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current31a4-w-csw-batch3h-runtime-r2",
+    "source_manifest_sha256": "c823928e14b4807f45728a3817c584256b0a720316616df32830965b51d1c2c0",
+    "granted_lease_sha256": "5b6bddaf2172790c63b5081612e286fa044e7ccd81ced256382411a831320330",
     "application_binding": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7f26-final-five-batch3h-runtime-r1/application-binding.json",
-      "sha256": "2526f2ff6dcfe629bccaf938a5ca52640a00f1af73bf768c917a936d2901fe26"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current31a4-w-csw-batch3h-runtime-r2/application-binding.json",
+      "sha256": "de8ccd8be73027bfaf1f77a63bdf71df2bc453f3ea9c607e6c050bf23ceb94a7"
     },
     "model_closures": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7f26-final-five-batch3h-runtime-r1/candidate-metadata/model-closures.json",
-      "sha256": "7a985175f97d697b00b267174d22992ad376a28fff596fe7b0112df1d3027e52"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current31a4-w-csw-batch3h-runtime-r2/candidate-metadata/model-closures.json",
+      "sha256": "8715a3dc145d364b5c0f27e204e84cd26517b4af8c94e88995e1442972a84b74"
     },
     "reader_closure": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7f26-final-five-batch3h-runtime-r1/reader-closure.json",
-      "sha256": "91fbea64a53009dba7310b6f51b894d33eddf56d82f177d5e05fa38b41844588"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current31a4-w-csw-batch3h-runtime-r2/reader-closure.json",
+      "sha256": "b497f88b2fdc78654d70f955ecd524c5d769d36d3cc0c9505489c053933da112"
     },
     "model_units": {
-      "hpc01": "wrf-cpu-production512-current7f26-final-five-batch3h-r1-hpc01.service",
-      "hpc02": "wrf-cpu-production512-current7f26-final-five-batch3h-r1-hpc02.service",
-      "hpc03": "wrf-cpu-production512-current7f26-final-five-batch3h-r1-hpc03.service",
-      "hpc04": "wrf-cpu-production512-current7f26-final-five-batch3h-r1-hpc04.service"
+      "hpc01": "wrf-cpu-production512-current31a4-w-csw-batch3h-r2-hpc01.service",
+      "hpc02": "wrf-cpu-production512-current31a4-w-csw-batch3h-r2-hpc02.service",
+      "hpc03": "wrf-cpu-production512-current31a4-w-csw-batch3h-r2-hpc03.service",
+      "hpc04": "wrf-cpu-production512-current31a4-w-csw-batch3h-r2-hpc04.service"
     },
     "model_invocations": {
-      "hpc01": "7a3f6a50fcf344a5b56c56aad905e381",
-      "hpc02": "e835e92a87f24b3ab28d17e526eb896c",
-      "hpc03": "e22050dc042f45ed8f048aa20ed6d364",
-      "hpc04": "c4a4eecb06854f4b8e01bb840477a006"
+      "hpc01": "3a19eff4a2aa4b63b6dcbe1b3d3defbf",
+      "hpc02": "662b00c4faa744f4bf453c407b2d22b5",
+      "hpc03": "5f8056f69a554b189d8ac215c5d8d14b",
+      "hpc04": "b735e4166586471bb0fdbeb8321b57e0"
     },
-    "reader_unit": "wrf-cpu-production512-current7f26-final-five-batch3h-r1-exact-check-hpc03.service",
-    "reader_invocation_id": "a276743994d54b9fb723580183cc45bc",
+    "reader_unit": "wrf-cpu-production512-current31a4-w-csw-batch3h-r2-exact-check-hpc03.service",
+    "reader_invocation_id": "6fa50a15dd0043c08eed707dbd965e6d",
     "model_cap_seconds": 1200,
     "reader_cap_seconds": 1800,
     "memory_perhost_bytes": {
@@ -2869,32 +2914,25 @@
     "forecast_end_time": "2026-10-12_09:00:00"
   },
   "current_application_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/taumol-final-five-fractions-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "78491ba8ac1a1f9e71835dd5027159985df5331b7c4787c5f759c5d554423779"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/couple-w-csw-batch-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "ee070d131b9bcc0d5cb6a3d6d4e3824c4816146eb02f89d487a0d56bc72497f8"
   },
-  "current_application_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/taumol-final-five-fractions-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+  "current_application_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/couple-w-csw-batch-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
   "current_three_hour_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/taumol-final-five-fractions-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "78491ba8ac1a1f9e71835dd5027159985df5331b7c4787c5f759c5d554423779"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/couple-w-csw-batch-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "ee070d131b9bcc0d5cb6a3d6d4e3824c4816146eb02f89d487a0d56bc72497f8"
   },
-  "current_three_hour_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/taumol-final-five-fractions-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+  "current_three_hour_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/couple-w-csw-batch-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
   "current_three_hour_qualified": true,
   "current_unprofiled_three_hour_qualified": true,
   "current_fourhost512_qualified": true,
-  "current_noon_one_hour_qualified": true,
+  "current_noon_one_hour_qualified": false,
   "current_unprofiled_noon_one_hour_qualified": false,
-  "current_instrumented_noon_one_hour_qualified": true,
+  "current_instrumented_noon_one_hour_qualified": false,
   "current_nine_hour_qualified": false,
   "current_unprofiled_nine_hour_qualified": false,
-  "current_daylight_qualified": true,
-  "current_profile_qualified": true,
-  "current_native_profile_qualified": true,
-  "current_profile_scope": "Image 31a4 passed instrumented noon science from 12:00 to 13:00 (185 steps and two full outputs), plus four requested 15-second source-identity captures of selected main threads of ranks 120\u2013123 on CPU 99. Mixed-I/O context; no timing gain, global share, critical-path, wire-time or causal qualification.",
-  "current_instrumented_noon_profile_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/taumol-final-five-fractions-20261029/INSTRUMENTED_NOON_PROFILE_QUALIFICATION.json",
-    "sha256": "999adfb1dd7559ee4b8f2d622c378537df508b7f3d89e63846130ae51d3f06ef"
-  },
-  "current_profile_scope_note": "The instrumented noon run qualifies source identity for four selected main threads only. Its 5,667 primary records have unknown numeric sample loss and numeric ELF build ID. Original optional-report KeyErrors are retained; separate parsers passed. Existing unprofiled three-hour timing and qualification are unchanged. No global efficiency, timing gain, pure-compute or causal claim follows.",
-  "current_instrumented_noon_runtime": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current31a4-fourhost-noon1h-native15-runtime-r1",
-  "current_daylight_scope": "Own instrumented noon12\u201313 only; no own nine-hour daylight qualification."
+  "current_daylight_qualified": false,
+  "current_profile_qualified": false,
+  "current_native_profile_qualified": false,
+  "current_profile_scope": "No own child source profile; all predecessor profiles historical/noncurrent."
 }
