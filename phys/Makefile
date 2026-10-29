@@ -1173,6 +1173,12 @@ endif
 # Qualified GNU Fortran/C13.3 strict-O2 x86_64 pure-MPI path.
 # Requires WRF_PHY_INTERPOLATION_SIMD=1: dyn_em owns the existing integer-only mask getter.
 # PHY0/unsupported/compiler/architecture or explicit0 retains original schedule; no new helper owner.
+# Contiguous LW cloud-row copies on the qualified compiler path.
+# Opt out with WRF_LW_INATM_CONTIGUOUS_COPY=0; the original complete loop remains literal.
+WRF_LW_INATM_CONTIGUOUS_COPY ?= 1
+ifeq ($(WRF_LW_INATM_CONTIGUOUS_COPY),0)
+module_ra_rrtmg_lw.o: private override CPPFLAGS += -DWRF_LW_INATM_CONTIGUOUS_COPY_DISABLE
+endif
 module_ra_rrtmg_lw.o: private override CPPFLAGS += -UWRF_LW_RTRNMC_TWO_G_CHANNEL_ENABLE
 WRF_LW_RTRNMC_TWO_G_CHANNEL ?= 1
 _LW_RTRNMC_TWO_G_FLAGS = $(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)
@@ -1201,6 +1207,10 @@ ifeq ($(shell $(CC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
 ifeq ($(WRF_PHY_INTERPOLATION_SIMD),1)
 ifneq (,$(filter x86_64%,$(shell $(CC) -dumpmachine 2>/dev/null)))
 module_ra_rrtmg_lw.o: private override CPPFLAGS += -DWRF_LW_RTRNMC_TWO_G_CHANNEL_ENABLE
+ifeq ($(WRF_LW_INATM_CONTIGUOUS_COPY),1)
+module_ra_rrtmg_lw.o: private override CPPFLAGS += -DWRF_LW_INATM_CONTIGUOUS_COPY_ENABLE
+module_ra_rrtmg_lw.o: private override FCFLAGS += -fopenmp-simd
+endif
 endif
 endif
 endif

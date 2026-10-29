@@ -12105,6 +12105,9 @@ contains
       real(kind=rb), parameter :: amdc2 = 0.239546_rb ! Molecular weight of dry air / CFC12
 
       integer(kind=im) :: isp, l, ix, n, imol, ib, ig   ! Loop indices
+#if defined(WRF_LW_INATM_CONTIGUOUS_COPY_ENABLE) && !defined(WRF_LW_INATM_CONTIGUOUS_COPY_DISABLE) && defined(WRF_LW_RTRNMC_TWO_G_CHANNEL_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+      logical :: lw_cloud_rows_contiguous
+#endif
       real(kind=rb) :: amm, amttl, wvttl, wvsh, summol  
 
 ! Add one to nlayers here to include extra model layer at top of atmosphere
@@ -12265,10 +12268,53 @@ contains
          inflag = inflglw
          iceflag = iceflglw
          liqflag = liqflglw
+#if defined(WRF_LW_INATM_CONTIGUOUS_COPY_ENABLE) && !defined(WRF_LW_INATM_CONTIGUOUS_COPY_DISABLE) && defined(WRF_LW_RTRNMC_TWO_G_CHANNEL_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+         lw_cloud_rows_contiguous = .false.
+         if (nlayers .gt. 0) then
+            lw_cloud_rows_contiguous = &
+               is_contiguous(cldfmcl(1:ngptlw,iplon,1)) .and. &
+               is_contiguous(cldfmc(1:ngptlw,1)) .and. &
+               is_contiguous(taucmcl(1:ngptlw,iplon,1)) .and. &
+               is_contiguous(taucmc(1:ngptlw,1)) .and. &
+               is_contiguous(ciwpmcl(1:ngptlw,iplon,1)) .and. &
+               is_contiguous(ciwpmc(1:ngptlw,1)) .and. &
+               is_contiguous(clwpmcl(1:ngptlw,iplon,1)) .and. &
+               is_contiguous(clwpmc(1:ngptlw,1)) .and. &
+               is_contiguous(cswpmcl(1:ngptlw,iplon,1)) .and. &
+               is_contiguous(cswpmc(1:ngptlw,1))
+         endif
+
+#endif
 
 ! Move incoming GCM cloud arrays to RRTMG cloud arrays.
 ! For GCM input, incoming reicmcl is defined based on selected ice parameterization (inflglw)
 
+#if defined(WRF_LW_INATM_CONTIGUOUS_COPY_ENABLE) && !defined(WRF_LW_INATM_CONTIGUOUS_COPY_DISABLE) && defined(WRF_LW_RTRNMC_TWO_G_CHANNEL_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+         do l = 1, nlayers
+            if (lw_cloud_rows_contiguous) then
+!$OMP SIMD
+            do ig = 1, ngptlw
+               cldfmc(ig,l) = cldfmcl(ig,iplon,l)
+               taucmc(ig,l) = taucmcl(ig,iplon,l)
+            enddo
+!$OMP SIMD
+            do ig = 1, ngptlw
+               ciwpmc(ig,l) = ciwpmcl(ig,iplon,l)
+               clwpmc(ig,l) = clwpmcl(ig,iplon,l)
+               cswpmc(ig,l) = cswpmcl(ig,iplon,l)
+            enddo
+            else
+            do ig = 1, ngptlw
+               cldfmc(ig,l) = cldfmcl(ig,iplon,l)
+               taucmc(ig,l) = taucmcl(ig,iplon,l)
+            enddo
+            do ig = 1, ngptlw
+               ciwpmc(ig,l) = ciwpmcl(ig,iplon,l)
+               clwpmc(ig,l) = clwpmcl(ig,iplon,l)
+               cswpmc(ig,l) = cswpmcl(ig,iplon,l)
+            enddo
+            endif
+#else
          do l = 1, nlayers
             do ig = 1, ngptlw
                cldfmc(ig,l) = cldfmcl(ig,iplon,l)
@@ -12279,6 +12325,7 @@ contains
                clwpmc(ig,l) = clwpmcl(ig,iplon,l)
                cswpmc(ig,l) = cswpmcl(ig,iplon,l)
             enddo
+#endif
             reicmc(l) = reicmcl(iplon,l)
             relqmc(l) = relqmcl(iplon,l)
             resnmc(l) = resnmcl(iplon,l)
