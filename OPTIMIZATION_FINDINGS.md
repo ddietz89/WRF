@@ -6296,3 +6296,15 @@ Removing two overwritten output zeros and four write-only precipitation arrays p
 The complete 20,000-call driver screen includes all three input restores and the entire callee. Wall time was 0.632% lower on hpc02 and 0.558% higher on hpc04; thread CPU was 0.074% lower and 0.001% higher. These short, opposite-order, cache-cleared pairs establish no significant consistent caller gain. No separate significant kernel gain was measured. Close this version unpromoted, preserving the exact resource result and all observations; no repeated screen or application batch is planned without new evidence.
 
 The first hpc02 arm stopped on an incorrect cache-helper hostname guard before clearing caches or launching the caller. The narrowly repaired continuation retained the successful hpc04 arm without repetition; all actual arms passed raw output/state checks and closed normally. Evidence: campaign `current0dae-thompson-driver-dead-precip-store-source-question-r1/DECISION.json`, SHA256 `f68fdefa5c0b2f0abb96b45fc8deae86be42c428377985ad8dd7f0ab6f7c7dbd`.
+
+### 2026-10-29 — LW CDF2 conditional storage: own three-hour exact application PASS
+
+The CDF2 child 8fa12de9 / 77796010 passed the unchanged original four-output, 545-step SAME512 scientific checker. All four model scopes and original reader e8f56d46ff0a46d88ac0642edde70d80 closed normally. One LW member replaced the parent0dae member; 592 other archive members and all runtime providers and direct inputs were retained. Source correspondence is post-test commit bd931e37365aee211eeada4d2814e6ddbc720eb0; raw producer commit remains NULL.
+
+| Metric | Original median3 | CDF2 current | Lower (%) |
+|---|---:|---:|---:|
+| Wall elapsed (min) | 13.333735 | 10.506029 | 21.207160 |
+| Integration main elapsed (min) | 9.940841 | 8.860903 | 10.863643 |
+| Aggregate CPU (core h) | 99.813152 | 85.067918 | 14.772836 |
+
+The table is a single UNPAIRED descriptive observation against the fixed eligible original median of three controls. Raw A2 remains the exact scientific reference, with its raw metrics separate. Component caller percentages are not added and establish no isolated forecast effect. The current child owns only this unprofiled three-hour qualification; parent instrumented noon/profile and historical nine-hour evidence do not qualify it. No process-peak memory or capacity benefit was measured. The raw collector current3c3a order label is retained and explicitly annotated as donor text; actual receipts bind 8fa12de9.
