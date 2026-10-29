@@ -6194,3 +6194,16 @@ This image is qualified only for its own unprofiled three-hour run on the same 5
 This image is qualified only for its own unprofiled nine-hour run on the same 512-rank configuration: 1,625 steps and ten full outputs passed the unchanged original checker, with all four models and reader normally closed. Own three-hour, noon, profile, restart, full 144-hour and clean full-source rebuild scopes remain false. Direct parent 4d25 has an exact three-hour result that remains historical; no horizon transfers. Only module_ra_rrtmg_lw.o changed; 592 archive members, RSL, provider and all 18 direct inputs remain unchanged. One lower band12 fraction reuses its original integer conversion under binary32/int32 admission with literal fallback. The same primitive previously passed 1,824 exact state comparisons and measured 50–54% lower primitive time. Current 16 genuine-table TAUMOL calls passed full output/read-only/guard/all-five checks. Complete caller wall estimates were 1.46% lower on one host and 0.67% higher on the other; no consistent caller or forecast gain is established. Retention follows owner policy. Nine-hour timing is one UNPAIRED descriptive observation against ONLY retained original nine-hour N1; no median3, pooling, paired, isolated or repeatable forecast claim. Source correspondence follows testing; raw producer commit remains NULL.
 
 [Evidence](tools/cpu-compute/taumol-band12-fraction-20261029/README.md).
+
+
+## Final five sampled TAUMOL fractions — October 29
+
+| Metric | Original control, median of three | Child | Descriptive reduction |
+|---|---:|---:|---:|
+| Wall minutes | 13.333735 | 10.515430 | 21.1367% |
+| Main-step elapsed minutes | 9.940841 | 8.861602 | 10.8566% |
+| Aggregate CPU core-hours | 99.813152 | 85.187000 | 14.6535% |
+
+This image is qualified only for its own unprofiled three-hour run on the same 512-rank configuration: 545 steps and four full outputs passed the unchanged original checker, with all four models and reader normally closed. Own nine-hour, noon, profile, restart, full 144-hour and clean full-source rebuild scopes remain false. Direct parent 7f26 owns its exact nine-hour science, which remains historical. Only module_ra_rrtmg_lw.o changed; 592 archive members, RSL, provider and all 18 direct inputs remain unchanged. Exactly five sampled lower fractions across bands 5, 13, 15 and 16 reuse their original integer conversions under binary32/int32 admission with literal fallback. Sixteen genuine-table complete TAUMOL calls passed full outputs, read-only inputs, guards and all five processor state words, with 44 positive-normal admission witnesses at each new site in both roles. One fixed 20,000-call comparison per host measured 1.24% and 2.82% lower complete caller wall time and 1.17%/2.74% lower process CPU, including full output restores and all callee work. These bounded observations establish no forecast gain or repeatability. Earlier 50–54% primitive gain is separate formula evidence. Three-hour application timing is one unpaired descriptive observation versus the fixed median of three original controls; raw A2 stays separate. Source correspondence is post-test; raw producer commit remains NULL.
+
+[Evidence](tools/cpu-compute/taumol-final-five-fractions-20261029/README.md).
