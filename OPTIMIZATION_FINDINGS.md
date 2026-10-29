@@ -6278,3 +6278,12 @@ The initial link-order failure and subsequent cached numerical failure are prese
 A single SIMD directive in the third-order vertical flux producer failed exact output acceptance. The current parent passed all 134 records. The candidate passed the 126 retained comparisons, then failed the first new competing-NaN witness: `tendency(13,2,4)` changed from `ffc54321` to `7fc12345`. This witness isolates the ROM velocity inputs; state words, read-only inputs and unwritten physical storage remained exact. The remaining seven new comparisons were not executed. The receipt's 134-record counter describes the completed parent, not a candidate pass.
 
 Reject this version without timing or application integration. The earlier missing-schema packaging failure and the subsequent numerical failure remain preserved, and both jobs closed with drained cgroups. The selected longwave-copy configuration is unchanged. Evidence: campaign `current0dae-advect-v-scalar-stencil-remaining-source-question-r1/finite-native-rejection-r1/DECISION.json`, SHA256 `b2cee6f5f087f550fdb67a34cd7e83cf4a84785a0bf8dd661f8c69ff96bcb25c`. No scientific or state comparison was relaxed.
+
+
+## 2026-10-29: current LW-copy selected-thread noon source profile
+
+The selected `0daea208` image passed the unchanged original noon checker: 185 ordered steps and two full outputs. Four requested 15-second captures of selected main threads of ranks 120–123 (CPU 99) passed positive recorder/FD/raw-growth checks and all four separate parsers after normal model, recorder, watcher and reader closure. The 5,664 primary records support current source and instruction identity in mixed I/O context. Numeric sample loss and numeric ELF build ID remain UNKNOWN; no matched timing, global efficiency, removable wait or causal gain follows.
+
+The original optional-report `KeyError('profile_directory')` results remain preserved. Raw RESULT status/order strings still contain historical 5C75/efa6 labels; actual granted lease, executable hash and source identity bind this run to `0daea208` / `fa221fae`. Existing own unprofiled three-hour qualification and metrics remain unchanged. Own unprofiled noon, nine-hour, restart, full-144-hour and clean full-source rebuild scopes remain false. The retained 75-minute original is a science-prefix reference, not a matched one-hour timing control.
+
+[Profile evidence](tools/cpu-compute/lw-inatm-contiguous-copy-20261029/INSTRUMENTED_NOON_PROFILE_QUALIFICATION.json).
