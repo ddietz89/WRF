@@ -6139,6 +6139,9 @@ contains
 ! Local 
       integer(kind=im) :: lay, ind0, ind1, inds, indf, ig
       integer(kind=im) :: js, js1, jpl
+#if defined(WRF_LW_RTRNMC_TWO_G_CHANNEL_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_LW_TAUMOL_BAND4_FRACTION_REUSE_DISABLE)
+      integer(kind=im) :: band4_fraction_bits, band4_fraction_exponent
+#endif
       real(kind=rb) :: speccomb, specparm, specmult, fs
       real(kind=rb) :: speccomb1, specparm1, specmult1, fs1
       real(kind=rb) :: speccomb_planck, specparm_planck, specmult_planck, fpl
@@ -6169,7 +6172,29 @@ contains
          if (specparm .ge. oneminus) specparm = oneminus
          specmult = 8._rb*(specparm)
          js = 1 + int(specmult)
+#if defined(WRF_LW_RTRNMC_TWO_G_CHANNEL_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_LW_TAUMOL_BAND4_FRACTION_REUSE_DISABLE)
+         if(storage_size(specmult)==32 .and. bit_size(band4_fraction_bits)==32 .and. &
+            radix(specmult)==2 .and. digits(specmult)==24 .and. maxexponent(specmult)==128) then
+            band4_fraction_bits=transfer(specmult,band4_fraction_bits)
+            band4_fraction_exponent=iand(band4_fraction_bits,int(z'7f800000',im))
+            if(band4_fraction_bits>=0 .and. (band4_fraction_bits==0 .or. &
+               (band4_fraction_exponent/=0 .and. band4_fraction_exponent/=int(z'7f800000',im))) &
+               .and. js>=1 .and. js<=9) then
+               if(js==1) then
+                  fs=specmult
+               else
+                  fs=specmult-real(js-1,rb)
+                  if(fs==0._rb) fs=0._rb
+               endif
+            else
+               fs=mod(specmult,1.0_rb)
+            endif
+         else
+            fs=mod(specmult,1.0_rb)
+         endif
+#else
          fs = mod(specmult,1.0_rb)
+#endif
 
          speccomb1 = colh2o(lay) + rat_h2oco2_1(lay)*colco2(lay)
          specparm1 = colh2o(lay)/speccomb1
@@ -6183,7 +6208,29 @@ contains
          if (specparm_planck .ge. oneminus) specparm_planck=oneminus
          specmult_planck = 8._rb*specparm_planck
          jpl= 1 + int(specmult_planck)
+#if defined(WRF_LW_RTRNMC_TWO_G_CHANNEL_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_LW_TAUMOL_BAND4_FRACTION_REUSE_DISABLE)
+         if(storage_size(specmult_planck)==32 .and. bit_size(band4_fraction_bits)==32 .and. &
+            radix(specmult_planck)==2 .and. digits(specmult_planck)==24 .and. maxexponent(specmult_planck)==128) then
+            band4_fraction_bits=transfer(specmult_planck,band4_fraction_bits)
+            band4_fraction_exponent=iand(band4_fraction_bits,int(z'7f800000',im))
+            if(band4_fraction_bits>=0 .and. (band4_fraction_bits==0 .or. &
+               (band4_fraction_exponent/=0 .and. band4_fraction_exponent/=int(z'7f800000',im))) &
+               .and. jpl>=1 .and. jpl<=9) then
+               if(jpl==1) then
+                  fpl=specmult_planck
+               else
+                  fpl=specmult_planck-real(jpl-1,rb)
+                  if(fpl==0._rb) fpl=0._rb
+               endif
+            else
+               fpl=mod(specmult_planck,1.0_rb)
+            endif
+         else
+            fpl=mod(specmult_planck,1.0_rb)
+         endif
+#else
          fpl = mod(specmult_planck,1.0_rb)
+#endif
 
          ind0 = ((jp(lay)-1)*5+(jt(lay)-1))*nspa(4) + js
          ind1 = (jp(lay)*5+(jt1(lay)-1))*nspa(4) + js1

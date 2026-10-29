@@ -1229,3 +1229,9 @@ WRF_LW_TAUMOL_FS1_REUSE ?= 1
 ifeq ($(WRF_LW_TAUMOL_FS1_REUSE),0)
 module_ra_rrtmg_lw.o: private override CPPFLAGS += -DWRF_LW_TAUMOL_FS1_REUSE_DISABLE
 endif
+
+# Two sampled lower-atmosphere band-4 fractions; same qualified LW build and precision checks.
+WRF_LW_TAUMOL_BAND4_FRACTION_REUSE ?= 1
+ifeq ($(WRF_LW_TAUMOL_BAND4_FRACTION_REUSE),0)
+module_ra_rrtmg_lw.o: private override CPPFLAGS += -DWRF_LW_TAUMOL_BAND4_FRACTION_REUSE_DISABLE
+endif
