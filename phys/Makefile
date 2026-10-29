@@ -1241,3 +1241,9 @@ WRF_LW_TAUMOL_BAND12_FRACTION_REUSE ?= 1
 ifeq ($(WRF_LW_TAUMOL_BAND12_FRACTION_REUSE),0)
 module_ra_rrtmg_lw.o: private override CPPFLAGS += -DWRF_LW_TAUMOL_BAND12_FRACTION_REUSE_DISABLE
 endif
+
+# Final five retained sampled LW fraction sites; same qualified build and precision admission.
+WRF_LW_TAUMOL_FIVE_SAMPLED_FRACTIONS_REUSE ?= 1
+ifeq ($(WRF_LW_TAUMOL_FIVE_SAMPLED_FRACTIONS_REUSE),0)
+module_ra_rrtmg_lw.o: private override CPPFLAGS += -DWRF_LW_TAUMOL_FIVE_SAMPLED_FRACTIONS_REUSE_DISABLE
+endif
