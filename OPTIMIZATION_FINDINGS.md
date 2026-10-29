@@ -6105,3 +6105,25 @@ The complete CU-region screen reduced wall time by 22.25% and 25.03% compared wi
 The candidate passed 122 original native cases and three unmasked fallback cases with exact physical outputs, read-only inputs and all five processor-state words. It removed one of two vector divisions used to build overlapping face-quotient rows, but the complete synthetic default-path caller was **1.40% slower on hpc02 and 3.03% slower on hpc04**; CPU time increased 1.40% and 3.04%. Both orders included the full tendency restore, eligibility guard, allocation and genuine callee, with cache clearing before each arm and exact reference/state checks. These are two single-shape caller comparisons, not forecast regressions.
 
 Leave this candidate unpromoted: fewer divisions did not produce a measured benefit. No application build or forecast was run for it, and the selected 6bc4 configuration is unchanged. The first raw module-metadata failure remains preserved; a separate finite interface check admitted only one conservative dependency attribute while retaining implicit purity and every other serialized token. No numerical or processor-state comparison was relaxed. [Decision and receipts](tools/cpu-compute/hdiff-shared-face-rejected-20261029/DECISION.json).
+
+The retained assembly gives a possible explanation: vector stack accesses in the four-column consumer rise from 4 to 10 while its vector arithmetic counts stay the same. That repeated inner-loop traffic may outweigh the once-per-row division savings; the timing does not establish it as the sole cause.
+
+## RK scalar row pipeline: original-object fallback and remaining NaN failure — October 29
+
+The separate optimized procedure retained the original compiled procedure for fallback. This fixed the previously observed fallback NaN mismatch: 252 prior case-round comparisons passed exactly, including the old quiet-NaN tail cases, and original-body identity checks passed. However, the first eligible four-column focused case changed a quiet-NaN result from `7fc12345` to `ffc54321`, selecting a different input payload in the producer multiplication. This is a numerical acceptance failure on the optimized route itself.
+
+Reject the candidate without timing or forecast integration. The failed run and unexecuted supplemental cases remain recorded; the selected `6bc47f88` build is unchanged. [Decision and exact failure](tools/cpu-compute/rk-scalar-row-pipeline-rejected-20261029/DECISION.json).
+
+## CU SIMD: own nine-hour exact comparison — October 29
+
+The selected image `6bc47f88` and archive `aeb4f38f` completed all 1,625 ordered steps and ten FULL products from 06:00 to 15:00 under the unchanged original checker. All four model invocations and reader closed normally. Existing own-three-hour evidence remains valid and separate; noon, profile, restart, full 144-hour, O0 and clean source rebuild scopes remain false.
+
+| Metric | Retained original N1 | Selected 6bc4 | Descriptive reduction |
+|---|---:|---:|---:|
+| Wall minutes | 34.157236 | 29.128442 | 14.7225% |
+| Main-step elapsed minutes | 30.845967 | 27.552611 | 10.6768% |
+| Aggregate CPU core-hours | 278.157466 | 244.440840 | 12.1214% |
+
+This is a single candidate-only UNPAIRED descriptive observation against only the eligible retained originalN1. It is not a fresh matched or isolated CU benefit, and kernel percentages are not added. R1 stopped before model submission on cache-receipt path plumbing; that failure and external timestamp-helper failures are preserved. Fresh R2 used the exact validated cache contract and nine-hour boundary-union helper without altering scientific inputs, runtime guards, or checker.
+
+[Qualification](tools/cpu-compute/cu-fourcolumn-simd-20261029/NINE_HOUR_APPLICATION_QUALIFICATION.json).

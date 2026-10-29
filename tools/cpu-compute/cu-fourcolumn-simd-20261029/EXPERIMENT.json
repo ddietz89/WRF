@@ -1,8 +1,8 @@
 {
-  "status": "OWN_UNPROFILED_THREE_HOUR_EXACT_SCIENCE_QUALIFIED",
+  "status": "PASS_OWN_UNPROFILED_SAME512_CU_SIMD_NINE_HOUR_1625_TEN_FULL",
   "qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/cu-fourcolumn-simd-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "c7f88f79f0130abdd5a3b73072a819c900cb3f3c9d9aab10241d7161d87ee633"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/cu-fourcolumn-simd-20261029/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "64dc81b0342a2611e43492b233b1eadce2facd867cc9834e416bf3238f7fa936"
   },
   "components": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/cu-fourcolumn-simd-20261029/COMPONENT_EVIDENCE.json",
@@ -12,5 +12,28 @@
   "raw_producer_source_commit": null,
   "forecast_gain": null,
   "timing_gain_claim": false,
-  "scope": "Only this image's unprofiled three-hour run on the same 512-rank configuration is qualified: 545 steps and four full outputs passed the unchanged checker, and all four model processes and the reader closed normally. Its noon, nine-hour, profile, restart, full 144-hour, O0, and clean source rebuild qualifications remain false. One CU helper changed; the other 592 archive members, including the module and PBL helper, are unchanged, as are RSL, the output provider, and all 18 direct link inputs. The failed R1 producer retains two successful links. The normally closed R2 continuation reused those exact artifacts, performed zero compiles or links, and passed all 320 complete-procedure comparisons for physical outputs, read-only inputs, and all five processor-state words. The source commit records correspondence after testing; the raw producer commit remains NULL. Timing is one unpaired descriptive observation against the fixed median of three original controls. The raw A2 scientific control remains separate. These timings do not isolate a forecast speedup caused by this helper."
+  "scope": "Selected 6bc4/aeb4 passed its own unprofiled nine-hour run on the same 512-rank configuration, from 06:00 to 15:00: 1,625 ordered steps and ten FULL products exact under the unchanged original checker; all four models and reader normally closed. Its existing own-three-hour qualification remains immutable and separate. Its noon, profile, restart, full 144-hour, O0 and clean-source-rebuild qualification remain false. Source 8d2aa02c records correspondence after testing; the raw producer commit remains NULL. Nine-hour timings are candidate-only UNPAIRED descriptive against retained original N1 only, not pooled/rolling median, matched repeatability, isolated helper gain, or additive kernel percentages. All runtime guards/resources/providers unchanged; no memory-capacity claim.",
+  "nine_hour_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/cu-fourcolumn-simd-20261029/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "64dc81b0342a2611e43492b233b1eadce2facd867cc9834e416bf3238f7fa936"
+  },
+  "own_nine_hour_qualified": true,
+  "own_unprofiled_nine_hour_qualified": true,
+  "qualification_scope": {
+    "full144_qualified": false,
+    "native_profile_qualified": false,
+    "own_384_qualified": false,
+    "own_fourhost512_qualified": true,
+    "own_instrumented_noon_one_hour_qualified": false,
+    "own_nine_hour_qualified": true,
+    "own_noon_one_hour_qualified": false,
+    "own_three_hour_qualified": true,
+    "own_threehost256_threehour_qualified": false,
+    "own_unprofiled_nine_hour_qualified": true,
+    "own_unprofiled_noon_one_hour_qualified": false,
+    "own_unprofiled_three_hour_qualified": true,
+    "profile_qualified": false,
+    "restart_qualified": false,
+    "clean_full_source_build_qualified": false
+  }
 }

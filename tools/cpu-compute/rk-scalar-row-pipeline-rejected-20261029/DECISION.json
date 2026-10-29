@@ -1,0 +1,58 @@
+{
+  "status": "CLOSED_REJECTED_UNPROMOTED_ELIGIBLE_FULL4_QUIET_NAN_PAYLOAD",
+  "mechanism": "Separate optimized per-K producer/scalarconsumer with unchanged original-object fallback. This distinct fallback repair does not repair fast-route NaN operand priority.",
+  "evidence_sha256": "c49c6ac98b410405badcd818352c46e5bf639f5472bf2b2130e262ad5dfff723",
+  "actual_receipt": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current3c3a-rkscalar-laterstage-row-pipeline-source-question-r1/separate-original-object-native-preparation-r1-hpc02/actual-native-r1/receipt.json",
+    "sha256": "70358c0c8742f3a9b944d83c5d1337d2ae1390675f3f0aa92168f66b031b9d1e"
+  },
+  "actual_closure": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current3c3a-rkscalar-laterstage-row-pipeline-source-question-r1/separate-original-object-native-preparation-r1-hpc02/actual-native-r1/closure.json",
+    "sha256": "941251444738e10a834b4030e1552757900f0a6308abbe90612d295a00e12564"
+  },
+  "first_hard_failure": {
+    "protocol": "focused_full4_driver",
+    "round": 0,
+    "case": 145,
+    "byte": 12716,
+    "word": 3179,
+    "field": "scalar_2",
+    "indices": {
+      "i": 3,
+      "k": 1,
+      "j": 2,
+      "im": 2
+    },
+    "producer_role": "advect_tend(i,k,j) * msfty(i,j)",
+    "parent_bits": "7fc12345",
+    "candidate_bits": "ffc54321",
+    "input_advect_bits": "7fc12345",
+    "input_metric_bits": "ffc54321",
+    "admission": "width4/fullK/later RK2/inactive diagnostics/masked; both packed producer and scalar consumer emitted. Eligible fast-route counterexample, not excluded original-object fallback.",
+    "source_cause_scope": "Case145 initializes competing quiet NaNs only in producer operands; parent output retains advect payload, candidate metric payload. Exact instruction/register role attribution beyond retained producer instructions is not newly queried or claimed."
+  },
+  "passed_scope": {
+    "original_allocated_bytes_function_bodies_full_RELA_symbol_only_alias": true,
+    "linked_original_body_nonRELA_bytes_CALL_JMP_owners_PC32pool_payloads": true,
+    "unique_public_dispatch_private_original_private_fast": true,
+    "dispatcher_no_FP_or_allocator": true,
+    "prior_protocol_round_files_exact": 20,
+    "prior_cases_fourround": 252,
+    "protocols": [
+      "focused_firststage_driver",
+      "focused_laterstage_driver",
+      "partial_k_species_driver",
+      "retained_case42_driver",
+      "rk_scalar_driver"
+    ],
+    "original_failed_quiet_tail_fallback_now_exact": true
+  },
+  "not_qualified": [
+    "Failed5case file is not partially admitted.",
+    "Two-species and finite-unmasked supplemental families not reached.",
+    "No completecaller cost, O0, application/default/source promotion or forecast gain.",
+    "No tolerance, NaN normalization, state masking, retry or new variant."
+  ],
+  "decision": "Rejected. The eligible optimized route changes NaN payload selection; no timing or application promotion. Selected executable remains 6bc47f88.",
+  "scientific_contract_unchanged": true
+}

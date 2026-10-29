@@ -1,6 +1,8 @@
 # CU four-column helper
 
-Image `6bc47f88` and archive `aeb4f38f` passed the original three-hour science check on the same 512-rank configuration: **545 steps and four full outputs**, with normal model and reader closures.
+Image `6bc47f88` and archive `aeb4f38f` passed their own unprofiled three-hour and nine-hour scientific checks on the same 512-rank configuration: **545 steps/four FULL outputs** and **1,625 steps/ten FULL outputs**, respectively. All model and reader invocations closed normally.
+
+## Three-hour observation
 
 | Metric | Original control, median of three | Child | Descriptive reduction |
 |---|---:|---:|---:|
@@ -8,7 +10,7 @@ Image `6bc47f88` and archive `aeb4f38f` passed the original three-hour science c
 | Main-step elapsed minutes | 9.940841 | 8.845775 | 11.0158% |
 | Aggregate CPU core-hours | 99.813152 | 85.051337 | 14.7894% |
 
-Only this image's unprofiled three-hour run on the same 512-rank configuration is qualified: 545 steps and four full outputs passed the unchanged checker, and all four model processes and the reader closed normally. Its noon, nine-hour, profile, restart, full 144-hour, O0, and clean source rebuild qualifications remain false. One CU helper changed; the other 592 archive members, including the module and PBL helper, are unchanged, as are RSL, the output provider, and all 18 direct link inputs. The failed R1 producer retains two successful links. The normally closed R2 continuation reused those exact artifacts, performed zero compiles or links, and passed all 320 complete-procedure comparisons for physical outputs, read-only inputs, and all five processor-state words. The source commit records correspondence after testing; the raw producer commit remains NULL. Timing is one unpaired descriptive observation against the fixed median of three original controls. The raw A2 scientific control remains separate. These timings do not isolate a forecast speedup caused by this helper.
+This image's own unprofiled three-hour and nine-hour runs are qualified by their separate unchanged checkers and actual normal closures. Its noon, profile, restart, full 144-hour, O0, and clean source rebuild qualifications remain false. One CU helper changed; the other 592 archive members, including the module and PBL helper, are unchanged, as are RSL, the output provider, and all 18 direct link inputs. The failed R1 producer retains two successful links. The normally closed R2 continuation reused those exact artifacts, performed zero compiles or links, and passed all 320 complete-procedure comparisons for physical outputs, read-only inputs, and all five processor-state words. The source commit records correspondence after testing; the raw producer commit remains NULL. Timing is one unpaired descriptive observation against the fixed median of three original controls. The raw A2 scientific control remains separate. These timings do not isolate a forecast speedup caused by this helper.
 
 The separate complete CU-region screen reduced wall time by 22.25% on host 02 and 25.03% on host 04 compared with scalar fused CU. All eight restores, the admission check, and the full region were timed. These initialized region cases do not measure the whole procedure or establish an additive or causal forecast gain. Both whole-procedure native checks passed all 320 comparisons.
 
@@ -17,3 +19,15 @@ The failed R1 producer retains two successful links and its failed, drained clos
 The only source change is `dyn_em/cu_fused_row.c`; Make rules, the module, the PBL helper, and compiler flags are unchanged. Source commit `8d2aa02c` records correspondence after testing; the raw producer commit remains NULL.
 
 Rollback: Select retained qualified image 3c3a and archive da52 to restore scalar fused CU while retaining PBL SSE2. WRF_CU_FACTOR_FUSION=0 rebuilds original unfused CU; WRF_PBL_FACTOR_FUSION=0 disables both nested features. This source promotion changes no Make rule or global flag.
+
+## Selected CU SIMD: sustained nine-hour qualification — October 29
+
+Selected 6bc4/aeb4 passed its own unprofiled nine-hour run on the same 512-rank configuration, from 06:00 to 15:00: 1,625 ordered steps and ten FULL products exact under the unchanged original checker; all four models and reader normally closed. Its existing own-three-hour qualification remains immutable and separate. Its noon, profile, restart, full 144-hour, O0 and clean-source-rebuild qualification remain false. Source 8d2aa02c records correspondence after testing; the raw producer commit remains NULL. Nine-hour timings are candidate-only UNPAIRED descriptive against retained original N1 only, not pooled/rolling median, matched repeatability, isolated helper gain, or additive kernel percentages. All runtime guards/resources/providers unchanged; no memory-capacity claim.
+
+| Metric | Retained original N1 | Selected 6bc4 | Descriptive reduction |
+|---|---:|---:|---:|
+| Wall minutes | 34.157236 | 29.128442 | 14.7225% |
+| Main-step elapsed minutes | 30.845967 | 27.552611 | 10.6768% |
+| Aggregate CPU core-hours | 278.157466 | 244.440840 | 12.1214% |
+
+[Actual nine-hour qualification](NINE_HOUR_APPLICATION_QUALIFICATION.json). Earlier three-hour evidence remains separate.
