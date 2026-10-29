@@ -1,13 +1,13 @@
 # Selected working configuration
 
-Image `4d258a49` changes only the LW member; 592 other archive members and all direct inputs are unchanged.
+Image `7f268b11` changes only the LW member; 592 other members and direct inputs remain unchanged.
 
-| Metric | Original control, median of three | Child | Descriptive reduction |
+| Metric | Retained original nine-hour N1 | Child | Descriptive reduction |
 |---|---:|---:|---:|
-| Wall minutes | 13.333735 | 10.515850 | 21.1335% |
-| Main-step elapsed minutes | 9.940841 | 8.855933 | 10.9136% |
-| Aggregate CPU core-hours | 99.813152 | 85.230792 | 14.6097% |
+| Wall minutes | 34.157236 | 29.156626 | 14.6400% |
+| Main-step elapsed minutes | 30.845967 | 27.555877 | 10.6662% |
+| Aggregate CPU core-hours | 278.157466 | 244.596439 | 12.0655% |
 
-This image is qualified only for its own unprofiled three-hour run on the same 512-rank configuration: 545 steps and four full outputs passed the unchanged checker, with all four models and the reader normally closed. Its noon, nine-hour, profile, restart, full 144-hour and clean full-source rebuild scopes remain false. Only module_ra_rrtmg_lw.o changed; the other 592 archive members, RSL, provider and all 18 direct inputs are unchanged. Two additional lower band4 remainder sites reuse their preceding original integer conversions with binary32/integer32 admission and literal fallback. The identical primitive formula previously passed 1,824 raw/state comparisons and measured 50–54% lower primitive time. The current 16 genuine-table complete TAUMOL calls passed full outputs, read-only inputs, guards and all five compute state words. Current complete caller wall estimates were 0.94% lower on one host and 0.57% higher on the other; no consistent caller or forecast gain is established. Retention follows the owner significant-kernel inclusion policy. Three-hour timing is an unpaired descriptive observation against the fixed median of three original controls; raw A2 remains separate. Source correspondence is post-test; raw producer commit remains NULL.
+This image is qualified only for its own unprofiled nine-hour run on the same 512-rank configuration: 1,625 steps and ten full outputs passed the unchanged original checker, with all four models and reader normally closed. Own three-hour, noon, profile, restart, full 144-hour and clean full-source rebuild scopes remain false. Direct parent 4d25 has an exact three-hour result that remains historical; no horizon transfers. Only module_ra_rrtmg_lw.o changed; 592 archive members, RSL, provider and all 18 direct inputs remain unchanged. One lower band12 fraction reuses its original integer conversion under binary32/int32 admission with literal fallback. The same primitive previously passed 1,824 exact state comparisons and measured 50–54% lower primitive time. Current 16 genuine-table TAUMOL calls passed full output/read-only/guard/all-five checks. Complete caller wall estimates were 1.46% lower on one host and 0.67% higher on the other; no consistent caller or forecast gain is established. Retention follows owner policy. Nine-hour timing is one UNPAIRED descriptive observation against ONLY retained original nine-hour N1; no median3, pooling, paired, isolated or repeatable forecast claim. Source correspondence follows testing; raw producer commit remains NULL.
 
-[Evidence](../cpu-compute/taumol-band4-fractions-20261029/README.md) · [Selected binding](CURRENT_SOURCE_BUILD_BINDING.json)
+[Evidence](../cpu-compute/taumol-band12-fraction-20261029/README.md) · [Selected binding](CURRENT_SOURCE_BUILD_BINDING.json)

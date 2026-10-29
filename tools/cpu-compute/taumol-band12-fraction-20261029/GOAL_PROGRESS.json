@@ -1,0 +1,33 @@
+{
+  "status": "MATHEMATICAL_GAP_ONLY_UNPAIRED_OWN_NINE_HOUR_OBSERVATION",
+  "qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/taumol-band12-fraction-20261029/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "d0f3e4b8f35edef353fb9f28c3c9eedf5272825c9fa59336439b6589b8f49c58"
+  },
+  "current_nine_hour_descriptive_wall_ratio": 1.171508530537064,
+  "ratio_definition": "Sole retained original nine-hour N1 wall time divided by the current image own nine-hour wall time; an unpaired descriptive ratio, not an isolated or repeatable causal speedup.",
+  "baseline_wall_seconds": 2049.434141888749,
+  "current_wall_seconds": 1749.3975404081866,
+  "targets": [
+    {
+      "target_wall_ratio": 1.5,
+      "target_wall_seconds": 1366.2894279258326,
+      "formula": "1 - current_descriptive_wall_ratio / target_wall_ratio",
+      "signed_additional_current_wall_fraction": 0.2189943129752906,
+      "additional_current_wall_fraction": 0.2189943129752906,
+      "additional_current_wall_percent": 21.89943129752906,
+      "interpretation": "A positive gap is the required further reduction in CURRENT wall time; it is not measured headroom or a guarantee."
+    },
+    {
+      "target_wall_ratio": 2.0,
+      "target_wall_seconds": 1024.7170709443744,
+      "formula": "1 - current_descriptive_wall_ratio / target_wall_ratio",
+      "signed_additional_current_wall_fraction": 0.414245734731468,
+      "additional_current_wall_fraction": 0.414245734731468,
+      "additional_current_wall_percent": 41.4245734731468,
+      "interpretation": "A positive gap is the required further reduction in CURRENT wall time; it is not measured headroom or a guarantee."
+    }
+  ],
+  "limits": "Required further fraction of CURRENT wall time only. This is not measured removable headroom or a prediction. It makes no sustained nine-hour or long-run target claim or guarantee; historical long-run evidence remains separate.",
+  "historical_parent_nine_hour_qualification": null
+}
