@@ -10405,7 +10405,16 @@ end interface
          ciwpmc(:,:) = 0.0_rb
          clwpmc(:,:) = 0.0_rb
       endif
+#if defined(WRF_SW_SPC_ORDERED_MIX4_ENABLE) && !defined(WRF_SW_SPC_ORDERED_MIX4_DISABLE) && !defined(WRF_SW_INATM_CSW_INIT_SKIP_DISABLE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+       if (icld .ge. 1 .and. iceflgsw .eq. 5 .and. nlayers .gt. 0) then
+         cswpmc(ngptsw+1:size(cswpmc,1),:) = 0.0_rb
+         cswpmc(1:ngptsw,nlayers+1:size(cswpmc,2)) = 0.0_rb
+      else
+         cswpmc(:,:) = 0.0_rb
+      endif
+#else
        cswpmc(:,:) = 0.0_rb
+#endif
        reicmc(:) = 0.0_rb
        relqmc(:) = 0.0_rb
        resnmc(:) = 0.0_rb

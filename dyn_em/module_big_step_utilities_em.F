@@ -353,9 +353,17 @@ SUBROUTINE couple_momentum ( muu, ru, u, msfu,              &
    ! Local data
    
 #if defined(WRF_COUPLE_MOMENTUM_U_SIMD_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_COUPLE_MOMENTUM_U_SIMD_DISABLE)
+#if defined(WRF_COUPLE_MOMENTUM_W_SIMD_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_COUPLE_MOMENTUM_W_SIMD_DISABLE)
+   INTEGER :: i, j, k, itf, jtf, ktf, u_simd_end, w_simd_end
+#else
    INTEGER :: i, j, k, itf, jtf, ktf, u_simd_end
+#endif
+#else
+#if defined(WRF_COUPLE_MOMENTUM_W_SIMD_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_COUPLE_MOMENTUM_W_SIMD_DISABLE)
+   INTEGER :: i, j, k, itf, jtf, ktf, w_simd_end
 #else
    INTEGER :: i, j, k, itf, jtf, ktf
+#endif
 #endif
    
 !<DESCRIPTION>
@@ -407,9 +415,22 @@ SUBROUTINE couple_momentum ( muu, ru, u, msfu,              &
 
       DO j=jts,jtf
       DO k=kts,kte
+#if defined(WRF_COUPLE_MOMENTUM_W_SIMD_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_COUPLE_MOMENTUM_W_SIMD_DISABLE)
+      IF (its<=itf) THEN
+        w_simd_end=its+4*((itf-its+1)/4)-1
+!$OMP SIMD SIMDLEN(4)
+        DO i=its,w_simd_end
+         rw(i,k,j)=w(i,k,j)*(c1f(k)*mut(i,j)+c2f(k))/msft(i,j)
+        ENDDO
+        DO i=w_simd_end+1,itf
+         rw(i,k,j)=w(i,k,j)*(c1f(k)*mut(i,j)+c2f(k))/msft(i,j)
+        ENDDO
+      END IF
+#else
       DO i=its,itf
          rw(i,k,j)=w(i,k,j)*(c1f(k)*mut(i,j)+c2f(k))/msft(i,j)
       ENDDO
+#endif
       ENDDO
       ENDDO
 

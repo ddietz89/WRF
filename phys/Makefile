@@ -1247,3 +1247,11 @@ WRF_LW_TAUMOL_FIVE_SAMPLED_FRACTIONS_REUSE ?= 1
 ifeq ($(WRF_LW_TAUMOL_FIVE_SAMPLED_FRACTIONS_REUSE),0)
 module_ra_rrtmg_lw.o: private override CPPFLAGS += -DWRF_LW_TAUMOL_FIVE_SAMPLED_FRACTIONS_REUSE_DISABLE
 endif
+
+# CSW snow initialization: skip only the overwritten active iceflag5 rectangle.
+# Inherits existing GNU13.3 strict-O2 REAL4/INT4 pureMPI SW ordered support.
+# WRF_SW_INATM_CSW_INIT_SKIP=0 restores the original full initialization.
+WRF_SW_INATM_CSW_INIT_SKIP ?= 1
+ifeq ($(WRF_SW_INATM_CSW_INIT_SKIP),0)
+module_ra_rrtmg_sw.o: private override CPPFLAGS += -DWRF_SW_INATM_CSW_INIT_SKIP_DISABLE
+endif
