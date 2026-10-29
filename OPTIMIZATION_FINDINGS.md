@@ -6308,3 +6308,12 @@ The CDF2 child 8fa12de9 / 77796010 passed the unchanged original four-output, 54
 | Aggregate CPU (core h) | 99.813152 | 85.067918 | 14.772836 |
 
 The table is a single UNPAIRED descriptive observation against the fixed eligible original median of three controls. Raw A2 remains the exact scientific reference, with its raw metrics separate. Component caller percentages are not added and establish no isolated forecast effect. The current child owns only this unprofiled three-hour qualification; parent instrumented noon/profile and historical nine-hour evidence do not qualify it. No process-peak memory or capacity benefit was measured. The raw collector current3c3a order label is retained and explicitly annotated as donor text; actual receipts bind 8fa12de9.
+
+
+## LW alpha conditional storage: exact but slower — October 29
+
+Moving the remaining alpha scratch array into overlap branches 4/5 passed all 120 original native observations and the finite machine review. The production overlap path omits one allocation/free pair, retaining the unconditional division and original RNG/arithmetic order. The initial compiler-module raw mismatch is preserved; the existing finite typed-interface proof identified only three named files with identifier renumbering. No numerical acceptance changed.
+
+The complete 20,000-call MCICA33 adapter was slower in both opposite-order, cache-cleared comparisons: 2.339% wall / 2.303% thread CPU on hpc02, and 1.263% wall / 1.364% thread CPU on hpc04. All four arms passed exact outputs and processor-state checks and closed normally. The allocation removal supplies no measured caller gain, peak-memory or capacity benefit, so this version is closed unpromoted without application integration or repeated timing. The selected CDF2 build is unchanged.
+
+Evidence: campaign `current8fa1-LW-alpha-conditional-storage-source-question-r1/ACTUAL_CALLER_COST_REPORT.json`, SHA256 `d8c8dc0a584eab94f434e15439bdbad192b2bec908678c45cc05b5b29b0e65ce`.
