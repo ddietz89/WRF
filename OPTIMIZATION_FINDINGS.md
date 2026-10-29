@@ -6127,3 +6127,9 @@ The selected image `6bc47f88` and archive `aeb4f38f` completed all 1,625 ordered
 This is a single candidate-only UNPAIRED descriptive observation against only the eligible retained originalN1. It is not a fresh matched or isolated CU benefit, and kernel percentages are not added. R1 stopped before model submission on cache-receipt path plumbing; that failure and external timestamp-helper failures are preserved. Fresh R2 used the exact validated cache contract and nine-hour boundary-union helper without altering scientific inputs, runtime guards, or checker.
 
 [Qualification](tools/cpu-compute/cu-fourcolumn-simd-20261029/NINE_HOUR_APPLICATION_QUALIFICATION.json).
+
+## WW_SPLIT row copy-and-zero helper: exact but slower — October 29
+
+The explicit SSE2 row helper passed 64 complete-routine comparisons with exact outputs, untouched inputs/halos and all five processor-state words. In the complete synthetic caller, with both output restores and all admission/helper work timed, it was **7.00% slower on hpc02 and 6.95% slower on hpc04**. All four opposite-order arms passed cache, output/state and normal-closure checks. The row helper remains unpromoted.
+
+Actual assembly shows repeated range checks, call setup and pointer spills for every row. These plausibly offset the fused loop; the executed libc copy width is unresolved, so no sole-cause claim is made. A separate whole-box helper could move admission outside those rows, but has no timing or qualification yet. [Decision and receipts](tools/cpu-compute/ww-split-row-copyzero-rejected-20261029/DECISION.json).
