@@ -1,0 +1,43 @@
+{
+  "status": "REJECT_UNPROMOTED_COMPLETE_CALLER_REGRESSION",
+  "mechanism": "Move whole-array range checks and the helper call outside WW_SPLIT row loops, preserving the previous four-word SSE2 copy/zero body and literal fallback.",
+  "native": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current6bc4-ww-split-explicit-copyzero-source-question-r1/native-O2-whole-box-preparation-r1-hpc02/actual-native-r1/receipt.json",
+    "sha256": "d828f453b5fdaf19bbbad973fb14ff672846301c5d937088529099a151b6893e"
+  },
+  "native_comparisons": 64,
+  "native_scope": "Exact full physical/read-only/configuration/guards and all five state words. Positive optimized-route and alias-denial checks passed.",
+  "timing": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current6bc4-ww-split-explicit-copyzero-source-question-r1/whole-box-complete-WW8192-cost-preparation-r1/ACTUAL_WAVE.json",
+    "sha256": "e8fe277b1f8898d0f4ed2372fcf6e03900b23c5b019e5fa921c0e6813f709248"
+  },
+  "host_comparisons": {
+    "hpc02": {
+      "wall_seconds": {
+        "parent": 0.518393152,
+        "candidate": 0.549920145,
+        "percent_lower": -6.081676210105481
+      },
+      "process_cpu_seconds": {
+        "parent": 0.51837998,
+        "candidate": 0.549906138,
+        "percent_lower": -6.081669666332413
+      }
+    },
+    "hpc04": {
+      "wall_seconds": {
+        "parent": 0.518114602,
+        "candidate": 0.550822016,
+        "percent_lower": -6.3127759522207
+      },
+      "process_cpu_seconds": {
+        "parent": 0.518099211,
+        "candidate": 0.550805704,
+        "percent_lower": -6.312785718563842
+      }
+    }
+  },
+  "timing_scope": "Complete SYNTHETIC default WW_SPLIT188interiorI/33staggeredK/10tileJ, extended output190x33x12 in201x39x31 physical storage. Representative8x60/twoYtile geometry, not captured forecast input.8192fullcalls/16warmups. BOTH full physical E/I restores+entire genuinecallee/check/guard/helper inside integerCLOCK_MONOTONIC/PROCESS_CPU; initialization/config/reset/count1oracle/warmup/readOnly/fullphysical/halo/five-state validation outside. Retained genuine parent fullraw gold hard against C at count1 and batch. No percallvalidation, byte/capacity/FPwork reduction, isolated/global forecast or expected gain claim. Whole-box guard/call hoist versus original; same four-word SSE2 width. Native-only wrapper absent from both timing images.",
+  "decision": "Do not integrate. Hoisting repeated guards and calls did not make the complete caller faster. No forecast or default change; no further repeat without a distinct evidenced mechanism.",
+  "limitations": "No claim about actual libc vector width or a single proven cause of regression."
+}
