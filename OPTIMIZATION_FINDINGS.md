@@ -6237,3 +6237,17 @@ This child owns only its unprofiled SAME512 three-hour qualification: 545 steps 
 | CPU core-hours | 278.157466 | 244.293678 | 12.1743% |
 
 The same selected image owns both original three-hour and nine-hour science. Its new unprofiled SAME512 nine-hour run passed all 1,625 ordered steps and ten full outputs, with all four models and the reader normally closed. The prior own three-hour qualification and metrics remain valid and unchanged. Own noon, profile, restart, full 144-hour and clean full-source rebuild scopes remain false. Parent 31a4 noon/profile records remain historical. The executable, archive, source commit, member composition, direct inputs, provider and scientific checker are unchanged by this publication. Nine-hour timing is one UNPAIRED descriptive observation against only retained original nine-hour N1; no median, pooling, component attribution, paired or repeatable forecast claim follows. The independent three-hour observation retains its separate fixed-median3 comparison. Component caller gains remain separate, not additive. Raw producer commit remains NULL.
+
+
+## Closed caller screens — October 29
+
+Two exact-qualified candidates remained unpromoted after complete-caller measurements. Neither changed the selected working image.
+
+| Candidate | Exact validation | Complete-caller result | Decision |
+|---|---|---|---|
+| MYJPBL original-humidity quotient cache | Original captured case and all 63 focused state/output records passed; actual operand review passed | hpc01: 3.150911192 → 3.150169399 s (0.02354% lower); hpc03: 3.156428921 → 3.154308894 s (0.06717% lower) | Neutral result does not justify the added per-column buffer; no forecast or repeat planned. |
+| WW AVX2 whole-box copy/zero helper | All 64 exact native observations, generated-code review and all four caller arms passed | hpc02: 0.518721159 → 0.523929956 s (1.00416% slower); hpc04: 0.519306830 → 0.519464420 s (0.03035% slower) | No demonstrated caller gain; no further width/layout sweep or forecast planned. |
+
+Each screen used one opposite-order pair per node with cache clears before every arm. Full caller restoration, dispatch and added storage costs were included. Scientific values, guards, read-only inputs and all five numerical state words remained exact. These short caller screens establish neither forecast improvements nor repeatability. All worker and cache jobs closed normally.
+
+Retained evidence under `investigation/wrf-cpu/campaign/spot100-20261016/`: MYJ `current8b49-myj-original-humidity-quotient-cache-source-question-r1/finite-cost-disposition-r1/DECISION.json` (SHA256 `4d2c84cded40977ff522f5c6e74c1f795de7cd908345293183482759c76457f0`); WW `current6bc4-ww-split-explicit-copyzero-source-question-r1/whole-box-AVX2-complete-WW8192-cost-preparation-r1/ACTUAL_WAVE.json` (SHA256 `85a19c59278b1076ae1118d5428a273565e1c28df57ba41fa4fd7e3ac3e5eb30`).
