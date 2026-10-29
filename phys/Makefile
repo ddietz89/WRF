@@ -1169,3 +1169,56 @@ endif
 endif
 endif
 endif
+
+# Qualified GNU Fortran/C13.3 strict-O2 x86_64 pure-MPI path.
+# Requires WRF_PHY_INTERPOLATION_SIMD=1: dyn_em owns the existing integer-only mask getter.
+# PHY0/unsupported/compiler/architecture or explicit0 retains original schedule; no new helper owner.
+module_ra_rrtmg_lw.o: private override CPPFLAGS += -UWRF_LW_RTRNMC_TWO_G_CHANNEL_ENABLE
+WRF_LW_RTRNMC_TWO_G_CHANNEL ?= 1
+_LW_RTRNMC_TWO_G_FLAGS = $(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)
+ifeq ($(WRF_LW_RTRNMC_TWO_G_CHANNEL),0)
+module_ra_rrtmg_lw.o: private override CPPFLAGS += -DWRF_LW_RTRNMC_TWO_G_CHANNEL_DISABLE
+endif
+ifeq ($(WRF_LW_RTRNMC_TWO_G_CHANNEL),1)
+ifeq ($(strip $(OMPCPP) $(OMP) $(PROMOTION) $(DOUBLE_PRECISION)),)
+ifeq ($(filter -D_OPENMP% _OPENMP%,$(CPPFLAGS)),)
+ifneq (,$(filter -DDM_PARALLEL -DDM_PARALLEL=%,$(CPPFLAGS)))
+ifeq ($(filter -DSTUBMPI -DSTUBMPI=% -DWRF_CHEM -DWRF_CHEM=1 -DWRFPLUS -DWRFPLUS=1,$(CPPFLAGS)),)
+ifeq ($(filter -U%,$(CPPFLAGS)),)
+ifeq ($(strip $(RWORDSIZE)),4)
+ifeq ($(strip $(IWORDSIZE)),4)
+ifeq ($(filter -fdefault-% -freal-% -finteger-% -r8 -i8 -fopenmp -fopenmp=% -fno-stack-arrays -Ofast -ffast-math -fassociative-math -funsafe-math-optimizations -freciprocal-math -ffinite-math-only -fno-signed-zeros -fno-trapping-math -march=% -mtune=% -mavx% -mfma%,$(_LW_RTRNMC_TWO_G_FLAGS)),)
+ifeq ($(filter-out -O2,$(filter -O%,$(_LW_RTRNMC_TWO_G_FLAGS))),)
+ifneq (,$(filter -O2,$(_LW_RTRNMC_TWO_G_FLAGS)))
+ifeq ($(filter-out -ffp-contract=off,$(filter -ffp-contract=%,$(_LW_RTRNMC_TWO_G_FLAGS))),)
+ifneq (,$(filter -fno-fast-math,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG)))
+ifneq (,$(filter -ffp-contract=off,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG)))
+ifneq (,$(findstring GNU Fortran,$(shell $(FC) --version 2>/dev/null)))
+ifeq ($(shell $(FC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+ifeq ($(shell $(CC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+ifeq ($(WRF_PHY_INTERPOLATION_SIMD),1)
+ifneq (,$(filter x86_64%,$(shell $(CC) -dumpmachine 2>/dev/null)))
+module_ra_rrtmg_lw.o: private override CPPFLAGS += -DWRF_LW_RTRNMC_TWO_G_CHANNEL_ENABLE
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif

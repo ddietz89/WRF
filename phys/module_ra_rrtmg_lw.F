@@ -3295,6 +3295,16 @@ contains
       integer(kind=im) :: ibnd, ib, iband, lay, lev, l, ig  ! loop indices
       integer(kind=im) :: igc                               ! g-point interval counter
       integer(kind=im) :: iclddn                            ! flag for cloud in down path
+#if defined(WRF_LW_RTRNMC_TWO_G_CHANNEL_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_LW_RTRNMC_TWO_G_CHANNEL_DISABLE)
+      real(kind=rb) :: radld_b,radclrd_b,radlu_b,radclru_b
+      real(kind=rb) :: work_b(nlayers,4)
+      integer(kind=im) :: iclddn_b
+      logical :: pair_masked
+      interface
+        pure integer function wrf_phy_interp_all_masked() bind(C)
+        end function wrf_phy_interp_all_masked
+      end interface
+#endif
       integer(kind=im) :: top_cloud
       integer(kind=im) :: ittot, itgas, itr                 ! lookup table indices
 
@@ -3360,6 +3370,9 @@ contains
 
 !jm not thread safe      hvrrtc = '$Revision: 1.3 $'
 
+#if defined(WRF_LW_RTRNMC_TWO_G_CHANNEL_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_LW_RTRNMC_TWO_G_CHANNEL_DISABLE)
+      pair_masked = wrf_phy_interp_all_masked().eq.1
+#endif
       do ibnd = 1,nbndlw
          if (ibnd.eq.1 .or. ibnd.eq.4 .or. ibnd.ge.10) then
            secdiff(ibnd) = 1.66_rb
@@ -3423,6 +3436,356 @@ contains
 
 ! Loop over g-channels.
  1000    continue
+#if defined(WRF_LW_RTRNMC_TWO_G_CHANNEL_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_LW_RTRNMC_TWO_G_CHANNEL_DISABLE)
+         if (pair_masked.and.nlayers.ge.1.and.igc.ge.1.and.igc.lt.ngptlw.and.igc.lt.ngs(iband)) then
+         radld = 0._rb
+         radclrd = 0._rb
+         iclddn = 0
+
+
+
+         radld_b = 0._rb
+         radclrd_b = 0._rb
+         iclddn_b = 0
+
+
+
+         do lev = nlayers, top_cloud+1, -1
+               plfrac = fracs(lev,igc)
+               blay = planklay(lev,iband)
+               dplankup = planklev(lev,iband) - blay
+               dplankdn = planklev(lev-1,iband) - blay
+               odepth = secdiff(iband) * taut(lev,igc)
+               if (odepth .lt. 0.0_rb) odepth = 0.0_rb
+
+                  if (odepth .le. 0.06_rb) then
+                     atrans(lev) = odepth-0.5_rb*odepth*odepth
+                     odepth = rec_6*odepth
+                     bbd = plfrac*(blay+dplankdn*odepth)
+                     bbugas(lev) = plfrac*(blay+dplankup*odepth)
+                  else
+                     tblind = odepth/(bpade+odepth)
+                     itr = tblint*tblind+0.5_rb
+                     transc = exp_tbl(itr)
+                     atrans(lev) = 1._rb-transc
+                     tausfac = tfn_tbl(itr)
+                     bbd = plfrac*(blay+tausfac*dplankdn)
+                     bbugas(lev) = plfrac * (blay + tausfac * dplankup)
+                  endif
+                  radld = radld + (bbd-radld)*atrans(lev)
+                  drad(lev-1) = drad(lev-1) + radld
+                     radclrd = radld
+               plfrac = fracs(lev,(igc+1))
+               blay = planklay(lev,iband)
+               dplankup = planklev(lev,iband) - blay
+               dplankdn = planklev(lev-1,iband) - blay
+               odepth = secdiff(iband) * taut(lev,(igc+1))
+               if (odepth .lt. 0.0_rb) odepth = 0.0_rb
+
+                  if (odepth .le. 0.06_rb) then
+                     work_b(lev,1) = odepth-0.5_rb*odepth*odepth
+                     odepth = rec_6*odepth
+                     bbd = plfrac*(blay+dplankdn*odepth)
+                     work_b(lev,3) = plfrac*(blay+dplankup*odepth)
+                  else
+                     tblind = odepth/(bpade+odepth)
+                     itr = tblint*tblind+0.5_rb
+                     transc = exp_tbl(itr)
+                     work_b(lev,1) = 1._rb-transc
+                     tausfac = tfn_tbl(itr)
+                     bbd = plfrac*(blay+tausfac*dplankdn)
+                     work_b(lev,3) = plfrac * (blay + tausfac * dplankup)
+                  endif
+                  radld_b = radld_b + (bbd-radld_b)*work_b(lev,1)
+                  drad(lev-1) = drad(lev-1) + radld_b
+                     radclrd_b = radld_b
+         enddo
+         do lev = top_cloud, 1, -1
+               plfrac = fracs(lev,igc)
+               blay = planklay(lev,iband)
+               dplankup = planklev(lev,iband) - blay
+               dplankdn = planklev(lev-1,iband) - blay
+               odepth = secdiff(iband) * taut(lev,igc)
+               if (odepth .lt. 0.0_rb) odepth = 0.0_rb
+
+               if (icldlyr(lev).eq.1) then
+                  iclddn = 1
+                  odtot = odepth + odcld(lev,igc)
+                  if (odtot .lt. 0.06_rb) then
+                     atrans(lev) = odepth - 0.5_rb*odepth*odepth
+                     odepth_rec = rec_6*odepth
+                     gassrc = plfrac*(blay+dplankdn*odepth_rec)*atrans(lev)
+
+                     atot(lev) =  odtot - 0.5_rb*odtot*odtot
+                     odtot_rec = rec_6*odtot
+                     bbdtot =  plfrac * (blay+dplankdn*odtot_rec)
+                     bbd = plfrac*(blay+dplankdn*odepth_rec)
+                     radld = radld - radld * (atrans(lev) + &
+                         efclfrac(lev,igc) * (1. - atrans(lev))) + &
+                         gassrc + cldfmc(igc,lev) * &
+                         (bbdtot * atot(lev) - gassrc)
+                     drad(lev-1) = drad(lev-1) + radld
+
+                     bbugas(lev) =  plfrac * (blay+dplankup*odepth_rec)
+                     bbutot(lev) =  plfrac * (blay+dplankup*odtot_rec)
+
+                  elseif (odepth .le. 0.06_rb) then
+                     atrans(lev) = odepth - 0.5_rb*odepth*odepth
+                     odepth_rec = rec_6*odepth
+                     gassrc = plfrac*(blay+dplankdn*odepth_rec)*atrans(lev)
+
+                     odtot = odepth + odcld(lev,igc)
+                     tblind = odtot/(bpade+odtot)
+                     ittot = tblint*tblind + 0.5_rb
+                     tfactot = tfn_tbl(ittot)
+                     bbdtot = plfrac * (blay + tfactot*dplankdn)
+                     bbd = plfrac*(blay+dplankdn*odepth_rec)
+                     atot(lev) = 1. - exp_tbl(ittot)
+
+                     radld = radld - radld * (atrans(lev) + &
+                         efclfrac(lev,igc) * (1._rb - atrans(lev))) + &
+                         gassrc + cldfmc(igc,lev) * &
+                         (bbdtot * atot(lev) - gassrc)
+                     drad(lev-1) = drad(lev-1) + radld
+
+                     bbugas(lev) = plfrac * (blay + dplankup*odepth_rec)
+                     bbutot(lev) = plfrac * (blay + tfactot * dplankup)
+
+                  else
+
+                     tblind = odepth/(bpade+odepth)
+                     itgas = tblint*tblind+0.5_rb
+                     odepth = tau_tbl(itgas)
+                     atrans(lev) = 1._rb - exp_tbl(itgas)
+                     tfacgas = tfn_tbl(itgas)
+                     gassrc = atrans(lev) * plfrac * (blay + tfacgas*dplankdn)
+
+                     odtot = odepth + odcld(lev,igc)
+                     tblind = odtot/(bpade+odtot)
+                     ittot = tblint*tblind + 0.5_rb
+                     tfactot = tfn_tbl(ittot)
+                     bbdtot = plfrac * (blay + tfactot*dplankdn)
+                     bbd = plfrac*(blay+tfacgas*dplankdn)
+                     atot(lev) = 1._rb - exp_tbl(ittot)
+
+                  radld = radld - radld * (atrans(lev) + &
+                    efclfrac(lev,igc) * (1._rb - atrans(lev))) + &
+                    gassrc + cldfmc(igc,lev) * &
+                    (bbdtot * atot(lev) - gassrc)
+                  drad(lev-1) = drad(lev-1) + radld
+                  bbugas(lev) = plfrac * (blay + tfacgas * dplankup)
+                  bbutot(lev) = plfrac * (blay + tfactot * dplankup)
+                  endif
+
+               else
+                  if (odepth .le. 0.06_rb) then
+                     atrans(lev) = odepth-0.5_rb*odepth*odepth
+                     odepth = rec_6*odepth
+                     bbd = plfrac*(blay+dplankdn*odepth)
+                     bbugas(lev) = plfrac*(blay+dplankup*odepth)
+                  else
+                     tblind = odepth/(bpade+odepth)
+                     itr = tblint*tblind+0.5_rb
+                     transc = exp_tbl(itr)
+                     atrans(lev) = 1._rb-transc
+                     tausfac = tfn_tbl(itr)
+                     bbd = plfrac*(blay+tausfac*dplankdn)
+                     bbugas(lev) = plfrac * (blay + tausfac * dplankup)
+                  endif
+                  radld = radld + (bbd-radld)*atrans(lev)
+                  drad(lev-1) = drad(lev-1) + radld
+               endif
+                     radclrd = radclrd + (bbd-radclrd) * atrans(lev)
+                     clrdrad(lev-1) = clrdrad(lev-1) + radclrd
+               plfrac = fracs(lev,(igc+1))
+               blay = planklay(lev,iband)
+               dplankup = planklev(lev,iband) - blay
+               dplankdn = planklev(lev-1,iband) - blay
+               odepth = secdiff(iband) * taut(lev,(igc+1))
+               if (odepth .lt. 0.0_rb) odepth = 0.0_rb
+
+               if (icldlyr(lev).eq.1) then
+                  iclddn_b = 1
+                  odtot = odepth + odcld(lev,(igc+1))
+                  if (odtot .lt. 0.06_rb) then
+                     work_b(lev,1) = odepth - 0.5_rb*odepth*odepth
+                     odepth_rec = rec_6*odepth
+                     gassrc = plfrac*(blay+dplankdn*odepth_rec)*work_b(lev,1)
+
+                     work_b(lev,2) =  odtot - 0.5_rb*odtot*odtot
+                     odtot_rec = rec_6*odtot
+                     bbdtot =  plfrac * (blay+dplankdn*odtot_rec)
+                     bbd = plfrac*(blay+dplankdn*odepth_rec)
+                     radld_b = radld_b - radld_b * (work_b(lev,1) + &
+                         efclfrac(lev,(igc+1)) * (1. - work_b(lev,1))) + &
+                         gassrc + cldfmc((igc+1),lev) * &
+                         (bbdtot * work_b(lev,2) - gassrc)
+                     drad(lev-1) = drad(lev-1) + radld_b
+
+                     work_b(lev,3) =  plfrac * (blay+dplankup*odepth_rec)
+                     work_b(lev,4) =  plfrac * (blay+dplankup*odtot_rec)
+
+                  elseif (odepth .le. 0.06_rb) then
+                     work_b(lev,1) = odepth - 0.5_rb*odepth*odepth
+                     odepth_rec = rec_6*odepth
+                     gassrc = plfrac*(blay+dplankdn*odepth_rec)*work_b(lev,1)
+
+                     odtot = odepth + odcld(lev,(igc+1))
+                     tblind = odtot/(bpade+odtot)
+                     ittot = tblint*tblind + 0.5_rb
+                     tfactot = tfn_tbl(ittot)
+                     bbdtot = plfrac * (blay + tfactot*dplankdn)
+                     bbd = plfrac*(blay+dplankdn*odepth_rec)
+                     work_b(lev,2) = 1. - exp_tbl(ittot)
+
+                     radld_b = radld_b - radld_b * (work_b(lev,1) + &
+                         efclfrac(lev,(igc+1)) * (1._rb - work_b(lev,1))) + &
+                         gassrc + cldfmc((igc+1),lev) * &
+                         (bbdtot * work_b(lev,2) - gassrc)
+                     drad(lev-1) = drad(lev-1) + radld_b
+
+                     work_b(lev,3) = plfrac * (blay + dplankup*odepth_rec)
+                     work_b(lev,4) = plfrac * (blay + tfactot * dplankup)
+
+                  else
+
+                     tblind = odepth/(bpade+odepth)
+                     itgas = tblint*tblind+0.5_rb
+                     odepth = tau_tbl(itgas)
+                     work_b(lev,1) = 1._rb - exp_tbl(itgas)
+                     tfacgas = tfn_tbl(itgas)
+                     gassrc = work_b(lev,1) * plfrac * (blay + tfacgas*dplankdn)
+
+                     odtot = odepth + odcld(lev,(igc+1))
+                     tblind = odtot/(bpade+odtot)
+                     ittot = tblint*tblind + 0.5_rb
+                     tfactot = tfn_tbl(ittot)
+                     bbdtot = plfrac * (blay + tfactot*dplankdn)
+                     bbd = plfrac*(blay+tfacgas*dplankdn)
+                     work_b(lev,2) = 1._rb - exp_tbl(ittot)
+
+                  radld_b = radld_b - radld_b * (work_b(lev,1) + &
+                    efclfrac(lev,(igc+1)) * (1._rb - work_b(lev,1))) + &
+                    gassrc + cldfmc((igc+1),lev) * &
+                    (bbdtot * work_b(lev,2) - gassrc)
+                  drad(lev-1) = drad(lev-1) + radld_b
+                  work_b(lev,3) = plfrac * (blay + tfacgas * dplankup)
+                  work_b(lev,4) = plfrac * (blay + tfactot * dplankup)
+                  endif
+
+               else
+                  if (odepth .le. 0.06_rb) then
+                     work_b(lev,1) = odepth-0.5_rb*odepth*odepth
+                     odepth = rec_6*odepth
+                     bbd = plfrac*(blay+dplankdn*odepth)
+                     work_b(lev,3) = plfrac*(blay+dplankup*odepth)
+                  else
+                     tblind = odepth/(bpade+odepth)
+                     itr = tblint*tblind+0.5_rb
+                     transc = exp_tbl(itr)
+                     work_b(lev,1) = 1._rb-transc
+                     tausfac = tfn_tbl(itr)
+                     bbd = plfrac*(blay+tausfac*dplankdn)
+                     work_b(lev,3) = plfrac * (blay + tausfac * dplankup)
+                  endif
+                  radld_b = radld_b + (bbd-radld_b)*work_b(lev,1)
+                  drad(lev-1) = drad(lev-1) + radld_b
+               endif
+                     radclrd_b = radclrd_b + (bbd-radclrd_b) * work_b(lev,1)
+                     clrdrad(lev-1) = clrdrad(lev-1) + radclrd_b
+         enddo
+
+
+
+
+
+
+
+
+         rad0 = fracs(1,igc) * plankbnd(iband)
+
+         reflect = 1._rb - semiss(iband)
+         radlu = rad0 + reflect * radld
+         radclru = rad0 + reflect * radclrd
+
+
+
+         urad(0) = urad(0) + radlu
+         clrurad(0) = clrurad(0) + radclru
+
+
+
+
+
+
+
+
+
+         rad0 = fracs(1,(igc+1)) * plankbnd(iband)
+
+         reflect = 1._rb - semiss(iband)
+         radlu_b = rad0 + reflect * radld_b
+         radclru_b = rad0 + reflect * radclrd_b
+
+
+
+         urad(0) = urad(0) + radlu_b
+         clrurad(0) = clrurad(0) + radclru_b
+
+         do lev = 1, nlayers
+
+            if (icldlyr(lev) .eq. 1) then
+               gassrc = bbugas(lev) * atrans(lev)
+               radlu = radlu - radlu * (atrans(lev) + &
+                   efclfrac(lev,igc) * (1._rb - atrans(lev))) + &
+                   gassrc + cldfmc(igc,lev) * &
+                   (bbutot(lev) * atot(lev) - gassrc)
+               urad(lev) = urad(lev) + radlu
+
+            else
+               radlu = radlu + (bbugas(lev)-radlu)*atrans(lev)
+               urad(lev) = urad(lev) + radlu
+            endif
+
+
+
+
+               if (iclddn.eq.1) then
+                  radclru = radclru + (bbugas(lev)-radclru)*atrans(lev)
+                  clrurad(lev) = clrurad(lev) + radclru
+               else
+                  radclru = radlu
+                  clrurad(lev) = urad(lev)
+               endif
+
+            if (icldlyr(lev) .eq. 1) then
+               gassrc = work_b(lev,3) * work_b(lev,1)
+               radlu_b = radlu_b - radlu_b * (work_b(lev,1) + &
+                   efclfrac(lev,(igc+1)) * (1._rb - work_b(lev,1))) + &
+                   gassrc + cldfmc((igc+1),lev) * &
+                   (work_b(lev,4) * work_b(lev,2) - gassrc)
+               urad(lev) = urad(lev) + radlu_b
+
+            else
+               radlu_b = radlu_b + (work_b(lev,3)-radlu_b)*work_b(lev,1)
+               urad(lev) = urad(lev) + radlu_b
+            endif
+
+
+
+
+               if (iclddn_b.eq.1) then
+                  radclru_b = radclru_b + (work_b(lev,3)-radclru_b)*work_b(lev,1)
+                  clrurad(lev) = clrurad(lev) + radclru_b
+               else
+                  radclru_b = radlu_b
+                  clrurad(lev) = urad(lev)
+               endif
+         enddo
+         igc = igc + 2
+         if (igc .le. ngs(iband)) go to 1000
+         else
+#endif
 
 ! Radiative transfer starts here.
          radld = 0._rb
@@ -3605,6 +3968,9 @@ contains
          igc = igc + 1
 ! Return to continue radiative transfer for all g-channels in present band
          if (igc .le. ngs(iband)) go to 1000
+#if defined(WRF_LW_RTRNMC_TWO_G_CHANNEL_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_LW_RTRNMC_TWO_G_CHANNEL_DISABLE)
+         endif
+#endif
 
          do lev = top_cloud, nlayers-1
             clrdrad(lev) = drad(lev)

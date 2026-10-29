@@ -2479,7 +2479,25 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
                      ims,ime, jms,jme, kms,kme,                        &
                      its,ite, jts,jte, kts,kte                         )
 !-----------------------------------------------------------------------
+#if defined(WRF_PBL_FACTOR_FUSION_ENABLE) && !defined(WRF_PBL_FACTOR_FUSION_DISABLE) && defined(DM_PARALLEL) && !defined(STUBMPI) && !defined(_OPENMP) && !defined(DOUBLE_PRECISION) && !defined(PROMOTION)
+      USE iso_c_binding, ONLY: c_int, c_float
+#endif
       IMPLICIT NONE
+#if defined(WRF_PBL_FACTOR_FUSION_ENABLE) && !defined(WRF_PBL_FACTOR_FUSION_DISABLE) && defined(DM_PARALLEL) && !defined(STUBMPI) && !defined(_OPENMP) && !defined(DOUBLE_PRECISION) && !defined(PROMOTION)
+      LOGICAL :: pbl_fused_done
+      INTERFACE
+        PURE INTEGER(c_int) FUNCTION wrf_pbl_all_masked() BIND(C)
+          IMPORT c_int
+        END FUNCTION
+        PURE SUBROUTINE wrf_pbl_fused_row(n,a,b,m,ru,rv,rt,qv,qc,qi) BIND(C)
+          IMPORT c_int, c_float
+          INTEGER(c_int), VALUE :: n
+          REAL(c_float), VALUE :: a,b
+          REAL(c_float), INTENT(IN) :: m(*)
+          REAL(c_float), INTENT(INOUT) :: ru(*),rv(*),rt(*),qv(*),qc(*),qi(*)
+        END SUBROUTINE
+      END INTERFACE
+#endif
 
       TYPE(grid_config_rec_type), INTENT(IN)     ::      config_flags
 
@@ -2749,6 +2767,24 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
 
 ! pbl
 
+#if defined(WRF_PBL_FACTOR_FUSION_ENABLE) && !defined(WRF_PBL_FACTOR_FUSION_DISABLE) && defined(DM_PARALLEL) && !defined(STUBMPI) && !defined(_OPENMP) && !defined(DOUBLE_PRECISION) && !defined(PROMOTION)
+    pbl_fused_done = .FALSE.
+    IF (config_flags%bl_pbl_physics .gt. 0) THEN
+      IF (P_QV >= PARAM_FIRST_SCALAR .AND. P_QC >= PARAM_FIRST_SCALAR .AND. P_QI >= PARAM_FIRST_SCALAR) THEN
+        IF (wrf_pbl_all_masked() /= 0_c_int) THEN
+          DO j=jts,jtf
+            DO k=kts,ktf
+              IF (itf >= its) CALL wrf_pbl_fused_row(itf-its+1,c1(k),c2(k),mut(its,j), &
+                RUBLTEN(its,k,j),RVBLTEN(its,k,j),RTHBLTEN(its,k,j), &
+                RQVBLTEN(its,k,j),RQCBLTEN(its,k,j),RQIBLTEN(its,k,j))
+            ENDDO
+          ENDDO
+          pbl_fused_done = .TRUE.
+        ENDIF
+      ENDIF
+    ENDIF
+    IF (.NOT. pbl_fused_done) THEN
+#endif
    IF (config_flags%bl_pbl_physics .gt. 0) THEN
 
       DO J=jts,jtf
@@ -2793,6 +2829,9 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
 
     ENDIF
 
+#if defined(WRF_PBL_FACTOR_FUSION_ENABLE) && !defined(WRF_PBL_FACTOR_FUSION_DISABLE) && defined(DM_PARALLEL) && !defined(STUBMPI) && !defined(_OPENMP) && !defined(DOUBLE_PRECISION) && !defined(PROMOTION)
+    ENDIF
+#endif
 ! fdda
 ! note fdda u and v tendencies are staggered, also only interior points have muu/muv,
 !   so only couple those
