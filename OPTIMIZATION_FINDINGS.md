@@ -6317,3 +6317,12 @@ Moving the remaining alpha scratch array into overlap branches 4/5 passed all 12
 The complete 20,000-call MCICA33 adapter was slower in both opposite-order, cache-cleared comparisons: 2.339% wall / 2.303% thread CPU on hpc02, and 1.263% wall / 1.364% thread CPU on hpc04. All four arms passed exact outputs and processor-state checks and closed normally. The allocation removal supplies no measured caller gain, peak-memory or capacity benefit, so this version is closed unpromoted without application integration or repeated timing. The selected CDF2 build is unchanged.
 
 Evidence: campaign `current8fa1-LW-alpha-conditional-storage-source-question-r1/ACTUAL_CALLER_COST_REPORT.json`, SHA256 `d8c8dc0a584eab94f434e15439bdbad192b2bec908678c45cc05b5b29b0e65ce`.
+
+
+## CALC_WW mass-row scratch: exact but no caller gain — October 29
+
+The rolling-row candidate replaces full-tile MUU/MUV scratch with one MUU row and two rotating MUV rows. It retains every original producer calculation and a literal fallback for empty ranges or enabled floating-point traps. Original 12×4 observations and two separate mass-NaN witnesses in four rounding modes passed at both tested optimization levels, each against its own original. Full outputs, read-only inputs and all five state observations remain exact.
+
+The original raw module gate failure is preserved: the candidate removes compiler-inferred IMPLICIT_PURE and adds ARRAY_OUTER_DEPENDENCY, while declared argument types, kinds, ranks, bounds, intents and order remain exact. A separately recorded compatibility experiment used original-interface callers; this is not raw module equality. Generated-code review accounts for all non-target changes. Normal-route allocation count remains four; no process peak-memory or capacity saving was measured.
+
+The complete 2,048-call, restore-included caller was 0.083% slower on hpc02 and 1.252% slower on hpc04; thread CPU was 0.082% and 1.251% higher. All four opposite-order arms passed exact raw/state checks, cache clears and normal closure. Close this version unpromoted without application integration or repeated timing. Evidence: campaign `current8fa1-calcww-rolling-mass-rows-source-question-r1/CLOSEOUT.json`, SHA256 `e018711b88b7ccc34f4d589fc0599b627f624811a096db243091f19d0294ad33`.
