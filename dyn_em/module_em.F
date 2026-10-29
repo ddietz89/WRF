@@ -2484,6 +2484,9 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
 #endif
       IMPLICIT NONE
 #if defined(WRF_PBL_FACTOR_FUSION_ENABLE) && !defined(WRF_PBL_FACTOR_FUSION_DISABLE) && defined(DM_PARALLEL) && !defined(STUBMPI) && !defined(_OPENMP) && !defined(DOUBLE_PRECISION) && !defined(PROMOTION)
+#if defined(WRF_CU_FACTOR_FUSION_ENABLE) && !defined(WRF_CU_FACTOR_FUSION_DISABLE)
+      LOGICAL :: cu_fused_done
+#endif
       LOGICAL :: pbl_fused_done
       INTERFACE
         PURE INTEGER(c_int) FUNCTION wrf_pbl_all_masked() BIND(C)
@@ -2496,6 +2499,15 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
           REAL(c_float), INTENT(IN) :: m(*)
           REAL(c_float), INTENT(INOUT) :: ru(*),rv(*),rt(*),qv(*),qc(*),qi(*)
         END SUBROUTINE
+#if defined(WRF_CU_FACTOR_FUSION_ENABLE) && !defined(WRF_CU_FACTOR_FUSION_DISABLE)
+        PURE SUBROUTINE wrf_cu_fused_row(n,a,b,m,ru,rv,rt,qv,qc,qr,qi,qs) BIND(C)
+          IMPORT c_int, c_float
+          INTEGER(c_int), VALUE :: n
+          REAL(c_float), VALUE :: a,b
+          REAL(c_float), INTENT(IN) :: m(*)
+          REAL(c_float), INTENT(INOUT) :: ru(*),rv(*),rt(*),qv(*),qc(*),qr(*),qi(*),qs(*)
+        END SUBROUTINE
+#endif
       END INTERFACE
 #endif
 
@@ -2643,6 +2655,25 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
 
 ! cumulus
 
+#if defined(WRF_PBL_FACTOR_FUSION_ENABLE) && !defined(WRF_PBL_FACTOR_FUSION_DISABLE) && defined(DM_PARALLEL) && !defined(STUBMPI) && !defined(_OPENMP) && !defined(DOUBLE_PRECISION) && !defined(PROMOTION) && defined(WRF_CU_FACTOR_FUSION_ENABLE) && !defined(WRF_CU_FACTOR_FUSION_DISABLE)
+    cu_fused_done = .FALSE.
+    IF (config_flags%cu_physics .gt. 0) THEN
+      IF (P_QC >= PARAM_FIRST_SCALAR .AND. P_QR >= PARAM_FIRST_SCALAR .AND. &
+          P_QI >= PARAM_FIRST_SCALAR .AND. P_QS >= PARAM_FIRST_SCALAR) THEN
+        IF (wrf_pbl_all_masked() /= 0_c_int) THEN
+          DO j=jts,jtf
+            DO k=kts,ktf
+              IF (itf >= its) CALL wrf_cu_fused_row(itf-its+1,c1(k),c2(k),mut(its,j), &
+                RUCUTEN(its,k,j),RVCUTEN(its,k,j),RTHCUTEN(its,k,j),RQVCUTEN(its,k,j), &
+                RQCCUTEN(its,k,j),RQRCUTEN(its,k,j),RQICUTEN(its,k,j),RQSCUTEN(its,k,j))
+            ENDDO
+          ENDDO
+          cu_fused_done = .TRUE.
+        ENDIF
+      ENDIF
+    ENDIF
+    IF (.NOT. cu_fused_done) THEN
+#endif
    IF (config_flags%cu_physics .gt. 0) THEN
 
       DO J=jts,jtf
@@ -2697,6 +2728,10 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
       ENDIF
 
    ENDIF
+
+#if defined(WRF_PBL_FACTOR_FUSION_ENABLE) && !defined(WRF_PBL_FACTOR_FUSION_DISABLE) && defined(DM_PARALLEL) && !defined(STUBMPI) && !defined(_OPENMP) && !defined(DOUBLE_PRECISION) && !defined(PROMOTION) && defined(WRF_CU_FACTOR_FUSION_ENABLE) && !defined(WRF_CU_FACTOR_FUSION_DISABLE)
+    ENDIF ! original CU fallback
+#endif
 
 ! shallow cumulus
 

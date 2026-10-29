@@ -1552,6 +1552,13 @@ endif
 # PBL cross-pass factor fusion; GNU13.3 strict O2/default kinds/pureMPI x86 only.
 # Rebuild module_em/helper/archive/image for WRF_PBL_FACTOR_FUSION=0 rollback.
 # Qualified working default after native exact checks and combined three-hour science.
+# CU cross-pass factor fusion; depends on the qualified PBL mask owner below.
+# Qualified working configuration; WRF_CU_FACTOR_FUSION=0 restores original CU.
+WRF_CU_FACTOR_FUSION ?= 1
+module_em.o: private override CPPFLAGS += -UWRF_CU_FACTOR_FUSION_ENABLE
+ifeq ($(WRF_CU_FACTOR_FUSION),0)
+module_em.o: private override CPPFLAGS += -DWRF_CU_FACTOR_FUSION_DISABLE
+endif
 WRF_PBL_FACTOR_FUSION ?= 1
 module_em.o: private override CPPFLAGS += -UWRF_PBL_FACTOR_FUSION_ENABLE
 ifeq ($(WRF_PBL_FACTOR_FUSION),0)
@@ -1582,7 +1589,14 @@ module_em.o: private override CPPFLAGS += -DWRF_PBL_FACTOR_FUSION_ENABLE
 OBJS += pbl_fused_row.o
 $(LIBTARGET): pbl_fused_row.o
 pbl_fused_row.o: pbl_fused_row.c
+	$(CC) $(CFLAGS) -O2 -fno-fast-math -ffp-contract=off -fno-strict-aliasing -g -c $< -o $@
+ifeq ($(WRF_CU_FACTOR_FUSION),1)
+module_em.o: private override CPPFLAGS += -DWRF_CU_FACTOR_FUSION_ENABLE
+OBJS += cu_fused_row.o
+$(LIBTARGET): cu_fused_row.o
+cu_fused_row.o: cu_fused_row.c
 	$(CC) $(CFLAGS) -O2 -fno-fast-math -ffp-contract=off -g -c $< -o $@
+endif
 endif
 endif
 endif
