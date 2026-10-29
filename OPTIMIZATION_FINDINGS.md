@@ -6326,3 +6326,16 @@ The rolling-row candidate replaces full-tile MUU/MUV scratch with one MUU row an
 The original raw module gate failure is preserved: the candidate removes compiler-inferred IMPLICIT_PURE and adds ARRAY_OUTER_DEPENDENCY, while declared argument types, kinds, ranks, bounds, intents and order remain exact. A separately recorded compatibility experiment used original-interface callers; this is not raw module equality. Generated-code review accounts for all non-target changes. Normal-route allocation count remains four; no process peak-memory or capacity saving was measured.
 
 The complete 2,048-call, restore-included caller was 0.083% slower on hpc02 and 1.252% slower on hpc04; thread CPU was 0.082% and 1.251% higher. All four opposite-order arms passed exact raw/state checks, cache clears and normal closure. Close this version unpromoted without application integration or repeated timing. Evidence: campaign `current8fa1-calcww-rolling-mass-rows-source-question-r1/CLOSEOUT.json`, SHA256 `e018711b88b7ccc34f4d589fc0599b627f624811a096db243091f19d0294ad33`.
+
+
+### 2026-10-29 — SW conditional cloud storage: own three-hour exact application PASS
+
+The SW child5ba7f0b8 / b8969fdf passed the unchanged original four-output,545-step SAME512 scientific checker. All four model scopes and original reader 5316fa520c664dffb756f05ab18395d1 closed normally. One SW member replaced parent8fa12;592 other members and all runtime providers and direct inputs retained. Source correspondence is post-test commit e4b8db65b7a66a974aa2ee52bfcb361b9b699d66;raw producer commit NULL.
+
+| Metric | Original median3 | SW current | Lower (%) |
+|---|---:|---:|---:|
+| Wall elapsed (min) | 13.333735 | 10.462682 | 21.532254 |
+| Integration main elapsed (min) | 9.940841 | 8.825888 | 11.215877 |
+| Aggregate CPU (core h) | 99.813152 | 84.822182 | 15.019033 |
+
+The table is one UNPAIRED descriptive observation against the fixed eligible original median of three controls. RawA2 remains the exact scientific reference, with raw metrics separate. Component caller percentages are not added or attributed to isolated forecast gain. This child owns only unprofiled three-hour qualification; ancestor nine-hour/noon/profile evidence stays historical. No process-peak or capacity saving is measured. Historical raw collector labels are preserved with actual5ba7 provenance explicitly annotated. Native20cases/two retained recipes=40 observations perrole, not four rounding modes; original target MOD raw exact while typed-ID downstream inequalities remain explicit.
