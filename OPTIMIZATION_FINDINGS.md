@@ -6153,3 +6153,18 @@ The complete final-RK FINISH caller improved 15.3–16.8% in the opposite-order 
 ## WW_SPLIT whole-array copy-and-zero follow-up: rejected — October 29
 
 Moving the range checks and helper call outside all row loops preserved the same SSE2 body and passed 64 strict whole-procedure comparisons. The uninstrumented complete caller remained **6.08% slower on hpc02 and 6.31% slower on hpc04** in the four cache-cleared, opposite-order arms; all outputs and five state words matched. This variant is also unpromoted. The per-row overhead hypothesis was insufficient to produce a worthwhile improvement; the underlying libc implementation remains unresolved. [Decision](tools/cpu-compute/ww-split-wholebox-copyzero-rejected-20261029/DECISION.json).
+
+
+## TAUMOL fractions and MYJ pressure copy — October 29
+
+The `40b229ba` child passed its own three-hour science check: 545 steps and four full outputs, normal model and reader closures.
+
+| Metric | Original control, median of three | Child | Descriptive reduction |
+|---|---:|---:|---:|
+| Wall minutes | 13.333735 | 10.532793 | 21.0064% |
+| Main-step elapsed minutes | 9.940841 | 8.870776 | 10.7643% |
+| Aggregate CPU core-hours | 99.813152 | 85.267094 | 14.5733% |
+
+This image is qualified only for its own unprofiled three-hour run on the same 512-rank configuration: 545 steps and four full outputs passed the unchanged checker, with all four models and the reader normally closed. Its noon, nine-hour, profile, restart, full 144-hour and clean full-source rebuild scopes remain false. Only module_pbl_driver.o and module_ra_rrtmg_lw.o changed; the other 591 archive members, RSL, provider and all 18 direct inputs are unchanged. The two TAUMOL sites passed 1,824 primitive comparisons and 16 complete calls with genuine absorption tables and exact outputs, inputs, guards and all five processor-state words. The primitive improved 50.7–54.3%; the complete TAUMOL caller estimates were 0.04–0.28% lower wall time, without an established material caller gain. The MYJ pressure-copy screen was neutral on one host and positive on the other; no general gain or whole public PBL native fixture is claimed. Both were retained under the owner inclusion policy. These observations do not establish a forecast speedup. The source commit records correspondence after testing; raw producer commit remains NULL. Three-hour timing is one unpaired descriptive observation against the fixed median of three original controls; raw A2 remains separate.
+
+The primitive improved 50.7–54.3%, while complete TAUMOL caller wall estimates were only 0.04–0.28% lower. Both components were retained under the owner inclusion policy; [evidence](tools/cpu-compute/taumol-psfc-batch-20261029/README.md).

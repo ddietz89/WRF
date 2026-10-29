@@ -9,8 +9,8 @@
     "BC_module_local_flag": "-fopenmp-simd",
     "BC_flag_scope": "Required only for qualified module_bc.F recipe; no global fast math/flags change. Generic builds without this flag do not claim BC SIMD.",
     "source_rebuild_recipe": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/finish-final-theta-simd-20261029/SOURCE_REBUILD_RECIPE.json",
-      "sha256": "11f6982571feb1c56199b5407029fe8524416802ebddff1f2c9c4062632f5f4e"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/taumol-psfc-batch-20261029/SOURCE_REBUILD_RECIPE.json",
+      "sha256": "a8671344df408b2cf2505914d5326b76e252b35dd6cf78668855d7a6053278df"
     },
     "theta_SW_source_recipes": {
       "theta": "tools/cpu-compute/theta-sw-batch/theta/REBUILD_RECIPE.json",
@@ -18,7 +18,7 @@
       "scope": "Frozen actual overlay recipes over f4b; canonical sources equal posttestcommit. PriorcalcBCrebuild is parent-only evidence; no wholea50e source-reproduction claim."
     },
     "parent_calc_BC_source_rebuild_recipe": "tools/cpu-compute/calc-php-bc-simd/source-rebuild/README.md",
-    "source_rebuild_scope": "This image is qualified only for its own unprofiled three-hour run on the same 512-rank configuration: 545 steps and four full outputs passed the unchanged checker, with all four models and the reader normally closed. Its noon, nine-hour, profile, restart, full 144-hour and clean full-source rebuild scopes remain false. The parent own nine-hour qualification remains historical. Only module_small_step_em.o changed; the other 592 archive members, RSL, provider and all 18 direct inputs are unchanged. Native same-option O2/O0 tests passed 544 complete raw comparisons, including all five processor-state words. The final-RK complete synthetic FINISH caller was 15.3% and 16.8% faster; the nonfinal control showed no consistent gain. These measurements are not a forecast speedup. The source commit records correspondence after testing; raw producer commit remains NULL. Three-hour timing is one unpaired descriptive observation against the fixed median of three original controls; raw A2 remains separate.",
+    "source_rebuild_scope": "This image is qualified only for its own unprofiled three-hour run on the same 512-rank configuration: 545 steps and four full outputs passed the unchanged checker, with all four models and the reader normally closed. Its noon, nine-hour, profile, restart, full 144-hour and clean full-source rebuild scopes remain false. Only module_pbl_driver.o and module_ra_rrtmg_lw.o changed; the other 591 archive members, RSL, provider and all 18 direct inputs are unchanged. The two TAUMOL sites passed 1,824 primitive comparisons and 16 complete calls with genuine absorption tables and exact outputs, inputs, guards and all five processor-state words. The primitive improved 50.7\u201354.3%; the complete TAUMOL caller estimates were 0.04\u20130.28% lower wall time, without an established material caller gain. The MYJ pressure-copy screen was neutral on one host and positive on the other; no general gain or whole public PBL native fixture is claimed. Both were retained under the owner inclusion policy. These observations do not establish a forecast speedup. The source commit records correspondence after testing; raw producer commit remains NULL. Three-hour timing is one unpaired descriptive observation against the fixed median of three original controls; raw A2 remains separate.",
     "SPCVMC_module_local_flag": "-fopenmp-simd",
     "SPCVMC_source_recipe": "tools/cpu-compute/spcvmc-optical-producer/REBUILD_RECIPE.json",
     "HPG_NHX_CONSUMER_source_recipe": "tools/cpu-compute/hpg-nhx-consumer-simd/REBUILD_RECIPE.json",
@@ -297,7 +297,7 @@
       "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/spcvmc-current-column-scratch-20261026/SOURCE_REBUILD_RECIPE.json",
       "sha256": "8655637d20fb5f3a84a3c608f871868f37bf081af5d4d037bffdc68a220d2713"
     },
-    "source_rebuild_recipe_sha256": "bf5722aaf439a1db19a4dea30b39c0062d3621e15d92a55ea337fbddd935c0c2",
+    "source_rebuild_recipe_sha256": "a8671344df408b2cf2505914d5326b76e252b35dd6cf78668855d7a6053278df",
     "WRF_PHY_INTERPOLATION_SIMD": 1,
     "PHY_INTERPOLATION_SIMD_delivery": {
       "WRF_PHY_INTERPOLATION_SIMD": 1,
@@ -467,6 +467,18 @@
       },
       "scope": "This image is qualified only for its own unprofiled three-hour run on the same 512-rank configuration: 545 steps and four full outputs passed the unchanged checker, with all four models and the reader normally closed. Its noon, nine-hour, profile, restart, full 144-hour and clean full-source rebuild scopes remain false. The parent own nine-hour qualification remains historical. Only module_small_step_em.o changed; the other 592 archive members, RSL, provider and all 18 direct inputs are unchanged. Native same-option O2/O0 tests passed 544 complete raw comparisons, including all five processor-state words. The final-RK complete synthetic FINISH caller was 15.3% and 16.8% faster; the nonfinal control showed no consistent gain. These measurements are not a forecast speedup. The source commit records correspondence after testing; raw producer commit remains NULL. Three-hour timing is one unpaired descriptive observation against the fixed median of three original controls; raw A2 remains separate.",
       "rollback": "Select retained qualified 6bc4/aeb4 image/archive. To rebuild from source remove this one directive, rebuild module_small_step_em.o using the unchanged qualified flags, and relink."
+    },
+    "TAUMOL_PSFC_delivery": {
+      "qualification": {
+        "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/taumol-psfc-batch-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+        "sha256": "808e028a2891a0f0b00f574b0566b85b33646223c1970914ae9fcfc588efa445"
+      },
+      "recipe": {
+        "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/taumol-psfc-batch-20261029/SOURCE_REBUILD_RECIPE.json",
+        "sha256": "a8671344df408b2cf2505914d5326b76e252b35dd6cf78668855d7a6053278df"
+      },
+      "scope": "This image is qualified only for its own unprofiled three-hour run on the same 512-rank configuration: 545 steps and four full outputs passed the unchanged checker, with all four models and the reader normally closed. Its noon, nine-hour, profile, restart, full 144-hour and clean full-source rebuild scopes remain false. Only module_pbl_driver.o and module_ra_rrtmg_lw.o changed; the other 591 archive members, RSL, provider and all 18 direct inputs are unchanged. The two TAUMOL sites passed 1,824 primitive comparisons and 16 complete calls with genuine absorption tables and exact outputs, inputs, guards and all five processor-state words. The primitive improved 50.7\u201354.3%; the complete TAUMOL caller estimates were 0.04\u20130.28% lower wall time, without an established material caller gain. The MYJ pressure-copy screen was neutral on one host and positive on the other; no general gain or whole public PBL native fixture is claimed. Both were retained under the owner inclusion policy. These observations do not establish a forecast speedup. The source commit records correspondence after testing; raw producer commit remains NULL. Three-hour timing is one unpaired descriptive observation against the fixed median of three original controls; raw A2 remains separate.",
+      "rollback": "Reselect retained 604cfb52/21643e0c. To restore source behavior, disable WRF_LW_TAUMOL_FS1_REUSE and restore the prior PSFC copy, rebuild only the two members and relink; preserve all other components."
     }
   },
   "private_hdf5": {
@@ -495,20 +507,20 @@
     "component_closure_sha256": "d77bf34ae3d4a30068ab5998908a3560bfb68eaa0b5ab8baa47dc8814758d590"
   },
   "activation": "Working qualification metadata only; fresh root-authorized SAME512 lease/map/current guard, resources and exact runtime checks required. No production deployment.",
-  "status": "PASS_OWN_UNPROFILED_SAME512_FINISH_FINAL_T_THREE_HOUR_545_FOUR_FULL",
-  "source_commit": "0470ec1d863065a2bca8f989fd12bb23089a8fd2",
-  "source_commit_scope": "This image is qualified only for its own unprofiled three-hour run on the same 512-rank configuration: 545 steps and four full outputs passed the unchanged checker, with all four models and the reader normally closed. Its noon, nine-hour, profile, restart, full 144-hour and clean full-source rebuild scopes remain false. The parent own nine-hour qualification remains historical. Only module_small_step_em.o changed; the other 592 archive members, RSL, provider and all 18 direct inputs are unchanged. Native same-option O2/O0 tests passed 544 complete raw comparisons, including all five processor-state words. The final-RK complete synthetic FINISH caller was 15.3% and 16.8% faster; the nonfinal control showed no consistent gain. These measurements are not a forecast speedup. The source commit records correspondence after testing; raw producer commit remains NULL. Three-hour timing is one unpaired descriptive observation against the fixed median of three original controls; raw A2 remains separate.",
+  "status": "PASS_OWN_UNPROFILED_SAME512_TAUMOL_PSFC_THREE_HOUR_545_FOUR_FULL",
+  "source_commit": "68e40ccc224446b642a7225194cd798378d7aace",
+  "source_commit_scope": "This image is qualified only for its own unprofiled three-hour run on the same 512-rank configuration: 545 steps and four full outputs passed the unchanged checker, with all four models and the reader normally closed. Its noon, nine-hour, profile, restart, full 144-hour and clean full-source rebuild scopes remain false. Only module_pbl_driver.o and module_ra_rrtmg_lw.o changed; the other 591 archive members, RSL, provider and all 18 direct inputs are unchanged. The two TAUMOL sites passed 1,824 primitive comparisons and 16 complete calls with genuine absorption tables and exact outputs, inputs, guards and all five processor-state words. The primitive improved 50.7\u201354.3%; the complete TAUMOL caller estimates were 0.04\u20130.28% lower wall time, without an established material caller gain. The MYJ pressure-copy screen was neutral on one host and positive on the other; no general gain or whole public PBL native fixture is claimed. Both were retained under the owner inclusion policy. These observations do not establish a forecast speedup. The source commit records correspondence after testing; raw producer commit remains NULL. Three-hour timing is one unpaired descriptive observation against the fixed median of three original controls; raw A2 remains separate.",
   "raw_producer_source_commit": null,
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/current6bc4-finish-finalT-experimental-r1/wrf.exe",
-    "sha256": "604cfb52216a48ebc290bcde396fc2516244faef5f15d0b1df1271a7ae19a7eb"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current604c-psfc-taumol-experimental-r1/wrf.exe",
+    "sha256": "40b229ba6856d50233fb38a7260c99e2c5cb9dd42f56a26258c3e50be01226a0"
   },
   "archive": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/current6bc4-finish-finalT-experimental-r1/libwrflib.a",
-    "sha256": "21643e0c920f917e6c0cd71aae2a3a3a1e2f66276e937476746ad1632c1ae5c0"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current604c-psfc-taumol-experimental-r1/libwrflib.a",
+    "sha256": "e599c2b3bf02d8947ca6841af902ab32ca6b72345367f759eff8f4d4cfaea68c"
   },
-  "archive_path": "/pool/wrf-experiment/wrf-cpu/builds/current6bc4-finish-finalT-experimental-r1/libwrflib.a",
-  "archive_sha256": "21643e0c920f917e6c0cd71aae2a3a3a1e2f66276e937476746ad1632c1ae5c0",
+  "archive_path": "/pool/wrf-experiment/wrf-cpu/builds/current604c-psfc-taumol-experimental-r1/libwrflib.a",
+  "archive_sha256": "e599c2b3bf02d8947ca6841af902ab32ca6b72345367f759eff8f4d4cfaea68c",
   "RSL_archive": {
     "path": "/pool/wrf-experiment/wrf-cpu/builds/current1d16-rsl-early-y-production-archive-r1/librsl_lite.a",
     "sha256": "e418b187e8c88f5dc436ca44ce32ff23f75ac11a45ce3db214ff4fc40bb1fddc"
@@ -522,7 +534,7 @@
     },
     "module_ra_rrtmg_lw.F": {
       "path": "/home/ddietz/wrf/WRF/phys/module_ra_rrtmg_lw.F",
-      "sha256": "f39e0854531c581d26b2b82dfd3dc71e69414184cbd33f75ff38cdfe3b696e9d"
+      "sha256": "93a1f0507c1dea675800902f98f360447995752efa1abf467a338f13c092fe6c"
     },
     "module_em.F": {
       "path": "/home/ddietz/wrf/WRF/dyn_em/module_em.F",
@@ -534,7 +546,7 @@
     },
     "phys/Makefile": {
       "path": "/home/ddietz/wrf/WRF/phys/Makefile",
-      "sha256": "80f8da2d3068856b919e517d8e3f4617459b077d09d0c04e8b02d0e9f834cb41"
+      "sha256": "17ff1a5c6097e43f439fd276c61834951734127a6dc6cd459aa30313c9c01de2"
     },
     "dyn_em/Makefile": {
       "path": "/home/ddietz/wrf/WRF/dyn_em/Makefile",
@@ -634,15 +646,23 @@
     },
     "phys/module_ra_rrtmg_lw.F": {
       "path": "/home/ddietz/wrf/WRF/phys/module_ra_rrtmg_lw.F",
-      "sha256": "f39e0854531c581d26b2b82dfd3dc71e69414184cbd33f75ff38cdfe3b696e9d"
+      "sha256": "93a1f0507c1dea675800902f98f360447995752efa1abf467a338f13c092fe6c"
     },
     "dyn_em/cu_fused_row.c": {
       "path": "/home/ddietz/wrf/WRF/dyn_em/cu_fused_row.c",
       "sha256": "ff347a76f07c7aff31fabd5968d54c7c65298f8e97ac497682a7662234e4bebc"
+    },
+    "phys/module_pbl_driver.F": {
+      "path": "/home/ddietz/wrf/WRF/phys/module_pbl_driver.F",
+      "sha256": "1d36b9b1fc9a3353f5324126643917791d9f6cf0a79ceee6f9cf89b611aa18e5"
+    },
+    "module_pbl_driver.F": {
+      "path": "/home/ddietz/wrf/WRF/phys/module_pbl_driver.F",
+      "sha256": "1d36b9b1fc9a3353f5324126643917791d9f6cf0a79ceee6f9cf89b611aa18e5"
     }
   },
   "source_correspondence": {
-    "post_test_source_commit": "0470ec1d863065a2bca8f989fd12bb23089a8fd2",
+    "post_test_source_commit": "68e40ccc224446b642a7225194cd798378d7aace",
     "raw_producer_source_commit": null,
     "canonical_files": {
       "phys/module_ra_rrtmg_sw.F": {
@@ -651,7 +671,7 @@
       },
       "phys/Makefile": {
         "path": "/home/ddietz/wrf/WRF/phys/Makefile",
-        "sha256": "80f8da2d3068856b919e517d8e3f4617459b077d09d0c04e8b02d0e9f834cb41"
+        "sha256": "17ff1a5c6097e43f439fd276c61834951734127a6dc6cd459aa30313c9c01de2"
       },
       "phys/wrf_spc_mix_ordered4.c": {
         "path": "/home/ddietz/wrf/WRF/phys/wrf_spc_mix_ordered4.c",
@@ -687,7 +707,7 @@
       },
       "phys/module_ra_rrtmg_lw.F": {
         "path": "/home/ddietz/wrf/WRF/phys/module_ra_rrtmg_lw.F",
-        "sha256": "f39e0854531c581d26b2b82dfd3dc71e69414184cbd33f75ff38cdfe3b696e9d"
+        "sha256": "93a1f0507c1dea675800902f98f360447995752efa1abf467a338f13c092fe6c"
       },
       "phys/wrf_lw_overlap_ordered4.c": {
         "path": "/home/ddietz/wrf/WRF/phys/wrf_lw_overlap_ordered4.c",
@@ -728,6 +748,10 @@
       "dyn_em/cu_fused_row.c": {
         "path": "/home/ddietz/wrf/WRF/dyn_em/cu_fused_row.c",
         "sha256": "ff347a76f07c7aff31fabd5968d54c7c65298f8e97ac497682a7662234e4bebc"
+      },
+      "phys/module_pbl_driver.F": {
+        "path": "/home/ddietz/wrf/WRF/phys/module_pbl_driver.F",
+        "sha256": "1d36b9b1fc9a3353f5324126643917791d9f6cf0a79ceee6f9cf89b611aa18e5"
       }
     },
     "qualified_member_artifact_sha256": {
@@ -737,13 +761,14 @@
       "module_big_step_utilities_em.o": "84108366d3f9bc0b3c90e30a8c511fdebc34bb2ab21a4989209ff35ba6238615",
       "postpow4.o": "c9f4ee878df545fc173af2b1fa1f39ac256ee77e65a861fb319f05a0a6f4aa9b",
       "module_small_step_em.o": "67d5cff31a7669625721f975c7cf161db2a06a47fa895faa5adad428f0f59bef",
-      "module_ra_rrtmg_lw.o": "2325b160d2efdfaff6c4b9a2e494c34705b0ed73da9c34d116db005c2cc152bf",
+      "module_ra_rrtmg_lw.o": "963131c50393ea19db63e8356df443ff0d1645dac89588e27552ee222b9a66ca",
       "module_mp_thompson.o": "9a255bfd5c18ff228eba2f0b0d00e0385499f9045a5ad891d04e964efeede9a0",
       "module_advect_em.o": "ff6161cbec9c9cf1d2aeec801c0bd5332b5675978f65385beab8c947c9919330",
       "module_bl_myjpbl.o": "24926bfdfbd90872f13aac09046addc509c9ab15be0a801fd61539521eb4a15f",
       "module_em.o": "feb8ca9efdbef4f93e9bbc797260d54daf10a7eddbc0740c3df0bbc651a726f7",
       "pbl_fused_row.o": "08f4b94d75a3da7a4842768ae7a45b6313fe6a02ad72565d0ac57073d53c8a8e",
-      "cu_fused_row.o": "3db624f675b8bc633b5c6f4610e2f03fcafff7f3ef9e9e21d88baca4f3644726"
+      "cu_fused_row.o": "3db624f675b8bc633b5c6f4610e2f03fcafff7f3ef9e9e21d88baca4f3644726",
+      "module_pbl_driver.o": "26ee2976c15779c9af15d24a23cc81ca09ccb7155eb4bc04d590e345f99d4042"
     },
     "helper_objects": {
       "wrf_spc_mix_ordered4.o": {
@@ -771,9 +796,9 @@
       }
     },
     "clean_canonical_full_build_certified": false,
-    "scope": "This image is qualified only for its own unprofiled three-hour run on the same 512-rank configuration: 545 steps and four full outputs passed the unchanged checker, with all four models and the reader normally closed. Its noon, nine-hour, profile, restart, full 144-hour and clean full-source rebuild scopes remain false. The parent own nine-hour qualification remains historical. Only module_small_step_em.o changed; the other 592 archive members, RSL, provider and all 18 direct inputs are unchanged. Native same-option O2/O0 tests passed 544 complete raw comparisons, including all five processor-state words. The final-RK complete synthetic FINISH caller was 15.3% and 16.8% faster; the nonfinal control showed no consistent gain. These measurements are not a forecast speedup. The source commit records correspondence after testing; raw producer commit remains NULL. Three-hour timing is one unpaired descriptive observation against the fixed median of three original controls; raw A2 remains separate."
+    "scope": "This image is qualified only for its own unprofiled three-hour run on the same 512-rank configuration: 545 steps and four full outputs passed the unchanged checker, with all four models and the reader normally closed. Its noon, nine-hour, profile, restart, full 144-hour and clean full-source rebuild scopes remain false. Only module_pbl_driver.o and module_ra_rrtmg_lw.o changed; the other 591 archive members, RSL, provider and all 18 direct inputs are unchanged. The two TAUMOL sites passed 1,824 primitive comparisons and 16 complete calls with genuine absorption tables and exact outputs, inputs, guards and all five processor-state words. The primitive improved 50.7\u201354.3%; the complete TAUMOL caller estimates were 0.04\u20130.28% lower wall time, without an established material caller gain. The MYJ pressure-copy screen was neutral on one host and positive on the other; no general gain or whole public PBL native fixture is claimed. Both were retained under the owner inclusion policy. These observations do not establish a forecast speedup. The source commit records correspondence after testing; raw producer commit remains NULL. Three-hour timing is one unpaired descriptive observation against the fixed median of three original controls; raw A2 remains separate."
   },
-  "source_rebuild_scope": "This image is qualified only for its own unprofiled three-hour run on the same 512-rank configuration: 545 steps and four full outputs passed the unchanged checker, with all four models and the reader normally closed. Its noon, nine-hour, profile, restart, full 144-hour and clean full-source rebuild scopes remain false. The parent own nine-hour qualification remains historical. Only module_small_step_em.o changed; the other 592 archive members, RSL, provider and all 18 direct inputs are unchanged. Native same-option O2/O0 tests passed 544 complete raw comparisons, including all five processor-state words. The final-RK complete synthetic FINISH caller was 15.3% and 16.8% faster; the nonfinal control showed no consistent gain. These measurements are not a forecast speedup. The source commit records correspondence after testing; raw producer commit remains NULL. Three-hour timing is one unpaired descriptive observation against the fixed median of three original controls; raw A2 remains separate.",
+  "source_rebuild_scope": "This image is qualified only for its own unprofiled three-hour run on the same 512-rank configuration: 545 steps and four full outputs passed the unchanged checker, with all four models and the reader normally closed. Its noon, nine-hour, profile, restart, full 144-hour and clean full-source rebuild scopes remain false. Only module_pbl_driver.o and module_ra_rrtmg_lw.o changed; the other 591 archive members, RSL, provider and all 18 direct inputs are unchanged. The two TAUMOL sites passed 1,824 primitive comparisons and 16 complete calls with genuine absorption tables and exact outputs, inputs, guards and all five processor-state words. The primitive improved 50.7\u201354.3%; the complete TAUMOL caller estimates were 0.04\u20130.28% lower wall time, without an established material caller gain. The MYJ pressure-copy screen was neutral on one host and positive on the other; no general gain or whole public PBL native fixture is claimed. Both were retained under the owner inclusion policy. These observations do not establish a forecast speedup. The source commit records correspondence after testing; raw producer commit remains NULL. Three-hour timing is one unpaired descriptive observation against the fixed median of three original controls; raw A2 remains separate.",
   "runtime": {
     "world": 512,
     "compute": 480,
@@ -815,20 +840,20 @@
       "provider_source_sha256": "d38dfa0c9d75b04f28bab346be8182fae6d32c89960f727bf8c06f24ce5aee58",
       "guard_source_sha256": "801e29cc8406d0200dee1557e4263d3ce4db46d750b63b9371083b633c952150"
     },
-    "scope": "This image is qualified only for its own unprofiled three-hour run on the same 512-rank configuration: 545 steps and four full outputs passed the unchanged checker, with all four models and the reader normally closed. Its noon, nine-hour, profile, restart, full 144-hour and clean full-source rebuild scopes remain false. The parent own nine-hour qualification remains historical. Only module_small_step_em.o changed; the other 592 archive members, RSL, provider and all 18 direct inputs are unchanged. Native same-option O2/O0 tests passed 544 complete raw comparisons, including all five processor-state words. The final-RK complete synthetic FINISH caller was 15.3% and 16.8% faster; the nonfinal control showed no consistent gain. These measurements are not a forecast speedup. The source commit records correspondence after testing; raw producer commit remains NULL. Three-hour timing is one unpaired descriptive observation against the fixed median of three original controls; raw A2 remains separate.",
+    "scope": "This image is qualified only for its own unprofiled three-hour run on the same 512-rank configuration: 545 steps and four full outputs passed the unchanged checker, with all four models and the reader normally closed. Its noon, nine-hour, profile, restart, full 144-hour and clean full-source rebuild scopes remain false. Only module_pbl_driver.o and module_ra_rrtmg_lw.o changed; the other 591 archive members, RSL, provider and all 18 direct inputs are unchanged. The two TAUMOL sites passed 1,824 primitive comparisons and 16 complete calls with genuine absorption tables and exact outputs, inputs, guards and all five processor-state words. The primitive improved 50.7\u201354.3%; the complete TAUMOL caller estimates were 0.04\u20130.28% lower wall time, without an established material caller gain. The MYJ pressure-copy screen was neutral on one host and positive on the other; no general gain or whole public PBL native fixture is claimed. Both were retained under the owner inclusion policy. These observations do not establish a forecast speedup. The source commit records correspondence after testing; raw producer commit remains NULL. Three-hour timing is one unpaired descriptive observation against the fixed median of three original controls; raw A2 remains separate.",
     "lease": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current6bc4-finalT-batch3h-runtime-r1/candidate-metadata/lease.json",
-      "sha256": "310f64c95ca0dac13515d59b99e9b53e805af0019503dfbca8bd4e5d370df5b6"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current604c-taumol-psfc-batch3h-runtime-r1/candidate-metadata/lease.json",
+      "sha256": "b2ba8ef23b88ccc02028bc2c585fbfaebe2d5b6e2a13438d553495a6b728776e"
     },
     "observed_step_count": 545,
     "products": 4,
     "science": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current6bc4-finalT-batch3h-runtime-r1/science-receipt.json",
-      "sha256": "aef558da35dcc9c4fcf83ba0588e0d434a989eac829e4e9b11db38a7efd6ea5b"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current604c-taumol-psfc-batch3h-runtime-r1/science-receipt.json",
+      "sha256": "db39f624eb8bd29a4ab1b1352146bb4a05824a62e4b1ae31c74d0e08bed06367"
     },
     "qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/finish-final-theta-simd-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "383e0a0aa1953fca7f7e97d52a04e0b01466096e098ebfcb5ad2f0c259be4b6d"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/taumol-psfc-batch-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "808e028a2891a0f0b00f574b0566b85b33646223c1970914ae9fcfc588efa445"
     },
     "rank_map": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/mu-lw-y-batch-20261028/RANK_MAP.json",
@@ -837,38 +862,38 @@
     "actual_map_table_sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac",
     "rank_map_variant": "control",
     "observer_profile": false,
-    "run_id": "production512-current6bc4-finalt-batch3h-r1",
-    "run_directory": "/pool/wrf-experiment/wrf-cpu/runs/production512-current6bc4-finalt-batch3h-r1",
-    "stage": "/pool/wrf-experiment/wrf-cpu/science-prep/production512-current6bc4-finalT-batch3h-r1",
-    "runtime_directory": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current6bc4-finalT-batch3h-runtime-r1",
-    "source_manifest_sha256": "2bae27c55b241eeac39c2e885f4cdfd50416ed48f9ba9ae034852c2c6953e8c3",
-    "granted_lease_sha256": "310f64c95ca0dac13515d59b99e9b53e805af0019503dfbca8bd4e5d370df5b6",
+    "run_id": "production512-current604c-taumol-psfc-batch3h-r1",
+    "run_directory": "/pool/wrf-experiment/wrf-cpu/runs/production512-current604c-taumol-psfc-batch3h-r1",
+    "stage": "/pool/wrf-experiment/wrf-cpu/science-prep/production512-current604c-taumol-psfc-batch3h-r1",
+    "runtime_directory": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current604c-taumol-psfc-batch3h-runtime-r1",
+    "source_manifest_sha256": "aa6c038ee0da03492bf209d2a883bc9c9d9d55162f96f293f6fbfa3aedf0c0fc",
+    "granted_lease_sha256": "b2ba8ef23b88ccc02028bc2c585fbfaebe2d5b6e2a13438d553495a6b728776e",
     "application_binding": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current6bc4-finalT-batch3h-runtime-r1/application-binding.json",
-      "sha256": "4c7a01fe56c2c6dbc70baf5e9603bec3b936dca8d6d75c9a13150b4c951f887e"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current604c-taumol-psfc-batch3h-runtime-r1/application-binding.json",
+      "sha256": "995011ab75e5ce8a17e24cf1c48d4f2c07dc74678c2d3864e1407d323a857fe8"
     },
     "model_closures": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current6bc4-finalT-batch3h-runtime-r1/candidate-metadata/model-closures.json",
-      "sha256": "b8e7c8dad9f08e8181f49feb71d8e5c3629ac91bbbb2165b969f8df04b7104be"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current604c-taumol-psfc-batch3h-runtime-r1/candidate-metadata/model-closures.json",
+      "sha256": "0442fdffee1980bcb69db0e9e7dccec83be237cc278bc6de227e65f73aff8597"
     },
     "reader_closure": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current6bc4-finalT-batch3h-runtime-r1/reader-closure.json",
-      "sha256": "2db7a9ba704338b3ab95040585d8277ae4badce88086046746cad8faf98014de"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current604c-taumol-psfc-batch3h-runtime-r1/reader-closure.json",
+      "sha256": "37ece4799a72da0208f1f45a7ba71d9520b9f1f73049e737b5ecb5cbd2491775"
     },
     "model_units": {
-      "hpc01": "wrf-cpu-production512-current6bc4-finalt-batch3h-r1-hpc01.service",
-      "hpc02": "wrf-cpu-production512-current6bc4-finalt-batch3h-r1-hpc02.service",
-      "hpc03": "wrf-cpu-production512-current6bc4-finalt-batch3h-r1-hpc03.service",
-      "hpc04": "wrf-cpu-production512-current6bc4-finalt-batch3h-r1-hpc04.service"
+      "hpc01": "wrf-cpu-production512-current604c-taumol-psfc-batch3h-r1-hpc01.service",
+      "hpc02": "wrf-cpu-production512-current604c-taumol-psfc-batch3h-r1-hpc02.service",
+      "hpc03": "wrf-cpu-production512-current604c-taumol-psfc-batch3h-r1-hpc03.service",
+      "hpc04": "wrf-cpu-production512-current604c-taumol-psfc-batch3h-r1-hpc04.service"
     },
     "model_invocations": {
-      "hpc01": "8116087171e24c298926d676873d3616",
-      "hpc02": "878a00cb6021457988d1866eae83c777",
-      "hpc03": "c847fbcf66264e6ab7312f0ee11ab315",
-      "hpc04": "4c1f8c96edb9434bafa1f271c921f4a4"
+      "hpc01": "fab08a1adcdb42818f3c42a5cd4f098c",
+      "hpc02": "b32aaa8b41e646949fca791c1b1adbfc",
+      "hpc03": "f8876f37500e4e4c8f602560205be710",
+      "hpc04": "9cfaef73b606473b8b95a5469bb6f673"
     },
-    "reader_unit": "wrf-cpu-production512-current6bc4-finalt-batch3h-r1-exact-check-hpc03.service",
-    "reader_invocation_id": "4d8d4f7ce8b34abeb371a115dc2c218f",
+    "reader_unit": "wrf-cpu-production512-current604c-taumol-psfc-batch3h-r1-exact-check-hpc03.service",
+    "reader_invocation_id": "99c9ef64285043bdbfd75a6bfb7fb7a6",
     "model_cap_seconds": 1200,
     "reader_cap_seconds": 1800,
     "memory_perhost_bytes": {
@@ -894,24 +919,25 @@
     "own_unprofiled_three_hour_qualified": true,
     "profile_qualified": false,
     "restart_qualified": false,
-    "clean_full_source_build_qualified": false
+    "clean_full_source_build_qualified": false,
+    "no_parent_horizon_inheritance": true
   },
   "qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/finish-final-theta-simd-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "383e0a0aa1953fca7f7e97d52a04e0b01466096e098ebfcb5ad2f0c259be4b6d"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/taumol-psfc-batch-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "808e028a2891a0f0b00f574b0566b85b33646223c1970914ae9fcfc588efa445"
   },
-  "qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/finish-final-theta-simd-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+  "qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/taumol-psfc-batch-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
   "full_application": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/finish-final-theta-simd-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "383e0a0aa1953fca7f7e97d52a04e0b01466096e098ebfcb5ad2f0c259be4b6d"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/taumol-psfc-batch-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "808e028a2891a0f0b00f574b0566b85b33646223c1970914ae9fcfc588efa445"
   },
   "profile_source_identity_acquisition_pending": true,
   "science": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current6bc4-finalT-batch3h-runtime-r1/science-receipt.json",
-    "sha256": "aef558da35dcc9c4fcf83ba0588e0d434a989eac829e4e9b11db38a7efd6ea5b"
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current604c-taumol-psfc-batch3h-runtime-r1/science-receipt.json",
+    "sha256": "db39f624eb8bd29a4ab1b1352146bb4a05824a62e4b1ae31c74d0e08bed06367"
   },
-  "science_sha256": "aef558da35dcc9c4fcf83ba0588e0d434a989eac829e4e9b11db38a7efd6ea5b",
-  "reader_closure_sha256": "2db7a9ba704338b3ab95040585d8277ae4badce88086046746cad8faf98014de",
+  "science_sha256": "db39f624eb8bd29a4ab1b1352146bb4a05824a62e4b1ae31c74d0e08bed06367",
+  "reader_closure_sha256": "37ece4799a72da0208f1f45a7ba71d9520b9f1f73049e737b5ecb5cbd2491775",
   "metrics": {
     "control": {
       "wall_seconds": 800.0241208570078,
@@ -919,52 +945,52 @@
       "main_step_sum_seconds": 596.45045
     },
     "candidate": {
-      "wall_seconds": 630.0895078596659,
-      "cpu_seconds": 306169.178066,
-      "main_step_sum_seconds": 531.67763
+      "wall_seconds": 631.9675674787723,
+      "cpu_seconds": 306961.53812,
+      "main_step_sum_seconds": 532.24653
     }
   },
   "raw_result_status": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
   "order": [
     "retained_original_three_hour_science_control",
-    "fresh_current6bc4_finalT_unprofiled_threehour_candidate"
+    "fresh_current604c_taumol_psfc_unprofiled_threehour_candidate"
   ],
   "comparison_design": "Candidate-only exactscience vs retainedA2; timings DESCRIPTIVE and UNPAIRED against median latest3 unique original controls A2/A1/5c75; hardwareepoch unresolved.",
   "timing_gain_claim": false,
   "reductions_percent": {
-    "wall_seconds": 21.24118618014958,
-    "cpu_seconds": 14.7937999610052,
-    "main_step_sum_seconds": 10.859715169969277
+    "wall_seconds": 21.00643580573655,
+    "cpu_seconds": 14.573287923541134,
+    "main_step_sum_seconds": 10.764334237655454
   },
   "last_three_hour_benchmark_applies_to_current": true,
-  "scope": "This image is qualified only for its own unprofiled three-hour run on the same 512-rank configuration: 545 steps and four full outputs passed the unchanged checker, with all four models and the reader normally closed. Its noon, nine-hour, profile, restart, full 144-hour and clean full-source rebuild scopes remain false. The parent own nine-hour qualification remains historical. Only module_small_step_em.o changed; the other 592 archive members, RSL, provider and all 18 direct inputs are unchanged. Native same-option O2/O0 tests passed 544 complete raw comparisons, including all five processor-state words. The final-RK complete synthetic FINISH caller was 15.3% and 16.8% faster; the nonfinal control showed no consistent gain. These measurements are not a forecast speedup. The source commit records correspondence after testing; raw producer commit remains NULL. Three-hour timing is one unpaired descriptive observation against the fixed median of three original controls; raw A2 remains separate.",
-  "limits": "This image is qualified only for its own unprofiled three-hour run on the same 512-rank configuration: 545 steps and four full outputs passed the unchanged checker, with all four models and the reader normally closed. Its noon, nine-hour, profile, restart, full 144-hour and clean full-source rebuild scopes remain false. The parent own nine-hour qualification remains historical. Only module_small_step_em.o changed; the other 592 archive members, RSL, provider and all 18 direct inputs are unchanged. Native same-option O2/O0 tests passed 544 complete raw comparisons, including all five processor-state words. The final-RK complete synthetic FINISH caller was 15.3% and 16.8% faster; the nonfinal control showed no consistent gain. These measurements are not a forecast speedup. The source commit records correspondence after testing; raw producer commit remains NULL. Three-hour timing is one unpaired descriptive observation against the fixed median of three original controls; raw A2 remains separate.",
-  "claim_limits": "This image is qualified only for its own unprofiled three-hour run on the same 512-rank configuration: 545 steps and four full outputs passed the unchanged checker, with all four models and the reader normally closed. Its noon, nine-hour, profile, restart, full 144-hour and clean full-source rebuild scopes remain false. The parent own nine-hour qualification remains historical. Only module_small_step_em.o changed; the other 592 archive members, RSL, provider and all 18 direct inputs are unchanged. Native same-option O2/O0 tests passed 544 complete raw comparisons, including all five processor-state words. The final-RK complete synthetic FINISH caller was 15.3% and 16.8% faster; the nonfinal control showed no consistent gain. These measurements are not a forecast speedup. The source commit records correspondence after testing; raw producer commit remains NULL. Three-hour timing is one unpaired descriptive observation against the fixed median of three original controls; raw A2 remains separate.",
+  "scope": "This image is qualified only for its own unprofiled three-hour run on the same 512-rank configuration: 545 steps and four full outputs passed the unchanged checker, with all four models and the reader normally closed. Its noon, nine-hour, profile, restart, full 144-hour and clean full-source rebuild scopes remain false. Only module_pbl_driver.o and module_ra_rrtmg_lw.o changed; the other 591 archive members, RSL, provider and all 18 direct inputs are unchanged. The two TAUMOL sites passed 1,824 primitive comparisons and 16 complete calls with genuine absorption tables and exact outputs, inputs, guards and all five processor-state words. The primitive improved 50.7\u201354.3%; the complete TAUMOL caller estimates were 0.04\u20130.28% lower wall time, without an established material caller gain. The MYJ pressure-copy screen was neutral on one host and positive on the other; no general gain or whole public PBL native fixture is claimed. Both were retained under the owner inclusion policy. These observations do not establish a forecast speedup. The source commit records correspondence after testing; raw producer commit remains NULL. Three-hour timing is one unpaired descriptive observation against the fixed median of three original controls; raw A2 remains separate.",
+  "limits": "This image is qualified only for its own unprofiled three-hour run on the same 512-rank configuration: 545 steps and four full outputs passed the unchanged checker, with all four models and the reader normally closed. Its noon, nine-hour, profile, restart, full 144-hour and clean full-source rebuild scopes remain false. Only module_pbl_driver.o and module_ra_rrtmg_lw.o changed; the other 591 archive members, RSL, provider and all 18 direct inputs are unchanged. The two TAUMOL sites passed 1,824 primitive comparisons and 16 complete calls with genuine absorption tables and exact outputs, inputs, guards and all five processor-state words. The primitive improved 50.7\u201354.3%; the complete TAUMOL caller estimates were 0.04\u20130.28% lower wall time, without an established material caller gain. The MYJ pressure-copy screen was neutral on one host and positive on the other; no general gain or whole public PBL native fixture is claimed. Both were retained under the owner inclusion policy. These observations do not establish a forecast speedup. The source commit records correspondence after testing; raw producer commit remains NULL. Three-hour timing is one unpaired descriptive observation against the fixed median of three original controls; raw A2 remains separate.",
+  "claim_limits": "This image is qualified only for its own unprofiled three-hour run on the same 512-rank configuration: 545 steps and four full outputs passed the unchanged checker, with all four models and the reader normally closed. Its noon, nine-hour, profile, restart, full 144-hour and clean full-source rebuild scopes remain false. Only module_pbl_driver.o and module_ra_rrtmg_lw.o changed; the other 591 archive members, RSL, provider and all 18 direct inputs are unchanged. The two TAUMOL sites passed 1,824 primitive comparisons and 16 complete calls with genuine absorption tables and exact outputs, inputs, guards and all five processor-state words. The primitive improved 50.7\u201354.3%; the complete TAUMOL caller estimates were 0.04\u20130.28% lower wall time, without an established material caller gain. The MYJ pressure-copy screen was neutral on one host and positive on the other; no general gain or whole public PBL native fixture is claimed. Both were retained under the owner inclusion policy. These observations do not establish a forecast speedup. The source commit records correspondence after testing; raw producer commit remains NULL. Three-hour timing is one unpaired descriptive observation against the fixed median of three original controls; raw A2 remains separate.",
   "previous_parent": {
     "executable": {
-      "path": "/pool/wrf-experiment/wrf-cpu/builds/current3c3a-cu-simd-experimental-r1/wrf.exe",
-      "sha256": "6bc47f889fe608db76c0c397e3a6b617f0a62fcceea14f228502fe6e334a2ccd"
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current6bc4-finish-finalT-experimental-r1/wrf.exe",
+      "sha256": "604cfb52216a48ebc290bcde396fc2516244faef5f15d0b1df1271a7ae19a7eb"
     },
     "archive": {
-      "path": "/pool/wrf-experiment/wrf-cpu/builds/current3c3a-cu-simd-experimental-r1/libwrflib.a",
-      "sha256": "aeb4f38ffa25cd26fa9b0c390149766d4dafd9a2cf8fe3f5a72bd5e508b1e05f"
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current6bc4-finish-finalT-experimental-r1/libwrflib.a",
+      "sha256": "21643e0c920f917e6c0cd71aae2a3a3a1e2f66276e937476746ad1632c1ae5c0"
     },
     "qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/cu-fourcolumn-simd-20261029/NINE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "64dc81b0342a2611e43492b233b1eadce2facd867cc9834e416bf3238f7fa936"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/finish-final-theta-simd-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "383e0a0aa1953fca7f7e97d52a04e0b01466096e098ebfcb5ad2f0c259be4b6d"
     },
-    "source_commit": "8d2aa02cdc5883e21640f5fb08830896e0312c1a",
+    "source_commit": "0470ec1d863065a2bca8f989fd12bb23089a8fd2",
     "qualification_scope": {
       "full144_qualified": false,
       "native_profile_qualified": false,
       "own_384_qualified": false,
       "own_fourhost512_qualified": true,
       "own_instrumented_noon_one_hour_qualified": false,
-      "own_nine_hour_qualified": true,
+      "own_nine_hour_qualified": false,
       "own_noon_one_hour_qualified": false,
       "own_three_hour_qualified": true,
       "own_threehost256_threehour_qualified": false,
-      "own_unprofiled_nine_hour_qualified": true,
+      "own_unprofiled_nine_hour_qualified": false,
       "own_unprofiled_noon_one_hour_qualified": false,
       "own_unprofiled_three_hour_qualified": true,
       "profile_qualified": false,
@@ -972,14 +998,53 @@
       "clean_full_source_build_qualified": false
     },
     "own_three_hour": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/cu-fourcolumn-simd-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "c7f88f79f0130abdd5a3b73072a819c900cb3f3c9d9aab10241d7161d87ee633"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/finish-final-theta-simd-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "383e0a0aa1953fca7f7e97d52a04e0b01466096e098ebfcb5ad2f0c259be4b6d"
     },
-    "own_nine_hour": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/cu-fourcolumn-simd-20261029/NINE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "64dc81b0342a2611e43492b233b1eadce2facd867cc9834e416bf3238f7fa936"
+    "own_nine_hour": null,
+    "scope": "Retained 604c parent has its own exact three-hour qualification. Its historical 6bc4 ancestor has a nine-hour qualification; neither scope transfers to this child.",
+    "historical_ancestor": {
+      "executable": {
+        "path": "/pool/wrf-experiment/wrf-cpu/builds/current3c3a-cu-simd-experimental-r1/wrf.exe",
+        "sha256": "6bc47f889fe608db76c0c397e3a6b617f0a62fcceea14f228502fe6e334a2ccd"
+      },
+      "archive": {
+        "path": "/pool/wrf-experiment/wrf-cpu/builds/current3c3a-cu-simd-experimental-r1/libwrflib.a",
+        "sha256": "aeb4f38ffa25cd26fa9b0c390149766d4dafd9a2cf8fe3f5a72bd5e508b1e05f"
+      },
+      "qualification": {
+        "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/cu-fourcolumn-simd-20261029/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+        "sha256": "64dc81b0342a2611e43492b233b1eadce2facd867cc9834e416bf3238f7fa936"
+      },
+      "source_commit": "8d2aa02cdc5883e21640f5fb08830896e0312c1a",
+      "qualification_scope": {
+        "full144_qualified": false,
+        "native_profile_qualified": false,
+        "own_384_qualified": false,
+        "own_fourhost512_qualified": true,
+        "own_instrumented_noon_one_hour_qualified": false,
+        "own_nine_hour_qualified": true,
+        "own_noon_one_hour_qualified": false,
+        "own_three_hour_qualified": true,
+        "own_threehost256_threehour_qualified": false,
+        "own_unprofiled_nine_hour_qualified": true,
+        "own_unprofiled_noon_one_hour_qualified": false,
+        "own_unprofiled_three_hour_qualified": true,
+        "profile_qualified": false,
+        "restart_qualified": false,
+        "clean_full_source_build_qualified": false
+      },
+      "own_three_hour": {
+        "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/cu-fourcolumn-simd-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+        "sha256": "c7f88f79f0130abdd5a3b73072a819c900cb3f3c9d9aab10241d7161d87ee633"
+      },
+      "own_nine_hour": {
+        "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/cu-fourcolumn-simd-20261029/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+        "sha256": "64dc81b0342a2611e43492b233b1eadce2facd867cc9834e416bf3238f7fa936"
+      },
+      "scope": "Retained 6bc4 parent has its own exact three-hour and nine-hour qualifications. Neither transfers to the new final-T child.",
+      "applies_to_current": false
     },
-    "scope": "Retained 6bc4 parent has its own exact three-hour and nine-hour qualifications. Neither transfers to the new final-T child.",
     "applies_to_current": false
   },
   "output_guard": {
@@ -1022,7 +1087,7 @@
       "sha256": "c901e7b33ec8eb0218625e12adf32871c9527bc70be7030a96ec0e4c2ce8e673"
     }
   },
-  "post_test_source_commit": "0470ec1d863065a2bca8f989fd12bb23089a8fd2",
+  "post_test_source_commit": "68e40ccc224446b642a7225194cd798378d7aace",
   "last_nine_hour_benchmark_applies_to_current": false,
   "component_source_correspondence": {
     "historical_thompson": {
@@ -2363,6 +2428,28 @@
       },
       "only_source_change": "dyn_em/module_small_step_em.F",
       "parent_horizons_do_not_transfer": true
+    },
+    "TAUMOL_two_fs1_and_MYJ_PSFC_dead_copy": {
+      "source_commit": "68e40ccc224446b642a7225194cd798378d7aace",
+      "raw_producer_source_commit": null,
+      "own_three_hour": {
+        "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/taumol-psfc-batch-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+        "sha256": "808e028a2891a0f0b00f574b0566b85b33646223c1970914ae9fcfc588efa445"
+      },
+      "native_and_cost": {
+        "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/taumol-psfc-batch-20261029/COMPONENT_EVIDENCE.json",
+        "sha256": "36c0a69b719d3794999479f3e2e520174ca1d61d9ed8577802fb65b2b84583bf"
+      },
+      "changed_members": {
+        "module_pbl_driver.o": "26ee2976c15779c9af15d24a23cc81ca09ccb7155eb4bc04d590e345f99d4042",
+        "module_ra_rrtmg_lw.o": "963131c50393ea19db63e8356df443ff0d1645dac89588e27552ee222b9a66ca"
+      },
+      "source_changes": [
+        "phys/module_ra_rrtmg_lw.F",
+        "phys/module_pbl_driver.F",
+        "phys/Makefile"
+      ],
+      "parent_horizons_do_not_transfer": true
     }
   },
   "actual_rank_map_table_sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac",
@@ -2370,11 +2457,11 @@
     "retained_original546b_A2_science_reference",
     "fresh_current3c3a_cu_simd_unprofiled_threehour_candidate"
   ],
-  "raw_result_label_annotation": "Raw collector donor label is retained only in raw_result_order/RESULT; current candidate is final-T604c/2164. Raw A2 and descriptive median3 remain separate.",
+  "raw_result_label_annotation": "Raw collector donor label is retained only in raw_result_order/RESULT; current candidate is TAUMOL+PSFC40b2/e599. Raw A2 and descriptive median3 remain separate.",
   "descriptive_reductions_percent": {
-    "wall_seconds": 21.24118618014958,
-    "cpu_seconds": 14.7937999610052,
-    "main_step_sum_seconds": 10.859715169969277
+    "wall_seconds": 21.00643580573655,
+    "cpu_seconds": 14.573287923541134,
+    "main_step_sum_seconds": 10.764334237655454
   },
   "historical_parent1d16_before_MU_LW_Y": {
     "working_snapshot": {
@@ -2510,9 +2597,9 @@
       "main_step_sum_seconds": 596.45045
     },
     "candidate": {
-      "wall_seconds": 630.0895078596659,
-      "cpu_seconds": 306169.178066,
-      "main_step_sum_seconds": 531.67763
+      "wall_seconds": 631.9675674787723,
+      "cpu_seconds": 306961.53812,
+      "main_step_sum_seconds": 532.24653
     }
   },
   "raw_metrics_control_role": "Retained original A2 science control; never replaced by median3 in raw RESULT/science.",
@@ -2557,20 +2644,20 @@
       "provider_source_sha256": "d38dfa0c9d75b04f28bab346be8182fae6d32c89960f727bf8c06f24ce5aee58",
       "guard_source_sha256": "801e29cc8406d0200dee1557e4263d3ce4db46d750b63b9371083b633c952150"
     },
-    "scope": "This image is qualified only for its own unprofiled three-hour run on the same 512-rank configuration: 545 steps and four full outputs passed the unchanged checker, with all four models and the reader normally closed. Its noon, nine-hour, profile, restart, full 144-hour and clean full-source rebuild scopes remain false. The parent own nine-hour qualification remains historical. Only module_small_step_em.o changed; the other 592 archive members, RSL, provider and all 18 direct inputs are unchanged. Native same-option O2/O0 tests passed 544 complete raw comparisons, including all five processor-state words. The final-RK complete synthetic FINISH caller was 15.3% and 16.8% faster; the nonfinal control showed no consistent gain. These measurements are not a forecast speedup. The source commit records correspondence after testing; raw producer commit remains NULL. Three-hour timing is one unpaired descriptive observation against the fixed median of three original controls; raw A2 remains separate.",
+    "scope": "This image is qualified only for its own unprofiled three-hour run on the same 512-rank configuration: 545 steps and four full outputs passed the unchanged checker, with all four models and the reader normally closed. Its noon, nine-hour, profile, restart, full 144-hour and clean full-source rebuild scopes remain false. Only module_pbl_driver.o and module_ra_rrtmg_lw.o changed; the other 591 archive members, RSL, provider and all 18 direct inputs are unchanged. The two TAUMOL sites passed 1,824 primitive comparisons and 16 complete calls with genuine absorption tables and exact outputs, inputs, guards and all five processor-state words. The primitive improved 50.7\u201354.3%; the complete TAUMOL caller estimates were 0.04\u20130.28% lower wall time, without an established material caller gain. The MYJ pressure-copy screen was neutral on one host and positive on the other; no general gain or whole public PBL native fixture is claimed. Both were retained under the owner inclusion policy. These observations do not establish a forecast speedup. The source commit records correspondence after testing; raw producer commit remains NULL. Three-hour timing is one unpaired descriptive observation against the fixed median of three original controls; raw A2 remains separate.",
     "lease": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current6bc4-finalT-batch3h-runtime-r1/candidate-metadata/lease.json",
-      "sha256": "310f64c95ca0dac13515d59b99e9b53e805af0019503dfbca8bd4e5d370df5b6"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current604c-taumol-psfc-batch3h-runtime-r1/candidate-metadata/lease.json",
+      "sha256": "b2ba8ef23b88ccc02028bc2c585fbfaebe2d5b6e2a13438d553495a6b728776e"
     },
     "observed_step_count": 545,
     "products": 4,
     "science": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current6bc4-finalT-batch3h-runtime-r1/science-receipt.json",
-      "sha256": "aef558da35dcc9c4fcf83ba0588e0d434a989eac829e4e9b11db38a7efd6ea5b"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current604c-taumol-psfc-batch3h-runtime-r1/science-receipt.json",
+      "sha256": "db39f624eb8bd29a4ab1b1352146bb4a05824a62e4b1ae31c74d0e08bed06367"
     },
     "qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/finish-final-theta-simd-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "383e0a0aa1953fca7f7e97d52a04e0b01466096e098ebfcb5ad2f0c259be4b6d"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/taumol-psfc-batch-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "808e028a2891a0f0b00f574b0566b85b33646223c1970914ae9fcfc588efa445"
     },
     "rank_map": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/mu-lw-y-batch-20261028/RANK_MAP.json",
@@ -2579,38 +2666,38 @@
     "actual_map_table_sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac",
     "rank_map_variant": "control",
     "observer_profile": false,
-    "run_id": "production512-current6bc4-finalt-batch3h-r1",
-    "run_directory": "/pool/wrf-experiment/wrf-cpu/runs/production512-current6bc4-finalt-batch3h-r1",
-    "stage": "/pool/wrf-experiment/wrf-cpu/science-prep/production512-current6bc4-finalT-batch3h-r1",
-    "runtime_directory": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current6bc4-finalT-batch3h-runtime-r1",
-    "source_manifest_sha256": "2bae27c55b241eeac39c2e885f4cdfd50416ed48f9ba9ae034852c2c6953e8c3",
-    "granted_lease_sha256": "310f64c95ca0dac13515d59b99e9b53e805af0019503dfbca8bd4e5d370df5b6",
+    "run_id": "production512-current604c-taumol-psfc-batch3h-r1",
+    "run_directory": "/pool/wrf-experiment/wrf-cpu/runs/production512-current604c-taumol-psfc-batch3h-r1",
+    "stage": "/pool/wrf-experiment/wrf-cpu/science-prep/production512-current604c-taumol-psfc-batch3h-r1",
+    "runtime_directory": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current604c-taumol-psfc-batch3h-runtime-r1",
+    "source_manifest_sha256": "aa6c038ee0da03492bf209d2a883bc9c9d9d55162f96f293f6fbfa3aedf0c0fc",
+    "granted_lease_sha256": "b2ba8ef23b88ccc02028bc2c585fbfaebe2d5b6e2a13438d553495a6b728776e",
     "application_binding": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current6bc4-finalT-batch3h-runtime-r1/application-binding.json",
-      "sha256": "4c7a01fe56c2c6dbc70baf5e9603bec3b936dca8d6d75c9a13150b4c951f887e"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current604c-taumol-psfc-batch3h-runtime-r1/application-binding.json",
+      "sha256": "995011ab75e5ce8a17e24cf1c48d4f2c07dc74678c2d3864e1407d323a857fe8"
     },
     "model_closures": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current6bc4-finalT-batch3h-runtime-r1/candidate-metadata/model-closures.json",
-      "sha256": "b8e7c8dad9f08e8181f49feb71d8e5c3629ac91bbbb2165b969f8df04b7104be"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current604c-taumol-psfc-batch3h-runtime-r1/candidate-metadata/model-closures.json",
+      "sha256": "0442fdffee1980bcb69db0e9e7dccec83be237cc278bc6de227e65f73aff8597"
     },
     "reader_closure": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current6bc4-finalT-batch3h-runtime-r1/reader-closure.json",
-      "sha256": "2db7a9ba704338b3ab95040585d8277ae4badce88086046746cad8faf98014de"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current604c-taumol-psfc-batch3h-runtime-r1/reader-closure.json",
+      "sha256": "37ece4799a72da0208f1f45a7ba71d9520b9f1f73049e737b5ecb5cbd2491775"
     },
     "model_units": {
-      "hpc01": "wrf-cpu-production512-current6bc4-finalt-batch3h-r1-hpc01.service",
-      "hpc02": "wrf-cpu-production512-current6bc4-finalt-batch3h-r1-hpc02.service",
-      "hpc03": "wrf-cpu-production512-current6bc4-finalt-batch3h-r1-hpc03.service",
-      "hpc04": "wrf-cpu-production512-current6bc4-finalt-batch3h-r1-hpc04.service"
+      "hpc01": "wrf-cpu-production512-current604c-taumol-psfc-batch3h-r1-hpc01.service",
+      "hpc02": "wrf-cpu-production512-current604c-taumol-psfc-batch3h-r1-hpc02.service",
+      "hpc03": "wrf-cpu-production512-current604c-taumol-psfc-batch3h-r1-hpc03.service",
+      "hpc04": "wrf-cpu-production512-current604c-taumol-psfc-batch3h-r1-hpc04.service"
     },
     "model_invocations": {
-      "hpc01": "8116087171e24c298926d676873d3616",
-      "hpc02": "878a00cb6021457988d1866eae83c777",
-      "hpc03": "c847fbcf66264e6ab7312f0ee11ab315",
-      "hpc04": "4c1f8c96edb9434bafa1f271c921f4a4"
+      "hpc01": "fab08a1adcdb42818f3c42a5cd4f098c",
+      "hpc02": "b32aaa8b41e646949fca791c1b1adbfc",
+      "hpc03": "f8876f37500e4e4c8f602560205be710",
+      "hpc04": "9cfaef73b606473b8b95a5469bb6f673"
     },
-    "reader_unit": "wrf-cpu-production512-current6bc4-finalt-batch3h-r1-exact-check-hpc03.service",
-    "reader_invocation_id": "4d8d4f7ce8b34abeb371a115dc2c218f",
+    "reader_unit": "wrf-cpu-production512-current604c-taumol-psfc-batch3h-r1-exact-check-hpc03.service",
+    "reader_invocation_id": "99c9ef64285043bdbfd75a6bfb7fb7a6",
     "model_cap_seconds": 1200,
     "reader_cap_seconds": 1800,
     "memory_perhost_bytes": {
@@ -2662,20 +2749,20 @@
       "provider_source_sha256": "d38dfa0c9d75b04f28bab346be8182fae6d32c89960f727bf8c06f24ce5aee58",
       "guard_source_sha256": "801e29cc8406d0200dee1557e4263d3ce4db46d750b63b9371083b633c952150"
     },
-    "scope": "This image is qualified only for its own unprofiled three-hour run on the same 512-rank configuration: 545 steps and four full outputs passed the unchanged checker, with all four models and the reader normally closed. Its noon, nine-hour, profile, restart, full 144-hour and clean full-source rebuild scopes remain false. The parent own nine-hour qualification remains historical. Only module_small_step_em.o changed; the other 592 archive members, RSL, provider and all 18 direct inputs are unchanged. Native same-option O2/O0 tests passed 544 complete raw comparisons, including all five processor-state words. The final-RK complete synthetic FINISH caller was 15.3% and 16.8% faster; the nonfinal control showed no consistent gain. These measurements are not a forecast speedup. The source commit records correspondence after testing; raw producer commit remains NULL. Three-hour timing is one unpaired descriptive observation against the fixed median of three original controls; raw A2 remains separate.",
+    "scope": "This image is qualified only for its own unprofiled three-hour run on the same 512-rank configuration: 545 steps and four full outputs passed the unchanged checker, with all four models and the reader normally closed. Its noon, nine-hour, profile, restart, full 144-hour and clean full-source rebuild scopes remain false. Only module_pbl_driver.o and module_ra_rrtmg_lw.o changed; the other 591 archive members, RSL, provider and all 18 direct inputs are unchanged. The two TAUMOL sites passed 1,824 primitive comparisons and 16 complete calls with genuine absorption tables and exact outputs, inputs, guards and all five processor-state words. The primitive improved 50.7\u201354.3%; the complete TAUMOL caller estimates were 0.04\u20130.28% lower wall time, without an established material caller gain. The MYJ pressure-copy screen was neutral on one host and positive on the other; no general gain or whole public PBL native fixture is claimed. Both were retained under the owner inclusion policy. These observations do not establish a forecast speedup. The source commit records correspondence after testing; raw producer commit remains NULL. Three-hour timing is one unpaired descriptive observation against the fixed median of three original controls; raw A2 remains separate.",
     "lease": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current6bc4-finalT-batch3h-runtime-r1/candidate-metadata/lease.json",
-      "sha256": "310f64c95ca0dac13515d59b99e9b53e805af0019503dfbca8bd4e5d370df5b6"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current604c-taumol-psfc-batch3h-runtime-r1/candidate-metadata/lease.json",
+      "sha256": "b2ba8ef23b88ccc02028bc2c585fbfaebe2d5b6e2a13438d553495a6b728776e"
     },
     "observed_step_count": 545,
     "products": 4,
     "science": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current6bc4-finalT-batch3h-runtime-r1/science-receipt.json",
-      "sha256": "aef558da35dcc9c4fcf83ba0588e0d434a989eac829e4e9b11db38a7efd6ea5b"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current604c-taumol-psfc-batch3h-runtime-r1/science-receipt.json",
+      "sha256": "db39f624eb8bd29a4ab1b1352146bb4a05824a62e4b1ae31c74d0e08bed06367"
     },
     "qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/finish-final-theta-simd-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "383e0a0aa1953fca7f7e97d52a04e0b01466096e098ebfcb5ad2f0c259be4b6d"
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/taumol-psfc-batch-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "808e028a2891a0f0b00f574b0566b85b33646223c1970914ae9fcfc588efa445"
     },
     "rank_map": {
       "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/mu-lw-y-batch-20261028/RANK_MAP.json",
@@ -2684,38 +2771,38 @@
     "actual_map_table_sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac",
     "rank_map_variant": "control",
     "observer_profile": false,
-    "run_id": "production512-current6bc4-finalt-batch3h-r1",
-    "run_directory": "/pool/wrf-experiment/wrf-cpu/runs/production512-current6bc4-finalt-batch3h-r1",
-    "stage": "/pool/wrf-experiment/wrf-cpu/science-prep/production512-current6bc4-finalT-batch3h-r1",
-    "runtime_directory": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current6bc4-finalT-batch3h-runtime-r1",
-    "source_manifest_sha256": "2bae27c55b241eeac39c2e885f4cdfd50416ed48f9ba9ae034852c2c6953e8c3",
-    "granted_lease_sha256": "310f64c95ca0dac13515d59b99e9b53e805af0019503dfbca8bd4e5d370df5b6",
+    "run_id": "production512-current604c-taumol-psfc-batch3h-r1",
+    "run_directory": "/pool/wrf-experiment/wrf-cpu/runs/production512-current604c-taumol-psfc-batch3h-r1",
+    "stage": "/pool/wrf-experiment/wrf-cpu/science-prep/production512-current604c-taumol-psfc-batch3h-r1",
+    "runtime_directory": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current604c-taumol-psfc-batch3h-runtime-r1",
+    "source_manifest_sha256": "aa6c038ee0da03492bf209d2a883bc9c9d9d55162f96f293f6fbfa3aedf0c0fc",
+    "granted_lease_sha256": "b2ba8ef23b88ccc02028bc2c585fbfaebe2d5b6e2a13438d553495a6b728776e",
     "application_binding": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current6bc4-finalT-batch3h-runtime-r1/application-binding.json",
-      "sha256": "4c7a01fe56c2c6dbc70baf5e9603bec3b936dca8d6d75c9a13150b4c951f887e"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current604c-taumol-psfc-batch3h-runtime-r1/application-binding.json",
+      "sha256": "995011ab75e5ce8a17e24cf1c48d4f2c07dc74678c2d3864e1407d323a857fe8"
     },
     "model_closures": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current6bc4-finalT-batch3h-runtime-r1/candidate-metadata/model-closures.json",
-      "sha256": "b8e7c8dad9f08e8181f49feb71d8e5c3629ac91bbbb2165b969f8df04b7104be"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current604c-taumol-psfc-batch3h-runtime-r1/candidate-metadata/model-closures.json",
+      "sha256": "0442fdffee1980bcb69db0e9e7dccec83be237cc278bc6de227e65f73aff8597"
     },
     "reader_closure": {
-      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current6bc4-finalT-batch3h-runtime-r1/reader-closure.json",
-      "sha256": "2db7a9ba704338b3ab95040585d8277ae4badce88086046746cad8faf98014de"
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current604c-taumol-psfc-batch3h-runtime-r1/reader-closure.json",
+      "sha256": "37ece4799a72da0208f1f45a7ba71d9520b9f1f73049e737b5ecb5cbd2491775"
     },
     "model_units": {
-      "hpc01": "wrf-cpu-production512-current6bc4-finalt-batch3h-r1-hpc01.service",
-      "hpc02": "wrf-cpu-production512-current6bc4-finalt-batch3h-r1-hpc02.service",
-      "hpc03": "wrf-cpu-production512-current6bc4-finalt-batch3h-r1-hpc03.service",
-      "hpc04": "wrf-cpu-production512-current6bc4-finalt-batch3h-r1-hpc04.service"
+      "hpc01": "wrf-cpu-production512-current604c-taumol-psfc-batch3h-r1-hpc01.service",
+      "hpc02": "wrf-cpu-production512-current604c-taumol-psfc-batch3h-r1-hpc02.service",
+      "hpc03": "wrf-cpu-production512-current604c-taumol-psfc-batch3h-r1-hpc03.service",
+      "hpc04": "wrf-cpu-production512-current604c-taumol-psfc-batch3h-r1-hpc04.service"
     },
     "model_invocations": {
-      "hpc01": "8116087171e24c298926d676873d3616",
-      "hpc02": "878a00cb6021457988d1866eae83c777",
-      "hpc03": "c847fbcf66264e6ab7312f0ee11ab315",
-      "hpc04": "4c1f8c96edb9434bafa1f271c921f4a4"
+      "hpc01": "fab08a1adcdb42818f3c42a5cd4f098c",
+      "hpc02": "b32aaa8b41e646949fca791c1b1adbfc",
+      "hpc03": "f8876f37500e4e4c8f602560205be710",
+      "hpc04": "9cfaef73b606473b8b95a5469bb6f673"
     },
-    "reader_unit": "wrf-cpu-production512-current6bc4-finalt-batch3h-r1-exact-check-hpc03.service",
-    "reader_invocation_id": "4d8d4f7ce8b34abeb371a115dc2c218f",
+    "reader_unit": "wrf-cpu-production512-current604c-taumol-psfc-batch3h-r1-exact-check-hpc03.service",
+    "reader_invocation_id": "99c9ef64285043bdbfd75a6bfb7fb7a6",
     "model_cap_seconds": 1200,
     "reader_cap_seconds": 1800,
     "memory_perhost_bytes": {
@@ -2727,15 +2814,15 @@
     "forecast_end_time": "2026-10-12_09:00:00"
   },
   "current_application_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/finish-final-theta-simd-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "383e0a0aa1953fca7f7e97d52a04e0b01466096e098ebfcb5ad2f0c259be4b6d"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/taumol-psfc-batch-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "808e028a2891a0f0b00f574b0566b85b33646223c1970914ae9fcfc588efa445"
   },
-  "current_application_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/finish-final-theta-simd-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+  "current_application_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/taumol-psfc-batch-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
   "current_three_hour_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/finish-final-theta-simd-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "383e0a0aa1953fca7f7e97d52a04e0b01466096e098ebfcb5ad2f0c259be4b6d"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/taumol-psfc-batch-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "808e028a2891a0f0b00f574b0566b85b33646223c1970914ae9fcfc588efa445"
   },
-  "current_three_hour_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/finish-final-theta-simd-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+  "current_three_hour_qualification_file": "/home/ddietz/wrf/WRF/tools/cpu-compute/taumol-psfc-batch-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
   "current_three_hour_qualified": true,
   "current_unprofiled_three_hour_qualified": true,
   "current_fourhost512_qualified": true,

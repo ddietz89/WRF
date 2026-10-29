@@ -1,0 +1,16 @@
+{
+  "status": "OWN_UNPROFILED_THREE_HOUR_EXACT_SCIENCE_QUALIFIED",
+  "qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/taumol-psfc-batch-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "808e028a2891a0f0b00f574b0566b85b33646223c1970914ae9fcfc588efa445"
+  },
+  "components": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/taumol-psfc-batch-20261029/COMPONENT_EVIDENCE.json",
+    "sha256": "36c0a69b719d3794999479f3e2e520174ca1d61d9ed8577802fb65b2b84583bf"
+  },
+  "source_commit": "68e40ccc224446b642a7225194cd798378d7aace",
+  "raw_producer_source_commit": null,
+  "forecast_gain": null,
+  "timing_gain_claim": false,
+  "scope": "This image is qualified only for its own unprofiled three-hour run on the same 512-rank configuration: 545 steps and four full outputs passed the unchanged checker, with all four models and the reader normally closed. Its noon, nine-hour, profile, restart, full 144-hour and clean full-source rebuild scopes remain false. Only module_pbl_driver.o and module_ra_rrtmg_lw.o changed; the other 591 archive members, RSL, provider and all 18 direct inputs are unchanged. The two TAUMOL sites passed 1,824 primitive comparisons and 16 complete calls with genuine absorption tables and exact outputs, inputs, guards and all five processor-state words. The primitive improved 50.7\u201354.3%; the complete TAUMOL caller estimates were 0.04\u20130.28% lower wall time, without an established material caller gain. The MYJ pressure-copy screen was neutral on one host and positive on the other; no general gain or whole public PBL native fixture is claimed. Both were retained under the owner inclusion policy. These observations do not establish a forecast speedup. The source commit records correspondence after testing; raw producer commit remains NULL. Three-hour timing is one unpaired descriptive observation against the fixed median of three original controls; raw A2 remains separate."
+}
