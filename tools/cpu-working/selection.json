@@ -942,18 +942,18 @@
   },
   "qualification_scope": {
     "full144_qualified": false,
-    "native_profile_qualified": false,
+    "native_profile_qualified": true,
     "own_384_qualified": false,
     "own_fourhost512_qualified": true,
-    "own_instrumented_noon_one_hour_qualified": false,
+    "own_instrumented_noon_one_hour_qualified": true,
     "own_nine_hour_qualified": false,
-    "own_noon_one_hour_qualified": false,
+    "own_noon_one_hour_qualified": true,
     "own_three_hour_qualified": true,
     "own_threehost256_threehour_qualified": false,
     "own_unprofiled_nine_hour_qualified": false,
     "own_unprofiled_noon_one_hour_qualified": false,
     "own_unprofiled_three_hour_qualified": true,
-    "profile_qualified": false,
+    "profile_qualified": true,
     "restart_qualified": false,
     "clean_full_source_build_qualified": false,
     "no_parent_horizon_inheritance": true
@@ -967,7 +967,7 @@
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/taumol-final-five-fractions-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
     "sha256": "78491ba8ac1a1f9e71835dd5027159985df5331b7c4787c5f759c5d554423779"
   },
-  "profile_source_identity_acquisition_pending": true,
+  "profile_source_identity_acquisition_pending": false,
   "science": {
     "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current7f26-final-five-batch3h-runtime-r1/science-receipt.json",
     "sha256": "1602386a9f5b2628f36898fb347268a533ad097244870c69a054b22f00905ae8"
@@ -999,7 +999,7 @@
     "main_step_sum_seconds": 10.8566201936808
   },
   "last_three_hour_benchmark_applies_to_current": true,
-  "scope": "This image is qualified only for its own unprofiled three-hour run on the same 512-rank configuration: 545 steps and four full outputs passed the unchanged original checker, with all four models and reader normally closed. Own nine-hour, noon, profile, restart, full 144-hour and clean full-source rebuild scopes remain false. Direct parent 7f26 owns its exact nine-hour science, which remains historical. Only module_ra_rrtmg_lw.o changed; 592 archive members, RSL, provider and all 18 direct inputs remain unchanged. Exactly five sampled lower fractions across bands 5, 13, 15 and 16 reuse their original integer conversions under binary32/int32 admission with literal fallback. Sixteen genuine-table complete TAUMOL calls passed full outputs, read-only inputs, guards and all five processor state words, with 44 positive-normal admission witnesses at each new site in both roles. One fixed 20,000-call comparison per host measured 1.24% and 2.82% lower complete caller wall time and 1.17%/2.74% lower process CPU, including full output restores and all callee work. These bounded observations establish no forecast gain or repeatability. Earlier 50\u201354% primitive gain is separate formula evidence. Three-hour application timing is one unpaired descriptive observation versus the fixed median of three original controls; raw A2 stays separate. Source correspondence is post-test; raw producer commit remains NULL.",
+  "scope": "This image owns its unprofiled three-hour qualification (545 steps and four full outputs) and separate instrumented noon source-identity evidence (185 steps, two full outputs and four selected-thread recordings). All original scientific checks passed and all scopes closed. Own unprofiled noon, nine-hour, restart, full 144-hour and clean full-source rebuild scopes remain false. Direct parent 7f26 owns its exact nine-hour science, which remains historical. Only module_ra_rrtmg_lw.o changed; 592 archive members, RSL, provider and all 18 direct inputs remain unchanged. Exactly five sampled lower fractions across bands 5, 13, 15 and 16 reuse their original integer conversions under binary32/int32 admission with literal fallback. Sixteen genuine-table complete TAUMOL calls passed full outputs, read-only inputs, guards and all five processor state words, with 44 positive-normal admission witnesses at each new site in both roles. One fixed 20,000-call comparison per host measured 1.24% and 2.82% lower complete caller wall time and 1.17%/2.74% lower process CPU, including full output restores and all callee work. These bounded observations establish no forecast gain or repeatability. Earlier 50\u201354% primitive gain is separate formula evidence. Three-hour application timing is one unpaired descriptive observation versus the fixed median of three original controls; raw A2 stays separate. Source correspondence is post-test; raw producer commit remains NULL.",
   "limits": "This image is qualified only for its own unprofiled three-hour run on the same 512-rank configuration: 545 steps and four full outputs passed the unchanged original checker, with all four models and reader normally closed. Own nine-hour, noon, profile, restart, full 144-hour and clean full-source rebuild scopes remain false. Direct parent 7f26 owns its exact nine-hour science, which remains historical. Only module_ra_rrtmg_lw.o changed; 592 archive members, RSL, provider and all 18 direct inputs remain unchanged. Exactly five sampled lower fractions across bands 5, 13, 15 and 16 reuse their original integer conversions under binary32/int32 admission with literal fallback. Sixteen genuine-table complete TAUMOL calls passed full outputs, read-only inputs, guards and all five processor state words, with 44 positive-normal admission witnesses at each new site in both roles. One fixed 20,000-call comparison per host measured 1.24% and 2.82% lower complete caller wall time and 1.17%/2.74% lower process CPU, including full output restores and all callee work. These bounded observations establish no forecast gain or repeatability. Earlier 50\u201354% primitive gain is separate formula evidence. Three-hour application timing is one unpaired descriptive observation versus the fixed median of three original controls; raw A2 stays separate. Source correspondence is post-test; raw producer commit remains NULL.",
   "claim_limits": "This image is qualified only for its own unprofiled three-hour run on the same 512-rank configuration: 545 steps and four full outputs passed the unchanged original checker, with all four models and reader normally closed. Own nine-hour, noon, profile, restart, full 144-hour and clean full-source rebuild scopes remain false. Direct parent 7f26 owns its exact nine-hour science, which remains historical. Only module_ra_rrtmg_lw.o changed; 592 archive members, RSL, provider and all 18 direct inputs remain unchanged. Exactly five sampled lower fractions across bands 5, 13, 15 and 16 reuse their original integer conversions under binary32/int32 admission with literal fallback. Sixteen genuine-table complete TAUMOL calls passed full outputs, read-only inputs, guards and all five processor state words, with 44 positive-normal admission witnesses at each new site in both roles. One fixed 20,000-call comparison per host measured 1.24% and 2.82% lower complete caller wall time and 1.17%/2.74% lower process CPU, including full output restores and all callee work. These bounded observations establish no forecast gain or repeatability. Earlier 50\u201354% primitive gain is separate formula evidence. Three-hour application timing is one unpaired descriptive observation versus the fixed median of three original controls; raw A2 stays separate. Source correspondence is post-test; raw producer commit remains NULL.",
   "previous_parent": {
@@ -2881,13 +2881,20 @@
   "current_three_hour_qualified": true,
   "current_unprofiled_three_hour_qualified": true,
   "current_fourhost512_qualified": true,
-  "current_noon_one_hour_qualified": false,
+  "current_noon_one_hour_qualified": true,
   "current_unprofiled_noon_one_hour_qualified": false,
-  "current_instrumented_noon_one_hour_qualified": false,
+  "current_instrumented_noon_one_hour_qualified": true,
   "current_nine_hour_qualified": false,
   "current_unprofiled_nine_hour_qualified": false,
-  "current_daylight_qualified": false,
-  "current_profile_qualified": false,
-  "current_native_profile_qualified": false,
-  "current_profile_scope": "No own child source profile; all predecessor profiles historical/noncurrent."
+  "current_daylight_qualified": true,
+  "current_profile_qualified": true,
+  "current_native_profile_qualified": true,
+  "current_profile_scope": "Image 31a4 passed instrumented noon science from 12:00 to 13:00 (185 steps and two full outputs), plus four requested 15-second source-identity captures of selected main threads of ranks 120\u2013123 on CPU 99. Mixed-I/O context; no timing gain, global share, critical-path, wire-time or causal qualification.",
+  "current_instrumented_noon_profile_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/taumol-final-five-fractions-20261029/INSTRUMENTED_NOON_PROFILE_QUALIFICATION.json",
+    "sha256": "b218f731f8f51481b005f394126b9ccc54cbe682a6cebb33b9c727f224e77a5a"
+  },
+  "current_profile_scope_note": "The instrumented noon run qualifies source identity for four selected main threads only. Its 5,667 primary records have unknown numeric sample loss and numeric ELF build ID. Original optional-report KeyErrors are retained; separate parsers passed. Existing unprofiled three-hour timing and qualification are unchanged. No global efficiency, timing gain, pure-compute or causal claim follows.",
+  "current_instrumented_noon_runtime": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current31a4-fourhost-noon1h-native15-runtime-r1",
+  "current_daylight_scope": "Own instrumented noon12\u201313 only; no own nine-hour daylight qualification."
 }
