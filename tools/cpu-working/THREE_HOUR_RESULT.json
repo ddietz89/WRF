@@ -1,121 +1,527 @@
 {
-  "status": "PASS_OWN_UNPROFILED_SAME512_LW_INATM_THREE_HOUR_545_FOUR_FULL",
+  "schema_version": 1,
+  "status": "PASS_CURRENT_SW_CONDITIONAL_STORAGE_UNPROFILED_THREE_HOUR_ORIGINAL_FOUR_FULL_545",
+  "qualified": true,
   "executable": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/current8b49-lw-contiguous-experimental-r1/wrf.exe",
-    "sha256": "0daea20814c9902bba3122de70ab346462ae42eac27cc6148df24b5a8c4a67f1"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current8fa1-sw-storage-experimental-r2/wrf.exe",
+    "sha256": "5ba7f0b8368a66dd446cbb663a870f6b9606c0f7a14f0d3beb2e1f189417c44d"
   },
   "archive": {
-    "path": "/pool/wrf-experiment/wrf-cpu/builds/current8b49-lw-contiguous-experimental-r1/libwrflib.a",
-    "sha256": "b074806bdcab7c202c9b9af6308f9202bafe355c7fc085f0a6fceb10e50a70c4"
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current8fa1-sw-storage-experimental-r2/libwrflib.a",
+    "sha256": "b8969fdfa8267fda85baeb2f790a54a1fd07e04cd014fedbedd8303e7f48cf0b"
   },
   "RSL_archive": {
     "path": "/pool/wrf-experiment/wrf-cpu/builds/current1d16-rsl-early-y-production-archive-r1/librsl_lite.a",
     "sha256": "e418b187e8c88f5dc436ca44ce32ff23f75ac11a45ce3db214ff4fc40bb1fddc"
   },
-  "output_provider": {
-    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current0dd6-rowcursor-native-hpc02-r1/output/liboutput_world512_rowcursor.so",
-    "sha256": "64bb4cf2744799056e25be48b166a7a4703f525b08acff1bf898cd7941e8a643"
+  "source_commit": "e4b8db65b7a66a974aa2ee52bfcb361b9b699d66",
+  "post_test_source_commit": "e4b8db65b7a66a974aa2ee52bfcb361b9b699d66",
+  "raw_producer_source_commit": null,
+  "post_test_source_correspondence": true,
+  "runtime_directory": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current8fa1-swstorage-batch3h-runtime-r1",
+  "preparation_directory": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current8fa1-swstorage-batch-threehour-preparation-r1",
+  "source_manifest": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current8fa1-swstorage-batch3h-runtime-r1/source-pins.json",
+    "sha256": "532bd98db00c84410e0ee56931dcc506b3186af38b664871994bb203b9300525"
   },
+  "application_binding": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current8fa1-swstorage-batch3h-runtime-r1/application-binding.json",
+    "sha256": "cae03f528cc771bce0dc7ddeb077a307a905a1e69bb2010e78ea856c0eb315f9"
+  },
+  "build_and_component_evidence": {
+    "SW-storage-build-expected.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current8fa1-swstorage-batch3h-runtime-r1/SW-storage-build-expected.json",
+      "sha256": "cfd70753d010e270baecc99e9dc5b4d8d014f017e4620cb4ede0a1face6d25b1"
+    },
+    "SW-storage-build-receipt.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current8fa1-swstorage-batch3h-runtime-r1/SW-storage-build-receipt.json",
+      "sha256": "f8f466447d08c895540004417449c9df7ef8ac04db9537ff8aefa8e3a5444610"
+    },
+    "SW-storage-build-closure.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current8fa1-swstorage-batch3h-runtime-r1/SW-storage-build-closure.json",
+      "sha256": "562b4ffde93480f1752d85273a406b1278722a9499789f06ef4ee66ead853096"
+    },
+    "SW-storage-ordered-archive-proof.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current8fa1-swstorage-batch3h-runtime-r1/SW-storage-ordered-archive-proof.json",
+      "sha256": "69df1b9b04831682d4e146fb56578c42ea773c0439471b19047a2113ed3284c3"
+    },
+    "SW-storage-linked-E8-proof.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current8fa1-swstorage-batch3h-runtime-r1/SW-storage-linked-E8-proof.json",
+      "sha256": "4d07a3d6d746a7aa2eb4f0cddf9a0b2cc0a455f7bd9953731c1612a2f0227df1"
+    },
+    "SW-storage-native-receipt.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current8fa1-swstorage-batch3h-runtime-r1/SW-storage-native-receipt.json",
+      "sha256": "a213148595647c725254af6b8a28dd41e88ab864b3755158c5c4cd9d5d988421"
+    },
+    "SW-storage-native-closure.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current8fa1-swstorage-batch3h-runtime-r1/SW-storage-native-closure.json",
+      "sha256": "39b6af339c871c41cf8322ac72899a10be1adad1c5f3d0162ee8fea12b670070"
+    },
+    "SW-storage-machine-ACK.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current8fa1-swstorage-batch3h-runtime-r1/SW-storage-machine-ACK.json",
+      "sha256": "3288d217e068544622cddc308265b4cea322b66b59b80b742335b16c9d26bd6e"
+    },
+    "SW-storage-caller-wave.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current8fa1-swstorage-batch3h-runtime-r1/SW-storage-caller-wave.json",
+      "sha256": "cdf6852ffd4f68a4d5dfe607998f3931a7639512a85f392fd94ebe8af7248827"
+    },
+    "SW-storage-root-decision.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current8fa1-swstorage-batch3h-runtime-r1/SW-storage-root-decision.json",
+      "sha256": "14152d300fa67ff3632c7e29f44941cbf440e84cee5894102cae640878c6adca"
+    },
+    "SW-storage-canonical-proposal.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current8fa1-swstorage-batch3h-runtime-r1/SW-storage-canonical-proposal.json",
+      "sha256": "45954f697a0df5d5d25ccd8573973f7984c0c8474b8ab849601dae28b5d34ac6"
+    }
+  },
+  "candidate_member": {
+    "FCFLAGS": [
+      "-O2",
+      "-fno-fast-math",
+      "-ffp-contract=off",
+      "-w",
+      "-fno-fast-math",
+      "-ffp-contract=off",
+      "-ffree-form",
+      "-ffree-line-length-none",
+      "-fconvert=big-endian",
+      "-frecord-marker=4",
+      "-fallow-argument-mismatch",
+      "-fallow-invalid-boz",
+      "-g",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+      "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+      "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+      "-fopenmp-simd"
+    ],
+    "MOD_path": "/pool/wrf-experiment/wrf-cpu/kernels/current8fa1-sw-cdf2-alpha-native40-hpc04-r1/work/candidate/mcica_subcol_gen_sw.mod",
+    "MOD_sha256": "f1ce128004b7fe9265c995370dac4464bdf4d15f962d3ac3de00e0606cae35f3",
+    "PP_path": "/pool/wrf-experiment/wrf-cpu/kernels/current8fa1-sw-cdf2-alpha-native40-hpc04-r1/work/candidate/module_ra_rrtmg_sw.f90",
+    "PP_sha256": "a5f7c625ee2af3a74be59c230e877566a978443eb977a6017d8cadb53472871c",
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current8fa1-sw-cdf2-alpha-native40-hpc04-r1/work/candidate/module_ra_rrtmg_sw.o",
+    "sha256": "57ec9b440e8c473f86feefa942e25d630222f9cf76d3f20e49b3c9d23b7daafe"
+  },
+  "retained_components": {
+    "cu_fused_row.o": "3db624f675b8bc633b5c6f4610e2f03fcafff7f3ef9e9e21d88baca4f3644726",
+    "module_big_step_utilities_em.o": "264a2840782d62fe3e4dcca1c079e3a39b1192848e54bde2df2e5db559caecb6",
+    "module_bl_myjpbl.o": "24926bfdfbd90872f13aac09046addc509c9ab15be0a801fd61539521eb4a15f",
+    "module_em.o": "feb8ca9efdbef4f93e9bbc797260d54daf10a7eddbc0740c3df0bbc651a726f7",
+    "module_mp_thompson.o": "9a255bfd5c18ff228eba2f0b0d00e0385499f9045a5ad891d04e964efeede9a0",
+    "module_pbl_driver.o": "26ee2976c15779c9af15d24a23cc81ca09ccb7155eb4bc04d590e345f99d4042",
+    "module_ra_rrtmg_lw.o": "d784bd0ad02d0cb584edd7240e519a4466b32b13d948837fb3f80f8873fdd8f0",
+    "module_small_step_em.o": "67d5cff31a7669625721f975c7cf161db2a06a47fa895faa5adad428f0f59bef",
+    "pbl_fused_row.o": "08f4b94d75a3da7a4842768ae7a45b6313fe6a02ad72565d0ac57073d53c8a8e"
+  },
+  "direct_inputs": {
+    "/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib/libnetcdf.so": "7036a91b172b3f1171c1ebd86813a208a302cf9145013d58611570cfa12e2780",
+    "/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib/libnetcdff.so": "e271f9b96203b03c2e21f9e044b4cbe13534f309b100ae369dd0799fa7a2a6d6",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90/libesmf_time.a": "4c1ebf810767e36db24471cac830970afb2c440eb241f4664b1d3398ecf0f84a",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a": "43440c838a792ee55cdb93165c7996173df197d3e6afbd9c69e196b64b869a34",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a": "fa5423d57121eae7505cd464e0a9826c36eadf91a6a884aee96f6a7aa4279a29",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a": "93675f19d4c2d39ff9de6909f76e4ccddf0844440abe38fa37aea97bb42fb4f0",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a": "a06e4111dbb308bbe94c1cb2c0e21c608fde3e906dec74a10910b5842cac5ca0",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o": "175cbd87243a7ff3412f1850e76dac102eb4edc5db684bfdc97d419694d44a78",
+    "/pool/wrf-experiment/wrf-cpu/builds/current1d16-rsl-early-y-production-archive-r1/librsl_lite.a": "e418b187e8c88f5dc436ca44ce32ff23f75ac11a45ce3db214ff4fc40bb1fddc",
+    "/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2/libwrfio_nf.a": "651835f31089e16759177734198ece5b121d704355c73abddde483f4cae2c14c",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tcg-twelve-owner-canonical-current-r1/candidate/module_wrf_top.o": "65001523868ea86923d536b595270eb74ae85d4d8aab722975e6cd5e72b493f1",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tcg-twelve-owner-canonical-current-r1/candidate/wrf.o": "33251ef3f1810d6dfbd5571943b80cc15f92c16f9cc03bb661b2ca945a48769d",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o": "54be5b6686914b8496b3d451205582b7bf854f23e52176c13ab34f66255946d4",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o": "3a94b6864d7b3d2df4efc4f1afabe6dd519b6f73c9785738f219e6206727e4ec",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o": "4f037f15d1dc99ac826fccdfbf500221ae63132896e90a627446bc3fff8b8263",
+    "/pool/wrf-experiment/wrf-cpu/kernels/hpg-nhx-isolated-avx2-consumer-native-r3/work/nhx-helper-O2.o": "ae13adfa248c9613be20c56bd1f8e77a3ff8d79a985ffb163acc16be629d0f8c",
+    "/pool/wrf-experiment/wrf-cpu/kernels/phy-height-private-avx2-fixed8-native-hpc04-r1/work/helper-O2.o": "b6a707c4f00670eb6611e45513381d275b31c82fe7c6bf08d548de286b9a0467",
+    "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o": "8ab87436bdb22d9d0ef3c1257e25f415727ede16be8535b8e037832a12fe9752"
+  },
+  "build_scope": {
+    "archive_members": 593,
+    "unchanged_members": 592,
+    "changed_members": [
+      "module_ra_rrtmg_sw.o"
+    ],
+    "added_members": [],
+    "source_compiles": 0,
+    "module_compiles": 0,
+    "driver_compiles": 0,
+    "helper_compiles": 0,
+    "link_count": 1
+  },
+  "native_scope": {
+    "native_cases": 20,
+    "native_observations_each_role": 40,
+    "native_observer_modes": "Existing case recipes: nearest+clear; downward+seeded divide-by-zero. Not a four-round matrix",
+    "internal_seed_words_separately_serialized": false,
+    "empty_shapes_qualified": false,
+    "raw_public_MOD_exact": false,
+    "public_MOD_truth": {
+      "mcica_subcol_gen_sw.mod": {
+        "parent": "f1ce128004b7fe9265c995370dac4464bdf4d15f962d3ac3de00e0606cae35f3",
+        "candidate": "f1ce128004b7fe9265c995370dac4464bdf4d15f962d3ac3de00e0606cae35f3",
+        "exact": true
+      },
+      "rrsw_kg23.mod": {
+        "parent": "5ccf4233335eb7d0a99aa7f0ca36f95d512a6f2506310d906cbf457010f315c3",
+        "candidate": "5ccf4233335eb7d0a99aa7f0ca36f95d512a6f2506310d906cbf457010f315c3",
+        "exact": true
+      },
+      "rrsw_kg24.mod": {
+        "parent": "884f3a25dc14b62f606092de66faca3e3f06bd2a1afa88179e9294169bd44603",
+        "candidate": "884f3a25dc14b62f606092de66faca3e3f06bd2a1afa88179e9294169bd44603",
+        "exact": true
+      },
+      "rrsw_kg18.mod": {
+        "parent": "91d205b2ef9511925fe7e45ef00ca8cd05fe45a85ebf305b3f7835a4fe93fa49",
+        "candidate": "91d205b2ef9511925fe7e45ef00ca8cd05fe45a85ebf305b3f7835a4fe93fa49",
+        "exact": true
+      },
+      "rrsw_tbl.mod": {
+        "parent": "af07ffe46345dbfd25b1e7893714c76b4c4d38f79c75fd11714af9f5e79ab846",
+        "candidate": "af07ffe46345dbfd25b1e7893714c76b4c4d38f79c75fd11714af9f5e79ab846",
+        "exact": true
+      },
+      "rrtmg_sw_init.mod": {
+        "parent": "0652654e0268adf885a3c613c7177661add0071e87830865057e2f5af455438d",
+        "candidate": "a0319a4b69dda262468a502489201fbda84c2eb88dbe373c702a5fb1d7f4476c",
+        "exact": false
+      },
+      "rrsw_kg16.mod": {
+        "parent": "5be201c85c169e73f6ef294122163b696878102bd84582270386496e52b4c696",
+        "candidate": "5be201c85c169e73f6ef294122163b696878102bd84582270386496e52b4c696",
+        "exact": true
+      },
+      "rrtmg_sw_setcoef.mod": {
+        "parent": "17e2080dd912773015c3b0b02c0954a3ec020834818033911f5c3f31b90be3c8",
+        "candidate": "1d02fcddb1ff0313e4a3e9b4b3281903808d69289a40f4201ad160c81ec0a906",
+        "exact": false
+      },
+      "parrrsw.mod": {
+        "parent": "b234a02f775bf092b734fb5ef137dd6f4717781a669bf81e5f2ca69c32588484",
+        "candidate": "b234a02f775bf092b734fb5ef137dd6f4717781a669bf81e5f2ca69c32588484",
+        "exact": true
+      },
+      "rrsw_aer.mod": {
+        "parent": "e8be31f06ec4b93cf72de0ca749840dd9a522b8e8bf014879fccea88b4818359",
+        "candidate": "e8be31f06ec4b93cf72de0ca749840dd9a522b8e8bf014879fccea88b4818359",
+        "exact": true
+      },
+      "rrtmg_sw_vrtqdr.mod": {
+        "parent": "be843b86404ef149e2006b5ebc7e2a50d935252119e892896334fda2115383ad",
+        "candidate": "be843b86404ef149e2006b5ebc7e2a50d935252119e892896334fda2115383ad",
+        "exact": true
+      },
+      "rrtmg_sw_spcvmc.mod": {
+        "parent": "ece0ee7a5e87c3f78608a8e67ab2d9121ea355b7754510a95cc039c4b18c8650",
+        "candidate": "0be044dd535963beddd2acc04b6c301aeb7c0fa82834a7a82ac4a2c35e8bb6f9",
+        "exact": false
+      },
+      "rrsw_kg17.mod": {
+        "parent": "e6b659719a34943a5072ccd4ec704c6fea4583b937b28601439016c32bc9a489",
+        "candidate": "e6b659719a34943a5072ccd4ec704c6fea4583b937b28601439016c32bc9a489",
+        "exact": true
+      },
+      "rrsw_kg19.mod": {
+        "parent": "0c42b072a72f6e08631c7e3f4b202e1a4b438aa29077bd59d88b1efa22fddb77",
+        "candidate": "0c42b072a72f6e08631c7e3f4b202e1a4b438aa29077bd59d88b1efa22fddb77",
+        "exact": true
+      },
+      "rrtmg_sw_taumol.mod": {
+        "parent": "7875a4bfd7f6cf85fd67b5f1f4a75bcd2f9b951d0a9c3dfac863db81bd63ee9c",
+        "candidate": "fa852ef55a5ddd3eccc8a3f68fd3eb544c108d2bdc78787ec3d82da1d6c4e74b",
+        "exact": false
+      },
+      "rrsw_kg25.mod": {
+        "parent": "b91dc9ca00dbc9501f413a8df63f02517c5a1f946cdbafcfb926981033773139",
+        "candidate": "b91dc9ca00dbc9501f413a8df63f02517c5a1f946cdbafcfb926981033773139",
+        "exact": true
+      },
+      "rrsw_kg22.mod": {
+        "parent": "9bfd76b1baac9346132c1aa6b01ba3ac1d6d87fb7acc1d0019374b90e9a4604b",
+        "candidate": "9bfd76b1baac9346132c1aa6b01ba3ac1d6d87fb7acc1d0019374b90e9a4604b",
+        "exact": true
+      },
+      "module_ra_rrtmg_sw.mod": {
+        "parent": "6af150dc55f250689195c4389dd496b23aae401fa7ea2c8a05aa8f03f04cbe55",
+        "candidate": "318975116564a587299088c19d2501f026097d5fb08c21d7bac16127f9659ed7",
+        "exact": false
+      },
+      "rrtmg_sw_rad.mod": {
+        "parent": "fe475eff41d28f9898c37d75162f216567ffedf0f706316425f4ad3c76cba9eb",
+        "candidate": "570991e7ba69957fcab55fb053804baaf7f50d1bf5f12225792ff85cd7d885e5",
+        "exact": false
+      },
+      "rrsw_ref.mod": {
+        "parent": "93aa1c9bd6823958cebb65e2f1bc8fd6d8ce789ed9077ea679ed561f55e94610",
+        "candidate": "93aa1c9bd6823958cebb65e2f1bc8fd6d8ce789ed9077ea679ed561f55e94610",
+        "exact": true
+      },
+      "rrsw_con.mod": {
+        "parent": "fb51e5fc6dce1ac8e867b67bc8c0d03fb613024a4e7f64f0fa29462fb466cfff",
+        "candidate": "fb51e5fc6dce1ac8e867b67bc8c0d03fb613024a4e7f64f0fa29462fb466cfff",
+        "exact": true
+      },
+      "rrsw_wvn.mod": {
+        "parent": "1f48ae14ff0a954b9e8b2578186567c18bfd8218b4e22e3ed7e8bc372ddbf8d5",
+        "candidate": "1f48ae14ff0a954b9e8b2578186567c18bfd8218b4e22e3ed7e8bc372ddbf8d5",
+        "exact": true
+      },
+      "rrtmg_sw_reftra.mod": {
+        "parent": "6c6b89e9d4d6e202f93d09e6106c6371b8de7eb99a0131bf7ad784b7d00cd439",
+        "candidate": "3490ffd6b64dd10a80bc4554e53111bc86237b11a09eaf644c799b5610f992d1",
+        "exact": false
+      },
+      "rrsw_kg28.mod": {
+        "parent": "213900ecd9f7c931c23e3de492be7f17864afab0bb2b1d7e9f0b8e82ee886cf7",
+        "candidate": "213900ecd9f7c931c23e3de492be7f17864afab0bb2b1d7e9f0b8e82ee886cf7",
+        "exact": true
+      },
+      "rrtmg_sw_cldprmc.mod": {
+        "parent": "6c1cee2970830cb7bf80118cc35c14f21b31a901af3e834bf257271b976bd4f9",
+        "candidate": "b4b94d4b35f3b2e196dc6b4d50233435d6c39415f55ce974fadb2e8266c7084b",
+        "exact": false
+      },
+      "rrsw_kg21.mod": {
+        "parent": "eae56e4c38802d2003d7815c9a302c26e75c50ce8347535177f562fb9f14b927",
+        "candidate": "eae56e4c38802d2003d7815c9a302c26e75c50ce8347535177f562fb9f14b927",
+        "exact": true
+      },
+      "rrsw_kg26.mod": {
+        "parent": "f5f6a21e9a441efe589ee0839fddf64e84d4de87d91a4a1100c0776d458acdf0",
+        "candidate": "f5f6a21e9a441efe589ee0839fddf64e84d4de87d91a4a1100c0776d458acdf0",
+        "exact": true
+      },
+      "rrsw_cld.mod": {
+        "parent": "ce857514272577abbfb2d8c9de74e77130a5f57af047db658a081594f09ab051",
+        "candidate": "ce857514272577abbfb2d8c9de74e77130a5f57af047db658a081594f09ab051",
+        "exact": true
+      },
+      "rrsw_vsn.mod": {
+        "parent": "6a8c18f18b3364ecb6f4db4abf47e19088a3c66349d53e6a101d2bc20b537cf0",
+        "candidate": "6a8c18f18b3364ecb6f4db4abf47e19088a3c66349d53e6a101d2bc20b537cf0",
+        "exact": true
+      },
+      "rrsw_kg27.mod": {
+        "parent": "d57d3bc5c5fa2e1fd317fb9f7b9d19dd6ba62a74a10c4336ec3d908272f82747",
+        "candidate": "d57d3bc5c5fa2e1fd317fb9f7b9d19dd6ba62a74a10c4336ec3d908272f82747",
+        "exact": true
+      },
+      "rrsw_kg20.mod": {
+        "parent": "e42255c36081bb6aab4c21d4e20d432ab81ca05b4782ad543ef1211242e487be",
+        "candidate": "e42255c36081bb6aab4c21d4e20d432ab81ca05b4782ad543ef1211242e487be",
+        "exact": true
+      },
+      "rrsw_kg29.mod": {
+        "parent": "db409696aa6ef724d59a83ca3edb9a09d3ba21bf716bcb8a7e0f1e5e33a0d25f",
+        "candidate": "db409696aa6ef724d59a83ca3edb9a09d3ba21bf716bcb8a7e0f1e5e33a0d25f",
+        "exact": true
+      }
+    },
+    "target_raw_MOD_exact": true
+  },
+  "native_note": "20 retained cases/two existing recipes =40 observations perrole. Not four rounding modes; internal seed words separately serialized false, emptyshape qualification false. Exact typed MOD proofs remain distinct from raw inequality.",
   "qualification_scope": {
-    "full144_qualified": false,
-    "native_profile_qualified": false,
-    "own_384_qualified": false,
-    "own_fourhost512_qualified": true,
-    "own_instrumented_noon_one_hour_qualified": false,
-    "own_nine_hour_qualified": false,
-    "own_noon_one_hour_qualified": false,
     "own_three_hour_qualified": true,
-    "own_threehost256_threehour_qualified": false,
-    "own_unprofiled_nine_hour_qualified": false,
-    "own_unprofiled_noon_one_hour_qualified": false,
     "own_unprofiled_three_hour_qualified": true,
+    "own_fourhost512_qualified": true,
+    "own_noon_one_hour_qualified": false,
+    "own_instrumented_noon_one_hour_qualified": false,
+    "own_unprofiled_noon_one_hour_qualified": false,
+    "own_nine_hour_qualified": false,
+    "own_unprofiled_nine_hour_qualified": false,
     "profile_qualified": false,
+    "native_profile_qualified": false,
     "restart_qualified": false,
+    "full144_qualified": false,
     "clean_full_source_build_qualified": false,
     "no_parent_horizon_inheritance": true
   },
-  "observed_step_count": 545,
-  "products": 4,
-  "endpoint": "2026-10-12_09:00:00",
+  "application_expected": {
+    "world": 512,
+    "compute": 480,
+    "quilt": 32,
+    "steps": 545,
+    "products": 4,
+    "start": "2026-10-12_06:00:00",
+    "end": "2026-10-12_09:00:00",
+    "checker_sha256": "35bed375732bbbe758b836e74c3aea57b986b0c696d5b5eb380e2425d5e1c117",
+    "scientific_reference": "Retained original A2 exact; no freshcontrol/profile."
+  },
   "science": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current8b49-lw-cloud-copy-batch3h-runtime-r1/science-receipt.json",
-    "sha256": "6581d8fd59a07199c6369c8671ecce7ac3e87561d7fef9f5ebb1e6747ba61629"
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current8fa1-swstorage-batch3h-runtime-r1/science-receipt.json",
+    "sha256": "9386132349d434e46072845e41b7a355490b462e04f0b8f7b96f7baca4389383"
   },
   "reader_closure": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current8b49-lw-cloud-copy-batch3h-runtime-r1/reader-closure.json",
-    "sha256": "c2e9333c37b3f8131fc902783855a19fe09d605e491ae56f675254cb72eea456"
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current8fa1-swstorage-batch3h-runtime-r1/reader-closure.json",
+    "sha256": "5454ddd22c6c0aa7a95e4da5e15cb347822cd9242c8a33a9f71278a353749cff"
   },
-  "models": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current8b49-lw-cloud-copy-batch3h-runtime-r1/candidate-metadata/model-closures.json",
-    "sha256": "cef3273d7a45fdf46f37fbe7ef1985c410b38b9040ba68e9410d7f38b2f74d97"
+  "model_closures": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current8fa1-swstorage-batch3h-runtime-r1/candidate-metadata/model-closures.json",
+    "sha256": "122690cf184d2877c5d5271527a7eb365125d8fc26da72ccc8ce559ed3b821c8"
   },
   "RESULT": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current8b49-lw-cloud-copy-batch3h-runtime-r1/RESULT.json",
-    "sha256": "1afa73edbe4ab18975d880c781cf8b2bafc186af0af9c9e4536ccbce55f41068"
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current8fa1-swstorage-batch3h-runtime-r1/RESULT.json",
+    "sha256": "4db03145bb59c86113036c6c352b44943fdc653402486e999085bafac86a1137"
   },
-  "lease": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current8b49-lw-cloud-copy-batch3h-runtime-r1/candidate-metadata/lease.json",
-    "sha256": "f51cbea70a7e7bb57ea9b0140defd738614310b28c915ed57c73a3df309d530b"
-  },
-  "checker": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current8b49-lw-cloud-copy-batch3h-runtime-r1/check_pair.py",
-    "sha256": "35bed375732bbbe758b836e74c3aea57b986b0c696d5b5eb380e2425d5e1c117"
-  },
-  "source_manifest": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current8b49-lw-cloud-copy-batch3h-runtime-r1/source-pins.json",
-    "sha256": "49656647d652bc9496d422477d3a5ca4a11f9a8a8b866e90fa25ce94ab894470"
-  },
-  "original_A2_proposed_metadata_included_from_start": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current8b49-lw-cloud-copy-batch3h-runtime-r1/lease-control-proposed.json",
-    "sha256": "f6d64c06a72821a78b8a2fe97caaf40eb9d746418e1aebf99df7f722b32e669b"
-  },
-  "source_commit": "fa221fae3dc1b37df5c824b429165e83450760c1",
-  "post_test_source_commit": "fa221fae3dc1b37df5c824b429165e83450760c1",
-  "raw_producer_source_commit": null,
-  "actual_candidate_metrics": {
-    "wall_seconds": 631.5313743469305,
-    "cpu_seconds": 307072.445878,
-    "main_step_sum_seconds": 533.48815
-  },
-  "descriptive_control_cohort": {
-    "cohort_sha256": "a96d6b9ea566325641ad0b0766429c661e904c75b457419acbefdaa9953b0aa5",
-    "n": 3,
-    "median": {
+  "metrics": {
+    "control": {
       "wall_seconds": 800.0241208570078,
       "cpu_seconds": 359327.346984,
       "main_step_sum_seconds": 596.45045
     },
-    "members": [
-      {
-        "run_id": "production512-current0b40-fourhost-threehour-pair2-r1-control",
-        "coordinator_invocation_id": "2eeee20b4cf0457cb582710bce30dc0b",
-        "metrics": {
-          "wall_seconds": 800.2145909662358,
-          "cpu_seconds": 359516.46336299996,
-          "main_step_sum_seconds": 596.45045
-        }
-      },
-      {
-        "run_id": "production512-current0b40-fourhost-threehour-pair1-r1-control",
-        "coordinator_invocation_id": "81febf86a6734f4fa77d57fd1b467c30",
-        "metrics": {
-          "wall_seconds": 798.6198086068034,
-          "cpu_seconds": 358644.885565,
-          "main_step_sum_seconds": 595.32709
-        }
-      },
-      {
-        "run_id": "production512-current5c75-fourhost-threehour-pair1-r1-control",
-        "coordinator_invocation_id": "c9768c1474f648329ff3e41b664aac99",
-        "metrics": {
-          "wall_seconds": 800.0241208570078,
-          "cpu_seconds": 359327.346984,
-          "main_step_sum_seconds": 596.59354
-        }
-      }
-    ]
+    "candidate": {
+      "wall_seconds": 627.7608917579055,
+      "cpu_seconds": 305359.85408900003,
+      "main_step_sum_seconds": 529.5533
+    }
   },
-  "metrics_control_role": "FIXED_ELIGIBLE_ORIGINAL_MEDIAN3_UNPAIRED_DESCRIPTIVE_ONLY",
+  "descriptive_reductions_percent": {
+    "wall_seconds": 21.53225441685048,
+    "cpu_seconds": 15.019033020440553,
+    "main_step_sum_seconds": 11.215877194828172
+  },
+  "control_cohort": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current8fa1-swstorage-batch3h-runtime-r1/rolling-control-cohort.json",
+    "sha256": "a96d6b9ea566325641ad0b0766429c661e904c75b457419acbefdaa9953b0aa5"
+  },
+  "comparison_design": "UNPAIRED fixed eligible original median3; raw A2 science/control metrics preserved separately. No addition of component gains.",
+  "direct_parent": {
+    "executable": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current0dae-lw-cdf2-experimental-r1/wrf.exe",
+      "sha256": "8fa12de987e2261ac49a74d6c1824947ac1a78d6718f14b49e5c1d2cf041457c"
+    },
+    "archive": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/current0dae-lw-cdf2-experimental-r1/libwrflib.a",
+      "sha256": "7779601019b51f691ef766f43e97a3522b00dc8d3f3945ba3bccba534ea8cd7b"
+    },
+    "source_commit": "bd931e37365aee211eeada4d2814e6ddbc720eb0",
+    "three_hour_qualification": {
+      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/lw-cdf2-conditional-storage-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+      "sha256": "ac27a2206f881239cb75d4aba743a62a6efdb542c6f2a9173e6ce4f1377f3301"
+    },
+    "applies_to_current": false,
+    "scope": "Direct selected8fa12 CDF2 parent retained, no horizon/profile inheritance or recursive ancestry copying."
+  },
+  "scope": "Current SW conditional-storage image owns only its unprofiled SAME512 three-hour qualification:545 steps, four complete outputs and original exact checker PASS; model and reader scopes normal closed. Own noon/instrumented noon/profile/nine-hour/restart/full144/clean full-source rebuild remain false. Direct parent8fa12 CDF2 evidence is historical. Only SW changed;592 other members, all18 direct inputs, RSL and providers retained. SW alpha/CDF2 storage exists only within CASE4/5, removing two entry allocation/free pairs on production CASE2; original Zo_inv and arithmetic unchanged. Native20 cases/two original observer recipes yield40 observations perrole, not four rounding modes; internal seed words separately serialized and empty-shape qualification remain false. Raw target MOD exact, eight downstream typed-ID differences explicitly retained. Native/caller evidence separately scoped. Timing is UNPAIRED descriptive versus fixed eligible original median3 with rawA2 separate; no isolated/additive/repeatable forecast or process-peak/capacity claim. Source correspondence is post-test; raw producer commit NULL.",
+  "build": {
+    "archive_members": 593,
+    "unchanged_members": 592,
+    "changed_members": [
+      "module_ra_rrtmg_sw.o"
+    ],
+    "added_members": [],
+    "source_compiles": 0,
+    "module_compiles": 0,
+    "driver_compiles": 0,
+    "helper_compiles": 0,
+    "link_count": 1,
+    "candidate_member": {
+      "FCFLAGS": [
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-fopenmp-simd"
+      ],
+      "MOD_path": "/pool/wrf-experiment/wrf-cpu/kernels/current8fa1-sw-cdf2-alpha-native40-hpc04-r1/work/candidate/mcica_subcol_gen_sw.mod",
+      "MOD_sha256": "f1ce128004b7fe9265c995370dac4464bdf4d15f962d3ac3de00e0606cae35f3",
+      "PP_path": "/pool/wrf-experiment/wrf-cpu/kernels/current8fa1-sw-cdf2-alpha-native40-hpc04-r1/work/candidate/module_ra_rrtmg_sw.f90",
+      "PP_sha256": "a5f7c625ee2af3a74be59c230e877566a978443eb977a6017d8cadb53472871c",
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current8fa1-sw-cdf2-alpha-native40-hpc04-r1/work/candidate/module_ra_rrtmg_sw.o",
+      "sha256": "57ec9b440e8c473f86feefa942e25d630222f9cf76d3f20e49b3c9d23b7daafe"
+    },
+    "descriptor": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current8fa1-swstorage-batch3h-runtime-r1/SW-storage-build-expected.json",
+      "sha256": "cfd70753d010e270baecc99e9dc5b4d8d014f017e4620cb4ede0a1face6d25b1"
+    },
+    "receipt": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current8fa1-swstorage-batch3h-runtime-r1/SW-storage-build-receipt.json",
+      "sha256": "f8f466447d08c895540004417449c9df7ef8ac04db9537ff8aefa8e3a5444610"
+    },
+    "closure": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current8fa1-swstorage-batch3h-runtime-r1/SW-storage-build-closure.json",
+      "sha256": "562b4ffde93480f1752d85273a406b1278722a9499789f06ef4ee66ead853096"
+    },
+    "ordered_archive_proof": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current8fa1-swstorage-batch3h-runtime-r1/SW-storage-ordered-archive-proof.json",
+      "sha256": "69df1b9b04831682d4e146fb56578c42ea773c0439471b19047a2113ed3284c3"
+    },
+    "linked_E8_proof": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current8fa1-swstorage-batch3h-runtime-r1/SW-storage-linked-E8-proof.json",
+      "sha256": "4d07a3d6d746a7aa2eb4f0cddf9a0b2cc0a455f7bd9953731c1612a2f0227df1"
+    },
+    "invocation_id": "f9b56f824e5640379f070ed03cacbf9a",
+    "member_count": 593,
+    "retained_unchanged_members": 592,
+    "application_link_count": 1
+  },
+  "component_evidence": {
+    "SW-storage-build-expected.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current8fa1-swstorage-batch3h-runtime-r1/SW-storage-build-expected.json",
+      "sha256": "cfd70753d010e270baecc99e9dc5b4d8d014f017e4620cb4ede0a1face6d25b1"
+    },
+    "SW-storage-build-receipt.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current8fa1-swstorage-batch3h-runtime-r1/SW-storage-build-receipt.json",
+      "sha256": "f8f466447d08c895540004417449c9df7ef8ac04db9537ff8aefa8e3a5444610"
+    },
+    "SW-storage-build-closure.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current8fa1-swstorage-batch3h-runtime-r1/SW-storage-build-closure.json",
+      "sha256": "562b4ffde93480f1752d85273a406b1278722a9499789f06ef4ee66ead853096"
+    },
+    "SW-storage-ordered-archive-proof.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current8fa1-swstorage-batch3h-runtime-r1/SW-storage-ordered-archive-proof.json",
+      "sha256": "69df1b9b04831682d4e146fb56578c42ea773c0439471b19047a2113ed3284c3"
+    },
+    "SW-storage-linked-E8-proof.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current8fa1-swstorage-batch3h-runtime-r1/SW-storage-linked-E8-proof.json",
+      "sha256": "4d07a3d6d746a7aa2eb4f0cddf9a0b2cc0a455f7bd9953731c1612a2f0227df1"
+    },
+    "SW-storage-native-receipt.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current8fa1-swstorage-batch3h-runtime-r1/SW-storage-native-receipt.json",
+      "sha256": "a213148595647c725254af6b8a28dd41e88ab864b3755158c5c4cd9d5d988421"
+    },
+    "SW-storage-native-closure.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current8fa1-swstorage-batch3h-runtime-r1/SW-storage-native-closure.json",
+      "sha256": "39b6af339c871c41cf8322ac72899a10be1adad1c5f3d0162ee8fea12b670070"
+    },
+    "SW-storage-machine-ACK.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current8fa1-swstorage-batch3h-runtime-r1/SW-storage-machine-ACK.json",
+      "sha256": "3288d217e068544622cddc308265b4cea322b66b59b80b742335b16c9d26bd6e"
+    },
+    "SW-storage-caller-wave.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current8fa1-swstorage-batch3h-runtime-r1/SW-storage-caller-wave.json",
+      "sha256": "cdf6852ffd4f68a4d5dfe607998f3931a7639512a85f392fd94ebe8af7248827"
+    },
+    "SW-storage-root-decision.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current8fa1-swstorage-batch3h-runtime-r1/SW-storage-root-decision.json",
+      "sha256": "14152d300fa67ff3632c7e29f44941cbf440e84cee5894102cae640878c6adca"
+    },
+    "SW-storage-canonical-proposal.json": {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current8fa1-swstorage-batch3h-runtime-r1/SW-storage-canonical-proposal.json",
+      "sha256": "45954f697a0df5d5d25ccd8573973f7984c0c8474b8ab849601dae28b5d34ac6"
+    }
+  },
   "raw_result_metrics": {
     "control": {
       "wall_seconds": 800.2145909662358,
@@ -123,103 +529,28 @@
       "main_step_sum_seconds": 596.45045
     },
     "candidate": {
-      "wall_seconds": 631.5313743469305,
-      "cpu_seconds": 307072.445878,
-      "main_step_sum_seconds": 533.48815
+      "wall_seconds": 627.7608917579055,
+      "cpu_seconds": 305359.85408900003,
+      "main_step_sum_seconds": 529.5533
     }
   },
   "raw_result_order": [
     "retained_original546b_A2_science_reference",
     "fresh_current3c3a_cu_simd_unprofiled_threehour_candidate"
   ],
-  "order": [
-    "retained_original_three_hour_science_control",
-    "fresh_current8b49_lw_cloud_copy_unprofiled_threehour_candidate"
-  ],
-  "raw_result_label_annotation": "Raw collector retains a donor candidate label; actual candidate is current LW-copy child, established by lease/build/SCI joins. Raw RESULT is unchanged.",
-  "raw_science_control_role": "Retained original A2 science control; never replaced by median3 in raw RESULT/science.",
-  "descriptive_reductions_percent": {
-    "wall_seconds": 21.060958303305057,
-    "cpu_seconds": 14.542422541618238,
-    "main_step_sum_seconds": 10.556166065429245
+  "actual_candidate_label": "current5ba7_SW_storage_unprofiled_threehour",
+  "raw_result_label_annotation": "Raw collector current3c3a label is historical donor text. Actual lease, child build, model closures and SCI bind executable 5ba7f0b8 and archive b8969fdf.",
+  "stage": "/pool/wrf-experiment/wrf-cpu/science-prep/production512-current8fa1-swstorage-batch3h-r1",
+  "model_invocations": {
+    "hpc01": "77a4d30a405f44f29bfa4fb2b0799a43",
+    "hpc02": "330b150bca664d93ba23d78f53d0cf7e",
+    "hpc03": "2fd81d1218d74632a43a6a8965c247f4",
+    "hpc04": "12493a43031e482cbb91ebf8884970fb"
   },
-  "comparison_design": "Candidate-only exactscience vs retainedA2; timings DESCRIPTIVE and UNPAIRED against median latest3 unique original controls A2/A1/5c75; hardwareepoch unresolved.",
-  "timing_gain_claim": false,
-  "performance_causality_qualified": false,
-  "build_receipt": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current8b49-lw-inatm-contiguous-cloud-copy-source-question-r1/cached-one-LW-contiguous-member-build-r1-hpc02/application-proof-r1/LW-copy-build-receipt.json",
-    "sha256": "448ca0468d2b2f1a1e75ba769032892f05c1c16268b98bb2d4525d8c14a76d13"
-  },
-  "build_closure": {
-    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current8b49-lw-inatm-contiguous-cloud-copy-source-question-r1/cached-one-LW-contiguous-member-build-r1-hpc02/application-proof-r1/LW-copy-build-closure.json",
-    "sha256": "dae92dd90e43a610c26bace76d5dc04f01b62a56d695da74de2e07fa606bc0a9"
-  },
-  "component_evidence": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/lw-inatm-contiguous-copy-20261029/COMPONENT_EVIDENCE.json",
-    "sha256": "66870b0d000ba9bc3300701c72b344d2a65c273ff3bdf4a549a83de81dce71ac"
-  },
-  "historical_parent": {
-    "executable": {
-      "path": "/pool/wrf-experiment/wrf-cpu/builds/current31a4-W-CSW-experimental-r1/wrf.exe",
-      "sha256": "8b49ecdc687dc8f4f4870016dfac6e0e7da7988ef0957902e819dceb1966bc16"
-    },
-    "archive": {
-      "path": "/pool/wrf-experiment/wrf-cpu/builds/current31a4-W-CSW-experimental-r1/libwrflib.a",
-      "sha256": "651f21ce7ad405183d5db700015d2eeb7d42bb8fd46c8de194c2e6e673c0c05e"
-    },
-    "qualification": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/couple-w-csw-batch-20261029/NINE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "d6b9fdb4dbb5b2b235230fb93d71ab37052b1c7dbf1467a212c6fb6a72498202"
-    },
-    "source_commit": "2f66ec72373ef928e1643ca8f8c0905a2243e232",
-    "qualification_scope": {
-      "full144_qualified": false,
-      "native_profile_qualified": false,
-      "own_384_qualified": false,
-      "own_fourhost512_qualified": true,
-      "own_instrumented_noon_one_hour_qualified": false,
-      "own_nine_hour_qualified": true,
-      "own_noon_one_hour_qualified": false,
-      "own_three_hour_qualified": true,
-      "own_threehost256_threehour_qualified": false,
-      "own_unprofiled_nine_hour_qualified": true,
-      "own_unprofiled_noon_one_hour_qualified": false,
-      "own_unprofiled_three_hour_qualified": true,
-      "profile_qualified": false,
-      "restart_qualified": false,
-      "clean_full_source_build_qualified": false,
-      "no_parent_horizon_inheritance": true
-    },
-    "own_three_hour": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/couple-w-csw-batch-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "ee070d131b9bcc0d5cb6a3d6d4e3824c4816146eb02f89d487a0d56bc72497f8"
-    },
-    "own_nine_hour": {
-      "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/couple-w-csw-batch-20261029/NINE_HOUR_APPLICATION_QUALIFICATION.json",
-      "sha256": "d6b9fdb4dbb5b2b235230fb93d71ab37052b1c7dbf1467a212c6fb6a72498202"
-    },
-    "own_instrumented_noon": null,
-    "historical_profile_scope": "No own child source profile; all predecessor profiles historical/noncurrent.",
-    "scope": "Retained direct parent8b49 owns its exact three-hour and nine-hour science records. Those remain historical; no parent horizon, profile qualification or timing transfers to this LW-copy child.",
-    "applies_to_current": false
-  },
-  "scope": "This LW-copy child owns only its unprofiled SAME512 three-hour qualification: 545 steps and four full outputs passed the unchanged original checker, with all four models and the reader normally closed. Own nine-hour, noon, profile, restart, full 144-hour and clean full-source rebuild qualifications remain false. Direct parent 8b49 three-hour and nine-hour records remain historical. Only the LW member changed; 592 other archive members, RSL, provider and all 18 direct inputs remain unchanged. Two guarded contiguous cloud-copy schedules preserve the original assignments, inactive/empty/unsupported fallback and FP arithmetic. All 68 complete-INATM native observations preserve full physical outputs, read-only inputs, guards and five processor state words. The finite actual machine review records mixed MOVUPS and REP MOVSQ copy lowering, unchanged scalar FP instruction sequences and qualified non-target/MOD/pool facts. One fixed complete synthetic 33-layer caller pair per host, including descriptor setup and entire callee with output reuse, took 26.70% and 28.59% less wall time, with matching process CPU reductions. These bounded caller results establish no isolated/global forecast gain or repeatability. Application timing is one UNPAIRED descriptive observation against the fixed median of three original controls; raw A2 remains separate. Source correspondence is post-test; raw producer commit remains NULL.",
-  "own_three_hour_qualified": true,
-  "own_unprofiled_three_hour_qualified": true,
-  "own_fourhost512_qualified": true,
-  "own_noon_one_hour_qualified": false,
-  "own_unprofiled_noon_one_hour_qualified": false,
-  "own_instrumented_noon_one_hour_qualified": false,
-  "own_nine_hour_qualified": false,
-  "own_unprofiled_nine_hour_qualified": false,
-  "profile_qualified": false,
-  "native_profile_qualified": false,
-  "restart_qualified": false,
-  "full144_qualified": false,
-  "clean_full_source_build_qualified": false,
+  "reader_invocation_id": "5316fa520c664dffb756f05ab18395d1",
   "qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/lw-inatm-contiguous-copy-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "4f6ed63d1b17c087504d316fa907078b4dd2a32920cc690ac5985b14eb745388"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-conditional-cloud-storage-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "0228dbb7912864729128f1a09d15dcd7ce159eaaffc2cbdf844d36a3aa7d4207"
   },
   "applies_to_current": true,
   "applies_to_current_image": true
