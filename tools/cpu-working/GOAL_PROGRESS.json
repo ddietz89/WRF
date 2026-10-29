@@ -1,33 +1,51 @@
 {
-  "status": "MATHEMATICAL_GAP_ONLY_UNPAIRED_OWN_THREE_HOUR_OBSERVATION",
+  "status": "MATHEMATICAL_GAP_ONLY_UNPAIRED_OWN_NINE_HOUR_OBSERVATION",
   "qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/couple-w-csw-batch-20261029/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "d6b9fdb4dbb5b2b235230fb93d71ab37052b1c7dbf1467a212c6fb6a72498202"
+  },
+  "current_nine_hour_descriptive_wall_ratio": 1.172919422360652,
+  "ratio_definition": "Sole retained original nine-hour N1 wall divided by current same-image own nine-hour wall; unpaired descriptive ratio only.",
+  "baseline_wall_seconds": 2049.434141888749,
+  "current_wall_seconds": 1747.2932094209827,
+  "same_image_three_hour_qualification": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/couple-w-csw-batch-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
     "sha256": "ee070d131b9bcc0d5cb6a3d6d4e3824c4816146eb02f89d487a0d56bc72497f8"
   },
-  "current_three_hour_descriptive_wall_ratio": 1.2718023550297817,
-  "ratio_definition": "Fixed eligible original three-hour median wall time divided by the current image own three-hour wall time; an unpaired descriptive ratio, not an isolated or repeatable causal speedup.",
-  "baseline_wall_seconds": 800.0241208570078,
-  "current_wall_seconds": 629.0475227483548,
+  "same_image_three_hour_metrics": {
+    "control": {
+      "wall_seconds": 800.0241208570078,
+      "cpu_seconds": 359327.346984,
+      "main_step_sum_seconds": 596.45045
+    },
+    "candidate": {
+      "wall_seconds": 629.0475227483548,
+      "cpu_seconds": 305898.734556,
+      "main_step_sum_seconds": 530.50425
+    }
+  },
+  "same_image_three_hour_reductions_percent": {
+    "wall_seconds": 21.371430392060947,
+    "cpu_seconds": 14.869063787226601,
+    "main_step_sum_seconds": 11.056442324756413
+  },
   "targets": [
     {
       "target_wall_ratio": 1.5,
-      "target_wall_seconds": 533.3494139046719,
+      "target_wall_seconds": 1366.2894279258326,
       "formula": "1 - current_descriptive_wall_ratio / target_wall_ratio",
-      "signed_additional_current_wall_fraction": 0.15213176331347888,
-      "additional_current_wall_fraction": 0.15213176331347888,
-      "additional_current_wall_percent": 15.213176331347888,
-      "interpretation": "A positive gap is the required further reduction in CURRENT wall time; it is not measured headroom or a guarantee."
+      "signed_additional_current_wall_fraction": 0.218053718426232,
+      "additional_current_wall_fraction": 0.218053718426232,
+      "additional_current_wall_percent": 21.8053718426232
     },
     {
       "target_wall_ratio": 2.0,
-      "target_wall_seconds": 400.0120604285039,
+      "target_wall_seconds": 1024.7170709443744,
       "formula": "1 - current_descriptive_wall_ratio / target_wall_ratio",
-      "signed_additional_current_wall_fraction": 0.36409882248510916,
-      "additional_current_wall_fraction": 0.36409882248510916,
-      "additional_current_wall_percent": 36.40988224851092,
-      "interpretation": "A positive gap is the required further reduction in CURRENT wall time; it is not measured headroom or a guarantee."
+      "signed_additional_current_wall_fraction": 0.413540288819674,
+      "additional_current_wall_fraction": 0.413540288819674,
+      "additional_current_wall_percent": 41.354028881967395
     }
   ],
-  "limits": "Required further fraction of CURRENT wall time only. This is not measured removable headroom or a prediction. It makes no sustained nine-hour or long-run target claim or guarantee; historical long-run evidence remains separate.",
-  "historical_parent_nine_hour_qualification": null
+  "limits": "Required further reduction of CURRENT wall time; not measured removable headroom, component attribution, repeatability or a prediction."
 }
