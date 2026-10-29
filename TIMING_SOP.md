@@ -2,6 +2,8 @@
 
 ## Autonomous continuation
 
+Owner reaffirmation, October 29: “Stop asking for approval. all experiments are approved.” Treat campaign experiment preparation, readiness activation, staging, bounded jobs, cache clears, validation, repairs and retries on hpc00–04 as already authorized within the existing limits. Do not introduce discretionary confirmation requests or treat a later experiment-specific grant as narrowing that standing authority. Preserve exact science, production/master exclusions, credential protection, and the AWS/DeepSeek suspensions. Platform approval controls still apply: supply the standing authorization and concrete scope through normal review, never bypass a rejection, and explain any action that remains blocked.
+
 Owner communication clarification, October 26: report only new results, decisions or blockers. Do not repeat answered questions, unchanged benchmark results, authorization status or the same caveats in successive updates. A brief acknowledgment of steering is sufficient; continue work.
 
 Owner amendment, October 26: **DeepSeek dispatch is suspended.** Do not send new payloads, start provider calls, prepare further dispatches, or retry exports unless the owner explicitly resumes DeepSeek. This supersedes earlier standing dispatch approval and the DeepSeek offloading requirements below. Preserve existing returned evidence. Continue the optimization campaign locally with Codex agents and the authorized cluster; AWS remains suspended and all existing scientific, resource, production and master boundaries remain in force.
