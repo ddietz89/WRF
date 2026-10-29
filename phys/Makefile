@@ -1265,3 +1265,9 @@ WRF_SW_INATM_CSW_INIT_SKIP ?= 1
 ifeq ($(WRF_SW_INATM_CSW_INIT_SKIP),0)
 module_ra_rrtmg_sw.o: private override CPPFLAGS += -DWRF_SW_INATM_CSW_INIT_SKIP_DISABLE
 endif
+
+# CDF2 is local to exponential-overlap branches on the qualified LW path.
+WRF_LW_MCICA_CDF2_SCOPE ?= 1
+ifeq ($(WRF_LW_MCICA_CDF2_SCOPE),0)
+module_ra_rrtmg_lw.o: private override CPPFLAGS += -DWRF_LW_MCICA_CDF2_SCOPE_DISABLE
+endif

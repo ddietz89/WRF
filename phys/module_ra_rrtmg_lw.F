@@ -2384,7 +2384,11 @@ contains
 !      real(kind=rb), parameter :: qmin   = 1.0e-10_rb   ! min cloud water and cloud ice (not used)
 
 ! Variables related to random number and seed 
+#if defined(WRF_LW_RTRNMC_TWO_G_CHANNEL_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_LW_MCICA_CDF2_SCOPE_DISABLE)
+      real(kind=rb), dimension(nsubcol, ncol, nlay) :: CDF      ! random numbers
+#else
       real(kind=rb), dimension(nsubcol, ncol, nlay) :: CDF, CDF2      ! random numbers
+#endif
       integer(kind=im), dimension(ncol) :: seed1, seed2, seed3, seed4 ! seed to create random number (kissvec)
       real(kind=rb), dimension(ncol) :: rand_num      ! random number (kissvec)
       integer(kind=im) :: iseed                       ! seed to create random number (Mersenne Teister)
@@ -2605,6 +2609,10 @@ contains
          endif
 
         case(4)
+#if defined(WRF_LW_RTRNMC_TWO_G_CHANNEL_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_LW_MCICA_CDF2_SCOPE_DISABLE)
+          block
+            real(kind=rb) :: CDF2(nsubcol,ncol,nlay)
+#endif
             ! Exponential overlap: transition from maximum to random cloud overlap increases 
             ! exponentially with layer thickness and distance through layers
             !
@@ -2654,7 +2662,15 @@ contains
                end where
             end do
 
+#if defined(WRF_LW_RTRNMC_TWO_G_CHANNEL_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_LW_MCICA_CDF2_SCOPE_DISABLE)
+          end block
+#endif
+
          case(5)
+#if defined(WRF_LW_RTRNMC_TWO_G_CHANNEL_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_LW_MCICA_CDF2_SCOPE_DISABLE)
+          block
+            real(kind=rb) :: CDF2(nsubcol,ncol,nlay)
+#endif
        ! Exponential_Random overlap: transition from maximum to random cloud overlap increases 
        ! exponentially with layer thickness and with distance through adjacent cloudy layers. 
        ! Non-adjacent blocks of clouds are treated randomly, and each block begins a new 
@@ -2704,6 +2720,10 @@ contains
              CDF(:,:,ilev) = CDF(:,:,ilev-1) 
           end where
        end do
+
+#if defined(WRF_LW_RTRNMC_TWO_G_CHANNEL_ENABLE) && defined(DM_PARALLEL) && !defined(_OPENMP) && !defined(WRF_LW_MCICA_CDF2_SCOPE_DISABLE)
+          end block
+#endif
 
       end select
 

@@ -6287,3 +6287,12 @@ The selected `0daea208` image passed the unchanged original noon checker: 185 or
 The original optional-report `KeyError('profile_directory')` results remain preserved. Raw RESULT status/order strings still contain historical 5C75/efa6 labels; actual granted lease, executable hash and source identity bind this run to `0daea208` / `fa221fae`. Existing own unprofiled three-hour qualification and metrics remain unchanged. Own unprofiled noon, nine-hour, restart, full-144-hour and clean full-source rebuild scopes remain false. The retained 75-minute original is a science-prefix reference, not a matched one-hour timing control.
 
 [Profile evidence](tools/cpu-compute/lw-inatm-contiguous-copy-20261029/INSTRUMENTED_NOON_PROFILE_QUALIFICATION.json).
+
+
+## Thompson dead precipitation stores: exact but timing-neutral — October 29
+
+Removing two overwritten output zeros and four write-only precipitation arrays passed all 11 retained native cases in four rounding modes, including four complete-driver cases. Actual code removes all six stores and four dynamic stack slots; no process peak-memory or capacity benefit was measured. Required optional precipitation initializations and arithmetic remain unchanged.
+
+The complete 20,000-call driver screen includes all three input restores and the entire callee. Wall time was 0.632% lower on hpc02 and 0.558% higher on hpc04; thread CPU was 0.074% lower and 0.001% higher. These short, opposite-order, cache-cleared pairs establish no significant consistent caller gain. No separate significant kernel gain was measured. Close this version unpromoted, preserving the exact resource result and all observations; no repeated screen or application batch is planned without new evidence.
+
+The first hpc02 arm stopped on an incorrect cache-helper hostname guard before clearing caches or launching the caller. The narrowly repaired continuation retained the successful hpc04 arm without repetition; all actual arms passed raw output/state checks and closed normally. Evidence: campaign `current0dae-thompson-driver-dead-precip-store-source-question-r1/DECISION.json`, SHA256 `f68fdefa5c0b2f0abb96b45fc8deae86be42c428377985ad8dd7f0ab6f7c7dbd`.
