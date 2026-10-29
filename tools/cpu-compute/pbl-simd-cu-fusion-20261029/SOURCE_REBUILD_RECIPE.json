@@ -1,0 +1,83 @@
+{
+  "status": "POST_TEST_SOURCE_CORRESPONDENCE_CACHED_OVERLAY_NOT_CLEAN_SOURCE_BUILD",
+  "post_test_source_commit": "86c5c831a9f04ea2730b1742e4033619bb5f0f2e",
+  "raw_producer_source_commit": null,
+  "canonical_sources": {
+    "dyn_em/module_em.F": {
+      "path": "/home/ddietz/wrf/WRF/dyn_em/module_em.F",
+      "sha256": "8ddbcd06cacdc3c553efbc589080b44e3c53a00c090eabf11c0a47453eba3d48"
+    },
+    "dyn_em/pbl_fused_row.c": {
+      "path": "/home/ddietz/wrf/WRF/dyn_em/pbl_fused_row.c",
+      "sha256": "1d3c3f806a3920f750451528b577c05fb65fd621d502e64dbd6552c336494274"
+    },
+    "dyn_em/cu_fused_row.c": {
+      "path": "/home/ddietz/wrf/WRF/dyn_em/cu_fused_row.c",
+      "sha256": "d9d4786112ba1cb3149c538d5a3fefdb34ead86f2d1c770d01203fb681caa49a"
+    },
+    "dyn_em/Makefile": {
+      "path": "/home/ddietz/wrf/WRF/dyn_em/Makefile",
+      "sha256": "2018afb37b204147eedc8ac68dfe308bb63e7787d22f498fffa21cf96ffc0f26"
+    }
+  },
+  "canonical_proposal": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentfb13-pbl-fourcolumn-SSE2-source-question-r1/combined-canonical-private-proposal-r1/PROPOSAL.json",
+    "sha256": "25876f564d60959c82543ed3c8ed31356d5584138c158913dcf2b4674e18c096"
+  },
+  "build_receipt": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentfb13-pbl-fourcolumn-SSE2-source-question-r1/combined-CU-PBL-SSE2-cached-build-preparation-r2-hpc01/actual-native-r1/receipt.json",
+    "sha256": "f45f3063d932e45c56fb839d3404e379e4d61e8c57da92082c54b74ad1c1d575"
+  },
+  "build_closure": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentfb13-pbl-fourcolumn-SSE2-source-question-r1/combined-CU-PBL-SSE2-cached-build-preparation-r2-hpc01/actual-native-r1/closure.json",
+    "sha256": "0c534edcb4e921a42508077ebde2f03092da46e473b282f465ef983c4559cfe8"
+  },
+  "changed_member_pins": {
+    "module_em.o": "feb8ca9efdbef4f93e9bbc797260d54daf10a7eddbc0740c3df0bbc651a726f7",
+    "pbl_fused_row.o": "08f4b94d75a3da7a4842768ae7a45b6313fe6a02ad72565d0ac57073d53c8a8e"
+  },
+  "added_member_pins": {
+    "cu_fused_row.o": "2e858dc51f80aab92101151ae8d497bbc6103d824b09866c5a52bcb31179b45c"
+  },
+  "original_archive_members": 592,
+  "new_archive_members": 593,
+  "unchanged_original_members": 590,
+  "compiles": 0,
+  "application_link_count": 1,
+  "combined_native_link_count": 1,
+  "selected_direct_link_input_pins": {
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tcg-twelve-owner-canonical-current-r1/candidate/wrf.o": "33251ef3f1810d6dfbd5571943b80cc15f92c16f9cc03bb661b2ca945a48769d",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tcg-twelve-owner-canonical-current-r1/candidate/module_wrf_top.o": "65001523868ea86923d536b595270eb74ae85d4d8aab722975e6cd5e72b493f1",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o": "3a94b6864d7b3d2df4efc4f1afabe6dd519b6f73c9785738f219e6206727e4ec",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o": "54be5b6686914b8496b3d451205582b7bf854f23e52176c13ab34f66255946d4",
+    "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o": "4f037f15d1dc99ac826fccdfbf500221ae63132896e90a627446bc3fff8b8263",
+    "/pool/wrf-experiment/wrf-cpu/kernels/hpg-nhx-isolated-avx2-consumer-native-r3/work/nhx-helper-O2.o": "ae13adfa248c9613be20c56bd1f8e77a3ff8d79a985ffb163acc16be629d0f8c",
+    "/pool/wrf-experiment/wrf-cpu/kernels/phy-height-private-avx2-fixed8-native-hpc04-r1/work/helper-O2.o": "b6a707c4f00670eb6611e45513381d275b31c82fe7c6bf08d548de286b9a0467",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a": "43440c838a792ee55cdb93165c7996173df197d3e6afbd9c69e196b64b869a34",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a": "fa5423d57121eae7505cd464e0a9826c36eadf91a6a884aee96f6a7aa4279a29",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a": "93675f19d4c2d39ff9de6909f76e4ccddf0844440abe38fa37aea97bb42fb4f0",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a": "a06e4111dbb308bbe94c1cb2c0e21c608fde3e906dec74a10910b5842cac5ca0",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o": "175cbd87243a7ff3412f1850e76dac102eb4edc5db684bfdc97d419694d44a78",
+    "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o": "8ab87436bdb22d9d0ef3c1257e25f415727ede16be8535b8e037832a12fe9752",
+    "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90/libesmf_time.a": "4c1ebf810767e36db24471cac830970afb2c440eb241f4664b1d3398ecf0f84a",
+    "/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib/libnetcdff.so": "e271f9b96203b03c2e21f9e044b4cbe13534f309b100ae369dd0799fa7a2a6d6",
+    "/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib/libnetcdf.so": "7036a91b172b3f1171c1ebd86813a208a302cf9145013d58611570cfa12e2780",
+    "/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2/libwrfio_nf.a": "651835f31089e16759177734198ece5b121d704355c73abddde483f4cae2c14c",
+    "/pool/wrf-experiment/wrf-cpu/builds/current1d16-rsl-early-y-production-archive-r1/librsl_lite.a": "e418b187e8c88f5dc436ca44ce32ff23f75ac11a45ce3db214ff4fc40bb1fddc"
+  },
+  "RSL_archive": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/current1d16-rsl-early-y-production-archive-r1/librsl_lite.a",
+    "sha256": "e418b187e8c88f5dc436ca44ce32ff23f75ac11a45ce3db214ff4fc40bb1fddc"
+  },
+  "runtime_output_provider": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current0dd6-rowcursor-native-hpc02-r1/output/liboutput_world512_rowcursor.so",
+    "sha256": "64bb4cf2744799056e25be48b166a7a4703f525b08acff1bf898cd7941e8a643",
+    "provider_source_sha256": "d38dfa0c9d75b04f28bab346be8182fae6d32c89960f727bf8c06f24ce5aee58",
+    "guard_source_sha256": "801e29cc8406d0200dee1557e4263d3ce4db46d750b63b9371083b633c952150"
+  },
+  "native_failures_preserved": true,
+  "public_MOD_scope": "CU MOD raw exact to selected parent096ac8; PBL C-only replacement changes no Fortran interface. Historical original13339 versus selected096ac8 finite provenance retained, no normalization or universal raw-MOD/ABI claim.",
+  "support": "Existing GNU Fortran/GCC13.3 strict-O2 pure-MPI x86-64/default REAL4 INTEGER4 PBL guards; CU default1 nested under existing PBL support. PBL target adds only-fno-strict-aliasing; existing x86-64 SSE2, no ISA/global fastmath expansion.",
+  "rollback": "WRF_CU_FACTOR_FUSION=0 restores originaldeepCU while retaining qualifiedPBL. WRF_PBL_FACTOR_FUSION=0 restores originalPBL and disables nestedCU admission; regenerate/recompile corresponding module/helper/archive and relink. No flags change alreadycachedimage. Immediate image rollback selects retained fb13/184d with e418/provider64bb/all18.",
+  "scope": "This PBL four-column SSE2 and scalar CU-fusion child passed its own unprofiled SAME512 three-hour run, 06:00\u201309:00: 545 ordered steps and four FULL products passed the unchanged original checker; all four models and the reader closed normally. The child owns only this three-hour application qualification. Own noon, nine-hour, profile/native-profile, restart, full-144-hour, O0 and clean full-source rebuild remain false. Parent fb13 profiles and application results, and older nine-hour evidence, are historical and do not transfer. Timings compare one candidate run with the fixed median of three eligible original controls A2/A1/5c75, as UNPAIRED descriptive evidence. Raw A2 science-control metrics remain separate. Main-step elapsed includes communication/waiting; component percentages are separate, never additive or isolated/repeatable forecast gain claims. The cached archive has 593 members: 590 prior payloads unchanged, two replacements and one helper appended. No source/module/driver/helper compilation occurred: one application link and one cached original-MOD native link were performed, with all 320 combined checks hard. RSL e418, output provider 64bb and all 18 direct inputs remain unchanged. Source commit records post-test correspondence only; raw producer commit is NULL. Future CU four-column vector followup is excluded."
+}

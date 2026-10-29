@@ -1,21 +1,23 @@
 # Selected working configuration — October 29
 
-The selected image is `fb13c7be`, archive `184db5bb`. It retains all previous improvements, including MYJ and Thompson stack storage, RSL `e418b187`, provider `64bb4cf2` and all 18 direct inputs. This batch replaces two module objects and appends one PBL helper; the other 589 archive member payloads remain exact.
+The selected image is `3c3a0b54`, archive `da52db9a`. It retains LW `2325b160`, MYJ `24926bfd`, Thompson `9a255bfd`, RSL `e418b187`, provider `64bb4cf2`, all 18 direct inputs and the other 590 archive payloads. Two members were replaced and one helper appended.
 
-PBL factor fusion and guarded longwave two-channel interleaving are defaults within the qualified GNU Fortran/C 13.3 strict-O2 pure-MPI x86-64 build with four-byte default kinds. The complete PBL region was 21.77% / 22.05% faster; the guarded actual longwave caller was 9.09% / 8.91% faster. These are separate local measurements.
+Own three-hour science passed the unchanged original checker: **545 ordered steps and four FULL products**, with normal model and reader closures.
 
-Own three-hour qualification passed the unchanged original checker: **four FULL products and 545 ordered steps**, with all four model jobs and the reader closed normally.
-
-| Metric | Corrected-original control, median of 3 | Combined build | Descriptive reduction |
+| Metric | Corrected-original control, median of 3 | Combined child | Descriptive reduction |
 |---|---:|---:|---:|
-| Wall minutes | 13.333735 | 10.490535 | 21.3234% |
-| Main-step elapsed minutes | 9.940841 | 8.857374 | 10.8991% |
-| Aggregate CPU core-hours | 99.813152 | 85.010204 | 14.8307% |
+| Wall minutes | 13.333735 | 10.498019 | 21.2672% |
+| Main-step elapsed minutes | 9.940841 | 8.863131 | 10.8412% |
+| Aggregate CPU core-hours | 99.813152 | 85.084204 | 14.7565% |
 
-The table compares one candidate run with three retained controls and is **unpaired descriptive evidence**. Main-step elapsed includes communication and waiting. Kernel percentages are not added to forecast results.
+This image owns only its unprofiled three-hour qualification. Own noon, nine-hour, profile, restart, full-144-hour, O0 and clean rebuild remain false. Parent fb13 profile/application records and older long-run records are historical. Main-step elapsed includes communication/waiting. Timing is one UNPAIRED descriptive observation versus fixed original median3; raw A2 scientific reference metrics stay separate.
 
-This image also passed its own instrumented noon check and four 15-second source-identity profiles. Its own unprofiled noon, nine-hour, restart and full-144-hour qualification remain pending. Parent `efa608eb` evidence is retained in the historical snapshot. Source commit `fd2d641d` records post-test correspondence; no clean or byte-identical rebuild is claimed.
+The finite complete PBL-region screen was 15.34% / 27.79% shorter in wall time versus the selected scalar-fused helper; the scalar CU-region screen was 10.11% / 15.89% shorter versus its original schedule. All restores, admission guards and full regions were charged. These are separate initialized region fixtures, not captured forecast inputs, whole49 timings or additive application gains.
 
-Unlimited process stack remains required. Set `WRF_PBL_FACTOR_FUSION=0` or `WRF_LW_RTRNMC_TWO_G_CHANNEL=0` and rebuild the relevant module/helper/archive and relink to opt out. The longwave path uses the existing `WRF_PHY_INTERPOLATION_SIMD=1` helper owner. Whole-image rollback selects the retained efa6/05cc configuration.
+PBL SSE2 and scalar CU fusion use the existing qualified GNU Fortran/GCC 13.3 strict-O2 pure-MPI x86-64/default-kind envelope. Unlimited stack remains required.
 
-[Component evidence and rollback](../cpu-compute/pbl-lw-guarded-batch-20261029/README.md) · [Own three-hour qualification](../cpu-compute/pbl-lw-guarded-batch-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json) · [Selected artifact binding](CURRENT_SOURCE_BUILD_BINDING.json)
+Rollback: WRF_CU_FACTOR_FUSION=0 restores originaldeepCU while retaining qualifiedPBL. WRF_PBL_FACTOR_FUSION=0 restores originalPBL and disables nestedCU admission; regenerate/recompile corresponding module/helper/archive and relink. No flags change alreadycachedimage. Immediate image rollback selects retained fb13/184d with e418/provider64bb/all18.
+
+Source commit `86c5c831` records post-test correspondence; raw producer commit stays NULL.
+
+[Component evidence and rollback](../cpu-compute/pbl-simd-cu-fusion-20261029/README.md) · [Own three-hour qualification](../cpu-compute/pbl-simd-cu-fusion-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json) · [Selected artifact binding](CURRENT_SOURCE_BUILD_BINDING.json)

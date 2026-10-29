@@ -6062,3 +6062,24 @@ Source commit `fd2d641d` records post-test correspondence only; the raw producer
 The selected PBL/LW image passed the unchanged original noon checker: 185 ordered steps and two FULL products. Four selected main threads (ranks 120–123, CPU99) each recorded 15 seconds; all four retained parsers passed after normal model, recorder, watcher and reader closure. The 5,672 primary samples identify current source work only; numeric sample loss remains UNKNOWN. No timing reduction, global efficiency, wire-time or causal claim follows.
 
 The first attempt completed model/science but recorded nothing because stale nested identity checks rejected fb13. It remains preserved. A fresh run corrected only those identities, bootstrap hashes and fresh routes. Original optional report KeyErrors remain unchanged; separate parsing accepted the actual data. Existing own unprofiled three-hour results remain unchanged; own unprofiled noon and nine-hour qualification remain false. [Qualification](tools/cpu-compute/pbl-lw-guarded-batch-20261029/INSTRUMENTED_NOON_PROFILE_QUALIFICATION.json).
+
+
+## PBL four-column SSE2 and scalar CU fusion — October 29
+
+The combined `3c3a0b54` / `da52db9a` image passed its own unprofiled SAME512 three-hour original science check: 545 ordered steps and four FULL products, with normal model and reader closures.
+
+| Metric | Corrected-original control, median of 3 | Combined child | Descriptive reduction |
+|---|---:|---:|---:|
+| Wall minutes | 13.333735 | 10.498019 | 21.2672% |
+| Main-step elapsed minutes | 9.940841 | 8.863131 | 10.8412% |
+| Aggregate CPU core-hours | 99.813152 | 85.084204 | 14.7565% |
+
+This image owns only its unprofiled three-hour qualification. Own noon, nine-hour, profile, restart, full-144-hour, O0 and clean rebuild remain false. Parent fb13 profile/application records and older long-run records are historical. Main-step elapsed includes communication/waiting. Timing is one UNPAIRED descriptive observation versus fixed original median3; raw A2 scientific reference metrics stay separate.
+
+The finite complete PBL-region screen was 15.34% / 27.79% shorter in wall time versus the selected scalar-fused helper; the scalar CU-region screen was 10.11% / 15.89% shorter versus its original schedule. All restores, admission guards and full regions were charged. These are separate initialized region fixtures, not captured forecast inputs, whole49 timings or additive application gains.
+
+The combined archive passed 320 whole49 raw/read-only/physical/five-state comparisons. Separate component native gates remain scoped: PBL 180, CU 320; no universal or O0 claim. The future CU-vector followup is excluded.
+
+The first combined build wrapper failed its host check before staging or launching a unit; its R1 record remains preserved. The first PBL cost wave stopped on a missing cache helper after staging and before any cache clear, service or timed target. Fresh narrowly repaired attempts passed without changing scientific or state gates.
+
+Source commit `86c5c831` is post-test correspondence; raw producer commit is NULL. [Application, source and component evidence](tools/cpu-compute/pbl-simd-cu-fusion-20261029/README.md).

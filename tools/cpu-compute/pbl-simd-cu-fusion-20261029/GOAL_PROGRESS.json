@@ -1,0 +1,36 @@
+{
+  "status": "MATHEMATICAL_GAP_ONLY_UNPAIRED_OWN_THREE_HOUR_OBSERVATION",
+  "qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/pbl-simd-cu-fusion-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "573209bddf596d15366374bdd4c7c4e5ebbde538a3b5ccbc64987a80f592939a"
+  },
+  "current_three_hour_descriptive_wall_ratio": 1.270119180390606,
+  "ratio_definition": "Fixed eligible original3h median wall divided by current own3h candidate wall; UNPAIRED descriptive ratio, not isolated/repeatable causal speedup.",
+  "baseline_wall_seconds": 800.0241208570078,
+  "current_wall_seconds": 629.8811428160407,
+  "targets": [
+    {
+      "target_wall_ratio": 1.5,
+      "target_wall_seconds": 533.3494139046719,
+      "formula": "1 - current_descriptive_wall_ratio / target_wall_ratio",
+      "signed_additional_current_wall_fraction": 0.15325387973959603,
+      "additional_current_wall_fraction": 0.15325387973959603,
+      "additional_current_wall_percent": 15.325387973959604,
+      "interpretation": "Positive gap is required further CURRENT-wall reduction; no measured headroom or guarantee."
+    },
+    {
+      "target_wall_ratio": 2.0,
+      "target_wall_seconds": 400.0120604285039,
+      "formula": "1 - current_descriptive_wall_ratio / target_wall_ratio",
+      "signed_additional_current_wall_fraction": 0.364940409804697,
+      "additional_current_wall_fraction": 0.364940409804697,
+      "additional_current_wall_percent": 36.4940409804697,
+      "interpretation": "Positive gap is required further CURRENT-wall reduction; no measured headroom or guarantee."
+    }
+  ],
+  "limits": "Required further fraction of CURRENT wall only; not measured removable headroom or prediction. No sustained9h/longrun target claim or guarantee. Parent/ancestor long-run evidence remains separate historical and never pooled.",
+  "historical_parent_nine_hour_qualification": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/myj-stack-arrays-20261028/NINE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "0201cb8b41589a794ef311be8e824877b29a173b49e7eeffb62ca2b9354d9609"
+  }
+}
