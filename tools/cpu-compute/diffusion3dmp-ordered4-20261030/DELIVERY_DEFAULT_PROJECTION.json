@@ -1,0 +1,126 @@
+{
+  "status": "PASS_20_DELIVERY_MAKE_GUARD_CONTEXTS_STUB_ONLY_DEFAULT1",
+  "cases": [
+    {
+      "case": "default_on",
+      "enabled": true,
+      "expected": true,
+      "stdout": "CPP=-DDM_PARALLEL -UWRF_DIFFUSION3DMP_ORDERED4_ENABLE -DWRF_DIFFUSION3DMP_ORDERED4_ENABLE\nOBJS=wrf_phy_interp_mask.o wrf_diffusion3d_ordered4.o wrf_diffusion3dmp_literal.o\n"
+    },
+    {
+      "case": "strict_optin",
+      "enabled": true,
+      "expected": true,
+      "stdout": "CPP=-DDM_PARALLEL -UWRF_DIFFUSION3DMP_ORDERED4_ENABLE -DWRF_DIFFUSION3DMP_ORDERED4_ENABLE\nOBJS=wrf_phy_interp_mask.o wrf_diffusion3d_ordered4.o wrf_diffusion3dmp_literal.o\n"
+    },
+    {
+      "case": "explicit_off",
+      "enabled": false,
+      "expected": false,
+      "stdout": "CPP=-DDM_PARALLEL -UWRF_DIFFUSION3DMP_ORDERED4_ENABLE -DWRF_DIFFUSION3DMP_ORDERED4_DISABLE\nOBJS=wrf_phy_interp_mask.o\n"
+    },
+    {
+      "case": "O0",
+      "enabled": false,
+      "expected": false,
+      "stdout": "CPP=-DDM_PARALLEL -UWRF_DIFFUSION3DMP_ORDERED4_ENABLE\nOBJS=wrf_phy_interp_mask.o\n"
+    },
+    {
+      "case": "fastmath",
+      "enabled": false,
+      "expected": false,
+      "stdout": "CPP=-DDM_PARALLEL -UWRF_DIFFUSION3DMP_ORDERED4_ENABLE\nOBJS=wrf_phy_interp_mask.o\n"
+    },
+    {
+      "case": "Ofast",
+      "enabled": false,
+      "expected": false,
+      "stdout": "CPP=-DDM_PARALLEL -UWRF_DIFFUSION3DMP_ORDERED4_ENABLE\nOBJS=wrf_phy_interp_mask.o\n"
+    },
+    {
+      "case": "OpenMP",
+      "enabled": false,
+      "expected": false,
+      "stdout": "CPP=-DDM_PARALLEL -UWRF_DIFFUSION3DMP_ORDERED4_ENABLE\nOBJS=wrf_phy_interp_mask.o\n"
+    },
+    {
+      "case": "OMPmacro",
+      "enabled": false,
+      "expected": false,
+      "stdout": "CPP=-DDM_PARALLEL -D_OPENMP -UWRF_DIFFUSION3DMP_ORDERED4_ENABLE\nOBJS=wrf_phy_interp_mask.o\n"
+    },
+    {
+      "case": "real8",
+      "enabled": false,
+      "expected": false,
+      "stdout": "CPP=-DDM_PARALLEL -UWRF_DIFFUSION3DMP_ORDERED4_ENABLE\nOBJS=wrf_phy_interp_mask.o\n"
+    },
+    {
+      "case": "int8",
+      "enabled": false,
+      "expected": false,
+      "stdout": "CPP=-DDM_PARALLEL -UWRF_DIFFUSION3DMP_ORDERED4_ENABLE\nOBJS=wrf_phy_interp_mask.o\n"
+    },
+    {
+      "case": "promoted",
+      "enabled": false,
+      "expected": false,
+      "stdout": "CPP=-DDM_PARALLEL -UWRF_DIFFUSION3DMP_ORDERED4_ENABLE\nOBJS=wrf_phy_interp_mask.o\n"
+    },
+    {
+      "case": "nonMPI",
+      "enabled": false,
+      "expected": false,
+      "stdout": "CPP=-UWRF_DIFFUSION3DMP_ORDERED4_ENABLE\nOBJS=wrf_phy_interp_mask.o\n"
+    },
+    {
+      "case": "unsafecontract",
+      "enabled": false,
+      "expected": false,
+      "stdout": "CPP=-DDM_PARALLEL -UWRF_DIFFUSION3DMP_ORDERED4_ENABLE\nOBJS=wrf_phy_interp_mask.o\n"
+    },
+    {
+      "case": "m32",
+      "enabled": false,
+      "expected": false,
+      "stdout": "CPP=-DDM_PARALLEL -UWRF_DIFFUSION3DMP_ORDERED4_ENABLE\nOBJS=wrf_phy_interp_mask.o\n"
+    },
+    {
+      "case": "march",
+      "enabled": false,
+      "expected": false,
+      "stdout": "CPP=-DDM_PARALLEL -UWRF_DIFFUSION3DMP_ORDERED4_ENABLE\nOBJS=wrf_phy_interp_mask.o\n"
+    },
+    {
+      "case": "mtune",
+      "enabled": false,
+      "expected": false,
+      "stdout": "CPP=-DDM_PARALLEL -UWRF_DIFFUSION3DMP_ORDERED4_ENABLE\nOBJS=wrf_phy_interp_mask.o\n"
+    },
+    {
+      "case": "C_AVX",
+      "enabled": false,
+      "expected": false,
+      "stdout": "CPP=-DDM_PARALLEL -UWRF_DIFFUSION3DMP_ORDERED4_ENABLE\nOBJS=wrf_phy_interp_mask.o\n"
+    },
+    {
+      "case": "missingstrict",
+      "enabled": false,
+      "expected": false,
+      "stdout": "CPP=-DDM_PARALLEL -UWRF_DIFFUSION3DMP_ORDERED4_ENABLE\nOBJS=wrf_phy_interp_mask.o\n"
+    },
+    {
+      "case": "oldGNU",
+      "enabled": false,
+      "stdout": "CPP=-DDM_PARALLEL -UWRF_DIFFUSION3DMP_ORDERED4_ENABLE\nOBJS=wrf_phy_interp_mask.o\n"
+    },
+    {
+      "case": "nonx86",
+      "enabled": false,
+      "stdout": "CPP=-DDM_PARALLEL -UWRF_DIFFUSION3DMP_ORDERED4_ENABLE\nOBJS=wrf_phy_interp_mask.o\n"
+    }
+  ],
+  "Makefile_proposed_sha256": "12014d12fda1c30fd4514ac966a462d7da1af846d4aae3256e854b21b040f095",
+  "scope": "Actual make parsing of exact proposed appended condition block with version/target stubs; no compiler identity/source regeneration/runtime/full-build certification. ActualGNU13nativeR3/R4/R7 separate.",
+  "canonical_source_changed": false
+}

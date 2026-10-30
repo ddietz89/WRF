@@ -1,0 +1,93 @@
+{
+  "status": "PASS_FINAL_INDEX64_ARCHIVE_COMPLETE2048_CALLER_SPOTS_EXACT_CACHE_NORMAL_CLOSED",
+  "records": [
+    {
+      "host": "hpc01",
+      "invocation_id": "46dfb4eb1e3c4ad9ad61600a162064ae",
+      "raw": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentbcb9-diffusion3dmp-index64-spot0-r3/complete2048.raw",
+        "sha256": "16ca5c6d95993cac39efbe4524f955b48f5981f6b61a222d876eaa6741f3fc30",
+        "bytes": 311736,
+        "five_hard_state_words": [
+          34,
+          0,
+          36,
+          8100,
+          895
+        ]
+      },
+      "receipt": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currenta218-diffusion3dmp-measured-source-question-r1/final-index64-archive-caller-spot-r3/arm0/actual-native-r1/receipt.json",
+        "sha256": "636c38818db8d499c81c009d43a650be9aab0ff7ea03c4129c7f10e22737fdb3"
+      },
+      "closure": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currenta218-diffusion3dmp-measured-source-question-r1/final-index64-archive-caller-spot-r3/arm0/actual-native-r1/closure.json",
+        "sha256": "01935a971673442b2895866a1946be2ca3a136b37d1d5be2238b5c35c2955e69"
+      },
+      "cache_clear": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currenta218-diffusion3dmp-measured-source-question-r1/final-index64-archive-caller-spot-r3/arm0/actual-native-r1/cache-clear.json",
+        "sha256": "2347fe34f79d45f3a965070a7109fb3e03318c74680948551752240a5897fa08"
+      }
+    },
+    {
+      "host": "hpc02",
+      "invocation_id": "6fda4638998149798cd154b0b5b64866",
+      "raw": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentbcb9-diffusion3dmp-index64-spot1-r3/complete2048.raw",
+        "sha256": "16ca5c6d95993cac39efbe4524f955b48f5981f6b61a222d876eaa6741f3fc30",
+        "bytes": 311736,
+        "five_hard_state_words": [
+          34,
+          0,
+          36,
+          8100,
+          895
+        ]
+      },
+      "receipt": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currenta218-diffusion3dmp-measured-source-question-r1/final-index64-archive-caller-spot-r3/arm1/actual-native-r1/receipt.json",
+        "sha256": "d86460e4381297cf09d7a43b714ef353d8996f3a494eb38bae26441cfba1e318"
+      },
+      "closure": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currenta218-diffusion3dmp-measured-source-question-r1/final-index64-archive-caller-spot-r3/arm1/actual-native-r1/closure.json",
+        "sha256": "a95772cf17004ab256d9f6d9c7a3313ac642b944560aa8e8fa7d4ac403aae868"
+      },
+      "cache_clear": {
+        "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currenta218-diffusion3dmp-measured-source-question-r1/final-index64-archive-caller-spot-r3/arm1/actual-native-r1/cache-clear.json",
+        "sha256": "1d287b6393542eb4ee7eede30be85d270d23a8f7589fda87e08aefa04f1901a7"
+      }
+    }
+  ],
+  "comparisons": {
+    "hpc01": {
+      "parent_wall_seconds": 1.079293155,
+      "candidate_wall_seconds": 0.325613695,
+      "wall_percent_lower": 69.83083849911009,
+      "parent_thread_cpu_seconds": 1.079274481,
+      "candidate_thread_cpu_seconds": 0.325612515,
+      "thread_cpu_percent_lower": 69.83042583400061,
+      "comparison": "One new finalcandidate vs retained matchingworkload originaln1 from precedingguardedwave; UNPAIREDdescriptive",
+      "control_invocation": "09e0694712e04ab3a348a2824621d456",
+      "candidate_invocation": "46dfb4eb1e3c4ad9ad61600a162064ae"
+    },
+    "hpc02": {
+      "parent_wall_seconds": 1.053420186,
+      "candidate_wall_seconds": 0.328510309,
+      "wall_percent_lower": 68.81488380743826,
+      "parent_thread_cpu_seconds": 1.053400216,
+      "candidate_thread_cpu_seconds": 0.328494252,
+      "thread_cpu_percent_lower": 68.81581691264813,
+      "comparison": "One new finalcandidate vs retained matchingworkload originaln1 from precedingguardedwave; UNPAIREDdescriptive",
+      "control_invocation": "d38189a34b134ef58c0177691f855dd7",
+      "candidate_invocation": "6fda4638998149798cd154b0b5b64866"
+    }
+  },
+  "original_wave": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currenta218-diffusion3dmp-measured-source-question-r1/complete-guarded-restore-included2048-cost-r2/ACTUAL_WAVE.json",
+    "sha256": "e146bb22745add4c2e1c9504f49f88a57d8dd38114843253b0c3add9119e3e3c"
+  },
+  "calls_per_invocation": 2048,
+  "raw_exact_all": true,
+  "application_qualified": false,
+  "scope": "Actualimagearchive-linked finalint64guard/maskeddispatch completecaller+restores. Retainedoriginalsame2048/geometry/exe/CPU/cache policy n1 perhost. No newmatched/isolated/global/forecast/repeatability claim."
+}

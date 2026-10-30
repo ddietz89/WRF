@@ -1,0 +1,308 @@
+{
+  "status": "PASS_FINAL_RECIPE_IDENTITY_CANONICAL_CPP_AND_GUARDED_CALLER_BUILD",
+  "invocation_id": "e4951fb7210f454aa2b814eea54ec927",
+  "commands": [
+    {
+      "label": "qualified-env",
+      "argv": [
+        "/bin/bash",
+        "-c",
+        "source \"$1\"; /usr/bin/python3 -c \"$2\"",
+        "env",
+        "/pool/wrf-experiment/tooling/m6-parallel/mpi-ib-env.sh",
+        "import os,json;print(json.dumps({k:os.environ[k]for k in [\"PATH\",\"LD_LIBRARY_PATH\",\"OPAL_PREFIX\"]if k in os.environ}))"
+      ],
+      "exit": 0,
+      "log_sha256": "4230894093042972073f6d4f7818ad4950ad509c403215a78ba7fb63c494d327"
+    },
+    {
+      "label": "actual-qualified-compiler",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "--version"
+      ],
+      "exit": 0,
+      "log_sha256": "72dbd31c12dfa85cb5e5c08e1eccb2214ce26dae424c40dc04f425a943f4969b"
+    },
+    {
+      "label": "supported-canonical-CPP",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-cpp",
+        "-E",
+        "-P",
+        "-ffree-form",
+        "-O2",
+        "-DWRF_DIFFUSION3DMP_ORDERED4_ENABLE",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-finalrecipe-hpc01-r8/module_big_step_utilities_em.F"
+      ],
+      "exit": 0,
+      "log_sha256": "fab738c1a7f8a520cf90f1737287a00655d079167b28d9b2ab3193cc916f6c3c"
+    },
+    {
+      "label": "default_off-canonical-CPP",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-cpp",
+        "-E",
+        "-P",
+        "-ffree-form",
+        "-O2",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-finalrecipe-hpc01-r8/module_big_step_utilities_em.F"
+      ],
+      "exit": 0,
+      "log_sha256": "36c0b72efe3cdc1521c95485b65ae743339b83f95253e3584d5d8a57a13b518b"
+    },
+    {
+      "label": "O0_literal-canonical-CPP",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-cpp",
+        "-E",
+        "-P",
+        "-ffree-form",
+        "-O0",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-finalrecipe-hpc01-r8/module_big_step_utilities_em.F"
+      ],
+      "exit": 0,
+      "log_sha256": "36c0b72efe3cdc1521c95485b65ae743339b83f95253e3584d5d8a57a13b518b"
+    },
+    {
+      "label": "real8_literal-canonical-CPP",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-cpp",
+        "-E",
+        "-P",
+        "-ffree-form",
+        "-O2",
+        "-fdefault-real-8",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-finalrecipe-hpc01-r8/module_big_step_utilities_em.F"
+      ],
+      "exit": 0,
+      "log_sha256": "36c0b72efe3cdc1521c95485b65ae743339b83f95253e3584d5d8a57a13b518b"
+    },
+    {
+      "label": "OpenMP_literal-canonical-CPP",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-cpp",
+        "-E",
+        "-P",
+        "-ffree-form",
+        "-O2",
+        "-fopenmp",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-finalrecipe-hpc01-r8/module_big_step_utilities_em.F"
+      ],
+      "exit": 0,
+      "log_sha256": "36c0b72efe3cdc1521c95485b65ae743339b83f95253e3584d5d8a57a13b518b"
+    },
+    {
+      "label": "final-helper-compile",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-std=c11",
+        "-msse2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-fno-lto",
+        "-fno-stack-protector",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-finalrecipe-hpc01-r8/wrf_diffusion3d_ordered4.c",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-finalrecipe-hpc01-r8/work/wrf_diffusion3d_ordered4.o"
+      ],
+      "exit": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "final-literal-compile",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-phy-interior-p8w-t8w-simd-native-hpc03-r4/work/O2-candidate",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-fopenmp-simd",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-J/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-finalrecipe-hpc01-r8/work",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-finalrecipe-hpc01-r8/wrf_diffusion3dmp_literal.F",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-finalrecipe-hpc01-r8/work/wrf_diffusion3dmp_literal.o"
+      ],
+      "exit": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "guarded-candidate-link",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-finalrecipe-hpc01-r8/work/caller-candidate",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-Wl,-rpath,/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-cost2048-build-hpc02-r5/work/driver.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-fullmodule168-hpc01-r7/work/candidate/module_big_step_utilities_em.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-cost2048-build-hpc02-r5/work/state.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-finalrecipe-hpc01-r8/work/wrf_diffusion3d_ordered4.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-finalrecipe-hpc01-r8/work/wrf_diffusion3dmp_literal.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/hpg-nhx-isolated-avx2-consumer-native-r3/work/nhx-helper-O2.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/phy-height-private-avx2-fixed8-native-hpc04-r1/work/helper-O2.o",
+        "-Wl,--start-group",
+        "/pool/wrf-experiment/wrf-cpu/builds/current69fb-a2cu-ordered4-experimental-r1/libwrflib.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-lesmf_time",
+        "/pool/wrf-experiment/wrf-cpu/builds/current1d16-rsl-early-y-production-archive-r1/librsl_lite.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2",
+        "-lwrfio_nf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-lnetcdf",
+        "-Wl,--end-group",
+        "-lm"
+      ],
+      "exit": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "guarded-onecall-smoke",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-finalrecipe-hpc01-r8/work/caller-candidate",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-finalrecipe-hpc01-r8/work/candidate-smoke.bin"
+      ],
+      "exit": 0,
+      "log_sha256": "e3043ef3fb88b0c303bdf7f9bcb0f5ca354f5e5bfd0e69cde40a81063bb35087"
+    }
+  ],
+  "module_compiles": 0,
+  "driver_compiles": 0,
+  "helper_compiles": 1,
+  "literal_compiles": 1,
+  "links": 1,
+  "performance_qualified": false,
+  "application_qualified": false,
+  "compiler_version": "GNU Fortran (GCC) 13.3.0",
+  "CPP_source_contexts": [
+    {
+      "case": "supported",
+      "supported_wrapper": true,
+      "normalized_target_source_exact": true,
+      "scope": "Target source branch only; unsupportedflagsdo not qualifyhelper. Actualmake20contexts separately."
+    },
+    {
+      "case": "default_off",
+      "supported_wrapper": false,
+      "normalized_target_source_exact": true,
+      "scope": "Target source branch only; unsupportedflagsdo not qualifyhelper. Actualmake20contexts separately."
+    },
+    {
+      "case": "O0_literal",
+      "supported_wrapper": false,
+      "normalized_target_source_exact": true,
+      "scope": "Target source branch only; unsupportedflagsdo not qualifyhelper. Actualmake20contexts separately."
+    },
+    {
+      "case": "real8_literal",
+      "supported_wrapper": false,
+      "normalized_target_source_exact": true,
+      "scope": "Target source branch only; unsupportedflagsdo not qualifyhelper. Actualmake20contexts separately."
+    },
+    {
+      "case": "OpenMP_literal",
+      "supported_wrapper": false,
+      "normalized_target_source_exact": true,
+      "scope": "Target source branch only; unsupportedflagsdo not qualifyhelper. Actualmake20contexts separately."
+    }
+  ],
+  "final_helper": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-finalrecipe-hpc01-r8/work/wrf_diffusion3d_ordered4.o",
+    "sha256": "2332f84341d357c94b72cb192e85b3b9c64b907f720cb43312ea5cdfdb865072"
+  },
+  "final_literal": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-finalrecipe-hpc01-r8/work/wrf_diffusion3dmp_literal.o",
+    "sha256": "f756a1585996363f9fd886d9258984ba3a402bbe8a6e3e22f057e32a7bb04e46"
+  },
+  "final_recipe_allocated_identity": true,
+  "executables": {
+    "parent": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-cost2048-build-hpc02-r5/work/caller-parent",
+      "sha256": "a53c2c7ee330bfd72e3148f14b9f00eb61166425b1ab64d0557f3878015a6055",
+      "smoke_raw_sha256": "16ca5c6d95993cac39efbe4524f955b48f5981f6b61a222d876eaa6741f3fc30",
+      "smoke_raw_bytes": 311736
+    },
+    "candidate": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-finalrecipe-hpc01-r8/work/caller-candidate",
+      "sha256": "bedacb5a8b56c7a25d2ba08f5808dd34c1ac3982c6f8b43cdbe0ea92a8777399",
+      "smoke_raw_sha256": "16ca5c6d95993cac39efbe4524f955b48f5981f6b61a222d876eaa6741f3fc30",
+      "smoke_raw_bytes": 311736
+    }
+  },
+  "calls_per_timed_invocation": 2048,
+  "raw_bytes": 311736,
+  "geometry": {
+    "physical": [
+      191,
+      34,
+      12
+    ],
+    "active": [
+      187,
+      32,
+      10
+    ]
+  },
+  "scope": "Actualcanonicaltarget CPP branches+finalC/F recipe allocatedidentity to nativeprovenobjects+guardedonecall originalgold; no fullcanonicalmodulecleanrebuild or timing claim yet.",
+  "elapsed_context_only_seconds": 5.514246221631765
+}

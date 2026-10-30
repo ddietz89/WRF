@@ -1704,3 +1704,72 @@ endif
 endif
 endif
 endif
+
+
+# Ordered diffusion3dmp: enabled after own three-hour application qualification.
+# All-masked execution only; unmasked runtime calls separately compiled literal routine.
+WRF_DIFFUSION3DMP_ORDERED4 ?= 1
+module_big_step_utilities_em.o: private override CPPFLAGS += -UWRF_DIFFUSION3DMP_ORDERED4_ENABLE
+ifeq ($(WRF_DIFFUSION3DMP_ORDERED4),0)
+module_big_step_utilities_em.o: private override CPPFLAGS += -DWRF_DIFFUSION3DMP_ORDERED4_DISABLE
+endif
+ifeq ($(WRF_DIFFUSION3DMP_ORDERED4),1)
+ifeq ($(WRF_DIFFUSION_SIMD),1)
+ifeq ($(strip $(OMPCPP) $(OMP) $(PROMOTION) $(DOUBLE_PRECISION)),)
+ifeq ($(filter -fopenmp -fopenmp=%,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
+ifeq ($(strip $(RWORDSIZE)),4)
+ifeq ($(strip $(IWORDSIZE)),4)
+ifeq ($(filter -fdefault-% -freal-% -finteger-% -r8 -i8,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
+ifeq ($(sort $(filter -O%,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC))),-O2)
+ifeq ($(filter -ffast-math -Ofast -ffinite-math-only -funsafe-math-optimizations -freciprocal-math -ffp-contract=fast -fno-signed-zeros -fassociative-math -fno-trapping-math,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
+ifneq (,$(filter -fno-fast-math,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG)))
+ifneq (,$(filter -ffp-contract=off,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG)))
+ifeq ($(filter-out -ffp-contract=off,$(filter -ffp-contract=%,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC))),)
+ifeq ($(filter -D_OPENMP -D_OPENMP=%,$(CPPFLAGS)),)
+ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+ifneq (,$(findstring GNU Fortran,$(shell $(FC) --version 2>/dev/null)))
+ifeq ($(shell $(FC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+ifneq (,$(filter -DDM_PARALLEL -DDM_PARALLEL=%,$(CPPFLAGS)))
+ifeq ($(shell $(CC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+ifneq (,$(filter x86_64%,$(shell $(SFC) -dumpmachine 2>/dev/null)))
+ifeq ($(filter -march=% -mtune=% -m32 -mx32 -mfma -mavx%,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC) $(CFLAGS) $(CC)),)
+ifneq (,$(filter x86_64%,$(shell $(CC) -dumpmachine 2>/dev/null)))
+module_big_step_utilities_em.o: private override CPPFLAGS += -DWRF_DIFFUSION3DMP_ORDERED4_ENABLE
+OBJS += wrf_diffusion3d_ordered4.o wrf_diffusion3dmp_literal.o
+$(LIBTARGET): wrf_diffusion3d_ordered4.o wrf_diffusion3dmp_literal.o
+module_big_step_utilities_em.o: wrf_diffusion3d_ordered4.o wrf_diffusion3dmp_literal.o wrf_phy_interp_mask.o
+wrf_diffusion3d_ordered4.o: wrf_diffusion3d_ordered4.c
+	$(CC) $(CFLAGS) -O2 -std=c11 -msse2 -fno-fast-math -ffp-contract=off -fno-lto -fno-stack-protector -c $< -o $@
+# External literal routine uses the normal qualified strict Fortran recipe.
+wrf_diffusion3dmp_literal.o: wrf_diffusion3dmp_literal.F
+ifeq (,$(filter wrf_phy_interp_mask.o,$(OBJS)))
+OBJS += wrf_phy_interp_mask.o
+$(LIBTARGET): wrf_phy_interp_mask.o
+wrf_phy_interp_mask.o: wrf_phy_interp_mask.c
+	$(CC) $(CFLAGS) -O2 -std=c11 -fno-fast-math -ffp-contract=off -fno-lto -fno-stack-protector -c $< -o $@
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+
+
+endif
+endif

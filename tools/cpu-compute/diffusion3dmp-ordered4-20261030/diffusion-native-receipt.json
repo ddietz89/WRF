@@ -1,0 +1,816 @@
+{
+  "status": "PASS_INDEX64_FULL_BIGSTEP_ORDERED_DIFFUSION168_AND_UNMASKED24_ORIGINALMOD_FOUR_ROUND_NATIVE",
+  "invocation_id": "6ae2f2c7dedd44d29909403861333075",
+  "commands": [
+    {
+      "label": "qualified-env",
+      "argv": [
+        "/bin/bash",
+        "-c",
+        "source \"$1\"; /usr/bin/python3 -c \"$2\"",
+        "env",
+        "/pool/wrf-experiment/tooling/m6-parallel/mpi-ib-env.sh",
+        "import os,json;print(json.dumps({k:os.environ[k]for k in [\"PATH\",\"LD_LIBRARY_PATH\",\"OPAL_PREFIX\"]if k in os.environ}))"
+      ],
+      "exit": 0,
+      "log_sha256": "4230894093042972073f6d4f7818ad4950ad509c403215a78ba7fb63c494d327"
+    },
+    {
+      "label": "actual-canonical-supported-CPP",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-cpp",
+        "-E",
+        "-P",
+        "-ffree-form",
+        "-O2",
+        "-DWRF_DIFFUSION3DMP_ORDERED4_ENABLE",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/CANONICAL_MODULE.F"
+      ],
+      "exit": 0,
+      "log_sha256": "5c2995617517280f722f4928901f1635a5d5279d0e284586e62151328c52c76a"
+    },
+    {
+      "label": "full-module-compile",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-phy-interior-p8w-t8w-simd-native-hpc03-r4/work/O2-candidate",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-fopenmp-simd",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-J/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/candidate",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/candidate/module_big_step_utilities_em.f90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/candidate/module_big_step_utilities_em.o"
+      ],
+      "exit": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "external-literal-compile",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-phy-interior-p8w-t8w-simd-native-hpc03-r4/work/O2-candidate",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-fopenmp-simd",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-J/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/candidate",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/LITERAL_EXTERNAL.F90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/candidate/literal.o"
+      ],
+      "exit": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "state-compile",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/bin/gcc",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/region_observer.c",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/state.o"
+      ],
+      "exit": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "original-MOD-expanded-driver",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/current5ba7-curvature-X-difference-native70-hpc02-r1/work",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-phy-interior-p8w-t8w-simd-native-hpc03-r4/work/O2-candidate",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-fopenmp-simd",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/main",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_netcdf",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/wrftladj",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/chem",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/include",
+        "-J/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/driver.f90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/driver.o"
+      ],
+      "exit": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "parent-link",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/caller-parent",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-Wl,-rpath,/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/driver.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current5ba7-curvature-X-difference-native70-hpc02-r1/work/module_big_step_utilities_em.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/candidate/literal.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-ordered96-hpc02-r3/work/helper.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/state.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/hpg-nhx-isolated-avx2-consumer-native-r3/work/nhx-helper-O2.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/phy-height-private-avx2-fixed8-native-hpc04-r1/work/helper-O2.o",
+        "-Wl,--start-group",
+        "/pool/wrf-experiment/wrf-cpu/builds/current69fb-a2cu-ordered4-experimental-r1/libwrflib.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-lesmf_time",
+        "/pool/wrf-experiment/wrf-cpu/builds/current1d16-rsl-early-y-production-archive-r1/librsl_lite.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2",
+        "-lwrfio_nf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-lnetcdf",
+        "-Wl,--end-group",
+        "-lm"
+      ],
+      "exit": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "parent-masked168-r0",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/caller-parent",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/parent-masked168-r0.bin"
+      ],
+      "exit": 0,
+      "log_sha256": "c21f3a5bc2b37dc571ba3797639399ec59d47e0c33635d925b8bb75dfbced909"
+    },
+    {
+      "label": "parent-masked168-r1",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/caller-parent",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/parent-masked168-r1.bin"
+      ],
+      "exit": 0,
+      "log_sha256": "c21f3a5bc2b37dc571ba3797639399ec59d47e0c33635d925b8bb75dfbced909"
+    },
+    {
+      "label": "parent-masked168-r2",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/caller-parent",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/parent-masked168-r2.bin"
+      ],
+      "exit": 0,
+      "log_sha256": "c21f3a5bc2b37dc571ba3797639399ec59d47e0c33635d925b8bb75dfbced909"
+    },
+    {
+      "label": "parent-masked168-r3",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/caller-parent",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/parent-masked168-r3.bin"
+      ],
+      "exit": 0,
+      "log_sha256": "c21f3a5bc2b37dc571ba3797639399ec59d47e0c33635d925b8bb75dfbced909"
+    },
+    {
+      "label": "parent-unmasked24-r0",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/caller-parent",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/parent-unmasked24-r0.bin"
+      ],
+      "exit": 0,
+      "log_sha256": "57a1d84bfd1843afb5bdd8e8b72efd40c72e0ecbea4f3aa9ccec7365f0c05653"
+    },
+    {
+      "label": "parent-unmasked24-r1",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/caller-parent",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/parent-unmasked24-r1.bin"
+      ],
+      "exit": 0,
+      "log_sha256": "57a1d84bfd1843afb5bdd8e8b72efd40c72e0ecbea4f3aa9ccec7365f0c05653"
+    },
+    {
+      "label": "parent-unmasked24-r2",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/caller-parent",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/parent-unmasked24-r2.bin"
+      ],
+      "exit": 0,
+      "log_sha256": "57a1d84bfd1843afb5bdd8e8b72efd40c72e0ecbea4f3aa9ccec7365f0c05653"
+    },
+    {
+      "label": "parent-unmasked24-r3",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/caller-parent",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/parent-unmasked24-r3.bin"
+      ],
+      "exit": 0,
+      "log_sha256": "57a1d84bfd1843afb5bdd8e8b72efd40c72e0ecbea4f3aa9ccec7365f0c05653"
+    },
+    {
+      "label": "candidate-link",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/caller-candidate",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-Wl,-rpath,/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/driver.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/candidate/module_big_step_utilities_em.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/candidate/literal.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-ordered96-hpc02-r3/work/helper.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/state.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/hpg-nhx-isolated-avx2-consumer-native-r3/work/nhx-helper-O2.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/phy-height-private-avx2-fixed8-native-hpc04-r1/work/helper-O2.o",
+        "-Wl,--start-group",
+        "/pool/wrf-experiment/wrf-cpu/builds/current69fb-a2cu-ordered4-experimental-r1/libwrflib.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-lesmf_time",
+        "/pool/wrf-experiment/wrf-cpu/builds/current1d16-rsl-early-y-production-archive-r1/librsl_lite.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2",
+        "-lwrfio_nf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-lnetcdf",
+        "-Wl,--end-group",
+        "-lm"
+      ],
+      "exit": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "candidate-masked168-r0",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/caller-candidate",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/candidate-masked168-r0.bin"
+      ],
+      "exit": 0,
+      "log_sha256": "c21f3a5bc2b37dc571ba3797639399ec59d47e0c33635d925b8bb75dfbced909"
+    },
+    {
+      "label": "candidate-masked168-r1",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/caller-candidate",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/candidate-masked168-r1.bin"
+      ],
+      "exit": 0,
+      "log_sha256": "c21f3a5bc2b37dc571ba3797639399ec59d47e0c33635d925b8bb75dfbced909"
+    },
+    {
+      "label": "candidate-masked168-r2",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/caller-candidate",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/candidate-masked168-r2.bin"
+      ],
+      "exit": 0,
+      "log_sha256": "c21f3a5bc2b37dc571ba3797639399ec59d47e0c33635d925b8bb75dfbced909"
+    },
+    {
+      "label": "candidate-masked168-r3",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/caller-candidate",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/candidate-masked168-r3.bin"
+      ],
+      "exit": 0,
+      "log_sha256": "c21f3a5bc2b37dc571ba3797639399ec59d47e0c33635d925b8bb75dfbced909"
+    },
+    {
+      "label": "candidate-unmasked24-r0",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/caller-candidate",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/candidate-unmasked24-r0.bin"
+      ],
+      "exit": 0,
+      "log_sha256": "57a1d84bfd1843afb5bdd8e8b72efd40c72e0ecbea4f3aa9ccec7365f0c05653"
+    },
+    {
+      "label": "candidate-unmasked24-r1",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/caller-candidate",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/candidate-unmasked24-r1.bin"
+      ],
+      "exit": 0,
+      "log_sha256": "57a1d84bfd1843afb5bdd8e8b72efd40c72e0ecbea4f3aa9ccec7365f0c05653"
+    },
+    {
+      "label": "candidate-unmasked24-r2",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/caller-candidate",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/candidate-unmasked24-r2.bin"
+      ],
+      "exit": 0,
+      "log_sha256": "57a1d84bfd1843afb5bdd8e8b72efd40c72e0ecbea4f3aa9ccec7365f0c05653"
+    },
+    {
+      "label": "candidate-unmasked24-r3",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/caller-candidate",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/candidate-unmasked24-r3.bin"
+      ],
+      "exit": 0,
+      "log_sha256": "57a1d84bfd1843afb5bdd8e8b72efd40c72e0ecbea4f3aa9ccec7365f0c05653"
+    }
+  ],
+  "module_compiles": 1,
+  "fallback_compiles": 1,
+  "helper_compiles": 0,
+  "driver_compiles": 1,
+  "C_compiles": 1,
+  "links": 2,
+  "native_executions": 16,
+  "performance_qualified": false,
+  "application_qualified": false,
+  "machine_and_interface_classification_pending": true,
+  "canonical_supported_CPP_target_exact": true,
+  "literal_function_identity": {
+    "raw_exact_to_selected": true,
+    "size": 2478,
+    "raw_sha256": "cbaf182503c55bf5a6ffca83f9be9422da333c4f54cba47c8636f040f189fb56",
+    "parent_relocations": [
+      [
+        943,
+        2,
+        [
+          ".LC10",
+          0,
+          0,
+          ".rodata.cst8",
+          32,
+          0
+        ],
+        -4
+      ]
+    ],
+    "literal_relocations": [
+      [
+        943,
+        2,
+        [
+          ".LC0",
+          0,
+          0,
+          ".rodata.cst4",
+          0,
+          0
+        ],
+        -4
+      ]
+    ],
+    "scope": "Full constants/reference meaning and global/interface review remain pending."
+  },
+  "non_target_functions": {
+    "__module_big_step_utilities_em_MOD_calc_alt": {
+      "size_exact": true,
+      "raw_exact": true,
+      "FULL_RELA_exact": true
+    },
+    "__module_big_step_utilities_em_MOD_calc_cq": {
+      "size_exact": true,
+      "raw_exact": true,
+      "FULL_RELA_exact": true
+    },
+    "__module_big_step_utilities_em_MOD_calc_mu_staggered": {
+      "size_exact": true,
+      "raw_exact": true,
+      "FULL_RELA_exact": true
+    },
+    "__module_big_step_utilities_em_MOD_calc_mu_uv": {
+      "size_exact": true,
+      "raw_exact": true,
+      "FULL_RELA_exact": true
+    },
+    "__module_big_step_utilities_em_MOD_calc_mu_uv_1": {
+      "size_exact": true,
+      "raw_exact": true,
+      "FULL_RELA_exact": true
+    },
+    "__module_big_step_utilities_em_MOD_calc_p_rho_phi": {
+      "size_exact": true,
+      "raw_exact": true,
+      "FULL_RELA_exact": false
+    },
+    "__module_big_step_utilities_em_MOD_calc_php": {
+      "size_exact": true,
+      "raw_exact": true,
+      "FULL_RELA_exact": true
+    },
+    "__module_big_step_utilities_em_MOD_calc_ww_cp": {
+      "size_exact": true,
+      "raw_exact": true,
+      "FULL_RELA_exact": true
+    },
+    "__module_big_step_utilities_em_MOD_calculate_full": {
+      "size_exact": true,
+      "raw_exact": true,
+      "FULL_RELA_exact": true
+    },
+    "__module_big_step_utilities_em_MOD_cloud_tracer_nudge": {
+      "size_exact": true,
+      "raw_exact": true,
+      "FULL_RELA_exact": true
+    },
+    "__module_big_step_utilities_em_MOD_conv_t_tendf_to_moist": {
+      "size_exact": true,
+      "raw_exact": true,
+      "FULL_RELA_exact": true
+    },
+    "__module_big_step_utilities_em_MOD_coriolis": {
+      "size_exact": true,
+      "raw_exact": true,
+      "FULL_RELA_exact": true
+    },
+    "__module_big_step_utilities_em_MOD_couple": {
+      "size_exact": true,
+      "raw_exact": true,
+      "FULL_RELA_exact": false
+    },
+    "__module_big_step_utilities_em_MOD_couple_momentum": {
+      "size_exact": true,
+      "raw_exact": true,
+      "FULL_RELA_exact": true
+    },
+    "__module_big_step_utilities_em_MOD_curvature": {
+      "size_exact": true,
+      "raw_exact": true,
+      "FULL_RELA_exact": true
+    },
+    "__module_big_step_utilities_em_MOD_diagnose_w": {
+      "size_exact": true,
+      "raw_exact": true,
+      "FULL_RELA_exact": true
+    },
+    "__module_big_step_utilities_em_MOD_horizontal_diffusion": {
+      "size_exact": true,
+      "raw_exact": true,
+      "FULL_RELA_exact": true
+    },
+    "__module_big_step_utilities_em_MOD_horizontal_pressure_gradient": {
+      "size_exact": true,
+      "raw_exact": true,
+      "FULL_RELA_exact": true
+    },
+    "__module_big_step_utilities_em_MOD_init_module_big_step": {
+      "size_exact": true,
+      "raw_exact": true,
+      "FULL_RELA_exact": true
+    },
+    "__module_big_step_utilities_em_MOD_initialize_moist_old": {
+      "size_exact": true,
+      "raw_exact": true,
+      "FULL_RELA_exact": true
+    },
+    "__module_big_step_utilities_em_MOD_moist_physics_finish_em": {
+      "size_exact": true,
+      "raw_exact": true,
+      "FULL_RELA_exact": true
+    },
+    "__module_big_step_utilities_em_MOD_moist_physics_prep_em": {
+      "size_exact": true,
+      "raw_exact": true,
+      "FULL_RELA_exact": true
+    },
+    "__module_big_step_utilities_em_MOD_perturbation_coriolis": {
+      "size_exact": true,
+      "raw_exact": true,
+      "FULL_RELA_exact": true
+    },
+    "__module_big_step_utilities_em_MOD_pg_buoy_w": {
+      "size_exact": true,
+      "raw_exact": true,
+      "FULL_RELA_exact": true
+    },
+    "__module_big_step_utilities_em_MOD_phy_prep": {
+      "size_exact": true,
+      "raw_exact": true,
+      "FULL_RELA_exact": true
+    },
+    "__module_big_step_utilities_em_MOD_phy_prep_part2": {
+      "size_exact": true,
+      "raw_exact": true,
+      "FULL_RELA_exact": true
+    },
+    "__module_big_step_utilities_em_MOD_pole_point_bc": {
+      "size_exact": true,
+      "raw_exact": true,
+      "FULL_RELA_exact": true
+    },
+    "__module_big_step_utilities_em_MOD_rhs_ph": {
+      "size_exact": true,
+      "raw_exact": true,
+      "FULL_RELA_exact": true
+    },
+    "__module_big_step_utilities_em_MOD_rk_rayleigh_damp": {
+      "size_exact": true,
+      "raw_exact": true,
+      "FULL_RELA_exact": true
+    },
+    "__module_big_step_utilities_em_MOD_set_tend": {
+      "size_exact": true,
+      "raw_exact": true,
+      "FULL_RELA_exact": true
+    },
+    "__module_big_step_utilities_em_MOD_sixth_order_diffusion": {
+      "size_exact": true,
+      "raw_exact": true,
+      "FULL_RELA_exact": true
+    },
+    "__module_big_step_utilities_em_MOD_theta_relaxation": {
+      "size_exact": true,
+      "raw_exact": true,
+      "FULL_RELA_exact": true
+    },
+    "__module_big_step_utilities_em_MOD_vertical_diffusion": {
+      "size_exact": true,
+      "raw_exact": true,
+      "FULL_RELA_exact": true
+    },
+    "__module_big_step_utilities_em_MOD_vertical_diffusion_3dmp": {
+      "size_exact": true,
+      "raw_exact": true,
+      "FULL_RELA_exact": true
+    },
+    "__module_big_step_utilities_em_MOD_vertical_diffusion_mp": {
+      "size_exact": true,
+      "raw_exact": true,
+      "FULL_RELA_exact": true
+    },
+    "__module_big_step_utilities_em_MOD_vertical_diffusion_u": {
+      "size_exact": true,
+      "raw_exact": true,
+      "FULL_RELA_exact": true
+    },
+    "__module_big_step_utilities_em_MOD_vertical_diffusion_v": {
+      "size_exact": true,
+      "raw_exact": true,
+      "FULL_RELA_exact": true
+    },
+    "__module_big_step_utilities_em_MOD_w_damp": {
+      "size_exact": true,
+      "raw_exact": true,
+      "FULL_RELA_exact": false
+    },
+    "__module_big_step_utilities_em_MOD_zero_pole": {
+      "size_exact": true,
+      "raw_exact": true,
+      "FULL_RELA_exact": true
+    },
+    "__module_big_step_utilities_em_MOD_zero_tend": {
+      "size_exact": true,
+      "raw_exact": true,
+      "FULL_RELA_exact": true
+    },
+    "__module_big_step_utilities_em_MOD_zero_tend2d": {
+      "size_exact": true,
+      "raw_exact": true,
+      "FULL_RELA_exact": true
+    }
+  },
+  "candidate_module": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/candidate/module_big_step_utilities_em.o",
+    "sha256": "d27e3e57b3f1bbc2bb2c79dee1362eb24c0f9a4330ec9b08e3ee1a3c602dea6b",
+    "PP_path": "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/candidate/module_big_step_utilities_em.f90",
+    "PP_sha256": "bf7a6eabd06040f04136f2fc00f75c43e2f867a36399ce547104bc0f31acad0f",
+    "MOD_path": "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/candidate/module_big_step_utilities_em.mod",
+    "MOD_sha256": "00cdb6f27a46ca37350ef55a52088c21c63595d76c5d5dbcdd9627f89e3fb5ea"
+  },
+  "literal_object": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/candidate/literal.o",
+    "sha256": "91cc7864d735f33091a4afc22270f43dbb127c89b52cfda6547b35cd6a72e123"
+  },
+  "raw_original_MOD_exact": false,
+  "original_MOD_caller": true,
+  "observations": {
+    "parent": {
+      "masked168": {
+        "0": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/parent-masked168-r0.bin",
+          "sha256": "b0a3ac4e14cdf046467ec36279c8aba92a1bcbf23ecc1e3d613fe5deb8303af0",
+          "bytes": 639072,
+          "cases": 168
+        },
+        "1": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/parent-masked168-r1.bin",
+          "sha256": "9611896b97fed24b0835e5720e0e3bbf368bbfa27d4175b2f7b09e95d163c86a",
+          "bytes": 639072,
+          "cases": 168
+        },
+        "2": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/parent-masked168-r2.bin",
+          "sha256": "fec6e53c1dcd1d76fa3187d8a126cef38aba2959a455d402773c524c9cd2a938",
+          "bytes": 639072,
+          "cases": 168
+        },
+        "3": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/parent-masked168-r3.bin",
+          "sha256": "45d449ad215d3197bc169336c0f969ad9f4b50435f9501cd30568520d5d54b92",
+          "bytes": 639072,
+          "cases": 168
+        }
+      },
+      "unmasked24": {
+        "0": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/parent-unmasked24-r0.bin",
+          "sha256": "7d235db791a78a663d82822ad838306ee18b4f56af1e4c03859561a98955b0dc",
+          "bytes": 91296,
+          "cases": 24
+        },
+        "1": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/parent-unmasked24-r1.bin",
+          "sha256": "6bcf41d5ed1831c7d8091b6a77a12b8af479f7396035e45cb9b0080aa02717d9",
+          "bytes": 91296,
+          "cases": 24
+        },
+        "2": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/parent-unmasked24-r2.bin",
+          "sha256": "9c13c39479be1adb9814de9a33d934b4bc6ff21ba2b3e8382ca5b31479feb16e",
+          "bytes": 91296,
+          "cases": 24
+        },
+        "3": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/parent-unmasked24-r3.bin",
+          "sha256": "2ef9baaf1ffa0068bdb3401ee9b2c4cdc07da8377d8b43c184569cb5c40efa37",
+          "bytes": 91296,
+          "cases": 24
+        }
+      }
+    },
+    "candidate": {
+      "masked168": {
+        "0": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/candidate-masked168-r0.bin",
+          "sha256": "b0a3ac4e14cdf046467ec36279c8aba92a1bcbf23ecc1e3d613fe5deb8303af0",
+          "bytes": 639072,
+          "cases": 168
+        },
+        "1": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/candidate-masked168-r1.bin",
+          "sha256": "9611896b97fed24b0835e5720e0e3bbf368bbfa27d4175b2f7b09e95d163c86a",
+          "bytes": 639072,
+          "cases": 168
+        },
+        "2": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/candidate-masked168-r2.bin",
+          "sha256": "fec6e53c1dcd1d76fa3187d8a126cef38aba2959a455d402773c524c9cd2a938",
+          "bytes": 639072,
+          "cases": 168
+        },
+        "3": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/candidate-masked168-r3.bin",
+          "sha256": "45d449ad215d3197bc169336c0f969ad9f4b50435f9501cd30568520d5d54b92",
+          "bytes": 639072,
+          "cases": 168
+        }
+      },
+      "unmasked24": {
+        "0": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/candidate-unmasked24-r0.bin",
+          "sha256": "7d235db791a78a663d82822ad838306ee18b4f56af1e4c03859561a98955b0dc",
+          "bytes": 91296,
+          "cases": 24
+        },
+        "1": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/candidate-unmasked24-r1.bin",
+          "sha256": "6bcf41d5ed1831c7d8091b6a77a12b8af479f7396035e45cb9b0080aa02717d9",
+          "bytes": 91296,
+          "cases": 24
+        },
+        "2": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/candidate-unmasked24-r2.bin",
+          "sha256": "9c13c39479be1adb9814de9a33d934b4bc6ff21ba2b3e8382ca5b31479feb16e",
+          "bytes": 91296,
+          "cases": 24
+        },
+        "3": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/currenta218-diffusion3dmp-index64-native-hpc01-r9/work/caller/candidate-unmasked24-r3.bin",
+          "sha256": "2ef9baaf1ffa0068bdb3401ee9b2c4cdc07da8377d8b43c184569cb5c40efa37",
+          "bytes": 91296,
+          "cases": 24
+        }
+      }
+    }
+  },
+  "O2_records_per_role": 768,
+  "canonical_public_source_changed": false,
+  "interface_and_machine_classification_pending": true,
+  "elapsed_context_only_seconds": 13.123579435050488
+}

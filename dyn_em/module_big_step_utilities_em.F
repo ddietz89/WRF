@@ -3410,6 +3410,221 @@ END SUBROUTINE horizontal_diffusion
 
 !-----------------------------------------------------------------------------------------
 
+#if defined(WRF_DIFFUSION3DMP_ORDERED4_ENABLE)
+SUBROUTINE horizontal_diffusion_3dmp ( name, field, tendency, MUT, c1, c2,  &
+                                       config_flags, base_3d,               &
+                                       msfux, msfuy, msfvx, msfvx_inv,      &
+                                       msfvy, msftx, msfty,                 &
+                                       khdif, xkmhd, rdx, rdy,              &
+                                       ids, ide, jds, jde, kds, kde,        &
+                                       ims, ime, jms, jme, kms, kme,        &
+                                       its, ite, jts, jte, kts, kte        )
+
+   USE, INTRINSIC :: iso_c_binding, ONLY: c_int, c_float, c_int64_t
+   IMPLICIT NONE
+   
+   ! Input data
+   
+   TYPE(grid_config_rec_type), INTENT(IN   ) :: config_flags
+
+   INTEGER ,        INTENT(IN   ) :: ids, ide, jds, jde, kds, kde, &
+                                     ims, ime, jms, jme, kms, kme, &
+                                     its, ite, jts, jte, kts, kte
+
+   CHARACTER(LEN=1) ,                          INTENT(IN   ) :: name
+
+   REAL , DIMENSION( ims:ime , kms:kme , jms:jme ) , INTENT(IN   ) :: field, &
+                                                                      xkmhd, &
+                                                                      base_3d
+
+   REAL , DIMENSION( ims:ime , kms:kme , jms:jme ) , INTENT(INOUT) :: tendency
+
+   REAL , DIMENSION( ims:ime , jms:jme ) , INTENT(IN   ) :: MUT
+
+   REAL , DIMENSION( ims:ime , jms:jme ) ,         INTENT(IN   ) :: msfux,      &
+                                                                    msfuy,      &
+                                                                    msfvx,      &
+                                                                    msfvx_inv,  &
+                                                                    msfvy,      &
+                                                                    msftx,      &
+                                                                    msfty
+
+   REAL , DIMENSION( kms:kme )           , INTENT(IN   ) :: c1, c2
+
+   REAL ,                                      INTENT(IN   ) :: rdx,       &
+                                                                rdy,       &
+                                                                khdif
+
+   ! Local data
+   
+   INTEGER :: i, j, k, itf, jtf, ktf
+
+   INTEGER :: i_start, i_end, j_start, j_end
+
+   REAL :: mrdx, mkrdxm, mkrdxp, &
+           mrdy, mkrdym, mkrdyp
+
+   interface
+    function all_masked() bind(C,name="wrf_phy_interp_all_masked") result(ok)
+     import c_int
+     integer(c_int)::ok
+    end function
+SUBROUTINE wrf_diffusion3dmp_literal ( name, field, tendency, MUT, c1, c2,  &
+                                       config_flags, base_3d,               &
+                                       msfux, msfuy, msfvx, msfvx_inv,      &
+                                       msfvy, msftx, msfty,                 &
+                                       khdif, xkmhd, rdx, rdy,              &
+                                       ids, ide, jds, jde, kds, kde,        &
+                                       ims, ime, jms, jme, kms, kme,        &
+                                       its, ite, jts, jte, kts, kte        )
+
+   USE module_configure, ONLY: grid_config_rec_type
+   IMPLICIT NONE
+   
+   ! Input data
+   
+   TYPE(grid_config_rec_type), INTENT(IN   ) :: config_flags
+
+   INTEGER ,        INTENT(IN   ) :: ids, ide, jds, jde, kds, kde, &
+                                     ims, ime, jms, jme, kms, kme, &
+                                     its, ite, jts, jte, kts, kte
+
+   CHARACTER(LEN=1) ,                          INTENT(IN   ) :: name
+
+   REAL , DIMENSION( ims:ime , kms:kme , jms:jme ) , INTENT(IN   ) :: field, &
+                                                                      xkmhd, &
+                                                                      base_3d
+
+   REAL , DIMENSION( ims:ime , kms:kme , jms:jme ) , INTENT(INOUT) :: tendency
+
+   REAL , DIMENSION( ims:ime , jms:jme ) , INTENT(IN   ) :: MUT
+
+   REAL , DIMENSION( ims:ime , jms:jme ) ,         INTENT(IN   ) :: msfux,      &
+                                                                    msfuy,      &
+                                                                    msfvx,      &
+                                                                    msfvx_inv,  &
+                                                                    msfvy,      &
+                                                                    msftx,      &
+                                                                    msfty
+
+   REAL , DIMENSION( kms:kme )           , INTENT(IN   ) :: c1, c2
+
+   REAL ,                                      INTENT(IN   ) :: rdx,       &
+                                                                rdy,       &
+                                                                khdif
+
+
+END SUBROUTINE wrf_diffusion3dmp_literal
+    subroutine ordered(n,di,dj,f,t,mu,b,ux,uy,vi,vy,tx,ty,x,c1,c2,dx,dy) bind(C,name="wrf_diffusion3d_ordered4")
+     import c_int,c_float
+     integer(c_int),value::n,di,dj
+     real(c_float)::f(*),t(*),mu(*),b(*),ux(*),uy(*),vi(*),vy(*),tx(*),ty(*),x(*)
+     real(c_float),value::c1,c2,dx,dy
+    end subroutine
+   end interface
+
+   integer(c_int64_t) :: stride_i64, extent_k64, active_i64
+   LOGICAL :: specified
+
+!<DESCRIPTION>
+!
+!  horizontal_diffusion_3dmp computes the horizontal diffusion tendency
+!  on model horizontal coordinate surfaces.  This routine computes diffusion
+!  a perturbation scalar (field-base_3d).
+!
+!</DESCRIPTION>
+
+   if (all_masked()/=1_c_int) then
+      CALL wrf_diffusion3dmp_literal ( name, field, tendency, MUT, c1, c2,  &
+                                       config_flags, base_3d,               &
+                                       msfux, msfuy, msfvx, msfvx_inv,      &
+                                       msfvy, msftx, msfty,                 &
+                                       khdif, xkmhd, rdx, rdy,              &
+                                       ids, ide, jds, jde, kds, kde,        &
+                                       ims, ime, jms, jme, kms, kme,        &
+                                       its, ite, jts, jte, kts, kte        )
+      return
+   endif
+
+   stride_i64=int(ime,c_int64_t)-int(ims,c_int64_t)+1_c_int64_t
+   extent_k64=int(kme,c_int64_t)-int(kms,c_int64_t)+1_c_int64_t
+   if (stride_i64<=0_c_int64_t.or.extent_k64<=0_c_int64_t) then
+      CALL wrf_diffusion3dmp_literal ( name, field, tendency, MUT, c1, c2,  &
+                                       config_flags, base_3d,               &
+                                       msfux, msfuy, msfvx, msfvx_inv,      &
+                                       msfvy, msftx, msfty,                 &
+                                       khdif, xkmhd, rdx, rdy,              &
+                                       ids, ide, jds, jde, kds, kde,        &
+                                       ims, ime, jms, jme, kms, kme,        &
+                                       its, ite, jts, jte, kts, kte        )
+      return
+   endif
+   if (stride_i64>int(huge(0_c_int),c_int64_t)) then
+      CALL wrf_diffusion3dmp_literal ( name, field, tendency, MUT, c1, c2,  &
+                                       config_flags, base_3d,               &
+                                       msfux, msfuy, msfvx, msfvx_inv,      &
+                                       msfvy, msftx, msfty,                 &
+                                       khdif, xkmhd, rdx, rdy,              &
+                                       ids, ide, jds, jde, kds, kde,        &
+                                       ims, ime, jms, jme, kms, kme,        &
+                                       its, ite, jts, jte, kts, kte        )
+      return
+   endif
+   ! Positive divisor is established above; no reliance on short-circuit OR.
+   if (extent_k64>int(huge(0_c_int),c_int64_t)/stride_i64) then
+      CALL wrf_diffusion3dmp_literal ( name, field, tendency, MUT, c1, c2,  &
+                                       config_flags, base_3d,               &
+                                       msfux, msfuy, msfvx, msfvx_inv,      &
+                                       msfvy, msftx, msfty,                 &
+                                       khdif, xkmhd, rdx, rdy,              &
+                                       ids, ide, jds, jde, kds, kde,        &
+                                       ims, ime, jms, jme, kms, kme,        &
+                                       its, ite, jts, jte, kts, kte        )
+      return
+   endif
+
+   specified = .false.
+   if(config_flags%specified .or. config_flags%nested) specified = .true.
+
+   ktf=MIN(kte,kde-1)
+   
+      i_start = its
+      i_end   = MIN(ite,ide-1)
+      j_start = jts
+      j_end   = MIN(jte,jde-1)
+
+      IF ( config_flags%open_xs .or. specified ) i_start = MAX(ids+1,its)
+      IF ( config_flags%open_xe .or. specified ) i_end   = MIN(ide-2,ite)
+      IF ( config_flags%open_ys .or. specified ) j_start = MAX(jds+1,jts)
+      IF ( config_flags%open_ye .or. specified ) j_end   = MIN(jde-2,jte)
+      IF ( config_flags%periodic_x ) i_start = its
+      IF ( config_flags%periodic_x ) i_end = MIN(ite,ide-1)
+
+      if (i_end<i_start) return
+      active_i64=int(i_end,c_int64_t)-int(i_start,c_int64_t)+1_c_int64_t
+      if (active_i64>int(huge(0_c_int),c_int64_t)) then
+      CALL wrf_diffusion3dmp_literal ( name, field, tendency, MUT, c1, c2,  &
+                                       config_flags, base_3d,               &
+                                       msfux, msfuy, msfvx, msfvx_inv,      &
+                                       msfvy, msftx, msfty,                 &
+                                       khdif, xkmhd, rdx, rdy,              &
+                                       ids, ide, jds, jde, kds, kde,        &
+                                       ims, ime, jms, jme, kms, kme,        &
+                                       its, ite, jts, jte, kts, kte        )
+      return
+      endif
+      DO j = j_start, j_end
+      DO k=kts,ktf
+       call ordered(i_end-i_start+1,ime-ims+1,(ime-ims+1)*(kme-kms+1), &
+        field(i_start,k,j),tendency(i_start,k,j),MUT(i_start,j),base_3d(i_start,k,j), &
+        msfux(i_start,j),msfuy(i_start,j),msfvx_inv(i_start,j),msfvy(i_start,j), &
+        msftx(i_start,j),msfty(i_start,j),xkmhd(i_start,k,j),c1(k),c2(k),rdx,rdy)
+      ENDDO
+      ENDDO
+
+END SUBROUTINE horizontal_diffusion_3dmp
+
+#else
 SUBROUTINE horizontal_diffusion_3dmp ( name, field, tendency, MUT, c1, c2,  &
                                        config_flags, base_3d,               &
                                        msfux, msfuy, msfvx, msfvx_inv,      &
@@ -3517,6 +3732,7 @@ SUBROUTINE horizontal_diffusion_3dmp ( name, field, tendency, MUT, c1, c2,  &
       ENDDO
 
 END SUBROUTINE horizontal_diffusion_3dmp
+#endif
 
 !-----------------------------------------------------------------------------------------
 
