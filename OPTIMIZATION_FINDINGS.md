@@ -6475,3 +6475,14 @@ The `bcb94734` child passed its own unchanged three-hour scientific gate:545 ord
 Ordered horizontal_diffusion_3dmp image owns only unprofiled SAME512 three-hour science:545 ordered steps/four FULL outputs; unchanged original checker and invocation-bound normal closures of all four models and reader. Own nine-hour/noon/profile/restart/full144/clean full-source rebuild false; parent a218 nine-hour is historical. One cached BigStep module replaced, two helper members added, other593 of594 parent members raw exact. OriginalMOD native168masked+24finiteunmasked each four rounding modes exact for full physical/readOnly/config/guards/fivehard state. All41 non-target bodies raw exact; one conservative target MOD annotation differs, other325573 tokens exact; finite nine-relocation reference proof, scientific pools exact. No diagnostic filename/unwind/general ABI theorem. Supported GNU13.3 strictO2 pureMPI REAL4/INTEGER4 genericx86_64 only, read-only all-masked query and index64 admission; external literal fallback body2478bytes and half constant exact. Complete2048-call synthetic restore-included caller wall about67–70percent lower, onepairperhost plus finalcandidate-only spots; no isolated/global/productiongeometry/repeatability claim. Fullforecast single UNPAIRED descriptive observation vs fixed originalmedian3; post-test source correspondence only, raw producer commit NULL.
 
 [Evidence](tools/cpu-compute/diffusion3dmp-ordered4-20261030/README.md).
+
+
+## Current ordered diffusion image: instrumented noon source identity
+
+Samebcb94734 passed unchanged original noon science185steps/twoFULL and all4 native15 parsers after normalmodel/recorder/watcher/reader closure.5663primary records fromselectedmainTIDs120–123/CPU99; exactcurrentELF/symbol/PCidentity, mixedI/O. DirectPCs separatefromancestors. Actualnumericloss/buildID remainperrankvalues. No global/removablewait/purecompute/causalgain claim.
+
+| Instrumented12–13 diagnostic | Model/MPI wall (min) | Main-step elapsed (min) | Aggregate CPU (core-hours) | Exact science |
+|---|---:|---:|---:|---|
+| bcb94734 native15 | 4.501838 | 2.922975 | 33.877249 | 185steps/twoFULL PASS |
+
+Original75min is only a scientific prefix reference; no matched one-hour timing comparison. Own unprofiled3hmetrics unchanged; own9h/unprofilednoon/restart/full144/cleanfullsource remainfalse. Raw historical5C75/efa6 reportlabels and optionalerrors retained; actuallease/image/invocations above authoritative. [Profile qualification](tools/cpu-compute/diffusion3dmp-ordered4-20261030/INSTRUMENTED_NOON_PROFILE_QUALIFICATION.json).
