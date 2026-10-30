@@ -6391,3 +6391,10 @@ The `e2580e95` child passed its own unchanged three-hour scientific gate:545 ord
 Pressure-damping child owns only unprofiled SAME512 three-hour science:545 ordered steps/four FULL products passed the unchanged original checker; all four models and reader normally closed. Own nine-hour/noon/profile/restart/full144/clean full-source rebuild remain false. Parent0833 curvature qualifications stay historical. One cached SmallStep member changed;592 other ordered archive members, RSL/providers and18 direct inputs unchanged. Native440 observations each O2/O0 preserve physical/raw/readOnly/guards/five hard state words. Raw MODfalse with fixed one-conservative-attribute original-interface proof; O0 pool/RELA rawfalse with fixed referenced-byte evidence. O2 native subprocesses succeeded inside a later failed containing worker; original failure retained. Complete synthetic1024 caller wall26.36–37.41percent lower, including restores/query/dispatch; no isolated/global/additive/repeatability or unmasked-runtime theorem. Forecast timing is one UNPAIRED descriptive observation vs fixed original median3. Post-test source correspondence only; raw producer commit NULL.
 
 [Evidence](tools/cpu-compute/calc-p-rho-damping-simd-20261030/README.md).
+
+
+## Clear-sky full-loop SIMD directive: no packed code — October 30
+
+The current selected pressure child retains the exact 1,684-byte scalar REFTRA-clear body (`11e01b17`). All 111 retained current0dae selected-thread direct records map into that body; counts are not global/removable cost. A distinct compile-only full-loop SIMD directive leaves the original prelude, table branches and consumers together and adds no 17-value phase buffer. Qualified GNU13.3 strict O2 compiled both original and candidate with zero packed arithmetic instructions: control flow prevented vectorization. Close this literal directive without native execution, links, timing or application integration. The setup-only R1 failure and fresh normally closed R2 remain separate. The selected pressure image and science remain unchanged.
+
+[Decision](tools/cpu-compute/reftra-complete-directive-screen-20261030/DECISION.json).
