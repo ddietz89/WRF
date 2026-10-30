@@ -1,0 +1,18 @@
+{
+  "status": "PASS_LOCAL_CANONICAL_TARGET_AND_FALLBACK_PROJECTIONS",
+  "checks": {
+    "supported_ON_target_tokens_match_actual_native_PP": true,
+    "parent_target_tokens_match_actual_original_PP": true,
+    "optout_whole_source_parent_exact": true,
+    "serial_whole_source_parent_exact": true,
+    "OpenMP_whole_source_parent_exact": true,
+    "outside_target_source_literal": true
+  },
+  "compiler": "/usr/bin/cpp -traditional-cpp -P",
+  "supported_flags": [
+    "-DDM_PARALLEL",
+    "-DWRF_CALC_P_RHO_DAMPING_SIMD"
+  ],
+  "native_PP_sha256": "9aea15163a5f792397b2ee2e5da33d2a7a56451328e4b5b914f07f7b106fad3e",
+  "limits": "Post-test target token correspondence and literal fallback/outside-routine source only; no clean full-source rebuild or object reproducibility certificate."
+}

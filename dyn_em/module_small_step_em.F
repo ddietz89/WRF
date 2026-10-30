@@ -572,7 +572,18 @@ SUBROUTINE calc_p_rho( al, p, ph,                    &
                        ims, ime, jms, jme, kms, kme, &
                        its,ite, jts,jte, kts,kte    )
 
+#if defined(WRF_CALC_P_RHO_DAMPING_SIMD) && defined(DM_PARALLEL) && !defined(_OPENMP)
+  USE, INTRINSIC :: ISO_C_BINDING, ONLY: c_int
+#endif
   IMPLICIT NONE  ! religion first
+#if defined(WRF_CALC_P_RHO_DAMPING_SIMD) && defined(DM_PARALLEL) && !defined(_OPENMP)
+  INTERFACE
+    PURE FUNCTION wrf_phy_interp_all_masked() BIND(C, NAME="wrf_phy_interp_all_masked") RESULT(masked)
+      IMPORT c_int
+      INTEGER(c_int) :: masked
+    END FUNCTION wrf_phy_interp_all_masked
+  END INTERFACE
+#endif
 
 ! declarations for the stuff coming in
 
@@ -681,6 +692,42 @@ SUBROUTINE calc_p_rho( al, p, ph,                    &
        ENDDO
        ENDDO
      ELSE                     ! we're in the small timesteps 
+#if defined(WRF_CALC_P_RHO_DAMPING_SIMD) && defined(DM_PARALLEL) && !defined(_OPENMP)
+       IF (i_start<=i_end .AND. j_start<=j_end .AND. k_start<=k_end) THEN
+         IF (wrf_phy_interp_all_masked()/=0_c_int) THEN
+       DO j=j_start, j_end    
+       DO k=k_start, k_end
+!$OMP SIMD PRIVATE(ptmp)
+       DO i=i_start, i_end
+         ptmp = p(i,k,j)
+         p(i,k,j) = p(i,k,j) + smdiv*(p(i,k,j)-pm1(i,k,j))
+         pm1(i,k,j) = ptmp
+       ENDDO
+       ENDDO
+       ENDDO
+         ELSE
+       DO j=j_start, j_end    
+       DO k=k_start, k_end
+       DO i=i_start, i_end
+         ptmp = p(i,k,j)
+         p(i,k,j) = p(i,k,j) + smdiv*(p(i,k,j)-pm1(i,k,j))
+         pm1(i,k,j) = ptmp
+       ENDDO
+       ENDDO
+       ENDDO
+         ENDIF
+       ELSE
+       DO j=j_start, j_end    
+       DO k=k_start, k_end
+       DO i=i_start, i_end
+         ptmp = p(i,k,j)
+         p(i,k,j) = p(i,k,j) + smdiv*(p(i,k,j)-pm1(i,k,j))
+         pm1(i,k,j) = ptmp
+       ENDDO
+       ENDDO
+       ENDDO
+       ENDIF
+#else
        DO j=j_start, j_end    ! and adding div damping component
        DO k=k_start, k_end
        DO i=i_start, i_end
@@ -690,6 +737,7 @@ SUBROUTINE calc_p_rho( al, p, ph,                    &
        ENDDO
        ENDDO
        ENDDO
+#endif
      END IF
 END SUBROUTINE calc_p_rho
 !----------------------------------------------------------------------

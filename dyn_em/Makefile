@@ -787,6 +787,29 @@ endif
 endif
 endif
 
+# Masked nonzero-step pressure damping SIMD; optout0 rebuilds SmallStep/archive/image.
+# Qualified GNU13.3/SmallStepSIMD1/Zen21/defaultREAL4INTEGER4/emptyOMP; source DM&&!_OPENMP.
+WRF_CALC_P_RHO_DAMPING_SIMD ?= 1
+ifeq ($(WRF_CALC_P_RHO_DAMPING_SIMD),1)
+ifeq ($(WRF_SMALL_STEP_SIMD),1)
+ifeq ($(WRF_SMALL_STEP_ZEN2),1)
+ifeq ($(strip $(OMPCPP) $(OMP) $(PROMOTION) $(DOUBLE_PRECISION)),)
+ifeq ($(strip $(RWORDSIZE)),4)
+ifeq ($(strip $(IWORDSIZE)),4)
+ifeq ($(filter -fdefault-% -freal-% -finteger-% -r8 -i8,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
+ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+module_small_step_em.o: private override CPPFLAGS += -DWRF_CALC_P_RHO_DAMPING_SIMD
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+
 # Qualified GNU13.3.0/default REAL4 INTEGER4/empty OMP and OMPCPP; source DM&&!_OPENMP.
 # Opt out: make WRF_SMALL_STEP_FINISH_V_SIMD=0 and rebuild module/archive/executable.
 WRF_SMALL_STEP_FINISH_V_SIMD ?= 1

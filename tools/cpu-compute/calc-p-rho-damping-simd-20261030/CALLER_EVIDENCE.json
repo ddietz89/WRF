@@ -1,0 +1,37 @@
+{
+  "status": "ROOT_RETAIN_PRESSURE_DAMPING_SIMD_FOR_OWN_APPLICATION",
+  "root_retain_decision": true,
+  "native_qualification": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current0833-calc-p-rho-damping-simd-source-question-r1/NATIVE_QUALIFICATION.json",
+    "sha256": "97ebe4c5b7375b9a0a5918157c3acf2135175843cdc485e4362893160ac8cb30"
+  },
+  "caller_wave": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current0833-calc-p-rho-damping-simd-source-question-r1/complete-calc-pressure1024-cost-preparation-r1/ACTUAL_WAVE.json",
+    "sha256": "34b0313ab9e9a63fa07fdf0c8164bec804b69305e628adb428d28b6c326c54cc"
+  },
+  "pairs": {
+    "hpc01": {
+      "parent_wall_seconds": 0.232536171,
+      "candidate_wall_seconds": 0.145555349,
+      "wall_reduction_percent": 37.40528693920913,
+      "parent_thread_cpu_seconds": 0.232532433,
+      "candidate_thread_cpu_seconds": 0.145552384,
+      "thread_cpu_reduction_percent": 37.40555580906858
+    },
+    "hpc03": {
+      "parent_wall_seconds": 0.197815275,
+      "candidate_wall_seconds": 0.145662399,
+      "wall_reduction_percent": 26.364433181411297,
+      "parent_thread_cpu_seconds": 0.197811378,
+      "candidate_thread_cpu_seconds": 0.145657925,
+      "thread_cpu_reduction_percent": 26.365244268203835
+    }
+  },
+  "scope": "Complete synthetic188I/32K/19J nonhydrostatic step1 pressure caller; samefour mutablefield byte-restores+entirecallee+masked-query/dispatch INSIDE fixed1024 batch CLOCK_MONOTONIC_RAW/THREAD_CPUTIME integer clocks. Setup, one-role warmcheck, fullphysical/readOnly/guards/raw5 checks OUTSIDE; no forecast, isolateddamping or repeatability claim.",
+  "limits": "One opposite-order pair perhost; compute-client cacheclear before eacharm; fouridenticalrestores/entirecallee/query/dispatch inside clocks. Normal artifact verification/setup warms before clocks; server cache uncontrolled. No isolated/globalforecast or repeatability claim.",
+  "source_publicly_changed": false,
+  "application_qualified": false,
+  "performance_scope": "Both short completecaller pairs positive including restores/query/dispatch; no statistical repeatability or forecast gain inferred.",
+  "raw_public_MOD_exact": false,
+  "interface": "Original-MOD-caller qualification admits one calc_p_rho conservative ARRAY_OUTER_DEPENDENCY; all other tokens literal. O0 pool/RELA rawfalse retained with fixed referenced-byte proof."
+}

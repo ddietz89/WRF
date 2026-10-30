@@ -1,0 +1,228 @@
+{
+  "status": "PASS_SCOPED_PRESSURE_DAMPING_O2_O0_COMPLETE_RAW_FIVE_PENDING_COST",
+  "utc": "2026-10-30T12:50:48.306355+00:00",
+  "source_PP_sha256": "9aea15163a5f792397b2ee2e5da33d2a7a56451328e4b5b914f07f7b106fad3e",
+  "objects": {
+    "O2": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current0833-calcp-damping-SIMD-native-hpc02-r4/work/O2/candidate/module_small_step_em.o",
+      "sha256": "bff751357a675282905758b58ac70089e3f3ef2ee094d77a215327dac0dc076b"
+    },
+    "O0": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current0833-calcp-damping-SIMD-native-hpc02-r5/work/O0/candidate/module_small_step_em.o",
+      "sha256": "765b1a83e9742054e699e62208a81a224ce57c5100d52b18e592685141e765e0"
+    }
+  },
+  "cases_each_role_each_option": 440,
+  "comparisons": [
+    {
+      "level": "O2",
+      "fixture": "synthetic_driver.f90",
+      "cases": 384,
+      "bytes": 20282880,
+      "parent_sha256": "1459481bf88b8a3887b95973b9bafe34b6a0e5863701933fd8edbdc0904c298f",
+      "candidate_sha256": "1459481bf88b8a3887b95973b9bafe34b6a0e5863701933fd8edbdc0904c298f",
+      "exact": true
+    },
+    {
+      "level": "O2",
+      "fixture": "focused_driver.f90",
+      "cases": 56,
+      "bytes": 2957920,
+      "parent_sha256": "411205aca5bcdd8a579686bc008f4d26db0076b91ad6f359faca89923ae46834",
+      "candidate_sha256": "411205aca5bcdd8a579686bc008f4d26db0076b91ad6f359faca89923ae46834",
+      "exact": true
+    },
+    {
+      "level": "O0",
+      "fixture": "synthetic_driver.f90",
+      "cases": 384,
+      "bytes": 20282880,
+      "parent_sha256": "1459481bf88b8a3887b95973b9bafe34b6a0e5863701933fd8edbdc0904c298f",
+      "candidate_sha256": "1459481bf88b8a3887b95973b9bafe34b6a0e5863701933fd8edbdc0904c298f",
+      "exact": true
+    },
+    {
+      "level": "O0",
+      "fixture": "focused_driver.f90",
+      "cases": 56,
+      "bytes": 2957920,
+      "parent_sha256": "58468963ca7dbc56d17c835dab788baceb30063b7d606cc8ec68d8aa87ba6b88",
+      "candidate_sha256": "58468963ca7dbc56d17c835dab788baceb30063b7d606cc8ec68d8aa87ba6b88",
+      "exact": true
+    }
+  ],
+  "O2_receipt": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current0833-calc-p-rho-damping-simd-source-question-r1/native-O2-O0-cached-originalMOD-continuation-r4-hpc02/actual-native-r1/receipt.json",
+    "sha256": "6ff375901bbfd59e5fc0a6979cf0bf32344fd499ed4206c241f2981dcc7db6cc"
+  },
+  "O2_container_failed_closure": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current0833-calc-p-rho-damping-simd-source-question-r1/native-O2-O0-cached-originalMOD-continuation-r4-hpc02/actual-native-r1/closure.json",
+    "sha256": "b0e5eef2a891ed40712171962b10792f589c62f343f8902f76c313cad68e9053"
+  },
+  "O2_worker_status": "FAIL_RETAINED_NO_RETRY",
+  "O2_scope": "Four native subprocesses returned0 and440 observations passed; containing worker later stopped at O0 metadata gate. That failed worker is retained, not relabeled normal.",
+  "O0_receipt": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current0833-calc-p-rho-damping-simd-source-question-r1/native-O0-cached-reference-continuation-r5-hpc02/actual-collection-continuation-r1/receipt.json",
+    "sha256": "6ee34919d6681fe045ebcb4233cc4a5a9f345b2f1fbbdcab7ecfe6b332aee80b"
+  },
+  "O0_normal_closure": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current0833-calc-p-rho-damping-simd-source-question-r1/native-O0-cached-reference-continuation-r5-hpc02/actual-collection-continuation-r1/closure.json",
+    "sha256": "3999ffa92a62d07166f4a99e4f8898ba4d801b769ca1d8f28f6604c72ec0b5d8"
+  },
+  "raw_public_MOD_exact": false,
+  "original_MOD_interface_qualifications": {
+    "O2": {
+      "status": "PASS_FIXED_CALC_P_RHO_ONE_CONSERVATIVE_ATTRIBUTE",
+      "raw_exact": false,
+      "parent_sha256": "d50c501497b927ad56b9bb3b7cb9431c827b8092cedf23e83d8f573ccb884b94",
+      "candidate_sha256": "f7eaa5318ef8ffa435c36f384f8b3a1907accbdd92ec95fd6145b81f87106daf",
+      "parent_tokens": 376801,
+      "candidate_tokens": 376802,
+      "all_other_tokens_exact": true,
+      "procedure": "module_small_step_em::calc_p_rho"
+    },
+    "O0": {
+      "status": "PASS_FIXED_CALC_P_RHO_ONE_CONSERVATIVE_ATTRIBUTE",
+      "raw_exact": false,
+      "parent_sha256": "d50c501497b927ad56b9bb3b7cb9431c827b8092cedf23e83d8f573ccb884b94",
+      "candidate_sha256": "f7eaa5318ef8ffa435c36f384f8b3a1907accbdd92ec95fd6145b81f87106daf",
+      "parent_tokens": 376801,
+      "candidate_tokens": 376802,
+      "all_other_tokens_exact": true,
+      "procedure": "module_small_step_em::calc_p_rho"
+    }
+  },
+  "actual_profile_and_scalar_parent_identity": {
+    "profile_ELF": "0daea20814c9902bba3122de70ab346462ae42eac27cc6148df24b5a8c4a67f1",
+    "member": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/current6bc4-finish-final-theta-native-hpc04-r1/work/O2/candidate/module_small_step_em.o",
+      "sha256": "67d5cff31a7669625721f975c7cf161db2a06a47fa895faa5adad428f0f59bef"
+    },
+    "target_raw_sha256": "defe1a59264ab734ead5c645158d63be4fde08c3580e0c2df72a17d6d003462d",
+    "windows": {
+      "0xe50": {
+        "bytes": "c4c17a100c07",
+        "instruction": "vmovss (%r15,%rax,1),%xmm1"
+      },
+      "0xe56": {
+        "bytes": "c5f25c0402",
+        "instruction": "vsubss (%rdx,%rax,1),%xmm1,%xmm0"
+      },
+      "0xe5b": {
+        "bytes": "c5fa110c02",
+        "instruction": "vmovss %xmm1,(%rdx,%rax,1)"
+      },
+      "0xe60": {
+        "bytes": "c5fa59c2",
+        "instruction": "vmulss %xmm2,%xmm0,%xmm0"
+      },
+      "0xe64": {
+        "bytes": "c5fa58c1",
+        "instruction": "vaddss %xmm1,%xmm0,%xmm0"
+      },
+      "0xe68": {
+        "bytes": "c4c17a110407",
+        "instruction": "vmovss %xmm0,(%r15,%rax,1)"
+      },
+      "0xe6e": {
+        "bytes": "4883c004",
+        "instruction": "add    $0x4,%rax"
+      },
+      "0xe72": {
+        "bytes": "4839c8",
+        "instruction": "cmp    %rcx,%rax"
+      },
+      "0xe75": {
+        "bytes": "75d9",
+        "instruction": "jne    cb70 <__module_small_step_em_MOD_calc_p_rho+0xe50>"
+      },
+      "0xe77": {
+        "bytes": "ffc6",
+        "instruction": "inc    %esi"
+      }
+    },
+    "source_profile_member_exact": true,
+    "limits": "Direct sampled offsets e60/e6e locate scalar suffix; no global/removable share."
+  },
+  "production_O2_machine": {
+    "non_target": {
+      "__module_small_step_em_MOD_advance_mu_t": {
+        "raw_exact": true,
+        "full_RELA_exact": true
+      },
+      "__module_small_step_em_MOD_advance_uv": {
+        "raw_exact": true,
+        "full_RELA_exact": true
+      },
+      "__module_small_step_em_MOD_advance_w": {
+        "raw_exact": true,
+        "full_RELA_exact": true
+      },
+      "__module_small_step_em_MOD_calc_coef_w": {
+        "raw_exact": true,
+        "full_RELA_exact": true
+      },
+      "__module_small_step_em_MOD_init_module_small_step": {
+        "raw_exact": true,
+        "full_RELA_exact": true
+      },
+      "__module_small_step_em_MOD_small_step_finish": {
+        "raw_exact": true,
+        "full_RELA_exact": true
+      },
+      "__module_small_step_em_MOD_small_step_prep": {
+        "raw_exact": true,
+        "full_RELA_exact": true
+      },
+      "__module_small_step_em_MOD_sumflux": {
+        "raw_exact": true,
+        "full_RELA_exact": true
+      }
+    },
+    "target_parent_bytes": 3764,
+    "target_candidate_bytes": 4649,
+    "pools_exact": {
+      ".data": true,
+      ".bss": true,
+      ".rodata.cst4": true,
+      ".rodata.cst32": true,
+      ".rodata.cst16": true
+    },
+    "damping_source_line": 614,
+    "packed_damping_instructions": [
+      "cd56:\tc5 f4 5c 04 02       \tvsubps (%rdx,%rax,1),%ymm1,%ymm0",
+      "cd60:\tc5 fc 59 c3          \tvmulps %ymm3,%ymm0,%ymm0",
+      "cd64:\tc5 fc 58 c1          \tvaddps %ymm1,%ymm0,%ymm0",
+      "cdb6:\tc5 f0 5c 02          \tvsubps (%rdx),%xmm1,%xmm0",
+      "cdca:\tc5 f8 59 c4          \tvmulps %xmm4,%xmm0,%xmm0",
+      "cdce:\tc5 f8 58 c1          \tvaddps %xmm1,%xmm0,%xmm0"
+    ]
+  },
+  "O0_machine_scope": {
+    "status": "PASS_FIXED_ACTUAL_O0_RAW_NON_TARGET_AND_REFERENCED_BYTES",
+    "raw_RELA_exact": false,
+    "raw_rodata_exact": false,
+    "raw_non_target_exact": true,
+    "scalar_m32_PC32_references_exact": 67,
+    "absolute_diagnostic_references_exact": 1452,
+    "unique_diagnostic_strings": 149,
+    "rodata_sizes": [
+      45908,
+      46196
+    ],
+    "limits": "Finite reference equivalence only; no generic relocation normalization, universal unwind or non-target execution qualification."
+  },
+  "raw_O0_RELA_and_rodata_exact": false,
+  "performance_qualified": false,
+  "application_qualified": false,
+  "unmasked_runtime_qualified": false,
+  "source_publicly_changed": false,
+  "frozen_failure_history": {
+    "R1": "Missing controller field; no staging or job.",
+    "R2": "Nested SSH target mismatch caught by hostname guard; no staging or job.",
+    "R3": "O2 compile/raw MOD failure before native; one exact conservative attribute diagnosed.",
+    "R4": "O2440 exact; later O0 non-target relocation gate.",
+    "R5": "O0440 exact normalworker; original collector receipt limit exceeded, separately recovered without repeating native."
+  },
+  "next_action": "Build one complete synthetic NH nonzero-step calc_p_rho caller at representative188I/32K/19J. Include all mutable-field restores, mask query/dispatch and entire callee in wall/threadCPU intervals. Genuine original-MOD caller for parent67d5/candidatebff751, same strictO2flags. One opposite-order pair each on two idle hosts, checkedcache before everyarm, fullraw/state/readonly/halo acceptance and invocation-bound closure. Do not infer forecast gain from source/vector width."
+}
