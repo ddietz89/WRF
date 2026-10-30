@@ -1,0 +1,181 @@
+{
+  "status": "PASS_29_DEFAULT1_OPTIN_OPTOUT_AND_UNSUPPORTED_GUARD_CONTEXTS_STUB_COMPILERS",
+  "cases": [
+    {
+      "case": "default1",
+      "enabled": true,
+      "expected": true,
+      "stdout": "ENABLE=1\nMODULES=wrf_rkscalar_original.o sentinel_module.o\nOBJS=wrf_phy_interp_mask.o sentinel.o wrf_rkscalar_public_dispatch.o wrf_rkscalar_later_fast.o wrf_rkscalar_consumer_ordered4.o\nOBSOLETE=module_em.o\n"
+    },
+    {
+      "case": "strict_on",
+      "enabled": true,
+      "expected": true,
+      "stdout": "ENABLE=1\nMODULES=wrf_rkscalar_original.o sentinel_module.o\nOBJS=wrf_phy_interp_mask.o sentinel.o wrf_rkscalar_public_dispatch.o wrf_rkscalar_later_fast.o wrf_rkscalar_consumer_ordered4.o\nOBSOLETE=module_em.o\n"
+    },
+    {
+      "case": "explicit_off",
+      "enabled": false,
+      "expected": false,
+      "stdout": "ENABLE=\nMODULES=module_em.o sentinel_module.o\nOBJS=wrf_phy_interp_mask.o sentinel.o\nOBSOLETE=wrf_rkscalar_original.o wrf_rkscalar_public_dispatch.o wrf_rkscalar_later_fast.o wrf_rkscalar_consumer_ordered4.o\n"
+    },
+    {
+      "case": "no_tendency_SIMD",
+      "enabled": false,
+      "expected": false,
+      "stdout": "ENABLE=\nMODULES=module_em.o sentinel_module.o\nOBJS=wrf_phy_interp_mask.o sentinel.o\nOBSOLETE=wrf_rkscalar_original.o wrf_rkscalar_public_dispatch.o wrf_rkscalar_later_fast.o wrf_rkscalar_consumer_ordered4.o\n"
+    },
+    {
+      "case": "no_exact_clear",
+      "enabled": false,
+      "expected": false,
+      "stdout": "ENABLE=\nMODULES=module_em.o sentinel_module.o\nOBJS=wrf_phy_interp_mask.o sentinel.o\nOBSOLETE=wrf_rkscalar_original.o wrf_rkscalar_public_dispatch.o wrf_rkscalar_later_fast.o wrf_rkscalar_consumer_ordered4.o\n"
+    },
+    {
+      "case": "no_firststage_pipeline",
+      "enabled": false,
+      "expected": false,
+      "stdout": "ENABLE=\nMODULES=module_em.o sentinel_module.o\nOBJS=wrf_phy_interp_mask.o sentinel.o\nOBSOLETE=wrf_rkscalar_original.o wrf_rkscalar_public_dispatch.o wrf_rkscalar_later_fast.o wrf_rkscalar_consumer_ordered4.o\n"
+    },
+    {
+      "case": "disabled_firststage",
+      "enabled": false,
+      "expected": false,
+      "stdout": "ENABLE=\nMODULES=module_em.o sentinel_module.o\nOBJS=wrf_phy_interp_mask.o sentinel.o\nOBSOLETE=wrf_rkscalar_original.o wrf_rkscalar_public_dispatch.o wrf_rkscalar_later_fast.o wrf_rkscalar_consumer_ordered4.o\n"
+    },
+    {
+      "case": "real8",
+      "enabled": false,
+      "expected": false,
+      "stdout": "ENABLE=\nMODULES=module_em.o sentinel_module.o\nOBJS=wrf_phy_interp_mask.o sentinel.o\nOBSOLETE=wrf_rkscalar_original.o wrf_rkscalar_public_dispatch.o wrf_rkscalar_later_fast.o wrf_rkscalar_consumer_ordered4.o\n"
+    },
+    {
+      "case": "int8",
+      "enabled": false,
+      "expected": false,
+      "stdout": "ENABLE=\nMODULES=module_em.o sentinel_module.o\nOBJS=wrf_phy_interp_mask.o sentinel.o\nOBSOLETE=wrf_rkscalar_original.o wrf_rkscalar_public_dispatch.o wrf_rkscalar_later_fast.o wrf_rkscalar_consumer_ordered4.o\n"
+    },
+    {
+      "case": "O0",
+      "enabled": false,
+      "expected": false,
+      "stdout": "ENABLE=\nMODULES=module_em.o sentinel_module.o\nOBJS=wrf_phy_interp_mask.o sentinel.o\nOBSOLETE=wrf_rkscalar_original.o wrf_rkscalar_public_dispatch.o wrf_rkscalar_later_fast.o wrf_rkscalar_consumer_ordered4.o\n"
+    },
+    {
+      "case": "O3",
+      "enabled": false,
+      "expected": false,
+      "stdout": "ENABLE=\nMODULES=module_em.o sentinel_module.o\nOBJS=wrf_phy_interp_mask.o sentinel.o\nOBSOLETE=wrf_rkscalar_original.o wrf_rkscalar_public_dispatch.o wrf_rkscalar_later_fast.o wrf_rkscalar_consumer_ordered4.o\n"
+    },
+    {
+      "case": "fastmath",
+      "enabled": false,
+      "expected": false,
+      "stdout": "ENABLE=\nMODULES=module_em.o sentinel_module.o\nOBJS=wrf_phy_interp_mask.o sentinel.o\nOBSOLETE=wrf_rkscalar_original.o wrf_rkscalar_public_dispatch.o wrf_rkscalar_later_fast.o wrf_rkscalar_consumer_ordered4.o\n"
+    },
+    {
+      "case": "contract",
+      "enabled": false,
+      "expected": false,
+      "stdout": "ENABLE=\nMODULES=module_em.o sentinel_module.o\nOBJS=wrf_phy_interp_mask.o sentinel.o\nOBSOLETE=wrf_rkscalar_original.o wrf_rkscalar_public_dispatch.o wrf_rkscalar_later_fast.o wrf_rkscalar_consumer_ordered4.o\n"
+    },
+    {
+      "case": "no_strict_fp",
+      "enabled": false,
+      "expected": false,
+      "stdout": "ENABLE=\nMODULES=module_em.o sentinel_module.o\nOBJS=wrf_phy_interp_mask.o sentinel.o\nOBSOLETE=wrf_rkscalar_original.o wrf_rkscalar_public_dispatch.o wrf_rkscalar_later_fast.o wrf_rkscalar_consumer_ordered4.o\n"
+    },
+    {
+      "case": "OpenMP",
+      "enabled": false,
+      "expected": false,
+      "stdout": "ENABLE=\nMODULES=module_em.o sentinel_module.o\nOBJS=wrf_phy_interp_mask.o sentinel.o\nOBSOLETE=wrf_rkscalar_original.o wrf_rkscalar_public_dispatch.o wrf_rkscalar_later_fast.o wrf_rkscalar_consumer_ordered4.o\n"
+    },
+    {
+      "case": "OMP_macro",
+      "enabled": false,
+      "expected": false,
+      "stdout": "ENABLE=\nMODULES=module_em.o sentinel_module.o\nOBJS=wrf_phy_interp_mask.o sentinel.o\nOBSOLETE=wrf_rkscalar_original.o wrf_rkscalar_public_dispatch.o wrf_rkscalar_later_fast.o wrf_rkscalar_consumer_ordered4.o\n"
+    },
+    {
+      "case": "stubmpi",
+      "enabled": false,
+      "expected": false,
+      "stdout": "ENABLE=\nMODULES=module_em.o sentinel_module.o\nOBJS=wrf_phy_interp_mask.o sentinel.o\nOBSOLETE=wrf_rkscalar_original.o wrf_rkscalar_public_dispatch.o wrf_rkscalar_later_fast.o wrf_rkscalar_consumer_ordered4.o\n"
+    },
+    {
+      "case": "serial",
+      "enabled": false,
+      "expected": false,
+      "stdout": "ENABLE=\nMODULES=module_em.o sentinel_module.o\nOBJS=wrf_phy_interp_mask.o sentinel.o\nOBSOLETE=wrf_rkscalar_original.o wrf_rkscalar_public_dispatch.o wrf_rkscalar_later_fast.o wrf_rkscalar_consumer_ordered4.o\n"
+    },
+    {
+      "case": "chem",
+      "enabled": false,
+      "expected": false,
+      "stdout": "ENABLE=\nMODULES=module_em.o sentinel_module.o\nOBJS=wrf_phy_interp_mask.o sentinel.o\nOBSOLETE=wrf_rkscalar_original.o wrf_rkscalar_public_dispatch.o wrf_rkscalar_later_fast.o wrf_rkscalar_consumer_ordered4.o\n"
+    },
+    {
+      "case": "4dvar",
+      "enabled": false,
+      "expected": false,
+      "stdout": "ENABLE=\nMODULES=module_em.o sentinel_module.o\nOBJS=wrf_phy_interp_mask.o sentinel.o\nOBSOLETE=wrf_rkscalar_original.o wrf_rkscalar_public_dispatch.o wrf_rkscalar_later_fast.o wrf_rkscalar_consumer_ordered4.o\n"
+    },
+    {
+      "case": "realpromotion",
+      "enabled": false,
+      "expected": false,
+      "stdout": "ENABLE=\nMODULES=module_em.o sentinel_module.o\nOBJS=wrf_phy_interp_mask.o sentinel.o\nOBSOLETE=wrf_rkscalar_original.o wrf_rkscalar_public_dispatch.o wrf_rkscalar_later_fast.o wrf_rkscalar_consumer_ordered4.o\n"
+    },
+    {
+      "case": "x87",
+      "enabled": false,
+      "expected": false,
+      "stdout": "ENABLE=\nMODULES=module_em.o sentinel_module.o\nOBJS=wrf_phy_interp_mask.o sentinel.o\nOBSOLETE=wrf_rkscalar_original.o wrf_rkscalar_public_dispatch.o wrf_rkscalar_later_fast.o wrf_rkscalar_consumer_ordered4.o\n"
+    },
+    {
+      "case": "march",
+      "enabled": false,
+      "expected": false,
+      "stdout": "ENABLE=\nMODULES=module_em.o sentinel_module.o\nOBJS=wrf_phy_interp_mask.o sentinel.o\nOBSOLETE=wrf_rkscalar_original.o wrf_rkscalar_public_dispatch.o wrf_rkscalar_later_fast.o wrf_rkscalar_consumer_ordered4.o\n"
+    },
+    {
+      "case": "C_AVX",
+      "enabled": false,
+      "expected": false,
+      "stdout": "ENABLE=\nMODULES=module_em.o sentinel_module.o\nOBJS=wrf_phy_interp_mask.o sentinel.o\nOBSOLETE=wrf_rkscalar_original.o wrf_rkscalar_public_dispatch.o wrf_rkscalar_later_fast.o wrf_rkscalar_consumer_ordered4.o\n"
+    },
+    {
+      "case": "m32",
+      "enabled": false,
+      "expected": false,
+      "stdout": "ENABLE=\nMODULES=module_em.o sentinel_module.o\nOBJS=wrf_phy_interp_mask.o sentinel.o\nOBSOLETE=wrf_rkscalar_original.o wrf_rkscalar_public_dispatch.o wrf_rkscalar_later_fast.o wrf_rkscalar_consumer_ordered4.o\n"
+    },
+    {
+      "case": "m64",
+      "enabled": true,
+      "expected": true,
+      "stdout": "ENABLE=1\nMODULES=wrf_rkscalar_original.o sentinel_module.o\nOBJS=wrf_phy_interp_mask.o sentinel.o wrf_rkscalar_public_dispatch.o wrf_rkscalar_later_fast.o wrf_rkscalar_consumer_ordered4.o\nOBSOLETE=module_em.o\n"
+    },
+    {
+      "case": "missing_objcopy",
+      "enabled": false,
+      "expected": false,
+      "stdout": "ENABLE=\nMODULES=module_em.o sentinel_module.o\nOBJS=wrf_phy_interp_mask.o sentinel.o\nOBSOLETE=wrf_rkscalar_original.o wrf_rkscalar_public_dispatch.o wrf_rkscalar_later_fast.o wrf_rkscalar_consumer_ordered4.o\n"
+    },
+    {
+      "case": "oldGNU",
+      "enabled": false,
+      "expected": false,
+      "stdout": "ENABLE=\nMODULES=module_em.o sentinel_module.o\nOBJS=wrf_phy_interp_mask.o sentinel.o\nOBSOLETE=wrf_rkscalar_original.o wrf_rkscalar_public_dispatch.o wrf_rkscalar_later_fast.o wrf_rkscalar_consumer_ordered4.o\n"
+    },
+    {
+      "case": "nonx86",
+      "enabled": false,
+      "expected": false,
+      "stdout": "ENABLE=\nMODULES=module_em.o sentinel_module.o\nOBJS=wrf_phy_interp_mask.o sentinel.o\nOBSOLETE=wrf_rkscalar_original.o wrf_rkscalar_public_dispatch.o wrf_rkscalar_later_fast.o wrf_rkscalar_consumer_ordered4.o\n"
+    }
+  ],
+  "Makefile_proposed_sha256": "a0b2236ed33f92d891e3fc5a8bbd223f3774c38a40a32a081e184837b388f86c",
+  "scope": "Actualmake parse/variable-owner transitions with compiler version/targetstubs andactualGNUar/objcopy; no compileridentity/native/codegen/fullbuild orSCI certificate. OriginalModuleEMsourceunchanged."
+}

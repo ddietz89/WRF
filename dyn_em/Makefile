@@ -55,6 +55,7 @@ OBJS    = 		        \
 LIBTARGET    =  dyn_em
 TARGETDIR    =  ./
 $(LIBTARGET) :  $(MODULES) $(OBJS)
+		$(WRF_RKSCALAR_ARCHIVE_PREPARE)
 		$(AR) $(ARFLAGS) ../main/$(LIBWRFLIB) $(MODULES) $(OBJS)
 
 include ../configure.wrf
@@ -1771,5 +1772,91 @@ endif
 endif
 
 
+endif
+endif
+
+# Ordered late RK scalar reconstruction; default1 only in qualified build context.
+# module_em.o and its public MOD remain original. Symbol aliases are separate files.
+WRF_RKSCALAR_ORDERED4 ?= 1
+WRF_RKSCALAR_OBJCOPY ?= objcopy
+WRF_RKSCALAR_BUILD_ENABLED :=
+WRF_RKSCALAR_OBSOLETE_MEMBERS = wrf_rkscalar_original.o wrf_rkscalar_public_dispatch.o wrf_rkscalar_later_fast.o wrf_rkscalar_consumer_ordered4.o
+WRF_RKSCALAR_ARCHIVE_PREPARE =
+# Refresh the whole dyn_em archive after on/off transitions; no stale duplicate owner.
+ifneq (,$(findstring GNU ar,$(shell $(AR) --version 2>/dev/null)))
+WRF_RKSCALAR_ARCHIVE_PREPARE = @if test -f ../main/$(LIBWRFLIB); then $(AR) d ../main/$(LIBWRFLIB) $(WRF_RKSCALAR_OBSOLETE_MEMBERS); fi
+endif
+ifeq ($(WRF_RKSCALAR_ORDERED4),1)
+ifeq ($(WRF_RK_TENDENCY_SIMD),1)
+ifeq ($(WRF_RK_SCALAR_EXACT_CLEAR),1)
+ifeq ($(WRF_RK_SCALAR_FIRSTSTAGE_ROW_PIPELINE),1)
+ifeq ($(WRF_DISABLE_RK_SCALAR_FIRSTSTAGE_ROW_PIPELINE),0)
+ifeq ($(strip $(OMPCPP) $(OMP) $(OMPCC) $(PROMOTION) $(DOUBLE_PRECISION)),)
+ifeq ($(filter -fopenmp -fopenmp=%,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC) $(CFLAGS)),)
+ifeq ($(strip $(RWORDSIZE)),4)
+ifeq ($(strip $(IWORDSIZE)),4)
+ifeq ($(filter -fdefault-% -freal-% -finteger-% -r8 -i8,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
+ifeq ($(sort $(filter -O%,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC))),-O2)
+ifeq ($(filter -ffast-math -Ofast -ffinite-math-only -funsafe-math-optimizations -freciprocal-math -ffp-contract=fast -fno-signed-zeros -fassociative-math -fno-trapping-math,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC) $(CFLAGS)),)
+ifneq (,$(filter -fno-fast-math,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG)))
+ifneq (,$(filter -ffp-contract=off,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG)))
+ifeq ($(filter-out -ffp-contract=off,$(filter -ffp-contract=%,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC) $(CFLAGS))),)
+ifeq ($(filter -D_OPENMP -D_OPENMP=% -DSTUBMPI% -DWRF_CHEM% -DWRFPLUS% -DDVAR4D%,$(CPPFLAGS) $(ARCHFLAGS)),)
+ifneq (,$(filter -DDM_PARALLEL -DDM_PARALLEL=%,$(CPPFLAGS)))
+ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+ifneq (,$(findstring GNU Fortran,$(shell $(FC) --version 2>/dev/null)))
+ifeq ($(shell $(FC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+ifeq ($(shell $(CC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+ifneq (,$(filter x86_64%,$(shell $(SFC) -dumpmachine 2>/dev/null)))
+ifneq (,$(filter x86_64%,$(shell $(CC) -dumpmachine 2>/dev/null)))
+ifeq ($(filter-out -m64,$(filter -m%,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC) $(CFLAGS) $(CC))),)
+ifneq (,$(findstring GNU objcopy,$(shell $(WRF_RKSCALAR_OBJCOPY) --version 2>/dev/null)))
+ifneq (,$(findstring GNU ar,$(shell $(AR) --version 2>/dev/null)))
+WRF_RKSCALAR_BUILD_ENABLED := 1
+MODULES := $(subst module_em.o,wrf_rkscalar_original.o,$(MODULES))
+OBJS += wrf_rkscalar_public_dispatch.o wrf_rkscalar_later_fast.o wrf_rkscalar_consumer_ordered4.o
+WRF_RKSCALAR_OBSOLETE_MEMBERS = module_em.o
+$(LIBTARGET): wrf_rkscalar_original.o wrf_rkscalar_public_dispatch.o wrf_rkscalar_later_fast.o wrf_rkscalar_consumer_ordered4.o
+wrf_rkscalar_original.o: module_em.o
+	$(WRF_RKSCALAR_OBJCOPY) --redefine-sym __module_em_MOD_rk_update_scalar=wrf_rkscalar_original_ $< $@
+wrf_rkscalar_public_dispatch.o: wrf_rkscalar_dispatch.o
+	$(WRF_RKSCALAR_OBJCOPY) --redefine-sym __wrf_rkscalar_dispatch_module_MOD_rk_update_scalar=__module_em_MOD_rk_update_scalar $< $@
+wrf_rkscalar_dispatch.o: wrf_rkscalar_dispatch.F wrf_rkscalar_later_fast.o
+wrf_rkscalar_later_fast.o: wrf_rkscalar_later_fast.F module_em.o
+wrf_rkscalar_dispatch.o wrf_rkscalar_later_fast.o: private override FCFLAGS += -fopenmp-simd
+wrf_rkscalar_consumer_ordered4.o: wrf_rkscalar_consumer_ordered4.c
+	$(CC) $(CFLAGS) -O2 -std=c11 -msse2 -fno-fast-math -ffp-contract=off -fno-lto -fno-stack-protector -g -c $< -o $@
+ifeq (,$(filter wrf_phy_interp_mask.o,$(OBJS)))
+OBJS += wrf_phy_interp_mask.o
+$(LIBTARGET): wrf_phy_interp_mask.o
+wrf_phy_interp_mask.o: wrf_phy_interp_mask.c
+	$(CC) $(CFLAGS) -O2 -std=c11 -fno-fast-math -ffp-contract=off -fno-lto -fno-stack-protector -c $< -o $@
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
 endif
 endif

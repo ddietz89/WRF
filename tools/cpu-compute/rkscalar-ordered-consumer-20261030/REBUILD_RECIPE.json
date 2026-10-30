@@ -1,0 +1,71 @@
+{
+  "status": "QUALIFIED_COMPONENT_RECIPE_CORRESPONDENCE_NOT_CLEAN_FULL_SOURCE_BUILD",
+  "default": 1,
+  "knob": "WRF_RKSCALAR_ORDERED4",
+  "optout": 0,
+  "sources": {
+    "dyn_em/Makefile": {
+      "path": "/home/ddietz/wrf/WRF/dyn_em/Makefile",
+      "sha256": "a0b2236ed33f92d891e3fc5a8bbd223f3774c38a40a32a081e184837b388f86c"
+    },
+    "dyn_em/wrf_rkscalar_dispatch.F": {
+      "path": "/home/ddietz/wrf/WRF/dyn_em/wrf_rkscalar_dispatch.F",
+      "sha256": "62132f27457a134a10a3c4ce1dbd1156a8d7b5db36f121cc4220e7ea0490ada1"
+    },
+    "dyn_em/wrf_rkscalar_later_fast.F": {
+      "path": "/home/ddietz/wrf/WRF/dyn_em/wrf_rkscalar_later_fast.F",
+      "sha256": "31b762ad334621ffc94f0abf2b32f6914c6c80f8ce3b1345aa827dcf15fe51ec"
+    },
+    "dyn_em/wrf_rkscalar_consumer_ordered4.c": {
+      "path": "/home/ddietz/wrf/WRF/dyn_em/wrf_rkscalar_consumer_ordered4.c",
+      "sha256": "5d9b8c00a15763221c6d97fdcf2a7a77548537ed2de9665052ff0dfb842ebbd5"
+    }
+  },
+  "original_module_source": {
+    "path": "/home/ddietz/wrf/WRF/dyn_em/module_em.F",
+    "sha256": "8ddbcd06cacdc3c553efbc589080b44e3c53a00c090eabf11c0a47453eba3d48"
+  },
+  "original_object_and_public_MOD_unchanged": true,
+  "artifact_members": {
+    "wrf_rkscalar_original.o": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentbcb9-rkscalar-ordered-consumer-native-hpc02-r1/work/original-alias.o",
+      "sha256": "a3b1f7ccf69799c46b736027c2d4bb6f1e6bfeae2e423da0a23b4ff8e512b628"
+    },
+    "wrf_rkscalar_public_dispatch.o": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentbcb9-rkscalar-ordered-consumer-native-hpc02-r1/work/public-dispatch.o",
+      "sha256": "b6b95fcef2209ba25d7094268a96ac581e8f4f9cca7a808d1feba58a63b5df69"
+    },
+    "wrf_rkscalar_later_fast.o": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentbcb9-rkscalar-ordered-consumer-native-hpc02-r1/work/fast.o",
+      "sha256": "7bfc0884a307e63c01e0c6b2baf870d8ef45ad24fef0e612ffdd080c9bb2a9e3"
+    },
+    "wrf_rkscalar_consumer_ordered4.o": {
+      "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentbcb9-rkscalar-ordered-consumer-native-hpc02-r1/work/ordered-consumer.o",
+      "sha256": "ad5eebcc801abb5ece862742937dd2315682abdd08cd0be3bd04eaa0108d3dd6"
+    }
+  },
+  "public_MOD": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/currentfb13-whole49-cu-fusion-native-hpc04-r1/work/candidate/module_em.mod",
+    "sha256": "096ac818e357334f69059954fb937e15c0314a1c433807e31c6dada4949cea42"
+  },
+  "support": "GNU13.3 strictO2 pureMPI REAL4/INT4 genericx86_64, existing RK tendency/exact-clear/firststage knobs enabled, empty OpenMP/promotion, hard IEEE state. Other contexts use original ModuleEM.",
+  "rebuild": "Regenerate and compile original module_em.o normally. Make creates a separate relabeled original object, public dispatcher alias and two private fast/helper objects. Rebuild dyn_em archive and relink the model after either on/off transition; hook removes stale owners. Explicit0 returns to original public ModuleEM member.",
+  "recipe_proof": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/rkscalar-ordered-consumer-20261030/CANONICAL_RECIPE_RECEIPT.json",
+    "sha256": "c949badae609e63cd3cee4e750afc7a95622db2716512cf6b6fdd519d27d3f22"
+  },
+  "recipe_closure": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/rkscalar-ordered-consumer-20261030/CANONICAL_RECIPE_CLOSURE.json",
+    "sha256": "92db985dc5f94aec141831ae4cb64cc197983f0d651fce96a5ef637e4f7f4bff"
+  },
+  "clean_full_source_rebuild_qualified": false,
+  "raw_producer_source_commit": null,
+  "rollback_executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/currenta218-diffusion3dmp-ordered4-experimental-r1/wrf.exe",
+    "sha256": "bcb94734557275930a1d7e9f3920e0cf51261ce008d4311a3887bb3c5a5f80e4"
+  },
+  "rollback_archive": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/currenta218-diffusion3dmp-ordered4-experimental-r1/libwrflib.a",
+    "sha256": "6bba10d9b4740d94f89df622f4eebeeb6380d94065b6069fb999b37fc6310cb9"
+  }
+}
