@@ -1,0 +1,119 @@
+{
+  "status": "COMPLETE_ACTUAL375_COMPONENT_PLACEMENT_SCREEN_ALL_FIVE_SCOPES_PASS_STRONGLY_CLOSED",
+  "decision": "PARK_QUILT_ONLY_PLACEMENT_FOR_APPLICATION; isolated opposite-order component wall slower in both pairs, no WRF inference",
+  "arms": [
+    {
+      "arm": 0,
+      "invocation_id": "5eb67a2e698d48e9b721a0909182903a",
+      "placement": "loan",
+      "calls": 16,
+      "complete_provider_call_wall_ns": 701606451,
+      "process_cpu_ns": 2121030510,
+      "errno": 33,
+      "flags": 36,
+      "round": 2048,
+      "mxcsr": 24452,
+      "x87cw": 2943,
+      "exact_raw_readonly_gold": true,
+      "release_outside_clock": true,
+      "no_MPI512_activation": true,
+      "wall_seconds": 0.701606451,
+      "process_cpu_seconds": 2.12103051
+    },
+    {
+      "arm": 1,
+      "invocation_id": "3b9cdf766f8247dd85e02c4afc0522c9",
+      "placement": "quilt",
+      "calls": 16,
+      "complete_provider_call_wall_ns": 830067294,
+      "process_cpu_ns": 2005079290,
+      "errno": 33,
+      "flags": 36,
+      "round": 2048,
+      "mxcsr": 24452,
+      "x87cw": 2943,
+      "exact_raw_readonly_gold": true,
+      "release_outside_clock": true,
+      "no_MPI512_activation": true,
+      "wall_seconds": 0.830067294,
+      "process_cpu_seconds": 2.00507929
+    },
+    {
+      "arm": 2,
+      "invocation_id": "091c5a933ce64193a62b0db3267c4d57",
+      "placement": "quilt",
+      "calls": 16,
+      "complete_provider_call_wall_ns": 849444393,
+      "process_cpu_ns": 2007095060,
+      "errno": 33,
+      "flags": 36,
+      "round": 2048,
+      "mxcsr": 24452,
+      "x87cw": 2943,
+      "exact_raw_readonly_gold": true,
+      "release_outside_clock": true,
+      "no_MPI512_activation": true,
+      "wall_seconds": 0.849444393,
+      "process_cpu_seconds": 2.00709506
+    },
+    {
+      "arm": 3,
+      "invocation_id": "2c9c65621d884343b8a364a804ffcf4e",
+      "placement": "loan",
+      "calls": 16,
+      "complete_provider_call_wall_ns": 679673165,
+      "process_cpu_ns": 2116046030,
+      "errno": 33,
+      "flags": 36,
+      "round": 2048,
+      "mxcsr": 24452,
+      "x87cw": 2943,
+      "exact_raw_readonly_gold": true,
+      "release_outside_clock": true,
+      "no_MPI512_activation": true,
+      "wall_seconds": 0.679673165,
+      "process_cpu_seconds": 2.11604603
+    }
+  ],
+  "pairs": [
+    {
+      "loan_arm": 0,
+      "quilt_arm": 1,
+      "quilt_wall_change_percent": 18.309529910522436,
+      "quilt_process_cpu_change_percent": -5.4667398443033255
+    },
+    {
+      "loan_arm": 3,
+      "quilt_arm": 2,
+      "quilt_wall_change_percent": 24.978362651701858,
+      "quilt_process_cpu_change_percent": -5.148799622284206
+    }
+  ],
+  "fixed_work": "16 calls per arm; one four-chunk64MiB synthetic vertical geometry; callback includes pack/shuffle/codec/thread lifecycle and identical state/clock overhead; batchrelease outside clock",
+  "limits": [
+    "Short subsecond call-only samples, no repeatability or general WRF claim",
+    "Not production218MiB2x2XY shape",
+    "No compute/MPI contention or512 activation",
+    "Cross-NUMA quilt placement versus local loan; causal cost split UNKNOWN"
+  ],
+  "all_cache_boundaries_pass": true,
+  "all_raw_readonly_compressed_gold_five_state_pass": true,
+  "all_owned_hpc04_scopes_closed": true,
+  "raw_refs_sha256": {
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current-write-path-retained-triage-r1/boundary-observer-r1/quilt-only-worker-placement-screen-r1/driver-build-r1/actual-native-r1/receipt.json": "5f16dd649d199a92e9f0a4b0177d5933166285fa4064441a089378989416c504",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current-write-path-retained-triage-r1/boundary-observer-r1/quilt-only-worker-placement-screen-r1/driver-build-r1/actual-native-r1/closure.json": "a48b65134946ca6815b6c90e8edf47a80a4c5a019ca9f838f74bfd2aad9803be",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current-write-path-retained-triage-r1/boundary-observer-r1/quilt-only-worker-placement-screen-r1/driver-build-r1/actual-native-r1/controller.json": "0afdbba74e86112a87f06bb2fdbbc0c93499524ff2ecf7948d07b6f53af9661a",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current-write-path-retained-triage-r1/boundary-observer-r1/quilt-only-worker-placement-screen-r1/timing-r1/arm0/actual-native-r1/receipt.json": "94d7b58f8f72489c6c41637dd165008979ebdb33de5d7f35d74115f8058d55b8",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current-write-path-retained-triage-r1/boundary-observer-r1/quilt-only-worker-placement-screen-r1/timing-r1/arm0/actual-native-r1/closure.json": "add86ea7a876e5921b98d06e42b8ab41d033c873af37716ae72dfaa7650bed99",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current-write-path-retained-triage-r1/boundary-observer-r1/quilt-only-worker-placement-screen-r1/timing-r1/arm0/actual-native-r1/controller.json": "a15899b9b73378abef1548cf9ed8dea5d26441d3dd0759ffc7f0af3faba87520",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current-write-path-retained-triage-r1/boundary-observer-r1/quilt-only-worker-placement-screen-r1/timing-r1/arm1/actual-native-r1/receipt.json": "360973d057cd30c04ef3464946db3d8217aa3790a624bc8ccfbab16128bc24aa",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current-write-path-retained-triage-r1/boundary-observer-r1/quilt-only-worker-placement-screen-r1/timing-r1/arm1/actual-native-r1/closure.json": "dd2058f1ea61ac8b2855e054ead28f0cd6afa0515db3209851e72c3ea91ea461",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current-write-path-retained-triage-r1/boundary-observer-r1/quilt-only-worker-placement-screen-r1/timing-r1/arm1/actual-native-r1/controller.json": "35a768dc5fb715549c99ff5701ad6e521a83352e18d271c75273ee19fc9c746a",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current-write-path-retained-triage-r1/boundary-observer-r1/quilt-only-worker-placement-screen-r1/timing-r1/arm2/actual-native-r1/receipt.json": "ba5ad4a02f7e5a52c2257e1e45979eb5a2db72528c50583496d4ca0ea3a93261",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current-write-path-retained-triage-r1/boundary-observer-r1/quilt-only-worker-placement-screen-r1/timing-r1/arm2/actual-native-r1/closure.json": "b0997cb852b00e391496020080af19c64226464b210966eb583ed0cca1485f16",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current-write-path-retained-triage-r1/boundary-observer-r1/quilt-only-worker-placement-screen-r1/timing-r1/arm2/actual-native-r1/controller.json": "b6ad20b5c24dd94bceb43a5548ac00b4bab5df9567d36b565555870bb5aaf8c8",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current-write-path-retained-triage-r1/boundary-observer-r1/quilt-only-worker-placement-screen-r1/timing-r1/arm3/actual-native-r1/receipt.json": "cf1d83d27fa92d56c48e7fd5f7a33a2ab5119b2b06ca2421d3102a5b624bc33b",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current-write-path-retained-triage-r1/boundary-observer-r1/quilt-only-worker-placement-screen-r1/timing-r1/arm3/actual-native-r1/closure.json": "b43fa77ad779a10b2c1c2ebdf73fb0ec2bb8605104cc95389504938873951b72",
+    "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current-write-path-retained-triage-r1/boundary-observer-r1/quilt-only-worker-placement-screen-r1/timing-r1/arm3/actual-native-r1/controller.json": "8b0e663878638fa38c3cfaecfbf2fd0e48a8582ac941ffd141aa7c9100df52fb"
+  }
+}

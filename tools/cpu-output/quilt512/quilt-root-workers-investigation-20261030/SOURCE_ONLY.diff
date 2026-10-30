@@ -1,0 +1,16 @@
+--- parent/wrf_quilt_thread_shim.c
++++ experimental/wrf_quilt_thread_shim.c
+@@ -30,7 +30,13 @@
+ static unsigned long scopes,callbacks,supplied,declines,releases,pending,errors,widens,restores,guard_declines,terminal_guards;
+ static _Atomic unsigned long calls,foreign_calls;
+ static const int writer_ranks[4]={487,495,503,511};
++/* Experiment only: borrow the four existing quilt-root cores, preserving
++ * all MPI ranks, four workers, quotas, ownership and callback lifetimes. */
++#if defined(WRF_EXPERIMENTAL_QUILT_ROOT_WORKER_CPUS) && WRF_EXPERIMENTAL_QUILT_ROOT_WORKER_CPUS == 1
++static const int writer_cpus[4][4]={{31,63,95,127},{63,31,95,127},{95,31,63,127},{127,31,63,95}};
++#else
+ static const int writer_cpus[4][4]={{31,28,29,30},{63,60,61,62},{95,92,93,94},{127,124,125,126}};
++#endif
+ static int public_id,public_var;static const size_t *public_start,*public_count;static const void *public_raw;
+ typedef struct {int valid,declined;unsigned abi;int ncid,varid,ndims;size_t start[4],count[4],dims[4],chunks[4],total,raw_bytes,next;unsigned char fill[4];const void *raw;} put_envelope;
+ static put_envelope envelope;

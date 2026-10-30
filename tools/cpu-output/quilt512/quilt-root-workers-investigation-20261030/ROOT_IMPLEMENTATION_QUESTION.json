@@ -1,0 +1,96 @@
+{
+  "status": "EXPERIMENTAL_DEFAULT0_TABLE_PROPOSAL_NO_BUILD_OR_MODEL",
+  "utc": "2026-10-30T21:58:05.655741+00:00",
+  "question": "With the actual busy forecast, does moving the same four compression workers from three occupied compute cores to the four existing quilt-root cores reduce whole-forecast critical work enough to outweigh the already measured cross-NUMA provider penalty?",
+  "mechanism": "Only the fixed worker CPU table changes under explicit build-time macro1. MPI rank placement, compute placement, four-worker count, output data/chunk/filter/codec, memory/swap/CPU quotas, MPI progress settings, state handling, log records and per-callback joins remain unchanged. Default/explicit0 retain original table.",
+  "proposal": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current352f-fixed-quilt-root-workers-source-question-r2/wrf_quilt_thread_shim.c.proposed",
+    "sha256": "6e6f13dd501632850ee335f39d5b7569a5e5c889ba53799e803140bb2f00a7fc"
+  },
+  "canonical_parent": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-output/quilt512/wrf_quilt_thread_shim.c",
+    "sha256": "801e29cc8406d0200dee1557e4263d3ce4db46d750b63b9371083b633c952150"
+  },
+  "rank_map": {
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-output/quilt512/placement/current-rank-map.json",
+    "sha256": "faba1939c7c86d0925e690ccce5dc07605231a1f4484fbfbfb21abfca3d2b3ac"
+  },
+  "preprocessor_table_checks": [
+    {
+      "case": "absent",
+      "table_exact": true
+    },
+    {
+      "case": "explicit0",
+      "table_exact": true
+    },
+    {
+      "case": "experimental1",
+      "table_exact": true
+    },
+    {
+      "case": "unsupported2",
+      "table_exact": true
+    }
+  ],
+  "proposed_worker_maps": {
+    "487": [
+      31,
+      63,
+      95,
+      127
+    ],
+    "495": [
+      63,
+      31,
+      95,
+      127
+    ],
+    "503": [
+      95,
+      31,
+      63,
+      127
+    ],
+    "511": [
+      127,
+      31,
+      63,
+      95
+    ]
+  },
+  "current_observations": [
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current352f-writer-lifecycle-source-audit-r1/ACTUAL_WRITER_LIFECYCLE_SUMMARY.json",
+      "sha256": "c1cb7c495d2aaa3700a366875765619b76e76fb3d3bf77be83df7c5a3567befc"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current352f-writer-lifecycle-source-audit-r1/ACTUAL_SLOT_AND_CALLBACK_OVERLAP.json",
+      "sha256": "f91e2863eba801531c077ee64caefe077ff165b744db26e54792f6e354bbac08"
+    }
+  ],
+  "new_evidence": [
+    "All216 callbacks perwriter have4chunks/4workers, so8workers provide no extra chunk parallelism for these actual records.",
+    "Physical worker slots1\u20133 coincide with exact known compute ranks; slot0 sits on its quilt-root core.",
+    "Same-callback slot1\u20133/slot0 inclusive median durations are1.33\u20131.83 for487/495/503 and approximately1.01\u20131.05 forfinal511. Work contents and scheduling are not separated; this is a contention hypothesis, not causal cost.",
+    "No cross-writer callback scopes overlap in the completed3h logs; this does not prove idle other roots or absence of receive/HDF work."
+  ],
+  "prior_negative_retained": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/portfolio-a-current-write-path-retained-triage-r1/boundary-observer-r1/quilt-only-worker-placement-screen-r1/TIMING_RESULT.json",
+    "sha256": "1be11607cbbd165e2360aa74f8c1497ca6b010d343a469f8e0cb21baf3e77e36"
+  },
+  "prior_negative_scope": "Idle synthetic64MiB complete-provider quilt-only placement was18.31/24.98 percent slower in wall, despite lowerCPU. Keep that result; it does not test interference with useful forecast compute. This is one fixed busy-model question, not a map/NUMA/width sweep or version/headroom-only reopening.",
+  "separate_closed_colocation": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/co-located-eight-rank-followup-dedup-r2/DECISION.json",
+    "sha256": "7d0a619e0bf34e114a2686c446ad7bfb8ced36f57cfdd975b5567ca2d27f81d6"
+  },
+  "not_colocation": "No MPI rank/group moves. The closed b663 whole-eight-rank group placement remains closed.",
+  "pending": [
+    "Actual active parent64bb fullDSO reproduction with801e FPguard/cached78fa shim context before candidate; confirm candidate machine delta limited to CPU table/build metadata",
+    "Native full publicNC/rawchunk/error/five-state and worker-interposition checks on current dependencies; world1 negative staysnegative, no fake512 qualification",
+    "Fresh reviewed positive512 wrapper/lease and observational worker maps for this explicit CPU variant; original scientific/data/layout comparator untouched",
+    "If native passes, one bounded same352f parent/variant daytime application comparison with output overlapping integration, fixed count/order and each cache/normalclosure. No isolated gain or promotion before actual evidence."
+  ],
+  "default_source_selection_changed": false,
+  "jobs_launched": 0
+}

@@ -1,0 +1,214 @@
+#define _GNU_SOURCE
+#include <mpi.h>
+#include <netcdf.h>
+#include <pthread.h>
+#include <sched.h>
+#include <dlfcn.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <errno.h>
+#include <unistd.h>
+#include <sys/syscall.h>
+#include <limits.h>
+#include <float.h>
+#include <stdint.h>
+#include <stdatomic.h>
+#include <fenv.h>
+#include <xmmintrin.h>
+#include <zlib.h>
+#include <time.h>
+#include "root_chunk_provider.h"
+/* Fresh opt-in WORLD512 variant. Qualified legacy source/provider are untouched. */
+static int (*put_real)(int,int,const size_t*,const size_t*,const float*);
+static int (*begin_real)(nc_precompressed_float_provider,void*),(*end_real)(void);
+static pthread_t main_thread;
+static int enabled,closure_ok,root_cpu=-1,constructor_rank=-1,actual_rank=-1,mpi_level=-1;
+static root_chunk_options opt;static cpu_set_t expected_cgroup;
+static char owner_path[PATH_MAX];static FILE *logfile;static _Thread_local int busy;
+static unsigned long fp_declines;
+static unsigned long scopes,callbacks,supplied,declines,releases,pending,errors,widens,restores,guard_declines,terminal_guards;
+static _Atomic unsigned long calls,foreign_calls;
+static const int writer_ranks[4]={487,495,503,511};
+/* Experiment only: borrow the four existing quilt-root cores, preserving
+ * all MPI ranks, four workers, quotas, ownership and callback lifetimes. */
+#if defined(WRF_EXPERIMENTAL_QUILT_ROOT_WORKER_CPUS) && WRF_EXPERIMENTAL_QUILT_ROOT_WORKER_CPUS == 1
+static const int writer_cpus[4][4]={{31,63,95,127},{63,31,95,127},{95,31,63,127},{127,31,63,95}};
+#else
+static const int writer_cpus[4][4]={{31,28,29,30},{63,60,61,62},{95,92,93,94},{127,124,125,126}};
+#endif
+static int public_id,public_var;static const size_t *public_start,*public_count;static const void *public_raw;
+typedef struct {int valid,declined;unsigned abi;int ncid,varid,ndims;size_t start[4],count[4],dims[4],chunks[4],total,raw_bytes,next;unsigned char fill[4];const void *raw;} put_envelope;
+static put_envelope envelope;
+static void fatal(const char *why){if(logfile){fprintf(logfile,"{\"event\":\"fatal\",\"rank\":%d,\"reason\":\"%s\"}\n",actual_rank,why);fflush(logfile);}abort();}
+/* Observational interposition: unrelated thread operations forward unchanged. */
+typedef int (*create_fn)(pthread_t*,const pthread_attr_t*,void*(*)(void*),void*);
+typedef int (*join_fn)(pthread_t,void**);
+typedef int (*affinity_fn)(pthread_t,size_t,const cpu_set_t*);
+static _Atomic(create_fn) real_create;
+static _Atomic(join_fn) real_join;
+static _Atomic(affinity_fn) real_affinity;
+typedef struct {pthread_t handle;int valid,slot,cpu;unsigned long generation;long tid;unsigned long long startticks;void*(*fn)(void*);void*arg;} owned_worker;
+static owned_worker workers[4];static _Thread_local owned_worker *observed_worker;
+static int observing,expected_workers,create_slot;static unsigned long generation;
+static unsigned long long monotonic_ns(void){struct timespec t;if(clock_gettime(CLOCK_MONOTONIC,&t))fatal("log_clock");return (unsigned long long)t.tv_sec*1000000000ULL+(unsigned long long)t.tv_nsec;}
+static unsigned long long thread_ticks(long tid){char path[128],line[4096];if(snprintf(path,sizeof path,"/proc/self/task/%ld/stat",tid)>=(int)sizeof path)return 0;FILE*f=fopen(path,"r");if(!f)return 0;int ok=fgets(line,sizeof line,f)!=NULL;fclose(f);if(!ok)return 0;char*p=strrchr(line,')'),*save,*tok;if(!p)return 0;p+=2;int field=0;for(tok=strtok_r(p," ", &save);tok;tok=strtok_r(NULL," ",&save),field++)if(field==19){char*end;unsigned long long v=strtoull(tok,&end,10);return *end?0:v;}return 0;}
+static void log_mask(const cpu_set_t*m){int first=1;fputc('[',logfile);for(int i=0;i<CPU_SETSIZE;i++)if(CPU_ISSET(i,m)){fprintf(logfile,"%s%d",first?"":",",i);first=0;}fputc(']',logfile);}
+static void worker_event(const char*event,owned_worker*w,int rc){
+ int saved_errno=errno;fenv_t env;if(fegetenv(&env))fatal("worker_log_fenv");cpu_set_t mask;CPU_ZERO(&mask);int mask_rc=pthread_getaffinity_np(pthread_self(),sizeof mask,&mask);
+ if(!logfile||!w||!w->startticks)fatal("worker_log_identity");
+ flockfile(logfile);fprintf(logfile,"{\"event\":\"%s\",\"rank\":%d,\"generation\":%lu,\"slot\":%d,\"tid\":%ld,\"startticks\":%llu,\"expected_cpu\":%d,\"monotonic_ns\":%llu,\"status\":%d,\"affinity_status\":%d,\"observed_mask\":",event,actual_rank,w->generation,w->slot,w->tid,w->startticks,w->cpu,monotonic_ns(),rc,mask_rc);log_mask(&mask);fputs("}\n",logfile);fflush(logfile);funlockfile(logfile);
+ if(fesetenv(&env))fatal("worker_log_fenv_restore");errno=saved_errno;
+}
+static void main_event(const char*event,int slot,int rc){
+ int saved_errno=errno;fenv_t env;if(fegetenv(&env))fatal("main_log_fenv");long tid=syscall(SYS_gettid);unsigned long long ticks=thread_ticks(tid);cpu_set_t mask;CPU_ZERO(&mask);int mask_rc=pthread_getaffinity_np(pthread_self(),sizeof mask,&mask);
+ if(!logfile||!ticks)fatal("main_log_identity");
+ flockfile(logfile);fprintf(logfile,"{\"event\":\"%s\",\"rank\":%d,\"generation\":%lu,\"slot\":%d,\"tid\":%ld,\"startticks\":%llu,\"monotonic_ns\":%llu,\"status\":%d,\"affinity_status\":%d,\"worker_mask\":[%d,%d,%d,%d],\"observed_mask\":",event,actual_rank,generation,slot,tid,ticks,monotonic_ns(),rc,mask_rc,opt.cpus[0],opt.cpus[1],opt.cpus[2],opt.cpus[3]);log_mask(&mask);fputs("}\n",logfile);fflush(logfile);funlockfile(logfile);
+ if(fesetenv(&env))fatal("main_log_fenv_restore");errno=saved_errno;
+}
+static void* observed_start(void*arg){
+ owned_worker*w=arg;observed_worker=w;w->tid=syscall(SYS_gettid);w->startticks=thread_ticks(w->tid);worker_event("worker_register",w,0);
+ void*result=w->fn(w->arg);int saved_errno=errno;worker_event("worker_exit",w,0);observed_worker=NULL;errno=saved_errno;return result;
+}
+int pthread_create(pthread_t*t,const pthread_attr_t*a,void*(*fn)(void*),void*arg){
+ int saved_errno=errno;create_fn real=atomic_load(&real_create);if(!real){real=(create_fn)dlsym(RTLD_NEXT,"pthread_create");atomic_store(&real_create,real);}if(!real){errno=saved_errno;return EAGAIN;}
+ if(!pthread_equal(pthread_self(),main_thread)||!observing){errno=saved_errno;return real(t,a,fn,arg);}
+ if(create_slot>=expected_workers||create_slot>=4)fatal("worker_create_count");
+ Dl_info worker_info,provider_info;if(!dladdr((void*)fn,&worker_info)||!dladdr((void*)wps_root_provider,&provider_info)||worker_info.dli_fbase!=provider_info.dli_fbase)fatal("worker_start_owner");
+ owned_worker*w=&workers[create_slot];memset(w,0,sizeof*w);w->slot=create_slot;w->cpu=opt.cpus[create_slot];w->generation=generation;w->fn=fn;w->arg=arg;
+ main_event("worker_create_begin",create_slot,0);errno=saved_errno;int rc=real(t,a,observed_start,w);int result_errno=errno;
+ if(!rc){w->handle=*t;w->valid=1;create_slot++;}main_event("worker_create_return",w->slot,rc);errno=result_errno;return rc;
+}
+int pthread_setaffinity_np(pthread_t t,size_t n,const cpu_set_t*m){
+ int saved_errno=errno;affinity_fn real=atomic_load(&real_affinity);if(!real){real=(affinity_fn)dlsym(RTLD_NEXT,"pthread_setaffinity_np");atomic_store(&real_affinity,real);}if(!real){errno=saved_errno;return EINVAL;}
+ errno=saved_errno;int rc=real(t,n,m);int result_errno=errno;
+ if(observed_worker&&pthread_equal(t,pthread_self()))worker_event("worker_bound",observed_worker,rc);
+ errno=result_errno;return rc;
+}
+int pthread_join(pthread_t t,void**ret){
+ int saved_errno=errno;join_fn real=atomic_load(&real_join);if(!real){real=(join_fn)dlsym(RTLD_NEXT,"pthread_join");atomic_store(&real_join,real);}if(!real){errno=saved_errno;return EINVAL;}
+ owned_worker*w=NULL;if(pthread_equal(pthread_self(),main_thread)&&observing)for(int i=0;i<create_slot;i++)if(workers[i].valid&&pthread_equal(t,workers[i].handle)){w=&workers[i];break;}
+ errno=saved_errno;int rc=real(t,ret);int result_errno=errno;
+ if(w&&rc){main_event("worker_join_error",w->slot,rc);errno=result_errno;return rc;}
+ if(w){fenv_t env;if(fegetenv(&env))fatal("join_log_fenv");if(logfile){fprintf(logfile,"{\"event\":\"worker_join\",\"rank\":%d,\"generation\":%lu,\"slot\":%d,\"tid\":%ld,\"startticks\":%llu,\"expected_cpu\":%d,\"monotonic_ns\":%llu,\"status\":%d}\n",actual_rank,w->generation,w->slot,w->tid,w->startticks,w->cpu,monotonic_ns(),rc);fflush(logfile);}if(!rc)w->valid=0;if(fesetenv(&env))fatal("join_log_fenv_restore");}
+ errno=result_errno;return rc;
+}
+static int writer_slot(int r){for(int i=0;i<4;i++)if(writer_ranks[i]==r)return i;return -1;}
+static int number(const char*s,int*out){char*e;long n;errno=0;if(!s||!*s)return 0;n=strtol(s,&e,10);if(errno||*e||n<0||n>=CPU_SETSIZE)return 0;*out=(int)n;return 1;}
+static int cpulist(const char*s,cpu_set_t*m){char b[4096],*tok,*save;CPU_ZERO(m);if(!s||!*s||strlen(s)>=sizeof b)return 0;strcpy(b,s);for(tok=strtok_r(b,",\n",&save);tok;tok=strtok_r(NULL,",\n",&save)){char*d=strchr(tok,'-');int a,z;if(d){*d=0;if(!number(tok,&a)||!number(d+1,&z)||z<a)return 0;}else{if(!number(tok,&a))return 0;z=a;}for(int i=a;i<=z;i++)CPU_SET(i,m);}return CPU_COUNT(m)>0;}
+static int same_owner(void*sym){Dl_info di;char p[PATH_MAX];return sym&&dladdr(sym,&di)&&di.dli_fname&&realpath(di.dli_fname,p)&&!strcmp(p,owner_path);}
+static int singleton(cpu_set_t*m){return !pthread_getaffinity_np(pthread_self(),sizeof*m,m)&&CPU_COUNT(m)==1&&CPU_ISSET(root_cpu,m);}
+static int cg_path(char*out,size_t n){char line[4096];FILE*f=fopen("/proc/self/cgroup","r");if(!f)return 0;int ok=0;while(fgets(line,sizeof line,f))if(!strncmp(line,"0::/",4)){line[strcspn(line,"\n")]=0;if(!strstr(line+3,"..")&&snprintf(out,n,"/sys/fs/cgroup%s",line+3)<(int)n)ok=1;break;}fclose(f);return ok;}
+static int cg_read(const char*base,const char*name,char*out,size_t n){char path[PATH_MAX];if(snprintf(path,sizeof path,"%s/%s",base,name)>=(int)sizeof path)return 0;FILE*f=fopen(path,"r");if(!f)return 0;int ok=fgets(out,n,f)!=NULL;fclose(f);return ok;}
+static int cg_ok(void){char base[PATH_MAX],text[4096],extra;cpu_set_t set;unsigned long long q,p,m,swap;
+ if(!cg_path(base,sizeof base)||!cg_read(base,"cpuset.cpus.effective",text,sizeof text)||!cpulist(text,&set)||!CPU_EQUAL(&set,&expected_cgroup))return 0;
+ if(!cg_read(base,"cpu.max",text,sizeof text)||sscanf(text,"%llu %llu %c",&q,&p,&extra)!=2||!p||p>ULLONG_MAX/128||q!=128*p)return 0;
+ if(!cg_read(base,"memory.max",text,sizeof text)||sscanf(text,"%llu %c",&m,&extra)!=1||m!=104ULL*1024*1024*1024)return 0;
+ return cg_read(base,"memory.swap.max",text,sizeof text)&&sscanf(text,"%llu %c",&swap,&extra)==1&&swap==0;
+}
+static int mult(size_t a,size_t b,size_t*out){if(b&&a>SIZE_MAX/b)return 0;*out=a*b;return 1;}
+/* Validate the COMPLETE request and current owner's row-major chunk batch.
+ * Batch first/count/offsets change legitimately; only active immutable fields cache. */
+static int describe(const nc_precompressed_float_layout*l,const void*raw,size_t bytes,size_t*B){
+ size_t raw_elems=1,chunk_elems=1,total=1,grid[4],end;uint32_t one=1;
+ if(!l||!raw||l->abi_version!=NC_PRECOMPRESSED_ABI||l->ndims<3||l->ndims>4||l->chunk_dims[0]!=1||l->request_count[0]!=1||l->ncid!=public_id||l->varid!=public_var||raw!=public_raw||!public_start||!public_count||!l->total_chunks||!l->batch_count||l->batch_count>4||l->batch_first>l->total_chunks||l->batch_count>l->total_chunks-l->batch_first||*(unsigned char*)&one!=1||sizeof(float)!=4||FLT_RADIX!=2||FLT_MANT_DIG!=24||FLT_MAX_EXP!=128)return 0;
+ for(int d=0;d<l->ndims;d++){
+  if(!l->request_count[d]||!l->chunk_dims[d]||l->request_start[d]!=public_start[d]||l->request_count[d]!=public_count[d]||l->field_dims[d]!=l->request_count[d]||l->request_start[d]>SIZE_MAX-l->request_count[d]||l->request_start[d]%l->chunk_dims[d]||!mult(raw_elems,l->request_count[d],&raw_elems)||!mult(chunk_elems,l->chunk_dims[d],&chunk_elems))return 0;
+  grid[d]=l->request_count[d]/l->chunk_dims[d]+(l->request_count[d]%l->chunk_dims[d]!=0);
+  if(!mult(total,grid[d],&total))return 0;
+ }
+ if(!mult(raw_elems,4,&raw_elems)||raw_elems!=bytes||!mult(chunk_elems,4,B)||*B>56u*1024u*1024u||*B>ULONG_MAX||compressBound((uLong)*B)>64u*1024u*1024u||total!=l->total_chunks)return 0;
+ for(size_t c=0;c<l->batch_count;c++){
+  size_t ordinal=l->batch_first+c;
+  for(int d=l->ndims-1;d>=0;d--){size_t coordinate=ordinal%grid[d],relative,offset;ordinal/=grid[d];
+   if(!mult(coordinate,l->chunk_dims[d],&relative)||relative>SIZE_MAX-l->request_start[d])return 0;
+   offset=l->request_start[d]+relative;end=l->request_start[d]+l->request_count[d];
+   if(l->offsets[c][d]!=offset||offset>=end||offset>SIZE_MAX-l->chunk_dims[d])return 0;
+  }
+ }
+ return 1;
+}
+static int identity_same(const nc_precompressed_float_layout*l,const void*raw,size_t bytes){
+ if(l->abi_version!=envelope.abi||l->ncid!=envelope.ncid||l->varid!=envelope.varid||l->ndims!=envelope.ndims||l->total_chunks!=envelope.total||raw!=envelope.raw||bytes!=envelope.raw_bytes||memcmp(l->fill_le,envelope.fill,4))return 0;
+ for(int d=0;d<l->ndims;d++)if(l->request_start[d]!=envelope.start[d]||l->request_count[d]!=envelope.count[d]||l->field_dims[d]!=envelope.dims[d]||l->chunk_dims[d]!=envelope.chunks[d])return 0;
+ return 1;
+}
+static void accept_layout(const nc_precompressed_float_layout*l,const void*raw,size_t bytes){
+ envelope.valid=1;envelope.abi=l->abi_version;envelope.ncid=l->ncid;envelope.varid=l->varid;envelope.ndims=l->ndims;envelope.total=l->total_chunks;envelope.raw_bytes=bytes;envelope.raw=raw;memcpy(envelope.fill,l->fill_le,4);
+ for(int d=0;d<l->ndims;d++){envelope.start[d]=l->request_start[d];envelope.count[d]=l->request_count[d];envelope.dims[d]=l->field_dims[d];envelope.chunks[d]=l->chunk_dims[d];}
+}
+/* Pure request/state decision; no MPI, cgroup, allocation, logging or backend.
+ * Accepted guard is not a commit: next advances only after provider supply. */
+static int guard_layout(const nc_precompressed_float_layout*l,const void*raw,size_t n){
+ size_t B=0;if(pending)return NC_EINVAL;int supported=describe(l,raw,n,&B);
+ if(!envelope.valid){
+  if(envelope.declined||!supported||l->batch_first){envelope.declined=1;return 0;}
+  accept_layout(l,raw,n);return 1;
+ }
+ if(!supported||!identity_same(l,raw,n)||l->batch_first!=envelope.next)return NC_EINVAL;
+ return 1;
+}
+static void trace_callback(const nc_precompressed_float_layout*l,int rc,const char*event){if(logfile){fprintf(logfile,"{\"event\":\"%s\",\"rank\":%d,\"generation\":%lu,\"ncid\":%d,\"varid\":%d,\"ndims\":%d,\"batch_first\":%zu,\"batch_count\":%zu,\"total_chunks\":%zu,\"status\":%d,\"root_cpu\":%d,\"workers\":[%d,%d,%d,%d],\"shared_compute_slots\":true,\"restored_singleton\":true}\n",event,actual_rank,generation,l->ncid,l->varid,l->ndims,l->batch_first,l->batch_count,l->total_chunks,rc,root_cpu,opt.cpus[0],opt.cpus[1],opt.cpus[2],opt.cpus[3]);fflush(logfile);}}
+typedef struct{void(*release)(void*);void*user;} release_state;
+static void release_batch(void*u){int release_errno=errno;fenv_t env;if(fegetenv(&env))fatal("release_fenv_get");release_state*r=u;if(!pthread_equal(pthread_self(),main_thread)||!busy||pending==0)fatal("release_state");cpu_set_t now;if(!singleton(&now))fatal("release_affinity");r->release(r->user);pending--;releases++;free(r);if(fesetenv(&env))fatal("release_fenv_restore");errno=release_errno;}
+static int provider(const nc_precompressed_float_layout*l,const void*raw,size_t n,nc_precompressed_float_batch*b,void*u){
+ int callback_errno=errno,rc=NC_EINVAL;fenv_t env;if(fegetenv(&env))fatal("callback_fenv_get");(void)u;
+ if(!pthread_equal(pthread_self(),main_thread)||!busy||!l||!b)goto done;
+ memset(b,0,sizeof*b);cpu_set_t saved,want,check;if(!singleton(&saved)||!cg_ok()){errors++;goto done;}
+ int decision=guard_layout(l,raw,n);
+ if(decision==0){declines++;guard_declines++;rc=0;trace_callback(l,rc,"guard_decline");goto done;}
+ if(decision!=1){terminal_guards++;errors++;rc=NC_EINVAL;trace_callback(l,rc,"terminal_guard");goto done;}
+ CPU_ZERO(&want);for(int i=0;i<4;i++)CPU_SET(opt.cpus[i],&want);
+ generation++;main_event("widen_begin",-1,0);
+ int err=pthread_setaffinity_np(pthread_self(),sizeof want,&want);
+ if(err){if(pthread_setaffinity_np(pthread_self(),sizeof saved,&saved)||!singleton(&check))fatal("widen_failure_restore");main_event("widen_end",-1,err);errors++;goto done;}
+ widens++;if(pthread_getaffinity_np(pthread_self(),sizeof check,&check)||!CPU_EQUAL(&want,&check)){if(pthread_setaffinity_np(pthread_self(),sizeof saved,&saved)||!singleton(&check))fatal("widen_mask_restore");main_event("widen_end",-1,NC_EINVAL);restores++;errors++;goto done;}
+ memset(workers,0,sizeof workers);create_slot=0;expected_workers=(int)l->batch_count;observing=1;
+ rc=wps_root_provider(l,raw,n,b,&opt);
+ for(int i=0;i<create_slot;i++)if(workers[i].valid)fatal("unjoined_worker");observing=0;
+ if(pthread_setaffinity_np(pthread_self(),sizeof saved,&saved)||pthread_getaffinity_np(pthread_self(),sizeof check,&check)||!CPU_EQUAL(&saved,&check))fatal("provider_restore");main_event("widen_end",-1,rc);restores++;callbacks++;
+ if(rc==1){if(!b->release)fatal("missing_release");release_state*r=malloc(sizeof*r);if(!r){b->release(b->release_user);memset(b,0,sizeof*b);errors++;rc=NC_ENOMEM;goto done;}r->release=b->release;r->user=b->release_user;b->release=release_batch;b->release_user=r;pending++;supplied++;envelope.next=l->batch_first+l->batch_count;
+ }else if(rc==0){if(envelope.next){rc=NC_EINVAL;terminal_guards++;errors++;}else{declines++;envelope.declined=1;envelope.valid=0;}}
+ else errors++;
+ trace_callback(l,rc,"callback");
+ done:if(fesetenv(&env))fatal("callback_fenv_restore");errno=callback_errno;return rc;
+}
+static int activate(void){int initialized=0,finalized=0,is_main=0,size=0;
+ if(!enabled||!closure_ok||syscall(SYS_gettid)!=getpid())return 0;
+ if(MPI_Initialized(&initialized)!=MPI_SUCCESS||!initialized||MPI_Finalized(&finalized)!=MPI_SUCCESS||finalized||MPI_Is_thread_main(&is_main)!=MPI_SUCCESS||!is_main||MPI_Query_thread(&mpi_level)!=MPI_SUCCESS||mpi_level<MPI_THREAD_FUNNELED||MPI_Comm_rank(MPI_COMM_WORLD,&actual_rank)!=MPI_SUCCESS||MPI_Comm_size(MPI_COMM_WORLD,&size)!=MPI_SUCCESS||size!=512||actual_rank!=constructor_rank||writer_slot(actual_rank)<0)return 0;
+ cpu_set_t mask;if(!singleton(&mask)||!cg_ok()||!logfile)return 0;
+ if(!scopes&&!fp_declines){fprintf(logfile,"{\"event\":\"activation\",\"rank\":%d,\"size\":512,\"mpi_thread\":%d,\"root_cpu\":%d,\"cgroup_cpu_count\":128,\"owner\":\"%s\"}\n",actual_rank,mpi_level,root_cpu,owner_path);fflush(logfile);}return 1;
+}
+int nc_put_vara_float(int id,int var,const size_t*s,const size_t*c,const float*p){
+ atomic_fetch_add(&calls,1);if(!put_real)return NC_EINVAL;
+ if(!enabled||!pthread_equal(pthread_self(),main_thread)||busy){if(!pthread_equal(pthread_self(),main_thread))atomic_fetch_add(&foreign_calls,1);return put_real(id,var,s,c,p);}
+ int before_errno=errno;fenv_t before;if(fegetenv(&before))fatal("put_fenv_get");
+ int caller_flags=fetestexcept(FE_INEXACT);unsigned caller_mxcsr=_mm_getcsr();
+ if(!activate()){if(fesetenv(&before))fatal("decline_fenv_restore");errno=before_errno;return put_real(id,var,s,c,p);}
+ /* Exact caller-entry admission: x87-only sticky INEXACT is insufficient for
+  * the observed ordinary SSE sizing side effect. No begin/end/provider/workers
+  * execute on this path; the original public put runs exactly once. */
+ if(!caller_flags||!(caller_mxcsr&(1u<<5))){fp_declines++;if(logfile){fprintf(logfile,"{\"event\":\"fp_decline\",\"rank\":%d,\"ncid\":%d,\"varid\":%d,\"caller_flags\":%d,\"FE_INEXACT\":%d,\"caller_mxcsr\":%u,\"before_begin\":true}\n",actual_rank,id,var,caller_flags,FE_INEXACT,caller_mxcsr);fflush(logfile);}if(fesetenv(&before))fatal("fp_decline_fenv_restore");errno=before_errno;return put_real(id,var,s,c,p);}
+ memset(&envelope,0,sizeof envelope);public_id=id;public_var=var;public_start=s;public_count=c;public_raw=p;
+ int begin=begin_real(provider,NULL);if(begin!=NC_NOERR){errors++;if(fesetenv(&before))fatal("begin_fenv_restore");errno=before_errno;return begin;}
+ busy=1;scopes++;if(fesetenv(&before))fatal("entry_fenv_restore");errno=before_errno;
+ int rc=put_real(id,var,s,c,p),put_errno=errno;fenv_t after;if(fegetenv(&after))fatal("exit_fenv_get");
+ cpu_set_t mask;if(!singleton(&mask)||pending)fatal("put_exit_state");int end=end_real();busy=0;
+ if(end!=NC_NOERR)errors++;if(rc!=NC_NOERR)errors++;
+ if(logfile){fprintf(logfile,"{\"event\":\"put\",\"rank\":%d,\"ncid\":%d,\"varid\":%d,\"status\":%d,\"end_status\":%d,\"pending\":%lu}\n",actual_rank,id,var,rc,end,pending);fflush(logfile);}
+ memset(&envelope,0,sizeof envelope);public_start=public_count=NULL;public_raw=NULL;
+ if(fesetenv(&after))fatal("exit_fenv_restore");errno=put_errno;return rc!=NC_NOERR?rc:end;
+}
+__attribute__((constructor))static void init(void){
+ main_thread=pthread_self();put_real=dlsym(RTLD_NEXT,"nc_put_vara_float");begin_real=dlsym(RTLD_NEXT,"nc_precompressed_provider_begin");end_real=dlsym(RTLD_NEXT,"nc_precompressed_provider_end");
+ const char*dir=getenv("WRF_ROOT_SHIM_LOGDIR");int r=-1;
+ if(number(getenv("OMPI_COMM_WORLD_RANK"),&r)&&r<512){constructor_rank=actual_rank=r;if(dir&&strlen(dir)<PATH_MAX&&!strchr(dir,'"')&&!strchr(dir,'\n')){char path[PATH_MAX];if(snprintf(path,sizeof path,"%s/rank%d-%ld.jsonl",dir,r,(long)getpid())<(int)sizeof path)logfile=fopen(path,"wx");if(logfile){fprintf(logfile,"{\"event\":\"constructor\",\"environment_rank\":%d,\"pid\":%ld,\"configured_world\":512,\"mpi_calls\":0}\n",r,(long)getpid());fflush(logfile);}}}
+ const char*world=getenv("WRF_ROOT_SHIM_WORLD"),*on=getenv("WRF_ROOT_SHIM_OPTIN"),*off=getenv("WRF_ROOT_SHIM_OPTOUT"),*owner=getenv("WRF_ROOT_SHIM_OWNER"),*cpus=getenv("WRF_ROOT_SHIM_CPUS"),*lvl=getenv("OMPI_MPI_THREAD_LEVEL");int slot=writer_slot(constructor_rank),w;char host[128];
+ if(!world||!number(world,&w)||w!=512||!on||strcmp(on,"1")||(off&&!strcmp(off,"1"))||slot<0||!logfile||!owner||!realpath(owner,owner_path)||!lvl||strcmp(lvl,"1")||!cpulist(cpus,&expected_cgroup)||CPU_COUNT(&expected_cgroup)!=128)return;
+ for(int i=0;i<128;i++)if(!CPU_ISSET(i,&expected_cgroup))return;
+ if(gethostname(host,sizeof host)||!memchr(host,0,sizeof host))return;host[strcspn(host,".")]=0;if(strcmp(host,"hpc04"))return;
+ root_cpu=writer_cpus[slot][0];opt.threads=4;for(int i=0;i<4;i++)opt.cpus[i]=writer_cpus[slot][i];
+ closure_ok=same_owner((void*)put_real)&&same_owner((void*)begin_real)&&same_owner((void*)end_real);if(!closure_ok)return;
+ enabled=1;
+}
+__attribute__((destructor))static void finish(void){if(logfile){fprintf(logfile,"{\"event\":\"final\",\"rank\":%d,\"fp_declines\":%lu,\"scopes\":%lu,\"callbacks\":%lu,\"supplied\":%lu,\"declines\":%lu,\"guard_declines\":%lu,\"terminal_guards\":%lu,\"releases\":%lu,\"pending\":%lu,\"errors\":%lu,\"widens\":%lu,\"restores\":%lu,\"calls\":%lu,\"foreign_calls\":%lu}\n",actual_rank,fp_declines,scopes,callbacks,supplied,declines,guard_declines,terminal_guards,releases,pending,errors,widens,restores,atomic_load(&calls),atomic_load(&foreign_calls));fclose(logfile);}}
