@@ -6422,3 +6422,18 @@ The `69fb5625` child passed its own unchanged three-hour scientific gate:545 ord
 Ordered ADD_A2C_V child owns only unprofiled SAME512 three-hour science:545 ordered steps/four FULL products passed the unchanged original checker; four models and reader normally closed. Own nine-hour/noon/profile/restart/full144/clean full-source rebuild remain false. Parent pressure qualifications stay historical. One physical-tendency module replaced plus one helper added;592 other ordered archive members, RSL/providers and18 direct inputs unchanged. Native120masked+18finite-unmasked observations each O2/O0 preserve full physical/readOnly/config/guards/five hard numerical state words. Raw MODfalse with fixedfive conservative attributes and original-MOD interface coverage; non-targetrawfalse with fixed21argument/branchgraph and actual referenced-byte classification. Diagnostic source filenames differ; no diagnostic/unwind equivalence theorem. Complete synthetic8192 caller wall50.55–59.61percent lower including restores/query/dispatch, with no isolated/global/additive/repeatability claim. Forecast timing is one UNPAIRED descriptive observation vs fixed original median3. Post-test source correspondence only; raw producer commit NULL.
 
 [Evidence](tools/cpu-compute/add-a2c-v-ordered4-20261030/README.md).
+
+
+## Ordered ADD_A2C_U prefix — October 30
+
+The `a2184a58` child passed its own unchanged three-hour scientific gate:545 ordered steps/four FULL outputs; all models and reader normally closed.
+
+| Metric | Original3h median3 | Ordered U interpolation child | Descriptive reduction |
+|---|---:|---:|---:|
+| Whole wall (min) | 13.333735 | 10.549171 | 20.8836% |
+| Main-step elapsed (min) | 9.940841 | 8.827869 | 11.1960% |
+| Aggregate CPU (core-hours) | 99.813152 | 85.012374 | 14.8285% |
+
+Ordered U-prefix child owns only unprofiled SAME512 three-hour science:545 ordered steps/four FULL outputs passed unchanged original checker; four model units and reader normally closed. Own nine-hour/noon/profile/restart/full144/clean full-source rebuild false. Parent69fb V qualifications remain historical. One cached physical module replaced; other593of594 ordered members, existingSSEhelper, RSL/providers and18 direct inputs unchanged. Native128masked+18finiteunmasked eachO2/O0 fullphysical/readOnly/config/guards/fivehard exact. Only one added conservative U MOD annotation, all other368844tokens exact; defined global ABI exact. Non-targetrawfalse with finite21argument/1017instructiongraph/reference/source-line-map proof; diagnostic filenames/linepositions differ, no diagnostic/unwind theorem. Complete synthetic8192 caller wall36.47–52.21percent lower including restores/wholecallee/query/helper/tail; onepairperhost, no isolated/global/productiongeometry/repeatability claim. Single UNPAIRED descriptive forecast observation vs fixed originalmedian3. Post-test source correspondence only; raw producer commit NULL.
+
+[Evidence](tools/cpu-compute/add-a2c-u-ordered4-20261030/README.md).

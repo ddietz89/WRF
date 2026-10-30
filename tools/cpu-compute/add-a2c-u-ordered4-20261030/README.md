@@ -11,3 +11,11 @@ A fixed 8192-call synthetic complete-caller comparison includes every 311712-byt
 The same experimental image passed its own unchanged 545-step/four-full-product three-hour scientific checker with all models and reader normally closed before source/default delivery. Own nine-hour/noon/profile/restart/full144 and clean full-source rebuild remain false. Post-test source correspondence only; raw producer commit is unknown.
 
 Opt out with WRF_ADD_A2C_U_ORDERED4=0, regenerate PP, rebuild/rearchive the module and relink; the V helper remains owned by V. Whole-image rollback is the previous V image69fb5625/archive59d661c2. Original pre-compile wrapper failures remain preserved.
+
+| Metric | Original3h median3 | Ordered U interpolation child | Descriptive reduction |
+|---|---:|---:|---:|
+| Whole wall (min) | 13.333735 | 10.549171 | 20.8836% |
+| Main-step elapsed (min) | 9.940841 | 8.827869 | 11.1960% |
+| Aggregate CPU (core-hours) | 99.813152 | 85.012374 | 14.8285% |
+
+Single unpaired candidate observation against three distinct original controls; raw A2 remains the exact-science reference.
