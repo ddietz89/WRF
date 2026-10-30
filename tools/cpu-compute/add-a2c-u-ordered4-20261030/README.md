@@ -19,3 +19,15 @@ Opt out with WRF_ADD_A2C_U_ORDERED4=0, regenerate PP, rebuild/rearchive the modu
 | Aggregate CPU (core-hours) | 99.813152 | 85.012374 | 14.8285% |
 
 Single unpaired candidate observation against three distinct original controls; raw A2 remains the exact-science reference.
+
+## Independent nine-hour qualification
+
+Same image:1,625 ordered steps/ten full outputs passed original scientific checks; all models and reader normally closed.
+
+| Nine-hour metric | Original N1 (n=1) | Same U image | Descriptive reduction |
+|---|---:|---:|---:|
+| Whole model/MPI wall (min) | 34.157236 | 29.309427 | 14.1926% |
+| Main-step elapsed (min) | 30.845967 | 27.645504 | 10.3756% |
+| Aggregate CPU (core-hours) | 278.157466 | 245.443438 | 11.7610% |
+
+Selected U image owns independent unprofiled SAME512 three-hour545/fourFULL and nine-hour1625/tenFULL exact science, each with allfour models and original reader normally closed. Ninehour06:00–15:00 qualifies continuous daylight coverage only; own instrumented/noon1h/profile/restart/full144/clean full-source rebuild remain false. Same ELF/archive/providers and source3c3925fd; no relink or source/default change for9h. Raw producer commit NULL. Threehour fixed-originalmedian3 and ninehour sole originalN1 are separate UNPAIRED descriptive comparisons; no pooling, newmatched/isolated/additive/repeatability gain or memory-capacity claim. Literal historical3h validators run in their exact isolated1200s context; current9h retains3600s caps and originalten-output checker.

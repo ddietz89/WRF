@@ -6437,3 +6437,16 @@ The `a2184a58` child passed its own unchanged three-hour scientific gate:545 ord
 Ordered U-prefix child owns only unprofiled SAME512 three-hour science:545 ordered steps/four FULL outputs passed unchanged original checker; four model units and reader normally closed. Own nine-hour/noon/profile/restart/full144/clean full-source rebuild false. Parent69fb V qualifications remain historical. One cached physical module replaced; other593of594 ordered members, existingSSEhelper, RSL/providers and18 direct inputs unchanged. Native128masked+18finiteunmasked eachO2/O0 fullphysical/readOnly/config/guards/fivehard exact. Only one added conservative U MOD annotation, all other368844tokens exact; defined global ABI exact. Non-targetrawfalse with finite21argument/1017instructiongraph/reference/source-line-map proof; diagnostic filenames/linepositions differ, no diagnostic/unwind theorem. Complete synthetic8192 caller wall36.47–52.21percent lower including restores/wholecallee/query/helper/tail; onepairperhost, no isolated/global/productiongeometry/repeatability claim. Single UNPAIRED descriptive forecast observation vs fixed originalmedian3. Post-test source correspondence only; raw producer commit NULL.
 
 [Evidence](tools/cpu-compute/add-a2c-u-ordered4-20261030/README.md).
+
+
+## Current ordered U image — own nine-hour qualification
+
+| Nine-hour metric | Original N1 (n=1) | Same U image | Descriptive reduction |
+|---|---:|---:|---:|
+| Whole model/MPI wall (min) | 34.157236 | 29.309427 | 14.1926% |
+| Main-step elapsed (min) | 30.845967 | 27.645504 | 10.3756% |
+| Aggregate CPU (core-hours) | 278.157466 | 245.443438 | 11.7610% |
+
+Selected U image owns independent unprofiled SAME512 three-hour545/fourFULL and nine-hour1625/tenFULL exact science, each with allfour models and original reader normally closed. Ninehour06:00–15:00 qualifies continuous daylight coverage only; own instrumented/noon1h/profile/restart/full144/clean full-source rebuild remain false. Same ELF/archive/providers and source3c3925fd; no relink or source/default change for9h. Raw producer commit NULL. Threehour fixed-originalmedian3 and ninehour sole originalN1 are separate UNPAIRED descriptive comparisons; no pooling, newmatched/isolated/additive/repeatability gain or memory-capacity claim. Literal historical3h validators run in their exact isolated1200s context; current9h retains3600s caps and originalten-output checker.
+
+[Qualification](tools/cpu-compute/add-a2c-u-ordered4-20261030/NINE_HOUR_APPLICATION_QUALIFICATION.json).
