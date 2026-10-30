@@ -6455,3 +6455,8 @@ Selected U image owns independent unprofiled SAME512 three-hour545/fourFULL and 
 ## October30: horizontal_diffusion_3dmp direct SIMD rejected
 
 One unchanged-expression I-loop SIMD directive changed27 output NaN-payload words across15 exceptional cases in the complete96-case nearest-round record; allfive processor-state words, read-only/config checks and target canaries matched. The actual selected scalar procedure and freshly compiled scalar parent matched96 cases in allfour rounding modes, with identical2478-byte bodies. Candidate4713-byte code remained unpromoted; no timing followed. R1 precompile import failure and R2 actual failed-manager/absent-cgroup records are preserved. [Decision and evidence](tools/cpu-rejected/diffusion3dmp-direct-simd-20261030/README.md).
+
+
+## October30: ordered diffusion3dmp retained for integration
+
+Explicit ordered SSE2 resolved the rejected directive's NaN operand-role differences. Actual fullBigStep/originalMOD168masked+24finiteunmasked cases eachfourrounds passed hardraw/five-state/readOnly/config/canary checks. Separately compiled scalar fallback has the original2478-byte body and exacthalfconstant. Complete2048 synthetic calls with outputrestores inside integerclocks measured wall69.7521%/67.6381% lower and threadCPU69.7482%/67.6378% lower on01/02, one opposite-order pair perhost; all4cacheclears/helperdrains/rawrecords/normalclosures passed. Costed fragment lacks the later fullmodule mask/fallbackdispatch; guardedcaller retiming and canonical/default0/fullgrid qualification remain pending. No forecast/productiongeometry/repeatability gain or source/default/selection promotion. [Retained evidence](tools/cpu-compute/diffusion3dmp-ordered4-investigation-20261030/README.md).

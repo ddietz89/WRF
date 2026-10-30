@@ -1,0 +1,25 @@
+{
+  "status": "MANUAL_CURRENT_OPERAND_ROLE_MAP_PENDING_NATIVE_GATE",
+  "current_loop": "0x1571f..0x15922",
+  "current_function_raw_sha256": "cbaf182503c55bf5a6ffca83f9be9422da333c4f54cba47c8636f040f189fb56",
+  "ordered_operation_means": "a(op,b): x86 destination a, source b; explicit volatile add/sub/mul/div SS/PS, no FMA or reassociation.",
+  "roles": {
+    "0x15724": "xkmhd_left + xkmhd_current, destination left",
+    "0x15731": "c1 * MUT_current, destination c1",
+    "0x15741": "MUT_left * c1, destination leftMUT",
+    "0x15772": "left_affine + current_affine, destination left",
+    "0x15754": "xkmhd_yminus + current, destination yminus",
+    "0x15786": "xkmhd_yplus + current, destination yplus",
+    "0x15816": "gradient_yplus * coef_yplus, destination gradient",
+    "0x15876": "coef_yminus * gradient_yminus, destination coefficient",
+    "0x1588e": "rdy * (msftx*msfty), destination rdy",
+    "0x158e5": "coef_xplus * gradient_xplus, destination coefficient",
+    "0x15902": "gradient_xminus * coef_xminus, destination gradient",
+    "0x15912": "difference_x * ((msftx*msfty)*rdx), destination difference",
+    "0x15916": "term_y + term_x, destination term_y",
+    "0x1591a": "sum_yx + tendency, destination sum_yx"
+  },
+  "additional_division_scope": "C helper recomputes some native-carried neighboring divisions/values; raw result equivalence and sticky state require native gate; no unmasked exceptional/trap-order theorem claimed.",
+  "compile_contract": "GNU13.3 x86SSE2 REAL4/INT4 strictO2 pureMPI candidate only; O0literal fallback test does not qualify O0helper. Fullcanonical fallback/default/ABI not prepared.",
+  "application_source_changed": false
+}
