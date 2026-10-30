@@ -6350,3 +6350,29 @@ The table is one UNPAIRED descriptive observation against the fixed eligible ori
 | Aggregate CPU core-hours | 278.157466 | 244.251789 | 12.1894% |
 
 The selected SW conditional-storage image owns separate unprofiled SAME512 three-hour and nine-hour exact science. Nine-hour:1,625 ordered steps, ten full outputs,06:00–15:00; all four models and original reader normally closed. Existing three-hour qualification and metrics remain unchanged. Own noon, instrumented noon, profile, restart, full144 and clean full-source rebuild remain false. Source correspondence is post-test; raw producer commit NULL. Nine-hour metrics compare only with the sole retained original nine-hour N1, UNPAIRED and descriptive; no pooling, median3 substitution, isolated component attribution, additive or repeatable gain claim. The three-hour fixed-median3 observation remains separate. No measured peak-memory/capacity claim follows.
+
+
+## Resumed curvature integration and NWP closeout — October 30
+
+The curvature X-difference row cache is retained for application qualification. Its existing 70-case/four-round native checks and four complete-callee arms remain exact. On hpc02 and hpc04, complete-callee wall time was 4.6993% and 4.1560% lower, with process CPU 4.7378% and 4.1833% lower. Those short, opposite-order observations include the added automatic row allocation and complete callee; input restores and state reset are outside each timed call. They establish no repeatability or forecast gain. Raw public MOD equality remains false; the separately adjudicated original-interface compatibility proof is retained.
+
+A fresh bounded experimental link completed normally on hpc01: zero compilation, one BigStep member replaced, 592 of 593 ordered archive members exact, and all 18 direct inputs/RSL unchanged. The isolated canonical proposal matches the actual tested routine tokens when enabled and matches the parent for opt-out, serial, OpenMP and missing-J-cache paths. The selected working image is unchanged; the new image awaits its own original three-hour checker before promotion. No new full-grid comparison completed during this resumption.
+
+The NWP constant-index dead-store candidate is closed unpromoted. Its complete restore-inclusive 128-call screen was 5.2505% slower on hpc01 and 7.0934% slower on hpc03, with matching thread CPU regressions. All four exact/cache/closure checks passed; no repeated screen or application integration is planned without new evidence.
+
+Recovery and complete receipt references: `investigation/wrf-cpu/campaign/spot100-20261016/RESUME_20261030.json`.
+
+
+## Curvature X-difference row cache — October 30
+
+The `083398d7` child passed its own unchanged three-hour scientific gate:545 ordered steps/four FULL outputs; all models and reader normally closed.
+
+| Metric | Original3h median3 | Curvature child | Descriptive reduction |
+|---|---:|---:|---:|
+| Whole wall (min) | 13.333735 | 10.543245 | 20.9280% |
+| Main-step elapsed (min) | 9.940841 | 8.848460 | 10.9888% |
+| Aggregate CPU (core-hours) | 99.813152 | 85.002644 | 14.8382% |
+
+Curvature X-difference child owns only unprofiled SAME512 three-hour science:545 ordered steps/four FULL products passed the unchanged original checker; allfour models and reader normally closed. Own nine-hour/noon/profile/restart/full144/clean full-source rebuild remain false. Parent5ba7 three/nine-hour science stays historical. One BigStep member changed;592 other ordered archive members, RSL/providers and18 direct inputs unchanged. Native70x4 masked-state/raw/readOnly/guards exact; raw MODfalse with separate one-conservative-attribute original-interface proof. Extra automatic I-row and getter included in completecallee4.16–4.70percent wall observations; restores excluded. No allocation-failure/unmasked-runtime theorem, capacity/global/isolated/additive/repeatability claim. Forecast timing is one UNPAIRED descriptive observation vs fixed original median3; rawA2 separate. Post-test source correspondence only; raw producer commit NULL.
+
+[Evidence](tools/cpu-compute/curvature-x-difference-cache-20261030/README.md).

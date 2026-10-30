@@ -1,0 +1,72 @@
+{
+  "status": "POST_TEST_TARGET_SOURCE_CORRESPONDENCE_ONLY",
+  "source_commit": "d09852e2046924c2409239d8a63241379fbacb1b",
+  "raw_producer_source_commit": null,
+  "canonical_files": {
+    "dyn_em/module_big_step_utilities_em.F": "40bb9c3fcf567a0326acedc294489fe76ee8c00730e03ae7c90c08f59c06a570",
+    "dyn_em/Makefile": "77dba0f536e076193655c0a27d4169f9120c00ac2798dca4187131fcf151336d"
+  },
+  "tested_cached_member": {
+    "MOD_path": "/pool/wrf-experiment/wrf-cpu/kernels/current5ba7-curvature-X-difference-native70-hpc02-r1/work/module_big_step_utilities_em.mod",
+    "MOD_sha256": "2da6bf08875aadb8100011f11e1fba0f3c6aa8b25e3411e8301e46135124878f",
+    "PP_path": "/pool/wrf-experiment/wrf-cpu/kernels/current5ba7-curvature-X-difference-native70-hpc02-r1/work/module_big_step_utilities_em.f90",
+    "PP_sha256": "7284f40e7a65a1d90caac26612f1c939c32ad5085d803071818a5b22859c7625",
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current5ba7-curvature-X-difference-native70-hpc02-r1/work/module_big_step_utilities_em.o",
+    "sha256": "802559d01158d858db2c1ed12a6b9e31beafdb6266a335669efd46fadadee66b"
+  },
+  "supported_macro": "WRF_CURVATURE_VXGM_X_DIFF_CACHE",
+  "default": 1,
+  "requires": "Existing WRF_DIFFUSION_SIMD GNU13.3.0 REAL4/INTEGER4 pure-MPI guard, plus WRF_CURVATURE_VXGM_J_DIFF_CACHE; no OpenMP, precision promotion, new compiler/ISA/fastmath flags. Runtime fast path requires all traps masked and original producer domain nonempty.",
+  "projection": {
+    "status": "PASS_LOCAL_PREPROCESS_PROJECTIONS",
+    "checks": {
+      "supported_target_tokens_match_exact_native_PP": true,
+      "parent_target_tokens_match_actual_parent_PP": true,
+      "optout_whole_source_matches_parent": true,
+      "OpenMP_whole_source_matches_parent": true,
+      "serial_whole_source_matches_parent": true,
+      "without_J_cache_whole_source_matches_parent": true,
+      "outside_target_supported_tokens_unchanged": true
+    },
+    "compiler": "/usr/bin/cpp -traditional-cpp -P",
+    "supported_flags": [
+      "-DDM_PARALLEL",
+      "-DWRF_CURVATURE_VXGM_J_DIFF_CACHE",
+      "-DWRF_CURVATURE_V_METRIC_CACHE",
+      "-DWRF_CURVATURE_VXGM_X_DIFF_CACHE"
+    ],
+    "fallback_cases": {
+      "optout": [
+        "-DDM_PARALLEL",
+        "-DWRF_CURVATURE_VXGM_J_DIFF_CACHE",
+        "-DWRF_CURVATURE_V_METRIC_CACHE"
+      ],
+      "OpenMP": [
+        "-DDM_PARALLEL",
+        "-DWRF_CURVATURE_VXGM_J_DIFF_CACHE",
+        "-DWRF_CURVATURE_V_METRIC_CACHE",
+        "-DWRF_CURVATURE_VXGM_X_DIFF_CACHE",
+        "-D_OPENMP"
+      ],
+      "serial": [
+        "-DWRF_CURVATURE_VXGM_J_DIFF_CACHE",
+        "-DWRF_CURVATURE_V_METRIC_CACHE",
+        "-DWRF_CURVATURE_VXGM_X_DIFF_CACHE"
+      ],
+      "without_J_cache": [
+        "-DDM_PARALLEL",
+        "-DWRF_CURVATURE_V_METRIC_CACHE",
+        "-DWRF_CURVATURE_VXGM_X_DIFF_CACHE"
+      ]
+    },
+    "limits": "Token projection only; no clean source rebuild or new object identity claim."
+  },
+  "delivery_steps": [
+    "Use existing selected BigStep recipe and supported inherited macros; regenerate preprocessed source with the new macro ON.",
+    "Check complete target token correspondence to tested cached PP; preserve qualified strict flags/dependencies.",
+    "Rebuild BigStep, replace its single archive member, and relink. Rebuilt objects are not automatically covered by the cached-image qualification.",
+    "Opt out with WRF_CURVATURE_VXGM_X_DIFF_CACHE=0 and repeat regenerate/rebuild/rearchive/relink; or restore selected parent5ba7 executable/archive."
+  ],
+  "clean_full_source_rebuild_qualified": false,
+  "limits": "Actual qualification applies to cached tested802559d0 member/image083398d7. Canonical correspondence was recorded after testing; no clean whole-source object/ELF reproducibility claim."
+}

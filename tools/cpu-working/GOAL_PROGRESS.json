@@ -1,46 +1,32 @@
 {
-  "status": "MATHEMATICAL_GAP_ONLY_UNPAIRED_OWN_NINE_HOUR_OBSERVATION",
+  "status": "MATHEMATICAL_GAP_ONLY_UNPAIRED_OWN_THREE_HOUR_OBSERVATION",
   "qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-conditional-cloud-storage-20261029/NINE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "49abee059f1d4c6a1cf578f57a2caea668f78a82fdc9ff30c72fbc065bd0a040"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/curvature-x-difference-cache-20261030/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "56b12f3cede229c842bd04ec44d0278d4c1a372780ef9f9f6383b578a5d25d7d"
   },
-  "current_nine_hour_descriptive_wall_ratio": 1.172236900586173,
-  "ratio_definition": "Sole retained original nine-hour N1 wall divided by current own nine-hour wall; unpaired descriptive throughput ratio only.",
-  "baseline_wall_seconds": 2049.434141888749,
-  "current_wall_seconds": 1748.3105512750335,
-  "elapsed_wall_reduction_percent": 14.693011327321857,
-  "descriptive_throughput_increase_percent": 17.2236900586173,
-  "same_image_three_hour_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/sw-conditional-cloud-storage-20261029/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "0228dbb7912864729128f1a09d15dcd7ce159eaaffc2cbdf844d36a3aa7d4207"
-  },
-  "same_image_three_hour_metrics": {
-    "wall_seconds": 627.7608917579055,
-    "cpu_seconds": 305359.85408900003,
-    "main_step_sum_seconds": 529.5533
-  },
-  "same_image_three_hour_reductions_percent": {
-    "wall_seconds": 21.53225441685048,
-    "cpu_seconds": 15.019033020440553,
-    "main_step_sum_seconds": 11.215877194828172
-  },
+  "ratio_definition": "Preselected original3h median3 wall/current own3h wall; descriptive unpaired single-forecast elapsed ratio; no concurrent throughput evidence.",
+  "baseline_wall_seconds": 800.0241208570078,
+  "current_wall_seconds": 632.5947046233341,
+  "elapsed_wall_reduction_percent": 20.928046026202153,
+  "descriptive_throughput_increase_percent": 26.467091015781776,
   "targets": [
     {
       "target_wall_ratio": 1.5,
-      "target_wall_seconds": 1366.2894279258326,
+      "target_wall_seconds": 533.3494139046719,
       "formula": "1 - current_descriptive_wall_ratio / target_wall_ratio",
-      "signed_additional_current_wall_fraction": 0.21850873294255135,
-      "additional_current_wall_fraction": 0.21850873294255135,
-      "additional_current_wall_percent": 21.850873294255134
+      "signed_additional_current_wall_fraction": 0.1568860598947882,
+      "additional_current_wall_fraction": 0.1568860598947882,
+      "additional_current_wall_percent": 15.688605989478821
     },
     {
       "target_wall_ratio": 2.0,
-      "target_wall_seconds": 1024.7170709443744,
+      "target_wall_seconds": 400.0120604285039,
       "formula": "1 - current_descriptive_wall_ratio / target_wall_ratio",
-      "signed_additional_current_wall_fraction": 0.4138815497069135,
-      "additional_current_wall_fraction": 0.4138815497069135,
-      "additional_current_wall_percent": 41.388154970691346
+      "signed_additional_current_wall_fraction": 0.36766454492109113,
+      "additional_current_wall_fraction": 0.36766454492109113,
+      "additional_current_wall_percent": 36.76645449210911
     }
   ],
-  "limits": "Mathematical further reduction of CURRENT wall only, not measured headroom, component attribution, repeatability or a prediction."
+  "limits": "Mathematical further reduction of CURRENT wall only, not measured headroom, component attribution, repeatability or a prediction.",
+  "current_three_hour_descriptive_wall_ratio": 1.2646709101578177
 }
