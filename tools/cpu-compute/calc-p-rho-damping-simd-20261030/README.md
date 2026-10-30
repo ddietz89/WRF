@@ -9,3 +9,11 @@ Complete synthetic pressure caller measurements include four mutable-field byte 
 The same experimental image passed its own unchanged three-hour checker: 545 ordered steps and four full products, with all model and reader units normally closed. Other horizons, restart, profiling and clean full-source rebuild remain unqualified. Source delivery is post-test correspondence to a cached tested object; raw producer commit is unknown.
 
 Opt out with `WRF_CALC_P_RHO_DAMPING_SIMD=0`, regenerate SmallStep PP, rebuild/rearchive/relink. Whole-image rollback is the previous curvature executable `083398d7`, archive `5ce20b60`.
+
+| Metric | Original3h median3 | Pressure damping child | Descriptive reduction |
+|---|---:|---:|---:|
+| Whole wall (min) | 13.333735 | 10.586190 | 20.6060% |
+| Main-step elapsed (min) | 9.940841 | 8.846058 | 11.0130% |
+| Aggregate CPU (core-hours) | 99.813152 | 85.413949 | 14.4262% |
+
+Single unpaired candidate observation against three distinct original controls; raw A2 remains the exact-science reference.

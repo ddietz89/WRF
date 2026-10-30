@@ -6376,3 +6376,18 @@ The `083398d7` child passed its own unchanged three-hour scientific gate:545 ord
 Curvature X-difference child owns only unprofiled SAME512 three-hour science:545 ordered steps/four FULL products passed the unchanged original checker; allfour models and reader normally closed. Own nine-hour/noon/profile/restart/full144/clean full-source rebuild remain false. Parent5ba7 three/nine-hour science stays historical. One BigStep member changed;592 other ordered archive members, RSL/providers and18 direct inputs unchanged. Native70x4 masked-state/raw/readOnly/guards exact; raw MODfalse with separate one-conservative-attribute original-interface proof. Extra automatic I-row and getter included in completecallee4.16–4.70percent wall observations; restores excluded. No allocation-failure/unmasked-runtime theorem, capacity/global/isolated/additive/repeatability claim. Forecast timing is one UNPAIRED descriptive observation vs fixed original median3; rawA2 separate. Post-test source correspondence only; raw producer commit NULL.
 
 [Evidence](tools/cpu-compute/curvature-x-difference-cache-20261030/README.md).
+
+
+## Pressure damping SIMD — October 30
+
+The `e2580e95` child passed its own unchanged three-hour scientific gate:545 ordered steps/four FULL outputs; all models and reader normally closed.
+
+| Metric | Original3h median3 | Pressure damping child | Descriptive reduction |
+|---|---:|---:|---:|
+| Whole wall (min) | 13.333735 | 10.586190 | 20.6060% |
+| Main-step elapsed (min) | 9.940841 | 8.846058 | 11.0130% |
+| Aggregate CPU (core-hours) | 99.813152 | 85.413949 | 14.4262% |
+
+Pressure-damping child owns only unprofiled SAME512 three-hour science:545 ordered steps/four FULL products passed the unchanged original checker; all four models and reader normally closed. Own nine-hour/noon/profile/restart/full144/clean full-source rebuild remain false. Parent0833 curvature qualifications stay historical. One cached SmallStep member changed;592 other ordered archive members, RSL/providers and18 direct inputs unchanged. Native440 observations each O2/O0 preserve physical/raw/readOnly/guards/five hard state words. Raw MODfalse with fixed one-conservative-attribute original-interface proof; O0 pool/RELA rawfalse with fixed referenced-byte evidence. O2 native subprocesses succeeded inside a later failed containing worker; original failure retained. Complete synthetic1024 caller wall26.36–37.41percent lower, including restores/query/dispatch; no isolated/global/additive/repeatability or unmasked-runtime theorem. Forecast timing is one UNPAIRED descriptive observation vs fixed original median3. Post-test source correspondence only; raw producer commit NULL.
+
+[Evidence](tools/cpu-compute/calc-p-rho-damping-simd-20261030/README.md).
