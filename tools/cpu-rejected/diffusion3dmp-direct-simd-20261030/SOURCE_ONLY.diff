@@ -1,0 +1,10 @@
+--- parent-function
++++ candidate-function
+@@ -79,6 +79,7 @@
+ 
+       DO j = j_start, j_end
+       DO k=kts,ktf
++!$omp simd private(mkrdxm,mkrdxp,mrdx,mkrdym,mkrdyp,mrdy)
+       DO i = i_start, i_end
+ 
+          mkrdxm=(msfux(i,j)/msfuy(i,j))*0.5*(xkmhd(i,k,j)+xkmhd(i-1,k,j))*0.5*((c1(k)*MUT(i,j)+c2(k))+(c1(k)*MUT(i-1,j)+c2(k)))*rdx

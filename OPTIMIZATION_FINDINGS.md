@@ -6450,3 +6450,8 @@ Ordered U-prefix child owns only unprofiled SAME512 three-hour science:545 order
 Selected U image owns independent unprofiled SAME512 three-hour545/fourFULL and nine-hour1625/tenFULL exact science, each with allfour models and original reader normally closed. Ninehour06:00–15:00 qualifies continuous daylight coverage only; own instrumented/noon1h/profile/restart/full144/clean full-source rebuild remain false. Same ELF/archive/providers and source3c3925fd; no relink or source/default change for9h. Raw producer commit NULL. Threehour fixed-originalmedian3 and ninehour sole originalN1 are separate UNPAIRED descriptive comparisons; no pooling, newmatched/isolated/additive/repeatability gain or memory-capacity claim. Literal historical3h validators run in their exact isolated1200s context; current9h retains3600s caps and originalten-output checker.
 
 [Qualification](tools/cpu-compute/add-a2c-u-ordered4-20261030/NINE_HOUR_APPLICATION_QUALIFICATION.json).
+
+
+## October30: horizontal_diffusion_3dmp direct SIMD rejected
+
+One unchanged-expression I-loop SIMD directive changed27 output NaN-payload words across15 exceptional cases in the complete96-case nearest-round record; allfive processor-state words, read-only/config checks and target canaries matched. The actual selected scalar procedure and freshly compiled scalar parent matched96 cases in allfour rounding modes, with identical2478-byte bodies. Candidate4713-byte code remained unpromoted; no timing followed. R1 precompile import failure and R2 actual failed-manager/absent-cgroup records are preserved. [Decision and evidence](tools/cpu-rejected/diffusion3dmp-direct-simd-20261030/README.md).
