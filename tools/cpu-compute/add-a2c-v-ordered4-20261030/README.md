@@ -11,3 +11,11 @@ Complete synthetic caller clocks include the 311712-byte left restore, mask quer
 The actual experimental image passed its own unchanged 545-step/four-product three-hour checker with normal model and reader closures before source delivery. Nine-hour, noon, profiling, restart, full144 and clean full-source rebuild remain unqualified. The canonical source is post-test correspondence to cached tested objects; raw producer commit remains unknown.
 
 Opt out with WRF_ADD_A2C_V_ORDERED4=0 and regenerate PP, rebuild module/archive and relink. Whole-image rollback is the previous pressure-damping image e2580e95, archive4c5eed41.
+
+| Metric | Original3h median3 | Ordered interpolation child | Descriptive reduction |
+|---|---:|---:|---:|
+| Whole wall (min) | 13.333735 | 10.553467 | 20.8514% |
+| Main-step elapsed (min) | 9.940841 | 8.839859 | 11.0753% |
+| Aggregate CPU (core-hours) | 99.813152 | 85.211573 | 14.6289% |
+
+Single unpaired candidate observation against three distinct original controls; raw A2 remains the exact-science reference.

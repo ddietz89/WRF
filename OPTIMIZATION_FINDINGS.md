@@ -6407,3 +6407,18 @@ An explicit complete ordinary-sky SSE path passed 414 observations per optimizat
 The unchanged complete three-profile59-layer caller was slower on both hosts: hpc01 wall0.973004394→1.285318452s (+32.0979%), thread CPU0.973001163→1.285159870s; hpc02 wall0.947907194→1.287704082s (+35.8471%), thread CPU0.947904342→1.287684184s. All four opposite-order arms retained identical45,268-byte same-count physical/state records, separate compute-client cache clears and normal closures. Admission, helper calls and fallback/prefix replay costs are inside the clock; output-only restores are outside. No isolated significant gain was measured. Close this implementation unpromoted, without repeating timing or attempting whole-SW/application integration. Actual production eligibility and separate cost shares remain unmeasured; this is no forecast regression or universal optimality claim. The selected pressure child is unchanged.
 
 [Decision and evidence](tools/cpu-compute/reftra-full4-complete-unpromoted-20261030/DECISION.json).
+
+
+## Ordered ADD_A2C_V prefix — October 30
+
+The `69fb5625` child passed its own unchanged three-hour scientific gate:545 ordered steps/four FULL outputs; all models and reader normally closed.
+
+| Metric | Original3h median3 | Ordered interpolation child | Descriptive reduction |
+|---|---:|---:|---:|
+| Whole wall (min) | 13.333735 | 10.553467 | 20.8514% |
+| Main-step elapsed (min) | 9.940841 | 8.839859 | 11.0753% |
+| Aggregate CPU (core-hours) | 99.813152 | 85.211573 | 14.6289% |
+
+Ordered ADD_A2C_V child owns only unprofiled SAME512 three-hour science:545 ordered steps/four FULL products passed the unchanged original checker; four models and reader normally closed. Own nine-hour/noon/profile/restart/full144/clean full-source rebuild remain false. Parent pressure qualifications stay historical. One physical-tendency module replaced plus one helper added;592 other ordered archive members, RSL/providers and18 direct inputs unchanged. Native120masked+18finite-unmasked observations each O2/O0 preserve full physical/readOnly/config/guards/five hard numerical state words. Raw MODfalse with fixedfive conservative attributes and original-MOD interface coverage; non-targetrawfalse with fixed21argument/branchgraph and actual referenced-byte classification. Diagnostic source filenames differ; no diagnostic/unwind equivalence theorem. Complete synthetic8192 caller wall50.55–59.61percent lower including restores/query/dispatch, with no isolated/global/additive/repeatability claim. Forecast timing is one UNPAIRED descriptive observation vs fixed original median3. Post-test source correspondence only; raw producer commit NULL.
+
+[Evidence](tools/cpu-compute/add-a2c-v-ordered4-20261030/README.md).
