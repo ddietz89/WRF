@@ -1278,3 +1278,54 @@ WRF_SW_MCICA_CONDITIONAL_STORAGE ?= 1
 ifeq ($(WRF_SW_MCICA_CONDITIONAL_STORAGE),0)
 module_ra_rrtmg_sw.o: private override CPPFLAGS += -DWRF_SW_MCICA_CONDITIONAL_STORAGE_DISABLE
 endif
+
+# Ordered ADD_A2C_V prefix; own three-hour application qualified.
+# Optout0 regenerates PP/rebuilds module/archive/image; dyn_em owns the existing mask getter.
+WRF_ADD_A2C_V_ORDERED4 ?= 1
+_A2CV_ORDERED_FLAGS = $(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)
+module_physics_addtendc.o: private override CPPFLAGS += -UWRF_ADD_A2C_V_ORDERED4
+ifeq ($(WRF_ADD_A2C_V_ORDERED4),1)
+ifeq ($(WRF_ADDTENDC_SIMD),1)
+ifeq ($(WRF_PHY_INTERPOLATION_SIMD),1)
+ifeq ($(strip $(OMPCPP) $(OMP) $(PROMOTION) $(DOUBLE_PRECISION)),)
+ifeq ($(filter -D_OPENMP% _OPENMP% -DSTUBMPI% -DWRFPLUS% -DWRF_CFBM% -DWRF_CHEM%,$(CPPFLAGS)),)
+ifneq (,$(filter -DDM_PARALLEL -DDM_PARALLEL=%,$(CPPFLAGS)))
+ifeq ($(strip $(RWORDSIZE)),4)
+ifeq ($(strip $(IWORDSIZE)),4)
+ifeq ($(filter -fdefault-% -freal-% -finteger-% -r8 -i8 -fopenmp -fopenmp=% -Ofast -ffast-math -fassociative-math -funsafe-math-optimizations -freciprocal-math -ffinite-math-only -fno-signed-zeros -fno-trapping-math -march=% -mtune=% -mavx% -mfma%,$(_A2CV_ORDERED_FLAGS)),)
+ifeq ($(filter-out -O2,$(filter -O%,$(_A2CV_ORDERED_FLAGS))),)
+ifneq (,$(filter -O2,$(_A2CV_ORDERED_FLAGS)))
+ifeq ($(filter-out -ffp-contract=off,$(filter -ffp-contract=%,$(_A2CV_ORDERED_FLAGS))),)
+ifneq (,$(filter -fno-fast-math,$(_A2CV_ORDERED_FLAGS)))
+ifneq (,$(filter -ffp-contract=off,$(_A2CV_ORDERED_FLAGS)))
+ifneq (,$(findstring GNU Fortran,$(shell $(FC) --version 2>/dev/null)))
+ifeq ($(shell $(FC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+ifeq ($(shell $(CC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+ifneq (,$(filter x86_64%,$(shell $(CC) -dumpmachine 2>/dev/null)))
+module_physics_addtendc.o: private override CPPFLAGS += -DWRF_ADD_A2C_V_ORDERED4
+OBJS += wrf_add_a2c_v_ordered4.o
+$(LIBTARGET): wrf_add_a2c_v_ordered4.o
+wrf_add_a2c_v_ordered4.o: wrf_add_a2c_v_ordered4.c
+	$(CC) -O2 -fno-fast-math -ffp-contract=off -msse2 -mno-avx -mno-fma -std=c11 -c $< -o $@
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
