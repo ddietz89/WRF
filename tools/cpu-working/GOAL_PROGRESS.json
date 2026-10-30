@@ -1,39 +1,38 @@
 {
   "status": "MATHEMATICAL_GAP_ONLY_UNPAIRED_OWN_THREE_HOUR_OBSERVATION",
   "qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/add-a2c-u-ordered4-20261030/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "881a901bd20553654a12ad9a2993b90ba271e2200160a907ab0731513f75f026"
+    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/diffusion3dmp-ordered4-20261030/THREE_HOUR_APPLICATION_QUALIFICATION.json",
+    "sha256": "f4375676bfd725bac369b04623826f5c01259c26abb0d9ab13cd4fde2c48c924"
   },
   "ratio_definition": "Preselected original3h median3 wall/current own3h wall; descriptive unpaired single-forecast elapsed ratio; no concurrent throughput evidence.",
   "baseline_wall_seconds": 800.0241208570078,
-  "current_wall_seconds": 632.9502691579983,
-  "elapsed_wall_reduction_percent": 20.88360179941018,
-  "descriptive_throughput_increase_percent": 26.39604718412787,
+  "current_wall_seconds": 634.6038514720276,
+  "elapsed_wall_reduction_percent": 20.676910242128375,
+  "descriptive_throughput_increase_percent": 26.066697988244346,
   "targets": [
     {
       "target_wall_ratio": 1.5,
       "target_wall_seconds": 533.3494139046719,
       "formula": "1 - current_descriptive_wall_ratio / target_wall_ratio",
-      "signed_additional_current_wall_fraction": 0.15735968543914758,
-      "additional_current_wall_fraction": 0.15735968543914758,
-      "additional_current_wall_percent": 15.735968543914758
+      "signed_additional_current_wall_fraction": 0.15955534674503768,
+      "additional_current_wall_fraction": 0.15955534674503768,
+      "additional_current_wall_percent": 15.955534674503768
     },
     {
       "target_wall_ratio": 2.0,
       "target_wall_seconds": 400.0120604285039,
       "formula": "1 - current_descriptive_wall_ratio / target_wall_ratio",
-      "signed_additional_current_wall_fraction": 0.36801976407936066,
-      "additional_current_wall_fraction": 0.36801976407936066,
-      "additional_current_wall_percent": 36.80197640793607
+      "signed_additional_current_wall_fraction": 0.36966651005877826,
+      "additional_current_wall_fraction": 0.36966651005877826,
+      "additional_current_wall_percent": 36.96665100587783
     }
   ],
   "limits": "Mathematical further reduction of CURRENT wall only, not measured headroom, component attribution, repeatability or a prediction.",
-  "current_three_hour_descriptive_wall_ratio": 1.2639604718412787,
+  "current_three_hour_descriptive_wall_ratio": 1.2606669798824435,
   "current_nine_hour_qualification": {
     "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/add-a2c-u-ordered4-20261030/NINE_HOUR_APPLICATION_QUALIFICATION.json",
     "sha256": "a1b14f52d0b31f15e550551bc985114ab98937a15e06117b20185c73056d34b4"
   },
-  "current_nine_hour_descriptive_wall_ratio": 1.1654010010753268,
   "current_nine_hour_metrics": {
     "control": {
       "wall_seconds": 2049.434141888749,
@@ -45,27 +44,6 @@
       "cpu_seconds": 883596.3775529999,
       "main_step_sum_seconds": 1658.73022
     }
-  },
-  "same_image_three_hour_qualification": {
-    "path": "/home/ddietz/wrf/WRF/tools/cpu-compute/add-a2c-u-ordered4-20261030/THREE_HOUR_APPLICATION_QUALIFICATION.json",
-    "sha256": "881a901bd20553654a12ad9a2993b90ba271e2200160a907ab0731513f75f026"
-  },
-  "same_image_three_hour_metrics": {
-    "control": {
-      "wall_seconds": 800.0241208570078,
-      "cpu_seconds": 359327.346984,
-      "main_step_sum_seconds": 596.45045
-    },
-    "candidate": {
-      "wall_seconds": 632.9502691579983,
-      "cpu_seconds": 306044.54514,
-      "main_step_sum_seconds": 529.67212
-    }
-  },
-  "same_image_three_hour_reductions_percent": {
-    "wall_seconds": 20.88360179941018,
-    "cpu_seconds": 14.82848502659959,
-    "main_step_sum_seconds": 11.195956009422092
   },
   "nine_hour_scope": "Selected U image owns independent unprofiled SAME512 three-hour545/fourFULL and nine-hour1625/tenFULL exact science, each with allfour models and original reader normally closed. Ninehour06:00\u201315:00 qualifies continuous daylight coverage only; own instrumented/noon1h/profile/restart/full144/clean full-source rebuild remain false. Same ELF/archive/providers and source3c3925fd; no relink or source/default change for9h. Raw producer commit NULL. Threehour fixed-originalmedian3 and ninehour sole originalN1 are separate UNPAIRED descriptive comparisons; no pooling, newmatched/isolated/additive/repeatability gain or memory-capacity claim. Literal historical3h validators run in their exact isolated1200s context; current9h retains3600s caps and originalten-output checker.",
   "nine_hour_targets": [

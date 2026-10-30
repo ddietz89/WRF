@@ -6460,3 +6460,18 @@ One unchanged-expression I-loop SIMD directive changed27 output NaN-payload word
 ## October30: ordered diffusion3dmp retained for integration
 
 Explicit ordered SSE2 resolved the rejected directive's NaN operand-role differences. Actual fullBigStep/originalMOD168masked+24finiteunmasked cases eachfourrounds passed hardraw/five-state/readOnly/config/canary checks. Separately compiled scalar fallback has the original2478-byte body and exacthalfconstant. Complete2048 synthetic calls with outputrestores inside integerclocks measured wall69.7521%/67.6381% lower and threadCPU69.7482%/67.6378% lower on01/02, one opposite-order pair perhost; all4cacheclears/helperdrains/rawrecords/normalclosures passed. Costed fragment lacks the later fullmodule mask/fallbackdispatch; guardedcaller retiming and canonical/default0/fullgrid qualification remain pending. No forecast/productiongeometry/repeatability gain or source/default/selection promotion. [Retained evidence](tools/cpu-compute/diffusion3dmp-ordered4-investigation-20261030/README.md).
+
+
+## Ordered horizontal_diffusion_3dmp — October 30
+
+The `bcb94734` child passed its own unchanged three-hour scientific gate:545 ordered steps/four FULL outputs; all models and reader normally closed.
+
+| Metric | Original3h median3 | Ordered diffusion child | Descriptive reduction |
+|---|---:|---:|---:|
+| Whole wall (min) | 13.333735 | 10.576731 | 20.6769% |
+| Main-step elapsed (min) | 9.940841 | 8.894635 | 10.5243% |
+| Aggregate CPU (core-hours) | 99.813152 | 85.406268 | 14.4339% |
+
+Ordered horizontal_diffusion_3dmp image owns only unprofiled SAME512 three-hour science:545 ordered steps/four FULL outputs; unchanged original checker and invocation-bound normal closures of all four models and reader. Own nine-hour/noon/profile/restart/full144/clean full-source rebuild false; parent a218 nine-hour is historical. One cached BigStep module replaced, two helper members added, other593 of594 parent members raw exact. OriginalMOD native168masked+24finiteunmasked each four rounding modes exact for full physical/readOnly/config/guards/fivehard state. All41 non-target bodies raw exact; one conservative target MOD annotation differs, other325573 tokens exact; finite nine-relocation reference proof, scientific pools exact. No diagnostic filename/unwind/general ABI theorem. Supported GNU13.3 strictO2 pureMPI REAL4/INTEGER4 genericx86_64 only, read-only all-masked query and index64 admission; external literal fallback body2478bytes and half constant exact. Complete2048-call synthetic restore-included caller wall about67–70percent lower, onepairperhost plus finalcandidate-only spots; no isolated/global/productiongeometry/repeatability claim. Fullforecast single UNPAIRED descriptive observation vs fixed originalmedian3; post-test source correspondence only, raw producer commit NULL.
+
+[Evidence](tools/cpu-compute/diffusion3dmp-ordered4-20261030/README.md).
