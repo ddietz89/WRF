@@ -1,0 +1,78 @@
+{
+  "status": "PREPARED_FIXED_OPCODE_CONSUMER_PROTOTYPE_PENDING_FULL_PROCEDURE_NATIVE_GATES",
+  "utc": "2026-10-30T19:54:59.526792+00:00",
+  "current_image_sha256": "bcb94734557275930a1d7e9f3920e0cf51261ce008d4311a3887bb3c5a5f80e4",
+  "fresh_current_instruction_evidence": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentbcb9-current-direct-PC-source-triage-r1/ACTUAL_PC_MACHINE_SOURCE.json",
+    "sha256": "1be5e8ec68fd4009ae19a5f9cdcbfbd0a2440e494bdaf30036a5f03e995445e3"
+  },
+  "actual_parent_PP_excerpt": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentbcb9-current-direct-PC-source-triage-r1/ACTUAL_RETAINED_PP_EXCERPTS.json",
+    "sha256": "cb77c3f2ca6072e9146418f3a1c57c03ff874a357ee931e35d0ecf2b402b140a"
+  },
+  "sampled_target": [
+    {
+      "symbol": "__module_em_MOD_rk_update_scalar+0xe5d",
+      "direct_records": 8,
+      "period_cycles": 213272362,
+      "instruction_IPs": [
+        19832301
+      ],
+      "routine": "__module_em_MOD_rk_update_scalar",
+      "routine_source": {
+        "path": "/home/ddietz/wrf/WRF/dyn_em/module_em.F",
+        "sha256": "8ddbcd06cacdc3c553efbc589080b44e3c53a00c090eabf11c0a47453eba3d48",
+        "declaration_line": 1867
+      },
+      "source_mapping_scope": "Canonical routine declaration only; exact instruction-to-line needs retained exact disassembly/DWARF. Not inferred from symbol+offset."
+    },
+    {
+      "symbol": "__module_em_MOD_rk_update_scalar+0xe47",
+      "direct_records": 5,
+      "period_cycles": 133857421,
+      "instruction_IPs": [
+        19832279
+      ],
+      "routine": "__module_em_MOD_rk_update_scalar",
+      "routine_source": {
+        "path": "/home/ddietz/wrf/WRF/dyn_em/module_em.F",
+        "sha256": "8ddbcd06cacdc3c553efbc589080b44e3c53a00c090eabf11c0a47453eba3d48",
+        "declaration_line": 1867
+      },
+      "source_mapping_scope": "Canonical routine declaration only; exact instruction-to-line needs retained exact disassembly/DWARF. Not inferred from symbol+offset."
+    }
+  ],
+  "actual_operations": "muold*c1; tendency*dt; add c2 tooldproduct; multiply scalar1; add tendencyproduct; munew*c1; add c2; divide numerator/denominator. Each x86 scalar destination/source role is explicit in proposed SSE2 packed4/SS tail.",
+  "mechanism": "Vectorize only independent late-stage scalar reconstruction with fixed actual SSE operand roles; preserve existing producer/consumer pass schedule and first-stage behavior. Allmask admission plus original compiled procedure fallback; no floating-control normalization.",
+  "dedup_adjudication": "Retain rejection of compiler-directed laterstage SIMD and producer/consumer row-pipeline variants. Their eligible producer multiplication or compiler epilogue chose a different NaN payload. This question uses a separate explicit ordered C/SSE2 backend for the currently sampled scalar consumer, with unchanged producer schedule, and actual scalar destination/source operands fixed from current ELF. The prior row scheduling is not claimed as new. This preparation adds a fixed-opcode backend and preserves the pass schedule; do not treat a guard/layout/ISA variant as a distinct mechanism.",
+  "prior_failures": [
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current3c3a-rkscalar-laterstage-row-pipeline-source-question-r1/POST_FAILURE_FINITE_TRIAGE.json",
+      "sha256": "10f3a2905151e498480a554f0ec3b5e0b00c6a4651d9b8adccd1c28bfffb37df"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current3c3a-rkscalar-laterstage-row-pipeline-source-question-r1/SEPARATE_OBJECT_CLOSEOUT.json",
+      "sha256": "c49c6ac98b410405badcd818352c46e5bf639f5472bf2b2130e262ad5dfff723"
+    },
+    {
+      "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current3c3a-rkscalar-laterstage-row-pipeline-source-question-r1/DEDUP_HOLD.json",
+      "sha256": "8be20462941ff4312bb9c15563613d6aed2c034e90cbd00ae45da9a653a07fe3"
+    }
+  ],
+  "prerequisite_before_native": [
+    "Establish current full ModuleEM selected PP/object/MOD and original function identity vs retained fallback prototype",
+    "Review/reuse genuine original-MOD complete-routine fixture and exact original-object fallback; preserve all previous counterexamples and add focused consumer operand/tail cases",
+    "Integrate helper only under exact supported compiler/precision/ISA and positive contiguous int32 span admission; unsupported/unmasked path uses actual original body",
+    "Keep allfive numerical state words, fullphysical/readOnly/config/optional/bounds and rawNaN equality hard",
+    "Actual scalar and packed machine operands must match this current ELF sequence before wholecaller timing"
+  ],
+  "benefit_pending": "No timing prediction. Complete restore-included wholecaller cost required after native exactness; keep current output oracle and no fullforecast claim fromselectedthread counts.",
+  "selected_source_or_image_changed": false,
+  "helper_source": {
+    "path": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/currentbcb9-rkscalar-ordered-consumer-source-question-r1/ordered_consumer.c",
+    "sha256": "5d9b8c00a15763221c6d97fdcf2a7a77548537ed2de9665052ff0dfb842ebbd5"
+  },
+  "native_build_or_benchmark_started": false,
+  "fallback_original_prototype": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current3c3a-rkscalar-laterstage-row-pipeline-source-question-r1/separate-original-object-prototype-r1",
+  "current_original_member_identity_proved": "CURRENT_ORIGINAL_FALLBACK_IDENTITY.json"
+}

@@ -1,0 +1,65 @@
+{
+  "status": "PASS_ALL4_ACTUAL_NESTED_TRANSPORT_CONSTRUCTORS_WITH_SAMEHOST_HELPER_AND_WORKER",
+  "routes": [
+    {
+      "arm": 0,
+      "host": "hpc02",
+      "actual_nested_argv": [
+        "ssh",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "ConnectTimeout=10",
+        "hpc02",
+        "sudo -n /usr/bin/setsid /usr/bin/python3 /pool/wrf-experiment/wrf-cpu/kernels/currentbcb9-rkscalar-cost10000-arm0-r1/cache_clear_host.py --host hpc02 --run-id wrf-cpu-rkscalar-cost10000-arm0-hpc02-r1.service"
+      ],
+      "helper_host_matches_worker_host": true,
+      "setsid_owned_group_drain_required": true
+    },
+    {
+      "arm": 1,
+      "host": "hpc04",
+      "actual_nested_argv": [
+        "ssh",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "ConnectTimeout=10",
+        "hpc04",
+        "sudo -n /usr/bin/setsid /usr/bin/python3 /pool/wrf-experiment/wrf-cpu/kernels/currentbcb9-rkscalar-cost10000-arm1-r1/cache_clear_host.py --host hpc04 --run-id wrf-cpu-rkscalar-cost10000-arm1-hpc04-r1.service"
+      ],
+      "helper_host_matches_worker_host": true,
+      "setsid_owned_group_drain_required": true
+    },
+    {
+      "arm": 2,
+      "host": "hpc02",
+      "actual_nested_argv": [
+        "ssh",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "ConnectTimeout=10",
+        "hpc02",
+        "sudo -n /usr/bin/setsid /usr/bin/python3 /pool/wrf-experiment/wrf-cpu/kernels/currentbcb9-rkscalar-cost10000-arm2-r1/cache_clear_host.py --host hpc02 --run-id wrf-cpu-rkscalar-cost10000-arm2-hpc02-r1.service"
+      ],
+      "helper_host_matches_worker_host": true,
+      "setsid_owned_group_drain_required": true
+    },
+    {
+      "arm": 3,
+      "host": "hpc04",
+      "actual_nested_argv": [
+        "ssh",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "ConnectTimeout=10",
+        "hpc04",
+        "sudo -n /usr/bin/setsid /usr/bin/python3 /pool/wrf-experiment/wrf-cpu/kernels/currentbcb9-rkscalar-cost10000-arm3-r1/cache_clear_host.py --host hpc04 --run-id wrf-cpu-rkscalar-cost10000-arm3-hpc04-r1.service"
+      ],
+      "helper_host_matches_worker_host": true,
+      "setsid_owned_group_drain_required": true
+    }
+  ]
+}

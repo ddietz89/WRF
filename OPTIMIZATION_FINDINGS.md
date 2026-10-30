@@ -6486,3 +6486,15 @@ Samebcb94734 passed unchanged original noon science185steps/twoFULL and all4 nat
 | bcb94734 native15 | 4.501838 | 2.922975 | 33.877249 | 185steps/twoFULL PASS |
 
 Original75min is only a scientific prefix reference; no matched one-hour timing comparison. Own unprofiled3hmetrics unchanged; own9h/unprofilednoon/restart/full144/cleanfullsource remainfalse. Raw historical5C75/efa6 reportlabels and optionalerrors retained; actuallease/image/invocations above authoritative. [Profile qualification](tools/cpu-compute/diffusion3dmp-ordered4-20261030/INSTRUMENTED_NOON_PROFILE_QUALIFICATION.json).
+
+
+## Ordered RK scalar late consumer retained for integration — October30
+
+Explicit fixed-operand SSE2 consumer with originalpassschedule and original-object fallback passed92genuineoriginal-MOD cases/fourrounds,368fullphysical/raw/fivestate comparisons. All oldproducer-pipeline andcompilerSIMD failures remainretained.
+
+| Complete synthetic RK2 caller, 10,000 calls | Original wall (s) | Candidate wall (s) | Wall reduction | Original thread CPU (s) | Candidate thread CPU (s) | CPU reduction |
+|---|---:|---:|---:|---:|---:|---:|
+| hpc02 (parent then candidate) | 1.242985686 | 0.765618171 | 38.4049% | 1.242943744 | 0.765592061 | 38.4049% |
+| hpc04 (candidate then parent) | 1.221155348 | 0.750593836 | 38.5341% | 1.221096007 | 0.750571020 | 38.5330% |
+
+Both full818400byte scalar1/scalar2 restores are inside everytimed batch; samefixed10000calls,200x33x31physical/187x32x10active/1species synthetic. Oneopposite-order pair perhost; allfourcacheclears/helpersgroups/rawfiles/timingunits passed. This supportsretention forintegration, not a forecast/global/productiongeometry/repeatability/RK3cost claim. Currentselectedbcb9/source/default unchanged; ownchildSCI andguardedcanonicaldeliverypending. [Evidence](tools/cpu-compute/rkscalar-ordered-consumer-investigation-20261030/README.md).
