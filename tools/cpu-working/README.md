@@ -1,11 +1,11 @@
 # Selected working configuration
 
-| Metric | Original nine-hour N1 | Current5ba7 | Descriptive reduction |
+| Metric | Original3h median3 | Ordered RK child | Descriptive reduction |
 |---|---:|---:|---:|
-| Whole wall minutes | 34.157236 | 29.138509 | 14.6930% |
-| Main integration elapsed minutes | 30.845967 | 27.509725 | 10.8158% |
-| Aggregate CPU core-hours | 278.157466 | 244.251789 | 12.1894% |
+| Whole wall (min) | 13.333735 | 10.468170 | 21.4911% |
+| Main-step elapsed (min) | 9.940841 | 8.834200 | 11.1323% |
+| Aggregate CPU (core-hours) | 99.813152 | 84.816812 | 15.0244% |
 
-The selected SW conditional-storage image owns separate unprofiled SAME512 three-hour and nine-hour exact science. Nine-hour:1,625 ordered steps, ten full outputs,06:00–15:00; all four models and original reader normally closed. Existing three-hour qualification and metrics remain unchanged. Own noon, instrumented noon, profile, restart, full144 and clean full-source rebuild remain false. Source correspondence is post-test; raw producer commit NULL. Nine-hour metrics compare only with the sole retained original nine-hour N1, UNPAIRED and descriptive; no pooling, median3 substitution, isolated component attribution, additive or repeatable gain claim. The three-hour fixed-median3 observation remains separate. No measured peak-memory/capacity claim follows.
+Ordered RK scalar consumer image owns unprofiled SAME512 three-hour exact science only: 545 ordered steps and four full outputs; all four models and original reader normally closed. No inherited noon/profile/nine-hour/restart/full144 or clean full-source rebuild qualification. The archive removes one public ModuleEM member and adds a separate original alias plus public dispatcher, private fast routine and ordered SSE2 consumer; all other 595 ordered payloads remain exact (599 members). Original public MOD is unchanged. Native original-MOD tests passed 92 cases in four rounding modes, 368 raw/full-physical/read-only/configuration/guard/five-state comparisons. The original fallback retains its 10861-byte body, resolved references and all 17 original object functions except the one symbol spelling. Actual canonical compiler recipe correspondence and Make on/off ownership are checked separately. Complete synthetic RK2 caller costs were 38.4–38.5 percent lower, one opposite-order pair per host with restores inside clocks; no production-geometry, RK3 cost, repeatability or global gain claim. GNU13.3 strictO2 pureMPI REAL4/INT4 generic x86_64 support only; unsupported, active-diagnostic or trap-enabled calls use the original object. Full-grid timing is one unpaired descriptive observation against the preselected original median3. Source correspondence is post-test; raw producer commit is unknown.
 
-[Component evidence](../cpu-compute/sw-conditional-cloud-storage-20261029/README.md). The same-image three-hour qualification and fixed-median3 metrics remain unchanged.
+[Qualification](../cpu-compute/rkscalar-ordered-consumer-20261030/THREE_HOUR_APPLICATION_QUALIFICATION.json).
