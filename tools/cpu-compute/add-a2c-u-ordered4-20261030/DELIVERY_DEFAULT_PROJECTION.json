@@ -1,0 +1,17 @@
+{
+  "status": "PASS_U_DELIVERY_DEFAULT_ON_AND_EXPLICIT_OPTOUT",
+  "delivery_Makefile_sha256": "4c9f308a5bc10193e18e391596d7ffe3f91d69d27e8957a76765ec5fa491f684",
+  "cases": {
+    "supported_U_default_on": {
+      "U_enabled": true,
+      "existing_V_helper_unchanged": true,
+      "dry_run": "echo CPP -DDM_PARALLEL -UWRF_ADD_A2C_V_ORDERED4 -UWRF_ADD_A2C_U_ORDERED4 -DWRF_ADD_A2C_V_ORDERED4 -DWRF_ADD_A2C_U_ORDERED4\n/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current69fb-a2cu-neighbor-prefix-source-triage-r1/makeguard-review-r1/query-only-compiler -O2 -fno-fast-math -ffp-contract=off -msse2 -mno-avx -mno-fma -std=c11 -c wrf_add_a2c_v_ordered4.c -o wrf_add_a2c_v_ordered4.o\necho ARCHIVE parent.o wrf_add_a2c_v_ordered4.o\n"
+    },
+    "explicit_U_optout": {
+      "U_enabled": false,
+      "existing_V_helper_unchanged": true,
+      "dry_run": "echo CPP -DDM_PARALLEL -UWRF_ADD_A2C_V_ORDERED4 -UWRF_ADD_A2C_U_ORDERED4 -DWRF_ADD_A2C_V_ORDERED4\n/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/current69fb-a2cu-neighbor-prefix-source-triage-r1/makeguard-review-r1/query-only-compiler -O2 -fno-fast-math -ffp-contract=off -msse2 -mno-avx -mno-fma -std=c11 -c wrf_add_a2c_v_ordered4.c -o wrf_add_a2c_v_ordered4.o\necho ARCHIVE parent.o wrf_add_a2c_v_ordered4.o\n"
+    }
+  },
+  "scope": "Prepared future source projection only, actual GNU Make with query-only compiler fixture. No public source/default change before own science."
+}

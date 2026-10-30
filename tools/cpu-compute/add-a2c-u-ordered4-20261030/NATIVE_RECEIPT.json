@@ -1,0 +1,1043 @@
+{
+  "status": "PASS_CURRENT69FB_U_ORIGINALMOD32X4_O2_O0_RAW_FIVE_NONTARGET_PENDING",
+  "invocation_id": "8e383bddc5584580857f1abb1fd22850",
+  "module_compiles": 1,
+  "driver_compiles": 2,
+  "helper_compiles": 0,
+  "links": 4,
+  "native_executions": 16,
+  "commands": [
+    {
+      "label": "O2-compile-originalMOD-driver32",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/wrappers/gfortran",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/currente258-add-a2c-v-ordered4-native-hpc01-r1/work/O2/candidate",
+        "-O2",
+        "-w",
+        "-g",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-fopenmp-simd",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/whole_add_a2c_u_driver.f90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O2/driver.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "O2-link-parent",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O2/parent/caller",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-Wl,-rpath,/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/hpg-nhx-isolated-avx2-consumer-native-r3/work/nhx-helper-O2.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/phy-height-private-avx2-fixed8-native-hpc04-r1/work/helper-O2.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O2/driver.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currente258-add-a2c-v-ordered4-native-hpc01-r1/work/O2/candidate/module_physics_addtendc.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current8b49-lw-inatm-contiguous-copy-native-hpc01-r1/work/region_observer.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currente258-add-a2c-v-ordered4-native-hpc01-r3/work/O2/ordered4.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-phy-interior-p8w-t8w-simd-native-hpc03-r3/work/phy_interp_mask.o",
+        "-Wl,--start-group",
+        "/pool/wrf-experiment/wrf-cpu/builds/currente258-a2cv-ordered4-experimental-r1/libwrflib.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-lesmf_time",
+        "/pool/wrf-experiment/wrf-cpu/builds/current1d16-rsl-early-y-production-archive-r1/librsl_lite.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2",
+        "-lwrfio_nf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-lnetcdf",
+        "-Wl,--end-group",
+        "-lm"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "O2-parent-round0",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O2/parent/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O2/parent/round0.raw",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "cd96c93dbde195b4637b5470ad7565b1bcc0b01a44d78bfb6c57299c5a344317"
+    },
+    {
+      "label": "O2-parent-round1",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O2/parent/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O2/parent/round1.raw",
+        "1"
+      ],
+      "returncode": 0,
+      "log_sha256": "cd96c93dbde195b4637b5470ad7565b1bcc0b01a44d78bfb6c57299c5a344317"
+    },
+    {
+      "label": "O2-parent-round2",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O2/parent/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O2/parent/round2.raw",
+        "2"
+      ],
+      "returncode": 0,
+      "log_sha256": "cd96c93dbde195b4637b5470ad7565b1bcc0b01a44d78bfb6c57299c5a344317"
+    },
+    {
+      "label": "O2-parent-round3",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O2/parent/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O2/parent/round3.raw",
+        "3"
+      ],
+      "returncode": 0,
+      "log_sha256": "cd96c93dbde195b4637b5470ad7565b1bcc0b01a44d78bfb6c57299c5a344317"
+    },
+    {
+      "label": "O2-link-candidate",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O2/candidate/caller",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-Wl,-rpath,/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/hpg-nhx-isolated-avx2-consumer-native-r3/work/nhx-helper-O2.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/phy-height-private-avx2-fixed8-native-hpc04-r1/work/helper-O2.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O2/driver.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-O2-module-probe-hpc01-r2/work/module_physics_addtendc.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current8b49-lw-inatm-contiguous-copy-native-hpc01-r1/work/region_observer.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currente258-add-a2c-v-ordered4-native-hpc01-r3/work/O2/ordered4.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-phy-interior-p8w-t8w-simd-native-hpc03-r3/work/phy_interp_mask.o",
+        "-Wl,--start-group",
+        "/pool/wrf-experiment/wrf-cpu/builds/currente258-a2cv-ordered4-experimental-r1/libwrflib.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-lesmf_time",
+        "/pool/wrf-experiment/wrf-cpu/builds/current1d16-rsl-early-y-production-archive-r1/librsl_lite.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2",
+        "-lwrfio_nf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-lnetcdf",
+        "-Wl,--end-group",
+        "-lm"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "O2-candidate-round0",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O2/candidate/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O2/candidate/round0.raw",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "cd96c93dbde195b4637b5470ad7565b1bcc0b01a44d78bfb6c57299c5a344317"
+    },
+    {
+      "label": "O2-candidate-round1",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O2/candidate/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O2/candidate/round1.raw",
+        "1"
+      ],
+      "returncode": 0,
+      "log_sha256": "cd96c93dbde195b4637b5470ad7565b1bcc0b01a44d78bfb6c57299c5a344317"
+    },
+    {
+      "label": "O2-candidate-round2",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O2/candidate/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O2/candidate/round2.raw",
+        "2"
+      ],
+      "returncode": 0,
+      "log_sha256": "cd96c93dbde195b4637b5470ad7565b1bcc0b01a44d78bfb6c57299c5a344317"
+    },
+    {
+      "label": "O2-candidate-round3",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O2/candidate/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O2/candidate/round3.raw",
+        "3"
+      ],
+      "returncode": 0,
+      "log_sha256": "cd96c93dbde195b4637b5470ad7565b1bcc0b01a44d78bfb6c57299c5a344317"
+    },
+    {
+      "label": "O0-compile-U-candidate",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/wrappers/gfortran",
+        "-O0",
+        "-w",
+        "-g",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-fopenmp-simd",
+        "-fcheck=all",
+        "-fbacktrace",
+        "-J/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O0",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O0/module_physics_addtendc.f90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O0/module_physics_addtendc.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "O0-compile-originalMOD-driver32",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/wrappers/gfortran",
+        "-I/pool/wrf-experiment/wrf-cpu/kernels/currente258-add-a2c-v-ordered4-native-hpc01-r3/work/O0/candidate",
+        "-O0",
+        "-w",
+        "-g",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/share",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/phys",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/dyn_em",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/inc",
+        "-I/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-fopenmp-simd",
+        "-fcheck=all",
+        "-fbacktrace",
+        "-c",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/whole_add_a2c_u_driver.f90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O0/driver.o"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "O0-link-parent",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O0/parent/caller",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-Wl,-rpath,/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/hpg-nhx-isolated-avx2-consumer-native-r3/work/nhx-helper-O2.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/phy-height-private-avx2-fixed8-native-hpc04-r1/work/helper-O2.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O0/driver.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currente258-add-a2c-v-ordered4-native-hpc01-r3/work/O0/candidate/module_physics_addtendc.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current8b49-lw-inatm-contiguous-copy-native-hpc01-r1/work/region_observer.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currente258-add-a2c-v-ordered4-native-hpc01-r3/work/O0/ordered4.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-phy-interior-p8w-t8w-simd-native-hpc03-r3/work/phy_interp_mask.o",
+        "-Wl,--start-group",
+        "/pool/wrf-experiment/wrf-cpu/builds/currente258-a2cv-ordered4-experimental-r1/libwrflib.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-lesmf_time",
+        "/pool/wrf-experiment/wrf-cpu/builds/current1d16-rsl-early-y-production-archive-r1/librsl_lite.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2",
+        "-lwrfio_nf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-lnetcdf",
+        "-Wl,--end-group",
+        "-lm"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "O0-parent-round0",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O0/parent/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O0/parent/round0.raw",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "cd96c93dbde195b4637b5470ad7565b1bcc0b01a44d78bfb6c57299c5a344317"
+    },
+    {
+      "label": "O0-parent-round1",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O0/parent/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O0/parent/round1.raw",
+        "1"
+      ],
+      "returncode": 0,
+      "log_sha256": "cd96c93dbde195b4637b5470ad7565b1bcc0b01a44d78bfb6c57299c5a344317"
+    },
+    {
+      "label": "O0-parent-round2",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O0/parent/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O0/parent/round2.raw",
+        "2"
+      ],
+      "returncode": 0,
+      "log_sha256": "cd96c93dbde195b4637b5470ad7565b1bcc0b01a44d78bfb6c57299c5a344317"
+    },
+    {
+      "label": "O0-parent-round3",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O0/parent/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O0/parent/round3.raw",
+        "3"
+      ],
+      "returncode": 0,
+      "log_sha256": "cd96c93dbde195b4637b5470ad7565b1bcc0b01a44d78bfb6c57299c5a344317"
+    },
+    {
+      "label": "O0-link-candidate",
+      "argv": [
+        "/pool/wrf-experiment/toolchains/gnu/13.3.0/mpi-ucx-xpmem/bin/mpif90",
+        "-o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O0/candidate/caller",
+        "-O2",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-w",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "-ffree-form",
+        "-ffree-line-length-none",
+        "-fconvert=big-endian",
+        "-frecord-marker=4",
+        "-fallow-argument-mismatch",
+        "-fallow-invalid-boz",
+        "-g",
+        "-Wl,-rpath,/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib64:/pool/wrf-experiment/toolchains/gnu/13.3.0/lib",
+        "-fno-fast-math",
+        "-ffp-contract=off",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table_iso.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/shared_table.o",
+        "/pool/wrf-experiment/wrf-cpu/builds/thompson-tpi-owner-canonical-current-r2/candidate/thompson_tpi_bridge.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/hpg-nhx-isolated-avx2-consumer-native-r3/work/nhx-helper-O2.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/phy-height-private-avx2-fixed8-native-hpc04-r1/work/helper-O2.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O0/driver.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O0/module_physics_addtendc.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current8b49-lw-inatm-contiguous-copy-native-hpc01-r1/work/region_observer.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currente258-add-a2c-v-ordered4-native-hpc01-r3/work/O0/ordered4.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/currentda1c-phy-interior-p8w-t8w-simd-native-hpc03-r3/work/phy_interp_mask.o",
+        "-Wl,--start-group",
+        "/pool/wrf-experiment/wrf-cpu/builds/currente258-a2cv-ordered4-experimental-r1/libwrflib.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/fftpack/fftpack5/libfftpack.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib1/libio_grib1.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_grib_share/libio_grib_share.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/io_int/libwrfio_int.a",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/external/esmf_time_f90",
+        "-lesmf_time",
+        "/pool/wrf-experiment/wrf-cpu/builds/current1d16-rsl-early-y-production-archive-r1/librsl_lite.a",
+        "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/frame/module_internal_header_util.o",
+        "/pool/wrf-experiment/wrf-cpu/kernels/quilt-owned-field-view-protocol-hpc02-gate-r1/work/candidate/frame/pack_utils.o",
+        "-L/pool/wrf-experiment/wrf-cpu/builds/input-transpose-read-affine-canonical-current-r2",
+        "-lwrfio_nf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdf",
+        "-L/pool/wrf-experiment/toolchains/gnu/13.3.0/deps/lib",
+        "-lnetcdff",
+        "-lnetcdf",
+        "-lnetcdf",
+        "-Wl,--end-group",
+        "-lm"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "O0-candidate-round0",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O0/candidate/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O0/candidate/round0.raw",
+        "0"
+      ],
+      "returncode": 0,
+      "log_sha256": "cd96c93dbde195b4637b5470ad7565b1bcc0b01a44d78bfb6c57299c5a344317"
+    },
+    {
+      "label": "O0-candidate-round1",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O0/candidate/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O0/candidate/round1.raw",
+        "1"
+      ],
+      "returncode": 0,
+      "log_sha256": "cd96c93dbde195b4637b5470ad7565b1bcc0b01a44d78bfb6c57299c5a344317"
+    },
+    {
+      "label": "O0-candidate-round2",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O0/candidate/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O0/candidate/round2.raw",
+        "2"
+      ],
+      "returncode": 0,
+      "log_sha256": "cd96c93dbde195b4637b5470ad7565b1bcc0b01a44d78bfb6c57299c5a344317"
+    },
+    {
+      "label": "O0-candidate-round3",
+      "argv": [
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O0/candidate/caller",
+        "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O0/candidate/round3.raw",
+        "3"
+      ],
+      "returncode": 0,
+      "log_sha256": "cd96c93dbde195b4637b5470ad7565b1bcc0b01a44d78bfb6c57299c5a344317"
+    }
+  ],
+  "application_qualified": false,
+  "performance_qualified": false,
+  "levels": {
+    "O2": {
+      "parent": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/currente258-add-a2c-v-ordered4-native-hpc01-r1/work/O2/candidate/module_physics_addtendc.o",
+        "sha256": "95c35deace685431320048f5876b6f49fc6870f4ee45074383b217f1d0231b48",
+        "PP_path": "/pool/wrf-experiment/wrf-cpu/kernels/currente258-add-a2c-v-ordered4-native-hpc01-r1/work/O2/candidate/module_physics_addtendc.f90",
+        "PP_sha256": "b824a30ab9877aa447c3823148282a309de35ebbbe97cb4a7eefbe581f8fce75",
+        "MOD_sha256": "5ec45c730b19c9d4232ea3cba3454bb51f2dddb9ae7fcd164a54c436468c8acb"
+      },
+      "candidate": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-O2-module-probe-hpc01-r2/work/module_physics_addtendc.o",
+        "sha256": "a773dbf1850417873990446296b27de07b44069950b1ad3f43bce1cef23d3143",
+        "MOD_path": "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-O2-module-probe-hpc01-r2/work/module_physics_addtendc.mod",
+        "MOD_sha256": "750ce649446233f1f3f658fb7a63f2677b34d99aa8d88c444d19e77b0ef96541",
+        "PP_path": "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-O2-module-probe-hpc01-r2/work/module_physics_addtendc.f90",
+        "PP_sha256": "001148cea9dfcaf3fdd5b79d55582f33db2be0f7d72826975d95f23ae68628d0"
+      },
+      "original_MOD_interface": {
+        "status": "PASS_FIXED_ONE_U_CONSERVATIVE_ATTRIBUTE_ORIGINALMOD",
+        "raw_exact": false,
+        "procedure": "add_a2c_u",
+        "parent_tokens": 368844,
+        "candidate_tokens": 368845,
+        "all_other_tokens_exact": true,
+        "parent_sha256": "5ec45c730b19c9d4232ea3cba3454bb51f2dddb9ae7fcd164a54c436468c8acb",
+        "candidate_sha256": "750ce649446233f1f3f658fb7a63f2677b34d99aa8d88c444d19e77b0ef96541",
+        "scope": "Only one fixed added ARRAY_OUTER_DEPENDENCY token; all declared names/purity/type/kind/rank/bounds/intent/order and other tokens exact. No module substitution or generic normalization."
+      },
+      "defined_global_ABI": {
+        "status": "PASS_DEFINED_GLOBAL_DATA_ABI_EXACT_LOCAL_INVENTORY_RECORDED",
+        "parent_all_LOCAL_functions": [],
+        "candidate_all_LOCAL_functions": [],
+        "defined_globals": {
+          "__module_physics_addtendc_MOD_add_a2a": {
+            "binding": 1,
+            "type": 2,
+            "visibility": 0,
+            "data_size": null
+          },
+          "__module_physics_addtendc_MOD_add_a2a_ph": {
+            "binding": 1,
+            "type": 2,
+            "visibility": 0,
+            "data_size": null
+          },
+          "__module_physics_addtendc_MOD_add_a2c_u": {
+            "binding": 1,
+            "type": 2,
+            "visibility": 0,
+            "data_size": null
+          },
+          "__module_physics_addtendc_MOD_add_a2c_v": {
+            "binding": 1,
+            "type": 2,
+            "visibility": 0,
+            "data_size": null
+          },
+          "__module_physics_addtendc_MOD_add_c2c_u": {
+            "binding": 1,
+            "type": 2,
+            "visibility": 0,
+            "data_size": null
+          },
+          "__module_physics_addtendc_MOD_add_c2c_v": {
+            "binding": 1,
+            "type": 2,
+            "visibility": 0,
+            "data_size": null
+          },
+          "__module_physics_addtendc_MOD_advance_ppt": {
+            "binding": 1,
+            "type": 2,
+            "visibility": 0,
+            "data_size": null
+          },
+          "__module_physics_addtendc_MOD_phy_bl_ten": {
+            "binding": 1,
+            "type": 2,
+            "visibility": 0,
+            "data_size": null
+          },
+          "__module_physics_addtendc_MOD_phy_cu_ten": {
+            "binding": 1,
+            "type": 2,
+            "visibility": 0,
+            "data_size": null
+          },
+          "__module_physics_addtendc_MOD_phy_fg_ten": {
+            "binding": 1,
+            "type": 2,
+            "visibility": 0,
+            "data_size": null
+          },
+          "__module_physics_addtendc_MOD_phy_fr_ten": {
+            "binding": 1,
+            "type": 2,
+            "visibility": 0,
+            "data_size": null
+          },
+          "__module_physics_addtendc_MOD_phy_iau_ten": {
+            "binding": 1,
+            "type": 2,
+            "visibility": 0,
+            "data_size": null
+          },
+          "__module_physics_addtendc_MOD_phy_ra_ten": {
+            "binding": 1,
+            "type": 2,
+            "visibility": 0,
+            "data_size": null
+          },
+          "__module_physics_addtendc_MOD_phy_shcu_ten": {
+            "binding": 1,
+            "type": 2,
+            "visibility": 0,
+            "data_size": null
+          },
+          "__module_physics_addtendc_MOD_update_phy_ten": {
+            "binding": 1,
+            "type": 2,
+            "visibility": 0,
+            "data_size": null
+          }
+        },
+        "candidate_added_LOCAL_functions": [],
+        "candidate_removed_LOCAL_functions": [],
+        "function_code_sizes_compared": false,
+        "MOD_bytes_normalized": false,
+        "undefined_section_zero_excluded": true,
+        "parser_contract": "semantic_object asserts unique section names; section0 alone has emptyname, actual ELF st_shndx0 is SHN_UNDEF."
+      },
+      "helper": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/currente258-add-a2c-v-ordered4-native-hpc01-r3/work/O2/ordered4.o",
+        "sha256": "d7198fa879c8b57df407bfe0f06c9dfd7a69658c8d5b73ad807f42e9b47fb29d",
+        "ASM_sha256": "566bde13865fef69fe9a2345f7b2d3e6254da8b10371f134dc844e57a221681b"
+      },
+      "observations": {
+        "parent": {
+          "0": {
+            "path": "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O2/parent/round0.raw",
+            "bytes": 19950464,
+            "sha256": "c40e54ba4c6b5f0e9b1d8eee1197df493806b7c07f6cdbc69647ab04df2679da",
+            "cases": 32
+          },
+          "1": {
+            "path": "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O2/parent/round1.raw",
+            "bytes": 19950464,
+            "sha256": "12fa1386ca022cd70ea7bd9d1c312970b4929be83a5793f9a7e0c7faff781cdf",
+            "cases": 32
+          },
+          "2": {
+            "path": "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O2/parent/round2.raw",
+            "bytes": 19950464,
+            "sha256": "2789e8378cbd7c14cc96abb220ae3403a648638f75a65b6769281fa21f5ea2c7",
+            "cases": 32
+          },
+          "3": {
+            "path": "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O2/parent/round3.raw",
+            "bytes": 19950464,
+            "sha256": "96b87f34a1eb9c1285ba59ae3afef510d26bbbfb17f763c1033459e091c48196",
+            "cases": 32
+          }
+        },
+        "candidate": {
+          "0": {
+            "path": "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O2/candidate/round0.raw",
+            "bytes": 19950464,
+            "sha256": "c40e54ba4c6b5f0e9b1d8eee1197df493806b7c07f6cdbc69647ab04df2679da",
+            "cases": 32
+          },
+          "1": {
+            "path": "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O2/candidate/round1.raw",
+            "bytes": 19950464,
+            "sha256": "12fa1386ca022cd70ea7bd9d1c312970b4929be83a5793f9a7e0c7faff781cdf",
+            "cases": 32
+          },
+          "2": {
+            "path": "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O2/candidate/round2.raw",
+            "bytes": 19950464,
+            "sha256": "2789e8378cbd7c14cc96abb220ae3403a648638f75a65b6769281fa21f5ea2c7",
+            "cases": 32
+          },
+          "3": {
+            "path": "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O2/candidate/round3.raw",
+            "bytes": 19950464,
+            "sha256": "96b87f34a1eb9c1285ba59ae3afef510d26bbbfb17f763c1033459e091c48196",
+            "cases": 32
+          }
+        }
+      },
+      "non_target": {
+        "__module_physics_addtendc_MOD_add_a2a": {
+          "raw_exact": true,
+          "FULL_RELA_exact": true
+        },
+        "__module_physics_addtendc_MOD_add_a2a_ph": {
+          "raw_exact": true,
+          "FULL_RELA_exact": true
+        },
+        "__module_physics_addtendc_MOD_add_a2c_v": {
+          "raw_exact": true,
+          "FULL_RELA_exact": true
+        },
+        "__module_physics_addtendc_MOD_add_c2c_u": {
+          "raw_exact": true,
+          "FULL_RELA_exact": true
+        },
+        "__module_physics_addtendc_MOD_add_c2c_v": {
+          "raw_exact": true,
+          "FULL_RELA_exact": true
+        },
+        "__module_physics_addtendc_MOD_advance_ppt": {
+          "raw_exact": true,
+          "FULL_RELA_exact": true
+        },
+        "__module_physics_addtendc_MOD_phy_bl_ten": {
+          "raw_exact": true,
+          "FULL_RELA_exact": false
+        },
+        "__module_physics_addtendc_MOD_phy_cu_ten": {
+          "raw_exact": true,
+          "FULL_RELA_exact": false
+        },
+        "__module_physics_addtendc_MOD_phy_fg_ten": {
+          "raw_exact": true,
+          "FULL_RELA_exact": false
+        },
+        "__module_physics_addtendc_MOD_phy_fr_ten": {
+          "raw_exact": true,
+          "FULL_RELA_exact": false
+        },
+        "__module_physics_addtendc_MOD_phy_iau_ten": {
+          "raw_exact": true,
+          "FULL_RELA_exact": false
+        },
+        "__module_physics_addtendc_MOD_phy_ra_ten": {
+          "raw_exact": true,
+          "FULL_RELA_exact": true
+        },
+        "__module_physics_addtendc_MOD_phy_shcu_ten": {
+          "raw_exact": false,
+          "FULL_RELA_exact": false
+        },
+        "__module_physics_addtendc_MOD_update_phy_ten": {
+          "raw_exact": true,
+          "FULL_RELA_exact": false
+        }
+      },
+      "non_target_full_classification_pending": true,
+      "driver": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O2/driver.o",
+        "sha256": "db61f895de9495360f7df1b9570f83d860845506c587fc66a616418c1c60b3f3",
+        "original_MOD_sha256": "5ec45c730b19c9d4232ea3cba3454bb51f2dddb9ae7fcd164a54c436468c8acb"
+      },
+      "executables": {
+        "parent": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O2/parent/caller",
+          "sha256": "6468d8e755312b6a8046630cdfe0464f6d88347373e57c2a563b134dc6e89083"
+        },
+        "candidate": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O2/candidate/caller",
+          "sha256": "2bf64c8c7eddf8952bc7fd93d80a6a7778a7d49a31aedfc4878e44db787eb0a3"
+        }
+      }
+    },
+    "O0": {
+      "parent": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/currente258-add-a2c-v-ordered4-native-hpc01-r3/work/O0/candidate/module_physics_addtendc.o",
+        "sha256": "9438b0600e159d69da6a848cf3597a2a7b773982d5b9db0c73d08669a24448e3",
+        "PP_path": "/pool/wrf-experiment/wrf-cpu/kernels/currente258-add-a2c-v-ordered4-native-hpc01-r3/work/O0/candidate/module_physics_addtendc.f90",
+        "PP_sha256": "b824a30ab9877aa447c3823148282a309de35ebbbe97cb4a7eefbe581f8fce75",
+        "MOD_sha256": "5ec45c730b19c9d4232ea3cba3454bb51f2dddb9ae7fcd164a54c436468c8acb"
+      },
+      "candidate": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O0/module_physics_addtendc.o",
+        "sha256": "e0def056193c44083a76864ad52d9b0ca5b228998e449535c2591759b9284a4b",
+        "MOD_path": "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O0/module_physics_addtendc.mod",
+        "MOD_sha256": "750ce649446233f1f3f658fb7a63f2677b34d99aa8d88c444d19e77b0ef96541",
+        "PP_path": "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O0/module_physics_addtendc.f90",
+        "PP_sha256": "001148cea9dfcaf3fdd5b79d55582f33db2be0f7d72826975d95f23ae68628d0"
+      },
+      "original_MOD_interface": {
+        "status": "PASS_FIXED_ONE_U_CONSERVATIVE_ATTRIBUTE_ORIGINALMOD",
+        "raw_exact": false,
+        "procedure": "add_a2c_u",
+        "parent_tokens": 368844,
+        "candidate_tokens": 368845,
+        "all_other_tokens_exact": true,
+        "parent_sha256": "5ec45c730b19c9d4232ea3cba3454bb51f2dddb9ae7fcd164a54c436468c8acb",
+        "candidate_sha256": "750ce649446233f1f3f658fb7a63f2677b34d99aa8d88c444d19e77b0ef96541",
+        "scope": "Only one fixed added ARRAY_OUTER_DEPENDENCY token; all declared names/purity/type/kind/rank/bounds/intent/order and other tokens exact. No module substitution or generic normalization."
+      },
+      "defined_global_ABI": {
+        "status": "PASS_DEFINED_GLOBAL_DATA_ABI_EXACT_LOCAL_INVENTORY_RECORDED",
+        "parent_all_LOCAL_functions": [],
+        "candidate_all_LOCAL_functions": [],
+        "defined_globals": {
+          "__module_physics_addtendc_MOD_add_a2a": {
+            "binding": 1,
+            "type": 2,
+            "visibility": 0,
+            "data_size": null
+          },
+          "__module_physics_addtendc_MOD_add_a2a_ph": {
+            "binding": 1,
+            "type": 2,
+            "visibility": 0,
+            "data_size": null
+          },
+          "__module_physics_addtendc_MOD_add_a2c_u": {
+            "binding": 1,
+            "type": 2,
+            "visibility": 0,
+            "data_size": null
+          },
+          "__module_physics_addtendc_MOD_add_a2c_v": {
+            "binding": 1,
+            "type": 2,
+            "visibility": 0,
+            "data_size": null
+          },
+          "__module_physics_addtendc_MOD_add_c2c_u": {
+            "binding": 1,
+            "type": 2,
+            "visibility": 0,
+            "data_size": null
+          },
+          "__module_physics_addtendc_MOD_add_c2c_v": {
+            "binding": 1,
+            "type": 2,
+            "visibility": 0,
+            "data_size": null
+          },
+          "__module_physics_addtendc_MOD_advance_ppt": {
+            "binding": 1,
+            "type": 2,
+            "visibility": 0,
+            "data_size": null
+          },
+          "__module_physics_addtendc_MOD_phy_bl_ten": {
+            "binding": 1,
+            "type": 2,
+            "visibility": 0,
+            "data_size": null
+          },
+          "__module_physics_addtendc_MOD_phy_cu_ten": {
+            "binding": 1,
+            "type": 2,
+            "visibility": 0,
+            "data_size": null
+          },
+          "__module_physics_addtendc_MOD_phy_fg_ten": {
+            "binding": 1,
+            "type": 2,
+            "visibility": 0,
+            "data_size": null
+          },
+          "__module_physics_addtendc_MOD_phy_fr_ten": {
+            "binding": 1,
+            "type": 2,
+            "visibility": 0,
+            "data_size": null
+          },
+          "__module_physics_addtendc_MOD_phy_iau_ten": {
+            "binding": 1,
+            "type": 2,
+            "visibility": 0,
+            "data_size": null
+          },
+          "__module_physics_addtendc_MOD_phy_ra_ten": {
+            "binding": 1,
+            "type": 2,
+            "visibility": 0,
+            "data_size": null
+          },
+          "__module_physics_addtendc_MOD_phy_shcu_ten": {
+            "binding": 1,
+            "type": 2,
+            "visibility": 0,
+            "data_size": null
+          },
+          "__module_physics_addtendc_MOD_update_phy_ten": {
+            "binding": 1,
+            "type": 2,
+            "visibility": 0,
+            "data_size": null
+          }
+        },
+        "candidate_added_LOCAL_functions": [],
+        "candidate_removed_LOCAL_functions": [],
+        "function_code_sizes_compared": false,
+        "MOD_bytes_normalized": false,
+        "undefined_section_zero_excluded": true,
+        "parser_contract": "semantic_object asserts unique section names; section0 alone has emptyname, actual ELF st_shndx0 is SHN_UNDEF."
+      },
+      "helper": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/currente258-add-a2c-v-ordered4-native-hpc01-r3/work/O0/ordered4.o",
+        "sha256": "abc12ee3fd94de76fcddf5bb5f88d9ad3e8be3efdea9dbabfd39e330a4e3855e",
+        "ASM_sha256": "83eb21f9417e35d7147c8f7540e969cd8704f5d225870a292fd55093a99c3051"
+      },
+      "observations": {
+        "parent": {
+          "0": {
+            "path": "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O0/parent/round0.raw",
+            "bytes": 19950464,
+            "sha256": "c40e54ba4c6b5f0e9b1d8eee1197df493806b7c07f6cdbc69647ab04df2679da",
+            "cases": 32
+          },
+          "1": {
+            "path": "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O0/parent/round1.raw",
+            "bytes": 19950464,
+            "sha256": "12fa1386ca022cd70ea7bd9d1c312970b4929be83a5793f9a7e0c7faff781cdf",
+            "cases": 32
+          },
+          "2": {
+            "path": "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O0/parent/round2.raw",
+            "bytes": 19950464,
+            "sha256": "2789e8378cbd7c14cc96abb220ae3403a648638f75a65b6769281fa21f5ea2c7",
+            "cases": 32
+          },
+          "3": {
+            "path": "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O0/parent/round3.raw",
+            "bytes": 19950464,
+            "sha256": "96b87f34a1eb9c1285ba59ae3afef510d26bbbfb17f763c1033459e091c48196",
+            "cases": 32
+          }
+        },
+        "candidate": {
+          "0": {
+            "path": "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O0/candidate/round0.raw",
+            "bytes": 19950464,
+            "sha256": "c40e54ba4c6b5f0e9b1d8eee1197df493806b7c07f6cdbc69647ab04df2679da",
+            "cases": 32
+          },
+          "1": {
+            "path": "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O0/candidate/round1.raw",
+            "bytes": 19950464,
+            "sha256": "12fa1386ca022cd70ea7bd9d1c312970b4929be83a5793f9a7e0c7faff781cdf",
+            "cases": 32
+          },
+          "2": {
+            "path": "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O0/candidate/round2.raw",
+            "bytes": 19950464,
+            "sha256": "2789e8378cbd7c14cc96abb220ae3403a648638f75a65b6769281fa21f5ea2c7",
+            "cases": 32
+          },
+          "3": {
+            "path": "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O0/candidate/round3.raw",
+            "bytes": 19950464,
+            "sha256": "96b87f34a1eb9c1285ba59ae3afef510d26bbbfb17f763c1033459e091c48196",
+            "cases": 32
+          }
+        }
+      },
+      "non_target": {
+        "__module_physics_addtendc_MOD_add_a2a": {
+          "raw_exact": true,
+          "FULL_RELA_exact": false
+        },
+        "__module_physics_addtendc_MOD_add_a2a_ph": {
+          "raw_exact": true,
+          "FULL_RELA_exact": false
+        },
+        "__module_physics_addtendc_MOD_add_a2c_v": {
+          "raw_exact": true,
+          "FULL_RELA_exact": false
+        },
+        "__module_physics_addtendc_MOD_add_c2c_u": {
+          "raw_exact": true,
+          "FULL_RELA_exact": false
+        },
+        "__module_physics_addtendc_MOD_add_c2c_v": {
+          "raw_exact": true,
+          "FULL_RELA_exact": false
+        },
+        "__module_physics_addtendc_MOD_advance_ppt": {
+          "raw_exact": true,
+          "FULL_RELA_exact": false
+        },
+        "__module_physics_addtendc_MOD_phy_bl_ten": {
+          "raw_exact": true,
+          "FULL_RELA_exact": false
+        },
+        "__module_physics_addtendc_MOD_phy_cu_ten": {
+          "raw_exact": true,
+          "FULL_RELA_exact": false
+        },
+        "__module_physics_addtendc_MOD_phy_fg_ten": {
+          "raw_exact": true,
+          "FULL_RELA_exact": false
+        },
+        "__module_physics_addtendc_MOD_phy_fr_ten": {
+          "raw_exact": true,
+          "FULL_RELA_exact": false
+        },
+        "__module_physics_addtendc_MOD_phy_iau_ten": {
+          "raw_exact": true,
+          "FULL_RELA_exact": false
+        },
+        "__module_physics_addtendc_MOD_phy_ra_ten": {
+          "raw_exact": true,
+          "FULL_RELA_exact": false
+        },
+        "__module_physics_addtendc_MOD_phy_shcu_ten": {
+          "raw_exact": true,
+          "FULL_RELA_exact": false
+        },
+        "__module_physics_addtendc_MOD_update_phy_ten": {
+          "raw_exact": true,
+          "FULL_RELA_exact": false
+        }
+      },
+      "non_target_full_classification_pending": true,
+      "driver": {
+        "path": "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O0/driver.o",
+        "sha256": "b2833f4205072c1738d04bdf977915501245aa8b5175d5ebc9f97bf8cfeb64a5",
+        "original_MOD_sha256": "5ec45c730b19c9d4232ea3cba3454bb51f2dddb9ae7fcd164a54c436468c8acb"
+      },
+      "executables": {
+        "parent": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O0/parent/caller",
+          "sha256": "eeb9661564a539446e0630c5e32a88e95a26518ec5b84f43e4278467b704f211"
+        },
+        "candidate": {
+          "path": "/pool/wrf-experiment/wrf-cpu/kernels/current69fb-a2cu-native32-hpc01-r1/work/O0/candidate/caller",
+          "sha256": "6de6b46ed70a3e33bc1fa65d282ca089555cb52f0906e291ebc37737f08ed047"
+        }
+      }
+    }
+  },
+  "scope": "OriginalMOD completeU32x4 observations each O2/O0; allphysical/readOnly/config/guards/five hard state. Single fixed addedU ARRAY_OUTER_DEPENDENCY admission only. Cached O2candidate, cached O2/O0Vparents and helpers; one O0candidate compile. Non-target SHCU/reference classification remains separate, no timing or forecast/default qualification.",
+  "raw_producer_source_commit": null,
+  "elapsed_context_only_seconds": 13.473187743220478
+}

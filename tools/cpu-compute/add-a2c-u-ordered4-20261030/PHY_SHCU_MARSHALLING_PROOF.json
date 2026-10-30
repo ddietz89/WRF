@@ -1,0 +1,151 @@
+{
+  "status": "PASS_FIXED_PHY_SHCU_ARGUMENT_MARSHALLING_AND_OUTSIDE_INSTRUCTION_GRAPH",
+  "function": "__module_physics_addtendc_MOD_phy_shcu_ten",
+  "raw_equal": false,
+  "all6register_and15stack_argument_values_equal": true,
+  "postcall_cleanup_SP_equal": true,
+  "candidate_pre_call_SP_delta_bytes": -8,
+  "interpretation": "Compiler changes one8byte stack-alignment slot around the new nonleaf U call; all21 argument values and restored SP agree. Outside this explicit bundle, non-NOP instructions, named calls and branch instruction graph agree.",
+  "parent_bundle": {
+    "register_args": {
+      "rdi": "preserved_r10",
+      "rsi": "preserved_r11",
+      "rdx": [
+        "incoming_stack",
+        0
+      ],
+      "rcx": [
+        "incoming_stack",
+        8
+      ],
+      "r8": [
+        "incoming_stack",
+        16
+      ],
+      "r9": [
+        "incoming_stack",
+        24
+      ]
+    },
+    "stack_args": [
+      [
+        "incoming_stack",
+        32
+      ],
+      [
+        "incoming_stack",
+        40
+      ],
+      [
+        "incoming_stack",
+        48
+      ],
+      "preserved_rbx",
+      "preserved_rbp",
+      "preserved_r12",
+      "preserved_r13",
+      "preserved_r14",
+      "preserved_r15",
+      [
+        "incoming_stack",
+        56
+      ],
+      [
+        "incoming_stack",
+        64
+      ],
+      [
+        "incoming_stack",
+        72
+      ],
+      [
+        "incoming_stack",
+        80
+      ],
+      [
+        "incoming_stack",
+        88
+      ],
+      [
+        "incoming_stack",
+        96
+      ]
+    ],
+    "precall_sp": -120,
+    "postcleanup_sp": -8
+  },
+  "candidate_bundle": {
+    "register_args": {
+      "rdi": "preserved_r10",
+      "rsi": "preserved_r11",
+      "rdx": [
+        "incoming_stack",
+        0
+      ],
+      "rcx": [
+        "incoming_stack",
+        8
+      ],
+      "r8": [
+        "incoming_stack",
+        16
+      ],
+      "r9": [
+        "incoming_stack",
+        24
+      ]
+    },
+    "stack_args": [
+      [
+        "incoming_stack",
+        32
+      ],
+      [
+        "incoming_stack",
+        40
+      ],
+      [
+        "incoming_stack",
+        48
+      ],
+      "preserved_rbx",
+      "preserved_rbp",
+      "preserved_r12",
+      "preserved_r13",
+      "preserved_r14",
+      "preserved_r15",
+      [
+        "incoming_stack",
+        56
+      ],
+      [
+        "incoming_stack",
+        64
+      ],
+      [
+        "incoming_stack",
+        72
+      ],
+      [
+        "incoming_stack",
+        80
+      ],
+      [
+        "incoming_stack",
+        88
+      ],
+      [
+        "incoming_stack",
+        96
+      ]
+    ],
+    "precall_sp": -128,
+    "postcleanup_sp": -8
+  },
+  "instruction_counts": {
+    "parent": 1057,
+    "candidate": 1058
+  },
+  "input_sha256": "07acbafaef54464d371a8789833460d813c6a008f9935ac696a4fbfc2cc84e16",
+  "limits": "Finite actual instruction/control/argument proof for this one compiled function. No generic code normalization, dynamic stack/unwind validation or undefined-alias theorem."
+}

@@ -1282,8 +1282,10 @@ endif
 # Ordered ADD_A2C_V prefix; own three-hour application qualified.
 # Optout0 regenerates PP/rebuilds module/archive/image; dyn_em owns the existing mask getter.
 WRF_ADD_A2C_V_ORDERED4 ?= 1
+# Ordered U prefix; own three-hour application qualified.
+WRF_ADD_A2C_U_ORDERED4 ?= 1
 _A2CV_ORDERED_FLAGS = $(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)
-module_physics_addtendc.o: private override CPPFLAGS += -UWRF_ADD_A2C_V_ORDERED4
+module_physics_addtendc.o: private override CPPFLAGS += -UWRF_ADD_A2C_V_ORDERED4 -UWRF_ADD_A2C_U_ORDERED4
 ifeq ($(WRF_ADD_A2C_V_ORDERED4),1)
 ifeq ($(WRF_ADDTENDC_SIMD),1)
 ifeq ($(WRF_PHY_INTERPOLATION_SIMD),1)
@@ -1305,6 +1307,9 @@ ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
 ifeq ($(shell $(CC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
 ifneq (,$(filter x86_64%,$(shell $(CC) -dumpmachine 2>/dev/null)))
 module_physics_addtendc.o: private override CPPFLAGS += -DWRF_ADD_A2C_V_ORDERED4
+ifeq ($(WRF_ADD_A2C_U_ORDERED4),1)
+module_physics_addtendc.o: private override CPPFLAGS += -DWRF_ADD_A2C_U_ORDERED4
+endif
 OBJS += wrf_add_a2c_v_ordered4.o
 $(LIBTARGET): wrf_add_a2c_v_ordered4.o
 wrf_add_a2c_v_ordered4.o: wrf_add_a2c_v_ordered4.c

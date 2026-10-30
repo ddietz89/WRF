@@ -2550,6 +2550,9 @@ SUBROUTINE add_a2c_u(lvar,rvar,config_flags,                &
                    its, ite, jts, jte, kts, kte             )
 !------------------------------------------------------------
 !------------------------------------------------------------
+#if defined(WRF_ADD_A2C_U_ORDERED4) && defined(WRF_ADD_A2C_V_ORDERED4) && defined(DM_PARALLEL) && !defined(_OPENMP)
+   USE, INTRINSIC :: ISO_C_BINDING, ONLY: c_int,c_float
+#endif
    IMPLICIT NONE
 !------------------------------------------------------------
 
@@ -2567,6 +2570,22 @@ SUBROUTINE add_a2c_u(lvar,rvar,config_flags,                &
 ! LOCAL VARS
 
    INTEGER :: i,j,k,i_start,i_end,j_start,j_end,ktf
+
+#if defined(WRF_ADD_A2C_U_ORDERED4) && defined(WRF_ADD_A2C_V_ORDERED4) && defined(DM_PARALLEL) && !defined(_OPENMP)
+   INTERFACE
+      PURE FUNCTION wrf_phy_interp_all_masked() BIND(C,NAME="wrf_phy_interp_all_masked") RESULT(masked)
+         IMPORT c_int
+         INTEGER(c_int) :: masked
+      END FUNCTION
+      PURE SUBROUTINE wrf_add_a2c_v_ordered4(n,left,current,neighbor) BIND(C,NAME="wrf_add_a2c_v_ordered4")
+         IMPORT c_int,c_float
+         INTEGER(c_int), VALUE :: n
+         REAL(c_float), INTENT(INOUT) :: left(*)
+         REAL(c_float), INTENT(IN) :: current(*),neighbor(*)
+      END SUBROUTINE
+   END INTERFACE
+   INTEGER :: ordered_n4
+#endif
 
    ktf=min(kte,kde-1)
 
@@ -2586,6 +2605,25 @@ SUBROUTINE add_a2c_u(lvar,rvar,config_flags,                &
       IF ( config_flags%periodic_x ) i_start = its
       IF ( config_flags%periodic_x ) i_end = ite
 
+#if defined(WRF_ADD_A2C_U_ORDERED4) && defined(WRF_ADD_A2C_V_ORDERED4) && defined(DM_PARALLEL) && !defined(_OPENMP)
+   IF (i_end>=i_start .AND. j_end>=j_start .AND. ktf>=kts) THEN
+      ordered_n4=4*((i_end-i_start+1)/4)
+      IF (ordered_n4>=4) THEN
+         IF (wrf_phy_interp_all_masked()/=0_c_int) THEN
+            DO j=j_start,j_end
+            DO k=kts,ktf
+               CALL wrf_add_a2c_v_ordered4(INT(ordered_n4,c_int),lvar(i_start,k,j), &
+                    rvar(i_start,k,j),rvar(i_start-1,k,j))
+               DO i=i_start+ordered_n4,i_end
+                  lvar(i,k,j)=lvar(i,k,j)+0.5*(rvar(i,k,j)+rvar(i-1,k,j))
+               ENDDO
+            ENDDO
+            ENDDO
+            RETURN
+         ENDIF
+      ENDIF
+   ENDIF
+#endif
    DO j = j_start,j_end
    DO k = kts,ktf
    DO i = i_start,i_end
