@@ -4665,7 +4665,18 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
                         its, ite, jts, jte, kts, kte                   )
 
 
+#if defined(WRF_CURVATURE_VXGM_X_DIFF_CACHE) && defined(WRF_CURVATURE_VXGM_J_DIFF_CACHE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+    USE, INTRINSIC :: ISO_C_BINDING, ONLY: c_int
    IMPLICIT NONE
+    INTERFACE
+      PURE FUNCTION wrf_phy_interp_all_masked() BIND(C, NAME="wrf_phy_interp_all_masked") RESULT(masked)
+        IMPORT c_int
+        INTEGER(c_int) :: masked
+      END FUNCTION wrf_phy_interp_all_masked
+    END INTERFACE
+#else
+   IMPLICIT NONE
+#endif
    
    ! Input data
 
@@ -4711,6 +4722,10 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
 
    REAL , DIMENSION( its-1:ite , kts:kte, jts-1:jte ) :: vxgm
    REAL , DIMENSION( ims:ime ) :: msftx_over_msfty_row
+#if defined(WRF_CURVATURE_VXGM_X_DIFF_CACHE) && defined(WRF_CURVATURE_VXGM_J_DIFF_CACHE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+   REAL , DIMENSION( ims:ime ) :: msfuy_x_diff_row
+   LOGICAL :: curvature_x_diff_masked
+#endif
 
    LOGICAL :: specified
 
@@ -4755,6 +4770,44 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
       IF ( config_flags%periodic_x ) i_start = its-1
       IF ( config_flags%periodic_x ) i_end = ite
 
+#if defined(WRF_CURVATURE_VXGM_X_DIFF_CACHE) && defined(WRF_CURVATURE_VXGM_J_DIFF_CACHE) && defined(DM_PARALLEL) && !defined(_OPENMP)
+   curvature_x_diff_masked=.FALSE.
+   IF (j_start<=j_end .AND. i_start<=i_end .AND. kts<=ktf) THEN
+      curvature_x_diff_masked=(wrf_phy_interp_all_masked()/=0_c_int)
+   ENDIF
+   DO j=j_start, j_end
+   IF (kts<=ktf) THEN
+      DO i=i_start, i_end
+         msftx_over_msfty_row(i)=msfvx(i,j+1)-msfvx(i,j)
+      ENDDO
+   ENDIF
+   IF (curvature_x_diff_masked) THEN
+      DO i=i_start,i_end
+         msfuy_x_diff_row(i)=msfuy(i+1,j)-msfuy(i,j)
+      ENDDO
+   DO k=kts,ktf
+   DO i=i_start, i_end
+
+      vxgm(i,k,j)=0.5*(u(i,k,j)+u(i+1,k,j))*(msftx_over_msfty_row(i))*rdy - &
+                  0.5*(v(i,k,j)+v(i,k,j+1))*(msfuy_x_diff_row(i))*rdx
+   ENDDO
+   ENDDO
+   ELSE
+   DO k=kts,ktf
+   DO i=i_start, i_end
+
+      vxgm(i,k,j)=0.5*(u(i,k,j)+u(i+1,k,j))*(msftx_over_msfty_row(i))*rdy - &
+                  0.5*(v(i,k,j)+v(i,k,j+1))*(msfuy(i+1,j)-msfuy(i,j))*rdx
+   ENDDO
+   ENDDO
+   ENDIF
+   ENDDO
+
+
+
+
+
+#else
    DO j=j_start, j_end
 #if defined(WRF_CURVATURE_VXGM_J_DIFF_CACHE) && defined(DM_PARALLEL) && !defined(_OPENMP)
    IF (kts<=ktf) THEN
@@ -4786,6 +4839,7 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
    ENDDO
    ENDDO
 
+#endif
 !  Pick up the boundary rows for open (radiation) lateral b.c.
 !  Rather crude at present, we are assuming there is no
 !    variation in this term at the boundary.

@@ -280,6 +280,27 @@ endif
 endif
 endif
 endif
+# Exact scalar VXGM horizontal X-difference (masked exceptions only) row cache: qualified GNU13.3 pure-MPI BigStep SIMD.
+# Opt out: WRF_CURVATURE_VXGM_X_DIFF_CACHE=0; regenerate PP, rebuild BigStep,
+# replace its archive member and relink. No additional FC/ISA flags.
+WRF_CURVATURE_VXGM_X_DIFF_CACHE ?= 1
+ifeq ($(WRF_CURVATURE_VXGM_X_DIFF_CACHE),1)
+ifeq ($(WRF_DIFFUSION_SIMD),1)
+ifeq ($(strip $(OMPCPP) $(OMP) $(PROMOTION) $(DOUBLE_PRECISION)),)
+ifeq ($(strip $(RWORDSIZE)),4)
+ifeq ($(strip $(IWORDSIZE)),4)
+ifeq ($(filter -fdefault-% -freal-% -finteger-% -r8 -i8,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC)),)
+ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
+ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
+module_big_step_utilities_em.o: private override CPPFLAGS += -DWRF_CURVATURE_VXGM_X_DIFF_CACHE
+endif
+endif
+endif
+endif
+endif
+endif
+endif
+endif
 # Exact CQV last-species accumulation/consumer fusion: qualified GNU13.3 pure-MPI BigStep SIMD.
 # Opt out: WRF_CQV_LAST_SPECIES_CONSUMER_FUSION=0; regenerate PP, rebuild BigStep,
 # replace its archive member and relink. No additional FC/ISA flags.

@@ -1,0 +1,44 @@
+{
+  "status": "PASS_LOCAL_PREPROCESS_PROJECTIONS",
+  "checks": {
+    "supported_target_tokens_match_exact_native_PP": true,
+    "parent_target_tokens_match_actual_parent_PP": true,
+    "optout_whole_source_matches_parent": true,
+    "OpenMP_whole_source_matches_parent": true,
+    "serial_whole_source_matches_parent": true,
+    "without_J_cache_whole_source_matches_parent": true,
+    "outside_target_supported_tokens_unchanged": true
+  },
+  "compiler": "/usr/bin/cpp -traditional-cpp -P",
+  "supported_flags": [
+    "-DDM_PARALLEL",
+    "-DWRF_CURVATURE_VXGM_J_DIFF_CACHE",
+    "-DWRF_CURVATURE_V_METRIC_CACHE",
+    "-DWRF_CURVATURE_VXGM_X_DIFF_CACHE"
+  ],
+  "fallback_cases": {
+    "optout": [
+      "-DDM_PARALLEL",
+      "-DWRF_CURVATURE_VXGM_J_DIFF_CACHE",
+      "-DWRF_CURVATURE_V_METRIC_CACHE"
+    ],
+    "OpenMP": [
+      "-DDM_PARALLEL",
+      "-DWRF_CURVATURE_VXGM_J_DIFF_CACHE",
+      "-DWRF_CURVATURE_V_METRIC_CACHE",
+      "-DWRF_CURVATURE_VXGM_X_DIFF_CACHE",
+      "-D_OPENMP"
+    ],
+    "serial": [
+      "-DWRF_CURVATURE_VXGM_J_DIFF_CACHE",
+      "-DWRF_CURVATURE_V_METRIC_CACHE",
+      "-DWRF_CURVATURE_VXGM_X_DIFF_CACHE"
+    ],
+    "without_J_cache": [
+      "-DDM_PARALLEL",
+      "-DWRF_CURVATURE_V_METRIC_CACHE",
+      "-DWRF_CURVATURE_VXGM_X_DIFF_CACHE"
+    ]
+  },
+  "limits": "Token projection only; no clean source rebuild or new object identity claim."
+}
