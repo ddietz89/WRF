@@ -1,0 +1,64 @@
+{
+  "status": "PASS_CANONICAL_BUILD_RESTART_EXACT_UNDER_PRESPECIFIED_START_DATE_EXCEPTION; SELECTED_TPI_CONFIG_RESTART_UNSUPPORTED_BY_DESIGN",
+  "policy": "Restart PASS requires: (A) writing checkpoints leaves the continuous forecast bit-identical to the original; (B) a run resumed from the candidate's own checkpoint reproduces the original's histories exactly, and the ordered (time,dt) steps after the checkpoint. If B differs, compare against an original-executable resume before any verdict. No relaxed exactness.",
+  "seg_a_quilted": {
+    "run": "production512-current352f-restart-seg-a-r1",
+    "result": "FAIL at first checkpoint (07:00, step 185): quilt servers 496-503 'Possible 32-bit overflow on output server' (stock module_io_quilt_old.F 32-bit MPI_INTEGER obufsize reduce); production 4x8 quilt layout cannot write quilted restart files for this domain. Not optimization-caused."
+  },
+  "seg_a_split": {
+    "run": "production512-current352f-restart-seg-a-r2",
+    "config": "restart_interval=60, io_form_restart=102 (480 per-task files, 9.5 GB per checkpoint at 07/08/09)",
+    "result": "PASS: offline unchanged wrf_exact comparator, four histories 06-09 exact vs original corrected forecast; 545 (time,dt) steps identical",
+    "evidence": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/n07-restart-r1/seg-a-vs-original.json",
+    "harness_note": "standard reader refused by design (namelist must equal control); same comparator run offline under bounded unit"
+  },
+  "seg_b": {
+    "runs": {
+      "r1": "prepare timeout (inline hashing), never launched",
+      "r2": "prepare KeyError (manifest field placement), never launched",
+      "r3": "restart file read OK (3.48 s), then all 480 compute ranks FATAL 'Experimental tpi admission rejected'"
+    },
+    "cause": "dyn_em/start_em.F:1032 passes allowed=.NOT.restart; tools/cpu-memory/thompson-table-sharing/thompson_tpi_bridge.c:16 sets bad=1 whenever !allowed, even when sharing is not requested (mode 0) -> ST_ARGUMENT -> wrf_error_fatal. Any WRF_EXPERIMENTAL_TPI_NUMA build (selected 352f, clean build, HEAD) cannot restart.",
+    "proposed_fix": "When !allowed, force private mode (mode=0, as the original non-shared table path) instead of rejecting; keep rejection for bad OMP settings and cross-rank disagreement. Shared tables stay first-start only."
+  },
+  "checkpoint_manifest": {
+    "path": "/pool/wrf-experiment/wrf-cpu/restart/n07-r1/checkpoint-07-manifest.json",
+    "sha256": "fd5a85bf2a9b1857c55df144f73aae2eb61a40a8b489a02de0f08b19ec31a1ea"
+  },
+  "restart_qualified": {
+    "canonical_clean_build": true,
+    "selected_352f": false
+  },
+  "selected_352f": {
+    "restart_supported": false,
+    "reason": "Thompson TPI/TNI shared tables are restricted by design to cold single-domain starts (tools/cpu-memory/thompson-table-sharing/BUILD_WIRING.json runtime_restriction; restart listed in acceptance_pending). The 352f seg B abort is that guard, not a defect.",
+    "withdrawn_fix": "A private-fallback bridge change was drafted and reverted: it contradicts the documented no-silent-fallback rule and was never exercised (r4 does not compile TPI)."
+  },
+  "canonical_clean_build": {
+    "executable": "a714ac07 (clean r4; code-equivalent to committed 7bde78fc: no TPI/shared_table members, bridge patch inert)",
+    "seg_a": {
+      "run": "production512-clean7bde-restart-seg-a-r1",
+      "result": "PASS: 06-09 histories exact vs original, 545 (time,dt) steps identical; split checkpoints 07/08/09 (480 files, 9.5 GB each)",
+      "evidence": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/n07-restart-r1/clean-seg-a-vs-original.json"
+    },
+    "seg_b": {
+      "run": "production512-clean7bde-restart-seg-b-r1",
+      "resumed_from": "clean seg A 07:00 checkpoint, manifest 58aebd1e",
+      "result_08": "Every variable and raw value identical to the original continuous 08:00 history; sole strict difference: global attribute START_DATE (restart segment start). This is exactly the single pre-specified restart metadata exception in prospective-policy-draft.md.",
+      "result_09": "NOT OBTAINED: WRF reached SUCCESS COMPLETE at 09:00 but hpc01-03 model cgroups hit the 100 GiB cap during the final output drain (oom-kill); 09:00 history truncated.",
+      "evidence": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/n07-restart-r1/clean-seg-b-vs-original.json"
+    },
+    "memory": "Canonical no-TPI build peaks ~86-88 GiB anonymous per node in a continuous 3h run vs ~46-48 GiB for selected 352f (shared Thompson tables); restart adds buffers and exceeds the 100 GiB cap.",
+    "seg_c": {
+      "run": "production512-clean7bde-restart-seg-c-r1",
+      "resumed_from": "clean seg A 08:00 checkpoint, manifest a9443e46",
+      "result_09": "Every variable and raw value identical to the original continuous 09:00 history; sole strict difference global START_DATE.",
+      "harness": "model SUCCESS COMPLETE; coordinator post-run field_view_admission requires all four writer roots active, a one-output segment activates one (harness structural, not science)",
+      "evidence": "/home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/n07-restart-r1/clean-seg-c-vs-original.json"
+    },
+    "steps": "Resumed (time,dt) sequences identical to the original: 360/360 steps 07:00:20-09:00 (seg B) and 180/180 steps 08:00:20-09:00 (seg C).",
+    "verdict": "PASS for the canonical (no-TPI) build: writing split checkpoints leaves the forecast exact; resuming from either checkpoint reproduces every field and every adaptive step of the continuous forecast; the only metadata difference is START_DATE, the single exception pre-specified in prospective-policy-draft.md.",
+    "limits": "Split restart only (io_form_restart=102); quilted restart is impossible in this 4x8 I/O layout (stock 32-bit overflow). The 07->09 resume lost its 09:00 file to the 100 GiB cap; 09:00 was verified from the 08:00 resume instead. Not full-144, not other decompositions."
+  },
+  "next": "Selected TPI configuration needs designed restart support (documented acceptance_pending) before any restart claim; memory headroom for canonical build restart (~97 GiB anon) is marginal under the 100 GiB cap."
+}

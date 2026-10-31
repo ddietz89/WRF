@@ -1,0 +1,42 @@
+{
+  "reference": "/pool/wrf-experiment/wrf-cpu/runs/production512-current0b40-fourhost-threehour-pair2-r1-control",
+  "candidate": "/pool/wrf-experiment/wrf-cpu/runs/production512-clean7bde-restart-seg-b-r1",
+  "invocation_id": "e30ea3a1927741b4b4a99949f1e72e57",
+  "comparator": "wrf_exact.compare (unchanged reader library)",
+  "comparisons": {
+    "wrfout_d01_2026-10-12_08:00:00": {
+      "status": "FAIL",
+      "errors": [
+        "global: attribute START_DATE differs"
+      ],
+      "n_errors": 1
+    },
+    "wrfout_d01_2026-10-12_09:00:00": {
+      "status": "FAIL",
+      "errors": [
+        "dimension Time: size differs",
+        "global: attribute START_DATE differs",
+        "variable ACGRDFLX: shape differs",
+        "variable ACHFX: shape differs",
+        "variable ACLHF: shape differs",
+        "variable ACLWDNB: shape differs",
+        "variable ACLWDNBC: shape differs",
+        "variable ACLWDNT: shape differs",
+        "variable ACLWDNTC: shape differs",
+        "variable ACLWUPB: shape differs",
+        "variable ACLWUPBC: shape differs",
+        "variable ACLWUPT: shape differs",
+        "variable ACLWUPTC: shape differs",
+        "variable ACSNOM: shape differs",
+        "variable ACSWDNB: shape differs",
+        "variable ACSWDNBC: shape differs",
+        "variable ACSWDNT: shape differs",
+        "variable ACSWDNTC: shape differs",
+        "variable ACSWUPB: shape differs",
+        "variable ACSWUPBC: shape differs"
+      ],
+      "n_errors": 279
+    }
+  },
+  "status": "FAIL"
+}
