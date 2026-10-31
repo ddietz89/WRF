@@ -1,0 +1,59 @@
+{
+  "status": "SELECTED_EXPERIMENTAL_RUNTIME",
+  "change": "Output shim built with WRF_EXPERIMENTAL_QUILT_ROOT_WORKER_CPUS=1: the four compressor workers of each quilt root run on the four quilt-root cores {31,63,95,127} instead of the root core plus three adjacent cores that host compute ranks.",
+  "shim": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current352f-quiltroot-native-hpc02-r1/work/candidate.so",
+    "sha256": "1e0f3ce773fbb4b50a9dd129dc5759c6350c0649a5157e47942ca5654e632951",
+    "source_sha256": "6e6f13dd501632850ee335f39d5b7569a5e5c889ba53799e803140bb2f00a7fc"
+  },
+  "executable": {
+    "sha256": "352f86ce75a95187744bdd414e5410841d4f08187389f4eaebd5645764a97312",
+    "unchanged": true
+  },
+  "science": {
+    "three_hour": [
+      "production512-current352f-quiltroot-workers3h-r3 PASS",
+      "production512-current352f-quiltroot-workers3h-r4 PASS"
+    ],
+    "nine_hour": "production512-current352f-quiltroot-ninehour-r1 PASS_ORIGINAL_TEN_HISTORY_AND_512_DIRECT_STOCK_LATEST_NINE_HOUR_SEQUENCE"
+  },
+  "worker_binding": "every worker_bound event on its expected quilt-root CPU, status 0, in each run's own io-logs",
+  "timing": {
+    "three_hour": {
+      "candidate_wall": [
+        621.3,
+        619.15
+      ],
+      "selected_median_wall": 629.5,
+      "selected_runs": [
+        628.09,
+        629.55,
+        630.99
+      ],
+      "wall_change_percent": -1.6,
+      "main_change_percent": -2.1
+    },
+    "nine_hour": {
+      "candidate_wall": 1718.09,
+      "candidate_main": 1618.26,
+      "selected_wall": 1746.91,
+      "selected_main": 1652.06,
+      "wall_change_percent": -1.65,
+      "main_change_percent": -2.05,
+      "vs_original_N1": {
+        "wall": 2049.43,
+        "reduction_percent": 16.17,
+        "ratio": 1.193
+      }
+    },
+    "three_hour_vs_original_median3": {
+      "wall": 800.02,
+      "reduction_percent": 22.5,
+      "ratio": 1.29
+    },
+    "conditions": "server-cold input in all cited runs (44-45 s); contention-audited (0 foreign scopes)"
+  },
+  "mechanism": "In the parent placement 12 compute ranks on hpc04 share cores with compressor workers; those ranks lag during compression bursts and their halo partners wait. Quilt-root placement removes the sharing.",
+  "rollback": "parent placement: shim 64bb4cf2744799056e25be48b166a7a4703f525b08acff1bf898cd7941e8a643 (current0dd6-rowcursor-native-hpc02-r1), same executable",
+  "limits": "No production change. Restart unsupported (selected TPI configuration). Not full-144."
+}

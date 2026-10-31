@@ -1,0 +1,39 @@
+{
+  "status": "COMPLETE_RETAIN_QUILTROOT_PLACEMENT_AS_EXPERIMENTAL_ALTERNATIVE",
+  "utc": "2026-10-31T03:07:33.006841+00:00",
+  "question": "Do four compressor workers per quilt root on the four quilt-root cores beat the parent placement (root core + 3 adjacent quilt cores) in the full model?",
+  "fixed": "same executable 352f86ce, archive e50daca4, codec 93713, rank map faba, 480+32 ranks, two tiles, four workers, quotas, science; only worker CPU masks differ",
+  "science": "all valid arms PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE, 545 steps, four products",
+  "worker_binding_proof": "fresh per-run io-logs: every worker_bound event expected_cpu==observed single-CPU mask, status 0, 864 bindings per writer; quiltroot runs bound {31,63,95,127}, parent runs {root,root-3..root-1}",
+  "execution_order": [
+    "parent r1 (22:26Z, pair controller)",
+    "quiltroot r1 (owner SIGTERM 22:39Z, interrupted, no data)",
+    "quiltroot r2 (01:42Z, VOID timing: hpc01 wxplatform overlap 01:47-01:52Z; science PASS)",
+    "quiltroot r3 (02:15Z, clean)",
+    "parent r2 (02:27Z, clean)",
+    "quiltroot r4 (02:51Z, clean)"
+  ],
+  "contention_control": "guarded runs: quiet gate + post-run journal audit of foreign wxplatform scopes on hpc01-04 = 0 for r3/parent-r2/r4; owner disabled wxplatform during reruns",
+  "parent_wall_s": [
+    628.0902,
+    629.5481,
+    630.9932
+  ],
+  "quiltroot_wall_s": [
+    621.3,
+    619.1498
+  ],
+  "means_same_session": {
+    "parent_wall": 630.2706499999999,
+    "quiltroot_wall": 620.2248999999999,
+    "wall_change_percent": -1.5938787566896855,
+    "parent_main": 532.23192,
+    "quiltroot_main": 521.290535,
+    "main_change_percent": -2.0557551302071415,
+    "cpu_change_percent": -1.8063238189574669
+  },
+  "ranges_overlap": false,
+  "resource_context": "every arm CFS-throttled in 65-80% of 100ms periods on every node (CPUQuota 12800% == AllowedCPUs 128); throttled time varies 2-28s/node per run; zero memory events",
+  "decision": "RETAIN quiltroot worker placement as an experimental alternative for the next combined batch. Not promoted: selected runtime and WRF_EXPERIMENTAL_QUILT_ROOT_WORKER_CPUS default unchanged.",
+  "limits": "n=2 vs n=2 (+1 earlier selected run) in one session, alternating order; ~1.5% wall signal; no causal attribution; not repeatability across days or a production claim"
+}
