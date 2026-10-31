@@ -1,0 +1,34 @@
+{
+  "status": "PASS_CLEAN_FULL_SOURCE_OWN_THREE_HOUR_EXACT",
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/clean-full-source-0ef11ead-wrfplusfix-r3/WRF/main/wrf.exe",
+    "sha256": "356a3bfea511bf84e1e82a3850afc7b9e372bd5c86f398d1e2d464de603fcb49"
+  },
+  "archive_sha256": "8de963f89fcb93b7e75be79889e2b67763d92cf158871a9fdd596ca3f4890f50",
+  "rsl_sha256": "71b206447ffa153fee0c274965f4dd9a4b2e26895923b9f491ec5dc2509483e0",
+  "source": "0ef11ead + pinned submodules + wrfplus-guard.diff (this commit)",
+  "recipe": "clean_build_r3.sh (two compile passes; see BUILD_MANIFEST.json defects_found)",
+  "runtime": "selected parent placement runtime (provider/codec/input adapter 06d0232d/rank map faba, 512 ranks) with only the executable admission replaced",
+  "run_id": "production512-cleansrc0ef1-3h-r2",
+  "science": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+  "observed_step_count": null,
+  "metrics": {
+    "wall_seconds": 627.3664921992458,
+    "cpu_seconds": 303813.537047,
+    "main_step_sum_seconds": 529.68571
+  },
+  "input_bracket_s": 44.361,
+  "server_cache": "cold (see n08 SERVER_CACHE_FINDING)",
+  "same_session_selected_reference": {
+    "main_step_sum_s": [
+      528.227,
+      529.763,
+      530.33
+    ],
+    "wall_minus_input_s": 582.0
+  },
+  "wall_minus_input_s": 583.0,
+  "member_identity_vs_selected": "582/599 WRF members identical in allocated bytes, symbols and non-debug relocations; 4 path-only; 12 differ (no clean-source producer for selected objects); RSL lacks 4 selected-only objects",
+  "scope": "Own unprofiled three-hour full-grid exact science for the clean build identity only. Not nine-hour, restart, profile or full-144 qualification; the selected 352f artifact remains the qualified rollback and is not claimed reproducible.",
+  "timing_gain_claim": false
+}

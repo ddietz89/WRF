@@ -1671,7 +1671,7 @@ ifeq ($(shell $(FC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
 ifneq ($(filter -DDM_PARALLEL -DDM_PARALLEL=%,$(CPPFLAGS)),)
 ifeq ($(shell $(CC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)
 ifneq ($(filter x86_64%,$(shell $(CC) -dumpmachine 2>/dev/null)),)
-ifeq ($(filter -DWRF_CHEM% -DWRFPLUS%,$(CPPFLAGS)),)
+ifeq ($(filter -DWRF_CHEM% -DWRFPLUS=1,$(CPPFLAGS)),)
 module_em.o: private override CPPFLAGS += -DWRF_PBL_FACTOR_FUSION_ENABLE
 OBJS += pbl_fused_row.o
 $(LIBTARGET): pbl_fused_row.o
@@ -1801,7 +1801,7 @@ ifeq ($(filter -ffast-math -Ofast -ffinite-math-only -funsafe-math-optimizations
 ifneq (,$(filter -fno-fast-math,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG)))
 ifneq (,$(filter -ffp-contract=off,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG)))
 ifeq ($(filter-out -ffp-contract=off,$(filter -ffp-contract=%,$(FCFLAGS) $(FCBASEOPTS) $(FCOPTIM) $(FCDEBUG) $(FC) $(SFC) $(CFLAGS))),)
-ifeq ($(filter -D_OPENMP -D_OPENMP=% -DSTUBMPI% -DWRF_CHEM% -DWRFPLUS% -DDVAR4D%,$(CPPFLAGS) $(ARCHFLAGS)),)
+ifeq ($(filter -D_OPENMP -D_OPENMP=% -DSTUBMPI% -DWRF_CHEM% -DWRFPLUS=1 -DDVAR4D%,$(CPPFLAGS) $(ARCHFLAGS)),)
 ifneq (,$(filter -DDM_PARALLEL -DDM_PARALLEL=%,$(CPPFLAGS)))
 ifneq (,$(findstring GNU Fortran,$(shell $(SFC) --version 2>/dev/null)))
 ifeq ($(shell $(SFC) -dumpfullversion -dumpversion 2>/dev/null),13.3.0)

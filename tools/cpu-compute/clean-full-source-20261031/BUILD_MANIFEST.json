@@ -1,0 +1,99 @@
+{
+  "status": "BUILT_R3_GUARD_FIX_PENDING_OWN_3H_SCIENCE",
+  "source": {
+    "repo": "/home/ddietz/wrf/WRF",
+    "branch": "perf/cpu-20261012",
+    "commit": "0ef11ead423a343b8d4316cf6f354f181d6dc3c5",
+    "tracked_tree_clean": true,
+    "submodules_pinned": {
+      ".ci/hpc-workflows": "043a4b6711e7f7d6dd41bd932e6e7336334e9a53",
+      "phys/GFL": "873b414670323ae766ec4fe1f4b6b5ab891358ed",
+      "phys/MYNN-EDMF": "8f8e8b59021249949c04d1686edc5a02ca325627",
+      "phys/MYNN-SFC": "b66187f54a0c169e36592552634867474e603ac0",
+      "phys/TEMPO": "881614f68aa65de8f383d56139162049baf600fa",
+      "phys/fire_behavior": "eb7758055a5d436f022a634cae780f5512c42bb5",
+      "phys/noahmp": "5da0b241e48ecfd9a2a1bd667ed554765856d589",
+      "phys/physics_mmm": "550b5b494758ad2756394e93cb08b5709b8feb83"
+    },
+    "submodule_note": "submodules are uninitialized in the private repo; fetched at pinned commits from .gitmodules URLs; all 645 pinned files verified identical to the Oct 13 clean-head-generic-r4 copies",
+    "tarball": {
+      "path": "/pool/wrf-experiment/wrf-cpu/builds/clean-full-source-0ef11ead-r2/wrf-clean-0ef11ead.tar.gz",
+      "sha256": "8ac0679fc436873f68eac7265376c35c0df7a0cb2ce9311ef0ec0f8336e13eef",
+      "files": 8713
+    },
+    "file_manifest": "clean-source-manifest.sha256 (sha256 7d7ae3cd3df86c0afa68a4485039306ae8a8f3f0e0ba0d4a56c4f28f30535f9e)",
+    "hidden_build_input": "phys/Makefile:440 reads tools/cpu-compute/gwdo-first-hit-o2 (tracked) - evidence trees must be present"
+  },
+  "configure": {
+    "configure.wrf": "/pool/wrf-experiment/wrf-cpu/builds/clean-head-generic-r4/configure.wrf",
+    "sha256": "6d2d788bd02677e6b3603cf9f011b5d51ad19cc418accc773da5a713c1fb7c5c",
+    "choice": "34 (GNU dmpar), nesting 1",
+    "flags": "FCOPTIM=-O2 -fno-fast-math -ffp-contract=off; CFLAGS_LOCAL=-w -O2 -g -fno-fast-math -ffp-contract=off"
+  },
+  "environment": "/pool/wrf-experiment/toolchains/gnu/13.3.0/env.sh",
+  "commands": [
+    "tar xzf wrf-clean-0ef11ead.tar.gz && cp configure.wrf WRF/",
+    "cd WRF && /pool/wrf-experiment/toolchains/bootstrap/bin/csh -f ./compile -j 16 em_real  # pass 1",
+    "/pool/wrf-experiment/toolchains/bootstrap/bin/csh -f ./compile -j 16 em_real  # pass 2"
+  ],
+  "defects_found": [
+    "/bin/csh absent on compute nodes: ./compile must be run via bootstrap csh (r1 failed before compile)",
+    "phys/Makefile lacks physics_mmm/bl_shinhong -> ccpp_kind_types.o dependency: -j16 pass 1 raced (cascade to solve_em, no wrf.exe); pass 2 completes. Upstream-style fix = add dependency; not applied to keep HEAD unchanged"
+  ],
+  "units": {
+    "r1": "wrf-cpu-clean-full-source-0ef11ead-build-hpc02-r1 FAILED (csh)",
+    "r2_pass1": "invocation 16acfb7b9cd3414d85f6db06b846c7d7, 411 s, libs built, link failed",
+    "r2_pass2": "invocation ecf8c9a2b65448bcb41e98a742a7c00b, 351 s, 0 fatal"
+  },
+  "outputs": {
+    "wrf.exe": "5812c9b54e5c632e5793891ed3005586adf1edcbecbbb47b0c10cd38454b8093",
+    "libwrflib.a": "8747811078eb7ac41c4b9c2b36545eb07cddad1a72bd894331d0a2ddfae1320e",
+    "librsl_lite.a": "5a80f89cccdd4db953ea8322118f14dd64df57ad58625bc4a20d157ade19134f"
+  },
+  "selected_for_comparison": {
+    "wrf.exe": "352f86ce75a95187744bdd414e5410841d4f08187389f4eaebd5645764a97312",
+    "libwrflib.a": "e50daca42922a6b26119d223a1c96fa6f9fc20859c2e42b86762441bbf2f46bf",
+    "librsl_lite.a": "e418b187e8c88f5dc436ca44ce32ff23f75ac11a45ce3db214ff4fc40bb1fddc"
+  },
+  "rollback": "selected 352f artifact untouched",
+  "r3": {
+    "build_dir": "/pool/wrf-experiment/wrf-cpu/builds/clean-full-source-0ef11ead-wrfplusfix-r3",
+    "source": "HEAD 0ef11ead + pinned submodules + wrfplus-guard.diff (dyn_em/Makefile:1674,1804; phys/Makefile:1293: -DWRFPLUS% -> -DWRFPLUS=1)",
+    "tarball_sha256": "f9416c420a150858cc1a110e7137909977462648e95ea2d4d213f049629be479",
+    "unit_invocation": "7389cea744bd4420a10b856be7cbf4bb",
+    "seconds": 1064,
+    "passes": 2,
+    "outputs": {
+      "wrf.exe": "356a3bfea511bf84e1e82a3850afc7b9e372bd5c86f398d1e2d464de603fcb49",
+      "libwrflib.a": "8de963f89fcb93b7e75be79889e2b67763d92cf158871a9fdd596ca3f4890f50",
+      "librsl_lite.a": "71b206447ffa153fee0c274965f4dd9a4b2e26895923b9f491ec5dc2509483e0"
+    },
+    "member_comparison_vs_selected": {
+      "libwrflib": "599 vs 599 members; 582 identical (allocated bytes, symbols, non-debug relocations); 16 differ",
+      "path_only_benign": [
+        "module_advect_em.o",
+        "module_diag_afwa.o",
+        "module_physics_addtendc.o",
+        "module_quilt_outbuf_ops.o"
+      ],
+      "same_instruction_count_bytes_differ": [
+        "module_ra_rrtmg_lw.o",
+        "module_ra_rrtmg_sw.o (error line 8469 vs 8511: source differs)",
+        "module_pbl_driver.o (line 1697 vs 1699)",
+        "module_dm.o",
+        "set_timekeeping.o",
+        "wrf_rkscalar_original.o"
+      ],
+      "different_code_no_clean_producer": [
+        "module_mp_thompson.o (44774 vs 25572 insns)",
+        "bl_gwdo.o",
+        "module_bc.o",
+        "module_big_step_utilities_em.o",
+        "module_io_quilt.o",
+        "start_em.o"
+      ],
+      "RSL": "8/10 common identical; c_code.o, f_pack.o differ; selected-only: rsl_early_y_prepost.o, wrf_rsl_pack_wide_i32.o, wrf_rsl_unpack_ikj_original.o, wrf_rsl_unpack_width56_i32.o"
+    }
+  },
+  "gate_b_position": "Clean source reproduces 586/599 WRF members (582 exact + 4 path-only). The selected 352f artifact is NOT reproducible from canonical source: 12 WRF members and 4 RSL objects have no clean-source producer at HEAD. Clean r3 is therefore a distinct configuration and must qualify on its own identity."
+}
