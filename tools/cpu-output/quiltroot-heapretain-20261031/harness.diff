@@ -1,0 +1,34 @@
+--- /home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current352f-quiltroot-drainprof3h-runtime-r1/worker_proof.py	2026-10-30 22:21:16.441494073 +0000
++++ /home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current352f-heapretain3h-runtime-r1/worker_proof.py	2026-10-31 21:33:40.352906639 +0000
+@@ -14,12 +14,14 @@
+   first,last=rows[0],rows[-1];g=first['environment_rank'];pid=first['pid'];assert g not in proof and 0<=g<512 and p.name==f'rank{g}-{pid}.jsonl'
+   assert first['event']=='constructor'and first['configured_world']==512 and first['mpi_calls']==0
+   assert last['event']=='final'and last['rank']==g and all(last[k]==0 for k in ['pending','errors','foreign_calls','terminal_guards'])
+-  generations={};activation=[];puts=[];declines=[]
++  generations={};activation=[];puts=[];declines=[];heap=[]
+   for row in rows[1:-1]:
+    event=row['event'];assert row.get('rank')==g and event!='fatal'
+    if event=='activation':activation.append(row);continue
+    if event=='put':
+     assert g in writers and row['status']==row['end_status']==row['pending']==0;puts.append(row);continue
++   if event=='heap_retain':
++    assert 'experimental_root_heap_retain' in lease and g in writers and not heap and all(row[k]==1 for k in ['mmap_max0','trim_threshold','top_pad']);heap.append(row);continue
+    if event=='guard_decline':
+     assert g in writers and row['status']==0 and row['restored_singleton']is True;declines.append(row);continue
+    assert event in ['widen_begin','widen_end','worker_create_begin','worker_create_return','worker_register','worker_bound','worker_exit','worker_join','callback'],event
+--- /home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current352f-quiltroot-drainprof3h-runtime-r1/quiltroot_component_proof.py	2026-10-30 22:21:16.441494073 +0000
++++ /home/ddietz/wrf/investigation/wrf-cpu/science-discovery/production512-current352f-heapretain3h-runtime-r1/quiltroot_component_proof.py	2026-10-31 21:19:50.561737312 +0000
+@@ -11,7 +11,13 @@
+ CANDIDATE_PATH='/pool/wrf-experiment/wrf-cpu/kernels/current352f-quiltroot-native-hpc02-r1/work/candidate.so'
+ MAP={487:[31,63,95,127],495:[63,31,95,127],503:[95,31,63,127],511:[127,31,63,95]}
+ FLAG={'macro':'WRF_EXPERIMENTAL_QUILT_ROOT_WORKER_CPUS','value':1,'native_invocation_id':'1a106653b03849fcb425ceeb0b311c9d','worker_cpus':{str(k):v for k,v in MAP.items()}}
++HEAP={'so':'04e7cf1d35024ddf1fa777d96c91a297ec48c47ca62c405dcd01e32eb41dd6b2','path':'/pool/wrf-experiment/wrf-cpu/kernels/current352f-heapretain-native-hpc02-r1/work/candidate.so','src':'b6f4a60f6314100aa93bab34f4025ad166f88a914bdf07c9f6c62a3d317f108c'}
+ def parent_context(l):
++ if 'experimental_root_heap_retain' in l:
++  x=l['experimental_root_heap_retain'];assert x['macro']=='WRF_EXPERIMENTAL_QUILT_ROOT_HEAP_RETAIN' and x['value']==1
++  assert l['shim_path']==HEAP['path'] and l['shim_sha256']==HEAP['so'] and l['lifetime_shim_source_sha256']==l['lifetime_shim_log_source_sha256']==HEAP['src']==x['source_sha256']
++  assert x['parent_shim_sha256']==x['default_off_DSO_sha256']==CANDIDATE and x['parent_shim_path']==CANDIDATE_PATH
++  l={k:v for k,v in l.items() if k!='experimental_root_heap_retain'};l.update(shim_path=CANDIDATE_PATH,shim_sha256=CANDIDATE,lifetime_shim_source_sha256=SOURCE,lifetime_shim_log_source_sha256=SOURCE)
+  if 'experimental_quiltroot_workers' not in l:
+   assert l['shim_path']==PARENT_PATH and l['shim_sha256']==PARENT
+   assert l['lifetime_shim_source_sha256']==l['lifetime_shim_log_source_sha256']==OLD_SOURCE

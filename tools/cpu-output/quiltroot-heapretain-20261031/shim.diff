@@ -1,0 +1,22 @@
+--- /home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/drain-r1/shim.parent.c	2026-10-31 21:17:24.864423012 +0000
++++ /home/ddietz/wrf/investigation/wrf-cpu/campaign/spot100-20261016/drain-r1/shim.heapretain.c	2026-10-31 21:18:14.140205836 +0000
+@@ -18,6 +18,7 @@
+ #include <xmmintrin.h>
+ #include <zlib.h>
+ #include <time.h>
++#include <malloc.h>
+ #include "root_chunk_provider.h"
+ /* Fresh opt-in WORLD512 variant. Qualified legacy source/provider are untouched. */
+ static int (*put_real)(int,int,const size_t*,const size_t*,const float*);
+@@ -210,5 +211,11 @@
+  root_cpu=writer_cpus[slot][0];opt.threads=4;for(int i=0;i<4;i++)opt.cpus[i]=writer_cpus[slot][i];
+  closure_ok=same_owner((void*)put_real)&&same_owner((void*)begin_real)&&same_owner((void*)end_real);if(!closure_ok)return;
+  enabled=1;
++#if WRF_EXPERIMENTAL_QUILT_ROOT_HEAP_RETAIN
++ /* Writer roots only (enabled implies slot>=0 on hpc04): keep freed per-field buffers in the heap so the
++  * next field reuses already-faulted, already-IB-registered pages. Allocation policy only; no data change. */
++ {int a=mallopt(M_MMAP_MAX,0),b=mallopt(M_TRIM_THRESHOLD,INT_MAX),c=mallopt(M_TOP_PAD,INT_MAX);
++  fprintf(logfile,"{\"event\":\"heap_retain\",\"rank\":%d,\"mmap_max0\":%d,\"trim_threshold\":%d,\"top_pad\":%d}\n",constructor_rank,a,b,c);fflush(logfile);}
++#endif
+ }
+ __attribute__((destructor))static void finish(void){if(logfile){fprintf(logfile,"{\"event\":\"final\",\"rank\":%d,\"fp_declines\":%lu,\"scopes\":%lu,\"callbacks\":%lu,\"supplied\":%lu,\"declines\":%lu,\"guard_declines\":%lu,\"terminal_guards\":%lu,\"releases\":%lu,\"pending\":%lu,\"errors\":%lu,\"widens\":%lu,\"restores\":%lu,\"calls\":%lu,\"foreign_calls\":%lu}\n",actual_rank,fp_declines,scopes,callbacks,supplied,declines,guard_declines,terminal_guards,releases,pending,errors,widens,restores,atomic_load(&calls),atomic_load(&foreign_calls));fclose(logfile);}}

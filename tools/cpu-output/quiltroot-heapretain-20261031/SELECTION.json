@@ -1,0 +1,82 @@
+{
+  "status": "SELECTED_EXPERIMENTAL_RUNTIME",
+  "candidate_shim": {
+    "path": "/pool/wrf-experiment/wrf-cpu/kernels/current352f-heapretain-native-hpc02-r1/work/candidate.so",
+    "sha256": "04e7cf1d35024ddf1fa777d96c91a297ec48c47ca62c405dcd01e32eb41dd6b2",
+    "source_sha256": "b6f4a60f6314100aa93bab34f4025ad166f88a914bdf07c9f6c62a3d317f108c",
+    "macro": "WRF_EXPERIMENTAL_QUILT_ROOT_HEAP_RETAIN=1"
+  },
+  "default_off_reproduces_selected": {
+    "object": "4f3ef4facbdaab58c845c0b9f8c015eb0c342a9fbd7d010dec78f48de2b146da",
+    "DSO": "1e0f3ce773fbb4b50a9dd129dc5759c6350c0649a5157e47942ca5654e632951"
+  },
+  "executable_unchanged": "352f86ce75a95187744bdd414e5410841d4f08187389f4eaebd5645764a97312",
+  "three_hour": {
+    "run": "production512-current352f-heapretain3h-r4",
+    "science": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+    "wall": 601.7,
+    "main": 516.4,
+    "wrfinput": 40.9,
+    "root511_final_drain_span_s": 17.3,
+    "r2_same_binary_model_success_parser_rejected_new_event": {
+      "main": 520.8,
+      "wrfinput": 39.8,
+      "root511_span": 17.3,
+      "hpc04_peak_GiB": 59.5
+    }
+  },
+  "control_median_selected_runtime": {
+    "runs": [
+      "quiltroot-workers3h-r3",
+      "quiltroot-workers3h-r4",
+      "quiltroot-drainprof3h-r2"
+    ],
+    "wall": [
+      621.3,
+      619.15,
+      618.08
+    ],
+    "median_wall": 619.15,
+    "main": [
+      521.5,
+      521.1,
+      521.4
+    ],
+    "wrfinput": [
+      44.9,
+      43.8,
+      41.0
+    ],
+    "root511_span_s": [
+      26.2,
+      28.4
+    ]
+  },
+  "attribution": "Final drain -8.9 s (robust, both runs). wrfinput -2.9 s is file-server cache noise; r4 main -5 s not repeated in r2 and not claimed. Attributable wall gain ~9 s (~1.5%); observed -17.5 s (-2.8%).",
+  "harness_change": "worker_proof.read_logs accepts one heap_retain event per writer root only when lease carries experimental_root_heap_retain; quiltroot_component_proof.parent_context maps heap-retain shim to selected quiltroot shim by exact hashes.",
+  "memory": "hpc04 peak +4.6 GiB (54.9 -> 59.5 of ~100)",
+  "nine_hour": {
+    "run": "production512-current352f-heapretain-ninehour-r1",
+    "science": "PASS_ORIGINAL_TEN_HISTORY_AND_512_DIRECT_STOCK_LATEST_NINE_HOUR_SEQUENCE",
+    "wall": 1700.84,
+    "main": 1616.44,
+    "previous_selected_quiltroot": {
+      "wall": 1718.09,
+      "main": 1618.26
+    },
+    "wall_change_percent": -1.0,
+    "original_N1": {
+      "wall": 2049.43,
+      "main": 1850.76
+    },
+    "wall_change_vs_original_percent": -17.0
+  },
+  "rollback": {
+    "shim": "1e0f3ce773fbb4b50a9dd129dc5759c6350c0649a5157e47942ca5654e632951 (selected quiltroot)",
+    "then": "64bb4cf2744799056e25be48b166a7a4703f525b08acff1bf898cd7941e8a643 (parent)"
+  },
+  "runtime_packages": [
+    "investigation/wrf-cpu/science-discovery/production512-current352f-heapretain3h-runtime-r1",
+    "investigation/wrf-cpu/science-discovery/production512-current352f-heapretain-ninehour-runtime-r1"
+  ]
+}
