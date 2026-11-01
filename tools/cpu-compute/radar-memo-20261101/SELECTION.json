@@ -1,0 +1,67 @@
+{
+  "status": "SELECTED_EXPERIMENTAL_RUNTIME",
+  "change": "module_mp_radar.F (Thompson 10-cm reflectivity, computed every step because nwp_diagnostics=1): exact 2-entry memo of refractive-index-only Maxwell-Garnett terms keyed on bit patterns; exact bin-ordered memo of size-only terms (D_g, vg, rhog, melt-ratio limit) keyed on bit patterns; string-free specialised nested mixer for the Thompson snow configuration (same branch, expressions and argument order). No arithmetic changed.",
+  "source": {
+    "file": "module_mp_radar.F",
+    "sha256": "fecf611828eba11112d7f6695df85a3f3fa7c6d5645ba65418d26afd89dd3754",
+    "parent_sha256_HEAD": "same as phys/module_mp_radar.F at 7bde78fc"
+  },
+  "build": {
+    "method": "352f libwrflib.a with module_mp_radar.o replaced in place (clean-tree recipe), relinked with 352f's own link command",
+    "relink_unchanged_archive_reproduces_352f": true,
+    "parent_source_object_code_equals_352f_member": true,
+    "mod_unchanged": "97be8635",
+    "member_list_unchanged": true,
+    "wrf.exe": "63f29332118b776fc18d5685f68e9cc588a2faed57629406034d9367d34616c6",
+    "libwrflib.a": "a09bba690a487998dfd2bbbbc31a66c26c8d5f11f833d2cb491d3a3c788cba25",
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/radar-v2-352f-r1"
+  },
+  "native_gate": {
+    "harness": "harness.f90",
+    "calls": 600000,
+    "bit_differences": 0,
+    "microbench_ns_per_call": {
+      "parent": 718.6,
+      "v2": 371.2
+    }
+  },
+  "runtime": "heap-retain shim 04e7cf1d (commit 9f5b9280)",
+  "three_hour": {
+    "science": "PASS x3 (r1, r2, r3)",
+    "valid_main": [
+      514.4,
+      513.3
+    ],
+    "valid_wall": [
+      599.4,
+      599.0
+    ],
+    "r2_timing_invalid": "self-inflicted hpc02 build/bench contention (main 571.3)",
+    "control_heapretain_main": [
+      520.8,
+      516.4
+    ],
+    "control_median_main": 518.6,
+    "main_change_percent": -0.9
+  },
+  "nine_hour": {
+    "run": "production512-heapretain-radarv2-ninehour-r2",
+    "science": "PASS_ORIGINAL_TEN_HISTORY_AND_512_DIRECT_STOCK_LATEST_NINE_HOUR_SEQUENCE",
+    "wall": 1657.16,
+    "main": 1572.38,
+    "previous_selected": {
+      "wall": 1700.84,
+      "main": 1616.44
+    },
+    "wall_change_percent": -2.6,
+    "original_N1_wall": 2049.43,
+    "wall_change_vs_original_percent": -19.1
+  },
+  "rejected_same_round": {
+    "zen2_diffusion": "exact PASS, main 513.9 vs v2 513.85: no gain",
+    "radar_v1": "superseded by v2"
+  },
+  "rollback": [
+    "wrf.exe 352f86ce (unchanged archive e50daca4)"
+  ]
+}
