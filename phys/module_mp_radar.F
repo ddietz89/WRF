@@ -29,6 +29,7 @@ MODULE module_mp_radar
       PRIVATE :: m_complex_water_ray
       PRIVATE :: m_complex_ice_maetzler
       PRIVATE :: m_complex_maxwellgarnett
+      PRIVATE :: mg_core, mg_checked, mix_nested_air_water_icewater
       PRIVATE :: get_m_mix_nested
       PRIVATE :: get_m_mix
       PRIVATE :: WGAMMA
@@ -332,6 +333,17 @@ CONTAINS
                          meltratio_outside_grenz, mra
       INTEGER:: error
       DOUBLE PRECISION, PARAMETER:: PIx=3.1415926535897932384626434d0
+!..Exact memo of the size-only terms (D_g, vg, rhog, grenz) keyed on the bit
+!.. patterns of x_g, a_geo, b_geo; bins arrive in order, so search starts
+!.. after the previous hit.
+      INTEGER, PARAMETER:: nmemo = 64
+      INTEGER(KIND=8):: gkey(3)
+      INTEGER:: ie, ip
+      INTEGER(KIND=8), SAVE:: gk(3,nmemo) = 0_8
+      LOGICAL, SAVE:: gvalid(nmemo) = .false.
+      DOUBLE PRECISION, SAVE:: gD(nmemo), gvg(nmemo), grho(nmemo), ggrenz(nmemo)
+      INTEGER, SAVE:: glast = 0, gfill = 0
+      LOGICAL:: hit, fast
 
 !     refractive index of air:
       m_air = (1.0d0,0.0d0)
@@ -350,15 +362,48 @@ CONTAINS
 
       x_w = x_g * fm
 
-      D_g = a_geo * x_g**b_geo
+      gkey(1) = TRANSFER(x_g, gkey(1))
+      gkey(2) = TRANSFER(a_geo, gkey(2))
+      gkey(3) = TRANSFER(b_geo, gkey(3))
+      hit = .false.
+      do ie = 1, nmemo
+       ip = MOD(glast + ie - 1, nmemo) + 1
+       if (.not. gvalid(ip)) cycle
+       if (ALL(gk(:,ip) .eq. gkey)) then
+        hit = .true.
+        exit
+       endif
+      enddo
+      if (hit) then
+       glast = ip
+       D_g = gD(ip)
+      else
+       D_g = a_geo * x_g**b_geo
+       vg = 0.0d0
+       rhog = 0.0d0
+       meltratio_outside_grenz = 0.0d0
+       if (D_g .ge. 1d-12) then
+        vg = PIx/6. * D_g**3
+        rhog = DMAX1(DMIN1(x_g / vg, 900.0d0), 10.0d0)
+        vg = x_g / rhog
+        meltratio_outside_grenz = 1.0d0 - rhog / 1000.
+       endif
+       gfill = MOD(gfill, nmemo) + 1
+       ip = gfill
+       gk(:,ip) = gkey
+       gvalid(ip) = .true.
+       gD(ip) = D_g
+       gvg(ip) = vg
+       grho(ip) = rhog
+       ggrenz(ip) = meltratio_outside_grenz
+       glast = ip
+      endif
 
       if (D_g .ge. 1d-12) then
 
-       vg = PIx/6. * D_g**3
-       rhog = DMAX1(DMIN1(x_g / vg, 900.0d0), 10.0d0)
-       vg = x_g / rhog
-      
-       meltratio_outside_grenz = 1.0d0 - rhog / 1000.
+       vg = gvg(ip)
+       rhog = grho(ip)
+       meltratio_outside_grenz = ggrenz(ip)
 
        if (mra .le. meltratio_outside_grenz) then
         !..In this case, it cannot happen that, during melting, all the
@@ -389,9 +434,21 @@ CONTAINS
       
        !..complex index of refraction for the ice-air-water mixture
        !.. of the particle:
-       m_core = get_m_mix_nested (m_air, m_i, m_w, volair, volice,      &
+       fast = .false.
+       if (mixingrule .eq. 'maxwellgarnett' .and. host .eq. 'air') then
+        if (matrix .eq. 'water' .and. hostmatrix .eq. 'icewater') then
+         if (inclusion .eq. 'spheroidal' .and.                          &
+             hostinclusion .eq. 'spheroidal') fast = .true.
+        endif
+       endif
+       if (fast) then
+        m_core = mix_nested_air_water_icewater (m_air, m_i, m_w, volair, &
+                         volice, volwater, error)
+       else
+        m_core = get_m_mix_nested (m_air, m_i, m_w, volair, volice,     &
                          volwater, mixingrule, host, matrix, inclusion, &
                          hostmatrix, hostinclusion, error)
+       endif
        if (error .ne. 0) then
         C_back = 0.0d0
         return
@@ -599,8 +656,6 @@ CONTAINS
       COMPLEX*16 :: m1, m2, m3
       DOUBLE PRECISION :: vol1, vol2, vol3
       CHARACTER(len=*) :: inclusion
-
-      COMPLEX*16 :: beta2, beta3, m1t, m2t, m3t
       INTEGER, INTENT(out) :: error
 
       error = 0
@@ -614,16 +669,10 @@ CONTAINS
        return
       endif
 
-      m1t = m1**2
-      m2t = m2**2
-      m3t = m3**2
-
       if (inclusion .eq. 'spherical') then
-       beta2 = 3.0d0*m1t/(m2t+2.0d0*m1t)
-       beta3 = 3.0d0*m1t/(m3t+2.0d0*m1t)
+       m_complex_maxwellgarnett = mg_core(vol2, vol3, m1, m2, m3, 1)
       elseif (inclusion .eq. 'spheroidal') then
-       beta2 = 2.0d0*m1t/(m2t-m1t) * (m2t/(m2t-m1t)*LOG(m2t/m1t)-1.0d0)
-       beta3 = 2.0d0*m1t/(m3t-m1t) * (m3t/(m3t-m1t)*LOG(m3t/m1t)-1.0d0)
+       m_complex_maxwellgarnett = mg_core(vol2, vol3, m1, m2, m3, 2)
       else
        write(radar_debug,*) 'M_COMPLEX_MAXWELLGARNETT: ',                  &
                          'unknown inclusion: ', inclusion
@@ -633,11 +682,121 @@ CONTAINS
        return
       endif
 
-      m_complex_maxwellgarnett = &
+      END FUNCTION m_complex_maxwellgarnett
+
+!..Arithmetic of m_complex_maxwellgarnett after its checks (kind_inc 1 =
+!.. spherical, 2 = spheroidal), with an exact 2-entry memo of the
+!.. refractive-index-only terms keyed on the bit patterns of m1, m2, m3.
+      COMPLEX*16 FUNCTION mg_core(vol2, vol3, m1, m2, m3, kind_inc)
+
+      IMPLICIT NONE
+
+      COMPLEX*16, INTENT(in) :: m1, m2, m3
+      DOUBLE PRECISION, INTENT(in) :: vol2, vol3
+      INTEGER, INTENT(in) :: kind_inc
+
+      COMPLEX*16 :: beta2, beta3, m1t, m2t, m3t
+      INTEGER(KIND=8) :: key(6)
+      INTEGER :: e
+      INTEGER(KIND=8), SAVE :: ckey(6,2) = 0_8
+      INTEGER, SAVE :: ckind(2) = 0, cnext = 1
+      COMPLEX*16, SAVE :: cm1t(2), cm2t(2), cm3t(2), cbeta2(2), cbeta3(2)
+
+      key(1:2) = TRANSFER(m1, key(1:2))
+      key(3:4) = TRANSFER(m2, key(3:4))
+      key(5:6) = TRANSFER(m3, key(5:6))
+      do e = 1, 2
+       if (ckind(e) .eq. kind_inc) then
+        if (ALL(ckey(:,e) .eq. key)) then
+         m1t = cm1t(e)
+         m2t = cm2t(e)
+         m3t = cm3t(e)
+         beta2 = cbeta2(e)
+         beta3 = cbeta3(e)
+         cnext = 3 - e
+         goto 100
+        endif
+       endif
+      enddo
+
+      m1t = m1**2
+      m2t = m2**2
+      m3t = m3**2
+
+      if (kind_inc .eq. 1) then
+       beta2 = 3.0d0*m1t/(m2t+2.0d0*m1t)
+       beta3 = 3.0d0*m1t/(m3t+2.0d0*m1t)
+      else
+       beta2 = 2.0d0*m1t/(m2t-m1t) * (m2t/(m2t-m1t)*LOG(m2t/m1t)-1.0d0)
+       beta3 = 2.0d0*m1t/(m3t-m1t) * (m3t/(m3t-m1t)*LOG(m3t/m1t)-1.0d0)
+      endif
+
+      ckey(:,cnext) = key
+      ckind(cnext) = kind_inc
+      cm1t(cnext) = m1t
+      cm2t(cnext) = m2t
+      cm3t(cnext) = m3t
+      cbeta2(cnext) = beta2
+      cbeta3(cnext) = beta3
+      cnext = 3 - cnext
+
+ 100  mg_core = &
        SQRT(((1.0d0-vol2-vol3)*m1t + vol2*beta2*m2t + vol3*beta3*m3t) / &
        (1.0d0-vol2-vol3+vol2*beta2+vol3*beta3))
 
-      END FUNCTION m_complex_maxwellgarnett
+      END FUNCTION mg_core
+
+!..get_m_mix_nested specialised to host='air', matrix='water',
+!.. hostmatrix='icewater', mixingrule='maxwellgarnett', inclusion =
+!.. hostinclusion = 'spheroidal': the exact branch and call sequence the
+!.. generic routine takes for that configuration, without string compares.
+      COMPLEX*16 FUNCTION mix_nested_air_water_icewater(m_a, m_i, m_w,  &
+                     volair, volice, volwater, cumulerror)
+
+      IMPLICIT NONE
+
+      DOUBLE PRECISION, INTENT(in):: volice, volair, volwater
+      COMPLEX*16, INTENT(in):: m_a, m_i, m_w
+      INTEGER, INTENT(out):: cumulerror
+      DOUBLE PRECISION:: vol1, vol2
+      COMPLEX*16:: mtmp
+      INTEGER:: error
+
+      cumulerror = 0
+      mix_nested_air_water_icewater = CMPLX(1.0d0,0.0d0)
+      vol1 = volice / MAX(volice+volwater,1d-10)
+      vol2 = 1.0d0 - vol1
+!..  get_m_mix(m_a, m_i, m_w, 0.0d0, vol1, vol2, ..., 'water', ...)
+      mtmp = mg_checked(vol2, 0.0d0, vol1, m_w, m_a, m_i, error)
+      cumulerror = cumulerror + error
+!..  get_m_mix(m_a, mtmp, 2.0*m_a, volair, (1.0d0-volair), 0.0d0, ..., 'ice', ...)
+      mix_nested_air_water_icewater = mg_checked((1.0d0-volair),        &
+                     volair, 0.0d0, mtmp, m_a, 2.0*m_a, error)
+      cumulerror = cumulerror + error
+
+      END FUNCTION mix_nested_air_water_icewater
+
+!..m_complex_maxwellgarnett(vol1, vol2, vol3, m1, m2, m3, 'spheroidal')
+      COMPLEX*16 FUNCTION mg_checked(vol1, vol2, vol3, m1, m2, m3, error)
+
+      IMPLICIT NONE
+
+      COMPLEX*16, INTENT(in) :: m1, m2, m3
+      DOUBLE PRECISION, INTENT(in) :: vol1, vol2, vol3
+      INTEGER, INTENT(out) :: error
+
+      error = 0
+      if (DABS(vol1+vol2+vol3-1.0d0) .gt. 1d-6) then
+       write(radar_debug,*) 'M_COMPLEX_MAXWELLGARNETT: sum of the ',       &
+              'partial volume fractions is not 1...ERROR'
+       CALL wrf_debug(150, radar_debug)
+       mg_checked=CMPLX(-999.99d0,-999.99d0)
+       error = 1
+       return
+      endif
+      mg_checked = mg_core(vol2, vol3, m1, m2, m3, 2)
+
+      END FUNCTION mg_checked
 
 !+---+-----------------------------------------------------------------+
       REAL FUNCTION GAMMLN(XX)
