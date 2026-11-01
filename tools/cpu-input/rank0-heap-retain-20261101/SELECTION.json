@@ -1,0 +1,45 @@
+{
+  "status": "SELECTED_EXPERIMENTAL_RUNTIME",
+  "change": "rank 0 (input root) only: GLIBC_TUNABLES=glibc.malloc.mmap_max=0:glibc.malloc.trim_threshold=17179869184:glibc.malloc.top_pad=268435456 set by input_rank_exec when lease carries experimental_rank0_heap_retain. Allocation policy only; executable, shim, map unchanged.",
+  "evidence": "rank-0 startup profile (n08-prof-startup-r1): input phase dominated by page-fault churn (clear_page_rep, do_anonymous_page, __handle_mm_fault, zap_pte_range) from per-field global buffers",
+  "three_hour": {
+    "science": "PASS x2",
+    "input": [
+      29.4,
+      28.9
+    ],
+    "control_input": [
+      41.0,
+      40.6
+    ],
+    "wall": [
+      581.74,
+      580.69
+    ],
+    "control_wall": [
+      591.46,
+      594.08
+    ],
+    "wall_change_percent": -2.0,
+    "hpc01_peak_GiB": 53.8
+  },
+  "nine_hour": {
+    "run": "production512-colperma-r0heap-ninehour-r1",
+    "science": "PASS_ORIGINAL_TEN_HISTORY_AND_512_DIRECT_STOCK_LATEST_NINE_HOUR_SEQUENCE",
+    "wall": 1618.37,
+    "main": 1545.35,
+    "input": 29.5,
+    "previous_selected": {
+      "wall": 1623.63,
+      "main": 1538.81
+    },
+    "wall_change_percent": -0.3,
+    "note": "input -11 s; main +6.5 s within run-to-run spread",
+    "original_N1_wall": 2049.43,
+    "wall_change_vs_original_percent": -21.0
+  },
+  "rejected_same_round": {
+    "prestaged_thompson_tables": "exact (read instead of compute) but no wall change: table computation is off the critical path"
+  },
+  "rollback": "omit experimental_rank0_heap_retain from lease"
+}
