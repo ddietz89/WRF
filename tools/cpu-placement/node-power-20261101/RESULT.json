@@ -1,0 +1,54 @@
+{
+  "status": "NODE_FIRMWARE_ALIGNED_AND_REQUALIFIED",
+  "cause": "hpc01/hpc02 (replaced mainboards) had BIOS Determinism Slider = Performance; hpc03/hpc04 Power. cTDP and PPT were 240 W on all. Owner changed hpc01/hpc02 to Power and rebooted 2026-11-01.",
+  "verification_all_core_avx2_30s": {
+    "hpc01": {
+      "W": [
+        245.9,
+        245.9
+      ],
+      "MHz": 2874
+    },
+    "hpc02": {
+      "W": [
+        245.9,
+        245.9
+      ],
+      "MHz": 2877
+    },
+    "hpc03": {
+      "W": [
+        245.9,
+        245.9
+      ],
+      "MHz": 2918
+    },
+    "hpc04": {
+      "W": [
+        245.9,
+        245.9
+      ],
+      "MHz": 2906
+    }
+  },
+  "before": "under WRF load hpc01/02 ~2700 MHz, ~226/215 W per socket; hpc03/04 ~2960 MHz, ~245 W",
+  "three_hour_after": {
+    "faba_main": 506.8,
+    "colperma_main": 505.8,
+    "note": "maps now within 0.2%; readers refused by remount device-id admission (st_dev 52->48), fixed by excluding device only"
+  },
+  "nine_hour_after": {
+    "run": "production512-colperma-r0heap-ninehour-r2",
+    "science": "PASS_ORIGINAL_TEN_HISTORY_AND_512_DIRECT_STOCK_LATEST_NINE_HOUR_SEQUENCE",
+    "wall": 1611.87,
+    "main": 1537.01,
+    "before": {
+      "wall": 1618.37,
+      "main": 1545.35
+    },
+    "wall_change_percent": -0.4,
+    "original_N1_wall": 2049.43,
+    "wall_change_vs_original_percent": -21.3
+  },
+  "harness_change": "prepare_case / runtime_stock.input_guard / runtime_combined compare file stats excluding st_dev (pool remount); inode/size/mtime/ctime still enforced"
+}
