@@ -1,0 +1,43 @@
+{
+  "status": "QUALIFIED_REPRODUCIBLE_REPLACEMENT",
+  "executable": {
+    "path": "/pool/wrf-experiment/wrf-cpu/builds/selected-source-3919078b-r4/WRF/main/wrf.exe",
+    "sha256": "5559d5a67eebbe955f4579a1bbb76139b85636c5e993098027269c2e21a37f50"
+  },
+  "runtime": "heap-retain shim 04e7cf1d, rank map colperm-a, rank-0 heap retention, BIOS Determinism=Power on all nodes",
+  "three_hour": [
+    {
+      "run": "production512-reprobuild-r4-3h-r1",
+      "science": "not evaluated (reader refused: pre-reboot st_dev admission, harness artifact)",
+      "main": 504.5,
+      "wall": 586.2
+    },
+    {
+      "run": "production512-reprobuild-r4-3h-r2",
+      "science": "PASS_ORIGINAL_FOUR_HISTORY_AND_512_DIRECT_STOCK_LATEST_THREE_HOUR_SEQUENCE",
+      "main": 505.6,
+      "wall": 580.3
+    }
+  ],
+  "nine_hour": {
+    "run": "production512-reprobuild-r4-ninehour-r1",
+    "science": "PASS_ORIGINAL_TEN_HISTORY_AND_512_DIRECT_STOCK_LATEST_NINE_HOUR_SEQUENCE",
+    "wall": 1621.23,
+    "main": 1546.02
+  },
+  "preserved_artifact_nine_hour": {
+    "wall": [
+      1611.87,
+      1618.37,
+      1623.63
+    ],
+    "main": [
+      1537.01,
+      1545.35,
+      1538.81
+    ],
+    "note": "descriptive, unpaired; repro within the preserved artifact's spread"
+  },
+  "byte_identity": "not claimed (585/598 archive members identical; rest path strings or older source revisions)",
+  "rollback": "preserved artifact wrf.exe 63f29332 (read-only), then 352f86ce"
+}
