@@ -672,21 +672,27 @@ SUBROUTINE calc_coef_w( a,alpha,gamma,              &
       k_end   = kte-1
       lid_flag=1
       IF(top_lid)lid_flag=0
+!$acc parallel loop gang private(cof) if(wrf_gpu_on)
      outer_j_loop:  DO j = j_start, j_end
         k = kde-1
+!$acc loop vector
         DO i = i_start, i_end
           cof(i)  = (.5*dts*g*(1.+epssm))**2
           a(i, 2 ,j) = 0.
-          a(i,kde,j) =-2.*cof(i)*rdnw(kde-1)**2*c2a(i,kde-1,j)*lid_flag/((c1h(k)*MUT(i,j)+c2h(k))*(c1f(k)*MUT(i,j)+c2f(k)))
+          a(i,kde,j) =-2.*cof(i)*rdnw(kde-1)**2*c2a(i,kde-1,j)*lid_flag/((c1h(kde-1)*MUT(i,j)+c2h(kde-1))*(c1f(kde-1)*MUT(i,j)+c2f(kde-1)))   ! GPU: k=kde-1 inlined
           gamma(i,1 ,j) = 0.
         ENDDO
+!$acc loop seq
         DO kk=3,kde-1
         k=kk-1
+!$acc loop vector
         DO i=i_start, i_end
-          a(i,kk,j) =   -cqw(i,kk,j)*cof(i)*rdn(kk)* rdnw(kk-1)*c2a(i,kk-1,j)/((c1h(k)*MUT(i,j)+c2h(k))*(c1f(k)*MUT(i,j)+c2f(k)))
+          a(i,kk,j) =   -cqw(i,kk,j)*cof(i)*rdn(kk)* rdnw(kk-1)*c2a(i,kk-1,j)/((c1h(kk-1)*MUT(i,j)+c2h(kk-1))*(c1f(kk-1)*MUT(i,j)+c2f(kk-1)))   ! GPU: k=kk-1 inlined
         ENDDO
         ENDDO
+!$acc loop seq
         DO k=2,kde-1
+!$acc loop vector private(b,c)
         DO i=i_start, i_end
           b = 1.+cqw(i,k,j)*cof(i)*rdn(k)*(rdnw(k  )*c2a(i,k,  j)/((c1h(k)*MUT(i,j)+c2h(k))*(c1f(k)*MUT(i,j)+c2f(k)))  &
                                           +rdnw(k-1)*c2a(i,k-1,j)/((c1h(k-1)*MUT(i,j)+c2h(k-1))*(c1f(k)*MUT(i,j)+c2f(k))) )
@@ -696,8 +702,9 @@ SUBROUTINE calc_coef_w( a,alpha,gamma,              &
         ENDDO
         ENDDO
         k=kde
+!$acc loop vector private(b,c)
         DO i=i_start, i_end
-          b = 1.+2.*cof(i)*rdnw(kde-1)**2*c2a(i,kde-1,j)/((c1h(k-1)*MUT(i,j)+c2h(k-1))*(c1f(k)*MUT(i,j)+c2f(k)))
+          b = 1.+2.*cof(i)*rdnw(kde-1)**2*c2a(i,kde-1,j)/((c1h(kde-1)*MUT(i,j)+c2h(kde-1))*(c1f(kde)*MUT(i,j)+c2f(kde)))   ! GPU: k=kde inlined
           c = 0.
           alpha(i,kde,j) = 1./(b-a(i,kde,j)*gamma(i,kde-1,j))
           gamma(i,kde,j) = c*alpha(i,kde,j)
