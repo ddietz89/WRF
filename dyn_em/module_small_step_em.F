@@ -1293,6 +1293,7 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
       REAL, DIMENSION( its:ite, kts:kte ) :: rhs, wdwn
       INTEGER :: i,j,k, i_start, i_end, j_start, j_end, k_start, k_end
       REAL, DIMENSION (kts:kte) :: dampwt
+      REAL :: dampk   ! GPU: per-(i,k) scalar replaces dampwt(k) (race-free; same values)
       real :: htop,hbot,hdepth,hk
       real    :: pi,dampmag
       REAL :: muthk, muthkm1
@@ -1344,10 +1345,17 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
     DO i=i_start, i_end
       rhs(i,1) = 0.
     ENDDO
+!$acc parallel loop gang private(rhs,wdwn,msft_inv)
   j_loop_w:  DO j = j_start, j_end
+!$acc loop vector
+    DO i=i_start, i_end
+      rhs(i,1) = 0.   ! GPU: per-gang copy of the pre-loop initialisation
+    ENDDO
+!$acc loop vector
     DO i=i_start, i_end
        msft_inv(i) = 1./msfty(i,j)
     ENDDO
+!$acc loop vector collapse(2)
     DO k=1, k_end
     DO i=i_start, i_end
       t_2ave(i,k,j)=.5*((1.+epssm)*t_2(i,k,j)       &
@@ -1364,12 +1372,14 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
       !  First get staggered partial d/dnu(phi) and then multiply with omega
       !  to avoid double staggering of omega
 
+!$acc loop vector collapse(2)
       DO k=1, k_end
       DO i=i_start, i_end
          wdwn(i,k+1)=rdnw(k)*(ph_1(i,k+1,j)-ph_1(i,k,j)+phb(i,k+1,j)-phb(i,k,j))
       ENDDO
       ENDDO
 
+!$acc loop vector collapse(2)
       DO k=2,k_end
       DO i=i_start, i_end
          rhs(i,k) = rhs(i,k)-dts*ww(i,k,j)*( fnm(k)*wdwn(i,k+1)  &
@@ -1379,6 +1389,7 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
     ELSE
       !  First destagger omega and multiply with partial d/dnu(phi), then stagger the product
 
+!$acc loop vector collapse(2)
       DO k=1, k_end
       DO i=i_start, i_end
          wdwn(i,k+1)=.5*(ww(i,k+1,j)+ww(i,k,j))*rdnw(k)    &
@@ -1386,6 +1397,7 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
       ENDDO
       ENDDO
 
+!$acc loop vector collapse(2)
       DO k=2,k_end
       DO i=i_start, i_end
          rhs(i,k) = rhs(i,k)-dts*( fnm(k)*wdwn(i,k+1)  &
@@ -1402,6 +1414,7 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
 !                                                      partial d phi/dz]
 !            = ph_previous + (msft*delta t/mu)*[ph_tend + ~g*w/2 - ~ww *
 !                                                         partial d phi/dz]
+!$acc loop vector collapse(2)
     DO k=2,k_end+1
     DO i=i_start, i_end
       rhs(i,k) = ph(i,k,j) + msfty(i,j)*rhs(i,k)/(c1f(k)*mut(i,j)+c2f(k))
@@ -1419,6 +1432,7 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
 !    gridpoints, and dz/dy is the change between y gridpoints]
 !   [cf1, cf2 and cf3 do vertical weighting of u or v values nearest
 !    the surface]
+!$acc loop vector
     DO i=i_start, i_end
        w(i,1,j)=                                           &
                 msfty(i,j)*.5*rdy*(                        &
@@ -1438,6 +1452,7 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
 ! (left a blank line where the other two k/i-loops were)
 !
 !   above surface, begin by adding delta t * previous (coupled) w tendency
+!$acc loop vector collapse(2)
     DO k=2,k_end
       DO i=i_start, i_end
         
@@ -1457,6 +1472,7 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
       ENDDO
     ENDDO
     K=k_end+1
+!$acc loop vector
     DO i=i_start, i_end
        w(i,k,j)=w(i,k,j)+dts*rw_tend(i,k,j)                         &
            +msft_inv(i)*(                                        &
@@ -1469,33 +1485,39 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
        if(top_lid)w(i,k,j) = 0.
     ENDDO
 
+!$acc loop seq
     DO k=2,k_end+1
+!$acc loop vector
     DO i=i_start, i_end
        w(i,k,j)=(w(i,k,j)-a(i,k,j)*w(i,k-1,j))*alpha(i,k,j)
     ENDDO
     ENDDO
 
+!$acc loop seq
     DO k=k_end,2,-1
+!$acc loop vector
     DO i=i_start, i_end
        w (i,k,j)=w (i,k,j)-gamma(i,k,j)*w(i,k+1,j)
     ENDDO
     ENDDO
 
     IF (config_flags%damp_opt .eq. 3) THEN
+!$acc loop vector collapse(2)
       DO k=k_end+1,2,-1
       DO i=i_start, i_end
           htop=(ph_1(i,k_end+1,j)+phb(i,k_end+1,j))/g
           hk=(ph_1(i,k,j)+phb(i,k,j))/g
           hbot=htop-hdepth
-          dampwt(k) = 0.
+          dampk = 0.
           if(hk .ge. hbot)then
-            dampwt(k) = dampmag*sin(0.5*pi*(hk-hbot)/hdepth)*sin(0.5*pi*(hk-hbot)/hdepth)
+            dampk = dampmag*sin(0.5*pi*(hk-hbot)/hdepth)*sin(0.5*pi*(hk-hbot)/hdepth)
           endif
-          w(i,k,j) = (w(i,k,j) - dampwt(k)*(c1f(k)*mut(i,j)+c2f(k))*w_save(i,k,j))/(1.+dampwt(k))
+          w(i,k,j) = (w(i,k,j) - dampk*(c1f(k)*mut(i,j)+c2f(k))*w_save(i,k,j))/(1.+dampk)
       ENDDO
       ENDDO
     ENDIF
 
+!$acc loop vector collapse(2)
     DO k=k_end+1,2,-1
     DO i=i_start, i_end
        ph(i,k,j) = rhs(i,k)+msfty(i,j)*.5*dts*g*(1.+epssm) &
