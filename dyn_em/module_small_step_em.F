@@ -127,7 +127,9 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
 
     IF ((rk_step == 1) ) THEN
 
+!$acc parallel loop gang
       DO j=j_start, j_end
+!$acc loop vector
       DO i=i_start, i_end
         MU_1(i,j)=MU_2(i,j)
         ww_save(i,kde,j) = 0.
@@ -136,7 +138,9 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
       ENDDO
       ENDDO
 
+!$acc parallel loop gang
       DO j=j_start, j_end
+!$acc loop vector collapse(2)
       DO k=k_start, k_end
       DO i=i_start, i_endu
         u_1(i,k,j) = u_2(i,k,j)
@@ -144,7 +148,9 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
       ENDDO
       ENDDO
 
+!$acc parallel loop gang
       DO j=j_start, j_endv
+!$acc loop vector collapse(2)
       DO k=k_start, k_end
       DO i=i_start, i_end
         v_1(i,k,j) = v_2(i,k,j)
@@ -152,7 +158,9 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
       ENDDO
       ENDDO
 
+!$acc parallel loop gang
       DO j=j_start, j_end
+!$acc loop vector collapse(2)
       DO k=k_start, k_end
       DO i=i_start, i_end
         t_1(i,k,j) = t_2(i,k,j)
@@ -160,7 +168,9 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
       ENDDO
       ENDDO
 
+!$acc parallel loop gang
       DO j=j_start, j_end
+!$acc loop vector collapse(2)
       DO k=k_start, min(kde,kte)
       DO i=i_start, i_end
         w_1(i,k,j)  = w_2(i,k,j)
@@ -169,22 +179,29 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
       ENDDO
       ENDDO
 
+!$acc parallel loop gang
     DO j=j_start, j_end
+!$acc loop vector
       DO i=i_start, i_end
         MUTS(i,j)=MUB(i,j)+MU_2(i,j)
       ENDDO
+!$acc loop vector
       DO i=i_start, i_endu
         MUUS(i,j) = MUU(i,j)
       ENDDO
     ENDDO
 
+!$acc parallel loop gang
     DO j=j_start, j_endv
+!$acc loop vector
     DO i=i_start, i_end
         MUVS(i,j) = MUV(i,j)
     ENDDO
     ENDDO
 
+!$acc parallel loop gang
     DO j=j_start, j_end
+!$acc loop vector
       DO i=i_start, i_end
         MU_SAVE(i,j)=MU_2(i,j)
         MU_2(i,j)=0.
@@ -193,22 +210,29 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
 
     ELSE
 
+!$acc parallel loop gang
     DO j=j_start, j_end
+!$acc loop vector
       DO i=i_start, i_end
         MUTS(i,j)=MUB(i,j)+MU_1(i,j)
       ENDDO
+!$acc loop vector
       DO i=i_start, i_endu
         MUUS(i,j)=0.5*(MUB(i,j)+MU_1(i,j)+MUB(i-1,j)+MU_1(i-1,j))
       ENDDO
     ENDDO
 
+!$acc parallel loop gang
     DO j=j_start, j_endv
+!$acc loop vector
     DO i=i_start, i_end
       MUVS(i,j)=0.5*(MUB(i,j)+MU_1(i,j)+MUB(i,j-1)+MU_1(i,j-1))
     ENDDO
     ENDDO
 
+!$acc parallel loop gang
     DO j=j_start, j_end
+!$acc loop vector
       DO i=i_start, i_end
         MU_SAVE(i,j)=MU_2(i,j)
         MU_2(i,j)=MU_1(i,j)-MU_2(i,j)
@@ -220,14 +244,18 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
 
     ! set up the small timestep variables
 
+!$acc parallel loop gang
       DO j=j_start, j_end
+!$acc loop vector
       DO i=i_start, i_end
         ww_save(i,kde,j) = 0.
         ww_save(i,1,j) = 0.
       ENDDO
       ENDDO
 
+!$acc parallel loop gang
     DO j=j_start, j_end
+!$acc loop vector collapse(2)
     DO k=k_start, k_end
     DO i=i_start, i_end
       c2a(i,k,j) = cpovcv*(pb(i,k,j)+p(i,k,j))/alt(i,k,j)
@@ -235,7 +263,9 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
     ENDDO
     ENDDO
 
+!$acc parallel loop gang
     DO j=j_start, j_end
+!$acc loop vector collapse(2)
     DO k=k_start, k_end
     DO i=i_start, i_endu
       u_save(i,k,j) = u_2(i,k,j)
@@ -245,7 +275,9 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
     ENDDO
     ENDDO
 
+!$acc parallel loop gang
     DO j=j_start, j_endv
+!$acc loop vector collapse(2)
     DO k=k_start, k_end
     DO i=i_start, i_end
       v_save(i,k,j) = v_2(i,k,j)
@@ -256,7 +288,9 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
     ENDDO
     ENDDO
 
+!$acc parallel loop gang
     DO j=j_start, j_end
+!$acc loop vector collapse(2)
     DO k=k_start, k_end
     DO i=i_start, i_end
       t_save(i,k,j) = t_2(i,k,j)
@@ -265,8 +299,10 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
     ENDDO
     ENDDO
 
+!$acc parallel loop gang
     DO j=j_start, j_end
 !    DO k=k_start, min(kde,kte)
+!$acc loop vector collapse(2)
     DO k=k_start, kde
     DO i=i_start, i_end
       w_save(i,k,j) = w_2(i,k,j)
@@ -278,8 +314,10 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
     ENDDO
     ENDDO
 
+!$acc parallel loop gang
       DO j=j_start, j_end
 !      DO k=k_start, min(kde,kte)
+!$acc loop vector collapse(2)
       DO k=k_start, kde
       DO i=i_start, i_end
         ww_save(i,k,j) = ww(i,k,j)
@@ -376,7 +414,9 @@ SUBROUTINE small_step_finish( u_2, u_1, v_2, v_1, w_2, w_1,    &
 
 !    addition of time level t back into variables
 
+!$acc parallel loop gang
   DO j = j_start, j_endv
+!$acc loop vector collapse(2)
   DO k = kds, kde-1
   DO i = i_start, i_end
     ! v coupled with mx
@@ -385,7 +425,9 @@ SUBROUTINE small_step_finish( u_2, u_1, v_2, v_1, w_2, w_1,    &
   ENDDO
   ENDDO
 
+!$acc parallel loop gang
   DO j = j_start, j_end
+!$acc loop vector collapse(2)
   DO k = kds, kde-1
   DO i = i_start, i_endu
     ! u coupled with my
@@ -394,7 +436,9 @@ SUBROUTINE small_step_finish( u_2, u_1, v_2, v_1, w_2, w_1,    &
   ENDDO
   ENDDO
 
+!$acc parallel loop gang
   DO j = j_start, j_end
+!$acc loop vector collapse(2)
   DO k = kds, kde
   DO i = i_start, i_end
     ! w coupled with my
@@ -406,7 +450,9 @@ SUBROUTINE small_step_finish( u_2, u_1, v_2, v_1, w_2, w_1,    &
   ENDDO
 
   IF ( rk_step < rk_order ) THEN
+!$acc parallel loop gang
     DO j = j_start, j_end
+!$acc loop vector collapse(2)
     DO k = kds, kde-1
     DO i = i_start, i_end
       t_2(i,k,j) = (t_2(i,k,j) + t_save(i,k,j)*(c1h(k)*mut(i,j)+c2h(k)))/(c1h(k)*muts(i,j)+c2h(k))
@@ -415,7 +461,9 @@ SUBROUTINE small_step_finish( u_2, u_1, v_2, v_1, w_2, w_1,    &
     ENDDO
   ELSE
 
+!$acc parallel loop gang
     DO j = j_start, j_end
+!$acc loop vector collapse(2)
     DO k = kds, kde-1
     DO i = i_start, i_end
       t_2(i,k,j) = (t_2(i,k,j) - dts*number_of_small_timesteps*(c1h(k)*mut(i,j)+c2h(k))*h_diabatic(i,k,j) &
@@ -425,7 +473,9 @@ SUBROUTINE small_step_finish( u_2, u_1, v_2, v_1, w_2, w_1,    &
     ENDDO
   ENDIF
 
+!$acc parallel loop gang
   DO j = j_start, j_end
+!$acc loop vector
   DO i = i_start, i_end
     mu_2(i,j) = mu_2(i,j) + mu_save(i,j)
   ENDDO
