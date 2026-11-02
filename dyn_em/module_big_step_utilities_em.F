@@ -5932,9 +5932,7 @@ END SUBROUTINE phy_prep_part2
      IF ( config_flags%no_mp_heating .eq. 0 ) THEN
        mptenmax = 0.
        mptenmin = 999.
-!$acc parallel loop gang
      DO j = j_start, j_end
-!$acc loop vector collapse(2) private(dfi_tten_max,imax,imin,jmax,jmin,mpten,mptenmax,mptenmin,old_max,qcten,qvten)
      DO k = k_start, k_end
      DO i = i_start, i_end
           mpten = th_phy(i,k,j)-h_diabatic(i,k,j)
