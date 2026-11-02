@@ -860,6 +860,7 @@ SUBROUTINE calc_cq ( moist, cqu, cqv, cqw, n_moist, &
 
    ! Changes from Larry Meadows, Intel Corp.  Improve vectorization of this routine
    REAL :: qtot(its:ite)
+      REAL :: qt_   ! GPU: per-point species sum
    
    INTEGER :: i, j, k, itf, jtf, ktf, ispe
 
@@ -875,48 +876,45 @@ SUBROUTINE calc_cq ( moist, cqu, cqv, cqw, n_moist, &
 
         itf=ite
         jtf=MIN(jte,jde-1)
+!$acc parallel loop collapse(3) private(qt_) if(wrf_gpu_on)
         DO j=jts,jtf
           DO k=kts,ktf
-            qtot = 0.
-            DO ispe=PARAM_FIRST_SCALAR,n_moist
-              DO i=its,itf
-                qtot(i) = qtot(i) + moist(i,k,j,ispe) + moist(i-1,k,j,ispe)
-              ENDDO
-            ENDDO
             DO i=its,itf
-              cqu(i,k,j) = 1./(1.+0.5*qtot(i))
+              qt_ = 0.   ! GPU: per-point sum, same species order as the row array qtot(i)
+              DO ispe=PARAM_FIRST_SCALAR,n_moist
+                qt_ = qt_ + moist(i,k,j,ispe) + moist(i-1,k,j,ispe)
+              ENDDO
+              cqu(i,k,j) = 1./(1.+0.5*qt_)
             ENDDO
         ENDDO
         ENDDO
 
         itf=MIN(ite,ide-1)
         jtf=jte
+!$acc parallel loop collapse(3) private(qt_) if(wrf_gpu_on)
         DO j=jts,jtf
           DO k=kts,ktf
-            qtot = 0.
-            DO ispe=PARAM_FIRST_SCALAR,n_moist
-              DO i=its,itf
-                qtot(i) = qtot(i) + moist(i,k,j,ispe) + moist(i,k,j-1,ispe)
+            DO i=its,itf
+              qt_ = 0.   ! GPU: per-point sum, same species order
+              DO ispe=PARAM_FIRST_SCALAR,n_moist
+                qt_ = qt_ + moist(i,k,j,ispe) + moist(i,k,j-1,ispe)
               ENDDO
-            ENDDO
-            DO i = its,itf
-               cqv(i,k,j) = 1./(1.+0.5*qtot(i))
+              cqv(i,k,j) = 1./(1.+0.5*qt_)
             ENDDO
           ENDDO
         ENDDO
 
         itf=MIN(ite,ide-1)
         jtf=MIN(jte,jde-1)
+!$acc parallel loop collapse(3) private(qt_) if(wrf_gpu_on)
         DO j=jts,jtf
           DO k=kts+1,ktf
-            qtot = 0.
-            DO ispe=PARAM_FIRST_SCALAR,n_moist
-              DO i=its,itf
-                qtot(i) = qtot(i) + moist(i,k,j,ispe) + moist(i,k-1,j,ispe)
+            DO i=its,itf
+              qt_ = 0.   ! GPU: per-point sum, same species order
+              DO ispe=PARAM_FIRST_SCALAR,n_moist
+                qt_ = qt_ + moist(i,k,j,ispe) + moist(i,k-1,j,ispe)
               ENDDO
-            ENDDO
-            DO i = its,itf
-              cqw(i,k,j) = 0.5*qtot(i)
+              cqw(i,k,j) = 0.5*qt_
             ENDDO
         ENDDO
         ENDDO
