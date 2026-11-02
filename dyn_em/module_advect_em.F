@@ -67,6 +67,7 @@ SUBROUTINE tophat ( field, num_scalars , &
    field = 0
 
    DO n = 1 , num_scalars
+!$acc parallel loop collapse(3)
    DO j = jts , jte
    DO k = kts , kte
    DO i = its , ite
@@ -1166,6 +1167,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
       IF ( config_flags%periodic_x ) i_start = its
       IF ( config_flags%periodic_x ) i_end = ite
 
+!$acc parallel loop collapse(3)
       DO j = j_start, j_end
       DO k=kts,ktf
       DO i = i_start, i_end
@@ -1207,6 +1209,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
       IF ( config_flags%open_ys .or. specified ) j_start = MAX(jds+1,jts)
       IF ( config_flags%open_ye .or. specified ) j_end   = MIN(jde-2,jte)
 
+!$acc parallel loop collapse(3)
       DO j = j_start, j_end
       DO k=kts,ktf
       DO i = i_start, i_end
@@ -2587,6 +2590,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
       IF ( config_flags%polar ) j_start = MAX(jds+1,jts)
       IF ( config_flags%polar ) j_end   = MIN(jde-1,jte)
 
+!$acc parallel loop collapse(3)
       DO j = j_start, j_end
       DO k=kts,ktf
       DO i = i_start, i_end
@@ -2663,6 +2667,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
       IF ( config_flags%polar ) j_start = MAX(jds+1,jts)
       IF ( config_flags%polar ) j_end   = MIN(jde-1,jte)
 
+!$acc parallel loop collapse(3)
       DO j = j_start, j_end
       DO k=kts,ktf
       DO i = i_start, i_end
@@ -4038,6 +4043,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
         IF ( config_flags%open_xe .or. specified ) i_end   = MIN(ide-2,ite)
       ENDIF
 
+!$acc parallel loop collapse(3)
       DO j = j_start, j_end
       DO k = kts, ktf
       DO i = i_start, i_end
@@ -4056,6 +4062,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
       IF ( config_flags%open_ys .or. specified .or. config_flags%polar ) j_start = MAX(jds+1,jts)
       IF ( config_flags%open_ye .or. specified .or. config_flags%polar ) j_end   = MIN(jde-2,jte)
 
+!$acc parallel loop collapse(3)
       DO j = j_start, j_end
       DO k = kts, ktf
       DO i = i_start, i_end
@@ -7208,6 +7215,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
 !  compute fluxes, 2nd order, y flux
 
+!$acc parallel loop collapse(3)
       DO j = j_start, j_end+1
         DO k=kts,ktf
         DO i = i_start, i_end
@@ -7227,6 +7235,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
 !  next, x flux
 
+!$acc parallel loop collapse(3)
       DO j = j_start, j_end
         DO k=kts,ktf
         DO i = i_start, i_end+1
@@ -7740,6 +7749,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
    ENDDO
    ENDDO
 
+!$acc parallel loop collapse(3)
    DO j=j_start, j_end
    DO k=kts, ktf
 !DIR$ vector always
@@ -7787,6 +7797,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
   j_start = jts
   j_end   = MIN(jte,jde-1)
 
+!$acc parallel loop collapse(3)
   DO j = j_start, j_end
   DO k = kts, ktf
 !DEC$ vector always
@@ -7801,6 +7812,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
   ENDDO
 
   IF(tenddec) THEN
+!$acc parallel loop collapse(3)
   DO j = j_start, j_end
   DO k = kts, ktf
   DO i = i_start, i_end
@@ -7818,6 +7830,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
   IF(degrade_xs) i_start = MAX(its,ids+1)
   IF(degrade_xe) i_end   = MIN(ite,ide-2)
 
+!$acc parallel loop collapse(3)
   DO j = j_start, j_end
   DO k = kts, ktf
 !DEC$ vector always  
@@ -7833,6 +7846,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
   ENDDO
 
   IF(tenddec) THEN
+!$acc parallel loop collapse(3)
   DO j = j_start, j_end
   DO k = kts, ktf
   DO i = i_start, i_end
@@ -7853,6 +7867,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
   IF(degrade_ys) j_start = MAX(jts,jds+1)
   IF(degrade_ye) j_end   = MIN(jte,jde-2)
 
+!$acc parallel loop collapse(3)
   DO j = j_start, j_end
   DO k = kts, ktf
 !DEC$ vector always
@@ -7869,6 +7884,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
   ENDDO
 
   IF(tenddec) THEN
+!$acc parallel loop collapse(3)
   DO j = j_start, j_end
   DO k = kts, ktf
   DO i = i_start, i_end
@@ -9388,6 +9404,7 @@ SUBROUTINE advect_scalar_wenopd ( field, field_old, tendency,    &
    ENDDO
    ENDDO
 
+!$acc parallel loop collapse(3)
    DO j=j_start, j_end
    DO k=kts, ktf
 !DIR$ vector always
@@ -9437,6 +9454,7 @@ SUBROUTINE advect_scalar_wenopd ( field, field_old, tendency,    &
   j_start = jts
   j_end   = MIN(jte,jde-1)
 
+!$acc parallel loop collapse(3)
   DO j = j_start, j_end
   DO k = kts, ktf
   DO i = i_start, i_end
@@ -9454,6 +9472,7 @@ SUBROUTINE advect_scalar_wenopd ( field, field_old, tendency,    &
   IF(degrade_xs) i_start = MAX(its,ids+1)
   IF(degrade_xe) i_end   = MIN(ite,ide-2)
 
+!$acc parallel loop collapse(3)
   DO j = j_start, j_end
   DO k = kts, ktf
   DO i = i_start, i_end
@@ -9474,6 +9493,7 @@ SUBROUTINE advect_scalar_wenopd ( field, field_old, tendency,    &
   IF(degrade_ys) j_start = MAX(jts,jds+1)
   IF(degrade_ye) j_end   = MIN(jte,jde-2)
 
+!$acc parallel loop collapse(3)
   DO j = j_start, j_end
   DO k = kts, ktf
   DO i = i_start, i_end
@@ -9619,6 +9639,7 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
   horz_order = config_flags%h_sca_adv_order
   vert_order = config_flags%v_sca_adv_order
 
+!$acc parallel loop collapse(3)
   do j=jts-2,jte+2
   do k=kts,kte
   do i=its-2,ite+2
@@ -10359,6 +10380,7 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
 
 !-- here is the limiter...
 
+!$acc parallel loop collapse(3)
    DO j=j_start, j_end
    DO k=kts, ktf
    DO i=i_start, i_end
@@ -10410,6 +10432,7 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
    ENDDO
    ENDDO
 
+!$acc parallel loop collapse(3)
    DO j=j_start, j_end
    DO k=kts, ktf
    DO i=i_start, i_end+1
@@ -10422,6 +10445,7 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
    ENDDO
    ENDDO
 
+!$acc parallel loop collapse(3)
    DO j=j_start, j_end+1
    DO k=kts, ktf
    DO i=i_start, i_end
@@ -10434,6 +10458,7 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
    ENDDO
    ENDDO
 
+!$acc parallel loop collapse(3)
    DO j=j_start, j_end
    DO k=kts+1, ktf
    DO i=i_start, i_end
@@ -10456,6 +10481,7 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
   j_start = jts
   j_end   = MIN(jte,jde-1)
 
+!$acc parallel loop collapse(3)
   DO j = j_start, j_end
   DO k = kts, ktf
   DO i = i_start, i_end
@@ -10469,6 +10495,7 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
   ENDDO
 
   IF(tenddec) THEN
+!$acc parallel loop collapse(3)
   DO j = j_start, j_end
   DO k = kts, ktf
   DO i = i_start, i_end
@@ -10491,6 +10518,7 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
   IF(degrade_xs) i_start = MAX(its,ids+1)
   IF(degrade_xe) i_end   = MIN(ite,ide-2)
 
+!$acc parallel loop collapse(3)
   DO j = j_start, j_end
   DO k = kts, ktf
   DO i = i_start, i_end
@@ -10505,6 +10533,7 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
   ENDDO
 
   IF(tenddec) THEN
+!$acc parallel loop collapse(3)
   DO j = j_start, j_end
   DO k = kts, ktf
   DO i = i_start, i_end
@@ -10530,6 +10559,7 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
   IF(degrade_ys) j_start = MAX(jts,jds+1)
   IF(degrade_ye) j_end   = MIN(jte,jde-2)
 
+!$acc parallel loop collapse(3)
   DO j = j_start, j_end
   DO k = kts, ktf
   DO i = i_start, i_end
@@ -10544,6 +10574,7 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
   ENDDO
 
   IF(tenddec) THEN
+!$acc parallel loop collapse(3)
   DO j = j_start, j_end
   DO k = kts, ktf
   DO i = i_start, i_end

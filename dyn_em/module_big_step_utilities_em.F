@@ -59,12 +59,14 @@ SUBROUTINE calc_mu_uv ( config_flags,                 &
       jtf=MIN(jte,jde-1)
 
       IF      ( ( its .NE. ids ) .AND. ( ite .NE. ide ) ) THEN
+!$acc parallel loop collapse(2)
          DO j=jts,jtf
          DO i=its,itf
             MUU(i,j) = 0.5*(MU(i,j)+MU(i-1,j)+MUB(i,j)+MUB(i-1,j))
          ENDDO
          ENDDO
       ELSE IF ( ( its .EQ. ids ) .AND. ( ite .NE. ide ) ) THEN
+!$acc parallel loop collapse(2)
          DO j=jts,jtf
          DO i=its+1,itf
             MUU(i,j) = 0.5*(MU(i,j)+MU(i-1,j)+MUB(i,j)+MUB(i-1,j))
@@ -79,6 +81,7 @@ SUBROUTINE calc_mu_uv ( config_flags,                 &
             MUU(i,j) = 0.5*(MU(i,j)+MU(im,j)+MUB(i,j)+MUB(im,j))
          ENDDO
       ELSE IF ( ( its .NE. ids ) .AND. ( ite .EQ. ide ) ) THEN
+!$acc parallel loop collapse(2)
          DO j=jts,jtf
          DO i=its,itf-1
             MUU(i,j) = 0.5*(MU(i,j)+MU(i-1,j)+MUB(i,j)+MUB(i-1,j))
@@ -93,6 +96,7 @@ SUBROUTINE calc_mu_uv ( config_flags,                 &
             MUU(i,j) = 0.5*(MU(i-1,j)+MU(im,j)+MUB(i-1,j)+MUB(im,j))
          ENDDO
       ELSE IF ( ( its .EQ. ids ) .AND. ( ite .EQ. ide ) ) THEN
+!$acc parallel loop collapse(2)
          DO j=jts,jtf
          DO i=its+1,itf-1
             MUU(i,j) = 0.5*(MU(i,j)+MU(i-1,j)+MUB(i,j)+MUB(i-1,j))
@@ -120,12 +124,14 @@ SUBROUTINE calc_mu_uv ( config_flags,                 &
       jtf=jte
 
       IF      ( ( jts .NE. jds ) .AND. ( jte .NE. jde ) ) THEN
+!$acc parallel loop collapse(2)
          DO j=jts,jtf
          DO i=its,itf
              MUV(i,j) = 0.5*(MU(i,j)+MU(i,j-1)+MUB(i,j)+MUB(i,j-1))
          ENDDO
          ENDDO
       ELSE IF ( ( jts .EQ. jds ) .AND. ( jte .NE. jde ) ) THEN
+!$acc parallel loop collapse(2)
          DO j=jts+1,jtf
          DO i=its,itf
              MUV(i,j) = 0.5*(MU(i,j)+MU(i,j-1)+MUB(i,j)+MUB(i,j-1))
@@ -140,6 +146,7 @@ SUBROUTINE calc_mu_uv ( config_flags,                 &
              MUV(i,j) = 0.5*(MU(i,j)+MU(i,jm)+MUB(i,j)+MUB(i,jm))
          ENDDO
       ELSE IF ( ( jts .NE. jds ) .AND. ( jte .EQ. jde ) ) THEN
+!$acc parallel loop collapse(2)
          DO j=jts,jtf-1
          DO i=its,itf
              MUV(i,j) = 0.5*(MU(i,j)+MU(i,j-1)+MUB(i,j)+MUB(i,j-1))
@@ -154,6 +161,7 @@ SUBROUTINE calc_mu_uv ( config_flags,                 &
              MUV(i,j) = 0.5*(MU(i,j-1)+MU(i,jm)+MUB(i,j-1)+MUB(i,jm))
          ENDDO
       ELSE IF ( ( jts .EQ. jds ) .AND. ( jte .EQ. jde ) ) THEN
+!$acc parallel loop collapse(2)
          DO j=jts+1,jtf-1
          DO i=its,itf
              MUV(i,j) = 0.5*(MU(i,j)+MU(i,j-1)+MUB(i,j)+MUB(i,j-1))
@@ -216,12 +224,14 @@ SUBROUTINE calc_mu_uv_1 ( config_flags,                 &
       jtf=MIN(jte,jde-1)
 
       IF      ( ( its .NE. ids ) .AND. ( ite .NE. ide ) ) THEN
+!$acc parallel loop collapse(2)
          DO j=jts,jtf
          DO i=its,itf
             MUU(i,j) = 0.5*(MU(i,j)+MU(i-1,j))
          ENDDO
          ENDDO
       ELSE IF ( ( its .EQ. ids ) .AND. ( ite .NE. ide ) ) THEN
+!$acc parallel loop collapse(2)
          DO j=jts,jtf
          DO i=its+1,itf
             MUU(i,j) = 0.5*(MU(i,j)+MU(i-1,j))
@@ -234,6 +244,7 @@ SUBROUTINE calc_mu_uv_1 ( config_flags,                 &
             MUU(i,j) = 0.5*(MU(i,j)+MU(im,j))
          ENDDO
       ELSE IF ( ( its .NE. ids ) .AND. ( ite .EQ. ide ) ) THEN
+!$acc parallel loop collapse(2)
          DO j=jts,jtf
          DO i=its,itf-1
             MUU(i,j) = 0.5*(MU(i,j)+MU(i-1,j))
@@ -246,6 +257,7 @@ SUBROUTINE calc_mu_uv_1 ( config_flags,                 &
             MUU(i,j) = 0.5*(MU(i-1,j)+MU(im,j))
          ENDDO
       ELSE IF ( ( its .EQ. ids ) .AND. ( ite .EQ. ide ) ) THEN
+!$acc parallel loop collapse(2)
          DO j=jts,jtf
          DO i=its+1,itf-1
             MUU(i,j) = 0.5*(MU(i,j)+MU(i-1,j))
@@ -269,12 +281,14 @@ SUBROUTINE calc_mu_uv_1 ( config_flags,                 &
       jtf=jte
 
       IF      ( ( jts .NE. jds ) .AND. ( jte .NE. jde ) ) THEN
+!$acc parallel loop collapse(2)
          DO j=jts,jtf
          DO i=its,itf
              MUV(i,j) = 0.5*(MU(i,j)+MU(i,j-1))
          ENDDO
          ENDDO
       ELSE IF ( ( jts .EQ. jds ) .AND. ( jte .NE. jde ) ) THEN
+!$acc parallel loop collapse(2)
          DO j=jts+1,jtf
          DO i=its,itf
              MUV(i,j) = 0.5*(MU(i,j)+MU(i,j-1))
@@ -287,6 +301,7 @@ SUBROUTINE calc_mu_uv_1 ( config_flags,                 &
              MUV(i,j) = 0.5*(MU(i,j)+MU(i,jm))
          ENDDO
       ELSE IF ( ( jts .NE. jds ) .AND. ( jte .EQ. jde ) ) THEN
+!$acc parallel loop collapse(2)
          DO j=jts,jtf-1
          DO i=its,itf
              MUV(i,j) = 0.5*(MU(i,j)+MU(i,j-1))
@@ -299,6 +314,7 @@ SUBROUTINE calc_mu_uv_1 ( config_flags,                 &
              MUV(i,j) = 0.5*(MU(i,j-1)+MU(i,jm))
          ENDDO
       ELSE IF ( ( jts .EQ. jds ) .AND. ( jte .EQ. jde ) ) THEN
+!$acc parallel loop collapse(2)
          DO j=jts+1,jtf-1
          DO i=its,itf
              MUV(i,j) = 0.5*(MU(i,j)+MU(i,j-1))
@@ -366,6 +382,7 @@ SUBROUTINE couple_momentum ( muu, ru, u, msfu,              &
       itf=ite
       jtf=MIN(jte,jde-1)
 
+!$acc parallel loop collapse(3)
       DO j=jts,jtf
       DO k=kts,ktf
       DO i=its,itf
@@ -377,6 +394,7 @@ SUBROUTINE couple_momentum ( muu, ru, u, msfu,              &
       itf=MIN(ite,ide-1)
       jtf=jte
 
+!$acc parallel loop collapse(3)
       DO j=jts,jtf
       DO k=kts,ktf
       DO i=its,itf
@@ -388,6 +406,7 @@ SUBROUTINE couple_momentum ( muu, ru, u, msfu,              &
       itf=MIN(ite,ide-1)
       jtf=MIN(jte,jde-1)
 
+!$acc parallel loop collapse(3)
       DO j=jts,jtf
       DO k=kts,kte
       DO i=its,itf
@@ -431,12 +450,14 @@ SUBROUTINE calc_mu_staggered ( mu, mub, muu, muv,            &
       jtf=MIN(jte,jde-1)
 
       IF      ( ( its .NE. ids ) .AND. ( ite .NE. ide ) ) THEN
+!$acc parallel loop collapse(2)
          DO j=jts,jtf
          DO i=its,itf
             MUU(i,j) = 0.5*(MU(i,j)+MU(i-1,j)+MUB(i,j)+MUB(i-1,j))
          ENDDO
          ENDDO
       ELSE IF ( ( its .EQ. ids ) .AND. ( ite .NE. ide ) ) THEN
+!$acc parallel loop collapse(2)
          DO j=jts,jtf
          DO i=its+1,itf
             MUU(i,j) = 0.5*(MU(i,j)+MU(i-1,j)+MUB(i,j)+MUB(i-1,j))
@@ -447,6 +468,7 @@ SUBROUTINE calc_mu_staggered ( mu, mub, muu, muv,            &
             MUU(i,j) =      MU(i,j)          +MUB(i,j)
          ENDDO
       ELSE IF ( ( its .NE. ids ) .AND. ( ite .EQ. ide ) ) THEN
+!$acc parallel loop collapse(2)
          DO j=jts,jtf
          DO i=its,itf-1
             MUU(i,j) = 0.5*(MU(i,j)+MU(i-1,j)+MUB(i,j)+MUB(i-1,j))
@@ -457,6 +479,7 @@ SUBROUTINE calc_mu_staggered ( mu, mub, muu, muv,            &
             MUU(i,j) =      MU(i-1,j)        +MUB(i-1,j)
          ENDDO
       ELSE IF ( ( its .EQ. ids ) .AND. ( ite .EQ. ide ) ) THEN
+!$acc parallel loop collapse(2)
          DO j=jts,jtf
          DO i=its+1,itf-1
             MUU(i,j) = 0.5*(MU(i,j)+MU(i-1,j)+MUB(i,j)+MUB(i-1,j))
@@ -476,12 +499,14 @@ SUBROUTINE calc_mu_staggered ( mu, mub, muu, muv,            &
       jtf=jte
 
       IF      ( ( jts .NE. jds ) .AND. ( jte .NE. jde ) ) THEN
+!$acc parallel loop collapse(2)
          DO j=jts,jtf
          DO i=its,itf
              MUV(i,j) = 0.5*(MU(i,j)+MU(i,j-1)+MUB(i,j)+MUB(i,j-1))
          ENDDO
          ENDDO
       ELSE IF ( ( jts .EQ. jds ) .AND. ( jte .NE. jde ) ) THEN
+!$acc parallel loop collapse(2)
          DO j=jts+1,jtf
          DO i=its,itf
              MUV(i,j) = 0.5*(MU(i,j)+MU(i,j-1)+MUB(i,j)+MUB(i,j-1))
@@ -492,6 +517,7 @@ SUBROUTINE calc_mu_staggered ( mu, mub, muu, muv,            &
              MUV(i,j) =      MU(i,j)          +MUB(i,j)
          ENDDO
       ELSE IF ( ( jts .NE. jds ) .AND. ( jte .EQ. jde ) ) THEN
+!$acc parallel loop collapse(2)
          DO j=jts,jtf-1
          DO i=its,itf
              MUV(i,j) = 0.5*(MU(i,j)+MU(i,j-1)+MUB(i,j)+MUB(i,j-1))
@@ -502,6 +528,7 @@ SUBROUTINE calc_mu_staggered ( mu, mub, muu, muv,            &
              MUV(i,j) =      MU(i,j-1)        +MUB(i,j-1)
          ENDDO
       ELSE IF ( ( jts .EQ. jds ) .AND. ( jte .EQ. jde ) ) THEN
+!$acc parallel loop collapse(2)
          DO j=jts+1,jtf-1
          DO i=its,itf
              MUV(i,j) = 0.5*(MU(i,j)+MU(i,j-1)+MUB(i,j)+MUB(i,j-1))
@@ -570,6 +597,7 @@ SUBROUTINE couple ( mu, mub, rfield, field, name, &
       itf=ite
       jtf=MIN(jte,jde-1)
 
+!$acc parallel loop collapse(3)
       DO j=jts,jtf
       DO k=kts,ktf
       DO i=its,itf
@@ -589,6 +617,7 @@ SUBROUTINE couple ( mu, mub, rfield, field, name, &
       itf=MIN(ite,ide-1)
       jtf=jte
 
+!$acc parallel loop collapse(3)
       DO j=jts,jtf
       DO k=kts,ktf
       DO i=its,itf
@@ -600,6 +629,7 @@ SUBROUTINE couple ( mu, mub, rfield, field, name, &
    ELSE IF (name .EQ. 'w')THEN
       itf=MIN(ite,ide-1)
       jtf=MIN(jte,jde-1)
+!$acc parallel loop collapse(3)
       DO j=jts,jtf
       DO k=kts,kte
       DO i=its,itf
@@ -611,6 +641,7 @@ SUBROUTINE couple ( mu, mub, rfield, field, name, &
    ELSE IF (name .EQ. 'h')THEN
       itf=MIN(ite,ide-1)
       jtf=MIN(jte,jde-1)
+!$acc parallel loop collapse(3)
       DO j=jts,jtf
       DO k=kts,kte
       DO i=its,itf
@@ -622,6 +653,7 @@ SUBROUTINE couple ( mu, mub, rfield, field, name, &
    ELSE
       itf=MIN(ite,ide-1)
       jtf=MIN(jte,jde-1)
+!$acc parallel loop collapse(3)
       DO j=jts,jtf
       DO k=kts,ktf
       DO i=its,itf
@@ -695,12 +727,14 @@ SUBROUTINE calc_ww_cp ( u, v, mup, mub, c1h, c2h, ww,    &
 
 !  mu coupled with the appropriate map factor
 
+!$acc parallel loop collapse(2)
       DO j=jts,jtf
       DO i=its,min(ite+1,ide)
         MUU(i,j) = 0.5*(MUP(i,j)+MUB(i,j)+MUP(i-1,j)+MUB(i-1,j))
       ENDDO
       ENDDO
 
+!$acc parallel loop collapse(2)
       DO j=jts,min(jte+1,jde)
       DO i=its,itf
         MUV(i,j) = 0.5*(MUP(i,j)+MUB(i,j)+MUP(i,j-1)+MUB(i,j-1))
@@ -873,6 +907,7 @@ SUBROUTINE calc_cq ( moist, cqu, cqv, cqw, n_moist, &
 
         itf=ite
         jtf=MIN(jte,jde-1)
+!$acc parallel loop collapse(3)
         DO j=jts,jtf
         DO k=kts,ktf
         DO i=its,itf
@@ -883,6 +918,7 @@ SUBROUTINE calc_cq ( moist, cqu, cqv, cqw, n_moist, &
 
         itf=MIN(ite,ide-1)
         jtf=jte
+!$acc parallel loop collapse(3)
         DO j=jts,jtf
         DO k=kts,ktf
         DO i=its,itf
@@ -893,6 +929,7 @@ SUBROUTINE calc_cq ( moist, cqu, cqv, cqw, n_moist, &
 
         itf=MIN(ite,ide-1)
         jtf=MIN(jte,jde-1)
+!$acc parallel loop collapse(3)
         DO j=jts,jtf
         DO k=kts+1,ktf
         DO i=its,itf
@@ -937,6 +974,7 @@ SUBROUTINE calc_alt ( alt, al, alb,                  &
       jtf=MIN(jte,jde-1)
       ktf=MIN(kte,kde-1)
 
+!$acc parallel loop collapse(3)
       DO j=jts,jtf
       DO k=kts,ktf
       DO i=its,itf
@@ -1023,6 +1061,7 @@ SUBROUTINE calc_p_rho_phi ( moist, n_moist, hypsometric_opt,      &
   nonhydro : IF (non_hydrostatic) THEN
 
       hypso_nonhydro : IF (hypsometric_opt == 1) THEN
+!$acc parallel loop collapse(3)
         DO j=jts,jtf
         DO k=kts,ktf
         DO i=its,itf
@@ -1039,6 +1078,7 @@ SUBROUTINE calc_p_rho_phi ( moist, n_moist, hypsometric_opt,      &
         ! Therefore, p*dLOG(p) is always larger than dp and the difference is
         ! in proportion to dp/p. TKW, 02/16/2010
 
+!$acc parallel loop collapse(3)
         DO j=jts,jtf
         DO k=kts,ktf
         DO i=its,itf
@@ -1079,6 +1119,7 @@ SUBROUTINE calc_p_rho_phi ( moist, n_moist, hypsometric_opt,      &
 
       ELSE moist_nonhydro           
 
+!$acc parallel loop collapse(3)
         DO j=jts,jtf
         DO k=kts,ktf
         DO i=its,itf
@@ -1255,6 +1296,7 @@ SUBROUTINE calc_php ( php, ph, phb,                  &
       jtf=MIN(jte,jde-1)
       ktf=MIN(kte,kde-1)
 
+!$acc parallel loop collapse(3)
       DO j=jts,jtf
       DO k=kts,ktf
       DO i=its,itf
@@ -2791,6 +2833,7 @@ SUBROUTINE horizontal_diffusion ( name, field, tendency, MUT, c1, c2,  &
       IF ( config_flags%periodic_x ) i_end = ite
 
 
+!$acc parallel loop collapse(3)
       DO j = j_start, j_end
       DO k=kts,ktf
       DO i = i_start, i_end
@@ -2840,6 +2883,7 @@ SUBROUTINE horizontal_diffusion ( name, field, tendency, MUT, c1, c2,  &
       IF ( config_flags%polar ) j_start = MAX(jds+1,jts)
       IF ( config_flags%polar ) j_end   = MIN(jde-1,jte)
 
+!$acc parallel loop collapse(3)
       DO j = j_start, j_end
       DO k=kts,ktf
       DO i = i_start, i_end
@@ -2878,6 +2922,7 @@ SUBROUTINE horizontal_diffusion ( name, field, tendency, MUT, c1, c2,  &
       IF ( config_flags%periodic_x ) i_start = its
       IF ( config_flags%periodic_x ) i_end = MIN(ite,ide-1)
 
+!$acc parallel loop collapse(3)
       DO j = j_start, j_end
       DO k=kts+1,ktf
       DO i = i_start, i_end
@@ -2923,6 +2968,7 @@ SUBROUTINE horizontal_diffusion ( name, field, tendency, MUT, c1, c2,  &
       IF ( config_flags%periodic_x ) i_start = its
       IF ( config_flags%periodic_x ) i_end = MIN(ite,ide-1)
 
+!$acc parallel loop collapse(3)
       DO j = j_start, j_end
       DO k=kts,ktf
       DO i = i_start, i_end
@@ -3030,6 +3076,7 @@ SUBROUTINE horizontal_diffusion_3dmp ( name, field, tendency, MUT, c1, c2,  &
       IF ( config_flags%periodic_x ) i_start = its
       IF ( config_flags%periodic_x ) i_end = MIN(ite,ide-1)
 
+!$acc parallel loop collapse(3)
       DO j = j_start, j_end
       DO k=kts,ktf
       DO i = i_start, i_end
@@ -3625,6 +3672,7 @@ SUBROUTINE calculate_full ( rfield, rfieldb, rfieldp,     &
    i_start=its-1
    j_start=jts-1
 
+!$acc parallel loop collapse(3)
    DO j=j_start,jtf
    DO k=kts,ktf
    DO i=i_start,itf
@@ -3718,6 +3766,7 @@ SUBROUTINE coriolis ( ru, rv, rw, ru_tend, rv_tend, rw_tend, &
       IF ( config_flags%periodic_x ) i_start = its
       IF ( config_flags%periodic_x ) i_end = ite
 
+!$acc parallel loop collapse(3)
    DO j = jts, MIN(jte,jde-1)
 
    DO k=kts,ktf
@@ -3793,6 +3842,7 @@ SUBROUTINE coriolis ( ru, rv, rw, ru_tend, rv_tend, rw_tend, &
 
 !  ENDIF
 
+!$acc parallel loop collapse(3)
    DO j=j_start, j_end
    DO k=kts,ktf
    DO i=its,MIN(ide-1,ite)
@@ -3832,6 +3882,7 @@ SUBROUTINE coriolis ( ru, rv, rw, ru_tend, rv_tend, rw_tend, &
 ! ru = mu u / my ; ru = mu v / mx
 !  => terms are: e ru + ???
 
+!$acc parallel loop collapse(3)
    DO j=jts,MIN(jte, jde-1)
    DO k=kts+1,ktf
    DO i=its,MIN(ite, ide-1)
@@ -3947,6 +3998,7 @@ SUBROUTINE perturbation_coriolis ( ru_in, rv_in, rw, ru_tend, rv_tend, rw_tend, 
 
 !  compute perturbation mu*v for use in u momentum equation
 
+!$acc parallel loop collapse(3)
    DO j = jts, MIN(jte,jde-1)+1
    DO k=kts+1,ktf-1
    DO i = i_start-1, i_end
@@ -4053,6 +4105,7 @@ SUBROUTINE perturbation_coriolis ( ru_in, rv_in, rw, ru_tend, rv_tend, rw_tend, 
 
 !  compute perturbation mu*u for use in v momentum equation
 
+!$acc parallel loop collapse(3)
    DO j = j_start-1,j_end
    DO k=kts+1,ktf-1
    DO i = its, MIN(ite,ide-1)+1
@@ -4121,6 +4174,7 @@ SUBROUTINE perturbation_coriolis ( ru_in, rv_in, rw, ru_tend, rv_tend, rw_tend, 
 
    ENDIF
 
+!$acc parallel loop collapse(3)
    DO j=j_start, j_end
    DO k=kts,ktf
    DO i=its,MIN(ide-1,ite)
@@ -4154,6 +4208,7 @@ SUBROUTINE perturbation_coriolis ( ru_in, rv_in, rw, ru_tend, rv_tend, rw_tend, 
 ! coriolis term for w-mometum
 !  Map scale factors: see comments above for Coriolis
 
+!$acc parallel loop collapse(3)
    DO j=jts,MIN(jte, jde-1)
    DO k=kts+1,ktf
    DO i=its,MIN(ite, ide-1)
@@ -4270,6 +4325,7 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
       IF ( config_flags%periodic_x ) i_start = its-1
       IF ( config_flags%periodic_x ) i_end = ite
 
+!$acc parallel loop collapse(3)
    DO j=j_start, j_end
    DO k=kts,ktf
    DO i=i_start, i_end
@@ -4362,6 +4418,7 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
 !  Polar boundary condition
    IF ((config_flags%map_proj == 6) .OR. (config_flags%polar)) THEN
 
+!$acc parallel loop collapse(3)
       DO j=jts,MIN(jde-1,jte)
       DO k=kts,ktf
       DO i=i_start,i_end
@@ -4377,6 +4434,7 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
    ELSE  ! normal code
 
 
+!$acc parallel loop collapse(3)
       DO j=jts,MIN(jde-1,jte)
       DO k=kts,ktf
       DO i=i_start,i_end
@@ -4415,6 +4473,7 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
 
    IF ((config_flags%map_proj == 6) .OR. (config_flags%polar)) THEN
 
+!$acc parallel loop collapse(3)
       DO j=j_start,j_end
       DO k=kts,ktf
       DO i=its,MIN(ite,ide-1)
@@ -4430,6 +4489,7 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
 
    ELSE  ! normal code
 
+!$acc parallel loop collapse(3)
       DO j=j_start,j_end
       DO k=kts,ktf
       DO i=its,MIN(ite,ide-1)
@@ -4452,6 +4512,7 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
 !  ru = mu u / my ; rw = mu w / my ; rv = mu v / mx
 !  terms are: u ru / a + (mx/my)v rv / a
 
+!$acc parallel loop collapse(3)
    DO j=jts,MIN(jte,jde-1)
    DO k=MAX(2,kts),ktf
    DO i=its,MIN(ite,ide-1)
@@ -4514,6 +4575,7 @@ SUBROUTINE decouple ( rr, rfield, field, name, config_flags, &
       itf=ite
       jtf=MIN(jte,jde-1)
 
+!$acc parallel loop collapse(3)
       DO j=jts,jtf
       DO k=kts,ktf
       DO i=its,itf
@@ -4526,6 +4588,7 @@ SUBROUTINE decouple ( rr, rfield, field, name, config_flags, &
       itf=MIN(ite,ide-1)
       jtf=jte
 
+!$acc parallel loop collapse(3)
       DO j=jts,jtf
       DO k=kts,ktf
         DO i=its,itf
@@ -4537,6 +4600,7 @@ SUBROUTINE decouple ( rr, rfield, field, name, config_flags, &
    ELSE IF (name .EQ. 'w')THEN
       itf=MIN(ite,ide-1)
       jtf=MIN(jte,jde-1)
+!$acc parallel loop collapse(3)
       DO j=jts,jtf
       DO k=kts+1,ktf
       DO i=its,itf
@@ -4555,6 +4619,7 @@ SUBROUTINE decouple ( rr, rfield, field, name, config_flags, &
       itf=MIN(ite,ide-1)
       jtf=MIN(jte,jde-1)
    ! For theta we will decouple tb and tp and add them to give t afterwards
+!$acc parallel loop collapse(3)
       DO j=jts,jtf
       DO k=kts,ktf
       DO i=its,itf
@@ -4596,6 +4661,7 @@ SUBROUTINE zero_tend ( tendency,                     &
 !
 !</DESCRIPTION>
 
+!$acc parallel loop collapse(3)
       DO j = jts, jte
       DO k = kts, kte
       DO i = its, ite
@@ -4634,6 +4700,7 @@ SUBROUTINE zero_tend2d( tendency,                     &
 !
 !</DESCRIPTION>
 
+!$acc parallel loop collapse(2)
       DO j = jts, jte
       DO i = its, ite
         tendency(i,j) = 0.
@@ -4828,6 +4895,7 @@ END SUBROUTINE pole_point_bc
 !  compute thermodynamics and velocities at pressure points (or half levels)
 
     IF ( ( config_flags%use_theta_m .EQ. 1 ) .AND. (P_Qv .GE. PARAM_FIRST_SCALAR) ) THEN
+!$acc parallel loop collapse(3)
        do j = j_start,j_end
        do k = k_start, k_end
        do i = i_start, i_end
@@ -4836,6 +4904,7 @@ END SUBROUTINE pole_point_bc
        enddo
        enddo
     ELSE
+!$acc parallel loop collapse(3)
        do j = j_start,j_end
        do k = k_start, k_end
        do i = i_start, i_end
@@ -4845,6 +4914,7 @@ END SUBROUTINE pole_point_bc
        enddo
     END IF
 
+!$acc parallel loop collapse(3)
     do j = j_start,j_end
     do k = k_start, k_end
     do i = i_start, i_end
@@ -4863,6 +4933,7 @@ END SUBROUTINE pole_point_bc
 
 !  compute z at w points
 
+!$acc parallel loop collapse(3)
     do j = j_start,j_end
     do k = k_start, kte
     do i = i_start, i_end
@@ -4871,6 +4942,7 @@ END SUBROUTINE pole_point_bc
     enddo
     enddo
 
+!$acc parallel loop collapse(3)
     do j = j_start,j_end
     do k = k_start, kte-1
     do i = i_start, i_end
@@ -4887,6 +4959,7 @@ END SUBROUTINE pole_point_bc
 
 !  compute z at p points or half levels (average of z at full levels)
 
+!$acc parallel loop collapse(3)
     do j = j_start,j_end
     do k = k_start, k_end
     do i = i_start, i_end
@@ -4897,6 +4970,7 @@ END SUBROUTINE pole_point_bc
 
 !  interp t and p to full levels
 
+!$acc parallel loop collapse(3)
     do j = j_start,j_end
     do k = 2, k_end
     do i = i_start, i_end
@@ -4962,6 +5036,7 @@ END SUBROUTINE pole_point_bc
 
 ! now calculate hydrostatic pressure at half levels
 
+!$acc parallel loop collapse(3)
     do j = j_start,j_end
     do k = k_start, k_end
     do i = i_start, i_end
@@ -5092,6 +5167,7 @@ END SUBROUTINE phy_prep
 
    IF (config_flags%ra_lw_physics .gt. 0 .or. config_flags%ra_sw_physics .gt. 0) THEN
 
+!$acc parallel loop collapse(3)
       DO J=j_start,j_end
       DO K=k_start,k_end
       DO I=i_start,i_end
@@ -5104,6 +5180,7 @@ END SUBROUTINE phy_prep
 
    IF (config_flags%cu_physics .gt. 0) THEN
 
+!$acc parallel loop collapse(3)
       DO J=j_start,j_end
       DO K=k_start,k_end
       DO I=i_start,i_end
@@ -5115,6 +5192,7 @@ END SUBROUTINE phy_prep
       ENDDO
 
       IF (P_QV .ge. PARAM_FIRST_SCALAR)THEN
+!$acc parallel loop collapse(3)
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
@@ -5125,6 +5203,7 @@ END SUBROUTINE phy_prep
       ENDIF
 
       IF (P_QC .ge. PARAM_FIRST_SCALAR)THEN
+!$acc parallel loop collapse(3)
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
@@ -5135,6 +5214,7 @@ END SUBROUTINE phy_prep
       ENDIF
 
       IF (P_QR .ge. PARAM_FIRST_SCALAR)THEN
+!$acc parallel loop collapse(3)
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
@@ -5145,6 +5225,7 @@ END SUBROUTINE phy_prep
       ENDIF
 
       IF (P_QI .ge. PARAM_FIRST_SCALAR)THEN
+!$acc parallel loop collapse(3)
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
@@ -5155,6 +5236,7 @@ END SUBROUTINE phy_prep
       ENDIF
 
       IF(P_QS .ge. PARAM_FIRST_SCALAR)THEN
+!$acc parallel loop collapse(3)
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
@@ -5168,6 +5250,7 @@ END SUBROUTINE phy_prep
 
    IF (config_flags%shcu_physics .gt. 0) THEN
 
+!$acc parallel loop collapse(3)
       DO J=j_start,j_end
       DO K=k_start,k_end
       DO I=i_start,i_end
@@ -5179,6 +5262,7 @@ END SUBROUTINE phy_prep
       ENDDO
 
       IF (P_QV .ge. PARAM_FIRST_SCALAR)THEN
+!$acc parallel loop collapse(3)
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
@@ -5189,6 +5273,7 @@ END SUBROUTINE phy_prep
       ENDIF
 
       IF (P_QC .ge. PARAM_FIRST_SCALAR)THEN
+!$acc parallel loop collapse(3)
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
@@ -5199,6 +5284,7 @@ END SUBROUTINE phy_prep
       ENDIF
 
       IF (P_QR .ge. PARAM_FIRST_SCALAR)THEN
+!$acc parallel loop collapse(3)
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
@@ -5209,6 +5295,7 @@ END SUBROUTINE phy_prep
       ENDIF
 
       IF (P_QI .ge. PARAM_FIRST_SCALAR)THEN
+!$acc parallel loop collapse(3)
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
@@ -5219,6 +5306,7 @@ END SUBROUTINE phy_prep
       ENDIF
 
       IF(P_QS .ge. PARAM_FIRST_SCALAR)THEN
+!$acc parallel loop collapse(3)
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
@@ -5229,6 +5317,7 @@ END SUBROUTINE phy_prep
       ENDIF
 
       IF(P_QG .ge. PARAM_FIRST_SCALAR)THEN
+!$acc parallel loop collapse(3)
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
@@ -5242,6 +5331,7 @@ END SUBROUTINE phy_prep
 
    IF (config_flags%bl_pbl_physics .gt. 0) THEN
 
+!$acc parallel loop collapse(3)
       DO J=j_start,j_end
       DO K=k_start,k_end
       DO I=i_start,i_end
@@ -5253,6 +5343,7 @@ END SUBROUTINE phy_prep
       ENDDO
 
       IF (P_QV .ge. PARAM_FIRST_SCALAR) THEN
+!$acc parallel loop collapse(3)
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
@@ -5263,6 +5354,7 @@ END SUBROUTINE phy_prep
       ENDIF
 
       IF (P_QC .ge. PARAM_FIRST_SCALAR) THEN
+!$acc parallel loop collapse(3)
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
@@ -5273,6 +5365,7 @@ END SUBROUTINE phy_prep
       ENDIF
 
       IF (P_QI .ge. PARAM_FIRST_SCALAR) THEN
+!$acc parallel loop collapse(3)
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
@@ -5295,6 +5388,7 @@ END SUBROUTINE phy_prep
       ( config_flags%cu_physics == NTIEDTKESCHEME )) THEN
 
       IF (P_QV .ge. PARAM_FIRST_SCALAR)THEN
+!$acc parallel loop collapse(3)
          DO J=j_start,j_end
          DO K=k_start,k_end
             DO I=i_start,i_end
@@ -5311,6 +5405,7 @@ END SUBROUTINE phy_prep
       ( config_flags%cu_physics == G3SCHEME ) .OR.    &
       ( config_flags%cu_physics == NTIEDTKESCHEME )) THEN
 
+!$acc parallel loop collapse(3)
       DO J=j_start,j_end
       DO K=k_start,k_end
          DO I=i_start,i_end
@@ -5321,6 +5416,7 @@ END SUBROUTINE phy_prep
 
 !  If using moist theta, get dry theta tendency for CPSs
       IF ( config_flags%use_theta_m == 1 ) THEN
+!$acc parallel loop collapse(3)
          DO J=j_start,j_end
          DO K=k_start,k_end
             DO I=i_start,i_end
@@ -5342,6 +5438,7 @@ END SUBROUTINE phy_prep
       i_startu=MAX(its,ids+1)
       j_startv=MAX(jts,jds+1)
 
+!$acc parallel loop collapse(3)
       DO J=j_start,j_end
       DO K=k_start,k_end
       DO I=i_startu,i_end
@@ -5349,6 +5446,7 @@ END SUBROUTINE phy_prep
       ENDDO
       ENDDO
       ENDDO
+!$acc parallel loop collapse(3)
       DO J=j_startv,j_end
       DO K=k_start,k_end
       DO I=i_start,i_end
@@ -5356,6 +5454,7 @@ END SUBROUTINE phy_prep
       ENDDO
       ENDDO
       ENDDO
+!$acc parallel loop collapse(3)
       DO J=j_start,j_end
       DO K=k_start,k_end
       DO I=i_start,i_end
@@ -5366,6 +5465,7 @@ END SUBROUTINE phy_prep
       ENDDO
 
       IF (config_flags%grid_fdda .EQ. 2) THEN
+!$acc parallel loop collapse(3)
       DO J=j_start,j_end
       DO K=k_start,kte
       DO I=i_start,i_end
@@ -5376,6 +5476,7 @@ END SUBROUTINE phy_prep
 
       ELSE IF (config_flags%grid_fdda .GE. 1) THEN
       IF (P_QV .ge. PARAM_FIRST_SCALAR) THEN
+!$acc parallel loop collapse(3)
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
@@ -5474,6 +5575,7 @@ END SUBROUTINE phy_prep_part2
     k_start = kts
     k_end = min( kte, kde-1 )
 
+!$acc parallel loop collapse(3)
      DO j = j_start, j_end
      DO k = k_start, kte
      DO i = i_start, i_end
@@ -5482,6 +5584,7 @@ END SUBROUTINE phy_prep_part2
      ENDDO
      ENDDO
 
+!$acc parallel loop collapse(3)
     do j = j_start,j_end
     do k = k_start, kte-1
     do i = i_start, i_end
@@ -5503,6 +5606,7 @@ END SUBROUTINE phy_prep_part2
            !  use h_diabatic to temporarily save pre-microphysics full theta
 
      IF ( ( config_flags%use_theta_m .EQ. 1 ) .AND. (P_Qv .GE. PARAM_FIRST_SCALAR) ) THEN
+!$acc parallel loop collapse(3)
        DO j = j_start, j_end
        DO k = k_start, k_end
        DO i = i_start, i_end
@@ -5511,6 +5615,7 @@ END SUBROUTINE phy_prep_part2
        ENDDO
        ENDDO
      ELSE
+!$acc parallel loop collapse(3)
        DO j = j_start, j_end
        DO k = k_start, k_end
        DO i = i_start, i_end
@@ -5520,6 +5625,7 @@ END SUBROUTINE phy_prep_part2
        ENDDO
      END IF
 
+!$acc parallel loop collapse(3)
      DO j = j_start, j_end
      DO k = k_start, k_end
      DO i = i_start, i_end
@@ -5550,6 +5656,7 @@ END SUBROUTINE phy_prep_part2
 
 !  interp p at w points
 
+!$acc parallel loop collapse(3)
     do j = j_start,j_end
     do k = 2, k_end
     do i = i_start, i_end
@@ -5769,6 +5876,7 @@ END SUBROUTINE phy_prep_part2
 
      ELSE
 
+!$acc parallel loop collapse(3)
      DO j = j_start, j_end
      DO k = k_start, k_end
      DO i = i_start, i_end
@@ -5821,6 +5929,7 @@ SUBROUTINE set_tend ( field, field_adv_tend, msf,       &
       jtf = MIN(jte,jde-1)
       ktf = MIN(kte,kde-1)
       itf = MIN(ite,ide-1)
+!$acc parallel loop collapse(3)
       DO j = jts, jtf
       DO k = kts, ktf
       DO i = its, itf
@@ -6449,6 +6558,7 @@ END SUBROUTINE set_tend
 !------------------------------------------------------------------------------
 ! Begin: Loop across spatial dimensions.
 
+!$acc parallel loop collapse(3)
     DO j = j_start, j_end
     DO k = k_start, k_end
     DO i = i_start, i_end
@@ -6659,6 +6769,7 @@ SUBROUTINE initialize_moist_old ( moist_old , moist , &
 
    INTEGER :: i , j , k
 
+!$acc parallel loop collapse(3)
    DO j = jts , MIN(jte,jde-1)
       DO k = kts , kte-1
          DO i = its , MIN(ite,ide-1)
@@ -6695,6 +6806,7 @@ SUBROUTINE conv_t_tendf_to_moist ( t_1 , moist_old ,                &
    !  This dry tendency is from the physics packages.  It is modified immediately after the
    !  call to the physics schemes, and the remains constant for the remainder of the RK loops.
 
+!$acc parallel loop collapse(3)
    DO j = jts , MIN(jte,jde-1)
       DO k = kts , kte-1
          DO i = its , MIN(ite,ide-1)
@@ -6742,6 +6854,7 @@ END SUBROUTINE conv_t_tendf_to_moist
 
       ! Nudge
     if (xtime < dt_nudge) then
+!$acc parallel loop collapse(3)
       do j = j_start, j_end
         do k = k_start, k_end
           do i = i_start, i_end
