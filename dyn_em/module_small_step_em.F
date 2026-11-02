@@ -799,15 +799,19 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
    dy = 1./rdy
 !  start real calculations.
 !  first, u
+!$acc parallel loop gang private(dpxy,dpn,mudf_xy)
   u_outer_j_loop: DO j = j_start, j_end
+!$acc loop vector collapse(2)
    DO k = k_start, k_end
    DO i = i_start_u_tend, i_end_u_tend
      u(i,k,j) = u(i,k,j) + dts*ru_tend(i,k,j)
    ENDDO
    ENDDO
+!$acc loop vector
    DO i = i_start_up, i_end_up
      MUDF_XY(i)= -emdiv*dx*(MUDF(i,j)-MUDF(i-1,j))/msfuy(i,j)
    ENDDO
+!$acc loop vector collapse(2)
    DO k = k_start, k_end
    DO i = i_start_up, i_end_up
 !     Comments on map scale factors:   
@@ -832,6 +836,7 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
    ENDDO
    ENDDO
    IF (non_hydrostatic) THEN
+!$acc loop vector
      DO i = i_start_up, i_end_up
        dpn(i,1) = .5*( cf1*(p(i,1,j)+p(i-1,1,j))  &
                       +cf2*(p(i,2,j)+p(i-1,2,j))  &
@@ -839,12 +844,14 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
        dpn(i,kde) = 0.
      ENDDO
      IF (top_lid) THEN
+!$acc loop vector
        DO i = i_start_up, i_end_up
          dpn(i,kde) =.5*( cf1*(p(i-1,kde-1,j)+p(i,kde-1,j))   &
                          +cf2*(p(i-1,kde-2,j)+p(i,kde-2,j))   &
                          +cf3*(p(i-1,kde-3,j)+p(i,kde-3,j))  )
        ENDDO
      ENDIF
+!$acc loop vector collapse(2)
      DO k = k_start+1, k_end
        DO i = i_start_up, i_end_up
          dpn(i,k) = .5*( fnm(k)*(p(i,k  ,j)+p(i-1,k  ,j))   &
@@ -856,6 +863,7 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
 !    php, dpn, mu not coupled
 !    since we want tendency to fit ADT eqn 44 (coupled) we need to
 !    multiply by (mx/my):
+!$acc loop vector collapse(2)
      DO k = k_start, k_end
        DO i = i_start_up, i_end_up
          dpxy(i,k)=dpxy(i,k) + (msfux(i,j)/msfuy(i,j))*rdx*(php(i,k,j)-php(i-1,k,j))*        &
@@ -863,6 +871,7 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
        ENDDO
      ENDDO
    END IF
+!$acc loop vector collapse(2)
    DO k = k_start, k_end
      DO i = i_start_up, i_end_up
        u(i,k,j)=u(i,k,j)-dts*cqu(i,k,j)*dpxy(i,k)+(c1h(k)*mudf_xy(i))
@@ -870,17 +879,21 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
    ENDDO
    ENDDO u_outer_j_loop
 ! now v
+!$acc parallel loop gang private(dpxy,dpn,mudf_xy)
   v_outer_j_loop: DO j = j_start_v_tend, j_end_v_tend
+!$acc loop vector collapse(2)
    DO k = k_start, k_end
    DO i = i_start, i_end
      v(i,k,j) = v(i,k,j) + dts*rv_tend(i,k,j)
    ENDDO
    ENDDO
+!$acc loop vector
    DO i = i_start, i_end
      MUDF_XY(i)= -emdiv*dy*(MUDF(i,j)-MUDF(i,j-1))*msfvx_inv(i,j)
    ENDDO
      IF (     ( j >= j_start_vp)  &
        .and.( j <= j_end_vp  ) )  THEN
+!$acc loop vector collapse(2)
          DO k = k_start, k_end
   DO i = i_start, i_end
 !      Comments on map scale factors:
@@ -906,6 +919,7 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
      ENDDO
      ENDDO
      IF (non_hydrostatic) THEN
+!$acc loop vector
        DO i = i_start, i_end     
          dpn(i,1) = .5*( cf1*(p(i,1,j)+p(i,1,j-1))  &
                         +cf2*(p(i,2,j)+p(i,2,j-1))  &
@@ -913,12 +927,14 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
          dpn(i,kde) = 0.
        ENDDO
      IF (top_lid) THEN
+!$acc loop vector
        DO i = i_start, i_end
          dpn(i,kde) =.5*( cf1*(p(i,kde-1,j-1)+p(i,kde-1,j))   &
                          +cf2*(p(i,kde-2,j-1)+p(i,kde-2,j))   &
                          +cf3*(p(i,kde-3,j-1)+p(i,kde-3,j))  )
        ENDDO
      ENDIF
+!$acc loop vector collapse(2)
        DO k = k_start+1, k_end
          DO i = i_start, i_end
            dpn(i,k) = .5*( fnm(k)*(p(i,k  ,j)+p(i,k  ,j-1))  &
@@ -930,6 +946,7 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
 !      php, dpn, mu not coupled
 !      since we want tendency to fit ADT eqn 45 (coupled) we need to
 !      multiply by (my/mx):
+!$acc loop vector collapse(2)
        DO k = k_start, k_end
          DO i = i_start, i_end
            dpxy(i,k)=dpxy(i,k) + (msfvy(i,j)/msfvx(i,j))*rdy*(php(i,k,j)-php(i,k,j-1))*    &
@@ -937,6 +954,7 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
          ENDDO
        ENDDO
      END IF
+!$acc loop vector collapse(2)
      DO k = k_start, k_end
        DO i = i_start, i_end
          v(i,k,j)=v(i,k,j)-dts*cqv(i,k,j)*dpxy(i,k)+(c1h(k)*mudf_xy(i))
