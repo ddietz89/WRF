@@ -188,6 +188,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
    REAL,  DIMENSION( its-1:ite+1, kts:kte ) :: fqx
    REAL,  DIMENSION( its:ite, kts:kte, 2) :: fqy
+   REAL, DIMENSION(:,:,:), ALLOCATABLE :: fqy3   ! GPU: full-row y flux
    
    LOGICAL :: degrade_xs, degrade_ys
    LOGICAL :: degrade_xe, degrade_ye
@@ -290,14 +291,17 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
      jp1 = 2
      jp0 = 1
 
-     j_loop_y_flux_6 : DO j = j_start, j_end+1
+     IF (.NOT. ALLOCATED(fqy3)) ALLOCATE(fqy3(its:ite,kts:kte,jts:jte+1))   ! GPU: full-row flux (was rolling jp0/jp1)
+!$acc parallel loop gang
+     j_loop_y_flux_6_flux : DO j = j_start, j_end+1
 
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN  ! use full stencil
 
+!$acc loop vector collapse(2)
         DO k=kts,ktf
         DO i = i_start, i_end
           vel = 0.5*(rv(i,k,j)+rv(i-1,k,j))
-          fqy( i, k, jp1 ) = vel*flux6(               &
+          fqy3( i, k,j) = vel*flux6(               &
                   u(i,k,j-3), u(i,k,j-2), u(i,k,j-1),       &
                   u(i,k,j  ), u(i,k,j+1), u(i,k,j+2),  vel )
         ENDDO
@@ -307,38 +311,42 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
       ELSE IF ( j == jds+1 ) THEN   ! 2nd order flux next to south boundary
 
+!$acc loop vector collapse(2)
             DO k=kts,ktf
             DO i = i_start, i_end
-              fqy(i, k, jp1) = 0.25*(rv(i,k,j)+rv(i-1,k,j))  &
+              fqy3(i, k,j) = 0.25*(rv(i,k,j)+rv(i-1,k,j))  &
                                      *(u(i,k,j)+u(i,k,j-1))
             ENDDO
             ENDDO
 
      ELSE IF  ( j == jds+2 ) THEN  ! third of 4th order flux 2 in from south boundary
 
+!$acc loop vector collapse(2)
             DO k=kts,ktf
             DO i = i_start, i_end
               vel = 0.5*(rv(i,k,j)+rv(i-1,k,j))
-              fqy( i, k, jp1 ) = vel*flux4(      &
+              fqy3( i, k,j) = vel*flux4(      &
                    u(i,k,j-2),u(i,k,j-1), u(i,k,j),u(i,k,j+1),vel )
             ENDDO
             ENDDO
 
      ELSE IF ( j == jde-1 ) THEN  ! 2nd order flux next to north boundary
 
+!$acc loop vector collapse(2)
             DO k=kts,ktf
             DO i = i_start, i_end
-              fqy(i, k, jp1) = 0.25*(rv(i,k,j)+rv(i-1,k,j))    &
+              fqy3(i, k,j) = 0.25*(rv(i,k,j)+rv(i-1,k,j))    &
                      *(u(i,k,j)+u(i,k,j-1))
             ENDDO
             ENDDO
 
      ELSE IF ( j == jde-2 ) THEN  ! 3rd order flux 2 in from north boundary
 
+!$acc loop vector collapse(2)
             DO k=kts,ktf
             DO i = i_start, i_end
               vel = 0.5*(rv(i,k,j)+rv(i-1,k,j))
-              fqy( i, k, jp1 ) = vel*flux4(     &
+              fqy3( i, k,j) = vel*flux4(     &
                    u(i,k,j-2),u(i,k,j-1),    &
                    u(i,k,j),u(i,k,j+1),vel )
             ENDDO
@@ -349,29 +357,35 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 !  y flux-divergence into tendency
 
         ! (j > j_start) will miss the u(,,jds) tendency
+   ENDDO j_loop_y_flux_6_flux
+!$acc parallel loop gang
+     j_loop_y_flux_6 : DO j = j_start, j_end+1
         IF ( config_flags%polar .AND. (j == jds+1) ) THEN
+!$acc loop vector collapse(2)
           DO k=kts,ktf
           DO i = i_start, i_end
             mrdy=msfux(i,j-1)*rdy   ! ADT eqn 44, 2nd term on RHS
-            tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*fqy(i,k,jp1)
+            tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*fqy3(i,k,j)
           END DO
           END DO
         ! This would be seen by (j > j_start) but we need to zero out the NP tendency
         ELSE IF( config_flags%polar .AND. (j == jde) ) THEN
+!$acc loop vector collapse(2)
           DO k=kts,ktf
           DO i = i_start, i_end
             mrdy=msfux(i,j-1)*rdy   ! ADT eqn 44, 2nd term on RHS
-            tendency(i,k,j-1) = tendency(i,k,j-1) + mrdy*fqy(i,k,jp0)
+            tendency(i,k,j-1) = tendency(i,k,j-1) + mrdy*fqy3(i,k,j-1)
           END DO
           END DO
         ELSE  ! normal code
 
         IF(j > j_start) THEN
 
+!$acc loop vector collapse(2)
           DO k=kts,ktf
           DO i = i_start, i_end
             mrdy=msfux(i,j-1)*rdy   ! ADT eqn 44, 2nd term on RHS
-            tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*(fqy(i,k,jp1)-fqy(i,k,jp0))
+            tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*(fqy3(i,k,j)-fqy3(i,k,j-1))
           ENDDO
           ENDDO
 
@@ -379,10 +393,6 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
         END IF
 
-
-        jtmp = jp1
-        jp1 = jp0
-        jp0 = jtmp
 
    ENDDO j_loop_y_flux_6
 
@@ -558,14 +568,17 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
      jp1 = 2
      jp0 = 1
 
-     j_loop_y_flux_5 : DO j = j_start, j_end+1
+     IF (.NOT. ALLOCATED(fqy3)) ALLOCATE(fqy3(its:ite,kts:kte,jts:jte+1))   ! GPU: full-row flux (was rolling jp0/jp1)
+!$acc parallel loop gang
+     j_loop_y_flux_5_flux : DO j = j_start, j_end+1
 
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN  ! use full stencil
 
+!$acc loop vector collapse(2)
         DO k=kts,ktf
         DO i = i_start, i_end
           vel = 0.5*(rv(i,k,j)+rv(i-1,k,j))
-          fqy( i, k, jp1 ) = vel*flux5(               &
+          fqy3( i, k,j) = vel*flux5(               &
                   u(i,k,j-3), u(i,k,j-2), u(i,k,j-1),       &
                   u(i,k,j  ), u(i,k,j+1), u(i,k,j+2),  vel )
         ENDDO
@@ -575,38 +588,42 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
       ELSE IF ( j == jds+1 ) THEN   ! 2nd order flux next to south boundary
 
+!$acc loop vector collapse(2)
             DO k=kts,ktf
             DO i = i_start, i_end
-              fqy(i, k, jp1) = 0.25*(rv(i,k,j)+rv(i-1,k,j))  &
+              fqy3(i, k,j) = 0.25*(rv(i,k,j)+rv(i-1,k,j))  &
                                      *(u(i,k,j)+u(i,k,j-1))
             ENDDO
             ENDDO
 
      ELSE IF  ( j == jds+2 ) THEN  ! third of 4th order flux 2 in from south boundary
 
+!$acc loop vector collapse(2)
             DO k=kts,ktf
             DO i = i_start, i_end
               vel = 0.5*(rv(i,k,j)+rv(i-1,k,j))
-              fqy( i, k, jp1 ) = vel*flux3(      &
+              fqy3( i, k,j) = vel*flux3(      &
                    u(i,k,j-2),u(i,k,j-1), u(i,k,j),u(i,k,j+1),vel )
             ENDDO
             ENDDO
 
      ELSE IF ( j == jde-1 ) THEN  ! 2nd order flux next to north boundary
 
+!$acc loop vector collapse(2)
             DO k=kts,ktf
             DO i = i_start, i_end
-              fqy(i, k, jp1) = 0.25*(rv(i,k,j)+rv(i-1,k,j))    &
+              fqy3(i, k,j) = 0.25*(rv(i,k,j)+rv(i-1,k,j))    &
                      *(u(i,k,j)+u(i,k,j-1))
             ENDDO
             ENDDO
 
      ELSE IF ( j == jde-2 ) THEN  ! 3rd order flux 2 in from north boundary
 
+!$acc loop vector collapse(2)
             DO k=kts,ktf
             DO i = i_start, i_end
               vel = 0.5*(rv(i,k,j)+rv(i-1,k,j))
-              fqy( i, k, jp1 ) = vel*flux3(     &
+              fqy3( i, k,j) = vel*flux3(     &
                    u(i,k,j-2),u(i,k,j-1),    &
                    u(i,k,j),u(i,k,j+1),vel )
             ENDDO
@@ -617,29 +634,35 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 !  y flux-divergence into tendency
 
         ! (j > j_start) will miss the u(,,jds) tendency
+   ENDDO j_loop_y_flux_5_flux
+!$acc parallel loop gang
+     j_loop_y_flux_5 : DO j = j_start, j_end+1
         IF ( config_flags%polar .AND. (j == jds+1) ) THEN
+!$acc loop vector collapse(2)
           DO k=kts,ktf
           DO i = i_start, i_end
             mrdy=msfux(i,j-1)*rdy   ! ADT eqn 44, 2nd term on RHS
-            tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*fqy(i,k,jp1)
+            tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*fqy3(i,k,j)
           END DO
           END DO
         ! This would be seen by (j > j_start) but we need to zero out the NP tendency
         ELSE IF( config_flags%polar .AND. (j == jde) ) THEN
+!$acc loop vector collapse(2)
           DO k=kts,ktf
           DO i = i_start, i_end
             mrdy=msfux(i,j-1)*rdy   ! ADT eqn 44, 2nd term on RHS
-            tendency(i,k,j-1) = tendency(i,k,j-1) + mrdy*fqy(i,k,jp0)
+            tendency(i,k,j-1) = tendency(i,k,j-1) + mrdy*fqy3(i,k,j-1)
           END DO
           END DO
         ELSE  ! normal code
 
         IF(j > j_start) THEN
 
+!$acc loop vector collapse(2)
           DO k=kts,ktf
           DO i = i_start, i_end
             mrdy=msfux(i,j-1)*rdy   ! ADT eqn 44, 2nd term on RHS
-            tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*(fqy(i,k,jp1)-fqy(i,k,jp0))
+            tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*(fqy3(i,k,j)-fqy3(i,k,j-1))
           ENDDO
           ENDDO
 
@@ -647,10 +670,6 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
         END IF
 
-
-        jtmp = jp1
-        jp1 = jp0
-        jp0 = jtmp
 
    ENDDO j_loop_y_flux_5
 
@@ -896,31 +915,36 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
      jp1 = 2
      jp0 = 1
 
+   IF (.NOT. ALLOCATED(fqy3)) ALLOCATE(fqy3(its:ite,kts:kte,jts:jte+1))   ! GPU: full-row flux (was rolling jp0/jp1)
+!$acc parallel loop gang
    DO j = j_start, j_end+1
 
      IF ( (j < j_start_f) .and. degrade_ys) THEN
+!$acc loop vector collapse(2)
        DO k = kts, ktf
        DO i = i_start, i_end
-         fqy(i, k, jp1) = 0.25*(rv(i,k,j_start)+rv(i-1,k,j_start))  &
+         fqy3(i, k,j) = 0.25*(rv(i,k,j_start)+rv(i-1,k,j_start))  &
                *(u(i,k,j_start)+u(i,k,j_start-1))
        ENDDO
        ENDDO
      ELSE IF ((j > j_end_f) .and. degrade_ye) THEN
+!$acc loop vector collapse(2)
        DO k = kts, ktf
        DO i = i_start, i_end
          ! Assumes j>j_end_f is ONLY j_end+1 ...
-!         fqy(i, k, jp1) = 0.25*(rv(i,k,j_end+1)+rv(i-1,k,j_end+1))    &
+!         fqy3(i, k,j) = 0.25*(rv(i,k,j_end+1)+rv(i-1,k,j_end+1))    &
 !                *(u(i,k,j_end+1)+u(i,k,j_end))
-         fqy(i, k, jp1) = 0.25*(rv(i,k,j)+rv(i-1,k,j))    &
+         fqy3(i, k,j) = 0.25*(rv(i,k,j)+rv(i-1,k,j))    &
                 *(u(i,k,j)+u(i,k,j-1))
        ENDDO
        ENDDO
      ELSE
 !  3rd or 4th order flux
+!$acc loop vector collapse(2)
        DO k = kts, ktf
        DO i = i_start, i_end
          vel = 0.5*(rv(i,k,j)+rv(i-1,k,j))
-         fqy( i, k, jp1 ) = vel*flux4( u(i,k,j-2), u(i,k,j-1),  &
+         fqy3( i, k,j) = vel*flux4( u(i,k,j-2), u(i,k,j-1),  &
                                        u(i,k,j  ), u(i,k,j+1),  &
                                             vel                )
        ENDDO
@@ -931,39 +955,41 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 !  y flux-divergence into tendency
 
      ! (j > j_start) will miss the u(,,jds) tendency
+  ENDDO
+!$acc parallel loop gang
+   DO j = j_start, j_end+1
      IF ( config_flags%polar .AND. (j == jds+1) ) THEN
+!$acc loop vector collapse(2)
        DO k=kts,ktf
        DO i = i_start, i_end
          mrdy=msfux(i,j-1)*rdy   ! ADT eqn 44, 2nd term on RHS
-         tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*fqy(i,k,jp1)
+         tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*fqy3(i,k,j)
        END DO
        END DO
        ! This would be seen by (j > j_start) but we need to zero out the NP tendency
      ELSE IF( config_flags%polar .AND. (j == jde) ) THEN
+!$acc loop vector collapse(2)
        DO k=kts,ktf
        DO i = i_start, i_end
          mrdy=msfux(i,j-1)*rdy   ! ADT eqn 44, 2nd term on RHS
-         tendency(i,k,j-1) = tendency(i,k,j-1) + mrdy*fqy(i,k,jp0)
+         tendency(i,k,j-1) = tendency(i,k,j-1) + mrdy*fqy3(i,k,j-1)
        END DO
        END DO
      ELSE  ! normal code
 
      IF (j > j_start) THEN
 
+!$acc loop vector collapse(2)
        DO k=kts,ktf
        DO i = i_start, i_end
           mrdy=msfux(i,j-1)*rdy ! ADT eqn 44, 2nd term on RHS
-          tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*(fqy(i,k,jp1)-fqy(i,k,jp0))
+          tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*(fqy3(i,k,j)-fqy3(i,k,j-1))
        ENDDO
        ENDDO
 
      END IF
 
      END IF
-
-     jtmp = jp1
-     jp1 = jp0
-     jp0 = jtmp
 
   ENDDO
 
@@ -1106,31 +1132,36 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
      jp1 = 2
      jp0 = 1
 
+   IF (.NOT. ALLOCATED(fqy3)) ALLOCATE(fqy3(its:ite,kts:kte,jts:jte+1))   ! GPU: full-row flux (was rolling jp0/jp1)
+!$acc parallel loop gang
    DO j = j_start, j_end+1
 
      IF ( (j < j_start_f) .and. degrade_ys) THEN
+!$acc loop vector collapse(2)
        DO k = kts, ktf
        DO i = i_start, i_end
-         fqy(i, k, jp1) = 0.25*(rv(i,k,j_start)+rv(i-1,k,j_start))  &
+         fqy3(i, k,j) = 0.25*(rv(i,k,j_start)+rv(i-1,k,j_start))  &
                *(u(i,k,j_start)+u(i,k,j_start-1))
        ENDDO
        ENDDO
      ELSE IF ((j > j_end_f) .and. degrade_ye) THEN
+!$acc loop vector collapse(2)
        DO k = kts, ktf
        DO i = i_start, i_end
          ! Assumes j>j_end_f is ONLY j_end+1 ...
-!         fqy(i, k, jp1) = 0.25*(rv(i,k,j_end+1)+rv(i-1,k,j_end+1))    &
+!         fqy3(i, k,j) = 0.25*(rv(i,k,j_end+1)+rv(i-1,k,j_end+1))    &
 !                *(u(i,k,j_end+1)+u(i,k,j_end))
-         fqy(i, k, jp1) = 0.25*(rv(i,k,j)+rv(i-1,k,j))    &
+         fqy3(i, k,j) = 0.25*(rv(i,k,j)+rv(i-1,k,j))    &
                 *(u(i,k,j)+u(i,k,j-1))
        ENDDO
        ENDDO
      ELSE
 !  3rd or 4th order flux
+!$acc loop vector collapse(2)
        DO k = kts, ktf
        DO i = i_start, i_end
          vel = 0.5*(rv(i,k,j)+rv(i-1,k,j))
-         fqy( i, k, jp1 ) = vel*flux3( u(i,k,j-2), u(i,k,j-1),  &
+         fqy3( i, k,j) = vel*flux3( u(i,k,j-2), u(i,k,j-1),  &
                                        u(i,k,j  ), u(i,k,j+1),  &
                                             vel                )
        ENDDO
@@ -1141,39 +1172,41 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 !  y flux-divergence into tendency
 
      ! (j > j_start) will miss the u(,,jds) tendency
+  ENDDO
+!$acc parallel loop gang
+   DO j = j_start, j_end+1
      IF ( config_flags%polar .AND. (j == jds+1) ) THEN
+!$acc loop vector collapse(2)
        DO k=kts,ktf
        DO i = i_start, i_end
          mrdy=msfux(i,j-1)*rdy   ! ADT eqn 44, 2nd term on RHS
-         tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*fqy(i,k,jp1)
+         tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*fqy3(i,k,j)
        END DO
        END DO
        ! This would be seen by (j > j_start) but we need to zero out the NP tendency
      ELSE IF( config_flags%polar .AND. (j == jde) ) THEN
+!$acc loop vector collapse(2)
        DO k=kts,ktf
        DO i = i_start, i_end
          mrdy=msfux(i,j-1)*rdy   ! ADT eqn 44, 2nd term on RHS
-         tendency(i,k,j-1) = tendency(i,k,j-1) + mrdy*fqy(i,k,jp0)
+         tendency(i,k,j-1) = tendency(i,k,j-1) + mrdy*fqy3(i,k,j-1)
        END DO
        END DO
      ELSE  ! normal code
 
      IF (j > j_start) THEN
 
+!$acc loop vector collapse(2)
        DO k=kts,ktf
        DO i = i_start, i_end
           mrdy=msfux(i,j-1)*rdy      ! ADT eqn 44, 2nd term on RHS
-          tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*(fqy(i,k,jp1)-fqy(i,k,jp0))
+          tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*(fqy3(i,k,j)-fqy3(i,k,j-1))
        ENDDO
        ENDDO
 
      END IF
 
      END IF
-
-     jtmp = jp1
-     jp1 = jp0
-     jp0 = jtmp
 
   ENDDO
 
@@ -1643,6 +1676,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
    REAL,  DIMENSION( its:ite+1, kts:kte ) :: fqx
    REAL,  DIMENSION( its:ite, kts:kte, 2 ) :: fqy
+   REAL, DIMENSION(:,:,:), ALLOCATABLE :: fqy3   ! GPU: full-row y flux
 
    INTEGER :: horz_order
    INTEGER :: vert_order
@@ -1746,14 +1780,17 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
      jp1 = 2
      jp0 = 1
 
-     j_loop_y_flux_6 : DO j = j_start, j_end+1
+     IF (.NOT. ALLOCATED(fqy3)) ALLOCATE(fqy3(its:ite,kts:kte,jts:jte+1))   ! GPU: full-row flux (was rolling jp0/jp1)
+!$acc parallel loop gang
+     j_loop_y_flux_6_flux : DO j = j_start, j_end+1
 
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN
 
+!$acc loop vector collapse(2)
         DO k=kts,ktf
         DO i = i_start, i_end
           vel = 0.5*(rv(i,k,j)+rv(i,k,j-1))
-          fqy( i, k, jp1 ) = vel*flux6(               &
+          fqy3( i, k,j) = vel*flux6(               &
                   v(i,k,j-3), v(i,k,j-2), v(i,k,j-1),       &
                   v(i,k,j  ), v(i,k,j+1), v(i,k,j+2),  vel )
         ENDDO
@@ -1764,21 +1801,23 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
       ELSE IF ( j == jds+1 ) THEN   ! 2nd order flux next to south boundary
 
+!$acc loop vector collapse(2)
             DO k=kts,ktf
             DO i = i_start, i_end
                 vb = v(i,k,j-1)
                 IF (specified .AND. v(i,k,j) .LT. 0.)vb = v(i,k,j)
-                fqy(i, k, jp1) = 0.25*(rv(i,k,j)+rv(i,k,j-1))  &
+                fqy3(i, k,j) = 0.25*(rv(i,k,j)+rv(i,k,j-1))  &
                                  *(v(i,k,j)+vb)
             ENDDO
             ENDDO
 
      ELSE IF  ( j == jds+2 ) THEN  ! third of 4th order flux 2 in from south boundary
 
+!$acc loop vector collapse(2)
             DO k=kts,ktf
             DO i = i_start, i_end
               vel = 0.5*(rv(i,k,j)+rv(i,k,j-1))
-              fqy( i, k, jp1 ) = vel*flux4(      &
+              fqy3( i, k,j) = vel*flux4(      &
                    v(i,k,j-2),v(i,k,j-1),v(i,k,j),v(i,k,j+1),vel )
             ENDDO
             ENDDO
@@ -1786,21 +1825,23 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
      ELSE IF ( j == jde ) THEN  ! 2nd order flux next to north boundary
 
+!$acc loop vector collapse(2)
             DO k=kts,ktf
             DO i = i_start, i_end
                 vb = v(i,k,j)
                 IF (specified .AND. v(i,k,j-1) .GT. 0.)vb = v(i,k,j-1)
-                fqy(i, k, jp1) = 0.25*(rv(i,k,j)+rv(i,k,j-1))    &
+                fqy3(i, k,j) = 0.25*(rv(i,k,j)+rv(i,k,j-1))    &
                                  *(vb+v(i,k,j-1))
             ENDDO
             ENDDO
 
      ELSE IF ( j == jde-1 ) THEN  ! 3rd or 4th order flux 2 in from north boundary
 
+!$acc loop vector collapse(2)
             DO k=kts,ktf
             DO i = i_start, i_end
               vel = 0.5*(rv(i,k,j)+rv(i,k,j-1))
-              fqy( i, k, jp1 ) = vel*flux4(     &
+              fqy3( i, k,j) = vel*flux4(     &
                    v(i,k,j-2),v(i,k,j-1),v(i,k,j),v(i,k,j+1),vel )
             ENDDO
             ENDDO
@@ -1813,7 +1854,11 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
         ! No advection over the poles means tendencies (held from jds [S. pole]
         ! to jde [N pole], i.e., on v grid) must be zero at poles
         ! [tendency(jds) and tendency(jde)=0]
+   ENDDO j_loop_y_flux_6_flux
+!$acc parallel loop gang
+     j_loop_y_flux_6 : DO j = j_start, j_end+1
         IF ( config_flags%polar .AND. (j == jds+1) ) THEN
+!$acc loop vector collapse(2)
           DO k=kts,ktf
           DO i = i_start, i_end
             tendency(i,k,j-1) = 0.
@@ -1824,6 +1869,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
         ! we want the tendency to be zero anyway, not looping to jde+1
         ! will produce the same effect.
         ELSE IF( config_flags%polar .AND. (j == jde+1) ) THEN
+!$acc loop vector collapse(2)
           DO k=kts,ktf
           DO i = i_start, i_end
             tendency(i,k,j-1) = 0.
@@ -1833,20 +1879,17 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
         IF(j > j_start) THEN
 
+!$acc loop vector collapse(2)
           DO k=kts,ktf
           DO i = i_start, i_end
             mrdy=msfvy(i,j-1)*rdy    ! ADT eqn 45, 2nd term on RHS
-            tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*(fqy(i,k,jp1)-fqy(i,k,jp0))
+            tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*(fqy3(i,k,j)-fqy3(i,k,j-1))
           ENDDO
           ENDDO
 
         ENDIF
 
         END IF
-
-        jtmp = jp1
-        jp1 = jp0
-        jp0 = jtmp
 
    ENDDO j_loop_y_flux_6
 
@@ -2015,14 +2058,17 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
      jp1 = 2
      jp0 = 1
 
-     j_loop_y_flux_5 : DO j = j_start, j_end+1
+     IF (.NOT. ALLOCATED(fqy3)) ALLOCATE(fqy3(its:ite,kts:kte,jts:jte+1))   ! GPU: full-row flux (was rolling jp0/jp1)
+!$acc parallel loop gang
+     j_loop_y_flux_5_flux : DO j = j_start, j_end+1
 
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN
 
+!$acc loop vector collapse(2)
         DO k=kts,ktf
         DO i = i_start, i_end
           vel = 0.5*(rv(i,k,j)+rv(i,k,j-1))
-          fqy( i, k, jp1 ) = vel*flux5(               &
+          fqy3( i, k,j) = vel*flux5(               &
                   v(i,k,j-3), v(i,k,j-2), v(i,k,j-1),       &
                   v(i,k,j  ), v(i,k,j+1), v(i,k,j+2),  vel )
         ENDDO
@@ -2033,21 +2079,23 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
       ELSE IF ( j == jds+1 ) THEN   ! 2nd order flux next to south boundary
 
+!$acc loop vector collapse(2)
             DO k=kts,ktf
             DO i = i_start, i_end
                 vb = v(i,k,j-1)
                 IF (specified .AND. v(i,k,j) .LT. 0.)vb = v(i,k,j)
-                fqy(i, k, jp1) = 0.25*(rv(i,k,j)+rv(i,k,j-1))  &
+                fqy3(i, k,j) = 0.25*(rv(i,k,j)+rv(i,k,j-1))  &
                                  *(v(i,k,j)+vb)
             ENDDO
             ENDDO
 
      ELSE IF  ( j == jds+2 ) THEN  ! third of 4th order flux 2 in from south boundary
 
+!$acc loop vector collapse(2)
             DO k=kts,ktf
             DO i = i_start, i_end
               vel = 0.5*(rv(i,k,j)+rv(i,k,j-1))
-              fqy( i, k, jp1 ) = vel*flux3(      &
+              fqy3( i, k,j) = vel*flux3(      &
                    v(i,k,j-2),v(i,k,j-1),v(i,k,j),v(i,k,j+1),vel )
             ENDDO
             ENDDO
@@ -2055,21 +2103,23 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
      ELSE IF ( j == jde ) THEN  ! 2nd order flux next to north boundary
 
+!$acc loop vector collapse(2)
             DO k=kts,ktf
             DO i = i_start, i_end
                 vb = v(i,k,j)
                 IF (specified .AND. v(i,k,j-1) .GT. 0.)vb = v(i,k,j-1)
-                fqy(i, k, jp1) = 0.25*(rv(i,k,j)+rv(i,k,j-1))    &
+                fqy3(i, k,j) = 0.25*(rv(i,k,j)+rv(i,k,j-1))    &
                                  *(vb+v(i,k,j-1))
             ENDDO
             ENDDO
 
      ELSE IF ( j == jde-1 ) THEN  ! 3rd or 4th order flux 2 in from north boundary
 
+!$acc loop vector collapse(2)
             DO k=kts,ktf
             DO i = i_start, i_end
               vel = 0.5*(rv(i,k,j)+rv(i,k,j-1))
-              fqy( i, k, jp1 ) = vel*flux3(     &
+              fqy3( i, k,j) = vel*flux3(     &
                    v(i,k,j-2),v(i,k,j-1),v(i,k,j),v(i,k,j+1),vel )
             ENDDO
             ENDDO
@@ -2082,7 +2132,11 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
         ! No advection over the poles means tendencies (held from jds [S. pole]
         ! to jde [N pole], i.e., on v grid) must be zero at poles
         ! [tendency(jds) and tendency(jde)=0]
+   ENDDO j_loop_y_flux_5_flux
+!$acc parallel loop gang
+     j_loop_y_flux_5 : DO j = j_start, j_end+1
         IF ( config_flags%polar .AND. (j == jds+1) ) THEN
+!$acc loop vector collapse(2)
           DO k=kts,ktf
           DO i = i_start, i_end
             tendency(i,k,j-1) = 0.
@@ -2093,6 +2147,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
         ! we want the tendency to be zero anyway, not looping to jde+1
         ! will produce the same effect.
         ELSE IF( config_flags%polar .AND. (j == jde+1) ) THEN
+!$acc loop vector collapse(2)
           DO k=kts,ktf
           DO i = i_start, i_end
             tendency(i,k,j-1) = 0.
@@ -2102,20 +2157,17 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
         IF(j > j_start) THEN
 
+!$acc loop vector collapse(2)
           DO k=kts,ktf
           DO i = i_start, i_end
             mrdy=msfvy(i,j-1)*rdy    ! ADT eqn 45, 2nd term on RHS
-            tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*(fqy(i,k,jp1)-fqy(i,k,jp0))
+            tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*(fqy3(i,k,j)-fqy3(i,k,j-1))
           ENDDO
           ENDDO
 
         ENDIF
 
         END IF
-
-        jtmp = jp1
-        jp1 = jp0
-        jp0 = jtmp
 
    ENDDO j_loop_y_flux_5
 
@@ -2284,31 +2336,36 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
     jp0 = 1
     jp1 = 2
 
+    IF (.NOT. ALLOCATED(fqy3)) ALLOCATE(fqy3(its:ite,kts:kte,jts:jte+1))   ! GPU: full-row flux (was rolling jp0/jp1)
+!$acc parallel loop gang
     DO j = j_start, j_end+1
 
       IF ((j == j_start) .and. degrade_ys) THEN
+!$acc loop vector collapse(2)
         DO k = kts,ktf
         DO i = i_start, i_end
                 vb = v(i,k,j-1)
                 IF (specified .AND. v(i,k,j) .LT. 0.)vb = v(i,k,j)
-                fqy(i, k, jp1) = 0.25*(rv(i,k,j)+rv(i,k,j-1))  &
+                fqy3(i, k,j) = 0.25*(rv(i,k,j)+rv(i,k,j-1))  &
                                  *(v(i,k,j)+vb)
         ENDDO
         ENDDO
       ELSE IF ((j == j_end+1) .and. degrade_ye) THEN
+!$acc loop vector collapse(2)
         DO k = kts, ktf
         DO i = i_start, i_end
                 vb = v(i,k,j)
                 IF (specified .AND. v(i,k,j-1) .GT. 0.)vb = v(i,k,j-1)
-                fqy(i, k, jp1) = 0.25*(rv(i,k,j)+rv(i,k,j-1))    &
+                fqy3(i, k,j) = 0.25*(rv(i,k,j)+rv(i,k,j-1))    &
                                  *(vb+v(i,k,j-1))
         ENDDO
         ENDDO
       ELSE
+!$acc loop vector collapse(2)
         DO k = kts, ktf
         DO i = i_start, i_end
           vel = 0.5*(rv(i,k,j)+rv(i,k,j-1))
-          fqy( i,k,jp1 ) = vel*flux4( v(i,k,j-2), v(i,k,j-1),  &
+          fqy3( i,k,j) = vel*flux4( v(i,k,j-2), v(i,k,j-1),  &
                                      v(i,k,j  ), v(i,k,j+1),  &
                                       vel                        )
         ENDDO
@@ -2319,7 +2376,11 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
       ! No advection over the poles means tendencies (held from jds [S. pole]
       ! to jde [N pole], i.e., on v grid) must be zero at poles
       ! [tendency(jds) and tendency(jde)=0]
+   ENDDO
+!$acc parallel loop gang
+    DO j = j_start, j_end+1
       IF ( config_flags%polar .AND. (j == jds+1) ) THEN
+!$acc loop vector collapse(2)
         DO k=kts,ktf
         DO i = i_start, i_end
           tendency(i,k,j-1) = 0.
@@ -2330,6 +2391,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
       ! we want the tendency to be zero anyway, not looping to jde+1
       ! will produce the same effect.
       ELSE IF( config_flags%polar .AND. (j == jde+1) ) THEN
+!$acc loop vector collapse(2)
         DO k=kts,ktf
         DO i = i_start, i_end
           tendency(i,k,j-1) = 0.
@@ -2338,20 +2400,17 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
       ELSE  ! Normal code
 
       IF( j > j_start) THEN
+!$acc loop vector collapse(2)
         DO k = kts, ktf
         DO i = i_start, i_end
             mrdy=msfvy(i,j-1)*rdy     ! ADT eqn 45, 2nd term on RHS
-            tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*(fqy(i,k,jp1)-fqy(i,k,jp0))
+            tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*(fqy3(i,k,j)-fqy3(i,k,j-1))
         ENDDO
         ENDDO
 
       END IF
 
       END IF
-
-      jtmp = jp1
-      jp1 = jp0
-      jp0 = jtmp
 
    ENDDO
 
@@ -2490,31 +2549,36 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
     jp0 = 1
     jp1 = 2
 
+    IF (.NOT. ALLOCATED(fqy3)) ALLOCATE(fqy3(its:ite,kts:kte,jts:jte+1))   ! GPU: full-row flux (was rolling jp0/jp1)
+!$acc parallel loop gang
     DO j = j_start, j_end+1
 
       IF ((j == j_start) .and. degrade_ys) THEN
+!$acc loop vector collapse(2)
         DO k = kts,ktf
         DO i = i_start, i_end
                 vb = v(i,k,j-1)
                 IF (specified .AND. v(i,k,j) .LT. 0.)vb = v(i,k,j)
-                fqy(i, k, jp1) = 0.25*(rv(i,k,j)+rv(i,k,j-1))  &
+                fqy3(i, k,j) = 0.25*(rv(i,k,j)+rv(i,k,j-1))  &
                                  *(v(i,k,j)+vb)
         ENDDO
         ENDDO
       ELSE IF ((j == j_end+1) .and. degrade_ye) THEN
+!$acc loop vector collapse(2)
         DO k = kts, ktf
         DO i = i_start, i_end
                 vb = v(i,k,j)
                 IF (specified .AND. v(i,k,j-1) .GT. 0.)vb = v(i,k,j-1)
-                fqy(i, k, jp1) = 0.25*(rv(i,k,j)+rv(i,k,j-1))    &
+                fqy3(i, k,j) = 0.25*(rv(i,k,j)+rv(i,k,j-1))    &
                                  *(vb+v(i,k,j-1))
         ENDDO
         ENDDO
       ELSE
+!$acc loop vector collapse(2)
         DO k = kts, ktf
         DO i = i_start, i_end
           vel = 0.5*(rv(i,k,j)+rv(i,k,j-1))
-          fqy( i,k,jp1 ) = vel*flux3( v(i,k,j-2), v(i,k,j-1),  &
+          fqy3( i,k,j) = vel*flux3( v(i,k,j-2), v(i,k,j-1),  &
                                      v(i,k,j  ), v(i,k,j+1),  &
                                       vel                        )
         ENDDO
@@ -2525,7 +2589,11 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
       ! No advection over the poles means tendencies (held from jds [S. pole]
       ! to jde [N pole], i.e., on v grid) must be zero at poles
       ! [tendency(jds) and tendency(jde)=0]
+   ENDDO
+!$acc parallel loop gang
+    DO j = j_start, j_end+1
       IF ( config_flags%polar .AND. (j == jds+1) ) THEN
+!$acc loop vector collapse(2)
         DO k=kts,ktf
         DO i = i_start, i_end
           tendency(i,k,j-1) = 0.
@@ -2536,6 +2604,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
       ! we want the tendency to be zero anyway, not looping to jde+1
       ! will produce the same effect.
       ELSE IF( config_flags%polar .AND. (j == jde+1) ) THEN
+!$acc loop vector collapse(2)
         DO k=kts,ktf
         DO i = i_start, i_end
           tendency(i,k,j-1) = 0.
@@ -2544,20 +2613,17 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
       ELSE  ! Normal code
 
       IF( j > j_start) THEN
+!$acc loop vector collapse(2)
         DO k = kts, ktf
         DO i = i_start, i_end
             mrdy=msfvy(i,j-1)*rdy     ! ADT eqn 45, 2nd term on RHS
-            tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*(fqy(i,k,jp1)-fqy(i,k,jp0))
+            tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*(fqy3(i,k,j)-fqy3(i,k,j-1))
         ENDDO
         ENDDO
 
       END IF
 
       END IF
-
-      jtmp = jp1
-      jp1 = jp0
-      jp0 = jtmp
 
    ENDDO
 
@@ -3177,6 +3243,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
    REAL,  DIMENSION( its:ite+1, kts:kte  ) :: fqx
    REAL,  DIMENSION( its:ite, kts:kte, 2 ) :: fqy
+   REAL, DIMENSION(:,:,:), ALLOCATABLE :: fqy3   ! GPU: full-row y flux
 
    INTEGER :: horz_order, vert_order
    
@@ -3281,14 +3348,17 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
      jp1 = 2
      jp0 = 1
 
-     j_loop_y_flux_6 : DO j = j_start, j_end+1
+     IF (.NOT. ALLOCATED(fqy3)) ALLOCATE(fqy3(its:ite,kts:kte,jts:jte+1))   ! GPU: full-row flux (was rolling jp0/jp1)
+!$acc parallel loop gang
+     j_loop_y_flux_6_flux : DO j = j_start, j_end+1
 
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN ! use full stencil
 
+!$acc loop vector collapse(2)
         DO k=kts,ktf
         DO i = i_start, i_end
           vel = rv(i,k,j)
-          fqy( i, k, jp1 ) = vel*flux6(                                &
+          fqy3( i, k,j) = vel*flux6(                                &
                   field(i,k,j-3), field(i,k,j-2), field(i,k,j-1),       &
                   field(i,k,j  ), field(i,k,j+1), field(i,k,j+2),  vel )
         ENDDO
@@ -3297,9 +3367,10 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
       ELSE IF ( j == jds+1 ) THEN   ! 2nd order flux next to south boundary
 
+!$acc loop vector collapse(2)
             DO k=kts,ktf
             DO i = i_start, i_end
-              fqy(i,k, jp1) = 0.5*rv(i,k,j)*          &
+              fqy3(i,k,j) = 0.5*rv(i,k,j)*          &
                      (field(i,k,j)+field(i,k,j-1))
 
             ENDDO
@@ -3307,29 +3378,32 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
      ELSE IF  ( j == jds+2 ) THEN  ! 4th order flux 2 in from south boundary
 
+!$acc loop vector collapse(2)
             DO k=kts,ktf
             DO i = i_start, i_end
               vel = rv(i,k,j)
-              fqy( i, k, jp1 ) = vel*flux4(              &
+              fqy3( i, k,j) = vel*flux4(              &
                    field(i,k,j-2),field(i,k,j-1),field(i,k,j),field(i,k,j+1),vel )
             ENDDO
             ENDDO
 
      ELSE IF ( j == jde-1 ) THEN  ! 2nd order flux next to north boundary
 
+!$acc loop vector collapse(2)
             DO k=kts,ktf
             DO i = i_start, i_end
-              fqy(i, k, jp1) = 0.5*rv(i,k,j)*      &
+              fqy3(i, k,j) = 0.5*rv(i,k,j)*      &
                      (field(i,k,j)+field(i,k,j-1))
             ENDDO
             ENDDO
 
      ELSE IF ( j == jde-2 ) THEN  ! 3rd or 4th order flux 2 in from north boundary
 
+!$acc loop vector collapse(2)
             DO k=kts,ktf
             DO i = i_start, i_end
               vel = rv(i,k,j)
-              fqy( i, k, jp1) = vel*flux4(             &
+              fqy3( i, k,j) = vel*flux4(             &
                    field(i,k,j-2),field(i,k,j-1),    &
                    field(i,k,j),field(i,k,j+1),vel )
             ENDDO
@@ -3343,38 +3417,40 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
         ! Same process as for advect_u - tendencies run from jds to jde-1
         ! (latitudes are as for u grid, longitudes are displaced)
         ! Therefore: flow is only from one side for points next to poles
+      ENDDO j_loop_y_flux_6_flux
+!$acc parallel loop gang
+     j_loop_y_flux_6 : DO j = j_start, j_end+1
         IF ( config_flags%polar .AND. (j == jds+1) ) THEN
+!$acc loop vector collapse(2)
           DO k=kts,ktf
           DO i = i_start, i_end
             mrdy=msftx(i,j-1)*rdy     ! see ADT eqn 48 [rho->rho*q] dividing by my, 2nd term RHS
-            tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*fqy(i,k,jp1)
+            tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*fqy3(i,k,j)
           END DO
           END DO
         ELSE IF( config_flags%polar .AND. (j == jde) ) THEN
+!$acc loop vector collapse(2)
           DO k=kts,ktf
           DO i = i_start, i_end
             mrdy=msftx(i,j-1)*rdy     ! see ADT eqn 48 [rho->rho*q] dividing by my, 2nd term RHS
-            tendency(i,k,j-1) = tendency(i,k,j-1) + mrdy*fqy(i,k,jp0)
+            tendency(i,k,j-1) = tendency(i,k,j-1) + mrdy*fqy3(i,k,j-1)
           END DO
           END DO
         ELSE  ! normal code
 
         IF(j > j_start) THEN
 
+!$acc loop vector collapse(2)
           DO k=kts,ktf
           DO i = i_start, i_end
             mrdy=msftx(i,j-1)*rdy    ! see ADT eqn 48 [rho->rho*q] dividing by my, 2nd term RHS
-            tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*(fqy(i,k,jp1)-fqy(i,k,jp0))
+            tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*(fqy3(i,k,j)-fqy3(i,k,j-1))
           ENDDO
           ENDDO
 
         ENDIF
 
         END IF
-
-        jtmp = jp1
-        jp1 = jp0
-        jp0 = jtmp
 
       ENDDO j_loop_y_flux_6
 
@@ -3538,14 +3614,17 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
      jp1 = 2
      jp0 = 1
 
-     j_loop_y_flux_5 : DO j = j_start, j_end+1
+     IF (.NOT. ALLOCATED(fqy3)) ALLOCATE(fqy3(its:ite,kts:kte,jts:jte+1))   ! GPU: full-row flux (was rolling jp0/jp1)
+!$acc parallel loop gang
+     j_loop_y_flux_5_flux : DO j = j_start, j_end+1
 
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN ! use full stencil
 
+!$acc loop vector collapse(2)
         DO k=kts,ktf
         DO i = i_start, i_end
           vel = rv(i,k,j)
-          fqy( i, k, jp1 ) = vel*flux5(                                &
+          fqy3( i, k,j) = vel*flux5(                                &
                   field(i,k,j-3), field(i,k,j-2), field(i,k,j-1),       &
                   field(i,k,j  ), field(i,k,j+1), field(i,k,j+2),  vel )
         ENDDO
@@ -3554,9 +3633,10 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
       ELSE IF ( j == jds+1 ) THEN   ! 2nd order flux next to south boundary
 
+!$acc loop vector collapse(2)
             DO k=kts,ktf
             DO i = i_start, i_end
-              fqy(i,k, jp1) = 0.5*rv(i,k,j)*          &
+              fqy3(i,k,j) = 0.5*rv(i,k,j)*          &
                      (field(i,k,j)+field(i,k,j-1))
 
             ENDDO
@@ -3564,29 +3644,32 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
      ELSE IF  ( j == jds+2 ) THEN  ! third of 4th order flux 2 in from south boundary
 
+!$acc loop vector collapse(2)
             DO k=kts,ktf
             DO i = i_start, i_end
               vel = rv(i,k,j)
-              fqy( i, k, jp1 ) = vel*flux3(              &
+              fqy3( i, k,j) = vel*flux3(              &
                    field(i,k,j-2),field(i,k,j-1),field(i,k,j),field(i,k,j+1),vel )
             ENDDO
             ENDDO
 
      ELSE IF ( j == jde-1 ) THEN  ! 2nd order flux next to north boundary
 
+!$acc loop vector collapse(2)
             DO k=kts,ktf
             DO i = i_start, i_end
-              fqy(i, k, jp1) = 0.5*rv(i,k,j)*      &
+              fqy3(i, k,j) = 0.5*rv(i,k,j)*      &
                      (field(i,k,j)+field(i,k,j-1))
             ENDDO
             ENDDO
 
      ELSE IF ( j == jde-2 ) THEN  ! 3rd or 4th order flux 2 in from north boundary
 
+!$acc loop vector collapse(2)
             DO k=kts,ktf
             DO i = i_start, i_end
               vel = rv(i,k,j)
-              fqy( i, k, jp1) = vel*flux3(             &
+              fqy3( i, k,j) = vel*flux3(             &
                    field(i,k,j-2),field(i,k,j-1),    &
                    field(i,k,j),field(i,k,j+1),vel )
             ENDDO
@@ -3600,38 +3683,40 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
         ! Same process as for advect_u - tendencies run from jds to jde-1
         ! (latitudes are as for u grid, longitudes are displaced)
         ! Therefore: flow is only from one side for points next to poles
+      ENDDO j_loop_y_flux_5_flux
+!$acc parallel loop gang
+     j_loop_y_flux_5 : DO j = j_start, j_end+1
         IF ( config_flags%polar .AND. (j == jds+1) ) THEN
+!$acc loop vector collapse(2)
           DO k=kts,ktf
           DO i = i_start, i_end
             mrdy=msftx(i,j-1)*rdy     ! see ADT eqn 48 [rho->rho*q] dividing by my, 2nd term RHS
-            tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*fqy(i,k,jp1)
+            tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*fqy3(i,k,j)
           END DO
           END DO
         ELSE IF( config_flags%polar .AND. (j == jde) ) THEN
+!$acc loop vector collapse(2)
           DO k=kts,ktf
           DO i = i_start, i_end
             mrdy=msftx(i,j-1)*rdy     ! see ADT eqn 48 [rho->rho*q] dividing by my, 2nd term RHS
-            tendency(i,k,j-1) = tendency(i,k,j-1) + mrdy*fqy(i,k,jp0)
+            tendency(i,k,j-1) = tendency(i,k,j-1) + mrdy*fqy3(i,k,j-1)
           END DO
           END DO
         ELSE  ! normal code
 
         IF(j > j_start) THEN
 
+!$acc loop vector collapse(2)
           DO k=kts,ktf
           DO i = i_start, i_end
             mrdy=msftx(i,j-1)*rdy    ! see ADT eqn 48 [rho->rho*q] dividing by my, 2nd term RHS
-            tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*(fqy(i,k,jp1)-fqy(i,k,jp0))
+            tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*(fqy3(i,k,j)-fqy3(i,k,j-1))
           ENDDO
           ENDDO
 
         ENDIF
 
         END IF
-
-        jtmp = jp1
-        jp1 = jp0
-        jp0 = jtmp
 
       ENDDO j_loop_y_flux_5
 
@@ -3860,30 +3945,35 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
     jp1 = 2
     jp0 = 1
 
+  IF (.NOT. ALLOCATED(fqy3)) ALLOCATE(fqy3(its:ite,kts:kte,jts:jte+1))   ! GPU: full-row flux (was rolling jp0/jp1)
+!$acc parallel loop gang
   DO j = j_start, j_end+1
 
     IF ((j < j_start_f) .and. degrade_ys) THEN
+!$acc loop vector collapse(2)
       DO k = kts, ktf
       DO i = i_start, i_end
-         fqy(i,k,jp1) = 0.5*rv(i,k,j_start)             &
+         fqy3(i,k,j) = 0.5*rv(i,k,j_start)             &
                 *(field(i,k,j_start)+field(i,k,j_start-1))
       ENDDO
       ENDDO
     ELSE IF ((j > j_end_f) .and. degrade_ye) THEN
+!$acc loop vector collapse(2)
       DO k = kts, ktf
       DO i = i_start, i_end
          ! Assumes j>j_end_f is ONLY j_end+1 ...
-!         fqy(i,k,jp1) = 0.5*rv(i,k,j_end+1)          &
+!         fqy3(i,k,j) = 0.5*rv(i,k,j_end+1)          &
 !                *(field(i,k,j_end+1)+field(i,k,j_end))
-         fqy(i,k,jp1) = 0.5*rv(i,k,j)          &
+         fqy3(i,k,j) = 0.5*rv(i,k,j)          &
                 *(field(i,k,j)+field(i,k,j-1))
       ENDDO
       ENDDO
     ELSE
 !  3rd or 4th order flux
+!$acc loop vector collapse(2)
       DO k = kts, ktf
       DO i = i_start, i_end
-         fqy( i, k, jp1 ) = rv(i,k,j)*flux4( field(i,k,j-2), field(i,k,j-1),  &
+         fqy3( i, k,j) = rv(i,k,j)*flux4( field(i,k,j-2), field(i,k,j-1),  &
                                             field(i,k,j  ), field(i,k,j+1),  &
                                             rv(i,k,j)                       )
       ENDDO
@@ -3896,38 +3986,40 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
     ! Same process as for advect_u - tendencies run from jds to jde-1
     ! (latitudes are as for u grid, longitudes are displaced)
     ! Therefore: flow is only from one side for points next to poles
+  ENDDO
+!$acc parallel loop gang
+  DO j = j_start, j_end+1
     IF ( config_flags%polar .AND. (j == jds+1) ) THEN
+!$acc loop vector collapse(2)
       DO k=kts,ktf
       DO i = i_start, i_end
         mrdy=msftx(i,j-1)*rdy     ! see ADT eqn 48 [rho->rho*q] dividing by my, 2nd term RHS
-        tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*fqy(i,k,jp1)
+        tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*fqy3(i,k,j)
       END DO
       END DO
     ELSE IF( config_flags%polar .AND. (j == jde) ) THEN
+!$acc loop vector collapse(2)
       DO k=kts,ktf
       DO i = i_start, i_end
         mrdy=msftx(i,j-1)*rdy     ! see ADT eqn 48 [rho->rho*q] dividing by my, 2nd term RHS
-        tendency(i,k,j-1) = tendency(i,k,j-1) + mrdy*fqy(i,k,jp0)
+        tendency(i,k,j-1) = tendency(i,k,j-1) + mrdy*fqy3(i,k,j-1)
       END DO
       END DO
     ELSE  ! normal code
 
     IF ( j > j_start ) THEN
 
+!$acc loop vector collapse(2)
       DO k=kts,ktf
       DO i = i_start, i_end
         mrdy=msftx(i,j-1)*rdy        ! see ADT eqn 48 [rho->rho*q] dividing by my, 2nd term RHS
-        tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*(fqy(i,k,jp1)-fqy(i,k,jp0))
+        tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*(fqy3(i,k,j)-fqy3(i,k,j-1))
       ENDDO
       ENDDO
 
     END IF
 
     END IF
-
-    jtmp = jp1
-    jp1 = jp0
-    jp0 = jtmp
 
   ENDDO
 
@@ -4054,30 +4146,35 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
     jp1 = 2
     jp0 = 1
 
+  IF (.NOT. ALLOCATED(fqy3)) ALLOCATE(fqy3(its:ite,kts:kte,jts:jte+1))   ! GPU: full-row flux (was rolling jp0/jp1)
+!$acc parallel loop gang
   DO j = j_start, j_end+1
 
     IF ((j < j_start_f) .and. degrade_ys) THEN
+!$acc loop vector collapse(2)
       DO k = kts, ktf
       DO i = i_start, i_end
-         fqy(i,k,jp1) = 0.5*rv(i,k,j_start)             &
+         fqy3(i,k,j) = 0.5*rv(i,k,j_start)             &
                 *(field(i,k,j_start)+field(i,k,j_start-1))
       ENDDO
       ENDDO
     ELSE IF ((j > j_end_f) .and. degrade_ye) THEN
+!$acc loop vector collapse(2)
       DO k = kts, ktf
       DO i = i_start, i_end
          ! Assumes j>j_end_f is ONLY j_end+1 ...
-!         fqy(i,k,jp1) = 0.5*rv(i,k,j_end+1)          &
+!         fqy3(i,k,j) = 0.5*rv(i,k,j_end+1)          &
 !                *(field(i,k,j_end+1)+field(i,k,j_end))
-         fqy(i,k,jp1) = 0.5*rv(i,k,j)          &
+         fqy3(i,k,j) = 0.5*rv(i,k,j)          &
                 *(field(i,k,j)+field(i,k,j-1))
       ENDDO
       ENDDO
     ELSE
 !  3rd or 4th order flux
+!$acc loop vector collapse(2)
       DO k = kts, ktf
       DO i = i_start, i_end
-         fqy( i, k, jp1 ) = rv(i,k,j)*flux3( field(i,k,j-2), field(i,k,j-1),  &
+         fqy3( i, k,j) = rv(i,k,j)*flux3( field(i,k,j-2), field(i,k,j-1),  &
                                             field(i,k,j  ), field(i,k,j+1),  &
                                             rv(i,k,j)                       )
       ENDDO
@@ -4090,38 +4187,40 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
     ! Same process as for advect_u - tendencies run from jds to jde-1
     ! (latitudes are as for u grid, longitudes are displaced)
     ! Therefore: flow is only from one side for points next to poles
+  ENDDO
+!$acc parallel loop gang
+  DO j = j_start, j_end+1
     IF ( config_flags%polar .AND. (j == jds+1) ) THEN
+!$acc loop vector collapse(2)
       DO k=kts,ktf
       DO i = i_start, i_end
         mrdy=msftx(i,j-1)*rdy     ! see ADT eqn 48 [rho->rho*q] dividing by my, 2nd term RHS
-        tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*fqy(i,k,jp1)
+        tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*fqy3(i,k,j)
       END DO
       END DO
     ELSE IF( config_flags%polar .AND. (j == jde) ) THEN
+!$acc loop vector collapse(2)
       DO k=kts,ktf
       DO i = i_start, i_end
         mrdy=msftx(i,j-1)*rdy     ! see ADT eqn 48 [rho->rho*q] dividing by my, 2nd term RHS
-        tendency(i,k,j-1) = tendency(i,k,j-1) + mrdy*fqy(i,k,jp0)
+        tendency(i,k,j-1) = tendency(i,k,j-1) + mrdy*fqy3(i,k,j-1)
       END DO
       END DO
     ELSE  ! normal code
 
     IF ( j > j_start ) THEN
 
+!$acc loop vector collapse(2)
       DO k=kts,ktf
       DO i = i_start, i_end
         mrdy=msftx(i,j-1)*rdy        ! see ADT eqn 48 [rho->rho*q] dividing by my, 2nd term RHS
-        tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*(fqy(i,k,jp1)-fqy(i,k,jp0))
+        tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*(fqy3(i,k,j)-fqy3(i,k,j-1))
       ENDDO
       ENDDO
 
     END IF
 
     END IF
-
-    jtmp = jp1
-    jp1 = jp0
-    jp0 = jtmp
 
   ENDDO
 
@@ -4548,6 +4647,7 @@ SUBROUTINE advect_w    ( w, w_old, tendency,            &
 
    REAL,  DIMENSION( its:ite+1, kts:kte ) :: fqx
    REAL,  DIMENSION( its:ite, kts:kte, 2 ) :: fqy
+   REAL, DIMENSION(:,:,:), ALLOCATABLE :: fqy3   ! GPU: full-row y flux
    
    LOGICAL :: degrade_xs, degrade_ys
    LOGICAL :: degrade_xe, degrade_ye
@@ -4648,89 +4748,101 @@ SUBROUTINE advect_w    ( w, w_old, tendency,            &
      jp1 = 2
      jp0 = 1
 
-     j_loop_y_flux_6 : DO j = j_start, j_end+1
+     IF (.NOT. ALLOCATED(fqy3)) ALLOCATE(fqy3(its:ite,kts:kte,jts:jte+1))   ! GPU: full-row flux (was rolling jp0/jp1)
+!$acc parallel loop gang
+     j_loop_y_flux_6_flux : DO j = j_start, j_end+1
 
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN
 
+!$acc loop vector collapse(2)
         DO k=kts+1,ktf
         DO i = i_start, i_end
           vel = fzm(k)*rv(i,k,j)+fzp(k)*rv(i,k-1,j)
-          fqy( i, k, jp1 ) = vel*flux6(                     &
+          fqy3( i, k,j) = vel*flux6(                     &
                   w(i,k,j-3), w(i,k,j-2), w(i,k,j-1),       &
                   w(i,k,j  ), w(i,k,j+1), w(i,k,j+2),  vel )
         ENDDO
         ENDDO
 
         k = ktf+1
+!$acc loop vector
         DO i = i_start, i_end
           vel = (2.-fzm(k-1))*rv(i,k-1,j)-fzp(k-1)*rv(i,k-2,j)
-          fqy( i, k, jp1 ) = vel*flux6(                     &
+          fqy3( i, k,j) = vel*flux6(                     &
                   w(i,k,j-3), w(i,k,j-2), w(i,k,j-1),       &
                   w(i,k,j  ), w(i,k,j+1), w(i,k,j+2),  vel )
         ENDDO
 
       ELSE IF ( j == jds+1 ) THEN   ! 2nd order flux next to south boundary
 
+!$acc loop vector collapse(2)
             DO k=kts+1,ktf
             DO i = i_start, i_end
-              fqy(i, k, jp1) = 0.5*(fzm(k)*rv(i,k,j)+fzp(k)*rv(i,k-1,j))*          &
+              fqy3(i, k,j) = 0.5*(fzm(k)*rv(i,k,j)+fzp(k)*rv(i,k-1,j))*          &
                      (w(i,k,j)+w(i,k,j-1))
             ENDDO
             ENDDO
 
             k = ktf+1
+!$acc loop vector
             DO i = i_start, i_end
-              fqy(i, k, jp1) = 0.5*((2.-fzm(k-1))*rv(i,k-1,j)-fzp(k-1)*rv(i,k-2,j))*          &
+              fqy3(i, k,j) = 0.5*((2.-fzm(k-1))*rv(i,k-1,j)-fzp(k-1)*rv(i,k-2,j))*          &
                      (w(i,k,j)+w(i,k,j-1))
             ENDDO
 
      ELSE IF  ( j == jds+2 ) THEN  ! third of 4th order flux 2 in from south boundary
 
+!$acc loop vector collapse(2)
             DO k=kts+1,ktf
             DO i = i_start, i_end
               vel = fzm(k)*rv(i,k,j)+fzp(k)*rv(i,k-1,j)
-              fqy( i, k, jp1 ) = vel*flux4(              &
+              fqy3( i, k,j) = vel*flux4(              &
                    w(i,k,j-2),w(i,k,j-1),w(i,k,j),w(i,k,j+1),vel )
             ENDDO
             ENDDO
 
             k = ktf+1
+!$acc loop vector
             DO i = i_start, i_end
               vel = (2.-fzm(k-1))*rv(i,k-1,j)-fzp(k-1)*rv(i,k-2,j)
-              fqy( i, k, jp1 ) = vel*flux4(              &
+              fqy3( i, k,j) = vel*flux4(              &
                    w(i,k,j-2),w(i,k,j-1),w(i,k,j),w(i,k,j+1),vel )
             ENDDO
 
      ELSE IF ( j == jde-1 ) THEN  ! 2nd order flux next to north boundary
 
+!$acc loop vector collapse(2)
             DO k=kts+1,ktf
             DO i = i_start, i_end
-              fqy(i, k, jp1) = 0.5*(fzm(k)*rv(i,k,j)+fzp(k)*rv(i,k-1,j))*      &
+              fqy3(i, k,j) = 0.5*(fzm(k)*rv(i,k,j)+fzp(k)*rv(i,k-1,j))*      &
                      (w(i,k,j)+w(i,k,j-1))
             ENDDO
             ENDDO
 
             k = ktf+1
+!$acc loop vector
             DO i = i_start, i_end
-              fqy(i, k, jp1) = 0.5*((2.-fzm(k-1))*rv(i,k-1,j)-fzp(k-1)*rv(i,k-2,j))*      &
+              fqy3(i, k,j) = 0.5*((2.-fzm(k-1))*rv(i,k-1,j)-fzp(k-1)*rv(i,k-2,j))*      &
                      (w(i,k,j)+w(i,k,j-1))
             ENDDO
 
      ELSE IF ( j == jde-2 ) THEN  ! 3rd or 4th order flux 2 in from north boundary
 
+!$acc loop vector collapse(2)
             DO k=kts+1,ktf
             DO i = i_start, i_end
               vel = fzm(k)*rv(i,k,j)+fzp(k)*rv(i,k-1,j)
-              fqy( i, k, jp1 ) = vel*flux4(             &
+              fqy3( i, k,j) = vel*flux4(             &
                    w(i,k,j-2),w(i,k,j-1),    &
                    w(i,k,j),w(i,k,j+1),vel )
             ENDDO
             ENDDO
 
             k = ktf+1
+!$acc loop vector
             DO i = i_start, i_end
               vel = (2.-fzm(k-1))*rv(i,k-1,j)-fzp(k-1)*rv(i,k-2,j)
-              fqy( i, k, jp1 ) = vel*flux4(             &
+              fqy3( i, k,j) = vel*flux4(             &
                    w(i,k,j-2),w(i,k,j-1),    &
                    w(i,k,j),w(i,k,j+1),vel )
             ENDDO
@@ -4743,38 +4855,40 @@ SUBROUTINE advect_w    ( w, w_old, tendency,            &
         ! Same process as for advect_u - tendencies run from jds to jde-1
         ! (latitudes are as for u grid, longitudes are displaced)
         ! Therefore: flow is only from one side for points next to poles
+      ENDDO j_loop_y_flux_6_flux
+!$acc parallel loop gang
+     j_loop_y_flux_6 : DO j = j_start, j_end+1
         IF ( config_flags%polar .AND. (j == jds+1) ) THEN
+!$acc loop vector collapse(2)
           DO k=kts+1,ktf+1
           DO i = i_start, i_end
             mrdy=msftx(i,j-1)*rdy    ! see ADT eqn 46 dividing by my, 2nd term RHS
-            tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*fqy(i,k,jp1)
+            tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*fqy3(i,k,j)
           END DO
           END DO
         ELSE IF( config_flags%polar .AND. (j == jde) ) THEN
+!$acc loop vector collapse(2)
           DO k=kts+1,ktf+1
           DO i = i_start, i_end
             mrdy=msftx(i,j-1)*rdy    ! see ADT eqn 46 dividing by my, 2nd term RHS
-            tendency(i,k,j-1) = tendency(i,k,j-1) + mrdy*fqy(i,k,jp0)
+            tendency(i,k,j-1) = tendency(i,k,j-1) + mrdy*fqy3(i,k,j-1)
           END DO
           END DO
         ELSE  ! normal code
 
         IF(j > j_start) THEN
 
+!$acc loop vector collapse(2)
           DO k=kts+1,ktf+1
           DO i = i_start, i_end
             mrdy=msftx(i,j-1)*rdy    ! see ADT eqn 46 dividing by my, 2nd term RHS
-            tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*(fqy(i,k,jp1)-fqy(i,k,jp0))
+            tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*(fqy3(i,k,j)-fqy3(i,k,j-1))
           ENDDO
           ENDDO
 
        ENDIF
 
         END IF
-
-        jtmp = jp1
-        jp1 = jp0
-        jp0 = jtmp
 
       ENDDO j_loop_y_flux_6
 
@@ -4962,89 +5076,101 @@ ELSE IF (horz_order == 5 ) THEN
      jp1 = 2
      jp0 = 1
 
-     j_loop_y_flux_5 : DO j = j_start, j_end+1
+     IF (.NOT. ALLOCATED(fqy3)) ALLOCATE(fqy3(its:ite,kts:kte,jts:jte+1))   ! GPU: full-row flux (was rolling jp0/jp1)
+!$acc parallel loop gang
+     j_loop_y_flux_5_flux : DO j = j_start, j_end+1
 
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN
 
+!$acc loop vector collapse(2)
         DO k=kts+1,ktf
         DO i = i_start, i_end
           vel = fzm(k)*rv(i,k,j)+fzp(k)*rv(i,k-1,j)
-          fqy( i, k, jp1 ) = vel*flux5(                     &
+          fqy3( i, k,j) = vel*flux5(                     &
                   w(i,k,j-3), w(i,k,j-2), w(i,k,j-1),       &
                   w(i,k,j  ), w(i,k,j+1), w(i,k,j+2),  vel )
         ENDDO
         ENDDO
 
         k = ktf+1
+!$acc loop vector
         DO i = i_start, i_end
           vel = (2.-fzm(k-1))*rv(i,k-1,j)-fzp(k-1)*rv(i,k-2,j)
-          fqy( i, k, jp1 ) = vel*flux5(                     &
+          fqy3( i, k,j) = vel*flux5(                     &
                   w(i,k,j-3), w(i,k,j-2), w(i,k,j-1),       &
                   w(i,k,j  ), w(i,k,j+1), w(i,k,j+2),  vel )
         ENDDO
 
       ELSE IF ( j == jds+1 ) THEN   ! 2nd order flux next to south boundary
 
+!$acc loop vector collapse(2)
             DO k=kts+1,ktf
             DO i = i_start, i_end
-              fqy(i, k, jp1) = 0.5*(fzm(k)*rv(i,k,j)+fzp(k)*rv(i,k-1,j))*          &
+              fqy3(i, k,j) = 0.5*(fzm(k)*rv(i,k,j)+fzp(k)*rv(i,k-1,j))*          &
                      (w(i,k,j)+w(i,k,j-1))
             ENDDO
             ENDDO
 
             k = ktf+1
+!$acc loop vector
             DO i = i_start, i_end
-              fqy(i, k, jp1) = 0.5*((2.-fzm(k-1))*rv(i,k-1,j)-fzp(k-1)*rv(i,k-2,j))*          &
+              fqy3(i, k,j) = 0.5*((2.-fzm(k-1))*rv(i,k-1,j)-fzp(k-1)*rv(i,k-2,j))*          &
                      (w(i,k,j)+w(i,k,j-1))
             ENDDO
 
      ELSE IF  ( j == jds+2 ) THEN  ! third of 4th order flux 2 in from south boundary
 
+!$acc loop vector collapse(2)
             DO k=kts+1,ktf
             DO i = i_start, i_end
               vel = fzm(k)*rv(i,k,j)+fzp(k)*rv(i,k-1,j)
-              fqy( i, k, jp1 ) = vel*flux3(              &
+              fqy3( i, k,j) = vel*flux3(              &
                    w(i,k,j-2),w(i,k,j-1),w(i,k,j),w(i,k,j+1),vel )
             ENDDO
             ENDDO
 
             k = ktf+1
+!$acc loop vector
             DO i = i_start, i_end
               vel = (2.-fzm(k-1))*rv(i,k-1,j)-fzp(k-1)*rv(i,k-2,j)
-              fqy( i, k, jp1 ) = vel*flux3(              &
+              fqy3( i, k,j) = vel*flux3(              &
                    w(i,k,j-2),w(i,k,j-1),w(i,k,j),w(i,k,j+1),vel )
             ENDDO
 
      ELSE IF ( j == jde-1 ) THEN  ! 2nd order flux next to north boundary
 
+!$acc loop vector collapse(2)
             DO k=kts+1,ktf
             DO i = i_start, i_end
-              fqy(i, k, jp1) = 0.5*(fzm(k)*rv(i,k,j)+fzp(k)*rv(i,k-1,j))*      &
+              fqy3(i, k,j) = 0.5*(fzm(k)*rv(i,k,j)+fzp(k)*rv(i,k-1,j))*      &
                      (w(i,k,j)+w(i,k,j-1))
             ENDDO
             ENDDO
 
             k = ktf+1
+!$acc loop vector
             DO i = i_start, i_end
-              fqy(i, k, jp1) = 0.5*((2.-fzm(k-1))*rv(i,k-1,j)-fzp(k-1)*rv(i,k-2,j))*      &
+              fqy3(i, k,j) = 0.5*((2.-fzm(k-1))*rv(i,k-1,j)-fzp(k-1)*rv(i,k-2,j))*      &
                      (w(i,k,j)+w(i,k,j-1))
             ENDDO
 
      ELSE IF ( j == jde-2 ) THEN  ! 3rd or 4th order flux 2 in from north boundary
 
+!$acc loop vector collapse(2)
             DO k=kts+1,ktf
             DO i = i_start, i_end
               vel = fzm(k)*rv(i,k,j)+fzp(k)*rv(i,k-1,j)
-              fqy( i, k, jp1 ) = vel*flux3(             &
+              fqy3( i, k,j) = vel*flux3(             &
                    w(i,k,j-2),w(i,k,j-1),    &
                    w(i,k,j),w(i,k,j+1),vel )
             ENDDO
             ENDDO
 
             k = ktf+1
+!$acc loop vector
             DO i = i_start, i_end
               vel = (2.-fzm(k-1))*rv(i,k-1,j)-fzp(k-1)*rv(i,k-2,j)
-              fqy( i, k, jp1 ) = vel*flux3(             &
+              fqy3( i, k,j) = vel*flux3(             &
                    w(i,k,j-2),w(i,k,j-1),    &
                    w(i,k,j),w(i,k,j+1),vel )
             ENDDO
@@ -5057,38 +5183,40 @@ ELSE IF (horz_order == 5 ) THEN
         ! Same process as for advect_u - tendencies run from jds to jde-1
         ! (latitudes are as for u grid, longitudes are displaced)
         ! Therefore: flow is only from one side for points next to poles
+      ENDDO j_loop_y_flux_5_flux
+!$acc parallel loop gang
+     j_loop_y_flux_5 : DO j = j_start, j_end+1
         IF ( config_flags%polar .AND. (j == jds+1) ) THEN
+!$acc loop vector collapse(2)
           DO k=kts+1,ktf+1
           DO i = i_start, i_end
             mrdy=msftx(i,j-1)*rdy    ! see ADT eqn 46 dividing by my, 2nd term RHS
-            tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*fqy(i,k,jp1)
+            tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*fqy3(i,k,j)
           END DO
           END DO
         ELSE IF( config_flags%polar .AND. (j == jde) ) THEN
+!$acc loop vector collapse(2)
           DO k=kts+1,ktf+1
           DO i = i_start, i_end
             mrdy=msftx(i,j-1)*rdy    ! see ADT eqn 46 dividing by my, 2nd term RHS
-            tendency(i,k,j-1) = tendency(i,k,j-1) + mrdy*fqy(i,k,jp0)
+            tendency(i,k,j-1) = tendency(i,k,j-1) + mrdy*fqy3(i,k,j-1)
           END DO
           END DO
         ELSE  ! normal code
 
         IF(j > j_start) THEN
 
+!$acc loop vector collapse(2)
           DO k=kts+1,ktf+1
           DO i = i_start, i_end
             mrdy=msftx(i,j-1)*rdy    ! see ADT eqn 46 dividing by my, 2nd term RHS
-            tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*(fqy(i,k,jp1)-fqy(i,k,jp0))
+            tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*(fqy3(i,k,j)-fqy3(i,k,j-1))
           ENDDO
           ENDDO
 
        ENDIF
 
         END IF
-
-        jtmp = jp1
-        jp1 = jp0
-        jp0 = jtmp
 
       ENDDO j_loop_y_flux_5
 
@@ -5359,58 +5487,66 @@ ELSE IF ( horz_order == 4 ) THEN
         jp1 = 2
         jp0 = 1
 
+      IF (.NOT. ALLOCATED(fqy3)) ALLOCATE(fqy3(its:ite,kts:kte,jts:jte+1))   ! GPU: full-row flux (was rolling jp0/jp1)
+!$acc parallel loop gang
       DO j = j_start, j_end+1
 
        IF ((j < j_start_f) .and. degrade_ys)  THEN
+!$acc loop vector collapse(2)
           DO k = kts+1, ktf
           DO i = i_start, i_end
-            fqy(i, k, jp1) =                             &
+            fqy3(i, k,j) =                             &
                0.5*(fzm(k)*rv(i,k,j_start)+fzp(k)*rv(i,k-1,j_start))   &
                    *(w(i,k,j_start)+w(i,k,j_start-1))
           ENDDO
           ENDDO
           k = ktf+1
+!$acc loop vector
           DO i = i_start, i_end
-            fqy(i, k, jp1) =                             &
+            fqy3(i, k,j) =                             &
                0.5*((2.-fzm(k-1))*rv(i,k-1,j_start)-fzp(k-1)*rv(i,k-2,j_start))   &
                    *(w(i,k,j_start)+w(i,k,j_start-1))
           ENDDO
        ELSE IF ((j > j_end_f) .and. degrade_ye)  THEN
+!$acc loop vector collapse(2)
           DO k = kts+1, ktf
           DO i = i_start, i_end
             ! Assumes j>j_end_f is ONLY j_end+1 ...
-!            fqy(i, k, jp1) =                             &
+!            fqy3(i, k,j) =                             &
 !               0.5*(fzm(k)*rv(i,k,j_end+1)+fzp(k)*rv(i,k-1,j_end+1))     &
 !                   *(w(i,k,j_end+1)+w(i,k,j_end))
-            fqy(i, k, jp1) =                             &
+            fqy3(i, k,j) =                             &
                0.5*(fzm(k)*rv(i,k,j)+fzp(k)*rv(i,k-1,j))     &
                    *(w(i,k,j)+w(i,k,j-1))
           ENDDO
           ENDDO
           k = ktf+1
+!$acc loop vector
           DO i = i_start, i_end
             ! Assumes j>j_end_f is ONLY j_end+1 ...
-!            fqy(i, k, jp1) =                                         &
+!            fqy3(i, k,j) =                                         &
 !               0.5*((2.-fzm(k-1))*rv(i,k-1,j_end+1)-fzp(k-1)*rv(i,k-2,j_end+1))     &
 !                   *(w(i,k,j_end+1)+w(i,k,j_end))
-            fqy(i, k, jp1) =                                         &
+            fqy3(i, k,j) =                                         &
                0.5*((2.-fzm(k-1))*rv(i,k-1,j)-fzp(k-1)*rv(i,k-2,j))     &
                    *(w(i,k,j)+w(i,k,j-1))
           ENDDO
        ELSE
 !  3rd or 4th order flux
+!$acc loop vector collapse(2)
           DO k = kts+1, ktf
           DO i = i_start, i_end
             vel = fzm(k)*rv(i,k,j)+fzp(k)*rv(i,k-1,j)
-            fqy( i, k, jp1 ) = vel*flux4( w(i,k,j-2), w(i,k,j-1),  &
+            fqy3( i, k,j) = vel*flux4( w(i,k,j-2), w(i,k,j-1),  &
                                     w(i,k,j  ), w(i,k,j+1),  &
                                     vel                     )
           ENDDO
           ENDDO
           k = ktf+1
+!$acc loop vector
           DO i = i_start, i_end
             vel = (2.-fzm(k-1))*rv(i,k-1,j)-fzp(k-1)*rv(i,k-2,j)
-            fqy( i, k, jp1 ) = vel*flux4( w(i,k,j-2), w(i,k,j-1),  &
+            fqy3( i, k,j) = vel*flux4( w(i,k,j-2), w(i,k,j-1),  &
                                     w(i,k,j  ), w(i,k,j+1),  &
                                     vel                     )
           ENDDO
@@ -5422,38 +5558,40 @@ ELSE IF ( horz_order == 4 ) THEN
        ! Same process as for advect_u - tendencies run from jds to jde-1
        ! (latitudes are as for u grid, longitudes are displaced)
        ! Therefore: flow is only from one side for points next to poles
+    ENDDO
+!$acc parallel loop gang
+      DO j = j_start, j_end+1
        IF ( config_flags%polar .AND. (j == jds+1) ) THEN
+!$acc loop vector collapse(2)
          DO k=kts+1,ktf+1
          DO i = i_start, i_end
            mrdy=msftx(i,j-1)*rdy    ! see ADT eqn 46 dividing by my, 2nd term RHS
-           tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*fqy(i,k,jp1)
+           tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*fqy3(i,k,j)
          END DO
          END DO
        ELSE IF( config_flags%polar .AND. (j == jde) ) THEN
+!$acc loop vector collapse(2)
          DO k=kts+1,ktf+1
          DO i = i_start, i_end
            mrdy=msftx(i,j-1)*rdy    ! see ADT eqn 46 dividing by my, 2nd term RHS
-           tendency(i,k,j-1) = tendency(i,k,j-1) + mrdy*fqy(i,k,jp0)
+           tendency(i,k,j-1) = tendency(i,k,j-1) + mrdy*fqy3(i,k,j-1)
          END DO
          END DO
        ELSE  ! normal code
 
        IF( j > j_start ) THEN
 
+!$acc loop vector collapse(2)
           DO k = kts+1, ktf+1
           DO i = i_start, i_end
             mrdy=msftx(i,j-1)*rdy    ! see ADT eqn 46 dividing by my, 2nd term RHS
-            tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*(fqy(i,k,jp1)-fqy(i,k,jp0))
+            tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*(fqy3(i,k,j)-fqy3(i,k,j-1))
           ENDDO
           ENDDO
 
        END IF
 
        END IF
-
-       jtmp = jp1
-       jp1 = jp0
-       jp0 = jtmp
 
     ENDDO
 
@@ -5597,58 +5735,66 @@ ELSE IF ( horz_order == 3 ) THEN
         jp1 = 2
         jp0 = 1
 
+      IF (.NOT. ALLOCATED(fqy3)) ALLOCATE(fqy3(its:ite,kts:kte,jts:jte+1))   ! GPU: full-row flux (was rolling jp0/jp1)
+!$acc parallel loop gang
       DO j = j_start, j_end+1
 
        IF ((j < j_start_f) .and. degrade_ys)  THEN
+!$acc loop vector collapse(2)
           DO k = kts+1, ktf
           DO i = i_start, i_end
-            fqy(i, k, jp1) =                             &
+            fqy3(i, k,j) =                             &
                0.5*(fzm(k)*rv(i,k,j_start)+fzp(k)*rv(i,k-1,j_start))   &
                    *(w(i,k,j_start)+w(i,k,j_start-1))
           ENDDO
           ENDDO
           k = ktf+1
+!$acc loop vector
           DO i = i_start, i_end
-            fqy(i, k, jp1) =                             &
+            fqy3(i, k,j) =                             &
                0.5*((2.-fzm(k-1))*rv(i,k-1,j_start)-fzp(k-1)*rv(i,k-2,j_start))   &
                    *(w(i,k,j_start)+w(i,k,j_start-1))
           ENDDO
        ELSE IF ((j > j_end_f) .and. degrade_ye)  THEN
+!$acc loop vector collapse(2)
           DO k = kts+1, ktf
           DO i = i_start, i_end
             ! Assumes j>j_end_f is ONLY j_end+1 ...
-!            fqy(i, k, jp1) =                             &
+!            fqy3(i, k,j) =                             &
 !               0.5*(fzm(k)*rv(i,k,j_end+1)+fzp(k)*rv(i,k-1,j_end+1))     &
 !                   *(w(i,k,j_end+1)+w(i,k,j_end))
-            fqy(i, k, jp1) =                             &
+            fqy3(i, k,j) =                             &
                0.5*(fzm(k)*rv(i,k,j)+fzp(k)*rv(i,k-1,j))     &
                    *(w(i,k,j)+w(i,k,j-1))
           ENDDO
           ENDDO
           k = ktf+1
+!$acc loop vector
           DO i = i_start, i_end
             ! Assumes j>j_end_f is ONLY j_end+1 ...
-!            fqy(i, k, jp1) =                             &
+!            fqy3(i, k,j) =                             &
 !               0.5*((2.-fzm(k-1))*rv(i,k-1,j_end+1)-fzp(k-1)*rv(i,k-2,j_end+1))     &
 !                   *(w(i,k,j_end+1)+w(i,k,j_end))
-            fqy(i, k, jp1) =                             &
+            fqy3(i, k,j) =                             &
                0.5*((2.-fzm(k-1))*rv(i,k-1,j)-fzp(k-1)*rv(i,k-2,j))     &
                    *(w(i,k,j)+w(i,k,j-1))
           ENDDO
        ELSE
 !  3rd or 4th order flux
+!$acc loop vector collapse(2)
           DO k = kts+1, ktf
           DO i = i_start, i_end
             vel = fzm(k)*rv(i,k,j)+fzp(k)*rv(i,k-1,j)
-            fqy( i, k, jp1 ) = vel*flux3( w(i,k,j-2), w(i,k,j-1),  &
+            fqy3( i, k,j) = vel*flux3( w(i,k,j-2), w(i,k,j-1),  &
                                     w(i,k,j  ), w(i,k,j+1),  &
                                     vel                     )
           ENDDO
           ENDDO
           k = ktf+1
+!$acc loop vector
           DO i = i_start, i_end
             vel = (2.-fzm(k-1))*rv(i,k-1,j)-fzp(k-1)*rv(i,k-2,j)
-            fqy( i, k, jp1 ) = vel*flux3( w(i,k,j-2), w(i,k,j-1),  &
+            fqy3( i, k,j) = vel*flux3( w(i,k,j-2), w(i,k,j-1),  &
                                     w(i,k,j  ), w(i,k,j+1),  &
                                     vel                     )
           ENDDO
@@ -5660,38 +5806,40 @@ ELSE IF ( horz_order == 3 ) THEN
        ! Same process as for advect_u - tendencies run from jds to jde-1
        ! (latitudes are as for u grid, longitudes are displaced)
        ! Therefore: flow is only from one side for points next to poles
+    ENDDO
+!$acc parallel loop gang
+      DO j = j_start, j_end+1
        IF ( config_flags%polar .AND. (j == jds+1) ) THEN
+!$acc loop vector collapse(2)
          DO k=kts+1,ktf+1
          DO i = i_start, i_end
            mrdy=msftx(i,j-1)*rdy    ! see ADT eqn 46 dividing by my, 2nd term RHS
-           tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*fqy(i,k,jp1)
+           tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*fqy3(i,k,j)
          END DO
          END DO
        ELSE IF( config_flags%polar .AND. (j == jde) ) THEN
+!$acc loop vector collapse(2)
          DO k=kts+1,ktf+1
          DO i = i_start, i_end
            mrdy=msftx(i,j-1)*rdy    ! see ADT eqn 46 dividing by my, 2nd term RHS
-           tendency(i,k,j-1) = tendency(i,k,j-1) + mrdy*fqy(i,k,jp0)
+           tendency(i,k,j-1) = tendency(i,k,j-1) + mrdy*fqy3(i,k,j-1)
          END DO
          END DO
        ELSE  ! normal code
 
        IF( j > j_start ) THEN
 
+!$acc loop vector collapse(2)
           DO k = kts+1, ktf+1
           DO i = i_start, i_end
             mrdy=msftx(i,j-1)*rdy    ! see ADT eqn 46 dividing by my, 2nd term RHS
-            tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*(fqy(i,k,jp1)-fqy(i,k,jp0))
+            tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*(fqy3(i,k,j)-fqy3(i,k,j-1))
           ENDDO
           ENDDO
 
        END IF
 
        END IF
-
-       jtmp = jp1
-       jp1 = jp0
-       jp0 = jtmp
 
     ENDDO
 
