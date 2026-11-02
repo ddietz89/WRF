@@ -51,7 +51,7 @@ CONTAINS
 
 !     Local array
 
-      REAL,  DIMENSION( its:ite , jts:jte ) :: mu_old
+      REAL :: muold   ! GPU: per-point scalar replaces the local mu_old(i,j) array (same values, no shared write)
       LOGICAL    :: periodic_x
 
       periodic_x = config_flags%periodic_x
@@ -79,18 +79,20 @@ CONTAINS
 
       IF (jts - jbs .lt. spec_zone) THEN
 ! Y-start boundary
+!$acc parallel loop gang private(b_dist,b_limit)
         DO j = jts, min(jtf,jbs+spec_zone-1)
           b_dist = j - jbs
           b_limit = b_dist
           IF(periodic_x)b_limit = 0
+!$acc loop vector collapse(2)
           DO k = kts, ktf
             DO i = max(its,b_limit+ibs), min(itf,ibe-b_limit)
 
-              MU_OLD(i,j) = MUTS(i,j) - dt*MU_TEND(i,j)
+              muold = MUTS(i,j) - dt*MU_TEND(i,j)
 
-              field(i,k,j) = field(i,k,j)*(c1(k)*mu_old(i,j)+c2(k))/(c1(k)*muts(i,j)+c2(k)) + &
+              field(i,k,j) = field(i,k,j)*(c1(k)*muold+c2(k))/(c1(k)*muts(i,j)+c2(k)) + &
                    dt*field_tend(i,k,j)/(c1(k)*muts(i,j)+c2(k)) +               &
-                   ph_save(i,k,j)*((c1(k)*mu_old(i,j)+c2(k))/(c1(k)*muts(i,j)+c2(k)) - 1.)
+                   ph_save(i,k,j)*((c1(k)*muold+c2(k))/(c1(k)*muts(i,j)+c2(k)) - 1.)
 
             ENDDO
           ENDDO
@@ -98,18 +100,20 @@ CONTAINS
       ENDIF
       IF (jbe - jtf .lt. spec_zone) THEN
 ! Y-end boundary
+!$acc parallel loop gang private(b_dist,b_limit)
         DO j = max(jts,jbe-spec_zone+1), jtf
           b_dist = jbe - j
           b_limit = b_dist
           IF(periodic_x)b_limit = 0
+!$acc loop vector collapse(2)
           DO k = kts, ktf
             DO i = max(its,b_limit+ibs), min(itf,ibe-b_limit)
 
-              MU_OLD(i,j) = MUTS(i,j) - dt*MU_TEND(i,j)
+              muold = MUTS(i,j) - dt*MU_TEND(i,j)
 
-              field(i,k,j) = field(i,k,j)*(c1(k)*mu_old(i,j)+c2(k))/(c1(k)*muts(i,j)+c2(k)) + &
+              field(i,k,j) = field(i,k,j)*(c1(k)*muold+c2(k))/(c1(k)*muts(i,j)+c2(k)) + &
                    dt*field_tend(i,k,j)/(c1(k)*muts(i,j)+c2(k)) +               &
-                   ph_save(i,k,j)*((c1(k)*mu_old(i,j)+c2(k))/(c1(k)*muts(i,j)+c2(k)) - 1.)
+                   ph_save(i,k,j)*((c1(k)*muold+c2(k))/(c1(k)*muts(i,j)+c2(k)) - 1.)
 
             ENDDO
           ENDDO
@@ -119,16 +123,18 @@ CONTAINS
     IF(.NOT.periodic_x)THEN
       IF (its - ibs .lt. spec_zone) THEN
 ! X-start boundary
+!$acc parallel loop gang private(b_dist,b_limit)
         DO i = its, min(itf,ibs+spec_zone-1)
           b_dist = i - ibs
+!$acc loop vector collapse(2)
           DO k = kts, ktf
             DO j = max(jts,b_dist+jbs+1), min(jtf,jbe-b_dist-1)
 
-              MU_OLD(i,j) = MUTS(i,j) - dt*MU_TEND(i,j)
+              muold = MUTS(i,j) - dt*MU_TEND(i,j)
 
-              field(i,k,j) = field(i,k,j)*(c1(k)*mu_old(i,j)+c2(k))/(c1(k)*muts(i,j)+c2(k)) + &
+              field(i,k,j) = field(i,k,j)*(c1(k)*muold+c2(k))/(c1(k)*muts(i,j)+c2(k)) + &
                    dt*field_tend(i,k,j)/(c1(k)*muts(i,j)+c2(k)) +               &
-                   ph_save(i,k,j)*((c1(k)*mu_old(i,j)+c2(k))/(c1(k)*muts(i,j)+c2(k)) - 1.)
+                   ph_save(i,k,j)*((c1(k)*muold+c2(k))/(c1(k)*muts(i,j)+c2(k)) - 1.)
 
             ENDDO
           ENDDO
@@ -137,16 +143,18 @@ CONTAINS
 
       IF (ibe - itf .lt. spec_zone) THEN
 ! X-end boundary
+!$acc parallel loop gang private(b_dist,b_limit)
         DO i = max(its,ibe-spec_zone+1), itf
           b_dist = ibe - i
+!$acc loop vector collapse(2)
           DO k = kts, ktf
             DO j = max(jts,b_dist+jbs+1), min(jtf,jbe-b_dist-1)
 
-              MU_OLD(i,j) = MUTS(i,j) - dt*MU_TEND(i,j)
+              muold = MUTS(i,j) - dt*MU_TEND(i,j)
 
-              field(i,k,j) = field(i,k,j)*(c1(k)*mu_old(i,j)+c2(k))/(c1(k)*muts(i,j)+c2(k)) + &
+              field(i,k,j) = field(i,k,j)*(c1(k)*muold+c2(k))/(c1(k)*muts(i,j)+c2(k)) + &
                    dt*field_tend(i,k,j)/(c1(k)*muts(i,j)+c2(k)) +               &
-                   ph_save(i,k,j)*((c1(k)*mu_old(i,j)+c2(k))/(c1(k)*muts(i,j)+c2(k)) - 1.)
+                   ph_save(i,k,j)*((c1(k)*muold+c2(k))/(c1(k)*muts(i,j)+c2(k)) - 1.)
 
             ENDDO
           ENDDO
