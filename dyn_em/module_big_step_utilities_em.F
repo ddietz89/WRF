@@ -75,6 +75,7 @@ SUBROUTINE calc_mu_uv ( config_flags,                 &
          i=its
          im = its
          if(config_flags%periodic_x) im = its-1
+!$acc parallel loop gang
          DO j=jts,jtf
 !            MUU(i,j) =      MU(i,j)          +MUB(i,j)
 !  fix for periodic b.c., 13 march 2004, wcs
@@ -90,6 +91,7 @@ SUBROUTINE calc_mu_uv ( config_flags,                 &
          i=ite
          im = ite-1
          if(config_flags%periodic_x) im = ite
+!$acc parallel loop gang
          DO j=jts,jtf
 !            MUU(i,j) =      MU(i-1,j)        +MUB(i-1,j)
 !  fix for periodic b.c., 13 march 2004, wcs
@@ -105,6 +107,7 @@ SUBROUTINE calc_mu_uv ( config_flags,                 &
          i=its
          im = its
          if(config_flags%periodic_x) im = its-1
+!$acc parallel loop gang
          DO j=jts,jtf
 !            MUU(i,j) =      MU(i,j)          +MUB(i,j)
 !  fix for periodic b.c., 13 march 2004, wcs
@@ -113,6 +116,7 @@ SUBROUTINE calc_mu_uv ( config_flags,                 &
          i=ite
          im = ite-1
          if(config_flags%periodic_x) im = ite
+!$acc parallel loop gang
          DO j=jts,jtf
 !            MUU(i,j) =      MU(i-1,j)        +MUB(i-1,j)
 !  fix for periodic b.c., 13 march 2004, wcs
@@ -240,6 +244,7 @@ SUBROUTINE calc_mu_uv_1 ( config_flags,                 &
          i=its
          im = its
          if(config_flags%periodic_x) im = its-1
+!$acc parallel loop gang
          DO j=jts,jtf
             MUU(i,j) = 0.5*(MU(i,j)+MU(im,j))
          ENDDO
@@ -253,6 +258,7 @@ SUBROUTINE calc_mu_uv_1 ( config_flags,                 &
          i=ite
          im = ite-1
          if(config_flags%periodic_x) im = ite
+!$acc parallel loop gang
          DO j=jts,jtf
             MUU(i,j) = 0.5*(MU(i-1,j)+MU(im,j))
          ENDDO
@@ -266,12 +272,14 @@ SUBROUTINE calc_mu_uv_1 ( config_flags,                 &
          i=its
          im = its
          if(config_flags%periodic_x) im = its-1
+!$acc parallel loop gang
          DO j=jts,jtf
             MUU(i,j) = 0.5*(MU(i,j)+MU(im,j))
          ENDDO
          i=ite
          im = ite-1
          if(config_flags%periodic_x) im = ite
+!$acc parallel loop gang
          DO j=jts,jtf
             MUU(i,j) = 0.5*(MU(i-1,j)+MU(im,j))
          ENDDO
@@ -464,6 +472,7 @@ SUBROUTINE calc_mu_staggered ( mu, mub, muu, muv,            &
          ENDDO
          ENDDO
          i=its
+!$acc parallel loop gang
          DO j=jts,jtf
             MUU(i,j) =      MU(i,j)          +MUB(i,j)
          ENDDO
@@ -475,6 +484,7 @@ SUBROUTINE calc_mu_staggered ( mu, mub, muu, muv,            &
          ENDDO
          ENDDO
          i=ite
+!$acc parallel loop gang
          DO j=jts,jtf
             MUU(i,j) =      MU(i-1,j)        +MUB(i-1,j)
          ENDDO
@@ -486,10 +496,12 @@ SUBROUTINE calc_mu_staggered ( mu, mub, muu, muv,            &
          ENDDO
          ENDDO
          i=its
+!$acc parallel loop gang
          DO j=jts,jtf
             MUU(i,j) =      MU(i,j)          +MUB(i,j)
          ENDDO
          i=ite
+!$acc parallel loop gang
          DO j=jts,jtf
             MUU(i,j) =      MU(i-1,j)        +MUB(i-1,j)
          ENDDO
@@ -741,8 +753,10 @@ SUBROUTINE calc_ww_cp ( u, v, mup, mub, c1h, c2h, ww,    &
       ENDDO
       ENDDO
 
+!$acc parallel loop gang private(divv,dmdt)
       DO j=jts,jtf
 
+!$acc loop vector
         DO i=its,ite
           dmdt(i) = 0.
           ww(i,1,j) = 0.
@@ -775,6 +789,7 @@ SUBROUTINE calc_ww_cp ( u, v, mup, mub, c1h, c2h, ww,    &
 !       where
 !         divv=mx*[partial d/dx(mu u/my) + partial d/dy(mu v/mx)]*delta nu
 
+!$acc loop vector collapse(2)
         DO k=kts,ktf
         DO i=its,itf
 
@@ -798,7 +813,9 @@ SUBROUTINE calc_ww_cp ( u, v, mup, mub, c1h, c2h, ww,    &
 !       ww [k+1] = ww [k] -(1/my) partial d mu/dt * dnu[k->k+1] - divv[k]
 !                = ww [k] -dmdt * dnw[k] - divv[k]
 
+!$acc loop seq
         DO k=2,ktf
+!$acc loop vector
         DO i=its,itf
 
 !           ww(i,k,j)=ww(i,k-1,j)                                       &
@@ -1189,9 +1206,11 @@ SUBROUTINE calc_p_rho_phi ( moist, n_moist, hypsometric_opt,      &
 
       ELSE moist_hydro
 
+!$acc parallel loop gang
         DO j=jts,jtf
 
           k=ktf          ! top layer
+!$acc loop vector
           DO i=its,itf
 
             qtot = 0.
@@ -1204,7 +1223,9 @@ SUBROUTINE calc_p_rho_phi ( moist, n_moist, hypsometric_opt,      &
 
           ENDDO
 
+!$acc loop seq
           DO k=ktf-1,kts,-1  ! remaining layers, integrate down
+!$acc loop vector
             DO i=its,itf
 
             qtot = 0.
@@ -1236,12 +1257,16 @@ SUBROUTINE calc_p_rho_phi ( moist, n_moist, hypsometric_opt,      &
 
      ! Revised hypsometric eq.: dZ=-al*p*dLOG(p), where p is dry pressure
 
+!$acc parallel loop gang
       DO j=jts,jtf
+!$acc loop vector
         DO i=its,itf
            ph(i,kts,j) = phb(i,kts,j)
         END DO
 
+!$acc loop seq
         DO k=kts+1,ktf+1
+!$acc loop vector
           DO i=its,itf
             pfu = c3f(k  )*MUTS(i,j) + c4f(k  ) + ptop
             pfd = c3f(k-1)*MUTS(i,j) + c4f(k-1) + ptop
@@ -1250,6 +1275,7 @@ SUBROUTINE calc_p_rho_phi ( moist, n_moist, hypsometric_opt,      &
           ENDDO
         ENDDO
 
+!$acc loop vector collapse(2)
         DO k=kts,ktf+1
           DO i=its,itf
              ph(i,k,j) = ph(i,k,j) - phb(i,k,j)
@@ -1351,6 +1377,7 @@ SUBROUTINE diagnose_w( ph_tend, ph_new, ph_old, w, mut,     &
 !
 !</DESCRIPTION>
 
+!$acc parallel loop gang
    DO j = jts, jtf
 
 !  lower b.c. on w
@@ -1368,6 +1395,7 @@ SUBROUTINE diagnose_w( ph_tend, ph_new, ph_old, w, mut,     &
 
 !  Previously msft multiplied by rdy and rdx terms.
 !  Now msfty multiplies rdy term, and msftx multiplies msftx term
+!$acc loop vector
      DO i = its, itf
          w(i,1,j)=  msfty(i,j)*.5*rdy*(                      &
                            (ht(i,j+1)-ht(i,j  ))             &
@@ -1390,6 +1418,7 @@ SUBROUTINE diagnose_w( ph_tend, ph_new, ph_old, w, mut,     &
 !  then phi eqn is: partial d/dt(mu phi/my) = ph_tend + mu g w/my
 !    => w = [my/(mu*g)]*[partial d/dt(mu phi/my) - ph_tend]
 
+!$acc loop vector collapse(2)
      DO k = 2, kte
      DO i = its, itf
        w(i,k,j) =  msfty(i,j)*(  (ph_new(i,k,j)-ph_old(i,k,j))/dt       &
@@ -1498,17 +1527,20 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
 
    !  RHS term 3 is: - omega partial d/dnu(phi)
 
+!$acc parallel loop gang private(wdwn)
    DO j = jts, jtf
       IF (config_flags%phi_adv_z == 2) THEN
          !  First get staggered partial d/dnu(phi) and then multiply with omega
          !  to avoid double staggering of omega
 
+!$acc loop vector collapse(2)
          DO k = 2, kte
          DO i = its, itf
               wdwn(i,k) = rdnw(k-1)*(ph(i,k,j)-ph(i,k-1,j)+phb(i,k,j)-phb(i,k-1,j))
          ENDDO
          ENDDO
 
+!$acc loop vector collapse(2)
          DO k = 2, kte-1
          DO i = its, itf
               ph_tend(i,k,j) = ph_tend(i,k,j)                           &
@@ -1518,6 +1550,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
       ELSE
          !  First destagger omega and multiply with partial d/dnu(phi), then stagger the product
 
+!$acc loop vector collapse(2)
          DO k = 2, kte
          DO i = its, itf
               wdwn(i,k) = .5*(ww(i,k,j)+ww(i,k-1,j))*rdnw(k-1)               &
@@ -1525,6 +1558,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
          ENDDO
          ENDDO
 
+!$acc loop vector collapse(2)
          DO k = 2, kte-1
          DO i = its, itf
                ph_tend(i,k,j) = ph_tend(i,k,j)                           &
@@ -1536,12 +1570,15 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
    ENDDO
 
    IF (non_hydrostatic) THEN  ! add in "gw" term.
+!$acc parallel loop gang
    DO j = jts, jtf            ! in hydrostatic mode, "gw" will be diagnosed
                               ! after the timestep to give us "w"
+!$acc loop vector
      DO i = its, itf
         ph_tend(i,kde,j) = 0.
      ENDDO
 
+!$acc loop vector collapse(2)
      DO k = 2, kte
      DO i = its, itf
         ! phi equation RHS term 4
@@ -1569,8 +1606,10 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
    IF ( (config_flags%open_ys .or. specified) .and. jts == jds ) j_start = jts+1
    IF ( (config_flags%open_ye .or. specified) .and. jte == jde ) jtf = jte-2
 
+!$acc parallel loop gang
    DO j = j_start, jtf
 
+!$acc loop vector collapse(2)
      DO k = 2, kte-1
      DO i = i_start, itf
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.25*rdy/msfty(i,j))*          &
@@ -1582,6 +1621,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
      ENDDO
 
      k = kte
+!$acc loop vector
      DO i = i_start, itf
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.5*rdy/msfty(i,j))*                        &
                   ( (c1f(k)*muvf(i,j+1)+c2f(k))*(cfn*v(i,k-1,j+1)+cfn1*v(i,k-2,j+1))*msfvy(i,j+1)*    &
@@ -1602,8 +1642,10 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
    IF ( (config_flags%open_xs .or. specified) .and. its == ids ) i_start = its+1
    IF ( (config_flags%open_xe .or. specified) .and. ite == ide ) itf = ite-2
 
+!$acc parallel loop gang
    DO j = j_start, jtf
 
+!$acc loop vector collapse(2)
      DO k = 2, kte-1
      DO i = i_start, itf
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.25*rdx/msfty(i,j))*         &
@@ -1615,6 +1657,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
      ENDDO
 
      k = kte
+!$acc loop vector
      DO i = i_start, itf
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.5*rdx/msfty(i,j))*                        &
                   ( (c1f(k)*muuf(i+1,j)+c2f(k))*(cfn*u(i+1,k-1,j)+cfn1*u(i+1,k-2,j))*msfux(i+1,j)*    &
@@ -1637,8 +1680,10 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
    IF ( (config_flags%open_ys .or. specified) .and. jts == jds ) j_start = jts+2
    IF ( (config_flags%open_ye .or. specified) .and. jte == jde ) jtf = jte-3
 
+!$acc parallel loop gang
    DO j = j_start, jtf
 
+!$acc loop vector collapse(2)
      DO k = 2, kte-1
      DO i = i_start, itf
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.25*rdy/msfty(i,j))*(                     &
@@ -1654,6 +1699,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
      ENDDO
 
      k = kte
+!$acc loop vector
      DO i = i_start, itf
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.5*rdy/msfty(i,j))*(                                 &
                  ( (c1f(k)*muvf(i,j+1)+c2f(k))*(cfn*v(i,k-1,j+1)+cfn1*v(i,k-2,j+1))*msfvy(i,j+1)                &
@@ -1727,8 +1773,10 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
    IF ( (config_flags%open_xs) .and. its == ids ) i_start = its+2
    IF ( (config_flags%open_xe) .and. ite == ide ) itf = ite-3
 
+!$acc parallel loop gang
    DO j = j_start, jtf
 
+!$acc loop vector collapse(2)
      DO k = 2, kte-1
      DO i = i_start, itf
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.25*rdx/msfty(i,j))*(                    &
@@ -1742,6 +1790,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
      ENDDO
 
      k = kte
+!$acc loop vector
      DO i = i_start, itf
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.5*rdx/msfty(i,j))*(                                 &
                  ( (c1f(k)*muuf(i+1,j)+c2f(k))*(cfn*u(i+1,k-1,j)+cfn1*u(i+1,k-2,j))*msfux(i+1,j)                &
@@ -1760,7 +1809,9 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
 
      i = ids + 1
 
+!$acc parallel loop gang
      DO j = j_start, jtf
+!$acc loop vector
      DO k = 2, kte-1
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.25*rdx/msfty(i,j))*         &
                  ( (c1f(k)*muuf(i+1,j)+c2f(k))*(u(i+1,k,j)+u(i+1,k-1,j))*msfux(i+1,j)*  &
@@ -1771,6 +1822,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
      ENDDO
 
      k = kte
+!$acc parallel loop gang
      DO j = j_start, jtf
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.5*rdx/msfty(i,j))*                        &
                   ( (c1f(k)*muuf(i+1,j)+c2f(k))*(cfn*u(i+1,k-1,j)+cfn1*u(i+1,k-2,j))*msfux(i+1,j)*    &
@@ -1784,7 +1836,9 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
    IF ( (config_flags%open_xe .or. specified) .and. ite >= ide-2 ) THEN
 
      i = ide-2
+!$acc parallel loop gang
      DO j = j_start, jtf
+!$acc loop vector
      DO k = 2, kte-1
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.25*rdx/msfty(i,j))*         &
                  ( (c1f(k)*muuf(i+1,j)+c2f(k))*(u(i+1,k,j)+u(i+1,k-1,j))*msfux(i+1,j)*  &
@@ -1795,6 +1849,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
      ENDDO
 
      k = kte
+!$acc parallel loop gang
      DO j = j_start, jtf
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.5*rdx/msfty(i,j))*                        &
                   ( (c1f(k)*muuf(i+1,j)+c2f(k))*(cfn*u(i+1,k-1,j)+cfn1*u(i+1,k-2,j))*msfux(i+1,j)*    &
@@ -1822,8 +1877,10 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
    IF (config_flags%open_ys .or. specified ) j_start = max(jts,jds+3)
    IF (config_flags%open_ye .or. specified ) jtf     = min(jtf,jde-4)
 
+!$acc parallel loop gang
    DO j = j_start, jtf
 
+!$acc loop vector collapse(2)
      DO k = 2, kte-1
      DO i = i_start, itf
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.25*rdy/msfty(i,j))* (                    &
@@ -1841,6 +1898,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
      ENDDO
 
      k = kte
+!$acc loop vector
      DO i = i_start, itf
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.5*rdy/msfty(i,j))* (                                &
                  ( (c1f(k)*muvf(i,j+1)+c2f(k))*(cfn*v(i,k-1,j+1)+cfn1*v(i,k-2,j+1))*msfvy(i,j+1)                &
@@ -1979,8 +2037,10 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
    IF (config_flags%open_xs .or. specified ) i_start = max(its,ids+3)
    IF (config_flags%open_xe .or. specified ) itf     = min(itf,ide-4)
 
+!$acc parallel loop gang
    DO j = j_start, jtf
 
+!$acc loop vector collapse(2)
      DO k = 2, kte-1
      DO i = i_start, itf
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.25*rdx/msfty(i,j))*(                   &
@@ -1996,6 +2056,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
      ENDDO
 
      k = kte
+!$acc loop vector
      DO i = i_start, itf
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.5*rdx/msfty(i,j))*(                             &
                  ( (c1f(k)*muuf(i+1,j)+c2f(k))*(cfn*u(i+1,k-1,j)+cfn1*u(i+1,k-2,j))*msfux(i+1,j)            &
@@ -2014,7 +2075,9 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
 
    IF ( (config_flags%open_xs) .and. its <= ids+2 .and. ids+2 <= ite ) THEN
      i = ids + 2
+!$acc parallel loop gang
      DO j = j_start, jtf
+!$acc loop vector
        DO k = 2, kte-1
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.25*rdx/msfty(i,j))*(                   &
                  ( (c1f(k)*muuf(i+1,j)+c2f(k))*(u(i+1,k,j)+u(i+1,k-1,j))*msfux(i+1,j)              &
@@ -2038,7 +2101,9 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
 
    IF ( (config_flags%open_xe) .and. its <= ide-3 .and. ide-3 <= ite ) THEN
      i = ide-3
+!$acc parallel loop gang
      DO j = j_start, jtf
+!$acc loop vector
        DO k = 2, kte-1
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.25*rdx/msfty(i,j))*(                   &
                  ( (c1f(k)*muuf(i+1,j)+c2f(k))*(u(i+1,k,j)+u(i+1,k-1,j))*msfux(i+1,j)              &
@@ -2066,7 +2131,9 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
 
      i = ids + 1
 
+!$acc parallel loop gang
      DO j = j_start, jtf
+!$acc loop vector
      DO k = 2, kte-1
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.25*rdx/msfty(i,j))*         &
                  ( (c1f(k)*muuf(i+1,j)+c2f(k))*(u(i+1,k,j)+u(i+1,k-1,j))*msfux(i+1,j)*  &
@@ -2077,6 +2144,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
      ENDDO
 
      k = kte
+!$acc parallel loop gang
      DO j = j_start, jtf
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.5*rdx/msfty(i,j))*                        &
                   ( (c1f(k)*muuf(i+1,j)+c2f(k))*(cfn*u(i+1,k-1,j)+cfn1*u(i+1,k-2,j))*msfux(i+1,j)*    &
@@ -2090,7 +2158,9 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
    IF ( (config_flags%open_xe .or. specified) .and. its <= ide-2 .and. ide-2 <= ite ) THEN
 
      i = ide-2
+!$acc parallel loop gang
      DO j = j_start, jtf
+!$acc loop vector
      DO k = 2, kte-1
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.25*rdx/msfty(i,j))*         &
                  ( (c1f(k)*muuf(i+1,j)+c2f(k))*(u(i+1,k,j)+u(i+1,k-1,j))*msfux(i+1,j)*  &
@@ -2101,6 +2171,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
      ENDDO
 
      k = kte
+!$acc parallel loop gang
      DO j = j_start, jtf
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.5*rdx/msfty(i,j))*                        &
                   ( (c1f(k)*muuf(i+1,j)+c2f(k))*(cfn*u(i+1,k-1,j)+cfn1*u(i+1,k-2,j))*msfux(i+1,j)*    &
@@ -2168,7 +2239,9 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
 
      i=its
 
+!$acc parallel loop gang
      DO j = jts,jtf
+!$acc loop vector
        DO k=2,kde-1
          kz = k
          ub =.5*( fnm(kz)*(u(i+1,kz  ,j)+u(i  ,kz  ,j))     &
@@ -2195,7 +2268,9 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
 
      i = ite-1
 
+!$acc parallel loop gang
      DO j = jts,jtf
+!$acc loop vector
        DO k=2,kde-1
         kz = k
         ub=.5*( fnm(kz)*(u(i+1,kz  ,j)+u(i,kz  ,j))  &
@@ -2318,12 +2393,14 @@ SUBROUTINE horizontal_pressure_gradient( ru_tend,rv_tend,                &
    IF ( (config_flags%open_ye .or. specified .or. &
          config_flags%nested .or. config_flags%polar ) .and. jte == jde ) jtf = jtf-1
 
+!$acc parallel loop gang private(dpn)
    DO j = j_start, jtf
 
      IF ( non_hydrostatic )  THEN
 
         k=1
 
+!$acc loop vector
         DO i = i_start, itf
           dpn(i,k) = .5*( cf1*(p(i,k  ,j-1)+p(i,k  ,j))   &
                          +cf2*(p(i,k+1,j-1)+p(i,k+1,j))   &
@@ -2331,12 +2408,14 @@ SUBROUTINE horizontal_pressure_gradient( ru_tend,rv_tend,                &
           dpn(i,kde) = 0.
         ENDDO
         IF (top_lid) THEN
+!$acc loop vector
           DO i = i_start, itf
             dpn(i,kde) = .5*( cfn *(p(i,kde-1,j-1)+p(i,kde-1,j))   &
                              +cfn1*(p(i,kde-2,j-1)+p(i,kde-2,j)) )
           ENDDO
         ENDIF
                
+!$acc loop vector collapse(2)
         DO k=2,ktf
           DO i = i_start, itf
             dpn(i,k) = .5*( fnm(k)*(p(i,k  ,j-1)+p(i,k  ,j))  &
@@ -2346,6 +2425,7 @@ SUBROUTINE horizontal_pressure_gradient( ru_tend,rv_tend,                &
 
 !       ADT eqn 45: -mu*(my/mx)*(1/rho)*partial dp/dy
 !       [alt, al are 1/rho terms; muv, mu are NOT coupled]
+!$acc loop vector collapse(2)
         DO K=1,ktf
           DO i = i_start, itf
             ! Here are mu dp/dy terms 1-3
@@ -2364,6 +2444,7 @@ SUBROUTINE horizontal_pressure_gradient( ru_tend,rv_tend,                &
 
 !       ADT eqn 45: -mu*(my/mx)*(1/rho)*partial dp/dy
 !       [alt, al are 1/rho terms; muv, mu are NOT coupled]
+!$acc loop vector collapse(2)
         DO K=1,ktf
           DO i = i_start, itf
             ! Here are mu dp/dy terms 1-3; term 4 not needed if hydrostatic
@@ -2393,12 +2474,14 @@ SUBROUTINE horizontal_pressure_gradient( ru_tend,rv_tend,                &
    IF ( config_flags%periodic_x ) i_start = its
    IF ( config_flags%periodic_x ) itf=ite
 
+!$acc parallel loop gang private(dpn)
    DO j = j_start, jtf
 
      IF ( non_hydrostatic )  THEN
 
         k=1
 
+!$acc loop vector
         DO i = i_start, itf
           dpn(i,k) = .5*( cf1*(p(i-1,k  ,j)+p(i,k  ,j))   &
                          +cf2*(p(i-1,k+1,j)+p(i,k+1,j))   &
@@ -2406,12 +2489,14 @@ SUBROUTINE horizontal_pressure_gradient( ru_tend,rv_tend,                &
           dpn(i,kde) = 0.
         ENDDO
         IF (top_lid) THEN
+!$acc loop vector
           DO i = i_start, itf
             dpn(i,kde) = .5*( cfn *(p(i-1,kde-1,j)+p(i,kde-1,j))   &
                              +cfn1*(p(i-1,kde-2,j)+p(i,kde-2,j)) )
           ENDDO
         ENDIF
                
+!$acc loop vector collapse(2)
         DO k=2,ktf
           DO i = i_start, itf
             dpn(i,k) = .5*( fnm(k)*(p(i-1,k  ,j)+p(i,k  ,j))  &
@@ -2421,6 +2506,7 @@ SUBROUTINE horizontal_pressure_gradient( ru_tend,rv_tend,                &
 
 ! ADT eqn 44: -mu*(mx/my)*(1/rho)*partial dp/dx
 ! [alt, al are 1/rho terms; muu, mu are NOT coupled]
+!$acc loop vector collapse(2)
         DO K=1,ktf
           DO i = i_start, itf
             ! Here are mu dp/dy terms 1-3
@@ -2439,6 +2525,7 @@ SUBROUTINE horizontal_pressure_gradient( ru_tend,rv_tend,                &
 
 !       ADT eqn 44: -mu*(mx/my)*(1/rho)*partial dp/dx
 !       [alt, al are 1/rho terms; muu, mu are NOT coupled]
+!$acc loop vector collapse(2)
         DO K=1,ktf
           DO i = i_start, itf
             ! Here are mu dp/dy terms 1-3; term 4 not needed if hydrostatic
@@ -2513,9 +2600,11 @@ SUBROUTINE pg_buoy_w( rw_tend, p, cqw, muf, mubf,     &
    itf=MIN(ite,ide-1)
    jtf=MIN(jte,jde-1)
 
+!$acc parallel loop gang
    DO j = jts,jtf
 
      k=kde
+!$acc loop vector
      DO i=its,itf
        cq1 = 1./(1.+cqw(i,k-1,j))
        cq2 = cqw(i,k-1,j)*cq1
@@ -2524,6 +2613,7 @@ SUBROUTINE pg_buoy_w( rw_tend, p, cqw, muf, mubf,     &
                         -(c1f(k)*muf(i,j))-cq2*(c1f(k)*mubf(i,j)+c2f(k))            )
      END DO
 
+!$acc loop vector collapse(2)
      DO k = 2, kde-1
      DO i = its,itf
       cq1 = 1./(1.+cqw(i,k,j))
@@ -3174,18 +3264,22 @@ SUBROUTINE vertical_diffusion ( name, field, tendency,        &
    j_start = jts
    j_end   = MIN(jte,jde-1)
 
+!$acc parallel loop gang private(vflux)
 j_loop_w : DO j = j_start, j_end
 
+!$acc loop vector collapse(2)
      DO k=kts,ktf-1
        DO i = i_start, i_end
           vflux(i,k)= (kvdif/alt(i,k,j))*rdnw(k)*(field(i,k+1,j)-field(i,k,j))
        ENDDO
      ENDDO
 
+!$acc loop vector
      DO i = i_start, i_end
        vflux(i,ktf)=0.
      ENDDO
 
+!$acc loop vector collapse(2)
      DO k=kts+1,ktf
        DO i = i_start, i_end
             tendency(i,k,j)=tendency(i,k,j)                                         &
@@ -3203,8 +3297,10 @@ j_loop_w : DO j = j_start, j_end
      j_start = jts
      j_end   = MIN(jte,jde-1)
 
+!$acc parallel loop gang private(vflux)
 j_loop_s : DO j = j_start, j_end
 
+!$acc loop vector collapse(2)
      DO k=kts,ktf-1
        DO i = i_start, i_end
          vflux(i,k)=kvdif*rdn(k+1)/(0.5*(alt(i,k,j)+alt(i,k+1,j)))   &
@@ -3212,14 +3308,17 @@ j_loop_s : DO j = j_start, j_end
        ENDDO
      ENDDO
 
+!$acc loop vector
      DO i = i_start, i_end
        vflux(i,0)=vflux(i,1)
      ENDDO
 
+!$acc loop vector
      DO i = i_start, i_end
        vflux(i,ktf)=0.
      ENDDO
 
+!$acc loop vector collapse(2)
      DO k=kts,ktf
        DO i = i_start, i_end
          tendency(i,k,j)=tendency(i,k,j)+g*g/(c1(k)*MUT(i,j)+c2(k))/alt(i,k,j)  &
@@ -3299,8 +3398,10 @@ SUBROUTINE vertical_diffusion_mp ( field, tendency, config_flags, &
      j_start = jts
      j_end   = MIN(jte,jde-1)
 
+!$acc parallel loop gang private(vflux)
 j_loop_s : DO j = j_start, j_end
 
+!$acc loop vector collapse(2)
      DO k=kts,ktf-1
        DO i = i_start, i_end
          vflux(i,k)=kvdif*rdn(k+1)/(0.5*(alt(i,k,j)+alt(i,k+1,j)))   &
@@ -3308,14 +3409,17 @@ j_loop_s : DO j = j_start, j_end
        ENDDO
      ENDDO
 
+!$acc loop vector
      DO i = i_start, i_end
        vflux(i,0)=vflux(i,1)
      ENDDO
 
+!$acc loop vector
      DO i = i_start, i_end
        vflux(i,ktf)=0.
      ENDDO
 
+!$acc loop vector collapse(2)
      DO k=kts,ktf
        DO i = i_start, i_end
          tendency(i,k,j)=tendency(i,k,j)+g*g/(c1(k)*MUT(i,j)+c2(k))/alt(i,k,j)  &
@@ -3393,8 +3497,10 @@ SUBROUTINE vertical_diffusion_3dmp ( field, tendency, config_flags, &
      j_start = jts
      j_end   = MIN(jte,jde-1)
 
+!$acc parallel loop gang private(vflux)
 j_loop_s : DO j = j_start, j_end
 
+!$acc loop vector collapse(2)
      DO k=kts,ktf-1
        DO i = i_start, i_end
          vflux(i,k)=kvdif*rdn(k+1)/(0.5*(alt(i,k,j)+alt(i,k+1,j)))   &
@@ -3403,14 +3509,17 @@ j_loop_s : DO j = j_start, j_end
        ENDDO
      ENDDO
 
+!$acc loop vector
      DO i = i_start, i_end
        vflux(i,0)=vflux(i,1)
      ENDDO
 
+!$acc loop vector
      DO i = i_start, i_end
        vflux(i,ktf)=0.
      ENDDO
 
+!$acc loop vector collapse(2)
      DO k=kts,ktf
        DO i = i_start, i_end
          tendency(i,k,j)=tendency(i,k,j)+g*g/(c1(k)*MUT(i,j)+c2(k))/alt(i,k,j)  &
@@ -3493,8 +3602,10 @@ SUBROUTINE vertical_diffusion_u ( field, tendency,              &
       IF ( config_flags%periodic_x ) i_end = ite
 
 
+!$acc parallel loop gang private(vflux)
 j_loop_u : DO j = j_start, j_end
 
+!$acc loop vector collapse(2)
      DO k=kts,ktf-1
        DO i = i_start, i_end
          vflux(i,k)=kvdif*rdn(k+1)/(0.25*( alt(i  ,k  ,j)      &
@@ -3506,14 +3617,17 @@ j_loop_u : DO j = j_start, j_end
        ENDDO
      ENDDO
 
+!$acc loop vector
      DO i = i_start, i_end
        vflux(i,0)=vflux(i,1)
      ENDDO
 
+!$acc loop vector
      DO i = i_start, i_end
        vflux(i,ktf)=0.
      ENDDO
 
+!$acc loop vector collapse(2)
      DO k=kts,ktf-1
        DO i = i_start, i_end
          tendency(i,k,j)=tendency(i,k,j)+                             &
@@ -3592,10 +3706,12 @@ SUBROUTINE vertical_diffusion_v ( field, tendency,              &
       IF ( config_flags%open_ys .or. specified ) j_start = MAX(jds+1,jts)
       IF ( config_flags%open_ye .or. specified ) j_end   = MIN(jde-1,jte)
 
+!$acc parallel loop gang private(vflux)
 j_loop_v : DO j = j_start, j_end
 !     jm1 = max(j-1,1)
      jm1 = j-1
 
+!$acc loop vector collapse(2)
      DO k=kts,ktf-1
        DO i = i_start, i_end
          vflux(i,k)=kvdif*rdn(k+1)/(0.25*( alt(i,k  ,j  )      &
@@ -3607,14 +3723,17 @@ j_loop_v : DO j = j_start, j_end
        ENDDO
      ENDDO
 
+!$acc loop vector
      DO i = i_start, i_end
        vflux(i,0)=vflux(i,1)
      ENDDO
 
+!$acc loop vector
      DO i = i_start, i_end
        vflux(i,ktf)=0.
      ENDDO
 
+!$acc loop vector collapse(2)
      DO k=kts,ktf-1
        DO i = i_start, i_end
          tendency(i,k,j)=tendency(i,k,j)+                              &
@@ -4020,7 +4139,9 @@ SUBROUTINE perturbation_coriolis ( ru_in, rv_in, rw, ru_tend, rv_tend, rw_tend, 
 
 !  pick up top and bottom v
 
+!$acc parallel loop gang
    DO j = jts, MIN(jte,jde-1)+1
+!$acc loop vector
    DO i = i_start-1, i_end
 
      k = kts
@@ -4052,8 +4173,10 @@ SUBROUTINE perturbation_coriolis ( ru_in, rv_in, rw, ru_tend, rv_tend, rw_tend, 
 
 !  Map scale factors: see comments above for Coriolis
 
+!$acc parallel loop gang
    DO j = jts, MIN(jte,jde-1)
 
+!$acc loop vector collapse(2)
    DO k=kts,ktf
      DO i = i_start, i_end
        ru_tend(i,k,j)=ru_tend(i,k,j) + (msfux(i,j)/msfuy(i,j))*0.5*(f(i,j)+f(i-1,j)) &
@@ -4066,6 +4189,7 @@ SUBROUTINE perturbation_coriolis ( ru_in, rv_in, rw, ru_tend, rv_tend, rw_tend, 
 ! boundary loops for perturbation coriolis is needed for open bdy  (20110225 JD)
    IF ( (config_flags%open_xs) .and. (its == ids) ) THEN
 
+!$acc loop vector
      DO k=kts,ktf
    
        ru_tend(its,k,j)=ru_tend(its,k,j) + (msfux(its,j)/msfuy(its,j))*0.5*(f(its,j)+f(its,j))   &
@@ -4079,6 +4203,7 @@ SUBROUTINE perturbation_coriolis ( ru_in, rv_in, rw, ru_tend, rv_tend, rw_tend, 
 
    IF ( (config_flags%open_xe) .and. (ite == ide) ) THEN
 
+!$acc loop vector
      DO k=kts,ktf
    
        ru_tend(ite,k,j)=ru_tend(ite,k,j) + (msfux(ite,j)/msfuy(ite,j))*0.5*(f(ite-1,j)+f(ite-1,j)) &
@@ -4126,7 +4251,9 @@ SUBROUTINE perturbation_coriolis ( ru_in, rv_in, rw, ru_tend, rv_tend, rw_tend, 
 
 !  pick up top and bottom u
 
+!$acc parallel loop gang
    DO j = j_start-1,j_end
+!$acc loop vector
    DO i = its, MIN(ite,ide-1)+1
 
      k = kts
@@ -4348,7 +4475,9 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
    IF ( ( config_flags%open_xs .or. (specified .AND. .NOT. config_flags%periodic_x) .or. &
         config_flags%nested) .and. (its == ids) ) THEN
 
+!$acc parallel loop gang
      DO j = jts, jte-1
+!$acc loop vector
      DO k = kts, ktf
        vxgm(its-1,k,j) =  vxgm(its,k,j)
      ENDDO
@@ -4359,7 +4488,9 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
    IF ( ( config_flags%open_xe .or. (specified .AND. .NOT. config_flags%periodic_x) .or. &
         config_flags%nested) .and. (ite == ide) ) THEN
 
+!$acc parallel loop gang
      DO j = jts, jte-1
+!$acc loop vector
      DO k = kts, ktf
        vxgm(ite,k,j) =  vxgm(ite-1,k,j)
      ENDDO
@@ -4609,7 +4740,9 @@ SUBROUTINE decouple ( rr, rfield, field, name, config_flags, &
       ENDDO
       ENDDO
 
+!$acc parallel loop gang
       DO j=jts,jtf
+!$acc loop vector
       DO i=its,itf
         field(i,kte,j) = 0.
       ENDDO
@@ -4951,7 +5084,9 @@ END SUBROUTINE pole_point_bc
     enddo
     enddo
 
+!$acc parallel loop gang
     do j = j_start,j_end
+!$acc loop vector
     do i = i_start, i_end
       dz8w(i,kte,j) = 0.
     enddo
@@ -4983,7 +5118,9 @@ END SUBROUTINE pole_point_bc
 !  extrapolate p and t to surface and top.
 !  we'll use an extrapolation in z for now
 
+!$acc parallel loop gang
     do j = j_start,j_end
+!$acc loop vector
     do i = i_start, i_end
 
 ! bottom
@@ -5015,7 +5152,9 @@ END SUBROUTINE pole_point_bc
 ! calculate hydrostatic pressure at both full and half levels
 ! first, full level p: assuming dry over model top
 
+!$acc parallel loop gang
     do j = j_start,j_end
+!$acc loop vector
     do i = i_start, i_end
        p_hyd_w(i,kte,j) = p_top
     enddo
@@ -5593,7 +5732,9 @@ END SUBROUTINE phy_prep_part2
     enddo
     enddo
 
+!$acc parallel loop gang
     do j = j_start,j_end
+!$acc loop vector
     do i = i_start, i_end
       dz8w(i,kte,j) = 0.
     enddo
@@ -5668,7 +5809,9 @@ END SUBROUTINE phy_prep_part2
 !  extrapolate p to surface and top.
 !  we'll use an extrapolation in z for now
 
+!$acc parallel loop gang
     do j = j_start,j_end
+!$acc loop vector
     do i = i_start, i_end
 
 ! bottom
@@ -5789,7 +5932,9 @@ END SUBROUTINE phy_prep_part2
      IF ( config_flags%no_mp_heating .eq. 0 ) THEN
        mptenmax = 0.
        mptenmin = 999.
+!$acc parallel loop gang
      DO j = j_start, j_end
+!$acc loop vector collapse(2)
      DO k = k_start, k_end
      DO i = i_start, i_end
           mpten = th_phy(i,k,j)-h_diabatic(i,k,j)
@@ -6036,7 +6181,9 @@ END SUBROUTINE set_tend
 !-----------------------------------------------------------------------
 ! Adjust u to base state.
 
+!$acc parallel loop gang private(u00,z00)
     DO j = jts, MIN( jte, jde-1 )
+!$acc loop vector
     DO i = its, MIN( ite, ide   )
 
       ! Get height at top of model
@@ -6057,6 +6204,7 @@ END SUBROUTINE set_tend
       k1 = k1 + 2
 
       ! Get reference state at model levels
+!$acc loop vector
       DO k = k1, ktf
         k2 = ktf
         DO WHILE( z_base(k2) .gt. z00(k) )
@@ -6091,7 +6239,9 @@ END SUBROUTINE set_tend
 !-----------------------------------------------------------------------
 ! Adjust v to base state.
 
+!$acc parallel loop gang private(v00,z00)
     DO j = jts, MIN( jte, jde   )
+!$acc loop vector
     DO i = its, MIN( ite, ide-1 )
 
       ! Get height at top of model
@@ -6112,6 +6262,7 @@ END SUBROUTINE set_tend
       k1 = k1 + 2
 
       ! Get reference state at model levels
+!$acc loop vector
       DO k = k1, ktf
         k2 = ktf
         DO WHILE( z_base(k2) .gt. z00(k) )
@@ -6167,7 +6318,9 @@ END SUBROUTINE set_tend
 !-----------------------------------------------------------------------
 ! Adjust potential temperature to base state.
 
+!$acc parallel loop gang private(t00,z00)
     DO j = jts, MIN( jte,   jde-1 )
+!$acc loop vector
     DO i = its, MIN( ite,   ide-1 )
 
       ! Get height at top of model
@@ -6185,6 +6338,7 @@ END SUBROUTINE set_tend
       k1 = k1 + 2
 
       ! Get reference state at model levels
+!$acc loop vector
       DO k = k1, ktf
         k2 = ktf
         DO WHILE( z_base(k2) .gt. z00(k) )

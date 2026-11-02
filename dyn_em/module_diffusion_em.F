@@ -161,7 +161,9 @@
 
 ! Extrapolate to top and bottom of domain (to w levels).
 
+!$acc parallel loop gang
     DO j = j_start, j_end
+!$acc loop vector
     DO i = i_start, i_end
       hatavg(i,1,j)   =  0.5 * (  &
                          cf1 * hat(i  ,1,j) +  &
@@ -277,7 +279,9 @@
 
 ! Extrapolate to top and bottom of domain (to w levels).
 
+!$acc parallel loop gang
     DO j = j_start, j_end
+!$acc loop vector
     DO i = i_start, i_end
       hatavg(i,1,j)   =  0.5 * (  &
                          cf1 * hat(i,1,j  ) +  &
@@ -487,7 +491,9 @@
 
 ! Extrapolate to top and bottom of domain (to w levels).
 
+!$acc parallel loop gang
     DO j = j_start, j_end
+!$acc loop vector
     DO i = i_start, i_end
       hatavg(i,1,j)   =  0.5 * (  &
                          cf1 * hat(i,1,j-1) +  &
@@ -574,7 +580,9 @@
 
 ! Extrapolate to top and bottom of domain (to w levels).
 
+!$acc parallel loop gang
     DO j = j_start, j_end
+!$acc loop vector
     DO i = i_start, i_end
        hatavg(i,1,j)   =  0.5 * (  &
                           cf1 * hat(i-1,1,j) +  &
@@ -716,7 +724,9 @@
 ! Update the boundary for defor12 (might need to change later).
 
     IF ( .NOT. config_flags%periodic_x .AND. i_start .EQ. ids+1 ) THEN
+!$acc parallel loop gang
       DO j = jts, jte
+!$acc loop vector
       DO k = kts, kte
         defor12(ids,k,j) = defor12(ids+1,k,j)
       END DO
@@ -732,7 +742,9 @@
     END IF
 
     IF ( .NOT. config_flags%periodic_x .AND. i_end .EQ. ide-1) THEN
+!$acc parallel loop gang
       DO j = jts, jte
+!$acc loop vector
       DO k = kts, kte
         defor12(ide,k,j) = defor12(ide-1,k,j)
       END DO
@@ -797,7 +809,9 @@
     END DO
 
     i = i_start-1
+!$acc parallel loop gang
     DO j = j_start, MIN( jte, jde-1 )
+!$acc loop vector
     DO k = kts, kte
       hat(i,k,j) = w(i,k,j) / msfty(i,j)
     END DO
@@ -854,7 +868,9 @@
     END DO
     END DO
 
+!$acc parallel loop gang
     DO j = j_start, j_end
+!$acc loop vector
     DO i = i_start, i_end
       defor13(i,kts,j  ) = 0.0
       defor13(i,ktf+1,j) = 0.0
@@ -981,7 +997,9 @@
     END DO
 
     i = i_start-1
+!$acc parallel loop gang
     DO j = j_start, MIN( jte, jde-1 )
+!$acc loop vector
     DO k = kts, kte
       hat(i,k,j) = w(i,k,j) / msftx(i,j)
     END DO
@@ -1038,7 +1056,9 @@
     END DO
     END DO
 
+!$acc parallel loop gang
     DO j = j_start, j_end
+!$acc loop vector
     DO i = i_start, i_end
       defor23(i,kts,j  ) = 0.0
       defor23(i,ktf+1,j) = 0.0
@@ -1187,7 +1207,9 @@
 ! later).
 
     IF ( .NOT. config_flags%periodic_x .AND. i_start .EQ. ids+1) THEN
+!$acc parallel loop gang
       DO j = jts, jte
+!$acc loop vector
       DO k = kts, kte
         defor13(ids,k,j) = defor13(ids+1,k,j)
         defor23(ids,k,j) = defor23(ids+1,k,j)
@@ -1205,7 +1227,9 @@
     END IF
 
     IF ( .NOT. config_flags%periodic_x .AND. i_end .EQ. ide-1) THEN
+!$acc parallel loop gang
       DO j = jts, jte
+!$acc loop vector
       DO k = kts, kte
         defor13(ide,k,j) = defor13(ide-1,k,j)
         defor23(ide,k,j) = defor23(ide-1,k,j)
@@ -1455,9 +1479,11 @@ SUBROUTINE cal_dampkm( config_flags,xkmh,xkhh,xkmv,xkhv,                       &
 
    kmmax=dx*dx/dt
    degrad90=DEGRAD*90.
+!$acc parallel loop gang private(deltaz)
    DO j = j_start, j_end
 
       k=ktf
+!$acc loop vector
       DO i = i_start, i_end
          ! Unmodified dx used above may produce very large diffusivities
          ! when msftx is very large.  And the above formula ignores the fact
@@ -1482,6 +1508,7 @@ SUBROUTINE cal_dampkm( config_flags,xkmh,xkhh,xkmv,xkhv,                       &
 
       ENDDO
 
+!$acc loop vector collapse(2)
       DO k = ktfm1,kts,-1
       DO i = i_start, i_end
          ! Unmodified dx used above may produce very large diffusivities
@@ -1713,7 +1740,9 @@ END SUBROUTINE cal_dampkm
     END DO
 
     k = kts
+!$acc parallel loop gang
     DO j = j_start, j_end
+!$acc loop vector
     DO i = i_start, i_end
       tmpdz     = 1.0 / rdz(i,k+1,j) + 0.5 / rdzw(i,k,j)
       thetasfc  = T8w(i,kts,j) / ( p8w(i,k,j) / p1000mb )**( R_d / Cp )
@@ -1756,7 +1785,9 @@ END SUBROUTINE cal_dampkm
 
 
 !...... MARTA: change in computation of BN2 at the top, WCS 040331
+!$acc parallel loop gang
     DO j = j_start, j_end
+!$acc loop vector
     DO i = i_start, i_end
        BN2(i,ktf,j)=BN2(i,ktf-1,j)
     END DO
@@ -2246,7 +2277,9 @@ END SUBROUTINE smag2d_km
     END DO
 
     k = kts
+!$acc parallel loop gang
     DO j = j_start, j_end
+!$acc loop vector
     DO i = i_start, i_end
       tmpdz         = 1.0 / rdzw(i,k+1,j) + 1.0 / rdzw(i,k,j)
       thetasfc      = T8w(i,kts,j) / ( p8w(i,k,j) / p1000mb )**( R_d / Cp )
@@ -2255,7 +2288,9 @@ END SUBROUTINE smag2d_km
     END DO
 
     k = ktf
+!$acc parallel loop gang
     DO j = j_start, j_end
+!$acc loop vector
     DO i = i_start, i_end
       tmpdz         = 1.0 / rdz(i,k,j) + 0.5 / rdzw(i,k,j)
       thetatop      = T8w(i,kde,j) / ( p8w(i,kde,j) / p1000mb )**( R_d / Cp )
@@ -2554,14 +2589,19 @@ END SUBROUTINE smag2d_km
     IF ( config_flags%periodic_x ) i_end = MIN( ite, ide-1 )
  
  
+!$acc parallel loop gang
     DO  j = j_start, j_end
+!$acc loop vector
     DO  i = i_start, i_end
         zfull(i,1,j) = 0.
     ENDDO
     ENDDO
  
+!$acc parallel loop gang
     DO  j = j_start, j_end
+!$acc loop seq
     DO  k = kts, ktf
+!$acc loop vector
     DO  i = i_start, i_end
         zfull(i,k+1,j) = 1.0/rdzw(i,k,j) + zfull(i,k,j)
     ENDDO
@@ -2597,7 +2637,9 @@ END SUBROUTINE smag2d_km
     END DO
  
     k = kts
+!$acc parallel loop gang
     DO j = j_start, j_end
+!$acc loop vector
     DO i = i_start, i_end
       tmpdz         = 1.0 / rdzw(i,k+1,j) + 1.0 / rdzw(i,k,j)
       thetasfc      = T8w(i,kts,j) / ( p8w(i,k,j) / p1000mb )**( R_d / Cp )
@@ -2606,7 +2648,9 @@ END SUBROUTINE smag2d_km
     END DO
 
     k = ktf
+!$acc parallel loop gang
     DO j = j_start, j_end
+!$acc loop vector
     DO i = i_start, i_end
       tmpdz         = 1.0 / rdz(i,k,j) + 0.5 / rdzw(i,k,j)
       thetatop      = T8w(i,kde,j) / ( p8w(i,kde,j) / p1000mb )**( R_d / Cp )
@@ -2631,7 +2675,9 @@ END SUBROUTINE smag2d_km
     ENDDO
     ENDDO
  
+!$acc parallel loop gang
     DO j = j_start, j_end
+!$acc loop vector collapse(2)
     DO k = kts, ktf
     DO i = i_start, i_end
       qdz      = qtke(i,k,j)*(1.0/rdzw(i,k,j))
@@ -2820,14 +2866,19 @@ END SUBROUTINE smag2d_km
     IF ( config_flags%periodic_x ) i_start = its
     IF ( config_flags%periodic_x ) i_end = MIN( ite, ide-1 )
  
+!$acc parallel loop gang
     DO j = j_start, j_end
+!$acc loop vector
     DO i = i_start, i_end
          zfull(i,1,j)= 0.
     ENDDO
     ENDDO
  
+!$acc parallel loop gang
     DO j = j_start, j_end
+!$acc loop seq
     DO k = kts, ktf
+!$acc loop vector
     DO i = i_start, i_end
          zfull(i,k+1,j) = 1.0/rdzw(i,k,j) + zfull(i,k,j)
     ENDDO 
@@ -3369,7 +3420,9 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
    ENDDO
    ENDDO
 !
+!$acc parallel loop gang
    DO j = j_start, j_end
+!$acc loop vector
    DO i = i_start, i_end
       titau1avg(i,kts,j)=0.
       titau1avg(i,ktf+1,j)=0.
@@ -3567,7 +3620,9 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
    ENDDO
    ENDDO
 
+!$acc parallel loop gang
    DO j = j_start, j_end
+!$acc loop vector
    DO i = i_start, i_end
       titau1avg(i,kts,j)=0.
       titau1avg(i,ktf+1,j)=0.
@@ -3767,7 +3822,9 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
    ENDDO
    ENDDO
 
+!$acc parallel loop gang
    DO j = j_start, j_end
+!$acc loop vector
    DO i = i_start, i_end
       titau1avg(i,ktf+1,j)=0.
       titau2avg(i,ktf+1,j)=0.
@@ -3947,7 +4004,9 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
    ENDDO
    ENDDO
 
+!$acc parallel loop gang
    DO j = j_start, j_end
+!$acc loop vector
    DO i = i_start, i_end + 1
       H1avg(i,kts  ,j)=0.5*(cf1*var(i  ,1,j)+cf2*var(i  ,2,j)+ &
                             cf3*var(i  ,3,j)+cf1*var(i-1,1,j)+  &
@@ -3999,7 +4058,9 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
    ENDDO
    ENDDO
 
+!$acc parallel loop gang
    DO j = j_start, j_end + 1
+!$acc loop vector
    DO i = i_start, i_end
       H2avg(i,kts  ,j)=0.5*(cf1*var(i,1,j  )+cf2*var(i  ,2,j)+ &
                             cf3*var(i,3,j  )+cf1*var(i,1,j-1)+  &
@@ -4054,7 +4115,9 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
    ENDDO
    ENDDO
 
+!$acc parallel loop gang
    DO j = j_start, j_end
+!$acc loop vector
    DO i = i_start, i_end
       H1avg(i,kts  ,j)=0.
       H1avg(i,ktf+1,j)=0.
@@ -4389,7 +4452,9 @@ SUBROUTINE vertical_diffusion_2   ( ru_tendf, rv_tendf, rw_tendf, rt_tendf,   &
   CASE (0,2) ! with fixed surface heat flux given in the namelist
     heat_flux = config_flags%tke_heat_flux  ! constant heat flux value
                                             ! set in namelist.input
+!$acc parallel loop gang
     DO j = j_start, j_end
+!$acc loop vector
     DO i = i_start, i_end
        cpm = cp * (1. + 0.8 * moist(i,kts,j,P_QV))
        hfx(i,j)=heat_flux*cpm*rho(i,kts,j)         ! provided for output only
@@ -4405,7 +4470,9 @@ SUBROUTINE vertical_diffusion_2   ( ru_tendf, rv_tendf, rw_tendf, rt_tendf,   &
     ENDDO
 
   CASE (1) ! use surface heat flux computed from surface routine
+!$acc parallel loop gang
     DO j = j_start, j_end
+!$acc loop vector
     DO i = i_start, i_end
 
        cpm = cp * (1. + 0.8 * moist(i,kts,j,P_QV))
@@ -4663,8 +4730,10 @@ SUBROUTINE vertical_diffusion_u_2( tendency, config_flags,                &
 ! ******** MODIF...
 !  we will pick up the surface drag (titau3(i,kts,j)) later
 !
+!$acc parallel loop gang
        DO j = j_start, j_end
        k=kts
+!$acc loop vector
        DO i = i_start, i_end
 
           rdzu = -g/dnw(k)
@@ -4775,8 +4844,10 @@ SUBROUTINE vertical_diffusion_v_2( tendency, config_flags,                &
 ! ******** MODIF...
 !  we will pick up the surface drag (titau3(i,kts,j)) later
 !
+!$acc parallel loop gang
        DO j = j_start, j_end
        k=kts
+!$acc loop vector
        DO i = i_start, i_end
 
         rdzv = - g / dnw(k)
@@ -4986,7 +5057,9 @@ SUBROUTINE vertical_diffusion_s( tendency, config_flags, var, xkhv,       &
    ENDDO
    ENDDO
 
+!$acc parallel loop gang
    DO j = j_start, j_end
+!$acc loop vector
    DO i = i_start, i_end
       H3(i,kts,j)=0.
       H3(i,ktf+1,j)=0.
@@ -5117,14 +5190,19 @@ END SUBROUTINE vertical_diffusion_s
    IF ( config_flags%periodic_x ) i_start = its
    IF ( config_flags%periodic_x ) i_end = MIN(ite,ide-1)
  
+!$acc parallel loop gang
    DO j = j_start, j_end
+!$acc loop vector
    DO i = i_start, i_end
        zq(i,1,j) = 0.0
    ENDDO
    ENDDO
 
+!$acc parallel loop gang
    DO j = j_start, j_end
+!$acc loop seq
    DO k = kts, ktf
+!$acc loop vector
    DO i = i_start, i_end
          zq(i,k+1,j) = 1.0/rdzw(i,k,j) + zq(i,k,j)
    ENDDO
@@ -5870,7 +5948,9 @@ END SUBROUTINE nonlocal_flux
 
     ENDIF
 
+!$acc parallel loop gang
     DO j = j_start, j_end
+!$acc loop vector
     DO i = i_start, i_end
       titau(i,kts  ,j) = 0.0
       titau(i,ktf+1,j) = 0.0
@@ -6026,7 +6106,9 @@ END SUBROUTINE nonlocal_flux
 
     ENDIF
 
+!$acc parallel loop gang
     DO j = j_start, j_end
+!$acc loop vector
     DO i = i_start, i_end
       titau(i,kts  ,j) = 0.0
       titau(i,ktf+1,j) = 0.0
@@ -6487,7 +6569,9 @@ END SUBROUTINE phy_bc
 ! LES mods
    K=KTS
 
+!$acc parallel loop gang
    DO j = j_start, j_end
+!$acc loop vector
    DO i = i_start, i_end
       heat_flux = heat_flux0
       tendency(i,k,j)= tendency(i,k,j) - &
@@ -6499,7 +6583,9 @@ END SUBROUTINE phy_bc
   CASE (1) ! use surface heat flux computed from surface routine
    K=KTS
 
+!$acc parallel loop gang
    DO j = j_start, j_end
+!$acc loop vector
    DO i = i_start, i_end
       cpm = cp * (1. + 0.8*qv(i,k,j))
       heat_flux = (hfx(i,j)/cpm)/rho(i,k,j)
@@ -6887,7 +6973,9 @@ END SUBROUTINE phy_bc
     END DO
     END DO
 
+!$acc parallel loop gang
     DO j = j_start, j_end
+!$acc loop vector
     DO i = i_start, i_end+1
       tmp2(i,kts  ,j) = 0.0
       tmp2(i,ktf+1,j) = 0.0
@@ -6922,7 +7010,9 @@ END SUBROUTINE phy_bc
 
     cd0 = config_flags%tke_drag_coefficient  ! drag coefficient set
                                              ! in namelist.input
+!$acc parallel loop gang
     DO j = j_start, j_end
+!$acc loop vector
     DO i = i_start, i_end
 
      absU=0.5*sqrt((u(i,k,j)+u(i+1,k,j))**2+(v(i,k,j)+v(i,k,j+1))**2)
@@ -6936,7 +7026,9 @@ END SUBROUTINE phy_bc
 
   CASE (1,2) ! ustar computed from surface routine
 
+!$acc parallel loop gang
     DO j = j_start, j_end
+!$acc loop vector
     DO i = i_start, i_end
 
      absU=0.5*sqrt((u(i,k,j)+u(i+1,k,j))**2+(v(i,k,j)+v(i,k,j+1))**2)+epsilon
@@ -6964,7 +7056,9 @@ END SUBROUTINE phy_bc
     END DO
     END DO
 
+!$acc parallel loop gang
     DO j = j_start, j_end+1
+!$acc loop vector
     DO i = i_start, i_end
       tmp2(i,kts,  j) = 0.0
       tmp2(i,ktf+1,j) = 0.0
@@ -6999,7 +7093,9 @@ END SUBROUTINE phy_bc
 
     cd0 = config_flags%tke_drag_coefficient   ! constant drag coefficient
                                               ! set in namelist.input
+!$acc parallel loop gang
     DO j = j_start, j_end
+!$acc loop vector
     DO i = i_start, i_end
 
       absU=0.5*sqrt((u(i,k,j)+u(i+1,k,j))**2+(v(i,k,j)+v(i,k,j+1))**2)
@@ -7013,7 +7109,9 @@ END SUBROUTINE phy_bc
 
   CASE (1,2) ! ustar computed from surface routine
 
+!$acc parallel loop gang
     DO j = j_start, j_end
+!$acc loop vector
     DO i = i_start, i_end
 
       absU=0.5*sqrt((u(i,k,j)+u(i+1,k,j))**2+(v(i,k,j)+v(i,k,j+1))**2)+epsilon
@@ -7086,6 +7184,7 @@ END SUBROUTINE phy_bc
 
 ! Begin with dz computations.
 
+!$acc parallel loop gang
     DO j = j_start, j_end
 
       IF ( ( j_start >= jts ) .AND. ( j_end <= MIN( jte, jde-1 ) ) ) THEN
@@ -7099,6 +7198,7 @@ END SUBROUTINE phy_bc
 ! Compute z at w points for rdz and rdzw computations.  We'll switch z
 ! to z at p points before returning
 
+!$acc loop vector collapse(2)
       DO k = 1, kte
 
 ! Bug fix, WCS, 22 april 2002
@@ -7108,12 +7208,14 @@ END SUBROUTINE phy_bc
       END DO
       END DO
 
+!$acc loop vector collapse(2)
       DO k = 1, ktf
       DO i = i_start, i_end
         rdzw(i,k,j) = 1.0 / ( z_at_w(i,k+1,j) - z_at_w(i,k,j) )
       END DO
       END DO
 
+!$acc loop vector collapse(2)
       DO k = 2, ktf
       DO i = i_start, i_end
         rdz(i,k,j) = 2.0 / ( z_at_w(i,k+1,j) - z_at_w(i,k-1,j) )
@@ -7122,6 +7224,7 @@ END SUBROUTINE phy_bc
 
 ! Bug fix, WCS, 22 april 2002; added the following code
 
+!$acc loop vector
       DO i = i_start, i_end
         rdz(i,1,j) = 2./(z_at_w(i,2,j)-z_at_w(i,1,j))
       END DO
@@ -7179,7 +7282,9 @@ END SUBROUTINE phy_bc
     IF ( .NOT. config_flags%periodic_x ) THEN
 
       IF ( ite == ide ) THEN
+!$acc parallel loop gang
         DO j = j_start, j_end
+!$acc loop vector
         DO k = 1, ktf
           zx(ide,k,j) = 0.0
         END DO
@@ -7187,7 +7292,9 @@ END SUBROUTINE phy_bc
       END IF
 
       IF ( its == ids ) THEN
+!$acc parallel loop gang
         DO j = j_start, j_end
+!$acc loop vector
         DO k = 1, ktf
           zx(ids,k,j) = 0.0
         END DO
@@ -7197,13 +7304,17 @@ END SUBROUTINE phy_bc
     ELSE
 
       IF ( ite == ide ) THEN
+!$acc parallel loop gang
         DO j=j_start,j_end
+!$acc loop vector
         DO k=1,ktf
          zx(ide,k,j) = rdx * ( phb(ide,k,j) - phb(ide-1,k,j) ) / g
         END DO
         END DO
 
+!$acc parallel loop gang
         DO j = j_start, j_end
+!$acc loop vector
         DO k = 1, ktf
           zx(ide,k,j) = zx(ide,k,j) + rdx * ( ph(ide,k,j) - ph(ide-1,k,j) ) / g
         END DO
@@ -7211,13 +7322,17 @@ END SUBROUTINE phy_bc
       END IF
 
       IF ( its == ids ) THEN
+!$acc parallel loop gang
         DO j = j_start, j_end
+!$acc loop vector
         DO k = 1, ktf
           zx(ids,k,j) = rdx * ( phb(ids,k,j) - phb(ids-1,k,j) ) / g
         END DO
         END DO
 
+!$acc parallel loop gang
         DO j =j_start,j_end
+!$acc loop vector
         DO k =1,ktf
           zx(ids,k,j) = zx(ids,k,j) + rdx * ( ph(ids,k,j) - ph(ids-1,k,j) ) / g
         END DO
@@ -7440,7 +7555,9 @@ END SUBROUTINE phy_bc
 
 ! Extrapolate to top and bottom of domain (to w levels).
 
+!$acc parallel loop gang
     DO j = j_start, j_end
+!$acc loop vector
     DO i = i_start, i_end
        hatavg(i,1,j)   =  0.5 * (  &
                           cf1 * hat(i-1,1,j) +  &
@@ -7528,7 +7645,9 @@ END SUBROUTINE phy_bc
 
 ! Extrapolate to top and bottom of domain (to w levels).
 
+!$acc parallel loop gang
     DO j = j_start, j_end
+!$acc loop vector
     DO i = i_start, i_end
       hatavg(i,1,j)   =  0.5 * (  &
                          cf1 * hat(i,1,j-1) +  &
@@ -7584,7 +7703,9 @@ END SUBROUTINE phy_bc
 ! Update the boundary for the vorticity.
 
      IF ( .NOT. config_flags%periodic_x .AND. i_start .EQ. ids+1 ) THEN
+!$acc parallel loop gang
        DO j = jts, jte
+!$acc loop vector
        DO k = kts, kte
          rvort(ids,k,j) = rvort(ids+1,k,j)
        END DO
@@ -7600,7 +7721,9 @@ END SUBROUTINE phy_bc
      END IF
 
      IF ( .NOT. config_flags%periodic_x .AND. i_end .EQ. ide-1) THEN
+!$acc parallel loop gang
        DO j = jts, jte
+!$acc loop vector
        DO k = kts, kte
          rvort(ide,k,j) = rvort(ide-1,k,j)
        END DO
@@ -7653,7 +7776,9 @@ END SUBROUTINE phy_bc
     !  We want zl and zu to be the height above ground, so we subtract
     !  the terrain elevation from the geopotential/g.
 
+!$acc parallel loop gang
     DO j = j_start, j_end
+!$acc loop vector collapse(2)
     DO k = kts, ktf
     DO i = i_start, i_end
       zl = ( 0.25 * (  &
@@ -7712,7 +7837,9 @@ END SUBROUTINE phy_bc
 ! Update the boundary for updraft helicity (might need to change later).
 
     IF ( .NOT. config_flags%periodic_x .AND. i_start .EQ. ids+1 ) THEN
+!$acc parallel loop gang
       DO j = jts, jte
+!$acc loop vector
       DO k = kts, kte
 !        rvort(ids,k,j) = rvort(ids+1,k,j)
         up_heli_max(ids,j) = up_heli_max(ids+1,j)
@@ -7730,7 +7857,9 @@ END SUBROUTINE phy_bc
     END IF
 
     IF ( .NOT. config_flags%periodic_x .AND. i_end .EQ. ide-1) THEN
+!$acc parallel loop gang
       DO j = jts, jte
+!$acc loop vector
       DO k = kts, kte
 !        rvort(ide,k,j) = rvort(ide-1,k,j)
         up_heli_max(ide,j) = up_heli_max(ide-1,j)
@@ -7961,7 +8090,9 @@ END SUBROUTINE phy_bc
     END DO
     END DO
 
+!$acc parallel loop gang
     DO j = j_start, j_end
+!$acc loop vector
     DO i = i_start, i_end
         xkxavg_m(i,kts,  j) = 0.0
         xkxavg_m(i,ktf+1,j) = 0.0
@@ -8071,7 +8202,9 @@ END SUBROUTINE phy_bc
     END DO
     END DO
  
+!$acc parallel loop gang
     DO j = j_start, j_end
+!$acc loop vector
     DO i = i_start, i_end
         xkxavg_m(i,kts,  j) = 0.0
         xkxavg_m(i,ktf+1,j) = 0.0
@@ -8265,7 +8398,9 @@ END SUBROUTINE phy_bc
      ENDDO
      ENDDO
 
+!$acc parallel loop gang
      DO j = j_start, j_end
+!$acc loop vector
      DO i = i_start, i_end
          xkxavg(i,kts  ,j) = 0.0
          xkxavg(i,ktf+1,j) = 0.0
@@ -8352,7 +8487,9 @@ END SUBROUTINE phy_bc
     END DO
     END DO
  
+!$acc parallel loop gang
     DO j = j_start, j_end
+!$acc loop vector
     DO i = i_start, i_end
         xkxavg(i,kts,  j) = 0.0
         xkxavg(i,ktf+1,j) = 0.0
@@ -8409,7 +8546,9 @@ END SUBROUTINE phy_bc
     ENDDO
     ENDDO
  
+!$acc parallel loop gang
     DO j = j_start, j_end
+!$acc loop vector
     DO i = i_start, i_end
         xkxavg(i,kts,  j) = 0.0
         xkxavg(i,ktf+1,j) = 0.0
@@ -8522,7 +8661,9 @@ END SUBROUTINE phy_bc
     ENDDO
     ENDDO
  
+!$acc parallel loop gang
     DO j = j_start, j_end
+!$acc loop vector
     DO i = i_start, i_end
         xkxavg(i,kts  ,j) = 0.0
         xkxavg(i,ktf+1,j) = 0.0

@@ -2254,7 +2254,9 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
 
    IF (config_flags%ra_lw_physics .gt. 0 .or. config_flags%ra_sw_physics .gt. 0) THEN
 
+!$acc parallel loop gang
       DO J=jts,jtf
+!$acc loop vector collapse(2)
       DO K=kts,ktf
       DO I=its,itf
          RTHRATEN(I,K,J)=(c1(k)*mut(I,J)+c2(k))*RTHRATEN(I,K,J)
@@ -2268,7 +2270,9 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
 
    IF (config_flags%cu_physics .gt. 0) THEN
 
+!$acc parallel loop gang
       DO J=jts,jtf
+!$acc loop vector collapse(2)
       DO K=kts,ktf
       DO I=its,itf
          RUCUTEN(I,K,J) =(c1(k)*mut(I,J)+c2(k))*RUCUTEN(I,K,J)
@@ -2280,7 +2284,9 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
       ENDDO
 
       IF (P_QC .ge. PARAM_FIRST_SCALAR)THEN
+!$acc parallel loop gang
          DO J=jts,jtf
+!$acc loop vector collapse(2)
          DO K=kts,ktf
          DO I=its,itf
             RQCCUTEN(I,K,J)=(c1(k)*mut(I,J)+c2(k))*RQCCUTEN(I,K,J)
@@ -2290,7 +2296,9 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
       ENDIF
 
       IF (P_QR .ge. PARAM_FIRST_SCALAR)THEN
+!$acc parallel loop gang
          DO J=jts,jtf
+!$acc loop vector collapse(2)
          DO K=kts,ktf
          DO I=its,itf
             RQRCUTEN(I,K,J)=(c1(k)*mut(I,J)+c2(k))*RQRCUTEN(I,K,J)
@@ -2300,7 +2308,9 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
       ENDIF
 
       IF (P_QI .ge. PARAM_FIRST_SCALAR)THEN
+!$acc parallel loop gang
          DO J=jts,jtf
+!$acc loop vector collapse(2)
          DO K=kts,ktf
          DO I=its,itf
             RQICUTEN(I,K,J)=(c1(k)*mut(I,J)+c2(k))*RQICUTEN(I,K,J)
@@ -2310,7 +2320,9 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
       ENDIF
 
       IF(P_QS .ge. PARAM_FIRST_SCALAR)THEN
+!$acc parallel loop gang
          DO J=jts,jtf
+!$acc loop vector collapse(2)
          DO K=kts,ktf
          DO I=its,itf
             RQSCUTEN(I,K,J)=(c1(k)*mut(I,J)+c2(k))*RQSCUTEN(I,K,J)
@@ -2325,7 +2337,9 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
 
    IF (config_flags%shcu_physics .gt. 0) THEN
 
+!$acc parallel loop gang
       DO J=jts,jtf
+!$acc loop vector collapse(2)
       DO K=kts,ktf
       DO I=its,itf
          RUSHTEN(I,K,J) =(c1(k)*mut(I,J)+c2(k))*RUSHTEN(I,K,J)
@@ -2337,7 +2351,9 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
       ENDDO
 
       IF (P_QC .ge. PARAM_FIRST_SCALAR)THEN
+!$acc parallel loop gang
          DO J=jts,jtf
+!$acc loop vector collapse(2)
          DO K=kts,ktf
          DO I=its,itf
             RQCSHTEN(I,K,J)=(c1(k)*mut(I,J)+c2(k))*RQCSHTEN(I,K,J)
@@ -2347,7 +2363,9 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
       ENDIF
 
       IF (P_QR .ge. PARAM_FIRST_SCALAR)THEN
+!$acc parallel loop gang
          DO J=jts,jtf
+!$acc loop vector collapse(2)
          DO K=kts,ktf
          DO I=its,itf
             RQRSHTEN(I,K,J)=(c1(k)*mut(I,J)+c2(k))*RQRSHTEN(I,K,J)
@@ -2357,7 +2375,9 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
       ENDIF
 
       IF (P_QI .ge. PARAM_FIRST_SCALAR)THEN
+!$acc parallel loop gang
          DO J=jts,jtf
+!$acc loop vector collapse(2)
          DO K=kts,ktf
          DO I=its,itf
             RQISHTEN(I,K,J)=(c1(k)*mut(I,J)+c2(k))*RQISHTEN(I,K,J)
@@ -2367,7 +2387,9 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
       ENDIF
 
       IF(P_QS .ge. PARAM_FIRST_SCALAR)THEN
+!$acc parallel loop gang
          DO J=jts,jtf
+!$acc loop vector collapse(2)
          DO K=kts,ktf
          DO I=its,itf
             RQSSHTEN(I,K,J)=(c1(k)*mut(I,J)+c2(k))*RQSSHTEN(I,K,J)
@@ -2377,7 +2399,9 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
       ENDIF
 
       IF(P_QG .ge. PARAM_FIRST_SCALAR)THEN
+!$acc parallel loop gang
          DO J=jts,jtf
+!$acc loop vector collapse(2)
          DO K=kts,ktf
          DO I=its,itf
             RQGSHTEN(I,K,J)=(c1(k)*mut(I,J)+c2(k))*RQGSHTEN(I,K,J)
@@ -2392,7 +2416,9 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
 
    IF (config_flags%bl_pbl_physics .gt. 0) THEN
 
+!$acc parallel loop gang
       DO J=jts,jtf
+!$acc loop vector collapse(2)
       DO K=kts,ktf
       DO I=its,itf
          RUBLTEN(I,K,J) =(c1(k)*mut(I,J)+c2(k))*RUBLTEN(I,K,J)
@@ -2403,7 +2429,9 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
       ENDDO
 
       IF (P_QV .ge. PARAM_FIRST_SCALAR) THEN
+!$acc parallel loop gang
          DO J=jts,jtf
+!$acc loop vector collapse(2)
          DO K=kts,ktf
          DO I=its,itf
             RQVBLTEN(I,K,J)=(c1(k)*mut(I,J)+c2(k))*RQVBLTEN(I,K,J)
@@ -2413,7 +2441,9 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
       ENDIF
 
       IF (P_QC .ge. PARAM_FIRST_SCALAR) THEN
+!$acc parallel loop gang
          DO J=jts,jtf
+!$acc loop vector collapse(2)
          DO K=kts,ktf
          DO I=its,itf
            RQCBLTEN(I,K,J)=(c1(k)*mut(I,J)+c2(k))*RQCBLTEN(I,K,J)
@@ -2423,7 +2453,9 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
       ENDIF
 
       IF (P_QI .ge. PARAM_FIRST_SCALAR) THEN
+!$acc parallel loop gang
          DO J=jts,jtf
+!$acc loop vector collapse(2)
          DO K=kts,ktf
          DO I=its,itf
             RQIBLTEN(I,K,J)=(c1(k)*mut(I,J)+c2(k))*RQIBLTEN(I,K,J)
@@ -2440,7 +2472,9 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
 
    IF (config_flags%grid_fdda .gt. 0) THEN
 
+!$acc parallel loop gang
       DO J=jts,jtf
+!$acc loop vector collapse(2)
       DO K=kts,ktf
       DO I=itsu,itf
 !     if( i == itf/2 .AND. j == jtf/2 .AND. k == ktf/2 ) &
@@ -2455,14 +2489,18 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
       ENDDO
       ENDDO
 !     write(*,'(a,e15.5)') 'u_ten MAXIMUM after=', maxval(RUNDGDTEN)
+!$acc parallel loop gang
       DO J=jtsv,jtf
+!$acc loop vector collapse(2)
       DO K=kts,ktf
       DO I=its,itf
          RVNDGDTEN(I,K,J) =(c1(k)*muv(I,J)+c2(k))*RVNDGDTEN(I,K,J)
       ENDDO
       ENDDO
       ENDDO
+!$acc parallel loop gang
       DO J=jts,jtf
+!$acc loop vector collapse(2)
       DO K=kts,ktf
       DO I=its,itf
 !     if( i == itf/2 .AND. j == jtf/2 .AND. k == ktf/2 ) &
@@ -2476,7 +2514,9 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
       ENDDO
 
       IF (P_QV .ge. PARAM_FIRST_SCALAR) THEN
+!$acc parallel loop gang
          DO J=jts,jtf
+!$acc loop vector collapse(2)
          DO K=kts,ktf
          DO I=its,itf
             RQVNDGDTEN(I,K,J)=(c1(k)*mut(I,J)+c2(k))*RQVNDGDTEN(I,K,J)
@@ -2515,7 +2555,9 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
 
       wgt_iau = iau_coef(config_flags%iau_time_window_sec,config_flags%dt,itimestep)
 
+!$acc parallel loop gang
       DO J=jts,jtf
+!$acc loop vector collapse(2)
       DO K=kts,ktf
       DO I=its,itf
          RUIAUTEN(I,K,J) =(c1(k)*mut(I,J)+c2(k))*U_IAU(I,K,J)*WGT_IAU
@@ -2526,7 +2568,9 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
       ENDDO
       ENDDO
 
+!$acc parallel loop gang
       DO J=jts,jtf
+!$acc loop vector collapse(2)
       DO K=kts,ktf+1
       DO I=its,itf
          RPHIAUTEN(I,K,J)=PH_IAU(I,K,J)*WGT_IAU
@@ -2534,14 +2578,18 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
       ENDDO
       ENDDO
 
+!$acc parallel loop gang
       DO J=jts,jtf
+!$acc loop vector
       DO I=its,itf
          RMUIAUTEN(I,J) =MU_IAU(I,J)*WGT_IAU
       ENDDO
       ENDDO
 
       IF (P_QC .ge. PARAM_FIRST_SCALAR)THEN
+!$acc parallel loop gang
          DO J=jts,jtf
+!$acc loop vector collapse(2)
          DO K=kts,ktf
          DO I=its,itf
             RQCIAUTEN(I,K,J)=(c1(k)*mut(I,J)+c2(k))*QC_IAU(I,K,J)*WGT_IAU
@@ -2551,7 +2599,9 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
       ENDIF
 
       IF (P_QR .ge. PARAM_FIRST_SCALAR)THEN
+!$acc parallel loop gang
          DO J=jts,jtf
+!$acc loop vector collapse(2)
          DO K=kts,ktf
          DO I=its,itf
             RQRIAUTEN(I,K,J)=(c1(k)*mut(I,J)+c2(k))*QR_IAU(I,K,J)*WGT_IAU
@@ -2561,7 +2611,9 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
       ENDIF
 
       IF (P_QI .ge. PARAM_FIRST_SCALAR)THEN
+!$acc parallel loop gang
          DO J=jts,jtf
+!$acc loop vector collapse(2)
          DO K=kts,ktf
          DO I=its,itf
             RQIIAUTEN(I,K,J)=(c1(k)*mut(I,J)+c2(k))*QI_IAU(I,K,J)*WGT_IAU
@@ -2571,7 +2623,9 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
       ENDIF
 
       IF(P_QS .ge. PARAM_FIRST_SCALAR)THEN
+!$acc parallel loop gang
          DO J=jts,jtf
+!$acc loop vector collapse(2)
          DO K=kts,ktf
          DO I=its,itf
             RQSIAUTEN(I,K,J)=(c1(k)*mut(I,J)+c2(k))*QS_IAU(I,K,J)*WGT_IAU
@@ -2581,7 +2635,9 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
       ENDIF
 
       IF(P_QG .ge. PARAM_FIRST_SCALAR)THEN
+!$acc parallel loop gang
          DO J=jts,jtf
+!$acc loop vector collapse(2)
          DO K=kts,ktf
          DO I=its,itf
             RQGIAUTEN(I,K,J)=(c1(k)*mut(I,J)+c2(k))*QG_IAU(I,K,J)*WGT_IAU
@@ -2617,7 +2673,9 @@ SUBROUTINE positive_definite_filter ( a,                          &
 !
 !</DESCRIPTION>
 
+!$acc parallel loop gang
   DO j=jts,min(jte,jde-1)
+!$acc loop vector collapse(2)
   DO k=kts,kte-1
   DO i=its,min(ite,ide-1)
 !    a(i,k,j) = max(a(i,k,j),0.)
@@ -2652,7 +2710,9 @@ SUBROUTINE bound_tke ( tke, tke_upper_bound,       &
 !
 !</DESCRIPTION>
 
+!$acc parallel loop gang
   DO j=jts,min(jte,jde-1)
+!$acc loop vector collapse(2)
   DO k=kts,kte-1
   DO i=its,min(ite,ide-1)
     tke(i,k,j) = min(tke_upper_bound,max(tke(i,k,j),0.))
@@ -2685,7 +2745,9 @@ SUBROUTINE bound_qna ( qna,                        &
 !
 !</DESCRIPTION>
 
+!$acc parallel loop gang
   DO j=jts,min(jte,jde-1)
+!$acc loop vector collapse(2)
   DO k=kts,kte-1
   DO i=its,min(ite,ide-1)
     qna(i,k,j) = max(qna(i,k,j),0.)
@@ -2801,11 +2863,14 @@ subroutine trajectory (     grid,config_flags,               &
 
    i_beg = max( 1,its-1 )
    i_end = min( ite+2,ide-1 )
+!$acc parallel loop gang
    do j=max(1,jts-1),min(jte+2,jde-1)
+!$acc loop vector
      do k=kms,kme-1
        u(its:i_end,k,j)=ru_m(its:i_end,k,j)/(c1h(k)*MUU(its:i_end,j)+c2h(k))*msfu(its:i_end,j)
        v(its:i_end,k,j)=rv_m(its:i_end,k,j)/(c1h(k)*MUV(its:i_end,j)+c2h(k))*msfv(its:i_end,j)
      enddo
+!$acc loop vector
      do k=kms,kme
        w(its:i_end,k,j)=ww_m(its:i_end,k,j)/(c1f(k)*MUT(its:i_end,j)+c2f(k))*msft(its:i_end,j)
      enddo
