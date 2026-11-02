@@ -513,6 +513,7 @@ SUBROUTINE calc_p_rho( al, p, ph,                    &
    k_end = min(kte,kde-1)
 
    IF (non_hydrostatic) THEN
+!$acc parallel loop collapse(3)
      DO j=j_start, j_end
      DO k=k_start, k_end
      DO i=i_start, i_end
@@ -547,6 +548,7 @@ SUBROUTINE calc_p_rho( al, p, ph,                    &
    END IF
 !  divergence damping setup
      IF (step == 0) then   ! we're initializing small timesteps
+!$acc parallel loop collapse(3)
        DO j=j_start, j_end
        DO k=k_start, k_end
        DO i=i_start, i_end
@@ -555,6 +557,7 @@ SUBROUTINE calc_p_rho( al, p, ph,                    &
        ENDDO
        ENDDO
      ELSE                     ! we're in the small timesteps 
+!$acc parallel loop collapse(3)
        DO j=j_start, j_end    ! and adding div damping component
        DO k=k_start, k_end
        DO i=i_start, i_end
@@ -1082,7 +1085,9 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
   i_endu = ite
   j_endv = jte
 !        CALCULATION OF WW (dETA/dt)
+!$acc parallel loop gang private(dmdt,dvdxi)
    DO j = j_start, j_end
+!$acc loop vector
      DO i=i_start, i_end
             DMDT(i) = 0.
      ENDDO
@@ -1107,6 +1112,7 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
 !
 !  [don't divide the below by msfty until find ww, since dmdt is used in
 !   the meantime]
+!$acc loop vector collapse(2)
      DO k=k_start, k_end
      DO i=i_start, i_end
          dvdxi(i,k) = msftx(i,j)*msfty(i,j)*(                                      &
@@ -1114,9 +1120,16 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
                           -(v(i,k,j  )+(c1h(k)*muv(i,j  )+c2h(k))*v_1(i,k,j  )*msfvx_inv(i,j  )) ) &
                     +rdx*( (u(i+1,k,j)+(c1h(k)*muu(i+1,j)+c2h(k))*u_1(i+1,k,j)/msfuy(i+1,j))       &
                           -(u(i,k,j  )+(c1h(k)*muu(i  ,j)+c2h(k))*u_1(i,k,j  )/msfuy(i  ,j)) ))
+     ENDDO
+     ENDDO
+!$acc loop vector
+     DO i=i_start, i_end
+!$acc loop seq
+     DO k=k_start, k_end
         DMDT(i)    = DMDT(i) + dnw(k)*dvdxi(i,k)
      ENDDO
      ENDDO
+!$acc loop vector
      DO i=i_start, i_end
        MUAVE(i,j) = MU(i,j)
        MU(i,j) = MU(i,j)+dts*(DMDT(i)+MU_TEND(i,j))
@@ -1124,14 +1137,17 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
        MUTS(i,j) = MUT(i,j)+MU(i,j)
        MUAVE(i,j) =.5*((1.+epssm)*MU(i,j)+(1.-epssm)*MUAVE(i,j))
      ENDDO
+!$acc loop seq
      DO kk=2,k_end
      k=kk-1
+!$acc loop vector
      DO i=i_start, i_end
        ww(i,kk,j)=ww(i,kk-1,j)-dnw(kk-1)*((c1h(k)*dmdt(i))+dvdxi(i,kk-1)+(c1h(k)*mu_tend(i,j)))/msfty(i,j)
      ENDDO
      END DO
 !  NOTE:  ww_1 (large timestep ww) is already coupled with the
 !         map scale factor
+!$acc loop vector collapse(2)
      DO k=1,k_end
      DO i=i_start, i_end
        ww(i,k,j)=ww(i,k,j)-ww_1(i,k,j)
@@ -1153,6 +1169,7 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
 ! adding previous tendency contribution which was map scale factor coupled
 ! (had been divided by msfty)
 ! need to uncouple before updating uncoupled Theta (by adding)
+!$acc parallel loop collapse(3)
    DO j=j_start, j_end
      DO k=1,k_end
      DO i=i_start, i_end
@@ -1161,11 +1178,14 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
      END DO
      END DO
    ENDDO   
+!$acc parallel loop gang private(wdtn)
    DO j=j_start, j_end
+!$acc loop vector
      DO i=i_start, i_end
        wdtn(i,1  )=0.
        wdtn(i,kde)=0.
      ENDDO
+!$acc loop vector collapse(2)
      DO k=2,k_end
      DO i=i_start, i_end
         ! for scalar eqn RHS term 3
@@ -1174,6 +1194,7 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
      ENDDO
 ! scalar eqn, RHS terms 1, 2 and 3
 ! multiply by msfty to uncouple result for Theta from map scale factor
+!$acc loop vector collapse(2)
      DO k=1,k_end
      DO i=i_start, i_end
        ! multiplication by msfty uncouples result for Theta
@@ -1544,6 +1565,7 @@ SUBROUTINE sumflux ( ru, rv, ww,                             &
 !</DESCRIPTION>
 
     IF (iteration == 1 )THEN
+!$acc parallel loop collapse(3)
       DO  j = jts, jte
       DO  k = kts, kte
       DO  i = its, ite
@@ -1560,6 +1582,7 @@ SUBROUTINE sumflux ( ru, rv, ww,                             &
   mink = min(kde-1,kte)
 
 
+!$acc parallel loop collapse(3)
     DO  j = jts, minj
     DO  k = kts, mink
     DO  i = its, mini
@@ -1571,6 +1594,7 @@ SUBROUTINE sumflux ( ru, rv, ww,                             &
     ENDDO
 
     IF (ite .GT. mini) THEN
+!$acc parallel loop collapse(3)
       DO  j = jts, minj
       DO  k = kts, mink
       DO  i = mini+1, ite
@@ -1580,6 +1604,7 @@ SUBROUTINE sumflux ( ru, rv, ww,                             &
       ENDDO
     END IF
     IF (jte .GT. minj) THEN
+!$acc parallel loop collapse(3)
       DO  j = minj+1, jte
       DO  k = kts, mink
       DO  i = its, mini
@@ -1589,6 +1614,7 @@ SUBROUTINE sumflux ( ru, rv, ww,                             &
       ENDDO
     END IF
     IF ( kte .GT. mink) THEN
+!$acc parallel loop collapse(3)
       DO  j = jts, minj
       DO  k = mink+1, kte
       DO  i = its, mini
@@ -1600,6 +1626,7 @@ SUBROUTINE sumflux ( ru, rv, ww,                             &
 
   IF (iteration == number_of_small_timesteps) THEN
 
+!$acc parallel loop collapse(3)
     DO  j = jts, minj
     DO  k = kts, mink
     DO  i = its, mini
@@ -1615,6 +1642,7 @@ SUBROUTINE sumflux ( ru, rv, ww,                             &
 
 
     IF (ite .GT. mini) THEN
+!$acc parallel loop collapse(3)
       DO  j = jts, minj
       DO  k = kts, mink
       DO  i = mini+1, ite
@@ -1625,6 +1653,7 @@ SUBROUTINE sumflux ( ru, rv, ww,                             &
       ENDDO
     END IF
     IF (jte .GT. minj) THEN
+!$acc parallel loop collapse(3)
       DO  j = minj+1, jte
       DO  k = kts, mink
       DO  i = its, mini
@@ -1635,6 +1664,7 @@ SUBROUTINE sumflux ( ru, rv, ww,                             &
       ENDDO
     END IF
     IF ( kte .GT. mink) THEN
+!$acc parallel loop collapse(3)
       DO  j = jts, minj
       DO  k = mink+1, kte
       DO  i = its, mini
