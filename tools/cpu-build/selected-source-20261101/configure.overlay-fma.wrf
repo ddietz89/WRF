@@ -1,0 +1,28 @@
+
+# ---------------------------------------------------------------------------------------------------------
+# Selected-configuration overlay (2026-11-01). Enables qualified opt-in features that generic Make does not
+# wire, using the same per-target 'private override CPPFLAGS' mechanism the Makefiles use.
+# SEL_HELPERS is built by build_selected_source.sh from tools/ sources before compile.
+# ---------------------------------------------------------------------------------------------------------
+SEL_HELPERS := @SEL_HELPERS@
+LIB_LOCAL += $(SEL_HELPERS)/shared_table_iso.o $(SEL_HELPERS)/shared_table.o $(SEL_HELPERS)/thompson_tpi_bridge.o $(SEL_HELPERS)/nhx-helper-O2.o $(SEL_HELPERS)/phy-height-helper-O2.o
+module_mp_thompson.o start_em.o module_wrf_top.o: private override CPPFLAGS += -DWRF_EXPERIMENTAL_TPI_NUMA=1
+module_big_step_utilities_em.o: private override CPPFLAGS += -DWRF_DIFFUSION3DMP_ORDERED4_ENABLE=1 -DWRF_EXPERIMENTAL_HPG_NHX_AVX2=1 -DWRF_EXPERIMENTAL_PHY_HEIGHT_ROW_SSE2=1 -DWRF_PHY_INTERPOLATION_SIMD_ENABLE=1 -DWRF_POSTPOW_FINAL_CONSUMER_ENABLE=1 -DWRF_CQU_CQW_LAST_SPECIES_CONSUMER_FUSION=1 -DWRF_CORIOLIS_U_COEFFICIENT_CACHE=1 -DWRF_CALC_WW_UFLUX_REUSE_ENABLE=1 -DWRF_COUPLE_MOMENTUM_U_SIMD_ENABLE=1 -DWRF_COUPLE_MOMENTUM_W_SIMD_ENABLE=1 -DWRF_CURVATURE_VXGM_J_DIFF_CACHE=1 -DWRF_CURVATURE_VXGM_X_DIFF_CACHE=1 -DWRF_CURVATURE_V_METRIC_CACHE=1 -DWRF_CQV_LAST_SPECIES_CONSUMER_FUSION=1 -DWRF_CQU_ORDERED_AVX2_ENABLE=1 -DWRF_CALC_ALT_SIMD_ENABLE=1
+module_ra_rrtmg_lw.o: private override CPPFLAGS += -DWRF_LW_RTRNMC_TWO_G_CHANNEL_ENABLE=1 -DWRF_LW_MCICA_OVERLAP_ORDERED4_ENABLE=1 -DWRF_LW_INATM_CONTIGUOUS_COPY_ENABLE=1 -DWRF_LW_MCICA_WHOLE_DRAW_SEED_CARRY_ENABLE=1 -DWRF_LW_RTRNMC_FLUX_SCALARS_ENABLE=1
+module_ra_rrtmg_sw.o: private override CPPFLAGS += -DWRF_SW_VRTQDR_PAIR_FIXED_STACK_ENABLE=1 -DWRF_SW_SPC_ORDERED_MIX4_ENABLE=1 -DWRF_SW_CLOUD_CONSUMER_ENABLE=1 -DWRF_SW_SPC_SINGLE_COLUMN_ENABLE=1 -DWRF_SW_MCICA_WHOLE_DRAW_SEED_CARRY_ENABLE=1 -DWRF_SW_INATM_COPY_UNSWITCH_ENABLE=1 -DWRF_SW_SPC_NODEL_SCALARS_ENABLE=1
+# Boundary copy: qualified SIMD directive in share/module_bc.F requires -fopenmp-simd on this unit only.
+module_bc.o: private override FCFLAGS += -fopenmp-simd
+# GWDO first-hit: the eligibility probe expects a different generic flag list; force eligibility. The select step
+# still verifies the exact original source/kind hashes before using tools/cpu-compute/gwdo-first-hit-o2.
+override _GWDO_ELIGIBLE := 1
+# RSL: stock rule folds flags into CC/FC strings, so the RSL feature gates ($(lastword $(FC)) version, CFLAGS
+# -DDM_PARALLEL/-O2/-fno-fast-math/-ffp-contract=off) never pass. Same compilers and flags, passed separately.
+$(WRF_SRC_ROOT_DIR)/external/RSL_LITE/librsl_lite.a :
+	( cd $(WRF_SRC_ROOT_DIR)/external/RSL_LITE ; make $(J) CC="$(CC)" CFLAGS="$(CFLAGS)" \
+          FC="$(DM_FC)" FFLAGS="$(FCFLAGS) $(OMP) $(PROMOTION) $(BYTESWAPIO)" \
+          CPP="$(CPP) -I. $(ARCHFLAGS) $(OMPCPP) $(TRADFLAG)" AR="$(AR)" ARFLAGS="$(ARFLAGS)" ;\
+          $(RANLIB) $(WRF_SRC_ROOT_DIR)/external/RSL_LITE/librsl_lite.a )
+# --- EXPERIMENT #2 (non-bit-exact, owner-authorised): aggressive Fortran codegen appended at recipe time. The
+# Makefiles' qualified-opt-in gates are evaluated at parse time against the unchanged strict FCOPTIM, so every
+# qualified feature stays enabled; GCC honours the last -O/-march/-ffp-contract on the command line. No -ffast-math.
+%.o: FCFLAGS += -O3 -march=znver2 -mtune=znver2 -ffp-contract=fast
