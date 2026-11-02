@@ -1034,6 +1034,7 @@ SUBROUTINE rk_addtend_dry ( ru_tend, rv_tend, rw_tend, ph_tend, t_tend,      &
 ! For scalars we need the final tendency to include an inverse msf (msfty)
 ! advection tendency is OK, physics/bc tendency needs to be divided by msf
 
+!$acc parallel loop collapse(3)
    DO j = jts,MIN(jte,jde-1)
    DO k = kts,kte-1
    DO i = its,ite
@@ -1045,6 +1046,7 @@ SUBROUTINE rk_addtend_dry ( ru_tend, rv_tend, rw_tend, ph_tend, t_tend,      &
    ENDDO
    ENDDO
 
+!$acc parallel loop collapse(3)
    DO j = jts,jte
    DO k = kts,kte-1
    DO i = its,MIN(ite,ide-1)
@@ -1056,6 +1058,7 @@ SUBROUTINE rk_addtend_dry ( ru_tend, rv_tend, rw_tend, ph_tend, t_tend,      &
    ENDDO
    ENDDO
 
+!$acc parallel loop collapse(3)
    DO j = jts,MIN(jte,jde-1)
    DO k = kts,kte
    DO i = its,MIN(ite,ide-1)
@@ -1070,6 +1073,7 @@ SUBROUTINE rk_addtend_dry ( ru_tend, rv_tend, rw_tend, ph_tend, t_tend,      &
    ENDDO
    ENDDO
 
+!$acc parallel loop collapse(3)
    DO j = jts,MIN(jte,jde-1)
    DO k = kts,kte-1
    DO i = its,MIN(ite,ide-1)
@@ -1082,6 +1086,7 @@ SUBROUTINE rk_addtend_dry ( ru_tend, rv_tend, rw_tend, ph_tend, t_tend,      &
    ENDDO
    ENDDO
 
+!$acc parallel loop collapse(2)
    DO j = jts,MIN(jte,jde-1)
    DO i = its,MIN(ite,ide-1)
 ! mu tendencies not coupled with 1/msf
@@ -1490,6 +1495,7 @@ SUBROUTINE q_diabatic_add ( scs, sce,                        &
 
      IF( im.eq.p_qv )THEN
 !!!       print *,'  qv '
+!$acc parallel loop collapse(3)
        DO j = jts,MIN(jte,jde-1)
        DO k = kts,kte-1
        DO i = its,MIN(ite,ide-1)
@@ -1500,6 +1506,7 @@ SUBROUTINE q_diabatic_add ( scs, sce,                        &
      ENDIF
      IF( im.eq.p_qc )THEN
 !!!       print *,'  qc '
+!$acc parallel loop collapse(3)
        DO j = jts,MIN(jte,jde-1)
        DO k = kts,kte-1
        DO i = its,MIN(ite,ide-1)
@@ -1558,6 +1565,7 @@ SUBROUTINE q_diabatic_subtr( scs, sce,                       &
 
      IF( im.eq.p_qv )THEN
 !!!       print *,'  qv '
+!$acc parallel loop collapse(3)
        DO j = jts,MIN(jte,jde-1)
        DO k = kts,kte-1
        DO i = its,MIN(ite,ide-1)
@@ -1568,6 +1576,7 @@ SUBROUTINE q_diabatic_subtr( scs, sce,                       &
      ENDIF
      IF( im.eq.p_qc )THEN
 !!!       print *,'  qc '
+!$acc parallel loop collapse(3)
        DO j = jts,MIN(jte,jde-1)
        DO k = kts,kte-1
        DO i = its,MIN(ite,ide-1)
@@ -1684,6 +1693,7 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
 
       DO  im = scs,sce
 
+!$acc parallel loop collapse(3)
        DO  j = jts, min(jte,jde-1)
        DO  k = kts, min(kte,kde-1)
        DO  i = its, min(ite,ide-1)
@@ -1692,6 +1702,7 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
        ENDDO
        ENDDO
    
+!$acc parallel loop collapse(3)
        DO  j = j_start,j_end
        DO  k = k_start,k_end
        DO  i = i_start,i_end
@@ -1701,6 +1712,7 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
        ENDDO
        ENDDO
    
+!$acc parallel loop collapse(3)
        DO  j = j_start_spc,j_end_spc
        DO  k = k_start_spc,k_end_spc
        DO  i = i_start_spc,i_end_spc
@@ -1735,6 +1747,7 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
 
       DO  im = scs, sce
 
+!$acc parallel loop collapse(3)
        DO  j = jts, min(jte,jde-1)
        DO  k = kts, min(kte,kde-1)
        DO  i = its, min(ite,ide-1)
@@ -1743,6 +1756,7 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
        ENDDO
        ENDDO
    
+!$acc parallel loop collapse(3)
        DO  j = j_start,j_end
        DO  k = k_start,k_end
        DO  i = i_start,i_end
@@ -1752,6 +1766,7 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
        ENDDO
        ENDDO
    
+!$acc parallel loop collapse(3)
        DO  j = j_start_spc,j_end_spc
        DO  k = k_start_spc,k_end_spc
        DO  i = i_start_spc,i_end_spc
@@ -1878,6 +1893,7 @@ SUBROUTINE rk_update_scalar_pd( scs, sce,                      &
 
       DO  im = scs, sce
 
+!$acc parallel loop collapse(3)
        DO  j = jts, min(jte,jde-1)
        DO  k = kts, min(kte,kde-1)
        DO  i = its, min(ite,ide-1)
@@ -1886,6 +1902,7 @@ SUBROUTINE rk_update_scalar_pd( scs, sce,                      &
        ENDDO
        ENDDO
    
+!$acc parallel loop collapse(3)
        DO  j = j_start_spc,j_end_spc
        DO  k = k_start_spc,k_end_spc
        DO  i = i_start_spc,i_end_spc
