@@ -1210,7 +1210,7 @@ SUBROUTINE calc_p_rho_phi ( moist, n_moist, hypsometric_opt,      &
         DO j=jts,jtf
 
           k=ktf          ! top layer
-!$acc loop vector
+!$acc loop vector private(qf1,qf2,qtot)
           DO i=its,itf
 
             qtot = 0.
@@ -1223,9 +1223,9 @@ SUBROUTINE calc_p_rho_phi ( moist, n_moist, hypsometric_opt,      &
 
           ENDDO
 
-!$acc loop seq
+!$acc loop seq private(qf1,qf2,qtot)
           DO k=ktf-1,kts,-1  ! remaining layers, integrate down
-!$acc loop vector
+!$acc loop vector private(qf1,qf2,qtot)
             DO i=its,itf
 
             qtot = 0.
@@ -1264,9 +1264,9 @@ SUBROUTINE calc_p_rho_phi ( moist, n_moist, hypsometric_opt,      &
            ph(i,kts,j) = phb(i,kts,j)
         END DO
 
-!$acc loop seq
+!$acc loop seq private(pfd,pfu,phm)
         DO k=kts+1,ktf+1
-!$acc loop vector
+!$acc loop vector private(pfd,pfu,phm)
           DO i=its,itf
             pfu = c3f(k  )*MUTS(i,j) + c4f(k  ) + ptop
             pfd = c3f(k-1)*MUTS(i,j) + c4f(k-1) + ptop
@@ -2241,7 +2241,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
 
 !$acc parallel loop gang
      DO j = jts,jtf
-!$acc loop vector
+!$acc loop vector private(kz,ub,ul)
        DO k=2,kde-1
          kz = k
          ub =.5*( fnm(kz)*(u(i+1,kz  ,j)+u(i  ,kz  ,j))     &
@@ -2270,7 +2270,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
 
 !$acc parallel loop gang
      DO j = jts,jtf
-!$acc loop vector
+!$acc loop vector private(kz,ub,ur)
        DO k=2,kde-1
         kz = k
         ub=.5*( fnm(kz)*(u(i+1,kz  ,j)+u(i,kz  ,j))  &
@@ -2425,7 +2425,7 @@ SUBROUTINE horizontal_pressure_gradient( ru_tend,rv_tend,                &
 
 !       ADT eqn 45: -mu*(my/mx)*(1/rho)*partial dp/dy
 !       [alt, al are 1/rho terms; muv, mu are NOT coupled]
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(dpy)
         DO K=1,ktf
           DO i = i_start, itf
             ! Here are mu dp/dy terms 1-3
@@ -2444,7 +2444,7 @@ SUBROUTINE horizontal_pressure_gradient( ru_tend,rv_tend,                &
 
 !       ADT eqn 45: -mu*(my/mx)*(1/rho)*partial dp/dy
 !       [alt, al are 1/rho terms; muv, mu are NOT coupled]
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(dpy)
         DO K=1,ktf
           DO i = i_start, itf
             ! Here are mu dp/dy terms 1-3; term 4 not needed if hydrostatic
@@ -2506,7 +2506,7 @@ SUBROUTINE horizontal_pressure_gradient( ru_tend,rv_tend,                &
 
 ! ADT eqn 44: -mu*(mx/my)*(1/rho)*partial dp/dx
 ! [alt, al are 1/rho terms; muu, mu are NOT coupled]
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(dpx)
         DO K=1,ktf
           DO i = i_start, itf
             ! Here are mu dp/dy terms 1-3
@@ -2525,7 +2525,7 @@ SUBROUTINE horizontal_pressure_gradient( ru_tend,rv_tend,                &
 
 !       ADT eqn 44: -mu*(mx/my)*(1/rho)*partial dp/dx
 !       [alt, al are 1/rho terms; muu, mu are NOT coupled]
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(dpx)
         DO K=1,ktf
           DO i = i_start, itf
             ! Here are mu dp/dy terms 1-3; term 4 not needed if hydrostatic
@@ -2604,7 +2604,7 @@ SUBROUTINE pg_buoy_w( rw_tend, p, cqw, muf, mubf,     &
    DO j = jts,jtf
 
      k=kde
-!$acc loop vector
+!$acc loop vector private(cq1,cq2)
      DO i=its,itf
        cq1 = 1./(1.+cqw(i,k-1,j))
        cq2 = cqw(i,k-1,j)*cq1
@@ -2613,7 +2613,7 @@ SUBROUTINE pg_buoy_w( rw_tend, p, cqw, muf, mubf,     &
                         -(c1f(k)*muf(i,j))-cq2*(c1f(k)*mubf(i,j)+c2f(k))            )
      END DO
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(cq1,cq2)
      DO k = 2, kde-1
      DO i = its,itf
       cq1 = 1./(1.+cqw(i,k,j))
@@ -4141,7 +4141,7 @@ SUBROUTINE perturbation_coriolis ( ru_in, rv_in, rw, ru_tend, rv_tend, rw_tend, 
 
 !$acc parallel loop gang
    DO j = jts, MIN(jte,jde-1)+1
-!$acc loop vector
+!$acc loop vector private(k,wk,wkm1,wkp1,z_at_v)
    DO i = i_start-1, i_end
 
      k = kts
@@ -4253,7 +4253,7 @@ SUBROUTINE perturbation_coriolis ( ru_in, rv_in, rw, ru_tend, rv_tend, rw_tend, 
 
 !$acc parallel loop gang
    DO j = j_start-1,j_end
-!$acc loop vector
+!$acc loop vector private(k,wk,wkm1,wkp1,z_at_u)
    DO i = its, MIN(ite,ide-1)+1
 
      k = kts
@@ -5120,7 +5120,7 @@ END SUBROUTINE pole_point_bc
 
 !$acc parallel loop gang
     do j = j_start,j_end
-!$acc loop vector
+!$acc loop vector private(w1,w2,z0,z1,z2)
     do i = i_start, i_end
 
 ! bottom
@@ -5811,7 +5811,7 @@ END SUBROUTINE phy_prep_part2
 
 !$acc parallel loop gang
     do j = j_start,j_end
-!$acc loop vector
+!$acc loop vector private(w1,w2,z0,z1,z2)
     do i = i_start, i_end
 
 ! bottom
@@ -5934,7 +5934,7 @@ END SUBROUTINE phy_prep_part2
        mptenmin = 999.
 !$acc parallel loop gang
      DO j = j_start, j_end
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(dfi_tten_max,imax,imin,jmax,jmin,mpten,mptenmax,mptenmin,old_max,qcten,qvten)
      DO k = k_start, k_end
      DO i = i_start, i_end
           mpten = th_phy(i,k,j)-h_diabatic(i,k,j)
@@ -6183,7 +6183,7 @@ END SUBROUTINE set_tend
 
 !$acc parallel loop gang private(u00,z00)
     DO j = jts, MIN( jte, jde-1 )
-!$acc loop vector
+!$acc loop vector private(dcoef,k1,k2,z,ztop)
     DO i = its, MIN( ite, ide   )
 
       ! Get height at top of model
@@ -6204,7 +6204,7 @@ END SUBROUTINE set_tend
       k1 = k1 + 2
 
       ! Get reference state at model levels
-!$acc loop vector
+!$acc loop vector private(k2)
       DO k = k1, ktf
         k2 = ktf
         DO WHILE( z_base(k2) .gt. z00(k) )
@@ -6241,7 +6241,7 @@ END SUBROUTINE set_tend
 
 !$acc parallel loop gang private(v00,z00)
     DO j = jts, MIN( jte, jde   )
-!$acc loop vector
+!$acc loop vector private(dcoef,k1,k2,z,ztop)
     DO i = its, MIN( ite, ide-1 )
 
       ! Get height at top of model
@@ -6262,7 +6262,7 @@ END SUBROUTINE set_tend
       k1 = k1 + 2
 
       ! Get reference state at model levels
-!$acc loop vector
+!$acc loop vector private(k2)
       DO k = k1, ktf
         k2 = ktf
         DO WHILE( z_base(k2) .gt. z00(k) )
@@ -6320,7 +6320,7 @@ END SUBROUTINE set_tend
 
 !$acc parallel loop gang private(t00,z00)
     DO j = jts, MIN( jte,   jde-1 )
-!$acc loop vector
+!$acc loop vector private(dcoef,k1,k2,z,ztop)
     DO i = its, MIN( ite,   ide-1 )
 
       ! Get height at top of model
@@ -6338,7 +6338,7 @@ END SUBROUTINE set_tend
       k1 = k1 + 2
 
       ! Get reference state at model levels
-!$acc loop vector
+!$acc loop vector private(k2)
       DO k = k1, ktf
         k2 = ktf
         DO WHILE( z_base(k2) .gt. z00(k) )

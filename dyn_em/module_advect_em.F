@@ -297,7 +297,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN  ! use full stencil
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
         DO k=kts,ktf
         DO i = i_start, i_end
           vel = 0.5*(rv(i,k,j)+rv(i-1,k,j))
@@ -321,7 +321,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
      ELSE IF  ( j == jds+2 ) THEN  ! third of 4th order flux 2 in from south boundary
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
             DO k=kts,ktf
             DO i = i_start, i_end
               vel = 0.5*(rv(i,k,j)+rv(i-1,k,j))
@@ -342,7 +342,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
      ELSE IF ( j == jde-2 ) THEN  ! 3rd order flux 2 in from north boundary
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
             DO k=kts,ktf
             DO i = i_start, i_end
               vel = 0.5*(rv(i,k,j)+rv(i-1,k,j))
@@ -361,7 +361,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 !$acc parallel loop gang
      j_loop_y_flux_6 : DO j = j_start, j_end+1
         IF ( config_flags%polar .AND. (j == jds+1) ) THEN
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdy)
           DO k=kts,ktf
           DO i = i_start, i_end
             mrdy=msfux(i,j-1)*rdy   ! ADT eqn 44, 2nd term on RHS
@@ -370,7 +370,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
           END DO
         ! This would be seen by (j > j_start) but we need to zero out the NP tendency
         ELSE IF( config_flags%polar .AND. (j == jde) ) THEN
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdy)
           DO k=kts,ktf
           DO i = i_start, i_end
             mrdy=msfux(i,j-1)*rdy   ! ADT eqn 44, 2nd term on RHS
@@ -381,7 +381,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
         IF(j > j_start) THEN
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdy)
           DO k=kts,ktf
           DO i = i_start, i_end
             mrdy=msfux(i,j-1)*rdy   ! ADT eqn 44, 2nd term on RHS
@@ -427,7 +427,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
 !  5th or 6th order flux
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
         DO k=kts,ktf
         DO i = i_start_f, i_end_f
           vel = 0.5*(ru(i,k,j)+ru(i-1,k,j))
@@ -445,7 +445,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
           IF( i_start == ids+1 ) THEN ! second order flux next to the boundary
             i = ids+1
-!$acc loop vector
+!$acc loop vector private(ub)
             DO k=kts,ktf
               ub = u(i-1,k,j)
               IF (specified .AND. u(i,k,j) .LT. 0.)ub = u(i,k,j)
@@ -455,7 +455,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
           END IF
 
           i = ids+2
-!$acc loop vector
+!$acc loop vector private(vel)
           DO k=kts,ktf
             vel = 0.5*(ru(i,k,j)+ru(i-1,k,j))
             fqx( i, k  ) = vel*flux4( u(i-2,k,j), u(i-1,k,j),  &
@@ -469,7 +469,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
           IF( i_end == ide-1 ) THEN ! second order flux next to the boundary
             i = ide
-!$acc loop vector
+!$acc loop vector private(ub)
             DO k=kts,ktf
               ub = u(i,k,j)
               IF (specified .AND. u(i-1,k,j) .GT. 0.)ub = u(i-1,k,j)
@@ -478,7 +478,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
             ENDDO
           ENDIF
 
-!$acc loop vector
+!$acc loop vector private(i,vel)
           DO k=kts,ktf
           i = ide-1
           vel = 0.5*(ru(i,k,j)+ru(i-1,k,j))
@@ -491,7 +491,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
 !  x flux-divergence into tendency
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdx)
         DO k=kts,ktf
           DO i = i_start, i_end
             mrdx=msfux(i,j)*rdx ! ADT eqn 44, 1st term on RHS
@@ -574,7 +574,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN  ! use full stencil
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
         DO k=kts,ktf
         DO i = i_start, i_end
           vel = 0.5*(rv(i,k,j)+rv(i-1,k,j))
@@ -598,7 +598,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
      ELSE IF  ( j == jds+2 ) THEN  ! third of 4th order flux 2 in from south boundary
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
             DO k=kts,ktf
             DO i = i_start, i_end
               vel = 0.5*(rv(i,k,j)+rv(i-1,k,j))
@@ -619,7 +619,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
      ELSE IF ( j == jde-2 ) THEN  ! 3rd order flux 2 in from north boundary
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
             DO k=kts,ktf
             DO i = i_start, i_end
               vel = 0.5*(rv(i,k,j)+rv(i-1,k,j))
@@ -638,7 +638,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 !$acc parallel loop gang
      j_loop_y_flux_5 : DO j = j_start, j_end+1
         IF ( config_flags%polar .AND. (j == jds+1) ) THEN
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdy)
           DO k=kts,ktf
           DO i = i_start, i_end
             mrdy=msfux(i,j-1)*rdy   ! ADT eqn 44, 2nd term on RHS
@@ -647,7 +647,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
           END DO
         ! This would be seen by (j > j_start) but we need to zero out the NP tendency
         ELSE IF( config_flags%polar .AND. (j == jde) ) THEN
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdy)
           DO k=kts,ktf
           DO i = i_start, i_end
             mrdy=msfux(i,j-1)*rdy   ! ADT eqn 44, 2nd term on RHS
@@ -658,7 +658,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
         IF(j > j_start) THEN
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdy)
           DO k=kts,ktf
           DO i = i_start, i_end
             mrdy=msfux(i,j-1)*rdy   ! ADT eqn 44, 2nd term on RHS
@@ -704,7 +704,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
 !  5th or 6th order flux
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
         DO k=kts,ktf
         DO i = i_start_f, i_end_f
           vel = 0.5*(ru(i,k,j)+ru(i-1,k,j))
@@ -722,7 +722,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
           IF( i_start == ids+1 ) THEN ! second order flux next to the boundary
             i = ids+1
-!$acc loop vector
+!$acc loop vector private(ub)
             DO k=kts,ktf
               ub = u(i-1,k,j)
               IF (specified .AND. u(i,k,j) .LT. 0.)ub = u(i,k,j)
@@ -732,7 +732,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
           END IF
 
           i = ids+2
-!$acc loop vector
+!$acc loop vector private(vel)
           DO k=kts,ktf
             vel = 0.5*(ru(i,k,j)+ru(i-1,k,j))
             fqx( i, k  ) = vel*flux3( u(i-2,k,j), u(i-1,k,j),  &
@@ -746,7 +746,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
           IF( i_end == ide-1 ) THEN ! second order flux next to the boundary
             i = ide
-!$acc loop vector
+!$acc loop vector private(ub)
             DO k=kts,ktf
               ub = u(i,k,j)
               IF (specified .AND. u(i-1,k,j) .GT. 0.)ub = u(i-1,k,j)
@@ -755,7 +755,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
             ENDDO
           ENDIF
 
-!$acc loop vector
+!$acc loop vector private(i,vel)
           DO k=kts,ktf
           i = ide-1
           vel = 0.5*(ru(i,k,j)+ru(i-1,k,j))
@@ -768,7 +768,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
 !  x flux-divergence into tendency
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdx)
         DO k=kts,ktf
           DO i = i_start, i_end
             mrdx=msfux(i,j)*rdx ! ADT eqn 44, 1st term on RHS
@@ -833,7 +833,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 !$acc parallel loop gang private(fqx)
       DO j = j_start, j_end
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
         DO k=kts,ktf
         DO i = i_start_f, i_end_f
           vel = 0.5*(ru(i,k,j)+ru(i-1,k,j))
@@ -847,7 +847,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
         IF( degrade_xs ) THEN
           i = i_start
-!$acc loop vector
+!$acc loop vector private(ub)
           DO k=kts,ktf
               ub = u(i-1,k,j)
               IF (specified .AND. u(i,k,j) .LT. 0.)ub = u(i,k,j)
@@ -858,7 +858,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
         IF( degrade_xe ) THEN
           i = i_end+1
-!$acc loop vector
+!$acc loop vector private(ub)
           DO k=kts,ktf
               ub = u(i,k,j)
               IF (specified .AND. u(i-1,k,j) .GT. 0.)ub = u(i-1,k,j)
@@ -869,7 +869,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
 !  x flux-divergence into tendency
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdx)
         DO k=kts,ktf
           DO i = i_start, i_end
             mrdx=msfux(i,j)*rdx ! ADT eqn 44, 1st term on RHS
@@ -940,7 +940,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
        ENDDO
      ELSE
 !  3rd or 4th order flux
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
        DO k = kts, ktf
        DO i = i_start, i_end
          vel = 0.5*(rv(i,k,j)+rv(i-1,k,j))
@@ -959,7 +959,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 !$acc parallel loop gang
    DO j = j_start, j_end+1
      IF ( config_flags%polar .AND. (j == jds+1) ) THEN
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdy)
        DO k=kts,ktf
        DO i = i_start, i_end
          mrdy=msfux(i,j-1)*rdy   ! ADT eqn 44, 2nd term on RHS
@@ -968,7 +968,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
        END DO
        ! This would be seen by (j > j_start) but we need to zero out the NP tendency
      ELSE IF( config_flags%polar .AND. (j == jde) ) THEN
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdy)
        DO k=kts,ktf
        DO i = i_start, i_end
          mrdy=msfux(i,j-1)*rdy   ! ADT eqn 44, 2nd term on RHS
@@ -979,7 +979,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
      IF (j > j_start) THEN
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdy)
        DO k=kts,ktf
        DO i = i_start, i_end
           mrdy=msfux(i,j-1)*rdy ! ADT eqn 44, 2nd term on RHS
@@ -1051,7 +1051,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 !$acc parallel loop gang private(fqx)
       DO j = j_start, j_end
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
         DO k=kts,ktf
         DO i = i_start_f, i_end_f
           vel = 0.5*(ru(i,k,j)+ru(i-1,k,j))
@@ -1065,7 +1065,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
         IF( degrade_xs ) THEN
           i = i_start
-!$acc loop vector
+!$acc loop vector private(ub)
           DO k=kts,ktf
               ub = u(i-1,k,j)
               IF (specified .AND. u(i,k,j) .LT. 0.)ub = u(i,k,j)
@@ -1076,7 +1076,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
         IF( degrade_xe ) THEN
           i = i_end+1
-!$acc loop vector
+!$acc loop vector private(ub)
           DO k=kts,ktf
               ub = u(i,k,j)
               IF (specified .AND. u(i-1,k,j) .GT. 0.)ub = u(i-1,k,j)
@@ -1087,7 +1087,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
 !  x flux-divergence into tendency
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdx)
         DO k=kts,ktf
           DO i = i_start, i_end
           mrdx=msfux(i,j)*rdx ! ADT eqn 44, 1st term on RHS
@@ -1157,7 +1157,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
        ENDDO
      ELSE
 !  3rd or 4th order flux
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
        DO k = kts, ktf
        DO i = i_start, i_end
          vel = 0.5*(rv(i,k,j)+rv(i-1,k,j))
@@ -1176,7 +1176,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 !$acc parallel loop gang
    DO j = j_start, j_end+1
      IF ( config_flags%polar .AND. (j == jds+1) ) THEN
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdy)
        DO k=kts,ktf
        DO i = i_start, i_end
          mrdy=msfux(i,j-1)*rdy   ! ADT eqn 44, 2nd term on RHS
@@ -1185,7 +1185,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
        END DO
        ! This would be seen by (j > j_start) but we need to zero out the NP tendency
      ELSE IF( config_flags%polar .AND. (j == jde) ) THEN
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdy)
        DO k=kts,ktf
        DO i = i_start, i_end
          mrdy=msfux(i,j-1)*rdy   ! ADT eqn 44, 2nd term on RHS
@@ -1196,7 +1196,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
      IF (j > j_start) THEN
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdy)
        DO k=kts,ktf
        DO i = i_start, i_end
           mrdy=msfux(i,j-1)*rdy      ! ADT eqn 44, 2nd term on RHS
@@ -1239,7 +1239,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
       IF ( specified .AND. its .LE. ids+1 .AND. .NOT. config_flags%periodic_x ) THEN
 !$acc parallel loop gang
         DO j = j_start, j_end
-!$acc loop vector
+!$acc loop vector private(i,mrdx,ub)
         DO k=kts,ktf
            i = ids+1
            mrdx=msfux(i,j)*rdx       ! ADT eqn 44, 1st term on RHS
@@ -1254,7 +1254,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
       IF ( specified .AND. ite .GE. ide-1 .AND. .NOT. config_flags%periodic_x ) THEN
 !$acc parallel loop gang
         DO j = j_start, j_end
-!$acc loop vector
+!$acc loop vector private(i,mrdx,ub)
         DO k=kts,ktf
            i = ide-1
            mrdx=msfux(i,j)*rdx       ! ADT eqn 44, 1st term on RHS
@@ -1312,7 +1312,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
 !$acc parallel loop gang
         DO j = j_start, j_end
-!$acc loop vector
+!$acc loop vector private(ub)
         DO k = kts, ktf
           ub = MIN(ru(its,k,j)-cb*(c1(k)*mut(its,j)+c2(k)), 0.)
           tendency(its,k,j) = tendency(its,k,j)                    &
@@ -1329,7 +1329,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
 !$acc parallel loop gang
         DO j = j_start, j_end
-!$acc loop vector
+!$acc loop vector private(ub)
         DO k = kts, ktf
           ub = MAX(ru(ite,k,j)+cb*(c1(k)*mut(ite-1,j)+c2(k)), 0.)
           tendency(ite,k,j) = tendency(ite,k,j)                    &
@@ -1430,7 +1430,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 !$acc parallel loop gang private(vflux)
       DO j = j_start, j_end
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
          DO k=kts+3,ktf-2
          DO i = i_start, i_end
            vel=0.5*(rom(i-1,k,j)+rom(i,k,j))
@@ -1440,7 +1440,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
          ENDDO
          ENDDO
 
-!$acc loop vector
+!$acc loop vector private(k,vel)
          DO i = i_start, i_end
 
            k=kts+1
@@ -1474,7 +1474,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 !$acc parallel loop gang private(vflux)
       DO j = j_start, j_end
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
          DO k=kts+3,ktf-2
          DO i = i_start, i_end
            vel=0.5*(rom(i-1,k,j)+rom(i,k,j))
@@ -1484,7 +1484,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
          ENDDO
          ENDDO
 
-!$acc loop vector
+!$acc loop vector private(k,vel)
          DO i = i_start, i_end
 
            k=kts+1
@@ -1518,7 +1518,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 !$acc parallel loop gang private(vflux)
       DO j = j_start, j_end
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
          DO k=kts+2,ktf-1
          DO i = i_start, i_end
            vel=0.5*(rom(i-1,k,j)+rom(i,k,j))
@@ -1528,7 +1528,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
          ENDDO
          ENDDO
 
-!$acc loop vector
+!$acc loop vector private(k)
          DO i = i_start, i_end
 
            k=kts+1
@@ -1552,7 +1552,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 !$acc parallel loop gang private(vflux)
       DO j = j_start, j_end
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
          DO k=kts+2,ktf-1
          DO i = i_start, i_end
            vel=0.5*(rom(i-1,k,j)+rom(i,k,j))
@@ -1562,7 +1562,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
          ENDDO
          ENDDO
 
-!$acc loop vector
+!$acc loop vector private(k)
          DO i = i_start, i_end
 
            k=kts+1
@@ -1786,7 +1786,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
         DO k=kts,ktf
         DO i = i_start, i_end
           vel = 0.5*(rv(i,k,j)+rv(i,k,j-1))
@@ -1801,7 +1801,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
       ELSE IF ( j == jds+1 ) THEN   ! 2nd order flux next to south boundary
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vb)
             DO k=kts,ktf
             DO i = i_start, i_end
                 vb = v(i,k,j-1)
@@ -1813,7 +1813,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
      ELSE IF  ( j == jds+2 ) THEN  ! third of 4th order flux 2 in from south boundary
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
             DO k=kts,ktf
             DO i = i_start, i_end
               vel = 0.5*(rv(i,k,j)+rv(i,k,j-1))
@@ -1825,7 +1825,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
      ELSE IF ( j == jde ) THEN  ! 2nd order flux next to north boundary
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vb)
             DO k=kts,ktf
             DO i = i_start, i_end
                 vb = v(i,k,j)
@@ -1837,7 +1837,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
      ELSE IF ( j == jde-1 ) THEN  ! 3rd or 4th order flux 2 in from north boundary
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
             DO k=kts,ktf
             DO i = i_start, i_end
               vel = 0.5*(rv(i,k,j)+rv(i,k,j-1))
@@ -1879,7 +1879,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
         IF(j > j_start) THEN
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdy)
           DO k=kts,ktf
           DO i = i_start, i_end
             mrdy=msfvy(i,j-1)*rdy    ! ADT eqn 45, 2nd term on RHS
@@ -2064,7 +2064,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
         DO k=kts,ktf
         DO i = i_start, i_end
           vel = 0.5*(rv(i,k,j)+rv(i,k,j-1))
@@ -2079,7 +2079,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
       ELSE IF ( j == jds+1 ) THEN   ! 2nd order flux next to south boundary
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vb)
             DO k=kts,ktf
             DO i = i_start, i_end
                 vb = v(i,k,j-1)
@@ -2091,7 +2091,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
      ELSE IF  ( j == jds+2 ) THEN  ! third of 4th order flux 2 in from south boundary
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
             DO k=kts,ktf
             DO i = i_start, i_end
               vel = 0.5*(rv(i,k,j)+rv(i,k,j-1))
@@ -2103,7 +2103,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
      ELSE IF ( j == jde ) THEN  ! 2nd order flux next to north boundary
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vb)
             DO k=kts,ktf
             DO i = i_start, i_end
                 vb = v(i,k,j)
@@ -2115,7 +2115,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
      ELSE IF ( j == jde-1 ) THEN  ! 3rd or 4th order flux 2 in from north boundary
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
             DO k=kts,ktf
             DO i = i_start, i_end
               vel = 0.5*(rv(i,k,j)+rv(i,k,j-1))
@@ -2157,7 +2157,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
         IF(j > j_start) THEN
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdy)
           DO k=kts,ktf
           DO i = i_start, i_end
             mrdy=msfvy(i,j-1)*rdy    ! ADT eqn 45, 2nd term on RHS
@@ -2341,7 +2341,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
     DO j = j_start, j_end+1
 
       IF ((j == j_start) .and. degrade_ys) THEN
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vb)
         DO k = kts,ktf
         DO i = i_start, i_end
                 vb = v(i,k,j-1)
@@ -2351,7 +2351,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
         ENDDO
         ENDDO
       ELSE IF ((j == j_end+1) .and. degrade_ye) THEN
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vb)
         DO k = kts, ktf
         DO i = i_start, i_end
                 vb = v(i,k,j)
@@ -2361,7 +2361,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
         ENDDO
         ENDDO
       ELSE
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
         DO k = kts, ktf
         DO i = i_start, i_end
           vel = 0.5*(rv(i,k,j)+rv(i,k,j-1))
@@ -2400,7 +2400,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
       ELSE  ! Normal code
 
       IF( j > j_start) THEN
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdy)
         DO k = kts, ktf
         DO i = i_start, i_end
             mrdy=msfvy(i,j-1)*rdy     ! ADT eqn 45, 2nd term on RHS
@@ -2449,7 +2449,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
 !  3rd or 4th order flux
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
         DO k=kts,ktf
         DO i = i_start_f, i_end_f
           vel = 0.5*(ru(i,k,j)+ru(i,k,j-1))
@@ -2479,7 +2479,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
 !  x flux-divergence into tendency
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdx)
         DO k=kts,ktf
         DO i = i_start, i_end
             mrdx=msfvy(i,j)*rdx       ! ADT eqn 45, 1st term on RHS
@@ -2554,7 +2554,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
     DO j = j_start, j_end+1
 
       IF ((j == j_start) .and. degrade_ys) THEN
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vb)
         DO k = kts,ktf
         DO i = i_start, i_end
                 vb = v(i,k,j-1)
@@ -2564,7 +2564,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
         ENDDO
         ENDDO
       ELSE IF ((j == j_end+1) .and. degrade_ye) THEN
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vb)
         DO k = kts, ktf
         DO i = i_start, i_end
                 vb = v(i,k,j)
@@ -2574,7 +2574,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
         ENDDO
         ENDDO
       ELSE
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
         DO k = kts, ktf
         DO i = i_start, i_end
           vel = 0.5*(rv(i,k,j)+rv(i,k,j-1))
@@ -2613,7 +2613,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
       ELSE  ! Normal code
 
       IF( j > j_start) THEN
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdy)
         DO k = kts, ktf
         DO i = i_start, i_end
             mrdy=msfvy(i,j-1)*rdy     ! ADT eqn 45, 2nd term on RHS
@@ -2662,7 +2662,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
 !  3rd or 4th order flux
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
         DO k=kts,ktf
         DO i = i_start_f, i_end_f
           vel = 0.5*(ru(i,k,j)+ru(i,k,j-1))
@@ -2692,7 +2692,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
 !  x flux-divergence into tendency
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdx)
         DO k=kts,ktf
         DO i = i_start, i_end
             mrdx=msfvy(i,j)*rdx      ! ADT eqn 45, 1st term on RHS
@@ -2901,7 +2901,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
          jp = MIN( jmax, j   )
          jm = MAX( jmin, j-1 )
 
-!$acc loop vector
+!$acc loop vector private(dum,dup,ub,uw)
          DO k=kts,ktf
 
           uw = 0.5*(ru(its,k,jp)+ru(its,k,jm))
@@ -2924,7 +2924,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
          jp = MIN( jmax, j   )
          jm = MAX( jmin, j-1 )
 
-!$acc loop vector
+!$acc loop vector private(dum,dup,ub,uw)
          DO k=kts,ktf
 
           uw = 0.5*(ru(ite,k,jp)+ru(ite,k,jm))
@@ -2975,7 +2975,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
       DO j = j_start, j_end
 
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
          DO k=kts+3,ktf-2
          DO i = i_start, i_end
            vel=0.5*(rom(i,k,j)+rom(i,k,j-1))
@@ -2985,7 +2985,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
          ENDDO
          ENDDO
 
-!$acc loop vector
+!$acc loop vector private(k,vel)
          DO i = i_start, i_end
            k=kts+1
            vflux(i,k)=0.5*(rom(i,k,j)+rom(i,k,j-1))  &
@@ -3024,7 +3024,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
       DO j = j_start, j_end
 
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
          DO k=kts+3,ktf-2
          DO i = i_start, i_end
            vel=0.5*(rom(i,k,j)+rom(i,k,j-1))
@@ -3034,7 +3034,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
          ENDDO
          ENDDO
 
-!$acc loop vector
+!$acc loop vector private(k,vel)
          DO i = i_start, i_end
            k=kts+1
            vflux(i,k)=0.5*(rom(i,k,j)+rom(i,k,j-1))  &
@@ -3073,7 +3073,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
       DO j = j_start, j_end
 
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
          DO k=kts+2,ktf-1
          DO i = i_start, i_end
            vel=0.5*(rom(i,k,j)+rom(i,k,j-1))
@@ -3083,7 +3083,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
          ENDDO
          ENDDO
 
-!$acc loop vector
+!$acc loop vector private(k)
          DO i = i_start, i_end
            k=kts+1
            vflux(i,k)=0.5*(rom(i,k,j)+rom(i,k,j-1))  &
@@ -3112,7 +3112,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
       DO j = j_start, j_end
 
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
          DO k=kts+2,ktf-1
          DO i = i_start, i_end
            vel=0.5*(rom(i,k,j)+rom(i,k,j-1))
@@ -3122,7 +3122,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
          ENDDO
          ENDDO
 
-!$acc loop vector
+!$acc loop vector private(k)
          DO i = i_start, i_end
            k=kts+1
            vflux(i,k)=0.5*(rom(i,k,j)+rom(i,k,j-1))  &
@@ -3354,7 +3354,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN ! use full stencil
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
         DO k=kts,ktf
         DO i = i_start, i_end
           vel = rv(i,k,j)
@@ -3378,7 +3378,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
      ELSE IF  ( j == jds+2 ) THEN  ! 4th order flux 2 in from south boundary
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
             DO k=kts,ktf
             DO i = i_start, i_end
               vel = rv(i,k,j)
@@ -3399,7 +3399,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
      ELSE IF ( j == jde-2 ) THEN  ! 3rd or 4th order flux 2 in from north boundary
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
             DO k=kts,ktf
             DO i = i_start, i_end
               vel = rv(i,k,j)
@@ -3421,7 +3421,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 !$acc parallel loop gang
      j_loop_y_flux_6 : DO j = j_start, j_end+1
         IF ( config_flags%polar .AND. (j == jds+1) ) THEN
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdy)
           DO k=kts,ktf
           DO i = i_start, i_end
             mrdy=msftx(i,j-1)*rdy     ! see ADT eqn 48 [rho->rho*q] dividing by my, 2nd term RHS
@@ -3429,7 +3429,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
           END DO
           END DO
         ELSE IF( config_flags%polar .AND. (j == jde) ) THEN
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdy)
           DO k=kts,ktf
           DO i = i_start, i_end
             mrdy=msftx(i,j-1)*rdy     ! see ADT eqn 48 [rho->rho*q] dividing by my, 2nd term RHS
@@ -3440,7 +3440,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
         IF(j > j_start) THEN
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdy)
           DO k=kts,ktf
           DO i = i_start, i_end
             mrdy=msftx(i,j-1)*rdy    ! see ADT eqn 48 [rho->rho*q] dividing by my, 2nd term RHS
@@ -3620,7 +3620,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN ! use full stencil
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
         DO k=kts,ktf
         DO i = i_start, i_end
           vel = rv(i,k,j)
@@ -3644,7 +3644,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
      ELSE IF  ( j == jds+2 ) THEN  ! third of 4th order flux 2 in from south boundary
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
             DO k=kts,ktf
             DO i = i_start, i_end
               vel = rv(i,k,j)
@@ -3665,7 +3665,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
      ELSE IF ( j == jde-2 ) THEN  ! 3rd or 4th order flux 2 in from north boundary
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
             DO k=kts,ktf
             DO i = i_start, i_end
               vel = rv(i,k,j)
@@ -3687,7 +3687,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 !$acc parallel loop gang
      j_loop_y_flux_5 : DO j = j_start, j_end+1
         IF ( config_flags%polar .AND. (j == jds+1) ) THEN
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdy)
           DO k=kts,ktf
           DO i = i_start, i_end
             mrdy=msftx(i,j-1)*rdy     ! see ADT eqn 48 [rho->rho*q] dividing by my, 2nd term RHS
@@ -3695,7 +3695,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
           END DO
           END DO
         ELSE IF( config_flags%polar .AND. (j == jde) ) THEN
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdy)
           DO k=kts,ktf
           DO i = i_start, i_end
             mrdy=msftx(i,j-1)*rdy     ! see ADT eqn 48 [rho->rho*q] dividing by my, 2nd term RHS
@@ -3706,7 +3706,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
         IF(j > j_start) THEN
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdy)
           DO k=kts,ktf
           DO i = i_start, i_end
             mrdy=msftx(i,j-1)*rdy    ! see ADT eqn 48 [rho->rho*q] dividing by my, 2nd term RHS
@@ -3906,7 +3906,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
 !  x flux-divergence into tendency
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdx)
         DO k=kts,ktf
         DO i = i_start, i_end
           mrdx=msftx(i,j)*rdx        ! see ADT eqn 48 [rho->rho*q] dividing by my, 1st term RHS
@@ -3990,7 +3990,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 !$acc parallel loop gang
   DO j = j_start, j_end+1
     IF ( config_flags%polar .AND. (j == jds+1) ) THEN
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdy)
       DO k=kts,ktf
       DO i = i_start, i_end
         mrdy=msftx(i,j-1)*rdy     ! see ADT eqn 48 [rho->rho*q] dividing by my, 2nd term RHS
@@ -3998,7 +3998,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
       END DO
       END DO
     ELSE IF( config_flags%polar .AND. (j == jde) ) THEN
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdy)
       DO k=kts,ktf
       DO i = i_start, i_end
         mrdy=msftx(i,j-1)*rdy     ! see ADT eqn 48 [rho->rho*q] dividing by my, 2nd term RHS
@@ -4009,7 +4009,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
     IF ( j > j_start ) THEN
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdy)
       DO k=kts,ktf
       DO i = i_start, i_end
         mrdy=msftx(i,j-1)*rdy        ! see ADT eqn 48 [rho->rho*q] dividing by my, 2nd term RHS
@@ -4107,7 +4107,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
 !  x flux-divergence into tendency
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdx)
         DO k=kts,ktf
         DO i = i_start, i_end
           mrdx=msftx(i,j)*rdx        ! see ADT eqn 48 [rho->rho*q] dividing by my, 1st term RHS
@@ -4191,7 +4191,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 !$acc parallel loop gang
   DO j = j_start, j_end+1
     IF ( config_flags%polar .AND. (j == jds+1) ) THEN
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdy)
       DO k=kts,ktf
       DO i = i_start, i_end
         mrdy=msftx(i,j-1)*rdy     ! see ADT eqn 48 [rho->rho*q] dividing by my, 2nd term RHS
@@ -4199,7 +4199,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
       END DO
       END DO
     ELSE IF( config_flags%polar .AND. (j == jde) ) THEN
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdy)
       DO k=kts,ktf
       DO i = i_start, i_end
         mrdy=msftx(i,j-1)*rdy     ! see ADT eqn 48 [rho->rho*q] dividing by my, 2nd term RHS
@@ -4210,7 +4210,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
     IF ( j > j_start ) THEN
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdy)
       DO k=kts,ktf
       DO i = i_start, i_end
         mrdy=msftx(i,j-1)*rdy        ! see ADT eqn 48 [rho->rho*q] dividing by my, 2nd term RHS
@@ -4316,7 +4316,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
 !$acc parallel loop gang
        DO j = j_start, j_end
-!$acc loop vector
+!$acc loop vector private(ub)
        DO k = kts, ktf
          ub = MIN( 0.5*(ru(its,k,j)+ru(its+1,k,j)), 0. )
          tendency(its,k,j) = tendency(its,k,j)                     &
@@ -4334,7 +4334,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
 !$acc parallel loop gang
        DO j = j_start, j_end
-!$acc loop vector
+!$acc loop vector private(ub)
        DO k = kts, ktf
          ub = MAX( 0.5*(ru(ite-1,k,j)+ru(ite,k,j)), 0. )
          tendency(i_end,k,j) = tendency(i_end,k,j)                   &
@@ -4401,7 +4401,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 !$acc parallel loop gang private(vflux)
       DO j = j_start, j_end
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
          DO k=kts+3,ktf-2
          DO i = i_start, i_end
            vel=rom(i,k,j)
@@ -4411,7 +4411,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
          ENDDO
          ENDDO
 
-!$acc loop vector
+!$acc loop vector private(k,vel)
          DO i = i_start, i_end
 
            k=kts+1
@@ -4446,7 +4446,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 !$acc parallel loop gang private(vflux)
       DO j = j_start, j_end
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
          DO k=kts+3,ktf-2
          DO i = i_start, i_end
            vel=rom(i,k,j)
@@ -4456,7 +4456,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
          ENDDO
          ENDDO
 
-!$acc loop vector
+!$acc loop vector private(k,vel)
          DO i = i_start, i_end
 
            k=kts+1
@@ -4491,7 +4491,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 !$acc parallel loop gang private(vflux)
       DO j = j_start, j_end
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
          DO k=kts+2,ktf-1
          DO i = i_start, i_end
            vel=rom(i,k,j)
@@ -4501,7 +4501,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
          ENDDO
          ENDDO
 
-!$acc loop vector
+!$acc loop vector private(k)
          DO i = i_start, i_end
 
            k=kts+1
@@ -4524,7 +4524,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 !$acc parallel loop gang private(vflux)
       DO j = j_start, j_end
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
          DO k=kts+2,ktf-1
          DO i = i_start, i_end
            vel=rom(i,k,j)
@@ -4534,7 +4534,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
          ENDDO
          ENDDO
 
-!$acc loop vector
+!$acc loop vector private(k)
          DO i = i_start, i_end
 
            k=kts+1
@@ -4754,7 +4754,7 @@ SUBROUTINE advect_w    ( w, w_old, tendency,            &
 
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
         DO k=kts+1,ktf
         DO i = i_start, i_end
           vel = fzm(k)*rv(i,k,j)+fzp(k)*rv(i,k-1,j)
@@ -4765,7 +4765,7 @@ SUBROUTINE advect_w    ( w, w_old, tendency,            &
         ENDDO
 
         k = ktf+1
-!$acc loop vector
+!$acc loop vector private(vel)
         DO i = i_start, i_end
           vel = (2.-fzm(k-1))*rv(i,k-1,j)-fzp(k-1)*rv(i,k-2,j)
           fqy3( i, k,j) = vel*flux6(                     &
@@ -4792,7 +4792,7 @@ SUBROUTINE advect_w    ( w, w_old, tendency,            &
 
      ELSE IF  ( j == jds+2 ) THEN  ! third of 4th order flux 2 in from south boundary
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
             DO k=kts+1,ktf
             DO i = i_start, i_end
               vel = fzm(k)*rv(i,k,j)+fzp(k)*rv(i,k-1,j)
@@ -4802,7 +4802,7 @@ SUBROUTINE advect_w    ( w, w_old, tendency,            &
             ENDDO
 
             k = ktf+1
-!$acc loop vector
+!$acc loop vector private(vel)
             DO i = i_start, i_end
               vel = (2.-fzm(k-1))*rv(i,k-1,j)-fzp(k-1)*rv(i,k-2,j)
               fqy3( i, k,j) = vel*flux4(              &
@@ -4828,7 +4828,7 @@ SUBROUTINE advect_w    ( w, w_old, tendency,            &
 
      ELSE IF ( j == jde-2 ) THEN  ! 3rd or 4th order flux 2 in from north boundary
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
             DO k=kts+1,ktf
             DO i = i_start, i_end
               vel = fzm(k)*rv(i,k,j)+fzp(k)*rv(i,k-1,j)
@@ -4839,7 +4839,7 @@ SUBROUTINE advect_w    ( w, w_old, tendency,            &
             ENDDO
 
             k = ktf+1
-!$acc loop vector
+!$acc loop vector private(vel)
             DO i = i_start, i_end
               vel = (2.-fzm(k-1))*rv(i,k-1,j)-fzp(k-1)*rv(i,k-2,j)
               fqy3( i, k,j) = vel*flux4(             &
@@ -4859,7 +4859,7 @@ SUBROUTINE advect_w    ( w, w_old, tendency,            &
 !$acc parallel loop gang
      j_loop_y_flux_6 : DO j = j_start, j_end+1
         IF ( config_flags%polar .AND. (j == jds+1) ) THEN
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdy)
           DO k=kts+1,ktf+1
           DO i = i_start, i_end
             mrdy=msftx(i,j-1)*rdy    ! see ADT eqn 46 dividing by my, 2nd term RHS
@@ -4867,7 +4867,7 @@ SUBROUTINE advect_w    ( w, w_old, tendency,            &
           END DO
           END DO
         ELSE IF( config_flags%polar .AND. (j == jde) ) THEN
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdy)
           DO k=kts+1,ktf+1
           DO i = i_start, i_end
             mrdy=msftx(i,j-1)*rdy    ! see ADT eqn 46 dividing by my, 2nd term RHS
@@ -4878,7 +4878,7 @@ SUBROUTINE advect_w    ( w, w_old, tendency,            &
 
         IF(j > j_start) THEN
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdy)
           DO k=kts+1,ktf+1
           DO i = i_start, i_end
             mrdy=msftx(i,j-1)*rdy    ! see ADT eqn 46 dividing by my, 2nd term RHS
@@ -5082,7 +5082,7 @@ ELSE IF (horz_order == 5 ) THEN
 
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
         DO k=kts+1,ktf
         DO i = i_start, i_end
           vel = fzm(k)*rv(i,k,j)+fzp(k)*rv(i,k-1,j)
@@ -5093,7 +5093,7 @@ ELSE IF (horz_order == 5 ) THEN
         ENDDO
 
         k = ktf+1
-!$acc loop vector
+!$acc loop vector private(vel)
         DO i = i_start, i_end
           vel = (2.-fzm(k-1))*rv(i,k-1,j)-fzp(k-1)*rv(i,k-2,j)
           fqy3( i, k,j) = vel*flux5(                     &
@@ -5120,7 +5120,7 @@ ELSE IF (horz_order == 5 ) THEN
 
      ELSE IF  ( j == jds+2 ) THEN  ! third of 4th order flux 2 in from south boundary
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
             DO k=kts+1,ktf
             DO i = i_start, i_end
               vel = fzm(k)*rv(i,k,j)+fzp(k)*rv(i,k-1,j)
@@ -5130,7 +5130,7 @@ ELSE IF (horz_order == 5 ) THEN
             ENDDO
 
             k = ktf+1
-!$acc loop vector
+!$acc loop vector private(vel)
             DO i = i_start, i_end
               vel = (2.-fzm(k-1))*rv(i,k-1,j)-fzp(k-1)*rv(i,k-2,j)
               fqy3( i, k,j) = vel*flux3(              &
@@ -5156,7 +5156,7 @@ ELSE IF (horz_order == 5 ) THEN
 
      ELSE IF ( j == jde-2 ) THEN  ! 3rd or 4th order flux 2 in from north boundary
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
             DO k=kts+1,ktf
             DO i = i_start, i_end
               vel = fzm(k)*rv(i,k,j)+fzp(k)*rv(i,k-1,j)
@@ -5167,7 +5167,7 @@ ELSE IF (horz_order == 5 ) THEN
             ENDDO
 
             k = ktf+1
-!$acc loop vector
+!$acc loop vector private(vel)
             DO i = i_start, i_end
               vel = (2.-fzm(k-1))*rv(i,k-1,j)-fzp(k-1)*rv(i,k-2,j)
               fqy3( i, k,j) = vel*flux3(             &
@@ -5187,7 +5187,7 @@ ELSE IF (horz_order == 5 ) THEN
 !$acc parallel loop gang
      j_loop_y_flux_5 : DO j = j_start, j_end+1
         IF ( config_flags%polar .AND. (j == jds+1) ) THEN
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdy)
           DO k=kts+1,ktf+1
           DO i = i_start, i_end
             mrdy=msftx(i,j-1)*rdy    ! see ADT eqn 46 dividing by my, 2nd term RHS
@@ -5195,7 +5195,7 @@ ELSE IF (horz_order == 5 ) THEN
           END DO
           END DO
         ELSE IF( config_flags%polar .AND. (j == jde) ) THEN
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdy)
           DO k=kts+1,ktf+1
           DO i = i_start, i_end
             mrdy=msftx(i,j-1)*rdy    ! see ADT eqn 46 dividing by my, 2nd term RHS
@@ -5206,7 +5206,7 @@ ELSE IF (horz_order == 5 ) THEN
 
         IF(j > j_start) THEN
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdy)
           DO k=kts+1,ktf+1
           DO i = i_start, i_end
             mrdy=msftx(i,j-1)*rdy    ! see ADT eqn 46 dividing by my, 2nd term RHS
@@ -5400,7 +5400,7 @@ ELSE IF ( horz_order == 4 ) THEN
 !$acc parallel loop gang private(fqx)
       DO j = j_start, j_end
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
         DO k=kts+1,ktf
         DO i = i_start_f, i_end_f
           vel = fzm(k)*ru(i,k,j)+fzp(k)*ru(i,k-1,j)
@@ -5411,7 +5411,7 @@ ELSE IF ( horz_order == 4 ) THEN
         ENDDO
 
         k = ktf+1
-!$acc loop vector
+!$acc loop vector private(vel)
         DO i = i_start_f, i_end_f
           vel = (2.-fzm(k-1))*ru(i,k-1,j)-fzp(k-1)*ru(i,k-2,j)
           fqx( i, k ) = vel*flux4( w(i-2,k,j), w(i-1,k,j),  &
@@ -5448,7 +5448,7 @@ ELSE IF ( horz_order == 4 ) THEN
 
 !  x flux-divergence into tendency
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdx)
         DO k=kts+1,ktf+1
         DO i = i_start, i_end
           mrdx=msftx(i,j)*rdx        ! see ADT eqn 46 dividing by my, 1st term RHS
@@ -5533,7 +5533,7 @@ ELSE IF ( horz_order == 4 ) THEN
           ENDDO
        ELSE
 !  3rd or 4th order flux
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
           DO k = kts+1, ktf
           DO i = i_start, i_end
             vel = fzm(k)*rv(i,k,j)+fzp(k)*rv(i,k-1,j)
@@ -5543,7 +5543,7 @@ ELSE IF ( horz_order == 4 ) THEN
           ENDDO
           ENDDO
           k = ktf+1
-!$acc loop vector
+!$acc loop vector private(vel)
           DO i = i_start, i_end
             vel = (2.-fzm(k-1))*rv(i,k-1,j)-fzp(k-1)*rv(i,k-2,j)
             fqy3( i, k,j) = vel*flux4( w(i,k,j-2), w(i,k,j-1),  &
@@ -5562,7 +5562,7 @@ ELSE IF ( horz_order == 4 ) THEN
 !$acc parallel loop gang
       DO j = j_start, j_end+1
        IF ( config_flags%polar .AND. (j == jds+1) ) THEN
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdy)
          DO k=kts+1,ktf+1
          DO i = i_start, i_end
            mrdy=msftx(i,j-1)*rdy    ! see ADT eqn 46 dividing by my, 2nd term RHS
@@ -5570,7 +5570,7 @@ ELSE IF ( horz_order == 4 ) THEN
          END DO
          END DO
        ELSE IF( config_flags%polar .AND. (j == jde) ) THEN
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdy)
          DO k=kts+1,ktf+1
          DO i = i_start, i_end
            mrdy=msftx(i,j-1)*rdy    ! see ADT eqn 46 dividing by my, 2nd term RHS
@@ -5581,7 +5581,7 @@ ELSE IF ( horz_order == 4 ) THEN
 
        IF( j > j_start ) THEN
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdy)
           DO k = kts+1, ktf+1
           DO i = i_start, i_end
             mrdy=msftx(i,j-1)*rdy    ! see ADT eqn 46 dividing by my, 2nd term RHS
@@ -5648,7 +5648,7 @@ ELSE IF ( horz_order == 3 ) THEN
 !$acc parallel loop gang private(fqx)
       DO j = j_start, j_end
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
         DO k=kts+1,ktf
         DO i = i_start_f, i_end_f
           vel = fzm(k)*ru(i,k,j)+fzp(k)*ru(i,k-1,j)
@@ -5658,7 +5658,7 @@ ELSE IF ( horz_order == 3 ) THEN
         ENDDO
         ENDDO
         k = ktf+1
-!$acc loop vector
+!$acc loop vector private(vel)
         DO i = i_start_f, i_end_f
           vel = (2.-fzm(k-1))*ru(i,k-1,j)-fzp(k-1)*ru(i,k-2,j)
           fqx( i, k ) = vel*flux3( w(i-2,k,j), w(i-1,k,j),  &
@@ -5696,7 +5696,7 @@ ELSE IF ( horz_order == 3 ) THEN
 
 !  x flux-divergence into tendency
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdx)
         DO k=kts+1,ktf+1
         DO i = i_start, i_end
           mrdx=msftx(i,j)*rdx        ! see ADT eqn 46 dividing by my, 1st term RHS
@@ -5781,7 +5781,7 @@ ELSE IF ( horz_order == 3 ) THEN
           ENDDO
        ELSE
 !  3rd or 4th order flux
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
           DO k = kts+1, ktf
           DO i = i_start, i_end
             vel = fzm(k)*rv(i,k,j)+fzp(k)*rv(i,k-1,j)
@@ -5791,7 +5791,7 @@ ELSE IF ( horz_order == 3 ) THEN
           ENDDO
           ENDDO
           k = ktf+1
-!$acc loop vector
+!$acc loop vector private(vel)
           DO i = i_start, i_end
             vel = (2.-fzm(k-1))*rv(i,k-1,j)-fzp(k-1)*rv(i,k-2,j)
             fqy3( i, k,j) = vel*flux3( w(i,k,j-2), w(i,k,j-1),  &
@@ -5810,7 +5810,7 @@ ELSE IF ( horz_order == 3 ) THEN
 !$acc parallel loop gang
       DO j = j_start, j_end+1
        IF ( config_flags%polar .AND. (j == jds+1) ) THEN
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdy)
          DO k=kts+1,ktf+1
          DO i = i_start, i_end
            mrdy=msftx(i,j-1)*rdy    ! see ADT eqn 46 dividing by my, 2nd term RHS
@@ -5818,7 +5818,7 @@ ELSE IF ( horz_order == 3 ) THEN
          END DO
          END DO
        ELSE IF( config_flags%polar .AND. (j == jde) ) THEN
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdy)
          DO k=kts+1,ktf+1
          DO i = i_start, i_end
            mrdy=msftx(i,j-1)*rdy    ! see ADT eqn 46 dividing by my, 2nd term RHS
@@ -5829,7 +5829,7 @@ ELSE IF ( horz_order == 3 ) THEN
 
        IF( j > j_start ) THEN
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdy)
           DO k = kts+1, ktf+1
           DO i = i_start, i_end
             mrdy=msftx(i,j-1)*rdy    ! see ADT eqn 46 dividing by my, 2nd term RHS
@@ -5857,7 +5857,7 @@ ELSE IF (horz_order == 2 ) THEN
 
 !$acc parallel loop gang
       DO j = j_start, j_end
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdx)
       DO k=kts+1,ktf
       DO i = i_start, i_end
 
@@ -5873,7 +5873,7 @@ ELSE IF (horz_order == 2 ) THEN
       ENDDO
 
       k = ktf+1
-!$acc loop vector
+!$acc loop vector private(mrdx)
       DO i = i_start, i_end
 
          mrdx=msftx(i,j)*rdx         ! see ADT eqn 46 dividing by my, 1st term RHS
@@ -5896,7 +5896,7 @@ ELSE IF (horz_order == 2 ) THEN
 
 !$acc parallel loop gang
       DO j = j_start, j_end
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(mrdy)
       DO k=kts+1,ktf
       DO i = i_start, i_end
 
@@ -5912,7 +5912,7 @@ ELSE IF (horz_order == 2 ) THEN
       ENDDO
 
       k = ktf+1
-!$acc loop vector
+!$acc loop vector private(mrdy)
       DO i = i_start, i_end
 
          mrdy=msftx(i,j)*rdy         ! see ADT eqn 46 dividing by my, 2nd term RHS
@@ -5991,7 +5991,7 @@ ELSE IF (horz_order == 2 ) THEN
 
 !$acc parallel loop gang
        DO j = j_start, j_end
-!$acc loop vector
+!$acc loop vector private(ub,uw)
        DO k = kts+1, ktf
 
          uw = 0.5*(fzm(k)*(ru(its,k  ,j)+ru(its+1,k  ,j)) +  &
@@ -6031,7 +6031,7 @@ ELSE IF (horz_order == 2 ) THEN
 
 !$acc parallel loop gang
        DO j = j_start, j_end
-!$acc loop vector
+!$acc loop vector private(ub,uw)
        DO k = kts+1, ktf
 
          uw = 0.5*(fzm(k)*(ru(ite-1,k  ,j)+ru(ite,k  ,j)) +  &
@@ -6161,7 +6161,7 @@ ELSE IF (horz_order == 2 ) THEN
 !$acc parallel loop gang private(vflux)
       DO j = j_start, j_end
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
          DO k=kts+3,ktf-1
          DO i = i_start, i_end
            vel=0.5*(rom(i,k,j)+rom(i,k-1,j))
@@ -6171,7 +6171,7 @@ ELSE IF (horz_order == 2 ) THEN
          ENDDO
          ENDDO
 
-!$acc loop vector
+!$acc loop vector private(k,vel)
          DO i = i_start, i_end
 
            k=kts+1
@@ -6215,7 +6215,7 @@ ELSE IF (horz_order == 2 ) THEN
 !$acc parallel loop gang private(vflux)
       DO j = j_start, j_end
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
          DO k=kts+3,ktf-1
          DO i = i_start, i_end
            vel=0.5*(rom(i,k,j)+rom(i,k-1,j))
@@ -6225,7 +6225,7 @@ ELSE IF (horz_order == 2 ) THEN
          ENDDO
          ENDDO
 
-!$acc loop vector
+!$acc loop vector private(k,vel)
          DO i = i_start, i_end
 
            k=kts+1
@@ -6268,7 +6268,7 @@ ELSE IF (horz_order == 2 ) THEN
 !$acc parallel loop gang private(vflux)
       DO j = j_start, j_end
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
          DO k=kts+2,ktf
          DO i = i_start, i_end
            vel=0.5*(rom(i,k,j)+rom(i,k-1,j))
@@ -6278,7 +6278,7 @@ ELSE IF (horz_order == 2 ) THEN
          ENDDO
          ENDDO
 
-!$acc loop vector
+!$acc loop vector private(k)
          DO i = i_start, i_end
 
            k=kts+1
@@ -6309,7 +6309,7 @@ ELSE IF (horz_order == 2 ) THEN
 !$acc parallel loop gang private(vflux)
       DO j = j_start, j_end
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(vel)
          DO k=kts+2,ktf
 !DEC$ vector always
          DO i = i_start, i_end
@@ -6320,7 +6320,7 @@ ELSE IF (horz_order == 2 ) THEN
          ENDDO
          ENDDO
 
-!$acc loop vector
+!$acc loop vector private(k)
          DO i = i_start, i_end
 
            k=kts+1
@@ -6597,7 +6597,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN ! use full stencil
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(cr,dy,mu,vel)
         DO k=kts,ktf
         DO i = i_start, i_end
 
@@ -6618,7 +6618,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       ELSE IF ( j == jds+1 ) THEN   ! 2nd order flux next to south boundary
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(cr,dy,mu,vel)
             DO k=kts,ktf
             DO i = i_start, i_end
 
@@ -6638,7 +6638,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       ELSE IF  ( j == jds+2 ) THEN  ! third of 4th order flux 2 in from south boundary
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(cr,dy,mu,vel)
             DO k=kts,ktf
             DO i = i_start, i_end
 
@@ -6657,7 +6657,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       ELSE IF ( j == jde-1 ) THEN  ! 2nd order flux next to north boundary
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(cr,dy,mu,vel)
             DO k=kts,ktf
             DO i = i_start, i_end
 
@@ -6676,7 +6676,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       ELSE IF ( j == jde-2 ) THEN  ! 3rd or 4th order flux 2 in from north boundary
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(cr,dy,mu,vel)
             DO k=kts,ktf
             DO i = i_start, i_end
 
@@ -6879,7 +6879,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN ! use full stencil
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(cr,dy,mu,vel)
         DO k=kts,ktf
         DO i = i_start, i_end
 
@@ -6900,7 +6900,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       ELSE IF ( j == jds+1 ) THEN   ! 2nd order flux next to south boundary
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(cr,dy,mu,vel)
             DO k=kts,ktf
             DO i = i_start, i_end
 
@@ -6920,7 +6920,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       ELSE IF  ( j == jds+2 ) THEN  ! third of 4th order flux 2 in from south boundary
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(cr,dy,mu,vel)
             DO k=kts,ktf
             DO i = i_start, i_end
 
@@ -6939,7 +6939,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       ELSE IF ( j == jde-1 ) THEN  ! 2nd order flux next to north boundary
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(cr,dy,mu,vel)
             DO k=kts,ktf
             DO i = i_start, i_end
 
@@ -6958,7 +6958,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       ELSE IF ( j == jde-2 ) THEN  ! 3rd or 4th order flux 2 in from north boundary
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(cr,dy,mu,vel)
             DO k=kts,ktf
             DO i = i_start, i_end
 
@@ -7159,7 +7159,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN ! use full stencil
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(cr,dy,mu,vel)
         DO k=kts,ktf
         DO i = i_start, i_end
 
@@ -7179,7 +7179,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       ELSE IF ( j == jds+1 ) THEN   ! 2nd order flux next to south boundary
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(cr,dy,mu,vel)
             DO k=kts,ktf
             DO i = i_start, i_end
 
@@ -7199,7 +7199,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       ELSE IF ( j == jde-1 ) THEN  ! 2nd order flux next to north boundary
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(cr,dy,mu,vel)
             DO k=kts,ktf
             DO i = i_start, i_end
 
@@ -7254,7 +7254,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
 !  4th order flux
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(cr,dx,mu,vel)
         DO k=kts,ktf
         DO i = i_start_f, i_end_f
 
@@ -7276,7 +7276,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
         IF( degrade_xs ) THEN
           IF( i_start == ids+1 ) THEN ! second order flux next to the boundary
             i = ids+1
-!$acc loop vector
+!$acc loop vector private(cr,dx,mu,vel)
             DO k=kts,ktf
 
               dx = 2./(msfty(i,j)+msfty(i-1,j))/rdx  ! ADT eqn 48 d/dx
@@ -7297,7 +7297,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
         IF( degrade_xe ) THEN
           IF( i_end == ide-2 ) THEN ! second order flux next to the boundary
             i = ide-1
-!$acc loop vector
+!$acc loop vector private(cr,dx,mu,vel)
             DO k=kts,ktf
               dx = 2./(msfty(i,j)+msfty(i-1,j))/rdx  ! ADT eqn 48 d/dx
               mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i-1,j)+c2(k)))
@@ -7365,7 +7365,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN ! use full stencil
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(cr,dy,mu,vel)
         DO k=kts,ktf
         DO i = i_start, i_end
 
@@ -7385,7 +7385,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       ELSE IF ( j == jds+1 ) THEN   ! 2nd order flux next to south boundary
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(cr,dy,mu,vel)
             DO k=kts,ktf
             DO i = i_start, i_end
 
@@ -7405,7 +7405,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
       ELSE IF ( j == jde-1 ) THEN  ! 2nd order flux next to north boundary
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(cr,dy,mu,vel)
             DO k=kts,ktf
             DO i = i_start, i_end
 
@@ -7460,7 +7460,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
 !  4th order flux
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(cr,dx,mu,vel)
         DO k=kts,ktf
         DO i = i_start_f, i_end_f
 
@@ -7483,7 +7483,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
           IF( i_start == ids+1 ) THEN ! second order flux next to the boundary
             i = ids+1
-!$acc loop vector
+!$acc loop vector private(cr,dx,mu,vel)
             DO k=kts,ktf
 
               dx = 2./(msfty(i,j)+msfty(i-1,j))/rdx  ! ADT eqn 48 d/dx
@@ -7504,7 +7504,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
         IF( degrade_xe ) THEN
           IF( i_end == ide-2 ) THEN ! second order flux next to the boundary
             i = ide-1
-!$acc loop vector
+!$acc loop vector private(cr,dx,mu,vel)
             DO k=kts,ktf
               dx = 2./(msfty(i,j)+msfty(i-1,j))/rdx  ! ADT eqn 48 d/dx
               mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i-1,j)+c2(k)))
@@ -7617,7 +7617,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
 !$acc parallel loop gang
        DO j = j_start, j_end
-!$acc loop vector
+!$acc loop vector private(ub)
        DO k = kts, ktf
          ub = MIN( 0.5*(ru(its,k,j)+ru(its+1,k,j)), 0. )
          tendency(its,k,j) = tendency(its,k,j)                     &
@@ -7635,7 +7635,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
 !$acc parallel loop gang
        DO j = j_start, j_end
-!$acc loop vector
+!$acc loop vector private(ub)
        DO k = kts, ktf
          ub = MAX( 0.5*(ru(ite-1,k,j)+ru(ite,k,j)), 0. )
          tendency(i_end,k,j) = tendency(i_end,k,j)                   &
@@ -7744,7 +7744,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
            fqzl(i,kde,j) = 0.
          ENDDO
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(cr,dz,mu,vel)
          DO k=kts+3,ktf-2
          DO i = i_start, i_end
            dz = 2./(rdzw(k)+rdzw(k-1))
@@ -7759,7 +7759,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
          ENDDO
          ENDDO
 
-!$acc loop vector
+!$acc loop vector private(cr,dz,k,mu,vel)
          DO i = i_start, i_end
 
            k=kts+1
@@ -7772,7 +7772,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
            fqz(i,k,j) = fqz(i,k,j) - fqzl(i,k,j)
          ENDDO
 
-!$acc loop vector
+!$acc loop vector private(cr,dz,k,mu,vel)
          DO i = i_start, i_end
 
            k=kts+2
@@ -7788,7 +7788,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
            fqz(i,k,j) = fqz(i,k,j) - fqzl(i,k,j)
          ENDDO
 
-!$acc loop vector
+!$acc loop vector private(cr,dz,k,mu,vel)
          DO i = i_start, i_end
 
            k=ktf-1
@@ -7804,7 +7804,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
            fqz(i,k,j) = fqz(i,k,j) - fqzl(i,k,j)
          ENDDO
 
-!$acc loop vector
+!$acc loop vector private(cr,dz,k,mu,vel)
          DO i = i_start, i_end
 
            k=ktf
@@ -7833,7 +7833,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
            fqzl(i,kde,j) = 0.
          ENDDO
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(cr,dz,mu,vel)
          DO k=kts+3,ktf-2
          DO i = i_start, i_end
            dz = 2./(rdzw(k)+rdzw(k-1))
@@ -7848,7 +7848,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
          ENDDO
          ENDDO
 
-!$acc loop vector
+!$acc loop vector private(cr,dz,k,mu,vel)
          DO i = i_start, i_end
 
            k=kts+1
@@ -7861,7 +7861,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
            fqz(i,k,j) = fqz(i,k,j) - fqzl(i,k,j)
          ENDDO
 
-!$acc loop vector
+!$acc loop vector private(cr,dz,k,mu,vel)
          DO i = i_start, i_end
 
            k=kts+2
@@ -7877,7 +7877,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
            fqz(i,k,j) = fqz(i,k,j) - fqzl(i,k,j)
          ENDDO
 
-!$acc loop vector
+!$acc loop vector private(cr,dz,k,mu,vel)
          DO i = i_start, i_end
 
            k=ktf-1
@@ -7893,7 +7893,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
            fqz(i,k,j) = fqz(i,k,j) - fqzl(i,k,j)
          ENDDO
 
-!$acc loop vector
+!$acc loop vector private(cr,dz,k,mu,vel)
          DO i = i_start, i_end
 
            k=ktf
@@ -7922,7 +7922,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
            fqzl(i,kde,j) = 0.
          ENDDO
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(cr,dz,mu,vel)
          DO k=kts+2,ktf-1
          DO i = i_start, i_end
 
@@ -7939,7 +7939,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
          ENDDO
          ENDDO
 
-!$acc loop vector
+!$acc loop vector private(cr,dz,k,mu,vel)
          DO i = i_start, i_end
 
            k=kts+1
@@ -7977,7 +7977,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
            fqzl(i,kde,j) = 0.
          ENDDO
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(cr,dz,mu,vel)
          DO k=kts+2,ktf-1
 !DEC$ vector always
          DO i = i_start, i_end
@@ -7995,7 +7995,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
          ENDDO
          ENDDO
 
-!$acc loop vector
+!$acc loop vector private(cr,dz,k,mu,vel)
          DO i = i_start, i_end
 
            k=kts+1
@@ -8033,7 +8033,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
            fqzl(i,kde,j) = 0.
          ENDDO
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(cr,dz,mu,vel)
          DO k=kts+1,ktf
          DO i = i_start, i_end
 

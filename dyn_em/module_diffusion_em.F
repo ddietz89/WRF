@@ -1483,7 +1483,7 @@ SUBROUTINE cal_dampkm( config_flags,xkmh,xkhh,xkmv,xkhv,                       &
    DO j = j_start, j_end
 
       k=ktf
-!$acc loop vector
+!$acc loop vector private(ds,dz,kmmax,kmmvmax,tmp)
       DO i = i_start, i_end
          ! Unmodified dx used above may produce very large diffusivities
          ! when msftx is very large.  And the above formula ignores the fact
@@ -1508,7 +1508,7 @@ SUBROUTINE cal_dampkm( config_flags,xkmh,xkhh,xkmv,xkhv,                       &
 
       ENDDO
 
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(ds,dz,kmmax,kmmvmax,tmp)
       DO k = ktfm1,kts,-1
       DO i = i_start, i_end
          ! Unmodified dx used above may produce very large diffusivities
@@ -1742,7 +1742,7 @@ END SUBROUTINE cal_dampkm
     k = kts
 !$acc parallel loop gang
     DO j = j_start, j_end
-!$acc loop vector
+!$acc loop vector private(coefa,qvsfc,thetaep1,thetaesfc,thetasfc,tmpdz,xlvqv)
     DO i = i_start, i_end
       tmpdz     = 1.0 / rdz(i,k+1,j) + 0.5 / rdzw(i,k,j)
       thetasfc  = T8w(i,kts,j) / ( p8w(i,k,j) / p1000mb )**( R_d / Cp )
@@ -2279,7 +2279,7 @@ END SUBROUTINE smag2d_km
     k = kts
 !$acc parallel loop gang
     DO j = j_start, j_end
-!$acc loop vector
+!$acc loop vector private(thetasfc,tmpdz)
     DO i = i_start, i_end
       tmpdz         = 1.0 / rdzw(i,k+1,j) + 1.0 / rdzw(i,k,j)
       thetasfc      = T8w(i,kts,j) / ( p8w(i,k,j) / p1000mb )**( R_d / Cp )
@@ -2290,7 +2290,7 @@ END SUBROUTINE smag2d_km
     k = ktf
 !$acc parallel loop gang
     DO j = j_start, j_end
-!$acc loop vector
+!$acc loop vector private(thetatop,tmpdz)
     DO i = i_start, i_end
       tmpdz         = 1.0 / rdz(i,k,j) + 0.5 / rdzw(i,k,j)
       thetatop      = T8w(i,kde,j) / ( p8w(i,kde,j) / p1000mb )**( R_d / Cp )
@@ -2639,7 +2639,7 @@ END SUBROUTINE smag2d_km
     k = kts
 !$acc parallel loop gang
     DO j = j_start, j_end
-!$acc loop vector
+!$acc loop vector private(thetasfc,tmpdz)
     DO i = i_start, i_end
       tmpdz         = 1.0 / rdzw(i,k+1,j) + 1.0 / rdzw(i,k,j)
       thetasfc      = T8w(i,kts,j) / ( p8w(i,k,j) / p1000mb )**( R_d / Cp )
@@ -2650,7 +2650,7 @@ END SUBROUTINE smag2d_km
     k = ktf
 !$acc parallel loop gang
     DO j = j_start, j_end
-!$acc loop vector
+!$acc loop vector private(thetatop,tmpdz)
     DO i = i_start, i_end
       tmpdz         = 1.0 / rdz(i,k,j) + 0.5 / rdzw(i,k,j)
       thetatop      = T8w(i,kde,j) / ( p8w(i,kde,j) / p1000mb )**( R_d / Cp )
@@ -2677,7 +2677,7 @@ END SUBROUTINE smag2d_km
  
 !$acc parallel loop gang
     DO j = j_start, j_end
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(qdz)
     DO k = kts, ktf
     DO i = i_start, i_end
       qdz      = qtke(i,k,j)*(1.0/rdzw(i,k,j))
@@ -4454,7 +4454,7 @@ SUBROUTINE vertical_diffusion_2   ( ru_tendf, rv_tendf, rw_tendf, rt_tendf,   &
                                             ! set in namelist.input
 !$acc parallel loop gang
     DO j = j_start, j_end
-!$acc loop vector
+!$acc loop vector private(cpm)
     DO i = i_start, i_end
        cpm = cp * (1. + 0.8 * moist(i,kts,j,P_QV))
        hfx(i,j)=heat_flux*cpm*rho(i,kts,j)         ! provided for output only
@@ -4472,7 +4472,7 @@ SUBROUTINE vertical_diffusion_2   ( ru_tendf, rv_tendf, rw_tendf, rt_tendf,   &
   CASE (1) ! use surface heat flux computed from surface routine
 !$acc parallel loop gang
     DO j = j_start, j_end
-!$acc loop vector
+!$acc loop vector private(cpm,heat_flux)
     DO i = i_start, i_end
 
        cpm = cp * (1. + 0.8 * moist(i,kts,j,P_QV))
@@ -4733,7 +4733,7 @@ SUBROUTINE vertical_diffusion_u_2( tendency, config_flags,                &
 !$acc parallel loop gang
        DO j = j_start, j_end
        k=kts
-!$acc loop vector
+!$acc loop vector private(rdzu)
        DO i = i_start, i_end
 
           rdzu = -g/dnw(k)
@@ -4847,7 +4847,7 @@ SUBROUTINE vertical_diffusion_v_2( tendency, config_flags,                &
 !$acc parallel loop gang
        DO j = j_start, j_end
        k=kts
-!$acc loop vector
+!$acc loop vector private(rdzv)
        DO i = i_start, i_end
 
         rdzv = - g / dnw(k)
@@ -6571,7 +6571,7 @@ END SUBROUTINE phy_bc
 
 !$acc parallel loop gang
    DO j = j_start, j_end
-!$acc loop vector
+!$acc loop vector private(heat_flux)
    DO i = i_start, i_end
       heat_flux = heat_flux0
       tendency(i,k,j)= tendency(i,k,j) - &
@@ -6585,7 +6585,7 @@ END SUBROUTINE phy_bc
 
 !$acc parallel loop gang
    DO j = j_start, j_end
-!$acc loop vector
+!$acc loop vector private(cpm,heat_flux)
    DO i = i_start, i_end
       cpm = cp * (1. + 0.8*qv(i,k,j))
       heat_flux = (hfx(i,j)/cpm)/rho(i,k,j)
@@ -7012,7 +7012,7 @@ END SUBROUTINE phy_bc
                                              ! in namelist.input
 !$acc parallel loop gang
     DO j = j_start, j_end
-!$acc loop vector
+!$acc loop vector private(absu,cd)
     DO i = i_start, i_end
 
      absU=0.5*sqrt((u(i,k,j)+u(i+1,k,j))**2+(v(i,k,j)+v(i,k,j+1))**2)
@@ -7028,7 +7028,7 @@ END SUBROUTINE phy_bc
 
 !$acc parallel loop gang
     DO j = j_start, j_end
-!$acc loop vector
+!$acc loop vector private(absu,cd)
     DO i = i_start, i_end
 
      absU=0.5*sqrt((u(i,k,j)+u(i+1,k,j))**2+(v(i,k,j)+v(i,k,j+1))**2)+epsilon
@@ -7095,7 +7095,7 @@ END SUBROUTINE phy_bc
                                               ! set in namelist.input
 !$acc parallel loop gang
     DO j = j_start, j_end
-!$acc loop vector
+!$acc loop vector private(absu,cd)
     DO i = i_start, i_end
 
       absU=0.5*sqrt((u(i,k,j)+u(i+1,k,j))**2+(v(i,k,j)+v(i,k,j+1))**2)
@@ -7111,7 +7111,7 @@ END SUBROUTINE phy_bc
 
 !$acc parallel loop gang
     DO j = j_start, j_end
-!$acc loop vector
+!$acc loop vector private(absu,cd)
     DO i = i_start, i_end
 
       absU=0.5*sqrt((u(i,k,j)+u(i+1,k,j))**2+(v(i,k,j)+v(i,k,j+1))**2)+epsilon
@@ -7778,7 +7778,7 @@ END SUBROUTINE phy_bc
 
 !$acc parallel loop gang
     DO j = j_start, j_end
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(zl,zu)
     DO k = kts, ktf
     DO i = i_start, i_end
       zl = ( 0.25 * (  &

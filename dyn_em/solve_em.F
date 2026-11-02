@@ -809,6 +809,9 @@ BENCH_START(calc_p_rho_tim)
 
        IF (coupler_on) CALL cpl_settime( curr_secs2 )
 
+#ifdef WRF_GPU_FIELDTRACE
+       CALL gpu_field_trace( grid, 'a_pre_physics' )
+#endif
        CALL first_rk_step_part1 (    grid, config_flags         &
                              , moist , moist_tend               &
                              , chem  , chem_tend                &
@@ -876,6 +879,9 @@ BENCH_START(calc_p_rho_tim)
                             )
 
      END IF rk_step_is_one
+#ifdef WRF_GPU_FIELDTRACE
+     IF (rk_step == 1) CALL gpu_field_trace( grid, 'b_post_physics' )
+#endif
 
 BENCH_START(rk_tend_tim)
      !$OMP PARALLEL DO   &
@@ -3613,6 +3619,9 @@ BENCH_END(bc_end_tim)
 !**********************************************************
 
    END DO Runge_Kutta_loop
+#ifdef WRF_GPU_FIELDTRACE
+       CALL gpu_field_trace( grid, 'c_post_rk' )
+#endif
 !  grid%dmudt=grid%mu_2 - grid%mu_1
 
 #if ( WRFPLUS != 1 )
@@ -5192,6 +5201,58 @@ BENCH_END(bc_2d_tim)
    firstime = .false.
 #endif
 
+#ifdef WRF_GPU_FIELDTRACE
+       CALL gpu_field_trace( grid, 'd_end_step' )
+#endif
    RETURN
 
 END SUBROUTINE solve_em
+
+#ifdef WRF_GPU_FIELDTRACE
+! GPU porting aid: report which allocated real state fields changed since the previous trace point.
+SUBROUTINE gpu_field_trace( grid, tag )
+   USE module_domain, ONLY : domain, fieldlist
+   IMPLICIT NONE
+   TYPE(domain), INTENT(IN) :: grid
+   CHARACTER(*), INTENT(IN) :: tag
+   INTEGER, PARAMETER :: MAXF = 6000
+   REAL(8), SAVE :: prev(MAXF)
+   LOGICAL, SAVE :: have = .FALSE.
+   CHARACTER(LEN=20), SAVE :: prevtag = 'start'
+   TYPE(fieldlist), POINTER :: p
+   INTEGER :: n, nch
+   REAL(8) :: h
+   CHARACTER(LEN=4000) :: line
+   n = 0 ; nch = 0 ; line = ''
+   p => grid%head_statevars
+   DO WHILE ( ASSOCIATED(p) )
+      h = -1.d300
+      IF ( p%Type == 'r' ) THEN
+         IF ( p%Ndim == 2 ) THEN
+            IF ( ASSOCIATED(p%rfield_2d) ) THEN
+               IF ( SIZE(p%rfield_2d) > 1 ) h = SUM(DBLE(p%rfield_2d)) + 1.000001d0*SUM(ABS(DBLE(p%rfield_2d)))
+            ENDIF
+         ELSE IF ( p%Ndim == 3 ) THEN
+            IF ( ASSOCIATED(p%rfield_3d) ) THEN
+               IF ( SIZE(p%rfield_3d) > 1 ) h = SUM(DBLE(p%rfield_3d)) + 1.000001d0*SUM(ABS(DBLE(p%rfield_3d)))
+            ENDIF
+         ELSE IF ( p%Ndim == 4 ) THEN
+            IF ( ASSOCIATED(p%rfield_4d) ) THEN
+               IF ( SIZE(p%rfield_4d) > 1 ) h = SUM(DBLE(p%rfield_4d)) + 1.000001d0*SUM(ABS(DBLE(p%rfield_4d)))
+            ENDIF
+         ENDIF
+      ENDIF
+      n = n + 1
+      IF ( n <= MAXF .AND. h > -1.d299 ) THEN
+         IF ( have .AND. h /= prev(n) ) THEN
+            nch = nch + 1
+            IF ( LEN_TRIM(line) < 3800 ) line = TRIM(line)//' '//TRIM(p%VarName)
+         ENDIF
+         prev(n) = h
+      ENDIF
+      p => p%next
+   ENDDO
+   IF ( have ) WRITE(0,'(A,A,A,A,A,I5,A,A)') 'GPUTRACE ', TRIM(prevtag), ' -> ', TRIM(tag), ' changed ', nch, ' :', TRIM(line)
+   have = .TRUE. ; prevtag = tag
+END SUBROUTINE gpu_field_trace
+#endif

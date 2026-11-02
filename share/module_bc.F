@@ -2281,7 +2281,7 @@ CONTAINS
           b_dist = j - jbs
           b_limit = b_dist
           IF(periodic_x)b_limit = 0
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(i_inner)
           DO k = kts, ktf
             DO i = max(its,b_limit+ibs), min(itf,ibe-b_limit)
               i_inner = max(i,ibs+spec_zone)
@@ -2299,7 +2299,7 @@ CONTAINS
           b_dist = jbe - j
           b_limit = b_dist
           IF(periodic_x)b_limit = 0
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(i_inner)
           DO k = kts, ktf
             DO i = max(its,b_limit+ibs), min(itf,ibe-b_limit)
               i_inner = max(i,ibs+spec_zone)
@@ -2317,7 +2317,7 @@ CONTAINS
 !$acc parallel loop gang private(b_dist,b_limit)
         DO i = its, min(itf,ibs+spec_zone-1)
           b_dist = i - ibs
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(j_inner)
           DO k = kts, ktf
             DO j = max(jts,b_dist+jbs+1), min(jtf,jbe-b_dist-1)
               j_inner = max(j,jbs+spec_zone)
@@ -2333,7 +2333,7 @@ CONTAINS
 !$acc parallel loop gang private(b_dist,b_limit)
         DO i = max(its,ibe-spec_zone+1), itf
           b_dist = ibe - i
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(j_inner)
           DO k = kts, ktf
             DO j = max(jts,b_dist+jbs+1), min(jtf,jbe-b_dist-1)
               j_inner = max(j,jbs+spec_zone)

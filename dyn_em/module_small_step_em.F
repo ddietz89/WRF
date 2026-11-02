@@ -1187,7 +1187,7 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
        MUTS(i,j) = MUT(i,j)+MU(i,j)
        MUAVE(i,j) =.5*((1.+epssm)*MU(i,j)+(1.-epssm)*MUAVE(i,j))
      ENDDO
-!$acc loop seq
+!$acc loop seq private(k)
      DO kk=2,k_end
      k=kk-1
 !$acc loop vector
@@ -1552,7 +1552,7 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
     ENDDO
 
     IF (config_flags%damp_opt .eq. 3) THEN
-!$acc loop vector collapse(2)
+!$acc loop vector collapse(2) private(dampk,hbot,hk,htop)
       DO k=k_end+1,2,-1
       DO i=i_start, i_end
           htop=(ph_1(i,k_end+1,j)+phb(i,k_end+1,j))/g
