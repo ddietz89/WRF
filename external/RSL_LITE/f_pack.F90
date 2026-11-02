@@ -136,12 +136,32 @@
 !ikj
       SUBROUTINE f_pack_int_ikj ( inbuf, outbuf, js, je, ks, ke,              &
      &                is, ie, jms, jme, kms, kme, ims, ime, curs ) 
+#ifdef _OPENACC
+        USE openacc
+#endif
         IMPLICIT NONE
         INTEGER jms, jme, kms, kme, ims, ime
         INTEGER inbuf(ims:ime,kms:kme,jms:jme), outbuf(*)
         INTEGER js, je, ks, ke, is, ie, curs
         ! Local
         INTEGER i,j,k,p
+#ifdef _OPENACC
+        INTEGER ni_, nk_, nn_
+        ! GPU halo pack: field resident on device -> gather strip on device, copy out only the strip
+        IF ( acc_is_present(inbuf) ) THEN
+          ni_ = ie-is+1 ; nk_ = ke-ks+1 ; nn_ = ni_*nk_*(je-js+1)
+!$acc parallel loop collapse(3) present(inbuf) copyout(outbuf(1:nn_))
+          DO j = js, je
+          DO k = ks, ke
+          DO i = is, ie
+            outbuf((j-js)*nk_*ni_ + (k-ks)*ni_ + (i-is) + 1) = inbuf(i,k,j)
+          ENDDO
+          ENDDO
+          ENDDO
+          curs = nn_
+          RETURN
+        ENDIF
+#endif
 !$OMP PARALLEL PRIVATE (i,j,k,p) 
 #ifndef _OPENMP
         p = 1
@@ -167,12 +187,32 @@
      
       SUBROUTINE f_pack_lint_ikj ( inbuf, outbuf, js, je, ks, ke,            &
      &                is, ie, jms, jme, kms, kme, ims, ime, curs ) 
+#ifdef _OPENACC
+        USE openacc
+#endif
         IMPLICIT NONE
         INTEGER jms, jme, kms, kme, ims, ime
         INTEGER*8 inbuf(ims:ime,kms:kme,jms:jme), outbuf(*)
         INTEGER js, je, ks, ke, is, ie, curs
         ! Local
         INTEGER i,j,k,p
+#ifdef _OPENACC
+        INTEGER ni_, nk_, nn_
+        ! GPU halo pack: field resident on device -> gather strip on device, copy out only the strip
+        IF ( acc_is_present(inbuf) ) THEN
+          ni_ = ie-is+1 ; nk_ = ke-ks+1 ; nn_ = ni_*nk_*(je-js+1)
+!$acc parallel loop collapse(3) present(inbuf) copyout(outbuf(1:nn_))
+          DO j = js, je
+          DO k = ks, ke
+          DO i = is, ie
+            outbuf((j-js)*nk_*ni_ + (k-ks)*ni_ + (i-is) + 1) = inbuf(i,k,j)
+          ENDDO
+          ENDDO
+          ENDDO
+          curs = nn_
+          RETURN
+        ENDIF
+#endif
 !$OMP PARALLEL PRIVATE (i,j,k,p) 
 #ifndef _OPENMP
         p = 1
@@ -197,12 +237,32 @@
      
       SUBROUTINE f_unpack_int_ikj ( inbuf, outbuf, js, je, ks, ke,            &
      &                is, ie, jms, jme, kms, kme, ims, ime, curs ) 
+#ifdef _OPENACC
+        USE openacc
+#endif
         IMPLICIT NONE
         INTEGER jms, jme, kms, kme, ims, ime
         INTEGER outbuf(ims:ime,kms:kme,jms:jme), inbuf(*)
         INTEGER js, je, ks, ke, is, ie, curs
         ! Local
         INTEGER i,j,k,p
+#ifdef _OPENACC
+        INTEGER ni_, nk_, nn_
+        ! GPU halo unpack: copy in only the strip, scatter into the device-resident field
+        IF ( acc_is_present(outbuf) ) THEN
+          ni_ = ie-is+1 ; nk_ = ke-ks+1 ; nn_ = ni_*nk_*(je-js+1)
+!$acc parallel loop collapse(3) present(outbuf) copyin(inbuf(1:nn_))
+          DO j = js, je
+          DO k = ks, ke
+          DO i = is, ie
+            outbuf(i,k,j) = inbuf((j-js)*nk_*ni_ + (k-ks)*ni_ + (i-is) + 1)
+          ENDDO
+          ENDDO
+          ENDDO
+          curs = nn_
+          RETURN
+        ENDIF
+#endif
 !$OMP PARALLEL PRIVATE (i,j,k,p) 
 #ifndef _OPENMP
         p = 1
@@ -227,12 +287,32 @@
      
       SUBROUTINE f_unpack_lint_ikj ( inbuf, outbuf, js, je, ks, ke,            &
      &                is, ie, jms, jme, kms, kme, ims, ime, curs ) 
+#ifdef _OPENACC
+        USE openacc
+#endif
         IMPLICIT NONE
         INTEGER jms, jme, kms, kme, ims, ime
         INTEGER*8 outbuf(ims:ime,kms:kme,jms:jme), inbuf(*)
         INTEGER js, je, ks, ke, is, ie, curs
         ! Local
         INTEGER i,j,k,p
+#ifdef _OPENACC
+        INTEGER ni_, nk_, nn_
+        ! GPU halo unpack: copy in only the strip, scatter into the device-resident field
+        IF ( acc_is_present(outbuf) ) THEN
+          ni_ = ie-is+1 ; nk_ = ke-ks+1 ; nn_ = ni_*nk_*(je-js+1)
+!$acc parallel loop collapse(3) present(outbuf) copyin(inbuf(1:nn_))
+          DO j = js, je
+          DO k = ks, ke
+          DO i = is, ie
+            outbuf(i,k,j) = inbuf((j-js)*nk_*ni_ + (k-ks)*ni_ + (i-is) + 1)
+          ENDDO
+          ENDDO
+          ENDDO
+          curs = nn_
+          RETURN
+        ENDIF
+#endif
 !$OMP PARALLEL PRIVATE (i,j,k,p) 
 #ifndef _OPENMP
         p = 1
