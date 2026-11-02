@@ -2,6 +2,7 @@
 ! WRF:MODEL_LAYER:PHYSICS
 
     MODULE module_diffusion_em
+   USE module_wrf_error, ONLY : wrf_gpu_on   ! GPU port: host/device switch for compute regions
 
     USE module_bc, only: set_physical_bc3d, set_physical_bc2d ! XZ
     USE module_state_description, only: p_m23, p_m13, p_m22, p_m33, p_r23, p_r13, p_r12, p_m12, p_m11, &
@@ -125,7 +126,7 @@
 
 ! Square the map scale factor.
 
-!$acc parallel loop collapse(2)
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO i = i_start, i_end
       mm(i,j) = msftx(i,j) * msfty(i,j)
@@ -137,7 +138,7 @@
 
 ! Apply a coordinate transformation to zonal velocity, u.
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start, i_end+1
@@ -148,7 +149,7 @@
 
 ! Average in x and z.
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j=j_start,j_end
     DO k=kts+1,ktf
     DO i=i_start,i_end
@@ -161,7 +162,7 @@
 
 ! Extrapolate to top and bottom of domain (to w levels).
 
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector
     DO i = i_start, i_end
@@ -184,7 +185,7 @@
     ! => tmp1 = m^2 * (partial du^/dX + partial dpsi/dx * partial du^/dpsi)
     ! tmpzx = averaged value of dpsi/dx (=zx)
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start, i_end
@@ -197,7 +198,7 @@
     END DO
     END DO
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start, i_end
@@ -216,7 +217,7 @@
 ! Eqn 13a: D11=defor11= 2 m^2 * (partial du^/dX + partial dpsi/dx * partial du^/dpsi)
 !                     = 2*tmp1
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start, i_end
@@ -231,7 +232,7 @@
 !-----------------------------------------------------------------------
 ! Calculate zonal divergence (du/dx) and add it to the divergence array.
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start, i_end
@@ -248,7 +249,7 @@
 
 ! Apply a coordinate transformation to meridional velocity, v.
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end+1
     DO k = kts, ktf
     DO i = i_start, i_end
@@ -266,7 +267,7 @@
 
 ! Account for the slope in y of eta surfaces.
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j=j_start,j_end
     DO k=kts+1,ktf
     DO i=i_start,i_end
@@ -279,7 +280,7 @@
 
 ! Extrapolate to top and bottom of domain (to w levels).
 
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector
     DO i = i_start, i_end
@@ -302,7 +303,7 @@
     ! => tmp1 = m^2 * (partial dv^/dY + partial dpsi/dy * partial dv^/dpsi)
     ! tmpzy = averaged value of dpsi/dy (=zy)
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start, i_end
@@ -315,7 +316,7 @@
     END DO
     END DO
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start, i_end
@@ -334,7 +335,7 @@
 ! Eqn 13b: D22=defor22= 2 m^2 * (partial dv^/dY + partial dpsi/dy * partial dv^/dpsi)
 !                     = 2*tmp1
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start, i_end
@@ -350,7 +351,7 @@
 ! Calculate meridional divergence (dv/dy) and add it to the divergence
 ! array.
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start, i_end
@@ -370,7 +371,7 @@
 
 ! Calculate dw/dz.
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start, i_end
@@ -385,7 +386,7 @@
 !-----------------------------------------------------------------------
 ! Calculate defor33 (2*dw/dz).
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start, i_end
@@ -401,7 +402,7 @@
 ! Calculate vertical divergence (dw/dz) and add it to the divergence
 ! array.
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start, i_end
@@ -456,7 +457,7 @@
 ! dv/dx => need v map scale factor in y (which is defined at v points)
 ! averaged over i and i-1
 
-!$acc parallel loop collapse(2)
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO i = i_start, i_end
       mm(i,j) = 0.25 * ( msfux(i,j-1) + msfux(i,j) ) * ( msfvy(i-1,j) + msfvy(i,j) )
@@ -465,7 +466,7 @@
 
 ! Apply a coordinate transformation to zonal velocity, u.
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j =j_start-1, j_end
     DO k =kts, ktf
     DO i =i_start, i_end
@@ -478,7 +479,7 @@
 
 ! Average in y and z.
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j=j_start,j_end
     DO k=kts+1,ktf
     DO i=i_start,i_end
@@ -491,7 +492,7 @@
 
 ! Extrapolate to top and bottom of domain (to w levels).
 
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector
     DO i = i_start, i_end
@@ -510,7 +511,7 @@
 
     ! tmpzy = averaged value of dpsi/dy (=zy) on vorticity grid
     ! tmp1  = partial dpsi/dy * partial du^/dpsi
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start, i_end
@@ -538,7 +539,7 @@
 ! Still need to add v^ terms:
 !   m^2 * (partial dv^/dX + partial dpsi/dx * partial dv^/dpsi)
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start, i_end
@@ -556,7 +557,7 @@
 
 ! Apply a coordinate transformation to meridional velocity, v.
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start-1, i_end
@@ -567,7 +568,7 @@
 
 ! Account for the slope in x of eta surfaces.
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts+1, ktf
     DO i = i_start, i_end
@@ -580,7 +581,7 @@
 
 ! Extrapolate to top and bottom of domain (to w levels).
 
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector
     DO i = i_start, i_end
@@ -605,7 +606,7 @@
     !
     ! tmpzx = averaged value of dpsi/dx (=zx) on vorticity grid
     ! tmp1  = partial dpsi/dx * partial dv^/dpsi
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start, i_end
@@ -646,7 +647,7 @@
 !_______________________________________________________________________
 
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start, i_end
@@ -706,7 +707,7 @@
 
   ELSE ! NOT NBA--------------------------------------------------------
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start, i_end
@@ -724,7 +725,7 @@
 ! Update the boundary for defor12 (might need to change later).
 
     IF ( .NOT. config_flags%periodic_x .AND. i_start .EQ. ids+1 ) THEN
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
       DO j = jts, jte
 !$acc loop vector
       DO k = kts, kte
@@ -742,7 +743,7 @@
     END IF
 
     IF ( .NOT. config_flags%periodic_x .AND. i_end .EQ. ide-1) THEN
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
       DO j = jts, jte
 !$acc loop vector
       DO k = kts, kte
@@ -789,7 +790,7 @@
 
 ! Square the mapscale factor.
 
-!$acc parallel loop collapse(2)
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
     DO j = jts, jte
     DO i = its, ite
       mm(i,j) = msfux(i,j) * msfuy(i,j)
@@ -799,7 +800,7 @@
 ! Apply a coordinate transformation to vertical velocity, w.  This is for both
 ! defor13 and defor23.
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, kte
     DO i = i_start, i_end
@@ -809,7 +810,7 @@
     END DO
 
     i = i_start-1
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
     DO j = j_start, MIN( jte, jde-1 )
 !$acc loop vector
     DO k = kts, kte
@@ -826,7 +827,7 @@
 
 ! QUESTION: What is this for?
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start, i_end
@@ -841,7 +842,7 @@
 
 ! Calculate dw/dx.
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts+1, ktf
     DO i = i_start, i_end
@@ -858,7 +859,7 @@
 ! Add the first term (dw/dx) to defor13 (dw/dx+du/dz) at vorticity
 ! points.
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts+1, ktf
     DO i = i_start, i_end
@@ -868,7 +869,7 @@
     END DO
     END DO
 
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector
     DO i = i_start, i_end
@@ -885,7 +886,7 @@
 
     IF ( config_flags%mix_full_fields ) THEN
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
       DO j = j_start, j_end
       DO k = kts+1, ktf
       DO i = i_start, i_end
@@ -897,7 +898,7 @@
 
     ELSE
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
       DO j = j_start, j_end
       DO k = kts+1, ktf
       DO i = i_start, i_end
@@ -927,7 +928,7 @@
 !         = tmp1  -  ______defor13______
 !_______________________________________________________________________
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts+1, ktf
     DO i = i_start, i_end
@@ -946,7 +947,7 @@
 
   ELSE ! NOT NBA--------------------------------------------------------
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts+1, ktf
     DO i = i_start, i_end
@@ -978,7 +979,7 @@
 
 ! Square mapscale factor.
 
-!$acc parallel loop collapse(2)
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
     DO j = jts, jte
     DO i = its, ite
       mm(i,j) = msfvx(i,j) * msfvy(i,j)
@@ -987,7 +988,7 @@
 
 ! Apply a coordinate transformation to vertical velocity, w.  Added by CW 7/19/07
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, kte
     DO i = i_start, i_end
@@ -997,7 +998,7 @@
     END DO
 
     i = i_start-1
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
     DO j = j_start, MIN( jte, jde-1 )
 !$acc loop vector
     DO k = kts, kte
@@ -1014,7 +1015,7 @@
 
 ! QUESTION: What is this for?
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start, i_end
@@ -1029,7 +1030,7 @@
 
 ! Calculate dw/dy and store in tmp1.
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts+1, ktf
     DO i = i_start, i_end
@@ -1046,7 +1047,7 @@
 ! Add the first term (dw/dy) to defor23 (dw/dy+dv/dz) at vorticity
 ! points.
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts+1, ktf
     DO i = i_start, i_end
@@ -1056,7 +1057,7 @@
     END DO
     END DO
 
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector
     DO i = i_start, i_end
@@ -1073,7 +1074,7 @@
 
     IF ( config_flags%mix_full_fields ) THEN
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
       DO j = j_start, j_end
       DO k = kts+1, ktf
       DO i = i_start, i_end
@@ -1085,7 +1086,7 @@
 
     ELSE
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
       DO j = j_start, j_end
       DO k = kts+1, ktf
       DO i = i_start, i_end
@@ -1118,7 +1119,7 @@
 
 ! Add tmp1 to defor23.
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts+1, ktf
     DO i = i_start, i_end
@@ -1190,7 +1191,7 @@
 
 ! Add tmp1 to defor23.
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts+1, ktf
     DO i = i_start, i_end
@@ -1207,7 +1208,7 @@
 ! later).
 
     IF ( .NOT. config_flags%periodic_x .AND. i_start .EQ. ids+1) THEN
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
       DO j = jts, jte
 !$acc loop vector
       DO k = kts, kte
@@ -1227,7 +1228,7 @@
     END IF
 
     IF ( .NOT. config_flags%periodic_x .AND. i_end .EQ. ide-1) THEN
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
       DO j = jts, jte
 !$acc loop vector
       DO k = kts, kte
@@ -1479,7 +1480,7 @@ SUBROUTINE cal_dampkm( config_flags,xkmh,xkhh,xkmv,xkhv,                       &
 
    kmmax=dx*dx/dt
    degrad90=DEGRAD*90.
-!$acc parallel loop gang private(deltaz)
+!$acc parallel loop gang private(deltaz) if(wrf_gpu_on)
    DO j = j_start, j_end
 
       k=ktf
@@ -1537,7 +1538,7 @@ SUBROUTINE cal_dampkm( config_flags,xkmh,xkhh,xkmv,xkhv,                       &
 
    ENDDO
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    DO j = j_start, j_end
    DO k = kts,ktf
    DO i = i_start, i_end
@@ -1636,7 +1637,7 @@ END SUBROUTINE cal_dampkm
       IF ( config_flags%periodic_x ) i_end = MIN( ite, ide-1 )
 
     IF ( P_QC .GT. PARAM_FIRST_SCALAR) THEN
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
       DO j = j_start, j_end
       DO k = kts, ktf
       DO i = i_start, i_end
@@ -1645,7 +1646,7 @@ END SUBROUTINE cal_dampkm
       END DO
       END DO
     ELSE
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
       DO j = j_start, j_end
       DO k = kts, ktf
       DO i = i_start, i_end
@@ -1655,7 +1656,7 @@ END SUBROUTINE cal_dampkm
       END DO
     END IF
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = jts, jte
     DO k = kts, kte
     DO i = its, ite
@@ -1664,7 +1665,7 @@ END SUBROUTINE cal_dampkm
     END DO
     END DO
 
-!$acc parallel loop collapse(2)
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
     DO j = jts,jte
     DO i = its,ite
       tmp1sfc(i,j) = 0.0
@@ -1674,7 +1675,7 @@ END SUBROUTINE cal_dampkm
 
     DO ispe = PARAM_FIRST_SCALAR, n_moist
       IF ( ispe .EQ. P_QV .OR. ispe .EQ. P_QC .OR. ispe .EQ. P_QI) THEN
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
         DO j = j_start, j_end
         DO k = kts, ktf
         DO i = i_start, i_end
@@ -1683,7 +1684,7 @@ END SUBROUTINE cal_dampkm
         END DO
         END DO
 
-!$acc parallel loop collapse(2)
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
         DO j = j_start, j_end
         DO i = i_start, i_end
           tmp1sfc(i,j) = tmp1sfc(i,j) +  &
@@ -1701,7 +1702,7 @@ END SUBROUTINE cal_dampkm
 
 ! Calculate saturation mixing ratio.
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start, i_end
@@ -1712,7 +1713,7 @@ END SUBROUTINE cal_dampkm
     END DO
     END DO
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts+1, ktf-1
     DO i = i_start, i_end
@@ -1740,7 +1741,7 @@ END SUBROUTINE cal_dampkm
     END DO
 
     k = kts
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector private(coefa,qvsfc,thetaep1,thetaesfc,thetasfc,tmpdz,xlvqv)
     DO i = i_start, i_end
@@ -1785,7 +1786,7 @@ END SUBROUTINE cal_dampkm
 
 
 !...... MARTA: change in computation of BN2 at the top, WCS 040331
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector
     DO i = i_start, i_end
@@ -1842,7 +1843,7 @@ SUBROUTINE isotropic_km( config_flags,                                         &
    khdif3=khdif/prandtl
    kvdif3=kvdif/prandtl
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    DO j = j_start, j_end
    DO k = kts, ktf
    DO i = i_start, i_end
@@ -1932,7 +1933,7 @@ SUBROUTINE smag_km( config_flags,xkmh,xkmv,xkhh,xkhv,BN2,                      &
    pr = prandtl
    c_s = config_flags%c_s
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    do j=j_start,j_end
    do k=kts,ktf
    do i=i_start,i_end
@@ -1943,7 +1944,7 @@ SUBROUTINE smag_km( config_flags,xkmh,xkmv,xkhh,xkhv,BN2,                      &
    enddo
    enddo
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    do j=j_start,j_end
    do k=kts,ktf
    do i=i_start,i_end
@@ -1954,7 +1955,7 @@ SUBROUTINE smag_km( config_flags,xkmh,xkmv,xkhh,xkhv,BN2,                      &
    enddo
    enddo
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    do j=j_start,j_end
    do k=kts,ktf
    do i=i_start,i_end
@@ -1965,7 +1966,7 @@ SUBROUTINE smag_km( config_flags,xkmh,xkmv,xkhh,xkhv,BN2,                      &
    enddo
    enddo
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    do j=j_start,j_end
    do k=kts,ktf
    do i=i_start,i_end
@@ -1977,7 +1978,7 @@ SUBROUTINE smag_km( config_flags,xkmh,xkmv,xkhh,xkhv,BN2,                      &
    enddo
 !
    IF (isotropic .EQ. 0) THEN
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
       DO j = j_start, j_end
       DO k = kts, ktf
       DO i = i_start, i_end
@@ -1997,7 +1998,7 @@ SUBROUTINE smag_km( config_flags,xkmh,xkmv,xkhh,xkhv,BN2,                      &
       ENDDO
       ENDDO
    ELSE
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
       DO j = j_start, j_end
       DO k = kts, ktf
       DO i = i_start, i_end
@@ -2089,7 +2090,7 @@ SUBROUTINE smag2d_km( config_flags,xkmh,xkmv,xkhh,xkhv,                        &
    pr=prandtl
    c_s = config_flags%c_s
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    do j=j_start,j_end
    do k=kts,ktf
    do i=i_start,i_end
@@ -2101,7 +2102,7 @@ SUBROUTINE smag2d_km( config_flags,xkmh,xkmv,xkhh,xkhv,                        &
    enddo
    enddo
 !
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
       DO j = j_start, j_end
       DO k = kts, ktf
       DO i = i_start, i_end
@@ -2266,7 +2267,7 @@ END SUBROUTINE smag2d_km
       ENDIF
     ENDIF
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts+1, ktf-1
     DO i = i_start, i_end
@@ -2277,7 +2278,7 @@ END SUBROUTINE smag2d_km
     END DO
 
     k = kts
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector private(thetasfc,tmpdz)
     DO i = i_start, i_end
@@ -2288,7 +2289,7 @@ END SUBROUTINE smag2d_km
     END DO
 
     k = ktf
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector private(thetatop,tmpdz)
     DO i = i_start, i_end
@@ -2299,7 +2300,7 @@ END SUBROUTINE smag2d_km
     END DO
 
     IF ( config_flags%km_opt .EQ. 2 .and. isotropic .EQ. 0 ) THEN  !XZ
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
       DO j = j_start, j_end
       DO k = kts, ktf
       DO i = i_start, i_end
@@ -2331,7 +2332,7 @@ END SUBROUTINE smag2d_km
                          ids, ide, jds, jde, kds, kde,         &
                          ims, ime, jms, jme, kms, kme,         &
                          its, ite, jts, jte, kts, kte          )
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
       DO j = j_start, j_end
       DO k = kts, ktf
       DO i = i_start, i_end
@@ -2356,7 +2357,7 @@ END SUBROUTINE smag2d_km
        pr=prandtl
        c_s = config_flags%c_s
  
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
        DO j=j_start,j_end
        DO k=kts,ktf
        DO i=i_start,i_end
@@ -2368,7 +2369,7 @@ END SUBROUTINE smag2d_km
        ENDDO
        ENDDO
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
        DO j = j_start, j_end
        DO k = kts, ktf
        DO i = i_start, i_end
@@ -2396,7 +2397,7 @@ END SUBROUTINE smag2d_km
        ENDDO
 
 !! difusivity based on TKE
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
        DO j = j_start, j_end
        DO k = kts, ktf
        DO i = i_start, i_end
@@ -2489,7 +2490,7 @@ END SUBROUTINE smag2d_km
 ! End declarations.
 !-----------------------------------------------------------------------
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start, i_end
@@ -2589,7 +2590,7 @@ END SUBROUTINE smag2d_km
     IF ( config_flags%periodic_x ) i_end = MIN( ite, ide-1 )
  
  
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
     DO  j = j_start, j_end
 !$acc loop vector
     DO  i = i_start, i_end
@@ -2597,7 +2598,7 @@ END SUBROUTINE smag2d_km
     ENDDO
     ENDDO
  
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
     DO  j = j_start, j_end
 !$acc loop seq
     DO  k = kts, ktf
@@ -2608,7 +2609,7 @@ END SUBROUTINE smag2d_km
     ENDDO
     ENDDO
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO  j = j_start, j_end
     DO  k = kts, ktf
     DO  i = i_start, i_end
@@ -2617,7 +2618,7 @@ END SUBROUTINE smag2d_km
     ENDDO
     ENDDO
  
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start, i_end
@@ -2626,7 +2627,7 @@ END SUBROUTINE smag2d_km
     ENDDO
     ENDDO
  
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts+1, ktf-1
     DO i = i_start, i_end
@@ -2637,7 +2638,7 @@ END SUBROUTINE smag2d_km
     END DO
  
     k = kts
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector private(thetasfc,tmpdz)
     DO i = i_start, i_end
@@ -2648,7 +2649,7 @@ END SUBROUTINE smag2d_km
     END DO
 
     k = ktf
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector private(thetatop,tmpdz)
     DO i = i_start, i_end
@@ -2658,7 +2659,7 @@ END SUBROUTINE smag2d_km
     END DO
     END DO
  
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts,ktf
     DO i = i_start, i_end
@@ -2667,7 +2668,7 @@ END SUBROUTINE smag2d_km
     ENDDO
     ENDDO
 
-!$acc parallel loop collapse(2)
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO i = i_start, i_end
       elt(i,j) = 1.0e-5
@@ -2675,7 +2676,7 @@ END SUBROUTINE smag2d_km
     ENDDO
     ENDDO
  
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector collapse(2) private(qdz)
     DO k = kts, ktf
@@ -2687,7 +2688,7 @@ END SUBROUTINE smag2d_km
     ENDDO
     ENDDO
  
-!$acc parallel loop collapse(2)
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO i = i_start, i_end
       elt(i,j) = alp1*elt(i,j)/vsc(i,j)
@@ -2697,7 +2698,7 @@ END SUBROUTINE smag2d_km
     hflux: SELECT CASE( config_flags%isfflx )
     CASE (0,2) ! with fixed surface heat flux given in the namelist
      heat_flux = config_flags%tke_heat_flux  ! constant heat flux value
-!$acc parallel loop collapse(2)
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
      DO j = j_start, j_end
      DO i = i_start, i_end
         cpm = cp * (1. + 0.8 * moist(i,kts,j,P_QV))
@@ -2706,7 +2707,7 @@ END SUBROUTINE smag2d_km
      ENDDO
  
     CASE (1) ! use surface heat flux computed from surface routine
-!$acc parallel loop collapse(2)
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
      DO j = j_start, j_end
      DO i = i_start, i_end
         cpm = cp * (1. + 0.8 * moist(i,kts,j,P_QV))
@@ -2718,7 +2719,7 @@ END SUBROUTINE smag2d_km
      CALL wrf_error_fatal( 'isfflx value invalid for diff_opt=2' )
     END SELECT hflux
 
-!$acc parallel loop collapse(2)
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
     DO j = j_start,j_end
     DO i = i_start,i_end
        cpm        = cp  * (1. + 0.8*moist(i,1,j,P_QV))
@@ -2728,7 +2729,7 @@ END SUBROUTINE smag2d_km
 
 !-------Length scale limited by bouyancy effect-----
     gtr  = g/300.
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start, i_end
@@ -2746,7 +2747,7 @@ END SUBROUTINE smag2d_km
     ENDDO
  
 !------Length scale in the surface layer-------
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start,i_end
@@ -2761,7 +2762,7 @@ END SUBROUTINE smag2d_km
     ENDDO
 
 !----Harmonic averaging of mixing length scales-----
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start, i_end
@@ -2772,7 +2773,7 @@ END SUBROUTINE smag2d_km
  
 !add blending to use BouLac mixing length in free atmos;
 !defined relative to the PBLH (zi) + transition layer (h1)
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start, i_end
@@ -2866,7 +2867,7 @@ END SUBROUTINE smag2d_km
     IF ( config_flags%periodic_x ) i_start = its
     IF ( config_flags%periodic_x ) i_end = MIN( ite, ide-1 )
  
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector
     DO i = i_start, i_end
@@ -2874,7 +2875,7 @@ END SUBROUTINE smag2d_km
     ENDDO
     ENDDO
  
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop seq
     DO k = kts, ktf
@@ -2885,7 +2886,7 @@ END SUBROUTINE smag2d_km
     ENDDO
     ENDDO
  
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start, i_end
@@ -2894,7 +2895,7 @@ END SUBROUTINE smag2d_km
     ENDDO
     ENDDO
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start, i_end
@@ -3394,7 +3395,7 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
 ! titau1avg = titau11avg
 ! titau2avg = titau12avg
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    DO j = j_start, j_end
    DO k = kts+1,ktf
    DO i = i_start, i_end
@@ -3420,7 +3421,7 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
    ENDDO
    ENDDO
 !
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
    DO j = j_start, j_end
 !$acc loop vector
    DO i = i_start, i_end
@@ -3435,7 +3436,7 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
    ENDDO
    ENDDO
 !
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    DO j = j_start, j_end
    DO k = kts,ktf
    DO i = i_start, i_end
@@ -3596,7 +3597,7 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
                             ims, ime, jms, jme, kms, kme,   &
                             its, ite, jts, jte, kts, kte    )
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    DO j = j_start, j_end
    DO k = kts+1,ktf
    DO i = i_start, i_end
@@ -3620,7 +3621,7 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
    ENDDO
    ENDDO
 
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
    DO j = j_start, j_end
 !$acc loop vector
    DO i = i_start, i_end
@@ -3635,7 +3636,7 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
    ENDDO
    ENDDO
 !
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    DO j = j_start, j_end
    DO k = kts,ktf
    DO i = i_start, i_end
@@ -3798,7 +3799,7 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
 ! titau1avg = titau31avg * zx * zeta_z = titau13avg * zx * zeta_z
 ! titau2avg = titau32avg * zy * zeta_z = titau23avg * zy * zeta_z
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    DO j = j_start, j_end
    DO k = kts,ktf
    DO i = i_start, i_end
@@ -3822,7 +3823,7 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
    ENDDO
    ENDDO
 
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
    DO j = j_start, j_end
 !$acc loop vector
    DO i = i_start, i_end
@@ -3831,7 +3832,7 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
    ENDDO
    ENDDO
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    DO j = j_start, j_end
    DO k = kts+1,ktf
    DO i = i_start, i_end
@@ -3973,7 +3974,7 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
 ! diffusion of the TKE needs mutiple 2
 
    IF ( doing_tke ) THEN
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
       DO j = j_start, j_end
       DO k = kts,ktf
       DO i = i_start, i_end
@@ -3985,7 +3986,7 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
 
 ! H1 = partial var over partial x
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    DO j = j_start, j_end
    DO k = kts, ktf
    DO i = i_start, i_end + 1
@@ -3994,7 +3995,7 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
    ENDDO
    ENDDO
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    DO j = j_start, j_end
    DO k = kts+1, ktf
    DO i = i_start, i_end + 1
@@ -4004,7 +4005,7 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
    ENDDO
    ENDDO
 
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
    DO j = j_start, j_end
 !$acc loop vector
    DO i = i_start, i_end + 1
@@ -4018,7 +4019,7 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
    ENDDO
    ENDDO
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    DO j = j_start, j_end
    DO k = kts, ktf
    DO i = i_start, i_end + 1
@@ -4039,7 +4040,7 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
 
 ! H2 = partial var over partial y
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    DO j = j_start, j_end + 1
    DO k = kts, ktf
    DO i = i_start, i_end
@@ -4048,7 +4049,7 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
    ENDDO
    ENDDO
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    DO j = j_start, j_end + 1
    DO k = kts+1,   ktf
    DO i = i_start, i_end
@@ -4058,7 +4059,7 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
    ENDDO
    ENDDO
 
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
    DO j = j_start, j_end + 1
 !$acc loop vector
    DO i = i_start, i_end
@@ -4072,7 +4073,7 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
    ENDDO
    ENDDO
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    DO j = j_start, j_end + 1
    DO k = kts, ktf
    DO i = i_start, i_end
@@ -4091,7 +4092,7 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
    ENDDO
    ENDDO
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    DO j = j_start, j_end
    DO k = kts+1, ktf
    DO i = i_start, i_end
@@ -4115,7 +4116,7 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
    ENDDO
    ENDDO
 
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
    DO j = j_start, j_end
 !$acc loop vector
    DO i = i_start, i_end
@@ -4129,7 +4130,7 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
    ENDDO
    ENDDO
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    DO j = j_start, j_end
    DO k = kts,ktf
    DO i = i_start, i_end
@@ -4148,7 +4149,7 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
    ENDDO
 
    IF ( doing_tke ) THEN
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
       DO j = j_start, j_end
       DO k = kts,ktf
       DO i = i_start, i_end
@@ -4413,7 +4414,7 @@ SUBROUTINE vertical_diffusion_2   ( ru_tendf, rv_tendf, rw_tendf, rt_tendf,   &
 
    IF ( config_flags%mix_full_fields ) THEN
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
      DO j=jts,min(jte,jde-1)
      DO k=kts,kte-1
      DO i=its,min(ite,ide-1)
@@ -4424,7 +4425,7 @@ SUBROUTINE vertical_diffusion_2   ( ru_tendf, rv_tendf, rw_tendf, rt_tendf,   &
 
    ELSE
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
      DO j=jts,min(jte,jde-1)
      DO k=kts,kte-1
      DO i=its,min(ite,ide-1)
@@ -4452,7 +4453,7 @@ SUBROUTINE vertical_diffusion_2   ( ru_tendf, rv_tendf, rw_tendf, rt_tendf,   &
   CASE (0,2) ! with fixed surface heat flux given in the namelist
     heat_flux = config_flags%tke_heat_flux  ! constant heat flux value
                                             ! set in namelist.input
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector private(cpm)
     DO i = i_start, i_end
@@ -4470,7 +4471,7 @@ SUBROUTINE vertical_diffusion_2   ( ru_tendf, rv_tendf, rw_tendf, rt_tendf,   &
     ENDDO
 
   CASE (1) ! use surface heat flux computed from surface routine
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector private(cpm,heat_flux)
     DO i = i_start, i_end
@@ -4515,7 +4516,7 @@ SUBROUTINE vertical_diffusion_2   ( ru_tendf, rv_tendf, rw_tendf, rt_tendf,   &
 
        IF ( (.not. config_flags%mix_full_fields) .and. (im == P_QV) ) THEN
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
          DO j=jts,min(jte,jde-1)
          DO k=kts,kte-1
          DO i=its,min(ite,ide-1)
@@ -4526,7 +4527,7 @@ SUBROUTINE vertical_diffusion_2   ( ru_tendf, rv_tendf, rw_tendf, rt_tendf,   &
 
        ELSE
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
          DO j=jts,min(jte,jde-1)
          DO k=kts,kte-1
          DO i=its,min(ite,ide-1)
@@ -4715,7 +4716,7 @@ SUBROUTINE vertical_diffusion_u_2( tendency, config_flags,                &
                          ims, ime, jms, jme, kms, kme,    &
                          its, ite, jts, jte, kts, kte     )
 !
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
       DO j = j_start, j_end
       DO k=kts+1,ktf
       DO i = i_start, i_end
@@ -4730,7 +4731,7 @@ SUBROUTINE vertical_diffusion_u_2( tendency, config_flags,                &
 ! ******** MODIF...
 !  we will pick up the surface drag (titau3(i,kts,j)) later
 !
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
        DO j = j_start, j_end
        k=kts
 !$acc loop vector private(rdzu)
@@ -4829,7 +4830,7 @@ SUBROUTINE vertical_diffusion_v_2( tendency, config_flags,                &
                          ims, ime, jms, jme, kms, kme,    &
                          its, ite, jts, jte, kts, kte     )
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    DO j = j_start, j_end
    DO k = kts+1,ktf
    DO i = i_start, i_end
@@ -4844,7 +4845,7 @@ SUBROUTINE vertical_diffusion_v_2( tendency, config_flags,                &
 ! ******** MODIF...
 !  we will pick up the surface drag (titau3(i,kts,j)) later
 !
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
        DO j = j_start, j_end
        k=kts
 !$acc loop vector private(rdzv)
@@ -4950,7 +4951,7 @@ SUBROUTINE vertical_diffusion_w_2(tendency, config_flags,                 &
 !   ENDDO
 !   ENDDO
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    DO j = j_start, j_end
    DO k = kts+1, ktf
    DO i = i_start, i_end
@@ -5032,7 +5033,7 @@ SUBROUTINE vertical_diffusion_s( tendency, config_flags, var, xkhv,       &
       IF ( config_flags%periodic_x ) i_end = MIN(ite,ide-1)
 
    IF (doing_tke) THEN
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
       DO j = j_start, j_end
       DO k = kts,ktf
       DO i = i_start, i_end
@@ -5046,7 +5047,7 @@ SUBROUTINE vertical_diffusion_s( tendency, config_flags, var, xkhv,       &
 
    xkxavg = 0.
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    DO j = j_start, j_end
    DO k = kts+1,ktf
    DO i = i_start, i_end
@@ -5057,7 +5058,7 @@ SUBROUTINE vertical_diffusion_s( tendency, config_flags, var, xkhv,       &
    ENDDO
    ENDDO
 
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
    DO j = j_start, j_end
 !$acc loop vector
    DO i = i_start, i_end
@@ -5066,7 +5067,7 @@ SUBROUTINE vertical_diffusion_s( tendency, config_flags, var, xkhv,       &
    ENDDO
    ENDDO
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    DO j = j_start, j_end
    DO k = kts,ktf
    DO i = i_start, i_end
@@ -5077,7 +5078,7 @@ SUBROUTINE vertical_diffusion_s( tendency, config_flags, var, xkhv,       &
    ENDDO
 
    IF (doing_tke) THEN
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
       DO j = j_start, j_end
       DO k = kts,ktf
       DO i = i_start, i_end
@@ -5190,7 +5191,7 @@ END SUBROUTINE vertical_diffusion_s
    IF ( config_flags%periodic_x ) i_start = its
    IF ( config_flags%periodic_x ) i_end = MIN(ite,ide-1)
  
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
    DO j = j_start, j_end
 !$acc loop vector
    DO i = i_start, i_end
@@ -5198,7 +5199,7 @@ END SUBROUTINE vertical_diffusion_s
    ENDDO
    ENDDO
 
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
    DO j = j_start, j_end
 !$acc loop seq
    DO k = kts, ktf
@@ -5209,7 +5210,7 @@ END SUBROUTINE vertical_diffusion_s
    ENDDO
    ENDDO
  
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    DO j = j_start,j_end
    DO k = kts,ktf
    DO i = i_start,i_end
@@ -5218,7 +5219,7 @@ END SUBROUTINE vertical_diffusion_s
    ENDDO
    ENDDO
  
-!$acc parallel loop collapse(2)
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
    DO j = j_start, j_end
    DO i = i_start, i_end
      deltaoh(i,j)  = 0.0
@@ -5227,7 +5228,7 @@ END SUBROUTINE vertical_diffusion_s
    ENDDO
    ENDDO
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    DO j = j_start, j_end
    DO k = kts, ktf
    DO i = i_start, i_end
@@ -5236,7 +5237,7 @@ END SUBROUTINE vertical_diffusion_s
    ENDDO
    ENDDO
  
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    DO j = j_start, j_end
    DO k = kts, ktf
    DO i = i_start, i_end
@@ -5245,7 +5246,7 @@ END SUBROUTINE vertical_diffusion_s
    ENDDO
    ENDDO
  
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    DO j = j_start, j_end
    DO k = kts, ktf
    DO i = i_start, i_end
@@ -5255,7 +5256,7 @@ END SUBROUTINE vertical_diffusion_s
    ENDDO
    ENDDO
 
-!$acc parallel loop collapse(2)
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
    DO j = j_start,j_end
    DO i = i_start,i_end
      govrth(i,j) = g/th_phy(i,1,j)
@@ -5265,7 +5266,7 @@ END SUBROUTINE vertical_diffusion_s
   hflux: SELECT CASE( config_flags%isfflx )
   CASE (0,2) ! with fixed surface heat flux given in the namelist
     heat_flux = config_flags%tke_heat_flux  ! constant heat flux value
-!$acc parallel loop collapse(2)
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO i = i_start, i_end
        cpm = cp * (1. + 0.8 * moist(i,kts,j,P_QV))
@@ -5274,7 +5275,7 @@ END SUBROUTINE vertical_diffusion_s
     ENDDO
  
   CASE (1) ! use surface heat flux computed from surface routine
-!$acc parallel loop collapse(2)
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO i = i_start, i_end
        cpm = cp * (1. + 0.8 * moist(i,kts,j,P_QV))
@@ -5286,7 +5287,7 @@ END SUBROUTINE vertical_diffusion_s
     CALL wrf_error_fatal( 'isfflx value invalid for diff_opt=2' )
   END SELECT hflux
 
-!$acc parallel loop collapse(2)
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
   DO j = j_start, j_end
   DO i = i_start, i_end
      kpbl(i,j)   = 1
@@ -5316,7 +5317,7 @@ END SUBROUTINE vertical_diffusion_s
   ENDDO
   ENDDO
 
-!$acc parallel loop collapse(2)
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
   DO j = j_start, j_end
   DO i = i_start, i_end
      IF(hpbl(i,j).LT.zq(i,2,j)) kpbl(i,j) = 1
@@ -5324,7 +5325,7 @@ END SUBROUTINE vertical_diffusion_s
   ENDDO
   ENDDO
 
-!$acc parallel loop collapse(2)
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
   DO j = j_start, j_end
   DO i = i_start, i_end
      IF(sfcflg(i,j))THEN
@@ -5342,7 +5343,7 @@ END SUBROUTINE vertical_diffusion_s
   ENDDO
   ENDDO
 
-!$acc parallel loop collapse(2)
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
   DO j = j_start, j_end
   DO i = i_start, i_end
       delxy = sqrt(dx/msftx(i,j)*dy/msfty(i,j))
@@ -5358,7 +5359,7 @@ END SUBROUTINE vertical_diffusion_s
   ENDDO
   ENDDO
 
-!$acc parallel loop collapse(2)
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
   DO j = j_start,j_end
   DO i = i_start,i_end
      IF(pblflg(i,j))THEN
@@ -5392,7 +5393,7 @@ END SUBROUTINE vertical_diffusion_s
   ENDDO
   ENDDO
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
   DO j = j_start, j_end
   DO k = kts, ktf
   DO i = i_start, i_end
@@ -5610,7 +5611,7 @@ END SUBROUTINE nonlocal_flux
 
     IF ( config_flags%sfs_opt .GT. 0 ) THEN ! USE NBA MODEL SFS STRESSES
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
       DO j = j_start, j_end
       DO k = kts, ktf
       DO i = i_start, i_end
@@ -5625,7 +5626,7 @@ END SUBROUTINE nonlocal_flux
 
       IF ( config_flags%m_opt .EQ. 1 ) THEN ! ASSIGN STRESS TO MTAU FOR OUTPUT
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
         DO j = j_start, j_end
         DO k = kts, ktf
         DO i = i_start, i_end
@@ -5639,7 +5640,7 @@ END SUBROUTINE nonlocal_flux
 
       ELSE !NO STRESS OUTPUT
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
         DO j = j_start, j_end
         DO k = kts, ktf
         DO i = i_start, i_end
@@ -5741,7 +5742,7 @@ END SUBROUTINE nonlocal_flux
     j_start = j_start - js_ext
     j_end   = j_end   + je_ext
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start, i_end
@@ -5758,7 +5759,7 @@ END SUBROUTINE nonlocal_flux
 
     IF ( config_flags%sfs_opt .GT. 0 ) THEN ! USE NBA MODEL SFS STRESSES
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
       DO j = j_start, j_end
       DO k = kts, ktf
       DO i = i_start, i_end
@@ -5773,7 +5774,7 @@ END SUBROUTINE nonlocal_flux
 
       IF ( config_flags%m_opt .EQ. 1 ) THEN ! ASSIGN STRESS TO MTAU FOR OUTPUT
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
         DO j = j_start, j_end
         DO k = kts, ktf
         DO i = i_start, i_end
@@ -5786,7 +5787,7 @@ END SUBROUTINE nonlocal_flux
 
       ELSE ! NO STRESS OUTPUT
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
         DO j = j_start, j_end
         DO k = kts, ktf
         DO i = i_start, i_end
@@ -5891,7 +5892,7 @@ END SUBROUTINE nonlocal_flux
     j_start = j_start - js_ext
     j_end   = j_end   + je_ext
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts+1, ktf
     DO i = i_start, i_end
@@ -5906,7 +5907,7 @@ END SUBROUTINE nonlocal_flux
 
     IF ( config_flags%sfs_opt .GT. 0 ) THEN ! USE NBA MODEL SFS STRESSES
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
       DO j = j_start, j_end
       DO k = kts+1, ktf
       DO i = i_start, i_end
@@ -5919,7 +5920,7 @@ END SUBROUTINE nonlocal_flux
 
       IF ( config_flags%m_opt .EQ. 1 ) THEN ! ASSIGN STRESS TO MTAU FOR OUTPUT
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
         DO j = j_start, j_end
         DO k = kts+1, ktf
         DO i = i_start, i_end
@@ -5933,7 +5934,7 @@ END SUBROUTINE nonlocal_flux
 
       ELSE ! NO STRESS OUTPUT
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
         DO j = j_start, j_end
         DO k = kts+1, ktf
         DO i = i_start, i_end
@@ -5948,7 +5949,7 @@ END SUBROUTINE nonlocal_flux
 
     ENDIF
 
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector
     DO i = i_start, i_end
@@ -6047,7 +6048,7 @@ END SUBROUTINE nonlocal_flux
     j_start = j_start - js_ext
     j_end   = j_end   + je_ext
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts+1, ktf
     DO i = i_start, i_end
@@ -6062,7 +6063,7 @@ END SUBROUTINE nonlocal_flux
 
     IF ( config_flags%sfs_opt .GT. 0 ) THEN ! USE NBA MODEL SFS STRESSES
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
       DO j = j_start, j_end
       DO k = kts+1, ktf
       DO i = i_start, i_end
@@ -6077,7 +6078,7 @@ END SUBROUTINE nonlocal_flux
 
       IF ( config_flags%m_opt .EQ. 1 ) THEN ! ASSIGN STRESS TO MTAU FOR OUTPUT
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
         DO j = j_start, j_end
         DO k = kts+1, ktf
         DO i = i_start, i_end
@@ -6091,7 +6092,7 @@ END SUBROUTINE nonlocal_flux
 
       ELSE ! NO STRESS OUTPUT
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
         DO j = j_start, j_end
         DO k = kts+1, ktf
         DO i = i_start, i_end
@@ -6106,7 +6107,7 @@ END SUBROUTINE nonlocal_flux
 
     ENDIF
 
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector
     DO i = i_start, i_end
@@ -6440,7 +6441,7 @@ END SUBROUTINE phy_bc
       IF ( config_flags%periodic_x ) i_start = its
       IF ( config_flags%periodic_x ) i_end = MIN( ite, ide-1 )
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start, i_end
@@ -6536,7 +6537,7 @@ END SUBROUTINE phy_bc
 
 !XZ
     IF(config_flags%km_opt.eq.5) THEN
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
        DO j = j_start, j_end
        DO k = kts+1, ktf
        DO i = i_start, i_end
@@ -6546,7 +6547,7 @@ END SUBROUTINE phy_bc
        END DO
        END DO
     ELSE
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
        DO j = j_start, j_end
        DO k = kts+1, ktf
        DO i = i_start, i_end
@@ -6569,7 +6570,7 @@ END SUBROUTINE phy_bc
 ! LES mods
    K=KTS
 
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
    DO j = j_start, j_end
 !$acc loop vector private(heat_flux)
    DO i = i_start, i_end
@@ -6583,7 +6584,7 @@ END SUBROUTINE phy_bc
   CASE (1) ! use surface heat flux computed from surface routine
    K=KTS
 
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
    DO j = j_start, j_end
 !$acc loop vector private(cpm,heat_flux)
    DO i = i_start, i_end
@@ -6722,7 +6723,7 @@ END SUBROUTINE phy_bc
                          ids, ide, jds, jde, kds, kde,         &
                          ims, ime, jms, jme, kms, kme,         &
                          its, ite, jts, jte, kts, kte          )
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
       DO j = j_start, j_end
       DO k = kts, ktf
       DO i = i_start, i_end
@@ -6885,7 +6886,7 @@ END SUBROUTINE phy_bc
       IF ( config_flags%periodic_x ) i_start = its
       IF ( config_flags%periodic_x ) i_end = MIN( ite, ide-1 )
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start, i_end
@@ -6906,7 +6907,7 @@ END SUBROUTINE phy_bc
 
 ! For defor11.
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    DO j = j_start, j_end
    DO k = kts, ktf
    DO i = i_start, i_end
@@ -6918,7 +6919,7 @@ END SUBROUTINE phy_bc
 
 ! For defor22.
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    DO j = j_start, j_end
    DO k = kts, ktf
    DO i = i_start, i_end
@@ -6930,7 +6931,7 @@ END SUBROUTINE phy_bc
 
 ! For defor33.
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    DO j = j_start, j_end
    DO k = kts, ktf
    DO i = i_start, i_end
@@ -6942,7 +6943,7 @@ END SUBROUTINE phy_bc
 
 ! For defor12.
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    DO j = j_start, j_end
    DO k = kts, ktf
    DO i = i_start, i_end
@@ -6953,7 +6954,7 @@ END SUBROUTINE phy_bc
    END DO
    END DO
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    DO j = j_start, j_end
    DO k = kts, ktf
    DO i = i_start, i_end
@@ -6964,7 +6965,7 @@ END SUBROUTINE phy_bc
 
 ! For defor13.
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts+1, ktf
     DO i = i_start, i_end+1
@@ -6973,7 +6974,7 @@ END SUBROUTINE phy_bc
     END DO
     END DO
 
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector
     DO i = i_start, i_end+1
@@ -6982,7 +6983,7 @@ END SUBROUTINE phy_bc
     END DO
     END DO
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start, i_end
@@ -6993,7 +6994,7 @@ END SUBROUTINE phy_bc
     END DO
     END DO
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start, i_end
@@ -7010,7 +7011,7 @@ END SUBROUTINE phy_bc
 
     cd0 = config_flags%tke_drag_coefficient  ! drag coefficient set
                                              ! in namelist.input
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector private(absu,cd)
     DO i = i_start, i_end
@@ -7026,7 +7027,7 @@ END SUBROUTINE phy_bc
 
   CASE (1,2) ! ustar computed from surface routine
 
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector private(absu,cd)
     DO i = i_start, i_end
@@ -7047,7 +7048,7 @@ END SUBROUTINE phy_bc
 
 ! For defor23.
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end+1
     DO k = kts+1, ktf
     DO i = i_start, i_end
@@ -7056,7 +7057,7 @@ END SUBROUTINE phy_bc
     END DO
     END DO
 
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
     DO j = j_start, j_end+1
 !$acc loop vector
     DO i = i_start, i_end
@@ -7065,7 +7066,7 @@ END SUBROUTINE phy_bc
     END DO
     END DO
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start, i_end
@@ -7076,7 +7077,7 @@ END SUBROUTINE phy_bc
     END DO
     END DO
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start, i_end
@@ -7093,7 +7094,7 @@ END SUBROUTINE phy_bc
 
     cd0 = config_flags%tke_drag_coefficient   ! constant drag coefficient
                                               ! set in namelist.input
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector private(absu,cd)
     DO i = i_start, i_end
@@ -7109,7 +7110,7 @@ END SUBROUTINE phy_bc
 
   CASE (1,2) ! ustar computed from surface routine
 
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector private(absu,cd)
     DO i = i_start, i_end
@@ -7184,7 +7185,7 @@ END SUBROUTINE phy_bc
 
 ! Begin with dz computations.
 
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
     DO j = j_start, j_end
 
       IF ( ( j_start >= jts ) .AND. ( j_end <= MIN( jte, jde-1 ) ) ) THEN
@@ -7241,7 +7242,7 @@ END SUBROUTINE phy_bc
     j_start = jts
     j_end   = MIN( jte, jde-1 )
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = 1, kte
     DO i = MAX( ids+1, its ), i_end
@@ -7250,7 +7251,7 @@ END SUBROUTINE phy_bc
     END DO
     END DO
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = 1, kte
     DO i = MAX( ids+1, its ), i_end
@@ -7259,7 +7260,7 @@ END SUBROUTINE phy_bc
     END DO
     END DO
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = MAX( jds+1, jts ), j_end
     DO k = 1, kte
     DO i = i_start, i_end
@@ -7268,7 +7269,7 @@ END SUBROUTINE phy_bc
     END DO
     END DO
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = MAX( jds+1, jts ), j_end
     DO k = 1, kte
     DO i = i_start, i_end
@@ -7282,7 +7283,7 @@ END SUBROUTINE phy_bc
     IF ( .NOT. config_flags%periodic_x ) THEN
 
       IF ( ite == ide ) THEN
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
         DO j = j_start, j_end
 !$acc loop vector
         DO k = 1, ktf
@@ -7292,7 +7293,7 @@ END SUBROUTINE phy_bc
       END IF
 
       IF ( its == ids ) THEN
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
         DO j = j_start, j_end
 !$acc loop vector
         DO k = 1, ktf
@@ -7304,7 +7305,7 @@ END SUBROUTINE phy_bc
     ELSE
 
       IF ( ite == ide ) THEN
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
         DO j=j_start,j_end
 !$acc loop vector
         DO k=1,ktf
@@ -7312,7 +7313,7 @@ END SUBROUTINE phy_bc
         END DO
         END DO
 
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
         DO j = j_start, j_end
 !$acc loop vector
         DO k = 1, ktf
@@ -7322,7 +7323,7 @@ END SUBROUTINE phy_bc
       END IF
 
       IF ( its == ids ) THEN
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
         DO j = j_start, j_end
 !$acc loop vector
         DO k = 1, ktf
@@ -7330,7 +7331,7 @@ END SUBROUTINE phy_bc
         END DO
         END DO
 
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
         DO j =j_start,j_end
 !$acc loop vector
         DO k =1,ktf
@@ -7393,7 +7394,7 @@ END SUBROUTINE phy_bc
 
 ! Calculate z at p points.
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
       DO k = 1, ktf
       DO i = i_start, i_end
@@ -7522,7 +7523,7 @@ END SUBROUTINE phy_bc
 ! dv/dx => need v map scale factor in y (which is defined at v points)
 ! averaged over i and i-1
 
-!$acc parallel loop collapse(2)
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO i = i_start, i_end
       mm(i,j) = 0.25 * ( msfux(i,j-1) + msfux(i,j) ) * ( msfvy(i-1,j) + msfvy(i,j) )
@@ -7531,7 +7532,7 @@ END SUBROUTINE phy_bc
 
 ! Apply a coordinate transformation to meridional velocity, v.
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start-1, i_end
@@ -7542,7 +7543,7 @@ END SUBROUTINE phy_bc
 
 ! Account for the slope in x of eta surfaces.
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts+1, ktf
     DO i = i_start, i_end
@@ -7555,7 +7556,7 @@ END SUBROUTINE phy_bc
 
 ! Extrapolate to top and bottom of domain (to w levels).
 
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector
     DO i = i_start, i_end
@@ -7580,7 +7581,7 @@ END SUBROUTINE phy_bc
     !
     ! tmpzx = averaged value of dpsi/dx (=zx) on vorticity grid
     ! tmp1  = partial dpsi/dx * partial dv^/dpsi
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start, i_end
@@ -7601,7 +7602,7 @@ END SUBROUTINE phy_bc
 ! Calculate the first parenthetical term of
 ! updraft helicity = w ( dv/dx - du/dy ) at vorticity points.
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start, i_end
@@ -7619,7 +7620,7 @@ END SUBROUTINE phy_bc
 
 ! Apply a coordinate transformation to zonal velocity, u.
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j =j_start-1, j_end
     DO k =kts, ktf
     DO i =i_start, i_end
@@ -7632,7 +7633,7 @@ END SUBROUTINE phy_bc
 
 ! Average in y and z.
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j=j_start,j_end
     DO k=kts+1,ktf
     DO i=i_start,i_end
@@ -7645,7 +7646,7 @@ END SUBROUTINE phy_bc
 
 ! Extrapolate to top and bottom of domain (to w levels).
 
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector
     DO i = i_start, i_end
@@ -7664,7 +7665,7 @@ END SUBROUTINE phy_bc
 
     ! tmpzy = averaged value of dpsi/dy (=zy) on vorticity grid
     ! tmp1  = partial dpsi/dy * partial du^/dpsi
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start, i_end
@@ -7685,7 +7686,7 @@ END SUBROUTINE phy_bc
 ! Add (subtract, actually) the second parenthetical term to
 ! updraft helicity = w ( dv/dx - du/dy ) at vorticity points.
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start, i_end
@@ -7703,7 +7704,7 @@ END SUBROUTINE phy_bc
 ! Update the boundary for the vorticity.
 
      IF ( .NOT. config_flags%periodic_x .AND. i_start .EQ. ids+1 ) THEN
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
        DO j = jts, jte
 !$acc loop vector
        DO k = kts, kte
@@ -7721,7 +7722,7 @@ END SUBROUTINE phy_bc
      END IF
 
      IF ( .NOT. config_flags%periodic_x .AND. i_end .EQ. ide-1) THEN
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
        DO j = jts, jte
 !$acc loop vector
        DO k = kts, kte
@@ -7745,7 +7746,7 @@ END SUBROUTINE phy_bc
 ! Calculate an 8-point average of w used to complete the
 ! calculation of updraft helicity = w ( dv/dx - du/dy ).
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start, i_end
@@ -7765,7 +7766,7 @@ END SUBROUTINE phy_bc
 ! Complete the updraft helicity calculation, only including columns with
 ! positive vertical velocity between the 2000 m and 5000 m levels.
 
-!$acc parallel loop collapse(2)
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO i = i_start, i_end
       use_column(i,j) = .true.
@@ -7776,7 +7777,7 @@ END SUBROUTINE phy_bc
     !  We want zl and zu to be the height above ground, so we subtract
     !  the terrain elevation from the geopotential/g.
 
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector collapse(2) private(zl,zu)
     DO k = kts, ktf
@@ -7809,7 +7810,7 @@ END SUBROUTINE phy_bc
 
 ! Apply a smoother
 
-!$acc parallel loop collapse(2)
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
     DO j = MAX(jds+1,jts),MIN(jde-2,jte)
     DO i = MAX(ids+1,its),MIN(ide-2,ite)
       uh_smth = 0.25   *   uh(i  ,j  ) + &
@@ -7837,7 +7838,7 @@ END SUBROUTINE phy_bc
 ! Update the boundary for updraft helicity (might need to change later).
 
     IF ( .NOT. config_flags%periodic_x .AND. i_start .EQ. ids+1 ) THEN
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
       DO j = jts, jte
 !$acc loop vector
       DO k = kts, kte
@@ -7857,7 +7858,7 @@ END SUBROUTINE phy_bc
     END IF
 
     IF ( .NOT. config_flags%periodic_x .AND. i_end .EQ. ide-1) THEN
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
       DO j = jts, jte
 !$acc loop vector
       DO k = kts, kte
@@ -8074,7 +8075,7 @@ END SUBROUTINE phy_bc
       IF ( config_flags%periodic_x ) i_start = its
       IF ( config_flags%periodic_x ) i_end = ite
  
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts+1, ktf
     DO i = i_start, i_end
@@ -8090,7 +8091,7 @@ END SUBROUTINE phy_bc
     END DO
     END DO
 
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector
     DO i = i_start, i_end
@@ -8101,14 +8102,14 @@ END SUBROUTINE phy_bc
     END DO
     END DO
  
-!$acc parallel loop collapse(2)
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO i = i_start, i_end
       gamuavg(i,j) = 0.5 * ( gamu(i,j) + gamu(i-1,j) )
     END DO
     END DO
  
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start, i_end
@@ -8118,7 +8119,7 @@ END SUBROUTINE phy_bc
     ENDDO
     ENDDO
  
-!$acc parallel loop collapse(2)
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO i = i_start, ite
        V0_u = 0.
@@ -8186,7 +8187,7 @@ END SUBROUTINE phy_bc
       IF ( config_flags%periodic_x ) i_start = its
       IF ( config_flags%periodic_x ) i_end = MIN(ite,ide-1)
  
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts+1, ktf
     DO i = i_start, i_end
@@ -8202,7 +8203,7 @@ END SUBROUTINE phy_bc
     END DO
     END DO
  
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector
     DO i = i_start, i_end
@@ -8213,14 +8214,14 @@ END SUBROUTINE phy_bc
     END DO
     END DO
 
-!$acc parallel loop collapse(2)
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO i = i_start, i_end
       gamvavg(i,j) = 0.5 * ( gamv(i,j) + gamv(i,j-1) )
     END DO
     END DO
  
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start, i_end
@@ -8229,7 +8230,7 @@ END SUBROUTINE phy_bc
     END DO
     END DO
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
     DO i = i_start, i_end
@@ -8238,7 +8239,7 @@ END SUBROUTINE phy_bc
     ENDDO
     ENDDO
  
-!$acc parallel loop collapse(2)
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
     DO j = j_start, jte
     DO i = i_start, i_end
        V0_v = 0.
@@ -8308,7 +8309,7 @@ END SUBROUTINE phy_bc
  
     nz = ktf-1
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
        DO j = j_start, j_end
        DO k = kts, ktf
        DO i = i_start, i_end
@@ -8359,7 +8360,7 @@ END SUBROUTINE phy_bc
       IF ( config_flags%periodic_x ) i_end = MIN(ite,ide-1)
  
    IF ( config_flags%mix_full_fields ) THEN
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
      DO j = jts,min(jte,jde-1)
      DO k = kts,kte-1
      DO i = its,min(ite,ide-1)
@@ -8368,7 +8369,7 @@ END SUBROUTINE phy_bc
      ENDDO
      ENDDO
    ELSE
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
      DO j = jts,min(jte,jde-1)
      DO k = kts,kte-1
      DO i = its,min(ite,ide-1)
@@ -8378,7 +8379,7 @@ END SUBROUTINE phy_bc
      ENDDO
    END IF
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
      DO j = j_start, j_end
      DO k = kts+1,ktf
      DO i = i_start, i_end
@@ -8388,7 +8389,7 @@ END SUBROUTINE phy_bc
      ENDDO
      ENDDO
  
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
      DO j = j_start, j_end
      DO k = kts+1,ktf
      DO i = i_start, i_end
@@ -8398,7 +8399,7 @@ END SUBROUTINE phy_bc
      ENDDO
      ENDDO
 
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
      DO j = j_start, j_end
 !$acc loop vector
      DO i = i_start, i_end
@@ -8413,7 +8414,7 @@ END SUBROUTINE phy_bc
   CASE (0,2) ! with fixed surface heat flux given in the namelist
     heat_flux = config_flags%tke_heat_flux  ! constant heat flux value
                                             ! set in namelist.input
-!$acc parallel loop collapse(2)
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO i = i_start, i_end
        cpm = cp * (1. + 0.8 * moist(i,kts,j,P_QV))
@@ -8477,7 +8478,7 @@ END SUBROUTINE phy_bc
 !!============================================
 !! tke(including implicit treatments of vertical diffusion and disspation)
 !!============================================
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts+1, ktf
     DO i = i_start, i_end
@@ -8487,7 +8488,7 @@ END SUBROUTINE phy_bc
     END DO
     END DO
  
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector
     DO i = i_start, i_end
@@ -8536,7 +8537,7 @@ END SUBROUTINE phy_bc
 !!============================================
 !! moisture
 !!============================================
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts+1,ktf
     DO i = i_start, i_end
@@ -8546,7 +8547,7 @@ END SUBROUTINE phy_bc
     ENDDO
     ENDDO
  
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector
     DO i = i_start, i_end
@@ -8558,7 +8559,7 @@ END SUBROUTINE phy_bc
    IF (n_moist .ge. PARAM_FIRST_SCALAR) THEN
      moist_loop: do im = PARAM_FIRST_SCALAR, n_moist
        IF ( (.not. config_flags%mix_full_fields) .and. (im == P_QV) ) THEN
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
          DO j = jts,min(jte,jde-1)
          DO k = kts,kte-1
          DO i = its,min(ite,ide-1)
@@ -8567,7 +8568,7 @@ END SUBROUTINE phy_bc
          ENDDO
          ENDDO
        ELSE
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
          DO j = jts,min(jte,jde-1)
          DO k = kts,kte-1
          DO i = its,min(ite,ide-1)
@@ -8651,7 +8652,7 @@ END SUBROUTINE phy_bc
 !!============================================
 !! scalar
 !!============================================
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts+1, ktf
     DO i = i_start, i_end
@@ -8661,7 +8662,7 @@ END SUBROUTINE phy_bc
     ENDDO
     ENDDO
  
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector
     DO i = i_start, i_end
@@ -8675,7 +8676,7 @@ END SUBROUTINE phy_bc
 ! need to avoid mixing scalars associated with precipitating species (e.g. Nr)
     IF(im.NE.P_QNS .AND. im.NE.P_QNR .AND. im.NE.P_QNG .AND. im.NE.P_QNH .AND. &
        im.NE.P_QT .AND. im.NE.P_QVOLG) THEN
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
          DO j = jts, min(jte,jde-1)
          DO k = kts, kte-1
          DO i = its, min(ite,ide-1)
@@ -8722,7 +8723,7 @@ END SUBROUTINE phy_bc
 !!============================================
    IF (n_tracer .ge. PARAM_FIRST_SCALAR) THEN
      tracer_loop: do im = PARAM_FIRST_SCALAR, n_tracer
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
          DO j = jts, min(jte,jde-1)
          DO k = kts, kte-1
          DO i = its, min(ite,ide-1)
@@ -8768,7 +8769,7 @@ END SUBROUTINE phy_bc
 !!============================================
    IF (n_chem .ge. PARAM_FIRST_SCALAR) THEN
      chem_loop: do im = PARAM_FIRST_SCALAR, n_chem
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
          DO j = jts,min(jte,jde-1)
          DO k = kts,kte-1
          DO i = its,min(ite,ide-1)

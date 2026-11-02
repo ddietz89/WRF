@@ -61,6 +61,8 @@ MODULE module_wrf_error
 ! message didn't already have one).
   integer, parameter :: min_allowed_buffer_size=200
 
+  ! GPU port (2026-11-02): when .FALSE., OpenACC compute regions run on the host (CPU-only segments of solve_em)
+  LOGICAL :: wrf_gpu_on = .TRUE.
 !$OMP THREADPRIVATE (wrf_err_message)
 CONTAINS
 

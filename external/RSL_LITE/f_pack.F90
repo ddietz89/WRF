@@ -8,6 +8,16 @@
          INTEGER , PARAMETER :: DATA_ORDER_XZY = 5
          INTEGER , PARAMETER :: DATA_ORDER_YZX = 6
       END MODULE duplicate_of_driver_constants
+! GPU port (2026-11-02): host/device switch for the device-side halo pack/unpack paths below.
+      MODULE rsl_gpu_ctl
+        LOGICAL :: rsl_gpu_on = .TRUE.
+      END MODULE rsl_gpu_ctl
+      SUBROUTINE rsl_set_gpu_on ( flag )
+        USE rsl_gpu_ctl
+        LOGICAL, INTENT(IN) :: flag
+        rsl_gpu_on = flag
+      END SUBROUTINE rsl_set_gpu_on
+
 
       SUBROUTINE f_pack_int ( inbuf, outbuf, memorder, js, je, ks, ke,            &
      &                    is, ie, jms, jme, kms, kme, ims, ime, curs )
@@ -138,6 +148,7 @@
      &                is, ie, jms, jme, kms, kme, ims, ime, curs ) 
 #ifdef _OPENACC
         USE openacc
+        USE rsl_gpu_ctl
 #endif
         IMPLICIT NONE
         INTEGER jms, jme, kms, kme, ims, ime
@@ -148,7 +159,7 @@
 #ifdef _OPENACC
         INTEGER ni_, nk_, nn_
         ! GPU halo pack: field resident on device -> gather strip on device, copy out only the strip
-        IF ( acc_is_present(inbuf) ) THEN
+        IF ( rsl_gpu_on .AND. acc_is_present(inbuf) ) THEN
           ni_ = ie-is+1 ; nk_ = ke-ks+1 ; nn_ = ni_*nk_*(je-js+1)
 !$acc parallel loop collapse(3) present(inbuf) copyout(outbuf(1:nn_))
           DO j = js, je
@@ -189,6 +200,7 @@
      &                is, ie, jms, jme, kms, kme, ims, ime, curs ) 
 #ifdef _OPENACC
         USE openacc
+        USE rsl_gpu_ctl
 #endif
         IMPLICIT NONE
         INTEGER jms, jme, kms, kme, ims, ime
@@ -199,7 +211,7 @@
 #ifdef _OPENACC
         INTEGER ni_, nk_, nn_
         ! GPU halo pack: field resident on device -> gather strip on device, copy out only the strip
-        IF ( acc_is_present(inbuf) ) THEN
+        IF ( rsl_gpu_on .AND. acc_is_present(inbuf) ) THEN
           ni_ = ie-is+1 ; nk_ = ke-ks+1 ; nn_ = ni_*nk_*(je-js+1)
 !$acc parallel loop collapse(3) present(inbuf) copyout(outbuf(1:nn_))
           DO j = js, je
@@ -239,6 +251,7 @@
      &                is, ie, jms, jme, kms, kme, ims, ime, curs ) 
 #ifdef _OPENACC
         USE openacc
+        USE rsl_gpu_ctl
 #endif
         IMPLICIT NONE
         INTEGER jms, jme, kms, kme, ims, ime
@@ -249,7 +262,7 @@
 #ifdef _OPENACC
         INTEGER ni_, nk_, nn_
         ! GPU halo unpack: copy in only the strip, scatter into the device-resident field
-        IF ( acc_is_present(outbuf) ) THEN
+        IF ( rsl_gpu_on .AND. acc_is_present(outbuf) ) THEN
           ni_ = ie-is+1 ; nk_ = ke-ks+1 ; nn_ = ni_*nk_*(je-js+1)
 !$acc parallel loop collapse(3) present(outbuf) copyin(inbuf(1:nn_))
           DO j = js, je
@@ -289,6 +302,7 @@
      &                is, ie, jms, jme, kms, kme, ims, ime, curs ) 
 #ifdef _OPENACC
         USE openacc
+        USE rsl_gpu_ctl
 #endif
         IMPLICIT NONE
         INTEGER jms, jme, kms, kme, ims, ime
@@ -299,7 +313,7 @@
 #ifdef _OPENACC
         INTEGER ni_, nk_, nn_
         ! GPU halo unpack: copy in only the strip, scatter into the device-resident field
-        IF ( acc_is_present(outbuf) ) THEN
+        IF ( rsl_gpu_on .AND. acc_is_present(outbuf) ) THEN
           ni_ = ie-is+1 ; nk_ = ke-ks+1 ; nn_ = ni_*nk_*(je-js+1)
 !$acc parallel loop collapse(3) present(outbuf) copyin(inbuf(1:nn_))
           DO j = js, je

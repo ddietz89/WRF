@@ -3,6 +3,7 @@
 !
 
 MODULE module_em
+   USE module_wrf_error, ONLY : wrf_gpu_on   ! GPU port: host/device switch for compute regions
 
    USE module_model_constants
    
@@ -1034,7 +1035,7 @@ SUBROUTINE rk_addtend_dry ( ru_tend, rv_tend, rw_tend, ph_tend, t_tend,      &
 ! For scalars we need the final tendency to include an inverse msf (msfty)
 ! advection tendency is OK, physics/bc tendency needs to be divided by msf
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    DO j = jts,MIN(jte,jde-1)
    DO k = kts,kte-1
    DO i = its,ite
@@ -1046,7 +1047,7 @@ SUBROUTINE rk_addtend_dry ( ru_tend, rv_tend, rw_tend, ph_tend, t_tend,      &
    ENDDO
    ENDDO
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    DO j = jts,jte
    DO k = kts,kte-1
    DO i = its,MIN(ite,ide-1)
@@ -1058,7 +1059,7 @@ SUBROUTINE rk_addtend_dry ( ru_tend, rv_tend, rw_tend, ph_tend, t_tend,      &
    ENDDO
    ENDDO
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    DO j = jts,MIN(jte,jde-1)
    DO k = kts,kte
    DO i = its,MIN(ite,ide-1)
@@ -1073,7 +1074,7 @@ SUBROUTINE rk_addtend_dry ( ru_tend, rv_tend, rw_tend, ph_tend, t_tend,      &
    ENDDO
    ENDDO
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    DO j = jts,MIN(jte,jde-1)
    DO k = kts,kte-1
    DO i = its,MIN(ite,ide-1)
@@ -1086,7 +1087,7 @@ SUBROUTINE rk_addtend_dry ( ru_tend, rv_tend, rw_tend, ph_tend, t_tend,      &
    ENDDO
    ENDDO
 
-!$acc parallel loop collapse(2)
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
    DO j = jts,MIN(jte,jde-1)
    DO i = its,MIN(ite,ide-1)
 ! mu tendencies not coupled with 1/msf
@@ -1495,7 +1496,7 @@ SUBROUTINE q_diabatic_add ( scs, sce,                        &
 
      IF( im.eq.p_qv )THEN
 !!!       print *,'  qv '
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
        DO j = jts,MIN(jte,jde-1)
        DO k = kts,kte-1
        DO i = its,MIN(ite,ide-1)
@@ -1506,7 +1507,7 @@ SUBROUTINE q_diabatic_add ( scs, sce,                        &
      ENDIF
      IF( im.eq.p_qc )THEN
 !!!       print *,'  qc '
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
        DO j = jts,MIN(jte,jde-1)
        DO k = kts,kte-1
        DO i = its,MIN(ite,ide-1)
@@ -1565,7 +1566,7 @@ SUBROUTINE q_diabatic_subtr( scs, sce,                       &
 
      IF( im.eq.p_qv )THEN
 !!!       print *,'  qv '
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
        DO j = jts,MIN(jte,jde-1)
        DO k = kts,kte-1
        DO i = its,MIN(ite,ide-1)
@@ -1576,7 +1577,7 @@ SUBROUTINE q_diabatic_subtr( scs, sce,                       &
      ENDIF
      IF( im.eq.p_qc )THEN
 !!!       print *,'  qc '
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
        DO j = jts,MIN(jte,jde-1)
        DO k = kts,kte-1
        DO i = its,MIN(ite,ide-1)
@@ -1693,7 +1694,7 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
 
       DO  im = scs,sce
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
        DO  j = jts, min(jte,jde-1)
        DO  k = kts, min(kte,kde-1)
        DO  i = its, min(ite,ide-1)
@@ -1702,7 +1703,7 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
        ENDDO
        ENDDO
    
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
        DO  j = j_start,j_end
        DO  k = k_start,k_end
        DO  i = i_start,i_end
@@ -1712,7 +1713,7 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
        ENDDO
        ENDDO
    
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
        DO  j = j_start_spc,j_end_spc
        DO  k = k_start_spc,k_end_spc
        DO  i = i_start_spc,i_end_spc
@@ -1747,7 +1748,7 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
 
       DO  im = scs, sce
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
        DO  j = jts, min(jte,jde-1)
        DO  k = kts, min(kte,kde-1)
        DO  i = its, min(ite,ide-1)
@@ -1756,7 +1757,7 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
        ENDDO
        ENDDO
    
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
        DO  j = j_start,j_end
        DO  k = k_start,k_end
        DO  i = i_start,i_end
@@ -1766,7 +1767,7 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
        ENDDO
        ENDDO
    
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
        DO  j = j_start_spc,j_end_spc
        DO  k = k_start_spc,k_end_spc
        DO  i = i_start_spc,i_end_spc
@@ -1893,7 +1894,7 @@ SUBROUTINE rk_update_scalar_pd( scs, sce,                      &
 
       DO  im = scs, sce
 
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
        DO  j = jts, min(jte,jde-1)
        DO  k = kts, min(kte,kde-1)
        DO  i = its, min(ite,ide-1)
@@ -1902,7 +1903,7 @@ SUBROUTINE rk_update_scalar_pd( scs, sce,                      &
        ENDDO
        ENDDO
    
-!$acc parallel loop collapse(3)
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
        DO  j = j_start_spc,j_end_spc
        DO  k = k_start_spc,k_end_spc
        DO  i = i_start_spc,i_end_spc
@@ -2254,7 +2255,7 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
 
    IF (config_flags%ra_lw_physics .gt. 0 .or. config_flags%ra_sw_physics .gt. 0) THEN
 
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
       DO J=jts,jtf
 !$acc loop vector collapse(2)
       DO K=kts,ktf
@@ -2270,7 +2271,7 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
 
    IF (config_flags%cu_physics .gt. 0) THEN
 
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
       DO J=jts,jtf
 !$acc loop vector collapse(2)
       DO K=kts,ktf
@@ -2284,7 +2285,7 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
       ENDDO
 
       IF (P_QC .ge. PARAM_FIRST_SCALAR)THEN
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
          DO J=jts,jtf
 !$acc loop vector collapse(2)
          DO K=kts,ktf
@@ -2296,7 +2297,7 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
       ENDIF
 
       IF (P_QR .ge. PARAM_FIRST_SCALAR)THEN
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
          DO J=jts,jtf
 !$acc loop vector collapse(2)
          DO K=kts,ktf
@@ -2308,7 +2309,7 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
       ENDIF
 
       IF (P_QI .ge. PARAM_FIRST_SCALAR)THEN
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
          DO J=jts,jtf
 !$acc loop vector collapse(2)
          DO K=kts,ktf
@@ -2320,7 +2321,7 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
       ENDIF
 
       IF(P_QS .ge. PARAM_FIRST_SCALAR)THEN
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
          DO J=jts,jtf
 !$acc loop vector collapse(2)
          DO K=kts,ktf
@@ -2337,7 +2338,7 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
 
    IF (config_flags%shcu_physics .gt. 0) THEN
 
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
       DO J=jts,jtf
 !$acc loop vector collapse(2)
       DO K=kts,ktf
@@ -2351,7 +2352,7 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
       ENDDO
 
       IF (P_QC .ge. PARAM_FIRST_SCALAR)THEN
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
          DO J=jts,jtf
 !$acc loop vector collapse(2)
          DO K=kts,ktf
@@ -2363,7 +2364,7 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
       ENDIF
 
       IF (P_QR .ge. PARAM_FIRST_SCALAR)THEN
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
          DO J=jts,jtf
 !$acc loop vector collapse(2)
          DO K=kts,ktf
@@ -2375,7 +2376,7 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
       ENDIF
 
       IF (P_QI .ge. PARAM_FIRST_SCALAR)THEN
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
          DO J=jts,jtf
 !$acc loop vector collapse(2)
          DO K=kts,ktf
@@ -2387,7 +2388,7 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
       ENDIF
 
       IF(P_QS .ge. PARAM_FIRST_SCALAR)THEN
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
          DO J=jts,jtf
 !$acc loop vector collapse(2)
          DO K=kts,ktf
@@ -2399,7 +2400,7 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
       ENDIF
 
       IF(P_QG .ge. PARAM_FIRST_SCALAR)THEN
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
          DO J=jts,jtf
 !$acc loop vector collapse(2)
          DO K=kts,ktf
@@ -2416,7 +2417,7 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
 
    IF (config_flags%bl_pbl_physics .gt. 0) THEN
 
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
       DO J=jts,jtf
 !$acc loop vector collapse(2)
       DO K=kts,ktf
@@ -2429,7 +2430,7 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
       ENDDO
 
       IF (P_QV .ge. PARAM_FIRST_SCALAR) THEN
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
          DO J=jts,jtf
 !$acc loop vector collapse(2)
          DO K=kts,ktf
@@ -2441,7 +2442,7 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
       ENDIF
 
       IF (P_QC .ge. PARAM_FIRST_SCALAR) THEN
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
          DO J=jts,jtf
 !$acc loop vector collapse(2)
          DO K=kts,ktf
@@ -2453,7 +2454,7 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
       ENDIF
 
       IF (P_QI .ge. PARAM_FIRST_SCALAR) THEN
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
          DO J=jts,jtf
 !$acc loop vector collapse(2)
          DO K=kts,ktf
@@ -2472,7 +2473,7 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
 
    IF (config_flags%grid_fdda .gt. 0) THEN
 
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
       DO J=jts,jtf
 !$acc loop vector collapse(2)
       DO K=kts,ktf
@@ -2489,7 +2490,7 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
       ENDDO
       ENDDO
 !     write(*,'(a,e15.5)') 'u_ten MAXIMUM after=', maxval(RUNDGDTEN)
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
       DO J=jtsv,jtf
 !$acc loop vector collapse(2)
       DO K=kts,ktf
@@ -2498,7 +2499,7 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
       ENDDO
       ENDDO
       ENDDO
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
       DO J=jts,jtf
 !$acc loop vector collapse(2)
       DO K=kts,ktf
@@ -2514,7 +2515,7 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
       ENDDO
 
       IF (P_QV .ge. PARAM_FIRST_SCALAR) THEN
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
          DO J=jts,jtf
 !$acc loop vector collapse(2)
          DO K=kts,ktf
@@ -2555,7 +2556,7 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
 
       wgt_iau = iau_coef(config_flags%iau_time_window_sec,config_flags%dt,itimestep)
 
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
       DO J=jts,jtf
 !$acc loop vector collapse(2)
       DO K=kts,ktf
@@ -2568,7 +2569,7 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
       ENDDO
       ENDDO
 
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
       DO J=jts,jtf
 !$acc loop vector collapse(2)
       DO K=kts,ktf+1
@@ -2578,7 +2579,7 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
       ENDDO
       ENDDO
 
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
       DO J=jts,jtf
 !$acc loop vector
       DO I=its,itf
@@ -2587,7 +2588,7 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
       ENDDO
 
       IF (P_QC .ge. PARAM_FIRST_SCALAR)THEN
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
          DO J=jts,jtf
 !$acc loop vector collapse(2)
          DO K=kts,ktf
@@ -2599,7 +2600,7 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
       ENDIF
 
       IF (P_QR .ge. PARAM_FIRST_SCALAR)THEN
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
          DO J=jts,jtf
 !$acc loop vector collapse(2)
          DO K=kts,ktf
@@ -2611,7 +2612,7 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
       ENDIF
 
       IF (P_QI .ge. PARAM_FIRST_SCALAR)THEN
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
          DO J=jts,jtf
 !$acc loop vector collapse(2)
          DO K=kts,ktf
@@ -2623,7 +2624,7 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
       ENDIF
 
       IF(P_QS .ge. PARAM_FIRST_SCALAR)THEN
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
          DO J=jts,jtf
 !$acc loop vector collapse(2)
          DO K=kts,ktf
@@ -2635,7 +2636,7 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
       ENDIF
 
       IF(P_QG .ge. PARAM_FIRST_SCALAR)THEN
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
          DO J=jts,jtf
 !$acc loop vector collapse(2)
          DO K=kts,ktf
@@ -2673,7 +2674,7 @@ SUBROUTINE positive_definite_filter ( a,                          &
 !
 !</DESCRIPTION>
 
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
   DO j=jts,min(jte,jde-1)
 !$acc loop vector collapse(2)
   DO k=kts,kte-1
@@ -2710,7 +2711,7 @@ SUBROUTINE bound_tke ( tke, tke_upper_bound,       &
 !
 !</DESCRIPTION>
 
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
   DO j=jts,min(jte,jde-1)
 !$acc loop vector collapse(2)
   DO k=kts,kte-1
@@ -2745,7 +2746,7 @@ SUBROUTINE bound_qna ( qna,                        &
 !
 !</DESCRIPTION>
 
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
   DO j=jts,min(jte,jde-1)
 !$acc loop vector collapse(2)
   DO k=kts,kte-1
@@ -2863,7 +2864,7 @@ subroutine trajectory (     grid,config_flags,               &
 
    i_beg = max( 1,its-1 )
    i_end = min( ite+2,ide-1 )
-!$acc parallel loop gang
+!$acc parallel loop gang if(wrf_gpu_on)
    do j=max(1,jts-1),min(jte+2,jde-1)
 !$acc loop vector
      do k=kms,kme-1
