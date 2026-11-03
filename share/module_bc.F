@@ -391,6 +391,7 @@ CONTAINS
                        config_flags%nested            ) .and.  &
                          ( its == ids ) .and. open_bc_copy  )  THEN
 
+!$acc parallel loop if(wrf_gpu_on)
             DO j = MAX(jds,jts-1), MIN(jte+1,jde+jstag)
               dat(ids-1,j) = dat(ids,j) !  here, dat(0) = dat(1)
               dat(ids-2,j) = dat(ids,j)
@@ -409,6 +410,7 @@ CONTAINS
 
           IF ( variable /= 'u' .and. variable /= 'x') THEN
 
+!$acc parallel loop if(wrf_gpu_on)
             DO j = MAX(jds,jts-1), MIN(jte+1,jde+jstag)
               dat(ide  ,j) = dat(ide-1,j)
               dat(ide+1,j) = dat(ide-1,j)
@@ -417,6 +419,7 @@ CONTAINS
 
           ELSE
 
+!$acc parallel loop if(wrf_gpu_on)
             DO j = MAX(jds,jts-1), MIN(jte+1,jde+jstag)
               dat(ide+1,j) = dat(ide,j)
               dat(ide+2,j) = dat(ide,j)
@@ -563,6 +566,7 @@ CONTAINS
                          ( jts == jds) .and. open_bc_copy )  THEN
 
             !DO i = MAX(ids,its-1), MIN(ite+1,ide+istag)
+!$acc parallel loop if(wrf_gpu_on)
             DO i = istart, iend
               dat(i,jds-1) = dat(i,jds)
               dat(i,jds-2) = dat(i,jds)
@@ -582,6 +586,7 @@ CONTAINS
           IF  (variable /= 'v' .and. variable /= 'y' ) THEN
 
             !DO i = MAX(ids,its-1), MIN(ite+1,ide+istag)
+!$acc parallel loop if(wrf_gpu_on)
             DO i = istart, iend
               dat(i,jde  ) = dat(i,jde-1)
               dat(i,jde+1) = dat(i,jde-1)
@@ -591,6 +596,7 @@ CONTAINS
           ELSE
 
             !DO i = MAX(ids,its-1), MIN(ite+1,ide+istag)
+!$acc parallel loop if(wrf_gpu_on)
             DO i = istart, iend
               dat(i,jde+1) = dat(i,jde)
               dat(i,jde+2) = dat(i,jde)
@@ -870,6 +876,7 @@ CONTAINS
                        config_flags%nested            ) .and.  &
                          ( its == ids ) .and. open_bc_copy  )  THEN
 
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
             DO j = jts-bdyzone, MIN(jte,jde+jstag)+bdyzone
 #if defined(INTEL_ALIGN64)
 !DEC$ ASSUME_ALIGNED dat:64
@@ -895,6 +902,7 @@ CONTAINS
 
           IF (variable /= 'u' .and. variable /= 'x' ) THEN
 
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
             DO j = jts-bdyzone, MIN(jte,jde+jstag)+bdyzone
 #if defined(INTEL_ALIGN64)
 !DEC$ ASSUME_ALIGNED dat:64
@@ -911,6 +919,7 @@ CONTAINS
           ELSE
 
 !!!!!!! I am not sure about this one!  JM 20020402
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
             DO j = MAX(jds,jts-1)-bdyzone, MIN(jte+1,jde+jstag)+bdyzone
             DO k = kts, k_end
               dat(ide+1,k,j) = dat(ide,k,j)
@@ -1065,6 +1074,7 @@ CONTAINS
                        config_flags%nested            ) .and.  &
                          ( jts == jds) .and. open_bc_copy )  THEN
 
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
             DO k = kts, k_end
             DO i = i_start, i_end
               dat(i,k,jds-1) = dat(i,k,jds)
@@ -1085,6 +1095,7 @@ CONTAINS
 
           IF (variable /= 'v' .and. variable /= 'y' ) THEN
 
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
             DO k = kts, k_end
             DO i = i_start, i_end
               dat(i,k,jde  ) = dat(i,k,jde-1)
@@ -1095,6 +1106,7 @@ CONTAINS
 
           ELSE
 
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
             DO k = kts, k_end
             DO i = i_start, i_end
               dat(i,k,jde+1) = dat(i,k,jde)
@@ -2142,6 +2154,7 @@ CONTAINS
       INTEGER    :: i, j, k, ibs, ibe, jbs, jbe, itf, jtf, ktf, im1, ip1
       INTEGER    :: b_dist, b_limit
       REAL       :: bfield, xmsf, xmu
+      REAL       :: xmsf_p, xmu_p   ! GPU: per-point copies of xmsf/xmu (conditionally overwritten)
       LOGICAL    :: periodic_x, msfcouple, mucouple
 
       periodic_x = config_flags%periodic_x
@@ -2178,17 +2191,19 @@ CONTAINS
 
       IF (jts - jbs .lt. spec_zone) THEN
 ! Y-start boundary
+!$acc parallel loop gang private(b_dist,b_limit) if(wrf_gpu_on)
         DO j = jts, min(jtf,jbs+spec_zone-1)
           b_dist = j - jbs
           b_limit = b_dist
           IF(periodic_x)b_limit = 0
+!$acc loop vector collapse(2) private(bfield,xmsf_p,xmu_p)
           DO k = kts, ktf
             DO i = max(its,b_limit+ibs), min(itf,ibe-b_limit)
               bfield = field_bdy_ys(i, k, b_dist+1) &
                    + dtbc * field_bdy_tend_ys(i, k, b_dist+1)
-              if(msfcouple)xmsf = msf(i,j)
-              if(mucouple)xmu = (c1(k)*mu(i,j)+c2(k))
-              field(i,k,j) = xmsf*bfield/xmu
+              xmsf_p = xmsf ; if(msfcouple)xmsf_p = msf(i,j)
+              xmu_p = xmu ; if(mucouple)xmu_p = (c1(k)*mu(i,j)+c2(k))
+              field(i,k,j) = xmsf_p*bfield/xmu_p
             ENDDO
           ENDDO
         ENDDO
@@ -2196,17 +2211,19 @@ CONTAINS
 
       IF (jbe - jtf .lt. spec_zone) THEN
 ! Y-end boundary
+!$acc parallel loop gang private(b_dist,b_limit) if(wrf_gpu_on)
         DO j = max(jts,jbe-spec_zone+1), jtf
           b_dist = jbe - j
           b_limit = b_dist
           IF(periodic_x)b_limit = 0
+!$acc loop vector collapse(2) private(bfield,xmsf_p,xmu_p)
           DO k = kts, ktf
             DO i = max(its,b_limit+ibs), min(itf,ibe-b_limit)
               bfield = field_bdy_ye(i, k, b_dist+1) &
                    + dtbc * field_bdy_tend_ye(i, k, b_dist+1)
-              if(msfcouple)xmsf = msf(i,j)
-              if(mucouple)xmu = (c1(k)*mu(i,j)+c2(k))
-              field(i,k,j) = xmsf*bfield/xmu
+              xmsf_p = xmsf ; if(msfcouple)xmsf_p = msf(i,j)
+              xmu_p = xmu ; if(mucouple)xmu_p = (c1(k)*mu(i,j)+c2(k))
+              field(i,k,j) = xmsf_p*bfield/xmu_p
             ENDDO
           ENDDO
         ENDDO
@@ -2215,15 +2232,17 @@ CONTAINS
     IF(.NOT.periodic_x)THEN
       IF (its - ibs .lt. spec_zone) THEN
 ! X-start boundary
+!$acc parallel loop gang private(b_dist,b_limit) if(wrf_gpu_on)
         DO i = its, min(itf,ibs+spec_zone-1)
           b_dist = i - ibs
+!$acc loop vector collapse(2) private(bfield,xmsf_p,xmu_p)
           DO k = kts, ktf
             DO j = max(jts,b_dist+jbs+1), min(jtf,jbe-b_dist-1)
               bfield = field_bdy_xs(j, k, b_dist+1) &
                    + dtbc * field_bdy_tend_xs(j, k, b_dist+1)
-              if(msfcouple)xmsf = msf(i,j)
-              if(mucouple)xmu = (c1(k)*mu(i,j)+c2(k))
-              field(i,k,j) = xmsf*bfield/xmu
+              xmsf_p = xmsf ; if(msfcouple)xmsf_p = msf(i,j)
+              xmu_p = xmu ; if(mucouple)xmu_p = (c1(k)*mu(i,j)+c2(k))
+              field(i,k,j) = xmsf_p*bfield/xmu_p
             ENDDO
           ENDDO
         ENDDO
@@ -2231,15 +2250,17 @@ CONTAINS
 
      IF (ibe - itf .lt. spec_zone) THEN
 ! X-end boundary
+!$acc parallel loop gang private(b_dist,b_limit) if(wrf_gpu_on)
         DO i = max(its,ibe-spec_zone+1), itf
           b_dist = ibe - i
+!$acc loop vector collapse(2) private(bfield,xmsf_p,xmu_p)
           DO k = kts, ktf
             DO j = max(jts,b_dist+jbs+1), min(jtf,jbe-b_dist-1)
               bfield = field_bdy_xe(j, k, b_dist+1) &
                    + dtbc * field_bdy_tend_xe(j, k, b_dist+1)
-              if(msfcouple)xmsf = msf(i,j)
-              if(mucouple)xmu = (c1(k)*mu(i,j)+c2(k))
-              field(i,k,j) = xmsf*bfield/xmu
+              xmsf_p = xmsf ; if(msfcouple)xmsf_p = msf(i,j)
+              xmu_p = xmu ; if(mucouple)xmu_p = (c1(k)*mu(i,j)+c2(k))
+              field(i,k,j) = xmsf_p*bfield/xmu_p
             ENDDO
           ENDDO
         ENDDO

@@ -75,6 +75,9 @@ SUBROUTINE solve_em ( grid , config_flags  &
    USE module_first_rk_step_part1
    USE module_first_rk_step_part2
    USE module_after_all_rk_steps
+#ifdef WRF_GPU_RESIDENT
+   USE module_wrf_error, ONLY : wrf_gpu_on
+#endif
    USE module_llxy, ONLY : proj_cassini
    USE module_avgflx_em, ONLY : zero_avgflx, upd_avgflx
    USE module_cpl, ONLY : coupler_on, cpl_settime, cpl_store_input
@@ -176,6 +179,9 @@ SUBROUTINE solve_em ( grid , config_flags  &
 #ifdef WRF_GPU
    INTEGER, EXTERNAL :: wrf_gpu_advise_mode
    LOGICAL, SAVE :: gpu_advised_grid = .FALSE.
+#endif
+#ifdef WRF_GPU_RESIDENT
+   LOGICAL, SAVE :: gpu_resident_in = .FALSE.
 #endif
    INTEGER :: number_of_small_timesteps, rk_step
    INTEGER :: klevel,ijm,ijp,i,j,k,size1,size2    ! for prints/plots only
@@ -335,6 +341,17 @@ SUBROUTINE solve_em ( grid , config_flags  &
       ENDIF
 #     include "gpu_advise_i1.inc"
    ENDIF
+#endif
+#ifdef WRF_GPU_RESIDENT
+   ! GPU residency (-gpu=mem:separate): grid fields used by the dynamics live on the device for the whole run.
+   ! Host blocks (physics, microphysics, after_all_rk_steps) run with wrf_gpu_on=.false. and are bracketed by
+   ! update self / update device of the fields the GPU writes / the block writes (lists from the field trace).
+   IF ( .NOT. gpu_resident_in ) THEN
+#     include "gpu_enter_data.inc"
+      gpu_resident_in = .TRUE.
+      CALL wrf_message( 'GPU residency: grid fields entered on the device' )
+   ENDIF
+#  include "gpu_upd_dev_bdy.inc"
 #endif
 
 !  Max values of CFL for adaptive time step scheme
@@ -826,6 +843,10 @@ BENCH_START(calc_p_rho_tim)
 #ifdef WRF_GPU_FIELDTRACE
        CALL gpu_field_trace( grid, 'a_pre_physics' )
 #endif
+#ifdef WRF_GPU_RESIDENT
+#      include "gpu_upd_host_pre_phys.inc"
+       wrf_gpu_on = .FALSE. ; CALL rsl_set_gpu_on( .FALSE. )
+#endif
        CALL first_rk_step_part1 (    grid, config_flags         &
                              , moist , moist_tend               &
                              , chem  , chem_tend                &
@@ -892,6 +913,10 @@ BENCH_START(calc_p_rho_tim)
                              , k_start , k_end                  &
                             )
 
+#ifdef WRF_GPU_RESIDENT
+       wrf_gpu_on = .TRUE. ; CALL rsl_set_gpu_on( .TRUE. )
+#      include "gpu_upd_dev_post_phys.inc"
+#endif
      END IF rk_step_is_one
 #ifdef WRF_GPU_FIELDTRACE
      IF (rk_step == 1) CALL gpu_field_trace( grid, 'b_post_physics' )
@@ -3674,6 +3699,10 @@ BENCH_END(bc_end_tim)
 #endif
 !-----------------------------------------------------------
 
+#ifdef WRF_GPU_RESIDENT
+#  include "gpu_upd_host_pre_mp.inc"
+   wrf_gpu_on = .FALSE. ; CALL rsl_set_gpu_on( .FALSE. )
+#endif
    IF (config_flags%do_avgflx_em .EQ. 1) THEN
 ! Reinitialize time-averaged fluxes if history output was written after the previous time step:
       CALL WRFU_ALARMGET(grid%alarms( HISTORY_ALARM ),prevringtime=temp_time)
@@ -4293,6 +4322,10 @@ BENCH_START(moist_phys_end_tim)
 #if ( defined( DM_PARALLEL ) && ( ! defined( STUBMPI ) ) )
 #       include "HALO_EM_THETAM.inc"
 #       include "PERIOD_EM_THETAM.inc"
+#endif
+#ifdef WRF_GPU_RESIDENT
+        wrf_gpu_on = .TRUE. ; CALL rsl_set_gpu_on( .TRUE. )
+#       include "gpu_upd_dev_post_mp.inc"
 #endif
         its=ips ; ite = ipe
         jts=jps ; jte = jpe
@@ -4971,6 +5004,11 @@ BENCH_END(bc_2d_tim)
 !  after w, after filtering, we have data ready to use.
 !-----------------------------------------------------------
 
+#ifdef WRF_GPU_RESIDENT
+  ! host copies current for after_all_rk_steps diagnostics and for history output after this step
+#  include "gpu_upd_host_pre_phys.inc"
+  wrf_gpu_on = .FALSE. ; CALL rsl_set_gpu_on( .FALSE. )
+#endif
   CALL after_all_rk_steps ( grid, config_flags,                  &
                             moist, chem, tracer, scalar,         &
                             th_phy, pi_phy, p_phy,               &
@@ -4984,6 +5022,9 @@ BENCH_END(bc_2d_tim)
                             ipsx, ipex, jpsx, jpex, kpsx, kpex,  &
                             imsy, imey, jmsy, jmey, kmsy, kmey,  &
                             ipsy, ipey, jpsy, jpey, kpsy, kpey   )
+#ifdef WRF_GPU_RESIDENT
+  wrf_gpu_on = .TRUE. ; CALL rsl_set_gpu_on( .TRUE. )
+#endif
 
 
 
