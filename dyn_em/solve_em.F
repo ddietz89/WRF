@@ -364,6 +364,9 @@ SUBROUTINE solve_em ( grid , config_flags  &
 
 !  Compute these starting and stopping locations for each tile and number of tiles.
 !  See: https://www2.mmm.ucar.edu/wrf/WG2/topics/settiles
+#ifdef WRF_GPU
+!$acc wait
+#endif
 #ifdef WRF_SEG_TIMERS
    CALL seg_mark( 1 )
 #endif
@@ -894,6 +897,9 @@ BENCH_START(calc_p_rho_tim)
 #  include "gpu_pf_host_pre_phys.inc"
    ENDIF
 #endif
+#ifdef WRF_GPU
+!$acc wait
+#endif
 #ifdef WRF_SEG_TIMERS
    CALL seg_mark( 2 )
 #endif
@@ -972,6 +978,9 @@ BENCH_START(calc_p_rho_tim)
 #endif
 #ifdef WRF_GPU
        wrf_gpu_on = .TRUE. ; CALL rsl_set_gpu_on( .TRUE. )
+#endif
+#ifdef WRF_GPU
+!$acc wait
 #endif
 #ifdef WRF_SEG_TIMERS
    CALL seg_mark( 1 )
@@ -3775,6 +3784,9 @@ BENCH_END(bc_end_tim)
 #  include "gpu_pf_host_pre_mp.inc"
    ENDIF
 #endif
+#ifdef WRF_GPU
+!$acc wait
+#endif
 #ifdef WRF_SEG_TIMERS
    CALL seg_mark( 3 )
 #endif
@@ -4407,6 +4419,9 @@ BENCH_START(moist_phys_end_tim)
 #endif
 #ifdef WRF_GPU
         wrf_gpu_on = .TRUE. ; CALL rsl_set_gpu_on( .TRUE. )
+#endif
+#ifdef WRF_GPU
+!$acc wait
 #endif
 #ifdef WRF_SEG_TIMERS
    CALL seg_mark( 1 )
@@ -5105,6 +5120,9 @@ BENCH_END(bc_2d_tim)
 #  include "gpu_pf_host_pre_phys.inc"
    ENDIF
 #endif
+#ifdef WRF_GPU
+!$acc wait
+#endif
 #ifdef WRF_SEG_TIMERS
    CALL seg_mark( 4 )
 #endif
@@ -5130,6 +5148,9 @@ BENCH_END(bc_2d_tim)
 #endif
 #ifdef WRF_GPU
   wrf_gpu_on = .TRUE. ; CALL rsl_set_gpu_on( .TRUE. )
+#endif
+#ifdef WRF_GPU
+!$acc wait
 #endif
 #ifdef WRF_SEG_TIMERS
    CALL seg_mark( 1 )
@@ -5369,6 +5390,9 @@ BENCH_END(bc_2d_tim)
 
 #ifdef WRF_GPU_FIELDTRACE
        CALL gpu_field_trace( grid, 'd_end_step' )
+#endif
+#ifdef WRF_GPU
+!$acc wait
 #endif
 #ifdef WRF_SEG_TIMERS
    CALL seg_mark( 0 )
