@@ -1687,6 +1687,7 @@ CONTAINS
       USE module_configure, ONLY : grid_config_rec_type
       USE module_state_description, ONLY: num_moist, P_Qv
       USE module_model_constants, ONLY: g, R_v, R_d, Cp, T0, RCP
+      USE module_wrf_error, ONLY : wrf_gpu_on
 
       TYPE ( domain ), INTENT(INOUT) :: grid
 
@@ -1711,6 +1712,7 @@ CONTAINS
       !  Moist or dry theta
 
       IF ( config_flags%use_theta_m .EQ. 1 ) THEN
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
          DO j = jps, MIN(jde-1, jpe)
             DO k = kps, kde-1
                DO i = ips, MIN(ide-1, ipe)
@@ -1720,6 +1722,7 @@ CONTAINS
             END  DO
          END  DO
       ELSE
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
          DO j = jps, MIN(jde-1, jpe)
             DO k = kps, kde-1
                DO i = ips, MIN(ide-1, ipe)
