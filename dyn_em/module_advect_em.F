@@ -1430,6 +1430,12 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
 !$acc parallel loop gang private(vflux) if(wrf_gpu_on)
       DO j = j_start, j_end
+    ! GPU: per-gang copy of pre-loop initialisation of private scratch
+!$acc loop vector
+   DO i = i_start, i_end
+     vflux(i,kts)=0.
+     vflux(i,kte)=0.
+   ENDDO
 
 !$acc loop vector collapse(2) private(vel)
          DO k=kts+3,ktf-2
@@ -1474,6 +1480,12 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
 !$acc parallel loop gang private(vflux) if(wrf_gpu_on)
       DO j = j_start, j_end
+    ! GPU: per-gang copy of pre-loop initialisation of private scratch
+!$acc loop vector
+   DO i = i_start, i_end
+     vflux(i,kts)=0.
+     vflux(i,kte)=0.
+   ENDDO
 
 !$acc loop vector collapse(2) private(vel)
          DO k=kts+3,ktf-2
@@ -1518,6 +1530,12 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
 !$acc parallel loop gang private(vflux) if(wrf_gpu_on)
       DO j = j_start, j_end
+    ! GPU: per-gang copy of pre-loop initialisation of private scratch
+!$acc loop vector
+   DO i = i_start, i_end
+     vflux(i,kts)=0.
+     vflux(i,kte)=0.
+   ENDDO
 
 !$acc loop vector collapse(2) private(vel)
          DO k=kts+2,ktf-1
@@ -1552,6 +1570,12 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
 !$acc parallel loop gang private(vflux) if(wrf_gpu_on)
       DO j = j_start, j_end
+    ! GPU: per-gang copy of pre-loop initialisation of private scratch
+!$acc loop vector
+   DO i = i_start, i_end
+     vflux(i,kts)=0.
+     vflux(i,kte)=0.
+   ENDDO
 
 !$acc loop vector collapse(2) private(vel)
          DO k=kts+2,ktf-1
@@ -1586,6 +1610,12 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
 !$acc parallel loop gang private(vflux) if(wrf_gpu_on)
       DO j = j_start, j_end
+    ! GPU: per-gang copy of pre-loop initialisation of private scratch
+!$acc loop vector
+   DO i = i_start, i_end
+     vflux(i,kts)=0.
+     vflux(i,kte)=0.
+   ENDDO
 !$acc loop vector collapse(2)
          DO k=kts+1,ktf
          DO i = i_start, i_end
@@ -2974,6 +3004,12 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
 !$acc parallel loop gang private(vflux) if(wrf_gpu_on)
       DO j = j_start, j_end
+    ! GPU: per-gang copy of pre-loop initialisation of private scratch
+!$acc loop vector
+    DO i = i_start, i_end
+       vflux(i,kts)=0.
+       vflux(i,kte)=0.
+    ENDDO
 
 
 !$acc loop vector collapse(2) private(vel)
@@ -3023,6 +3059,12 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
 !$acc parallel loop gang private(vflux) if(wrf_gpu_on)
       DO j = j_start, j_end
+    ! GPU: per-gang copy of pre-loop initialisation of private scratch
+!$acc loop vector
+    DO i = i_start, i_end
+       vflux(i,kts)=0.
+       vflux(i,kte)=0.
+    ENDDO
 
 
 !$acc loop vector collapse(2) private(vel)
@@ -3072,6 +3114,12 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
 !$acc parallel loop gang private(vflux) if(wrf_gpu_on)
       DO j = j_start, j_end
+    ! GPU: per-gang copy of pre-loop initialisation of private scratch
+!$acc loop vector
+    DO i = i_start, i_end
+       vflux(i,kts)=0.
+       vflux(i,kte)=0.
+    ENDDO
 
 
 !$acc loop vector collapse(2) private(vel)
@@ -3111,6 +3159,12 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
 !$acc parallel loop gang private(vflux) if(wrf_gpu_on)
       DO j = j_start, j_end
+    ! GPU: per-gang copy of pre-loop initialisation of private scratch
+!$acc loop vector
+    DO i = i_start, i_end
+       vflux(i,kts)=0.
+       vflux(i,kte)=0.
+    ENDDO
 
 
 !$acc loop vector collapse(2) private(vel)
@@ -3151,6 +3205,12 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
 !$acc parallel loop gang private(vflux) if(wrf_gpu_on)
    DO j = j_start, j_end
+    ! GPU: per-gang copy of pre-loop initialisation of private scratch
+!$acc loop vector
+    DO i = i_start, i_end
+       vflux(i,kts)=0.
+       vflux(i,kte)=0.
+    ENDDO
 !$acc loop vector collapse(2)
       DO k=kts+1,ktf
       DO i = i_start, i_end
@@ -4401,6 +4461,12 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
 !$acc parallel loop gang private(vflux) if(wrf_gpu_on)
       DO j = j_start, j_end
+    ! GPU: per-gang copy of pre-loop initialisation of private scratch
+!$acc loop vector
+      DO i = i_start, i_end
+         vflux(i,kts)=0.
+         vflux(i,kte)=0.
+      ENDDO
 
 !$acc loop vector collapse(2) private(vel)
          DO k=kts+3,ktf-2
@@ -4446,6 +4512,12 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
 !$acc parallel loop gang private(vflux) if(wrf_gpu_on)
       DO j = j_start, j_end
+    ! GPU: per-gang copy of pre-loop initialisation of private scratch
+!$acc loop vector
+      DO i = i_start, i_end
+         vflux(i,kts)=0.
+         vflux(i,kte)=0.
+      ENDDO
 
 !$acc loop vector collapse(2) private(vel)
          DO k=kts+3,ktf-2
@@ -4491,6 +4563,12 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
 !$acc parallel loop gang private(vflux) if(wrf_gpu_on)
       DO j = j_start, j_end
+    ! GPU: per-gang copy of pre-loop initialisation of private scratch
+!$acc loop vector
+      DO i = i_start, i_end
+         vflux(i,kts)=0.
+         vflux(i,kte)=0.
+      ENDDO
 
 !$acc loop vector collapse(2) private(vel)
          DO k=kts+2,ktf-1
@@ -4524,6 +4602,12 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
 !$acc parallel loop gang private(vflux) if(wrf_gpu_on)
       DO j = j_start, j_end
+    ! GPU: per-gang copy of pre-loop initialisation of private scratch
+!$acc loop vector
+      DO i = i_start, i_end
+         vflux(i,kts)=0.
+         vflux(i,kte)=0.
+      ENDDO
 
 !$acc loop vector collapse(2) private(vel)
          DO k=kts+2,ktf-1
@@ -4557,6 +4641,12 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
 !$acc parallel loop gang private(vflux) if(wrf_gpu_on)
   DO j = j_start, j_end
+    ! GPU: per-gang copy of pre-loop initialisation of private scratch
+!$acc loop vector
+      DO i = i_start, i_end
+         vflux(i,kts)=0.
+         vflux(i,kte)=0.
+      ENDDO
 !$acc loop vector collapse(2)
      DO k = kts+1, ktf
      DO i = i_start, i_end
@@ -6161,6 +6251,12 @@ ELSE IF (horz_order == 2 ) THEN
 
 !$acc parallel loop gang private(vflux) if(wrf_gpu_on)
       DO j = j_start, j_end
+    ! GPU: per-gang copy of pre-loop initialisation of private scratch
+!$acc loop vector
+    DO i = i_start, i_end
+       vflux(i,kts)=0.
+       vflux(i,kte)=0.
+    ENDDO
 
 !$acc loop vector collapse(2) private(vel)
          DO k=kts+3,ktf-1
@@ -6215,6 +6311,12 @@ ELSE IF (horz_order == 2 ) THEN
 
 !$acc parallel loop gang private(vflux) if(wrf_gpu_on)
       DO j = j_start, j_end
+    ! GPU: per-gang copy of pre-loop initialisation of private scratch
+!$acc loop vector
+    DO i = i_start, i_end
+       vflux(i,kts)=0.
+       vflux(i,kte)=0.
+    ENDDO
 
 !$acc loop vector collapse(2) private(vel)
          DO k=kts+3,ktf-1
@@ -6268,6 +6370,12 @@ ELSE IF (horz_order == 2 ) THEN
 
 !$acc parallel loop gang private(vflux) if(wrf_gpu_on)
       DO j = j_start, j_end
+    ! GPU: per-gang copy of pre-loop initialisation of private scratch
+!$acc loop vector
+    DO i = i_start, i_end
+       vflux(i,kts)=0.
+       vflux(i,kte)=0.
+    ENDDO
 
 !$acc loop vector collapse(2) private(vel)
          DO k=kts+2,ktf
@@ -6309,6 +6417,12 @@ ELSE IF (horz_order == 2 ) THEN
 
 !$acc parallel loop gang private(vflux) if(wrf_gpu_on)
       DO j = j_start, j_end
+    ! GPU: per-gang copy of pre-loop initialisation of private scratch
+!$acc loop vector
+    DO i = i_start, i_end
+       vflux(i,kts)=0.
+       vflux(i,kte)=0.
+    ENDDO
 
 !$acc loop vector collapse(2) private(vel)
          DO k=kts+2,ktf
@@ -6351,6 +6465,12 @@ ELSE IF (horz_order == 2 ) THEN
 
 !$acc parallel loop gang private(vflux) if(wrf_gpu_on)
   DO j = j_start, j_end
+    ! GPU: per-gang copy of pre-loop initialisation of private scratch
+!$acc loop vector
+    DO i = i_start, i_end
+       vflux(i,kts)=0.
+       vflux(i,kte)=0.
+    ENDDO
 !$acc loop vector collapse(2)
      DO k=kts+1,ktf+1
      DO i = i_start, i_end
