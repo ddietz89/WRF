@@ -790,8 +790,9 @@ SUBROUTINE calc_ww_cp ( u, v, mup, mub, c1h, c2h, ww,    &
 !       where
 !         divv=mx*[partial d/dx(mu u/my) + partial d/dy(mu v/mx)]*delta nu
 
-!$acc loop vector collapse(2)
+!$acc loop seq
         DO k=kts,ktf
+!$acc loop vector
         DO i=its,itf
 
           divv(i,k) = msftx(i,j)*dnw(k)*( rdx*((c1h(k)*muu(i+1,j)+c2h(k))*u(i+1,k,j)/msfuy(i+1,j)-(c1h(k)*muu(i,j)+c2h(k))*u(i,k,j)/msfuy(i,j))  &
@@ -6178,9 +6179,9 @@ END SUBROUTINE set_tend
 !-----------------------------------------------------------------------
 ! Adjust u to base state.
 
-!$acc parallel loop gang private(u00,z00) if(wrf_gpu_on)
+!$acc parallel loop gang if(wrf_gpu_on)
     DO j = jts, MIN( jte, jde-1 )
-!$acc loop vector private(dcoef,k1,k2,z,ztop)
+!$acc loop vector private(dcoef,k1,k2,z,ztop,u00,z00)
     DO i = its, MIN( ite, ide   )
 
       ! Get height at top of model
@@ -6236,9 +6237,9 @@ END SUBROUTINE set_tend
 !-----------------------------------------------------------------------
 ! Adjust v to base state.
 
-!$acc parallel loop gang private(v00,z00) if(wrf_gpu_on)
+!$acc parallel loop gang if(wrf_gpu_on)
     DO j = jts, MIN( jte, jde   )
-!$acc loop vector private(dcoef,k1,k2,z,ztop)
+!$acc loop vector private(dcoef,k1,k2,z,ztop,v00,z00)
     DO i = its, MIN( ite, ide-1 )
 
       ! Get height at top of model
@@ -6315,9 +6316,9 @@ END SUBROUTINE set_tend
 !-----------------------------------------------------------------------
 ! Adjust potential temperature to base state.
 
-!$acc parallel loop gang private(t00,z00) if(wrf_gpu_on)
+!$acc parallel loop gang if(wrf_gpu_on)
     DO j = jts, MIN( jte,   jde-1 )
-!$acc loop vector private(dcoef,k1,k2,z,ztop)
+!$acc loop vector private(dcoef,k1,k2,z,ztop,t00,z00)
     DO i = its, MIN( ite,   ide-1 )
 
       ! Get height at top of model

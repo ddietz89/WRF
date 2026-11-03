@@ -1509,8 +1509,9 @@ SUBROUTINE cal_dampkm( config_flags,xkmh,xkhh,xkmv,xkhv,                       &
 
       ENDDO
 
-!$acc loop vector collapse(2) private(ds,dz,kmmax,kmmvmax,tmp)
+!$acc loop seq
       DO k = ktfm1,kts,-1
+!$acc loop vector private(ds,dz,kmmax,kmmvmax,tmp)
       DO i = i_start, i_end
          ! Unmodified dx used above may produce very large diffusivities
          ! when msftx is very large.  And the above formula ignores the fact
@@ -2678,8 +2679,9 @@ END SUBROUTINE smag2d_km
  
 !$acc parallel loop gang if(wrf_gpu_on)
     DO j = j_start, j_end
-!$acc loop vector collapse(2) private(qdz)
+!$acc loop seq
     DO k = kts, ktf
+!$acc loop vector private(qdz)
     DO i = i_start, i_end
       qdz      = qtke(i,k,j)*(1.0/rdzw(i,k,j))
       elt(i,j) = elt(i,j) + qdz*za(i,k,j)
@@ -7779,8 +7781,9 @@ END SUBROUTINE phy_bc
 
 !$acc parallel loop gang if(wrf_gpu_on)
     DO j = j_start, j_end
-!$acc loop vector collapse(2) private(zl,zu)
+!$acc loop seq
     DO k = kts, ktf
+!$acc loop vector private(zl,zu)
     DO i = i_start, i_end
       zl = ( 0.25 * (  &
            (( ph(i  ,k  ,j  ) + phb(i  ,k  ,j  ) ) / g - ht(i  ,j  ) ) +  &
