@@ -202,13 +202,6 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
    REAL    :: flux3, flux4, flux5, flux6
    REAL    :: q_im3, q_im2, q_im1, q_i, q_ip1, q_ip2, ua, vel
-#ifdef WRF_GPU
-   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
-   IF ( ALLOCATED(fqy) ) THEN
-      IF ( ANY(LBOUND(fqy) /= (/its,kts,1/)) .OR. ANY(UBOUND(fqy) /= (/ite,kte,2/)) ) DEALLOCATE(fqy)
-   ENDIF
-   IF ( .NOT. ALLOCATED(fqy) ) ALLOCATE( fqy(its:ite,kts:kte,1:2) )
-#endif
 
    flux4(q_im2, q_im1, q_i, q_ip1, ua) =                         &
           ( 7.*(q_i + q_im1) - (q_ip1 + q_im2) )/12.0
@@ -228,6 +221,13 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
 
    LOGICAL :: specified
+#ifdef WRF_GPU
+   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
+   IF ( ALLOCATED(fqy) ) THEN
+      IF ( ANY(LBOUND(fqy) /= (/its,kts,1/)) .OR. ANY(UBOUND(fqy) /= (/ite,kte,2/)) ) DEALLOCATE(fqy)
+   ENDIF
+   IF ( .NOT. ALLOCATED(fqy) ) ALLOCATE( fqy(its:ite,kts:kte,1:2) )
+#endif
 
    specified = .false.
    if(config_flags%specified .or. config_flags%nested) specified = .true.
@@ -1737,13 +1737,6 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
    REAL    :: flux3, flux4, flux5, flux6
    REAL    :: q_im3, q_im2, q_im1, q_i, q_ip1, q_ip2, ua, vel
-#ifdef WRF_GPU
-   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
-   IF ( ALLOCATED(fqy) ) THEN
-      IF ( ANY(LBOUND(fqy) /= (/its,kts,1/)) .OR. ANY(UBOUND(fqy) /= (/ite,kte,2/)) ) DEALLOCATE(fqy)
-   ENDIF
-   IF ( .NOT. ALLOCATED(fqy) ) ALLOCATE( fqy(its:ite,kts:kte,1:2) )
-#endif
 
    flux4(q_im2, q_im1, q_i, q_ip1, ua) =                     &
           ( 7.*(q_i + q_im1) - (q_ip1 + q_im2) )/12.0
@@ -1764,6 +1757,13 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
 
    LOGICAL :: specified
+#ifdef WRF_GPU
+   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
+   IF ( ALLOCATED(fqy) ) THEN
+      IF ( ANY(LBOUND(fqy) /= (/its,kts,1/)) .OR. ANY(UBOUND(fqy) /= (/ite,kte,2/)) ) DEALLOCATE(fqy)
+   ENDIF
+   IF ( .NOT. ALLOCATED(fqy) ) ALLOCATE( fqy(its:ite,kts:kte,1:2) )
+#endif
 
    specified = .false.
    if(config_flags%specified .or. config_flags%nested) specified = .true.
@@ -3362,13 +3362,6 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
    REAL    :: flux3, flux4, flux5, flux6
    REAL    :: q_im3, q_im2, q_im1, q_i, q_ip1, q_ip2, ua, vel
-#ifdef WRF_GPU
-   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
-   IF ( ALLOCATED(fqy) ) THEN
-      IF ( ANY(LBOUND(fqy) /= (/its,kts,1/)) .OR. ANY(UBOUND(fqy) /= (/ite,kte,2/)) ) DEALLOCATE(fqy)
-   ENDIF
-   IF ( .NOT. ALLOCATED(fqy) ) ALLOCATE( fqy(its:ite,kts:kte,1:2) )
-#endif
 
       flux4(q_im2, q_im1, q_i, q_ip1, ua) =                     &
           ( 7.*(q_i + q_im1) - (q_ip1 + q_im2) )/12.0
@@ -3388,6 +3381,13 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
 
    LOGICAL :: specified
+#ifdef WRF_GPU
+   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
+   IF ( ALLOCATED(fqy) ) THEN
+      IF ( ANY(LBOUND(fqy) /= (/its,kts,1/)) .OR. ANY(UBOUND(fqy) /= (/ite,kte,2/)) ) DEALLOCATE(fqy)
+   ENDIF
+   IF ( .NOT. ALLOCATED(fqy) ) ALLOCATE( fqy(its:ite,kts:kte,1:2) )
+#endif
 
    specified = .false.
    if(config_flags%specified .or. config_flags%nested) specified = .true.
@@ -4822,13 +4822,6 @@ SUBROUTINE advect_w    ( w, w_old, tendency,            &
 
    REAL    :: flux3, flux4, flux5, flux6
    REAL    :: q_im3, q_im2, q_im1, q_i, q_ip1, q_ip2, ua, vel
-#ifdef WRF_GPU
-   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
-   IF ( ALLOCATED(fqy) ) THEN
-      IF ( ANY(LBOUND(fqy) /= (/its,kts,1/)) .OR. ANY(UBOUND(fqy) /= (/ite,kte,2/)) ) DEALLOCATE(fqy)
-   ENDIF
-   IF ( .NOT. ALLOCATED(fqy) ) ALLOCATE( fqy(its:ite,kts:kte,1:2) )
-#endif
 
       flux4(q_im2, q_im1, q_i, q_ip1, ua) =                     &
           ( 7.*(q_i + q_im1) - (q_ip1 + q_im2) )/12.0
@@ -4848,6 +4841,13 @@ SUBROUTINE advect_w    ( w, w_old, tendency,            &
 
 
    LOGICAL :: specified
+#ifdef WRF_GPU
+   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
+   IF ( ALLOCATED(fqy) ) THEN
+      IF ( ANY(LBOUND(fqy) /= (/its,kts,1/)) .OR. ANY(UBOUND(fqy) /= (/ite,kte,2/)) ) DEALLOCATE(fqy)
+   ENDIF
+   IF ( .NOT. ALLOCATED(fqy) ) ALLOCATE( fqy(its:ite,kts:kte,1:2) )
+#endif
 
    specified = .false.
    if(config_flags%specified .or. config_flags%nested) specified = .true.
@@ -6717,6 +6717,33 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
    REAL    :: flux3, flux4, flux5, flux6, flux_upwind
    REAL    :: q_im3, q_im2, q_im1, q_i, q_ip1, q_ip2, ua, vel, cr
+
+      flux4(q_im2, q_im1, q_i, q_ip1, ua) =                     &
+            (7./12.)*(q_i + q_im1) - (1./12.)*(q_ip1 + q_im2)
+
+      flux3(q_im2, q_im1, q_i, q_ip1, ua) =                     &
+           flux4(q_im2, q_im1, q_i, q_ip1, ua) +                &
+           sign(1,time_step)*sign(1.,ua)*(1./12.)*((q_ip1 - q_im2)-3.*(q_i-q_im1))
+
+      flux6(q_im3, q_im2, q_im1, q_i, q_ip1, q_ip2, ua) =       &
+            (37./60.)*(q_i+q_im1) - (2./15.)*(q_ip1+q_im2)      &
+            +(1./60.)*(q_ip2+q_im3)
+
+      flux5(q_im3, q_im2, q_im1, q_i, q_ip1, q_ip2, ua) =       &
+           flux6(q_im3, q_im2, q_im1, q_i, q_ip1, q_ip2, ua)    &
+            -sign(1,time_step)*sign(1.,ua)*(1./60.)*(           &
+              (q_ip2-q_im3)-5.*(q_ip1-q_im2)+10.*(q_i-q_im1) )
+
+      flux_upwind(q_im1, q_i, cr ) = 0.5*min( 1.0,(cr+abs(cr)))*q_im1 &
+                                    +0.5*max(-1.0,(cr-abs(cr)))*q_i
+
+!      flux_upwind(q_im1, q_i, cr ) = 0.5*(1.+sign(1.,cr))*q_im1 &
+!                                    +0.5*(1.-sign(1.,cr))*q_i
+!      flux_upwind(q_im1, q_i, cr ) = 0.
+
+    REAL     :: dx,dy,dz
+
+    LOGICAL, PARAMETER :: pd_limit = .true.
 #ifdef WRF_GPU
    ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
    IF ( ALLOCATED(fqx) ) THEN
@@ -6752,33 +6779,6 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
    ENDIF
    IF ( .NOT. ALLOCATED(ph_low) ) ALLOCATE( ph_low(its-1:ite+2,kts:kte,jts-1:jte+2) )
 #endif
-
-      flux4(q_im2, q_im1, q_i, q_ip1, ua) =                     &
-            (7./12.)*(q_i + q_im1) - (1./12.)*(q_ip1 + q_im2)
-
-      flux3(q_im2, q_im1, q_i, q_ip1, ua) =                     &
-           flux4(q_im2, q_im1, q_i, q_ip1, ua) +                &
-           sign(1,time_step)*sign(1.,ua)*(1./12.)*((q_ip1 - q_im2)-3.*(q_i-q_im1))
-
-      flux6(q_im3, q_im2, q_im1, q_i, q_ip1, q_ip2, ua) =       &
-            (37./60.)*(q_i+q_im1) - (2./15.)*(q_ip1+q_im2)      &
-            +(1./60.)*(q_ip2+q_im3)
-
-      flux5(q_im3, q_im2, q_im1, q_i, q_ip1, q_ip2, ua) =       &
-           flux6(q_im3, q_im2, q_im1, q_i, q_ip1, q_ip2, ua)    &
-            -sign(1,time_step)*sign(1.,ua)*(1./60.)*(           &
-              (q_ip2-q_im3)-5.*(q_ip1-q_im2)+10.*(q_i-q_im1) )
-
-      flux_upwind(q_im1, q_i, cr ) = 0.5*min( 1.0,(cr+abs(cr)))*q_im1 &
-                                    +0.5*max(-1.0,(cr-abs(cr)))*q_i
-
-!      flux_upwind(q_im1, q_i, cr ) = 0.5*(1.+sign(1.,cr))*q_im1 &
-!                                    +0.5*(1.-sign(1.,cr))*q_i
-!      flux_upwind(q_im1, q_i, cr ) = 0.
-
-    REAL     :: dx,dy,dz
-
-    LOGICAL, PARAMETER :: pd_limit = .true.
 
 ! set order for the advection schemes
 
@@ -9363,6 +9363,33 @@ SUBROUTINE advect_scalar_wenopd ( field, field_old, tendency,    &
 
    REAL    :: flux3, flux4, flux5, flux6, flux_upwind
    REAL    :: q_im3, q_im2, q_im1, q_i, q_ip1, q_ip2, ua, vel, cr
+
+      flux4(q_im2, q_im1, q_i, q_ip1, ua) =                     &
+            (7./12.)*(q_i + q_im1) - (1./12.)*(q_ip1 + q_im2)
+
+      flux3(q_im2, q_im1, q_i, q_ip1, ua) =                     &
+           flux4(q_im2, q_im1, q_i, q_ip1, ua) +                &
+           sign(1,time_step)*sign(1.,ua)*(1./12.)*((q_ip1 - q_im2)-3.*(q_i-q_im1))
+
+      flux6(q_im3, q_im2, q_im1, q_i, q_ip1, q_ip2, ua) =       &
+            (37./60.)*(q_i+q_im1) - (2./15.)*(q_ip1+q_im2)      &
+            +(1./60.)*(q_ip2+q_im3)
+
+      flux5(q_im3, q_im2, q_im1, q_i, q_ip1, q_ip2, ua) =       &
+           flux6(q_im3, q_im2, q_im1, q_i, q_ip1, q_ip2, ua)    &
+            -sign(1,time_step)*sign(1.,ua)*(1./60.)*(           &
+              (q_ip2-q_im3)-5.*(q_ip1-q_im2)+10.*(q_i-q_im1) )
+
+      flux_upwind(q_im1, q_i, cr ) = 0.5*min( 1.0,(cr+abs(cr)))*q_im1 &
+                                    +0.5*max(-1.0,(cr-abs(cr)))*q_i
+
+!      flux_upwind(q_im1, q_i, cr ) = 0.5*(1.+sign(1.,cr))*q_im1 &
+!                                    +0.5*(1.-sign(1.,cr))*q_i
+!      flux_upwind(q_im1, q_i, cr ) = 0.
+
+    REAL     :: dx,dy,dz
+
+    LOGICAL, PARAMETER :: pd_limit = .true.
 #ifdef WRF_GPU
    ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
    IF ( ALLOCATED(fqx) ) THEN
@@ -9398,33 +9425,6 @@ SUBROUTINE advect_scalar_wenopd ( field, field_old, tendency,    &
    ENDIF
    IF ( .NOT. ALLOCATED(ph_low) ) ALLOCATE( ph_low(its-1:ite+2,kts:kte,jts-1:jte+2) )
 #endif
-
-      flux4(q_im2, q_im1, q_i, q_ip1, ua) =                     &
-            (7./12.)*(q_i + q_im1) - (1./12.)*(q_ip1 + q_im2)
-
-      flux3(q_im2, q_im1, q_i, q_ip1, ua) =                     &
-           flux4(q_im2, q_im1, q_i, q_ip1, ua) +                &
-           sign(1,time_step)*sign(1.,ua)*(1./12.)*((q_ip1 - q_im2)-3.*(q_i-q_im1))
-
-      flux6(q_im3, q_im2, q_im1, q_i, q_ip1, q_ip2, ua) =       &
-            (37./60.)*(q_i+q_im1) - (2./15.)*(q_ip1+q_im2)      &
-            +(1./60.)*(q_ip2+q_im3)
-
-      flux5(q_im3, q_im2, q_im1, q_i, q_ip1, q_ip2, ua) =       &
-           flux6(q_im3, q_im2, q_im1, q_i, q_ip1, q_ip2, ua)    &
-            -sign(1,time_step)*sign(1.,ua)*(1./60.)*(           &
-              (q_ip2-q_im3)-5.*(q_ip1-q_im2)+10.*(q_i-q_im1) )
-
-      flux_upwind(q_im1, q_i, cr ) = 0.5*min( 1.0,(cr+abs(cr)))*q_im1 &
-                                    +0.5*max(-1.0,(cr-abs(cr)))*q_i
-
-!      flux_upwind(q_im1, q_i, cr ) = 0.5*(1.+sign(1.,cr))*q_im1 &
-!                                    +0.5*(1.-sign(1.,cr))*q_i
-!      flux_upwind(q_im1, q_i, cr ) = 0.
-
-    REAL     :: dx,dy,dz
-
-    LOGICAL, PARAMETER :: pd_limit = .true.
 
 ! set order for the advection schemes
 
@@ -10335,6 +10335,28 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
 
    REAL    :: flux3, flux4, flux5, flux6, flux_upwind
    REAL    :: q_im3, q_im2, q_im1, q_i, q_ip1, q_ip2, ua, vel, cr
+
+      flux4(q_im2, q_im1, q_i, q_ip1, ua) =                     &
+            (7./12.)*(q_i + q_im1) - (1./12.)*(q_ip1 + q_im2)
+
+      flux3(q_im2, q_im1, q_i, q_ip1, ua) =                     &
+           flux4(q_im2, q_im1, q_i, q_ip1, ua) +                &
+           sign(1.,ua)*(1./12.)*((q_ip1 - q_im2)-3.*(q_i-q_im1))
+
+      flux6(q_im3, q_im2, q_im1, q_i, q_ip1, q_ip2, ua) =       &
+            (37./60.)*(q_i+q_im1) - (2./15.)*(q_ip1+q_im2)      &
+            +(1./60.)*(q_ip2+q_im3)
+
+      flux5(q_im3, q_im2, q_im1, q_i, q_ip1, q_ip2, ua) =       &
+           flux6(q_im3, q_im2, q_im1, q_i, q_ip1, q_ip2, ua)    &
+            -sign(1.,ua)*(1./60.)*(                             &
+              (q_ip2-q_im3)-5.*(q_ip1-q_im2)+10.*(q_i-q_im1) )
+
+!      flux_upwind(q_im1, q_i, cr ) = 0.
+      flux_upwind(q_im1, q_i, cr ) = 0.5*(1.+sign(1.,cr))*q_im1 &
+                                    +0.5*(1.-sign(1.,cr))*q_i
+
+    LOGICAL, PARAMETER :: mono_limit = .true.
 #ifdef WRF_GPU
    ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
    IF ( ALLOCATED(vflux) ) THEN
@@ -10382,28 +10404,6 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
    ENDIF
    IF ( .NOT. ALLOCATED(scale_out) ) ALLOCATE( scale_out(its-2:ite+2,kts:kte,jts-2:jte+2) )
 #endif
-
-      flux4(q_im2, q_im1, q_i, q_ip1, ua) =                     &
-            (7./12.)*(q_i + q_im1) - (1./12.)*(q_ip1 + q_im2)
-
-      flux3(q_im2, q_im1, q_i, q_ip1, ua) =                     &
-           flux4(q_im2, q_im1, q_i, q_ip1, ua) +                &
-           sign(1.,ua)*(1./12.)*((q_ip1 - q_im2)-3.*(q_i-q_im1))
-
-      flux6(q_im3, q_im2, q_im1, q_i, q_ip1, q_ip2, ua) =       &
-            (37./60.)*(q_i+q_im1) - (2./15.)*(q_ip1+q_im2)      &
-            +(1./60.)*(q_ip2+q_im3)
-
-      flux5(q_im3, q_im2, q_im1, q_i, q_ip1, q_ip2, ua) =       &
-           flux6(q_im3, q_im2, q_im1, q_i, q_ip1, q_ip2, ua)    &
-            -sign(1.,ua)*(1./60.)*(                             &
-              (q_ip2-q_im3)-5.*(q_ip1-q_im2)+10.*(q_i-q_im1) )
-
-!      flux_upwind(q_im1, q_i, cr ) = 0.
-      flux_upwind(q_im1, q_i, cr ) = 0.5*(1.+sign(1.,cr))*q_im1 &
-                                    +0.5*(1.-sign(1.,cr))*q_i
-
-    LOGICAL, PARAMETER :: mono_limit = .true.
 
 ! set order for the advection schemes
 
