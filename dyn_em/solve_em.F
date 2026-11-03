@@ -209,6 +209,7 @@ SUBROUTINE solve_em ( grid , config_flags  &
 
    INTEGER :: rc
 #ifdef WRF_GPU
+   LOGICAL, EXTERNAL :: wrf_gpu_addrmap
    LOGICAL, EXTERNAL :: wrf_gpu_hostblocks
    INTEGER, EXTERNAL :: wrf_gpu_prefetch_mode
    INTEGER, EXTERNAL :: wrf_gpu_advise_mode
@@ -372,6 +373,66 @@ SUBROUTINE solve_em ( grid , config_flags  &
 #endif
 #ifdef WRF_GPU
 #  include "i1_alloc_gpu.inc"
+#endif
+#ifdef WRF_GPU
+   IF ( wrf_gpu_addrmap() ) THEN
+      CALL wrf_gpu_addrmap_grid( grid )
+      IF ( ALLOCATED(ru_tendf) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'ru_tendf', LOC(ru_tendf), INT(SIZE(ru_tendf),8)*INT(STORAGE_SIZE(ru_tendf)/8,8)
+      IF ( ALLOCATED(rv_tendf) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'rv_tendf', LOC(rv_tendf), INT(SIZE(rv_tendf),8)*INT(STORAGE_SIZE(rv_tendf)/8,8)
+      IF ( ALLOCATED(ww1) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'ww1', LOC(ww1), INT(SIZE(ww1),8)*INT(STORAGE_SIZE(ww1)/8,8)
+      IF ( ALLOCATED(wwe) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'wwe', LOC(wwe), INT(SIZE(wwe),8)*INT(STORAGE_SIZE(wwe)/8,8)
+      IF ( ALLOCATED(wwi) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'wwi', LOC(wwi), INT(SIZE(wwi),8)*INT(STORAGE_SIZE(wwi)/8,8)
+      IF ( ALLOCATED(wwp) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'wwp', LOC(wwp), INT(SIZE(wwp),8)*INT(STORAGE_SIZE(wwp)/8,8)
+      IF ( ALLOCATED(rw_tend) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'rw_tend', LOC(rw_tend), INT(SIZE(rw_tend),8)*INT(STORAGE_SIZE(rw_tend)/8,8)
+      IF ( ALLOCATED(rw_tendf) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'rw_tendf', LOC(rw_tendf), INT(SIZE(rw_tendf),8)*INT(STORAGE_SIZE(rw_tendf)/8,8)
+      IF ( ALLOCATED(w_save) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'w_save', LOC(w_save), INT(SIZE(w_save),8)*INT(STORAGE_SIZE(w_save)/8,8)
+      IF ( ALLOCATED(ph_tend) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'ph_tend', LOC(ph_tend), INT(SIZE(ph_tend),8)*INT(STORAGE_SIZE(ph_tend)/8,8)
+      IF ( ALLOCATED(ph_tendf) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'ph_tendf', LOC(ph_tendf), INT(SIZE(ph_tendf),8)*INT(STORAGE_SIZE(ph_tendf)/8,8)
+      IF ( ALLOCATED(ph_save) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'ph_save', LOC(ph_save), INT(SIZE(ph_save),8)*INT(STORAGE_SIZE(ph_save)/8,8)
+      IF ( ALLOCATED(t_tend) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 't_tend', LOC(t_tend), INT(SIZE(t_tend),8)*INT(STORAGE_SIZE(t_tend)/8,8)
+      IF ( ALLOCATED(t_tendf) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 't_tendf', LOC(t_tendf), INT(SIZE(t_tendf),8)*INT(STORAGE_SIZE(t_tendf)/8,8)
+      IF ( ALLOCATED(t_2save) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 't_2save', LOC(t_2save), INT(SIZE(t_2save),8)*INT(STORAGE_SIZE(t_2save)/8,8)
+      IF ( ALLOCATED(muave) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'muave', LOC(muave), INT(SIZE(muave),8)*INT(STORAGE_SIZE(muave)/8,8)
+      IF ( ALLOCATED(mu_save) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'mu_save', LOC(mu_save), INT(SIZE(mu_save),8)*INT(STORAGE_SIZE(mu_save)/8,8)
+      IF ( ALLOCATED(mu_tend) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'mu_tend', LOC(mu_tend), INT(SIZE(mu_tend),8)*INT(STORAGE_SIZE(mu_tend)/8,8)
+      IF ( ALLOCATED(mu_tendf) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'mu_tendf', LOC(mu_tendf), INT(SIZE(mu_tendf),8)*INT(STORAGE_SIZE(mu_tendf)/8,8)
+      IF ( ALLOCATED(tke_tend) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'tke_tend', LOC(tke_tend), INT(SIZE(tke_tend),8)*INT(STORAGE_SIZE(tke_tend)/8,8)
+      IF ( ALLOCATED(advect_tend) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'advect_tend', LOC(advect_tend), INT(SIZE(advect_tend),8)*INT(STORAGE_SIZE(advect_tend)/8,8)
+      IF ( ALLOCATED(alpha) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'alpha', LOC(alpha), INT(SIZE(alpha),8)*INT(STORAGE_SIZE(alpha)/8,8)
+      IF ( ALLOCATED(a) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'a', LOC(a), INT(SIZE(a),8)*INT(STORAGE_SIZE(a)/8,8)
+      IF ( ALLOCATED(gamma) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'gamma', LOC(gamma), INT(SIZE(gamma),8)*INT(STORAGE_SIZE(gamma)/8,8)
+      IF ( ALLOCATED(c2a) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'c2a', LOC(c2a), INT(SIZE(c2a),8)*INT(STORAGE_SIZE(c2a)/8,8)
+      IF ( ALLOCATED(phm) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'phm', LOC(phm), INT(SIZE(phm),8)*INT(STORAGE_SIZE(phm)/8,8)
+      IF ( ALLOCATED(cqu) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'cqu', LOC(cqu), INT(SIZE(cqu),8)*INT(STORAGE_SIZE(cqu)/8,8)
+      IF ( ALLOCATED(cqv) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'cqv', LOC(cqv), INT(SIZE(cqv),8)*INT(STORAGE_SIZE(cqv)/8,8)
+      IF ( ALLOCATED(cqw) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'cqw', LOC(cqw), INT(SIZE(cqw),8)*INT(STORAGE_SIZE(cqw)/8,8)
+      IF ( ALLOCATED(pm1) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'pm1', LOC(pm1), INT(SIZE(pm1),8)*INT(STORAGE_SIZE(pm1)/8,8)
+      IF ( ALLOCATED(psim) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'psim', LOC(psim), INT(SIZE(psim),8)*INT(STORAGE_SIZE(psim)/8,8)
+      IF ( ALLOCATED(psih) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'psih', LOC(psih), INT(SIZE(psih),8)*INT(STORAGE_SIZE(psih)/8,8)
+      IF ( ALLOCATED(gz1oz0) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'gz1oz0', LOC(gz1oz0), INT(SIZE(gz1oz0),8)*INT(STORAGE_SIZE(gz1oz0)/8,8)
+      IF ( ALLOCATED(chklowq) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'chklowq', LOC(chklowq), INT(SIZE(chklowq),8)*INT(STORAGE_SIZE(chklowq)/8,8)
+      IF ( ALLOCATED(ht_loc) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'ht_loc', LOC(ht_loc), INT(SIZE(ht_loc),8)*INT(STORAGE_SIZE(ht_loc)/8,8)
+      IF ( ALLOCATED(th_phy) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'th_phy', LOC(th_phy), INT(SIZE(th_phy),8)*INT(STORAGE_SIZE(th_phy)/8,8)
+      IF ( ALLOCATED(pi_phy) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'pi_phy', LOC(pi_phy), INT(SIZE(pi_phy),8)*INT(STORAGE_SIZE(pi_phy)/8,8)
+      IF ( ALLOCATED(p_phy) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'p_phy', LOC(p_phy), INT(SIZE(p_phy),8)*INT(STORAGE_SIZE(p_phy)/8,8)
+      IF ( ALLOCATED(dz8w) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'dz8w', LOC(dz8w), INT(SIZE(dz8w),8)*INT(STORAGE_SIZE(dz8w)/8,8)
+      IF ( ALLOCATED(p8w) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'p8w', LOC(p8w), INT(SIZE(p8w),8)*INT(STORAGE_SIZE(p8w)/8,8)
+      IF ( ALLOCATED(t8w) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 't8w', LOC(t8w), INT(SIZE(t8w),8)*INT(STORAGE_SIZE(t8w)/8,8)
+      IF ( ALLOCATED(cu_act_flag) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'cu_act_flag', LOC(cu_act_flag), INT(SIZE(cu_act_flag),8)*INT(STORAGE_SIZE(cu_act_flag)/8,8)
+      IF ( ALLOCATED(hol) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'hol', LOC(hol), INT(SIZE(hol),8)*INT(STORAGE_SIZE(hol)/8,8)
+      IF ( ALLOCATED(moist_tend) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'moist_tend', LOC(moist_tend), INT(SIZE(moist_tend),8)*INT(STORAGE_SIZE(moist_tend)/8,8)
+      IF ( ALLOCATED(moist_old) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'moist_old', LOC(moist_old), INT(SIZE(moist_old),8)*INT(STORAGE_SIZE(moist_old)/8,8)
+      IF ( ALLOCATED(dfi_moist_tend) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'dfi_moist_tend', LOC(dfi_moist_tend), INT(SIZE(dfi_moist_tend),8)*INT(STORAGE_SIZE(dfi_moist_tend)/8,8)
+      IF ( ALLOCATED(dfi_moist_old) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'dfi_moist_old', LOC(dfi_moist_old), INT(SIZE(dfi_moist_old),8)*INT(STORAGE_SIZE(dfi_moist_old)/8,8)
+      IF ( ALLOCATED(scalar_tend) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'scalar_tend', LOC(scalar_tend), INT(SIZE(scalar_tend),8)*INT(STORAGE_SIZE(scalar_tend)/8,8)
+      IF ( ALLOCATED(scalar_old) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'scalar_old', LOC(scalar_old), INT(SIZE(scalar_old),8)*INT(STORAGE_SIZE(scalar_old)/8,8)
+      IF ( ALLOCATED(dfi_scalar_tend) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'dfi_scalar_tend', LOC(dfi_scalar_tend), INT(SIZE(dfi_scalar_tend),8)*INT(STORAGE_SIZE(dfi_scalar_tend)/8,8)
+      IF ( ALLOCATED(dfi_scalar_old) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'dfi_scalar_old', LOC(dfi_scalar_old), INT(SIZE(dfi_scalar_old),8)*INT(STORAGE_SIZE(dfi_scalar_old)/8,8)
+      IF ( ALLOCATED(tracer_tend) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'tracer_tend', LOC(tracer_tend), INT(SIZE(tracer_tend),8)*INT(STORAGE_SIZE(tracer_tend)/8,8)
+      IF ( ALLOCATED(tracer_old) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'tracer_old', LOC(tracer_old), INT(SIZE(tracer_old),8)*INT(STORAGE_SIZE(tracer_old)/8,8)
+      IF ( ALLOCATED(chem_tend) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'chem_tend', LOC(chem_tend), INT(SIZE(chem_tend),8)*INT(STORAGE_SIZE(chem_tend)/8,8)
+      IF ( ALLOCATED(chem_old) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP i1:', 'chem_old', LOC(chem_old), INT(SIZE(chem_old),8)*INT(STORAGE_SIZE(chem_old)/8,8)
+   ENDIF
 #endif
    CALL set_tiles ( ZONE_SOLVE_EM, grid , ids , ide , jds , jde , ips , ipe , jps , jpe )
 !   CALL set_tiles (  grid , ids , ide , jds , jde , ips , ipe , jps , jpe )
@@ -5671,4 +5732,42 @@ LOGICAL FUNCTION wrf_gpu_hostblocks()
    ENDIF
    wrf_gpu_hostblocks = ( mode /= 0 )
 END FUNCTION wrf_gpu_hostblocks
+
+! WRF_GPU_ADDRMAP=1: print address and byte size of every real grid state array and i1 temporary once (to map
+! Nsight unified-memory migration address ranges back to arrays).
+LOGICAL FUNCTION wrf_gpu_addrmap()
+   IMPLICIT NONE
+   LOGICAL, SAVE :: done = .FALSE.
+   CHARACTER(LEN=8) :: v
+   INTEGER :: st
+   wrf_gpu_addrmap = .FALSE.
+   IF ( done ) RETURN
+   done = .TRUE.
+   CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_ADDRMAP', v, STATUS=st )
+   wrf_gpu_addrmap = ( st == 0 .AND. v(1:1) == '1' )
+END FUNCTION wrf_gpu_addrmap
+
+SUBROUTINE wrf_gpu_addrmap_grid( grid )
+   USE module_domain, ONLY : domain, fieldlist
+   IMPLICIT NONE
+   TYPE(domain), INTENT(IN) :: grid
+   TYPE(fieldlist), POINTER :: p
+   p => grid%head_statevars
+   DO WHILE ( ASSOCIATED(p) )
+      IF ( p%Type == 'r' ) THEN
+         IF ( p%Ndim == 2 ) THEN
+            IF ( ASSOCIATED(p%rfield_2d) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP grid:', TRIM(p%VarName), &
+               LOC(p%rfield_2d(LBOUND(p%rfield_2d,1),LBOUND(p%rfield_2d,2))), INT(SIZE(p%rfield_2d),8)*4_8
+         ELSE IF ( p%Ndim == 3 ) THEN
+            IF ( ASSOCIATED(p%rfield_3d) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP grid:', TRIM(p%VarName), &
+               LOC(p%rfield_3d(LBOUND(p%rfield_3d,1),LBOUND(p%rfield_3d,2),LBOUND(p%rfield_3d,3))), INT(SIZE(p%rfield_3d),8)*4_8
+         ELSE IF ( p%Ndim == 4 ) THEN
+            IF ( ASSOCIATED(p%rfield_4d) ) WRITE(0,'(A,A,1X,Z16,1X,I14)') 'ADDRMAP grid:', TRIM(p%VarName), &
+               LOC(p%rfield_4d(LBOUND(p%rfield_4d,1),LBOUND(p%rfield_4d,2),LBOUND(p%rfield_4d,3),LBOUND(p%rfield_4d,4))), &
+               INT(SIZE(p%rfield_4d),8)*4_8
+         ENDIF
+      ENDIF
+      p => p%next
+   ENDDO
+END SUBROUTINE wrf_gpu_addrmap_grid
 #endif
