@@ -252,7 +252,6 @@ CONTAINS
 ! changed to tile dimensions, 20090923, JM
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: rfield
-!$OMP THREADPRIVATE(rfield)
 #else
    REAL , DIMENSION( its-1:ite+1 , kts:kte, jts-1:jte+1  ) :: rfield
 #endif
@@ -403,7 +402,6 @@ CONTAINS
    INTEGER :: i,j,k, i_start, i_end, j_start, j_end
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: rscalar
-!$OMP THREADPRIVATE(rscalar)
 #else
    REAL , DIMENSION( ims:ime , kms:kme, jms:jme  ) :: rscalar
 #endif

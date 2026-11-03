@@ -93,7 +93,6 @@
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:), ALLOCATABLE, SAVE :: mm, zzavg, zeta_zd12
-!$OMP THREADPRIVATE(mm, zzavg, zeta_zd12)
 #else
     REAL, DIMENSION( its:ite, jts:jte )  &
     :: mm, zzavg, zeta_zd12
@@ -101,7 +100,6 @@
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: tmp1, hat, hatavg
-!$OMP THREADPRIVATE(tmp1, hat, hatavg)
 #else
     REAL, DIMENSION( its-2:ite+2, kts:kte, jts-2:jte+2 )  &
     :: tmp1, hat, hatavg
@@ -1502,7 +1500,6 @@ SUBROUTINE cal_dampkm( config_flags,xkmh,xkhh,xkmv,xkhv,                       &
    REAL ,     DIMENSION( its:ite )                                ::   deltaz
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: dampk, dampkv
-!$OMP THREADPRIVATE(dampk, dampkv)
 #else
    REAL , DIMENSION( its:ite, kts:kte, jts:jte)                   ::   dampk,dampkv
 #endif
@@ -1667,7 +1664,6 @@ END SUBROUTINE cal_dampkm
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:), ALLOCATABLE, SAVE :: tmp1sfc, tmp1top
-!$OMP THREADPRIVATE(tmp1sfc, tmp1top)
 #else
     REAL, DIMENSION( its:ite, jts:jte )  &
     :: tmp1sfc, tmp1top
@@ -1675,7 +1671,6 @@ END SUBROUTINE cal_dampkm
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: tmp1, qvs, qctmp
-!$OMP THREADPRIVATE(tmp1, qvs, qctmp)
 #else
     REAL, DIMENSION( its:ite, kts:kte, jts:jte )  &
     :: tmp1, qvs, qctmp
@@ -2002,7 +1997,6 @@ SUBROUTINE smag_km( config_flags,xkmh,xkmv,xkhh,xkhv,BN2,                      &
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: def2
-!$OMP THREADPRIVATE(def2)
 #else
    REAL, DIMENSION( its:ite , kts:kte , jts:jte )                 ::     def2
 #endif
@@ -2171,7 +2165,6 @@ SUBROUTINE smag2d_km( config_flags,xkmh,xkmv,xkhh,xkhv,                        &
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: def2
-!$OMP THREADPRIVATE(def2)
 #else
    REAL, DIMENSION( its:ite , kts:kte , jts:jte )                 ::     def2
 #endif
@@ -2325,7 +2318,6 @@ END SUBROUTINE smag2d_km
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: l_scale
-!$OMP THREADPRIVATE(l_scale)
 #else
     REAL, DIMENSION( its:ite, kts:kte, jts:jte )  &  
     :: l_scale
@@ -2333,7 +2325,6 @@ END SUBROUTINE smag2d_km
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: dthrdn
-!$OMP THREADPRIVATE(dthrdn)
 #else
     REAL, DIMENSION( its:ite, kts:kte, jts:jte )  &
     :: dthrdn
@@ -2354,13 +2345,11 @@ END SUBROUTINE smag2d_km
     REAL            :: dxm, dym, tmpzx, tmpzy, alpha, def_limit, c_s, xkmh_t, xkhh_t 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: def2
-!$OMP THREADPRIVATE(def2)
 #else
     REAL, DIMENSION( its:ite , kts:kte , jts:jte )   ::  def2
 #endif
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: xkmh_s, xkhh_s
-!$OMP THREADPRIVATE(xkmh_s, xkhh_s)
 #else
     REAL, DIMENSION( its:ite , kts:kte , jts:jte )   ::  xkmh_s, xkhh_s
 #endif
@@ -2717,25 +2706,21 @@ END SUBROUTINE smag2d_km
 !Local variables.
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: zfull, za
-!$OMP THREADPRIVATE(zfull, za)
 #else
    REAL, DIMENSION( its:ite, kts:kte, jts:jte )  :: zfull,za
 #endif
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: elb, qtke, els, elf
-!$OMP THREADPRIVATE(elb, qtke, els, elf)
 #else
    REAL, DIMENSION( its:ite, kts:kte, jts:jte )  :: elb,qtke,els,elf
 #endif
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:), ALLOCATABLE, SAVE :: sflux, elt, vsc
-!$OMP THREADPRIVATE(sflux, elt, vsc)
 #else
    REAL, DIMENSION( its:ite,          jts:jte )  :: sflux,elt,vsc
 #endif
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: dthrdn
-!$OMP THREADPRIVATE(dthrdn)
 #else
    REAL, DIMENSION( its:ite, kts:kte, jts:jte )  :: dthrdn
 #endif
@@ -3066,14 +3051,12 @@ END SUBROUTINE smag2d_km
 !Local variables
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: zfull, za
-!$OMP THREADPRIVATE(zfull, za)
 #else
     REAL, DIMENSION( its:ite, kts:kte, jts:jte )  :: zfull,za
 #endif
  
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: dlg, dlu, dld
-!$OMP THREADPRIVATE(dlg, dlu, dld)
 #else
     REAL, DIMENSION( its:ite, kts:kte, jts:jte )  :: dlg,dlu,dld
 #endif
@@ -3566,7 +3549,6 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: titau1avg, titau2avg, titau1, titau2, xkxavg, rravg, zy_at_u, zx_at_u
-!$OMP THREADPRIVATE(titau1avg, titau2avg, titau1, titau2, xkxavg, rravg, zy_at_u, zx_at_u)
 #else
    REAL , DIMENSION( its-1:ite+1, kts:kte, jts-1:jte+1)    :: titau1avg, &
                                                               titau2avg, &
@@ -3815,7 +3797,6 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: titau1avg, titau2avg, titau1, titau2, xkxavg, rravg, zy_at_v, zx_at_v
-!$OMP THREADPRIVATE(titau1avg, titau2avg, titau1, titau2, xkxavg, rravg, zy_at_v, zx_at_v)
 #else
    REAL , DIMENSION( its-1:ite+1, kts:kte, jts-1:jte+1)    :: titau1avg, &
                                                               titau2avg, &
@@ -4055,7 +4036,6 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: titau1avg, titau2avg, titau1, titau2, xkxavg, rravg, zx_at_w, zy_at_w
-!$OMP THREADPRIVATE(titau1avg, titau2avg, titau1, titau2, xkxavg, rravg, zx_at_w, zy_at_w)
 #else
    REAL , DIMENSION( its-1:ite+1, kts:kte, jts-1:jte+1)    :: titau1avg, &
                                                               titau2avg, &
@@ -4294,7 +4274,6 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: H1avg, H2avg, H1, H2, xkxavg, zx_at_m, zy_at_m
-!$OMP THREADPRIVATE(H1avg, H2avg, H1, H2, xkxavg, zx_at_m, zy_at_m)
 #else
    REAL , DIMENSION( its-1:ite+1, kts:kte, jts-1:jte+1)    ::     H1avg, &
                                                                   H2avg, &
@@ -4307,7 +4286,6 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: tmptendf
-!$OMP THREADPRIVATE(tmptendf)
 #else
    REAL , DIMENSION( its:ite, kts:kte, jts:jte)            ::  tmptendf
 #endif
@@ -4686,7 +4664,6 @@ SUBROUTINE vertical_diffusion_2   ( ru_tendf, rv_tendf, rw_tendf, rt_tendf,   &
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: var_mix
-!$OMP THREADPRIVATE(var_mix)
 #else
    REAL , DIMENSION( ims:ime, kms:kme, jms:jme)  ::    var_mix
 #endif
@@ -5112,14 +5089,12 @@ SUBROUTINE vertical_diffusion_u_2( tendency, config_flags,                &
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: titau3
-!$OMP THREADPRIVATE(titau3)
 #else
    REAL , DIMENSION( its-1:ite+1, kts:kte, jts-1:jte+1)        :: titau3
 #endif
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:), ALLOCATABLE, SAVE :: zzavg
-!$OMP THREADPRIVATE(zzavg)
 #else
    REAL , DIMENSION( its:ite, jts:jte)                         ::  zzavg
 #endif
@@ -5247,14 +5222,12 @@ SUBROUTINE vertical_diffusion_v_2( tendency, config_flags,                &
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: titau3
-!$OMP THREADPRIVATE(titau3)
 #else
    REAL , DIMENSION( its-1:ite+1, kts:kte, jts-1:jte+1)        :: titau3
 #endif
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:), ALLOCATABLE, SAVE :: zzavg
-!$OMP THREADPRIVATE(zzavg)
 #else
    REAL , DIMENSION( its:ite, jts:jte)                         ::  zzavg
 #endif
@@ -5385,7 +5358,6 @@ SUBROUTINE vertical_diffusion_w_2(tendency, config_flags,                 &
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: titau3
-!$OMP THREADPRIVATE(titau3)
 #else
    REAL , DIMENSION( its-1:ite+1, kts:kte, jts-1:jte+1)        :: titau3
 #endif
@@ -5495,7 +5467,6 @@ SUBROUTINE vertical_diffusion_s( tendency, config_flags, var, xkhv,       &
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: H3, xkxavg, rravg
-!$OMP THREADPRIVATE(H3, xkxavg, rravg)
 #else
    REAL , DIMENSION( its:ite, kts:kte, jts:jte)            ::        H3, &
                                                                  xkxavg, &
@@ -5504,7 +5475,6 @@ SUBROUTINE vertical_diffusion_s( tendency, config_flags, var, xkhv,       &
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: tmptendf
-!$OMP THREADPRIVATE(tmptendf)
 #else
    REAL , DIMENSION( its:ite, kts:kte, jts:jte)            ::  tmptendf
 #endif
@@ -5666,55 +5636,46 @@ END SUBROUTINE vertical_diffusion_s
 ! Local variables.
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: zq
-!$OMP THREADPRIVATE(zq)
 #else
   REAL, DIMENSION( its:ite, kts:kte,   jts:jte ) :: zq
 #endif
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: za, thv
-!$OMP THREADPRIVATE(za, thv)
 #else
   REAL, DIMENSION( its:ite, kts:kte-1, jts:jte ) :: za,thv
 #endif
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: zfacmf, entfacmf
-!$OMP THREADPRIVATE(zfacmf, entfacmf)
 #else
   REAL, DIMENSION( its:ite, kts:kte,   jts:jte ) :: zfacmf,entfacmf
 #endif
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:), ALLOCATABLE, SAVE :: govrth, sflux, wstar3, wstar, rigs
-!$OMP THREADPRIVATE(govrth, sflux, wstar3, wstar, rigs)
 #else
   REAL, DIMENSION( its:ite, jts:jte )            :: govrth,sflux,wstar3,wstar,rigs
 #endif
 #ifdef WRF_GPU
    LOGICAL, DIMENSION(:,:), ALLOCATABLE, SAVE :: pblflg, sfcflg, stable
-!$OMP THREADPRIVATE(pblflg, sfcflg, stable)
 #else
   LOGICAL, DIMENSION( its:ite,jts:jte )          :: pblflg, sfcflg, stable
 #endif
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:), ALLOCATABLE, SAVE :: deltaoh, we, enlfrac2
-!$OMP THREADPRIVATE(deltaoh, we, enlfrac2)
 #else
   REAL, DIMENSION( its:ite, jts:jte )            :: deltaoh,we,enlfrac2
 #endif
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:), ALLOCATABLE, SAVE :: hfxpbl, bfxpbl
-!$OMP THREADPRIVATE(hfxpbl, bfxpbl)
 #else
   REAL, DIMENSION( its:ite, jts:jte )            :: hfxpbl,bfxpbl
 #endif
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:), ALLOCATABLE, SAVE :: dthv, wm2
-!$OMP THREADPRIVATE(dthv, wm2)
 #else
   REAL, DIMENSION( its:ite, jts:jte )            :: dthv,wm2
 #endif
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:), ALLOCATABLE, SAVE :: wscale, thermal
-!$OMP THREADPRIVATE(wscale, thermal)
 #else
   REAL, DIMENSION( its:ite, jts:jte )            :: wscale,thermal
 #endif
@@ -6366,7 +6327,6 @@ END SUBROUTINE nonlocal_flux
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: xkxavg, rhoavg
-!$OMP THREADPRIVATE(xkxavg, rhoavg)
 #else
     REAL, DIMENSION( its-1:ite+1, kts:kte, jts-1:jte+1 )  &
     :: xkxavg, rhoavg
@@ -6532,7 +6492,6 @@ END SUBROUTINE nonlocal_flux
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: xkxavg, rhoavg
-!$OMP THREADPRIVATE(xkxavg, rhoavg)
 #else
     REAL, DIMENSION( its-1:ite+1, kts:kte, jts-1:jte+1 )  &
     :: xkxavg, rhoavg
@@ -6704,7 +6663,6 @@ END SUBROUTINE nonlocal_flux
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: xkxavg, rhoavg
-!$OMP THREADPRIVATE(xkxavg, rhoavg)
 #else
     REAL, DIMENSION( its-1:ite+1, kts:kte, jts-1:jte+1 )  &
     :: xkxavg, rhoavg
@@ -7377,7 +7335,6 @@ END SUBROUTINE phy_bc
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: dthrdn
-!$OMP THREADPRIVATE(dthrdn)
 #else
     REAL, DIMENSION( its:ite, kts:kte, jts:jte )  &
     :: dthrdn
@@ -7385,7 +7342,6 @@ END SUBROUTINE phy_bc
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: l_scale
-!$OMP THREADPRIVATE(l_scale)
 #else
     REAL, DIMENSION( its:ite, kts:kte, jts:jte )  &
     :: l_scale
@@ -7393,7 +7349,6 @@ END SUBROUTINE phy_bc
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:), ALLOCATABLE, SAVE :: sumtke, sumtkez
-!$OMP THREADPRIVATE(sumtke, sumtkez)
 #else
     REAL, DIMENSION( its:ite )  &
     :: sumtke,  sumtkez
@@ -7592,7 +7547,6 @@ END SUBROUTINE phy_bc
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: avg, titau, tmp2
-!$OMP THREADPRIVATE(avg, titau, tmp2)
 #else
     REAL, DIMENSION( its-1:ite+1, kts:kte, jts-1:jte+1 )  &
     :: avg, titau, tmp2
@@ -7600,7 +7554,6 @@ END SUBROUTINE phy_bc
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: titau12, tmp1, zxavg, zyavg
-!$OMP THREADPRIVATE(titau12, tmp1, zxavg, zyavg)
 #else
     REAL, DIMENSION( its:ite, kts:kte, jts:jte )  &
     :: titau12, tmp1, zxavg, zyavg
@@ -7943,7 +7896,6 @@ END SUBROUTINE phy_bc
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: z_at_w
-!$OMP THREADPRIVATE(z_at_w)
 #else
     REAL, DIMENSION( its-1:ite, kts:kte, jts-1:jte )  &
     :: z_at_w
@@ -8258,14 +8210,12 @@ END SUBROUTINE phy_bc
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:), ALLOCATABLE, SAVE :: mm
-!$OMP THREADPRIVATE(mm)
 #else
     REAL, DIMENSION( its-3:ite+2, jts-3:jte+2 )  :: mm
 #endif
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: tmp1, hat, hatavg
-!$OMP THREADPRIVATE(tmp1, hat, hatavg)
 #else
     REAL, DIMENSION( its-3:ite+2, kts:kte, jts-3:jte+2 )  &
     :: tmp1, hat, hatavg
@@ -8273,7 +8223,6 @@ END SUBROUTINE phy_bc
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: wavg, rvort
-!$OMP THREADPRIVATE(wavg, rvort)
 #else
     REAL, DIMENSION( its-3:ite+2, kts:kte, jts-3:jte+2 )  &
     :: wavg, rvort
@@ -8281,7 +8230,6 @@ END SUBROUTINE phy_bc
 
 #ifdef WRF_GPU
    LOGICAL, DIMENSION(:,:), ALLOCATABLE, SAVE :: use_column
-!$OMP THREADPRIVATE(use_column)
 #else
     LOGICAL, DIMENSION( its-3:ite+2, jts-3:jte+2 )  &
     :: use_column
@@ -8877,21 +8825,18 @@ END SUBROUTINE phy_bc
 ! LOCAL VAR
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: var_mix
-!$OMP THREADPRIVATE(var_mix)
 #else
    REAL , DIMENSION( ims:ime, kms:kme, jms:jme)           :: var_mix
 #endif
  
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: xkxavg_m, xkxavg_s
-!$OMP THREADPRIVATE(xkxavg_m, xkxavg_s)
 #else
    REAL, DIMENSION( its-1:ite+1, kts:kte, jts-1:jte+1 ):: xkxavg_m, &
                                                           xkxavg_s
 #endif
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: xkxavg, xkxavg_w, rhoavg, nlflux_rho
-!$OMP THREADPRIVATE(xkxavg, xkxavg_w, rhoavg, nlflux_rho)
 #else
    REAL, DIMENSION( its:ite, kts:kte, jts:jte)         :: xkxavg,   &
                                                           xkxavg_w, &
@@ -8900,37 +8845,31 @@ END SUBROUTINE phy_bc
 #endif
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:), ALLOCATABLE, SAVE :: gamvavg, gamuavg
-!$OMP THREADPRIVATE(gamvavg, gamuavg)
 #else
    REAL, DIMENSION( its-1:ite+1, jts-1:jte+1 )         :: gamvavg, gamuavg
 #endif
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:), ALLOCATABLE, SAVE :: tao_xz, tao_yz
-!$OMP THREADPRIVATE(tao_xz, tao_yz)
 #else
    REAL, DIMENSION( its-1:ite+1, jts-1:jte+1 )         :: tao_xz, tao_yz
 #endif
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: muavg_u, muavg_v
-!$OMP THREADPRIVATE(muavg_u, muavg_v)
 #else
    REAL, DIMENSION( its-1:ite+1, kts:kte, jts-1:jte+1 ):: muavg_u,muavg_v
 #endif
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: rdz_u, rdz_v
-!$OMP THREADPRIVATE(rdz_u, rdz_v)
 #else
    REAL, DIMENSION( its-1:ite+1, kts:kte, jts-1:jte+1 ):: rdz_u, rdz_v
 #endif
 #ifdef WRF_GPU
    REAL, DIMENSION(:), ALLOCATABLE, SAVE :: a, b, c, d
-!$OMP THREADPRIVATE(a, b, c, d)
 #else
    REAL, DIMENSION(kts:kte) :: a, b, c, d
 #endif
 #ifdef WRF_GPU
    REAL, DIMENSION(:), ALLOCATABLE, SAVE :: a1, b1, c1, d1
-!$OMP THREADPRIVATE(a1, b1, c1, d1)
 #else
    REAL, DIMENSION(kts:kte-1) :: a1, b1, c1, d1
 #endif

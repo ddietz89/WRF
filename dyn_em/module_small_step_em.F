@@ -1350,7 +1350,6 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
 #ifdef WRF_GPU
    REAL, DIMENSION( its:ite ) :: msft_inv
    REAL, DIMENSION(:), ALLOCATABLE, SAVE :: mut_inv
-!$OMP THREADPRIVATE(mut_inv)
 #else
       REAL, DIMENSION( its:ite ) :: mut_inv, msft_inv
 #endif
@@ -1358,7 +1357,6 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
       INTEGER :: i,j,k, i_start, i_end, j_start, j_end, k_start, k_end
 #ifdef WRF_GPU
    REAL, DIMENSION(:), ALLOCATABLE, SAVE :: dampwt
-!$OMP THREADPRIVATE(dampwt)
 #else
       REAL, DIMENSION (kts:kte) :: dampwt
 #endif

@@ -190,7 +190,6 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
    REAL,  DIMENSION( its-1:ite+1, kts:kte ) :: fqx
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: fqy
-!$OMP THREADPRIVATE(fqy)
 #else
    REAL,  DIMENSION( its:ite, kts:kte, 2) :: fqy
 #endif
@@ -1720,7 +1719,6 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
    REAL,  DIMENSION( its:ite+1, kts:kte ) :: fqx
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: fqy
-!$OMP THREADPRIVATE(fqy)
 #else
    REAL,  DIMENSION( its:ite, kts:kte, 2 ) :: fqy
 #endif
@@ -3347,7 +3345,6 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
    REAL,  DIMENSION( its:ite+1, kts:kte  ) :: fqx
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: fqy
-!$OMP THREADPRIVATE(fqy)
 #else
    REAL,  DIMENSION( its:ite, kts:kte, 2 ) :: fqy
 #endif
@@ -4811,7 +4808,6 @@ SUBROUTINE advect_w    ( w, w_old, tendency,            &
    REAL,  DIMENSION( its:ite+1, kts:kte ) :: fqx
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: fqy
-!$OMP THREADPRIVATE(fqy)
 #else
    REAL,  DIMENSION( its:ite, kts:kte, 2 ) :: fqy
 #endif
@@ -6690,14 +6686,12 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: fqx, fqy, fqz
-!$OMP THREADPRIVATE(fqx, fqy, fqz)
 #else
    REAL,  DIMENSION( its-1:ite+2, kts:kte, jts-1:jte+2  ) :: fqx, fqy, fqz
 #endif
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: fqxl, fqyl, fqzl
-!$OMP THREADPRIVATE(fqxl, fqyl, fqzl)
 #else
    REAL,  DIMENSION( its-1:ite+2, kts:kte, jts-1:jte+2  ) :: fqxl, fqyl, fqzl
 #endif
@@ -6711,7 +6705,6 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: flux_out, ph_low
-!$OMP THREADPRIVATE(flux_out, ph_low)
 #else
    REAL,DIMENSION( its-1:ite+2, kts:kte, jts-1:jte+2  ) :: flux_out, ph_low
 #endif
@@ -9331,13 +9324,11 @@ SUBROUTINE advect_scalar_wenopd ( field, field_old, tendency,    &
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: fqx, fqy, fqz
-!$OMP THREADPRIVATE(fqx, fqy, fqz)
 #else
    REAL,  DIMENSION( its-1:ite+2, kts:kte, jts-1:jte+2  ) :: fqx, fqy, fqz
 #endif
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: fqxl, fqyl, fqzl
-!$OMP THREADPRIVATE(fqxl, fqyl, fqzl)
 #else
    REAL,  DIMENSION( its-1:ite+2, kts:kte, jts-1:jte+2  ) :: fqxl, fqyl, fqzl
 #endif
@@ -9351,7 +9342,6 @@ SUBROUTINE advect_scalar_wenopd ( field, field_old, tendency,    &
    
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: flux_out, ph_low
-!$OMP THREADPRIVATE(flux_out, ph_low)
 #else
    REAL,DIMENSION( its-1:ite+2, kts:kte, jts-1:jte+2  ) :: flux_out, ph_low
 #endif
@@ -10301,7 +10291,6 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
    REAL    :: mrdx, mrdy, ub, vb, uw, vw, mu, ieva_corr
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:), ALLOCATABLE, SAVE :: vflux
-!$OMP THREADPRIVATE(vflux)
 #else
    REAL , DIMENSION(its:ite, kts:kte) :: vflux
 #endif
@@ -10311,25 +10300,21 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: fqx, fqy, fqz
-!$OMP THREADPRIVATE(fqx, fqy, fqz)
 #else
    REAL,  DIMENSION( its-2:ite+2, kts:kte, jts-2:jte+2  ) :: fqx, fqy, fqz
 #endif
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: fqxl, fqyl, fqzl
-!$OMP THREADPRIVATE(fqxl, fqyl, fqzl)
 #else
    REAL,  DIMENSION( its-2:ite+2, kts:kte, jts-2:jte+2  ) :: fqxl, fqyl, fqzl
 #endif
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: qmin, qmax
-!$OMP THREADPRIVATE(qmin, qmax)
 #else
    REAL,  DIMENSION( its-2:ite+2, kts:kte, jts-2:jte+2  ) :: qmin, qmax
 #endif
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: scale_in, scale_out
-!$OMP THREADPRIVATE(scale_in, scale_out)
 #else
    REAL,  DIMENSION( its-2:ite+2, kts:kte, jts-2:jte+2  ) :: scale_in, scale_out
 #endif
