@@ -1,5 +1,29 @@
 !WRF:MEDIATION_LAYER:SOLVER
 
+#ifdef WRF_SEG_TIMERS
+! Per-segment wall clock (step 1 of the GPU decision plan): 1 dynamics, 2 physics (first_rk_step_part1/2),
+! 3 post-RK microphysics block, 4 after_all_rk_steps, 0 outside solve_em (I/O, boundary input).
+! Cumulative seconds are printed to stderr (rsl.error.*) every 20 solve_em calls.
+MODULE wrf_seg_timers
+   IMPLICIT NONE
+   INTEGER(8), SAVE :: t_last = -1, rate = 1
+   REAL(8), SAVE :: acc(0:4) = 0.d0
+   INTEGER, SAVE :: cur = 0, ncalls = 0
+CONTAINS
+   SUBROUTINE seg_mark( id )
+      INTEGER, INTENT(IN) :: id
+      INTEGER(8) :: t
+      CALL SYSTEM_CLOCK( t, rate )
+      IF ( t_last >= 0 ) acc(cur) = acc(cur) + DBLE(t - t_last) / DBLE(rate)
+      t_last = t ; cur = id
+      IF ( id == 0 ) THEN
+         ncalls = ncalls + 1
+         IF ( MOD(ncalls, 20) == 0 ) WRITE(0,'(A,I6,A,5F11.3)') 'SEGTIME calls', ncalls, &
+            ' out/dyn/phys/mp/diag', acc(0), acc(1), acc(2), acc(3), acc(4)
+      ENDIF
+   END SUBROUTINE seg_mark
+END MODULE wrf_seg_timers
+#endif
 SUBROUTINE solve_em ( grid , config_flags  &
 ! Arguments generated from Registry
 #include "dummy_new_args.inc"
@@ -75,6 +99,9 @@ SUBROUTINE solve_em ( grid , config_flags  &
    USE module_first_rk_step_part1
    USE module_first_rk_step_part2
    USE module_after_all_rk_steps
+#ifdef WRF_SEG_TIMERS
+   USE wrf_seg_timers
+#endif
 #ifdef WRF_GPU
    USE module_wrf_error, ONLY : wrf_gpu_on
 #endif
@@ -336,6 +363,9 @@ SUBROUTINE solve_em ( grid , config_flags  &
 
 !  Compute these starting and stopping locations for each tile and number of tiles.
 !  See: https://www2.mmm.ucar.edu/wrf/WG2/topics/settiles
+#ifdef WRF_SEG_TIMERS
+   CALL seg_mark( 1 )
+#endif
 #ifdef WRF_GPU
 #  include "i1_alloc_gpu.inc"
 #endif
@@ -863,6 +893,9 @@ BENCH_START(calc_p_rho_tim)
 #  include "gpu_pf_host_pre_phys.inc"
    ENDIF
 #endif
+#ifdef WRF_SEG_TIMERS
+   CALL seg_mark( 2 )
+#endif
 #ifdef WRF_GPU
        wrf_gpu_on = .FALSE. ; CALL rsl_set_gpu_on( .FALSE. )
 #endif
@@ -938,6 +971,9 @@ BENCH_START(calc_p_rho_tim)
 #endif
 #ifdef WRF_GPU
        wrf_gpu_on = .TRUE. ; CALL rsl_set_gpu_on( .TRUE. )
+#endif
+#ifdef WRF_SEG_TIMERS
+   CALL seg_mark( 1 )
 #endif
 #ifdef WRF_GPU_RESIDENT
 #      include "gpu_upd_dev_post_phys.inc"
@@ -3738,6 +3774,9 @@ BENCH_END(bc_end_tim)
 #  include "gpu_pf_host_pre_mp.inc"
    ENDIF
 #endif
+#ifdef WRF_SEG_TIMERS
+   CALL seg_mark( 3 )
+#endif
 #ifdef WRF_GPU
    wrf_gpu_on = .FALSE. ; CALL rsl_set_gpu_on( .FALSE. )
 #endif
@@ -4367,6 +4406,9 @@ BENCH_START(moist_phys_end_tim)
 #endif
 #ifdef WRF_GPU
         wrf_gpu_on = .TRUE. ; CALL rsl_set_gpu_on( .TRUE. )
+#endif
+#ifdef WRF_SEG_TIMERS
+   CALL seg_mark( 1 )
 #endif
 #ifdef WRF_GPU_RESIDENT
 #       include "gpu_upd_dev_post_mp.inc"
@@ -5062,6 +5104,9 @@ BENCH_END(bc_2d_tim)
 #  include "gpu_pf_host_pre_phys.inc"
    ENDIF
 #endif
+#ifdef WRF_SEG_TIMERS
+   CALL seg_mark( 4 )
+#endif
 #ifdef WRF_GPU
   wrf_gpu_on = .FALSE. ; CALL rsl_set_gpu_on( .FALSE. )
 #endif
@@ -5084,6 +5129,9 @@ BENCH_END(bc_2d_tim)
 #endif
 #ifdef WRF_GPU
   wrf_gpu_on = .TRUE. ; CALL rsl_set_gpu_on( .TRUE. )
+#endif
+#ifdef WRF_SEG_TIMERS
+   CALL seg_mark( 1 )
 #endif
 #ifdef WRF_GPU_RESIDENT
 #endif
@@ -5320,6 +5368,9 @@ BENCH_END(bc_2d_tim)
 
 #ifdef WRF_GPU_FIELDTRACE
        CALL gpu_field_trace( grid, 'd_end_step' )
+#endif
+#ifdef WRF_SEG_TIMERS
+   CALL seg_mark( 0 )
 #endif
    RETURN
 
