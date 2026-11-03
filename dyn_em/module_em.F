@@ -1722,13 +1722,16 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
        ENDDO
        ENDDO
    
+!$acc parallel loop gang private(munew,muold) if(wrf_gpu_on)
       DO  j = jts, min(jte,jde-1)
 
+!$acc loop vector
       DO  i = its, min(ite,ide-1)
         MUOLD(i) = MU_OLD(i,j) + MU_BASE(i,j)
         MUNEW(i) = MU_NEW(i,j) + MU_BASE(i,j)
       ENDDO
 
+!$acc loop vector collapse(2)
       DO  k = kts, min(kte,kde-1)
       DO  i = its, min(ite,ide-1)
 
@@ -1776,13 +1779,16 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
        ENDDO
        ENDDO
 
+!$acc parallel loop gang private(munew,muold) if(wrf_gpu_on)
       DO  j = jts, min(jte,jde-1)
 
+!$acc loop vector
       DO  i = its, min(ite,ide-1)
         MUOLD(i) = MU_OLD(i,j) + MU_BASE(i,j)
         MUNEW(i) = MU_NEW(i,j) + MU_BASE(i,j)
       ENDDO
 
+!$acc loop vector collapse(2)
       DO  k = kts, min(kte,kde-1)
       DO  i = its, min(ite,ide-1)
 
@@ -1795,6 +1801,7 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
       ! This is separated from the k/i-loop above for better performance
       IF ( PRESENT(advh_t) .AND. PRESENT(advz_t) ) THEN
         IF(tenddec.and.rk_step.eq.config_flags%rk_ord) THEN
+!$acc loop vector collapse(2)
           DO  k = kts, min(kte,kde-1)
           DO  i = its, min(ite,ide-1)
 
@@ -1913,13 +1920,16 @@ SUBROUTINE rk_update_scalar_pd( scs, sce,                      &
        ENDDO
        ENDDO
 
+!$acc parallel loop gang private(munew,muold) if(wrf_gpu_on)
       DO  j = jts, min(jte,jde-1)
 
+!$acc loop vector
       DO  i = its, min(ite,ide-1)
         MUOLD(i) = MU_OLD(i,j) + MU_BASE(i,j)
         MUNEW(i) = MU_NEW(i,j) + MU_BASE(i,j)
       ENDDO
 
+!$acc loop vector collapse(2)
       DO  k = kts, min(kte,kde-1)
       DO  i = its, min(ite,ide-1)
 
@@ -2531,7 +2541,9 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
 ! 4d couple scalar tendencies that have only uncoupled physics tendencies at this point
 
    DO im = PARAM_FIRST_SCALAR,num_scalar
+!$acc parallel loop gang if(wrf_gpu_on)
          DO J=jts,jtf
+!$acc loop vector collapse(2)
          DO K=kts,ktf
          DO I=its,itf
             scalar_tend(I,K,J,im)=(c1(k)*mut(I,J)+c2(k))*scalar_tend(I,K,J,im)
@@ -2541,7 +2553,9 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
    ENDDO
 
    DO im = PARAM_FIRST_SCALAR,num_tracer
+!$acc parallel loop gang if(wrf_gpu_on)
          DO J=jts,jtf
+!$acc loop vector collapse(2)
          DO K=kts,ktf
          DO I=its,itf
             tracer_tend(I,K,J,im)=(c1(k)*mut(I,J)+c2(k))*tracer_tend(I,K,J,im)

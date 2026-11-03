@@ -1954,10 +1954,12 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
 !  compute fluxes
 
+!$acc parallel loop gang private(fqx) if(wrf_gpu_on)
       DO j = j_start, j_end
 
 !  5th or 6th order flux
 
+!$acc loop vector collapse(2) private(vel)
         DO k=kts,ktf
         DO i = i_start_f, i_end_f
           vel = 0.5*(ru(i,k,j)+ru(i,k,j-1))
@@ -1972,9 +1974,11 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
         IF( degrade_xs ) THEN
 
+!$acc loop seq private(vel)
           DO i=i_start,i_start_f-1
 
             IF(i == ids+1) THEN ! second order
+!$acc loop vector
               DO k=kts,ktf
                 fqx(i,k) = 0.25*(ru(i,k,j)+ru(i,k,j-1)) &
                                 *(v(i,k,j)+v(i-1,k,j))
@@ -1982,6 +1986,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
             ENDIF
 
             IF(i == ids+2) THEN  ! third order
+!$acc loop vector private(vel)
               DO k=kts,ktf
                 vel = 0.5*(ru(i,k,j)+ru(i,k,j-1))
                 fqx( i,k ) = vel*flux4( v(i-2,k,j), v(i-1,k,j),  &
@@ -1996,9 +2001,11 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
         IF( degrade_xe ) THEN
 
+!$acc loop seq private(vel)
           DO i = i_end_f+1, i_end+1
 
             IF( i == ide-1 ) THEN ! second order flux next to the boundary
+!$acc loop vector
               DO k=kts,ktf
                 fqx(i,k) = 0.25*(ru(i_end+1,k,j)+ru(i_end+1,k,j-1))      &
                                 *(v(i_end+1,k,j)+v(i_end,k,j))
@@ -2006,6 +2013,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
             ENDIF
 
             IF( i == ide-2 ) THEN ! third order flux one in from the boundary
+!$acc loop vector private(vel)
               DO k=kts,ktf
                 vel = 0.5*(ru(i,k,j)+ru(i,k,j-1))
                 fqx( i,k ) = vel*flux4( v(i-2,k,j), v(i-1,k,j),  &
@@ -2020,6 +2028,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
 !  x flux-divergence into tendency
 
+!$acc loop vector collapse(2) private(mrdx)
         DO k=kts,ktf
           DO i = i_start, i_end
             mrdx=msfvy(i,j)*rdx      ! ADT eqn 45, 1st term on RHS
@@ -2232,10 +2241,12 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
 !  compute fluxes
 
+!$acc parallel loop gang private(fqx) if(wrf_gpu_on)
       DO j = j_start, j_end
 
 !  5th or 6th order flux
 
+!$acc loop vector collapse(2) private(vel)
         DO k=kts,ktf
         DO i = i_start_f, i_end_f
           vel = 0.5*(ru(i,k,j)+ru(i,k,j-1))
@@ -2250,9 +2261,11 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
         IF( degrade_xs ) THEN
 
+!$acc loop seq private(vel)
           DO i=i_start,i_start_f-1
 
             IF(i == ids+1) THEN ! second order
+!$acc loop vector
               DO k=kts,ktf
                 fqx(i,k) = 0.25*(ru(i,k,j)+ru(i,k,j-1)) &
                                 *(v(i,k,j)+v(i-1,k,j))
@@ -2260,6 +2273,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
             ENDIF
 
             IF(i == ids+2) THEN  ! third order
+!$acc loop vector private(vel)
               DO k=kts,ktf
                 vel = 0.5*(ru(i,k,j)+ru(i,k,j-1))
                 fqx( i,k ) = vel*flux3( v(i-2,k,j), v(i-1,k,j),  &
@@ -2274,9 +2288,11 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
         IF( degrade_xe ) THEN
 
+!$acc loop seq private(vel)
           DO i = i_end_f+1, i_end+1
 
             IF( i == ide-1 ) THEN ! second order flux next to the boundary
+!$acc loop vector
               DO k=kts,ktf
                 fqx(i,k) = 0.25*(ru(i_end+1,k,j)+ru(i_end+1,k,j-1))      &
                                 *(v(i_end+1,k,j)+v(i_end,k,j))
@@ -2284,6 +2300,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
             ENDIF
 
             IF( i == ide-2 ) THEN ! third order flux one in from the boundary
+!$acc loop vector private(vel)
               DO k=kts,ktf
                 vel = 0.5*(ru(i,k,j)+ru(i,k,j-1))
                 fqx( i,k ) = vel*flux3( v(i-2,k,j), v(i-1,k,j),  &
@@ -2298,6 +2315,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
 !  x flux-divergence into tendency
 
+!$acc loop vector collapse(2) private(mrdx)
         DO k=kts,ktf
           DO i = i_start, i_end
             mrdx=msfvy(i,j)*rdx      ! ADT eqn 45, 1st term on RHS
@@ -3542,10 +3560,12 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
 !  compute fluxes
 
+!$acc parallel loop gang private(fqx) if(wrf_gpu_on)
       DO j = j_start, j_end
 
 !  5th or 6th order flux
 
+!$acc loop vector collapse(2) private(vel)
         DO k=kts,ktf
         DO i = i_start_f, i_end_f
           vel = ru(i,k,j)
@@ -3560,9 +3580,11 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
         IF( degrade_xs ) THEN
 
+!$acc loop seq private(vel)
           DO i=i_start,i_start_f-1
 
             IF(i == ids+1) THEN ! second order
+!$acc loop vector
               DO k=kts,ktf
                 fqx(i,k) = 0.5*(ru(i,k,j)) &
                        *(field(i,k,j)+field(i-1,k,j))
@@ -3570,6 +3592,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
             ENDIF
 
             IF(i == ids+2) THEN  ! third order
+!$acc loop vector private(vel)
               DO k=kts,ktf
                 vel = ru(i,k,j)
                 fqx( i,k ) = vel*flux4( field(i-2,k,j), field(i-1,k,j),  &
@@ -3584,9 +3607,11 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
         IF( degrade_xe ) THEN
 
+!$acc loop seq private(vel)
           DO i = i_end_f+1, i_end+1
 
             IF( i == ide-1 ) THEN ! second order flux next to the boundary
+!$acc loop vector
               DO k=kts,ktf
                 fqx(i,k) = 0.5*(ru(i,k,j))      &
                        *(field(i,k,j)+field(i-1,k,j))
@@ -3594,6 +3619,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
            ENDIF
 
            IF( i == ide-2 ) THEN ! third order flux one in from the boundary
+!$acc loop vector private(vel)
              DO k=kts,ktf
                vel = ru(i,k,j)
                fqx( i,k ) = vel*flux4( field(i-2,k,j), field(i-1,k,j),  &
@@ -3608,6 +3634,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
 !  x flux-divergence into tendency
 
+!$acc loop vector collapse(2) private(mrdx)
           DO k=kts,ktf
           DO i = i_start, i_end
             mrdx=msftx(i,j)*rdx      ! see ADT eqn 48 [rho->rho*q] dividing by my, 1st term RHS
@@ -3808,10 +3835,12 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
 !  compute fluxes
 
+!$acc parallel loop gang private(fqx) if(wrf_gpu_on)
       DO j = j_start, j_end
 
 !  5th or 6th order flux
 
+!$acc loop vector collapse(2) private(vel)
         DO k=kts,ktf
         DO i = i_start_f, i_end_f
           vel = ru(i,k,j)
@@ -3826,9 +3855,11 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
         IF( degrade_xs ) THEN
 
+!$acc loop seq private(vel)
           DO i=i_start,i_start_f-1
 
             IF(i == ids+1) THEN ! second order
+!$acc loop vector
               DO k=kts,ktf
                 fqx(i,k) = 0.5*(ru(i,k,j)) &
                        *(field(i,k,j)+field(i-1,k,j))
@@ -3836,6 +3867,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
             ENDIF
 
             IF(i == ids+2) THEN  ! third order
+!$acc loop vector private(vel)
               DO k=kts,ktf
                 vel = ru(i,k,j)
                 fqx( i,k ) = vel*flux3( field(i-2,k,j), field(i-1,k,j),  &
@@ -3850,9 +3882,11 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
         IF( degrade_xe ) THEN
 
+!$acc loop seq private(vel)
           DO i = i_end_f+1, i_end+1
 
             IF( i == ide-1 ) THEN ! second order flux next to the boundary
+!$acc loop vector
               DO k=kts,ktf
                 fqx(i,k) = 0.5*(ru(i,k,j))      &
                        *(field(i,k,j)+field(i-1,k,j))
@@ -3860,6 +3894,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
            ENDIF
 
            IF( i == ide-2 ) THEN ! third order flux one in from the boundary
+!$acc loop vector private(vel)
              DO k=kts,ktf
                vel = ru(i,k,j)
                fqx( i,k ) = vel*flux3( field(i-2,k,j), field(i-1,k,j),  &
@@ -3874,6 +3909,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
 !  x flux-divergence into tendency
 
+!$acc loop vector collapse(2) private(mrdx)
           DO k=kts,ktf
           DO i = i_start, i_end
             mrdx=msftx(i,j)*rdx      ! see ADT eqn 48 [rho->rho*q] dividing by my, 1st term RHS
@@ -5010,10 +5046,12 @@ SUBROUTINE advect_w    ( w, w_old, tendency,            &
 
 !  compute fluxes
 
+!$acc parallel loop gang private(fqx) if(wrf_gpu_on)
       DO j = j_start, j_end
 
 !  5th or 6th order flux
 
+!$acc loop vector collapse(2) private(vel)
         DO k=kts+1,ktf
         DO i = i_start_f, i_end_f
           vel = fzm(k)*ru(i,k,j)+fzp(k)*ru(i,k-1,j)
@@ -5025,6 +5063,7 @@ SUBROUTINE advect_w    ( w, w_old, tendency,            &
         ENDDO
 
         k = ktf+1
+!$acc loop vector private(vel)
         DO i = i_start_f, i_end_f
           vel = (2.-fzm(k-1))*ru(i,k-1,j)-fzp(k-1)*ru(i,k-2,j)
           fqx( i,k ) = vel*flux6( w(i-3,k,j), w(i-2,k,j),  &
@@ -5037,9 +5076,11 @@ SUBROUTINE advect_w    ( w, w_old, tendency,            &
 
         IF( degrade_xs ) THEN
 
+!$acc loop seq private(vel)
           DO i=i_start,i_start_f-1
 
             IF(i == ids+1) THEN ! second order
+!$acc loop vector
               DO k=kts+1,ktf
                 fqx(i,k) = 0.5*(fzm(k)*ru(i,k,j)+fzp(k)*ru(i,k-1,j)) &
                                 *(w(i,k,j)+w(i-1,k,j))
@@ -5050,6 +5091,7 @@ SUBROUTINE advect_w    ( w, w_old, tendency,            &
             ENDIF
 
             IF(i == ids+2) THEN  ! third order
+!$acc loop vector private(vel)
               DO k=kts+1,ktf
                 vel = fzm(k)*ru(i,k,j)+fzp(k)*ru(i,k-1,j)
                 fqx( i,k ) = vel*flux4( w(i-2,k,j), w(i-1,k,j),  &
@@ -5069,9 +5111,11 @@ SUBROUTINE advect_w    ( w, w_old, tendency,            &
 
         IF( degrade_xe ) THEN
 
+!$acc loop seq private(vel)
           DO i = i_end_f+1, i_end+1
 
             IF( i == ide-1 ) THEN ! second order flux next to the boundary
+!$acc loop vector
               DO k=kts+1,ktf
                 fqx(i,k) = 0.5*(fzm(k)*ru(i,k,j)+fzp(k)*ru(i,k-1,j))      &
                                   *(w(i,k,j)+w(i-1,k,j))
@@ -5082,6 +5126,7 @@ SUBROUTINE advect_w    ( w, w_old, tendency,            &
             ENDIF
 
             IF( i == ide-2 ) THEN ! third order flux one in from the boundary
+!$acc loop vector private(vel)
               DO k=kts+1,ktf
                 vel = fzm(k)*ru(i,k,j)+fzp(k)*ru(i,k-1,j)
                 fqx( i,k ) = vel*flux4( w(i-2,k,j), w(i-1,k,j),  &
@@ -5101,6 +5146,7 @@ SUBROUTINE advect_w    ( w, w_old, tendency,            &
 
 !  x flux-divergence into tendency
 
+!$acc loop vector collapse(2) private(mrdx)
         DO k=kts+1,ktf+1
           DO i = i_start, i_end
             mrdx=msftx(i,j)*rdx      ! see ADT eqn 46 dividing by my, 1st term RHS
@@ -5338,10 +5384,12 @@ ELSE IF (horz_order == 5 ) THEN
 
 !  compute fluxes
 
+!$acc parallel loop gang private(fqx) if(wrf_gpu_on)
       DO j = j_start, j_end
 
 !  5th or 6th order flux
 
+!$acc loop vector collapse(2) private(vel)
         DO k=kts+1,ktf
         DO i = i_start_f, i_end_f
           vel = fzm(k)*ru(i,k,j)+fzp(k)*ru(i,k-1,j)
@@ -5353,6 +5401,7 @@ ELSE IF (horz_order == 5 ) THEN
         ENDDO
 
         k = ktf+1
+!$acc loop vector private(vel)
         DO i = i_start_f, i_end_f
           vel = (2.-fzm(k-1))*ru(i,k-1,j)-fzp(k-1)*ru(i,k-2,j)
           fqx( i,k ) = vel*flux5( w(i-3,k,j), w(i-2,k,j),  &
@@ -5365,9 +5414,11 @@ ELSE IF (horz_order == 5 ) THEN
 
         IF( degrade_xs ) THEN
 
+!$acc loop seq private(vel)
           DO i=i_start,i_start_f-1
 
             IF(i == ids+1) THEN ! second order
+!$acc loop vector
               DO k=kts+1,ktf
                 fqx(i,k) = 0.5*(fzm(k)*ru(i,k,j)+fzp(k)*ru(i,k-1,j)) &
                                 *(w(i,k,j)+w(i-1,k,j))
@@ -5378,6 +5429,7 @@ ELSE IF (horz_order == 5 ) THEN
             ENDIF
 
             IF(i == ids+2) THEN  ! third order
+!$acc loop vector private(vel)
               DO k=kts+1,ktf
                 vel = fzm(k)*ru(i,k,j)+fzp(k)*ru(i,k-1,j)
                 fqx( i,k ) = vel*flux3( w(i-2,k,j), w(i-1,k,j),  &
@@ -5397,9 +5449,11 @@ ELSE IF (horz_order == 5 ) THEN
 
         IF( degrade_xe ) THEN
 
+!$acc loop seq private(vel)
           DO i = i_end_f+1, i_end+1
 
             IF( i == ide-1 ) THEN ! second order flux next to the boundary
+!$acc loop vector
               DO k=kts+1,ktf
                 fqx(i,k) = 0.5*(fzm(k)*ru(i,k,j)+fzp(k)*ru(i,k-1,j))      &
                                   *(w(i,k,j)+w(i-1,k,j))
@@ -5410,6 +5464,7 @@ ELSE IF (horz_order == 5 ) THEN
             ENDIF
 
             IF( i == ide-2 ) THEN ! third order flux one in from the boundary
+!$acc loop vector private(vel)
               DO k=kts+1,ktf
                 vel = fzm(k)*ru(i,k,j)+fzp(k)*ru(i,k-1,j)
                 fqx( i,k ) = vel*flux3( w(i-2,k,j), w(i-1,k,j),  &
@@ -5429,6 +5484,7 @@ ELSE IF (horz_order == 5 ) THEN
 
 !  x flux-divergence into tendency
 
+!$acc loop vector collapse(2) private(mrdx)
         DO k=kts+1,ktf+1
           DO i = i_start, i_end
             mrdx=msftx(i,j)*rdx      ! see ADT eqn 46 dividing by my, 1st term RHS
@@ -6850,10 +6906,12 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
 !  compute fluxes
 
+!$acc parallel loop gang if(wrf_gpu_on)
       DO j = j_start, j_end
 
 !  5th order flux
 
+!$acc loop vector collapse(2) private(cr,dx,mu,vel)
         DO k=kts,ktf
         DO i = i_start_f, i_end_f
 
@@ -6876,9 +6934,11 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
         IF( degrade_xs ) THEN
 
+!$acc loop seq private(cr,dx,mu,vel)
           DO i=i_start,i_start_f-1
 
             IF(i == ids+1) THEN ! second order
+!$acc loop vector private(cr,dx,mu,vel)
               DO k=kts,ktf
                 dx = 2./(msfty(i,j)+msfty(i-1,j))/rdx  ! ADT eqn 48 d/dx
                 mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i-1,j)+c2(k)))
@@ -6892,6 +6952,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
             ENDIF
 
             IF(i == ids+2) THEN  ! fourth order
+!$acc loop vector private(cr,dx,mu,vel)
               DO k=kts,ktf
                 dx = 2./(msfty(i,j)+msfty(i-1,j))/rdx  ! ADT eqn 48 d/dx
                 mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i-1,j)+c2(k)))
@@ -6911,9 +6972,11 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
         IF( degrade_xe ) THEN
 
+!$acc loop seq private(cr,dx,mu,vel)
           DO i = i_end_f+1, i_end+1
 
             IF( i == ide-1 ) THEN ! second order flux next to the boundary
+!$acc loop vector private(cr,dx,mu,vel)
               DO k=kts,ktf
                 dx = 2./(msfty(i,j)+msfty(i-1,j))/rdx  ! ADT eqn 48 d/dx
                 mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i-1,j)+c2(k)))
@@ -6928,6 +6991,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
 
             IF( i == ide-2 ) THEN ! fourth order flux one in from the boundary
+!$acc loop vector private(cr,dx,mu,vel)
               DO k=kts,ktf
                 dx = 2./(msfty(i,j)+msfty(i-1,j))/rdx  ! ADT eqn 48 d/dx
                 mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i-1,j)+c2(k)))
@@ -7132,10 +7196,12 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
 !  compute fluxes
 
+!$acc parallel loop gang if(wrf_gpu_on)
       DO j = j_start, j_end
 
 !  5th order flux
 
+!$acc loop vector collapse(2) private(cr,dx,mu,vel)
         DO k=kts,ktf
         DO i = i_start_f, i_end_f
 
@@ -7158,9 +7224,11 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
         IF( degrade_xs ) THEN
 
+!$acc loop seq private(cr,dx,mu,vel)
           DO i=i_start,i_start_f-1
 
             IF(i == ids+1) THEN ! second order
+!$acc loop vector private(cr,dx,mu,vel)
               DO k=kts,ktf
                 dx = 2./(msfty(i,j)+msfty(i-1,j))/rdx  ! ADT eqn 48 d/dx
                 mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i-1,j)+c2(k)))
@@ -7174,6 +7242,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
             ENDIF
 
             IF(i == ids+2) THEN  ! third order
+!$acc loop vector private(cr,dx,mu,vel)
               DO k=kts,ktf
                 dx = 2./(msfty(i,j)+msfty(i-1,j))/rdx  ! ADT eqn 48 d/dx
                 mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i-1,j)+c2(k)))
@@ -7193,9 +7262,11 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
         IF( degrade_xe ) THEN
 
+!$acc loop seq private(cr,dx,mu,vel)
           DO i = i_end_f+1, i_end+1
 
             IF( i == ide-1 ) THEN ! second order flux next to the boundary
+!$acc loop vector private(cr,dx,mu,vel)
               DO k=kts,ktf
                 dx = 2./(msfty(i,j)+msfty(i-1,j))/rdx  ! ADT eqn 48 d/dx
                 mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i-1,j)+c2(k)))
@@ -7210,6 +7281,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
 
             IF( i == ide-2 ) THEN ! third order flux one in from the boundary
+!$acc loop vector private(cr,dx,mu,vel)
               DO k=kts,ktf
                 dx = 2./(msfty(i,j)+msfty(i-1,j))/rdx  ! ADT eqn 48 d/dx
                 mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i-1,j)+c2(k)))
@@ -8221,6 +8293,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
 !-- here is the limiter...
 
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    DO j=j_start, j_end
    DO k=kts, ktf
 #ifdef XEON_SIMD
@@ -8258,6 +8331,8 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
    ENDDO
    ENDDO
 
+! GPU: each cell rescales only its outgoing face fluxes (sign-exclusive per face) -> race-free
+!$acc parallel loop collapse(3) private(scale) if(wrf_gpu_on)
    DO j=j_start, j_end
    DO k=kts, ktf
 !DIR$ vector always
@@ -9876,6 +9951,7 @@ SUBROUTINE advect_scalar_wenopd ( field, field_old, tendency,    &
 
 !-- here is the limiter...
 
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    DO j=j_start, j_end
    DO k=kts, ktf
 #ifdef XEON_SIMD

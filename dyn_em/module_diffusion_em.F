@@ -735,6 +735,7 @@
     END IF
 
     IF ( .NOT. config_flags%periodic_y .AND. j_start .EQ. jds+1) THEN
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
       DO k = kts, kte
       DO i = its, ite
         defor12(i,k,jds) = defor12(i,k,jds+1)
@@ -753,6 +754,7 @@
     END IF
 
     IF ( .NOT. config_flags%periodic_y .AND. j_end .EQ. jde-1) THEN
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
       DO k = kts, kte
       DO i = its, ite
         defor12(i,k,jde) = defor12(i,k,jde-1)
@@ -819,6 +821,7 @@
     END DO
 
     j = j_start-1
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
     DO k = kts, kte
     DO i = i_start, MIN( ite, ide-1 )
       hat(i,k,j) = w(i,k,j) / msfty(i,j)
@@ -1007,6 +1010,7 @@
     END DO
 
     j = j_start-1
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
     DO k = kts, kte
     DO i = i_start, MIN( ite, ide-1 )
       hat(i,k,j) = w(i,k,j) / msftx(i,j)
@@ -1219,6 +1223,7 @@
     END IF
 
     IF ( .NOT. config_flags%periodic_y .AND. j_start .EQ. jds+1) THEN
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
       DO k = kts, kte
       DO i = its, ite
         defor13(i,k,jds) = defor13(i,k,jds+1)
@@ -1239,6 +1244,7 @@
     END IF
 
     IF ( .NOT. config_flags%periodic_y .AND. j_end .EQ. jde-1) THEN
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
       DO k = kts, kte
       DO i = its, ite
         defor13(i,k,jde) = defor13(i,k,jde-1)
@@ -7347,6 +7353,7 @@ END SUBROUTINE phy_bc
     IF ( .NOT. config_flags%periodic_y ) THEN
 
       IF ( jte == jde ) THEN
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
         DO k =1, ktf
         DO i =i_start, i_end
           zy(i,k,jde) = 0.0
@@ -7355,6 +7362,7 @@ END SUBROUTINE phy_bc
       END IF
 
       IF ( jts == jds ) THEN
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
         DO k =1, ktf
         DO i =i_start, i_end
           zy(i,k,jds) = 0.0
@@ -7716,6 +7724,7 @@ END SUBROUTINE phy_bc
      END IF
 
      IF ( .NOT. config_flags%periodic_y .AND. j_start .EQ. jds+1) THEN
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
        DO k = kts, kte
        DO i = its, ite
          rvort(i,k,jds) = rvort(i,k,jds+1)
@@ -7734,6 +7743,7 @@ END SUBROUTINE phy_bc
      END IF
 
      IF ( .NOT. config_flags%periodic_y .AND. j_end .EQ. jde-1) THEN
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
        DO k = kts, kte
        DO i = its, ite
          rvort(i,k,jde) = rvort(i,k,jde-1)

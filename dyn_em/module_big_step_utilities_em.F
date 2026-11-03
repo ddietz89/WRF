@@ -145,6 +145,7 @@ SUBROUTINE calc_mu_uv ( config_flags,                 &
          j=jts
          jm = jts
          if(config_flags%periodic_y) jm = jts-1
+!$acc parallel loop if(wrf_gpu_on)
          DO i=its,itf
 !             MUV(i,j) =      MU(i,j)          +MUB(i,j)
 !  fix for periodic b.c., 13 march 2004, wcs
@@ -160,6 +161,7 @@ SUBROUTINE calc_mu_uv ( config_flags,                 &
          j=jte
          jm = jte-1
          if(config_flags%periodic_y) jm = jte
+!$acc parallel loop if(wrf_gpu_on)
          DO i=its,itf
 !            MUV(i,j) =      MU(i,j-1)        +MUB(i,j-1)
 !  fix for periodic b.c., 13 march 2004, wcs
@@ -306,6 +308,7 @@ SUBROUTINE calc_mu_uv_1 ( config_flags,                 &
          j=jts
          jm = jts
          if(config_flags%periodic_y) jm = jts-1
+!$acc parallel loop if(wrf_gpu_on)
          DO i=its,itf
              MUV(i,j) = 0.5*(MU(i,j)+MU(i,jm))
          ENDDO
@@ -319,6 +322,7 @@ SUBROUTINE calc_mu_uv_1 ( config_flags,                 &
          j=jte
          jm = jte-1
          if(config_flags%periodic_y) jm = jte
+!$acc parallel loop if(wrf_gpu_on)
          DO i=its,itf
              MUV(i,j) = 0.5*(MU(i,j-1)+MU(i,jm))
          ENDDO
@@ -1110,8 +1114,24 @@ SUBROUTINE calc_p_rho_phi ( moist, n_moist, hypsometric_opt,      &
         CALL wrf_error_fatal ( 'calc_p_rho_phi: hypsometric_opt should be 1 or 2' )
       END IF hypso_nonhydro
 
-      moist_nonhydro : IF (n_moist >= PARAM_FIRST_SCALAR ) THEN  
+      moist_nonhydro : IF (n_moist >= PARAM_FIRST_SCALAR ) THEN
 
+       IF ( wrf_gpu_on ) THEN
+        ! GPU: same expression as the VPOW path below (VPOW computes z = y**x elementwise), inlined per point
+!$acc parallel loop collapse(3) private(qvf) if(wrf_gpu_on)
+        DO j=jts,jtf
+        DO k=kts,ktf
+        DO i=its,itf
+        IF ( use_theta_m .EQ. 1 ) THEN
+          p(i,k,j)=p0*((r_d*(t0+t(i,k,j)))/(p0*(al(i,k,j)+alb(i,k,j))))**cpovcv-pb(i,k,j)
+        ELSE
+          qvf = 1.+rvovrd*moist(i,k,j,P_QV)
+          p(i,k,j)=p0*((r_d*(t0+t(i,k,j))*qvf)/(p0*(al(i,k,j)+alb(i,k,j))))**cpovcv-pb(i,k,j)
+        ENDIF
+        ENDDO
+        ENDDO
+        ENDDO
+       ELSE
         DO j=jts,jtf
         DO k=kts,ktf
         DO i=its,itf
@@ -1133,8 +1153,9 @@ SUBROUTINE calc_p_rho_phi ( moist, n_moist, hypsometric_opt,      &
         ENDDO
         ENDDO
         ENDDO
+       ENDIF
 
-      ELSE moist_nonhydro           
+      ELSE moist_nonhydro
 
 !$acc parallel loop collapse(3) if(wrf_gpu_on)
         DO j=jts,jtf
@@ -1919,6 +1940,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
    IF ( (config_flags%open_ys .or. specified) .and. jts <= jds+2 .and. jds+2 <= jte )  THEN
 
      j = jds+2
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
      DO k = 2, kte-1
      DO i = i_start, itf
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.25*rdy/msfty(i,j))* (                     &
@@ -1934,6 +1956,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
      ENDDO
 
      k = kte
+!$acc parallel loop if(wrf_gpu_on)
      DO i = i_start, itf
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.5*rdy/msfty(i,j))* (                              &
                  ( (c1f(k)*muvf(i,j+1)+c2f(k))*(cfn*v(i,k-1,j+1)+cfn1*v(i,k-2,j+1))*msfvy(i,j+1)              &
@@ -1949,6 +1972,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
 
    IF ( (config_flags%open_ye .or. specified) .and. jts <= jde-3 .and. jde-3 <= jte )  THEN
      j = jde-3
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
      DO k = 2, kte-1
      DO i = i_start, itf
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.25*rdy/msfty(i,j))* (                  &
@@ -1964,6 +1988,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
      ENDDO
 
      k = kte
+!$acc parallel loop if(wrf_gpu_on)
      DO i = i_start, itf
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.5*rdy/msfty(i,j))* (                              &
                  ( (c1f(k)*muvf(i,j+1)+c2f(k))*(cfn*v(i,k-1,j+1)+cfn1*v(i,k-2,j+1))*msfvy(i,j+1)              &
@@ -1982,6 +2007,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
    IF ( (config_flags%open_ys .or. specified) .and. jts <= jds+1 .and. jds+1 <= jte )  THEN
 
      j = jds+1
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
      DO k = 2, kte-1
      DO i = i_start, itf
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.25*rdy/msfty(i,j))*          &
@@ -1993,6 +2019,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
      ENDDO
 
      k = kte
+!$acc parallel loop if(wrf_gpu_on)
      DO i = i_start, itf
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.5*rdy/msfty(i,j))*                        &
                   ( (c1f(k)*muvf(i,j+1)+c2f(k))*(cfn*v(i,k-1,j+1)+cfn1*v(i,k-2,j+1))*msfvy(i,j+1)*    &
@@ -2006,6 +2033,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
    IF ( (config_flags%open_ye .or. specified) .and. jts <= jde-2 .and. jde-2 <= jte )  THEN
 
      j = jde-2
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
      DO k = 2, kte-1
      DO i = i_start, itf
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.25*rdy/msfty(i,j))*          &
@@ -2017,6 +2045,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
      ENDDO
 
      k = kte
+!$acc parallel loop if(wrf_gpu_on)
      DO i = i_start, itf
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.5*rdy/msfty(i,j))*                        &
                   ( (c1f(k)*muvf(i,j+1)+c2f(k))*(cfn*v(i,k-1,j+1)+cfn1*v(i,k-2,j+1))*msfvy(i,j+1)*    &
@@ -2764,6 +2793,28 @@ SUBROUTINE w_damp( rw_tend, max_vert_cfl,max_horiz_cfl, &
 
 #endif
 
+   IF ( wrf_gpu_on .AND. .NOT. config_flags%polar ) THEN
+   ! GPU: same damping and CFL maxima as below, as reductions. The per-point debug WRITE (level 100) and the
+   ! location of the maximum (only printed in the warning message) are not tracked on this path.
+   maxi = 0 ; maxj = 0 ; maxk = 0 ; maxdub = 0. ; maxdeta = 0.
+!$acc parallel loop collapse(3) private(vert_cfl,horiz_cfl) reduction(max:max_vert_cfl,max_horiz_cfl) reduction(+:some1) if(wrf_gpu_on)
+   DO j = jts,jtf
+     DO k = 2,kde-1
+       DO i = its,itf
+         vert_cfl = abs(ww(i,k,j)/(c1f(k)*mut(i,j)+c2f(k))*rdnw(k)*dt)
+         max_vert_cfl = max(max_vert_cfl, vert_cfl)
+         horiz_cfl = max( abs(u(i,k,j) * rdx * msfux(i,j) * dt),    &
+                          abs(v(i,k,j) * rdy * msfvy(i,j) * dt) )
+         max_horiz_cfl = max(max_horiz_cfl, horiz_cfl)
+         IF (vert_cfl .gt. 2.) some1 = some1 + 1
+         IF ((vert_cfl .gt. w_damp_on) .and. (config_flags%w_damping == 1) ) THEN
+           rw_tend(i,k,j) = rw_tend(i,k,j)-sign(1.,w(i,k,j))*w_alpha*(vert_cfl-w_crit_cfl)*(c1f(k)*mut(i,j)+c2f(k))
+         ENDIF
+       ENDDO
+     ENDDO
+   ENDDO
+   ELSE
+
    DO j = jts,jtf
      DO k = 2,kde-1
        DO i = its,itf
@@ -2825,6 +2876,7 @@ SUBROUTINE w_damp( rw_tend, max_vert_cfl,max_horiz_cfl, &
        ENDDO   ! end i-loop
      ENDDO   ! end k-loop
    ENDDO   ! end j-loop
+   ENDIF
 
    IF ( some1 .GT. 0 ) THEN
      CALL get_current_time_string( time_str )
@@ -4504,6 +4556,7 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
    IF ( ( config_flags%open_ys .or. specified .or. &
         config_flags%nested .or. config_flags%polar) .and. (jts == jds) ) THEN
 
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
      DO k = kts, ktf
      DO i = its-1, ite
        vxgm(i,k,jts-1) =  vxgm(i,k,jts)
@@ -4518,6 +4571,7 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
    IF ( ( config_flags%open_ye .or. specified .or. &
         config_flags%nested .or. config_flags%polar) .and. (jte == jde) ) THEN
 
+!$acc parallel loop collapse(2) if(wrf_gpu_on)
      DO k = kts, ktf
      DO i = its-1, ite
        vxgm(i,k,jte) =  vxgm(i,k,jte-1)
@@ -5160,6 +5214,23 @@ END SUBROUTINE pole_point_bc
     enddo
     enddo
 
+    IF ( wrf_gpu_on ) THEN
+    ! GPU: columns in parallel, k recurrence sequential per column (same arithmetic per point as below)
+!$acc parallel loop collapse(2) private(qtot) if(wrf_gpu_on)
+    do j = j_start,j_end
+    do i = i_start, i_end
+!$acc loop seq
+    do k = kte-1, k_start, -1
+       qtot = 0.
+!$acc loop seq
+       do n = PARAM_FIRST_SCALAR,n_moist
+              qtot = qtot + moist(i,k,j,n)
+       enddo
+       p_hyd_w(i,k,j) = p_hyd_w(i,k+1,j) - (1.+qtot)*(c1(k)*MUT(i,j)+c2(k))*dnw(k)
+    enddo
+    enddo
+    enddo
+    ELSE
     do j = j_start,j_end
     do k = kte-1, k_start, -1
     do i = i_start, i_end
@@ -5172,6 +5243,7 @@ END SUBROUTINE pole_point_bc
     enddo
     enddo
     enddo
+    ENDIF
 
 ! now calculate hydrostatic pressure at half levels
 

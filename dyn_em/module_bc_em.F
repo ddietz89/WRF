@@ -1267,9 +1267,11 @@ CONTAINS
        jp1_limit = jde
      ENDIF
 
+!$acc parallel loop gang if(wrf_gpu_on)
      DO j = jts,min(jte,jde-1)
        jm1 = max(j-1, jm1_limit)
        jp1 = min(j+1, jp1_limit)
+!$acc loop vector private(im1,ip1)
      DO i = its,min(ite,ide-1)
        im1 = max(i-1, im1_limit)
        ip1 = min(i+1, ip1_limit)
@@ -1292,7 +1294,9 @@ CONTAINS
 
 ! Fill the atmospheric w field with smoothly decaying values
       IF (fill_w_flag) THEN
+!$acc parallel loop gang if(wrf_gpu_on)
         DO j = jts,min(jte,jde-1)
+!$acc loop vector collapse(2)
         DO k = kts+1,kte
         DO i = its,min(ite,ide-1)
           w(i,k,j) = w(i,1,j)*znw(k)*znw(k)
@@ -1743,6 +1747,7 @@ CONTAINS
 
       INTEGER :: i , j , k
 
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
       DO j = jts , jte
          DO k = kts , kte
             DO i = its , ite
