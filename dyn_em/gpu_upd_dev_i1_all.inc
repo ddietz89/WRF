@@ -1,0 +1,68 @@
+! GENERATED (2026-11-03): update device of all solve_em i1 temporaries (residency, hybrid host blocks)
+!$acc update device(ru_tendf) if(allocated(ru_tendf))
+!$acc update device(rv_tendf) if(allocated(rv_tendf))
+!$acc update device(ww1) if(allocated(ww1))
+!$acc update device(wwe) if(allocated(wwe))
+!$acc update device(wwi) if(allocated(wwi))
+!$acc update device(wwp) if(allocated(wwp))
+!$acc update device(rw_tend) if(allocated(rw_tend))
+!$acc update device(rw_tendf) if(allocated(rw_tendf))
+!$acc update device(w_save) if(allocated(w_save))
+!$acc update device(ph_tend) if(allocated(ph_tend))
+!$acc update device(ph_tendf) if(allocated(ph_tendf))
+!$acc update device(ph_save) if(allocated(ph_save))
+!$acc update device(t_tend) if(allocated(t_tend))
+!$acc update device(t_tendf) if(allocated(t_tendf))
+!$acc update device(t_2save) if(allocated(t_2save))
+!$acc update device(muave) if(allocated(muave))
+!$acc update device(mu_save) if(allocated(mu_save))
+!$acc update device(mu_tend) if(allocated(mu_tend))
+!$acc update device(mu_tendf) if(allocated(mu_tendf))
+!$acc update device(tke_tend) if(allocated(tke_tend))
+!$acc update device(advect_tend) if(allocated(advect_tend))
+!$acc update device(alpha) if(allocated(alpha))
+!$acc update device(a) if(allocated(a))
+!$acc update device(gamma) if(allocated(gamma))
+!$acc update device(c2a) if(allocated(c2a))
+!$acc update device(phm) if(allocated(phm))
+!$acc update device(cqu) if(allocated(cqu))
+!$acc update device(cqv) if(allocated(cqv))
+!$acc update device(cqw) if(allocated(cqw))
+!$acc update device(pm1) if(allocated(pm1))
+!$acc update device(psim) if(allocated(psim))
+!$acc update device(psih) if(allocated(psih))
+!$acc update device(gz1oz0) if(allocated(gz1oz0))
+!$acc update device(chklowq) if(allocated(chklowq))
+!$acc update device(ht_loc) if(allocated(ht_loc))
+!$acc update device(th_phy) if(allocated(th_phy))
+!$acc update device(pi_phy) if(allocated(pi_phy))
+!$acc update device(p_phy) if(allocated(p_phy))
+!$acc update device(dz8w) if(allocated(dz8w))
+!$acc update device(p8w) if(allocated(p8w))
+!$acc update device(t8w) if(allocated(t8w))
+!$acc update device(cu_act_flag) if(allocated(cu_act_flag))
+!$acc update device(hol) if(allocated(hol))
+!$acc update device(moist_tend) if(allocated(moist_tend))
+#ifndef NO_I1_OLD
+!$acc update device(moist_old) if(allocated(moist_old))
+#endif
+!$acc update device(dfi_moist_tend) if(allocated(dfi_moist_tend))
+#ifndef NO_I1_OLD
+!$acc update device(dfi_moist_old) if(allocated(dfi_moist_old))
+#endif
+!$acc update device(scalar_tend) if(allocated(scalar_tend))
+#ifndef NO_I1_OLD
+!$acc update device(scalar_old) if(allocated(scalar_old))
+#endif
+!$acc update device(dfi_scalar_tend) if(allocated(dfi_scalar_tend))
+#ifndef NO_I1_OLD
+!$acc update device(dfi_scalar_old) if(allocated(dfi_scalar_old))
+#endif
+!$acc update device(tracer_tend) if(allocated(tracer_tend))
+#ifndef NO_I1_OLD
+!$acc update device(tracer_old) if(allocated(tracer_old))
+#endif
+!$acc update device(chem_tend) if(allocated(chem_tend))
+#ifndef NO_I1_OLD
+!$acc update device(chem_old) if(allocated(chem_old))
+#endif

@@ -1014,6 +1014,12 @@ BENCH_START(calc_p_rho_tim)
        CALL gpu_retile( grid, .FALSE., ids, ide, jds, jde, ips, ipe, jps, jpe )
        wrf_gpu_on = .TRUE. ; CALL rsl_set_gpu_on( .TRUE. )
 #endif
+#ifdef WRF_GPU_RESIDENT
+       ! physics (part1, host) wrote grid fields and the i1 temporaries (zeroed tendencies, th_phy/pi_phy/...):
+       ! push them to the device before part2 runs on the GPU
+#      include "gpu_upd_dev_post_phys.inc"
+#      include "gpu_upd_dev_i1_all.inc"
+#endif
        CALL first_rk_step_part2 (    grid, config_flags         &
                              , moist , moist_old , moist_tend   &
                              , chem  , chem_tend                &
@@ -1053,9 +1059,6 @@ BENCH_START(calc_p_rho_tim)
 #endif
 #ifdef WRF_SEG_TIMERS
    CALL seg_mark( 1 )
-#endif
-#ifdef WRF_GPU_RESIDENT
-#      include "gpu_upd_dev_post_phys.inc"
 #endif
 #if defined(WRF_GPU) && !defined(WRF_GPU_RESIDENT)
    IF ( wrf_gpu_prefetch_mode() > 0 ) THEN
@@ -3847,6 +3850,7 @@ BENCH_END(bc_end_tim)
 
 #ifdef WRF_GPU_RESIDENT
 #  include "gpu_upd_host_pre_mp.inc"
+#  include "gpu_upd_host_i1_all.inc"
 #endif
 #if defined(WRF_GPU) && !defined(WRF_GPU_RESIDENT)
    IF ( wrf_gpu_prefetch_mode() > 0 ) THEN
@@ -4499,6 +4503,7 @@ BENCH_START(moist_phys_end_tim)
 #endif
 #ifdef WRF_GPU_RESIDENT
 #       include "gpu_upd_dev_post_mp.inc"
+#       include "gpu_upd_dev_i1_all.inc"
 #endif
 #if defined(WRF_GPU) && !defined(WRF_GPU_RESIDENT)
    IF ( wrf_gpu_prefetch_mode() > 0 ) THEN

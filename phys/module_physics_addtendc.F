@@ -18,6 +18,7 @@
 
 MODULE module_physics_addtendc
 
+   USE module_wrf_error, ONLY : wrf_gpu_on
 #if ( EM_CORE == 1 )
 
    USE module_state_description
@@ -2485,6 +2486,7 @@ SUBROUTINE add_a2a(lvar,rvar,config_flags,                  &
       IF ( config_flags%periodic_x ) i_start = its
       IF ( config_flags%periodic_x ) i_end = MIN( ite, ide-1 )
 
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    DO j = j_start,j_end
    DO k = kts,ktf
    DO i = i_start,i_end
@@ -2532,6 +2534,7 @@ SUBROUTINE add_a2a_ph(lvar,rvar,config_flags,                  &
       IF ( config_flags%periodic_x ) i_start = its
       IF ( config_flags%periodic_x ) i_end = MIN( ite, ide-1 )
 
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    DO j = j_start,j_end
    DO k = kts,kte
    DO i = i_start,i_end
@@ -2585,6 +2588,7 @@ SUBROUTINE add_a2c_u(lvar,rvar,config_flags,                &
       IF ( config_flags%periodic_x ) i_start = its
       IF ( config_flags%periodic_x ) i_end = ite
 
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    DO j = j_start,j_end
    DO k = kts,ktf
    DO i = i_start,i_end
@@ -2639,6 +2643,7 @@ SUBROUTINE add_a2c_v(lvar,rvar,config_flags,                &
       IF ( config_flags%periodic_x ) i_start = its
       IF ( config_flags%periodic_x ) i_end = MIN( ite, ide-1 )
 
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    DO j = j_start,j_end
    DO k = kts,kte
    DO i = i_start,i_end
@@ -2694,6 +2699,7 @@ SUBROUTINE add_c2c_u(lvar,rvar,config_flags,                &
 
 !  write(*,'(a,6i4)') 'call c2cu, i_start, i_end, j_start, j_end=', i_start, i_end, j_start, j_end
 
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    DO j = j_start,j_end
    DO k = kts,ktf
    DO i = i_start,i_end
@@ -2746,6 +2752,7 @@ SUBROUTINE add_c2c_v(lvar,rvar,config_flags,                &
 
 !  write(*,'(a,6i4)') 'call c2cv, i_start, i_end, j_start, j_end=', i_start, i_end, j_start, j_end
 
+!$acc parallel loop collapse(3) if(wrf_gpu_on)
    DO j = j_start,j_end
    DO k = kts,kte
    DO i = i_start,i_end

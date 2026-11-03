@@ -259,9 +259,19 @@ CONTAINS
 #ifdef WRF_GPU
    ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
    IF ( ALLOCATED(rfield) ) THEN
-      IF ( ANY(LBOUND(rfield) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(rfield) /= (/ite+1,kte,jte+1/)) ) DEALLOCATE(rfield)
+      IF ( ANY(LBOUND(rfield) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(rfield) /= (/ite+1,kte,jte+1/)) ) THEN
+#ifdef WRF_GPU_RESIDENT
+!$acc exit data delete(rfield)
+#endif
+         DEALLOCATE(rfield)
+      ENDIF
    ENDIF
-   IF ( .NOT. ALLOCATED(rfield) ) ALLOCATE( rfield(its-1:ite+1,kts:kte,jts-1:jte+1) )
+   IF ( .NOT. ALLOCATED(rfield) ) THEN
+      ALLOCATE( rfield(its-1:ite+1,kts:kte,jts-1:jte+1) )
+#ifdef WRF_GPU_RESIDENT
+!$acc enter data create(rfield)
+#endif
+   ENDIF
 #endif
 
            CALL relax_bdytend ( ru, ru_tendf,             &
@@ -408,9 +418,19 @@ CONTAINS
 #ifdef WRF_GPU
    ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
    IF ( ALLOCATED(rscalar) ) THEN
-      IF ( ANY(LBOUND(rscalar) /= (/ims,kms,jms/)) .OR. ANY(UBOUND(rscalar) /= (/ime,kme,jme/)) ) DEALLOCATE(rscalar)
+      IF ( ANY(LBOUND(rscalar) /= (/ims,kms,jms/)) .OR. ANY(UBOUND(rscalar) /= (/ime,kme,jme/)) ) THEN
+#ifdef WRF_GPU_RESIDENT
+!$acc exit data delete(rscalar)
+#endif
+         DEALLOCATE(rscalar)
+      ENDIF
    ENDIF
-   IF ( .NOT. ALLOCATED(rscalar) ) ALLOCATE( rscalar(ims:ime,kms:kme,jms:jme) )
+   IF ( .NOT. ALLOCATED(rscalar) ) THEN
+      ALLOCATE( rscalar(ims:ime,kms:kme,jms:jme) )
+#ifdef WRF_GPU_RESIDENT
+!$acc enter data create(rscalar)
+#endif
+   ENDIF
 #endif
 
 ! rscalar will be calculated beyond tile limits because relax_bdytend

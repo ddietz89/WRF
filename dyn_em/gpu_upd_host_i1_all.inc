@@ -1,0 +1,68 @@
+! GENERATED (2026-11-03): update self of all solve_em i1 temporaries (residency, hybrid host blocks)
+!$acc update self(ru_tendf) if(allocated(ru_tendf))
+!$acc update self(rv_tendf) if(allocated(rv_tendf))
+!$acc update self(ww1) if(allocated(ww1))
+!$acc update self(wwe) if(allocated(wwe))
+!$acc update self(wwi) if(allocated(wwi))
+!$acc update self(wwp) if(allocated(wwp))
+!$acc update self(rw_tend) if(allocated(rw_tend))
+!$acc update self(rw_tendf) if(allocated(rw_tendf))
+!$acc update self(w_save) if(allocated(w_save))
+!$acc update self(ph_tend) if(allocated(ph_tend))
+!$acc update self(ph_tendf) if(allocated(ph_tendf))
+!$acc update self(ph_save) if(allocated(ph_save))
+!$acc update self(t_tend) if(allocated(t_tend))
+!$acc update self(t_tendf) if(allocated(t_tendf))
+!$acc update self(t_2save) if(allocated(t_2save))
+!$acc update self(muave) if(allocated(muave))
+!$acc update self(mu_save) if(allocated(mu_save))
+!$acc update self(mu_tend) if(allocated(mu_tend))
+!$acc update self(mu_tendf) if(allocated(mu_tendf))
+!$acc update self(tke_tend) if(allocated(tke_tend))
+!$acc update self(advect_tend) if(allocated(advect_tend))
+!$acc update self(alpha) if(allocated(alpha))
+!$acc update self(a) if(allocated(a))
+!$acc update self(gamma) if(allocated(gamma))
+!$acc update self(c2a) if(allocated(c2a))
+!$acc update self(phm) if(allocated(phm))
+!$acc update self(cqu) if(allocated(cqu))
+!$acc update self(cqv) if(allocated(cqv))
+!$acc update self(cqw) if(allocated(cqw))
+!$acc update self(pm1) if(allocated(pm1))
+!$acc update self(psim) if(allocated(psim))
+!$acc update self(psih) if(allocated(psih))
+!$acc update self(gz1oz0) if(allocated(gz1oz0))
+!$acc update self(chklowq) if(allocated(chklowq))
+!$acc update self(ht_loc) if(allocated(ht_loc))
+!$acc update self(th_phy) if(allocated(th_phy))
+!$acc update self(pi_phy) if(allocated(pi_phy))
+!$acc update self(p_phy) if(allocated(p_phy))
+!$acc update self(dz8w) if(allocated(dz8w))
+!$acc update self(p8w) if(allocated(p8w))
+!$acc update self(t8w) if(allocated(t8w))
+!$acc update self(cu_act_flag) if(allocated(cu_act_flag))
+!$acc update self(hol) if(allocated(hol))
+!$acc update self(moist_tend) if(allocated(moist_tend))
+#ifndef NO_I1_OLD
+!$acc update self(moist_old) if(allocated(moist_old))
+#endif
+!$acc update self(dfi_moist_tend) if(allocated(dfi_moist_tend))
+#ifndef NO_I1_OLD
+!$acc update self(dfi_moist_old) if(allocated(dfi_moist_old))
+#endif
+!$acc update self(scalar_tend) if(allocated(scalar_tend))
+#ifndef NO_I1_OLD
+!$acc update self(scalar_old) if(allocated(scalar_old))
+#endif
+!$acc update self(dfi_scalar_tend) if(allocated(dfi_scalar_tend))
+#ifndef NO_I1_OLD
+!$acc update self(dfi_scalar_old) if(allocated(dfi_scalar_old))
+#endif
+!$acc update self(tracer_tend) if(allocated(tracer_tend))
+#ifndef NO_I1_OLD
+!$acc update self(tracer_old) if(allocated(tracer_old))
+#endif
+!$acc update self(chem_tend) if(allocated(chem_tend))
+#ifndef NO_I1_OLD
+!$acc update self(chem_old) if(allocated(chem_old))
+#endif

@@ -224,9 +224,19 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 #ifdef WRF_GPU
    ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
    IF ( ALLOCATED(fqy) ) THEN
-      IF ( ANY(LBOUND(fqy) /= (/its,kts,1/)) .OR. ANY(UBOUND(fqy) /= (/ite,kte,2/)) ) DEALLOCATE(fqy)
+      IF ( ANY(LBOUND(fqy) /= (/its,kts,1/)) .OR. ANY(UBOUND(fqy) /= (/ite,kte,2/)) ) THEN
+#ifdef WRF_GPU_RESIDENT
+!$acc exit data delete(fqy)
+#endif
+         DEALLOCATE(fqy)
+      ENDIF
    ENDIF
-   IF ( .NOT. ALLOCATED(fqy) ) ALLOCATE( fqy(its:ite,kts:kte,1:2) )
+   IF ( .NOT. ALLOCATED(fqy) ) THEN
+      ALLOCATE( fqy(its:ite,kts:kte,1:2) )
+#ifdef WRF_GPU_RESIDENT
+!$acc enter data create(fqy)
+#endif
+   ENDIF
 #endif
 
    specified = .false.
@@ -1760,9 +1770,19 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 #ifdef WRF_GPU
    ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
    IF ( ALLOCATED(fqy) ) THEN
-      IF ( ANY(LBOUND(fqy) /= (/its,kts,1/)) .OR. ANY(UBOUND(fqy) /= (/ite,kte,2/)) ) DEALLOCATE(fqy)
+      IF ( ANY(LBOUND(fqy) /= (/its,kts,1/)) .OR. ANY(UBOUND(fqy) /= (/ite,kte,2/)) ) THEN
+#ifdef WRF_GPU_RESIDENT
+!$acc exit data delete(fqy)
+#endif
+         DEALLOCATE(fqy)
+      ENDIF
    ENDIF
-   IF ( .NOT. ALLOCATED(fqy) ) ALLOCATE( fqy(its:ite,kts:kte,1:2) )
+   IF ( .NOT. ALLOCATED(fqy) ) THEN
+      ALLOCATE( fqy(its:ite,kts:kte,1:2) )
+#ifdef WRF_GPU_RESIDENT
+!$acc enter data create(fqy)
+#endif
+   ENDIF
 #endif
 
    specified = .false.
@@ -3384,9 +3404,19 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 #ifdef WRF_GPU
    ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
    IF ( ALLOCATED(fqy) ) THEN
-      IF ( ANY(LBOUND(fqy) /= (/its,kts,1/)) .OR. ANY(UBOUND(fqy) /= (/ite,kte,2/)) ) DEALLOCATE(fqy)
+      IF ( ANY(LBOUND(fqy) /= (/its,kts,1/)) .OR. ANY(UBOUND(fqy) /= (/ite,kte,2/)) ) THEN
+#ifdef WRF_GPU_RESIDENT
+!$acc exit data delete(fqy)
+#endif
+         DEALLOCATE(fqy)
+      ENDIF
    ENDIF
-   IF ( .NOT. ALLOCATED(fqy) ) ALLOCATE( fqy(its:ite,kts:kte,1:2) )
+   IF ( .NOT. ALLOCATED(fqy) ) THEN
+      ALLOCATE( fqy(its:ite,kts:kte,1:2) )
+#ifdef WRF_GPU_RESIDENT
+!$acc enter data create(fqy)
+#endif
+   ENDIF
 #endif
 
    specified = .false.
@@ -4844,9 +4874,19 @@ SUBROUTINE advect_w    ( w, w_old, tendency,            &
 #ifdef WRF_GPU
    ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
    IF ( ALLOCATED(fqy) ) THEN
-      IF ( ANY(LBOUND(fqy) /= (/its,kts,1/)) .OR. ANY(UBOUND(fqy) /= (/ite,kte,2/)) ) DEALLOCATE(fqy)
+      IF ( ANY(LBOUND(fqy) /= (/its,kts,1/)) .OR. ANY(UBOUND(fqy) /= (/ite,kte,2/)) ) THEN
+#ifdef WRF_GPU_RESIDENT
+!$acc exit data delete(fqy)
+#endif
+         DEALLOCATE(fqy)
+      ENDIF
    ENDIF
-   IF ( .NOT. ALLOCATED(fqy) ) ALLOCATE( fqy(its:ite,kts:kte,1:2) )
+   IF ( .NOT. ALLOCATED(fqy) ) THEN
+      ALLOCATE( fqy(its:ite,kts:kte,1:2) )
+#ifdef WRF_GPU_RESIDENT
+!$acc enter data create(fqy)
+#endif
+   ENDIF
 #endif
 
    specified = .false.
@@ -6747,37 +6787,117 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 #ifdef WRF_GPU
    ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
    IF ( ALLOCATED(fqx) ) THEN
-      IF ( ANY(LBOUND(fqx) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(fqx) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(fqx)
+      IF ( ANY(LBOUND(fqx) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(fqx) /= (/ite+2,kte,jte+2/)) ) THEN
+#ifdef WRF_GPU_RESIDENT
+!$acc exit data delete(fqx)
+#endif
+         DEALLOCATE(fqx)
+      ENDIF
    ENDIF
-   IF ( .NOT. ALLOCATED(fqx) ) ALLOCATE( fqx(its-1:ite+2,kts:kte,jts-1:jte+2) )
+   IF ( .NOT. ALLOCATED(fqx) ) THEN
+      ALLOCATE( fqx(its-1:ite+2,kts:kte,jts-1:jte+2) )
+#ifdef WRF_GPU_RESIDENT
+!$acc enter data create(fqx)
+#endif
+   ENDIF
    IF ( ALLOCATED(fqy) ) THEN
-      IF ( ANY(LBOUND(fqy) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(fqy) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(fqy)
+      IF ( ANY(LBOUND(fqy) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(fqy) /= (/ite+2,kte,jte+2/)) ) THEN
+#ifdef WRF_GPU_RESIDENT
+!$acc exit data delete(fqy)
+#endif
+         DEALLOCATE(fqy)
+      ENDIF
    ENDIF
-   IF ( .NOT. ALLOCATED(fqy) ) ALLOCATE( fqy(its-1:ite+2,kts:kte,jts-1:jte+2) )
+   IF ( .NOT. ALLOCATED(fqy) ) THEN
+      ALLOCATE( fqy(its-1:ite+2,kts:kte,jts-1:jte+2) )
+#ifdef WRF_GPU_RESIDENT
+!$acc enter data create(fqy)
+#endif
+   ENDIF
    IF ( ALLOCATED(fqz) ) THEN
-      IF ( ANY(LBOUND(fqz) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(fqz) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(fqz)
+      IF ( ANY(LBOUND(fqz) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(fqz) /= (/ite+2,kte,jte+2/)) ) THEN
+#ifdef WRF_GPU_RESIDENT
+!$acc exit data delete(fqz)
+#endif
+         DEALLOCATE(fqz)
+      ENDIF
    ENDIF
-   IF ( .NOT. ALLOCATED(fqz) ) ALLOCATE( fqz(its-1:ite+2,kts:kte,jts-1:jte+2) )
+   IF ( .NOT. ALLOCATED(fqz) ) THEN
+      ALLOCATE( fqz(its-1:ite+2,kts:kte,jts-1:jte+2) )
+#ifdef WRF_GPU_RESIDENT
+!$acc enter data create(fqz)
+#endif
+   ENDIF
    IF ( ALLOCATED(fqxl) ) THEN
-      IF ( ANY(LBOUND(fqxl) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(fqxl) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(fqxl)
+      IF ( ANY(LBOUND(fqxl) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(fqxl) /= (/ite+2,kte,jte+2/)) ) THEN
+#ifdef WRF_GPU_RESIDENT
+!$acc exit data delete(fqxl)
+#endif
+         DEALLOCATE(fqxl)
+      ENDIF
    ENDIF
-   IF ( .NOT. ALLOCATED(fqxl) ) ALLOCATE( fqxl(its-1:ite+2,kts:kte,jts-1:jte+2) )
+   IF ( .NOT. ALLOCATED(fqxl) ) THEN
+      ALLOCATE( fqxl(its-1:ite+2,kts:kte,jts-1:jte+2) )
+#ifdef WRF_GPU_RESIDENT
+!$acc enter data create(fqxl)
+#endif
+   ENDIF
    IF ( ALLOCATED(fqyl) ) THEN
-      IF ( ANY(LBOUND(fqyl) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(fqyl) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(fqyl)
+      IF ( ANY(LBOUND(fqyl) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(fqyl) /= (/ite+2,kte,jte+2/)) ) THEN
+#ifdef WRF_GPU_RESIDENT
+!$acc exit data delete(fqyl)
+#endif
+         DEALLOCATE(fqyl)
+      ENDIF
    ENDIF
-   IF ( .NOT. ALLOCATED(fqyl) ) ALLOCATE( fqyl(its-1:ite+2,kts:kte,jts-1:jte+2) )
+   IF ( .NOT. ALLOCATED(fqyl) ) THEN
+      ALLOCATE( fqyl(its-1:ite+2,kts:kte,jts-1:jte+2) )
+#ifdef WRF_GPU_RESIDENT
+!$acc enter data create(fqyl)
+#endif
+   ENDIF
    IF ( ALLOCATED(fqzl) ) THEN
-      IF ( ANY(LBOUND(fqzl) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(fqzl) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(fqzl)
+      IF ( ANY(LBOUND(fqzl) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(fqzl) /= (/ite+2,kte,jte+2/)) ) THEN
+#ifdef WRF_GPU_RESIDENT
+!$acc exit data delete(fqzl)
+#endif
+         DEALLOCATE(fqzl)
+      ENDIF
    ENDIF
-   IF ( .NOT. ALLOCATED(fqzl) ) ALLOCATE( fqzl(its-1:ite+2,kts:kte,jts-1:jte+2) )
+   IF ( .NOT. ALLOCATED(fqzl) ) THEN
+      ALLOCATE( fqzl(its-1:ite+2,kts:kte,jts-1:jte+2) )
+#ifdef WRF_GPU_RESIDENT
+!$acc enter data create(fqzl)
+#endif
+   ENDIF
    IF ( ALLOCATED(flux_out) ) THEN
-      IF ( ANY(LBOUND(flux_out) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(flux_out) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(flux_out)
+      IF ( ANY(LBOUND(flux_out) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(flux_out) /= (/ite+2,kte,jte+2/)) ) THEN
+#ifdef WRF_GPU_RESIDENT
+!$acc exit data delete(flux_out)
+#endif
+         DEALLOCATE(flux_out)
+      ENDIF
    ENDIF
-   IF ( .NOT. ALLOCATED(flux_out) ) ALLOCATE( flux_out(its-1:ite+2,kts:kte,jts-1:jte+2) )
+   IF ( .NOT. ALLOCATED(flux_out) ) THEN
+      ALLOCATE( flux_out(its-1:ite+2,kts:kte,jts-1:jte+2) )
+#ifdef WRF_GPU_RESIDENT
+!$acc enter data create(flux_out)
+#endif
+   ENDIF
    IF ( ALLOCATED(ph_low) ) THEN
-      IF ( ANY(LBOUND(ph_low) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(ph_low) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(ph_low)
+      IF ( ANY(LBOUND(ph_low) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(ph_low) /= (/ite+2,kte,jte+2/)) ) THEN
+#ifdef WRF_GPU_RESIDENT
+!$acc exit data delete(ph_low)
+#endif
+         DEALLOCATE(ph_low)
+      ENDIF
    ENDIF
-   IF ( .NOT. ALLOCATED(ph_low) ) ALLOCATE( ph_low(its-1:ite+2,kts:kte,jts-1:jte+2) )
+   IF ( .NOT. ALLOCATED(ph_low) ) THEN
+      ALLOCATE( ph_low(its-1:ite+2,kts:kte,jts-1:jte+2) )
+#ifdef WRF_GPU_RESIDENT
+!$acc enter data create(ph_low)
+#endif
+   ENDIF
 #endif
 
 ! set order for the advection schemes
@@ -9393,37 +9513,117 @@ SUBROUTINE advect_scalar_wenopd ( field, field_old, tendency,    &
 #ifdef WRF_GPU
    ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
    IF ( ALLOCATED(fqx) ) THEN
-      IF ( ANY(LBOUND(fqx) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(fqx) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(fqx)
+      IF ( ANY(LBOUND(fqx) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(fqx) /= (/ite+2,kte,jte+2/)) ) THEN
+#ifdef WRF_GPU_RESIDENT
+!$acc exit data delete(fqx)
+#endif
+         DEALLOCATE(fqx)
+      ENDIF
    ENDIF
-   IF ( .NOT. ALLOCATED(fqx) ) ALLOCATE( fqx(its-1:ite+2,kts:kte,jts-1:jte+2) )
+   IF ( .NOT. ALLOCATED(fqx) ) THEN
+      ALLOCATE( fqx(its-1:ite+2,kts:kte,jts-1:jte+2) )
+#ifdef WRF_GPU_RESIDENT
+!$acc enter data create(fqx)
+#endif
+   ENDIF
    IF ( ALLOCATED(fqy) ) THEN
-      IF ( ANY(LBOUND(fqy) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(fqy) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(fqy)
+      IF ( ANY(LBOUND(fqy) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(fqy) /= (/ite+2,kte,jte+2/)) ) THEN
+#ifdef WRF_GPU_RESIDENT
+!$acc exit data delete(fqy)
+#endif
+         DEALLOCATE(fqy)
+      ENDIF
    ENDIF
-   IF ( .NOT. ALLOCATED(fqy) ) ALLOCATE( fqy(its-1:ite+2,kts:kte,jts-1:jte+2) )
+   IF ( .NOT. ALLOCATED(fqy) ) THEN
+      ALLOCATE( fqy(its-1:ite+2,kts:kte,jts-1:jte+2) )
+#ifdef WRF_GPU_RESIDENT
+!$acc enter data create(fqy)
+#endif
+   ENDIF
    IF ( ALLOCATED(fqz) ) THEN
-      IF ( ANY(LBOUND(fqz) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(fqz) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(fqz)
+      IF ( ANY(LBOUND(fqz) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(fqz) /= (/ite+2,kte,jte+2/)) ) THEN
+#ifdef WRF_GPU_RESIDENT
+!$acc exit data delete(fqz)
+#endif
+         DEALLOCATE(fqz)
+      ENDIF
    ENDIF
-   IF ( .NOT. ALLOCATED(fqz) ) ALLOCATE( fqz(its-1:ite+2,kts:kte,jts-1:jte+2) )
+   IF ( .NOT. ALLOCATED(fqz) ) THEN
+      ALLOCATE( fqz(its-1:ite+2,kts:kte,jts-1:jte+2) )
+#ifdef WRF_GPU_RESIDENT
+!$acc enter data create(fqz)
+#endif
+   ENDIF
    IF ( ALLOCATED(fqxl) ) THEN
-      IF ( ANY(LBOUND(fqxl) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(fqxl) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(fqxl)
+      IF ( ANY(LBOUND(fqxl) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(fqxl) /= (/ite+2,kte,jte+2/)) ) THEN
+#ifdef WRF_GPU_RESIDENT
+!$acc exit data delete(fqxl)
+#endif
+         DEALLOCATE(fqxl)
+      ENDIF
    ENDIF
-   IF ( .NOT. ALLOCATED(fqxl) ) ALLOCATE( fqxl(its-1:ite+2,kts:kte,jts-1:jte+2) )
+   IF ( .NOT. ALLOCATED(fqxl) ) THEN
+      ALLOCATE( fqxl(its-1:ite+2,kts:kte,jts-1:jte+2) )
+#ifdef WRF_GPU_RESIDENT
+!$acc enter data create(fqxl)
+#endif
+   ENDIF
    IF ( ALLOCATED(fqyl) ) THEN
-      IF ( ANY(LBOUND(fqyl) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(fqyl) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(fqyl)
+      IF ( ANY(LBOUND(fqyl) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(fqyl) /= (/ite+2,kte,jte+2/)) ) THEN
+#ifdef WRF_GPU_RESIDENT
+!$acc exit data delete(fqyl)
+#endif
+         DEALLOCATE(fqyl)
+      ENDIF
    ENDIF
-   IF ( .NOT. ALLOCATED(fqyl) ) ALLOCATE( fqyl(its-1:ite+2,kts:kte,jts-1:jte+2) )
+   IF ( .NOT. ALLOCATED(fqyl) ) THEN
+      ALLOCATE( fqyl(its-1:ite+2,kts:kte,jts-1:jte+2) )
+#ifdef WRF_GPU_RESIDENT
+!$acc enter data create(fqyl)
+#endif
+   ENDIF
    IF ( ALLOCATED(fqzl) ) THEN
-      IF ( ANY(LBOUND(fqzl) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(fqzl) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(fqzl)
+      IF ( ANY(LBOUND(fqzl) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(fqzl) /= (/ite+2,kte,jte+2/)) ) THEN
+#ifdef WRF_GPU_RESIDENT
+!$acc exit data delete(fqzl)
+#endif
+         DEALLOCATE(fqzl)
+      ENDIF
    ENDIF
-   IF ( .NOT. ALLOCATED(fqzl) ) ALLOCATE( fqzl(its-1:ite+2,kts:kte,jts-1:jte+2) )
+   IF ( .NOT. ALLOCATED(fqzl) ) THEN
+      ALLOCATE( fqzl(its-1:ite+2,kts:kte,jts-1:jte+2) )
+#ifdef WRF_GPU_RESIDENT
+!$acc enter data create(fqzl)
+#endif
+   ENDIF
    IF ( ALLOCATED(flux_out) ) THEN
-      IF ( ANY(LBOUND(flux_out) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(flux_out) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(flux_out)
+      IF ( ANY(LBOUND(flux_out) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(flux_out) /= (/ite+2,kte,jte+2/)) ) THEN
+#ifdef WRF_GPU_RESIDENT
+!$acc exit data delete(flux_out)
+#endif
+         DEALLOCATE(flux_out)
+      ENDIF
    ENDIF
-   IF ( .NOT. ALLOCATED(flux_out) ) ALLOCATE( flux_out(its-1:ite+2,kts:kte,jts-1:jte+2) )
+   IF ( .NOT. ALLOCATED(flux_out) ) THEN
+      ALLOCATE( flux_out(its-1:ite+2,kts:kte,jts-1:jte+2) )
+#ifdef WRF_GPU_RESIDENT
+!$acc enter data create(flux_out)
+#endif
+   ENDIF
    IF ( ALLOCATED(ph_low) ) THEN
-      IF ( ANY(LBOUND(ph_low) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(ph_low) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(ph_low)
+      IF ( ANY(LBOUND(ph_low) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(ph_low) /= (/ite+2,kte,jte+2/)) ) THEN
+#ifdef WRF_GPU_RESIDENT
+!$acc exit data delete(ph_low)
+#endif
+         DEALLOCATE(ph_low)
+      ENDIF
    ENDIF
-   IF ( .NOT. ALLOCATED(ph_low) ) ALLOCATE( ph_low(its-1:ite+2,kts:kte,jts-1:jte+2) )
+   IF ( .NOT. ALLOCATED(ph_low) ) THEN
+      ALLOCATE( ph_low(its-1:ite+2,kts:kte,jts-1:jte+2) )
+#ifdef WRF_GPU_RESIDENT
+!$acc enter data create(ph_low)
+#endif
+   ENDIF
 #endif
 
 ! set order for the advection schemes
@@ -10360,49 +10560,159 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
 #ifdef WRF_GPU
    ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
    IF ( ALLOCATED(vflux) ) THEN
-      IF ( ANY(LBOUND(vflux) /= (/its,kts/)) .OR. ANY(UBOUND(vflux) /= (/ite,kte/)) ) DEALLOCATE(vflux)
+      IF ( ANY(LBOUND(vflux) /= (/its,kts/)) .OR. ANY(UBOUND(vflux) /= (/ite,kte/)) ) THEN
+#ifdef WRF_GPU_RESIDENT
+!$acc exit data delete(vflux)
+#endif
+         DEALLOCATE(vflux)
+      ENDIF
    ENDIF
-   IF ( .NOT. ALLOCATED(vflux) ) ALLOCATE( vflux(its:ite,kts:kte) )
+   IF ( .NOT. ALLOCATED(vflux) ) THEN
+      ALLOCATE( vflux(its:ite,kts:kte) )
+#ifdef WRF_GPU_RESIDENT
+!$acc enter data create(vflux)
+#endif
+   ENDIF
    IF ( ALLOCATED(fqx) ) THEN
-      IF ( ANY(LBOUND(fqx) /= (/its-2,kts,jts-2/)) .OR. ANY(UBOUND(fqx) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(fqx)
+      IF ( ANY(LBOUND(fqx) /= (/its-2,kts,jts-2/)) .OR. ANY(UBOUND(fqx) /= (/ite+2,kte,jte+2/)) ) THEN
+#ifdef WRF_GPU_RESIDENT
+!$acc exit data delete(fqx)
+#endif
+         DEALLOCATE(fqx)
+      ENDIF
    ENDIF
-   IF ( .NOT. ALLOCATED(fqx) ) ALLOCATE( fqx(its-2:ite+2,kts:kte,jts-2:jte+2) )
+   IF ( .NOT. ALLOCATED(fqx) ) THEN
+      ALLOCATE( fqx(its-2:ite+2,kts:kte,jts-2:jte+2) )
+#ifdef WRF_GPU_RESIDENT
+!$acc enter data create(fqx)
+#endif
+   ENDIF
    IF ( ALLOCATED(fqy) ) THEN
-      IF ( ANY(LBOUND(fqy) /= (/its-2,kts,jts-2/)) .OR. ANY(UBOUND(fqy) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(fqy)
+      IF ( ANY(LBOUND(fqy) /= (/its-2,kts,jts-2/)) .OR. ANY(UBOUND(fqy) /= (/ite+2,kte,jte+2/)) ) THEN
+#ifdef WRF_GPU_RESIDENT
+!$acc exit data delete(fqy)
+#endif
+         DEALLOCATE(fqy)
+      ENDIF
    ENDIF
-   IF ( .NOT. ALLOCATED(fqy) ) ALLOCATE( fqy(its-2:ite+2,kts:kte,jts-2:jte+2) )
+   IF ( .NOT. ALLOCATED(fqy) ) THEN
+      ALLOCATE( fqy(its-2:ite+2,kts:kte,jts-2:jte+2) )
+#ifdef WRF_GPU_RESIDENT
+!$acc enter data create(fqy)
+#endif
+   ENDIF
    IF ( ALLOCATED(fqz) ) THEN
-      IF ( ANY(LBOUND(fqz) /= (/its-2,kts,jts-2/)) .OR. ANY(UBOUND(fqz) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(fqz)
+      IF ( ANY(LBOUND(fqz) /= (/its-2,kts,jts-2/)) .OR. ANY(UBOUND(fqz) /= (/ite+2,kte,jte+2/)) ) THEN
+#ifdef WRF_GPU_RESIDENT
+!$acc exit data delete(fqz)
+#endif
+         DEALLOCATE(fqz)
+      ENDIF
    ENDIF
-   IF ( .NOT. ALLOCATED(fqz) ) ALLOCATE( fqz(its-2:ite+2,kts:kte,jts-2:jte+2) )
+   IF ( .NOT. ALLOCATED(fqz) ) THEN
+      ALLOCATE( fqz(its-2:ite+2,kts:kte,jts-2:jte+2) )
+#ifdef WRF_GPU_RESIDENT
+!$acc enter data create(fqz)
+#endif
+   ENDIF
    IF ( ALLOCATED(fqxl) ) THEN
-      IF ( ANY(LBOUND(fqxl) /= (/its-2,kts,jts-2/)) .OR. ANY(UBOUND(fqxl) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(fqxl)
+      IF ( ANY(LBOUND(fqxl) /= (/its-2,kts,jts-2/)) .OR. ANY(UBOUND(fqxl) /= (/ite+2,kte,jte+2/)) ) THEN
+#ifdef WRF_GPU_RESIDENT
+!$acc exit data delete(fqxl)
+#endif
+         DEALLOCATE(fqxl)
+      ENDIF
    ENDIF
-   IF ( .NOT. ALLOCATED(fqxl) ) ALLOCATE( fqxl(its-2:ite+2,kts:kte,jts-2:jte+2) )
+   IF ( .NOT. ALLOCATED(fqxl) ) THEN
+      ALLOCATE( fqxl(its-2:ite+2,kts:kte,jts-2:jte+2) )
+#ifdef WRF_GPU_RESIDENT
+!$acc enter data create(fqxl)
+#endif
+   ENDIF
    IF ( ALLOCATED(fqyl) ) THEN
-      IF ( ANY(LBOUND(fqyl) /= (/its-2,kts,jts-2/)) .OR. ANY(UBOUND(fqyl) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(fqyl)
+      IF ( ANY(LBOUND(fqyl) /= (/its-2,kts,jts-2/)) .OR. ANY(UBOUND(fqyl) /= (/ite+2,kte,jte+2/)) ) THEN
+#ifdef WRF_GPU_RESIDENT
+!$acc exit data delete(fqyl)
+#endif
+         DEALLOCATE(fqyl)
+      ENDIF
    ENDIF
-   IF ( .NOT. ALLOCATED(fqyl) ) ALLOCATE( fqyl(its-2:ite+2,kts:kte,jts-2:jte+2) )
+   IF ( .NOT. ALLOCATED(fqyl) ) THEN
+      ALLOCATE( fqyl(its-2:ite+2,kts:kte,jts-2:jte+2) )
+#ifdef WRF_GPU_RESIDENT
+!$acc enter data create(fqyl)
+#endif
+   ENDIF
    IF ( ALLOCATED(fqzl) ) THEN
-      IF ( ANY(LBOUND(fqzl) /= (/its-2,kts,jts-2/)) .OR. ANY(UBOUND(fqzl) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(fqzl)
+      IF ( ANY(LBOUND(fqzl) /= (/its-2,kts,jts-2/)) .OR. ANY(UBOUND(fqzl) /= (/ite+2,kte,jte+2/)) ) THEN
+#ifdef WRF_GPU_RESIDENT
+!$acc exit data delete(fqzl)
+#endif
+         DEALLOCATE(fqzl)
+      ENDIF
    ENDIF
-   IF ( .NOT. ALLOCATED(fqzl) ) ALLOCATE( fqzl(its-2:ite+2,kts:kte,jts-2:jte+2) )
+   IF ( .NOT. ALLOCATED(fqzl) ) THEN
+      ALLOCATE( fqzl(its-2:ite+2,kts:kte,jts-2:jte+2) )
+#ifdef WRF_GPU_RESIDENT
+!$acc enter data create(fqzl)
+#endif
+   ENDIF
    IF ( ALLOCATED(qmin) ) THEN
-      IF ( ANY(LBOUND(qmin) /= (/its-2,kts,jts-2/)) .OR. ANY(UBOUND(qmin) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(qmin)
+      IF ( ANY(LBOUND(qmin) /= (/its-2,kts,jts-2/)) .OR. ANY(UBOUND(qmin) /= (/ite+2,kte,jte+2/)) ) THEN
+#ifdef WRF_GPU_RESIDENT
+!$acc exit data delete(qmin)
+#endif
+         DEALLOCATE(qmin)
+      ENDIF
    ENDIF
-   IF ( .NOT. ALLOCATED(qmin) ) ALLOCATE( qmin(its-2:ite+2,kts:kte,jts-2:jte+2) )
+   IF ( .NOT. ALLOCATED(qmin) ) THEN
+      ALLOCATE( qmin(its-2:ite+2,kts:kte,jts-2:jte+2) )
+#ifdef WRF_GPU_RESIDENT
+!$acc enter data create(qmin)
+#endif
+   ENDIF
    IF ( ALLOCATED(qmax) ) THEN
-      IF ( ANY(LBOUND(qmax) /= (/its-2,kts,jts-2/)) .OR. ANY(UBOUND(qmax) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(qmax)
+      IF ( ANY(LBOUND(qmax) /= (/its-2,kts,jts-2/)) .OR. ANY(UBOUND(qmax) /= (/ite+2,kte,jte+2/)) ) THEN
+#ifdef WRF_GPU_RESIDENT
+!$acc exit data delete(qmax)
+#endif
+         DEALLOCATE(qmax)
+      ENDIF
    ENDIF
-   IF ( .NOT. ALLOCATED(qmax) ) ALLOCATE( qmax(its-2:ite+2,kts:kte,jts-2:jte+2) )
+   IF ( .NOT. ALLOCATED(qmax) ) THEN
+      ALLOCATE( qmax(its-2:ite+2,kts:kte,jts-2:jte+2) )
+#ifdef WRF_GPU_RESIDENT
+!$acc enter data create(qmax)
+#endif
+   ENDIF
    IF ( ALLOCATED(scale_in) ) THEN
-      IF ( ANY(LBOUND(scale_in) /= (/its-2,kts,jts-2/)) .OR. ANY(UBOUND(scale_in) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(scale_in)
+      IF ( ANY(LBOUND(scale_in) /= (/its-2,kts,jts-2/)) .OR. ANY(UBOUND(scale_in) /= (/ite+2,kte,jte+2/)) ) THEN
+#ifdef WRF_GPU_RESIDENT
+!$acc exit data delete(scale_in)
+#endif
+         DEALLOCATE(scale_in)
+      ENDIF
    ENDIF
-   IF ( .NOT. ALLOCATED(scale_in) ) ALLOCATE( scale_in(its-2:ite+2,kts:kte,jts-2:jte+2) )
+   IF ( .NOT. ALLOCATED(scale_in) ) THEN
+      ALLOCATE( scale_in(its-2:ite+2,kts:kte,jts-2:jte+2) )
+#ifdef WRF_GPU_RESIDENT
+!$acc enter data create(scale_in)
+#endif
+   ENDIF
    IF ( ALLOCATED(scale_out) ) THEN
-      IF ( ANY(LBOUND(scale_out) /= (/its-2,kts,jts-2/)) .OR. ANY(UBOUND(scale_out) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(scale_out)
+      IF ( ANY(LBOUND(scale_out) /= (/its-2,kts,jts-2/)) .OR. ANY(UBOUND(scale_out) /= (/ite+2,kte,jte+2/)) ) THEN
+#ifdef WRF_GPU_RESIDENT
+!$acc exit data delete(scale_out)
+#endif
+         DEALLOCATE(scale_out)
+      ENDIF
    ENDIF
-   IF ( .NOT. ALLOCATED(scale_out) ) ALLOCATE( scale_out(its-2:ite+2,kts:kte,jts-2:jte+2) )
+   IF ( .NOT. ALLOCATED(scale_out) ) THEN
+      ALLOCATE( scale_out(its-2:ite+2,kts:kte,jts-2:jte+2) )
+#ifdef WRF_GPU_RESIDENT
+!$acc enter data create(scale_out)
+#endif
+   ENDIF
 #endif
 
 ! set order for the advection schemes

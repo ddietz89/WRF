@@ -1367,13 +1367,33 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
 #ifdef WRF_GPU
    ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
    IF ( ALLOCATED(mut_inv) ) THEN
-      IF ( ANY(LBOUND(mut_inv) /= (/its/)) .OR. ANY(UBOUND(mut_inv) /= (/ite/)) ) DEALLOCATE(mut_inv)
+      IF ( ANY(LBOUND(mut_inv) /= (/its/)) .OR. ANY(UBOUND(mut_inv) /= (/ite/)) ) THEN
+#ifdef WRF_GPU_RESIDENT
+!$acc exit data delete(mut_inv)
+#endif
+         DEALLOCATE(mut_inv)
+      ENDIF
    ENDIF
-   IF ( .NOT. ALLOCATED(mut_inv) ) ALLOCATE( mut_inv(its:ite) )
+   IF ( .NOT. ALLOCATED(mut_inv) ) THEN
+      ALLOCATE( mut_inv(its:ite) )
+#ifdef WRF_GPU_RESIDENT
+!$acc enter data create(mut_inv)
+#endif
+   ENDIF
    IF ( ALLOCATED(dampwt) ) THEN
-      IF ( ANY(LBOUND(dampwt) /= (/kts/)) .OR. ANY(UBOUND(dampwt) /= (/kte/)) ) DEALLOCATE(dampwt)
+      IF ( ANY(LBOUND(dampwt) /= (/kts/)) .OR. ANY(UBOUND(dampwt) /= (/kte/)) ) THEN
+#ifdef WRF_GPU_RESIDENT
+!$acc exit data delete(dampwt)
+#endif
+         DEALLOCATE(dampwt)
+      ENDIF
    ENDIF
-   IF ( .NOT. ALLOCATED(dampwt) ) ALLOCATE( dampwt(kts:kte) )
+   IF ( .NOT. ALLOCATED(dampwt) ) THEN
+      ALLOCATE( dampwt(kts:kte) )
+#ifdef WRF_GPU_RESIDENT
+!$acc enter data create(dampwt)
+#endif
+   ENDIF
 #endif
 !<DESCRIPTION>
 !
