@@ -209,6 +209,7 @@ SUBROUTINE solve_em ( grid , config_flags  &
 
    INTEGER :: rc
 #ifdef WRF_GPU
+   LOGICAL, EXTERNAL :: wrf_gpu_hostblocks
    INTEGER, EXTERNAL :: wrf_gpu_prefetch_mode
    INTEGER, EXTERNAL :: wrf_gpu_advise_mode
    LOGICAL, SAVE :: gpu_advised_grid = .FALSE.
@@ -897,7 +898,7 @@ BENCH_START(calc_p_rho_tim)
    CALL seg_mark( 2 )
 #endif
 #ifdef WRF_GPU
-       wrf_gpu_on = .FALSE. ; CALL rsl_set_gpu_on( .FALSE. )
+       IF ( wrf_gpu_hostblocks() ) THEN ; wrf_gpu_on = .FALSE. ; CALL rsl_set_gpu_on( .FALSE. ) ; ENDIF
 #endif
 #ifdef WRF_GPU_RESIDENT
 #endif
@@ -3778,7 +3779,7 @@ BENCH_END(bc_end_tim)
    CALL seg_mark( 3 )
 #endif
 #ifdef WRF_GPU
-   wrf_gpu_on = .FALSE. ; CALL rsl_set_gpu_on( .FALSE. )
+   IF ( wrf_gpu_hostblocks() ) THEN ; wrf_gpu_on = .FALSE. ; CALL rsl_set_gpu_on( .FALSE. ) ; ENDIF
 #endif
 #ifdef WRF_GPU_RESIDENT
 #endif
@@ -5108,7 +5109,7 @@ BENCH_END(bc_2d_tim)
    CALL seg_mark( 4 )
 #endif
 #ifdef WRF_GPU
-  wrf_gpu_on = .FALSE. ; CALL rsl_set_gpu_on( .FALSE. )
+  IF ( wrf_gpu_hostblocks() ) THEN ; wrf_gpu_on = .FALSE. ; CALL rsl_set_gpu_on( .FALSE. ) ; ENDIF
 #endif
 #ifdef WRF_GPU_RESIDENT
 #endif
@@ -5630,4 +5631,20 @@ SUBROUTINE wrf_gpu_prefetch_sync()
    INTEGER(C_INT) :: rc
    IF ( ASSOCIATED(cu_sync) ) rc = cu_sync()
 END SUBROUTINE wrf_gpu_prefetch_sync
+
+! WRF_GPU_HOSTBLOCKS=0: keep compute regions on the GPU inside the physics / microphysics / diagnostics blocks
+! (only meaningful for dynamics-only experiments with all physics schemes off). Default 1 = host blocks.
+LOGICAL FUNCTION wrf_gpu_hostblocks()
+   IMPLICIT NONE
+   INTEGER, SAVE :: mode = -1
+   CHARACTER(LEN=8) :: v
+   INTEGER :: st
+   IF ( mode < 0 ) THEN
+      CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_HOSTBLOCKS', v, STATUS=st )
+      mode = 1
+      IF ( st == 0 ) READ( v, *, IOSTAT=st ) mode
+      IF ( st /= 0 ) mode = 1
+   ENDIF
+   wrf_gpu_hostblocks = ( mode /= 0 )
+END FUNCTION wrf_gpu_hostblocks
 #endif
