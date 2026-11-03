@@ -1,0 +1,12 @@
+! GENERATED (2026-11-03): physics tendencies (solve_em i1) to the device after the physics block
+   IF ( SIZE(ru_tendf) > 1 ) CALL wrf_gpu_prefetch_addr( LOC(ru_tendf), INT(SIZE(ru_tendf),8)*INT(STORAGE_SIZE(ru_tendf)/8,8), 1 )
+   IF ( SIZE(rv_tendf) > 1 ) CALL wrf_gpu_prefetch_addr( LOC(rv_tendf), INT(SIZE(rv_tendf),8)*INT(STORAGE_SIZE(rv_tendf)/8,8), 1 )
+   IF ( SIZE(rw_tendf) > 1 ) CALL wrf_gpu_prefetch_addr( LOC(rw_tendf), INT(SIZE(rw_tendf),8)*INT(STORAGE_SIZE(rw_tendf)/8,8), 1 )
+   IF ( SIZE(ph_tendf) > 1 ) CALL wrf_gpu_prefetch_addr( LOC(ph_tendf), INT(SIZE(ph_tendf),8)*INT(STORAGE_SIZE(ph_tendf)/8,8), 1 )
+   IF ( SIZE(t_tendf) > 1 ) CALL wrf_gpu_prefetch_addr( LOC(t_tendf), INT(SIZE(t_tendf),8)*INT(STORAGE_SIZE(t_tendf)/8,8), 1 )
+   IF ( SIZE(mu_tendf) > 1 ) CALL wrf_gpu_prefetch_addr( LOC(mu_tendf), INT(SIZE(mu_tendf),8)*INT(STORAGE_SIZE(mu_tendf)/8,8), 1 )
+   IF ( SIZE(tke_tend) > 1 ) CALL wrf_gpu_prefetch_addr( LOC(tke_tend), INT(SIZE(tke_tend),8)*INT(STORAGE_SIZE(tke_tend)/8,8), 1 )
+   IF ( SIZE(moist_tend) > 1 ) CALL wrf_gpu_prefetch_addr( LOC(moist_tend), INT(SIZE(moist_tend),8)*INT(STORAGE_SIZE(moist_tend)/8,8), 1 )
+   IF ( SIZE(scalar_tend) > 1 ) CALL wrf_gpu_prefetch_addr( LOC(scalar_tend), INT(SIZE(scalar_tend),8)*INT(STORAGE_SIZE(scalar_tend)/8,8), 1 )
+   IF ( SIZE(tracer_tend) > 1 ) CALL wrf_gpu_prefetch_addr( LOC(tracer_tend), INT(SIZE(tracer_tend),8)*INT(STORAGE_SIZE(tracer_tend)/8,8), 1 )
+   CALL wrf_gpu_prefetch_sync()

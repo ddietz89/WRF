@@ -177,6 +177,7 @@ SUBROUTINE solve_em ( grid , config_flags  &
 
    INTEGER :: rc
 #ifdef WRF_GPU
+   INTEGER, EXTERNAL :: wrf_gpu_prefetch_mode
    INTEGER, EXTERNAL :: wrf_gpu_advise_mode
    LOGICAL, SAVE :: gpu_advised_grid = .FALSE.
 #endif
@@ -849,6 +850,11 @@ BENCH_START(calc_p_rho_tim)
 #ifdef WRF_GPU_RESIDENT
 #      include "gpu_upd_host_pre_phys.inc"
 #endif
+#if defined(WRF_GPU) && !defined(WRF_GPU_RESIDENT)
+   IF ( wrf_gpu_prefetch_mode() > 0 ) THEN
+#  include "gpu_pf_host_pre_phys.inc"
+   ENDIF
+#endif
 #ifdef WRF_GPU
        wrf_gpu_on = .FALSE. ; CALL rsl_set_gpu_on( .FALSE. )
 #endif
@@ -927,6 +933,12 @@ BENCH_START(calc_p_rho_tim)
 #endif
 #ifdef WRF_GPU_RESIDENT
 #      include "gpu_upd_dev_post_phys.inc"
+#endif
+#if defined(WRF_GPU) && !defined(WRF_GPU_RESIDENT)
+   IF ( wrf_gpu_prefetch_mode() > 0 ) THEN
+#  include "gpu_pf_dev_post_phys.inc"
+#  include "gpu_pf_dev_i1_tend.inc"
+   ENDIF
 #endif
      END IF rk_step_is_one
 #ifdef WRF_GPU_FIELDTRACE
@@ -3713,6 +3725,11 @@ BENCH_END(bc_end_tim)
 #ifdef WRF_GPU_RESIDENT
 #  include "gpu_upd_host_pre_mp.inc"
 #endif
+#if defined(WRF_GPU) && !defined(WRF_GPU_RESIDENT)
+   IF ( wrf_gpu_prefetch_mode() > 0 ) THEN
+#  include "gpu_pf_host_pre_mp.inc"
+   ENDIF
+#endif
 #ifdef WRF_GPU
    wrf_gpu_on = .FALSE. ; CALL rsl_set_gpu_on( .FALSE. )
 #endif
@@ -4345,6 +4362,11 @@ BENCH_START(moist_phys_end_tim)
 #endif
 #ifdef WRF_GPU_RESIDENT
 #       include "gpu_upd_dev_post_mp.inc"
+#endif
+#if defined(WRF_GPU) && !defined(WRF_GPU_RESIDENT)
+   IF ( wrf_gpu_prefetch_mode() > 0 ) THEN
+#  include "gpu_pf_dev_post_mp.inc"
+   ENDIF
 #endif
         its=ips ; ite = ipe
         jts=jps ; jte = jpe
@@ -5027,6 +5049,11 @@ BENCH_END(bc_2d_tim)
   ! host copies current for after_all_rk_steps diagnostics and for history output after this step
 #  include "gpu_upd_host_pre_phys.inc"
 #endif
+#if defined(WRF_GPU) && !defined(WRF_GPU_RESIDENT)
+   IF ( wrf_gpu_prefetch_mode() > 0 ) THEN
+#  include "gpu_pf_host_pre_phys.inc"
+   ENDIF
+#endif
 #ifdef WRF_GPU
   wrf_gpu_on = .FALSE. ; CALL rsl_set_gpu_on( .FALSE. )
 #endif
@@ -5455,4 +5482,93 @@ SUBROUTINE wrf_gpu_advise_grid( grid )
    ENDDO
    WRITE(0,'(A,I6,A)') 'WRF_GPU_ADVISE grid: ', n, ' real state arrays advised'
 END SUBROUTINE wrf_gpu_advise_grid
+
+! ---------------------------------------------------------------------------------------------------------------
+! Managed-memory bulk prefetch around the host blocks (WRF_GPU_PREFETCH=1): turns demand page faults for the
+! traced field lists into cuMemPrefetchAsync copies. Unlisted data still migrates on demand (correctness unchanged).
+! ---------------------------------------------------------------------------------------------------------------
+INTEGER FUNCTION wrf_gpu_prefetch_mode()
+   IMPLICIT NONE
+   INTEGER, SAVE :: mode = -1
+   CHARACTER(LEN=8) :: v
+   INTEGER :: st
+   IF ( mode < 0 ) THEN
+      CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_PREFETCH', v, STATUS=st )
+      mode = 0
+      IF ( st == 0 ) READ( v, *, IOSTAT=st ) mode
+      IF ( st /= 0 ) mode = 0
+   ENDIF
+   wrf_gpu_prefetch_mode = mode
+END FUNCTION wrf_gpu_prefetch_mode
+
+MODULE wrf_gpu_pf_ctl
+   USE ISO_C_BINDING
+   ABSTRACT INTERFACE
+      INTEGER(C_INT) FUNCTION prefetch_t( dptr, cnt, dev, stream ) BIND(C)
+         IMPORT ; INTEGER(C_LONG_LONG), VALUE :: dptr ; INTEGER(C_SIZE_T), VALUE :: cnt
+         INTEGER(C_INT), VALUE :: dev ; TYPE(C_PTR), VALUE :: stream
+      END FUNCTION
+      INTEGER(C_INT) FUNCTION sync_t() BIND(C)
+         IMPORT
+      END FUNCTION
+      INTEGER(C_INT) FUNCTION getdev_t( dev ) BIND(C)
+         IMPORT ; INTEGER(C_INT) :: dev
+      END FUNCTION
+   END INTERFACE
+   PROCEDURE(prefetch_t), POINTER :: cu_prefetch => NULL()
+   PROCEDURE(sync_t), POINTER :: cu_sync => NULL()
+   LOGICAL :: pf_init = .FALSE.
+   INTEGER(C_INT) :: pf_dev = 0
+   INTEGER :: pf_ok = 0, pf_bad = 0, pf_rep = 0
+CONTAINS
+   SUBROUTINE pf_setup()
+      USE openacc
+      INTERFACE
+         TYPE(C_PTR) FUNCTION dlopen( name, flags ) BIND(C, NAME='dlopen')
+            IMPORT ; CHARACTER(KIND=C_CHAR), DIMENSION(*) :: name ; INTEGER(C_INT), VALUE :: flags
+         END FUNCTION
+         TYPE(C_FUNPTR) FUNCTION dlsym( h, name ) BIND(C, NAME='dlsym')
+            IMPORT ; TYPE(C_PTR), VALUE :: h ; CHARACTER(KIND=C_CHAR), DIMENSION(*) :: name
+         END FUNCTION
+      END INTERFACE
+      PROCEDURE(getdev_t), POINTER :: cu_getdev
+      TYPE(C_PTR) :: h
+      INTEGER(C_INT) :: rc
+      pf_init = .TRUE. ; cu_getdev => NULL()
+      CALL acc_init( acc_device_nvidia )
+      h = dlopen( 'libcuda.so.1'//C_NULL_CHAR, 2 )
+      IF ( C_ASSOCIATED(h) ) THEN
+         CALL C_F_PROCPOINTER( dlsym( h, 'cuMemPrefetchAsync'//C_NULL_CHAR ), cu_prefetch )
+         CALL C_F_PROCPOINTER( dlsym( h, 'cuCtxSynchronize'//C_NULL_CHAR ), cu_sync )
+         CALL C_F_PROCPOINTER( dlsym( h, 'cuCtxGetDevice'//C_NULL_CHAR ), cu_getdev )
+         IF ( ASSOCIATED(cu_getdev) ) rc = cu_getdev( pf_dev )
+      ENDIF
+      WRITE(0,'(A,L2,A,I3)') 'WRF_GPU_PREFETCH cuMemPrefetchAsync found', ASSOCIATED(cu_prefetch), ' dev', pf_dev
+   END SUBROUTINE pf_setup
+END MODULE wrf_gpu_pf_ctl
+
+SUBROUTINE wrf_gpu_prefetch_addr( addr, nbytes, todev )
+   USE wrf_gpu_pf_ctl
+   IMPLICIT NONE
+   INTEGER(8), INTENT(IN) :: addr, nbytes
+   INTEGER, INTENT(IN) :: todev
+   INTEGER(C_INT) :: rc, dst
+   IF ( nbytes <= 4 ) RETURN
+   IF ( .NOT. pf_init ) CALL pf_setup()
+   IF ( .NOT. ASSOCIATED(cu_prefetch) ) RETURN
+   dst = -1_C_INT                      ! CU_DEVICE_CPU
+   IF ( todev /= 0 ) dst = pf_dev
+   rc = cu_prefetch( INT(addr,C_LONG_LONG), INT(nbytes,C_SIZE_T), dst, C_NULL_PTR )
+   IF ( rc == 0 ) THEN ; pf_ok = pf_ok + 1 ; ELSE ; pf_bad = pf_bad + 1 ; ENDIF
+   IF ( pf_ok + pf_bad == 500 .AND. pf_rep == 0 ) THEN
+      pf_rep = 1 ; WRITE(0,'(A,I8,A,I8,A,I6)') 'WRF_GPU_PREFETCH calls ok', pf_ok, ' failed', pf_bad, ' last rc', rc
+   ENDIF
+END SUBROUTINE wrf_gpu_prefetch_addr
+
+SUBROUTINE wrf_gpu_prefetch_sync()
+   USE wrf_gpu_pf_ctl
+   IMPLICIT NONE
+   INTEGER(C_INT) :: rc
+   IF ( ASSOCIATED(cu_sync) ) rc = cu_sync()
+END SUBROUTINE wrf_gpu_prefetch_sync
 #endif
