@@ -6144,6 +6144,38 @@ END SUBROUTINE phy_prep_part2
 !  add microphysics theta diff to perturbation theta, set h_diabatic
 
      IF ( config_flags%no_mp_heating .eq. 0 ) THEN
+#if ( WRF_DFI_RADAR != 1 ) && ( WRFPLUS != 1 )
+     IF ( wrf_gpu_on ) THEN
+     ! GPU: same per-point update as the host loop below; the running max/min (mptenmax/min, imax/jmax) is an
+     ! unused diagnostic and is not computed here (it kept this loop on the host and forced t_2/moist migration).
+!$acc parallel loop collapse(3) private(mpten,qvten,qcten) if(wrf_gpu_on)
+     DO j = j_start, j_end
+     DO k = k_start, k_end
+     DO i = i_start, i_end
+          mpten = th_phy(i,k,j)-h_diabatic(i,k,j)
+          qvten = qv(i,k,j)-qv_diabatic(i,k,j)
+          qcten = qc(i,k,j)-qc_diabatic(i,k,j)
+          mpten=min(config_flags%mp_tend_lim*dt, mpten)
+          mpten=max(-config_flags%mp_tend_lim*dt, mpten)
+         IF ( ( config_flags%use_theta_m .EQ. 1 ) .AND. (P_Qv .GE. PARAM_FIRST_SCALAR) ) THEN
+            t_new(i,k,j) =  h_diabatic(i,k,j)*(1. + (R_v/R_d)*qv_diabatic(i,k,j)) + &
+                            mpten*(1. + (R_v/R_d)*qv(i,k,j)) + &
+                            (R_v/R_d)*qvten*th_phy(i,k,j) - T0
+            th_phy_m_t0(i,k,j) = (t_new(i,k,j)+T0)/(1.+(R_v/R_d)*qv(i,k,j)) - T0
+            h_diabatic(i,k,j) =  ( mpten*(1. + (R_v/R_d)*qv(i,k,j)) + &
+                                 (R_v/R_d)*qvten*th_phy(i,k,j) ) / dt
+         ELSE
+            t_new(i,k,j) = t_new(i,k,j) + mpten
+            th_phy_m_t0(i,k,j) = t_new(i,k,j)
+            h_diabatic(i,k,j) =  mpten/dt
+         END IF
+         qv_diabatic(i,k,j) =  qvten/dt
+         qc_diabatic(i,k,j) =  qcten/dt
+     ENDDO
+     ENDDO
+     ENDDO
+     ELSE
+#endif
        mptenmax = 0.
        mptenmin = 999.
      DO j = j_start, j_end
@@ -6230,6 +6262,9 @@ END SUBROUTINE phy_prep_part2
      ENDDO
      ENDDO
      ENDDO
+#if ( WRF_DFI_RADAR != 1 ) && ( WRFPLUS != 1 )
+     ENDIF
+#endif
 
      ELSE
 
