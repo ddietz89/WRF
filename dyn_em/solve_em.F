@@ -5795,7 +5795,7 @@ SUBROUTINE gpu_retile( grid, to_phys, ids, ide, jds, jde, ips, ipe, jps, jpe )
    INTEGER, INTENT(IN) :: ids, ide, jds, jde, ips, ipe, jps, jpe
    INTEGER, PARAMETER :: ZONE_GPU_PHYS = 19
    INTEGER, SAVE :: ntp = -1
-   INTEGER :: st, nsave
+   INTEGER :: st, nsave, spec_save, nx_save, ny_save
    CHARACTER(LEN=8) :: v
    IF ( ntp < 0 ) THEN
       CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_PHYS_TILES', v, STATUS=st )
@@ -5806,10 +5806,16 @@ SUBROUTINE gpu_retile( grid, to_phys, ids, ide, jds, jde, ips, ipe, jps, jpe )
    IF ( ntp <= 1 ) RETURN
    IF ( to_phys ) THEN
       IF ( .NOT. grid%tiling_latch(ZONE_GPU_PHYS) ) THEN
+         ! set_tiles2 caches the first computed count in grid%num_tiles_spec (and x/y): clear it so the namelist
+         ! value ntp is used for this zone, then restore the cached values for the solve_em (dynamics) zone.
+         spec_save = grid%num_tiles_spec ; nx_save = grid%num_tiles_x ; ny_save = grid%num_tiles_y
+         grid%num_tiles_spec = 0
          CALL nl_get_numtiles( 1, nsave )
          CALL nl_set_numtiles( 1, ntp )
          CALL set_tiles( ZONE_GPU_PHYS, grid, ids, ide, jds, jde, ips, ipe, jps, jpe )
          CALL nl_set_numtiles( 1, nsave )
+         grid%num_tiles_spec = spec_save ; grid%num_tiles_x = nx_save ; grid%num_tiles_y = ny_save
+         CALL set_tiles( ZONE_GPU_PHYS, grid, ids, ide, jds, jde, ips, ipe, jps, jpe )
       ELSE
          CALL set_tiles( ZONE_GPU_PHYS, grid, ids, ide, jds, jde, ips, ipe, jps, jpe )
       ENDIF
