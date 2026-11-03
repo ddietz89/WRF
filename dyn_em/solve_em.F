@@ -1018,7 +1018,7 @@ BENCH_START(calc_p_rho_tim)
        ! physics (part1, host) wrote grid fields and the i1 temporaries (zeroed tendencies, th_phy/pi_phy/...):
        ! push them to the device before part2 runs on the GPU
 #      include "gpu_upd_dev_post_phys.inc"
-#      include "gpu_upd_dev_i1_all.inc"
+#      include "gpu_upd_dev_i1_part1.inc"
 #endif
        CALL first_rk_step_part2 (    grid, config_flags         &
                              , moist , moist_old , moist_tend   &
