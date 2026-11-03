@@ -172,7 +172,11 @@ SUBROUTINE solve_em ( grid , config_flags  &
 ! time.  Potential problem on stack-limited architectures: increases
 ! amount of data on program stack by making these automatic arrays.
 
-   INTEGER :: rc 
+   INTEGER :: rc
+#ifdef _OPENACC
+   INTEGER, EXTERNAL :: wrf_gpu_advise_mode
+   LOGICAL, SAVE :: gpu_advised_grid = .FALSE.
+#endif
    INTEGER :: number_of_small_timesteps, rk_step
    INTEGER :: klevel,ijm,ijp,i,j,k,size1,size2    ! for prints/plots only
    INTEGER :: idum1, idum2, dynamics_option
@@ -322,6 +326,16 @@ SUBROUTINE solve_em ( grid , config_flags  &
 !  See: https://www2.mmm.ucar.edu/wrf/WG2/topics/settiles
    CALL set_tiles ( ZONE_SOLVE_EM, grid , ids , ide , jds , jde , ips , ipe , jps , jpe )
 !   CALL set_tiles (  grid , ids , ide , jds , jde , ips , ipe , jps , jpe )
+
+#ifdef _OPENACC
+   ! GPU: managed-memory placement advice (WRF_GPU_ADVISE); grid arrays once, i1 temporaries every call
+   IF ( wrf_gpu_advise_mode() /= 0 ) THEN
+      IF ( .NOT. gpu_advised_grid ) THEN
+         CALL wrf_gpu_advise_grid( grid ) ; gpu_advised_grid = .TRUE.
+      ENDIF
+#     include "gpu_advise_i1.inc"
+   ENDIF
+#endif
 
 !  Max values of CFL for adaptive time step scheme
 
@@ -5255,4 +5269,122 @@ SUBROUTINE gpu_field_trace( grid, tag )
    IF ( have ) WRITE(0,'(A,A,A,A,A,I5,A,A)') 'GPUTRACE ', TRIM(prevtag), ' -> ', TRIM(tag), ' changed ', nch, ' :', TRIM(line)
    have = .TRUE. ; prevtag = tag
 END SUBROUTINE gpu_field_trace
+#endif
+#ifdef _OPENACC
+! ---------------------------------------------------------------------------------------------------------------
+! GPU (managed memory) placement advice. WRF_GPU_ADVISE=0 none (default), 1 cuMemAdvise SET_READ_MOSTLY,
+! 2 SET_PREFERRED_LOCATION=GPU + SET_ACCESSED_BY=CPU. Applied to every grid state array (once) and to the solve_em
+! i1 temporaries (every call: they are re-allocated per step). libcuda is resolved with dlopen at run time.
+! ---------------------------------------------------------------------------------------------------------------
+INTEGER FUNCTION wrf_gpu_advise_mode()
+   IMPLICIT NONE
+   INTEGER, SAVE :: mode = -1
+   CHARACTER(LEN=8) :: v
+   INTEGER :: st
+   IF ( mode < 0 ) THEN
+      CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_ADVISE', v, STATUS=st )
+      mode = 0
+      IF ( st == 0 ) READ( v, *, IOSTAT=st ) mode
+      IF ( st /= 0 ) mode = 0
+   ENDIF
+   wrf_gpu_advise_mode = mode
+END FUNCTION wrf_gpu_advise_mode
+
+SUBROUTINE wrf_gpu_advise_addr( addr, nbytes )
+   USE ISO_C_BINDING
+   USE openacc
+   IMPLICIT NONE
+   INTEGER(8), INTENT(IN) :: addr, nbytes
+   INTERFACE
+      TYPE(C_PTR) FUNCTION dlopen( name, flags ) BIND(C, NAME='dlopen')
+         IMPORT ; CHARACTER(KIND=C_CHAR), DIMENSION(*) :: name ; INTEGER(C_INT), VALUE :: flags
+      END FUNCTION
+      TYPE(C_FUNPTR) FUNCTION dlsym( h, name ) BIND(C, NAME='dlsym')
+         IMPORT ; TYPE(C_PTR), VALUE :: h ; CHARACTER(KIND=C_CHAR), DIMENSION(*) :: name
+      END FUNCTION
+   END INTERFACE
+   ABSTRACT INTERFACE
+      INTEGER(C_INT) FUNCTION advise_t( dptr, cnt, advice, dev ) BIND(C)
+         IMPORT ; INTEGER(C_LONG_LONG), VALUE :: dptr ; INTEGER(C_SIZE_T), VALUE :: cnt
+         INTEGER(C_INT), VALUE :: advice, dev
+      END FUNCTION
+      INTEGER(C_INT) FUNCTION getdev_t( dev ) BIND(C)
+         IMPORT ; INTEGER(C_INT) :: dev
+      END FUNCTION
+   END INTERFACE
+   PROCEDURE(advise_t), POINTER, SAVE :: cu_advise => NULL()
+   PROCEDURE(getdev_t), POINTER, SAVE :: cu_getdev => NULL()
+   LOGICAL, SAVE :: init = .FALSE.
+   INTEGER(C_INT), SAVE :: dev = 0
+   INTEGER, SAVE :: nok = 0, nbad = 0, nrep = 0
+   TYPE(C_PTR) :: h
+   INTEGER(C_INT) :: rc
+   INTEGER :: mode
+   INTEGER, EXTERNAL :: wrf_gpu_advise_mode
+   mode = wrf_gpu_advise_mode()
+   IF ( mode == 0 .OR. nbytes <= 0 ) RETURN
+   IF ( .NOT. init ) THEN
+      init = .TRUE.
+      CALL acc_init( acc_device_nvidia )
+      h = dlopen( 'libcuda.so.1'//C_NULL_CHAR, 2 )   ! RTLD_NOW
+      IF ( C_ASSOCIATED(h) ) THEN
+         CALL C_F_PROCPOINTER( dlsym( h, 'cuMemAdvise'//C_NULL_CHAR ), cu_advise )
+         CALL C_F_PROCPOINTER( dlsym( h, 'cuCtxGetDevice'//C_NULL_CHAR ), cu_getdev )
+         IF ( ASSOCIATED(cu_getdev) ) rc = cu_getdev( dev )
+      ENDIF
+      WRITE(0,'(A,I2,A,L2,A,I3)') 'WRF_GPU_ADVISE mode', mode, ' cuMemAdvise found', ASSOCIATED(cu_advise), ' dev', dev
+   ENDIF
+   IF ( .NOT. ASSOCIATED(cu_advise) ) RETURN
+   IF ( mode == 1 ) THEN
+      rc = cu_advise( INT(addr,C_LONG_LONG), INT(nbytes,C_SIZE_T), 1_C_INT, dev )          ! SET_READ_MOSTLY
+   ELSE
+      rc = cu_advise( INT(addr,C_LONG_LONG), INT(nbytes,C_SIZE_T), 3_C_INT, dev )          ! SET_PREFERRED_LOCATION
+      IF ( rc == 0 ) rc = cu_advise( INT(addr,C_LONG_LONG), INT(nbytes,C_SIZE_T), 5_C_INT, -1_C_INT )  ! ACCESSED_BY CPU
+   ENDIF
+   IF ( rc == 0 ) THEN ; nok = nok + 1 ; ELSE ; nbad = nbad + 1 ; ENDIF
+   IF ( nok + nbad == 200 .OR. (nok + nbad > 200 .AND. nrep == 0 .AND. nbad > 0) ) THEN
+      nrep = nrep + 1
+      WRITE(0,'(A,I8,A,I8,A,I6)') 'WRF_GPU_ADVISE calls ok', nok, ' failed', nbad, ' last rc', rc
+   ENDIF
+END SUBROUTINE wrf_gpu_advise_addr
+
+SUBROUTINE wrf_gpu_advise_grid( grid )
+   USE module_domain, ONLY : domain, fieldlist
+   IMPLICIT NONE
+   TYPE(domain), INTENT(IN) :: grid
+   TYPE(fieldlist), POINTER :: p
+   INTEGER, EXTERNAL :: wrf_gpu_advise_mode
+   INTEGER :: n
+   IF ( wrf_gpu_advise_mode() == 0 ) RETURN
+   n = 0
+   p => grid%head_statevars
+   DO WHILE ( ASSOCIATED(p) )
+      IF ( p%Type == 'r' ) THEN
+         IF ( p%Ndim == 2 ) THEN
+            IF ( ASSOCIATED(p%rfield_2d) ) THEN
+               IF ( SIZE(p%rfield_2d) > 1 ) THEN
+                  CALL wrf_gpu_advise_addr( LOC(p%rfield_2d(LBOUND(p%rfield_2d,1),LBOUND(p%rfield_2d,2))), &
+                                            INT(SIZE(p%rfield_2d),8)*4_8 ) ; n = n + 1
+               ENDIF
+            ENDIF
+         ELSE IF ( p%Ndim == 3 ) THEN
+            IF ( ASSOCIATED(p%rfield_3d) ) THEN
+               IF ( SIZE(p%rfield_3d) > 1 ) THEN
+                  CALL wrf_gpu_advise_addr( LOC(p%rfield_3d(LBOUND(p%rfield_3d,1),LBOUND(p%rfield_3d,2),LBOUND(p%rfield_3d,3))), &
+                                            INT(SIZE(p%rfield_3d),8)*4_8 ) ; n = n + 1
+               ENDIF
+            ENDIF
+         ELSE IF ( p%Ndim == 4 ) THEN
+            IF ( ASSOCIATED(p%rfield_4d) ) THEN
+               IF ( SIZE(p%rfield_4d) > 1 ) THEN
+                  CALL wrf_gpu_advise_addr( LOC(p%rfield_4d(LBOUND(p%rfield_4d,1),LBOUND(p%rfield_4d,2), &
+                                            LBOUND(p%rfield_4d,3),LBOUND(p%rfield_4d,4))), INT(SIZE(p%rfield_4d),8)*4_8 ) ; n = n + 1
+               ENDIF
+            ENDIF
+         ENDIF
+      ENDIF
+      p => p%next
+   ENDDO
+   WRITE(0,'(A,I6,A)') 'WRF_GPU_ADVISE grid: ', n, ' real state arrays advised'
+END SUBROUTINE wrf_gpu_advise_grid
 #endif
