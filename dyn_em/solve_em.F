@@ -966,6 +966,7 @@ BENCH_START(calc_p_rho_tim)
 #endif
 #ifdef WRF_GPU
        IF ( wrf_gpu_hostblocks() ) THEN ; wrf_gpu_on = .FALSE. ; CALL rsl_set_gpu_on( .FALSE. ) ; ENDIF
+       CALL gpu_retile( grid, .TRUE., ids, ide, jds, jde, ips, ipe, jps, jpe )
 #endif
 #ifdef WRF_GPU_RESIDENT
 #endif
@@ -1039,6 +1040,7 @@ BENCH_START(calc_p_rho_tim)
 #endif
 #ifdef WRF_GPU
        wrf_gpu_on = .TRUE. ; CALL rsl_set_gpu_on( .TRUE. )
+       CALL gpu_retile( grid, .FALSE., ids, ide, jds, jde, ips, ipe, jps, jpe )
 #endif
 #ifdef WRF_GPU
 !$acc wait
@@ -3853,6 +3855,7 @@ BENCH_END(bc_end_tim)
 #endif
 #ifdef WRF_GPU
    IF ( wrf_gpu_hostblocks() ) THEN ; wrf_gpu_on = .FALSE. ; CALL rsl_set_gpu_on( .FALSE. ) ; ENDIF
+       CALL gpu_retile( grid, .TRUE., ids, ide, jds, jde, ips, ipe, jps, jpe )
 #endif
 #ifdef WRF_GPU_RESIDENT
 #endif
@@ -4480,6 +4483,7 @@ BENCH_START(moist_phys_end_tim)
 #endif
 #ifdef WRF_GPU
         wrf_gpu_on = .TRUE. ; CALL rsl_set_gpu_on( .TRUE. )
+       CALL gpu_retile( grid, .FALSE., ids, ide, jds, jde, ips, ipe, jps, jpe )
 #endif
 #ifdef WRF_GPU
 !$acc wait
@@ -5189,6 +5193,7 @@ BENCH_END(bc_2d_tim)
 #endif
 #ifdef WRF_GPU
   IF ( wrf_gpu_hostblocks() ) THEN ; wrf_gpu_on = .FALSE. ; CALL rsl_set_gpu_on( .FALSE. ) ; ENDIF
+       CALL gpu_retile( grid, .TRUE., ids, ide, jds, jde, ips, ipe, jps, jpe )
 #endif
 #ifdef WRF_GPU_RESIDENT
 #endif
@@ -5209,6 +5214,7 @@ BENCH_END(bc_2d_tim)
 #endif
 #ifdef WRF_GPU
   wrf_gpu_on = .TRUE. ; CALL rsl_set_gpu_on( .TRUE. )
+       CALL gpu_retile( grid, .FALSE., ids, ide, jds, jde, ips, ipe, jps, jpe )
 #endif
 #ifdef WRF_GPU
 !$acc wait
@@ -5770,4 +5776,39 @@ SUBROUTINE wrf_gpu_addrmap_grid( grid )
       p => p%next
    ENDDO
 END SUBROUTINE wrf_gpu_addrmap_grid
+
+! WRF_GPU_PHYS_TILES=N (dm+sm GPU builds): the GPU dynamics keeps the solve_em tiling (run with WRF_NUM_TILES=1),
+! the host blocks (physics, microphysics, after_all_rk_steps) use N OpenMP tiles (tiling zone 19, cached).
+SUBROUTINE gpu_retile( grid, to_phys, ids, ide, jds, jde, ips, ipe, jps, jpe )
+   USE module_domain, ONLY : domain
+   USE module_tiles, ONLY : set_tiles
+   USE module_model_constants, ONLY : ZONE_SOLVE_EM
+   IMPLICIT NONE
+   TYPE(domain), INTENT(INOUT) :: grid
+   LOGICAL, INTENT(IN) :: to_phys
+   INTEGER, INTENT(IN) :: ids, ide, jds, jde, ips, ipe, jps, jpe
+   INTEGER, PARAMETER :: ZONE_GPU_PHYS = 19
+   INTEGER, SAVE :: ntp = -1
+   INTEGER :: st, nsave
+   CHARACTER(LEN=8) :: v
+   IF ( ntp < 0 ) THEN
+      CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_PHYS_TILES', v, STATUS=st )
+      ntp = 0
+      IF ( st == 0 ) READ( v, *, IOSTAT=st ) ntp
+      IF ( st /= 0 ) ntp = 0
+   ENDIF
+   IF ( ntp <= 1 ) RETURN
+   IF ( to_phys ) THEN
+      IF ( .NOT. grid%tiling_latch(ZONE_GPU_PHYS) ) THEN
+         CALL nl_get_numtiles( 1, nsave )
+         CALL nl_set_numtiles( 1, ntp )
+         CALL set_tiles( ZONE_GPU_PHYS, grid, ids, ide, jds, jde, ips, ipe, jps, jpe )
+         CALL nl_set_numtiles( 1, nsave )
+      ELSE
+         CALL set_tiles( ZONE_GPU_PHYS, grid, ids, ide, jds, jde, ips, ipe, jps, jpe )
+      ENDIF
+   ELSE
+      CALL set_tiles( ZONE_SOLVE_EM, grid, ids, ide, jds, jde, ips, ipe, jps, jpe )
+   ENDIF
+END SUBROUTINE gpu_retile
 #endif
