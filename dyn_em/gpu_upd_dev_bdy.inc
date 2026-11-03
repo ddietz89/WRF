@@ -103,3 +103,6 @@
 !$acc update device(grid%w_bxs) if(associated(grid%w_bxs))
 !$acc update device(grid%w_bye) if(associated(grid%w_bye))
 !$acc update device(grid%w_bys) if(associated(grid%w_bys))
+! lateral-boundary relaxation weights: adapt_timestep (host, outside solve_em) recomputes them from the new dt
+!$acc update device(grid%fcx) if(associated(grid%fcx))
+!$acc update device(grid%gcx) if(associated(grid%gcx))
