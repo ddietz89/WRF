@@ -568,6 +568,7 @@
 !$acc update device(grid%ww_m) if(associated(grid%ww_m))
 !$acc update device(grid%xice) if(associated(grid%xice))
 !$acc update device(grid%xkhh) if(associated(grid%xkhh))
+!$acc update device(grid%xkhv) if(associated(grid%xkhv))
 !$acc update device(grid%xkmh) if(associated(grid%xkmh))
 !$acc update device(grid%xkmv) if(associated(grid%xkmv))
 !$acc update device(grid%xlaidyn) if(associated(grid%xlaidyn))

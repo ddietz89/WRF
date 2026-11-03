@@ -461,6 +461,10 @@ SUBROUTINE solve_em ( grid , config_flags  &
    ENDIF
 #  include "gpu_upd_dev_bdy.inc"
 #endif
+#ifdef WRF_GPU_RESIDENT
+   ! automatic (per-call) work arrays used inside compute regions: device copies for this call only
+!$acc enter data create(h_tendency, z_tendency)
+#endif
 
 !  Max values of CFL for adaptive time step scheme
 
@@ -5506,6 +5510,9 @@ BENCH_END(bc_2d_tim)
 #endif
 #ifdef WRF_GPU
 !$acc wait
+#endif
+#ifdef WRF_GPU_RESIDENT
+!$acc exit data delete(h_tendency, z_tendency)
 #endif
 #ifdef WRF_SEG_TIMERS
    CALL seg_mark( 0 )

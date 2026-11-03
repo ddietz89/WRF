@@ -194,6 +194,9 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
    REAL,  DIMENSION( its:ite, kts:kte, 2) :: fqy
 #endif
    REAL, DIMENSION(:,:,:), ALLOCATABLE :: fqy3   ! GPU: full-row y flux
+#ifdef WRF_GPU_RESIDENT
+!$acc declare create(fqy3)   ! device copy follows ALLOCATE / automatic deallocation
+#endif
    
    LOGICAL :: degrade_xs, degrade_ys
    LOGICAL :: degrade_xe, degrade_ye
@@ -1733,6 +1736,9 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
    REAL,  DIMENSION( its:ite, kts:kte, 2 ) :: fqy
 #endif
    REAL, DIMENSION(:,:,:), ALLOCATABLE :: fqy3   ! GPU: full-row y flux
+#ifdef WRF_GPU_RESIDENT
+!$acc declare create(fqy3)   ! device copy follows ALLOCATE / automatic deallocation
+#endif
 
    INTEGER :: horz_order
    INTEGER :: vert_order
@@ -3369,6 +3375,9 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
    REAL,  DIMENSION( its:ite, kts:kte, 2 ) :: fqy
 #endif
    REAL, DIMENSION(:,:,:), ALLOCATABLE :: fqy3   ! GPU: full-row y flux
+#ifdef WRF_GPU_RESIDENT
+!$acc declare create(fqy3)   ! device copy follows ALLOCATE / automatic deallocation
+#endif
 
    INTEGER :: horz_order, vert_order
    
@@ -4842,6 +4851,9 @@ SUBROUTINE advect_w    ( w, w_old, tendency,            &
    REAL,  DIMENSION( its:ite, kts:kte, 2 ) :: fqy
 #endif
    REAL, DIMENSION(:,:,:), ALLOCATABLE :: fqy3   ! GPU: full-row y flux
+#ifdef WRF_GPU_RESIDENT
+!$acc declare create(fqy3)   ! device copy follows ALLOCATE / automatic deallocation
+#endif
    
    LOGICAL :: degrade_xs, degrade_ys
    LOGICAL :: degrade_xe, degrade_ye

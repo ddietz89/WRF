@@ -568,6 +568,7 @@
 !$acc enter data copyin(grid%ww_m) if(associated(grid%ww_m))
 !$acc enter data copyin(grid%xice) if(associated(grid%xice))
 !$acc enter data copyin(grid%xkhh) if(associated(grid%xkhh))
+!$acc enter data copyin(grid%xkhv) if(associated(grid%xkhv))
 !$acc enter data copyin(grid%xkmh) if(associated(grid%xkmh))
 !$acc enter data copyin(grid%xkmv) if(associated(grid%xkmv))
 !$acc enter data copyin(grid%xlaidyn) if(associated(grid%xlaidyn))

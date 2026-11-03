@@ -568,6 +568,7 @@
 !$acc update self(grid%ww_m) if(associated(grid%ww_m))
 !$acc update self(grid%xice) if(associated(grid%xice))
 !$acc update self(grid%xkhh) if(associated(grid%xkhh))
+!$acc update self(grid%xkhv) if(associated(grid%xkhv))
 !$acc update self(grid%xkmh) if(associated(grid%xkmh))
 !$acc update self(grid%xkmv) if(associated(grid%xkmv))
 !$acc update self(grid%xlaidyn) if(associated(grid%xlaidyn))
