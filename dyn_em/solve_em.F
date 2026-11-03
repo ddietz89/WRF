@@ -173,7 +173,7 @@ SUBROUTINE solve_em ( grid , config_flags  &
 ! amount of data on program stack by making these automatic arrays.
 
    INTEGER :: rc
-#ifdef _OPENACC
+#ifdef WRF_GPU
    INTEGER, EXTERNAL :: wrf_gpu_advise_mode
    LOGICAL, SAVE :: gpu_advised_grid = .FALSE.
 #endif
@@ -327,7 +327,7 @@ SUBROUTINE solve_em ( grid , config_flags  &
    CALL set_tiles ( ZONE_SOLVE_EM, grid , ids , ide , jds , jde , ips , ipe , jps , jpe )
 !   CALL set_tiles (  grid , ids , ide , jds , jde , ips , ipe , jps , jpe )
 
-#ifdef _OPENACC
+#ifdef WRF_GPU
    ! GPU: managed-memory placement advice (WRF_GPU_ADVISE); grid arrays once, i1 temporaries every call
    IF ( wrf_gpu_advise_mode() /= 0 ) THEN
       IF ( .NOT. gpu_advised_grid ) THEN
@@ -5270,7 +5270,7 @@ SUBROUTINE gpu_field_trace( grid, tag )
    have = .TRUE. ; prevtag = tag
 END SUBROUTINE gpu_field_trace
 #endif
-#ifdef _OPENACC
+#ifdef WRF_GPU
 ! ---------------------------------------------------------------------------------------------------------------
 ! GPU (managed memory) placement advice. WRF_GPU_ADVISE=0 none (default), 1 cuMemAdvise SET_READ_MOSTLY,
 ! 2 SET_PREFERRED_LOCATION=GPU + SET_ACCESSED_BY=CPU. Applied to every grid state array (once) and to the solve_em
