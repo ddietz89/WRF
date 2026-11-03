@@ -75,7 +75,7 @@ SUBROUTINE solve_em ( grid , config_flags  &
    USE module_first_rk_step_part1
    USE module_first_rk_step_part2
    USE module_after_all_rk_steps
-#ifdef WRF_GPU_RESIDENT
+#ifdef WRF_GPU
    USE module_wrf_error, ONLY : wrf_gpu_on
 #endif
    USE module_llxy, ONLY : proj_cassini
@@ -341,6 +341,9 @@ SUBROUTINE solve_em ( grid , config_flags  &
       ENDIF
 #     include "gpu_advise_i1.inc"
    ENDIF
+#endif
+#if defined(WRF_GPU) && !defined(WRF_GPU_RESIDENT)
+   CALL rsl_set_gpu_managed( .TRUE. )   ! managed memory: halo pack/unpack on the device
 #endif
 #ifdef WRF_GPU_RESIDENT
    ! GPU residency (-gpu=mem:separate): grid fields used by the dynamics live on the device for the whole run.
@@ -845,7 +848,11 @@ BENCH_START(calc_p_rho_tim)
 #endif
 #ifdef WRF_GPU_RESIDENT
 #      include "gpu_upd_host_pre_phys.inc"
+#endif
+#ifdef WRF_GPU
        wrf_gpu_on = .FALSE. ; CALL rsl_set_gpu_on( .FALSE. )
+#endif
+#ifdef WRF_GPU_RESIDENT
 #endif
        CALL first_rk_step_part1 (    grid, config_flags         &
                              , moist , moist_tend               &
@@ -914,7 +921,11 @@ BENCH_START(calc_p_rho_tim)
                             )
 
 #ifdef WRF_GPU_RESIDENT
+#endif
+#ifdef WRF_GPU
        wrf_gpu_on = .TRUE. ; CALL rsl_set_gpu_on( .TRUE. )
+#endif
+#ifdef WRF_GPU_RESIDENT
 #      include "gpu_upd_dev_post_phys.inc"
 #endif
      END IF rk_step_is_one
@@ -3701,7 +3712,11 @@ BENCH_END(bc_end_tim)
 
 #ifdef WRF_GPU_RESIDENT
 #  include "gpu_upd_host_pre_mp.inc"
+#endif
+#ifdef WRF_GPU
    wrf_gpu_on = .FALSE. ; CALL rsl_set_gpu_on( .FALSE. )
+#endif
+#ifdef WRF_GPU_RESIDENT
 #endif
    IF (config_flags%do_avgflx_em .EQ. 1) THEN
 ! Reinitialize time-averaged fluxes if history output was written after the previous time step:
@@ -4324,7 +4339,11 @@ BENCH_START(moist_phys_end_tim)
 #       include "PERIOD_EM_THETAM.inc"
 #endif
 #ifdef WRF_GPU_RESIDENT
+#endif
+#ifdef WRF_GPU
         wrf_gpu_on = .TRUE. ; CALL rsl_set_gpu_on( .TRUE. )
+#endif
+#ifdef WRF_GPU_RESIDENT
 #       include "gpu_upd_dev_post_mp.inc"
 #endif
         its=ips ; ite = ipe
@@ -5007,7 +5026,11 @@ BENCH_END(bc_2d_tim)
 #ifdef WRF_GPU_RESIDENT
   ! host copies current for after_all_rk_steps diagnostics and for history output after this step
 #  include "gpu_upd_host_pre_phys.inc"
+#endif
+#ifdef WRF_GPU
   wrf_gpu_on = .FALSE. ; CALL rsl_set_gpu_on( .FALSE. )
+#endif
+#ifdef WRF_GPU_RESIDENT
 #endif
   CALL after_all_rk_steps ( grid, config_flags,                  &
                             moist, chem, tracer, scalar,         &
@@ -5023,7 +5046,11 @@ BENCH_END(bc_2d_tim)
                             imsy, imey, jmsy, jmey, kmsy, kmey,  &
                             ipsy, ipey, jpsy, jpey, kpsy, kpey   )
 #ifdef WRF_GPU_RESIDENT
+#endif
+#ifdef WRF_GPU
   wrf_gpu_on = .TRUE. ; CALL rsl_set_gpu_on( .TRUE. )
+#endif
+#ifdef WRF_GPU_RESIDENT
 #endif
 
 

@@ -11,7 +11,14 @@
 ! GPU port (2026-11-02): host/device switch for the device-side halo pack/unpack paths below.
       MODULE rsl_gpu_ctl
         LOGICAL :: rsl_gpu_on = .TRUE.
+        ! managed-memory builds: fields are device-accessible without being in the present table
+        LOGICAL :: rsl_gpu_managed = .FALSE.
       END MODULE rsl_gpu_ctl
+      SUBROUTINE rsl_set_gpu_managed ( flag )
+        USE rsl_gpu_ctl
+        LOGICAL, INTENT(IN) :: flag
+        rsl_gpu_managed = flag
+      END SUBROUTINE rsl_set_gpu_managed
       SUBROUTINE rsl_set_gpu_on ( flag )
         USE rsl_gpu_ctl
         LOGICAL, INTENT(IN) :: flag
@@ -159,9 +166,9 @@
 #ifdef _OPENACC
         INTEGER ni_, nk_, nn_
         ! GPU halo pack: field resident on device -> gather strip on device, copy out only the strip
-        IF ( rsl_gpu_on .AND. acc_is_present(inbuf) ) THEN
+        IF ( rsl_gpu_on .AND. ( rsl_gpu_managed .OR. acc_is_present(inbuf) ) ) THEN
           ni_ = ie-is+1 ; nk_ = ke-ks+1 ; nn_ = ni_*nk_*(je-js+1)
-!$acc parallel loop collapse(3) present(inbuf) copyout(outbuf(1:nn_))
+!$acc parallel loop collapse(3) copyout(outbuf(1:nn_))
           DO j = js, je
           DO k = ks, ke
           DO i = is, ie
@@ -211,9 +218,9 @@
 #ifdef _OPENACC
         INTEGER ni_, nk_, nn_
         ! GPU halo pack: field resident on device -> gather strip on device, copy out only the strip
-        IF ( rsl_gpu_on .AND. acc_is_present(inbuf) ) THEN
+        IF ( rsl_gpu_on .AND. ( rsl_gpu_managed .OR. acc_is_present(inbuf) ) ) THEN
           ni_ = ie-is+1 ; nk_ = ke-ks+1 ; nn_ = ni_*nk_*(je-js+1)
-!$acc parallel loop collapse(3) present(inbuf) copyout(outbuf(1:nn_))
+!$acc parallel loop collapse(3) copyout(outbuf(1:nn_))
           DO j = js, je
           DO k = ks, ke
           DO i = is, ie
@@ -262,9 +269,9 @@
 #ifdef _OPENACC
         INTEGER ni_, nk_, nn_
         ! GPU halo unpack: copy in only the strip, scatter into the device-resident field
-        IF ( rsl_gpu_on .AND. acc_is_present(outbuf) ) THEN
+        IF ( rsl_gpu_on .AND. ( rsl_gpu_managed .OR. acc_is_present(outbuf) ) ) THEN
           ni_ = ie-is+1 ; nk_ = ke-ks+1 ; nn_ = ni_*nk_*(je-js+1)
-!$acc parallel loop collapse(3) present(outbuf) copyin(inbuf(1:nn_))
+!$acc parallel loop collapse(3) copyin(inbuf(1:nn_))
           DO j = js, je
           DO k = ks, ke
           DO i = is, ie
@@ -313,9 +320,9 @@
 #ifdef _OPENACC
         INTEGER ni_, nk_, nn_
         ! GPU halo unpack: copy in only the strip, scatter into the device-resident field
-        IF ( rsl_gpu_on .AND. acc_is_present(outbuf) ) THEN
+        IF ( rsl_gpu_on .AND. ( rsl_gpu_managed .OR. acc_is_present(outbuf) ) ) THEN
           ni_ = ie-is+1 ; nk_ = ke-ks+1 ; nn_ = ni_*nk_*(je-js+1)
-!$acc parallel loop collapse(3) present(outbuf) copyin(inbuf(1:nn_))
+!$acc parallel loop collapse(3) copyin(inbuf(1:nn_))
           DO j = js, je
           DO k = ks, ke
           DO i = is, ie
