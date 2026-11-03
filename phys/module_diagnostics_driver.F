@@ -1682,42 +1682,40 @@ CONTAINS
                                    ids,  ide,  jds,  jde,  kds,  kde,   &
                                    ims,  ime,  jms,  jme,  kms,  kme,   &
                                    ips,  ipe,  jps,  jpe,  kps,  kpe    ) 
-
       USE module_domain, ONLY : domain
       USE module_configure, ONLY : grid_config_rec_type
-      USE module_state_description, ONLY: num_moist, P_Qv
-      USE module_model_constants, ONLY: g, R_v, R_d, Cp, T0, RCP
-      USE module_wrf_error, ONLY : wrf_gpu_on
-
+      USE module_state_description, ONLY: num_moist
       TYPE ( domain ), INTENT(INOUT) :: grid
-
-      !  We are not changing any of the namelist settings.
-
       TYPE ( grid_config_rec_type ), INTENT(IN) :: config_flags
-
-      !  The 4d arrays are input only, no mods to them.
-
       REAL , DIMENSION(ims:ime,kms:kme,jms:jme,num_moist ) , INTENT(IN) :: moist
-
-      !  Domain indices - no change to these puppies.
-
       INTEGER , INTENT(IN) :: ids, ide, jds, jde, kds, kde,     &
                               ims, ime, jms, jme, kms, kme,     &
                               ips, ipe, jps, jpe, kps, kpe
+      ! GPU: arrays passed explicitly so device code never dereferences the grid structure (a managed page the
+      ! host updates every step).
+      CALL update_phys_fields_core ( grid%th_phy_m_t0, grid%t_2, moist, config_flags%use_theta_m, &
+                                     ids, ide, jds, jde, kds, kde, ims, ime, jms, jme, kms, kme,  &
+                                     ips, ipe, jps, jpe, kps, kpe )
+   END SUBROUTINE update_phys_fields
 
-      !  Local variables
-
-      INTEGER :: i, j, k 
-
-      !  Moist or dry theta
-
-      IF ( config_flags%use_theta_m .EQ. 1 ) THEN
+   SUBROUTINE update_phys_fields_core ( th_phy_m_t0, t_2, moist, use_theta_m,              &
+                                        ids, ide, jds, jde, kds, kde, ims, ime, jms, jme, kms, kme, &
+                                        ips, ipe, jps, jpe, kps, kpe )
+      USE module_state_description, ONLY: num_moist, P_Qv
+      USE module_model_constants, ONLY: R_v, R_d, T0
+      USE module_wrf_error, ONLY : wrf_gpu_on
+      INTEGER , INTENT(IN) :: ids, ide, jds, jde, kds, kde, ims, ime, jms, jme, kms, kme, &
+                              ips, ipe, jps, jpe, kps, kpe, use_theta_m
+      REAL , DIMENSION(ims:ime,kms:kme,jms:jme), INTENT(INOUT) :: th_phy_m_t0
+      REAL , DIMENSION(ims:ime,kms:kme,jms:jme), INTENT(IN)    :: t_2
+      REAL , DIMENSION(ims:ime,kms:kme,jms:jme,num_moist ) , INTENT(IN) :: moist
+      INTEGER :: i, j, k
+      IF ( use_theta_m .EQ. 1 ) THEN
 !$acc parallel loop collapse(3) if(wrf_gpu_on)
          DO j = jps, MIN(jde-1, jpe)
             DO k = kps, kde-1
                DO i = ips, MIN(ide-1, ipe)
-                  grid%th_phy_m_t0(i,k,j) = (grid%t_2(i,k,j)+T0) / &
-                                            (1.+(R_v/R_d)*moist(i,k,j,P_Qv)) - T0
+                  th_phy_m_t0(i,k,j) = (t_2(i,k,j)+T0) / (1.+(R_v/R_d)*moist(i,k,j,P_Qv)) - T0
                END  DO
             END  DO
          END  DO
@@ -1726,11 +1724,11 @@ CONTAINS
          DO j = jps, MIN(jde-1, jpe)
             DO k = kps, kde-1
                DO i = ips, MIN(ide-1, ipe)
-                  grid%th_phy_m_t0(i,k,j) =  grid%t_2(i,k,j)
+                  th_phy_m_t0(i,k,j) = t_2(i,k,j)
                END  DO
             END  DO
          END  DO
       END IF
-   END SUBROUTINE update_phys_fields
+   END SUBROUTINE update_phys_fields_core
 
 END MODULE module_diagnostics_driver

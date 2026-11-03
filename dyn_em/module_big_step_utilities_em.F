@@ -1132,7 +1132,7 @@ SUBROUTINE calc_p_rho_phi ( moist, n_moist, hypsometric_opt,      &
   ktf=MIN(kte,kde-1)
 
 #ifndef INTELMKL
-  cpovcv_v = cpovcv
+  IF ( .NOT. wrf_gpu_on ) cpovcv_v = cpovcv   ! GPU path inlines **cpovcv; avoid touching a managed page per call
 #endif
 
   nonhydro : IF (non_hydrostatic) THEN
@@ -2459,7 +2459,7 @@ SUBROUTINE horizontal_pressure_gradient( ru_tend,rv_tend,                &
 !
 !</DESCRIPTION>
 
-   c1 = c1h
+!  GPU: c1 = c1h   (kernels read c1h/c2h directly; host copy touched a managed page every call)
    specified = .false.
    if(config_flags%specified .or. config_flags%nested) specified = .true.
 
@@ -2531,7 +2531,7 @@ SUBROUTINE horizontal_pressure_gradient( ru_tend,rv_tend,                &
                     +(al (i,k  ,j)+al (i,k  ,j-1))*(pb(i,k,j)-pb(i,k,j-1)) )
             ! Here is mu dp/dy term 4
             dpy = dpy + (msfvy(i,j)/msfvx(i,j))*rdy*(php(i,k,j)-php(i,k,j-1))* &
-                (rdnw(k)*(dpn(i,k+1)-dpn(i,k))-.5*((c1(k)*mu(i,j-1))+(c1(k)*mu(i,j))))
+                (rdnw(k)*(dpn(i,k+1)-dpn(i,k))-.5*((c1h(k)*mu(i,j-1))+(c1h(k)*mu(i,j))))
             rv_tend(i,k,j) = rv_tend(i,k,j)-cqv(i,k,j)*dpy
           END DO
         END DO
@@ -2612,7 +2612,7 @@ SUBROUTINE horizontal_pressure_gradient( ru_tend,rv_tend,                &
                        +(al (i,k  ,j)+al (i-1,k  ,j))*(pb(i,k,j)-pb(i-1,k,j)) )
             ! Here is mu dp/dy term 4
             dpx = dpx + (msfux(i,j)/msfuy(i,j))*rdx*(php(i,k,j)-php(i-1,k,j))* &
-                (rdnw(k)*(dpn(i,k+1)-dpn(i,k))-.5*((c1(k)*mu(i-1,j))+(c1(k)*mu(i,j))))
+                (rdnw(k)*(dpn(i,k+1)-dpn(i,k))-.5*((c1h(k)*mu(i-1,j))+(c1h(k)*mu(i,j))))
             ru_tend(i,k,j) = ru_tend(i,k,j)-cqu(i,k,j)*dpx
           END DO
         END DO
@@ -5194,8 +5194,8 @@ END SUBROUTINE pole_point_bc
 !
 !</DESCRIPTION>
 
-    c1 = c1h
-    c2 = c2h
+!  GPU: c1 = c1h   (kernels read c1h/c2h directly; host copy touched a managed page every call)
+!  GPU: c2 = c2h   (kernels read c1h/c2h directly; host copy touched a managed page every call)
 !  set up loop bounds for this grid's boundary conditions
 
     i_start = its
@@ -5353,7 +5353,7 @@ END SUBROUTINE pole_point_bc
        do n = PARAM_FIRST_SCALAR,n_moist
               qtot = qtot + moist(i,k,j,n)
        enddo
-       p_hyd_w(i,k,j) = p_hyd_w(i,k+1,j) - (1.+qtot)*(c1(k)*MUT(i,j)+c2(k))*dnw(k)
+       p_hyd_w(i,k,j) = p_hyd_w(i,k+1,j) - (1.+qtot)*(c1h(k)*MUT(i,j)+c2h(k))*dnw(k)
     enddo
     enddo
     enddo
@@ -5365,7 +5365,7 @@ END SUBROUTINE pole_point_bc
        do n = PARAM_FIRST_SCALAR,n_moist
               qtot = qtot + moist(i,k,j,n)
        enddo
-       p_hyd_w(i,k,j) = p_hyd_w(i,k+1,j) - (1.+qtot)*(c1(k)*MUT(i,j)+c2(k))*dnw(k)
+       p_hyd_w(i,k,j) = p_hyd_w(i,k+1,j) - (1.+qtot)*(c1h(k)*MUT(i,j)+c2h(k))*dnw(k)
 !      p_hyd_w(i,k,j) = p_hyd_w(i,k+1,j)+1./alt(i,k,j)*(1.+moist(i,k,j,P_QV))*g*dz8w(i,k,j)
     enddo
     enddo
@@ -5513,8 +5513,8 @@ END SUBROUTINE phy_prep
     k_start = kts
     k_end = min( kte, kde-1 )
 
-    c1 = c1h
-    c2 = c2h
+!  GPU: c1 = c1h   (kernels read c1h/c2h directly; host copy touched a managed page every call)
+!  GPU: c2 = c2h   (kernels read c1h/c2h directly; host copy touched a managed page every call)
 
 ! decouple all physics tendencies
 
@@ -5524,7 +5524,7 @@ END SUBROUTINE phy_prep
       DO J=j_start,j_end
       DO K=k_start,k_end
       DO I=i_start,i_end
-         RTHRATEN(I,K,J)=RTHRATEN(I,K,J)/(c1(k)*MUT(I,J)+c2(k))
+         RTHRATEN(I,K,J)=RTHRATEN(I,K,J)/(c1h(k)*MUT(I,J)+c2h(k))
       ENDDO
       ENDDO
       ENDDO
@@ -5537,9 +5537,9 @@ END SUBROUTINE phy_prep
       DO J=j_start,j_end
       DO K=k_start,k_end
       DO I=i_start,i_end
-         RUCUTEN(I,K,J) =RUCUTEN(I,K,J)/(c1(k)*MUT(I,J)+c2(k))
-         RVCUTEN(I,K,J) =RVCUTEN(I,K,J)/(c1(k)*MUT(I,J)+c2(k))
-         RTHCUTEN(I,K,J)=RTHCUTEN(I,K,J)/(c1(k)*MUT(I,J)+c2(k))
+         RUCUTEN(I,K,J) =RUCUTEN(I,K,J)/(c1h(k)*MUT(I,J)+c2h(k))
+         RVCUTEN(I,K,J) =RVCUTEN(I,K,J)/(c1h(k)*MUT(I,J)+c2h(k))
+         RTHCUTEN(I,K,J)=RTHCUTEN(I,K,J)/(c1h(k)*MUT(I,J)+c2h(k))
       ENDDO
       ENDDO
       ENDDO
@@ -5549,7 +5549,7 @@ END SUBROUTINE phy_prep
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
-            RQVCUTEN(I,K,J)=RQVCUTEN(I,K,J)/(c1(k)*MUT(I,J)+c2(k))
+            RQVCUTEN(I,K,J)=RQVCUTEN(I,K,J)/(c1h(k)*MUT(I,J)+c2h(k))
          ENDDO
          ENDDO
          ENDDO
@@ -5560,7 +5560,7 @@ END SUBROUTINE phy_prep
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
-            RQCCUTEN(I,K,J)=RQCCUTEN(I,K,J)/(c1(k)*MUT(I,J)+c2(k))
+            RQCCUTEN(I,K,J)=RQCCUTEN(I,K,J)/(c1h(k)*MUT(I,J)+c2h(k))
          ENDDO
          ENDDO
          ENDDO
@@ -5571,7 +5571,7 @@ END SUBROUTINE phy_prep
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
-            RQRCUTEN(I,K,J)=RQRCUTEN(I,K,J)/(c1(k)*MUT(I,J)+c2(k))
+            RQRCUTEN(I,K,J)=RQRCUTEN(I,K,J)/(c1h(k)*MUT(I,J)+c2h(k))
          ENDDO
          ENDDO
          ENDDO
@@ -5582,7 +5582,7 @@ END SUBROUTINE phy_prep
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
-            RQICUTEN(I,K,J)=RQICUTEN(I,K,J)/(c1(k)*MUT(I,J)+c2(k))
+            RQICUTEN(I,K,J)=RQICUTEN(I,K,J)/(c1h(k)*MUT(I,J)+c2h(k))
          ENDDO
          ENDDO
          ENDDO
@@ -5593,7 +5593,7 @@ END SUBROUTINE phy_prep
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
-            RQSCUTEN(I,K,J)=RQSCUTEN(I,K,J)/(c1(k)*MUT(I,J)+c2(k))
+            RQSCUTEN(I,K,J)=RQSCUTEN(I,K,J)/(c1h(k)*MUT(I,J)+c2h(k))
          ENDDO
          ENDDO
          ENDDO
@@ -5607,9 +5607,9 @@ END SUBROUTINE phy_prep
       DO J=j_start,j_end
       DO K=k_start,k_end
       DO I=i_start,i_end
-         RUSHTEN(I,K,J) =RUSHTEN(I,K,J)/(c1(k)*MUT(I,J)+c2(k))
-         RVSHTEN(I,K,J) =RVSHTEN(I,K,J)/(c1(k)*MUT(I,J)+c2(k))
-         RTHSHTEN(I,K,J)=RTHSHTEN(I,K,J)/(c1(k)*MUT(I,J)+c2(k))
+         RUSHTEN(I,K,J) =RUSHTEN(I,K,J)/(c1h(k)*MUT(I,J)+c2h(k))
+         RVSHTEN(I,K,J) =RVSHTEN(I,K,J)/(c1h(k)*MUT(I,J)+c2h(k))
+         RTHSHTEN(I,K,J)=RTHSHTEN(I,K,J)/(c1h(k)*MUT(I,J)+c2h(k))
       ENDDO
       ENDDO
       ENDDO
@@ -5619,7 +5619,7 @@ END SUBROUTINE phy_prep
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
-            RQVSHTEN(I,K,J)=RQVSHTEN(I,K,J)/(c1(k)*MUT(I,J)+c2(k))
+            RQVSHTEN(I,K,J)=RQVSHTEN(I,K,J)/(c1h(k)*MUT(I,J)+c2h(k))
          ENDDO
          ENDDO
          ENDDO
@@ -5630,7 +5630,7 @@ END SUBROUTINE phy_prep
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
-            RQCSHTEN(I,K,J)=RQCSHTEN(I,K,J)/(c1(k)*MUT(I,J)+c2(k))
+            RQCSHTEN(I,K,J)=RQCSHTEN(I,K,J)/(c1h(k)*MUT(I,J)+c2h(k))
          ENDDO
          ENDDO
          ENDDO
@@ -5641,7 +5641,7 @@ END SUBROUTINE phy_prep
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
-            RQRSHTEN(I,K,J)=RQRSHTEN(I,K,J)/(c1(k)*MUT(I,J)+c2(k))
+            RQRSHTEN(I,K,J)=RQRSHTEN(I,K,J)/(c1h(k)*MUT(I,J)+c2h(k))
          ENDDO
          ENDDO
          ENDDO
@@ -5652,7 +5652,7 @@ END SUBROUTINE phy_prep
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
-            RQISHTEN(I,K,J)=RQISHTEN(I,K,J)/(c1(k)*MUT(I,J)+c2(k))
+            RQISHTEN(I,K,J)=RQISHTEN(I,K,J)/(c1h(k)*MUT(I,J)+c2h(k))
          ENDDO
          ENDDO
          ENDDO
@@ -5663,7 +5663,7 @@ END SUBROUTINE phy_prep
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
-            RQSSHTEN(I,K,J)=RQSSHTEN(I,K,J)/(c1(k)*MUT(I,J)+c2(k))
+            RQSSHTEN(I,K,J)=RQSSHTEN(I,K,J)/(c1h(k)*MUT(I,J)+c2h(k))
          ENDDO
          ENDDO
          ENDDO
@@ -5674,7 +5674,7 @@ END SUBROUTINE phy_prep
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
-            RQGSHTEN(I,K,J)=RQGSHTEN(I,K,J)/(c1(k)*MUT(I,J)+c2(k))
+            RQGSHTEN(I,K,J)=RQGSHTEN(I,K,J)/(c1h(k)*MUT(I,J)+c2h(k))
          ENDDO
          ENDDO
          ENDDO
@@ -5688,9 +5688,9 @@ END SUBROUTINE phy_prep
       DO J=j_start,j_end
       DO K=k_start,k_end
       DO I=i_start,i_end
-         RUBLTEN(I,K,J) =RUBLTEN(I,K,J)/(c1(k)*MUT(I,J)+c2(k))
-         RVBLTEN(I,K,J) =RVBLTEN(I,K,J)/(c1(k)*MUT(I,J)+c2(k))
-         RTHBLTEN(I,K,J)=RTHBLTEN(I,K,J)/(c1(k)*MUT(I,J)+c2(k))
+         RUBLTEN(I,K,J) =RUBLTEN(I,K,J)/(c1h(k)*MUT(I,J)+c2h(k))
+         RVBLTEN(I,K,J) =RVBLTEN(I,K,J)/(c1h(k)*MUT(I,J)+c2h(k))
+         RTHBLTEN(I,K,J)=RTHBLTEN(I,K,J)/(c1h(k)*MUT(I,J)+c2h(k))
       ENDDO
       ENDDO
       ENDDO
@@ -5700,7 +5700,7 @@ END SUBROUTINE phy_prep
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
-            RQVBLTEN(I,K,J)=RQVBLTEN(I,K,J)/(c1(k)*MUT(I,J)+c2(k))
+            RQVBLTEN(I,K,J)=RQVBLTEN(I,K,J)/(c1h(k)*MUT(I,J)+c2h(k))
          ENDDO
          ENDDO
          ENDDO
@@ -5711,7 +5711,7 @@ END SUBROUTINE phy_prep
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
-           RQCBLTEN(I,K,J)=RQCBLTEN(I,K,J)/(c1(k)*MUT(I,J)+c2(k))
+           RQCBLTEN(I,K,J)=RQCBLTEN(I,K,J)/(c1h(k)*MUT(I,J)+c2h(k))
          ENDDO
          ENDDO
          ENDDO
@@ -5722,7 +5722,7 @@ END SUBROUTINE phy_prep
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
-            RQIBLTEN(I,K,J)=RQIBLTEN(I,K,J)/(c1(k)*MUT(I,J)+c2(k))
+            RQIBLTEN(I,K,J)=RQIBLTEN(I,K,J)/(c1h(k)*MUT(I,J)+c2h(k))
          ENDDO
          ENDDO
          ENDDO
@@ -5745,7 +5745,7 @@ END SUBROUTINE phy_prep
          DO J=j_start,j_end
          DO K=k_start,k_end
             DO I=i_start,i_end
-               RQVFTEN(I,K,J)=RQVFTEN(I,K,J)/(c1(k)*MUT(I,J)+c2(k))
+               RQVFTEN(I,K,J)=RQVFTEN(I,K,J)/(c1h(k)*MUT(I,J)+c2h(k))
             ENDDO
          ENDDO
          ENDDO
@@ -5762,7 +5762,7 @@ END SUBROUTINE phy_prep
       DO J=j_start,j_end
       DO K=k_start,k_end
          DO I=i_start,i_end
-            RTHFTEN(I,K,J)=RTHFTEN(I,K,J)/(c1(k)*MUT(I,J)+c2(k))
+            RTHFTEN(I,K,J)=RTHFTEN(I,K,J)/(c1h(k)*MUT(I,J)+c2h(k))
          ENDDO
       ENDDO
       ENDDO
@@ -5811,7 +5811,7 @@ END SUBROUTINE phy_prep
       DO J=j_start,j_end
       DO K=k_start,k_end
       DO I=i_start,i_end
-         RTHNDGDTEN(I,K,J)=RTHNDGDTEN(I,K,J)/(c1(k)*MUT(I,J)+c2(k))
+         RTHNDGDTEN(I,K,J)=RTHNDGDTEN(I,K,J)/(c1h(k)*MUT(I,J)+c2h(k))
 !        RMUNDGDTEN(I,J) - no coupling
       ENDDO
       ENDDO
@@ -5833,7 +5833,7 @@ END SUBROUTINE phy_prep
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
-            RQVNDGDTEN(I,K,J)=RQVNDGDTEN(I,K,J)/(c1(k)*MUT(I,J)+c2(k))
+            RQVNDGDTEN(I,K,J)=RQVNDGDTEN(I,K,J)/(c1h(k)*MUT(I,J)+c2h(k))
          ENDDO
          ENDDO
          ENDDO
@@ -6433,8 +6433,8 @@ END SUBROUTINE set_tend
 ! End declarations.
 !-----------------------------------------------------------------------
 
-    c1 = c1h
-    c2 = c2h
+!  GPU: c1 = c1h   (kernels read c1h/c2h directly; host copy touched a managed page every call)
+!  GPU: c2 = c2h   (kernels read c1h/c2h directly; host copy touched a managed page every call)
 
     pii = 2.0 * asin(1.0)
 
@@ -6622,7 +6622,7 @@ END SUBROUTINE set_tend
         dcoef = 1.0 - MIN( 1.0, ( ztop - z00(k) ) / zdamp )
         dcoef = (SIN( 0.5 * pii * dcoef ) )**2
         t_tendf(i,k,j) = t_tendf(i,k,j) -                      &
-                         (c1(k)*MUT(i,j)+c2(k)) * ( dcoef * dampcoef )  *    &
+                         (c1h(k)*MUT(i,j)+c2h(k)) * ( dcoef * dampcoef )  *    &
                          ( t(i,k,j) - t00(k) )
       END DO
 
