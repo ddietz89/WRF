@@ -250,8 +250,19 @@ CONTAINS
    REAL, INTENT(IN   ) :: dtbc
 
 ! changed to tile dimensions, 20090923, JM
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: rfield
+#else
    REAL , DIMENSION( its-1:ite+1 , kts:kte, jts-1:jte+1  ) :: rfield
+#endif
    INTEGER :: i_start, i_end, j_start, j_end, i, j, k
+#ifdef WRF_GPU
+   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
+   IF ( ALLOCATED(rfield) ) THEN
+      IF ( ANY(LBOUND(rfield) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(rfield) /= (/ite+1,kte,jte+1/)) ) DEALLOCATE(rfield)
+   ENDIF
+   IF ( .NOT. ALLOCATED(rfield) ) ALLOCATE( rfield(its-1:ite+1,kts:kte,jts-1:jte+1) )
+#endif
 
            CALL relax_bdytend ( ru, ru_tendf,             &
                                u_bxs,u_bxe,u_bys,u_bye,u_btxs,u_btxe,u_btys,u_btye, &
@@ -389,7 +400,18 @@ CONTAINS
    REAL, INTENT(IN   ) :: dtbc
 !Local
    INTEGER :: i,j,k, i_start, i_end, j_start, j_end
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: rscalar
+#else
    REAL , DIMENSION( ims:ime , kms:kme, jms:jme  ) :: rscalar
+#endif
+#ifdef WRF_GPU
+   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
+   IF ( ALLOCATED(rscalar) ) THEN
+      IF ( ANY(LBOUND(rscalar) /= (/ims,kms,jms/)) .OR. ANY(UBOUND(rscalar) /= (/ime,kme,jme/)) ) DEALLOCATE(rscalar)
+   ENDIF
+   IF ( .NOT. ALLOCATED(rscalar) ) ALLOCATE( rscalar(ims:ime,kms:kme,jms:jme) )
+#endif
 
 ! rscalar will be calculated beyond tile limits because relax_bdytend
 !   requires a 5-point stencil, and this avoids need for inter-tile/patch
