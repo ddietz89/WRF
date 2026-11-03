@@ -211,6 +211,7 @@ SUBROUTINE solve_em ( grid , config_flags  &
 #ifdef WRF_GPU
    LOGICAL, EXTERNAL :: wrf_gpu_addrmap
    LOGICAL, EXTERNAL :: wrf_gpu_hostblocks
+   INTEGER, EXTERNAL :: wrf_gpu_fullsync
    INTEGER, EXTERNAL :: wrf_gpu_prefetch_mode
    INTEGER, EXTERNAL :: wrf_gpu_advise_mode
    LOGICAL, SAVE :: gpu_advised_grid = .FALSE.
@@ -953,6 +954,12 @@ BENCH_START(calc_p_rho_tim)
 #ifdef WRF_GPU_RESIDENT
 #      include "gpu_upd_host_pre_phys.inc"
 #endif
+#ifdef WRF_GPU_RESIDENT
+   IF ( IAND( wrf_gpu_fullsync(), 1 ) /= 0 ) THEN
+#    include "gpu_sync_host_all.inc"
+#    include "gpu_upd_host_i1_all.inc"
+   ENDIF
+#endif
 #if defined(WRF_GPU) && !defined(WRF_GPU_RESIDENT)
    IF ( wrf_gpu_prefetch_mode() > 0 ) THEN
 #  include "gpu_pf_host_pre_phys.inc"
@@ -1019,6 +1026,12 @@ BENCH_START(calc_p_rho_tim)
        ! push them to the device before part2 runs on the GPU
 #      include "gpu_upd_dev_post_phys.inc"
 #      include "gpu_upd_dev_i1_part1.inc"
+#endif
+#ifdef WRF_GPU_RESIDENT
+   IF ( IAND( wrf_gpu_fullsync(), 3 ) == 3 ) THEN
+#    include "gpu_sync_dev_all.inc"
+#    include "gpu_upd_dev_i1_all.inc"
+   ENDIF
 #endif
        CALL first_rk_step_part2 (    grid, config_flags         &
                              , moist , moist_old , moist_tend   &
@@ -3852,6 +3865,12 @@ BENCH_END(bc_end_tim)
 #  include "gpu_upd_host_pre_mp.inc"
 #  include "gpu_upd_host_i1_all.inc"
 #endif
+#ifdef WRF_GPU_RESIDENT
+   IF ( IAND( wrf_gpu_fullsync(), 1 ) /= 0 ) THEN
+#    include "gpu_sync_host_all.inc"
+#    include "gpu_upd_host_i1_all.inc"
+   ENDIF
+#endif
 #if defined(WRF_GPU) && !defined(WRF_GPU_RESIDENT)
    IF ( wrf_gpu_prefetch_mode() > 0 ) THEN
 #  include "gpu_pf_host_pre_mp.inc"
@@ -4504,6 +4523,12 @@ BENCH_START(moist_phys_end_tim)
 #ifdef WRF_GPU_RESIDENT
 #       include "gpu_upd_dev_post_mp.inc"
 #       include "gpu_upd_dev_i1_all.inc"
+#endif
+#ifdef WRF_GPU_RESIDENT
+   IF ( IAND( wrf_gpu_fullsync(), 3 ) == 3 ) THEN
+#    include "gpu_sync_dev_all.inc"
+#    include "gpu_upd_dev_i1_all.inc"
+   ENDIF
 #endif
 #if defined(WRF_GPU) && !defined(WRF_GPU_RESIDENT)
    IF ( wrf_gpu_prefetch_mode() > 0 ) THEN
@@ -5191,6 +5216,12 @@ BENCH_END(bc_2d_tim)
   ! host copies current for after_all_rk_steps diagnostics and for history output after this step
 #  include "gpu_upd_host_pre_phys.inc"
 #endif
+#ifdef WRF_GPU_RESIDENT
+   IF ( IAND( wrf_gpu_fullsync(), 1 ) /= 0 ) THEN
+#    include "gpu_sync_host_all.inc"
+#    include "gpu_upd_host_i1_all.inc"
+   ENDIF
+#endif
 #if defined(WRF_GPU) && !defined(WRF_GPU_RESIDENT)
    IF ( wrf_gpu_prefetch_mode() > 0 ) THEN
 #  include "gpu_pf_host_pre_phys.inc"
@@ -5222,6 +5253,10 @@ BENCH_END(bc_2d_tim)
                             imsy, imey, jmsy, jmey, kmsy, kmey,  &
                             ipsy, ipey, jpsy, jpey, kpsy, kpey   )
 #ifdef WRF_GPU_RESIDENT
+   IF ( IAND( wrf_gpu_fullsync(), 3 ) == 3 ) THEN
+#    include "gpu_sync_dev_all.inc"
+#    include "gpu_upd_dev_i1_all.inc"
+   ENDIF
 #endif
 #ifdef WRF_GPU
   wrf_gpu_on = .TRUE. ; CALL rsl_set_gpu_on( .TRUE. )
@@ -5749,6 +5784,22 @@ LOGICAL FUNCTION wrf_gpu_hostblocks()
    ENDIF
    wrf_gpu_hostblocks = ( mode /= 0 )
 END FUNCTION wrf_gpu_hostblocks
+
+! WRF_GPU_FULLSYNC (diagnostic, residency builds): 1 = at every host-block entry pull every device-resident
+! grid array and all i1 temporaries to the host; 3 = also push them all back at every host-block exit.
+INTEGER FUNCTION wrf_gpu_fullsync()
+   IMPLICIT NONE
+   INTEGER, SAVE :: mode = -1
+   CHARACTER(LEN=8) :: v
+   INTEGER :: st
+   IF ( mode < 0 ) THEN
+      CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_FULLSYNC', v, STATUS=st )
+      mode = 0
+      IF ( st == 0 ) READ( v, *, IOSTAT=st ) mode
+      IF ( st /= 0 ) mode = 0
+   ENDIF
+   wrf_gpu_fullsync = mode
+END FUNCTION wrf_gpu_fullsync
 
 ! WRF_GPU_ADDRMAP=1: print address and byte size of every real grid state array and i1 temporary once (to map
 ! Nsight unified-memory migration address ranges back to arrays).
