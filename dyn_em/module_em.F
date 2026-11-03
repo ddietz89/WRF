@@ -1650,6 +1650,7 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: tendency
+!$OMP THREADPRIVATE(tendency)
 #else
    REAL, DIMENSION(its:ite, kts:kte, jts:jte  ) :: tendency
 #endif
@@ -1873,6 +1874,7 @@ SUBROUTINE rk_update_scalar_pd( scs, sce,                      &
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: tendency
+!$OMP THREADPRIVATE(tendency)
 #else
    REAL, DIMENSION(its:ite, kts:kte, jts:jte  ) :: tendency
 #endif
@@ -2859,6 +2861,7 @@ subroutine trajectory (     grid,config_flags,               &
   real, dimension(ims:ime,kms:kme,jms:jme),intent(in) :: rdzw
 #ifdef WRF_GPU
    real, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: u, v, w
+!$OMP THREADPRIVATE(u, v, w)
 #else
   real, dimension(ims:ime,kms:kme,jms:jme)::u,v,w
 #endif

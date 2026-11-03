@@ -594,6 +594,7 @@ SUBROUTINE couple ( mu, mub, rfield, field, name, &
    INTEGER :: i, j, k, itf, jtf, ktf
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:), ALLOCATABLE, SAVE :: muu, muv
+!$OMP THREADPRIVATE(muu, muv)
 #else
    REAL , DIMENSION(ims:ime,jms:jme) :: muu , muv
 #endif
@@ -737,6 +738,7 @@ SUBROUTINE calc_ww_cp ( u, v, mup, mub, c1h, c2h, ww,    &
    REAL , DIMENSION( its:ite, kts:kte ) :: divv
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:), ALLOCATABLE, SAVE :: muu, muv
+!$OMP THREADPRIVATE(muu, muv)
 #else
    REAL , DIMENSION( its:ite+1, jts:jte+1 ) :: muu, muv
 #endif
@@ -896,6 +898,7 @@ SUBROUTINE calc_cq ( moist, cqu, cqv, cqw, n_moist, &
    ! Changes from Larry Meadows, Intel Corp.  Improve vectorization of this routine
 #ifdef WRF_GPU
    REAL, DIMENSION(:), ALLOCATABLE, SAVE :: qtot
+!$OMP THREADPRIVATE(qtot)
 #else
    REAL :: qtot(its:ite)
 #endif
@@ -1098,6 +1101,7 @@ SUBROUTINE calc_p_rho_phi ( moist, n_moist, hypsometric_opt,      &
   REAL    :: qtot, qf1, qf2, qvf
 #ifdef WRF_GPU
    REAL, DIMENSION(:), ALLOCATABLE, SAVE :: temp, cpovcv_v
+!$OMP THREADPRIVATE(temp, cpovcv_v)
 #else
   REAL, DIMENSION( its:ite) :: temp,cpovcv_v
 #endif
@@ -2438,6 +2442,7 @@ SUBROUTINE horizontal_pressure_gradient( ru_tend,rv_tend,                &
    REAL :: dpx, dpy
 #ifdef WRF_GPU
    REAL, DIMENSION(:), ALLOCATABLE, SAVE :: c1
+!$OMP THREADPRIVATE(c1)
 #else
    REAL, DIMENSION( kms:kme ) :: c1
 #endif
@@ -3358,6 +3363,7 @@ SUBROUTINE vertical_diffusion ( name, field, tendency,        &
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:), ALLOCATABLE, SAVE :: vfluxm, vfluxp, zz
+!$OMP THREADPRIVATE(vfluxm, vfluxp, zz)
 #else
    REAL , DIMENSION(its:ite, jts:jte) :: vfluxm, vfluxp, zz
 #endif
@@ -4218,6 +4224,7 @@ SUBROUTINE perturbation_coriolis ( ru_in, rv_in, rw, ru_tend, rv_tend, rw_tend, 
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: ru, rv
+!$OMP THREADPRIVATE(ru, rv)
 #else
    REAL , DIMENSION( ims:ime , kms:kme , jms:jme ) :: ru, &
                                                       rv
@@ -4562,6 +4569,7 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: vxgm
+!$OMP THREADPRIVATE(vxgm)
 #else
    REAL , DIMENSION( its-1:ite , kts:kte, jts-1:jte ) :: vxgm
 #endif
@@ -5165,6 +5173,7 @@ END SUBROUTINE pole_point_bc
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:), ALLOCATABLE, SAVE :: c1, c2
+!$OMP THREADPRIVATE(c1, c2)
 #else
    REAL, DIMENSION( kms:kme ) :: c1, c2
 #endif
@@ -5475,6 +5484,7 @@ END SUBROUTINE phy_prep
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:), ALLOCATABLE, SAVE :: c1, c2
+!$OMP THREADPRIVATE(c1, c2)
 #else
    REAL, DIMENSION( kms:kme ) :: c1, c2
 #endif
@@ -6407,6 +6417,7 @@ END SUBROUTINE set_tend
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:), ALLOCATABLE, SAVE :: c1, c2
+!$OMP THREADPRIVATE(c1, c2)
 #else
     REAL, DIMENSION( kms:kme ) &
     :: c1, c2
