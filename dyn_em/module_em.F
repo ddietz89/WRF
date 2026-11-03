@@ -1648,10 +1648,21 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
    REAL    :: sc_middle, msfsq
    REAL, DIMENSION(its:ite) :: muold, munew
 
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: tendency
+#else
    REAL, DIMENSION(its:ite, kts:kte, jts:jte  ) :: tendency
+#endif
 
    INTEGER :: i_start,i_end,j_start,j_end,k_start,k_end
    INTEGER :: i_start_spc,i_end_spc,j_start_spc,j_end_spc,k_start_spc,k_end_spc
+#ifdef WRF_GPU
+   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
+   IF ( ALLOCATED(tendency) ) THEN
+      IF ( ANY(LBOUND(tendency) /= (/its,kts,jts/)) .OR. ANY(UBOUND(tendency) /= (/ite,kte,jte/)) ) DEALLOCATE(tendency)
+   ENDIF
+   IF ( .NOT. ALLOCATED(tendency) ) ALLOCATE( tendency(its:ite,kts:kte,jts:jte) )
+#endif
 
 !<DESCRIPTION>
 !
@@ -1860,10 +1871,21 @@ SUBROUTINE rk_update_scalar_pd( scs, sce,                      &
    REAL    :: sc_middle, msfsq
    REAL, DIMENSION(its:ite) :: muold, munew
 
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: tendency
+#else
    REAL, DIMENSION(its:ite, kts:kte, jts:jte  ) :: tendency
+#endif
 
    INTEGER :: i_start,i_end,j_start,j_end,k_start,k_end
    INTEGER :: i_start_spc,i_end_spc,j_start_spc,j_end_spc,k_start_spc,k_end_spc
+#ifdef WRF_GPU
+   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
+   IF ( ALLOCATED(tendency) ) THEN
+      IF ( ANY(LBOUND(tendency) /= (/its,kts,jts/)) .OR. ANY(UBOUND(tendency) /= (/ite,kte,jte/)) ) DEALLOCATE(tendency)
+   ENDIF
+   IF ( .NOT. ALLOCATED(tendency) ) ALLOCATE( tendency(its:ite,kts:kte,jts:jte) )
+#endif
 
 !<DESCRIPTION>
 !
@@ -2835,7 +2857,11 @@ subroutine trajectory (     grid,config_flags,               &
   real, dimension(1:config_flags%num_traj), intent(inout) :: traj_i,traj_j,traj_k
   real, dimension(1:config_flags%num_traj), intent(inout) :: traj_long,traj_lat
   real, dimension(ims:ime,kms:kme,jms:jme),intent(in) :: rdzw
+#ifdef WRF_GPU
+   real, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: u, v, w
+#else
   real, dimension(ims:ime,kms:kme,jms:jme)::u,v,w
+#endif
   real, dimension(ims:ime,jms:jme),intent(in)::msft,msfu,msfv
   real, dimension(ims:ime,jms:jme),intent(in)::muu,muv,mut
   integer :: j,k
@@ -2863,6 +2889,21 @@ subroutine trajectory (     grid,config_flags,               &
   TYPE (grid_config_rec_type) :: config_flags_temp
   TYPE(WRFU_Time) :: current_time, next_time
   TYPE(WRFU_Time) :: start_time, stop_time
+#ifdef WRF_GPU
+   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
+   IF ( ALLOCATED(u) ) THEN
+      IF ( ANY(LBOUND(u) /= (/ims,kms,jms/)) .OR. ANY(UBOUND(u) /= (/ime,kme,jme/)) ) DEALLOCATE(u)
+   ENDIF
+   IF ( .NOT. ALLOCATED(u) ) ALLOCATE( u(ims:ime,kms:kme,jms:jme) )
+   IF ( ALLOCATED(v) ) THEN
+      IF ( ANY(LBOUND(v) /= (/ims,kms,jms/)) .OR. ANY(UBOUND(v) /= (/ime,kme,jme/)) ) DEALLOCATE(v)
+   ENDIF
+   IF ( .NOT. ALLOCATED(v) ) ALLOCATE( v(ims:ime,kms:kme,jms:jme) )
+   IF ( ALLOCATED(w) ) THEN
+      IF ( ANY(LBOUND(w) /= (/ims,kms,jms/)) .OR. ANY(UBOUND(w) /= (/ime,kme,jme/)) ) DEALLOCATE(w)
+   ENDIF
+   IF ( .NOT. ALLOCATED(w) ) ALLOCATE( w(ims:ime,kms:kme,jms:jme) )
+#endif
 
   config_flags_temp = config_flags
   call trajmapproj(grid, config_flags_temp,proj)

@@ -1463,7 +1463,22 @@ SUBROUTINE cal_dampkm( config_flags,xkmh,xkhh,xkmv,xkhv,                       &
    REAL    :: kmmax,kmmvmax,degrad90,dz,tmp
    REAL    :: ds
    REAL ,     DIMENSION( its:ite )                                ::   deltaz
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: dampk, dampkv
+#else
    REAL , DIMENSION( its:ite, kts:kte, jts:jte)                   ::   dampk,dampkv
+#endif
+#ifdef WRF_GPU
+   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
+   IF ( ALLOCATED(dampk) ) THEN
+      IF ( ANY(LBOUND(dampk) /= (/its,kts,jts/)) .OR. ANY(UBOUND(dampk) /= (/ite,kte,jte/)) ) DEALLOCATE(dampk)
+   ENDIF
+   IF ( .NOT. ALLOCATED(dampk) ) ALLOCATE( dampk(its:ite,kts:kte,jts:jte) )
+   IF ( ALLOCATED(dampkv) ) THEN
+      IF ( ANY(LBOUND(dampkv) /= (/its,kts,jts/)) .OR. ANY(UBOUND(dampkv) /= (/ite,kte,jte/)) ) DEALLOCATE(dampkv)
+   ENDIF
+   IF ( .NOT. ALLOCATED(dampkv) ) ALLOCATE( dampkv(its:ite,kts:kte,jts:jte) )
+#endif
 
 ! End declarations.
 !-----------------------------------------------------------------------
@@ -1914,7 +1929,18 @@ SUBROUTINE smag_km( config_flags,xkmh,xkmv,xkhh,xkhv,BN2,                      &
    INTEGER :: i_start, i_end, j_start, j_end, ktf, i, j, k
    REAL    :: deltas, tmp, pr, mlen_h, mlen_v, c_s
 
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: def2
+#else
    REAL, DIMENSION( its:ite , kts:kte , jts:jte )                 ::     def2
+#endif
+#ifdef WRF_GPU
+   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
+   IF ( ALLOCATED(def2) ) THEN
+      IF ( ANY(LBOUND(def2) /= (/its,kts,jts/)) .OR. ANY(UBOUND(def2) /= (/ite,kte,jte/)) ) DEALLOCATE(def2)
+   ENDIF
+   IF ( .NOT. ALLOCATED(def2) ) ALLOCATE( def2(its:ite,kts:kte,jts:jte) )
+#endif
 
 ! End declarations.
 !-----------------------------------------------------------------------
@@ -2071,7 +2097,18 @@ SUBROUTINE smag2d_km( config_flags,xkmh,xkmv,xkhh,xkhv,                        &
    REAL    :: deltas, tmp, pr, mlen_h, c_s
    REAL    :: dxm, dym, tmpzx, tmpzy, alpha, def_limit
 
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: def2
+#else
    REAL, DIMENSION( its:ite , kts:kte , jts:jte )                 ::     def2
+#endif
+#ifdef WRF_GPU
+   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
+   IF ( ALLOCATED(def2) ) THEN
+      IF ( ANY(LBOUND(def2) /= (/its,kts,jts/)) .OR. ANY(UBOUND(def2) /= (/ite,kte,jte/)) ) DEALLOCATE(def2)
+   ENDIF
+   IF ( .NOT. ALLOCATED(def2) ) ALLOCATE( def2(its:ite,kts:kte,jts:jte) )
+#endif
 
 ! End declarations.
 !-----------------------------------------------------------------------
@@ -3315,6 +3352,9 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
    INTEGER :: i_start, i_end, j_start, j_end
    INTEGER :: is_ext,ie_ext,js_ext,je_ext
 
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: titau1avg, titau2avg, titau1, titau2, xkxavg, rravg, zy_at_u, zx_at_u
+#else
    REAL , DIMENSION( its-1:ite+1, kts:kte, jts-1:jte+1)    :: titau1avg, &
                                                               titau2avg, &
                                                                  titau1, &
@@ -3323,6 +3363,7 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
                                                                   rravg, &
                                                                 zy_at_u, &
                                                                 zx_at_u
+#endif
 
 ! new
 !                                                                 zxavg, &
@@ -3334,6 +3375,41 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
    REAL :: tmpdz
 
    REAL :: term1, term2, term3
+#ifdef WRF_GPU
+   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
+   IF ( ALLOCATED(titau1avg) ) THEN
+      IF ( ANY(LBOUND(titau1avg) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(titau1avg) /= (/ite+1,kte,jte+1/)) ) DEALLOCATE(titau1avg)
+   ENDIF
+   IF ( .NOT. ALLOCATED(titau1avg) ) ALLOCATE( titau1avg(its-1:ite+1,kts:kte,jts-1:jte+1) )
+   IF ( ALLOCATED(titau2avg) ) THEN
+      IF ( ANY(LBOUND(titau2avg) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(titau2avg) /= (/ite+1,kte,jte+1/)) ) DEALLOCATE(titau2avg)
+   ENDIF
+   IF ( .NOT. ALLOCATED(titau2avg) ) ALLOCATE( titau2avg(its-1:ite+1,kts:kte,jts-1:jte+1) )
+   IF ( ALLOCATED(titau1) ) THEN
+      IF ( ANY(LBOUND(titau1) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(titau1) /= (/ite+1,kte,jte+1/)) ) DEALLOCATE(titau1)
+   ENDIF
+   IF ( .NOT. ALLOCATED(titau1) ) ALLOCATE( titau1(its-1:ite+1,kts:kte,jts-1:jte+1) )
+   IF ( ALLOCATED(titau2) ) THEN
+      IF ( ANY(LBOUND(titau2) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(titau2) /= (/ite+1,kte,jte+1/)) ) DEALLOCATE(titau2)
+   ENDIF
+   IF ( .NOT. ALLOCATED(titau2) ) ALLOCATE( titau2(its-1:ite+1,kts:kte,jts-1:jte+1) )
+   IF ( ALLOCATED(xkxavg) ) THEN
+      IF ( ANY(LBOUND(xkxavg) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(xkxavg) /= (/ite+1,kte,jte+1/)) ) DEALLOCATE(xkxavg)
+   ENDIF
+   IF ( .NOT. ALLOCATED(xkxavg) ) ALLOCATE( xkxavg(its-1:ite+1,kts:kte,jts-1:jte+1) )
+   IF ( ALLOCATED(rravg) ) THEN
+      IF ( ANY(LBOUND(rravg) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(rravg) /= (/ite+1,kte,jte+1/)) ) DEALLOCATE(rravg)
+   ENDIF
+   IF ( .NOT. ALLOCATED(rravg) ) ALLOCATE( rravg(its-1:ite+1,kts:kte,jts-1:jte+1) )
+   IF ( ALLOCATED(zy_at_u) ) THEN
+      IF ( ANY(LBOUND(zy_at_u) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(zy_at_u) /= (/ite+1,kte,jte+1/)) ) DEALLOCATE(zy_at_u)
+   ENDIF
+   IF ( .NOT. ALLOCATED(zy_at_u) ) ALLOCATE( zy_at_u(its-1:ite+1,kts:kte,jts-1:jte+1) )
+   IF ( ALLOCATED(zx_at_u) ) THEN
+      IF ( ANY(LBOUND(zx_at_u) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(zx_at_u) /= (/ite+1,kte,jte+1/)) ) DEALLOCATE(zx_at_u)
+   ENDIF
+   IF ( .NOT. ALLOCATED(zx_at_u) ) ALLOCATE( zx_at_u(its-1:ite+1,kts:kte,jts-1:jte+1) )
+#endif
 
 ! End declarations.
 !-----------------------------------------------------------------------
@@ -3524,6 +3600,9 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
    INTEGER :: i_start, i_end, j_start, j_end
    INTEGER :: is_ext,ie_ext,js_ext,je_ext
 
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: titau1avg, titau2avg, titau1, titau2, xkxavg, rravg, zy_at_v, zx_at_v
+#else
    REAL , DIMENSION( its-1:ite+1, kts:kte, jts-1:jte+1)    :: titau1avg, &
                                                               titau2avg, &
                                                                  titau1, &
@@ -3532,6 +3611,7 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
                                                                   rravg, &
                                                                 zy_at_v, &
                                                                 zx_at_v
+#endif
 ! new
 !                                                                 zxavg, &
 !                                                                 zyavg
@@ -3539,6 +3619,41 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
    REAL :: mrdx, mrdy, rcoup
    REAL :: tmpdz
    REAL :: tmpzx, tmpzeta_z
+#ifdef WRF_GPU
+   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
+   IF ( ALLOCATED(titau1avg) ) THEN
+      IF ( ANY(LBOUND(titau1avg) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(titau1avg) /= (/ite+1,kte,jte+1/)) ) DEALLOCATE(titau1avg)
+   ENDIF
+   IF ( .NOT. ALLOCATED(titau1avg) ) ALLOCATE( titau1avg(its-1:ite+1,kts:kte,jts-1:jte+1) )
+   IF ( ALLOCATED(titau2avg) ) THEN
+      IF ( ANY(LBOUND(titau2avg) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(titau2avg) /= (/ite+1,kte,jte+1/)) ) DEALLOCATE(titau2avg)
+   ENDIF
+   IF ( .NOT. ALLOCATED(titau2avg) ) ALLOCATE( titau2avg(its-1:ite+1,kts:kte,jts-1:jte+1) )
+   IF ( ALLOCATED(titau1) ) THEN
+      IF ( ANY(LBOUND(titau1) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(titau1) /= (/ite+1,kte,jte+1/)) ) DEALLOCATE(titau1)
+   ENDIF
+   IF ( .NOT. ALLOCATED(titau1) ) ALLOCATE( titau1(its-1:ite+1,kts:kte,jts-1:jte+1) )
+   IF ( ALLOCATED(titau2) ) THEN
+      IF ( ANY(LBOUND(titau2) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(titau2) /= (/ite+1,kte,jte+1/)) ) DEALLOCATE(titau2)
+   ENDIF
+   IF ( .NOT. ALLOCATED(titau2) ) ALLOCATE( titau2(its-1:ite+1,kts:kte,jts-1:jte+1) )
+   IF ( ALLOCATED(xkxavg) ) THEN
+      IF ( ANY(LBOUND(xkxavg) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(xkxavg) /= (/ite+1,kte,jte+1/)) ) DEALLOCATE(xkxavg)
+   ENDIF
+   IF ( .NOT. ALLOCATED(xkxavg) ) ALLOCATE( xkxavg(its-1:ite+1,kts:kte,jts-1:jte+1) )
+   IF ( ALLOCATED(rravg) ) THEN
+      IF ( ANY(LBOUND(rravg) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(rravg) /= (/ite+1,kte,jte+1/)) ) DEALLOCATE(rravg)
+   ENDIF
+   IF ( .NOT. ALLOCATED(rravg) ) ALLOCATE( rravg(its-1:ite+1,kts:kte,jts-1:jte+1) )
+   IF ( ALLOCATED(zy_at_v) ) THEN
+      IF ( ANY(LBOUND(zy_at_v) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(zy_at_v) /= (/ite+1,kte,jte+1/)) ) DEALLOCATE(zy_at_v)
+   ENDIF
+   IF ( .NOT. ALLOCATED(zy_at_v) ) ALLOCATE( zy_at_v(its-1:ite+1,kts:kte,jts-1:jte+1) )
+   IF ( ALLOCATED(zx_at_v) ) THEN
+      IF ( ANY(LBOUND(zx_at_v) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(zx_at_v) /= (/ite+1,kte,jte+1/)) ) DEALLOCATE(zx_at_v)
+   ENDIF
+   IF ( .NOT. ALLOCATED(zx_at_v) ) ALLOCATE( zx_at_v(its-1:ite+1,kts:kte,jts-1:jte+1) )
+#endif
 
 ! End declarations.
 !-----------------------------------------------------------------------
@@ -3724,6 +3839,9 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
    INTEGER :: i_start, i_end, j_start, j_end
    INTEGER :: is_ext,ie_ext,js_ext,je_ext
 
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: titau1avg, titau2avg, titau1, titau2, xkxavg, rravg, zx_at_w, zy_at_w
+#else
    REAL , DIMENSION( its-1:ite+1, kts:kte, jts-1:jte+1)    :: titau1avg, &
                                                               titau2avg, &
                                                                  titau1, &
@@ -3732,6 +3850,7 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
                                                                   rravg, &
                                                                 zx_at_w, &
                                                                 zy_at_w
+#endif
 ! new
 !                                                                 zxavg, &
 !                                                                 zyavg
@@ -3739,6 +3858,41 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
    REAL :: mrdx, mrdy, rcoup
 
    REAL :: tmpzx, tmpzy, tmpzeta_z
+#ifdef WRF_GPU
+   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
+   IF ( ALLOCATED(titau1avg) ) THEN
+      IF ( ANY(LBOUND(titau1avg) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(titau1avg) /= (/ite+1,kte,jte+1/)) ) DEALLOCATE(titau1avg)
+   ENDIF
+   IF ( .NOT. ALLOCATED(titau1avg) ) ALLOCATE( titau1avg(its-1:ite+1,kts:kte,jts-1:jte+1) )
+   IF ( ALLOCATED(titau2avg) ) THEN
+      IF ( ANY(LBOUND(titau2avg) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(titau2avg) /= (/ite+1,kte,jte+1/)) ) DEALLOCATE(titau2avg)
+   ENDIF
+   IF ( .NOT. ALLOCATED(titau2avg) ) ALLOCATE( titau2avg(its-1:ite+1,kts:kte,jts-1:jte+1) )
+   IF ( ALLOCATED(titau1) ) THEN
+      IF ( ANY(LBOUND(titau1) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(titau1) /= (/ite+1,kte,jte+1/)) ) DEALLOCATE(titau1)
+   ENDIF
+   IF ( .NOT. ALLOCATED(titau1) ) ALLOCATE( titau1(its-1:ite+1,kts:kte,jts-1:jte+1) )
+   IF ( ALLOCATED(titau2) ) THEN
+      IF ( ANY(LBOUND(titau2) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(titau2) /= (/ite+1,kte,jte+1/)) ) DEALLOCATE(titau2)
+   ENDIF
+   IF ( .NOT. ALLOCATED(titau2) ) ALLOCATE( titau2(its-1:ite+1,kts:kte,jts-1:jte+1) )
+   IF ( ALLOCATED(xkxavg) ) THEN
+      IF ( ANY(LBOUND(xkxavg) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(xkxavg) /= (/ite+1,kte,jte+1/)) ) DEALLOCATE(xkxavg)
+   ENDIF
+   IF ( .NOT. ALLOCATED(xkxavg) ) ALLOCATE( xkxavg(its-1:ite+1,kts:kte,jts-1:jte+1) )
+   IF ( ALLOCATED(rravg) ) THEN
+      IF ( ANY(LBOUND(rravg) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(rravg) /= (/ite+1,kte,jte+1/)) ) DEALLOCATE(rravg)
+   ENDIF
+   IF ( .NOT. ALLOCATED(rravg) ) ALLOCATE( rravg(its-1:ite+1,kts:kte,jts-1:jte+1) )
+   IF ( ALLOCATED(zx_at_w) ) THEN
+      IF ( ANY(LBOUND(zx_at_w) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(zx_at_w) /= (/ite+1,kte,jte+1/)) ) DEALLOCATE(zx_at_w)
+   ENDIF
+   IF ( .NOT. ALLOCATED(zx_at_w) ) ALLOCATE( zx_at_w(its-1:ite+1,kts:kte,jts-1:jte+1) )
+   IF ( ALLOCATED(zy_at_w) ) THEN
+      IF ( ANY(LBOUND(zy_at_w) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(zy_at_w) /= (/ite+1,kte,jte+1/)) ) DEALLOCATE(zy_at_w)
+   ENDIF
+   IF ( .NOT. ALLOCATED(zy_at_w) ) ALLOCATE( zy_at_w(its-1:ite+1,kts:kte,jts-1:jte+1) )
+#endif
 ! 
 ! End declarations.
 !-----------------------------------------------------------------------
@@ -3923,6 +4077,9 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
 
    INTEGER :: i_start, i_end, j_start, j_end
 
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: H1avg, H2avg, H1, H2, xkxavg, zx_at_m, zy_at_m
+#else
    REAL , DIMENSION( its-1:ite+1, kts:kte, jts-1:jte+1)    ::     H1avg, &
                                                                   H2avg, &
                                                                      H1, &
@@ -3930,12 +4087,52 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
                                                                  xkxavg, &
                                                                 zx_at_m, &
                                                                 zy_at_m
+#endif
 
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: tmptendf
+#else
    REAL , DIMENSION( its:ite, kts:kte, jts:jte)            ::  tmptendf
+#endif
 
    REAL    :: mrdx, mrdy, rcoup
    REAL    :: tmpzx, tmpzy, tmpzeta_z, rdzu, rdzv
    INTEGER :: ktes1,ktes2
+#ifdef WRF_GPU
+   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
+   IF ( ALLOCATED(H1avg) ) THEN
+      IF ( ANY(LBOUND(H1avg) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(H1avg) /= (/ite+1,kte,jte+1/)) ) DEALLOCATE(H1avg)
+   ENDIF
+   IF ( .NOT. ALLOCATED(H1avg) ) ALLOCATE( H1avg(its-1:ite+1,kts:kte,jts-1:jte+1) )
+   IF ( ALLOCATED(H2avg) ) THEN
+      IF ( ANY(LBOUND(H2avg) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(H2avg) /= (/ite+1,kte,jte+1/)) ) DEALLOCATE(H2avg)
+   ENDIF
+   IF ( .NOT. ALLOCATED(H2avg) ) ALLOCATE( H2avg(its-1:ite+1,kts:kte,jts-1:jte+1) )
+   IF ( ALLOCATED(H1) ) THEN
+      IF ( ANY(LBOUND(H1) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(H1) /= (/ite+1,kte,jte+1/)) ) DEALLOCATE(H1)
+   ENDIF
+   IF ( .NOT. ALLOCATED(H1) ) ALLOCATE( H1(its-1:ite+1,kts:kte,jts-1:jte+1) )
+   IF ( ALLOCATED(H2) ) THEN
+      IF ( ANY(LBOUND(H2) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(H2) /= (/ite+1,kte,jte+1/)) ) DEALLOCATE(H2)
+   ENDIF
+   IF ( .NOT. ALLOCATED(H2) ) ALLOCATE( H2(its-1:ite+1,kts:kte,jts-1:jte+1) )
+   IF ( ALLOCATED(xkxavg) ) THEN
+      IF ( ANY(LBOUND(xkxavg) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(xkxavg) /= (/ite+1,kte,jte+1/)) ) DEALLOCATE(xkxavg)
+   ENDIF
+   IF ( .NOT. ALLOCATED(xkxavg) ) ALLOCATE( xkxavg(its-1:ite+1,kts:kte,jts-1:jte+1) )
+   IF ( ALLOCATED(zx_at_m) ) THEN
+      IF ( ANY(LBOUND(zx_at_m) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(zx_at_m) /= (/ite+1,kte,jte+1/)) ) DEALLOCATE(zx_at_m)
+   ENDIF
+   IF ( .NOT. ALLOCATED(zx_at_m) ) ALLOCATE( zx_at_m(its-1:ite+1,kts:kte,jts-1:jte+1) )
+   IF ( ALLOCATED(zy_at_m) ) THEN
+      IF ( ANY(LBOUND(zy_at_m) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(zy_at_m) /= (/ite+1,kte,jte+1/)) ) DEALLOCATE(zy_at_m)
+   ENDIF
+   IF ( .NOT. ALLOCATED(zy_at_m) ) ALLOCATE( zy_at_m(its-1:ite+1,kts:kte,jts-1:jte+1) )
+   IF ( ALLOCATED(tmptendf) ) THEN
+      IF ( ANY(LBOUND(tmptendf) /= (/its,kts,jts/)) .OR. ANY(UBOUND(tmptendf) /= (/ite,kte,jte/)) ) DEALLOCATE(tmptendf)
+   ENDIF
+   IF ( .NOT. ALLOCATED(tmptendf) ) ALLOCATE( tmptendf(its:ite,kts:kte,jts:jte) )
+#endif
 !
 ! End declarations.
 !-----------------------------------------------------------------------
@@ -4270,7 +4467,11 @@ SUBROUTINE vertical_diffusion_2   ( ru_tendf, rv_tendf, rw_tendf, rt_tendf,   &
 
 ! LOCAL VAR
 
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: var_mix
+#else
    REAL , DIMENSION( ims:ime, kms:kme, jms:jme)  ::    var_mix
+#endif
 
    INTEGER :: im, i,j,k
    INTEGER :: i_start, i_end, j_start, j_end
@@ -4285,6 +4486,13 @@ SUBROUTINE vertical_diffusion_2   ( ru_tendf, rv_tendf, rw_tendf, rt_tendf,   &
     REAL :: xsfc,psi1,vk2,zrough,lnz
     REAL :: heat_flux, moist_flux, heat_flux0
     REAL :: cpm
+#ifdef WRF_GPU
+   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
+   IF ( ALLOCATED(var_mix) ) THEN
+      IF ( ANY(LBOUND(var_mix) /= (/ims,kms,jms/)) .OR. ANY(UBOUND(var_mix) /= (/ime,kme,jme/)) ) DEALLOCATE(var_mix)
+   ENDIF
+   IF ( .NOT. ALLOCATED(var_mix) ) ALLOCATE( var_mix(ims:ime,kms:kme,jms:jme) )
+#endif
 !
 !FINE MODIFICA VARIABILI PER I FLUSSI
 !***************************************************************************
@@ -4684,11 +4892,30 @@ SUBROUTINE vertical_diffusion_u_2( tendency, config_flags,                &
    INTEGER :: i_start, i_end, j_start, j_end
    INTEGER :: is_ext,ie_ext,js_ext,je_ext
 
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: titau3
+#else
    REAL , DIMENSION( its-1:ite+1, kts:kte, jts-1:jte+1)        :: titau3
+#endif
 
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:), ALLOCATABLE, SAVE :: zzavg
+#else
    REAL , DIMENSION( its:ite, jts:jte)                         ::  zzavg
+#endif
 
    REAL :: rdzu
+#ifdef WRF_GPU
+   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
+   IF ( ALLOCATED(titau3) ) THEN
+      IF ( ANY(LBOUND(titau3) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(titau3) /= (/ite+1,kte,jte+1/)) ) DEALLOCATE(titau3)
+   ENDIF
+   IF ( .NOT. ALLOCATED(titau3) ) ALLOCATE( titau3(its-1:ite+1,kts:kte,jts-1:jte+1) )
+   IF ( ALLOCATED(zzavg) ) THEN
+      IF ( ANY(LBOUND(zzavg) /= (/its,jts/)) .OR. ANY(UBOUND(zzavg) /= (/ite,jte/)) ) DEALLOCATE(zzavg)
+   ENDIF
+   IF ( .NOT. ALLOCATED(zzavg) ) ALLOCATE( zzavg(its:ite,jts:jte) )
+#endif
 
 ! End declarations.
 !-----------------------------------------------------------------------
@@ -4798,11 +5025,30 @@ SUBROUTINE vertical_diffusion_v_2( tendency, config_flags,                &
    INTEGER :: i_start, i_end, j_start, j_end
    INTEGER :: is_ext,ie_ext,js_ext,je_ext
 
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: titau3
+#else
    REAL , DIMENSION( its-1:ite+1, kts:kte, jts-1:jte+1)        :: titau3
+#endif
 
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:), ALLOCATABLE, SAVE :: zzavg
+#else
    REAL , DIMENSION( its:ite, jts:jte)                         ::  zzavg
+#endif
 
    REAL  :: rdzv
+#ifdef WRF_GPU
+   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
+   IF ( ALLOCATED(titau3) ) THEN
+      IF ( ANY(LBOUND(titau3) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(titau3) /= (/ite+1,kte,jte+1/)) ) DEALLOCATE(titau3)
+   ENDIF
+   IF ( .NOT. ALLOCATED(titau3) ) ALLOCATE( titau3(its-1:ite+1,kts:kte,jts-1:jte+1) )
+   IF ( ALLOCATED(zzavg) ) THEN
+      IF ( ANY(LBOUND(zzavg) /= (/its,jts/)) .OR. ANY(UBOUND(zzavg) /= (/ite,jte/)) ) DEALLOCATE(zzavg)
+   ENDIF
+   IF ( .NOT. ALLOCATED(zzavg) ) ALLOCATE( zzavg(its:ite,jts:jte) )
+#endif
 
 ! End declarations.
 !-----------------------------------------------------------------------
@@ -4915,7 +5161,18 @@ SUBROUTINE vertical_diffusion_w_2(tendency, config_flags,                 &
    INTEGER :: i_start, i_end, j_start, j_end
    INTEGER :: is_ext,ie_ext,js_ext,je_ext
 
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: titau3
+#else
    REAL , DIMENSION( its-1:ite+1, kts:kte, jts-1:jte+1)        :: titau3
+#endif
+#ifdef WRF_GPU
+   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
+   IF ( ALLOCATED(titau3) ) THEN
+      IF ( ANY(LBOUND(titau3) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(titau3) /= (/ite+1,kte,jte+1/)) ) DEALLOCATE(titau3)
+   ENDIF
+   IF ( .NOT. ALLOCATED(titau3) ) ALLOCATE( titau3(its-1:ite+1,kts:kte,jts-1:jte+1) )
+#endif
 
 ! End declarations.
 !-----------------------------------------------------------------------
@@ -5013,11 +5270,38 @@ SUBROUTINE vertical_diffusion_s( tendency, config_flags, var, xkhv,       &
 
    INTEGER :: i_start, i_end, j_start, j_end
 
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: H3, xkxavg, rravg
+#else
    REAL , DIMENSION( its:ite, kts:kte, jts:jte)            ::        H3, &
                                                                  xkxavg, &
                                                                   rravg
+#endif
 
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: tmptendf
+#else
    REAL , DIMENSION( its:ite, kts:kte, jts:jte)            ::  tmptendf
+#endif
+#ifdef WRF_GPU
+   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
+   IF ( ALLOCATED(H3) ) THEN
+      IF ( ANY(LBOUND(H3) /= (/its,kts,jts/)) .OR. ANY(UBOUND(H3) /= (/ite,kte,jte/)) ) DEALLOCATE(H3)
+   ENDIF
+   IF ( .NOT. ALLOCATED(H3) ) ALLOCATE( H3(its:ite,kts:kte,jts:jte) )
+   IF ( ALLOCATED(xkxavg) ) THEN
+      IF ( ANY(LBOUND(xkxavg) /= (/its,kts,jts/)) .OR. ANY(UBOUND(xkxavg) /= (/ite,kte,jte/)) ) DEALLOCATE(xkxavg)
+   ENDIF
+   IF ( .NOT. ALLOCATED(xkxavg) ) ALLOCATE( xkxavg(its:ite,kts:kte,jts:jte) )
+   IF ( ALLOCATED(rravg) ) THEN
+      IF ( ANY(LBOUND(rravg) /= (/its,kts,jts/)) .OR. ANY(UBOUND(rravg) /= (/ite,kte,jte/)) ) DEALLOCATE(rravg)
+   ENDIF
+   IF ( .NOT. ALLOCATED(rravg) ) ALLOCATE( rravg(its:ite,kts:kte,jts:jte) )
+   IF ( ALLOCATED(tmptendf) ) THEN
+      IF ( ANY(LBOUND(tmptendf) /= (/its,kts,jts/)) .OR. ANY(UBOUND(tmptendf) /= (/ite,kte,jte/)) ) DEALLOCATE(tmptendf)
+   ENDIF
+   IF ( .NOT. ALLOCATED(tmptendf) ) ALLOCATE( tmptendf(its:ite,kts:kte,jts:jte) )
+#endif
 
 ! End declarations.
 !-----------------------------------------------------------------------
@@ -5155,15 +5439,51 @@ END SUBROUTINE vertical_diffusion_s
    INTEGER, DIMENSION( ims:ime, jms:jme ), INTENT(INOUT   )  :: kpbl
 
 ! Local variables.
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: zq
+#else
   REAL, DIMENSION( its:ite, kts:kte,   jts:jte ) :: zq
+#endif
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: za, thv
+#else
   REAL, DIMENSION( its:ite, kts:kte-1, jts:jte ) :: za,thv
+#endif
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: zfacmf, entfacmf
+#else
   REAL, DIMENSION( its:ite, kts:kte,   jts:jte ) :: zfacmf,entfacmf
+#endif
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:), ALLOCATABLE, SAVE :: govrth, sflux, wstar3, wstar, rigs
+#else
   REAL, DIMENSION( its:ite, jts:jte )            :: govrth,sflux,wstar3,wstar,rigs
+#endif
+#ifdef WRF_GPU
+   LOGICAL, DIMENSION(:,:), ALLOCATABLE, SAVE :: pblflg, sfcflg, stable
+#else
   LOGICAL, DIMENSION( its:ite,jts:jte )          :: pblflg, sfcflg, stable
+#endif
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:), ALLOCATABLE, SAVE :: deltaoh, we, enlfrac2
+#else
   REAL, DIMENSION( its:ite, jts:jte )            :: deltaoh,we,enlfrac2
+#endif
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:), ALLOCATABLE, SAVE :: hfxpbl, bfxpbl
+#else
   REAL, DIMENSION( its:ite, jts:jte )            :: hfxpbl,bfxpbl
+#endif
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:), ALLOCATABLE, SAVE :: dthv, wm2
+#else
   REAL, DIMENSION( its:ite, jts:jte )            :: dthv,wm2
+#endif
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:), ALLOCATABLE, SAVE :: wscale, thermal
+#else
   REAL, DIMENSION( its:ite, jts:jte )            :: wscale,thermal
+#endif
   REAL               :: tvcon,delb,cpm,wm3,bfx0,ust3
   REAL               :: dtheta,du,dv,thsfc,brint
   INTEGER            :: i,j,k,i_start,i_end,j_start,j_end,ktf
@@ -5180,6 +5500,97 @@ END SUBROUTINE vertical_diffusion_s
   REAL,PARAMETER     ::  ezfac = 1.5
   REAL,PARAMETER     ::  cpent = -0.4, rigsmax = 100., rimin = -100.
   REAL,PARAMETER     ::  entfmin = 1.0, entfmax = 5.0, sm = 10.9
+#ifdef WRF_GPU
+   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
+   IF ( ALLOCATED(zq) ) THEN
+      IF ( ANY(LBOUND(zq) /= (/its,kts,jts/)) .OR. ANY(UBOUND(zq) /= (/ite,kte,jte/)) ) DEALLOCATE(zq)
+   ENDIF
+   IF ( .NOT. ALLOCATED(zq) ) ALLOCATE( zq(its:ite,kts:kte,jts:jte) )
+   IF ( ALLOCATED(za) ) THEN
+      IF ( ANY(LBOUND(za) /= (/its,kts,jts/)) .OR. ANY(UBOUND(za) /= (/ite,kte-1,jte/)) ) DEALLOCATE(za)
+   ENDIF
+   IF ( .NOT. ALLOCATED(za) ) ALLOCATE( za(its:ite,kts:kte-1,jts:jte) )
+   IF ( ALLOCATED(thv) ) THEN
+      IF ( ANY(LBOUND(thv) /= (/its,kts,jts/)) .OR. ANY(UBOUND(thv) /= (/ite,kte-1,jte/)) ) DEALLOCATE(thv)
+   ENDIF
+   IF ( .NOT. ALLOCATED(thv) ) ALLOCATE( thv(its:ite,kts:kte-1,jts:jte) )
+   IF ( ALLOCATED(zfacmf) ) THEN
+      IF ( ANY(LBOUND(zfacmf) /= (/its,kts,jts/)) .OR. ANY(UBOUND(zfacmf) /= (/ite,kte,jte/)) ) DEALLOCATE(zfacmf)
+   ENDIF
+   IF ( .NOT. ALLOCATED(zfacmf) ) ALLOCATE( zfacmf(its:ite,kts:kte,jts:jte) )
+   IF ( ALLOCATED(entfacmf) ) THEN
+      IF ( ANY(LBOUND(entfacmf) /= (/its,kts,jts/)) .OR. ANY(UBOUND(entfacmf) /= (/ite,kte,jte/)) ) DEALLOCATE(entfacmf)
+   ENDIF
+   IF ( .NOT. ALLOCATED(entfacmf) ) ALLOCATE( entfacmf(its:ite,kts:kte,jts:jte) )
+   IF ( ALLOCATED(govrth) ) THEN
+      IF ( ANY(LBOUND(govrth) /= (/its,jts/)) .OR. ANY(UBOUND(govrth) /= (/ite,jte/)) ) DEALLOCATE(govrth)
+   ENDIF
+   IF ( .NOT. ALLOCATED(govrth) ) ALLOCATE( govrth(its:ite,jts:jte) )
+   IF ( ALLOCATED(sflux) ) THEN
+      IF ( ANY(LBOUND(sflux) /= (/its,jts/)) .OR. ANY(UBOUND(sflux) /= (/ite,jte/)) ) DEALLOCATE(sflux)
+   ENDIF
+   IF ( .NOT. ALLOCATED(sflux) ) ALLOCATE( sflux(its:ite,jts:jte) )
+   IF ( ALLOCATED(wstar3) ) THEN
+      IF ( ANY(LBOUND(wstar3) /= (/its,jts/)) .OR. ANY(UBOUND(wstar3) /= (/ite,jte/)) ) DEALLOCATE(wstar3)
+   ENDIF
+   IF ( .NOT. ALLOCATED(wstar3) ) ALLOCATE( wstar3(its:ite,jts:jte) )
+   IF ( ALLOCATED(wstar) ) THEN
+      IF ( ANY(LBOUND(wstar) /= (/its,jts/)) .OR. ANY(UBOUND(wstar) /= (/ite,jte/)) ) DEALLOCATE(wstar)
+   ENDIF
+   IF ( .NOT. ALLOCATED(wstar) ) ALLOCATE( wstar(its:ite,jts:jte) )
+   IF ( ALLOCATED(rigs) ) THEN
+      IF ( ANY(LBOUND(rigs) /= (/its,jts/)) .OR. ANY(UBOUND(rigs) /= (/ite,jte/)) ) DEALLOCATE(rigs)
+   ENDIF
+   IF ( .NOT. ALLOCATED(rigs) ) ALLOCATE( rigs(its:ite,jts:jte) )
+   IF ( ALLOCATED(pblflg) ) THEN
+      IF ( ANY(LBOUND(pblflg) /= (/its,jts/)) .OR. ANY(UBOUND(pblflg) /= (/ite,jte/)) ) DEALLOCATE(pblflg)
+   ENDIF
+   IF ( .NOT. ALLOCATED(pblflg) ) ALLOCATE( pblflg(its:ite,jts:jte) )
+   IF ( ALLOCATED(sfcflg) ) THEN
+      IF ( ANY(LBOUND(sfcflg) /= (/its,jts/)) .OR. ANY(UBOUND(sfcflg) /= (/ite,jte/)) ) DEALLOCATE(sfcflg)
+   ENDIF
+   IF ( .NOT. ALLOCATED(sfcflg) ) ALLOCATE( sfcflg(its:ite,jts:jte) )
+   IF ( ALLOCATED(stable) ) THEN
+      IF ( ANY(LBOUND(stable) /= (/its,jts/)) .OR. ANY(UBOUND(stable) /= (/ite,jte/)) ) DEALLOCATE(stable)
+   ENDIF
+   IF ( .NOT. ALLOCATED(stable) ) ALLOCATE( stable(its:ite,jts:jte) )
+   IF ( ALLOCATED(deltaoh) ) THEN
+      IF ( ANY(LBOUND(deltaoh) /= (/its,jts/)) .OR. ANY(UBOUND(deltaoh) /= (/ite,jte/)) ) DEALLOCATE(deltaoh)
+   ENDIF
+   IF ( .NOT. ALLOCATED(deltaoh) ) ALLOCATE( deltaoh(its:ite,jts:jte) )
+   IF ( ALLOCATED(we) ) THEN
+      IF ( ANY(LBOUND(we) /= (/its,jts/)) .OR. ANY(UBOUND(we) /= (/ite,jte/)) ) DEALLOCATE(we)
+   ENDIF
+   IF ( .NOT. ALLOCATED(we) ) ALLOCATE( we(its:ite,jts:jte) )
+   IF ( ALLOCATED(enlfrac2) ) THEN
+      IF ( ANY(LBOUND(enlfrac2) /= (/its,jts/)) .OR. ANY(UBOUND(enlfrac2) /= (/ite,jte/)) ) DEALLOCATE(enlfrac2)
+   ENDIF
+   IF ( .NOT. ALLOCATED(enlfrac2) ) ALLOCATE( enlfrac2(its:ite,jts:jte) )
+   IF ( ALLOCATED(hfxpbl) ) THEN
+      IF ( ANY(LBOUND(hfxpbl) /= (/its,jts/)) .OR. ANY(UBOUND(hfxpbl) /= (/ite,jte/)) ) DEALLOCATE(hfxpbl)
+   ENDIF
+   IF ( .NOT. ALLOCATED(hfxpbl) ) ALLOCATE( hfxpbl(its:ite,jts:jte) )
+   IF ( ALLOCATED(bfxpbl) ) THEN
+      IF ( ANY(LBOUND(bfxpbl) /= (/its,jts/)) .OR. ANY(UBOUND(bfxpbl) /= (/ite,jte/)) ) DEALLOCATE(bfxpbl)
+   ENDIF
+   IF ( .NOT. ALLOCATED(bfxpbl) ) ALLOCATE( bfxpbl(its:ite,jts:jte) )
+   IF ( ALLOCATED(dthv) ) THEN
+      IF ( ANY(LBOUND(dthv) /= (/its,jts/)) .OR. ANY(UBOUND(dthv) /= (/ite,jte/)) ) DEALLOCATE(dthv)
+   ENDIF
+   IF ( .NOT. ALLOCATED(dthv) ) ALLOCATE( dthv(its:ite,jts:jte) )
+   IF ( ALLOCATED(wm2) ) THEN
+      IF ( ANY(LBOUND(wm2) /= (/its,jts/)) .OR. ANY(UBOUND(wm2) /= (/ite,jte/)) ) DEALLOCATE(wm2)
+   ENDIF
+   IF ( .NOT. ALLOCATED(wm2) ) ALLOCATE( wm2(its:ite,jts:jte) )
+   IF ( ALLOCATED(wscale) ) THEN
+      IF ( ANY(LBOUND(wscale) /= (/its,jts/)) .OR. ANY(UBOUND(wscale) /= (/ite,jte/)) ) DEALLOCATE(wscale)
+   ENDIF
+   IF ( .NOT. ALLOCATED(wscale) ) ALLOCATE( wscale(its:ite,jts:jte) )
+   IF ( ALLOCATED(thermal) ) THEN
+      IF ( ANY(LBOUND(thermal) /= (/its,jts/)) .OR. ANY(UBOUND(thermal) /= (/ite,jte/)) ) DEALLOCATE(thermal)
+   ENDIF
+   IF ( .NOT. ALLOCATED(thermal) ) ALLOCATE( thermal(its:ite,jts:jte) )
+#endif
 
    ktf=MIN(kte,kde-1)
  
@@ -8044,20 +8455,56 @@ END SUBROUTINE phy_bc
 
    REAL, DIMENSION( ims:ime, kms:kme, jms:jme ), INTENT(INOUT)   :: l_diss
 ! LOCAL VAR
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: var_mix
+#else
    REAL , DIMENSION( ims:ime, kms:kme, jms:jme)           :: var_mix
+#endif
  
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: xkxavg_m, xkxavg_s
+#else
    REAL, DIMENSION( its-1:ite+1, kts:kte, jts-1:jte+1 ):: xkxavg_m, &
                                                           xkxavg_s
+#endif
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: xkxavg, xkxavg_w, rhoavg, nlflux_rho
+#else
    REAL, DIMENSION( its:ite, kts:kte, jts:jte)         :: xkxavg,   &
                                                           xkxavg_w, &
                                                           rhoavg,   &
                                                           nlflux_rho
+#endif
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:), ALLOCATABLE, SAVE :: gamvavg, gamuavg
+#else
    REAL, DIMENSION( its-1:ite+1, jts-1:jte+1 )         :: gamvavg, gamuavg
+#endif
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:), ALLOCATABLE, SAVE :: tao_xz, tao_yz
+#else
    REAL, DIMENSION( its-1:ite+1, jts-1:jte+1 )         :: tao_xz, tao_yz
+#endif
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: muavg_u, muavg_v
+#else
    REAL, DIMENSION( its-1:ite+1, kts:kte, jts-1:jte+1 ):: muavg_u,muavg_v
+#endif
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: rdz_u, rdz_v
+#else
    REAL, DIMENSION( its-1:ite+1, kts:kte, jts-1:jte+1 ):: rdz_u, rdz_v
+#endif
+#ifdef WRF_GPU
+   REAL, DIMENSION(:), ALLOCATABLE, SAVE :: a, b, c, d
+#else
    REAL, DIMENSION(kts:kte) :: a, b, c, d
+#endif
+#ifdef WRF_GPU
+   REAL, DIMENSION(:), ALLOCATABLE, SAVE :: a1, b1, c1, d1
+#else
    REAL, DIMENSION(kts:kte-1) :: a1, b1, c1, d1
+#endif
  
    INTEGER :: im, i,j,k,ktf,nz
    INTEGER :: i_start, i_end, j_start, j_end
@@ -8065,6 +8512,101 @@ END SUBROUTINE phy_bc
    REAL :: V0_u,V0_v,ustar,beta
    REAL :: heat_flux, moist_flux, qfac
    REAL :: cpm,rdz_w,rhoavg_u,rhoavg_v,rdz_z
+#ifdef WRF_GPU
+   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
+   IF ( ALLOCATED(var_mix) ) THEN
+      IF ( ANY(LBOUND(var_mix) /= (/ims,kms,jms/)) .OR. ANY(UBOUND(var_mix) /= (/ime,kme,jme/)) ) DEALLOCATE(var_mix)
+   ENDIF
+   IF ( .NOT. ALLOCATED(var_mix) ) ALLOCATE( var_mix(ims:ime,kms:kme,jms:jme) )
+   IF ( ALLOCATED(xkxavg_m) ) THEN
+      IF ( ANY(LBOUND(xkxavg_m) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(xkxavg_m) /= (/ite+1,kte,jte+1/)) ) DEALLOCATE(xkxavg_m)
+   ENDIF
+   IF ( .NOT. ALLOCATED(xkxavg_m) ) ALLOCATE( xkxavg_m(its-1:ite+1,kts:kte,jts-1:jte+1) )
+   IF ( ALLOCATED(xkxavg_s) ) THEN
+      IF ( ANY(LBOUND(xkxavg_s) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(xkxavg_s) /= (/ite+1,kte,jte+1/)) ) DEALLOCATE(xkxavg_s)
+   ENDIF
+   IF ( .NOT. ALLOCATED(xkxavg_s) ) ALLOCATE( xkxavg_s(its-1:ite+1,kts:kte,jts-1:jte+1) )
+   IF ( ALLOCATED(xkxavg) ) THEN
+      IF ( ANY(LBOUND(xkxavg) /= (/its,kts,jts/)) .OR. ANY(UBOUND(xkxavg) /= (/ite,kte,jte/)) ) DEALLOCATE(xkxavg)
+   ENDIF
+   IF ( .NOT. ALLOCATED(xkxavg) ) ALLOCATE( xkxavg(its:ite,kts:kte,jts:jte) )
+   IF ( ALLOCATED(xkxavg_w) ) THEN
+      IF ( ANY(LBOUND(xkxavg_w) /= (/its,kts,jts/)) .OR. ANY(UBOUND(xkxavg_w) /= (/ite,kte,jte/)) ) DEALLOCATE(xkxavg_w)
+   ENDIF
+   IF ( .NOT. ALLOCATED(xkxavg_w) ) ALLOCATE( xkxavg_w(its:ite,kts:kte,jts:jte) )
+   IF ( ALLOCATED(rhoavg) ) THEN
+      IF ( ANY(LBOUND(rhoavg) /= (/its,kts,jts/)) .OR. ANY(UBOUND(rhoavg) /= (/ite,kte,jte/)) ) DEALLOCATE(rhoavg)
+   ENDIF
+   IF ( .NOT. ALLOCATED(rhoavg) ) ALLOCATE( rhoavg(its:ite,kts:kte,jts:jte) )
+   IF ( ALLOCATED(nlflux_rho) ) THEN
+      IF ( ANY(LBOUND(nlflux_rho) /= (/its,kts,jts/)) .OR. ANY(UBOUND(nlflux_rho) /= (/ite,kte,jte/)) ) DEALLOCATE(nlflux_rho)
+   ENDIF
+   IF ( .NOT. ALLOCATED(nlflux_rho) ) ALLOCATE( nlflux_rho(its:ite,kts:kte,jts:jte) )
+   IF ( ALLOCATED(gamvavg) ) THEN
+      IF ( ANY(LBOUND(gamvavg) /= (/its-1,jts-1/)) .OR. ANY(UBOUND(gamvavg) /= (/ite+1,jte+1/)) ) DEALLOCATE(gamvavg)
+   ENDIF
+   IF ( .NOT. ALLOCATED(gamvavg) ) ALLOCATE( gamvavg(its-1:ite+1,jts-1:jte+1) )
+   IF ( ALLOCATED(gamuavg) ) THEN
+      IF ( ANY(LBOUND(gamuavg) /= (/its-1,jts-1/)) .OR. ANY(UBOUND(gamuavg) /= (/ite+1,jte+1/)) ) DEALLOCATE(gamuavg)
+   ENDIF
+   IF ( .NOT. ALLOCATED(gamuavg) ) ALLOCATE( gamuavg(its-1:ite+1,jts-1:jte+1) )
+   IF ( ALLOCATED(tao_xz) ) THEN
+      IF ( ANY(LBOUND(tao_xz) /= (/its-1,jts-1/)) .OR. ANY(UBOUND(tao_xz) /= (/ite+1,jte+1/)) ) DEALLOCATE(tao_xz)
+   ENDIF
+   IF ( .NOT. ALLOCATED(tao_xz) ) ALLOCATE( tao_xz(its-1:ite+1,jts-1:jte+1) )
+   IF ( ALLOCATED(tao_yz) ) THEN
+      IF ( ANY(LBOUND(tao_yz) /= (/its-1,jts-1/)) .OR. ANY(UBOUND(tao_yz) /= (/ite+1,jte+1/)) ) DEALLOCATE(tao_yz)
+   ENDIF
+   IF ( .NOT. ALLOCATED(tao_yz) ) ALLOCATE( tao_yz(its-1:ite+1,jts-1:jte+1) )
+   IF ( ALLOCATED(muavg_u) ) THEN
+      IF ( ANY(LBOUND(muavg_u) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(muavg_u) /= (/ite+1,kte,jte+1/)) ) DEALLOCATE(muavg_u)
+   ENDIF
+   IF ( .NOT. ALLOCATED(muavg_u) ) ALLOCATE( muavg_u(its-1:ite+1,kts:kte,jts-1:jte+1) )
+   IF ( ALLOCATED(muavg_v) ) THEN
+      IF ( ANY(LBOUND(muavg_v) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(muavg_v) /= (/ite+1,kte,jte+1/)) ) DEALLOCATE(muavg_v)
+   ENDIF
+   IF ( .NOT. ALLOCATED(muavg_v) ) ALLOCATE( muavg_v(its-1:ite+1,kts:kte,jts-1:jte+1) )
+   IF ( ALLOCATED(rdz_u) ) THEN
+      IF ( ANY(LBOUND(rdz_u) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(rdz_u) /= (/ite+1,kte,jte+1/)) ) DEALLOCATE(rdz_u)
+   ENDIF
+   IF ( .NOT. ALLOCATED(rdz_u) ) ALLOCATE( rdz_u(its-1:ite+1,kts:kte,jts-1:jte+1) )
+   IF ( ALLOCATED(rdz_v) ) THEN
+      IF ( ANY(LBOUND(rdz_v) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(rdz_v) /= (/ite+1,kte,jte+1/)) ) DEALLOCATE(rdz_v)
+   ENDIF
+   IF ( .NOT. ALLOCATED(rdz_v) ) ALLOCATE( rdz_v(its-1:ite+1,kts:kte,jts-1:jte+1) )
+   IF ( ALLOCATED(a) ) THEN
+      IF ( ANY(LBOUND(a) /= (/kts/)) .OR. ANY(UBOUND(a) /= (/kte/)) ) DEALLOCATE(a)
+   ENDIF
+   IF ( .NOT. ALLOCATED(a) ) ALLOCATE( a(kts:kte) )
+   IF ( ALLOCATED(b) ) THEN
+      IF ( ANY(LBOUND(b) /= (/kts/)) .OR. ANY(UBOUND(b) /= (/kte/)) ) DEALLOCATE(b)
+   ENDIF
+   IF ( .NOT. ALLOCATED(b) ) ALLOCATE( b(kts:kte) )
+   IF ( ALLOCATED(c) ) THEN
+      IF ( ANY(LBOUND(c) /= (/kts/)) .OR. ANY(UBOUND(c) /= (/kte/)) ) DEALLOCATE(c)
+   ENDIF
+   IF ( .NOT. ALLOCATED(c) ) ALLOCATE( c(kts:kte) )
+   IF ( ALLOCATED(d) ) THEN
+      IF ( ANY(LBOUND(d) /= (/kts/)) .OR. ANY(UBOUND(d) /= (/kte/)) ) DEALLOCATE(d)
+   ENDIF
+   IF ( .NOT. ALLOCATED(d) ) ALLOCATE( d(kts:kte) )
+   IF ( ALLOCATED(a1) ) THEN
+      IF ( ANY(LBOUND(a1) /= (/kts/)) .OR. ANY(UBOUND(a1) /= (/kte-1/)) ) DEALLOCATE(a1)
+   ENDIF
+   IF ( .NOT. ALLOCATED(a1) ) ALLOCATE( a1(kts:kte-1) )
+   IF ( ALLOCATED(b1) ) THEN
+      IF ( ANY(LBOUND(b1) /= (/kts/)) .OR. ANY(UBOUND(b1) /= (/kte-1/)) ) DEALLOCATE(b1)
+   ENDIF
+   IF ( .NOT. ALLOCATED(b1) ) ALLOCATE( b1(kts:kte-1) )
+   IF ( ALLOCATED(c1) ) THEN
+      IF ( ANY(LBOUND(c1) /= (/kts/)) .OR. ANY(UBOUND(c1) /= (/kte-1/)) ) DEALLOCATE(c1)
+   ENDIF
+   IF ( .NOT. ALLOCATED(c1) ) ALLOCATE( c1(kts:kte-1) )
+   IF ( ALLOCATED(d1) ) THEN
+      IF ( ANY(LBOUND(d1) /= (/kts/)) .OR. ANY(UBOUND(d1) /= (/kte-1/)) ) DEALLOCATE(d1)
+   ENDIF
+   IF ( .NOT. ALLOCATED(d1) ) ALLOCATE( d1(kts:kte-1) )
+#endif
 ! End declarations.
 !-----------------------------------------------------------------------
 !!============================================

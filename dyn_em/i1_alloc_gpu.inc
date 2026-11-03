@@ -1,0 +1,68 @@
+! GENERATED (2026-11-03): allocate the persistent i1 temporaries once (single domain: bounds fixed)
+   IF ( .NOT. ALLOCATED(ru_tendf) ) ALLOCATE( ru_tendf(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33) )
+   IF ( .NOT. ALLOCATED(rv_tendf) ) ALLOCATE( rv_tendf(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33) )
+   IF ( .NOT. ALLOCATED(ww1) ) ALLOCATE( ww1(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33) )
+   IF ( .NOT. ALLOCATED(wwe) ) ALLOCATE( wwe(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33) )
+   IF ( .NOT. ALLOCATED(wwi) ) ALLOCATE( wwi(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33) )
+   IF ( .NOT. ALLOCATED(wwp) ) ALLOCATE( wwp(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33) )
+   IF ( .NOT. ALLOCATED(rw_tend) ) ALLOCATE( rw_tend(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33) )
+   IF ( .NOT. ALLOCATED(rw_tendf) ) ALLOCATE( rw_tendf(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33) )
+   IF ( .NOT. ALLOCATED(w_save) ) ALLOCATE( w_save(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33) )
+   IF ( .NOT. ALLOCATED(ph_tend) ) ALLOCATE( ph_tend(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33) )
+   IF ( .NOT. ALLOCATED(ph_tendf) ) ALLOCATE( ph_tendf(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33) )
+   IF ( .NOT. ALLOCATED(ph_save) ) ALLOCATE( ph_save(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33) )
+   IF ( .NOT. ALLOCATED(t_tend) ) ALLOCATE( t_tend(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33) )
+   IF ( .NOT. ALLOCATED(t_tendf) ) ALLOCATE( t_tendf(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33) )
+   IF ( .NOT. ALLOCATED(t_2save) ) ALLOCATE( t_2save(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33) )
+   IF ( .NOT. ALLOCATED(muave) ) ALLOCATE( muave(grid%sm31:grid%em31,grid%sm33:grid%em33) )
+   IF ( .NOT. ALLOCATED(mu_save) ) ALLOCATE( mu_save(grid%sm31:grid%em31,grid%sm33:grid%em33) )
+   IF ( .NOT. ALLOCATED(mu_tend) ) ALLOCATE( mu_tend(grid%sm31:grid%em31,grid%sm33:grid%em33) )
+   IF ( .NOT. ALLOCATED(mu_tendf) ) ALLOCATE( mu_tendf(grid%sm31:grid%em31,grid%sm33:grid%em33) )
+   IF ( .NOT. ALLOCATED(tke_tend) ) ALLOCATE( tke_tend(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33) )
+   IF ( .NOT. ALLOCATED(advect_tend) ) ALLOCATE( advect_tend(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33) )
+   IF ( .NOT. ALLOCATED(alpha) ) ALLOCATE( alpha(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33) )
+   IF ( .NOT. ALLOCATED(a) ) ALLOCATE( a(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33) )
+   IF ( .NOT. ALLOCATED(gamma) ) ALLOCATE( gamma(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33) )
+   IF ( .NOT. ALLOCATED(c2a) ) ALLOCATE( c2a(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33) )
+   IF ( .NOT. ALLOCATED(phm) ) ALLOCATE( phm(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33) )
+   IF ( .NOT. ALLOCATED(cqu) ) ALLOCATE( cqu(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33) )
+   IF ( .NOT. ALLOCATED(cqv) ) ALLOCATE( cqv(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33) )
+   IF ( .NOT. ALLOCATED(cqw) ) ALLOCATE( cqw(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33) )
+   IF ( .NOT. ALLOCATED(pm1) ) ALLOCATE( pm1(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33) )
+   IF ( .NOT. ALLOCATED(psim) ) ALLOCATE( psim(grid%sm31:grid%em31,grid%sm33:grid%em33) )
+   IF ( .NOT. ALLOCATED(psih) ) ALLOCATE( psih(grid%sm31:grid%em31,grid%sm33:grid%em33) )
+   IF ( .NOT. ALLOCATED(gz1oz0) ) ALLOCATE( gz1oz0(grid%sm31:grid%em31,grid%sm33:grid%em33) )
+   IF ( .NOT. ALLOCATED(chklowq) ) ALLOCATE( chklowq(grid%sm31:grid%em31,grid%sm33:grid%em33) )
+   IF ( .NOT. ALLOCATED(ht_loc) ) ALLOCATE( ht_loc(grid%sm31:grid%em31,grid%sm33:grid%em33) )
+   IF ( .NOT. ALLOCATED(th_phy) ) ALLOCATE( th_phy(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33) )
+   IF ( .NOT. ALLOCATED(pi_phy) ) ALLOCATE( pi_phy(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33) )
+   IF ( .NOT. ALLOCATED(p_phy) ) ALLOCATE( p_phy(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33) )
+   IF ( .NOT. ALLOCATED(dz8w) ) ALLOCATE( dz8w(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33) )
+   IF ( .NOT. ALLOCATED(p8w) ) ALLOCATE( p8w(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33) )
+   IF ( .NOT. ALLOCATED(t8w) ) ALLOCATE( t8w(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33) )
+   IF ( .NOT. ALLOCATED(cu_act_flag) ) ALLOCATE( cu_act_flag(grid%sm31:grid%em31,grid%sm33:grid%em33) )
+   IF ( .NOT. ALLOCATED(hol) ) ALLOCATE( hol(grid%sm31:grid%em31,grid%sm33:grid%em33) )
+   IF ( .NOT. ALLOCATED(moist_tend) ) ALLOCATE( moist_tend(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_moist) )
+#ifndef NO_I1_OLD
+   IF ( .NOT. ALLOCATED(moist_old) ) ALLOCATE( moist_old(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_moist) )
+#endif
+   IF ( .NOT. ALLOCATED(dfi_moist_tend) ) ALLOCATE( dfi_moist_tend(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_dfi_moist) )
+#ifndef NO_I1_OLD
+   IF ( .NOT. ALLOCATED(dfi_moist_old) ) ALLOCATE( dfi_moist_old(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_dfi_moist) )
+#endif
+   IF ( .NOT. ALLOCATED(scalar_tend) ) ALLOCATE( scalar_tend(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_scalar) )
+#ifndef NO_I1_OLD
+   IF ( .NOT. ALLOCATED(scalar_old) ) ALLOCATE( scalar_old(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_scalar) )
+#endif
+   IF ( .NOT. ALLOCATED(dfi_scalar_tend) ) ALLOCATE( dfi_scalar_tend(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_dfi_scalar) )
+#ifndef NO_I1_OLD
+   IF ( .NOT. ALLOCATED(dfi_scalar_old) ) ALLOCATE( dfi_scalar_old(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_dfi_scalar) )
+#endif
+   IF ( .NOT. ALLOCATED(tracer_tend) ) ALLOCATE( tracer_tend(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_tracer) )
+#ifndef NO_I1_OLD
+   IF ( .NOT. ALLOCATED(tracer_old) ) ALLOCATE( tracer_old(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_tracer) )
+#endif
+   IF ( .NOT. ALLOCATED(chem_tend) ) ALLOCATE( chem_tend(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_chem) )
+#ifndef NO_I1_OLD
+   IF ( .NOT. ALLOCATED(chem_old) ) ALLOCATE( chem_old(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_chem) )
+#endif

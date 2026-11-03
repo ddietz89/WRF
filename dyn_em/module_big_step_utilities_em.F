@@ -592,7 +592,22 @@ SUBROUTINE couple ( mu, mub, rfield, field, name, &
    ! Local data
    
    INTEGER :: i, j, k, itf, jtf, ktf
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:), ALLOCATABLE, SAVE :: muu, muv
+#else
    REAL , DIMENSION(ims:ime,jms:jme) :: muu , muv
+#endif
+#ifdef WRF_GPU
+   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
+   IF ( ALLOCATED(muu) ) THEN
+      IF ( ANY(LBOUND(muu) /= (/ims,jms/)) .OR. ANY(UBOUND(muu) /= (/ime,jme/)) ) DEALLOCATE(muu)
+   ENDIF
+   IF ( .NOT. ALLOCATED(muu) ) ALLOCATE( muu(ims:ime,jms:jme) )
+   IF ( ALLOCATED(muv) ) THEN
+      IF ( ANY(LBOUND(muv) /= (/ims,jms/)) .OR. ANY(UBOUND(muv) /= (/ime,jme/)) ) DEALLOCATE(muv)
+   ENDIF
+   IF ( .NOT. ALLOCATED(muv) ) ALLOCATE( muv(ims:ime,jms:jme) )
+#endif
 
 !<DESCRIPTION>
 !
@@ -720,7 +735,22 @@ SUBROUTINE calc_ww_cp ( u, v, mup, mub, c1h, c2h, ww,    &
    INTEGER :: i, j, k, itf, jtf, ktf
    REAL , DIMENSION( its:ite ) :: dmdt
    REAL , DIMENSION( its:ite, kts:kte ) :: divv
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:), ALLOCATABLE, SAVE :: muu, muv
+#else
    REAL , DIMENSION( its:ite+1, jts:jte+1 ) :: muu, muv
+#endif
+#ifdef WRF_GPU
+   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
+   IF ( ALLOCATED(muu) ) THEN
+      IF ( ANY(LBOUND(muu) /= (/its,jts/)) .OR. ANY(UBOUND(muu) /= (/ite+1,jte+1/)) ) DEALLOCATE(muu)
+   ENDIF
+   IF ( .NOT. ALLOCATED(muu) ) ALLOCATE( muu(its:ite+1,jts:jte+1) )
+   IF ( ALLOCATED(muv) ) THEN
+      IF ( ANY(LBOUND(muv) /= (/its,jts/)) .OR. ANY(UBOUND(muv) /= (/ite+1,jte+1/)) ) DEALLOCATE(muv)
+   ENDIF
+   IF ( .NOT. ALLOCATED(muv) ) ALLOCATE( muv(its:ite+1,jts:jte+1) )
+#endif
 
 !<DESCRIPTION>
 !
@@ -864,10 +894,21 @@ SUBROUTINE calc_cq ( moist, cqu, cqv, cqw, n_moist, &
    ! Local stuff
 
    ! Changes from Larry Meadows, Intel Corp.  Improve vectorization of this routine
+#ifdef WRF_GPU
+   REAL, DIMENSION(:), ALLOCATABLE, SAVE :: qtot
+#else
    REAL :: qtot(its:ite)
+#endif
       REAL :: qt_   ! GPU: per-point species sum
    
    INTEGER :: i, j, k, itf, jtf, ktf, ispe
+#ifdef WRF_GPU
+   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
+   IF ( ALLOCATED(qtot) ) THEN
+      IF ( ANY(LBOUND(qtot) /= (/its/)) .OR. ANY(UBOUND(qtot) /= (/ite/)) ) DEALLOCATE(qtot)
+   ENDIF
+   IF ( .NOT. ALLOCATED(qtot) ) ALLOCATE( qtot(its:ite) )
+#endif
 
 !<DESCRIPTION>
 !
@@ -1055,8 +1096,23 @@ SUBROUTINE calc_p_rho_phi ( moist, n_moist, hypsometric_opt,      &
 
   INTEGER :: i, j, k, kk, itf, jtf, ktf, ispe
   REAL    :: qtot, qf1, qf2, qvf
+#ifdef WRF_GPU
+   REAL, DIMENSION(:), ALLOCATABLE, SAVE :: temp, cpovcv_v
+#else
   REAL, DIMENSION( its:ite) :: temp,cpovcv_v
+#endif
   REAL    :: pfu, phm, pfd
+#ifdef WRF_GPU
+   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
+   IF ( ALLOCATED(temp) ) THEN
+      IF ( ANY(LBOUND(temp) /= (/its/)) .OR. ANY(UBOUND(temp) /= (/ite/)) ) DEALLOCATE(temp)
+   ENDIF
+   IF ( .NOT. ALLOCATED(temp) ) ALLOCATE( temp(its:ite) )
+   IF ( ALLOCATED(cpovcv_v) ) THEN
+      IF ( ANY(LBOUND(cpovcv_v) /= (/its/)) .OR. ANY(UBOUND(cpovcv_v) /= (/ite/)) ) DEALLOCATE(cpovcv_v)
+   ENDIF
+   IF ( .NOT. ALLOCATED(cpovcv_v) ) ALLOCATE( cpovcv_v(its:ite) )
+#endif
 
 !<DESCRIPTION>
 !
@@ -2380,9 +2436,20 @@ SUBROUTINE horizontal_pressure_gradient( ru_tend,rv_tend,                &
    INTEGER :: i,j,k, itf, jtf, ktf, i_start, j_start
    REAL, DIMENSION( ims:ime, kms:kme ) :: dpn
    REAL :: dpx, dpy
+#ifdef WRF_GPU
+   REAL, DIMENSION(:), ALLOCATABLE, SAVE :: c1
+#else
    REAL, DIMENSION( kms:kme ) :: c1
+#endif
 
    LOGICAL :: specified
+#ifdef WRF_GPU
+   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
+   IF ( ALLOCATED(c1) ) THEN
+      IF ( ANY(LBOUND(c1) /= (/kms/)) .OR. ANY(UBOUND(c1) /= (/kme/)) ) DEALLOCATE(c1)
+   ENDIF
+   IF ( .NOT. ALLOCATED(c1) ) ALLOCATE( c1(kms:kme) )
+#endif
 
 !<DESCRIPTION>
 !
@@ -3289,12 +3356,31 @@ SUBROUTINE vertical_diffusion ( name, field, tendency,        &
    INTEGER :: i, j, k, itf, jtf, ktf
    INTEGER :: i_start, i_end, j_start, j_end
 
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:), ALLOCATABLE, SAVE :: vfluxm, vfluxp, zz
+#else
    REAL , DIMENSION(its:ite, jts:jte) :: vfluxm, vfluxp, zz
+#endif
    REAL , DIMENSION(its:ite, 0:kte+1) :: vflux
 
    REAL :: rdz
 
    LOGICAL :: specified
+#ifdef WRF_GPU
+   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
+   IF ( ALLOCATED(vfluxm) ) THEN
+      IF ( ANY(LBOUND(vfluxm) /= (/its,jts/)) .OR. ANY(UBOUND(vfluxm) /= (/ite,jte/)) ) DEALLOCATE(vfluxm)
+   ENDIF
+   IF ( .NOT. ALLOCATED(vfluxm) ) ALLOCATE( vfluxm(its:ite,jts:jte) )
+   IF ( ALLOCATED(vfluxp) ) THEN
+      IF ( ANY(LBOUND(vfluxp) /= (/its,jts/)) .OR. ANY(UBOUND(vfluxp) /= (/ite,jte/)) ) DEALLOCATE(vfluxp)
+   ENDIF
+   IF ( .NOT. ALLOCATED(vfluxp) ) ALLOCATE( vfluxp(its:ite,jts:jte) )
+   IF ( ALLOCATED(zz) ) THEN
+      IF ( ANY(LBOUND(zz) /= (/its,jts/)) .OR. ANY(UBOUND(zz) /= (/ite,jte/)) ) DEALLOCATE(zz)
+   ENDIF
+   IF ( .NOT. ALLOCATED(zz) ) ALLOCATE( zz(its:ite,jts:jte) )
+#endif
 
 !<DESCRIPTION>
 !
@@ -4130,8 +4216,12 @@ SUBROUTINE perturbation_coriolis ( ru_in, rv_in, rw, ru_tend, rv_tend, rw_tend, 
    
    ! Local storage
 
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: ru, rv
+#else
    REAL , DIMENSION( ims:ime , kms:kme , jms:jme ) :: ru, &
                                                       rv
+#endif
 
    REAL  :: z_at_u, z_at_v, wkp1, wk, wkm1
 
@@ -4141,6 +4231,17 @@ SUBROUTINE perturbation_coriolis ( ru_in, rv_in, rw, ru_tend, rv_tend, rw_tend, 
    INTEGER :: i_start, i_end, j_start, j_end
    
    LOGICAL :: specified
+#ifdef WRF_GPU
+   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
+   IF ( ALLOCATED(ru) ) THEN
+      IF ( ANY(LBOUND(ru) /= (/ims,kms,jms/)) .OR. ANY(UBOUND(ru) /= (/ime,kme,jme/)) ) DEALLOCATE(ru)
+   ENDIF
+   IF ( .NOT. ALLOCATED(ru) ) ALLOCATE( ru(ims:ime,kms:kme,jms:jme) )
+   IF ( ALLOCATED(rv) ) THEN
+      IF ( ANY(LBOUND(rv) /= (/ims,kms,jms/)) .OR. ANY(UBOUND(rv) /= (/ime,kme,jme/)) ) DEALLOCATE(rv)
+   ENDIF
+   IF ( .NOT. ALLOCATED(rv) ) ALLOCATE( rv(ims:ime,kms:kme,jms:jme) )
+#endif
 
 !<DESCRIPTION>
 !
@@ -4459,9 +4560,20 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
    INTEGER :: i_start, i_end, j_start, j_end
 !   INTEGER :: irmin, irmax, jrmin, jrmax
 
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: vxgm
+#else
    REAL , DIMENSION( its-1:ite , kts:kte, jts-1:jte ) :: vxgm
+#endif
 
    LOGICAL :: specified
+#ifdef WRF_GPU
+   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
+   IF ( ALLOCATED(vxgm) ) THEN
+      IF ( ANY(LBOUND(vxgm) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(vxgm) /= (/ite,kte,jte/)) ) DEALLOCATE(vxgm)
+   ENDIF
+   IF ( .NOT. ALLOCATED(vxgm) ) ALLOCATE( vxgm(its-1:ite,kts:kte,jts-1:jte) )
+#endif
 
 !<DESCRIPTION>
 !
@@ -5051,12 +5163,27 @@ END SUBROUTINE pole_point_bc
 
    REAL, DIMENSION( kms:kme ) ,            INTENT(IN   ) ::     c1h, c2h, c1f, c2f
 
+#ifdef WRF_GPU
+   REAL, DIMENSION(:), ALLOCATABLE, SAVE :: c1, c2
+#else
    REAL, DIMENSION( kms:kme ) :: c1, c2
+#endif
    INTEGER :: i_start, i_end, j_start, j_end, k_start, k_end, i_startu, j_startv
    INTEGER :: i, j, k
    REAL    :: w1, w2, z0, z1, z2
    REAL    :: qtot
    INTEGER :: n
+#ifdef WRF_GPU
+   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
+   IF ( ALLOCATED(c1) ) THEN
+      IF ( ANY(LBOUND(c1) /= (/kms/)) .OR. ANY(UBOUND(c1) /= (/kme/)) ) DEALLOCATE(c1)
+   ENDIF
+   IF ( .NOT. ALLOCATED(c1) ) ALLOCATE( c1(kms:kme) )
+   IF ( ALLOCATED(c2) ) THEN
+      IF ( ANY(LBOUND(c2) /= (/kms/)) .OR. ANY(UBOUND(c2) /= (/kme/)) ) DEALLOCATE(c2)
+   ENDIF
+   IF ( .NOT. ALLOCATED(c2) ) ALLOCATE( c2(kms:kme) )
+#endif
 
 !-----------------------------------------------------------------------
 
@@ -5346,10 +5473,25 @@ END SUBROUTINE phy_prep
 
    REAL, DIMENSION( kms:kme ) ,            INTENT(IN   ) ::     c1h, c2h, c1f, c2f
 
+#ifdef WRF_GPU
+   REAL, DIMENSION(:), ALLOCATABLE, SAVE :: c1, c2
+#else
    REAL, DIMENSION( kms:kme ) :: c1, c2
+#endif
 
    INTEGER :: i_start, i_end, j_start, j_end, k_start, k_end, i_startu, j_startv
    INTEGER :: i, j, k
+#ifdef WRF_GPU
+   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
+   IF ( ALLOCATED(c1) ) THEN
+      IF ( ANY(LBOUND(c1) /= (/kms/)) .OR. ANY(UBOUND(c1) /= (/kme/)) ) DEALLOCATE(c1)
+   ENDIF
+   IF ( .NOT. ALLOCATED(c1) ) ALLOCATE( c1(kms:kme) )
+   IF ( ALLOCATED(c2) ) THEN
+      IF ( ANY(LBOUND(c2) /= (/kms/)) .OR. ANY(UBOUND(c2) /= (/kme/)) ) DEALLOCATE(c2)
+   ENDIF
+   IF ( .NOT. ALLOCATED(c2) ) ALLOCATE( c2(kms:kme) )
+#endif
 
 !-----------------------------------------------------------------------
 
@@ -6228,8 +6370,12 @@ END SUBROUTINE set_tend
     INTEGER  &
     :: i_start, i_end, j_start, j_end, k_start, k_end, i, j, k, ktf, k1, k2
 
+#ifdef WRF_GPU
+   REAL, DIMENSION(:), ALLOCATABLE, SAVE :: c1, c2
+#else
     REAL, DIMENSION( kms:kme ) &
     :: c1, c2
+#endif
 
     REAL  &
     :: pii, dcoef, z, ztop
@@ -6237,6 +6383,17 @@ END SUBROUTINE set_tend
     REAL :: wkp1, wk, wkm1
 
     REAL, DIMENSION( kms:kme ) :: z00, u00, v00, t00
+#ifdef WRF_GPU
+   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
+   IF ( ALLOCATED(c1) ) THEN
+      IF ( ANY(LBOUND(c1) /= (/kms/)) .OR. ANY(UBOUND(c1) /= (/kme/)) ) DEALLOCATE(c1)
+   ENDIF
+   IF ( .NOT. ALLOCATED(c1) ) ALLOCATE( c1(kms:kme) )
+   IF ( ALLOCATED(c2) ) THEN
+      IF ( ANY(LBOUND(c2) /= (/kms/)) .OR. ANY(UBOUND(c2) /= (/kme/)) ) DEALLOCATE(c2)
+   ENDIF
+   IF ( .NOT. ALLOCATED(c2) ) ALLOCATE( c2(kms:kme) )
+#endif
 
 ! End declarations.
 !-----------------------------------------------------------------------

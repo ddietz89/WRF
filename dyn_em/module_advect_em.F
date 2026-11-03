@@ -188,7 +188,11 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
 
    REAL,  DIMENSION( its-1:ite+1, kts:kte ) :: fqx
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: fqy
+#else
    REAL,  DIMENSION( its:ite, kts:kte, 2) :: fqy
+#endif
    REAL, DIMENSION(:,:,:), ALLOCATABLE :: fqy3   ! GPU: full-row y flux
    
    LOGICAL :: degrade_xs, degrade_ys
@@ -198,6 +202,13 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
    REAL    :: flux3, flux4, flux5, flux6
    REAL    :: q_im3, q_im2, q_im1, q_i, q_ip1, q_ip2, ua, vel
+#ifdef WRF_GPU
+   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
+   IF ( ALLOCATED(fqy) ) THEN
+      IF ( ANY(LBOUND(fqy) /= (/its,kts,1/)) .OR. ANY(UBOUND(fqy) /= (/ite,kte,2/)) ) DEALLOCATE(fqy)
+   ENDIF
+   IF ( .NOT. ALLOCATED(fqy) ) ALLOCATE( fqy(its:ite,kts:kte,1:2) )
+#endif
 
    flux4(q_im2, q_im1, q_i, q_ip1, ua) =                         &
           ( 7.*(q_i + q_im1) - (q_ip1 + q_im2) )/12.0
@@ -1706,7 +1717,11 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
 
    REAL,  DIMENSION( its:ite+1, kts:kte ) :: fqx
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: fqy
+#else
    REAL,  DIMENSION( its:ite, kts:kte, 2 ) :: fqy
+#endif
    REAL, DIMENSION(:,:,:), ALLOCATABLE :: fqy3   ! GPU: full-row y flux
 
    INTEGER :: horz_order
@@ -1722,6 +1737,13 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
    REAL    :: flux3, flux4, flux5, flux6
    REAL    :: q_im3, q_im2, q_im1, q_i, q_ip1, q_ip2, ua, vel
+#ifdef WRF_GPU
+   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
+   IF ( ALLOCATED(fqy) ) THEN
+      IF ( ANY(LBOUND(fqy) /= (/its,kts,1/)) .OR. ANY(UBOUND(fqy) /= (/ite,kte,2/)) ) DEALLOCATE(fqy)
+   ENDIF
+   IF ( .NOT. ALLOCATED(fqy) ) ALLOCATE( fqy(its:ite,kts:kte,1:2) )
+#endif
 
    flux4(q_im2, q_im1, q_i, q_ip1, ua) =                     &
           ( 7.*(q_i + q_im1) - (q_ip1 + q_im2) )/12.0
@@ -3321,7 +3343,11 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
 
    REAL,  DIMENSION( its:ite+1, kts:kte  ) :: fqx
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: fqy
+#else
    REAL,  DIMENSION( its:ite, kts:kte, 2 ) :: fqy
+#endif
    REAL, DIMENSION(:,:,:), ALLOCATABLE :: fqy3   ! GPU: full-row y flux
 
    INTEGER :: horz_order, vert_order
@@ -3336,6 +3362,13 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
    REAL    :: flux3, flux4, flux5, flux6
    REAL    :: q_im3, q_im2, q_im1, q_i, q_ip1, q_ip2, ua, vel
+#ifdef WRF_GPU
+   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
+   IF ( ALLOCATED(fqy) ) THEN
+      IF ( ANY(LBOUND(fqy) /= (/its,kts,1/)) .OR. ANY(UBOUND(fqy) /= (/ite,kte,2/)) ) DEALLOCATE(fqy)
+   ENDIF
+   IF ( .NOT. ALLOCATED(fqy) ) ALLOCATE( fqy(its:ite,kts:kte,1:2) )
+#endif
 
       flux4(q_im2, q_im1, q_i, q_ip1, ua) =                     &
           ( 7.*(q_i + q_im1) - (q_ip1 + q_im2) )/12.0
@@ -4773,7 +4806,11 @@ SUBROUTINE advect_w    ( w, w_old, tendency,            &
    INTEGER :: horz_order, vert_order
 
    REAL,  DIMENSION( its:ite+1, kts:kte ) :: fqx
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: fqy
+#else
    REAL,  DIMENSION( its:ite, kts:kte, 2 ) :: fqy
+#endif
    REAL, DIMENSION(:,:,:), ALLOCATABLE :: fqy3   ! GPU: full-row y flux
    
    LOGICAL :: degrade_xs, degrade_ys
@@ -4785,6 +4822,13 @@ SUBROUTINE advect_w    ( w, w_old, tendency,            &
 
    REAL    :: flux3, flux4, flux5, flux6
    REAL    :: q_im3, q_im2, q_im1, q_i, q_ip1, q_ip2, ua, vel
+#ifdef WRF_GPU
+   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
+   IF ( ALLOCATED(fqy) ) THEN
+      IF ( ANY(LBOUND(fqy) /= (/its,kts,1/)) .OR. ANY(UBOUND(fqy) /= (/ite,kte,2/)) ) DEALLOCATE(fqy)
+   ENDIF
+   IF ( .NOT. ALLOCATED(fqy) ) ALLOCATE( fqy(its:ite,kts:kte,1:2) )
+#endif
 
       flux4(q_im2, q_im1, q_i, q_ip1, ua) =                     &
           ( 7.*(q_i + q_im1) - (q_ip1 + q_im2) )/12.0
@@ -6640,9 +6684,17 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
 !  storage for high and low order fluxes
 
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: fqx, fqy, fqz
+#else
    REAL,  DIMENSION( its-1:ite+2, kts:kte, jts-1:jte+2  ) :: fqx, fqy, fqz
+#endif
 
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: fqxl, fqyl, fqzl
+#else
    REAL,  DIMENSION( its-1:ite+2, kts:kte, jts-1:jte+2  ) :: fqxl, fqyl, fqzl
+#endif
 
    INTEGER :: horz_order, vert_order
    
@@ -6651,7 +6703,11 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
    INTEGER :: jp1, jp0, jtmp
 
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: flux_out, ph_low
+#else
    REAL,DIMENSION( its-1:ite+2, kts:kte, jts-1:jte+2  ) :: flux_out, ph_low
+#endif
    REAL :: scale
    !REAL :: flux_out, ph_low, scale
    REAL, PARAMETER :: eps=1.e-20
@@ -6661,6 +6717,41 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
    REAL    :: flux3, flux4, flux5, flux6, flux_upwind
    REAL    :: q_im3, q_im2, q_im1, q_i, q_ip1, q_ip2, ua, vel, cr
+#ifdef WRF_GPU
+   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
+   IF ( ALLOCATED(fqx) ) THEN
+      IF ( ANY(LBOUND(fqx) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(fqx) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(fqx)
+   ENDIF
+   IF ( .NOT. ALLOCATED(fqx) ) ALLOCATE( fqx(its-1:ite+2,kts:kte,jts-1:jte+2) )
+   IF ( ALLOCATED(fqy) ) THEN
+      IF ( ANY(LBOUND(fqy) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(fqy) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(fqy)
+   ENDIF
+   IF ( .NOT. ALLOCATED(fqy) ) ALLOCATE( fqy(its-1:ite+2,kts:kte,jts-1:jte+2) )
+   IF ( ALLOCATED(fqz) ) THEN
+      IF ( ANY(LBOUND(fqz) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(fqz) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(fqz)
+   ENDIF
+   IF ( .NOT. ALLOCATED(fqz) ) ALLOCATE( fqz(its-1:ite+2,kts:kte,jts-1:jte+2) )
+   IF ( ALLOCATED(fqxl) ) THEN
+      IF ( ANY(LBOUND(fqxl) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(fqxl) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(fqxl)
+   ENDIF
+   IF ( .NOT. ALLOCATED(fqxl) ) ALLOCATE( fqxl(its-1:ite+2,kts:kte,jts-1:jte+2) )
+   IF ( ALLOCATED(fqyl) ) THEN
+      IF ( ANY(LBOUND(fqyl) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(fqyl) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(fqyl)
+   ENDIF
+   IF ( .NOT. ALLOCATED(fqyl) ) ALLOCATE( fqyl(its-1:ite+2,kts:kte,jts-1:jte+2) )
+   IF ( ALLOCATED(fqzl) ) THEN
+      IF ( ANY(LBOUND(fqzl) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(fqzl) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(fqzl)
+   ENDIF
+   IF ( .NOT. ALLOCATED(fqzl) ) ALLOCATE( fqzl(its-1:ite+2,kts:kte,jts-1:jte+2) )
+   IF ( ALLOCATED(flux_out) ) THEN
+      IF ( ANY(LBOUND(flux_out) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(flux_out) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(flux_out)
+   ENDIF
+   IF ( .NOT. ALLOCATED(flux_out) ) ALLOCATE( flux_out(its-1:ite+2,kts:kte,jts-1:jte+2) )
+   IF ( ALLOCATED(ph_low) ) THEN
+      IF ( ANY(LBOUND(ph_low) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(ph_low) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(ph_low)
+   ENDIF
+   IF ( .NOT. ALLOCATED(ph_low) ) ALLOCATE( ph_low(its-1:ite+2,kts:kte,jts-1:jte+2) )
+#endif
 
       flux4(q_im2, q_im1, q_i, q_ip1, ua) =                     &
             (7./12.)*(q_i + q_im1) - (1./12.)*(q_ip1 + q_im2)
@@ -9231,8 +9322,16 @@ SUBROUTINE advect_scalar_wenopd ( field, field_old, tendency,    &
 
 !  storage for high and low order fluxes
 
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: fqx, fqy, fqz
+#else
    REAL,  DIMENSION( its-1:ite+2, kts:kte, jts-1:jte+2  ) :: fqx, fqy, fqz
+#endif
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: fqxl, fqyl, fqzl
+#else
    REAL,  DIMENSION( its-1:ite+2, kts:kte, jts-1:jte+2  ) :: fqxl, fqyl, fqzl
+#endif
 
    INTEGER :: horz_order, vert_order
    
@@ -9241,7 +9340,11 @@ SUBROUTINE advect_scalar_wenopd ( field, field_old, tendency,    &
 
    INTEGER :: jp1, jp0, jtmp
    
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: flux_out, ph_low
+#else
    REAL,DIMENSION( its-1:ite+2, kts:kte, jts-1:jte+2  ) :: flux_out, ph_low
+#endif
    REAL :: scale
    REAL, PARAMETER :: eps=1.e-20
 
@@ -9260,6 +9363,41 @@ SUBROUTINE advect_scalar_wenopd ( field, field_old, tendency,    &
 
    REAL    :: flux3, flux4, flux5, flux6, flux_upwind
    REAL    :: q_im3, q_im2, q_im1, q_i, q_ip1, q_ip2, ua, vel, cr
+#ifdef WRF_GPU
+   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
+   IF ( ALLOCATED(fqx) ) THEN
+      IF ( ANY(LBOUND(fqx) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(fqx) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(fqx)
+   ENDIF
+   IF ( .NOT. ALLOCATED(fqx) ) ALLOCATE( fqx(its-1:ite+2,kts:kte,jts-1:jte+2) )
+   IF ( ALLOCATED(fqy) ) THEN
+      IF ( ANY(LBOUND(fqy) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(fqy) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(fqy)
+   ENDIF
+   IF ( .NOT. ALLOCATED(fqy) ) ALLOCATE( fqy(its-1:ite+2,kts:kte,jts-1:jte+2) )
+   IF ( ALLOCATED(fqz) ) THEN
+      IF ( ANY(LBOUND(fqz) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(fqz) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(fqz)
+   ENDIF
+   IF ( .NOT. ALLOCATED(fqz) ) ALLOCATE( fqz(its-1:ite+2,kts:kte,jts-1:jte+2) )
+   IF ( ALLOCATED(fqxl) ) THEN
+      IF ( ANY(LBOUND(fqxl) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(fqxl) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(fqxl)
+   ENDIF
+   IF ( .NOT. ALLOCATED(fqxl) ) ALLOCATE( fqxl(its-1:ite+2,kts:kte,jts-1:jte+2) )
+   IF ( ALLOCATED(fqyl) ) THEN
+      IF ( ANY(LBOUND(fqyl) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(fqyl) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(fqyl)
+   ENDIF
+   IF ( .NOT. ALLOCATED(fqyl) ) ALLOCATE( fqyl(its-1:ite+2,kts:kte,jts-1:jte+2) )
+   IF ( ALLOCATED(fqzl) ) THEN
+      IF ( ANY(LBOUND(fqzl) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(fqzl) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(fqzl)
+   ENDIF
+   IF ( .NOT. ALLOCATED(fqzl) ) ALLOCATE( fqzl(its-1:ite+2,kts:kte,jts-1:jte+2) )
+   IF ( ALLOCATED(flux_out) ) THEN
+      IF ( ANY(LBOUND(flux_out) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(flux_out) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(flux_out)
+   ENDIF
+   IF ( .NOT. ALLOCATED(flux_out) ) ALLOCATE( flux_out(its-1:ite+2,kts:kte,jts-1:jte+2) )
+   IF ( ALLOCATED(ph_low) ) THEN
+      IF ( ANY(LBOUND(ph_low) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(ph_low) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(ph_low)
+   ENDIF
+   IF ( .NOT. ALLOCATED(ph_low) ) ALLOCATE( ph_low(its-1:ite+2,kts:kte,jts-1:jte+2) )
+#endif
 
       flux4(q_im2, q_im1, q_i, q_ip1, ua) =                     &
             (7./12.)*(q_i + q_im1) - (1./12.)*(q_ip1 + q_im2)
@@ -10151,15 +10289,35 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
    INTEGER :: jmin, jmax, jp, jm, imin, imax
 
    REAL    :: mrdx, mrdy, ub, vb, uw, vw, mu, ieva_corr
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:), ALLOCATABLE, SAVE :: vflux
+#else
    REAL , DIMENSION(its:ite, kts:kte) :: vflux
+#endif
 
 
 !  storage for high and low order fluxes
 
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: fqx, fqy, fqz
+#else
    REAL,  DIMENSION( its-2:ite+2, kts:kte, jts-2:jte+2  ) :: fqx, fqy, fqz
+#endif
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: fqxl, fqyl, fqzl
+#else
    REAL,  DIMENSION( its-2:ite+2, kts:kte, jts-2:jte+2  ) :: fqxl, fqyl, fqzl
+#endif
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: qmin, qmax
+#else
    REAL,  DIMENSION( its-2:ite+2, kts:kte, jts-2:jte+2  ) :: qmin, qmax
+#endif
+#ifdef WRF_GPU
+   REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: scale_in, scale_out
+#else
    REAL,  DIMENSION( its-2:ite+2, kts:kte, jts-2:jte+2  ) :: scale_in, scale_out
+#endif
    REAL :: ph_upwind
 
    INTEGER :: horz_order, vert_order
@@ -10177,6 +10335,53 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
 
    REAL    :: flux3, flux4, flux5, flux6, flux_upwind
    REAL    :: q_im3, q_im2, q_im1, q_i, q_ip1, q_ip2, ua, vel, cr
+#ifdef WRF_GPU
+   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
+   IF ( ALLOCATED(vflux) ) THEN
+      IF ( ANY(LBOUND(vflux) /= (/its,kts/)) .OR. ANY(UBOUND(vflux) /= (/ite,kte/)) ) DEALLOCATE(vflux)
+   ENDIF
+   IF ( .NOT. ALLOCATED(vflux) ) ALLOCATE( vflux(its:ite,kts:kte) )
+   IF ( ALLOCATED(fqx) ) THEN
+      IF ( ANY(LBOUND(fqx) /= (/its-2,kts,jts-2/)) .OR. ANY(UBOUND(fqx) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(fqx)
+   ENDIF
+   IF ( .NOT. ALLOCATED(fqx) ) ALLOCATE( fqx(its-2:ite+2,kts:kte,jts-2:jte+2) )
+   IF ( ALLOCATED(fqy) ) THEN
+      IF ( ANY(LBOUND(fqy) /= (/its-2,kts,jts-2/)) .OR. ANY(UBOUND(fqy) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(fqy)
+   ENDIF
+   IF ( .NOT. ALLOCATED(fqy) ) ALLOCATE( fqy(its-2:ite+2,kts:kte,jts-2:jte+2) )
+   IF ( ALLOCATED(fqz) ) THEN
+      IF ( ANY(LBOUND(fqz) /= (/its-2,kts,jts-2/)) .OR. ANY(UBOUND(fqz) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(fqz)
+   ENDIF
+   IF ( .NOT. ALLOCATED(fqz) ) ALLOCATE( fqz(its-2:ite+2,kts:kte,jts-2:jte+2) )
+   IF ( ALLOCATED(fqxl) ) THEN
+      IF ( ANY(LBOUND(fqxl) /= (/its-2,kts,jts-2/)) .OR. ANY(UBOUND(fqxl) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(fqxl)
+   ENDIF
+   IF ( .NOT. ALLOCATED(fqxl) ) ALLOCATE( fqxl(its-2:ite+2,kts:kte,jts-2:jte+2) )
+   IF ( ALLOCATED(fqyl) ) THEN
+      IF ( ANY(LBOUND(fqyl) /= (/its-2,kts,jts-2/)) .OR. ANY(UBOUND(fqyl) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(fqyl)
+   ENDIF
+   IF ( .NOT. ALLOCATED(fqyl) ) ALLOCATE( fqyl(its-2:ite+2,kts:kte,jts-2:jte+2) )
+   IF ( ALLOCATED(fqzl) ) THEN
+      IF ( ANY(LBOUND(fqzl) /= (/its-2,kts,jts-2/)) .OR. ANY(UBOUND(fqzl) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(fqzl)
+   ENDIF
+   IF ( .NOT. ALLOCATED(fqzl) ) ALLOCATE( fqzl(its-2:ite+2,kts:kte,jts-2:jte+2) )
+   IF ( ALLOCATED(qmin) ) THEN
+      IF ( ANY(LBOUND(qmin) /= (/its-2,kts,jts-2/)) .OR. ANY(UBOUND(qmin) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(qmin)
+   ENDIF
+   IF ( .NOT. ALLOCATED(qmin) ) ALLOCATE( qmin(its-2:ite+2,kts:kte,jts-2:jte+2) )
+   IF ( ALLOCATED(qmax) ) THEN
+      IF ( ANY(LBOUND(qmax) /= (/its-2,kts,jts-2/)) .OR. ANY(UBOUND(qmax) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(qmax)
+   ENDIF
+   IF ( .NOT. ALLOCATED(qmax) ) ALLOCATE( qmax(its-2:ite+2,kts:kte,jts-2:jte+2) )
+   IF ( ALLOCATED(scale_in) ) THEN
+      IF ( ANY(LBOUND(scale_in) /= (/its-2,kts,jts-2/)) .OR. ANY(UBOUND(scale_in) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(scale_in)
+   ENDIF
+   IF ( .NOT. ALLOCATED(scale_in) ) ALLOCATE( scale_in(its-2:ite+2,kts:kte,jts-2:jte+2) )
+   IF ( ALLOCATED(scale_out) ) THEN
+      IF ( ANY(LBOUND(scale_out) /= (/its-2,kts,jts-2/)) .OR. ANY(UBOUND(scale_out) /= (/ite+2,kte,jte+2/)) ) DEALLOCATE(scale_out)
+   ENDIF
+   IF ( .NOT. ALLOCATED(scale_out) ) ALLOCATE( scale_out(its-2:ite+2,kts:kte,jts-2:jte+2) )
+#endif
 
       flux4(q_im2, q_im1, q_i, q_ip1, ua) =                     &
             (7./12.)*(q_i + q_im1) - (1./12.)*(q_ip1 + q_im2)

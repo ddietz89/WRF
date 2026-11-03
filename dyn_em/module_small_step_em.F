@@ -1347,14 +1347,34 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
       REAL, DIMENSION( kms:kme ),INTENT(IN   ) :: c1h, c2h, c1f, c2f, &
                                                   c3h, c4h, c3f, c4f
 !  Stack based 3d data, tile size.
+#ifdef WRF_GPU
+   REAL, DIMENSION( its:ite ) :: msft_inv
+   REAL, DIMENSION(:), ALLOCATABLE, SAVE :: mut_inv
+#else
       REAL, DIMENSION( its:ite ) :: mut_inv, msft_inv
+#endif
       REAL, DIMENSION( its:ite, kts:kte ) :: rhs, wdwn
       INTEGER :: i,j,k, i_start, i_end, j_start, j_end, k_start, k_end
+#ifdef WRF_GPU
+   REAL, DIMENSION(:), ALLOCATABLE, SAVE :: dampwt
+#else
       REAL, DIMENSION (kts:kte) :: dampwt
+#endif
       REAL :: dampk   ! GPU: per-(i,k) scalar replaces dampwt(k) (race-free; same values)
       real :: htop,hbot,hdepth,hk
       real    :: pi,dampmag
       REAL :: muthk, muthkm1
+#ifdef WRF_GPU
+   ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
+   IF ( ALLOCATED(mut_inv) ) THEN
+      IF ( ANY(LBOUND(mut_inv) /= (/its/)) .OR. ANY(UBOUND(mut_inv) /= (/ite/)) ) DEALLOCATE(mut_inv)
+   ENDIF
+   IF ( .NOT. ALLOCATED(mut_inv) ) ALLOCATE( mut_inv(its:ite) )
+   IF ( ALLOCATED(dampwt) ) THEN
+      IF ( ANY(LBOUND(dampwt) /= (/kts/)) .OR. ANY(UBOUND(dampwt) /= (/kte/)) ) DEALLOCATE(dampwt)
+   ENDIF
+   IF ( .NOT. ALLOCATED(dampwt) ) ALLOCATE( dampwt(kts:kte) )
+#endif
 !<DESCRIPTION>
 !
 !  advance_w advances the implicit w and geopotential equations.

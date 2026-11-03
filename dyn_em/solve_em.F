@@ -168,7 +168,12 @@ SUBROUTINE solve_em ( grid , config_flags  &
 
 ! storage for tendencies and decoupled state (generated from Registry)
 
+#ifdef WRF_GPU
+! GPU: persistent i1 temporaries (per-call automatic arrays churn the managed-memory pool)
+#include "i1_decl_gpu.inc"
+#else
 #include "i1_decl.inc"
+#endif
 ! Previous time level of tracer arrays now defined as i1 variables;
 ! the state 4d arrays now redefined as 1-time level arrays in Registry.
 ! Benefit: save memory in nested runs, since only 1 domain is active at a
@@ -331,6 +336,9 @@ SUBROUTINE solve_em ( grid , config_flags  &
 
 !  Compute these starting and stopping locations for each tile and number of tiles.
 !  See: https://www2.mmm.ucar.edu/wrf/WG2/topics/settiles
+#ifdef WRF_GPU
+#  include "i1_alloc_gpu.inc"
+#endif
    CALL set_tiles ( ZONE_SOLVE_EM, grid , ids , ide , jds , jde , ips , ipe , jps , jpe )
 !   CALL set_tiles (  grid , ids , ide , jds , jde , ips , ipe , jps , jpe )
 
