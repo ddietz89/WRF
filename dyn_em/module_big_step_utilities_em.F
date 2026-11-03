@@ -2437,7 +2437,7 @@ SUBROUTINE horizontal_pressure_gradient( ru_tend,rv_tend,                &
    REAL, DIMENSION( ims:ime, kms:kme ) :: dpn
    REAL :: dpx, dpy
 #ifdef WRF_GPU
-   REAL, DIMENSION(:), ALLOCATABLE, SAVE :: c1
+   REAL, DIMENSION( kms:kme ) :: c1   ! GPU: unused copies (kernels read c1h/c2h); automatic = thread-safe
 #else
    REAL, DIMENSION( kms:kme ) :: c1
 #endif
@@ -2445,10 +2445,6 @@ SUBROUTINE horizontal_pressure_gradient( ru_tend,rv_tend,                &
    LOGICAL :: specified
 #ifdef WRF_GPU
    ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
-   IF ( ALLOCATED(c1) ) THEN
-      IF ( ANY(LBOUND(c1) /= (/kms/)) .OR. ANY(UBOUND(c1) /= (/kme/)) ) DEALLOCATE(c1)
-   ENDIF
-   IF ( .NOT. ALLOCATED(c1) ) ALLOCATE( c1(kms:kme) )
 #endif
 
 !<DESCRIPTION>
@@ -5164,7 +5160,7 @@ END SUBROUTINE pole_point_bc
    REAL, DIMENSION( kms:kme ) ,            INTENT(IN   ) ::     c1h, c2h, c1f, c2f
 
 #ifdef WRF_GPU
-   REAL, DIMENSION(:), ALLOCATABLE, SAVE :: c1, c2
+   REAL, DIMENSION( kms:kme ) :: c1, c2   ! GPU: unused copies (kernels read c1h/c2h); automatic = thread-safe
 #else
    REAL, DIMENSION( kms:kme ) :: c1, c2
 #endif
@@ -5175,14 +5171,6 @@ END SUBROUTINE pole_point_bc
    INTEGER :: n
 #ifdef WRF_GPU
    ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
-   IF ( ALLOCATED(c1) ) THEN
-      IF ( ANY(LBOUND(c1) /= (/kms/)) .OR. ANY(UBOUND(c1) /= (/kme/)) ) DEALLOCATE(c1)
-   ENDIF
-   IF ( .NOT. ALLOCATED(c1) ) ALLOCATE( c1(kms:kme) )
-   IF ( ALLOCATED(c2) ) THEN
-      IF ( ANY(LBOUND(c2) /= (/kms/)) .OR. ANY(UBOUND(c2) /= (/kme/)) ) DEALLOCATE(c2)
-   ENDIF
-   IF ( .NOT. ALLOCATED(c2) ) ALLOCATE( c2(kms:kme) )
 #endif
 
 !-----------------------------------------------------------------------
@@ -5474,7 +5462,7 @@ END SUBROUTINE phy_prep
    REAL, DIMENSION( kms:kme ) ,            INTENT(IN   ) ::     c1h, c2h, c1f, c2f
 
 #ifdef WRF_GPU
-   REAL, DIMENSION(:), ALLOCATABLE, SAVE :: c1, c2
+   REAL, DIMENSION( kms:kme ) :: c1, c2   ! GPU: unused copies (kernels read c1h/c2h); automatic = thread-safe
 #else
    REAL, DIMENSION( kms:kme ) :: c1, c2
 #endif
@@ -5483,14 +5471,6 @@ END SUBROUTINE phy_prep
    INTEGER :: i, j, k
 #ifdef WRF_GPU
    ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
-   IF ( ALLOCATED(c1) ) THEN
-      IF ( ANY(LBOUND(c1) /= (/kms/)) .OR. ANY(UBOUND(c1) /= (/kme/)) ) DEALLOCATE(c1)
-   ENDIF
-   IF ( .NOT. ALLOCATED(c1) ) ALLOCATE( c1(kms:kme) )
-   IF ( ALLOCATED(c2) ) THEN
-      IF ( ANY(LBOUND(c2) /= (/kms/)) .OR. ANY(UBOUND(c2) /= (/kme/)) ) DEALLOCATE(c2)
-   ENDIF
-   IF ( .NOT. ALLOCATED(c2) ) ALLOCATE( c2(kms:kme) )
 #endif
 
 !-----------------------------------------------------------------------
@@ -6406,7 +6386,7 @@ END SUBROUTINE set_tend
     :: i_start, i_end, j_start, j_end, k_start, k_end, i, j, k, ktf, k1, k2
 
 #ifdef WRF_GPU
-   REAL, DIMENSION(:), ALLOCATABLE, SAVE :: c1, c2
+   REAL, DIMENSION( kms:kme ) :: c1, c2   ! GPU: unused copies (kernels read c1h/c2h); automatic = thread-safe
 #else
     REAL, DIMENSION( kms:kme ) &
     :: c1, c2
@@ -6420,14 +6400,6 @@ END SUBROUTINE set_tend
     REAL, DIMENSION( kms:kme ) :: z00, u00, v00, t00
 #ifdef WRF_GPU
    ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
-   IF ( ALLOCATED(c1) ) THEN
-      IF ( ANY(LBOUND(c1) /= (/kms/)) .OR. ANY(UBOUND(c1) /= (/kme/)) ) DEALLOCATE(c1)
-   ENDIF
-   IF ( .NOT. ALLOCATED(c1) ) ALLOCATE( c1(kms:kme) )
-   IF ( ALLOCATED(c2) ) THEN
-      IF ( ANY(LBOUND(c2) /= (/kms/)) .OR. ANY(UBOUND(c2) /= (/kme/)) ) DEALLOCATE(c2)
-   ENDIF
-   IF ( .NOT. ALLOCATED(c2) ) ALLOCATE( c2(kms:kme) )
 #endif
 
 ! End declarations.

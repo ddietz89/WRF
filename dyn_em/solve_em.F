@@ -1008,6 +1008,12 @@ BENCH_START(calc_p_rho_tim)
        ENDIF
 #endif
 
+#ifdef WRF_GPU
+       ! part2 (diffusion coefficients, tendency updates) uses dyn_em routines with persistent (shared) work arrays:
+       ! run it on the solve_em tiling with compute regions on the GPU; only part1 (physics drivers) is multi-tiled.
+       CALL gpu_retile( grid, .FALSE., ids, ide, jds, jde, ips, ipe, jps, jpe )
+       wrf_gpu_on = .TRUE. ; CALL rsl_set_gpu_on( .TRUE. )
+#endif
        CALL first_rk_step_part2 (    grid, config_flags         &
                              , moist , moist_old , moist_tend   &
                              , chem  , chem_tend                &
