@@ -6073,7 +6073,7 @@ END SUBROUTINE wrf_gpu_advise_addr
 
 ! WRF_GPU_PIN=1 (residency): page-lock (cuMemHostRegister) the host copies of the grid state arrays and the
 ! persistent i1 temporaries once, so the per-block update self/device transfers can DMA directly instead of staging
-! through pageable memory. Ranges are rounded out to whole pages (arrays >= 1 MB are separate mmap regions).
+! through pageable memory. Only arrays >= 1 MB in their own mmap region (page offset 16) are registered, whole pages.
 INTEGER FUNCTION wrf_gpu_pin_mode()
    IMPLICIT NONE
    INTEGER, SAVE :: mode = -1
@@ -6126,6 +6126,10 @@ SUBROUTINE wrf_gpu_pin_addr( addr, nbytes, nok, nfail, tot )
    ENDIF
    IF ( .NOT. ASSOCIATED(cu_reg) ) THEN ; nfail = nfail + 1 ; RETURN ; ENDIF
    IF ( nbytes < 1048576_8 ) RETURN
+   ! only arrays that own their pages: glibc places an individually mmapped chunk's data 16 bytes past a page
+   ! boundary. Heap (brk) chunks can share pages with neighbours, and a copy over a partly registered range fails
+   ! with CUDA_ERROR_INVALID_VALUE, so those are left pageable.
+   IF ( MOD( addr, 4096_8 ) /= 16_8 ) THEN ; nfail = nfail + 1 ; RETURN ; ENDIF
    a0 = ( addr / 4096_8 ) * 4096_8
    a1 = ( ( addr + nbytes + 4095_8 ) / 4096_8 ) * 4096_8
    rc = cu_reg( INT(a0,C_LONG_LONG), INT(a1-a0,C_SIZE_T), 0_C_INT )
@@ -6162,7 +6166,7 @@ SUBROUTINE wrf_gpu_pin_grid( grid )
       ENDIF
       p => p%next
    ENDDO
-   WRITE(0,'(A,I6,A,I6,A,F9.1,A)') 'WRF_GPU_PIN grid: ', nok, ' arrays registered, ', nfail, ' failed, ', DBLE(tot)/1.d6, ' MB'
+   WRITE(0,'(A,I6,A,I6,A,F9.1,A)') 'WRF_GPU_PIN grid: ', nok, ' arrays registered, ', nfail, ' skipped/failed, ', DBLE(tot)/1.d6, ' MB'
 END SUBROUTINE wrf_gpu_pin_grid
 
 SUBROUTINE wrf_gpu_advise_grid( grid )

@@ -109,4 +109,4 @@
               LOC(chem_tend), INT(SIZE(chem_tend),8)*INT(STORAGE_SIZE(chem_tend)/8,8), pin_nok, pin_nfail, pin_tot )
          IF ( ALLOCATED(chem_old) ) CALL wrf_gpu_pin_addr( &
               LOC(chem_old), INT(SIZE(chem_old),8)*INT(STORAGE_SIZE(chem_old)/8,8), pin_nok, pin_nfail, pin_tot )
-         WRITE(0,'(A,I6,A,I6,A,F9.1,A)') 'WRF_GPU_PIN i1: ', pin_nok, ' registered, ', pin_nfail, ' failed, ', DBLE(pin_tot)/1.d6, ' MB'
+         WRITE(0,'(A,I6,A,I6,A,F9.1,A)') 'WRF_GPU_PIN i1: ', pin_nok, ' registered, ', pin_nfail, ' skipped/failed, ', DBLE(pin_tot)/1.d6, ' MB'
