@@ -1673,7 +1673,9 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
    IF ( .NOT. ALLOCATED(tendency) ) THEN
       ALLOCATE( tendency(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc enter data create(tendency)
+!$acc wait
 !$acc kernels present(tendency)
       tendency = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
@@ -1911,7 +1913,9 @@ SUBROUTINE rk_update_scalar_pd( scs, sce,                      &
    IF ( .NOT. ALLOCATED(tendency) ) THEN
       ALLOCATE( tendency(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc enter data create(tendency)
+!$acc wait
 !$acc kernels present(tendency)
       tendency = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
@@ -2940,7 +2944,9 @@ subroutine trajectory (     grid,config_flags,               &
    IF ( .NOT. ALLOCATED(u) ) THEN
       ALLOCATE( u(ims:ime,kms:kme,jms:jme) )
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc enter data create(u)
+!$acc wait
 !$acc kernels present(u)
       u = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
@@ -2958,7 +2964,9 @@ subroutine trajectory (     grid,config_flags,               &
    IF ( .NOT. ALLOCATED(v) ) THEN
       ALLOCATE( v(ims:ime,kms:kme,jms:jme) )
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc enter data create(v)
+!$acc wait
 !$acc kernels present(v)
       v = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
@@ -2976,7 +2984,9 @@ subroutine trajectory (     grid,config_flags,               &
    IF ( .NOT. ALLOCATED(w) ) THEN
       ALLOCATE( w(ims:ime,kms:kme,jms:jme) )
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc enter data create(w)
+!$acc wait
 !$acc kernels present(w)
       w = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels

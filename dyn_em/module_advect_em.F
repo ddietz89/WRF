@@ -239,7 +239,9 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
    IF ( .NOT. ALLOCATED(fqy) ) THEN
       ALLOCATE( fqy(its:ite,kts:kte,1:2) )
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc enter data create(fqy)
+!$acc wait
 !$acc kernels present(fqy)
       fqy = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
@@ -323,6 +325,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
      IF (.NOT. ALLOCATED(fqy3)) ALLOCATE(fqy3(its:ite,kts:kte,jts:jte+1))   ! GPU: full-row flux (was rolling jp0/jp1)
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc kernels present(fqy3)
       fqy3 = 0.
 !$acc end kernels
@@ -605,6 +608,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
      IF (.NOT. ALLOCATED(fqy3)) ALLOCATE(fqy3(its:ite,kts:kte,jts:jte+1))   ! GPU: full-row flux (was rolling jp0/jp1)
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc kernels present(fqy3)
       fqy3 = 0.
 !$acc end kernels
@@ -957,6 +961,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
    IF (.NOT. ALLOCATED(fqy3)) ALLOCATE(fqy3(its:ite,kts:kte,jts:jte+1))   ! GPU: full-row flux (was rolling jp0/jp1)
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc kernels present(fqy3)
       fqy3 = 0.
 !$acc end kernels
@@ -1179,6 +1184,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
    IF (.NOT. ALLOCATED(fqy3)) ALLOCATE(fqy3(its:ite,kts:kte,jts:jte+1))   ! GPU: full-row flux (was rolling jp0/jp1)
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc kernels present(fqy3)
       fqy3 = 0.
 !$acc end kernels
@@ -1813,7 +1819,9 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
    IF ( .NOT. ALLOCATED(fqy) ) THEN
       ALLOCATE( fqy(its:ite,kts:kte,1:2) )
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc enter data create(fqy)
+!$acc wait
 !$acc kernels present(fqy)
       fqy = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
@@ -1891,6 +1899,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
      IF (.NOT. ALLOCATED(fqy3)) ALLOCATE(fqy3(its:ite,kts:kte,jts:jte+1))   ! GPU: full-row flux (was rolling jp0/jp1)
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc kernels present(fqy3)
       fqy3 = 0.
 !$acc end kernels
@@ -2183,6 +2192,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
      IF (.NOT. ALLOCATED(fqy3)) ALLOCATE(fqy3(its:ite,kts:kte,jts:jte+1))   ! GPU: full-row flux (was rolling jp0/jp1)
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc kernels present(fqy3)
       fqy3 = 0.
 !$acc end kernels
@@ -2475,6 +2485,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
     IF (.NOT. ALLOCATED(fqy3)) ALLOCATE(fqy3(its:ite,kts:kte,jts:jte+1))   ! GPU: full-row flux (was rolling jp0/jp1)
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc kernels present(fqy3)
       fqy3 = 0.
 !$acc end kernels
@@ -2693,6 +2704,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
     IF (.NOT. ALLOCATED(fqy3)) ALLOCATE(fqy3(its:ite,kts:kte,jts:jte+1))   ! GPU: full-row flux (was rolling jp0/jp1)
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc kernels present(fqy3)
       fqy3 = 0.
 !$acc end kernels
@@ -3475,7 +3487,9 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
    IF ( .NOT. ALLOCATED(fqy) ) THEN
       ALLOCATE( fqy(its:ite,kts:kte,1:2) )
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc enter data create(fqy)
+!$acc wait
 !$acc kernels present(fqy)
       fqy = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
@@ -3556,6 +3570,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
      IF (.NOT. ALLOCATED(fqy3)) ALLOCATE(fqy3(its:ite,kts:kte,jts:jte+1))   ! GPU: full-row flux (was rolling jp0/jp1)
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc kernels present(fqy3)
       fqy3 = 0.
 !$acc end kernels
@@ -3836,6 +3851,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
      IF (.NOT. ALLOCATED(fqy3)) ALLOCATE(fqy3(its:ite,kts:kte,jts:jte+1))   ! GPU: full-row flux (was rolling jp0/jp1)
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc kernels present(fqy3)
       fqy3 = 0.
 !$acc end kernels
@@ -4181,6 +4197,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
   IF (.NOT. ALLOCATED(fqy3)) ALLOCATE(fqy3(its:ite,kts:kte,jts:jte+1))   ! GPU: full-row flux (was rolling jp0/jp1)
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc kernels present(fqy3)
       fqy3 = 0.
 !$acc end kernels
@@ -4387,6 +4404,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
   IF (.NOT. ALLOCATED(fqy3)) ALLOCATE(fqy3(its:ite,kts:kte,jts:jte+1))   ! GPU: full-row flux (was rolling jp0/jp1)
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc kernels present(fqy3)
       fqy3 = 0.
 !$acc end kernels
@@ -4973,7 +4991,9 @@ SUBROUTINE advect_w    ( w, w_old, tendency,            &
    IF ( .NOT. ALLOCATED(fqy) ) THEN
       ALLOCATE( fqy(its:ite,kts:kte,1:2) )
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc enter data create(fqy)
+!$acc wait
 !$acc kernels present(fqy)
       fqy = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
@@ -5053,6 +5073,7 @@ SUBROUTINE advect_w    ( w, w_old, tendency,            &
 
      IF (.NOT. ALLOCATED(fqy3)) ALLOCATE(fqy3(its:ite,kts:kte,jts:jte+1))   ! GPU: full-row flux (was rolling jp0/jp1)
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc kernels present(fqy3)
       fqy3 = 0.
 !$acc end kernels
@@ -5396,6 +5417,7 @@ ELSE IF (horz_order == 5 ) THEN
 
      IF (.NOT. ALLOCATED(fqy3)) ALLOCATE(fqy3(its:ite,kts:kte,jts:jte+1))   ! GPU: full-row flux (was rolling jp0/jp1)
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc kernels present(fqy3)
       fqy3 = 0.
 !$acc end kernels
@@ -5822,6 +5844,7 @@ ELSE IF ( horz_order == 4 ) THEN
 
       IF (.NOT. ALLOCATED(fqy3)) ALLOCATE(fqy3(its:ite,kts:kte,jts:jte+1))   ! GPU: full-row flux (was rolling jp0/jp1)
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc kernels present(fqy3)
       fqy3 = 0.
 !$acc end kernels
@@ -6075,6 +6098,7 @@ ELSE IF ( horz_order == 3 ) THEN
 
       IF (.NOT. ALLOCATED(fqy3)) ALLOCATE(fqy3(its:ite,kts:kte,jts:jte+1))   ! GPU: full-row flux (was rolling jp0/jp1)
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc kernels present(fqy3)
       fqy3 = 0.
 !$acc end kernels
@@ -6911,7 +6935,9 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
    IF ( .NOT. ALLOCATED(fqx) ) THEN
       ALLOCATE( fqx(its-1:ite+2,kts:kte,jts-1:jte+2) )
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc enter data create(fqx)
+!$acc wait
 !$acc kernels present(fqx)
       fqx = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
@@ -6929,7 +6955,9 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
    IF ( .NOT. ALLOCATED(fqy) ) THEN
       ALLOCATE( fqy(its-1:ite+2,kts:kte,jts-1:jte+2) )
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc enter data create(fqy)
+!$acc wait
 !$acc kernels present(fqy)
       fqy = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
@@ -6947,7 +6975,9 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
    IF ( .NOT. ALLOCATED(fqz) ) THEN
       ALLOCATE( fqz(its-1:ite+2,kts:kte,jts-1:jte+2) )
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc enter data create(fqz)
+!$acc wait
 !$acc kernels present(fqz)
       fqz = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
@@ -6965,7 +6995,9 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
    IF ( .NOT. ALLOCATED(fqxl) ) THEN
       ALLOCATE( fqxl(its-1:ite+2,kts:kte,jts-1:jte+2) )
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc enter data create(fqxl)
+!$acc wait
 !$acc kernels present(fqxl)
       fqxl = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
@@ -6983,7 +7015,9 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
    IF ( .NOT. ALLOCATED(fqyl) ) THEN
       ALLOCATE( fqyl(its-1:ite+2,kts:kte,jts-1:jte+2) )
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc enter data create(fqyl)
+!$acc wait
 !$acc kernels present(fqyl)
       fqyl = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
@@ -7001,7 +7035,9 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
    IF ( .NOT. ALLOCATED(fqzl) ) THEN
       ALLOCATE( fqzl(its-1:ite+2,kts:kte,jts-1:jte+2) )
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc enter data create(fqzl)
+!$acc wait
 !$acc kernels present(fqzl)
       fqzl = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
@@ -7019,7 +7055,9 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
    IF ( .NOT. ALLOCATED(flux_out) ) THEN
       ALLOCATE( flux_out(its-1:ite+2,kts:kte,jts-1:jte+2) )
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc enter data create(flux_out)
+!$acc wait
 !$acc kernels present(flux_out)
       flux_out = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
@@ -7037,7 +7075,9 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
    IF ( .NOT. ALLOCATED(ph_low) ) THEN
       ALLOCATE( ph_low(its-1:ite+2,kts:kte,jts-1:jte+2) )
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc enter data create(ph_low)
+!$acc wait
 !$acc kernels present(ph_low)
       ph_low = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
@@ -9670,7 +9710,9 @@ SUBROUTINE advect_scalar_wenopd ( field, field_old, tendency,    &
    IF ( .NOT. ALLOCATED(fqx) ) THEN
       ALLOCATE( fqx(its-1:ite+2,kts:kte,jts-1:jte+2) )
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc enter data create(fqx)
+!$acc wait
 !$acc kernels present(fqx)
       fqx = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
@@ -9688,7 +9730,9 @@ SUBROUTINE advect_scalar_wenopd ( field, field_old, tendency,    &
    IF ( .NOT. ALLOCATED(fqy) ) THEN
       ALLOCATE( fqy(its-1:ite+2,kts:kte,jts-1:jte+2) )
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc enter data create(fqy)
+!$acc wait
 !$acc kernels present(fqy)
       fqy = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
@@ -9706,7 +9750,9 @@ SUBROUTINE advect_scalar_wenopd ( field, field_old, tendency,    &
    IF ( .NOT. ALLOCATED(fqz) ) THEN
       ALLOCATE( fqz(its-1:ite+2,kts:kte,jts-1:jte+2) )
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc enter data create(fqz)
+!$acc wait
 !$acc kernels present(fqz)
       fqz = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
@@ -9724,7 +9770,9 @@ SUBROUTINE advect_scalar_wenopd ( field, field_old, tendency,    &
    IF ( .NOT. ALLOCATED(fqxl) ) THEN
       ALLOCATE( fqxl(its-1:ite+2,kts:kte,jts-1:jte+2) )
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc enter data create(fqxl)
+!$acc wait
 !$acc kernels present(fqxl)
       fqxl = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
@@ -9742,7 +9790,9 @@ SUBROUTINE advect_scalar_wenopd ( field, field_old, tendency,    &
    IF ( .NOT. ALLOCATED(fqyl) ) THEN
       ALLOCATE( fqyl(its-1:ite+2,kts:kte,jts-1:jte+2) )
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc enter data create(fqyl)
+!$acc wait
 !$acc kernels present(fqyl)
       fqyl = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
@@ -9760,7 +9810,9 @@ SUBROUTINE advect_scalar_wenopd ( field, field_old, tendency,    &
    IF ( .NOT. ALLOCATED(fqzl) ) THEN
       ALLOCATE( fqzl(its-1:ite+2,kts:kte,jts-1:jte+2) )
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc enter data create(fqzl)
+!$acc wait
 !$acc kernels present(fqzl)
       fqzl = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
@@ -9778,7 +9830,9 @@ SUBROUTINE advect_scalar_wenopd ( field, field_old, tendency,    &
    IF ( .NOT. ALLOCATED(flux_out) ) THEN
       ALLOCATE( flux_out(its-1:ite+2,kts:kte,jts-1:jte+2) )
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc enter data create(flux_out)
+!$acc wait
 !$acc kernels present(flux_out)
       flux_out = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
@@ -9796,7 +9850,9 @@ SUBROUTINE advect_scalar_wenopd ( field, field_old, tendency,    &
    IF ( .NOT. ALLOCATED(ph_low) ) THEN
       ALLOCATE( ph_low(its-1:ite+2,kts:kte,jts-1:jte+2) )
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc enter data create(ph_low)
+!$acc wait
 !$acc kernels present(ph_low)
       ph_low = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
@@ -10750,7 +10806,9 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
    IF ( .NOT. ALLOCATED(vflux) ) THEN
       ALLOCATE( vflux(its:ite,kts:kte) )
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc enter data create(vflux)
+!$acc wait
 !$acc kernels present(vflux)
       vflux = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
@@ -10768,7 +10826,9 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
    IF ( .NOT. ALLOCATED(fqx) ) THEN
       ALLOCATE( fqx(its-2:ite+2,kts:kte,jts-2:jte+2) )
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc enter data create(fqx)
+!$acc wait
 !$acc kernels present(fqx)
       fqx = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
@@ -10786,7 +10846,9 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
    IF ( .NOT. ALLOCATED(fqy) ) THEN
       ALLOCATE( fqy(its-2:ite+2,kts:kte,jts-2:jte+2) )
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc enter data create(fqy)
+!$acc wait
 !$acc kernels present(fqy)
       fqy = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
@@ -10804,7 +10866,9 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
    IF ( .NOT. ALLOCATED(fqz) ) THEN
       ALLOCATE( fqz(its-2:ite+2,kts:kte,jts-2:jte+2) )
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc enter data create(fqz)
+!$acc wait
 !$acc kernels present(fqz)
       fqz = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
@@ -10822,7 +10886,9 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
    IF ( .NOT. ALLOCATED(fqxl) ) THEN
       ALLOCATE( fqxl(its-2:ite+2,kts:kte,jts-2:jte+2) )
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc enter data create(fqxl)
+!$acc wait
 !$acc kernels present(fqxl)
       fqxl = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
@@ -10840,7 +10906,9 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
    IF ( .NOT. ALLOCATED(fqyl) ) THEN
       ALLOCATE( fqyl(its-2:ite+2,kts:kte,jts-2:jte+2) )
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc enter data create(fqyl)
+!$acc wait
 !$acc kernels present(fqyl)
       fqyl = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
@@ -10858,7 +10926,9 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
    IF ( .NOT. ALLOCATED(fqzl) ) THEN
       ALLOCATE( fqzl(its-2:ite+2,kts:kte,jts-2:jte+2) )
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc enter data create(fqzl)
+!$acc wait
 !$acc kernels present(fqzl)
       fqzl = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
@@ -10876,7 +10946,9 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
    IF ( .NOT. ALLOCATED(qmin) ) THEN
       ALLOCATE( qmin(its-2:ite+2,kts:kte,jts-2:jte+2) )
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc enter data create(qmin)
+!$acc wait
 !$acc kernels present(qmin)
       qmin = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
@@ -10894,7 +10966,9 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
    IF ( .NOT. ALLOCATED(qmax) ) THEN
       ALLOCATE( qmax(its-2:ite+2,kts:kte,jts-2:jte+2) )
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc enter data create(qmax)
+!$acc wait
 !$acc kernels present(qmax)
       qmax = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
@@ -10912,7 +10986,9 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
    IF ( .NOT. ALLOCATED(scale_in) ) THEN
       ALLOCATE( scale_in(its-2:ite+2,kts:kte,jts-2:jte+2) )
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc enter data create(scale_in)
+!$acc wait
 !$acc kernels present(scale_in)
       scale_in = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
@@ -10930,7 +11006,9 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
    IF ( .NOT. ALLOCATED(scale_out) ) THEN
       ALLOCATE( scale_out(its-2:ite+2,kts:kte,jts-2:jte+2) )
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc enter data create(scale_out)
+!$acc wait
 !$acc kernels present(scale_out)
       scale_out = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels

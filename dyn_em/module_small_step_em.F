@@ -874,7 +874,7 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
   ! The row kernels below have one gang per j only; on the GPU run one thread per column (same per-point
   ! arithmetic and order: tendency update, then pressure-gradient/divergence-damping update).
   IF ( wrf_gpu_on .AND. MAX(kde,k_end+1) <= KMAXUV ) THEN
-!$acc parallel loop gang vector collapse(2) private(dpnc,dpxyc)
+!$acc parallel loop gang vector collapse(2) private(dpnc,dpxyc) async(wrf_gpu_q)
   DO j = j_start, j_end
   DO i = MIN(i_start_u_tend,i_start_up), MAX(i_end_u_tend,i_end_up)
    IF ( i >= i_start_u_tend .AND. i <= i_end_u_tend ) THEN
@@ -915,7 +915,7 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
    ENDIF
   ENDDO
   ENDDO
-!$acc parallel loop gang vector collapse(2) private(dpnc,dpxyc)
+!$acc parallel loop gang vector collapse(2) private(dpnc,dpxyc) async(wrf_gpu_q)
   DO j = j_start_v_tend, j_end_v_tend
   DO i = i_start, i_end
      DO k = k_start, k_end
@@ -1252,7 +1252,7 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
 #ifdef WRF_GPU
   ! row kernels below have one gang per j only: on the GPU one thread per column (same per-point order)
   IF ( wrf_gpu_on .AND. MAX(kde,k_end+1) <= KMAXMT ) THEN
-!$acc parallel loop gang vector collapse(2) private(dvdxic)
+!$acc parallel loop gang vector collapse(2) private(dvdxic) async(wrf_gpu_q)
    DO j = j_start, j_end
    DO i = i_start, i_end
      dmdtc = 0.
@@ -1380,7 +1380,7 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
    ENDDO   
 #ifdef WRF_GPU
   IF ( wrf_gpu_on .AND. MAX(kde,k_end+1) <= KMAXMT ) THEN
-!$acc parallel loop gang vector collapse(2) private(wdtnc)
+!$acc parallel loop gang vector collapse(2) private(wdtnc) async(wrf_gpu_q)
    DO j=j_start, j_end
    DO i=i_start, i_end
        wdtnc(1  )=0.
@@ -1555,7 +1555,9 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
    IF ( .NOT. ALLOCATED(mut_inv) ) THEN
       ALLOCATE( mut_inv(its:ite) )
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc enter data create(mut_inv)
+!$acc wait
 !$acc kernels present(mut_inv)
       mut_inv = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
@@ -1573,7 +1575,9 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
    IF ( .NOT. ALLOCATED(dampwt) ) THEN
       ALLOCATE( dampwt(kts:kte) )
 #ifdef WRF_GPU_RESIDENT
+!$acc wait
 !$acc enter data create(dampwt)
+!$acc wait
 !$acc kernels present(dampwt)
       dampwt = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
@@ -1632,7 +1636,7 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
   ! The row kernel below (one gang per j, vector over i, k phases inside) has only (j_end-j_start+1) gangs;
   ! on the GPU run one thread per column instead (same arithmetic per point, k loops sequential in-thread).
   IF ( wrf_gpu_on .AND. k_end+1 <= KMAXW ) THEN
-!$acc parallel loop gang vector collapse(2) private(rhsc,wdwnc)
+!$acc parallel loop gang vector collapse(2) private(rhsc,wdwnc) async(wrf_gpu_q)
   DO j = j_start, j_end
   DO i = i_start, i_end
     msfti = 1./msfty(i,j)
