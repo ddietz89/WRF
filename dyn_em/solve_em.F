@@ -7,7 +7,8 @@
 MODULE wrf_seg_timers
    IMPLICIT NONE
    INTEGER(8), SAVE :: t_last = -1, rate = 1
-   REAL(8), SAVE :: acc(0:4) = 0.d0
+   REAL(8), SAVE :: acc(0:6) = 0.d0
+   INTEGER, SAVE :: prev_seg = 1
    INTEGER, SAVE :: cur = 0, ncalls = 0
 CONTAINS
    SUBROUTINE seg_mark( id )
@@ -18,10 +19,22 @@ CONTAINS
       t_last = t ; cur = id
       IF ( id == 0 ) THEN
          ncalls = ncalls + 1
-         IF ( MOD(ncalls, 20) == 0 ) WRITE(0,'(A,I6,A,5F11.3)') 'SEGTIME calls', ncalls, &
-            ' out/dyn/phys/mp/diag', acc(0), acc(1), acc(2), acc(3), acc(4)
+         IF ( MOD(ncalls, 20) == 0 ) WRITE(0,'(A,I6,A,5F11.3,A,2F11.3)') 'SEGTIME calls', ncalls, &
+            ' out/dyn/phys/mp/diag', acc(0), acc(1), acc(2), acc(3), acc(4), ' xfer/part2', acc(5), acc(6)
       ENDIF
    END SUBROUTINE seg_mark
+   ! nested interval charged to bucket id (5 host<->device updates, 6 part2), then back to the enclosing segment
+   SUBROUTINE seg_enter( id )
+      INTEGER, INTENT(IN) :: id
+      INTEGER :: c
+      c = cur
+      CALL seg_mark( id )
+      prev_seg = c
+   END SUBROUTINE seg_enter
+   SUBROUTINE seg_leave()
+!$acc wait
+      CALL seg_mark( prev_seg )
+   END SUBROUTINE seg_leave
 END MODULE wrf_seg_timers
 #endif
 SUBROUTINE solve_em ( grid , config_flags  &
@@ -461,7 +474,13 @@ SUBROUTINE solve_em ( grid , config_flags  &
       gpu_resident_in = .TRUE.
       CALL wrf_message( 'GPU residency: grid fields entered on the device' )
    ENDIF
+#ifdef WRF_SEG_TIMERS
+   CALL seg_enter( 5 )
+#endif
 #  include "gpu_upd_dev_bdy.inc"
+#ifdef WRF_SEG_TIMERS
+   CALL seg_leave()
+#endif
 #endif
 #ifdef WRF_GPU_RESIDENT
    ! WRF_GPU_FULLSYNC=7 (diagnostic): host copies were made current at the end of the previous solve_em; push them
@@ -980,11 +999,17 @@ BENCH_START(calc_p_rho_tim)
        CALL gpu_field_trace( grid, 'a_pre_physics' )
 #endif
 #ifdef WRF_GPU_RESIDENT
+#ifdef WRF_SEG_TIMERS
+   CALL seg_enter( 5 )
+#endif
    IF ( IAND( wrf_gpu_xfer(), 1 ) /= 0 ) THEN
 #  include "gpu_upd_host_h1.inc"
    ELSE
 #  include "gpu_upd_host_pre_phys.inc"
    ENDIF
+#ifdef WRF_SEG_TIMERS
+   CALL seg_leave()
+#endif
 #endif
 #ifdef WRF_GPU_RESIDENT
    IF ( IAND( wrf_gpu_fullsync(), 1 ) /= 0 ) THEN
@@ -1060,12 +1085,18 @@ BENCH_START(calc_p_rho_tim)
 #ifdef WRF_GPU_RESIDENT
        ! physics (part1, host) wrote grid fields and the i1 temporaries (zeroed tendencies, th_phy/pi_phy/...):
        ! push them to the device before part2 runs on the GPU
+#ifdef WRF_SEG_TIMERS
+   CALL seg_enter( 5 )
+#endif
    IF ( IAND( wrf_gpu_xfer(), 2 ) /= 0 ) THEN
 #  include "gpu_upd_dev_h1.inc"
    ELSE
 #  include "gpu_upd_dev_post_phys.inc"
    ENDIF
 #      include "gpu_upd_dev_i1_part1.inc"
+#ifdef WRF_SEG_TIMERS
+   CALL seg_leave()
+#endif
 #endif
 #ifdef WRF_GPU_RESIDENT
    IF ( IAND( wrf_gpu_fullsync(), 3 ) == 3 ) THEN
@@ -1076,6 +1107,9 @@ BENCH_START(calc_p_rho_tim)
 #ifdef WRF_GPU
    CALL gpu_ck( grid, 'c_prep2', rk_step, ids, ide, jds, jde, kds, kde, &
         ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
+#endif
+#ifdef WRF_SEG_TIMERS
+   CALL seg_enter( 6 )
 #endif
        CALL first_rk_step_part2 (    grid, config_flags         &
                              , moist , moist_old , moist_tend   &
@@ -1104,6 +1138,9 @@ BENCH_START(calc_p_rho_tim)
                              , ipsy, ipey, jpsy, jpey, kpsy, kpey    &
                              , k_start , k_end                  &
                             )
+#ifdef WRF_SEG_TIMERS
+   CALL seg_leave()
+#endif
 
 #ifdef WRF_GPU_RESIDENT
 #endif
@@ -4029,12 +4066,18 @@ BENCH_END(bc_end_tim)
 !-----------------------------------------------------------
 
 #ifdef WRF_GPU_RESIDENT
+#ifdef WRF_SEG_TIMERS
+   CALL seg_enter( 5 )
+#endif
    IF ( IAND( wrf_gpu_xfer(), 4 ) /= 0 ) THEN
 #  include "gpu_upd_host_h2.inc"
    ELSE
 #  include "gpu_upd_host_pre_mp.inc"
    ENDIF
 #  include "gpu_upd_host_i1_mp.inc"
+#ifdef WRF_SEG_TIMERS
+   CALL seg_leave()
+#endif
 #endif
 #ifdef WRF_GPU_RESIDENT
    IF ( IAND( wrf_gpu_fullsync(), 1 ) /= 0 ) THEN
@@ -4696,12 +4739,18 @@ BENCH_START(moist_phys_end_tim)
    CALL seg_mark( 1 )
 #endif
 #ifdef WRF_GPU_RESIDENT
+#ifdef WRF_SEG_TIMERS
+   CALL seg_enter( 5 )
+#endif
    IF ( IAND( wrf_gpu_xfer(), 2 ) /= 0 ) THEN
 #  include "gpu_upd_dev_h2.inc"
    ELSE
 #  include "gpu_upd_dev_post_mp.inc"
    ENDIF
 #       include "gpu_upd_dev_i1_mp.inc"
+#ifdef WRF_SEG_TIMERS
+   CALL seg_leave()
+#endif
 #endif
 #ifdef WRF_GPU
    CALL gpu_ck( grid, 'g_postH2', rk_step, ids, ide, jds, jde, kds, kde, &
@@ -5397,11 +5446,17 @@ BENCH_END(bc_2d_tim)
 
 #ifdef WRF_GPU_RESIDENT
   ! host copies current for after_all_rk_steps diagnostics (history/restart output pulls the full list: gpu_pull_for_output)
+#ifdef WRF_SEG_TIMERS
+   CALL seg_enter( 5 )
+#endif
    IF ( IAND( wrf_gpu_xfer(), 8 ) /= 0 ) THEN
 #  include "gpu_upd_host_h3.inc"
    ELSE
 #  include "gpu_upd_host_pre_phys.inc"
    ENDIF
+#ifdef WRF_SEG_TIMERS
+   CALL seg_leave()
+#endif
 #endif
 #ifdef WRF_GPU_RESIDENT
    IF ( IAND( wrf_gpu_fullsync(), 1 ) /= 0 ) THEN
