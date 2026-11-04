@@ -116,7 +116,7 @@ SUBROUTINE solve_em ( grid , config_flags  &
    USE wrf_seg_timers
 #endif
 #ifdef WRF_GPU
-   USE module_wrf_error, ONLY : wrf_gpu_on
+   USE module_wrf_error, ONLY : wrf_gpu_on, wrf_gpu_q
 #ifdef WRF_GPU_RESIDENT
    USE module_radiation_driver, ONLY : wrf_gpu_ra_ran
    USE module_cumulus_driver, ONLY : wrf_gpu_cu_ran
@@ -250,6 +250,7 @@ SUBROUTINE solve_em ( grid , config_flags  &
    ! scalar/tracer mixing, no grid nudging)
    LOGICAL :: gpu_prep_dev = .FALSE.
    LOGICAL, EXTERNAL :: wrf_gpu_h1chk
+   LOGICAL, EXTERNAL :: wrf_gpu_async_mode
    DOUBLE PRECISION :: h1ck(2,10)
    INTEGER :: ick
    CHARACTER(LEN=8), PARAMETER :: h1ck_name(10) = (/ 'alt     ','p       ','ph_2    ','rho     ','t_2     ', &
@@ -504,6 +505,7 @@ SUBROUTINE solve_em ( grid , config_flags  &
 #     include "gpu_enter_data.inc"
       gpu_resident_in = .TRUE.
       CALL wrf_message( 'GPU residency: grid fields entered on the device' )
+      wrf_gpu_q = -1 ; IF ( wrf_gpu_async_mode() ) wrf_gpu_q = 1
       IF ( wrf_gpu_pin_mode() /= 0 ) THEN
          CALL wrf_gpu_pin_grid( grid )
 #        include "gpu_pin_i1.inc"
@@ -6551,6 +6553,19 @@ END FUNCTION wrf_gpu_hostblocks
 ! tendencies (needs 2+4), 32 microphysics block on the GPU (Thompson), 64 no pushes of recomputed diffusion fields,
 ! 128 H1 reuses the H3-pulled state (alt/p/ph_2 still pulled), 256 GPU-side init_zero_tendency + phy_prep;
 ! default 511.
+LOGICAL FUNCTION wrf_gpu_async_mode()
+   ! WRF_GPU_ASYNC (residency builds): 1 (default) = GPU compute constructs on async queue 1, 0 = synchronous
+   IMPLICIT NONE
+   INTEGER :: mode
+   CHARACTER(LEN=8) :: v
+   INTEGER :: st
+   CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_ASYNC', v, STATUS=st )
+   mode = 1
+   IF ( st == 0 ) READ( v, *, IOSTAT=st ) mode
+   IF ( st /= 0 ) mode = 1
+   wrf_gpu_async_mode = mode /= 0
+END FUNCTION wrf_gpu_async_mode
+
 LOGICAL FUNCTION wrf_gpu_h1chk()
    IMPLICIT NONE
    INTEGER, SAVE :: mode = -1

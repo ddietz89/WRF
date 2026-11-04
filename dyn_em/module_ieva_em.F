@@ -1,6 +1,6 @@
 MODULE module_ieva_em
 
-   USE module_wrf_error, ONLY : wrf_gpu_on
+   USE module_wrf_error, ONLY : wrf_gpu_on, wrf_gpu_q
   USE module_bc
   USE module_model_constants
   USE module_wrf_error
@@ -294,7 +294,7 @@ SUBROUTINE WW_SPLIT(wwE, wwI,                         &
      
    ELSE  ! NOT doing IEVA, pure explicit advection
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
      DO j = j_start, j_end
        DO k = kts, ktf
          DO i = i_start,i_end

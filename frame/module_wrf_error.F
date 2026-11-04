@@ -63,6 +63,9 @@ MODULE module_wrf_error
 
   ! GPU port (2026-11-02): when .FALSE., OpenACC compute regions run on the host (CPU-only segments of solve_em)
   LOGICAL :: wrf_gpu_on = .TRUE.
+  ! OpenACC queue of the GPU compute constructs (async(wrf_gpu_q)): acc_async_sync (-1) = synchronous; solve_em
+  ! switches to queue 1 once the grid is device-resident (WRF_GPU_ASYNC=0 keeps it synchronous)
+  INTEGER :: wrf_gpu_q = -1
 !$OMP THREADPRIVATE (wrf_err_message)
 CONTAINS
 

@@ -2,7 +2,7 @@
 !WRF:MODEL_LAYER:BOUNDARY
 !
 MODULE module_bc_em
-   USE module_wrf_error, ONLY : wrf_gpu_on   ! GPU port: host/device switch for compute regions
+   USE module_wrf_error, ONLY : wrf_gpu_on, wrf_gpu_q   ! GPU port: host/device switch for compute regions
 
    USE module_bc, ONLY: set_physical_bc2d, set_physical_bc3d, spec_bdytend, &
                         spec_bdytend_perturb, relax_bdytend_tile, relax_bdytend, &
@@ -80,7 +80,7 @@ CONTAINS
 
       IF (jts - jbs .lt. spec_zone) THEN
 ! Y-start boundary
-!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) async(wrf_gpu_q) if(wrf_gpu_on)
         DO j = jts, min(jtf,jbs+spec_zone-1)
           DO k = kts, ktf
             b_dist = j - jbs
@@ -101,7 +101,7 @@ CONTAINS
       ENDIF
       IF (jbe - jtf .lt. spec_zone) THEN
 ! Y-end boundary
-!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) async(wrf_gpu_q) if(wrf_gpu_on)
         DO j = max(jts,jbe-spec_zone+1), jtf
           DO k = kts, ktf
             b_dist = jbe - j
@@ -124,7 +124,7 @@ CONTAINS
     IF(.NOT.periodic_x)THEN
       IF (its - ibs .lt. spec_zone) THEN
 ! X-start boundary
-!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) async(wrf_gpu_q) if(wrf_gpu_on)
         DO i = its, min(itf,ibs+spec_zone-1)
           DO k = kts, ktf
             b_dist = i - ibs
@@ -144,7 +144,7 @@ CONTAINS
 
       IF (ibe - itf .lt. spec_zone) THEN
 ! X-end boundary
-!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) async(wrf_gpu_q) if(wrf_gpu_on)
         DO i = max(its,ibe-spec_zone+1), itf
           DO k = kts, ktf
             b_dist = ibe - i
@@ -261,6 +261,7 @@ CONTAINS
    IF ( ALLOCATED(rfield) ) THEN
       IF ( ANY(LBOUND(rfield) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(rfield) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
+!$acc wait   ! async kernels may still use it
 !$acc exit data delete(rfield)
 #endif
          DEALLOCATE(rfield)
@@ -423,6 +424,7 @@ CONTAINS
    IF ( ALLOCATED(rscalar) ) THEN
       IF ( ANY(LBOUND(rscalar) /= (/ims,kms,jms/)) .OR. ANY(UBOUND(rscalar) /= (/ime,kme,jme/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
+!$acc wait   ! async kernels may still use it
 !$acc exit data delete(rscalar)
 #endif
          DEALLOCATE(rscalar)
@@ -1315,7 +1317,7 @@ CONTAINS
        jp1_limit = jde
      ENDIF
 
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      DO j = jts,min(jte,jde-1)
        jm1 = max(j-1, jm1_limit)
        jp1 = min(j+1, jp1_limit)
@@ -1342,7 +1344,7 @@ CONTAINS
 
 ! Fill the atmospheric w field with smoothly decaying values
       IF (fill_w_flag) THEN
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
         DO j = jts,min(jte,jde-1)
 !$acc loop vector collapse(2)
         DO k = kts+1,kte
@@ -1795,7 +1797,7 @@ CONTAINS
 
       INTEGER :: i , j , k
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = jts , jte
          DO k = kts , kte
             DO i = its , ite

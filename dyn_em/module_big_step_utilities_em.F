@@ -12,7 +12,7 @@
 
 
 MODULE module_big_step_utilities_em
-   USE module_wrf_error, ONLY : wrf_gpu_on   ! GPU port: host/device switch for compute regions
+   USE module_wrf_error, ONLY : wrf_gpu_on, wrf_gpu_q   ! GPU port: host/device switch for compute regions
 
    USE module_model_constants
    USE module_state_description, only: p_qg, p_qs, p_qi, gdscheme, tiedtkescheme, ntiedtkescheme, kfetascheme, mskfscheme, &
@@ -60,14 +60,14 @@ SUBROUTINE calc_mu_uv ( config_flags,                 &
       jtf=MIN(jte,jde-1)
 
       IF      ( ( its .NE. ids ) .AND. ( ite .NE. ide ) ) THEN
-!$acc parallel loop collapse(2) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
          DO j=jts,jtf
          DO i=its,itf
             MUU(i,j) = 0.5*(MU(i,j)+MU(i-1,j)+MUB(i,j)+MUB(i-1,j))
          ENDDO
          ENDDO
       ELSE IF ( ( its .EQ. ids ) .AND. ( ite .NE. ide ) ) THEN
-!$acc parallel loop collapse(2) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
          DO j=jts,jtf
          DO i=its+1,itf
             MUU(i,j) = 0.5*(MU(i,j)+MU(i-1,j)+MUB(i,j)+MUB(i-1,j))
@@ -76,14 +76,14 @@ SUBROUTINE calc_mu_uv ( config_flags,                 &
          i=its
          im = its
          if(config_flags%periodic_x) im = its-1
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
          DO j=jts,jtf
 !            MUU(i,j) =      MU(i,j)          +MUB(i,j)
 !  fix for periodic b.c., 13 march 2004, wcs
             MUU(i,j) = 0.5*(MU(i,j)+MU(im,j)+MUB(i,j)+MUB(im,j))
          ENDDO
       ELSE IF ( ( its .NE. ids ) .AND. ( ite .EQ. ide ) ) THEN
-!$acc parallel loop collapse(2) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
          DO j=jts,jtf
          DO i=its,itf-1
             MUU(i,j) = 0.5*(MU(i,j)+MU(i-1,j)+MUB(i,j)+MUB(i-1,j))
@@ -92,14 +92,14 @@ SUBROUTINE calc_mu_uv ( config_flags,                 &
          i=ite
          im = ite-1
          if(config_flags%periodic_x) im = ite
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
          DO j=jts,jtf
 !            MUU(i,j) =      MU(i-1,j)        +MUB(i-1,j)
 !  fix for periodic b.c., 13 march 2004, wcs
             MUU(i,j) = 0.5*(MU(i-1,j)+MU(im,j)+MUB(i-1,j)+MUB(im,j))
          ENDDO
       ELSE IF ( ( its .EQ. ids ) .AND. ( ite .EQ. ide ) ) THEN
-!$acc parallel loop collapse(2) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
          DO j=jts,jtf
          DO i=its+1,itf-1
             MUU(i,j) = 0.5*(MU(i,j)+MU(i-1,j)+MUB(i,j)+MUB(i-1,j))
@@ -108,7 +108,7 @@ SUBROUTINE calc_mu_uv ( config_flags,                 &
          i=its
          im = its
          if(config_flags%periodic_x) im = its-1
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
          DO j=jts,jtf
 !            MUU(i,j) =      MU(i,j)          +MUB(i,j)
 !  fix for periodic b.c., 13 march 2004, wcs
@@ -117,7 +117,7 @@ SUBROUTINE calc_mu_uv ( config_flags,                 &
          i=ite
          im = ite-1
          if(config_flags%periodic_x) im = ite
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
          DO j=jts,jtf
 !            MUU(i,j) =      MU(i-1,j)        +MUB(i-1,j)
 !  fix for periodic b.c., 13 march 2004, wcs
@@ -129,14 +129,14 @@ SUBROUTINE calc_mu_uv ( config_flags,                 &
       jtf=jte
 
       IF      ( ( jts .NE. jds ) .AND. ( jte .NE. jde ) ) THEN
-!$acc parallel loop collapse(2) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
          DO j=jts,jtf
          DO i=its,itf
              MUV(i,j) = 0.5*(MU(i,j)+MU(i,j-1)+MUB(i,j)+MUB(i,j-1))
          ENDDO
          ENDDO
       ELSE IF ( ( jts .EQ. jds ) .AND. ( jte .NE. jde ) ) THEN
-!$acc parallel loop collapse(2) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
          DO j=jts+1,jtf
          DO i=its,itf
              MUV(i,j) = 0.5*(MU(i,j)+MU(i,j-1)+MUB(i,j)+MUB(i,j-1))
@@ -145,14 +145,14 @@ SUBROUTINE calc_mu_uv ( config_flags,                 &
          j=jts
          jm = jts
          if(config_flags%periodic_y) jm = jts-1
-!$acc parallel loop if(wrf_gpu_on)
+!$acc parallel loop async(wrf_gpu_q) if(wrf_gpu_on)
          DO i=its,itf
 !             MUV(i,j) =      MU(i,j)          +MUB(i,j)
 !  fix for periodic b.c., 13 march 2004, wcs
              MUV(i,j) = 0.5*(MU(i,j)+MU(i,jm)+MUB(i,j)+MUB(i,jm))
          ENDDO
       ELSE IF ( ( jts .NE. jds ) .AND. ( jte .EQ. jde ) ) THEN
-!$acc parallel loop collapse(2) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
          DO j=jts,jtf-1
          DO i=its,itf
              MUV(i,j) = 0.5*(MU(i,j)+MU(i,j-1)+MUB(i,j)+MUB(i,j-1))
@@ -161,14 +161,14 @@ SUBROUTINE calc_mu_uv ( config_flags,                 &
          j=jte
          jm = jte-1
          if(config_flags%periodic_y) jm = jte
-!$acc parallel loop if(wrf_gpu_on)
+!$acc parallel loop async(wrf_gpu_q) if(wrf_gpu_on)
          DO i=its,itf
 !            MUV(i,j) =      MU(i,j-1)        +MUB(i,j-1)
 !  fix for periodic b.c., 13 march 2004, wcs
              MUV(i,j) = 0.5*(MU(i,j-1)+MU(i,jm)+MUB(i,j-1)+MUB(i,jm))
          ENDDO
       ELSE IF ( ( jts .EQ. jds ) .AND. ( jte .EQ. jde ) ) THEN
-!$acc parallel loop collapse(2) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
          DO j=jts+1,jtf-1
          DO i=its,itf
              MUV(i,j) = 0.5*(MU(i,j)+MU(i,j-1)+MUB(i,j)+MUB(i,j-1))
@@ -177,7 +177,7 @@ SUBROUTINE calc_mu_uv ( config_flags,                 &
          j=jts
          jm = jts
          if(config_flags%periodic_y) jm = jts-1
-!$acc parallel loop if(wrf_gpu_on)
+!$acc parallel loop async(wrf_gpu_q) if(wrf_gpu_on)
          DO i=its,itf
 !             MUV(i,j) =      MU(i,j)          +MUB(i,j)
 !  fix for periodic b.c., 13 march 2004, wcs
@@ -186,7 +186,7 @@ SUBROUTINE calc_mu_uv ( config_flags,                 &
          j=jte
          jm = jte-1
          if(config_flags%periodic_y) jm = jte
-!$acc parallel loop if(wrf_gpu_on)
+!$acc parallel loop async(wrf_gpu_q) if(wrf_gpu_on)
          DO i=its,itf
 !             MUV(i,j) =      MU(i,j-1)        +MUB(i,j-1)
 !  fix for periodic b.c., 13 march 2004, wcs
@@ -233,14 +233,14 @@ SUBROUTINE calc_mu_uv_1 ( config_flags,                 &
       jtf=MIN(jte,jde-1)
 
       IF      ( ( its .NE. ids ) .AND. ( ite .NE. ide ) ) THEN
-!$acc parallel loop collapse(2) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
          DO j=jts,jtf
          DO i=its,itf
             MUU(i,j) = 0.5*(MU(i,j)+MU(i-1,j))
          ENDDO
          ENDDO
       ELSE IF ( ( its .EQ. ids ) .AND. ( ite .NE. ide ) ) THEN
-!$acc parallel loop collapse(2) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
          DO j=jts,jtf
          DO i=its+1,itf
             MUU(i,j) = 0.5*(MU(i,j)+MU(i-1,j))
@@ -249,12 +249,12 @@ SUBROUTINE calc_mu_uv_1 ( config_flags,                 &
          i=its
          im = its
          if(config_flags%periodic_x) im = its-1
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
          DO j=jts,jtf
             MUU(i,j) = 0.5*(MU(i,j)+MU(im,j))
          ENDDO
       ELSE IF ( ( its .NE. ids ) .AND. ( ite .EQ. ide ) ) THEN
-!$acc parallel loop collapse(2) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
          DO j=jts,jtf
          DO i=its,itf-1
             MUU(i,j) = 0.5*(MU(i,j)+MU(i-1,j))
@@ -263,12 +263,12 @@ SUBROUTINE calc_mu_uv_1 ( config_flags,                 &
          i=ite
          im = ite-1
          if(config_flags%periodic_x) im = ite
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
          DO j=jts,jtf
             MUU(i,j) = 0.5*(MU(i-1,j)+MU(im,j))
          ENDDO
       ELSE IF ( ( its .EQ. ids ) .AND. ( ite .EQ. ide ) ) THEN
-!$acc parallel loop collapse(2) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
          DO j=jts,jtf
          DO i=its+1,itf-1
             MUU(i,j) = 0.5*(MU(i,j)+MU(i-1,j))
@@ -277,14 +277,14 @@ SUBROUTINE calc_mu_uv_1 ( config_flags,                 &
          i=its
          im = its
          if(config_flags%periodic_x) im = its-1
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
          DO j=jts,jtf
             MUU(i,j) = 0.5*(MU(i,j)+MU(im,j))
          ENDDO
          i=ite
          im = ite-1
          if(config_flags%periodic_x) im = ite
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
          DO j=jts,jtf
             MUU(i,j) = 0.5*(MU(i-1,j)+MU(im,j))
          ENDDO
@@ -294,14 +294,14 @@ SUBROUTINE calc_mu_uv_1 ( config_flags,                 &
       jtf=jte
 
       IF      ( ( jts .NE. jds ) .AND. ( jte .NE. jde ) ) THEN
-!$acc parallel loop collapse(2) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
          DO j=jts,jtf
          DO i=its,itf
              MUV(i,j) = 0.5*(MU(i,j)+MU(i,j-1))
          ENDDO
          ENDDO
       ELSE IF ( ( jts .EQ. jds ) .AND. ( jte .NE. jde ) ) THEN
-!$acc parallel loop collapse(2) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
          DO j=jts+1,jtf
          DO i=its,itf
              MUV(i,j) = 0.5*(MU(i,j)+MU(i,j-1))
@@ -310,12 +310,12 @@ SUBROUTINE calc_mu_uv_1 ( config_flags,                 &
          j=jts
          jm = jts
          if(config_flags%periodic_y) jm = jts-1
-!$acc parallel loop if(wrf_gpu_on)
+!$acc parallel loop async(wrf_gpu_q) if(wrf_gpu_on)
          DO i=its,itf
              MUV(i,j) = 0.5*(MU(i,j)+MU(i,jm))
          ENDDO
       ELSE IF ( ( jts .NE. jds ) .AND. ( jte .EQ. jde ) ) THEN
-!$acc parallel loop collapse(2) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
          DO j=jts,jtf-1
          DO i=its,itf
              MUV(i,j) = 0.5*(MU(i,j)+MU(i,j-1))
@@ -324,12 +324,12 @@ SUBROUTINE calc_mu_uv_1 ( config_flags,                 &
          j=jte
          jm = jte-1
          if(config_flags%periodic_y) jm = jte
-!$acc parallel loop if(wrf_gpu_on)
+!$acc parallel loop async(wrf_gpu_q) if(wrf_gpu_on)
          DO i=its,itf
              MUV(i,j) = 0.5*(MU(i,j-1)+MU(i,jm))
          ENDDO
       ELSE IF ( ( jts .EQ. jds ) .AND. ( jte .EQ. jde ) ) THEN
-!$acc parallel loop collapse(2) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
          DO j=jts+1,jtf-1
          DO i=its,itf
              MUV(i,j) = 0.5*(MU(i,j)+MU(i,j-1))
@@ -338,14 +338,14 @@ SUBROUTINE calc_mu_uv_1 ( config_flags,                 &
          j=jts
          jm = jts
          if(config_flags%periodic_y) jm = jts-1
-!$acc parallel loop if(wrf_gpu_on)
+!$acc parallel loop async(wrf_gpu_q) if(wrf_gpu_on)
          DO i=its,itf
              MUV(i,j) = 0.5*(MU(i,j)+MU(i,jm))
          ENDDO
          j=jte
          jm = jte-1
          if(config_flags%periodic_y) jm = jte
-!$acc parallel loop if(wrf_gpu_on)
+!$acc parallel loop async(wrf_gpu_q) if(wrf_gpu_on)
          DO i=its,itf
              MUV(i,j) = 0.5*(MU(i,j-1)+MU(i,jm))
          ENDDO
@@ -399,7 +399,7 @@ SUBROUTINE couple_momentum ( muu, ru, u, msfu,              &
       itf=ite
       jtf=MIN(jte,jde-1)
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j=jts,jtf
       DO k=kts,ktf
       DO i=its,itf
@@ -411,7 +411,7 @@ SUBROUTINE couple_momentum ( muu, ru, u, msfu,              &
       itf=MIN(ite,ide-1)
       jtf=jte
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j=jts,jtf
       DO k=kts,ktf
       DO i=its,itf
@@ -423,7 +423,7 @@ SUBROUTINE couple_momentum ( muu, ru, u, msfu,              &
       itf=MIN(ite,ide-1)
       jtf=MIN(jte,jde-1)
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j=jts,jtf
       DO k=kts,kte
       DO i=its,itf
@@ -467,50 +467,50 @@ SUBROUTINE calc_mu_staggered ( mu, mub, muu, muv,            &
       jtf=MIN(jte,jde-1)
 
       IF      ( ( its .NE. ids ) .AND. ( ite .NE. ide ) ) THEN
-!$acc parallel loop collapse(2) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
          DO j=jts,jtf
          DO i=its,itf
             MUU(i,j) = 0.5*(MU(i,j)+MU(i-1,j)+MUB(i,j)+MUB(i-1,j))
          ENDDO
          ENDDO
       ELSE IF ( ( its .EQ. ids ) .AND. ( ite .NE. ide ) ) THEN
-!$acc parallel loop collapse(2) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
          DO j=jts,jtf
          DO i=its+1,itf
             MUU(i,j) = 0.5*(MU(i,j)+MU(i-1,j)+MUB(i,j)+MUB(i-1,j))
          ENDDO
          ENDDO
          i=its
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
          DO j=jts,jtf
             MUU(i,j) =      MU(i,j)          +MUB(i,j)
          ENDDO
       ELSE IF ( ( its .NE. ids ) .AND. ( ite .EQ. ide ) ) THEN
-!$acc parallel loop collapse(2) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
          DO j=jts,jtf
          DO i=its,itf-1
             MUU(i,j) = 0.5*(MU(i,j)+MU(i-1,j)+MUB(i,j)+MUB(i-1,j))
          ENDDO
          ENDDO
          i=ite
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
          DO j=jts,jtf
             MUU(i,j) =      MU(i-1,j)        +MUB(i-1,j)
          ENDDO
       ELSE IF ( ( its .EQ. ids ) .AND. ( ite .EQ. ide ) ) THEN
-!$acc parallel loop collapse(2) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
          DO j=jts,jtf
          DO i=its+1,itf-1
             MUU(i,j) = 0.5*(MU(i,j)+MU(i-1,j)+MUB(i,j)+MUB(i-1,j))
          ENDDO
          ENDDO
          i=its
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
          DO j=jts,jtf
             MUU(i,j) =      MU(i,j)          +MUB(i,j)
          ENDDO
          i=ite
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
          DO j=jts,jtf
             MUU(i,j) =      MU(i-1,j)        +MUB(i-1,j)
          ENDDO
@@ -520,50 +520,50 @@ SUBROUTINE calc_mu_staggered ( mu, mub, muu, muv,            &
       jtf=jte
 
       IF      ( ( jts .NE. jds ) .AND. ( jte .NE. jde ) ) THEN
-!$acc parallel loop collapse(2) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
          DO j=jts,jtf
          DO i=its,itf
              MUV(i,j) = 0.5*(MU(i,j)+MU(i,j-1)+MUB(i,j)+MUB(i,j-1))
          ENDDO
          ENDDO
       ELSE IF ( ( jts .EQ. jds ) .AND. ( jte .NE. jde ) ) THEN
-!$acc parallel loop collapse(2) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
          DO j=jts+1,jtf
          DO i=its,itf
              MUV(i,j) = 0.5*(MU(i,j)+MU(i,j-1)+MUB(i,j)+MUB(i,j-1))
          ENDDO
          ENDDO
          j=jts
-!$acc parallel loop if(wrf_gpu_on)
+!$acc parallel loop async(wrf_gpu_q) if(wrf_gpu_on)
          DO i=its,itf
              MUV(i,j) =      MU(i,j)          +MUB(i,j)
          ENDDO
       ELSE IF ( ( jts .NE. jds ) .AND. ( jte .EQ. jde ) ) THEN
-!$acc parallel loop collapse(2) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
          DO j=jts,jtf-1
          DO i=its,itf
              MUV(i,j) = 0.5*(MU(i,j)+MU(i,j-1)+MUB(i,j)+MUB(i,j-1))
          ENDDO
          ENDDO
          j=jte
-!$acc parallel loop if(wrf_gpu_on)
+!$acc parallel loop async(wrf_gpu_q) if(wrf_gpu_on)
          DO i=its,itf
              MUV(i,j) =      MU(i,j-1)        +MUB(i,j-1)
          ENDDO
       ELSE IF ( ( jts .EQ. jds ) .AND. ( jte .EQ. jde ) ) THEN
-!$acc parallel loop collapse(2) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
          DO j=jts+1,jtf-1
          DO i=its,itf
              MUV(i,j) = 0.5*(MU(i,j)+MU(i,j-1)+MUB(i,j)+MUB(i,j-1))
          ENDDO
          ENDDO
          j=jts
-!$acc parallel loop if(wrf_gpu_on)
+!$acc parallel loop async(wrf_gpu_q) if(wrf_gpu_on)
          DO i=its,itf
              MUV(i,j) =      MU(i,j)          +MUB(i,j)
          ENDDO
          j=jte
-!$acc parallel loop if(wrf_gpu_on)
+!$acc parallel loop async(wrf_gpu_q) if(wrf_gpu_on)
          DO i=its,itf
              MUV(i,j) =      MU(i,j-1)        +MUB(i,j-1)
          ENDDO
@@ -610,6 +610,7 @@ SUBROUTINE couple ( mu, mub, rfield, field, name, &
    IF ( ALLOCATED(muu) ) THEN
       IF ( ANY(LBOUND(muu) /= (/ims,jms/)) .OR. ANY(UBOUND(muu) /= (/ime,jme/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
+!$acc wait   ! async kernels may still use it
 !$acc exit data delete(muu)
 #endif
          DEALLOCATE(muu)
@@ -627,6 +628,7 @@ SUBROUTINE couple ( mu, mub, rfield, field, name, &
    IF ( ALLOCATED(muv) ) THEN
       IF ( ANY(LBOUND(muv) /= (/ims,jms/)) .OR. ANY(UBOUND(muv) /= (/ime,jme/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
+!$acc wait   ! async kernels may still use it
 !$acc exit data delete(muv)
 #endif
          DEALLOCATE(muv)
@@ -663,7 +665,7 @@ SUBROUTINE couple ( mu, mub, rfield, field, name, &
       itf=ite
       jtf=MIN(jte,jde-1)
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j=jts,jtf
       DO k=kts,ktf
       DO i=its,itf
@@ -683,7 +685,7 @@ SUBROUTINE couple ( mu, mub, rfield, field, name, &
       itf=MIN(ite,ide-1)
       jtf=jte
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j=jts,jtf
       DO k=kts,ktf
       DO i=its,itf
@@ -695,7 +697,7 @@ SUBROUTINE couple ( mu, mub, rfield, field, name, &
    ELSE IF (name .EQ. 'w')THEN
       itf=MIN(ite,ide-1)
       jtf=MIN(jte,jde-1)
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j=jts,jtf
       DO k=kts,kte
       DO i=its,itf
@@ -707,7 +709,7 @@ SUBROUTINE couple ( mu, mub, rfield, field, name, &
    ELSE IF (name .EQ. 'h')THEN
       itf=MIN(ite,ide-1)
       jtf=MIN(jte,jde-1)
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j=jts,jtf
       DO k=kts,kte
       DO i=its,itf
@@ -719,7 +721,7 @@ SUBROUTINE couple ( mu, mub, rfield, field, name, &
    ELSE
       itf=MIN(ite,ide-1)
       jtf=MIN(jte,jde-1)
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j=jts,jtf
       DO k=kts,ktf
       DO i=its,itf
@@ -779,6 +781,7 @@ SUBROUTINE calc_ww_cp ( u, v, mup, mub, c1h, c2h, ww,    &
    IF ( ALLOCATED(muu) ) THEN
       IF ( ANY(LBOUND(muu) /= (/its,jts/)) .OR. ANY(UBOUND(muu) /= (/ite+1,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
+!$acc wait   ! async kernels may still use it
 !$acc exit data delete(muu)
 #endif
          DEALLOCATE(muu)
@@ -796,6 +799,7 @@ SUBROUTINE calc_ww_cp ( u, v, mup, mub, c1h, c2h, ww,    &
    IF ( ALLOCATED(muv) ) THEN
       IF ( ANY(LBOUND(muv) /= (/its,jts/)) .OR. ANY(UBOUND(muv) /= (/ite+1,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
+!$acc wait   ! async kernels may still use it
 !$acc exit data delete(muv)
 #endif
          DEALLOCATE(muv)
@@ -834,21 +838,21 @@ SUBROUTINE calc_ww_cp ( u, v, mup, mub, c1h, c2h, ww,    &
 
 !  mu coupled with the appropriate map factor
 
-!$acc parallel loop collapse(2) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j=jts,jtf
       DO i=its,min(ite+1,ide)
         MUU(i,j) = 0.5*(MUP(i,j)+MUB(i,j)+MUP(i-1,j)+MUB(i-1,j))
       ENDDO
       ENDDO
 
-!$acc parallel loop collapse(2) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j=jts,min(jte+1,jde)
       DO i=its,itf
         MUV(i,j) = 0.5*(MUP(i,j)+MUB(i,j)+MUP(i,j-1)+MUB(i,j-1))
       ENDDO
       ENDDO
 
-!$acc parallel loop gang private(divv,dmdt) if(wrf_gpu_on)
+!$acc parallel loop gang private(divv,dmdt) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j=jts,jtf
 
 !$acc loop vector
@@ -967,6 +971,7 @@ SUBROUTINE calc_cq ( moist, cqu, cqv, cqw, n_moist, &
    IF ( ALLOCATED(qtot) ) THEN
       IF ( ANY(LBOUND(qtot) /= (/its/)) .OR. ANY(UBOUND(qtot) /= (/ite/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
+!$acc wait   ! async kernels may still use it
 !$acc exit data delete(qtot)
 #endif
          DEALLOCATE(qtot)
@@ -995,7 +1000,7 @@ SUBROUTINE calc_cq ( moist, cqu, cqv, cqw, n_moist, &
 
         itf=ite
         jtf=MIN(jte,jde-1)
-!$acc parallel loop collapse(3) private(qt_) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) private(qt_) async(wrf_gpu_q) if(wrf_gpu_on)
         DO j=jts,jtf
           DO k=kts,ktf
             DO i=its,itf
@@ -1010,7 +1015,7 @@ SUBROUTINE calc_cq ( moist, cqu, cqv, cqw, n_moist, &
 
         itf=MIN(ite,ide-1)
         jtf=jte
-!$acc parallel loop collapse(3) private(qt_) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) private(qt_) async(wrf_gpu_q) if(wrf_gpu_on)
         DO j=jts,jtf
           DO k=kts,ktf
             DO i=its,itf
@@ -1025,7 +1030,7 @@ SUBROUTINE calc_cq ( moist, cqu, cqv, cqw, n_moist, &
 
         itf=MIN(ite,ide-1)
         jtf=MIN(jte,jde-1)
-!$acc parallel loop collapse(3) private(qt_) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) private(qt_) async(wrf_gpu_q) if(wrf_gpu_on)
         DO j=jts,jtf
           DO k=kts+1,ktf
             DO i=its,itf
@@ -1042,7 +1047,7 @@ SUBROUTINE calc_cq ( moist, cqu, cqv, cqw, n_moist, &
 
         itf=ite
         jtf=MIN(jte,jde-1)
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
         DO j=jts,jtf
         DO k=kts,ktf
         DO i=its,itf
@@ -1053,7 +1058,7 @@ SUBROUTINE calc_cq ( moist, cqu, cqv, cqw, n_moist, &
 
         itf=MIN(ite,ide-1)
         jtf=jte
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
         DO j=jts,jtf
         DO k=kts,ktf
         DO i=its,itf
@@ -1064,7 +1069,7 @@ SUBROUTINE calc_cq ( moist, cqu, cqv, cqw, n_moist, &
 
         itf=MIN(ite,ide-1)
         jtf=MIN(jte,jde-1)
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
         DO j=jts,jtf
         DO k=kts+1,ktf
         DO i=its,itf
@@ -1109,7 +1114,7 @@ SUBROUTINE calc_alt ( alt, al, alb,                  &
       jtf=MIN(jte,jde-1)
       ktf=MIN(kte,kde-1)
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j=jts,jtf
       DO k=kts,ktf
       DO i=its,itf
@@ -1180,6 +1185,7 @@ SUBROUTINE calc_p_rho_phi ( moist, n_moist, hypsometric_opt,      &
    IF ( ALLOCATED(temp) ) THEN
       IF ( ANY(LBOUND(temp) /= (/its/)) .OR. ANY(UBOUND(temp) /= (/ite/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
+!$acc wait   ! async kernels may still use it
 !$acc exit data delete(temp)
 #endif
          DEALLOCATE(temp)
@@ -1197,6 +1203,7 @@ SUBROUTINE calc_p_rho_phi ( moist, n_moist, hypsometric_opt,      &
    IF ( ALLOCATED(cpovcv_v) ) THEN
       IF ( ANY(LBOUND(cpovcv_v) /= (/its/)) .OR. ANY(UBOUND(cpovcv_v) /= (/ite/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
+!$acc wait   ! async kernels may still use it
 !$acc exit data delete(cpovcv_v)
 #endif
          DEALLOCATE(cpovcv_v)
@@ -1237,7 +1244,7 @@ SUBROUTINE calc_p_rho_phi ( moist, n_moist, hypsometric_opt,      &
   nonhydro : IF (non_hydrostatic) THEN
 
       hypso_nonhydro : IF (hypsometric_opt == 1) THEN
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
         DO j=jts,jtf
         DO k=kts,ktf
         DO i=its,itf
@@ -1254,7 +1261,7 @@ SUBROUTINE calc_p_rho_phi ( moist, n_moist, hypsometric_opt,      &
         ! Therefore, p*dLOG(p) is always larger than dp and the difference is
         ! in proportion to dp/p. TKW, 02/16/2010
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
         DO j=jts,jtf
         DO k=kts,ktf
         DO i=its,itf
@@ -1273,7 +1280,7 @@ SUBROUTINE calc_p_rho_phi ( moist, n_moist, hypsometric_opt,      &
 
        IF ( wrf_gpu_on ) THEN
         ! GPU: same expression as the VPOW path below (VPOW computes z = y**x elementwise), inlined per point
-!$acc parallel loop collapse(3) private(qvf) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) private(qvf) async(wrf_gpu_q) if(wrf_gpu_on)
         DO j=jts,jtf
         DO k=kts,ktf
         DO i=its,itf
@@ -1312,7 +1319,7 @@ SUBROUTINE calc_p_rho_phi ( moist, n_moist, hypsometric_opt,      &
 
       ELSE moist_nonhydro
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
         DO j=jts,jtf
         DO k=kts,ktf
         DO i=its,itf
@@ -1382,7 +1389,7 @@ SUBROUTINE calc_p_rho_phi ( moist, n_moist, hypsometric_opt,      &
 
       ELSE moist_hydro
 
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
         DO j=jts,jtf
 
           k=ktf          ! top layer
@@ -1433,7 +1440,7 @@ SUBROUTINE calc_p_rho_phi ( moist, n_moist, hypsometric_opt,      &
 
      ! Revised hypsometric eq.: dZ=-al*p*dLOG(p), where p is dry pressure
 
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
       DO j=jts,jtf
 !$acc loop vector
         DO i=its,itf
@@ -1498,7 +1505,7 @@ SUBROUTINE calc_php ( php, ph, phb,                  &
       jtf=MIN(jte,jde-1)
       ktf=MIN(kte,kde-1)
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j=jts,jtf
       DO k=kts,ktf
       DO i=its,itf
@@ -1553,7 +1560,7 @@ SUBROUTINE diagnose_w( ph_tend, ph_new, ph_old, w, mut,     &
 !
 !</DESCRIPTION>
 
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = jts, jtf
 
 !  lower b.c. on w
@@ -1703,7 +1710,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
 
    !  RHS term 3 is: - omega partial d/dnu(phi)
 
-!$acc parallel loop gang private(wdwn) if(wrf_gpu_on)
+!$acc parallel loop gang private(wdwn) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = jts, jtf
       IF (config_flags%phi_adv_z == 2) THEN
          !  First get staggered partial d/dnu(phi) and then multiply with omega
@@ -1746,7 +1753,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
    ENDDO
 
    IF (non_hydrostatic) THEN  ! add in "gw" term.
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = jts, jtf            ! in hydrostatic mode, "gw" will be diagnosed
                               ! after the timestep to give us "w"
 !$acc loop vector
@@ -1782,7 +1789,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
    IF ( (config_flags%open_ys .or. specified) .and. jts == jds ) j_start = jts+1
    IF ( (config_flags%open_ye .or. specified) .and. jte == jde ) jtf = jte-2
 
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = j_start, jtf
 
 !$acc loop vector collapse(2)
@@ -1818,7 +1825,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
    IF ( (config_flags%open_xs .or. specified) .and. its == ids ) i_start = its+1
    IF ( (config_flags%open_xe .or. specified) .and. ite == ide ) itf = ite-2
 
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = j_start, jtf
 
 !$acc loop vector collapse(2)
@@ -1856,7 +1863,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
    IF ( (config_flags%open_ys .or. specified) .and. jts == jds ) j_start = jts+2
    IF ( (config_flags%open_ye .or. specified) .and. jte == jde ) jtf = jte-3
 
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = j_start, jtf
 
 !$acc loop vector collapse(2)
@@ -1949,7 +1956,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
    IF ( (config_flags%open_xs) .and. its == ids ) i_start = its+2
    IF ( (config_flags%open_xe) .and. ite == ide ) itf = ite-3
 
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = j_start, jtf
 
 !$acc loop vector collapse(2)
@@ -1985,7 +1992,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
 
      i = ids + 1
 
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      DO j = j_start, jtf
 !$acc loop vector
      DO k = 2, kte-1
@@ -1998,7 +2005,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
      ENDDO
 
      k = kte
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      DO j = j_start, jtf
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.5*rdx/msfty(i,j))*                        &
                   ( (c1f(k)*muuf(i+1,j)+c2f(k))*(cfn*u(i+1,k-1,j)+cfn1*u(i+1,k-2,j))*msfux(i+1,j)*    &
@@ -2012,7 +2019,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
    IF ( (config_flags%open_xe .or. specified) .and. ite >= ide-2 ) THEN
 
      i = ide-2
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      DO j = j_start, jtf
 !$acc loop vector
      DO k = 2, kte-1
@@ -2025,7 +2032,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
      ENDDO
 
      k = kte
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      DO j = j_start, jtf
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.5*rdx/msfty(i,j))*                        &
                   ( (c1f(k)*muuf(i+1,j)+c2f(k))*(cfn*u(i+1,k-1,j)+cfn1*u(i+1,k-2,j))*msfux(i+1,j)*    &
@@ -2053,7 +2060,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
    IF (config_flags%open_ys .or. specified ) j_start = max(jts,jds+3)
    IF (config_flags%open_ye .or. specified ) jtf     = min(jtf,jde-4)
 
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = j_start, jtf
 
 !$acc loop vector collapse(2)
@@ -2095,7 +2102,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
    IF ( (config_flags%open_ys .or. specified) .and. jts <= jds+2 .and. jds+2 <= jte )  THEN
 
      j = jds+2
-!$acc parallel loop collapse(2) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
      DO k = 2, kte-1
      DO i = i_start, itf
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.25*rdy/msfty(i,j))* (                     &
@@ -2111,7 +2118,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
      ENDDO
 
      k = kte
-!$acc parallel loop if(wrf_gpu_on)
+!$acc parallel loop async(wrf_gpu_q) if(wrf_gpu_on)
      DO i = i_start, itf
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.5*rdy/msfty(i,j))* (                              &
                  ( (c1f(k)*muvf(i,j+1)+c2f(k))*(cfn*v(i,k-1,j+1)+cfn1*v(i,k-2,j+1))*msfvy(i,j+1)              &
@@ -2127,7 +2134,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
 
    IF ( (config_flags%open_ye .or. specified) .and. jts <= jde-3 .and. jde-3 <= jte )  THEN
      j = jde-3
-!$acc parallel loop collapse(2) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
      DO k = 2, kte-1
      DO i = i_start, itf
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.25*rdy/msfty(i,j))* (                  &
@@ -2143,7 +2150,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
      ENDDO
 
      k = kte
-!$acc parallel loop if(wrf_gpu_on)
+!$acc parallel loop async(wrf_gpu_q) if(wrf_gpu_on)
      DO i = i_start, itf
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.5*rdy/msfty(i,j))* (                              &
                  ( (c1f(k)*muvf(i,j+1)+c2f(k))*(cfn*v(i,k-1,j+1)+cfn1*v(i,k-2,j+1))*msfvy(i,j+1)              &
@@ -2162,7 +2169,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
    IF ( (config_flags%open_ys .or. specified) .and. jts <= jds+1 .and. jds+1 <= jte )  THEN
 
      j = jds+1
-!$acc parallel loop collapse(2) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
      DO k = 2, kte-1
      DO i = i_start, itf
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.25*rdy/msfty(i,j))*          &
@@ -2174,7 +2181,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
      ENDDO
 
      k = kte
-!$acc parallel loop if(wrf_gpu_on)
+!$acc parallel loop async(wrf_gpu_q) if(wrf_gpu_on)
      DO i = i_start, itf
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.5*rdy/msfty(i,j))*                        &
                   ( (c1f(k)*muvf(i,j+1)+c2f(k))*(cfn*v(i,k-1,j+1)+cfn1*v(i,k-2,j+1))*msfvy(i,j+1)*    &
@@ -2188,7 +2195,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
    IF ( (config_flags%open_ye .or. specified) .and. jts <= jde-2 .and. jde-2 <= jte )  THEN
 
      j = jde-2
-!$acc parallel loop collapse(2) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
      DO k = 2, kte-1
      DO i = i_start, itf
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.25*rdy/msfty(i,j))*          &
@@ -2200,7 +2207,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
      ENDDO
 
      k = kte
-!$acc parallel loop if(wrf_gpu_on)
+!$acc parallel loop async(wrf_gpu_q) if(wrf_gpu_on)
      DO i = i_start, itf
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.5*rdy/msfty(i,j))*                        &
                   ( (c1f(k)*muvf(i,j+1)+c2f(k))*(cfn*v(i,k-1,j+1)+cfn1*v(i,k-2,j+1))*msfvy(i,j+1)*    &
@@ -2221,7 +2228,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
    IF (config_flags%open_xs .or. specified ) i_start = max(its,ids+3)
    IF (config_flags%open_xe .or. specified ) itf     = min(itf,ide-4)
 
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = j_start, jtf
 
 !$acc loop vector collapse(2)
@@ -2259,7 +2266,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
 
    IF ( (config_flags%open_xs) .and. its <= ids+2 .and. ids+2 <= ite ) THEN
      i = ids + 2
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      DO j = j_start, jtf
 !$acc loop vector
        DO k = 2, kte-1
@@ -2285,7 +2292,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
 
    IF ( (config_flags%open_xe) .and. its <= ide-3 .and. ide-3 <= ite ) THEN
      i = ide-3
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      DO j = j_start, jtf
 !$acc loop vector
        DO k = 2, kte-1
@@ -2315,7 +2322,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
 
      i = ids + 1
 
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      DO j = j_start, jtf
 !$acc loop vector
      DO k = 2, kte-1
@@ -2328,7 +2335,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
      ENDDO
 
      k = kte
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      DO j = j_start, jtf
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.5*rdx/msfty(i,j))*                        &
                   ( (c1f(k)*muuf(i+1,j)+c2f(k))*(cfn*u(i+1,k-1,j)+cfn1*u(i+1,k-2,j))*msfux(i+1,j)*    &
@@ -2342,7 +2349,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
    IF ( (config_flags%open_xe .or. specified) .and. its <= ide-2 .and. ide-2 <= ite ) THEN
 
      i = ide-2
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      DO j = j_start, jtf
 !$acc loop vector
      DO k = 2, kte-1
@@ -2355,7 +2362,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
      ENDDO
 
      k = kte
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      DO j = j_start, jtf
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.5*rdx/msfty(i,j))*                        &
                   ( (c1f(k)*muuf(i+1,j)+c2f(k))*(cfn*u(i+1,k-1,j)+cfn1*u(i+1,k-2,j))*msfux(i+1,j)*    &
@@ -2423,7 +2430,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
 
      i=its
 
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      DO j = jts,jtf
 !$acc loop vector private(kz,ub,ul)
        DO k=2,kde-1
@@ -2452,7 +2459,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
 
      i = ite-1
 
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      DO j = jts,jtf
 !$acc loop vector private(kz,ub,ur)
        DO k=2,kde-1
@@ -2584,7 +2591,7 @@ SUBROUTINE horizontal_pressure_gradient( ru_tend,rv_tend,                &
    IF ( (config_flags%open_ye .or. specified .or. &
          config_flags%nested .or. config_flags%polar ) .and. jte == jde ) jtf = jtf-1
 
-!$acc parallel loop gang private(dpn) if(wrf_gpu_on)
+!$acc parallel loop gang private(dpn) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = j_start, jtf
 
      IF ( non_hydrostatic )  THEN
@@ -2665,7 +2672,7 @@ SUBROUTINE horizontal_pressure_gradient( ru_tend,rv_tend,                &
    IF ( config_flags%periodic_x ) i_start = its
    IF ( config_flags%periodic_x ) itf=ite
 
-!$acc parallel loop gang private(dpn) if(wrf_gpu_on)
+!$acc parallel loop gang private(dpn) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = j_start, jtf
 
      IF ( non_hydrostatic )  THEN
@@ -2791,7 +2798,7 @@ SUBROUTINE pg_buoy_w( rw_tend, p, cqw, muf, mubf,     &
    itf=MIN(ite,ide-1)
    jtf=MIN(jte,jde-1)
 
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = jts,jtf
 
      k=kde
@@ -3137,7 +3144,7 @@ SUBROUTINE horizontal_diffusion ( name, field, tendency, MUT, c1, c2,  &
       IF ( config_flags%periodic_x ) i_end = ite
 
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
       DO k=kts,ktf
       DO i = i_start, i_end
@@ -3187,7 +3194,7 @@ SUBROUTINE horizontal_diffusion ( name, field, tendency, MUT, c1, c2,  &
       IF ( config_flags%polar ) j_start = MAX(jds+1,jts)
       IF ( config_flags%polar ) j_end   = MIN(jde-1,jte)
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
       DO k=kts,ktf
       DO i = i_start, i_end
@@ -3226,7 +3233,7 @@ SUBROUTINE horizontal_diffusion ( name, field, tendency, MUT, c1, c2,  &
       IF ( config_flags%periodic_x ) i_start = its
       IF ( config_flags%periodic_x ) i_end = MIN(ite,ide-1)
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
       DO k=kts+1,ktf
       DO i = i_start, i_end
@@ -3272,7 +3279,7 @@ SUBROUTINE horizontal_diffusion ( name, field, tendency, MUT, c1, c2,  &
       IF ( config_flags%periodic_x ) i_start = its
       IF ( config_flags%periodic_x ) i_end = MIN(ite,ide-1)
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
       DO k=kts,ktf
       DO i = i_start, i_end
@@ -3380,7 +3387,7 @@ SUBROUTINE horizontal_diffusion_3dmp ( name, field, tendency, MUT, c1, c2,  &
       IF ( config_flags%periodic_x ) i_start = its
       IF ( config_flags%periodic_x ) i_end = MIN(ite,ide-1)
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
       DO k=kts,ktf
       DO i = i_start, i_end
@@ -3466,6 +3473,7 @@ SUBROUTINE vertical_diffusion ( name, field, tendency,        &
    IF ( ALLOCATED(vfluxm) ) THEN
       IF ( ANY(LBOUND(vfluxm) /= (/its,jts/)) .OR. ANY(UBOUND(vfluxm) /= (/ite,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
+!$acc wait   ! async kernels may still use it
 !$acc exit data delete(vfluxm)
 #endif
          DEALLOCATE(vfluxm)
@@ -3483,6 +3491,7 @@ SUBROUTINE vertical_diffusion ( name, field, tendency,        &
    IF ( ALLOCATED(vfluxp) ) THEN
       IF ( ANY(LBOUND(vfluxp) /= (/its,jts/)) .OR. ANY(UBOUND(vfluxp) /= (/ite,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
+!$acc wait   ! async kernels may still use it
 !$acc exit data delete(vfluxp)
 #endif
          DEALLOCATE(vfluxp)
@@ -3500,6 +3509,7 @@ SUBROUTINE vertical_diffusion ( name, field, tendency,        &
    IF ( ALLOCATED(zz) ) THEN
       IF ( ANY(LBOUND(zz) /= (/its,jts/)) .OR. ANY(UBOUND(zz) /= (/ite,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
+!$acc wait   ! async kernels may still use it
 !$acc exit data delete(zz)
 #endif
          DEALLOCATE(zz)
@@ -3536,7 +3546,7 @@ SUBROUTINE vertical_diffusion ( name, field, tendency,        &
    j_start = jts
    j_end   = MIN(jte,jde-1)
 
-!$acc parallel loop gang private(vflux) if(wrf_gpu_on)
+!$acc parallel loop gang private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
 j_loop_w : DO j = j_start, j_end
 
 !$acc loop vector collapse(2)
@@ -3569,7 +3579,7 @@ j_loop_w : DO j = j_start, j_end
      j_start = jts
      j_end   = MIN(jte,jde-1)
 
-!$acc parallel loop gang private(vflux) if(wrf_gpu_on)
+!$acc parallel loop gang private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
 j_loop_s : DO j = j_start, j_end
 
 !$acc loop vector collapse(2)
@@ -3670,7 +3680,7 @@ SUBROUTINE vertical_diffusion_mp ( field, tendency, config_flags, &
      j_start = jts
      j_end   = MIN(jte,jde-1)
 
-!$acc parallel loop gang private(vflux) if(wrf_gpu_on)
+!$acc parallel loop gang private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
 j_loop_s : DO j = j_start, j_end
 
 !$acc loop vector collapse(2)
@@ -3769,7 +3779,7 @@ SUBROUTINE vertical_diffusion_3dmp ( field, tendency, config_flags, &
      j_start = jts
      j_end   = MIN(jte,jde-1)
 
-!$acc parallel loop gang private(vflux) if(wrf_gpu_on)
+!$acc parallel loop gang private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
 j_loop_s : DO j = j_start, j_end
 
 !$acc loop vector collapse(2)
@@ -3874,7 +3884,7 @@ SUBROUTINE vertical_diffusion_u ( field, tendency,              &
       IF ( config_flags%periodic_x ) i_end = ite
 
 
-!$acc parallel loop gang private(vflux) if(wrf_gpu_on)
+!$acc parallel loop gang private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
 j_loop_u : DO j = j_start, j_end
 
 !$acc loop vector collapse(2)
@@ -3978,7 +3988,7 @@ SUBROUTINE vertical_diffusion_v ( field, tendency,              &
       IF ( config_flags%open_ys .or. specified ) j_start = MAX(jds+1,jts)
       IF ( config_flags%open_ye .or. specified ) j_end   = MIN(jde-1,jte)
 
-!$acc parallel loop gang private(vflux) if(wrf_gpu_on)
+!$acc parallel loop gang private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
 j_loop_v : DO j = j_start, j_end
 !     jm1 = max(j-1,1)
      jm1 = j-1
@@ -4063,7 +4073,7 @@ SUBROUTINE calculate_full ( rfield, rfieldb, rfieldp,     &
    i_start=its-1
    j_start=jts-1
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j=j_start,jtf
    DO k=kts,ktf
    DO i=i_start,itf
@@ -4157,7 +4167,7 @@ SUBROUTINE coriolis ( ru, rv, rw, ru_tend, rv_tend, rw_tend, &
       IF ( config_flags%periodic_x ) i_start = its
       IF ( config_flags%periodic_x ) i_end = ite
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = jts, MIN(jte,jde-1)
 
    DO k=kts,ktf
@@ -4233,7 +4243,7 @@ SUBROUTINE coriolis ( ru, rv, rw, ru_tend, rv_tend, rw_tend, &
 
 !  ENDIF
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j=j_start, j_end
    DO k=kts,ktf
    DO i=its,MIN(ide-1,ite)
@@ -4273,7 +4283,7 @@ SUBROUTINE coriolis ( ru, rv, rw, ru_tend, rv_tend, rw_tend, &
 ! ru = mu u / my ; ru = mu v / mx
 !  => terms are: e ru + ???
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j=jts,MIN(jte, jde-1)
    DO k=kts+1,ktf
    DO i=its,MIN(ite, ide-1)
@@ -4370,6 +4380,7 @@ SUBROUTINE perturbation_coriolis ( ru_in, rv_in, rw, ru_tend, rv_tend, rw_tend, 
    IF ( ALLOCATED(ru) ) THEN
       IF ( ANY(LBOUND(ru) /= (/ims,kms,jms/)) .OR. ANY(UBOUND(ru) /= (/ime,kme,jme/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
+!$acc wait   ! async kernels may still use it
 !$acc exit data delete(ru)
 #endif
          DEALLOCATE(ru)
@@ -4387,6 +4398,7 @@ SUBROUTINE perturbation_coriolis ( ru_in, rv_in, rw, ru_tend, rv_tend, rw_tend, 
    IF ( ALLOCATED(rv) ) THEN
       IF ( ANY(LBOUND(rv) /= (/ims,kms,jms/)) .OR. ANY(UBOUND(rv) /= (/ime,kme,jme/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
+!$acc wait   ! async kernels may still use it
 !$acc exit data delete(rv)
 #endif
          DEALLOCATE(rv)
@@ -4430,7 +4442,7 @@ SUBROUTINE perturbation_coriolis ( ru_in, rv_in, rw, ru_tend, rv_tend, rw_tend, 
 
 !  compute perturbation mu*v for use in u momentum equation
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = jts, MIN(jte,jde-1)+1
    DO k=kts+1,ktf-1
    DO i = i_start-1, i_end
@@ -4452,7 +4464,7 @@ SUBROUTINE perturbation_coriolis ( ru_in, rv_in, rw, ru_tend, rv_tend, rw_tend, 
 
 !  pick up top and bottom v
 
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = jts, MIN(jte,jde-1)+1
 !$acc loop vector private(k,wk,wkm1,wkp1,z_at_v)
    DO i = i_start-1, i_end
@@ -4486,7 +4498,7 @@ SUBROUTINE perturbation_coriolis ( ru_in, rv_in, rw, ru_tend, rv_tend, rw_tend, 
 
 !  Map scale factors: see comments above for Coriolis
 
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = jts, MIN(jte,jde-1)
 
 !$acc loop vector collapse(2)
@@ -4543,7 +4555,7 @@ SUBROUTINE perturbation_coriolis ( ru_in, rv_in, rw, ru_tend, rv_tend, rw_tend, 
 
 !  compute perturbation mu*u for use in v momentum equation
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = j_start-1,j_end
    DO k=kts+1,ktf-1
    DO i = its, MIN(ite,ide-1)+1
@@ -4564,7 +4576,7 @@ SUBROUTINE perturbation_coriolis ( ru_in, rv_in, rw, ru_tend, rv_tend, rw_tend, 
 
 !  pick up top and bottom u
 
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = j_start-1,j_end
 !$acc loop vector private(k,wk,wkm1,wkp1,z_at_u)
    DO i = its, MIN(ite,ide-1)+1
@@ -4614,7 +4626,7 @@ SUBROUTINE perturbation_coriolis ( ru_in, rv_in, rw, ru_tend, rv_tend, rw_tend, 
 
    ENDIF
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j=j_start, j_end
    DO k=kts,ktf
    DO i=its,MIN(ide-1,ite)
@@ -4648,7 +4660,7 @@ SUBROUTINE perturbation_coriolis ( ru_in, rv_in, rw, ru_tend, rv_tend, rw_tend, 
 ! coriolis term for w-mometum
 !  Map scale factors: see comments above for Coriolis
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j=jts,MIN(jte, jde-1)
    DO k=kts+1,ktf
    DO i=its,MIN(ite, ide-1)
@@ -4732,6 +4744,7 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
    IF ( ALLOCATED(vxgm) ) THEN
       IF ( ANY(LBOUND(vxgm) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(vxgm) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
+!$acc wait   ! async kernels may still use it
 !$acc exit data delete(vxgm)
 #endif
          DEALLOCATE(vxgm)
@@ -4789,7 +4802,7 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
       IF ( config_flags%periodic_x ) i_start = its-1
       IF ( config_flags%periodic_x ) i_end = ite
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j=j_start, j_end
    DO k=kts,ktf
    DO i=i_start, i_end
@@ -4812,7 +4825,7 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
    IF ( ( config_flags%open_xs .or. (specified .AND. .NOT. config_flags%periodic_x) .or. &
         config_flags%nested) .and. (its == ids) ) THEN
 
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      DO j = jts, jte-1
 !$acc loop vector
      DO k = kts, ktf
@@ -4825,7 +4838,7 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
    IF ( ( config_flags%open_xe .or. (specified .AND. .NOT. config_flags%periodic_x) .or. &
         config_flags%nested) .and. (ite == ide) ) THEN
 
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      DO j = jts, jte-1
 !$acc loop vector
      DO k = kts, ktf
@@ -4841,7 +4854,7 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
    IF ( ( config_flags%open_ys .or. specified .or. &
         config_flags%nested .or. config_flags%polar) .and. (jts == jds) ) THEN
 
-!$acc parallel loop collapse(2) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
      DO k = kts, ktf
      DO i = its-1, ite
        vxgm(i,k,jts-1) =  vxgm(i,k,jts)
@@ -4856,7 +4869,7 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
    IF ( ( config_flags%open_ye .or. specified .or. &
         config_flags%nested .or. config_flags%polar) .and. (jte == jde) ) THEN
 
-!$acc parallel loop collapse(2) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
      DO k = kts, ktf
      DO i = its-1, ite
        vxgm(i,k,jte) =  vxgm(i,k,jte-1)
@@ -4888,7 +4901,7 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
 !  Polar boundary condition
    IF ((config_flags%map_proj == 6) .OR. (config_flags%polar)) THEN
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j=jts,MIN(jde-1,jte)
       DO k=kts,ktf
       DO i=i_start,i_end
@@ -4904,7 +4917,7 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
    ELSE  ! normal code
 
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j=jts,MIN(jde-1,jte)
       DO k=kts,ktf
       DO i=i_start,i_end
@@ -4943,7 +4956,7 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
 
    IF ((config_flags%map_proj == 6) .OR. (config_flags%polar)) THEN
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j=j_start,j_end
       DO k=kts,ktf
       DO i=its,MIN(ite,ide-1)
@@ -4959,7 +4972,7 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
 
    ELSE  ! normal code
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j=j_start,j_end
       DO k=kts,ktf
       DO i=its,MIN(ite,ide-1)
@@ -4982,7 +4995,7 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
 !  ru = mu u / my ; rw = mu w / my ; rv = mu v / mx
 !  terms are: u ru / a + (mx/my)v rv / a
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j=jts,MIN(jte,jde-1)
    DO k=MAX(2,kts),ktf
    DO i=its,MIN(ite,ide-1)
@@ -5045,7 +5058,7 @@ SUBROUTINE decouple ( rr, rfield, field, name, config_flags, &
       itf=ite
       jtf=MIN(jte,jde-1)
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j=jts,jtf
       DO k=kts,ktf
       DO i=its,itf
@@ -5058,7 +5071,7 @@ SUBROUTINE decouple ( rr, rfield, field, name, config_flags, &
       itf=MIN(ite,ide-1)
       jtf=jte
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j=jts,jtf
       DO k=kts,ktf
         DO i=its,itf
@@ -5070,7 +5083,7 @@ SUBROUTINE decouple ( rr, rfield, field, name, config_flags, &
    ELSE IF (name .EQ. 'w')THEN
       itf=MIN(ite,ide-1)
       jtf=MIN(jte,jde-1)
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j=jts,jtf
       DO k=kts+1,ktf
       DO i=its,itf
@@ -5079,7 +5092,7 @@ SUBROUTINE decouple ( rr, rfield, field, name, config_flags, &
       ENDDO
       ENDDO
 
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
       DO j=jts,jtf
 !$acc loop vector
       DO i=its,itf
@@ -5091,7 +5104,7 @@ SUBROUTINE decouple ( rr, rfield, field, name, config_flags, &
       itf=MIN(ite,ide-1)
       jtf=MIN(jte,jde-1)
    ! For theta we will decouple tb and tp and add them to give t afterwards
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j=jts,jtf
       DO k=kts,ktf
       DO i=its,itf
@@ -5133,7 +5146,7 @@ SUBROUTINE zero_tend ( tendency,                     &
 !
 !</DESCRIPTION>
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = jts, jte
       DO k = kts, kte
       DO i = its, ite
@@ -5172,7 +5185,7 @@ SUBROUTINE zero_tend2d( tendency,                     &
 !
 !</DESCRIPTION>
 
-!$acc parallel loop collapse(2) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = jts, jte
       DO i = its, ite
         tendency(i,j) = 0.
@@ -5374,7 +5387,7 @@ END SUBROUTINE pole_point_bc
 !  compute thermodynamics and velocities at pressure points (or half levels)
 
     IF ( ( config_flags%use_theta_m .EQ. 1 ) .AND. (P_Qv .GE. PARAM_FIRST_SCALAR) ) THEN
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
        do j = j_start,j_end
        do k = k_start, k_end
        do i = i_start, i_end
@@ -5383,7 +5396,7 @@ END SUBROUTINE pole_point_bc
        enddo
        enddo
     ELSE
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
        do j = j_start,j_end
        do k = k_start, k_end
        do i = i_start, i_end
@@ -5393,7 +5406,7 @@ END SUBROUTINE pole_point_bc
        enddo
     END IF
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
     do j = j_start,j_end
     do k = k_start, k_end
     do i = i_start, i_end
@@ -5412,7 +5425,7 @@ END SUBROUTINE pole_point_bc
 
 !  compute z at w points
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
     do j = j_start,j_end
     do k = k_start, kte
     do i = i_start, i_end
@@ -5421,7 +5434,7 @@ END SUBROUTINE pole_point_bc
     enddo
     enddo
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
     do j = j_start,j_end
     do k = k_start, kte-1
     do i = i_start, i_end
@@ -5430,7 +5443,7 @@ END SUBROUTINE pole_point_bc
     enddo
     enddo
 
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
     do j = j_start,j_end
 !$acc loop vector
     do i = i_start, i_end
@@ -5440,7 +5453,7 @@ END SUBROUTINE pole_point_bc
 
 !  compute z at p points or half levels (average of z at full levels)
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
     do j = j_start,j_end
     do k = k_start, k_end
     do i = i_start, i_end
@@ -5451,7 +5464,7 @@ END SUBROUTINE pole_point_bc
 
 !  interp t and p to full levels
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
     do j = j_start,j_end
     do k = 2, k_end
     do i = i_start, i_end
@@ -5464,7 +5477,7 @@ END SUBROUTINE pole_point_bc
 !  extrapolate p and t to surface and top.
 !  we'll use an extrapolation in z for now
 
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
     do j = j_start,j_end
 !$acc loop vector private(w1,w2,z0,z1,z2)
     do i = i_start, i_end
@@ -5498,7 +5511,7 @@ END SUBROUTINE pole_point_bc
 ! calculate hydrostatic pressure at both full and half levels
 ! first, full level p: assuming dry over model top
 
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
     do j = j_start,j_end
 !$acc loop vector
     do i = i_start, i_end
@@ -5508,7 +5521,7 @@ END SUBROUTINE pole_point_bc
 
     IF ( wrf_gpu_on ) THEN
     ! GPU: columns in parallel, k recurrence sequential per column (same arithmetic per point as below)
-!$acc parallel loop collapse(2) private(qtot) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) private(qtot) async(wrf_gpu_q) if(wrf_gpu_on)
     do j = j_start,j_end
     do i = i_start, i_end
 !$acc loop seq
@@ -5539,7 +5552,7 @@ END SUBROUTINE pole_point_bc
 
 ! now calculate hydrostatic pressure at half levels
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
     do j = j_start,j_end
     do k = k_start, k_end
     do i = i_start, i_end
@@ -5677,7 +5690,7 @@ END SUBROUTINE phy_prep
 
    IF (config_flags%ra_lw_physics .gt. 0 .or. config_flags%ra_sw_physics .gt. 0) THEN
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
       DO J=j_start,j_end
       DO K=k_start,k_end
       DO I=i_start,i_end
@@ -5690,7 +5703,7 @@ END SUBROUTINE phy_prep
 
    IF (config_flags%cu_physics .gt. 0) THEN
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
       DO J=j_start,j_end
       DO K=k_start,k_end
       DO I=i_start,i_end
@@ -5702,7 +5715,7 @@ END SUBROUTINE phy_prep
       ENDDO
 
       IF (P_QV .ge. PARAM_FIRST_SCALAR)THEN
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
@@ -5713,7 +5726,7 @@ END SUBROUTINE phy_prep
       ENDIF
 
       IF (P_QC .ge. PARAM_FIRST_SCALAR)THEN
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
@@ -5724,7 +5737,7 @@ END SUBROUTINE phy_prep
       ENDIF
 
       IF (P_QR .ge. PARAM_FIRST_SCALAR)THEN
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
@@ -5735,7 +5748,7 @@ END SUBROUTINE phy_prep
       ENDIF
 
       IF (P_QI .ge. PARAM_FIRST_SCALAR)THEN
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
@@ -5746,7 +5759,7 @@ END SUBROUTINE phy_prep
       ENDIF
 
       IF(P_QS .ge. PARAM_FIRST_SCALAR)THEN
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
@@ -5760,7 +5773,7 @@ END SUBROUTINE phy_prep
 
    IF (config_flags%shcu_physics .gt. 0) THEN
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
       DO J=j_start,j_end
       DO K=k_start,k_end
       DO I=i_start,i_end
@@ -5772,7 +5785,7 @@ END SUBROUTINE phy_prep
       ENDDO
 
       IF (P_QV .ge. PARAM_FIRST_SCALAR)THEN
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
@@ -5783,7 +5796,7 @@ END SUBROUTINE phy_prep
       ENDIF
 
       IF (P_QC .ge. PARAM_FIRST_SCALAR)THEN
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
@@ -5794,7 +5807,7 @@ END SUBROUTINE phy_prep
       ENDIF
 
       IF (P_QR .ge. PARAM_FIRST_SCALAR)THEN
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
@@ -5805,7 +5818,7 @@ END SUBROUTINE phy_prep
       ENDIF
 
       IF (P_QI .ge. PARAM_FIRST_SCALAR)THEN
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
@@ -5816,7 +5829,7 @@ END SUBROUTINE phy_prep
       ENDIF
 
       IF(P_QS .ge. PARAM_FIRST_SCALAR)THEN
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
@@ -5827,7 +5840,7 @@ END SUBROUTINE phy_prep
       ENDIF
 
       IF(P_QG .ge. PARAM_FIRST_SCALAR)THEN
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
@@ -5841,7 +5854,7 @@ END SUBROUTINE phy_prep
 
    IF (config_flags%bl_pbl_physics .gt. 0) THEN
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
       DO J=j_start,j_end
       DO K=k_start,k_end
       DO I=i_start,i_end
@@ -5853,7 +5866,7 @@ END SUBROUTINE phy_prep
       ENDDO
 
       IF (P_QV .ge. PARAM_FIRST_SCALAR) THEN
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
@@ -5864,7 +5877,7 @@ END SUBROUTINE phy_prep
       ENDIF
 
       IF (P_QC .ge. PARAM_FIRST_SCALAR) THEN
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
@@ -5875,7 +5888,7 @@ END SUBROUTINE phy_prep
       ENDIF
 
       IF (P_QI .ge. PARAM_FIRST_SCALAR) THEN
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
@@ -5898,7 +5911,7 @@ END SUBROUTINE phy_prep
       ( config_flags%cu_physics == NTIEDTKESCHEME )) THEN
 
       IF (P_QV .ge. PARAM_FIRST_SCALAR)THEN
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
          DO J=j_start,j_end
          DO K=k_start,k_end
             DO I=i_start,i_end
@@ -5915,7 +5928,7 @@ END SUBROUTINE phy_prep
       ( config_flags%cu_physics == G3SCHEME ) .OR.    &
       ( config_flags%cu_physics == NTIEDTKESCHEME )) THEN
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
       DO J=j_start,j_end
       DO K=k_start,k_end
          DO I=i_start,i_end
@@ -5926,7 +5939,7 @@ END SUBROUTINE phy_prep
 
 !  If using moist theta, get dry theta tendency for CPSs
       IF ( config_flags%use_theta_m == 1 ) THEN
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
          DO J=j_start,j_end
          DO K=k_start,k_end
             DO I=i_start,i_end
@@ -5948,7 +5961,7 @@ END SUBROUTINE phy_prep
       i_startu=MAX(its,ids+1)
       j_startv=MAX(jts,jds+1)
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
       DO J=j_start,j_end
       DO K=k_start,k_end
       DO I=i_startu,i_end
@@ -5956,7 +5969,7 @@ END SUBROUTINE phy_prep
       ENDDO
       ENDDO
       ENDDO
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
       DO J=j_startv,j_end
       DO K=k_start,k_end
       DO I=i_start,i_end
@@ -5964,7 +5977,7 @@ END SUBROUTINE phy_prep
       ENDDO
       ENDDO
       ENDDO
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
       DO J=j_start,j_end
       DO K=k_start,k_end
       DO I=i_start,i_end
@@ -5975,7 +5988,7 @@ END SUBROUTINE phy_prep
       ENDDO
 
       IF (config_flags%grid_fdda .EQ. 2) THEN
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
       DO J=j_start,j_end
       DO K=k_start,kte
       DO I=i_start,i_end
@@ -5986,7 +5999,7 @@ END SUBROUTINE phy_prep
 
       ELSE IF (config_flags%grid_fdda .GE. 1) THEN
       IF (P_QV .ge. PARAM_FIRST_SCALAR) THEN
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
          DO J=j_start,j_end
          DO K=k_start,k_end
          DO I=i_start,i_end
@@ -6085,7 +6098,7 @@ END SUBROUTINE phy_prep_part2
     k_start = kts
     k_end = min( kte, kde-1 )
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
      DO j = j_start, j_end
      DO k = k_start, kte
      DO i = i_start, i_end
@@ -6094,7 +6107,7 @@ END SUBROUTINE phy_prep_part2
      ENDDO
      ENDDO
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
     do j = j_start,j_end
     do k = k_start, kte-1
     do i = i_start, i_end
@@ -6103,7 +6116,7 @@ END SUBROUTINE phy_prep_part2
     enddo
     enddo
 
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
     do j = j_start,j_end
 !$acc loop vector
     do i = i_start, i_end
@@ -6118,7 +6131,7 @@ END SUBROUTINE phy_prep_part2
            !  use h_diabatic to temporarily save pre-microphysics full theta
 
      IF ( ( config_flags%use_theta_m .EQ. 1 ) .AND. (P_Qv .GE. PARAM_FIRST_SCALAR) ) THEN
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
        DO j = j_start, j_end
        DO k = k_start, k_end
        DO i = i_start, i_end
@@ -6127,7 +6140,7 @@ END SUBROUTINE phy_prep_part2
        ENDDO
        ENDDO
      ELSE
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
        DO j = j_start, j_end
        DO k = k_start, k_end
        DO i = i_start, i_end
@@ -6137,7 +6150,7 @@ END SUBROUTINE phy_prep_part2
        ENDDO
      END IF
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
      DO j = j_start, j_end
      DO k = k_start, k_end
      DO i = i_start, i_end
@@ -6168,7 +6181,7 @@ END SUBROUTINE phy_prep_part2
 
 !  interp p at w points
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
     do j = j_start,j_end
     do k = 2, k_end
     do i = i_start, i_end
@@ -6180,7 +6193,7 @@ END SUBROUTINE phy_prep_part2
 !  extrapolate p to surface and top.
 !  we'll use an extrapolation in z for now
 
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
     do j = j_start,j_end
 !$acc loop vector private(w1,w2,z0,z1,z2)
     do i = i_start, i_end
@@ -6305,7 +6318,7 @@ END SUBROUTINE phy_prep_part2
      IF ( wrf_gpu_on ) THEN
      ! GPU: same per-point update as the host loop below; the running max/min (mptenmax/min, imax/jmax) is an
      ! unused diagnostic and is not computed here (it kept this loop on the host and forced t_2/moist migration).
-!$acc parallel loop collapse(3) private(mpten,qvten,qcten) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) private(mpten,qvten,qcten) async(wrf_gpu_q) if(wrf_gpu_on)
      DO j = j_start, j_end
      DO k = k_start, k_end
      DO i = i_start, i_end
@@ -6425,7 +6438,7 @@ END SUBROUTINE phy_prep_part2
 
      ELSE
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
      DO j = j_start, j_end
      DO k = k_start, k_end
      DO i = i_start, i_end
@@ -6478,7 +6491,7 @@ SUBROUTINE set_tend ( field, field_adv_tend, msf,       &
       jtf = MIN(jte,jde-1)
       ktf = MIN(kte,kde-1)
       itf = MIN(ite,ide-1)
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = jts, jtf
       DO k = kts, ktf
       DO i = its, itf
@@ -6592,7 +6605,7 @@ END SUBROUTINE set_tend
 !-----------------------------------------------------------------------
 ! Adjust u to base state.
 
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = jts, MIN( jte, jde-1 )
 !$acc loop vector private(dcoef,k1,k2,z,ztop,u00,z00)
     DO i = its, MIN( ite, ide   )
@@ -6650,7 +6663,7 @@ END SUBROUTINE set_tend
 !-----------------------------------------------------------------------
 ! Adjust v to base state.
 
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = jts, MIN( jte, jde   )
 !$acc loop vector private(dcoef,k1,k2,z,ztop,v00,z00)
     DO i = its, MIN( ite, ide-1 )
@@ -6729,7 +6742,7 @@ END SUBROUTINE set_tend
 !-----------------------------------------------------------------------
 ! Adjust potential temperature to base state.
 
-!$acc parallel loop gang if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = jts, MIN( jte,   jde-1 )
 !$acc loop vector private(dcoef,k1,k2,z,ztop,t00,z00)
     DO i = its, MIN( ite,   ide-1 )
@@ -7123,7 +7136,7 @@ END SUBROUTINE set_tend
 !------------------------------------------------------------------------------
 ! Begin: Loop across spatial dimensions.
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = k_start, k_end
     DO i = i_start, i_end
@@ -7334,7 +7347,7 @@ SUBROUTINE initialize_moist_old ( moist_old , moist , &
 
    INTEGER :: i , j , k
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = jts , MIN(jte,jde-1)
       DO k = kts , kte-1
          DO i = its , MIN(ite,ide-1)
@@ -7371,7 +7384,7 @@ SUBROUTINE conv_t_tendf_to_moist ( t_1 , moist_old ,                &
    !  This dry tendency is from the physics packages.  It is modified immediately after the
    !  call to the physics schemes, and the remains constant for the remainder of the RK loops.
 
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = jts , MIN(jte,jde-1)
       DO k = kts , kte-1
          DO i = its , MIN(ite,ide-1)
@@ -7419,7 +7432,7 @@ END SUBROUTINE conv_t_tendf_to_moist
 
       ! Nudge
     if (xtime < dt_nudge) then
-!$acc parallel loop collapse(3) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
       do j = j_start, j_end
         do k = k_start, k_end
           do i = i_start, i_end

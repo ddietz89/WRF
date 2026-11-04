@@ -3,7 +3,7 @@
 !
 
 MODULE module_bc
-   USE module_wrf_error, ONLY : wrf_gpu_on   ! GPU port: host/device switch for compute regions
+   USE module_wrf_error, ONLY : wrf_gpu_on, wrf_gpu_q   ! GPU port: host/device switch for compute regions
 #ifdef WRF_GPU_RESIDENT
    USE openacc, ONLY : acc_is_present   ! diagnostic in set_physical_bc3d
 #endif
@@ -394,7 +394,7 @@ CONTAINS
                        config_flags%nested            ) .and.  &
                          ( its == ids ) .and. open_bc_copy  )  THEN
 
-!$acc parallel loop if(wrf_gpu_on)
+!$acc parallel loop async(wrf_gpu_q) if(wrf_gpu_on)
             DO j = MAX(jds,jts-1), MIN(jte+1,jde+jstag)
               dat(ids-1,j) = dat(ids,j) !  here, dat(0) = dat(1)
               dat(ids-2,j) = dat(ids,j)
@@ -413,7 +413,7 @@ CONTAINS
 
           IF ( variable /= 'u' .and. variable /= 'x') THEN
 
-!$acc parallel loop if(wrf_gpu_on)
+!$acc parallel loop async(wrf_gpu_q) if(wrf_gpu_on)
             DO j = MAX(jds,jts-1), MIN(jte+1,jde+jstag)
               dat(ide  ,j) = dat(ide-1,j)
               dat(ide+1,j) = dat(ide-1,j)
@@ -422,7 +422,7 @@ CONTAINS
 
           ELSE
 
-!$acc parallel loop if(wrf_gpu_on)
+!$acc parallel loop async(wrf_gpu_q) if(wrf_gpu_on)
             DO j = MAX(jds,jts-1), MIN(jte+1,jde+jstag)
               dat(ide+1,j) = dat(ide,j)
               dat(ide+2,j) = dat(ide,j)
@@ -569,7 +569,7 @@ CONTAINS
                          ( jts == jds) .and. open_bc_copy )  THEN
 
             !DO i = MAX(ids,its-1), MIN(ite+1,ide+istag)
-!$acc parallel loop if(wrf_gpu_on)
+!$acc parallel loop async(wrf_gpu_q) if(wrf_gpu_on)
             DO i = istart, iend
               dat(i,jds-1) = dat(i,jds)
               dat(i,jds-2) = dat(i,jds)
@@ -589,7 +589,7 @@ CONTAINS
           IF  (variable /= 'v' .and. variable /= 'y' ) THEN
 
             !DO i = MAX(ids,its-1), MIN(ite+1,ide+istag)
-!$acc parallel loop if(wrf_gpu_on)
+!$acc parallel loop async(wrf_gpu_q) if(wrf_gpu_on)
             DO i = istart, iend
               dat(i,jde  ) = dat(i,jde-1)
               dat(i,jde+1) = dat(i,jde-1)
@@ -599,7 +599,7 @@ CONTAINS
           ELSE
 
             !DO i = MAX(ids,its-1), MIN(ite+1,ide+istag)
-!$acc parallel loop if(wrf_gpu_on)
+!$acc parallel loop async(wrf_gpu_q) if(wrf_gpu_on)
             DO i = istart, iend
               dat(i,jde+1) = dat(i,jde)
               dat(i,jde+2) = dat(i,jde)
@@ -904,7 +904,7 @@ CONTAINS
                        config_flags%nested            ) .and.  &
                          ( its == ids ) .and. open_bc_copy  )  THEN
 
-!$acc parallel loop collapse(2) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
             DO j = jts-bdyzone, MIN(jte,jde+jstag)+bdyzone
 #if defined(INTEL_ALIGN64)
 !DEC$ ASSUME_ALIGNED dat:64
@@ -930,7 +930,7 @@ CONTAINS
 
           IF (variable /= 'u' .and. variable /= 'x' ) THEN
 
-!$acc parallel loop collapse(2) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
             DO j = jts-bdyzone, MIN(jte,jde+jstag)+bdyzone
 #if defined(INTEL_ALIGN64)
 !DEC$ ASSUME_ALIGNED dat:64
@@ -947,7 +947,7 @@ CONTAINS
           ELSE
 
 !!!!!!! I am not sure about this one!  JM 20020402
-!$acc parallel loop collapse(2) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
             DO j = MAX(jds,jts-1)-bdyzone, MIN(jte+1,jde+jstag)+bdyzone
             DO k = kts, k_end
               dat(ide+1,k,j) = dat(ide,k,j)
@@ -1102,7 +1102,7 @@ CONTAINS
                        config_flags%nested            ) .and.  &
                          ( jts == jds) .and. open_bc_copy )  THEN
 
-!$acc parallel loop collapse(2) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
             DO k = kts, k_end
             DO i = i_start, i_end
               dat(i,k,jds-1) = dat(i,k,jds)
@@ -1123,7 +1123,7 @@ CONTAINS
 
           IF (variable /= 'v' .and. variable /= 'y' ) THEN
 
-!$acc parallel loop collapse(2) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
             DO k = kts, k_end
             DO i = i_start, i_end
               dat(i,k,jde  ) = dat(i,k,jde-1)
@@ -1134,7 +1134,7 @@ CONTAINS
 
           ELSE
 
-!$acc parallel loop collapse(2) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
             DO k = kts, k_end
             DO i = i_start, i_end
               dat(i,k,jde+1) = dat(i,k,jde)
@@ -1333,7 +1333,7 @@ CONTAINS
 
       IF (jts - jbs .lt. relax_zone) THEN
 ! Y-start boundary
-!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) async(wrf_gpu_q) if(wrf_gpu_on)
         DO j = max(jts,jbs+spec_zone), min(jtf,jbs+relax_zone-1)
           DO k = kts, ktf
             b_dist = j - jbs
@@ -1370,7 +1370,7 @@ CONTAINS
 
 
 ! Y-end boundary
-!$acc parallel loop gang private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang private(b_dist,b_limit) async(wrf_gpu_q) if(wrf_gpu_on)
         DO j = max(jts,jbe-relax_zone+1), min(jtf,jbe-spec_zone)
           b_dist = jbe - j
           b_limit = b_dist
@@ -1409,7 +1409,7 @@ CONTAINS
     IF(.NOT.periodic_x)THEN
       IF (its - ibs .lt. relax_zone) THEN
 ! X-start boundary
-!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) async(wrf_gpu_q) if(wrf_gpu_on)
         DO i = max(its,ibs+spec_zone), min(itf,ibs+relax_zone-1)
           DO k = kts, ktf
             b_dist = i - ibs
@@ -1441,7 +1441,7 @@ CONTAINS
 
       IF (ibe - itf .lt. relax_zone) THEN
 ! X-end boundary
-!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) async(wrf_gpu_q) if(wrf_gpu_on)
         DO i = max(its,ibe-relax_zone+1), min(itf,ibe-spec_zone)
           DO k = kts, ktf
             b_dist = ibe - i
@@ -1540,7 +1540,7 @@ CONTAINS
 
       IF (jts - jbs .lt. spec_zone) THEN
 ! Y-start boundary
-!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) async(wrf_gpu_q) if(wrf_gpu_on)
         DO j = jts, min(jtf,jbs+spec_zone-1)
           DO k = kts, ktf
             b_dist = j - jbs
@@ -1557,7 +1557,7 @@ CONTAINS
 
 
 ! Y-end boundary
-!$acc parallel loop gang private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang private(b_dist,b_limit) async(wrf_gpu_q) if(wrf_gpu_on)
         DO j = max(jts,jbe-spec_zone+1), jtf
           b_dist = jbe - j
           b_limit = b_dist
@@ -1576,7 +1576,7 @@ CONTAINS
     IF(.NOT.periodic_x)THEN
       IF (its - ibs .lt. spec_zone) THEN
 ! X-start boundary
-!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) async(wrf_gpu_q) if(wrf_gpu_on)
         DO i = its, min(itf,ibs+spec_zone-1)
           DO k = kts, ktf
             b_dist = i - ibs
@@ -1590,7 +1590,7 @@ CONTAINS
 
       IF (ibe - itf .lt. spec_zone) THEN
 ! X-end boundary
-!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) async(wrf_gpu_q) if(wrf_gpu_on)
         DO i = max(its,ibe-spec_zone+1), itf
           DO k = kts, ktf
             b_dist = ibe - i
@@ -1680,7 +1680,7 @@ CONTAINS
       IF (jts - jbs .lt. spec_zone) THEN
 
 ! Y-start boundary
-!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) async(wrf_gpu_q) if(wrf_gpu_on)
         DO j = jts, min(jtf,jbs+spec_zone-1)
           DO k = kts, ktf
             b_dist = j - jbs
@@ -1711,7 +1711,7 @@ CONTAINS
 
 
 ! Y-end boundary
-!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) async(wrf_gpu_q) if(wrf_gpu_on)
         DO j = max(jts,jbe-spec_zone+1), jtf
           DO k = kts, ktf
             b_dist = jbe - j
@@ -1739,7 +1739,7 @@ CONTAINS
     IF(.NOT.periodic_x)THEN
       IF (its - ibs .lt. spec_zone) THEN
 ! X-start boundary
-!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) async(wrf_gpu_q) if(wrf_gpu_on)
         DO i = its, min(itf,ibs+spec_zone-1)
           DO k = kts, ktf
             b_dist = i - ibs
@@ -1764,7 +1764,7 @@ CONTAINS
 
       IF (ibe - itf .lt. spec_zone) THEN
 ! X-end boundary
-!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) async(wrf_gpu_q) if(wrf_gpu_on)
         DO i = max(its,ibe-spec_zone+1), itf
           DO k = kts, ktf
             b_dist = ibe - i
@@ -2075,7 +2075,7 @@ CONTAINS
 
       IF (jts - jbs .lt. spec_zone) THEN
 ! Y-start boundary
-!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) async(wrf_gpu_q) if(wrf_gpu_on)
         DO j = jts, min(jtf,jbs+spec_zone-1)
           DO k = kts, ktf
             b_dist = j - jbs
@@ -2090,7 +2090,7 @@ CONTAINS
       ENDIF
       IF (jbe - jtf .lt. spec_zone) THEN
 ! Y-end boundary
-!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) async(wrf_gpu_q) if(wrf_gpu_on)
         DO j = max(jts,jbe-spec_zone+1), jtf
           DO k = kts, ktf
             b_dist = jbe - j
@@ -2107,7 +2107,7 @@ CONTAINS
     IF(.NOT.periodic_x)THEN
       IF (its - ibs .lt. spec_zone) THEN
 ! X-start boundary
-!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) async(wrf_gpu_q) if(wrf_gpu_on)
         DO i = its, min(itf,ibs+spec_zone-1)
           DO k = kts, ktf
             b_dist = i - ibs
@@ -2121,7 +2121,7 @@ CONTAINS
 
       IF (ibe - itf .lt. spec_zone) THEN
 ! X-end boundary
-!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) async(wrf_gpu_q) if(wrf_gpu_on)
         DO i = max(its,ibe-spec_zone+1), itf
           DO k = kts, ktf
             b_dist = ibe - i
@@ -2219,7 +2219,7 @@ CONTAINS
 
       IF (jts - jbs .lt. spec_zone) THEN
 ! Y-start boundary
-!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) async(wrf_gpu_q) if(wrf_gpu_on)
         DO j = jts, min(jtf,jbs+spec_zone-1)
           DO k = kts, ktf
             b_dist = j - jbs
@@ -2239,7 +2239,7 @@ CONTAINS
 
       IF (jbe - jtf .lt. spec_zone) THEN
 ! Y-end boundary
-!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) async(wrf_gpu_q) if(wrf_gpu_on)
         DO j = max(jts,jbe-spec_zone+1), jtf
           DO k = kts, ktf
             b_dist = jbe - j
@@ -2260,7 +2260,7 @@ CONTAINS
     IF(.NOT.periodic_x)THEN
       IF (its - ibs .lt. spec_zone) THEN
 ! X-start boundary
-!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) async(wrf_gpu_q) if(wrf_gpu_on)
         DO i = its, min(itf,ibs+spec_zone-1)
           DO k = kts, ktf
             b_dist = i - ibs
@@ -2278,7 +2278,7 @@ CONTAINS
 
      IF (ibe - itf .lt. spec_zone) THEN
 ! X-end boundary
-!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) async(wrf_gpu_q) if(wrf_gpu_on)
         DO i = max(its,ibe-spec_zone+1), itf
           DO k = kts, ktf
             b_dist = ibe - i
@@ -2350,7 +2350,7 @@ CONTAINS
 
       IF (jts - jbs .lt. spec_zone) THEN
 ! Y-start boundary
-!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) async(wrf_gpu_q) if(wrf_gpu_on)
         DO j = jts, min(jtf,jbs+spec_zone-1)
           DO k = kts, ktf
             b_dist = j - jbs
@@ -2368,7 +2368,7 @@ CONTAINS
       ENDIF
       IF (jbe - jtf .lt. spec_zone) THEN
 ! Y-end boundary
-!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) async(wrf_gpu_q) if(wrf_gpu_on)
         DO j = max(jts,jbe-spec_zone+1), jtf
           DO k = kts, ktf
             b_dist = jbe - j
@@ -2388,7 +2388,7 @@ CONTAINS
     IF(.NOT.periodic_x)THEN
       IF (its - ibs .lt. spec_zone) THEN
 ! X-start boundary
-!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) async(wrf_gpu_q) if(wrf_gpu_on)
         DO i = its, min(itf,ibs+spec_zone-1)
           DO k = kts, ktf
             b_dist = i - ibs
@@ -2404,7 +2404,7 @@ CONTAINS
 
       IF (ibe - itf .lt. spec_zone) THEN
 ! X-end boundary
-!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) async(wrf_gpu_q) if(wrf_gpu_on)
         DO i = max(its,ibe-spec_zone+1), itf
           DO k = kts, ktf
             b_dist = ibe - i
@@ -2466,7 +2466,7 @@ CONTAINS
 
       IF (jts - jbs .lt. spec_zone) THEN
 ! Y-start boundary
-!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) async(wrf_gpu_q) if(wrf_gpu_on)
         DO j = jts, min(jtf,jbs+spec_zone-1)
           DO k = kts, ktf
             b_dist = j - jbs
@@ -2488,7 +2488,7 @@ CONTAINS
       ENDIF
       IF (jbe - jtf .lt. spec_zone) THEN
 ! Y-end boundary
-!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) async(wrf_gpu_q) if(wrf_gpu_on)
         DO j = max(jts,jbe-spec_zone+1), jtf
           DO k = kts, ktf
             b_dist = jbe - j
@@ -2512,7 +2512,7 @@ CONTAINS
     IF(.NOT.periodic_x)THEN
       IF (its - ibs .lt. spec_zone) THEN
 ! X-start boundary
-!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) async(wrf_gpu_q) if(wrf_gpu_on)
         DO i = its, min(itf,ibs+spec_zone-1)
           DO k = kts, ktf
             b_dist = i - ibs
@@ -2532,7 +2532,7 @@ CONTAINS
 
       IF (ibe - itf .lt. spec_zone) THEN
 ! X-end boundary
-!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) async(wrf_gpu_q) if(wrf_gpu_on)
         DO i = max(its,ibe-spec_zone+1), itf
           DO k = kts, ktf
             b_dist = ibe - i
