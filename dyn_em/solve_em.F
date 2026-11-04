@@ -6554,15 +6554,15 @@ END FUNCTION wrf_gpu_hostblocks
 ! 128 H1 reuses the H3-pulled state (alt/p/ph_2 still pulled), 256 GPU-side init_zero_tendency + phy_prep;
 ! default 511.
 LOGICAL FUNCTION wrf_gpu_async_mode()
-   ! WRF_GPU_ASYNC (residency builds): 1 = GPU compute constructs on async queue 1 (wait at routine exit), 0 (default) = synchronous
+   ! WRF_GPU_ASYNC (residency builds): 1 = GPU compute constructs on async queue 1 (default; waits at routine exit and before sync directives), 0 = synchronous
    IMPLICIT NONE
    INTEGER :: mode
    CHARACTER(LEN=8) :: v
    INTEGER :: st
    CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_ASYNC', v, STATUS=st )
-   mode = 0
+   mode = 1
    IF ( st == 0 ) READ( v, *, IOSTAT=st ) mode
-   IF ( st /= 0 ) mode = 0
+   IF ( st /= 0 ) mode = 1
    wrf_gpu_async_mode = mode /= 0
 END FUNCTION wrf_gpu_async_mode
 
