@@ -1223,8 +1223,8 @@ CONTAINS
               ,JTS=MINVAL(j_start(1:num_tiles)),JTE=MAXVAL(j_end(1:num_tiles)) &
               ,KTS=kts,KTE=kte)
     wrf_gpu_on = .FALSE.
-    ! what the host reads later: surface/diagnostics (2-D), MYJ surface layer (TKE), Tiedtke (QV tendency)
-!$acc update self(pblh,kpbl,mixht_gpu,ct,qsfc,qz0,thz0,uz0,vz0,ust,znt,akhs,akms,tke_pbl,rqvblten)
+    ! what the host reads later: surface/diagnostics (2-D), MYJ surface layer (TKE); cumulus pulls its PBL inputs
+!$acc update self(pblh,kpbl,mixht_gpu,ct,qsfc,qz0,thz0,uz0,vz0,ust,znt,akhs,akms,tke_pbl)
     mixht(ims:ime,jms:jme) = mixht_gpu
    ENDIF
   ENDIF

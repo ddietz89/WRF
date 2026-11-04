@@ -6,6 +6,8 @@ MODULE module_cumulus_driver
 ! residency builds: whether the scheme ran this step (its tendencies are host-written only then; between
 ! calls the GPU owns them - solve_em pushes them only when set)
    LOGICAL :: wrf_gpu_cu_ran = .TRUE.
+! residency builds: PBL tendencies are GPU-written (GPU MYJ) - pull them only on steps the scheme runs
+   LOGICAL :: wrf_gpu_cu_pullbl = .FALSE.
 #endif
 CONTAINS
    SUBROUTINE cumulus_driver(grid                                     &
@@ -864,6 +866,16 @@ CONTAINS
    wrf_gpu_cu_ran = run_param
 #endif
 
+#ifdef WRF_GPU_RESIDENT
+   IF ( run_param .AND. wrf_gpu_cu_pullbl ) THEN
+     IF ( PRESENT(rqvblten) ) THEN
+!$acc update self(rqvblten)
+     ENDIF
+     IF ( PRESENT(rthblten) ) THEN
+!$acc update self(rthblten)
+     ENDIF
+   ENDIF
+#endif
    IF ( run_param ) THEN
 !print *,'calling CU scheme'
    ELSE

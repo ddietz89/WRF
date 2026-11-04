@@ -8,6 +8,8 @@ MODULE module_radiation_driver
 ! residency builds: whether the scheme ran this step (its tendencies are host-written only then; between
 ! calls the GPU owns them - solve_em pushes them only when set)
    LOGICAL :: wrf_gpu_ra_ran = .TRUE.
+! residency builds: effective radii are GPU-written (GPU Thompson) - pull them only on radiation steps
+   LOGICAL :: wrf_gpu_ra_pullre = .FALSE.
 #endif
 CONTAINS
 !BOP
@@ -1143,6 +1145,11 @@ CONTAINS
    END IF
 #ifdef WRF_GPU
    wrf_gpu_ra_ran = run_param
+#endif
+#ifdef WRF_GPU_RESIDENT
+   IF ( run_param .AND. wrf_gpu_ra_pullre ) THEN
+!$acc update self(re_cloud,re_ice,re_snow)
+   ENDIF
 #endif
 
    IF ( mp_physics .EQ. nuwrf4icescheme ) THEN

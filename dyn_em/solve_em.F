@@ -118,8 +118,8 @@ SUBROUTINE solve_em ( grid , config_flags  &
 #ifdef WRF_GPU
    USE module_wrf_error, ONLY : wrf_gpu_on, wrf_gpu_q
 #ifdef WRF_GPU_RESIDENT
-   USE module_radiation_driver, ONLY : wrf_gpu_ra_ran
-   USE module_cumulus_driver, ONLY : wrf_gpu_cu_ran
+   USE module_radiation_driver, ONLY : wrf_gpu_ra_ran, wrf_gpu_ra_pullre
+   USE module_cumulus_driver, ONLY : wrf_gpu_cu_ran, wrf_gpu_cu_pullbl
    USE module_pbl_driver, ONLY : wrf_gpu_bl_ran, wrf_gpu_pbl, wrf_gpu_pbl_ran
 #endif
 #endif
@@ -1075,6 +1075,10 @@ BENCH_START(calc_p_rho_tim)
      ENDDO
    ENDIF
    wrf_gpu_pbl = gpu_prep_dev .AND. IAND( wrf_gpu_xfer(), 1024 ) /= 0
+   wrf_gpu_cu_pullbl = wrf_gpu_pbl
+   ! GPU Thompson (bit 32) writes the effective radii: radiation_driver pulls them on radiation steps only
+   wrf_gpu_ra_pullre = IAND( wrf_gpu_xfer(), 16 ) /= 0 .AND. IAND( wrf_gpu_xfer(), 6 ) == 6 .AND.          &
+                       IAND( wrf_gpu_xfer(), 32 ) /= 0 .AND. config_flags%mp_physics == THOMPSON
 #endif
 #ifdef WRF_GPU_RESIDENT
 #ifdef WRF_SEG_TIMERS
@@ -5643,9 +5647,9 @@ BENCH_END(bc_2d_tim)
 !$acc update self(grid%graupelnc) if(associated(grid%graupelnc))
 !$acc update self(grid%graupelncv) if(associated(grid%graupelncv))
 !$acc update self(grid%sr) if(associated(grid%sr))
-!$acc update self(grid%re_cloud) if(associated(grid%re_cloud))
-!$acc update self(grid%re_ice) if(associated(grid%re_ice))
-!$acc update self(grid%re_snow) if(associated(grid%re_snow))
+!$acc update self(grid%re_cloud) if(associated(grid%re_cloud) .and. .not.wrf_gpu_ra_pullre)
+!$acc update self(grid%re_ice) if(associated(grid%re_ice) .and. .not.wrf_gpu_ra_pullre)
+!$acc update self(grid%re_snow) if(associated(grid%re_snow) .and. .not.wrf_gpu_ra_pullre)
    ENDIF
    ELSE
 #  include "gpu_upd_host_pre_phys.inc"
@@ -6040,6 +6044,11 @@ SUBROUTINE gpu_pull_for_output( grid )
    ENDDO
    IF ( .NOT. any_ring ) RETURN
 #  include "gpu_upd_host_pre_phys.inc"
+   IF ( IAND( wrf_gpu_xfer(), 32 ) /= 0 ) THEN    ! GPU Thompson: effective radii (pulled lazily otherwise)
+!$acc update self(grid%re_cloud) if(associated(grid%re_cloud))
+!$acc update self(grid%re_ice) if(associated(grid%re_ice))
+!$acc update self(grid%re_snow) if(associated(grid%re_snow))
+   ENDIF
    IF ( IAND( wrf_gpu_xfer(), 1024 ) /= 0 ) THEN  ! GPU MYJ PBL: its 3-D state for history/restart
 !$acc update self(grid%tke_pbl) if(associated(grid%tke_pbl))
 !$acc update self(grid%el_pbl) if(associated(grid%el_pbl))
