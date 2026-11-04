@@ -125,6 +125,8 @@ CONTAINS
     ! Check history and auxhist2 alarms to check last ring time and how often
     ! they are set to ring
     ! -----------------------------------------------------------------------
+    ! called once per OpenMP tile: serialize the clock/alarm queries (time manager is not known to be thread-safe)
+    !$OMP CRITICAL (afwa_clock)
     CALL WRFU_ALARMGET( grid%alarms( HISTORY_ALARM ), prevringtime=hist_time, &
          ringinterval=histint)
     CALL WRFU_ALARMGET( grid%alarms( AUXHIST2_ALARM ), prevringtime=aux2_time, &
@@ -135,6 +137,7 @@ CONTAINS
     CALL domain_clock_get ( grid, current_time=CurrTime, &
          simulationStartTime=StartTime, &            
          current_timestr=timestr, time_step=dtint )
+    !$OMP END CRITICAL (afwa_clock)
 
     ! Set some booleans for use later
     ! Following uses an overloaded .lt.
@@ -303,8 +306,8 @@ CONTAINS
 
     ! Time-step precipitation (convective + nonconvective)
     ! --------------------------------------------------------------
-    DO i=ibs, ibe
-      DO j=jbs, jbe
+    DO i= its, ite
+      DO j= jts, jte
         grid % afwa_precip(i,j) = grid%raincv(i,j) + grid%rainncv(i,j)
         grid % afwa_totprecip(i,j) = grid%rainc(i,j) + grid%rainnc(i,j)
       ENDDO
@@ -314,8 +317,8 @@ CONTAINS
     ! ----------------------------
     IF ( F_QV .AND. F_QC ) THEN
       nz=kme-kms+1
-      DO i=ibs, ibe
-        DO j=jbs, jbe
+      DO i= its, ite
+        DO j= jts, jte
           grid % afwa_pwat ( i, j ) = Pwat( nz,                  &
                                             qvapr(i,kms:kme,j),  &
                                             qcloud(i,kms:kme,j), &
@@ -331,8 +334,8 @@ CONTAINS
     ! ----------------------------------------------------------------------
     IF ( is_after_history_dump ) THEN
       IF ( config_flags % afwa_severe_opt == 1 ) THEN
-        DO j = jbs, jbe
-          DO i = ibs, ibe
+        DO j = jts, jte
+          DO i = its, ite
             grid % wspd10max(i,j) = 0.
             grid % afwa_llws(i,j) = 0.
           ENDDO
@@ -351,8 +354,8 @@ CONTAINS
     ! is linear weighted between 50-150 mm/hr precip rates.
     ! -------------------------------------------------------
     IF ( config_flags % afwa_severe_opt == 1 ) THEN
-      DO j = jbs, jbe
-        DO i = ibs, ibe
+      DO j = jts, jte
+        DO i = its, ite
           wind_vel = uv_wind ( grid % u10(i,j) , grid % v10(i,j) )
           prate_mm_per_hr = ( grid % afwa_precip(i,j) / grid % dt ) * 3600.
   
@@ -449,8 +452,8 @@ CONTAINS
       ! later
       ! ----------------------------------------------------------------------
       IF ( is_after_history_dump ) THEN
-        DO j = jbs, jbe
-          DO i = ibs, ibe
+        DO j = jts, jte
+          DO i = its, ite
             grid%w_up_max(i,j) = 0.
             grid%w_dn_max(i,j) = 0.
             grid%tcoli_max(i,j) = 0.
@@ -549,8 +552,8 @@ CONTAINS
       ! First initialize precip buckets
       ! -------------------------------
       IF ( grid % itimestep .eq. 1) THEN
-        DO i=ibs, ibe
-          DO j=jbs, jbe
+        DO i= its, ite
+          DO j= jts, jte
             grid % afwa_rain(i,j)=0.
             grid % afwa_snow(i,j)=0.
             grid % afwa_ice(i,j)=0.
@@ -589,8 +592,8 @@ CONTAINS
 
       ! Calculate mean sea level pressure
       ! ---------------------------------
-      DO j = jbs, jbe
-        DO i = ibs, ibe
+      DO j = jts, jte
+        DO i = its, ite
           grid % afwa_mslp  ( i, j ) =   MSLP ( grid % ht ( i, j )           & 
                                               , grid % psfc ( i, j )         &
                                               , grid % z ( i, kms, j )       & 
