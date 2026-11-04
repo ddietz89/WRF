@@ -6549,8 +6549,8 @@ END FUNCTION wrf_gpu_hostblocks
 
 ! WRF_GPU_XFER (residency): reduced lists - bit 1 H1 pull, 4 H2 pull, 8 H3 pull, 2 pushes, 16 GPU-owned physics
 ! tendencies (needs 2+4), 32 microphysics block on the GPU (Thompson), 64 no pushes of recomputed diffusion fields,
-! 128 H1 reuses the H3 pull (experimental: not bit-identical), 256 GPU-side init_zero_tendency + phy_prep;
-! default 383 (all but 128).
+! 128 H1 reuses the H3-pulled state (alt/p/ph_2 still pulled), 256 GPU-side init_zero_tendency + phy_prep;
+! default 511.
 LOGICAL FUNCTION wrf_gpu_h1chk()
    IMPLICIT NONE
    INTEGER, SAVE :: mode = -1
@@ -6572,9 +6572,9 @@ INTEGER FUNCTION wrf_gpu_xfer()
    INTEGER :: st
    IF ( mode < 0 ) THEN
       CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_XFER', v, STATUS=st )
-      mode = 383
+      mode = 511
       IF ( st == 0 ) READ( v, *, IOSTAT=st ) mode
-      IF ( st /= 0 ) mode = 383
+      IF ( st /= 0 ) mode = 511
    ENDIF
    wrf_gpu_xfer = mode
 END FUNCTION wrf_gpu_xfer
