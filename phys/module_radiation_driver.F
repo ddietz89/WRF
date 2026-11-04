@@ -998,6 +998,8 @@ CONTAINS
 #ifdef WRF_GPU
    INTEGER :: ra_isub, ra_nj, ra_ntask
    LOGICAL :: ra_gpu_fast, lw_gpu_go
+   INTEGER(8) :: ra_c0, ra_c1, ra_cr, ra_w0, ra_w1, ra_w2, ra_w3
+   REAL(8) :: ra_tlw, ra_tsw
    INTEGER, PARAMETER :: RA_NSUB = 4, RA_GPU_BANDS = 6   ! 228 rows = 6 x 38: equal bands (AER device buffers are sized on the first call)
 #endif
    LOGICAL ::    flg_lw, flg_sw
@@ -1725,7 +1727,11 @@ CONTAINS
    ! GPU builds (1 rank x OpenMP tiles): shortwave cost depends on daylight, so whole tiles are unbalanced -
    ! split each tile into RA_NSUB j-bands and schedule them dynamically (columns are independent: same results)
    ! fast RRTMG (ra_*_physics=24) runs its AER GPU path: RA_GPU_BANDS sequential calls (from one host thread)
+#if( BUILD_RRTMG_FAST == 1)
    ra_gpu_fast = lw_physics == RRTMG_LWSCHEME_FAST .OR. sw_physics == RRTMG_SWSCHEME_FAST
+#else
+   ra_gpu_fast = .FALSE.
+#endif
    lw_gpu_go = wrf_gpu_ra_lw .AND. lw_physics == RRTMG_LWSCHEME .AND. calc_clean_atm_diag == 0 .AND.       &
                cldovrlp >= 1 .AND. cldovrlp <= 5 .AND. ( sw_physics == RRTMG_SWSCHEME .OR. sw_physics == 0 )
    IF ( lw_gpu_go ) THEN
@@ -1734,8 +1740,10 @@ CONTAINS
    ENDIF
    ra_ntask = num_tiles*RA_NSUB
    IF ( ra_gpu_fast ) ra_ntask = RA_GPU_BANDS
+   ra_tlw = 0.d0 ; ra_tsw = 0.d0
+   CALL SYSTEM_CLOCK( ra_w0, ra_cr )
    !$OMP PARALLEL DO SCHEDULE(DYNAMIC,1) IF ( .NOT. ra_gpu_fast )   &
-   !$OMP PRIVATE ( ij ,i,j,k,its,ite,jts,jte, ra_isub, ra_nj)
+   !$OMP PRIVATE ( ij ,i,j,k,its,ite,jts,jte, ra_isub, ra_nj, ra_c0, ra_c1)
    DO ra_isub = 1 , ra_ntask
      ij = (ra_isub-1)/RA_NSUB + 1
      IF ( ra_gpu_fast ) THEN
@@ -2106,6 +2114,9 @@ CONTAINS
                               its, ite, jts, jte, kts, kte     )
              ENDIF
 
+#ifdef WRF_GPU
+             CALL SYSTEM_CLOCK( ra_c0 )
+#endif
              CALL RRTMG_LWRAD(                                      &
                   RTHRATENLW=RTHRATEN,                              &
                   RTHRATENLWC=RTHRATENLWC,                          &
@@ -2159,6 +2170,11 @@ CONTAINS
                   LWUPFLX=LWUPFLX,LWUPFLXC=LWUPFLXC,                &
                   LWDNFLX=LWDNFLX,LWDNFLXC=LWDNFLXC,                &
                   mp_physics=mp_physics                             )
+#ifdef WRF_GPU
+             CALL SYSTEM_CLOCK( ra_c1 )
+             !$OMP ATOMIC
+             ra_tlw = ra_tlw + DBLE(ra_c1-ra_c0)/DBLE(ra_cr)
+#endif
 
 
 #if( BUILD_RRTMK == 1)
@@ -2632,6 +2648,9 @@ CONTAINS
                 proceed_cmaq_sw = .false.
              end if
 
+#ifdef WRF_GPU
+             CALL SYSTEM_CLOCK( ra_c0 )
+#endif
              CALL RRTMG_SWRAD(                                         &
                      RTHRATENSW=RTHRATENSW,                            &
                      RTHRATENSWC=RTHRATENSWC,                          &
@@ -2737,6 +2756,11 @@ CONTAINS
                      sw_dirdflux=sw_dirdflux,                           & ! WRF-CMAQ coupled model
                      sw_difdflux=sw_difdflux                            & ! WRF-CMAQ coupled model
                                                                         )
+#ifdef WRF_GPU
+             CALL SYSTEM_CLOCK( ra_c1 )
+             !$OMP ATOMIC
+             ra_tsw = ra_tsw + DBLE(ra_c1-ra_c0)/DBLE(ra_cr)
+#endif
 
              ! = WRF-CMAQ twoway coupled model
              if (proceed_cmaq_sw) then
@@ -3014,10 +3038,13 @@ CONTAINS
    ENDDO
    !$OMP END PARALLEL DO
 #ifdef WRF_GPU
+   CALL SYSTEM_CLOCK( ra_w1 )
+   ra_w2 = ra_w1 ; ra_w3 = ra_w1
    IF ( lw_gpu_go ) THEN
       ! phase 1 left LW = 0 in RTHRATEN/RTHRATENLW (RTHRATEN = SW, RTHRATENSW = SW): add LW in the original order
       lw_gpu_phase = 0
       CALL rrtmg_lw_gpu_run()
+      CALL SYSTEM_CLOCK( ra_w2 )
       !$OMP PARALLEL DO   &
       !$OMP PRIVATE ( ij ,i,j,k,its,ite,jts,jte)
       DO ij = 1 , num_tiles
@@ -3046,7 +3073,12 @@ CONTAINS
         ENDDO
       ENDDO
       !$OMP END PARALLEL DO
+      CALL SYSTEM_CLOCK( ra_w3 )
    ENDIF
+   WRITE( wrf_err_message, '(A,F8.3,A,F8.3,A,F8.3,A,F8.3,A,F8.3)' ) 'RATIME loop ', DBLE(ra_w1-ra_w0)/DBLE(ra_cr), &
+        ' lw_cpu_sum ', ra_tlw, ' sw_cpu_sum ', ra_tsw, ' gpu_lw ', DBLE(ra_w2-ra_w1)/DBLE(ra_cr),               &
+        ' post ', DBLE(ra_w3-ra_w2)/DBLE(ra_cr)
+   CALL wrf_message( wrf_err_message )
 #endif
 
    IF ( associated(tauaer_sw) ) deallocate(tauaer_sw)
