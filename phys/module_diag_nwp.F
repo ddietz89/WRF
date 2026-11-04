@@ -257,8 +257,8 @@ CONTAINS
      WRITE(outstring,*) 'NSSL Diagnostics: Resetting max arrays for domain with dt = ', dt
      CALL wrf_debug ( 10,TRIM(outstring) )
 
-!  !$OMP PARALLEL DO   &
-!  !$OMP PRIVATE ( ij )
+!$OMP PARALLEL DO   &
+!$OMP PRIVATE ( ij, i, j )
      DO ij = 1 , num_tiles
        DO j=j_start(ij),j_end(ij)
        DO i=i_start(ij),i_end(ij)
@@ -274,12 +274,12 @@ CONTAINS
        ENDDO
        ENDDO
      ENDDO
-!  !$OMP END PARALLEL DO
+!$OMP END PARALLEL DO
      reset_arrays = .FALSE.
    ENDIF
 
-!  !$OMP PARALLEL DO   &
-!  !$OMP PRIVATE ( ij )
+!$OMP PARALLEL DO   &
+!$OMP PRIVATE ( ij, i, j )
    DO ij = 1 , num_tiles
      DO j=j_start(ij),j_end(ij)
      DO i=i_start(ij),i_end(ij)
@@ -292,10 +292,10 @@ CONTAINS
      ENDDO
      ENDDO
    ENDDO
-!  !$OMP END PARALLEL DO
+!$OMP END PARALLEL DO
 
-!  !$OMP PARALLEL DO   &
-!  !$OMP PRIVATE ( ij )
+!$OMP PARALLEL DO   &
+!$OMP PRIVATE ( ij, i, j, k )
    DO ij = 1 , num_tiles
      DO j=j_start(ij),j_end(ij)
      DO k=kms,kme
@@ -322,10 +322,10 @@ CONTAINS
      ENDDO
      ENDDO
    ENDDO
-!  !$OMP END PARALLEL DO
+!$OMP END PARALLEL DO
 
-!  !$OMP PARALLEL DO   &
-!  !$OMP PRIVATE ( ij )
+!$OMP PARALLEL DO   &
+!$OMP PRIVATE ( ij, depth, i, j, k )
    DO ij = 1 , num_tiles
      DO j=j_start(ij),j_end(ij)
      DO k=kms,kme-1
@@ -340,10 +340,10 @@ CONTAINS
      ENDDO
      ENDDO
    ENDDO
-!  !$OMP END PARALLEL DO
+!$OMP END PARALLEL DO
 
-!  !$OMP PARALLEL DO   &
-!  !$OMP PRIVATE ( ij )
+!$OMP PARALLEL DO   &
+!$OMP PRIVATE ( ij, i, j, wind_vel )
    DO ij = 1 , num_tiles
      DO j=j_start(ij),j_end(ij)
      DO i=i_start(ij),i_end(ij)
@@ -377,7 +377,7 @@ CONTAINS
      ENDDO
      ENDDO
    ENDDO
-!  !$OMP END PARALLEL DO
+!$OMP END PARALLEL DO
 
 !+---+-----------------------------------------------------------------+ 
 !+---+-----------------------------------------------------------------+ 
@@ -396,8 +396,8 @@ CONTAINS
    IF (PRESENT(qh_curr)) THEN
    WRITE(outstring,*) 'GT-Debug, this mp scheme, ', mphysics_opt, ' has hail mixing ratio'
    CALL wrf_debug (150, TRIM(outstring))
-!  !$OMP PARALLEL DO   &
-!  !$OMP PRIVATE ( ij )
+!$OMP PARALLEL DO   &
+!$OMP PRIVATE ( ij, i, j, k )
    DO ij = 1 , num_tiles
      DO j=j_start(ij),j_end(ij)
      DO k=kms,kme-1
@@ -407,10 +407,10 @@ CONTAINS
      ENDDO
      ENDDO
    ENDDO
-!  !$OMP END PARALLEL DO
+!$OMP END PARALLEL DO
    ELSE
-!  !$OMP PARALLEL DO   &
-!  !$OMP PRIVATE ( ij )
+!$OMP PARALLEL DO   &
+!$OMP PRIVATE ( ij, i, j, k )
    DO ij = 1 , num_tiles
      DO j=j_start(ij),j_end(ij)
      DO k=kms,kme-1
@@ -420,14 +420,14 @@ CONTAINS
      ENDDO
      ENDDO
    ENDDO
-!  !$OMP END PARALLEL DO
+!$OMP END PARALLEL DO
    ENDIF
 
    IF (PRESENT(nh_curr)) THEN
    WRITE(outstring,*) 'GT-Debug, this mp scheme, ', mphysics_opt, ' has hail number concentration'
    CALL wrf_debug (150, TRIM(outstring))
-!  !$OMP PARALLEL DO   &
-!  !$OMP PRIVATE ( ij )
+!$OMP PARALLEL DO   &
+!$OMP PRIVATE ( ij, i, j, k )
    DO ij = 1 , num_tiles
      DO j=j_start(ij),j_end(ij)
      DO k=kms,kme-1
@@ -437,11 +437,11 @@ CONTAINS
      ENDDO
      ENDDO
    ENDDO
-!  !$OMP END PARALLEL DO
+!$OMP END PARALLEL DO
    ELSEIF (PRESENT(ng_curr)) THEN
    WRITE(outstring,*) 'GT-Debug, this mp scheme, ', mphysics_opt, ' has graupel number concentration'
-!  !$OMP PARALLEL DO   &
-!  !$OMP PRIVATE ( ij )
+!$OMP PARALLEL DO   &
+!$OMP PRIVATE ( ij, i, j, k )
    DO ij = 1 , num_tiles
      DO j=j_start(ij),j_end(ij)
      DO k=kms,kme-1
@@ -451,10 +451,10 @@ CONTAINS
      ENDDO
      ENDDO
    ENDDO
-!  !$OMP END PARALLEL DO
+!$OMP END PARALLEL DO
    ELSE
-!  !$OMP PARALLEL DO   &
-!  !$OMP PRIVATE ( ij )
+!$OMP PARALLEL DO   &
+!$OMP PRIVATE ( ij, i, j, k )
    DO ij = 1 , num_tiles
      DO j=j_start(ij),j_end(ij)
      DO k=kms,kme-1
@@ -464,14 +464,14 @@ CONTAINS
      ENDDO
      ENDDO
    ENDDO
-!  !$OMP END PARALLEL DO
+!$OMP END PARALLEL DO
    ENDIF
 
    IF (PRESENT(qvolg_curr)) THEN
    WRITE(outstring,*) 'GT-Debug, this mp scheme, ', mphysics_opt, ' has graupel volume mixing ratio'
    CALL wrf_debug (150, TRIM(outstring))
-!  !$OMP PARALLEL DO   &
-!  !$OMP PRIVATE ( ij )
+!$OMP PARALLEL DO   &
+!$OMP PRIVATE ( ij, i, j, k )
    DO ij = 1 , num_tiles
      DO j=j_start(ij),j_end(ij)
      DO k=kms,kme-1
@@ -482,10 +482,10 @@ CONTAINS
      ENDDO
      ENDDO
    ENDDO
-!  !$OMP END PARALLEL DO
+!$OMP END PARALLEL DO
    ELSE
-!  !$OMP PARALLEL DO   &
-!  !$OMP PRIVATE ( ij )
+!$OMP PARALLEL DO   &
+!$OMP PRIVATE ( ij, i, j, k )
    DO ij = 1 , num_tiles
      DO j=j_start(ij),j_end(ij)
      DO k=kms,kme-1
@@ -496,7 +496,7 @@ CONTAINS
      ENDDO
      ENDDO
    ENDDO
-!  !$OMP END PARALLEL DO
+!$OMP END PARALLEL DO
    ENDIF
 
 
@@ -531,8 +531,8 @@ CONTAINS
        xrho_g = 917.
        xam_g = 3.1415926536/6.0*xrho_g
        N0exp = 4.e4
-!      !$OMP PARALLEL DO   &
-!      !$OMP PRIVATE ( ij )
+!$OMP PARALLEL DO   &
+!$OMP PRIVATE ( ij, i, j, k, lam_exp )
        DO ij = 1 , num_tiles
          DO j=j_start(ij),j_end(ij)
          DO k=kme-1, kms, -1
@@ -544,7 +544,7 @@ CONTAINS
          ENDDO
          ENDDO
        ENDDO
-!      !$OMP END PARALLEL DO
+!$OMP END PARALLEL DO
 
      CASE (WSM3SCHEME)
 !      nothing to do here
@@ -557,8 +557,8 @@ CONTAINS
        xrho_g = 500.
        xam_g = 3.1415926536/6.0*xrho_g
        N0exp = 4.e6
-!      !$OMP PARALLEL DO   &
-!      !$OMP PRIVATE ( ij )
+!$OMP PARALLEL DO   &
+!$OMP PRIVATE ( ij, i, j, k, lam_exp )
        DO ij = 1 , num_tiles
          DO j=j_start(ij),j_end(ij)
          DO k=kme-1, kms, -1
@@ -570,7 +570,7 @@ CONTAINS
          ENDDO
          ENDDO
        ENDDO
-!      !$OMP END PARALLEL DO
+!$OMP END PARALLEL DO
 
      CASE (WDM5SCHEME)
 !      nothing to do here
@@ -584,8 +584,8 @@ CONTAINS
          N0exp = 4.e4
        endif
        xam_g = 3.1415926536/6.0*xrho_g
-!      !$OMP PARALLEL DO   &
-!      !$OMP PRIVATE ( ij )
+!$OMP PARALLEL DO   &
+!$OMP PRIVATE ( ij, i, j, k, lam_exp )
        DO ij = 1 , num_tiles
          DO j=j_start(ij),j_end(ij)
          DO k=kme-1, kms, -1
@@ -597,7 +597,7 @@ CONTAINS
          ENDDO
          ENDDO
        ENDDO
-!      !$OMP END PARALLEL DO
+!$OMP END PARALLEL DO
 
      CASE (GSFCGCESCHEME)
       if (gsfcgce_2ice.eq.0 .OR. gsfcgce_2ice.eq.2) then
@@ -609,8 +609,8 @@ CONTAINS
        endif
        xam_g = 3.1415926536/6.0*xrho_g
        N0exp = 4.e4
-!      !$OMP PARALLEL DO   &
-!      !$OMP PRIVATE ( ij )
+!$OMP PARALLEL DO   &
+!$OMP PRIVATE ( ij, i, j, k, lam_exp )
        DO ij = 1 , num_tiles
          DO j=j_start(ij),j_end(ij)
          DO k=kme-1, kms, -1
@@ -622,7 +622,7 @@ CONTAINS
          ENDDO
          ENDDO
        ENDDO
-!      !$OMP END PARALLEL DO
+!$OMP END PARALLEL DO
       endif
 
      CASE (SBU_YLINSCHEME)
@@ -645,8 +645,8 @@ CONTAINS
        enddo
 
       if (.not.(PRESENT(ng_curr))) then
-!  !$OMP PARALLEL DO   &
-!  !$OMP PRIVATE ( ij )
+!$OMP PARALLEL DO   &
+!$OMP PRIVATE ( ij, i, j, k )
       DO ij = 1 , num_tiles
        DO j=j_start(ij),j_end(ij)
        DO k=kms,kme-1
@@ -657,10 +657,10 @@ CONTAINS
        ENDDO
        ENDDO
       ENDDO
-!  !$OMP END PARALLEL DO
+!$OMP END PARALLEL DO
 
-!  !$OMP PARALLEL DO   &
-!  !$OMP PRIVATE ( ij )
+!$OMP PARALLEL DO   &
+!$OMP PRIVATE ( ij, i, j, k, lam_exp, lamg, n0_g, n0exp, ygra1, zans1 )
       DO ij = 1 , num_tiles
        DO j=j_start(ij),j_end(ij)
        DO i=i_start(ij),i_end(ij)
@@ -677,7 +677,7 @@ CONTAINS
        ENDDO
        ENDDO
       ENDDO
-!  !$OMP END PARALLEL DO
+!$OMP END PARALLEL DO
 
       endif
 
@@ -686,8 +686,8 @@ CONTAINS
 
        scheme_has_graupel = .true.
 
-!  !$OMP PARALLEL DO   &
-!  !$OMP PRIVATE ( ij )
+!$OMP PARALLEL DO   &
+!$OMP PRIVATE ( ij, i, j, k )
       DO ij = 1 , num_tiles
        DO j=j_start(ij),j_end(ij)
         DO k=kme-1, kms, -1
@@ -698,7 +698,7 @@ CONTAINS
        ENDDO
        ENDDO
       ENDDO
-!  !$OMP END PARALLEL DO
+!$OMP END PARALLEL DO
 
 
 !    CASE (MORR_MILB_P3)
@@ -758,8 +758,8 @@ CONTAINS
 
 !       if (.NOT.(PRESENT(nh_curr).OR.PRESENT(ng_curr)) ) then
        if ( config_flags%nssl_2moment_on == 0 ) then ! single-moment
-!      !$OMP PARALLEL DO   &
-!      !$OMP PRIVATE ( ij )
+!$OMP PARALLEL DO   &
+!$OMP PRIVATE ( ij, i, j, k, lam_exp )
        DO ij = 1 , num_tiles
          DO j=j_start(ij),j_end(ij)
          DO k=kme-1, kms, -1
@@ -771,7 +771,7 @@ CONTAINS
          ENDDO
          ENDDO
        ENDDO
-!      !$OMP END PARALLEL DO
+!$OMP END PARALLEL DO
        endif
 
 !    CASE (NSSL_3MOM)
@@ -808,8 +808,8 @@ CONTAINS
       enddo
 
 
-!  !$OMP PARALLEL DO   &
-!  !$OMP PRIVATE ( ij )
+!$OMP PARALLEL DO   &
+!$OMP PRIVATE ( ij, f_d, hail_max, hail_max_sp, i, j, k, lamg, n0_g, ng, sum_ng, sum_t, xxam_g )
       DO ij = 1 , num_tiles
         DO j=j_start(ij),j_end(ij)
         DO k=kms,kme-1
@@ -854,7 +854,7 @@ CONTAINS
         ENDDO
         ENDDO
       ENDDO
-!  !$OMP END PARALLEL DO
+!$OMP END PARALLEL DO
 
    endif
 
