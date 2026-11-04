@@ -6562,7 +6562,7 @@ END FUNCTION wrf_gpu_hostblocks
 ! WRF_GPU_XFER (residency): reduced lists - bit 1 H1 pull, 4 H2 pull, 8 H3 pull, 2 pushes, 16 GPU-owned physics
 ! tendencies (needs 2+4), 32 microphysics block on the GPU (Thompson), 64 no pushes of recomputed diffusion fields,
 ! 128 H1 reuses the H3-pulled state (alt/p/ph_2 still pulled), 256 GPU-side init_zero_tendency + phy_prep,
-! 1024 MYJ PBL on the GPU (needs 256); default 511.
+! 1024 MYJ PBL on the GPU (needs 256); default 1535.
 LOGICAL FUNCTION wrf_gpu_async_mode()
    ! WRF_GPU_ASYNC (residency builds): 1 = GPU compute constructs on async queue 1 (default; waits at routine exit and before sync directives), 0 = synchronous
    IMPLICIT NONE
@@ -6597,9 +6597,9 @@ INTEGER FUNCTION wrf_gpu_xfer()
    INTEGER :: st
    IF ( mode < 0 ) THEN
       CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_XFER', v, STATUS=st )
-      mode = 511
+      mode = 1535
       IF ( st == 0 ) READ( v, *, IOSTAT=st ) mode
-      IF ( st /= 0 ) mode = 511
+      IF ( st /= 0 ) mode = 1535
    ENDIF
    wrf_gpu_xfer = mode
 END FUNCTION wrf_gpu_xfer
