@@ -1098,7 +1098,9 @@ BENCH_START(calc_p_rho_tim)
      IF ( ASSOCIATED(grid%scalar) ) h1ck(1,10) = SUM( DBLE(grid%scalar) )
    ENDIF
    gpu_h1_reuse = IAND( wrf_gpu_xfer(), 128 ) /= 0 .AND. gpu_h3_done
-   IF ( IAND( wrf_gpu_xfer(), 1 ) /= 0 ) THEN
+   IF ( IAND( wrf_gpu_xfer(), 1 ) /= 0 .AND. IAND( wrf_gpu_xfer(), 2048 ) /= 0 ) THEN
+#  include "gpu_stage_host_h1.inc"
+   ELSE IF ( IAND( wrf_gpu_xfer(), 1 ) /= 0 ) THEN
 #  include "gpu_upd_host_h1.inc"
    ELSE
 #  include "gpu_upd_host_pre_phys.inc"
@@ -5636,7 +5638,10 @@ BENCH_END(bc_2d_tim)
 #ifdef WRF_SEG_TIMERS
    CALL seg_enter( 5 )
 #endif
-   IF ( IAND( wrf_gpu_xfer(), 8 ) /= 0 ) THEN
+   IF ( IAND( wrf_gpu_xfer(), 8 ) /= 0 .AND. IAND( wrf_gpu_xfer(), 2048 ) /= 0 ) THEN
+#  include "gpu_stage_host_h3.inc"
+   gpu_h3_done = .TRUE.
+   ELSE IF ( IAND( wrf_gpu_xfer(), 8 ) /= 0 ) THEN
 #  include "gpu_upd_host_h3.inc"
    gpu_h3_done = .TRUE.
    IF ( gpu_mp_dev ) THEN   ! microphysics ran on the GPU: outputs the host reads (H3 diagnostics, next H1 physics)
@@ -6572,6 +6577,97 @@ END FUNCTION wrf_gpu_hostblocks
 ! tendencies (needs 2+4), 32 microphysics block on the GPU (Thompson), 64 no pushes of recomputed diffusion fields,
 ! 128 H1 reuses the H3-pulled state (alt/p/ph_2 still pulled), 256 GPU-side init_zero_tendency + phy_prep,
 ! 1024 MYJ PBL on the GPU (needs 256); default 1535.
+! WRF_GPU_XFER bit 2048 (residency): device->host copy of one array through two pinned staging buffers
+! (cuMemAllocHost), double-buffered on async queues 11/12, with an OpenMP host copy out of the staging buffer.
+! Pageable update self runs at ~4.4 GB/s on the V100 rentals; pinned DMA ~11-12 GB/s. Falls back to update self.
+SUBROUTINE gpu_stage_pull( a, n )
+   USE openacc
+   USE ISO_C_BINDING
+   IMPLICIT NONE
+   INTEGER, INTENT(IN) :: n
+   REAL, TARGET :: a(n)
+   INTEGER, PARAMETER :: NCH = 2*1024*1024          ! reals per chunk (8 MB)
+   TYPE(C_PTR), SAVE :: stage(2) = C_NULL_PTR
+   LOGICAL, SAVE :: tried = .FALSE., ok = .FALSE.
+   INTERFACE
+      TYPE(C_PTR) FUNCTION dlopen( name, flags ) BIND(C, NAME='dlopen')
+         IMPORT :: C_PTR, C_CHAR, C_INT
+         CHARACTER(KIND=C_CHAR), DIMENSION(*) :: name
+         INTEGER(C_INT), VALUE :: flags
+      END FUNCTION dlopen
+      TYPE(C_FUNPTR) FUNCTION dlsym( h, name ) BIND(C, NAME='dlsym')
+         IMPORT :: C_PTR, C_FUNPTR, C_CHAR
+         TYPE(C_PTR), VALUE :: h
+         CHARACTER(KIND=C_CHAR), DIMENSION(*) :: name
+      END FUNCTION dlsym
+   END INTERFACE
+   ABSTRACT INTERFACE
+      INTEGER(C_INT) FUNCTION alloch_t( pp, nbytes ) BIND(C)
+         IMPORT :: C_PTR, C_INT, C_SIZE_T
+         TYPE(C_PTR) :: pp
+         INTEGER(C_SIZE_T), VALUE :: nbytes
+      END FUNCTION alloch_t
+   END INTERFACE
+   PROCEDURE(alloch_t), POINTER :: cu_alloch
+   TYPE(C_PTR) :: h, dp, dpc
+   REAL, POINTER :: st1(:), st2(:)
+   INTEGER :: nc, c, b, off, len, i
+   INTEGER(C_INT) :: rc
+   INTEGER(8) :: dpi
+   IF ( .NOT. tried ) THEN
+      tried = .TRUE. ; cu_alloch => NULL()
+      h = dlopen( 'libcuda.so.1'//C_NULL_CHAR, 2 )
+      IF ( C_ASSOCIATED(h) ) CALL C_F_PROCPOINTER( dlsym( h, 'cuMemAllocHost_v2'//C_NULL_CHAR ), cu_alloch )
+      IF ( ASSOCIATED(cu_alloch) ) THEN
+         rc = cu_alloch( stage(1), INT(NCH,C_SIZE_T)*4_C_SIZE_T )
+         IF ( rc == 0 ) rc = cu_alloch( stage(2), INT(NCH,C_SIZE_T)*4_C_SIZE_T )
+         ok = ( rc == 0 )
+      ENDIF
+      IF ( .NOT. ok ) CALL wrf_message( 'gpu_stage_pull: no pinned staging buffers - using update self' )
+   ENDIF
+!$acc wait
+   IF ( .NOT. ok ) THEN
+!$acc update self(a)
+      RETURN
+   ENDIF
+   CALL C_F_POINTER( stage(1), st1, (/ NCH /) )
+   CALL C_F_POINTER( stage(2), st2, (/ NCH /) )
+   dp = acc_deviceptr( a )
+   dpi = TRANSFER( dp, dpi )
+   nc = ( n + NCH - 1 ) / NCH
+   len = MIN( NCH, n )
+   CALL acc_memcpy_from_device_async( st1, TRANSFER( dpi, dp ), INT(len,8)*4, 11 )
+   b = 1
+   DO c = 1, nc
+      off = (c-1)*NCH
+      len = MIN( NCH, n - off )
+      IF ( c < nc ) THEN
+         dpc = TRANSFER( dpi + INT(off+len,8)*4, dp )
+         IF ( b == 1 ) THEN
+            CALL acc_memcpy_from_device_async( st2, dpc, INT(MIN(NCH, n-off-len),8)*4, 12 )
+         ELSE
+            CALL acc_memcpy_from_device_async( st1, dpc, INT(MIN(NCH, n-off-len),8)*4, 11 )
+         ENDIF
+      ENDIF
+      IF ( b == 1 ) THEN
+         CALL acc_wait( 11 )
+!$OMP PARALLEL DO
+         DO i = 1, len
+            a(off+i) = st1(i)
+         ENDDO
+!$OMP END PARALLEL DO
+      ELSE
+         CALL acc_wait( 12 )
+!$OMP PARALLEL DO
+         DO i = 1, len
+            a(off+i) = st2(i)
+         ENDDO
+!$OMP END PARALLEL DO
+      ENDIF
+      b = 3 - b
+   ENDDO
+END SUBROUTINE gpu_stage_pull
+
 LOGICAL FUNCTION wrf_gpu_async_mode()
    ! WRF_GPU_ASYNC (residency builds): 1 = GPU compute constructs on async queue 1 (default; waits at routine exit and before sync directives), 0 = synchronous
    IMPLICIT NONE
