@@ -6390,14 +6390,21 @@ SUBROUTINE gpu_retile( grid, to_phys, ids, ide, jds, jde, ips, ipe, jps, jpe )
    LOGICAL, INTENT(IN) :: to_phys
    INTEGER, INTENT(IN) :: ids, ide, jds, jde, ips, ipe, jps, jpe
    INTEGER, PARAMETER :: ZONE_GPU_PHYS = 19
-   INTEGER, SAVE :: ntp = -1
-   INTEGER :: st, nsave, spec_save, nx_save, ny_save
+   INTEGER, SAVE :: ntp = -1, ntx = 0, nty = 0
+   INTEGER :: st, nsave, spec_save, nx_save, ny_save, nxs, nys
    CHARACTER(LEN=8) :: v
    IF ( ntp < 0 ) THEN
       CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_PHYS_TILES', v, STATUS=st )
       ntp = 0
       IF ( st == 0 ) READ( v, *, IOSTAT=st ) ntp
       IF ( st /= 0 ) ntp = 0
+      ! optional 2-D physics tiling (WRF_GPU_PHYS_TILES_X x WRF_GPU_PHYS_TILES_Y), e.g. 4x4 instead of 16 j-strips
+      CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_PHYS_TILES_X', v, STATUS=st )
+      IF ( st == 0 ) READ( v, *, IOSTAT=st ) ntx
+      IF ( st /= 0 ) ntx = 0
+      CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_PHYS_TILES_Y', v, STATUS=st )
+      IF ( st == 0 ) READ( v, *, IOSTAT=st ) nty
+      IF ( st /= 0 ) nty = 0
    ENDIF
    IF ( ntp <= 1 ) RETURN
    IF ( to_phys ) THEN
@@ -6407,9 +6414,14 @@ SUBROUTINE gpu_retile( grid, to_phys, ids, ide, jds, jde, ips, ipe, jps, jpe )
          spec_save = grid%num_tiles_spec ; nx_save = grid%num_tiles_x ; ny_save = grid%num_tiles_y
          grid%num_tiles_spec = 0
          CALL nl_get_numtiles( 1, nsave )
+         CALL nl_get_numtiles_x( 1, nxs ) ; CALL nl_get_numtiles_y( 1, nys )
          CALL nl_set_numtiles( 1, ntp )
+         IF ( ntx > 0 .AND. nty > 0 ) THEN
+            CALL nl_set_numtiles_x( 1, ntx ) ; CALL nl_set_numtiles_y( 1, nty )
+         ENDIF
          CALL set_tiles( ZONE_GPU_PHYS, grid, ids, ide, jds, jde, ips, ipe, jps, jpe )
          CALL nl_set_numtiles( 1, nsave )
+         CALL nl_set_numtiles_x( 1, nxs ) ; CALL nl_set_numtiles_y( 1, nys )
          grid%num_tiles_spec = spec_save ; grid%num_tiles_x = nx_save ; grid%num_tiles_y = ny_save
          CALL set_tiles( ZONE_GPU_PHYS, grid, ids, ide, jds, jde, ips, ipe, jps, jpe )
       ELSE
