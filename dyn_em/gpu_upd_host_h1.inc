@@ -1,10 +1,12 @@
+! (bit 128: alt/p/ph_2 always pulled - rk_step_prep / rk_phys_bc_dry_1 / set_physical_bc3d update them on the GPU
+!  after the previous H3 pull (WRF_GPU_H1CHK); the other state arrays are unchanged since H3)
 ! read set of H1 (first_rk_step_part1 physics) (grep of grid% references, 2026-11-04); full GPU-written list: gpu_upd_host_pre_phys.inc
-!$acc update self(grid%alt) if(associated(grid%alt) .and. .not.gpu_h1_reuse)
+!$acc update self(grid%alt) if(associated(grid%alt))
 !$acc update self(grid%mut) if(associated(grid%mut))
 !$acc update self(grid%muu) if(associated(grid%muu))
 !$acc update self(grid%muv) if(associated(grid%muv))
-!$acc update self(grid%p) if(associated(grid%p) .and. .not.gpu_h1_reuse)
-!$acc update self(grid%ph_2) if(associated(grid%ph_2) .and. .not.gpu_h1_reuse)
+!$acc update self(grid%p) if(associated(grid%p))
+!$acc update self(grid%ph_2) if(associated(grid%ph_2))
 !$acc update self(grid%rho) if(associated(grid%rho) .and. .not.gpu_h1_reuse)
 !$acc update self(grid%rqvften) if(associated(grid%rqvften))
 !$acc update self(grid%t_2) if(associated(grid%t_2) .and. .not.gpu_h1_reuse)

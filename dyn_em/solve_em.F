@@ -241,8 +241,8 @@ SUBROUTINE solve_em ( grid , config_flags  &
    LOGICAL :: gpu_mp_dev = .FALSE.
    ! bit 64: skip H1 pushes of the diffusion fields part2 recomputes on the GPU before reading them (diff_opt>=1:
    ! compute_diff_metrics z/rdz/rdzw/zx/zy, cal_deform_and_div div/defor*, calculate_km_kh xk*/bn2)
-   ! bit 128: H1 does not re-pull state the previous step's H3 pulled (unchanged on the GPU in between:
-   ! only rk_step_prep, physical-bc setters and halos run there); mu*/rqvften are still pulled
+   ! bit 128: H1 does not re-pull the state the previous step's H3 pulled and the GPU has not changed since
+   ! (u/v/w/t_2, rho, moist, scalar); alt/p/ph_2 (rk_step_prep, boundary setters) and mu*/rqvften still pulled
    LOGICAL :: gpu_skip_diff = .FALSE., gpu_h1_reuse = .FALSE.
    LOGICAL, SAVE :: gpu_h3_done = .FALSE.
    ! bit 256: after host part1, the GPU re-runs init_zero_tendency + phy_prep itself (both GPU-ported) instead of
