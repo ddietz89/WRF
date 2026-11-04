@@ -1124,6 +1124,75 @@ BENCH_START(calc_p_rho_tim)
 #endif
 
 BENCH_START(rk_tend_tim)
+#ifdef WRF_GPU
+   IF ( grid%itimestep <= 1 .AND. rk_step == 1 ) THEN
+      CALL gpu_ckv( grid, 'ru_tendf', 3, ru_tendf, ims, ime, kms, kme, jms, jme, ips, ipe, kps, kpe, jps, jpe )
+      CALL gpu_ckv( grid, 'rv_tendf', 3, rv_tendf, ims, ime, kms, kme, jms, jme, ips, ipe, kps, kpe, jps, jpe )
+      CALL gpu_ckv( grid, 'rw_tendf', 3, rw_tendf, ims, ime, kms, kme, jms, jme, ips, ipe, kps, kpe, jps, jpe )
+      CALL gpu_ckv( grid, 'ph_tendf', 3, ph_tendf, ims, ime, kms, kme, jms, jme, ips, ipe, kps, kpe, jps, jpe )
+      CALL gpu_ckv( grid, 't_tendf', 3, t_tendf, ims, ime, kms, kme, jms, jme, ips, ipe, kps, kpe, jps, jpe )
+      CALL gpu_ckv( grid, 'u_save', 3, grid%u_save, ims, ime, kms, kme, jms, jme, ips, ipe, kps, kpe, jps, jpe )
+      CALL gpu_ckv( grid, 'v_save', 3, grid%v_save, ims, ime, kms, kme, jms, jme, ips, ipe, kps, kpe, jps, jpe )
+      CALL gpu_ckv( grid, 'w_save', 3, w_save, ims, ime, kms, kme, jms, jme, ips, ipe, kps, kpe, jps, jpe )
+      CALL gpu_ckv( grid, 'ph_save', 3, ph_save, ims, ime, kms, kme, jms, jme, ips, ipe, kps, kpe, jps, jpe )
+      CALL gpu_ckv( grid, 't_save', 3, grid%t_save, ims, ime, kms, kme, jms, jme, ips, ipe, kps, kpe, jps, jpe )
+      CALL gpu_ckv( grid, 'rthften', 3, grid%rthften, ims, ime, kms, kme, jms, jme, ips, ipe, kps, kpe, jps, jpe )
+      CALL gpu_ckv( grid, 'ru', 3, grid%ru, ims, ime, kms, kme, jms, jme, ips, ipe, kps, kpe, jps, jpe )
+      CALL gpu_ckv( grid, 'rv', 3, grid%rv, ims, ime, kms, kme, jms, jme, ips, ipe, kps, kpe, jps, jpe )
+      CALL gpu_ckv( grid, 'rw', 3, grid%rw, ims, ime, kms, kme, jms, jme, ips, ipe, kps, kpe, jps, jpe )
+      CALL gpu_ckv( grid, 'ww', 3, grid%ww, ims, ime, kms, kme, jms, jme, ips, ipe, kps, kpe, jps, jpe )
+      CALL gpu_ckv( grid, 'wwE', 3, wwE, ims, ime, kms, kme, jms, jme, ips, ipe, kps, kpe, jps, jpe )
+      CALL gpu_ckv( grid, 'wwI', 3, wwI, ims, ime, kms, kme, jms, jme, ips, ipe, kps, kpe, jps, jpe )
+      CALL gpu_ckv( grid, 'u_1', 3, grid%u_1, ims, ime, kms, kme, jms, jme, ips, ipe, kps, kpe, jps, jpe )
+      CALL gpu_ckv( grid, 'v_1', 3, grid%v_1, ims, ime, kms, kme, jms, jme, ips, ipe, kps, kpe, jps, jpe )
+      CALL gpu_ckv( grid, 'w_1', 3, grid%w_1, ims, ime, kms, kme, jms, jme, ips, ipe, kps, kpe, jps, jpe )
+      CALL gpu_ckv( grid, 't_1', 3, grid%t_1, ims, ime, kms, kme, jms, jme, ips, ipe, kps, kpe, jps, jpe )
+      CALL gpu_ckv( grid, 'ph_1', 3, grid%ph_1, ims, ime, kms, kme, jms, jme, ips, ipe, kps, kpe, jps, jpe )
+      CALL gpu_ckv( grid, 'h_diabatic', 3, grid%h_diabatic, ims, ime, kms, kme, jms, jme, ips, ipe, kps, kpe, jps, jpe )
+      CALL gpu_ckv( grid, 'phb', 3, grid%phb, ims, ime, kms, kme, jms, jme, ips, ipe, kps, kpe, jps, jpe )
+      CALL gpu_ckv( grid, 't_init', 3, grid%t_init, ims, ime, kms, kme, jms, jme, ips, ipe, kps, kpe, jps, jpe )
+      CALL gpu_ckv( grid, 'al', 3, grid%al, ims, ime, kms, kme, jms, jme, ips, ipe, kps, kpe, jps, jpe )
+      CALL gpu_ckv( grid, 'alt', 3, grid%alt, ims, ime, kms, kme, jms, jme, ips, ipe, kps, kpe, jps, jpe )
+      CALL gpu_ckv( grid, 'pb', 3, grid%pb, ims, ime, kms, kme, jms, jme, ips, ipe, kps, kpe, jps, jpe )
+      CALL gpu_ckv( grid, 'php', 3, grid%php, ims, ime, kms, kme, jms, jme, ips, ipe, kps, kpe, jps, jpe )
+      CALL gpu_ckv( grid, 'cqu', 3, cqu, ims, ime, kms, kme, jms, jme, ips, ipe, kps, kpe, jps, jpe )
+      CALL gpu_ckv( grid, 'cqv', 3, cqv, ims, ime, kms, kme, jms, jme, ips, ipe, kps, kpe, jps, jpe )
+      CALL gpu_ckv( grid, 'cqw', 3, cqw, ims, ime, kms, kme, jms, jme, ips, ipe, kps, kpe, jps, jpe )
+      CALL gpu_ckv( grid, 'xkmh', 3, grid%xkmh, ims, ime, kms, kme, jms, jme, ips, ipe, kps, kpe, jps, jpe )
+      CALL gpu_ckv( grid, 'xkhh', 3, grid%xkhh, ims, ime, kms, kme, jms, jme, ips, ipe, kps, kpe, jps, jpe )
+      CALL gpu_ckv( grid, 'mu_save', 2, mu_save, ims, ime, 1, 1, jms, jme, ips, ipe, 1, 1, jps, jpe )
+      CALL gpu_ckv( grid, 'mu_1', 2, grid%mu_1, ims, ime, 1, 1, jms, jme, ips, ipe, 1, 1, jps, jpe )
+      CALL gpu_ckv( grid, 'mut', 2, grid%mut, ims, ime, 1, 1, jms, jme, ips, ipe, 1, 1, jps, jpe )
+      CALL gpu_ckv( grid, 'muu', 2, grid%muu, ims, ime, 1, 1, jms, jme, ips, ipe, 1, 1, jps, jpe )
+      CALL gpu_ckv( grid, 'muv', 2, grid%muv, ims, ime, 1, 1, jms, jme, ips, ipe, 1, 1, jps, jpe )
+      CALL gpu_ckv( grid, 'mub', 2, grid%mub, ims, ime, 1, 1, jms, jme, ips, ipe, 1, 1, jps, jpe )
+      CALL gpu_ckv( grid, 'ht', 2, grid%ht, ims, ime, 1, 1, jms, jme, ips, ipe, 1, 1, jps, jpe )
+      CALL gpu_ckv( grid, 'msfux', 2, grid%msfux, ims, ime, 1, 1, jms, jme, ips, ipe, 1, 1, jps, jpe )
+      CALL gpu_ckv( grid, 'msfuy', 2, grid%msfuy, ims, ime, 1, 1, jms, jme, ips, ipe, 1, 1, jps, jpe )
+      CALL gpu_ckv( grid, 'msfvx', 2, grid%msfvx, ims, ime, 1, 1, jms, jme, ips, ipe, 1, 1, jps, jpe )
+      CALL gpu_ckv( grid, 'msfvx_inv', 2, grid%msfvx_inv, ims, ime, 1, 1, jms, jme, ips, ipe, 1, 1, jps, jpe )
+      CALL gpu_ckv( grid, 'msfvy', 2, grid%msfvy, ims, ime, 1, 1, jms, jme, ips, ipe, 1, 1, jps, jpe )
+      CALL gpu_ckv( grid, 'msftx', 2, grid%msftx, ims, ime, 1, 1, jms, jme, ips, ipe, 1, 1, jps, jpe )
+      CALL gpu_ckv( grid, 'msfty', 2, grid%msfty, ims, ime, 1, 1, jms, jme, ips, ipe, 1, 1, jps, jpe )
+      CALL gpu_ckv( grid, 'f', 2, grid%f, ims, ime, 1, 1, jms, jme, ips, ipe, 1, 1, jps, jpe )
+      CALL gpu_ckv( grid, 'e', 2, grid%e, ims, ime, 1, 1, jms, jme, ips, ipe, 1, 1, jps, jpe )
+      CALL gpu_ckv( grid, 'sina', 2, grid%sina, ims, ime, 1, 1, jms, jme, ips, ipe, 1, 1, jps, jpe )
+      CALL gpu_ckv( grid, 'cosa', 2, grid%cosa, ims, ime, 1, 1, jms, jme, ips, ipe, 1, 1, jps, jpe )
+      CALL gpu_ckv( grid, 'c1h', 1, grid%c1h, kms, kme, 1, 1, 1, 1, kps, kpe, 1, 1, 1, 1 )
+      CALL gpu_ckv( grid, 'c2h', 1, grid%c2h, kms, kme, 1, 1, 1, 1, kps, kpe, 1, 1, 1, 1 )
+      CALL gpu_ckv( grid, 'c1f', 1, grid%c1f, kms, kme, 1, 1, 1, 1, kps, kpe, 1, 1, 1, 1 )
+      CALL gpu_ckv( grid, 'c2f', 1, grid%c2f, kms, kme, 1, 1, 1, 1, kps, kpe, 1, 1, 1, 1 )
+      CALL gpu_ckv( grid, 'fnm', 1, grid%fnm, kms, kme, 1, 1, 1, 1, kps, kpe, 1, 1, 1, 1 )
+      CALL gpu_ckv( grid, 'fnp', 1, grid%fnp, kms, kme, 1, 1, 1, 1, kps, kpe, 1, 1, 1, 1 )
+      CALL gpu_ckv( grid, 'rdn', 1, grid%rdn, kms, kme, 1, 1, 1, 1, kps, kpe, 1, 1, 1, 1 )
+      CALL gpu_ckv( grid, 'rdnw', 1, grid%rdnw, kms, kme, 1, 1, 1, 1, kps, kpe, 1, 1, 1, 1 )
+      CALL gpu_ckv( grid, 'u_base', 1, grid%u_base, kms, kme, 1, 1, 1, 1, kps, kpe, 1, 1, 1, 1 )
+      CALL gpu_ckv( grid, 'v_base', 1, grid%v_base, kms, kme, 1, 1, 1, 1, kps, kpe, 1, 1, 1, 1 )
+      CALL gpu_ckv( grid, 't_base', 1, grid%t_base, kms, kme, 1, 1, 1, 1, kps, kpe, 1, 1, 1, 1 )
+      CALL gpu_ckv( grid, 'qv_base', 1, grid%qv_base, kms, kme, 1, 1, 1, 1, kps, kpe, 1, 1, 1, 1 )
+      CALL gpu_ckv( grid, 'z_base', 1, grid%z_base, kms, kme, 1, 1, 1, 1, kps, kpe, 1, 1, 1, 1 )
+   ENDIF
+#endif
      !$OMP PARALLEL DO   &
      !$OMP PRIVATE ( ij )
      DO ij = 1 , grid%num_tiles
@@ -5752,6 +5821,35 @@ SUBROUTINE gpu_ckt( grid, tag, rk, ru, rv, rw, ph, t, mu, ims, ime, jms, jme, km
    WRITE(msg,'(A,I5,I4,1X,A8,6ES24.16)') 'GPUCKT ', grid%itimestep, rk, tag, r
    CALL wrf_message( msg )
 END SUBROUTINE gpu_ckt
+
+SUBROUTINE gpu_ckv( grid, name, nd, a, ims, ime, kms, kme, jms, jme, is, ie, ks, ke, js, je )
+   USE module_domain, ONLY : domain
+   USE module_wrf_error, ONLY : wrf_gpu_on
+   IMPLICIT NONE
+   TYPE(domain), INTENT(IN) :: grid
+   CHARACTER(*), INTENT(IN) :: name
+   INTEGER, INTENT(IN) :: nd, ims, ime, kms, kme, jms, jme, is, ie, ks, ke, js, je
+   REAL, INTENT(IN) :: a(ims:ime, kms:kme, jms:jme)
+   INTEGER, SAVE :: nck = -1
+   CHARACTER(LEN=8) :: v
+   CHARACTER(LEN=200) :: msg
+   INTEGER :: st
+   REAL(8) :: r
+   REAL(8), EXTERNAL :: gpu_ck3
+   LOGICAL :: on
+   IF ( nck < 0 ) THEN
+      CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_CK', v, STATUS=st )
+      nck = 0
+      IF ( st == 0 ) READ( v, *, IOSTAT=st ) nck
+      IF ( st /= 0 ) nck = 0
+   ENDIF
+   IF ( nck <= 0 ) RETURN
+   on = wrf_gpu_on ; wrf_gpu_on = .TRUE.
+   r = gpu_ck3( a, ims, ime, kms, kme, jms, jme, is, ie, ks, ke, js, je )
+   wrf_gpu_on = on
+   WRITE(msg,'(A,I2,1X,A,1X,ES24.16)') 'GPUCKV ', nd, TRIM(name), r
+   CALL wrf_message( msg )
+END SUBROUTINE gpu_ckv
 
 REAL(8) FUNCTION gpu_ck3( a, ims, ime, kms, kme, jms, jme, is, ie, ks, ke, js, je )
    IMPLICIT NONE
