@@ -209,6 +209,9 @@ BENCH_END(init_zero_tend_tim)
 #     include "HALO_EM_PHYS_A.inc"
 #endif
 
+#ifdef WRF_SEG_TIMERS
+      CALL phys_tick(0)
+#endif
       !$OMP PARALLEL DO   &
       !$OMP PRIVATE ( ij )
       DO ij = 1 , grid%num_tiles
@@ -243,6 +246,9 @@ BENCH_END(phy_prep_tim)
          ENDIF
 
 ! this driver is only needed to handle non-local shadowing effects
+#ifdef WRF_SEG_TIMERS
+      CALL phys_tick(1)
+#endif
       CALL pre_radiation_driver ( grid, config_flags                           &
      &        ,itimestep=grid%itimestep, ra_call_offset=grid%ra_call_offset    &
      &        ,XLAT=grid%xlat, XLONG=grid%xlong, GMT=grid%gmt                  &
@@ -600,6 +606,9 @@ BENCH_START(surf_driver_tim)
 
 
 
+#ifdef WRF_SEG_TIMERS
+      CALL phys_tick(2)
+#endif
       CALL surface_driver(                                                &
      &        HYDRO_dt=HYDRO_dt,  sfcheadrt=grid%sfcheadrt,               &
      &        INFXSRT=grid%INFXSRT,  soldrain=grid%soldrain,              &
@@ -1161,6 +1170,9 @@ BENCH_END(surf_driver_tim)
 
       CALL wrf_debug ( 200 , ' call pbl_driver' )
 BENCH_START(pbl_driver_tim)
+#ifdef WRF_SEG_TIMERS
+      CALL phys_tick(3)
+#endif
       CALL pbl_driver(                                                              &
      &         AKHS=grid%akhs          ,AKMS=grid%akms                              &
      &        ,BL_PBL_PHYSICS=config_flags%bl_pbl_physics                           &
@@ -1559,6 +1571,9 @@ BENCH_END(fire_driver_tim)
 #endif
 
 BENCH_START(cu_driver_tim)
+#ifdef WRF_SEG_TIMERS
+      CALL phys_tick(4)
+#endif
       CALL cumulus_driver(grid                                             &
                  ! Prognostic variables
      &             ,U=grid%u_phy   ,V=grid%v_phy   ,TH=th_phy  ,T=grid%t_phy                  &
@@ -1752,6 +1767,9 @@ BENCH_END(cu_driver_tim)
       CALL wrf_debug ( 200 , ' call shallow_cumulus_driver' )
 
 BENCH_START(shcu_driver_tim)
+#ifdef WRF_SEG_TIMERS
+      CALL phys_tick(5)
+#endif
       CALL shallowcu_driver(                                              &
      &              IDS=ids,IDE=ide, JDS=jds,JDE=jde, KDS=kds,KDE=kde     &
      &             ,IMS=ims,IME=ime, JMS=jms,JME=jme, KMS=kms,KME=kme     &
@@ -1955,6 +1973,9 @@ BENCH_END(shcu_driver_tim)
       CALL wrf_debug ( 200 , ' call fddagd_driver' )
 
 BENCH_START(fdda_driver_tim)
+#ifdef WRF_SEG_TIMERS
+      CALL phys_tick(6)
+#endif
       CALL fddagd_driver(itimestep=grid%itimestep,dt=grid%dt,xtime=grid%XTIME,      &
                   curr_mins2=curr_mins2, id=grid%id,                                &
                   RUNDGDTEN=grid%rundgdten,RVNDGDTEN=grid%rvndgdten,                &
@@ -2022,6 +2043,32 @@ BENCH_START(fdda_driver_tim)
 
 BENCH_END(fdda_driver_tim)
 
+#ifdef WRF_SEG_TIMERS
+  CALL phys_tick(8)
+#endif
   END SUBROUTINE first_rk_step_part1
+#ifdef WRF_SEG_TIMERS
+! PHYSTIME (WRF_SEG_TIMERS): wall seconds in first_rk_step_part1 sections, printed every 20 calls:
+! 1 phy_prep, 2 radiation, 3 surface, 4 pbl, 5 cumulus, 6 shallow cu, 7 (unused), 8 rest
+  SUBROUTINE phys_tick( k )
+      IMPLICIT NONE
+      INTEGER, INTENT(IN) :: k
+      INTEGER(8), SAVE :: last = 0
+      REAL(8), SAVE :: acc(8) = 0.d0
+      INTEGER, SAVE :: ncall = 0
+      INTEGER(8) :: now, rate
+      CHARACTER(LEN=256) :: msg
+      CALL SYSTEM_CLOCK( now, rate )
+      IF ( k > 0 ) acc(k) = acc(k) + DBLE(now - last) / DBLE(rate)
+      last = now
+      IF ( k == 8 ) THEN
+         ncall = ncall + 1
+         IF ( MOD(ncall, 20) == 0 ) THEN
+            WRITE(msg,'(A,I6,8F9.3)') 'PHYSTIME ', ncall, acc
+            CALL wrf_message( msg )
+         ENDIF
+      ENDIF
+  END SUBROUTINE phys_tick
+#endif
 
 END MODULE module_first_rk_step_part1
