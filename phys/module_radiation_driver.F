@@ -10,6 +10,9 @@ MODULE module_radiation_driver
    LOGICAL :: wrf_gpu_ra_ran = .TRUE.
 ! residency builds: effective radii are GPU-written (GPU Thompson) - pull them only on radiation steps
    LOGICAL :: wrf_gpu_ra_pullre = .FALSE.
+! residency builds (WRF_GPU_XFER bit 16384): RRTMG LW core on the GPU (columns stored in the tile loop, one GPU
+! pass, RRTMG_LWRAD_GPU_POST after)
+   LOGICAL :: wrf_gpu_ra_lw = .FALSE.
 #endif
 CONTAINS
 !BOP
@@ -301,6 +304,10 @@ CONTAINS
    USE module_ra_gsfcsw     , ONLY : gsfcswrad
    USE module_ra_rrtm       , ONLY : rrtmlwrad
    USE module_ra_rrtmg_lw   , ONLY : rrtmg_lwrad, rrtmg_lwinit
+#ifdef WRF_GPU
+   USE module_ra_rrtmg_lw   , ONLY : lw_gpu_phase, rrtmg_lwrad_gpu_begin, rrtmg_lwrad_gpu_post
+   USE rrtmg_lw_gpu         , ONLY : rrtmg_lw_gpu_run
+#endif
    USE module_ra_rrtmg_sw   , ONLY : rrtmg_swrad
 #if( BUILD_RRTMG_FAST == 1)
    USE module_ra_rrtmg_lwf  , ONLY : rrtmg_lwrad_fast
@@ -990,7 +997,7 @@ CONTAINS
    LOGICAL ::    run_param , doing_adapt_dt , decided
 #ifdef WRF_GPU
    INTEGER :: ra_isub, ra_nj, ra_ntask
-   LOGICAL :: ra_gpu_fast
+   LOGICAL :: ra_gpu_fast, lw_gpu_go
    INTEGER, PARAMETER :: RA_NSUB = 4, RA_GPU_BANDS = 6   ! 228 rows = 6 x 38: equal bands (AER device buffers are sized on the first call)
 #endif
    LOGICAL ::    flg_lw, flg_sw
@@ -1719,6 +1726,12 @@ CONTAINS
    ! split each tile into RA_NSUB j-bands and schedule them dynamically (columns are independent: same results)
    ! fast RRTMG (ra_*_physics=24) runs its AER GPU path: RA_GPU_BANDS sequential calls (from one host thread)
    ra_gpu_fast = lw_physics == RRTMG_LWSCHEME_FAST .OR. sw_physics == RRTMG_SWSCHEME_FAST
+   lw_gpu_go = wrf_gpu_ra_lw .AND. lw_physics == RRTMG_LWSCHEME .AND. calc_clean_atm_diag == 0 .AND.       &
+               cldovrlp >= 1 .AND. cldovrlp <= 5 .AND. ( sw_physics == RRTMG_SWSCHEME .OR. sw_physics == 0 )
+   IF ( lw_gpu_go ) THEN
+      CALL rrtmg_lwrad_gpu_begin( ims, ime, jms, jme )
+      lw_gpu_phase = 1
+   ENDIF
    ra_ntask = num_tiles*RA_NSUB
    IF ( ra_gpu_fast ) ra_ntask = RA_GPU_BANDS
    !$OMP PARALLEL DO SCHEDULE(DYNAMIC,1) IF ( .NOT. ra_gpu_fast )   &
@@ -3000,6 +3013,41 @@ CONTAINS
 
    ENDDO
    !$OMP END PARALLEL DO
+#ifdef WRF_GPU
+   IF ( lw_gpu_go ) THEN
+      ! phase 1 left LW = 0 in RTHRATEN/RTHRATENLW (RTHRATEN = SW, RTHRATENSW = SW): add LW in the original order
+      lw_gpu_phase = 0
+      CALL rrtmg_lw_gpu_run()
+      !$OMP PARALLEL DO   &
+      !$OMP PRIVATE ( ij ,i,j,k,its,ite,jts,jte)
+      DO ij = 1 , num_tiles
+        its = i_start(ij)
+        ite = i_end(ij)
+        jts = j_start(ij)
+        jte = j_end(ij)
+        CALL RRTMG_LWRAD_GPU_POST( RTHRATENLW, RTHRATENLWC, GLW, RLWTOA, LWCF, pi,                &
+               LWUPT=LWUPT, LWUPTC=LWUPTC, LWDNT=LWDNT, LWDNTC=LWDNTC,                            &
+               LWUPB=LWUPB, LWUPBC=LWUPBC, LWDNB=LWDNB, LWDNBC=LWDNBC,                            &
+               LWUPFLX=LWUPFLX, LWUPFLXC=LWUPFLXC, LWDNFLX=LWDNFLX, LWDNFLXC=LWDNFLXC,            &
+               IMS=ims, IME=ime, JMS=jms, JME=jme, KMS=kms, KME=kme,                              &
+               ITS=its, ITE=ite, JTS=jts, JTE=jte, KTS=kts, KTE=kte )
+        DO j=jts,jte
+        DO k=kts,kte
+        DO i=its,ite
+           IF ( sw_physics == RRTMG_SWSCHEME ) THEN
+              RTHRATEN(I,K,J) = RTHRATENLW(I,K,J) + RTHRATENSW(I,K,J)
+              RTHRATENSW(I,K,J) = RTHRATEN(I,K,J) - RTHRATENLW(I,K,J)
+           ELSE
+              RTHRATEN(I,K,J) = RTHRATENLW(I,K,J)
+           ENDIF
+           IF ( PRESENT(OLR) .AND. K .EQ. 1 ) OLR(I,J) = RLWTOA(I,J)
+        ENDDO
+        ENDDO
+        ENDDO
+      ENDDO
+      !$OMP END PARALLEL DO
+   ENDIF
+#endif
 
    IF ( associated(tauaer_sw) ) deallocate(tauaer_sw)
    IF ( associated(ssaaer_sw) ) deallocate(ssaaer_sw)
