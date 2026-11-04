@@ -120,7 +120,7 @@ SUBROUTINE solve_em ( grid , config_flags  &
 #ifdef WRF_GPU_RESIDENT
    USE module_radiation_driver, ONLY : wrf_gpu_ra_ran
    USE module_cumulus_driver, ONLY : wrf_gpu_cu_ran
-   USE module_pbl_driver, ONLY : wrf_gpu_bl_ran
+   USE module_pbl_driver, ONLY : wrf_gpu_bl_ran, wrf_gpu_pbl, wrf_gpu_pbl_ran
 #endif
 #endif
    USE module_llxy, ONLY : proj_cassini
@@ -1037,6 +1037,46 @@ BENCH_START(calc_p_rho_tim)
        CALL gpu_field_trace( grid, 'a_pre_physics' )
 #endif
 #ifdef WRF_GPU_RESIDENT
+   ! GPU-side init_zero_tendency + phy_prep (bit 256) before the host physics block: their inputs (state, mu) do
+   ! not change in part1, and the GPU PBL (bit 1024) needs the phy_prep fields during part1
+   gpu_prep_dev = IAND( wrf_gpu_xfer(), 256 ) /= 0 .AND. IAND( wrf_gpu_xfer(), 2 ) /= 0 .AND.          &
+                  ( config_flags%scalar_pblmix == 0 .OR. num_scalar < PARAM_FIRST_SCALAR ) .AND.       &
+                  ( config_flags%tracer_pblmix == 0 .OR. num_tracer < PARAM_FIRST_SCALAR ) .AND.       &
+                  config_flags%grid_fdda == 0
+   IF ( gpu_prep_dev ) THEN
+     DO ij = 1 , grid%num_tiles
+         CALL init_zero_tendency ( ru_tendf, rv_tendf, rw_tendf,     &
+                                   ph_tendf, t_tendf, tke_tend,      &
+                                   mu_tendf,                         &
+                                   moist_tend,chem_tend,scalar_tend, &
+                                   tracer_tend,num_tracer,           &
+                                   num_moist,num_chem,num_scalar,    &
+                                   rk_step,                          &
+                                   ids, ide, jds, jde, kds, kde,     &
+                                   ims, ime, jms, jme, kms, kme,     &
+                                   grid%i_start(ij), grid%i_end(ij), &
+                                   grid%j_start(ij), grid%j_end(ij), &
+                                   k_start, k_end                   )
+        CALL phy_prep ( config_flags,                                    &
+                        grid%mut, grid%muu, grid%muv,                    &
+                        grid%c1h, grid%c2h, grid%c1f, grid%c2f,          &
+                        grid%u_2, grid%v_2, grid%p, grid%pb, grid%alt,   &
+                        grid%ph_2, grid%phb, grid%t_2, moist, num_moist, &
+                        grid%rho,th_phy, grid%th_phy_m_t0,               &
+                        p_phy, pi_phy, grid%u_phy, grid%v_phy,           &
+                        p8w, grid%t_phy, t8w, grid%z, grid%z_at_w, dz8w, &
+                        grid%p_hyd, grid%p_hyd_w, grid%dnw,              &
+                        grid%fnm, grid%fnp, grid%znw, grid%p_top,        &
+                        ids, ide, jds, jde, kds, kde,                    &
+                        ims, ime, jms, jme, kms, kme,                    &
+                        grid%i_start(ij), grid%i_end(ij),                &
+                        grid%j_start(ij), grid%j_end(ij),                &
+                        k_start, k_end                                   )
+     ENDDO
+   ENDIF
+   wrf_gpu_pbl = gpu_prep_dev .AND. IAND( wrf_gpu_xfer(), 1024 ) /= 0
+#endif
+#ifdef WRF_GPU_RESIDENT
 #ifdef WRF_SEG_TIMERS
    CALL seg_enter( 5 )
 #endif
@@ -1158,45 +1198,10 @@ BENCH_START(calc_p_rho_tim)
 #ifdef WRF_SEG_TIMERS
    CALL seg_enter( 5 )
 #endif
-   gpu_prep_dev = IAND( wrf_gpu_xfer(), 256 ) /= 0 .AND. IAND( wrf_gpu_xfer(), 2 ) /= 0 .AND.          &
-                  ( config_flags%scalar_pblmix == 0 .OR. num_scalar < PARAM_FIRST_SCALAR ) .AND.       &
-                  ( config_flags%tracer_pblmix == 0 .OR. num_tracer < PARAM_FIRST_SCALAR ) .AND.       &
-                  config_flags%grid_fdda == 0
-   IF ( gpu_prep_dev ) THEN
-     DO ij = 1 , grid%num_tiles
-         CALL init_zero_tendency ( ru_tendf, rv_tendf, rw_tendf,     &
-                                   ph_tendf, t_tendf, tke_tend,      &
-                                   mu_tendf,                         &
-                                   moist_tend,chem_tend,scalar_tend, &
-                                   tracer_tend,num_tracer,           &
-                                   num_moist,num_chem,num_scalar,    &
-                                   rk_step,                          &
-                                   ids, ide, jds, jde, kds, kde,     &
-                                   ims, ime, jms, jme, kms, kme,     &
-                                   grid%i_start(ij), grid%i_end(ij), &
-                                   grid%j_start(ij), grid%j_end(ij), &
-                                   k_start, k_end                   )
-        CALL phy_prep ( config_flags,                                    &
-                        grid%mut, grid%muu, grid%muv,                    &
-                        grid%c1h, grid%c2h, grid%c1f, grid%c2f,          &
-                        grid%u_2, grid%v_2, grid%p, grid%pb, grid%alt,   &
-                        grid%ph_2, grid%phb, grid%t_2, moist, num_moist, &
-                        grid%rho,th_phy, grid%th_phy_m_t0,               &
-                        p_phy, pi_phy, grid%u_phy, grid%v_phy,           &
-                        p8w, grid%t_phy, t8w, grid%z, grid%z_at_w, dz8w, &
-                        grid%p_hyd, grid%p_hyd_w, grid%dnw,              &
-                        grid%fnm, grid%fnp, grid%znw, grid%p_top,        &
-                        ids, ide, jds, jde, kds, kde,                    &
-                        ims, ime, jms, jme, kms, kme,                    &
-                        grid%i_start(ij), grid%i_end(ij),                &
-                        grid%j_start(ij), grid%j_end(ij),                &
-                        k_start, k_end                                   )
-     ENDDO
-   ENDIF
    gpu_tend_dev = IAND( wrf_gpu_xfer(), 16 ) /= 0 .AND. IAND( wrf_gpu_xfer(), 6 ) == 6
    gpu_push_ra = .NOT. gpu_tend_dev .OR. wrf_gpu_ra_ran
    gpu_push_cu = .NOT. gpu_tend_dev .OR. wrf_gpu_cu_ran
-   gpu_push_bl = .NOT. gpu_tend_dev .OR. wrf_gpu_bl_ran
+   gpu_push_bl = ( .NOT. gpu_tend_dev .OR. wrf_gpu_bl_ran ) .AND. .NOT. wrf_gpu_pbl_ran
    gpu_skip_diff = IAND( wrf_gpu_xfer(), 64 ) /= 0 .AND. config_flags%diff_opt >= 1
    IF ( IAND( wrf_gpu_xfer(), 2 ) /= 0 ) THEN
 #  include "gpu_upd_dev_h1.inc"
@@ -6035,6 +6040,11 @@ SUBROUTINE gpu_pull_for_output( grid )
    ENDDO
    IF ( .NOT. any_ring ) RETURN
 #  include "gpu_upd_host_pre_phys.inc"
+   IF ( IAND( wrf_gpu_xfer(), 1024 ) /= 0 ) THEN  ! GPU MYJ PBL: its 3-D state for history/restart
+!$acc update self(grid%tke_pbl) if(associated(grid%tke_pbl))
+!$acc update self(grid%el_pbl) if(associated(grid%el_pbl))
+!$acc update self(grid%exch_h) if(associated(grid%exch_h))
+   ENDIF
    IF ( IAND( wrf_gpu_xfer(), 22 ) == 22 ) THEN   ! GPU-owned physics tendencies (bit 16)
 !$acc update self(grid%rthraten) if(associated(grid%rthraten))
 !$acc update self(grid%rqcblten) if(associated(grid%rqcblten))
@@ -6551,8 +6561,8 @@ END FUNCTION wrf_gpu_hostblocks
 
 ! WRF_GPU_XFER (residency): reduced lists - bit 1 H1 pull, 4 H2 pull, 8 H3 pull, 2 pushes, 16 GPU-owned physics
 ! tendencies (needs 2+4), 32 microphysics block on the GPU (Thompson), 64 no pushes of recomputed diffusion fields,
-! 128 H1 reuses the H3-pulled state (alt/p/ph_2 still pulled), 256 GPU-side init_zero_tendency + phy_prep;
-! default 511.
+! 128 H1 reuses the H3-pulled state (alt/p/ph_2 still pulled), 256 GPU-side init_zero_tendency + phy_prep,
+! 1024 MYJ PBL on the GPU (needs 256); default 511.
 LOGICAL FUNCTION wrf_gpu_async_mode()
    ! WRF_GPU_ASYNC (residency builds): 1 = GPU compute constructs on async queue 1 (default; waits at routine exit and before sync directives), 0 = synchronous
    IMPLICIT NONE

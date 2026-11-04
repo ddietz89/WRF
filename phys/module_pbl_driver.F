@@ -9,6 +9,9 @@ MODULE module_pbl_driver
 ! residency builds: whether the scheme ran this step (its tendencies are host-written only then; between
 ! calls the GPU owns them - solve_em pushes them only when set)
    LOGICAL :: wrf_gpu_bl_ran = .TRUE.
+! residency builds: wrf_gpu_pbl (set by solve_em) = run MYJ on the GPU (MYJPBL_GPU, whole patch, before the tile
+! loop); wrf_gpu_pbl_ran = it ran this call (its tendencies are then GPU-written: solve_em does not push them)
+   LOGICAL :: wrf_gpu_pbl = .FALSE., wrf_gpu_pbl_ran = .FALSE.
 #endif
 CONTAINS
 
@@ -213,6 +216,9 @@ CONTAINS
 #endif
    USE module_bl_camuwpbl_driver, only:CAMUWPBL
    USE module_bl_temf
+#ifdef WRF_GPU_RESIDENT
+   USE module_wrf_error , ONLY : wrf_gpu_on
+#endif
    USE module_bl_mfshconvpbl
    USE module_bl_gbmpbl
 #if (EM_CORE==1)
@@ -1178,6 +1184,39 @@ CONTAINS
    ENDDO
    !$OMP END PARALLEL DO
 !
+#ifdef WRF_GPU_RESIDENT
+  wrf_gpu_pbl_ran = .FALSE.
+  IF ( wrf_gpu_pbl .AND. bl_pbl_physics == MYJPBLSCHEME .AND. .NOT. flag_bep .AND. idiff /= 1 ) THEN
+   IF ( PRESENT(qv_curr) .AND. PRESENT(qc_curr) .AND. PRESENT(qi_curr) .AND. PRESENT(rqvblten) .AND.  &
+        PRESENT(rqcblten) .AND. PRESENT(rqiblten) .AND. windfarm_opt == 0 .AND. distributed_ahe_opt /= 1 .AND. &
+        scalar_pblmix == 0 ) THEN
+    wrf_gpu_pbl_ran = .TRUE.
+    ! host surface physics wrote these this step
+!$acc update device(tsk,qsfc,chklowq,thz0,qz0,uz0,vz0,ust,znt,ct,akhs,akms,lh,xland,xice,snow,lowlyr,ht)
+    wrf_gpu_on = .TRUE.
+    CALL myjpbl_gpu(DT=dt,STEPBL=stepbl,HT=ht,DZ=dz8w                        &
+              ,PMID=p_phy,PINT=p8w,TH=th_phy,T=t_phy,EXNER=pi_phy           &
+              ,QV=qv_curr,QCW=qc_curr,QCI=qi_curr                           &
+              ,U=u_phy,V=v_phy                                              &
+              ,TSK=tsk,QSFC=qsfc,CHKLOWQ=chklowq,THZ0=thz0                  &
+              ,QZ0=qz0,UZ0=uz0,VZ0=vz0                                      &
+              ,LOWLYR=lowlyr,XLAND=xland,SICE=xice,SNOW=snow                &
+              ,TKE_MYJ=tke_pbl,EXCH_H=exch_h,USTAR=ust,ZNT=znt              &
+              ,EL_MYJ=el_pbl,PBLH=pblh,KPBL=kpbl,CT=ct                      &
+              ,AKHS=akhs,AKMS=akms,ELFLX=lh,MIXHT=mixht                     &
+              ,RUBLTEN=rublten,RVBLTEN=rvblten,RTHBLTEN=rthblten            &
+              ,RQVBLTEN=rqvblten,RQCBLTEN=rqcblten,RQIBLTEN=rqiblten        &
+              ,IDS=ids,IDE=ide,JDS=jds,JDE=jde,KDS=kds,KDE=kde              &
+              ,IMS=ims,IME=ime,JMS=jms,JME=jme,KMS=kms,KME=kme              &
+              ,ITS=MINVAL(i_start(1:num_tiles)),ITE=MAXVAL(i_end(1:num_tiles)) &
+              ,JTS=MINVAL(j_start(1:num_tiles)),JTE=MAXVAL(j_end(1:num_tiles)) &
+              ,KTS=kts,KTE=kte)
+    wrf_gpu_on = .FALSE.
+    ! what the host reads later: surface/diagnostics (2-D), MYJ surface layer (TKE), Tiedtke (QV tendency)
+!$acc update self(pblh,kpbl,mixht,ct,qsfc,qz0,thz0,uz0,vz0,ust,znt,akhs,akms,tke_pbl,rqvblten)
+   ENDIF
+  ENDIF
+#endif
   !$OMP PARALLEL DO   &
   !$OMP PRIVATE ( ij, i,j,k, its, ite, jts, jte, z0, z1, z2, w1, w2, message, initflag )
   DO ij = 1 , num_tiles
@@ -1486,6 +1525,9 @@ CONTAINS
 
              CALL wrf_debug(100,'in MYJPBL')
             IF ( .not.flag_bep .and. idiff.ne.1) THEN
+#ifdef WRF_GPU_RESIDENT
+            IF ( .NOT. wrf_gpu_pbl_ran ) &
+#endif
              CALL myjpbl(DT=dt,STEPBL=stepbl,HT=ht,DZ=dz8w          &
               ,PMID=p_phy,PINT=p8w,TH=th_phy,T=t_phy,EXNER=pi_phy   &
               ,QV=qv_curr,QCW=qc_curr,QCI=qi_curr,QCS=qs_curr       & !BSF

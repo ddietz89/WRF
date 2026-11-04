@@ -125,6 +125,11 @@
 !
 !-----------------------------------------------------------------------
 !
+#ifdef WRF_GPU
+!.. GPU port: fixed-size columns of the device routines (kts=1), species count of VDIFH
+      INTEGER, PARAMETER :: KMAXP = 64, MYJ_NSPMAX = 7
+!$acc declare copyin(ITRMX)
+#endif
       CONTAINS
 !
 !----------------------------------------------------------------------
@@ -764,6 +769,235 @@
 !----------------------------------------------------------------------
 !
       END SUBROUTINE MYJPBL
+#ifdef WRF_GPU
+!-----------------------------------------------------------------------
+! GPU port: MYJPBL with one device thread per (i,j) column (same per-point arithmetic and order as MYJPBL;
+! fused setup/main passes per column; ice present (flQI); LMH recomputed per column - equal to MYJPBL's
+! row-carried value when LOWLYR is uniform). Arrays must be device-resident (residency builds).
+      SUBROUTINE MYJPBL_GPU(DT,STEPBL,HT,DZ                            &
+     &                 ,PMID,PINT,TH,T,EXNER,QV,QCW,QCI                &
+     &                 ,U,V,TSK,QSFC,CHKLOWQ,THZ0,QZ0,UZ0,VZ0          &
+     &                 ,LOWLYR,XLAND,SICE,SNOW                         &
+     &                 ,TKE_MYJ,EXCH_H,USTAR,ZNT,EL_MYJ,PBLH,KPBL,CT   &
+     &                 ,AKHS,AKMS,ELFLX,MIXHT                          &
+     &                 ,RUBLTEN,RVBLTEN,RTHBLTEN,RQVBLTEN,RQCBLTEN     &
+     &                 ,RQIBLTEN                                       &
+     &                 ,IDS,IDE,JDS,JDE,KDS,KDE                        &
+     &                 ,IMS,IME,JMS,JME,KMS,KME                        &
+     &                 ,ITS,ITE,JTS,JTE,KTS,KTE)
+      IMPLICIT NONE
+      INTEGER,INTENT(IN) :: IDS,IDE,JDS,JDE,KDS,KDE                    &
+     &                     ,IMS,IME,JMS,JME,KMS,KME                    &
+     &                     ,ITS,ITE,JTS,JTE,KTS,KTE
+      INTEGER,INTENT(IN) :: STEPBL
+      INTEGER,DIMENSION(IMS:IME,JMS:JME),INTENT(IN) :: LOWLYR
+      INTEGER,DIMENSION(IMS:IME,JMS:JME),INTENT(OUT) :: KPBL
+      REAL,INTENT(IN) :: DT
+      REAL,DIMENSION(IMS:IME,JMS:JME),INTENT(IN) :: HT,SICE,SNOW,TSK,XLAND
+      REAL,DIMENSION(IMS:IME,KMS:KME,JMS:JME),INTENT(IN) :: DZ,EXNER,PMID,PINT,T,TH,U,V
+      REAL,DIMENSION(IMS:IME,KMS:KME,JMS:JME),INTENT(IN) :: QV,QCW,QCI
+      REAL,DIMENSION(IMS:IME,JMS:JME),INTENT(OUT) :: PBLH,MIXHT
+      REAL,DIMENSION(IMS:IME,JMS:JME),INTENT(INOUT) :: AKHS,AKMS
+      REAL,DIMENSION(IMS:IME,KMS:KME,JMS:JME),INTENT(OUT) :: EL_MYJ,RTHBLTEN,RUBLTEN,RVBLTEN
+      REAL,DIMENSION(IMS:IME,KMS:KME,JMS:JME),INTENT(OUT) :: RQCBLTEN,RQVBLTEN,RQIBLTEN
+      REAL,DIMENSION(IMS:IME,JMS:JME),INTENT(INOUT) :: CT,QSFC,QZ0,THZ0,USTAR,UZ0,VZ0,ZNT
+      REAL,DIMENSION(IMS:IME,KMS:KME,JMS:JME),INTENT(INOUT) :: EXCH_H,TKE_MYJ
+      REAL,DIMENSION(IMS:IME,JMS:JME),INTENT(IN) :: CHKLOWQ,ELFLX
+      INTEGER, PARAMETER :: NSPECS=1, NSPECE=7
+      INTEGER :: I,J,K,KFLIP,LLOW,LMH,LMXL,NUMS,NSPEC,LPBLC
+      REAL :: AKHS_DENS,AKMS_DENS,DELTAZ,DQDT,DTDIF,DTDT,DTTURBL,EXNSFC,PSFC,QFC1,QLOW,QOLD &
+     &       ,RATIOMX,RDTTURBL,SEAMASK,THNEW,THOLD,THSKC,DUDT,DVDT
+      REAL, DIMENSION(NSPECS:NSPECE) :: CLOW,CTS,SZ0
+      REAL, DIMENSION(1:KMAXP) :: CWMK,PK,Q2K,QK,THEK,TK,UK,VK,QCWK,QCIK,RHOK,APEC,THEC,CWMC
+      REAL, DIMENSION(1:KMAXP) :: AKHK,AKMK,EL,GH,GM,AKHC,AKMC
+      REAL, DIMENSION(1:KMAXP+1) :: ZHK,ZINTC
+      REAL, DIMENSION(NSPECS:NSPECE,1:KMAXP) :: SPECIES
+      IF ( KTS /= 1 .OR. KTE+1 > KMAXP ) CALL wrf_error_fatal('MYJPBL_GPU: needs kts=1 and kte < KMAXP')
+      NSPEC=4
+      DTTURBL=DT*STEPBL
+      RDTTURBL=1./DTTURBL
+      DTDIF=DTTURBL
+!$acc parallel loop gang vector collapse(2) &
+!$acc private(CLOW,CTS,SZ0,CWMK,PK,Q2K,QK,THEK,TK,UK,VK,QCWK,QCIK,RHOK,APEC,THEC,CWMC) &
+!$acc private(AKHK,AKMK,EL,GH,GM,AKHC,AKMC,ZHK,ZINTC,SPECIES)
+      DO J=JTS,JTE
+      DO I=ITS,ITE
+        DO K=KMS,KME
+          EL_MYJ(I,K,J)=0.
+        ENDDO
+        DO K=KTS,KTE-1
+          AKMC(K)=0.
+        ENDDO
+        ZINTC(KTE+1)=HT(I,J)
+        DO K=KTE,KTS,-1
+          KFLIP=KTE+1-K
+          ZINTC(K)=ZINTC(K+1)+DZ(I,KFLIP,J)
+          APEC(K)=1./EXNER(I,K,J)
+          CWMC(K)=QCW(I,K,J)
+          CWMC(K)=CWMC(K)+QCI(I,K,J)
+          THEC(K)=(CWMC(K)*(-ELOCP/T(I,K,J))+1.)*TH(I,K,J)
+        ENDDO
+!-- setup_integration (one column)
+        LMH=KTE-LOWLYR(I,J)+1
+        DO K=KTE,KTS,-1
+          KFLIP=KTE+1-K
+          TK(K)=T(I,KFLIP,J)
+          THEK(K)=THEC(KFLIP)
+          RATIOMX=QV(I,KFLIP,J)
+          QK(K)=RATIOMX/(1.+RATIOMX)
+          CWMK(K)=CWMC(KFLIP)
+          PK(K)=PMID(I,KFLIP,J)
+          UK(K)=U(I,KFLIP,J)
+          VK(K)=V(I,KFLIP,J)
+          Q2K(K)=2.*TKE_MYJ(I,KFLIP,J)
+          ZHK(K)=ZINTC(K)
+        ENDDO
+        ZHK(KTE+1)=HT(I,J)
+        CALL MIXLEN(LMH,UK,VK,TK,THEK,QK,CWMK                          &
+     &             ,Q2K,ZHK,GM,GH,EL                                   &
+     &             ,PBLH(I,J),LPBLC,LMXL,CT(I,J),MIXHT(I,J)            &
+     &             ,IDS,IDE,JDS,JDE,KDS,KDE                            &
+     &             ,IMS,IME,JMS,JME,KMS,KME                            &
+     &             ,ITS,ITE,JTS,JTE,KTS,KTE)
+        CALL PRODQ2(LMH,DTTURBL,USTAR(I,J),GM,GH,EL,Q2K                &
+     &             ,IDS,IDE,JDS,JDE,KDS,KDE                            &
+     &             ,IMS,IME,JMS,JME,KMS,KME                            &
+     &             ,ITS,ITE,JTS,JTE,KTS,KTE)
+        KPBL(I,J)=KTE-LPBLC+1
+        CALL DIFCOF(LMH,LMXL,GM,GH,EL,TK,Q2K,ZHK,AKMK,AKHK             &
+     &             ,IDS,IDE,JDS,JDE,KDS,KDE                            &
+     &             ,IMS,IME,JMS,JME,KMS,KME                            &
+     &             ,ITS,ITE,JTS,JTE,KTS,KTE,0)
+        DO K=KTS,KTE-1
+          KFLIP=KTE-K
+          AKHC(K)=AKHK(K)
+          AKMC(K)=AKMK(K)
+          DELTAZ=0.5*(ZHK(KFLIP)-ZHK(KFLIP+2))
+          EXCH_H(I,K,J)=AKHK(KFLIP)*DELTAZ
+        ENDDO
+        CALL VDIFQ(LMH,DTDIF,Q2K,EL,ZHK                                &
+     &            ,IDS,IDE,JDS,JDE,KDS,KDE                             &
+     &            ,IMS,IME,JMS,JME,KMS,KME                             &
+     &            ,ITS,ITE,JTS,JTE,KTS,KTE)
+        DO K=KTS,KTE
+          KFLIP=KTE+1-K
+          Q2K(KFLIP)=AMAX1(Q2K(KFLIP),EPSQ2)
+          TKE_MYJ(I,K,J)=0.5*Q2K(KFLIP)
+          IF(KFLIP<KTE)EL_MYJ(I,K,J)=EL(KFLIP)
+        ENDDO
+!-- main_integration (one column)
+        PSFC=PINT(I,LOWLYR(I,J),J)
+        THSKC=TSK(I,J)*(1.E5/PSFC)**CAPA
+        DO K=KTE,KTS,-1
+          KFLIP=KTE+1-K
+          THEK(K)=THEC(KFLIP)
+          RATIOMX=QV(I,KFLIP,J)
+          QK(K)=RATIOMX/(1.+RATIOMX)
+          CWMK(K)=CWMC(KFLIP)
+          QCWK(K)=QCW(I,KFLIP,J)
+          SPECIES(1,K)=THEK(K)
+          SPECIES(2,K)=QK(K)
+          SPECIES(3,K)=QCWK(K)
+          QCIK(K)=QCI(I,KFLIP,J)
+          SPECIES(4,K)=QCIK(K)
+          ZHK(K)=ZINTC(K)
+          RHOK(K)=PMID(I,KFLIP,J)/(R_D*T(I,KFLIP,J)*                   &
+     &                             (1.+P608*QK(K)-CWMK(K)))
+        ENDDO
+        DO K=KTS,KTE-1
+          AKHK(K)=AKHC(K)*0.5*(RHOK(K)+RHOK(K+1))
+        ENDDO
+        ZHK(KTE+1)=ZINTC(KTE+1)
+        SEAMASK=XLAND(I,J)-1.
+        THZ0(I,J)=(1.-SEAMASK)*THSKC+SEAMASK*THZ0(I,J)
+        LLOW=LOWLYR(I,J)
+        AKHS_DENS=AKHS(I,J)*RHOK(KTE+1-LLOW)
+        IF(SEAMASK<0.5)THEN
+          QFC1=XLV*CHKLOWQ(I,J)*AKHS_DENS
+          IF(SNOW(I,J)>0..OR.SICE(I,J)>0.5)THEN
+            QFC1=QFC1*RLIVWV
+          ENDIF
+          IF(QFC1>0.)THEN
+            QLOW=QK(KTE+1-LLOW)
+            QSFC(I,J)=QLOW+ELFLX(I,J)/QFC1
+          ENDIF
+        ELSE
+          PSFC=PINT(I,LOWLYR(I,J),J)
+          EXNSFC=(1.E5/PSFC)**CAPA
+          QSFC(I,J)=PQ0SEA/PSFC                                        &
+     &       *EXP(A2*(THSKC-A3*EXNSFC)/(THSKC-A4*EXNSFC))
+        ENDIF
+        QZ0 (I,J)=(1.-SEAMASK)*QSFC(I,J)+SEAMASK*QZ0 (I,J)
+        SZ0(1)=THZ0(I,J)
+        SZ0(2)=QZ0 (I,J)
+        DO NUMS=3,NSPECE
+          SZ0(NUMS)=0.
+        ENDDO
+        CLOW(1)=1.
+        CLOW(2)=CHKLOWQ(I,J)
+        DO NUMS=3,NSPECE
+          CLOW(NUMS)=0.
+        ENDDO
+        CTS(1)=CT(I,J)
+        DO NUMS=2,NSPECE
+          CTS(NUMS)=0.
+        ENDDO
+        LMH=KTE-LOWLYR(I,J)+1
+        CALL VDIFH(DTDIF,LMH,NSPECS,NSPECE,LPBLC,SZ0                   &
+     &            ,AKHS_DENS,CLOW,CTS                                  &
+     &            ,SPECIES,NSPEC,AKHK,ZHK,RHOK                         &
+     &            ,IDS,IDE,JDS,JDE,KDS,KDE                             &
+     &            ,IMS,IME,JMS,JME,KMS,KME                             &
+     &            ,ITS,ITE,JTS,JTE,KTS,KTE,I,J)
+        DO K=KTS,KTE
+          THEK(K)=SPECIES(1,K)
+          QK  (K)=SPECIES(2,K)
+          QCWK(K)=SPECIES(3,K)
+          CWMK(K)=QCWK(K)
+          QCIK(K)=SPECIES(4,K)
+          CWMK(K)=CWMK(K)+QCIK(K)
+        ENDDO
+        DO K=KTS,KTE
+          KFLIP=KTE+1-K
+          THOLD=TH(I,K,J)
+          THNEW=THEK(KFLIP)+CWMK(KFLIP)*ELOCP*APEC(K)
+          DTDT=(THNEW-THOLD)*RDTTURBL
+          QOLD=QV(I,K,J)/(1.+QV(I,K,J))
+          DQDT=(QK(KFLIP)-QOLD)*RDTTURBL
+          RTHBLTEN(I,K,J)=DTDT
+          RQVBLTEN(I,K,J)=DQDT/(1.-QK(KFLIP))**2
+          RQCBLTEN(I,K,J)=(QCWK(KFLIP)-QCW(I,K,J))*RDTTURBL
+          RQIBLTEN(I,K,J)=(QCIK(KFLIP)-QCI(I,K,J))*RDTTURBL
+        ENDDO
+        DO K=KTS,KTE-1
+          AKMK(K)=AKMC(K)
+          AKMK(K)=AKMK(K)*(RHOK(K)+RHOK(K+1))*0.5
+        ENDDO
+        LLOW=LOWLYR(I,J)
+        AKMS_DENS=AKMS(I,J)*RHOK(KTE+1-LLOW)
+        DO K=KTE,KTS,-1
+          KFLIP=KTE+1-K
+          UK(K)=U(I,KFLIP,J)
+          VK(K)=V(I,KFLIP,J)
+          ZHK(K)=ZINTC(K)
+        ENDDO
+        ZHK(KTE+1)=ZINTC(KTE+1)
+        CALL VDIFV(LMH,DTDIF,UZ0(I,J),VZ0(I,J)                         &
+     &            ,AKMS_DENS,UK,VK,AKMK,ZHK,RHOK                       &
+     &            ,IDS,IDE,JDS,JDE,KDS,KDE                             &
+     &            ,IMS,IME,JMS,JME,KMS,KME                             &
+     &            ,ITS,ITE,JTS,JTE,KTS,KTE,I,J)
+        DO K=KTS,KTE
+          KFLIP=KTE+1-K
+          DUDT=(UK(KFLIP)-U(I,K,J))*RDTTURBL
+          DVDT=(VK(KFLIP)-V(I,K,J))*RDTTURBL
+          RUBLTEN(I,K,J)=DUDT
+          RVBLTEN(I,K,J)=DVDT
+        ENDDO
+      ENDDO
+      ENDDO
+      END SUBROUTINE MYJPBL_GPU
+#endif
 !
 !----------------------------------------------------------------------
 !XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -780,6 +1014,9 @@
      &,IDS,IDE,JDS,JDE,KDS,KDE                                         &
      &,IMS,IME,JMS,JME,KMS,KME                                         &
      &,ITS,ITE,JTS,JTE,KTS,KTE)
+#ifdef WRF_GPU
+!$acc routine seq
+#endif
 !----------------------------------------------------------------------
 !
       IMPLICIT NONE
@@ -811,9 +1048,17 @@
       REAL :: A,ADEN,B,BDEN,AUBR,BUBR,BLMX,EL0,ELOQ2X,GHL,GML           &
      &       ,QOL2ST,QOL2UN,QDZL,RDZ,SQ,SREL,SZQ,TEM,THM,VKRMZ
 !
+#ifdef WRF_GPU
+      REAL,DIMENSION(1:KMAXP) :: Q1
+#else
       REAL,DIMENSION(KTS:KTE) :: Q1
+#endif
 !
+#ifdef WRF_GPU
+      REAL,DIMENSION(1:KMAXP) :: DTH,ELM,REL
+#else
       REAL,DIMENSION(KTS:KTE-1) :: DTH,ELM,REL
+#endif
 !
 !----------------------------------------------------------------------
 !**********************************************************************
@@ -976,6 +1221,9 @@
      &,IDS,IDE,JDS,JDE,KDS,KDE                                         &
      &,IMS,IME,JMS,JME,KMS,KME                                         &
      &,ITS,ITE,JTS,JTE,KTS,KTE)
+#ifdef WRF_GPU
+!$acc routine seq
+#endif
 !----------------------------------------------------------------------
 !
       IMPLICIT NONE
@@ -1179,6 +1427,9 @@
      &,IDS,IDE,JDS,JDE,KDS,KDE                                         &
      &,IMS,IME,JMS,JME,KMS,KME                                         &
      &,ITS,ITE,JTS,JTE,KTS,KTE,PRINT_DIAG)   ! debug
+#ifdef WRF_GPU
+!$acc routine seq
+#endif
 !----------------------------------------------------------------------
 !
       IMPLICIT NONE
@@ -1337,6 +1588,9 @@
      &,IDS,IDE,JDS,JDE,KDS,KDE                                         &
      &,IMS,IME,JMS,JME,KMS,KME                                         &
      &,ITS,ITE,JTS,JTE,KTS,KTE)
+#ifdef WRF_GPU
+!$acc routine seq
+#endif
 !----------------------------------------------------------------------
 !
       IMPLICIT NONE
@@ -1363,7 +1617,11 @@
       REAL :: ADEN,AKQS,BDEN,BESH,BESM,CDEN,CF,DTOZS,ELL,ELOQ2,ELOQ4   &
      &       ,ELQDZ,ESH,ESM,ESQHF,GHL,GML,Q1L,RDEN,RDZ
 !
+#ifdef WRF_GPU
+      REAL,DIMENSION(1:KMAXP) :: AKQ,CM,CR,DTOZ,RSQ2
+#else
       REAL,DIMENSION(KTS:KTE-2) :: AKQ,CM,CR,DTOZ,RSQ2
+#endif
 !----------------------------------------------------------------------
 !**********************************************************************
 !----------------------------------------------------------------------
@@ -1414,6 +1672,9 @@
      &                ,IDS,IDE,JDS,JDE,KDS,KDE                        &
      &                ,IMS,IME,JMS,JME,KMS,KME                        &
      &                ,ITS,ITE,JTS,JTE,KTS,KTE,I,J)
+#ifdef WRF_GPU
+!$acc routine seq
+#endif
 !     ***************************************************************
 !     *                                                             *
 !     *         VERTICAL DIFFUSION OF MASS VARIABLES                *
@@ -1455,9 +1716,17 @@
 !
       REAL:: CF,CMB,CMSB,DTOZL,DTOZS,RCML,RHOK,RKHH,RKHZ,RKSS,RSSB
 !
+#ifdef WRF_GPU
+      REAL,DIMENSION(1:KMAXP):: CM,CR,DTOZ
+#else
       REAL,DIMENSION(KTS:KTE-1):: CM,CR,DTOZ
+#endif
 !
+#ifdef WRF_GPU
+      REAL,DIMENSION(1:MYJ_NSPMAX,1:KMAXP):: RKCT,RSS
+#else
       REAL,DIMENSION(MSS:MSE,KTS:KTE-1):: RKCT,RSS
+#endif
 !
 !----------------------------------------------------------------------
 !**********************************************************************
@@ -1526,6 +1795,9 @@
                       ,IDS,IDE,JDS,JDE,KDS,KDE                        &
                       ,IMS,IME,JMS,JME,KMS,KME                        &
                       ,ITS,ITE,JTS,JTE,KTS,KTE)
+#ifdef WRF_GPU
+!$acc routine seq
+#endif
 !     ***************************************************************
 !     *                                                             *
 !     *         VERTICAL DIFFUSION OF MASS VARIABLES                *
@@ -1558,7 +1830,11 @@
       REAL :: CF,CMB,CMDB,CTHF,DTOZL,DTOZS                            &
              ,RCML,RKHH,RSD1B,RSD2B
 !
+#ifdef WRF_GPU
+      REAL,DIMENSION(1:KMAXP) :: CM,CR,DTOZ,RKCT,RSD1,RSD2
+#else
       REAL,DIMENSION(KTS:KTE-1) :: CM,CR,DTOZ,RKCT,RSD1,RSD2
+#endif
 !
 !----------------------------------------------------------------------
 !**********************************************************************
@@ -1614,6 +1890,9 @@
      &                ,IDS,IDE,JDS,JDE,KDS,KDE                        &
      &                ,IMS,IME,JMS,JME,KMS,KME                        &
                       ,ITS,ITE,JTS,JTE,KTS,KTE,I,J)
+#ifdef WRF_GPU
+!$acc routine seq
+#endif
 !     ***************************************************************
 !     *                                                             *
 !     *        VERTICAL DIFFUSION OF VELOCITY COMPONENTS            *
@@ -1645,7 +1924,11 @@
 !
       REAL :: CF,DTOZAK,DTOZL,DTOZS,RCML,RCMVB,RHOK,RKMH
 !
+#ifdef WRF_GPU
+      REAL,DIMENSION(1:KMAXP) :: CM,CR,DTOZ,RSU,RSV
+#else
       REAL,DIMENSION(KTS:KTE-1) :: CM,CR,DTOZ,RSU,RSV
+#endif
 !----------------------------------------------------------------------
 !**********************************************************************
 !----------------------------------------------------------------------
@@ -1733,6 +2016,9 @@
         ENDDO
       ENDIF
 
+#ifdef WRF_GPU
+!$acc update device(ITRMX)
+#endif
       END SUBROUTINE MYJPBLINIT
 !-----------------------------------------------------------------------
 !
