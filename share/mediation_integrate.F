@@ -86,6 +86,9 @@ SUBROUTINE med_before_solve_io ( grid , config_flags )
    CALL med_latbound_in ( grid , config_flags )
 #endif
 
+#ifdef WRF_GPU_RESIDENT
+ CALL gpu_pull_for_output( grid )
+#endif
  CALL WRFU_ClockGet( grid%domain_clock, CurrTime=currTime, StartTime=startTime )
 
  IF( (WRFU_AlarmIsRinging( grid%alarms( HISTORY_ALARM ), rc=rc ) .AND. &
@@ -1098,6 +1101,9 @@ SUBROUTINE med_last_solve_io ( grid , config_flags )
    CHARACTER*256                              :: message
 
 ! #if (EM_CORE == 1)
+#ifdef WRF_GPU_RESIDENT
+   CALL gpu_pull_for_output( grid )
+#endif
    IF( WRFU_AlarmIsRinging( grid%alarms( HISTORY_ALARM ), rc=rc ) .AND. &
        (grid%dfi_write_dfi_history .OR. grid%dfi_stage == DFI_FST .OR. grid%dfi_opt == DFI_NODFI) ) THEN
 ! #else

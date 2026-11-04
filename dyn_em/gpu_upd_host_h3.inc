@@ -1,0 +1,12 @@
+! read set of H3 (after_all_rk_steps diagnostics) (grep of grid% references, 2026-11-04); full GPU-written list: gpu_upd_host_pre_phys.inc
+!$acc update self(grid%alt) if(associated(grid%alt))
+!$acc update self(grid%moist) if(associated(grid%moist))
+!$acc update self(grid%mu_2) if(associated(grid%mu_2))
+!$acc update self(grid%p) if(associated(grid%p))
+!$acc update self(grid%ph_2) if(associated(grid%ph_2))
+!$acc update self(grid%rho) if(associated(grid%rho))
+!$acc update self(grid%t_2) if(associated(grid%t_2))
+!$acc update self(grid%u_2) if(associated(grid%u_2))
+!$acc update self(grid%v_2) if(associated(grid%v_2))
+!$acc update self(grid%w_2) if(associated(grid%w_2))
+!$acc update self(grid%scalar) if(associated(grid%scalar))

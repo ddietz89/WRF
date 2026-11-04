@@ -979,7 +979,7 @@ BENCH_START(calc_p_rho_tim)
        CALL gpu_field_trace( grid, 'a_pre_physics' )
 #endif
 #ifdef WRF_GPU_RESIDENT
-#      include "gpu_upd_host_pre_phys.inc"
+#      include "gpu_upd_host_h1.inc"
 #endif
 #ifdef WRF_GPU_RESIDENT
    IF ( IAND( wrf_gpu_fullsync(), 1 ) /= 0 ) THEN
@@ -1055,7 +1055,7 @@ BENCH_START(calc_p_rho_tim)
 #ifdef WRF_GPU_RESIDENT
        ! physics (part1, host) wrote grid fields and the i1 temporaries (zeroed tendencies, th_phy/pi_phy/...):
        ! push them to the device before part2 runs on the GPU
-#      include "gpu_upd_dev_post_phys.inc"
+#      include "gpu_upd_dev_h1.inc"
 #      include "gpu_upd_dev_i1_part1.inc"
 #endif
 #ifdef WRF_GPU_RESIDENT
@@ -4020,7 +4020,7 @@ BENCH_END(bc_end_tim)
 !-----------------------------------------------------------
 
 #ifdef WRF_GPU_RESIDENT
-#  include "gpu_upd_host_pre_mp.inc"
+#  include "gpu_upd_host_h2.inc"
 #  include "gpu_upd_host_i1_mp.inc"
 #endif
 #ifdef WRF_GPU_RESIDENT
@@ -4683,7 +4683,7 @@ BENCH_START(moist_phys_end_tim)
    CALL seg_mark( 1 )
 #endif
 #ifdef WRF_GPU_RESIDENT
-#       include "gpu_upd_dev_post_mp.inc"
+#       include "gpu_upd_dev_h2.inc"
 #       include "gpu_upd_dev_i1_mp.inc"
 #endif
 #ifdef WRF_GPU
@@ -5379,8 +5379,8 @@ BENCH_END(bc_2d_tim)
 !-----------------------------------------------------------
 
 #ifdef WRF_GPU_RESIDENT
-  ! host copies current for after_all_rk_steps diagnostics and for history output after this step
-#  include "gpu_upd_host_pre_phys.inc"
+  ! host copies current for after_all_rk_steps diagnostics (history/restart output pulls the full list: gpu_pull_for_output)
+#  include "gpu_upd_host_h3.inc"
 #endif
 #ifdef WRF_GPU_RESIDENT
    IF ( IAND( wrf_gpu_fullsync(), 1 ) /= 0 ) THEN
@@ -5744,6 +5744,31 @@ SUBROUTINE gpu_field_trace( grid, tag )
    IF ( have ) WRITE(0,'(A,A,A,A,A,I5,A,A)') 'GPUTRACE ', TRIM(prevtag), ' -> ', TRIM(tag), ' changed ', nch, ' :', TRIM(line)
    have = .TRUE. ; prevtag = tag
 END SUBROUTINE gpu_field_trace
+#endif
+#ifdef WRF_GPU_RESIDENT
+! Called from med_before_solve_io / med_last_solve_io: when any output alarm rings, make the host copies of every
+! device-written grid array current (the per-block pulls in solve_em only cover what each host block reads).
+SUBROUTINE gpu_pull_for_output( grid )
+   USE module_domain, ONLY : domain
+   USE module_utility
+   USE module_streams, ONLY : MAX_WRF_ALARMS
+   USE openacc, ONLY : acc_is_present
+   IMPLICIT NONE
+   TYPE(domain), INTENT(INOUT) :: grid
+   INTEGER :: ia, rc
+   LOGICAL :: any_ring
+   IF ( .NOT. ASSOCIATED(grid%u_2) ) RETURN
+   IF ( .NOT. acc_is_present(grid%u_2) ) RETURN      ! before the first solve_em: host copies are the only copies
+   any_ring = .FALSE.
+   DO ia = 1, MAX_WRF_ALARMS
+      IF ( grid%alarms_created(ia) ) THEN
+         IF ( WRFU_AlarmIsRinging( grid%alarms(ia), rc=rc ) ) any_ring = .TRUE.
+      ENDIF
+   ENDDO
+   IF ( .NOT. any_ring ) RETURN
+#  include "gpu_upd_host_pre_phys.inc"
+!$acc wait
+END SUBROUTINE gpu_pull_for_output
 #endif
 #ifdef WRF_GPU
 ! WRF_GPU_CK=N (diagnostic): device-side domain sums of the state at fixed points of solve_em for the first N steps.
