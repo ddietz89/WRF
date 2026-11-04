@@ -3880,7 +3880,7 @@ BENCH_END(bc_end_tim)
 
 #ifdef WRF_GPU_RESIDENT
 #  include "gpu_upd_host_pre_mp.inc"
-#  include "gpu_upd_host_i1_all.inc"
+#  include "gpu_upd_host_i1_mp.inc"
 #endif
 #ifdef WRF_GPU_RESIDENT
    IF ( IAND( wrf_gpu_fullsync(), 1 ) /= 0 ) THEN
@@ -4539,7 +4539,7 @@ BENCH_START(moist_phys_end_tim)
 #endif
 #ifdef WRF_GPU_RESIDENT
 #       include "gpu_upd_dev_post_mp.inc"
-#       include "gpu_upd_dev_i1_all.inc"
+#       include "gpu_upd_dev_i1_mp.inc"
 #endif
 #ifdef WRF_GPU_RESIDENT
    IF ( IAND( wrf_gpu_fullsync(), 3 ) == 3 ) THEN

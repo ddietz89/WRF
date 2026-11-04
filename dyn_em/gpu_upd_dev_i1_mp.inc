@@ -1,0 +1,7 @@
+! H2 (microphysics block, host): the i1 temporaries it reads/writes (solve_em H2 scan 2026-11-04)
+!$acc update device(th_phy) if(allocated(th_phy))
+!$acc update device(pi_phy) if(allocated(pi_phy))
+!$acc update device(p_phy) if(allocated(p_phy))
+!$acc update device(dz8w) if(allocated(dz8w))
+!$acc update device(p8w) if(allocated(p8w))
+!$acc update device(t8w) if(allocated(t8w))
