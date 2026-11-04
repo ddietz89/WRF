@@ -988,6 +988,10 @@ CONTAINS
 
    REAL    ::    next_rad_time, DTaccum
    LOGICAL ::    run_param , doing_adapt_dt , decided
+#ifdef WRF_GPU
+   INTEGER :: ra_isub, ra_nj
+   INTEGER, PARAMETER :: RA_NSUB = 4
+#endif
    LOGICAL ::    flg_lw, flg_sw
 !ZCX
    REAL    ::    cldji,cldlji
@@ -1709,6 +1713,20 @@ CONTAINS
       ENDIF
    ENDIF
 
+#ifdef WRF_GPU
+   ! GPU builds (1 rank x OpenMP tiles): shortwave cost depends on daylight, so whole tiles are unbalanced -
+   ! split each tile into RA_NSUB j-bands and schedule them dynamically (columns are independent: same results)
+   !$OMP PARALLEL DO SCHEDULE(DYNAMIC,1)   &
+   !$OMP PRIVATE ( ij ,i,j,k,its,ite,jts,jte, ra_isub, ra_nj)
+   DO ra_isub = 1 , num_tiles*RA_NSUB
+     ij = (ra_isub-1)/RA_NSUB + 1
+     its = i_start(ij)
+     ite = i_end(ij)
+     ra_nj = j_end(ij) - j_start(ij) + 1
+     jts = j_start(ij) + ( MOD(ra_isub-1,RA_NSUB)    * ra_nj ) / RA_NSUB
+     jte = j_start(ij) + ( (MOD(ra_isub-1,RA_NSUB)+1) * ra_nj ) / RA_NSUB - 1
+     IF ( jte < jts ) CYCLE
+#else
    !$OMP PARALLEL DO   &
    !$OMP PRIVATE ( ij ,i,j,k,its,ite,jts,jte)
 
@@ -1717,6 +1735,7 @@ CONTAINS
      ite = i_end(ij)
      jts = j_start(ij)
      jte = j_end(ij)
+#endif
 
 ! initialize data
 
