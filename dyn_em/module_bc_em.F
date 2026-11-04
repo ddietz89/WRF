@@ -80,13 +80,13 @@ CONTAINS
 
       IF (jts - jbs .lt. spec_zone) THEN
 ! Y-start boundary
-!$acc parallel loop gang private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
         DO j = jts, min(jtf,jbs+spec_zone-1)
-          b_dist = j - jbs
-          b_limit = b_dist
-          IF(periodic_x)b_limit = 0
-!$acc loop vector collapse(2) private(muold)
           DO k = kts, ktf
+            b_dist = j - jbs
+            b_limit = b_dist
+            IF(periodic_x)b_limit = 0
+!$acc loop vector private(muold)
             DO i = max(its,b_limit+ibs), min(itf,ibe-b_limit)
 
               muold = MUTS(i,j) - dt*MU_TEND(i,j)
@@ -101,13 +101,13 @@ CONTAINS
       ENDIF
       IF (jbe - jtf .lt. spec_zone) THEN
 ! Y-end boundary
-!$acc parallel loop gang private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
         DO j = max(jts,jbe-spec_zone+1), jtf
-          b_dist = jbe - j
-          b_limit = b_dist
-          IF(periodic_x)b_limit = 0
-!$acc loop vector collapse(2) private(muold)
           DO k = kts, ktf
+            b_dist = jbe - j
+            b_limit = b_dist
+            IF(periodic_x)b_limit = 0
+!$acc loop vector private(muold)
             DO i = max(its,b_limit+ibs), min(itf,ibe-b_limit)
 
               muold = MUTS(i,j) - dt*MU_TEND(i,j)
@@ -124,11 +124,11 @@ CONTAINS
     IF(.NOT.periodic_x)THEN
       IF (its - ibs .lt. spec_zone) THEN
 ! X-start boundary
-!$acc parallel loop gang private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
         DO i = its, min(itf,ibs+spec_zone-1)
-          b_dist = i - ibs
-!$acc loop vector collapse(2) private(muold)
           DO k = kts, ktf
+            b_dist = i - ibs
+!$acc loop vector private(muold)
             DO j = max(jts,b_dist+jbs+1), min(jtf,jbe-b_dist-1)
 
               muold = MUTS(i,j) - dt*MU_TEND(i,j)
@@ -144,11 +144,11 @@ CONTAINS
 
       IF (ibe - itf .lt. spec_zone) THEN
 ! X-end boundary
-!$acc parallel loop gang private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
         DO i = max(its,ibe-spec_zone+1), itf
-          b_dist = ibe - i
-!$acc loop vector collapse(2) private(muold)
           DO k = kts, ktf
+            b_dist = ibe - i
+!$acc loop vector private(muold)
             DO j = max(jts,b_dist+jbs+1), min(jtf,jbe-b_dist-1)
 
               muold = MUTS(i,j) - dt*MU_TEND(i,j)

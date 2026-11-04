@@ -1333,13 +1333,13 @@ CONTAINS
 
       IF (jts - jbs .lt. relax_zone) THEN
 ! Y-start boundary
-!$acc parallel loop gang private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
         DO j = max(jts,jbs+spec_zone), min(jtf,jbs+relax_zone-1)
-          b_dist = j - jbs
-          b_limit = b_dist
-          IF(periodic_x)b_limit = 0
-!$acc loop vector collapse(2) private(fls0,fls1,fls2,fls3,fls4,im1,ip1)
           DO k = kts, ktf
+            b_dist = j - jbs
+            b_limit = b_dist
+            IF(periodic_x)b_limit = 0
+!$acc loop vector private(fls0,fls1,fls2,fls3,fls4,im1,ip1)
             DO i = max(its,b_limit+ibs), min(itf,ibe-b_limit)
               im1 = max(i-1,ibs)
               ip1 = min(i+1,ibe)
@@ -1409,11 +1409,11 @@ CONTAINS
     IF(.NOT.periodic_x)THEN
       IF (its - ibs .lt. relax_zone) THEN
 ! X-start boundary
-!$acc parallel loop gang private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
         DO i = max(its,ibs+spec_zone), min(itf,ibs+relax_zone-1)
-          b_dist = i - ibs
-!$acc loop vector collapse(2) private(fls0,fls1,fls2,fls3,fls4)
           DO k = kts, ktf
+            b_dist = i - ibs
+!$acc loop vector private(fls0,fls1,fls2,fls3,fls4)
             DO j = max(jts,b_dist+jbs+1), min(jtf,jbe-b_dist-1)
               fls0 = field_bdy_xs(j, k, b_dist+1) &
                    + dtbc * field_bdy_tend_xs(j, k, b_dist+1) &
@@ -1441,11 +1441,11 @@ CONTAINS
 
       IF (ibe - itf .lt. relax_zone) THEN
 ! X-end boundary
-!$acc parallel loop gang private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
         DO i = max(its,ibe-relax_zone+1), min(itf,ibe-spec_zone)
-          b_dist = ibe - i
-!$acc loop vector collapse(2) private(fls0,fls1,fls2,fls3,fls4)
           DO k = kts, ktf
+            b_dist = ibe - i
+!$acc loop vector private(fls0,fls1,fls2,fls3,fls4)
             DO j = max(jts,b_dist+jbs+1), min(jtf,jbe-b_dist-1)
               fls0 = field_bdy_xe(j, k, b_dist+1) &
                    + dtbc * field_bdy_tend_xe(j, k, b_dist+1) &
@@ -1540,13 +1540,13 @@ CONTAINS
 
       IF (jts - jbs .lt. spec_zone) THEN
 ! Y-start boundary
-!$acc parallel loop gang private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
         DO j = jts, min(jtf,jbs+spec_zone-1)
-          b_dist = j - jbs
-          b_limit = b_dist
-          IF(periodic_x)b_limit = 0
-!$acc loop vector collapse(2)
           DO k = kts, ktf
+            b_dist = j - jbs
+            b_limit = b_dist
+            IF(periodic_x)b_limit = 0
+!$acc loop vector
             DO i = max(its,b_limit+ibs), min(itf,ibe-b_limit)
               field_tend(i,k,j) = field_bdy_tend_ys(i, k, b_dist+1)
             ENDDO
@@ -1576,11 +1576,11 @@ CONTAINS
     IF(.NOT.periodic_x)THEN
       IF (its - ibs .lt. spec_zone) THEN
 ! X-start boundary
-!$acc parallel loop gang private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
         DO i = its, min(itf,ibs+spec_zone-1)
-          b_dist = i - ibs
-!$acc loop vector collapse(2)
           DO k = kts, ktf
+            b_dist = i - ibs
+!$acc loop vector
             DO j = max(jts,b_dist+jbs+1), min(jtf,jbe-b_dist-1)
               field_tend(i,k,j) = field_bdy_tend_xs(j, k, b_dist+1)
             ENDDO
@@ -1590,11 +1590,11 @@ CONTAINS
 
       IF (ibe - itf .lt. spec_zone) THEN
 ! X-end boundary
-!$acc parallel loop gang private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
         DO i = max(its,ibe-spec_zone+1), itf
-          b_dist = ibe - i
-!$acc loop vector collapse(2)
           DO k = kts, ktf
+            b_dist = ibe - i
+!$acc loop vector
             DO j = max(jts,b_dist+jbs+1), min(jtf,jbe-b_dist-1)
               field_tend(i,k,j) = field_bdy_tend_xe(j, k, b_dist+1)
             ENDDO
@@ -1680,13 +1680,13 @@ CONTAINS
       IF (jts - jbs .lt. spec_zone) THEN
 
 ! Y-start boundary
-!$acc parallel loop gang private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
         DO j = jts, min(jtf,jbs+spec_zone-1)
-          b_dist = j - jbs
-          b_limit = b_dist
-          IF(periodic_x)b_limit = 0
-!$acc loop vector collapse(2)
           DO k = kts, ktf
+            b_dist = j - jbs
+            b_limit = b_dist
+            IF(periodic_x)b_limit = 0
+!$acc loop vector
             DO i = max(its,b_limit+ibs), min(itf,ibe-b_limit)
             IF (variable == 't') THEN
               field_tend(i,k,j) = field_tend(i,k,j) + &
@@ -1711,13 +1711,13 @@ CONTAINS
 
 
 ! Y-end boundary
-!$acc parallel loop gang private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
         DO j = max(jts,jbe-spec_zone+1), jtf
-          b_dist = jbe - j
-          b_limit = b_dist
-          IF(periodic_x)b_limit = 0
-!$acc loop vector collapse(2)
           DO k = kts, ktf
+            b_dist = jbe - j
+            b_limit = b_dist
+            IF(periodic_x)b_limit = 0
+!$acc loop vector
             DO i = max(its,b_limit+ibs), min(itf,ibe-b_limit)
             IF (variable == 't') THEN
               field_tend(i,k,j) = field_tend(i,k,j) + &
@@ -1739,11 +1739,11 @@ CONTAINS
     IF(.NOT.periodic_x)THEN
       IF (its - ibs .lt. spec_zone) THEN
 ! X-start boundary
-!$acc parallel loop gang private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
         DO i = its, min(itf,ibs+spec_zone-1)
-          b_dist = i - ibs
-!$acc loop vector collapse(2)
           DO k = kts, ktf
+            b_dist = i - ibs
+!$acc loop vector
             DO j = max(jts,b_dist+jbs+1), min(jtf,jbe-b_dist-1)
             IF (variable == 't') THEN
               field_tend(i,k,j) = field_tend(i,k,j) + &
@@ -1764,11 +1764,11 @@ CONTAINS
 
       IF (ibe - itf .lt. spec_zone) THEN
 ! X-end boundary
-!$acc parallel loop gang private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
         DO i = max(its,ibe-spec_zone+1), itf
-          b_dist = ibe - i
-!$acc loop vector collapse(2)
           DO k = kts, ktf
+            b_dist = ibe - i
+!$acc loop vector
             DO j = max(jts,b_dist+jbs+1), min(jtf,jbe-b_dist-1)
             IF (variable == 't') THEN
               field_tend(i,k,j) = field_tend(i,k,j) + &
@@ -2075,13 +2075,13 @@ CONTAINS
 
       IF (jts - jbs .lt. spec_zone) THEN
 ! Y-start boundary
-!$acc parallel loop gang private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
         DO j = jts, min(jtf,jbs+spec_zone-1)
-          b_dist = j - jbs
-          b_limit = b_dist
-          IF(periodic_x)b_limit = 0
-!$acc loop vector collapse(2)
           DO k = kts, ktf
+            b_dist = j - jbs
+            b_limit = b_dist
+            IF(periodic_x)b_limit = 0
+!$acc loop vector
             DO i = max(its,b_limit+ibs), min(itf,ibe-b_limit)
               field(i,k,j) = field(i,k,j) + dt*field_tend(i,k,j)
             ENDDO
@@ -2090,13 +2090,13 @@ CONTAINS
       ENDIF
       IF (jbe - jtf .lt. spec_zone) THEN
 ! Y-end boundary
-!$acc parallel loop gang private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
         DO j = max(jts,jbe-spec_zone+1), jtf
-          b_dist = jbe - j
-          b_limit = b_dist
-          IF(periodic_x)b_limit = 0
-!$acc loop vector collapse(2)
           DO k = kts, ktf
+            b_dist = jbe - j
+            b_limit = b_dist
+            IF(periodic_x)b_limit = 0
+!$acc loop vector
             DO i = max(its,b_limit+ibs), min(itf,ibe-b_limit)
               field(i,k,j) = field(i,k,j) + dt*field_tend(i,k,j)
             ENDDO
@@ -2107,11 +2107,11 @@ CONTAINS
     IF(.NOT.periodic_x)THEN
       IF (its - ibs .lt. spec_zone) THEN
 ! X-start boundary
-!$acc parallel loop gang private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
         DO i = its, min(itf,ibs+spec_zone-1)
-          b_dist = i - ibs
-!$acc loop vector collapse(2)
           DO k = kts, ktf
+            b_dist = i - ibs
+!$acc loop vector
             DO j = max(jts,b_dist+jbs+1), min(jtf,jbe-b_dist-1)
               field(i,k,j) = field(i,k,j) + dt*field_tend(i,k,j)
             ENDDO
@@ -2121,11 +2121,11 @@ CONTAINS
 
       IF (ibe - itf .lt. spec_zone) THEN
 ! X-end boundary
-!$acc parallel loop gang private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
         DO i = max(its,ibe-spec_zone+1), itf
-          b_dist = ibe - i
-!$acc loop vector collapse(2)
           DO k = kts, ktf
+            b_dist = ibe - i
+!$acc loop vector
             DO j = max(jts,b_dist+jbs+1), min(jtf,jbe-b_dist-1)
               field(i,k,j) = field(i,k,j) + dt*field_tend(i,k,j)
             ENDDO
@@ -2219,13 +2219,13 @@ CONTAINS
 
       IF (jts - jbs .lt. spec_zone) THEN
 ! Y-start boundary
-!$acc parallel loop gang private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
         DO j = jts, min(jtf,jbs+spec_zone-1)
-          b_dist = j - jbs
-          b_limit = b_dist
-          IF(periodic_x)b_limit = 0
-!$acc loop vector collapse(2) private(bfield,xmsf_p,xmu_p)
           DO k = kts, ktf
+            b_dist = j - jbs
+            b_limit = b_dist
+            IF(periodic_x)b_limit = 0
+!$acc loop vector private(bfield,xmsf_p,xmu_p)
             DO i = max(its,b_limit+ibs), min(itf,ibe-b_limit)
               bfield = field_bdy_ys(i, k, b_dist+1) &
                    + dtbc * field_bdy_tend_ys(i, k, b_dist+1)
@@ -2239,13 +2239,13 @@ CONTAINS
 
       IF (jbe - jtf .lt. spec_zone) THEN
 ! Y-end boundary
-!$acc parallel loop gang private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
         DO j = max(jts,jbe-spec_zone+1), jtf
-          b_dist = jbe - j
-          b_limit = b_dist
-          IF(periodic_x)b_limit = 0
-!$acc loop vector collapse(2) private(bfield,xmsf_p,xmu_p)
           DO k = kts, ktf
+            b_dist = jbe - j
+            b_limit = b_dist
+            IF(periodic_x)b_limit = 0
+!$acc loop vector private(bfield,xmsf_p,xmu_p)
             DO i = max(its,b_limit+ibs), min(itf,ibe-b_limit)
               bfield = field_bdy_ye(i, k, b_dist+1) &
                    + dtbc * field_bdy_tend_ye(i, k, b_dist+1)
@@ -2260,11 +2260,11 @@ CONTAINS
     IF(.NOT.periodic_x)THEN
       IF (its - ibs .lt. spec_zone) THEN
 ! X-start boundary
-!$acc parallel loop gang private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
         DO i = its, min(itf,ibs+spec_zone-1)
-          b_dist = i - ibs
-!$acc loop vector collapse(2) private(bfield,xmsf_p,xmu_p)
           DO k = kts, ktf
+            b_dist = i - ibs
+!$acc loop vector private(bfield,xmsf_p,xmu_p)
             DO j = max(jts,b_dist+jbs+1), min(jtf,jbe-b_dist-1)
               bfield = field_bdy_xs(j, k, b_dist+1) &
                    + dtbc * field_bdy_tend_xs(j, k, b_dist+1)
@@ -2278,11 +2278,11 @@ CONTAINS
 
      IF (ibe - itf .lt. spec_zone) THEN
 ! X-end boundary
-!$acc parallel loop gang private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
         DO i = max(its,ibe-spec_zone+1), itf
-          b_dist = ibe - i
-!$acc loop vector collapse(2) private(bfield,xmsf_p,xmu_p)
           DO k = kts, ktf
+            b_dist = ibe - i
+!$acc loop vector private(bfield,xmsf_p,xmu_p)
             DO j = max(jts,b_dist+jbs+1), min(jtf,jbe-b_dist-1)
               bfield = field_bdy_xe(j, k, b_dist+1) &
                    + dtbc * field_bdy_tend_xe(j, k, b_dist+1)
@@ -2350,13 +2350,13 @@ CONTAINS
 
       IF (jts - jbs .lt. spec_zone) THEN
 ! Y-start boundary
-!$acc parallel loop gang private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
         DO j = jts, min(jtf,jbs+spec_zone-1)
-          b_dist = j - jbs
-          b_limit = b_dist
-          IF(periodic_x)b_limit = 0
-!$acc loop vector collapse(2) private(i_inner)
           DO k = kts, ktf
+            b_dist = j - jbs
+            b_limit = b_dist
+            IF(periodic_x)b_limit = 0
+!$acc loop vector private(i_inner)
             DO i = max(its,b_limit+ibs), min(itf,ibe-b_limit)
               i_inner = max(i,ibs+spec_zone)
               i_inner = min(i_inner,ibe-spec_zone)
@@ -2368,13 +2368,13 @@ CONTAINS
       ENDIF
       IF (jbe - jtf .lt. spec_zone) THEN
 ! Y-end boundary
-!$acc parallel loop gang private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
         DO j = max(jts,jbe-spec_zone+1), jtf
-          b_dist = jbe - j
-          b_limit = b_dist
-          IF(periodic_x)b_limit = 0
-!$acc loop vector collapse(2) private(i_inner)
           DO k = kts, ktf
+            b_dist = jbe - j
+            b_limit = b_dist
+            IF(periodic_x)b_limit = 0
+!$acc loop vector private(i_inner)
             DO i = max(its,b_limit+ibs), min(itf,ibe-b_limit)
               i_inner = max(i,ibs+spec_zone)
               i_inner = min(i_inner,ibe-spec_zone)
@@ -2388,11 +2388,11 @@ CONTAINS
     IF(.NOT.periodic_x)THEN
       IF (its - ibs .lt. spec_zone) THEN
 ! X-start boundary
-!$acc parallel loop gang private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
         DO i = its, min(itf,ibs+spec_zone-1)
-          b_dist = i - ibs
-!$acc loop vector collapse(2) private(j_inner)
           DO k = kts, ktf
+            b_dist = i - ibs
+!$acc loop vector private(j_inner)
             DO j = max(jts,b_dist+jbs+1), min(jtf,jbe-b_dist-1)
               j_inner = max(j,jbs+spec_zone)
               j_inner = min(j_inner,jbe-spec_zone)
@@ -2404,11 +2404,11 @@ CONTAINS
 
       IF (ibe - itf .lt. spec_zone) THEN
 ! X-end boundary
-!$acc parallel loop gang private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
         DO i = max(its,ibe-spec_zone+1), itf
-          b_dist = ibe - i
-!$acc loop vector collapse(2) private(j_inner)
           DO k = kts, ktf
+            b_dist = ibe - i
+!$acc loop vector private(j_inner)
             DO j = max(jts,b_dist+jbs+1), min(jtf,jbe-b_dist-1)
               j_inner = max(j,jbs+spec_zone)
               j_inner = min(j_inner,jbe-spec_zone)
@@ -2466,13 +2466,13 @@ CONTAINS
 
       IF (jts - jbs .lt. spec_zone) THEN
 ! Y-start boundary
-!$acc parallel loop gang private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
         DO j = jts, min(jtf,jbs+spec_zone-1)
-          b_dist = j - jbs
-          b_limit = b_dist
-          IF(periodic_x)b_limit = 0
-!$acc loop vector collapse(2) private(i_inner)
           DO k = kts, ktf
+            b_dist = j - jbs
+            b_limit = b_dist
+            IF(periodic_x)b_limit = 0
+!$acc loop vector private(i_inner)
             DO i = max(its,b_limit+ibs), min(itf,ibe-b_limit)
               i_inner = max(i,ibs+spec_zone)
               i_inner = min(i_inner,ibe-spec_zone)
@@ -2488,13 +2488,13 @@ CONTAINS
       ENDIF
       IF (jbe - jtf .lt. spec_zone) THEN
 ! Y-end boundary
-!$acc parallel loop gang private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
         DO j = max(jts,jbe-spec_zone+1), jtf
-          b_dist = jbe - j
-          b_limit = b_dist
-          IF(periodic_x)b_limit = 0
-!$acc loop vector collapse(2) private(i_inner)
           DO k = kts, ktf
+            b_dist = jbe - j
+            b_limit = b_dist
+            IF(periodic_x)b_limit = 0
+!$acc loop vector private(i_inner)
             DO i = max(its,b_limit+ibs), min(itf,ibe-b_limit)
               i_inner = max(i,ibs+spec_zone)
               i_inner = min(i_inner,ibe-spec_zone)
@@ -2512,11 +2512,11 @@ CONTAINS
     IF(.NOT.periodic_x)THEN
       IF (its - ibs .lt. spec_zone) THEN
 ! X-start boundary
-!$acc parallel loop gang private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
         DO i = its, min(itf,ibs+spec_zone-1)
-          b_dist = i - ibs
-!$acc loop vector collapse(2) private(j_inner)
           DO k = kts, ktf
+            b_dist = i - ibs
+!$acc loop vector private(j_inner)
             DO j = max(jts,b_dist+jbs+1), min(jtf,jbe-b_dist-1)
               j_inner = max(j,jbs+spec_zone)
               j_inner = min(j_inner,jbe-spec_zone)
@@ -2532,11 +2532,11 @@ CONTAINS
 
       IF (ibe - itf .lt. spec_zone) THEN
 ! X-end boundary
-!$acc parallel loop gang private(b_dist,b_limit) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) if(wrf_gpu_on)
         DO i = max(its,ibe-spec_zone+1), itf
-          b_dist = ibe - i
-!$acc loop vector collapse(2) private(j_inner)
           DO k = kts, ktf
+            b_dist = ibe - i
+!$acc loop vector private(j_inner)
             DO j = max(jts,b_dist+jbs+1), min(jtf,jbe-b_dist-1)
               j_inner = max(j,jbs+spec_zone)
               j_inner = min(j_inner,jbe-spec_zone)
