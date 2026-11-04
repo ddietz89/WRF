@@ -244,7 +244,7 @@ SUBROUTINE solve_em ( grid , config_flags  &
    ! bit 128: H1 does not re-pull the state the previous step's H3 pulled and the GPU has not changed since
    ! (u/v/w/t_2, rho, moist, scalar); alt/p/ph_2 (rk_step_prep, boundary setters) and mu*/rqvften still pulled
    LOGICAL :: gpu_skip_diff = .FALSE., gpu_h1_reuse = .FALSE.
-   LOGICAL, SAVE :: gpu_h3_done = .FALSE.
+   LOGICAL, SAVE :: gpu_h3_done = .FALSE., gpu_bdy_pushed = .FALSE.
    ! bit 256: after host part1, the GPU re-runs init_zero_tendency + phy_prep itself (both GPU-ported) instead of
    ! receiving the zeroed tendencies and the phy_prep fields (needs no host physics writing them: no PBL
    ! scalar/tracer mixing, no grid nudging)
@@ -515,7 +515,12 @@ SUBROUTINE solve_em ( grid , config_flags  &
 #ifdef WRF_SEG_TIMERS
    CALL seg_enter( 5 )
 #endif
+   ! bit 4096: the lateral-boundary arrays only change when boundary data are read (dtbc reset to 0 there):
+   ! push them on the first step and after each boundary read instead of every step
+   IF ( IAND( wrf_gpu_xfer(), 4096 ) == 0 .OR. .NOT. gpu_bdy_pushed .OR. grid%dtbc == 0. ) THEN
 #  include "gpu_upd_dev_bdy.inc"
+   gpu_bdy_pushed = .TRUE.
+   ENDIF
 #ifdef WRF_SEG_TIMERS
    CALL seg_leave()
 #endif
@@ -6576,7 +6581,8 @@ END FUNCTION wrf_gpu_hostblocks
 ! WRF_GPU_XFER (residency): reduced lists - bit 1 H1 pull, 4 H2 pull, 8 H3 pull, 2 pushes, 16 GPU-owned physics
 ! tendencies (needs 2+4), 32 microphysics block on the GPU (Thompson), 64 no pushes of recomputed diffusion fields,
 ! 128 H1 reuses the H3-pulled state (alt/p/ph_2 still pulled), 256 GPU-side init_zero_tendency + phy_prep,
-! 1024 MYJ PBL on the GPU (needs 256); default 1535.
+! 1024 MYJ PBL on the GPU (needs 256), 2048 pinned staging of the H1/H3 pulls, 4096 boundary arrays pushed only
+! after boundary reads; default 7679.
 ! WRF_GPU_XFER bit 2048 (residency): device->host copy of one array through two pinned staging buffers
 ! (cuMemAllocHost), double-buffered on async queues 11/12, with an OpenMP host copy out of the staging buffer.
 ! Pageable update self runs at ~4.4 GB/s on the V100 rentals; pinned DMA ~11-12 GB/s. Falls back to update self.
@@ -6702,9 +6708,9 @@ INTEGER FUNCTION wrf_gpu_xfer()
    INTEGER :: st
    IF ( mode < 0 ) THEN
       CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_XFER', v, STATUS=st )
-      mode = 1535
+      mode = 7679
       IF ( st == 0 ) READ( v, *, IOSTAT=st ) mode
-      IF ( st /= 0 ) mode = 1535
+      IF ( st /= 0 ) mode = 7679
    ENDIF
    wrf_gpu_xfer = mode
 END FUNCTION wrf_gpu_xfer
