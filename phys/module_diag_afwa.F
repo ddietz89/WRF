@@ -577,7 +577,7 @@ CONTAINS
                              , grid % afwa_ptype_tot_melt       &
                              , ids, ide, jds, jde, kds, kde     &
                              , ims, ime, jms, jme, kms, kme     &
-                             , ips, ipe, jps, jpe, kps, kpe )
+                             , its, ite, jts, jte, kps, kpe )   ! tile bounds: called once per OpenMP tile
     ENDIF  ! afwa_ptype_opt == 1
   
     ! --------------------------------------------------------------
@@ -730,7 +730,7 @@ CONTAINS
                              , z_e                              &
                              , ids, ide, jds, jde, kds, kde     &
                              , ims, ime, jms, jme, kms, kme     &
-                             , ips, ipe, jps, jpe, kps, kpe )
+                             , its, ite, jts, jte, kps, kpe )   ! tile bounds: called once per OpenMP tile
       ENDIF  ! afwa_radar_opt == 1 .or. afwa_vil_opt == 1
 
       ! Calculate derived radar variables
@@ -751,7 +751,7 @@ CONTAINS
                              , z_e                              &
                              , ids, ide, jds, jde, kds, kde     &
                              , ims, ime, jms, jme, kms, kme     &
-                             , ips, ipe, jps, jpe, kps, kpe )
+                             , its, ite, jts, jte, kps, kpe )   ! tile bounds: called once per OpenMP tile
       ENDIF  ! afwa_radar_opt == 1
 
       ! Calculate VIL and reflectivity every history output timestep
@@ -770,7 +770,7 @@ CONTAINS
                              , rho                              &
                              , ids, ide, jds, jde, kds, kde     &
                              , ims, ime, jms, jme, kms, kme     &
-                             , ips, ipe, jps, jpe, kps, kpe )
+                             , its, ite, jts, jte, kps, kpe )   ! tile bounds: called once per OpenMP tile
       ENDIF  ! afwa_vil_opt ==1 
 
       IF ( F_QR .AND. F_QC .AND. F_QNC ) THEN
@@ -828,7 +828,7 @@ CONTAINS
                                  , ncloud                           &
                                  , ids, ide, jds, jde, kds, kde     &
                                  , ims, ime, jms, jme, kms, kme     &
-                                 , ips, ipe, jps, jpe, kps, kpe )
+                                 , its, ite, jts, jte, kps, kpe )   ! tile bounds: called once per OpenMP tile
           ELSE
             CALL wrf_debug ( DEBUG_LEVEL, 'Icing diagnostics not processed due to unknown MP scheme' )
           END IF
