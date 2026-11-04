@@ -421,7 +421,7 @@
 
 #ifdef WRF_GPU
 !.. GPU port: device copies of all module variables (filled at the end of thompson_init)
-      INTEGER, PARAMETER:: KTGPU = 48   ! max vertical levels (kte) of the device column routine
+      INTEGER, PARAMETER:: KTGPU = 40   ! max vertical levels (kte) of the device column routine (local memory ~ KTGPU)
 !$acc declare create(is_aerosol_aware,is_hail_aware,rho_s,dimNRHG,mu_c,av_g,bv_g,Sc3)
 !$acc declare create(D0i,xm0s,xm0g,nic1,nic2,nii2,nii3,nir2)
 !$acc declare create(nir3,nis2,nig2,nig3,niIN2,xDx,Dc,dtc)
@@ -1182,11 +1182,20 @@
 #endif
 
 !..Local variables
+#ifdef WRF_GPU
+!.. fixed size: private arrays of the GPU column loop must not be heap-allocated per device thread
+      REAL, DIMENSION(1:KTGPU):: &
+                          qv1d, qc1d, qi1d, qr1d, qs1d, qg1d, qb1d,     &
+                          ni1d, nr1d, nc1d, ng1d, nwfa1d, nifa1d, nbca1d,&
+                          t1d, p1d, w1d, dz1d, rho, dBZ
+      REAL, DIMENSION(1:KTGPU):: re_qc1d, re_qi1d, re_qs1d
+#else
       REAL, DIMENSION(kts:kte):: &
                           qv1d, qc1d, qi1d, qr1d, qs1d, qg1d, qb1d,     &
                           ni1d, nr1d, nc1d, ng1d, nwfa1d, nifa1d, nbca1d,&
                           t1d, p1d, w1d, dz1d, rho, dBZ
       REAL, DIMENSION(kts:kte):: re_qc1d, re_qi1d, re_qs1d
+#endif
 #if ( WRF_CHEM == 1 )
       REAL, DIMENSION(kts:kte):: &
                           rainprod1d, evapprod1d
@@ -5930,7 +5939,11 @@
       REAL, DIMENSION(kts:kte), INTENT(INOUT):: re_qc1d, re_qi1d, re_qs1d
 !..Local variables
       INTEGER:: k
+#ifdef WRF_GPU
+      REAL, DIMENSION(1:KTGPU):: rho, rc, nc, ri, ni, rs
+#else
       REAL, DIMENSION(kts:kte):: rho, rc, nc, ri, ni, rs
+#endif
       REAL:: smo2, smob, smoc
       REAL:: tc0, loga_, a_, b_
       DOUBLE PRECISION:: lamc, lami
