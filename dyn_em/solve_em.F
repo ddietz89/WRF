@@ -119,7 +119,7 @@ SUBROUTINE solve_em ( grid , config_flags  &
    USE module_wrf_error, ONLY : wrf_gpu_on, wrf_gpu_q
 #ifdef WRF_GPU_RESIDENT
    USE module_radiation_driver, ONLY : wrf_gpu_ra_ran, wrf_gpu_ra_pullre
-   USE module_cumulus_driver, ONLY : wrf_gpu_cu_ran, wrf_gpu_cu_pullbl
+   USE module_cumulus_driver, ONLY : wrf_gpu_cu_ran, wrf_gpu_cu_pullbl, wrf_gpu_cu, wrf_gpu_cu_dev_ran
    USE module_pbl_driver, ONLY : wrf_gpu_bl_ran, wrf_gpu_pbl, wrf_gpu_pbl_ran
 #endif
 #endif
@@ -1081,6 +1081,7 @@ BENCH_START(calc_p_rho_tim)
    ENDIF
    wrf_gpu_pbl = gpu_prep_dev .AND. IAND( wrf_gpu_xfer(), 1024 ) /= 0
    wrf_gpu_cu_pullbl = wrf_gpu_pbl
+   wrf_gpu_cu = wrf_gpu_pbl .AND. IAND( wrf_gpu_xfer(), 8192 ) /= 0   ! Tiedtke on the GPU
    ! GPU Thompson (bit 32) writes the effective radii: radiation_driver pulls them on radiation steps only
    wrf_gpu_ra_pullre = IAND( wrf_gpu_xfer(), 16 ) /= 0 .AND. IAND( wrf_gpu_xfer(), 6 ) == 6 .AND.          &
                        IAND( wrf_gpu_xfer(), 32 ) /= 0 .AND. config_flags%mp_physics == THOMPSON
@@ -1211,7 +1212,7 @@ BENCH_START(calc_p_rho_tim)
 #endif
    gpu_tend_dev = IAND( wrf_gpu_xfer(), 16 ) /= 0 .AND. IAND( wrf_gpu_xfer(), 6 ) == 6
    gpu_push_ra = .NOT. gpu_tend_dev .OR. wrf_gpu_ra_ran
-   gpu_push_cu = .NOT. gpu_tend_dev .OR. wrf_gpu_cu_ran
+   gpu_push_cu = ( .NOT. gpu_tend_dev .OR. wrf_gpu_cu_ran ) .AND. .NOT. wrf_gpu_cu_dev_ran
    gpu_push_bl = ( .NOT. gpu_tend_dev .OR. wrf_gpu_bl_ran ) .AND. .NOT. wrf_gpu_pbl_ran
    gpu_skip_diff = IAND( wrf_gpu_xfer(), 64 ) /= 0 .AND. config_flags%diff_opt >= 1
    IF ( IAND( wrf_gpu_xfer(), 2 ) /= 0 ) THEN
@@ -6582,7 +6583,7 @@ END FUNCTION wrf_gpu_hostblocks
 ! tendencies (needs 2+4), 32 microphysics block on the GPU (Thompson), 64 no pushes of recomputed diffusion fields,
 ! 128 H1 reuses the H3-pulled state (alt/p/ph_2 still pulled), 256 GPU-side init_zero_tendency + phy_prep,
 ! 1024 MYJ PBL on the GPU (needs 256), 2048 pinned staging of the H1/H3 pulls, 4096 boundary arrays pushed only
-! after boundary reads; default 7679.
+! after boundary reads, 8192 Tiedtke cumulus on the GPU (needs 1024); default 7679.
 ! WRF_GPU_XFER bit 2048 (residency): device->host copy of one array through two pinned staging buffers
 ! (cuMemAllocHost), double-buffered on async queues 11/12, with an OpenMP host copy out of the staging buffer.
 ! Pageable update self runs at ~4.4 GB/s on the V100 rentals; pinned DMA ~11-12 GB/s. Falls back to update self.

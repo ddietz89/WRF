@@ -8,6 +8,9 @@ MODULE module_cumulus_driver
    LOGICAL :: wrf_gpu_cu_ran = .TRUE.
 ! residency builds: PBL tendencies are GPU-written (GPU MYJ) - pull them only on steps the scheme runs
    LOGICAL :: wrf_gpu_cu_pullbl = .FALSE.
+! residency builds: wrf_gpu_cu (set by solve_em) = run Tiedtke on the GPU (cu_tiedtke_gpu, whole patch, before
+! the tile loop); wrf_gpu_cu_dev_ran = it ran this call (cumulus tendencies GPU-written: solve_em does not push)
+   LOGICAL :: wrf_gpu_cu = .FALSE., wrf_gpu_cu_dev_ran = .FALSE.
 #endif
 CONTAINS
    SUBROUTINE cumulus_driver(grid                                     &
@@ -207,6 +210,10 @@ CONTAINS
    USE module_cu_osas   , ONLY : cu_osas
    USE module_cu_camzm_driver, ONLY : camzm_driver
    USE module_cu_tiedtke, ONLY : cu_tiedtke
+#ifdef WRF_GPU_RESIDENT
+   USE module_cu_tiedtke, ONLY : cu_tiedtke_gpu
+   USE module_wrf_error , ONLY : wrf_gpu_on
+#endif
    USE module_cu_ntiedtke,ONLY : cu_ntiedtke_driver
    USE module_cu_ksas   , ONLY : cu_ksas
    USE module_cu_nsas   , ONLY : cu_nsas
@@ -523,6 +530,12 @@ CONTAINS
          OPTIONAL, INTENT(INOUT) ::                         ZOL
 
    REAL, DIMENSION( ims:ime , jms:jme ) :: tmppratec
+#ifdef WRF_GPU_RESIDENT
+   LOGICAL, SAVE :: gpu_cu_entered = .FALSE.
+   REAL, ALLOCATABLE, SAVE :: cu_rainc_gpu(:,:), cu_pratec_gpu(:,:)   ! raincv/pratec/cu_act_flag may be temporaries
+   LOGICAL, ALLOCATABLE, SAVE :: cu_flag_gpu(:,:)
+   INTEGER :: gits, gite, gjts, gjte
+#endif
                                                     
    INTEGER, DIMENSION( ims:ime , jms:jme ),                      &
                     INTENT(IN) ::                          KPBL
@@ -867,7 +880,7 @@ CONTAINS
 #endif
 
 #ifdef WRF_GPU_RESIDENT
-   IF ( run_param .AND. wrf_gpu_cu_pullbl ) THEN
+   IF ( run_param .AND. wrf_gpu_cu_pullbl .AND. .NOT. ( wrf_gpu_cu .AND. cu_physics == TIEDTKESCHEME ) ) THEN
      IF ( PRESENT(rqvblten) ) THEN
 !$acc update self(rqvblten)
      ENDIF
@@ -918,6 +931,55 @@ CONTAINS
 ! DON'T JUDGE TIME STEP HERE, SINCE KF NEEDS ACCUMULATED W FIELD.
 ! DO IT INSIDE THE INDIVIDUAL CUMULUS SCHEME
 
+#ifdef WRF_GPU_RESIDENT
+      wrf_gpu_cu_dev_ran = .FALSE.
+      IF ( wrf_gpu_cu .AND. cu_physics == TIEDTKESCHEME .AND. aercu_opt == 0 ) THEN
+       IF ( PRESENT(qfx) .AND. PRESENT(znu) .AND. PRESENT(qv_curr) .AND. PRESENT(qc_curr) .AND.             &
+            PRESENT(qi_curr) .AND. PRESENT(rqvblten) .AND. PRESENT(rqvften) .AND. PRESENT(rthcuten) .AND.    &
+            PRESENT(rqvcuten) .AND. PRESENT(rqccuten) .AND. PRESENT(rqicuten) .AND.                          &
+            PRESENT(f_qc) .AND. PRESENT(f_qi) ) THEN
+        IF ( f_qc .AND. f_qi ) THEN
+         wrf_gpu_cu_dev_ran = .TRUE.
+         gits = MINVAL(i_start(1:num_tiles)) ; gite = MAXVAL(i_end(1:num_tiles))
+         gjts = MINVAL(j_start(1:num_tiles)) ; gjte = MAXVAL(j_end(1:num_tiles))
+         IF ( .NOT. gpu_cu_entered ) THEN
+           ALLOCATE( cu_rainc_gpu(ims:ime,jms:jme), cu_pratec_gpu(ims:ime,jms:jme), cu_flag_gpu(ims:ime,jms:jme) )
+           cu_rainc_gpu = 0. ; cu_pratec_gpu = 0. ; cu_flag_gpu = .FALSE.
+!$acc enter data copyin(cu_rainc_gpu,cu_pratec_gpu,cu_flag_gpu,xland,qfx)
+           gpu_cu_entered = .TRUE.
+         ENDIF
+         ! host surface physics wrote qfx this step
+!$acc update device(qfx,xland)
+         wrf_gpu_on = .TRUE.
+         CALL cu_tiedtke_gpu(                                   &
+                DT=dt,ITIMESTEP=itimestep,STEPCU=STEPCU         &
+               ,RAINCV=cu_rainc_gpu,PRATEC=cu_pratec_gpu,QFX=qfx,ZNU=znu &
+               ,U3D=u,V3D=v,W=w,T3D=t,PI3D=pi,RHO3D=rho         &
+               ,QV3D=QV_CURR,QC3D=QC_CURR,QI3D=QI_CURR          &
+               ,QVFTEN=RQVFTEN,QVPBLTEN=RQVBLTEN                &
+               ,DZ8W=dz8w,PCPS=p,P8W=p8w,XLAND=XLAND            &
+               ,CU_ACT_FLAG=cu_flag_gpu                         &
+               ,IDS=ids,IDE=ide,JDS=jds,JDE=jde,KDS=kds,KDE=kde &
+               ,IMS=ims,IME=ime,JMS=jms,JME=jme,KMS=kms,KME=kme &
+               ,ITS=gits,ITE=gite,JTS=gjts,JTE=gjte,KTS=kts,KTE=kte &
+               ,RTHCUTEN=RTHCUTEN,RQVCUTEN=RQVCUTEN             &
+               ,RQCCUTEN=RQCCUTEN,RQICUTEN=RQICUTEN             &
+               ,RUCUTEN = RUCUTEN,RVCUTEN = RVCUTEN )
+         wrf_gpu_on = .FALSE.
+!$acc update self(cu_rainc_gpu,cu_pratec_gpu,cu_flag_gpu)
+         DO ij = 1 , num_tiles
+           DO j = j_start(ij), j_end(ij)
+           DO i = i_start(ij), i_end(ij)
+             raincv(i,j) = cu_rainc_gpu(i,j)
+             tmppratec(i,j) = cu_pratec_gpu(i,j)
+             cu_act_flag(i,j) = cu_flag_gpu(i,j)
+           ENDDO
+           ENDDO
+         ENDDO
+        ENDIF
+       ENDIF
+      ENDIF
+#endif
 ! SET START AND END POINTS FOR TILES
       !$OMP PARALLEL DO   &
       !$OMP PRIVATE ( ij ,its,ite,jts,jte, i,j,k)
@@ -1377,6 +1439,9 @@ CONTAINS
         IF ( PRESENT ( QFX ) .AND. PRESENT( ZNU ) ) THEN
 
           CALL wrf_debug(100,'in cu_tiedtke')
+#ifdef WRF_GPU_RESIDENT
+          IF ( .NOT. wrf_gpu_cu_dev_ran ) &
+#endif
           CALL CU_TIEDTKE(                                      &
                 DT=dt,ITIMESTEP=itimestep,STEPCU=STEPCU         &
                ,RAINCV=RAINCV,PRATEC=tmppratec,QFX=qfx,ZNU=znu  &
