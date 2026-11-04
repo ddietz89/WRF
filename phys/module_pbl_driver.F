@@ -860,6 +860,9 @@ CONTAINS
    INTEGER :: i,J,K,NK,jj,ij,its,ite,jts,jte
    LOGICAL :: radiation
    LOGICAL :: flag_bep
+#ifdef WRF_GPU_RESIDENT
+   LOGICAL, SAVE :: gpu_pbl_entered = .FALSE.
+#endif
    LOGICAL :: flag_myjsfc
    LOGICAL :: flag_qv, flag_qc, flag_qr, flag_qi, flag_qs, flag_qg, &
               flag_qnc,flag_qni, flag_qnwfa, flag_qnifa, flag_qnbca
@@ -1191,6 +1194,11 @@ CONTAINS
         PRESENT(rqcblten) .AND. PRESENT(rqiblten) .AND. windfarm_opt == 0 .AND. distributed_ahe_opt /= 1 .AND. &
         scalar_pblmix == 0 ) THEN
     wrf_gpu_pbl_ran = .TRUE.
+    IF ( .NOT. gpu_pbl_entered ) THEN   ! not all of these are in the grid enter-data list (no copy if present)
+!$acc enter data copyin(tsk,qsfc,chklowq,thz0,qz0,uz0,vz0,ust,znt,ct,akhs,akms,lh,xland,xice,snow,lowlyr,ht)
+!$acc enter data copyin(tke_pbl,exch_h,el_pbl,pblh,kpbl,mixht)
+      gpu_pbl_entered = .TRUE.
+    ENDIF
     ! host surface physics wrote these this step
 !$acc update device(tsk,qsfc,chklowq,thz0,qz0,uz0,vz0,ust,znt,ct,akhs,akms,lh,xland,xice,snow,lowlyr,ht)
     wrf_gpu_on = .TRUE.
