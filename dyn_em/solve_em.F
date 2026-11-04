@@ -472,6 +472,12 @@ SUBROUTINE solve_em ( grid , config_flags  &
 #ifdef WRF_GPU_RESIDENT
    ! automatic (per-call) work arrays used inside compute regions: device copies for this call only
 !$acc enter data create(h_tendency, z_tendency)
+!$acc kernels present(h_tendency)
+      h_tendency = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
+!$acc kernels present(z_tendency)
+      z_tendency = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
 
 !  Max values of CFL for adaptive time step scheme

@@ -1378,6 +1378,9 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
       ALLOCATE( mut_inv(its:ite) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(mut_inv)
+!$acc kernels present(mut_inv)
+      mut_inv = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(dampwt) ) THEN
@@ -1392,6 +1395,9 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
       ALLOCATE( dampwt(kts:kte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(dampwt)
+!$acc kernels present(dampwt)
+      dampwt = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
 #endif

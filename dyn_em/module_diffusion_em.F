@@ -118,6 +118,9 @@
       ALLOCATE( mm(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(mm)
+!$acc kernels present(mm)
+      mm = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(zzavg) ) THEN
@@ -132,6 +135,9 @@
       ALLOCATE( zzavg(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(zzavg)
+!$acc kernels present(zzavg)
+      zzavg = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(zeta_zd12) ) THEN
@@ -146,6 +152,9 @@
       ALLOCATE( zeta_zd12(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(zeta_zd12)
+!$acc kernels present(zeta_zd12)
+      zeta_zd12 = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(tmp1) ) THEN
@@ -160,6 +169,9 @@
       ALLOCATE( tmp1(its-2:ite+2,kts:kte,jts-2:jte+2) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(tmp1)
+!$acc kernels present(tmp1)
+      tmp1 = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(hat) ) THEN
@@ -174,6 +186,9 @@
       ALLOCATE( hat(its-2:ite+2,kts:kte,jts-2:jte+2) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(hat)
+!$acc kernels present(hat)
+      hat = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(hatavg) ) THEN
@@ -188,6 +203,9 @@
       ALLOCATE( hatavg(its-2:ite+2,kts:kte,jts-2:jte+2) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(hatavg)
+!$acc kernels present(hatavg)
+      hatavg = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
 #endif
@@ -1577,6 +1595,9 @@ SUBROUTINE cal_dampkm( config_flags,xkmh,xkhh,xkmv,xkhv,                       &
       ALLOCATE( dampk(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(dampk)
+!$acc kernels present(dampk)
+      dampk = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(dampkv) ) THEN
@@ -1591,6 +1612,9 @@ SUBROUTINE cal_dampkm( config_flags,xkmh,xkhh,xkmv,xkhv,                       &
       ALLOCATE( dampkv(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(dampkv)
+!$acc kernels present(dampkv)
+      dampkv = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
 #endif
@@ -1769,6 +1793,9 @@ END SUBROUTINE cal_dampkm
       ALLOCATE( tmp1sfc(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(tmp1sfc)
+!$acc kernels present(tmp1sfc)
+      tmp1sfc = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(tmp1top) ) THEN
@@ -1783,6 +1810,9 @@ END SUBROUTINE cal_dampkm
       ALLOCATE( tmp1top(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(tmp1top)
+!$acc kernels present(tmp1top)
+      tmp1top = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(tmp1) ) THEN
@@ -1797,6 +1827,9 @@ END SUBROUTINE cal_dampkm
       ALLOCATE( tmp1(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(tmp1)
+!$acc kernels present(tmp1)
+      tmp1 = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(qvs) ) THEN
@@ -1811,6 +1844,9 @@ END SUBROUTINE cal_dampkm
       ALLOCATE( qvs(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(qvs)
+!$acc kernels present(qvs)
+      qvs = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(qctmp) ) THEN
@@ -1825,6 +1861,9 @@ END SUBROUTINE cal_dampkm
       ALLOCATE( qctmp(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(qctmp)
+!$acc kernels present(qctmp)
+      qctmp = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
 #endif
@@ -2144,6 +2183,9 @@ SUBROUTINE smag_km( config_flags,xkmh,xkmv,xkhh,xkhv,BN2,                      &
       ALLOCATE( def2(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(def2)
+!$acc kernels present(def2)
+      def2 = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
 #endif
@@ -2322,6 +2364,9 @@ SUBROUTINE smag2d_km( config_flags,xkmh,xkmv,xkhh,xkhv,                        &
       ALLOCATE( def2(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(def2)
+!$acc kernels present(def2)
+      def2 = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
 #endif
@@ -2518,6 +2563,9 @@ END SUBROUTINE smag2d_km
       ALLOCATE( l_scale(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(l_scale)
+!$acc kernels present(l_scale)
+      l_scale = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(dthrdn) ) THEN
@@ -2532,6 +2580,9 @@ END SUBROUTINE smag2d_km
       ALLOCATE( dthrdn(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(dthrdn)
+!$acc kernels present(dthrdn)
+      dthrdn = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(def2) ) THEN
@@ -2546,6 +2597,9 @@ END SUBROUTINE smag2d_km
       ALLOCATE( def2(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(def2)
+!$acc kernels present(def2)
+      def2 = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(xkmh_s) ) THEN
@@ -2560,6 +2614,9 @@ END SUBROUTINE smag2d_km
       ALLOCATE( xkmh_s(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(xkmh_s)
+!$acc kernels present(xkmh_s)
+      xkmh_s = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(xkhh_s) ) THEN
@@ -2574,6 +2631,9 @@ END SUBROUTINE smag2d_km
       ALLOCATE( xkhh_s(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(xkhh_s)
+!$acc kernels present(xkhh_s)
+      xkhh_s = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
 #endif
@@ -2949,6 +3009,9 @@ END SUBROUTINE smag2d_km
       ALLOCATE( zfull(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(zfull)
+!$acc kernels present(zfull)
+      zfull = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(za) ) THEN
@@ -2963,6 +3026,9 @@ END SUBROUTINE smag2d_km
       ALLOCATE( za(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(za)
+!$acc kernels present(za)
+      za = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(elb) ) THEN
@@ -2977,6 +3043,9 @@ END SUBROUTINE smag2d_km
       ALLOCATE( elb(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(elb)
+!$acc kernels present(elb)
+      elb = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(qtke) ) THEN
@@ -2991,6 +3060,9 @@ END SUBROUTINE smag2d_km
       ALLOCATE( qtke(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(qtke)
+!$acc kernels present(qtke)
+      qtke = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(els) ) THEN
@@ -3005,6 +3077,9 @@ END SUBROUTINE smag2d_km
       ALLOCATE( els(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(els)
+!$acc kernels present(els)
+      els = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(elf) ) THEN
@@ -3019,6 +3094,9 @@ END SUBROUTINE smag2d_km
       ALLOCATE( elf(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(elf)
+!$acc kernels present(elf)
+      elf = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(sflux) ) THEN
@@ -3033,6 +3111,9 @@ END SUBROUTINE smag2d_km
       ALLOCATE( sflux(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(sflux)
+!$acc kernels present(sflux)
+      sflux = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(elt) ) THEN
@@ -3047,6 +3128,9 @@ END SUBROUTINE smag2d_km
       ALLOCATE( elt(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(elt)
+!$acc kernels present(elt)
+      elt = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(vsc) ) THEN
@@ -3061,6 +3145,9 @@ END SUBROUTINE smag2d_km
       ALLOCATE( vsc(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(vsc)
+!$acc kernels present(vsc)
+      vsc = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(dthrdn) ) THEN
@@ -3075,6 +3162,9 @@ END SUBROUTINE smag2d_km
       ALLOCATE( dthrdn(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(dthrdn)
+!$acc kernels present(dthrdn)
+      dthrdn = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
 #endif
@@ -3380,6 +3470,9 @@ END SUBROUTINE smag2d_km
       ALLOCATE( zfull(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(zfull)
+!$acc kernels present(zfull)
+      zfull = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(za) ) THEN
@@ -3394,6 +3487,9 @@ END SUBROUTINE smag2d_km
       ALLOCATE( za(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(za)
+!$acc kernels present(za)
+      za = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(dlg) ) THEN
@@ -3408,6 +3504,9 @@ END SUBROUTINE smag2d_km
       ALLOCATE( dlg(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(dlg)
+!$acc kernels present(dlg)
+      dlg = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(dlu) ) THEN
@@ -3422,6 +3521,9 @@ END SUBROUTINE smag2d_km
       ALLOCATE( dlu(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(dlu)
+!$acc kernels present(dlu)
+      dlu = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(dld) ) THEN
@@ -3436,6 +3538,9 @@ END SUBROUTINE smag2d_km
       ALLOCATE( dld(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(dld)
+!$acc kernels present(dld)
+      dld = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
 #endif
@@ -3934,6 +4039,9 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
       ALLOCATE( titau1avg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(titau1avg)
+!$acc kernels present(titau1avg)
+      titau1avg = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(titau2avg) ) THEN
@@ -3948,6 +4056,9 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
       ALLOCATE( titau2avg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(titau2avg)
+!$acc kernels present(titau2avg)
+      titau2avg = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(titau1) ) THEN
@@ -3962,6 +4073,9 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
       ALLOCATE( titau1(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(titau1)
+!$acc kernels present(titau1)
+      titau1 = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(titau2) ) THEN
@@ -3976,6 +4090,9 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
       ALLOCATE( titau2(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(titau2)
+!$acc kernels present(titau2)
+      titau2 = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(xkxavg) ) THEN
@@ -3990,6 +4107,9 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
       ALLOCATE( xkxavg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(xkxavg)
+!$acc kernels present(xkxavg)
+      xkxavg = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(rravg) ) THEN
@@ -4004,6 +4124,9 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
       ALLOCATE( rravg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(rravg)
+!$acc kernels present(rravg)
+      rravg = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(zy_at_u) ) THEN
@@ -4018,6 +4141,9 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
       ALLOCATE( zy_at_u(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(zy_at_u)
+!$acc kernels present(zy_at_u)
+      zy_at_u = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(zx_at_u) ) THEN
@@ -4032,6 +4158,9 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
       ALLOCATE( zx_at_u(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(zx_at_u)
+!$acc kernels present(zx_at_u)
+      zx_at_u = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
 #endif
@@ -4258,6 +4387,9 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
       ALLOCATE( titau1avg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(titau1avg)
+!$acc kernels present(titau1avg)
+      titau1avg = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(titau2avg) ) THEN
@@ -4272,6 +4404,9 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
       ALLOCATE( titau2avg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(titau2avg)
+!$acc kernels present(titau2avg)
+      titau2avg = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(titau1) ) THEN
@@ -4286,6 +4421,9 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
       ALLOCATE( titau1(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(titau1)
+!$acc kernels present(titau1)
+      titau1 = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(titau2) ) THEN
@@ -4300,6 +4438,9 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
       ALLOCATE( titau2(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(titau2)
+!$acc kernels present(titau2)
+      titau2 = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(xkxavg) ) THEN
@@ -4314,6 +4455,9 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
       ALLOCATE( xkxavg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(xkxavg)
+!$acc kernels present(xkxavg)
+      xkxavg = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(rravg) ) THEN
@@ -4328,6 +4472,9 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
       ALLOCATE( rravg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(rravg)
+!$acc kernels present(rravg)
+      rravg = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(zy_at_v) ) THEN
@@ -4342,6 +4489,9 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
       ALLOCATE( zy_at_v(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(zy_at_v)
+!$acc kernels present(zy_at_v)
+      zy_at_v = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(zx_at_v) ) THEN
@@ -4356,6 +4506,9 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
       ALLOCATE( zx_at_v(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(zx_at_v)
+!$acc kernels present(zx_at_v)
+      zx_at_v = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
 #endif
@@ -4577,6 +4730,9 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
       ALLOCATE( titau1avg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(titau1avg)
+!$acc kernels present(titau1avg)
+      titau1avg = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(titau2avg) ) THEN
@@ -4591,6 +4747,9 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
       ALLOCATE( titau2avg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(titau2avg)
+!$acc kernels present(titau2avg)
+      titau2avg = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(titau1) ) THEN
@@ -4605,6 +4764,9 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
       ALLOCATE( titau1(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(titau1)
+!$acc kernels present(titau1)
+      titau1 = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(titau2) ) THEN
@@ -4619,6 +4781,9 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
       ALLOCATE( titau2(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(titau2)
+!$acc kernels present(titau2)
+      titau2 = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(xkxavg) ) THEN
@@ -4633,6 +4798,9 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
       ALLOCATE( xkxavg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(xkxavg)
+!$acc kernels present(xkxavg)
+      xkxavg = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(rravg) ) THEN
@@ -4647,6 +4815,9 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
       ALLOCATE( rravg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(rravg)
+!$acc kernels present(rravg)
+      rravg = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(zx_at_w) ) THEN
@@ -4661,6 +4832,9 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
       ALLOCATE( zx_at_w(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(zx_at_w)
+!$acc kernels present(zx_at_w)
+      zx_at_w = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(zy_at_w) ) THEN
@@ -4675,6 +4849,9 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
       ALLOCATE( zy_at_w(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(zy_at_w)
+!$acc kernels present(zy_at_w)
+      zy_at_w = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
 #endif
@@ -4897,6 +5074,9 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
       ALLOCATE( H1avg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(H1avg)
+!$acc kernels present(H1avg)
+      H1avg = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(H2avg) ) THEN
@@ -4911,6 +5091,9 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
       ALLOCATE( H2avg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(H2avg)
+!$acc kernels present(H2avg)
+      H2avg = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(H1) ) THEN
@@ -4925,6 +5108,9 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
       ALLOCATE( H1(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(H1)
+!$acc kernels present(H1)
+      H1 = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(H2) ) THEN
@@ -4939,6 +5125,9 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
       ALLOCATE( H2(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(H2)
+!$acc kernels present(H2)
+      H2 = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(xkxavg) ) THEN
@@ -4953,6 +5142,9 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
       ALLOCATE( xkxavg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(xkxavg)
+!$acc kernels present(xkxavg)
+      xkxavg = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(zx_at_m) ) THEN
@@ -4967,6 +5159,9 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
       ALLOCATE( zx_at_m(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(zx_at_m)
+!$acc kernels present(zx_at_m)
+      zx_at_m = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(zy_at_m) ) THEN
@@ -4981,6 +5176,9 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
       ALLOCATE( zy_at_m(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(zy_at_m)
+!$acc kernels present(zy_at_m)
+      zy_at_m = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(tmptendf) ) THEN
@@ -4995,6 +5193,9 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
       ALLOCATE( tmptendf(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(tmptendf)
+!$acc kernels present(tmptendf)
+      tmptendf = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
 #endif
@@ -5365,6 +5566,9 @@ SUBROUTINE vertical_diffusion_2   ( ru_tendf, rv_tendf, rw_tendf, rt_tendf,   &
       ALLOCATE( var_mix(ims:ime,kms:kme,jms:jme) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(var_mix)
+!$acc kernels present(var_mix)
+      var_mix = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
 #endif
@@ -5794,6 +5998,9 @@ SUBROUTINE vertical_diffusion_u_2( tendency, config_flags,                &
       ALLOCATE( titau3(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(titau3)
+!$acc kernels present(titau3)
+      titau3 = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(zzavg) ) THEN
@@ -5808,6 +6015,9 @@ SUBROUTINE vertical_diffusion_u_2( tendency, config_flags,                &
       ALLOCATE( zzavg(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(zzavg)
+!$acc kernels present(zzavg)
+      zzavg = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
 #endif
@@ -5947,6 +6157,9 @@ SUBROUTINE vertical_diffusion_v_2( tendency, config_flags,                &
       ALLOCATE( titau3(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(titau3)
+!$acc kernels present(titau3)
+      titau3 = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(zzavg) ) THEN
@@ -5961,6 +6174,9 @@ SUBROUTINE vertical_diffusion_v_2( tendency, config_flags,                &
       ALLOCATE( zzavg(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(zzavg)
+!$acc kernels present(zzavg)
+      zzavg = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
 #endif
@@ -6095,6 +6311,9 @@ SUBROUTINE vertical_diffusion_w_2(tendency, config_flags,                 &
       ALLOCATE( titau3(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(titau3)
+!$acc kernels present(titau3)
+      titau3 = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
 #endif
@@ -6222,6 +6441,9 @@ SUBROUTINE vertical_diffusion_s( tendency, config_flags, var, xkhv,       &
       ALLOCATE( H3(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(H3)
+!$acc kernels present(H3)
+      H3 = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(xkxavg) ) THEN
@@ -6236,6 +6458,9 @@ SUBROUTINE vertical_diffusion_s( tendency, config_flags, var, xkhv,       &
       ALLOCATE( xkxavg(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(xkxavg)
+!$acc kernels present(xkxavg)
+      xkxavg = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(rravg) ) THEN
@@ -6250,6 +6475,9 @@ SUBROUTINE vertical_diffusion_s( tendency, config_flags, var, xkhv,       &
       ALLOCATE( rravg(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(rravg)
+!$acc kernels present(rravg)
+      rravg = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(tmptendf) ) THEN
@@ -6264,6 +6492,9 @@ SUBROUTINE vertical_diffusion_s( tendency, config_flags, var, xkhv,       &
       ALLOCATE( tmptendf(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(tmptendf)
+!$acc kernels present(tmptendf)
+      tmptendf = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
 #endif
@@ -6479,6 +6710,9 @@ END SUBROUTINE vertical_diffusion_s
       ALLOCATE( zq(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(zq)
+!$acc kernels present(zq)
+      zq = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(za) ) THEN
@@ -6493,6 +6727,9 @@ END SUBROUTINE vertical_diffusion_s
       ALLOCATE( za(its:ite,kts:kte-1,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(za)
+!$acc kernels present(za)
+      za = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(thv) ) THEN
@@ -6507,6 +6744,9 @@ END SUBROUTINE vertical_diffusion_s
       ALLOCATE( thv(its:ite,kts:kte-1,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(thv)
+!$acc kernels present(thv)
+      thv = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(zfacmf) ) THEN
@@ -6521,6 +6761,9 @@ END SUBROUTINE vertical_diffusion_s
       ALLOCATE( zfacmf(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(zfacmf)
+!$acc kernels present(zfacmf)
+      zfacmf = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(entfacmf) ) THEN
@@ -6535,6 +6778,9 @@ END SUBROUTINE vertical_diffusion_s
       ALLOCATE( entfacmf(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(entfacmf)
+!$acc kernels present(entfacmf)
+      entfacmf = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(govrth) ) THEN
@@ -6549,6 +6795,9 @@ END SUBROUTINE vertical_diffusion_s
       ALLOCATE( govrth(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(govrth)
+!$acc kernels present(govrth)
+      govrth = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(sflux) ) THEN
@@ -6563,6 +6812,9 @@ END SUBROUTINE vertical_diffusion_s
       ALLOCATE( sflux(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(sflux)
+!$acc kernels present(sflux)
+      sflux = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(wstar3) ) THEN
@@ -6577,6 +6829,9 @@ END SUBROUTINE vertical_diffusion_s
       ALLOCATE( wstar3(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(wstar3)
+!$acc kernels present(wstar3)
+      wstar3 = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(wstar) ) THEN
@@ -6591,6 +6846,9 @@ END SUBROUTINE vertical_diffusion_s
       ALLOCATE( wstar(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(wstar)
+!$acc kernels present(wstar)
+      wstar = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(rigs) ) THEN
@@ -6605,6 +6863,9 @@ END SUBROUTINE vertical_diffusion_s
       ALLOCATE( rigs(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(rigs)
+!$acc kernels present(rigs)
+      rigs = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(pblflg) ) THEN
@@ -6619,6 +6880,9 @@ END SUBROUTINE vertical_diffusion_s
       ALLOCATE( pblflg(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(pblflg)
+!$acc kernels present(pblflg)
+      pblflg = .FALSE.   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(sfcflg) ) THEN
@@ -6633,6 +6897,9 @@ END SUBROUTINE vertical_diffusion_s
       ALLOCATE( sfcflg(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(sfcflg)
+!$acc kernels present(sfcflg)
+      sfcflg = .FALSE.   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(stable) ) THEN
@@ -6647,6 +6914,9 @@ END SUBROUTINE vertical_diffusion_s
       ALLOCATE( stable(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(stable)
+!$acc kernels present(stable)
+      stable = .FALSE.   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(deltaoh) ) THEN
@@ -6661,6 +6931,9 @@ END SUBROUTINE vertical_diffusion_s
       ALLOCATE( deltaoh(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(deltaoh)
+!$acc kernels present(deltaoh)
+      deltaoh = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(we) ) THEN
@@ -6675,6 +6948,9 @@ END SUBROUTINE vertical_diffusion_s
       ALLOCATE( we(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(we)
+!$acc kernels present(we)
+      we = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(enlfrac2) ) THEN
@@ -6689,6 +6965,9 @@ END SUBROUTINE vertical_diffusion_s
       ALLOCATE( enlfrac2(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(enlfrac2)
+!$acc kernels present(enlfrac2)
+      enlfrac2 = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(hfxpbl) ) THEN
@@ -6703,6 +6982,9 @@ END SUBROUTINE vertical_diffusion_s
       ALLOCATE( hfxpbl(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(hfxpbl)
+!$acc kernels present(hfxpbl)
+      hfxpbl = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(bfxpbl) ) THEN
@@ -6717,6 +6999,9 @@ END SUBROUTINE vertical_diffusion_s
       ALLOCATE( bfxpbl(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(bfxpbl)
+!$acc kernels present(bfxpbl)
+      bfxpbl = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(dthv) ) THEN
@@ -6731,6 +7016,9 @@ END SUBROUTINE vertical_diffusion_s
       ALLOCATE( dthv(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(dthv)
+!$acc kernels present(dthv)
+      dthv = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(wm2) ) THEN
@@ -6745,6 +7033,9 @@ END SUBROUTINE vertical_diffusion_s
       ALLOCATE( wm2(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(wm2)
+!$acc kernels present(wm2)
+      wm2 = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(wscale) ) THEN
@@ -6759,6 +7050,9 @@ END SUBROUTINE vertical_diffusion_s
       ALLOCATE( wscale(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(wscale)
+!$acc kernels present(wscale)
+      wscale = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(thermal) ) THEN
@@ -6773,6 +7067,9 @@ END SUBROUTINE vertical_diffusion_s
       ALLOCATE( thermal(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(thermal)
+!$acc kernels present(thermal)
+      thermal = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
 #endif
@@ -7335,6 +7632,9 @@ END SUBROUTINE nonlocal_flux
       ALLOCATE( xkxavg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(xkxavg)
+!$acc kernels present(xkxavg)
+      xkxavg = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(rhoavg) ) THEN
@@ -7349,6 +7649,9 @@ END SUBROUTINE nonlocal_flux
       ALLOCATE( rhoavg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(rhoavg)
+!$acc kernels present(rhoavg)
+      rhoavg = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
 #endif
@@ -7520,6 +7823,9 @@ END SUBROUTINE nonlocal_flux
       ALLOCATE( xkxavg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(xkxavg)
+!$acc kernels present(xkxavg)
+      xkxavg = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(rhoavg) ) THEN
@@ -7534,6 +7840,9 @@ END SUBROUTINE nonlocal_flux
       ALLOCATE( rhoavg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(rhoavg)
+!$acc kernels present(rhoavg)
+      rhoavg = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
 #endif
@@ -7711,6 +8020,9 @@ END SUBROUTINE nonlocal_flux
       ALLOCATE( xkxavg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(xkxavg)
+!$acc kernels present(xkxavg)
+      xkxavg = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(rhoavg) ) THEN
@@ -7725,6 +8037,9 @@ END SUBROUTINE nonlocal_flux
       ALLOCATE( rhoavg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(rhoavg)
+!$acc kernels present(rhoavg)
+      rhoavg = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
 #endif
@@ -8427,6 +8742,9 @@ END SUBROUTINE phy_bc
       ALLOCATE( dthrdn(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(dthrdn)
+!$acc kernels present(dthrdn)
+      dthrdn = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(l_scale) ) THEN
@@ -8441,6 +8759,9 @@ END SUBROUTINE phy_bc
       ALLOCATE( l_scale(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(l_scale)
+!$acc kernels present(l_scale)
+      l_scale = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(sumtke) ) THEN
@@ -8455,6 +8776,9 @@ END SUBROUTINE phy_bc
       ALLOCATE( sumtke(its:ite) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(sumtke)
+!$acc kernels present(sumtke)
+      sumtke = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(sumtkez) ) THEN
@@ -8469,6 +8793,9 @@ END SUBROUTINE phy_bc
       ALLOCATE( sumtkez(its:ite) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(sumtkez)
+!$acc kernels present(sumtkez)
+      sumtkez = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
 #endif
@@ -8664,6 +8991,9 @@ END SUBROUTINE phy_bc
       ALLOCATE( avg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(avg)
+!$acc kernels present(avg)
+      avg = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(titau) ) THEN
@@ -8678,6 +9008,9 @@ END SUBROUTINE phy_bc
       ALLOCATE( titau(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(titau)
+!$acc kernels present(titau)
+      titau = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(tmp2) ) THEN
@@ -8692,6 +9025,9 @@ END SUBROUTINE phy_bc
       ALLOCATE( tmp2(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(tmp2)
+!$acc kernels present(tmp2)
+      tmp2 = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(titau12) ) THEN
@@ -8706,6 +9042,9 @@ END SUBROUTINE phy_bc
       ALLOCATE( titau12(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(titau12)
+!$acc kernels present(titau12)
+      titau12 = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(tmp1) ) THEN
@@ -8720,6 +9059,9 @@ END SUBROUTINE phy_bc
       ALLOCATE( tmp1(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(tmp1)
+!$acc kernels present(tmp1)
+      tmp1 = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(zxavg) ) THEN
@@ -8734,6 +9076,9 @@ END SUBROUTINE phy_bc
       ALLOCATE( zxavg(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(zxavg)
+!$acc kernels present(zxavg)
+      zxavg = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(zyavg) ) THEN
@@ -8748,6 +9093,9 @@ END SUBROUTINE phy_bc
       ALLOCATE( zyavg(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(zyavg)
+!$acc kernels present(zyavg)
+      zyavg = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
 #endif
@@ -9077,6 +9425,9 @@ END SUBROUTINE phy_bc
       ALLOCATE( z_at_w(its-1:ite,kts:kte,jts-1:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(z_at_w)
+!$acc kernels present(z_at_w)
+      z_at_w = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
 #endif
@@ -9418,6 +9769,9 @@ END SUBROUTINE phy_bc
       ALLOCATE( mm(its-3:ite+2,jts-3:jte+2) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(mm)
+!$acc kernels present(mm)
+      mm = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(tmp1) ) THEN
@@ -9432,6 +9786,9 @@ END SUBROUTINE phy_bc
       ALLOCATE( tmp1(its-3:ite+2,kts:kte,jts-3:jte+2) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(tmp1)
+!$acc kernels present(tmp1)
+      tmp1 = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(hat) ) THEN
@@ -9446,6 +9803,9 @@ END SUBROUTINE phy_bc
       ALLOCATE( hat(its-3:ite+2,kts:kte,jts-3:jte+2) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(hat)
+!$acc kernels present(hat)
+      hat = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(hatavg) ) THEN
@@ -9460,6 +9820,9 @@ END SUBROUTINE phy_bc
       ALLOCATE( hatavg(its-3:ite+2,kts:kte,jts-3:jte+2) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(hatavg)
+!$acc kernels present(hatavg)
+      hatavg = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(wavg) ) THEN
@@ -9474,6 +9837,9 @@ END SUBROUTINE phy_bc
       ALLOCATE( wavg(its-3:ite+2,kts:kte,jts-3:jte+2) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(wavg)
+!$acc kernels present(wavg)
+      wavg = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(rvort) ) THEN
@@ -9488,6 +9854,9 @@ END SUBROUTINE phy_bc
       ALLOCATE( rvort(its-3:ite+2,kts:kte,jts-3:jte+2) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(rvort)
+!$acc kernels present(rvort)
+      rvort = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(use_column) ) THEN
@@ -9502,6 +9871,9 @@ END SUBROUTINE phy_bc
       ALLOCATE( use_column(its-3:ite+2,jts-3:jte+2) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(use_column)
+!$acc kernels present(use_column)
+      use_column = .FALSE.   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
 #endif
@@ -10134,6 +10506,9 @@ END SUBROUTINE phy_bc
       ALLOCATE( var_mix(ims:ime,kms:kme,jms:jme) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(var_mix)
+!$acc kernels present(var_mix)
+      var_mix = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(xkxavg_m) ) THEN
@@ -10148,6 +10523,9 @@ END SUBROUTINE phy_bc
       ALLOCATE( xkxavg_m(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(xkxavg_m)
+!$acc kernels present(xkxavg_m)
+      xkxavg_m = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(xkxavg_s) ) THEN
@@ -10162,6 +10540,9 @@ END SUBROUTINE phy_bc
       ALLOCATE( xkxavg_s(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(xkxavg_s)
+!$acc kernels present(xkxavg_s)
+      xkxavg_s = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(xkxavg) ) THEN
@@ -10176,6 +10557,9 @@ END SUBROUTINE phy_bc
       ALLOCATE( xkxavg(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(xkxavg)
+!$acc kernels present(xkxavg)
+      xkxavg = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(xkxavg_w) ) THEN
@@ -10190,6 +10574,9 @@ END SUBROUTINE phy_bc
       ALLOCATE( xkxavg_w(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(xkxavg_w)
+!$acc kernels present(xkxavg_w)
+      xkxavg_w = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(rhoavg) ) THEN
@@ -10204,6 +10591,9 @@ END SUBROUTINE phy_bc
       ALLOCATE( rhoavg(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(rhoavg)
+!$acc kernels present(rhoavg)
+      rhoavg = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(nlflux_rho) ) THEN
@@ -10218,6 +10608,9 @@ END SUBROUTINE phy_bc
       ALLOCATE( nlflux_rho(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(nlflux_rho)
+!$acc kernels present(nlflux_rho)
+      nlflux_rho = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(gamvavg) ) THEN
@@ -10232,6 +10625,9 @@ END SUBROUTINE phy_bc
       ALLOCATE( gamvavg(its-1:ite+1,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(gamvavg)
+!$acc kernels present(gamvavg)
+      gamvavg = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(gamuavg) ) THEN
@@ -10246,6 +10642,9 @@ END SUBROUTINE phy_bc
       ALLOCATE( gamuavg(its-1:ite+1,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(gamuavg)
+!$acc kernels present(gamuavg)
+      gamuavg = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(tao_xz) ) THEN
@@ -10260,6 +10659,9 @@ END SUBROUTINE phy_bc
       ALLOCATE( tao_xz(its-1:ite+1,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(tao_xz)
+!$acc kernels present(tao_xz)
+      tao_xz = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(tao_yz) ) THEN
@@ -10274,6 +10676,9 @@ END SUBROUTINE phy_bc
       ALLOCATE( tao_yz(its-1:ite+1,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(tao_yz)
+!$acc kernels present(tao_yz)
+      tao_yz = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(muavg_u) ) THEN
@@ -10288,6 +10693,9 @@ END SUBROUTINE phy_bc
       ALLOCATE( muavg_u(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(muavg_u)
+!$acc kernels present(muavg_u)
+      muavg_u = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(muavg_v) ) THEN
@@ -10302,6 +10710,9 @@ END SUBROUTINE phy_bc
       ALLOCATE( muavg_v(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(muavg_v)
+!$acc kernels present(muavg_v)
+      muavg_v = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(rdz_u) ) THEN
@@ -10316,6 +10727,9 @@ END SUBROUTINE phy_bc
       ALLOCATE( rdz_u(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(rdz_u)
+!$acc kernels present(rdz_u)
+      rdz_u = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(rdz_v) ) THEN
@@ -10330,6 +10744,9 @@ END SUBROUTINE phy_bc
       ALLOCATE( rdz_v(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(rdz_v)
+!$acc kernels present(rdz_v)
+      rdz_v = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(a) ) THEN
@@ -10344,6 +10761,9 @@ END SUBROUTINE phy_bc
       ALLOCATE( a(kts:kte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(a)
+!$acc kernels present(a)
+      a = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(b) ) THEN
@@ -10358,6 +10778,9 @@ END SUBROUTINE phy_bc
       ALLOCATE( b(kts:kte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(b)
+!$acc kernels present(b)
+      b = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(c) ) THEN
@@ -10372,6 +10795,9 @@ END SUBROUTINE phy_bc
       ALLOCATE( c(kts:kte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(c)
+!$acc kernels present(c)
+      c = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(d) ) THEN
@@ -10386,6 +10812,9 @@ END SUBROUTINE phy_bc
       ALLOCATE( d(kts:kte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(d)
+!$acc kernels present(d)
+      d = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(a1) ) THEN
@@ -10400,6 +10829,9 @@ END SUBROUTINE phy_bc
       ALLOCATE( a1(kts:kte-1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(a1)
+!$acc kernels present(a1)
+      a1 = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(b1) ) THEN
@@ -10414,6 +10846,9 @@ END SUBROUTINE phy_bc
       ALLOCATE( b1(kts:kte-1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(b1)
+!$acc kernels present(b1)
+      b1 = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(c1) ) THEN
@@ -10428,6 +10863,9 @@ END SUBROUTINE phy_bc
       ALLOCATE( c1(kts:kte-1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(c1)
+!$acc kernels present(c1)
+      c1 = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(d1) ) THEN
@@ -10442,6 +10880,9 @@ END SUBROUTINE phy_bc
       ALLOCATE( d1(kts:kte-1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(d1)
+!$acc kernels present(d1)
+      d1 = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
 #endif

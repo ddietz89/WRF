@@ -611,6 +611,9 @@ SUBROUTINE couple ( mu, mub, rfield, field, name, &
       ALLOCATE( muu(ims:ime,jms:jme) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(muu)
+!$acc kernels present(muu)
+      muu = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(muv) ) THEN
@@ -625,6 +628,9 @@ SUBROUTINE couple ( mu, mub, rfield, field, name, &
       ALLOCATE( muv(ims:ime,jms:jme) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(muv)
+!$acc kernels present(muv)
+      muv = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
 #endif
@@ -774,6 +780,9 @@ SUBROUTINE calc_ww_cp ( u, v, mup, mub, c1h, c2h, ww,    &
       ALLOCATE( muu(its:ite+1,jts:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(muu)
+!$acc kernels present(muu)
+      muu = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(muv) ) THEN
@@ -788,6 +797,9 @@ SUBROUTINE calc_ww_cp ( u, v, mup, mub, c1h, c2h, ww,    &
       ALLOCATE( muv(its:ite+1,jts:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(muv)
+!$acc kernels present(muv)
+      muv = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
 #endif
@@ -956,6 +968,9 @@ SUBROUTINE calc_cq ( moist, cqu, cqv, cqw, n_moist, &
       ALLOCATE( qtot(its:ite) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(qtot)
+!$acc kernels present(qtot)
+      qtot = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
 #endif
@@ -1166,6 +1181,9 @@ SUBROUTINE calc_p_rho_phi ( moist, n_moist, hypsometric_opt,      &
       ALLOCATE( temp(its:ite) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(temp)
+!$acc kernels present(temp)
+      temp = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(cpovcv_v) ) THEN
@@ -1180,6 +1198,9 @@ SUBROUTINE calc_p_rho_phi ( moist, n_moist, hypsometric_opt,      &
       ALLOCATE( cpovcv_v(its:ite) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(cpovcv_v)
+!$acc kernels present(cpovcv_v)
+      cpovcv_v = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
 #endif
@@ -3446,6 +3467,9 @@ SUBROUTINE vertical_diffusion ( name, field, tendency,        &
       ALLOCATE( vfluxm(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(vfluxm)
+!$acc kernels present(vfluxm)
+      vfluxm = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(vfluxp) ) THEN
@@ -3460,6 +3484,9 @@ SUBROUTINE vertical_diffusion ( name, field, tendency,        &
       ALLOCATE( vfluxp(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(vfluxp)
+!$acc kernels present(vfluxp)
+      vfluxp = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(zz) ) THEN
@@ -3474,6 +3501,9 @@ SUBROUTINE vertical_diffusion ( name, field, tendency,        &
       ALLOCATE( zz(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(zz)
+!$acc kernels present(zz)
+      zz = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
 #endif
@@ -4341,6 +4371,9 @@ SUBROUTINE perturbation_coriolis ( ru_in, rv_in, rw, ru_tend, rv_tend, rw_tend, 
       ALLOCATE( ru(ims:ime,kms:kme,jms:jme) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(ru)
+!$acc kernels present(ru)
+      ru = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
    IF ( ALLOCATED(rv) ) THEN
@@ -4355,6 +4388,9 @@ SUBROUTINE perturbation_coriolis ( ru_in, rv_in, rw, ru_tend, rv_tend, rw_tend, 
       ALLOCATE( rv(ims:ime,kms:kme,jms:jme) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(rv)
+!$acc kernels present(rv)
+      rv = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
 #endif
@@ -4697,6 +4733,9 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
       ALLOCATE( vxgm(its-1:ite,kts:kte,jts-1:jte) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(vxgm)
+!$acc kernels present(vxgm)
+      vxgm = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
 #endif

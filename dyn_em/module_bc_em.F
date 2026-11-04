@@ -270,6 +270,9 @@ CONTAINS
       ALLOCATE( rfield(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(rfield)
+!$acc kernels present(rfield)
+      rfield = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
 #endif
@@ -429,6 +432,9 @@ CONTAINS
       ALLOCATE( rscalar(ims:ime,kms:kme,jms:jme) )
 #ifdef WRF_GPU_RESIDENT
 !$acc enter data create(rscalar)
+!$acc kernels present(rscalar)
+      rscalar = 0   ! device copy starts zeroed (pool memory is not)
+!$acc end kernels
 #endif
    ENDIF
 #endif
