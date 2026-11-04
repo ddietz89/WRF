@@ -1,4 +1,4 @@
-! H2 push: only arrays the GPU reads afterwards or also writes (grep 2026-11-04); full list: gpu_upd_dev_post_mp.inc
+! H2 push: only arrays the GPU reads afterwards or also writes (grep 2026-11-04); full list: gpu_upd_dev_post_mp.inc; device-written arrays pushed only if this block pulled them
 !$acc update device(grid%h_diabatic) if(associated(grid%h_diabatic))
 !$acc update device(grid%moist) if(associated(grid%moist))
 !$acc update device(grid%mu_2) if(associated(grid%mu_2))
