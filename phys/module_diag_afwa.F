@@ -162,9 +162,9 @@ CONTAINS
     ! --------------------------------------------------------------------
     IF ( config_flags%afwa_bad_data_check .GT. 0 ) THEN
       IF ( ( is_output_timestep ) .AND. ( .NOT. is_first_timestep ) ) THEN      
-        DO i=its, MIN( ide-1, ite )
+        DO j=jts, MIN( jde-1, jte )
           DO k=k_start, k_end
-            DO j=jts, MIN( jde-1, jte )
+            DO i=its, MIN( ide-1, ite )
               IF ( ( u_phy(i,k,j)  .GT.  300.  ) .OR. &
                    ( u_phy(i,k,j)  .LT. -300.  ) .OR. &
                    ( v_phy(i,k,j)  .GT.  300.  ) .OR. &
@@ -187,72 +187,74 @@ CONTAINS
     ! ---------------------------------
 
     IF ( F_QV ) THEN
-      DO i=ibs, ibe
+      DO j=jbs, jbe
         DO k=kms, kme
-          DO j=jbs, jbe
+          DO i=ibs, ibe
             qvapr(i,k,j) = moist(i,k,j,P_QV)
           ENDDO
         ENDDO
       ENDDO
     END IF
     IF ( F_QR ) THEN
-      DO i=ibs, ibe
+      DO j=jbs, jbe
         DO k=kms, kme
-          DO j=jbs, jbe
+          DO i=ibs, ibe
             qrain(i,k,j) = moist(i,k,j,P_QR)
           ENDDO
         ENDDO
       ENDDO
     END IF
     IF ( F_QS ) THEN
-      DO i=ibs, ibe
+      DO j=jbs, jbe
         DO k=kms, kme
-          DO j=jbs, jbe
+          DO i=ibs, ibe
             qsnow(i,k,j) = moist(i,k,j,P_QS)
           ENDDO
         ENDDO
       ENDDO
     END IF
     IF ( F_QG ) THEN
-      DO i=ibs, ibe
+      DO j=jbs, jbe
         DO k=kms, kme
-          DO j=jbs, jbe
+          DO i=ibs, ibe
             qgrpl(i,k,j) = moist(i,k,j,P_QG)
           ENDDO
         ENDDO
       ENDDO
     END IF
     IF ( F_QC ) THEN
-      DO i=ibs, ibe
+      DO j=jbs, jbe
         DO k=kms, kme
-          DO j=jbs, jbe
+          DO i=ibs, ibe
             qcloud(i,k,j) = moist(i,k,j,P_QC)
           ENDDO
         ENDDO
       ENDDO
     END IF
     IF ( F_QI ) THEN
-      DO i=ibs, ibe
+      DO j=jbs, jbe
         DO k=kms, kme
-          DO j=jbs, jbe
+          DO i=ibs, ibe
             qice(i,k,j) = moist(i,k,j,P_QI)
           ENDDO
         ENDDO
       ENDDO
     END IF
+    IF ( is_output_timestep ) THEN   ! only output-step diagnostics use this
     IF ( F_QNC ) THEN
-      DO i=ibs, ibe
+      DO j=jbs, jbe
         DO k=kms, kme
-          DO j=jbs, jbe
+          DO i=ibs, ibe
             ncloud(i,k,j) = scalar(i,k,j,P_QNC)
           ENDDO
         ENDDO
       ENDDO
     END IF
+    ENDIF
     IF ( F_QNG ) THEN
-      DO i=ibs, ibe
+      DO j=jbs, jbe
         DO k=kms, kme
-          DO j=jbs, jbe
+          DO i=ibs, ibe
             ngraup(i,k,j) = scalar(i,k,j,P_QNG)
           ENDDO
         ENDDO
@@ -261,9 +263,9 @@ CONTAINS
     
     ! Total pressure
     ! -------------- 
-    DO i=ibs, ibe
+    DO j=jbs, jbe
       DO k=kms, kme
-        DO j=jbs, jbe
+        DO i=ibs, ibe
           ptot(i,k,j)=grid%pb(i,k,j)+grid%p(i,k,j)
         ENDDO
       ENDDO
@@ -271,9 +273,9 @@ CONTAINS
 
     ! ZAGL (height above ground)
     ! --------------------------
-    DO i=ibs, ibe
+    DO j=jbs, jbe
       DO k=kms, kme
-        DO j=jbs, jbe
+        DO i=ibs, ibe
           zagl(i,k,j)=grid%z(i,k,j)-grid%ht(i,j)
         ENDDO
       ENDDO
@@ -282,9 +284,9 @@ CONTAINS
     ! Calculate relative humidity
     ! ---------------------------
     IF ( F_QV ) THEN
-      DO i=ibs, ibe
+      DO j=jbs, jbe
         DO k=kms,kme    
-          DO j=jbs, jbe
+          DO i=ibs, ibe
             rh(i,k,j)=calc_rh(ptot(i,k,j),grid%t_phy(i,k,j), qvapr(i,k,j))
           ENDDO
         ENDDO
@@ -292,10 +294,11 @@ CONTAINS
     ELSE
       CALL wrf_debug ( DEBUG_LEVEL, 'Option rh requires: QV' )
     END IF
+    IF ( is_output_timestep ) THEN   ! only output-step diagnostics use this
     IF ( F_QV .AND. F_QC .AND. F_QI ) THEN
-      DO i=ibs, ibe
+      DO j=jbs, jbe
         DO k=kms,kme    
-          DO j=jbs, jbe
+          DO i=ibs, ibe
             rh_cld(i,k,j)=calc_rh(ptot(i,k,j),grid%t_phy(i,k,j), qvapr(i,k,j)+qcloud(i,k,j)+qice(i,k,j))
           ENDDO
         ENDDO
@@ -303,11 +306,12 @@ CONTAINS
     ELSE
       CALL wrf_debug ( DEBUG_LEVEL, 'Option rh_cld requires: QV, QC, QI' )
     END IF
+    ENDIF
 
     ! Time-step precipitation (convective + nonconvective)
     ! --------------------------------------------------------------
-    DO i= its, ite
-      DO j= jts, jte
+    DO j=jts, jte
+      DO i=its, ite
         grid % afwa_precip(i,j) = grid%raincv(i,j) + grid%rainncv(i,j)
         grid % afwa_totprecip(i,j) = grid%rainc(i,j) + grid%rainnc(i,j)
       ENDDO
@@ -315,10 +319,11 @@ CONTAINS
 
     ! Calculate precipitable water
     ! ----------------------------
+    IF ( is_output_timestep ) THEN   ! only output-step diagnostics use this
     IF ( F_QV .AND. F_QC ) THEN
       nz=kme-kms+1
-      DO i= its, ite
-        DO j= jts, jte
+      DO j=jts, jte
+        DO i=its, ite
           grid % afwa_pwat ( i, j ) = Pwat( nz,                  &
                                             qvapr(i,kms:kme,j),  &
                                             qcloud(i,kms:kme,j), &
@@ -329,6 +334,7 @@ CONTAINS
     ELSE
       CALL wrf_debug ( DEBUG_LEVEL, 'Option pwat requires: QV, QC' )
     END IF
+    ENDIF
 
     ! After each history dump, reset max/min value arrays
     ! ----------------------------------------------------------------------
