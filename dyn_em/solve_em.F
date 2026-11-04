@@ -742,6 +742,9 @@ SUBROUTINE solve_em ( grid , config_flags  &
 !</DESCRIPTION>
 !**********************************************************************
 
+#ifdef WRF_GPU
+   CALL gpu_ck( grid, 'a_prerk', rk_step, ids, ide, jds, jde, kds, kde, ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
+#endif
    Runge_Kutta_loop:  DO rk_step = 1, rk_order
 
    !  Set the step size and number of small timesteps for
@@ -991,6 +994,9 @@ BENCH_START(calc_p_rho_tim)
 #ifdef WRF_GPU
 !$acc wait
 #endif
+#ifdef WRF_GPU
+   CALL gpu_ck( grid, 'b_preH1', rk_step, ids, ide, jds, jde, kds, kde, ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
+#endif
 #ifdef WRF_SEG_TIMERS
    CALL seg_mark( 2 )
 #endif
@@ -1056,6 +1062,9 @@ BENCH_START(calc_p_rho_tim)
 #    include "gpu_upd_dev_i1_all.inc"
    ENDIF
 #endif
+#ifdef WRF_GPU
+   CALL gpu_ck( grid, 'c_prep2', rk_step, ids, ide, jds, jde, kds, kde, ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
+#endif
        CALL first_rk_step_part2 (    grid, config_flags         &
                              , moist , moist_old , moist_tend   &
                              , chem  , chem_tend                &
@@ -1095,6 +1104,9 @@ BENCH_START(calc_p_rho_tim)
 #endif
 #ifdef WRF_SEG_TIMERS
    CALL seg_mark( 1 )
+#endif
+#ifdef WRF_GPU
+   CALL gpu_ck( grid, 'd_postp2', rk_step, ids, ide, jds, jde, kds, kde, ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
 #endif
 #if defined(WRF_GPU) && !defined(WRF_GPU_RESIDENT)
    IF ( wrf_gpu_prefetch_mode() > 0 ) THEN
@@ -3842,6 +3854,9 @@ BENCH_END(bc_end_tim)
 !
 !**********************************************************
 
+#ifdef WRF_GPU
+   CALL gpu_ck( grid, 'e_rkend', rk_step, ids, ide, jds, jde, kds, kde, ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
+#endif
    END DO Runge_Kutta_loop
 #ifdef WRF_GPU_FIELDTRACE
        CALL gpu_field_trace( grid, 'c_post_rk' )
@@ -3901,6 +3916,9 @@ BENCH_END(bc_end_tim)
 #endif
 #ifdef WRF_GPU
 !$acc wait
+#endif
+#ifdef WRF_GPU
+   CALL gpu_ck( grid, 'f_preH2', rk_step, ids, ide, jds, jde, kds, kde, ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
 #endif
 #ifdef WRF_SEG_TIMERS
    CALL seg_mark( 3 )
@@ -4546,6 +4564,9 @@ BENCH_START(moist_phys_end_tim)
 #ifdef WRF_GPU_RESIDENT
 #       include "gpu_upd_dev_post_mp.inc"
 #       include "gpu_upd_dev_i1_mp.inc"
+#endif
+#ifdef WRF_GPU
+   CALL gpu_ck( grid, 'g_postH2', rk_step, ids, ide, jds, jde, kds, kde, ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
 #endif
 #ifdef WRF_GPU_RESIDENT
    IF ( IAND( wrf_gpu_fullsync(), 3 ) == 3 ) THEN
@@ -5253,6 +5274,9 @@ BENCH_END(bc_2d_tim)
 #ifdef WRF_GPU
 !$acc wait
 #endif
+#ifdef WRF_GPU
+   CALL gpu_ck( grid, 'h_preH3', rk_step, ids, ide, jds, jde, kds, kde, ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
+#endif
 #ifdef WRF_SEG_TIMERS
    CALL seg_mark( 4 )
 #endif
@@ -5530,6 +5554,9 @@ BENCH_END(bc_2d_tim)
 #ifdef WRF_GPU
 !$acc wait
 #endif
+#ifdef WRF_GPU
+   CALL gpu_ck( grid, 'i_end', rk_step, ids, ide, jds, jde, kds, kde, ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
+#endif
 #ifdef WRF_GPU_RESIDENT
 !$acc exit data delete(h_tendency, z_tendency)
 #endif
@@ -5593,6 +5620,82 @@ SUBROUTINE gpu_field_trace( grid, tag )
    IF ( have ) WRITE(0,'(A,A,A,A,A,I5,A,A)') 'GPUTRACE ', TRIM(prevtag), ' -> ', TRIM(tag), ' changed ', nch, ' :', TRIM(line)
    have = .TRUE. ; prevtag = tag
 END SUBROUTINE gpu_field_trace
+#endif
+#ifdef WRF_GPU
+! WRF_GPU_CK=N (diagnostic): device-side domain sums of the state at fixed points of solve_em for the first N steps.
+! Same kernels in managed and residency builds -> the first checkpoint where the two differ locates a missing transfer.
+SUBROUTINE gpu_ck( grid, tag, rk, ids, ide, jds, jde, kds, kde, ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
+   USE module_domain, ONLY : domain
+   USE module_state_description, ONLY : P_QV
+   USE module_wrf_error, ONLY : wrf_gpu_on
+   IMPLICIT NONE
+   TYPE(domain), INTENT(IN) :: grid
+   CHARACTER(*), INTENT(IN) :: tag
+   INTEGER, INTENT(IN) :: rk, ids, ide, jds, jde, kds, kde, ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe
+   INTEGER, SAVE :: nck = -1
+   CHARACTER(LEN=8) :: v
+   CHARACTER(LEN=400) :: msg
+   INTEGER :: st, ie, je, ke
+   REAL(8) :: r(10)
+   REAL(8), EXTERNAL :: gpu_ck3, gpu_ck2
+   LOGICAL :: on
+   IF ( nck < 0 ) THEN
+      CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_CK', v, STATUS=st )
+      nck = 0
+      IF ( st == 0 ) READ( v, *, IOSTAT=st ) nck
+      IF ( st /= 0 ) nck = 0
+   ENDIF
+   IF ( grid%itimestep > nck ) RETURN
+   ie = MIN(ipe, ide-1) ; je = MIN(jpe, jde-1) ; ke = MIN(kpe, kde-1)
+   on = wrf_gpu_on ; wrf_gpu_on = .TRUE.
+   r(1)  = gpu_ck2( grid%mu_2, ims, ime, jms, jme, ips, ie, jps, je )
+   r(2)  = gpu_ck2( grid%muts, ims, ime, jms, jme, ips, ie, jps, je )
+   r(3)  = gpu_ck3( grid%t_2,  ims, ime, kms, kme, jms, jme, ips, ie, kps, ke, jps, je )
+   r(4)  = gpu_ck3( grid%ph_2, ims, ime, kms, kme, jms, jme, ips, ie, kps, kpe, jps, je )
+   r(5)  = gpu_ck3( grid%u_2,  ims, ime, kms, kme, jms, jme, ips, ie, kps, ke, jps, je )
+   r(6)  = gpu_ck3( grid%v_2,  ims, ime, kms, kme, jms, jme, ips, ie, kps, ke, jps, je )
+   r(7)  = gpu_ck3( grid%w_2,  ims, ime, kms, kme, jms, jme, ips, ie, kps, kpe, jps, je )
+   r(8)  = gpu_ck3( grid%p,    ims, ime, kms, kme, jms, jme, ips, ie, kps, ke, jps, je )
+   r(9)  = gpu_ck3( grid%al,   ims, ime, kms, kme, jms, jme, ips, ie, kps, ke, jps, je )
+   r(10) = gpu_ck3( grid%moist(ims,kms,jms,P_QV), ims, ime, kms, kme, jms, jme, ips, ie, kps, ke, jps, je )
+   wrf_gpu_on = on
+   WRITE(msg,'(A,I5,I2,1X,A8,10ES24.16)') 'GPUCK ', grid%itimestep, rk, tag, r
+   CALL wrf_message( msg )
+END SUBROUTINE gpu_ck
+
+REAL(8) FUNCTION gpu_ck3( a, ims, ime, kms, kme, jms, jme, is, ie, ks, ke, js, je )
+   IMPLICIT NONE
+   INTEGER, INTENT(IN) :: ims, ime, kms, kme, jms, jme, is, ie, ks, ke, js, je
+   REAL, INTENT(IN) :: a(ims:ime, kms:kme, jms:jme)
+   REAL(8) :: s
+   INTEGER :: i, k, j
+   s = 0.d0
+!$acc parallel loop collapse(3) reduction(+:s)
+   DO j = js, je
+   DO k = ks, ke
+   DO i = is, ie
+      s = s + DBLE(a(i,k,j))
+   ENDDO
+   ENDDO
+   ENDDO
+   gpu_ck3 = s
+END FUNCTION gpu_ck3
+
+REAL(8) FUNCTION gpu_ck2( a, ims, ime, jms, jme, is, ie, js, je )
+   IMPLICIT NONE
+   INTEGER, INTENT(IN) :: ims, ime, jms, jme, is, ie, js, je
+   REAL, INTENT(IN) :: a(ims:ime, jms:jme)
+   REAL(8) :: s
+   INTEGER :: i, j
+   s = 0.d0
+!$acc parallel loop collapse(2) reduction(+:s)
+   DO j = js, je
+   DO i = is, ie
+      s = s + DBLE(a(i,j))
+   ENDDO
+   ENDDO
+   gpu_ck2 = s
+END FUNCTION gpu_ck2
 #endif
 #ifdef WRF_GPU
 ! ---------------------------------------------------------------------------------------------------------------
