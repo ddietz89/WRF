@@ -249,6 +249,11 @@ SUBROUTINE solve_em ( grid , config_flags  &
    ! receiving the zeroed tendencies and the phy_prep fields (needs no host physics writing them: no PBL
    ! scalar/tracer mixing, no grid nudging)
    LOGICAL :: gpu_prep_dev = .FALSE.
+   LOGICAL, EXTERNAL :: wrf_gpu_h1chk
+   DOUBLE PRECISION :: h1ck(2,10)
+   INTEGER :: ick
+   CHARACTER(LEN=8), PARAMETER :: h1ck_name(10) = (/ 'alt     ','p       ','ph_2    ','rho     ','t_2     ', &
+                                                     'u_2     ','v_2     ','w_2     ','moist   ','scalar  ' /)
    INTEGER, EXTERNAL :: wrf_gpu_pin_mode
    INTEGER :: pin_nok, pin_nfail
    INTEGER(8) :: pin_tot
@@ -1033,11 +1038,41 @@ BENCH_START(calc_p_rho_tim)
 #ifdef WRF_SEG_TIMERS
    CALL seg_enter( 5 )
 #endif
+   ! WRF_GPU_H1CHK=1 (diagnostic): which host state arrays does the H1 pull change after the previous step's H3 pull
+   IF ( wrf_gpu_h1chk() .AND. gpu_h3_done ) THEN
+     IF ( ASSOCIATED(grid%alt) ) h1ck(1,1) = SUM( DBLE(grid%alt) )
+     IF ( ASSOCIATED(grid%p) ) h1ck(1,2) = SUM( DBLE(grid%p) )
+     IF ( ASSOCIATED(grid%ph_2) ) h1ck(1,3) = SUM( DBLE(grid%ph_2) )
+     IF ( ASSOCIATED(grid%rho) ) h1ck(1,4) = SUM( DBLE(grid%rho) )
+     IF ( ASSOCIATED(grid%t_2) ) h1ck(1,5) = SUM( DBLE(grid%t_2) )
+     IF ( ASSOCIATED(grid%u_2) ) h1ck(1,6) = SUM( DBLE(grid%u_2) )
+     IF ( ASSOCIATED(grid%v_2) ) h1ck(1,7) = SUM( DBLE(grid%v_2) )
+     IF ( ASSOCIATED(grid%w_2) ) h1ck(1,8) = SUM( DBLE(grid%w_2) )
+     IF ( ASSOCIATED(grid%moist) ) h1ck(1,9) = SUM( DBLE(grid%moist) )
+     IF ( ASSOCIATED(grid%scalar) ) h1ck(1,10) = SUM( DBLE(grid%scalar) )
+   ENDIF
    gpu_h1_reuse = IAND( wrf_gpu_xfer(), 128 ) /= 0 .AND. gpu_h3_done
    IF ( IAND( wrf_gpu_xfer(), 1 ) /= 0 ) THEN
 #  include "gpu_upd_host_h1.inc"
    ELSE
 #  include "gpu_upd_host_pre_phys.inc"
+   ENDIF
+   IF ( wrf_gpu_h1chk() .AND. gpu_h3_done ) THEN
+!$acc wait
+     IF ( ASSOCIATED(grid%alt) ) h1ck(2,1) = SUM( DBLE(grid%alt) )
+     IF ( ASSOCIATED(grid%p) ) h1ck(2,2) = SUM( DBLE(grid%p) )
+     IF ( ASSOCIATED(grid%ph_2) ) h1ck(2,3) = SUM( DBLE(grid%ph_2) )
+     IF ( ASSOCIATED(grid%rho) ) h1ck(2,4) = SUM( DBLE(grid%rho) )
+     IF ( ASSOCIATED(grid%t_2) ) h1ck(2,5) = SUM( DBLE(grid%t_2) )
+     IF ( ASSOCIATED(grid%u_2) ) h1ck(2,6) = SUM( DBLE(grid%u_2) )
+     IF ( ASSOCIATED(grid%v_2) ) h1ck(2,7) = SUM( DBLE(grid%v_2) )
+     IF ( ASSOCIATED(grid%w_2) ) h1ck(2,8) = SUM( DBLE(grid%w_2) )
+     IF ( ASSOCIATED(grid%moist) ) h1ck(2,9) = SUM( DBLE(grid%moist) )
+     IF ( ASSOCIATED(grid%scalar) ) h1ck(2,10) = SUM( DBLE(grid%scalar) )
+     DO ick = 1, 10
+       IF ( h1ck(1,ick) /= h1ck(2,ick) ) WRITE(0,'(A,I6,1X,A,2ES24.15)') 'H1CHK step', grid%itimestep, &
+          TRIM(h1ck_name(ick)), h1ck(1,ick), h1ck(2,ick)
+     ENDDO
    ENDIF
 #ifdef WRF_SEG_TIMERS
    CALL seg_leave()
@@ -6516,6 +6551,20 @@ END FUNCTION wrf_gpu_hostblocks
 ! tendencies (needs 2+4), 32 microphysics block on the GPU (Thompson), 64 no pushes of recomputed diffusion fields,
 ! 128 H1 reuses the H3 pull (experimental: not bit-identical), 256 GPU-side init_zero_tendency + phy_prep;
 ! default 383 (all but 128).
+LOGICAL FUNCTION wrf_gpu_h1chk()
+   IMPLICIT NONE
+   INTEGER, SAVE :: mode = -1
+   CHARACTER(LEN=8) :: v
+   INTEGER :: st
+   IF ( mode < 0 ) THEN
+      CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_H1CHK', v, STATUS=st )
+      mode = 0
+      IF ( st == 0 ) READ( v, *, IOSTAT=st ) mode
+      IF ( st /= 0 ) mode = 0
+   ENDIF
+   wrf_gpu_h1chk = mode > 0
+END FUNCTION wrf_gpu_h1chk
+
 INTEGER FUNCTION wrf_gpu_xfer()
    IMPLICIT NONE
    INTEGER, SAVE :: mode = -1
