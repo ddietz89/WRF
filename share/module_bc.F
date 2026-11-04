@@ -4,6 +4,9 @@
 
 MODULE module_bc
    USE module_wrf_error, ONLY : wrf_gpu_on   ! GPU port: host/device switch for compute regions
+#ifdef WRF_GPU_RESIDENT
+   USE openacc, ONLY : acc_is_present   ! diagnostic in set_physical_bc3d
+#endif
 
    USE module_configure
    USE module_wrf_error
@@ -691,9 +694,34 @@ CONTAINS
                   i_start, i_end
 
       LOGICAL  :: debug, open_bc_copy
+#ifdef WRF_GPU_RESIDENT
+      INTEGER(8), SAVE :: np_seen(60) = 0
+      INTEGER, SAVE :: np_n = 0
+      INTEGER(8) :: np_addr
+      INTEGER :: np_i
+      LOGICAL :: np_new
+      CHARACTER(LEN=160) :: np_msg
+#endif
 
 !------------
 
+#ifdef WRF_GPU_RESIDENT
+      ! diagnostic: report (once per address) dat arrays that have no device copy - each kernel below then copies
+      ! boundary strips row by row
+      IF ( wrf_gpu_on .AND. np_n < 60 ) THEN
+        IF ( .NOT. acc_is_present( dat ) ) THEN
+          np_addr = LOC( dat(ims,kms,jms) ) ; np_new = .TRUE.
+          DO np_i = 1, np_n
+            IF ( np_seen(np_i) == np_addr ) np_new = .FALSE.
+          ENDDO
+          IF ( np_new ) THEN
+            np_n = np_n + 1 ; np_seen(np_n) = np_addr
+            WRITE(np_msg,'(A,Z16,1X,A,6I6)') 'PBC3D_NOTPRESENT 0x', np_addr, variable_in, ims, ime, kms, kme, jms, jme
+            CALL wrf_message( np_msg )
+          ENDIF
+        ENDIF
+      ENDIF
+#endif
       debug = .false.
 
       open_bc_copy = .false.
