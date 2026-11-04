@@ -70,6 +70,21 @@ MODULE module_mp_radar
 
       CHARACTER*256:: radar_debug
 
+#ifdef WRF_GPU
+!.. GPU port: integer codes of the mixing-rule strings (set in radar_init) for the device versions
+!.. rayleigh_soak_wetgraupel_g / get_m_mix_nested_g / get_m_mix_g / m_complex_maxwellgarnett_g
+!.. order: mixingrule, host, matrix, inclusion, hostmatrix, hostinclusion
+      INTEGER, DIMENSION(6), PUBLIC:: rcode_s, rcode_g, rcode_h
+      INTEGER, PARAMETER, PRIVATE:: RC_AIR=1, RC_ICE=2, RC_WATER=3, RC_NONE=4, RC_ICEWATER=5,          &
+                                    RC_AIRWATER=6, RC_AIRICE=7, RC_MAXWELLGARNETT=10,                &
+                                    RC_SPHERICAL=20, RC_SPHEROIDAL=21
+      PUBLIC :: rayleigh_soak_wetgraupel_g
+!$acc declare create(xxDx,xxDs,xdts,xxDg,xdtg,xxDh,xdth,K_w,PI5,lamda4,m_w_0,m_i_0,simpson)
+!$acc declare create(xcre,xcse,xcge,xche,xcrg,xcsg,xcgg,xchg,xam_r,xbm_r,xmu_r,xobmr)
+!$acc declare create(xam_s,xbm_s,xmu_s,xoams,xobms,xocms,xam_g,xbm_g,xmu_g,xoamg,xobmg,xocmg)
+!$acc declare create(xmu_h,xoamh,xobmh,xocmh,xorg2,xosg2,xogg2,xohg2,xam_h,xbm_h)
+!$acc declare create(rcode_s,rcode_g,rcode_h)
+#endif
 CONTAINS
 
 !+---+-----------------------------------------------------------------+
@@ -233,6 +248,19 @@ CONTAINS
       endif
 
 
+#ifdef WRF_GPU
+      rcode_s = (/ rcode(mixingrulestring_s), rcode(hoststring_s), rcode(matrixstring_s),               &
+                   rcode(inclusionstring_s), rcode(hostmatrixstring_s), rcode(hostinclusionstring_s) /)
+      rcode_g = (/ rcode(mixingrulestring_g), rcode(hoststring_g), rcode(matrixstring_g),               &
+                   rcode(inclusionstring_g), rcode(hostmatrixstring_g), rcode(hostinclusionstring_g) /)
+      rcode_h = (/ rcode(mixingrulestring_h), rcode(hoststring_h), rcode(matrixstring_h),               &
+                   rcode(inclusionstring_h), rcode(hostmatrixstring_h), rcode(hostinclusionstring_h) /)
+!$acc update device(xxDx,xxDs,xdts,xxDg,xdtg,xxDh,xdth,K_w,PI5,lamda4,m_w_0,m_i_0,simpson)
+!$acc update device(xcre,xcse,xcge,xche,xcrg,xcsg,xcgg,xchg,xam_r,xbm_r,xmu_r,xobmr)
+!$acc update device(xam_s,xbm_s,xmu_s,xoams,xobms,xocms,xam_g,xbm_g,xmu_g,xoamg,xobmg,xocmg)
+!$acc update device(xmu_h,xoamh,xobmh,xocmh,xorg2,xosg2,xogg2,xohg2,xam_h,xbm_h)
+!$acc update device(rcode_s,rcode_g,rcode_h)
+#endif
       end subroutine radar_init
 
 !+---+-----------------------------------------------------------------+
@@ -675,5 +703,238 @@ CONTAINS
       END FUNCTION WGAMMA
 
 !+---+-----------------------------------------------------------------+
+#ifdef WRF_GPU
+!+---+-----------------------------------------------------------------+
+!.. GPU port: string -> integer code (host only), and device-callable copies of the Blahak mixing routines
+!.. with integer-coded rules (same arithmetic; error messages dropped).
+      INTEGER FUNCTION rcode(str)
+      IMPLICIT NONE
+      CHARACTER(len=*), INTENT(in):: str
+      SELECT CASE (TRIM(str))
+      CASE ('air')            ; rcode = RC_AIR
+      CASE ('ice')            ; rcode = RC_ICE
+      CASE ('water')          ; rcode = RC_WATER
+      CASE ('none')           ; rcode = RC_NONE
+      CASE ('icewater')       ; rcode = RC_ICEWATER
+      CASE ('airwater')       ; rcode = RC_AIRWATER
+      CASE ('airice')         ; rcode = RC_AIRICE
+      CASE ('maxwellgarnett') ; rcode = RC_MAXWELLGARNETT
+      CASE ('spherical')      ; rcode = RC_SPHERICAL
+      CASE ('spheroidal')     ; rcode = RC_SPHEROIDAL
+      CASE DEFAULT            ; rcode = 0
+      END SELECT
+      END FUNCTION rcode
+
+      subroutine rayleigh_soak_wetgraupel_g (x_g, a_geo, b_geo, fmelt,  &
+                     meltratio_outside, m_w, m_i, lambda, C_back, rc)
+!$acc routine seq
+      IMPLICIT NONE
+      DOUBLE PRECISION, INTENT(in):: x_g, a_geo, b_geo, fmelt, lambda,  &
+                                     meltratio_outside
+      DOUBLE PRECISION, INTENT(out):: C_back
+      COMPLEX*16, INTENT(in):: m_w, m_i
+      INTEGER, DIMENSION(6), INTENT(in):: rc
+      COMPLEX*16:: m_core, m_air
+      DOUBLE PRECISION:: D_large, D_g, rhog, x_w, xw_a, fm, fmgrenz,    &
+                         volg, vg, volair, volice, volwater,            &
+                         meltratio_outside_grenz, mra
+      INTEGER:: error
+      DOUBLE PRECISION, PARAMETER:: PIx=3.1415926535897932384626434d0
+      m_air = (1.0d0,0.0d0)
+      fm = DMAX1(DMIN1(fmelt, 1.0d0), 0.0d0)
+      mra = DMAX1(DMIN1(meltratio_outside, 1.0d0), 0.0d0)
+      mra = mra + (1.0d0-mra)*fm
+      x_w = x_g * fm
+      D_g = a_geo * x_g**b_geo
+      if (D_g .ge. 1d-12) then
+       vg = PIx/6. * D_g**3
+       rhog = DMAX1(DMIN1(x_g / vg, 900.0d0), 10.0d0)
+       vg = x_g / rhog
+       meltratio_outside_grenz = 1.0d0 - rhog / 1000.
+       if (mra .le. meltratio_outside_grenz) then
+        volg = vg * (1.0d0 - mra * fm)
+       else
+        fmgrenz=(900.0-rhog)/(mra*900.0-rhog+900.0*rhog/1000.)
+        if (fm .le. fmgrenz) then
+         volg = (1.0 - mra * fm) * vg
+        else
+         volg = (x_g - x_w) / 900.0 + x_w / 1000.
+        endif
+       endif
+       D_large  = (6.0 / PIx * volg) ** (1./3.)
+       volice = (x_g - x_w) / (volg * 900.0)
+       volwater = x_w / (1000. * volg)
+       volair = 1.0 - volice - volwater
+       m_core = get_m_mix_nested_g (m_air, m_i, m_w, volair, volice,    &
+                         volwater, rc(1), rc(2), rc(3), rc(4), rc(5), rc(6), error)
+       if (error .ne. 0) then
+        C_back = 0.0d0
+        return
+       endif
+       C_back = (ABS((m_core**2-1.0d0)/(m_core**2+2.0d0)))**2           &
+                * PI5 * D_large**6 / lamda4
+      else
+       C_back = 0.0d0
+      endif
+      end subroutine rayleigh_soak_wetgraupel_g
+
+      complex*16 function get_m_mix_nested_g (m_a, m_i, m_w, volair,    &
+                     volice, volwater, mixingrule, host, matrix,        &
+                     inclusion, hostmatrix, hostinclusion, cumulerror)
+!$acc routine seq
+      IMPLICIT NONE
+      DOUBLE PRECISION, INTENT(in):: volice, volair, volwater
+      COMPLEX*16, INTENT(in):: m_a, m_i, m_w
+      INTEGER, INTENT(in):: mixingrule, host, matrix, inclusion, hostmatrix, hostinclusion
+      INTEGER, INTENT(out):: cumulerror
+      DOUBLE PRECISION:: vol1, vol2
+      COMPLEX*16:: mtmp
+      INTEGER:: error
+      cumulerror = 0
+      get_m_mix_nested_g = CMPLX(1.0d0,0.0d0)
+      if (host .eq. RC_AIR) then
+       if (matrix .eq. RC_AIR) then
+        cumulerror = cumulerror + 1
+       else
+        vol1 = volice / MAX(volice+volwater,1d-10)
+        vol2 = 1.0d0 - vol1
+        mtmp = get_m_mix_g (m_a, m_i, m_w, 0.0d0, vol1, vol2,           &
+                         mixingrule, matrix, inclusion, error)
+        cumulerror = cumulerror + error
+        if (hostmatrix .eq. RC_AIR) then
+         get_m_mix_nested_g = get_m_mix_g (m_a, mtmp, 2.0*m_a,          &
+                         volair, (1.0d0-volair), 0.0d0, mixingrule,     &
+                         hostmatrix, hostinclusion, error)
+         cumulerror = cumulerror + error
+        elseif (hostmatrix .eq. RC_ICEWATER) then
+         get_m_mix_nested_g = get_m_mix_g (m_a, mtmp, 2.0*m_a,          &
+                         volair, (1.0d0-volair), 0.0d0, mixingrule,     &
+                         RC_ICE, hostinclusion, error)
+         cumulerror = cumulerror + error
+        else
+         cumulerror = cumulerror + 1
+        endif
+       endif
+      elseif (host .eq. RC_ICE) then
+       if (matrix .eq. RC_ICE) then
+        cumulerror = cumulerror + 1
+       else
+        vol1 = volair / MAX(volair+volwater,1d-10)
+        vol2 = 1.0d0 - vol1
+        mtmp = get_m_mix_g (m_a, m_i, m_w, vol1, 0.0d0, vol2,           &
+                         mixingrule, matrix, inclusion, error)
+        cumulerror = cumulerror + error
+        if (hostmatrix .eq. RC_ICE) then
+         get_m_mix_nested_g = get_m_mix_g (mtmp, m_i, 2.0*m_a,          &
+                         (1.0d0-volice), volice, 0.0d0, mixingrule,     &
+                         hostmatrix, hostinclusion, error)
+         cumulerror = cumulerror + error
+        elseif (hostmatrix .eq. RC_AIRWATER) then
+         get_m_mix_nested_g = get_m_mix_g (mtmp, m_i, 2.0*m_a,          &
+                         (1.0d0-volice), volice, 0.0d0, mixingrule,     &
+                         RC_AIR, hostinclusion, error)
+         cumulerror = cumulerror + error
+        else
+         cumulerror = cumulerror + 1
+        endif
+       endif
+      elseif (host .eq. RC_WATER) then
+       if (matrix .eq. RC_WATER) then
+        cumulerror = cumulerror + 1
+       else
+        vol1 = volair / MAX(volice+volair,1d-10)
+        vol2 = 1.0d0 - vol1
+        mtmp = get_m_mix_g (m_a, m_i, m_w, vol1, vol2, 0.0d0,           &
+                         mixingrule, matrix, inclusion, error)
+        cumulerror = cumulerror + error
+        if (hostmatrix .eq. RC_WATER) then
+         get_m_mix_nested_g = get_m_mix_g (2*m_a, mtmp, m_w,            &
+                         0.0d0, (1.0d0-volwater), volwater, mixingrule, &
+                         hostmatrix, hostinclusion, error)
+         cumulerror = cumulerror + error
+        elseif (hostmatrix .eq. RC_AIRICE) then
+         get_m_mix_nested_g = get_m_mix_g (2*m_a, mtmp, m_w,            &
+                         0.0d0, (1.0d0-volwater), volwater, mixingrule, &
+                         RC_ICE, hostinclusion, error)
+         cumulerror = cumulerror + error
+        else
+         cumulerror = cumulerror + 1
+        endif
+       endif
+      elseif (host .eq. RC_NONE) then
+       get_m_mix_nested_g = get_m_mix_g (m_a, m_i, m_w,                 &
+                       volair, volice, volwater, mixingrule,            &
+                       matrix, inclusion, error)
+       cumulerror = cumulerror + error
+      else
+       cumulerror = cumulerror + 1
+      endif
+      IF (cumulerror .ne. 0) THEN
+       get_m_mix_nested_g = CMPLX(1.0d0,0.0d0)
+      endif
+      end function get_m_mix_nested_g
+
+      COMPLEX*16 FUNCTION get_m_mix_g (m_a, m_i, m_w, volair, volice,   &
+                     volwater, mixingrule, matrix, inclusion, error)
+!$acc routine seq
+      IMPLICIT NONE
+      DOUBLE PRECISION, INTENT(in):: volice, volair, volwater
+      COMPLEX*16, INTENT(in):: m_a, m_i, m_w
+      INTEGER, INTENT(in):: mixingrule, matrix, inclusion
+      INTEGER, INTENT(out):: error
+      error = 0
+      get_m_mix_g = CMPLX(1.0d0,0.0d0)
+      if (mixingrule .eq. RC_MAXWELLGARNETT) then
+       if (matrix .eq. RC_ICE) then
+        get_m_mix_g = m_complex_maxwellgarnett_g(volice, volair, volwater,  &
+                           m_i, m_a, m_w, inclusion, error)
+       elseif (matrix .eq. RC_WATER) then
+        get_m_mix_g = m_complex_maxwellgarnett_g(volwater, volair, volice,  &
+                           m_w, m_a, m_i, inclusion, error)
+       elseif (matrix .eq. RC_AIR) then
+        get_m_mix_g = m_complex_maxwellgarnett_g(volair, volwater, volice,  &
+                           m_a, m_w, m_i, inclusion, error)
+       else
+        error = 1
+       endif
+      else
+       error = 2
+      endif
+      END FUNCTION get_m_mix_g
+
+      COMPLEX*16 FUNCTION m_complex_maxwellgarnett_g(vol1, vol2, vol3,  &
+                     m1, m2, m3, inclusion, error)
+!$acc routine seq
+      IMPLICIT NONE
+      COMPLEX*16 :: m1, m2, m3
+      DOUBLE PRECISION :: vol1, vol2, vol3
+      INTEGER :: inclusion
+      COMPLEX*16 :: beta2, beta3, m1t, m2t, m3t
+      INTEGER, INTENT(out) :: error
+      error = 0
+      if (DABS(vol1+vol2+vol3-1.0d0) .gt. 1d-6) then
+       m_complex_maxwellgarnett_g=CMPLX(-999.99d0,-999.99d0)
+       error = 1
+       return
+      endif
+      m1t = m1**2
+      m2t = m2**2
+      m3t = m3**2
+      if (inclusion .eq. RC_SPHERICAL) then
+       beta2 = 3.0d0*m1t/(m2t+2.0d0*m1t)
+       beta3 = 3.0d0*m1t/(m3t+2.0d0*m1t)
+      elseif (inclusion .eq. RC_SPHEROIDAL) then
+       beta2 = 2.0d0*m1t/(m2t-m1t) * (m2t/(m2t-m1t)*LOG(m2t/m1t)-1.0d0)
+       beta3 = 2.0d0*m1t/(m3t-m1t) * (m3t/(m3t-m1t)*LOG(m3t/m1t)-1.0d0)
+      else
+       m_complex_maxwellgarnett_g=DCMPLX(-999.99d0,-999.99d0)
+       error = 1
+       return
+      endif
+      m_complex_maxwellgarnett_g = &
+       SQRT(((1.0d0-vol2-vol3)*m1t + vol2*beta2*m2t + vol3*beta3*m3t) / &
+       (1.0d0-vol2-vol3+vol2*beta2+vol3*beta3))
+      END FUNCTION m_complex_maxwellgarnett_g
+#endif
 END MODULE module_mp_radar
 !+---+-----------------------------------------------------------------+

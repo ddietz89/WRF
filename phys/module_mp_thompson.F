@@ -1208,7 +1208,7 @@
       
       integer :: kediagloc
 #ifdef WRF_GPU
-      LOGICAL:: gpu_do_re
+      LOGICAL:: gpu_do_re, gpu_do_refl
       INTEGER:: gpu_aer, gpu_wif
 #endif
 
@@ -1270,21 +1270,22 @@
 
 #ifdef WRF_GPU
 !.. GPU path (residency builds, wrf_gpu_on): one device thread per column; plain Thompson only (not aerosol/hail
-!.. aware, no radar reflectivity diagnostic); no max/negative-value debug tracking.
+!.. aware); no max/negative-value debug tracking.
       IF ( wrf_gpu_on ) THEN
       IF ( is_aerosol_aware .OR. is_hail_aware .OR. kts /= 1 .OR. kte > KTGPU .OR.          &
            .NOT. ( PRESENT(snowncv) .AND. PRESENT(snownc) .AND.                         &
                    PRESENT(graupelncv) .AND. PRESENT(graupelnc) ) )                     &
          CALL wrf_error_fatal('mp_gt_driver: GPU path supports plain Thompson (mp_physics=8, kte<=KTGPU) only')
-      IF ( PRESENT(diagflag) ) THEN
-         IF ( diagflag .AND. do_radar_ref == 1 ) CALL wrf_error_fatal('mp_gt_driver: GPU path has no radar reflectivity')
-      ENDIF
+      gpu_do_refl = .FALSE.
+      IF ( PRESENT(diagflag) .AND. PRESENT(do_radar_ref) ) gpu_do_refl = diagflag .AND. do_radar_ref == 1
+      kediagloc = kte
+      IF ( PRESENT(ke_diag) ) kediagloc = ke_diag
       gpu_do_re = has_reqc.ne.0 .and. has_reqi.ne.0 .and. has_reqs.ne.0
       gpu_aer = 0 ; IF ( PRESENT(aer_init_opt) ) gpu_aer = aer_init_opt
       gpu_wif = 0 ; IF ( PRESENT(wif_input_opt) ) gpu_wif = wif_input_opt
 !$acc parallel loop gang vector collapse(2) &
 !$acc private(qv1d,qc1d,qi1d,qr1d,qs1d,qg1d,qb1d,ni1d,nr1d,nc1d,ng1d,nwfa1d,nifa1d,nbca1d) &
-!$acc private(t1d,p1d,w1d,dz1d,rho,re_qc1d,re_qi1d,re_qs1d)
+!$acc private(t1d,p1d,w1d,dz1d,rho,re_qc1d,re_qi1d,re_qs1d,dBZ)
       do j = j_start, j_end
       do i = i_start, i_end
          pptrain = 0.
@@ -1356,6 +1357,13 @@
              endif
             endif
          enddo
+         IF ( gpu_do_refl ) THEN
+          call calc_refl10cm (qv1d, qc1d, qr1d, nr1d, qs1d, qg1d,       &
+                      ng1d, qb1d, t1d, p1d, dBZ, kts, kte, i, j, kediagloc)
+          do k = kts, kte
+             refl_10cm(i,k,j) = MAX(-35., dBZ(k))
+          enddo
+         ENDIF
          IF ( gpu_do_re ) THEN
           do k = kts, kte
              re_qc1d(k) = RE_QC_BG
@@ -6028,6 +6036,9 @@
 
       subroutine calc_refl10cm (qv1d, qc1d, qr1d, nr1d, qs1d, qg1d,     &
                           ng1d, qb1d, t1d, p1d, dBZ, kts, kte, ii, jj, ke_diag)
+#ifdef WRF_GPU
+!$acc routine seq
+#endif
 
       IMPLICIT NONE
 
@@ -6039,18 +6050,46 @@
 !     REAL, DIMENSION(kts:kte), INTENT(INOUT):: vt_dBZ
 
 !..Local variables
+#ifdef WRF_GPU
+      REAL, DIMENSION(1:KTGPU):: temp, pres, qv, rho, rhof
+#else
       REAL, DIMENSION(kts:kte):: temp, pres, qv, rho, rhof
+#endif
+#ifdef WRF_GPU
+      REAL, DIMENSION(1:KTGPU):: rc, rr, nr, rs, rg, ng, rb
+#else
       REAL, DIMENSION(kts:kte):: rc, rr, nr, rs, rg, ng, rb
+#endif
 
+#ifdef WRF_GPU
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: ilamr, ilamg, N0_r, N0_g
+#else
       DOUBLE PRECISION, DIMENSION(kts:kte):: ilamr, ilamg, N0_r, N0_g
+#endif
+#ifdef WRF_GPU
+      REAL, DIMENSION(1:KTGPU):: mvd_r
+#else
       REAL, DIMENSION(kts:kte):: mvd_r
+#endif
+#ifdef WRF_GPU
+      REAL, DIMENSION(1:KTGPU):: smob, smo2, smoc, smoz
+#else
       REAL, DIMENSION(kts:kte):: smob, smo2, smoc, smoz
+#endif
       REAL:: oM3, M0, Mrat, slam1, slam2, xDs
       REAL:: ils1, ils2, t1_vts, t2_vts, t3_vts, t4_vts
       REAL:: vtr_dbz_wt, vts_dbz_wt, vtg_dbz_wt
 
+#ifdef WRF_GPU
+      REAL, DIMENSION(1:KTGPU):: ze_rain, ze_snow, ze_graupel
+#else
       REAL, DIMENSION(kts:kte):: ze_rain, ze_snow, ze_graupel
+#endif
+#ifdef WRF_GPU
+      INTEGER, DIMENSION(1:KTGPU):: idx_bg
+#else
       INTEGER, DIMENSION(kts:kte):: idx_bg
+#endif
 
       DOUBLE PRECISION:: N0_exp, N0_min, lam_exp, lamr, lamg
       REAL:: a_, b_, loga_, tc0
@@ -6058,7 +6097,11 @@
 
       INTEGER:: i, k, k_0, kbot, n, ktop
       LOGICAL:: melti
+#ifdef WRF_GPU
+      LOGICAL, DIMENSION(1:KTGPU):: L_qr, L_qs, L_qg
+#else
       LOGICAL, DIMENSION(kts:kte):: L_qr, L_qs, L_qg
+#endif
 
       DOUBLE PRECISION:: cback, x, eta, f_d
       REAL:: xslw1, ygra1, zans1
@@ -6261,11 +6304,17 @@
            slam2 = M0 * Lam1
            do n = 1, nrbins
               x = am_s * xxDs(n)**bm_s
+#ifdef WRF_GPU
+              call rayleigh_soak_wetgraupel_g (x, DBLE(ocms), DBLE(obms), &
+     &              fmelt_s, melt_outside_s, m_w_0, m_i_0, lamda_radar, &
+     &              CBACK, rcode_s)
+#else
               call rayleigh_soak_wetgraupel (x, DBLE(ocms), DBLE(obms), &
      &              fmelt_s, melt_outside_s, m_w_0, m_i_0, lamda_radar, &
      &              CBACK, mixingrulestring_s, matrixstring_s,          &
      &              inclusionstring_s, hoststring_s,                    &
      &              hostmatrixstring_s, hostinclusionstring_s)
+#endif
               f_d = Mrat*(Kap0*DEXP(-slam1*xxDs(n))                     &
      &              + Kap1*(M0*xxDs(n))**mu_s * DEXP(-slam2*xxDs(n)))
               eta = eta + f_d * CBACK * simpson(n) * xdts(n)
