@@ -777,6 +777,12 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
 !  Local 3d array from the stack (note tile size)
       REAL, DIMENSION (its:ite, kts:kte) :: dpn, dpxy
       REAL, DIMENSION (its:ite) :: mudf_xy
+#ifdef WRF_GPU
+      ! GPU column path (one thread per (i,j), k sequential): fixed-size per-thread columns
+      INTEGER, PARAMETER :: KMAXUV = 160
+      REAL, DIMENSION (KMAXUV) :: dpnc, dpxyc
+      REAL :: mudfxy
+#endif
       REAL                      :: dx, dy
       INTEGER :: i,j,k, i_start, i_end, j_start, j_end, k_start, k_end
       INTEGER :: i_endu, j_endv, k_endw
@@ -860,6 +866,92 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
    dy = 1./rdy
 !  start real calculations.
 !  first, u
+#ifdef WRF_GPU
+  ! The row kernels below have one gang per j only; on the GPU run one thread per column (same per-point
+  ! arithmetic and order: tendency update, then pressure-gradient/divergence-damping update).
+  IF ( wrf_gpu_on .AND. MAX(kde,k_end+1) <= KMAXUV ) THEN
+!$acc parallel loop gang vector collapse(2) private(dpnc,dpxyc)
+  DO j = j_start, j_end
+  DO i = MIN(i_start_u_tend,i_start_up), MAX(i_end_u_tend,i_end_up)
+   IF ( i >= i_start_u_tend .AND. i <= i_end_u_tend ) THEN
+     DO k = k_start, k_end
+       u(i,k,j) = u(i,k,j) + dts*ru_tend(i,k,j)
+     ENDDO
+   ENDIF
+   IF ( i >= i_start_up .AND. i <= i_end_up ) THEN
+     mudfxy = -emdiv*dx*(MUDF(i,j)-MUDF(i-1,j))/msfuy(i,j)
+     DO k = k_start, k_end
+       dpxyc(k)= (msfux(i,j)/msfuy(i,j))*.5*rdx*(c1h(k)*muu(i,j)+c2h(k))*(         &
+         ((ph (i,k+1,j)-ph (i-1,k+1,j))+(ph (i,k,j)-ph (i-1,k,j)))  &
+        +(alt(i,k  ,j)+alt(i-1,k  ,j))*(p  (i,k,j)-p  (i-1,k,j))  &
+        +(al (i,k  ,j)+al (i-1,k  ,j))*(pb (i,k,j)-pb (i-1,k,j)) )
+     ENDDO
+     IF (non_hydrostatic) THEN
+       dpnc(1) = .5*( cf1*(p(i,1,j)+p(i-1,1,j))  &
+                     +cf2*(p(i,2,j)+p(i-1,2,j))  &
+                     +cf3*(p(i,3,j)+p(i-1,3,j)) )
+       dpnc(kde) = 0.
+       IF (top_lid) THEN
+         dpnc(kde) =.5*( cf1*(p(i-1,kde-1,j)+p(i,kde-1,j))   &
+                        +cf2*(p(i-1,kde-2,j)+p(i,kde-2,j))   &
+                        +cf3*(p(i-1,kde-3,j)+p(i,kde-3,j))  )
+       ENDIF
+       DO k = k_start+1, k_end
+         dpnc(k) = .5*( fnm(k)*(p(i,k  ,j)+p(i-1,k  ,j))   &
+                       +fnp(k)*(p(i,k-1,j)+p(i-1,k-1,j)) )
+       ENDDO
+       DO k = k_start, k_end
+         dpxyc(k)=dpxyc(k) + (msfux(i,j)/msfuy(i,j))*rdx*(php(i,k,j)-php(i-1,k,j))*        &
+           (rdnw(k)*(dpnc(k+1)-dpnc(k))-.5*((c1h(k)*mu(i-1,j))+(c1h(k)*mu(i,j))))
+       ENDDO
+     END IF
+     DO k = k_start, k_end
+       u(i,k,j)=u(i,k,j)-dts*cqu(i,k,j)*dpxyc(k)+(c1h(k)*mudfxy)
+     ENDDO
+   ENDIF
+  ENDDO
+  ENDDO
+!$acc parallel loop gang vector collapse(2) private(dpnc,dpxyc)
+  DO j = j_start_v_tend, j_end_v_tend
+  DO i = i_start, i_end
+     DO k = k_start, k_end
+       v(i,k,j) = v(i,k,j) + dts*rv_tend(i,k,j)
+     ENDDO
+     IF ( ( j >= j_start_vp) .and. ( j <= j_end_vp ) ) THEN
+       mudfxy = -emdiv*dy*(MUDF(i,j)-MUDF(i,j-1))*msfvx_inv(i,j)
+       DO k = k_start, k_end
+         dpxyc(k)= (msfvy(i,j)/msfvx(i,j))*.5*rdy*(c1h(k)*muv(i,j)+c2h(k))*(       &
+          ((ph(i,k+1,j)-ph(i,k+1,j-1))+(ph (i,k,j)-ph (i,k,j-1)))   &
+          +(alt(i,k  ,j)+alt(i,k  ,j-1))*(p  (i,k,j)-p  (i,k,j-1))  &
+          +(al (i,k  ,j)+al (i,k  ,j-1))*(pb (i,k,j)-pb (i,k,j-1)) )
+       ENDDO
+       IF (non_hydrostatic) THEN
+         dpnc(1) = .5*( cf1*(p(i,1,j)+p(i,1,j-1))  &
+                       +cf2*(p(i,2,j)+p(i,2,j-1))  &
+                       +cf3*(p(i,3,j)+p(i,3,j-1)) )
+         dpnc(kde) = 0.
+         IF (top_lid) THEN
+           dpnc(kde) =.5*( cf1*(p(i,kde-1,j-1)+p(i,kde-1,j))   &
+                          +cf2*(p(i,kde-2,j-1)+p(i,kde-2,j))   &
+                          +cf3*(p(i,kde-3,j-1)+p(i,kde-3,j))  )
+         ENDIF
+         DO k = k_start+1, k_end
+           dpnc(k) = .5*( fnm(k)*(p(i,k  ,j)+p(i,k  ,j-1))  &
+                         +fnp(k)*(p(i,k-1,j)+p(i,k-1,j-1)) )
+         ENDDO
+         DO k = k_start, k_end
+           dpxyc(k)=dpxyc(k) + (msfvy(i,j)/msfvx(i,j))*rdy*(php(i,k,j)-php(i,k,j-1))*    &
+             (rdnw(k)*(dpnc(k+1)-dpnc(k))-.5*((c1h(k)*mu(i,j-1))+(c1h(k)*mu(i,j))))
+         ENDDO
+       END IF
+       DO k = k_start, k_end
+         v(i,k,j)=v(i,k,j)-dts*cqv(i,k,j)*dpxyc(k)+(c1h(k)*mudfxy)
+       ENDDO
+     END IF
+  ENDDO
+  ENDDO
+  ELSE
+#endif
 !$acc parallel loop gang private(dpxy,dpn,mudf_xy) if(wrf_gpu_on)
   u_outer_j_loop: DO j = j_start, j_end
 !$acc loop vector collapse(2)
@@ -1023,6 +1115,9 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
      ENDDO
    END IF
   ENDDO  v_outer_j_loop
+#ifdef WRF_GPU
+  ENDIF
+#endif
   ! The check for j_start_vp and j_end_vp makes sure that the edges in v
   ! are not updated.  Let's add a polar boundary condition check here for
   ! safety to ensure that v at the poles never gets to be non-zero in the
@@ -1363,6 +1458,12 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
       REAL :: dampk   ! GPU: per-(i,k) scalar replaces dampwt(k) (race-free; same values)
       real :: htop,hbot,hdepth,hk
       real    :: pi,dampmag
+#ifdef WRF_GPU
+      ! GPU column path (one thread per (i,j) column, k sequential): fixed-size per-thread work columns
+      INTEGER, PARAMETER :: KMAXW = 160
+      REAL, DIMENSION( KMAXW ) :: rhsc, wdwnc
+      REAL :: msfti
+#endif
       REAL :: muthk, muthkm1
 #ifdef WRF_GPU
    ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
@@ -1449,6 +1550,106 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
     DO i=i_start, i_end
       rhs(i,1) = 0.
     ENDDO
+#ifdef WRF_GPU
+  ! The row kernel below (one gang per j, vector over i, k phases inside) has only (j_end-j_start+1) gangs;
+  ! on the GPU run one thread per column instead (same arithmetic per point, k loops sequential in-thread).
+  IF ( wrf_gpu_on .AND. k_end+1 <= KMAXW ) THEN
+!$acc parallel loop gang vector collapse(2) private(rhsc,wdwnc)
+  DO j = j_start, j_end
+  DO i = i_start, i_end
+    msfti = 1./msfty(i,j)
+    rhsc(1) = 0.
+    DO k=1, k_end
+      t_2ave(i,k,j)=.5*((1.+epssm)*t_2(i,k,j)       &
+                    +(1.-epssm)*t_2ave(i,k,j))
+      t_2ave(i,k,j)=(t_2ave(i,k,j) + (c1h(k)*Muave(i,j))*t0) &
+                    /((c1h(k)*Muts(i,j)+c2h(k))*(t0+t_1(i,k,j)))
+      rhsc(k+1) = dts*(ph_tend(i,k+1,j) + .5*g*(1.-epssm)*w(i,k+1,j))
+    ENDDO
+    IF (config_flags%phi_adv_z == 2) THEN
+      DO k=1, k_end
+         wdwnc(k+1)=rdnw(k)*(ph_1(i,k+1,j)-ph_1(i,k,j)+phb(i,k+1,j)-phb(i,k,j))
+      ENDDO
+      DO k=2,k_end
+         rhsc(k) = rhsc(k)-dts*ww(i,k,j)*( fnm(k)*wdwnc(k+1)  &
+                                          +fnp(k)*wdwnc(k  ) )
+      ENDDO
+    ELSE
+      DO k=1, k_end
+         wdwnc(k+1)=.5*(ww(i,k+1,j)+ww(i,k,j))*rdnw(k)    &
+              *(ph_1(i,k+1,j)-ph_1(i,k,j)+phb(i,k+1,j)-phb(i,k,j))
+      ENDDO
+      DO k=2,k_end
+         rhsc(k) = rhsc(k)-dts*( fnm(k)*wdwnc(k+1)  &
+                                +fnp(k)*wdwnc(k  ) )
+      ENDDO
+    ENDIF
+    DO k=2,k_end+1
+      rhsc(k) = ph(i,k,j) + msfty(i,j)*rhsc(k)/(c1f(k)*mut(i,j)+c2f(k))
+      if(top_lid .and. k.eq.k_end+1)rhsc(k)=0.
+    ENDDO
+    w(i,1,j)=                                           &
+             msfty(i,j)*.5*rdy*(                        &
+                      (ht(i,j+1)-ht(i,j  ))             &
+     *(cf1*v(i,1,j+1)+cf2*v(i,2,j+1)+cf3*v(i,3,j+1))    &
+                     +(ht(i,j  )-ht(i,j-1))             &
+     *(cf1*v(i,1,j  )+cf2*v(i,2,j  )+cf3*v(i,3,j  ))  ) &
+            +msftx(i,j)*.5*rdx*(                        &
+                      (ht(i+1,j)-ht(i,j  ))             &
+     *(cf1*u(i+1,1,j)+cf2*u(i+1,2,j)+cf3*u(i+1,3,j))    &
+                     +(ht(i,j  )-ht(i-1,j))             &
+     *(cf1*u(i  ,1,j)+cf2*u(i  ,2,j)+cf3*u(i  ,3,j))  )
+    DO k=2,k_end
+        w(i,k,j)=w(i,k,j)+dts*rw_tend(i,k,j)                       &
+                 + msfti*cqw(i,k,j)*(                              &
+            +.5*dts*g*rdn(k)*                                      &
+             (c2a(i,k  ,j)*rdnw(k  )/(c1h(k)*MUT(i,j)+c2h(k))                         &
+        *((1.+epssm)*(rhsc(k+1  )-rhsc(k    ))                     &
+         +(1.-epssm)*(ph(i,k+1,j)-ph(i,k  ,j)))                    &
+             -c2a(i,k-1,j)*rdnw(k-1)/(c1h(k-1)*MUT(i,j)+c2h(k-1))                       &
+        *((1.+epssm)*(rhsc(k    )-rhsc(k-1  ))                     &
+         +(1.-epssm)*(ph(i,k  ,j)-ph(i,k-1,j)))))                  &
+                +dts*g*msfti*(rdn(k)*                              &
+             (c2a(i,k  ,j)*alt(i,k  ,j)*t_2ave(i,k  ,j)            &
+             -c2a(i,k-1,j)*alt(i,k-1,j)*t_2ave(i,k-1,j))           &
+              - (c1f(k)*muave(i,j)))
+    ENDDO
+    k=k_end+1
+       w(i,k,j)=w(i,k,j)+dts*rw_tend(i,k,j)                         &
+           +msfti*(                                              &
+         -.5*dts*g/(c1h(k-1)*MUT(i,j)+c2h(k-1))*rdnw(k-1)**2*2.*c2a(i,k-1,j)            &
+             *((1.+epssm)*(rhsc(k  )-rhsc(k-1  ))                   &
+              +(1.-epssm)*(ph(i,k,j)-ph(i,k-1,j)))                  &
+         -dts*g*(2.*rdnw(k-1)*                                      &
+                   c2a(i,k-1,j)*alt(i,k-1,j)*t_2ave(i,k-1,j)        &
+              + (c1f(k)*muave(i,j))) )
+       if(top_lid)w(i,k,j) = 0.
+    DO k=2,k_end+1
+       w(i,k,j)=(w(i,k,j)-a(i,k,j)*w(i,k-1,j))*alpha(i,k,j)
+    ENDDO
+    DO k=k_end,2,-1
+       w (i,k,j)=w (i,k,j)-gamma(i,k,j)*w(i,k+1,j)
+    ENDDO
+    IF (config_flags%damp_opt .eq. 3) THEN
+      DO k=k_end+1,2,-1
+          htop=(ph_1(i,k_end+1,j)+phb(i,k_end+1,j))/g
+          hk=(ph_1(i,k,j)+phb(i,k,j))/g
+          hbot=htop-hdepth
+          dampk = 0.
+          if(hk .ge. hbot)then
+            dampk = dampmag*sin(0.5*pi*(hk-hbot)/hdepth)*sin(0.5*pi*(hk-hbot)/hdepth)
+          endif
+          w(i,k,j) = (w(i,k,j) - dampk*(c1f(k)*mut(i,j)+c2f(k))*w_save(i,k,j))/(1.+dampk)
+      ENDDO
+    ENDIF
+    DO k=k_end+1,2,-1
+       ph(i,k,j) = rhsc(k)+msfty(i,j)*.5*dts*g*(1.+epssm) &
+                      *w(i,k,j)/(c1f(k)*muts(i,j)+c2f(k))
+    ENDDO
+  ENDDO
+  ENDDO
+  ELSE
+#endif
 !$acc parallel loop gang private(rhs,wdwn,msft_inv) if(wrf_gpu_on)
   j_loop_w:  DO j = j_start, j_end
 !$acc loop vector
@@ -1630,6 +1831,9 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
     ENDDO
 
   ENDDO j_loop_w
+#ifdef WRF_GPU
+  ENDIF
+#endif
 
 END SUBROUTINE advance_w
 
