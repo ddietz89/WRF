@@ -6583,7 +6583,7 @@ END FUNCTION wrf_gpu_hostblocks
 ! tendencies (needs 2+4), 32 microphysics block on the GPU (Thompson), 64 no pushes of recomputed diffusion fields,
 ! 128 H1 reuses the H3-pulled state (alt/p/ph_2 still pulled), 256 GPU-side init_zero_tendency + phy_prep,
 ! 1024 MYJ PBL on the GPU (needs 256), 2048 pinned staging of the H1/H3 pulls, 4096 boundary arrays pushed only
-! after boundary reads, 8192 Tiedtke cumulus on the GPU (needs 1024); default 7679.
+! after boundary reads, 8192 Tiedtke cumulus on the GPU (needs 1024); default 15871.
 ! WRF_GPU_XFER bit 2048 (residency): device->host copy of one array through two pinned staging buffers
 ! (cuMemAllocHost), double-buffered on async queues 11/12, with an OpenMP host copy out of the staging buffer.
 ! Pageable update self runs at ~4.4 GB/s on the V100 rentals; pinned DMA ~11-12 GB/s. Falls back to update self.
@@ -6709,9 +6709,9 @@ INTEGER FUNCTION wrf_gpu_xfer()
    INTEGER :: st
    IF ( mode < 0 ) THEN
       CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_XFER', v, STATUS=st )
-      mode = 7679
+      mode = 15871
       IF ( st == 0 ) READ( v, *, IOSTAT=st ) mode
-      IF ( st /= 0 ) mode = 7679
+      IF ( st /= 0 ) mode = 15871
    ENDIF
    wrf_gpu_xfer = mode
 END FUNCTION wrf_gpu_xfer
