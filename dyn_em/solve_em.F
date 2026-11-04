@@ -504,6 +504,11 @@ SUBROUTINE solve_em ( grid , config_flags  &
         ( (.not. grid%nested) .or. &
         ( (grid%nested) .and. (abs(grid%dtbc) < 0.0001) ) ) )THEN
       CALL adapt_timestep(grid, config_flags)
+#ifdef WRF_GPU_RESIDENT
+      ! adapt_timestep (host) recomputed the lateral-boundary nudging weights for this step's dt
+!$acc update device(grid%fcx) if(associated(grid%fcx))
+!$acc update device(grid%gcx) if(associated(grid%gcx))
+#endif
       adapt_step_flag = .TRUE.
    ELSE
       adapt_step_flag = .FALSE.

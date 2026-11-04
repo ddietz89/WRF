@@ -208,6 +208,9 @@ CONTAINS
       k_start = kps
       k_end   = kpe-1
 
+#ifdef WRF_SEG_TIMERS
+      CALL diag_tick(0)
+#endif
       !  There are some fields that were defined in the first RK loop for
       !  physics and are now a time-step old.
 
@@ -359,6 +362,9 @@ CONTAINS
         !$OMP END PARALLEL DO
       END IF TRADITIONAL_FIELDS
 
+#ifdef WRF_SEG_TIMERS
+      CALL diag_tick(1)
+#endif
       !  Mostly surface values, precip, column integrated quantities.
 
       CALL wrf_debug ( 100 , '--> CALL DIAGNOSTICS PACKAGE: ACCUMULATED AND BUCKET DIAGNOSTICS' )
@@ -430,6 +436,9 @@ CONTAINS
                 ,NUM_TILES=grid%num_tiles                            &
                                                                     )
 
+#ifdef WRF_SEG_TIMERS
+      CALL diag_tick(2)
+#endif
       NWPDIAGS: IF ( config_flags%nwp_diagnostics == 1 ) THEN
       CALL wrf_debug ( 100 , '--> CALL DIAGNOSTICS PACKAGE: NWP DIAGNOSTICS' )
 
@@ -764,6 +773,9 @@ CONTAINS
    END IF NWPDIAGS
 
 
+#ifdef WRF_SEG_TIMERS
+      CALL diag_tick(3)
+#endif
       !  Climate-oriented diagnostic quantities.
 
       CLIMATE_DIAGS : IF ( config_flags%output_diagnostics == 1 ) THEN
@@ -830,6 +842,9 @@ CONTAINS
       !  Pressure level diagnostics.
 
 
+#ifdef WRF_SEG_TIMERS
+      CALL diag_tick(4)
+#endif
       PL_DIAGNOSTICS : IF ( config_flags%p_lev_diags .NE. SKIP_PRESS_DIAGS ) THEN
 
       !  Process the diags if this is the correct time step OR
@@ -933,6 +948,9 @@ CONTAINS
       !  Height level and AGL diagnostics.
 
 
+#ifdef WRF_SEG_TIMERS
+      CALL diag_tick(5)
+#endif
       ZL_DIAGNOSTICS : IF ( config_flags%z_lev_diags .NE. SKIP_Z_DIAGS ) THEN
 
       !  Process the diags if this is the correct time step OR
@@ -1004,6 +1022,9 @@ CONTAINS
 
       !  AFWA diagnostic package.
 
+#ifdef WRF_SEG_TIMERS
+      CALL diag_tick(6)
+#endif
       AFWA_DIAGS : IF ( config_flags%afwa_diag_opt == 1 ) THEN
 
          IF ( ( config_flags%history_interval == 0 ) ) THEN
@@ -1041,6 +1062,9 @@ CONTAINS
 
       !  RASM Climate Diagnostics - mean output
 
+#ifdef WRF_SEG_TIMERS
+      CALL diag_tick(7)
+#endif
       RASM_DIAGS_MEAN : IF ( config_flags%mean_diag == 1 ) THEN
 
          !IF ( ( config_flags%auxhist3_interval == 0 ) ) THEN
@@ -1675,7 +1699,36 @@ CONTAINS
 
 #endif
 
+#ifdef WRF_SEG_TIMERS
+      CALL diag_tick(8)
+#endif
    END SUBROUTINE diagnostics_driver
+
+#ifdef WRF_SEG_TIMERS
+   ! per-package wall time of diagnostics_driver: bucket k gets the time since the previous tick (0 = reset);
+   ! cumulative seconds printed every 20 calls. 1 phys_fields+lightning+hailcast+trad 2 output_calc 3 nwp
+   ! 4 clwrf 5 pld 6 zld 7 afwa 8 rest
+   SUBROUTINE diag_tick( k )
+      USE module_wrf_error, ONLY : wrf_message
+      IMPLICIT NONE
+      INTEGER, INTENT(IN) :: k
+      INTEGER(8), SAVE :: last = 0
+      REAL(8), SAVE :: acc(8) = 0.d0
+      INTEGER, SAVE :: ncall = 0
+      INTEGER(8) :: now, rate
+      CHARACTER(LEN=256) :: msg
+      CALL SYSTEM_CLOCK( now, rate )
+      IF ( k > 0 ) acc(k) = acc(k) + DBLE(now - last) / DBLE(rate)
+      last = now
+      IF ( k == 8 ) THEN
+         ncall = ncall + 1
+         IF ( MOD(ncall, 20) == 0 ) THEN
+            WRITE(msg,'(A,I6,8F9.3)') 'DIAGTIME ', ncall, acc
+            CALL wrf_message( msg )
+         ENDIF
+      ENDIF
+   END SUBROUTINE diag_tick
+#endif
 
 
    SUBROUTINE update_phys_fields ( grid, config_flags, moist,           &

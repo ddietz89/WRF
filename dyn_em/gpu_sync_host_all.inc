@@ -1,4 +1,5 @@
 ! GENERATED: diagnostic full sync (WRF_GPU_FULLSYNC) - pull every device-resident grid array
+! (host-owned grid%fcx/gcx - recomputed by adapt_timestep - are not pulled)
 !$acc update self(grid%acgrdflx) if(associated(grid%acgrdflx))
 !$acc update self(grid%achfx) if(associated(grid%achfx))
 !$acc update self(grid%aclhf) if(associated(grid%aclhf))
@@ -133,7 +134,6 @@
 !$acc update self(grid%f_ice_phy) if(associated(grid%f_ice_phy))
 !$acc update self(grid%f_rain_phy) if(associated(grid%f_rain_phy))
 !$acc update self(grid%f_rimef_phy) if(associated(grid%f_rimef_phy))
-!$acc update self(grid%fcx) if(associated(grid%fcx))
 !$acc update self(grid%field_t_tend_perturb) if(associated(grid%field_t_tend_perturb))
 !$acc update self(grid%field_u_tend_perturb) if(associated(grid%field_u_tend_perturb))
 !$acc update self(grid%field_v_tend_perturb) if(associated(grid%field_v_tend_perturb))
@@ -161,7 +161,6 @@
 !$acc update self(grid%fs_p_y) if(associated(grid%fs_p_y))
 !$acc update self(grid%fs_p_z) if(associated(grid%fs_p_z))
 !$acc update self(grid%fs_spotting_lkhd) if(associated(grid%fs_spotting_lkhd))
-!$acc update self(grid%gcx) if(associated(grid%gcx))
 !$acc update self(grid%glw) if(associated(grid%glw))
 !$acc update self(grid%graupelnc) if(associated(grid%graupelnc))
 !$acc update self(grid%graupelncv) if(associated(grid%graupelncv))
