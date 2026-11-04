@@ -79,6 +79,7 @@ SUBROUTINE tophat ( field, num_scalars , &
    END DO
    END DO
    END DO
+!$acc wait
 END SUBROUTINE tophat
 !----------------------------------------------------------------
 SUBROUTINE column (loop , data_list, its,ite)
@@ -1689,6 +1690,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
    ENDIF vert_order_test
 
+!$acc wait
 END SUBROUTINE advect_u
 
 !-------------------------------------------------------------------------------
@@ -3351,6 +3353,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
    ENDIF vert_order_test
 
+!$acc wait
 END SUBROUTINE advect_v
 
 !-------------------------------------------------------------------
@@ -4850,6 +4853,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
    ENDIF vert_order_test
 
+!$acc wait
 END SUBROUTINE advect_scalar
 #ifndef ADVECT_KERNEL
 
@@ -6750,6 +6754,7 @@ ELSE IF (horz_order == 2 ) THEN
 
    ENDIF vert_order_test
 
+!$acc wait
 END SUBROUTINE advect_w
 
 !----------------------------------------------------------------
@@ -8815,6 +8820,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
   ENDDO
   END IF
 
+!$acc wait
 END SUBROUTINE advect_scalar_pd
 
 !----------------------------------------------------------------
@@ -10585,6 +10591,7 @@ SUBROUTINE advect_scalar_wenopd ( field, field_old, tendency,    &
   ENDDO
   ENDDO
 
+!$acc wait
 END SUBROUTINE advect_scalar_wenopd
 
 !----------------------------------------------------------------
@@ -11886,6 +11893,7 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
   ENDDO
   END IF
 
+!$acc wait
 END SUBROUTINE advect_scalar_mono
 
 !-----------------------------------------------------------

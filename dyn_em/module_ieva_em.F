@@ -321,7 +321,9 @@ SUBROUTINE WW_SPLIT(wwE, wwI,                         &
 !
 !=========================================================================
 
+!$acc wait
 RETURN
+!$acc wait
 END SUBROUTINE WW_SPLIT
  
  

@@ -1095,6 +1095,7 @@ SUBROUTINE rk_addtend_dry ( ru_tend, rv_tend, rw_tend, ph_tend, t_tend,      &
    ENDDO
    ENDDO
 
+!$acc wait
 END SUBROUTINE rk_addtend_dry
 
 !-------------------------------------------------------------------------------
@@ -1519,6 +1520,7 @@ SUBROUTINE q_diabatic_add ( scs, sce,                        &
 
    END DO scalar_loop
 
+!$acc wait
 END SUBROUTINE q_diabatic_add
 
 !-------------------------------------------------------------------------------
@@ -1589,6 +1591,7 @@ SUBROUTINE q_diabatic_subtr( scs, sce,                       &
 
    END DO scalar_loop
 
+!$acc wait
 END SUBROUTINE q_diabatic_subtr
 
 
@@ -1844,6 +1847,7 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
 
     END IF
 
+!$acc wait
 END SUBROUTINE rk_update_scalar
 
 !-------------------------------------------------------------------------------
@@ -1991,6 +1995,7 @@ SUBROUTINE rk_update_scalar_pd( scs, sce,                      &
 
       ENDDO
 
+!$acc wait
 END SUBROUTINE rk_update_scalar_pd
 
 !------------------------------------------------------------
@@ -2713,6 +2718,7 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
 
    ENDIF
 
+!$acc wait
 END SUBROUTINE calculate_phy_tend
 
 !-----------------------------------------------------------------------
@@ -2749,6 +2755,7 @@ SUBROUTINE positive_definite_filter ( a,                          &
   ENDDO
   ENDDO
 
+!$acc wait
   END SUBROUTINE positive_definite_filter
 
 !-----------------------------------------------------------------------
@@ -2785,6 +2792,7 @@ SUBROUTINE bound_tke ( tke, tke_upper_bound,       &
   ENDDO
   ENDDO
 
+!$acc wait
   END SUBROUTINE bound_tke
 
 !-----------------------------------------------------------------------
@@ -2820,6 +2828,7 @@ SUBROUTINE bound_qna ( qna,                        &
   ENDDO
   ENDDO
 
+!$acc wait
   END SUBROUTINE bound_qna
 
 !----------------------------------------------------------------------------------
@@ -3214,6 +3223,7 @@ is_in_time_interval: &
 enddo traj_loop
 !end trajectory
 
+!$acc wait
 END SUBROUTINE trajectory
 !------------------------------------------------------------------------
 !cyl:Implement the map prpjection code for trajectory calculation

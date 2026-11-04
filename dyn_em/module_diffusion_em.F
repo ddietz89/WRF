@@ -1381,6 +1381,7 @@
 ! are now calculated at vorticity points.
 !=======================================================================
 
+!$acc wait
     END SUBROUTINE cal_deform_and_div
 
 !=======================================================================
@@ -1719,6 +1720,7 @@ SUBROUTINE cal_dampkm( config_flags,xkmh,xkhh,xkmv,xkhv,                       &
    ENDDO
    ENDDO
 
+!$acc wait
 END SUBROUTINE cal_dampkm
 
 !=======================================================================
@@ -2065,6 +2067,7 @@ END SUBROUTINE cal_dampkm
     END DO
 ! end of MARTA/WCS change
 
+!$acc wait
     END SUBROUTINE calculate_N2
 
 !=======================================================================
@@ -2125,6 +2128,7 @@ SUBROUTINE isotropic_km( config_flags,                                         &
    ENDDO
    ENDDO
 
+!$acc wait
 END SUBROUTINE isotropic_km
 
 !=======================================================================
@@ -2313,6 +2317,7 @@ SUBROUTINE smag_km( config_flags,xkmh,xkmv,xkhh,xkhv,BN2,                      &
       ENDDO
    ENDIF
 
+!$acc wait
 END SUBROUTINE smag_km
 
 !=======================================================================
@@ -2455,6 +2460,7 @@ SUBROUTINE smag2d_km( config_flags,xkmh,xkmv,xkhh,xkhv,                        &
       ENDDO
       ENDDO
 
+!$acc wait
 END SUBROUTINE smag2d_km
 
 !=======================================================================
@@ -2866,6 +2872,7 @@ END SUBROUTINE smag2d_km
 
     ENDIF
 !!!
+!$acc wait
     END SUBROUTINE tke_km
 
 !=======================================================================
@@ -2937,6 +2944,7 @@ END SUBROUTINE smag2d_km
     END DO
     END DO
 
+!$acc wait
     END SUBROUTINE calc_l_scale
 
 !=======================================================================
@@ -3417,6 +3425,7 @@ END SUBROUTINE smag2d_km
     ENDDO
     ENDDO
 
+!$acc wait
     END SUBROUTINE meso_length_scale
 !=======================================================================
 !=======================================================================
@@ -3723,6 +3732,7 @@ END SUBROUTINE smag2d_km
     ENDDO
     ENDDO
 
+!$acc wait
     END SUBROUTINE free_atmos_length
 !=======================================================================
 !=======================================================================
@@ -4336,6 +4346,7 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
    ENDDO
    ENDDO
 
+!$acc wait
 END SUBROUTINE horizontal_diffusion_u_2
 
 !=======================================================================
@@ -4687,6 +4698,7 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
    ENDDO
    ENDDO
 
+!$acc wait
 END SUBROUTINE horizontal_diffusion_v_2
 
 !=======================================================================
@@ -5034,6 +5046,7 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
    ENDDO
    ENDDO
 
+!$acc wait
 END SUBROUTINE horizontal_diffusion_w_2
 
 !=======================================================================
@@ -5498,6 +5511,7 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
       ENDDO
    ENDIF
 
+!$acc wait
 END SUBROUTINE horizontal_diffusion_s
 
 !=======================================================================
@@ -5990,6 +6004,7 @@ SUBROUTINE vertical_diffusion_2   ( ru_tendf, rv_tendf, rw_tendf, rt_tendf,   &
 
    ENDIF
 
+!$acc wait
 END SUBROUTINE vertical_diffusion_2
 
 !=======================================================================
@@ -6153,6 +6168,7 @@ SUBROUTINE vertical_diffusion_u_2( tendency, config_flags,                &
        ENDDO
 ! ******** MODIF...
 
+!$acc wait
 END SUBROUTINE vertical_diffusion_u_2
 
 !=======================================================================
@@ -6315,6 +6331,7 @@ SUBROUTINE vertical_diffusion_v_2( tendency, config_flags,                &
        ENDDO
 ! ******** MODIF...
 
+!$acc wait
 END SUBROUTINE vertical_diffusion_v_2
 
 !=======================================================================
@@ -6442,6 +6459,7 @@ SUBROUTINE vertical_diffusion_w_2(tendency, config_flags,                 &
    ENDDO
    ENDDO
 
+!$acc wait
 END SUBROUTINE vertical_diffusion_w_2
 
 !=======================================================================
@@ -6654,6 +6672,7 @@ SUBROUTINE vertical_diffusion_s( tendency, config_flags, var, xkhv,       &
       ENDDO
    ENDIF
 
+!$acc wait
 END SUBROUTINE vertical_diffusion_s
 
 !=======================================================================
@@ -7440,6 +7459,7 @@ END SUBROUTINE vertical_diffusion_s
     ENDIF
   ENDDO
   ENDDO
+!$acc wait
 END SUBROUTINE nonlocal_flux
 
 !==============================================================================
@@ -7655,6 +7675,7 @@ END SUBROUTINE nonlocal_flux
 
     ENDIF
 
+!$acc wait
     END SUBROUTINE cal_titau_11_22_33
 
 !=======================================================================
@@ -7845,6 +7866,7 @@ END SUBROUTINE nonlocal_flux
 
     ENDIF
 
+!$acc wait
     END SUBROUTINE cal_titau_12_21
 
 !=======================================================================
@@ -8044,6 +8066,7 @@ END SUBROUTINE nonlocal_flux
     ENDDO
     ENDDO
 
+!$acc wait
     END SUBROUTINE cal_titau_13_31
 
 !=======================================================================
@@ -8245,6 +8268,7 @@ END SUBROUTINE nonlocal_flux
     END DO
     END DO
 
+!$acc wait
     END SUBROUTINE cal_titau_23_32
 
 !=======================================================================
@@ -8579,6 +8603,7 @@ END SUBROUTINE phy_bc
     END DO
     END DO
 
+!$acc wait
     END SUBROUTINE tke_rhs
 
 !=======================================================================
@@ -8735,6 +8760,7 @@ END SUBROUTINE phy_bc
 ! motions.
 !-----------------------------------------------------------------------
 
+!$acc wait
     END SUBROUTINE tke_buoyancy
 
 !=======================================================================
@@ -8968,6 +8994,7 @@ END SUBROUTINE phy_bc
       END DO
       END DO
       END DO
+!$acc wait
     END SUBROUTINE tke_dissip
 
 !=======================================================================
@@ -9482,6 +9509,7 @@ END SUBROUTINE phy_bc
   END SELECT vflux
 ! end of MARTA/WCS change
 
+!$acc wait
     END SUBROUTINE tke_shear
 
 !=======================================================================
@@ -9784,6 +9812,7 @@ END SUBROUTINE phy_bc
       END DO
     END DO
 
+!$acc wait
     END SUBROUTINE compute_diff_metrics
 
     SUBROUTINE cal_helicity ( config_flags, u, v, w, uh, up_heli_max,&
@@ -10407,6 +10436,7 @@ END SUBROUTINE phy_bc
 
 ! End update of boundary for updraft helicity.
 
+!$acc wait
     END SUBROUTINE cal_helicity
 !=======================================================================
 !=======================================================================
@@ -11791,6 +11821,7 @@ END SUBROUTINE phy_bc
      ENDDO chem_loop
    ENDIF
  
+!$acc wait
     END SUBROUTINE vertical_diffusion_implicit
 
 !=======================================================================

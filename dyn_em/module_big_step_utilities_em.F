@@ -194,6 +194,7 @@ SUBROUTINE calc_mu_uv ( config_flags,                 &
          ENDDO
       END IF
 
+!$acc wait
 END SUBROUTINE calc_mu_uv
 
 !-------------------------------------------------------------------------------
@@ -351,6 +352,7 @@ SUBROUTINE calc_mu_uv_1 ( config_flags,                 &
          ENDDO
       END IF
 
+!$acc wait
 END SUBROUTINE calc_mu_uv_1
 
 !-------------------------------------------------------------------------------
@@ -432,6 +434,7 @@ SUBROUTINE couple_momentum ( muu, ru, u, msfu,              &
       ENDDO
       ENDDO
 
+!$acc wait
 END SUBROUTINE couple_momentum
 
 !-------------------------------------------------------------------
@@ -569,6 +572,7 @@ SUBROUTINE calc_mu_staggered ( mu, mub, muu, muv,            &
          ENDDO
       END IF
 
+!$acc wait
 END SUBROUTINE calc_mu_staggered
 
 !-------------------------------------------------------------------------------
@@ -732,6 +736,7 @@ SUBROUTINE couple ( mu, mub, rfield, field, name, &
    
    ENDIF
 
+!$acc wait
 END SUBROUTINE couple
 
 
@@ -930,6 +935,7 @@ SUBROUTINE calc_ww_cp ( u, v, mup, mub, c1h, c2h, ww,    &
      ENDDO
 
 
+!$acc wait
 END SUBROUTINE calc_ww_cp
 
 
@@ -1080,6 +1086,7 @@ SUBROUTINE calc_cq ( moist, cqu, cqv, cqw, n_moist, &
 
       END IF
 
+!$acc wait
 END SUBROUTINE calc_cq
 
 !----------------------------------------------------------------------
@@ -1124,6 +1131,7 @@ SUBROUTINE calc_alt ( alt, al, alb,                  &
       ENDDO
 
 
+!$acc wait
 END SUBROUTINE calc_alt
 
 !----------------------------------------------------------------------
@@ -1470,6 +1478,7 @@ SUBROUTINE calc_p_rho_phi ( moist, n_moist, hypsometric_opt,      &
 
    END IF nonhydro
 
+!$acc wait
 END SUBROUTINE calc_p_rho_phi
 
 !----------------------------------------------------------------------
@@ -1514,6 +1523,7 @@ SUBROUTINE calc_php ( php, ph, phb,                  &
       ENDDO
       ENDDO
 
+!$acc wait
 END SUBROUTINE calc_php
 
 !-------------------------------------------------------------------------------
@@ -1612,6 +1622,7 @@ SUBROUTINE diagnose_w( ph_tend, ph_new, ph_old, w, mut,     &
 
    ENDDO
 
+!$acc wait
 END SUBROUTINE diagnose_w
 
 !-------------------------------------------------------------------------------
@@ -2483,6 +2494,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
 
    END IF
 
+!$acc wait
   END SUBROUTINE rhs_ph
 
 
@@ -2739,6 +2751,7 @@ SUBROUTINE horizontal_pressure_gradient( ru_tend,rv_tend,                &
 
    ENDDO
 
+!$acc wait
 END SUBROUTINE horizontal_pressure_gradient
 
 !-------------------------------------------------------------------------------
@@ -2826,6 +2839,7 @@ SUBROUTINE pg_buoy_w( rw_tend, p, cqw, muf, mubf,     &
 
    ENDDO
 
+!$acc wait
 END SUBROUTINE pg_buoy_w
 
 !-------------------------------------------------------------------------------
@@ -3304,6 +3318,7 @@ SUBROUTINE horizontal_diffusion ( name, field, tendency, MUT, c1, c2,  &
            
    ENDIF
 
+!$acc wait
 END SUBROUTINE horizontal_diffusion
 
 !-----------------------------------------------------------------------------------------
@@ -3415,6 +3430,7 @@ SUBROUTINE horizontal_diffusion_3dmp ( name, field, tendency, MUT, c1, c2,  &
       ENDDO
       ENDDO
 
+!$acc wait
 END SUBROUTINE horizontal_diffusion_3dmp
 
 !-----------------------------------------------------------------------------------------
@@ -3612,6 +3628,7 @@ j_loop_s : DO j = j_start, j_end
 
    ENDIF
 
+!$acc wait
 END SUBROUTINE vertical_diffusion
 
 
@@ -3711,6 +3728,7 @@ j_loop_s : DO j = j_start, j_end
 
  ENDDO j_loop_s
 
+!$acc wait
 END SUBROUTINE vertical_diffusion_mp
 
 
@@ -3811,6 +3829,7 @@ j_loop_s : DO j = j_start, j_end
 
  ENDDO j_loop_s
 
+!$acc wait
 END SUBROUTINE vertical_diffusion_3dmp
 
 
@@ -3920,6 +3939,7 @@ j_loop_u : DO j = j_start, j_end
 
  ENDDO j_loop_u
    
+!$acc wait
 END SUBROUTINE vertical_diffusion_u
 
 !-------------------------------------------------------------------------------
@@ -4026,6 +4046,7 @@ j_loop_v : DO j = j_start, j_end
 
  ENDDO j_loop_v
    
+!$acc wait
 END SUBROUTINE vertical_diffusion_v
 
 !***************  end new mass coordinate routines
@@ -4082,6 +4103,7 @@ SUBROUTINE calculate_full ( rfield, rfieldb, rfieldp,     &
    ENDDO
    ENDDO
 
+!$acc wait
 END SUBROUTINE calculate_full
 
 !------------------------------------------------------------------------------
@@ -4299,6 +4321,7 @@ SUBROUTINE coriolis ( ru, rv, rw, ru_tend, rv_tend, rw_tend, &
    ENDDO
    ENDDO
 
+!$acc wait
 END SUBROUTINE coriolis
 
 !------------------------------------------------------------------------------
@@ -4675,6 +4698,7 @@ SUBROUTINE perturbation_coriolis ( ru_in, rv_in, rw, ru_tend, rv_tend, rw_tend, 
    ENDDO
    ENDDO
 
+!$acc wait
 END SUBROUTINE perturbation_coriolis
 
 !------------------------------------------------------------------------------
@@ -5010,6 +5034,7 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
    ENDDO
    ENDDO
 
+!$acc wait
 END SUBROUTINE curvature
 
 #if 0
@@ -5115,6 +5140,7 @@ SUBROUTINE decouple ( rr, rfield, field, name, config_flags, &
    
    ENDIF
 
+!$acc wait
 END SUBROUTINE decouple
 #endif
 
@@ -5155,6 +5181,7 @@ SUBROUTINE zero_tend ( tendency,                     &
       ENDDO
       ENDDO
 
+!$acc wait
       END SUBROUTINE zero_tend
 
 !-------------------------------------------------------------------------------
@@ -5192,6 +5219,7 @@ SUBROUTINE zero_tend2d( tendency,                     &
       ENDDO
       ENDDO
 
+!$acc wait
       END SUBROUTINE zero_tend2d
 
 !-------------------------------------------------------------------------------
@@ -5561,6 +5589,7 @@ END SUBROUTINE pole_point_bc
     enddo
     enddo
 
+!$acc wait
 END SUBROUTINE phy_prep
 
 
@@ -6012,6 +6041,7 @@ END SUBROUTINE phy_prep
 
     ENDIF
 
+!$acc wait
 END SUBROUTINE phy_prep_part2
 !------------------------------------------------------------
 
@@ -6220,6 +6250,7 @@ END SUBROUTINE phy_prep_part2
     enddo
     enddo
 
+!$acc wait
    END SUBROUTINE moist_physics_prep_em
 
 !------------------------------------------------------------------------------
@@ -6451,6 +6482,7 @@ END SUBROUTINE phy_prep_part2
      ENDDO
      ENDIF
 
+!$acc wait
    END SUBROUTINE moist_physics_finish_em
 
 !----------------------------------------------------------------
@@ -6500,6 +6532,7 @@ SUBROUTINE set_tend ( field, field_adv_tend, msf,       &
       ENDDO
       ENDDO
 
+!$acc wait
 END SUBROUTINE set_tend
 
 !------------------------------------------------------------------------------
@@ -6794,6 +6827,7 @@ END SUBROUTINE set_tend
 ! End adjustment of potential temperature.
 !-----------------------------------------------------------------------
 
+!$acc wait
     END SUBROUTINE rk_rayleigh_damp
 
 !==============================================================================
@@ -7321,6 +7355,7 @@ END SUBROUTINE set_tend
 ! End: Loop across spatial dimensions.
 !------------------------------------------------------------------------------
 
+!$acc wait
     END SUBROUTINE sixth_order_diffusion
 
 !==============================================================================
@@ -7356,6 +7391,7 @@ SUBROUTINE initialize_moist_old ( moist_old , moist , &
       END DO
    END DO
 
+!$acc wait
 END SUBROUTINE initialize_moist_old
 
 !==============================================================================
@@ -7394,6 +7430,7 @@ SUBROUTINE conv_t_tendf_to_moist ( t_1 , moist_old ,                &
       END DO
    END DO
 
+!$acc wait
 END SUBROUTINE conv_t_tendf_to_moist
 
 !==============================================================================
@@ -7444,6 +7481,7 @@ END SUBROUTINE conv_t_tendf_to_moist
       end do
     end if
 
+!$acc wait
   end subroutine Cloud_tracer_nudge
 
 END MODULE module_big_step_utilities_em

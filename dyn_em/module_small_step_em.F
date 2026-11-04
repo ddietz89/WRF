@@ -326,6 +326,7 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
       ENDDO
       ENDDO
 
+!$acc wait
 END SUBROUTINE small_step_prep
 
 !-------------------------------------------------------------------------
@@ -482,6 +483,7 @@ SUBROUTINE small_step_finish( u_2, u_1, v_2, v_1, w_2, w_1,    &
   ENDDO
   ENDDO
 
+!$acc wait
 END SUBROUTINE small_step_finish
 
 !-----------------------------------------------------------------------
@@ -619,6 +621,7 @@ SUBROUTINE calc_p_rho( al, p, ph,                    &
        ENDDO
        ENDDO
      END IF
+!$acc wait
 END SUBROUTINE calc_p_rho
 !----------------------------------------------------------------------
 SUBROUTINE calc_coef_w( a,alpha,gamma,              &
@@ -710,6 +713,7 @@ SUBROUTINE calc_coef_w( a,alpha,gamma,              &
           gamma(i,kde,j) = c*alpha(i,kde,j)
         ENDDO
       ENDDO outer_j_loop
+!$acc wait
 END SUBROUTINE calc_coef_w
 !----------------------------------------------------------------------
 SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
@@ -1138,6 +1142,7 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
         ENDDO
      END IF
   END IF
+!$acc wait
 END SUBROUTINE advance_uv
 !---------------------------------------------------------------------
 SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
@@ -1434,6 +1439,7 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
 #ifdef WRF_GPU
   ENDIF
 #endif
+!$acc wait
 END SUBROUTINE advance_mu_t
           
 !------------------------------------------------------------
@@ -1907,6 +1913,7 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
   ENDIF
 #endif
 
+!$acc wait
 END SUBROUTINE advance_w
 
 !---------------------------------------------------------------------
@@ -2080,6 +2087,7 @@ SUBROUTINE sumflux ( ru, rv, ww,                             &
   ENDIF
 
 
+!$acc wait
 END SUBROUTINE sumflux
 
 !---------------------------------------------------------------------

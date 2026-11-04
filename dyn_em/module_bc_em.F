@@ -163,6 +163,7 @@ CONTAINS
       ENDIF
     ENDIF
 
+!$acc wait
    END SUBROUTINE spec_bdyupdate_ph
 
 !------------------------------------------------------------------------
@@ -1355,6 +1356,7 @@ CONTAINS
         ENDDO
       ENDIF
 
+!$acc wait
   END SUBROUTINE set_w_surface
 
   SUBROUTINE lbc_fcx_gcx ( fcx , gcx , spec_bdy_width , &
@@ -1806,6 +1808,7 @@ CONTAINS
          END DO
       END DO
 
+!$acc wait
    END SUBROUTINE mass_weight
   
 END MODULE module_bc_em

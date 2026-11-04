@@ -654,6 +654,7 @@ CONTAINS
 
        END IF
 
+!$acc wait
    END SUBROUTINE set_physical_bc2d
 
 !-----------------------------------
@@ -1151,6 +1152,7 @@ CONTAINS
 
       END IF periodicity_y
 
+!$acc wait
    END SUBROUTINE set_physical_bc3d
 
    SUBROUTINE init_module_bc
@@ -1473,6 +1475,7 @@ CONTAINS
 
 
 
+!$acc wait
    END SUBROUTINE relax_bdytend_core
 !------------------------------------------------------------------------
 
@@ -1603,6 +1606,7 @@ CONTAINS
       ENDIF
     ENDIF
 
+!$acc wait
    END SUBROUTINE spec_bdytend
    
 !------------------------------------------------------------------------
@@ -1788,6 +1792,7 @@ CONTAINS
       ENDIF
     ENDIF
 
+!$acc wait
    END SUBROUTINE spec_bdytend_perturb
 
 
@@ -2134,6 +2139,7 @@ CONTAINS
       ENDIF
     ENDIF
 
+!$acc wait
    END SUBROUTINE spec_bdyupdate
 !------------------------------------------------------------------------
    SUBROUTINE spec_bdy_final   ( field, mu, c1, c2, msf,               &
@@ -2295,6 +2301,7 @@ CONTAINS
       ENDIF
     ENDIF
 
+!$acc wait
    END SUBROUTINE spec_bdy_final
 !------------------------------------------------------------------------
 
@@ -2419,6 +2426,7 @@ CONTAINS
       ENDIF
     ENDIF
 
+!$acc wait
    END SUBROUTINE zero_grad_bdy
 !------------------------------------------------------------------------
 
@@ -2551,6 +2559,7 @@ CONTAINS
       ENDIF
     ENDIF
 
+!$acc wait
    END SUBROUTINE flow_dep_bdy
 
 !------------------------------------------------------------------------------
