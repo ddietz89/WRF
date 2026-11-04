@@ -177,6 +177,7 @@ SUBROUTINE calc_mu_uv ( config_flags,                 &
          j=jts
          jm = jts
          if(config_flags%periodic_y) jm = jts-1
+!$acc parallel loop if(wrf_gpu_on)
          DO i=its,itf
 !             MUV(i,j) =      MU(i,j)          +MUB(i,j)
 !  fix for periodic b.c., 13 march 2004, wcs
@@ -185,6 +186,7 @@ SUBROUTINE calc_mu_uv ( config_flags,                 &
          j=jte
          jm = jte-1
          if(config_flags%periodic_y) jm = jte
+!$acc parallel loop if(wrf_gpu_on)
          DO i=its,itf
 !             MUV(i,j) =      MU(i,j-1)        +MUB(i,j-1)
 !  fix for periodic b.c., 13 march 2004, wcs
@@ -336,12 +338,14 @@ SUBROUTINE calc_mu_uv_1 ( config_flags,                 &
          j=jts
          jm = jts
          if(config_flags%periodic_y) jm = jts-1
+!$acc parallel loop if(wrf_gpu_on)
          DO i=its,itf
              MUV(i,j) = 0.5*(MU(i,j)+MU(i,jm))
          ENDDO
          j=jte
          jm = jte-1
          if(config_flags%periodic_y) jm = jte
+!$acc parallel loop if(wrf_gpu_on)
          DO i=its,itf
              MUV(i,j) = 0.5*(MU(i,j-1)+MU(i,jm))
          ENDDO
@@ -530,6 +534,7 @@ SUBROUTINE calc_mu_staggered ( mu, mub, muu, muv,            &
          ENDDO
          ENDDO
          j=jts
+!$acc parallel loop if(wrf_gpu_on)
          DO i=its,itf
              MUV(i,j) =      MU(i,j)          +MUB(i,j)
          ENDDO
@@ -541,6 +546,7 @@ SUBROUTINE calc_mu_staggered ( mu, mub, muu, muv,            &
          ENDDO
          ENDDO
          j=jte
+!$acc parallel loop if(wrf_gpu_on)
          DO i=its,itf
              MUV(i,j) =      MU(i,j-1)        +MUB(i,j-1)
          ENDDO
@@ -552,10 +558,12 @@ SUBROUTINE calc_mu_staggered ( mu, mub, muu, muv,            &
          ENDDO
          ENDDO
          j=jts
+!$acc parallel loop if(wrf_gpu_on)
          DO i=its,itf
              MUV(i,j) =      MU(i,j)          +MUB(i,j)
          ENDDO
          j=jte
+!$acc parallel loop if(wrf_gpu_on)
          DO i=its,itf
              MUV(i,j) =      MU(i,j-1)        +MUB(i,j-1)
          ENDDO
