@@ -2452,10 +2452,11 @@ CONTAINS
 
     !~ Initialize variables.
     !  ----------------------
-    turb = REAL ( 0 )
-    llturb = REAL ( 0 )
-    llturblgt = REAL ( 0 )
-    llturbsvr = REAL ( 0 )
+    turb ( ips:ipe, :, jps:jpe ) = REAL ( 0 )
+    ! tile only: called once per OpenMP tile (whole-array zeroing wiped other tiles' results - race)
+    llturb ( ips:ipe, jps:jpe ) = REAL ( 0 )
+    llturblgt ( ips:ipe, jps:jpe ) = REAL ( 0 )
+    llturbsvr ( ips:ipe, jps:jpe ) = REAL ( 0 )
 
     !~ Loop through the grid.
     !  ----------------------
