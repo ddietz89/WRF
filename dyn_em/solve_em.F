@@ -1122,7 +1122,8 @@ BENCH_START(calc_p_rho_tim)
    CALL seg_enter( 5 )
 #endif
    gpu_prep_dev = IAND( wrf_gpu_xfer(), 256 ) /= 0 .AND. IAND( wrf_gpu_xfer(), 2 ) /= 0 .AND.          &
-                  config_flags%scalar_pblmix == 0 .AND. config_flags%tracer_pblmix == 0 .AND.        &
+                  ( config_flags%scalar_pblmix == 0 .OR. num_scalar < PARAM_FIRST_SCALAR ) .AND.       &
+                  ( config_flags%tracer_pblmix == 0 .OR. num_tracer < PARAM_FIRST_SCALAR ) .AND.       &
                   config_flags%grid_fdda == 0
    IF ( gpu_prep_dev ) THEN
      DO ij = 1 , grid%num_tiles
@@ -6512,7 +6513,9 @@ LOGICAL FUNCTION wrf_gpu_hostblocks()
 END FUNCTION wrf_gpu_hostblocks
 
 ! WRF_GPU_XFER (residency): reduced lists - bit 1 H1 pull, 4 H2 pull, 8 H3 pull, 2 pushes, 16 GPU-owned physics
-! tendencies (needs 2+4); default 31.
+! tendencies (needs 2+4), 32 microphysics block on the GPU (Thompson), 64 no pushes of recomputed diffusion fields,
+! 128 H1 reuses the H3 pull (experimental: not bit-identical), 256 GPU-side init_zero_tendency + phy_prep;
+! default 383 (all but 128).
 INTEGER FUNCTION wrf_gpu_xfer()
    IMPLICIT NONE
    INTEGER, SAVE :: mode = -1
@@ -6520,9 +6523,9 @@ INTEGER FUNCTION wrf_gpu_xfer()
    INTEGER :: st
    IF ( mode < 0 ) THEN
       CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_XFER', v, STATUS=st )
-      mode = 31
+      mode = 383
       IF ( st == 0 ) READ( v, *, IOSTAT=st ) mode
-      IF ( st /= 0 ) mode = 31
+      IF ( st /= 0 ) mode = 383
    ENDIF
    wrf_gpu_xfer = mode
 END FUNCTION wrf_gpu_xfer
