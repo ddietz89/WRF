@@ -991,7 +991,7 @@ CONTAINS
 #ifdef WRF_GPU
    INTEGER :: ra_isub, ra_nj, ra_ntask
    LOGICAL :: ra_gpu_fast
-   INTEGER, PARAMETER :: RA_NSUB = 4
+   INTEGER, PARAMETER :: RA_NSUB = 4, RA_GPU_BANDS = 8
 #endif
    LOGICAL ::    flg_lw, flg_sw
 !ZCX
@@ -1717,17 +1717,21 @@ CONTAINS
 #ifdef WRF_GPU
    ! GPU builds (1 rank x OpenMP tiles): shortwave cost depends on daylight, so whole tiles are unbalanced -
    ! split each tile into RA_NSUB j-bands and schedule them dynamically (columns are independent: same results)
-   ! fast RRTMG (ra_*_physics=24) runs its AER GPU path: one call over the whole patch from one host thread
+   ! fast RRTMG (ra_*_physics=24) runs its AER GPU path: RA_GPU_BANDS sequential calls (from one host thread)
    ra_gpu_fast = lw_physics == RRTMG_LWSCHEME_FAST .OR. sw_physics == RRTMG_SWSCHEME_FAST
    ra_ntask = num_tiles*RA_NSUB
-   IF ( ra_gpu_fast ) ra_ntask = 1
+   IF ( ra_gpu_fast ) ra_ntask = RA_GPU_BANDS
    !$OMP PARALLEL DO SCHEDULE(DYNAMIC,1) IF ( .NOT. ra_gpu_fast )   &
    !$OMP PRIVATE ( ij ,i,j,k,its,ite,jts,jte, ra_isub, ra_nj)
    DO ra_isub = 1 , ra_ntask
      ij = (ra_isub-1)/RA_NSUB + 1
      IF ( ra_gpu_fast ) THEN
+       ! sequential j-bands of the whole patch: the AER GPU code sizes its device buffers by the column count
        its = MINVAL(i_start(1:num_tiles)) ; ite = MAXVAL(i_end(1:num_tiles))
-       jts = MINVAL(j_start(1:num_tiles)) ; jte = MAXVAL(j_end(1:num_tiles))
+       ra_nj = MAXVAL(j_end(1:num_tiles)) - MINVAL(j_start(1:num_tiles)) + 1
+       jts = MINVAL(j_start(1:num_tiles)) + ( (ra_isub-1) * ra_nj ) / RA_GPU_BANDS
+       jte = MINVAL(j_start(1:num_tiles)) + ( ra_isub * ra_nj ) / RA_GPU_BANDS - 1
+       IF ( jte < jts ) CYCLE
      ELSE
      its = i_start(ij)
      ite = i_end(ij)
