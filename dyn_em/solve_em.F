@@ -6607,63 +6607,63 @@ SUBROUTINE gpu_stage_pull( a, n )
          TYPE(C_PTR) :: pp
          INTEGER(C_SIZE_T), VALUE :: nbytes
       END FUNCTION alloch_t
+      INTEGER(C_INT) FUNCTION d2h_t( dst, src, nbytes, strm ) BIND(C)
+         IMPORT :: C_PTR, C_INT, C_SIZE_T, C_INT64_T
+         TYPE(C_PTR), VALUE :: dst
+         INTEGER(C_INT64_T), VALUE :: src
+         INTEGER(C_SIZE_T), VALUE :: nbytes
+         INTEGER(C_INT64_T), VALUE :: strm   ! CUstream handle
+      END FUNCTION d2h_t
    END INTERFACE
-   PROCEDURE(alloch_t), POINTER :: cu_alloch
-   TYPE(C_PTR) :: h, dp, dpc
-   REAL, POINTER :: st1(:), st2(:)
-   INTEGER :: nc, c, b, off, len, i
+   PROCEDURE(alloch_t), POINTER, SAVE :: cu_alloch => NULL()
+   PROCEDURE(d2h_t), POINTER, SAVE :: cu_d2h => NULL()
+   TYPE(C_PTR) :: h
+   INTEGER(C_INT64_T) :: strm(2)
+   REAL, POINTER :: st(:)
+   INTEGER :: nc, c, b, off, len, lenn, i
    INTEGER(C_INT) :: rc
-   INTEGER(8) :: dpi
+   INTEGER(C_INT64_T) :: dpi
    IF ( .NOT. tried ) THEN
-      tried = .TRUE. ; cu_alloch => NULL()
+      tried = .TRUE.
       h = dlopen( 'libcuda.so.1'//C_NULL_CHAR, 2 )
-      IF ( C_ASSOCIATED(h) ) CALL C_F_PROCPOINTER( dlsym( h, 'cuMemAllocHost_v2'//C_NULL_CHAR ), cu_alloch )
-      IF ( ASSOCIATED(cu_alloch) ) THEN
+      IF ( C_ASSOCIATED(h) ) THEN
+         CALL C_F_PROCPOINTER( dlsym( h, 'cuMemAllocHost_v2'//C_NULL_CHAR ), cu_alloch )
+         CALL C_F_PROCPOINTER( dlsym( h, 'cuMemcpyDtoHAsync_v2'//C_NULL_CHAR ), cu_d2h )
+      ENDIF
+      IF ( ASSOCIATED(cu_alloch) .AND. ASSOCIATED(cu_d2h) ) THEN
          rc = cu_alloch( stage(1), INT(NCH,C_SIZE_T)*4_C_SIZE_T )
          IF ( rc == 0 ) rc = cu_alloch( stage(2), INT(NCH,C_SIZE_T)*4_C_SIZE_T )
          ok = ( rc == 0 )
       ENDIF
       IF ( .NOT. ok ) CALL wrf_message( 'gpu_stage_pull: no pinned staging buffers - using update self' )
+      IF ( ok ) CALL wrf_message( 'gpu_stage_pull: pinned staging buffers 2 x 8 MB' )
    ENDIF
 !$acc wait
    IF ( .NOT. ok ) THEN
 !$acc update self(a)
       RETURN
    ENDIF
-   CALL C_F_POINTER( stage(1), st1, (/ NCH /) )
-   CALL C_F_POINTER( stage(2), st2, (/ NCH /) )
-   dp = acc_deviceptr( a )
-   dpi = TRANSFER( dp, dpi )
+   strm(1) = INT( acc_get_cuda_stream( 11 ), C_INT64_T )
+   strm(2) = INT( acc_get_cuda_stream( 12 ), C_INT64_T )
+   dpi = TRANSFER( acc_deviceptr( a ), dpi )
    nc = ( n + NCH - 1 ) / NCH
    len = MIN( NCH, n )
-   CALL acc_memcpy_from_device_async( st1, TRANSFER( dpi, dp ), INT(len,8)*4, 11 )
+   rc = cu_d2h( stage(1), dpi, INT(len,C_SIZE_T)*4_C_SIZE_T, strm(1) )
    b = 1
    DO c = 1, nc
       off = (c-1)*NCH
       len = MIN( NCH, n - off )
       IF ( c < nc ) THEN
-         dpc = TRANSFER( dpi + INT(off+len,8)*4, dp )
-         IF ( b == 1 ) THEN
-            CALL acc_memcpy_from_device_async( st2, dpc, INT(MIN(NCH, n-off-len),8)*4, 12 )
-         ELSE
-            CALL acc_memcpy_from_device_async( st1, dpc, INT(MIN(NCH, n-off-len),8)*4, 11 )
-         ENDIF
+         lenn = MIN( NCH, n - off - len )
+         rc = cu_d2h( stage(3-b), dpi + INT(off+len,C_INT64_T)*4, INT(lenn,C_SIZE_T)*4_C_SIZE_T, strm(3-b) )
       ENDIF
-      IF ( b == 1 ) THEN
-         CALL acc_wait( 11 )
+      CALL acc_wait( 10+b )
+      CALL C_F_POINTER( stage(b), st, (/ NCH /) )
 !$OMP PARALLEL DO
-         DO i = 1, len
-            a(off+i) = st1(i)
-         ENDDO
+      DO i = 1, len
+         a(off+i) = st(i)
+      ENDDO
 !$OMP END PARALLEL DO
-      ELSE
-         CALL acc_wait( 12 )
-!$OMP PARALLEL DO
-         DO i = 1, len
-            a(off+i) = st2(i)
-         ENDDO
-!$OMP END PARALLEL DO
-      ENDIF
       b = 3 - b
    ENDDO
 END SUBROUTINE gpu_stage_pull
