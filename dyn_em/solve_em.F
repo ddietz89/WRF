@@ -479,6 +479,7 @@ SUBROUTINE solve_em ( grid , config_flags  &
       IF ( wrf_gpu_pin_mode() /= 0 ) THEN
          CALL wrf_gpu_pin_grid( grid )
 #        include "gpu_pin_i1.inc"
+         CALL wrf_gpu_pin_flush()
       ENDIF
    ENDIF
 #ifdef WRF_SEG_TIMERS
@@ -6073,7 +6074,7 @@ END SUBROUTINE wrf_gpu_advise_addr
 
 ! WRF_GPU_PIN=1 (residency): page-lock (cuMemHostRegister) the host copies of the grid state arrays and the
 ! persistent i1 temporaries once, so the per-block update self/device transfers can DMA directly instead of staging
-! through pageable memory. Only arrays >= 1 MB in their own mmap region (page offset 16) are registered, whole pages.
+! through pageable memory. All their page ranges are collected, merged and registered (wrf_gpu_pin_flush).
 INTEGER FUNCTION wrf_gpu_pin_mode()
    IMPLICIT NONE
    INTEGER, SAVE :: mode = -1
@@ -6088,12 +6089,34 @@ INTEGER FUNCTION wrf_gpu_pin_mode()
    wrf_gpu_pin_mode = mode
 END FUNCTION wrf_gpu_pin_mode
 
+MODULE wrf_gpu_pin_list
+   ! page ranges of every host array that crosses PCIe; merged and registered once (wrf_gpu_pin_flush)
+   INTEGER, PARAMETER :: MAXR = 4000
+   INTEGER(8), SAVE :: r0(MAXR), r1(MAXR)
+   INTEGER, SAVE :: nr = 0
+END MODULE wrf_gpu_pin_list
+
 SUBROUTINE wrf_gpu_pin_addr( addr, nbytes, nok, nfail, tot )
-   USE ISO_C_BINDING
+   ! collect only: whole-page range of [addr, addr+nbytes)
+   USE wrf_gpu_pin_list
    IMPLICIT NONE
    INTEGER(8), INTENT(IN) :: addr, nbytes
    INTEGER, INTENT(INOUT) :: nok, nfail
    INTEGER(8), INTENT(INOUT) :: tot
+   IF ( nbytes <= 0 ) RETURN
+   IF ( nr >= MAXR ) THEN ; nfail = nfail + 1 ; RETURN ; ENDIF
+   nr = nr + 1
+   r0(nr) = ( addr / 4096_8 ) * 4096_8
+   r1(nr) = ( ( addr + nbytes + 4095_8 ) / 4096_8 ) * 4096_8
+   nok = nok + 1 ; tot = tot + nbytes
+END SUBROUTINE wrf_gpu_pin_addr
+
+SUBROUTINE wrf_gpu_pin_flush()
+   ! sort the collected ranges, merge overlapping/adjacent ones (arrays sharing a page end up in one interval, so no
+   ! copied array is ever partly registered) and cuMemHostRegister each merged interval
+   USE wrf_gpu_pin_list
+   USE ISO_C_BINDING
+   IMPLICIT NONE
    INTERFACE
       TYPE(C_PTR) FUNCTION dlopen( name, flags ) BIND(C, NAME='dlopen')
          IMPORT :: C_PTR, C_CHAR, C_INT
@@ -6114,27 +6137,40 @@ SUBROUTINE wrf_gpu_pin_addr( addr, nbytes, nok, nfail, tot )
          INTEGER(C_INT), VALUE :: flags
       END FUNCTION reg_t
    END INTERFACE
-   PROCEDURE(reg_t), POINTER, SAVE :: cu_reg => NULL()
-   LOGICAL, SAVE :: tried = .FALSE.
+   PROCEDURE(reg_t), POINTER :: cu_reg
    TYPE(C_PTR) :: h
-   INTEGER(8) :: a0, a1
+   INTEGER :: i, j, nm, nok, nbad
+   INTEGER(8) :: t0, t1, tot
    INTEGER(C_INT) :: rc
-   IF ( .NOT. tried ) THEN
-      tried = .TRUE.
-      h = dlopen( 'libcuda.so.1'//C_NULL_CHAR, 2 )
-      IF ( C_ASSOCIATED(h) ) CALL C_F_PROCPOINTER( dlsym( h, 'cuMemHostRegister_v2'//C_NULL_CHAR ), cu_reg )
-   ENDIF
-   IF ( .NOT. ASSOCIATED(cu_reg) ) THEN ; nfail = nfail + 1 ; RETURN ; ENDIF
-   IF ( nbytes < 1048576_8 ) RETURN
-   ! only arrays that own their pages: glibc places an individually mmapped chunk's data 16 bytes past a page
-   ! boundary. Heap (brk) chunks can share pages with neighbours, and a copy over a partly registered range fails
-   ! with CUDA_ERROR_INVALID_VALUE, so those are left pageable.
-   IF ( MOD( addr, 4096_8 ) /= 16_8 ) THEN ; nfail = nfail + 1 ; RETURN ; ENDIF
-   a0 = ( addr / 4096_8 ) * 4096_8
-   a1 = ( ( addr + nbytes + 4095_8 ) / 4096_8 ) * 4096_8
-   rc = cu_reg( INT(a0,C_LONG_LONG), INT(a1-a0,C_SIZE_T), 0_C_INT )
-   IF ( rc == 0 ) THEN ; nok = nok + 1 ; tot = tot + (a1-a0) ; ELSE ; nfail = nfail + 1 ; ENDIF
-END SUBROUTINE wrf_gpu_pin_addr
+   cu_reg => NULL()
+   h = dlopen( 'libcuda.so.1'//C_NULL_CHAR, 2 )
+   IF ( C_ASSOCIATED(h) ) CALL C_F_PROCPOINTER( dlsym( h, 'cuMemHostRegister_v2'//C_NULL_CHAR ), cu_reg )
+   IF ( .NOT. ASSOCIATED(cu_reg) .OR. nr == 0 ) RETURN
+   DO i = 2, nr                                   ! insertion sort by start
+      t0 = r0(i) ; t1 = r1(i) ; j = i - 1
+      DO WHILE ( j >= 1 )
+         IF ( r0(j) <= t0 ) EXIT
+         r0(j+1) = r0(j) ; r1(j+1) = r1(j) ; j = j - 1
+      ENDDO
+      r0(j+1) = t0 ; r1(j+1) = t1
+   ENDDO
+   nm = 1                                         ! merge in place
+   DO i = 2, nr
+      IF ( r0(i) <= r1(nm) ) THEN
+         r1(nm) = MAX( r1(nm), r1(i) )
+      ELSE
+         nm = nm + 1 ; r0(nm) = r0(i) ; r1(nm) = r1(i)
+      ENDIF
+   ENDDO
+   nok = 0 ; nbad = 0 ; tot = 0
+   DO i = 1, nm
+      rc = cu_reg( INT(r0(i),C_LONG_LONG), INT(r1(i)-r0(i),C_SIZE_T), 0_C_INT )
+      IF ( rc == 0 ) THEN ; nok = nok + 1 ; tot = tot + (r1(i)-r0(i)) ; ELSE ; nbad = nbad + 1 ; ENDIF
+   ENDDO
+   WRITE(0,'(A,I6,A,I6,A,I6,A,F9.1,A)') 'WRF_GPU_PIN: ', nr, ' arrays -> ', nm, ' merged intervals, ', nbad, &
+        ' failed, ', DBLE(tot)/1.d6, ' MB registered'
+   nr = 0
+END SUBROUTINE wrf_gpu_pin_flush
 
 SUBROUTINE wrf_gpu_pin_grid( grid )
    USE module_domain, ONLY : domain, fieldlist
