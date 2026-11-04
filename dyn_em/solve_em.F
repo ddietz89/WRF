@@ -212,6 +212,7 @@ SUBROUTINE solve_em ( grid , config_flags  &
    LOGICAL, EXTERNAL :: wrf_gpu_addrmap
    LOGICAL, EXTERNAL :: wrf_gpu_hostblocks
    INTEGER, EXTERNAL :: wrf_gpu_fullsync
+   LOGICAL, SAVE :: gpu_fs_have_host = .FALSE.
    INTEGER, EXTERNAL :: wrf_gpu_prefetch_mode
    INTEGER, EXTERNAL :: wrf_gpu_advise_mode
    LOGICAL, SAVE :: gpu_advised_grid = .FALSE.
@@ -460,6 +461,13 @@ SUBROUTINE solve_em ( grid , config_flags  &
       CALL wrf_message( 'GPU residency: grid fields entered on the device' )
    ENDIF
 #  include "gpu_upd_dev_bdy.inc"
+#endif
+#ifdef WRF_GPU_RESIDENT
+   ! WRF_GPU_FULLSYNC=7 (diagnostic): host copies were made current at the end of the previous solve_em; push them
+   ! all so that anything the host changed between solve_em calls reaches the device
+   IF ( IAND( wrf_gpu_fullsync(), 7 ) == 7 .AND. gpu_fs_have_host ) THEN
+#    include "gpu_sync_dev_all.inc"
+   ENDIF
 #endif
 #ifdef WRF_GPU_RESIDENT
    ! automatic (per-call) work arrays used inside compute regions: device copies for this call only
@@ -5513,6 +5521,12 @@ BENCH_END(bc_2d_tim)
 #endif
 #ifdef WRF_GPU_RESIDENT
 !$acc exit data delete(h_tendency, z_tendency)
+#endif
+#ifdef WRF_GPU_RESIDENT
+   IF ( IAND( wrf_gpu_fullsync(), 7 ) == 7 ) THEN
+#    include "gpu_sync_host_all.inc"
+      gpu_fs_have_host = .TRUE.
+   ENDIF
 #endif
 #ifdef WRF_SEG_TIMERS
    CALL seg_mark( 0 )
