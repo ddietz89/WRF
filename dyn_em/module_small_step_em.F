@@ -1207,6 +1207,12 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
 !  Local arrays from the stack (note tile size)
   REAL, DIMENSION (its:ite, kts:kte) :: wdtn, dvdxi
   REAL, DIMENSION (its:ite) :: dmdt
+#ifdef WRF_GPU
+  ! GPU column path (one thread per (i,j), k sequential): fixed-size per-thread columns
+  INTEGER, PARAMETER :: KMAXMT = 160
+  REAL, DIMENSION (KMAXMT) :: wdtnc, dvdxic
+  REAL :: dmdtc
+#endif
   INTEGER :: i, j, k, kk, i_start, i_end, j_start, j_end, k_start, k_end
   INTEGER :: i_endu, j_endv
   REAL    :: acc
@@ -1238,6 +1244,39 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
   i_endu = ite
   j_endv = jte
 !        CALCULATION OF WW (dETA/dt)
+#ifdef WRF_GPU
+  ! row kernels below have one gang per j only: on the GPU one thread per column (same per-point order)
+  IF ( wrf_gpu_on .AND. MAX(kde,k_end+1) <= KMAXMT ) THEN
+!$acc parallel loop gang vector collapse(2) private(dvdxic)
+   DO j = j_start, j_end
+   DO i = i_start, i_end
+     dmdtc = 0.
+     DO k=k_start, k_end
+         dvdxic(k) = msftx(i,j)*msfty(i,j)*(                                      &
+                     rdy*( (v(i,k,j+1)+(c1h(k)*muv(i,j+1)+c2h(k))*v_1(i,k,j+1)*msfvx_inv(i,j+1))   &
+                          -(v(i,k,j  )+(c1h(k)*muv(i,j  )+c2h(k))*v_1(i,k,j  )*msfvx_inv(i,j  )) ) &
+                    +rdx*( (u(i+1,k,j)+(c1h(k)*muu(i+1,j)+c2h(k))*u_1(i+1,k,j)/msfuy(i+1,j))       &
+                          -(u(i,k,j  )+(c1h(k)*muu(i  ,j)+c2h(k))*u_1(i,k,j  )/msfuy(i  ,j)) ))
+     ENDDO
+     DO k=k_start, k_end
+        dmdtc = dmdtc + dnw(k)*dvdxic(k)
+     ENDDO
+       MUAVE(i,j) = MU(i,j)
+       MU(i,j) = MU(i,j)+dts*(dmdtc+MU_TEND(i,j))
+       MUDF(i,j) = (dmdtc+MU_TEND(i,j)) ! save tendency for div damp filter
+       MUTS(i,j) = MUT(i,j)+MU(i,j)
+       MUAVE(i,j) =.5*((1.+epssm)*MU(i,j)+(1.-epssm)*MUAVE(i,j))
+     DO kk=2,k_end
+       k=kk-1
+       ww(i,kk,j)=ww(i,kk-1,j)-dnw(kk-1)*((c1h(k)*dmdtc)+dvdxic(kk-1)+(c1h(k)*mu_tend(i,j)))/msfty(i,j)
+     END DO
+     DO k=1,k_end
+       ww(i,k,j)=ww(i,k,j)-ww_1(i,k,j)
+     END DO
+   ENDDO
+   ENDDO
+  ELSE
+#endif
 !$acc parallel loop gang private(dmdt,dvdxi) if(wrf_gpu_on)
    DO j = j_start, j_end
 !$acc loop vector
@@ -1307,6 +1346,9 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
      END DO
      END DO
    ENDDO
+#ifdef WRF_GPU
+  ENDIF
+#endif
 ! CALCULATION OF THETA
 ! NOTE: theta'' is not coupled with the map-scale factor,
 !       while the theta'' tendency is coupled (i.e., mult by 1/msft)
@@ -1331,6 +1373,31 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
      END DO
      END DO
    ENDDO   
+#ifdef WRF_GPU
+  IF ( wrf_gpu_on .AND. MAX(kde,k_end+1) <= KMAXMT ) THEN
+!$acc parallel loop gang vector collapse(2) private(wdtnc)
+   DO j=j_start, j_end
+   DO i=i_start, i_end
+       wdtnc(1  )=0.
+       wdtnc(kde)=0.
+     DO k=2,k_end
+        wdtnc(k)= ww(i,k,j)*(fnm(k)*t_1(i,k  ,j)+fnp(k)*t_1(i,k-1,j))
+     ENDDO
+     DO k=1,k_end
+       t(i,k,j) = t(i,k,j) - dts*msfty(i,j)*(              &
+                          msftx(i,j)*(                     &
+               .5*rdy*                                     &
+              ( v(i,k,j+1)*(t_1(i,k,j+1)+t_1(i,k, j ))     &
+               -v(i,k,j  )*(t_1(i,k, j )+t_1(i,k,j-1)) )   &
+             + .5*rdx*                                     &
+              ( u(i+1,k,j)*(t_1(i+1,k,j)+t_1(i  ,k,j))     &
+               -u(i  ,k,j)*(t_1(i  ,k,j)+t_1(i-1,k,j)) ) ) &
+             + rdnw(k)*( wdtnc(k+1)-wdtnc(k) ) )
+     ENDDO
+   ENDDO
+   ENDDO
+  ELSE
+#endif
 !$acc parallel loop gang private(wdtn) if(wrf_gpu_on)
    DO j=j_start, j_end
 !$acc loop vector
@@ -1364,6 +1431,9 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
      ENDDO
      ENDDO
    ENDDO
+#ifdef WRF_GPU
+  ENDIF
+#endif
 END SUBROUTINE advance_mu_t
           
 !------------------------------------------------------------
