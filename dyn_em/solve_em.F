@@ -212,6 +212,7 @@ SUBROUTINE solve_em ( grid , config_flags  &
    LOGICAL, EXTERNAL :: wrf_gpu_addrmap
    LOGICAL, EXTERNAL :: wrf_gpu_hostblocks
    INTEGER, EXTERNAL :: wrf_gpu_fullsync
+   INTEGER, EXTERNAL :: wrf_gpu_xfer
    LOGICAL, SAVE :: gpu_fs_have_host = .FALSE.
    INTEGER, EXTERNAL :: wrf_gpu_prefetch_mode
    INTEGER, EXTERNAL :: wrf_gpu_advise_mode
@@ -979,7 +980,11 @@ BENCH_START(calc_p_rho_tim)
        CALL gpu_field_trace( grid, 'a_pre_physics' )
 #endif
 #ifdef WRF_GPU_RESIDENT
-#      include "gpu_upd_host_h1.inc"
+   IF ( IAND( wrf_gpu_xfer(), 1 ) /= 0 ) THEN
+#  include "gpu_upd_host_h1.inc"
+   ELSE
+#  include "gpu_upd_host_pre_phys.inc"
+   ENDIF
 #endif
 #ifdef WRF_GPU_RESIDENT
    IF ( IAND( wrf_gpu_fullsync(), 1 ) /= 0 ) THEN
@@ -1055,7 +1060,11 @@ BENCH_START(calc_p_rho_tim)
 #ifdef WRF_GPU_RESIDENT
        ! physics (part1, host) wrote grid fields and the i1 temporaries (zeroed tendencies, th_phy/pi_phy/...):
        ! push them to the device before part2 runs on the GPU
-#      include "gpu_upd_dev_h1.inc"
+   IF ( IAND( wrf_gpu_xfer(), 2 ) /= 0 ) THEN
+#  include "gpu_upd_dev_h1.inc"
+   ELSE
+#  include "gpu_upd_dev_post_phys.inc"
+   ENDIF
 #      include "gpu_upd_dev_i1_part1.inc"
 #endif
 #ifdef WRF_GPU_RESIDENT
@@ -4020,7 +4029,11 @@ BENCH_END(bc_end_tim)
 !-----------------------------------------------------------
 
 #ifdef WRF_GPU_RESIDENT
+   IF ( IAND( wrf_gpu_xfer(), 1 ) /= 0 ) THEN
 #  include "gpu_upd_host_h2.inc"
+   ELSE
+#  include "gpu_upd_host_pre_mp.inc"
+   ENDIF
 #  include "gpu_upd_host_i1_mp.inc"
 #endif
 #ifdef WRF_GPU_RESIDENT
@@ -4683,7 +4696,11 @@ BENCH_START(moist_phys_end_tim)
    CALL seg_mark( 1 )
 #endif
 #ifdef WRF_GPU_RESIDENT
-#       include "gpu_upd_dev_h2.inc"
+   IF ( IAND( wrf_gpu_xfer(), 2 ) /= 0 ) THEN
+#  include "gpu_upd_dev_h2.inc"
+   ELSE
+#  include "gpu_upd_dev_post_mp.inc"
+   ENDIF
 #       include "gpu_upd_dev_i1_mp.inc"
 #endif
 #ifdef WRF_GPU
@@ -5380,7 +5397,11 @@ BENCH_END(bc_2d_tim)
 
 #ifdef WRF_GPU_RESIDENT
   ! host copies current for after_all_rk_steps diagnostics (history/restart output pulls the full list: gpu_pull_for_output)
+   IF ( IAND( wrf_gpu_xfer(), 1 ) /= 0 ) THEN
 #  include "gpu_upd_host_h3.inc"
+   ELSE
+#  include "gpu_upd_host_pre_phys.inc"
+   ENDIF
 #endif
 #ifdef WRF_GPU_RESIDENT
    IF ( IAND( wrf_gpu_fullsync(), 1 ) /= 0 ) THEN
@@ -6132,6 +6153,21 @@ LOGICAL FUNCTION wrf_gpu_hostblocks()
    ENDIF
    wrf_gpu_hostblocks = ( mode /= 0 )
 END FUNCTION wrf_gpu_hostblocks
+
+! WRF_GPU_XFER (residency): bit 1 = per-block reduced pulls (h1/h2/h3 read sets), bit 2 = reduced pushes; default 3.
+INTEGER FUNCTION wrf_gpu_xfer()
+   IMPLICIT NONE
+   INTEGER, SAVE :: mode = -1
+   CHARACTER(LEN=8) :: v
+   INTEGER :: st
+   IF ( mode < 0 ) THEN
+      CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_XFER', v, STATUS=st )
+      mode = 3
+      IF ( st == 0 ) READ( v, *, IOSTAT=st ) mode
+      IF ( st /= 0 ) mode = 3
+   ENDIF
+   wrf_gpu_xfer = mode
+END FUNCTION wrf_gpu_xfer
 
 ! WRF_GPU_FULLSYNC (diagnostic, residency builds): 1 = at every host-block entry pull every device-resident
 ! grid array and all i1 temporaries to the host; 3 = also push them all back at every host-block exit.
