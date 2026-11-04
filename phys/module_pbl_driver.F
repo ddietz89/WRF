@@ -862,6 +862,7 @@ CONTAINS
    LOGICAL :: flag_bep
 #ifdef WRF_GPU_RESIDENT
    LOGICAL, SAVE :: gpu_pbl_entered = .FALSE.
+   REAL, ALLOCATABLE, SAVE :: mixht_gpu(:,:)   ! mixht arrives as a per-call temporary
 #endif
    LOGICAL :: flag_myjsfc
    LOGICAL :: flag_qv, flag_qc, flag_qr, flag_qi, flag_qs, flag_qg, &
@@ -1196,7 +1197,9 @@ CONTAINS
     wrf_gpu_pbl_ran = .TRUE.
     IF ( .NOT. gpu_pbl_entered ) THEN   ! not all of these are in the grid enter-data list (no copy if present)
 !$acc enter data copyin(tsk,qsfc,chklowq,thz0,qz0,uz0,vz0,ust,znt,ct,akhs,akms,lh,xland,xice,snow,lowlyr,ht)
-!$acc enter data copyin(tke_pbl,exch_h,el_pbl,pblh,kpbl,mixht)
+!$acc enter data copyin(tke_pbl,exch_h,el_pbl,pblh,kpbl)
+      ALLOCATE( mixht_gpu(ims:ime,jms:jme) ) ; mixht_gpu = 0.
+!$acc enter data copyin(mixht_gpu)
       gpu_pbl_entered = .TRUE.
     ENDIF
     ! host surface physics wrote these this step
@@ -1211,7 +1214,7 @@ CONTAINS
               ,LOWLYR=lowlyr,XLAND=xland,SICE=xice,SNOW=snow                &
               ,TKE_MYJ=tke_pbl,EXCH_H=exch_h,USTAR=ust,ZNT=znt              &
               ,EL_MYJ=el_pbl,PBLH=pblh,KPBL=kpbl,CT=ct                      &
-              ,AKHS=akhs,AKMS=akms,ELFLX=lh,MIXHT=mixht                     &
+              ,AKHS=akhs,AKMS=akms,ELFLX=lh,MIXHT=mixht_gpu                 &
               ,RUBLTEN=rublten,RVBLTEN=rvblten,RTHBLTEN=rthblten            &
               ,RQVBLTEN=rqvblten,RQCBLTEN=rqcblten,RQIBLTEN=rqiblten        &
               ,IDS=ids,IDE=ide,JDS=jds,JDE=jde,KDS=kds,KDE=kde              &
@@ -1221,7 +1224,8 @@ CONTAINS
               ,KTS=kts,KTE=kte)
     wrf_gpu_on = .FALSE.
     ! what the host reads later: surface/diagnostics (2-D), MYJ surface layer (TKE), Tiedtke (QV tendency)
-!$acc update self(pblh,kpbl,mixht,ct,qsfc,qz0,thz0,uz0,vz0,ust,znt,akhs,akms,tke_pbl,rqvblten)
+!$acc update self(pblh,kpbl,mixht_gpu,ct,qsfc,qz0,thz0,uz0,vz0,ust,znt,akhs,akms,tke_pbl,rqvblten)
+    mixht(ims:ime,jms:jme) = mixht_gpu
    ENDIF
   ENDIF
 #endif
