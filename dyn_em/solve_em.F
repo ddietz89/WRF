@@ -4029,7 +4029,7 @@ BENCH_END(bc_end_tim)
 !-----------------------------------------------------------
 
 #ifdef WRF_GPU_RESIDENT
-   IF ( IAND( wrf_gpu_xfer(), 1 ) /= 0 ) THEN
+   IF ( IAND( wrf_gpu_xfer(), 4 ) /= 0 ) THEN
 #  include "gpu_upd_host_h2.inc"
    ELSE
 #  include "gpu_upd_host_pre_mp.inc"
@@ -5397,7 +5397,7 @@ BENCH_END(bc_2d_tim)
 
 #ifdef WRF_GPU_RESIDENT
   ! host copies current for after_all_rk_steps diagnostics (history/restart output pulls the full list: gpu_pull_for_output)
-   IF ( IAND( wrf_gpu_xfer(), 1 ) /= 0 ) THEN
+   IF ( IAND( wrf_gpu_xfer(), 8 ) /= 0 ) THEN
 #  include "gpu_upd_host_h3.inc"
    ELSE
 #  include "gpu_upd_host_pre_phys.inc"
@@ -6154,7 +6154,7 @@ LOGICAL FUNCTION wrf_gpu_hostblocks()
    wrf_gpu_hostblocks = ( mode /= 0 )
 END FUNCTION wrf_gpu_hostblocks
 
-! WRF_GPU_XFER (residency): bit 1 = per-block reduced pulls (h1/h2/h3 read sets), bit 2 = reduced pushes; default 3.
+! WRF_GPU_XFER (residency): reduced lists - bit 1 H1 pull, 4 H2 pull, 8 H3 pull, 2 pushes; default 15.
 INTEGER FUNCTION wrf_gpu_xfer()
    IMPLICIT NONE
    INTEGER, SAVE :: mode = -1
@@ -6162,9 +6162,9 @@ INTEGER FUNCTION wrf_gpu_xfer()
    INTEGER :: st
    IF ( mode < 0 ) THEN
       CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_XFER', v, STATUS=st )
-      mode = 3
+      mode = 15
       IF ( st == 0 ) READ( v, *, IOSTAT=st ) mode
-      IF ( st /= 0 ) mode = 3
+      IF ( st /= 0 ) mode = 15
    ENDIF
    wrf_gpu_xfer = mode
 END FUNCTION wrf_gpu_xfer
