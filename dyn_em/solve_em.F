@@ -226,6 +226,9 @@ SUBROUTINE solve_em ( grid , config_flags  &
    LOGICAL, EXTERNAL :: wrf_gpu_hostblocks
    INTEGER, EXTERNAL :: wrf_gpu_fullsync
    INTEGER, EXTERNAL :: wrf_gpu_xfer
+   INTEGER, EXTERNAL :: wrf_gpu_pin_mode
+   INTEGER :: pin_nok, pin_nfail
+   INTEGER(8) :: pin_tot
    LOGICAL, SAVE :: gpu_fs_have_host = .FALSE.
    INTEGER, EXTERNAL :: wrf_gpu_prefetch_mode
    INTEGER, EXTERNAL :: wrf_gpu_advise_mode
@@ -473,6 +476,10 @@ SUBROUTINE solve_em ( grid , config_flags  &
 #     include "gpu_enter_data.inc"
       gpu_resident_in = .TRUE.
       CALL wrf_message( 'GPU residency: grid fields entered on the device' )
+      IF ( wrf_gpu_pin_mode() /= 0 ) THEN
+         CALL wrf_gpu_pin_grid( grid )
+#        include "gpu_pin_i1.inc"
+      ENDIF
    ENDIF
 #ifdef WRF_SEG_TIMERS
    CALL seg_enter( 5 )
@@ -6063,6 +6070,100 @@ SUBROUTINE wrf_gpu_advise_addr( addr, nbytes )
       WRITE(0,'(A,I8,A,I8,A,I6)') 'WRF_GPU_ADVISE calls ok', nok, ' failed', nbad, ' last rc', rc
    ENDIF
 END SUBROUTINE wrf_gpu_advise_addr
+
+! WRF_GPU_PIN=1 (residency): page-lock (cuMemHostRegister) the host copies of the grid state arrays and the
+! persistent i1 temporaries once, so the per-block update self/device transfers can DMA directly instead of staging
+! through pageable memory. Ranges are rounded out to whole pages (arrays >= 1 MB are separate mmap regions).
+INTEGER FUNCTION wrf_gpu_pin_mode()
+   IMPLICIT NONE
+   INTEGER, SAVE :: mode = -1
+   CHARACTER(LEN=8) :: v
+   INTEGER :: st
+   IF ( mode < 0 ) THEN
+      CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_PIN', v, STATUS=st )
+      mode = 0
+      IF ( st == 0 ) READ( v, *, IOSTAT=st ) mode
+      IF ( st /= 0 ) mode = 0
+   ENDIF
+   wrf_gpu_pin_mode = mode
+END FUNCTION wrf_gpu_pin_mode
+
+SUBROUTINE wrf_gpu_pin_addr( addr, nbytes, nok, nfail, tot )
+   USE ISO_C_BINDING
+   IMPLICIT NONE
+   INTEGER(8), INTENT(IN) :: addr, nbytes
+   INTEGER, INTENT(INOUT) :: nok, nfail
+   INTEGER(8), INTENT(INOUT) :: tot
+   INTERFACE
+      TYPE(C_PTR) FUNCTION dlopen( name, flags ) BIND(C, NAME='dlopen')
+         IMPORT :: C_PTR, C_CHAR, C_INT
+         CHARACTER(KIND=C_CHAR), DIMENSION(*) :: name
+         INTEGER(C_INT), VALUE :: flags
+      END FUNCTION dlopen
+      TYPE(C_FUNPTR) FUNCTION dlsym( h, name ) BIND(C, NAME='dlsym')
+         IMPORT :: C_PTR, C_FUNPTR, C_CHAR
+         TYPE(C_PTR), VALUE :: h
+         CHARACTER(KIND=C_CHAR), DIMENSION(*) :: name
+      END FUNCTION dlsym
+   END INTERFACE
+   ABSTRACT INTERFACE
+      INTEGER(C_INT) FUNCTION reg_t( p, n, flags ) BIND(C)
+         IMPORT :: C_INT, C_SIZE_T, C_LONG_LONG
+         INTEGER(C_LONG_LONG), VALUE :: p
+         INTEGER(C_SIZE_T), VALUE :: n
+         INTEGER(C_INT), VALUE :: flags
+      END FUNCTION reg_t
+   END INTERFACE
+   PROCEDURE(reg_t), POINTER, SAVE :: cu_reg => NULL()
+   LOGICAL, SAVE :: tried = .FALSE.
+   TYPE(C_PTR) :: h
+   INTEGER(8) :: a0, a1
+   INTEGER(C_INT) :: rc
+   IF ( .NOT. tried ) THEN
+      tried = .TRUE.
+      h = dlopen( 'libcuda.so.1'//C_NULL_CHAR, 2 )
+      IF ( C_ASSOCIATED(h) ) CALL C_F_PROCPOINTER( dlsym( h, 'cuMemHostRegister_v2'//C_NULL_CHAR ), cu_reg )
+   ENDIF
+   IF ( .NOT. ASSOCIATED(cu_reg) ) THEN ; nfail = nfail + 1 ; RETURN ; ENDIF
+   IF ( nbytes < 1048576_8 ) RETURN
+   a0 = ( addr / 4096_8 ) * 4096_8
+   a1 = ( ( addr + nbytes + 4095_8 ) / 4096_8 ) * 4096_8
+   rc = cu_reg( INT(a0,C_LONG_LONG), INT(a1-a0,C_SIZE_T), 0_C_INT )
+   IF ( rc == 0 ) THEN ; nok = nok + 1 ; tot = tot + (a1-a0) ; ELSE ; nfail = nfail + 1 ; ENDIF
+END SUBROUTINE wrf_gpu_pin_addr
+
+SUBROUTINE wrf_gpu_pin_grid( grid )
+   USE module_domain, ONLY : domain, fieldlist
+   IMPLICIT NONE
+   TYPE(domain), INTENT(IN) :: grid
+   TYPE(fieldlist), POINTER :: p
+   INTEGER :: nok, nfail
+   INTEGER(8) :: tot
+   nok = 0 ; nfail = 0 ; tot = 0
+   p => grid%head_statevars
+   DO WHILE ( ASSOCIATED(p) )
+      IF ( p%Type == 'r' ) THEN
+         IF ( p%Ndim == 2 ) THEN
+            IF ( ASSOCIATED(p%rfield_2d) ) THEN
+               IF ( SIZE(p%rfield_2d) > 1 ) CALL wrf_gpu_pin_addr( LOC(p%rfield_2d(LBOUND(p%rfield_2d,1),LBOUND(p%rfield_2d,2))), &
+                                            INT(SIZE(p%rfield_2d),8)*4_8, nok, nfail, tot )
+            ENDIF
+         ELSE IF ( p%Ndim == 3 ) THEN
+            IF ( ASSOCIATED(p%rfield_3d) ) THEN
+               IF ( SIZE(p%rfield_3d) > 1 ) CALL wrf_gpu_pin_addr( LOC(p%rfield_3d(LBOUND(p%rfield_3d,1),LBOUND(p%rfield_3d,2), &
+                                            LBOUND(p%rfield_3d,3))), INT(SIZE(p%rfield_3d),8)*4_8, nok, nfail, tot )
+            ENDIF
+         ELSE IF ( p%Ndim == 4 ) THEN
+            IF ( ASSOCIATED(p%rfield_4d) ) THEN
+               IF ( SIZE(p%rfield_4d) > 1 ) CALL wrf_gpu_pin_addr( LOC(p%rfield_4d(LBOUND(p%rfield_4d,1),LBOUND(p%rfield_4d,2), &
+                                            LBOUND(p%rfield_4d,3),LBOUND(p%rfield_4d,4))), INT(SIZE(p%rfield_4d),8)*4_8, nok, nfail, tot )
+            ENDIF
+         ENDIF
+      ENDIF
+      p => p%next
+   ENDDO
+   WRITE(0,'(A,I6,A,I6,A,F9.1,A)') 'WRF_GPU_PIN grid: ', nok, ' arrays registered, ', nfail, ' failed, ', DBLE(tot)/1.d6, ' MB'
+END SUBROUTINE wrf_gpu_pin_grid
 
 SUBROUTINE wrf_gpu_advise_grid( grid )
    USE module_domain, ONLY : domain, fieldlist
