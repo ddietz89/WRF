@@ -1709,7 +1709,6 @@ CONTAINS
    ! cumulative seconds printed every 20 calls. 1 phys_fields+lightning+hailcast+trad 2 output_calc 3 nwp
    ! 4 clwrf 5 pld 6 zld 7 afwa 8 rest
    SUBROUTINE diag_tick( k )
-      USE module_wrf_error, ONLY : wrf_message
       IMPLICIT NONE
       INTEGER, INTENT(IN) :: k
       INTEGER(8), SAVE :: last = 0
