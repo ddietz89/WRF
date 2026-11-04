@@ -5,6 +5,11 @@ MODULE module_pbl_driver
   real, private, parameter :: QCLOUD_MIN = 0.0
   real, private, parameter :: QVAPOR_MIN = 0.0
   real, private, parameter :: QKE_MIN = 1.e-4
+#ifdef WRF_GPU
+! residency builds: whether the scheme ran this step (its tendencies are host-written only then; between
+! calls the GPU owns them - solve_em pushes them only when set)
+   LOGICAL :: wrf_gpu_bl_ran = .TRUE.
+#endif
 CONTAINS
 
 !------------------------------------------------------------------
@@ -973,6 +978,9 @@ CONTAINS
       decided     = .TRUE.
       bldtacttime = curr_secs + bldt*60
    END IF
+#ifdef WRF_GPU
+   wrf_gpu_bl_ran = run_param
+#endif
 
 
  IF (run_param) THEN

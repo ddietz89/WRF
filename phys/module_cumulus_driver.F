@@ -2,6 +2,11 @@
 !
 
 MODULE module_cumulus_driver
+#ifdef WRF_GPU
+! residency builds: whether the scheme ran this step (its tendencies are host-written only then; between
+! calls the GPU owns them - solve_em pushes them only when set)
+   LOGICAL :: wrf_gpu_cu_ran = .TRUE.
+#endif
 CONTAINS
    SUBROUTINE cumulus_driver(grid                                     &
                  ! Order dependent args for domain, mem, and tile dims
@@ -855,6 +860,9 @@ CONTAINS
       decided     = .TRUE.
       cudtacttime_pass = curr_secs_pass + cudt_pass*60
    END IF
+#ifdef WRF_GPU
+   wrf_gpu_cu_ran = run_param
+#endif
 
    IF ( run_param ) THEN
 !print *,'calling CU scheme'

@@ -117,6 +117,11 @@ SUBROUTINE solve_em ( grid , config_flags  &
 #endif
 #ifdef WRF_GPU
    USE module_wrf_error, ONLY : wrf_gpu_on
+#ifdef WRF_GPU_RESIDENT
+   USE module_radiation_driver, ONLY : wrf_gpu_ra_ran
+   USE module_cumulus_driver, ONLY : wrf_gpu_cu_ran
+   USE module_pbl_driver, ONLY : wrf_gpu_bl_ran
+#endif
 #endif
    USE module_llxy, ONLY : proj_cassini
    USE module_avgflx_em, ONLY : zero_avgflx, upd_avgflx
@@ -226,6 +231,14 @@ SUBROUTINE solve_em ( grid , config_flags  &
    LOGICAL, EXTERNAL :: wrf_gpu_hostblocks
    INTEGER, EXTERNAL :: wrf_gpu_fullsync
    INTEGER, EXTERNAL :: wrf_gpu_xfer
+   ! WRF_GPU_XFER bit 16 (with 2+4): physics tendencies are GPU-owned between scheme calls - part2 couples them
+   ! with mu on the GPU, phy_prep_part2 decouples them on the GPU; the host pushes a scheme's tendencies only on
+   ! steps the scheme ran (rad/cu/pbl), plus cumulus ones after advance_ppt when an NCA countdown may zero them
+   LOGICAL :: gpu_tend_dev = .FALSE., gpu_push_ra = .TRUE., gpu_push_cu = .TRUE., gpu_push_bl = .TRUE.
+   LOGICAL :: gpu_push_cu2 = .TRUE.
+   ! WRF_GPU_XFER bit 32 (with 16): the microphysics block (H2) runs on the GPU (Thompson only) - no H2 transfers;
+   ! the host keeps advance_ppt (cumulus rain) and gets the mp outputs it reads (precip, effective radii) at H3
+   LOGICAL :: gpu_mp_dev = .FALSE.
    INTEGER, EXTERNAL :: wrf_gpu_pin_mode
    INTEGER :: pin_nok, pin_nfail
    INTEGER(8) :: pin_tot
@@ -1045,6 +1058,7 @@ BENCH_START(calc_p_rho_tim)
        CALL gpu_retile( grid, .TRUE., ids, ide, jds, jde, ips, ipe, jps, jpe )
 #endif
 #ifdef WRF_GPU_RESIDENT
+       wrf_gpu_ra_ran = .FALSE. ; wrf_gpu_cu_ran = .FALSE. ; wrf_gpu_bl_ran = .FALSE.
 #endif
        CALL first_rk_step_part1 (    grid, config_flags         &
                              , moist , moist_tend               &
@@ -1096,6 +1110,10 @@ BENCH_START(calc_p_rho_tim)
 #ifdef WRF_SEG_TIMERS
    CALL seg_enter( 5 )
 #endif
+   gpu_tend_dev = IAND( wrf_gpu_xfer(), 16 ) /= 0 .AND. IAND( wrf_gpu_xfer(), 6 ) == 6
+   gpu_push_ra = .NOT. gpu_tend_dev .OR. wrf_gpu_ra_ran
+   gpu_push_cu = .NOT. gpu_tend_dev .OR. wrf_gpu_cu_ran
+   gpu_push_bl = .NOT. gpu_tend_dev .OR. wrf_gpu_bl_ran
    IF ( IAND( wrf_gpu_xfer(), 2 ) /= 0 ) THEN
 #  include "gpu_upd_dev_h1.inc"
    ELSE
@@ -4074,6 +4092,38 @@ BENCH_END(bc_end_tim)
 !-----------------------------------------------------------
 
 #ifdef WRF_GPU_RESIDENT
+   ! GPU-owned tendencies: decouple them where part2 coupled them (on the GPU), before the host microphysics block
+   gpu_tend_dev = IAND( wrf_gpu_xfer(), 16 ) /= 0 .AND. IAND( wrf_gpu_xfer(), 6 ) == 6
+   gpu_mp_dev = gpu_tend_dev .AND. IAND( wrf_gpu_xfer(), 32 ) /= 0 .AND. config_flags%mp_physics == THOMPSON
+   IF ( gpu_tend_dev ) THEN
+   DO ij = 1 , grid%num_tiles
+        CALL wrf_debug ( 200 , ' call phy_prep_part2' )
+        CALL phy_prep_part2 ( config_flags,                              &
+                        grid%muts, grid%muus, grid%muvs,                 &
+                        grid%c1h, grid%c2h, grid%c1f, grid%c2f,          &
+                        grid%rthraten,                                   &
+                        grid%rthblten, grid%rublten, grid%rvblten,       &
+                        grid%rqvblten, grid%rqcblten, grid%rqiblten,     &
+                        grid%rucuten,  grid%rvcuten,  grid%rthcuten,     &
+                        grid%rqvcuten, grid%rqccuten, grid%rqrcuten,     &
+                        grid%rqicuten, grid%rqscuten,                    &
+                        grid%rushten,  grid%rvshten,  grid%rthshten,     &
+                        grid%rqvshten, grid%rqcshten, grid%rqrshten,     &
+                        grid%rqishten, grid%rqsshten, grid%rqgshten,     &
+                        grid%rthften,  grid%rqvften,                     &
+                        grid%RUNDGDTEN, grid%RVNDGDTEN, grid%RTHNDGDTEN, &
+                        grid%RPHNDGDTEN,grid%RQVNDGDTEN, grid%RMUNDGDTEN,&
+                        grid%t_2, th_phy, moist(ims,kms,jms,P_QV),       &
+                        ids, ide, jds, jde, kds, kde,                    &
+                        ims, ime, jms, jme, kms, kme,                    &
+                        grid%i_start(ij), grid%i_end(ij),                &
+                        grid%j_start(ij), grid%j_end(ij),                &
+                        k_start, k_end                                   )
+   ENDDO
+   ENDIF
+#endif
+#ifdef WRF_GPU_RESIDENT
+   IF ( .NOT. gpu_mp_dev ) THEN
 #ifdef WRF_SEG_TIMERS
    CALL seg_enter( 5 )
 #endif
@@ -4086,6 +4136,7 @@ BENCH_END(bc_end_tim)
 #ifdef WRF_SEG_TIMERS
    CALL seg_leave()
 #endif
+   ENDIF
 #endif
 #ifdef WRF_GPU_RESIDENT
    IF ( IAND( wrf_gpu_fullsync(), 1 ) /= 0 ) THEN
@@ -4109,8 +4160,10 @@ BENCH_END(bc_end_tim)
    CALL seg_mark( 3 )
 #endif
 #ifdef WRF_GPU
+   IF ( .NOT. gpu_mp_dev ) THEN
    IF ( wrf_gpu_hostblocks() ) THEN ; wrf_gpu_on = .FALSE. ; CALL rsl_set_gpu_on( .FALSE. ) ; ENDIF
        CALL gpu_retile( grid, .TRUE., ids, ide, jds, jde, ips, ipe, jps, jpe )
+   ENDIF
 #endif
 #ifdef WRF_GPU_RESIDENT
 #endif
@@ -4175,6 +4228,11 @@ BENCH_END(bc_end_tim)
       grid%avgflx_count = grid%avgflx_count + 1
    ENDIF
 !
+#ifdef WRF_GPU_RESIDENT
+   ! advance_ppt zeroes cumulus tendencies when an NCA countdown ends (KF family): push them after H2 then
+   gpu_push_cu2 = .NOT. gpu_tend_dev
+   IF ( .NOT. gpu_push_cu2 .AND. ASSOCIATED( grid%nca ) ) gpu_push_cu2 = ANY( grid%nca > 0. )
+#endif
    !$OMP PARALLEL DO   &
    !$OMP PRIVATE ( ij )
    DO ij = 1 , grid%num_tiles
@@ -4197,6 +4255,9 @@ BENCH_END(advance_ppt_tim)
    ENDDO
   !$OMP END PARALLEL DO
 
+#ifdef WRF_GPU_RESIDENT
+   IF ( .NOT. gpu_tend_dev ) THEN
+#endif
    !$OMP PARALLEL DO   &
    !$OMP PRIVATE ( ij )
    DO ij = 1 , grid%num_tiles
@@ -4224,6 +4285,9 @@ BENCH_END(advance_ppt_tim)
                         k_start, k_end                                   )
    ENDDO
   !$OMP END PARALLEL DO
+#ifdef WRF_GPU_RESIDENT
+   ENDIF
+#endif
 
 !<DESCRIPTION>
 !<pre>
@@ -4312,7 +4376,17 @@ BENCH_END(moist_physics_prep_tim)
 
      CALL wrf_debug ( 200 , ' call microphysics_driver' )
 
+#ifdef WRF_GPU_RESIDENT
+     IF ( gpu_mp_dev ) THEN
+!$acc kernels
+       grid%sr = 0.
+!$acc end kernels
+     ELSE
+       grid%sr = 0.
+     ENDIF
+#else
      grid%sr = 0.
+#endif
      specified_bdy = config_flags%specified .OR. config_flags%nested
      channel_bdy = config_flags%specified .AND. config_flags%periodic_x
 
@@ -4737,8 +4811,10 @@ BENCH_START(moist_phys_end_tim)
 #ifdef WRF_GPU_RESIDENT
 #endif
 #ifdef WRF_GPU
+   IF ( .NOT. gpu_mp_dev ) THEN
         wrf_gpu_on = .TRUE. ; CALL rsl_set_gpu_on( .TRUE. )
        CALL gpu_retile( grid, .FALSE., ids, ide, jds, jde, ips, ipe, jps, jpe )
+   ENDIF
 #endif
 #ifdef WRF_GPU
 !$acc wait
@@ -4750,12 +4826,22 @@ BENCH_START(moist_phys_end_tim)
 #ifdef WRF_SEG_TIMERS
    CALL seg_enter( 5 )
 #endif
-   IF ( IAND( wrf_gpu_xfer(), 2 ) /= 0 ) THEN
+   IF ( gpu_mp_dev ) THEN
+     ! host-written in this block: advance_ppt (cumulus rain; cumulus tendencies when an NCA countdown ended)
+!$acc update device(grid%rainc) if(associated(grid%rainc))
+!$acc update device(grid%rqccuten) if(associated(grid%rqccuten) .and. gpu_push_cu2)
+!$acc update device(grid%rqicuten) if(associated(grid%rqicuten) .and. gpu_push_cu2)
+!$acc update device(grid%rqvcuten) if(associated(grid%rqvcuten) .and. gpu_push_cu2)
+!$acc update device(grid%rthcuten) if(associated(grid%rthcuten) .and. gpu_push_cu2)
+!$acc update device(grid%rucuten) if(associated(grid%rucuten) .and. gpu_push_cu2)
+!$acc update device(grid%rvcuten) if(associated(grid%rvcuten) .and. gpu_push_cu2)
+   ELSE IF ( IAND( wrf_gpu_xfer(), 2 ) /= 0 ) THEN
 #  include "gpu_upd_dev_h2.inc"
+#       include "gpu_upd_dev_i1_mp.inc"
    ELSE
 #  include "gpu_upd_dev_post_mp.inc"
-   ENDIF
 #       include "gpu_upd_dev_i1_mp.inc"
+   ENDIF
 #ifdef WRF_SEG_TIMERS
    CALL seg_leave()
 #endif
@@ -5459,6 +5545,18 @@ BENCH_END(bc_2d_tim)
 #endif
    IF ( IAND( wrf_gpu_xfer(), 8 ) /= 0 ) THEN
 #  include "gpu_upd_host_h3.inc"
+   IF ( gpu_mp_dev ) THEN   ! microphysics ran on the GPU: outputs the host reads (H3 diagnostics, next H1 physics)
+!$acc update self(grid%rainnc) if(associated(grid%rainnc))
+!$acc update self(grid%rainncv) if(associated(grid%rainncv))
+!$acc update self(grid%snownc) if(associated(grid%snownc))
+!$acc update self(grid%snowncv) if(associated(grid%snowncv))
+!$acc update self(grid%graupelnc) if(associated(grid%graupelnc))
+!$acc update self(grid%graupelncv) if(associated(grid%graupelncv))
+!$acc update self(grid%sr) if(associated(grid%sr))
+!$acc update self(grid%re_cloud) if(associated(grid%re_cloud))
+!$acc update self(grid%re_ice) if(associated(grid%re_ice))
+!$acc update self(grid%re_snow) if(associated(grid%re_snow))
+   ENDIF
    ELSE
 #  include "gpu_upd_host_pre_phys.inc"
    ENDIF
@@ -5841,6 +5939,7 @@ SUBROUTINE gpu_pull_for_output( grid )
    TYPE(domain), INTENT(INOUT) :: grid
    INTEGER :: ia, rc
    LOGICAL :: any_ring
+   INTEGER, EXTERNAL :: wrf_gpu_xfer
    IF ( .NOT. ASSOCIATED(grid%u_2) ) RETURN
    IF ( .NOT. acc_is_present(grid%u_2) ) RETURN      ! before the first solve_em: host copies are the only copies
    any_ring = .FALSE.
@@ -5851,6 +5950,21 @@ SUBROUTINE gpu_pull_for_output( grid )
    ENDDO
    IF ( .NOT. any_ring ) RETURN
 #  include "gpu_upd_host_pre_phys.inc"
+   IF ( IAND( wrf_gpu_xfer(), 22 ) == 22 ) THEN   ! GPU-owned physics tendencies (bit 16)
+!$acc update self(grid%rthraten) if(associated(grid%rthraten))
+!$acc update self(grid%rqcblten) if(associated(grid%rqcblten))
+!$acc update self(grid%rqiblten) if(associated(grid%rqiblten))
+!$acc update self(grid%rqvblten) if(associated(grid%rqvblten))
+!$acc update self(grid%rthblten) if(associated(grid%rthblten))
+!$acc update self(grid%rublten) if(associated(grid%rublten))
+!$acc update self(grid%rvblten) if(associated(grid%rvblten))
+!$acc update self(grid%rqccuten) if(associated(grid%rqccuten))
+!$acc update self(grid%rqicuten) if(associated(grid%rqicuten))
+!$acc update self(grid%rqvcuten) if(associated(grid%rqvcuten))
+!$acc update self(grid%rthcuten) if(associated(grid%rthcuten))
+!$acc update self(grid%rucuten) if(associated(grid%rucuten))
+!$acc update self(grid%rvcuten) if(associated(grid%rvcuten))
+   ENDIF
 !$acc wait
 END SUBROUTINE gpu_pull_for_output
 #endif
@@ -6350,7 +6464,8 @@ LOGICAL FUNCTION wrf_gpu_hostblocks()
    wrf_gpu_hostblocks = ( mode /= 0 )
 END FUNCTION wrf_gpu_hostblocks
 
-! WRF_GPU_XFER (residency): reduced lists - bit 1 H1 pull, 4 H2 pull, 8 H3 pull, 2 pushes; default 15.
+! WRF_GPU_XFER (residency): reduced lists - bit 1 H1 pull, 4 H2 pull, 8 H3 pull, 2 pushes, 16 GPU-owned physics
+! tendencies (needs 2+4); default 31.
 INTEGER FUNCTION wrf_gpu_xfer()
    IMPLICIT NONE
    INTEGER, SAVE :: mode = -1
@@ -6358,9 +6473,9 @@ INTEGER FUNCTION wrf_gpu_xfer()
    INTEGER :: st
    IF ( mode < 0 ) THEN
       CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_XFER', v, STATUS=st )
-      mode = 15
+      mode = 31
       IF ( st == 0 ) READ( v, *, IOSTAT=st ) mode
-      IF ( st /= 0 ) mode = 15
+      IF ( st /= 0 ) mode = 31
    ENDIF
    wrf_gpu_xfer = mode
 END FUNCTION wrf_gpu_xfer

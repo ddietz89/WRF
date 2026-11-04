@@ -419,6 +419,24 @@
 !+---+
 !ctrlL
 
+#ifdef WRF_GPU
+!.. GPU port: device copies of all module variables (filled at the end of thompson_init)
+      INTEGER, PARAMETER:: KTGPU = 48   ! max vertical levels (kte) of the device column routine
+!$acc declare create(is_aerosol_aware,is_hail_aware,rho_s,dimNRHG,mu_c,av_g,bv_g,Sc3)
+!$acc declare create(D0i,xm0s,xm0g,nic1,nic2,nii2,nii3,nir2)
+!$acc declare create(nir3,nis2,nig2,nig3,niIN2,xDx,Dc,dtc)
+!$acc declare create(Di,dti,Dr,dtr,Ds,dts,Dg,dtg)
+!$acc declare create(t_Nc,tcg_racg,tmr_racg,tcr_gacr,tnr_racg,tnr_gacr,tcs_racs1,tmr_racs1)
+!$acc declare create(tcs_racs2,tmr_racs2,tcr_sacr1,tms_sacr1,tcr_sacr2,tms_sacr2,tnr_racs1,tnr_racs2)
+!$acc declare create(tnr_sacr1,tnr_sacr2,tpi_qcfz,tni_qcfz,tpi_qrfz,tpg_qrfz,tni_qrfz,tnr_qrfz)
+!$acc declare create(tps_iaus,tni_iaus,tpi_ide,t_Efrw,t_Efsw,tnr_rev,tpc_wev,tnc_wev)
+!$acc declare create(tnccn_act,cce,ccg,ocg1,ocg2,cie,cig,oig1)
+!$acc declare create(oig2,obmi,cre,crg,ore1,org1,org2,org3)
+!$acc declare create(obmr,cse,csg,oams,obms,ocms,cge,cgg)
+!$acc declare create(oge1,ogg1,ogg2,ogg3,obmg,oamg,ocmg,t1_qr_qc)
+!$acc declare create(t1_qr_qi,t2_qr_qi,t1_qg_qc,t1_qs_qc,t1_qs_qi,t1_qr_ev,t2_qr_ev,t1_qs_sd)
+!$acc declare create(t2_qs_sd,t1_qg_sd,t2_qg_sd,t1_qs_me,t2_qs_me,t1_qg_me,t2_qg_me)
+#endif
       CONTAINS
 
       SUBROUTINE thompson_init(hgt, orho, nwfa2d, nbca2d, ng,           &
@@ -1061,6 +1079,50 @@
 
       endif
 
+#ifdef WRF_GPU
+!$acc update device(is_aerosol_aware,is_hail_aware,rho_s,dimNRHG,mu_c,av_g,bv_g,Sc3)
+!$acc update device(D0i,xm0s,xm0g,nic1,nic2,nii2,nii3,nir2)
+!$acc update device(nir3,nis2,nig2,nig3,niIN2,xDx,Dc,dtc)
+!$acc update device(Di,dti,Dr,dtr,Ds,dts,Dg,dtg)
+!$acc update device(t_Nc,cce,ccg,ocg1,ocg2,cie,cig,oig1)
+!$acc update device(oig2,obmi,cre,crg,ore1,org1,org2,org3)
+!$acc update device(obmr,cse,csg,oams,obms,ocms,cge,cgg)
+!$acc update device(oge1,ogg1,ogg2,ogg3,obmg,oamg,ocmg,t1_qr_qc)
+!$acc update device(t1_qr_qi,t2_qr_qi,t1_qg_qc,t1_qs_qc,t1_qs_qi,t1_qr_ev,t2_qr_ev,t1_qs_sd)
+!$acc update device(t2_qs_sd,t1_qg_sd,t2_qg_sd,t1_qs_me,t2_qs_me,t1_qg_me,t2_qg_me)
+!$acc update device(tcg_racg) if(allocated(tcg_racg))
+!$acc update device(tmr_racg) if(allocated(tmr_racg))
+!$acc update device(tcr_gacr) if(allocated(tcr_gacr))
+!$acc update device(tnr_racg) if(allocated(tnr_racg))
+!$acc update device(tnr_gacr) if(allocated(tnr_gacr))
+!$acc update device(tcs_racs1) if(allocated(tcs_racs1))
+!$acc update device(tmr_racs1) if(allocated(tmr_racs1))
+!$acc update device(tcs_racs2) if(allocated(tcs_racs2))
+!$acc update device(tmr_racs2) if(allocated(tmr_racs2))
+!$acc update device(tcr_sacr1) if(allocated(tcr_sacr1))
+!$acc update device(tms_sacr1) if(allocated(tms_sacr1))
+!$acc update device(tcr_sacr2) if(allocated(tcr_sacr2))
+!$acc update device(tms_sacr2) if(allocated(tms_sacr2))
+!$acc update device(tnr_racs1) if(allocated(tnr_racs1))
+!$acc update device(tnr_racs2) if(allocated(tnr_racs2))
+!$acc update device(tnr_sacr1) if(allocated(tnr_sacr1))
+!$acc update device(tnr_sacr2) if(allocated(tnr_sacr2))
+!$acc update device(tpi_qcfz) if(allocated(tpi_qcfz))
+!$acc update device(tni_qcfz) if(allocated(tni_qcfz))
+!$acc update device(tpi_qrfz) if(allocated(tpi_qrfz))
+!$acc update device(tpg_qrfz) if(allocated(tpg_qrfz))
+!$acc update device(tni_qrfz) if(allocated(tni_qrfz))
+!$acc update device(tnr_qrfz) if(allocated(tnr_qrfz))
+!$acc update device(tps_iaus) if(allocated(tps_iaus))
+!$acc update device(tni_iaus) if(allocated(tni_iaus))
+!$acc update device(tpi_ide) if(allocated(tpi_ide))
+!$acc update device(t_Efrw) if(allocated(t_Efrw))
+!$acc update device(t_Efsw) if(allocated(t_Efsw))
+!$acc update device(tnr_rev) if(allocated(tnr_rev))
+!$acc update device(tpc_wev) if(allocated(tpc_wev))
+!$acc update device(tnc_wev) if(allocated(tnc_wev))
+!$acc update device(tnccn_act) if(allocated(tnccn_act))
+#endif
       END SUBROUTINE thompson_init
 !+---+-----------------------------------------------------------------+
 !ctrlL
@@ -1145,6 +1207,10 @@
       CHARACTER*256:: mp_debug
       
       integer :: kediagloc
+#ifdef WRF_GPU
+      LOGICAL:: gpu_do_re
+      INTEGER:: gpu_aer, gpu_wif
+#endif
 
 !+---+
 
@@ -1202,6 +1268,113 @@
          CALL wrf_debug(0, mp_debug)
       endif
 
+#ifdef WRF_GPU
+!.. GPU path (residency builds, wrf_gpu_on): one device thread per column; plain Thompson only (not aerosol/hail
+!.. aware, no radar reflectivity diagnostic); no max/negative-value debug tracking.
+      IF ( wrf_gpu_on ) THEN
+      IF ( is_aerosol_aware .OR. is_hail_aware .OR. kts /= 1 .OR. kte > KTGPU .OR.          &
+           .NOT. ( PRESENT(snowncv) .AND. PRESENT(snownc) .AND.                         &
+                   PRESENT(graupelncv) .AND. PRESENT(graupelnc) ) )                     &
+         CALL wrf_error_fatal('mp_gt_driver: GPU path supports plain Thompson (mp_physics=8, kte<=KTGPU) only')
+      IF ( PRESENT(diagflag) ) THEN
+         IF ( diagflag .AND. do_radar_ref == 1 ) CALL wrf_error_fatal('mp_gt_driver: GPU path has no radar reflectivity')
+      ENDIF
+      gpu_do_re = has_reqc.ne.0 .and. has_reqi.ne.0 .and. has_reqs.ne.0
+      gpu_aer = 0 ; IF ( PRESENT(aer_init_opt) ) gpu_aer = aer_init_opt
+      gpu_wif = 0 ; IF ( PRESENT(wif_input_opt) ) gpu_wif = wif_input_opt
+!$acc parallel loop gang vector collapse(2) &
+!$acc private(qv1d,qc1d,qi1d,qr1d,qs1d,qg1d,qb1d,ni1d,nr1d,nc1d,ng1d,nwfa1d,nifa1d,nbca1d) &
+!$acc private(t1d,p1d,w1d,dz1d,rho,re_qc1d,re_qi1d,re_qs1d)
+      do j = j_start, j_end
+      do i = i_start, i_end
+         pptrain = 0.
+         pptsnow = 0.
+         pptgraul = 0.
+         pptice = 0.
+         do k = kts, kte
+            t1d(k) = th(i,k,j)*pii(i,k,j)
+            p1d(k) = p(i,k,j)
+            w1d(k) = w(i,k,j)
+            dz1d(k) = dz(i,k,j)
+            qv1d(k) = qv(i,k,j)
+            qc1d(k) = qc(i,k,j)
+            qi1d(k) = qi(i,k,j)
+            qr1d(k) = qr(i,k,j)
+            qs1d(k) = qs(i,k,j)
+            qg1d(k) = qg(i,k,j)
+            ni1d(k) = ni(i,k,j)
+            nr1d(k) = nr(i,k,j)
+            rho(k) = 0.622*p1d(k)/(R*t1d(k)*(qv1d(k)+0.622))
+            nc1d(k) = Nt_c/rho(k)
+            nwfa1d(k) = 11.1E6/rho(k)
+            nifa1d(k) = naIN1*0.01/rho(k)
+            nbca1d(k) = 5.55E6/rho(k)
+         enddo
+         do k = kte, kts, -1
+            if (qg1d(k).gt.R1) then
+               ygra1 = alog10(max(1.E-9, qg1d(k)*rho(k)))
+               zans1 = 3.0 + 2./7.*(ygra1+8.)
+               zans1 = MAX(2., MIN(zans1, 6.))
+               N0_exp = 10.**(zans1)
+               lam_exp = (N0_exp*am_g(idx_bg1)*cgg(1,1)/(rho(k)*qg1d(k)))**oge1
+               lamg = lam_exp * (cgg(3,1)*ogg2*ogg1)**obmg
+               ng1d(k) = cgg(2,1)*ogg3*rho(k)*qg1d(k)*lamg**bm_g / am_g(idx_bg1)
+               ng1d(k) = MAX(R2, ng1d(k)/rho(k))
+               qb1d(k) = qg1d(k)/rho_g(idx_bg1)
+            else
+               ng1d(k) = 0
+               qb1d(k) = 0
+            endif
+         enddo
+         call mp_thompson(gpu_aer, gpu_wif, &
+                          qv1d, qc1d, qi1d, qr1d, qs1d, qg1d, qb1d, ni1d,     &
+                          nr1d, nc1d, ng1d, nwfa1d, nifa1d, nbca1d, t1d, p1d, w1d, dz1d,  &
+                      pptrain, pptsnow, pptgraul, pptice, &
+                      kts, kte, dt, i, j)
+         RAINNCV(i,j) = pptrain + pptsnow + pptgraul + pptice
+         RAINNC(i,j) = RAINNC(i,j) + pptrain + pptsnow + pptgraul + pptice
+         SNOWNCV(i,j) = pptsnow + pptice
+         SNOWNC(i,j) = SNOWNC(i,j) + pptsnow + pptice
+         GRAUPELNCV(i,j) = pptgraul
+         GRAUPELNC(i,j) = GRAUPELNC(i,j) + pptgraul
+         SR(i,j) = (pptsnow + pptgraul + pptice)/(RAINNCV(i,j)+1.e-12)
+         do k = kts, kte
+            qv(i,k,j) = qv1d(k)
+            qc(i,k,j) = qc1d(k)
+            qi(i,k,j) = qi1d(k)
+            qr(i,k,j) = qr1d(k)
+            qs(i,k,j) = qs1d(k)
+            qg(i,k,j) = qg1d(k)
+            ni(i,k,j) = ni1d(k)
+            nr(i,k,j) = nr1d(k)
+            th(i,k,j) = t1d(k)/pii(i,k,j)
+            if (qv1d(k) .lt. 0.0) then
+             if (k.lt.kte-2 .and. k.gt.kts+1) then
+                qv(i,k,j) = MAX(1.E-7, 0.5*(qv(i,k-1,j) + qv(i,k+1,j)))
+             else
+                qv(i,k,j) = 1.E-7
+             endif
+            endif
+         enddo
+         IF ( gpu_do_re ) THEN
+          do k = kts, kte
+             re_qc1d(k) = RE_QC_BG
+             re_qi1d(k) = RE_QI_BG
+             re_qs1d(k) = RE_QS_BG
+          enddo
+          call calc_effectRad (t1d, p1d, qv1d, qc1d, nc1d, qi1d, ni1d, qs1d,  &
+                      re_qc1d, re_qi1d, re_qs1d, kts, kte)
+          do k = kts, kte
+             re_cloud(i,k,j) = MAX(RE_QC_BG, MIN(re_qc1d(k), 50.E-6))
+             re_ice(i,k,j)   = MAX(RE_QI_BG, MIN(re_qi1d(k), 125.E-6))
+             re_snow(i,k,j)  = MAX(RE_QS_BG, MIN(re_qs1d(k), 999.E-6))
+          enddo
+         ENDIF
+      enddo
+      enddo
+      RETURN
+      ENDIF
+#endif
       j_loop:  do j = j_start, j_end
       i_loop:  do i = i_start, i_end
 
@@ -1519,6 +1692,9 @@
                           wetscav_on, rainprod, evapprod, &
 #endif
                           kts, kte, dt, ii, jj)
+#ifdef WRF_GPU
+!$acc routine seq
+#endif
 
       implicit none
 
@@ -1538,59 +1714,156 @@
 #endif
 
 !..Local variables
+#ifdef WRF_GPU
+      REAL, DIMENSION(1:KTGPU):: tten, qvten, qcten, qiten, qrten,            &
+           qsten, qgten, qbten, niten, nrten, ncten, ngten, nwfaten, nifaten, &
+                                                              nbcaten
+#else
       REAL, DIMENSION(kts:kte):: tten, qvten, qcten, qiten, qrten,            &
            qsten, qgten, qbten, niten, nrten, ncten, ngten, nwfaten, nifaten, &
                                                               nbcaten
+#endif
 
+#ifdef WRF_GPU
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: prw_vcd
+#else
       DOUBLE PRECISION, DIMENSION(kts:kte):: prw_vcd
+#endif
 
+#ifdef WRF_GPU
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pnc_wcd, pnc_wau, pnc_rcw, &
+           pnc_scw, pnc_gcw
+#else
       DOUBLE PRECISION, DIMENSION(kts:kte):: pnc_wcd, pnc_wau, pnc_rcw, &
            pnc_scw, pnc_gcw
+#endif
 
+#ifdef WRF_GPU
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pna_rca, pna_sca, pna_gca, &
+           pnd_rcd, pnd_scd, pnd_gcd, pnb_rcb, pnb_scb, pnb_gcb
+#else
       DOUBLE PRECISION, DIMENSION(kts:kte):: pna_rca, pna_sca, pna_gca, &
            pnd_rcd, pnd_scd, pnd_gcd, pnb_rcb, pnb_scb, pnb_gcb
+#endif
 
+#ifdef WRF_GPU
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: prr_wau, prr_rcw, prr_rcs, &
+           prr_rcg, prr_sml, prr_gml, &
+           prr_rci, prv_rev,          &
+           pnr_wau, pnr_rcs, pnr_rcg, &
+           pnr_rci, pnr_sml, pnr_gml, &
+           pnr_rev, pnr_rcr, pnr_rfz
+#else
       DOUBLE PRECISION, DIMENSION(kts:kte):: prr_wau, prr_rcw, prr_rcs, &
            prr_rcg, prr_sml, prr_gml, &
            prr_rci, prv_rev,          &
            pnr_wau, pnr_rcs, pnr_rcg, &
            pnr_rci, pnr_sml, pnr_gml, &
            pnr_rev, pnr_rcr, pnr_rfz
+#endif
 
+#ifdef WRF_GPU
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pri_inu, pni_inu, pri_ihm, &
+           pni_ihm, pri_wfz, pni_wfz, &
+           pri_rfz, pni_rfz, pri_ide, &
+           pni_ide, pri_rci, pni_rci, &
+           pni_sci, pni_iau, pri_iha, pni_iha
+#else
       DOUBLE PRECISION, DIMENSION(kts:kte):: pri_inu, pni_inu, pri_ihm, &
            pni_ihm, pri_wfz, pni_wfz, &
            pri_rfz, pni_rfz, pri_ide, &
            pni_ide, pri_rci, pni_rci, &
            pni_sci, pni_iau, pri_iha, pni_iha
+#endif
 
+#ifdef WRF_GPU
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: prs_iau, prs_sci, prs_rcs, &
+           prs_scw, prs_sde, prs_ihm, &
+           prs_ide
+#else
       DOUBLE PRECISION, DIMENSION(kts:kte):: prs_iau, prs_sci, prs_rcs, &
            prs_scw, prs_sde, prs_ihm, &
            prs_ide
+#endif
 
+#ifdef WRF_GPU
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: prg_scw, prg_rfz, prg_gde, &
+           prg_gcw, prg_rci, prg_rcs, prg_rcg, prg_ihm,                 &
+           png_rcs, png_rcg, png_scw, png_gde,                          &
+           pbg_scw, pbg_rfz, pbg_gcw, pbg_rci, pbg_rcs, pbg_rcg,        &
+           pbg_sml, pbg_gml
+#else
       DOUBLE PRECISION, DIMENSION(kts:kte):: prg_scw, prg_rfz, prg_gde, &
            prg_gcw, prg_rci, prg_rcs, prg_rcg, prg_ihm,                 &
            png_rcs, png_rcg, png_scw, png_gde,                          &
            pbg_scw, pbg_rfz, pbg_gcw, pbg_rci, pbg_rcs, pbg_rcg,        &
            pbg_sml, pbg_gml
+#endif
 
       DOUBLE PRECISION, PARAMETER:: zeroD0 = 0.0d0
 
+#ifdef WRF_GPU
+      REAL, DIMENSION(1:KTGPU):: temp, twet, pres, qv
+#else
       REAL, DIMENSION(kts:kte):: temp, twet, pres, qv
+#endif
+#ifdef WRF_GPU
+      REAL, DIMENSION(1:KTGPU):: rc, ri, rr, rs, rg, rb
+#else
       REAL, DIMENSION(kts:kte):: rc, ri, rr, rs, rg, rb
+#endif
+#ifdef WRF_GPU
+      REAL, DIMENSION(1:KTGPU):: ni, nr, nc, ns, ng, nwfa, nifa, nbca
+#else
       REAL, DIMENSION(kts:kte):: ni, nr, nc, ns, ng, nwfa, nifa, nbca
+#endif
+#ifdef WRF_GPU
+      REAL, DIMENSION(1:KTGPU):: rho, rhof, rhof2
+#else
       REAL, DIMENSION(kts:kte):: rho, rhof, rhof2
+#endif
+#ifdef WRF_GPU
+      REAL, DIMENSION(1:KTGPU):: qvs, qvsi, delQvs
+#else
       REAL, DIMENSION(kts:kte):: qvs, qvsi, delQvs
+#endif
+#ifdef WRF_GPU
+      REAL, DIMENSION(1:KTGPU):: satw, sati, ssatw, ssati
+#else
       REAL, DIMENSION(kts:kte):: satw, sati, ssatw, ssati
+#endif
+#ifdef WRF_GPU
+      REAL, DIMENSION(1:KTGPU):: diffu, visco, vsc2, &
+           tcond, lvap, ocp, lvt2
+#else
       REAL, DIMENSION(kts:kte):: diffu, visco, vsc2, &
            tcond, lvap, ocp, lvt2
+#endif
 
+#ifdef WRF_GPU
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: ilamr, ilamg, N0_r, N0_g
+#else
       DOUBLE PRECISION, DIMENSION(kts:kte):: ilamr, ilamg, N0_r, N0_g
+#endif
       DOUBLE PRECISION:: N0_melt
+#ifdef WRF_GPU
+      REAL, DIMENSION(1:KTGPU):: mvd_r, mvd_c, mvd_g
+#else
       REAL, DIMENSION(kts:kte):: mvd_r, mvd_c, mvd_g
+#endif
+#ifdef WRF_GPU
+      REAL, DIMENSION(1:KTGPU):: smob, smo2, smo1, smo0, &
+           smoc, smod, smoe, smof, smog
+#else
       REAL, DIMENSION(kts:kte):: smob, smo2, smo1, smo0, &
            smoc, smod, smoe, smof, smog
+#endif
 
+#ifdef WRF_GPU
+      REAL, DIMENSION(1:KTGPU):: sed_r,sed_s,sed_g,sed_i,sed_n,sed_c,sed_b
+#else
       REAL, DIMENSION(kts:kte):: sed_r,sed_s,sed_g,sed_i,sed_n,sed_c,sed_b
+#endif
 
       REAL:: rgvm, delta_tp, orho, lfus2
       REAL, DIMENSION(5):: onstep
@@ -1603,9 +1876,18 @@
       REAL:: vti, vtr, vts, vtg, vtc
       REAL:: xrho_g, afall, vtg1, vtg2
       REAL:: bfall = 3*b_coeff - 1
+#ifdef WRF_GPU
+      REAL, DIMENSION(1:KTGPU+1):: vtik, vtnik, vtrk, vtnrk, vtsk, vtgk,  &
+                  vtngk, vtck, vtnck
+#else
       REAL, DIMENSION(kts:kte+1):: vtik, vtnik, vtrk, vtnrk, vtsk, vtgk,  &
                   vtngk, vtck, vtnck
+#endif
+#ifdef WRF_GPU
+      REAL, DIMENSION(1:KTGPU):: vts_boost
+#else
       REAL, DIMENSION(kts:kte):: vts_boost
+#endif
       REAL:: M0, slam1, slam2
       REAL:: Mrat, ils1, ils2, t1_vts, t2_vts, t3_vts, t4_vts, C_snow
       REAL:: a_, b_, loga_, A1, A2, tf
@@ -1626,10 +1908,18 @@
       INTEGER:: nir, nis, nig, nii, nic, niin
       INTEGER:: idx_tc, idx_t, idx_s, idx_g1, idx_g, idx_r1, idx_r,     &
                 idx_i1, idx_i, idx_c, idx, idx_d, idx_n, idx_in
+#ifdef WRF_GPU
+      INTEGER, DIMENSION(1:KTGPU):: idx_bg
+#else
       INTEGER, DIMENSION(kts:kte):: idx_bg
+#endif
 
       LOGICAL:: melti, no_micro
+#ifdef WRF_GPU
+      LOGICAL, DIMENSION(1:KTGPU):: L_qc, L_qi, L_qr, L_qs, L_qg
+#else
       LOGICAL, DIMENSION(kts:kte):: L_qc, L_qi, L_qr, L_qs, L_qg
+#endif
       LOGICAL:: debug_flag
       CHARACTER*256:: mp_debug
       INTEGER:: nu_c
@@ -1639,8 +1929,12 @@
       debug_flag = .false.
 !     if (ii.eq.901 .and. jj.eq.379) debug_flag = .true.
       if(debug_flag) then
+#ifndef WRF_GPU
         write(mp_debug, *) 'DEBUG INFO, mp_thompson at (i,j) ', ii, ', ', jj
+#endif
+#ifndef WRF_GPU
         CALL wrf_debug(550, mp_debug)
+#endif
       endif
 
       no_micro = .true.
@@ -3132,14 +3426,30 @@
            afall = afall * visco(k)**(1.0-2.0*b_coeff)
            vtg1 = rhof(k)*afall*cgg(6,idx_bg(k))*ogg3 / lamg**bfall
            vtg2 = rhof(k)*afall*cgg(7,idx_bg(k))/cgg(12,idx_bg(k)) / lamg**bfall
+#ifndef WRF_GPU
          write(mp_debug, *) 'DEBUG: xrg, xng, xrb, ns, idx_bg, rho_g, mvd, vtg: ', k, xrg, xng, xrb, ns(k), idx_bg(k), xrg/rho(k)/xrb, mvd_g(k)*1000., vtg1, vtg2
+#endif
+#ifndef WRF_GPU
          CALL wrf_debug(0, mp_debug)
+#endif
+#ifndef WRF_GPU
          write(mp_debug, *) 'DEBUG: qgten: ', qgten(k), prg_scw(k), prg_rfz(k), prg_gde(k), prg_rcg(k), prg_gcw(k), prg_rci(k), prg_rcs(k), prg_ihm(k), prr_gml(k)
+#endif
+#ifndef WRF_GPU
          CALL wrf_debug(0, mp_debug)
+#endif
+#ifndef WRF_GPU
          write(mp_debug, *) 'DEBUG: ngten: ', ngten(k), png_scw(k), pnr_rfz(k), png_rcg(k), pnr_rci(k), png_rcs(k), pnr_gml(k)
+#endif
+#ifndef WRF_GPU
          CALL wrf_debug(0, mp_debug)
+#endif
+#ifndef WRF_GPU
          write(mp_debug, *) 'DEBUG: qbten: ', qbten(k), pbg_scw(k), pbg_rfz(k), pbg_gcw(k), pbg_rci(k), pbg_rcs(k), pbg_rcg(k), pbg_sml(k), pbg_gml(k)
+#endif
+#ifndef WRF_GPU
          CALL wrf_debug(0, mp_debug)
+#endif
       endif
 
             if (mvd_g(k) .gt. 25.4E-3) then
@@ -3608,7 +3918,7 @@
          vtnck(k) = 0.
       enddo
 
-      if (ANY(L_qr .eqv. .true.)) then
+      if (ANY(L_qr(kts:kte))) then
       do k = kte, kts, -1
          vtr = 0.
          rhof(k) = SQRT(RHO_NOT/rho(k))
@@ -3643,7 +3953,7 @@
 
 !+---+-----------------------------------------------------------------+
 
-      if (ANY(L_qc .eqv. .true.)) then
+      if (ANY(L_qc(kts:kte))) then
       hgt_agl = 0.
       do k = kts, kte-1
          if (rc(k) .gt. R2) ksed1(5) = k
@@ -3670,7 +3980,7 @@
 
       if (.not. iiwarm) then
 
-       if (ANY(L_qi .eqv. .true.)) then
+       if (ANY(L_qi(kts:kte))) then
        nstep = 0
        do k = kte, kts, -1
           vti = 0.
@@ -3702,7 +4012,7 @@
 
 !+---+-----------------------------------------------------------------+
 
-       if (ANY(L_qs .eqv. .true.)) then
+       if (ANY(L_qs(kts:kte))) then
        nstep = 0
        do k = kte, kts, -1
           vts = 0.
@@ -3741,7 +4051,7 @@
 
 !+---+-----------------------------------------------------------------+
 
-       if (ANY(L_qg .eqv. .true.)) then
+       if (ANY(L_qg(kts:kte))) then
        nstep = 0
        do k = kte, kts, -1
           vtg = 0.
@@ -3787,7 +4097,7 @@
 !.. cloud ice has proper differential sedimentation.
 !+---+-----------------------------------------------------------------+
 
-      if (ANY(L_qr .eqv. .true.)) then
+      if (ANY(L_qr(kts:kte))) then
       nstep = NINT(1./onstep(1))
       do n = 1, nstep
          do k = kte, kts, -1
@@ -3821,7 +4131,7 @@
 
 !+---+-----------------------------------------------------------------+
 
-      if (ANY(L_qc .eqv. .true.)) then
+      if (ANY(L_qc(kts:kte))) then
       do k = kte, kts, -1
          sed_c(k) = vtck(k)*rc(k)
          sed_n(k) = vtnck(k)*nc(k)
@@ -3838,7 +4148,7 @@
 
 !+---+-----------------------------------------------------------------+
 
-      if (ANY(L_qi .eqv. .true.)) then
+      if (ANY(L_qi(kts:kte))) then
       nstep = NINT(1./onstep(2))
       do n = 1, nstep
          do k = kte, kts, -1
@@ -3872,7 +4182,7 @@
 
 !+---+-----------------------------------------------------------------+
 
-      if (ANY(L_qs .eqv. .true.)) then
+      if (ANY(L_qs(kts:kte))) then
       nstep = NINT(1./onstep(3))
       do n = 1, nstep
          do k = kte, kts, -1
@@ -3899,7 +4209,7 @@
 
 !+---+-----------------------------------------------------------------+
 
-      if (ANY(L_qg .eqv. .true.)) then
+      if (ANY(L_qg(kts:kte))) then
       nstep = NINT(1./onstep(4))
       do n = 1, nstep
          do k = kte, kts, -1
@@ -5381,6 +5691,9 @@
 ! A FUNCTION OF TEMPERATURE AND PRESSURE
 !
       REAL FUNCTION RSLF(P,T)
+#ifdef WRF_GPU
+!$acc routine seq
+#endif
 
       IMPLICIT NONE
       REAL, INTENT(IN):: P, T
@@ -5416,6 +5729,9 @@
 ! FUNCTION OF TEMPERATURE AND PRESSURE
 !
       REAL FUNCTION RSIF(P,T)
+#ifdef WRF_GPU
+!$acc routine seq
+#endif
 
       IMPLICIT NONE
       REAL, INTENT(IN):: P, T
@@ -5593,6 +5909,9 @@
 
       subroutine calc_effectRad (t1d, p1d, qv1d, qc1d, nc1d, qi1d, ni1d, qs1d,   &
      &                re_qc1d, re_qi1d, re_qs1d, kts, kte)
+#ifdef WRF_GPU
+!$acc routine seq
+#endif
 
       IMPLICIT NONE
 
@@ -5808,7 +6127,7 @@
          smoc(k) = 0.
          smoz(k) = 0.
       enddo
-      if ( ( ke_diag > kts .and. ANY(L_qs .eqv. .true.) ) .or.  &
+      if ( ( ke_diag > kts .and. ANY(L_qs(kts:kte)) ) .or.  &
             (ke_diag == kts .and. L_qs(kts) .eqv. .true. ) ) then
       do k = kts, ke_diag ! kte
          if (.not. L_qs(k)) CYCLE
@@ -5866,7 +6185,7 @@
 !..Calculate y-intercept, slope values for graupel.
 !+---+-----------------------------------------------------------------+
 
-      if (ANY(L_qg .eqv. .true.)) then
+      if (ANY(L_qg(kts:kte))) then
       do k = kte, kts, -1
          lamg = (am_g(idx_bg(k))*cgg(3,1)*ogg2*ng(k)/rg(k))**obmg
          ilamg(k) = 1./lamg

@@ -4,6 +4,11 @@
 MODULE module_radiation_driver
   real, private, parameter :: ALBEDO_MIN = 0.0, ALBEDO_MAX = 1.0, ANGEXP_MIN = 0.0, AOD_MIN = 0.0, &
       AERASY_MIN = -1.0, AERASY_MAX = 1.0, QVAPOR_MIN = 0.0, QCLOUD_MIN = 0.0, QSNOW_MIN = 0.0
+#ifdef WRF_GPU
+! residency builds: whether the scheme ran this step (its tendencies are host-written only then; between
+! calls the GPU owns them - solve_em pushes them only when set)
+   LOGICAL :: wrf_gpu_ra_ran = .TRUE.
+#endif
 CONTAINS
 !BOP
 ! !IROUTINE: radiation_driver - interface to radiation physics options
@@ -1136,6 +1141,9 @@ CONTAINS
       decided     = .TRUE.
       radtacttime = curr_secs + radt*60
    END IF
+#ifdef WRF_GPU
+   wrf_gpu_ra_ran = run_param
+#endif
 
    IF ( mp_physics .EQ. nuwrf4icescheme ) THEN
       DO ij = 1 , num_tiles

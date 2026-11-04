@@ -7,7 +7,7 @@
 !$acc update self(grid%p) if(associated(grid%p))
 !$acc update self(grid%ph_2) if(associated(grid%ph_2))
 !$acc update self(grid%rho) if(associated(grid%rho))
-!$acc update self(grid%rqvften) if(associated(grid%rqvften))
+!$acc update self(grid%rqvften) if(associated(grid%rqvften) .and. .not.gpu_tend_dev)
 !$acc update self(grid%ru_m) if(associated(grid%ru_m))
 !$acc update self(grid%rv_m) if(associated(grid%rv_m))
 !$acc update self(grid%t_1) if(associated(grid%t_1))
