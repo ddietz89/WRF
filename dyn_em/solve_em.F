@@ -239,6 +239,12 @@ SUBROUTINE solve_em ( grid , config_flags  &
    ! WRF_GPU_XFER bit 32 (with 16): the microphysics block (H2) runs on the GPU (Thompson only) - no H2 transfers;
    ! the host keeps advance_ppt (cumulus rain) and gets the mp outputs it reads (precip, effective radii) at H3
    LOGICAL :: gpu_mp_dev = .FALSE.
+   ! bit 64: skip H1 pushes of the diffusion fields part2 recomputes on the GPU before reading them (diff_opt>=1:
+   ! compute_diff_metrics z/rdz/rdzw/zx/zy, cal_deform_and_div div/defor*, calculate_km_kh xk*/bn2)
+   ! bit 128: H1 does not re-pull state the previous step's H3 pulled (unchanged on the GPU in between:
+   ! only rk_step_prep, physical-bc setters and halos run there); mu*/rqvften are still pulled
+   LOGICAL :: gpu_skip_diff = .FALSE., gpu_h1_reuse = .FALSE.
+   LOGICAL, SAVE :: gpu_h3_done = .FALSE.
    INTEGER, EXTERNAL :: wrf_gpu_pin_mode
    INTEGER :: pin_nok, pin_nfail
    INTEGER(8) :: pin_tot
@@ -1023,6 +1029,7 @@ BENCH_START(calc_p_rho_tim)
 #ifdef WRF_SEG_TIMERS
    CALL seg_enter( 5 )
 #endif
+   gpu_h1_reuse = IAND( wrf_gpu_xfer(), 128 ) /= 0 .AND. gpu_h3_done
    IF ( IAND( wrf_gpu_xfer(), 1 ) /= 0 ) THEN
 #  include "gpu_upd_host_h1.inc"
    ELSE
@@ -1114,6 +1121,7 @@ BENCH_START(calc_p_rho_tim)
    gpu_push_ra = .NOT. gpu_tend_dev .OR. wrf_gpu_ra_ran
    gpu_push_cu = .NOT. gpu_tend_dev .OR. wrf_gpu_cu_ran
    gpu_push_bl = .NOT. gpu_tend_dev .OR. wrf_gpu_bl_ran
+   gpu_skip_diff = IAND( wrf_gpu_xfer(), 64 ) /= 0 .AND. config_flags%diff_opt >= 1
    IF ( IAND( wrf_gpu_xfer(), 2 ) /= 0 ) THEN
 #  include "gpu_upd_dev_h1.inc"
    ELSE
@@ -5545,6 +5553,7 @@ BENCH_END(bc_2d_tim)
 #endif
    IF ( IAND( wrf_gpu_xfer(), 8 ) /= 0 ) THEN
 #  include "gpu_upd_host_h3.inc"
+   gpu_h3_done = .TRUE.
    IF ( gpu_mp_dev ) THEN   ! microphysics ran on the GPU: outputs the host reads (H3 diagnostics, next H1 physics)
 !$acc update self(grid%rainnc) if(associated(grid%rainnc))
 !$acc update self(grid%rainncv) if(associated(grid%rainncv))
