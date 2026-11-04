@@ -991,7 +991,7 @@ CONTAINS
 #ifdef WRF_GPU
    INTEGER :: ra_isub, ra_nj, ra_ntask
    LOGICAL :: ra_gpu_fast
-   INTEGER, PARAMETER :: RA_NSUB = 4, RA_GPU_BANDS = 8
+   INTEGER, PARAMETER :: RA_NSUB = 4, RA_GPU_BANDS = 6   ! 228 rows = 6 x 38: equal bands (AER device buffers are sized on the first call)
 #endif
    LOGICAL ::    flg_lw, flg_sw
 !ZCX
