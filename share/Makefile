@@ -67,7 +67,6 @@ OBJS3   =                               \
         module_trajectory.o             \
         bobrand.o                       \
         wrf_timeseries.o                \
-        track_driver.o                  \
         wrf_fddaobs_in.o                \
         mediation_nest_move.o           \
 	setfeenv.o

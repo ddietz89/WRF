@@ -516,3 +516,8 @@ clean:
 # DO NOT DELETE
 
 include ../main/depend.common
+
+# GPU builds: the fast RRTMG variants (ra_*_physics=24) use their AER GPU paths (CUDA Fortran / OpenACC)
+ifneq ($(findstring WRF_GPU,$(ARCH_LOCAL)),)
+module_ra_rrtmg_lwf.o module_ra_rrtmg_swf.o: FCFLAGS += -cuda -Mallocatable=95
+endif

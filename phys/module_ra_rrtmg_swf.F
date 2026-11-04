@@ -8,6 +8,10 @@
       END MODULE module_ra_rrtmg_swf
 #else
 !!MODULE module_ra_rrtmg_swf
+#if defined(WRF_GPU)
+! GPU builds: OpenACC/CUDA path of the fast shortwave
+#define _ACCEL
+#endif
 #define CHNK 8
 !#define CHNK 1849
 !#define CHNK 43
@@ -101,6 +105,7 @@
 
 ! Uncomment to use GPU, or comment to use CPU
 !#define _ACCEL
+
 
 #ifdef _ACCEL
 #define gpu_device ,device

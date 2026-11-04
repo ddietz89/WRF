@@ -24,6 +24,10 @@
 
 ! Uncomment to use GPU, or comment to use CPU
 !#define _ACCEL
+#if defined(WRF_GPU)
+! GPU builds: AER CUDA Fortran path (compiled with -cuda -Mallocatable=95, see phys/Makefile)
+#define _ACCEL
+#endif
 
 #ifdef _ACCEL
 #define _gpudev  ,device
@@ -3586,7 +3590,9 @@ contains
       real  _gpudev, allocatable :: pmidd(:, :)
       real  _gpudev, allocatable :: cldfracd(:,:), clwpd(:,:), ciwpd(:,:), cswpd(:,:), taucd(:,:,:)
 
+#ifndef _ACCEL
 !$OMP THREADPRIVATE(pmidd,cldfracd,clwpd,ciwpd,cswpd,taucd)
+#endif
 #endif
 
 ! public interfaces/functions/subroutines
@@ -4155,8 +4161,10 @@ contains
 !      see http://publib.boulder.ibm.com/infocenter/comphelp/v101v121
 ! but keep an eye on it. Different vendors have extended this in different ways.
 ! See also the intel -openmp-threadprivate=legacy/compat documentation.
+#ifndef _ACCEL
 !$OMP THREADPRIVATE(inflagd,iceflagd,liqflagd,ciwpmcd,clwpmcd,cswpmcd,relqmcd,reicmcd,resnmcd, &
 !$OMP               absice0d,absice1d,absice2d,absice3d,absliq1d)
+#endif
 #endif
 
       contains
@@ -4628,10 +4636,12 @@ contains
       real , allocatable _gpudev :: dplankbnd_dtd(:,:) 
 
 ! (jm 2014)
+#ifndef _ACCEL
 !$OMP THREADPRIVATE( taucmcd,pzd,pwvcmd,semissd,planklayd,planklevd,plankbndd,gurad,gdrad,gclrurad,gclrdrad,&
 !$OMP                gdtotuflux_dtd,gdtotuclfl_dtd,idrvd,bpaded,heatfacd,fluxfacd,a0d,a1d,a2d, &
 !$OMP                delwaved,totufluxd,totdfluxd,fnetd,htrd,totuclfld,totdclfld,fnetcd,htrcd,dtotuflux_dtd, &
 !$OMP                dtotuclfl_dtd,dplankbnd_dtd )
+#endif
 #endif
 
       contains
@@ -5449,12 +5459,14 @@ integer,external :: omp_get_thread_num
       integer  _gpudev, allocatable :: nspad(:)
       integer  _gpudev, allocatable :: nspbd(:)
       real  _gpucon :: oneminusd 
+#ifndef _ACCEL
 !$OMP THREADPRIVATE( pavel,wx1,wx2,wx3,wx4,coldry,laytrop,jp,jt,jt1,colh2o,colco2,colo3,coln2o, &
 !$OMP                colco,colch4,colo2,colbrd,indself,indfor,selffac,selffrac,forfac,forfrac,  &
 !$OMP                indminor,minorfrac,scaleminor,scaleminorn2,fac00,fac01,fac10,fac11,        &
 !$OMP                rat_h2oco2,rat_h2oco2_1,rat_h2oo3,rat_h2oo3_1,rat_h2on2o,rat_h2on2o_1,     &
 !$OMP                rat_h2och4,rat_h2och4_1,rat_n2oco2,rat_n2oco2_1,rat_o3co2,rat_o3co2_1,     &
 !$OMP                tauaa,nspad,nspbd,oneminusd )
+#endif
 #endif
 
       contains
@@ -9300,7 +9312,9 @@ integer,external :: omp_get_thread_num
 
       real  _gpudev :: totplnkderivd(181,nbndlw)
       real  _gpudev :: totplk16derivd(181)
+#ifndef _ACCEL
 !$OMP THREADPRIVATE(taveld,tzd,tboundd,wbroadd,totplnkd,totplk16d,totplnkderivd,totplk16derivd)
+#endif
 #endif
 
       contains
@@ -13971,7 +13985,9 @@ integer,external :: omp_get_thread_num
       integer, allocatable _gpudev :: icldlyr(:,:)
       real  _gpudev, allocatable :: fracsd(:,:,:)
       real  _gpudev, allocatable :: taug(:,:,:)
+#ifndef _ACCEL
 !$OMP THREADPRIVATE(ngbd,ncbandsd,icbd,icldlyr,fracsd,taug)
+#endif
 #endif
    
       real :: timings(10)

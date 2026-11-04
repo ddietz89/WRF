@@ -989,7 +989,8 @@ CONTAINS
    REAL    ::    next_rad_time, DTaccum
    LOGICAL ::    run_param , doing_adapt_dt , decided
 #ifdef WRF_GPU
-   INTEGER :: ra_isub, ra_nj
+   INTEGER :: ra_isub, ra_nj, ra_ntask
+   LOGICAL :: ra_gpu_fast
    INTEGER, PARAMETER :: RA_NSUB = 4
 #endif
    LOGICAL ::    flg_lw, flg_sw
@@ -1716,16 +1717,25 @@ CONTAINS
 #ifdef WRF_GPU
    ! GPU builds (1 rank x OpenMP tiles): shortwave cost depends on daylight, so whole tiles are unbalanced -
    ! split each tile into RA_NSUB j-bands and schedule them dynamically (columns are independent: same results)
-   !$OMP PARALLEL DO SCHEDULE(DYNAMIC,1)   &
+   ! fast RRTMG (ra_*_physics=24) runs its AER GPU path: one call over the whole patch from one host thread
+   ra_gpu_fast = lw_physics == RRTMG_LWSCHEME_FAST .OR. sw_physics == RRTMG_SWSCHEME_FAST
+   ra_ntask = num_tiles*RA_NSUB
+   IF ( ra_gpu_fast ) ra_ntask = 1
+   !$OMP PARALLEL DO SCHEDULE(DYNAMIC,1) IF ( .NOT. ra_gpu_fast )   &
    !$OMP PRIVATE ( ij ,i,j,k,its,ite,jts,jte, ra_isub, ra_nj)
-   DO ra_isub = 1 , num_tiles*RA_NSUB
+   DO ra_isub = 1 , ra_ntask
      ij = (ra_isub-1)/RA_NSUB + 1
+     IF ( ra_gpu_fast ) THEN
+       its = MINVAL(i_start(1:num_tiles)) ; ite = MAXVAL(i_end(1:num_tiles))
+       jts = MINVAL(j_start(1:num_tiles)) ; jte = MAXVAL(j_end(1:num_tiles))
+     ELSE
      its = i_start(ij)
      ite = i_end(ij)
      ra_nj = j_end(ij) - j_start(ij) + 1
      jts = j_start(ij) + ( MOD(ra_isub-1,RA_NSUB)    * ra_nj ) / RA_NSUB
      jte = j_start(ij) + ( (MOD(ra_isub-1,RA_NSUB)+1) * ra_nj ) / RA_NSUB - 1
      IF ( jte < jts ) CYCLE
+     ENDIF
 #else
    !$OMP PARALLEL DO   &
    !$OMP PRIVATE ( ij ,i,j,k,its,ite,jts,jte)
