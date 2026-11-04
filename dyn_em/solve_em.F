@@ -743,7 +743,8 @@ SUBROUTINE solve_em ( grid , config_flags  &
 !**********************************************************************
 
 #ifdef WRF_GPU
-   CALL gpu_ck( grid, 'a_prerk', rk_step, ids, ide, jds, jde, kds, kde, ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
+   CALL gpu_ck( grid, 'a_prerk', rk_step, ids, ide, jds, jde, kds, kde, &
+        ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
 #endif
    Runge_Kutta_loop:  DO rk_step = 1, rk_order
 
@@ -995,7 +996,8 @@ BENCH_START(calc_p_rho_tim)
 !$acc wait
 #endif
 #ifdef WRF_GPU
-   CALL gpu_ck( grid, 'b_preH1', rk_step, ids, ide, jds, jde, kds, kde, ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
+   CALL gpu_ck( grid, 'b_preH1', rk_step, ids, ide, jds, jde, kds, kde, &
+        ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
 #endif
 #ifdef WRF_SEG_TIMERS
    CALL seg_mark( 2 )
@@ -1063,7 +1065,8 @@ BENCH_START(calc_p_rho_tim)
    ENDIF
 #endif
 #ifdef WRF_GPU
-   CALL gpu_ck( grid, 'c_prep2', rk_step, ids, ide, jds, jde, kds, kde, ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
+   CALL gpu_ck( grid, 'c_prep2', rk_step, ids, ide, jds, jde, kds, kde, &
+        ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
 #endif
        CALL first_rk_step_part2 (    grid, config_flags         &
                              , moist , moist_old , moist_tend   &
@@ -1106,7 +1109,8 @@ BENCH_START(calc_p_rho_tim)
    CALL seg_mark( 1 )
 #endif
 #ifdef WRF_GPU
-   CALL gpu_ck( grid, 'd_postp2', rk_step, ids, ide, jds, jde, kds, kde, ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
+   CALL gpu_ck( grid, 'd_postp2', rk_step, ids, ide, jds, jde, kds, kde, &
+        ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
 #endif
 #if defined(WRF_GPU) && !defined(WRF_GPU_RESIDENT)
    IF ( wrf_gpu_prefetch_mode() > 0 ) THEN
@@ -1156,6 +1160,12 @@ BENCH_START(rk_tend_tim)
                          ,max_vert_cfl_tmp(ij), max_horiz_cfl_tmp(ij)                                         )
      END DO
      !$OMP END PARALLEL DO
+#ifdef WRF_GPU
+   CALL gpu_ck( grid, 'k1_rktend', rk_step, ids, ide, jds, jde, kds, kde, &
+        ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
+   CALL gpu_ckt( grid, 'k1_rktend', rk_step, grid%ru_tend, grid%rv_tend, rw_tend, ph_tend, t_tend, mu_tend, &
+        ims, ime, jms, jme, kms, kme, ips, MIN(ipe,ide-1), jps, MIN(jpe,jde-1), kps, kpe )
+#endif
 BENCH_END(rk_tend_tim)
 
      IF (config_flags%use_adaptive_time_step) THEN
@@ -1294,6 +1304,12 @@ BENCH_START(relax_bdy_dry_tim)
 
      END DO
      !$OMP END PARALLEL DO
+#ifdef WRF_GPU
+   CALL gpu_ck( grid, 'k2_addbdy', rk_step, ids, ide, jds, jde, kds, kde, &
+        ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
+   CALL gpu_ckt( grid, 'k2_addbdy', rk_step, grid%ru_tend, grid%rv_tend, rw_tend, ph_tend, t_tend, mu_tend, &
+        ims, ime, jms, jme, kms, kme, ips, MIN(ipe,ide-1), jps, MIN(jpe,jde-1), kps, kpe )
+#endif
 BENCH_END(relax_bdy_dry_tim)
 
 !<DESCRIPTION>
@@ -1384,6 +1400,12 @@ BENCH_START(small_step_prep_tim)
 
      ENDDO
      !$OMP END PARALLEL DO
+#ifdef WRF_GPU
+   CALL gpu_ck( grid, 'k3_ssprep', rk_step, ids, ide, jds, jde, kds, kde, &
+        ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
+   CALL gpu_ckt( grid, 'k3_ssprep', rk_step, grid%ru_tend, grid%rv_tend, rw_tend, ph_tend, t_tend, mu_tend, &
+        ims, ime, jms, jme, kms, kme, ips, MIN(ipe,ide-1), jps, MIN(jpe,jde-1), kps, kpe )
+#endif
 BENCH_END(small_step_prep_tim)
 
 #ifdef DM_PARALLEL
@@ -1509,6 +1531,12 @@ BENCH_START(set_phys_bc2_tim)
 
      END DO
      !$OMP END PARALLEL DO
+#ifdef WRF_GPU
+   CALL gpu_ck( grid, 'k4_pressp', rk_step, ids, ide, jds, jde, kds, kde, &
+        ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
+   CALL gpu_ckt( grid, 'k4_pressp', rk_step, grid%ru_tend, grid%rv_tend, rw_tend, ph_tend, t_tend, mu_tend, &
+        ims, ime, jms, jme, kms, kme, ips, MIN(ipe,ide-1), jps, MIN(jpe,jde-1), kps, kpe )
+#endif
 BENCH_END(set_phys_bc2_tim)
      small_steps : DO iteration = 1 , number_of_small_timesteps
 
@@ -1545,6 +1573,12 @@ BENCH_END(advance_uv_tim)
 
        END DO
        !$OMP END PARALLEL DO
+#ifdef WRF_GPU
+   CALL gpu_ck( grid, 'k5_advuv', rk_step*100+iteration, ids, ide, jds, jde, kds, kde, &
+        ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
+   CALL gpu_ckt( grid, 'k5_advuv', rk_step*100+iteration, grid%ru_tend, grid%rv_tend, rw_tend, ph_tend, t_tend, mu_tend, &
+        ims, ime, jms, jme, kms, kme, ips, MIN(ipe,ide-1), jps, MIN(jpe,jde-1), kps, kpe )
+#endif
 
 !-----------------------------------------------------------
 !  acoustic integration polar filter for smallstep u, v
@@ -1657,6 +1691,10 @@ BENCH_START(advance_mu_t_tim)
 BENCH_END(advance_mu_t_tim)
        ENDDO
        !$OMP END PARALLEL DO
+#ifdef WRF_GPU
+   CALL gpu_ck( grid, 'k6_advmt', rk_step*100+iteration, ids, ide, jds, jde, kds, kde, &
+        ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
+#endif
 
 !-----------------------------------------------------------
 !  acoustic integration polar filter for smallstep mu, t
@@ -1767,6 +1805,10 @@ BENCH_END(advance_w_tim)
 
        ENDDO
        !$OMP END PARALLEL DO
+#ifdef WRF_GPU
+   CALL gpu_ck( grid, 'k7_advw', rk_step*100+iteration, ids, ide, jds, jde, kds, kde, &
+        ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
+#endif
 
 !-----------------------------------------------------------
 !  acoustic integration polar filter for smallstep w, geopotential
@@ -1961,6 +2003,10 @@ BENCH_START(phys_bc_tim)
 
        END DO
        !$OMP END PARALLEL DO
+#ifdef WRF_GPU
+   CALL gpu_ck( grid, 'k8_ssend', rk_step*100+iteration, ids, ide, jds, jde, kds, kde, &
+        ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
+#endif
 BENCH_END(phys_bc_tim)
 
      END DO small_steps
@@ -2050,6 +2096,10 @@ BENCH_END(small_step_finish_tim)
 
      END DO
      !$OMP END PARALLEL DO
+#ifdef WRF_GPU
+   CALL gpu_ck( grid, 'k9_ssfin', rk_step, ids, ide, jds, jde, kds, kde, &
+        ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
+#endif
 
 !-----------------------------------------------------------
 !  polar filter for full dynamics variables and time-averaged mass fluxes 
@@ -3855,7 +3905,8 @@ BENCH_END(bc_end_tim)
 !**********************************************************
 
 #ifdef WRF_GPU
-   CALL gpu_ck( grid, 'e_rkend', rk_step, ids, ide, jds, jde, kds, kde, ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
+   CALL gpu_ck( grid, 'e_rkend', rk_step, ids, ide, jds, jde, kds, kde, &
+        ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
 #endif
    END DO Runge_Kutta_loop
 #ifdef WRF_GPU_FIELDTRACE
@@ -3918,7 +3969,8 @@ BENCH_END(bc_end_tim)
 !$acc wait
 #endif
 #ifdef WRF_GPU
-   CALL gpu_ck( grid, 'f_preH2', rk_step, ids, ide, jds, jde, kds, kde, ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
+   CALL gpu_ck( grid, 'f_preH2', rk_step, ids, ide, jds, jde, kds, kde, &
+        ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
 #endif
 #ifdef WRF_SEG_TIMERS
    CALL seg_mark( 3 )
@@ -4566,7 +4618,8 @@ BENCH_START(moist_phys_end_tim)
 #       include "gpu_upd_dev_i1_mp.inc"
 #endif
 #ifdef WRF_GPU
-   CALL gpu_ck( grid, 'g_postH2', rk_step, ids, ide, jds, jde, kds, kde, ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
+   CALL gpu_ck( grid, 'g_postH2', rk_step, ids, ide, jds, jde, kds, kde, &
+        ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
 #endif
 #ifdef WRF_GPU_RESIDENT
    IF ( IAND( wrf_gpu_fullsync(), 3 ) == 3 ) THEN
@@ -5275,7 +5328,8 @@ BENCH_END(bc_2d_tim)
 !$acc wait
 #endif
 #ifdef WRF_GPU
-   CALL gpu_ck( grid, 'h_preH3', rk_step, ids, ide, jds, jde, kds, kde, ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
+   CALL gpu_ck( grid, 'h_preH3', rk_step, ids, ide, jds, jde, kds, kde, &
+        ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
 #endif
 #ifdef WRF_SEG_TIMERS
    CALL seg_mark( 4 )
@@ -5555,7 +5609,8 @@ BENCH_END(bc_2d_tim)
 !$acc wait
 #endif
 #ifdef WRF_GPU
-   CALL gpu_ck( grid, 'i_end', rk_step, ids, ide, jds, jde, kds, kde, ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
+   CALL gpu_ck( grid, 'i_end', rk_step, ids, ide, jds, jde, kds, kde, &
+        ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
 #endif
 #ifdef WRF_GPU_RESIDENT
 !$acc exit data delete(h_tendency, z_tendency)
@@ -5659,9 +5714,44 @@ SUBROUTINE gpu_ck( grid, tag, rk, ids, ide, jds, jde, kds, kde, ims, ime, jms, j
    r(9)  = gpu_ck3( grid%al,   ims, ime, kms, kme, jms, jme, ips, ie, kps, ke, jps, je )
    r(10) = gpu_ck3( grid%moist(ims,kms,jms,P_QV), ims, ime, kms, kme, jms, jme, ips, ie, kps, ke, jps, je )
    wrf_gpu_on = on
-   WRITE(msg,'(A,I5,I2,1X,A8,10ES24.16)') 'GPUCK ', grid%itimestep, rk, tag, r
+   WRITE(msg,'(A,I5,I4,1X,A8,10ES24.16)') 'GPUCK ', grid%itimestep, rk, tag, r
    CALL wrf_message( msg )
 END SUBROUTINE gpu_ck
+
+SUBROUTINE gpu_ckt( grid, tag, rk, ru, rv, rw, ph, t, mu, ims, ime, jms, jme, kms, kme, is, ie, js, je, ks, ke )
+   USE module_domain, ONLY : domain
+   USE module_wrf_error, ONLY : wrf_gpu_on
+   IMPLICIT NONE
+   TYPE(domain), INTENT(IN) :: grid
+   CHARACTER(*), INTENT(IN) :: tag
+   INTEGER, INTENT(IN) :: rk, ims, ime, jms, jme, kms, kme, is, ie, js, je, ks, ke
+   REAL, INTENT(IN) :: ru(ims:ime,kms:kme,jms:jme), rv(ims:ime,kms:kme,jms:jme), rw(ims:ime,kms:kme,jms:jme), &
+                       ph(ims:ime,kms:kme,jms:jme), t(ims:ime,kms:kme,jms:jme), mu(ims:ime,jms:jme)
+   INTEGER, SAVE :: nck = -1
+   CHARACTER(LEN=8) :: v
+   CHARACTER(LEN=300) :: msg
+   INTEGER :: st
+   REAL(8) :: r(6)
+   REAL(8), EXTERNAL :: gpu_ck3, gpu_ck2
+   LOGICAL :: on
+   IF ( nck < 0 ) THEN
+      CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_CK', v, STATUS=st )
+      nck = 0
+      IF ( st == 0 ) READ( v, *, IOSTAT=st ) nck
+      IF ( st /= 0 ) nck = 0
+   ENDIF
+   IF ( grid%itimestep > nck ) RETURN
+   on = wrf_gpu_on ; wrf_gpu_on = .TRUE.
+   r(1) = gpu_ck3( ru, ims, ime, kms, kme, jms, jme, is, ie, ks, ke-1, js, je )
+   r(2) = gpu_ck3( rv, ims, ime, kms, kme, jms, jme, is, ie, ks, ke-1, js, je )
+   r(3) = gpu_ck3( rw, ims, ime, kms, kme, jms, jme, is, ie, ks, ke, js, je )
+   r(4) = gpu_ck3( ph, ims, ime, kms, kme, jms, jme, is, ie, ks, ke, js, je )
+   r(5) = gpu_ck3( t,  ims, ime, kms, kme, jms, jme, is, ie, ks, ke-1, js, je )
+   r(6) = gpu_ck2( mu, ims, ime, jms, jme, is, ie, js, je )
+   wrf_gpu_on = on
+   WRITE(msg,'(A,I5,I4,1X,A8,6ES24.16)') 'GPUCKT ', grid%itimestep, rk, tag, r
+   CALL wrf_message( msg )
+END SUBROUTINE gpu_ckt
 
 REAL(8) FUNCTION gpu_ck3( a, ims, ime, kms, kme, jms, jme, is, ie, ks, ke, js, je )
    IMPLICIT NONE
