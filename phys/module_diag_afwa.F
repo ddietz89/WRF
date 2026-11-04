@@ -2449,9 +2449,13 @@ CONTAINS
                                               ,         this_v
 
     REAL :: wind, therm, mtn_wave, tpd_wave
+    ! upstream bug: terrain_dx/terrain_dy were never declared or set (implicit REAL, uninitialized -> AFWA_LLTURB*
+    ! differed run to run). No terrain slope is computed anywhere; use 0 (no mountain-wave wind-terrain term).
+    REAL :: terrain_dx, terrain_dy
 
     !~ Initialize variables.
     !  ----------------------
+    terrain_dx = 0. ; terrain_dy = 0.
     turb ( ips:ipe, :, jps:jpe ) = REAL ( 0 )
     ! tile only: called once per OpenMP tile (whole-array zeroing wiped other tiles' results - race)
     llturb ( ips:ipe, jps:jpe ) = REAL ( 0 )
