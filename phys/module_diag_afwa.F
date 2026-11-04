@@ -46,6 +46,7 @@ CONTAINS
                            ims, ime, jms, jme, kms, kme,        &
                            ips, ipe, jps, jpe, kps, kpe
     INTEGER             :: k_start , k_end, its, ite, jts, jte
+    INTEGER :: ibs, ibe, jbs, jbe   ! tile +-2 ring (called once per OpenMP tile; was ims:ime / jms:jme)
 
     REAL, DIMENSION( ims:ime, kms:kme, jms:jme , num_moist),    &
          INTENT(IN   ) ::                                moist
@@ -115,6 +116,7 @@ CONTAINS
 
     ! Chirp the routine name for debugging purposes
     ! ---------------------------------------------
+    ibs = MAX(ims,its-2) ; ibe = MIN(ime,ite+2) ; jbs = MAX(jms,jts-2) ; jbe = MIN(jme,jte+2)
     write ( message, * ) 'inside afwa_diagnostics_driver'
     CALL wrf_debug( 100 , message )
 
@@ -182,72 +184,72 @@ CONTAINS
     ! ---------------------------------
 
     IF ( F_QV ) THEN
-      DO i=ims, ime
+      DO i=ibs, ibe
         DO k=kms, kme
-          DO j=jms, jme
+          DO j=jbs, jbe
             qvapr(i,k,j) = moist(i,k,j,P_QV)
           ENDDO
         ENDDO
       ENDDO
     END IF
     IF ( F_QR ) THEN
-      DO i=ims, ime
+      DO i=ibs, ibe
         DO k=kms, kme
-          DO j=jms, jme
+          DO j=jbs, jbe
             qrain(i,k,j) = moist(i,k,j,P_QR)
           ENDDO
         ENDDO
       ENDDO
     END IF
     IF ( F_QS ) THEN
-      DO i=ims, ime
+      DO i=ibs, ibe
         DO k=kms, kme
-          DO j=jms, jme
+          DO j=jbs, jbe
             qsnow(i,k,j) = moist(i,k,j,P_QS)
           ENDDO
         ENDDO
       ENDDO
     END IF
     IF ( F_QG ) THEN
-      DO i=ims, ime
+      DO i=ibs, ibe
         DO k=kms, kme
-          DO j=jms, jme
+          DO j=jbs, jbe
             qgrpl(i,k,j) = moist(i,k,j,P_QG)
           ENDDO
         ENDDO
       ENDDO
     END IF
     IF ( F_QC ) THEN
-      DO i=ims, ime
+      DO i=ibs, ibe
         DO k=kms, kme
-          DO j=jms, jme
+          DO j=jbs, jbe
             qcloud(i,k,j) = moist(i,k,j,P_QC)
           ENDDO
         ENDDO
       ENDDO
     END IF
     IF ( F_QI ) THEN
-      DO i=ims, ime
+      DO i=ibs, ibe
         DO k=kms, kme
-          DO j=jms, jme
+          DO j=jbs, jbe
             qice(i,k,j) = moist(i,k,j,P_QI)
           ENDDO
         ENDDO
       ENDDO
     END IF
     IF ( F_QNC ) THEN
-      DO i=ims, ime
+      DO i=ibs, ibe
         DO k=kms, kme
-          DO j=jms, jme
+          DO j=jbs, jbe
             ncloud(i,k,j) = scalar(i,k,j,P_QNC)
           ENDDO
         ENDDO
       ENDDO
     END IF
     IF ( F_QNG ) THEN
-      DO i=ims, ime
+      DO i=ibs, ibe
         DO k=kms, kme
-          DO j=jms, jme
+          DO j=jbs, jbe
             ngraup(i,k,j) = scalar(i,k,j,P_QNG)
           ENDDO
         ENDDO
@@ -256,9 +258,9 @@ CONTAINS
     
     ! Total pressure
     ! -------------- 
-    DO i=ims, ime
+    DO i=ibs, ibe
       DO k=kms, kme
-        DO j=jms, jme
+        DO j=jbs, jbe
           ptot(i,k,j)=grid%pb(i,k,j)+grid%p(i,k,j)
         ENDDO
       ENDDO
@@ -266,9 +268,9 @@ CONTAINS
 
     ! ZAGL (height above ground)
     ! --------------------------
-    DO i=ims, ime
+    DO i=ibs, ibe
       DO k=kms, kme
-        DO j=jms, jme
+        DO j=jbs, jbe
           zagl(i,k,j)=grid%z(i,k,j)-grid%ht(i,j)
         ENDDO
       ENDDO
@@ -277,9 +279,9 @@ CONTAINS
     ! Calculate relative humidity
     ! ---------------------------
     IF ( F_QV ) THEN
-      DO i=ims,ime
+      DO i=ibs, ibe
         DO k=kms,kme    
-          DO j=jms,jme
+          DO j=jbs, jbe
             rh(i,k,j)=calc_rh(ptot(i,k,j),grid%t_phy(i,k,j), qvapr(i,k,j))
           ENDDO
         ENDDO
@@ -288,9 +290,9 @@ CONTAINS
       CALL wrf_debug ( DEBUG_LEVEL, 'Option rh requires: QV' )
     END IF
     IF ( F_QV .AND. F_QC .AND. F_QI ) THEN
-      DO i=ims,ime
+      DO i=ibs, ibe
         DO k=kms,kme    
-          DO j=jms,jme
+          DO j=jbs, jbe
             rh_cld(i,k,j)=calc_rh(ptot(i,k,j),grid%t_phy(i,k,j), qvapr(i,k,j)+qcloud(i,k,j)+qice(i,k,j))
           ENDDO
         ENDDO
@@ -301,8 +303,8 @@ CONTAINS
 
     ! Time-step precipitation (convective + nonconvective)
     ! --------------------------------------------------------------
-    DO i=ims,ime
-      DO j=jms,jme
+    DO i=ibs, ibe
+      DO j=jbs, jbe
         grid % afwa_precip(i,j) = grid%raincv(i,j) + grid%rainncv(i,j)
         grid % afwa_totprecip(i,j) = grid%rainc(i,j) + grid%rainnc(i,j)
       ENDDO
@@ -312,8 +314,8 @@ CONTAINS
     ! ----------------------------
     IF ( F_QV .AND. F_QC ) THEN
       nz=kme-kms+1
-      DO i=ims,ime
-        DO j=jms,jme
+      DO i=ibs, ibe
+        DO j=jbs, jbe
           grid % afwa_pwat ( i, j ) = Pwat( nz,                  &
                                             qvapr(i,kms:kme,j),  &
                                             qcloud(i,kms:kme,j), &
@@ -329,8 +331,8 @@ CONTAINS
     ! ----------------------------------------------------------------------
     IF ( is_after_history_dump ) THEN
       IF ( config_flags % afwa_severe_opt == 1 ) THEN
-        DO j = jms, jme
-          DO i = ims, ime
+        DO j = jbs, jbe
+          DO i = ibs, ibe
             grid % wspd10max(i,j) = 0.
             grid % afwa_llws(i,j) = 0.
           ENDDO
@@ -349,8 +351,8 @@ CONTAINS
     ! is linear weighted between 50-150 mm/hr precip rates.
     ! -------------------------------------------------------
     IF ( config_flags % afwa_severe_opt == 1 ) THEN
-      DO j = jms, jme
-        DO i = ims, ime
+      DO j = jbs, jbe
+        DO i = ibs, ibe
           wind_vel = uv_wind ( grid % u10(i,j) , grid % v10(i,j) )
           prate_mm_per_hr = ( grid % afwa_precip(i,j) / grid % dt ) * 3600.
   
@@ -423,8 +425,8 @@ CONTAINS
 #if ( WRF_CHEM == 1 )
     ! Surface dust concentration array (ug m-3)
     ! ----------------------------------------- 
-    DO i=ims, ime
-      DO j=jms, jme
+    DO i=ibs, ibe
+      DO j=jbs, jbe
         dustc(i,j,1)=chem(i,k_start,j,p_dust_1)*rho(i,k_start,j)
         dustc(i,j,2)=chem(i,k_start,j,p_dust_2)*rho(i,k_start,j)
         dustc(i,j,3)=chem(i,k_start,j,p_dust_3)*rho(i,k_start,j)
@@ -447,8 +449,8 @@ CONTAINS
       ! later
       ! ----------------------------------------------------------------------
       IF ( is_after_history_dump ) THEN
-        DO j = jms, jme
-          DO i = ims, ime
+        DO j = jbs, jbe
+          DO i = ibs, ibe
             grid%w_up_max(i,j) = 0.
             grid%w_dn_max(i,j) = 0.
             grid%tcoli_max(i,j) = 0.
@@ -547,8 +549,8 @@ CONTAINS
       ! First initialize precip buckets
       ! -------------------------------
       IF ( grid % itimestep .eq. 1) THEN
-        DO i=ims,ime
-          DO j=jms,jme
+        DO i=ibs, ibe
+          DO j=jbs, jbe
             grid % afwa_rain(i,j)=0.
             grid % afwa_snow(i,j)=0.
             grid % afwa_ice(i,j)=0.
@@ -587,8 +589,8 @@ CONTAINS
 
       ! Calculate mean sea level pressure
       ! ---------------------------------
-      DO j = jms, jme
-        DO i = ims, ime
+      DO j = jbs, jbe
+        DO i = ibs, ibe
           grid % afwa_mslp  ( i, j ) =   MSLP ( grid % ht ( i, j )           & 
                                               , grid % psfc ( i, j )         &
                                               , grid % z ( i, kms, j )       & 
@@ -599,16 +601,16 @@ CONTAINS
 
       ! Calculate 10 meter winds
       ! ------------------------
-      DO i=ims,ime
-        DO j=jms,jme
+      DO i=ibs, ibe
+        DO j=jbs, jbe
           wind10m(i,j)=uv_wind(grid%u10(i,j),grid%v10(i,j))
         ENDDO
       ENDDO
 
       ! Calculate 2 meter relative humidity/Tv
       ! --------------------------------------
-      DO i=ims,ime
-        DO j=jms,jme
+      DO i=ibs, ibe
+        DO j=jbs, jbe
           rh2m(i,j)=calc_rh(grid%psfc(i,j), grid%t2(i,j), grid%q2(i,j))
           tv2m(i,j)=grid%t2(i,j) * (1 + 0.61 * grid%q2(i,j))
         ENDDO
@@ -681,7 +683,7 @@ CONTAINS
                                  , grid % afwa_fits                 &
                                  , ids, ide, jds, jde, kds, kde     &
                                  , ims, ime, jms, jme, kms, kme     &
-                                 , ips, ipe, jps, jpe, kps, kpe )
+                                 , its, ite, jts, jte, kps, kpe )
       ENDIF  ! afwa_therm_opt == 1
 
       IF ( config_flags % afwa_turb_opt == 1 ) THEN
@@ -712,7 +714,7 @@ CONTAINS
                              , grid % afwa_tlyrtop              &
                              , ids, ide, jds, jde, kds, kde     &
                              , ims, ime, jms, jme, kms, kme     &
-                             , ips, ipe, jps, jpe, kps, kpe )
+                             , its, ite, jts, jte, kps, kpe )
       ENDIF  ! afwa_turb_opt == 1
 
       ! Calculate equivalent radar reflectivity factor (z_e) using 
@@ -843,8 +845,8 @@ CONTAINS
    
         ! Interpolate 20m temperature and RH
         ! ----------------------------------
-        DO i=ims,ime
-          DO j=jms,jme
+        DO i=ibs, ibe
+          DO j=jbs, jbe
             tv20m(i,j) = -999.
             rh20m(i,j) = -999.
             DO k = kps, MIN(kpe,kde-1)
@@ -879,8 +881,8 @@ CONTAINS
 
         ! Calculate 125 meter winds
         ! -------------------------
-        DO i=ims,ime
-          DO j=jms,jme
+        DO i=ibs, ibe
+          DO j=jbs, jbe
             wind125m(i,j) = -999.
             DO k = kps, MIN(kpe,kde-1)
               IF (wind125m (i,j) .eq. -999. .AND. zagl (i,k,j) .ge. 125.) THEN
@@ -924,7 +926,7 @@ CONTAINS
                                , grid % afwa_vis_alpha            &
                                , ids, ide, jds, jde, kds, kde     &
                                , ims, ime, jms, jme, kms, kme     &
-                               , ips, ipe, jps, jpe, kps, kpe ) 
+                               , its, ite, jts, jte, kps, kpe ) 
         ELSE
           CALL wrf_debug ( DEBUG_LEVEL, 'Option vis_diagnostics requires: QC, QR, QI, QS, QG' )
         END IF
@@ -948,7 +950,7 @@ CONTAINS
                                , grid % afwa_cloud_ceil           &
                                , ids, ide, jds, jde, kds, kde     &
                                , ims, ime, jms, jme, kms, kme     &
-                               , ips, ipe, jps, jpe, kps, kpe )
+                               , its, ite, jts, jte, kps, kpe )
         ENDIF
       ELSE
         CALL wrf_debug ( DEBUG_LEVEL, 'Option cloud_diagnostics requires: QC, QI, QS' )
@@ -1081,8 +1083,8 @@ CONTAINS
 
     ! Calculate midlevel relative humidity minimum
     ! --------------------------------------------
-    DO i=ims,ime
-      DO j=jms,jme
+    DO i=its, ite
+      DO j=jts, jte
         is_target_level=.false.
         DO k=kms,kme    
           zagl = z(i,k,j) - ht(i,j)
@@ -2047,8 +2049,8 @@ CONTAINS
     ! -----------------------------------------------------------------------
     dustfact=(/1.470E-6,7.877E-7,4.623E-7,2.429E-7,1.387E-7/)
 
-    DO i=ims,ime
-      DO j=jms,jme
+    DO i=ips, ipe
+      DO j=jps, jpe
 
         ! Hydrometeor extinction coefficient
         ! For now, lump graupel in with rain
@@ -2205,8 +2207,8 @@ CONTAINS
     ! Calculate cloud cover based on total cloud condensate, or if none
     ! present, from maximum relative humidity in the column.
     ! -----------------------------------------------------------------
-    DO i=ims,ime
-      DO j=jms,jme
+    DO i=ips, ipe
+      DO j=jps, jpe
 
         ! Initialize some key variables
         ! -----------------------------
@@ -2341,8 +2343,8 @@ CONTAINS
     ! -----
     INTEGER :: i, j
 
-    DO i=ims,ime
-      DO j=jms,jme
+    DO i=ips, ipe
+      DO j=jps, jpe
        
         ! Heat Index
         ! ----------
@@ -2448,8 +2450,8 @@ CONTAINS
 
     !~ Loop through the grid.
     !  ----------------------
-    DO i=ims,ime
-      DO j=jms,jme
+    DO i=ips, ipe
+      DO j=jps, jpe
        
         !~ Loop through the turbulence layers
         !  ----------------------------------
