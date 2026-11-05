@@ -153,7 +153,7 @@
 !ikj
       SUBROUTINE f_pack_int_ikj ( inbuf, outbuf, js, je, ks, ke,              &
      &                is, ie, jms, jme, kms, kme, ims, ime, curs ) 
-#ifdef _OPENACC
+#if defined(_OPENACC) || defined(WRF_GPU)
         USE openacc
         USE rsl_gpu_ctl
 #endif
@@ -163,7 +163,7 @@
         INTEGER js, je, ks, ke, is, ie, curs
         ! Local
         INTEGER i,j,k,p
-#ifdef _OPENACC
+#if defined(_OPENACC) || defined(WRF_GPU)
         INTEGER ni_, nk_, nn_
         ! GPU halo pack: field resident on device -> gather strip on device, copy out only the strip
         IF ( rsl_gpu_on .AND. ( rsl_gpu_managed .OR. acc_is_present(inbuf) ) ) THEN
@@ -206,7 +206,7 @@
      
       SUBROUTINE f_pack_lint_ikj ( inbuf, outbuf, js, je, ks, ke,            &
      &                is, ie, jms, jme, kms, kme, ims, ime, curs ) 
-#ifdef _OPENACC
+#if defined(_OPENACC) || defined(WRF_GPU)
         USE openacc
         USE rsl_gpu_ctl
 #endif
@@ -216,7 +216,7 @@
         INTEGER js, je, ks, ke, is, ie, curs
         ! Local
         INTEGER i,j,k,p
-#ifdef _OPENACC
+#if defined(_OPENACC) || defined(WRF_GPU)
         INTEGER ni_, nk_, nn_
         ! GPU halo pack: field resident on device -> gather strip on device, copy out only the strip
         IF ( rsl_gpu_on .AND. ( rsl_gpu_managed .OR. acc_is_present(inbuf) ) ) THEN
@@ -258,7 +258,7 @@
      
       SUBROUTINE f_unpack_int_ikj ( inbuf, outbuf, js, je, ks, ke,            &
      &                is, ie, jms, jme, kms, kme, ims, ime, curs ) 
-#ifdef _OPENACC
+#if defined(_OPENACC) || defined(WRF_GPU)
         USE openacc
         USE rsl_gpu_ctl
 #endif
@@ -268,7 +268,7 @@
         INTEGER js, je, ks, ke, is, ie, curs
         ! Local
         INTEGER i,j,k,p
-#ifdef _OPENACC
+#if defined(_OPENACC) || defined(WRF_GPU)
         INTEGER ni_, nk_, nn_
         ! GPU halo unpack: copy in only the strip, scatter into the device-resident field
         IF ( rsl_gpu_on .AND. ( rsl_gpu_managed .OR. acc_is_present(outbuf) ) ) THEN
@@ -310,7 +310,7 @@
      
       SUBROUTINE f_unpack_lint_ikj ( inbuf, outbuf, js, je, ks, ke,            &
      &                is, ie, jms, jme, kms, kme, ims, ime, curs ) 
-#ifdef _OPENACC
+#if defined(_OPENACC) || defined(WRF_GPU)
         USE openacc
         USE rsl_gpu_ctl
 #endif
@@ -320,7 +320,7 @@
         INTEGER js, je, ks, ke, is, ie, curs
         ! Local
         INTEGER i,j,k,p
-#ifdef _OPENACC
+#if defined(_OPENACC) || defined(WRF_GPU)
         INTEGER ni_, nk_, nn_
         ! GPU halo unpack: copy in only the strip, scatter into the device-resident field
         IF ( rsl_gpu_on .AND. ( rsl_gpu_managed .OR. acc_is_present(outbuf) ) ) THEN
@@ -484,7 +484,7 @@
 !ijk
       SUBROUTINE f_pack_int_ijk ( inbuf, outbuf, js, je, ks, ke,              &
      &                is, ie, jms, jme, kms, kme, ims, ime, curs ) 
-#ifdef _OPENACC
+#if defined(_OPENACC) || defined(WRF_GPU)
         USE openacc
         USE rsl_gpu_ctl
 #endif
@@ -494,7 +494,7 @@
         INTEGER js, je, ks, ke, is, ie, curs
         ! Local
         INTEGER i,j,k,p
-#ifdef _OPENACC
+#if defined(_OPENACC) || defined(WRF_GPU)
         INTEGER ni_, nj_, nn_
         ! GPU halo pack (2-D / XY-ordered fields resident on the device): only the strip crosses PCIe
         IF ( rsl_gpu_on .AND. ( rsl_gpu_managed .OR. acc_is_present(inbuf) ) ) THEN
@@ -536,7 +536,7 @@
      
       SUBROUTINE f_pack_lint_ijk ( inbuf, outbuf, js, je, ks, ke,            &
      &                is, ie, jms, jme, kms, kme, ims, ime, curs ) 
-#ifdef _OPENACC
+#if defined(_OPENACC) || defined(WRF_GPU)
         USE openacc
         USE rsl_gpu_ctl
 #endif
@@ -546,7 +546,7 @@
         INTEGER js, je, ks, ke, is, ie, curs
         ! Local
         INTEGER i,j,k,p
-#ifdef _OPENACC
+#if defined(_OPENACC) || defined(WRF_GPU)
         INTEGER ni_, nj_, nn_
         ! GPU halo pack (2-D / XY-ordered fields resident on the device): only the strip crosses PCIe
         IF ( rsl_gpu_on .AND. ( rsl_gpu_managed .OR. acc_is_present(inbuf) ) ) THEN
@@ -588,7 +588,7 @@
      
       SUBROUTINE f_unpack_int_ijk ( inbuf, outbuf, js, je, ks, ke,            &
      &                is, ie, jms, jme, kms, kme, ims, ime, curs ) 
-#ifdef _OPENACC
+#if defined(_OPENACC) || defined(WRF_GPU)
         USE openacc
         USE rsl_gpu_ctl
 #endif
@@ -598,7 +598,7 @@
         INTEGER js, je, ks, ke, is, ie, curs
         ! Local
         INTEGER i,j,k,p
-#ifdef _OPENACC
+#if defined(_OPENACC) || defined(WRF_GPU)
         INTEGER ni_, nj_, nn_
         ! GPU halo unpack (2-D / XY-ordered fields resident on the device): only the strip crosses PCIe
         IF ( rsl_gpu_on .AND. ( rsl_gpu_managed .OR. acc_is_present(outbuf) ) ) THEN
@@ -640,7 +640,7 @@
      
       SUBROUTINE f_unpack_lint_ijk ( inbuf, outbuf, js, je, ks, ke,            &
      &                is, ie, jms, jme, kms, kme, ims, ime, curs ) 
-#ifdef _OPENACC
+#if defined(_OPENACC) || defined(WRF_GPU)
         USE openacc
         USE rsl_gpu_ctl
 #endif
@@ -650,7 +650,7 @@
         INTEGER js, je, ks, ke, is, ie, curs
         ! Local
         INTEGER i,j,k,p
-#ifdef _OPENACC
+#if defined(_OPENACC) || defined(WRF_GPU)
         INTEGER ni_, nj_, nn_
         ! GPU halo unpack (2-D / XY-ordered fields resident on the device): only the strip crosses PCIe
         IF ( rsl_gpu_on .AND. ( rsl_gpu_managed .OR. acc_is_present(outbuf) ) ) THEN
