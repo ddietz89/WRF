@@ -15925,7 +15925,7 @@ contains
       subroutine rrtmg_lw_gpu_begin(ims, ime, jms, jme, nlay)
       implicit none
       integer, intent(in) :: ims, ime, jms, jme, nlay
-      integer :: ncolm, nch, nl, st
+      integer :: ncolm, nch, st
       character(len=16) :: v
       ncolm = (ime-ims+1)*(jme-jms+1)
       if (nlay+1 .gt. mxl_g) call wrf_error_fatal('rrtmg_lw_gpu: nlayers+1 > mxl_g')
@@ -15949,7 +15949,88 @@ contains
          if (st == 0) read(v, *, iostat=st) nch
          if (nch .lt. 1) nch = 16384
          nch = min(nch, ncolm)
-         nl = nlay + 1
+         gw_ncolm = ncolm
+         gw_nlay = nlay
+         gw_nchunk = nch
+      endif
+      gw_ims = ims
+      gw_ime = ime
+      gw_jms = jms
+      gw_jme = jme
+      in_flag(:,1) = 0
+      end subroutine rrtmg_lw_gpu_begin
+
+      integer function rrtmg_lw_gpu_col(i, j)
+      implicit none
+      integer, intent(in) :: i, j
+      rrtmg_lw_gpu_col = (j-gw_jms)*(gw_ime-gw_ims+1) + (i-gw_ims) + 1
+      end function rrtmg_lw_gpu_col
+
+! store one column's inputs (host, inside the OpenMP tile loop; one column per call)
+      subroutine rrtmg_lw_gpu_store(i, j, nlay, play, plev, tlay, tlev, tsfc, h2ovmr, o3vmr, co2vmr, ch4vmr, &
+                 n2ovmr, o2vmr, cfc11vmr, cfc12vmr, cfc22vmr, ccl4vmr, emis, cldfrac, ciwpth, clwpth, cswpth, &
+                 rei, rel, res, hgt, lat, icld, idcor, juldat, inflglw, iceflglw, liqflglw, permuteseed, irng)
+      implicit none
+      integer, intent(in) :: i, j, nlay, icld, idcor, juldat, inflglw, iceflglw, liqflglw, permuteseed, irng
+      real, intent(in) :: play(nlay), plev(nlay+1), tlay(nlay), tlev(nlay+1), tsfc, h2ovmr(nlay), o3vmr(nlay), &
+           co2vmr(nlay), ch4vmr(nlay), n2ovmr(nlay), o2vmr(nlay), cfc11vmr(nlay), cfc12vmr(nlay), cfc22vmr(nlay), &
+           ccl4vmr(nlay), emis(nbndlw), cldfrac(nlay), ciwpth(nlay), clwpth(nlay), cswpth(nlay), rei(nlay), &
+           rel(nlay), res(nlay), hgt(nlay), lat
+      integer :: ic, k
+      if (nlay .ne. gw_nlay) call wrf_error_fatal('rrtmg_lw_gpu_store: nlayers changed')
+      if (irng .ne. 0) call wrf_error_fatal('rrtmg_lw_gpu: only the KISS generator (irng=0) is ported')
+      ic = rrtmg_lw_gpu_col(i, j)
+      do k = 1, nlay
+         in_play(ic,k) = play(k)
+         in_tlay(ic,k) = tlay(k)
+         in_h2o(ic,k) = h2ovmr(k)
+         in_o3(ic,k) = o3vmr(k)
+         in_co2(ic,k) = co2vmr(k)
+         in_ch4(ic,k) = ch4vmr(k)
+         in_n2o(ic,k) = n2ovmr(k)
+         in_o2(ic,k) = o2vmr(k)
+         in_cfc11(ic,k) = cfc11vmr(k)
+         in_cfc12(ic,k) = cfc12vmr(k)
+         in_cfc22(ic,k) = cfc22vmr(k)
+         in_ccl4(ic,k) = ccl4vmr(k)
+         in_cldf(ic,k) = cldfrac(k)
+         in_ciwp(ic,k) = ciwpth(k)
+         in_clwp(ic,k) = clwpth(k)
+         in_cswp(ic,k) = cswpth(k)
+         in_rei(ic,k) = rei(k)
+         in_rel(ic,k) = rel(k)
+         in_res(ic,k) = res(k)
+         in_hgt(ic,k) = hgt(k)
+      enddo
+      do k = 1, nlay+1
+         in_plev(ic,k) = plev(k)
+         in_tlev(ic,k) = tlev(k)
+      enddo
+      do k = 1, nbndlw
+         in_emis(ic,k) = emis(k)
+      enddo
+      in_tsfc(ic) = tsfc
+      in_lat(ic) = lat
+      in_flag(ic,2) = icld
+      in_flag(ic,3) = idcor
+      in_flag(ic,4) = juldat
+      in_flag(ic,5) = inflglw
+      in_flag(ic,6) = iceflglw
+      in_flag(ic,7) = liqflglw
+      in_flag(ic,8) = permuteseed
+      in_flag(ic,1) = 1
+      end subroutine rrtmg_lw_gpu_store
+
+! run: all stored columns on the GPU, in chunks of gw_nchunk columns (work arrays are per chunk)
+      subroutine rrtmg_lw_gpu_run()
+      use rrtmg_lw_gtab, only: lw_gtab_done, rrtmg_lw_gtab_init
+      implicit none
+      integer :: c0, c1, ic, iw, nlay, ierr, nch, nl
+      character(len=128) :: msg
+      if (.not. lw_gtab_done) call rrtmg_lw_gtab_init()
+      nlay = gw_nlay
+      nch = gw_nchunk
+      nl = nlay + 1
       if (allocated(w_pavel)) deallocate(w_pavel)
       allocate(w_pavel(nch,nl))
       if (allocated(w_tavel)) deallocate(w_tavel)
@@ -16072,86 +16153,6 @@ contains
       allocate(w_cldfmc(nch,ngptlw,nl))
       if (allocated(w_taucmc)) deallocate(w_taucmc)
       allocate(w_taucmc(nch,ngptlw,nl))
-         gw_ncolm = ncolm
-         gw_nlay = nlay
-         gw_nchunk = nch
-      endif
-      gw_ims = ims
-      gw_ime = ime
-      gw_jms = jms
-      gw_jme = jme
-      in_flag(:,1) = 0
-      end subroutine rrtmg_lw_gpu_begin
-
-      integer function rrtmg_lw_gpu_col(i, j)
-      implicit none
-      integer, intent(in) :: i, j
-      rrtmg_lw_gpu_col = (j-gw_jms)*(gw_ime-gw_ims+1) + (i-gw_ims) + 1
-      end function rrtmg_lw_gpu_col
-
-! store one column's inputs (host, inside the OpenMP tile loop; one column per call)
-      subroutine rrtmg_lw_gpu_store(i, j, nlay, play, plev, tlay, tlev, tsfc, h2ovmr, o3vmr, co2vmr, ch4vmr, &
-                 n2ovmr, o2vmr, cfc11vmr, cfc12vmr, cfc22vmr, ccl4vmr, emis, cldfrac, ciwpth, clwpth, cswpth, &
-                 rei, rel, res, hgt, lat, icld, idcor, juldat, inflglw, iceflglw, liqflglw, permuteseed, irng)
-      implicit none
-      integer, intent(in) :: i, j, nlay, icld, idcor, juldat, inflglw, iceflglw, liqflglw, permuteseed, irng
-      real, intent(in) :: play(nlay), plev(nlay+1), tlay(nlay), tlev(nlay+1), tsfc, h2ovmr(nlay), o3vmr(nlay), &
-           co2vmr(nlay), ch4vmr(nlay), n2ovmr(nlay), o2vmr(nlay), cfc11vmr(nlay), cfc12vmr(nlay), cfc22vmr(nlay), &
-           ccl4vmr(nlay), emis(nbndlw), cldfrac(nlay), ciwpth(nlay), clwpth(nlay), cswpth(nlay), rei(nlay), &
-           rel(nlay), res(nlay), hgt(nlay), lat
-      integer :: ic, k
-      if (nlay .ne. gw_nlay) call wrf_error_fatal('rrtmg_lw_gpu_store: nlayers changed')
-      if (irng .ne. 0) call wrf_error_fatal('rrtmg_lw_gpu: only the KISS generator (irng=0) is ported')
-      ic = rrtmg_lw_gpu_col(i, j)
-      do k = 1, nlay
-         in_play(ic,k) = play(k)
-         in_tlay(ic,k) = tlay(k)
-         in_h2o(ic,k) = h2ovmr(k)
-         in_o3(ic,k) = o3vmr(k)
-         in_co2(ic,k) = co2vmr(k)
-         in_ch4(ic,k) = ch4vmr(k)
-         in_n2o(ic,k) = n2ovmr(k)
-         in_o2(ic,k) = o2vmr(k)
-         in_cfc11(ic,k) = cfc11vmr(k)
-         in_cfc12(ic,k) = cfc12vmr(k)
-         in_cfc22(ic,k) = cfc22vmr(k)
-         in_ccl4(ic,k) = ccl4vmr(k)
-         in_cldf(ic,k) = cldfrac(k)
-         in_ciwp(ic,k) = ciwpth(k)
-         in_clwp(ic,k) = clwpth(k)
-         in_cswp(ic,k) = cswpth(k)
-         in_rei(ic,k) = rei(k)
-         in_rel(ic,k) = rel(k)
-         in_res(ic,k) = res(k)
-         in_hgt(ic,k) = hgt(k)
-      enddo
-      do k = 1, nlay+1
-         in_plev(ic,k) = plev(k)
-         in_tlev(ic,k) = tlev(k)
-      enddo
-      do k = 1, nbndlw
-         in_emis(ic,k) = emis(k)
-      enddo
-      in_tsfc(ic) = tsfc
-      in_lat(ic) = lat
-      in_flag(ic,2) = icld
-      in_flag(ic,3) = idcor
-      in_flag(ic,4) = juldat
-      in_flag(ic,5) = inflglw
-      in_flag(ic,6) = iceflglw
-      in_flag(ic,7) = liqflglw
-      in_flag(ic,8) = permuteseed
-      in_flag(ic,1) = 1
-      end subroutine rrtmg_lw_gpu_store
-
-! run: all stored columns on the GPU, in chunks of gw_nchunk columns (work arrays are per chunk)
-      subroutine rrtmg_lw_gpu_run()
-      use rrtmg_lw_gtab, only: lw_gtab_done, rrtmg_lw_gtab_init
-      implicit none
-      integer :: c0, c1, ic, iw, nlay, ierr
-      character(len=128) :: msg
-      if (.not. lw_gtab_done) call rrtmg_lw_gtab_init()
-      nlay = gw_nlay
 !$acc update device(in_play, in_plev, in_tlay, in_tlev, in_h2o, in_o3, in_co2, in_ch4, in_n2o, in_o2)
 !$acc update device(in_cfc11, in_cfc12, in_cfc22, in_ccl4, in_cldf, in_ciwp, in_clwp, in_cswp, in_rei)
 !$acc update device(in_rel, in_res, in_hgt, in_emis, in_tsfc, in_lat, in_flag)
@@ -16168,6 +16169,67 @@ contains
          enddo
       enddo
 !$acc update self(out_uflx, out_dflx, out_uflxc, out_dflxc, out_hr, out_hrc, out_err)
+      if (allocated(w_pavel)) deallocate(w_pavel)
+      if (allocated(w_tavel)) deallocate(w_tavel)
+      if (allocated(w_coldry)) deallocate(w_coldry)
+      if (allocated(w_wbrodl)) deallocate(w_wbrodl)
+      if (allocated(w_jp)) deallocate(w_jp)
+      if (allocated(w_jt)) deallocate(w_jt)
+      if (allocated(w_jt1)) deallocate(w_jt1)
+      if (allocated(w_colh2o)) deallocate(w_colh2o)
+      if (allocated(w_colco2)) deallocate(w_colco2)
+      if (allocated(w_colo3)) deallocate(w_colo3)
+      if (allocated(w_coln2o)) deallocate(w_coln2o)
+      if (allocated(w_colco)) deallocate(w_colco)
+      if (allocated(w_colch4)) deallocate(w_colch4)
+      if (allocated(w_colo2)) deallocate(w_colo2)
+      if (allocated(w_colbrd)) deallocate(w_colbrd)
+      if (allocated(w_indself)) deallocate(w_indself)
+      if (allocated(w_indfor)) deallocate(w_indfor)
+      if (allocated(w_selffac)) deallocate(w_selffac)
+      if (allocated(w_selffrac)) deallocate(w_selffrac)
+      if (allocated(w_forfac)) deallocate(w_forfac)
+      if (allocated(w_forfrac)) deallocate(w_forfrac)
+      if (allocated(w_indminor)) deallocate(w_indminor)
+      if (allocated(w_minorfrac)) deallocate(w_minorfrac)
+      if (allocated(w_scaleminor)) deallocate(w_scaleminor)
+      if (allocated(w_scaleminorn2)) deallocate(w_scaleminorn2)
+      if (allocated(w_fac00)) deallocate(w_fac00)
+      if (allocated(w_fac01)) deallocate(w_fac01)
+      if (allocated(w_fac10)) deallocate(w_fac10)
+      if (allocated(w_fac11)) deallocate(w_fac11)
+      if (allocated(w_rat_h2oco2)) deallocate(w_rat_h2oco2)
+      if (allocated(w_rat_h2oco2_1)) deallocate(w_rat_h2oco2_1)
+      if (allocated(w_rat_h2oo3)) deallocate(w_rat_h2oo3)
+      if (allocated(w_rat_h2oo3_1)) deallocate(w_rat_h2oo3_1)
+      if (allocated(w_rat_h2on2o)) deallocate(w_rat_h2on2o)
+      if (allocated(w_rat_h2on2o_1)) deallocate(w_rat_h2on2o_1)
+      if (allocated(w_rat_h2och4)) deallocate(w_rat_h2och4)
+      if (allocated(w_rat_h2och4_1)) deallocate(w_rat_h2och4_1)
+      if (allocated(w_rat_n2oco2)) deallocate(w_rat_n2oco2)
+      if (allocated(w_rat_n2oco2_1)) deallocate(w_rat_n2oco2_1)
+      if (allocated(w_rat_o3co2)) deallocate(w_rat_o3co2)
+      if (allocated(w_rat_o3co2_1)) deallocate(w_rat_o3co2_1)
+      if (allocated(w_pz)) deallocate(w_pz)
+      if (allocated(w_tz)) deallocate(w_tz)
+      if (allocated(w_totuflux)) deallocate(w_totuflux)
+      if (allocated(w_totdflux)) deallocate(w_totdflux)
+      if (allocated(w_fnet)) deallocate(w_fnet)
+      if (allocated(w_htr)) deallocate(w_htr)
+      if (allocated(w_totuclfl)) deallocate(w_totuclfl)
+      if (allocated(w_totdclfl)) deallocate(w_totdclfl)
+      if (allocated(w_fnetc)) deallocate(w_fnetc)
+      if (allocated(w_htrc)) deallocate(w_htrc)
+      if (allocated(w_wkl)) deallocate(w_wkl)
+      if (allocated(w_wx)) deallocate(w_wx)
+      if (allocated(w_semiss)) deallocate(w_semiss)
+      if (allocated(w_planklay)) deallocate(w_planklay)
+      if (allocated(w_planklev)) deallocate(w_planklev)
+      if (allocated(w_plankbnd)) deallocate(w_plankbnd)
+      if (allocated(w_fracs)) deallocate(w_fracs)
+      if (allocated(w_taug)) deallocate(w_taug)
+      if (allocated(w_cldfmc)) deallocate(w_cldfmc)
+      if (allocated(w_taucmc)) deallocate(w_taucmc)
       ierr = maxval(out_err)
       if (ierr .ne. 0) then
          write(msg, '(a,i3)') 'rrtmg_lw_gpu: column error code ', ierr

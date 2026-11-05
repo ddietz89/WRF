@@ -13,6 +13,8 @@ MODULE module_radiation_driver
 ! residency builds (WRF_GPU_XFER bit 16384): RRTMG LW core on the GPU (columns stored in the tile loop, one GPU
 ! pass, RRTMG_LWRAD_GPU_POST after)
    LOGICAL :: wrf_gpu_ra_lw = .FALSE.
+! (WRF_GPU_XFER bit 32768, with 16384): RRTMG SW core on the GPU as well (daylight columns)
+   LOGICAL :: wrf_gpu_ra_sw = .FALSE.
 #endif
 CONTAINS
 !BOP
@@ -307,6 +309,8 @@ CONTAINS
 #ifdef WRF_GPU
    USE module_ra_rrtmg_lw   , ONLY : lw_gpu_phase, rrtmg_lwrad_gpu_begin, rrtmg_lwrad_gpu_post
    USE rrtmg_lw_gpu         , ONLY : rrtmg_lw_gpu_run
+   USE module_ra_rrtmg_sw   , ONLY : sw_gpu_phase, rrtmg_swrad_gpu_begin, rrtmg_swrad_gpu_post
+   USE rrtmg_sw_gpu         , ONLY : rrtmg_sw_gpu_run, rrtmg_sw_gpu_has
 #endif
    USE module_ra_rrtmg_sw   , ONLY : rrtmg_swrad
 #if( BUILD_RRTMG_FAST == 1)
@@ -997,7 +1001,7 @@ CONTAINS
    LOGICAL ::    run_param , doing_adapt_dt , decided
 #ifdef WRF_GPU
    INTEGER :: ra_isub, ra_nj, ra_ntask
-   LOGICAL :: ra_gpu_fast, lw_gpu_go
+   LOGICAL :: ra_gpu_fast, lw_gpu_go, sw_gpu_go
    INTEGER(8) :: ra_c0, ra_c1, ra_cr, ra_w0, ra_w1, ra_w2, ra_w3
    REAL(8) :: ra_tlw, ra_tsw
    INTEGER, PARAMETER :: RA_NSUB = 4, RA_GPU_BANDS = 6   ! 228 rows = 6 x 38: equal bands (AER device buffers are sized on the first call)
@@ -1737,6 +1741,11 @@ CONTAINS
    IF ( lw_gpu_go ) THEN
       CALL rrtmg_lwrad_gpu_begin( ims, ime, jms, jme )
       lw_gpu_phase = 1
+   ENDIF
+   sw_gpu_go = lw_gpu_go .AND. wrf_gpu_ra_sw .AND. sw_physics == RRTMG_SWSCHEME .AND. swint_opt /= 1 .AND. aer_opt == 0
+   IF ( sw_gpu_go ) THEN
+      CALL rrtmg_swrad_gpu_begin( ims, ime, jms, jme, kte )
+      sw_gpu_phase = 1
    ENDIF
    ra_ntask = num_tiles*RA_NSUB
    IF ( ra_gpu_fast ) ra_ntask = RA_GPU_BANDS
@@ -3044,6 +3053,10 @@ CONTAINS
       ! phase 1 left LW = 0 in RTHRATEN/RTHRATENLW (RTHRATEN = SW, RTHRATENSW = SW): add LW in the original order
       lw_gpu_phase = 0
       CALL rrtmg_lw_gpu_run()
+      IF ( sw_gpu_go ) THEN
+         sw_gpu_phase = 0
+         CALL rrtmg_sw_gpu_run()
+      ENDIF
       CALL SYSTEM_CLOCK( ra_w2 )
       !$OMP PARALLEL DO   &
       !$OMP PRIVATE ( ij ,i,j,k,its,ite,jts,jte)
@@ -3058,6 +3071,31 @@ CONTAINS
                LWUPFLX=LWUPFLX, LWUPFLXC=LWUPFLXC, LWDNFLX=LWDNFLX, LWDNFLXC=LWDNFLXC,            &
                IMS=ims, IME=ime, JMS=jms, JME=jme, KMS=kms, KME=kme,                              &
                ITS=its, ITE=ite, JTS=jts, JTE=jte, KTS=kts, KTE=kte )
+        IF ( sw_gpu_go ) THEN
+           ! stored daylight columns had RTHRATENSW = 0 in phase 1 (so RTHRATEN = 0 there)
+           CALL RRTMG_SWRAD_GPU_POST( RTHRATENSW, RTHRATENSWC, GSW, SWCF, pi, COSZR,                &
+                  SWDDIR, SWDDNI, SWDDIF, SWDOWNC, SWDDNIC, SWDDIRC,                                  &
+                  SWUPT=SWUPT, SWUPTC=SWUPTC, SWDNT=SWDNT, SWDNTC=SWDNTC,                             &
+                  SWUPB=SWUPB, SWUPBC=SWUPBC, SWDNB=SWDNB, SWDNBC=SWDNBC,                             &
+                  SWVISDIR=SWVISDIR, SWVISDIF=SWVISDIF, SWNIRDIR=SWNIRDIR, SWNIRDIF=SWNIRDIF,         &
+                  SWUPFLX=SWUPFLX, SWUPFLXC=SWUPFLXC, SWDNFLX=SWDNFLX, SWDNFLXC=SWDNFLXC,             &
+                  IMS=ims, IME=ime, JMS=jms, JME=jme, KMS=kms, KME=kme,                               &
+                  ITS=its, ITE=ite, JTS=jts, JTE=jte, KTS=kts, KTE=kte )
+           DO j=jts,jte
+           DO i=its,ite
+              IF ( .NOT. rrtmg_sw_gpu_has(i,j) ) CYCLE
+              SWDOWN(I,J)=GSW(I,J)/(1.-ALBEDO(I,J))
+              IF ( PRESENT( diffuse_frac ) ) THEN
+                 if (swdown(i,j).gt.0.001) then
+                    diffuse_frac(i,j) = swddif(i,j)/swdown(i,j)
+                    diffuse_frac(i,j) = min(diffuse_frac(i,j),1.0)
+                 else
+                    diffuse_frac(i,j) = 0.
+                 endif
+              ENDIF
+           ENDDO
+           ENDDO
+        ENDIF
         DO j=jts,jte
         DO k=kts,kte
         DO i=its,ite

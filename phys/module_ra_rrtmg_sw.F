@@ -217,6 +217,11 @@
       real(kind=rb) :: fdlice3(46,16:29)
       real(kind=rb) :: abari(5),bbari(5),cbari(5),dbari(5),ebari(5),fbari(5)
 
+#if defined(WRF_GPU)
+!$acc declare create(extliq1, ssaliq1, asyliq1, extice2, ssaice2, asyice2)
+!$acc declare create(extice3, ssaice3, asyice3, fdlice3, abari, bbari)
+!$acc declare create(cbari, dbari, ebari, fbari)
+#endif
       end module rrsw_cld
 
       module rrsw_con
@@ -259,6 +264,11 @@
       real(kind=rb) :: radcn1, radcn2
       real(kind=rb) :: sbcnst, secdy
 
+#if defined(WRF_GPU)
+!$acc declare create(fluxfac, heatfac, oneminus, pi, grav, planck)
+!$acc declare create(boltz, clight, avogad, alosmt, gascon, radcn1)
+!$acc declare create(radcn2, sbcnst, secdy)
+#endif
       end module rrsw_con
 
       module rrsw_kg16
@@ -324,6 +334,9 @@
 
       equivalence (ka(1,1,1,1),absa(1,1)), (kb(1,13,1),absb(1,1))
 
+#if defined(WRF_GPU)
+!$acc declare create(layreffr, rayl, strrat1, selfref, forref, sfluxref)
+#endif
       end module rrsw_kg16
 
       module rrsw_kg17
@@ -389,6 +402,9 @@
 
       equivalence (ka(1,1,1,1),absa(1,1)), (kb(1,1,13,1),absb(1,1))
 
+#if defined(WRF_GPU)
+!$acc declare create(layreffr, rayl, strrat, selfref, forref, sfluxref)
+#endif
       end module rrsw_kg17
 
       module rrsw_kg18
@@ -454,6 +470,9 @@
 
       equivalence (ka(1,1,1,1),absa(1,1)), (kb(1,13,1),absb(1,1))
 
+#if defined(WRF_GPU)
+!$acc declare create(layreffr, rayl, strrat, selfref, forref, sfluxref)
+#endif
       end module rrsw_kg18
 
       module rrsw_kg19
@@ -519,6 +538,9 @@
 
       equivalence (ka(1,1,1,1),absa(1,1)), (kb(1,13,1),absb(1,1))
 
+#if defined(WRF_GPU)
+!$acc declare create(layreffr, rayl, strrat, selfref, forref, sfluxref)
+#endif
       end module rrsw_kg19
 
       module rrsw_kg20
@@ -588,6 +610,9 @@
 
       equivalence (ka(1,1,1),absa(1,1)), (kb(1,13,1),absb(1,1))
 
+#if defined(WRF_GPU)
+!$acc declare create(layreffr, rayl, selfref, forref, sfluxref, absch4)
+#endif
       end module rrsw_kg20
 
       module rrsw_kg21
@@ -653,6 +678,9 @@
 
       equivalence (ka(1,1,1,1),absa(1,1)), (kb(1,1,13,1),absb(1,1))
 
+#if defined(WRF_GPU)
+!$acc declare create(layreffr, rayl, strrat, selfref, forref, sfluxref)
+#endif
       end module rrsw_kg21
 
       module rrsw_kg22
@@ -718,6 +746,9 @@
 
       equivalence (ka(1,1,1,1),absa(1,1)), (kb(1,13,1),absb(1,1))
 
+#if defined(WRF_GPU)
+!$acc declare create(layreffr, rayl, strrat, selfref, forref, sfluxref)
+#endif
       end module rrsw_kg22
 
       module rrsw_kg23
@@ -782,6 +813,9 @@
 
       equivalence (ka(1,1,1),absa(1,1))
 
+#if defined(WRF_GPU)
+!$acc declare create(layreffr, givfac, selfref, forref, sfluxref, rayl)
+#endif
       end module rrsw_kg23
 
       module rrsw_kg24
@@ -859,6 +893,10 @@
 
       equivalence (ka(1,1,1,1),absa(1,1)), (kb(1,13,1),absb(1,1))
 
+#if defined(WRF_GPU)
+!$acc declare create(layreffr, strrat, selfref, forref, sfluxref, abso3a)
+!$acc declare create(abso3b, rayla, raylb)
+#endif
       end module rrsw_kg24
 
       module rrsw_kg25
@@ -922,6 +960,9 @@
 
       equivalence (ka(1,1,1),absa(1,1))
 
+#if defined(WRF_GPU)
+!$acc declare create(layreffr, sfluxref, abso3a, abso3b, rayl)
+#endif
       end module rrsw_kg25
 
       module rrsw_kg26
@@ -970,6 +1011,9 @@
       real(kind=rb) :: sfluxref(ng26)
       real(kind=rb) :: rayl(ng26)
 
+#if defined(WRF_GPU)
+!$acc declare create(sfluxref, rayl)
+#endif
       end module rrsw_kg26
 
       module rrsw_kg27
@@ -1033,6 +1077,9 @@
 
       equivalence (ka(1,1,1),absa(1,1)), (kb(1,13,1),absb(1,1))
 
+#if defined(WRF_GPU)
+!$acc declare create(layreffr, scalekur, sfluxref, rayl)
+#endif
       end module rrsw_kg27
 
       module rrsw_kg28
@@ -1090,6 +1137,9 @@
 
       equivalence (ka(1,1,1,1),absa(1,1)), (kb(1,1,13,1),absb(1,1))
 
+#if defined(WRF_GPU)
+!$acc declare create(layreffr, rayl, strrat, sfluxref)
+#endif
       end module rrsw_kg28
 
       module rrsw_kg29
@@ -1159,6 +1209,10 @@
 
       equivalence (ka(1,1,1),absa(1,1)), (kb(1,13,1),absb(1,1))
 
+#if defined(WRF_GPU)
+!$acc declare create(layreffr, rayl, selfref, forref, sfluxref, absh2o)
+!$acc declare create(absco2)
+#endif
       end module rrsw_kg29
 
       module rrsw_ref
@@ -1188,6 +1242,9 @@
       real(kind=rb) , dimension(59) :: preflog
       real(kind=rb) , dimension(59) :: tref
 
+#if defined(WRF_GPU)
+!$acc declare create(pref, preflog, tref)
+#endif
       end module rrsw_ref
 
       module rrsw_tbl
@@ -1229,6 +1286,9 @@
       real(kind=rb), parameter :: pade = 0.278_rb
       real(kind=rb) :: bpade
 
+#if defined(WRF_GPU)
+!$acc declare create(tau_tbl, exp_tbl, bpade)
+#endif
       end module rrsw_tbl
 
       module rrsw_vsn
@@ -1342,6 +1402,11 @@
       real(kind=rb) :: wt(mg)
       real(kind=rb) :: rwgt(nbndsw*mg)
 
+#if defined(WRF_GPU)
+!$acc declare create(ng, nspa, nspb, wavenum1, wavenum2, delwave)
+!$acc declare create(ngc, ngs, ngn, ngb, ngm, wt)
+!$acc declare create(rwgt)
+#endif
       end module rrsw_wvn
 
 !     path:      $Source: /cvsroot/NWP/WRFV3/phys/module_ra_rrtmg_sw.F,v $
@@ -10007,7 +10072,3707 @@
       end module rrtmg_sw_rad
 
 !------------------------------------------------------------------
+#if defined(WRF_GPU)
+! ---- WRF_GPU: device copies of the equivalenced RRTMG SW tables; device update of all SW tables
+      module rrtmg_sw_gtab
+      use parkind, only : im => kind_im, rb => kind_rb
+      use parrrsw, only : ng16, ng17, ng18, ng19, ng20, ng21, ng22, ng23, ng24, ng25, ng26, ng27, ng28, ng29
+      implicit none
+      save
+      real(kind=rb) :: absa16_g(585,ng16)
+      real(kind=rb) :: absb16_g(235,ng16)
+      real(kind=rb) :: absa17_g(585,ng17)
+      real(kind=rb) :: absb17_g(1175,ng17)
+      real(kind=rb) :: absa18_g(585,ng18)
+      real(kind=rb) :: absb18_g(235,ng18)
+      real(kind=rb) :: absa19_g(585,ng19)
+      real(kind=rb) :: absb19_g(235,ng19)
+      real(kind=rb) :: absa20_g(65,ng20)
+      real(kind=rb) :: absb20_g(235,ng20)
+      real(kind=rb) :: absa21_g(585,ng21)
+      real(kind=rb) :: absb21_g(1175,ng21)
+      real(kind=rb) :: absa22_g(585,ng22)
+      real(kind=rb) :: absb22_g(235,ng22)
+      real(kind=rb) :: absa23_g(65,ng23)
+      real(kind=rb) :: absa24_g(585,ng24)
+      real(kind=rb) :: absb24_g(235,ng24)
+      real(kind=rb) :: absa25_g(65,ng25)
+      real(kind=rb) :: absa27_g(65,ng27)
+      real(kind=rb) :: absb27_g(235,ng27)
+      real(kind=rb) :: absa28_g(585,ng28)
+      real(kind=rb) :: absb28_g(1175,ng28)
+      real(kind=rb) :: absa29_g(65,ng29)
+      real(kind=rb) :: absb29_g(235,ng29)
+!$acc declare create(absa16_g, absb16_g, absa17_g, absb17_g, absa18_g, absb18_g)
+!$acc declare create(absa19_g, absb19_g, absa20_g, absb20_g, absa21_g, absb21_g)
+!$acc declare create(absa22_g, absb22_g, absa23_g, absa24_g, absb24_g, absa25_g)
+!$acc declare create(absa27_g, absb27_g, absa28_g, absb28_g, absa29_g, absb29_g)
+      logical :: sw_gtab_done = .false.
+      contains
+      subroutine rrtmg_sw_gtab_init
+      use rrsw_kg16, only : h16_absa => absa, h16_absb => absb, h16_layreffr => layreffr, h16_rayl => rayl, h16_strrat1 => strrat1, h16_selfref => selfref, h16_forref => forref, h16_sfluxref => sfluxref
+      use rrsw_kg17, only : h17_absa => absa, h17_absb => absb, h17_layreffr => layreffr, h17_rayl => rayl, h17_strrat => strrat, h17_selfref => selfref, h17_forref => forref, h17_sfluxref => sfluxref
+      use rrsw_kg18, only : h18_absa => absa, h18_absb => absb, h18_layreffr => layreffr, h18_rayl => rayl, h18_strrat => strrat, h18_selfref => selfref, h18_forref => forref, h18_sfluxref => sfluxref
+      use rrsw_kg19, only : h19_absa => absa, h19_absb => absb, h19_layreffr => layreffr, h19_rayl => rayl, h19_strrat => strrat, h19_selfref => selfref, h19_forref => forref, h19_sfluxref => sfluxref
+      use rrsw_kg20, only : h20_absa => absa, h20_absb => absb, h20_layreffr => layreffr, h20_rayl => rayl, h20_selfref => selfref, h20_forref => forref, h20_sfluxref => sfluxref, h20_absch4 => absch4
+      use rrsw_kg21, only : h21_absa => absa, h21_absb => absb, h21_layreffr => layreffr, h21_rayl => rayl, h21_strrat => strrat, h21_selfref => selfref, h21_forref => forref, h21_sfluxref => sfluxref
+      use rrsw_kg22, only : h22_absa => absa, h22_absb => absb, h22_layreffr => layreffr, h22_rayl => rayl, h22_strrat => strrat, h22_selfref => selfref, h22_forref => forref, h22_sfluxref => sfluxref
+      use rrsw_kg23, only : h23_absa => absa, h23_layreffr => layreffr, h23_givfac => givfac, h23_selfref => selfref, h23_forref => forref, h23_sfluxref => sfluxref, h23_rayl => rayl
+      use rrsw_kg24, only : h24_absa => absa, h24_absb => absb, h24_layreffr => layreffr, h24_strrat => strrat, h24_selfref => selfref, h24_forref => forref, h24_sfluxref => sfluxref, h24_abso3a => abso3a, h24_abso3b => abso3b, h24_rayla => rayla, h24_raylb => raylb
+      use rrsw_kg25, only : h25_absa => absa, h25_layreffr => layreffr, h25_sfluxref => sfluxref, h25_abso3a => abso3a, h25_abso3b => abso3b, h25_rayl => rayl
+      use rrsw_kg26, only : h26_sfluxref => sfluxref, h26_rayl => rayl
+      use rrsw_kg27, only : h27_absa => absa, h27_absb => absb, h27_layreffr => layreffr, h27_scalekur => scalekur, h27_sfluxref => sfluxref, h27_rayl => rayl
+      use rrsw_kg28, only : h28_absa => absa, h28_absb => absb, h28_layreffr => layreffr, h28_rayl => rayl, h28_strrat => strrat, h28_sfluxref => sfluxref
+      use rrsw_kg29, only : h29_absa => absa, h29_absb => absb, h29_layreffr => layreffr, h29_rayl => rayl, h29_selfref => selfref, h29_forref => forref, h29_sfluxref => sfluxref, h29_absh2o => absh2o, h29_absco2 => absco2
+      use rrsw_cld, only : extliq1, ssaliq1, asyliq1, extice2, ssaice2, asyice2, extice3, ssaice3, asyice3, fdlice3, abari, bbari, cbari, dbari, ebari, fbari
+      use rrsw_con, only : fluxfac, heatfac, oneminus, pi, grav, planck, boltz, clight, avogad, alosmt, gascon, radcn1, radcn2, sbcnst, secdy
+      use rrsw_ref, only : pref, preflog, tref
+      use rrsw_tbl, only : tau_tbl, exp_tbl, bpade
+      use rrsw_wvn, only : ng, nspa, nspb, wavenum1, wavenum2, delwave, ngc, ngs, ngn, ngb, ngm, wt, rwgt
+      implicit none
+      absa16_g = h16_absa
+      absb16_g = h16_absb
+      absa17_g = h17_absa
+      absb17_g = h17_absb
+      absa18_g = h18_absa
+      absb18_g = h18_absb
+      absa19_g = h19_absa
+      absb19_g = h19_absb
+      absa20_g = h20_absa
+      absb20_g = h20_absb
+      absa21_g = h21_absa
+      absb21_g = h21_absb
+      absa22_g = h22_absa
+      absb22_g = h22_absb
+      absa23_g = h23_absa
+      absa24_g = h24_absa
+      absb24_g = h24_absb
+      absa25_g = h25_absa
+      absa27_g = h27_absa
+      absb27_g = h27_absb
+      absa28_g = h28_absa
+      absb28_g = h28_absb
+      absa29_g = h29_absa
+      absb29_g = h29_absb
+!$acc update device(absa16_g, absb16_g, h16_layreffr, h16_rayl, h16_strrat1, h16_selfref)
+!$acc update device(h16_forref, h16_sfluxref, absa17_g, absb17_g, h17_layreffr, h17_rayl)
+!$acc update device(h17_strrat, h17_selfref, h17_forref, h17_sfluxref, absa18_g, absb18_g)
+!$acc update device(h18_layreffr, h18_rayl, h18_strrat, h18_selfref, h18_forref, h18_sfluxref)
+!$acc update device(absa19_g, absb19_g, h19_layreffr, h19_rayl, h19_strrat, h19_selfref)
+!$acc update device(h19_forref, h19_sfluxref, absa20_g, absb20_g, h20_layreffr, h20_rayl)
+!$acc update device(h20_selfref, h20_forref, h20_sfluxref, h20_absch4, absa21_g, absb21_g)
+!$acc update device(h21_layreffr, h21_rayl, h21_strrat, h21_selfref, h21_forref, h21_sfluxref)
+!$acc update device(absa22_g, absb22_g, h22_layreffr, h22_rayl, h22_strrat, h22_selfref)
+!$acc update device(h22_forref, h22_sfluxref, absa23_g, h23_layreffr, h23_givfac, h23_selfref)
+!$acc update device(h23_forref, h23_sfluxref, h23_rayl, absa24_g, absb24_g, h24_layreffr)
+!$acc update device(h24_strrat, h24_selfref, h24_forref, h24_sfluxref, h24_abso3a, h24_abso3b)
+!$acc update device(h24_rayla, h24_raylb, absa25_g, h25_layreffr, h25_sfluxref, h25_abso3a)
+!$acc update device(h25_abso3b, h25_rayl, h26_sfluxref, h26_rayl, absa27_g, absb27_g)
+!$acc update device(h27_layreffr, h27_scalekur, h27_sfluxref, h27_rayl, absa28_g, absb28_g)
+!$acc update device(h28_layreffr, h28_rayl, h28_strrat, h28_sfluxref, absa29_g, absb29_g)
+!$acc update device(h29_layreffr, h29_rayl, h29_selfref, h29_forref, h29_sfluxref, h29_absh2o)
+!$acc update device(h29_absco2, extliq1, ssaliq1, asyliq1, extice2, ssaice2)
+!$acc update device(asyice2, extice3, ssaice3, asyice3, fdlice3, abari)
+!$acc update device(bbari, cbari, dbari, ebari, fbari, fluxfac)
+!$acc update device(heatfac, oneminus, pi, grav, planck, boltz)
+!$acc update device(clight, avogad, alosmt, gascon, radcn1, radcn2)
+!$acc update device(sbcnst, secdy, pref, preflog, tref, tau_tbl)
+!$acc update device(exp_tbl, bpade, ng, nspa, nspb, wavenum1)
+!$acc update device(wavenum2, delwave, ngc, ngs, ngn, ngb)
+!$acc update device(ngm, wt, rwgt)
+      sw_gtab_done = .true.
+      end subroutine rrtmg_sw_gtab_init
+      end module rrtmg_sw_gtab
+      module rrtmg_sw_gwork
+      use parkind, only : im => kind_im, rb => kind_rb
+      implicit none
+      save
+      integer, parameter :: mxl_s = 40      ! fixed-size per-thread level arrays (nlayers+1 <= mxl_s)
+      integer :: sw_ncolm = 0, sw_nchunk = 0, sw_nlay = 0, sw_ims = 0, sw_ime = -1, sw_jms = 0, sw_jme = -1
+      real(kind=rb), allocatable :: in_play(:,:), in_plev(:,:), in_tlay(:,:), in_tlev(:,:), in_h2o(:,:), &
+         in_o3(:,:), in_co2(:,:), in_ch4(:,:), in_n2o(:,:), in_o2(:,:), in_cldf(:,:), in_ciwp(:,:), in_clwp(:,:), &
+         in_cswp(:,:), in_rei(:,:), in_rel(:,:), in_res(:,:), in_hgt(:,:), in_tsfc(:), in_lat(:), in_asdir(:), &
+         in_asdif(:), in_aldir(:), in_aldif(:), in_cosz(:), in_adjflx(:), in_scon(:)
+      integer, allocatable :: in_flag(:,:)   ! 1 valid 2 icld 3 idcor 4 juldat 5 inflag 6 iceflag 7 liqflag 8 permuteseed
+      real(kind=rb), allocatable :: out_uflx(:,:), out_dflx(:,:), out_uflxc(:,:), out_dflxc(:,:), out_hr(:,:), &
+         out_hrc(:,:), out_sfc(:,:)   ! out_sfc: 1 visdir 2 visdif 3 nirdir 4 nirdif 5 dkdir 6 dkdif 7 dkdirc
+      integer, allocatable :: out_sw_err(:)
+      real(kind=rb), allocatable :: w_pavel(:,:)
+      real(kind=rb), allocatable :: w_tavel(:,:)
+      real(kind=rb), allocatable :: w_pdp(:,:)
+      real(kind=rb), allocatable :: w_coldry(:,:)
+      integer, allocatable :: w_jp(:,:)
+      integer, allocatable :: w_jt(:,:)
+      integer, allocatable :: w_jt1(:,:)
+      real(kind=rb), allocatable :: w_colh2o(:,:)
+      real(kind=rb), allocatable :: w_colco2(:,:)
+      real(kind=rb), allocatable :: w_colo3(:,:)
+      real(kind=rb), allocatable :: w_coln2o(:,:)
+      real(kind=rb), allocatable :: w_colch4(:,:)
+      real(kind=rb), allocatable :: w_colo2(:,:)
+      real(kind=rb), allocatable :: w_colmol(:,:)
+      real(kind=rb), allocatable :: w_co2mult(:,:)
+      real(kind=rb), allocatable :: w_fac00(:,:)
+      real(kind=rb), allocatable :: w_fac01(:,:)
+      real(kind=rb), allocatable :: w_fac10(:,:)
+      real(kind=rb), allocatable :: w_fac11(:,:)
+      real(kind=rb), allocatable :: w_selffac(:,:)
+      real(kind=rb), allocatable :: w_selffrac(:,:)
+      integer, allocatable :: w_indself(:,:)
+      real(kind=rb), allocatable :: w_forfac(:,:)
+      real(kind=rb), allocatable :: w_forfrac(:,:)
+      integer, allocatable :: w_indfor(:,:)
+      real(kind=rb), allocatable :: w_pz(:,:)
+      real(kind=rb), allocatable :: w_tz(:,:)
+      real(kind=rb), allocatable :: w_wkl(:,:,:)
+      real(kind=rb), allocatable :: w_adjflux(:,:)
+      real(kind=rb), allocatable :: w_albdif(:,:)
+      real(kind=rb), allocatable :: w_albdir(:,:)
+      real(kind=rb), allocatable :: w_taug(:,:,:)
+      real(kind=rb), allocatable :: w_taur(:,:,:)
+      real(kind=rb), allocatable :: w_sfluxzen(:,:)
+      real(kind=rb), allocatable :: w_cldfmc(:,:,:)
+      real(kind=rb), allocatable :: w_taucmc(:,:,:)
+      real(kind=rb), allocatable :: w_ssacmc(:,:,:)
+      real(kind=rb), allocatable :: w_asmcmc(:,:,:)
+      real(kind=rb), allocatable :: w_taormc(:,:,:)
+      real(kind=rb), allocatable :: w_taua(:,:,:)
+      real(kind=rb), allocatable :: w_ssaa(:,:,:)
+      real(kind=rb), allocatable :: w_asma(:,:,:)
+      real(kind=rb), allocatable :: w_pbbfd(:,:)
+      real(kind=rb), allocatable :: w_pbbfu(:,:)
+      real(kind=rb), allocatable :: w_pbbcd(:,:)
+      real(kind=rb), allocatable :: w_pbbcu(:,:)
+      real(kind=rb), allocatable :: w_puvfd(:,:)
+      real(kind=rb), allocatable :: w_puvcd(:,:)
+      real(kind=rb), allocatable :: w_pnifd(:,:)
+      real(kind=rb), allocatable :: w_pnicd(:,:)
+      real(kind=rb), allocatable :: w_pbbfddir(:,:)
+      real(kind=rb), allocatable :: w_pbbcddir(:,:)
+      real(kind=rb), allocatable :: w_puvfddir(:,:)
+      real(kind=rb), allocatable :: w_puvcddir(:,:)
+      real(kind=rb), allocatable :: w_pnifddir(:,:)
+      real(kind=rb), allocatable :: w_pnicddir(:,:)
+!$acc declare create(in_play, in_plev, in_tlay, in_tlev, in_h2o, in_o3)
+!$acc declare create(in_co2, in_ch4, in_n2o, in_o2, in_cldf, in_ciwp)
+!$acc declare create(in_clwp, in_cswp, in_rei, in_rel, in_res, in_hgt)
+!$acc declare create(in_tsfc, in_lat, in_asdir, in_asdif, in_aldir, in_aldif)
+!$acc declare create(in_cosz, in_adjflx, in_scon, in_flag, out_uflx, out_dflx)
+!$acc declare create(out_uflxc, out_dflxc, out_hr, out_hrc, out_sfc, out_sw_err)
+!$acc declare create(w_pavel, w_tavel, w_pdp, w_coldry, w_jp, w_jt)
+!$acc declare create(w_jt1, w_colh2o, w_colco2, w_colo3, w_coln2o, w_colch4)
+!$acc declare create(w_colo2, w_colmol, w_co2mult, w_fac00, w_fac01, w_fac10)
+!$acc declare create(w_fac11, w_selffac, w_selffrac, w_indself, w_forfac, w_forfrac)
+!$acc declare create(w_indfor, w_pz, w_tz, w_wkl, w_adjflux, w_albdif)
+!$acc declare create(w_albdir, w_taug, w_taur, w_sfluxzen, w_cldfmc, w_taucmc)
+!$acc declare create(w_ssacmc, w_asmcmc, w_taormc, w_taua, w_ssaa, w_asma)
+!$acc declare create(w_pbbfd, w_pbbfu, w_pbbcd, w_pbbcu, w_puvfd, w_puvcd)
+!$acc declare create(w_pnifd, w_pnicd, w_pbbfddir, w_pbbcddir, w_puvfddir, w_puvcddir)
+!$acc declare create(w_pnifddir, w_pnicddir)
+      end module rrtmg_sw_gwork
+      module rrtmg_sw_gpu
+      use parkind, only : im => kind_im, rb => kind_rb
+      use parrrsw, only : nbndsw, ngptsw, nmol, mxmol, jpband, jpb1, jpb2
+      use rrtmg_sw_gwork
+      implicit none
+      contains
+      subroutine setcoef_sw_g(jc, nlayers, tbound, laytrop, layswtch, laylow)
+!$acc routine seq
+      use parkind, only : im => kind_im, rb => kind_rb
+      use parrrsw, only : mxmol
+      use rrsw_ref, only : pref, preflog, tref
+      use rrtmg_sw_gwork
+      implicit none
+      integer, intent(in) :: jc
+!----------------------------------------------------------------------------
+!
+! Purpose:  For a given atmosphere, calculate the indices and
+! fractions related to the pressure and temperature interpolations.
+
+! Modifications:
+! Original: J. Delamere, AER, Inc. (version 2.5, 02/04/01)
+! Revised: Rewritten and adapted to ECMWF F90, JJMorcrette 030224
+! Revised: For uniform rrtmg formatting, MJIacono, Jul 2006
+
+! ------ Declarations -------
+
+! ----- Input -----
+      integer(kind=im), intent(in) :: nlayers         ! total number of layers
+
+                                                      !    Dimensions: (nlayers)
+                                                      !    Dimensions: (nlayers)
+                                                      !    Dimensions: (0:nlayers)
+                                                      !    Dimensions: (0:nlayers)
+      real(kind=rb), intent(in) :: tbound             ! surface temperature (K)
+                                                      !    Dimensions: (nlayers)
+                                                      !    Dimensions: (mxmol,nlayers)
+
+! ----- Output -----
+      integer(kind=im), intent(out) :: laytrop        ! tropopause layer index
+      integer(kind=im), intent(out) :: layswtch       ! 
+      integer(kind=im), intent(out) :: laylow         ! 
+
+                                                      !    Dimensions: (nlayers)
+                                                      !    Dimensions: (nlayers)
+                                                      !    Dimensions: (nlayers)
+
+                                                      !    Dimensions: (nlayers)
+                                                      !    Dimensions: (nlayers)
+                                                      !    Dimensions: (nlayers)
+                                                      !    Dimensions: (nlayers)
+                                                      !    Dimensions: (nlayers)
+                                                      !    Dimensions: (nlayers)
+                                                      !    Dimensions: (nlayers)
+                                                      !    Dimensions: (nlayers)
+
+                                                      !    Dimensions: (nlayers)
+                                                      !    Dimensions: (nlayers)
+                                                      !    Dimensions: (nlayers)
+                                                      !    Dimensions: (nlayers)
+                                                      !    Dimensions: (nlayers)
+                                                      !    Dimensions: (nlayers)
+
+
+! ----- Local -----
+
+      integer(kind=im) :: indbound
+      integer(kind=im) :: indlev0
+      integer(kind=im) :: lay
+      integer(kind=im) :: jp1
+
+      real(kind=rb) :: stpfac
+      real(kind=rb) :: tbndfrac
+      real(kind=rb) :: t0frac
+      real(kind=rb) :: plog
+      real(kind=rb) :: fp
+      real(kind=rb) :: ft
+      real(kind=rb) :: ft1
+      real(kind=rb) :: water
+      real(kind=rb) :: scalefac
+      real(kind=rb) :: factor
+      real(kind=rb) :: co2reg
+      real(kind=rb) :: compfp
+
+
+! Initializations
+      stpfac = 296._rb/1013._rb
+
+      indbound = tbound - 159._rb
+      tbndfrac = tbound - int(tbound)
+      indlev0  = w_tz(jc,0) - 159._rb
+      t0frac   = w_tz(jc,0) - int(w_tz(jc,0))
+
+      laytrop  = 0
+      layswtch = 0
+      laylow   = 0
+
+! Begin layer loop
+      do lay = 1, nlayers
+! Find the two reference pressures on either side of the
+! layer pressure.  Store them in JP and JP1.  Store in FP the
+! fraction of the difference (in ln(pressure)) between these
+! two values that the layer pressure lies.
+
+         plog = log(w_pavel(jc,lay))
+         w_jp(jc,lay) = int(36._rb - 5*(plog+0.04_rb))
+         if (w_jp(jc,lay) .lt. 1) then
+            w_jp(jc,lay) = 1
+         elseif (w_jp(jc,lay) .gt. 58) then
+            w_jp(jc,lay) = 58
+         endif
+         jp1 = w_jp(jc,lay) + 1
+         fp = 5._rb * (preflog(w_jp(jc,lay)) - plog)
+
+! Determine, for each reference pressure (JP and JP1), which
+! reference temperature (these are different for each  
+! reference pressure) is nearest the layer temperature but does
+! not exceed it.  Store these indices in JT and JT1, resp.
+! Store in FT (resp. FT1) the fraction of the way between JT
+! (JT1) and the next highest reference temperature that the 
+! layer temperature falls.
+
+         w_jt(jc,lay) = int(3._rb + (w_tavel(jc,lay)-tref(w_jp(jc,lay)))/15._rb)
+         if (w_jt(jc,lay) .lt. 1) then
+            w_jt(jc,lay) = 1
+         elseif (w_jt(jc,lay) .gt. 4) then
+            w_jt(jc,lay) = 4
+         endif
+         ft = ((w_tavel(jc,lay)-tref(w_jp(jc,lay)))/15._rb) - float(w_jt(jc,lay)-3)
+         w_jt1(jc,lay) = int(3._rb + (w_tavel(jc,lay)-tref(jp1))/15._rb)
+         if (w_jt1(jc,lay) .lt. 1) then
+            w_jt1(jc,lay) = 1
+         elseif (w_jt1(jc,lay) .gt. 4) then
+            w_jt1(jc,lay) = 4
+         endif
+         ft1 = ((w_tavel(jc,lay)-tref(jp1))/15._rb) - float(w_jt1(jc,lay)-3)
+
+         water = w_wkl(jc,1,lay)/w_coldry(jc,lay)
+         scalefac = w_pavel(jc,lay) * stpfac / w_tavel(jc,lay)
+
+! If the pressure is less than ~100mb, perform a different
+! set of species interpolations.
+
+         if (plog .le. 4.56_rb) go to 5300
+         laytrop =  laytrop + 1
+         if (plog .ge. 6.62_rb) laylow = laylow + 1
+
+! Set up factors needed to separately include the water vapor
+! foreign-continuum in the calculation of absorption coefficient.
+
+         w_forfac(jc,lay) = scalefac / (1.+water)
+         factor = (332.0_rb-w_tavel(jc,lay))/36.0_rb
+         w_indfor(jc,lay) = min(2, max(1, int(factor)))
+         w_forfrac(jc,lay) = factor - float(w_indfor(jc,lay))
+
+! Set up factors needed to separately include the water vapor
+! self-continuum in the calculation of absorption coefficient.
+
+         w_selffac(jc,lay) = water * w_forfac(jc,lay)
+         factor = (w_tavel(jc,lay)-188.0_rb)/7.2_rb
+         w_indself(jc,lay) = min(9, max(1, int(factor)-7))
+         w_selffrac(jc,lay) = factor - float(w_indself(jc,lay) + 7)
+
+! Calculate needed column amounts.
+
+         w_colh2o(jc,lay) = 1.e-20_rb * w_wkl(jc,1,lay)
+         w_colco2(jc,lay) = 1.e-20_rb * w_wkl(jc,2,lay)
+         w_colo3(jc,lay) = 1.e-20_rb * w_wkl(jc,3,lay)
+!           colo3(lay) = 0._rb
+!           colo3(lay) = colo3(lay)/1.16_rb
+         w_coln2o(jc,lay) = 1.e-20_rb * w_wkl(jc,4,lay)
+         w_colch4(jc,lay) = 1.e-20_rb * w_wkl(jc,6,lay)
+         w_colo2(jc,lay) = 1.e-20_rb * w_wkl(jc,7,lay)
+         w_colmol(jc,lay) = 1.e-20_rb * w_coldry(jc,lay) + w_colh2o(jc,lay)
+!           colco2(lay) = 0._rb
+!           colo3(lay) = 0._rb
+!           coln2o(lay) = 0._rb
+!           colch4(lay) = 0._rb
+!           colo2(lay) = 0._rb
+!           colmol(lay) = 0._rb
+         if (w_colco2(jc,lay) .eq. 0._rb) w_colco2(jc,lay) = 1.e-32_rb * w_coldry(jc,lay)
+         if (w_coln2o(jc,lay) .eq. 0._rb) w_coln2o(jc,lay) = 1.e-32_rb * w_coldry(jc,lay)
+         if (w_colch4(jc,lay) .eq. 0._rb) w_colch4(jc,lay) = 1.e-32_rb * w_coldry(jc,lay)
+         if (w_colo2(jc,lay) .eq. 0._rb) w_colo2(jc,lay) = 1.e-32_rb * w_coldry(jc,lay)
+! Using E = 1334.2 cm-1.
+         co2reg = 3.55e-24_rb * w_coldry(jc,lay)
+         w_co2mult(jc,lay)= (w_colco2(jc,lay) - co2reg) * &
+               272.63_rb*exp(-1919.4_rb/w_tavel(jc,lay))/(8.7604e-4_rb*w_tavel(jc,lay))
+         goto 5400
+
+! Above laytrop.
+ 5300    continue
+
+! Set up factors needed to separately include the water vapor
+! foreign-continuum in the calculation of absorption coefficient.
+
+         w_forfac(jc,lay) = scalefac / (1.+water)
+         factor = (w_tavel(jc,lay)-188.0_rb)/36.0_rb
+         w_indfor(jc,lay) = 3
+         w_forfrac(jc,lay) = factor - 1.0_rb
+
+! Calculate needed column amounts.
+
+         w_colh2o(jc,lay) = 1.e-20_rb * w_wkl(jc,1,lay)
+         w_colco2(jc,lay) = 1.e-20_rb * w_wkl(jc,2,lay)
+         w_colo3(jc,lay)  = 1.e-20_rb * w_wkl(jc,3,lay)
+         w_coln2o(jc,lay) = 1.e-20_rb * w_wkl(jc,4,lay)
+         w_colch4(jc,lay) = 1.e-20_rb * w_wkl(jc,6,lay)
+         w_colo2(jc,lay)  = 1.e-20_rb * w_wkl(jc,7,lay)
+         w_colmol(jc,lay) = 1.e-20_rb * w_coldry(jc,lay) + w_colh2o(jc,lay)
+         if (w_colco2(jc,lay) .eq. 0._rb) w_colco2(jc,lay) = 1.e-32_rb * w_coldry(jc,lay)
+         if (w_coln2o(jc,lay) .eq. 0._rb) w_coln2o(jc,lay) = 1.e-32_rb * w_coldry(jc,lay)
+         if (w_colch4(jc,lay) .eq. 0._rb) w_colch4(jc,lay) = 1.e-32_rb * w_coldry(jc,lay)
+         if (w_colo2(jc,lay)  .eq. 0._rb) w_colo2(jc,lay)  = 1.e-32_rb * w_coldry(jc,lay)
+         co2reg = 3.55e-24_rb * w_coldry(jc,lay)
+         w_co2mult(jc,lay)= (w_colco2(jc,lay) - co2reg) * &
+               272.63_rb*exp(-1919.4_rb/w_tavel(jc,lay))/(8.7604e-4_rb*w_tavel(jc,lay))
+
+         w_selffac(jc,lay) = 0._rb
+         w_selffrac(jc,lay)= 0._rb
+         w_indself(jc,lay) = 0
+
+ 5400    continue
+
+! We have now isolated the layer ln pressure and temperature,
+! between two reference pressures and two reference temperatures 
+! (for each reference pressure).  We multiply the pressure 
+! fraction FP with the appropriate temperature fractions to get 
+! the factors that will be needed for the interpolation that yields
+! the optical depths (performed in routines TAUGBn for band n).
+
+         compfp = 1._rb - fp
+         w_fac10(jc,lay) = compfp * ft
+         w_fac00(jc,lay) = compfp * (1._rb - ft)
+         w_fac11(jc,lay) = fp * ft1
+         w_fac01(jc,lay) = fp * (1._rb - ft1)
+
+! End layer loop
+      enddo
+
+      end subroutine setcoef_sw_g
+
+      subroutine taumol_sw_g(jc, nlayers, laytrop)
+!$acc routine seq
+      use parrrsw, only : ngptsw
+      use rrtmg_sw_gwork
+      implicit none
+      integer, intent(in) :: jc
+      integer(kind=im), intent(in) :: nlayers, laytrop
+      integer :: ig
+      do ig = 1, ngptsw
+         w_sfluxzen(jc,ig) = 0.0
+      enddo
+      call taumol16_g(jc, nlayers, laytrop)
+      call taumol17_g(jc, nlayers, laytrop)
+      call taumol18_g(jc, nlayers, laytrop)
+      call taumol19_g(jc, nlayers, laytrop)
+      call taumol20_g(jc, nlayers, laytrop)
+      call taumol21_g(jc, nlayers, laytrop)
+      call taumol22_g(jc, nlayers, laytrop)
+      call taumol23_g(jc, nlayers, laytrop)
+      call taumol24_g(jc, nlayers, laytrop)
+      call taumol25_g(jc, nlayers, laytrop)
+      call taumol26_g(jc, nlayers, laytrop)
+      call taumol27_g(jc, nlayers, laytrop)
+      call taumol28_g(jc, nlayers, laytrop)
+      call taumol29_g(jc, nlayers, laytrop)
+      end subroutine taumol_sw_g
+
+      subroutine taumol16_g(jc, nlayers, laytrop)
+!$acc routine seq
+      use rrsw_con, only: oneminus
+      use rrsw_wvn, only: nspa, nspb
+      use parrrsw, only : ng16
+      use rrsw_kg16, only : forref, selfref, sfluxref, rayl, layreffr, strrat1
+      use rrtmg_sw_gtab, only : absa => absa16_g, absb => absb16_g
+      use rrtmg_sw_gwork
+      implicit none
+      integer, intent(in) :: jc
+      integer(kind=im), intent(in) :: nlayers, laytrop
+!----------------------------------------------------------------------------
+!
+!     band 16:  2600-3250 cm-1 (low - h2o,ch4; high - ch4)
+!
+!----------------------------------------------------------------------------
+
+! ------- Modules -------
+
+
+! ------- Declarations -------
+
+! Local
+
+      integer(kind=im) :: ig, ind0, ind1, inds, indf, js, lay, laysolfr
+      real(kind=rb) :: fac000, fac001, fac010, fac011, fac100, fac101, &
+                       fac110, fac111, fs, speccomb, specmult, specparm, &
+                       tauray
+
+! Compute the optical depth by interpolating in ln(pressure), 
+! temperature, and appropriate species.  Below LAYTROP, the water
+! vapor self-continuum is interpolated (in temperature) separately.  
+
+! Lower atmosphere loop
+      do lay = 1, laytrop
+         speccomb = w_colh2o(jc,lay) + strrat1*w_colch4(jc,lay)
+         specparm = w_colh2o(jc,lay)/speccomb 
+         if (specparm .ge. oneminus) specparm = oneminus
+         specmult = 8._rb*(specparm)
+         js = 1 + int(specmult)
+         fs = mod(specmult, 1._rb )
+         fac000 = (1._rb - fs) * w_fac00(jc,lay)
+         fac010 = (1._rb - fs) * w_fac10(jc,lay)
+         fac100 = fs * w_fac00(jc,lay)
+         fac110 = fs * w_fac10(jc,lay)
+         fac001 = (1._rb - fs) * w_fac01(jc,lay)
+         fac011 = (1._rb - fs) * w_fac11(jc,lay)
+         fac101 = fs * w_fac01(jc,lay)
+         fac111 = fs * w_fac11(jc,lay)
+         ind0 = ((w_jp(jc,lay)-1)*5+(w_jt(jc,lay)-1))*nspa(16) + js
+         ind1 = (w_jp(jc,lay)*5+(w_jt1(jc,lay)-1))*nspa(16) + js
+         inds = w_indself(jc,lay)
+         indf = w_indfor(jc,lay)
+         tauray = w_colmol(jc,lay) * rayl
+
+         do ig = 1, ng16
+            w_taug(jc,lay,ig) = speccomb * &
+                (fac000 * absa(ind0   ,ig) + &
+                 fac100 * absa(ind0 +1,ig) + &
+                 fac010 * absa(ind0 +9,ig) + &
+                 fac110 * absa(ind0+10,ig) + &
+                 fac001 * absa(ind1   ,ig) + &
+                 fac101 * absa(ind1 +1,ig) + &
+                 fac011 * absa(ind1 +9,ig) + &
+                 fac111 * absa(ind1+10,ig)) + &
+                 w_colh2o(jc,lay) * &
+                 (w_selffac(jc,lay) * (selfref(inds,ig) + &
+                 w_selffrac(jc,lay) * &
+                 (selfref(inds+1,ig) - selfref(inds,ig))) + &
+                 w_forfac(jc,lay) * (forref(indf,ig) + &
+                 w_forfrac(jc,lay) * &
+                 (forref(indf+1,ig) - forref(indf,ig)))) 
+!            ssa(lay,ig) = tauray/taug(lay,ig)
+            w_taur(jc,lay,ig) = tauray
+         enddo
+      enddo
+
+      laysolfr = nlayers
+
+! Upper atmosphere loop
+      do lay = laytrop+1, nlayers
+         if (w_jp(jc,lay-1) .lt. layreffr .and. w_jp(jc,lay) .ge. layreffr) &
+            laysolfr = lay
+         ind0 = ((w_jp(jc,lay)-13)*5+(w_jt(jc,lay)-1))*nspb(16) + 1
+         ind1 = ((w_jp(jc,lay)-12)*5+(w_jt1(jc,lay)-1))*nspb(16) + 1
+         tauray = w_colmol(jc,lay) * rayl
+
+         do ig = 1, ng16
+            w_taug(jc,lay,ig) = w_colch4(jc,lay) * &
+                (w_fac00(jc,lay) * absb(ind0  ,ig) + &
+                 w_fac10(jc,lay) * absb(ind0+1,ig) + &
+                 w_fac01(jc,lay) * absb(ind1  ,ig) + &
+                 w_fac11(jc,lay) * absb(ind1+1,ig)) 
+!            ssa(lay,ig) = tauray/taug(lay,ig)
+            if (lay .eq. laysolfr) w_sfluxzen(jc,ig) = sfluxref(ig) 
+            w_taur(jc,lay,ig) = tauray  
+         enddo
+      enddo
+
+      end subroutine taumol16_g
+
+      subroutine taumol17_g(jc, nlayers, laytrop)
+!$acc routine seq
+      use rrsw_con, only: oneminus
+      use rrsw_wvn, only: nspa, nspb
+      use parrrsw, only : ng17, ngs16
+      use rrsw_kg17, only : forref, selfref, sfluxref, rayl, layreffr, strrat
+      use rrtmg_sw_gtab, only : absa => absa17_g, absb => absb17_g
+      use rrtmg_sw_gwork
+      implicit none
+      integer, intent(in) :: jc
+      integer(kind=im), intent(in) :: nlayers, laytrop
+!----------------------------------------------------------------------------
+!
+!     band 17:  3250-4000 cm-1 (low - h2o,co2; high - h2o,co2)
+!
+!----------------------------------------------------------------------------
+
+! ------- Modules -------
+
+
+! ------- Declarations -------
+
+! Local
+
+      integer(kind=im) :: ig, ind0, ind1, inds, indf, js, lay, laysolfr
+      real(kind=rb) :: fac000, fac001, fac010, fac011, fac100, fac101, &
+                       fac110, fac111, fs, speccomb, specmult, specparm, &
+                       tauray
+
+! Compute the optical depth by interpolating in ln(pressure), 
+! temperature, and appropriate species.  Below LAYTROP, the water
+! vapor self-continuum is interpolated (in temperature) separately.  
+
+! Lower atmosphere loop
+      do lay = 1, laytrop
+         speccomb = w_colh2o(jc,lay) + strrat*w_colco2(jc,lay)
+         specparm = w_colh2o(jc,lay)/speccomb 
+         if (specparm .ge. oneminus) specparm = oneminus
+         specmult = 8._rb*(specparm)
+         js = 1 + int(specmult)
+         fs = mod(specmult, 1._rb )
+         fac000 = (1._rb - fs) * w_fac00(jc,lay)
+         fac010 = (1._rb - fs) * w_fac10(jc,lay)
+         fac100 = fs * w_fac00(jc,lay)
+         fac110 = fs * w_fac10(jc,lay)
+         fac001 = (1._rb - fs) * w_fac01(jc,lay)
+         fac011 = (1._rb - fs) * w_fac11(jc,lay)
+         fac101 = fs * w_fac01(jc,lay)
+         fac111 = fs * w_fac11(jc,lay)
+         ind0 = ((w_jp(jc,lay)-1)*5+(w_jt(jc,lay)-1))*nspa(17) + js
+         ind1 = (w_jp(jc,lay)*5+(w_jt1(jc,lay)-1))*nspa(17) + js
+         inds = w_indself(jc,lay)
+         indf = w_indfor(jc,lay)
+         tauray = w_colmol(jc,lay) * rayl
+
+         do ig = 1, ng17
+            w_taug(jc,lay,ngs16+ig) = speccomb * &
+                (fac000 * absa(ind0,ig) + &
+                 fac100 * absa(ind0+1,ig) + &
+                 fac010 * absa(ind0+9,ig) + &
+                 fac110 * absa(ind0+10,ig) + &
+                 fac001 * absa(ind1,ig) + &
+                 fac101 * absa(ind1+1,ig) + &
+                 fac011 * absa(ind1+9,ig) + &
+                 fac111 * absa(ind1+10,ig)) + &
+                 w_colh2o(jc,lay) * &
+                 (w_selffac(jc,lay) * (selfref(inds,ig) + &
+                 w_selffrac(jc,lay) * &
+                 (selfref(inds+1,ig) - selfref(inds,ig))) + &
+                 w_forfac(jc,lay) * (forref(indf,ig) + &
+                 w_forfrac(jc,lay) * &
+                 (forref(indf+1,ig) - forref(indf,ig)))) 
+!             ssa(lay,ngs16+ig) = tauray/taug(lay,ngs16+ig)
+            w_taur(jc,lay,ngs16+ig) = tauray
+         enddo
+      enddo
+
+      laysolfr = nlayers
+
+! Upper atmosphere loop
+      do lay = laytrop+1, nlayers
+         if (w_jp(jc,lay-1) .lt. layreffr .and. w_jp(jc,lay) .ge. layreffr) &
+            laysolfr = lay
+         speccomb = w_colh2o(jc,lay) + strrat*w_colco2(jc,lay)
+         specparm = w_colh2o(jc,lay)/speccomb 
+         if (specparm .ge. oneminus) specparm = oneminus
+         specmult = 4._rb*(specparm)
+         js = 1 + int(specmult)
+         fs = mod(specmult, 1._rb )
+         fac000 = (1._rb - fs) * w_fac00(jc,lay)
+         fac010 = (1._rb - fs) * w_fac10(jc,lay)
+         fac100 = fs * w_fac00(jc,lay)
+         fac110 = fs * w_fac10(jc,lay)
+         fac001 = (1._rb - fs) * w_fac01(jc,lay)
+         fac011 = (1._rb - fs) * w_fac11(jc,lay)
+         fac101 = fs * w_fac01(jc,lay)
+         fac111 = fs * w_fac11(jc,lay)
+         ind0 = ((w_jp(jc,lay)-13)*5+(w_jt(jc,lay)-1))*nspb(17) + js
+         ind1 = ((w_jp(jc,lay)-12)*5+(w_jt1(jc,lay)-1))*nspb(17) + js
+         indf = w_indfor(jc,lay)
+         tauray = w_colmol(jc,lay) * rayl
+
+         do ig = 1, ng17
+            w_taug(jc,lay,ngs16+ig) = speccomb * &
+                (fac000 * absb(ind0,ig) + &
+                 fac100 * absb(ind0+1,ig) + &
+                 fac010 * absb(ind0+5,ig) + &
+                 fac110 * absb(ind0+6,ig) + &
+                 fac001 * absb(ind1,ig) + &
+                 fac101 * absb(ind1+1,ig) + &
+                 fac011 * absb(ind1+5,ig) + &
+                 fac111 * absb(ind1+6,ig)) + &
+                 w_colh2o(jc,lay) * &
+                 w_forfac(jc,lay) * (forref(indf,ig) + &
+                 w_forfrac(jc,lay) * &
+                 (forref(indf+1,ig) - forref(indf,ig))) 
+!            ssa(lay,ngs16+ig) = tauray/taug(lay,ngs16+ig)
+            if (lay .eq. laysolfr) w_sfluxzen(jc,ngs16+ig) = sfluxref(ig,js) &
+               + fs * (sfluxref(ig,js+1) - sfluxref(ig,js))
+            w_taur(jc,lay,ngs16+ig) = tauray
+         enddo
+      enddo
+
+      end subroutine taumol17_g
+
+      subroutine taumol18_g(jc, nlayers, laytrop)
+!$acc routine seq
+      use rrsw_con, only: oneminus
+      use rrsw_wvn, only: nspa, nspb
+      use parrrsw, only : ng18, ngs17
+      use rrsw_kg18, only : forref, selfref, sfluxref, rayl, layreffr, strrat
+      use rrtmg_sw_gtab, only : absa => absa18_g, absb => absb18_g
+      use rrtmg_sw_gwork
+      implicit none
+      integer, intent(in) :: jc
+      integer(kind=im), intent(in) :: nlayers, laytrop
+!----------------------------------------------------------------------------
+!
+!     band 18:  4000-4650 cm-1 (low - h2o,ch4; high - ch4)
+!
+!----------------------------------------------------------------------------
+
+! ------- Modules -------
+
+
+! ------- Declarations -------
+
+! Local
+
+      integer(kind=im) :: ig, ind0, ind1, inds, indf, js, lay, laysolfr
+      real(kind=rb) :: fac000, fac001, fac010, fac011, fac100, fac101, &
+                       fac110, fac111, fs, speccomb, specmult, specparm, &
+                       tauray
+
+! Compute the optical depth by interpolating in ln(pressure), 
+! temperature, and appropriate species.  Below LAYTROP, the water
+! vapor self-continuum is interpolated (in temperature) separately.  
+
+      laysolfr = laytrop
+      
+! Lower atmosphere loop
+      do lay = 1, laytrop
+         if (w_jp(jc,lay) .lt. layreffr .and. w_jp(jc,lay+1) .ge. layreffr) &
+            laysolfr = min(lay+1,laytrop)
+         speccomb = w_colh2o(jc,lay) + strrat*w_colch4(jc,lay)
+         specparm = w_colh2o(jc,lay)/speccomb 
+         if (specparm .ge. oneminus) specparm = oneminus
+         specmult = 8._rb*(specparm)
+         js = 1 + int(specmult)
+         fs = mod(specmult, 1._rb )
+         fac000 = (1._rb - fs) * w_fac00(jc,lay)
+         fac010 = (1._rb - fs) * w_fac10(jc,lay)
+         fac100 = fs * w_fac00(jc,lay)
+         fac110 = fs * w_fac10(jc,lay)
+         fac001 = (1._rb - fs) * w_fac01(jc,lay)
+         fac011 = (1._rb - fs) * w_fac11(jc,lay)
+         fac101 = fs * w_fac01(jc,lay)
+         fac111 = fs * w_fac11(jc,lay)
+         ind0 = ((w_jp(jc,lay)-1)*5+(w_jt(jc,lay)-1))*nspa(18) + js
+         ind1 = (w_jp(jc,lay)*5+(w_jt1(jc,lay)-1))*nspa(18) + js
+         inds = w_indself(jc,lay)
+         indf = w_indfor(jc,lay)
+         tauray = w_colmol(jc,lay) * rayl
+
+         do ig = 1, ng18
+            w_taug(jc,lay,ngs17+ig) = speccomb * &
+                (fac000 * absa(ind0,ig) + &
+                 fac100 * absa(ind0+1,ig) + &
+                 fac010 * absa(ind0+9,ig) + &
+                 fac110 * absa(ind0+10,ig) + &
+                 fac001 * absa(ind1,ig) + &
+                 fac101 * absa(ind1+1,ig) + &
+                 fac011 * absa(ind1+9,ig) + &
+                 fac111 * absa(ind1+10,ig)) + &
+                 w_colh2o(jc,lay) * &
+                 (w_selffac(jc,lay) * (selfref(inds,ig) + &
+                 w_selffrac(jc,lay) * &
+                 (selfref(inds+1,ig) - selfref(inds,ig))) + &
+                 w_forfac(jc,lay) * (forref(indf,ig) + &
+                 w_forfrac(jc,lay) * &
+                 (forref(indf+1,ig) - forref(indf,ig)))) 
+!            ssa(lay,ngs17+ig) = tauray/taug(lay,ngs17+ig)
+            if (lay .eq. laysolfr) w_sfluxzen(jc,ngs17+ig) = sfluxref(ig,js) &
+               + fs * (sfluxref(ig,js+1) - sfluxref(ig,js))
+            w_taur(jc,lay,ngs17+ig) = tauray
+         enddo
+      enddo
+
+! Upper atmosphere loop
+      do lay = laytrop+1, nlayers
+         ind0 = ((w_jp(jc,lay)-13)*5+(w_jt(jc,lay)-1))*nspb(18) + 1
+         ind1 = ((w_jp(jc,lay)-12)*5+(w_jt1(jc,lay)-1))*nspb(18) + 1
+         tauray = w_colmol(jc,lay) * rayl
+
+         do ig = 1, ng18
+            w_taug(jc,lay,ngs17+ig) = w_colch4(jc,lay) * &
+                (w_fac00(jc,lay) * absb(ind0,ig) + &
+                 w_fac10(jc,lay) * absb(ind0+1,ig) + &
+                 w_fac01(jc,lay) * absb(ind1,ig) + &	  
+                 w_fac11(jc,lay) * absb(ind1+1,ig)) 
+!           ssa(lay,ngs17+ig) = tauray/taug(lay,ngs17+ig)
+           w_taur(jc,lay,ngs17+ig) = tauray
+         enddo
+       enddo
+
+      end subroutine taumol18_g
+
+      subroutine taumol19_g(jc, nlayers, laytrop)
+!$acc routine seq
+      use rrsw_con, only: oneminus
+      use rrsw_wvn, only: nspa, nspb
+      use parrrsw, only : ng19, ngs18
+      use rrsw_kg19, only : forref, selfref, sfluxref, rayl, layreffr, strrat
+      use rrtmg_sw_gtab, only : absa => absa19_g, absb => absb19_g
+      use rrtmg_sw_gwork
+      implicit none
+      integer, intent(in) :: jc
+      integer(kind=im), intent(in) :: nlayers, laytrop
+!----------------------------------------------------------------------------
+!
+!     band 19:  4650-5150 cm-1 (low - h2o,co2; high - co2)
+!
+!----------------------------------------------------------------------------
+
+! ------- Modules -------
+
+
+! ------- Declarations -------
+
+! Local
+
+      integer(kind=im) :: ig, ind0, ind1, inds, indf, js, lay, laysolfr
+      real(kind=rb) :: fac000, fac001, fac010, fac011, fac100, fac101, &
+                       fac110, fac111, fs, speccomb, specmult, specparm, &
+                       tauray
+
+! Compute the optical depth by interpolating in ln(pressure), 
+! temperature, and appropriate species.  Below LAYTROP, the water
+! vapor self-continuum is interpolated (in temperature) separately.  
+
+      laysolfr = laytrop
+
+! Lower atmosphere loop      
+      do lay = 1, laytrop
+         if (w_jp(jc,lay) .lt. layreffr .and. w_jp(jc,lay+1) .ge. layreffr) &
+            laysolfr = min(lay+1,laytrop)
+         speccomb = w_colh2o(jc,lay) + strrat*w_colco2(jc,lay)
+         specparm = w_colh2o(jc,lay)/speccomb 
+         if (specparm .ge. oneminus) specparm = oneminus
+         specmult = 8._rb*(specparm)
+         js = 1 + int(specmult)
+         fs = mod(specmult, 1._rb )
+         fac000 = (1._rb - fs) * w_fac00(jc,lay)
+         fac010 = (1._rb - fs) * w_fac10(jc,lay)
+         fac100 = fs * w_fac00(jc,lay)
+         fac110 = fs * w_fac10(jc,lay)
+         fac001 = (1._rb - fs) * w_fac01(jc,lay)
+         fac011 = (1._rb - fs) * w_fac11(jc,lay)
+         fac101 = fs * w_fac01(jc,lay)
+         fac111 = fs * w_fac11(jc,lay)
+         ind0 = ((w_jp(jc,lay)-1)*5+(w_jt(jc,lay)-1))*nspa(19) + js
+         ind1 = (w_jp(jc,lay)*5+(w_jt1(jc,lay)-1))*nspa(19) + js
+         inds = w_indself(jc,lay)
+         indf = w_indfor(jc,lay)
+         tauray = w_colmol(jc,lay) * rayl
+
+         do ig = 1 , ng19
+            w_taug(jc,lay,ngs18+ig) = speccomb * &
+                (fac000 * absa(ind0,ig) + &
+                 fac100 * absa(ind0+1,ig) + &
+                 fac010 * absa(ind0+9,ig) + &
+                 fac110 * absa(ind0+10,ig) + &
+                 fac001 * absa(ind1,ig) + &
+                 fac101 * absa(ind1+1,ig) + &
+                 fac011 * absa(ind1+9,ig) + &
+                 fac111 * absa(ind1+10,ig)) + &
+                 w_colh2o(jc,lay) * &
+                 (w_selffac(jc,lay) * (selfref(inds,ig) + &
+                 w_selffrac(jc,lay) * &
+                 (selfref(inds+1,ig) - selfref(inds,ig))) + & 
+                 w_forfac(jc,lay) * (forref(indf,ig) + &
+                 w_forfrac(jc,lay) * &
+                 (forref(indf+1,ig) - forref(indf,ig)))) 
+!            ssa(lay,ngs18+ig) = tauray/taug(lay,ngs18+ig)
+            if (lay .eq. laysolfr) w_sfluxzen(jc,ngs18+ig) = sfluxref(ig,js) &
+               + fs * (sfluxref(ig,js+1) - sfluxref(ig,js))
+            w_taur(jc,lay,ngs18+ig) = tauray   
+         enddo
+      enddo
+
+! Upper atmosphere loop
+      do lay = laytrop+1, nlayers
+         ind0 = ((w_jp(jc,lay)-13)*5+(w_jt(jc,lay)-1))*nspb(19) + 1
+         ind1 = ((w_jp(jc,lay)-12)*5+(w_jt1(jc,lay)-1))*nspb(19) + 1
+         tauray = w_colmol(jc,lay) * rayl
+
+         do ig = 1 , ng19
+            w_taug(jc,lay,ngs18+ig) = w_colco2(jc,lay) * &
+                (w_fac00(jc,lay) * absb(ind0,ig) + &
+                 w_fac10(jc,lay) * absb(ind0+1,ig) + &
+                 w_fac01(jc,lay) * absb(ind1,ig) + &
+                 w_fac11(jc,lay) * absb(ind1+1,ig)) 
+!            ssa(lay,ngs18+ig) = tauray/taug(lay,ngs18+ig) 
+            w_taur(jc,lay,ngs18+ig) = tauray   
+         enddo
+      enddo
+
+      end subroutine taumol19_g
+
+      subroutine taumol20_g(jc, nlayers, laytrop)
+!$acc routine seq
+      use rrsw_con, only: oneminus
+      use rrsw_wvn, only: nspa, nspb
+      use parrrsw, only : ng20, ngs19
+      use rrsw_kg20, only : forref, selfref, sfluxref, absch4, rayl, layreffr
+      use rrtmg_sw_gtab, only : absa => absa20_g, absb => absb20_g
+      use rrtmg_sw_gwork
+      implicit none
+      integer, intent(in) :: jc
+      integer(kind=im), intent(in) :: nlayers, laytrop
+!----------------------------------------------------------------------------
+!
+!     band 20:  5150-6150 cm-1 (low - h2o; high - h2o)
+!
+!----------------------------------------------------------------------------
+
+! ------- Modules -------
+
+
+
+! ------- Declarations -------
+
+! Local
+
+      integer(kind=im) :: ig, ind0, ind1, inds, indf, js, lay, laysolfr
+      real(kind=rb) :: fac000, fac001, fac010, fac011, fac100, fac101, &
+                       fac110, fac111, fs, speccomb, specmult, specparm, &
+                       tauray
+
+! Compute the optical depth by interpolating in ln(pressure), 
+! temperature, and appropriate species.  Below LAYTROP, the water
+! vapor self-continuum is interpolated (in temperature) separately.  
+
+      laysolfr = laytrop
+
+! Lower atmosphere loop
+      do lay = 1, laytrop
+         if (w_jp(jc,lay) .lt. layreffr .and. w_jp(jc,lay+1) .ge. layreffr) &
+            laysolfr = min(lay+1,laytrop)
+         ind0 = ((w_jp(jc,lay)-1)*5+(w_jt(jc,lay)-1))*nspa(20) + 1
+         ind1 = (w_jp(jc,lay)*5+(w_jt1(jc,lay)-1))*nspa(20) + 1
+         inds = w_indself(jc,lay)
+         indf = w_indfor(jc,lay)
+         tauray = w_colmol(jc,lay) * rayl
+
+         do ig = 1, ng20
+            w_taug(jc,lay,ngs19+ig) = w_colh2o(jc,lay) * &
+               ((w_fac00(jc,lay) * absa(ind0,ig) + &
+                 w_fac10(jc,lay) * absa(ind0+1,ig) + &
+                 w_fac01(jc,lay) * absa(ind1,ig) + &
+                 w_fac11(jc,lay) * absa(ind1+1,ig)) + &
+                 w_selffac(jc,lay) * (selfref(inds,ig) + & 
+                 w_selffrac(jc,lay) * &
+                 (selfref(inds+1,ig) - selfref(inds,ig))) + &
+                 w_forfac(jc,lay) * (forref(indf,ig) + &
+                 w_forfrac(jc,lay) * &
+                 (forref(indf+1,ig) - forref(indf,ig)))) &
+                 + w_colch4(jc,lay) * absch4(ig)
+!            ssa(lay,ngs19+ig) = tauray/taug(lay,ngs19+ig)
+            w_taur(jc,lay,ngs19+ig) = tauray 
+            if (lay .eq. laysolfr) w_sfluxzen(jc,ngs19+ig) = sfluxref(ig) 
+         enddo
+      enddo
+
+! Upper atmosphere loop
+      do lay = laytrop+1, nlayers
+         ind0 = ((w_jp(jc,lay)-13)*5+(w_jt(jc,lay)-1))*nspb(20) + 1
+         ind1 = ((w_jp(jc,lay)-12)*5+(w_jt1(jc,lay)-1))*nspb(20) + 1
+         indf = w_indfor(jc,lay)
+         tauray = w_colmol(jc,lay) * rayl
+
+         do ig = 1, ng20
+            w_taug(jc,lay,ngs19+ig) = w_colh2o(jc,lay) * &
+                (w_fac00(jc,lay) * absb(ind0,ig) + &
+                 w_fac10(jc,lay) * absb(ind0+1,ig) + &
+                 w_fac01(jc,lay) * absb(ind1,ig) + &
+                 w_fac11(jc,lay) * absb(ind1+1,ig) + &
+                 w_forfac(jc,lay) * (forref(indf,ig) + &
+                 w_forfrac(jc,lay) * &
+                 (forref(indf+1,ig) - forref(indf,ig)))) + &
+                 w_colch4(jc,lay) * absch4(ig)
+!            ssa(lay,ngs19+ig) = tauray/taug(lay,ngs19+ig)
+            w_taur(jc,lay,ngs19+ig) = tauray 
+         enddo
+      enddo
+
+      end subroutine taumol20_g
+
+      subroutine taumol21_g(jc, nlayers, laytrop)
+!$acc routine seq
+      use rrsw_con, only: oneminus
+      use rrsw_wvn, only: nspa, nspb
+      use parrrsw, only : ng21, ngs20
+      use rrsw_kg21, only : forref, selfref, sfluxref, rayl, layreffr, strrat
+      use rrtmg_sw_gtab, only : absa => absa21_g, absb => absb21_g
+      use rrtmg_sw_gwork
+      implicit none
+      integer, intent(in) :: jc
+      integer(kind=im), intent(in) :: nlayers, laytrop
+!----------------------------------------------------------------------------
+!
+!     band 21:  6150-7700 cm-1 (low - h2o,co2; high - h2o,co2)
+!
+!----------------------------------------------------------------------------
+
+! ------- Modules -------
+
+
+! ------- Declarations -------
+
+! Local
+
+      integer(kind=im) :: ig, ind0, ind1, inds, indf, js, lay, laysolfr
+      real(kind=rb) :: fac000, fac001, fac010, fac011, fac100, fac101, &
+                       fac110, fac111, fs, speccomb, specmult, specparm, &
+                       tauray
+
+! Compute the optical depth by interpolating in ln(pressure), 
+! temperature, and appropriate species.  Below LAYTROP, the water
+! vapor self-continuum is interpolated (in temperature) separately.  
+
+      laysolfr = laytrop
+      
+! Lower atmosphere loop
+      do lay = 1, laytrop
+         if (w_jp(jc,lay) .lt. layreffr .and. w_jp(jc,lay+1) .ge. layreffr) &
+            laysolfr = min(lay+1,laytrop)
+         speccomb = w_colh2o(jc,lay) + strrat*w_colco2(jc,lay)
+         specparm = w_colh2o(jc,lay)/speccomb 
+         if (specparm .ge. oneminus) specparm = oneminus
+         specmult = 8._rb*(specparm)
+         js = 1 + int(specmult)
+         fs = mod(specmult, 1._rb )
+         fac000 = (1._rb - fs) * w_fac00(jc,lay)
+         fac010 = (1._rb - fs) * w_fac10(jc,lay)
+         fac100 = fs * w_fac00(jc,lay)
+         fac110 = fs * w_fac10(jc,lay)
+         fac001 = (1._rb - fs) * w_fac01(jc,lay)
+         fac011 = (1._rb - fs) * w_fac11(jc,lay)
+         fac101 = fs * w_fac01(jc,lay)
+         fac111 = fs * w_fac11(jc,lay)
+         ind0 = ((w_jp(jc,lay)-1)*5+(w_jt(jc,lay)-1))*nspa(21) + js
+         ind1 = (w_jp(jc,lay)*5+(w_jt1(jc,lay)-1))*nspa(21) + js
+         inds = w_indself(jc,lay)
+         indf = w_indfor(jc,lay)
+         tauray = w_colmol(jc,lay) * rayl
+
+         do ig = 1, ng21
+            w_taug(jc,lay,ngs20+ig) = speccomb * &
+                (fac000 * absa(ind0,ig) + &
+                 fac100 * absa(ind0+1,ig) + &
+                 fac010 * absa(ind0+9,ig) + &
+                 fac110 * absa(ind0+10,ig) + &
+                 fac001 * absa(ind1,ig) + &
+                 fac101 * absa(ind1+1,ig) + &
+                 fac011 * absa(ind1+9,ig) + &
+                 fac111 * absa(ind1+10,ig)) + &
+                 w_colh2o(jc,lay) * &
+                 (w_selffac(jc,lay) * (selfref(inds,ig) + &
+                 w_selffrac(jc,lay) * &
+                 (selfref(inds+1,ig) - selfref(inds,ig))) + &
+                 w_forfac(jc,lay) * (forref(indf,ig) + &
+                 w_forfrac(jc,lay) * &
+                 (forref(indf+1,ig) - forref(indf,ig))))
+!            ssa(lay,ngs20+ig) = tauray/taug(lay,ngs20+ig)
+            if (lay .eq. laysolfr) w_sfluxzen(jc,ngs20+ig) = sfluxref(ig,js) &
+               + fs * (sfluxref(ig,js+1) - sfluxref(ig,js))
+            w_taur(jc,lay,ngs20+ig) = tauray
+         enddo
+      enddo
+
+! Upper atmosphere loop
+      do lay = laytrop+1, nlayers
+         speccomb = w_colh2o(jc,lay) + strrat*w_colco2(jc,lay)
+         specparm = w_colh2o(jc,lay)/speccomb 
+         if (specparm .ge. oneminus) specparm = oneminus
+         specmult = 4._rb*(specparm)
+         js = 1 + int(specmult)
+         fs = mod(specmult, 1._rb )
+         fac000 = (1._rb - fs) * w_fac00(jc,lay)
+         fac010 = (1._rb - fs) * w_fac10(jc,lay)
+         fac100 = fs * w_fac00(jc,lay)
+         fac110 = fs * w_fac10(jc,lay)
+         fac001 = (1._rb - fs) * w_fac01(jc,lay)
+         fac011 = (1._rb - fs) * w_fac11(jc,lay)
+         fac101 = fs * w_fac01(jc,lay)
+         fac111 = fs * w_fac11(jc,lay)
+         ind0 = ((w_jp(jc,lay)-13)*5+(w_jt(jc,lay)-1))*nspb(21) + js
+         ind1 = ((w_jp(jc,lay)-12)*5+(w_jt1(jc,lay)-1))*nspb(21) + js
+         indf = w_indfor(jc,lay)
+         tauray = w_colmol(jc,lay) * rayl
+
+         do ig = 1, ng21
+            w_taug(jc,lay,ngs20+ig) = speccomb * &
+                (fac000 * absb(ind0,ig) + &
+                 fac100 * absb(ind0+1,ig) + &
+                 fac010 * absb(ind0+5,ig) + &
+                 fac110 * absb(ind0+6,ig) + &
+                 fac001 * absb(ind1,ig) + &
+                 fac101 * absb(ind1+1,ig) + &
+                 fac011 * absb(ind1+5,ig) + &
+                 fac111 * absb(ind1+6,ig)) + &
+                 w_colh2o(jc,lay) * &
+                 w_forfac(jc,lay) * (forref(indf,ig) + &
+                 w_forfrac(jc,lay) * &
+                 (forref(indf+1,ig) - forref(indf,ig)))
+!            ssa(lay,ngs20+ig) = tauray/taug(lay,ngs20+ig)
+            w_taur(jc,lay,ngs20+ig) = tauray
+         enddo
+      enddo
+
+      end subroutine taumol21_g
+
+      subroutine taumol22_g(jc, nlayers, laytrop)
+!$acc routine seq
+      use rrsw_con, only: oneminus
+      use rrsw_wvn, only: nspa, nspb
+      use parrrsw, only : ng22, ngs21
+      use rrsw_kg22, only : forref, selfref, sfluxref, rayl, layreffr, strrat
+      use rrtmg_sw_gtab, only : absa => absa22_g, absb => absb22_g
+      use rrtmg_sw_gwork
+      implicit none
+      integer, intent(in) :: jc
+      integer(kind=im), intent(in) :: nlayers, laytrop
+!----------------------------------------------------------------------------
+!
+!     band 22:  7700-8050 cm-1 (low - h2o,o2; high - o2)
+!
+!----------------------------------------------------------------------------
+
+! ------- Modules -------
+
+
+! ------- Declarations -------
+
+! Local
+
+      integer(kind=im) :: ig, ind0, ind1, inds, indf, js, lay, laysolfr
+      real(kind=rb) :: fac000, fac001, fac010, fac011, fac100, fac101, &
+                       fac110, fac111, fs, speccomb, specmult, specparm, &
+                       tauray, o2adj, o2cont
+
+! The following factor is the ratio of total O2 band intensity (lines 
+! and Mate continuum) to O2 band intensity (line only).  It is needed
+! to adjust the optical depths since the k's include only lines.
+      o2adj = 1.6_rb
+      
+! Compute the optical depth by interpolating in ln(pressure), 
+! temperature, and appropriate species.  Below LAYTROP, the water
+! vapor self-continuum is interpolated (in temperature) separately.  
+
+      laysolfr = laytrop
+
+! Lower atmosphere loop
+      do lay = 1, laytrop
+         if (w_jp(jc,lay) .lt. layreffr .and. w_jp(jc,lay+1) .ge. layreffr) &
+            laysolfr = min(lay+1,laytrop)
+         o2cont = 4.35e-4_rb*w_colo2(jc,lay)/(350.0_rb*2.0_rb)
+         speccomb = w_colh2o(jc,lay) + o2adj*strrat*w_colo2(jc,lay)
+         specparm = w_colh2o(jc,lay)/speccomb 
+         if (specparm .ge. oneminus) specparm = oneminus
+         specmult = 8._rb*(specparm)
+!         odadj = specparm + o2adj * (1._rb - specparm)
+         js = 1 + int(specmult)
+         fs = mod(specmult, 1._rb )
+         fac000 = (1._rb - fs) * w_fac00(jc,lay)
+         fac010 = (1._rb - fs) * w_fac10(jc,lay)
+         fac100 = fs * w_fac00(jc,lay)
+         fac110 = fs * w_fac10(jc,lay)
+         fac001 = (1._rb - fs) * w_fac01(jc,lay)
+         fac011 = (1._rb - fs) * w_fac11(jc,lay)
+         fac101 = fs * w_fac01(jc,lay)
+         fac111 = fs * w_fac11(jc,lay)
+         ind0 = ((w_jp(jc,lay)-1)*5+(w_jt(jc,lay)-1))*nspa(22) + js
+         ind1 = (w_jp(jc,lay)*5+(w_jt1(jc,lay)-1))*nspa(22) + js
+         inds = w_indself(jc,lay)
+         indf = w_indfor(jc,lay)
+         tauray = w_colmol(jc,lay) * rayl
+
+         do ig = 1, ng22
+            w_taug(jc,lay,ngs21+ig) = speccomb * &
+                (fac000 * absa(ind0,ig) + &
+                 fac100 * absa(ind0+1,ig) + &
+                 fac010 * absa(ind0+9,ig) + &
+                 fac110 * absa(ind0+10,ig) + &
+                 fac001 * absa(ind1,ig) + &
+                 fac101 * absa(ind1+1,ig) + &
+                 fac011 * absa(ind1+9,ig) + &
+                 fac111 * absa(ind1+10,ig)) + &
+                 w_colh2o(jc,lay) * &
+                 (w_selffac(jc,lay) * (selfref(inds,ig) + &
+                 w_selffrac(jc,lay) * &
+                  (selfref(inds+1,ig) - selfref(inds,ig))) + &
+                 w_forfac(jc,lay) * (forref(indf,ig) + &
+                 w_forfrac(jc,lay) * &
+                 (forref(indf+1,ig) - forref(indf,ig)))) &
+                 + o2cont
+!            ssa(lay,ngs21+ig) = tauray/taug(lay,ngs21+ig)
+            if (lay .eq. laysolfr) w_sfluxzen(jc,ngs21+ig) = sfluxref(ig,js) &
+                + fs * (sfluxref(ig,js+1) - sfluxref(ig,js))
+            w_taur(jc,lay,ngs21+ig) = tauray
+         enddo
+      enddo
+
+! Upper atmosphere loop
+      do lay = laytrop+1, nlayers
+         o2cont = 4.35e-4_rb*w_colo2(jc,lay)/(350.0_rb*2.0_rb)
+         ind0 = ((w_jp(jc,lay)-13)*5+(w_jt(jc,lay)-1))*nspb(22) + 1
+         ind1 = ((w_jp(jc,lay)-12)*5+(w_jt1(jc,lay)-1))*nspb(22) + 1
+         tauray = w_colmol(jc,lay) * rayl
+
+         do ig = 1, ng22
+            w_taug(jc,lay,ngs21+ig) = w_colo2(jc,lay) * o2adj * &
+                (w_fac00(jc,lay) * absb(ind0,ig) + &
+                 w_fac10(jc,lay) * absb(ind0+1,ig) + &
+                 w_fac01(jc,lay) * absb(ind1,ig) + &
+                 w_fac11(jc,lay) * absb(ind1+1,ig)) + &
+                 o2cont
+!            ssa(lay,ngs21+ig) = tauray/taug(lay,ngs21+ig)
+            w_taur(jc,lay,ngs21+ig) = tauray
+         enddo
+      enddo
+
+      end subroutine taumol22_g
+
+      subroutine taumol23_g(jc, nlayers, laytrop)
+!$acc routine seq
+      use rrsw_con, only: oneminus
+      use rrsw_wvn, only: nspa, nspb
+      use parrrsw, only : ng23, ngs22
+      use rrsw_kg23, only : forref, selfref, sfluxref, rayl, layreffr, givfac
+      use rrtmg_sw_gtab, only : absa => absa23_g
+      use rrtmg_sw_gwork
+      implicit none
+      integer, intent(in) :: jc
+      integer(kind=im), intent(in) :: nlayers, laytrop
+!----------------------------------------------------------------------------
+!
+!     band 23:  8050-12850 cm-1 (low - h2o; high - nothing)
+!
+!----------------------------------------------------------------------------
+
+! ------- Modules -------
+
+
+! ------- Declarations -------
+
+! Local
+
+      integer(kind=im) :: ig, ind0, ind1, inds, indf, js, lay, laysolfr
+      real(kind=rb) :: fac000, fac001, fac010, fac011, fac100, fac101, &
+                       fac110, fac111, fs, speccomb, specmult, specparm, &
+                       tauray
+
+! Compute the optical depth by interpolating in ln(pressure), 
+! temperature, and appropriate species.  Below LAYTROP, the water
+! vapor self-continuum is interpolated (in temperature) separately.  
+
+      laysolfr = laytrop
+
+! Lower atmosphere loop
+      do lay = 1, laytrop
+         if (w_jp(jc,lay) .lt. layreffr .and. w_jp(jc,lay+1) .ge. layreffr) &
+            laysolfr = min(lay+1,laytrop)
+         ind0 = ((w_jp(jc,lay)-1)*5+(w_jt(jc,lay)-1))*nspa(23) + 1
+         ind1 = (w_jp(jc,lay)*5+(w_jt1(jc,lay)-1))*nspa(23) + 1
+         inds = w_indself(jc,lay)
+         indf = w_indfor(jc,lay)
+
+         do ig = 1, ng23
+            tauray = w_colmol(jc,lay) * rayl(ig)
+            w_taug(jc,lay,ngs22+ig) = w_colh2o(jc,lay) * &
+                (givfac * (w_fac00(jc,lay) * absa(ind0,ig) + &
+                 w_fac10(jc,lay) * absa(ind0+1,ig) + &
+                 w_fac01(jc,lay) * absa(ind1,ig) + &
+                 w_fac11(jc,lay) * absa(ind1+1,ig)) + &
+                 w_selffac(jc,lay) * (selfref(inds,ig) + &
+                 w_selffrac(jc,lay) * &
+                 (selfref(inds+1,ig) - selfref(inds,ig))) + &
+                 w_forfac(jc,lay) * (forref(indf,ig) + &
+                 w_forfrac(jc,lay) * &
+                 (forref(indf+1,ig) - forref(indf,ig)))) 
+!            ssa(lay,ngs22+ig) = tauray/taug(lay,ngs22+ig)
+            if (lay .eq. laysolfr) w_sfluxzen(jc,ngs22+ig) = sfluxref(ig) 
+            w_taur(jc,lay,ngs22+ig) = tauray
+         enddo
+      enddo
+
+! Upper atmosphere loop
+      do lay = laytrop+1, nlayers
+         do ig = 1, ng23
+!            taug(lay,ngs22+ig) = colmol(lay) * rayl(ig)
+!            ssa(lay,ngs22+ig) = 1.0_rb
+            w_taug(jc,lay,ngs22+ig) = 0._rb
+            w_taur(jc,lay,ngs22+ig) = w_colmol(jc,lay) * rayl(ig) 
+         enddo
+      enddo
+
+      end subroutine taumol23_g
+
+      subroutine taumol24_g(jc, nlayers, laytrop)
+!$acc routine seq
+      use rrsw_con, only: oneminus
+      use rrsw_wvn, only: nspa, nspb
+      use parrrsw, only : ng24, ngs23
+      use rrsw_kg24, only : forref, selfref, sfluxref, abso3a, abso3b, rayla, raylb, layreffr, strrat
+      use rrtmg_sw_gtab, only : absa => absa24_g, absb => absb24_g
+      use rrtmg_sw_gwork
+      implicit none
+      integer, intent(in) :: jc
+      integer(kind=im), intent(in) :: nlayers, laytrop
+!----------------------------------------------------------------------------
+!
+!     band 24:  12850-16000 cm-1 (low - h2o,o2; high - o2)
+!
+!----------------------------------------------------------------------------
+
+! ------- Modules -------
+
+
+! ------- Declarations -------
+
+! Local
+
+      integer(kind=im) :: ig, ind0, ind1, inds, indf, js, lay, laysolfr
+      real(kind=rb) :: fac000, fac001, fac010, fac011, fac100, fac101, &
+                       fac110, fac111, fs, speccomb, specmult, specparm, &
+                       tauray
+
+! Compute the optical depth by interpolating in ln(pressure), 
+! temperature, and appropriate species.  Below LAYTROP, the water
+! vapor self-continuum is interpolated (in temperature) separately.  
+
+      laysolfr = laytrop
+
+! Lower atmosphere loop
+      do lay = 1, laytrop
+         if (w_jp(jc,lay) .lt. layreffr .and. w_jp(jc,lay+1) .ge. layreffr) &
+            laysolfr = min(lay+1,laytrop)
+         speccomb = w_colh2o(jc,lay) + strrat*w_colo2(jc,lay)
+         specparm = w_colh2o(jc,lay)/speccomb 
+         if (specparm .ge. oneminus) specparm = oneminus
+         specmult = 8._rb*(specparm)
+         js = 1 + int(specmult)
+         fs = mod(specmult, 1._rb )
+         fac000 = (1._rb - fs) * w_fac00(jc,lay)
+         fac010 = (1._rb - fs) * w_fac10(jc,lay)
+         fac100 = fs * w_fac00(jc,lay)
+         fac110 = fs * w_fac10(jc,lay)
+         fac001 = (1._rb - fs) * w_fac01(jc,lay)
+         fac011 = (1._rb - fs) * w_fac11(jc,lay)
+         fac101 = fs * w_fac01(jc,lay)
+         fac111 = fs * w_fac11(jc,lay)
+         ind0 = ((w_jp(jc,lay)-1)*5+(w_jt(jc,lay)-1))*nspa(24) + js
+         ind1 = (w_jp(jc,lay)*5+(w_jt1(jc,lay)-1))*nspa(24) + js
+         inds = w_indself(jc,lay)
+         indf = w_indfor(jc,lay)
+
+         do ig = 1, ng24
+            tauray = w_colmol(jc,lay) * (rayla(ig,js) + &
+               fs * (rayla(ig,js+1) - rayla(ig,js)))
+            w_taug(jc,lay,ngs23+ig) = speccomb * &
+                (fac000 * absa(ind0,ig) + &
+                 fac100 * absa(ind0+1,ig) + &
+                 fac010 * absa(ind0+9,ig) + &
+                 fac110 * absa(ind0+10,ig) + &
+                 fac001 * absa(ind1,ig) + &
+                 fac101 * absa(ind1+1,ig) + &
+                 fac011 * absa(ind1+9,ig) + &
+                 fac111 * absa(ind1+10,ig)) + &
+                 w_colo3(jc,lay) * abso3a(ig) + &
+                 w_colh2o(jc,lay) * & 
+                 (w_selffac(jc,lay) * (selfref(inds,ig) + &
+                 w_selffrac(jc,lay) * &
+                 (selfref(inds+1,ig) - selfref(inds,ig))) + &
+                 w_forfac(jc,lay) * (forref(indf,ig) + & 
+                 w_forfrac(jc,lay) * &
+                 (forref(indf+1,ig) - forref(indf,ig))))
+!            ssa(lay,ngs23+ig) = tauray/taug(lay,ngs23+ig)
+            if (lay .eq. laysolfr) w_sfluxzen(jc,ngs23+ig) = sfluxref(ig,js) &
+               + fs * (sfluxref(ig,js+1) - sfluxref(ig,js))
+            w_taur(jc,lay,ngs23+ig) = tauray
+         enddo
+      enddo
+
+! Upper atmosphere loop
+      do lay = laytrop+1, nlayers
+         ind0 = ((w_jp(jc,lay)-13)*5+(w_jt(jc,lay)-1))*nspb(24) + 1
+         ind1 = ((w_jp(jc,lay)-12)*5+(w_jt1(jc,lay)-1))*nspb(24) + 1
+
+         do ig = 1, ng24
+            tauray = w_colmol(jc,lay) * raylb(ig)
+            w_taug(jc,lay,ngs23+ig) = w_colo2(jc,lay) * &
+                (w_fac00(jc,lay) * absb(ind0,ig) + &
+                 w_fac10(jc,lay) * absb(ind0+1,ig) + &
+                 w_fac01(jc,lay) * absb(ind1,ig) + &
+                 w_fac11(jc,lay) * absb(ind1+1,ig)) + &
+                 w_colo3(jc,lay) * abso3b(ig)
+!            ssa(lay,ngs23+ig) = tauray/taug(lay,ngs23+ig)
+            w_taur(jc,lay,ngs23+ig) = tauray
+         enddo
+      enddo
+
+      end subroutine taumol24_g
+
+      subroutine taumol25_g(jc, nlayers, laytrop)
+!$acc routine seq
+      use rrsw_con, only: oneminus
+      use rrsw_wvn, only: nspa, nspb
+      use parrrsw, only : ng25, ngs24
+      use rrsw_kg25, only : sfluxref, abso3a, abso3b, rayl, layreffr
+      use rrtmg_sw_gtab, only : absa => absa25_g
+      use rrtmg_sw_gwork
+      implicit none
+      integer, intent(in) :: jc
+      integer(kind=im), intent(in) :: nlayers, laytrop
+!----------------------------------------------------------------------------
+!
+!     band 25:  16000-22650 cm-1 (low - h2o; high - nothing)
+!
+!----------------------------------------------------------------------------
+
+! ------- Modules -------
+
+
+! ------- Declarations -------
+
+! Local
+
+      integer(kind=im) :: ig, ind0, ind1, inds, indf, js, lay, laysolfr
+      real(kind=rb) :: fac000, fac001, fac010, fac011, fac100, fac101, &
+                       fac110, fac111, fs, speccomb, specmult, specparm, &
+                       tauray
+
+! Compute the optical depth by interpolating in ln(pressure), 
+! temperature, and appropriate species.  Below LAYTROP, the water
+! vapor self-continuum is interpolated (in temperature) separately.  
+
+      laysolfr = laytrop
+
+! Lower atmosphere loop
+      do lay = 1, laytrop
+         if (w_jp(jc,lay) .lt. layreffr .and. w_jp(jc,lay+1) .ge. layreffr) &
+            laysolfr = min(lay+1,laytrop)
+         ind0 = ((w_jp(jc,lay)-1)*5+(w_jt(jc,lay)-1))*nspa(25) + 1
+         ind1 = (w_jp(jc,lay)*5+(w_jt1(jc,lay)-1))*nspa(25) + 1
+
+         do ig = 1, ng25
+            tauray = w_colmol(jc,lay) * rayl(ig)
+            w_taug(jc,lay,ngs24+ig) = w_colh2o(jc,lay) * &
+                (w_fac00(jc,lay) * absa(ind0,ig) + &
+                 w_fac10(jc,lay) * absa(ind0+1,ig) + &
+                 w_fac01(jc,lay) * absa(ind1,ig) + &
+                 w_fac11(jc,lay) * absa(ind1+1,ig)) + &
+                 w_colo3(jc,lay) * abso3a(ig) 
+!            ssa(lay,ngs24+ig) = tauray/taug(lay,ngs24+ig)
+            if (lay .eq. laysolfr) w_sfluxzen(jc,ngs24+ig) = sfluxref(ig) 
+            w_taur(jc,lay,ngs24+ig) = tauray
+         enddo
+      enddo
+
+! Upper atmosphere loop
+      do lay = laytrop+1, nlayers
+         do ig = 1, ng25
+            tauray = w_colmol(jc,lay) * rayl(ig)
+            w_taug(jc,lay,ngs24+ig) = w_colo3(jc,lay) * abso3b(ig) 
+!            ssa(lay,ngs24+ig) = tauray/taug(lay,ngs24+ig)
+            w_taur(jc,lay,ngs24+ig) = tauray
+         enddo
+      enddo
+
+      end subroutine taumol25_g
+
+      subroutine taumol26_g(jc, nlayers, laytrop)
+!$acc routine seq
+      use rrsw_con, only: oneminus
+      use rrsw_wvn, only: nspa, nspb
+      use parrrsw, only : ng26, ngs25
+      use rrsw_kg26, only : sfluxref, rayl
+      use rrtmg_sw_gwork
+      implicit none
+      integer, intent(in) :: jc
+      integer(kind=im), intent(in) :: nlayers, laytrop
+!----------------------------------------------------------------------------
+!
+!     band 26:  22650-29000 cm-1 (low - nothing; high - nothing)
+!
+!----------------------------------------------------------------------------
+
+! ------- Modules -------
+
+
+! ------- Declarations -------
+
+! Local
+
+      integer(kind=im) :: ig, ind0, ind1, inds, indf, js, lay, laysolfr
+      real(kind=rb) :: fac000, fac001, fac010, fac011, fac100, fac101, &
+                       fac110, fac111, fs, speccomb, specmult, specparm, &
+                       tauray
+
+! Compute the optical depth by interpolating in ln(pressure), 
+! temperature, and appropriate species.  Below LAYTROP, the water
+! vapor self-continuum is interpolated (in temperature) separately.  
+
+      laysolfr = laytrop
+
+! Lower atmosphere loop
+      do lay = 1, laytrop
+         do ig = 1, ng26 
+!            taug(lay,ngs25+ig) = colmol(lay) * rayl(ig)
+!            ssa(lay,ngs25+ig) = 1.0_rb
+            if (lay .eq. laysolfr) w_sfluxzen(jc,ngs25+ig) = sfluxref(ig) 
+            w_taug(jc,lay,ngs25+ig) = 0._rb
+            w_taur(jc,lay,ngs25+ig) = w_colmol(jc,lay) * rayl(ig) 
+         enddo
+      enddo
+
+! Upper atmosphere loop
+      do lay = laytrop+1, nlayers
+         do ig = 1, ng26
+!            taug(lay,ngs25+ig) = colmol(lay) * rayl(ig)
+!            ssa(lay,ngs25+ig) = 1.0_rb
+            w_taug(jc,lay,ngs25+ig) = 0._rb
+            w_taur(jc,lay,ngs25+ig) = w_colmol(jc,lay) * rayl(ig) 
+         enddo
+      enddo
+
+      end subroutine taumol26_g
+
+      subroutine taumol27_g(jc, nlayers, laytrop)
+!$acc routine seq
+      use rrsw_con, only: oneminus
+      use rrsw_wvn, only: nspa, nspb
+      use parrrsw, only : ng27, ngs26
+      use rrsw_kg27, only : sfluxref, rayl, layreffr, scalekur
+      use rrtmg_sw_gtab, only : absa => absa27_g, absb => absb27_g
+      use rrtmg_sw_gwork
+      implicit none
+      integer, intent(in) :: jc
+      integer(kind=im), intent(in) :: nlayers, laytrop
+!----------------------------------------------------------------------------
+!
+!     band 27:  29000-38000 cm-1 (low - o3; high - o3)
+!
+!----------------------------------------------------------------------------
+
+! ------- Modules -------
+
+
+! ------- Declarations -------
+
+! Local
+
+      integer(kind=im) :: ig, ind0, ind1, inds, indf, js, lay, laysolfr
+      real(kind=rb) :: fac000, fac001, fac010, fac011, fac100, fac101, &
+                       fac110, fac111, fs, speccomb, specmult, specparm, &
+                       tauray
+
+! Compute the optical depth by interpolating in ln(pressure), 
+! temperature, and appropriate species.  Below LAYTROP, the water
+! vapor self-continuum is interpolated (in temperature) separately.  
+
+! Lower atmosphere loop
+      do lay = 1, laytrop
+         ind0 = ((w_jp(jc,lay)-1)*5+(w_jt(jc,lay)-1))*nspa(27) + 1
+         ind1 = (w_jp(jc,lay)*5+(w_jt1(jc,lay)-1))*nspa(27) + 1
+
+         do ig = 1, ng27
+            tauray = w_colmol(jc,lay) * rayl(ig)
+            w_taug(jc,lay,ngs26+ig) = w_colo3(jc,lay) * &
+                (w_fac00(jc,lay) * absa(ind0,ig) + &
+                 w_fac10(jc,lay) * absa(ind0+1,ig) + &
+                 w_fac01(jc,lay) * absa(ind1,ig) + &
+                 w_fac11(jc,lay) * absa(ind1+1,ig))
+!            ssa(lay,ngs26+ig) = tauray/taug(lay,ngs26+ig)
+            w_taur(jc,lay,ngs26+ig) = tauray
+         enddo
+      enddo
+
+      laysolfr = nlayers
+
+! Upper atmosphere loop
+      do lay = laytrop+1, nlayers
+         if (w_jp(jc,lay-1) .lt. layreffr .and. w_jp(jc,lay) .ge. layreffr) &
+            laysolfr = lay
+         ind0 = ((w_jp(jc,lay)-13)*5+(w_jt(jc,lay)-1))*nspb(27) + 1
+         ind1 = ((w_jp(jc,lay)-12)*5+(w_jt1(jc,lay)-1))*nspb(27) + 1
+
+         do ig = 1, ng27
+            tauray = w_colmol(jc,lay) * rayl(ig)
+            w_taug(jc,lay,ngs26+ig) = w_colo3(jc,lay) * &
+                (w_fac00(jc,lay) * absb(ind0,ig) + &
+                 w_fac10(jc,lay) * absb(ind0+1,ig) + &
+                 w_fac01(jc,lay) * absb(ind1,ig) + & 
+                 w_fac11(jc,lay) * absb(ind1+1,ig))
+!            ssa(lay,ngs26+ig) = tauray/taug(lay,ngs26+ig)
+            if (lay.eq.laysolfr) w_sfluxzen(jc,ngs26+ig) = scalekur * sfluxref(ig) 
+            w_taur(jc,lay,ngs26+ig) = tauray
+         enddo
+      enddo
+
+      end subroutine taumol27_g
+
+      subroutine taumol28_g(jc, nlayers, laytrop)
+!$acc routine seq
+      use rrsw_con, only: oneminus
+      use rrsw_wvn, only: nspa, nspb
+      use parrrsw, only : ng28, ngs27
+      use rrsw_kg28, only : sfluxref, rayl, layreffr, strrat
+      use rrtmg_sw_gtab, only : absa => absa28_g, absb => absb28_g
+      use rrtmg_sw_gwork
+      implicit none
+      integer, intent(in) :: jc
+      integer(kind=im), intent(in) :: nlayers, laytrop
+!----------------------------------------------------------------------------
+!
+!     band 28:  38000-50000 cm-1 (low - o3,o2; high - o3,o2)
+!
+!----------------------------------------------------------------------------
+
+! ------- Modules -------
+
+
+! ------- Declarations -------
+
+! Local
+
+      integer(kind=im) :: ig, ind0, ind1, inds, indf, js, lay, laysolfr
+      real(kind=rb) :: fac000, fac001, fac010, fac011, fac100, fac101, &
+                       fac110, fac111, fs, speccomb, specmult, specparm, &
+                       tauray
+
+! Compute the optical depth by interpolating in ln(pressure), 
+! temperature, and appropriate species.  Below LAYTROP, the water
+! vapor self-continuum is interpolated (in temperature) separately.  
+
+! Lower atmosphere loop
+      do lay = 1, laytrop
+         speccomb = w_colo3(jc,lay) + strrat*w_colo2(jc,lay)
+         specparm = w_colo3(jc,lay)/speccomb 
+         if (specparm .ge. oneminus) specparm = oneminus
+         specmult = 8._rb*(specparm)
+         js = 1 + int(specmult)
+         fs = mod(specmult, 1._rb )
+         fac000 = (1._rb - fs) * w_fac00(jc,lay)
+         fac010 = (1._rb - fs) * w_fac10(jc,lay)
+         fac100 = fs * w_fac00(jc,lay)
+         fac110 = fs * w_fac10(jc,lay)
+         fac001 = (1._rb - fs) * w_fac01(jc,lay)
+         fac011 = (1._rb - fs) * w_fac11(jc,lay)
+         fac101 = fs * w_fac01(jc,lay)
+         fac111 = fs * w_fac11(jc,lay)
+         ind0 = ((w_jp(jc,lay)-1)*5+(w_jt(jc,lay)-1))*nspa(28) + js
+         ind1 = (w_jp(jc,lay)*5+(w_jt1(jc,lay)-1))*nspa(28) + js
+         tauray = w_colmol(jc,lay) * rayl
+
+         do ig = 1, ng28
+            w_taug(jc,lay,ngs27+ig) = speccomb * &
+                (fac000 * absa(ind0,ig) + &
+                 fac100 * absa(ind0+1,ig) + &
+                 fac010 * absa(ind0+9,ig) + &
+                 fac110 * absa(ind0+10,ig) + &
+                 fac001 * absa(ind1,ig) + &
+                 fac101 * absa(ind1+1,ig) + &
+                 fac011 * absa(ind1+9,ig) + &
+                 fac111 * absa(ind1+10,ig)) 
+!            ssa(lay,ngs27+ig) = tauray/taug(lay,ngs27+ig)
+            w_taur(jc,lay,ngs27+ig) = tauray
+         enddo
+      enddo
+
+      laysolfr = nlayers
+
+! Upper atmosphere loop
+      do lay = laytrop+1, nlayers
+         if (w_jp(jc,lay-1) .lt. layreffr .and. w_jp(jc,lay) .ge. layreffr) &
+            laysolfr = lay
+         speccomb = w_colo3(jc,lay) + strrat*w_colo2(jc,lay)
+         specparm = w_colo3(jc,lay)/speccomb 
+         if (specparm .ge. oneminus) specparm = oneminus
+         specmult = 4._rb*(specparm)
+         js = 1 + int(specmult)
+         fs = mod(specmult, 1._rb )
+         fac000 = (1._rb - fs) * w_fac00(jc,lay)
+         fac010 = (1._rb - fs) * w_fac10(jc,lay)
+         fac100 = fs * w_fac00(jc,lay)
+         fac110 = fs * w_fac10(jc,lay)
+         fac001 = (1._rb - fs) * w_fac01(jc,lay)
+         fac011 = (1._rb - fs) * w_fac11(jc,lay)
+         fac101 = fs * w_fac01(jc,lay)
+         fac111 = fs * w_fac11(jc,lay)
+         ind0 = ((w_jp(jc,lay)-13)*5+(w_jt(jc,lay)-1))*nspb(28) + js
+         ind1 = ((w_jp(jc,lay)-12)*5+(w_jt1(jc,lay)-1))*nspb(28) + js
+         tauray = w_colmol(jc,lay) * rayl
+
+         do ig = 1, ng28
+            w_taug(jc,lay,ngs27+ig) = speccomb * &
+                (fac000 * absb(ind0,ig) + &
+                 fac100 * absb(ind0+1,ig) + &
+                 fac010 * absb(ind0+5,ig) + &
+                 fac110 * absb(ind0+6,ig) + &
+                 fac001 * absb(ind1,ig) + &
+                 fac101 * absb(ind1+1,ig) + &
+                 fac011 * absb(ind1+5,ig) + &
+                 fac111 * absb(ind1+6,ig)) 
+!            ssa(lay,ngs27+ig) = tauray/taug(lay,ngs27+ig)
+            if (lay .eq. laysolfr) w_sfluxzen(jc,ngs27+ig) = sfluxref(ig,js) &
+               + fs * (sfluxref(ig,js+1) - sfluxref(ig,js))
+            w_taur(jc,lay,ngs27+ig) = tauray
+         enddo
+      enddo
+
+      end subroutine taumol28_g
+
+      subroutine taumol29_g(jc, nlayers, laytrop)
+!$acc routine seq
+      use rrsw_con, only: oneminus
+      use rrsw_wvn, only: nspa, nspb
+      use parrrsw, only : ng29, ngs28
+      use rrsw_kg29, only : forref, selfref, sfluxref, absh2o, absco2, rayl, layreffr
+      use rrtmg_sw_gtab, only : absa => absa29_g, absb => absb29_g
+      use rrtmg_sw_gwork
+      implicit none
+      integer, intent(in) :: jc
+      integer(kind=im), intent(in) :: nlayers, laytrop
+!----------------------------------------------------------------------------
+!
+!     band 29:  820-2600 cm-1 (low - h2o; high - co2)
+!
+!----------------------------------------------------------------------------
+
+! ------- Modules -------
+
+
+! ------- Declarations -------
+
+! Local
+
+      integer(kind=im) :: ig, ind0, ind1, inds, indf, js, lay, laysolfr
+      real(kind=rb) :: fac000, fac001, fac010, fac011, fac100, fac101, &
+                       fac110, fac111, fs, speccomb, specmult, specparm, &
+                       tauray
+
+! Compute the optical depth by interpolating in ln(pressure), 
+! temperature, and appropriate species.  Below LAYTROP, the water
+! vapor self-continuum is interpolated (in temperature) separately.  
+
+! Lower atmosphere loop
+      do lay = 1, laytrop
+         ind0 = ((w_jp(jc,lay)-1)*5+(w_jt(jc,lay)-1))*nspa(29) + 1
+         ind1 = (w_jp(jc,lay)*5+(w_jt1(jc,lay)-1))*nspa(29) + 1
+         inds = w_indself(jc,lay)
+         indf = w_indfor(jc,lay)
+         tauray = w_colmol(jc,lay) * rayl
+
+         do ig = 1, ng29
+            w_taug(jc,lay,ngs28+ig) = w_colh2o(jc,lay) * &
+               ((w_fac00(jc,lay) * absa(ind0,ig) + &
+                 w_fac10(jc,lay) * absa(ind0+1,ig) + &
+                 w_fac01(jc,lay) * absa(ind1,ig) + &
+                 w_fac11(jc,lay) * absa(ind1+1,ig)) + &
+                 w_selffac(jc,lay) * (selfref(inds,ig) + &
+                 w_selffrac(jc,lay) * &
+                 (selfref(inds+1,ig) - selfref(inds,ig))) + &
+                 w_forfac(jc,lay) * (forref(indf,ig) + & 
+                 w_forfrac(jc,lay) * &
+                 (forref(indf+1,ig) - forref(indf,ig)))) &
+                 + w_colco2(jc,lay) * absco2(ig) 
+!            ssa(lay,ngs28+ig) = tauray/taug(lay,ngs28+ig)
+            w_taur(jc,lay,ngs28+ig) = tauray
+         enddo
+      enddo
+
+      laysolfr = nlayers
+
+! Upper atmosphere loop
+      do lay = laytrop+1, nlayers
+         if (w_jp(jc,lay-1) .lt. layreffr .and. w_jp(jc,lay) .ge. layreffr) &
+            laysolfr = lay
+         ind0 = ((w_jp(jc,lay)-13)*5+(w_jt(jc,lay)-1))*nspb(29) + 1
+         ind1 = ((w_jp(jc,lay)-12)*5+(w_jt1(jc,lay)-1))*nspb(29) + 1
+         tauray = w_colmol(jc,lay) * rayl
+
+         do ig = 1, ng29
+            w_taug(jc,lay,ngs28+ig) = w_colco2(jc,lay) * &
+                (w_fac00(jc,lay) * absb(ind0,ig) + &
+                 w_fac10(jc,lay) * absb(ind0+1,ig) + &
+                 w_fac01(jc,lay) * absb(ind1,ig) + &
+                 w_fac11(jc,lay) * absb(ind1+1,ig)) &  
+                 + w_colh2o(jc,lay) * absh2o(ig) 
+!            ssa(lay,ngs28+ig) = tauray/taug(lay,ngs28+ig)
+            if (lay .eq. laysolfr) w_sfluxzen(jc,ngs28+ig) = sfluxref(ig) 
+            w_taur(jc,lay,ngs28+ig) = tauray
+         enddo
+      enddo
+
+      end subroutine taumol29_g
+
+      subroutine reftra_sw_g(nlayers, lrtchk, pgg, prmuz, ptau, pw, pref, prefd, ptra, ptrad)
+!$acc routine seq
+      use parkind, only : im => kind_im, rb => kind_rb
+      use rrsw_tbl, only : tblint, bpade, od_lo, exp_tbl
+      use rrtmg_sw_gwork
+      implicit none
+! --------------------------------------------------------------------
+  
+! Purpose: computes the reflectivity and transmissivity of a clear or 
+!   cloudy layer using a choice of various approximations.
+!
+! Interface:  *rrtmg_sw_reftra* is called by *rrtmg_sw_spcvrt*
+!
+! Description:
+! explicit arguments :
+! --------------------
+! inputs
+! ------ 
+!      lrtchk  = .t. for all layers in clear profile
+!      lrtchk  = .t. for cloudy layers in cloud profile 
+!              = .f. for clear layers in cloud profile
+!      pgg     = assymetry factor
+!      prmuz   = cosine solar zenith angle
+!      ptau    = optical thickness
+!      pw      = single scattering albedo
+!
+! outputs
+! -------
+!      pref    : collimated beam reflectivity
+!      prefd   : diffuse beam reflectivity 
+!      ptra    : collimated beam transmissivity
+!      ptrad   : diffuse beam transmissivity
+!
+!
+! Method:
+! -------
+!      standard delta-eddington, p.i.f.m., or d.o.m. layer calculations.
+!      kmodts  = 1 eddington (joseph et al., 1976)
+!              = 2 pifm (zdunkowski et al., 1980)
+!              = 3 discrete ordinates (liou, 1973)
+!
+!
+! Modifications:
+! --------------
+! Original: J-JMorcrette, ECMWF, Feb 2003
+! Revised for F90 reformatting: MJIacono, AER, Jul 2006
+! Revised to add exponential lookup table: MJIacono, AER, Aug 2007
+! Reformulated some code to avoid potential fpes: MJIacono, AER, Nov 2008
+!
+! ------------------------------------------------------------------
+
+! ------- Declarations ------
+
+! ------- Input -------
+
+      integer(kind=im), intent(in) :: nlayers
+
+      logical, intent(in) :: lrtchk(mxl_s)                         ! Logical flag for reflectivity and
+                                                               ! and transmissivity calculation; 
+                                                               !   Dimensions: (nlayers)
+
+      real(kind=rb), intent(in) :: pgg(mxl_s)                      ! asymmetry parameter
+                                                               !   Dimensions: (nlayers)
+      real(kind=rb), intent(in) :: ptau(mxl_s)                     ! optical depth
+                                                               !   Dimensions: (nlayers)
+      real(kind=rb), intent(in) :: pw(mxl_s)                       ! single scattering albedo 
+                                                               !   Dimensions: (nlayers)
+      real(kind=rb), intent(in) :: prmuz                       ! cosine of solar zenith angle
+
+! ------- Output -------
+
+      real(kind=rb), intent(inout) :: pref(mxl_s)                  ! direct beam reflectivity
+                                                               !   Dimensions: (nlayers+1)
+      real(kind=rb), intent(inout) :: prefd(mxl_s)                 ! diffuse beam reflectivity
+                                                               !   Dimensions: (nlayers+1)
+      real(kind=rb), intent(inout) :: ptra(mxl_s)                  ! direct beam transmissivity
+                                                               !   Dimensions: (nlayers+1)
+      real(kind=rb), intent(inout) :: ptrad(mxl_s)                 ! diffuse beam transmissivity
+                                                               !   Dimensions: (nlayers+1)
+
+! ------- Local -------
+
+      integer(kind=im) :: jk, jl, kmodts
+      integer(kind=im) :: itind
+
+      real(kind=rb) :: tblind
+      real(kind=rb) :: za, za1, za2
+      real(kind=rb) :: zbeta, zdend, zdenr, zdent
+      real(kind=rb) :: ze1, ze2, zem1, zem2, zemm, zep1, zep2
+      real(kind=rb) :: zg, zg3, zgamma1, zgamma2, zgamma3, zgamma4, zgt
+      real(kind=rb) :: zr1, zr2, zr3, zr4, zr5
+      real(kind=rb) :: zrk, zrk2, zrkg, zrm1, zrp, zrp1, zrpp
+      real(kind=rb) :: zsr3, zt1, zt2, zt3, zt4, zt5, zto1
+      real(kind=rb) :: zw, zwcrit, zwo
+      real(kind=rb) :: denom
+
+      real(kind=rb), parameter :: eps = 1.e-08_rb
+
+!     ------------------------------------------------------------------
+
+! Initialize
+
+!jm not thread safe      hvrrft = '$Revision: 1.3 $'
+
+      zsr3=sqrt(3._rb)
+      zwcrit=0.9999995_rb
+      kmodts=2
+
+      do jk=1, nlayers
+         if (.not.lrtchk(jk)) then
+            pref(jk) =0._rb
+            ptra(jk) =1._rb
+            prefd(jk)=0._rb
+            ptrad(jk)=1._rb
+         else
+            zto1=ptau(jk)
+            zw  =pw(jk)
+            zg  =pgg(jk)  
+
+! General two-stream expressions
+
+            zg3= 3._rb * zg
+            if (kmodts == 1) then
+               zgamma1= (7._rb - zw * (4._rb + zg3)) * 0.25_rb
+               zgamma2=-(1._rb - zw * (4._rb - zg3)) * 0.25_rb
+               zgamma3= (2._rb - zg3 * prmuz ) * 0.25_rb
+            else if (kmodts == 2) then  
+               zgamma1= (8._rb - zw * (5._rb + zg3)) * 0.25_rb
+               zgamma2=  3._rb *(zw * (1._rb - zg )) * 0.25_rb
+               zgamma3= (2._rb - zg3 * prmuz ) * 0.25_rb
+            else if (kmodts == 3) then  
+               zgamma1= zsr3 * (2._rb - zw * (1._rb + zg)) * 0.5_rb
+               zgamma2= zsr3 * zw * (1._rb - zg ) * 0.5_rb
+               zgamma3= (1._rb - zsr3 * zg * prmuz ) * 0.5_rb
+            end if
+            zgamma4= 1._rb - zgamma3
+    
+! Recompute original s.s.a. to test for conservative solution
+            zwo = 0._rb
+            denom = 1._rb
+            if (zg .ne. 1._rb) denom = (1._rb - (1._rb - zw) * (zg / (1._rb - zg))**2)
+            if (zw .gt. 0._rb .and. denom .ne. 0._rb) zwo = zw / denom
+
+            if (zwo >= zwcrit) then
+! Conservative scattering
+
+               za  = zgamma1 * prmuz 
+               za1 = za - zgamma3
+               zgt = zgamma1 * zto1
+        
+! Homogeneous reflectance and transmittance,
+! collimated beam
+
+               ze1 = min ( zto1 / prmuz , 500._rb)
+!               ze2 = exp( -ze1 )
+
+! Use exponential lookup table for transmittance, or expansion of 
+! exponential for low tau
+               if (ze1 .le. od_lo) then 
+                  ze2 = 1._rb - ze1 + 0.5_rb * ze1 * ze1
+               else
+                  tblind = ze1 / (bpade + ze1)
+                  itind = tblint * tblind + 0.5_rb
+                  ze2 = exp_tbl(itind)
+               endif
+!
+
+               pref(jk) = (zgt - za1 * (1._rb - ze2)) / (1._rb + zgt)
+               ptra(jk) = 1._rb - pref(jk)
+
+! isotropic incidence
+
+               prefd(jk) = zgt / (1._rb + zgt)
+               ptrad(jk) = 1._rb - prefd(jk)        
+
+! This is applied for consistency between total (delta-scaled) and direct (unscaled) 
+! calculations at very low optical depths (tau < 1.e-4) when the exponential lookup
+! table returns a transmittance of 1.0.
+               if (ze2 .eq. 1.0_rb) then 
+                  pref(jk) = 0.0_rb
+                  ptra(jk) = 1.0_rb
+                  prefd(jk) = 0.0_rb
+                  ptrad(jk) = 1.0_rb
+               endif
+
+            else
+! Non-conservative scattering
+
+               za1 = zgamma1 * zgamma4 + zgamma2 * zgamma3
+               za2 = zgamma1 * zgamma3 + zgamma2 * zgamma4
+               zrk = sqrt ( zgamma1**2 - zgamma2**2)
+               zrp = zrk * prmuz               
+               zrp1 = 1._rb + zrp
+               zrm1 = 1._rb - zrp
+               zrk2 = 2._rb * zrk
+               zrpp = 1._rb - zrp*zrp
+               zrkg = zrk + zgamma1
+               zr1  = zrm1 * (za2 + zrk * zgamma3)
+               zr2  = zrp1 * (za2 - zrk * zgamma3)
+               zr3  = zrk2 * (zgamma3 - za2 * prmuz )
+               zr4  = zrpp * zrkg
+               zr5  = zrpp * (zrk - zgamma1)
+               zt1  = zrp1 * (za1 + zrk * zgamma4)
+               zt2  = zrm1 * (za1 - zrk * zgamma4)
+               zt3  = zrk2 * (zgamma4 + za1 * prmuz )
+               zt4  = zr4
+               zt5  = zr5
+
+! mji - reformulated code to avoid potential floating point exceptions
+!               zbeta = - zr5 / zr4
+               zbeta = (zgamma1 - zrk) / zrkg
+!!
+        
+! Homogeneous reflectance and transmittance
+
+               ze1 = min ( zrk * zto1, 500._rb)
+               ze2 = min ( zto1 / prmuz , 500._rb)
+!
+! Original
+!              zep1 = exp( ze1 )
+!              zem1 = exp(-ze1 )
+!              zep2 = exp( ze2 )
+!              zem2 = exp(-ze2 )
+!
+! Revised original, to reduce exponentials
+!              zep1 = exp( ze1 )
+!              zem1 = 1._rb / zep1
+!              zep2 = exp( ze2 )
+!              zem2 = 1._rb / zep2
+!
+! Use exponential lookup table for transmittance, or expansion of 
+! exponential for low tau
+               if (ze1 .le. od_lo) then 
+                  zem1 = 1._rb - ze1 + 0.5_rb * ze1 * ze1
+                  zep1 = 1._rb / zem1
+               else
+                  tblind = ze1 / (bpade + ze1)
+                  itind = tblint * tblind + 0.5_rb
+                  zem1 = exp_tbl(itind)
+                  zep1 = 1._rb / zem1
+               endif
+
+               if (ze2 .le. od_lo) then 
+                  zem2 = 1._rb - ze2 + 0.5_rb * ze2 * ze2
+                  zep2 = 1._rb / zem2
+               else
+                  tblind = ze2 / (bpade + ze2)
+                  itind = tblint * tblind + 0.5_rb
+                  zem2 = exp_tbl(itind)
+                  zep2 = 1._rb / zem2
+               endif
+
+! collimated beam
+
+! mji - reformulated code to avoid potential floating point exceptions
+!               zdenr = zr4*zep1 + zr5*zem1
+!               pref(jk) = zw * (zr1*zep1 - zr2*zem1 - zr3*zem2) / zdenr
+!               zdent = zt4*zep1 + zt5*zem1
+!               ptra(jk) = zem2 - zem2 * zw * (zt1*zep1 - zt2*zem1 - zt3*zep2) / zdent
+
+               zdenr = zr4*zep1 + zr5*zem1
+               zdent = zt4*zep1 + zt5*zem1
+               if (zdenr .ge. -eps .and. zdenr .le. eps) then
+                  pref(jk) = eps
+                  ptra(jk) = zem2
+               else
+                  pref(jk) = zw * (zr1*zep1 - zr2*zem1 - zr3*zem2) / zdenr
+                  ptra(jk) = zem2 - zem2 * zw * (zt1*zep1 - zt2*zem1 - zt3*zep2) / zdent
+               endif
+!!
+
+! diffuse beam
+
+               zemm = zem1*zem1
+               zdend = 1._rb / ( (1._rb - zbeta*zemm ) * zrkg)
+               prefd(jk) =  zgamma2 * (1._rb - zemm) * zdend
+               ptrad(jk) =  zrk2*zem1*zdend
+
+            endif
+
+         endif         
+
+      enddo    
+
+      end subroutine reftra_sw_g
+
+      subroutine vrtqdr_sw_g(klev, kw, pref, prefd, ptra, ptrad, pdbt, prdnd, prup, prupd, ptdbt, pfd, pfu)
+!$acc routine seq
+      use parkind, only: im => kind_im, rb => kind_rb
+      use rrtmg_sw_gwork
+      implicit none
+! --------------------------------------------------------------------------
+ 
+! Purpose: This routine performs the vertical quadrature integration
+!
+! Interface:  *vrtqdr_sw* is called from *spcvrt_sw* and *spcvmc_sw*
+!
+! Modifications.
+! 
+! Original: H. Barker
+! Revision: Integrated with rrtmg_sw, J.-J. Morcrette, ECMWF, Oct 2002
+! Revision: Reformatted for consistency with rrtmg_lw: MJIacono, AER, Jul 2006
+!
+!-----------------------------------------------------------------------
+
+! ------- Declarations -------
+
+! Input
+
+      integer(kind=im), intent (in) :: klev                   ! number of model layers
+      integer(kind=im), intent (in) :: kw                     ! g-point index
+
+      real(kind=rb), intent(in) :: pref(mxl_s)                    ! direct beam reflectivity
+                                                              !   Dimensions: (nlayers+1)
+      real(kind=rb), intent(in) :: prefd(mxl_s)                   ! diffuse beam reflectivity
+                                                              !   Dimensions: (nlayers+1)
+      real(kind=rb), intent(in) :: ptra(mxl_s)                    ! direct beam transmissivity
+                                                              !   Dimensions: (nlayers+1)
+      real(kind=rb), intent(in) :: ptrad(mxl_s)                   ! diffuse beam transmissivity
+                                                              !   Dimensions: (nlayers+1)
+
+      real(kind=rb), intent(in) :: pdbt(mxl_s)
+                                                              !   Dimensions: (nlayers+1)
+      real(kind=rb), intent(in) :: ptdbt(mxl_s)
+                                                              !   Dimensions: (nlayers+1)
+
+      real(kind=rb), intent(inout) :: prdnd(mxl_s)
+                                                              !   Dimensions: (nlayers+1)
+      real(kind=rb), intent(inout) :: prup(mxl_s)
+                                                              !   Dimensions: (nlayers+1)
+      real(kind=rb), intent(inout) :: prupd(mxl_s)
+                                                              !   Dimensions: (nlayers+1)
+
+! Output
+      real(kind=rb), intent(out) :: pfd(mxl_s)                  ! downwelling flux (W/m2)
+                                                              !   Dimensions: (nlayers+1,ngptsw)
+                                                              ! unadjusted for earth/sun distance or zenith angle
+      real(kind=rb), intent(out) :: pfu(mxl_s)                  ! upwelling flux (W/m2)
+                                                              !   Dimensions: (nlayers+1,ngptsw)
+                                                              ! unadjusted for earth/sun distance or zenith angle
+
+! Local
+
+      integer(kind=im) :: ikp, ikx, jk
+
+      real(kind=rb) :: zreflect
+      real(kind=rb) :: ztdn(mxl_s)  
+
+! Definitions
+!
+! pref(jk)   direct reflectance
+! prefd(jk)  diffuse reflectance
+! ptra(jk)   direct transmittance
+! ptrad(jk)  diffuse transmittance
+!
+! pdbt(jk)   layer mean direct beam transmittance
+! ptdbt(jk)  total direct beam transmittance at levels
+!
+!-----------------------------------------------------------------------------
+                   
+! Link lowest layer with surface
+             
+      zreflect = 1._rb / (1._rb - prefd(klev+1) * prefd(klev))
+      prup(klev) = pref(klev) + (ptrad(klev) * &
+                 ((ptra(klev) - pdbt(klev)) * prefd(klev+1) + &
+                   pdbt(klev) * pref(klev+1))) * zreflect
+      prupd(klev) = prefd(klev) + ptrad(klev) * ptrad(klev) * &
+                    prefd(klev+1) * zreflect
+
+! Pass from bottom to top 
+
+      do jk = 1,klev-1
+         ikp = klev+1-jk                       
+         ikx = ikp-1
+         zreflect = 1._rb / (1._rb -prupd(ikp) * prefd(ikx))
+         prup(ikx) = pref(ikx) + (ptrad(ikx) * &
+                   ((ptra(ikx) - pdbt(ikx)) * prupd(ikp) + &
+                     pdbt(ikx) * prup(ikp))) * zreflect
+         prupd(ikx) = prefd(ikx) + ptrad(ikx) * ptrad(ikx) * &
+                      prupd(ikp) * zreflect
+      enddo
+    
+! Upper boundary conditions
+
+      ztdn(1) = 1._rb
+      prdnd(1) = 0._rb
+      ztdn(2) = ptra(1)
+      prdnd(2) = prefd(1)
+
+! Pass from top to bottom
+
+      do jk = 2,klev
+         ikp = jk+1
+         zreflect = 1._rb / (1._rb - prefd(jk) * prdnd(jk))
+         ztdn(ikp) = ptdbt(jk) * ptra(jk) + &
+                    (ptrad(jk) * ((ztdn(jk) - ptdbt(jk)) + &
+                     ptdbt(jk) * pref(jk) * prdnd(jk))) * zreflect
+         prdnd(ikp) = prefd(jk) + ptrad(jk) * ptrad(jk) * &
+                      prdnd(jk) * zreflect
+      enddo
+    
+! Up and down-welling fluxes at levels
+
+      do jk = 1,klev+1
+         zreflect = 1._rb / (1._rb - prdnd(jk) * prupd(jk))
+         pfu(jk) = (ptdbt(jk) * prup(jk) + &
+                      (ztdn(jk) - ptdbt(jk)) * prupd(jk)) * zreflect
+         pfd(jk) = ptdbt(jk) + (ztdn(jk) - ptdbt(jk)+ &
+                      ptdbt(jk) * prup(jk) * prdnd(jk)) * zreflect
+      enddo
+
+      end subroutine vrtqdr_sw_g
+
+      subroutine spcvmc_sw_g(jc, nlayers, istart, iend, icpr, iout, tbound, prmu0, laytrop, layswtch, laylow)
+!$acc routine seq
+      use parkind, only : im => kind_im, rb => kind_rb
+      use parrrsw, only : nbndsw, ngptsw, mxmol, jpband
+      use rrsw_tbl, only : tblint, bpade, od_lo, exp_tbl
+      use rrsw_wvn, only : ngc, ngs
+      use rrtmg_sw_gwork
+      implicit none
+      integer, intent(in) :: jc
+! ---------------------------------------------------------------------------
+!
+! Purpose: Contains spectral loop to compute the shortwave radiative fluxes, 
+!          using the two-stream method of H. Barker and McICA, the Monte-Carlo
+!          Independent Column Approximation, for the representation of 
+!          sub-grid cloud variability (i.e. cloud overlap).
+!
+! Interface:  *spcvmc_sw* is called from *rrtmg_sw.F90* or rrtmg_sw.1col.F90*
+!
+! Method:
+!    Adapted from two-stream model of H. Barker;
+!    Two-stream model options (selected with kmodts in rrtmg_sw_reftra.F90):
+!        1: Eddington, 2: PIFM, Zdunkowski et al., 3: discret ordinates
+!
+! Modifications:
+!
+! Original: H. Barker
+! Revision: Merge with RRTMG_SW: J.-J.Morcrette, ECMWF, Feb 2003
+! Revision: Add adjustment for Earth/Sun distance : MJIacono, AER, Oct 2003
+! Revision: Bug fix for use of PALBP and PALBD: MJIacono, AER, Nov 2003
+! Revision: Bug fix to apply delta scaling to clear sky: AER, Dec 2004
+! Revision: Code modified so that delta scaling is not done in cloudy profiles
+!           if routine cldprop is used; delta scaling can be applied by swithcing
+!           code below if cldprop is not used to get cloud properties. 
+!           AER, Jan 2005
+! Revision: Modified to use McICA: MJIacono, AER, Nov 2005
+! Revision: Uniform formatting for RRTMG: MJIacono, AER, Jul 2006 
+! Revision: Use exponential lookup table for transmittance: MJIacono, AER, 
+!           Aug 2007 
+!
+! ------------------------------------------------------------------
+
+! ------- Declarations ------
+
+! ------- Input -------
+
+      integer(kind=im), intent(in) :: nlayers
+      integer(kind=im), intent(in) :: istart
+      integer(kind=im), intent(in) :: iend
+      integer(kind=im), intent(in) :: icpr
+      integer(kind=im), intent(in) :: iout
+      integer(kind=im), intent(in) :: laytrop
+      integer(kind=im), intent(in) :: layswtch
+      integer(kind=im), intent(in) :: laylow
+
+                                                               !   Dimensions: (nlayers)
+                                                               !   Dimensions: (nlayers)
+                                                               !   Dimensions: (nlayers)
+                                                               !   Dimensions: (nlayers)
+                                                               !   Dimensions: (nlayers)
+
+                                                               !   Dimensions: (nlayers)
+                                                               !   Dimensions: (nlayers)
+                                                               !   Dimensions: (0:nlayers)
+                                                               !   Dimensions: (0:nlayers)
+      real(kind=rb), intent(in) :: tbound                      ! surface temperature (K)
+                                                               !   Dimensions: (mxmol,nlayers)
+                                                               !   Dimensions: (nlayers)
+                                                               !   Dimensions: (nlayers)
+                                                               !   Dimensions: (jpband)
+
+                                                               !   Dimensions: (nbndsw)
+                                                               !   Dimensions: (nbndsw)
+      real(kind=rb), intent(in) :: prmu0                       ! cosine of solar zenith angle
+                                                               !   Dimensions: (nlayers,ngptsw)
+                                                               !   Dimensions: (nlayers,ngptsw)
+                                                               !   Dimensions: (nlayers,ngptsw)
+                                                               !   Dimensions: (nlayers,ngptsw)
+                                                               !   Dimensions: (nlayers,ngptsw)
+                                                               !   Dimensions: (nlayers,nbndsw)
+                                                               !   Dimensions: (nlayers,nbndsw)
+                                                               !   Dimensions: (nlayers,nbndsw)
+
+                                                               !   Dimensions: (nlayers)
+                                                               !   Dimensions: (nlayers)
+                                                               !   Dimensions: (nlayers)
+                                                               !   Dimensions: (nlayers)
+                                                               !   Dimensions: (nlayers)
+                                                               !   Dimensions: (nlayers)
+                                                               !   Dimensions: (nlayers)
+
+                                                               !   Dimensions: (nlayers)
+                                                               !   Dimensions: (nlayers)
+                                                               !   Dimensions: (nlayers)
+                                                               !   Dimensions: (nlayers)
+                                                               !   Dimensions: (nlayers)
+                                                               !   Dimensions: (nlayers)
+                                                               !   Dimensions: (nlayers)
+                                                               !   Dimensions: (nlayers)
+
+! ------- Output -------
+                                                               !   All Dimensions: (nlayers+1)
+
+
+
+! Output - inactive                                            !   All Dimensions: (nlayers+1)
+!      real(kind=rb), intent(out) :: puvcu(:)
+!      real(kind=rb), intent(out) :: puvfu(:)
+!      real(kind=rb), intent(out) :: pnicu(:)
+!      real(kind=rb), intent(out) :: pnifu(:)
+!      real(kind=rb), intent(out) :: pvscd(:)
+!      real(kind=rb), intent(out) :: pvscu(:)
+!      real(kind=rb), intent(out) :: pvsfd(:)
+!      real(kind=rb), intent(out) :: pvsfu(:)
+
+! ------- Local -------
+
+      logical :: lrtchkclr(mxl_s),lrtchkcld(mxl_s)
+
+      integer(kind=im)  :: klev
+      integer(kind=im) :: ib1, ib2, ibm, igt, ikl, ikp, ikx
+      integer(kind=im) :: iw, jb, jg, jl, jk
+!      integer(kind=im), parameter :: nuv = ?? 
+!      integer(kind=im), parameter :: nvs = ?? 
+      integer(kind=im) :: itind
+
+      real(kind=rb) :: tblind, ze1
+      real(kind=rb) :: zclear, zcloud
+      real(kind=rb) :: zdbt(mxl_s), zdbt_nodel(mxl_s)
+      real(kind=rb) :: zgc(mxl_s), zgcc(mxl_s), zgco(mxl_s)
+      real(kind=rb) :: zomc(mxl_s), zomcc(mxl_s), zomco(mxl_s)
+      real(kind=rb) :: zrdnd(mxl_s), zrdndc(mxl_s)
+      real(kind=rb) :: zref(mxl_s), zrefc(mxl_s), zrefo(mxl_s)
+      real(kind=rb) :: zrefd(mxl_s), zrefdc(mxl_s), zrefdo(mxl_s)
+      real(kind=rb) :: zrup(mxl_s), zrupd(mxl_s)
+      real(kind=rb) :: zrupc(mxl_s), zrupdc(mxl_s)
+      real(kind=rb) :: zs1(mxl_s)
+      real(kind=rb) :: ztauc(mxl_s), ztauo(mxl_s)
+      real(kind=rb) :: ztdn(mxl_s), ztdnd(mxl_s), ztdbt(mxl_s)
+      real(kind=rb) :: ztoc(mxl_s), ztor(mxl_s)
+      real(kind=rb) :: ztra(mxl_s), ztrac(mxl_s), ztrao(mxl_s)
+      real(kind=rb) :: ztrad(mxl_s), ztradc(mxl_s), ztrado(mxl_s)
+      real(kind=rb) :: zdbtc(mxl_s), ztdbtc(mxl_s)
+      real(kind=rb) :: zincflx(ngptsw), zdbtc_nodel(mxl_s) 
+      real(kind=rb) :: ztdbt_nodel(mxl_s), ztdbtc_nodel(mxl_s)
+
+      real(kind=rb) :: zdbtmc, zdbtmo, zf, zgw, zreflect
+      real(kind=rb) :: zwf, tauorig, repclc
+!     real(kind=rb) :: zincflux                                   ! inactive
+
+! Arrays from rrtmg_sw_taumoln routines
+
+!      real(kind=rb) :: ztaug(nlayers,16), ztaur(nlayers,16)
+!      real(kind=rb) :: zsflxzen(16)
+
+! Arrays from rrtmg_sw_vrtqdr routine
+
+      real(kind=rb) :: zcd(mxl_s), zcu(mxl_s)
+      real(kind=rb) :: zfd(mxl_s), zfu(mxl_s)
+
+! Inactive arrays
+!     real(kind=rb) :: zbbcd(nlayers+1), zbbcu(nlayers+1)
+!     real(kind=rb) :: zbbfd(nlayers+1), zbbfu(nlayers+1)
+!     real(kind=rb) :: zbbfddir(nlayers+1), zbbcddir(nlayers+1)
+
+! ------------------------------------------------------------------
+
+! Initializations
+
+      ib1 = istart
+      ib2 = iend
+      klev = nlayers
+      iw = 0
+      repclc = 1.e-12_rb
+!      zincflux = 0.0_rb
+
+      do jk=1,klev+1
+         w_pbbcd(jc,jk)=0._rb
+         w_pbbcu(jc,jk)=0._rb
+         w_pbbfd(jc,jk)=0._rb
+         w_pbbfu(jc,jk)=0._rb
+         w_pbbcddir(jc,jk)=0._rb
+         w_pbbfddir(jc,jk)=0._rb
+         w_puvcd(jc,jk)=0._rb
+         w_puvfd(jc,jk)=0._rb
+         w_puvcddir(jc,jk)=0._rb
+         w_puvfddir(jc,jk)=0._rb
+         w_pnicd(jc,jk)=0._rb
+         w_pnifd(jc,jk)=0._rb
+         w_pnicddir(jc,jk)=0._rb
+         w_pnifddir(jc,jk)=0._rb
+      enddo
+
+
+! Calculate the optical depths for gaseous absorption and Rayleigh scattering
+
+      call taumol_sw_g(jc, klev, laytrop)
+
+! Top of shortwave spectral band loop, jb = 16 -> 29; ibm = 1 -> 14
+
+      do jb = ib1, ib2
+         ibm = jb-15
+         igt = ngc(ibm)
+
+! Reinitialize g-point counter for each band if output for each band is requested.
+         if (iout.gt.0.and.ibm.ge.2) iw = ngs(ibm-1)
+
+!        do jk=1,klev+1
+!           zbbcd(jk)=0.0_rb
+!           zbbcu(jk)=0.0_rb
+!           zbbfd(jk)=0.0_rb
+!           zbbfu(jk)=0.0_rb
+!        enddo
+
+! Top of g-point interval loop within each band (iw is cumulative counter) 
+         do jg = 1,igt
+            iw = iw+1
+
+! Apply adjustment for correct Earth/Sun distance and zenith angle to incoming solar flux
+            zincflx(iw) = w_adjflux(jc,jb) * w_sfluxzen(jc,iw) * prmu0
+!             zincflux = zincflux + adjflux(jb) * zsflxzen(iw) * prmu0           ! inactive
+
+! Compute layer reflectances and transmittances for direct and diffuse sources, 
+! first clear then cloudy
+
+! zrefc(jk)  direct albedo for clear
+! zrefo(jk)  direct albedo for cloud
+! zrefdc(jk) diffuse albedo for clear
+! zrefdo(jk) diffuse albedo for cloud
+! ztrac(jk)  direct transmittance for clear
+! ztrao(jk)  direct transmittance for cloudy
+! ztradc(jk) diffuse transmittance for clear
+! ztrado(jk) diffuse transmittance for cloudy
+!  
+! zref(jk)   direct reflectance
+! zrefd(jk)  diffuse reflectance
+! ztra(jk)   direct transmittance
+! ztrad(jk)  diffuse transmittance
+!
+! zdbtc(jk)  clear direct beam transmittance
+! zdbto(jk)  cloudy direct beam transmittance
+! zdbt(jk)   layer mean direct beam transmittance
+! ztdbt(jk)  total direct beam transmittance at levels
+
+! Clear-sky    
+!   TOA direct beam    
+            ztdbtc(1)=1.0_rb
+            ztdbtc_nodel(1)=1.0_rb
+!   Surface values
+            zdbtc(klev+1) =0.0_rb
+            ztrac(klev+1) =0.0_rb
+            ztradc(klev+1)=0.0_rb
+            zrefc(klev+1) =w_albdir(jc,ibm)
+            zrefdc(klev+1)=w_albdif(jc,ibm)
+            zrupc(klev+1) =w_albdir(jc,ibm)
+            zrupdc(klev+1)=w_albdif(jc,ibm)
+           
+! Total sky    
+!   TOA direct beam    
+            ztdbt(1)=1.0_rb
+            ztdbt_nodel(1)=1.0_rb
+!   Surface values
+            zdbt(klev+1) =0.0_rb
+            ztra(klev+1) =0.0_rb
+            ztrad(klev+1)=0.0_rb
+            zref(klev+1) =w_albdir(jc,ibm)
+            zrefd(klev+1)=w_albdif(jc,ibm)
+            zrup(klev+1) =w_albdir(jc,ibm)
+            zrupd(klev+1)=w_albdif(jc,ibm)
+    
+! Top of layer loop
+            do jk=1,klev
+
+! Note: two-stream calculations proceed from top to bottom; 
+!   RRTMG_SW quantities are given bottom to top and are reversed here
+
+               ikl=klev+1-jk
+
+! Set logical flag to do REFTRA calculation
+!   Do REFTRA for all clear layers
+               lrtchkclr(jk)=.true.
+
+!   Do REFTRA only for cloudy layers in profile, since already done for clear layers
+               lrtchkcld(jk)=.false.
+               lrtchkcld(jk)=(w_cldfmc(jc,iw,ikl) > repclc)
+
+! Clear-sky optical parameters - this section inactive     
+!   Original
+!               ztauc(jk) = ztaur(ikl,iw) + ztaug(ikl,iw)
+!               zomcc(jk) = ztaur(ikl,iw) / ztauc(jk)
+!               zgcc(jk) = 0.0001_rb
+!   Total sky optical parameters        
+!               ztauo(jk) = ztaur(ikl,iw) + ztaug(ikl,iw) + ptaucmc(ikl,iw)
+!               zomco(jk) = ptaucmc(ikl,iw) * pomgcmc(ikl,iw) + ztaur(ikl,iw)
+!               zgco (jk) = (ptaucmc(ikl,iw) * pomgcmc(ikl,iw) * pasycmc(ikl,iw) + &
+!                           ztaur(ikl,iw) * 0.0001_rb) / zomco(jk)
+!               zomco(jk) = zomco(jk) / ztauo(jk)
+
+! Clear-sky optical parameters including aerosols
+               ztauc(jk) = w_taur(jc,ikl,iw) + w_taug(jc,ikl,iw) + w_taua(jc,ikl,ibm)
+               zomcc(jk) = w_taur(jc,ikl,iw) * 1.0_rb + w_taua(jc,ikl,ibm) * w_ssaa(jc,ikl,ibm)
+               zgcc(jk) = w_asma(jc,ikl,ibm) * w_ssaa(jc,ikl,ibm) * w_taua(jc,ikl,ibm) / zomcc(jk)
+               zomcc(jk) = zomcc(jk) / ztauc(jk)
+
+! Pre-delta-scaling clear and cloudy direct beam transmittance (must use 'orig', unscaled cloud OD)       
+!   \/\/\/ This block of code is only needed for direct beam calculation
+!     
+               zclear = 1.0_rb - w_cldfmc(jc,iw,ikl)
+               zcloud = w_cldfmc(jc,iw,ikl)
+
+! Clear
+!                zdbtmc = exp(-ztauc(jk) / prmu0)
+
+! Use exponential lookup table for transmittance, or expansion of 
+! exponential for low tau
+               ze1 = ztauc(jk) / prmu0
+               if (ze1 .le. od_lo) then
+                  zdbtmc = 1._rb - ze1 + 0.5_rb * ze1 * ze1
+               else 
+                  tblind = ze1 / (bpade + ze1)
+                  itind = tblint * tblind + 0.5_rb
+                  zdbtmc = exp_tbl(itind)
+               endif
+
+               zdbtc_nodel(jk) = zdbtmc
+               ztdbtc_nodel(jk+1) = zdbtc_nodel(jk) * ztdbtc_nodel(jk)
+
+! Clear + Cloud
+               tauorig = ztauc(jk) + w_taormc(jc,iw,ikl)
+!                zdbtmo = exp(-tauorig / prmu0)
+
+! Use exponential lookup table for transmittance, or expansion of 
+! exponential for low tau
+               ze1 = tauorig / prmu0
+               if (ze1 .le. od_lo) then
+                  zdbtmo = 1._rb - ze1 + 0.5_rb * ze1 * ze1
+               else
+                  tblind = ze1 / (bpade + ze1)
+                  itind = tblint * tblind + 0.5_rb
+                  zdbtmo = exp_tbl(itind)
+               endif
+
+               zdbt_nodel(jk) = zclear*zdbtmc + zcloud*zdbtmo
+               ztdbt_nodel(jk+1) = zdbt_nodel(jk) * ztdbt_nodel(jk)
+!   /\/\/\ Above code only needed for direct beam calculation
+            enddo
+
+! to vectorize the following loop
+            do jk=1, klev
+! Delta scaling - clear   
+               zf = zgcc(jk) * zgcc(jk)
+               zwf = zomcc(jk) * zf
+               ztauc(jk) = (1.0_rb - zwf) * ztauc(jk)
+               zomcc(jk) = (zomcc(jk) - zwf) / (1.0_rb - zwf)
+               zgcc (jk) = (zgcc(jk) - zf) / (1.0_rb - zf)
+            enddo
+
+
+! Total sky optical parameters (cloud properties already delta-scaled)
+!   Use this code if cloud properties are derived in rrtmg_sw_cldprop       
+               if (icpr .ge. 1) then
+            do jk=1,klev
+                  ikl=klev+1-jk
+                  ztauo(jk) = ztauc(jk) + w_taucmc(jc,iw,ikl)
+                  zomco(jk) = ztauc(jk) * zomcc(jk) + w_taucmc(jc,iw,ikl) * w_ssacmc(jc,iw,ikl) 
+                  zgco (jk) = (w_taucmc(jc,iw,ikl) * w_ssacmc(jc,iw,ikl) * w_asmcmc(jc,iw,ikl) + &
+                              ztauc(jk) * zomcc(jk) * zgcc(jk)) / zomco(jk)
+                  zomco(jk) = zomco(jk) / ztauo(jk)
+            enddo
+
+! Total sky optical parameters (if cloud properties not delta scaled)
+!   Use this code if cloud properties are not derived in rrtmg_sw_cldprop       
+               elseif (icpr .eq. 0) then
+            do jk=1,klev
+                  ikl=klev+1-jk
+                  ztauo(jk) = w_taur(jc,ikl,iw) + w_taug(jc,ikl,iw) + w_taua(jc,ikl,ibm) + w_taucmc(jc,iw,ikl)
+                  zomco(jk) = w_taua(jc,ikl,ibm) * w_ssaa(jc,ikl,ibm) + w_taucmc(jc,iw,ikl) * w_ssacmc(jc,iw,ikl) + &
+                              w_taur(jc,ikl,iw) * 1.0_rb
+                  zgco (jk) = (w_taucmc(jc,iw,ikl) * w_ssacmc(jc,iw,ikl) * w_asmcmc(jc,iw,ikl) + &
+                              w_taua(jc,ikl,ibm)*w_ssaa(jc,ikl,ibm)*w_asma(jc,ikl,ibm)) / zomco(jk)
+                  zomco(jk) = zomco(jk) / ztauo(jk)
+
+! Delta scaling - clouds 
+!   Use only if subroutine rrtmg_sw_cldprop is not used to get cloud properties and to apply delta scaling
+                  zf = zgco(jk) * zgco(jk)
+                  zwf = zomco(jk) * zf
+                  ztauo(jk) = (1._rb - zwf) * ztauo(jk)
+                  zomco(jk) = (zomco(jk) - zwf) / (1.0_rb - zwf)
+                  zgco (jk) = (zgco(jk) - zf) / (1.0_rb - zf)
+            enddo
+               endif 
+
+! End of layer loop
+
+! Clear sky reflectivities
+            call reftra_sw_g (klev, &
+                            lrtchkclr, zgcc, prmu0, ztauc, zomcc, &
+                            zrefc, zrefdc, ztrac, ztradc)
+
+! Total sky reflectivities      
+            call reftra_sw_g (klev, &
+                            lrtchkcld, zgco, prmu0, ztauo, zomco, &
+                            zrefo, zrefdo, ztrao, ztrado)
+
+            do jk=1,klev
+
+! Combine clear and cloudy contributions for total sky
+               ikl = klev+1-jk 
+               zclear = 1.0_rb - w_cldfmc(jc,iw,ikl)
+               zcloud = w_cldfmc(jc,iw,ikl)
+
+               zref(jk) = zclear*zrefc(jk) + zcloud*zrefo(jk)
+               zrefd(jk)= zclear*zrefdc(jk) + zcloud*zrefdo(jk)
+               ztra(jk) = zclear*ztrac(jk) + zcloud*ztrao(jk)
+               ztrad(jk)= zclear*ztradc(jk) + zcloud*ztrado(jk)
+
+! Direct beam transmittance        
+
+! Clear
+!                zdbtmc = exp(-ztauc(jk) / prmu0)
+
+! Use exponential lookup table for transmittance, or expansion of 
+! exponential for low tau
+               ze1 = ztauc(jk) / prmu0
+               if (ze1 .le. od_lo) then
+                  zdbtmc = 1._rb - ze1 + 0.5_rb * ze1 * ze1
+               else
+                  tblind = ze1 / (bpade + ze1)
+                  itind = tblint * tblind + 0.5_rb
+                  zdbtmc = exp_tbl(itind)
+               endif
+
+               zdbtc(jk) = zdbtmc
+               ztdbtc(jk+1) = zdbtc(jk)*ztdbtc(jk)
+
+! Clear + Cloud
+!                zdbtmo = exp(-ztauo(jk) / prmu0)
+
+! Use exponential lookup table for transmittance, or expansion of 
+! exponential for low tau
+               ze1 = ztauo(jk) / prmu0
+               if (ze1 .le. od_lo) then
+                  zdbtmo = 1._rb - ze1 + 0.5_rb * ze1 * ze1
+               else
+                  tblind = ze1 / (bpade + ze1)
+                  itind = tblint * tblind + 0.5_rb
+                  zdbtmo = exp_tbl(itind)
+               endif
+
+               zdbt(jk) = zclear*zdbtmc + zcloud*zdbtmo
+               ztdbt(jk+1) = zdbt(jk)*ztdbt(jk)
+        
+            enddo           
+                 
+! Vertical quadrature for clear-sky fluxes
+
+            call vrtqdr_sw_g(klev, iw, &
+                           zrefc, zrefdc, ztrac, ztradc, &
+                           zdbtc, zrdndc, zrupc, zrupdc, ztdbtc, &
+                           zcd, zcu)
+      
+! Vertical quadrature for cloudy fluxes
+
+            call vrtqdr_sw_g(klev, iw, &
+                           zref, zrefd, ztra, ztrad, &
+                           zdbt, zrdnd, zrup, zrupd, ztdbt, &
+                           zfd, zfu)
+
+! Upwelling and downwelling fluxes at levels
+!   Two-stream calculations go from top to bottom; 
+!   layer indexing is reversed to go bottom to top for output arrays
+
+            do jk=1,klev+1
+               ikl=klev+2-jk
+
+! Accumulate spectral fluxes over bands - inactive
+!               zbbfu(ikl) = zbbfu(ikl) + zincflx(iw)*zfu(jk)  
+!               zbbfd(ikl) = zbbfd(ikl) + zincflx(iw)*zfd(jk)
+!               zbbcu(ikl) = zbbcu(ikl) + zincflx(iw)*zcu(jk)
+!               zbbcd(ikl) = zbbcd(ikl) + zincflx(iw)*zcd(jk)
+!               zbbfddir(ikl) = zbbfddir(ikl) + zincflx(iw)*ztdbt_nodel(jk)
+!               zbbcddir(ikl) = zbbcddir(ikl) + zincflx(iw)*ztdbtc_nodel(jk)
+
+! Accumulate spectral fluxes over whole spectrum  
+               w_pbbfu(jc,ikl) = w_pbbfu(jc,ikl) + zincflx(iw)*zfu(jk)
+               w_pbbfd(jc,ikl) = w_pbbfd(jc,ikl) + zincflx(iw)*zfd(jk)
+               w_pbbcu(jc,ikl) = w_pbbcu(jc,ikl) + zincflx(iw)*zcu(jk)
+               w_pbbcd(jc,ikl) = w_pbbcd(jc,ikl) + zincflx(iw)*zcd(jk)
+               w_pbbfddir(jc,ikl) = w_pbbfddir(jc,ikl) + zincflx(iw)*ztdbt_nodel(jk)
+               w_pbbcddir(jc,ikl) = w_pbbcddir(jc,ikl) + zincflx(iw)*ztdbtc_nodel(jk)
+            enddo
+
+! Accumulate direct fluxes for UV/visible bands
+               if (ibm >= 10 .and. ibm <= 13) then
+            do jk=1,klev+1
+               ikl=klev+2-jk
+                  w_puvcd(jc,ikl) = w_puvcd(jc,ikl) + zincflx(iw)*zcd(jk)
+                  w_puvfd(jc,ikl) = w_puvfd(jc,ikl) + zincflx(iw)*zfd(jk)
+                  w_puvcddir(jc,ikl) = w_puvcddir(jc,ikl) + zincflx(iw)*ztdbtc_nodel(jk)
+                  w_puvfddir(jc,ikl) = w_puvfddir(jc,ikl) + zincflx(iw)*ztdbt_nodel(jk)
+            enddo
+! Accumulate direct fluxes for near-IR bands
+               else if (ibm == 14 .or. ibm <= 9) then  
+            do jk=1,klev+1
+               ikl=klev+2-jk
+                  w_pnicd(jc,ikl) = w_pnicd(jc,ikl) + zincflx(iw)*zcd(jk)
+                  w_pnifd(jc,ikl) = w_pnifd(jc,ikl) + zincflx(iw)*zfd(jk)
+                  w_pnicddir(jc,ikl) = w_pnicddir(jc,ikl) + zincflx(iw)*ztdbtc_nodel(jk)
+                  w_pnifddir(jc,ikl) = w_pnifddir(jc,ikl) + zincflx(iw)*ztdbt_nodel(jk)
+            enddo
+               endif
+
+! End loop on jg, g-point interval
+         enddo             
+
+! End loop on jb, spectral band
+      enddo                    
+
+      end subroutine spcvmc_sw_g
+
+      subroutine cldprmc_sw_g(ic, jc, nlayers, inflag, iceflag, liqflag)
+!$acc routine seq
+      use parkind, only : im => kind_im, rb => kind_rb
+      use parrrsw, only : ngptsw, jpband, jpb1, jpb2
+      use rrsw_cld, only : extliq1, ssaliq1, asyliq1, &
+                           extice2, ssaice2, asyice2, &
+                           extice3, ssaice3, asyice3, fdlice3, &
+                           abari, bbari, cbari, dbari, ebari, fbari
+      use rrsw_wvn, only : wavenum1, wavenum2, ngb
+      use rrtmg_sw_gwork
+      implicit none
+      integer, intent(in) :: ic, jc
+! ----------------------------------------------------------------------------
+
+! Purpose: Compute the cloud optical properties for each cloudy layer
+! and g-point interval for use by the McICA method.  
+! Note: Only inflag = 0 and inflag=2/liqflag=1/iceflag=2,3 are available;
+! (Hu & Stamnes, Key, and Fu) are implemented. 
+
+! ------- Input -------
+
+      integer(kind=im), intent(in) :: nlayers         ! total number of layers
+      integer(kind=im), intent(in) :: inflag          ! see definitions
+      integer(kind=im), intent(in) :: iceflag         ! see definitions
+      integer(kind=im), intent(in) :: liqflag         ! see definitions
+
+                                                      !    Dimensions: (ngptsw,nlayers)
+                                                      !    Dimensions: (ngptsw,nlayers)
+                                                      !    Dimensions: (ngptsw,nlayers)
+                                                      !    Dimensions: (ngptsw,nlayers)
+                                                      !    Dimensions: (nlayers)
+                                                      !    Dimensions: (nlayers)
+                                                      !    Dimensions: (nlayers)
+                                                      ! specific definition of reicmc depends on setting of iceflag:
+                                                      ! iceflag = 1: ice effective radius, r_ec, (Ebert and Curry, 1992),
+                                                      !              r_ec range is limited to 13.0 to 130.0 microns
+                                                      ! iceflag = 2: ice effective radius, r_k, (Key, Streamer Ref. Manual, 1996)
+                                                      !              r_k range is limited to 5.0 to 131.0 microns
+                                                      ! iceflag = 3: generalized effective size, dge, (Fu, 1996),
+                                                      !              dge range is limited to 5.0 to 140.0 microns
+                                                      !              [dge = 1.0315 * r_ec]
+                                                      !    Dimensions: (ngptsw,nlayers)
+
+! ------- Output -------
+
+                                                      !    Dimensions: (ngptsw,nlayers)
+                                                      !    Dimensions: (ngptsw,nlayers)
+                                                      !    Dimensions: (ngptsw,nlayers)
+                                                      !    Dimensions: (ngptsw,nlayers)
+
+! ------- Local -------
+
+!      integer(kind=im) :: ncbands
+      integer(kind=im) :: ib, lay, istr, index, icx, ig
+
+      real(kind=rb), parameter :: eps = 1.e-06_rb     ! epsilon
+      real(kind=rb), parameter :: cldmin = 1.e-20_rb  ! minimum value for cloud quantities
+      real(kind=rb) :: cwp                            ! total cloud water path
+      real(kind=rb) :: radliq                         ! cloud liquid droplet radius (microns)
+      real(kind=rb) :: radice                         ! cloud ice effective size (microns)
+      real(kind=rb) :: radsno                         ! cloud snow effective size (microns)
+      real(kind=rb) :: factor
+      real(kind=rb) :: fint
+
+      real(kind=rb) :: taucldorig_a, taucloud_a, ssacloud_a, ffp, ffp1, ffpssa
+      real(kind=rb) :: tauiceorig, scatice, ssaice, tauice, tauliqorig, scatliq, ssaliq, tauliq
+      real(kind=rb) :: tausnoorig, scatsno, ssasno, tausno
+
+      real(kind=rb) :: fdelta(ngptsw)
+      real(kind=rb) :: extcoice(ngptsw), gice(ngptsw)
+      real(kind=rb) :: ssacoice(ngptsw), forwice(ngptsw)
+      real(kind=rb) :: extcoliq(ngptsw), gliq(ngptsw)
+      real(kind=rb) :: ssacoliq(ngptsw), forwliq(ngptsw)
+      real(kind=rb) :: extcosno(ngptsw), gsno(ngptsw)
+      real(kind=rb) :: ssacosno(ngptsw), forwsno(ngptsw)
+
+      CHARACTER*80 errmess
+
+! Initialize
+
+!jm not thread safe      hvrclc = '$Revision: 1.3 $'
+
+! Some of these initializations are done elsewhere
+      do lay = 1, nlayers
+         do ig = 1, ngptsw
+            w_taormc(jc,ig,lay) = w_taucmc(jc,ig,lay)
+!            taucmc(ig,lay) = 0.0_rb
+!            ssacmc(ig,lay) = 1.0_rb
+!            asmcmc(ig,lay) = 0.0_rb
+         enddo
+      enddo
+
+! Main layer loop
+      do lay = 1, nlayers
+
+! Main g-point interval loop
+         do ig = 1, ngptsw 
+            cwp = sw_mcpath(ic,jc,ig,lay,1) + sw_mcpath(ic,jc,ig,lay,2) + sw_mcpath(ic,jc,ig,lay,3)
+
+            if (w_cldfmc(jc,ig,lay) .ge. cldmin .and. &
+               (cwp .ge. cldmin .or. w_taucmc(jc,ig,lay) .ge. cldmin)) then
+
+! (inflag=0): Cloud optical properties input directly
+               if (inflag .eq. 0) then
+! Cloud optical properties already defined in taucmc, ssacmc, asmcmc are unscaled;
+! Apply delta-M scaling here (using Henyey-Greenstein approximation)
+                  taucldorig_a = w_taucmc(jc,ig,lay)
+                  ffp = 0.0_rb
+                  ffp1 = 1.0_rb - ffp
+                  ffpssa = 1.0_rb - ffp * w_ssacmc(jc,ig,lay)
+                  ssacloud_a = ffp1 * w_ssacmc(jc,ig,lay) / ffpssa
+                  taucloud_a = ffpssa * taucldorig_a
+
+                  w_taormc(jc,ig,lay) = taucldorig_a
+                  w_ssacmc(jc,ig,lay) = ssacloud_a
+                  w_taucmc(jc,ig,lay) = taucloud_a
+                  w_asmcmc(jc,ig,lay) = (w_asmcmc(jc,ig,lay) - ffp) / (ffp1)
+
+               elseif (inflag .eq. 1) then 
+      out_sw_err(ic) = 8
+
+! (inflag=2): Separate treatement of ice clouds and water clouds.
+               elseif (inflag .ge. 2) then
+                  radice = in_rei(ic,lay)
+
+! Calculation of absorption coefficients due to ice clouds.
+                  if ((sw_mcpath(ic,jc,ig,lay,1)+sw_mcpath(ic,jc,ig,lay,3)) .eq. 0.0_rb) then
+                     extcoice(ig) = 0.0_rb
+                     ssacoice(ig) = 0.0_rb
+                     gice(ig)     = 0.0_rb
+                     forwice(ig)  = 0.0_rb
+
+                     extcosno(ig) = 0.0_rb
+                     ssacosno(ig) = 0.0_rb
+                     gsno(ig)     = 0.0_rb
+                     forwsno(ig)  = 0.0_rb
+
+! (iceflag = 1): 
+! Note: This option uses Ebert and Curry approach for all particle sizes similar to
+! CAM3 implementation, though this is somewhat unjustified for large ice particles
+                  elseif (iceflag .eq. 1) then
+                     ib = ngb(ig)
+                     if (wavenum2(ib) .gt. 1.43e04_rb) then
+                        icx = 1
+                     elseif (wavenum2(ib) .gt. 7.7e03_rb) then
+                        icx = 2
+                     elseif (wavenum2(ib) .gt. 5.3e03_rb) then
+                        icx = 3
+                     elseif (wavenum2(ib) .gt. 4.0e03_rb) then
+                        icx = 4
+                     elseif (wavenum2(ib) .ge. 2.5e03_rb) then
+                        icx = 5
+                     endif
+                     extcoice(ig) = (abari(icx) + bbari(icx)/radice)
+                     ssacoice(ig) = 1._rb - cbari(icx) - dbari(icx) * radice
+                     gice(ig) = ebari(icx) + fbari(icx) * radice
+! Check to ensure upper limit of gice is within physical limits for large particles
+                     if (gice(ig).ge.1._rb) gice(ig) = 1._rb - eps
+                     forwice(ig) = gice(ig)*gice(ig)
+! Check to ensure all calculated quantities are within physical limits.
+      if (extcoice(ig) .lt. 0.0_rb) out_sw_err(ic) = 8
+      if (ssacoice(ig) .gt. 1.0_rb) out_sw_err(ic) = 8
+      if (ssacoice(ig) .lt. 0.0_rb) out_sw_err(ic) = 8
+      if (gice(ig) .gt. 1.0_rb) out_sw_err(ic) = 8
+      if (gice(ig) .lt. 0.0_rb) out_sw_err(ic) = 8
+
+! For iceflag=2 option, ice particle effective radius is limited to 5.0 to 131.0 microns
+
+                  elseif (iceflag .eq. 2) then
+      if (radice .lt. 5.0_rb .or. radice .gt. 131.0_rb) out_sw_err(ic) = 8
+                     factor = (radice - 2._rb)/3._rb
+                     index = int(factor)
+                     if (index .eq. 43) index = 42
+                     fint = factor - float(index)
+                     ib = ngb(ig)
+                     extcoice(ig) = extice2(index,ib) + fint * &
+                                   (extice2(index+1,ib) -  extice2(index,ib))
+                     ssacoice(ig) = ssaice2(index,ib) + fint * &
+                                   (ssaice2(index+1,ib) -  ssaice2(index,ib))
+                     gice(ig) = asyice2(index,ib) + fint * &
+                                   (asyice2(index+1,ib) -  asyice2(index,ib))
+                     forwice(ig) = gice(ig)*gice(ig)
+! Check to ensure all calculated quantities are within physical limits.
+      if (extcoice(ig) .lt. 0.0_rb) out_sw_err(ic) = 8
+      if (ssacoice(ig) .gt. 1.0_rb) out_sw_err(ic) = 8
+      if (ssacoice(ig) .lt. 0.0_rb) out_sw_err(ic) = 8
+      if (gice(ig) .gt. 1.0_rb) out_sw_err(ic) = 8
+      if (gice(ig) .lt. 0.0_rb) out_sw_err(ic) = 8
+
+! For iceflag=3 option, ice particle generalized effective size is limited to 5.0 to 140.0 microns
+
+                  elseif (iceflag .ge. 3) then
+                     if (radice .lt. 5.0_rb .or. radice .gt. 140.0_rb) then
+      out_sw_err(ic) = 9
+                     end if
+                     factor = (radice - 2._rb)/3._rb
+                     index = int(factor)
+                     if (index .eq. 46) index = 45
+                     fint = factor - float(index)
+                     ib = ngb(ig)
+                     extcoice(ig) = extice3(index,ib) + fint * &
+                                   (extice3(index+1,ib) - extice3(index,ib))
+                     ssacoice(ig) = ssaice3(index,ib) + fint * &
+                                   (ssaice3(index+1,ib) - ssaice3(index,ib))
+                     gice(ig) = asyice3(index,ib) + fint * &
+                               (asyice3(index+1,ib) - asyice3(index,ib))
+                     fdelta(ig) = fdlice3(index,ib) + fint * &
+                                 (fdlice3(index+1,ib) - fdlice3(index,ib))
+                     if (fdelta(ig) .lt. 0.0_rb) then
+      out_sw_err(ic) = 9
+                     end if
+                     if (fdelta(ig) .gt. 1.0_rb) then
+      out_sw_err(ic) = 9
+                     end if
+                     forwice(ig) = fdelta(ig) + 0.5_rb / ssacoice(ig)
+! See Fu 1996 p. 2067 
+                     if (forwice(ig) .gt. gice(ig)) forwice(ig) = gice(ig)
+! Check to ensure all calculated quantities are within physical limits.  
+      if (extcoice(ig) .lt. 0.0_rb) out_sw_err(ic) = 8
+      if (ssacoice(ig) .gt. 1.0_rb) out_sw_err(ic) = 8
+      if (ssacoice(ig) .lt. 0.0_rb) out_sw_err(ic) = 8
+      if (gice(ig) .gt. 1.0_rb) out_sw_err(ic) = 8
+      if (gice(ig) .lt. 0.0_rb) out_sw_err(ic) = 8
+
+                  endif
+
+!!!!!!!!!!!!!!!!!! Mukul !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!  INSERT THE EQUIVALENT SNOW VARIABLE CODE HERE
+!!!! Although far from perfect, the snow will utilize the
+!!!! same lookup table constants as cloud ice.  Changes
+!!!! to those constants for larger particle snow would be
+!!!! an improvement.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+                  if (sw_mcpath(ic,jc,ig,lay,3).gt.0.0_rb .and. iceflag .eq. 5) then
+                     radsno = sw_resn(ic,lay,iceflag)
+                     if (radsno .lt. 5.0_rb .or. radsno .gt. 140.0_rb) then
+      out_sw_err(ic) = 9
+                     end if
+                     factor = (radsno - 2._rb)/3._rb
+                     index = int(factor)
+                     if (index .eq. 46) index = 45
+                     fint = factor - float(index)
+                     ib = ngb(ig)
+                     extcosno(ig) = extice3(index,ib) + fint * &
+                                   (extice3(index+1,ib) - extice3(index,ib))
+                     ssacosno(ig) = ssaice3(index,ib) + fint * &
+                                   (ssaice3(index+1,ib) - ssaice3(index,ib))
+                     gsno(ig) = asyice3(index,ib) + fint * &
+                               (asyice3(index+1,ib) - asyice3(index,ib))
+                     fdelta(ig) = fdlice3(index,ib) + fint * &
+                                 (fdlice3(index+1,ib) - fdlice3(index,ib))
+                     if (fdelta(ig) .lt. 0.0_rb) then
+      out_sw_err(ic) = 9
+                     end if
+                     if (fdelta(ig) .gt. 1.0_rb) then
+      out_sw_err(ic) = 9
+                     end if
+                     forwsno(ig) = fdelta(ig) + 0.5_rb / ssacosno(ig)
+! See Fu 1996 p. 2067
+                     if (forwsno(ig) .gt. gsno(ig)) forwsno(ig) = gsno(ig)
+! Check to ensure all calculated quantities are within physical limits.  
+                     if (extcosno(ig) .lt. 0.0_rb) then
+      out_sw_err(ic) = 9
+                     end if
+                     if (ssacosno(ig) .gt. 1.0_rb) then
+      out_sw_err(ic) = 9
+                     end if
+                     if (ssacosno(ig) .lt. 0.0_rb)  then
+      out_sw_err(ic) = 9
+                     end if
+                     if (gsno(ig) .gt. 1.0_rb)  then
+      out_sw_err(ic) = 9
+                     end if
+                     if (gsno(ig) .lt. 0.0_rb)  then
+      out_sw_err(ic) = 9
+                     end if
+                  else
+                     extcosno(ig) = 0.0_rb
+                     ssacosno(ig) = 0.0_rb
+                     gsno(ig)     = 0.0_rb
+                     forwsno(ig)  = 0.0_rb
+                  endif
+
+
+! Calculation of absorption coefficients due to water clouds.
+                  if (sw_mcpath(ic,jc,ig,lay,2) .eq. 0.0_rb) then
+                     extcoliq(ig) = 0.0_rb
+                     ssacoliq(ig) = 0.0_rb
+                     gliq(ig) = 0.0_rb
+                     forwliq(ig) = 0.0_rb
+
+                  elseif (liqflag .eq. 1) then
+                     radliq = in_rel(ic,lay)
+      if (radliq .lt. 1.5_rb .or. radliq .gt. 60._rb) out_sw_err(ic) = 8
+                     index = int(radliq - 1.5_rb)
+                     if (index .eq. 0) index = 1
+                     if (index .eq. 58) index = 57
+                     fint = radliq - 1.5_rb - float(index)
+                     ib = ngb(ig)
+                     extcoliq(ig) = extliq1(index,ib) + fint * &
+                                   (extliq1(index+1,ib) - extliq1(index,ib))
+                     ssacoliq(ig) = ssaliq1(index,ib) + fint * &
+                                   (ssaliq1(index+1,ib) - ssaliq1(index,ib))
+                     if (fint .lt. 0._rb .and. ssacoliq(ig) .gt. 1._rb) &
+                                    ssacoliq(ig) = ssaliq1(index,ib)
+                     gliq(ig) = asyliq1(index,ib) + fint * &
+                               (asyliq1(index+1,ib) - asyliq1(index,ib))
+                     forwliq(ig) = gliq(ig)*gliq(ig)
+! Check to ensure all calculated quantities are within physical limits.
+      if (extcoliq(ig) .lt. 0.0_rb) out_sw_err(ic) = 8
+      if (ssacoliq(ig) .gt. 1.0_rb) out_sw_err(ic) = 8
+      if (ssacoliq(ig) .lt. 0.0_rb) out_sw_err(ic) = 8
+      if (gliq(ig) .gt. 1.0_rb) out_sw_err(ic) = 8
+      if (gliq(ig) .lt. 0.0_rb) out_sw_err(ic) = 8
+                  endif
+   
+
+                  if (iceflag .lt. 5) then
+                      tauliqorig = sw_mcpath(ic,jc,ig,lay,2) * extcoliq(ig)
+                      tauiceorig = sw_mcpath(ic,jc,ig,lay,1) * extcoice(ig)
+                      w_taormc(jc,ig,lay) = tauliqorig + tauiceorig
+  
+                      ssaliq = ssacoliq(ig) * (1._rb - forwliq(ig)) / &
+                               (1._rb - forwliq(ig) * ssacoliq(ig))
+                      tauliq = (1._rb - forwliq(ig) * ssacoliq(ig)) * tauliqorig
+                      ssaice = ssacoice(ig) * (1._rb - forwice(ig)) / &
+                               (1._rb - forwice(ig) * ssacoice(ig))
+                      tauice = (1._rb - forwice(ig) * ssacoice(ig)) * tauiceorig
+                      scatliq = ssaliq * tauliq
+                      scatice = ssaice * tauice
+                      scatsno = 0.0_rb 
+                      w_taucmc(jc,ig,lay) = tauliq + tauice
+                  else
+                      tauliqorig = sw_mcpath(ic,jc,ig,lay,2) * extcoliq(ig)
+                      tauiceorig = sw_mcpath(ic,jc,ig,lay,1) * extcoice(ig)
+                      tausnoorig = sw_mcpath(ic,jc,ig,lay,3) * extcosno(ig)
+                      w_taormc(jc,ig,lay) = tauliqorig + tauiceorig + tausnoorig
+
+                      ssaliq = ssacoliq(ig) * (1._rb - forwliq(ig)) / &
+                               (1._rb - forwliq(ig) * ssacoliq(ig))
+                      tauliq = (1._rb - forwliq(ig) * ssacoliq(ig)) * tauliqorig
+                      ssaice = ssacoice(ig) * (1._rb - forwice(ig)) / &
+                               (1._rb - forwice(ig) * ssacoice(ig))
+                      tauice = (1._rb - forwice(ig) * ssacoice(ig)) * tauiceorig
+                      ssasno = ssacosno(ig) * (1._rb - forwsno(ig)) / &
+                               (1._rb - forwsno(ig) * ssacosno(ig))
+                      tausno = (1._rb - forwsno(ig) * ssacosno(ig)) * tausnoorig
+                      scatliq = ssaliq * tauliq
+                      scatice = ssaice * tauice
+                      scatsno = ssasno * tausno
+                      w_taucmc(jc,ig,lay) = tauliq + tauice + tausno
+                  endif
+
+! Ensure non-zero taucmc and scatice
+                  if(w_taucmc(jc,ig,lay).eq.0.) w_taucmc(jc,ig,lay) = cldmin
+                  if(scatice.eq.0.) scatice = cldmin
+                  if(scatsno.eq.0.) scatsno = cldmin
+
+                  if (iceflag .lt. 5) then
+                      w_ssacmc(jc,ig,lay) = (scatliq + scatice) / w_taucmc(jc,ig,lay)
+                  else
+                      w_ssacmc(jc,ig,lay) = (scatliq + scatice + scatsno) / w_taucmc(jc,ig,lay)
+                  endif
+
+                  if (iceflag .eq. 3 .or. iceflag.eq.4) then
+! In accordance with the 1996 Fu paper, equation A.3, 
+! the moments for ice were calculated depending on whether using spheres
+! or hexagonal ice crystals.
+! Set asymetry parameter to first moment (istr=1)
+                     istr = 1
+                     w_asmcmc(jc,ig,lay) = (1.0_rb/(scatliq+scatice))* &
+                        (scatliq*(gliq(ig)**istr - forwliq(ig)) / &
+                        (1.0_rb - forwliq(ig)) + scatice * ((gice(ig)-forwice(ig))/ &
+                        (1.0_rb - forwice(ig)))**istr)
+                  elseif (iceflag .eq. 5) then
+                     istr = 1
+                     w_asmcmc(jc,ig,lay) = (1.0_rb/(scatliq+scatice+scatsno))                               &
+                                    *  (scatliq*(gliq(ig)**istr - forwliq(ig))/(1.0_rb - forwliq(ig))  &
+                                    + scatice * ((gice(ig)-forwice(ig))/(1.0_rb - forwice(ig)))        &
+                                    + scatsno * ((gsno(ig)-forwsno(ig))/(1.0_rb - forwsno(ig)))**istr)
+
+                  else 
+! This code is the standard method for delta-m scaling. 
+! Set asymetry parameter to first moment (istr=1)
+                     istr = 1
+                     w_asmcmc(jc,ig,lay) = (scatliq *  &
+                        (gliq(ig)**istr - forwliq(ig)) / &
+                        (1.0_rb - forwliq(ig)) + scatice * (gice(ig)**istr - forwice(ig)) / &
+                        (1.0_rb - forwice(ig)))/(scatliq + scatice)
+                  endif 
+
+               endif
+
+            endif
+
+! End g-point interval loop
+         enddo
+
+! End layer loop
+      enddo
+
+      end subroutine cldprmc_sw_g
+
+
+!-----------------------------------------------------------------------------------------------------------------
+! WRF_GPU: hand-ported parts of the RRTMG SW column (one GPU thread per daylight column, ncol = 1 semantics)
+!-----------------------------------------------------------------------------------------------------------------
+! mcica in-cloud paths: the grid values in cloudy sub-columns (k: 1 ice, 2 liquid, 3 snow - snow only for
+! iceflag 5, as inatm_sw copies it)
+      real(kind=rb) function sw_mcpath(ic, jc, ig, lay, k)
+!$acc routine seq
+      implicit none
+      integer, intent(in) :: ic, jc, ig, lay, k
+      sw_mcpath = 0.0_rb
+      if (w_cldfmc(jc,ig,lay) .eq. 1._rb) then
+         if (k .eq. 1) then
+            sw_mcpath = in_ciwp(ic,lay)
+         elseif (k .eq. 2) then
+            sw_mcpath = in_clwp(ic,lay)
+         elseif (in_flag(ic,6) .eq. 5) then
+            sw_mcpath = in_cswp(ic,lay)
+         endif
+      endif
+      end function sw_mcpath
+
+      real(kind=rb) function sw_resn(ic, lay, iceflag)
+!$acc routine seq
+      implicit none
+      integer, intent(in) :: ic, lay, iceflag
+      if (iceflag .eq. 5) then
+         sw_resn = in_res(ic,lay)
+      else
+         sw_resn = 0.0_rb
+      endif
+      end function sw_resn
+
+      subroutine kiss_sw_g(s1, s2, s3, s4, ran)
+!$acc routine seq
+      implicit none
+      integer(kind=im), intent(inout) :: s1, s2, s3, s4
+      real(kind=rb), intent(out) :: ran
+      integer(kind=im) :: kiss
+      s1 = 69069_im * s1 + 1327217885_im
+      s2 = ieor(s2, ishft(s2, 13_im))
+      s2 = ieor(s2, ishft(s2, -17_im))
+      s2 = ieor(s2, ishft(s2, 5_im))
+      s3 = 18000_im * iand(s3, 65535_im) + ishft(s3, -16_im)
+      s4 = 30903_im * iand(s4, 65535_im) + ishft(s4, -16_im)
+      kiss = s1 + s2 + ishft(s3, 16_im) + s4
+      ran = kiss*2.328306e-10_rb + 0.5_rb
+      end subroutine kiss_sw_g
+
+! mcica_subcol_sw + generate_stochastic_clouds_sw (irng 0): same restructuring as mcica_lw_g; cloud optics on
+! this path are tau 0, ssa 1, asym 0, fsf 0 in cloudy and clear sub-columns alike
+      subroutine mcica_sw_g(ic, jc, nlay, icld, idcor, juldat, permuteseed)
+!$acc routine seq
+      implicit none
+      integer, intent(in) :: ic, jc, nlay, icld, idcor, juldat, permuteseed
+      real(kind=rb), parameter :: am1 = 1.4315_rb, am2 = 2.1219_rb, am4 = -25.584_rb, amr = 7._rb
+      real(kind=rb), parameter :: Zo_default = 2500._rb, cldmin = 1.0e-20_rb
+      real(kind=rb) :: cdf(mxl_s), cldf(mxl_s), alpha(mxl_s)
+      real(kind=rb) :: am3, decorr, zo_inv, r1, r2, pm1, pm2, pm3, pm4
+      integer(kind=im) :: s1, s2, s3, s4
+      integer :: isub, l, n
+      if (icld .lt. 1 .or. icld .gt. 5) then
+         out_sw_err(ic) = 1
+         return
+      endif
+      if (idcor .eq. 1) then
+         if (juldat .gt. 181) then
+            am3 = -4._rb * amr / 365._rb * (juldat-272)
+         else
+            am3 = 4._rb * amr / 365._rb * (juldat-91)
+         endif
+         decorr = ( am1 + am2 * exp(-(in_lat(ic) - am3)**2 / (am4*am4)) ) * 1.e3_rb
+      else
+         decorr = Zo_default
+      endif
+      zo_inv = 1._rb / decorr
+      do l = 1, nlay
+         cldf(l) = in_cldf(ic,l)
+         if (cldf(l) < cldmin) cldf(l) = 0._rb
+      enddo
+      alpha(1) = 0._rb
+      do l = 2, nlay
+         alpha(l) = exp( -(in_hgt(ic,l) - in_hgt(ic,l-1)) * zo_inv)
+         if (icld .eq. 5) then
+            if (cldf(l) .eq. 0.0_rb .and. cldf(l-1) .gt. 0.0_rb) alpha(l) = 0.0_rb
+         endif
+      enddo
+      pm1 = in_play(ic,1)*1.e2_rb
+      pm2 = in_play(ic,2)*1.e2_rb
+      pm3 = in_play(ic,3)*1.e2_rb
+      pm4 = in_play(ic,4)*1.e2_rb
+      if (pm1 .lt. pm2) then
+         out_sw_err(ic) = 2
+         return
+      endif
+      s1 = (pm1 - int(pm1)) * 1000000000_im
+      s2 = (pm2 - int(pm2)) * 1000000000_im
+      s3 = (pm3 - int(pm3)) * 1000000000_im
+      s4 = (pm4 - int(pm4)) * 1000000000_im
+      do n = 1, permuteseed
+         call kiss_sw_g(s1, s2, s3, s4, r1)
+      enddo
+      do isub = 1, ngptsw
+         select case (icld)
+         case (1)
+            do l = 1, nlay
+               call kiss_sw_g(s1, s2, s3, s4, cdf(l))
+            enddo
+         case (2)
+            do l = 1, nlay
+               call kiss_sw_g(s1, s2, s3, s4, cdf(l))
+            enddo
+            do l = 2, nlay
+               if (cdf(l-1) > 1._rb - cldf(l-1)) then
+                  cdf(l) = cdf(l-1)
+               else
+                  cdf(l) = cdf(l) * (1._rb - cldf(l-1))
+               endif
+            enddo
+         case (3)
+            call kiss_sw_g(s1, s2, s3, s4, r1)
+            do l = 1, nlay
+               cdf(l) = r1
+            enddo
+         case default
+            do l = 1, nlay
+               call kiss_sw_g(s1, s2, s3, s4, r1)
+               call kiss_sw_g(s1, s2, s3, s4, r2)
+               cdf(l) = r1
+               if (l .ge. 2) then
+                  if (r2 < alpha(l)) cdf(l) = cdf(l-1)
+               endif
+            enddo
+         end select
+         do l = 1, nlay
+            if (cdf(l) >= 1._rb - cldf(l)) then
+               w_cldfmc(jc,isub,l) = 1._rb
+            else
+               w_cldfmc(jc,isub,l) = 0._rb
+            endif
+            w_taucmc(jc,isub,l) = 0._rb
+            w_ssacmc(jc,isub,l) = 1._rb
+            w_asmcmc(jc,isub,l) = 0._rb
+         enddo
+      enddo
+      end subroutine mcica_sw_g
+
+      subroutine inatm_sw_g(ic, jc, nlay, nlayers, tbound)
+!$acc routine seq
+      use rrsw_con, only : grav, avogad
+      use parrrsw, only : rrsw_scon
+      implicit none
+      integer, intent(in) :: ic, jc, nlay
+      integer(kind=im), intent(out) :: nlayers
+      real(kind=rb), intent(out) :: tbound
+      real(kind=rb), parameter :: amd = 28.9660_rb, amw = 18.0160_rb
+      integer(kind=im) :: l, imol, ib
+      real(kind=rb) :: amm, adjflx, solvar
+      nlayers = nlay
+      do l = 1, nlayers
+         do imol = 1, nmol
+            w_wkl(jc,imol,l) = 0.0_rb
+         enddo
+         do ib = 1, nbndsw
+            w_taua(jc,l,ib) = 0.0_rb
+            w_ssaa(jc,l,ib) = 1.0_rb
+            w_asma(jc,l,ib) = 0.0_rb
+         enddo
+      enddo
+      adjflx = in_adjflx(ic)
+      do ib = jpb1, jpb2
+         solvar = in_scon(ic) / rrsw_scon
+         w_adjflux(jc,ib) = adjflx * solvar
+      enddo
+      tbound = in_tsfc(ic)
+      w_pz(jc,0) = in_plev(ic,1)
+      w_tz(jc,0) = in_tlev(ic,1)
+      do l = 1, nlayers
+         w_pavel(jc,l) = in_play(ic,l)
+         w_tavel(jc,l) = in_tlay(ic,l)
+         w_pz(jc,l) = in_plev(ic,l+1)
+         w_tz(jc,l) = in_tlev(ic,l+1)
+         w_pdp(jc,l) = w_pz(jc,l-1) - w_pz(jc,l)
+         w_wkl(jc,1,l) = in_h2o(ic,l)
+         w_wkl(jc,2,l) = in_co2(ic,l)
+         w_wkl(jc,3,l) = in_o3(ic,l)
+         w_wkl(jc,4,l) = in_n2o(ic,l)
+         w_wkl(jc,6,l) = in_ch4(ic,l)
+         w_wkl(jc,7,l) = in_o2(ic,l)
+         amm = (1._rb - w_wkl(jc,1,l)) * amd + w_wkl(jc,1,l) * amw
+         w_coldry(jc,l) = (w_pz(jc,l-1)-w_pz(jc,l)) * 1.e3_rb * avogad / &
+                     (1.e2_rb * grav * amm * (1._rb + w_wkl(jc,1,l)))
+      enddo
+      do l = 1, nlayers
+         do imol = 1, nmol
+            w_wkl(jc,imol,l) = w_coldry(jc,l) * w_wkl(jc,imol,l)
+         enddo
+      enddo
+      end subroutine inatm_sw_g
+
+! one daylight column: mcica -> inatm -> cldprmc -> setcoef -> spcvmc (rrtmg_sw with icld >= 1, iaer = 10)
+      subroutine sw_col_g(ic, jc, nlay)
+!$acc routine seq
+      use rrsw_con, only : heatfac
+      implicit none
+      integer, intent(in) :: ic, jc, nlay
+      real(kind=rb), parameter :: zepzen = 1.e-10_rb
+      integer(kind=im) :: nlayers, laytrop, layswtch, laylow, i, ib
+      real(kind=rb) :: tbound, cossza, zdpgcp, nf0, nf1, nc0, nc1
+      out_sw_err(ic) = 0
+      call mcica_sw_g(ic, jc, nlay, in_flag(ic,2), in_flag(ic,3), in_flag(ic,4), in_flag(ic,8))
+      if (out_sw_err(ic) .ne. 0) return
+      call inatm_sw_g(ic, jc, nlay, nlayers, tbound)
+      call cldprmc_sw_g(ic, jc, nlayers, in_flag(ic,5), in_flag(ic,6), in_flag(ic,7))
+      if (out_sw_err(ic) .ne. 0) return
+      call setcoef_sw_g(jc, nlayers, tbound, laytrop, layswtch, laylow)
+      cossza = in_cosz(ic)
+      if (cossza .le. zepzen) cossza = zepzen
+      do ib = 1, 9
+         w_albdir(jc,ib) = in_aldir(ic)
+         w_albdif(jc,ib) = in_aldif(ic)
+      enddo
+      w_albdir(jc,nbndsw) = in_aldir(ic)
+      w_albdif(jc,nbndsw) = in_aldif(ic)
+      do ib = 10, 13
+         w_albdir(jc,ib) = in_asdir(ic)
+         w_albdif(jc,ib) = in_asdif(ic)
+      enddo
+      call spcvmc_sw_g(jc, nlayers, jpb1, jpb2, 1, 0, tbound, cossza, laytrop, layswtch, laylow)
+      do i = 1, nlayers+1
+         out_uflxc(ic,i) = w_pbbcu(jc,i)
+         out_dflxc(ic,i) = w_pbbcd(jc,i)
+         out_uflx(ic,i) = w_pbbfu(jc,i)
+         out_dflx(ic,i) = w_pbbfd(jc,i)
+      enddo
+      out_sfc(ic,5) = w_pbbfddir(jc,1)
+      out_sfc(ic,6) = out_dflx(ic,1) - w_pbbfddir(jc,1)
+      out_sfc(ic,7) = w_pbbcddir(jc,1)
+      out_sfc(ic,1) = w_puvfddir(jc,1)
+      out_sfc(ic,2) = w_puvfd(jc,1) - w_puvfddir(jc,1)
+      out_sfc(ic,3) = w_pnifddir(jc,1)
+      out_sfc(ic,4) = w_pnifd(jc,1) - w_pnifddir(jc,1)
+      do i = 1, nlayers
+         zdpgcp = heatfac / w_pdp(jc,i)
+         nc0 = out_dflxc(ic,i) - out_uflxc(ic,i)
+         nc1 = out_dflxc(ic,i+1) - out_uflxc(ic,i+1)
+         nf0 = out_dflx(ic,i) - out_uflx(ic,i)
+         nf1 = out_dflx(ic,i+1) - out_uflx(ic,i+1)
+         out_hrc(ic,i) = (nc1 - nc0) * zdpgcp
+         out_hr(ic,i) = (nf1 - nf0) * zdpgcp
+      enddo
+      out_hrc(ic,nlayers) = 0._rb
+      out_hr(ic,nlayers) = 0._rb
+      end subroutine sw_col_g
+
+!-------------------------------------------------------------------------------- host side
+      subroutine rrtmg_sw_gpu_begin(ims, ime, jms, jme, nlay)
+      implicit none
+      integer, intent(in) :: ims, ime, jms, jme, nlay
+      integer :: ncolm, nch, st
+      character(len=16) :: v
+      ncolm = (ime-ims+1)*(jme-jms+1)
+      if (nlay+1 .gt. mxl_s) call wrf_error_fatal('rrtmg_sw_gpu: nlayers+1 > mxl_s')
+      if (ncolm .ne. sw_ncolm .or. nlay .ne. sw_nlay) then
+         if (allocated(in_play)) then
+            deallocate(in_play, in_plev, in_tlay, in_tlev, in_h2o, in_o3, in_co2, in_ch4, in_n2o, in_o2, in_cldf, &
+                       in_ciwp, in_clwp, in_cswp, in_rei, in_rel, in_res, in_hgt, in_tsfc, in_lat, in_asdir, in_asdif, &
+                       in_aldir, in_aldif, in_cosz, in_adjflx, in_scon, in_flag, out_uflx, out_dflx, out_uflxc, &
+                       out_dflxc, out_hr, out_hrc, out_sfc, out_sw_err)
+         endif
+         allocate(in_play(ncolm,nlay), in_plev(ncolm,nlay+1), in_tlay(ncolm,nlay), in_tlev(ncolm,nlay+1), &
+                  in_h2o(ncolm,nlay), in_o3(ncolm,nlay), in_co2(ncolm,nlay), in_ch4(ncolm,nlay), in_n2o(ncolm,nlay), &
+                  in_o2(ncolm,nlay), in_cldf(ncolm,nlay), in_ciwp(ncolm,nlay), in_clwp(ncolm,nlay), &
+                  in_cswp(ncolm,nlay), in_rei(ncolm,nlay), in_rel(ncolm,nlay), in_res(ncolm,nlay), in_hgt(ncolm,nlay), &
+                  in_tsfc(ncolm), in_lat(ncolm), in_asdir(ncolm), in_asdif(ncolm), in_aldir(ncolm), in_aldif(ncolm), &
+                  in_cosz(ncolm), in_adjflx(ncolm), in_scon(ncolm), in_flag(ncolm,8), &
+                  out_uflx(ncolm,nlay+1), out_dflx(ncolm,nlay+1), out_uflxc(ncolm,nlay+1), out_dflxc(ncolm,nlay+1), &
+                  out_hr(ncolm,nlay), out_hrc(ncolm,nlay), out_sfc(ncolm,7), out_sw_err(ncolm))
+         nch = 16384
+         call get_environment_variable('WRF_GPU_RACHUNK', v, status=st)
+         if (st == 0) read(v, *, iostat=st) nch
+         if (nch .lt. 1) nch = 16384
+         sw_nchunk = min(nch, ncolm)
+         sw_ncolm = ncolm
+         sw_nlay = nlay
+      endif
+      sw_ims = ims
+      sw_ime = ime
+      sw_jms = jms
+      sw_jme = jme
+      in_flag(:,1) = 0
+      end subroutine rrtmg_sw_gpu_begin
+
+      integer function rrtmg_sw_gpu_col(i, j)
+      implicit none
+      integer, intent(in) :: i, j
+      rrtmg_sw_gpu_col = (j-sw_jms)*(sw_ime-sw_ims+1) + (i-sw_ims) + 1
+      end function rrtmg_sw_gpu_col
+
+      logical function rrtmg_sw_gpu_has(i, j)
+      implicit none
+      integer, intent(in) :: i, j
+      rrtmg_sw_gpu_has = in_flag(rrtmg_sw_gpu_col(i,j),1) .eq. 1
+      end function rrtmg_sw_gpu_has
+
+      subroutine rrtmg_sw_gpu_store(i, j, nlay, play, plev, tlay, tlev, tsfc, h2ovmr, o3vmr, co2vmr, ch4vmr, &
+                 n2ovmr, o2vmr, cldfrac, ciwpth, clwpth, cswpth, rei, rel, res, hgt, lat, asdir, asdif, aldir, &
+                 aldif, coszen, adjflx, scon, icld, idcor, juldat, inflgsw, iceflgsw, liqflgsw, permuteseed, irng)
+      implicit none
+      integer, intent(in) :: i, j, nlay, icld, idcor, juldat, inflgsw, iceflgsw, liqflgsw, permuteseed, irng
+      real, intent(in) :: play(nlay), plev(nlay+1), tlay(nlay), tlev(nlay+1), tsfc, h2ovmr(nlay), o3vmr(nlay), &
+           co2vmr(nlay), ch4vmr(nlay), n2ovmr(nlay), o2vmr(nlay), cldfrac(nlay), ciwpth(nlay), clwpth(nlay), &
+           cswpth(nlay), rei(nlay), rel(nlay), res(nlay), hgt(nlay), lat, asdir, asdif, aldir, aldif, coszen, &
+           adjflx, scon
+      integer :: ic, k
+      if (nlay .ne. sw_nlay) call wrf_error_fatal('rrtmg_sw_gpu_store: nlayers changed')
+      if (irng .ne. 0) call wrf_error_fatal('rrtmg_sw_gpu: only the KISS generator (irng=0) is ported')
+      ic = rrtmg_sw_gpu_col(i, j)
+      do k = 1, nlay
+         in_play(ic,k) = play(k)
+         in_tlay(ic,k) = tlay(k)
+         in_h2o(ic,k) = h2ovmr(k)
+         in_o3(ic,k) = o3vmr(k)
+         in_co2(ic,k) = co2vmr(k)
+         in_ch4(ic,k) = ch4vmr(k)
+         in_n2o(ic,k) = n2ovmr(k)
+         in_o2(ic,k) = o2vmr(k)
+         in_cldf(ic,k) = cldfrac(k)
+         in_ciwp(ic,k) = ciwpth(k)
+         in_clwp(ic,k) = clwpth(k)
+         in_cswp(ic,k) = cswpth(k)
+         in_rei(ic,k) = rei(k)
+         in_rel(ic,k) = rel(k)
+         in_res(ic,k) = res(k)
+         in_hgt(ic,k) = hgt(k)
+      enddo
+      do k = 1, nlay+1
+         in_plev(ic,k) = plev(k)
+         in_tlev(ic,k) = tlev(k)
+      enddo
+      in_tsfc(ic) = tsfc
+      in_lat(ic) = lat
+      in_asdir(ic) = asdir
+      in_asdif(ic) = asdif
+      in_aldir(ic) = aldir
+      in_aldif(ic) = aldif
+      in_cosz(ic) = coszen
+      in_adjflx(ic) = adjflx
+      in_scon(ic) = scon
+      in_flag(ic,2) = icld
+      in_flag(ic,3) = idcor
+      in_flag(ic,4) = juldat
+      in_flag(ic,5) = inflgsw
+      in_flag(ic,6) = iceflgsw
+      in_flag(ic,7) = liqflgsw
+      in_flag(ic,8) = permuteseed
+      in_flag(ic,1) = 1
+      end subroutine rrtmg_sw_gpu_store
+
+      subroutine rrtmg_sw_gpu_run()
+      use rrtmg_sw_gtab, only: sw_gtab_done, rrtmg_sw_gtab_init
+      implicit none
+      integer :: c0, c1, ic, jc, nlay, nch, nl, nl1, ierr
+      character(len=128) :: msg
+      if (.not. sw_gtab_done) call rrtmg_sw_gtab_init()
+      if (.not. any(in_flag(:,1) .eq. 1)) return
+      nlay = sw_nlay
+      nch = sw_nchunk
+      nl = nlay + 1
+      nl1 = nlay + 2
+      if (allocated(w_pavel)) deallocate(w_pavel)
+      allocate(w_pavel(nch,nl))
+      if (allocated(w_tavel)) deallocate(w_tavel)
+      allocate(w_tavel(nch,nl))
+      if (allocated(w_pdp)) deallocate(w_pdp)
+      allocate(w_pdp(nch,nl))
+      if (allocated(w_coldry)) deallocate(w_coldry)
+      allocate(w_coldry(nch,nl))
+      if (allocated(w_jp)) deallocate(w_jp)
+      allocate(w_jp(nch,nl))
+      if (allocated(w_jt)) deallocate(w_jt)
+      allocate(w_jt(nch,nl))
+      if (allocated(w_jt1)) deallocate(w_jt1)
+      allocate(w_jt1(nch,nl))
+      if (allocated(w_colh2o)) deallocate(w_colh2o)
+      allocate(w_colh2o(nch,nl))
+      if (allocated(w_colco2)) deallocate(w_colco2)
+      allocate(w_colco2(nch,nl))
+      if (allocated(w_colo3)) deallocate(w_colo3)
+      allocate(w_colo3(nch,nl))
+      if (allocated(w_coln2o)) deallocate(w_coln2o)
+      allocate(w_coln2o(nch,nl))
+      if (allocated(w_colch4)) deallocate(w_colch4)
+      allocate(w_colch4(nch,nl))
+      if (allocated(w_colo2)) deallocate(w_colo2)
+      allocate(w_colo2(nch,nl))
+      if (allocated(w_colmol)) deallocate(w_colmol)
+      allocate(w_colmol(nch,nl))
+      if (allocated(w_co2mult)) deallocate(w_co2mult)
+      allocate(w_co2mult(nch,nl))
+      if (allocated(w_fac00)) deallocate(w_fac00)
+      allocate(w_fac00(nch,nl))
+      if (allocated(w_fac01)) deallocate(w_fac01)
+      allocate(w_fac01(nch,nl))
+      if (allocated(w_fac10)) deallocate(w_fac10)
+      allocate(w_fac10(nch,nl))
+      if (allocated(w_fac11)) deallocate(w_fac11)
+      allocate(w_fac11(nch,nl))
+      if (allocated(w_selffac)) deallocate(w_selffac)
+      allocate(w_selffac(nch,nl))
+      if (allocated(w_selffrac)) deallocate(w_selffrac)
+      allocate(w_selffrac(nch,nl))
+      if (allocated(w_indself)) deallocate(w_indself)
+      allocate(w_indself(nch,nl))
+      if (allocated(w_forfac)) deallocate(w_forfac)
+      allocate(w_forfac(nch,nl))
+      if (allocated(w_forfrac)) deallocate(w_forfrac)
+      allocate(w_forfrac(nch,nl))
+      if (allocated(w_indfor)) deallocate(w_indfor)
+      allocate(w_indfor(nch,nl))
+      if (allocated(w_pz)) deallocate(w_pz)
+      allocate(w_pz(nch,0:nl))
+      if (allocated(w_tz)) deallocate(w_tz)
+      allocate(w_tz(nch,0:nl))
+      if (allocated(w_wkl)) deallocate(w_wkl)
+      allocate(w_wkl(nch,nmol,nl))
+      if (allocated(w_adjflux)) deallocate(w_adjflux)
+      allocate(w_adjflux(nch,jpband))
+      if (allocated(w_albdif)) deallocate(w_albdif)
+      allocate(w_albdif(nch,nbndsw))
+      if (allocated(w_albdir)) deallocate(w_albdir)
+      allocate(w_albdir(nch,nbndsw))
+      if (allocated(w_taug)) deallocate(w_taug)
+      allocate(w_taug(nch,nl,ngptsw))
+      if (allocated(w_taur)) deallocate(w_taur)
+      allocate(w_taur(nch,nl,ngptsw))
+      if (allocated(w_sfluxzen)) deallocate(w_sfluxzen)
+      allocate(w_sfluxzen(nch,ngptsw))
+      if (allocated(w_cldfmc)) deallocate(w_cldfmc)
+      allocate(w_cldfmc(nch,ngptsw,nl))
+      if (allocated(w_taucmc)) deallocate(w_taucmc)
+      allocate(w_taucmc(nch,ngptsw,nl))
+      if (allocated(w_ssacmc)) deallocate(w_ssacmc)
+      allocate(w_ssacmc(nch,ngptsw,nl))
+      if (allocated(w_asmcmc)) deallocate(w_asmcmc)
+      allocate(w_asmcmc(nch,ngptsw,nl))
+      if (allocated(w_taormc)) deallocate(w_taormc)
+      allocate(w_taormc(nch,ngptsw,nl))
+      if (allocated(w_taua)) deallocate(w_taua)
+      allocate(w_taua(nch,nl,nbndsw))
+      if (allocated(w_ssaa)) deallocate(w_ssaa)
+      allocate(w_ssaa(nch,nl,nbndsw))
+      if (allocated(w_asma)) deallocate(w_asma)
+      allocate(w_asma(nch,nl,nbndsw))
+      if (allocated(w_pbbfd)) deallocate(w_pbbfd)
+      allocate(w_pbbfd(nch,nl1))
+      if (allocated(w_pbbfu)) deallocate(w_pbbfu)
+      allocate(w_pbbfu(nch,nl1))
+      if (allocated(w_pbbcd)) deallocate(w_pbbcd)
+      allocate(w_pbbcd(nch,nl1))
+      if (allocated(w_pbbcu)) deallocate(w_pbbcu)
+      allocate(w_pbbcu(nch,nl1))
+      if (allocated(w_puvfd)) deallocate(w_puvfd)
+      allocate(w_puvfd(nch,nl1))
+      if (allocated(w_puvcd)) deallocate(w_puvcd)
+      allocate(w_puvcd(nch,nl1))
+      if (allocated(w_pnifd)) deallocate(w_pnifd)
+      allocate(w_pnifd(nch,nl1))
+      if (allocated(w_pnicd)) deallocate(w_pnicd)
+      allocate(w_pnicd(nch,nl1))
+      if (allocated(w_pbbfddir)) deallocate(w_pbbfddir)
+      allocate(w_pbbfddir(nch,nl1))
+      if (allocated(w_pbbcddir)) deallocate(w_pbbcddir)
+      allocate(w_pbbcddir(nch,nl1))
+      if (allocated(w_puvfddir)) deallocate(w_puvfddir)
+      allocate(w_puvfddir(nch,nl1))
+      if (allocated(w_puvcddir)) deallocate(w_puvcddir)
+      allocate(w_puvcddir(nch,nl1))
+      if (allocated(w_pnifddir)) deallocate(w_pnifddir)
+      allocate(w_pnifddir(nch,nl1))
+      if (allocated(w_pnicddir)) deallocate(w_pnicddir)
+      allocate(w_pnicddir(nch,nl1))
+!$acc update device(in_play, in_plev, in_tlay, in_tlev, in_h2o, in_o3, in_co2, in_ch4, in_n2o, in_o2)
+!$acc update device(in_cldf, in_ciwp, in_clwp, in_cswp, in_rei, in_rel, in_res, in_hgt, in_tsfc, in_lat)
+!$acc update device(in_asdir, in_asdif, in_aldir, in_aldif, in_cosz, in_adjflx, in_scon, in_flag)
+      do c0 = 1, sw_ncolm, nch
+         c1 = min(c0 + nch - 1, sw_ncolm)
+!$acc parallel loop gang vector vector_length(128) private(jc)
+         do ic = c0, c1
+            if (in_flag(ic,1) .eq. 1) then
+               jc = ic - c0 + 1
+               call sw_col_g(ic, jc, nlay)
+            else
+               out_sw_err(ic) = 0
+            endif
+         enddo
+      enddo
+!$acc update self(out_uflx, out_dflx, out_uflxc, out_dflxc, out_hr, out_hrc, out_sfc, out_sw_err)
+      if (allocated(w_pavel)) deallocate(w_pavel)
+      if (allocated(w_tavel)) deallocate(w_tavel)
+      if (allocated(w_pdp)) deallocate(w_pdp)
+      if (allocated(w_coldry)) deallocate(w_coldry)
+      if (allocated(w_jp)) deallocate(w_jp)
+      if (allocated(w_jt)) deallocate(w_jt)
+      if (allocated(w_jt1)) deallocate(w_jt1)
+      if (allocated(w_colh2o)) deallocate(w_colh2o)
+      if (allocated(w_colco2)) deallocate(w_colco2)
+      if (allocated(w_colo3)) deallocate(w_colo3)
+      if (allocated(w_coln2o)) deallocate(w_coln2o)
+      if (allocated(w_colch4)) deallocate(w_colch4)
+      if (allocated(w_colo2)) deallocate(w_colo2)
+      if (allocated(w_colmol)) deallocate(w_colmol)
+      if (allocated(w_co2mult)) deallocate(w_co2mult)
+      if (allocated(w_fac00)) deallocate(w_fac00)
+      if (allocated(w_fac01)) deallocate(w_fac01)
+      if (allocated(w_fac10)) deallocate(w_fac10)
+      if (allocated(w_fac11)) deallocate(w_fac11)
+      if (allocated(w_selffac)) deallocate(w_selffac)
+      if (allocated(w_selffrac)) deallocate(w_selffrac)
+      if (allocated(w_indself)) deallocate(w_indself)
+      if (allocated(w_forfac)) deallocate(w_forfac)
+      if (allocated(w_forfrac)) deallocate(w_forfrac)
+      if (allocated(w_indfor)) deallocate(w_indfor)
+      if (allocated(w_pz)) deallocate(w_pz)
+      if (allocated(w_tz)) deallocate(w_tz)
+      if (allocated(w_wkl)) deallocate(w_wkl)
+      if (allocated(w_adjflux)) deallocate(w_adjflux)
+      if (allocated(w_albdif)) deallocate(w_albdif)
+      if (allocated(w_albdir)) deallocate(w_albdir)
+      if (allocated(w_taug)) deallocate(w_taug)
+      if (allocated(w_taur)) deallocate(w_taur)
+      if (allocated(w_sfluxzen)) deallocate(w_sfluxzen)
+      if (allocated(w_cldfmc)) deallocate(w_cldfmc)
+      if (allocated(w_taucmc)) deallocate(w_taucmc)
+      if (allocated(w_ssacmc)) deallocate(w_ssacmc)
+      if (allocated(w_asmcmc)) deallocate(w_asmcmc)
+      if (allocated(w_taormc)) deallocate(w_taormc)
+      if (allocated(w_taua)) deallocate(w_taua)
+      if (allocated(w_ssaa)) deallocate(w_ssaa)
+      if (allocated(w_asma)) deallocate(w_asma)
+      if (allocated(w_pbbfd)) deallocate(w_pbbfd)
+      if (allocated(w_pbbfu)) deallocate(w_pbbfu)
+      if (allocated(w_pbbcd)) deallocate(w_pbbcd)
+      if (allocated(w_pbbcu)) deallocate(w_pbbcu)
+      if (allocated(w_puvfd)) deallocate(w_puvfd)
+      if (allocated(w_puvcd)) deallocate(w_puvcd)
+      if (allocated(w_pnifd)) deallocate(w_pnifd)
+      if (allocated(w_pnicd)) deallocate(w_pnicd)
+      if (allocated(w_pbbfddir)) deallocate(w_pbbfddir)
+      if (allocated(w_pbbcddir)) deallocate(w_pbbcddir)
+      if (allocated(w_puvfddir)) deallocate(w_puvfddir)
+      if (allocated(w_puvcddir)) deallocate(w_puvcddir)
+      if (allocated(w_pnifddir)) deallocate(w_pnifddir)
+      if (allocated(w_pnicddir)) deallocate(w_pnicddir)
+      ierr = maxval(out_sw_err)
+      if (ierr .ne. 0) then
+         write(msg, '(a,i3)') 'rrtmg_sw_gpu: column error code ', ierr
+         call wrf_error_fatal(trim(msg))
+      endif
+      end subroutine rrtmg_sw_gpu_run
+
+      end module rrtmg_sw_gpu
+#endif
 MODULE module_ra_rrtmg_sw
+#if defined(WRF_GPU)
+use rrtmg_sw_gpu, only: rrtmg_sw_gpu_store, rrtmg_sw_gpu_begin, rrtmg_sw_gpu_col, rrtmg_sw_gpu_has
+use rrtmg_sw_gwork, only: out_uflx, out_dflx, out_uflxc, out_dflxc, out_hr, out_hrc, out_sfc
+use rrtmg_sw_rad, only: earth_sun
+#endif
 
 use module_model_constants, only : cp
 USE module_wrf_error
@@ -10028,6 +13793,10 @@ use module_ra_rrtmg_lw, only : inirad, o3data, relcalc, reicalc, retab
 !                               new_RandomNumberSequence, getRandomReal
 use module_ra_rrtmg_sw_cmaq
 
+#if defined(WRF_GPU)
+! WRF_GPU: 1 = RRTMG_SWRAD stores each daylight column for rrtmg_sw_gpu_run (radiation_driver; RRTMG_SWRAD_GPU_POST)
+    integer :: sw_gpu_phase = 0
+#endif
 CONTAINS
 
 !------------------------------------------------------------------
@@ -10101,6 +13870,9 @@ CONTAINS
 !------------------------------------------------------------------
    USE MODULE_RA_CLWRF_SUPPORT, ONLY : read_CAMgases
    IMPLICIT NONE
+#if defined(WRF_GPU)
+   REAL :: adjflx_g
+#endif
 !------------------------------------------------------------------
    LOGICAL, INTENT(IN )      ::        warm_rain
    LOGICAL, INTENT(IN )      ::   is_CAMMGMP_used ! Added for CAM5 RRTMG<->CAMMGMP
@@ -11223,6 +14995,23 @@ CONTAINS
 
 ! Sub-column generator for McICA
          lat = XLAT(i,j) !retrieve scalar latitude for column calculation
+#if defined(WRF_GPU)
+         IF ( sw_gpu_phase == 1 .AND. inflgsw >= 2 .AND. aer_opt == 0 .AND. .NOT. associated(tauaer3d_sw) &
+              .AND. .NOT. PRESENT(sw_zbbcddir) ) THEN
+            adjflx_g = adjes
+            IF ( dyofyr .gt. 0 ) adjflx_g = earth_sun(dyofyr)
+            CALL rrtmg_sw_gpu_store(i, j, nlay, play(1,:), plev(1,:), tlay(1,:), tlev(1,:), tsfc(1), h2ovmr(1,:), &
+                 o3vmr(1,:), co2vmr(1,:), ch4vmr(1,:), n2ovmr(1,:), o2vmr(1,:), cldfrac(1,:), ciwpth(1,:),        &
+                 clwpth(1,:), cswpth(1,:), rei(1,:), rel(1,:), res(1,:), hgt(1,:), lat, asdir(1), asdif(1),        &
+                 aldir(1), aldif(1), coszen(1), adjflx_g, scon, icld, idcor, juldat, inflgsw, iceflgsw, liqflgsw,  &
+                 permuteseed, irng)
+            DO k=kts,kte
+               rthratensw(i,k,j) = 0.
+               rthratenswc(i,k,j) = 0.
+            ENDDO
+            CYCLE i_loop
+         ENDIF
+#endif
          call mcica_subcol_sw(iplon, ncol, nlay, icld, permuteseed, irng, play, &
                        cldfrac, ciwpth, clwpth, cswpth, rei, rel, res, taucld, ssacld, asmcld, fsfcld, &
                        hgt, idcor, juldat, lat, &
@@ -11604,6 +15393,77 @@ CONTAINS
 !-------------------------------------------------------------------
 
    END SUBROUTINE RRTMG_SWRAD
+#if defined(WRF_GPU)
+!------------------------------------------------------------------
+   SUBROUTINE RRTMG_SWRAD_GPU_BEGIN(ims, ime, jms, jme, kte)
+   IMPLICIT NONE
+   INTEGER, INTENT(IN) :: ims, ime, jms, jme, kte
+   CALL rrtmg_sw_gpu_begin(ims, ime, jms, jme, kte+1)
+   END SUBROUTINE RRTMG_SWRAD_GPU_BEGIN
+
+! WRF outputs for the GPU-computed (daylight, stored) columns: same expressions as the end of RRTMG_SWRAD's loop
+   SUBROUTINE RRTMG_SWRAD_GPU_POST( rthratensw, rthratenswc, gsw, swcf, pi3d, coszr,                    &
+                 swddir, swddni, swddif, swdownc, swddnic, swddirc,                                      &
+                 swupt, swuptc, swdnt, swdntc, swupb, swupbc, swdnb, swdnbc,                             &
+                 swvisdir, swvisdif, swnirdir, swnirdif,                                                 &
+                 swupflx, swupflxc, swdnflx, swdnflxc,                                                   &
+                 ims, ime, jms, jme, kms, kme, its, ite, jts, jte, kts, kte )
+   IMPLICIT NONE
+   INTEGER, INTENT(IN) :: ims, ime, jms, jme, kms, kme, its, ite, jts, jte, kts, kte
+   REAL, DIMENSION( ims:ime, kms:kme, jms:jme ), INTENT(INOUT) :: rthratensw, rthratenswc
+   REAL, DIMENSION( ims:ime, kms:kme, jms:jme ), INTENT(IN) :: pi3d
+   REAL, DIMENSION( ims:ime, jms:jme ), INTENT(IN) :: coszr
+   REAL, DIMENSION( ims:ime, jms:jme ), INTENT(INOUT) :: gsw, swcf, swddir, swddni, swddif, swdownc, swddnic, swddirc
+   REAL, DIMENSION( ims:ime, jms:jme ), OPTIONAL, INTENT(INOUT) :: swupt, swuptc, swdnt, swdntc, swupb, swupbc, &
+                                                                   swdnb, swdnbc, swvisdir, swvisdif, swnirdir, swnirdif
+   REAL, DIMENSION( ims:ime, kms:kme+2, jms:jme ), OPTIONAL, INTENT(INOUT) :: swupflx, swupflxc, swdnflx, swdnflxc
+   INTEGER :: i, j, k, ic
+   REAL :: tten1d, coszrs
+   DO j = jts, jte
+   DO i = its, ite
+      IF ( .NOT. rrtmg_sw_gpu_has(i, j) ) CYCLE
+      ic = rrtmg_sw_gpu_col(i, j)
+      coszrs = coszr(i,j)
+      gsw(i,j) = out_dflx(ic,1) - out_uflx(ic,1)
+      swcf(i,j) = (out_dflx(ic,kte+2) - out_uflx(ic,kte+2)) - (out_dflxc(ic,kte+2) - out_uflxc(ic,kte+2))
+      IF ( PRESENT(swupt) ) THEN
+         swupt(i,j)     = out_uflx(ic,kte+2)
+         swuptc(i,j)    = out_uflxc(ic,kte+2)
+         swdnt(i,j)     = out_dflx(ic,kte+2)
+         swdntc(i,j)    = out_dflxc(ic,kte+2)
+         swupb(i,j)     = out_uflx(ic,1)
+         swupbc(i,j)    = out_uflxc(ic,1)
+         swdnb(i,j)     = out_dflx(ic,1)
+         swvisdir(i,j)  = out_sfc(ic,1)
+         swvisdif(i,j)  = out_sfc(ic,2)
+         swnirdir(i,j)  = out_sfc(ic,3)
+         swnirdif(i,j)  = out_sfc(ic,4)
+         swdnbc(i,j)    = out_dflxc(ic,1)
+      ENDIF
+      swddir(i,j)  = out_sfc(ic,5)
+      swddni(i,j)  = swddir(i,j) / coszrs
+      swddif(i,j)  = out_sfc(ic,6)
+      swdownc(i,j) = out_dflxc(ic,1)
+      swddirc(i,j) = out_sfc(ic,7)
+      swddnic(i,j) = swddirc(i,j) / coszrs
+      IF ( PRESENT(swupflx) ) THEN
+         DO k = kts, kte+2
+            swupflx(i,k,j)  = out_uflx(ic,k)
+            swupflxc(i,k,j) = out_uflxc(ic,k)
+            swdnflx(i,k,j)  = out_dflx(ic,k)
+            swdnflxc(i,k,j) = out_dflxc(ic,k)
+         ENDDO
+      ENDIF
+      DO k = kts, kte
+         tten1d = out_hr(ic,k)/86400.
+         rthratensw(i,k,j) = tten1d/pi3d(i,k,j)
+         tten1d = out_hrc(ic,k)/86400.
+         rthratenswc(i,k,j) = tten1d/pi3d(i,k,j)
+      ENDDO
+   ENDDO
+   ENDDO
+   END SUBROUTINE RRTMG_SWRAD_GPU_POST
+#endif
 
  
 !====================================================================
