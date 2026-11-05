@@ -2623,6 +2623,322 @@ CONTAINS
 
   END SUBROUTINE turbulence_diagnostics
 
+#ifdef WRF_GPU
+! ---------------------------------------------------------------------------------------------------------------
+! WRF_GPU residency builds: the every-step part of the NWP (Thompson) + AFWA diagnostics on the GPU, from the
+! device-resident state; the accumulators (max/min/sums) then live on the GPU. Steps that also need the
+! output-step / first-step diagnostics (CAPE, radar, icing, ...) run the original host code instead
+! (diagnostics_driver pulls the accumulators before and pushes them after). Same expressions and order as
+! diagnostic_output_nwp (no hail branch for Thompson) and afwa_diagnostics_driver (severe_wx_diagnostics not
+! called: it needs QNG; precip_type_diagnostics).
+! ---------------------------------------------------------------------------------------------------------------
+  SUBROUTINE afwa_time_flags ( grid, is_after_history_dump, is_output_timestep, is_first_timestep )
+    USE module_domain, ONLY : domain , domain_clock_get
+    USE module_utility
+    USE module_streams, ONLY: history_alarm, auxhist2_alarm
+    IMPLICIT NONE
+    TYPE ( domain ), INTENT(INOUT) :: grid
+    LOGICAL, INTENT(OUT) :: is_after_history_dump, is_output_timestep, is_first_timestep
+    TYPE(WRFU_Time) :: hist_time, aux2_time, CurrTime, StartTime
+    TYPE(WRFU_TimeInterval) :: dtint, histint, aux2int
+    CHARACTER*256 :: timestr
+    CALL WRFU_ALARMGET( grid%alarms( HISTORY_ALARM ), prevringtime=hist_time, ringinterval=histint)
+    CALL WRFU_ALARMGET( grid%alarms( AUXHIST2_ALARM ), prevringtime=aux2_time, ringinterval=aux2int)
+    CALL domain_clock_get ( grid, current_time=CurrTime, simulationStartTime=StartTime, &
+         current_timestr=timestr, time_step=dtint )
+    is_after_history_dump = ( Currtime .lt. hist_time + dtint )
+    is_output_timestep = (Currtime .ge. hist_time + histint - dtint .or. &
+                         Currtime .ge. aux2_time + aux2int - dtint )
+    is_first_timestep = ( Currtime .eq. StartTime + dtint )
+  END SUBROUTINE afwa_time_flags
+
+  SUBROUTINE diag_nwp_afwa_gpu ( grid, config_flags, moist, u_phy, v_phy, dz8w, p8w, rho, &
+                                 nwp_reset, afwa_dump_reset, idump,                       &
+                                 ids, ide, jds, jde, kds, kde, ims, ime, jms, jme, kms, kme, &
+                                 ips, ipe, jps, jpe, kps, kpe, its, ite, jts, jte, nits, nite, njts, njte )
+    USE module_domain, ONLY : domain
+    USE module_configure, ONLY : grid_config_rec_type
+    USE module_state_description
+    USE module_model_constants, ONLY : g
+    IMPLICIT NONE
+    TYPE ( domain ), INTENT(INOUT) :: grid
+    TYPE ( grid_config_rec_type ), INTENT(IN) :: config_flags
+    INTEGER, INTENT(IN) :: ids, ide, jds, jde, kds, kde, ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe
+    INTEGER, INTENT(IN) :: its, ite, jts, jte        ! AFWA bounds (patch union of the tiles)
+    INTEGER, INTENT(IN) :: nits, nite, njts, njte    ! NWP bounds (its..min(ite,ide-1))
+    REAL, DIMENSION( ims:ime, kms:kme, jms:jme, num_moist ), INTENT(IN) :: moist
+    REAL, DIMENSION( ims:ime, kms:kme, jms:jme ), INTENT(IN) :: u_phy, v_phy, dz8w, p8w, rho
+    LOGICAL, INTENT(IN) :: nwp_reset, afwa_dump_reset
+    INTEGER, INTENT(IN) :: idump
+    INTEGER :: i, j, k, itim
+    REAL :: wind_vel, depth, colm, ncp, gcol, wup, wdn, prate_mm_per_hr, factor, u1km, v1km, ublend, vblend
+    REAL :: wind_blend, u2000, v2000, us, vs, llws, zk, zkm
+    LOGICAL :: is_target_level, do_nwp, do_sev, do_pt
+    ! precip type locals (precip_type_diagnostics)
+    REAL, PARAMETER :: snow_ratio=5.0
+    REAL :: melt, mod_2m_tmp, cloud_top_tmp, maxtmp, rhk, ccn_tmp, total_melt, prc, dtl
+    INTEGER :: cloud_top_k_index, precip_type
+    LOGICAL :: saturation
+    LOGICAL, SAVE :: entered = .FALSE.
+
+    do_nwp = config_flags%nwp_diagnostics == 1
+    do_sev = config_flags%afwa_severe_opt == 1
+    do_pt  = config_flags%afwa_ptype_opt == 1
+    itim = grid%itimestep
+    ccn_tmp = grid%afwa_ptype_ccn_tmp
+    total_melt = grid%afwa_ptype_tot_melt
+    dtl = grid%dt
+    IF ( .NOT. entered ) THEN   ! not all of these are in the grid enter-data list (no copy if present)
+!$acc enter data copyin(grid%wspd10max,grid%up_heli_max,grid%w_up_max,grid%w_dn_max,grid%w_mean,grid%grpl_max)
+!$acc enter data copyin(grid%refd_max,grid%hail_maxk1,grid%hail_max2d,grid%w_colmean,grid%numcolpts,grid%grpl_colint)
+!$acc enter data copyin(grid%afwa_precip,grid%afwa_totprecip,grid%afwa_llws,grid%tcoli_max,grid%grpl_flx_max)
+!$acc enter data copyin(grid%afwa_tornado,grid%midrh_min_old,grid%midrh_min,grid%afwa_hail,grid%afwa_rain)
+!$acc enter data copyin(grid%afwa_snow,grid%afwa_ice,grid%afwa_fzra,grid%afwa_snowfall)
+!$acc enter data copyin(grid%raincv,grid%rainc,grid%rainncv,grid%rainnc,grid%swdown,grid%t2,grid%z,grid%ht)
+!$acc enter data copyin(grid%pb,grid%znw,grid%refl_10cm,grid%u10,grid%v10,grid%t_phy)
+      entered = .TRUE.
+      ! the host packages ran so far (first steps): start from the host accumulators
+      CALL diag_nwp_afwa_gpu_sync( grid, .FALSE. )
+    ENDIF
+    ! host-written inputs (surface physics, cumulus/advance_ppt, radiation)
+!$acc update device(grid%raincv,grid%rainc,grid%swdown,grid%t2)
+
+!$acc data present(grid, grid%wspd10max,grid%up_heli_max,grid%w_up_max,grid%w_dn_max,grid%w_mean,grid%grpl_max, &
+!$acc   grid%refd_max,grid%hail_maxk1,grid%hail_max2d,grid%w_colmean,grid%numcolpts,grid%grpl_colint,            &
+!$acc   grid%afwa_precip,grid%afwa_totprecip,grid%afwa_llws,grid%tcoli_max,grid%grpl_flx_max,grid%afwa_tornado,   &
+!$acc   grid%midrh_min_old,grid%midrh_min,grid%afwa_hail,grid%afwa_rain,grid%afwa_snow,grid%afwa_ice,             &
+!$acc   grid%afwa_fzra,grid%afwa_snowfall,grid%raincv,grid%rainc,grid%rainncv,grid%rainnc,grid%swdown,grid%t2,    &
+!$acc   grid%z,grid%ht,grid%pb,grid%p,grid%znw,grid%refl_10cm,grid%u10,grid%v10,grid%t_phy,grid%w_2,grid%ph_2,     &
+!$acc   grid%phb, moist, u_phy, v_phy, dz8w, p8w, rho)
+
+    ! ---------------- NWP (diagnostic_output_nwp) ----------------
+    IF ( do_nwp ) THEN
+!$acc parallel loop gang vector collapse(2) private(wup, wdn, colm, ncp, gcol, depth, wind_vel)
+    DO j = njts, njte
+    DO i = nits, nite
+       IF ( nwp_reset ) THEN
+         grid%wspd10max(i,j)   = 0.
+         grid%up_heli_max(i,j) = 0.
+         grid%w_up_max(i,j)    = 0.
+         grid%w_dn_max(i,j)    = 0.
+         grid%w_mean(i,j)      = 0.
+         grid%grpl_max(i,j)    = 0.
+         grid%refd_max(i,j)    = 0.
+         grid%hail_maxk1(i,j)  = 0.
+         grid%hail_max2d(i,j)  = 0.
+       ENDIF
+       colm = 0.
+       ncp = 0.
+       gcol = 0.
+       DO k = kms, kme
+         IF ( p8w(i,k,j) .GT. 40000. .AND. grid%w_2(i,k,j) .GT. grid%w_up_max(i,j) ) THEN
+           grid%w_up_max(i,j) = grid%w_2(i,k,j)
+         ENDIF
+         IF ( p8w(i,k,j) .GT. 40000. .AND. grid%w_2(i,k,j) .LT. grid%w_dn_max(i,j) ) THEN
+           grid%w_dn_max(i,j) = grid%w_2(i,k,j)
+         ENDIF
+         IF ( grid%znw(k) .GE. 0.5 .AND. grid%znw(k) .LE. 0.8 ) THEN
+           colm = colm + grid%w_2(i,k,j)
+           ncp = ncp + 1
+         ENDIF
+       ENDDO
+       DO k = kms, kme-1
+         depth = ( ( grid%ph_2(i,k+1,j) + grid%phb(i,k+1,j) ) / g ) - &
+                 ( ( grid%ph_2(i,k  ,j) + grid%phb(i,k  ,j) ) / g )
+         gcol = gcol + moist(i,k,j,P_QG) * depth * rho(i,k,j)
+       ENDDO
+       grid%w_colmean(i,j) = colm
+       grid%numcolpts(i,j) = ncp
+       grid%grpl_colint(i,j) = gcol
+       wind_vel = sqrt ( grid%u10(i,j)*grid%u10(i,j) + grid%v10(i,j)*grid%v10(i,j) )
+       IF ( wind_vel .GT. grid%wspd10max(i,j) ) THEN
+         grid%wspd10max(i,j) = wind_vel
+       ENDIF
+       grid%w_mean(i,j) = grid%w_mean(i,j) + grid%w_colmean(i,j) / grid%numcolpts(i,j)
+       IF ( MOD(itim, idump) .eq. 0 ) THEN
+         grid%w_mean(i,j) = grid%w_mean(i,j) / idump
+       ENDIF
+       IF ( grid%grpl_colint(i,j) .gt. grid%grpl_max(i,j) ) THEN
+          grid%grpl_max(i,j) = grid%grpl_colint(i,j)
+       ENDIF
+       IF ( grid%refl_10cm(i,kms,j) .GT. grid%refd_max(i,j) ) THEN
+         grid%refd_max(i,j) = grid%refl_10cm(i,kms,j)
+       ENDIF
+    ENDDO
+    ENDDO
+    ENDIF
+
+    ! ---------------- AFWA (afwa_diagnostics_driver, every-step part) ----------------
+!$acc parallel loop gang vector collapse(2) private(wind_vel, prate_mm_per_hr, is_target_level, u1km, v1km, &
+!$acc   factor, ublend, vblend, wind_blend, u2000, v2000, us, vs, llws, zk, zkm, melt, mod_2m_tmp, cloud_top_tmp, &
+!$acc   maxtmp, rhk, prc, cloud_top_k_index, precip_type, saturation)
+    DO j = jts, jte
+    DO i = its, ite
+      grid % afwa_precip(i,j) = grid%raincv(i,j) + grid%rainncv(i,j)
+      grid % afwa_totprecip(i,j) = grid%rainc(i,j) + grid%rainnc(i,j)
+      IF ( do_sev ) THEN
+        IF ( afwa_dump_reset ) THEN
+          grid % wspd10max(i,j) = 0.
+          grid % afwa_llws(i,j) = 0.
+        ENDIF
+        ! 10 m wind max, blended toward the 1 km wind in heavy rain
+        wind_vel = uv_wind ( grid % u10(i,j) , grid % v10(i,j) )
+        prate_mm_per_hr = ( grid % afwa_precip(i,j) / dtl ) * 3600.
+        IF ( prate_mm_per_hr .GT. 50. ) THEN
+          is_target_level=.false.
+          DO k=kms,kme
+            zk = grid%z(i,k,j)-grid%ht(i,j)
+            IF ( ( zk >= 1000. ) .and. ( .NOT. is_target_level ) .and. ( k .ne. kms ) ) THEN
+              is_target_level = .true.
+              zkm = grid%z(i,k-1,j)-grid%ht(i,j)
+              u1km = u_phy(i,k-1,j) + (1000. - (zkm)) * ((u_phy(i,k,j) - u_phy(i,k-1,j))/(zk))
+              v1km = v_phy(i,k-1,j) + (1000. - (zkm)) * ((v_phy(i,k,j) - v_phy(i,k-1,j))/(zk))
+              EXIT
+            ENDIF
+          ENDDO
+          factor = MAX ( ( ( 150. - prate_mm_per_hr ) / 100. ), 0. )
+          ublend = grid % u10(i,j) * factor + u1km * (1. - factor)
+          vblend = grid % v10(i,j) * factor + v1km * (1. - factor)
+          wind_blend = uv_wind ( ublend, vblend )
+          IF ( wind_blend .GT. wind_vel ) THEN
+            wind_vel = wind_blend
+          ENDIF
+        ENDIF
+        IF ( wind_vel .GT. grid % wspd10max(i,j) ) THEN
+          grid % wspd10max(i,j) = wind_vel
+        ENDIF
+        ! low-level wind shear (sfc - 2000 ft)
+        is_target_level=.false.
+        DO k=kms,kme
+          zk = grid%z(i,k,j)-grid%ht(i,j)
+          IF ( ( zk >= 609.6 ) .and. ( .NOT. is_target_level ) .and. ( k .ne. kms ) ) THEN
+            is_target_level = .true.
+            zkm = grid%z(i,k-1,j)-grid%ht(i,j)
+            u2000 = u_phy(i,k-1,j) + (609.6 - (zkm)) * ((u_phy(i,k,j) - u_phy(i,k-1,j))/(zk))
+            v2000 = v_phy(i,k-1,j) + (609.6 - (zkm)) * ((v_phy(i,k,j) - v_phy(i,k-1,j))/(zk))
+            us = u2000 - grid % u10(i,j)
+            vs = v2000 - grid % v10(i,j)
+            llws = uv_wind ( us , vs )
+            IF ( llws .gt. grid % afwa_llws(i,j) ) THEN
+              grid % afwa_llws(i,j) = llws
+            ENDIF
+            EXIT
+          ENDIF
+        ENDDO
+        IF ( afwa_dump_reset ) THEN
+          grid%w_up_max(i,j) = 0.
+          grid%w_dn_max(i,j) = 0.
+          grid%tcoli_max(i,j) = 0.
+          grid%grpl_flx_max(i,j) = 0.
+          grid%up_heli_max(i,j) = 0.
+          grid%afwa_tornado(i,j) = 0.
+          grid%midrh_min_old(i,j) = grid%midrh_min(i,j)
+          grid%midrh_min(i,j) = 999.
+          grid%afwa_hail(i,j) = 0.
+        ENDIF
+      ENDIF
+      ! precipitation type (precip_type_diagnostics, kps..kpe)
+      IF ( do_pt ) THEN
+        prc = grid%afwa_precip(i,j)
+        saturation=.false.
+        melt=0.0
+        precip_type=0
+        cloud_top_tmp=0.0   ! (uninitialized in the original when no saturated layer is found)
+        mod_2m_tmp=grid%t2(i,j)+(grid%swdown(i,j)/100.0)
+        maxtmp=mod_2m_tmp
+        IF (prc .gt. 0.0) THEN
+          IF (mod_2m_tmp .gt. 275.15) THEN
+            precip_type=1
+          ELSE
+            cloud_top_k_index=kpe
+            DO k=kpe,kps,-1
+              IF ((grid%z(i,k,j)-grid%ht(i,j)) .gt. 0.0) THEN
+                IF (grid%t_phy(i,k,j) .gt. maxtmp) THEN
+                  maxtmp=grid%t_phy(i,k,j)
+                ENDIF
+                rhk = calc_rh(grid%pb(i,k,j)+grid%p(i,k,j), grid%t_phy(i,k,j), moist(i,k,j,P_QV))
+                IF (rhk .gt. 80 .and. saturation .eqv. .false.) THEN
+                  cloud_top_tmp=grid%t_phy(i,k,j)
+                  cloud_top_k_index=k
+                  saturation=.true.
+                  precip_type=2
+                ENDIF
+                IF (rhk .le. 70 .and. saturation .eqv. .true.) THEN
+                  saturation=.false.
+                ENDIF
+              ENDIF
+            ENDDO
+            IF (cloud_top_tmp .le. ccn_tmp .and. maxtmp .le. 273.15) THEN
+              precip_type=2
+            ENDIF
+            DO k=cloud_top_k_index,kps,-1
+              IF ((grid%z(i,k,j)-grid%ht(i,j)) .gt. 0.0) THEN
+                IF (cloud_top_tmp .eq. grid%t_phy(i,k,j) .and. cloud_top_tmp .gt. ccn_tmp) THEN
+                   precip_type=1
+                ENDIF
+                IF ((precip_type .eq. 2 .or. precip_type .eq. 3) .and. grid%t_phy(i,k,j) .gt. 273.15) THEN
+                  melt=melt+9.8*(((grid%t_phy(i,k,j)-273.15)/273.15)*(dz8w(i,k,j)))
+                  IF (melt .gt. total_melt) THEN
+                    precip_type=1
+                    melt=0.0
+                  ENDIF
+                ENDIF
+                IF (grid%t_phy(i,k,j) .le. 273.15 .and. melt .gt. total_melt/4.0 .and. &
+                    (precip_type .eq. 2 .or. precip_type .eq. 3)) THEN
+                  precip_type=3
+                  melt=0.0
+                ENDIF
+                IF (precip_type .eq. 1) THEN
+                  IF (grid%t_phy(i,k,j) .le. ccn_tmp) THEN
+                    precip_type=3
+                  ENDIF
+                ENDIF
+              ENDIF
+            ENDDO
+          ENDIF
+          IF (precip_type .eq. 3) THEN
+            grid%afwa_ice(i,j)=grid%afwa_ice(i,j)+prc
+          ENDIF
+          IF (precip_type .eq. 2) THEN
+            grid%afwa_snow(i,j)=grid%afwa_snow(i,j)+prc
+            grid%afwa_snowfall(i,j)=grid%afwa_snowfall(i,j)+snow_ratio*prc*(5.-mod_2m_tmp+273.15)**0.4
+          ENDIF
+          IF (precip_type .eq. 1) THEN
+            IF (mod_2m_tmp .gt. 273.15) THEN
+              grid%afwa_rain(i,j)=grid%afwa_rain(i,j)+prc
+            ELSE
+              grid%afwa_fzra(i,j)=grid%afwa_fzra(i,j)+prc
+            ENDIF
+          ENDIF
+        ENDIF
+      ENDIF
+    ENDDO
+    ENDDO
+!$acc end data
+  END SUBROUTINE diag_nwp_afwa_gpu
+
+! accumulators of the GPU diagnostics: host <-> device around steps that run the host diagnostics
+  SUBROUTINE diag_nwp_afwa_gpu_sync ( grid, to_host )
+    USE module_domain, ONLY : domain
+    IMPLICIT NONE
+    TYPE ( domain ), INTENT(INOUT) :: grid
+    LOGICAL, INTENT(IN) :: to_host
+    IF ( to_host ) THEN
+!$acc update self(grid%wspd10max,grid%up_heli_max,grid%w_up_max,grid%w_dn_max,grid%w_mean,grid%grpl_max)
+!$acc update self(grid%refd_max,grid%hail_maxk1,grid%hail_max2d,grid%w_colmean,grid%numcolpts,grid%grpl_colint)
+!$acc update self(grid%afwa_precip,grid%afwa_totprecip,grid%afwa_llws,grid%tcoli_max,grid%grpl_flx_max)
+!$acc update self(grid%afwa_tornado,grid%midrh_min_old,grid%midrh_min,grid%afwa_hail,grid%afwa_rain)
+!$acc update self(grid%afwa_snow,grid%afwa_ice,grid%afwa_fzra,grid%afwa_snowfall)
+    ELSE
+!$acc update device(grid%wspd10max,grid%up_heli_max,grid%w_up_max,grid%w_dn_max,grid%w_mean,grid%grpl_max)
+!$acc update device(grid%refd_max,grid%hail_maxk1,grid%hail_max2d,grid%w_colmean,grid%numcolpts,grid%grpl_colint)
+!$acc update device(grid%afwa_precip,grid%afwa_totprecip,grid%afwa_llws,grid%tcoli_max,grid%grpl_flx_max)
+!$acc update device(grid%afwa_tornado,grid%midrh_min_old,grid%midrh_min,grid%afwa_hail,grid%afwa_rain)
+!$acc update device(grid%afwa_snow,grid%afwa_ice,grid%afwa_fzra,grid%afwa_snowfall)
+    ENDIF
+  END SUBROUTINE diag_nwp_afwa_gpu_sync
+#endif
+
 END MODULE module_diag_afwa
 
 #endif

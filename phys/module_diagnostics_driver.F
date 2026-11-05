@@ -1,6 +1,12 @@
 !WRF:MODEL_LAYER:PHYSICS
 
 MODULE module_diagnostics_driver
+#ifdef WRF_GPU_RESIDENT
+! residency builds (WRF_GPU_XFER bit 65536, set by solve_em): the every-step NWP + AFWA diagnostics on the GPU
+! (diag_nwp_afwa_gpu); first/output steps run the host packages (accumulators synced around them)
+   LOGICAL :: wrf_gpu_diag = .FALSE.
+   LOGICAL, PRIVATE :: gpu_diag_used = .FALSE.
+#endif
 
 CONTAINS
 
@@ -81,6 +87,10 @@ CONTAINS
       USE module_diag_pld, ONLY : pld
       USE module_diag_zld, ONLY : zld
       USE module_diag_afwa, ONLY : afwa_diagnostics_driver
+#ifdef WRF_GPU_RESIDENT
+      USE module_diag_afwa, ONLY : afwa_time_flags, diag_nwp_afwa_gpu, diag_nwp_afwa_gpu_sync
+      USE module_state_description, ONLY : F_QNG, THOMPSON
+#endif
       USE module_diag_rasm, ONLY : mean_output_calc, diurnalcycle_output_calc
       USE module_diag_hailcast, ONLY : hailcast_diagnostic_driver
       USE module_diag_solar, ONLY : solar_diag
@@ -91,6 +101,11 @@ CONTAINS
 #endif
 
       IMPLICIT NONE
+#ifdef WRF_GPU_RESIDENT
+      LOGICAL :: gpu_diag_step, d_after_dump, d_out_step, d_first_step, d_nwp_reset
+      INTEGER :: d_idump
+      REAL :: d_tfo
+#endif
 
 
       !=============================================================
@@ -439,6 +454,39 @@ CONTAINS
 #ifdef WRF_SEG_TIMERS
       CALL diag_tick(2)
 #endif
+#ifdef WRF_GPU_RESIDENT
+      gpu_diag_step = .FALSE.
+      IF ( wrf_gpu_diag .AND. config_flags%nwp_diagnostics == 1 .AND. config_flags%afwa_diag_opt == 1 .AND. &
+           config_flags%mp_physics == THOMPSON .AND. .NOT. F_QNG .AND. grid%itimestep /= 1 ) THEN
+         CALL afwa_time_flags( grid, d_after_dump, d_out_step, d_first_step )
+         gpu_diag_step = .NOT. ( d_out_step .OR. d_first_step )
+      ENDIF
+      IF ( gpu_diag_step ) THEN
+         ! diagnostic_output_nwp reset logic (host scalars)
+         d_idump = (grid%history_interval * 60.) / grid%dt
+         d_tfo = mod( grid%xtime, REAL(grid%history_interval) )
+         IF ( config_flags%use_adaptive_time_step .EQV. .TRUE. ) THEN
+            d_nwp_reset = ( d_tfo .GT. 0 ) .AND. ( d_tfo .LE. ( ( grid%max_time_step * 1.05 ) / 60. ) )
+         ELSE
+            d_nwp_reset = MOD((grid%itimestep - 1), d_idump) .eq. 0
+         ENDIF
+         CALL diag_nwp_afwa_gpu( grid, config_flags, moist, grid%u_phy, grid%v_phy, dz8w, p8w, grid%rho,   &
+                 d_nwp_reset, d_after_dump, d_idump,                                                       &
+                 ids, ide, jds, jde, kds, kde, ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe, &
+                 MINVAL(grid%i_start(1:grid%num_tiles)), MAXVAL(grid%i_end(1:grid%num_tiles)),             &
+                 MINVAL(grid%j_start(1:grid%num_tiles)), MAXVAL(grid%j_end(1:grid%num_tiles)),             &
+                 MINVAL(grid%i_start(1:grid%num_tiles)), MIN(MAXVAL(grid%i_end(1:grid%num_tiles)),ide-1),  &
+                 MINVAL(grid%j_start(1:grid%num_tiles)), MIN(MAXVAL(grid%j_end(1:grid%num_tiles)),jde-1) )
+         ! up_heli_max is also host-pushed (H1): keep the host copy in step with GPU-side resets
+         IF ( d_nwp_reset .OR. ( d_after_dump .AND. config_flags%afwa_severe_opt == 1 ) ) THEN
+!$acc update self(grid%up_heli_max)
+         ENDIF
+         gpu_diag_used = .TRUE.
+      ELSE IF ( gpu_diag_used ) THEN
+         CALL diag_nwp_afwa_gpu_sync( grid, .TRUE. )
+      ENDIF
+      IF ( .NOT. gpu_diag_step ) THEN
+#endif
       NWPDIAGS: IF ( config_flags%nwp_diagnostics == 1 ) THEN
       CALL wrf_debug ( 100 , '--> CALL DIAGNOSTICS PACKAGE: NWP DIAGNOSTICS' )
 
@@ -771,6 +819,9 @@ CONTAINS
 
    END SELECT mp_select
    END IF NWPDIAGS
+#ifdef WRF_GPU_RESIDENT
+      ENDIF
+#endif
 
 
 #ifdef WRF_SEG_TIMERS
@@ -1025,6 +1076,9 @@ CONTAINS
 #ifdef WRF_SEG_TIMERS
       CALL diag_tick(6)
 #endif
+#ifdef WRF_GPU_RESIDENT
+      IF ( .NOT. gpu_diag_step ) THEN
+#endif
       AFWA_DIAGS : IF ( config_flags%afwa_diag_opt == 1 ) THEN
 
          IF ( ( config_flags%history_interval == 0 ) ) THEN
@@ -1056,6 +1110,10 @@ CONTAINS
             END DO
             !$OMP END PARALLEL DO
       ENDIF AFWA_DIAGS
+#ifdef WRF_GPU_RESIDENT
+      IF ( gpu_diag_used ) CALL diag_nwp_afwa_gpu_sync( grid, .FALSE. )
+      ENDIF
+#endif
 
 
 

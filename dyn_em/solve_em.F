@@ -119,6 +119,7 @@ SUBROUTINE solve_em ( grid , config_flags  &
    USE module_wrf_error, ONLY : wrf_gpu_on, wrf_gpu_q
 #ifdef WRF_GPU_RESIDENT
    USE module_radiation_driver, ONLY : wrf_gpu_ra_ran, wrf_gpu_ra_pullre, wrf_gpu_ra_lw, wrf_gpu_ra_sw
+   USE module_diagnostics_driver, ONLY : wrf_gpu_diag
    USE module_cumulus_driver, ONLY : wrf_gpu_cu_ran, wrf_gpu_cu_pullbl, wrf_gpu_cu, wrf_gpu_cu_dev_ran
    USE module_pbl_driver, ONLY : wrf_gpu_bl_ran, wrf_gpu_pbl, wrf_gpu_pbl_ran
 #endif
@@ -1087,6 +1088,7 @@ BENCH_START(calc_p_rho_tim)
                        IAND( wrf_gpu_xfer(), 32 ) /= 0 .AND. config_flags%mp_physics == THOMPSON
    wrf_gpu_ra_lw = IAND( wrf_gpu_xfer(), 16384 ) /= 0   ! RRTMG LW core on the GPU
    wrf_gpu_ra_sw = IAND( wrf_gpu_xfer(), 32768 ) /= 0   ! RRTMG SW core on the GPU (with 16384)
+   wrf_gpu_diag = IAND( wrf_gpu_xfer(), 65536 ) /= 0   ! every-step NWP + AFWA diagnostics on the GPU
 #endif
 #ifdef WRF_GPU_RESIDENT
 #ifdef WRF_SEG_TIMERS

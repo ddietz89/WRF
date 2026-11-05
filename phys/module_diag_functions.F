@@ -23,6 +23,9 @@ CONTAINS
   !~ 
   !!!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~!!!
   FUNCTION calc_rh ( p, t, qv ) result ( rh )
+#ifdef WRF_GPU
+!$acc routine seq
+#endif
     
     IMPLICIT NONE
  
@@ -64,6 +67,9 @@ CONTAINS
   !~ 
   !!!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~!!!
   FUNCTION uv_wind ( u, v ) result ( wind_speed )
+#ifdef WRF_GPU
+!$acc routine seq
+#endif
  
     IMPLICIT NONE
  
