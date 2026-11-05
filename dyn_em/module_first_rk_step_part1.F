@@ -3,6 +3,13 @@
 #define BENCH_START(A)
 #define BENCH_END(A)
 
+#ifdef WRF_GPU
+! first element (sequence association) - the 3-D sections of grid%pert3d (full-size even with stochastic
+! perturbations off) were otherwise copied in/out on every driver call, single-threaded on the hybrid's one rank
+#define PERT3D_ARG(n) grid%pert3d(ims,kms,jms,n)
+#else
+#define PERT3D_ARG(n) grid%pert3d(:,:,:,n)
+#endif
 MODULE module_first_rk_step_part1
 
 CONTAINS
@@ -350,13 +357,13 @@ BENCH_START(rad_driver_tim)
 ! WRF-Solar EPS: FARMS
      &       ,multi_perturb=config_flags% multi_perturb                   & 
      &       ,pert_farms=config_flags%pert_farms                          & 
-     &       ,perts_albedo=grid%pert3d(:,:,:,P_PALBEDO)                   &
-     &       ,perts_aod=grid%pert3d(:,:,:,P_PAOD)                         &
-     &       ,perts_angstrom=grid%pert3d(:,:,:,P_PANGSTROM)               &
-     &       ,perts_assymfac=grid%pert3d(:,:,:,P_PASSYMFAC)               &
-     &       ,perts_qvapor=grid%pert3d(:,:,:,P_PQVAPOR)                   &
-     &       ,perts_qcloud=grid%pert3d(:,:,:,P_PQCLOUD)                   &
-     &       ,perts_qsnow=grid%pert3d(:,:,:,P_PQSNOW)                     &
+     &       ,perts_albedo=PERT3D_ARG(P_PALBEDO)                   &
+     &       ,perts_aod=PERT3D_ARG(P_PAOD)                         &
+     &       ,perts_angstrom=PERT3D_ARG(P_PANGSTROM)               &
+     &       ,perts_assymfac=PERT3D_ARG(P_PASSYMFAC)               &
+     &       ,perts_qvapor=PERT3D_ARG(P_PQVAPOR)                   &
+     &       ,perts_qcloud=PERT3D_ARG(P_PQCLOUD)                   &
+     &       ,perts_qsnow=PERT3D_ARG(P_PQSNOW)                     &
      &       ,pert_farms_albedo=config_flags%pert_farms_albedo            &
      &       ,pert_farms_aod=config_flags%pert_farms_aod                  &
      &       ,pert_farms_angexp=config_flags%pert_farms_angexp            &
@@ -366,7 +373,7 @@ BENCH_START(rad_driver_tim)
      &       ,pert_farms_qs=config_flags%pert_farms_qs                    &
 ! WRF-Solar EPS: cld3
      &       ,pert_cld3=config_flags%pert_cld3                            &
-     &       ,perts_th=grid%pert3d(:,:,:,P_PTH)                             &
+     &       ,perts_th=PERT3D_ARG(P_PTH)                             &
      &       ,pert_cld3_qv=config_flags%pert_cld3_qv                      &
      &       ,pert_cld3_t=config_flags%pert_cld3_t                        &
 !BSINGH - For WRFCuP scheme
@@ -1145,10 +1152,10 @@ BENCH_START(surf_driver_tim)
   ! WRF-Solar EPS: Noah LSM
      &        ,multi_perturb=config_flags% multi_perturb                             & 
      &        ,pert_noah=config_flags%pert_noah                                      &
-     &        ,perts_qvapor=grid%pert3d(:,:,:,P_PQVAPOR)                             &
-     &        ,perts_th=grid%pert3d(:,:,:,P_PTH)                                     &
-     &        ,perts_smois=grid%pert3d(:,:,:,P_PSMOIS)                               &
-     &        ,perts_tsoil=grid%pert3d(:,:,:,P_PTSOIL)                               &
+     &        ,perts_qvapor=PERT3D_ARG(P_PQVAPOR)                             &
+     &        ,perts_th=PERT3D_ARG(P_PTH)                                     &
+     &        ,perts_smois=PERT3D_ARG(P_PSMOIS)                               &
+     &        ,perts_tsoil=PERT3D_ARG(P_PTSOIL)                               &
      &        ,pert_noah_qv=config_flags%pert_noah_qv                                &
      &        ,pert_noah_t=config_flags%pert_noah_t                                  &
      &        ,pert_noah_smois=config_flags%pert_noah_smois                          &
@@ -1362,10 +1369,10 @@ BENCH_START(pbl_driver_tim)
   ! WRF-Solar EPS: MYNN
      &        ,multi_perturb=config_flags%multi_perturb                   &
      &        ,pert_mynn=config_flags%pert_mynn                           &
-     &        ,perts_qvapor=grid%pert3d(:,:,:,P_PQVAPOR)                  &
-     &        ,perts_qcloud=grid%pert3d(:,:,:,P_PQCLOUD)                  &
-     &        ,perts_th=grid%pert3d(:,:,:,P_PTH)                          &
-     &        ,perts_tke=grid%pert3d(:,:,:,P_PTKE)                        &
+     &        ,perts_qvapor=PERT3D_ARG(P_PQVAPOR)                  &
+     &        ,perts_qcloud=PERT3D_ARG(P_PQCLOUD)                  &
+     &        ,perts_th=PERT3D_ARG(P_PTH)                          &
+     &        ,perts_tke=PERT3D_ARG(P_PTKE)                        &
      &        ,pert_mynn_qv=config_flags%pert_mynn_qv                     &
      &        ,pert_mynn_qc=config_flags%pert_mynn_qc                     &
      &        ,pert_mynn_t=config_flags%pert_mynn_t                       &
@@ -1864,10 +1871,10 @@ BENCH_START(shcu_driver_tim)
   ! WRF-Solar EPS
      &             ,multi_perturb=config_flags%multi_perturb              & 
      &             ,pert_deng=config_flags%pert_deng                      &
-     &             ,perts_qvapor=grid%pert3d(:,:,:,P_PQVAPOR)             &
-     &             ,perts_qcloud=grid%pert3d(:,:,:,P_PQCLOUD)             &
-     &             ,perts_th=grid%pert3d(:,:,:,P_PTH)                     &
-     &             ,perts_w=grid%pert3d(:,:,:,P_PW)                       &
+     &             ,perts_qvapor=PERT3D_ARG(P_PQVAPOR)             &
+     &             ,perts_qcloud=PERT3D_ARG(P_PQCLOUD)             &
+     &             ,perts_th=PERT3D_ARG(P_PTH)                     &
+     &             ,perts_w=PERT3D_ARG(P_PW)                       &
      &             ,pert_deng_qv=config_flags%pert_deng_qv                &
      &             ,pert_deng_qc=config_flags%pert_deng_qc                &
      &             ,pert_deng_t=config_flags%pert_deng_t                  &
