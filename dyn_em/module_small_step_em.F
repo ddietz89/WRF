@@ -1644,6 +1644,8 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
       ! GPU column path (one thread per (i,j) column, k sequential): fixed-size per-thread work columns
       INTEGER, PARAMETER :: KMAXW = 160
       REAL, DIMENSION( KMAXW ) :: rhsc, wdwnc
+      REAL, ALLOCATABLE, SAVE :: w_rhs3(:,:,:)   ! GPU split kernels: phi right-hand side
+      REAL :: r, wd0, wd1
       REAL :: msfti
 #endif
       REAL :: muthk, muthkm1
@@ -1746,45 +1748,64 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
   ! The row kernel below (one gang per j, vector over i, k phases inside) has only (j_end-j_start+1) gangs;
   ! on the GPU run one thread per column instead (same arithmetic per point, k loops sequential in-thread).
   IF ( wrf_gpu_on .AND. k_end+1 <= KMAXW ) THEN
+      IF ( ALLOCATED(w_rhs3) ) THEN
+        IF ( ANY(LBOUND(w_rhs3) /= (/ims,kms,jms/)) .OR. ANY(UBOUND(w_rhs3) /= (/ime,kme,jme/)) ) THEN
+!$acc wait
+!$acc exit data delete(w_rhs3)
+          DEALLOCATE(w_rhs3)
+        ENDIF
+      ENDIF
+      IF ( .NOT. ALLOCATED(w_rhs3) ) THEN
+        ALLOCATE( w_rhs3(ims:ime,kms:kme,jms:jme) )
+!$acc enter data create(w_rhs3)
+      ENDIF
       BLOCK
       INTEGER :: cfg_damp_opt
       INTEGER :: cfg_phi_adv_z
       cfg_damp_opt = config_flags%damp_opt
       cfg_phi_adv_z = config_flags%phi_adv_z
-!$acc parallel loop gang vector collapse(2) private(rhsc,wdwnc) async(wrf_gpu_q)
+  ! (1) per (i,k,j): t_2ave and the phi right-hand side into w_rhs3 (same expressions as the column version)
+!$acc parallel loop gang vector collapse(3) private(r,wd0,wd1) async(wrf_gpu_q)
   DO j = j_start, j_end
+  DO k = 1, k_end+1
   DO i = i_start, i_end
-    msfti = 1./msfty(i,j)
-    rhsc(1) = 0.
-    DO k=1, k_end
+    IF ( k <= k_end ) THEN
       t_2ave(i,k,j)=.5*((1.+epssm)*t_2(i,k,j)       &
                     +(1.-epssm)*t_2ave(i,k,j))
       t_2ave(i,k,j)=(t_2ave(i,k,j) + (c1h(k)*Muave(i,j))*t0) &
                     /((c1h(k)*Muts(i,j)+c2h(k))*(t0+t_1(i,k,j)))
-      rhsc(k+1) = dts*(ph_tend(i,k+1,j) + .5*g*(1.-epssm)*w(i,k+1,j))
-    ENDDO
-    IF (cfg_phi_adv_z == 2) THEN
-      DO k=1, k_end
-         wdwnc(k+1)=rdnw(k)*(ph_1(i,k+1,j)-ph_1(i,k,j)+phb(i,k+1,j)-phb(i,k,j))
-      ENDDO
-      DO k=2,k_end
-         rhsc(k) = rhsc(k)-dts*ww(i,k,j)*( fnm(k)*wdwnc(k+1)  &
-                                          +fnp(k)*wdwnc(k  ) )
-      ENDDO
-    ELSE
-      DO k=1, k_end
-         wdwnc(k+1)=.5*(ww(i,k+1,j)+ww(i,k,j))*rdnw(k)    &
-              *(ph_1(i,k+1,j)-ph_1(i,k,j)+phb(i,k+1,j)-phb(i,k,j))
-      ENDDO
-      DO k=2,k_end
-         rhsc(k) = rhsc(k)-dts*( fnm(k)*wdwnc(k+1)  &
-                                +fnp(k)*wdwnc(k  ) )
-      ENDDO
     ENDIF
-    DO k=2,k_end+1
-      rhsc(k) = ph(i,k,j) + msfty(i,j)*rhsc(k)/(c1f(k)*mut(i,j)+c2f(k))
-      if(top_lid .and. k.eq.k_end+1)rhsc(k)=0.
-    ENDDO
+    IF ( k == 1 ) THEN
+      w_rhs3(i,1,j) = 0.
+    ELSE
+      r = dts*(ph_tend(i,k,j) + .5*g*(1.-epssm)*w(i,k,j))
+      IF ( k <= k_end ) THEN
+        IF (cfg_phi_adv_z == 2) THEN
+          wd1 = rdnw(k)*(ph_1(i,k+1,j)-ph_1(i,k,j)+phb(i,k+1,j)-phb(i,k,j))
+          wd0 = rdnw(k-1)*(ph_1(i,k,j)-ph_1(i,k-1,j)+phb(i,k,j)-phb(i,k-1,j))
+          r = r-dts*ww(i,k,j)*( fnm(k)*wd1 + fnp(k)*wd0 )
+        ELSE
+          wd1 = .5*(ww(i,k+1,j)+ww(i,k,j))*rdnw(k)    &
+              *(ph_1(i,k+1,j)-ph_1(i,k,j)+phb(i,k+1,j)-phb(i,k,j))
+          wd0 = .5*(ww(i,k,j)+ww(i,k-1,j))*rdnw(k-1)    &
+              *(ph_1(i,k,j)-ph_1(i,k-1,j)+phb(i,k,j)-phb(i,k-1,j))
+          r = r-dts*( fnm(k)*wd1 + fnp(k)*wd0 )
+        ENDIF
+      ENDIF
+      r = ph(i,k,j) + msfty(i,j)*r/(c1f(k)*mut(i,j)+c2f(k))
+      if(top_lid .and. k.eq.k_end+1) r=0.
+      w_rhs3(i,k,j) = r
+    ENDIF
+  ENDDO
+  ENDDO
+  ENDDO
+  ! (2) per (i,k,j): explicit w update
+!$acc parallel loop gang vector collapse(3) private(msfti) async(wrf_gpu_q)
+  DO j = j_start, j_end
+  DO k = 1, k_end+1
+  DO i = i_start, i_end
+    msfti = 1./msfty(i,j)
+    IF ( k == 1 ) THEN
     w(i,1,j)=                                           &
              msfty(i,j)*.5*rdy*(                        &
                       (ht(i,j+1)-ht(i,j  ))             &
@@ -1796,31 +1817,38 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
      *(cf1*u(i+1,1,j)+cf2*u(i+1,2,j)+cf3*u(i+1,3,j))    &
                      +(ht(i,j  )-ht(i-1,j))             &
      *(cf1*u(i  ,1,j)+cf2*u(i  ,2,j)+cf3*u(i  ,3,j))  )
-    DO k=2,k_end
+    ELSE IF ( k <= k_end ) THEN
         w(i,k,j)=w(i,k,j)+dts*rw_tend(i,k,j)                       &
                  + msfti*cqw(i,k,j)*(                              &
             +.5*dts*g*rdn(k)*                                      &
              (c2a(i,k  ,j)*rdnw(k  )/(c1h(k)*MUT(i,j)+c2h(k))                         &
-        *((1.+epssm)*(rhsc(k+1  )-rhsc(k    ))                     &
+        *((1.+epssm)*(w_rhs3(i,k+1,j)-w_rhs3(i,k,j))               &
          +(1.-epssm)*(ph(i,k+1,j)-ph(i,k  ,j)))                    &
              -c2a(i,k-1,j)*rdnw(k-1)/(c1h(k-1)*MUT(i,j)+c2h(k-1))                       &
-        *((1.+epssm)*(rhsc(k    )-rhsc(k-1  ))                     &
+        *((1.+epssm)*(w_rhs3(i,k,j)-w_rhs3(i,k-1,j))               &
          +(1.-epssm)*(ph(i,k  ,j)-ph(i,k-1,j)))))                  &
                 +dts*g*msfti*(rdn(k)*                              &
              (c2a(i,k  ,j)*alt(i,k  ,j)*t_2ave(i,k  ,j)            &
              -c2a(i,k-1,j)*alt(i,k-1,j)*t_2ave(i,k-1,j))           &
               - (c1f(k)*muave(i,j)))
-    ENDDO
-    k=k_end+1
+    ELSE
        w(i,k,j)=w(i,k,j)+dts*rw_tend(i,k,j)                         &
            +msfti*(                                              &
          -.5*dts*g/(c1h(k-1)*MUT(i,j)+c2h(k-1))*rdnw(k-1)**2*2.*c2a(i,k-1,j)            &
-             *((1.+epssm)*(rhsc(k  )-rhsc(k-1  ))                   &
+             *((1.+epssm)*(w_rhs3(i,k,j)-w_rhs3(i,k-1,j))           &
               +(1.-epssm)*(ph(i,k,j)-ph(i,k-1,j)))                  &
          -dts*g*(2.*rdnw(k-1)*                                      &
                    c2a(i,k-1,j)*alt(i,k-1,j)*t_2ave(i,k-1,j)        &
               + (c1f(k)*muave(i,j))) )
        if(top_lid)w(i,k,j) = 0.
+    ENDIF
+  ENDDO
+  ENDDO
+  ENDDO
+  ! (3) per column: tridiagonal sweeps, upper damping, phi update
+!$acc parallel loop gang vector collapse(2) async(wrf_gpu_q)
+  DO j = j_start, j_end
+  DO i = i_start, i_end
     DO k=2,k_end+1
        w(i,k,j)=(w(i,k,j)-a(i,k,j)*w(i,k-1,j))*alpha(i,k,j)
     ENDDO
@@ -1840,7 +1868,7 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
       ENDDO
     ENDIF
     DO k=k_end+1,2,-1
-       ph(i,k,j) = rhsc(k)+msfty(i,j)*.5*dts*g*(1.+epssm) &
+       ph(i,k,j) = w_rhs3(i,k,j)+msfty(i,j)*.5*dts*g*(1.+epssm) &
                       *w(i,k,j)/(c1f(k)*muts(i,j)+c2f(k))
     ENDDO
   ENDDO
