@@ -2,6 +2,12 @@
 !
 MODULE module_surface_driver
   real, private, parameter :: QVAPOR_MIN = 0.0, SMOIS_MIN = 0.0, SMOIS_MAX = 1.0
+#ifdef WRF_GPU_RESIDENT
+! residency builds (WRF_GPU_XFER bit 131072, set by solve_em): MYJ surface layer on the GPU (MYJSFC_GPU, whole patch,
+! before the tile loop) on steps after the first
+  LOGICAL :: wrf_gpu_sfc = .FALSE.
+  LOGICAL, PRIVATE :: sfc_gpu_entered = .FALSE.
+#endif
 CONTAINS
 
    SUBROUTINE surface_driver(                                         &
@@ -442,6 +448,9 @@ CONTAINS
 !      sf_ocean_physics = 2
 !------------------------------------------------------------------
    IMPLICIT NONE
+#ifdef WRF_GPU_RESIDENT
+   LOGICAL :: sfc_gpu_ran
+#endif
 #ifdef WRF_SEG_TIMERS
    INTEGER(8) :: sft_c0, sft_c1, sft_cr
    REAL(8), SAVE :: sft_acc(3) = 0.d0
@@ -2068,6 +2077,42 @@ CONTAINS
 #ifdef WRF_SEG_TIMERS
      CALL SYSTEM_CLOCK( sft_c0, sft_cr )
 #endif
+#ifdef WRF_GPU_RESIDENT
+     sfc_gpu_ran = .FALSE.
+     IF ( wrf_gpu_sfc .AND. sf_sfclay_physics == MYJSFCSCHEME .AND. FRACTIONAL_SEAICE == 0 .AND. itimestep > 1 ) THEN
+      IF ( PRESENT(qv_curr) .AND. PRESENT(qc_curr) ) THEN
+       sfc_gpu_ran = .TRUE.
+       IF ( .NOT. sfc_gpu_entered ) THEN   ! (no copy for arrays already in the grid enter-data list)
+!$acc enter data copyin(ht,tsk,qsfc,thz0,qz0,uz0,vz0,lowlyr,xland,ivgtyp,ust,znt,z0,pblh,mavail,rmol,akhs,akms)
+!$acc enter data copyin(br,chs,chs2,cqs2,hfx,qfx,lh,flhc,flqc,qgh,cpm,ct,u10,v10,t2,th2,tshltr,th10,q2,qshltr)
+!$acc enter data copyin(q10,pshltr,u10e,v10e)
+         sfc_gpu_entered = .TRUE.
+       ENDIF
+       ! host-written inputs (land surface, GPU-MYJ outputs pulled to the host, sea-ice / SST updates)
+!$acc update device(tsk,qsfc,thz0,qz0,uz0,vz0,xland,ust,znt,z0,pblh,mavail,rmol,akhs,akms,lowlyr,ivgtyp)
+       CALL MYJSFC_GPU(itimestep,ht,dz8w,                       &
+              p_phy,p8w,th_phy,t_phy,                              &
+              qv_curr,qc_curr,                                     &
+              u_phy,v_phy,tke_pbl,                                 &
+              tsk,qsfc,thz0,qz0,uz0,vz0,                           &
+              lowlyr,                                              &
+              xland,ivgtyp,isurban,iz0tlnd,                        &
+              ust,znt,z0,pblh,mavail,rmol,                         &
+              akhs,akms,                                           &
+              br,                                                  &
+              chs,chs2,cqs2,hfx,qfx,lh,flhc,flqc,qgh,cpm,ct,       &
+              u10,v10,t2,th2,tshltr,th10,q2,qshltr,q10,pshltr,     &
+              p1000mb,u10e,v10e,                                   &
+              ids,ide, jds,jde, kds,kde,                           &
+              ims,ime, jms,jme, kms,kme,                           &
+              MINVAL(i_start(1:num_tiles)),MAXVAL(i_end(1:num_tiles)), &
+              MINVAL(j_start(1:num_tiles)),MAXVAL(j_end(1:num_tiles)), kts,kte )
+       ! what the host reads next (land surface, PBL push, history)
+!$acc update self(br,chs,chs2,cqs2,hfx,qfx,lh,flhc,flqc,qgh,cpm,ct,u10,v10,t2,th2,tshltr,th10,q2,qshltr,q10)
+!$acc update self(pshltr,u10e,v10e,thz0,qz0,uz0,vz0,ust,znt,pblh,rmol,akhs,akms,qsfc)
+      ENDIF
+     ENDIF
+#endif
      !$OMP PARALLEL DO   &
      !$OMP PRIVATE ( ij, i, j, k )
      DO ij = 1 , num_tiles
@@ -2278,6 +2323,9 @@ CONTAINS
                 ims,ime, jms,jme, kms,kme,                           &
                 i_start(ij),i_end(ij), j_start(ij),j_end(ij), kts,kte    )
         ELSE
+#ifdef WRF_GPU_RESIDENT
+          IF ( .NOT. sfc_gpu_ran ) &
+#endif
             CALL MYJSFC(itimestep,ht,dz8w,                         &
               p_phy,p8w,th_phy,t_phy,                              &
               qv_curr,qc_curr,                                      &

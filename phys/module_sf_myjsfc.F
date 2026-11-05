@@ -57,6 +57,9 @@
       REAL :: DZETA1,DZETA2,FH01,FH02,ZTMAX1,ZTMAX2,ZTMIN1,ZTMIN2
 !
       REAL,DIMENSION(KZTM) :: PSIH1,PSIH2,PSIM1,PSIM2
+#ifdef WRF_GPU
+!$acc declare create(ITRMX,DZETA1,DZETA2,FH01,FH02,ZTMAX1,ZTMAX2,ZTMIN1,ZTMIN2,PSIH1,PSIH2,PSIM1,PSIM2)
+#endif
 !
 !----------------------------------------------------------------------
 !
@@ -356,6 +359,180 @@ CONTAINS
 !----------------------------------------------------------------------
 
       END SUBROUTINE MYJSFC
+#ifdef WRF_GPU
+      SUBROUTINE MYJSFC_GPU(ITIMESTEP,HT,DZ                                &
+     &                 ,PMID,PINT,TH,T,QV,QC,U,V,Q2                    &
+     &                 ,TSK,QSFC,THZ0,QZ0,UZ0,VZ0                      &
+     &                 ,LOWLYR,XLAND,IVGTYP,ISURBAN,IZ0TLND            &
+     &                 ,USTAR,ZNT,Z0BASE,PBLH,MAVAIL,RMOL              &
+     &                 ,AKHS,AKMS                                      &
+     &                 ,RIB                                            &
+     &                 ,CHS,CHS2,CQS2,HFX,QFX,FLX_LH,FLHC,FLQC         &
+     &                 ,QGH,CPM,CT                                     &
+     &                 ,U10,V10,T02,TH02,TSHLTR,TH10,Q02,QSHLTR,Q10,PSHLTR          &
+     &                 ,P1000mb,U10E,V10E                              &
+     &                 ,IDS,IDE,JDS,JDE,KDS,KDE                        &
+     &                 ,IMS,IME,JMS,JME,KMS,KME                        &
+     &                 ,ITS,ITE,JTS,JTE,KTS,KTE)
+!----------------------------------------------------------------------
+!
+      IMPLICIT NONE
+      INTEGER, PARAMETER :: KTMX_S = 64
+!
+!----------------------------------------------------------------------
+      INTEGER,INTENT(IN) :: IDS,IDE,JDS,JDE,KDS,KDE                    &
+     &                     ,IMS,IME,JMS,JME,KMS,KME                    &
+     &                     ,ITS,ITE,JTS,JTE,KTS,KTE
+!
+      INTEGER,INTENT(IN) :: ITIMESTEP
+!
+      INTEGER,DIMENSION(IMS:IME,JMS:JME),INTENT(IN) :: LOWLYR
+!
+      REAL,DIMENSION(IMS:IME,JMS:JME),INTENT(IN) :: HT,MAVAIL,TSK      &
+     &                                             ,XLAND,Z0BASE
+!
+      REAL,DIMENSION(IMS:IME,KMS:KME,JMS:JME),INTENT(IN) :: DZ         &
+     &                                                     ,PMID,PINT  &
+     &                                                     ,Q2,QC,QV   &
+     &                                                     ,T,TH       &
+     &                                                     ,U,V
+      INTEGER,DIMENSION(IMS:IME,JMS:JME),INTENT(IN) :: IVGTYP
+      INTEGER,                           INTENT(IN) :: ISURBAN
+      INTEGER,                           INTENT(IN) :: IZ0TLND
+!
+      REAL,DIMENSION(IMS:IME,JMS:JME),INTENT(OUT) :: FLX_LH,HFX,PSHLTR &
+     &                                              ,QFX,Q10,QSHLTR    &
+     &                                              ,TH10,TSHLTR,T02   &
+     &                                              ,U10,V10,TH02,Q02  &
+     &                                              ,U10E,V10E
+!
+      REAL,DIMENSION(IMS:IME,JMS:JME),INTENT(INOUT) :: AKHS,AKMS       &
+     &                                                ,PBLH,QSFC
+      REAL,DIMENSION(IMS:IME,JMS:JME),INTENT(OUT)   :: RIB
+!
+      REAL,DIMENSION(IMS:IME,JMS:JME),INTENT(INOUT) :: QZ0,RMOL,THZ0   &
+     &                                                ,USTAR,UZ0,VZ0   &
+     &                                                ,ZNT
+!
+      REAL,DIMENSION(IMS:IME,JMS:JME),INTENT(OUT) :: CHS,CHS2,CQS2     &
+     &                                              ,CPM,CT,FLHC,FLQC  &
+     &                                              ,QGH
+!
+      REAL,INTENT(IN) :: P1000mb
+!----------------------------------------------------------------------
+!***
+!***  LOCAL VARIABLES
+!***
+      INTEGER :: I,J,K,KFLIP,LMH,LPBL,NTSD
+!
+      REAL :: A,APESFC,B,BTGX,CWMLOW                                   &
+     &       ,DQDT,DTDIF,DTDT,DUDT,DVDT                                &
+     &       ,FIS                                                      &
+     &       ,P02P,P10P,PLOW,PSFC,PTOP,QLOW,QS02,QS10                  &
+     &       ,RAPA,RAPA02,RAPA10,RATIOMX,RDZ,SEAMASK,SM                &
+     &       ,T02P,T10P,TEM,TH02P,TH10P,THLOW,THELOW,THM               &
+     &       ,TLOW,TZ0,ULOW,VLOW,ZSL
+!
+      REAL,DIMENSION(KTMX_S) :: CWMK,PK,Q2K,QK,THEK,THK,TK,UK,VK
+!
+!
+      REAL,DIMENSION(KTMX_S+1) :: ZHK
+!
+      REAL :: THSKL
+!----------------------------------------------------------------------
+! WRF_GPU residency builds: MYJSFC for steps after the first (no NTSD==1 initialization), one thread per column;
+! ZINT built per column (same recurrence), THSK a per-column scalar; SFCDIF is a device routine
+!----------------------------------------------------------------------
+      IF ( KTS /= 1 .OR. KTE > KTMX_S ) CALL wrf_error_fatal('MYJSFC_GPU: needs kts=1 and kte <= KTMX_S')
+      NTSD=ITIMESTEP
+!$acc parallel loop gang vector collapse(2) private(CWMK,PK,Q2K,QK,THEK,THK,TK,UK,VK,ZHK) &
+!$acc   present(HT,DZ,PMID,PINT,TH,T,QV,QC,U,V,Q2,TSK,QSFC,THZ0,QZ0,UZ0,VZ0,LOWLYR,XLAND,IVGTYP,USTAR,ZNT,Z0BASE, &
+!$acc   PBLH,MAVAIL,RMOL,AKHS,AKMS,RIB,CHS,CHS2,CQS2,HFX,QFX,FLX_LH,FLHC,FLQC,QGH,CPM,CT,U10,V10,T02,TH02,TSHLTR, &
+!$acc   TH10,Q02,QSHLTR,Q10,PSHLTR,U10E,V10E)
+      DO J=JTS,JTE
+      DO I=ITS,ITE
+          ZHK(KTE+1)=HT(I,J)
+          DO K=KTE,KTS,-1
+            KFLIP=KTE+1-K
+            ZHK(K)=ZHK(K+1)+DZ(I,KFLIP,J)
+          ENDDO
+          CT(I,J)=0.
+          LMH=KTE-LOWLYR(I,J)+1
+          PTOP=PINT(I,KTE+1,J)
+          PSFC=PINT(I,LOWLYR(I,J),J)
+          THSKL=TSK(I,J)/(PSFC/P1000mb)**CAPA
+          SEAMASK=XLAND(I,J)-1.
+          DO K=KTE,KTS,-1
+            KFLIP=KTE+1-K
+            THK(K)=TH(I,KFLIP,J)
+            TK(K)=T(I,KFLIP,J)
+            RATIOMX=QV(I,KFLIP,J)
+            QK(K)=RATIOMX/(1.+RATIOMX)
+            PK(K)=PMID(I,KFLIP,J)
+            CWMK(K)=QC(I,KFLIP,J)
+            THEK(K)=(CWMK(K)*(-ELOCP/TK(K))+1.)*THK(K)
+            Q2K(K)=2.*Q2(I,KFLIP,J)
+          ENDDO
+          DO K=KTE,KTS,-1
+            KFLIP=KTE+1-K
+            UK(K)=U(I,KFLIP,J)
+            VK(K)=V(I,KFLIP,J)
+          ENDDO
+          LPBL=1
+          DO K=LMH-1,1,-1
+            IF(Q2K(K)<=EPSQ2*FH) THEN
+              LPBL=K
+              EXIT
+            ENDIF
+          ENDDO
+          PBLH(I,J)=ZHK(LPBL)-ZHK(LMH+1)
+          PLOW=PK(LMH)
+          TLOW=TK(LMH)
+          THLOW=THK(LMH)
+          THELOW=THEK(LMH)
+          QLOW=QK(LMH)
+          CWMLOW=CWMK(LMH)
+          ULOW=UK(LMH)
+          VLOW=VK(LMH)
+          ZSL=(ZHK(LMH)-ZHK(LMH+1))*0.5
+          APESFC=(PSFC/P1000mb)**CAPA
+          TZ0=THZ0(I,J)*APESFC
+          CALL SFCDIF(NTSD,SEAMASK,THSKL,QSFC(I,J),PSFC                 &
+     &               ,UZ0(I,J),VZ0(I,J),TZ0,TSK(I,J),THZ0(I,J),QZ0(I,J)         &
+     &               ,USTAR(I,J),ZNT(I,J),Z0BASE(I,J),CT(I,J),RMOL(I,J) &
+     &               ,AKMS(I,J),AKHS(I,J),RIB(I,J),PBLH(I,J),MAVAIL(I,J) &
+     &               ,IVGTYP(I,J),ISURBAN,IZ0TLND                      &
+     &               ,CHS(I,J),CHS2(I,J),CQS2(I,J)                     &
+     &               ,HFX(I,J),QFX(I,J),FLX_LH(I,J)                    &
+     &               ,FLHC(I,J),FLQC(I,J),QGH(I,J),CPM(I,J)            &
+     &               ,ULOW,VLOW,TLOW,THLOW,THELOW,QLOW,CWMLOW          &
+     &               ,ZSL,PLOW                                         &
+     &               ,U10(I,J),V10(I,J),TSHLTR(I,J),TH10(I,J)          &
+     &               ,QSHLTR(I,J),Q10(I,J),PSHLTR(I,J)                 &
+     &               ,U10E(I,J),V10E(I,J)                              &
+     &               ,IDS,IDE,JDS,JDE,KDS,KDE                          &
+     &               ,IMS,IME,JMS,JME,KMS,KME                          &
+     &               ,ITS,ITE,JTS,JTE,KTS,KTE,i,j,ZHK(LMH+1))
+          RAPA=APESFC
+          TH02P=TSHLTR(I,J)
+          TH10P=TH10(I,J)
+          TH02(I,J)=TSHLTR(I,J)
+          RAPA02=RAPA-GOCP02/TH02P
+          RAPA10=RAPA-GOCP10/TH10P
+          T02P=TH02P*RAPA02
+          T10P=TH10P*RAPA10
+          T02(I,J) = TH02(I,J)*APESFC
+          P02P=(RAPA02**RCAP)*P1000mb
+          P10P=(RAPA10**RCAP)*P1000mb
+          QS02=PQ0/P02P*EXP(A2*(T02P-A3)/(T02P-A4))
+          QS10=PQ0/P10P*EXP(A2*(T10P-A3)/(T10P-A4))
+          IF(QSHLTR(I,J)>QS02)QSHLTR(I,J)=QS02
+          IF(Q10   (I,J)>QS10)Q10   (I,J)=QS10
+          Q02(I,J)=QSHLTR(I,J)/(1.-QSHLTR(I,J))
+      ENDDO
+      ENDDO
+      END SUBROUTINE MYJSFC_GPU
+#endif
 !XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 !----------------------------------------------------------------------
       SUBROUTINE SFCDIF(NTSD,SEAMASK,THS,QS,PSFC                       &
@@ -370,6 +547,9 @@ CONTAINS
      &                 ,IDS,IDE,JDS,JDE,KDS,KDE                        &
      &                 ,IMS,IME,JMS,JME,KMS,KME                        &
      &                 ,ITS,ITE,JTS,JTE,KTS,KTE,i,j,ZSFC)
+#ifdef WRF_GPU
+!$acc routine seq
+#endif
 !     ****************************************************************
 !     *                                                              *
 !     *                       SURFACE LAYER                          *
@@ -1299,6 +1479,9 @@ CONTAINS
       ZTMAX2=ZTMAX2-EPS
 !----------------------------------------------------------------------
 !
+#ifdef WRF_GPU
+!$acc update device(ITRMX,DZETA1,DZETA2,FH01,FH02,ZTMAX1,ZTMAX2,ZTMIN1,ZTMIN2,PSIH1,PSIH2,PSIM1,PSIM2)
+#endif
       END SUBROUTINE MYJSFCINIT
 !
 !----------------------------------------------------------------------
