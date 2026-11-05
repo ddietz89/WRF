@@ -1657,6 +1657,8 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
    INTEGER :: i,j,k,im
    REAL    :: sc_middle, msfsq
    REAL, DIMENSION(its:ite) :: muold, munew
+    REAL :: muo, mun   ! GPU (i,k,j) kernels
+    LOGICAL :: advtd
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: tendency
@@ -1761,6 +1763,20 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
        ENDDO
        ENDDO
    
+#ifdef WRF_GPU
+!$acc parallel loop gang vector collapse(3) private(muo,mun) async(wrf_gpu_q) if(wrf_gpu_on)
+      DO  j = jts, min(jte,jde-1)
+      DO  k = kts, min(kte,kde-1)
+      DO  i = its, min(ite,ide-1)
+        muo = MU_OLD(i,j) + MU_BASE(i,j)
+        mun = MU_NEW(i,j) + MU_BASE(i,j)
+        scalar_1(i,k,j,im) = scalar_2(i,k,j,im)
+        scalar_2(i,k,j,im) = ((c1(k)*muo+c2(k))*scalar_1(i,k,j,im)   &
+                             + dt*tendency(i,k,j))/(c1(k)*mun+c2(k))
+      ENDDO
+      ENDDO
+      ENDDO
+#else
 !$acc parallel loop gang private(munew,muold) async(wrf_gpu_q) if(wrf_gpu_on)
       DO  j = jts, min(jte,jde-1)
 
@@ -1781,6 +1797,7 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
       ENDDO
       ENDDO
       ENDDO
+#endif
 
       ENDDO
 
@@ -1821,6 +1838,25 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
       BLOCK
       INTEGER :: cfg_rk_ord
       cfg_rk_ord = config_flags%rk_ord
+#ifdef WRF_GPU
+      advtd = PRESENT(advh_t) .AND. PRESENT(advz_t)
+      IF ( advtd ) advtd = tenddec .and. rk_step.eq.cfg_rk_ord
+!$acc parallel loop gang vector collapse(3) private(muo,mun) async(wrf_gpu_q) if(wrf_gpu_on)
+      DO  j = jts, min(jte,jde-1)
+      DO  k = kts, min(kte,kde-1)
+      DO  i = its, min(ite,ide-1)
+        muo = MU_OLD(i,j) + MU_BASE(i,j)
+        mun = MU_NEW(i,j) + MU_BASE(i,j)
+        scalar_2(i,k,j,im) = ((c1(k)*muo+c2(k))*scalar_1(i,k,j,im)   &
+                             + dt*tendency(i,k,j))/(c1(k)*mun+c2(k))
+        IF ( advtd ) THEN
+            advh_t(i,k,j) = advh_t(i,k,j) + (dt*h_tendency(i,k,j)* msfty(i,j))/(c1(k)*mun+c2(k))
+            advz_t(i,k,j) = advz_t(i,k,j) + (dt*z_tendency(i,k,j)* msfty(i,j))/(c1(k)*mun+c2(k))
+        ENDIF
+      ENDDO
+      ENDDO
+      ENDDO
+#else
 !$acc parallel loop gang private(munew,muold) async(wrf_gpu_q) if(wrf_gpu_on)
       DO  j = jts, min(jte,jde-1)
 
@@ -1856,6 +1892,7 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
       END IF
       
       ENDDO
+#endif
       END BLOCK
 
       ENDDO
@@ -1905,6 +1942,7 @@ SUBROUTINE rk_update_scalar_pd( scs, sce,                      &
    INTEGER :: i,j,k,im
    REAL    :: sc_middle, msfsq
    REAL, DIMENSION(its:ite) :: muold, munew
+    REAL :: muo, mun   ! GPU (i,k,j) kernels
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: tendency
@@ -1995,6 +2033,19 @@ SUBROUTINE rk_update_scalar_pd( scs, sce,                      &
        ENDDO
        ENDDO
 
+#ifdef WRF_GPU
+!$acc parallel loop gang vector collapse(3) private(muo,mun) async(wrf_gpu_q) if(wrf_gpu_on)
+      DO  j = jts, min(jte,jde-1)
+      DO  k = kts, min(kte,kde-1)
+      DO  i = its, min(ite,ide-1)
+        muo = MU_OLD(i,j) + MU_BASE(i,j)
+        mun = MU_NEW(i,j) + MU_BASE(i,j)
+        scalar(i,k,j,im) = ((c1(k)*muo+c2(k))*scalar(i,k,j,im)   &
+                             + dt*tendency(i,k,j))/(c1(k)*mun+c2(k))
+      ENDDO
+      ENDDO
+      ENDDO
+#else
 !$acc parallel loop gang private(munew,muold) async(wrf_gpu_q) if(wrf_gpu_on)
       DO  j = jts, min(jte,jde-1)
 
@@ -2013,6 +2064,7 @@ SUBROUTINE rk_update_scalar_pd( scs, sce,                      &
       ENDDO
       ENDDO
       ENDDO
+#endif
 
       ENDDO
 
