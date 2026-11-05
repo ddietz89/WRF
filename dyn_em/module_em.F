@@ -1818,6 +1818,9 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
        ENDDO
        ENDDO
 
+      BLOCK
+      INTEGER :: cfg_rk_ord
+      cfg_rk_ord = config_flags%rk_ord
 !$acc parallel loop gang private(munew,muold) async(wrf_gpu_q) if(wrf_gpu_on)
       DO  j = jts, min(jte,jde-1)
 
@@ -1839,7 +1842,7 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
 
       ! This is separated from the k/i-loop above for better performance
       IF ( PRESENT(advh_t) .AND. PRESENT(advz_t) ) THEN
-        IF(tenddec.and.rk_step.eq.config_flags%rk_ord) THEN
+        IF(tenddec.and.rk_step.eq.cfg_rk_ord) THEN
 !$acc loop vector collapse(2)
           DO  k = kts, min(kte,kde-1)
           DO  i = its, min(ite,ide-1)
@@ -1853,6 +1856,7 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
       END IF
       
       ENDDO
+      END BLOCK
 
       ENDDO
 

@@ -393,6 +393,9 @@
 
 ! Apply a coordinate transformation to meridional velocity, v.
 
+      BLOCK
+      LOGICAL :: cfg_polar
+      cfg_polar = config_flags%polar
 !$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end+1
     DO k = kts, ktf
@@ -400,7 +403,7 @@
       ! Because msfvx at the poles will be undefined (1./0.), we will have
       ! trouble.  But we are OK since v at the poles is 0., and that takes
       ! precedence in this case.
-      IF ((config_flags%polar) .AND. ((j == jds) .OR. (j == jde))) THEN
+      IF ((cfg_polar) .AND. ((j == jds) .OR. (j == jde))) THEN
          hat(i,k,j) = 0.
       ELSE ! normal code
       hat(i,k,j) = v(i,k,j) / msfvx(i,j)
@@ -408,6 +411,7 @@
     END DO
     END DO
     END DO
+      END BLOCK
 
 ! Account for the slope in y of eta surfaces.
 
@@ -2498,6 +2502,9 @@ SUBROUTINE smag2d_km( config_flags,xkmh,xkmv,xkhh,xkhv,                        &
    enddo
    enddo
 !
+      BLOCK
+      INTEGER :: cfg_diff_opt
+      cfg_diff_opt = config_flags%diff_opt
 !$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
       DO k = kts, ktf
@@ -2510,7 +2517,7 @@ SUBROUTINE smag2d_km( config_flags,xkmh,xkmv,xkhh,xkhv,                        &
          xkmv(i,k,j)=xkmh(i,k,j)               ! v4.2 and later, this is used for hor. diff. of w
          xkhh(i,k,j)=xkmh(i,k,j)/pr
          xkhv(i,k,j)=0.
-         IF(config_flags%diff_opt .EQ. 2)THEN
+         IF(cfg_diff_opt .EQ. 2)THEN
 ! jd: reduce diffusion coefficient by slope factor (modified by JB August 2014)
             dxm=dx/msftx(i,j)
             dym=dy/msfty(i,j)
@@ -2530,6 +2537,7 @@ SUBROUTINE smag2d_km( config_flags,xkmh,xkmv,xkhh,xkhv,                        &
       ENDDO
       ENDDO
       ENDDO
+      END BLOCK
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
@@ -2897,6 +2905,9 @@ END SUBROUTINE smag2d_km
        ENDDO
        ENDDO
 
+      BLOCK
+      INTEGER :: cfg_diff_opt
+      cfg_diff_opt = config_flags%diff_opt
 !$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
        DO j = j_start, j_end
        DO k = kts, ktf
@@ -2906,7 +2917,7 @@ END SUBROUTINE smag2d_km
           xkmh_s(i,k,j) = c_s*c_s*mlen_h*mlen_h*tmp
           xkmh_s(i,k,j) = min(xkmh_s(i,k,j), 10.*mlen_h )
           xkhh_s(i,k,j) = xkmh_s(i,k,j)/pr
-          IF(config_flags%diff_opt .EQ. 2)THEN
+          IF(cfg_diff_opt .EQ. 2)THEN
             dxm=dx/msftx(i,j)
             dym=dy/msfty(i,j)
             tmpzx = (0.25*( abs(zx(i,k,j))+ abs(zx(i+1,k,j  )) + abs(zx(i,k+1,j))+ abs(zx(i+1,k+1,j  )))*rdzw(i,k,j)*dxm)
@@ -2923,6 +2934,7 @@ END SUBROUTINE smag2d_km
        ENDDO
        ENDDO
        ENDDO
+      END BLOCK
 
 !! difusivity based on TKE
 !$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
@@ -6131,13 +6143,16 @@ SUBROUTINE vertical_diffusion_2   ( ru_tendf, rv_tendf, rw_tendf, rt_tendf,   &
   CASE (0,2) ! with fixed surface heat flux given in the namelist
     heat_flux = config_flags%tke_heat_flux  ! constant heat flux value
                                             ! set in namelist.input
+      BLOCK
+      INTEGER :: cfg_use_theta_m
+      cfg_use_theta_m = config_flags%use_theta_m
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector private(cpm)
     DO i = i_start, i_end
        cpm = cp * (1. + 0.8 * moist(i,kts,j,P_QV))
        hfx(i,j)=heat_flux*cpm*rho(i,kts,j)         ! provided for output only
-       if(config_flags%use_theta_m == 1)THEN
+       if(cfg_use_theta_m == 1)THEN
          rt_tendf(i,kts,j)=rt_tendf(i,kts,j)  &
              -g*heat_flux*(1.+rvovrd*moist(i,kts,j,P_QV))*rho(i,kts,j)/dnw(kts) &
              -g*1.61*theta(i,kts,j)*qfx(i,j)/dnw(kts)
@@ -6147,8 +6162,12 @@ SUBROUTINE vertical_diffusion_2   ( ru_tendf, rv_tendf, rw_tendf, rt_tendf,   &
        ENDIF
     ENDDO
     ENDDO
+      END BLOCK
 
   CASE (1) ! use surface heat flux computed from surface routine
+      BLOCK
+      INTEGER :: cfg_use_theta_m
+      cfg_use_theta_m = config_flags%use_theta_m
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector private(cpm,heat_flux)
@@ -6156,7 +6175,7 @@ SUBROUTINE vertical_diffusion_2   ( ru_tendf, rv_tendf, rw_tendf, rt_tendf,   &
 
        cpm = cp * (1. + 0.8 * moist(i,kts,j,P_QV))
        heat_flux = hfx(i,j)/cpm
-       if(config_flags%use_theta_m == 1)THEN
+       if(cfg_use_theta_m == 1)THEN
          rt_tendf(i,kts,j)=rt_tendf(i,kts,j)  &
              -g*heat_flux*(1.+rvovrd*moist(i,kts,j,P_QV))/dnw(kts) &
              -g*1.61*theta(i,kts,j)*qfx(i,j)/dnw(kts)
@@ -6167,6 +6186,7 @@ SUBROUTINE vertical_diffusion_2   ( ru_tendf, rv_tendf, rw_tendf, rt_tendf,   &
 
     ENDDO
     ENDDO
+      END BLOCK
 
   CASE DEFAULT
     CALL wrf_error_fatal( 'isfflx value invalid for diff_opt=2' )
@@ -9454,6 +9474,9 @@ END SUBROUTINE phy_bc
                          ids, ide, jds, jde, kds, kde,         &
                          ims, ime, jms, jme, kms, kme,         &
                          its, ite, jts, jte, kts, kte          )
+      BLOCK
+      INTEGER :: cfg_km_opt
+      cfg_km_opt = config_flags%km_opt
 !$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
       DO k = kts, ktf
@@ -9471,7 +9494,7 @@ END SUBROUTINE phy_bc
         END IF
 
 ! XZ
-        IF(config_flags%km_opt.eq.5) THEN 
+        IF(cfg_km_opt.eq.5) THEN 
           delxy = SQRT(dx/msftx(i,j)*dy/msfty(i,j))
           pu1 = pu(delxy,hpbl(i,j))
           coefc_m = 0.3 !  
@@ -9483,6 +9506,7 @@ END SUBROUTINE phy_bc
       END DO
       END DO
       END DO
+      END BLOCK
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
       ENDIF

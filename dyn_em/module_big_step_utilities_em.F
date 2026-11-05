@@ -1772,9 +1772,12 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
 
    !  RHS term 3 is: - omega partial d/dnu(phi)
 
+      BLOCK
+      INTEGER :: cfg_phi_adv_z
+      cfg_phi_adv_z = config_flags%phi_adv_z
 !$acc parallel loop gang private(wdwn) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = jts, jtf
-      IF (config_flags%phi_adv_z == 2) THEN
+      IF (cfg_phi_adv_z == 2) THEN
          !  First get staggered partial d/dnu(phi) and then multiply with omega
          !  to avoid double staggering of omega
 
@@ -1813,6 +1816,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
      ENDIF
 
    ENDDO
+      END BLOCK
 
    IF (non_hydrostatic) THEN  ! add in "gw" term.
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
@@ -3038,6 +3042,9 @@ SUBROUTINE w_damp( rw_tend, max_vert_cfl,max_horiz_cfl, &
    ! location of the maximum (only printed in the warning message) are not tracked on this path.
    maxi = 0 ; maxj = 0 ; maxk = 0 ; maxdub = 0. ; maxdeta = 0.
 !$acc wait
+      BLOCK
+      INTEGER :: cfg_w_damping
+      cfg_w_damping = config_flags%w_damping
 !$acc parallel loop collapse(3) private(vert_cfl,horiz_cfl) reduction(max:max_vert_cfl,max_horiz_cfl) reduction(+:some1) if(wrf_gpu_on)
    DO j = jts,jtf
      DO k = 2,kde-1
@@ -3048,12 +3055,13 @@ SUBROUTINE w_damp( rw_tend, max_vert_cfl,max_horiz_cfl, &
                           abs(v(i,k,j) * rdy * msfvy(i,j) * dt) )
          max_horiz_cfl = max(max_horiz_cfl, horiz_cfl)
          IF (vert_cfl .gt. 2.) some1 = some1 + 1
-         IF ((vert_cfl .gt. w_damp_on) .and. (config_flags%w_damping == 1) ) THEN
+         IF ((vert_cfl .gt. w_damp_on) .and. (cfg_w_damping == 1) ) THEN
            rw_tend(i,k,j) = rw_tend(i,k,j)-sign(1.,w(i,k,j))*w_alpha*(vert_cfl-w_crit_cfl)*(c1f(k)*mut(i,j)+c2f(k))
          ENDIF
        ENDDO
      ENDDO
    ENDDO
+      END BLOCK
    ELSE
 
    DO j = jts,jtf
@@ -4617,6 +4625,11 @@ SUBROUTINE perturbation_coriolis ( ru_in, rv_in, rw, ru_tend, rv_tend, rw_tend, 
 
 !  Map scale factors: see comments above for Coriolis
 
+      BLOCK
+      LOGICAL :: cfg_open_xe
+      LOGICAL :: cfg_open_xs
+      cfg_open_xe = config_flags%open_xe
+      cfg_open_xs = config_flags%open_xs
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = jts, MIN(jte,jde-1)
 
@@ -4631,7 +4644,7 @@ SUBROUTINE perturbation_coriolis ( ru_in, rv_in, rw, ru_tend, rv_tend, rw_tend, 
    ENDDO
 
 ! boundary loops for perturbation coriolis is needed for open bdy  (20110225 JD)
-   IF ( (config_flags%open_xs) .and. (its == ids) ) THEN
+   IF ( (cfg_open_xs) .and. (its == ids) ) THEN
 
 !$acc loop vector
      DO k=kts,ktf
@@ -4645,7 +4658,7 @@ SUBROUTINE perturbation_coriolis ( ru_in, rv_in, rw, ru_tend, rv_tend, rw_tend, 
 
    ENDIF
 
-   IF ( (config_flags%open_xe) .and. (ite == ide) ) THEN
+   IF ( (cfg_open_xe) .and. (ite == ide) ) THEN
 
 !$acc loop vector
      DO k=kts,ktf
@@ -4660,6 +4673,7 @@ SUBROUTINE perturbation_coriolis ( ru_in, rv_in, rw, ru_tend, rv_tend, rw_tend, 
    ENDIF
 
    ENDDO
+      END BLOCK
 
 !  coriolis term for v-momentum equation
 !  Map scale factors: see comments above for Coriolis
@@ -6465,6 +6479,11 @@ END SUBROUTINE phy_prep_part2
      IF ( wrf_gpu_on ) THEN
      ! GPU: same per-point update as the host loop below; the running max/min (mptenmax/min, imax/jmax) is an
      ! unused diagnostic and is not computed here (it kept this loop on the host and forced t_2/moist migration).
+      BLOCK
+      REAL :: cfg_mp_tend_lim
+      INTEGER :: cfg_use_theta_m
+      cfg_mp_tend_lim = config_flags%mp_tend_lim
+      cfg_use_theta_m = config_flags%use_theta_m
 !$acc parallel loop collapse(3) private(mpten,qvten,qcten) async(wrf_gpu_q) if(wrf_gpu_on)
      DO j = j_start, j_end
      DO k = k_start, k_end
@@ -6472,9 +6491,9 @@ END SUBROUTINE phy_prep_part2
           mpten = th_phy(i,k,j)-h_diabatic(i,k,j)
           qvten = qv(i,k,j)-qv_diabatic(i,k,j)
           qcten = qc(i,k,j)-qc_diabatic(i,k,j)
-          mpten=min(config_flags%mp_tend_lim*dt, mpten)
-          mpten=max(-config_flags%mp_tend_lim*dt, mpten)
-         IF ( ( config_flags%use_theta_m .EQ. 1 ) .AND. (P_Qv .GE. PARAM_FIRST_SCALAR) ) THEN
+          mpten=min(cfg_mp_tend_lim*dt, mpten)
+          mpten=max(-cfg_mp_tend_lim*dt, mpten)
+         IF ( ( cfg_use_theta_m .EQ. 1 ) .AND. (P_Qv .GE. PARAM_FIRST_SCALAR) ) THEN
             t_new(i,k,j) =  h_diabatic(i,k,j)*(1. + (R_v/R_d)*qv_diabatic(i,k,j)) + &
                             mpten*(1. + (R_v/R_d)*qv(i,k,j)) + &
                             (R_v/R_d)*qvten*th_phy(i,k,j) - T0
@@ -6491,6 +6510,7 @@ END SUBROUTINE phy_prep_part2
      ENDDO
      ENDDO
      ENDDO
+      END BLOCK
      ELSE
 #endif
        mptenmax = 0.
@@ -7292,6 +7312,11 @@ END SUBROUTINE set_tend
 !------------------------------------------------------------------------------
 ! Begin: Loop across spatial dimensions.
 
+      BLOCK
+      INTEGER :: cfg_diff_6th_slopeopt
+      REAL :: cfg_diff_6th_thresh
+      cfg_diff_6th_slopeopt = config_flags%diff_6th_slopeopt
+      cfg_diff_6th_thresh = config_flags%diff_6th_thresh
 !$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = k_start, k_end
@@ -7328,9 +7353,9 @@ END SUBROUTINE set_tend
       slopedamp_p0 = 1.
       slopedamp_p1 = 1.
 
-      IF (config_flags%diff_6th_slopeopt .ge. 1) THEN
+      IF (cfg_diff_6th_slopeopt .ge. 1) THEN
          dx=1./rdx
-         dzthresh = config_flags%diff_6th_thresh*9.81*dx
+         dzthresh = cfg_diff_6th_thresh*9.81*dx
          IF      ( name .EQ. 'u' ) THEN
            dzmax_p0 = MAX( ABS(phb(i  ,k,j)-phb(i-1,k,j))*msfux(i  ,j), ABS(phb(i-1,k,j)-phb(i-2,k,j))*msfux(i-1,j) )
            dzmax_p1 = MAX( ABS(phb(i+1,k,j)-phb(i  ,k,j))*msfux(i+1,j), ABS(phb(i  ,k,j)-phb(i-1,k,j))*msfux(i  ,j) )
@@ -7410,9 +7435,9 @@ END SUBROUTINE set_tend
       slopedamp_p0 = 1. 
       slopedamp_p1 = 1. 
 
-      IF (config_flags%diff_6th_slopeopt .ge. 1) THEN
+      IF (cfg_diff_6th_slopeopt .ge. 1) THEN
          dy=1./rdy
-         dzthresh = config_flags%diff_6th_thresh*9.81*dy
+         dzthresh = cfg_diff_6th_thresh*9.81*dy
          IF      ( name .EQ. 'u' ) THEN
            dzmax_p0 = max( ABS(phb(i,k,j  ) - phb(i,k,j-1))*msfvy(i,j  ), ABS(phb(i-1,k,j  ) - phb(i-1,k,j-1))*msfvy(i-1,j  ) )
            dzmax_p1 = max( ABS(phb(i,k,j+1) - phb(i,k,j  ))*msfvy(i,j+1), ABS(phb(i-1,k,j+1) - phb(i-1,k,j  ))*msfvy(i-1,j+1) )
@@ -7473,6 +7498,7 @@ END SUBROUTINE set_tend
     ENDDO
     ENDDO
     ENDDO
+      END BLOCK
 
 ! End: Loop across spatial dimensions.
 !------------------------------------------------------------------------------

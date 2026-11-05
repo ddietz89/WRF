@@ -142,6 +142,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
                         its, ite, jts, jte, kts, kte  )
 
    IMPLICIT NONE
+   LOGICAL :: cfg_polar
    
    ! Input data
    
@@ -403,9 +404,10 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
         ! (j > j_start) will miss the u(,,jds) tendency
    ENDDO j_loop_y_flux_6_flux
+      cfg_polar = config_flags%polar
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      j_loop_y_flux_6 : DO j = j_start, j_end+1
-        IF ( config_flags%polar .AND. (j == jds+1) ) THEN
+        IF ( cfg_polar .AND. (j == jds+1) ) THEN
 !$acc loop vector collapse(2) private(mrdy)
           DO k=kts,ktf
           DO i = i_start, i_end
@@ -414,7 +416,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
           END DO
           END DO
         ! This would be seen by (j > j_start) but we need to zero out the NP tendency
-        ELSE IF( config_flags%polar .AND. (j == jde) ) THEN
+        ELSE IF( cfg_polar .AND. (j == jde) ) THEN
 !$acc loop vector collapse(2) private(mrdy)
           DO k=kts,ktf
           DO i = i_start, i_end
@@ -688,9 +690,10 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
         ! (j > j_start) will miss the u(,,jds) tendency
    ENDDO j_loop_y_flux_5_flux
+      cfg_polar = config_flags%polar
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      j_loop_y_flux_5 : DO j = j_start, j_end+1
-        IF ( config_flags%polar .AND. (j == jds+1) ) THEN
+        IF ( cfg_polar .AND. (j == jds+1) ) THEN
 !$acc loop vector collapse(2) private(mrdy)
           DO k=kts,ktf
           DO i = i_start, i_end
@@ -699,7 +702,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
           END DO
           END DO
         ! This would be seen by (j > j_start) but we need to zero out the NP tendency
-        ELSE IF( config_flags%polar .AND. (j == jde) ) THEN
+        ELSE IF( cfg_polar .AND. (j == jde) ) THEN
 !$acc loop vector collapse(2) private(mrdy)
           DO k=kts,ktf
           DO i = i_start, i_end
@@ -1017,9 +1020,10 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
      ! (j > j_start) will miss the u(,,jds) tendency
   ENDDO
+      cfg_polar = config_flags%polar
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = j_start, j_end+1
-     IF ( config_flags%polar .AND. (j == jds+1) ) THEN
+     IF ( cfg_polar .AND. (j == jds+1) ) THEN
 !$acc loop vector collapse(2) private(mrdy)
        DO k=kts,ktf
        DO i = i_start, i_end
@@ -1028,7 +1032,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
        END DO
        END DO
        ! This would be seen by (j > j_start) but we need to zero out the NP tendency
-     ELSE IF( config_flags%polar .AND. (j == jde) ) THEN
+     ELSE IF( cfg_polar .AND. (j == jde) ) THEN
 !$acc loop vector collapse(2) private(mrdy)
        DO k=kts,ktf
        DO i = i_start, i_end
@@ -1242,9 +1246,10 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
      ! (j > j_start) will miss the u(,,jds) tendency
   ENDDO
+      cfg_polar = config_flags%polar
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = j_start, j_end+1
-     IF ( config_flags%polar .AND. (j == jds+1) ) THEN
+     IF ( cfg_polar .AND. (j == jds+1) ) THEN
 !$acc loop vector collapse(2) private(mrdy)
        DO k=kts,ktf
        DO i = i_start, i_end
@@ -1253,7 +1258,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
        END DO
        END DO
        ! This would be seen by (j > j_start) but we need to zero out the NP tendency
-     ELSE IF( config_flags%polar .AND. (j == jde) ) THEN
+     ELSE IF( cfg_polar .AND. (j == jde) ) THEN
 !$acc loop vector collapse(2) private(mrdy)
        DO k=kts,ktf
        DO i = i_start, i_end
@@ -1339,6 +1344,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
       IF ( config_flags%open_ys .or. specified ) j_start = MAX(jds+1,jts)
       IF ( config_flags%open_ye .or. specified ) j_end   = MIN(jde-2,jte)
 
+      cfg_polar = config_flags%polar
 !$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
       DO k=kts,ktf
@@ -1346,10 +1352,10 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
          mrdy=msfux(i,j)*rdy         ! ADT eqn 44, 1st term on RHS
          ! Comments for polar boundary condition
          ! Flow is only from one side for points next to poles
-         IF ( (config_flags%polar) .AND. (j == jds) ) THEN
+         IF ( (cfg_polar) .AND. (j == jds) ) THEN
             tendency(i,k,j)=tendency(i,k,j)-mrdy*0.25 &
                             *(rv(i,k,j+1)+rv(i-1,k,j+1))*(u(i,k,j+1)+u(i,k,j))
-         ELSE IF ( (config_flags%polar) .AND. (j == jde-1) ) THEN
+         ELSE IF ( (cfg_polar) .AND. (j == jde-1) ) THEN
             tendency(i,k,j)=tendency(i,k,j)+mrdy*0.25 &
                            *(rv(i,k,j)+rv(i-1,k,j))*(u(i,k,j)+u(i,k,j-1))
          ELSE  ! Normal code
@@ -1729,6 +1735,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
                         its, ite, jts, jte, kts, kte  )
 
    IMPLICIT NONE
+   LOGICAL :: cfg_polar
    
    ! Input data
    
@@ -1997,9 +2004,10 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
         ! to jde [N pole], i.e., on v grid) must be zero at poles
         ! [tendency(jds) and tendency(jde)=0]
    ENDDO j_loop_y_flux_6_flux
+      cfg_polar = config_flags%polar
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      j_loop_y_flux_6 : DO j = j_start, j_end+1
-        IF ( config_flags%polar .AND. (j == jds+1) ) THEN
+        IF ( cfg_polar .AND. (j == jds+1) ) THEN
 !$acc loop vector collapse(2)
           DO k=kts,ktf
           DO i = i_start, i_end
@@ -2010,7 +2018,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
         ! degrade_ye, then we would hit the next conditional.  But since
         ! we want the tendency to be zero anyway, not looping to jde+1
         ! will produce the same effect.
-        ELSE IF( config_flags%polar .AND. (j == jde+1) ) THEN
+        ELSE IF( cfg_polar .AND. (j == jde+1) ) THEN
 !$acc loop vector collapse(2)
           DO k=kts,ktf
           DO i = i_start, i_end
@@ -2292,9 +2300,10 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
         ! to jde [N pole], i.e., on v grid) must be zero at poles
         ! [tendency(jds) and tendency(jde)=0]
    ENDDO j_loop_y_flux_5_flux
+      cfg_polar = config_flags%polar
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      j_loop_y_flux_5 : DO j = j_start, j_end+1
-        IF ( config_flags%polar .AND. (j == jds+1) ) THEN
+        IF ( cfg_polar .AND. (j == jds+1) ) THEN
 !$acc loop vector collapse(2)
           DO k=kts,ktf
           DO i = i_start, i_end
@@ -2305,7 +2314,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
         ! degrade_ye, then we would hit the next conditional.  But since
         ! we want the tendency to be zero anyway, not looping to jde+1
         ! will produce the same effect.
-        ELSE IF( config_flags%polar .AND. (j == jde+1) ) THEN
+        ELSE IF( cfg_polar .AND. (j == jde+1) ) THEN
 !$acc loop vector collapse(2)
           DO k=kts,ktf
           DO i = i_start, i_end
@@ -2553,9 +2562,10 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
       ! to jde [N pole], i.e., on v grid) must be zero at poles
       ! [tendency(jds) and tendency(jde)=0]
    ENDDO
+      cfg_polar = config_flags%polar
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end+1
-      IF ( config_flags%polar .AND. (j == jds+1) ) THEN
+      IF ( cfg_polar .AND. (j == jds+1) ) THEN
 !$acc loop vector collapse(2)
         DO k=kts,ktf
         DO i = i_start, i_end
@@ -2566,7 +2576,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
       ! degrade_ye, then we would hit the next conditional.  But since
       ! we want the tendency to be zero anyway, not looping to jde+1
       ! will produce the same effect.
-      ELSE IF( config_flags%polar .AND. (j == jde+1) ) THEN
+      ELSE IF( cfg_polar .AND. (j == jde+1) ) THEN
 !$acc loop vector collapse(2)
         DO k=kts,ktf
         DO i = i_start, i_end
@@ -2774,9 +2784,10 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
       ! to jde [N pole], i.e., on v grid) must be zero at poles
       ! [tendency(jds) and tendency(jde)=0]
    ENDDO
+      cfg_polar = config_flags%polar
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end+1
-      IF ( config_flags%polar .AND. (j == jds+1) ) THEN
+      IF ( cfg_polar .AND. (j == jds+1) ) THEN
 !$acc loop vector collapse(2)
         DO k=kts,ktf
         DO i = i_start, i_end
@@ -2787,7 +2798,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
       ! degrade_ye, then we would hit the next conditional.  But since
       ! we want the tendency to be zero anyway, not looping to jde+1
       ! will produce the same effect.
-      ELSE IF( config_flags%polar .AND. (j == jde+1) ) THEN
+      ELSE IF( cfg_polar .AND. (j == jde+1) ) THEN
 !$acc loop vector collapse(2)
         DO k=kts,ktf
         DO i = i_start, i_end
@@ -3411,6 +3422,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
                              its, ite, jts, jte, kts, kte  )
 
    IMPLICIT NONE
+   LOGICAL :: cfg_polar
    
    ! Input data
    
@@ -3675,9 +3687,10 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
         ! (latitudes are as for u grid, longitudes are displaced)
         ! Therefore: flow is only from one side for points next to poles
       ENDDO j_loop_y_flux_6_flux
+      cfg_polar = config_flags%polar
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      j_loop_y_flux_6 : DO j = j_start, j_end+1
-        IF ( config_flags%polar .AND. (j == jds+1) ) THEN
+        IF ( cfg_polar .AND. (j == jds+1) ) THEN
 !$acc loop vector collapse(2) private(mrdy)
           DO k=kts,ktf
           DO i = i_start, i_end
@@ -3685,7 +3698,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
             tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*fqy3(i,k,j)
           END DO
           END DO
-        ELSE IF( config_flags%polar .AND. (j == jde) ) THEN
+        ELSE IF( cfg_polar .AND. (j == jde) ) THEN
 !$acc loop vector collapse(2) private(mrdy)
           DO k=kts,ktf
           DO i = i_start, i_end
@@ -3958,9 +3971,10 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
         ! (latitudes are as for u grid, longitudes are displaced)
         ! Therefore: flow is only from one side for points next to poles
       ENDDO j_loop_y_flux_5_flux
+      cfg_polar = config_flags%polar
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      j_loop_y_flux_5 : DO j = j_start, j_end+1
-        IF ( config_flags%polar .AND. (j == jds+1) ) THEN
+        IF ( cfg_polar .AND. (j == jds+1) ) THEN
 !$acc loop vector collapse(2) private(mrdy)
           DO k=kts,ktf
           DO i = i_start, i_end
@@ -3968,7 +3982,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
             tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*fqy3(i,k,j)
           END DO
           END DO
-        ELSE IF( config_flags%polar .AND. (j == jde) ) THEN
+        ELSE IF( cfg_polar .AND. (j == jde) ) THEN
 !$acc loop vector collapse(2) private(mrdy)
           DO k=kts,ktf
           DO i = i_start, i_end
@@ -4278,9 +4292,10 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
     ! (latitudes are as for u grid, longitudes are displaced)
     ! Therefore: flow is only from one side for points next to poles
   ENDDO
+      cfg_polar = config_flags%polar
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
   DO j = j_start, j_end+1
-    IF ( config_flags%polar .AND. (j == jds+1) ) THEN
+    IF ( cfg_polar .AND. (j == jds+1) ) THEN
 !$acc loop vector collapse(2) private(mrdy)
       DO k=kts,ktf
       DO i = i_start, i_end
@@ -4288,7 +4303,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
         tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*fqy3(i,k,j)
       END DO
       END DO
-    ELSE IF( config_flags%polar .AND. (j == jde) ) THEN
+    ELSE IF( cfg_polar .AND. (j == jde) ) THEN
 !$acc loop vector collapse(2) private(mrdy)
       DO k=kts,ktf
       DO i = i_start, i_end
@@ -4487,9 +4502,10 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
     ! (latitudes are as for u grid, longitudes are displaced)
     ! Therefore: flow is only from one side for points next to poles
   ENDDO
+      cfg_polar = config_flags%polar
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
   DO j = j_start, j_end+1
-    IF ( config_flags%polar .AND. (j == jds+1) ) THEN
+    IF ( cfg_polar .AND. (j == jds+1) ) THEN
 !$acc loop vector collapse(2) private(mrdy)
       DO k=kts,ktf
       DO i = i_start, i_end
@@ -4497,7 +4513,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
         tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*fqy3(i,k,j)
       END DO
       END DO
-    ELSE IF( config_flags%polar .AND. (j == jde) ) THEN
+    ELSE IF( cfg_polar .AND. (j == jde) ) THEN
 !$acc loop vector collapse(2) private(mrdy)
       DO k=kts,ktf
       DO i = i_start, i_end
@@ -4929,6 +4945,7 @@ SUBROUTINE advect_w    ( w, w_old, tendency,            &
                          its, ite, jts, jte, kts, kte  )
 
    IMPLICIT NONE
+   LOGICAL :: cfg_polar
    
    ! Input data
    
@@ -5228,9 +5245,10 @@ SUBROUTINE advect_w    ( w, w_old, tendency,            &
         ! (latitudes are as for u grid, longitudes are displaced)
         ! Therefore: flow is only from one side for points next to poles
       ENDDO j_loop_y_flux_6_flux
+      cfg_polar = config_flags%polar
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      j_loop_y_flux_6 : DO j = j_start, j_end+1
-        IF ( config_flags%polar .AND. (j == jds+1) ) THEN
+        IF ( cfg_polar .AND. (j == jds+1) ) THEN
 !$acc loop vector collapse(2) private(mrdy)
           DO k=kts+1,ktf+1
           DO i = i_start, i_end
@@ -5238,7 +5256,7 @@ SUBROUTINE advect_w    ( w, w_old, tendency,            &
             tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*fqy3(i,k,j)
           END DO
           END DO
-        ELSE IF( config_flags%polar .AND. (j == jde) ) THEN
+        ELSE IF( cfg_polar .AND. (j == jde) ) THEN
 !$acc loop vector collapse(2) private(mrdy)
           DO k=kts+1,ktf+1
           DO i = i_start, i_end
@@ -5574,9 +5592,10 @@ ELSE IF (horz_order == 5 ) THEN
         ! (latitudes are as for u grid, longitudes are displaced)
         ! Therefore: flow is only from one side for points next to poles
       ENDDO j_loop_y_flux_5_flux
+      cfg_polar = config_flags%polar
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      j_loop_y_flux_5 : DO j = j_start, j_end+1
-        IF ( config_flags%polar .AND. (j == jds+1) ) THEN
+        IF ( cfg_polar .AND. (j == jds+1) ) THEN
 !$acc loop vector collapse(2) private(mrdy)
           DO k=kts+1,ktf+1
           DO i = i_start, i_end
@@ -5584,7 +5603,7 @@ ELSE IF (horz_order == 5 ) THEN
             tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*fqy3(i,k,j)
           END DO
           END DO
-        ELSE IF( config_flags%polar .AND. (j == jde) ) THEN
+        ELSE IF( cfg_polar .AND. (j == jde) ) THEN
 !$acc loop vector collapse(2) private(mrdy)
           DO k=kts+1,ktf+1
           DO i = i_start, i_end
@@ -5967,9 +5986,10 @@ ELSE IF ( horz_order == 4 ) THEN
        ! (latitudes are as for u grid, longitudes are displaced)
        ! Therefore: flow is only from one side for points next to poles
     ENDDO
+      cfg_polar = config_flags%polar
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end+1
-       IF ( config_flags%polar .AND. (j == jds+1) ) THEN
+       IF ( cfg_polar .AND. (j == jds+1) ) THEN
 !$acc loop vector collapse(2) private(mrdy)
          DO k=kts+1,ktf+1
          DO i = i_start, i_end
@@ -5977,7 +5997,7 @@ ELSE IF ( horz_order == 4 ) THEN
            tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*fqy3(i,k,j)
          END DO
          END DO
-       ELSE IF( config_flags%polar .AND. (j == jde) ) THEN
+       ELSE IF( cfg_polar .AND. (j == jde) ) THEN
 !$acc loop vector collapse(2) private(mrdy)
          DO k=kts+1,ktf+1
          DO i = i_start, i_end
@@ -6223,9 +6243,10 @@ ELSE IF ( horz_order == 3 ) THEN
        ! (latitudes are as for u grid, longitudes are displaced)
        ! Therefore: flow is only from one side for points next to poles
     ENDDO
+      cfg_polar = config_flags%polar
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end+1
-       IF ( config_flags%polar .AND. (j == jds+1) ) THEN
+       IF ( cfg_polar .AND. (j == jds+1) ) THEN
 !$acc loop vector collapse(2) private(mrdy)
          DO k=kts+1,ktf+1
          DO i = i_start, i_end
@@ -6233,7 +6254,7 @@ ELSE IF ( horz_order == 3 ) THEN
            tendency(i,k,j-1) = tendency(i,k,j-1) - mrdy*fqy3(i,k,j)
          END DO
          END DO
-       ELSE IF( config_flags%polar .AND. (j == jde) ) THEN
+       ELSE IF( cfg_polar .AND. (j == jde) ) THEN
 !$acc loop vector collapse(2) private(mrdy)
          DO k=kts+1,ktf+1
          DO i = i_start, i_end

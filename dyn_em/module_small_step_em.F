@@ -1653,6 +1653,11 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
   ! The row kernel below (one gang per j, vector over i, k phases inside) has only (j_end-j_start+1) gangs;
   ! on the GPU run one thread per column instead (same arithmetic per point, k loops sequential in-thread).
   IF ( wrf_gpu_on .AND. k_end+1 <= KMAXW ) THEN
+      BLOCK
+      INTEGER :: cfg_damp_opt
+      INTEGER :: cfg_phi_adv_z
+      cfg_damp_opt = config_flags%damp_opt
+      cfg_phi_adv_z = config_flags%phi_adv_z
 !$acc parallel loop gang vector collapse(2) private(rhsc,wdwnc) async(wrf_gpu_q)
   DO j = j_start, j_end
   DO i = i_start, i_end
@@ -1665,7 +1670,7 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
                     /((c1h(k)*Muts(i,j)+c2h(k))*(t0+t_1(i,k,j)))
       rhsc(k+1) = dts*(ph_tend(i,k+1,j) + .5*g*(1.-epssm)*w(i,k+1,j))
     ENDDO
-    IF (config_flags%phi_adv_z == 2) THEN
+    IF (cfg_phi_adv_z == 2) THEN
       DO k=1, k_end
          wdwnc(k+1)=rdnw(k)*(ph_1(i,k+1,j)-ph_1(i,k,j)+phb(i,k+1,j)-phb(i,k,j))
       ENDDO
@@ -1729,7 +1734,7 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
     DO k=k_end,2,-1
        w (i,k,j)=w (i,k,j)-gamma(i,k,j)*w(i,k+1,j)
     ENDDO
-    IF (config_flags%damp_opt .eq. 3) THEN
+    IF (cfg_damp_opt .eq. 3) THEN
       DO k=k_end+1,2,-1
           htop=(ph_1(i,k_end+1,j)+phb(i,k_end+1,j))/g
           hk=(ph_1(i,k,j)+phb(i,k,j))/g
@@ -1747,8 +1752,14 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
     ENDDO
   ENDDO
   ENDDO
+      END BLOCK
   ELSE
 #endif
+      BLOCK
+      INTEGER :: cfg_damp_opt
+      INTEGER :: cfg_phi_adv_z
+      cfg_damp_opt = config_flags%damp_opt
+      cfg_phi_adv_z = config_flags%phi_adv_z
 !$acc parallel loop gang private(rhs,wdwn,msft_inv) async(wrf_gpu_q) if(wrf_gpu_on)
   j_loop_w:  DO j = j_start, j_end
 !$acc loop vector
@@ -1772,7 +1783,7 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
 !   building up RHS of phi equation
 !   ph_tend contains terms 1 and 2; now adding 3 and 4 in stages:
 !   here rhs = delta t [ph_tend + ~g*w/2 - ~ww * partial d phi/dz]
-    IF (config_flags%phi_adv_z == 2) THEN
+    IF (cfg_phi_adv_z == 2) THEN
       !  First get staggered partial d/dnu(phi) and then multiply with omega
       !  to avoid double staggering of omega
 
@@ -1905,7 +1916,7 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
     ENDDO
     ENDDO
 
-    IF (config_flags%damp_opt .eq. 3) THEN
+    IF (cfg_damp_opt .eq. 3) THEN
 !$acc loop vector collapse(2) private(dampk,hbot,hk,htop)
       DO k=k_end+1,2,-1
       DO i=i_start, i_end
@@ -1930,6 +1941,7 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
     ENDDO
 
   ENDDO j_loop_w
+      END BLOCK
 #ifdef WRF_GPU
   ENDIF
 #endif
