@@ -3467,6 +3467,8 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
    INTEGER :: jmin, jmax, jp, jm, imin, imax
 
    REAL    :: mrdx, mrdy, ub, vb, uw, vw
+    INTEGER :: ii, kk, m          ! GPU fully parallel flux kernels
+    REAL    :: ff, fl, fr
    REAL , DIMENSION(its:ite, kts:kte) :: vflux
 
 
@@ -4035,6 +4037,41 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
 !  compute fluxes
 
+#ifdef WRF_GPU
+! GPU: one thread per (i,k,j); both face fluxes computed in place (same expressions and boundary degradation as
+! the per-row fqx version below), no per-row scratch -> full occupancy
+!$acc parallel loop gang vector collapse(3) private(vel,mrdx,ii,m,ff,fl,fr) async(wrf_gpu_q) if(wrf_gpu_on)
+      DO j = j_start, j_end
+      DO k = kts, ktf
+      DO i = i_start, i_end
+        DO m = 0, 1
+          ii = i + m
+          IF ( ii >= i_start_f .AND. ii <= i_end_f ) THEN
+            vel = ru(ii,k,j)
+            ff = vel*flux5( field(ii-3,k,j), field(ii-2,k,j),  &
+                            field(ii-1,k,j), field(ii  ,k,j),  &
+                            field(ii+1,k,j), field(ii+2,k,j),  &
+                            vel                             )
+          ELSE IF ( ( degrade_xs .AND. ii == ids+1 ) .OR. ( degrade_xe .AND. ii == ide-1 ) ) THEN
+            ff = 0.5*(ru(ii,k,j))*(field(ii,k,j)+field(ii-1,k,j))
+          ELSE
+            vel = ru(ii,k,j)
+            ff = vel*flux3( field(ii-2,k,j), field(ii-1,k,j),  &
+                            field(ii  ,k,j), field(ii+1,k,j),  &
+                            vel                     )
+          ENDIF
+          IF ( m == 0 ) THEN
+            fl = ff
+          ELSE
+            fr = ff
+          ENDIF
+        ENDDO
+        mrdx=msftx(i,j)*rdx
+        tendency(i,k,j) = tendency(i,k,j) - mrdx*(fr-fl)
+      ENDDO
+      ENDDO
+      ENDDO
+#else
 !$acc parallel loop gang private(fqx) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
 
@@ -4118,6 +4155,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
           ENDDO
 
       ENDDO
+#endif
 
 
    ELSE IF( horz_order == 4 ) THEN
@@ -4854,6 +4892,35 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
    ELSE IF (vert_order == 3) THEN    
 
+#ifdef WRF_GPU
+! GPU: one thread per (i,k,j), both vertical face fluxes in place (vflux(kts)=vflux(kte)=0, 2nd order at kts+1
+! and ktf, 3rd order between - as in the per-row version below)
+!$acc parallel loop gang vector collapse(3) private(vel,kk,m,ff,fl,fr) async(wrf_gpu_q) if(wrf_gpu_on)
+      DO j = j_start, j_end
+      DO k = kts, ktf
+      DO i = i_start, i_end
+        DO m = 0, 1
+          kk = k + m
+          IF ( kk == kts .OR. kk > ktf ) THEN
+            ff = 0.
+          ELSE IF ( kk == kts+1 .OR. kk == ktf ) THEN
+            ff = rom(i,kk,j)*(fzm(kk)*field(i,kk,j)+fzp(kk)*field(i,kk-1,j))
+          ELSE
+            vel = rom(i,kk,j)
+            ff = vel*flux3( field(i,kk-2,j), field(i,kk-1,j),      &
+                            field(i,kk  ,j), field(i,kk+1,j),  -vel )
+          ENDIF
+          IF ( m == 0 ) THEN
+            fl = ff
+          ELSE
+            fr = ff
+          ENDIF
+        ENDDO
+        tendency(i,k,j)=tendency(i,k,j)-rdzw(k)*(fr-fl)
+      ENDDO
+      ENDDO
+      ENDDO
+#else
 !$acc parallel loop gang private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
     ! GPU: per-gang copy of pre-loop initialisation of private scratch
@@ -4890,6 +4957,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
          ENDDO
 
       ENDDO
+#endif
 
    ELSE IF (vert_order == 2) THEN    
 
