@@ -820,6 +820,9 @@ CONTAINS
 
 !  Initialization for adaptive time step.
 
+#ifdef WRF_SEG_TIMERS
+   CALL cu_tick(0)
+#endif
    IF ( adapt_step_flag_pass ) THEN
       doing_adapt_dt = .TRUE.
       IF ( cudtacttime_pass .EQ. 0. ) THEN
@@ -893,6 +896,9 @@ CONTAINS
 !print *,'calling CU scheme'
    ELSE
 !print *,'NOT calling CU scheme'
+#ifdef WRF_SEG_TIMERS
+      CALL cu_tick(1)
+#endif
       RETURN
    END IF
 
@@ -1720,7 +1726,31 @@ CONTAINS
 
    CALL wrf_debug(200,'returning from cumulus_driver')
 
+#ifdef WRF_SEG_TIMERS
+   CALL cu_tick(2)
+#endif
    END SUBROUTINE cumulus_driver
+#ifdef WRF_SEG_TIMERS
+   SUBROUTINE cu_tick( k )
+      IMPLICIT NONE
+      INTEGER, INTENT(IN) :: k     ! 0 = entry; slot k gets the time since the previous tick; -1 = print check
+      INTEGER(8), SAVE :: last = 0
+      INTEGER(8) :: c, cr
+      REAL(8), SAVE :: acc(2) = 0.d0
+      INTEGER, SAVE :: ncall = 0
+      CHARACTER(LEN=160) :: msg
+      CALL SYSTEM_CLOCK( c, cr )
+      IF ( k > 0 ) acc(k) = acc(k) + DBLE(c-last)/DBLE(cr)
+      last = c
+      IF ( k == 0 ) THEN
+         ncall = ncall + 1
+         IF ( MOD(ncall,20) == 0 ) THEN
+            WRITE(msg,'(A,I6,2F9.3)') 'CUTIME skip/run ', ncall, acc
+            CALL wrf_message( msg )
+         ENDIF
+      ENDIF
+   END SUBROUTINE cu_tick
+#endif
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !!!!!!!!                    PSH/TWG 06/10/16                       !!!!!!!!

@@ -920,6 +920,9 @@ CONTAINS
   flag_qnifa = .FALSE. ; IF ( PRESENT( F_QNIFA ) ) flag_qnifa = F_QNIFA
   flag_qnbca = .FALSE. ; IF ( PRESENT( F_QNBCA ) ) flag_qnbca = F_QNBCA
 
+#ifdef WRF_SEG_TIMERS
+  CALL pbl_tick(0)
+#endif
   if (bl_pbl_physics .eq. 0) return
 
 ! RAINBL in mm (Accumulation between PBL calls)
@@ -1188,6 +1191,9 @@ CONTAINS
    ENDDO
    !$OMP END PARALLEL DO
 !
+#ifdef WRF_SEG_TIMERS
+  CALL pbl_tick(1)
+#endif
 #ifdef WRF_GPU_RESIDENT
   wrf_gpu_pbl_ran = .FALSE.
   IF ( wrf_gpu_pbl .AND. bl_pbl_physics == MYJPBLSCHEME .AND. .NOT. flag_bep .AND. idiff /= 1 ) THEN
@@ -1228,6 +1234,9 @@ CONTAINS
     mixht(ims:ime,jms:jme) = mixht_gpu
    ENDIF
   ENDIF
+#endif
+#ifdef WRF_SEG_TIMERS
+  CALL pbl_tick(2)
 #endif
   !$OMP PARALLEL DO   &
   !$OMP PRIVATE ( ij, i,j,k, its, ite, jts, jte, z0, z1, z2, w1, w2, message, initflag )
@@ -2391,7 +2400,31 @@ CONTAINS
 
    ENDIF
 
+#ifdef WRF_SEG_TIMERS
+   CALL pbl_tick(3)
+#endif
    END SUBROUTINE pbl_driver
+#ifdef WRF_SEG_TIMERS
+   SUBROUTINE pbl_tick( k )
+      IMPLICIT NONE
+      INTEGER, INTENT(IN) :: k     ! 0 = entry; slot k gets the time since the previous tick; -1 = print check
+      INTEGER(8), SAVE :: last = 0
+      INTEGER(8) :: c, cr
+      REAL(8), SAVE :: acc(3) = 0.d0
+      INTEGER, SAVE :: ncall = 0
+      CHARACTER(LEN=160) :: msg
+      CALL SYSTEM_CLOCK( c, cr )
+      IF ( k > 0 ) acc(k) = acc(k) + DBLE(c-last)/DBLE(cr)
+      last = c
+      IF ( k == 0 ) THEN
+         ncall = ncall + 1
+         IF ( MOD(ncall,20) == 0 ) THEN
+            WRITE(msg,'(A,I6,3F9.3)') 'PBLTIME pre/gpu/post ', ncall, acc
+            CALL wrf_message( msg )
+         ENDIF
+      ENDIF
+   END SUBROUTINE pbl_tick
+#endif
 
    subroutine  Add_multi_perturb_pbl_perturbations (perts_qvapor, perts_qcloud, &
                   perts_th, perts_tke, pert_mynn_qv, pert_mynn_qc, pert_mynn_t, pert_mynn_qke, &
