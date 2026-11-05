@@ -773,6 +773,7 @@ CONTAINS
     pattern_spp_conv=0.
     field_conv=0.
 #endif
+    ! (GPU builds: not zeroed - no scheme call in this driver reads them; 2 x 3-D single-threaded writes per step)
     spp_conv=0
 
 
@@ -903,11 +904,6 @@ CONTAINS
 #endif
       RETURN
    END IF
-#ifdef WRF_GPU
-   ! (GPU builds: zeroed only on the steps the scheme runs - 2 x 3-D single-threaded writes per step otherwise)
-    pattern_spp_conv=0.
-    field_conv=0.
-#endif
 
 #if  ( EM_CORE == 1 )
       if(cu_physics == G3SCHEME .or. cu_physics == NTIEDTKESCHEME) then
