@@ -196,6 +196,11 @@ CONTAINS
     rk_step = 1
 
 BENCH_START(init_zero_tend_tim)
+#ifdef WRF_GPU_RESIDENT
+       ! lean GPU step: the dynamics tendencies are zeroed on the device (solve_em, bit 256) and no host physics
+       ! writes into the host copies
+       IF ( .NOT. wrf_gpu_lean_step ) THEN
+#endif
        !$OMP PARALLEL DO   &
        !$OMP PRIVATE ( ij )
 
@@ -217,6 +222,9 @@ BENCH_START(init_zero_tend_tim)
 
        END DO
        !$OMP END PARALLEL DO
+#ifdef WRF_GPU_RESIDENT
+       ENDIF
+#endif
 BENCH_END(init_zero_tend_tim)
 
 #ifdef DM_PARALLEL

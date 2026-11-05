@@ -1303,6 +1303,7 @@ CONTAINS
 !  LOCAL  VAR
 
    REAL,       DIMENSION( ims:ime, kms:kme, jms:jme ) ::v_phytmp
+   INTEGER :: ktmp_top
    REAL,       DIMENSION( ims:ime, kms:kme, jms:jme ) ::u_phytmp
 
    REAL,       DIMENSION( ims:ime, jms:jme )          ::          &
@@ -1619,11 +1620,17 @@ CONTAINS
 #endif
 
   
+  ktmp_top = kme
+#ifdef WRF_GPU_RESIDENT
+  ! GPU surface layer this call: the host reads only level 1 of the frame-shifted winds
+  IF ( wrf_gpu_sfc .AND. sf_sfclay_physics == MYJSFCSCHEME .AND. FRACTIONAL_SEAICE == 0 .AND. itimestep > 1 &
+       .AND. PRESENT(qv_curr) .AND. PRESENT(qc_curr) ) ktmp_top = kms
+#endif
 !$OMP PARALLEL DO &
 !$OMP PRIVATE (ij, i, j, k)
   DO ij = 1,num_tiles
     DO j = j_start(ij),j_end(ij)
-      DO k = kms,kme
+      DO k = kms,ktmp_top
         DO i = i_start(ij),i_end(ij)
           v_phytmp(i, k, j) = 0.
           u_phytmp(i, k, j) = 0.
@@ -2070,7 +2077,7 @@ CONTAINS
 ! PSFC : in Pa
           PSFC(I,J)=p8w(I,kts,J)
 ! REVERSE ORDER IN THE VERTICAL DIRECTION
-          DO k=kts,kte
+          DO k=kts,MIN(kte,ktmp_top)
             v_phytmp(i,k,j)=v_phy(i,k,j)+v_frame
             u_phytmp(i,k,j)=u_phy(i,k,j)+u_frame
           ENDDO
