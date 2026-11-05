@@ -1862,6 +1862,9 @@ CONTAINS
            SATFLG
    REAL, DIMENSION(NSOIL_G) :: SLDPTH, SMC, STC, SWC, ET, SMAV
    INTEGER :: NPT, IP
+   INTEGER :: KCNT(0:2047), KPOS(0:2047), KEY, LSMSORT_ST
+   INTEGER, SAVE :: LSMSORT_MODE = -1
+   CHARACTER(LEN=8) :: LSMSORT_ENV
    INTEGER, ALLOCATABLE, SAVE :: PTI(:), PTJ(:)
    INTEGER, SAVE :: NPT_SAVE = -1
    IF ( NSOIL > NSOIL_G ) CALL wrf_error_fatal('LSM_GPU: num_soil_layers > NSOIL_G')
@@ -1900,7 +1903,38 @@ CONTAINS
 !$acc enter data create(PTI,PTJ)
       NPT_SAVE = NPT
    ENDIF
+   IF ( LSMSORT_MODE < 0 ) THEN
+      LSMSORT_MODE = 1
+      CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_LSMSORT', LSMSORT_ENV, STATUS=LSMSORT_ST )
+      IF ( LSMSORT_ST == 0 ) READ( LSMSORT_ENV, *, IOSTAT=LSMSORT_ST ) LSMSORT_MODE
+   ENDIF
    IP = 0
+   IF ( LSMSORT_MODE > 0 ) THEN
+   ! land points ordered by (soil type, vegetation type): neighbouring threads of a warp take the same Noah branches
+   ! (the per-column results do not depend on the order)
+      KCNT = 0
+      DO J=jts,jte
+      DO I=its,ite
+         IF ( (XLAND(I,J)-1.5) < 0. ) THEN
+            KEY = MIN(MAX(ISLTYP(I,J),0),31)*64 + MIN(MAX(IVGTYP(I,J),0),63)
+            KCNT(KEY) = KCNT(KEY) + 1
+         ENDIF
+      ENDDO
+      ENDDO
+      KPOS(0) = 0
+      DO KEY = 1, 2047
+         KPOS(KEY) = KPOS(KEY-1) + KCNT(KEY-1)
+      ENDDO
+      DO J=jts,jte
+      DO I=its,ite
+         IF ( (XLAND(I,J)-1.5) < 0. ) THEN
+            KEY = MIN(MAX(ISLTYP(I,J),0),31)*64 + MIN(MAX(IVGTYP(I,J),0),63)
+            KPOS(KEY) = KPOS(KEY) + 1
+            PTI(KPOS(KEY)) = I ; PTJ(KPOS(KEY)) = J
+         ENDIF
+      ENDDO
+      ENDDO
+   ELSE
    DO J=jts,jte
    DO I=its,ite
       IF ( (XLAND(I,J)-1.5) < 0. ) THEN
@@ -1908,6 +1942,7 @@ CONTAINS
       ENDIF
    ENDDO
    ENDDO
+   ENDIF
 !$acc update device(PTI,PTJ)
 !$acc parallel loop gang vector copyin(SLDPTH) private(SMC,STC,SWC,ET,SMAV,I,J)                                &
 !$acc   present(PTI,PTJ,DZ8W,QV3D,P8W3D,T3D,TSK,HFX,QFX,LH,GRDFLX,QGH,SWDOWN,GLW,SMSTAV,SMSTOT,SFCRUNOFF,       &
