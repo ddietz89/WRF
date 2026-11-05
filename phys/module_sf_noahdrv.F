@@ -13,6 +13,10 @@ MODULE module_sf_noahdrv
       &                         LCZ_1,LCZ_2,LCZ_3,LCZ_4,LCZ_5,LCZ_6,LCZ_7,LCZ_8,LCZ_9,LCZ_10,LCZ_11
   USE module_sf_urban,    only: urban, oasis, IRI_SCHEME
   USE module_sf_noahlsm_glacial_only, only: sflx_glacial
+#ifdef WRF_GPU
+  USE module_sf_noahlsm,  only: SFLX_g, NOAH_GPU_ERR, NOAH_GPU_TABLES_UPDATE, NSOIL_G
+  USE module_sf_noahlsm_glacial_only, only: sflx_glacial_g, NOAHG_GPU_ERR
+#endif
   USE module_sf_bep,      only: bep
   USE module_sf_bep_bem,  only: bep_bem
 #if defined(mpas)
@@ -1815,6 +1819,290 @@ CONTAINS
 
 !------------------------------------------------------
    END SUBROUTINE lsm
+
+#ifdef WRF_GPU
+!-----------------------------------------------------------------------------------------------------------------
+! WRF_GPU residency builds: the Noah LSM point loop of lsm() on the GPU (one thread per point; SFLX_g /
+! SFLX_GLACIAL_g are device copies), for itimestep > 1 without urban physics, FASDAS, WRF-Hydro, irrigation or
+! LSM perturbations. Same expressions and order as lsm(); fields stay host-owned (the caller moves them).
+!-----------------------------------------------------------------------------------------------------------------
+   SUBROUTINE LSM_GPU(DZ8W,QV3D,P8W3D,T3D,TSK,HFX,QFX,LH,GRDFLX,QGH,SWDOWN,GLW,SMSTAV,SMSTOT,          &
+                  SFCRUNOFF,UDRUNOFF,IVGTYP,ISLTYP,ISURBAN,ISICE,VEGFRA,ALBEDO,ALBBCK,ZNT,Z0,TMN,      &
+                  XLAND,XICE,EMISS,EMBCK,SNOWC,QSFC,RAINBL,NSOIL,DT,DZS,SMOIS,TSLB,SNOW,CANWAT,        &
+                  CHS,CHS2,CQS2,SR,CHKLOWQ,LAI,QZ0,MYJ,FRPCPN,SH2O,SNOWH,SNOALB,SHDMIN,SHDMAX,       &
+                  SNOTIME,ACSNOM,ACSNOW,SNOPCX,POTEVP,SMCREL,XICE_THRESHOLD,RDLAI2D,USEMONALB,RIB,     &
+                  NOAHRES,OPT_THCND,UA_PHYS,FLX4_2D,FVB_2D,FBUR_2D,FGSN_2D,RC2,XLAI2,                 &
+                  ims,ime,jms,jme,kms,kme,its,ite,jts,jte,kts )
+   IMPLICIT NONE
+   INTEGER, INTENT(IN) :: ims,ime,jms,jme,kms,kme,its,ite,jts,jte,kts,NSOIL,ISURBAN,ISICE,OPT_THCND
+   REAL, INTENT(IN) :: DT, XICE_THRESHOLD
+   LOGICAL, INTENT(IN) :: MYJ, FRPCPN, RDLAI2D, USEMONALB, UA_PHYS
+   REAL, DIMENSION(ims:ime,kms:kme,jms:jme), INTENT(IN) :: DZ8W, QV3D, P8W3D, T3D
+   INTEGER, DIMENSION(ims:ime,jms:jme), INTENT(IN) :: IVGTYP, ISLTYP
+   REAL, DIMENSION(1:NSOIL), INTENT(IN) :: DZS
+   REAL, DIMENSION(ims:ime,1:NSOIL,jms:jme), INTENT(INOUT) :: SMOIS, TSLB, SH2O, SMCREL
+   REAL, DIMENSION(ims:ime,jms:jme), INTENT(IN) :: QGH, SWDOWN, GLW, VEGFRA, TMN, XLAND, XICE, EMBCK,      &
+                                                  RAINBL, CHS, CQS2, SR, QZ0, SNOALB, SHDMIN, SHDMAX, RIB
+   REAL, DIMENSION(ims:ime,jms:jme), INTENT(INOUT) :: TSK, HFX, QFX, LH, GRDFLX, SMSTAV, SMSTOT, SFCRUNOFF, &
+                  UDRUNOFF, ALBEDO, ALBBCK, ZNT, Z0, EMISS, SNOWC, QSFC, SNOW, CANWAT, CHS2, CHKLOWQ, LAI,  &
+                  SNOWH, SNOTIME, ACSNOM, ACSNOW, SNOPCX, POTEVP, NOAHRES, FLX4_2D, FVB_2D, FBUR_2D, FGSN_2D, &
+                  RC2, XLAI2
+   REAL, PARAMETER  :: TRESH=.95E0, A2=17.67,A3=273.15,A4=29.65, T0=273.16E0, ELWV=2.50E6,  A23M4=A2*(A3-A4)
+   REAL, PARAMETER  :: ROW=1.E3,ELIW=XLF,ROWLIW=ROW*ELIW
+   REAL, PARAMETER  :: CAPA=R_D/CP
+   LOGICAL, PARAMETER :: LOCAL=.false.
+   INTEGER :: I, J, NS, ICE, SLOPETYP, SOILTYP, VEGTYP, NROOT
+   REAL :: FDTLIW, FDTW, PSFC, SFCPRS, Q2K, SOILW, FLX4, FVB, FBUR, FGSN, Q2SAT, SFCTMP, ZLVL, APES, APELM, &
+           SFCTH2, TH2, EMISSI, LWDN, SOLDN, SOLNET, PRCP, IRRIGATION_CHANNEL, SHDFAC, T1, CHK, SHMIN, SHMAX, &
+           SNEQV, SNOWHK, SNCOVR, FFROZP, DQSDT2, SFCTSNO, E2SAT, Q2SATI, TBOT, SNOALB1, CMC, ALBBRD, Z0BRD,  &
+           EMBRD, SNOTIME1, RIBB, AOASIS, XLAI, DUMMY, Z0K, ALBEDOK, ETA, SHEAT, ETA_KINEMATIC, FDOWN, EC,    &
+           EDIR, ETT, ESNOW, DRIP, DEW, BETA, ETP, SSOIL, FLX1, FLX2, FLX3, SNOMLT, RUNOFF1, RUNOFF2,        &
+           RUNOFF3, RC, PC, RSMIN, RCS, RCT, RCQ, RCSOIL, SOILM, Q1, SMCWLT, SMCDRY, SMCREF, SMCMAX,         &
+           SFCHEADRT_HYDRO, INFXSRT_HYDRO, ETPND1_HYDRO, XSDA_QFX, HFX_PHY, QFX_PHY, XQNORM, HCPCT_FASDAS,   &
+           SATFLG
+   REAL, DIMENSION(NSOIL_G) :: SLDPTH, SMC, STC, SWC, ET, SMAV
+   IF ( NSOIL > NSOIL_G ) CALL wrf_error_fatal('LSM_GPU: num_soil_layers > NSOIL_G')
+   FDTLIW=DT/ROWLIW
+   FDTW=DT/(XLV*RHOWATER)
+   SLOPETYP=1
+   DO NS=1,NSOIL
+     SLDPTH(NS)=DZS(NS)
+   ENDDO
+!$acc parallel loop gang vector collapse(2) copyin(SLDPTH) private(SMC,STC,SWC,ET,SMAV)                       &
+!$acc   present(DZ8W,QV3D,P8W3D,T3D,TSK,HFX,QFX,LH,GRDFLX,QGH,SWDOWN,GLW,SMSTAV,SMSTOT,SFCRUNOFF,UDRUNOFF,     &
+!$acc   IVGTYP,ISLTYP,VEGFRA,ALBEDO,ALBBCK,ZNT,Z0,TMN,XLAND,XICE,EMISS,EMBCK,SNOWC,QSFC,RAINBL,SMOIS,TSLB,      &
+!$acc   SNOW,CANWAT,CHS,CHS2,CQS2,SR,CHKLOWQ,LAI,QZ0,SH2O,SNOWH,SNOALB,SHDMIN,SHDMAX,SNOTIME,ACSNOM,ACSNOW,     &
+!$acc   SNOPCX,POTEVP,SMCREL,RIB,NOAHRES,FLX4_2D,FVB_2D,FBUR_2D,FGSN_2D,RC2,XLAI2)
+   DO J=jts,jte
+   DO I=its,ite
+        IRRIGATION_CHANNEL=0.0
+        HFX_PHY = 0.0
+        QFX_PHY = 0.0
+        XQNORM  = 0.0
+        XSDA_QFX = 0.0
+        PSFC=P8w3D(i,1,j)
+        SFCPRS=(P8W3D(I,KTS+1,j)+P8W3D(i,KTS,j))*0.5
+        Q2K=QV3D(i,1,j)/(1.0+QV3D(i,1,j))
+        SOILW=0.
+        FLX4=0.
+        FVB=0.
+        FBUR=0.
+        FGSN=0.
+        Q2SAT=QGH(I,J)/(1.0+QGH(I,J))
+        IF((myj).AND.(Q2K.GE.Q2SAT*TRESH).AND.Q2K.LT.QZ0(I,J))THEN
+          SATFLG=0.
+          CHKLOWQ(I,J)=0.
+        ELSE
+          SATFLG=1.0
+          CHKLOWQ(I,J)=1.
+        ENDIF
+        SFCTMP=T3D(i,1,j)
+        ZLVL=0.5*DZ8W(i,1,j)
+        APES=(1.E5/PSFC)**CAPA
+        APELM=(1.E5/SFCPRS)**CAPA
+        SFCTH2=SFCTMP*APELM
+        TH2=SFCTH2/APES
+        EMISSI = EMISS(I,J)
+        LWDN=GLW(I,J)*EMISSI
+        SOLDN=SWDOWN(I,J)
+        SOLNET=SOLDN*(1.-ALBEDO(I,J))
+        PRCP=RAINBL(i,j)/DT
+        VEGTYP=IVGTYP(I,J)
+        SOILTYP=ISLTYP(I,J)
+        SHDFAC=VEGFRA(I,J)/100.
+        T1=TSK(I,J)
+        CHK=CHS(I,J)
+        SHMIN=SHDMIN(I,J)/100.
+        SHMAX=SHDMAX(I,J)/100.
+        SNEQV=SNOW(I,J)*0.001
+        SNOWHK=SNOWH(I,J)
+        SNCOVR=SNOWC(I,J)
+        IF(FRPCPN) THEN
+          FFROZP=SR(I,J)
+        ELSE
+          IF (SFCTMP <=  273.15) THEN
+            FFROZP = 1.0
+          ELSE
+            FFROZP = 0.0
+          ENDIF
+        ENDIF
+        IF((XLAND(I,J)-1.5).GE.0.)THEN
+          CYCLE                                    ! water point (only the urban/rural locals are set there)
+        ENDIF
+        IF (XICE(I,J) >= XICE_THRESHOLD) THEN
+           ICE = 1
+        ELSE IF ( VEGTYP == ISICE ) THEN
+           ICE = -1
+        ELSE
+           ICE=0
+        ENDIF
+        DQSDT2=Q2SAT*A23M4/(SFCTMP-A4)**2
+        IF(SNOW(I,J).GT.0.0)THEN
+          SFCTSNO=SFCTMP
+          E2SAT=611.2*EXP(6174.*(1./273.15 - 1./SFCTSNO))
+          Q2SATI=0.622*E2SAT/(SFCPRS-E2SAT)
+          Q2SATI=Q2SATI/(1.0+Q2SATI)
+          IF (T1 .GT. 273.14) THEN
+            Q2SAT=Q2SAT*(1.-SNOWC(I,J)) + Q2SATI*SNOWC(I,J)
+            DQSDT2=DQSDT2*(1.-SNOWC(I,J)) + Q2SATI*6174./(SFCTSNO**2)*SNOWC(I,J)
+          ELSE
+            Q2SAT=Q2SATI
+            DQSDT2=Q2SATI*6174./(SFCTSNO**2)
+          ENDIF
+          IF(T1 .GT. 273. .AND. SNOWC(I,J) .GT. 0. .AND. SWDOWN(I,J) .GT. 10.)DQSDT2=DQSDT2*(1.-SNOWC(I,J))
+        ENDIF
+        TBOT=TMN(I,J)
+        IF(ISURBAN.EQ.1) THEN
+          IF(VEGTYP.EQ.25) SHDFAC=0.0000
+          IF(VEGTYP.EQ.26) SHDFAC=0.0000
+          IF(VEGTYP.EQ.27) SHDFAC=0.0000
+        ENDIF
+        IF(SOILTYP.EQ.14.AND.XICE(I,J).EQ.0.)THEN
+          SOILTYP=7
+        ENDIF
+        SNOALB1 = SNOALB(I,J)
+        CMC=CANWAT(I,J)/1000.
+        ALBBRD=ALBBCK(I,J)
+        Z0BRD=Z0(I,J)
+        EMBRD=EMBCK(I,J)
+        SNOTIME1 = SNOTIME(I,J)
+        RIBB=RIB(I,J)
+        DO NS=1,NSOIL
+          SMC(NS)=SMOIS(I,NS,J)
+          STC(NS)=TSLB(I,NS,J)
+          SWC(NS)=SH2O(I,NS,J)
+        ENDDO
+        if ( (SNEQV.ne.0..AND.SNOWHK.eq.0.).or.(SNOWHK.le.SNEQV) )THEN
+          SNOWHK= 5.*SNEQV
+        endif
+        IF( IVGTYP(I,J) == ISURBAN    .or. IVGTYP(I,J) == LCZ_1 .or. IVGTYP(I,J) == LCZ_2 .or. &
+            IVGTYP(I,J) == LCZ_3      .or. IVGTYP(I,J) == LCZ_4 .or. IVGTYP(I,J) == LCZ_5 .or. &
+            IVGTYP(I,J) == LCZ_6      .or. IVGTYP(I,J) == LCZ_7 .or. IVGTYP(I,J) == LCZ_8 .or. &
+            IVGTYP(I,J) == LCZ_9      .or. IVGTYP(I,J) == LCZ_10 .or. IVGTYP(I,J) == LCZ_11 ) THEN
+          VEGTYP = ISURBAN
+        ENDIF
+        AOASIS = 1.0
+        IF (rdlai2d) THEN
+           IF (SHDFAC > 0.0 .AND. LAI(I,J) <= 0.0) LAI(I,J) = 0.01
+           xlai = lai(i,j)
+        endif
+        IF ( ICE == 1 ) THEN
+           DO NS = 1, NSOIL
+              SH2O(I,NS,J) = 1.0
+           ENDDO
+           LAI(I,J) = 0.01
+           CYCLE
+        ELSEIF (ICE == 0) THEN
+           etpnd1_hydro = 0.
+           sfcheadrt_hydro = 0.
+           infxsrt_hydro = 0.
+           CALL SFLX_g (I,J,FFROZP, ISURBAN, DT,ZLVL,NSOIL,SLDPTH,       &
+                 LOCAL,                                            &
+                 0, 0,                                             &
+                 LWDN,SOLDN,SOLNET,SFCPRS,PRCP,SFCTMP,Q2K,DUMMY,   &
+                 DUMMY,DUMMY, DUMMY,                               &
+                 TH2,Q2SAT,DQSDT2,                                 &
+                 VEGTYP,SOILTYP,SLOPETYP,SHDFAC,SHMIN,SHMAX,       &
+                 ALBBRD, SNOALB1,TBOT, Z0BRD, Z0K, EMISSI, EMBRD,  &
+                 CMC,T1,STC,SMC,SWC,SNOWHK,SNEQV,ALBEDOK,CHK,dummy,&
+                 ETA,SHEAT, ETA_KINEMATIC,FDOWN,                   &
+                 EC,EDIR,ET,ETT,ESNOW,DRIP,DEW,                    &
+                 BETA,ETP,SSOIL,                                   &
+                 FLX1,FLX2,FLX3,                                   &
+                 FLX4,FVB,FBUR,FGSN,UA_PHYS,                       &
+                 SNOMLT,SNCOVR,                                    &
+                 RUNOFF1,RUNOFF2,RUNOFF3,                          &
+                 RC,PC,RSMIN,XLAI,RCS,RCT,RCQ,RCSOIL,              &
+                 SOILW,SOILM,Q1,SMAV,                              &
+                 RDLAI2D,USEMONALB,                                &
+                 SNOTIME1,                                         &
+                 RIBB,                                             &
+                 SMCWLT,SMCDRY,SMCREF,SMCMAX,NROOT,                &
+                 sfcheadrt_hydro,                                  &
+                 INFXSRT_hydro,ETPND1_hydro                        &
+                ,OPT_THCND,AOASIS                                  &
+                ,XSDA_QFX, HFX_PHY, QFX_PHY, XQNORM, 0, HCPCT_FASDAS &
+                ,IRRIGATION_CHANNEL)
+        ELSEIF (ICE == -1) THEN
+           SOILM = 0.0
+           XLAI = 0.01
+           RUNOFF2 = 0.0
+           RUNOFF3 = 0.0
+           DO NS = 1, NSOIL
+              SWC(NS) = 1.0
+              SMC(NS) = 1.0
+              SMAV(NS) = 1.0
+           ENDDO
+           CALL SFLX_GLACIAL_g(I,J,ISICE,FFROZP,DT,ZLVL,NSOIL,SLDPTH,   &
+                LWDN,SOLNET,SFCPRS,PRCP,SFCTMP,Q2K,              &
+                TH2,Q2SAT,DQSDT2,                                &
+                ALBBRD, SNOALB1,TBOT, Z0BRD, Z0K, EMISSI, EMBRD, &
+                T1,STC,SNOWHK,SNEQV,ALBEDOK,CHK,                 &
+                ETA,SHEAT,ETA_KINEMATIC,FDOWN,                   &
+                ESNOW,DEW,                                       &
+                ETP,SSOIL,                                       &
+                FLX1,FLX2,FLX3,                                  &
+                SNOMLT,SNCOVR,                                   &
+                RUNOFF1,                                         &
+                Q1,                                              &
+                SNOTIME1,                                        &
+                RIBB)
+        ENDIF
+        lai(i,j) = xlai
+        RC2(I,J) = RC
+        XLAI2(I,J) = XLAI
+        CANWAT(I,J)=CMC*1000.
+        SNOW(I,J)=SNEQV*1000.
+        SNOWH(I,J)=SNOWHK
+        ALBEDO(I,J)=ALBEDOK
+        ALBBCK(I,J)=ALBBRD
+        Z0(I,J)=Z0BRD
+        EMISS(I,J) = EMISSI
+        ZNT(I,J)=Z0K
+        TSK(I,J)=T1
+        HFX(I,J)=SHEAT
+        POTEVP(I,J)=POTEVP(I,J)+ETP*FDTW
+        QFX(I,J)=ETA_KINEMATIC
+        LH(I,J)=ETA
+        GRDFLX(I,J)=SSOIL
+        SNOWC(I,J)=SNCOVR
+        CHS2(I,J)=CQS2(I,J)
+        SNOTIME(I,J) = SNOTIME1
+        QSFC(I,J)= Q1/(1.0-Q1)
+        DO NS=1,NSOIL
+          SMOIS(I,NS,J)=SMC(NS)
+          TSLB(I,NS,J)=STC(NS)
+          SH2O(I,NS,J)=SWC(NS)
+        ENDDO
+        FLX4_2D(I,J)  = FLX4
+        FVB_2D(I,J)   = FVB
+        FBUR_2D(I,J)  = FBUR
+        FGSN_2D(I,J)  = FGSN
+        IF ( UA_PHYS ) THEN
+          noahres(i,j) = ( solnet + lwdn ) - sheat + ssoil - eta &
+               - ( emissi * STBOLT * (t1**4) ) - flx1 - flx2 - flx3 - flx4
+        ELSE
+          noahres(i,j) = ( solnet + lwdn ) - sheat + ssoil - eta &
+               - ( emissi * STBOLT * (t1**4) ) - flx1 - flx2 - flx3
+        ENDIF
+        SMSTAV(I,J)=SOILW
+        SMSTOT(I,J)=SOILM*1000.
+        DO NS=1,NSOIL
+          SMCREL(I,NS,J)=SMAV(NS)
+        ENDDO
+        SFCRUNOFF(I,J)=SFCRUNOFF(I,J)+RUNOFF1*DT*1000.0
+        UDRUNOFF(I,J)=UDRUNOFF(I,J)+RUNOFF2*DT*1000.0
+        IF(FFROZP.GT.0.5)THEN
+          ACSNOW(I,J)=ACSNOW(I,J)+PRCP*DT
+        ENDIF
+        IF(SNOW(I,J).GT.0.)THEN
+          ACSNOM(I,J)=ACSNOM(I,J)+SNOMLT*1000.
+          SNOPCX(I,J)=SNOPCX(I,J)-SNOMLT/FDTLIW
+        ENDIF
+   ENDDO
+   ENDDO
+   END SUBROUTINE LSM_GPU
+#endif
 !------------------------------------------------------
 
 !For MPAS, the below section of the module is moved to module_physics_lsm_noahinit.F in

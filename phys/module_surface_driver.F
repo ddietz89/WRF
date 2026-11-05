@@ -6,6 +6,9 @@ MODULE module_surface_driver
 ! residency builds (WRF_GPU_XFER bit 131072, set by solve_em): MYJ surface layer on the GPU (MYJSFC_GPU, whole patch,
 ! before the tile loop) on steps after the first
   LOGICAL :: wrf_gpu_sfc = .FALSE.
+! (WRF_GPU_XFER bit 262144): Noah LSM point loop on the GPU (LSM_GPU) on steps after the first
+  LOGICAL :: wrf_gpu_lsm = .FALSE.
+  LOGICAL, PRIVATE :: lsm_gpu_entered = .FALSE.
   LOGICAL, PRIVATE :: sfc_gpu_entered = .FALSE.
 #endif
 CONTAINS
@@ -449,7 +452,7 @@ CONTAINS
 !------------------------------------------------------------------
    IMPLICIT NONE
 #ifdef WRF_GPU_RESIDENT
-   LOGICAL :: sfc_gpu_ran
+   LOGICAL :: sfc_gpu_ran, lsm_gpu_ran, lsm_irr_off
 #endif
 #ifdef WRF_SEG_TIMERS
    INTEGER(8) :: sft_c0, sft_c1, sft_cr
@@ -2683,6 +2686,48 @@ CONTAINS
 #endif
 
      IF (ISFFLX.EQ.0 ) GOTO 430
+#ifdef WRF_GPU_RESIDENT
+     lsm_gpu_ran = .FALSE.
+#ifndef WRF_HYDRO
+     IF ( wrf_gpu_lsm .AND. sf_surface_physics == LSMSCHEME .AND. itimestep > 1 .AND. sf_urban_physics == 0 &
+          .AND. fasdas == 0 .AND. .NOT. ( pert_noah .AND. multi_perturb == 1 ) ) THEN
+      lsm_irr_off = .TRUE.
+      IF ( PRESENT(sf_surf_irr_scheme) ) lsm_irr_off = sf_surf_irr_scheme == 0
+      IF ( PRESENT(qv_curr) .AND. lsm_irr_off .AND. PRESENT(rs) .AND. PRESENT(xlaidyn) ) THEN
+       lsm_gpu_ran = .TRUE.
+       IF ( .NOT. lsm_gpu_entered ) THEN   ! (no copy for arrays already in the grid enter-data list)
+!$acc enter data copyin(tsk,hfx,qfx,lh,grdflx,swdown,glw,smstav,smstot,sfcrunoff,udrunoff,ivgtyp,isltyp,vegfra)
+!$acc enter data copyin(albedo,albbck,znt,z0,tmn,xland,xice,emiss,embck,snowc,qsfc,rainbl,smois,tslb,snow,canwat)
+!$acc enter data copyin(sr,chklowq,lai,qz0,sh2o,snowh,snoalb,shdmin,shdmax,snotime,acsnom,acsnow,snopcx,potevp)
+!$acc enter data copyin(smcrel,br,noahres,flx4,fvb,fbur,fgsn,rs,xlaidyn)
+         CALL NOAH_GPU_TABLES_UPDATE()
+         lsm_gpu_entered = .TRUE.
+       ENDIF
+!$acc update device(tsk,hfx,qfx,lh,grdflx,swdown,glw,smstav,smstot,sfcrunoff,udrunoff,vegfra,albedo,albbck)
+!$acc update device(znt,z0,tmn,xland,xice,emiss,embck,snowc,qsfc,rainbl,smois,tslb,snow,canwat,sr,chklowq,lai,qz0)
+!$acc update device(sh2o,snowh,snoalb,shdmin,shdmax,snotime,acsnom,acsnow,snopcx,potevp,smcrel,br,noahres)
+!$acc update device(flx4,fvb,fbur,fgsn,ivgtyp,isltyp,rs,xlaidyn)
+       ! chs, chs2, cqs2, qgh are automatic arrays of this routine
+!$acc data copyin(chs,cqs2,qgh) copy(chs2)
+       CALL LSM_GPU(dz8w,qv_curr,p8w,t_phy,tsk,hfx,qfx,lh,grdflx,qgh,swdown,glw,smstav,smstot,          &
+              sfcrunoff,udrunoff,ivgtyp,isltyp,isurban,isice,vegfra,albedo,albbck,znt,z0,tmn,            &
+              xland,xice,emiss,embck,snowc,qsfc,rainbl,num_soil_layers,dtbl,dzs,smois,tslb,snow,canwat,  &
+              chs,chs2,cqs2,sr,chklowq,lai,qz0,myj,frpcpn,sh2o,snowh,snoalb,shdmin,shdmax,               &
+              snotime,acsnom,acsnow,snopcx,potevp,smcrel,xice_threshold,rdlai2d,usemonalb,br,            &
+              noahres,opt_thcnd,ua_phys,flx4,fvb,fbur,fgsn,rs,xlaidyn,                                   &
+              ims,ime,jms,jme,kms,kme,                                                                   &
+              MINVAL(i_start(1:num_tiles)),MAXVAL(i_end(1:num_tiles)),                                   &
+              MINVAL(j_start(1:num_tiles)),MAXVAL(j_end(1:num_tiles)), kts )
+!$acc end data
+!$acc update self(tsk,hfx,qfx,lh,grdflx,smstav,smstot,sfcrunoff,udrunoff,albedo,albbck,znt,z0,emiss,snowc)
+!$acc update self(qsfc,smois,tslb,snow,canwat,chklowq,lai,sh2o,snowh,snotime,acsnom,acsnow,snopcx,potevp,smcrel)
+!$acc update self(noahres,flx4,fvb,fbur,fgsn,rs,xlaidyn)
+!$acc update self(NOAH_GPU_ERR,NOAHG_GPU_ERR)
+       IF ( NOAH_GPU_ERR /= 0 .OR. NOAHG_GPU_ERR /= 0 ) CALL wrf_error_fatal('LSM_GPU: Noah error condition')
+      ENDIF
+     ENDIF
+#endif
+#endif
      !$OMP PARALLEL DO   &
      !$OMP PRIVATE ( ij, i, j, k ) firstprivate(frpcpn)
      DO ij = 1 , num_tiles
@@ -2968,6 +3013,9 @@ CONTAINS
                    ime, jms, jme, kms, kme, kts, kte)
                end if
 
+#ifdef WRF_GPU_RESIDENT
+             IF ( .NOT. lsm_gpu_ran ) &
+#endif
                CALL lsm(dz8w,qv_curr,p8w,t_phy,tsk,                 &
                 hfx,qfx,lh,grdflx,qgh,gsw,swdown,swddir,swddif,     &
                 glw,smstav,smstot,    &
