@@ -1861,6 +1861,9 @@ CONTAINS
            SFCHEADRT_HYDRO, INFXSRT_HYDRO, ETPND1_HYDRO, XSDA_QFX, HFX_PHY, QFX_PHY, XQNORM, HCPCT_FASDAS,   &
            SATFLG
    REAL, DIMENSION(NSOIL_G) :: SLDPTH, SMC, STC, SWC, ET, SMAV
+   INTEGER :: NPT, IP
+   INTEGER, ALLOCATABLE, SAVE :: PTI(:), PTJ(:)
+   INTEGER, SAVE :: NPT_SAVE = -1
    IF ( NSOIL > NSOIL_G ) CALL wrf_error_fatal('LSM_GPU: num_soil_layers > NSOIL_G')
    FDTLIW=DT/ROWLIW
    FDTW=DT/(XLV*RHOWATER)
@@ -1868,13 +1871,52 @@ CONTAINS
    DO NS=1,NSOIL
      SLDPTH(NS)=DZS(NS)
    ENDDO
-!$acc parallel loop gang vector collapse(2) copyin(SLDPTH) private(SMC,STC,SWC,ET,SMAV)                       &
-!$acc   present(DZ8W,QV3D,P8W3D,T3D,TSK,HFX,QFX,LH,GRDFLX,QGH,SWDOWN,GLW,SMSTAV,SMSTOT,SFCRUNOFF,UDRUNOFF,     &
-!$acc   IVGTYP,ISLTYP,VEGFRA,ALBEDO,ALBBCK,ZNT,Z0,TMN,XLAND,XICE,EMISS,EMBCK,SNOWC,QSFC,RAINBL,SMOIS,TSLB,      &
-!$acc   SNOW,CANWAT,CHS,CHS2,CQS2,SR,CHKLOWQ,LAI,QZ0,SH2O,SNOWH,SNOALB,SHDMIN,SHDMAX,SNOTIME,ACSNOM,ACSNOW,     &
-!$acc   SNOPCX,POTEVP,SMCREL,RIB,NOAHRES,FLX4_2D,FVB_2D,FBUR_2D,FGSN_2D,RC2,XLAI2)
+   ! CHKLOWQ on every point (water points do nothing else in the loop)
+!$acc parallel loop gang vector collapse(2) private(Q2K,Q2SAT) present(QV3D,QGH,QZ0,CHKLOWQ)
    DO J=jts,jte
    DO I=its,ite
+        Q2K=QV3D(i,1,j)/(1.0+QV3D(i,1,j))
+        Q2SAT=QGH(I,J)/(1.0+QGH(I,J))
+        IF((myj).AND.(Q2K.GE.Q2SAT*TRESH).AND.Q2K.LT.QZ0(I,J))THEN
+          CHKLOWQ(I,J)=0.
+        ELSE
+          CHKLOWQ(I,J)=1.
+        ENDIF
+   ENDDO
+   ENDDO
+   ! land points (XLAND < 1.5) as a compact list: full warps for the Noah column work
+   NPT = 0
+   DO J=jts,jte
+   DO I=its,ite
+      IF ( (XLAND(I,J)-1.5) < 0. ) NPT = NPT + 1
+   ENDDO
+   ENDDO
+   IF ( NPT /= NPT_SAVE ) THEN
+      IF ( ALLOCATED(PTI) ) THEN
+!$acc exit data delete(PTI,PTJ)
+         DEALLOCATE(PTI,PTJ)
+      ENDIF
+      ALLOCATE(PTI(MAX(NPT,1)),PTJ(MAX(NPT,1)))
+!$acc enter data create(PTI,PTJ)
+      NPT_SAVE = NPT
+   ENDIF
+   IP = 0
+   DO J=jts,jte
+   DO I=its,ite
+      IF ( (XLAND(I,J)-1.5) < 0. ) THEN
+         IP = IP + 1 ; PTI(IP) = I ; PTJ(IP) = J
+      ENDIF
+   ENDDO
+   ENDDO
+!$acc update device(PTI,PTJ)
+!$acc parallel loop gang vector copyin(SLDPTH) private(SMC,STC,SWC,ET,SMAV,I,J)                                &
+!$acc   present(PTI,PTJ,DZ8W,QV3D,P8W3D,T3D,TSK,HFX,QFX,LH,GRDFLX,QGH,SWDOWN,GLW,SMSTAV,SMSTOT,SFCRUNOFF,       &
+!$acc   UDRUNOFF,IVGTYP,ISLTYP,VEGFRA,ALBEDO,ALBBCK,ZNT,Z0,TMN,XLAND,XICE,EMISS,EMBCK,SNOWC,QSFC,RAINBL,SMOIS,  &
+!$acc   TSLB,SNOW,CANWAT,CHS,CHS2,CQS2,SR,CHKLOWQ,LAI,QZ0,SH2O,SNOWH,SNOALB,SHDMIN,SHDMAX,SNOTIME,ACSNOM,       &
+!$acc   ACSNOW,SNOPCX,POTEVP,SMCREL,RIB,NOAHRES,FLX4_2D,FVB_2D,FBUR_2D,FGSN_2D,RC2,XLAI2)
+   DO IP = 1, NPT
+        I = PTI(IP)
+        J = PTJ(IP)
         IRRIGATION_CHANNEL=0.0
         HFX_PHY = 0.0
         QFX_PHY = 0.0
@@ -1889,13 +1931,6 @@ CONTAINS
         FBUR=0.
         FGSN=0.
         Q2SAT=QGH(I,J)/(1.0+QGH(I,J))
-        IF((myj).AND.(Q2K.GE.Q2SAT*TRESH).AND.Q2K.LT.QZ0(I,J))THEN
-          SATFLG=0.
-          CHKLOWQ(I,J)=0.
-        ELSE
-          SATFLG=1.0
-          CHKLOWQ(I,J)=1.
-        ENDIF
         SFCTMP=T3D(i,1,j)
         ZLVL=0.5*DZ8W(i,1,j)
         APES=(1.E5/PSFC)**CAPA
@@ -1925,9 +1960,6 @@ CONTAINS
           ELSE
             FFROZP = 0.0
           ENDIF
-        ENDIF
-        IF((XLAND(I,J)-1.5).GE.0.)THEN
-          CYCLE                                    ! water point (only the urban/rural locals are set there)
         ENDIF
         IF (XICE(I,J) >= XICE_THRESHOLD) THEN
            ICE = 1
@@ -2099,7 +2131,6 @@ CONTAINS
           ACSNOM(I,J)=ACSNOM(I,J)+SNOMLT*1000.
           SNOPCX(I,J)=SNOPCX(I,J)-SNOMLT/FDTLIW
         ENDIF
-   ENDDO
    ENDDO
    END SUBROUTINE LSM_GPU
 #endif
