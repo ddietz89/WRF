@@ -869,7 +869,8 @@ CONTAINS
    LOGICAL :: radiation
    LOGICAL :: flag_bep
 #ifdef WRF_GPU_RESIDENT
-   LOGICAL, SAVE :: gpu_pbl_entered = .FALSE.
+   LOGICAL, SAVE :: gpu_pbl_entered = .FALSE., gpu_gwd_entered = .FALSE.
+   LOGICAL :: gwd_gpu_ran
    REAL, ALLOCATABLE, SAVE :: mixht_gpu(:,:)   ! mixht arrives as a per-call temporary
 #endif
    LOGICAL :: flag_myjsfc
@@ -1212,6 +1213,7 @@ CONTAINS
 #endif
 #ifdef WRF_GPU_RESIDENT
   wrf_gpu_pbl_ran = .FALSE.
+  gwd_gpu_ran = .FALSE.
   IF ( wrf_gpu_pbl .AND. bl_pbl_physics == MYJPBLSCHEME .AND. .NOT. flag_bep .AND. idiff /= 1 ) THEN
    IF ( PRESENT(qv_curr) .AND. PRESENT(qc_curr) .AND. PRESENT(qi_curr) .AND. PRESENT(rqvblten) .AND.  &
         PRESENT(rqcblten) .AND. PRESENT(rqiblten) .AND. windfarm_opt == 0 .AND. distributed_ahe_opt /= 1 .AND. &
@@ -1258,9 +1260,39 @@ CONTAINS
               ,ITS=MINVAL(i_start(1:num_tiles)),ITE=MAXVAL(i_end(1:num_tiles)) &
               ,JTS=MINVAL(j_start(1:num_tiles)),JTE=MAXVAL(j_end(1:num_tiles)) &
               ,KTS=kts,KTE=kte)
+    ! orographic GWD (gwd_opt=1) on the device: adds to the device BL momentum tendencies like the host gwdo
+    IF ( PRESENT(gwd_opt) ) THEN
+     IF ( gwd_opt == 1 .AND. PRESENT(dtaux3d) ) THEN
+      IF ( .NOT. gpu_gwd_entered ) THEN
+!$acc enter data copyin(var2d,oc12d,oa1,oa2,oa3,oa4,ol1,ol2,ol3,ol4,elvmax,sina,cosa,dx2d,z)
+!$acc enter data copyin(dtaux3d,dtauy3d,dusfcg,dvsfcg)
+        gpu_gwd_entered = .TRUE.
+      ENDIF
+      CALL gwdo_gpu(U3D=u_phy,V3D=v_phy,T3D=t_phy,QV3D=qv_curr                    &
+              ,P3D=p_phy,P3DI=p8w,PI3D=pi_phy,Z=z                                &
+              ,RUBLTEN=rublten,RVBLTEN=rvblten                                   &
+              ,DTAUX3D=dtaux3d,DTAUY3D=dtauy3d,DUSFCG=dusfcg,DVSFCG=dvsfcg       &
+              ,VAR2D=var2d,OC12D=oc12d                                           &
+              ,OA2D1=oa1,OA2D2=oa2,OA2D3=oa3,OA2D4=oa4                           &
+              ,OL2D1=ol1,OL2D2=ol2,OL2D3=ol3,OL2D4=ol4                           &
+              ,ELVMAX=elvmax,SINA=sina,COSA=cosa                                 &
+              ,CP=cp,G=g,RD=r_d,RV=r_v,EP1=ep_1,PI=3.141592653                   &
+              ,DT=dtbl,DX=dx2d,DX_FACTOR=dx_factor,IF_NONHYD=if_nonhyd           &
+              ,IMS=ims,IME=ime,JMS=jms,JME=jme,KMS=kms,KME=kme                   &
+              ,ITS=MINVAL(i_start(1:num_tiles)),ITE=MAXVAL(i_end(1:num_tiles))   &
+              ,JTS=MINVAL(j_start(1:num_tiles)),JTE=MAXVAL(j_end(1:num_tiles))   &
+              ,KTS=kts,KTE=kte)
+!$acc update self(dusfcg,dvsfcg)
+      gwd_gpu_ran = .TRUE.
+     ENDIF
+    ENDIF
     wrf_gpu_on = .FALSE.
     ! what the host reads later: surface/diagnostics (2-D), MYJ surface layer (TKE); cumulus pulls its PBL inputs
-!$acc update self(pblh,kpbl,mixht_gpu,ct,qsfc,qz0,thz0,uz0,vz0,ust,znt,akhs,akms,tke_pbl)
+!$acc update self(pblh,kpbl,mixht_gpu,ct,qsfc,qz0,thz0,uz0,vz0,ust,znt,akhs,akms)
+    ! TKE: read on the host only by the host MYJ surface layer (history/restart: gpu_pull_for_output)
+    IF ( .NOT. wrf_gpu_pbl_sfcdev ) THEN
+!$acc update self(tke_pbl)
+    ENDIF
     mixht(ims:ime,jms:jme) = mixht_gpu
    ENDIF
   ENDIF
@@ -2276,7 +2308,11 @@ CONTAINS
 
    IF (PRESENT(GWD_opt)) THEN
      IF (GWD_opt .EQ. 1) THEN
+#ifdef WRF_GPU_RESIDENT
+       IF (PRESENT(dtaux3d) .AND. .NOT. gwd_gpu_ran) THEN
+#else
        IF (PRESENT(dtaux3d)) THEN
+#endif
              CALL gwdo(                                             &
                U3D=u_phy,V3D=v_phy,T3D=t_phy                        &
               ,QV3D=qv_curr                                         &

@@ -6132,6 +6132,11 @@ SUBROUTINE gpu_pull_for_output( grid )
 !$acc update self(grid%el_pbl) if(associated(grid%el_pbl))
 !$acc update self(grid%exch_h) if(associated(grid%exch_h))
    ENDIF
+   IF ( IAND( wrf_gpu_xfer(), 1024 ) /= 0 .AND. ASSOCIATED( grid%dtaux3d ) ) THEN   ! GPU orographic GWD diagnostics
+      IF ( acc_is_present( grid%dtaux3d ) ) THEN
+!$acc update self(grid%dtaux3d,grid%dtauy3d)
+      ENDIF
+   ENDIF
    IF ( IAND( wrf_gpu_xfer(), 22 ) == 22 ) THEN   ! GPU-owned physics tendencies (bit 16)
 !$acc update self(grid%rthraten) if(associated(grid%rthraten))
 !$acc update self(grid%rqcblten) if(associated(grid%rqcblten))
