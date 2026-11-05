@@ -18,6 +18,8 @@ MODULE module_surface_driver
 ! this step (H1 push, host post-LSM fluxes and SFCDIAGS, diagnostics T2 push); the rest of the host surface state is
 ! left stale (wrf_gpu_sfc_hoststale) until solve_em's catch-up pull before a non-lean step or history output
   LOGICAL :: wrf_gpu_sfc_lean = .FALSE., wrf_gpu_sfc_hoststale = .FALSE.
+! which reduced pulls are active (env WRF_GPU_SFCLEAN, set by solve_em): 1 surface layer, 2 Noah, 4 MYJ PBL
+  INTEGER :: wrf_gpu_sfc_leanmode = 7
 #endif
 CONTAINS
 
@@ -2144,7 +2146,8 @@ CONTAINS
               MINVAL(i_start(1:num_tiles)),MAXVAL(i_end(1:num_tiles)), &
               MINVAL(j_start(1:num_tiles)),MAXVAL(j_end(1:num_tiles)), kts,kte )
        ! what the host reads next (land surface, PBL push, history)
-       IF ( wrf_gpu_sfc_lean ) THEN
+       ! (only when the LSM below runs steady: a non-steady LSM re-pushes znt/qz0/br/... from the host)
+       IF ( wrf_gpu_sfc_lean .AND. gpu_steady .AND. IAND(wrf_gpu_sfc_leanmode,1) /= 0 ) THEN
 !$acc update self(br,chs,chs2,cqs2,hfx,qfx,lh,qgh,cpm,u10,v10,ust,pblh,rmol,qsfc)
          wrf_gpu_sfc_hoststale = .TRUE.
        ELSE
@@ -2789,7 +2792,7 @@ CONTAINS
               MINVAL(i_start(1:num_tiles)),MAXVAL(i_end(1:num_tiles)),                                   &
               MINVAL(j_start(1:num_tiles)),MAXVAL(j_end(1:num_tiles)), kts )
 !$acc end data
-       IF ( wrf_gpu_sfc_lean ) THEN
+       IF ( wrf_gpu_sfc_lean .AND. IAND(wrf_gpu_sfc_leanmode,2) /= 0 ) THEN
 !$acc update self(tsk,hfx,qfx,lh,grdflx,qsfc,canwat)
          wrf_gpu_sfc_hoststale = .TRUE.
        ELSE

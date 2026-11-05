@@ -124,7 +124,7 @@ SUBROUTINE solve_em ( grid , config_flags  &
    USE module_diag_afwa, ONLY : afwa_time_flags
 #endif
    USE module_diagnostics_driver, ONLY : wrf_gpu_diag
-   USE module_surface_driver, ONLY : wrf_gpu_sfc, wrf_gpu_lsm, wrf_gpu_sfc_lean, wrf_gpu_sfc_hoststale
+   USE module_surface_driver, ONLY : wrf_gpu_sfc, wrf_gpu_lsm, wrf_gpu_sfc_lean, wrf_gpu_sfc_hoststale, wrf_gpu_sfc_leanmode
    USE module_cumulus_driver, ONLY : wrf_gpu_cu_ran, wrf_gpu_cu_pullbl, wrf_gpu_cu, wrf_gpu_cu_dev_ran
    USE module_pbl_driver, ONLY : wrf_gpu_bl_ran, wrf_gpu_pbl, wrf_gpu_pbl_ran
 #endif
@@ -241,6 +241,8 @@ SUBROUTINE solve_em ( grid , config_flags  &
    ! with mu on the GPU, phy_prep_part2 decouples them on the GPU; the host pushes a scheme's tendencies only on
    ! steps the scheme ran (rad/cu/pbl), plus cumulus ones after advance_ppt when an NCA countdown may zero them
    LOGICAL :: gpu_tend_dev = .FALSE., gpu_push_ra = .TRUE., gpu_push_cu = .TRUE., gpu_push_bl = .TRUE.
+   CHARACTER(LEN=16) :: sfcl_env
+   INTEGER :: sfcl_st
    LOGICAL :: gpu_push_cu2 = .TRUE.
    ! WRF_GPU_XFER bit 32 (with 16): the microphysics block (H2) runs on the GPU (Thompson only) - no H2 transfers;
    ! the host keeps advance_ppt (cumulus rain) and gets the mp outputs it reads (precip, effective radii) at H3
@@ -1120,6 +1122,10 @@ BENCH_START(calc_p_rho_tim)
    ! surface state left on the device during lean steps: bring the host up to date before a non-lean step (radiation,
    ! host physics) - history output catches up in gpu_pull_for_output
    wrf_gpu_sfc_lean = wrf_gpu_lean_step
+   IF ( grid%itimestep <= 2 ) THEN
+      CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_SFCLEAN', sfcl_env, STATUS=sfcl_st )
+      IF ( sfcl_st == 0 ) READ( sfcl_env, *, IOSTAT=sfcl_st ) wrf_gpu_sfc_leanmode
+   ENDIF
    IF ( wrf_gpu_sfc_hoststale .AND. .NOT. wrf_gpu_lean_step ) THEN
 !$acc wait
       CALL gpu_sfc_catchup( grid )

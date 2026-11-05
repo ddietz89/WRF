@@ -57,7 +57,7 @@ CONTAINS
     USE module_shallowcu_driver, ONLY : shallowcu_driver
     USE module_pbl_driver, ONLY : pbl_driver
 #ifdef WRF_GPU_RESIDENT
-    USE module_surface_driver, ONLY : wrf_gpu_sfcdev_ran, wrf_gpu_chain_last, wrf_gpu_sfc_lean
+    USE module_surface_driver, ONLY : wrf_gpu_sfcdev_ran, wrf_gpu_chain_last, wrf_gpu_sfc_lean, wrf_gpu_sfc_leanmode
     USE module_pbl_driver, ONLY : wrf_gpu_pbl_sfcdev, wrf_gpu_pbl_ran, wrf_gpu_pbl_lean
 #endif
     USE module_fr_fire_driver_wrf, ONLY : fire_driver_em_step
@@ -1193,7 +1193,7 @@ BENCH_START(surf_driver_tim)
 BENCH_END(surf_driver_tim)
 #ifdef WRF_GPU_RESIDENT
       wrf_gpu_pbl_sfcdev = wrf_gpu_sfcdev_ran   ! surface layer + LSM ran on the GPU: their device outputs are current
-      wrf_gpu_pbl_lean = wrf_gpu_sfcdev_ran .AND. wrf_gpu_sfc_lean
+      wrf_gpu_pbl_lean = wrf_gpu_sfcdev_ran .AND. wrf_gpu_sfc_lean .AND. IAND(wrf_gpu_sfc_leanmode,4) /= 0
 #endif
 
 !*********
