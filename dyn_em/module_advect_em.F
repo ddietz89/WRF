@@ -338,6 +338,36 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
       fqy3 = 0.
 !$acc end kernels
 #endif
+#ifdef WRF_GPU
+!$acc parallel loop gang vector collapse(3) private(vel) async(wrf_gpu_q) if(wrf_gpu_on)
+     j_loop_y_flux_6_flux : DO j = j_start, j_end+1
+        DO k = kts,ktf
+        DO i = i_start,i_end
+      IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN  ! use full stencil
+          vel = 0.5*(rv(i,k,j)+rv(i-1,k,j))
+          fqy3( i, k,j) = vel*flux6(               &
+                  u(i,k,j-3), u(i,k,j-2), u(i,k,j-1),       &
+                  u(i,k,j  ), u(i,k,j+1), u(i,k,j+2),  vel )
+      ELSE IF ( j == jds+1 ) THEN   ! 2nd order flux next to south boundary
+              fqy3(i, k,j) = 0.25*(rv(i,k,j)+rv(i-1,k,j))  &
+                                     *(u(i,k,j)+u(i,k,j-1))
+     ELSE IF  ( j == jds+2 ) THEN  ! third of 4th order flux 2 in from south boundary
+              vel = 0.5*(rv(i,k,j)+rv(i-1,k,j))
+              fqy3( i, k,j) = vel*flux4(      &
+                   u(i,k,j-2),u(i,k,j-1), u(i,k,j),u(i,k,j+1),vel )
+     ELSE IF ( j == jde-1 ) THEN  ! 2nd order flux next to north boundary
+              fqy3(i, k,j) = 0.25*(rv(i,k,j)+rv(i-1,k,j))    &
+                     *(u(i,k,j)+u(i,k,j-1))
+     ELSE IF ( j == jde-2 ) THEN  ! 3rd order flux 2 in from north boundary
+              vel = 0.5*(rv(i,k,j)+rv(i-1,k,j))
+              fqy3( i, k,j) = vel*flux4(     &
+                   u(i,k,j-2),u(i,k,j-1),    &
+                   u(i,k,j),u(i,k,j+1),vel )
+      END IF
+        ENDDO
+        ENDDO
+   ENDDO j_loop_y_flux_6_flux
+#else
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      j_loop_y_flux_6_flux : DO j = j_start, j_end+1
 
@@ -404,6 +434,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
         ! (j > j_start) will miss the u(,,jds) tendency
    ENDDO j_loop_y_flux_6_flux
+#endif
       cfg_polar = config_flags%polar
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      j_loop_y_flux_6 : DO j = j_start, j_end+1
@@ -624,6 +655,36 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
       fqy3 = 0.
 !$acc end kernels
 #endif
+#ifdef WRF_GPU
+!$acc parallel loop gang vector collapse(3) private(vel) async(wrf_gpu_q) if(wrf_gpu_on)
+     j_loop_y_flux_5_flux : DO j = j_start, j_end+1
+        DO k = kts,ktf
+        DO i = i_start,i_end
+      IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN  ! use full stencil
+          vel = 0.5*(rv(i,k,j)+rv(i-1,k,j))
+          fqy3( i, k,j) = vel*flux5(               &
+                  u(i,k,j-3), u(i,k,j-2), u(i,k,j-1),       &
+                  u(i,k,j  ), u(i,k,j+1), u(i,k,j+2),  vel )
+      ELSE IF ( j == jds+1 ) THEN   ! 2nd order flux next to south boundary
+              fqy3(i, k,j) = 0.25*(rv(i,k,j)+rv(i-1,k,j))  &
+                                     *(u(i,k,j)+u(i,k,j-1))
+     ELSE IF  ( j == jds+2 ) THEN  ! third of 4th order flux 2 in from south boundary
+              vel = 0.5*(rv(i,k,j)+rv(i-1,k,j))
+              fqy3( i, k,j) = vel*flux3(      &
+                   u(i,k,j-2),u(i,k,j-1), u(i,k,j),u(i,k,j+1),vel )
+     ELSE IF ( j == jde-1 ) THEN  ! 2nd order flux next to north boundary
+              fqy3(i, k,j) = 0.25*(rv(i,k,j)+rv(i-1,k,j))    &
+                     *(u(i,k,j)+u(i,k,j-1))
+     ELSE IF ( j == jde-2 ) THEN  ! 3rd order flux 2 in from north boundary
+              vel = 0.5*(rv(i,k,j)+rv(i-1,k,j))
+              fqy3( i, k,j) = vel*flux3(     &
+                   u(i,k,j-2),u(i,k,j-1),    &
+                   u(i,k,j),u(i,k,j+1),vel )
+      END IF
+        ENDDO
+        ENDDO
+   ENDDO j_loop_y_flux_5_flux
+#else
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      j_loop_y_flux_5_flux : DO j = j_start, j_end+1
 
@@ -690,6 +751,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
         ! (j > j_start) will miss the u(,,jds) tendency
    ENDDO j_loop_y_flux_5_flux
+#endif
       cfg_polar = config_flags%polar
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      j_loop_y_flux_5 : DO j = j_start, j_end+1
@@ -980,6 +1042,30 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
       fqy3 = 0.
 !$acc end kernels
 #endif
+#ifdef WRF_GPU
+!$acc parallel loop gang vector collapse(3) private(vel) async(wrf_gpu_q) if(wrf_gpu_on)
+   DO j = j_start, j_end+1
+        DO k = kts,ktf
+        DO i = i_start,i_end
+     IF ( (j < j_start_f) .and. degrade_ys) THEN
+         fqy3(i, k,j) = 0.25*(rv(i,k,j_start)+rv(i-1,k,j_start))  &
+               *(u(i,k,j_start)+u(i,k,j_start-1))
+     ELSE IF ((j > j_end_f) .and. degrade_ye) THEN
+         ! Assumes j>j_end_f is ONLY j_end+1 ...
+!         fqy3(i, k,j) = 0.25*(rv(i,k,j_end+1)+rv(i-1,k,j_end+1))    &
+!                *(u(i,k,j_end+1)+u(i,k,j_end))
+         fqy3(i, k,j) = 0.25*(rv(i,k,j)+rv(i-1,k,j))    &
+                *(u(i,k,j)+u(i,k,j-1))
+     ELSE
+         vel = 0.5*(rv(i,k,j)+rv(i-1,k,j))
+         fqy3( i, k,j) = vel*flux4( u(i,k,j-2), u(i,k,j-1),  &
+                                       u(i,k,j  ), u(i,k,j+1),  &
+                                            vel                )
+      END IF
+        ENDDO
+        ENDDO
+  ENDDO
+#else
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = j_start, j_end+1
 
@@ -1020,6 +1106,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
      ! (j > j_start) will miss the u(,,jds) tendency
   ENDDO
+#endif
       cfg_polar = config_flags%polar
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = j_start, j_end+1
@@ -1206,6 +1293,30 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
       fqy3 = 0.
 !$acc end kernels
 #endif
+#ifdef WRF_GPU
+!$acc parallel loop gang vector collapse(3) private(vel) async(wrf_gpu_q) if(wrf_gpu_on)
+   DO j = j_start, j_end+1
+        DO k = kts,ktf
+        DO i = i_start,i_end
+     IF ( (j < j_start_f) .and. degrade_ys) THEN
+         fqy3(i, k,j) = 0.25*(rv(i,k,j_start)+rv(i-1,k,j_start))  &
+               *(u(i,k,j_start)+u(i,k,j_start-1))
+     ELSE IF ((j > j_end_f) .and. degrade_ye) THEN
+         ! Assumes j>j_end_f is ONLY j_end+1 ...
+!         fqy3(i, k,j) = 0.25*(rv(i,k,j_end+1)+rv(i-1,k,j_end+1))    &
+!                *(u(i,k,j_end+1)+u(i,k,j_end))
+         fqy3(i, k,j) = 0.25*(rv(i,k,j)+rv(i-1,k,j))    &
+                *(u(i,k,j)+u(i,k,j-1))
+     ELSE
+         vel = 0.5*(rv(i,k,j)+rv(i-1,k,j))
+         fqy3( i, k,j) = vel*flux3( u(i,k,j-2), u(i,k,j-1),  &
+                                       u(i,k,j  ), u(i,k,j+1),  &
+                                            vel                )
+      END IF
+        ENDDO
+        ENDDO
+  ENDDO
+#else
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = j_start, j_end+1
 
@@ -1246,6 +1357,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
      ! (j > j_start) will miss the u(,,jds) tendency
   ENDDO
+#endif
       cfg_polar = config_flags%polar
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = j_start, j_end+1
@@ -1930,6 +2042,39 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
       fqy3 = 0.
 !$acc end kernels
 #endif
+#ifdef WRF_GPU
+!$acc parallel loop gang vector collapse(3) private(vel,vb) async(wrf_gpu_q) if(wrf_gpu_on)
+     j_loop_y_flux_6_flux : DO j = j_start, j_end+1
+        DO k = kts,ktf
+        DO i = i_start,i_end
+      IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN
+          vel = 0.5*(rv(i,k,j)+rv(i,k,j-1))
+          fqy3( i, k,j) = vel*flux6(               &
+                  v(i,k,j-3), v(i,k,j-2), v(i,k,j-1),       &
+                  v(i,k,j  ), v(i,k,j+1), v(i,k,j+2),  vel )
+      ELSE IF ( j == jds+1 ) THEN   ! 2nd order flux next to south boundary
+                vb = v(i,k,j-1)
+                IF (specified .AND. v(i,k,j) .LT. 0.)vb = v(i,k,j)
+                fqy3(i, k,j) = 0.25*(rv(i,k,j)+rv(i,k,j-1))  &
+                                 *(v(i,k,j)+vb)
+     ELSE IF  ( j == jds+2 ) THEN  ! third of 4th order flux 2 in from south boundary
+              vel = 0.5*(rv(i,k,j)+rv(i,k,j-1))
+              fqy3( i, k,j) = vel*flux4(      &
+                   v(i,k,j-2),v(i,k,j-1),v(i,k,j),v(i,k,j+1),vel )
+     ELSE IF ( j == jde ) THEN  ! 2nd order flux next to north boundary
+                vb = v(i,k,j)
+                IF (specified .AND. v(i,k,j-1) .GT. 0.)vb = v(i,k,j-1)
+                fqy3(i, k,j) = 0.25*(rv(i,k,j)+rv(i,k,j-1))    &
+                                 *(vb+v(i,k,j-1))
+     ELSE IF ( j == jde-1 ) THEN  ! 3rd or 4th order flux 2 in from north boundary
+              vel = 0.5*(rv(i,k,j)+rv(i,k,j-1))
+              fqy3( i, k,j) = vel*flux4(     &
+                   v(i,k,j-2),v(i,k,j-1),v(i,k,j),v(i,k,j+1),vel )
+      END IF
+        ENDDO
+        ENDDO
+   ENDDO j_loop_y_flux_6_flux
+#else
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      j_loop_y_flux_6_flux : DO j = j_start, j_end+1
 
@@ -2004,6 +2149,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
         ! to jde [N pole], i.e., on v grid) must be zero at poles
         ! [tendency(jds) and tendency(jde)=0]
    ENDDO j_loop_y_flux_6_flux
+#endif
       cfg_polar = config_flags%polar
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      j_loop_y_flux_6 : DO j = j_start, j_end+1
@@ -2226,6 +2372,39 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
       fqy3 = 0.
 !$acc end kernels
 #endif
+#ifdef WRF_GPU
+!$acc parallel loop gang vector collapse(3) private(vel,vb) async(wrf_gpu_q) if(wrf_gpu_on)
+     j_loop_y_flux_5_flux : DO j = j_start, j_end+1
+        DO k = kts,ktf
+        DO i = i_start,i_end
+      IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN
+          vel = 0.5*(rv(i,k,j)+rv(i,k,j-1))
+          fqy3( i, k,j) = vel*flux5(               &
+                  v(i,k,j-3), v(i,k,j-2), v(i,k,j-1),       &
+                  v(i,k,j  ), v(i,k,j+1), v(i,k,j+2),  vel )
+      ELSE IF ( j == jds+1 ) THEN   ! 2nd order flux next to south boundary
+                vb = v(i,k,j-1)
+                IF (specified .AND. v(i,k,j) .LT. 0.)vb = v(i,k,j)
+                fqy3(i, k,j) = 0.25*(rv(i,k,j)+rv(i,k,j-1))  &
+                                 *(v(i,k,j)+vb)
+     ELSE IF  ( j == jds+2 ) THEN  ! third of 4th order flux 2 in from south boundary
+              vel = 0.5*(rv(i,k,j)+rv(i,k,j-1))
+              fqy3( i, k,j) = vel*flux3(      &
+                   v(i,k,j-2),v(i,k,j-1),v(i,k,j),v(i,k,j+1),vel )
+     ELSE IF ( j == jde ) THEN  ! 2nd order flux next to north boundary
+                vb = v(i,k,j)
+                IF (specified .AND. v(i,k,j-1) .GT. 0.)vb = v(i,k,j-1)
+                fqy3(i, k,j) = 0.25*(rv(i,k,j)+rv(i,k,j-1))    &
+                                 *(vb+v(i,k,j-1))
+     ELSE IF ( j == jde-1 ) THEN  ! 3rd or 4th order flux 2 in from north boundary
+              vel = 0.5*(rv(i,k,j)+rv(i,k,j-1))
+              fqy3( i, k,j) = vel*flux3(     &
+                   v(i,k,j-2),v(i,k,j-1),v(i,k,j),v(i,k,j+1),vel )
+      END IF
+        ENDDO
+        ENDDO
+   ENDDO j_loop_y_flux_5_flux
+#else
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      j_loop_y_flux_5_flux : DO j = j_start, j_end+1
 
@@ -2300,6 +2479,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
         ! to jde [N pole], i.e., on v grid) must be zero at poles
         ! [tendency(jds) and tendency(jde)=0]
    ENDDO j_loop_y_flux_5_flux
+#endif
       cfg_polar = config_flags%polar
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      j_loop_y_flux_5 : DO j = j_start, j_end+1
@@ -2522,6 +2702,31 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
       fqy3 = 0.
 !$acc end kernels
 #endif
+#ifdef WRF_GPU
+!$acc parallel loop gang vector collapse(3) private(vb,vel) async(wrf_gpu_q) if(wrf_gpu_on)
+    DO j = j_start, j_end+1
+        DO k = kts,ktf
+        DO i = i_start,i_end
+      IF ((j == j_start) .and. degrade_ys) THEN
+                vb = v(i,k,j-1)
+                IF (specified .AND. v(i,k,j) .LT. 0.)vb = v(i,k,j)
+                fqy3(i, k,j) = 0.25*(rv(i,k,j)+rv(i,k,j-1))  &
+                                 *(v(i,k,j)+vb)
+      ELSE IF ((j == j_end+1) .and. degrade_ye) THEN
+                vb = v(i,k,j)
+                IF (specified .AND. v(i,k,j-1) .GT. 0.)vb = v(i,k,j-1)
+                fqy3(i, k,j) = 0.25*(rv(i,k,j)+rv(i,k,j-1))    &
+                                 *(vb+v(i,k,j-1))
+      ELSE
+          vel = 0.5*(rv(i,k,j)+rv(i,k,j-1))
+          fqy3( i,k,j) = vel*flux4( v(i,k,j-2), v(i,k,j-1),  &
+                                     v(i,k,j  ), v(i,k,j+1),  &
+                                      vel                        )
+      END IF
+        ENDDO
+        ENDDO
+   ENDDO
+#else
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end+1
 
@@ -2562,6 +2767,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
       ! to jde [N pole], i.e., on v grid) must be zero at poles
       ! [tendency(jds) and tendency(jde)=0]
    ENDDO
+#endif
       cfg_polar = config_flags%polar
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end+1
@@ -2744,6 +2950,31 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
       fqy3 = 0.
 !$acc end kernels
 #endif
+#ifdef WRF_GPU
+!$acc parallel loop gang vector collapse(3) private(vb,vel) async(wrf_gpu_q) if(wrf_gpu_on)
+    DO j = j_start, j_end+1
+        DO k = kts,ktf
+        DO i = i_start,i_end
+      IF ((j == j_start) .and. degrade_ys) THEN
+                vb = v(i,k,j-1)
+                IF (specified .AND. v(i,k,j) .LT. 0.)vb = v(i,k,j)
+                fqy3(i, k,j) = 0.25*(rv(i,k,j)+rv(i,k,j-1))  &
+                                 *(v(i,k,j)+vb)
+      ELSE IF ((j == j_end+1) .and. degrade_ye) THEN
+                vb = v(i,k,j)
+                IF (specified .AND. v(i,k,j-1) .GT. 0.)vb = v(i,k,j-1)
+                fqy3(i, k,j) = 0.25*(rv(i,k,j)+rv(i,k,j-1))    &
+                                 *(vb+v(i,k,j-1))
+      ELSE
+          vel = 0.5*(rv(i,k,j)+rv(i,k,j-1))
+          fqy3( i,k,j) = vel*flux3( v(i,k,j-2), v(i,k,j-1),  &
+                                     v(i,k,j  ), v(i,k,j+1),  &
+                                      vel                        )
+      END IF
+        ENDDO
+        ENDDO
+   ENDDO
+#else
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end+1
 
@@ -2784,6 +3015,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
       ! to jde [N pole], i.e., on v grid) must be zero at poles
       ! [tendency(jds) and tendency(jde)=0]
    ENDDO
+#endif
       cfg_polar = config_flags%polar
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end+1
@@ -3620,6 +3852,37 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
       fqy3 = 0.
 !$acc end kernels
 #endif
+#ifdef WRF_GPU
+!$acc parallel loop gang vector collapse(3) private(vel) async(wrf_gpu_q) if(wrf_gpu_on)
+     j_loop_y_flux_6_flux : DO j = j_start, j_end+1
+        DO k = kts,ktf
+        DO i = i_start,i_end
+      IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN ! use full stencil
+          vel = rv(i,k,j)
+          fqy3( i, k,j) = vel*flux6(                                &
+                  field(i,k,j-3), field(i,k,j-2), field(i,k,j-1),       &
+                  field(i,k,j  ), field(i,k,j+1), field(i,k,j+2),  vel )
+      ELSE IF ( j == jds+1 ) THEN   ! 2nd order flux next to south boundary
+              fqy3(i,k,j) = 0.5*rv(i,k,j)*          &
+                     (field(i,k,j)+field(i,k,j-1))
+
+     ELSE IF  ( j == jds+2 ) THEN  ! 4th order flux 2 in from south boundary
+              vel = rv(i,k,j)
+              fqy3( i, k,j) = vel*flux4(              &
+                   field(i,k,j-2),field(i,k,j-1),field(i,k,j),field(i,k,j+1),vel )
+     ELSE IF ( j == jde-1 ) THEN  ! 2nd order flux next to north boundary
+              fqy3(i, k,j) = 0.5*rv(i,k,j)*      &
+                     (field(i,k,j)+field(i,k,j-1))
+     ELSE IF ( j == jde-2 ) THEN  ! 3rd or 4th order flux 2 in from north boundary
+              vel = rv(i,k,j)
+              fqy3( i, k,j) = vel*flux4(             &
+                   field(i,k,j-2),field(i,k,j-1),    &
+                   field(i,k,j),field(i,k,j+1),vel )
+      END IF
+        ENDDO
+        ENDDO
+      ENDDO j_loop_y_flux_6_flux
+#else
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      j_loop_y_flux_6_flux : DO j = j_start, j_end+1
 
@@ -3689,6 +3952,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
         ! (latitudes are as for u grid, longitudes are displaced)
         ! Therefore: flow is only from one side for points next to poles
       ENDDO j_loop_y_flux_6_flux
+#endif
       cfg_polar = config_flags%polar
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      j_loop_y_flux_6 : DO j = j_start, j_end+1
@@ -3904,6 +4168,37 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
       fqy3 = 0.
 !$acc end kernels
 #endif
+#ifdef WRF_GPU
+!$acc parallel loop gang vector collapse(3) private(vel) async(wrf_gpu_q) if(wrf_gpu_on)
+     j_loop_y_flux_5_flux : DO j = j_start, j_end+1
+        DO k = kts,ktf
+        DO i = i_start,i_end
+      IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN ! use full stencil
+          vel = rv(i,k,j)
+          fqy3( i, k,j) = vel*flux5(                                &
+                  field(i,k,j-3), field(i,k,j-2), field(i,k,j-1),       &
+                  field(i,k,j  ), field(i,k,j+1), field(i,k,j+2),  vel )
+      ELSE IF ( j == jds+1 ) THEN   ! 2nd order flux next to south boundary
+              fqy3(i,k,j) = 0.5*rv(i,k,j)*          &
+                     (field(i,k,j)+field(i,k,j-1))
+
+     ELSE IF  ( j == jds+2 ) THEN  ! third of 4th order flux 2 in from south boundary
+              vel = rv(i,k,j)
+              fqy3( i, k,j) = vel*flux3(              &
+                   field(i,k,j-2),field(i,k,j-1),field(i,k,j),field(i,k,j+1),vel )
+     ELSE IF ( j == jde-1 ) THEN  ! 2nd order flux next to north boundary
+              fqy3(i, k,j) = 0.5*rv(i,k,j)*      &
+                     (field(i,k,j)+field(i,k,j-1))
+     ELSE IF ( j == jde-2 ) THEN  ! 3rd or 4th order flux 2 in from north boundary
+              vel = rv(i,k,j)
+              fqy3( i, k,j) = vel*flux3(             &
+                   field(i,k,j-2),field(i,k,j-1),    &
+                   field(i,k,j),field(i,k,j+1),vel )
+      END IF
+        ENDDO
+        ENDDO
+      ENDDO j_loop_y_flux_5_flux
+#else
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      j_loop_y_flux_5_flux : DO j = j_start, j_end+1
 
@@ -3973,6 +4268,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
         ! (latitudes are as for u grid, longitudes are displaced)
         ! Therefore: flow is only from one side for points next to poles
       ENDDO j_loop_y_flux_5_flux
+#endif
       cfg_polar = config_flags%polar
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      j_loop_y_flux_5 : DO j = j_start, j_end+1
@@ -4289,6 +4585,29 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
       fqy3 = 0.
 !$acc end kernels
 #endif
+#ifdef WRF_GPU
+!$acc parallel loop gang vector collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+  DO j = j_start, j_end+1
+        DO k = kts,ktf
+        DO i = i_start,i_end
+    IF ((j < j_start_f) .and. degrade_ys) THEN
+         fqy3(i,k,j) = 0.5*rv(i,k,j_start)             &
+                *(field(i,k,j_start)+field(i,k,j_start-1))
+    ELSE IF ((j > j_end_f) .and. degrade_ye) THEN
+         ! Assumes j>j_end_f is ONLY j_end+1 ...
+!         fqy3(i,k,j) = 0.5*rv(i,k,j_end+1)          &
+!                *(field(i,k,j_end+1)+field(i,k,j_end))
+         fqy3(i,k,j) = 0.5*rv(i,k,j)          &
+                *(field(i,k,j)+field(i,k,j-1))
+    ELSE
+         fqy3( i, k,j) = rv(i,k,j)*flux4( field(i,k,j-2), field(i,k,j-1),  &
+                                            field(i,k,j  ), field(i,k,j+1),  &
+                                            rv(i,k,j)                       )
+      END IF
+        ENDDO
+        ENDDO
+  ENDDO
+#else
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
   DO j = j_start, j_end+1
 
@@ -4330,6 +4649,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
     ! (latitudes are as for u grid, longitudes are displaced)
     ! Therefore: flow is only from one side for points next to poles
   ENDDO
+#endif
       cfg_polar = config_flags%polar
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
   DO j = j_start, j_end+1
@@ -4499,6 +4819,29 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
       fqy3 = 0.
 !$acc end kernels
 #endif
+#ifdef WRF_GPU
+!$acc parallel loop gang vector collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+  DO j = j_start, j_end+1
+        DO k = kts,ktf
+        DO i = i_start,i_end
+    IF ((j < j_start_f) .and. degrade_ys) THEN
+         fqy3(i,k,j) = 0.5*rv(i,k,j_start)             &
+                *(field(i,k,j_start)+field(i,k,j_start-1))
+    ELSE IF ((j > j_end_f) .and. degrade_ye) THEN
+         ! Assumes j>j_end_f is ONLY j_end+1 ...
+!         fqy3(i,k,j) = 0.5*rv(i,k,j_end+1)          &
+!                *(field(i,k,j_end+1)+field(i,k,j_end))
+         fqy3(i,k,j) = 0.5*rv(i,k,j)          &
+                *(field(i,k,j)+field(i,k,j-1))
+    ELSE
+         fqy3( i, k,j) = rv(i,k,j)*flux3( field(i,k,j-2), field(i,k,j-1),  &
+                                            field(i,k,j  ), field(i,k,j+1),  &
+                                            rv(i,k,j)                       )
+      END IF
+        ENDDO
+        ENDDO
+  ENDDO
+#else
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
   DO j = j_start, j_end+1
 
@@ -4540,6 +4883,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
     ! (latitudes are as for u grid, longitudes are displaced)
     ! Therefore: flow is only from one side for points next to poles
   ENDDO
+#endif
       cfg_polar = config_flags%polar
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
   DO j = j_start, j_end+1
@@ -7321,6 +7665,80 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
 !  compute fluxes, 6th order
 
+#ifdef WRF_GPU
+!$acc parallel loop gang vector collapse(3) private(cr,dy,mu,vel) async(wrf_gpu_q) if(wrf_gpu_on)
+      j_loop_y_flux_6 : DO j = j_start, j_end+1
+        DO k = kts,ktf
+        DO i = i_start,i_end
+      IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN ! use full stencil
+
+          dy = 2./(msftx(i,j)+msftx(i,j-1))/rdy  ! ADT eqn 48 d/dy
+          mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i,j-1)+c2(k)))
+          vel = rv(i,k,j)
+          cr = vel*dt/dy/mu
+          fqyl(i,k,j) = mu*(dy/dt)*flux_upwind(field_old(i,k,j-1), field_old(i,k,j  ), cr)
+
+          fqy( i, k, j  ) = vel*flux6(                                  &
+                  field(i,k,j-3), field(i,k,j-2), field(i,k,j-1),       &
+                  field(i,k,j  ), field(i,k,j+1), field(i,k,j+2),  vel )
+
+          fqy(i,k,j) = fqy(i,k,j) - fqyl(i,k,j)
+
+      ELSE IF ( j == jds+1 ) THEN   ! 2nd order flux next to south boundary
+
+              dy = 2./(msftx(i,j)+msftx(i,j-1))/rdy  ! ADT eqn 48 d/dy
+              mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i,j-1)+c2(k)))
+              vel = rv(i,k,j)
+              cr = vel*dt/dy/mu
+              fqyl(i,k,j) = mu*(dy/dt)*flux_upwind(field_old(i,k,j-1), field_old(i,k,j  ), cr)
+
+              fqy(i,k, j) = 0.5*rv(i,k,j)*          &
+                     (field(i,k,j)+field(i,k,j-1))
+
+              fqy(i,k,j) = fqy(i,k,j) - fqyl(i,k,j)
+
+      ELSE IF  ( j == jds+2 ) THEN  ! third of 4th order flux 2 in from south boundary
+
+              dy = 2./(msftx(i,j)+msftx(i,j-1))/rdy  ! ADT eqn 48 d/dy
+              mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i,j-1)+c2(k)))
+              vel = rv(i,k,j)
+              cr = vel*dt/dy/mu
+              fqyl(i,k,j) = mu*(dy/dt)*flux_upwind(field_old(i,k,j-1), field_old(i,k,j  ), cr)
+
+              fqy( i, k, j ) = vel*flux4(              &
+                   field(i,k,j-2),field(i,k,j-1),field(i,k,j),field(i,k,j+1),vel )
+              fqy(i,k,j) = fqy(i,k,j) - fqyl(i,k,j)
+
+      ELSE IF ( j == jde-1 ) THEN  ! 2nd order flux next to north boundary
+
+              dy = 2./(msftx(i,j)+msftx(i,j-1))/rdy  ! ADT eqn 48 d/dy
+              mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i,j-1)+c2(k)))
+              vel = rv(i,k,j)
+              cr = vel*dt/dy/mu
+              fqyl(i,k,j) = mu*(dy/dt)*flux_upwind(field_old(i,k,j-1), field_old(i,k,j  ), cr)
+
+              fqy(i, k, j ) = 0.5*rv(i,k,j)*      &
+                     (field(i,k,j)+field(i,k,j-1))
+              fqy(i,k,j) = fqy(i,k,j) - fqyl(i,k,j)
+
+      ELSE IF ( j == jde-2 ) THEN  ! 3rd or 4th order flux 2 in from north boundary
+
+              dy = 2./(msftx(i,j)+msftx(i,j-1))/rdy  ! ADT eqn 48 d/dy
+              mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i,j-1)+c2(k)))
+              vel = rv(i,k,j)
+              cr = vel*dt/dy/mu
+              fqyl(i,k,j) = mu*(dy/dt)*flux_upwind(field_old(i,k,j-1), field_old(i,k,j  ), cr)
+
+              fqy( i, k, j) = vel*flux4(             &
+                   field(i,k,j-2),field(i,k,j-1),    &
+                   field(i,k,j),field(i,k,j+1),vel )
+              fqy(i,k,j) = fqy(i,k,j) - fqyl(i,k,j)
+
+      END IF
+        ENDDO
+        ENDDO
+   ENDDO j_loop_y_flux_6
+#else
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
       j_loop_y_flux_6 : DO j = j_start, j_end+1
 
@@ -7426,6 +7844,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
       ENDIF
 
    ENDDO j_loop_y_flux_6
+#endif
 
 !  next, x flux
 
@@ -7611,6 +8030,80 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
 !  compute fluxes, 5th order
 
+#ifdef WRF_GPU
+!$acc parallel loop gang vector collapse(3) private(cr,dy,mu,vel) async(wrf_gpu_q) if(wrf_gpu_on)
+      j_loop_y_flux_5 : DO j = j_start, j_end+1
+        DO k = kts,ktf
+        DO i = i_start,i_end
+      IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN ! use full stencil
+
+          dy = 2./(msftx(i,j)+msftx(i,j-1))/rdy  ! ADT eqn 48 d/dy
+          mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i,j-1)+c2(k)))
+          vel = rv(i,k,j)
+          cr = vel*dt/dy/mu
+          fqyl(i,k,j) = mu*(dy/dt)*flux_upwind(field_old(i,k,j-1), field_old(i,k,j  ), cr)
+
+          fqy( i, k, j  ) = vel*flux5(                                  &
+                  field(i,k,j-3), field(i,k,j-2), field(i,k,j-1),       &
+                  field(i,k,j  ), field(i,k,j+1), field(i,k,j+2),  vel )
+
+          fqy(i,k,j) = fqy(i,k,j) - fqyl(i,k,j)
+
+      ELSE IF ( j == jds+1 ) THEN   ! 2nd order flux next to south boundary
+
+              dy = 2./(msftx(i,j)+msftx(i,j-1))/rdy  ! ADT eqn 48 d/dy
+              mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i,j-1)+c2(k)))
+              vel = rv(i,k,j)
+              cr = vel*dt/dy/mu
+              fqyl(i,k,j) = mu*(dy/dt)*flux_upwind(field_old(i,k,j-1), field_old(i,k,j  ), cr)
+
+              fqy(i,k, j) = 0.5*rv(i,k,j)*          &
+                     (field(i,k,j)+field(i,k,j-1))
+
+              fqy(i,k,j) = fqy(i,k,j) - fqyl(i,k,j)
+
+      ELSE IF  ( j == jds+2 ) THEN  ! third of 4th order flux 2 in from south boundary
+
+              dy = 2./(msftx(i,j)+msftx(i,j-1))/rdy  ! ADT eqn 48 d/dy
+              mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i,j-1)+c2(k)))
+              vel = rv(i,k,j)
+              cr = vel*dt/dy/mu
+              fqyl(i,k,j) = mu*(dy/dt)*flux_upwind(field_old(i,k,j-1), field_old(i,k,j  ), cr)
+
+              fqy( i, k, j ) = vel*flux3(              &
+                   field(i,k,j-2),field(i,k,j-1),field(i,k,j),field(i,k,j+1),vel )
+              fqy(i,k,j) = fqy(i,k,j) - fqyl(i,k,j)
+
+      ELSE IF ( j == jde-1 ) THEN  ! 2nd order flux next to north boundary
+
+              dy = 2./(msftx(i,j)+msftx(i,j-1))/rdy  ! ADT eqn 48 d/dy
+              mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i,j-1)+c2(k)))
+              vel = rv(i,k,j)
+              cr = vel*dt/dy/mu
+              fqyl(i,k,j) = mu*(dy/dt)*flux_upwind(field_old(i,k,j-1), field_old(i,k,j  ), cr)
+
+              fqy(i, k, j ) = 0.5*rv(i,k,j)*      &
+                     (field(i,k,j)+field(i,k,j-1))
+              fqy(i,k,j) = fqy(i,k,j) - fqyl(i,k,j)
+
+      ELSE IF ( j == jde-2 ) THEN  ! 3rd or 4th order flux 2 in from north boundary
+
+              dy = 2./(msftx(i,j)+msftx(i,j-1))/rdy  ! ADT eqn 48 d/dy
+              mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i,j-1)+c2(k)))
+              vel = rv(i,k,j)
+              cr = vel*dt/dy/mu
+              fqyl(i,k,j) = mu*(dy/dt)*flux_upwind(field_old(i,k,j-1), field_old(i,k,j  ), cr)
+
+              fqy( i, k, j) = vel*flux3(             &
+                   field(i,k,j-2),field(i,k,j-1),    &
+                   field(i,k,j),field(i,k,j+1),vel )
+              fqy(i,k,j) = fqy(i,k,j) - fqyl(i,k,j)
+
+      END IF
+        ENDDO
+        ENDDO
+   ENDDO j_loop_y_flux_5
+#else
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
       j_loop_y_flux_5 : DO j = j_start, j_end+1
 
@@ -7716,6 +8209,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
       ENDIF
 
    ENDDO j_loop_y_flux_5
+#endif
 
 !  next, x flux
 
@@ -7899,6 +8393,54 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
 !  compute fluxes, 4th order
 
+#ifdef WRF_GPU
+!$acc parallel loop gang vector collapse(3) private(cr,dy,mu,vel) async(wrf_gpu_q) if(wrf_gpu_on)
+      j_loop_y_flux_4 : DO j = j_start, j_end+1
+        DO k = kts,ktf
+        DO i = i_start,i_end
+      IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN ! use full stencil
+
+          dy = 2./(msftx(i,j)+msftx(i,j-1))/rdy  ! ADT eqn 48 d/dy
+          mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i,j-1)+c2(k)))
+          vel = rv(i,k,j)
+          cr = vel*dt/dy/mu
+          fqyl(i,k,j) = mu*(dy/dt)*flux_upwind(field_old(i,k,j-1), field_old(i,k,j  ), cr)
+
+          fqy( i, k, j  ) = vel*flux4(  field(i,k,j-2), field(i,k,j-1),       &
+                                        field(i,k,j  ), field(i,k,j+1), vel )
+
+          fqy(i,k,j) = fqy(i,k,j) - fqyl(i,k,j)
+
+      ELSE IF ( j == jds+1 ) THEN   ! 2nd order flux next to south boundary
+
+              dy = 2./(msftx(i,j)+msftx(i,j-1))/rdy  ! ADT eqn 48 d/dy
+              mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i,j-1)+c2(k)))
+              vel = rv(i,k,j)
+              cr = vel*dt/dy/mu
+              fqyl(i,k,j) = mu*(dy/dt)*flux_upwind(field_old(i,k,j-1), field_old(i,k,j  ), cr)
+
+              fqy(i,k, j) = 0.5*rv(i,k,j)*          &
+                     (field(i,k,j)+field(i,k,j-1))
+
+              fqy(i,k,j) = fqy(i,k,j) - fqyl(i,k,j)
+
+      ELSE IF ( j == jde-1 ) THEN  ! 2nd order flux next to north boundary
+
+              dy = 2./(msftx(i,j)+msftx(i,j-1))/rdy  ! ADT eqn 48 d/dy
+              mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i,j-1)+c2(k)))
+              vel = rv(i,k,j)
+              cr = vel*dt/dy/mu
+              fqyl(i,k,j) = mu*(dy/dt)*flux_upwind(field_old(i,k,j-1), field_old(i,k,j  ), cr)
+
+              fqy(i, k, j ) = 0.5*rv(i,k,j)*      &
+                     (field(i,k,j)+field(i,k,j-1))
+              fqy(i,k,j) = fqy(i,k,j) - fqyl(i,k,j)
+
+      END IF
+        ENDDO
+        ENDDO
+   ENDDO j_loop_y_flux_4
+#else
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
       j_loop_y_flux_4 : DO j = j_start, j_end+1
 
@@ -7964,6 +8506,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
       ENDIF
 
    ENDDO j_loop_y_flux_4
+#endif
 
 !  next, x flux
 
@@ -8105,6 +8648,54 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
 !  compute fluxes, 3rd order
 
+#ifdef WRF_GPU
+!$acc parallel loop gang vector collapse(3) private(cr,dy,mu,vel) async(wrf_gpu_q) if(wrf_gpu_on)
+      j_loop_y_flux_3 : DO j = j_start, j_end+1
+        DO k = kts,ktf
+        DO i = i_start,i_end
+      IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN ! use full stencil
+
+          dy = 2./(msftx(i,j)+msftx(i,j-1))/rdy  ! ADT eqn 48 d/dy
+          mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i,j-1)+c2(k)))
+          vel = rv(i,k,j)
+          cr = vel*dt/dy/mu
+          fqyl(i,k,j) = mu*(dy/dt)*flux_upwind(field_old(i,k,j-1), field_old(i,k,j  ), cr)
+
+          fqy( i, k, j  ) = vel*flux3(  field(i,k,j-2), field(i,k,j-1),       &
+                                        field(i,k,j  ), field(i,k,j+1), vel )
+
+          fqy(i,k,j) = fqy(i,k,j) - fqyl(i,k,j)
+
+      ELSE IF ( j == jds+1 ) THEN   ! 2nd order flux next to south boundary
+
+              dy = 2./(msftx(i,j)+msftx(i,j-1))/rdy  ! ADT eqn 48 d/dy
+              mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i,j-1)+c2(k)))
+              vel = rv(i,k,j)
+              cr = vel*dt/dy/mu
+              fqyl(i,k,j) = mu*(dy/dt)*flux_upwind(field_old(i,k,j-1), field_old(i,k,j  ), cr)
+
+              fqy(i,k, j) = 0.5*rv(i,k,j)*          &
+                     (field(i,k,j)+field(i,k,j-1))
+
+              fqy(i,k,j) = fqy(i,k,j) - fqyl(i,k,j)
+
+      ELSE IF ( j == jde-1 ) THEN  ! 2nd order flux next to north boundary
+
+              dy = 2./(msftx(i,j)+msftx(i,j-1))/rdy  ! ADT eqn 48 d/dy
+              mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i,j-1)+c2(k)))
+              vel = rv(i,k,j)
+              cr = vel*dt/dy/mu
+              fqyl(i,k,j) = mu*(dy/dt)*flux_upwind(field_old(i,k,j-1), field_old(i,k,j  ), cr)
+
+              fqy(i, k, j ) = 0.5*rv(i,k,j)*      &
+                     (field(i,k,j)+field(i,k,j-1))
+              fqy(i,k,j) = fqy(i,k,j) - fqyl(i,k,j)
+
+      END IF
+        ENDDO
+        ENDDO
+   ENDDO j_loop_y_flux_3
+#else
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
       j_loop_y_flux_3 : DO j = j_start, j_end+1
 
@@ -8170,6 +8761,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
       ENDIF
 
    ENDDO j_loop_y_flux_3
+#endif
 
 !  next, x flux
 
