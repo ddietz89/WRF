@@ -117,6 +117,7 @@ SUBROUTINE solve_em ( grid , config_flags  &
 #endif
 #ifdef WRF_GPU
    USE module_wrf_error, ONLY : wrf_gpu_on, wrf_gpu_q
+   USE module_bc, ONLY : wrf_gpu_xw_skip
 #ifdef WRF_GPU_RESIDENT
    USE module_radiation_driver, ONLY : wrf_gpu_ra_ran, wrf_gpu_ra_pullre, wrf_gpu_ra_lw, wrf_gpu_ra_sw, wrf_gpu_lean_step
 #ifdef WRF_GPU_RESIDENT
@@ -1329,6 +1330,10 @@ BENCH_START(calc_p_rho_tim)
    ENDIF
 #endif
      END IF rk_step_is_one
+#ifdef WRF_GPU_RESIDENT
+     ! RK dynamics: one tile, launched by this thread on queue wrf_gpu_q -> routines skip their exit waits
+     wrf_gpu_xw_skip = IAND( wrf_gpu_xfer(), 1048576 ) /= 0 .AND. wrf_gpu_q == 1 .AND. grid%num_tiles == 1 .AND. wrf_gpu_on
+#endif
 #ifdef WRF_GPU_FIELDTRACE
      IF (rk_step == 1) CALL gpu_field_trace( grid, 'b_post_physics' )
 #endif
@@ -4187,6 +4192,12 @@ BENCH_END(bc_end_tim)
    CALL gpu_ck( grid, 'e_rkend', rk_step, ids, ide, jds, jde, kds, kde, &
         ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
 #endif
+#ifdef WRF_GPU_RESIDENT
+     IF ( wrf_gpu_xw_skip ) THEN
+!$acc wait
+       wrf_gpu_xw_skip = .FALSE.
+     ENDIF
+#endif
    END DO Runge_Kutta_loop
 #ifdef WRF_GPU_FIELDTRACE
        CALL gpu_field_trace( grid, 'c_post_rk' )
@@ -6639,7 +6650,7 @@ END FUNCTION wrf_gpu_hostblocks
 ! tendencies (needs 2+4), 32 microphysics block on the GPU (Thompson), 64 no pushes of recomputed diffusion fields,
 ! 128 H1 reuses the H3-pulled state (alt/p/ph_2 still pulled), 256 GPU-side init_zero_tendency + phy_prep,
 ! 1024 MYJ PBL on the GPU (needs 256), 2048 pinned staging of the H1/H3 pulls, 4096 boundary arrays pushed only
-! after boundary reads, 8192 Tiedtke cumulus on the GPU (needs 1024); 16384/32768 RRTMG LW/SW, 65536 NWP+AFWA diagnostics, 131072 MYJ surface layer, 262144 Noah LSM, 524288 lean steps; default 1048575.
+! after boundary reads, 8192 Tiedtke cumulus on the GPU (needs 1024); 16384/32768 RRTMG LW/SW, 65536 NWP+AFWA diagnostics, 131072 MYJ surface layer, 262144 Noah LSM, 524288 lean steps, 1048576 RK dynamics without per-routine exit waits; default 1048575.
 ! WRF_GPU_XFER bit 2048 (residency): device->host copy of one array through two pinned staging buffers
 ! (cuMemAllocHost), double-buffered on async queues 11/12, with an OpenMP host copy out of the staging buffer.
 ! Pageable update self runs at ~4.4 GB/s on the V100 rentals; pinned DMA ~11-12 GB/s. Falls back to update self.
@@ -6944,6 +6955,25 @@ LOGICAL FUNCTION gpu_p8wchk()
    ENDIF
    gpu_p8wchk = mode > 0
 END FUNCTION gpu_p8wchk
+
+! WRF_GPU_P8WCHK: compare the device copy of a (contiguous, present) array with the host copy; the host copy is kept
+SUBROUTINE gpu_arrchk( nm, a, n, step )
+   IMPLICIT NONE
+   CHARACTER(LEN=*), INTENT(IN) :: nm
+   INTEGER, INTENT(IN) :: n, step
+   REAL, INTENT(INOUT) :: a(n)
+   REAL, ALLOCATABLE :: h(:)
+   REAL :: d
+   INTEGER :: nd
+   ALLOCATE( h(n) )
+   h = a
+!$acc update self(a(1:n))
+   d = MAXVAL( ABS( a - h ) )
+   nd = COUNT( a /= h )
+   IF ( nd > 0 ) WRITE(0,'(A,I6,1X,A12,ES12.4,I9)') 'ARRCHK step', step, nm, d, nd
+   a = h
+   DEALLOCATE( h )
+END SUBROUTINE gpu_arrchk
 
 SUBROUTINE gpu_lean_check( grid, th_phy, p_phy, pi_phy, p8w, t8w, dz8w, moist, num_moist, ims, ime, jms, jme, &
                            kms, kme, ips, ipe, jps, jpe )

@@ -12,6 +12,8 @@ MODULE module_pbl_driver
 ! residency builds: wrf_gpu_pbl (set by solve_em) = run MYJ on the GPU (MYJPBL_GPU, whole patch, before the tile
 ! loop); wrf_gpu_pbl_ran = it ran this call (its tendencies are then GPU-written: solve_em does not push them)
    LOGICAL :: wrf_gpu_pbl = .FALSE., wrf_gpu_pbl_ran = .FALSE.
+! set by first_rk_step_part1: GPU surface layer and GPU LSM ran this step (their outputs are current on the device)
+   LOGICAL :: wrf_gpu_pbl_sfcdev = .FALSE.
 #endif
 CONTAINS
 
@@ -251,6 +253,9 @@ CONTAINS
    !
 !------------------------------------------------------------------
    IMPLICIT NONE
+#ifdef WRF_GPU_RESIDENT
+   LOGICAL, EXTERNAL :: gpu_p8wchk
+#endif
 #ifdef WRF_GPU_RESIDENT
    LOGICAL :: gpu_myj_will
 #endif
@@ -1219,8 +1224,22 @@ CONTAINS
 !$acc enter data copyin(mixht_gpu)
       gpu_pbl_entered = .TRUE.
     ENDIF
+    IF ( wrf_gpu_pbl_sfcdev ) THEN   ! surface layer + LSM ran on the GPU: device copies current
+      IF ( gpu_p8wchk() ) THEN
+        CALL gpu_arrchk('pbl tsk',tsk,SIZE(tsk),itimestep) ; CALL gpu_arrchk('pbl qsfc',qsfc,SIZE(qsfc),itimestep)
+        CALL gpu_arrchk('pbl chklowq',chklowq,SIZE(chklowq),itimestep) ; CALL gpu_arrchk('pbl thz0',thz0,SIZE(thz0),itimestep)
+        CALL gpu_arrchk('pbl qz0',qz0,SIZE(qz0),itimestep) ; CALL gpu_arrchk('pbl uz0',uz0,SIZE(uz0),itimestep)
+        CALL gpu_arrchk('pbl vz0',vz0,SIZE(vz0),itimestep) ; CALL gpu_arrchk('pbl ust',ust,SIZE(ust),itimestep)
+        CALL gpu_arrchk('pbl znt',znt,SIZE(znt),itimestep) ; CALL gpu_arrchk('pbl ct',ct,SIZE(ct),itimestep)
+        CALL gpu_arrchk('pbl akhs',akhs,SIZE(akhs),itimestep) ; CALL gpu_arrchk('pbl akms',akms,SIZE(akms),itimestep)
+        CALL gpu_arrchk('pbl lh',lh,SIZE(lh),itimestep) ; CALL gpu_arrchk('pbl xland',xland,SIZE(xland),itimestep)
+        CALL gpu_arrchk('pbl xice',xice,SIZE(xice),itimestep) ; CALL gpu_arrchk('pbl snow',snow,SIZE(snow),itimestep)
+        CALL gpu_arrchk('pbl ht',ht,SIZE(ht),itimestep)
+      ENDIF
+    ELSE
     ! host surface physics wrote these this step
 !$acc update device(tsk,qsfc,chklowq,thz0,qz0,uz0,vz0,ust,znt,ct,akhs,akms,lh,xland,xice,snow,lowlyr,ht)
+    ENDIF
     wrf_gpu_on = .TRUE.
     CALL myjpbl_gpu(DT=dt,STEPBL=stepbl,HT=ht,DZ=dz8w                        &
               ,PMID=p_phy,PINT=p8w,TH=th_phy,T=t_phy,EXNER=pi_phy           &

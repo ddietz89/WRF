@@ -56,6 +56,10 @@ CONTAINS
     USE module_cumulus_driver, ONLY : cumulus_driver
     USE module_shallowcu_driver, ONLY : shallowcu_driver
     USE module_pbl_driver, ONLY : pbl_driver
+#ifdef WRF_GPU_RESIDENT
+    USE module_surface_driver, ONLY : wrf_gpu_sfcdev_ran, wrf_gpu_chain_last
+    USE module_pbl_driver, ONLY : wrf_gpu_pbl_sfcdev, wrf_gpu_pbl_ran
+#endif
     USE module_fr_fire_driver_wrf, ONLY : fire_driver_em_step
     USE module_fddagd_driver, ONLY : fddagd_driver
     USE module_em, ONLY : init_zero_tendency
@@ -1179,6 +1183,9 @@ BENCH_START(surf_driver_tim)
 #endif
 
 BENCH_END(surf_driver_tim)
+#ifdef WRF_GPU_RESIDENT
+      wrf_gpu_pbl_sfcdev = wrf_gpu_sfcdev_ran   ! surface layer + LSM ran on the GPU: their device outputs are current
+#endif
 
 !*********
 ! pbl
@@ -1416,6 +1423,14 @@ BENCH_START(pbl_driver_tim)
 #endif
      &        ,QNORM=grid%QNORM, fasdas=config_flags%fasdas               & !fasdas
      &        )
+#ifdef WRF_GPU_RESIDENT
+      ! whole surface/PBL chain on the GPU this step: next step's surface layer / LSM need not re-push their state
+      IF ( wrf_gpu_sfcdev_ran .AND. wrf_gpu_pbl_ran ) THEN
+        wrf_gpu_chain_last = grid%itimestep
+      ELSE
+        wrf_gpu_chain_last = -10
+      ENDIF
+#endif
 
 #if (WRF_CHEM == 1)
 #ifdef DM_PARALLEL

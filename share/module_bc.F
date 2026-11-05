@@ -12,6 +12,10 @@ MODULE module_bc
    USE module_wrf_error
    USE module_model_constants
    IMPLICIT NONE
+   ! .TRUE. while solve_em runs the single-tile RK dynamics (WRF_GPU_XFER bit 1048576): GPU routines then skip their
+   ! exit '!$acc wait' (all work is launched by one host thread on queue wrf_gpu_q, so it stays ordered; solve_em
+   ! waits once at the end of each RK stage)
+   LOGICAL :: wrf_gpu_xw_skip = .FALSE.
 
 !   TYPE bcs
 !
@@ -654,7 +658,9 @@ CONTAINS
 
        END IF
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
    END SUBROUTINE set_physical_bc2d
 
 !-----------------------------------
@@ -1159,7 +1165,9 @@ CONTAINS
 
       END IF periodicity_y
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
    END SUBROUTINE set_physical_bc3d
 
    SUBROUTINE init_module_bc
@@ -1482,7 +1490,9 @@ CONTAINS
 
 
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
    END SUBROUTINE relax_bdytend_core
 !------------------------------------------------------------------------
 
@@ -1613,7 +1623,9 @@ CONTAINS
       ENDIF
     ENDIF
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
    END SUBROUTINE spec_bdytend
    
 !------------------------------------------------------------------------
@@ -1799,7 +1811,9 @@ CONTAINS
       ENDIF
     ENDIF
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
    END SUBROUTINE spec_bdytend_perturb
 
 
@@ -2146,7 +2160,9 @@ CONTAINS
       ENDIF
     ENDIF
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
    END SUBROUTINE spec_bdyupdate
 !------------------------------------------------------------------------
    SUBROUTINE spec_bdy_final   ( field, mu, c1, c2, msf,               &
@@ -2308,7 +2324,9 @@ CONTAINS
       ENDIF
     ENDIF
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
    END SUBROUTINE spec_bdy_final
 !------------------------------------------------------------------------
 
@@ -2433,7 +2451,9 @@ CONTAINS
       ENDIF
     ENDIF
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
    END SUBROUTINE zero_grad_bdy
 !------------------------------------------------------------------------
 
@@ -2566,7 +2586,9 @@ CONTAINS
       ENDIF
     ENDIF
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
    END SUBROUTINE flow_dep_bdy
 
 !------------------------------------------------------------------------------

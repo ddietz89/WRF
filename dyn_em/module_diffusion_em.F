@@ -3,6 +3,7 @@
 
     MODULE module_diffusion_em
    USE module_wrf_error, ONLY : wrf_gpu_on, wrf_gpu_q   ! GPU port: host/device switch for compute regions
+   USE module_bc, ONLY : wrf_gpu_xw_skip
 
     USE module_bc, only: set_physical_bc3d, set_physical_bc2d ! XZ
     USE module_state_description, only: p_m23, p_m13, p_m22, p_m33, p_r23, p_r13, p_r12, p_m12, p_m11, &
@@ -120,8 +121,10 @@
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(mm)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(mm)
+      ENDIF
+!$acc kernels present(mm) async(wrf_gpu_q)
       mm = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -140,8 +143,10 @@
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(zzavg)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(zzavg)
+      ENDIF
+!$acc kernels present(zzavg) async(wrf_gpu_q)
       zzavg = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -160,8 +165,10 @@
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(zeta_zd12)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(zeta_zd12)
+      ENDIF
+!$acc kernels present(zeta_zd12) async(wrf_gpu_q)
       zeta_zd12 = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -180,8 +187,10 @@
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(tmp1)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(tmp1)
+      ENDIF
+!$acc kernels present(tmp1) async(wrf_gpu_q)
       tmp1 = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -200,8 +209,10 @@
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(hat)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(hat)
+      ENDIF
+!$acc kernels present(hat) async(wrf_gpu_q)
       hat = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -220,8 +231,10 @@
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(hatavg)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(hatavg)
+      ENDIF
+!$acc kernels present(hatavg) async(wrf_gpu_q)
       hatavg = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -1393,7 +1406,9 @@
 ! are now calculated at vorticity points.
 !=======================================================================
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
     END SUBROUTINE cal_deform_and_div
 
 !=======================================================================
@@ -1616,8 +1631,10 @@ SUBROUTINE cal_dampkm( config_flags,xkmh,xkhh,xkmv,xkhv,                       &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(dampk)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(dampk)
+      ENDIF
+!$acc kernels present(dampk) async(wrf_gpu_q)
       dampk = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -1636,8 +1653,10 @@ SUBROUTINE cal_dampkm( config_flags,xkmh,xkhh,xkmv,xkhv,                       &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(dampkv)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(dampkv)
+      ENDIF
+!$acc kernels present(dampkv) async(wrf_gpu_q)
       dampkv = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -1736,7 +1755,9 @@ SUBROUTINE cal_dampkm( config_flags,xkmh,xkhh,xkmv,xkhv,                       &
    ENDDO
    ENDDO
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
 END SUBROUTINE cal_dampkm
 
 !=======================================================================
@@ -1821,8 +1842,10 @@ END SUBROUTINE cal_dampkm
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(tmp1sfc)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(tmp1sfc)
+      ENDIF
+!$acc kernels present(tmp1sfc) async(wrf_gpu_q)
       tmp1sfc = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -1841,8 +1864,10 @@ END SUBROUTINE cal_dampkm
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(tmp1top)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(tmp1top)
+      ENDIF
+!$acc kernels present(tmp1top) async(wrf_gpu_q)
       tmp1top = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -1861,8 +1886,10 @@ END SUBROUTINE cal_dampkm
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(tmp1)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(tmp1)
+      ENDIF
+!$acc kernels present(tmp1) async(wrf_gpu_q)
       tmp1 = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -1881,8 +1908,10 @@ END SUBROUTINE cal_dampkm
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(qvs)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(qvs)
+      ENDIF
+!$acc kernels present(qvs) async(wrf_gpu_q)
       qvs = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -1901,8 +1930,10 @@ END SUBROUTINE cal_dampkm
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(qctmp)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(qctmp)
+      ENDIF
+!$acc kernels present(qctmp) async(wrf_gpu_q)
       qctmp = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -2093,7 +2124,9 @@ END SUBROUTINE cal_dampkm
     END DO
 ! end of MARTA/WCS change
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
     END SUBROUTINE calculate_N2
 
 !=======================================================================
@@ -2154,7 +2187,9 @@ SUBROUTINE isotropic_km( config_flags,                                         &
    ENDDO
    ENDDO
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
 END SUBROUTINE isotropic_km
 
 !=======================================================================
@@ -2228,8 +2263,10 @@ SUBROUTINE smag_km( config_flags,xkmh,xkmv,xkhh,xkhv,BN2,                      &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(def2)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(def2)
+      ENDIF
+!$acc kernels present(def2) async(wrf_gpu_q)
       def2 = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -2345,7 +2382,9 @@ SUBROUTINE smag_km( config_flags,xkmh,xkmv,xkhh,xkhv,BN2,                      &
       ENDDO
    ENDIF
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
 END SUBROUTINE smag_km
 
 !=======================================================================
@@ -2413,8 +2452,10 @@ SUBROUTINE smag2d_km( config_flags,xkmh,xkmv,xkhh,xkhv,                        &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(def2)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(def2)
+      ENDIF
+!$acc kernels present(def2) async(wrf_gpu_q)
       def2 = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -2490,7 +2531,9 @@ SUBROUTINE smag2d_km( config_flags,xkmh,xkmv,xkhh,xkhv,                        &
       ENDDO
       ENDDO
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
 END SUBROUTINE smag2d_km
 
 !=======================================================================
@@ -2616,8 +2659,10 @@ END SUBROUTINE smag2d_km
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(l_scale)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(l_scale)
+      ENDIF
+!$acc kernels present(l_scale) async(wrf_gpu_q)
       l_scale = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -2636,8 +2681,10 @@ END SUBROUTINE smag2d_km
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(dthrdn)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(dthrdn)
+      ENDIF
+!$acc kernels present(dthrdn) async(wrf_gpu_q)
       dthrdn = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -2656,8 +2703,10 @@ END SUBROUTINE smag2d_km
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(def2)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(def2)
+      ENDIF
+!$acc kernels present(def2) async(wrf_gpu_q)
       def2 = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -2676,8 +2725,10 @@ END SUBROUTINE smag2d_km
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(xkmh_s)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(xkmh_s)
+      ENDIF
+!$acc kernels present(xkmh_s) async(wrf_gpu_q)
       xkmh_s = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -2696,8 +2747,10 @@ END SUBROUTINE smag2d_km
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(xkhh_s)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(xkhh_s)
+      ENDIF
+!$acc kernels present(xkhh_s) async(wrf_gpu_q)
       xkhh_s = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -2912,7 +2965,9 @@ END SUBROUTINE smag2d_km
 
     ENDIF
 !!!
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
     END SUBROUTINE tke_km
 
 !=======================================================================
@@ -2984,7 +3039,9 @@ END SUBROUTINE smag2d_km
     END DO
     END DO
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
     END SUBROUTINE calc_l_scale
 
 !=======================================================================
@@ -3079,8 +3136,10 @@ END SUBROUTINE smag2d_km
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(zfull)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(zfull)
+      ENDIF
+!$acc kernels present(zfull) async(wrf_gpu_q)
       zfull = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -3099,8 +3158,10 @@ END SUBROUTINE smag2d_km
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(za)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(za)
+      ENDIF
+!$acc kernels present(za) async(wrf_gpu_q)
       za = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -3119,8 +3180,10 @@ END SUBROUTINE smag2d_km
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(elb)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(elb)
+      ENDIF
+!$acc kernels present(elb) async(wrf_gpu_q)
       elb = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -3139,8 +3202,10 @@ END SUBROUTINE smag2d_km
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(qtke)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(qtke)
+      ENDIF
+!$acc kernels present(qtke) async(wrf_gpu_q)
       qtke = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -3159,8 +3224,10 @@ END SUBROUTINE smag2d_km
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(els)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(els)
+      ENDIF
+!$acc kernels present(els) async(wrf_gpu_q)
       els = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -3179,8 +3246,10 @@ END SUBROUTINE smag2d_km
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(elf)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(elf)
+      ENDIF
+!$acc kernels present(elf) async(wrf_gpu_q)
       elf = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -3199,8 +3268,10 @@ END SUBROUTINE smag2d_km
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(sflux)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(sflux)
+      ENDIF
+!$acc kernels present(sflux) async(wrf_gpu_q)
       sflux = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -3219,8 +3290,10 @@ END SUBROUTINE smag2d_km
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(elt)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(elt)
+      ENDIF
+!$acc kernels present(elt) async(wrf_gpu_q)
       elt = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -3239,8 +3312,10 @@ END SUBROUTINE smag2d_km
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(vsc)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(vsc)
+      ENDIF
+!$acc kernels present(vsc) async(wrf_gpu_q)
       vsc = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -3259,8 +3334,10 @@ END SUBROUTINE smag2d_km
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(dthrdn)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(dthrdn)
+      ENDIF
+!$acc kernels present(dthrdn) async(wrf_gpu_q)
       dthrdn = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -3485,7 +3562,9 @@ END SUBROUTINE smag2d_km
     ENDDO
     ENDDO
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
     END SUBROUTINE meso_length_scale
 !=======================================================================
 !=======================================================================
@@ -3571,8 +3650,10 @@ END SUBROUTINE smag2d_km
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(zfull)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(zfull)
+      ENDIF
+!$acc kernels present(zfull) async(wrf_gpu_q)
       zfull = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -3591,8 +3672,10 @@ END SUBROUTINE smag2d_km
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(za)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(za)
+      ENDIF
+!$acc kernels present(za) async(wrf_gpu_q)
       za = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -3611,8 +3694,10 @@ END SUBROUTINE smag2d_km
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(dlg)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(dlg)
+      ENDIF
+!$acc kernels present(dlg) async(wrf_gpu_q)
       dlg = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -3631,8 +3716,10 @@ END SUBROUTINE smag2d_km
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(dlu)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(dlu)
+      ENDIF
+!$acc kernels present(dlu) async(wrf_gpu_q)
       dlu = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -3651,8 +3738,10 @@ END SUBROUTINE smag2d_km
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(dld)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(dld)
+      ENDIF
+!$acc kernels present(dld) async(wrf_gpu_q)
       dld = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -3802,7 +3891,9 @@ END SUBROUTINE smag2d_km
     ENDDO
     ENDDO
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
     END SUBROUTINE free_atmos_length
 !=======================================================================
 !=======================================================================
@@ -4156,8 +4247,10 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(titau1avg)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(titau1avg)
+      ENDIF
+!$acc kernels present(titau1avg) async(wrf_gpu_q)
       titau1avg = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -4176,8 +4269,10 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(titau2avg)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(titau2avg)
+      ENDIF
+!$acc kernels present(titau2avg) async(wrf_gpu_q)
       titau2avg = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -4196,8 +4291,10 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(titau1)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(titau1)
+      ENDIF
+!$acc kernels present(titau1) async(wrf_gpu_q)
       titau1 = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -4216,8 +4313,10 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(titau2)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(titau2)
+      ENDIF
+!$acc kernels present(titau2) async(wrf_gpu_q)
       titau2 = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -4236,8 +4335,10 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(xkxavg)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(xkxavg)
+      ENDIF
+!$acc kernels present(xkxavg) async(wrf_gpu_q)
       xkxavg = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -4256,8 +4357,10 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(rravg)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(rravg)
+      ENDIF
+!$acc kernels present(rravg) async(wrf_gpu_q)
       rravg = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -4276,8 +4379,10 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(zy_at_u)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(zy_at_u)
+      ENDIF
+!$acc kernels present(zy_at_u) async(wrf_gpu_q)
       zy_at_u = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -4296,8 +4401,10 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(zx_at_u)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(zx_at_u)
+      ENDIF
+!$acc kernels present(zx_at_u) async(wrf_gpu_q)
       zx_at_u = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -4432,7 +4539,9 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
    ENDDO
    ENDDO
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
 END SUBROUTINE horizontal_diffusion_u_2
 
 !=======================================================================
@@ -4529,8 +4638,10 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(titau1avg)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(titau1avg)
+      ENDIF
+!$acc kernels present(titau1avg) async(wrf_gpu_q)
       titau1avg = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -4549,8 +4660,10 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(titau2avg)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(titau2avg)
+      ENDIF
+!$acc kernels present(titau2avg) async(wrf_gpu_q)
       titau2avg = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -4569,8 +4682,10 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(titau1)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(titau1)
+      ENDIF
+!$acc kernels present(titau1) async(wrf_gpu_q)
       titau1 = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -4589,8 +4704,10 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(titau2)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(titau2)
+      ENDIF
+!$acc kernels present(titau2) async(wrf_gpu_q)
       titau2 = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -4609,8 +4726,10 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(xkxavg)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(xkxavg)
+      ENDIF
+!$acc kernels present(xkxavg) async(wrf_gpu_q)
       xkxavg = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -4629,8 +4748,10 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(rravg)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(rravg)
+      ENDIF
+!$acc kernels present(rravg) async(wrf_gpu_q)
       rravg = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -4649,8 +4770,10 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(zy_at_v)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(zy_at_v)
+      ENDIF
+!$acc kernels present(zy_at_v) async(wrf_gpu_q)
       zy_at_v = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -4669,8 +4792,10 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(zx_at_v)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(zx_at_v)
+      ENDIF
+!$acc kernels present(zx_at_v) async(wrf_gpu_q)
       zx_at_v = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -4800,7 +4925,9 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
    ENDDO
    ENDDO
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
 END SUBROUTINE horizontal_diffusion_v_2
 
 !=======================================================================
@@ -4897,8 +5024,10 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(titau1avg)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(titau1avg)
+      ENDIF
+!$acc kernels present(titau1avg) async(wrf_gpu_q)
       titau1avg = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -4917,8 +5046,10 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(titau2avg)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(titau2avg)
+      ENDIF
+!$acc kernels present(titau2avg) async(wrf_gpu_q)
       titau2avg = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -4937,8 +5068,10 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(titau1)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(titau1)
+      ENDIF
+!$acc kernels present(titau1) async(wrf_gpu_q)
       titau1 = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -4957,8 +5090,10 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(titau2)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(titau2)
+      ENDIF
+!$acc kernels present(titau2) async(wrf_gpu_q)
       titau2 = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -4977,8 +5112,10 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(xkxavg)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(xkxavg)
+      ENDIF
+!$acc kernels present(xkxavg) async(wrf_gpu_q)
       xkxavg = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -4997,8 +5134,10 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(rravg)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(rravg)
+      ENDIF
+!$acc kernels present(rravg) async(wrf_gpu_q)
       rravg = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -5017,8 +5156,10 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(zx_at_w)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(zx_at_w)
+      ENDIF
+!$acc kernels present(zx_at_w) async(wrf_gpu_q)
       zx_at_w = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -5037,8 +5178,10 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(zy_at_w)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(zy_at_w)
+      ENDIF
+!$acc kernels present(zy_at_w) async(wrf_gpu_q)
       zy_at_w = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -5164,7 +5307,9 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
    ENDDO
    ENDDO
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
 END SUBROUTINE horizontal_diffusion_w_2
 
 !=======================================================================
@@ -5266,8 +5411,10 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(H1avg)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(H1avg)
+      ENDIF
+!$acc kernels present(H1avg) async(wrf_gpu_q)
       H1avg = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -5286,8 +5433,10 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(H2avg)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(H2avg)
+      ENDIF
+!$acc kernels present(H2avg) async(wrf_gpu_q)
       H2avg = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -5306,8 +5455,10 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(H1)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(H1)
+      ENDIF
+!$acc kernels present(H1) async(wrf_gpu_q)
       H1 = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -5326,8 +5477,10 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(H2)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(H2)
+      ENDIF
+!$acc kernels present(H2) async(wrf_gpu_q)
       H2 = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -5346,8 +5499,10 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(xkxavg)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(xkxavg)
+      ENDIF
+!$acc kernels present(xkxavg) async(wrf_gpu_q)
       xkxavg = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -5366,8 +5521,10 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(zx_at_m)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(zx_at_m)
+      ENDIF
+!$acc kernels present(zx_at_m) async(wrf_gpu_q)
       zx_at_m = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -5386,8 +5543,10 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(zy_at_m)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(zy_at_m)
+      ENDIF
+!$acc kernels present(zy_at_m) async(wrf_gpu_q)
       zy_at_m = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -5406,8 +5565,10 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(tmptendf)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(tmptendf)
+      ENDIF
+!$acc kernels present(tmptendf) async(wrf_gpu_q)
       tmptendf = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -5645,7 +5806,9 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
       ENDDO
    ENDIF
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
 END SUBROUTINE horizontal_diffusion_s
 
 !=======================================================================
@@ -5783,8 +5946,10 @@ SUBROUTINE vertical_diffusion_2   ( ru_tendf, rv_tendf, rw_tendf, rt_tendf,   &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(var_mix)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(var_mix)
+      ENDIF
+!$acc kernels present(var_mix) async(wrf_gpu_q)
       var_mix = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -6140,7 +6305,9 @@ SUBROUTINE vertical_diffusion_2   ( ru_tendf, rv_tendf, rw_tendf, rt_tendf,   &
 
    ENDIF
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
 END SUBROUTINE vertical_diffusion_2
 
 !=======================================================================
@@ -6219,8 +6386,10 @@ SUBROUTINE vertical_diffusion_u_2( tendency, config_flags,                &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(titau3)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(titau3)
+      ENDIF
+!$acc kernels present(titau3) async(wrf_gpu_q)
       titau3 = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -6239,8 +6408,10 @@ SUBROUTINE vertical_diffusion_u_2( tendency, config_flags,                &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(zzavg)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(zzavg)
+      ENDIF
+!$acc kernels present(zzavg) async(wrf_gpu_q)
       zzavg = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -6308,7 +6479,9 @@ SUBROUTINE vertical_diffusion_u_2( tendency, config_flags,                &
        ENDDO
 ! ******** MODIF...
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
 END SUBROUTINE vertical_diffusion_u_2
 
 !=======================================================================
@@ -6385,8 +6558,10 @@ SUBROUTINE vertical_diffusion_v_2( tendency, config_flags,                &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(titau3)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(titau3)
+      ENDIF
+!$acc kernels present(titau3) async(wrf_gpu_q)
       titau3 = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -6405,8 +6580,10 @@ SUBROUTINE vertical_diffusion_v_2( tendency, config_flags,                &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(zzavg)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(zzavg)
+      ENDIF
+!$acc kernels present(zzavg) async(wrf_gpu_q)
       zzavg = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -6475,7 +6652,9 @@ SUBROUTINE vertical_diffusion_v_2( tendency, config_flags,                &
        ENDDO
 ! ******** MODIF...
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
 END SUBROUTINE vertical_diffusion_v_2
 
 !=======================================================================
@@ -6546,8 +6725,10 @@ SUBROUTINE vertical_diffusion_w_2(tendency, config_flags,                 &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(titau3)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(titau3)
+      ENDIF
+!$acc kernels present(titau3) async(wrf_gpu_q)
       titau3 = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -6605,7 +6786,9 @@ SUBROUTINE vertical_diffusion_w_2(tendency, config_flags,                 &
    ENDDO
    ENDDO
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
 END SUBROUTINE vertical_diffusion_w_2
 
 !=======================================================================
@@ -6680,8 +6863,10 @@ SUBROUTINE vertical_diffusion_s( tendency, config_flags, var, xkhv,       &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(H3)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(H3)
+      ENDIF
+!$acc kernels present(H3) async(wrf_gpu_q)
       H3 = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -6700,8 +6885,10 @@ SUBROUTINE vertical_diffusion_s( tendency, config_flags, var, xkhv,       &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(xkxavg)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(xkxavg)
+      ENDIF
+!$acc kernels present(xkxavg) async(wrf_gpu_q)
       xkxavg = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -6720,8 +6907,10 @@ SUBROUTINE vertical_diffusion_s( tendency, config_flags, var, xkhv,       &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(rravg)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(rravg)
+      ENDIF
+!$acc kernels present(rravg) async(wrf_gpu_q)
       rravg = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -6740,8 +6929,10 @@ SUBROUTINE vertical_diffusion_s( tendency, config_flags, var, xkhv,       &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(tmptendf)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(tmptendf)
+      ENDIF
+!$acc kernels present(tmptendf) async(wrf_gpu_q)
       tmptendf = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -6826,7 +7017,9 @@ SUBROUTINE vertical_diffusion_s( tendency, config_flags, var, xkhv,       &
       ENDDO
    ENDIF
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
 END SUBROUTINE vertical_diffusion_s
 
 !=======================================================================
@@ -6962,8 +7155,10 @@ END SUBROUTINE vertical_diffusion_s
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(zq)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(zq)
+      ENDIF
+!$acc kernels present(zq) async(wrf_gpu_q)
       zq = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -6982,8 +7177,10 @@ END SUBROUTINE vertical_diffusion_s
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(za)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(za)
+      ENDIF
+!$acc kernels present(za) async(wrf_gpu_q)
       za = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -7002,8 +7199,10 @@ END SUBROUTINE vertical_diffusion_s
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(thv)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(thv)
+      ENDIF
+!$acc kernels present(thv) async(wrf_gpu_q)
       thv = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -7022,8 +7221,10 @@ END SUBROUTINE vertical_diffusion_s
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(zfacmf)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(zfacmf)
+      ENDIF
+!$acc kernels present(zfacmf) async(wrf_gpu_q)
       zfacmf = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -7042,8 +7243,10 @@ END SUBROUTINE vertical_diffusion_s
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(entfacmf)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(entfacmf)
+      ENDIF
+!$acc kernels present(entfacmf) async(wrf_gpu_q)
       entfacmf = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -7062,8 +7265,10 @@ END SUBROUTINE vertical_diffusion_s
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(govrth)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(govrth)
+      ENDIF
+!$acc kernels present(govrth) async(wrf_gpu_q)
       govrth = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -7082,8 +7287,10 @@ END SUBROUTINE vertical_diffusion_s
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(sflux)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(sflux)
+      ENDIF
+!$acc kernels present(sflux) async(wrf_gpu_q)
       sflux = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -7102,8 +7309,10 @@ END SUBROUTINE vertical_diffusion_s
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(wstar3)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(wstar3)
+      ENDIF
+!$acc kernels present(wstar3) async(wrf_gpu_q)
       wstar3 = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -7122,8 +7331,10 @@ END SUBROUTINE vertical_diffusion_s
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(wstar)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(wstar)
+      ENDIF
+!$acc kernels present(wstar) async(wrf_gpu_q)
       wstar = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -7142,8 +7353,10 @@ END SUBROUTINE vertical_diffusion_s
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(rigs)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(rigs)
+      ENDIF
+!$acc kernels present(rigs) async(wrf_gpu_q)
       rigs = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -7162,8 +7375,10 @@ END SUBROUTINE vertical_diffusion_s
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(pblflg)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(pblflg)
+      ENDIF
+!$acc kernels present(pblflg) async(wrf_gpu_q)
       pblflg = .FALSE.   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -7182,8 +7397,10 @@ END SUBROUTINE vertical_diffusion_s
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(sfcflg)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(sfcflg)
+      ENDIF
+!$acc kernels present(sfcflg) async(wrf_gpu_q)
       sfcflg = .FALSE.   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -7202,8 +7419,10 @@ END SUBROUTINE vertical_diffusion_s
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(stable)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(stable)
+      ENDIF
+!$acc kernels present(stable) async(wrf_gpu_q)
       stable = .FALSE.   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -7222,8 +7441,10 @@ END SUBROUTINE vertical_diffusion_s
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(deltaoh)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(deltaoh)
+      ENDIF
+!$acc kernels present(deltaoh) async(wrf_gpu_q)
       deltaoh = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -7242,8 +7463,10 @@ END SUBROUTINE vertical_diffusion_s
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(we)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(we)
+      ENDIF
+!$acc kernels present(we) async(wrf_gpu_q)
       we = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -7262,8 +7485,10 @@ END SUBROUTINE vertical_diffusion_s
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(enlfrac2)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(enlfrac2)
+      ENDIF
+!$acc kernels present(enlfrac2) async(wrf_gpu_q)
       enlfrac2 = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -7282,8 +7507,10 @@ END SUBROUTINE vertical_diffusion_s
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(hfxpbl)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(hfxpbl)
+      ENDIF
+!$acc kernels present(hfxpbl) async(wrf_gpu_q)
       hfxpbl = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -7302,8 +7529,10 @@ END SUBROUTINE vertical_diffusion_s
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(bfxpbl)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(bfxpbl)
+      ENDIF
+!$acc kernels present(bfxpbl) async(wrf_gpu_q)
       bfxpbl = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -7322,8 +7551,10 @@ END SUBROUTINE vertical_diffusion_s
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(dthv)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(dthv)
+      ENDIF
+!$acc kernels present(dthv) async(wrf_gpu_q)
       dthv = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -7342,8 +7573,10 @@ END SUBROUTINE vertical_diffusion_s
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(wm2)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(wm2)
+      ENDIF
+!$acc kernels present(wm2) async(wrf_gpu_q)
       wm2 = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -7362,8 +7595,10 @@ END SUBROUTINE vertical_diffusion_s
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(wscale)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(wscale)
+      ENDIF
+!$acc kernels present(wscale) async(wrf_gpu_q)
       wscale = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -7382,8 +7617,10 @@ END SUBROUTINE vertical_diffusion_s
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(thermal)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(thermal)
+      ENDIF
+!$acc kernels present(thermal) async(wrf_gpu_q)
       thermal = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -7657,7 +7894,9 @@ END SUBROUTINE vertical_diffusion_s
     ENDIF
   ENDDO
   ENDDO
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
 END SUBROUTINE nonlocal_flux
 
 !==============================================================================
@@ -7873,7 +8112,9 @@ END SUBROUTINE nonlocal_flux
 
     ENDIF
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
     END SUBROUTINE cal_titau_11_22_33
 
 !=======================================================================
@@ -7952,8 +8193,10 @@ END SUBROUTINE nonlocal_flux
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(xkxavg)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(xkxavg)
+      ENDIF
+!$acc kernels present(xkxavg) async(wrf_gpu_q)
       xkxavg = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -7972,8 +8215,10 @@ END SUBROUTINE nonlocal_flux
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(rhoavg)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(rhoavg)
+      ENDIF
+!$acc kernels present(rhoavg) async(wrf_gpu_q)
       rhoavg = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -8068,7 +8313,9 @@ END SUBROUTINE nonlocal_flux
 
     ENDIF
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
     END SUBROUTINE cal_titau_12_21
 
 !=======================================================================
@@ -8150,8 +8397,10 @@ END SUBROUTINE nonlocal_flux
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(xkxavg)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(xkxavg)
+      ENDIF
+!$acc kernels present(xkxavg) async(wrf_gpu_q)
       xkxavg = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -8170,8 +8419,10 @@ END SUBROUTINE nonlocal_flux
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(rhoavg)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(rhoavg)
+      ENDIF
+!$acc kernels present(rhoavg) async(wrf_gpu_q)
       rhoavg = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -8272,7 +8523,9 @@ END SUBROUTINE nonlocal_flux
     ENDDO
     ENDDO
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
     END SUBROUTINE cal_titau_13_31
 
 !=======================================================================
@@ -8354,8 +8607,10 @@ END SUBROUTINE nonlocal_flux
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(xkxavg)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(xkxavg)
+      ENDIF
+!$acc kernels present(xkxavg) async(wrf_gpu_q)
       xkxavg = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -8374,8 +8629,10 @@ END SUBROUTINE nonlocal_flux
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(rhoavg)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(rhoavg)
+      ENDIF
+!$acc kernels present(rhoavg) async(wrf_gpu_q)
       rhoavg = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -8478,7 +8735,9 @@ END SUBROUTINE nonlocal_flux
     END DO
     END DO
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
     END SUBROUTINE cal_titau_23_32
 
 !=======================================================================
@@ -8813,7 +9072,9 @@ END SUBROUTINE phy_bc
     END DO
     END DO
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
     END SUBROUTINE tke_rhs
 
 !=======================================================================
@@ -8970,7 +9231,9 @@ END SUBROUTINE phy_bc
 ! motions.
 !-----------------------------------------------------------------------
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
     END SUBROUTINE tke_buoyancy
 
 !=======================================================================
@@ -9085,8 +9348,10 @@ END SUBROUTINE phy_bc
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(dthrdn)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(dthrdn)
+      ENDIF
+!$acc kernels present(dthrdn) async(wrf_gpu_q)
       dthrdn = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -9105,8 +9370,10 @@ END SUBROUTINE phy_bc
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(l_scale)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(l_scale)
+      ENDIF
+!$acc kernels present(l_scale) async(wrf_gpu_q)
       l_scale = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -9125,8 +9392,10 @@ END SUBROUTINE phy_bc
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(sumtke)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(sumtke)
+      ENDIF
+!$acc kernels present(sumtke) async(wrf_gpu_q)
       sumtke = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -9145,8 +9414,10 @@ END SUBROUTINE phy_bc
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(sumtkez)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(sumtkez)
+      ENDIF
+!$acc kernels present(sumtkez) async(wrf_gpu_q)
       sumtkez = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -9212,7 +9483,9 @@ END SUBROUTINE phy_bc
       END DO
       END DO
       END DO
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
     END SUBROUTINE tke_dissip
 
 !=======================================================================
@@ -9347,8 +9620,10 @@ END SUBROUTINE phy_bc
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(avg)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(avg)
+      ENDIF
+!$acc kernels present(avg) async(wrf_gpu_q)
       avg = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -9367,8 +9642,10 @@ END SUBROUTINE phy_bc
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(titau)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(titau)
+      ENDIF
+!$acc kernels present(titau) async(wrf_gpu_q)
       titau = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -9387,8 +9664,10 @@ END SUBROUTINE phy_bc
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(tmp2)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(tmp2)
+      ENDIF
+!$acc kernels present(tmp2) async(wrf_gpu_q)
       tmp2 = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -9407,8 +9686,10 @@ END SUBROUTINE phy_bc
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(titau12)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(titau12)
+      ENDIF
+!$acc kernels present(titau12) async(wrf_gpu_q)
       titau12 = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -9427,8 +9708,10 @@ END SUBROUTINE phy_bc
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(tmp1)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(tmp1)
+      ENDIF
+!$acc kernels present(tmp1) async(wrf_gpu_q)
       tmp1 = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -9447,8 +9730,10 @@ END SUBROUTINE phy_bc
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(zxavg)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(zxavg)
+      ENDIF
+!$acc kernels present(zxavg) async(wrf_gpu_q)
       zxavg = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -9467,8 +9752,10 @@ END SUBROUTINE phy_bc
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(zyavg)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(zyavg)
+      ENDIF
+!$acc kernels present(zyavg) async(wrf_gpu_q)
       zyavg = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -9741,7 +10028,9 @@ END SUBROUTINE phy_bc
   END SELECT vflux
 ! end of MARTA/WCS change
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
     END SUBROUTINE tke_shear
 
 !=======================================================================
@@ -9803,8 +10092,10 @@ END SUBROUTINE phy_bc
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(z_at_w)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(z_at_w)
+      ENDIF
+!$acc kernels present(z_at_w) async(wrf_gpu_q)
       z_at_w = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -10046,7 +10337,9 @@ END SUBROUTINE phy_bc
       END DO
     END DO
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
     END SUBROUTINE compute_diff_metrics
 
     SUBROUTINE cal_helicity ( config_flags, u, v, w, uh, up_heli_max,&
@@ -10151,8 +10444,10 @@ END SUBROUTINE phy_bc
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(mm)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(mm)
+      ENDIF
+!$acc kernels present(mm) async(wrf_gpu_q)
       mm = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -10171,8 +10466,10 @@ END SUBROUTINE phy_bc
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(tmp1)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(tmp1)
+      ENDIF
+!$acc kernels present(tmp1) async(wrf_gpu_q)
       tmp1 = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -10191,8 +10488,10 @@ END SUBROUTINE phy_bc
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(hat)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(hat)
+      ENDIF
+!$acc kernels present(hat) async(wrf_gpu_q)
       hat = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -10211,8 +10510,10 @@ END SUBROUTINE phy_bc
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(hatavg)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(hatavg)
+      ENDIF
+!$acc kernels present(hatavg) async(wrf_gpu_q)
       hatavg = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -10231,8 +10532,10 @@ END SUBROUTINE phy_bc
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(wavg)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(wavg)
+      ENDIF
+!$acc kernels present(wavg) async(wrf_gpu_q)
       wavg = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -10251,8 +10554,10 @@ END SUBROUTINE phy_bc
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(rvort)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(rvort)
+      ENDIF
+!$acc kernels present(rvort) async(wrf_gpu_q)
       rvort = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -10271,8 +10576,10 @@ END SUBROUTINE phy_bc
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(use_column)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(use_column)
+      ENDIF
+!$acc kernels present(use_column) async(wrf_gpu_q)
       use_column = .FALSE.   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -10684,7 +10991,9 @@ END SUBROUTINE phy_bc
 
 ! End update of boundary for updraft helicity.
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
     END SUBROUTINE cal_helicity
 !=======================================================================
 !=======================================================================
@@ -10910,8 +11219,10 @@ END SUBROUTINE phy_bc
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(var_mix)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(var_mix)
+      ENDIF
+!$acc kernels present(var_mix) async(wrf_gpu_q)
       var_mix = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -10930,8 +11241,10 @@ END SUBROUTINE phy_bc
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(xkxavg_m)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(xkxavg_m)
+      ENDIF
+!$acc kernels present(xkxavg_m) async(wrf_gpu_q)
       xkxavg_m = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -10950,8 +11263,10 @@ END SUBROUTINE phy_bc
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(xkxavg_s)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(xkxavg_s)
+      ENDIF
+!$acc kernels present(xkxavg_s) async(wrf_gpu_q)
       xkxavg_s = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -10970,8 +11285,10 @@ END SUBROUTINE phy_bc
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(xkxavg)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(xkxavg)
+      ENDIF
+!$acc kernels present(xkxavg) async(wrf_gpu_q)
       xkxavg = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -10990,8 +11307,10 @@ END SUBROUTINE phy_bc
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(xkxavg_w)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(xkxavg_w)
+      ENDIF
+!$acc kernels present(xkxavg_w) async(wrf_gpu_q)
       xkxavg_w = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -11010,8 +11329,10 @@ END SUBROUTINE phy_bc
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(rhoavg)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(rhoavg)
+      ENDIF
+!$acc kernels present(rhoavg) async(wrf_gpu_q)
       rhoavg = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -11030,8 +11351,10 @@ END SUBROUTINE phy_bc
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(nlflux_rho)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(nlflux_rho)
+      ENDIF
+!$acc kernels present(nlflux_rho) async(wrf_gpu_q)
       nlflux_rho = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -11050,8 +11373,10 @@ END SUBROUTINE phy_bc
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(gamvavg)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(gamvavg)
+      ENDIF
+!$acc kernels present(gamvavg) async(wrf_gpu_q)
       gamvavg = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -11070,8 +11395,10 @@ END SUBROUTINE phy_bc
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(gamuavg)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(gamuavg)
+      ENDIF
+!$acc kernels present(gamuavg) async(wrf_gpu_q)
       gamuavg = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -11090,8 +11417,10 @@ END SUBROUTINE phy_bc
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(tao_xz)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(tao_xz)
+      ENDIF
+!$acc kernels present(tao_xz) async(wrf_gpu_q)
       tao_xz = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -11110,8 +11439,10 @@ END SUBROUTINE phy_bc
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(tao_yz)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(tao_yz)
+      ENDIF
+!$acc kernels present(tao_yz) async(wrf_gpu_q)
       tao_yz = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -11130,8 +11461,10 @@ END SUBROUTINE phy_bc
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(muavg_u)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(muavg_u)
+      ENDIF
+!$acc kernels present(muavg_u) async(wrf_gpu_q)
       muavg_u = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -11150,8 +11483,10 @@ END SUBROUTINE phy_bc
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(muavg_v)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(muavg_v)
+      ENDIF
+!$acc kernels present(muavg_v) async(wrf_gpu_q)
       muavg_v = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -11170,8 +11505,10 @@ END SUBROUTINE phy_bc
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(rdz_u)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(rdz_u)
+      ENDIF
+!$acc kernels present(rdz_u) async(wrf_gpu_q)
       rdz_u = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -11190,8 +11527,10 @@ END SUBROUTINE phy_bc
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(rdz_v)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(rdz_v)
+      ENDIF
+!$acc kernels present(rdz_v) async(wrf_gpu_q)
       rdz_v = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -11210,8 +11549,10 @@ END SUBROUTINE phy_bc
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(a)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(a)
+      ENDIF
+!$acc kernels present(a) async(wrf_gpu_q)
       a = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -11230,8 +11571,10 @@ END SUBROUTINE phy_bc
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(b)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(b)
+      ENDIF
+!$acc kernels present(b) async(wrf_gpu_q)
       b = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -11250,8 +11593,10 @@ END SUBROUTINE phy_bc
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(c)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(c)
+      ENDIF
+!$acc kernels present(c) async(wrf_gpu_q)
       c = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -11270,8 +11615,10 @@ END SUBROUTINE phy_bc
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(d)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(d)
+      ENDIF
+!$acc kernels present(d) async(wrf_gpu_q)
       d = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -11290,8 +11637,10 @@ END SUBROUTINE phy_bc
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(a1)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(a1)
+      ENDIF
+!$acc kernels present(a1) async(wrf_gpu_q)
       a1 = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -11310,8 +11659,10 @@ END SUBROUTINE phy_bc
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(b1)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(b1)
+      ENDIF
+!$acc kernels present(b1) async(wrf_gpu_q)
       b1 = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -11330,8 +11681,10 @@ END SUBROUTINE phy_bc
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(c1)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(c1)
+      ENDIF
+!$acc kernels present(c1) async(wrf_gpu_q)
       c1 = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -11350,8 +11703,10 @@ END SUBROUTINE phy_bc
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(d1)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(d1)
+      ENDIF
+!$acc kernels present(d1) async(wrf_gpu_q)
       d1 = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -12115,7 +12470,9 @@ END SUBROUTINE phy_bc
      ENDDO chem_loop
    ENDIF
  
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
     END SUBROUTINE vertical_diffusion_implicit
 
 !=======================================================================

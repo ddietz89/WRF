@@ -10,6 +10,10 @@ MODULE module_surface_driver
   LOGICAL :: wrf_gpu_lsm = .FALSE.
   LOGICAL, PRIVATE :: lsm_gpu_entered = .FALSE.
   LOGICAL, PRIVATE :: sfc_gpu_entered = .FALSE.
+! surface layer and LSM both ran on the GPU this call; last step whose surface layer + LSM + PBL all ran on the GPU
+! (set by first_rk_step_part1): the following step skips re-pushing their device-resident state
+  LOGICAL :: wrf_gpu_sfcdev_ran = .FALSE.
+  INTEGER :: wrf_gpu_chain_last = -10
 #endif
 CONTAINS
 
@@ -452,7 +456,8 @@ CONTAINS
 !------------------------------------------------------------------
    IMPLICIT NONE
 #ifdef WRF_GPU_RESIDENT
-   LOGICAL :: sfc_gpu_ran, lsm_gpu_ran, lsm_irr_off
+   LOGICAL :: sfc_gpu_ran, lsm_gpu_ran, lsm_irr_off, gpu_steady
+   LOGICAL, EXTERNAL :: gpu_p8wchk
 #endif
 #ifdef WRF_SEG_TIMERS
    INTEGER(8) :: sft_c0, sft_c1, sft_cr
@@ -2082,6 +2087,7 @@ CONTAINS
 #endif
 #ifdef WRF_GPU_RESIDENT
      sfc_gpu_ran = .FALSE.
+     wrf_gpu_sfcdev_ran = .FALSE.
      IF ( wrf_gpu_sfc .AND. sf_sfclay_physics == MYJSFCSCHEME .AND. FRACTIONAL_SEAICE == 0 .AND. itimestep > 1 ) THEN
       IF ( PRESENT(qv_curr) .AND. PRESENT(qc_curr) ) THEN
        sfc_gpu_ran = .TRUE.
@@ -2091,8 +2097,22 @@ CONTAINS
 !$acc enter data copyin(q10,pshltr,u10e,v10e)
          sfc_gpu_entered = .TRUE.
        ENDIF
+       gpu_steady = wrf_gpu_chain_last == itimestep - 1   ! previous step: whole chain on the GPU, device copies current
+       IF ( gpu_steady ) THEN
+        IF ( gpu_p8wchk() ) THEN
+         CALL gpu_arrchk('sfc tsk',tsk,SIZE(tsk),itimestep) ; CALL gpu_arrchk('sfc qsfc',qsfc,SIZE(qsfc),itimestep)
+         CALL gpu_arrchk('sfc thz0',thz0,SIZE(thz0),itimestep) ; CALL gpu_arrchk('sfc qz0',qz0,SIZE(qz0),itimestep)
+         CALL gpu_arrchk('sfc uz0',uz0,SIZE(uz0),itimestep) ; CALL gpu_arrchk('sfc vz0',vz0,SIZE(vz0),itimestep)
+         CALL gpu_arrchk('sfc xland',xland,SIZE(xland),itimestep) ; CALL gpu_arrchk('sfc ust',ust,SIZE(ust),itimestep)
+         CALL gpu_arrchk('sfc znt',znt,SIZE(znt),itimestep) ; CALL gpu_arrchk('sfc z0',z0,SIZE(z0),itimestep)
+         CALL gpu_arrchk('sfc pblh',pblh,SIZE(pblh),itimestep) ; CALL gpu_arrchk('sfc mavail',mavail,SIZE(mavail),itimestep)
+         CALL gpu_arrchk('sfc rmol',rmol,SIZE(rmol),itimestep) ; CALL gpu_arrchk('sfc akhs',akhs,SIZE(akhs),itimestep)
+         CALL gpu_arrchk('sfc akms',akms,SIZE(akms),itimestep)
+        ENDIF
+       ELSE
        ! host-written inputs (land surface, GPU-MYJ outputs pulled to the host, sea-ice / SST updates)
 !$acc update device(tsk,qsfc,thz0,qz0,uz0,vz0,xland,ust,znt,z0,pblh,mavail,rmol,akhs,akms,lowlyr,ivgtyp)
+       ENDIF
        ! chs, chs2, cqs2, cpm, qgh are automatic arrays of this routine (outputs of the surface layer)
 !$acc data create(chs,chs2,cqs2,cpm,qgh)
        CALL MYJSFC_GPU(itimestep,ht,dz8w,                       &
@@ -2703,10 +2723,44 @@ CONTAINS
          CALL NOAH_GPU_TABLES_UPDATE()
          lsm_gpu_entered = .TRUE.
        ENDIF
+       ! steady: LSM state and surface-layer outputs are current on the device; push only the host-written forcing
+       gpu_steady = sfc_gpu_ran .AND. wrf_gpu_chain_last == itimestep - 1
+       IF ( gpu_steady ) THEN
+        IF ( gpu_p8wchk() ) THEN
+         CALL gpu_arrchk('lsm tsk',tsk,SIZE(tsk),itimestep) ; CALL gpu_arrchk('lsm hfx',hfx,SIZE(hfx),itimestep)
+         CALL gpu_arrchk('lsm qfx',qfx,SIZE(qfx),itimestep) ; CALL gpu_arrchk('lsm lh',lh,SIZE(lh),itimestep)
+         CALL gpu_arrchk('lsm grdflx',grdflx,SIZE(grdflx),itimestep) ; CALL gpu_arrchk('lsm smstav',smstav,SIZE(smstav),itimestep)
+         CALL gpu_arrchk('lsm smstot',smstot,SIZE(smstot),itimestep)
+         CALL gpu_arrchk('lsm sfcrunoff',sfcrunoff,SIZE(sfcrunoff),itimestep)
+         CALL gpu_arrchk('lsm udrunoff',udrunoff,SIZE(udrunoff),itimestep)
+         CALL gpu_arrchk('lsm vegfra',vegfra,SIZE(vegfra),itimestep)
+         CALL gpu_arrchk('lsm albedo',albedo,SIZE(albedo),itimestep) ; CALL gpu_arrchk('lsm albbck',albbck,SIZE(albbck),itimestep)
+         CALL gpu_arrchk('lsm znt',znt,SIZE(znt),itimestep) ; CALL gpu_arrchk('lsm z0',z0,SIZE(z0),itimestep)
+         CALL gpu_arrchk('lsm tmn',tmn,SIZE(tmn),itimestep) ; CALL gpu_arrchk('lsm xland',xland,SIZE(xland),itimestep)
+         CALL gpu_arrchk('lsm emiss',emiss,SIZE(emiss),itimestep) ; CALL gpu_arrchk('lsm embck',embck,SIZE(embck),itimestep)
+         CALL gpu_arrchk('lsm snowc',snowc,SIZE(snowc),itimestep) ; CALL gpu_arrchk('lsm qsfc',qsfc,SIZE(qsfc),itimestep)
+         CALL gpu_arrchk('lsm smois',smois,SIZE(smois),itimestep) ; CALL gpu_arrchk('lsm tslb',tslb,SIZE(tslb),itimestep)
+         CALL gpu_arrchk('lsm snow',snow,SIZE(snow),itimestep) ; CALL gpu_arrchk('lsm canwat',canwat,SIZE(canwat),itimestep)
+         CALL gpu_arrchk('lsm chklowq',chklowq,SIZE(chklowq),itimestep) ; CALL gpu_arrchk('lsm lai',lai,SIZE(lai),itimestep)
+         CALL gpu_arrchk('lsm qz0',qz0,SIZE(qz0),itimestep) ; CALL gpu_arrchk('lsm sh2o',sh2o,SIZE(sh2o),itimestep)
+         CALL gpu_arrchk('lsm snowh',snowh,SIZE(snowh),itimestep) ; CALL gpu_arrchk('lsm snoalb',snoalb,SIZE(snoalb),itimestep)
+         CALL gpu_arrchk('lsm shdmin',shdmin,SIZE(shdmin),itimestep) ; CALL gpu_arrchk('lsm shdmax',shdmax,SIZE(shdmax),itimestep)
+         CALL gpu_arrchk('lsm snotime',snotime,SIZE(snotime),itimestep)
+         CALL gpu_arrchk('lsm acsnom',acsnom,SIZE(acsnom),itimestep)
+         CALL gpu_arrchk('lsm acsnow',acsnow,SIZE(acsnow),itimestep) ; CALL gpu_arrchk('lsm snopcx',snopcx,SIZE(snopcx),itimestep)
+         CALL gpu_arrchk('lsm potevp',potevp,SIZE(potevp),itimestep) ; CALL gpu_arrchk('lsm smcrel',smcrel,SIZE(smcrel),itimestep)
+         CALL gpu_arrchk('lsm br',br,SIZE(br),itimestep) ; CALL gpu_arrchk('lsm noahres',noahres,SIZE(noahres),itimestep)
+         CALL gpu_arrchk('lsm flx4',flx4,SIZE(flx4),itimestep) ; CALL gpu_arrchk('lsm fvb',fvb,SIZE(fvb),itimestep)
+         CALL gpu_arrchk('lsm fbur',fbur,SIZE(fbur),itimestep) ; CALL gpu_arrchk('lsm fgsn',fgsn,SIZE(fgsn),itimestep)
+         CALL gpu_arrchk('lsm rs',rs,SIZE(rs),itimestep) ; CALL gpu_arrchk('lsm xlaidyn',xlaidyn,SIZE(xlaidyn),itimestep)
+        ENDIF
+!$acc update device(swdown,glw,rainbl,sr,xice)
+       ELSE
 !$acc update device(tsk,hfx,qfx,lh,grdflx,swdown,glw,smstav,smstot,sfcrunoff,udrunoff,vegfra,albedo,albbck)
 !$acc update device(znt,z0,tmn,xland,xice,emiss,embck,snowc,qsfc,rainbl,smois,tslb,snow,canwat,sr,chklowq,lai,qz0)
 !$acc update device(sh2o,snowh,snoalb,shdmin,shdmax,snotime,acsnom,acsnow,snopcx,potevp,smcrel,br,noahres)
 !$acc update device(flx4,fvb,fbur,fgsn,ivgtyp,isltyp,rs,xlaidyn)
+       ENDIF
        ! chs, chs2, cqs2, qgh are automatic arrays of this routine
 !$acc data copyin(chs,cqs2,qgh) copy(chs2)
        CALL LSM_GPU(dz8w,qv_curr,p8w,t_phy,tsk,hfx,qfx,lh,grdflx,qgh,swdown,glw,smstav,smstot,          &
@@ -2724,6 +2778,7 @@ CONTAINS
 !$acc update self(noahres,flx4,fvb,fbur,fgsn,rs,xlaidyn)
 !$acc update self(NOAH_GPU_ERR,NOAHG_GPU_ERR)
        IF ( NOAH_GPU_ERR /= 0 .OR. NOAHG_GPU_ERR /= 0 ) CALL wrf_error_fatal('LSM_GPU: Noah error condition')
+       wrf_gpu_sfcdev_ran = sfc_gpu_ran
       ENDIF
      ENDIF
 #endif

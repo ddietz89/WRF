@@ -8,6 +8,7 @@
 
 MODULE module_small_step_em
    USE module_wrf_error, ONLY : wrf_gpu_on, wrf_gpu_q   ! GPU port: host/device switch for compute regions
+   USE module_bc, ONLY : wrf_gpu_xw_skip
 
    USE module_configure
    USE module_model_constants
@@ -326,7 +327,9 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
       ENDDO
       ENDDO
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
 END SUBROUTINE small_step_prep
 
 !-------------------------------------------------------------------------
@@ -483,7 +486,9 @@ SUBROUTINE small_step_finish( u_2, u_1, v_2, v_1, w_2, w_1,    &
   ENDDO
   ENDDO
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
 END SUBROUTINE small_step_finish
 
 !-----------------------------------------------------------------------
@@ -621,7 +626,9 @@ SUBROUTINE calc_p_rho( al, p, ph,                    &
        ENDDO
        ENDDO
      END IF
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
 END SUBROUTINE calc_p_rho
 !----------------------------------------------------------------------
 SUBROUTINE calc_coef_w( a,alpha,gamma,              &
@@ -713,7 +720,9 @@ SUBROUTINE calc_coef_w( a,alpha,gamma,              &
           gamma(i,kde,j) = c*alpha(i,kde,j)
         ENDDO
       ENDDO outer_j_loop
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
 END SUBROUTINE calc_coef_w
 !----------------------------------------------------------------------
 SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
@@ -1142,7 +1151,9 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
         ENDDO
      END IF
   END IF
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
 END SUBROUTINE advance_uv
 !---------------------------------------------------------------------
 SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
@@ -1439,7 +1450,9 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
 #ifdef WRF_GPU
   ENDIF
 #endif
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
 END SUBROUTINE advance_mu_t
           
 !------------------------------------------------------------
@@ -1557,8 +1570,10 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(mut_inv)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(mut_inv)
+      ENDIF
+!$acc kernels present(mut_inv) async(wrf_gpu_q)
       mut_inv = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -1577,8 +1592,10 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
 #ifdef WRF_GPU_RESIDENT
 !$acc wait
 !$acc enter data create(dampwt)
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
-!$acc kernels present(dampwt)
+      ENDIF
+!$acc kernels present(dampwt) async(wrf_gpu_q)
       dampwt = 0   ! device copy starts zeroed (pool memory is not)
 !$acc end kernels
 #endif
@@ -1917,7 +1934,9 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
   ENDIF
 #endif
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
 END SUBROUTINE advance_w
 
 !---------------------------------------------------------------------
@@ -2091,7 +2110,9 @@ SUBROUTINE sumflux ( ru, rv, ww,                             &
   ENDIF
 
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
 END SUBROUTINE sumflux
 
 !---------------------------------------------------------------------

@@ -3,6 +3,7 @@
 !
 MODULE module_bc_em
    USE module_wrf_error, ONLY : wrf_gpu_on, wrf_gpu_q   ! GPU port: host/device switch for compute regions
+   USE module_bc, ONLY : wrf_gpu_xw_skip
 
    USE module_bc, ONLY: set_physical_bc2d, set_physical_bc3d, spec_bdytend, &
                         spec_bdytend_perturb, relax_bdytend_tile, relax_bdytend, &
@@ -163,7 +164,9 @@ CONTAINS
       ENDIF
     ENDIF
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
    END SUBROUTINE spec_bdyupdate_ph
 
 !------------------------------------------------------------------------
@@ -1356,7 +1359,9 @@ CONTAINS
         ENDDO
       ENDIF
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
   END SUBROUTINE set_w_surface
 
   SUBROUTINE lbc_fcx_gcx ( fcx , gcx , spec_bdy_width , &
@@ -1808,7 +1813,9 @@ CONTAINS
          END DO
       END DO
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
    END SUBROUTINE mass_weight
   
 END MODULE module_bc_em

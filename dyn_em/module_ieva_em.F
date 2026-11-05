@@ -1,6 +1,7 @@
 MODULE module_ieva_em
 
    USE module_wrf_error, ONLY : wrf_gpu_on, wrf_gpu_q
+   USE module_bc, ONLY : wrf_gpu_xw_skip
   USE module_bc
   USE module_model_constants
   USE module_wrf_error
@@ -321,9 +322,13 @@ SUBROUTINE WW_SPLIT(wwE, wwI,                         &
 !
 !=========================================================================
 
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
 RETURN
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
+      ENDIF
 END SUBROUTINE WW_SPLIT
  
  
