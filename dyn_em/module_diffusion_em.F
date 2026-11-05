@@ -306,7 +306,7 @@
 
 ! Extrapolate to top and bottom of domain (to w levels).
 
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector
     DO i = i_start, i_end
@@ -424,7 +424,7 @@
 
 ! Extrapolate to top and bottom of domain (to w levels).
 
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector
     DO i = i_start, i_end
@@ -636,7 +636,7 @@
 
 ! Extrapolate to top and bottom of domain (to w levels).
 
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector
     DO i = i_start, i_end
@@ -725,7 +725,7 @@
 
 ! Extrapolate to top and bottom of domain (to w levels).
 
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector
     DO i = i_start, i_end
@@ -869,7 +869,7 @@
 ! Update the boundary for defor12 (might need to change later).
 
     IF ( .NOT. config_flags%periodic_x .AND. i_start .EQ. ids+1 ) THEN
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = jts, jte
 !$acc loop vector
       DO k = kts, kte
@@ -888,7 +888,7 @@
     END IF
 
     IF ( .NOT. config_flags%periodic_x .AND. i_end .EQ. ide-1) THEN
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = jts, jte
 !$acc loop vector
       DO k = kts, kte
@@ -956,7 +956,7 @@
     END DO
 
     i = i_start-1
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, MIN( jte, jde-1 )
 !$acc loop vector
     DO k = kts, kte
@@ -1016,7 +1016,7 @@
     END DO
     END DO
 
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector
     DO i = i_start, i_end
@@ -1145,7 +1145,7 @@
     END DO
 
     i = i_start-1
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, MIN( jte, jde-1 )
 !$acc loop vector
     DO k = kts, kte
@@ -1205,7 +1205,7 @@
     END DO
     END DO
 
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector
     DO i = i_start, i_end
@@ -1356,7 +1356,7 @@
 ! later).
 
     IF ( .NOT. config_flags%periodic_x .AND. i_start .EQ. ids+1) THEN
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = jts, jte
 !$acc loop vector
       DO k = kts, kte
@@ -1377,7 +1377,7 @@
     END IF
 
     IF ( .NOT. config_flags%periodic_x .AND. i_end .EQ. ide-1) THEN
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = jts, jte
 !$acc loop vector
       DO k = kts, kte
@@ -1684,7 +1684,7 @@ SUBROUTINE cal_dampkm( config_flags,xkmh,xkhh,xkmv,xkhv,                       &
 
    kmmax=dx*dx/dt
    degrad90=DEGRAD*90.
-!$acc parallel loop gang private(deltaz) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) private(deltaz) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = j_start, j_end
 
       k=ktf
@@ -2070,7 +2070,7 @@ END SUBROUTINE cal_dampkm
     END DO
 
     k = kts
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector private(coefa,qvsfc,thetaep1,thetaesfc,thetasfc,tmpdz,xlvqv)
     DO i = i_start, i_end
@@ -2115,7 +2115,7 @@ END SUBROUTINE cal_dampkm
 
 
 !...... MARTA: change in computation of BN2 at the top, WCS 040331
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector
     DO i = i_start, i_end
@@ -2806,7 +2806,7 @@ END SUBROUTINE smag2d_km
     END DO
 
     k = kts
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector private(thetasfc,tmpdz)
     DO i = i_start, i_end
@@ -2817,7 +2817,7 @@ END SUBROUTINE smag2d_km
     END DO
 
     k = ktf
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector private(thetatop,tmpdz)
     DO i = i_start, i_end
@@ -3363,7 +3363,7 @@ END SUBROUTINE smag2d_km
     IF ( config_flags%periodic_x ) i_end = MIN( ite, ide-1 )
  
  
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
     DO  j = j_start, j_end
 !$acc loop vector
     DO  i = i_start, i_end
@@ -3371,7 +3371,7 @@ END SUBROUTINE smag2d_km
     ENDDO
     ENDDO
  
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
     DO  j = j_start, j_end
 !$acc loop seq
     DO  k = kts, ktf
@@ -3411,7 +3411,7 @@ END SUBROUTINE smag2d_km
     END DO
  
     k = kts
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector private(thetasfc,tmpdz)
     DO i = i_start, i_end
@@ -3422,7 +3422,7 @@ END SUBROUTINE smag2d_km
     END DO
 
     k = ktf
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector private(thetatop,tmpdz)
     DO i = i_start, i_end
@@ -3449,7 +3449,7 @@ END SUBROUTINE smag2d_km
     ENDDO
     ENDDO
  
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop seq
     DO k = kts, ktf
@@ -3765,7 +3765,7 @@ END SUBROUTINE smag2d_km
     IF ( config_flags%periodic_x ) i_start = its
     IF ( config_flags%periodic_x ) i_end = MIN( ite, ide-1 )
  
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector
     DO i = i_start, i_end
@@ -3773,7 +3773,7 @@ END SUBROUTINE smag2d_km
     ENDDO
     ENDDO
  
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop seq
     DO k = kts, ktf
@@ -4505,7 +4505,7 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
    ENDDO
    ENDDO
 !
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = j_start, j_end
 !$acc loop vector
    DO i = i_start, i_end
@@ -4891,7 +4891,7 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
    ENDDO
    ENDDO
 
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = j_start, j_end
 !$acc loop vector
    DO i = i_start, i_end
@@ -5279,7 +5279,7 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
    ENDDO
    ENDDO
 
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = j_start, j_end
 !$acc loop vector
    DO i = i_start, i_end
@@ -5651,7 +5651,7 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
    ENDDO
    ENDDO
 
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = j_start, j_end
 !$acc loop vector
    DO i = i_start, i_end + 1
@@ -5705,7 +5705,7 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
    ENDDO
    ENDDO
 
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = j_start, j_end + 1
 !$acc loop vector
    DO i = i_start, i_end
@@ -5762,7 +5762,7 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
    ENDDO
    ENDDO
 
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = j_start, j_end
 !$acc loop vector
    DO i = i_start, i_end
@@ -6131,7 +6131,7 @@ SUBROUTINE vertical_diffusion_2   ( ru_tendf, rv_tendf, rw_tendf, rt_tendf,   &
   CASE (0,2) ! with fixed surface heat flux given in the namelist
     heat_flux = config_flags%tke_heat_flux  ! constant heat flux value
                                             ! set in namelist.input
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector private(cpm)
     DO i = i_start, i_end
@@ -6149,7 +6149,7 @@ SUBROUTINE vertical_diffusion_2   ( ru_tendf, rv_tendf, rw_tendf, rt_tendf,   &
     ENDDO
 
   CASE (1) ! use surface heat flux computed from surface routine
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector private(cpm,heat_flux)
     DO i = i_start, i_end
@@ -6467,7 +6467,7 @@ SUBROUTINE vertical_diffusion_u_2( tendency, config_flags,                &
 ! ******** MODIF...
 !  we will pick up the surface drag (titau3(i,kts,j)) later
 !
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
        DO j = j_start, j_end
        k=kts
 !$acc loop vector private(rdzu)
@@ -6639,7 +6639,7 @@ SUBROUTINE vertical_diffusion_v_2( tendency, config_flags,                &
 ! ******** MODIF...
 !  we will pick up the surface drag (titau3(i,kts,j)) later
 !
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
        DO j = j_start, j_end
        k=kts
 !$acc loop vector private(rdzv)
@@ -6986,7 +6986,7 @@ SUBROUTINE vertical_diffusion_s( tendency, config_flags, var, xkhv,       &
    ENDDO
    ENDDO
 
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = j_start, j_end
 !$acc loop vector
    DO i = i_start, i_end
@@ -7645,7 +7645,7 @@ END SUBROUTINE vertical_diffusion_s
    IF ( config_flags%periodic_x ) i_start = its
    IF ( config_flags%periodic_x ) i_end = MIN(ite,ide-1)
  
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = j_start, j_end
 !$acc loop vector
    DO i = i_start, i_end
@@ -7653,7 +7653,7 @@ END SUBROUTINE vertical_diffusion_s
    ENDDO
    ENDDO
 
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = j_start, j_end
 !$acc loop seq
    DO k = kts, ktf
@@ -8514,7 +8514,7 @@ END SUBROUTINE nonlocal_flux
 
     ENDIF
 
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector
     DO i = i_start, i_end
@@ -8726,7 +8726,7 @@ END SUBROUTINE nonlocal_flux
 
     ENDIF
 
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector
     DO i = i_start, i_end
@@ -9195,7 +9195,7 @@ END SUBROUTINE phy_bc
 ! LES mods
    K=KTS
 
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = j_start, j_end
 !$acc loop vector private(heat_flux)
    DO i = i_start, i_end
@@ -9209,7 +9209,7 @@ END SUBROUTINE phy_bc
   CASE (1) ! use surface heat flux computed from surface routine
    K=KTS
 
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = j_start, j_end
 !$acc loop vector private(cpm,heat_flux)
    DO i = i_start, i_end
@@ -9873,7 +9873,7 @@ END SUBROUTINE phy_bc
     END DO
     END DO
 
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector
     DO i = i_start, i_end+1
@@ -9910,7 +9910,7 @@ END SUBROUTINE phy_bc
 
     cd0 = config_flags%tke_drag_coefficient  ! drag coefficient set
                                              ! in namelist.input
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector private(absu,cd)
     DO i = i_start, i_end
@@ -9926,7 +9926,7 @@ END SUBROUTINE phy_bc
 
   CASE (1,2) ! ustar computed from surface routine
 
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector private(absu,cd)
     DO i = i_start, i_end
@@ -9956,7 +9956,7 @@ END SUBROUTINE phy_bc
     END DO
     END DO
 
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end+1
 !$acc loop vector
     DO i = i_start, i_end
@@ -9993,7 +9993,7 @@ END SUBROUTINE phy_bc
 
     cd0 = config_flags%tke_drag_coefficient   ! constant drag coefficient
                                               ! set in namelist.input
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector private(absu,cd)
     DO i = i_start, i_end
@@ -10009,7 +10009,7 @@ END SUBROUTINE phy_bc
 
   CASE (1,2) ! ustar computed from surface routine
 
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector private(absu,cd)
     DO i = i_start, i_end
@@ -10116,7 +10116,7 @@ END SUBROUTINE phy_bc
 
 ! Begin with dz computations.
 
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end
 
       IF ( ( j_start >= jts ) .AND. ( j_end <= MIN( jte, jde-1 ) ) ) THEN
@@ -10214,7 +10214,7 @@ END SUBROUTINE phy_bc
     IF ( .NOT. config_flags%periodic_x ) THEN
 
       IF ( ite == ide ) THEN
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
         DO j = j_start, j_end
 !$acc loop vector
         DO k = 1, ktf
@@ -10224,7 +10224,7 @@ END SUBROUTINE phy_bc
       END IF
 
       IF ( its == ids ) THEN
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
         DO j = j_start, j_end
 !$acc loop vector
         DO k = 1, ktf
@@ -10236,7 +10236,7 @@ END SUBROUTINE phy_bc
     ELSE
 
       IF ( ite == ide ) THEN
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
         DO j=j_start,j_end
 !$acc loop vector
         DO k=1,ktf
@@ -10244,7 +10244,7 @@ END SUBROUTINE phy_bc
         END DO
         END DO
 
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
         DO j = j_start, j_end
 !$acc loop vector
         DO k = 1, ktf
@@ -10254,7 +10254,7 @@ END SUBROUTINE phy_bc
       END IF
 
       IF ( its == ids ) THEN
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
         DO j = j_start, j_end
 !$acc loop vector
         DO k = 1, ktf
@@ -10262,7 +10262,7 @@ END SUBROUTINE phy_bc
         END DO
         END DO
 
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
         DO j =j_start,j_end
 !$acc loop vector
         DO k =1,ktf
@@ -10665,7 +10665,7 @@ END SUBROUTINE phy_bc
 
 ! Extrapolate to top and bottom of domain (to w levels).
 
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector
     DO i = i_start, i_end
@@ -10755,7 +10755,7 @@ END SUBROUTINE phy_bc
 
 ! Extrapolate to top and bottom of domain (to w levels).
 
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector
     DO i = i_start, i_end
@@ -10813,7 +10813,7 @@ END SUBROUTINE phy_bc
 ! Update the boundary for the vorticity.
 
      IF ( .NOT. config_flags%periodic_x .AND. i_start .EQ. ids+1 ) THEN
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
        DO j = jts, jte
 !$acc loop vector
        DO k = kts, kte
@@ -10832,7 +10832,7 @@ END SUBROUTINE phy_bc
      END IF
 
      IF ( .NOT. config_flags%periodic_x .AND. i_end .EQ. ide-1) THEN
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
        DO j = jts, jte
 !$acc loop vector
        DO k = kts, kte
@@ -10888,7 +10888,7 @@ END SUBROUTINE phy_bc
     !  We want zl and zu to be the height above ground, so we subtract
     !  the terrain elevation from the geopotential/g.
 
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop seq
     DO k = kts, ktf
@@ -10950,7 +10950,7 @@ END SUBROUTINE phy_bc
 ! Update the boundary for updraft helicity (might need to change later).
 
     IF ( .NOT. config_flags%periodic_x .AND. i_start .EQ. ids+1 ) THEN
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = jts, jte
 !$acc loop vector
       DO k = kts, kte
@@ -10970,7 +10970,7 @@ END SUBROUTINE phy_bc
     END IF
 
     IF ( .NOT. config_flags%periodic_x .AND. i_end .EQ. ide-1) THEN
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = jts, jte
 !$acc loop vector
       DO k = kts, kte
@@ -11751,7 +11751,7 @@ END SUBROUTINE phy_bc
     END DO
     END DO
 
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector
     DO i = i_start, i_end
@@ -11863,7 +11863,7 @@ END SUBROUTINE phy_bc
     END DO
     END DO
  
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector
     DO i = i_start, i_end
@@ -12059,7 +12059,7 @@ END SUBROUTINE phy_bc
      ENDDO
      ENDDO
 
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
      DO j = j_start, j_end
 !$acc loop vector
      DO i = i_start, i_end
@@ -12148,7 +12148,7 @@ END SUBROUTINE phy_bc
     END DO
     END DO
  
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector
     DO i = i_start, i_end
@@ -12207,7 +12207,7 @@ END SUBROUTINE phy_bc
     ENDDO
     ENDDO
  
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector
     DO i = i_start, i_end
@@ -12322,7 +12322,7 @@ END SUBROUTINE phy_bc
     ENDDO
     ENDDO
  
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector
     DO i = i_start, i_end
