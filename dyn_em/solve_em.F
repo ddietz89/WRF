@@ -1098,11 +1098,13 @@ BENCH_START(calc_p_rho_tim)
    wrf_gpu_diag = IAND( wrf_gpu_xfer(), 65536 ) /= 0   ! every-step NWP + AFWA diagnostics on the GPU
    wrf_gpu_sfc = IAND( wrf_gpu_xfer(), 131072 ) /= 0  ! MYJ surface layer on the GPU
    wrf_gpu_lsm = IAND( wrf_gpu_xfer(), 262144 ) /= 0  ! Noah LSM point loop on the GPU
-   ! lean step (bit 524288): no radiation this step and every other physics package on the GPU - the host gets
+   ! lean step (bit 524288): no radiation this step and every other physics package on the GPU (bit 4194304: Noah may
+   ! stay on the host - it reads levels 1-2 only) - the host gets
    ! levels 1-2 of the phy_prep fields / moisture only (gpu_lean_pull) and skips its phy_prep
    wrf_gpu_lean_step = .FALSE.
    IF ( IAND( wrf_gpu_xfer(), 524288 ) /= 0 .AND. gpu_prep_dev .AND. wrf_gpu_pbl .AND. wrf_gpu_cu .AND.        &
-        wrf_gpu_sfc .AND. wrf_gpu_lsm .AND. grid%itimestep > 1 .AND. config_flags%shcu_physics == 0 .AND.      &
+        wrf_gpu_sfc .AND. ( wrf_gpu_lsm .OR. IAND( wrf_gpu_xfer(), 4194304 ) /= 0 ) .AND. grid%itimestep > 1 .AND. &
+        config_flags%shcu_physics == 0 .AND.                                                                 &
         config_flags%sf_urban_physics == 0 .AND. config_flags%fractional_seaice == 0 ) THEN
       ! radiation_driver's run_param (radtacttime is set on the first step)
       lean_rad = ( config_flags%radt == 0. ) .OR. ( grid%stepra == 1 )
@@ -6655,7 +6657,7 @@ END FUNCTION wrf_gpu_hostblocks
 ! tendencies (needs 2+4), 32 microphysics block on the GPU (Thompson), 64 no pushes of recomputed diffusion fields,
 ! 128 H1 reuses the H3-pulled state (alt/p/ph_2 still pulled), 256 GPU-side init_zero_tendency + phy_prep,
 ! 1024 MYJ PBL on the GPU (needs 256), 2048 pinned staging of the H1/H3 pulls, 4096 boundary arrays pushed only
-! after boundary reads, 8192 Tiedtke cumulus on the GPU (needs 1024); 16384/32768 RRTMG LW/SW, 65536 NWP+AFWA diagnostics, 131072 MYJ surface layer, 262144 Noah LSM, 524288 lean steps, 1048576 RK dynamics without per-routine exit waits; default 2097151.
+! after boundary reads, 8192 Tiedtke cumulus on the GPU (needs 1024); 16384/32768 RRTMG LW/SW, 65536 NWP+AFWA diagnostics, 131072 MYJ surface layer, 262144 Noah LSM, 524288 lean steps, 1048576 RK dynamics without per-routine exit waits, 4194304 lean steps with host Noah (many-core hosts); default 2097151.
 ! WRF_GPU_XFER bit 2048 (residency): device->host copy of one array through two pinned staging buffers
 ! (cuMemAllocHost), double-buffered on async queues 11/12, with an OpenMP host copy out of the staging buffer.
 ! Pageable update self runs at ~4.4 GB/s on the V100 rentals; pinned DMA ~11-12 GB/s. Falls back to update self.
