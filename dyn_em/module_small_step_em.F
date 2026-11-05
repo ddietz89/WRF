@@ -795,6 +795,8 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
       INTEGER, PARAMETER :: KMAXUV = 160
       REAL, DIMENSION (KMAXUV) :: dpnc, dpxyc
       REAL :: mudfxy
+      REAL :: ut, dpk, dpk1, dpx, dpm   ! GPU 3-D kernels
+      INTEGER :: kk, m
 #endif
       REAL                      :: dx, dy
       INTEGER :: i,j,k, i_start, i_end, j_start, j_end, k_start, k_end
@@ -882,7 +884,98 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
 #ifdef WRF_GPU
   ! The row kernels below have one gang per j only; on the GPU run one thread per column (same per-point
   ! arithmetic and order: tendency update, then pressure-gradient/divergence-damping update).
-  IF ( wrf_gpu_on .AND. MAX(kde,k_end+1) <= KMAXUV ) THEN
+  IF ( wrf_gpu_on .AND. k_start == 1 .AND. k_end+1 == kde .AND. kde >= 4 ) THEN
+  ! one thread per (i,k,j): dpnc at k and k+1 computed in place from p (no per-column scratch)
+!$acc parallel loop gang vector collapse(3) private(ut,dpk,dpk1,dpx,mudfxy,kk,m,dpm) async(wrf_gpu_q)
+  DO j = j_start, j_end
+  DO k = k_start, k_end
+  DO i = MIN(i_start_u_tend,i_start_up), MAX(i_end_u_tend,i_end_up)
+   ut = u(i,k,j)
+   IF ( i >= i_start_u_tend .AND. i <= i_end_u_tend ) ut = ut + dts*ru_tend(i,k,j)
+   IF ( i >= i_start_up .AND. i <= i_end_up ) THEN
+     mudfxy = -emdiv*dx*(MUDF(i,j)-MUDF(i-1,j))/msfuy(i,j)
+     dpx = (msfux(i,j)/msfuy(i,j))*.5*rdx*(c1h(k)*muu(i,j)+c2h(k))*(         &
+         ((ph (i,k+1,j)-ph (i-1,k+1,j))+(ph (i,k,j)-ph (i-1,k,j)))  &
+        +(alt(i,k  ,j)+alt(i-1,k  ,j))*(p  (i,k,j)-p  (i-1,k,j))  &
+        +(al (i,k  ,j)+al (i-1,k  ,j))*(pb (i,k,j)-pb (i-1,k,j)) )
+     IF (non_hydrostatic) THEN
+       DO m = 0, 1
+         kk = k + m
+         IF ( kk == 1 ) THEN
+           dpm = .5*( cf1*(p(i,1,j)+p(i-1,1,j))  &
+                     +cf2*(p(i,2,j)+p(i-1,2,j))  &
+                     +cf3*(p(i,3,j)+p(i-1,3,j)) )
+         ELSE IF ( kk == kde ) THEN
+           dpm = 0.
+           IF (top_lid) THEN
+             dpm =.5*( cf1*(p(i-1,kde-1,j)+p(i,kde-1,j))   &
+                      +cf2*(p(i-1,kde-2,j)+p(i,kde-2,j))   &
+                      +cf3*(p(i-1,kde-3,j)+p(i,kde-3,j))  )
+           ENDIF
+         ELSE
+           dpm = .5*( fnm(kk)*(p(i,kk  ,j)+p(i-1,kk  ,j))   &
+                     +fnp(kk)*(p(i,kk-1,j)+p(i-1,kk-1,j)) )
+         ENDIF
+         IF ( m == 0 ) THEN
+           dpk = dpm
+         ELSE
+           dpk1 = dpm
+         ENDIF
+       ENDDO
+       dpx = dpx + (msfux(i,j)/msfuy(i,j))*rdx*(php(i,k,j)-php(i-1,k,j))*        &
+           (rdnw(k)*(dpk1-dpk)-.5*((c1h(k)*mu(i-1,j))+(c1h(k)*mu(i,j))))
+     END IF
+     ut = ut-dts*cqu(i,k,j)*dpx+(c1h(k)*mudfxy)
+   ENDIF
+   u(i,k,j) = ut
+  ENDDO
+  ENDDO
+  ENDDO
+!$acc parallel loop gang vector collapse(3) private(ut,dpk,dpk1,dpx,mudfxy,kk,m,dpm) async(wrf_gpu_q)
+  DO j = j_start_v_tend, j_end_v_tend
+  DO k = k_start, k_end
+  DO i = i_start, i_end
+     ut = v(i,k,j) + dts*rv_tend(i,k,j)
+     IF ( ( j >= j_start_vp) .and. ( j <= j_end_vp ) ) THEN
+       mudfxy = -emdiv*dy*(MUDF(i,j)-MUDF(i,j-1))*msfvx_inv(i,j)
+       dpx = (msfvy(i,j)/msfvx(i,j))*.5*rdy*(c1h(k)*muv(i,j)+c2h(k))*(       &
+          ((ph(i,k+1,j)-ph(i,k+1,j-1))+(ph (i,k,j)-ph (i,k,j-1)))   &
+          +(alt(i,k  ,j)+alt(i,k  ,j-1))*(p  (i,k,j)-p  (i,k,j-1))  &
+          +(al (i,k  ,j)+al (i,k  ,j-1))*(pb (i,k,j)-pb (i,k,j-1)) )
+       IF (non_hydrostatic) THEN
+         DO m = 0, 1
+           kk = k + m
+           IF ( kk == 1 ) THEN
+             dpm = .5*( cf1*(p(i,1,j)+p(i,1,j-1))  &
+                       +cf2*(p(i,2,j)+p(i,2,j-1))  &
+                       +cf3*(p(i,3,j)+p(i,3,j-1)) )
+           ELSE IF ( kk == kde ) THEN
+             dpm = 0.
+             IF (top_lid) THEN
+               dpm =.5*( cf1*(p(i,kde-1,j-1)+p(i,kde-1,j))   &
+                        +cf2*(p(i,kde-2,j-1)+p(i,kde-2,j))   &
+                        +cf3*(p(i,kde-3,j-1)+p(i,kde-3,j))  )
+             ENDIF
+           ELSE
+             dpm = .5*( fnm(kk)*(p(i,kk  ,j)+p(i,kk  ,j-1))  &
+                       +fnp(kk)*(p(i,kk-1,j)+p(i,kk-1,j-1)) )
+           ENDIF
+           IF ( m == 0 ) THEN
+             dpk = dpm
+           ELSE
+             dpk1 = dpm
+           ENDIF
+         ENDDO
+         dpx = dpx + (msfvy(i,j)/msfvx(i,j))*rdy*(php(i,k,j)-php(i,k,j-1))*    &
+             (rdnw(k)*(dpk1-dpk)-.5*((c1h(k)*mu(i,j-1))+(c1h(k)*mu(i,j))))
+       END IF
+       ut = ut-dts*cqv(i,k,j)*dpx+(c1h(k)*mudfxy)
+     END IF
+     v(i,k,j) = ut
+  ENDDO
+  ENDDO
+  ENDDO
+  ELSE IF ( wrf_gpu_on .AND. MAX(kde,k_end+1) <= KMAXUV ) THEN
 !$acc parallel loop gang vector collapse(2) private(dpnc,dpxyc) async(wrf_gpu_q)
   DO j = j_start, j_end
   DO i = MIN(i_start_u_tend,i_start_up), MAX(i_end_u_tend,i_end_up)
