@@ -720,6 +720,16 @@ SUBROUTINE solve_em ( grid , config_flags  &
      grid%max_horiz_cfl = 0
      grid%max_vert_cfl = 0
    ENDIF
+#ifdef WRF_GPU_RESIDENT
+   ! deferred w_damp CFL maxima (WRF_GPU_XFER bit 8388608, adaptive time steps): reset the device partials
+   wrf_gpu_wdamp_defer = IAND( wrf_gpu_xfer(), 8388608 ) /= 0 .AND. config_flags%use_adaptive_time_step .AND.   &
+                         wrf_gpu_q == 1
+   IF ( wrf_gpu_wdamp_defer .AND. ALLOCATED(wdamp_part) ) THEN
+!$acc kernels present(wdamp_part) async(wrf_gpu_q)
+      wdamp_part = 0.
+!$acc end kernels
+   ENDIF
+#endif
 
 ! setting bdy tendencies to zero for DFI if constant_bc = true
 
@@ -4216,6 +4226,21 @@ BENCH_END(bc_end_tim)
      ENDIF
 #endif
    END DO Runge_Kutta_loop
+#ifdef WRF_GPU_RESIDENT
+   IF ( wrf_gpu_wdamp_defer .AND. ALLOCATED(wdamp_part) ) THEN
+!$acc wait
+!$acc update self(wdamp_part)
+      grid%max_vert_cfl  = MAX( grid%max_vert_cfl,  MAXVAL(wdamp_part(1,:)) )
+      grid%max_horiz_cfl = MAX( grid%max_horiz_cfl, MAXVAL(wdamp_part(2,:)) )
+      IF ( grid%max_horiz_cfl .GT. grid%max_cfl_val ) grid%max_cfl_val = grid%max_horiz_cfl
+      IF ( grid%max_vert_cfl  .GT. grid%max_cfl_val ) grid%max_cfl_val = grid%max_vert_cfl
+      IF ( SUM(wdamp_part(3,:)) .GT. 0. ) THEN
+         WRITE(wrf_err_message,*) NINT(SUM(wdamp_part(3,:))), &
+              ' points exceeded v_cfl = 2 (summed over the RK stages of this step), max w-cfl ', grid%max_vert_cfl
+         CALL wrf_debug ( 0 , wrf_err_message )
+      ENDIF
+   ENDIF
+#endif
 #ifdef WRF_GPU_FIELDTRACE
        CALL gpu_field_trace( grid, 'c_post_rk' )
 #endif
@@ -6733,7 +6758,7 @@ END FUNCTION wrf_gpu_hostblocks
 ! tendencies (needs 2+4), 32 microphysics block on the GPU (Thompson), 64 no pushes of recomputed diffusion fields,
 ! 128 H1 reuses the H3-pulled state (alt/p/ph_2 still pulled), 256 GPU-side init_zero_tendency + phy_prep,
 ! 1024 MYJ PBL on the GPU (needs 256), 2048 pinned staging of the H1/H3 pulls, 4096 boundary arrays pushed only
-! after boundary reads, 8192 Tiedtke cumulus on the GPU (needs 1024); 16384/32768 RRTMG LW/SW, 65536 NWP+AFWA diagnostics, 131072 MYJ surface layer, 262144 Noah LSM, 524288 lean steps, 1048576 RK dynamics without per-routine exit waits, 4194304 lean steps with host Noah (many-core hosts); default 2097151.
+! after boundary reads, 8192 Tiedtke cumulus on the GPU (needs 1024); 16384/32768 RRTMG LW/SW, 65536 NWP+AFWA diagnostics, 131072 MYJ surface layer, 262144 Noah LSM, 524288 lean steps, 1048576 RK dynamics without per-routine exit waits, 4194304 lean steps with host Noah (many-core hosts), 8388608 deferred w_damp CFL maxima; default 2097151.
 ! WRF_GPU_XFER bit 2048 (residency): device->host copy of one array through two pinned staging buffers
 ! (cuMemAllocHost), double-buffered on async queues 11/12, with an OpenMP host copy out of the staging buffer.
 ! Pageable update self runs at ~4.4 GB/s on the V100 rentals; pinned DMA ~11-12 GB/s. Falls back to update self.

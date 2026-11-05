@@ -21,6 +21,12 @@ MODULE module_big_step_utilities_em
    USE module_configure, ONLY : grid_config_rec_type
    USE module_wrf_error
 
+#ifdef WRF_GPU_RESIDENT
+   ! deferred w_damp CFL maxima (set by solve_em with adaptive time steps): per-row partial maxima / counts stay on the
+   ! device (no synchronous reduction per RK stage); solve_em reduces them once per step
+   LOGICAL :: wrf_gpu_wdamp_defer = .FALSE.
+   REAL, ALLOCATABLE :: wdamp_part(:,:)
+#endif
 CONTAINS
 
 !-------------------------------------------------------------------------------
@@ -3057,7 +3063,52 @@ SUBROUTINE w_damp( rw_tend, max_vert_cfl,max_horiz_cfl, &
 
 #endif
 
+#ifdef WRF_GPU_RESIDENT
+   IF ( wrf_gpu_on .AND. wrf_gpu_wdamp_defer .AND. .NOT. config_flags%polar ) THEN
+   ! deferred: same damping; CFL maxima / count of v_cfl > 2 per row into wdamp_part (max / sum over the RK stages),
+   ! collected by solve_em at the end of the step - the per-stage warning is printed there (aggregated)
+      IF ( ALLOCATED(wdamp_part) ) THEN
+        IF ( LBOUND(wdamp_part,2) /= jms .OR. UBOUND(wdamp_part,2) /= jme ) THEN
+!$acc wait
+!$acc exit data delete(wdamp_part)
+          DEALLOCATE(wdamp_part)
+        ENDIF
+      ENDIF
+      IF ( .NOT. ALLOCATED(wdamp_part) ) THEN
+        ALLOCATE( wdamp_part(3,jms:jme) ) ; wdamp_part = 0.
+!$acc enter data copyin(wdamp_part)
+      ENDIF
+      BLOCK
+      INTEGER :: cfg_w_damping
+      REAL :: vmx, hmx, cnt
+      cfg_w_damping = config_flags%w_damping
+!$acc parallel loop gang private(vmx,hmx,cnt) present(wdamp_part) async(wrf_gpu_q)
+   DO j = jts,jtf
+     vmx = 0. ; hmx = 0. ; cnt = 0.
+!$acc loop vector collapse(2) private(vert_cfl,horiz_cfl) reduction(max:vmx,hmx) reduction(+:cnt)
+     DO k = 2,kde-1
+       DO i = its,itf
+         vert_cfl = abs(ww(i,k,j)/(c1f(k)*mut(i,j)+c2f(k))*rdnw(k)*dt)
+         vmx = max(vmx, vert_cfl)
+         horiz_cfl = max( abs(u(i,k,j) * rdx * msfux(i,j) * dt),    &
+                          abs(v(i,k,j) * rdy * msfvy(i,j) * dt) )
+         hmx = max(hmx, horiz_cfl)
+         IF (vert_cfl .gt. 2.) cnt = cnt + 1.
+         IF ((vert_cfl .gt. w_damp_on) .and. (cfg_w_damping == 1) ) THEN
+           rw_tend(i,k,j) = rw_tend(i,k,j)-sign(1.,w(i,k,j))*w_alpha*(vert_cfl-w_crit_cfl)*(c1f(k)*mut(i,j)+c2f(k))
+         ENDIF
+       ENDDO
+     ENDDO
+     wdamp_part(1,j) = max(wdamp_part(1,j), vmx)
+     wdamp_part(2,j) = max(wdamp_part(2,j), hmx)
+     wdamp_part(3,j) = wdamp_part(3,j) + cnt
+   ENDDO
+      END BLOCK
+      max_vert_cfl = 0. ; max_horiz_cfl = 0. ; some1 = 0
+   ELSE IF ( wrf_gpu_on .AND. .NOT. config_flags%polar ) THEN
+#else
    IF ( wrf_gpu_on .AND. .NOT. config_flags%polar ) THEN
+#endif
    ! GPU: same damping and CFL maxima as below, as reductions. The per-point debug WRITE (level 100) and the
    ! location of the maximum (only printed in the warning message) are not tracked on this path.
    maxi = 0 ; maxj = 0 ; maxk = 0 ; maxdub = 0. ; maxdeta = 0.
