@@ -14,6 +14,9 @@ MODULE module_pbl_driver
    LOGICAL :: wrf_gpu_pbl = .FALSE., wrf_gpu_pbl_ran = .FALSE.
 ! set by first_rk_step_part1: GPU surface layer and GPU LSM ran this step (their outputs are current on the device)
    LOGICAL :: wrf_gpu_pbl_sfcdev = .FALSE.
+! set by first_rk_step_part1: lean GPU step with the surface on the GPU - pull only pblh/kpbl/mixht/ust (the rest of
+! the MYJ surface outputs reach the host in solve_em's catch-up pull)
+   LOGICAL :: wrf_gpu_pbl_lean = .FALSE.
 #endif
 CONTAINS
 
@@ -1288,7 +1291,11 @@ CONTAINS
     ENDIF
     wrf_gpu_on = .FALSE.
     ! what the host reads later: surface/diagnostics (2-D), MYJ surface layer (TKE); cumulus pulls its PBL inputs
+    IF ( wrf_gpu_pbl_lean ) THEN
+!$acc update self(pblh,kpbl,mixht_gpu,ust)
+    ELSE
 !$acc update self(pblh,kpbl,mixht_gpu,ct,qsfc,qz0,thz0,uz0,vz0,ust,znt,akhs,akms)
+    ENDIF
     ! TKE: read on the host only by the host MYJ surface layer (history/restart: gpu_pull_for_output)
     IF ( .NOT. wrf_gpu_pbl_sfcdev ) THEN
 !$acc update self(tke_pbl)

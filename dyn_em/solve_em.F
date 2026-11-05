@@ -124,7 +124,7 @@ SUBROUTINE solve_em ( grid , config_flags  &
    USE module_diag_afwa, ONLY : afwa_time_flags
 #endif
    USE module_diagnostics_driver, ONLY : wrf_gpu_diag
-   USE module_surface_driver, ONLY : wrf_gpu_sfc, wrf_gpu_lsm
+   USE module_surface_driver, ONLY : wrf_gpu_sfc, wrf_gpu_lsm, wrf_gpu_sfc_lean, wrf_gpu_sfc_hoststale
    USE module_cumulus_driver, ONLY : wrf_gpu_cu_ran, wrf_gpu_cu_pullbl, wrf_gpu_cu, wrf_gpu_cu_dev_ran
    USE module_pbl_driver, ONLY : wrf_gpu_bl_ran, wrf_gpu_pbl, wrf_gpu_pbl_ran
 #endif
@@ -1116,6 +1116,15 @@ BENCH_START(calc_p_rho_tim)
          ENDIF
       ENDIF
       wrf_gpu_lean_step = .NOT. lean_rad
+   ENDIF
+   ! surface state left on the device during lean steps: bring the host up to date before a non-lean step (radiation,
+   ! host physics) - history output catches up in gpu_pull_for_output
+   wrf_gpu_sfc_lean = wrf_gpu_lean_step
+   IF ( wrf_gpu_sfc_hoststale .AND. .NOT. wrf_gpu_lean_step ) THEN
+!$acc wait
+      CALL gpu_sfc_catchup( grid )
+!$acc update self(chklowq)
+      wrf_gpu_sfc_hoststale = .FALSE.
    ENDIF
 #endif
 #ifdef WRF_GPU_RESIDENT
@@ -6104,8 +6113,64 @@ END SUBROUTINE gpu_field_trace
 #ifdef WRF_GPU_RESIDENT
 ! Called from med_before_solve_io / med_last_solve_io: when any output alarm rings, make the host copies of every
 ! device-written grid array current (the per-block pulls in solve_em only cover what each host block reads).
+! Lean GPU steps leave the surface-layer / Noah / MYJ surface outputs on the device (module_surface_driver
+! wrf_gpu_sfc_lean): pull them before the host needs them (non-lean step, history output). T2/TH2/Q2 are not pulled:
+! the host's SFCDIAGS values are the current ones.
+SUBROUTINE gpu_sfc_catchup( grid )
+   USE module_domain, ONLY : domain
+   IMPLICIT NONE
+   TYPE(domain), INTENT(INOUT) :: grid
+!$acc update self(grid%flhc) if(associated(grid%flhc))
+!$acc update self(grid%flqc) if(associated(grid%flqc))
+!$acc update self(grid%tshltr) if(associated(grid%tshltr))
+!$acc update self(grid%th10) if(associated(grid%th10))
+!$acc update self(grid%qshltr) if(associated(grid%qshltr))
+!$acc update self(grid%q10) if(associated(grid%q10))
+!$acc update self(grid%pshltr) if(associated(grid%pshltr))
+!$acc update self(grid%u10e) if(associated(grid%u10e))
+!$acc update self(grid%v10e) if(associated(grid%v10e))
+!$acc update self(grid%thz0) if(associated(grid%thz0))
+!$acc update self(grid%qz0) if(associated(grid%qz0))
+!$acc update self(grid%uz0) if(associated(grid%uz0))
+!$acc update self(grid%vz0) if(associated(grid%vz0))
+!$acc update self(grid%znt) if(associated(grid%znt))
+!$acc update self(grid%akhs) if(associated(grid%akhs))
+!$acc update self(grid%akms) if(associated(grid%akms))
+!$acc update self(grid%ct) if(associated(grid%ct))
+!$acc update self(grid%smstav) if(associated(grid%smstav))
+!$acc update self(grid%smstot) if(associated(grid%smstot))
+!$acc update self(grid%sfcrunoff) if(associated(grid%sfcrunoff))
+!$acc update self(grid%udrunoff) if(associated(grid%udrunoff))
+!$acc update self(grid%albedo) if(associated(grid%albedo))
+!$acc update self(grid%albbck) if(associated(grid%albbck))
+!$acc update self(grid%z0) if(associated(grid%z0))
+!$acc update self(grid%emiss) if(associated(grid%emiss))
+!$acc update self(grid%snowc) if(associated(grid%snowc))
+!$acc update self(grid%smois) if(associated(grid%smois))
+!$acc update self(grid%tslb) if(associated(grid%tslb))
+!$acc update self(grid%snow) if(associated(grid%snow))
+!$acc update self(grid%lai) if(associated(grid%lai))
+!$acc update self(grid%sh2o) if(associated(grid%sh2o))
+!$acc update self(grid%snowh) if(associated(grid%snowh))
+!$acc update self(grid%snotime) if(associated(grid%snotime))
+!$acc update self(grid%acsnom) if(associated(grid%acsnom))
+!$acc update self(grid%acsnow) if(associated(grid%acsnow))
+!$acc update self(grid%snopcx) if(associated(grid%snopcx))
+!$acc update self(grid%potevp) if(associated(grid%potevp))
+!$acc update self(grid%smcrel) if(associated(grid%smcrel))
+!$acc update self(grid%noahres) if(associated(grid%noahres))
+!$acc update self(grid%flx4) if(associated(grid%flx4))
+!$acc update self(grid%fvb) if(associated(grid%fvb))
+!$acc update self(grid%fbur) if(associated(grid%fbur))
+!$acc update self(grid%fgsn) if(associated(grid%fgsn))
+!$acc update self(grid%rs) if(associated(grid%rs))
+!$acc update self(grid%xlaidyn) if(associated(grid%xlaidyn))
+!$acc update self(grid%qsfc) if(associated(grid%qsfc))
+END SUBROUTINE gpu_sfc_catchup
+
 SUBROUTINE gpu_pull_for_output( grid )
    USE module_domain, ONLY : domain
+   USE module_surface_driver, ONLY : wrf_gpu_sfc_hoststale
    USE module_utility
    USE module_streams, ONLY : MAX_WRF_ALARMS
    USE openacc, ONLY : acc_is_present
@@ -6123,6 +6188,11 @@ SUBROUTINE gpu_pull_for_output( grid )
       ENDIF
    ENDDO
    IF ( .NOT. any_ring ) RETURN
+   IF ( wrf_gpu_sfc_hoststale ) THEN
+!$acc wait
+      CALL gpu_sfc_catchup( grid )
+      wrf_gpu_sfc_hoststale = .FALSE.
+   ENDIF
 #  include "gpu_upd_host_pre_phys.inc"
    IF ( IAND( wrf_gpu_xfer(), 32 ) /= 0 ) THEN    ! GPU Thompson: effective radii (pulled lazily otherwise)
 !$acc update self(grid%re_cloud) if(associated(grid%re_cloud))

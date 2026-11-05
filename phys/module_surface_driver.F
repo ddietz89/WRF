@@ -14,6 +14,10 @@ MODULE module_surface_driver
 ! (set by first_rk_step_part1): the following step skips re-pushing their device-resident state
   LOGICAL :: wrf_gpu_sfcdev_ran = .FALSE.
   INTEGER :: wrf_gpu_chain_last = -10
+! set by solve_em: this is a lean GPU step (bit 524288) - the surface layer / LSM pull only what the host still reads
+! this step (H1 push, host post-LSM fluxes and SFCDIAGS, diagnostics T2 push); the rest of the host surface state is
+! left stale (wrf_gpu_sfc_hoststale) until solve_em's catch-up pull before a non-lean step or history output
+  LOGICAL :: wrf_gpu_sfc_lean = .FALSE., wrf_gpu_sfc_hoststale = .FALSE.
 #endif
 CONTAINS
 
@@ -2140,8 +2144,13 @@ CONTAINS
               MINVAL(i_start(1:num_tiles)),MAXVAL(i_end(1:num_tiles)), &
               MINVAL(j_start(1:num_tiles)),MAXVAL(j_end(1:num_tiles)), kts,kte )
        ! what the host reads next (land surface, PBL push, history)
+       IF ( wrf_gpu_sfc_lean ) THEN
+!$acc update self(br,chs,chs2,cqs2,hfx,qfx,lh,qgh,cpm,u10,v10,ust,pblh,rmol,qsfc)
+         wrf_gpu_sfc_hoststale = .TRUE.
+       ELSE
 !$acc update self(br,chs,chs2,cqs2,hfx,qfx,lh,flhc,flqc,qgh,cpm,ct,u10,v10,t2,th2,tshltr,th10,q2,qshltr,q10)
 !$acc update self(pshltr,u10e,v10e,thz0,qz0,uz0,vz0,ust,znt,pblh,rmol,akhs,akms,qsfc)
+       ENDIF
 !$acc end data
       ENDIF
      ENDIF
@@ -2780,9 +2789,14 @@ CONTAINS
               MINVAL(i_start(1:num_tiles)),MAXVAL(i_end(1:num_tiles)),                                   &
               MINVAL(j_start(1:num_tiles)),MAXVAL(j_end(1:num_tiles)), kts )
 !$acc end data
+       IF ( wrf_gpu_sfc_lean ) THEN
+!$acc update self(tsk,hfx,qfx,lh,grdflx,qsfc,canwat)
+         wrf_gpu_sfc_hoststale = .TRUE.
+       ELSE
 !$acc update self(tsk,hfx,qfx,lh,grdflx,smstav,smstot,sfcrunoff,udrunoff,albedo,albbck,znt,z0,emiss,snowc)
 !$acc update self(qsfc,smois,tslb,snow,canwat,chklowq,lai,sh2o,snowh,snotime,acsnom,acsnow,snopcx,potevp,smcrel)
 !$acc update self(noahres,flx4,fvb,fbur,fgsn,rs,xlaidyn)
+       ENDIF
 !$acc update self(NOAH_GPU_ERR,NOAHG_GPU_ERR)
        IF ( NOAH_GPU_ERR /= 0 .OR. NOAHG_GPU_ERR /= 0 ) CALL wrf_error_fatal('LSM_GPU: Noah error condition')
        wrf_gpu_sfcdev_ran = sfc_gpu_ran
