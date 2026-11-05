@@ -257,6 +257,7 @@ SUBROUTINE solve_em ( grid , config_flags  &
    LOGICAL :: lean_rad, lean_h3, ld_after, ld_out, ld_first
    LOGICAL, EXTERNAL :: wrf_gpu_h1chk
    LOGICAL, EXTERNAL :: wrf_gpu_async_mode
+   LOGICAL, EXTERNAL :: gpu_p8wchk
    DOUBLE PRECISION :: h1ck(2,10)
    INTEGER :: ick
    CHARACTER(LEN=8), PARAMETER :: h1ck_name(10) = (/ 'alt     ','p       ','ph_2    ','rho     ','t_2     ', &
@@ -1222,6 +1223,11 @@ BENCH_START(calc_p_rho_tim)
                              , restart_flag=restart_flag        &
                              , feedback_is_ready=feedback_is_ready    &
                             )
+#ifdef WRF_GPU_RESIDENT
+       ! WRF_GPU_P8WCHK=1 (diagnostic): device vs host level-1/2 phy_prep fields after the host phy_prep
+       IF ( gpu_p8wchk() .AND. .NOT. wrf_gpu_lean_step ) CALL gpu_lean_check( grid, th_phy, p_phy, pi_phy, p8w, t8w, &
+            dz8w, moist, num_moist, ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe )
+#endif
 
 #ifdef DM_PARALLEL
        IF ( config_flags%bl_pbl_physics == MYNNPBLSCHEME ) THEN
@@ -6922,6 +6928,67 @@ SUBROUTINE gpu_lean_pull( grid, th_phy, p_phy, pi_phy, p8w, t8w, dz8w, moist, nu
    ENDDO
    !$OMP END PARALLEL DO
 END SUBROUTINE gpu_lean_pull
+
+LOGICAL FUNCTION gpu_p8wchk()
+   IMPLICIT NONE
+   INTEGER, SAVE :: mode = -1
+   CHARACTER(LEN=8) :: v
+   INTEGER :: st
+   IF ( mode < 0 ) THEN
+      CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_P8WCHK', v, STATUS=st )
+      mode = 0
+      IF ( st == 0 ) READ( v, *, IOSTAT=st ) mode
+      IF ( st /= 0 ) mode = 0
+   ENDIF
+   gpu_p8wchk = mode > 0
+END FUNCTION gpu_p8wchk
+
+SUBROUTINE gpu_lean_check( grid, th_phy, p_phy, pi_phy, p8w, t8w, dz8w, moist, num_moist, ims, ime, jms, jme, &
+                           kms, kme, ips, ipe, jps, jpe )
+   USE module_domain, ONLY : domain
+   IMPLICIT NONE
+   TYPE(domain), INTENT(INOUT) :: grid
+   INTEGER, INTENT(IN) :: num_moist, ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe
+   REAL, DIMENSION(ims:ime,kms:kme,jms:jme), INTENT(IN) :: th_phy, p_phy, pi_phy, p8w, t8w, dz8w
+   REAL, DIMENSION(ims:ime,kms:kme,jms:jme,num_moist), INTENT(IN) :: moist
+   REAL, ALLOCATABLE :: buf(:,:,:,:)
+   CHARACTER(LEN=12), PARAMETER :: nm(12) = (/ 't_phy  ', 'th_phy ', 'p_phy  ', 'pi_phy ', 'u_phy  ', 'v_phy  ', &
+                                               'p8w    ', 't8w    ', 'dz8w   ', 'rho    ', 'z      ', 'z_at_w ' /)
+   REAL :: h, dmax
+   INTEGER :: i, j, k, f, nf, ib, jb
+   nf = 12 + num_moist
+   ALLOCATE( buf(ims:ime,2,jms:jme,nf) )
+!$acc wait
+!$acc data create(buf)
+   CALL lean_pack( buf, grid%t_phy, th_phy, p_phy, pi_phy, grid%u_phy, grid%v_phy, p8w, t8w, dz8w, grid%rho, &
+                   grid%z, grid%z_at_w, moist, num_moist, nf, ims, ime, jms, jme, kms, kme )
+!$acc update self(buf)
+!$acc end data
+   DO f = 1, 12
+      dmax = 0. ; ib = 0 ; jb = 0
+      DO j = jps, MIN(jpe, jme) ; DO k = 1, 2 ; DO i = ips, MIN(ipe, ime)
+         SELECT CASE (f)
+         CASE (1) ; h = grid%t_phy(i,kms+k-1,j)
+         CASE (2) ; h = th_phy(i,kms+k-1,j)
+         CASE (3) ; h = p_phy(i,kms+k-1,j)
+         CASE (4) ; h = pi_phy(i,kms+k-1,j)
+         CASE (5) ; h = grid%u_phy(i,kms+k-1,j)
+         CASE (6) ; h = grid%v_phy(i,kms+k-1,j)
+         CASE (7) ; h = p8w(i,kms+k-1,j)
+         CASE (8) ; h = t8w(i,kms+k-1,j)
+         CASE (9) ; h = dz8w(i,kms+k-1,j)
+         CASE (10) ; h = grid%rho(i,kms+k-1,j)
+         CASE (11) ; h = grid%z(i,kms+k-1,j)
+         CASE DEFAULT ; h = grid%z_at_w(i,kms+k-1,j)
+         END SELECT
+         IF ( ABS(buf(i,k,j,f) - h) > dmax ) THEN
+            dmax = ABS(buf(i,k,j,f) - h) ; ib = i ; jb = j
+         ENDIF
+      ENDDO ; ENDDO ; ENDDO
+      WRITE(0,'(A,I6,1X,A,ES12.4,2I5)') 'P8WCHK step', grid%itimestep, nm(f), dmax, ib, jb
+   ENDDO
+   DEALLOCATE( buf )
+END SUBROUTINE gpu_lean_check
 
 SUBROUTINE lean_pack( buf, t_phy, th_phy, p_phy, pi_phy, u_phy, v_phy, p8w, t8w, dz8w, rho, z, z_at_w, moist, &
                       num_moist, nf, ims, ime, jms, jme, kms, kme )
