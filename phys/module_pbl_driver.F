@@ -251,6 +251,9 @@ CONTAINS
    !
 !------------------------------------------------------------------
    IMPLICIT NONE
+#ifdef WRF_GPU_RESIDENT
+   LOGICAL :: gpu_myj_will
+#endif
 !======================================================================
 ! Grid structure in physics part of WRF
 !----------------------------------------------------------------------
@@ -1041,6 +1044,13 @@ CONTAINS
 !!Alberto. If idiff=1, then compute the tendencies at the end in the routine diff3d
 !!Alberto. If idiff=0, then compute the tendencies in each PBL routine (standard version).
        idiff=0
+#ifdef WRF_GPU_RESIDENT
+   ! same conditions as the GPU MYJ call below
+   gpu_myj_will = wrf_gpu_pbl .AND. bl_pbl_physics == MYJPBLSCHEME .AND. .NOT. flag_bep .AND. idiff /= 1
+   IF ( gpu_myj_will ) gpu_myj_will = PRESENT(qv_curr) .AND. PRESENT(qc_curr) .AND. PRESENT(qi_curr) .AND.     &
+        PRESENT(rqvblten) .AND. PRESENT(rqcblten) .AND. PRESENT(rqiblten) .AND. windfarm_opt == 0 .AND.         &
+        distributed_ahe_opt /= 1 .AND. scalar_pblmix == 0
+#endif
 
    IF ( idiff .EQ. 1 ) THEN
      ALLOCATE (a_u(ims:ime,kms:kme,jms:jme))       ! Implicit component for the momemtum in X-direction
@@ -1067,15 +1077,16 @@ CONTAINS
          USTOLD(i,j)=UST(i,j)
          ZNTOLD(i,j)=ZNT(i,j)
          HPBL_HOLD(i,j)=PBLH(i,j)
-
+! PSFC : in Pa
+         PSFC(I,J)=p8w(I,kms,J)
+#ifdef WRF_GPU_RESIDENT
+         ! GPU MYJ writes the (device) tendencies; the host copies and the frame-shifted winds are not read
+         IF ( gpu_myj_will ) CYCLE
+#endif
          DO k=kts,kte
             v_phytmp(i,k,j)=v_phy(i,k,j)+v_frame
             u_phytmp(i,k,j)=u_phy(i,k,j)+u_frame
          ENDDO
-
-! PSFC : in Pa
-
-         PSFC(I,J)=p8w(I,kms,J)
 
          DO k=kts,min(kte+1,kde)
             RTHBLTEN(I,K,J)=0.
