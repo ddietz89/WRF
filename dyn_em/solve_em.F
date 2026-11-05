@@ -5646,12 +5646,18 @@ BENCH_END(bc_2d_tim)
 #ifdef WRF_SEG_TIMERS
    CALL seg_enter( 5 )
 #endif
-   IF ( IAND( wrf_gpu_xfer(), 8 ) /= 0 .AND. IAND( wrf_gpu_xfer(), 2048 ) /= 0 ) THEN
+   IF ( IAND( wrf_gpu_xfer(), 8 ) /= 0 ) THEN
+   IF ( IAND( wrf_gpu_xfer(), 2048 ) /= 0 ) THEN
 #  include "gpu_stage_host_h3.inc"
-   gpu_h3_done = .TRUE.
-   ELSE IF ( IAND( wrf_gpu_xfer(), 8 ) /= 0 ) THEN
+   ELSE
 #  include "gpu_upd_host_h3.inc"
+   ENDIF
    gpu_h3_done = .TRUE.
+   ! updraft helicity (cal_helicity in part2) is GPU-computed: the host diagnostics read/reset it and H1 pushes it back
+!$acc update self(grid%uh) if(associated(grid%uh))
+!$acc update self(grid%up_heli_max) if(associated(grid%up_heli_max))
+   ! (also with staged pulls, bit 2048: before, those steps never pulled the GPU microphysics outputs - the host
+   ! surface physics then saw no grid-scale precipitation)
    IF ( gpu_mp_dev ) THEN   ! microphysics ran on the GPU: outputs the host reads (H3 diagnostics, next H1 physics)
 !$acc update self(grid%rainnc) if(associated(grid%rainnc))
 !$acc update self(grid%rainncv) if(associated(grid%rainncv))
